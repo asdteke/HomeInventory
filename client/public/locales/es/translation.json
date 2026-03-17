@@ -1,0 +1,582 @@
+{
+    "common": {
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "loading": "Cargando...",
+        "error": "Se produjo un error",
+        "success": "Operación exitosa",
+        "search": "Buscar...",
+        "edit": "Editar",
+        "delete": "Eliminar",
+        "add": "Agregar",
+        "new": "Nuevo",
+        "all": "Todos",
+        "manage": "Administrar",
+        "help_support": "Ayuda y soporte",
+        "theme": {
+            "light": "Modo claro",
+            "dark": "Modo oscuro"
+        },
+        "select": "Seleccionar",
+        "refresh": "Actualizar",
+        "close": "Cerrar",
+        "logout": "Cerrar sesión",
+        "copyright": "© {{year}} HomeInventory - Todos los derechos reservados"
+    },
+    "auth": {
+        "login": {
+            "title": "Iniciar sesión",
+            "subtitle": "Administre todo el inventario de su hogar de manera inteligente",
+            "welcome": "Bienvenido a HomeInventory",
+            "username_or_email": "Nombre de usuario o correo electrónico",
+            "password": "Contraseña",
+            "forgot_password": "¿Has olvidado tu contraseña?",
+            "submit": "Iniciar sesión",
+            "submitting": "Iniciando sesión...",
+            "google_continue": "Continuar con Google",
+            "or": "o",
+            "no_account": "¿No tienes una cuenta?",
+            "register_link": "Registrarse",
+            "support_contact": "Para problemas de inicio de sesión:",
+            "terms_title": "📋 Términos de uso y descargo de responsabilidad",
+            "terms_beta": "Versión BETA: HomeInventory se encuentra actualmente en fase de prueba. No se ofrece ninguna garantía con respecto a la persistencia o seguridad de sus datos.",
+            "terms_disclaimer": "Descargo de responsabilidad: al utilizar esta aplicación, usted acepta que no puede reclamar ninguna compensación por posibles pérdidas de datos, problemas de acceso u otros fallos técnicos.",
+            "terms_backup": "Copia de seguridad de datos: recomendamos encarecidamente realizar copias de seguridad de su información importante con regularidad.",
+            "terms_accept": "Al iniciar sesión, se considera que ha aceptado estos términos."
+        },
+        "register": {
+            "title": "Bienvenido a HomeInventory",
+            "subtitle": "Crea una nueva cuenta o únete a una casa existente",
+            "create_house": "Crear nueva casa",
+            "join_house": "Unirse a la casa",
+            "create_house_desc": "🏠 Se creará una nueva casa y obtendrás una <strong>Llave de la casa</strong> única. Comparta esta clave con su familia para acceder al mismo inventario.",
+            "join_house_desc": "👨‍👩‍👧‍👦 Ingresa la <strong>House Key</strong> compartida contigo para unirte a una casa existente. Todos los que tengan la clave pueden acceder al inventario compartido.",
+            "form_title": "Inscribirse",
+            "username": "Nombre de usuario",
+            "username_placeholder": "p.ej. John",
+            "email": "Correo electrónico",
+            "email_placeholder": "p.ej. juan@ejemplo.com",
+            "password": "Contraseña",
+            "password_placeholder": "Al menos 6 caracteres",
+            "password_confirm": "confirmar Contraseña",
+            "password_confirm_placeholder": "Escriba la contraseña otra vez",
+            "house_key": "llave de la casa",
+            "house_key_placeholder": "Pegue la clave de la casa de 64 caracteres",
+            "submit_create": "Crear nueva casa",
+            "submit_join": "Unirse a la casa",
+            "submitting": "Registrando...",
+            "already_have_account": "¿Ya tienes una cuenta?",
+            "login_link": "Acceso",
+            "support": "Problemas de registro:",
+            "terms": "Términos de uso y descargo de responsabilidad",
+            "passwords_mismatch": "Las contraseñas no coinciden",
+            "password_length": "La contraseña debe tener al menos 6 caracteres.",
+            "key_required": "Se requiere House Key para unirse a una casa existente",
+            "modals": {
+                "key_created": {
+                    "title": "🎉¡Casa Creada!",
+                    "subtitle": "Guarde la siguiente clave en un lugar seguro",
+                    "warning": "Importante: Esta clave solo se mostrará una vez. Compártelo con miembros de la familia para que puedan acceder al mismo inventario.",
+                    "copy": "Copiar",
+                    "copied": "Copiado",
+                    "button": "Guardé la clave, continuar"
+                },
+                "email_verification": {
+                    "title": "📧 Se requiere verificación por correo electrónico",
+                    "message": "¡Cuenta creada! Por favor verifique su dirección de correo electrónico para iniciar sesión.",
+                    "step_1": "Enviamos un correo electrónico de verificación a <1>{{email}}</1>.",
+                    "step_2": "Haga clic en el botón <1>\"Verificar mi cuenta\"</1> en el correo electrónico.",
+                    "step_3": "Después de la verificación, <1>puede iniciar sesión</1>.",
+                    "spam_note": "Revise la carpeta de spam/basura si el correo electrónico no llega.",
+                    "key_note": "Importante: La llave de tu casa también fue enviada en el correo electrónico. Puedes compartirlo con miembros de la familia.",
+                    "button": "Bien, ve a iniciar sesión"
+                }
+            }
+        }
+    },
+    "navigation": {
+        "home": "Inicio",
+        "inventory": "Inventario",
+        "rooms": "Habitaciones",
+        "categories": "Categorías",
+        "settings": "Ajustes",
+        "new_item": "Nuevo artículo",
+        "share_house": "Compartir casa",
+        "admin_panel": "Panel de administración",
+        "logout": "Cerrar sesión",
+        "menu": "Menú"
+    },
+    "dashboard": {
+        "welcome": "¡Bienvenido, <1>{{name}}</1>! 👋",
+        "subtitle": "Resumen de su inventario",
+        "quick_search": "Búsqueda rápida...",
+        "filters": {
+            "private": "🔒 Mis artículos privados",
+            "public": "🌐 Público",
+            "remove": "Borrar filtro",
+            "no_items": "Ningún artículo coincide con este filtro"
+        },
+        "stats": {
+            "total_items": "Artículos totales",
+            "total_quantity": "Cantidad Total",
+            "fullest_room": "Habitación más llena",
+            "category_count": "Categorías",
+            "items_suffix": "elementos"
+        },
+        "recent_items": {
+            "title": "Agregado recientemente",
+            "see_all": "Ver todo"
+        },
+        "categories": {
+            "title": "Categorías",
+            "manage": "Administrar",
+            "empty": "Aún no se han añadido elementos"
+        },
+        "rooms": {
+            "title": "Alojamiento",
+            "manage": "Administrar"
+        },
+        "quick_actions": {
+            "title": "⚡ Acciones rápidas",
+            "add_item": "Agregar artículo",
+            "search_item": "Buscar elemento",
+            "categories": "Categorías",
+            "settings": "Ajustes"
+        }
+    },
+    "beta_banner": {
+        "title": "BETA:",
+        "text": "HomeInventory se encuentra actualmente en fase de prueba y hobby. No se ofrece ninguna garantía sobre la persistencia o seguridad de los datos. Mantenga copias de seguridad de la información importante.",
+        "contact": "Contacto:"
+    },
+    "footer": {
+        "rights": "© {{year}} HomeInventory - Todos los derechos reservados",
+        "contact": "Contacto:"
+    },
+    "items": {
+        "title_new": "Agregar nuevo artículo",
+        "title_edit": "Editar artículo",
+        "subtitle": "Ingrese los detalles del artículo",
+        "load_error": "No se pudo cargar el artículo",
+        "form": {
+            "name": "Nombre del artículo",
+            "name_placeholder": "p.ej. televisor samsung de 55 pulgadas",
+            "required": "*",
+            "description": "Descripción",
+            "description_placeholder": "Notas sobre el artículo...",
+            "quantity": "Cantidad",
+            "category": "Categoría",
+            "select_category": "Seleccionar",
+            "room": "Habitación",
+            "select_room": "Seleccionar habitación",
+            "location_details": "Detalles de la ubicación",
+            "location_optional": "(Opcional)",
+            "location_placeholder": "Buscar o agregar nueva ubicación...",
+            "location_help": "¿En qué parte de la habitación? (por ejemplo, 'Estante superior del gabinete azul')",
+            "location_create": "Crear ubicación \"{{name}}\"",
+            "location_privacy": "Privacidad de la ubicación",
+            "location_public": "Todos pueden ver esta ubicación.",
+            "location_private": "Sólo tú puedes ver esto",
+            "location_save": "Guardar ubicación",
+            "location_saving": "Añadiendo...",
+            "location_selected": "Ubicación seleccionada: {{name}}",
+            "location_empty": "Aún no se ha definido ninguna ubicación en esta sala. Empiece a escribir para crear uno.",
+            "photo": "Foto",
+            "add_photo": "Agregar",
+            "barcode": "Código de barras",
+            "barcode_optional": "(Opcional)",
+            "barcode_placeholder": "p.ej. 8690123456789",
+            "scan_barcode": "Escanear código de barras",
+            "search_db": "Buscar base de datos",
+            "search_google": "Buscar en Google",
+            "barcode_saved": "✓ El código de barras se guardará",
+            "visibility": "Visibilidad del artículo",
+            "visibility_public": "Visible para todos los miembros de la casa",
+            "visibility_private": "Sólo visible para ti",
+            "submit_add": "Agregar artículo",
+            "submit_save": "Guardar cambios",
+            "submitting": "Ahorro..."
+        },
+        "qrcode": {
+            "title": "Código QR",
+            "desc": "Puedes imprimir y pegar este código QR en el artículo. Al escanearlo se redirige directamente a esta página."
+        },
+        "messages": {
+            "quick_add_success": "✓ \"{{barcode}}\" agregado rápido: puedes editarlo más tarde",
+            "quick_add_fail": "⚠ Falló la adición rápida",
+            "searching": "Búsqueda...",
+            "found_local": "✓ Local: registrado como \"{{name}}\"",
+            "found_remote": "✓ Encontrado en {{source}} {{note}}: \"{{name}}\"",
+            "not_found": "⚠ Producto no encontrado en bases de datos. Puedes buscar en Google.",
+            "search_fail": "⚠ La búsqueda falló",
+            "name_required": "El nombre del artículo es obligatorio.",
+            "location_add_error": "No se pudo agregar la ubicación"
+        }
+    },
+    "settings": {
+        "title": "Ajustes",
+        "subtitle": "Administrar las preferencias de la aplicación",
+        "messages": {
+            "house_switched": "✅ {{name}} ¡activado!",
+            "house_switch_error": "No se pudo cambiar de casa",
+            "house_joined_success": "✅ ¡Te uniste exitosamente a la casa!",
+            "house_join_error": "No se pudo unir a la casa",
+            "house_created_success": "✅ ¡\"{{name}}\" creado!",
+            "house_create_error": "No se pudo crear la casa",
+            "house_left_success": "Salió exitosamente de la casa",
+            "house_left_error": "No pude salir de casa",
+            "house_leave_confirm": "¿Está seguro de que desea dejar \"{{name}}\"?",
+            "backup_downloaded": "✅ ¡Copia de seguridad descargada exitosamente! ({{count}} artículos)",
+            "export_error": "❌ Se produjo un error durante la exportación.",
+            "import_invalid_format": "Formato de archivo de copia de seguridad no válido",
+            "import_success": "✅ {{items}} artículos, {{categories}} categorías, {{rooms}} habitaciones, {{locations}} ubicaciones agregadas.",
+            "import_error": "❌ Error de importación: {{error}}",
+            "password_changed": "¡La contraseña se cambió correctamente!",
+            "password_error_current": "Contraseña actual incorrecta",
+            "password_error_invalid": "Datos no válidos enviados",
+            "session_expired": "La sesión expiró. Por favor inicie sesión nuevamente.",
+            "server_error": "Ocurrió un error en el servidor",
+            "connection_error": "No se pudo conectar al servidor. Verifique su conexión a Internet.",
+            "unexpected_error": "Ocurrió un error inesperado",
+            "username_changed": "✅ ¡Nombre de usuario cambiado!",
+            "username_error": "No se pudo cambiar el nombre de usuario",
+            "username_len_error": "El nombre de usuario debe tener al menos 3 caracteres.",
+            "fill_all_fields": "Por favor complete todos los campos",
+            "passwords_mismatch": "Las nuevas contraseñas no coinciden",
+            "password_min_len": "La nueva contraseña debe tener al menos 6 caracteres"
+        },
+        "user_profile": {
+            "edit_username": "Cambiar nombre de usuario"
+        },
+        "my_houses": {
+            "title": "mis casas",
+            "join_house": "Unirse a la casa",
+            "join_short": "Unirse",
+            "new_house": "Casa nueva",
+            "new_short": "Nueva",
+            "no_house": "Aún no eres miembro de ninguna casa",
+            "owner": "Dueño",
+            "active": "Activo",
+            "member_count": "{{count}} miembros",
+            "item_count": "{{count}} artículos",
+            "switch": "Cambiar",
+            "leave": "salir de casa",
+            "info": "💡 Puedes ser miembro de varias casas y cambiar entre ellas. Cada casa mantiene un inventario separado."
+        },
+        "house_info": {
+            "title": "Llave de casa activa",
+            "key_label": "llave de la casa",
+            "mask_key": "••••••••{{suffix}}",
+            "hide": "Esconder",
+            "show": "Espectáculo",
+            "copy": "Copiar",
+            "share_info": "💡 Los usuarios con los que compartes esta clave pueden acceder a tu inventario utilizando la opción \"Unirse a House\" durante el registro.",
+            "members_title": "Miembros de la Cámara ({{count}})",
+            "you": "(Tú)",
+            "joined_at": "Se unió: {{date, datetime}}",
+            "no_members": "Ningún otro miembro todavía",
+            "invite_title": "Invitar a miembros de la familia",
+            "invite_desc": "Comparta la llave de su casa para permitir que los miembros de la familia accedan al mismo inventario. Cada miembro inicia sesión con su propia cuenta pero accede a los mismos datos."
+        },
+        "theme": {
+            "title": "Tema",
+            "dark": "modo oscuro",
+            "light": "Modo de luz"
+        },
+        "security": {
+            "title": "Seguridad",
+            "change_password": "Cambiar la contraseña",
+            "change_password_desc": "Actualiza la contraseña de tu cuenta"
+        },
+        "data_management": {
+            "title": "Gestión de datos",
+            "download_backup": "Descargar copia de seguridad",
+            "downloading": "Descargando...",
+            "export_json": "Exportar como JSON",
+            "upload_backup": "Cargar copia de seguridad",
+            "uploading": "Subiendo...",
+            "import_json": "Importar desde JSON"
+        },
+        "about": {
+            "title": "📱 Acerca de la aplicación",
+            "version": "Versión",
+            "brand": "Marca",
+            "feedback": "✉️ Enviar comentarios"
+        },
+        "modals": {
+            "password": {
+                "title": "Cambiar la contraseña",
+                "current": "Contraseña actual",
+                "new": "Nueva contraseña",
+                "confirm": "Nueva Contraseña (Confirmar)",
+                "changing": "Cambio...",
+                "submit": "Cambiar la contraseña"
+            },
+            "join_house": {
+                "title": "Unirse a la casa",
+                "key_placeholder": "Ingrese la clave de la casa de 64 caracteres",
+                "key_help": "Ingrese la clave que recibió de su familiar",
+                "name_label": "Nombre de esta casa (opcional)",
+                "name_placeholder": "p.ej. Casa de los padres",
+                "joining": "Unión...",
+                "submit": "Unirse a la casa"
+            },
+            "create_house": {
+                "title": "Crear nueva casa",
+                "name_label": "Nombre de la casa",
+                "name_placeholder": "p.ej. Casa de Verano, Oficina, Almacén",
+                "name_help": "Si se deja vacío, se llamará \"Mi nueva casa\".",
+                "info": "ℹ️ Se crearán categorías y habitaciones predeterminadas para la nueva casa. Puedes editarlos más tarde.",
+                "creating": "Creando...",
+                "submit": "crear casa"
+            },
+            "username": {
+                "title": "Cambiar nombre de usuario",
+                "new_label": "Nuevo nombre de usuario",
+                "placeholder": "Tu nuevo nombre de usuario",
+                "help": "3-30 caracteres, letras, números, guiones bajos y guiones solamente",
+                "saving": "Ahorro...",
+                "submit": "Cambiar"
+            }
+        },
+        "select_language": "Seleccionar idioma"
+    },
+    "inventory": {
+        "title": "Inventario",
+        "subtitle": "{{count}} elementos encontrados",
+        "new_item": "Nuevo artículo",
+        "add_first": "Agregar el primer artículo",
+        "search_placeholder": "Buscar elementos...",
+        "all_categories": "Todas las categorías",
+        "all_rooms": "Todas las habitaciones",
+        "empty_title": "No se encontraron artículos",
+        "empty_filter": "Ningún artículo coincide con tus filtros",
+        "empty_msg": "Aún no se han añadido elementos",
+        "delete_confirm": "¿Está seguro de que desea eliminar este elemento?",
+        "delete_error": "Eliminar error"
+    },
+    "categories": {
+        "title": "Categorías",
+        "subtitle": "{{count}} categorías",
+        "new_category": "Nueva categoría",
+        "edit_title": "Editar categoría",
+        "new_title": "Nueva categoría",
+        "name_label": "Nombre de categoría",
+        "icon_label": "Icono",
+        "color_label": "Color",
+        "delete_confirm": "¿Estás seguro de que deseas eliminar esta categoría?",
+        "delete_error": "Eliminar error"
+    },
+    "rooms": {
+        "title": "Alojamiento",
+        "subtitle": "{{count}} habitaciones",
+        "new_room": "Nueva habitación",
+        "edit_title": "Editar sala",
+        "new_title": "Nueva habitación",
+        "name_label": "Nombre de la habitación",
+        "description_label": "Descripción (opcional)",
+        "name_placeholder": "p.ej. Dormitorio principal",
+        "desc_placeholder": "p.ej. Dormitorio principal",
+        "delete_confirm": "¿Estás seguro de que quieres eliminar esta sala?",
+        "delete_error": "Eliminar error"
+    },
+    "admin": {
+        "title": "Panel de administración",
+        "subtitle": "Gestión y seguimiento del sistema",
+        "refresh": "Refrescar",
+        "tabs": {
+            "dashboard": "Panel",
+            "users": "Usuarios",
+            "logs": "Registros",
+            "email": "Enviar correo"
+        },
+        "stats": {
+            "total_users": "Usuarios totales",
+            "new_today": "Hoy: +{{count}} nuevo",
+            "total_inventory": "Inventario total",
+            "inventory_details": "{{rooms}} habitaciones, {{categories}} categorías",
+            "banned_users": "Usuarios prohibidos",
+            "access_blocked": "Acceso bloqueado",
+            "server_memory": "Memoria del servidor",
+            "uptime": "Tiempo de actividad: {{hours}} horas"
+        },
+        "users": {
+            "user": "Usuario",
+            "role": "Role",
+            "status": "Estado",
+            "action": "Acción",
+            "banned": "Prohibido",
+            "active": "Activo",
+            "unban": "Desbanear",
+            "ban": "Prohibición",
+            "delete": "Eliminar cuenta",
+            "confirm_ban": "¿Estás seguro de que quieres {{status}} este usuario?",
+            "ban_lift": "desbancar",
+            "ban_apply": "prohibición",
+            "confirm_delete_1": "¿Está seguro de que desea eliminar el usuario \"{{username}}\"?",
+            "confirm_delete_2": "⚠️ ADVERTENCIA: ¡Esto eliminará PERMANENTEMENTE TODOS los datos (inventarios, habitaciones, categorías) del usuario \"{{username}}\"!",
+            "confirm_delete_3": "🚨 ADVERTENCIA FINAL: La cuenta \"{{username}}\" y todos los datos serán eliminados IRREVERSIBLEMENTE. ¿Quieres continuar?"
+        },
+        "logs": {
+            "title": "Registros de administrador",
+            "no_logs": "aún no hay registros",
+            "errors_title": "Errores del sistema (últimos 10)",
+            "no_errors": "// Sistema sano, sin registros de errores.",
+            "date_fmt": "{{date, datetime}}"
+        },
+        "email": {
+            "title": "Enviar correo electrónico",
+            "to": "Destinatario (Para)",
+            "subject": "Sujeto",
+            "message": "Mensaje (compatible con HTML)",
+            "placeholder_message": "Escribe tu mensaje aquí...",
+            "send": "Enviar",
+            "sending": "Envío...",
+            "success": "¡Correo electrónico enviado exitosamente!",
+            "error": "Envío fallido"
+        }
+    },
+    "landing": {
+        "nav": {
+            "login": "Iniciar sesión"
+        },
+        "hero": {
+            "free_badge": "Gratis para usar",
+            "title_1": "Administrar todo",
+            "title_2": "¡En tu casa!",
+            "description": "Digitalice el inventario de su hogar. Clasifique artículos, invite a familiares y acceda desde cualquier lugar. Moderno, seguro y fácil de usar.",
+            "cta_start": "Empezar",
+            "cta_register": "Crear una cuenta",
+            "stat_free": "Gratis",
+            "stat_access": "Acceso"
+        },
+        "features": {
+            "title": "¿Por qué <1>HomeInventory</1>?",
+            "subtitle": "Todas las funciones para simplificar la gestión del hogar en una sola plataforma",
+            "items": {
+                "categorize": {
+                    "title": "Categorizar artículos",
+                    "desc": "Organiza todos los artículos por habitación y categoría, encuentra lo que necesitas en segundos."
+                },
+                "family": {
+                    "title": "Invitar a la familia con la llave de la casa",
+                    "desc": "Invite a miembros de la familia con la llave única de su casa y administren el inventario juntos."
+                },
+                "access": {
+                    "title": "Acceso desde cualquier lugar",
+                    "desc": "En casa, en el trabajo o de vacaciones: acceda de forma segura a su inventario desde cualquier lugar."
+                },
+                "barcode": {
+                    "title": "Agregar rápido con código de barras",
+                    "desc": "Escanee códigos de barras de productos, los detalles se completan automáticamente."
+                },
+                "security": {
+                    "title": "Seguro y Privado",
+                    "desc": "Sus datos están cifrados y protegidos con una infraestructura compatible con KVKK."
+                },
+                "backup": {
+                    "title": "Copia de seguridad y exportación",
+                    "desc": "Haga una copia de seguridad de su inventario en formato JSON, restaure cuando lo desee."
+                }
+            }
+        },
+        "cta_bottom": {
+            "title": "¡Empieza a usarlo ahora!",
+            "description": "Cree una cuenta gratuita y digitalice el inventario de su hogar. El registro sólo lleva unos segundos.",
+            "button": "Acceso"
+        },
+        "footer": {
+            "desc": "La plataforma fácil y segura para digitalizar el inventario de tu casa.",
+            "links": "Enlaces rápidos",
+            "contact": "Contáctenos",
+            "copyright": "© {{year}} HomeInventory. Reservados todos los derechos."
+        },
+        "preview_privacy_notice": "Vista de demostración: no se muestran datos reales de usuarios."
+    },
+    "intro": {
+        "inventory": {
+            "title": "Inventario",
+            "content": "Aquí puede agregar y enumerar sus artículos. ¡Rastree todos los artículos del hogar en un solo lugar!"
+        },
+        "house_key": {
+            "title": "llave de la casa",
+            "content": "Esta es la llave de tu casa, úsala para invitar a otros. ¡Agrega miembros de la familia a tu casa!"
+        },
+        "categories": {
+            "title": "Categorías",
+            "content": "Organiza categorizando tus artículos. ¡Electrónica, muebles, cocina y más!"
+        },
+        "buttons": {
+            "back": "Atrás",
+            "close": "Cerca",
+            "last": "Finalizar",
+            "next": "Próximo",
+            "skip": "Saltar",
+            "open": "Abrir"
+        }
+    },
+    "google_house_select": {
+        "title": "¡Bienvenido!",
+        "subtitle": "Has iniciado sesión con Google. Ahora seleccione una casa.",
+        "welcome_options": "¿Qué te gustaría hacer?",
+        "create": {
+            "title": "Crear nueva casa",
+            "desc": "Inicie su propio inventario"
+        },
+        "join": {
+            "title": "Unirse a una casa existente",
+            "desc": "Unirse a la casa de un miembro de la familia"
+        },
+        "back": "Atrás",
+        "house_name": "Nombre de la casa (opcional)",
+        "house_name_placeholder": "p.ej. Mi casa, oficina",
+        "house_name_hint": "Si se deja vacío, se llamará \"Mi casa\".",
+        "house_key": "llave de la casa",
+        "house_key_placeholder": "Introduzca la clave de la casa",
+        "house_key_hint": "Ingrese la clave de 64 caracteres recibida de un familiar",
+        "house_name_join": "Nombre de esta casa (opcional)",
+        "submit_create": "crear casa",
+        "submit_join": "Unirse a la casa",
+        "processing": "Tratamiento..."
+    },
+    "scanner": {
+        "title": "Escáner de código de barras",
+        "qr_title": "Lector de códigos QR",
+        "init": "Iniciando cámara...",
+        "permission_error": "Permiso de cámara denegado. Verifique la configuración del navegador.",
+        "busy_error": "Cámara ocupada. Cierra otras aplicaciones.",
+        "not_found_error": "Cámara no encontrada.",
+        "generic_error": "No se pudo iniciar la cámara.",
+        "hint": "Centrar el código de barras en el marco",
+        "qr_hint": "Alinear el código QR en el marco",
+        "searching": "Buscando producto...",
+        "found_local": "¡Ya registrado!",
+        "found_local_msg": "Este código de barras ya está en su inventario.",
+        "found_online": "¡Producto encontrado!",
+        "google_result": "⚡ Resultado de búsqueda de Google: verifique",
+        "barcode": "Código de barras: {{code}}",
+        "new_product": "Nuevo producto",
+        "not_found_db": "Este código de barras no se encontró en las bases de datos.",
+        "google_search": "Buscar en Google",
+        "quick_add": "Agregar rápido (editar más tarde)",
+        "rescan": "Escanear de nuevo",
+        "retry": "Rever",
+        "flash_on": "🔦 Flash encendido",
+        "flash_unsupported": "Flash no compatible",
+        "zoom_hint": "💡 Aumente el zoom para mayor claridad y mantenga el teléfono firme",
+        "found_item_redirect": "¡Artículo encontrado! Redirigiendo...",
+        "found_page_redirect": "¡Página encontrada! Redirigiendo...",
+        "invalid_qr": "Este código QR no es para esta aplicación.",
+        "not_found": "Producto no encontrado. Prueba otro código de barras."
+    },
+    "item_qr": {
+        "hint_mobile": "📱 Escanea este código QR con tu teléfono para acceder al artículo rápidamente",
+        "network_ip": "IP de red",
+        "url_loading": "Cargando URL...",
+        "copied": "¡Copiado!",
+        "copy_url": "Copiar URL",
+        "download": "Descargar QR",
+        "usage_title": "Uso",
+        "usage_desc": "Imprime el código QR y pégalo en el artículo. ¡Escanee con su teléfono para acceder a esta página al instante!"
+    }
+}

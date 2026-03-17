@@ -1,0 +1,198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  @apply bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-100 dark:bg-slate-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 dark:bg-slate-700 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400 dark:bg-slate-600;
+}
+
+/* Safe area for mobile bottom nav */
+.safe-area-pb {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@layer components {
+
+  /* Glass effects */
+  .glass {
+    @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200 dark:border-slate-800 shadow-xl;
+  }
+
+  .glass-solid {
+    @apply bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-lg;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary-500 to-blue-500 text-white font-medium py-2.5 px-5 rounded-xl shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200;
+  }
+
+  .btn-secondary {
+    @apply bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium py-2.5 px-5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200;
+  }
+
+  .btn-danger {
+    @apply bg-red-500 text-white font-medium py-2.5 px-5 rounded-xl shadow-lg shadow-red-500/25 hover:bg-red-600 hover:shadow-xl hover:shadow-red-500/40 transition-all duration-200;
+  }
+
+  /* Inputs */
+  .input-field {
+    @apply w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-200;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm animate-fade-in transition-colors duration-300;
+  }
+
+  .stat-card {
+    @apply bg-white dark:bg-slate-900 rounded-2xl p-5 flex items-center gap-4 border border-slate-200 dark:border-slate-800 hover:shadow-lg hover:scale-[1.02] transition-all duration-300;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400;
+  }
+}
+
+/* Gradient text */
+.gradient-text {
+  @apply bg-gradient-to-r from-primary-500 via-blue-500 to-cyan-500 bg-clip-text text-transparent;
+}
+
+/* Loading spinner */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid theme('colors.primary.500 / 0.3');
+  border-radius: 50%;
+  border-top-color: theme('colors.primary.500');
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Toggle switch */
+.toggle-switch {
+  @apply relative w-12 h-7 rounded-full transition-colors duration-200 cursor-pointer;
+}
+
+.toggle-switch::after {
+  content: '';
+  @apply absolute top-1 left-1 w-5 h-5 bg-white rounded-full shadow transition-transform duration-200;
+}
+
+.toggle-switch.active::after {
+  @apply translate-x-5;
+}
+
+/* Slide in animation for mobile menu */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.3s ease-out;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* UI Flexibility for long text */
+.btn-primary,
+.btn-secondary,
+.btn-danger,
+button {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  min-width: fit-content;
+  text-align: center;
+}
+
+nav,
+.nav-items {
+  flex-wrap: wrap;
+}
+
+label,
+.label {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+table {
+  word-break: break-word;
+}
+
+th,
+td {
+  overflow-wrap: break-word;
+}
+
+.card,
+.stat-card {
+  overflow-wrap: break-word;
+}
+
+.brand-logo {
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.brand-logo-full {
+  max-width: 100%;
+}
+
+.brand-logo-symbol {
+  aspect-ratio: 1 / 1;
+}
