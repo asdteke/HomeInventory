@@ -255,7 +255,7 @@ Bu bağımsız bir açık kaynak projesidir. Benzer isim kullanan herhangi bir t
 
 ## Yapay Zeka Destekli Geliştirme
 
-Bu proje, yapay zeka araçlarının (Google Gemini ve OpenAI GPT dahil) yardımıyla geliştirilmiştir. Tüm yapay zeka tarafından üretilen kodlar geliştirici tarafından incelenmiş, test edilmiş ve doğrulanmıştır.
+Bu proje, yapay zeka araçlarının (Google Gemini ve OpenAI GPT dahil) önemli desteğiyle geliştirilmiştir.
 
 ## Lisans
 

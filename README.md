@@ -255,7 +255,7 @@ This is an independent open-source project. It is not affiliated with, endorsed 
 
 ## AI-Assisted Development
 
-This project was developed with the assistance of AI tools (including Google Gemini and OpenAI GPT). All AI-generated code was reviewed, tested, and validated by the developer.
+This project was developed with significant assistance from AI tools (including Google Gemini and OpenAI GPT).
 
 ## License
 

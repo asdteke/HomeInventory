@@ -161,7 +161,7 @@ Dies ist ein unabhängiges Open-Source-Projekt. Es steht in keiner Verbindung zu
 
 ## KI-unterstützte Entwicklung
 
-Dieses Projekt wurde mit Hilfe von KI-Tools (einschließlich Google Gemini und OpenAI GPT) entwickelt. Der gesamte KI-generierte Code wurde vom Entwickler überprüft, getestet und validiert.
+Dieses Projekt wurde mit erheblicher Unterstützung von KI-Tools (einschließlich Google Gemini und OpenAI GPT) entwickelt.
 
 ## Lizenz
 

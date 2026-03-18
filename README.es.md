@@ -161,7 +161,7 @@ Este es un proyecto de código abierto independiente. No está afiliado, respald
 
 ## Desarrollo Asistido por IA
 
-Este proyecto fue desarrollado con la ayuda de herramientas de inteligencia artificial (incluyendo Google Gemini y OpenAI GPT). Todo el código generado por IA fue revisado, probado y validado por el desarrollador.
+Este proyecto fue desarrollado con la asistencia significativa de herramientas de inteligencia artificial (incluyendo Google Gemini y OpenAI GPT).
 
 ## Licencia
 
