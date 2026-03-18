@@ -587,10 +587,12 @@ router.get('/google/callback',
         });
 
         // Redirect new users to house selection, existing users directly to app
+        // SECURITY: Using URL fragment (#) instead of query string (?) so the token
+        // is never sent in Referer headers, server logs, or browser history
         if (isNewUser) {
-            res.redirect(`/google-house-select?token=${token}&isNew=true`);
+            res.redirect(`/google-house-select#token=${token}&isNew=true`);
         } else {
-            res.redirect(`/login?token=${token}`);
+            res.redirect(`/login#token=${token}`);
         }
     });
 

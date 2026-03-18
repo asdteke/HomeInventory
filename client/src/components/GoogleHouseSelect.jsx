@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import axios from 'axios';
@@ -17,15 +17,23 @@ export default function GoogleHouseSelect() {
     const { googleLogin } = useAuth();
     const { isDark, toggleTheme } = useTheme();
     const navigate = useNavigate();
-    const [searchParams] = useSearchParams();
+    const [token, setTokenState] = useState(null);
 
-    const token = searchParams.get('token');
-
+    // Read token from URL fragment (hash) for security — never sent in referrer/logs
     useEffect(() => {
-        if (!token) {
-            navigate('/login');
+        const hash = window.location.hash;
+        if (hash) {
+            const params = new URLSearchParams(hash.substring(1));
+            const t = params.get('token');
+            if (t) {
+                // Immediately clear token from URL to minimize exposure
+                window.history.replaceState(null, '', window.location.pathname);
+                setTokenState(t);
+                return;
+            }
         }
-    }, [token, navigate]);
+        navigate('/login');
+    }, [navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

@@ -19,20 +19,26 @@ export default function Login() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
 
-    // Handle Google Login Callback
+    // Handle Google Login Callback (token in URL fragment for security)
     useEffect(() => {
-        const token = searchParams.get('token');
-        if (token) {
-            setLoading(true);
-            googleLogin(token)
-                .then(() => navigate('/'))
-                .catch(err => {
-                    console.error(err);
-                    setError(t('common.error'));
-                    setLoading(false);
-                });
+        const hash = window.location.hash;
+        if (hash) {
+            const params = new URLSearchParams(hash.substring(1));
+            const token = params.get('token');
+            if (token) {
+                // Immediately clear token from URL to minimize exposure
+                window.history.replaceState(null, '', window.location.pathname);
+                setLoading(true);
+                googleLogin(token)
+                    .then(() => navigate('/'))
+                    .catch(err => {
+                        console.error(err);
+                        setError(t('common.error'));
+                        setLoading(false);
+                    });
+            }
         }
-    }, [searchParams, googleLogin, navigate, t]);
+    }, [googleLogin, navigate, t]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
