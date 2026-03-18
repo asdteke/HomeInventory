@@ -253,6 +253,10 @@ Home-inventory/
 
 This is an independent open-source project. It is not affiliated with, endorsed by, or connected to any commercial product or company using a similar name.
 
+## AI-Assisted Development
+
+This project was developed with the assistance of AI tools (including Google Gemini and OpenAI GPT). All AI-generated code was reviewed, tested, and validated by the developer.
+
 ## License
 
 MIT — see [LICENSE](LICENSE) for details.

@@ -159,6 +159,10 @@ Kopieren Sie `.env.example` nach `.env` und füllen Sie die erforderlichen Werte
 
 Dies ist ein unabhängiges Open-Source-Projekt. Es steht in keiner Verbindung zu einem kommerziellen Produkt oder Unternehmen mit ähnlichem Namen und wird von keinem solchen unterstützt.
 
+## KI-unterstützte Entwicklung
+
+Dieses Projekt wurde mit Hilfe von KI-Tools (einschließlich Google Gemini und OpenAI GPT) entwickelt. Der gesamte KI-generierte Code wurde vom Entwickler überprüft, getestet und validiert.
+
 ## Lizenz
 
 MIT — siehe [LICENSE](LICENSE) für Details.

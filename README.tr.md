@@ -253,6 +253,10 @@ Home-inventory/
 
 Bu bağımsız bir açık kaynak projesidir. Benzer isim kullanan herhangi bir ticari ürün veya şirketle bağlantılı, onlar tarafından desteklenen veya onlara bağlı değildir.
 
+## Yapay Zeka Destekli Geliştirme
+
+Bu proje, yapay zeka araçlarının (Google Gemini ve OpenAI GPT dahil) yardımıyla geliştirilmiştir. Tüm yapay zeka tarafından üretilen kodlar geliştirici tarafından incelenmiş, test edilmiş ve doğrulanmıştır.
+
 ## Lisans
 
 MIT — detaylar için [LICENSE](LICENSE) dosyasına bakın.

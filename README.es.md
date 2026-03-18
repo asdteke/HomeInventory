@@ -159,6 +159,10 @@ Copia `.env.example` a `.env` y completa los valores requeridos:
 
 Este es un proyecto de código abierto independiente. No está afiliado, respaldado ni conectado con ningún producto comercial o empresa que use un nombre similar.
 
+## Desarrollo Asistido por IA
+
+Este proyecto fue desarrollado con la ayuda de herramientas de inteligencia artificial (incluyendo Google Gemini y OpenAI GPT). Todo el código generado por IA fue revisado, probado y validado por el desarrollador.
+
 ## Licencia
 
 MIT — ver [LICENSE](LICENSE) para más detalles.
