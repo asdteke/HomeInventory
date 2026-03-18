@@ -33,7 +33,7 @@
 - 👨‍💼 **Panel de administración** — Gestión de usuarios, bloqueos, envío de correos y registros del sistema
 - 📧 **Sistema de correo** — Correos transaccionales vía API de Resend (verificación, avisos de admin)
 - 💾 **Respaldo y restauración** — Exporta e importa tus datos de inventario
-- 🌍 **Multi-idioma** — 50 idiomas soportados (turco, inglés, alemán, árabe, español y más)
+- 🌍 **Multi-idioma** — Interfaz traducida a 50 idiomas; backend actualmente soporta 5 (en expansión)
 - 🌙 **Tema oscuro / claro** — Detecta automáticamente la preferencia del sistema
 - 📱 **Diseño responsivo** — Diseño mobile-first, funciona en todos los tamaños de pantalla
 - 🔍 **Listo para SEO** — Sitemap, robots.txt, meta tags y soporte IndexNow

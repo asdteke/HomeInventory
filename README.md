@@ -34,7 +34,7 @@
 - 👨‍💼 **Admin panel** — User management, ban controls, email sending, and system logs
 - 📧 **Email system** — Transactional emails via Resend API (verification, admin notices)
 - 💾 **Backup & Restore** — Export and import your inventory data
-- 🌍 **Multi-language** — 50 languages supported (Turkish, English, German, Arabic, Spanish, and more)
+- 🌍 **Multi-language** — UI translated into 50 languages; backend currently supports 5 (expanding)
 - 🌙 **Dark / Light theme** — Auto-detects system preference
 - 📱 **Responsive** — Mobile-first design, works on all screen sizes
 - 🔍 **SEO ready** — Sitemap, robots.txt, meta tags, and IndexNow support
@@ -185,7 +185,7 @@ Home-inventory/
 │   ├── indexNow.js           # IndexNow SEO submission
 │   └── logger.js             # KVKK-compliant logging
 │
-├── locales/                  # Backend i18n (50 languages)
+├── locales/                  # Backend i18n (5 languages, expanding)
 │
 ├── scripts/
 │   ├── generate-locales.js   # Locale generation scripts

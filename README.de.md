@@ -33,7 +33,7 @@
 - 👨‍💼 **Admin-Panel** — Benutzerverwaltung, Sperren, E-Mail-Versand und Systemprotokolle
 - 📧 **E-Mail-System** — Transaktions-E-Mails über die Resend-API (Verifizierung, Admin-Benachrichtigungen)
 - 💾 **Sicherung & Wiederherstellung** — Exportieren und importieren Sie Ihre Inventardaten
-- 🌍 **Mehrsprachig** — 50 Sprachen unterstützt (Türkisch, Englisch, Deutsch, Arabisch, Spanisch u.v.m.)
+- 🌍 **Mehrsprachig** — Benutzeroberfläche in 50 Sprachen übersetzt; Backend unterstützt derzeit 5 (wird erweitert)
 - 🌙 **Dunkles / Helles Design** — Erkennt automatisch die Systemeinstellung
 - 📱 **Responsiv** — Mobile-First-Design, funktioniert auf allen Bildschirmgrößen
 - 🔍 **SEO-bereit** — Sitemap, robots.txt, Meta-Tags und IndexNow-Unterstützung

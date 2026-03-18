@@ -34,7 +34,7 @@
 - 👨‍💼 **Admin paneli** — Kullanıcı yönetimi, yasaklama, e-posta gönderimi ve sistem logları
 - 📧 **E-posta sistemi** — Resend API ile doğrulama ve bilgilendirme e-postaları
 - 💾 **Yedekleme & Geri Yükleme** — Envanter verilerinizi dışa/içe aktarın
-- 🌍 **Çoklu dil** — 50 dil desteği (Türkçe, İngilizce, Almanca, Arapça, İspanyolca ve daha fazlası)
+- 🌍 **Çoklu dil** — Arayüz 50 dile çevrildi; backend şu an 5 dil destekliyor (genişletiliyor)
 - 🌙 **Karanlık / Aydınlık tema** — Sistem tercihini otomatik algılar
 - 📱 **Duyarlı tasarım** — Mobil öncelikli, tüm ekran boyutlarında çalışır
 - 🔍 **SEO hazır** — Sitemap, robots.txt, meta etiketler ve IndexNow desteği
@@ -185,7 +185,7 @@ Home-inventory/
 │   ├── indexNow.js           # IndexNow SEO gönderimi
 │   └── logger.js             # KVKK uyumlu loglama
 │
-├── locales/                  # Backend çoklu dil dosyaları (50 dil)
+├── locales/                  # Backend çoklu dil dosyaları (5 dil, genişletiliyor)
 │
 ├── scripts/
 │   ├── generate-locales.js   # Dil dosyası oluşturma betikleri
