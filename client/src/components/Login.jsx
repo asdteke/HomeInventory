@@ -13,32 +13,13 @@ export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const { login, googleLogin } = useAuth();
+    const { login } = useAuth();
     const { isDark, toggleTheme } = useTheme();
     const { t } = useTranslation();
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
 
-    // Handle Google Login Callback (token in URL fragment for security)
-    useEffect(() => {
-        const hash = window.location.hash;
-        if (hash) {
-            const params = new URLSearchParams(hash.substring(1));
-            const token = params.get('token');
-            if (token) {
-                // Immediately clear token from URL to minimize exposure
-                window.history.replaceState(null, '', window.location.pathname);
-                setLoading(true);
-                googleLogin(token)
-                    .then(() => navigate('/'))
-                    .catch(err => {
-                        console.error(err);
-                        setError(t('common.error'));
-                        setLoading(false);
-                    });
-            }
-        }
-    }, [googleLogin, navigate, t]);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();

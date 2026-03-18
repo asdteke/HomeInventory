@@ -1,6 +1,18 @@
 import express from 'express';
 import axios from 'axios';
-import * as cheerio from 'cheerio';
+// Lazy-load cheerio to avoid ESM resolution crash on Node v25+
+let cheerio = null;
+async function getCheerio() {
+    if (!cheerio) {
+        try {
+            cheerio = await import('cheerio');
+        } catch (e) {
+            console.error('[Barcode] cheerio yüklenemedi:', e.message);
+            return null;
+        }
+    }
+    return cheerio;
+}
 import db from '../database.js';
 import { authenticateToken } from '../middleware/auth.js';
 
@@ -18,7 +30,9 @@ async function scrapeGoogle(barcode) {
             timeout: 5000
         });
 
-        const $ = cheerio.load(response.data);
+        const ch = await getCheerio();
+        if (!ch) return null;
+        const $ = ch.load(response.data);
 
         // Try to get the first search result title
         let productName = null;

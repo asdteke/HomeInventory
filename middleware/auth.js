@@ -1,22 +1,36 @@
 import jwt from 'jsonwebtoken';
 
-// SECURITY: Fail-secure - JWT_SECRET must be defined in environment
-if (!process.env.JWT_SECRET) {
-    throw new Error('FATAL: JWT_SECRET environment variable is not set! Application cannot start securely.');
-}
+// Helper to get JWT_SECRET lazily, because ES module imports are hoisted
+// before dotenv/config has finished parsing .env in server.js
+const getJwtSecret = () => {
+    if (!process.env.JWT_SECRET) {
+        throw new Error('FATAL: JWT_SECRET environment variable is not set! Application cannot start securely.');
+    }
+    return process.env.JWT_SECRET;
+};
 
-const JWT_SECRET = process.env.JWT_SECRET;
+export const cookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+};
 
 export const authenticateToken = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
+    // Read from cookie first, fall back to Authorization header
+    let token = req.cookies?.token;
+    
+    if (!token) {
+        const authHeader = req.headers['authorization'];
+        token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
+    }
 
     if (!token) {
         return res.status(401).json({ error: 'Erişim için giriş yapmanız gerekiyor' });
     }
 
     try {
-        const user = jwt.verify(token, JWT_SECRET);
+        const user = jwt.verify(token, getJwtSecret());
         req.user = user;
         next();
     } catch (err) {
@@ -46,10 +60,10 @@ export const generateToken = (user) => {
             house_key: user.house_key,
             role: user.role || 'user'  // Role included in token
         },
-        JWT_SECRET,
+        getJwtSecret(),
         { expiresIn: '7d' }
     );
 };
 
-export { JWT_SECRET };
+export { getJwtSecret as JWT_SECRET };
 

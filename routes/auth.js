@@ -2,7 +2,7 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import db from '../database.js';
-import { generateToken, authenticateToken } from '../middleware/auth.js';
+import { generateToken, authenticateToken, cookieOptions } from '../middleware/auth.js';
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { sendVerificationEmail } from '../utils/emailService.js';
@@ -216,6 +216,45 @@ router.post('/register', async (req, res) => {
         // Hash password with bcrypt
         const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
 
+        // If email verification is disabled (no API key), register directly
+        if (!process.env.RESEND_API_KEY) {
+            const result = db.prepare(`
+                INSERT INTO users (username, email, password_hash, house_key, is_verified) 
+                VALUES (?, ?, ?, ?, 1)
+            `).run(safeUsername, safeEmail, passwordHash, userHouseKey);
+            
+            const newUserId = result.lastInsertRowid;
+            
+            // Add to user_houses
+            db.prepare('INSERT INTO user_houses (user_id, house_key, is_owner) VALUES (?, ?, ?)')
+                .run(newUserId, userHouseKey, isNewHouse ? 1 : 0);
+                
+            // Set active house key
+            db.prepare('UPDATE users SET active_house_key = ? WHERE id = ?')
+                .run(userHouseKey, newUserId);
+                
+            const newUser = db.prepare('SELECT id, username, email, house_key, role, is_verified FROM users WHERE id = ?').get(newUserId);
+            
+            // Generate token and set cookie
+            const token = generateToken(newUser);
+            res.cookie('token', token, cookieOptions);
+            
+            return res.status(201).json({
+                message: 'Kayıt başarılı',
+                success: true,
+                user: {
+                    id: newUser.id,
+                    username: newUser.username,
+                    email: newUser.email,
+                    house_key: newUser.house_key,
+                    role: newUser.role,
+                    is_verified: true
+                },
+                isNewHouse,
+                house_key: userHouseKey
+            });
+        }
+
         // Generate verification token (24 hour expiry)
         const verificationToken = crypto.randomBytes(32).toString('hex');
         const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
@@ -299,7 +338,7 @@ router.post('/login', async (req, res) => {
             role: user.role || 'user'
         });
 
-        res.json({
+        res.cookie('token', token, cookieOptions).json({
             message: 'Giriş başarılı',
             user: {
                 id: user.id,
@@ -307,8 +346,7 @@ router.post('/login', async (req, res) => {
                 email: user.email,
                 house_key: user.house_key,
                 role: user.role || 'user'
-            },
-            token
+            }
         });
         db.prepare('UPDATE users SET failed_login_count = 0, last_login = CURRENT_TIMESTAMP WHERE id = ?').run(user.id);
     } catch (err) {
@@ -479,10 +517,9 @@ router.post('/change-username', authenticateToken, async (req, res) => {
             role: user.role || 'user'
         });
 
-        res.json({
+        res.cookie('token', token, cookieOptions).json({
             message: 'Kullanıcı adı başarıyla değiştirildi',
-            username: trimmedUsername,
-            token
+            username: trimmedUsername
         });
 
     } catch (err) {
@@ -587,12 +624,12 @@ router.get('/google/callback',
         });
 
         // Redirect new users to house selection, existing users directly to app
-        // SECURITY: Using URL fragment (#) instead of query string (?) so the token
-        // is never sent in Referer headers, server logs, or browser history
+        // SECURITY: Using HttpOnly cookie to store token, redirecting without token in URL
+        res.cookie('token', token, cookieOptions);
         if (isNewUser) {
-            res.redirect(`/google-house-select#token=${token}&isNew=true`);
+            res.redirect(`/google-house-select?isNew=true`);
         } else {
-            res.redirect(`/login#token=${token}`);
+            res.redirect(`/`);
         }
     });
 
@@ -845,9 +882,8 @@ router.post('/switch-house', authenticateToken, (req, res) => {
             role: user.role || 'user'
         });
 
-        res.json({
+        res.cookie('token', token, cookieOptions).json({
             message: 'Ev başarıyla değiştirildi!',
-            token,
             house_key,
             house_name: userHouse.house_name
         });
@@ -911,10 +947,9 @@ router.post('/leave-house', authenticateToken, (req, res) => {
             role: updatedUser.role || 'user'
         });
 
-        res.json({
+        res.cookie('token', token, cookieOptions).json({
             message: 'Evden başarıyla ayrıldınız',
-            houses,
-            token
+            houses
         });
     } catch (err) {
         console.error('Leave house error:', err);
@@ -982,9 +1017,8 @@ router.post('/google-complete', authenticateToken, async (req, res) => {
                 role: req.user.role || 'user'
             });
 
-            res.json({
+            res.cookie('token', token, cookieOptions).json({
                 message: 'Yeni ev oluşturuldu!',
-                token,
                 house_key: newHouseKey
             });
         } else if (mode === 'join') {
@@ -1015,9 +1049,8 @@ router.post('/google-complete', authenticateToken, async (req, res) => {
                 role: req.user.role || 'user'
             });
 
-            res.json({
+            res.cookie('token', token, cookieOptions).json({
                 message: 'Eve başarıyla katıldınız!',
-                token,
                 house_key
             });
         } else {
@@ -1053,6 +1086,12 @@ router.post('/rename-house', authenticateToken, (req, res) => {
         console.error('Rename house error:', err);
         res.status(500).json({ error: 'Ev ismi güncellenirken hata oluştu' });
     }
+});
+
+// Logout endpoint
+router.post('/logout', (req, res) => {
+    res.clearCookie('token', cookieOptions);
+    res.json({ message: 'Başarıyla çıkış yapıldı' });
 });
 
 export default router;

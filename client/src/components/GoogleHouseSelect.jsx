@@ -14,26 +14,11 @@ export default function GoogleHouseSelect() {
     const [houseName, setHouseName] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const { googleLogin } = useAuth();
+    const { refreshUser } = useAuth();
     const { isDark, toggleTheme } = useTheme();
     const navigate = useNavigate();
-    const [token, setTokenState] = useState(null);
-
-    // Read token from URL fragment (hash) for security — never sent in referrer/logs
-    useEffect(() => {
-        const hash = window.location.hash;
-        if (hash) {
-            const params = new URLSearchParams(hash.substring(1));
-            const t = params.get('token');
-            if (t) {
-                // Immediately clear token from URL to minimize exposure
-                window.history.replaceState(null, '', window.location.pathname);
-                setTokenState(t);
-                return;
-            }
-        }
-        navigate('/login');
-    }, [navigate]);
+    // The user is authenticated via HttpOnly cookie set by the Google OAuth callback.
+    // No URL parsing required.
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -41,17 +26,14 @@ export default function GoogleHouseSelect() {
         setLoading(true);
 
         try {
-            // First set the token for axios
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-
             const response = await axios.post('/api/auth/google-complete', {
                 mode,
                 house_key: mode === 'join' ? houseKey : undefined,
                 house_name: houseName || undefined
             });
 
-            // Login with the new token
-            await googleLogin(response.data.token);
+            // Refresh user state to get the updated profile
+            await refreshUser();
             navigate('/');
         } catch (err) {
             console.error(err);

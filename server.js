@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import fs from 'fs';
@@ -128,6 +129,7 @@ app.use(cors({
     credentials: true
 }));
 app.use(express.json({ limit: '5mb' }));
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true, limit: '5mb' }));
 app.use(passport.initialize());
 
