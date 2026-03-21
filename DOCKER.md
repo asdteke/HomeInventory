@@ -200,21 +200,21 @@ docker-compose restart
 For Unraid users:
 
 1. SSH into Unraid or use the terminal in the WebUI
-2. Create appdata folder: `mkdir -p /mnt/user/appdata/homeinventory`
+2. Choose a location for the app (e.g., your appdata share)
 3. Clone the repo:
    ```bash
-   cd /mnt/user/appdata/homeinventory
+   mkdir -p /your/chosen/path/homeinventory
+   cd /your/chosen/path/homeinventory
    git clone https://github.com/asdteke/HomeInventory.git .
    ```
 4. Create `.env` file with secrets (see Configuration above)
-5. Run: `docker-compose up -d`
-
-Paths for Unraid:
-```yaml
-volumes:
-  - /mnt/user/appdata/homeinventory/data:/app/data
-  - /mnt/user/appdata/homeinventory/uploads:/app/uploads
-```
+5. If using bind mounts instead of Docker volumes, edit `docker-compose.yml`:
+   ```yaml
+   volumes:
+     - /your/chosen/path/homeinventory/data:/app/data
+     - /your/chosen/path/homeinventory/uploads:/app/uploads
+   ```
+6. Run: `docker-compose up -d`
 
 ## Building Locally
 
