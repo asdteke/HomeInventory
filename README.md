@@ -13,6 +13,7 @@
   <a href="#features">Features</a> •
   <a href="#tech-stack">Tech Stack</a> •
   <a href="#quick-start">Quick Start</a> •
+  <a href="#docker">Docker</a> •
   <a href="#environment-variables">Environment</a> •
   <a href="#project-structure">Structure</a> •
   <a href="#license">License</a>
@@ -145,6 +146,27 @@ npm run build
 # Start production server (serves built frontend + API)
 npm start
 ```
+
+## Docker
+
+Deploy HomeInventory with Docker for easy self-hosting:
+
+```bash
+# Clone and enter directory
+git clone https://github.com/asdteke/HomeInventory.git
+cd HomeInventory
+
+# Create environment file
+cp .env.example .env
+# Edit .env and set JWT_SECRET, APP_ENCRYPTION_KEY, APP_ENCRYPTION_KEY_ID
+
+# Start with Docker Compose
+docker-compose up -d
+```
+
+The app will be available at `http://localhost:3001`
+
+For detailed Docker configuration, reverse proxy setup, backup/restore, and Unraid deployment, see **[DOCKER.md](DOCKER.md)**.
 
 ## Environment Variables
 
