@@ -39,6 +39,7 @@
 - 🌙 **Karanlık / Aydınlık tema** — Sistem tercihini otomatik algılar
 - 📱 **Duyarlı tasarım** — Mobil öncelikli, tüm ekran boyutlarında çalışır
 - 🔍 **SEO hazır** — Sitemap, robots.txt, meta etiketler ve IndexNow desteği
+- 🔑 **Güvenli Şifre Kurtarma** — E-posta tabanlı veya çevrimdışı (offline) Kurtarma Anahtarı ile yerel hesap kurtarma
 
 ## Güvenlik ve Gizlilik (Sıfır Bilgi Mimarisi)
 

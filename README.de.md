@@ -33,10 +33,21 @@
 - 👨‍💼 **Admin-Panel** — Benutzerverwaltung, Sperren, E-Mail-Versand und Systemprotokolle
 - 📧 **E-Mail-System** — Transaktions-E-Mails über die Resend-API (Verifizierung, Admin-Benachrichtigungen)
 - 💾 **Sicherung & Wiederherstellung** — Exportieren und importieren Sie Ihre Inventardaten
-- 🌍 **Mehrsprachig** — Benutzeroberfläche in 50 Sprachen übersetzt; Backend unterstützt derzeit 5 (wird erweitert)
+- 🌍 **Mehrsprachig** — Benutzeroberfläche in 100+ Sprachen übersetzt; Backend unterstützt derzeit 5 (wird erweitert)
 - 🌙 **Dunkles / Helles Design** — Erkennt automatisch die Systemeinstellung
 - 📱 **Responsiv** — Mobile-First-Design, funktioniert auf allen Bildschirmgrößen
 - 🔍 **SEO-bereit** — Sitemap, robots.txt, Meta-Tags und IndexNow-Unterstützung
+- 🛡️ **Feld-Ebenen-Verschlüsselung** — AES-256-GCM-Schutz für sensible Daten
+- 🔑 **Sichere Passwortwiederherstellung** — E-Mail-basiertes Zurücksetzen oder Offline-Wiederherstellungsschlüssel
+
+## Sicherheit & Privatsphäre (Zero-Knowledge-Architektur)
+
+HomeInventory wurde mit Sicherheitsstandards auf Unternehmensniveau entwickelt.
+
+- **Feld-Ebenen-Verschlüsselung**: Sensible Daten (Artikelnamen, Beschreibungen) werden über AES-256-GCM verschlüsselt.
+- **Verschlüsselter Medienspeicher**: Fotos werden als AES-256-GCM verschlüsselte Blobs ohne EXIF-Metadaten gespeichert.
+- **PII-Schutz**: Verschlüsselte E-Mails und Benutzernamen. Such-Token basierend auf HMAC-SHA-256.
+- **Schlüsselrotation**: Unterstützung für einen Keyring, um kryptografische Schlüssel ohne Datenverlust zu wechseln.
 
 ## Technologie-Stack
 
@@ -94,6 +105,8 @@ NODE_ENV=development
 PORT=3001
 SITE_URL=http://localhost:5173
 JWT_SECRET=aendern-sie-dies-in-einen-zufaelligen-string-mit-mind-32-zeichen
+APP_ENCRYPTION_KEY=ersetzen-sie-dies-mit-einem-32-byte-base64-schluessel
+APP_ENCRYPTION_KEY_ID=2026-03-local
 ```
 
 > **💡 Tipp:** Sie können ein sicheres JWT_SECRET generieren mit:
@@ -137,6 +150,9 @@ Kopieren Sie `.env.example` nach `.env` und füllen Sie die erforderlichen Werte
 | `PORT` | ✅ | Backend-Server-Port (Standard: `3001`) |
 | `SITE_URL` | ✅ | Öffentliche URL Ihrer Website |
 | `JWT_SECRET` | ✅ | Zufälliger Schlüssel für JWT-Signierung (mind. 32 Zeichen) |
+| `APP_ENCRYPTION_KEY` | ✅ | 32-Byte-Verschlüsselungsschlüssel für Feldschutz |
+| `APP_ENCRYPTION_KEY_ID` | ✅ | Stabiler Schlüsselidentifikator |
+| `APP_ENCRYPTION_KEYRING` | ⬜ | Optionale JSON-Zuordnung für Schlüsselrotation |
 | `GOOGLE_CLIENT_ID` | ⬜ | Google OAuth Client-ID |
 | `GOOGLE_CLIENT_SECRET` | ⬜ | Google OAuth Client-Secret |
 | `RESEND_API_KEY` | ⬜ | Resend.com API-Schlüssel für E-Mails |

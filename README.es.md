@@ -33,10 +33,21 @@
 - 👨‍💼 **Panel de administración** — Gestión de usuarios, bloqueos, envío de correos y registros del sistema
 - 📧 **Sistema de correo** — Correos transaccionales vía API de Resend (verificación, avisos de admin)
 - 💾 **Respaldo y restauración** — Exporta e importa tus datos de inventario
-- 🌍 **Multi-idioma** — Interfaz traducida a 50 idiomas; backend actualmente soporta 5 (en expansión)
+- 🌍 **Multi-idioma** — Interfaz traducida a 100+ idiomas; backend actualmente soporta 5 (en expansión)
 - 🌙 **Tema oscuro / claro** — Detecta automáticamente la preferencia del sistema
 - 📱 **Diseño responsivo** — Diseño mobile-first, funciona en todos los tamaños de pantalla
 - 🔍 **Listo para SEO** — Sitemap, robots.txt, meta tags y soporte IndexNow
+- 🛡️ **Cifrado a nivel de campo** — Protección AES-256-GCM para datos sensibles
+- 🔑 **Recuperación de contraseña segura** — Restablecimiento por correo o Clave de Recuperación sin conexión
+
+## Seguridad y Privacidad (Arquitectura de Conocimiento Cero)
+
+HomeInventory está diseñado con seguridad de nivel empresarial para garantizar que sus datos personales permanezcan completamente privados.
+
+- **Cifrado a nivel de campo**: Los datos sensibles (nombres de artículos, descripciones) se cifran mediante AES-256-GCM.
+- **Almacenamiento multimedia cifrado**: Las fotos se almacenan como datos cifrados (AES-256-GCM) sin metadatos EXIF.
+- **Protección de datos (PII)**: Correos electrónicos y nombres de usuario cifrados. Búsqueda basada en token HMAC-SHA-256.
+- **Rotación de claves**: Soporte para anillo de claves (Keyring) para rotar la clave principal de cifrado sin romper datos antiguos.
 
 ## Tecnologías
 
@@ -94,6 +105,8 @@ NODE_ENV=development
 PORT=3001
 SITE_URL=http://localhost:5173
 JWT_SECRET=cambia-esto-por-un-texto-aleatorio-de-al-menos-32-caracteres
+APP_ENCRYPTION_KEY=reemplazar-con-base64-de-32-bytes
+APP_ENCRYPTION_KEY_ID=2026-03-local
 ```
 
 > **💡 Consejo:** Puedes generar un JWT_SECRET seguro con:
@@ -137,6 +150,9 @@ Copia `.env.example` a `.env` y completa los valores requeridos:
 | `PORT` | ✅ | Puerto del servidor backend (por defecto: `3001`) |
 | `SITE_URL` | ✅ | URL pública de tu sitio |
 | `JWT_SECRET` | ✅ | Clave secreta aleatoria para firmar JWT (mín. 32 caracteres) |
+| `APP_ENCRYPTION_KEY` | ✅ | Clave de cifrado de 32 bytes para protección de campos |
+| `APP_ENCRYPTION_KEY_ID` | ✅ | Identificador de clave estable |
+| `APP_ENCRYPTION_KEYRING` | ⬜ | Mapa JSON opcional para rotación de claves |
 | `GOOGLE_CLIENT_ID` | ⬜ | ID de cliente de Google OAuth |
 | `GOOGLE_CLIENT_SECRET` | ⬜ | Secreto de cliente de Google OAuth |
 | `RESEND_API_KEY` | ⬜ | Clave API de Resend.com para correos |

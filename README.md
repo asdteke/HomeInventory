@@ -39,6 +39,7 @@
 - 🌙 **Dark / Light theme** — Auto-detects system preference
 - 📱 **Responsive** — Mobile-first design, works on all screen sizes
 - 🔍 **SEO ready** — Sitemap, robots.txt, meta tags, and IndexNow support
+- 🔑 **Secure Password Recovery** — Email-based reset or offline Recovery Key for local account recovery
 
 ## Security & Privacy (Zero-Knowledge Architecture)
 
