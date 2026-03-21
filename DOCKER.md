@@ -197,12 +197,17 @@ docker-compose restart
 
 ## Unraid Deployment
 
-For Unraid users, add via Community Applications or manually:
+For Unraid users:
 
-1. Create appdata folder: `/mnt/user/appdata/homeinventory`
-2. Clone repo there or copy files
-3. Create `.env` file with secrets
-4. Run: `docker-compose up -d`
+1. SSH into Unraid or use the terminal in the WebUI
+2. Create appdata folder: `mkdir -p /mnt/user/appdata/homeinventory`
+3. Clone the repo:
+   ```bash
+   cd /mnt/user/appdata/homeinventory
+   git clone https://github.com/asdteke/HomeInventory.git .
+   ```
+4. Create `.env` file with secrets (see Configuration above)
+5. Run: `docker-compose up -d`
 
 Paths for Unraid:
 ```yaml
