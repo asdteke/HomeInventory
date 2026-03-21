@@ -6,7 +6,7 @@
 
 <p align="center">
   The open-source project behind <a href="https://envanterim.net.tr">envanterim.net.tr</a><br/>
-  An open-source home inventory management system with 100-language UI support and field-level encryption for sensitive data.
+  An open-source home inventory management system with 100+ language UI support and field-level encryption for sensitive data.
 </p>
 
 <p align="center">
@@ -35,7 +35,7 @@
 - 👨‍💼 **Admin panel** — User management, ban controls, email sending, and system logs
 - 📧 **Email system** — Transactional emails via Resend API (verification, admin notices)
 - 💾 **Backup & Restore** — Export and import your inventory data
-- 🌍 **100-language UI** — The frontend ships with 100 selectable languages for global access
+- 🌍 **100+ language UI** — The frontend ships with 100+ selectable languages for global access
 - 🌙 **Dark / Light theme** — Auto-detects system preference
 - 📱 **Responsive** — Mobile-first design, works on all screen sizes
 - 🔍 **SEO ready** — Sitemap, robots.txt, meta tags, and IndexNow support

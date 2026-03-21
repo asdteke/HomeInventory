@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://envanterim.net.tr">envanterim.net.tr</a>'nin açık kaynak projesidir.<br/>
-  100 dil destekli arayüz ve hassas veriler için alan bazlı şifreleme sunan açık kaynak ev envanter sistemi.
+  100+ dil destekli arayüz ve hassas veriler için alan bazlı şifreleme sunan açık kaynak ev envanter sistemi.
 </p>
 
 <p align="center">
@@ -35,7 +35,7 @@
 - 👨‍💼 **Admin paneli** — Kullanıcı yönetimi, yasaklama, e-posta gönderimi ve sistem logları
 - 📧 **E-posta sistemi** — Resend API ile doğrulama ve bilgilendirme e-postaları
 - 💾 **Yedekleme & Geri Yükleme** — Envanter verilerinizi dışa/içe aktarın
-- 🌍 **100 dil destekli arayüz** — Frontend küresel kullanım için 100 seçilebilir dille gelir
+- 🌍 **100+ dil destekli arayüz** — Frontend küresel kullanım için 100'den fazla seçilebilir dille gelir
 - 🌙 **Karanlık / Aydınlık tema** — Sistem tercihini otomatik algılar
 - 📱 **Duyarlı tasarım** — Mobil öncelikli, tüm ekran boyutlarında çalışır
 - 🔍 **SEO hazır** — Sitemap, robots.txt, meta etiketler ve IndexNow desteği
