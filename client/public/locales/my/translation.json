@@ -1,0 +1,696 @@
+{
+    "items": {
+        "qrcode": {
+            "title": "QR Code",
+            "desc": "သင်သည် ဤ QR code ကို ပုံနှိပ်ပြီး အရာဝတ္ထုပေါ်တွင် ပေါက်နိုင်သည်။ စကင်ပြုလုပ်လျှင် တိုက်ရိုက် ဤစာမျက်နှာသို့ ဦးတည်သည်။"
+        },
+        "title_new": "အသစ်သောပစ္စည်းကိုထည့်ရန်",
+        "title_edit": "ပစ္စည်းကို တည်းဖြတ်ရန်",
+        "subtitle": "ပစ္စည်းအချက်အလက်များ ထည့်ပါ",
+        "load_error": "ပစ္စည်းများကို ဖတ်ရန် မအောင်မြင်ပါ",
+        "form": {
+            "name": "ပစ္စည်းအမည်",
+            "name_placeholder": "ဥပမာ - Samsung TV 55 လက်မ",
+            "required": "*",
+            "description": "ဖော်ပြချက်",
+            "description_placeholder": "ပစ္စည်းနှင့် ဆိုင်သော မှတ်စုများ...",
+            "quantity": "ပမာဏ",
+            "category": "အမျိုးအစား",
+            "select_category": "ရွေးချယ်ပါ",
+            "room": "အခန်း",
+            "select_room": "အခန်းကို ရွေးချယ်ပါ",
+            "location_details": "တည်နေရာ အသေးစိတ်",
+            "location_optional": "(Optional)",
+            "location_placeholder": "ရှာဖွေ သို့မဟုတ် နယူးတည်နေရာ ထပ်ထည့်ပါ...",
+            "location_help": "အခန်းမှာဘယ်မှာလဲ? (ဥပမာ - 'အပြာရောင်အဝတ်အိမ်ထဲက အပေါ်ဆီဖ်')",
+            "location_create": "တည်နေရာ \"{{name}}\" ဖန်တီးပါ",
+            "location_privacy": "တည်နေရာကို သီးသန့်ထားခြင်း",
+            "location_public": "အားလုံး ဒီတည်နေရာကို မြင်နိုင်ပါသည်",
+            "location_private": "သင့်ကိုယ်ပိုင်ပဲ မြင်နိုင်သည်",
+            "location_save": "တည်နေရာကို သိမ်းဆည်းပါ",
+            "location_saving": "ပေါင်းထည့်နေသည်...",
+            "location_selected": "ရွေးချယ်ထားသောတည်နေရာ: {{name}}",
+            "location_empty": "ဒီအခန်းထဲတွင် တည်နေရာမရှိသေးပါ။ တစ်ခုဖန်တီးရန် ရိုက်ထည့်ခြင်းစတင်ပါ။",
+            "photo": "ဓာတ်ပုံ",
+            "add_photo": "ထည့်ရန်",
+            "barcode": "ဘားကုဒ်",
+            "barcode_optional": "(ရွေးချယ်နိုင်)",
+            "barcode_placeholder": "ဥပမာ 8690123456789",
+            "scan_barcode": "ဘားကုဒ်ကို စကင်ပါ",
+            "search_db": "ဒေတာဘေ့စ်ကို ရှာရန်",
+            "search_google": "Google တွင် ရှာရန်",
+            "barcode_saved": "✓ ဘားကုတ်ကို သိမ်းမည်",
+            "visibility": "အရာဝတ္ထု မြင်နိုင်မှု",
+            "visibility_public": "အိမ်ထောင်ပိုင်တွင် အားလုံးမြင်နိုင်သည်",
+            "visibility_private": "သင်သာ မြင်နိုင်သည်",
+            "submit_add": "အရာဝတ္ထု ထည့်ရန်",
+            "submit_save": "ပြင်ဆင်ချက်များ သိမ်းမည်",
+            "submitting": "သိမ်းဆည်းနေသည်..."
+        },
+        "messages": {
+            "quick_add_success": "✓ \"{{barcode}}\" အမြန်ထည့်ပြီးပြီ - အပြီးတွင် ပြင်ဆင်နိုင်သည်",
+            "quick_add_fail": "⚠ အမြန်ထည့်မှု မအောင်မြင်ပါ",
+            "searching": "ရှာနေသည်...",
+            "found_local": "✓ ဒေသစံ: \"{{name}}\" အဖြစ် မှတ်ပုံတင်ပြီး",
+            "found_remote": "✓ {{source}} တွင် ရှာတွေ့သည် {{note}}: \"{{name}}\"",
+            "not_found": "⚠ ကုန်ပစ္စည်းကို ဒေတာဘေ့စ်များတွင် မတွေ့ပါ။ သင်သည် Google တွင် ရှာဖွေနိုင်သည်။",
+            "search_fail": "⚠ ရှာဖွေမှု မအောင်မြင်ပါ",
+            "name_required": "အပစ္စည်းအမည် လိုအပ်သည်",
+            "location_add_error": "တည်နေရာ ထည့်ရန် မအောင်မြင်ပါ"
+        }
+    },
+    "common": {
+        "save": "သိမ်းဆည်းသည်",
+        "cancel": "ဖျက်ထုတ်သည်",
+        "loading": "အလေးချိန်များနေသည်...",
+        "error": "အမှားတက်ခဲ့သည်",
+        "success": "လုပ်ဆောင်ချက်အောင်မြင်သည်",
+        "search": "ရှာဖွေလျက်ရှိသည်...",
+        "edit": "တည်းဖြတ်သည်",
+        "delete": "ဖျက်သည်",
+        "add": "ထည့်သည်",
+        "new": "အသစ်",
+        "all": "အားလုံး",
+        "manage": "မန်နေဂျ်",
+        "help_support": "အကူအညီနှင့် ထောက်ခံမှု",
+        "theme": {
+            "light": "အလင်းမိုဒ်",
+            "dark": "မှောင်မိုဒ်"
+        },
+        "select": "ရွေးချယ်ပါ",
+        "refresh": "ပြန်လည်အသစ်လုပ်ပါ",
+        "close": "ပိတ်ပါ",
+        "logout": "အကောင့်မှထွက်ပါ",
+        "copyright": "© {{year}} HomeInventory - အခွင့်အရေးအားလုံးကိုរក្សထားသည်"
+    },
+    "auth": {
+        "login": {
+            "title": "စာရင်းဝင်ရန်",
+            "subtitle": "သင့်အိမ်ပစ္စည်းများအားလုံးကို အဆင့်မြှင့်စွာစီမံပါ",
+            "welcome": "HomeInventory မှကြိုဆိုပါသည်",
+            "username_or_email": "အသုံးပြုသူအမည် သို့မဟုတ် အီးမေးလ်",
+            "password": "စကားဝှက်",
+            "forgot_password": "စကားဝှက်ကိုမေ့နေပါသလား?",
+            "submit": "စာရင်းဝင်ရန်",
+            "submitting": "စာရင်းဝင်နေဆဲ...",
+            "google_continue": "Google ဖြင့်ဆက်လက်လုပ်ဆောင်ရန်",
+            "or": "သို့မဟုတ်",
+            "no_account": "အကောင့်မရှိရင်လား?",
+            "register_link": "စာရင်းသွင်းရန်",
+            "support_contact": "로그인 ပြဿနာများအတွက်:",
+            "terms_title": "📋 အသုံးပြုခွင့်စည်းမျဉ်းများနှင့် တာဝန်မရှိကြောင်း ကြေညာချက်",
+            "terms_beta": "BETA ဗားရှင်း: HomeInventory သည် လက်ရှိ စမ်းသပ်မှုဆင့်တွင်ရှိပါသည်။ သင့်ဒေတာ၏ တည်တံ့မှု သို ့မဟုတ် လုံခြုံမှုအတွက် အာမခံမရှိပါ။",
+            "terms_disclaimer": "တာဝန်မရှိကြောင်း ကြေညာချက်: ဤအပလီကေးရှင်းကို အသုံးပြုခြင်းဖြင့်၊ ဒေတာပျောက်ဆုံးမှု၊ ဝင်ရောက်မှုပြဿနာများ သို့မဟုတ် အခြား နည်းပညာဆိုင်ရာ အမှားများအတွက် မည်သည့်အခံယူမှုမဆို တောင်းဆိုခွင့်မရှိကြောင်း သဘောတူပါသည်။",
+            "terms_backup": "ဒေတာမိတ္တူယူခြင်း: သင့်အရေးကြီးသောမည်သည့်အချက်အလက်ကို မကြာခဏ မိတ္တူယူရန် အကြံပြုပါသည်။",
+            "terms_accept": "လော့ဂ်အင် ဝင်ခြင်းဖြင့်၊ သင့်အား ဤစည်းမျဉ်းများကို လက်ခံလိုက်သည်ဟု သတ်မှတ်မည်။"
+        },
+        "register": {
+            "title": "HomeInventory မှကြိုဆိုပါသည်",
+            "subtitle": "အကောင့်အသစ်တစ်ခု ဖန်တီးရန် သို့မဟုတ် ရှိပြီးသား အိမ်တစ်အိမ်တွင် ပါဝင်ရန်",
+            "create_house": "အိမ်အသစ် ဖန်တီးရန်",
+            "join_house": "အိမ်တွင် ပါဝင်ရန်",
+            "create_house_desc": "🏠 အိမ်အသစ်တစ်အိမ် ဖန်တီးပြီး သင်သည် ထူးခြားသော <strong>အိမ်သော့ချက်</strong> ရရှိမည်။ မိသားစုနှင့် ဤသော့ချက်ကို မျှဝေပါက ညီမျှဖွင့်နိုင်သည့် အရင်းအမြစ်ကို ဝင်ရောက်ကြည့်ရှုနိုင်မည်။",
+            "join_house_desc": "👨‍👩‍👧‍👦 ရှိပြီးသား အိမ်တွင် ပါဝင်ရန် မျှဝေထားသော <strong>အိမ်သော့ချက်</strong> ကို ထည့်ပါ။ အဆိုပါသော့ချက်ရှိသူတိုင်းသည် မျှဝေထားသော အရင်းအမြစ်ကို ဝင်ရောက်ကြည့်ရှုနိုင်မည်။",
+            "form_title": "စာရင်းသွင်းရန်",
+            "username": "အသုံးပြုသူအမည်",
+            "username_placeholder": "ဥပမာ john",
+            "email": "အီးမေးလ်",
+            "email_placeholder": "ဥပမာ john@example.com",
+            "password": "စကားဝှက်",
+            "password_placeholder": "အနည်းဆုံး အက္ခရာ ၆ စာလုံး",
+            "password_confirm": "စကားဝှက်အတည်ပြုခြင်း",
+            "password_confirm_placeholder": "စကားဝှက်ကို ပြန်ထည့်ပါ",
+            "house_key": "အိမ်သော့",
+            "house_key_placeholder": "၆၄-အက္ခရာ အိမ်သော့ကို ပေါင်းထည့်ပါ",
+            "submit_create": "အိမ်သစ်ဖန်တီးပါ",
+            "submit_join": "အိမ်တွင်ပါဝင်ရန်",
+            "submitting": "မှတ်ပုံတင်နေဆဲ...",
+            "already_have_account": "အကောင့်ရှိပြီးသားလား?",
+            "login_link": "လော့ဂ်အင်ဝင်ပါ",
+            "support": "မှတ်ပုံတင်ဆိုင်ရာ ပြဿနာများ:",
+            "terms": "အသုံးပြုခွင့်စည်းမျဉ်းများနှင့် ကြေညာချက်",
+            "passwords_mismatch": "စကားဝှက် မကိုက်ညီပါ",
+            "password_length": "စကားဝှက်သည် အနည်းဆုံး အက္ခရာ ၆ လုံးရှိရမည်",
+            "key_required": "လက်ရှိအိမ်သို့ ဖြစ်ဖို့အတွက် အိမ်၏ Key လိုအပ်သည်",
+            "modals": {
+                "key_created": {
+                    "title": "🎉 အိမ် ဖန်တီးပြီးပါပြီ!",
+                    "subtitle": "အောက်ပါ Key ကို လုံခြုံသောနေရာတွင် သိမ်းဆည်းပါ",
+                    "warning": "အရေးကြီးချက်: ဒီ Key ကို တစ်ကြိမ်သာ ပြသမည် ဖြစ်သည်။ မိသားစုဝင်များနှင့် မျှဝေပါ အိုင်းအိတ်အတွင်းရှိပစ္စည်းများကို လက်တွေ့အသုံးပြုနိုင်ရန်",
+                    "copy": "ကူးယူပါ",
+                    "copied": "ကူးယူပြီးပါပြီ",
+                    "button": "ကျွန်ုပ် Key ကို သိမ်းဆည်းပြီးဖြစ်ပါသည်၊ ဆက်လက်ဆောင်ရွက်မှု"
+                },
+                "email_verification": {
+                    "title": "📧 အီးမေးလ် အတည်ပြုရန် လိုအပ်သည်",
+                    "message": "အကောင့် ဖန်တီးပြီးပါပြီ! စာဝင်ရန် အီးမေးလ်လိပ်စာကို အတည်ပြုပါ",
+                    "step_1": "ကျွန်ုပ်တို့သည် အတည်ပြု အီးမေးလ်ကို <1>{{email}}</1> သို့ ပေးပို့ထားပြီးပါသည်",
+                    "step_2": "အီးမေးလ်ရှိ <1>\"ကျွန်ုပ်၏အကောင့် အတည်ပြုပါ\"</1> ခလုတ်ကို နှိပ်ပါ",
+                    "step_3": "အားသေချာစစ်ဆေးပြီးနောက်၊ <1>သင်အကောင့်ဝင်နိုင်ပါသည်</1>။",
+                    "spam_note": "အီးမေးလ်မရောက်လျှင် စပံမ์/ဂျန့်ဖိုလ်ဒါကိုစစ်ပါ။",
+                    "key_note": "အရေးကြီး: သင့်အိမ်၏သော့သည် အီးမေးလ်တွင်လည်းပေးပို့ခဲ့ပါသည်။ သင့်မိသားစုအဖွဲ့ဝင်များနှင့်မျှဝေနိုင်ပါသည်။",
+                    "button": "ကောင်းပါပြီ၊ အကောင့်ဝင်ရန်သွားပါ"
+                }
+            }
+        },
+        "forgot_password": {
+            "title": "Forgot Password",
+            "subtitle": "Start a secure recovery flow to access your account again.",
+            "identifier": "Username or Email",
+            "identifier_placeholder": "e.g. john or john@example.com",
+            "submit": "Start Recovery",
+            "requesting": "Checking...",
+            "email_success": "If an account exists, a password reset link valid for 15 minutes has been sent.",
+            "back_to_login": "Back to Login",
+            "recovery_mode_info": "Email is disabled on this server. Continue with the Recovery Key you saved during account setup.",
+            "recovery_key": "Recovery Key",
+            "recovery_key_placeholder": "e.g. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "reset_submit": "Reset Password",
+            "resetting": "Resetting..."
+        },
+        "reset_password": {
+            "title": "Reset Password",
+            "subtitle": "Use the secure link to set a new password.",
+            "missing_token": "The password reset link looks incomplete or broken.",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "submit": "Update Password",
+            "submitting": "Updating...",
+            "back_to_login": "Back to Login"
+        },
+        "recovery_setup": {
+            "title": "Create Recovery Key",
+            "subtitle": "Until this is completed, your account is not considered safe for local password recovery.",
+            "warning": "This key will only be shown once. Save it in a password manager or another secure offline location.",
+            "account": "A recovery key will be created for account {{username}}.",
+            "description": "Because email is disabled, you will only be able to reset your password with this key in the future.",
+            "submit": "Create Recovery Key",
+            "generating": "Creating..."
+        },
+        "recovery_key_modal": {
+            "register_title": "Save Your Recovery Key",
+            "google_title": "Save Your Recovery Key",
+            "setup_title": "Save Your Recovery Key",
+            "reset_title": "Save Your New Recovery Key",
+            "settings_title": "Save Your New Recovery Key",
+            "subtitle": "This key is shown only once.",
+            "warning": "If you lose this key while email is disabled, you may not be able to recover your password. Copy it and store it safely.",
+            "confirm": "I Saved the Key"
+        }
+    },
+    "navigation": {
+        "home": "မူလစာမျက်နှာ",
+        "inventory": "စတော့အိတ်စာရင်း",
+        "rooms": "အခန်းများ",
+        "categories": "အမျိုးအစားများ",
+        "settings": "ဆက်တင်များ",
+        "new_item": "ပစ္စည်းအသစ်",
+        "share_house": "အိမ်မျှဝေမည်",
+        "admin_panel": "အမှုဆောင်ပန်နယ်",
+        "logout": "အကောင့်ထုတ်ရန်",
+        "menu": "မီနူး"
+    },
+    "dashboard": {
+        "welcome": "ကြိုဆိုပါသည်၊ <1>{{name}}</1>! 👋",
+        "subtitle": "သင်၏ပစ္စည်းစာရင်းအနှစ်ချုပ်",
+        "quick_search": "လျင်မြန်စွာ ရှာဖွေခြင်း...",
+        "filters": {
+            "private": "🔒 ကိုယ်ပိုင်ပစ္စည်းများ",
+            "public": "🌐 အများပြည်သူ",
+            "remove": "စစ်ထုတ်မှုဖယ်ရှားရန်",
+            "no_items": "ဤစစ်ထုတ်မှုနှင့် ကိုက်ညီသည့်ပစ္စည်းမရှိပါ"
+        },
+        "stats": {
+            "total_items": "စုစုပေါင်းပစ္စည်းများ",
+            "total_quantity": "စုစုပေါင်းအရေအတွက်",
+            "fullest_room": "အပြည့်ဆုံးအခန်း",
+            "category_count": "အမျိုးအစားများ",
+            "items_suffix": "ပစ္စည်းများ"
+        },
+        "recent_items": {
+            "title": "လတ်တလောထည့်သွင်းခဲ့သည့်ပစ္စည်းများ",
+            "see_all": "အားလုံးကြည့်ရန်"
+        },
+        "categories": {
+            "title": "အမျိုးအစားများ",
+            "manage": "စီမံခန့်ခွဲရန်",
+            "empty": "မည်သည့်ပစ္စည်းများမှ မထည့်သေးပါ"
+        },
+        "rooms": {
+            "title": "အခန်းများ",
+            "manage": "စီမံခန့်ခွဲရန်"
+        },
+        "quick_actions": {
+            "title": "⚡ အမြန် လုပ်ဆောင်ချက်များ",
+            "add_item": "ပစ္စည်းထည့်ရန်",
+            "search_item": "ပစ္စည်းရှာရန်",
+            "categories": "အမျိုးအစားများ",
+            "settings": "ဆက်တင်များ"
+        }
+    },
+    "beta_banner": {
+        "title": "BETA:",
+        "text": "HomeInventory သည် လက်တွေ့စမ်းသပ်မှုနှင့် အပျော်အပါး အဆင့်တွင် ရှိနေပါသည်။ ဒေတာ ပိုင်ဆိုင်မှု သို့မဟုတ် လုံခြုံမှုအတွက် အာမခံမပြုပါ။ အရေးကြီးသော သတင်းအချက်အလက်များကို များစွာ ကူးယူထားပါ။",
+        "contact": "ဆက်သွယ်ရန်:"
+    },
+    "footer": {
+        "rights": "© {{year}} HomeInventory - အခွင့်အရေးများအားလုံးကို ဘာမှမပျက်စီးဘဲ ထိန်းသိမ်းထားပါသည်",
+        "contact": "ဆက်သွယ်ရန်:"
+    },
+    "settings": {
+        "title": "ဆက်တင်များ",
+        "subtitle": "အပလီကေးရှင်း စိတ်ကြိုက်ပြင်ဆင်မှုများကို စီမံပါ",
+        "messages": {
+            "house_switched": "✅ {{name}} ဖြစ်ဖွယ် အပြည့်အဝ ဖွင့်ခဲ့ပြီး!",
+            "house_switch_error": "အိမ်ကိုပြောင်းရန် မအောင်မြင်ပါ",
+            "house_joined_success": "✅ သင်အောင်မြင်စွာ အိမ်သို့ ဝင်ရောက်ခဲ့ပါသည်!",
+            "house_join_error": "အိမ်တွင် ဝင်ရန် မအောင်မြင်ပါ",
+            "house_created_success": "✅ \"{{name}}\" ကိုဖန်တီးပြီး!",
+            "house_create_error": "အိမ်ဖန်တီးရန် မအောင်မြင်ပါ",
+            "house_left_success": "အိမ်ကို အောင်မြင်စွာ ထွက်ခဲ့ပါသည်",
+            "house_left_error": "အိမ်ကို ထွက်ရန် မအောင်မြင်ပါ",
+            "house_leave_confirm": "သင်မင်းလိုချင်သလို \"{{name}}\" မှ ထွက်ရန် သေချာပါသလား?",
+            "backup_downloaded": "✅ Backup ကို 성공적으로 ဒေါင်းလုပ်လုပ်ပြီးပြီ! ({{count}} ပစ္စည်း)",
+            "export_error": "❌ ကူးယူခြင်းအတွင်း အမှားတက်ခဲ့သည်",
+            "import_invalid_format": "Backup ဖိုင်ပုံစံ အမှား",
+            "import_success": "✅ {{items}} ပစ္စည်းများ၊ {{categories}} အမျိုးအစားများ၊ {{rooms}} အခန်းများ၊ {{locations}} တည်နေရာများ ထည့်ပြီး။",
+            "import_error": "❌ ထည့်သွင်းရန်အမှား: {{error}}",
+            "password_changed": "စကားဝှက်ကို အောင်မြင်စွာ ပြောင်းပြီးပြီ!",
+            "password_error_current": "လက်ရှိ စကားဝှက် မှားနေသည်",
+            "password_error_invalid": "ပေးပို့ထားသော ဒေတာ မှားနေသည်",
+            "session_expired": "အစည်းအဝေး အချိန်ကုန်ဆုံးသွားပါပြီ။ ထပ်မံအကောင့်ဝင်ပါ။",
+            "server_error": "ဆာဗာအမှား တက်ခဲ့သည်",
+            "connection_error": "ဆာဗာနှင့် ချိတ်ဆက်၍ မရပါ။ အင်တာနက် ချိတ်ဆက်မှုကို စစ်ပါ။",
+            "unexpected_error": "မမျှော်လင့်ထားသော အမှား တက်ခဲ့သည်",
+            "username_changed": "✅ အသုံးပြုသူအမည် အောင်မြင်စွာ ပြောင်းပြီးပြီ!",
+            "username_error": "အသုံးပြုသူအမည်ကို ပြောင်း၍ မရပါ",
+            "username_len_error": "အသုံးပြုသူအမည်သည် အနည်းဆုံး ၃ အက္ခရာရှိရမည်",
+            "fill_all_fields": "ကျေးဇူးပြုပြီး အားလုံးသော အကွက်များကို ဖြည့်ပါ",
+            "passwords_mismatch": "နယူး စကား၀ှက်များ မကိုက်ညီပါ",
+            "password_min_len": "နယူး စကား၀ှက်သည် အနည်းဆုံး ၆ လုံးရှိရမည်",
+            "house_request_sent_success": "✅ Your join request was sent!",
+            "request_approved": "✅ Join request approved",
+            "request_rejected": "Join request rejected",
+            "request_action_error": "Could not update request",
+            "member_kick_confirm": "Are you sure you want to remove \"{{name}}\" from the house?",
+            "member_kicked": "Member removed from the house",
+            "member_kick_error": "Could not remove member from the house",
+            "recovery_key_regenerated": "Recovery key regenerated",
+            "recovery_key_error": "Could not regenerate recovery key"
+        },
+        "user_profile": {
+            "edit_username": "အသုံးပြုသူနာမည် ပြောင်းလဲရန်"
+        },
+        "my_houses": {
+            "title": "ကျွန်ုပ်၏ အိမ်များ",
+            "join_house": "အိမ်သို့ ပါဝင်ရန်",
+            "join_short": "ပါဝင်ရန်",
+            "new_house": "အိမ်အသစ်",
+            "new_short": "အသစ်",
+            "no_house": "သင်သည် အိမ်မည်သည့်အဖွဲ့ဝင်မဟုတ်သေးပါ",
+            "owner": "အိမ်ပိုင်ရှင်",
+            "active": "လှုပ်ရှားနေသည်",
+            "member_count": "အဖွဲ့ဝင် {{count}} ဦး",
+            "item_count": "ပစ္စည်း {{count}} ခု",
+            "switch": "လဲလှယ်ရန်",
+            "leave": "အိမ်ကိုထွက်မည်",
+            "info": "💡 သင်သည်အိမ်များစွာ၏ အဖွဲ့ဝင်ဖြစ်နိုင်ပြီး ၎င်းတို့အကြား ရွှေ့နိုင်ပါသည်။ အိမ်တိုင်းသည် သီးခြားစာရင်းစီမံချက်ကို ထိန်းသိမ်းထားသည်။"
+        },
+        "house_info": {
+            "title": "လက်ရှိအိမ် Key",
+            "key_label": "အိမ် Key",
+            "mask_key": "••••••••{{suffix}}",
+            "hide": "ဖျောက်ရန်",
+            "show": "ပြရန်",
+            "copy": "ကူးယူရန်",
+            "share_info": "💡 သင်ဤ Key ကိုမျှဝေသော အသုံးပြုသူများသည် မှတ်ပုံတင်စဉ်တွင် 'အိမ်ထဲဝင်ရန်' ရွေးချယ်ခြင်းဖြင့် သင့်စာရင်းကိုရရှိနိုင်ပါသည်။",
+            "members_title": "အိမ်အဖွဲ့ဝင်များ ({{count}})",
+            "you": "(သင်)",
+            "joined_at": "ဝင်ရောက်သည့်နေ့: {{date, datetime}}",
+            "no_members": "အခြားအဖွဲ့ဝင်များ မရှိသေးပါ",
+            "invite_title": "မိသားစုအဖွဲ့ဝင်များကိုဖိတ်ကြားမည်",
+            "invite_desc": "သင့်အိမ် Key ကိုမျှဝေ၍ မိသားစုအဖွဲ့ဝင်များသည် တူညီသောစာရင်းကိုရရှိနိုင်ပါသည်။ အဖွဲ့ဝင်တိုင်းသည် ကိုယ်ပိုင်အကောင့်ဖြင့် ဝင်ကြည့်သော်လည်း တူညီသောဒေတာကိုရရှိနိုင်ပါသည်။",
+            "active_members": "Active Members",
+            "pending_requests": "Pending Requests",
+            "no_pending_requests": "No pending requests",
+            "owner_controls": "Owner controls enabled",
+            "approve": "Approve",
+            "reject": "Reject",
+            "kick": "Remove"
+        },
+        "theme": {
+            "title": "ထိပ်စာ",
+            "dark": "အမှောင်မုဒ်",
+            "light": "အလင်းမုဒ်"
+        },
+        "security": {
+            "title": "လုံခြုံရေး",
+            "change_password": "စကားဝှက်ပြောင်းရန်",
+            "change_password_desc": "သင့်အကောင့်စကားဝှက်ကိုအပ်ဒိတ်လုပ်ပါ",
+            "recovery_key_title": "Recovery Key",
+            "recovery_key_desc": "You can generate a new key for local password recovery.",
+            "recovery_key_missing": "No recovery key is visible for this account yet.",
+            "current_key_label": "Saved Recovery Key",
+            "recovery_key_unavailable": "The current recovery key cannot be displayed. Regenerate it if needed.",
+            "recovery_key_action": "Regenerate",
+            "recovery_key_modal_desc": "Confirm your current password to continue. The new key will be shown only once.",
+            "recovery_key_loading": "Preparing..."
+        },
+        "data_management": {
+            "title": "ဒေတာစီမံခန့်ခွဲမှု",
+            "download_backup": "ဘက်အပ်ဒိတ်ကိုဒေါင်းလုတ်လုပ်ရန်",
+            "downloading": "ဒေါင်းလုတ်လုပ်နေသည်...",
+            "export_json": "JSON အဖြစ်တင်ပို့ရန်",
+            "upload_backup": "ဘက်အပ်ဒိတ်တင်ရန်",
+            "uploading": "တင်နေသည်...",
+            "import_json": "JSON မှတင်သွင်းရန်"
+        },
+        "about": {
+            "title": "📱 အပလီကေးရှင်းအကြောင်း",
+            "version": "ဗားရှင်း",
+            "brand": "Brand",
+            "feedback": "✉️ တုံ့ပြန်ချက် ပေးပို့ရန်"
+        },
+        "modals": {
+            "password": {
+                "title": "စကားဝှက်ပြောင်းရန်",
+                "current": "လက်ရှိ စကားဝှက်",
+                "new": "စကားဝှက်အသစ်",
+                "confirm": "စကားဝှက်အသစ် (အတည်ပြုရန်)",
+                "changing": "ပြောင်းနေပါသည်...",
+                "submit": "စကားဝှက်ပြောင်းရန်"
+            },
+            "join_house": {
+                "title": "အိမ်သို့ ပူးပေါင်းရန်",
+                "key_placeholder": "64-အက္ခရာအိမ် key ထည့်ပါ",
+                "key_help": "မိသားစုဝင်သည့်သူဆီမှရရှိသော key ထည့်ပါ",
+                "name_label": "ဤအိမ်အတွက် အမည် (ပါဝင်နိုင်သည်)",
+                "name_placeholder": "ဥပမာ - မိဘအိမ်",
+                "joining": "ပူးပေါင်းနေပါသည်...",
+                "submit": "အိမ်သို့ ပူးပေါင်းရန်"
+            },
+            "create_house": {
+                "title": "အိမ်အသစ်ဖန်တီးပါ",
+                "name_label": "အိမ်အမည်",
+                "name_placeholder": "ဥပမာ - နွေရာသီအိမ်၊ ရုံးခန်း၊ သိုလှောင်ရုံ",
+                "name_help": "ခေါင်းစဉ်လုပ်ထားမယ်ဆိုရင်၊ “ကျွန်တော်ရဲ့အိမ်အသစ်” ဟုပဲအမည်ပေးမယ်",
+                "info": "ℹ️ အလိုအလျောက် အမျိုးအစားများနှင့် အခန်းများကို အိမ်အသစ်အတွက် ဖန်တီးထားမည် ဖြစ်ပြီး နောက်ပိုင်းပြင်ဆင်နိုင်ပါသည်။",
+                "creating": "ဖန်တီးနေပါသည်...",
+                "submit": "အိမ်ဖန်တီးမည်"
+            },
+            "username": {
+                "title": "အသုံးပြုသူအမည်ပြောင်းရန်",
+                "new_label": "အသုံးပြုသူအမည်အသစ်",
+                "placeholder": "သင့်အသုံးပြုသူအမည်အသစ်",
+                "help": "အက္ခရာ ၃ မှ ၃၀ အတွင်း၊ စာလုံးများ၊ နံပါတ်များ၊ underscore နှင့် dash သာ အသုံးပြုနိုင်သည်",
+                "saving": "စာရင်းသိမ်းဆည်းနေပါသည်...",
+                "submit": "ပြောင်းရန်"
+            }
+        },
+        "select_language": "ဘာသာစကားရွေးချယ်ရန်",
+        "pending_requests": {
+            "title": "My Pending Join Requests",
+            "waiting_since": "Waiting since: {{date, datetime}}",
+            "pending_badge": "Pending"
+        }
+    },
+    "inventory": {
+        "title": "ပစ္စည်းစာရင်း",
+        "subtitle": "{{count}} ပစ္စည်းတွေ တွေ့ပါသည်",
+        "new_item": "ပစ္စည်းအသစ်",
+        "add_first": "ပထမဆုံး ပစ္စည်း ထည့်ပါ",
+        "search_placeholder": "ပစ္စည်းများ ရှာဖွေပါ...",
+        "all_categories": "အားလုံးအမျိုးအစားများ",
+        "all_rooms": "အခန်းအားလုံး",
+        "empty_title": "ပစ္စည်းမတွေ့ပါ",
+        "empty_filter": "သင်ရွေးချယ်ထားသော စာရင်းသတ်မှတ်ချက်များနှင့် ကိုက်ညီသည့် ပစ္စည်း မရှိပါ",
+        "empty_msg": "မည်သည့်ပစ္စည်းမှ မထည့်ထားသေးပါ",
+        "delete_confirm": "ဤပစ္စည်းကို ဖျက်ရန် သေချာပါသလား?",
+        "delete_error": "ဖျက်ခြင်းအမှား"
+    },
+    "categories": {
+        "title": "အမျိုးအစားများ",
+        "subtitle": "{{count}} အမျိုးအစား",
+        "new_category": "အမျိုးအစားအသစ်",
+        "edit_title": "အမျိုးအစားကို ပြင်ဆင်ပါ",
+        "new_title": "အမျိုးအစားအသစ်",
+        "name_label": "အမျိုးအစားအမည်",
+        "icon_label": "သင်္ကေတ",
+        "color_label": "အရောင်",
+        "delete_confirm": "သင်အဆိုပါအမျိုးအစားကိုဖျက်ချင်ကြောင်းသေချာပါသလား?",
+        "delete_error": "ဖျက်ခြင်းအမှား"
+    },
+    "rooms": {
+        "title": "အခန်းများ",
+        "subtitle": "{{count}} အခန်းများ",
+        "new_room": "အခန်းအသစ်",
+        "edit_title": "အခန်းကိုတည်းဖြတ်ပါ",
+        "new_title": "အခန်းအသစ်",
+        "name_label": "အခန်းအမည်",
+        "description_label": "ဖေါ်ပြချက် (ရွေးချယ်စရာ)",
+        "name_placeholder": "ဥပမာ။ မာစတာအခန်း",
+        "desc_placeholder": "ဥပမာ။ အဓိကအခန်း",
+        "delete_confirm": "သင်အခန်းဒီကို ဖျက်ချင်တာအတည်ပြုပြီးလား?",
+        "delete_error": "ဖျက်မှုစနစ်မှား"
+    },
+    "admin": {
+        "title": "အုပ်ချုပ်သူ panel",
+        "subtitle": "စနစ်စီမံခန့်ခွဲမှုနှင့် ကြည့်ရှုခြင်း",
+        "refresh": "ပြန်လည်အပ်ဒိတ်လုပ်ရန်",
+        "tabs": {
+            "dashboard": "အချက်အလက်လုပ်ငန်းခွင်",
+            "users": "အသုံးပြုသူများ",
+            "logs": "မှတ်တမ်းများ",
+            "email": "အီးမေးလ်ပို့ရန်"
+        },
+        "stats": {
+            "total_users": "စုစုပေါင်း အသုံးပြုသူများ",
+            "new_today": "ယနေ့: +{{count}} အသစ်",
+            "total_inventory": "စုစုပေါင်း ပစ္စည်းစာရင်း",
+            "inventory_details": "{{rooms}} ထားရှိခန်းများ၊ {{categories}} အမျိုးအစားများ",
+            "banned_users": "တားမြစ်ထားသောအသုံးပြုသူများ",
+            "access_blocked": "ဝင်ရောက်ခွင့်တားဆီးထားသည်",
+            "server_memory": "ဆာဗာ မှတ်ဉာဏ်",
+            "uptime": "Uptime: {{hours}} hours"
+        },
+        "users": {
+            "user": "သုံးစွဲသူ",
+            "role": "အခန်းကဏ္ဍ",
+            "status": "အခြေအနေ",
+            "action": "လှုပ်ရှားမှု",
+            "banned": "ပိတ်ပင်ခံရ",
+            "active": "တက်ကြွ",
+            "unban": "ပိတ်ပင်ခြင်း",
+            "ban": "ပိတ်ပင်မှု",
+            "delete": "အကောင့်ကို ပယ်ဖျက်",
+            "confirm_ban": "ဒီသုံးစွဲသူကို {{status}} လုပ်ချင်တယ်ဆိုတာ သေချာပါသလား။",
+            "ban_lift": "ပိတ်ပင်ခြင်းကို ဖြည့်",
+            "ban_apply": "ပိတ်ပင်မှု",
+            "confirm_delete_1": "သုံးစွဲသူ \"{{username}}\" ကို ဖျက်လိုကြောင်း သေချာပါသလား။",
+            "confirm_delete_2": "⚠️ သတိပေးချက်: ၎င်းသည် အသုံးပြုသူ \"{{username}}\" ၏ ဒေတာအားလုံး (ကုန်ပစ္စည်းစာရင်းများ၊ အခန်းများ၊ အမျိုးအစားများ) ကို အမြဲတမ်း ဖျက်ပစ်မည်!",
+            "confirm_delete_3": "🚨 နောက်ဆုံးသတိပေးချက်: အကောင့် \"{{username}}\" နှင့် ဒေတာအားလုံးကို နောက်ပြန်မရနိုင်အောင် ဖျက်ပစ်မည်။ ဖြတ်ပြီး ဆက်လုပ်မလား?"
+        },
+        "logs": {
+            "title": "အုပ်ချုပ်သူ မှတ်တမ်းများ",
+            "no_logs": "အခုထိ မှတ်တမ်း မရှိပါ",
+            "errors_title": "စနစ် အမှားများ (နောက်ဆုံး ၁၀ ခု)",
+            "no_errors": "// စနစ်ကျန်းမာနေပြီး အမှား မှတ်တမ်း မရှိပါ။",
+            "date_fmt": "{{date, datetime}}"
+        },
+        "email": {
+            "title": "အီးမေးလ်ပို့မည်",
+            "to": "လက်ခံသူ (To)",
+            "subject": "ခေါင်းစီး",
+            "message": "စာတမ်း (HTML ကိုထောက်ခံသည်)",
+            "placeholder_message": "သင်၏စာကို ဤနေရာတွင် ရိုက်ထည့်ပါ...",
+            "send": "ပို့မည်",
+            "sending": "ပို့နေဆဲ...",
+            "success": "အီးမေးလ်ကို အောင်မြင်စွာ ပို့ပြီးပါပြီ!",
+            "error": "ပို့မရနိုင်ပါ"
+        }
+    },
+    "landing": {
+        "nav": {
+            "login": "လော့ဂ်အင်"
+        },
+        "hero": {
+            "title_1": "အရာအားလုံးကိုစီမံပါ",
+            "title_2": "သင့်အိမ်ထဲမှာ!",
+            "description": "သင့်အိမ်ပစ္စည်းစာရင်းကိုဒစ်ဂျစ်တယ်ပြောင်းပါ။ ပစ္စည်းများကိုအမျိုးအစားခွဲစည်းပြီး အိမ်သားများကိုဖိတ်ကြားပါ၊ နေရာမရွေးလည်း ဝင်ရောက်ကြည့်ရှုနိုင်ပါသည်။ ခေတ်မှီ၊ လုံခြုံပြီး အသုံးပြုရန်လွယ်ကူသည်။",
+            "cta_start": "စတင်ရန်",
+            "cta_register": "အကောင့်ဖန်တီးရန်",
+            "stat_free": "အခမဲ့",
+            "stat_access": "ဝင်ရောက်ကြည့်ရှုရန်"
+        },
+        "features": {
+            "title": "ဘာကြောင့် <1>HomeInventory</1> နည်းလမ်းကို?",
+            "subtitle": "အိမ်စီမံခန့်ခွဲမှုကိုလွယ်ကူစေရန် လိုအပ်သော feature အားလုံးကို တစ်နေရာတည်းတွင်",
+            "items": {
+                "categorize": {
+                    "title": "ပစ္စည်းများကိုအမျိုးအစားခွဲခြားပါ",
+                    "desc": "အခန်းနှင့်အမျိုးအစားအလိုက် အရာအားလုံးကိုအုပ်စည်းပြီး လိုအပ်သည့်အရာကိုစက္ကန့်အနည်းငယ်အတွင်း ရှာဖွေနိုင်ပါသည်။"
+                },
+                "family": {
+                    "title": "အိမ်သဘောတူချက်နှင့် အိမ်သားများကို ဖိတ်ကြားပါ",
+                    "desc": "သင့်ထူးခြားသောအိမ်သော့ကြိုးဖြင့် မိသားစုအဖွဲ့ဝင်များကို ဖိတ်ခေါ်ပါ၊ ပစ္စည်းစာရင်းကို လက်တွဲစီမံပါ။"
+                },
+                "access": {
+                    "title": "နေရာမရွေး ဝင်ရောက်ကြည့်ရှုနိုင်ပါသည်",
+                    "desc": "အိမ်တွင်၊ ရုံးတွင် သို့မဟုတ် နားရက်ဖြုန်းနေစဉ် - မည်သည့်နေရာမှမဆို ပစ္စည်းစာရင်းကို လုံခြုံစွာ ဝင်ရောက်ကြည့်ရှုနိုင်ပါသည်။"
+                },
+                "barcode": {
+                    "title": "ဘားကုဒ်ဖြင့် အမြန်추ပေါင်းထည့်ရန်",
+                    "desc": "ထုတ်ကုန်ဘားကုဒ်များကို စကင်ထားပေးလိုက်ပါ၊ အသေးစိတ်အချက်အလက်များကို အလိုအလျောက် ဖြည့်ပါမည်။"
+                },
+                "security": {
+                    "title": "လုံခြုံပြီး ကိုယ်ပိုင်မှု",
+                    "desc": "သင့်အချက်အလက်များကို ကုဒ်ပြုထားပြီး KVKK အသုံးပြုမှုညီညွတ်မှုအရ ကာကွယ်ထားသည်။"
+                },
+                "backup": {
+                    "title": "မိတ္တူယူခြင်းနှင့် ထုတ်ယူခြင်း",
+                    "desc": "JSON ဖော်မတ်ဖြင့် သင့်ပစ္စည်းစာရင်းကို မိတ္တူယူနိုင်ပြီး၊ မည်သည့်အချိန်မဆို ပြန်လည်ထည့်သွင်းနိုင်ပါသည်။"
+                }
+            }
+        },
+        "cta_bottom": {
+            "title": "ယခုအချိန်မှ စတင်အသုံးပြုပါ!",
+            "description": "အခမဲ့အကောင့်ဖန်တီးပြီး သင့်အိမ်ပစ္စည်းစာရင်းကို ဒစ်ဂျစ်တယ်ပုံသို့ ပြောင်းပါ။ မှတ်ပုံတင်ခြင်း သည် စက်ဝိုင်းအနည်းငယ်သာကြာပါသည်။",
+            "button": "ဝင်ရောက်မည်"
+        },
+        "footer": {
+            "desc": "အိမ်ပစ္စည်းစာရင်းကို ဒစ်ဂျစ်တယ်ပုံသို့ ပြောင်းရန် လွယ်ကူပြီး လုံခြုံသော ပလက်ဖောင်း။",
+            "links": "အမြန်လင့်ခ်များ",
+            "contact": "ဆက်သွယ်ရန်",
+            "copyright": "© {{year}} HomeInventory. အခန်းခြားအကျော်ကြားခွင့်ရှိသည်။"
+        },
+        "preview_privacy_notice": "ဆန်းစစ်ကြည့်ရန် မူကွဲ: အမှန်တကယ်အသုံးပြုသူဒေတာ မပြသပါ။"
+    },
+    "intro": {
+        "inventory": {
+            "title": "မူပစ္စည်းစာရင်း",
+            "content": "ဤနေရာတွင် သင်၏ပစ္စည်းများကို ထည့်သွင်း၍ စာရင်းပြုစုနိုင်သည်။ အိမ်တွင်းပစ္စည်းအားလုံးကို တစ်နေရာတည်းတွင် စောင့်ကြည့်ပါ!"
+        },
+        "house_key": {
+            "title": "အိမ်သော့သည်း",
+            "content": "ဤသည် သင်၏အိမ်သော့သည်းဖြစ်ပြီး၊ အခြားသူများကို ဖိတ်ခေါ်ရန် အသုံးပြုနိုင်သည်။ မိသားစုအဖွဲ့ဝင်များကို အိမ်သို့ ထည့်ပါ!"
+        },
+        "categories": {
+            "title": "အမျိုးအစားများ",
+            "content": "သင့်ပစ္စည်းများကို အမျိုးအစားအားဖြင့် စီစဉ်ပါ။ လျှပ်စစ်ပစ္စည်းများ၊ ပြားပစ္စည်းများ၊ မီးဖိုချောင်နှင့် အခြားများ!"
+        },
+        "buttons": {
+            "back": "ပြန်သွားရန်",
+            "close": "ပိတ်ရန်",
+            "last": "ပြီးဆုံး",
+            "next": "နောက်တစ်ခု",
+            "skip": "ကျော်သွားရန်",
+            "open": "ဖွင့်ရန်"
+        }
+    },
+    "google_house_select": {
+        "title": "မင်္ဂလာပါ!",
+        "subtitle": "ဂူဂဲလ်နဲ့ ဝင်ရောက်ခဲ့ပါတယ်။ ယခု အိမ်တစ်လုံးကို ရွေးချယ်ပါ။",
+        "welcome_options": "ဘာလုပ်ချင်သလဲ။",
+        "create": {
+            "title": "| အိမ်အသစ်ဖန်တီး",
+            "desc": "သင့်ကိုယ်ပိုင်စာရင်းကို စတင်ပါ"
+        },
+        "join": {
+            "title": "လက်ရှိအိမ်နှင့် ပူးပေါင်းပါ",
+            "desc": "မိသားစုဝင်တစ်ဦး၏အိမ်နှင့် ပူးပေါင်းပါ"
+        },
+        "back": "နောက်ကျော",
+        "house_name": "အိမ်အမည် (ရွေးချယ်စရာ)",
+        "house_name_placeholder": "ဥပမာ၊ ကျွန်ုပ်၏အိမ်၊ ရုံးခန်း",
+        "house_name_hint": "အလွတ်ထားပါက \"ကျွန်ုပ်၏အိမ်\"",
+        "house_key": "အိမ်သော့",
+        "house_key_placeholder": "အိမ်သော့ကို ထည့်သွင်း",
+        "house_key_hint": "မိသားစုဝင်တစ်ဦးထံမှ ရရှိသော အက္ခရာ ၆၄ လုံးပါသော့ကို ထည့်သွင်းပါ",
+        "house_name_join": "ဒီအိမ်တော်အတွက် အမည် (ရွေးချယ်စရာ)",
+        "submit_create": "အိမ်ကိုဖန်တီးပါ",
+        "submit_join": "အိမ်တွင်ဝင်ပါ",
+        "processing": "ဖြင့်လုပ်ဆောင်နေစဉ်..."
+    },
+    "scanner": {
+        "title": "ဘားကုဒ်စကင်နာ",
+        "qr_title": "QR ကုဒ်ဖတ်စက်",
+        "init": "ကင်မရာစတင်နေသည်...",
+        "permission_error": "ကင်မရာခွင့်မပေးပါ။ အင်တာနက်ဘရောက်ဇာဆက်တင်များကိုစစ်ဆေးပါ။",
+        "busy_error": "ကင်မရာမရနိုင်ပါ။ အခြားအက်ပ်များကိုပိတ်ပါ။",
+        "not_found_error": "ကင်မရာမတွေ့ပါ။",
+        "generic_error": "ကင်မရာစတင်၍မရနိုင်ပါ။",
+        "hint": "နောက်ခံတွင်ဘားကုဒ်ကိုစင်တာလုပ်ပါ",
+        "qr_hint": "နောက်ခံတွင် QR ကုဒ်ကိုတန်းထားပါ",
+        "searching": "ထုတ်ကုန်ကိုရှာနေပါသည်...",
+        "found_local": "အရင်မှစံထားပြီးသား!",
+        "found_local_msg": "ဤဘားကုဒ်သည်သင်၏ပစ္စည်းစာရင်းတွင်မီလွှတ်ပြီးဖြစ်သည်။",
+        "found_online": "ထုတ်ကုန်တွေ့ပါပြီ!",
+        "google_result": "⚡ Google ရှာဖွေမှု ရလဒ် - စစ်ဆေးပါ",
+        "barcode": "ဘားကုတ်: {{code}}",
+        "new_product": "ထုတ်ကုန်အသစ်",
+        "not_found_db": "ဤဘားကုတ်ကို ဒေတာဘေ့စ်များတွင် မတွေ့ပါ",
+        "google_search": "Google တွင် ရှာဖွေပါ",
+        "quick_add": "အမြန်ထည့်ရန် (နောက်မှ ပြင်ဆင်ရန်)",
+        "rescan": "ထပ်မစစ်ပါ",
+        "retry": "ထပ်မစမ်းရန်",
+        "flash_on": "🔦 ဖလက်ရှ် ဖွင့်ထားသည်",
+        "flash_unsupported": "ဖလက်ရှ် မထောက်ပံ့ပါ",
+        "zoom_hint": "💡 ပေါင်းပြန်အတိုးတက်အောင် လုပ်ပြီး ဖုန်းကို မั่นများမထားပဲ ထားပါ",
+        "found_item_redirect": "အချက်အလက်တွေ့ပါသည်! ပြောင်းရွှေ့နေပြီ...",
+        "found_page_redirect": "စာမျက်နှာတွေ့ပါသည်! ပြောင်းရွှေ့နေပြီ...",
+        "invalid_qr": "ဤ QR ကုဒ်သည် ဤအက်ပ်အတွက် မဟုတ်ပါ",
+        "not_found": "ထုတ်ကုန်မတွေ့ပါ။ အခြားဘားကုတ်ကို ကြိုးစားပါ။"
+    },
+    "item_qr": {
+        "hint_mobile": "📱 သင့်ဖုန်းဖြင့် ဒီ QR ကုဒ်ကို Scan လုပ်ပြီး ပစ္စည်းကို အမြန် ဝင်ရောက်ကြည့်ရှုနိုင်ပါသည်",
+        "network_ip": "နက်၀က်ခ် IP",
+        "url_loading": "URL ကို loading လုပ်နေပါသည်...",
+        "copied": "မိတ္တာကူးယူပြီးပါပြီ!",
+        "copy_url": "URL ကို ကူးယူပါ",
+        "download": "QR ကို ဒေါင်းလုဒ် လုပ်ပါ",
+        "usage_title": "အသုံးပြုခြင်း",
+        "usage_desc": "QR ကုဒ်ကို ပုံနှိပ်ပြီး ပစ္စည်းပေါ်တွင် ပေါက်ထားပါ။ သင့်ဖုန်းဖြင့် Scan လုပ်ပြီး ဤစာမျက်နှာကို ချက်ချင်း ဝင်ရောက်ကြည့်ရှုနိုင်ပါသည်!"
+    },
+    "house_access_pending": {
+        "eyebrow": "House Access",
+        "fallback_house": "Selected house",
+        "signed_in_as": "Signed in as {{username}}",
+        "logout": "Logout",
+        "messages": {
+            "create_error": "Could not create house",
+            "join_success": "Your join request was sent",
+            "join_error": "Could not send join request"
+        },
+        "pending": {
+            "title": "Waiting for house owner approval",
+            "description": "Your request for \"{{house}}\" is still waiting for a decision.",
+            "current_request": "Current pending request: {{house}}"
+        },
+        "no_house": {
+            "title": "You are not connected to a house right now",
+            "description": "Create a new house or send a join request to an existing one."
+        },
+        "create": {
+            "title": "Create a New House",
+            "description": "Start your own home inventory and continue right away.",
+            "name_label": "House Name",
+            "name_placeholder": "e.g. My Home, Summer House, Storage",
+            "submitting": "Creating...",
+            "submit": "Create House"
+        },
+        "join": {
+            "title": "Send a Join Request",
+            "description": "Enter a house key and send the request directly to the house owner.",
+            "key_label": "House Key",
+            "key_placeholder": "Enter the 64-character house key",
+            "submitting": "Sending...",
+            "submit": "Send Request"
+        }
+    }
+}

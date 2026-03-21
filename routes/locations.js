@@ -1,11 +1,17 @@
 import express from 'express';
 import db from '../database.js';
-import { authenticateToken } from '../middleware/auth.js';
+import { authenticateToken, requireActiveHouse } from '../middleware/auth.js';
+import {
+    decryptLocationRecord,
+    encryptLocationName,
+    sortByName
+} from '../utils/protectedFields.js';
 
 const router = express.Router();
 
 // Apply auth to all routes
 router.use(authenticateToken);
+router.use(requireActiveHouse);
 
 // Get locations (only from same house)
 router.get('/', (req, res) => {
@@ -26,9 +32,7 @@ router.get('/', (req, res) => {
             params.push(room_id);
         }
 
-        query += ' ORDER BY locations.name';
-
-        const locations = db.prepare(query).all(...params);
+        const locations = sortByName(db.prepare(query).all(...params).map(decryptLocationRecord));
         res.json({ locations });
     } catch (err) {
         console.error('Get locations error:', err);
@@ -47,9 +51,9 @@ router.post('/', (req, res) => {
 
         const result = db.prepare(
             'INSERT INTO locations (name, room_id, created_by, is_public, house_key) VALUES (?, ?, ?, ?, ?)'
-        ).run(name, room_id || null, req.user.id, is_public ? 1 : 0, req.user.house_key);
+        ).run(encryptLocationName(name), room_id || null, req.user.id, is_public ? 1 : 0, req.user.house_key);
 
-        const location = db.prepare('SELECT * FROM locations WHERE id = ?').get(result.lastInsertRowid);
+        const location = decryptLocationRecord(db.prepare('SELECT * FROM locations WHERE id = ?').get(result.lastInsertRowid));
 
         res.status(201).json({ message: 'Konum eklendi', location });
     } catch (err) {
@@ -64,9 +68,11 @@ router.put('/:id', (req, res) => {
         const { name, room_id, is_public } = req.body;
         const locationId = req.params.id;
 
-        const existing = db.prepare(
+        const existingRow = db.prepare(
             'SELECT * FROM locations WHERE id = ? AND created_by = ? AND house_key = ?'
         ).get(locationId, req.user.id, req.user.house_key);
+
+        const existing = decryptLocationRecord(existingRow);
 
         if (!existing) {
             return res.status(404).json({ error: 'Konum bulunamadı veya yetkiniz yok' });
@@ -75,13 +81,13 @@ router.put('/:id', (req, res) => {
         db.prepare(
             'UPDATE locations SET name = ?, room_id = ?, is_public = ? WHERE id = ?'
         ).run(
-            name || existing.name,
+            name ? encryptLocationName(name) : existingRow.name,
             room_id !== undefined ? room_id : existing.room_id,
             is_public !== undefined ? (is_public ? 1 : 0) : existing.is_public,
             locationId
         );
 
-        const location = db.prepare('SELECT * FROM locations WHERE id = ?').get(locationId);
+        const location = decryptLocationRecord(db.prepare('SELECT * FROM locations WHERE id = ?').get(locationId));
         res.json({ message: 'Konum güncellendi', location });
     } catch (err) {
         console.error('Update location error:', err);

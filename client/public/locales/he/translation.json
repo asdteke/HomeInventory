@@ -1,0 +1,696 @@
+{
+    "items": {
+        "qrcode": {
+            "title": "QR Code",
+            "desc": "אתה יכול להדפיס ולהדביק את קוד ה-QR הזה על הפריט. סריקה שלו מפנה ישירות לדף זה."
+        },
+        "title_new": "הוסף פריט חדש",
+        "title_edit": "ערוך פריט",
+        "subtitle": "הזן פרטי פריט",
+        "load_error": "נכשל בטעינת הפריט",
+        "form": {
+            "name": "שם הפריט",
+            "name_placeholder": "לדוגמה: טלוויזיה סמסונג 55 אינץ'",
+            "required": "*",
+            "description": "תיאור",
+            "description_placeholder": "הערות על הפריט...",
+            "quantity": "כמות",
+            "category": "קטגוריה",
+            "select_category": "בחר",
+            "room": "חדר",
+            "select_room": "בחר חדר",
+            "location_details": "פרטי מיקום",
+            "location_optional": "(אופציונלי)",
+            "location_placeholder": "חפש או הוסף מיקום חדש...",
+            "location_help": "איפה בחדר? (למשל 'מדף עליון של הארון הכחול')",
+            "location_create": "צור מיקום \"{{name}}\"",
+            "location_privacy": "פרטיות מיקום",
+            "location_public": "כולם יכולים לראות מיקום זה",
+            "location_private": "רק אתה יכול לראות את זה",
+            "location_save": "שמור מיקום",
+            "location_saving": "מתווסף...",
+            "location_selected": "מיקום נבחר: {{name}}",
+            "location_empty": "עדיין לא הוגדר מיקום בחדר הזה. התחיל להקליד כדי ליצור אחד.",
+            "photo": "צילום",
+            "add_photo": "הוסף",
+            "barcode": "ברקוד",
+            "barcode_optional": "(רשות)",
+            "barcode_placeholder": "לדוגמה 8690123456789",
+            "scan_barcode": "סרוק ברקוד",
+            "search_db": "חיפוש בבסיס הנתונים",
+            "search_google": "חיפוש בגוגל",
+            "barcode_saved": "✓ הברקוד יישמר",
+            "visibility": "נראות הפריט",
+            "visibility_public": "נראית לכל חברי הבית",
+            "visibility_private": "נראית רק לך",
+            "submit_add": "הוסף פריט",
+            "submit_save": "שמור שינויים",
+            "submitting": "שמירה..."
+        },
+        "messages": {
+            "quick_add_success": "✓ \"{{barcode}}\" נוסף במהירות - ניתן לערוך מאוחר יותר",
+            "quick_add_fail": "⚠ ההוספה המהירה נכשלה",
+            "searching": "מחפש...",
+            "found_local": "✓ מקומי: רשום כ-\"{{name}}\"",
+            "found_remote": "✓ נמצא ב-{{source}} {{note}}: \"{{name}}\"",
+            "not_found": "⚠ המוצר לא נמצא במסדי הנתונים. אתה יכול לחפש בגוגל.",
+            "search_fail": "⚠ החיפוש נכשל",
+            "name_required": "שם הפריט נדרש",
+            "location_add_error": "נכשל בהוספת מיקום"
+        }
+    },
+    "common": {
+        "save": "שמור",
+        "cancel": "ביטול",
+        "loading": "טוען...",
+        "error": "אירעה שגיאה",
+        "success": "הפעולה הצליחה",
+        "search": "חיפוש...",
+        "edit": "ערוך",
+        "delete": "מחק",
+        "add": "הוסף",
+        "new": "חדש",
+        "all": "הכל",
+        "manage": "נהל",
+        "help_support": "עזרה ותמיכה",
+        "theme": {
+            "light": "מצב בהיר",
+            "dark": "מצב כהה"
+        },
+        "select": "בחר",
+        "refresh": "רענן",
+        "close": "סגור",
+        "logout": "התנתק",
+        "copyright": "© {{year}} HomeInventory - כל הזכויות שמורות"
+    },
+    "auth": {
+        "login": {
+            "title": "התחבר",
+            "subtitle": "נהל את כל המלאי בביתך בצורה חכמה",
+            "welcome": "ברוך הבא ל-HomeInventory",
+            "username_or_email": "שם משתמש או דוא\"ל",
+            "password": "סיסמה",
+            "forgot_password": "שכחת סיסמה?",
+            "submit": "התחבר",
+            "submitting": "מתחבר...",
+            "google_continue": "המשך עם Google",
+            "or": "או",
+            "no_account": "אין לכם חשבון?",
+            "register_link": "הירשמו",
+            "support_contact": "לבעיות בהתחברות:",
+            "terms_title": "📋 תנאי שימוש והצהרת אחריות",
+            "terms_beta": "גרסת בטא: HomeInventory נמצאת כרגע בשלב ניסיוני. אין ערבות לתקפות או לביטחון הנתונים שלכם.",
+            "terms_disclaimer": "הצהרת אחריות: בשימוש באפליקציה זו, אתם מסכימים שאינכם יכולים לטעון לפיצוי עקב אובדן נתונים אפשרי, בעיות גישה או תקלות טכניות אחרות.",
+            "terms_backup": "גיבוי נתונים: אנו ממליצים בחום לבצע גיבוי קבוע של המידע החשוב שלכם.",
+            "terms_accept": "בהתחברותכם, נחשב שאתם מקבלים תנאים אלה."
+        },
+        "register": {
+            "title": "ברוכים הבאים ל-HomeInventory",
+            "subtitle": "יצירת חשבון חדש או הצטרפות לבית קיים",
+            "create_house": "צור בית חדש",
+            "join_house": "הצטרף לבית",
+            "create_house_desc": "🏠 בית חדש ייווצר ותקבלו <strong>מפתח בית</strong> ייחודי. שתפו מפתח זה עם המשפחה כדי לגשת לאותו המלאי.",
+            "join_house_desc": "👨‍👩‍👧‍👦 הכניסו את <strong>מפתח הבית</strong> ששיתפו אתכם כדי להצטרף לבית קיים. כל מי שיש לו את המפתח יכול לגשת למלאי המשותף.",
+            "form_title": "הירשם",
+            "username": "שם משתמש",
+            "username_placeholder": "לדוגמה: john",
+            "email": "דוא\"ל",
+            "email_placeholder": "לדוגמה: john@example.com",
+            "password": "סיסמה",
+            "password_placeholder": "לפחות 6 תווים",
+            "password_confirm": "אשר סיסמה",
+            "password_confirm_placeholder": "הקלד את הסיסמה שוב",
+            "house_key": "מפתח בית",
+            "house_key_placeholder": "הדבק את מפתח הבית בן 64 התווים",
+            "submit_create": "צור בית חדש",
+            "submit_join": "הצטרף לבית",
+            "submitting": "נרשם...",
+            "already_have_account": "כבר יש לך חשבון?",
+            "login_link": "התחברות",
+            "support": "בעיות רישום:",
+            "terms": "תנאי שימוש והצהרת אחריות",
+            "passwords_mismatch": "הסיסמאות אינן תואמות",
+            "password_length": "הסיסמה חייבת להיות לפחות 6 תווים",
+            "key_required": "מפתח הבית נדרש כדי להצטרף לבית קיים",
+            "modals": {
+                "key_created": {
+                    "title": "🎉 הבית נוצר!",
+                    "subtitle": "שמור את המפתח למטה במקום בטוח",
+                    "warning": "חשוב: מפתח זה יופיע רק פעם אחת. שתפו אותו עם בני משפחה כדי שיוכלו לגשת לאותו מלאי.",
+                    "copy": "העתק",
+                    "copied": "הועתק",
+                    "button": "שמרתי את המפתח, המשך"
+                },
+                "email_verification": {
+                    "title": "📧 דרושה אימות דוא\"ל",
+                    "message": "החשבון נוצר! נא לאמת את כתובת הדוא\"ל שלך כדי להתחבר.",
+                    "step_1": "שלחנו דוא\"ל לאימות ל-<1>{{email}}</1>.",
+                    "step_2": "לחץ על הכפתור <1>\"אמת את החשבון שלי\"</1> בדוא\"ל.",
+                    "step_3": "לאחר האימות, <1>תוכל להתחבר</1>.",
+                    "spam_note": "בדוק את תיקיית הספאם/זבל אם המייל לא מגיע.",
+                    "key_note": "חשוב: מפתח הבית שלך נשלח גם הוא במייל. תוכל לשתף אותו עם בני משפחה.",
+                    "button": "טוב, עבור להתחברות"
+                }
+            }
+        },
+        "forgot_password": {
+            "title": "Forgot Password",
+            "subtitle": "Start a secure recovery flow to access your account again.",
+            "identifier": "Username or Email",
+            "identifier_placeholder": "e.g. john or john@example.com",
+            "submit": "Start Recovery",
+            "requesting": "Checking...",
+            "email_success": "If an account exists, a password reset link valid for 15 minutes has been sent.",
+            "back_to_login": "Back to Login",
+            "recovery_mode_info": "Email is disabled on this server. Continue with the Recovery Key you saved during account setup.",
+            "recovery_key": "Recovery Key",
+            "recovery_key_placeholder": "e.g. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "reset_submit": "Reset Password",
+            "resetting": "Resetting..."
+        },
+        "reset_password": {
+            "title": "Reset Password",
+            "subtitle": "Use the secure link to set a new password.",
+            "missing_token": "The password reset link looks incomplete or broken.",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "submit": "Update Password",
+            "submitting": "Updating...",
+            "back_to_login": "Back to Login"
+        },
+        "recovery_setup": {
+            "title": "Create Recovery Key",
+            "subtitle": "Until this is completed, your account is not considered safe for local password recovery.",
+            "warning": "This key will only be shown once. Save it in a password manager or another secure offline location.",
+            "account": "A recovery key will be created for account {{username}}.",
+            "description": "Because email is disabled, you will only be able to reset your password with this key in the future.",
+            "submit": "Create Recovery Key",
+            "generating": "Creating..."
+        },
+        "recovery_key_modal": {
+            "register_title": "Save Your Recovery Key",
+            "google_title": "Save Your Recovery Key",
+            "setup_title": "Save Your Recovery Key",
+            "reset_title": "Save Your New Recovery Key",
+            "settings_title": "Save Your New Recovery Key",
+            "subtitle": "This key is shown only once.",
+            "warning": "If you lose this key while email is disabled, you may not be able to recover your password. Copy it and store it safely.",
+            "confirm": "I Saved the Key"
+        }
+    },
+    "navigation": {
+        "home": "בית",
+        "inventory": "מלאי",
+        "rooms": "חדרים",
+        "categories": "קטגוריות",
+        "settings": "הגדרות",
+        "new_item": "פריט חדש",
+        "share_house": "שתף את הבית",
+        "admin_panel": "לוח מנהל",
+        "logout": "התנתackson",
+        "menu": "תפריט"
+    },
+    "dashboard": {
+        "welcome": "ברוך הבא, <1>{{name}}</1>! 👋",
+        "subtitle": "סקירה של המלאי שלך",
+        "quick_search": "חיפוש מהיר...",
+        "filters": {
+            "private": "🔒 הפריטים הפרטיים שלי",
+            "public": "🌐 ציבורי",
+            "remove": "נקה מסנן",
+            "no_items": "אין פריטים שתואמים את המסנן הזה"
+        },
+        "stats": {
+            "total_items": "סך הפריטים",
+            "total_quantity": "סך הכמות",
+            "fullest_room": "החדר המלא ביותר",
+            "category_count": "קטגוריות",
+            "items_suffix": "פריטים"
+        },
+        "recent_items": {
+            "title": "נוספו לאחרונה",
+            "see_all": "צפה בכל"
+        },
+        "categories": {
+            "title": "קטגוריות",
+            "manage": "נהל",
+            "empty": "עדיין לא נוסף פריט"
+        },
+        "rooms": {
+            "title": "חדרים",
+            "manage": "נהל"
+        },
+        "quick_actions": {
+            "title": "⚡ פעולות מהירות",
+            "add_item": "הוסף פריט",
+            "search_item": "חפש פריט",
+            "categories": "קטגוריות",
+            "settings": "הגדרות"
+        }
+    },
+    "beta_banner": {
+        "title": "בטא:",
+        "text": "HomeInventory נמצא כרגע בשלב בדיקה ותחביב. אין ערבות לשמירת נתונים או לביטחונם. נא לשמור גיבויים של מידע חשוב.",
+        "contact": "צור קשר:"
+    },
+    "footer": {
+        "rights": "© {{year}} HomeInventory - כל הזכויות שמורות",
+        "contact": "צור קשר:"
+    },
+    "settings": {
+        "title": "הגדרות",
+        "subtitle": "ניהול העדפות האפליקציה",
+        "messages": {
+            "house_switched": "✅ {{name}} הופעל!",
+            "house_switch_error": "נכשל במעבר לבית",
+            "house_joined_success": "✅ הצטרפת בהצלחה לבית!",
+            "house_join_error": "נכשל בהצטרפות לבית",
+            "house_created_success": "✅ \"{{name}}\" נוצר!",
+            "house_create_error": "נכשל ביצירת הבית",
+            "house_left_success": "עזבת את הבית בהצלחה",
+            "house_left_error": "נכשל בעזיבת הבית",
+            "house_leave_confirm": "האם אתה בטוח שברצונך לעזוב את \"{{name}}\"?",
+            "backup_downloaded": "✅ הגיבוי הורד בהצלחה! ({{count}} פריטים)",
+            "export_error": "❌ אירעה שגיאה במהלך הייצוא",
+            "import_invalid_format": "פורמט קובץ גיבוי לא תקין",
+            "import_success": "✅ {{items}} פריטים, {{categories}} קטגוריות, {{rooms}} חדרים, {{locations}} מיקומים נוספו.",
+            "import_error": "❌ שגיאת ייבוא: {{error}}",
+            "password_changed": "סיסמה שונתה בהצלחה!",
+            "password_error_current": "הסיסמה הנוכחית שגויה",
+            "password_error_invalid": "נתונים שנשלחו לא תקינים",
+            "session_expired": "ההפעלה פגה. אנא היכנס שוב.",
+            "server_error": "אירעה שגיאת שרת",
+            "connection_error": "לא ניתן להתחבר לשרת. בדוק את חיבור האינטרנט שלך.",
+            "unexpected_error": "אירעה שגיאה בלתי צפויה",
+            "username_changed": "✅ שם המשתמש שונה!",
+            "username_error": "לא ניתן לשנות את שם המשתמש",
+            "username_len_error": "שם המשתמש חייב להיות באורך של לפחות 3 תווים",
+            "fill_all_fields": "אנא מלא את כל השדות",
+            "passwords_mismatch": "הסיסמאות החדשות אינן תואמות",
+            "password_min_len": "הסיסמה החדשה חייבת להכיל לפחות 6 תווים",
+            "house_request_sent_success": "✅ Your join request was sent!",
+            "request_approved": "✅ Join request approved",
+            "request_rejected": "Join request rejected",
+            "request_action_error": "Could not update request",
+            "member_kick_confirm": "Are you sure you want to remove \"{{name}}\" from the house?",
+            "member_kicked": "Member removed from the house",
+            "member_kick_error": "Could not remove member from the house",
+            "recovery_key_regenerated": "Recovery key regenerated",
+            "recovery_key_error": "Could not regenerate recovery key"
+        },
+        "user_profile": {
+            "edit_username": "שנה שם משתמש"
+        },
+        "my_houses": {
+            "title": "הבתים שלי",
+            "join_house": "הצטרף לבית",
+            "join_short": "הצטרף",
+            "new_house": "בית חדש",
+            "new_short": "חדש",
+            "no_house": "עדיין אינך חבר באף בית",
+            "owner": "בעלים",
+            "active": "פעיל",
+            "member_count": "{{count}} חברים",
+            "item_count": "{{count}} פריטים",
+            "switch": "החלף",
+            "leave": "עזוב את הבית",
+            "info": "💡 אתה יכול להיות חבר בכמה בתים ולעבור ביניהם. כל בית שומר רשימת מלאי נפרדת."
+        },
+        "house_info": {
+            "title": "מפתח הבית הפעיל",
+            "key_label": "מפתח הבית",
+            "mask_key": "••••••••{{suffix}}",
+            "hide": "הסתר",
+            "show": "הצג",
+            "copy": "העתק",
+            "share_info": "💡 משתמשים שאתה משתף איתם את המפתח הזה יכולים לגשת למלאי שלך באמצעות אפשרות \"הצטרף לבית\" בזמן ההרשמה.",
+            "members_title": "חברי הבית ({{count}})",
+            "you": "(אתה)",
+            "joined_at": "הצטרף: {{date, datetime}}",
+            "no_members": "אין חברים נוספים עדיין",
+            "invite_title": "הזמן בני משפחה",
+            "invite_desc": "שתף את מפתח הבית שלך כדי לאפשר לבני משפחה לגשת לאותו מלאי. כל חבר נכנס עם החשבון שלו אך ניגש לאותם נתונים.",
+            "active_members": "Active Members",
+            "pending_requests": "Pending Requests",
+            "no_pending_requests": "No pending requests",
+            "owner_controls": "Owner controls enabled",
+            "approve": "Approve",
+            "reject": "Reject",
+            "kick": "Remove"
+        },
+        "theme": {
+            "title": "נושא",
+            "dark": "מצב כהה",
+            "light": "מצב בהיר"
+        },
+        "security": {
+            "title": "אבטחה",
+            "change_password": "שנה סיסמה",
+            "change_password_desc": "עדכן את סיסמת החשבון שלך",
+            "recovery_key_title": "Recovery Key",
+            "recovery_key_desc": "You can generate a new key for local password recovery.",
+            "recovery_key_missing": "No recovery key is visible for this account yet.",
+            "current_key_label": "Saved Recovery Key",
+            "recovery_key_unavailable": "The current recovery key cannot be displayed. Regenerate it if needed.",
+            "recovery_key_action": "Regenerate",
+            "recovery_key_modal_desc": "Confirm your current password to continue. The new key will be shown only once.",
+            "recovery_key_loading": "Preparing..."
+        },
+        "data_management": {
+            "title": "ניהול נתונים",
+            "download_backup": "הורד גיבוי",
+            "downloading": "מוריד...",
+            "export_json": "ייצא כ-JSON",
+            "upload_backup": "העלה גיבוי",
+            "uploading": "מעלה...",
+            "import_json": "ייבא מ-JSON"
+        },
+        "about": {
+            "title": "📱 אודות האפליקציה",
+            "version": "גרסה",
+            "brand": "מותג",
+            "feedback": "✉️ שלח משוב"
+        },
+        "modals": {
+            "password": {
+                "title": "שנה סיסמה",
+                "current": "סיסמה נוכחית",
+                "new": "סיסמה חדשה",
+                "confirm": "סיסמה חדשה (אישור)",
+                "changing": "משנה...",
+                "submit": "שנה סיסמה"
+            },
+            "join_house": {
+                "title": "הצטרף לבית",
+                "key_placeholder": "הזן מפתח בית באורך 64 תווים",
+                "key_help": "הזן את המפתח שקיבלת מבן משפחתך",
+                "name_label": "שם לבית זה (אופציונלי)",
+                "name_placeholder": "לדוגמה, בית ההורים",
+                "joining": "מצטרף...",
+                "submit": "הצטרף לבית"
+            },
+            "create_house": {
+                "title": "צור בית חדש",
+                "name_label": "שם הבית",
+                "name_placeholder": "לדוגמה בית קיץ, משרד, מחסן",
+                "name_help": "אם תשאיר ריק, הבית יקרא \"הבית החדש שלי\"",
+                "info": "ℹ️ קטגוריות וחדרים ברירת מחדל ייווצרו לבית החדש. ניתן לערוך אותם מאוחר יותר.",
+                "creating": "ביצוע יצירה...",
+                "submit": "צור בית"
+            },
+            "username": {
+                "title": "שנה שם משתמש",
+                "new_label": "שם משתמש חדש",
+                "placeholder": "שם המשתמש החדש שלך",
+                "help": "3-30 תווים, אותיות, ספרות, קו תחתון וקו תחתי בלבד",
+                "saving": "שמירה...",
+                "submit": "שנה"
+            }
+        },
+        "select_language": "בחר שפה",
+        "pending_requests": {
+            "title": "My Pending Join Requests",
+            "waiting_since": "Waiting since: {{date, datetime}}",
+            "pending_badge": "Pending"
+        }
+    },
+    "inventory": {
+        "title": "מלאי",
+        "subtitle": "{{count}} פריטים נמצאו",
+        "new_item": "פריט חדש",
+        "add_first": "הוסף פריט ראשון",
+        "search_placeholder": "חפש פריטים...",
+        "all_categories": "כל הקטגוריות",
+        "all_rooms": "כל החדרים",
+        "empty_title": "לא נמצאו פריטים",
+        "empty_filter": "אין פריטים התואמים את המסננים שלך",
+        "empty_msg": "לא נוספו פריטים עדיין",
+        "delete_confirm": "האם אתה בטוח שברצונך למחוק פריט זה?",
+        "delete_error": "שגיאת מחיקה"
+    },
+    "categories": {
+        "title": "קטגוריות",
+        "subtitle": "{{count}} קטגוריות",
+        "new_category": "קטגוריה חדשה",
+        "edit_title": "ערוך קטגוריה",
+        "new_title": "קטגוריה חדשה",
+        "name_label": "שם קטגוריה",
+        "icon_label": "אייקון",
+        "color_label": "צבע",
+        "delete_confirm": "האם אתה בטוח שברצונך למחוק קטגוריה זו?",
+        "delete_error": "שגיאת מחיקה"
+    },
+    "rooms": {
+        "title": "חדרים",
+        "subtitle": "{{count}} חדרים",
+        "new_room": "חדר חדש",
+        "edit_title": "ערוך חדר",
+        "new_title": "חדר חדש",
+        "name_label": "שם החדר",
+        "description_label": "תיאור (אופציונלי)",
+        "name_placeholder": "לדוגמה, חדר שינה ראשי",
+        "desc_placeholder": "לדוגמה, חדר השינה הראשי",
+        "delete_confirm": "האם אתה בטוח שברצונך למחוק את החדר הזה?",
+        "delete_error": "שגיאת מחיקה"
+    },
+    "admin": {
+        "title": "לוח ניהול",
+        "subtitle": "ניהול ומעקב מערכת",
+        "refresh": "רענן",
+        "tabs": {
+            "dashboard": "לוח מחוונים",
+            "users": "משתמשים",
+            "logs": "יומנים",
+            "email": "שלח דוא\"ל"
+        },
+        "stats": {
+            "total_users": "סך המשתמשים",
+            "new_today": "היום: +{{count}} חדשים",
+            "total_inventory": "סך המלאי",
+            "inventory_details": "{{rooms}} חדרים, {{categories}} קטגוריות",
+            "banned_users": "משתמשים חסומים",
+            "access_blocked": "גישה נחסמה",
+            "server_memory": "זיכרון שרת",
+            "uptime": "זמן פעולה: {{hours}} שעות"
+        },
+        "users": {
+            "user": "משתמש",
+            "role": "תפקיד",
+            "status": "מצב",
+            "action": "פעולה",
+            "banned": "חסום",
+            "active": "פעיל",
+            "unban": "ביטול חסימה",
+            "ban": "חסום",
+            "delete": "מחק חשבון",
+            "confirm_ban": "האם אתה בטוח שאתה רוצה {{status}} את המשתמש הזה?",
+            "ban_lift": "ביטול חסימה",
+            "ban_apply": "חסום",
+            "confirm_delete_1": "האם אתה בטוח שאתה רוצה למחוק את המשתמש \"{{username}}\"?",
+            "confirm_delete_2": "⚠️ אזהרה: זה ימחק לצמיתות את כל הנתונים (מלאי, חדרים, קטגוריות) של המשתמש \"{{username}}\"!",
+            "confirm_delete_3": "🚨 אזהרה סופית: החשבון \"{{username}}\" וכל הנתונים ימחקו ללא יכולת שחזור. האם אתה רוצה להמשיך?"
+        },
+        "logs": {
+            "title": "יומני מנהל",
+            "no_logs": "אין יומנים עדיין",
+            "errors_title": "שגיאות מערכת (10 האחרונות)",
+            "no_errors": "// המערכת בריאה, אין יומני שגיאות.",
+            "date_fmt": "{{date, datetime}}"
+        },
+        "email": {
+            "title": "שלח אימייל",
+            "to": "נמען (אל)",
+            "subject": "נושא",
+            "message": "הודעה (תמיכה ב-HTML)",
+            "placeholder_message": "הקלד כאן את ההודעה שלך...",
+            "send": "שלח",
+            "sending": "נשלח...",
+            "success": "האימייל נשלח בהצלחה!",
+            "error": "שליחה נכשלה"
+        }
+    },
+    "landing": {
+        "nav": {
+            "login": "התחברות"
+        },
+        "hero": {
+            "title_1": "ניהול הכל",
+            "title_2": "בבית שלך!",
+            "description": "דיגיטציה של מלאי הבית שלך. מיין פריטים לפי קטגוריות, הזמן משפחה, והיכנס מכל מקום. מודרני, מאובטח, וקל לשימוש.",
+            "cta_start": "התחל עכשיו",
+            "cta_register": "צור חשבון",
+            "stat_free": "חינם",
+            "stat_access": "גישה"
+        },
+        "features": {
+            "title": "למה <1>HomeInventory</1>?",
+            "subtitle": "כל הפיצ'רים לפישוט ניהול הבית בפלטפורמה אחת",
+            "items": {
+                "categorize": {
+                    "title": "מיין פריטים",
+                    "desc": "ארגן את כל הפריטים לפי חדר וקטגוריה, מצא את מה שאתה צריך בשניות."
+                },
+                "family": {
+                    "title": "הזמן משפחה עם מפתח בית",
+                    "desc": "הזמינו בני משפחה עם מפתח הבית הייחודי שלכם, נהל את המלאי יחד."
+                },
+                "access": {
+                    "title": "גישה מכל מקום",
+                    "desc": "בבית, בעבודה, או בחופשה - גש למלאי שלך בבטחה מכל מקום."
+                },
+                "barcode": {
+                    "title": "הוספה מהירה עם ברקוד",
+                    "desc": "סרוק ברקודים של מוצרים, הפרטים מתמלאים אוטומטית."
+                },
+                "security": {
+                    "title": "מאובטח ופרטי",
+                    "desc": "הנתונים שלך מוצפנים ומוגנים בתשתית התואמת ל-KVKK."
+                },
+                "backup": {
+                    "title": "גיבוי וייצוא",
+                    "desc": "גבה את המלאי שלך בפורמט JSON, שחזר מתי שתרצה."
+                }
+            }
+        },
+        "cta_bottom": {
+            "title": "התחל להשתמש עכשיו!",
+            "description": "צור חשבון חינם ודיגיטל את מלאי הבית שלך. ההרשמה לוקחת רק כמה שניות.",
+            "button": "כניסה"
+        },
+        "footer": {
+            "desc": "הפלטפורמה הקלה והבטוחה לדיגיטציה של מלאי הבית שלך.",
+            "links": "קישורים מהירים",
+            "contact": "צרו איתנו קשר",
+            "copyright": "© {{year}} HomeInventory. כל הזכויות שמורות."
+        },
+        "preview_privacy_notice": "הצגת הדגמה: אין הצגת נתוני משתמש אמיתיים."
+    },
+    "intro": {
+        "inventory": {
+            "title": "מלאי",
+            "content": "כאן תוכלו להוסיף ולרשום את הפריטים שלכם. עקבו אחרי כל פריטי הבית במקום אחד!"
+        },
+        "house_key": {
+            "title": "מפתח הבית",
+            "content": "זהו מפתח הבית שלכם, השתמשו בו כדי להזמין אחרים. הוסיפו בני משפחה לביתכם!"
+        },
+        "categories": {
+            "title": "קטגוריות",
+            "content": "ארגנו לפי קטגוריות את הפריטים שלכם. אלקטרוניקה, רהיטים, מטבח ועוד!"
+        },
+        "buttons": {
+            "back": "חזרה",
+            "close": "סגור",
+            "last": "סיום",
+            "next": "הבא",
+            "skip": "דלג",
+            "open": "פתח"
+        }
+    },
+    "google_house_select": {
+        "title": "ברוכים הבאים!",
+        "subtitle": "התחברת עם Google. כעת בחר בית.",
+        "welcome_options": "מה ברצונך לעשות?",
+        "create": {
+            "title": "צור בית חדש",
+            "desc": "התחל את המלאי שלך"
+        },
+        "join": {
+            "title": "הצטרף לבית קיים",
+            "desc": "הצטרף לבית של בן משפחה"
+        },
+        "back": "חזור",
+        "house_name": "שם הבית (אופציונלי)",
+        "house_name_placeholder": "לדוגמה: הבית שלי, משרד",
+        "house_name_hint": "אם תשאיר ריק, הוא יקרא \"הבית שלי\"",
+        "house_key": "מפתח הבית",
+        "house_key_placeholder": "הזן את מפתח הבית",
+        "house_key_hint": "הזן את המפתח בן 64 התווים שקיבלת מבן משפחה",
+        "house_name_join": "שם עבור הבית הזה (אופציונלי)",
+        "submit_create": "צור בית",
+        "submit_join": "הצטרף לבית",
+        "processing": "מעבד..."
+    },
+    "scanner": {
+        "title": "סורק ברקוד",
+        "qr_title": "קורא קוד QR",
+        "init": "מפעיל מצלמה...",
+        "permission_error": "הרשאת מצלמה נדחתה. בדוק את הגדרות הדפדפן.",
+        "busy_error": "המצלמה עסוקה. סגור אפליקציות אחרות.",
+        "not_found_error": "מצלמה לא נמצאה.",
+        "generic_error": "לא ניתן להפעיל את המצלמה.",
+        "hint": "מרכז את הברקוד בתוך המסגרת",
+        "qr_hint": "יישור קוד QR במסגרת",
+        "searching": "מחפש מוצר...",
+        "found_local": "כבר רשום!",
+        "found_local_msg": "הברקוד הזה כבר נמצא במלאי שלך.",
+        "found_online": "מוצר נמצא!",
+        "google_result": "⚡ תוצאת חיפוש בגוגל - נא לוודא",
+        "barcode": "ברקוד: {{code}}",
+        "new_product": "מוצר חדש",
+        "not_found_db": "ברקוד זה לא נמצא במאגרי המידע.",
+        "google_search": "חפש בגוגל",
+        "quick_add": "הוסף במהירות (ערוך מאוחר יותר)",
+        "rescan": "סרוק שוב",
+        "retry": "נסה שוב",
+        "flash_on": "🔦 הפעל פלאש",
+        "flash_unsupported": "הפלאש אינו נתמך",
+        "zoom_hint": "💡 הגדל זום להבהרה והחזק את הטלפון יציב",
+        "found_item_redirect": "פריט נמצא! מעביר...",
+        "found_page_redirect": "עמוד נמצא! מעביר...",
+        "invalid_qr": "קוד QR זה אינו מיועד לאפליקציה זו.",
+        "not_found": "המוצר לא נמצא. נסה ברקוד אחר."
+    },
+    "item_qr": {
+        "hint_mobile": "📱 סרוק קוד QR זה עם הטלפון שלך כדי לגשת לפריט במהירות",
+        "network_ip": "כתובת IP של הרשת",
+        "url_loading": "טוען כתובת URL...",
+        "copied": "הועתק!",
+        "copy_url": "העתק כתובת URL",
+        "download": "הורד QR",
+        "usage_title": "שימוש",
+        "usage_desc": "הדפס את קוד ה-QR והדבק אותו על הפריט. סרוק עם הטלפון שלך כדי לגשת לדף זה באופן מיידי!"
+    },
+    "house_access_pending": {
+        "eyebrow": "House Access",
+        "fallback_house": "Selected house",
+        "signed_in_as": "Signed in as {{username}}",
+        "logout": "Logout",
+        "messages": {
+            "create_error": "Could not create house",
+            "join_success": "Your join request was sent",
+            "join_error": "Could not send join request"
+        },
+        "pending": {
+            "title": "Waiting for house owner approval",
+            "description": "Your request for \"{{house}}\" is still waiting for a decision.",
+            "current_request": "Current pending request: {{house}}"
+        },
+        "no_house": {
+            "title": "You are not connected to a house right now",
+            "description": "Create a new house or send a join request to an existing one."
+        },
+        "create": {
+            "title": "Create a New House",
+            "description": "Start your own home inventory and continue right away.",
+            "name_label": "House Name",
+            "name_placeholder": "e.g. My Home, Summer House, Storage",
+            "submitting": "Creating...",
+            "submit": "Create House"
+        },
+        "join": {
+            "title": "Send a Join Request",
+            "description": "Enter a house key and send the request directly to the house owner.",
+            "key_label": "House Key",
+            "key_placeholder": "Enter the 64-character house key",
+            "submitting": "Sending...",
+            "submit": "Send Request"
+        }
+    }
+}

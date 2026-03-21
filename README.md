@@ -6,7 +6,7 @@
 
 <p align="center">
   The open-source project behind <a href="https://envanterim.net.tr">envanterim.net.tr</a><br/>
-  An open-source home inventory management system to manage household items, rooms, and categories in one place.
+  An open-source home inventory management system with 100-language UI support and field-level encryption for sensitive data.
 </p>
 
 <p align="center">
@@ -31,13 +31,23 @@
 - 🏷️ **Categories & Rooms** — Organize items by custom categories, rooms, and locations
 - 📱 **Barcode / QR scanning** — Quickly add or find items using your device camera
 - 🔐 **Authentication** — JWT-based auth with Google OAuth support and email verification
+- 🛡️ **Field-level encryption** — AES-256-GCM protection for sensitive verification and inventory fields
 - 👨‍💼 **Admin panel** — User management, ban controls, email sending, and system logs
 - 📧 **Email system** — Transactional emails via Resend API (verification, admin notices)
 - 💾 **Backup & Restore** — Export and import your inventory data
-- 🌍 **Multi-language** — UI translated into 50 languages; backend currently supports 5 (expanding)
+- 🌍 **100-language UI** — The frontend ships with 100 selectable languages for global access
 - 🌙 **Dark / Light theme** — Auto-detects system preference
 - 📱 **Responsive** — Mobile-first design, works on all screen sizes
 - 🔍 **SEO ready** — Sitemap, robots.txt, meta tags, and IndexNow support
+
+## Security & Privacy (Zero-Knowledge Architecture)
+
+HomeInventory is designed with enterprise-grade security to ensure your personal data remains completely private. It employs a Zero-Knowledge Architecture meaning that even with direct database access, individual item details, photos, and personal information cannot be read without the proper encryption keys.
+
+- **Field-Level Encryption**: Sensitive data like item names, descriptions, barcodes, and custom categories are encrypted via AES-256-GCM before ever hitting the database.
+- **Encrypted Media Storage**: All uploaded photos and thumbnails have their EXIF metadata stripped and are stored on disk as AES-256-GCM encrypted blobs. They are only decrypted in RAM when requested by authenticated users.
+- **PII Protection**: User emails and usernames are stored encrypted. Authentication utilizes a deterministic HMAC-SHA-256 lookup token system, allowing seamless login without exposing the underlying PII to rainbow table attacks.
+- **Key Rotation Ready**: The application supports a Keyring map, allowing administrators to rotate the primary encryption key without breaking legacy encrypted data.
 
 ## Tech Stack
 
@@ -95,6 +105,8 @@ NODE_ENV=development
 PORT=3001
 SITE_URL=http://localhost:5173
 JWT_SECRET=change-this-to-any-random-string-at-least-32-chars
+APP_ENCRYPTION_KEY=replace-with-32-byte-base64-or-64-char-hex-key
+APP_ENCRYPTION_KEY_ID=2026-03-local
 ```
 
 > **💡 Tip:** You can generate a secure JWT_SECRET with:
@@ -102,7 +114,12 @@ JWT_SECRET=change-this-to-any-random-string-at-least-32-chars
 > node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 > ```
 
-The remaining variables (`GOOGLE_CLIENT_ID`, `RESEND_API_KEY`, etc.) are **optional** for local development. Features that depend on them (Google login, email sending) will be gracefully disabled.
+> **🔐 Encryption key:** Generate `APP_ENCRYPTION_KEY` with:
+> ```bash
+> openssl rand -base64 32
+> ```
+
+`APP_ENCRYPTION_KEY` and `APP_ENCRYPTION_KEY_ID` are required because sensitive fields now use fail-secure encryption at startup. The remaining variables (`GOOGLE_CLIENT_ID`, `RESEND_API_KEY`, etc.) are **optional** for local development. Features that depend on them (Google login, email sending) will be gracefully disabled.
 
 ### 3. Start Development
 
@@ -138,6 +155,9 @@ Copy `.env.example` to `.env` and fill in the required values:
 | `PORT` | ✅ | Backend server port (default: `3001`) |
 | `SITE_URL` | ✅ | Your site's public URL |
 | `JWT_SECRET` | ✅ | Random secret for JWT signing (min 32 chars) |
+| `APP_ENCRYPTION_KEY` | ✅ | 32-byte encryption key for sensitive field protection |
+| `APP_ENCRYPTION_KEY_ID` | ✅ | Stable key identifier for new encrypted payloads |
+| `APP_ENCRYPTION_KEYRING` | ⬜ | Optional JSON map of legacy key IDs to keys for decryption after rotation |
 | `GOOGLE_CLIENT_ID` | ⬜ | Google OAuth client ID |
 | `GOOGLE_CLIENT_SECRET` | ⬜ | Google OAuth client secret |
 | `RESEND_API_KEY` | ⬜ | Resend.com API key for emails |
@@ -181,6 +201,8 @@ Home-inventory/
 │   └── ...
 │
 ├── utils/
+│   ├── encryption.js         # AES-256-GCM field encryption helpers
+│   ├── protectedFields.js    # Inventory field encrypt/decrypt helpers
 │   ├── emailService.js       # Resend email integration
 │   ├── indexNow.js           # IndexNow SEO submission
 │   └── logger.js             # KVKK-compliant logging
@@ -188,6 +210,7 @@ Home-inventory/
 ├── locales/                  # Backend i18n (5 languages, expanding)
 │
 ├── scripts/
+│   ├── backfill-field-encryption.mjs # Encrypt legacy plaintext field data
 │   ├── generate-locales.js   # Locale generation scripts
 │   └── indexnow-submit.mjs   # CLI IndexNow submission
 │

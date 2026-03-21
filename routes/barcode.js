@@ -14,7 +14,8 @@ async function getCheerio() {
     return cheerio;
 }
 import db from '../database.js';
-import { authenticateToken } from '../middleware/auth.js';
+import { authenticateToken, requireActiveHouse } from '../middleware/auth.js';
+import { buildBarcodeLookup, decryptItemRecord } from '../utils/protectedFields.js';
 
 const router = express.Router();
 
@@ -144,23 +145,28 @@ async function tryOpenBeautyFacts(barcode) {
 }
 
 // Main barcode lookup endpoint - Waterfall API
-router.get('/:code', authenticateToken, async (req, res) => {
+router.get('/:code', authenticateToken, requireActiveHouse, async (req, res) => {
     const barcode = req.params.code;
     console.log(`[Barcode Proxy] Searching for: ${barcode}`);
 
     try {
         // STEP 1: Check local database
         const localItem = db.prepare(`
-            SELECT * FROM items WHERE barcode = ? AND (user_id = ? OR is_public = 1)
-        `).get(barcode, req.user.id);
+            SELECT *
+            FROM items
+            WHERE barcode_lookup = ? AND house_key = ?
+            ORDER BY updated_at DESC, id DESC
+            LIMIT 1
+        `).get(buildBarcodeLookup(barcode), req.user.house_key);
 
         if (localItem) {
-            console.log(`[Barcode Proxy] Found in local DB: ${localItem.name}`);
+            const decryptedLocalItem = decryptItemRecord(localItem);
+            console.log(`[Barcode Proxy] Found in local DB: ${decryptedLocalItem.name}`);
             return res.json({
                 found: true,
                 source: 'Yerel Veritabanı',
-                name: localItem.name,
-                existingItem: localItem
+                name: decryptedLocalItem.name,
+                existingItem: decryptedLocalItem
             });
         }
 

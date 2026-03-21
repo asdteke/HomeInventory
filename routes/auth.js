@@ -1,21 +1,73 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
+import rateLimit from 'express-rate-limit';
 import db from '../database.js';
 import { generateToken, authenticateToken, cookieOptions } from '../middleware/auth.js';
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import { sendVerificationEmail } from '../utils/emailService.js';
+import {
+    decryptFromStorage,
+    encryptForStorage,
+    generateOpaqueToken,
+    hashLookupToken,
+    listLookupTokenHashes
+} from '../utils/encryption.js';
+import {
+    buildEmailLookup,
+    buildUsernameLookup,
+    decryptHouseRecord,
+    decryptPendingRegistrationRecord,
+    decryptUserRecord,
+    decryptUsername,
+    encryptCategoryName,
+    encryptEmail,
+    encryptHouseName,
+    encryptRoomDescription,
+    encryptRoomName,
+    encryptUsername
+} from '../utils/protectedFields.js';
+import {
+    sendHouseJoinRequestNotification,
+    sendHouseJoinRequestDecisionNotification,
+    sendPasswordResetEmail,
+    sendVerificationEmail
+} from '../utils/emailService.js';
+import {
+    createJoinRequest,
+    getHouseOwners,
+    getMembershipStateForUser,
+    getUserHouseList,
+    listPendingJoinRequestsForUser,
+    syncUserHousePointers
+} from '../utils/houseMembership.js';
+import {
+    PASSWORD_RESET_LOCK_WINDOW_MS,
+    PASSWORD_RESET_MAX_FAILURES,
+    PASSWORD_RESET_TOKEN_TTL_MINUTES,
+    applyPasswordResetFailureDelay,
+    compareRecoveryKey,
+    createRecoveryKeyMaterial,
+    getPasswordRecoveryMode,
+    issuePasswordResetToken,
+    performFakeRecoveryKeyCheck,
+    verifyPasswordResetToken
+} from '../utils/passwordRecovery.js';
 
 const router = express.Router();
 const SALT_ROUNDS = 10;
 const HOUSE_KEY_REGEX = /^[a-f0-9]{64}$/i;
 const MIN_PASSWORD_LENGTH = 10;
+const PENDING_REGISTRATION_HOUSE_KEY_PURPOSE = 'pending_registration.house_key';
+const USER_RECOVERY_KEY_PURPOSE = 'user.recovery_key';
 const SITE_URL = String(
     process.env.SITE_URL ||
     process.env.INDEXNOW_BASE_URL ||
     'http://localhost:3001'
 ).trim().replace(/\/+$/, '');
+const RESET_PASSWORD_FAILURE_MESSAGE = 'İşlem gerçekleştirilemedi. Bilgileri kontrol edip tekrar deneyin.';
+const RESET_PASSWORD_LOCKED_MESSAGE = 'İşlem gerçekleştirilemedi. Lütfen daha sonra tekrar deneyin.';
+const FORGOT_PASSWORD_GENERIC_MESSAGE = 'Hesap mevcutsa gerekli yönlendirme gönderildi.';
 
 const COMMON_PASSWORDS = new Set([
     '123456', '12345678', '123456789', '1234567890', 'password', 'password1',
@@ -77,6 +129,231 @@ function generateHouseKey() {
     return crypto.randomBytes(32).toString('hex'); // 64 characters, 256-bit
 }
 
+function findPendingRegistrationByVerificationToken(rawToken) {
+    const normalizedToken = String(rawToken || '').trim();
+    if (!normalizedToken) {
+        return null;
+    }
+
+    const getHashedPendingRegistration = db.prepare(
+        'SELECT * FROM pending_registrations WHERE verification_token_hashed = 1 AND verification_token = ?'
+    );
+
+    for (const hashedToken of listLookupTokenHashes(normalizedToken, { includeLegacy: true })) {
+        const hashedMatch = getHashedPendingRegistration.get(hashedToken);
+        if (hashedMatch) {
+            return hashedMatch;
+        }
+    }
+
+    return db.prepare(
+        'SELECT * FROM pending_registrations WHERE COALESCE(verification_token_hashed, 0) = 0 AND verification_token = ?'
+    ).get(normalizedToken);
+}
+
+function getPendingRegistrationHouseKey(pendingRegistration) {
+    return decryptFromStorage(pendingRegistration.house_key, {
+        purpose: PENDING_REGISTRATION_HOUSE_KEY_PURPOSE
+    });
+}
+
+function getUserByEmail(email) {
+    const normalizedEmail = String(email || '').trim().toLowerCase();
+    if (!normalizedEmail) {
+        return null;
+    }
+
+    return db.prepare(
+        'SELECT * FROM users WHERE email_lookup = ? OR email = ? LIMIT 1'
+    ).get(buildEmailLookup(normalizedEmail), normalizedEmail);
+}
+
+function getUserByUsername(username) {
+    const normalizedUsername = String(username || '').trim();
+    if (!normalizedUsername) {
+        return null;
+    }
+
+    return db.prepare(
+        'SELECT * FROM users WHERE username_lookup = ? OR username = ? LIMIT 1'
+    ).get(buildUsernameLookup(normalizedUsername), normalizedUsername);
+}
+
+function getPendingRegistrationByEmail(email) {
+    const normalizedEmail = String(email || '').trim().toLowerCase();
+    if (!normalizedEmail) {
+        return null;
+    }
+
+    return db.prepare(
+        'SELECT id, expires_at FROM pending_registrations WHERE email_lookup = ? OR email = ? LIMIT 1'
+    ).get(buildEmailLookup(normalizedEmail), normalizedEmail);
+}
+
+function getPendingRegistrationByUsername(username) {
+    const normalizedUsername = String(username || '').trim();
+    if (!normalizedUsername) {
+        return null;
+    }
+
+    return db.prepare(
+        'SELECT id FROM pending_registrations WHERE username_lookup = ? OR username = ? LIMIT 1'
+    ).get(buildUsernameLookup(normalizedUsername), normalizedUsername);
+}
+
+function getUserByLoginIdentifier(loginIdentifier) {
+    const normalizedIdentifier = String(loginIdentifier || '').trim();
+    if (!normalizedIdentifier) {
+        return null;
+    }
+
+    const usernameLookup = buildUsernameLookup(normalizedIdentifier);
+    const emailLookup = buildEmailLookup(normalizedIdentifier);
+
+    return db.prepare(`
+        SELECT *
+        FROM users
+        WHERE username_lookup = ?
+           OR email_lookup = ?
+           OR username = ?
+           OR email = ?
+        LIMIT 1
+    `).get(usernameLookup, emailLookup, normalizedIdentifier, normalizedIdentifier.toLowerCase());
+}
+
+function getDecryptedUser(userRow) {
+    return decryptUserRecord(userRow);
+}
+
+function getUserTokenPayload(userRow, houseKey = userRow.active_house_key || userRow.house_key) {
+    const user = getDecryptedUser(userRow);
+    return {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        house_key: houseKey,
+        role: user.role || 'user'
+    };
+}
+
+function getDecryptedHousesForUser(userId) {
+    return getUserHouseList(userId);
+}
+
+function getPasswordRecoveryFlags(userSecurityRow) {
+    const mode = getPasswordRecoveryMode();
+    const hasRecoveryKey = Boolean(userSecurityRow?.recovery_key_hash);
+
+    return {
+        passwordRecoveryMode: mode,
+        hasRecoveryKey: mode === 'recovery_key' ? hasRecoveryKey : false,
+        mustSetupRecoveryKey: mode === 'recovery_key' && !hasRecoveryKey
+    };
+}
+
+async function assignRecoveryKeyToUser(userId) {
+    const recoveryMaterial = await createRecoveryKeyMaterial();
+    const encryptedRecoveryKey = encryptForStorage(recoveryMaterial.recoveryKey, {
+        purpose: USER_RECOVERY_KEY_PURPOSE
+    });
+
+    db.prepare(`
+        UPDATE users
+        SET recovery_key_hash = ?, recovery_key_value = ?, recovery_key_generated_at = ?
+        WHERE id = ?
+    `).run(
+        recoveryMaterial.recoveryKeyHash,
+        encryptedRecoveryKey,
+        recoveryMaterial.generatedAt,
+        userId
+    );
+
+    return recoveryMaterial.recoveryKey;
+}
+
+function getCurrentRecoveryKey(userRow) {
+    if (!userRow?.recovery_key_value) {
+        return null;
+    }
+
+    try {
+        return decryptFromStorage(userRow.recovery_key_value, {
+            purpose: USER_RECOVERY_KEY_PURPOSE
+        });
+    } catch (error) {
+        console.error('Recovery key decrypt error:', error);
+        return null;
+    }
+}
+
+function incrementPasswordResetFailure(userId) {
+    if (!userId) {
+        return;
+    }
+
+    db.prepare(`
+        UPDATE users
+        SET password_reset_failed_count = COALESCE(password_reset_failed_count, 0) + 1,
+            password_reset_locked_until = CASE
+                WHEN password_reset_locked_until IS NOT NULL AND password_reset_locked_until > CURRENT_TIMESTAMP
+                    THEN password_reset_locked_until
+                WHEN COALESCE(password_reset_failed_count, 0) + 1 >= ?
+                    THEN DATETIME('now', '+1 hour')
+                ELSE password_reset_locked_until
+            END
+        WHERE id = ?
+    `).run(PASSWORD_RESET_MAX_FAILURES, userId);
+}
+
+function clearPasswordResetState(userId) {
+    db.prepare(`
+        UPDATE users
+        SET password_reset_failed_count = 0,
+            password_reset_locked_until = NULL
+        WHERE id = ?
+    `).run(userId);
+}
+
+function isPasswordResetLocked(userRow) {
+    if (!userRow?.password_reset_locked_until) {
+        return false;
+    }
+
+    return new Date(userRow.password_reset_locked_until).getTime() > Date.now();
+}
+
+async function awaitPasswordResetFailureMitigations(candidateRecoveryKey = '') {
+    await Promise.all([
+        applyPasswordResetFailureDelay(),
+        performFakeRecoveryKeyCheck(candidateRecoveryKey)
+    ]);
+}
+
+async function respondWithPasswordResetFailure(res, {
+    userId = null,
+    recoveryKey = '',
+    statusCode = 400,
+    message = RESET_PASSWORD_FAILURE_MESSAGE
+} = {}) {
+    if (userId) {
+        incrementPasswordResetFailure(userId);
+    }
+
+    await awaitPasswordResetFailureMitigations(recoveryKey);
+    return res.status(statusCode).json({ error: message });
+}
+
+const resetPasswordLimiter = rateLimit({
+    windowMs: PASSWORD_RESET_LOCK_WINDOW_MS,
+    max: PASSWORD_RESET_MAX_FAILURES,
+    skipSuccessfulRequests: true,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: {
+        error: 'Çok fazla başarısız sıfırlama denemesi. Lütfen 1 saat sonra tekrar deneyin.'
+    }
+});
+
 // Create default categories for a new house
 function createDefaultCategories(houseKey) {
     const insertCategory = db.prepare('INSERT INTO categories (name, icon, color, house_key) VALUES (?, ?, ?, ?)');
@@ -94,7 +371,7 @@ function createDefaultCategories(houseKey) {
 
     const insertMany = db.transaction((categories) => {
         for (const cat of categories) {
-            insertCategory.run(cat[0], cat[1], cat[2], houseKey);
+            insertCategory.run(encryptCategoryName(cat[0]), cat[1], cat[2], houseKey);
         }
     });
     insertMany(defaultCategories);
@@ -117,10 +394,43 @@ function createDefaultRooms(houseKey) {
 
     const insertMany = db.transaction((rooms) => {
         for (const room of rooms) {
-            insertRoom.run(room[0], room[1], houseKey);
+            insertRoom.run(encryptRoomName(room[0]), encryptRoomDescription(room[1]), houseKey);
         }
     });
     insertMany(defaultRooms);
+}
+
+function fireAndForget(task, label) {
+    Promise.resolve()
+        .then(task)
+        .catch((error) => console.error(label, error));
+}
+
+function notifyOwnersAboutJoinRequest(houseKey, requesterUsername, requestedHouseName) {
+    if (!process.env.RESEND_API_KEY) {
+        return;
+    }
+
+    const owners = getHouseOwners(houseKey)
+        .map((owner) => owner.email)
+        .filter(Boolean);
+
+    if (owners.length === 0) {
+        return;
+    }
+
+    fireAndForget(
+        () => sendHouseJoinRequestNotification({
+            to: owners,
+            requesterUsername,
+            requestedHouseName
+        }),
+        'Join request owner notification error:'
+    );
+}
+
+function getResetPasswordUrl(token) {
+    return `${SITE_URL}/reset-password?token=${encodeURIComponent(token)}`;
 }
 
 // Register new user - saves to pending_registrations until email is verified
@@ -155,18 +465,15 @@ router.post('/register', async (req, res) => {
         }
 
         // Check if user already exists in users table
-        const existingUser = db.prepare(
-            'SELECT id FROM users WHERE username = ? OR email = ?'
-        ).get(safeUsername, safeEmail);
+        const existingEmailUser = getUserByEmail(safeEmail);
+        const existingUsernameUser = getUserByUsername(safeUsername);
 
-        if (existingUser) {
+        if (existingEmailUser || existingUsernameUser) {
             return res.status(400).json({ error: 'Bu kullanıcı adı veya e-posta zaten kayıtlı' });
         }
 
         // Check if already pending registration
-        const existingPending = db.prepare(
-            'SELECT id, expires_at FROM pending_registrations WHERE email = ?'
-        ).get(safeEmail);
+        const existingPending = getPendingRegistrationByEmail(safeEmail);
 
         if (existingPending) {
             // If expired, delete old pending registration
@@ -180,9 +487,7 @@ router.post('/register', async (req, res) => {
         }
 
         // Also check if username is pending
-        const pendingUsername = db.prepare(
-            'SELECT id FROM pending_registrations WHERE username = ?'
-        ).get(safeUsername);
+        const pendingUsername = getPendingRegistrationByUsername(safeUsername);
 
         if (pendingUsername) {
             return res.status(400).json({ error: 'Bu kullanıcı adı zaten kullanımda' });
@@ -201,7 +506,7 @@ router.post('/register', async (req, res) => {
             }
 
             // Verify house key exists
-            const existingHouse = db.prepare('SELECT id FROM users WHERE house_key = ?').get(house_key);
+            const existingHouse = db.prepare('SELECT id FROM user_houses WHERE house_key = ?').get(house_key);
             if (!existingHouse) {
                 return res.status(400).json({ error: 'Geçersiz Ev Anahtarı. Lütfen doğru anahtarı girin.' });
             }
@@ -218,53 +523,93 @@ router.post('/register', async (req, res) => {
 
         // If email verification is disabled (no API key), register directly
         if (!process.env.RESEND_API_KEY) {
+            const passwordRecoveryMode = getPasswordRecoveryMode();
             const result = db.prepare(`
-                INSERT INTO users (username, email, password_hash, house_key, is_verified) 
-                VALUES (?, ?, ?, ?, 1)
-            `).run(safeUsername, safeEmail, passwordHash, userHouseKey);
+                INSERT INTO users (username, email, username_lookup, email_lookup, password_hash, house_key, is_verified)
+                VALUES (?, ?, ?, ?, ?, ?, 1)
+            `).run(
+                encryptUsername(safeUsername),
+                encryptEmail(safeEmail),
+                buildUsernameLookup(safeUsername),
+                buildEmailLookup(safeEmail),
+                passwordHash,
+                isNewHouse ? userHouseKey : null
+            );
             
             const newUserId = result.lastInsertRowid;
-            
-            // Add to user_houses
-            db.prepare('INSERT INTO user_houses (user_id, house_key, is_owner) VALUES (?, ?, ?)')
-                .run(newUserId, userHouseKey, isNewHouse ? 1 : 0);
+            let newRecoveryKey = null;
+
+            if (isNewHouse) {
+                db.prepare('INSERT INTO user_houses (user_id, house_key, house_name, is_owner) VALUES (?, ?, ?, 1)')
+                    .run(newUserId, userHouseKey, encryptHouseName('Evim'));
+                createDefaultCategories(userHouseKey);
+                createDefaultRooms(userHouseKey);
+                db.prepare('UPDATE users SET active_house_key = ? WHERE id = ?')
+                    .run(userHouseKey, newUserId);
+            } else {
+                const { request } = createJoinRequest({
+                    requesterUserId: newUserId,
+                    houseKey: userHouseKey,
+                    requestedHouseName: null
+                });
+                notifyOwnersAboutJoinRequest(userHouseKey, safeUsername, request.requested_house_name);
+            }
+
+            if (passwordRecoveryMode === 'recovery_key') {
+                newRecoveryKey = await assignRecoveryKeyToUser(newUserId);
+            }
                 
-            // Set active house key
-            db.prepare('UPDATE users SET active_house_key = ? WHERE id = ?')
-                .run(userHouseKey, newUserId);
-                
-            const newUser = db.prepare('SELECT id, username, email, house_key, role, is_verified FROM users WHERE id = ?').get(newUserId);
+            const newUserRow = db.prepare('SELECT id, username, email, house_key, active_house_key, role, is_verified FROM users WHERE id = ?').get(newUserId);
+            const newUser = getDecryptedUser(newUserRow);
             
             // Generate token and set cookie
-            const token = generateToken(newUser);
+            const token = generateToken(getUserTokenPayload(newUserRow, newUserRow.active_house_key || newUserRow.house_key));
             res.cookie('token', token, cookieOptions);
             
             return res.status(201).json({
-                message: 'Kayıt başarılı',
+                message: isNewHouse ? 'Kayit basarili' : 'Katilim isteginiz gonderildi',
                 success: true,
                 user: {
                     id: newUser.id,
                     username: newUser.username,
                     email: newUser.email,
-                    house_key: newUser.house_key,
+                    house_key: newUser.active_house_key || newUser.house_key,
                     role: newUser.role,
                     is_verified: true
                 },
                 isNewHouse,
-                house_key: userHouseKey
+                house_key: userHouseKey,
+                newRecoveryKey,
+                password_recovery_mode: passwordRecoveryMode
             });
         }
 
         // Generate verification token (24 hour expiry)
-        const verificationToken = crypto.randomBytes(32).toString('hex');
+        const verificationToken = generateOpaqueToken();
+        const verificationTokenHash = hashLookupToken(verificationToken);
+        const encryptedHouseKey = encryptForStorage(userHouseKey, {
+            purpose: PENDING_REGISTRATION_HOUSE_KEY_PURPOSE
+        });
         const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
 
         // Save to pending_registrations (NOT to users table)
         db.prepare(`
             INSERT INTO pending_registrations 
-            (username, email, password_hash, house_key, mode, is_new_house, verification_token, expires_at) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        `).run(safeUsername, safeEmail, passwordHash, userHouseKey, mode || 'create', isNewHouse ? 1 : 0, verificationToken, expiresAt);
+            (username, email, username_lookup, email_lookup, password_hash, house_key, mode, is_new_house, verification_token, verification_token_hashed, expires_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `).run(
+            encryptUsername(safeUsername),
+            encryptEmail(safeEmail),
+            buildUsernameLookup(safeUsername),
+            buildEmailLookup(safeEmail),
+            passwordHash,
+            encryptedHouseKey,
+            mode || 'create',
+            isNewHouse ? 1 : 0,
+            verificationTokenHash,
+            1,
+            expiresAt
+        );
 
         // Send verification email
         sendVerificationEmail(safeEmail, userHouseKey, verificationToken)
@@ -301,13 +646,13 @@ router.post('/login', async (req, res) => {
         }
 
         // Find user
-        const user = db.prepare(
-            'SELECT * FROM users WHERE username = ? OR email = ?'
-        ).get(loginIdentifier, loginIdentifier);
+        const user = getUserByLoginIdentifier(loginIdentifier);
 
         if (!user) {
             return res.status(401).json({ error: 'Kullanıcı adı veya şifre hatalı' });
         }
+
+        const decryptedUser = getDecryptedUser(user);
 
         if (user.is_banned === 1) {
             return res.status(403).json({ error: 'Hesabınız askıya alınmış. Destek ile iletişime geçin.' });
@@ -326,26 +671,23 @@ router.post('/login', async (req, res) => {
             return res.status(403).json({
                 error: 'E-posta adresiniz doğrulanmamış. Lütfen gelen kutunuzu kontrol edin.',
                 emailNotVerified: true,
-                email: user.email
+                email: decryptedUser.email
             });
         }
 
-        const token = generateToken({
-            id: user.id,
-            username: user.username,
-            email: user.email,
-            house_key: user.house_key,
-            role: user.role || 'user'
-        });
+        const normalizedUser = syncUserHousePointers(user.id);
+        const liveUser = db.prepare('SELECT * FROM users WHERE id = ?').get(user.id);
+        const liveDecryptedUser = getDecryptedUser(liveUser);
+        const token = generateToken(getUserTokenPayload(liveUser, normalizedUser?.active_house_key || normalizedUser?.house_key || null));
 
         res.cookie('token', token, cookieOptions).json({
             message: 'Giriş başarılı',
             user: {
-                id: user.id,
-                username: user.username,
-                email: user.email,
-                house_key: user.house_key,
-                role: user.role || 'user'
+                id: liveDecryptedUser.id,
+                username: liveDecryptedUser.username,
+                email: liveDecryptedUser.email,
+                house_key: normalizedUser?.active_house_key || normalizedUser?.house_key || null,
+                role: liveDecryptedUser.role || 'user'
             }
         });
         db.prepare('UPDATE users SET failed_login_count = 0, last_login = CURRENT_TIMESTAMP WHERE id = ?').run(user.id);
@@ -357,42 +699,371 @@ router.post('/login', async (req, res) => {
 
 // Get current user
 router.get('/me', authenticateToken, (req, res) => {
-    const user = db.prepare(
+    const normalizedUser = syncUserHousePointers(req.user.id);
+    const userRow = db.prepare(
         'SELECT id, username, email, house_key, active_house_key, role, created_at FROM users WHERE id = ?'
     ).get(req.user.id);
+    const userSecurityRow = db.prepare(
+        'SELECT recovery_key_hash FROM users WHERE id = ?'
+    ).get(req.user.id);
 
-    if (!user) {
+    if (!normalizedUser || !userRow) {
         return res.status(404).json({ error: 'Kullanıcı bulunamadı' });
     }
 
-    // Get active house id from user_houses table
+    const user = getDecryptedUser(userRow);
+    const { membershipState, pendingHouseRequest } = getMembershipStateForUser(req.user.id);
+    const passwordRecoveryFlags = getPasswordRecoveryFlags(userSecurityRow);
+
     let activeHouseId = null;
-    if (user.active_house_key) {
-        const activeHouse = db.prepare('SELECT id FROM user_houses WHERE user_id = ? AND house_key = ?').get(req.user.id, user.active_house_key);
+    if (normalizedUser.active_house_key) {
+        const activeHouse = db.prepare('SELECT id FROM user_houses WHERE user_id = ? AND house_key = ?').get(req.user.id, normalizedUser.active_house_key);
         if (activeHouse) {
             activeHouseId = activeHouse.id;
         }
     }
 
-    // Count house members
-    const houseMemberCount = db.prepare(
-        'SELECT COUNT(*) as count FROM user_houses WHERE house_key = ?'
-    ).get(user.active_house_key || user.house_key);
+    const houseMemberCount = normalizedUser.active_house_key
+        ? db.prepare('SELECT COUNT(*) as count FROM user_houses WHERE house_key = ?').get(normalizedUser.active_house_key)
+        : null;
 
     res.json({
         user: {
             ...user,
+            house_key: normalizedUser.house_key,
+            active_house_key: normalizedUser.active_house_key,
             active_house_id: activeHouseId
         },
-        houseMemberCount: houseMemberCount ? houseMemberCount.count : 0
+        membership_state: membershipState,
+        pending_house_request: pendingHouseRequest,
+        houseMemberCount: houseMemberCount ? houseMemberCount.count : 0,
+        password_recovery_mode: passwordRecoveryFlags.passwordRecoveryMode,
+        has_recovery_key: passwordRecoveryFlags.hasRecoveryKey,
+        must_setup_recovery_key: passwordRecoveryFlags.mustSetupRecoveryKey
     });
+});
+
+router.post('/forgot-password', async (req, res) => {
+    try {
+        const { identifier } = req.body;
+        const safeIdentifier = String(identifier || '').trim();
+        const passwordRecoveryMode = getPasswordRecoveryMode();
+
+        if (!safeIdentifier) {
+            return res.status(400).json({ error: 'Kullanıcı adı veya e-posta gerekli' });
+        }
+
+        const genericResponse = {
+            success: true,
+            mode: passwordRecoveryMode,
+            message: FORGOT_PASSWORD_GENERIC_MESSAGE
+        };
+
+        if (passwordRecoveryMode !== 'email') {
+            return res.json(genericResponse);
+        }
+
+        const user = getUserByLoginIdentifier(safeIdentifier);
+
+        if (!user || user.is_banned === 1) {
+            return res.json(genericResponse);
+        }
+
+        const decryptedUser = getDecryptedUser(user);
+        const issuedToken = await issuePasswordResetToken({ userId: user.id });
+
+        db.prepare(`
+            DELETE FROM password_reset_requests
+            WHERE user_id = ? OR expires_at <= CURRENT_TIMESTAMP
+        `).run(user.id);
+
+        db.prepare(`
+            INSERT INTO password_reset_requests (user_id, token_lookup_hash, channel, expires_at)
+            VALUES (?, ?, 'email', ?)
+        `).run(user.id, issuedToken.tokenLookupHash, issuedToken.expiresAt);
+
+        fireAndForget(
+            () => sendPasswordResetEmail({
+                email: decryptedUser.email,
+                resetUrl: getResetPasswordUrl(issuedToken.token)
+            }),
+            'Password reset email error:'
+        );
+
+        return res.json(genericResponse);
+    } catch (err) {
+        console.error('Forgot password error:', err);
+        return res.status(500).json({ error: 'Şifre sıfırlama isteği oluşturulamadı' });
+    }
+});
+
+router.post('/reset-password', resetPasswordLimiter, async (req, res) => {
+    try {
+        const passwordRecoveryMode = getPasswordRecoveryMode();
+        const { token, identifier, recoveryKey, newPassword, confirmPassword } = req.body;
+
+        if (!newPassword || !confirmPassword) {
+            return res.status(400).json({ error: 'Yeni şifre alanları gerekli' });
+        }
+
+        if (passwordRecoveryMode === 'email') {
+            if (!token) {
+                return res.status(400).json({ error: 'Şifre sıfırlama bağlantısı gerekli' });
+            }
+
+            let verifiedToken;
+            try {
+                verifiedToken = await verifyPasswordResetToken(token);
+            } catch {
+                return respondWithPasswordResetFailure(res);
+            }
+
+            const resetRequest = db.prepare(`
+                SELECT *
+                FROM password_reset_requests
+                WHERE token_lookup_hash = ?
+                  AND channel = 'email'
+                  AND used_at IS NULL
+                  AND expires_at > CURRENT_TIMESTAMP
+                LIMIT 1
+            `).get(verifiedToken.tokenLookupHash);
+
+            if (!resetRequest || Number(resetRequest.user_id) !== Number(verifiedToken.userId)) {
+                return respondWithPasswordResetFailure(res);
+            }
+
+            const user = db.prepare('SELECT * FROM users WHERE id = ? LIMIT 1').get(verifiedToken.userId);
+
+            if (!user || user.is_banned === 1) {
+                return respondWithPasswordResetFailure(res);
+            }
+
+            if (newPassword !== confirmPassword) {
+                return res.status(400).json({ error: 'Yeni şifreler eşleşmiyor' });
+            }
+
+            const decryptedUser = getDecryptedUser(user);
+            const passwordValidation = validatePasswordStrength(newPassword, {
+                username: decryptedUser.username,
+                email: decryptedUser.email
+            });
+
+            if (!passwordValidation.valid) {
+                return res.status(400).json({
+                    error: passwordValidation.errors[0],
+                    passwordErrors: passwordValidation.errors
+                });
+            }
+
+            const passwordHash = await bcrypt.hash(newPassword, SALT_ROUNDS);
+
+            db.prepare('UPDATE users SET password_hash = ? WHERE id = ?').run(passwordHash, user.id);
+            clearPasswordResetState(user.id);
+            db.prepare('DELETE FROM password_reset_requests WHERE user_id = ?').run(user.id);
+
+            return res.json({
+                success: true,
+                mode: passwordRecoveryMode,
+                message: `Şifreniz başarıyla sıfırlandı. Link ${PASSWORD_RESET_TOKEN_TTL_MINUTES} dakika geçerliydi ve artık kullanılamaz.`
+            });
+        }
+
+        const safeIdentifier = String(identifier || '').trim();
+        if (!safeIdentifier || !recoveryKey) {
+            return res.status(400).json({ error: 'Kullanıcı ve kurtarma anahtarı gerekli' });
+        }
+
+        const user = getUserByLoginIdentifier(safeIdentifier);
+
+        if (!user) {
+            return respondWithPasswordResetFailure(res, { recoveryKey });
+        }
+
+        if (user.is_banned === 1) {
+            return respondWithPasswordResetFailure(res, {
+                userId: user.id,
+                recoveryKey,
+                statusCode: 403
+            });
+        }
+
+        if (isPasswordResetLocked(user)) {
+            await awaitPasswordResetFailureMitigations(recoveryKey);
+            return res.status(423).json({ error: RESET_PASSWORD_LOCKED_MESSAGE });
+        }
+
+        if (!user.recovery_key_hash) {
+            return respondWithPasswordResetFailure(res, {
+                userId: user.id,
+                recoveryKey
+            });
+        }
+
+        const matchesRecoveryKey = await compareRecoveryKey(recoveryKey, user.recovery_key_hash);
+        if (!matchesRecoveryKey) {
+            return respondWithPasswordResetFailure(res, {
+                userId: user.id,
+                recoveryKey
+            });
+        }
+
+        if (newPassword !== confirmPassword) {
+            return res.status(400).json({ error: 'Yeni şifreler eşleşmiyor' });
+        }
+
+        const decryptedUser = getDecryptedUser(user);
+        const passwordValidation = validatePasswordStrength(newPassword, {
+            username: decryptedUser.username,
+            email: decryptedUser.email
+        });
+
+        if (!passwordValidation.valid) {
+            return res.status(400).json({
+                error: passwordValidation.errors[0],
+                passwordErrors: passwordValidation.errors
+            });
+        }
+
+        const passwordHash = await bcrypt.hash(newPassword, SALT_ROUNDS);
+        const recoveryMaterial = await createRecoveryKeyMaterial();
+        const encryptedRecoveryKey = encryptForStorage(recoveryMaterial.recoveryKey, {
+            purpose: USER_RECOVERY_KEY_PURPOSE
+        });
+
+        db.prepare(`
+            UPDATE users
+            SET password_hash = ?,
+                recovery_key_hash = ?,
+                recovery_key_value = ?,
+                recovery_key_generated_at = ?,
+                password_reset_failed_count = 0,
+                password_reset_locked_until = NULL
+            WHERE id = ?
+        `).run(
+            passwordHash,
+            recoveryMaterial.recoveryKeyHash,
+            encryptedRecoveryKey,
+            recoveryMaterial.generatedAt,
+            user.id
+        );
+
+        return res.json({
+            success: true,
+            mode: passwordRecoveryMode,
+            message: 'Şifreniz başarıyla sıfırlandı.',
+            newRecoveryKey: recoveryMaterial.recoveryKey
+        });
+    } catch (err) {
+        console.error('Reset password error:', err);
+        return res.status(500).json({ error: 'Şifre sıfırlanamadı' });
+    }
+});
+
+router.post('/recovery-key/setup', authenticateToken, async (req, res) => {
+    try {
+        if (getPasswordRecoveryMode() !== 'recovery_key') {
+            return res.status(400).json({ error: 'Bu ortamda kurtarma anahtarı kullanılmıyor' });
+        }
+
+        const user = db.prepare('SELECT id, recovery_key_hash FROM users WHERE id = ?').get(req.user.id);
+        if (!user) {
+            return res.status(404).json({ error: 'Kullanıcı bulunamadı' });
+        }
+
+        if (user.recovery_key_hash) {
+            return res.status(400).json({ error: 'Kurtarma anahtarı zaten ayarlı' });
+        }
+
+        const recoveryKey = await assignRecoveryKeyToUser(req.user.id);
+
+        return res.json({
+            success: true,
+            message: 'Kurtarma anahtarı oluşturuldu',
+            recoveryKey
+        });
+    } catch (err) {
+        console.error('Recovery key setup error:', err);
+        return res.status(500).json({ error: 'Kurtarma anahtarı oluşturulamadı' });
+    }
+});
+
+router.post('/recovery-key/regenerate', authenticateToken, async (req, res) => {
+    try {
+        if (getPasswordRecoveryMode() !== 'recovery_key') {
+            return res.status(400).json({ error: 'Bu ortamda kurtarma anahtarı kullanılmıyor' });
+        }
+
+        const { currentPassword } = req.body;
+        if (!currentPassword) {
+            return res.status(400).json({ error: 'Mevcut şifre gerekli' });
+        }
+
+        const user = db.prepare('SELECT * FROM users WHERE id = ?').get(req.user.id);
+        if (!user) {
+            return res.status(404).json({ error: 'Kullanıcı bulunamadı' });
+        }
+
+        const isCurrentPasswordValid = await bcrypt.compare(currentPassword, user.password_hash);
+        if (!isCurrentPasswordValid) {
+            return res.status(401).json({ error: 'Mevcut şifre hatalı' });
+        }
+
+        const recoveryKey = await assignRecoveryKeyToUser(req.user.id);
+
+        return res.json({
+            success: true,
+            message: 'Kurtarma anahtarı yenilendi',
+            recoveryKey
+        });
+    } catch (err) {
+        console.error('Recovery key regeneration error:', err);
+        return res.status(500).json({ error: 'Kurtarma anahtarı yenilenemedi' });
+    }
+});
+
+router.get('/recovery-key/current', authenticateToken, async (req, res) => {
+    try {
+        if (getPasswordRecoveryMode() !== 'recovery_key') {
+            return res.status(400).json({ error: 'Bu ortamda kurtarma anahtarı kullanılmıyor' });
+        }
+
+        const user = db.prepare(`
+            SELECT id, recovery_key_hash, recovery_key_value
+            FROM users
+            WHERE id = ?
+        `).get(req.user.id);
+
+        if (!user || !user.recovery_key_hash) {
+            return res.status(404).json({ error: 'Kurtarma anahtarı bulunamadı' });
+        }
+
+        const recoveryKey = getCurrentRecoveryKey(user);
+        if (!recoveryKey) {
+            return res.status(404).json({ error: 'Kurtarma anahtarı gösterilemiyor. Lütfen yeniden üretin.' });
+        }
+
+        return res.json({
+            success: true,
+            recoveryKey
+        });
+    } catch (err) {
+        console.error('Get current recovery key error:', err);
+        return res.status(500).json({ error: 'Kurtarma anahtarı alınamadı' });
+    }
 });
 
 // Get house members
 router.get('/house-members', authenticateToken, (req, res) => {
-    const members = db.prepare(
-        'SELECT id, username, created_at FROM users WHERE house_key = ?'
-    ).all(req.user.house_key);
+    const members = db.prepare(`
+        SELECT u.id, u.username, u.created_at
+        FROM users u
+        JOIN user_houses uh ON uh.user_id = u.id
+        WHERE uh.house_key = ?
+        ORDER BY u.created_at ASC
+    `).all(req.user.house_key).map((member) => ({
+        ...member,
+        username: decryptUsername(member.username)
+    }));
 
     res.json({ members });
 });
@@ -424,6 +1095,8 @@ router.post('/change-password', authenticateToken, async (req, res) => {
             return res.status(404).json({ error: 'Kullanıcı bulunamadı' });
         }
 
+        const decryptedUser = getDecryptedUser(user);
+
         // Verify current password
         let validPassword;
         try {
@@ -442,8 +1115,8 @@ router.post('/change-password', authenticateToken, async (req, res) => {
         }
 
         const newPasswordValidation = validatePasswordStrength(newPassword, {
-            username: user.username,
-            email: user.email
+            username: decryptedUser.username,
+            email: decryptedUser.email
         });
         if (!newPasswordValidation.valid) {
             return res.status(400).json({
@@ -499,27 +1172,25 @@ router.post('/change-username', authenticateToken, async (req, res) => {
         const trimmedUsername = newUsername.trim();
 
         // Check if username is already taken
-        const existingUser = db.prepare('SELECT id FROM users WHERE username = ? AND id != ?').get(trimmedUsername, req.user.id);
+        const existingUser = db.prepare(
+            'SELECT id FROM users WHERE username_lookup = ? AND id != ? LIMIT 1'
+        ).get(buildUsernameLookup(trimmedUsername), req.user.id);
         if (existingUser) {
             return res.status(400).json({ error: 'Bu kullanıcı adı zaten kullanılıyor' });
         }
 
         // Update username
-        db.prepare('UPDATE users SET username = ? WHERE id = ?').run(trimmedUsername, req.user.id);
+        db.prepare('UPDATE users SET username = ?, username_lookup = ? WHERE id = ?')
+            .run(encryptUsername(trimmedUsername), buildUsernameLookup(trimmedUsername), req.user.id);
 
         // Generate new token with updated username
         const user = db.prepare('SELECT * FROM users WHERE id = ?').get(req.user.id);
-        const token = generateToken({
-            id: user.id,
-            username: user.username,
-            email: user.email,
-            house_key: user.active_house_key || user.house_key,
-            role: user.role || 'user'
-        });
+        const decryptedUser = getDecryptedUser(user);
+        const token = generateToken(getUserTokenPayload(user, user.active_house_key || user.house_key));
 
         res.cookie('token', token, cookieOptions).json({
             message: 'Kullanıcı adı başarıyla değiştirildi',
-            username: trimmedUsername
+            username: decryptedUser.username
         });
 
     } catch (err) {
@@ -542,26 +1213,25 @@ passport.use(new GoogleStrategy({
 },
     async function (accessToken, refreshToken, profile, cb) {
         try {
-            const email = profile.emails[0].value;
+            const email = String(profile.emails[0].value || '').trim().toLowerCase();
             const googleId = profile.id;
             const displayName = profile.displayName;
 
             // Check if user exists by email
-            let user = db.prepare('SELECT * FROM users WHERE email = ?').get(email);
+            let user = getUserByEmail(email);
 
             if (user) {
                 // User exists, return user
-                return cb(null, user);
+                return cb(null, getDecryptedUser(user));
             } else {
-                // New user - create account and new house
-                const houseKey = generateHouseKey();
+                // New user - create account without assigning a house yet
                 // Create a random password since they use Google
                 const randomPassword = crypto.randomBytes(16).toString('hex');
                 const passwordHash = await bcrypt.hash(randomPassword, SALT_ROUNDS);
 
                 // Make username unique - check if displayName exists
                 let username = displayName;
-                const existingUsername = db.prepare('SELECT id FROM users WHERE username = ?').get(username);
+                const existingUsername = getUserByUsername(username);
                 if (existingUsername) {
                     // Append random suffix to make it unique
                     const suffix = crypto.randomBytes(3).toString('hex');
@@ -570,14 +1240,22 @@ passport.use(new GoogleStrategy({
 
                 // Insert user with is_verified = 1 (Google already verified their email)
                 const result = db.prepare(
-                    'INSERT INTO users (username, email, password_hash, house_key, is_verified) VALUES (?, ?, ?, ?, 1)'
-                ).run(username, email, passwordHash, houseKey);
+                    `INSERT INTO users (username, email, username_lookup, email_lookup, password_hash, house_key, is_verified)
+                     VALUES (?, ?, ?, ?, ?, ?, 1)`
+                ).run(
+                    encryptUsername(username),
+                    encryptEmail(email),
+                    buildUsernameLookup(username),
+                    buildEmailLookup(email),
+                    passwordHash,
+                    null
+                );
 
                 const newUser = {
                     id: result.lastInsertRowid,
                     username: username,
                     email: email,
-                    house_key: houseKey,
+                    house_key: null,
                     role: 'user' // Default role
                 };
                 return cb(null, newUser);
@@ -609,6 +1287,7 @@ router.get('/google/callback',
     function (req, res) {
         // Successful authentication
         const user = req.user;
+        const normalizedUser = syncUserHousePointers(user.id);
 
         // Check if this is a new user (first time Google login)
         const userHouses = db.prepare('SELECT * FROM user_houses WHERE user_id = ?').all(user.id);
@@ -619,7 +1298,7 @@ router.get('/google/callback',
             id: user.id,
             username: user.username,
             email: user.email,
-            house_key: user.active_house_key || user.house_key,
+            house_key: normalizedUser?.active_house_key || normalizedUser?.house_key || null,
             role: user.role || 'user'
         });
 
@@ -637,8 +1316,9 @@ router.get('/google/callback',
 router.get('/verify-email', (req, res) => {
     try {
         const { token } = req.query;
+        const normalizedToken = String(token || '').trim();
 
-        if (!token) {
+        if (!normalizedToken) {
             return res.status(400).send(`
                 <!DOCTYPE html>
                 <html>
@@ -664,7 +1344,7 @@ router.get('/verify-email', (req, res) => {
         }
 
         // Find pending registration with this token
-        const pending = db.prepare('SELECT * FROM pending_registrations WHERE verification_token = ?').get(token);
+        const pending = findPendingRegistrationByVerificationToken(normalizedToken);
 
         if (!pending) {
             return res.status(400).send(`
@@ -690,6 +1370,9 @@ router.get('/verify-email', (req, res) => {
                 </html>
             `);
         }
+
+        const pendingHouseKey = getPendingRegistrationHouseKey(pending);
+        const decryptedPending = decryptPendingRegistrationRecord(pending);
 
         // Check token expiry
         const expiresAt = new Date(pending.expires_at);
@@ -722,29 +1405,48 @@ router.get('/verify-email', (req, res) => {
         }
 
         // Create the actual user account
-        const result = db.prepare(
-            'INSERT INTO users (username, email, password_hash, house_key, is_verified) VALUES (?, ?, ?, ?, 1)'
-        ).run(pending.username, pending.email, pending.password_hash, pending.house_key);
+        const existingEmailUser = getUserByEmail(decryptedPending.email);
+        const existingUsernameUser = getUserByUsername(decryptedPending.username);
+        if (existingEmailUser || existingUsernameUser) {
+            db.prepare('DELETE FROM pending_registrations WHERE id = ?').run(pending.id);
+            return res.status(400).send('Bu e-posta veya kullanıcı adı artık kullanımda. Lütfen yeniden kayıt olun.');
+        }
+
+        const result = db.prepare(`
+            INSERT INTO users (username, email, username_lookup, email_lookup, password_hash, house_key, is_verified)
+            VALUES (?, ?, ?, ?, ?, ?, 1)
+        `).run(
+            pending.username,
+            pending.email,
+            buildUsernameLookup(decryptedPending.username),
+            buildEmailLookup(decryptedPending.email),
+            pending.password_hash,
+            pending.is_new_house === 1 ? pendingHouseKey : null
+        );
 
         const userId = result.lastInsertRowid;
 
         // If new house, create default categories and rooms
         if (pending.is_new_house === 1) {
-            createDefaultCategories(pending.house_key);
-            createDefaultRooms(pending.house_key);
+            createDefaultCategories(pendingHouseKey);
+            createDefaultRooms(pendingHouseKey);
+            db.prepare('INSERT OR IGNORE INTO user_houses (user_id, house_key, house_name, is_owner) VALUES (?, ?, ?, 1)')
+                .run(userId, pendingHouseKey, encryptHouseName('Evim'));
+            db.prepare('UPDATE users SET active_house_key = ? WHERE id = ?').run(pendingHouseKey, userId);
+        } else {
+            const { request } = createJoinRequest({
+                requesterUserId: userId,
+                houseKey: pendingHouseKey,
+                requestedHouseName: null
+            });
+            notifyOwnersAboutJoinRequest(pendingHouseKey, decryptedPending.username, request.requested_house_name);
+            syncUserHousePointers(userId);
         }
-
-        // Add to user_houses
-        db.prepare('INSERT OR IGNORE INTO user_houses (user_id, house_key, house_name, is_owner) VALUES (?, ?, ?, ?)')
-            .run(userId, pending.house_key, pending.is_new_house === 1 ? 'Evim' : 'Katıldığım Ev', pending.is_new_house === 1 ? 1 : 0);
-
-        // Set active house
-        db.prepare('UPDATE users SET active_house_key = ? WHERE id = ?').run(pending.house_key, userId);
 
         // Delete the pending registration
         db.prepare('DELETE FROM pending_registrations WHERE id = ?').run(pending.id);
 
-        console.log(`✅ Hesap oluşturuldu ve doğrulandı: ${pending.email}`);
+        console.log(`✅ Hesap oluşturuldu ve doğrulandı: ${decryptedPending.email}`);
 
         // Success response
         res.send(`
@@ -765,7 +1467,7 @@ router.get('/verify-email', (req, res) => {
                 <div class="card">
                     <div class="icon">🎉</div>
                     <h1>Hesabınız Aktifleştirildi!</h1>
-                    <p>E-posta doğrulaması başarılı. Artık giriş yapabilirsiniz.</p>
+                    <p>${pending.is_new_house === 1 ? 'E-posta doğrulaması başarılı. Artik giris yapabilirsiniz.' : 'E-posta dogrulamasi basarili. Katilim isteginiz gonderildi, artik giris yapabilirsiniz.'}</p>
                     <a href="/login" style="display: inline-block; margin-top: 20px; padding: 12px 24px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; text-decoration: none; border-radius: 8px; font-weight: bold;">Giriş Yap</a>
                 </div>
             </body>
@@ -794,13 +1496,14 @@ router.get('/my-houses', authenticateToken, (req, res) => {
             FROM user_houses uh 
             WHERE uh.user_id = ?
             ORDER BY uh.joined_at DESC
-        `).all(req.user.id);
+        `).all(req.user.id).map(decryptHouseRecord);
 
         const user = db.prepare('SELECT active_house_key FROM users WHERE id = ?').get(req.user.id);
 
         res.json({
             houses,
-            activeHouseKey: user?.active_house_key || req.user.house_key
+            activeHouseKey: user?.active_house_key || req.user.house_key,
+            pendingRequests: listPendingJoinRequestsForUser(req.user.id)
         });
     } catch (err) {
         console.error('Get houses error:', err);
@@ -820,11 +1523,9 @@ router.post('/join-house', authenticateToken, async (req, res) => {
             return res.status(400).json({ error: 'Geçersiz ev anahtarı formatı' });
         }
 
-        // Check if house exists (at least one user has this house_key)
-        const existingHouse = db.prepare('SELECT id FROM users WHERE house_key = ?').get(house_key);
         const existingUserHouse = db.prepare('SELECT id FROM user_houses WHERE house_key = ?').get(house_key);
 
-        if (!existingHouse && !existingUserHouse) {
+        if (!existingUserHouse) {
             return res.status(400).json({ error: 'Geçersiz ev anahtarı. Bu anahtara sahip bir ev bulunamadı.' });
         }
 
@@ -834,16 +1535,16 @@ router.post('/join-house', authenticateToken, async (req, res) => {
             return res.status(400).json({ error: 'Zaten bu eve üyesiniz' });
         }
 
-        // Add user to house
-        db.prepare('INSERT INTO user_houses (user_id, house_key, house_name, is_owner) VALUES (?, ?, ?, 0)')
-            .run(req.user.id, house_key, house_name || 'Katıldığım Ev');
-
-        // Get updated houses list
-        const houses = db.prepare('SELECT * FROM user_houses WHERE user_id = ?').all(req.user.id);
+        const { request } = createJoinRequest({
+            requesterUserId: req.user.id,
+            houseKey: house_key,
+            requestedHouseName: house_name
+        });
+        notifyOwnersAboutJoinRequest(house_key, req.user.username, request.requested_house_name);
 
         res.json({
-            message: 'Eve başarıyla katıldınız!',
-            houses
+            message: 'Katilim isteginiz gonderildi',
+            pendingRequests: listPendingJoinRequestsForUser(req.user.id)
         });
     } catch (err) {
         console.error('Join house error:', err);
@@ -874,18 +1575,12 @@ router.post('/switch-house', authenticateToken, (req, res) => {
 
         // Generate new token with updated house_key
         const user = db.prepare('SELECT * FROM users WHERE id = ?').get(req.user.id);
-        const token = generateToken({
-            id: user.id,
-            username: user.username,
-            email: user.email,
-            house_key: house_key,
-            role: user.role || 'user'
-        });
+        const token = generateToken(getUserTokenPayload(user, house_key));
 
         res.cookie('token', token, cookieOptions).json({
             message: 'Ev başarıyla değiştirildi!',
             house_key,
-            house_name: userHouse.house_name
+            house_name: decryptHouseRecord(userHouse).house_name
         });
     } catch (err) {
         console.error('Switch house error:', err);
@@ -936,16 +1631,10 @@ router.post('/leave-house', authenticateToken, (req, res) => {
         }
 
         // Get updated houses and generate new token
-        const houses = db.prepare('SELECT * FROM user_houses WHERE user_id = ?').all(req.user.id);
+        const houses = getDecryptedHousesForUser(req.user.id);
         const updatedUser = db.prepare('SELECT * FROM users WHERE id = ?').get(req.user.id);
 
-        const token = generateToken({
-            id: updatedUser.id,
-            username: updatedUser.username,
-            email: updatedUser.email,
-            house_key: updatedUser.active_house_key,
-            role: updatedUser.role || 'user'
-        });
+        const token = generateToken(getUserTokenPayload(updatedUser, updatedUser.active_house_key));
 
         res.cookie('token', token, cookieOptions).json({
             message: 'Evden başarıyla ayrıldınız',
@@ -967,14 +1656,14 @@ router.post('/create-house', authenticateToken, (req, res) => {
 
         // Add user to new house as owner
         db.prepare('INSERT INTO user_houses (user_id, house_key, house_name, is_owner) VALUES (?, ?, ?, 1)')
-            .run(req.user.id, newHouseKey, house_name || 'Yeni Evim');
+            .run(req.user.id, newHouseKey, encryptHouseName(house_name || 'Yeni Evim'));
 
         // Create default categories and rooms for the new house
         createDefaultCategories(newHouseKey);
         createDefaultRooms(newHouseKey);
 
         // Get updated houses
-        const houses = db.prepare('SELECT * FROM user_houses WHERE user_id = ?').all(req.user.id);
+        const houses = getDecryptedHousesForUser(req.user.id);
 
         res.json({
             message: 'Yeni ev oluşturuldu!',
@@ -991,6 +1680,9 @@ router.post('/create-house', authenticateToken, (req, res) => {
 router.post('/google-complete', authenticateToken, async (req, res) => {
     try {
         const { mode, house_key, house_name } = req.body;
+        const passwordRecoveryMode = getPasswordRecoveryMode();
+        const currentUser = db.prepare('SELECT recovery_key_hash FROM users WHERE id = ?').get(req.user.id);
+        let newRecoveryKey = null;
 
         if (mode === 'create') {
             // Create new house for user
@@ -998,7 +1690,7 @@ router.post('/google-complete', authenticateToken, async (req, res) => {
 
             // Add to user_houses
             db.prepare('INSERT INTO user_houses (user_id, house_key, house_name, is_owner) VALUES (?, ?, ?, 1)')
-                .run(req.user.id, newHouseKey, house_name || 'Evim');
+                .run(req.user.id, newHouseKey, encryptHouseName(house_name || 'Evim'));
 
             // Update user's active house and primary house_key
             db.prepare('UPDATE users SET house_key = ?, active_house_key = ? WHERE id = ?')
@@ -1017,9 +1709,15 @@ router.post('/google-complete', authenticateToken, async (req, res) => {
                 role: req.user.role || 'user'
             });
 
+            if (passwordRecoveryMode === 'recovery_key' && !currentUser?.recovery_key_hash) {
+                newRecoveryKey = await assignRecoveryKeyToUser(req.user.id);
+            }
+
             res.cookie('token', token, cookieOptions).json({
                 message: 'Yeni ev oluşturuldu!',
-                house_key: newHouseKey
+                house_key: newHouseKey,
+                newRecoveryKey,
+                password_recovery_mode: passwordRecoveryMode
             });
         } else if (mode === 'join') {
             if (!house_key) {
@@ -1027,38 +1725,45 @@ router.post('/google-complete', authenticateToken, async (req, res) => {
             }
 
             // Verify house exists
-            const existingHouse = db.prepare('SELECT id FROM users WHERE house_key = ?').get(house_key);
+            const existingHouse = db.prepare('SELECT id FROM user_houses WHERE house_key = ?').get(house_key);
             if (!existingHouse) {
                 return res.status(400).json({ error: 'Geçersiz ev anahtarı' });
             }
 
-            // Add to user_houses
-            db.prepare('INSERT INTO user_houses (user_id, house_key, house_name, is_owner) VALUES (?, ?, ?, 0)')
-                .run(req.user.id, house_key, house_name || 'Katıldığım Ev');
-
-            // Update user's active house and primary house_key
-            db.prepare('UPDATE users SET house_key = ?, active_house_key = ? WHERE id = ?')
-                .run(house_key, house_key, req.user.id);
+            const { request } = createJoinRequest({
+                requesterUserId: req.user.id,
+                houseKey: house_key,
+                requestedHouseName: house_name
+            });
+            notifyOwnersAboutJoinRequest(house_key, req.user.username, request.requested_house_name);
+            const normalizedUser = syncUserHousePointers(req.user.id);
 
             // Generate new token
             const token = generateToken({
                 id: req.user.id,
                 username: req.user.username,
                 email: req.user.email,
-                house_key: house_key,
+                house_key: normalizedUser?.active_house_key || normalizedUser?.house_key || null,
                 role: req.user.role || 'user'
             });
 
+            if (passwordRecoveryMode === 'recovery_key' && !currentUser?.recovery_key_hash) {
+                newRecoveryKey = await assignRecoveryKeyToUser(req.user.id);
+            }
+
             res.cookie('token', token, cookieOptions).json({
-                message: 'Eve başarıyla katıldınız!',
-                house_key
+                message: 'Katilim isteginiz gonderildi',
+                house_key,
+                request,
+                newRecoveryKey,
+                password_recovery_mode: passwordRecoveryMode
             });
         } else {
             res.status(400).json({ error: 'Geçersiz mod. "create" veya "join" olmalı.' });
         }
     } catch (err) {
         console.error('Google complete error:', err);
-        res.status(500).json({ error: 'İşlem sırasında hata oluştu' });
+        res.status(err.statusCode || 500).json({ error: err.message || 'İşlem sırasında hata oluştu' });
     }
 });
 
@@ -1079,7 +1784,7 @@ router.post('/rename-house', authenticateToken, (req, res) => {
 
         // Update house name for this user
         db.prepare('UPDATE user_houses SET house_name = ? WHERE user_id = ? AND house_key = ?')
-            .run(house_name, req.user.id, house_key);
+            .run(encryptHouseName(house_name), req.user.id, house_key);
 
         res.json({ message: 'Ev ismi güncellendi' });
     } catch (err) {

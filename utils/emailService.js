@@ -261,13 +261,73 @@ export async function sendWelcomeEmail(email, houseKey) {
     });
 }
 
+export async function sendHouseJoinRequestNotification({ to, requesterUsername, requestedHouseName }) {
+    if (!process.env.RESEND_API_KEY) {
+        return { success: false, skipped: true };
+    }
+
+    const safeHouseName = String(requestedHouseName || 'bir ev').trim();
+    const safeRequesterUsername = String(requesterUsername || 'Bir kullanici').trim();
+
+    return sendEmail({
+        to,
+        subject: 'HomeInventory - Yeni katilim istegi',
+        html: `
+            <p>Merhaba,</p>
+            <p><strong>${safeRequesterUsername}</strong> kullanicisi <strong>${safeHouseName}</strong> icin katilim istegi gonderdi.</p>
+            <p>Istekleri uygulama icindeki Ayarlar ekranindan yonetebilirsiniz.</p>
+        `
+    });
+}
+
+export async function sendHouseJoinRequestDecisionNotification({ to, status, requestedHouseName }) {
+    if (!process.env.RESEND_API_KEY) {
+        return { success: false, skipped: true };
+    }
+
+    const safeHouseName = String(requestedHouseName || 'ev').trim();
+    const statusLabel = status === 'approved'
+        ? 'onaylandi'
+        : status === 'rejected'
+            ? 'reddedildi'
+            : 'guncellendi';
+
+    return sendEmail({
+        to,
+        subject: `HomeInventory - Katilim isteginiz ${statusLabel}`,
+        html: `
+            <p>Merhaba,</p>
+            <p><strong>${safeHouseName}</strong> icin gonderdiginiz katilim istegi <strong>${statusLabel}</strong>.</p>
+            <p>Guncel durumu uygulama icinden takip edebilirsiniz.</p>
+        `
+    });
+}
+
+export async function sendHouseKickNotification({ to, houseName }) {
+    if (!process.env.RESEND_API_KEY) {
+        return { success: false, skipped: true };
+    }
+
+    const safeHouseName = String(houseName || 'ev').trim();
+
+    return sendEmail({
+        to,
+        subject: 'HomeInventory - Ev erisiminiz guncellendi',
+        html: `
+            <p>Merhaba,</p>
+            <p><strong>${safeHouseName}</strong> evindeki uyeliginiz sonlandirildi.</p>
+            <p>Farkli bir eve istek gonderebilir veya yeni bir ev olusturabilirsiniz.</p>
+        `
+    });
+}
+
 /**
  * Şifre sıfırlama e-postası gönder
- * @param {string} email - Kullanıcı e-posta adresi
- * @param {string} resetToken - Sıfırlama token'ı
- * @param {string} resetUrl - Sıfırlama linki
+ * @param {Object} options
+ * @param {string} options.email - Kullanıcı e-posta adresi
+ * @param {string} options.resetUrl - Sıfırlama linki
  */
-export async function sendPasswordResetEmail(email, resetToken, resetUrl) {
+export async function sendPasswordResetEmail({ email, resetUrl }) {
     const html = `
     <!DOCTYPE html>
     <html>
@@ -298,7 +358,7 @@ export async function sendPasswordResetEmail(email, resetToken, resetUrl) {
                 </p>
 
                 <div class="warning">
-                    <strong>⚠️ Önemli:</strong> Bu link 1 saat içinde geçerliliğini yitirecektir. Eğer bu talebi siz yapmadıysanız, bu e-postayı görmezden gelebilirsiniz.
+                    <strong>⚠️ Önemli:</strong> Bu link 15 dakika boyunca geçerlidir. Eğer bu talebi siz yapmadıysanız, bu e-postayı görmezden gelebilirsiniz.
                 </div>
 
                 <p>Link çalışmıyorsa, aşağıdaki adresi tarayıcınıza yapıştırın:</p>

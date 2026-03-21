@@ -24,6 +24,7 @@
         "copyright": "© {{year}} HomeInventory - Tüm hakları saklıdır"
     },
     "auth": {
+        "password_requirements": "Şifre en az {{min}} karakter olmalı; büyük harf, küçük harf, rakam ve özel karakter içermeli.",
         "login": {
             "title": "Giriş Yap",
             "subtitle": "Evinizin tüm eşyalarını akıllıca yönetin",
@@ -50,20 +51,20 @@
             "create_house": "Yeni Ev Oluştur",
             "join_house": "Eve Katıl",
             "create_house_desc": "🏠 Yeni bir ev oluşturulacak ve size özel bir <strong>Ev Anahtarı</strong> verilecek. Bu anahtarı ailenizle paylaşarak aynı envantere erişebilirsiniz.",
-            "join_house_desc": "👨‍👩‍👧‍👦 Mevcut bir eve katılmak için size paylaşılan <strong>Ev Anahtarı</strong>'nı girin. Aynı anahtara sahip herkes ortak envantere erişebilir.",
+            "join_house_desc": "👨‍👩‍👧‍👦 Mevcut bir eve katılmak için size paylaşılan <strong>Ev Anahtarı</strong>'nı girin. İsteğiniz ev sahibinin onayına gönderilir.",
             "form_title": "Kayıt Ol",
             "username": "Kullanıcı Adı",
             "username_placeholder": "örn: ahmet",
             "email": "E-posta",
             "email_placeholder": "örn: ahmet@example.com",
             "password": "Şifre",
-            "password_placeholder": "En az 6 karakter",
+            "password_placeholder": "En az 10 karakter, büyük/küçük harf, rakam ve özel karakter",
             "password_confirm": "Şifre Tekrar",
             "password_confirm_placeholder": "Şifreyi tekrar girin",
             "house_key": "Ev Anahtarı",
             "house_key_placeholder": "64 karakterlik ev anahtarını yapıştırın",
             "submit_create": "Yeni Ev Oluştur",
-            "submit_join": "Eve Katıl",
+            "submit_join": "İstek Gönder",
             "submitting": "Kayıt olunuyor...",
             "already_have_account": "Zaten hesabınız var mı?",
             "login_link": "Giriş Yap",
@@ -92,6 +93,56 @@
                     "button": "Tamam, Giriş Sayfasına Git"
                 }
             }
+        },
+        "forgot_password": {
+            "title": "Şifremi Unuttum",
+            "subtitle": "Hesabınıza yeniden erişmek için güvenli sıfırlama akışını başlatın.",
+            "identifier": "Kullanıcı Adı veya E-posta",
+            "identifier_placeholder": "örn: ahmet veya ahmet@example.com",
+            "submit": "Sıfırlama Akışını Başlat",
+            "requesting": "Kontrol ediliyor...",
+            "email_success": "Eğer bu hesaba ait kayıt varsa, 15 dakika geçerli şifre sıfırlama bağlantısı gönderildi.",
+            "back_to_login": "Giriş Sayfasına Dön",
+            "recovery_mode_info": "Bu sunucuda e-posta kapalı. Devam etmek için kayıt sırasında sakladığınız Kurtarma Anahtarını girin.",
+            "recovery_key": "Kurtarma Anahtarı",
+            "recovery_key_placeholder": "örn: ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "Yeni Şifre",
+            "new_password_placeholder": "En az 10 karakter, büyük/küçük harf, rakam ve özel karakter",
+            "confirm_password": "Yeni Şifre (Tekrar)",
+            "confirm_password_placeholder": "Şifreyi tekrar girin",
+            "reset_submit": "Şifreyi Sıfırla",
+            "resetting": "Sıfırlanıyor..."
+        },
+        "reset_password": {
+            "title": "Şifreyi Sıfırla",
+            "subtitle": "Güvenli bağlantı ile yeni bir şifre belirleyin.",
+            "missing_token": "Şifre sıfırlama bağlantısı eksik veya bozuk görünüyor.",
+            "new_password": "Yeni Şifre",
+            "new_password_placeholder": "En az 10 karakter, büyük/küçük harf, rakam ve özel karakter",
+            "confirm_password": "Yeni Şifre (Tekrar)",
+            "confirm_password_placeholder": "Şifreyi tekrar girin",
+            "submit": "Şifreyi Güncelle",
+            "submitting": "Güncelleniyor...",
+            "back_to_login": "Giriş Sayfasına Dön"
+        },
+        "recovery_setup": {
+            "title": "Kurtarma Anahtarını Oluştur",
+            "subtitle": "Bu kurulum tamamlanmadan hesabınız yerel şifre kurtarma için güvenli sayılmaz.",
+            "warning": "Bu anahtar yalnızca bir kez gösterilecek. Güvenli bir parola yöneticisine veya çevrimdışı bir yere kaydedin.",
+            "account": "{{username}} hesabı için kurtarma anahtarı oluşturulacak.",
+            "description": "E-posta kapalı olduğu için gelecekte şifrenizi yalnızca bu anahtarla sıfırlayabilirsiniz.",
+            "submit": "Kurtarma Anahtarı Oluştur",
+            "generating": "Oluşturuluyor..."
+        },
+        "recovery_key_modal": {
+            "register_title": "Kurtarma Anahtarını Kaydet",
+            "google_title": "Kurtarma Anahtarını Kaydet",
+            "setup_title": "Kurtarma Anahtarını Kaydet",
+            "reset_title": "Yeni Kurtarma Anahtarını Kaydet",
+            "settings_title": "Yeni Kurtarma Anahtarını Kaydet",
+            "subtitle": "Bu anahtar yalnızca bir kez gösterilir.",
+            "warning": "Bu anahtarı kaybetmeniz halinde e-posta kapalıyken şifrenizi geri alamazsınız. Kopyalayıp güvenli bir yerde saklayın.",
+            "confirm": "Anahtarı Kaydettim"
         }
     },
     "navigation": {
@@ -220,6 +271,7 @@
             "house_switched": "✅ {{name}} aktif edildi!",
             "house_switch_error": "Ev değiştirilemedi",
             "house_joined_success": "✅ Eve başarıyla katıldınız!",
+            "house_request_sent_success": "✅ Katılım isteğiniz gönderildi!",
             "house_join_error": "Eve katılınamadı",
             "house_created_success": "✅ \"{{name}}\" oluşturuldu!",
             "house_create_error": "Ev oluşturulamadı",
@@ -243,7 +295,15 @@
             "username_len_error": "Kullanıcı adı en az 3 karakter olmalı",
             "fill_all_fields": "Tüm alanları doldurun",
             "passwords_mismatch": "Yeni şifreler eşleşmiyor",
-            "password_min_len": "Yeni şifre en az 6 karakter olmalı"
+            "password_min_len": "Yeni şifre en az 6 karakter olmalı",
+            "request_approved": "✅ Katılım isteği onaylandı",
+            "request_rejected": "Katılım isteği reddedildi",
+            "request_action_error": "İstek güncellenemedi",
+            "member_kick_confirm": "\"{{name}}\" kullanıcısını evden çıkarmak istediğinize emin misiniz?",
+            "member_kicked": "Üye evden çıkarıldı",
+            "member_kick_error": "Üye evden çıkarılamadı",
+            "recovery_key_regenerated": "Kurtarma anahtarı yenilendi",
+            "recovery_key_error": "Kurtarma anahtarı yenilenemedi"
         },
         "user_profile": {
             "edit_username": "Kullanıcı adını değiştir"
@@ -272,11 +332,23 @@
             "copy": "Kopyala",
             "share_info": "💡 Bu anahtarı paylaştığınız kişiler, kayıt olurken \"Eve Katıl\" seçeneğini kullanarak envanterinize erişebilirler.",
             "members_title": "Ev Üyeleri ({{count}})",
+            "active_members": "Aktif Üyeler",
+            "pending_requests": "Bekleyen İstekler",
             "you": "(Siz)",
             "joined_at": "Katılım: {{date, datetime}}",
             "no_members": "Henüz başka üye yok",
+            "no_pending_requests": "Bekleyen istek yok",
+            "owner_controls": "Owner yönetimi açık",
+            "approve": "Onayla",
+            "reject": "Reddet",
+            "kick": "Evden Çıkar",
             "invite_title": "Aile Üyelerini Davet Et",
             "invite_desc": "Ev anahtarınızı paylaşarak aile üyelerinizin aynı envantere erişmesini sağlayın. Her üye kendi hesabıyla giriş yapar, ancak aynı verilere erişir."
+        },
+        "pending_requests": {
+            "title": "Bekleyen Katılım İsteklerim",
+            "waiting_since": "Bekleme başlangıcı: {{date, datetime}}",
+            "pending_badge": "Bekliyor"
         },
         "theme": {
             "title": "Tema",
@@ -286,7 +358,15 @@
         "security": {
             "title": "Güvenlik",
             "change_password": "Şifre Değiştir",
-            "change_password_desc": "Hesap şifrenizi güncelleyin"
+            "change_password_desc": "Hesap şifrenizi güncelleyin",
+            "recovery_key_title": "Kurtarma Anahtarı",
+            "recovery_key_desc": "Yerel şifre kurtarma için yeni bir anahtar üretebilirsiniz.",
+            "recovery_key_missing": "Bu hesap için henüz kurtarma anahtarı görünmüyor.",
+            "current_key_label": "Kayıtlı Kurtarma Anahtarı",
+            "recovery_key_unavailable": "Mevcut kurtarma anahtarı görüntülenemiyor. Gerekirse yeniden üretin.",
+            "recovery_key_action": "Yeniden Üret",
+            "recovery_key_modal_desc": "Devam etmek için mevcut şifrenizi doğrulayın. Yeni anahtar size sadece bir kez gösterilecek.",
+            "recovery_key_loading": "Hazırlanıyor..."
         },
         "data_management": {
             "title": "Veri Yönetimi",
@@ -315,11 +395,11 @@
             "join_house": {
                 "title": "Eve Katıl",
                 "key_placeholder": "64 karakterlik ev anahtarını girin",
-                "key_help": "Aile üyenizden aldığınız anahtarı girin",
+                "key_help": "Aile üyenizden aldığınız anahtarı girin. İstek ev sahibinin onayına düşer.",
                 "name_label": "Bu Eve Vereceğiniz İsim (isteğe bağlı)",
                 "name_placeholder": "örn: Annemlerin Evi",
-                "joining": "Katılınıyor...",
-                "submit": "Eve Katıl"
+                "joining": "İstek gönderiliyor...",
+                "submit": "İstek Gönder"
             },
             "create_house": {
                 "title": "Yeni Ev Oluştur",
@@ -441,18 +521,18 @@
             "login": "Giriş Yap"
         },
         "hero": {
-            "free_badge": "Ücretsiz Kullanım",
+            "free_badge": "Tamamen Ücretsiz",
             "title_1": "Evindeki Her Şeyi",
             "title_2": "Tek Yerden Yönet!",
-            "description": "Ev envanterini dijital ortama taşı. Eşyalarını kategorize et, aileni davet et ve her yerden erişim sağla. Modern, güvenli ve kullanımı kolay.",
+            "description": "Ev envanterini dijital ortama taşı; 100 dil desteğiyle eşyalarını yönet, aileni davet et ve hassas alanlarını modern şifreleme ile koru.",
             "cta_start": "Hemen Başla",
             "cta_register": "Hesap Oluştur",
             "stat_free": "Ücretsiz",
-            "stat_access": "Erişim"
+            "stat_access": "Dil Desteği"
         },
         "features": {
             "title": "Neden <1>HomeInventory</1>?",
-            "subtitle": "Ev yönetimini kolaylaştıran tüm özellikler tek bir platformda",
+            "subtitle": "Ev yönetimi, çok dilli kullanım ve hassas veriler için şifreleme tek platformda",
             "items": {
                 "categorize": {
                     "title": "Eşyalarını Kategorize Et",
@@ -464,15 +544,15 @@
                 },
                 "access": {
                     "title": "Her Yerden Erişim Sağla",
-                    "desc": "Evde, iş yerinde veya tatilde - envanterine her yerden güvenle ulaş."
+                    "desc": "Evde, iş yerinde veya tatilde; envanterine farklı cihazlardan ve kendi dilinde eriş."
                 },
                 "barcode": {
                     "title": "Barkod ile Hızlı Ekleme",
                     "desc": "Ürün barkodunu tara, bilgiler otomatik olarak doldurulsun."
                 },
                 "security": {
-                    "title": "Güvenli ve Gizli",
-                    "desc": "Verileriniz KVKK uyumlu altyapı ile korunur."
+                    "title": "Alan Bazlı Güvenlik",
+                    "desc": "Hassas eşya alanları ve doğrulama verileri AES-256-GCM tabanlı alan şifreleme ile korunur."
                 },
                 "backup": {
                     "title": "Yedekleme & Dışa Aktarma",
@@ -486,7 +566,7 @@
             "button": "Giriş Yap"
         },
         "footer": {
-            "desc": "Ev envanterini dijital ortama taşıyan, kullanımı kolay ve güvenli platform.",
+            "desc": "Ev envanterini dijital ortama taşıyan, çok dilli ve güvenlik odaklı platform.",
             "links": "Hızlı Bağlantılar",
             "contact": "Bize Ulaşın",
             "copyright": "© {{year}} HomeInventory. Tüm hakları saklıdır."
@@ -525,7 +605,7 @@
         },
         "join": {
             "title": "Mevcut Eve Katıl",
-            "desc": "Aile üyenizin evine katılın"
+            "desc": "Aile üyenizin evine istek gönderin"
         },
         "back": "Geri",
         "house_name": "Ev Adı (isteğe bağlı)",
@@ -536,8 +616,44 @@
         "house_key_hint": "Aile üyenizden aldığınız 64 karakterlik anahtarı girin",
         "house_name_join": "Bu Eve Vereceğiniz İsim (isteğe bağlı)",
         "submit_create": "Ev Oluştur",
-        "submit_join": "Eve Katıl",
+        "submit_join": "İstek Gönder",
         "processing": "İşleniyor..."
+    },
+    "house_access_pending": {
+        "eyebrow": "Ev Erişimi",
+        "fallback_house": "Seçili ev",
+        "signed_in_as": "{{username}} olarak giriş yaptınız",
+        "logout": "Çıkış Yap",
+        "messages": {
+            "create_error": "Ev oluşturulamadı",
+            "join_success": "Katılım isteğiniz gönderildi",
+            "join_error": "Katılım isteği gönderilemedi"
+        },
+        "pending": {
+            "title": "Ev sahibi onayı bekleniyor",
+            "description": "\"{{house}}\" için gönderdiğiniz istek henüz sonuçlanmadı.",
+            "current_request": "Şu an bekleyen isteğiniz: {{house}}"
+        },
+        "no_house": {
+            "title": "Şu anda bağlı olduğun bir ev yok",
+            "description": "Yeni bir ev oluşturabilir veya bir eve katılma isteği gönderebilirsiniz."
+        },
+        "create": {
+            "title": "Yeni Ev Oluştur",
+            "description": "Kendi ev envanterinizi başlatın ve hemen kullanmaya başlayın.",
+            "name_label": "Ev Adı",
+            "name_placeholder": "örn: Evim, Yazlık, Depo",
+            "submitting": "Oluşturuluyor...",
+            "submit": "Ev Oluştur"
+        },
+        "join": {
+            "title": "Bir Eve Katılma İsteği Gönder",
+            "description": "Ev anahtarını girin, istek doğrudan ev sahibine düşsün.",
+            "key_label": "Ev Anahtarı",
+            "key_placeholder": "64 karakterlik ev anahtarını girin",
+            "submitting": "Gönderiliyor...",
+            "submit": "İstek Gönder"
+        }
     },
     "scanner": {
         "title": "Barkod Tarayıcı",

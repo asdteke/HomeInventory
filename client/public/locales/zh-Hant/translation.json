@@ -1,0 +1,696 @@
+{
+    "items": {
+        "qrcode": {
+            "title": "QR Code",
+            "desc": "你可以列印並貼上此 QR 碼於物品上。掃描後可直接導向此頁面。"
+        },
+        "title_new": "新增項目",
+        "title_edit": "編輯項目",
+        "subtitle": "輸入物品詳情",
+        "load_error": "無法載入物品",
+        "form": {
+            "name": "物品名稱",
+            "name_placeholder": "例如 Samsung 55 吋電視",
+            "required": "*",
+            "description": "描述",
+            "description_placeholder": "有關物品的備註...",
+            "quantity": "數量",
+            "category": "類別",
+            "select_category": "選擇",
+            "room": "房間",
+            "select_room": "選擇房間",
+            "location_details": "位置詳情",
+            "location_optional": "（可選）",
+            "location_placeholder": "搜尋或新增位置...",
+            "location_help": "房間的哪裡？（例如「藍色櫃子的最上層」）",
+            "location_create": "創建位置「{{name}}」",
+            "location_privacy": "位置隱私",
+            "location_public": "所有人都可以看到此位置",
+            "location_private": "只有你可以看到",
+            "location_save": "保存位置",
+            "location_saving": "正在添加…",
+            "location_selected": "選定的位置：{{name}}",
+            "location_empty": "此房間尚未定義任何位置。開始輸入以創建一個。",
+            "photo": "照片",
+            "add_photo": "添加",
+            "barcode": "條碼",
+            "barcode_optional": "（可選）",
+            "barcode_placeholder": "例如 8690123456789",
+            "scan_barcode": "掃描條碼",
+            "search_db": "搜尋資料庫",
+            "search_google": "在 Google 搜尋",
+            "barcode_saved": "✓ 條碼將被儲存",
+            "visibility": "物品可見性",
+            "visibility_public": "對所有家庭成員可見",
+            "visibility_private": "僅你可見",
+            "submit_add": "新增物品",
+            "submit_save": "儲存變更",
+            "submitting": "儲存中..."
+        },
+        "messages": {
+            "quick_add_success": "✓ “{{barcode}}” 已快速新增 - 你可以稍後編輯",
+            "quick_add_fail": "⚠ 快速新增失敗",
+            "searching": "搜尋中...",
+            "found_local": "✓ 本地：已登記為 “{{name}}”",
+            "found_remote": "✓ 在 {{source}} 找到 {{note}}：“{{name}}”",
+            "not_found": "⚠ 在資料庫中找不到產品。您可以在 Google 上搜尋。",
+            "search_fail": "⚠ 搜尋失敗",
+            "name_required": "物品名稱為必填",
+            "location_add_error": "無法新增位置"
+        }
+    },
+    "common": {
+        "save": "保存",
+        "cancel": "取消",
+        "loading": "載入中...",
+        "error": "發生錯誤",
+        "success": "操作成功",
+        "search": "搜尋...",
+        "edit": "編輯",
+        "delete": "刪除",
+        "add": "新增",
+        "new": "新的",
+        "all": "全部",
+        "manage": "管理",
+        "help_support": "幫助與支援",
+        "theme": {
+            "light": "浅色模式",
+            "dark": "深色模式"
+        },
+        "select": "選擇",
+        "refresh": "重新整理",
+        "close": "關閉",
+        "logout": "登出",
+        "copyright": "© {{year}} HomeInventory - 版權所有"
+    },
+    "auth": {
+        "login": {
+            "title": "登入",
+            "subtitle": "智慧管理您所有的家居物品",
+            "welcome": "歡迎使用 HomeInventory",
+            "username_or_email": "使用者名稱或電子郵件",
+            "password": "密碼",
+            "forgot_password": "忘記密碼？",
+            "submit": "登入",
+            "submitting": "登入中...",
+            "google_continue": "使用 Google 繼續",
+            "or": "或",
+            "no_account": "沒有帳號嗎？",
+            "register_link": "註冊",
+            "support_contact": "登入問題：",
+            "terms_title": "📋 使用條款與免責聲明",
+            "terms_beta": "BETA 版本：HomeInventory 目前處於測試階段。我們無法保證您的資料持久性或安全性。",
+            "terms_disclaimer": "免責聲明：使用本應用程式即表示您同意無法對潛在的資料遺失、存取問題或其他技術故障要求任何賠償。",
+            "terms_backup": "資料備份：我們強烈建議您定期備份重要資訊。",
+            "terms_accept": "登入即表示您已接受這些條款。"
+        },
+        "register": {
+            "title": "歡迎使用 HomeInventory",
+            "subtitle": "建立新帳號或加入現有的家庭",
+            "create_house": "建立新家庭",
+            "join_house": "加入家庭",
+            "create_house_desc": "🏠 將建立一個新家庭，您將獲得專屬的 <strong>家庭金鑰</strong>。與家人分享此金鑰即可存取相同的清單。",
+            "join_house_desc": "👨‍👩‍👧‍👦 輸入與您分享的 <strong>家庭金鑰</strong> 以加入現有家庭。擁有金鑰的人都可以存取共享清單。",
+            "form_title": "註冊",
+            "username": "用戶名",
+            "username_placeholder": "例如 john",
+            "email": "電子郵件",
+            "email_placeholder": "例如 john@example.com",
+            "password": "密碼",
+            "password_placeholder": "至少 6 個字符",
+            "password_confirm": "確認密碼",
+            "password_confirm_placeholder": "重新輸入密碼",
+            "house_key": "房屋密鑰",
+            "house_key_placeholder": "粘貼 64 字符的房屋密鑰",
+            "submit_create": "創建新房屋",
+            "submit_join": "加入房屋",
+            "submitting": "註冊中...",
+            "already_have_account": "已經有帳戶？",
+            "login_link": "登錄",
+            "support": "註冊問題：",
+            "terms": "使用條款與免責聲明",
+            "passwords_mismatch": "密碼不符",
+            "password_length": "密碼至少要有 6 個字元",
+            "key_required": "加入現有房屋需要房屋鑰匙",
+            "modals": {
+                "key_created": {
+                    "title": "🎉 房屋已建立！",
+                    "subtitle": "請將下列鑰匙妥善保存",
+                    "warning": "重要提示：這把鑰匙只會顯示一次。請與家人分享，以便他們也能存取同一個庫存。",
+                    "copy": "複製",
+                    "copied": "已複製",
+                    "button": "我已保存鑰匙，繼續"
+                },
+                "email_verification": {
+                    "title": "📧 需要電子郵件驗證",
+                    "message": "帳號已建立！請驗證您的電子郵件地址以登入。",
+                    "step_1": "我們已發送驗證電子郵件至 <1>{{email}}</1>。",
+                    "step_2": "請點擊電子郵件中的 <1>「驗證我的帳號」</1> 按鈕。",
+                    "step_3": "驗證後，<1>您可以登入</1>。",
+                    "spam_note": "如果電子郵件未到達，請檢查垃圾郵件/垃圾郵件資料夾。",
+                    "key_note": "重要：您的房屋鑰匙也已通過電子郵件發送。您可以與家人分享。",
+                    "button": "好的，前往登入"
+                }
+            }
+        },
+        "forgot_password": {
+            "title": "Forgot Password",
+            "subtitle": "Start a secure recovery flow to access your account again.",
+            "identifier": "Username or Email",
+            "identifier_placeholder": "e.g. john or john@example.com",
+            "submit": "Start Recovery",
+            "requesting": "Checking...",
+            "email_success": "If an account exists, a password reset link valid for 15 minutes has been sent.",
+            "back_to_login": "Back to Login",
+            "recovery_mode_info": "Email is disabled on this server. Continue with the Recovery Key you saved during account setup.",
+            "recovery_key": "Recovery Key",
+            "recovery_key_placeholder": "e.g. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "reset_submit": "Reset Password",
+            "resetting": "Resetting..."
+        },
+        "reset_password": {
+            "title": "Reset Password",
+            "subtitle": "Use the secure link to set a new password.",
+            "missing_token": "The password reset link looks incomplete or broken.",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "submit": "Update Password",
+            "submitting": "Updating...",
+            "back_to_login": "Back to Login"
+        },
+        "recovery_setup": {
+            "title": "Create Recovery Key",
+            "subtitle": "Until this is completed, your account is not considered safe for local password recovery.",
+            "warning": "This key will only be shown once. Save it in a password manager or another secure offline location.",
+            "account": "A recovery key will be created for account {{username}}.",
+            "description": "Because email is disabled, you will only be able to reset your password with this key in the future.",
+            "submit": "Create Recovery Key",
+            "generating": "Creating..."
+        },
+        "recovery_key_modal": {
+            "register_title": "Save Your Recovery Key",
+            "google_title": "Save Your Recovery Key",
+            "setup_title": "Save Your Recovery Key",
+            "reset_title": "Save Your New Recovery Key",
+            "settings_title": "Save Your New Recovery Key",
+            "subtitle": "This key is shown only once.",
+            "warning": "If you lose this key while email is disabled, you may not be able to recover your password. Copy it and store it safely.",
+            "confirm": "I Saved the Key"
+        }
+    },
+    "navigation": {
+        "home": "首頁",
+        "inventory": "庫存",
+        "rooms": "房間",
+        "categories": "類別",
+        "settings": "設定",
+        "new_item": "新增物品",
+        "share_house": "分享房屋",
+        "admin_panel": "管理員面板",
+        "logout": "登出",
+        "menu": "選單"
+    },
+    "dashboard": {
+        "welcome": "歡迎，<1>{{name}}</1>！👋",
+        "subtitle": "庫存概覽",
+        "quick_search": "快速搜尋...",
+        "filters": {
+            "private": "🔒 我的私人物品",
+            "public": "🌐 公開",
+            "remove": "清除篩選",
+            "no_items": "沒有符合此篩選的物品"
+        },
+        "stats": {
+            "total_items": "物品總數",
+            "total_quantity": "總數量",
+            "fullest_room": "最滿房間",
+            "category_count": "類別",
+            "items_suffix": "物品"
+        },
+        "recent_items": {
+            "title": "最近新增",
+            "see_all": "查看全部"
+        },
+        "categories": {
+            "title": "類別",
+            "manage": "管理",
+            "empty": "尚未新增任何項目"
+        },
+        "rooms": {
+            "title": "房間",
+            "manage": "管理"
+        },
+        "quick_actions": {
+            "title": "⚡ 快速操作",
+            "add_item": "新增項目",
+            "search_item": "搜尋項目",
+            "categories": "類別",
+            "settings": "設定"
+        }
+    },
+    "beta_banner": {
+        "title": "測試版:",
+        "text": "HomeInventory 目前處於測試和愛好階段。不保證資料持久性或安全性。請備份重要資訊。",
+        "contact": "聯絡方式:"
+    },
+    "footer": {
+        "rights": "© {{year}} HomeInventory - 版權所有",
+        "contact": "聯絡方式:"
+    },
+    "settings": {
+        "title": "設定",
+        "subtitle": "管理應用程式偏好設置",
+        "messages": {
+            "house_switched": "✅ {{name}} 已啟用！",
+            "house_switch_error": "切換房屋失敗",
+            "house_joined_success": "✅ 您已成功加入房屋！",
+            "house_join_error": "加入房屋失敗",
+            "house_created_success": "✅ \"{{name}}\" 已建立！",
+            "house_create_error": "建立房屋失敗",
+            "house_left_success": "已成功離開房屋",
+            "house_left_error": "離開房屋失敗",
+            "house_leave_confirm": "您確定要離開 \"{{name}}\" 嗎？",
+            "backup_downloaded": "✅ 備份下載成功！({{count}} 項)",
+            "export_error": "❌ 匯出過程中發生錯誤",
+            "import_invalid_format": "無效的備份檔案格式",
+            "import_success": "✅ 已新增 {{items}} 項，{{categories}} 類別，{{rooms}} 房間，{{locations}} 位置。",
+            "import_error": "❌ 匯入錯誤：{{error}}",
+            "password_changed": "密碼變更成功！",
+            "password_error_current": "當前密碼不正確",
+            "password_error_invalid": "發送的資料無效",
+            "session_expired": "會話已過期。請重新登入。",
+            "server_error": "伺服器發生錯誤",
+            "connection_error": "無法連接到伺服器。請檢查您的網路連線。",
+            "unexpected_error": "發生未知錯誤",
+            "username_changed": "✅ 使用者名稱已變更！",
+            "username_error": "無法更改使用者名稱",
+            "username_len_error": "使用者名稱至少需要 3 個字元",
+            "fill_all_fields": "請填寫所有欄位",
+            "passwords_mismatch": "新密碼不匹配",
+            "password_min_len": "新密碼至少要有6個字符",
+            "house_request_sent_success": "✅ Your join request was sent!",
+            "request_approved": "✅ Join request approved",
+            "request_rejected": "Join request rejected",
+            "request_action_error": "Could not update request",
+            "member_kick_confirm": "Are you sure you want to remove \"{{name}}\" from the house?",
+            "member_kicked": "Member removed from the house",
+            "member_kick_error": "Could not remove member from the house",
+            "recovery_key_regenerated": "Recovery key regenerated",
+            "recovery_key_error": "Could not regenerate recovery key"
+        },
+        "user_profile": {
+            "edit_username": "更改用戶名"
+        },
+        "my_houses": {
+            "title": "我的房子",
+            "join_house": "加入房子",
+            "join_short": "加入",
+            "new_house": "新房子",
+            "new_short": "新建",
+            "no_house": "你尚未加入任何房子",
+            "owner": "擁有者",
+            "active": "活躍",
+            "member_count": "{{count}} 名成員",
+            "item_count": "{{count}} 件物品",
+            "switch": "切換",
+            "leave": "離開房子",
+            "info": "💡 你可以成為多個房子的成員並在它們之間切換。每個房子都有獨立的庫存。"
+        },
+        "house_info": {
+            "title": "活躍房子金鑰",
+            "key_label": "房子金鑰",
+            "mask_key": "••••••••{{suffix}}",
+            "hide": "隱藏",
+            "show": "顯示",
+            "copy": "複製",
+            "share_info": "💡 你與之分享此金鑰的用戶可以在註冊時使用「加入房子」選項來訪問你的庫存。",
+            "members_title": "房子成員 ({{count}})",
+            "you": "(你)",
+            "joined_at": "加入時間: {{date, datetime}}",
+            "no_members": "暫無其他成員",
+            "invite_title": "邀請家庭成員",
+            "invite_desc": "分享你的房子金鑰讓家庭成員訪問相同的庫存。每個成員用自己的帳號登入，但訪問相同的資料。",
+            "active_members": "Active Members",
+            "pending_requests": "Pending Requests",
+            "no_pending_requests": "No pending requests",
+            "owner_controls": "Owner controls enabled",
+            "approve": "Approve",
+            "reject": "Reject",
+            "kick": "Remove"
+        },
+        "theme": {
+            "title": "主題",
+            "dark": "深色模式",
+            "light": "淺色模式"
+        },
+        "security": {
+            "title": "安全性",
+            "change_password": "更改密碼",
+            "change_password_desc": "更新您的帳戶密碼",
+            "recovery_key_title": "Recovery Key",
+            "recovery_key_desc": "You can generate a new key for local password recovery.",
+            "recovery_key_missing": "No recovery key is visible for this account yet.",
+            "current_key_label": "Saved Recovery Key",
+            "recovery_key_unavailable": "The current recovery key cannot be displayed. Regenerate it if needed.",
+            "recovery_key_action": "Regenerate",
+            "recovery_key_modal_desc": "Confirm your current password to continue. The new key will be shown only once.",
+            "recovery_key_loading": "Preparing..."
+        },
+        "data_management": {
+            "title": "資料管理",
+            "download_backup": "下載備份",
+            "downloading": "正在下載...",
+            "export_json": "匯出為 JSON",
+            "upload_backup": "上傳備份",
+            "uploading": "正在上傳...",
+            "import_json": "從 JSON 匯入"
+        },
+        "about": {
+            "title": "📱 關於應用程式",
+            "version": "版本",
+            "brand": "品牌",
+            "feedback": "✉️ 發送反饋"
+        },
+        "modals": {
+            "password": {
+                "title": "更改密碼",
+                "current": "當前密碼",
+                "new": "新密碼",
+                "confirm": "確認新密碼",
+                "changing": "正在更改...",
+                "submit": "更改密碼"
+            },
+            "join_house": {
+                "title": "加入房屋",
+                "key_placeholder": "輸入 64 位字符的房屋金鑰",
+                "key_help": "輸入您從家人那裡收到的金鑰",
+                "name_label": "此房屋的名稱（可選）",
+                "name_placeholder": "例如：父母的房子",
+                "joining": "加入中...",
+                "submit": "加入房屋"
+            },
+            "create_house": {
+                "title": "建立新房屋",
+                "name_label": "房屋名稱",
+                "name_placeholder": "例如：夏日小屋、辦公室、倉庫",
+                "name_help": "若留空，將命名為「我的新房屋」",
+                "info": "ℹ️ 新房屋將創建預設的類別和房間，您稍後可以編輯它們。",
+                "creating": "正在建立...",
+                "submit": "建立房屋"
+            },
+            "username": {
+                "title": "更改使用者名稱",
+                "new_label": "新使用者名稱",
+                "placeholder": "您的新使用者名稱",
+                "help": "3-30個字元，只能包含字母、數字、底線及破折號",
+                "saving": "儲存中...",
+                "submit": "更改"
+            }
+        },
+        "select_language": "選擇語言",
+        "pending_requests": {
+            "title": "My Pending Join Requests",
+            "waiting_since": "Waiting since: {{date, datetime}}",
+            "pending_badge": "Pending"
+        }
+    },
+    "inventory": {
+        "title": "物品欄",
+        "subtitle": "{{count}} 個項目已找到",
+        "new_item": "新增項目",
+        "add_first": "新增第一個項目",
+        "search_placeholder": "搜尋項目...",
+        "all_categories": "所有類別",
+        "all_rooms": "所有房間",
+        "empty_title": "未找到項目",
+        "empty_filter": "沒有符合您篩選條件的項目",
+        "empty_msg": "尚未新增任何項目",
+        "delete_confirm": "您確定要刪除此項目嗎？",
+        "delete_error": "刪除錯誤"
+    },
+    "categories": {
+        "title": "類別",
+        "subtitle": "{{count}} 個類別",
+        "new_category": "新增類別",
+        "edit_title": "編輯類別",
+        "new_title": "新分類",
+        "name_label": "分類名稱",
+        "icon_label": "圖示",
+        "color_label": "顏色",
+        "delete_confirm": "您確定要刪除此分類嗎？",
+        "delete_error": "刪除錯誤"
+    },
+    "rooms": {
+        "title": "房間",
+        "subtitle": "{{count}} 間房",
+        "new_room": "新房間",
+        "edit_title": "編輯房間",
+        "new_title": "新房間",
+        "name_label": "房間名稱",
+        "description_label": "描述（可選）",
+        "name_placeholder": "例如：主臥室",
+        "desc_placeholder": "例如：主臥",
+        "delete_confirm": "你確定要刪除這個房間嗎？",
+        "delete_error": "刪除錯誤"
+    },
+    "admin": {
+        "title": "管理面板",
+        "subtitle": "系統管理與監控",
+        "refresh": "刷新",
+        "tabs": {
+            "dashboard": "儀表板",
+            "users": "使用者",
+            "logs": "日誌",
+            "email": "發送郵件"
+        },
+        "stats": {
+            "total_users": "總使用者數",
+            "new_today": "今日：+{{count}} 新",
+            "total_inventory": "總庫存",
+            "inventory_details": "{{rooms}} 個房間，{{categories}} 個類別",
+            "banned_users": "被封鎖使用者",
+            "access_blocked": "存取被阻止",
+            "server_memory": "伺服器記憶體",
+            "uptime": "運行時間: {{hours}} 小時"
+        },
+        "users": {
+            "user": "使用者",
+            "role": "角色",
+            "status": "狀態",
+            "action": "操作",
+            "banned": "已封鎖",
+            "active": "活躍",
+            "unban": "解除封鎖",
+            "ban": "封鎖",
+            "delete": "刪除帳號",
+            "confirm_ban": "您確定要 {{status}} 此使用者嗎？",
+            "ban_lift": "解除封鎖",
+            "ban_apply": "封鎖",
+            "confirm_delete_1": "您確定要刪除使用者 \"{{username}}\" 嗎？",
+            "confirm_delete_2": "⚠️ 警告：這將永久刪除使用者「{{username}}」的所有資料（庫存、房間、分類）！",
+            "confirm_delete_3": "🚨 最後警告：帳號「{{username}}」及所有資料將無法恢復地刪除。您確定要繼續嗎？"
+        },
+        "logs": {
+            "title": "管理員日誌",
+            "no_logs": "尚無日誌",
+            "errors_title": "系統錯誤（最近 10 條）",
+            "no_errors": "// 系統健康，沒有錯誤日誌。",
+            "date_fmt": "{{date, datetime}}"
+        },
+        "email": {
+            "title": "發送電子郵件",
+            "to": "收件人（To）",
+            "subject": "主題",
+            "message": "訊息（支援 HTML）",
+            "placeholder_message": "在此輸入您的訊息...",
+            "send": "發送",
+            "sending": "發送中...",
+            "success": "電子郵件發送成功！",
+            "error": "傳送失敗"
+        }
+    },
+    "landing": {
+        "nav": {
+            "login": "登入"
+        },
+        "hero": {
+            "title_1": "管理一切",
+            "title_2": "在您的家中！",
+            "description": "將您的家庭物品數位化。分類物品、邀請家人，並可從任何地方存取。現代、安全且易於使用。",
+            "cta_start": "開始使用",
+            "cta_register": "建立帳號",
+            "stat_free": "免費",
+            "stat_access": "存取"
+        },
+        "features": {
+            "title": "為什麼選擇 <1>HomeInventory</1>？",
+            "subtitle": "所有功能集中於一個平台，簡化家庭管理",
+            "items": {
+                "categorize": {
+                    "title": "分類物品",
+                    "desc": "按房間和類別整理所有物品，幾秒鐘即可找到所需物品。"
+                },
+                "family": {
+                    "title": "使用房屋鑰匙邀請家人",
+                    "desc": "邀請家人使用您獨特的房屋鑰匙，共同管理庫存。"
+                },
+                "access": {
+                    "title": "隨時隨地存取",
+                    "desc": "在家、在工作地點或度假時——都能安全地存取您的庫存。"
+                },
+                "barcode": {
+                    "title": "條碼快速新增",
+                    "desc": "掃描產品條碼，細節會自動填入。"
+                },
+                "security": {
+                    "title": "安全與隱私",
+                    "desc": "您的數據經過加密，並使用符合 KVKK 的基礎設施保護。"
+                },
+                "backup": {
+                    "title": "備份與匯出",
+                    "desc": "以 JSON 格式備份您的庫存，隨時恢復。"
+                }
+            }
+        },
+        "cta_bottom": {
+            "title": "立即開始使用！",
+            "description": "創建免費帳號並數位化您的家庭庫存。註冊僅需幾秒鐘。",
+            "button": "登入"
+        },
+        "footer": {
+            "desc": "簡單且安全的平台，協助您數位化家庭庫存。",
+            "links": "快速連結",
+            "contact": "聯絡我們",
+            "copyright": "© {{year}} 家居清單。版權所有。"
+        },
+        "preview_privacy_notice": "示範視圖：不顯示任何真實用戶資料。"
+    },
+    "intro": {
+        "inventory": {
+            "title": "清單",
+            "content": "在這裡你可以新增並列出你的物品。將所有家中物品集中追蹤！"
+        },
+        "house_key": {
+            "title": "房屋鑰匙",
+            "content": "這是你的房屋鑰匙，用它來邀請他人。將家庭成員加入你的房子！"
+        },
+        "categories": {
+            "title": "類別",
+            "content": "透過分類來整理你的物品。電子產品、家具、廚房用品等等！"
+        },
+        "buttons": {
+            "back": "返回",
+            "close": "關閉",
+            "last": "完成",
+            "next": "下一步",
+            "skip": "跳過",
+            "open": "打開"
+        }
+    },
+    "google_house_select": {
+        "title": "歡迎！",
+        "subtitle": "您已使用 Google 登入。現在選擇一個房屋。",
+        "welcome_options": "您想要做什麼？",
+        "create": {
+            "title": "創建新房屋",
+            "desc": "建立您自己的物品清單"
+        },
+        "join": {
+            "title": "加入現有房屋",
+            "desc": "加入家庭成員的房屋"
+        },
+        "back": "返回",
+        "house_name": "房屋名稱（可選）",
+        "house_name_placeholder": "例如：我的家，辦公室",
+        "house_name_hint": "如果留空，將命名為「我的家」",
+        "house_key": "房屋金鑰",
+        "house_key_placeholder": "輸入房屋金鑰",
+        "house_key_hint": "輸入從家庭成員收到的 64 字元金鑰",
+        "house_name_join": "此房屋的名稱（可選）",
+        "submit_create": "創建房屋",
+        "submit_join": "加入房屋",
+        "processing": "處理中..."
+    },
+    "scanner": {
+        "title": "條碼掃描器",
+        "qr_title": "QR 碼讀取器",
+        "init": "正在啟動相機...",
+        "permission_error": "相機權限被拒絕。請檢查瀏覽器設置。",
+        "busy_error": "相機忙碌中。請關閉其他應用程式。",
+        "not_found_error": "未找到相機。",
+        "generic_error": "無法啟動相機。",
+        "hint": "將條碼置於畫面中央",
+        "qr_hint": "將 QR 碼對齊畫面",
+        "searching": "搜尋產品中...",
+        "found_local": "已註冊！",
+        "found_local_msg": "此條碼已存在於您的庫存中。",
+        "found_online": "找到產品！",
+        "google_result": "⚡ 谷歌搜尋結果 - 請驗證",
+        "barcode": "條碼：{{code}}",
+        "new_product": "新產品",
+        "not_found_db": "此條碼在資料庫中未找到。",
+        "google_search": "在 Google 上搜尋",
+        "quick_add": "快速新增（稍後編輯）",
+        "rescan": "再次掃描",
+        "retry": "重試",
+        "flash_on": "🔦 開啟閃光燈",
+        "flash_unsupported": "裝置不支援閃光燈",
+        "zoom_hint": "💡 增加縮放以提高清晰度並穩定手機",
+        "found_item_redirect": "找到商品！正在重新導向…",
+        "found_page_redirect": "找到頁面！正在重新導向…",
+        "invalid_qr": "此 QR 碼不適用於此應用程式。",
+        "not_found": "未找到產品。請嘗試其他條碼。"
+    },
+    "item_qr": {
+        "hint_mobile": "📱 使用你的手機掃描此 QR 碼即可快速存取該物品",
+        "network_ip": "網路 IP",
+        "url_loading": "正在載入 URL...",
+        "copied": "已複製！",
+        "copy_url": "複製 URL",
+        "download": "下載 QR 碼",
+        "usage_title": "使用方法",
+        "usage_desc": "列印 QR 碼並貼在物品上。使用你的手機掃描即可立即存取此頁面！"
+    },
+    "house_access_pending": {
+        "eyebrow": "House Access",
+        "fallback_house": "Selected house",
+        "signed_in_as": "Signed in as {{username}}",
+        "logout": "Logout",
+        "messages": {
+            "create_error": "Could not create house",
+            "join_success": "Your join request was sent",
+            "join_error": "Could not send join request"
+        },
+        "pending": {
+            "title": "Waiting for house owner approval",
+            "description": "Your request for \"{{house}}\" is still waiting for a decision.",
+            "current_request": "Current pending request: {{house}}"
+        },
+        "no_house": {
+            "title": "You are not connected to a house right now",
+            "description": "Create a new house or send a join request to an existing one."
+        },
+        "create": {
+            "title": "Create a New House",
+            "description": "Start your own home inventory and continue right away.",
+            "name_label": "House Name",
+            "name_placeholder": "e.g. My Home, Summer House, Storage",
+            "submitting": "Creating...",
+            "submit": "Create House"
+        },
+        "join": {
+            "title": "Send a Join Request",
+            "description": "Enter a house key and send the request directly to the house owner.",
+            "key_label": "House Key",
+            "key_placeholder": "Enter the 64-character house key",
+            "submitting": "Sending...",
+            "submit": "Send Request"
+        }
+    }
+}

@@ -1,0 +1,696 @@
+{
+    "items": {
+        "qrcode": {
+            "title": "QR Code",
+            "desc": "ଆପଣ ଏହି QR କୋଡ୍ ଛପାଇ ବସ୍ତୁରେ ଲଗାଇପାରିବେ। ଏହାକୁ ସ୍କ୍ୟାନ କଲେ ସିଧାସଳଖ ଏହି ପୃଷ୍ଠାକୁ ଯାଏ।"
+        },
+        "title_new": "ନୂତନ ଆଇଟମ୍ ଯୋଡନ୍ତୁ",
+        "title_edit": "ଆଇଟମ୍ ସମ୍ପାଦନା କରନ୍ତୁ",
+        "subtitle": "ଆଇଟମ୍ ବିବରଣୀ ପ୍ରବେଶ କରନ୍ତୁ",
+        "load_error": "ଆଇଟମ୍ ଲୋଡ୍ ହେବାରେ ବିଫଳ",
+        "form": {
+            "name": "ଆଇଟମ୍ ନାମ",
+            "name_placeholder": "ଉଦାହରଣ: ସ୍ୟାମସୁଙ୍ଗ୍ ଟିଭି ୫୫ ଇଞ୍ଚ",
+            "required": "*",
+            "description": "ବିବରଣୀ",
+            "description_placeholder": "ଆଇଟମ୍ ସମ୍ବନ୍ଧୀୟ ଟୀପ୍ପଣୀ...",
+            "quantity": "ପରିମାଣ",
+            "category": "ଶ୍ରେଣୀ",
+            "select_category": "ଚୟନ କରନ୍ତୁ",
+            "room": "କକ୍ଷ",
+            "select_room": "କକ୍ଷ ଚୟନ କରନ୍ତୁ",
+            "location_details": "ସ୍ଥାନ ବିବରଣୀ",
+            "location_optional": "(ଇଚ୍ଛାନୁସାରେ)",
+            "location_placeholder": "ଖୋଜନ୍ତୁ କିମ୍ବା ନୂଆ ସ୍ଥାନ ଯୋଗ କରନ୍ତୁ...",
+            "location_help": "କକ୍ଷରେ କେଉଁଠାରେ? (ଉଦାହରଣ ସ୍ୱରୂପ 'ନୀଳ କ୍ୟାବିନେଟର ଶୀର୍ଷ ଶେଲ୍ଫ')",
+            "location_create": "ସ୍ଥାନ \"{{name}}\" ସୃଷ୍ଟି କରନ୍ତୁ",
+            "location_privacy": "ସ୍ଥାନର ଗୁପ୍ତତା",
+            "location_public": "ସମସ୍ତେ ଏହି ସ୍ଥାନ ଦେଖିପାରିବେ",
+            "location_private": "କେବଳ ଆପଣ ଦେଖିପାରିବେ",
+            "location_save": "ସ୍ଥାନ ସଂରକ୍ଷଣ କରନ୍ତୁ",
+            "location_saving": "ଯୋଗ କରାଯାଉଛି...",
+            "location_selected": "ନିର୍ବାଚିତ ସ୍ଥାନ: {{name}}",
+            "location_empty": "ଏଯାଁ ପର୍ଯ୍ୟନ୍ତ କକ୍ଷରେ କୌଣସି ସ୍ଥାନ ପରିଭାଷିତ ହୋଇନାହିଁ। ଏକ ସୃଷ୍ଟି କରିବାକୁ ଟାଇପ୍ କରିବା ଆରମ୍ଭ କରନ୍ତୁ।",
+            "photo": "ଫଟୋ",
+            "add_photo": "ଯୋଗ କରନ୍ତୁ",
+            "barcode": "ବାରକୋଡ୍",
+            "barcode_optional": "(ଇଚ୍ଛାନୁସାରେ)",
+            "barcode_placeholder": "ଉଦାହରଣ: 8690123456789",
+            "scan_barcode": "ବାରକୋଡ୍ ସ୍କାନ୍ କରନ୍ତୁ",
+            "search_db": "ଢୁଡ଼ନ୍ତୁ ଡାଟାବେସ୍",
+            "search_google": "ଗୁଗୁଲ୍ରେ ଖୋଜନ୍ତୁ",
+            "barcode_saved": "✓ ବାରକୋଡ୍ ସଞ୍ଚିତ ହେବ",
+            "visibility": "ଆଇଟମ୍ ଦୃଶ୍ୟମାନତା",
+            "visibility_public": "ସମସ୍ତ ଘର ସଦସ୍ୟଙ୍କ ପାଇଁ ଦୃଶ୍ୟମାନ",
+            "visibility_private": "କେବଳ ଆପଣଙ୍କ ପାଇଁ ଦୃଶ୍ୟମାନ",
+            "submit_add": "ଆଇଟମ୍ ଯୋଡନ୍ତୁ",
+            "submit_save": "ପରିବର୍ତ୍ତନ ସଞ୍ଚିତ କରନ୍ତୁ",
+            "submitting": "ସଞ୍ଚୟ ହେଉଛି..."
+        },
+        "messages": {
+            "quick_add_success": "✓ \"{{barcode}}\" ଶୀଘ୍ର ଯୋଡାଗଲା - ଆପଣ ପରେ ସମ୍ପାଦନା କରିପାରିବେ",
+            "quick_add_fail": "⚠ ଶୀଘ୍ର ଯୋଡିବା ବିଫଳ ହେଲା",
+            "searching": "ଖୋଜାଯାଉଛି...",
+            "found_local": "✓ ସ୍ଥାନୀୟ: \"{{name}}\" ଭାବେ ରଜିଷ୍ଟର ହୋଇଛି",
+            "found_remote": "✓ {{source}} ରେ ମିଳିଲା {{note}}: \"{{name}}\"",
+            "not_found": "⚠ ପ୍ରଡକ୍ଟ ଡାଟାବେସ୍‌ରେ ମିଳିଲା ନାହିଁ। ଆପଣ Google ରେ ସର୍ଚ୍ଚ କରିପାରିବେ।",
+            "search_fail": "⚠ ସର୍ଚ୍ଚ ବିଫଳ ହୋଇଗଲା",
+            "name_required": "ଆଇଟମ୍‌ ନାମ ଆବଶ୍ୟକ",
+            "location_add_error": "ସ୍ଥାନ ଯୋଡିବାରେ ବିଫଳ"
+        }
+    },
+    "common": {
+        "save": "ସେଭ୍ କରନ୍ତୁ",
+        "cancel": "ବାତିଲ୍ କରନ୍ତୁ",
+        "loading": "ଲୋଡ୍ ହେଉଛି...",
+        "error": "ଏକ ত୍ରୁଟି ଘଟିଛି",
+        "success": "କାର୍ଯ୍ୟ ସଫଳ ହେଲା",
+        "search": "ସନ୍ଧାନ କରନ୍ତୁ...",
+        "edit": "ସংশୋଧନ କରନ୍ତୁ",
+        "delete": "ମୁକ୍ତ କରନ୍ତୁ",
+        "add": "ଯୋଗ କରନ୍ତୁ",
+        "new": "ନୂତନ",
+        "all": "ସମସ୍ତ",
+        "manage": "ପରିଚାଳନା କରନ୍ତୁ",
+        "help_support": "ସାହାଯ୍ୟ ଏବଂ ସମର୍ଥନ",
+        "theme": {
+            "light": "ହାଲୁକା ମୋଡ୍",
+            "dark": "ଅନ୍ଧାରା ମୋଡ୍"
+        },
+        "select": "ଚୟନ କରନ୍ତୁ",
+        "refresh": "ପୁନର୍ତ୍ତାଜୀକୃତ କରନ୍ତୁ",
+        "close": "ବନ୍ଦ କରନ୍ତୁ",
+        "logout": "ଲଗଡ଼ାଉଟ୍",
+        "copyright": "© {{year}} ହୋମଇନଭେଣ୍ଟରୀ - ସମସ୍ତ ଅଧିକାର ସଂରକ୍ଷିତ"
+    },
+    "auth": {
+        "login": {
+            "title": "ଲଗଇନ୍",
+            "subtitle": "ଆପଣଙ୍କର ସମସ୍ତ ହୋମ ଇନଭେଣ୍ଟରୀ ସ୍ମାର୍ଟ ଭାବରେ ପରିଚାଳନା କରନ୍ତୁ",
+            "welcome": "ହୋମଇନଭେଣ୍ଟରୀକୁ ସ୍ୱାଗତ",
+            "username_or_email": "ୟୁଜରନେମ୍ କିମ୍ବା ଇମେଲ୍",
+            "password": "ପାସୱାର୍ଡ",
+            "forgot_password": "ପାସୱାର୍ଡ ଭୁଲିଗଲାକି?",
+            "submit": "ଲଗଇନ୍",
+            "submitting": "ଲଗଇନ୍ ହେଉଛି...",
+            "google_continue": "ଗୁଗୁଲ୍ ସହିତ ଜାରୀ ରଖନ୍ତୁ",
+            "or": "କିମ୍ବା",
+            "no_account": "ଏକ ଆକାଉଣ୍ଟ ନାହିଁ?",
+            "register_link": "ରେଜିଷ୍ଟର",
+            "support_contact": "ଲଗଇନ୍ ଇସ୍ୟୁଗୁଡିକ ପାଇଁ:",
+            "terms_title": "📋 ବ୍ୟବହାରର ସର୍ତ୍ତାବଳୀ ଏବଂ ଉଦଘୋଷଣା",
+            "terms_beta": "ବିଟା ସଂସ୍କରଣ: ହୋମ୍ ଇନଭେଣ୍ଟୋରୀ ବର୍ତ୍ତମାନ ପରୀକ୍ଷଣ ପର୍ଯ୍ୟାୟରେ ଅଛି । ଆପଣଙ୍କ ଡାଟାର ସ୍ଥିରତା କିମ୍ୱା ସୁରକ୍ଷା ବିଷୟରେ କୌଣସି ଗ୍ୟାରେଣ୍ଟି ଦିଆଯାଏ ନାହିଁ।",
+            "terms_disclaimer": "ଉଦଘୋଷଣା : ଏହି ଆପ୍ଲିକେସନ୍ ବ୍ୟବହାର କରିବା ଦ୍ୱାରା, ଆପଣ ରାଜି ହୁଅନ୍ତି ଯେ ଆପଣ ସମ୍ଭାବିତ ଡାଟା ହାନୀ, ଆକସେସ୍ ଇସ୍ୟୁଗୁଡିକ, କିମ୍ୱା ଅନ୍ୟ ଟେକନିକାଲ୍ ତ୍ରୁଟି ପାଇଁ କୌଣସି କ୍ଷତିପୂରଣ ଦାବି କରିପାରିବେ ନାହିଁ।",
+            "terms_backup": "ଡାଟା ବ୍ୟାକଅପ୍: ଆମେ ନିୟମିତ ଭାବେ ଆପଣଙ୍କ ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ସୂଚନାର ବ୍ୟାକ୍ ଅପ୍ ନେବାକୁ ସୁପାରିଶ କରୁ।",
+            "terms_accept": "ଲଗ୍ ଇନ୍ କରିବା ଦ୍ୱାରା, ଆପଣ ଏହି ସର୍ତ୍ତାବଳୀ ଗ୍ରହଣ କରିଛନ୍ତି ବୋଲି ଧରାଯାଏ।"
+        },
+        "register": {
+            "title": "ହୋମ୍ ଇନଭେଣ୍ଟୋରୀକୁ ସ୍ଵାଗତ",
+            "subtitle": "ଏକ ନୂତନ ଆକାଉଣ୍ଟ ସୃଷ୍ଟି କରନ୍ତୁ କିମ୍ୱା ଏକ ବିଦ୍ୟମାନ ଗୃହରେ ଯୋଗ ଦିଅନ୍ତୁ",
+            "create_house": "ନୂତନ ଘର ସୃଷ୍ଟି କରନ୍ତୁ",
+            "join_house": "ଗୃହରେ ଯୋଗ ଦିଅନ୍ତୁ",
+            "create_house_desc": "🏠 ଏକ ନୂତନ ଘର ସୃଷ୍ଟି ହେବ ଏବଂ ଆପଣ ଏକ ଅନନ୍ୟ ଘର <strong>ଚାବି</strong> ପାଇବେ । ସମାନ ଇନଭେଣ୍ଟୋରୀ ଆକସେସ୍ କରିବାକୁ ପରିବାର ସହିତ ଏହି କୀ ଅଂଶୀଦାର କରନ୍ତୁ।",
+            "join_house_desc": "👨 👦 👩 👧 ଏକ ବିଦ୍ୟମାନ ଘରେ ଯୋଗ ଦେବାକୁ ଆପଣଙ୍କ ସହ ଅଂଶୀଦାର ହୋଇଥିବା <strong>ଗୃହ କୀ</strong> ପ୍ରବେଶ କରନ୍ତୁ। ଚାବି ଥିବା ସମସ୍ତେ ଅଂଶୀଦାର ଭଣ୍ଡାରକୁ ପ୍ରବେଶ କରିପାରିବେ |",
+            "form_title": "ସାଇନ୍‌ ଅପ୍‌",
+            "username": "ଉପଯୋଗକର୍ତ୍ତାନାମ",
+            "username_placeholder": "ଉଦାହରଣ: ଜନ୍",
+            "email": "ଇ-মେଲ୍",
+            "email_placeholder": "ଉଦାହରଣ: john@example.com",
+            "password": "ପାସୱାର୍ଡ",
+            "password_placeholder": "କମ୍ ସେ କମ୍ 6 ଅକ୍ଷର",
+            "password_confirm": "ପାସୱାର୍ଡ ନିଶ୍ଚିତ କରନ୍ତୁ",
+            "password_confirm_placeholder": "ପୁଣିପୁଣି ପାସୱାର୍ଡ ପ୍ରବେଶ କରନ୍ତୁ",
+            "house_key": "ହାଉସ୍ କି",
+            "house_key_placeholder": "64-ଅକ୍ଷର ହାଉସ୍ କି ପେଷ୍ଟ କରନ୍ତୁ",
+            "submit_create": "ନୂତନ ହାଉସ୍ ସୃଷ୍ଟି କରନ୍ତୁ",
+            "submit_join": "ହାଉସ୍ ଯୋଗଦାନ କରନ୍ତୁ",
+            "submitting": "ରେଜିଷ୍ଟର ହେଉଛି...",
+            "already_have_account": "ପୂର୍ବରୁ ଏକାଉଣ୍ଟ ଅଛି କି?",
+            "login_link": "ଲଗଇନ୍",
+            "support": "ପଞ୍ଜିକରଣ ସମସ୍ୟା:",
+            "terms": "ବ୍ୟବହାର ସର୍ତ୍ତାବଳୀ ଏବଂ ତ୍ୟାଗପତ୍ର",
+            "passwords_mismatch": "ପାସୱାର୍ଡ ମେଲ ଖାଉନାହିଁ",
+            "password_length": "ପାସୱାର୍ଡ କମ ସେ କମ ୬ ଚରିତ୍ର ହେବା ଦରକାର",
+            "key_required": "ପୂର୍ବରୁ ଥିବା ଘରକୁ ଯୋଡିବା ପାଇଁ ଘର କୀ ଆବଶ୍ୟକ",
+            "modals": {
+                "key_created": {
+                    "title": "🎉 ଘର ସୃଷ୍ଟି ହେଲା!",
+                    "subtitle": "ନିମ୍ନତମ୍ କୀଟିକୁ ସୁରକ୍ଷିତ ସ୍ଥାନରେ ସଞ୍ଚୟ କରନ୍ତୁ",
+                    "warning": "ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ: ଏହି କୀ କେବଳ ଏକଥର ଦେଖାଯିବ। ଏହାକୁ ପରିବାର ସଦସ୍ୟଙ୍କ ସହ ଅଂଶୀଦାର କରନ୍ତୁ ଯାହା ତାଙ୍କୁ ସେମିତି ପଦାର୍ଥ ଲେଖାପାଳାରେ ପୁନଃପ୍ରବେଶ କରିପାରିବ",
+                    "copy": "କଂପି",
+                    "copied": "କପି ହେଲା",
+                    "button": "ମୁ ଦକ୍ଷିଣ କୀ ସଞ୍ଚୟ କଲି, ଚାଲୁ ରଖନ୍ତୁ"
+                },
+                "email_verification": {
+                    "title": "📧 ଇମେଲ ଯାଚନା ଆବଶ୍ୟକ",
+                    "message": "ଖାତା ସୃଷ୍ଟି ହେଲା! ଲଗଇନ କରିବା ପାଇଁ ଦୟାକରି ଆପଣଙ୍କର ଇମେଲଠିକଣା ଯାଚନା କରନ୍ତୁ",
+                    "step_1": "ଆମେ <1>{{email}}</1>କୁ ଏକ ଯାଚନା ଇମେଲ୍ ପଠାଇଛୁ",
+                    "step_2": "ଇମେଲରେ <1>\"ମୋ ଖାତା ଯାଚନା କରନ୍ତୁ\"</1> ବଟନ୍ ଉପରେ କ୍ଲିକ୍ କରନ୍ତୁ",
+                    "step_3": "ସତ୍ୟାପନ ପରେ, <1>ଆପଣ ଲଡ଼ଇନ୍ କରିପାରିବେ</1>.",
+                    "spam_note": "ଇମେଲ୍ ଆସୁନଥିଲେ ସ୍ପାମ୍/ଜଙ୍କ୍ ଫୋଲ୍ଡର୍ ଯାଞ୍ଚ କରନ୍ତୁ.",
+                    "key_note": "ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ: ଆପଣଙ୍କର ଘର କୀ ବି ଇମେଲ୍ ମାଧ୍ୟମରେ ପଠାଯାଇଛି. ଆପଣ ଏହାକୁ ପରିବାର ସଦସ୍ୟଙ୍କ ସହିତ ଅଂଶୀଦାର କରିପାରିବେ.",
+                    "button": "ଠିକ୍, ଲଡ଼ଇନ୍ କୁ ଯାଆନ୍ତୁ"
+                }
+            }
+        },
+        "forgot_password": {
+            "title": "Forgot Password",
+            "subtitle": "Start a secure recovery flow to access your account again.",
+            "identifier": "Username or Email",
+            "identifier_placeholder": "e.g. john or john@example.com",
+            "submit": "Start Recovery",
+            "requesting": "Checking...",
+            "email_success": "If an account exists, a password reset link valid for 15 minutes has been sent.",
+            "back_to_login": "Back to Login",
+            "recovery_mode_info": "Email is disabled on this server. Continue with the Recovery Key you saved during account setup.",
+            "recovery_key": "Recovery Key",
+            "recovery_key_placeholder": "e.g. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "reset_submit": "Reset Password",
+            "resetting": "Resetting..."
+        },
+        "reset_password": {
+            "title": "Reset Password",
+            "subtitle": "Use the secure link to set a new password.",
+            "missing_token": "The password reset link looks incomplete or broken.",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "submit": "Update Password",
+            "submitting": "Updating...",
+            "back_to_login": "Back to Login"
+        },
+        "recovery_setup": {
+            "title": "Create Recovery Key",
+            "subtitle": "Until this is completed, your account is not considered safe for local password recovery.",
+            "warning": "This key will only be shown once. Save it in a password manager or another secure offline location.",
+            "account": "A recovery key will be created for account {{username}}.",
+            "description": "Because email is disabled, you will only be able to reset your password with this key in the future.",
+            "submit": "Create Recovery Key",
+            "generating": "Creating..."
+        },
+        "recovery_key_modal": {
+            "register_title": "Save Your Recovery Key",
+            "google_title": "Save Your Recovery Key",
+            "setup_title": "Save Your Recovery Key",
+            "reset_title": "Save Your New Recovery Key",
+            "settings_title": "Save Your New Recovery Key",
+            "subtitle": "This key is shown only once.",
+            "warning": "If you lose this key while email is disabled, you may not be able to recover your password. Copy it and store it safely.",
+            "confirm": "I Saved the Key"
+        }
+    },
+    "navigation": {
+        "home": "ହୋମ୍",
+        "inventory": "ଇନଭେଣ୍ଟରୀ",
+        "rooms": "କକ୍ଷ",
+        "categories": "ବର୍ଗ",
+        "settings": "ସେଟିଂସ୍",
+        "new_item": "ନୂତନ ବସ୍ତୁ",
+        "share_house": "ଘର ଅଂଶୀଦାର କରନ୍ତୁ",
+        "admin_panel": "ଏଡମିନ୍ ପ୍ୟାନେଲ୍",
+        "logout": "ଲଗଆଉଟ୍",
+        "menu": "ମେନୁ"
+    },
+    "dashboard": {
+        "welcome": "স্বାଗତ, <1>{{name}}</1>! 👋",
+        "subtitle": "ଆପଣଙ୍କର ଇନଭେଣ୍ଟରୀର ସମୀକ୍ଷା",
+        "quick_search": "ଶୀଘ୍ର ସନ୍ଧାନ...",
+        "filters": {
+            "private": "🔒 ମୋର ପ୍ରାଇଭେଟ ଆଇଟମ୍ସ",
+            "public": "🌐 ସାଧାରଣ",
+            "remove": "ଫିଲ୍ଟର ସଫା କରନ୍ତୁ",
+            "no_items": "କোনସି ଆଇଟମ୍ ଏହି ଫିଲ୍ଟର ସହିତ ମେଳ ଖାଉନାହିଁ"
+        },
+        "stats": {
+            "total_items": "ସର୍ବମୋଟ ଆଇଟମ୍ସ",
+            "total_quantity": "ସର୍ବମୋଟ ପରିମାଣ",
+            "fullest_room": "ପୂର୍ଣ୍ଣ କକ୍ଷ",
+            "category_count": "ବର୍ଗ",
+            "items_suffix": "ଆଇଟମ୍ସ"
+        },
+        "recent_items": {
+            "title": "ସମ୍ପ୍ରତି କିମ୍ବା ସମ୍ପ୍ରତି ଯୋଗ",
+            "see_all": "ସବୁକୁ ଦେଖନ୍ତୁ"
+        },
+        "categories": {
+            "title": "ବର୍ଗ",
+            "manage": "ପରିଚାଳନା କରନ୍ତୁ",
+            "empty": "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ଆଇଟମ୍ ଯୋଡାଯାଇ ନାହିଁ"
+        },
+        "rooms": {
+            "title": "କୋଠରୀ",
+            "manage": "ପରିଚାଳନା"
+        },
+        "quick_actions": {
+            "title": "⚡ ତ୍ୱରିତ କାର୍ଯ୍ୟ",
+            "add_item": "ଆଇଟମ୍ ଯୋଡନ୍ତୁ",
+            "search_item": "ଆଇଟମ୍ ସନ୍ଧାନ",
+            "categories": "ଶ୍ରେଣୀ",
+            "settings": "ସେଟିଂ"
+        }
+    },
+    "beta_banner": {
+        "title": "ବିଟା:",
+        "text": "ହୋମ୍ ଇନଭେଣ୍ଟୋରୀ ବର୍ତ୍ତମାନ ପରୀକ୍ଷଣ ଏବଂ ସଉକ ପର୍ଯ୍ୟାୟରେ ଅଛି | ଡାଟା ସ୍ଥିରତା କିମ୍ୱା ସୁରକ୍ଷା ପାଇଁ କୌଣସି ଗ୍ୟାରେଣ୍ଟି ଦିଆଯାଏ ନାହିଁ। ଦୟାକରି ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ସୂଚନାର ବ୍ୟାକଅପ୍ ରଖନ୍ତୁ।",
+        "contact": "ଯୋଗାଯୋଗ:"
+    },
+    "footer": {
+        "rights": "© {{year}} HomeInventory - ସର୍ବସତ୍ତ୍ୱ ସଂରକ୍ଷିତ",
+        "contact": "ଯୋଗାଯୋଗ:"
+    },
+    "settings": {
+        "title": "ସେଟିଂସ୍",
+        "subtitle": "ଆପ୍ଲିକେସନ୍ ପREFERେନସ୍‌ ବ୍ୟବସ୍ଥାପନ କରନ୍ତୁ",
+        "messages": {
+            "house_switched": "✅ {{name}} ସକ୍ରିୟ ହୋଇଗଲା!",
+            "house_switch_error": "ଘର ବଦଳାଇବାରେ ବିଫଳ",
+            "house_joined_success": "✅ ଆପଣ ସଫଳଭାବେ ଘର ଯୋଗ ହେଲେ!",
+            "house_join_error": "ଘର ଯୋଗ ହେବାରେ ବିଫଳ",
+            "house_created_success": "✅ \"{{name}}\" ସୃଷ୍ଟି ହୋଇଗଲା!",
+            "house_create_error": "ଘର ସୃଷ୍ଟି କରିବାରେ ବିଫଳ",
+            "house_left_success": "ସଫଳଭାବେ ଘର ଛାଡିଲେ",
+            "house_left_error": "ଘର ଛାଡ଼ିବାରେ ବିଫଳ",
+            "house_leave_confirm": "ଆପଣ ନିଶ୍ଚିତ ଯେ ଆପଣ \"{{name}}\" ଛାଡିବେ କି?",
+            "backup_downloaded": "✅ ବ୍ୟାକଅପ୍ ସଫଳତାର ସହିତ ଡାଉନଲୋଡ୍ ହେଲା! ({{count}} ଆଇଟମ୍)",
+            "export_error": "❌ ଏକ ତ୍ରୁଟି ଏକ୍ସପୋର୍ଟ ସମୟରେ ଘଟିଛି",
+            "import_invalid_format": "ଅବୈଧ ବ୍ୟାକଅପ୍ ଫାଇଲ୍ ଫର୍ମାଟ୍",
+            "import_success": "✅ {{items}} ଆଇଟମ୍, {{categories}} ବର୍ଗ, {{rooms}} କକ୍ଷ, {{locations}} ଅବସ୍ଥାନ ଯୋଗ କରାଗଲା",
+            "import_error": "❌ ଇମ୍ପୋର୍ଟ ତ୍ରୁଟି: {{error}}",
+            "password_changed": "ପାସୱାର୍ଡ ସଫଳତାର ସହିତ ପରିବର୍ତ୍ତିତ",
+            "password_error_current": "ବର୍ତ୍ତମାନ ପାସୱାର୍ଡ ଭୁଲ",
+            "password_error_invalid": "ଅବୈଧ ଡାଟା ପଠାଯାଇଛି",
+            "session_expired": "ସେସନ୍ ସମାପ୍ତ ହେଲା। ଦୟାକରି ପୁଣି ବେଳେ ଲଗଇନ୍ କରନ୍ତୁ",
+            "server_error": "ସର୍ଭର୍ ତ୍ରୁଟି ଘଟିଛି",
+            "connection_error": "ସର୍ଭର୍ ସହିତ ସଂଯୋଗ କରିପାରିଲା ନାହିଁ। ଆପଣଙ୍କର ଇଣ୍ଟରନେଟ୍ ସଂଯୋଗ ଯାଞ୍ଚ କରନ୍ତୁ",
+            "unexpected_error": "ଏକ ଅପରିକଳ୍ପିତ ତ୍ରୁଟି ଘଟିଛି",
+            "username_changed": "✅ ୟୁଜରନେମ୍ ପରିବର୍ତ୍ତିତ ହେଲା!",
+            "username_error": "ୟୁଜରନେମ୍ ପରିବର୍ତ୍ତନ କରିପାରିଲା ନାହିଁ",
+            "username_len_error": "ୟୁଜରନେମ୍ ଅନ୍ତତଃ 3 ଅକ୍ଷରରୁ ଅଧିକ ହେବା ଆବଶ୍ୟକ",
+            "fill_all_fields": "ଦୟାକରି ସମସ୍ତ କ୍ଷେତ୍ର ପୂରଣ କରନ୍ତୁ",
+            "passwords_mismatch": "ନୂତନ ପାସୱାଡ୍ ସମ୍ମିଳିତ ହେଉନାହିଁ",
+            "password_min_len": "ନୂତନ ପାସୱାଡ୍ କମସେ କମ 6 ଅକ୍ଷର ଥିବା ଦରକାର",
+            "house_request_sent_success": "✅ Your join request was sent!",
+            "request_approved": "✅ Join request approved",
+            "request_rejected": "Join request rejected",
+            "request_action_error": "Could not update request",
+            "member_kick_confirm": "Are you sure you want to remove \"{{name}}\" from the house?",
+            "member_kicked": "Member removed from the house",
+            "member_kick_error": "Could not remove member from the house",
+            "recovery_key_regenerated": "Recovery key regenerated",
+            "recovery_key_error": "Could not regenerate recovery key"
+        },
+        "user_profile": {
+            "edit_username": "ବ୍ୟବହାରକାରୀ ନାମ ପରିବର୍ତ୍ତନ କରନ୍ତୁ"
+        },
+        "my_houses": {
+            "title": "ମୋ ଘରଗୁଡିକ",
+            "join_house": "ଘରରେ ଯୋଗଦିଅନ୍ତୁ",
+            "join_short": "ଯୋଗଦିଅନ୍ତୁ",
+            "new_house": "ନୂତନ ଘର",
+            "new_short": "ନୂତନ",
+            "no_house": "ଆପଣ ଏପରି ଘରର କୌଣସି ସଦସ୍ୟ ନୁହଁ",
+            "owner": "ମାଲିକ",
+            "active": "ସକ୍ରିୟ",
+            "member_count": "{{count}} ସଦସ୍ୟ",
+            "item_count": "{{count}} ଆଇଟମ୍",
+            "switch": "ପରିବର୍ତ୍ତନ କରନ୍ତୁ",
+            "leave": "ଘର ଛାଡନ୍ତୁ",
+            "info": "💡 ଆପଣ ଏକାଧିକ ଘରର ସଦସ୍ୟ ହେବାକୁ ପାରିବେ ଏବଂ ତାଙ୍କ ମଧ୍ୟରେ ସ୍ୱିଚ୍ କରିପାରିବେ। ପ୍ରତ୍ୟେକ ଘର ଏକ ସ୍ୱତନ୍ତ୍ର ଇନ୍ଭେଣ୍ଟୋରୀ ରଖେ।"
+        },
+        "house_info": {
+            "title": "ସକ୍ରିୟ ଘର କୀ",
+            "key_label": "ଘର କୀ",
+            "mask_key": "••••••••{{suffix}}",
+            "hide": "ଲୁଚାଇବେ",
+            "show": "ଦେଖାଅନ୍ତୁ",
+            "copy": "କପି କରନ୍ତୁ",
+            "share_info": "💡 ଯେ ଉପଭୋକ୍ତାମାନେ ଆପଣ ଏହି କୀ ସହ ଭାଗ କରିଥିବେ, ସେମାନେ ରେଜିଷ୍ଟ୍ରେସନ୍ ସମୟରେ \"ଘର ଯୋଗ ଦିଅନ୍ତୁ\" ବିକଳ୍ପ ବ୍ୟବହାର କରି ଆପଣଙ୍କ ଇନ୍ଭେଣ୍ଟୋରୀ ଆକ୍ସେସ୍ କରିପାରିବେ।",
+            "members_title": "ଘର ସଦସ୍ୟମାନେ ({{count}})",
+            "you": "(ଆପଣ)",
+            "joined_at": "ଯୋଗଦିଆଯାଇଛି: {{date, datetime}}",
+            "no_members": "ଏପର୍ଯ୍ୟନ୍ତ ଅନ୍ୟ କୌଣସି ସଦସ୍ୟ ନାହିଁ",
+            "invite_title": "ପରିବାର ସଦସ୍ୟମାନେକୁ ଆମନ୍ତ୍ରଣ ଦିଅନ୍ତୁ",
+            "invite_desc": "ଆପଣଙ୍କ ଘର କୀ ସେୟାର୍ କରନ୍ତୁ ଯାହାଦ୍ୱାରା ପରିବାର ସଦସ୍ୟମାନେ ଏକ ସମାନ ଇନ୍ଭେଣ୍ଟୋରୀ ଆକ୍ସେସ୍ କରିପାରିବେ। ପ୍ରତ୍ୟେକ ସଦସ୍ୟ ତାଙ୍କର ନିଜ ଖାତା ସହିତ ଲଗ୍‌ଇନ୍ କରନ୍ତି କିନ୍ତୁ ସମାନ ତଥ୍ୟକୁ ଆକ୍ସେସ୍ କରନ୍ତି।",
+            "active_members": "Active Members",
+            "pending_requests": "Pending Requests",
+            "no_pending_requests": "No pending requests",
+            "owner_controls": "Owner controls enabled",
+            "approve": "Approve",
+            "reject": "Reject",
+            "kick": "Remove"
+        },
+        "theme": {
+            "title": "ଥୀମ୍",
+            "dark": "ଡାର୍କ୍ ମୋଡ୍",
+            "light": "ଲାଇଟ୍ ମୋଡ୍"
+        },
+        "security": {
+            "title": "ସୁରକ୍ଷା",
+            "change_password": "ପ୍ରବେଶପାସୱାର୍ଡ ପରିବର୍ତ୍ତନ କରନ୍ତୁ",
+            "change_password_desc": "ଆପଣଙ୍କର ଖାତାର ପ୍ରବେଶପାସୱାର୍ଡ ଅଦ୍ୟତନ କରନ୍ତୁ",
+            "recovery_key_title": "Recovery Key",
+            "recovery_key_desc": "You can generate a new key for local password recovery.",
+            "recovery_key_missing": "No recovery key is visible for this account yet.",
+            "current_key_label": "Saved Recovery Key",
+            "recovery_key_unavailable": "The current recovery key cannot be displayed. Regenerate it if needed.",
+            "recovery_key_action": "Regenerate",
+            "recovery_key_modal_desc": "Confirm your current password to continue. The new key will be shown only once.",
+            "recovery_key_loading": "Preparing..."
+        },
+        "data_management": {
+            "title": "ତଥ୍ୟ ପରିଚାଳନା",
+            "download_backup": "ବ୍ୟାକଅପ୍ ଡାଉନଲୋଡ୍ କରନ୍ତୁ",
+            "downloading": "ଡାଉନଲୋଡିଂ...",
+            "export_json": "JSON ଭାବରେ ନିର୍ଯ୍ୟାତ",
+            "upload_backup": "ବ୍ୟାକଅପ୍ ଅପଲୋଡ୍ କରନ୍ତୁ",
+            "uploading": "ଅପଲୋଡିଂ...",
+            "import_json": "JSON ରୁ ଆମ୍ପୋର୍ଟ କରନ୍ତୁ"
+        },
+        "about": {
+            "title": "📱 ଆପ୍ଲିକେସନ୍ ସମ୍ପର୍କରେ",
+            "version": "ସଂସ୍କରଣ",
+            "brand": "ବ୍ରାଣ୍ଡ",
+            "feedback": "✉️ ପ୍ରତିକ୍ରିୟା ପଠାନ୍ତୁ"
+        },
+        "modals": {
+            "password": {
+                "title": "ପାସୱାର୍ଡ ପରିବର୍ତ୍ତନ କରନ୍ତୁ",
+                "current": "ବର୍ତ୍ତମାନ ପାସୱାର୍ଡ",
+                "new": "ନୂତନ ପାସୱାର୍ଡ",
+                "confirm": "ନୂତନ ପାସୱାର୍ଡ (ପୁଣି ନିଶ୍ଚିତ କରନ୍ତୁ)",
+                "changing": "ପରିବର୍ତ୍ତନ ହେଉଛି...",
+                "submit": "ପାସୱାର୍ଡ ପରିବର୍ତ୍ତନ କରନ୍ତୁ"
+            },
+            "join_house": {
+                "title": "ଘରରେ ଯୋଗ ଦିଅନ୍ତୁ",
+                "key_placeholder": "୬୪-ଚରିତ୍ର ଘର କୀ ପ୍ରବେଶ କରନ୍ତୁ",
+                "key_help": "ଆପଣଙ୍କ ପରିବାର ସଦସ୍ୟଙ୍କରୁ ମିଳିଥିବା କୀ ପ୍ରବେଶ କରନ୍ତୁ",
+                "name_label": "ଏହି ଘର ପାଇଁ ନାମ (ଇଛାନୁସାରେ)",
+                "name_placeholder": "ଉଦାହରଣସ୍ୱରୂପ: ମାତାପିତାଙ୍କ ଘର",
+                "joining": "ଯୋଗ ଦେଉଛି...",
+                "submit": "ଘରରେ ଯୋଗ ଦିଅନ୍ତୁ"
+            },
+            "create_house": {
+                "title": "ନୂତନ ଘର ସୃଷ୍ଟି କରନ୍ତୁ",
+                "name_label": "ଘରର ନାମ",
+                "name_placeholder": "ଉଦାହରଣ: Summer House, Office, Warehouse",
+                "name_help": "ଯଦି ଖାଲି ରହିଲେ, ନାମ 'My New House' ରଖାଯିବ",
+                "info": "ℹ️ ନୂତନ ଘର ପାଇଁ ଡିଫଲ୍ଟ ଶ୍ରେଣୀ ଏବଂ କକ୍ଷ ସୃଷ୍ଟି ହେବ। ଆପଣ ପରେ ସେଗୁଡିକୁ ସମ୍ପାଦନା କରିପାରିବେ",
+                "creating": "ସୃଷ୍ଟି ହେଉଛି...",
+                "submit": "ଘର ତିଆରି କରନ୍ତୁ"
+            },
+            "username": {
+                "title": "ବ୍ୟବହାରକାରୀ ନାମ ବଦଳାନ୍ତୁ",
+                "new_label": "ନୂତନ ବ୍ୟବହାରକାରୀ ନାମ",
+                "placeholder": "ଆପଣଙ୍କର ନୂତନ ବ୍ୟବହାରକାରୀ ନାମ",
+                "help": "3-30 ଅକ୍ଷର, ଅକ୍ଷର, ସଂଖ୍ୟା, ଧ୍ଳାର ରେଖା ଏବଂ ଡ୍ୟାଶ ମାତ୍ର",
+                "saving": "ସଂରକ୍ଷଣ...",
+                "submit": "ବଦଳାନ୍ତୁ"
+            }
+        },
+        "select_language": "ଭାଷା ଚୟନ କରନ୍ତୁ",
+        "pending_requests": {
+            "title": "My Pending Join Requests",
+            "waiting_since": "Waiting since: {{date, datetime}}",
+            "pending_badge": "Pending"
+        }
+    },
+    "inventory": {
+        "title": "ସାମଗ୍ରୀ सूची",
+        "subtitle": "{{count}}ଟି ଆଇଟମ୍ ମିଳିଲା",
+        "new_item": "ନୂତନ ଆଇଟମ୍",
+        "add_first": "ପ୍ରଥମ ଆଇଟମ୍ ଯୋଗ କରନ୍ତୁ",
+        "search_placeholder": "ଆଇଟମ୍ ସନ୍ଧାନ କରନ୍ତୁ...",
+        "all_categories": "ସମସ୍ତ ବର୍ଗ",
+        "all_rooms": "ସମସ୍ତ କକ୍ଷ",
+        "empty_title": "କୌଣସି ଆଇଟମ୍ ମିଳିଲା ନାହିଁ",
+        "empty_filter": "କୌଣସି ଆଇଟମ୍ ଆପଣଙ୍କର ଫିଲ୍ଟରକୁ ମେଳାଇନାହିଁ",
+        "empty_msg": "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ଆଇଟମ୍ ଯୋଗ କରାଯାଇନି",
+        "delete_confirm": "ଆପଣ ନିଶ୍ଚିତ ଭାବେ ଏହି ଆଇଟମ୍ ଡିଲିଟ୍ କରିବାକୁ ଚାହାଁତି କି?",
+        "delete_error": "ଡିଲିଟ୍ ତ୍ରୁଟି"
+    },
+    "categories": {
+        "title": "ବର୍ଗଗୁଡିକ",
+        "subtitle": "{{count}}ଟି ବର୍ଗ",
+        "new_category": "ନୂତନ ବର୍ଗ",
+        "edit_title": "ବର୍ଗ ସମ୍ପାଦନ କରନ୍ତୁ",
+        "new_title": "ନୂତନ ଶ୍ରେଣୀ",
+        "name_label": "ଶ୍ରେଣୀ ନାମ",
+        "icon_label": "ଆଇକନ୍",
+        "color_label": "ରଙ୍ଗ",
+        "delete_confirm": "ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ ଏହି ଶ୍ରେଣୀକୁ ଡିଲିଟ୍ କରିବାକୁ ଚାହାଁଛନ୍ତି?",
+        "delete_error": "ଡିଲିଟ୍ ତ୍ରୁଟି"
+    },
+    "rooms": {
+        "title": "ରୁମ୍ଗୁଡିକ",
+        "subtitle": "{{count}} ରୁମ୍",
+        "new_room": "ନୂତନ ରୁମ୍",
+        "edit_title": "ରୁମ୍ ସମ୍ପାଦନା କରନ୍ତୁ",
+        "new_title": "ନୂତନ ରୁମ୍",
+        "name_label": "ରୁମ୍ ନାମ",
+        "description_label": "ବିବରଣୀ (ଇଚ୍ଛାନୁସାର)",
+        "name_placeholder": "ଉଦାହରଣ ସ୍ୱରୂପ ମାଷ୍ଟର ବେଡ୍ରୁମ୍",
+        "desc_placeholder": "ଉଦାହରଣ ସ୍ୱରୂପ ମୁଖ୍ୟ ବେଡ୍ରୁମ୍",
+        "delete_confirm": "ଆପଣ ନିଶ୍ଚିତ ଯେ ଆପଣ ଏହି କକ୍ଷକୁ ବିଲୋପ କରିବାକୁ ଚାହାଁଛନ୍ତି?",
+        "delete_error": "ବିଲୋପ ତ୍ରୁଟି"
+    },
+    "admin": {
+        "title": "ପ୍ରଶାସକ ପ୍ୟାନେଲ",
+        "subtitle": "ସିଷ୍ଟମ ପରିଚାଳନା ଏବଂ ନିରୀକ୍ଷଣ",
+        "refresh": "ରିଫ୍ରେସ୍",
+        "tabs": {
+            "dashboard": "ଡ୍ୟାସବୋର୍ଡ",
+            "users": "ବ୍ୟବହାରକାରୀ",
+            "logs": "ଲଗ୍ସ",
+            "email": "ଚିଠି ପଠାନ୍ତୁ"
+        },
+        "stats": {
+            "total_users": "ମୋଟ ବ୍ୟବହାରକାରୀ",
+            "new_today": "ଆଜି: +{{count}} ନୂତନ",
+            "total_inventory": "ମୋଟ ଇନଭେଣ୍ଟୋରୀ",
+            "inventory_details": "{{rooms}} କକ୍ଷ, {{categories}} ଶ୍ରେଣୀ",
+            "banned_users": "ବ୍ୟାନ୍ଡ ହୋଇଥିବା ବ୍ୟବହାରକାରୀ",
+            "access_blocked": "ପ୍ରବେଶ ବ୍ଲକ୍ କରାଗଲା",
+            "server_memory": "ସର୍ଭର୍ ମେମୋରୀ",
+            "uptime": "ଅପ୍ଟାଇମ୍: {{hours}} ଘଣ୍ଟା"
+        },
+        "users": {
+            "user": "ବ୍ୟବହାରକାରୀ",
+            "role": "ପାତ୍ର",
+            "status": "ସ୍ଥିତି",
+            "action": "କାର୍ଯ୍ୟ",
+            "banned": "ବ୍ୟାନ୍",
+            "active": "ସକ୍ରିୟ",
+            "unban": "ଅନବ୍ୟାନ୍",
+            "ban": "ବ୍ୟାନ୍ କରନ୍ତୁ",
+            "delete": "ଖାତା ଡିଲିଟ୍ କରନ୍ତୁ",
+            "confirm_ban": "ଆପଣ ନିଶ୍ଚିତ କି {{status}} କରିବାକୁ ଚାହାଁଛନ୍ତି ଏହି ବ୍ୟବହାରକାରୀକୁ?",
+            "ban_lift": "ଅନବ୍ୟାନ୍",
+            "ban_apply": "ବ୍ୟାନ୍",
+            "confirm_delete_1": "ଆପଣ ନିଶ୍ଚିତ କି ବ୍ୟବହାରକାରୀ \"{{username}}\" କୁ ଡିଲିଟ୍ କରିବାକୁ ଚାହାଁଛନ୍ତି?",
+            "confirm_delete_2": "⚠️ ସତର୍କତା: ଏହା ଉପଯୋଗକର୍ତା \"{{username}}\" ପାଇଁ ସମସ୍ତ ତଥ୍ୟ (ଇନ୍ଭେଣ୍ଟରୀ, ରୁମ୍, ୱିଭାଗ) ସ୍ଥାୟୀ ଭାବରେ ଅପସାରଣ କରିଦେବ!",
+            "confirm_delete_3": "🚨 ଅନ୍ତିମ ସତର୍କତା: ଆକାଉଣ୍ଟ \"{{username}}\" ଏବଂ ସମସ୍ତ ତଥ୍ୟ ଅକ୍ଷୟ ଭାବରେ ମିଟାଯିବାକୁ ଯାଉଛି। ଆପଣ କାର୍ଯ୍ୟକୁ ଜାରି ରଖିବାକୁ ଚାହାଁଛନ୍ତି କି?"
+        },
+        "logs": {
+            "title": "ଏଡମିନ୍ ଲଗ୍ସ",
+            "no_logs": "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ଲଗ୍ ନାହିଁ",
+            "errors_title": "ସିଷ୍ଟମ୍ ତ୍ରୁଟି (ଶେଷ 10)",
+            "no_errors": "// ସିଷ୍ଟମ୍ ସୁସ୍ଥ, କୌଣସି ତ୍ରୁଟି ଲଗ୍ ନାହିଁ।",
+            "date_fmt": "{{date, datetime}}"
+        },
+        "email": {
+            "title": "ଇମେଲ୍ ପଠାନ୍ତୁ",
+            "to": "ଗ୍ରାହକ (To)",
+            "subject": "ବିଷୟ",
+            "message": "ସନ୍ଦେଶ (HTML ସମର୍ଥିତ)",
+            "placeholder_message": "ଏଠାରେ ଆପଣଙ୍କର ସନ୍ଦେଶ ଟାଇପ୍ କରନ୍ତୁ...",
+            "send": "ପଠାନ୍ତୁ",
+            "sending": "ପଠାଉଛି...",
+            "success": "ଇମେଲ୍ ସଫଳତାର ସହିତ ପଠାଯାଇଛି!",
+            "error": "ସଂପ୍ରେଷଣ ବିଫଳ"
+        }
+    },
+    "landing": {
+        "nav": {
+            "login": "ଲଗଇନ୍"
+        },
+        "hero": {
+            "title_1": "ସବୁକିଛି ପରିଚାଳନା କରନ୍ତୁ",
+            "title_2": "ଆପଣଙ୍କର ଘରରେ!",
+            "description": "ଆପଣଙ୍କର ଘରର ସାମଗ୍ରୀକୁ ଡିଜିଟାଲ କରନ୍ତୁ। ସାମଗ୍ରୀଗୁଡିକୁ ବର୍ଗୀକୃତ କରନ୍ତୁ, ପରିବାରକୁ ଆମନ୍ତ୍ରଣ କରନ୍ତୁ, ଏବଂ ଯେକୌଣସିଠାରୁ ପ୍ରବେଶ କରନ୍ତୁ। ଆଧୁନିକ, ସୁରକ୍ଷିତ, ଏବଂ ବ୍ୟବହାର କରିବାରେ ସହଜ।",
+            "cta_start": "ଆରମ୍ଭ କରନ୍ତୁ",
+            "cta_register": "ଖାତା ସୃଷ୍ଟି କରନ୍ତୁ",
+            "stat_free": "ମୁକ୍ତ",
+            "stat_access": "ପ୍ରବେଶ"
+        },
+        "features": {
+            "title": "କାହିଁକି <1>HomeInventory</1>?",
+            "subtitle": "ଏକ ପ୍ଲାଟଫର୍ମରେ ଘର ପରିଚାଳନା ସହଜ କରିବା ପାଇଁ ସମସ୍ତ ବୈଶିଷ୍ଟ୍ୟ",
+            "items": {
+                "categorize": {
+                    "title": "ସାମଗ୍ରୀଗୁଡିକୁ ବର୍ଗୀକୃତ କରନ୍ତୁ",
+                    "desc": "ସମସ୍ତ ସାମଗ୍ରୀକୁ କକ୍ଷ ଏବଂ ବର୍ଗ ଅନୁଯାୟୀ ବ୍ୟବସ୍ଥିତ କରନ୍ତୁ, ଆପଣଙ୍କୁ ଆବଶ୍ୟକ ଯାହା ଲାଗିଛି ସେଟିକୁ ସେକେଣ୍ଡରେ ଖୋଜନ୍ତୁ।"
+                },
+                "family": {
+                    "title": "ଘର କି ସହିତ ପରିବାରକୁ ଆମନ୍ତ୍ରଣ କରନ୍ତୁ",
+                    "desc": "ଆପଣଙ୍କ ଅନନ୍ୟ ଘର ଚାବି ସହିତ ପରିବାର ସଦସ୍ୟଙ୍କୁ ଆମନ୍ତ୍ରଣ କରନ୍ତୁ, ଏକତ୍ର ଇନଭେଣ୍ଟୋରୀ ପରିଚାଳନା କରନ୍ତୁ।"
+                },
+                "access": {
+                    "title": "ଯେକୌଣସି ସ୍ଥାନରୁ ଆକସେସ୍",
+                    "desc": "ଘରେ, କାର୍ଯ୍ୟସ୍ଥଳରେ କିମ୍ବା ଛୁଟିରେ - ଯେକୌଣସି ସ୍ଥାନରୁ ସୁରକ୍ଷିତ ଭାବରେ ଆପଣଙ୍କର ଇନଭେଣ୍ଟୋରୀକୁ ପ୍ରବେଶ କରନ୍ତୁ ।"
+                },
+                "barcode": {
+                    "title": "ବାରକୋଡ୍ ସହ ଦ୍ରୁତ ଯୋଡନ୍ତୁ",
+                    "desc": "ଉତ୍ପାଦ ବାରକୋଡ୍ ସ୍କାନ୍ କରନ୍ତୁ, ବିବରଣୀ ସ୍ୱତଃସ୍ପୃତ ଭାବେ ପୂର୍ଣ୍ଣ ହୋଇଛି।"
+                },
+                "security": {
+                    "title": "ସୁରକ୍ଷିତ ଏବଂ ବ୍ୟକ୍ତିଗତ",
+                    "desc": "ଆପଣଙ୍କ ଡାଟା ଏନକ୍ରିପ୍ଟ ହୋଇଛି ଏବଂ KVKK ଅନୁପାଳନ ଭିତ୍ତିଭୂମି ସହ ସୁରକ୍ଷିତ ହୋଇଛି।"
+                },
+                "backup": {
+                    "title": "ବ୍ୟାକଅପ୍ ଏବଂ ରପ୍ତାନୀ || JSON ଫର୍ମାଟରେ ଆପଣଙ୍କର ଇନଭେଣ୍ଟୋରୀ ବ୍ୟାକଅପ୍ କରନ୍ତୁ, ଯେତେବେଳେ ଆପଣ ଚାହାଁନ୍ତି ପୁନରୁଦ୍ଧାର କରନ୍ତୁ ।",
+                    "desc": "ବର୍ତ୍ତମାନ ବ୍ୟବହାର ଆରମ୍ଭ କରନ୍ତୁ!"
+                }
+            }
+        },
+        "cta_bottom": {
+            "title": "ଏକ ମାଗଣା ଆକାଉଣ୍ଟ ସୃଷ୍ଟି କରନ୍ତୁ ଏବଂ ଆପଣଙ୍କ ଘରର ଭଣ୍ଡାରକୁ ଡିଜିଟାଇଜ୍ କରନ୍ତୁ । ପଞ୍ଜିକରଣ କେବଳ କିଛି ସେକେଣ୍ଡ ନେବ।",
+            "description": "ଲଗଇନ୍",
+            "button": "ଆପଣଙ୍କ ଘର ଭଣ୍ଡାରକୁ ଡିଜିଟାଇଜ୍ କରିବା ପାଇଁ ସହଜ ଏବଂ ସୁରକ୍ଷିତ ପ୍ଲାଟଫର୍ମ |"
+        },
+        "footer": {
+            "desc": "ଶୀଘ୍ର ଲିଙ୍କ",
+            "links": "ଆମ ସହିତ ଯୋଗାଯୋଗ କରନ୍ତୁ",
+            "contact": "Contact Us",
+            "copyright": "© {{year}} ହୋମଇନଭେଣ୍ଟୋରୀ। ସମସ୍ତ ଅଧିକାର ସୁରକ୍ଷିତ।"
+        },
+        "preview_privacy_notice": "ଡେମୋ ଦୃଶ୍ୟ: କୌଣସି ବାସ୍ତବ ଉପଭୋକ୍ତା ତଥ୍ୟ ପ୍ରଦର୍ଶିତ ହୁଏନାହିଁ।"
+    },
+    "intro": {
+        "inventory": {
+            "title": "ଇନଭେଣ୍ଟୋରୀ",
+            "content": "ଏଠାରେ ଆପଣ ଆପଣଙ୍କର ସାମଗ୍ରୀ ଯୋଡ଼ି ପାରିବେ ଏବଂ ତାଙ୍କୁ ତାଲିକାଭୁକ୍ତ କରିପାରିବେ। ସମସ୍ତ ଘର ସାମଗ୍ରୀକୁ ଏକ ସ୍ଥାନରେ ଟ୍ରାକ୍ କରନ୍ତୁ!"
+        },
+        "house_key": {
+            "title": "ଘର ଚାବି",
+            "content": "ଏହା ଆପଣଙ୍କର ଘର ଚାବି, ଅନ୍ୟମାନଙ୍କୁ ଆମନ୍ତ୍ରଣ କରିବା ପାଇଁ ଏହା ବ୍ୟବହାର କରନ୍ତୁ। ଘରକୁ ପରିବାର ସଦସ୍ୟଙ୍କୁ ଯୋଡ଼ନ୍ତୁ!"
+        },
+        "categories": {
+            "title": "ଶୂନ୍ୟ",
+            "content": "ଆପଣଙ୍କର ସାମଗ୍ରୀକୁ ବର୍ଗୀକୃତ କରି ସଂଗଠିତ କରନ୍ତୁ। ଇଲେକ୍ଟ୍ରୋନିକ୍ସ, ଫର୍ନିଚର୍, କିଚେନ ଏବଂ ଅଧିକ!"
+        },
+        "buttons": {
+            "back": "ପଛକୁ",
+            "close": "ବନ୍ଦ କରନ୍ତୁ",
+            "last": "ସମାପ୍ତ",
+            "next": "ପରବର୍ତ୍ତୀ",
+            "skip": "ଛାଡ଼ିଦିଅନ୍ତୁ",
+            "open": "ଖୋଲନ୍ତୁ"
+        }
+    },
+    "google_house_select": {
+        "title": "ସ୍ୱାଗତ!",
+        "subtitle": "ଆପଣ Google ସହିତ ଲଗଇନ୍ କରିଛନ୍ତି। ବର୍ତ୍ତମାନ ଗୋଟିଏ ଘର ବାଛନ୍ତୁ।",
+        "welcome_options": "ଆପଣ କ’ଣ କରିବାକୁ ଚାହାଁୁଛନ୍ତି?",
+        "create": {
+            "title": "ନୂତନ ଘର ସୃଷ୍ଟି କରନ୍ତୁ",
+            "desc": "ଆପଣଙ୍କର ନିଜର ଇନଭେଣ୍ଟରୀ ଆରମ୍ଭ କରନ୍ତୁ"
+        },
+        "join": {
+            "title": "ଅବସ୍ଥିତ ଘରରେ ଯୋଗ ଦିଅନ୍ତୁ",
+            "desc": "ଏକ ପରିବାର ସଦସ୍ୟଙ୍କର ଘରରେ ଯୋଗ ଦିଅନ୍ତୁ"
+        },
+        "back": "ପଛକୁ",
+        "house_name": "ଘରର ନାମ (ଇଚ୍ଛାନୁସାର)",
+        "house_name_placeholder": "ଉଦାହରଣ: ମୋ ଘର, କାର୍ଯ୍ୟାଳୟ",
+        "house_name_hint": "ଯଦି ଖାଲି ରହିଲେ, ଏହାର ନାମ 'ମୋ ଘର' ହେବ",
+        "house_key": "ଘର କି",
+        "house_key_placeholder": "ଘର କି ପ୍ରବେଶ କରନ୍ତୁ",
+        "house_key_hint": "ପରିବାର ସଦସ୍ୟଙ୍କ ପକାରୁ ମିଳିଥିବା 64-ଚରିତ୍ର ମାଳା କି ପ୍ରବେଶ କରନ୍ତୁ",
+        "house_name_join": "ଏହି ଘର ପାଇଁ ନାମ (ଇଚ୍ଛାନୁସାର)",
+        "submit_create": "ଘର ସୃଷ୍ଟି କରନ୍ତୁ",
+        "submit_join": "ହାଉସ୍‌ରେ ଯୋଗଦାନ କରନ୍ତୁ",
+        "processing": "ପ୍ରକ୍ରିୟା ଚାଲିଛି..."
+    },
+    "scanner": {
+        "title": "ବାରକୋଡ୍ ସ୍କ୍ୟାନର୍",
+        "qr_title": "QR କୋଡ୍ ପାଠକ",
+        "init": "କ୍ୟାମେରା ଆରମ୍ଭ କରାଯାଉଛି...",
+        "permission_error": "କ୍ୟାମେରା ଅନୁମତି ଅସ୍ୱୀକୃତ । ବ୍ରାଉଜର୍ ସେଟିଙ୍ଗ୍‌ଗୁଡିକ ଯାଞ୍ଚ କରନ୍ତୁ ।",
+        "busy_error": "କ୍ୟାମେରା ବ୍ୟସ୍ତ ଅଛି । ଅନ୍ୟ ଆପ୍ସ ବନ୍ଦ କରନ୍ତୁ ।",
+        "not_found_error": "କ୍ୟାମେରା ମିଳିଲା ନାହିଁ ।",
+        "generic_error": "କ୍ୟାମେରା ଆରମ୍ଭ କରିପାରିଲା ନାହିଁ ।",
+        "hint": "ବାରକୋଡ୍ କୁ ଫ୍ରେମ୍‌ରେ କେନ୍ଦ୍ର କରନ୍ତୁ",
+        "qr_hint": "QR କୋଡ୍ କୁ ଫ୍ରେମ୍‌ରେ ସମନ୍ୱୟ କରନ୍ତୁ",
+        "searching": "ପ୍ରଡକ୍ଟ ଖୋଜାଯାଉଛି...",
+        "found_local": "ପୂର୍ବରୁ ପଞ୍ଜିକୃତ!",
+        "found_local_msg": "ଏହି ବାରକୋଡ୍ ଆପଣଙ୍କର ଇନଭେଣ୍ଟରୀରେ ପୂର୍ବରୁ ଅଛି ।",
+        "found_online": "ପ୍ରଡକ୍ଟ ମିଳିଗଲା!",
+        "google_result": "⚡ Google ଖୋଜା ଫଳାଫଳ - ଦୟାକରି ସତ୍ୟାପନ କରନ୍ତୁ",
+        "barcode": "ବାରକୋଡ୍: {{code}}",
+        "new_product": "ନୂତନ ପ୍ରଦର୍ଶନୀ",
+        "not_found_db": "ଏହି ବାରକୋଡ୍ ଡେଟାବେସ୍ ରେ ମିଳିଲା ନାହିଁ ।",
+        "google_search": "Google ରେ ଖୋଜନ୍ତୁ",
+        "quick_add": "ତୁରନ୍ତ ଯୋଡ଼ନ୍ତୁ (ପରେ ସମ୍ପାଦନ କରନ୍ତୁ)",
+        "rescan": "ପୁଣିଥରେ ସ୍କାନ୍ କରନ୍ତୁ",
+        "retry": "ପୁନଃଚେଷ୍ଟା କରନ୍ତୁ",
+        "flash_on": "🔦 ଫ୍ଲାସ୍ ଚାଲୁ କରନ୍ତୁ",
+        "flash_unsupported": "ଫ୍ଲାସ୍ ସମର୍ଥିତ ନୁହେଁ",
+        "zoom_hint": "💡 ସ୍ପଷ୍ଟତା ପାଇଁ ଜୁମ୍ ବୃଦ୍ଧି କରନ୍ତୁ ଏବଂ ଫୋନ୍ ସ୍ଥିର ଧରନ୍ତୁ",
+        "found_item_redirect": "ଆଇଟେମ୍ ମିଳିଲା! ପୁନର୍ଦିଗମନ କରୁଛି...",
+        "found_page_redirect": "ପୃଷ୍ଠା ମିଳିଲା! ପୁନର୍ଦିଗମନ କରୁଛି...",
+        "invalid_qr": "ଏହି QR କୋଡ୍ ଏହି ଆପ୍ ପାଇଁ ନୁହେଁ | || ପ୍ରଦର୍ଶନୀ ମିଳିଲା ନାହିଁ। ଅଲଗା ବାରକୋଡ୍ ଚେଷ୍ଟା କରନ୍ତୁ।",
+        "not_found": "Product not found. Try a different barcode."
+    },
+    "item_qr": {
+        "hint_mobile": "📱 ଏହି QR କୋଡ୍ କୁ ଆପଣଙ୍କର ଫୋନ୍ ସହିତ ସ୍କାନ୍ କରନ୍ତु ଏବଂ ଆଇଟମ୍ କୁ ତୁରନ୍ତ ପ୍ରବେଶ କରନ୍ତୁ",
+        "network_ip": "ନେଟୱର୍କ IP",
+        "url_loading": "URL ଲୋଡ୍ ହେଉଛି...",
+        "copied": "କପି ହେଲା!",
+        "copy_url": "URL କପି କରନ୍ତୁ",
+        "download": "QR ଡାଉନଲୋଡ୍ କରନ୍ତୁ",
+        "usage_title": "ବ୍ୟବହାର",
+        "usage_desc": "QR କୋଡ୍ ପ୍ରିଣ୍ଟ୍ କରନ୍ତୁ ଏବଂ ଆଇଟମ୍ ଉପରେ ଲଗାନ୍ତୁ। ଏହି ପୃଷ୍ଠାକୁ ତୁରନ୍ତ ଏକ୍ସେସ୍ କରିବା ପାଇଁ ଆପଣଙ୍କର ଫୋନ୍ ସହିତ ସ୍କାନ୍ କରନ୍ତୁ!"
+    },
+    "house_access_pending": {
+        "eyebrow": "House Access",
+        "fallback_house": "Selected house",
+        "signed_in_as": "Signed in as {{username}}",
+        "logout": "Logout",
+        "messages": {
+            "create_error": "Could not create house",
+            "join_success": "Your join request was sent",
+            "join_error": "Could not send join request"
+        },
+        "pending": {
+            "title": "Waiting for house owner approval",
+            "description": "Your request for \"{{house}}\" is still waiting for a decision.",
+            "current_request": "Current pending request: {{house}}"
+        },
+        "no_house": {
+            "title": "You are not connected to a house right now",
+            "description": "Create a new house or send a join request to an existing one."
+        },
+        "create": {
+            "title": "Create a New House",
+            "description": "Start your own home inventory and continue right away.",
+            "name_label": "House Name",
+            "name_placeholder": "e.g. My Home, Summer House, Storage",
+            "submitting": "Creating...",
+            "submit": "Create House"
+        },
+        "join": {
+            "title": "Send a Join Request",
+            "description": "Enter a house key and send the request directly to the house owner.",
+            "key_label": "House Key",
+            "key_placeholder": "Enter the 64-character house key",
+            "submitting": "Sending...",
+            "submit": "Send Request"
+        }
+    }
+}

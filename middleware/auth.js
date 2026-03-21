@@ -1,4 +1,7 @@
 import jwt from 'jsonwebtoken';
+import db from '../database.js';
+import { decryptUserRecord } from '../utils/protectedFields.js';
+import { syncUserHousePointers } from '../utils/houseMembership.js';
 
 // Helper to get JWT_SECRET lazily, because ES module imports are hoisted
 // before dotenv/config has finished parsing .env in server.js
@@ -30,12 +33,44 @@ export const authenticateToken = (req, res, next) => {
     }
 
     try {
-        const user = jwt.verify(token, getJwtSecret());
-        req.user = user;
+        const tokenPayload = jwt.verify(token, getJwtSecret());
+        const normalizedUser = syncUserHousePointers(tokenPayload.id);
+
+        if (!normalizedUser) {
+            return res.status(401).json({ error: 'Kullanici bulunamadi' });
+        }
+
+        const liveUserRow = db.prepare(`
+            SELECT id, username, email, role, house_key, active_house_key
+            FROM users
+            WHERE id = ?
+        `).get(tokenPayload.id);
+
+        if (!liveUserRow) {
+            return res.status(401).json({ error: 'Kullanici bulunamadi' });
+        }
+
+        const liveUser = decryptUserRecord(liveUserRow);
+        req.user = {
+            id: liveUser.id,
+            username: liveUser.username,
+            email: liveUser.email,
+            role: liveUser.role || tokenPayload.role || 'user',
+            house_key: normalizedUser.active_house_key || normalizedUser.house_key || null,
+            active_house_key: normalizedUser.active_house_key || null
+        };
         next();
     } catch (err) {
         return res.status(403).json({ error: 'Geçersiz veya süresi dolmuş token' });
     }
+};
+
+export const requireActiveHouse = (req, res, next) => {
+    if (!req.user?.house_key) {
+        return res.status(403).json({ error: 'Aktif ev bulunamadi' });
+    }
+
+    next();
 };
 
 // Admin yetkisi kontrolü
@@ -66,4 +101,3 @@ export const generateToken = (user) => {
 };
 
 export { getJwtSecret as JWT_SECRET };
-

@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Sun, Moon, Home, Users, Key, Loader2, AlertCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import BrandLogo from './BrandLogo';
+import RecoveryKeyModal from './RecoveryKeyModal';
 
 export default function GoogleHouseSelect() {
     const { t } = useTranslation();
@@ -14,6 +15,7 @@ export default function GoogleHouseSelect() {
     const [houseName, setHouseName] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [generatedRecoveryKey, setGeneratedRecoveryKey] = useState('');
     const { refreshUser } = useAuth();
     const { isDark, toggleTheme } = useTheme();
     const navigate = useNavigate();
@@ -32,8 +34,13 @@ export default function GoogleHouseSelect() {
                 house_name: houseName || undefined
             });
 
-            // Refresh user state to get the updated profile
             await refreshUser();
+
+            if (response.data.newRecoveryKey) {
+                setGeneratedRecoveryKey(response.data.newRecoveryKey);
+                return;
+            }
+
             navigate('/');
         } catch (err) {
             console.error(err);
@@ -182,6 +189,17 @@ export default function GoogleHouseSelect() {
                     )}
                 </div>
             </div>
+
+            {generatedRecoveryKey && (
+                <RecoveryKeyModal
+                    recoveryKey={generatedRecoveryKey}
+                    title={t('auth.recovery_key_modal.google_title')}
+                    subtitle={t('auth.recovery_key_modal.subtitle')}
+                    warning={t('auth.recovery_key_modal.warning')}
+                    confirmLabel={t('auth.recovery_key_modal.confirm')}
+                    onConfirm={() => navigate('/')}
+                />
+            )}
         </div>
     );
 }

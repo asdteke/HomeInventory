@@ -9,10 +9,19 @@ const __dirname = dirname(__filename);
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 // RTL diller
-export const RTL_LANGUAGES = ['ar'];
+export const RTL_LANGUAGES = ['ar', 'fa', 'he', 'ur'];
 
-// Uygulamada aktif 5 dil
-export const SUPPORTED_LANGUAGES = ['tr', 'en', 'es', 'de', 'ar'];
+// Uygulamada aktif 10 dil
+export const SUPPORTED_LANGUAGES = ['tr', 'en', 'es', 'de', 'ar', 'fr', 'ru', 'pt', 'it', 'ja'];
+
+function normalizeLanguageCode(lang) {
+    if (!lang) return 'tr';
+    return lang.split('-')[0].toLowerCase();
+}
+
+function getFallbackLanguages(lang) {
+    return normalizeLanguageCode(lang) === 'tr' ? ['tr', 'en'] : ['en', 'tr'];
+}
 
 // i18next başlatma fonksiyonu
 export const initI18n = async () => {
@@ -20,7 +29,7 @@ export const initI18n = async () => {
         .use(Backend)
         .use(middleware.LanguageDetector)
         .init({
-            fallbackLng: 'tr',
+            fallbackLng: getFallbackLanguages,
             supportedLngs: SUPPORTED_LANGUAGES,
             preload: SUPPORTED_LANGUAGES,
             backend: {

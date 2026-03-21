@@ -1,0 +1,696 @@
+{
+    "items": {
+        "qrcode": {
+            "title": "QR Code",
+            "desc": "Maaari mong i-print at idikit ang QR code na ito sa item. Ang pag-scan nito ay direktang magdadala sa pahinang ito."
+        },
+        "title_new": "Magdagdag ng Bagong Item",
+        "title_edit": "I-edit ang Item",
+        "subtitle": "Ilagay ang mga detalye ng item",
+        "load_error": "Nabigong i-load ang item",
+        "form": {
+            "name": "Pangalan ng Item",
+            "name_placeholder": "hal. Samsung TV 55 inch",
+            "required": "*",
+            "description": "Deskripsyon",
+            "description_placeholder": "Mga tala tungkol sa item...",
+            "quantity": "Dami",
+            "category": "Kategorya",
+            "select_category": "Piliin",
+            "room": "Silid",
+            "select_room": "Piliin ang silid",
+            "location_details": "Detalye ng Lokasyon",
+            "location_optional": "(Opsyonal)",
+            "location_placeholder": "Maghanap o magdagdag ng bagong lokasyon...",
+            "location_help": "Nasaan sa kwarto? (hal. 'Pinakatuktok na istante ng asul na kabinet')",
+            "location_create": "Gumawa ng lokasyon \"{{name}}\"",
+            "location_privacy": "Pribadong Lokasyon",
+            "location_public": "Makikita ng lahat ang lokasyong ito",
+            "location_private": "Ikaw lamang ang makakakita nito",
+            "location_save": "I-save ang Lokasyon",
+            "location_saving": "Idinadagdag...",
+            "location_selected": "Napiling lokasyon: {{name}}",
+            "location_empty": "Wala pang nakatakdang lokasyon sa kwartong ito. Magsimulang mag-type upang gumawa ng isa.",
+            "photo": "Larawan",
+            "add_photo": "Magdagdag",
+            "barcode": "Barcode",
+            "barcode_optional": "(Opsyonal)",
+            "barcode_placeholder": "hal. 8690123456789",
+            "scan_barcode": "I-scan ang Barcode",
+            "search_db": "Maghanap sa Database",
+            "search_google": "Maghanap sa Google",
+            "barcode_saved": "✓ Maisasave ang Barcode",
+            "visibility": "Nakikita ang Item",
+            "visibility_public": "Nakikita ng lahat ng miyembro ng bahay",
+            "visibility_private": "Ikaw lamang ang makakakita",
+            "submit_add": "Magdagdag ng Item",
+            "submit_save": "I-save ang mga Pagbabago",
+            "submitting": "Isinasave..."
+        },
+        "messages": {
+            "quick_add_success": "✓ \"{{barcode}}\" mabilis na naidagdag - maaari mo itong i-edit mamaya",
+            "quick_add_fail": "⚠ Nabigong mag-mabilis na idagdag",
+            "searching": "Naghahanap...",
+            "found_local": "✓ Lokal: nakarehistro bilang \"{{name}}\"",
+            "found_remote": "✓ Natagpuan sa {{source}} {{note}}: \"{{name}}\"",
+            "not_found": "⚠ Hindi natagpuan ang produkto sa mga database. Maaari kang maghanap sa Google.",
+            "search_fail": "⚠ Nabigong maghanap",
+            "name_required": "Kinakailangan ang pangalan ng item",
+            "location_add_error": "Nabigong idagdag ang lokasyon"
+        }
+    },
+    "common": {
+        "save": "I-save",
+        "cancel": "Kanselahin",
+        "loading": "Naglo-load...",
+        "error": "Nagkaroon ng error",
+        "success": "Matagumpay ang operasyon",
+        "search": "Maghanap...",
+        "edit": "I-edit",
+        "delete": "I-delete",
+        "add": "Magdagdag",
+        "new": "Bago",
+        "all": "Lahat",
+        "manage": "Pamahalaan",
+        "help_support": "Tulong & Suporta",
+        "theme": {
+            "light": "Maliwanag na Mode",
+            "dark": "Madilim na Mode"
+        },
+        "select": "Piliin",
+        "refresh": "I-refresh",
+        "close": "Isara",
+        "logout": "Mag-log out",
+        "copyright": "© {{year}} HomeInventory - Lahat ng karapatan ay nakalaan"
+    },
+    "auth": {
+        "login": {
+            "title": "Mag-log in",
+            "subtitle": "Pamahalaan ang lahat ng iyong imbentaryo sa bahay nang matalino",
+            "welcome": "Maligayang pagdating sa HomeInventory",
+            "username_or_email": "Pangalan ng Gumagamit o Email",
+            "password": "Password",
+            "forgot_password": "Nakalimutan ang Password?",
+            "submit": "Mag-log in",
+            "submitting": "Nagla-log in...",
+            "google_continue": "Magpatuloy sa Google",
+            "or": "o",
+            "no_account": "Wala ka pang account?",
+            "register_link": "Magrehistro",
+            "support_contact": "Para sa mga isyu sa pag-login:",
+            "terms_title": "📋 Mga Tuntunin ng Paggamit at Paunawa",
+            "terms_beta": "BETA Bersyon: Ang HomeInventory ay kasalukuyang nasa yugto ng pagsubok. Walang garantiya na ibinibigay tungkol sa pagpapatuloy o seguridad ng iyong data.",
+            "terms_disclaimer": "Paunawa: Sa paggamit ng aplikasyon na ito, pumapayag ka na hindi ka maaaring humiling ng anumang kabayaran para sa posibleng pagkawala ng data, mga isyu sa pag-access, o iba pang teknikal na problema.",
+            "terms_backup": "Pag-backup ng Data: Lubos naming inirerekomenda ang regular na pag-backup ng iyong mga mahalagang impormasyon.",
+            "terms_accept": "Sa pag-login, itinuturing na tinanggap mo ang mga tuntuning ito."
+        },
+        "register": {
+            "title": "Maligayang pagdating sa HomeInventory",
+            "subtitle": "Gumawa ng bagong account o sumali sa kasalukuyang bahay",
+            "create_house": "Gumawa ng Bagong Bahay",
+            "join_house": "Sumali sa Bahay",
+            "create_house_desc": "🏠 Isang bagong bahay ang malilikha at makakakuha ka ng natatanging <strong>Susi ng Bahay</strong>. Ibahagi ang susi na ito sa pamilya upang ma-access ang parehong imbentaryo.",
+            "join_house_desc": "👨‍👩‍👧‍👦 Ipasok ang <strong>Susi ng Bahay</strong> na ibinahagi sa iyo upang sumali sa kasalukuyang bahay. Lahat ng may susi ay maaaring ma-access ang ibinahaging imbentaryo.",
+            "form_title": "Mag-sign Up",
+            "username": "Pangalan ng Gumagamit",
+            "username_placeholder": "hal. john",
+            "email": "Email",
+            "email_placeholder": "hal. john@example.com",
+            "password": "Password",
+            "password_placeholder": "Hindi bababa sa 6 na karakter",
+            "password_confirm": "Kumpirmahin ang Password",
+            "password_confirm_placeholder": "I-retype ang password",
+            "house_key": "Susi ng Bahay",
+            "house_key_placeholder": "Idikit ang 64-character na susi ng bahay",
+            "submit_create": "Gumawa ng Bagong Bahay",
+            "submit_join": "Sumali sa Bahay",
+            "submitting": "Nagre-register...",
+            "already_have_account": "Mayroon ka na bang account?",
+            "login_link": "Mag-login",
+            "support": "Mga isyu sa pagpaparehistro:",
+            "terms": "Mga Tuntunin sa Paggamit at Pagtanggi ng Pananagutan",
+            "passwords_mismatch": "Hindi magkatugma ang mga password",
+            "password_length": "Ang password ay dapat hindi bababa sa 6 na karakter",
+            "key_required": "Kinakailangan ang Susi ng Bahay upang sumali sa umiiral na bahay",
+            "modals": {
+                "key_created": {
+                    "title": "🎉 Nabuo ang Bahay!",
+                    "subtitle": "I-save ang susi sa ibaba sa isang ligtas na lugar",
+                    "warning": "Mahalagang Paalala: Ang susi na ito ay ipapakita lamang isang beses. Ibahagi ito sa mga miyembro ng pamilya upang ma-access nila ang parehong imbentaryo.",
+                    "copy": "Kopya",
+                    "copied": "Nakopya",
+                    "button": "Na-save ko ang Susi, Magpatuloy"
+                },
+                "email_verification": {
+                    "title": "📧 Kinakailangan ang Pag-verify ng Email",
+                    "message": "Nabuo ang account! Pakiveripika ang iyong email address upang makalogin.",
+                    "step_1": "Nagpadala kami ng isang verification email sa <1>{{email}}</1>.",
+                    "step_2": "I-click ang <1>\"I-verify ang Aking Account\"</1> na button sa email.",
+                    "step_3": "Pagkatapos ng beripikasyon, <1>maaari ka nang mag-login</1>.",
+                    "spam_note": "Suriin ang spam/junk folder kung hindi dumating ang email.",
+                    "key_note": "Mahalagang Paalala: Ang iyong susi sa bahay ay ipinadala rin sa email. Maaari mo itong ibahagi sa mga kapamilya.",
+                    "button": "Sige, Pumunta sa Login"
+                }
+            }
+        },
+        "forgot_password": {
+            "title": "Nakalimutan ang Password",
+            "subtitle": "Magsimula ng secure na daloy ng pagbawi upang ma-access muli ang iyong account.",
+            "identifier": "Username o Email",
+            "identifier_placeholder": "hal. john o john@example.com",
+            "submit": "Simulan ang Pagbawi",
+            "requesting": "Sinusuri...",
+            "email_success": "Kung mayroong isang account, isang link sa pag-reset ng password na may bisa sa loob ng 15 minuto ay naipadala.",
+            "back_to_login": "Bumalik sa Login",
+            "recovery_mode_info": "Ang email ay hindi pinagana sa server na ito. Magpatuloy sa Recovery Key na na-save mo sa pag-setup ng account.",
+            "recovery_key": "Recovery Key",
+            "recovery_key_placeholder": "hal. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "Bagong Password",
+            "new_password_placeholder": "Ipasok ang iyong bagong malakas na password",
+            "confirm_password": "Kumpirmahin ang Bagong Password",
+            "confirm_password_placeholder": "Muling ipasok ang iyong password",
+            "reset_submit": "I-reset ang Password",
+            "resetting": "Nire-reset..."
+        },
+        "reset_password": {
+            "title": "I-reset ang Password",
+            "subtitle": "Gamitin ang secure na link upang magtakda ng bagong password.",
+            "missing_token": "Ang link sa pag-reset ng password ay mukhang hindi kumpleto o sira.",
+            "new_password": "Bagong Password",
+            "new_password_placeholder": "Ipasok ang iyong bagong malakas na password",
+            "confirm_password": "Kumpirmahin ang Bagong Password",
+            "confirm_password_placeholder": "Muling ipasok ang iyong password",
+            "submit": "I-update ang Password",
+            "submitting": "Ina-update...",
+            "back_to_login": "Bumalik sa Login"
+        },
+        "recovery_setup": {
+            "title": "Lumikha ng Recovery Key",
+            "subtitle": "Hanggang sa ito ay makumpleto, ang iyong account ay hindi itinuturing na ligtas para sa lokal na pagbawi ng password.",
+            "warning": "Isang beses lang ipapakita ang key na ito. I-save ito sa isang password manager o isa pang secure na offline na lokasyon.",
+            "account": "Gagawa ng recovery key para sa account na {{username}}.",
+            "description": "Dahil hindi pinagana ang email, magagawa mo lang i-reset ang iyong password gamit ang key na ito sa hinaharap.",
+            "submit": "Lumikha ng Recovery Key",
+            "generating": "Ginagawa..."
+        },
+        "recovery_key_modal": {
+            "register_title": "I-save ang Iyong Recovery Key",
+            "google_title": "I-save ang Iyong Recovery Key",
+            "setup_title": "I-save ang Iyong Recovery Key",
+            "reset_title": "I-save ang Iyong Bagong Recovery Key",
+            "settings_title": "I-save ang Iyong Bagong Recovery Key",
+            "subtitle": "Ang key na ito ay ipinapakita nang isang beses lamang.",
+            "warning": "Kung nawala mo ang key na ito habang naka-disable ang email, maaaring hindi mo na mabawi ang iyong password. Kopyahin ito at itabi nang ligtas.",
+            "confirm": "Nai-save Ko ang Susi"
+        }
+    },
+    "navigation": {
+        "home": "Bahay",
+        "inventory": "Imbentaryo",
+        "rooms": "Mga Kuwarto",
+        "categories": "Mga Kategorya",
+        "settings": "Mga Setting",
+        "new_item": "Bagong Item",
+        "share_house": "Ibahagi ang Bahay",
+        "admin_panel": "Admin Panel",
+        "logout": "Mag-logout",
+        "menu": "Menu"
+    },
+    "dashboard": {
+        "welcome": "Maligayang Pagdating, <1>{{name}}</1>! 👋",
+        "subtitle": "Pangkalahatang-ideya ng iyong imbentaryo",
+        "quick_search": "Mabilis na paghahanap...",
+        "filters": {
+            "private": "🔒 Aking Pribadong Mga Bagay",
+            "public": "🌐 Pampubliko",
+            "remove": "I-clear ang Filter",
+            "no_items": "Walang bagay na tumutugma sa filter na ito"
+        },
+        "stats": {
+            "total_items": "Kabuuang Mga Bagay",
+            "total_quantity": "Kabuuang Dami",
+            "fullest_room": "Pinakamaluwag na Silid",
+            "category_count": "Mga Kategorya",
+            "items_suffix": "mga bagay"
+        },
+        "recent_items": {
+            "title": "Kamakailan Lang Idinagdag",
+            "see_all": "Tingnan Lahat"
+        },
+        "categories": {
+            "title": "Mga Kategorya",
+            "manage": "Pamahalaan",
+            "empty": "Walang idinagdag na item pa"
+        },
+        "rooms": {
+            "title": "Mga Silid",
+            "manage": "Pamahalaan"
+        },
+        "quick_actions": {
+            "title": "⚡ Mabilis na Mga Aksyon",
+            "add_item": "Magdagdag ng Item",
+            "search_item": "Maghanap ng Item",
+            "categories": "Mga Kategorya",
+            "settings": "Mga Setting"
+        }
+    },
+    "beta_banner": {
+        "title": "BETA:",
+        "text": "Kasalukuyang nasa yugto ng pagsubok at libangan ang HomeInventory. Walang garantiya na ibinibigay para sa pagpapanatili o seguridad ng datos. Mangyaring magtago ng mga backup ng mahahalagang impormasyon.",
+        "contact": "Makipag-ugnayan:"
+    },
+    "footer": {
+        "rights": "© {{year}} HomeInventory - Lahat ng karapatan ay nakalaan",
+        "contact": "Makipag-ugnayan:"
+    },
+    "settings": {
+        "title": "Mga Setting",
+        "subtitle": "Pamahalaan ang mga kagustuhan sa aplikasyon",
+        "messages": {
+            "house_switched": "✅ {{name}} na-activate!",
+            "house_switch_error": "Nabigong palitan ang bahay",
+            "house_joined_success": "✅ Matagumpay kang sumali sa bahay!",
+            "house_join_error": "Nabigong sumali sa bahay",
+            "house_created_success": "✅ \"{{name}}\" nalikha!",
+            "house_create_error": "Nabigong lumikha ng bahay",
+            "house_left_success": "Matagumpay na iniwan ang bahay",
+            "house_left_error": "Nabigong iwan ang bahay",
+            "house_leave_confirm": "Sigurado ka bang gusto mong iwan ang \"{{name}}\"?",
+            "backup_downloaded": "✅ Matagumpay na na-download ang backup! ({{count}} na item)",
+            "export_error": "❌ Nagkaroon ng error sa pag-export",
+            "import_invalid_format": "Hindi wastong format ng backup file",
+            "import_success": "✅ {{items}} na item, {{categories}} na kategorya, {{rooms}} na silid, {{locations}} na lokasyon ang naidagdag.",
+            "import_error": "❌ Error sa pag-import: {{error}}",
+            "password_changed": "Matagumpay na nabago ang password!",
+            "password_error_current": "Mali ang kasalukuyang password",
+            "password_error_invalid": "Ipinadala ang hindi wastong datos",
+            "session_expired": "Expired na ang session. Mangyaring mag-login muli.",
+            "server_error": "Nagkaroon ng error sa server",
+            "connection_error": "Hindi makakonekta sa server. Suriin ang iyong koneksyon sa internet.",
+            "unexpected_error": "Nagkaroon ng hindi inaasahang error",
+            "username_changed": "✅ Nabago ang username!",
+            "username_error": "Hindi mabago ang username",
+            "username_len_error": "Ang username ay dapat may hindi bababa sa 3 karakter",
+            "fill_all_fields": "Pakiusap punan ang lahat ng mga patlang",
+            "passwords_mismatch": "Hindi magkatugma ang mga bagong password",
+            "password_min_len": "Ang bagong password ay dapat hindi bababa sa 6 na karakter",
+            "house_request_sent_success": "✅ Naipadala na ang iyong kahilingan sa pagsali!",
+            "request_approved": "✅ Naaprubahan ang kahilingan sa pagsali",
+            "request_rejected": "Ang kahilingan sa pagsali ay tinanggihan",
+            "request_action_error": "Hindi ma-update ang kahilingan",
+            "member_kick_confirm": "Sigurado ka bang gusto mong tanggalin ang \"{{name}}\" sa bahay?",
+            "member_kicked": "Ang miyembro ay tinanggal sa bahay",
+            "member_kick_error": "Hindi maalis ang miyembro sa bahay",
+            "recovery_key_regenerated": "Recovery key ay muling nabuo",
+            "recovery_key_error": "Hindi ma-regenerate ang recovery key"
+        },
+        "user_profile": {
+            "edit_username": "Palitan ang username"
+        },
+        "my_houses": {
+            "title": "Aking mga Bahay",
+            "join_house": "Sumali sa Bahay",
+            "join_short": "Sumali",
+            "new_house": "Bagong Bahay",
+            "new_short": "Bago",
+            "no_house": "Hindi ka pa miyembro ng anumang bahay",
+            "owner": "May-ari",
+            "active": "Aktibo",
+            "member_count": "{{count}} miyembro",
+            "item_count": "{{count}} item",
+            "switch": "Lumipat",
+            "leave": "Iwanan ang Bahay",
+            "info": "💡 Maaari kang maging miyembro ng maraming bahay at lumipat sa pagitan nila. Ang bawat bahay ay may sariling imbentaryo."
+        },
+        "house_info": {
+            "title": "Aktibong Susi ng Bahay",
+            "key_label": "Susi ng Bahay",
+            "mask_key": "••••••••{{suffix}}",
+            "hide": "Itago",
+            "show": "Ipakita",
+            "copy": "Kopyahin",
+            "share_info": "💡 Ang mga gumagamit na iyong ibinahaging ang susi ay maaaring ma-access ang iyong imbentaryo gamit ang opsyong \"Sumali sa Bahay\" sa panahon ng pagrerehistro.",
+            "members_title": "Mga Miyembro ng Bahay ({{count}})",
+            "you": "(Ikaw)",
+            "joined_at": "Sumali: {{date, datetime}}",
+            "no_members": "Wala pang ibang miyembro",
+            "invite_title": "Imbitahan ang mga Miyembro ng Pamilya",
+            "invite_desc": "Ibahagi ang iyong susi ng bahay upang pahintulutan ang mga miyembro ng pamilya na ma-access ang parehong imbentaryo. Ang bawat miyembro ay nagla-log in gamit ang kanilang sariling account ngunit naa-access ang parehong data.",
+            "active_members": "Mga Aktibong Miyembro",
+            "pending_requests": "Mga Nakabinbing Kahilingan",
+            "no_pending_requests": "Walang nakabinbing kahilingan",
+            "owner_controls": "Pinagana ang mga kontrol ng May-ari",
+            "approve": "Aprubahan",
+            "reject": "Tanggihan",
+            "kick": "Alisin"
+        },
+        "theme": {
+            "title": "Tema",
+            "dark": "Madilim na mode",
+            "light": "Maliwanag na mode"
+        },
+        "security": {
+            "title": "Seguridad",
+            "change_password": "Palitan ang Password",
+            "change_password_desc": "I-update ang password ng iyong account",
+            "recovery_key_title": "Recovery Key",
+            "recovery_key_desc": "Maaari kang bumuo ng bagong key para sa lokal na pagbawi ng password.",
+            "recovery_key_missing": "Wala pang nakikitang recovery key para sa account na ito.",
+            "current_key_label": "Naka-save na Recovery Key",
+            "recovery_key_unavailable": "Ang kasalukuyang recovery key ay hindi maipapakita. I-regenerate ito kung kinakailangan.",
+            "recovery_key_action": "Bumuo muli",
+            "recovery_key_modal_desc": "Kumpirmahin ang iyong kasalukuyang password upang magpatuloy. Isang beses lang ipapakita ang bagong key.",
+            "recovery_key_loading": "Inihahanda..."
+        },
+        "data_management": {
+            "title": "Pamamahala ng Data",
+            "download_backup": "I-download ang Backup",
+            "downloading": "Ina-download...",
+            "export_json": "I-export bilang JSON",
+            "upload_backup": "I-upload ang Backup",
+            "uploading": "Ina-upload...",
+            "import_json": "I-import mula sa JSON"
+        },
+        "about": {
+            "title": "📱 Tungkol sa Aplikasyon",
+            "version": "Bersyon",
+            "brand": "Brand",
+            "feedback": "✉️ Magpadala ng Feedback"
+        },
+        "modals": {
+            "password": {
+                "title": "Palitan ang Password",
+                "current": "Kasalukuyang Password",
+                "new": "Bagong Password",
+                "confirm": "Bagong Password (Kumpirmahin)",
+                "changing": "Nagbabago...",
+                "submit": "Palitan ang Password"
+            },
+            "join_house": {
+                "title": "Sumali sa Bahay",
+                "key_placeholder": "Ipasok ang 64-character na key ng bahay",
+                "key_help": "Ipasok ang key na natanggap mo mula sa iyong kapamilya",
+                "name_label": "Pangalan para sa Bahay na ito (opsyonal)",
+                "name_placeholder": "hal. Bahay ng mga Magulang",
+                "joining": "Sumasali...",
+                "submit": "Sumali sa Bahay"
+            },
+            "create_house": {
+                "title": "Gumawa ng Bagong Bahay",
+                "name_label": "Pangalan ng Bahay",
+                "name_placeholder": "hal. Summer House, Opisina, Bodega",
+                "name_help": "Kung iiwan na walang laman, ipapangalan itong \"Aking Bagong Bahay\"",
+                "info": "ℹ️ Ang mga default na kategorya at kwarto ay gagawin para sa bagong bahay. Maaari mo itong i-edit mamaya.",
+                "creating": "Ginagawa...",
+                "submit": "Gumawa ng Bahay"
+            },
+            "username": {
+                "title": "Palitan ang Pangalan ng Gumagamit",
+                "new_label": "Bagong Pangalan ng Gumagamit",
+                "placeholder": "Ang iyong bagong pangalan ng gumagamit",
+                "help": "3-30 na karakter, letra, numero, underscore at dash lamang",
+                "saving": "Sine-save...",
+                "submit": "Palitan"
+            }
+        },
+        "select_language": "Piliin ang Wika",
+        "pending_requests": {
+            "title": "Aking Mga Nakabinbing Kahilingan sa Pagsali",
+            "waiting_since": "Naghihintay mula noong: {{date, datetime}}",
+            "pending_badge": "Nakabinbin"
+        }
+    },
+    "inventory": {
+        "title": "Imbentaryo",
+        "subtitle": "{{count}} na item ang natagpuan",
+        "new_item": "Bagong Item",
+        "add_first": "Magdagdag ng Unang Item",
+        "search_placeholder": "Maghanap ng mga item...",
+        "all_categories": "Lahat ng Kategorya",
+        "all_rooms": "Lahat ng Silid",
+        "empty_title": "Walang natagpuang item",
+        "empty_filter": "Walang item na tumutugma sa iyong mga filter",
+        "empty_msg": "Walang idinagdag na item",
+        "delete_confirm": "Sigurado ka bang gusto mong tanggalin ang item na ito?",
+        "delete_error": "Error sa pagtanggal"
+    },
+    "categories": {
+        "title": "Mga Kategorya",
+        "subtitle": "{{count}} na kategorya",
+        "new_category": "Bagong Kategorya",
+        "edit_title": "I-edit ang Kategorya",
+        "new_title": "Bagong Kategorya",
+        "name_label": "Pangalan ng Kategorya",
+        "icon_label": "Icon",
+        "color_label": "Kulay",
+        "delete_confirm": "Sigurado ka bang gusto mong tanggalin ang kategoryang ito?",
+        "delete_error": "Error sa pagtanggal"
+    },
+    "rooms": {
+        "title": "Mga Silid",
+        "subtitle": "{{count}} na silid",
+        "new_room": "Bagong Silid",
+        "edit_title": "I-edit ang Silid",
+        "new_title": "Bagong Silid",
+        "name_label": "Pangalan ng Silid",
+        "description_label": "Paglalarawan (Opsyonal)",
+        "name_placeholder": "hal. Master Bedroom",
+        "desc_placeholder": "hal. Pangunahing silid",
+        "delete_confirm": "Sigurado ka bang gusto mong burahin ang silid na ito?",
+        "delete_error": "Error sa pagbura"
+    },
+    "admin": {
+        "title": "Panel ng Admin",
+        "subtitle": "Pamamahala at Pagmamatyag ng Sistema",
+        "refresh": "I-refresh",
+        "tabs": {
+            "dashboard": "Dashboard",
+            "users": "Mga User",
+            "logs": "Mga Log",
+            "email": "Magpadala ng Mail"
+        },
+        "stats": {
+            "total_users": "Kabuuang Bilang ng Mga User",
+            "new_today": "Ngayon: +{{count}} bago",
+            "total_inventory": "Kabuuang Imbentaryo",
+            "inventory_details": "{{rooms}} silid, {{categories}} kategorya",
+            "banned_users": "Mga User na Ipinagbawal",
+            "access_blocked": "Access na naka-block",
+            "server_memory": "Memorya ng Server",
+            "uptime": "Oras ng Pagkakabuhay: {{hours}} na oras"
+        },
+        "users": {
+            "user": "User",
+            "role": "Papel",
+            "status": "Katayuan",
+            "action": "Aksyon",
+            "banned": "Ipinagbawal",
+            "active": "Aktibo",
+            "unban": "Alisin ang Bawal",
+            "ban": "Bawal",
+            "delete": "Tanggalin ang Account",
+            "confirm_ban": "Sigurado ka bang gusto mong {{status}} ang user na ito?",
+            "ban_lift": "alisin ang bawal",
+            "ban_apply": "bawal",
+            "confirm_delete_1": "Sigurado ka bang gusto mong tanggalin ang user na \"{{username}}\"?",
+            "confirm_delete_2": "⚠️ BABALA: Permanente nitong buburahin ang LAHAT ng data (mga imbentaryo, kwarto, kategorya) para sa gumagamit na \"{{username}}\"!",
+            "confirm_delete_3": "🚨 HULING BABALA: Ang account na \"{{username}}\" at lahat ng data ay IRREVERSIBLY buburahin. Gusto mo bang magpatuloy?"
+        },
+        "logs": {
+            "title": "Log ng Admin",
+            "no_logs": "walang log pa",
+            "errors_title": "Mga Error sa Sistema (Huling 10)",
+            "no_errors": "// Sistema ay maayos, walang error logs.",
+            "date_fmt": "{{date, datetime}}"
+        },
+        "email": {
+            "title": "Magpadala ng Email",
+            "to": "Tatanggap (Para sa)",
+            "subject": "Paksa",
+            "message": "Mensahe (Suportado ang HTML)",
+            "placeholder_message": "I-type ang iyong mensahe dito...",
+            "send": "Ipadala",
+            "sending": "Ipinapadala...",
+            "success": "Matagumpay na naipadala ang email!",
+            "error": "Pagpapadala nabigo"
+        }
+    },
+    "landing": {
+        "nav": {
+            "login": "Mag-login"
+        },
+        "hero": {
+            "title_1": "Pamahalaan ang Lahat",
+            "title_2": "Sa Iyong Bahay!",
+            "description": "I-digitize ang imbentaryo ng iyong bahay. I-kategorya ang mga item, anyayahan ang pamilya, at ma-access mula sa kahit saan. Moderno, ligtas, at madaling gamitin.",
+            "cta_start": "Magsimula",
+            "cta_register": "Lumikha ng Account",
+            "stat_free": "Libre",
+            "stat_access": "Access"
+        },
+        "features": {
+            "title": "Bakit <1>HomeInventory</1>?",
+            "subtitle": "Lahat ng tampok para gawing simple ang pamamahala ng bahay sa isang plataporma",
+            "items": {
+                "categorize": {
+                    "title": "I-kategorya ang mga Item",
+                    "desc": "Ayusin ang lahat ng item ayon sa silid at kategorya, at hanapin ang kailangan mo sa loob ng ilang segundo."
+                },
+                "family": {
+                    "title": "Anyayahan ang Pamilya gamit ang Susi ng Bahay",
+                    "desc": "Imbitahan ang mga miyembro ng pamilya gamit ang iyong natatanging susi ng bahay, pamahalaan ang imbentaryo nang sama-sama."
+                },
+                "access": {
+                    "title": "Access mula Kahit Saan",
+                    "desc": "Nasa bahay, sa trabaho, o nagbabakasyon - ligtas na ma-access ang iyong imbentaryo mula kahit saan."
+                },
+                "barcode": {
+                    "title": "Mabilisang Pagdagdag gamit ang Barcode",
+                    "desc": "I-scan ang mga barcode ng produkto, awtomatikong napupunan ang mga detalye."
+                },
+                "security": {
+                    "title": "Ligtas at Pribado",
+                    "desc": "Ang iyong datos ay naka-encrypt at protektado gamit ang KVKK compliant na imprastraktura."
+                },
+                "backup": {
+                    "title": "Backup at I-export",
+                    "desc": "I-backup ang iyong imbentaryo sa JSON format, i-restore anumang oras na gusto mo."
+                }
+            }
+        },
+        "cta_bottom": {
+            "title": "Magsimulang Gumamit Ngayon!",
+            "description": "Gumawa ng libreng account at i-digitize ang iyong imbentaryo sa bahay. Ilang segundo lamang ang kinakailangan para magparehistro.",
+            "button": "Mag-login"
+        },
+        "footer": {
+            "desc": "Ang madaling at ligtas na plataporma para i-digitize ang iyong imbentaryo sa bahay.",
+            "links": "Mabilis na Mga Link",
+            "contact": "Makipag-ugnayan sa Amin",
+            "copyright": "© {{year}} HomeInventory. Lahat ng karapatan ay nakalaan."
+        },
+        "preview_privacy_notice": "Demo view: walang totoong datos ng gumagamit ang ipinapakita."
+    },
+    "intro": {
+        "inventory": {
+            "title": "Imbentaryo",
+            "content": "Dito maaari mong idagdag at ilista ang iyong mga item. Subaybayan ang lahat ng gamit sa bahay sa iisang lugar!"
+        },
+        "house_key": {
+            "title": "Susi ng Bahay",
+            "content": "Ito ang iyong susi sa bahay, gamitin ito upang mag-imbita ng iba. Idagdag ang mga miyembro ng pamilya sa iyong bahay!"
+        },
+        "categories": {
+            "title": "Mga Kategorya",
+            "content": "I-organisa sa pamamagitan ng pagkakategorya ng iyong mga item. Mga electronics, kagamitan sa bahay, kusina, at iba pa!"
+        },
+        "buttons": {
+            "back": "Babalik",
+            "close": "Isara",
+            "last": "Tapos na",
+            "next": "Susunod",
+            "skip": "Laktawan",
+            "open": "Buksan"
+        }
+    },
+    "google_house_select": {
+        "title": "Maligayang pagdating!",
+        "subtitle": "Nag-log in ka gamit ang Google. Ngayon, pumili ng bahay.",
+        "welcome_options": "Anong gusto mong gawin?",
+        "create": {
+            "title": "Gumawa ng Bagong Bahay",
+            "desc": "Simulan ang sarili mong imbentaryo"
+        },
+        "join": {
+            "title": "Sumali sa Umiiral na Bahay",
+            "desc": "Sumali sa bahay ng miyembro ng pamilya"
+        },
+        "back": "Bago",
+        "house_name": "Pangalan ng Bahay (opsyonal)",
+        "house_name_placeholder": "Hal. Aking Bahay, Opisina",
+        "house_name_hint": "Kung iiwanang walang laman, papangalanang \"Aking Bahay\"",
+        "house_key": "Susi ng Bahay",
+        "house_key_placeholder": "Ipasok ang susi ng bahay",
+        "house_key_hint": "Ipasok ang 64-character na susi na natanggap mula sa miyembro ng pamilya",
+        "house_name_join": "Pangalan para sa Bahay na ito (opsyonal)",
+        "submit_create": "Gumawa ng Bahay",
+        "submit_join": "Sumali sa Bahay",
+        "processing": "Pinoproseso..."
+    },
+    "scanner": {
+        "title": "Tagascan ng Barcode",
+        "qr_title": "Tagabasa ng QR Code",
+        "init": "Sinisimulan ang kamera...",
+        "permission_error": "Tinanggihan ang permiso sa kamera. Suriin ang mga setting ng browser.",
+        "busy_error": "Abala ang kamera. Isara ang ibang apps.",
+        "not_found_error": "Hindi makita ang kamera.",
+        "generic_error": "Hindi masimulan ang kamera.",
+        "hint": "Ilagay ang barcode sa gitna ng frame",
+        "qr_hint": "I-align ang QR code sa frame",
+        "searching": "Hinahanap ang produkto...",
+        "found_local": "Nakarehistro Na!",
+        "found_local_msg": "Ang barcode na ito ay nasa iyong imbentaryo na.",
+        "found_online": "Nahanap ang Produkto!",
+        "google_result": "⚡ Resulta ng paghahanap sa Google - pakisuri",
+        "barcode": "Barcode: {{code}}",
+        "new_product": "Bagong Produkto",
+        "not_found_db": "Hindi natagpuan ang barcode na ito sa mga database.",
+        "google_search": "Maghanap sa Google",
+        "quick_add": "Mabilis na Idagdag (I-edit Mamaya)",
+        "rescan": "I-scan Muli",
+        "retry": "Subukang Muli",
+        "flash_on": "🔦 Buksan ang Flash",
+        "flash_unsupported": "Hindi suportado ang Flash",
+        "zoom_hint": "💡 Palakihin ang zoom para sa kalinawan at panatilihing matatag ang telepono",
+        "found_item_redirect": "Natagpuan ang item! Nireredirekta...",
+        "found_page_redirect": "Natagpuan ang pahina! Nireredirekta...",
+        "invalid_qr": "Ang QR code na ito ay hindi para sa app na ito.",
+        "not_found": "Hindi natagpuan ang produkto. Subukan ang ibang barcode."
+    },
+    "item_qr": {
+        "hint_mobile": "📱 I-scan ang QR code na ito gamit ang iyong telepono para mabilis na ma-access ang item",
+        "network_ip": "Network IP",
+        "url_loading": "Ina-load ang URL...",
+        "copied": "Nakopya!",
+        "copy_url": "Kopyahin ang URL",
+        "download": "I-download ang QR",
+        "usage_title": "Paggamit",
+        "usage_desc": "I-print ang QR code at idikit ito sa item. I-scan gamit ang iyong telepono para agad na ma-access ang pahinang ito!"
+    },
+    "house_access_pending": {
+        "eyebrow": "Access sa Bahay",
+        "fallback_house": "Napiling bahay",
+        "signed_in_as": "Naka-sign in bilang {{username}}",
+        "logout": "Logout",
+        "messages": {
+            "create_error": "Hindi makalikha ng bahay",
+            "join_success": "Naipadala ang iyong kahilingan sa pagsali",
+            "join_error": "Hindi maipadala ang kahilingan sa pagsali"
+        },
+        "pending": {
+            "title": "Naghihintay ng pag-apruba ng may-ari ng bahay",
+            "description": "Ang iyong kahilingan para sa \"{{house}}\" ay naghihintay pa rin ng desisyon.",
+            "current_request": "Kasalukuyang nakabinbing kahilingan: {{house}}"
+        },
+        "no_house": {
+            "title": "Hindi ka konektado sa isang bahay sa ngayon",
+            "description": "Lumikha ng bagong bahay o magpadala ng kahilingan sa pagsali sa dati nang bahay."
+        },
+        "create": {
+            "title": "Lumikha ng Bagong Bahay",
+            "description": "Magsimula ng iyong sariling imbentaryo ng tahanan at magpatuloy kaagad.",
+            "name_label": "Pangalan ng Bahay",
+            "name_placeholder": "hal. Aking Tahanan, Bahay sa Tag-init, Imbakan",
+            "submitting": "Ginagawa...",
+            "submit": "Lumikha ng Bahay"
+        },
+        "join": {
+            "title": "Magpadala ng Kahilingan sa Pagsali",
+            "description": "Magpasok ng susi ng bahay at ipadala ang kahilingan nang direkta sa may-ari ng bahay.",
+            "key_label": "Susi ng Bahay",
+            "key_placeholder": "Ipasok ang 64-character na susi ng bahay",
+            "submitting": "Nagpapadala...",
+            "submit": "Magpadala ng Kahilingan"
+        }
+    }
+}

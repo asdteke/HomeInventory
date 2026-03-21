@@ -25,13 +25,13 @@
     },
     "auth": {
         "login": {
-            "title": "Login",
+            "title": "Anmelden",
             "subtitle": "Verwalten Sie Ihr gesamtes Hausinventar intelligent",
             "welcome": "Willkommen bei HomeInventory",
             "username_or_email": "Benutzername oder E-Mail",
             "password": "Passwort",
             "forgot_password": "Passwort vergessen?",
-            "submit": "Login",
+            "submit": "Anmelden",
             "submitting": "Anmelden...",
             "google_continue": "Weiter mit Google",
             "or": "oder",
@@ -66,7 +66,7 @@
             "submit_join": "Treten Sie dem Haus bei",
             "submitting": "Registrieren...",
             "already_have_account": "Sie haben bereits ein Konto?",
-            "login_link": "Login",
+            "login_link": "Anmelden",
             "support": "Registrierungsprobleme:",
             "terms": "Nutzungsbedingungen und Haftungsausschluss",
             "passwords_mismatch": "Passwörter stimmen nicht überein",
@@ -92,7 +92,58 @@
                     "button": "Okay, gehen Sie zu „Anmelden“."
                 }
             }
-        }
+        },
+        "forgot_password": {
+            "title": "Passwort vergessen",
+            "subtitle": "Starten Sie einen sicheren Wiederherstellungsvorgang, um wieder auf Ihr Konto zuzugreifen.",
+            "identifier": "Benutzername oder E-Mail",
+            "identifier_placeholder": "z.B. john oder john@example.com",
+            "submit": "Wiederherstellung starten",
+            "requesting": "Überprüfung...",
+            "email_success": "Wenn ein Konto vorhanden ist, wurde ein Link zum Zurücksetzen des Passworts gesendet, der 15 Minuten gültig ist.",
+            "back_to_login": "Zurück zum Anmelden",
+            "recovery_mode_info": "E-Mail ist auf diesem Server deaktiviert. Fahren Sie mit dem Wiederherstellungsschlüssel fort, den Sie bei der Kontoeinrichtung gespeichert haben.",
+            "recovery_key": "Wiederherstellungsschlüssel",
+            "recovery_key_placeholder": "z.B. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "Neues Passwort",
+            "new_password_placeholder": "Geben Sie Ihr neues sicheres Passwort ein",
+            "confirm_password": "Neues Passwort bestätigen",
+            "confirm_password_placeholder": "Geben Sie Ihr Passwort erneut ein",
+            "reset_submit": "Passwort zurücksetzen",
+            "resetting": "Zurücksetzen..."
+        },
+        "reset_password": {
+            "title": "Passwort zurücksetzen",
+            "subtitle": "Verwenden Sie den sicheren Link, um ein neues Passwort festzulegen.",
+            "missing_token": "Der Link zum Zurücksetzen des Passworts scheint unvollständig oder defekt zu sein.",
+            "new_password": "Neues Passwort",
+            "new_password_placeholder": "Geben Sie Ihr neues sicheres Passwort ein",
+            "confirm_password": "Neues Passwort bestätigen",
+            "confirm_password_placeholder": "Geben Sie Ihr Passwort erneut ein",
+            "submit": "Passwort aktualisieren",
+            "submitting": "wird aktualisiert...",
+            "back_to_login": "Zurück zum Anmelden"
+        },
+        "recovery_setup": {
+            "title": "Wiederherstellungsschlüssel erstellen",
+            "subtitle": "Bis dies abgeschlossen ist, gilt Ihr Konto nicht als sicher für die lokale Passwortwiederherstellung.",
+            "warning": "Dieser Schlüssel wird nur einmal angezeigt. Speichern Sie es in einem Passwort-Manager oder einem anderen sicheren Offline-Speicherort.",
+            "account": "Für das Konto {{username}} wird ein Wiederherstellungsschlüssel erstellt.",
+            "description": "Da E-Mail deaktiviert ist, können Sie Ihr Passwort künftig nur noch mit diesem Schlüssel zurücksetzen.",
+            "submit": "Wiederherstellungsschlüssel erstellen",
+            "generating": "Erstellen..."
+        },
+        "recovery_key_modal": {
+            "register_title": "Speichern Sie Ihren Wiederherstellungsschlüssel",
+            "google_title": "Speichern Sie Ihren Wiederherstellungsschlüssel",
+            "setup_title": "Speichern Sie Ihren Wiederherstellungsschlüssel",
+            "reset_title": "Speichern Sie Ihren neuen Wiederherstellungsschlüssel",
+            "settings_title": "Speichern Sie Ihren neuen Wiederherstellungsschlüssel",
+            "subtitle": "Dieser Schlüssel wird nur einmal angezeigt.",
+            "warning": "Wenn Sie diesen Schlüssel verlieren, während E-Mail deaktiviert ist, können Sie Ihr Passwort möglicherweise nicht wiederherstellen. Kopieren Sie es und bewahren Sie es sicher auf.",
+            "confirm": "Ich habe den Schlüssel gespeichert"
+        },
+        "password_requirements": "Verwenden Sie mindestens {{min}} Zeichen mit Großbuchstaben, Kleinbuchstaben, Zahl und Symbol."
     },
     "navigation": {
         "home": "Startseite",
@@ -195,7 +246,7 @@
             "visibility_private": "Nur für Sie sichtbar",
             "submit_add": "Artikel hinzufügen",
             "submit_save": "Änderungen speichern",
-            "submitting": "Sparen..."
+            "submitting": "Speichern..."
         },
         "qrcode": {
             "title": "QR-Code",
@@ -207,7 +258,7 @@
             "searching": "Suche...",
             "found_local": "✓ Lokal: registriert als „{{name}}“",
             "found_remote": "✓ Gefunden in {{source}} {{note}}: „{{name}}“",
-            "not_found": "⚠ Product not found in databases. You can search on Google.",
+            "not_found": "⚠ Produkt nicht in Datenbanken gefunden. Sie können bei Google suchen.",
             "search_fail": "⚠ Suche fehlgeschlagen",
             "name_required": "Artikelname ist erforderlich",
             "location_add_error": "Standort konnte nicht hinzugefügt werden"
@@ -243,7 +294,16 @@
             "username_len_error": "Der Benutzername muss mindestens 3 Zeichen lang sein",
             "fill_all_fields": "Bitte füllen Sie alle Felder aus",
             "passwords_mismatch": "Neue Passwörter stimmen nicht überein",
-            "password_min_len": "Das neue Passwort muss mindestens 6 Zeichen lang sein"
+            "password_min_len": "Das neue Passwort muss mindestens 6 Zeichen lang sein",
+            "house_request_sent_success": "✅ Ihre Beitrittsanfrage wurde gesendet!",
+            "request_approved": "✅ Beitrittsantrag genehmigt",
+            "request_rejected": "Beitrittsanfrage abgelehnt",
+            "request_action_error": "Die Anfrage konnte nicht aktualisiert werden",
+            "member_kick_confirm": "Sind Sie sicher, dass Sie „{{name}}“ aus dem Haus entfernen möchten?",
+            "member_kicked": "Mitglied aus dem Haus entfernt",
+            "member_kick_error": "Das Mitglied konnte nicht aus dem Haus entfernt werden",
+            "recovery_key_regenerated": "Wiederherstellungsschlüssel neu generiert",
+            "recovery_key_error": "Der Wiederherstellungsschlüssel konnte nicht neu generiert werden"
         },
         "user_profile": {
             "edit_username": "Benutzernamen ändern"
@@ -271,12 +331,19 @@
             "show": "Zeigen",
             "copy": "Kopie",
             "share_info": "💡 Benutzer, mit denen Sie diesen Schlüssel teilen, können auf Ihr Inventar zugreifen, indem sie bei der Registrierung die Option „Haus beitreten“ verwenden.",
-            "members_title": "Mitglieder des Repräsentantenhauses ({{count}})",
+            "members_title": "Hausmitglieder ({{count}})",
             "you": "(Du)",
             "joined_at": "Beigetreten: {{date, datetime}}",
             "no_members": "Noch keine anderen Mitglieder",
             "invite_title": "Familienmitglieder einladen",
-            "invite_desc": "Teilen Sie Ihren Hausschlüssel, damit Familienmitglieder auf dasselbe Inventar zugreifen können. Jedes Mitglied loggt sich mit seinem eigenen Konto ein, greift aber auf die gleichen Daten zu."
+            "invite_desc": "Teilen Sie Ihren Hausschlüssel, damit Familienmitglieder auf dasselbe Inventar zugreifen können. Jedes Mitglied loggt sich mit seinem eigenen Konto ein, greift aber auf die gleichen Daten zu.",
+            "active_members": "Aktive Mitglieder",
+            "pending_requests": "Ausstehende Anfragen",
+            "no_pending_requests": "Keine ausstehenden Anfragen",
+            "owner_controls": "Eigentümersteuerelemente aktiviert",
+            "approve": "Genehmigen",
+            "reject": "Ablehnen",
+            "kick": "Entfernen"
         },
         "theme": {
             "title": "Thema",
@@ -286,7 +353,15 @@
         "security": {
             "title": "Sicherheit",
             "change_password": "Kennwort ändern",
-            "change_password_desc": "Aktualisieren Sie Ihr Kontopasswort"
+            "change_password_desc": "Aktualisieren Sie Ihr Kontopasswort",
+            "recovery_key_title": "Wiederherstellungsschlüssel",
+            "recovery_key_desc": "Sie können einen neuen Schlüssel für die lokale Passwortwiederherstellung generieren.",
+            "recovery_key_missing": "Für dieses Konto ist noch kein Wiederherstellungsschlüssel sichtbar.",
+            "current_key_label": "Gespeicherter Wiederherstellungsschlüssel",
+            "recovery_key_unavailable": "Der aktuelle Wiederherstellungsschlüssel kann nicht angezeigt werden. Regenerieren Sie es bei Bedarf.",
+            "recovery_key_action": "Regenerieren",
+            "recovery_key_modal_desc": "Bestätigen Sie Ihr aktuelles Passwort, um fortzufahren. Der neue Schlüssel wird nur einmal angezeigt.",
+            "recovery_key_loading": "Vorbereiten..."
         },
         "data_management": {
             "title": "Datenmanagement",
@@ -298,7 +373,7 @@
             "import_json": "Import aus JSON"
         },
         "about": {
-            "title": "📱 Über die Bewerbung",
+            "title": "📱 Über die App",
             "version": "Version",
             "brand": "Marke",
             "feedback": "✉️ Feedback senden"
@@ -328,18 +403,23 @@
                 "name_help": "Wenn es leer bleibt, wird es „Mein neues Haus“ genannt.",
                 "info": "ℹ️ Für das neue Haus werden Standardkategorien und Räume erstellt. Sie können sie später bearbeiten.",
                 "creating": "Erstellen...",
-                "submit": "Haus erschaffen"
+                "submit": "Haus erstellen"
             },
             "username": {
                 "title": "Benutzernamen ändern",
                 "new_label": "Neuer Benutzername",
                 "placeholder": "Ihr neuer Benutzername",
                 "help": "3–30 Zeichen, nur Buchstaben, Zahlen, Unterstrich und Bindestrich",
-                "saving": "Sparen...",
+                "saving": "Speichern...",
                 "submit": "Ändern"
             }
         },
-        "select_language": "Sprache auswählen"
+        "select_language": "Sprache auswählen",
+        "pending_requests": {
+            "title": "Meine ausstehenden Beitrittsanfragen",
+            "waiting_since": "Wartet seit: {{date, datetime}}",
+            "pending_badge": "Ausstehend"
+        }
     },
     "inventory": {
         "title": "Inventar",
@@ -385,7 +465,7 @@
         "subtitle": "Systemverwaltung und -überwachung",
         "refresh": "Aktualisieren",
         "tabs": {
-            "dashboard": "Armaturenbrett",
+            "dashboard": "Übersicht",
             "users": "Benutzer",
             "logs": "Protokolle",
             "email": "Mail senden"
@@ -405,7 +485,7 @@
             "role": "Rolle",
             "status": "Status",
             "action": "Aktion",
-            "banned": "Verboten",
+            "banned": "Gesperrt",
             "active": "Aktiv",
             "unban": "Verbot aufheben",
             "ban": "Verbot",
@@ -441,14 +521,14 @@
             "login": "Anmelden"
         },
         "hero": {
-            "free_badge": "Kostenlose Nutzung",
             "title_1": "Alles verwalten",
             "title_2": "Bei Ihnen zu Hause!",
             "description": "Digitalisieren Sie Ihr Hausinventar. Kategorisieren Sie Elemente, laden Sie Familienmitglieder ein und greifen Sie von überall darauf zu. Modern, sicher und einfach zu bedienen.",
             "cta_start": "Legen Sie los",
             "cta_register": "Benutzerkonto erstellen",
             "stat_free": "Frei",
-            "stat_access": "Zugang"
+            "stat_access": "Zugang",
+            "free_badge": "Völlig Kostenlos"
         },
         "features": {
             "title": "Warum <1>HomeInventory</1>?",
@@ -483,7 +563,7 @@
         "cta_bottom": {
             "title": "Beginnen Sie jetzt mit der Nutzung!",
             "description": "Erstellen Sie ein kostenloses Konto und digitalisieren Sie Ihr Hausinventar. Die Registrierung dauert nur wenige Sekunden.",
-            "button": "Login"
+            "button": "Anmelden"
         },
         "footer": {
             "desc": "Die einfache und sichere Plattform zur Digitalisierung Ihres Hausinventars.",
@@ -535,7 +615,7 @@
         "house_key_placeholder": "Hausschlüssel eingeben",
         "house_key_hint": "Geben Sie den 64-stelligen Schlüssel ein, den Sie von einem Familienmitglied erhalten haben",
         "house_name_join": "Name für dieses Haus (optional)",
-        "submit_create": "Haus erschaffen",
+        "submit_create": "Haus erstellen",
         "submit_join": "Treten Sie dem Haus bei",
         "processing": "Verarbeitung..."
     },
@@ -578,5 +658,41 @@
         "download": "QR herunterladen",
         "usage_title": "Verwendung",
         "usage_desc": "Drucken Sie den QR-Code aus und kleben Sie ihn auf den Artikel. Scannen Sie mit Ihrem Telefon, um sofort auf diese Seite zuzugreifen!"
+    },
+    "house_access_pending": {
+        "eyebrow": "Hauszugang",
+        "fallback_house": "Ausgewähltes Haus",
+        "signed_in_as": "Angemeldet als {{username}}",
+        "logout": "Abmelden",
+        "messages": {
+            "create_error": "Haus konnte nicht erstellt werden",
+            "join_success": "Ihre Beitrittsanfrage wurde gesendet",
+            "join_error": "Die Beitrittsanfrage konnte nicht gesendet werden"
+        },
+        "pending": {
+            "title": "Warten auf die Genehmigung des Hausbesitzers",
+            "description": "Ihre Anfrage für „{{house}}“ wartet noch auf eine Entscheidung.",
+            "current_request": "Aktuell ausstehende Anfrage: {{house}}"
+        },
+        "no_house": {
+            "title": "Sie sind derzeit nicht mit einem Haus verbunden",
+            "description": "Erstellen Sie ein neues Haus oder senden Sie eine Beitrittsanfrage an ein bestehendes."
+        },
+        "create": {
+            "title": "Erstellen Sie ein neues Haus",
+            "description": "Starten Sie Ihre eigene Hausinventur und fahren Sie gleich fort.",
+            "name_label": "Hausname",
+            "name_placeholder": "z.B. Mein Zuhause, Sommerhaus, Lager",
+            "submitting": "Erstellen...",
+            "submit": "Haus erstellen"
+        },
+        "join": {
+            "title": "Senden Sie eine Beitrittsanfrage",
+            "description": "Geben Sie einen Hausschlüssel ein und senden Sie die Anfrage direkt an den Hauseigentümer.",
+            "key_label": "Hausschlüssel",
+            "key_placeholder": "Geben Sie den 64-stelligen Hausschlüssel ein",
+            "submitting": "Senden...",
+            "submit": "Anfrage senden"
+        }
     }
 }

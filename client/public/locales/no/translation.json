@@ -1,0 +1,696 @@
+{
+    "items": {
+        "qrcode": {
+            "title": "QR Code",
+            "desc": "Du kan skrive ut og feste denne QR-koden på varen. Skanning av den går direkte til denne siden."
+        },
+        "title_new": "Legg til nytt element",
+        "title_edit": "Rediger element",
+        "subtitle": "Skriv inn elementdetaljer",
+        "load_error": "Kunne ikke laste inn vare",
+        "form": {
+            "name": "Varenavn",
+            "name_placeholder": "f.eks. Samsung TV 55 tommer",
+            "required": "*",
+            "description": "Beskrivelse",
+            "description_placeholder": "Notater om varen...",
+            "quantity": "Antall",
+            "category": "Kategori",
+            "select_category": "Velg",
+            "room": "Rom",
+            "select_room": "Velg rom",
+            "location_details": "Plassering detaljer",
+            "location_optional": "(Valgfritt)",
+            "location_placeholder": "Søk eller legg til ny plassering...",
+            "location_help": "Hvor i rommet? (f.eks. 'Øverste hylle i blått skap')",
+            "location_create": "Opprett plassering \"{{name}}\"",
+            "location_privacy": "Plassering Personvern",
+            "location_public": "Alle kan se denne plasseringen",
+            "location_private": "Bare du kan se dette",
+            "location_save": "Lagre Plassering",
+            "location_saving": "Legger til...",
+            "location_selected": "Valgt plassering: {{name}}",
+            "location_empty": "Ingen plassering er definert i dette rommet ennå. Begynn å skrive for å opprette en.",
+            "photo": "Foto",
+            "add_photo": "Legg til",
+            "barcode": "Strekkode",
+            "barcode_optional": "(Valgfritt)",
+            "barcode_placeholder": "f.eks. 8690123456789",
+            "scan_barcode": "Skann Strekkode",
+            "search_db": "Søk i database",
+            "search_google": "Søk på Google",
+            "barcode_saved": "✓ Strekkode vil bli lagret",
+            "visibility": "Vare Synlighet",
+            "visibility_public": "Synlig for alle husholdningsmedlemmer",
+            "visibility_private": "Kun synlig for deg",
+            "submit_add": "Legg til vare",
+            "submit_save": "Lagre endringer",
+            "submitting": "Lagrer..."
+        },
+        "messages": {
+            "quick_add_success": "✓ \"{{barcode}}\" raskt lagt til - du kan redigere senere",
+            "quick_add_fail": "⚠ Raskt tillegg mislyktes",
+            "searching": "Søker...",
+            "found_local": "✓ Lokalt: registrert som \"{{name}}\"",
+            "found_remote": "✓ Funnet i {{source}} {{note}}: \"{{name}}\"",
+            "not_found": "⚠ Produkt ikke funnet i databaser. Du kan søke på Google.",
+            "search_fail": "⚠ Søk mislyktes",
+            "name_required": "Varenavn er påkrevd",
+            "location_add_error": "Kunne ikke legge til plassering"
+        }
+    },
+    "common": {
+        "save": "Lagre",
+        "cancel": "Avbryt",
+        "loading": "Laster...",
+        "error": "En feil oppstod",
+        "success": "Operasjonen var vellykket",
+        "search": "Søk...",
+        "edit": "Rediger",
+        "delete": "Slett",
+        "add": "Legg til",
+        "new": "Ny",
+        "all": "Alle",
+        "manage": "Administrer",
+        "help_support": "Hjelp og støtte",
+        "theme": {
+            "light": "Lys modus",
+            "dark": "Mørk modus"
+        },
+        "select": "Velg",
+        "refresh": "Oppdater",
+        "close": "Lukk",
+        "logout": "Logg ut",
+        "copyright": "© {{year}} HomeInventory - Alle rettigheter reservert"
+    },
+    "auth": {
+        "login": {
+            "title": "Logg inn",
+            "subtitle": "Administrer hele hjemmets inventar smart",
+            "welcome": "Velkommen til HomeInventory",
+            "username_or_email": "Brukernavn eller e-post",
+            "password": "Passord",
+            "forgot_password": "Glemt passord?",
+            "submit": "Logg inn",
+            "submitting": "Logger inn...",
+            "google_continue": "Fortsett med Google",
+            "or": "or",
+            "no_account": "Har du ikke en konto?",
+            "register_link": "Registrer",
+            "support_contact": "For innloggingsproblemer:",
+            "terms_title": "📋 Bruksvilkår og ansvarsfraskrivelse",
+            "terms_beta": "BETA-versjon: HomeInventory er for øyeblikket i testfase. Ingen garanti gis for lagring eller sikkerhet av dine data.",
+            "terms_disclaimer": "Ansvarsfraskrivelse: Ved å bruke denne applikasjonen aksepterer du at du ikke kan kreve kompensasjon for potensielt datatap, tilgangsproblemer eller andre tekniske feil.",
+            "terms_backup": "Sikkerhetskopiering av data: Vi anbefaler sterkt å ta sikkerhetskopi av viktig informasjon regelmessig.",
+            "terms_accept": "Ved å logge inn anses du å ha akseptert disse vilkårene."
+        },
+        "register": {
+            "title": "Velkommen til HomeInventory",
+            "subtitle": "Opprett en ny konto eller bli med i et eksisterende hus",
+            "create_house": "Opprett nytt hus",
+            "join_house": "Bli med hus",
+            "create_house_desc": "🏠 Et nytt hus vil bli opprettet og du vil få en unik <strong>Husnøkkel</strong>. Del denne nøkkelen med familien for tilgang til samme inventar.",
+            "join_house_desc": "👨‍👩‍👧‍👦 Skriv inn <strong>Husnøkkelen</strong> som er delt med deg for å bli med i et eksisterende hus. Alle med nøkkelen kan få tilgang til det delte inventaret.",
+            "form_title": "Registrer deg",
+            "username": "Brukernavn",
+            "username_placeholder": "f.eks. john",
+            "email": "E-post",
+            "email_placeholder": "f.eks. john@example.com",
+            "password": "Passord",
+            "password_placeholder": "Minst 6 tegn",
+            "password_confirm": "Bekreft passord",
+            "password_confirm_placeholder": "Skriv inn passord på nytt",
+            "house_key": "Husnøkkel",
+            "house_key_placeholder": "Lim inn 64-tegns husnøkkel",
+            "submit_create": "Opprett nytt hus",
+            "submit_join": "Bli med i hus",
+            "submitting": "Registrering...",
+            "already_have_account": "Har du allerede en konto?",
+            "login_link": "Logg inn",
+            "support": "Registreringsproblemer:",
+            "terms": "Vilkår for bruk og ansvarsfraskrivelse",
+            "passwords_mismatch": "Passordene stemmer ikke",
+            "password_length": "Passordet må være minst 6 tegn",
+            "key_required": "Husnøkkel kreves for å bli med i et eksisterende hus",
+            "modals": {
+                "key_created": {
+                    "title": "🎉 Hus opprettet!",
+                    "subtitle": "Lagre nøkkelen nedenfor på et trygt sted",
+                    "warning": "Viktig: Denne nøkkelen vil kun vises én gang. Del den med familiemedlemmer slik at de kan få tilgang til det samme inventaret.",
+                    "copy": "Kopier",
+                    "copied": "Kopiert",
+                    "button": "Jeg lagret nøkkelen, fortsett"
+                },
+                "email_verification": {
+                    "title": "📧 E-postbekreftelse kreves",
+                    "message": "Konto opprettet! Vennligst bekreft e-postadressen din for å logge inn.",
+                    "step_1": "Vi har sendt en bekreftelses-e-post til <1>{{email}}</1>.",
+                    "step_2": "Klikk på <1>\"Bekreft kontoen min\"</1>-knappen i e-posten.",
+                    "step_3": "Etter bekreftelse, <1>kan du logge inn</1>.",
+                    "spam_note": "Sjekk spam-/søppelpostmappen hvis e-posten ikke kommer.",
+                    "key_note": "Viktig: Husnøkkelen din ble også sendt i e-posten. Du kan dele den med familiemedlemmer.",
+                    "button": "Greit, Gå til Innlogging"
+                }
+            }
+        },
+        "forgot_password": {
+            "title": "Forgot Password",
+            "subtitle": "Start a secure recovery flow to access your account again.",
+            "identifier": "Username or Email",
+            "identifier_placeholder": "e.g. john or john@example.com",
+            "submit": "Start Recovery",
+            "requesting": "Checking...",
+            "email_success": "If an account exists, a password reset link valid for 15 minutes has been sent.",
+            "back_to_login": "Back to Login",
+            "recovery_mode_info": "Email is disabled on this server. Continue with the Recovery Key you saved during account setup.",
+            "recovery_key": "Recovery Key",
+            "recovery_key_placeholder": "e.g. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "reset_submit": "Reset Password",
+            "resetting": "Resetting..."
+        },
+        "reset_password": {
+            "title": "Reset Password",
+            "subtitle": "Use the secure link to set a new password.",
+            "missing_token": "The password reset link looks incomplete or broken.",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "submit": "Update Password",
+            "submitting": "Updating...",
+            "back_to_login": "Back to Login"
+        },
+        "recovery_setup": {
+            "title": "Create Recovery Key",
+            "subtitle": "Until this is completed, your account is not considered safe for local password recovery.",
+            "warning": "This key will only be shown once. Save it in a password manager or another secure offline location.",
+            "account": "A recovery key will be created for account {{username}}.",
+            "description": "Because email is disabled, you will only be able to reset your password with this key in the future.",
+            "submit": "Create Recovery Key",
+            "generating": "Creating..."
+        },
+        "recovery_key_modal": {
+            "register_title": "Save Your Recovery Key",
+            "google_title": "Save Your Recovery Key",
+            "setup_title": "Save Your Recovery Key",
+            "reset_title": "Save Your New Recovery Key",
+            "settings_title": "Save Your New Recovery Key",
+            "subtitle": "This key is shown only once.",
+            "warning": "If you lose this key while email is disabled, you may not be able to recover your password. Copy it and store it safely.",
+            "confirm": "I Saved the Key"
+        }
+    },
+    "navigation": {
+        "home": "Hjem",
+        "inventory": "Lagerbeholdning",
+        "rooms": "Rom",
+        "categories": "Kategorier",
+        "settings": "Innstillinger",
+        "new_item": "Ny vare",
+        "share_house": "Del hus",
+        "admin_panel": "Adminpanel",
+        "logout": "Logg ut",
+        "menu": "Meny"
+    },
+    "dashboard": {
+        "welcome": "Velkommen, <1>{{name}}</1>! 👋",
+        "subtitle": "Oversikt over lagerbeholdningen din",
+        "quick_search": "Rask søk...",
+        "filters": {
+            "private": "🔒 Mine private gjenstander",
+            "public": "🌐 Offentlig",
+            "remove": "Fjern filter",
+            "no_items": "Ingen gjenstander passer med dette filteret"
+        },
+        "stats": {
+            "total_items": "Totale gjenstander",
+            "total_quantity": "Total mengde",
+            "fullest_room": "Rommet med mest",
+            "category_count": "Kategorier",
+            "items_suffix": "gjenstander"
+        },
+        "recent_items": {
+            "title": "Nylig lagt til",
+            "see_all": "Se alle"
+        },
+        "categories": {
+            "title": "Kategorier",
+            "manage": "Administrer",
+            "empty": "Ingen gjenstander lagt til ennå"
+        },
+        "rooms": {
+            "title": "Rom",
+            "manage": "Administrer"
+        },
+        "quick_actions": {
+            "title": "⚡ Hurtighandlinger",
+            "add_item": "Legg til element",
+            "search_item": "Søk etter element",
+            "categories": "Kategorier",
+            "settings": "Innstillinger"
+        }
+    },
+    "beta_banner": {
+        "title": "BETA:",
+        "text": "HomeInventory er for øyeblikket i test- og hobbyfase. Ingen garanti gis for datalagring eller sikkerhet. Vennligst behold sikkerhetskopier av viktig informasjon.",
+        "contact": "Kontakt:"
+    },
+    "footer": {
+        "rights": "© {{year}} HomeInventory - Alle rettigheter reservert",
+        "contact": "Kontakt:"
+    },
+    "settings": {
+        "title": "Innstillinger",
+        "subtitle": "Administrer applikasjonsinnstillinger",
+        "messages": {
+            "house_switched": "✅ {{name}} aktivert!",
+            "house_switch_error": "Kunne ikke bytte hus",
+            "house_joined_success": "✅ Du ble med i huset!",
+            "house_join_error": "Kunne ikke bli med i hus",
+            "house_created_success": "✅ \"{{name}}\" opprettet!",
+            "house_create_error": "Kunne ikke opprette hus",
+            "house_left_success": "Forlot huset",
+            "house_left_error": "Kunne ikke forlate hus",
+            "house_leave_confirm": "Er du sikker på at du vil forlate \"{{name}}\"?",
+            "backup_downloaded": "✅ Sikkerhetskopi lastet ned! ({{count}} elementer)",
+            "export_error": "❌ En feil oppstod under eksport",
+            "import_invalid_format": "Ugyldig sikkerhetskopifilformat",
+            "import_success": "✅ {{items}} elementer, {{categories}} kategorier, {{rooms}} rom, {{locations}} lokasjoner lagt til.",
+            "import_error": "❌ Importfeil: {{error}}",
+            "password_changed": "Passord endret vellykket!",
+            "password_error_current": "Nåværende passord er feil",
+            "password_error_invalid": "Ugyldige data sendt",
+            "session_expired": "Økten er utløpt. Vennligst logg inn igjen.",
+            "server_error": "Serverfeil oppstod",
+            "connection_error": "Kunne ikke koble til serveren. Sjekk internettforbindelsen din.",
+            "unexpected_error": "En uventet feil oppstod",
+            "username_changed": "✅ Brukernavn endret!",
+            "username_error": "Kunne ikke endre brukernavn",
+            "username_len_error": "Brukernavn må være minst 3 tegn",
+            "fill_all_fields": "Vennligst fyll ut alle felt",
+            "passwords_mismatch": "Nye passord samsvarer ikke",
+            "password_min_len": "Nytt passord må være minst 6 tegn",
+            "house_request_sent_success": "✅ Your join request was sent!",
+            "request_approved": "✅ Join request approved",
+            "request_rejected": "Join request rejected",
+            "request_action_error": "Could not update request",
+            "member_kick_confirm": "Are you sure you want to remove \"{{name}}\" from the house?",
+            "member_kicked": "Member removed from the house",
+            "member_kick_error": "Could not remove member from the house",
+            "recovery_key_regenerated": "Recovery key regenerated",
+            "recovery_key_error": "Could not regenerate recovery key"
+        },
+        "user_profile": {
+            "edit_username": "Endre brukernavn"
+        },
+        "my_houses": {
+            "title": "Mine Hus",
+            "join_house": "Bli med i Hus",
+            "join_short": "Bli med",
+            "new_house": "Nytt Hus",
+            "new_short": "Ny",
+            "no_house": "Du er ikke medlem av noe hus ennå",
+            "owner": "Eier",
+            "active": "Aktiv",
+            "member_count": "{{count}} medlemmer",
+            "item_count": "{{count}} gjenstander",
+            "switch": "Bytt",
+            "leave": "Forlat Hus",
+            "info": "💡 Du kan være medlem av flere hus og bytte mellom dem. Hvert hus har eget inventar."
+        },
+        "house_info": {
+            "title": "Aktiv Husnøkkel",
+            "key_label": "Husnøkkel",
+            "mask_key": "••••••••{{suffix}}",
+            "hide": "Skjul",
+            "show": "Vis",
+            "copy": "Kopier",
+            "share_info": "💡 Brukere du deler denne nøkkelen med kan få tilgang til inventaret ditt ved å bruke «Bli med i hus»-alternativet under registreringen.",
+            "members_title": "Husmedlemmer ({{count}})",
+            "you": "(Du)",
+            "joined_at": "Bli med: {{date, datetime}}",
+            "no_members": "Ingen andre medlemmer ennå",
+            "invite_title": "Inviter familiemedlemmer",
+            "invite_desc": "Del husnøkkelen din for å la familiemedlemmer få tilgang til det samme inventaret. Hvert medlem logger inn med sin egen konto, men får tilgang til de samme dataene.",
+            "active_members": "Active Members",
+            "pending_requests": "Pending Requests",
+            "no_pending_requests": "No pending requests",
+            "owner_controls": "Owner controls enabled",
+            "approve": "Approve",
+            "reject": "Reject",
+            "kick": "Remove"
+        },
+        "theme": {
+            "title": "Tema",
+            "dark": "Mørk modus",
+            "light": "Lysmodus"
+        },
+        "security": {
+            "title": "Sikkerhet",
+            "change_password": "Endre passord",
+            "change_password_desc": "Oppdater kontopassordet ditt",
+            "recovery_key_title": "Recovery Key",
+            "recovery_key_desc": "You can generate a new key for local password recovery.",
+            "recovery_key_missing": "No recovery key is visible for this account yet.",
+            "current_key_label": "Saved Recovery Key",
+            "recovery_key_unavailable": "The current recovery key cannot be displayed. Regenerate it if needed.",
+            "recovery_key_action": "Regenerate",
+            "recovery_key_modal_desc": "Confirm your current password to continue. The new key will be shown only once.",
+            "recovery_key_loading": "Preparing..."
+        },
+        "data_management": {
+            "title": "Databehandling",
+            "download_backup": "Last ned sikkerhetskopi",
+            "downloading": "Laster ned...",
+            "export_json": "Eksporter som JSON",
+            "upload_backup": "Last opp sikkerhetskopi",
+            "uploading": "Laster opp...",
+            "import_json": "Importer fra JSON"
+        },
+        "about": {
+            "title": "📱 Om applikasjonen",
+            "version": "Versjon",
+            "brand": "Merke",
+            "feedback": "✉️ Send tilbakemelding"
+        },
+        "modals": {
+            "password": {
+                "title": "Endre passord",
+                "current": "Gjeldende passord",
+                "new": "Nytt passord",
+                "confirm": "Nytt passord (bekreft)",
+                "changing": "Endres...",
+                "submit": "Endre passord"
+            },
+            "join_house": {
+                "title": "Bli med i hus",
+                "key_placeholder": "Skriv inn 64-tegns husnøkkel",
+                "key_help": "Skriv inn nøkkelen du mottok fra familiemedlemmet ditt",
+                "name_label": "Navn på dette huset (valgfritt)",
+                "name_placeholder": "f.eks. Foreldrenes hus",
+                "joining": "Bli med...",
+                "submit": "Bli med i hus"
+            },
+            "create_house": {
+                "title": "Opprett nytt hus",
+                "name_label": "Husnavn",
+                "name_placeholder": "f.eks. Sommerhus, Kontor, Lager",
+                "name_help": "Hvis feltet er tomt, vil det bli kalt \"Mitt Nye Hus\"",
+                "info": "ℹ️ Standardkategorier og rom vil bli opprettet for det nye huset. Du kan redigere dem senere.",
+                "creating": "Oppretter...",
+                "submit": "Opprett Hus"
+            },
+            "username": {
+                "title": "Endre Brukernavn",
+                "new_label": "Nytt Brukernavn",
+                "placeholder": "Ditt nye brukernavn",
+                "help": "3–30 tegn, kun bokstaver, tall, understrek og bindestrek",
+                "saving": "Lagrer...",
+                "submit": "Endre"
+            }
+        },
+        "select_language": "Velg Språk",
+        "pending_requests": {
+            "title": "My Pending Join Requests",
+            "waiting_since": "Waiting since: {{date, datetime}}",
+            "pending_badge": "Pending"
+        }
+    },
+    "inventory": {
+        "title": "Inventar",
+        "subtitle": "{{count}} elementer funnet",
+        "new_item": "Nytt Element",
+        "add_first": "Legg til første vare",
+        "search_placeholder": "Søk etter varer...",
+        "all_categories": "Alle kategorier",
+        "all_rooms": "Alle rom",
+        "empty_title": "Ingen varer funnet",
+        "empty_filter": "Ingen varer matcher filtrene dine",
+        "empty_msg": "Ingen varer lagt til ennå",
+        "delete_confirm": "Er du sikker på at du vil slette denne varen?",
+        "delete_error": "Slettefeil"
+    },
+    "categories": {
+        "title": "Kategorier",
+        "subtitle": "{{count}} kategorier",
+        "new_category": "Ny kategori",
+        "edit_title": "Rediger kategori",
+        "new_title": "Ny kategori",
+        "name_label": "Kategorinavn",
+        "icon_label": "Ikon",
+        "color_label": "Farge",
+        "delete_confirm": "Er du sikker på at du vil slette denne kategorien?",
+        "delete_error": "Slettefeil"
+    },
+    "rooms": {
+        "title": "Rom",
+        "subtitle": "{{count}} rom",
+        "new_room": "Nytt rom",
+        "edit_title": "Rediger rom",
+        "new_title": "Nytt rom",
+        "name_label": "Romnavn",
+        "description_label": "Beskrivelse (Valgfritt)",
+        "name_placeholder": "f.eks. Hovedsoverom",
+        "desc_placeholder": "f.eks. Hovedsoverom",
+        "delete_confirm": "Er du sikker på at du vil slette dette rommet?",
+        "delete_error": "Slettefeil"
+    },
+    "admin": {
+        "title": "Adminpanel",
+        "subtitle": "Systemadministrasjon og overvåking",
+        "refresh": "Oppdater",
+        "tabs": {
+            "dashboard": "Dashbord",
+            "users": "Brukere",
+            "logs": "Logger",
+            "email": "Send e-post"
+        },
+        "stats": {
+            "total_users": "Totalt antall brukere",
+            "new_today": "I dag: +{{count}} nye",
+            "total_inventory": "Totalt inventar",
+            "inventory_details": "{{rooms}} rom, {{categories}} kategorier",
+            "banned_users": "Utestengte brukere",
+            "access_blocked": "Tilgang blokkert",
+            "server_memory": "Serverminne",
+            "uptime": "Oppetid: {{hours}} timer"
+        },
+        "users": {
+            "user": "Bruker",
+            "role": "Rolle",
+            "status": "Status",
+            "action": "Handling",
+            "banned": "Utestengt",
+            "active": "Aktiv",
+            "unban": "Opphev utestenging",
+            "ban": "Utesteng",
+            "delete": "Slett konto",
+            "confirm_ban": "Er du sikker på at du vil {{status}} denne brukeren?",
+            "ban_lift": "opphev utestenging",
+            "ban_apply": "utesteng",
+            "confirm_delete_1": "Er du sikker på at du vil slette brukeren \"{{username}}\"?",
+            "confirm_delete_2": "⚠️ ADVARSEL: Dette vil PERMANENT slette ALL data (inventar, rom, kategorier) for brukeren \"{{username}}\"!",
+            "confirm_delete_3": "🚨 SISTE ADVARSEL: Kontoen \"{{username}}\" og all data vil BLI ULOVLIG slettet. Vil du fortsette?"
+        },
+        "logs": {
+            "title": "Adminlogger",
+            "no_logs": "ingen logger ennå",
+            "errors_title": "Systemfeil (Siste 10)",
+            "no_errors": "// Systemet er sunt, ingen feillogger.",
+            "date_fmt": "{{date, datetime}}"
+        },
+        "email": {
+            "title": "Send e-post",
+            "to": "Mottaker (Til)",
+            "subject": "Emne",
+            "message": "Melding (HTML støttes)",
+            "placeholder_message": "Skriv meldingen din her...",
+            "send": "Send",
+            "sending": "Sender...",
+            "success": "E-posten ble sendt!",
+            "error": "Sending mislyktes"
+        }
+    },
+    "landing": {
+        "nav": {
+            "login": "Logg inn"
+        },
+        "hero": {
+            "title_1": "Administrer alt",
+            "title_2": "I ditt hjem!",
+            "description": "Digitaliser hjemmets inventarliste. Kategoriser gjenstander, inviter familien, og få tilgang fra hvor som helst. Moderne, sikkert, og enkelt å bruke.",
+            "cta_start": "Kom i gang",
+            "cta_register": "Opprett konto",
+            "stat_free": "Gratis",
+            "stat_access": "Tilgang"
+        },
+        "features": {
+            "title": "Hvorfor <1>HomeInventory</1>?",
+            "subtitle": "Alle funksjoner for å forenkle hjemmestyring på én plattform",
+            "items": {
+                "categorize": {
+                    "title": "Kategoriser gjenstander",
+                    "desc": "Organiser alle gjenstander etter rom og kategori, finn det du trenger på sekunder."
+                },
+                "family": {
+                    "title": "Inviter familie med husnøkkel",
+                    "desc": "Inviter familiemedlemmer med din unike husnøkkel, administrer inventaret sammen."
+                },
+                "access": {
+                    "title": "Tilgang fra hvor som helst",
+                    "desc": "Hjemme, på jobb eller på ferie - få sikker tilgang til inventaret ditt fra hvor som helst."
+                },
+                "barcode": {
+                    "title": "Rask Legg til med Strekkode",
+                    "desc": "Skann produktstrekkoder, detaljer fylles inn automatisk."
+                },
+                "security": {
+                    "title": "Sikkert og Privat",
+                    "desc": "Dataene dine er kryptert og beskyttet med KVKK-kompatibel infrastruktur."
+                },
+                "backup": {
+                    "title": "Sikkerhetskopi & Eksport",
+                    "desc": "Ta sikkerhetskopi av inventaret ditt i JSON-format, gjenopprett når du vil."
+                }
+            }
+        },
+        "cta_bottom": {
+            "title": "Start Å Bruke Nå!",
+            "description": "Opprett en gratis konto og digitaliser hjemmets inventar. Registrering tar bare noen sekunder.",
+            "button": "Logg Inn"
+        },
+        "footer": {
+            "desc": "Plattformen som er enkel og sikker for å digitalisere hjemmets inventar.",
+            "links": "Hurtiglenker",
+            "contact": "Kontakt Oss",
+            "copyright": "© {{year}} HomeInventory. Alle rettigheter reservert."
+        },
+        "preview_privacy_notice": "Demovisning: ingen ekte brukerdata vises."
+    },
+    "intro": {
+        "inventory": {
+            "title": "Inventar",
+            "content": "Her kan du legge til og liste opp dine eiendeler. Følg med på alle ting i hjemmet på ett sted!"
+        },
+        "house_key": {
+            "title": "Husnøkkel",
+            "content": "Dette er husnøkkelen din, bruk den for å invitere andre. Legg til familiemedlemmer i huset ditt!"
+        },
+        "categories": {
+            "title": "Kategorier",
+            "content": "Organiser ved å kategorisere eiendelene dine. Elektronikk, møbler, kjøkken og mer!"
+        },
+        "buttons": {
+            "back": "Tilbake",
+            "close": "Lukk",
+            "last": "Fullfør",
+            "next": "Neste",
+            "skip": "Hopp over",
+            "open": "Åpne"
+        }
+    },
+    "google_house_select": {
+        "title": "Velkommen!",
+        "subtitle": "Du er logget inn med Google. Velg nå et hus.",
+        "welcome_options": "Hva vil du gjøre?",
+        "create": {
+            "title": "Opprett nytt hus",
+            "desc": "Start ditt eget inventar"
+        },
+        "join": {
+            "title": "Bli med i eksisterende hus",
+            "desc": "Bli med i et familiemedlems hus"
+        },
+        "back": "Tilbake",
+        "house_name": "Husnavn (valgfritt)",
+        "house_name_placeholder": "f.eks. Mitt hjem, Kontor",
+        "house_name_hint": "Hvis tomt, vil det bli kalt \"Mitt hjem\"",
+        "house_key": "Husnøkkel",
+        "house_key_placeholder": "Skriv inn husnøkkel",
+        "house_key_hint": "Skriv inn 64-tegnsnøkkelen mottatt fra et familiemedlem",
+        "house_name_join": "Navn på dette huset (valgfritt)",
+        "submit_create": "Opprett hus",
+        "submit_join": "Bli med i hus",
+        "processing": "Behandler..."
+    },
+    "scanner": {
+        "title": "Strekkodeskanner",
+        "qr_title": "QR-kodeleser",
+        "init": "Starter kamera...",
+        "permission_error": "Kamera-tillatelse nektet. Sjekk nettleserinnstillinger.",
+        "busy_error": "Kamera opptatt. Lukk andre apper.",
+        "not_found_error": "Kamera ikke funnet.",
+        "generic_error": "Kunne ikke starte kamera.",
+        "hint": "Sentrer strekkoden i rammen",
+        "qr_hint": "Juster QR-koden i rammen",
+        "searching": "Søker etter produkt...",
+        "found_local": "Allerede registrert!",
+        "found_local_msg": "Denne strekkoden er allerede i lageret ditt.",
+        "found_online": "Produkt funnet!",
+        "google_result": "⚡ Google-søkeresultat - vennligst bekreft",
+        "barcode": "Strekkode: {{code}}",
+        "new_product": "Nytt produkt",
+        "not_found_db": "Denne strekkoden ble ikke funnet i databaser.",
+        "google_search": "Søk på Google",
+        "quick_add": "Raskt tillegg (Rediger senere)",
+        "rescan": "Skann igjen",
+        "retry": "Prøv på nytt",
+        "flash_on": "🔦 Blitz på",
+        "flash_unsupported": "Blitz støttes ikke",
+        "zoom_hint": "💡 Øk zoom for klarhet og hold telefonen stille",
+        "found_item_redirect": "Vare funnet! Omdirigerer...",
+        "found_page_redirect": "Side funnet! Omdirigerer...",
+        "invalid_qr": "Denne QR-koden er ikke for denne appen.",
+        "not_found": "Produkt ikke funnet. Prøv en annen strekkode."
+    },
+    "item_qr": {
+        "hint_mobile": "📱 Skann denne QR-koden med telefonen din for rask tilgang til varen",
+        "network_ip": "Nettverks-IP",
+        "url_loading": "Laster URL...",
+        "copied": "Kopiert!",
+        "copy_url": "Kopier URL",
+        "download": "Last ned QR",
+        "usage_title": "Bruk",
+        "usage_desc": "Skriv ut QR-koden og fest den på varen. Skann med telefonen din for å få tilgang til denne siden umiddelbart!"
+    },
+    "house_access_pending": {
+        "eyebrow": "House Access",
+        "fallback_house": "Selected house",
+        "signed_in_as": "Signed in as {{username}}",
+        "logout": "Logout",
+        "messages": {
+            "create_error": "Could not create house",
+            "join_success": "Your join request was sent",
+            "join_error": "Could not send join request"
+        },
+        "pending": {
+            "title": "Waiting for house owner approval",
+            "description": "Your request for \"{{house}}\" is still waiting for a decision.",
+            "current_request": "Current pending request: {{house}}"
+        },
+        "no_house": {
+            "title": "You are not connected to a house right now",
+            "description": "Create a new house or send a join request to an existing one."
+        },
+        "create": {
+            "title": "Create a New House",
+            "description": "Start your own home inventory and continue right away.",
+            "name_label": "House Name",
+            "name_placeholder": "e.g. My Home, Summer House, Storage",
+            "submitting": "Creating...",
+            "submit": "Create House"
+        },
+        "join": {
+            "title": "Send a Join Request",
+            "description": "Enter a house key and send the request directly to the house owner.",
+            "key_label": "House Key",
+            "key_placeholder": "Enter the 64-character house key",
+            "submitting": "Sending...",
+            "submit": "Send Request"
+        }
+    }
+}

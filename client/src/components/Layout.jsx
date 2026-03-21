@@ -121,8 +121,8 @@ export default function Layout() {
                 {/* Bottom Section */}
                 <div className="p-3 border-t border-slate-200 dark:border-slate-800 space-y-2">
                     {/* Language Switcher */}
-                    <div className={!sidebarOpen ? 'flex justify-center' : ''}>
-                        <LanguageSwitcher className="w-full justify-center" />
+                    <div className={!sidebarOpen ? 'flex justify-center' : 'w-full'}>
+                        <LanguageSwitcher variant="minimal" showLabel={sidebarOpen} />
                     </div>
 
                     {/* Theme Toggle */}
@@ -207,7 +207,7 @@ export default function Layout() {
                             </button>
                         </div>
                         <div className="px-4 pt-4">
-                            <LanguageSwitcher className="w-full justify-between bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700" />
+                            <LanguageSwitcher variant="minimal" showLabel={true} />
                         </div>
                         <nav className="p-4 space-y-2">
                             {navItems.map(item => <NavItem key={item.to} item={item} mobile />)}

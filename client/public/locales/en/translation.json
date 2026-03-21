@@ -24,6 +24,7 @@
         "copyright": "© {{year}} HomeInventory - All rights reserved"
     },
     "auth": {
+        "password_requirements": "Use at least {{min}} characters with uppercase, lowercase, number, and symbol.",
         "login": {
             "title": "Login",
             "subtitle": "Manage all your home inventory smartly",
@@ -50,20 +51,20 @@
             "create_house": "Create New House",
             "join_house": "Join House",
             "create_house_desc": "🏠 A new house will be created and you'll get a unique <strong>House Key</strong>. Share this key with family to access the same inventory.",
-            "join_house_desc": "👨‍👩‍👧‍👦 Enter the <strong>House Key</strong> shared with you to join an existing house. Everyone with the key can access the shared inventory.",
+            "join_house_desc": "👨‍👩‍👧‍👦 Enter the <strong>House Key</strong> shared with you to join an existing house. Your request will be sent to the house owner for approval.",
             "form_title": "Sign Up",
             "username": "Username",
             "username_placeholder": "e.g. john",
             "email": "Email",
             "email_placeholder": "e.g. john@example.com",
             "password": "Password",
-            "password_placeholder": "At least 6 characters",
+            "password_placeholder": "At least 10 chars, uppercase, lowercase, number, symbol",
             "password_confirm": "Confirm Password",
             "password_confirm_placeholder": "Re-enter password",
             "house_key": "House Key",
             "house_key_placeholder": "Paste the 64-character house key",
             "submit_create": "Create New House",
-            "submit_join": "Join House",
+            "submit_join": "Send Request",
             "submitting": "Registering...",
             "already_have_account": "Already have an account?",
             "login_link": "Login",
@@ -92,6 +93,56 @@
                     "button": "Okay, Go to Login"
                 }
             }
+        },
+        "forgot_password": {
+            "title": "Forgot Password",
+            "subtitle": "Start a secure recovery flow to access your account again.",
+            "identifier": "Username or Email",
+            "identifier_placeholder": "e.g. john or john@example.com",
+            "submit": "Start Recovery",
+            "requesting": "Checking...",
+            "email_success": "If an account exists, a password reset link valid for 15 minutes has been sent.",
+            "back_to_login": "Back to Login",
+            "recovery_mode_info": "Email is disabled on this server. Continue with the Recovery Key you saved during account setup.",
+            "recovery_key": "Recovery Key",
+            "recovery_key_placeholder": "e.g. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "New Password",
+            "new_password_placeholder": "At least 10 chars, uppercase, lowercase, number, symbol",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "reset_submit": "Reset Password",
+            "resetting": "Resetting..."
+        },
+        "reset_password": {
+            "title": "Reset Password",
+            "subtitle": "Use the secure link to set a new password.",
+            "missing_token": "The password reset link looks incomplete or broken.",
+            "new_password": "New Password",
+            "new_password_placeholder": "At least 10 chars, uppercase, lowercase, number, symbol",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "submit": "Update Password",
+            "submitting": "Updating...",
+            "back_to_login": "Back to Login"
+        },
+        "recovery_setup": {
+            "title": "Create Recovery Key",
+            "subtitle": "Until this is completed, your account is not considered safe for local password recovery.",
+            "warning": "This key will only be shown once. Save it in a password manager or another secure offline location.",
+            "account": "A recovery key will be created for account {{username}}.",
+            "description": "Because email is disabled, you will only be able to reset your password with this key in the future.",
+            "submit": "Create Recovery Key",
+            "generating": "Creating..."
+        },
+        "recovery_key_modal": {
+            "register_title": "Save Your Recovery Key",
+            "google_title": "Save Your Recovery Key",
+            "setup_title": "Save Your Recovery Key",
+            "reset_title": "Save Your New Recovery Key",
+            "settings_title": "Save Your New Recovery Key",
+            "subtitle": "This key is shown only once.",
+            "warning": "If you lose this key while email is disabled, you may not be able to recover your password. Copy it and store it safely.",
+            "confirm": "I Saved the Key"
         }
     },
     "navigation": {
@@ -220,6 +271,7 @@
             "house_switched": "✅ {{name}} activated!",
             "house_switch_error": "Failed to switch house",
             "house_joined_success": "✅ You successfully joined the house!",
+            "house_request_sent_success": "✅ Your join request was sent!",
             "house_join_error": "Failed to join house",
             "house_created_success": "✅ \"{{name}}\" created!",
             "house_create_error": "Failed to create house",
@@ -243,7 +295,15 @@
             "username_len_error": "Username must be at least 3 characters",
             "fill_all_fields": "Please fill all fields",
             "passwords_mismatch": "New passwords do not match",
-            "password_min_len": "New password must be at least 6 characters"
+            "password_min_len": "New password must be at least 6 characters",
+            "request_approved": "✅ Join request approved",
+            "request_rejected": "Join request rejected",
+            "request_action_error": "Could not update request",
+            "member_kick_confirm": "Are you sure you want to remove \"{{name}}\" from the house?",
+            "member_kicked": "Member removed from the house",
+            "member_kick_error": "Could not remove member from the house",
+            "recovery_key_regenerated": "Recovery key regenerated",
+            "recovery_key_error": "Could not regenerate recovery key"
         },
         "user_profile": {
             "edit_username": "Change username"
@@ -272,11 +332,23 @@
             "copy": "Copy",
             "share_info": "💡 Users you share this key with can access your inventory by using the \"Join House\" option during registration.",
             "members_title": "House Members ({{count}})",
+            "active_members": "Active Members",
+            "pending_requests": "Pending Requests",
             "you": "(You)",
             "joined_at": "Joined: {{date, datetime}}",
             "no_members": "No other members yet",
+            "no_pending_requests": "No pending requests",
+            "owner_controls": "Owner controls enabled",
+            "approve": "Approve",
+            "reject": "Reject",
+            "kick": "Remove",
             "invite_title": "Invite Family Members",
             "invite_desc": "Share your house key to let family members access the same inventory. Each member logs in with their own account but accesses the same data."
+        },
+        "pending_requests": {
+            "title": "My Pending Join Requests",
+            "waiting_since": "Waiting since: {{date, datetime}}",
+            "pending_badge": "Pending"
         },
         "theme": {
             "title": "Theme",
@@ -286,7 +358,15 @@
         "security": {
             "title": "Security",
             "change_password": "Change Password",
-            "change_password_desc": "Update your account password"
+            "change_password_desc": "Update your account password",
+            "recovery_key_title": "Recovery Key",
+            "recovery_key_desc": "You can generate a new key for local password recovery.",
+            "recovery_key_missing": "No recovery key is visible for this account yet.",
+            "current_key_label": "Saved Recovery Key",
+            "recovery_key_unavailable": "The current recovery key cannot be displayed. Regenerate it if needed.",
+            "recovery_key_action": "Regenerate",
+            "recovery_key_modal_desc": "Confirm your current password to continue. The new key will be shown only once.",
+            "recovery_key_loading": "Preparing..."
         },
         "data_management": {
             "title": "Data Management",
@@ -315,11 +395,11 @@
             "join_house": {
                 "title": "Join House",
                 "key_placeholder": "Enter 64-character house key",
-                "key_help": "Enter the key you received from your family member",
+                "key_help": "Enter the key you received from your family member. The request will wait for owner approval.",
                 "name_label": "Name for this House (optional)",
                 "name_placeholder": "e.g. Parents' House",
-                "joining": "Joining...",
-                "submit": "Join House"
+                "joining": "Sending request...",
+                "submit": "Send Request"
             },
             "create_house": {
                 "title": "Create New House",
@@ -441,18 +521,18 @@
             "login": "Login"
         },
         "hero": {
-            "free_badge": "Free to Use",
+            "free_badge": "Completely Free",
             "title_1": "Manage Everything",
             "title_2": "In Your Home!",
-            "description": "Digitize your home inventory. Categorize items, invite family, and access from anywhere. Modern, secure, and easy to use.",
+            "description": "Digitize your home inventory with support for 100 languages. Categorize items, invite family, and protect sensitive fields with modern encryption.",
             "cta_start": "Get Started",
             "cta_register": "Create Account",
             "stat_free": "Free",
-            "stat_access": "Access"
+            "stat_access": "Languages"
         },
         "features": {
             "title": "Why <1>HomeInventory</1>?",
-            "subtitle": "All features to simplify home management in one platform",
+            "subtitle": "Home management, multilingual access, and encryption for sensitive data in one platform",
             "items": {
                 "categorize": {
                     "title": "Categorize Items",
@@ -464,15 +544,15 @@
                 },
                 "access": {
                     "title": "Access from Anywhere",
-                    "desc": "At home, at work, or on vacation - securely access your inventory from anywhere."
+                    "desc": "At home, at work, or on vacation - access your inventory from any device and in your own language."
                 },
                 "barcode": {
                     "title": "Quick Add with Barcode",
                     "desc": "Scan product barcodes, details are filled automatically."
                 },
                 "security": {
-                    "title": "Secure and Private",
-                    "desc": "Your data is encrypted and protected with KVKK compliant infrastructure."
+                    "title": "Field-Level Security",
+                    "desc": "Sensitive inventory fields and verification data are protected with AES-256-GCM field encryption."
                 },
                 "backup": {
                     "title": "Backup & Export",
@@ -486,7 +566,7 @@
             "button": "Login"
         },
         "footer": {
-            "desc": "The easy and secure platform to digitize your home inventory.",
+            "desc": "A multilingual and security-focused platform for digitizing your home inventory.",
             "links": "Quick Links",
             "contact": "Contact Us",
             "copyright": "© {{year}} HomeInventory. All rights reserved."
@@ -525,7 +605,7 @@
         },
         "join": {
             "title": "Join Existing House",
-            "desc": "Join a family member's house"
+            "desc": "Send a request to join a family member's house"
         },
         "back": "Back",
         "house_name": "House Name (optional)",
@@ -536,8 +616,44 @@
         "house_key_hint": "Enter the 64-character key received from a family member",
         "house_name_join": "Name for this House (optional)",
         "submit_create": "Create House",
-        "submit_join": "Join House",
+        "submit_join": "Send Request",
         "processing": "Processing..."
+    },
+    "house_access_pending": {
+        "eyebrow": "House Access",
+        "fallback_house": "Selected house",
+        "signed_in_as": "Signed in as {{username}}",
+        "logout": "Logout",
+        "messages": {
+            "create_error": "Could not create house",
+            "join_success": "Your join request was sent",
+            "join_error": "Could not send join request"
+        },
+        "pending": {
+            "title": "Waiting for house owner approval",
+            "description": "Your request for \"{{house}}\" is still waiting for a decision.",
+            "current_request": "Current pending request: {{house}}"
+        },
+        "no_house": {
+            "title": "You are not connected to a house right now",
+            "description": "Create a new house or send a join request to an existing one."
+        },
+        "create": {
+            "title": "Create a New House",
+            "description": "Start your own home inventory and continue right away.",
+            "name_label": "House Name",
+            "name_placeholder": "e.g. My Home, Summer House, Storage",
+            "submitting": "Creating...",
+            "submit": "Create House"
+        },
+        "join": {
+            "title": "Send a Join Request",
+            "description": "Enter a house key and send the request directly to the house owner.",
+            "key_label": "House Key",
+            "key_placeholder": "Enter the 64-character house key",
+            "submitting": "Sending...",
+            "submit": "Send Request"
+        }
     },
     "scanner": {
         "title": "Barcode Scanner",

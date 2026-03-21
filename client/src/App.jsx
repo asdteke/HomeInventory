@@ -5,6 +5,8 @@ import { ThemeProvider } from './context/ThemeContext';
 import LandingPage from './components/LandingPage';
 import Login from './components/Login';
 import Register from './components/Register';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
 import Dashboard from './components/Dashboard';
 import ItemList from './components/ItemList';
 import ItemForm from './components/ItemForm';
@@ -14,6 +16,8 @@ import Settings from './components/Settings';
 import Layout from './components/Layout';
 import AdminPanel from './components/AdminPanel';
 import GoogleHouseSelect from './components/GoogleHouseSelect';
+import HouseAccessPending from './components/HouseAccessPending';
+import RecoveryKeySetup from './components/RecoveryKeySetup';
 
 const FullscreenSpinner = () => (
     <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950">
@@ -22,32 +26,71 @@ const FullscreenSpinner = () => (
 );
 
 const ProtectedRoute = ({ children }) => {
-    const { user, loading } = useAuth();
+    const { user, loading, mustSetupRecoveryKey } = useAuth();
     if (loading) return <FullscreenSpinner />;
     if (!user) return <Navigate to="/landing" replace />;
+    if (mustSetupRecoveryKey) return <Navigate to="/recovery-key-setup" replace />;
     return children;
 };
 
-const AdminRoute = ({ children }) => {
-    const { user, loading, isAdmin } = useAuth();
+const ActiveMembershipRoute = ({ children }) => {
+    const { user, loading, membershipState, mustSetupRecoveryKey } = useAuth();
     if (loading) return <FullscreenSpinner />;
     if (!user) return <Navigate to="/landing" replace />;
+    if (mustSetupRecoveryKey) return <Navigate to="/recovery-key-setup" replace />;
+    if (membershipState !== 'active') return <Navigate to="/house-access" replace />;
+    return children;
+};
+
+const HouseAccessRoute = () => {
+    const { user, loading, membershipState, mustSetupRecoveryKey } = useAuth();
+    if (loading) return <FullscreenSpinner />;
+    if (!user) return <Navigate to="/landing" replace />;
+    if (mustSetupRecoveryKey) return <Navigate to="/recovery-key-setup" replace />;
+    if (membershipState === 'active') return <Navigate to="/" replace />;
+    return <HouseAccessPending />;
+};
+
+const AdminRoute = ({ children }) => {
+    const { user, loading, isAdmin, mustSetupRecoveryKey } = useAuth();
+    if (loading) return <FullscreenSpinner />;
+    if (!user) return <Navigate to="/landing" replace />;
+    if (mustSetupRecoveryKey) return <Navigate to="/recovery-key-setup" replace />;
     if (!isAdmin) return <Navigate to="/" replace />;
     return children;
 };
 
 const PublicRoute = ({ children }) => {
-    const { user, loading } = useAuth();
+    const { user, loading, mustSetupRecoveryKey } = useAuth();
     if (loading) return <FullscreenSpinner />;
+    if (user && mustSetupRecoveryKey) return <Navigate to="/recovery-key-setup" replace />;
     if (user) return <Navigate to="/" replace />;
     return children;
 };
 
 const LandingRoute = () => {
-    const { user, loading } = useAuth();
+    const { user, loading, mustSetupRecoveryKey } = useAuth();
     if (loading) return <FullscreenSpinner />;
+    if (user && mustSetupRecoveryKey) return <Navigate to="/recovery-key-setup" replace />;
     if (user) return <Navigate to="/" replace />;
     return <LandingPage />;
+};
+
+const RecoveryKeySetupRoute = () => {
+    const { user, loading, mustSetupRecoveryKey, passwordRecoveryMode, membershipState } = useAuth();
+    if (loading) return <FullscreenSpinner />;
+    if (!user) return <Navigate to="/login" replace />;
+    if (passwordRecoveryMode !== 'recovery_key' || !mustSetupRecoveryKey) {
+        return <Navigate to={membershipState === 'active' ? '/' : '/house-access'} replace />;
+    }
+    return <RecoveryKeySetup />;
+};
+
+const GoogleHouseSelectRoute = () => {
+    const { user, loading } = useAuth();
+    if (loading) return <FullscreenSpinner />;
+    if (!user) return <Navigate to="/login" replace />;
+    return <GoogleHouseSelect />;
 };
 
 function AppRoutes() {
@@ -56,8 +99,12 @@ function AppRoutes() {
             <Route path="/landing" element={<LandingRoute />} />
             <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
             <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
-            <Route path="/google-house-select" element={<GoogleHouseSelect />} />
-            <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+            <Route path="/forgot-password" element={<PublicRoute><ForgotPassword /></PublicRoute>} />
+            <Route path="/reset-password" element={<PublicRoute><ResetPassword /></PublicRoute>} />
+            <Route path="/google-house-select" element={<GoogleHouseSelectRoute />} />
+            <Route path="/recovery-key-setup" element={<RecoveryKeySetupRoute />} />
+            <Route path="/house-access" element={<HouseAccessRoute />} />
+            <Route path="/" element={<ActiveMembershipRoute><Layout /></ActiveMembershipRoute>}>
                 <Route index element={<Dashboard />} />
                 <Route path="items" element={<ItemList />} />
                 <Route path="items/new" element={<ItemForm />} />

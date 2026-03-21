@@ -1,0 +1,696 @@
+{
+    "items": {
+        "qrcode": {
+            "title": "QR Code",
+            "desc": "Anda dapat mencetak dan menempelkan kode QR ini pada barang. Memindainya akan langsung mengarahkan ke halaman ini."
+        },
+        "title_new": "Tambah Item Baru",
+        "title_edit": "Edit Item",
+        "subtitle": "Masukkan detail barang",
+        "load_error": "Gagal memuat barang",
+        "form": {
+            "name": "Nama Barang",
+            "name_placeholder": "mis. TV Samsung 55 inci",
+            "required": "*",
+            "description": "Deskripsi",
+            "description_placeholder": "Catatan tentang barang...",
+            "quantity": "Jumlah",
+            "category": "Kategori",
+            "select_category": "Pilih",
+            "room": "Ruangan",
+            "select_room": "Pilih ruangan",
+            "location_details": "Detail Lokasi",
+            "location_optional": "(Opsional)",
+            "location_placeholder": "Cari atau tambahkan lokasi baru...",
+            "location_help": "Di mana di ruangan? (misal 'Rak atas lemari biru')",
+            "location_create": "Buat lokasi \"{{name}}\"",
+            "location_privacy": "Privasi Lokasi",
+            "location_public": "Semua orang dapat melihat lokasi ini",
+            "location_private": "Hanya Anda yang dapat melihat ini",
+            "location_save": "Simpan Lokasi",
+            "location_saving": "Menambahkan...",
+            "location_selected": "Lokasi dipilih: {{name}}",
+            "location_empty": "Belum ada lokasi yang ditentukan di ruangan ini. Mulai mengetik untuk membuatnya.",
+            "photo": "Foto",
+            "add_photo": "Tambah",
+            "barcode": "Kode Batang",
+            "barcode_optional": "(Opsional)",
+            "barcode_placeholder": "misal 8690123456789",
+            "scan_barcode": "Pindai Kode Batang",
+            "search_db": "Cari Database",
+            "search_google": "Cari di Google",
+            "barcode_saved": "✓ Barcode akan disimpan",
+            "visibility": "Visibilitas Barang",
+            "visibility_public": "Terlihat oleh semua anggota rumah",
+            "visibility_private": "Hanya terlihat oleh Anda",
+            "submit_add": "Tambah Barang",
+            "submit_save": "Simpan Perubahan",
+            "submitting": "Menyimpan..."
+        },
+        "messages": {
+            "quick_add_success": "✓ \"{{barcode}}\" ditambahkan cepat - Anda dapat mengeditnya nanti",
+            "quick_add_fail": "⚠ Penambahan cepat gagal",
+            "searching": "Mencari...",
+            "found_local": "✓ Lokal: terdaftar sebagai \"{{name}}\"",
+            "found_remote": "✓ Ditemukan di {{source}} {{note}}: \"{{name}}\"",
+            "not_found": "⚠ Produk tidak ditemukan di database. Anda dapat mencari di Google.",
+            "search_fail": "⚠ Pencarian gagal",
+            "name_required": "Nama item diperlukan",
+            "location_add_error": "Gagal menambahkan lokasi"
+        }
+    },
+    "common": {
+        "save": "Simpan",
+        "cancel": "Batal",
+        "loading": "Memuat...",
+        "error": "Terjadi kesalahan",
+        "success": "Operasi berhasil",
+        "search": "Cari...",
+        "edit": "Edit",
+        "delete": "Hapus",
+        "add": "Tambah",
+        "new": "Baru",
+        "all": "Semua",
+        "manage": "Kelola",
+        "help_support": "Bantuan & Dukungan",
+        "theme": {
+            "light": "Mode Terang",
+            "dark": "Mode Gelap"
+        },
+        "select": "Pilih",
+        "refresh": "Segarkan",
+        "close": "Tutup",
+        "logout": "Keluar",
+        "copyright": "© {{year}} HomeInventory - Hak cipta dilindungi undang-undang"
+    },
+    "auth": {
+        "login": {
+            "title": "Masuk",
+            "subtitle": "Kelola semua inventaris rumah Anda dengan cerdas",
+            "welcome": "Selamat datang di HomeInventory",
+            "username_or_email": "Nama Pengguna atau Email",
+            "password": "Kata Sandi",
+            "forgot_password": "Lupa Kata Sandi?",
+            "submit": "Masuk",
+            "submitting": "Sedang masuk...",
+            "google_continue": "Lanjutkan dengan Google",
+            "or": "atau",
+            "no_account": "Belum punya akun?",
+            "register_link": "Daftar",
+            "support_contact": "Untuk masalah login:",
+            "terms_title": "📋 Syarat Penggunaan dan Penyangkalan",
+            "terms_beta": "Versi BETA: HomeInventory saat ini dalam tahap pengujian. Tidak ada jaminan mengenai keberlangsungan atau keamanan data Anda.",
+            "terms_disclaimer": "Penyangkalan: Dengan menggunakan aplikasi ini, Anda menyetujui bahwa Anda tidak dapat mengklaim kompensasi atas potensi kehilangan data, masalah akses, atau malfungsi teknis lainnya.",
+            "terms_backup": "Cadangan Data: Kami sangat menyarankan untuk rutin mencadangkan informasi penting Anda.",
+            "terms_accept": "Dengan masuk, Anda dianggap telah menerima syarat ini."
+        },
+        "register": {
+            "title": "Selamat datang di HomeInventory",
+            "subtitle": "Buat akun baru atau gabung dengan rumah yang sudah ada",
+            "create_house": "Buat Rumah Baru",
+            "join_house": "Gabung Rumah",
+            "create_house_desc": "🏠 Sebuah rumah baru akan dibuat dan Anda akan mendapatkan <strong>Kunci Rumah</strong> unik. Bagikan kunci ini dengan keluarga untuk mengakses inventaris yang sama.",
+            "join_house_desc": "👨‍👩‍👧‍👦 Masukkan <strong>Kunci Rumah</strong> yang dibagikan kepada Anda untuk bergabung dengan rumah yang sudah ada. Semua orang dengan kunci tersebut dapat mengakses inventaris yang dibagikan.",
+            "form_title": "Daftar",
+            "username": "Nama Pengguna",
+            "username_placeholder": "mis. john",
+            "email": "Email",
+            "email_placeholder": "mis. john@example.com",
+            "password": "Kata Sandi",
+            "password_placeholder": "Minimal 6 karakter",
+            "password_confirm": "Konfirmasi Kata Sandi",
+            "password_confirm_placeholder": "Masukkan kembali kata sandi",
+            "house_key": "Kunci Rumah",
+            "house_key_placeholder": "Tempel kunci rumah 64 karakter",
+            "submit_create": "Buat Rumah Baru",
+            "submit_join": "Bergabung dengan Rumah",
+            "submitting": "Sedang Mendaftar...",
+            "already_have_account": "Sudah punya akun?",
+            "login_link": "Masuk",
+            "support": "Masalah pendaftaran:",
+            "terms": "Syarat Penggunaan dan Penafian",
+            "passwords_mismatch": "Kata sandi tidak cocok",
+            "password_length": "Kata sandi harus terdiri dari minimal 6 karakter",
+            "key_required": "Kunci Rumah diperlukan untuk bergabung dengan rumah yang sudah ada",
+            "modals": {
+                "key_created": {
+                    "title": "🎉 Rumah Dibuat!",
+                    "subtitle": "Simpan kunci di bawah ini di tempat yang aman",
+                    "warning": "Penting: Kunci ini hanya akan ditampilkan sekali. Bagikan dengan anggota keluarga agar mereka dapat mengakses inventaris yang sama.",
+                    "copy": "Salin",
+                    "copied": "Disalin",
+                    "button": "Saya Sudah Menyimpan Kuncinya, Lanjutkan"
+                },
+                "email_verification": {
+                    "title": "📧 Verifikasi Email Diperlukan",
+                    "message": "Akun dibuat! Silakan verifikasi alamat email Anda untuk login.",
+                    "step_1": "Kami telah mengirim email verifikasi ke <1>{{email}}</1>.",
+                    "step_2": "Klik tombol <1>\"Verifikasi Akun Saya\"</1> di email.",
+                    "step_3": "Setelah verifikasi, <1>Anda dapat masuk</1>.",
+                    "spam_note": "Periksa folder spam/sampah jika email tidak tiba.",
+                    "key_note": "Penting: Kunci rumah Anda juga dikirim melalui email. Anda dapat membagikannya dengan anggota keluarga.",
+                    "button": "Oke, Masuk"
+                }
+            }
+        },
+        "forgot_password": {
+            "title": "Forgot Password",
+            "subtitle": "Start a secure recovery flow to access your account again.",
+            "identifier": "Username or Email",
+            "identifier_placeholder": "e.g. john or john@example.com",
+            "submit": "Start Recovery",
+            "requesting": "Checking...",
+            "email_success": "If an account exists, a password reset link valid for 15 minutes has been sent.",
+            "back_to_login": "Back to Login",
+            "recovery_mode_info": "Email is disabled on this server. Continue with the Recovery Key you saved during account setup.",
+            "recovery_key": "Recovery Key",
+            "recovery_key_placeholder": "e.g. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "reset_submit": "Reset Password",
+            "resetting": "Resetting..."
+        },
+        "reset_password": {
+            "title": "Reset Password",
+            "subtitle": "Use the secure link to set a new password.",
+            "missing_token": "The password reset link looks incomplete or broken.",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "submit": "Update Password",
+            "submitting": "Updating...",
+            "back_to_login": "Back to Login"
+        },
+        "recovery_setup": {
+            "title": "Create Recovery Key",
+            "subtitle": "Until this is completed, your account is not considered safe for local password recovery.",
+            "warning": "This key will only be shown once. Save it in a password manager or another secure offline location.",
+            "account": "A recovery key will be created for account {{username}}.",
+            "description": "Because email is disabled, you will only be able to reset your password with this key in the future.",
+            "submit": "Create Recovery Key",
+            "generating": "Creating..."
+        },
+        "recovery_key_modal": {
+            "register_title": "Save Your Recovery Key",
+            "google_title": "Save Your Recovery Key",
+            "setup_title": "Save Your Recovery Key",
+            "reset_title": "Save Your New Recovery Key",
+            "settings_title": "Save Your New Recovery Key",
+            "subtitle": "This key is shown only once.",
+            "warning": "If you lose this key while email is disabled, you may not be able to recover your password. Copy it and store it safely.",
+            "confirm": "I Saved the Key"
+        }
+    },
+    "navigation": {
+        "home": "Beranda",
+        "inventory": "Inventaris",
+        "rooms": "Ruangan",
+        "categories": "Kategori",
+        "settings": "Pengaturan",
+        "new_item": "Barang Baru",
+        "share_house": "Bagikan Rumah",
+        "admin_panel": "Panel Admin",
+        "logout": "Keluar",
+        "menu": "Menu"
+    },
+    "dashboard": {
+        "welcome": "Selamat datang, <1>{{name}}</1>! 👋",
+        "subtitle": "Ikhtisar inventaris Anda",
+        "quick_search": "Pencarian cepat...",
+        "filters": {
+            "private": "🔒 Barang Pribadi Saya",
+            "public": "🌐 Publik",
+            "remove": "Hapus Filter",
+            "no_items": "Tidak ada item yang cocok dengan filter ini"
+        },
+        "stats": {
+            "total_items": "Total Item",
+            "total_quantity": "Total Kuantitas",
+            "fullest_room": "Ruangan Terpenuh",
+            "category_count": "Kategori",
+            "items_suffix": "item"
+        },
+        "recent_items": {
+            "title": "Baru Ditambahkan",
+            "see_all": "Lihat Semua"
+        },
+        "categories": {
+            "title": "Kategori",
+            "manage": "Kelola",
+            "empty": "Belum ada item yang ditambahkan"
+        },
+        "rooms": {
+            "title": "Kamar",
+            "manage": "Kelola"
+        },
+        "quick_actions": {
+            "title": "⚡ Tindakan Cepat",
+            "add_item": "Tambah Item",
+            "search_item": "Cari Item",
+            "categories": "Kategori",
+            "settings": "Pengaturan"
+        }
+    },
+    "beta_banner": {
+        "title": "BETA:",
+        "text": "HomeInventory saat ini dalam tahap pengujian dan hobi. Tidak ada jaminan yang diberikan untuk ketahanan atau keamanan data. Harap buat cadangan informasi penting.",
+        "contact": "Kontak:"
+    },
+    "footer": {
+        "rights": "© {{year}} HomeInventory - Semua hak dilindungi",
+        "contact": "Kontak:"
+    },
+    "settings": {
+        "title": "Pengaturan",
+        "subtitle": "Kelola preferensi aplikasi",
+        "messages": {
+            "house_switched": "✅ {{name}} diaktifkan!",
+            "house_switch_error": "Gagal beralih rumah",
+            "house_joined_success": "✅ Anda berhasil bergabung dengan rumah!",
+            "house_join_error": "Gagal bergabung dengan rumah",
+            "house_created_success": "✅ \"{{name}}\" dibuat!",
+            "house_create_error": "Gagal membuat rumah",
+            "house_left_success": "Berhasil keluar dari rumah",
+            "house_left_error": "Gagal keluar dari rumah",
+            "house_leave_confirm": "Apakah Anda yakin ingin meninggalkan \"{{name}}\"?",
+            "backup_downloaded": "✅ Cadangan berhasil diunduh! ({{count}} item)",
+            "export_error": "❌ Terjadi kesalahan saat ekspor",
+            "import_invalid_format": "Format file cadangan tidak valid",
+            "import_success": "✅ {{items}} item, {{categories}} kategori, {{rooms}} ruangan, {{locations}} lokasi berhasil ditambahkan.",
+            "import_error": "❌ Kesalahan impor: {{error}}",
+            "password_changed": "Kata sandi berhasil diubah!",
+            "password_error_current": "Kata sandi saat ini salah",
+            "password_error_invalid": "Data yang dikirim tidak valid",
+            "session_expired": "Sesi berakhir. Silakan login lagi.",
+            "server_error": "Terjadi kesalahan server",
+            "connection_error": "Tidak dapat terhubung ke server. Periksa koneksi internet Anda.",
+            "unexpected_error": "Terjadi kesalahan tak terduga",
+            "username_changed": "✅ Nama pengguna berhasil diubah!",
+            "username_error": "Tidak dapat mengubah nama pengguna",
+            "username_len_error": "Nama pengguna harus minimal 3 karakter",
+            "fill_all_fields": "Silakan isi semua kolom",
+            "passwords_mismatch": "Kata sandi baru tidak cocok",
+            "password_min_len": "Kata sandi baru harus minimal 6 karakter",
+            "house_request_sent_success": "✅ Your join request was sent!",
+            "request_approved": "✅ Join request approved",
+            "request_rejected": "Join request rejected",
+            "request_action_error": "Could not update request",
+            "member_kick_confirm": "Are you sure you want to remove \"{{name}}\" from the house?",
+            "member_kicked": "Member removed from the house",
+            "member_kick_error": "Could not remove member from the house",
+            "recovery_key_regenerated": "Recovery key regenerated",
+            "recovery_key_error": "Could not regenerate recovery key"
+        },
+        "user_profile": {
+            "edit_username": "Ubah nama pengguna"
+        },
+        "my_houses": {
+            "title": "Rumah Saya",
+            "join_house": "Bergabung dengan Rumah",
+            "join_short": "Bergabung",
+            "new_house": "Rumah Baru",
+            "new_short": "Baru",
+            "no_house": "Anda belum menjadi anggota rumah manapun",
+            "owner": "Pemilik",
+            "active": "Aktif",
+            "member_count": "{{count}} anggota",
+            "item_count": "{{count}} item",
+            "switch": "Ganti",
+            "leave": "Tinggalkan Rumah",
+            "info": "💡 Anda dapat menjadi anggota beberapa rumah dan beralih di antara mereka. Setiap rumah memiliki inventaris yang terpisah."
+        },
+        "house_info": {
+            "title": "Kunci Rumah Aktif",
+            "key_label": "Kunci Rumah",
+            "mask_key": "••••••••{{suffix}}",
+            "hide": "Sembunyikan",
+            "show": "Tampilkan",
+            "copy": "Salin",
+            "share_info": "💡 Pengguna yang Anda bagikan kunci ini dapat mengakses inventaris Anda dengan menggunakan opsi \"Bergabung dengan Rumah\" saat pendaftaran.",
+            "members_title": "Anggota Rumah ({{count}})",
+            "you": "(Anda)",
+            "joined_at": "Bergabung: {{date, datetime}}",
+            "no_members": "Belum ada anggota lain",
+            "invite_title": "Undang Anggota Keluarga",
+            "invite_desc": "Bagikan kunci rumah Anda agar anggota keluarga dapat mengakses inventaris yang sama. Setiap anggota masuk dengan akun mereka sendiri tetapi mengakses data yang sama.",
+            "active_members": "Active Members",
+            "pending_requests": "Pending Requests",
+            "no_pending_requests": "No pending requests",
+            "owner_controls": "Owner controls enabled",
+            "approve": "Approve",
+            "reject": "Reject",
+            "kick": "Remove"
+        },
+        "theme": {
+            "title": "Tema",
+            "dark": "Mode gelap",
+            "light": "Mode terang"
+        },
+        "security": {
+            "title": "Keamanan",
+            "change_password": "Ganti Kata Sandi",
+            "change_password_desc": "Perbarui kata sandi akun Anda",
+            "recovery_key_title": "Recovery Key",
+            "recovery_key_desc": "You can generate a new key for local password recovery.",
+            "recovery_key_missing": "No recovery key is visible for this account yet.",
+            "current_key_label": "Saved Recovery Key",
+            "recovery_key_unavailable": "The current recovery key cannot be displayed. Regenerate it if needed.",
+            "recovery_key_action": "Regenerate",
+            "recovery_key_modal_desc": "Confirm your current password to continue. The new key will be shown only once.",
+            "recovery_key_loading": "Preparing..."
+        },
+        "data_management": {
+            "title": "Manajemen Data",
+            "download_backup": "Unduh Cadangan",
+            "downloading": "Sedang mengunduh...",
+            "export_json": "Ekspor sebagai JSON",
+            "upload_backup": "Unggah Cadangan",
+            "uploading": "Sedang mengunggah...",
+            "import_json": "Impor dari JSON"
+        },
+        "about": {
+            "title": "📱 Tentang Aplikasi",
+            "version": "Versi",
+            "brand": "Merek",
+            "feedback": "✉️ Kirim Masukan"
+        },
+        "modals": {
+            "password": {
+                "title": "Ganti Kata Sandi",
+                "current": "Kata Sandi Saat Ini",
+                "new": "Kata Sandi Baru",
+                "confirm": "Konfirmasi Kata Sandi Baru",
+                "changing": "Mengubah...",
+                "submit": "Ganti Kata Sandi"
+            },
+            "join_house": {
+                "title": "Bergabung dengan Rumah",
+                "key_placeholder": "Masukkan kunci rumah 64 karakter",
+                "key_help": "Masukkan kunci yang Anda terima dari anggota keluarga Anda",
+                "name_label": "Nama untuk Rumah ini (opsional)",
+                "name_placeholder": "mis. Rumah Orang Tua",
+                "joining": "Bergabung...",
+                "submit": "Bergabung dengan Rumah"
+            },
+            "create_house": {
+                "title": "Buat Rumah Baru",
+                "name_label": "Nama Rumah",
+                "name_placeholder": "mis. Rumah Musim Panas, Kantor, Gudang",
+                "name_help": "Jika dikosongkan, akan dinamai \"Rumah Baru Saya\"",
+                "info": "ℹ️ Kategori dan ruangan default akan dibuat untuk rumah baru. Anda dapat mengubahnya nanti.",
+                "creating": "Sedang Membuat...",
+                "submit": "Buat Rumah"
+            },
+            "username": {
+                "title": "Ganti Nama Pengguna",
+                "new_label": "Nama Pengguna Baru",
+                "placeholder": "Nama pengguna baru Anda",
+                "help": "3-30 karakter, hanya huruf, angka, garis bawah, dan tanda hubung",
+                "saving": "Menyimpan...",
+                "submit": "Ganti"
+            }
+        },
+        "select_language": "Pilih Bahasa",
+        "pending_requests": {
+            "title": "My Pending Join Requests",
+            "waiting_since": "Waiting since: {{date, datetime}}",
+            "pending_badge": "Pending"
+        }
+    },
+    "inventory": {
+        "title": "Inventaris",
+        "subtitle": "{{count}} item ditemukan",
+        "new_item": "Item Baru",
+        "add_first": "Tambah Item Pertama",
+        "search_placeholder": "Cari item...",
+        "all_categories": "Semua Kategori",
+        "all_rooms": "Semua Ruangan",
+        "empty_title": "Tidak ada item ditemukan",
+        "empty_filter": "Tidak ada item yang cocok dengan filter Anda",
+        "empty_msg": "Belum ada item yang ditambahkan",
+        "delete_confirm": "Apakah Anda yakin ingin menghapus item ini?",
+        "delete_error": "Kesalahan penghapusan"
+    },
+    "categories": {
+        "title": "Kategori",
+        "subtitle": "{{count}} kategori",
+        "new_category": "Kategori Baru",
+        "edit_title": "Edit Kategori",
+        "new_title": "Kategori Baru",
+        "name_label": "Nama Kategori",
+        "icon_label": "Ikon",
+        "color_label": "Warna",
+        "delete_confirm": "Apakah Anda yakin ingin menghapus kategori ini?",
+        "delete_error": "Kesalahan penghapusan"
+    },
+    "rooms": {
+        "title": "Kamar",
+        "subtitle": "{{count}} kamar",
+        "new_room": "Kamar Baru",
+        "edit_title": "Edit Kamar",
+        "new_title": "Kamar Baru",
+        "name_label": "Nama Kamar",
+        "description_label": "Deskripsi (Opsional)",
+        "name_placeholder": "mis. Kamar Tidur Utama",
+        "desc_placeholder": "mis. Kamar tidur utama",
+        "delete_confirm": "Apakah Anda yakin ingin menghapus kamar ini?",
+        "delete_error": "Kesalahan penghapusan"
+    },
+    "admin": {
+        "title": "Panel Admin",
+        "subtitle": "Manajemen dan Pemantauan Sistem",
+        "refresh": "Segarkan",
+        "tabs": {
+            "dashboard": "Dasbor",
+            "users": "Pengguna",
+            "logs": "Catatan",
+            "email": "Kirim Email"
+        },
+        "stats": {
+            "total_users": "Total Pengguna",
+            "new_today": "Hari ini: +{{count}} baru",
+            "total_inventory": "Total Inventaris",
+            "inventory_details": "{{rooms}} kamar, {{categories}} kategori",
+            "banned_users": "Pengguna yang Dilarang",
+            "access_blocked": "Akses diblokir",
+            "server_memory": "Memori Server",
+            "uptime": "Waktu Aktif: {{hours}} jam"
+        },
+        "users": {
+            "user": "Pengguna",
+            "role": "Peran",
+            "status": "Status",
+            "action": "Aksi",
+            "banned": "Dilarang",
+            "active": "Aktif",
+            "unban": "Buka Blokir",
+            "ban": "Blokir",
+            "delete": "Hapus Akun",
+            "confirm_ban": "Apakah Anda yakin ingin {{status}} pengguna ini?",
+            "ban_lift": "buka blokir",
+            "ban_apply": "blokir",
+            "confirm_delete_1": "Apakah Anda yakin ingin menghapus pengguna \"{{username}}\"?",
+            "confirm_delete_2": "⚠️ PERINGATAN: Ini akan MENGHAPUS secara PERMANEN SEMUA data (inventaris, ruangan, kategori) untuk pengguna \"{{username}}\"!",
+            "confirm_delete_3": "🚨 PERINGATAN TERAKHIR: Akun \"{{username}}\" dan semua datanya akan DIHAPUS SECARA TIDAK DAPAT DIPULIHKAN. Apakah Anda ingin melanjutkan?"
+        },
+        "logs": {
+            "title": "Log Admin",
+            "no_logs": "belum ada log",
+            "errors_title": "Kesalahan Sistem (10 Terakhir)",
+            "no_errors": "// Sistem sehat, tidak ada log kesalahan.",
+            "date_fmt": "{{date, datetime}}"
+        },
+        "email": {
+            "title": "Kirim Email",
+            "to": "Penerima (Kepada)",
+            "subject": "Subjek",
+            "message": "Pesan (HTML didukung)",
+            "placeholder_message": "Ketik pesan Anda di sini...",
+            "send": "Kirim",
+            "sending": "Mengirim...",
+            "success": "Email berhasil dikirim!",
+            "error": "Pengiriman gagal"
+        }
+    },
+    "landing": {
+        "nav": {
+            "login": "Masuk"
+        },
+        "hero": {
+            "title_1": "Kelola Segalanya",
+            "title_2": "Di Rumah Anda!",
+            "description": "Digitalisasi inventaris rumah Anda. Kategorikan barang, undang keluarga, dan akses dari mana saja. Modern, aman, dan mudah digunakan.",
+            "cta_start": "Mulai",
+            "cta_register": "Buat Akun",
+            "stat_free": "Gratis",
+            "stat_access": "Akses"
+        },
+        "features": {
+            "title": "Mengapa <1>HomeInventory</1>?",
+            "subtitle": "Semua fitur untuk menyederhanakan manajemen rumah dalam satu platform",
+            "items": {
+                "categorize": {
+                    "title": "Kategorikan Barang",
+                    "desc": "Atur semua barang berdasarkan ruangan dan kategori, temukan yang Anda butuhkan dalam hitungan detik."
+                },
+                "family": {
+                    "title": "Undang Keluarga dengan Kunci Rumah",
+                    "desc": "Undang anggota keluarga dengan kunci rumah unik Anda, kelola inventaris bersama."
+                },
+                "access": {
+                    "title": "Akses dari Mana Saja",
+                    "desc": "Di rumah, di tempat kerja, atau saat liburan - akses inventaris Anda dengan aman dari mana saja."
+                },
+                "barcode": {
+                    "title": "Tambah Cepat dengan Barcode",
+                    "desc": "Pindai barcode produk, detail akan terisi secara otomatis."
+                },
+                "security": {
+                    "title": "Aman dan Pribadi",
+                    "desc": "Data Anda dienkripsi dan dilindungi dengan infrastruktur yang sesuai dengan KVKK."
+                },
+                "backup": {
+                    "title": "Cadangkan & Ekspor",
+                    "desc": "Cadangkan inventaris Anda dalam format JSON, pulihkan kapan pun Anda mau."
+                }
+            }
+        },
+        "cta_bottom": {
+            "title": "Mulai Gunakan Sekarang!",
+            "description": "Buat akun gratis dan digitalisasi inventaris rumah Anda. Pendaftaran hanya memerlukan beberapa detik.",
+            "button": "Masuk"
+        },
+        "footer": {
+            "desc": "Platform yang mudah dan aman untuk mendigitalisasi inventaris rumah Anda.",
+            "links": "Tautan Cepat",
+            "contact": "Hubungi Kami",
+            "copyright": "© {{year}} HomeInventory. Semua hak dilindungi."
+        },
+        "preview_privacy_notice": "Tampilan demo: tidak ada data pengguna nyata yang ditampilkan."
+    },
+    "intro": {
+        "inventory": {
+            "title": "Inventaris",
+            "content": "Di sini Anda dapat menambahkan dan mendaftar item Anda. Lacak semua barang rumah dalam satu tempat!"
+        },
+        "house_key": {
+            "title": "Kunci Rumah",
+            "content": "Ini adalah kunci rumah Anda, gunakan untuk mengundang orang lain. Tambahkan anggota keluarga ke rumah Anda!"
+        },
+        "categories": {
+            "title": "Kategori",
+            "content": "Atur dengan mengkategorikan item Anda. Elektronik, furnitur, dapur, dan lainnya!"
+        },
+        "buttons": {
+            "back": "Kembali",
+            "close": "Tutup",
+            "last": "Selesai",
+            "next": "Berikutnya",
+            "skip": "Lewati",
+            "open": "Buka"
+        }
+    },
+    "google_house_select": {
+        "title": "Selamat datang!",
+        "subtitle": "Anda masuk dengan Google. Sekarang pilih sebuah rumah.",
+        "welcome_options": "Apa yang ingin Anda lakukan?",
+        "create": {
+            "title": "Buat Rumah Baru",
+            "desc": "Mulai inventaris Anda sendiri"
+        },
+        "join": {
+            "title": "Bergabung dengan Rumah yang Ada",
+            "desc": "Bergabung dengan rumah anggota keluarga"
+        },
+        "back": "Kembali",
+        "house_name": "Nama Rumah (opsional)",
+        "house_name_placeholder": "mis. Rumah Saya, Kantor",
+        "house_name_hint": "Jika dikosongkan, akan diberi nama \"Rumah Saya\"",
+        "house_key": "Kunci Rumah",
+        "house_key_placeholder": "Masukkan kunci rumah",
+        "house_key_hint": "Masukkan kunci 64 karakter yang diterima dari anggota keluarga",
+        "house_name_join": "Nama untuk Rumah ini (opsional)",
+        "submit_create": "Buat Rumah",
+        "submit_join": "Bergabung dengan Rumah",
+        "processing": "Memproses..."
+    },
+    "scanner": {
+        "title": "Pemindai Kode Batang",
+        "qr_title": "Pembaca Kode QR",
+        "init": "Memulai kamera...",
+        "permission_error": "Izin kamera ditolak. Periksa pengaturan browser.",
+        "busy_error": "Kamera sibuk. Tutup aplikasi lain.",
+        "not_found_error": "Kamera tidak ditemukan.",
+        "generic_error": "Tidak dapat memulai kamera.",
+        "hint": "Pusatkan kode batang dalam bingkai",
+        "qr_hint": "Ratakan kode QR dalam bingkai",
+        "searching": "Mencari produk...",
+        "found_local": "Sudah Terdaftar!",
+        "found_local_msg": "Kode batang ini sudah ada di inventaris Anda.",
+        "found_online": "Produk Ditemukan!",
+        "google_result": "⚡ Hasil pencarian Google - harap verifikasi",
+        "barcode": "Barcode: {{code}}",
+        "new_product": "Produk Baru",
+        "not_found_db": "Barcode ini tidak ditemukan dalam database.",
+        "google_search": "Cari di Google",
+        "quick_add": "Tambah Cepat (Sunting Nanti)",
+        "rescan": "Pindai Lagi",
+        "retry": "Coba Lagi",
+        "flash_on": "🔦 Lampu Flash Menyala",
+        "flash_unsupported": "Flash tidak didukung",
+        "zoom_hint": "💡 Perbesar zoom untuk kejelasan dan tahan telepon dengan stabil",
+        "found_item_redirect": "Item ditemukan! Mengalihkan...",
+        "found_page_redirect": "Halaman ditemukan! Mengalihkan...",
+        "invalid_qr": "QR code ini bukan untuk aplikasi ini.",
+        "not_found": "Produk tidak ditemukan. Coba barcode lain."
+    },
+    "item_qr": {
+        "hint_mobile": "📱 Pindai kode QR ini dengan ponsel Anda untuk mengakses item dengan cepat",
+        "network_ip": "IP Jaringan",
+        "url_loading": "Memuat URL...",
+        "copied": "Disalin!",
+        "copy_url": "Salin URL",
+        "download": "Unduh QR",
+        "usage_title": "Penggunaan",
+        "usage_desc": "Cetak kode QR dan tempelkan pada item. Pindai dengan ponsel Anda untuk mengakses halaman ini langsung!"
+    },
+    "house_access_pending": {
+        "eyebrow": "House Access",
+        "fallback_house": "Selected house",
+        "signed_in_as": "Signed in as {{username}}",
+        "logout": "Logout",
+        "messages": {
+            "create_error": "Could not create house",
+            "join_success": "Your join request was sent",
+            "join_error": "Could not send join request"
+        },
+        "pending": {
+            "title": "Waiting for house owner approval",
+            "description": "Your request for \"{{house}}\" is still waiting for a decision.",
+            "current_request": "Current pending request: {{house}}"
+        },
+        "no_house": {
+            "title": "You are not connected to a house right now",
+            "description": "Create a new house or send a join request to an existing one."
+        },
+        "create": {
+            "title": "Create a New House",
+            "description": "Start your own home inventory and continue right away.",
+            "name_label": "House Name",
+            "name_placeholder": "e.g. My Home, Summer House, Storage",
+            "submitting": "Creating...",
+            "submit": "Create House"
+        },
+        "join": {
+            "title": "Send a Join Request",
+            "description": "Enter a house key and send the request directly to the house owner.",
+            "key_label": "House Key",
+            "key_placeholder": "Enter the 64-character house key",
+            "submitting": "Sending...",
+            "submit": "Send Request"
+        }
+    }
+}

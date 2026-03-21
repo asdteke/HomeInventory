@@ -3,9 +3,55 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import fs from 'fs';
 import crypto from 'crypto';
+import {
+  decryptFromStorage,
+  encryptBufferForStorage,
+  encryptForStorage,
+  hashLookupToken,
+  isEncryptedPayload
+} from './utils/encryption.js';
+import {
+  buildBarcodeLookup,
+  buildEmailLookup,
+  buildUsernameLookup,
+  decryptEmail,
+  decryptUsername,
+  encryptCategoryName,
+  encryptEmail,
+  encryptItemDescription,
+  encryptItemBarcode,
+  encryptItemName,
+  encryptHouseName,
+  encryptLocationName,
+  encryptRoomDescription,
+  encryptRoomName,
+  encryptUsername
+} from './utils/protectedFields.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const ITEM_PHOTO_MEDIA_PURPOSE = 'inventory.media.photo';
+const ITEM_THUMBNAIL_MEDIA_PURPOSE = 'inventory.media.thumbnail';
+
+function normalizeStoredPath(storedPath) {
+  if (!storedPath) {
+    return null;
+  }
+
+  return String(storedPath)
+    .replace(/\\/g, '/')
+    .replace(/^\/+/, '')
+    .replace(/^\.\/+/, '');
+}
+
+function resolveStoredPath(storedPath) {
+  const normalized = normalizeStoredPath(storedPath);
+  if (!normalized) {
+    return null;
+  }
+
+  return join(__dirname, normalized);
+}
 
 // Ensure data directory exists
 const dataDir = join(__dirname, 'data');
@@ -25,6 +71,11 @@ db.exec(`
     email TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
     house_key TEXT,
+    recovery_key_hash TEXT,
+    recovery_key_value TEXT,
+    recovery_key_generated_at DATETIME,
+    password_reset_failed_count INTEGER DEFAULT 0,
+    password_reset_locked_until DATETIME,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
 
@@ -128,27 +179,16 @@ try {
   console.log('[Database] barcode column added to items table');
 } catch (e) { /* Column exists */ }
 
+try {
+  db.exec(`ALTER TABLE items ADD COLUMN barcode_lookup TEXT`);
+  console.log('[Database] barcode_lookup column added to items table');
+} catch (e) { /* Column exists */ }
+
 // Migration: Add role column to users table (for admin panel)
 try {
   db.exec(`ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'user'`);
   console.log('[Database] role column added to users table');
 } catch (e) { /* Column exists */ }
-
-// Optional bootstrap admin assignment from env
-try {
-  const bootstrapAdminEmail = (process.env.BOOTSTRAP_ADMIN_EMAIL || '').trim().toLowerCase();
-  if (bootstrapAdminEmail) {
-    const adminUser = db.prepare('SELECT id, username FROM users WHERE LOWER(email) = ?').get(bootstrapAdminEmail);
-    if (adminUser) {
-      db.prepare('UPDATE users SET role = ? WHERE id = ?').run('admin', adminUser.id);
-      console.log(`[Database] Bootstrap admin set: '${adminUser.username}'`);
-    }
-  }
-  // Ensure role is never null
-  db.prepare('UPDATE users SET role = ? WHERE role IS NULL').run('user');
-} catch (e) {
-  console.log('[Database] Bootstrap admin setup skipped:', e.message);
-}
 
 // Migration: Add is_banned and failed_login_count to users table
 try {
@@ -178,6 +218,11 @@ try {
 } catch (e) { /* Column exists */ }
 
 try {
+  db.exec(`ALTER TABLE users ADD COLUMN verification_token_hashed INTEGER DEFAULT 0`);
+  console.log('[Database] verification_token_hashed column added to users table');
+} catch (e) { /* Column exists */ }
+
+try {
   db.exec(`ALTER TABLE users ADD COLUMN verification_token_expires DATETIME`);
   console.log('[Database] verification_token_expires column added to users table');
 } catch (e) { /* Column exists */ }
@@ -188,24 +233,86 @@ try {
   console.log('[Database] active_house_key column added to users table');
 } catch (e) { /* Column exists */ }
 
+try {
+  db.exec(`ALTER TABLE users ADD COLUMN username_lookup TEXT`);
+  console.log('[Database] username_lookup column added to users table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE users ADD COLUMN email_lookup TEXT`);
+  console.log('[Database] email_lookup column added to users table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE users ADD COLUMN recovery_key_hash TEXT`);
+  console.log('[Database] recovery_key_hash column added to users table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE users ADD COLUMN recovery_key_value TEXT`);
+  console.log('[Database] recovery_key_value column added to users table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE users ADD COLUMN recovery_key_generated_at DATETIME`);
+  console.log('[Database] recovery_key_generated_at column added to users table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE users ADD COLUMN password_reset_failed_count INTEGER DEFAULT 0`);
+  console.log('[Database] password_reset_failed_count column added to users table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE users ADD COLUMN password_reset_locked_until DATETIME`);
+  console.log('[Database] password_reset_locked_until column added to users table');
+} catch (e) { /* Column exists */ }
+
+// Optional bootstrap admin assignment from env
+try {
+  const bootstrapAdminEmail = (process.env.BOOTSTRAP_ADMIN_EMAIL || '').trim().toLowerCase();
+  if (bootstrapAdminEmail) {
+    const bootstrapAdminLookup = buildEmailLookup(bootstrapAdminEmail);
+    const adminUser = db.prepare(`
+      SELECT id, username
+      FROM users
+      WHERE email_lookup = ? OR email = ?
+      LIMIT 1
+    `).get(bootstrapAdminLookup, bootstrapAdminEmail);
+    if (adminUser) {
+      db.prepare('UPDATE users SET role = ? WHERE id = ?').run('admin', adminUser.id);
+      console.log(`[Database] Bootstrap admin set: '${decryptUsername(adminUser.username)}'`);
+    }
+  }
+  // Ensure role is never null
+  db.prepare('UPDATE users SET role = ? WHERE role IS NULL').run('user');
+} catch (e) {
+  console.log('[Database] Bootstrap admin setup skipped:', e.message);
+}
+
 // ======================================================
 // CREATE INDEXES (after all migrations complete)
 // ======================================================
 try {
   db.exec(`
     CREATE INDEX IF NOT EXISTS idx_users_house_key ON users(house_key);
+    CREATE INDEX IF NOT EXISTS idx_users_username_lookup ON users(username_lookup);
+    CREATE INDEX IF NOT EXISTS idx_users_email_lookup ON users(email_lookup);
+    CREATE INDEX IF NOT EXISTS idx_users_password_reset_locked_until ON users(password_reset_locked_until);
     CREATE INDEX IF NOT EXISTS idx_items_category ON items(category_id);
     CREATE INDEX IF NOT EXISTS idx_items_room ON items(room_id);
     CREATE INDEX IF NOT EXISTS idx_items_user ON items(user_id);
     CREATE INDEX IF NOT EXISTS idx_items_name ON items(name);
     CREATE INDEX IF NOT EXISTS idx_items_public ON items(is_public);
     CREATE INDEX IF NOT EXISTS idx_items_barcode ON items(barcode);
+    CREATE INDEX IF NOT EXISTS idx_items_barcode_lookup ON items(barcode_lookup);
     CREATE INDEX IF NOT EXISTS idx_items_house_key ON items(house_key);
     CREATE INDEX IF NOT EXISTS idx_rooms_house_key ON rooms(house_key);
     CREATE INDEX IF NOT EXISTS idx_categories_house_key ON categories(house_key);
     CREATE INDEX IF NOT EXISTS idx_locations_room ON locations(room_id);
     CREATE INDEX IF NOT EXISTS idx_locations_user ON locations(created_by);
     CREATE INDEX IF NOT EXISTS idx_locations_house_key ON locations(house_key);
+    CREATE INDEX IF NOT EXISTS idx_users_verification_token_lookup ON users(verification_token_hashed, verification_token);
   `);
 } catch (e) {
   console.log('[Database] Index creation skipped:', e.message);
@@ -226,12 +333,43 @@ db.exec(`
     mode TEXT DEFAULT 'create',
     is_new_house INTEGER DEFAULT 1,
     verification_token TEXT UNIQUE NOT NULL,
+    verification_token_hashed INTEGER DEFAULT 0,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     expires_at DATETIME NOT NULL
   );
   CREATE INDEX IF NOT EXISTS idx_pending_email ON pending_registrations(email);
   CREATE INDEX IF NOT EXISTS idx_pending_token ON pending_registrations(verification_token);
 `);
+
+try {
+  db.exec(`ALTER TABLE pending_registrations ADD COLUMN verification_token_hashed INTEGER DEFAULT 0`);
+  console.log('[Database] verification_token_hashed column added to pending_registrations table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE pending_registrations ADD COLUMN username_lookup TEXT`);
+  console.log('[Database] username_lookup column added to pending_registrations table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE pending_registrations ADD COLUMN email_lookup TEXT`);
+  console.log('[Database] email_lookup column added to pending_registrations table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`CREATE INDEX IF NOT EXISTS idx_pending_token_lookup ON pending_registrations(verification_token_hashed, verification_token)`);
+} catch (e) {
+  console.log('[Database] pending_registrations verification token lookup index skipped:', e.message);
+}
+
+try {
+  db.exec(`
+    CREATE INDEX IF NOT EXISTS idx_pending_username_lookup ON pending_registrations(username_lookup);
+    CREATE INDEX IF NOT EXISTS idx_pending_email_lookup ON pending_registrations(email_lookup);
+  `);
+} catch (e) {
+  console.log('[Database] pending_registrations lookup index creation skipped:', e.message);
+}
 
 // Create admin_logs table for tracking admin actions and system events
 db.exec(`
@@ -264,6 +402,49 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_user_houses_house ON user_houses(house_key);
 `);
 
+db.exec(`
+  CREATE TABLE IF NOT EXISTS house_join_requests (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    requester_user_id INTEGER NOT NULL,
+    house_key TEXT NOT NULL,
+    requested_house_name TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'pending',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    decided_at DATETIME,
+    decided_by_user_id INTEGER,
+    FOREIGN KEY (requester_user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (decided_by_user_id) REFERENCES users(id) ON DELETE SET NULL,
+    CHECK (status IN ('pending', 'approved', 'rejected', 'cancelled'))
+  );
+  CREATE INDEX IF NOT EXISTS idx_house_join_requests_requester ON house_join_requests(requester_user_id);
+  CREATE INDEX IF NOT EXISTS idx_house_join_requests_house ON house_join_requests(house_key);
+  CREATE INDEX IF NOT EXISTS idx_house_join_requests_status ON house_join_requests(status);
+  CREATE UNIQUE INDEX IF NOT EXISTS idx_house_join_requests_unique_pending
+    ON house_join_requests(requester_user_id, house_key)
+    WHERE status = 'pending';
+`);
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS password_reset_requests (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    token_lookup_hash TEXT NOT NULL,
+    channel TEXT NOT NULL DEFAULT 'email',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    expires_at DATETIME NOT NULL,
+    used_at DATETIME,
+    used_ip TEXT,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    CHECK (channel IN ('email'))
+  );
+  CREATE INDEX IF NOT EXISTS idx_password_reset_requests_lookup
+    ON password_reset_requests(token_lookup_hash);
+  CREATE INDEX IF NOT EXISTS idx_password_reset_requests_user
+    ON password_reset_requests(user_id);
+  CREATE INDEX IF NOT EXISTS idx_password_reset_requests_expires
+    ON password_reset_requests(expires_at);
+`);
+
 // Migrate existing users to user_houses table
 try {
   const usersWithHouses = db.prepare('SELECT id, house_key FROM users WHERE house_key IS NOT NULL').all();
@@ -271,7 +452,7 @@ try {
   const updateActiveHouse = db.prepare('UPDATE users SET active_house_key = ? WHERE id = ? AND active_house_key IS NULL');
 
   for (const user of usersWithHouses) {
-    insertUserHouse.run(user.id, user.house_key, 'Evim');
+    insertUserHouse.run(user.id, user.house_key, encryptHouseName('Evim'));
     updateActiveHouse.run(user.house_key, user.id);
   }
   if (usersWithHouses.length > 0) {
@@ -280,5 +461,454 @@ try {
 } catch (e) {
   console.log('[Database] User houses migration skipped:', e.message);
 }
+
+function backfillSensitiveFieldProtection() {
+  const summary = {
+    pendingHouseKeysEncrypted: 0,
+    pendingUsernamesEncrypted: 0,
+    pendingEmailsEncrypted: 0,
+    pendingUsernameLookupsBackfilled: 0,
+    pendingEmailLookupsBackfilled: 0,
+    pendingVerificationTokensHashed: 0,
+    userUsernamesEncrypted: 0,
+    userEmailsEncrypted: 0,
+    userUsernameLookupsBackfilled: 0,
+    userEmailLookupsBackfilled: 0,
+    userVerificationTokensHashed: 0,
+    itemNamesEncrypted: 0,
+    itemDescriptionsEncrypted: 0,
+    itemBarcodesEncrypted: 0,
+    itemBarcodeLookupsBackfilled: 0,
+    roomNamesEncrypted: 0,
+    roomDescriptionsEncrypted: 0,
+    locationNamesEncrypted: 0,
+    categoryNamesEncrypted: 0,
+    houseNamesEncrypted: 0,
+    itemPhotosEncrypted: 0,
+    itemThumbnailsEncrypted: 0
+  };
+
+  const pendingRows = db.prepare(`
+    SELECT
+      id,
+      username,
+      email,
+      username_lookup,
+      email_lookup,
+      house_key,
+      verification_token,
+      COALESCE(verification_token_hashed, 0) AS verification_token_hashed
+    FROM pending_registrations
+  `).all();
+
+  const updatePendingRegistration = db.prepare(`
+    UPDATE pending_registrations
+    SET username = ?, email = ?, username_lookup = ?, email_lookup = ?,
+        house_key = ?, verification_token = ?, verification_token_hashed = ?
+    WHERE id = ?
+  `);
+
+  const migratePendingRegistrations = db.transaction((rows) => {
+    for (const row of rows) {
+      let changed = false;
+      let nextUsername = row.username;
+      let nextEmail = row.email;
+      let nextUsernameLookup = row.username_lookup || null;
+      let nextEmailLookup = row.email_lookup || null;
+      let nextHouseKey = row.house_key;
+      let nextVerificationToken = row.verification_token;
+      let nextVerificationTokenHashed = row.verification_token_hashed === 1 ? 1 : 0;
+
+      if (nextUsername && !isEncryptedPayload(nextUsername)) {
+        nextUsername = encryptUsername(nextUsername);
+        summary.pendingUsernamesEncrypted++;
+        changed = true;
+      }
+
+      if (nextEmail && !isEncryptedPayload(nextEmail)) {
+        nextEmail = encryptEmail(nextEmail);
+        summary.pendingEmailsEncrypted++;
+        changed = true;
+      }
+
+      const pendingUsernameValue = nextUsername ? decryptUsername(nextUsername) : '';
+      const pendingEmailValue = nextEmail ? decryptEmail(nextEmail) : '';
+      const expectedPendingUsernameLookup = pendingUsernameValue ? buildUsernameLookup(pendingUsernameValue) : null;
+      const expectedPendingEmailLookup = pendingEmailValue ? buildEmailLookup(pendingEmailValue) : null;
+
+      if (expectedPendingUsernameLookup !== nextUsernameLookup) {
+        nextUsernameLookup = expectedPendingUsernameLookup;
+        summary.pendingUsernameLookupsBackfilled++;
+        changed = true;
+      }
+
+      if (expectedPendingEmailLookup !== nextEmailLookup) {
+        nextEmailLookup = expectedPendingEmailLookup;
+        summary.pendingEmailLookupsBackfilled++;
+        changed = true;
+      }
+
+      if (nextHouseKey && !isEncryptedPayload(nextHouseKey)) {
+        nextHouseKey = encryptForStorage(nextHouseKey, { purpose: 'pending_registration.house_key' });
+        summary.pendingHouseKeysEncrypted++;
+        changed = true;
+      }
+
+      if (nextVerificationToken && nextVerificationTokenHashed !== 1) {
+        nextVerificationToken = hashLookupToken(nextVerificationToken);
+        nextVerificationTokenHashed = 1;
+        summary.pendingVerificationTokensHashed++;
+        changed = true;
+      }
+
+      if (changed) {
+        updatePendingRegistration.run(
+          nextUsername,
+          nextEmail,
+          nextUsernameLookup,
+          nextEmailLookup,
+          nextHouseKey,
+          nextVerificationToken,
+          nextVerificationTokenHashed,
+          row.id
+        );
+      }
+    }
+  });
+
+  migratePendingRegistrations(pendingRows);
+
+  const userRows = db.prepare(`
+    SELECT
+      id,
+      username,
+      email,
+      username_lookup,
+      email_lookup,
+      verification_token,
+      COALESCE(verification_token_hashed, 0) AS verification_token_hashed
+    FROM users
+  `).all();
+
+  const updateUserProtectedFields = db.prepare(`
+    UPDATE users
+    SET username = ?, email = ?, username_lookup = ?, email_lookup = ?,
+        verification_token = ?, verification_token_hashed = ?
+    WHERE id = ?
+  `);
+
+  const migrateUserProtectedFields = db.transaction((rows) => {
+    for (const row of rows) {
+      let changed = false;
+      let nextUsername = row.username;
+      let nextEmail = row.email;
+      let nextUsernameLookup = row.username_lookup || null;
+      let nextEmailLookup = row.email_lookup || null;
+      let nextVerificationToken = row.verification_token;
+      let nextVerificationTokenHashed = row.verification_token_hashed === 1 ? 1 : 0;
+
+      if (nextUsername && !isEncryptedPayload(nextUsername)) {
+        nextUsername = encryptUsername(nextUsername);
+        summary.userUsernamesEncrypted++;
+        changed = true;
+      }
+
+      if (nextEmail && !isEncryptedPayload(nextEmail)) {
+        nextEmail = encryptEmail(nextEmail);
+        summary.userEmailsEncrypted++;
+        changed = true;
+      }
+
+      const userUsernameValue = nextUsername ? decryptUsername(nextUsername) : '';
+      const userEmailValue = nextEmail ? decryptEmail(nextEmail) : '';
+      const expectedUserUsernameLookup = userUsernameValue ? buildUsernameLookup(userUsernameValue) : null;
+      const expectedUserEmailLookup = userEmailValue ? buildEmailLookup(userEmailValue) : null;
+
+      if (expectedUserUsernameLookup !== nextUsernameLookup) {
+        nextUsernameLookup = expectedUserUsernameLookup;
+        summary.userUsernameLookupsBackfilled++;
+        changed = true;
+      }
+
+      if (expectedUserEmailLookup !== nextEmailLookup) {
+        nextEmailLookup = expectedUserEmailLookup;
+        summary.userEmailLookupsBackfilled++;
+        changed = true;
+      }
+
+      if (nextVerificationToken && nextVerificationTokenHashed !== 1) {
+        nextVerificationToken = hashLookupToken(nextVerificationToken);
+        nextVerificationTokenHashed = 1;
+        summary.userVerificationTokensHashed++;
+        changed = true;
+      }
+
+      if (changed) {
+        updateUserProtectedFields.run(
+          nextUsername,
+          nextEmail,
+          nextUsernameLookup,
+          nextEmailLookup,
+          nextVerificationToken,
+          nextVerificationTokenHashed,
+          row.id
+        );
+      }
+    }
+  });
+
+  migrateUserProtectedFields(userRows);
+
+  const itemRows = db.prepare(`
+    SELECT
+      id,
+      name,
+      description,
+      barcode,
+      barcode_lookup
+    FROM items
+  `).all();
+
+  const updateItemProtectedFields = db.prepare(`
+    UPDATE items
+    SET name = ?, description = ?, barcode = ?, barcode_lookup = ?
+    WHERE id = ?
+  `);
+
+  const migrateItemProtectedFields = db.transaction((rows) => {
+    for (const row of rows) {
+      let changed = false;
+      let nextName = row.name;
+      let nextDescription = row.description;
+      let nextBarcode = row.barcode;
+      let nextBarcodeLookup = row.barcode_lookup || null;
+
+      if (nextName && !isEncryptedPayload(nextName)) {
+        nextName = encryptItemName(nextName);
+        summary.itemNamesEncrypted++;
+        changed = true;
+      }
+
+      if (nextDescription && !isEncryptedPayload(nextDescription)) {
+        nextDescription = encryptItemDescription(nextDescription);
+        summary.itemDescriptionsEncrypted++;
+        changed = true;
+      }
+
+      if (nextBarcode && !isEncryptedPayload(nextBarcode)) {
+        nextBarcode = encryptItemBarcode(nextBarcode);
+        summary.itemBarcodesEncrypted++;
+        changed = true;
+      }
+
+      const barcodeValue = nextBarcode ? decryptFromStorage(nextBarcode, { purpose: 'inventory.item.barcode' }) : '';
+      const expectedBarcodeLookup = barcodeValue ? buildBarcodeLookup(barcodeValue) : null;
+
+      if (expectedBarcodeLookup !== nextBarcodeLookup) {
+        nextBarcodeLookup = expectedBarcodeLookup;
+        summary.itemBarcodeLookupsBackfilled++;
+        changed = true;
+      }
+
+      if (changed) {
+        updateItemProtectedFields.run(nextName, nextDescription, nextBarcode, nextBarcodeLookup, row.id);
+      }
+    }
+  });
+
+  migrateItemProtectedFields(itemRows);
+
+  const roomRows = db.prepare(`
+    SELECT
+      id,
+      name,
+      description
+    FROM rooms
+  `).all();
+
+  const updateRoomProtectedFields = db.prepare(`
+    UPDATE rooms
+    SET name = ?, description = ?
+    WHERE id = ?
+  `);
+
+  const migrateRoomProtectedFields = db.transaction((rows) => {
+    for (const row of rows) {
+      let changed = false;
+      let nextName = row.name;
+      let nextDescription = row.description;
+
+      if (nextName && !isEncryptedPayload(nextName)) {
+        nextName = encryptRoomName(nextName);
+        summary.roomNamesEncrypted++;
+        changed = true;
+      }
+
+      if (nextDescription && !isEncryptedPayload(nextDescription)) {
+        nextDescription = encryptRoomDescription(nextDescription);
+        summary.roomDescriptionsEncrypted++;
+        changed = true;
+      }
+
+      if (changed) {
+        updateRoomProtectedFields.run(nextName, nextDescription, row.id);
+      }
+    }
+  });
+
+  migrateRoomProtectedFields(roomRows);
+
+  const locationRows = db.prepare(`
+    SELECT
+      id,
+      name
+    FROM locations
+  `).all();
+
+  const updateLocationProtectedFields = db.prepare(`
+    UPDATE locations
+    SET name = ?
+    WHERE id = ?
+  `);
+
+  const migrateLocationProtectedFields = db.transaction((rows) => {
+    for (const row of rows) {
+      if (!row.name || isEncryptedPayload(row.name)) {
+        continue;
+      }
+
+      updateLocationProtectedFields.run(encryptLocationName(row.name), row.id);
+      summary.locationNamesEncrypted++;
+    }
+  });
+
+  migrateLocationProtectedFields(locationRows);
+
+  const categoryRows = db.prepare(`
+    SELECT
+      id,
+      name
+    FROM categories
+  `).all();
+
+  const updateCategoryProtectedFields = db.prepare(`
+    UPDATE categories
+    SET name = ?
+    WHERE id = ?
+  `);
+
+  const migrateCategoryProtectedFields = db.transaction((rows) => {
+    for (const row of rows) {
+      if (!row.name || isEncryptedPayload(row.name)) {
+        continue;
+      }
+
+      updateCategoryProtectedFields.run(encryptCategoryName(row.name), row.id);
+      summary.categoryNamesEncrypted++;
+    }
+  });
+
+  migrateCategoryProtectedFields(categoryRows);
+
+  const houseRows = db.prepare(`
+    SELECT
+      id,
+      house_name
+    FROM user_houses
+  `).all();
+
+  const updateHouseProtectedFields = db.prepare(`
+    UPDATE user_houses
+    SET house_name = ?
+    WHERE id = ?
+  `);
+
+  const migrateHouseProtectedFields = db.transaction((rows) => {
+    for (const row of rows) {
+      if (!row.house_name || isEncryptedPayload(row.house_name)) {
+        continue;
+      }
+
+      updateHouseProtectedFields.run(encryptHouseName(row.house_name), row.id);
+      summary.houseNamesEncrypted++;
+    }
+  });
+
+  migrateHouseProtectedFields(houseRows);
+
+  const houseJoinRequestRows = db.prepare(`
+    SELECT
+      id,
+      requested_house_name
+    FROM house_join_requests
+  `).all();
+
+  const updateHouseJoinRequestProtectedFields = db.prepare(`
+    UPDATE house_join_requests
+    SET requested_house_name = ?
+    WHERE id = ?
+  `);
+
+  const migrateHouseJoinRequestProtectedFields = db.transaction((rows) => {
+    for (const row of rows) {
+      if (!row.requested_house_name || isEncryptedPayload(row.requested_house_name)) {
+        continue;
+      }
+
+      updateHouseJoinRequestProtectedFields.run(encryptHouseName(row.requested_house_name), row.id);
+    }
+  });
+
+  migrateHouseJoinRequestProtectedFields(houseJoinRequestRows);
+
+  const mediaRows = db.prepare(`
+    SELECT
+      photo_path,
+      thumbnail_path
+    FROM items
+    WHERE COALESCE(photo_path, '') != '' OR COALESCE(thumbnail_path, '') != ''
+  `).all();
+
+  for (const row of mediaRows) {
+    if (row.photo_path) {
+      const photoPath = resolveStoredPath(row.photo_path);
+      if (photoPath && fs.existsSync(photoPath)) {
+        const photoPayload = fs.readFileSync(photoPath);
+        if (!isEncryptedPayload(photoPayload)) {
+          fs.writeFileSync(
+            photoPath,
+            encryptBufferForStorage(photoPayload, { purpose: ITEM_PHOTO_MEDIA_PURPOSE }),
+            'utf8'
+          );
+          summary.itemPhotosEncrypted++;
+        }
+      }
+    }
+
+    if (row.thumbnail_path) {
+      const thumbnailPath = resolveStoredPath(row.thumbnail_path);
+      if (thumbnailPath && fs.existsSync(thumbnailPath)) {
+        const thumbnailPayload = fs.readFileSync(thumbnailPath);
+        if (!isEncryptedPayload(thumbnailPayload)) {
+          fs.writeFileSync(
+            thumbnailPath,
+            encryptBufferForStorage(thumbnailPayload, { purpose: ITEM_THUMBNAIL_MEDIA_PURPOSE }),
+            'utf8'
+          );
+          summary.itemThumbnailsEncrypted++;
+        }
+      }
+    }
+  }
+
+  const totalChanges = Object.values(summary).reduce((total, count) => total + count, 0);
+  if (totalChanges > 0) {
+    console.log('[Database] Sensitive field backfill completed:', summary);
+  }
+
+  return summary;
+}
+
+export const encryptionBackfillSummary = backfillSensitiveFieldProtection();
 
 export default db;

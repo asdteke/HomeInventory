@@ -1,0 +1,696 @@
+{
+    "items": {
+        "qrcode": {
+            "title": "QR-koodi",
+            "desc": "Voit tulostaa ja kiinnittää tämän QR-koodin tuotteeseen. Skannaus ohjaa suoraan tälle sivulle."
+        },
+        "title_new": "Lisää uusi tuote",
+        "title_edit": "Muokkaa tuotetta",
+        "subtitle": "Syötä tuotteen tiedot",
+        "load_error": "Tuotteen lataaminen epäonnistui",
+        "form": {
+            "name": "Tuotteen nimi",
+            "name_placeholder": "esim. Samsung TV 55 tuumaa",
+            "required": "*",
+            "description": "Kuvaus",
+            "description_placeholder": "Muistiinpanot tuotteesta...",
+            "quantity": "Määrä",
+            "category": "Kategoria",
+            "select_category": "Valitse",
+            "room": "Huone",
+            "select_room": "Valitse huone",
+            "location_details": "Sijaintitiedot",
+            "location_optional": "(Valinnainen)",
+            "location_placeholder": "Etsi tai lisää uusi sijainti...",
+            "location_help": "Missä huoneessa? (esim. 'Sinisen kaapin ylin hylly')",
+            "location_create": "Luo sijainti \"{{name}}\"",
+            "location_privacy": "Sijainnin yksityisyys",
+            "location_public": "Kaikki voivat nähdä tämän sijainnin",
+            "location_private": "Vain sinä voit nähdä tämän",
+            "location_save": "Tallenna sijainti",
+            "location_saving": "Lisää...",
+            "location_selected": "Valittu sijainti: {{name}}",
+            "location_empty": "Huoneessa ei ole vielä määritelty sijaintia. Aloita kirjoittaminen luodaksesi sijainnin.",
+            "photo": "Valokuva",
+            "add_photo": "Lisää",
+            "barcode": "Viivakoodi",
+            "barcode_optional": "(Valinnainen)",
+            "barcode_placeholder": "esim. 8690123456789",
+            "scan_barcode": "Skannaa viivakoodi",
+            "search_db": "Etsi tietokannasta",
+            "search_google": "Hae Googlella",
+            "barcode_saved": "✓ Viivakoodi tallennetaan",
+            "visibility": "Tuotteen näkyvyys",
+            "visibility_public": "Näkyy kaikille kotitalouden jäsenille",
+            "visibility_private": "Näkyy vain sinulle",
+            "submit_add": "Lisää tuote",
+            "submit_save": "Tallenna muutokset",
+            "submitting": "Tallennetaan..."
+        },
+        "messages": {
+            "quick_add_success": "✓ \"{{barcode}}\" lisätty nopeasti - voit muokata myöhemmin",
+            "quick_add_fail": "⚠ Pikalisäys epäonnistui",
+            "searching": "Haetaan...",
+            "found_local": "✓ Paikallinen: rekisteröity nimellä \"{{name}}\"",
+            "found_remote": "✓ Löydetty lähteestä {{source}} {{note}}: \"{{name}}\"",
+            "not_found": "⚠ Tuotetta ei löydy tietokannoista. Voit etsiä Googlella.",
+            "search_fail": "⚠ Haku epäonnistui",
+            "name_required": "Tuotteen nimi vaaditaan",
+            "location_add_error": "Paikan lisääminen epäonnistui"
+        }
+    },
+    "common": {
+        "save": "Tallenna",
+        "cancel": "Peruuta",
+        "loading": "Ladataan...",
+        "error": "Tapahtui virhe",
+        "success": "Toiminto onnistui",
+        "search": "Haku...",
+        "edit": "Muokkaa",
+        "delete": "Poista",
+        "add": "Lisää",
+        "new": "Uusi",
+        "all": "Kaikki",
+        "manage": "Hallinnoi",
+        "help_support": "Ohje & Tuki",
+        "theme": {
+            "light": "Vaalea tila",
+            "dark": "Tumma tila"
+        },
+        "select": "Valitse",
+        "refresh": "Päivitä",
+        "close": "Sulje",
+        "logout": "Kirjaudu ulos",
+        "copyright": "© {{year}} HomeInventory - Kaikki oikeudet pidätetään"
+    },
+    "auth": {
+        "login": {
+            "title": "Kirjaudu sisään",
+            "subtitle": "Hallitse kotivarastosi älykkäästi",
+            "welcome": "Tervetuloa HomeInventoryen",
+            "username_or_email": "Käyttäjänimi tai sähköposti",
+            "password": "Salasana",
+            "forgot_password": "Unohtuiko salasana?",
+            "submit": "Kirjaudu sisään",
+            "submitting": "Kirjaudutaan sisään...",
+            "google_continue": "Jatka Googlen kanssa",
+            "or": "tai",
+            "no_account": "Ei ole tiliä?",
+            "register_link": "Rekisteröidy",
+            "support_contact": "Sisäänkirjautumisongelmissa:",
+            "terms_title": "📋 Käyttöehdot ja vastuuvapauslauseke",
+            "terms_beta": "BETA Versio: HomeInventory on tällä hetkellä testausvaiheessa. Ei anneta takuuta tietojesi säilymisestä tai turvallisuudesta.",
+            "terms_disclaimer": "Vastuuvapauslauseke: Käyttämällä tätä sovellusta hyväksyt, ettet voi vaatia korvausta mahdollisista tietojen menetyksistä, käyttöongelmista tai muista teknisistä vioista.",
+            "terms_backup": "Tiedostojen varmuuskopiointi: Suosittelemme vahvasti tärkeitä tietojasi säännöllisesti varmuuskopioimaan.",
+            "terms_accept": "Kirjautumalla sisään, katsotaan, että olet hyväksynyt nämä ehdot."
+        },
+        "register": {
+            "title": "Tervetuloa HomeInventoryyn",
+            "subtitle": "Luo uusi tili tai liity olemassa olevaan taloon",
+            "create_house": "Luo uusi talo",
+            "join_house": "Liity taloon",
+            "create_house_desc": "🏠 Uusi talo luodaan ja saat yksilöllisen <strong>Taloviainnin</strong>. Jaa tämä avain perheen kanssa samalle inventaariolle pääsemiseksi.",
+            "join_house_desc": "👨‍👩‍👧‍👦 Syötä sinulle jaettu <strong>Taloviain</strong> liittyäksesi olemassa olevaan taloon. Kaikki avaimen saaneet voivat käyttää jaettua inventaariota.",
+            "form_title": "Rekisteröidy",
+            "username": "Käyttäjänimi",
+            "username_placeholder": "esim. john",
+            "email": "Sähköposti",
+            "email_placeholder": "esim. john@example.com",
+            "password": "Salasana",
+            "password_placeholder": "Vähintään 6 merkkiä",
+            "password_confirm": "Vahvista salasana",
+            "password_confirm_placeholder": "Syötä salasana uudelleen",
+            "house_key": "Talon avain",
+            "house_key_placeholder": "Liitä 64-merkkinen talon avain",
+            "submit_create": "Luo uusi talo",
+            "submit_join": "Liity taloon",
+            "submitting": "Rekisteröidytään...",
+            "already_have_account": "Onko sinulla jo tili?",
+            "login_link": "Kirjaudu sisään",
+            "support": "Rekisteröitymisongelmat:",
+            "terms": "Käyttöehdot ja vastuuvapauslauseke",
+            "passwords_mismatch": "Salasanat eivät täsmää",
+            "password_length": "Salasanan on oltava vähintään 6 merkkiä pitkä",
+            "key_required": "Talon avain vaaditaan liittyäksesi olemassa olevaan taloon",
+            "modals": {
+                "key_created": {
+                    "title": "🎉 Talo luotu!",
+                    "subtitle": "Tallenna alla oleva avain turvalliseen paikkaan",
+                    "warning": "Tärkeää: Tämä avain näytetään vain kerran. Jaa se perheenjäsenille, jotta he voivat käyttää samaa varastoa.",
+                    "copy": "Kopioi",
+                    "copied": "Kopioitu",
+                    "button": "Tallenin avaimen, jatka"
+                },
+                "email_verification": {
+                    "title": "📧 Sähköpostivarmistus vaaditaan",
+                    "message": "Tili luotu! Vahvista sähköpostiosoitteesi kirjautuaksesi sisään.",
+                    "step_1": "Lähetimme vahvistussähköpostin osoitteeseen <1>{{email}}</1>.",
+                    "step_2": "Napsauta sähköpostissa olevaa <1>\"Vahvista tilini\"</1> -painiketta.",
+                    "step_3": "Varmistuksen jälkeen <1>voit kirjautua sisään</1>.",
+                    "spam_note": "Tarkista roskaposti/junk-kansio, jos sähköposti ei saavu.",
+                    "key_note": "Tärkeää: Talosi avain lähetettiin myös sähköpostissa. Voit jakaa sen perheenjäsenten kanssa.",
+                    "button": "Selvä, siirry kirjautumiseen"
+                }
+            }
+        },
+        "forgot_password": {
+            "title": "Unohdin salasanan",
+            "subtitle": "Aloita turvallinen palautuskulku päästäksesi tiliisi uudelleen.",
+            "identifier": "Käyttäjätunnus tai sähköpostiosoite",
+            "identifier_placeholder": "esim. john tai john@example.com",
+            "submit": "Aloita palautus",
+            "requesting": "Tarkistetaan...",
+            "email_success": "Jos tili on olemassa, salasanan palautuslinkki, joka on voimassa 15 minuuttia, on lähetetty.",
+            "back_to_login": "Takaisin kirjautumiseen",
+            "recovery_mode_info": "Sähköposti on poistettu käytöstä tällä palvelimella. Jatka palautusavaimella, jonka tallensit tilin luomisen aikana.",
+            "recovery_key": "palautusavain",
+            "recovery_key_placeholder": "esim. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "Uusi salasana",
+            "new_password_placeholder": "Anna uusi vahva salasanasi",
+            "confirm_password": "Vahvista uusi salasana",
+            "confirm_password_placeholder": "Anna salasanasi uudelleen",
+            "reset_submit": "Palauta salasana",
+            "resetting": "Nollataan..."
+        },
+        "reset_password": {
+            "title": "Palauta salasana",
+            "subtitle": "Aseta uusi salasana suojatun linkin avulla.",
+            "missing_token": "Salasanan palautuslinkki näyttää epätäydeltä tai rikki.",
+            "new_password": "Uusi salasana",
+            "new_password_placeholder": "Anna uusi vahva salasanasi",
+            "confirm_password": "Vahvista uusi salasana",
+            "confirm_password_placeholder": "Anna salasanasi uudelleen",
+            "submit": "Päivitä salasana",
+            "submitting": "Päivitetään...",
+            "back_to_login": "Takaisin kirjautumiseen"
+        },
+        "recovery_setup": {
+            "title": "Luo palautusavain",
+            "subtitle": "Ennen kuin tämä on tehty, tiliäsi ei pidetä turvallisena paikallista salasanan palauttamista varten.",
+            "warning": "Tämä avain näytetään vain kerran. Tallenna se salasanan hallintaan tai muuhun turvalliseen offline-paikkaan.",
+            "account": "Tilille {{username}} luodaan palautusavain.",
+            "description": "Koska sähköposti on poistettu käytöstä, voit jatkossa nollata salasanasi vain tällä avaimella.",
+            "submit": "Luo palautusavain",
+            "generating": "Luodaan..."
+        },
+        "recovery_key_modal": {
+            "register_title": "Tallenna palautusavain",
+            "google_title": "Tallenna palautusavain",
+            "setup_title": "Tallenna palautusavain",
+            "reset_title": "Tallenna uusi palautusavaimesi",
+            "settings_title": "Tallenna uusi palautusavaimesi",
+            "subtitle": "Tämä avain näytetään vain kerran.",
+            "warning": "Jos kadotat tämän avaimen, kun sähköposti on poistettu käytöstä, et ehkä voi palauttaa salasanaasi. Kopioi se ja säilytä turvallisesti.",
+            "confirm": "Tallensin avaimen"
+        }
+    },
+    "navigation": {
+        "home": "Koti",
+        "inventory": "Varasto",
+        "rooms": "Huoneet",
+        "categories": "Kategoriat",
+        "settings": "Asetukset",
+        "new_item": "Uusi kohde",
+        "share_house": "Jaa talo",
+        "admin_panel": "Hallintapaneeli",
+        "logout": "Kirjaudu ulos",
+        "menu": "Valikko"
+    },
+    "dashboard": {
+        "welcome": "Tervetuloa, <1>{{name}}</1>! 👋",
+        "subtitle": "Yleiskatsaus varastostasi",
+        "quick_search": "Pikahaku...",
+        "filters": {
+            "private": "🔒 Omat yksityiset esineet",
+            "public": "🌐 Julkinen",
+            "remove": "Tyhjennä suodatin",
+            "no_items": "Suodattimeen ei sovi yhtään esinettä"
+        },
+        "stats": {
+            "total_items": "Yhteensä esineitä",
+            "total_quantity": "Kokonaismäärä",
+            "fullest_room": "Täysi huone",
+            "category_count": "Luokat",
+            "items_suffix": "esineet"
+        },
+        "recent_items": {
+            "title": "Hiljattain lisätyt",
+            "see_all": "Näytä kaikki"
+        },
+        "categories": {
+            "title": "Luokat",
+            "manage": "Hallinnoi",
+            "empty": "Ei tuotteita lisätty vielä"
+        },
+        "rooms": {
+            "title": "Huoneet",
+            "manage": "Hallinnoi"
+        },
+        "quick_actions": {
+            "title": "⚡ Pikatoiminnot",
+            "add_item": "Lisää tuote",
+            "search_item": "Etsi tuote",
+            "categories": "Luokat",
+            "settings": "Asetukset"
+        }
+    },
+    "beta_banner": {
+        "title": "BETA:",
+        "text": "HomeInventory on tällä hetkellä testaus- ja harrastevaiheessa. Tietojen säilyvyydestä tai turvallisuudesta ei anneta takuuta. Ole hyvä ja pidä varmuuskopiot tärkeistä tiedoista.",
+        "contact": "Yhteystiedot:"
+    },
+    "footer": {
+        "rights": "© {{year}} HomeInventory - Kaikki oikeudet pidätetään",
+        "contact": "Yhteystiedot:"
+    },
+    "settings": {
+        "title": "Asetukset",
+        "subtitle": "Hallinnoi sovelluksen asetuksia",
+        "messages": {
+            "house_switched": "✅ {{name}} aktivoitu!",
+            "house_switch_error": "Talon vaihtaminen epäonnistui",
+            "house_joined_success": "✅ Liityit taloon onnistuneesti!",
+            "house_join_error": "Taloihin liittyminen epäonnistui",
+            "house_created_success": "✅ \"{{name}}\" luotu!",
+            "house_create_error": "Talon luominen epäonnistui",
+            "house_left_success": "Jäit talosta onnistuneesti",
+            "house_left_error": "Talosta poistuminen epäonnistui",
+            "house_leave_confirm": "Haluatko varmasti poistua kohteesta \"{{name}}\"?",
+            "backup_downloaded": "✅ Varmuuskopio ladattu onnistuneesti! ({{count}} kohdetta)",
+            "export_error": "❌ Tapahtui virhe viennin aikana",
+            "import_invalid_format": "Virheellinen varmuuskopiotiedoston muoto",
+            "import_success": "✅ {{items}} kohdetta, {{categories}} kategoriaa, {{rooms}} huonetta, {{locations}} sijaintia lisätty.",
+            "import_error": "❌ Tuontivirhe: {{error}}",
+            "password_changed": "Salasana vaihdettu onnistuneesti!",
+            "password_error_current": "Nykyinen salasana on virheellinen",
+            "password_error_invalid": "Lähetetyt tiedot virheellisiä",
+            "session_expired": "Istunto vanhentunut. Kirjaudu sisään uudelleen.",
+            "server_error": "Palvelinvirhe tapahtui",
+            "connection_error": "Yhteyttä palvelimeen ei voitu muodostaa. Tarkista internet-yhteytesi.",
+            "unexpected_error": "Tapahtui odottamaton virhe",
+            "username_changed": "✅ Käyttäjänimi vaihdettu!",
+            "username_error": "Käyttäjänimeä ei voitu vaihtaa",
+            "username_len_error": "Käyttäjänimen on oltava vähintään 3 merkkiä",
+            "fill_all_fields": "Täytä kaikki kentät",
+            "passwords_mismatch": "Uudet salasanat eivät täsmää",
+            "password_min_len": "Uuden salasanan on oltava vähintään 6 merkkiä",
+            "house_request_sent_success": "✅ Liittymispyyntösi on lähetetty!",
+            "request_approved": "✅ Liittymispyyntö hyväksytty",
+            "request_rejected": "Liittymispyyntö hylätty",
+            "request_action_error": "Ei voitu päivittää pyyntöä",
+            "member_kick_confirm": "Haluatko varmasti poistaa \"{{name}}\" talosta?",
+            "member_kicked": "Jäsen poistettu talosta",
+            "member_kick_error": "Jäsentä ei voitu poistaa talosta",
+            "recovery_key_regenerated": "Palautusavain luotu uudelleen",
+            "recovery_key_error": "Palautusavainta ei voitu luoda uudelleen"
+        },
+        "user_profile": {
+            "edit_username": "Vaihda käyttäjätunnus"
+        },
+        "my_houses": {
+            "title": "Taloni",
+            "join_house": "Liity taloon",
+            "join_short": "Liity",
+            "new_house": "Uusi talo",
+            "new_short": "Uusi",
+            "no_house": "Et ole vielä minkään talon jäsen",
+            "owner": "Omistaja",
+            "active": "Aktiivinen",
+            "member_count": "{{count}} jäsentä",
+            "item_count": "{{count}} kohdetta",
+            "switch": "Vaihda",
+            "leave": "Jätä talo",
+            "info": "💡 Voit olla jäsenenä useammassa talossa ja vaihtaa niiden välillä. Jokaisella talolla on oma varasto."
+        },
+        "house_info": {
+            "title": "Aktiivinen talon avain",
+            "key_label": "Talon avain",
+            "mask_key": "•••••••••{{suffix}}",
+            "hide": "Piilota",
+            "show": "Näytä",
+            "copy": "Kopioi",
+            "share_info": "💡 Käyttäjät, joiden kanssa jaat tämän avaimen, voivat käyttää varastoasi käyttämällä \"Liity taloon\" -vaihtoehtoa rekisteröitymisen yhteydessä.",
+            "members_title": "Talon jäsenet ({{count}})",
+            "you": "(Sinä)",
+            "joined_at": "Liittyi: {{date, datetime}}",
+            "no_members": "Ei muita jäseniä vielä",
+            "invite_title": "Kutsu perheenjäseniä",
+            "invite_desc": "Jaa talon avain, jotta perheenjäsenet voivat käyttää samaa varastoa. Jokainen jäsen kirjautuu omalla tilillään, mutta käyttää samoja tietoja.",
+            "active_members": "Aktiiviset jäsenet",
+            "pending_requests": "Odottavat pyynnöt",
+            "no_pending_requests": "Ei vireillä olevia pyyntöjä",
+            "owner_controls": "Omistusohjaimet käytössä",
+            "approve": "Hyväksy",
+            "reject": "Hylkää",
+            "kick": "Poista"
+        },
+        "theme": {
+            "title": "Teema",
+            "dark": "Tumma tila",
+            "light": "Vaalea tila"
+        },
+        "security": {
+            "title": "Tietoturva",
+            "change_password": "Vaihda salasana",
+            "change_password_desc": "Päivitä tilisi salasana",
+            "recovery_key_title": "palautusavain",
+            "recovery_key_desc": "Voit luoda uuden avaimen paikallista salasanan palautusta varten.",
+            "recovery_key_missing": "Tälle tilille ei ole vielä näkyvissä palautusavainta.",
+            "current_key_label": "Tallennettu palautusavain",
+            "recovery_key_unavailable": "Nykyistä palautusavainta ei voida näyttää. Regeneroi se tarvittaessa.",
+            "recovery_key_action": "Regeneroi",
+            "recovery_key_modal_desc": "Jatka vahvistamalla nykyinen salasanasi. Uusi avain näytetään vain kerran.",
+            "recovery_key_loading": "Valmistellaan..."
+        },
+        "data_management": {
+            "title": "Tietojen hallinta",
+            "download_backup": "Lataa varmuuskopio",
+            "downloading": "Ladataan...",
+            "export_json": "Vie JSON-muodossa",
+            "upload_backup": "Lataa varmuuskopio",
+            "uploading": "Ladataan...",
+            "import_json": "Tuo JSON-muodosta"
+        },
+        "about": {
+            "title": "📱 Sovelluksesta",
+            "version": "Versio",
+            "brand": "Brändi",
+            "feedback": "✉️ Lähetä palautetta"
+        },
+        "modals": {
+            "password": {
+                "title": "Vaihda salasana",
+                "current": "Nykyinen salasana",
+                "new": "Uusi salasana",
+                "confirm": "Uusi salasana (Vahvista)",
+                "changing": "Vaihdetaan...",
+                "submit": "Vaihda salasana"
+            },
+            "join_house": {
+                "title": "Liity taloon",
+                "key_placeholder": "Syötä 64-merkkinen talon avain",
+                "key_help": "Syötä avain, jonka sait perheenjäseneltäsi",
+                "name_label": "Nimi tälle talolle (valinnainen)",
+                "name_placeholder": "esim. Vanhempien talo",
+                "joining": "Liitytään...",
+                "submit": "Liity taloon"
+            },
+            "create_house": {
+                "title": "Luo uusi talo",
+                "name_label": "Talon nimi",
+                "name_placeholder": "esim. Kesämökki, Toimisto, Varasto",
+                "name_help": "Jos jätät tyhjäksi, nimeksi tulee \"Uusi taloni\"",
+                "info": "ℹ️ Oletuskategoriat ja huoneet luodaan uudelle talolle. Voit muokata niitä myöhemmin.",
+                "creating": "Luodaan...",
+                "submit": "Luo talo"
+            },
+            "username": {
+                "title": "Vaihda käyttäjänimi",
+                "new_label": "Uusi käyttäjänimi",
+                "placeholder": "Uusi käyttäjänimesi",
+                "help": "3-30 merkkiä, vain kirjaimet, numerot, alaviiva ja viiva",
+                "saving": "Tallennetaan...",
+                "submit": "Vaihda"
+            }
+        },
+        "select_language": "Valitse kieli",
+        "pending_requests": {
+            "title": "Odottavat liittymispyyntöni",
+            "waiting_since": "Odotettu vuodesta: {{date, datetime}}",
+            "pending_badge": "Odottaa"
+        }
+    },
+    "inventory": {
+        "title": "Varasto",
+        "subtitle": "{{count}} kohdetta löydetty",
+        "new_item": "Uusi kohde",
+        "add_first": "Lisää ensimmäinen kohde",
+        "search_placeholder": "Hae kohteita...",
+        "all_categories": "Kaikki kategoriat",
+        "all_rooms": "Kaikki huoneet",
+        "empty_title": "Kohteita ei löytynyt",
+        "empty_filter": "Mikään kohde ei vastaa suodattimiasi",
+        "empty_msg": "Kohteita ei ole lisätty vielä",
+        "delete_confirm": "Haluatko varmasti poistaa tämän kohteen?",
+        "delete_error": "Poistovirhe"
+    },
+    "categories": {
+        "title": "Kategoriat",
+        "subtitle": "{{count}} kategoriaa",
+        "new_category": "Uusi kategoria",
+        "edit_title": "Muokkaa kategoriaa",
+        "new_title": "Uusi Kategoria",
+        "name_label": "Kategorian Nimi",
+        "icon_label": "Kuvake",
+        "color_label": "Väri",
+        "delete_confirm": "Haluatko varmasti poistaa tämän kategorian?",
+        "delete_error": "Poiston virhe"
+    },
+    "rooms": {
+        "title": "Huoneet",
+        "subtitle": "{{count}} huonetta",
+        "new_room": "Uusi Huone",
+        "edit_title": "Muokkaa Huonetta",
+        "new_title": "Uusi Huone",
+        "name_label": "Huoneen Nimi",
+        "description_label": "Kuvaus (Vapaaehtoinen)",
+        "name_placeholder": "esim. Makuuhuone",
+        "desc_placeholder": "esim. Päämakuuhuone",
+        "delete_confirm": "Oletko varma, että haluat poistaa tämän huoneen?",
+        "delete_error": "Poisto epäonnistui"
+    },
+    "admin": {
+        "title": "Hallintapaneeli",
+        "subtitle": "Järjestelmän hallinta ja valvonta",
+        "refresh": "Päivitä",
+        "tabs": {
+            "dashboard": "Kojelauta",
+            "users": "Käyttäjät",
+            "logs": "Lokit",
+            "email": "Lähetä sähköposti"
+        },
+        "stats": {
+            "total_users": "Käyttäjien kokonaismäärä",
+            "new_today": "Tänään: +{{count}} uutta",
+            "total_inventory": "Varaston kokonaismäärä",
+            "inventory_details": "{{rooms}} huonetta, {{categories}} kategoriaa",
+            "banned_users": "Estetyt käyttäjät",
+            "access_blocked": "Pääsy estetty",
+            "server_memory": "Palvelimen muisti",
+            "uptime": "Käyttöaika: {{hours}} tuntia"
+        },
+        "users": {
+            "user": "Käyttäjä",
+            "role": "Rooli",
+            "status": "Tila",
+            "action": "Toiminto",
+            "banned": "Estetty",
+            "active": "Aktiivinen",
+            "unban": "Poista esto",
+            "ban": "Estä",
+            "delete": "Poista tili",
+            "confirm_ban": "Haluatko varmasti {{status}} tämän käyttäjän?",
+            "ban_lift": "poista esto",
+            "ban_apply": "estä",
+            "confirm_delete_1": "Haluatko varmasti poistaa käyttäjän \"{{username}}\"?",
+            "confirm_delete_2": "⚠️ VAROITUS: Tämä POISTAA PYSYVÄSTI KAIKKI tiedot (varastot, huoneet, kategoriat) käyttäjältä \"{{username}}\"!",
+            "confirm_delete_3": "🚨 VIIMEINEN VAROITUS: Tili \"{{username}}\" ja kaikki tiedot POISTETAAN IRTIÄTTÄ. Haluatko jatkaa?"
+        },
+        "logs": {
+            "title": "Ylläpitäjän lokit",
+            "no_logs": "ei lokeja vielä",
+            "errors_title": "Järjestelmävirheet (viimeiset 10)",
+            "no_errors": "// Järjestelmä kunnossa, ei virhelokeja.",
+            "date_fmt": "{{date, datetime}}"
+        },
+        "email": {
+            "title": "Lähetä sähköposti",
+            "to": "Vastaanottaja (To)",
+            "subject": "Aihe",
+            "message": "Viesti (HTML tuettu)",
+            "placeholder_message": "Kirjoita viestisi tähän...",
+            "send": "Lähetä",
+            "sending": "Lähetetään...",
+            "success": "Sähköposti lähetetty onnistuneesti!",
+            "error": "Lähetys epäonnistui"
+        }
+    },
+    "landing": {
+        "nav": {
+            "login": "Kirjaudu"
+        },
+        "hero": {
+            "title_1": "Hallitse kaikkea",
+            "title_2": "Kodissasi!",
+            "description": "Digitoi kotisi inventaario. Luokittele tavarat, kutsu perheesi ja pääse niihin mistä tahansa. Moderni, turvallinen ja helppokäyttöinen.",
+            "cta_start": "Aloita",
+            "cta_register": "Luo tili",
+            "stat_free": "Ilmainen",
+            "stat_access": "Pääsy"
+        },
+        "features": {
+            "title": "Miksi <1>HomeInventory</1>?",
+            "subtitle": "Kaikki ominaisuudet kodin hallinnan yksinkertaistamiseen yhdellä alustalla",
+            "items": {
+                "categorize": {
+                    "title": "Luokittele tavarat",
+                    "desc": "Järjestä kaikki tavarat huoneen ja kategorian mukaan, löydä tarvitsemasi sekunneissa."
+                },
+                "family": {
+                    "title": "Kutsu perhe avaimella",
+                    "desc": "Kutsu perheenjäseniä ainutlaatuisella talosi avaimella, hallinnoi inventaariota yhdessä."
+                },
+                "access": {
+                    "title": "Pääsy mistä tahansa",
+                    "desc": "Kotona, töissä tai lomalla - pääset turvallisesti käsiksi inventaarioosi mistä tahansa."
+                },
+                "barcode": {
+                    "title": "Nopeasti lisää viivakoodilla",
+                    "desc": "Skannaa tuotteen viivakoodit, tiedot täytetään automaattisesti."
+                },
+                "security": {
+                    "title": "Turvallinen ja yksityinen",
+                    "desc": "Tietosi on salattu ja suojattu KVKK-yhteensopivalla infrastruktuurilla."
+                },
+                "backup": {
+                    "title": "Varmuuskopioi & Vie",
+                    "desc": "Varmuuskopioi inventaariosi JSON-muodossa, palauta milloin haluat."
+                }
+            }
+        },
+        "cta_bottom": {
+            "title": "Aloita käyttö nyt!",
+            "description": "Luo ilmainen tili ja digitalisoi kotisi inventaario. Rekisteröityminen vie vain muutaman sekunnin.",
+            "button": "Kirjaudu sisään"
+        },
+        "footer": {
+            "desc": "Helppo ja turvallinen alusta kotisi inventaarion digitalisointiin.",
+            "links": "Pikavalinnat",
+            "contact": "Ota yhteyttä",
+            "copyright": "© {{year}} HomeInventory. Kaikki oikeudet pidätetään."
+        },
+        "preview_privacy_notice": "Demonäkymä: ei näytetä todellisia käyttäjätietoja."
+    },
+    "intro": {
+        "inventory": {
+            "title": "Varasto",
+            "content": "Täällä voit lisätä ja luetteloida tavarasi. Seuraa kaikkia kotitavaroita yhdessä paikassa!"
+        },
+        "house_key": {
+            "title": "Talon avain",
+            "content": "Tämä on talosi avain, käytä sitä kutsuaksesi muita. Lisää perheenjäseniä taloosi!"
+        },
+        "categories": {
+            "title": "Kategoriat",
+            "content": "Järjestä tavarasi kategorioihin. Elektroniikka, huonekalut, keittiö ja muuta!"
+        },
+        "buttons": {
+            "back": "Takaisin",
+            "close": "Sulje",
+            "last": "Valmis",
+            "next": "Seuraava",
+            "skip": "Ohita",
+            "open": "Avaa"
+        }
+    },
+    "google_house_select": {
+        "title": "Tervetuloa!",
+        "subtitle": "Kirjauduit sisään Googlen avulla. Valitse nyt talo.",
+        "welcome_options": "Mitä haluaisit tehdä?",
+        "create": {
+            "title": "Luo uusi talo",
+            "desc": "Aloita oma inventaariosi"
+        },
+        "join": {
+            "title": "Liity olemassa olevaan taloon",
+            "desc": "Liity perheenjäsenen taloon"
+        },
+        "back": "Takaisin",
+        "house_name": "Talon nimi (valinnainen)",
+        "house_name_placeholder": "esim. Kotini, Toimisto",
+        "house_name_hint": "Jos jätetään tyhjäksi, talon nimeksi tulee \"Kotini\"",
+        "house_key": "Talon avain",
+        "house_key_placeholder": "Syötä talon avain",
+        "house_key_hint": "Syötä 64-merkkinen avain, jonka sait perheenjäseneltä",
+        "house_name_join": "Nimi tälle talolle (valinnainen)",
+        "submit_create": "Luo talo",
+        "submit_join": "Liity taloon",
+        "processing": "Käsitellään..."
+    },
+    "scanner": {
+        "title": "Viivakoodinlukija",
+        "qr_title": "QR-koodin lukija",
+        "init": "Käynnistetään kamera...",
+        "permission_error": "Kameran lupa evätty. Tarkista selaimen asetukset.",
+        "busy_error": "Kamera varattu. Sulje muut sovellukset.",
+        "not_found_error": "Kameraa ei löydy.",
+        "generic_error": "Kameraa ei voitu käynnistää.",
+        "hint": "Keskitä viivakoodi kehykseen",
+        "qr_hint": "Kohdista QR-koodi kehykseen",
+        "searching": "Etsitään tuotetta...",
+        "found_local": "Jo rekisteröity!",
+        "found_local_msg": "Tämä viivakoodi on jo varastossasi.",
+        "found_online": "Tuote löytyi!",
+        "google_result": "⚡ Google-hakutulos - tarkista",
+        "barcode": "Viivakoodi: {{code}}",
+        "new_product": "Uusi tuote",
+        "not_found_db": "Tätä viivakoodia ei löytynyt tietokannoista.",
+        "google_search": "Hae Googlella",
+        "quick_add": "Pikalisäys (Muokkaa myöhemmin)",
+        "rescan": "Skannaa uudelleen",
+        "retry": "Yritä uudelleen",
+        "flash_on": "🔦 Salama päällä",
+        "flash_unsupported": "Salamaa ei tueta",
+        "zoom_hint": "💡 Suurenna zoomia selkeyden lisäämiseksi ja pidä puhelin vakaana",
+        "found_item_redirect": "Tuote löytyi! Uudelleenohjataan...",
+        "found_page_redirect": "Sivusto löytyi! Uudelleenohjataan...",
+        "invalid_qr": "Tämä QR-koodi ei ole tätä sovellusta varten.",
+        "not_found": "Tuotetta ei löytynyt. Kokeile eri viivakoodia."
+    },
+    "item_qr": {
+        "hint_mobile": "📱 Skannaa tämä QR-koodi puhelimellasi päästäksesi tuotteeseen nopeasti",
+        "network_ip": "Verkon IP",
+        "url_loading": "Ladataan URL-osoitetta...",
+        "copied": "Kopioitu!",
+        "copy_url": "Kopioi URL",
+        "download": "Lataa QR",
+        "usage_title": "Käyttö",
+        "usage_desc": "Tulosta QR-koodi ja kiinnitä se tuotteeseen. Skannaa puhelimellasi ja pääset heti tälle sivulle!"
+    },
+    "house_access_pending": {
+        "eyebrow": "Pääsy taloon",
+        "fallback_house": "Valittu talo",
+        "signed_in_as": "Kirjautunut sisään nimellä {{username}}",
+        "logout": "Kirjaudu ulos",
+        "messages": {
+            "create_error": "Taloa ei voitu luoda",
+            "join_success": "Liittymispyyntösi on lähetetty",
+            "join_error": "Liittymispyyntöä ei voitu lähettää"
+        },
+        "pending": {
+            "title": "Odotetaan talon omistajan hyväksyntää",
+            "description": "Pyyntösi \"{{house}}\" odottaa edelleen päätöstä.",
+            "current_request": "Nykyinen vireillä oleva pyyntö: {{house}}"
+        },
+        "no_house": {
+            "title": "Et ole tällä hetkellä yhteydessä taloon",
+            "description": "Luo uusi talo tai lähetä liittymispyyntö olemassa olevaan."
+        },
+        "create": {
+            "title": "Luo uusi talo",
+            "description": "Aloita oma kotisi inventointi ja jatka heti.",
+            "name_label": "Talon nimi",
+            "name_placeholder": "esim. Kotini, kesämökki, varasto",
+            "submitting": "Luodaan...",
+            "submit": "Luo talo"
+        },
+        "join": {
+            "title": "Lähetä liittymispyyntö",
+            "description": "Anna talon avain ja lähetä pyyntö suoraan talon omistajalle.",
+            "key_label": "talon avain",
+            "key_placeholder": "Syötä 64-merkkinen taloavain",
+            "submitting": "Lähetetään...",
+            "submit": "Lähetä pyyntö"
+        }
+    }
+}

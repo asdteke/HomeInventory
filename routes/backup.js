@@ -2,6 +2,20 @@ import express from 'express';
 import rateLimit from 'express-rate-limit';
 import db from '../database.js';
 import { authenticateToken } from '../middleware/auth.js';
+import {
+    buildBarcodeLookup,
+    decryptCategoryRecord,
+    decryptItemRecord,
+    decryptLocationRecord,
+    decryptRoomRecord,
+    encryptCategoryName,
+    encryptItemBarcode,
+    encryptItemDescription,
+    encryptItemName,
+    encryptLocationName,
+    encryptRoomDescription,
+    encryptRoomName
+} from '../utils/protectedFields.js';
 
 const router = express.Router();
 const MAX_IMPORT_ITEMS = 5000;
@@ -13,6 +27,18 @@ const backupRateLimiter = rateLimit({
     legacyHeaders: false,
     message: { error: 'Çok fazla yedekleme isteği. Lütfen daha sonra tekrar deneyin.' }
 });
+
+function buildNameMap(records) {
+    const map = new Map();
+
+    for (const record of records) {
+        if (record?.name && !map.has(record.name)) {
+            map.set(record.name, record);
+        }
+    }
+
+    return map;
+}
 
 // GET /api/backup/export - Export all data for current house
 router.get('/export', authenticateToken, backupRateLimiter, (req, res) => {
@@ -38,13 +64,17 @@ router.get('/export', authenticateToken, backupRateLimiter, (req, res) => {
             LEFT JOIN locations l ON i.location_id = l.id
             WHERE i.house_key = ?
             ORDER BY i.created_at DESC
-        `).all(houseKey);
+        `).all(houseKey).map(decryptItemRecord);
 
         // Get all categories for this house
-        const categories = db.prepare('SELECT id, name, icon, color FROM categories WHERE house_key = ?').all(houseKey);
+        const categories = db.prepare('SELECT id, name, icon, color FROM categories WHERE house_key = ?')
+            .all(houseKey)
+            .map(decryptCategoryRecord);
 
         // Get all rooms for this house
-        const rooms = db.prepare('SELECT id, name, description FROM rooms WHERE house_key = ?').all(houseKey);
+        const rooms = db.prepare('SELECT id, name, description FROM rooms WHERE house_key = ?')
+            .all(houseKey)
+            .map(decryptRoomRecord);
 
         // Get all locations for this house
         const locations = db.prepare(`
@@ -52,7 +82,7 @@ router.get('/export', authenticateToken, backupRateLimiter, (req, res) => {
             FROM locations l
             LEFT JOIN rooms r ON l.room_id = r.id
             WHERE l.house_key = ?
-        `).all(houseKey);
+        `).all(houseKey).map(decryptLocationRecord);
 
         const exportData = {
             version: '1.0',
@@ -101,17 +131,46 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
 
         // Import operation in a transaction
         const importAll = db.transaction(() => {
+            const existingCategoriesByName = buildNameMap(
+                db.prepare('SELECT * FROM categories WHERE house_key = ?')
+                    .all(houseKey)
+                    .map(decryptCategoryRecord)
+            );
+
+            const existingRoomsByName = buildNameMap(
+                db.prepare('SELECT * FROM rooms WHERE house_key = ?')
+                    .all(houseKey)
+                    .map(decryptRoomRecord)
+            );
+
+            const existingLocationsByName = buildNameMap(
+                db.prepare('SELECT * FROM locations WHERE house_key = ?')
+                    .all(houseKey)
+                    .map(decryptLocationRecord)
+            );
+
             // Import categories
             if (categories && Array.isArray(categories)) {
                 const insertCategory = db.prepare('INSERT INTO categories (name, icon, color, house_key) VALUES (?, ?, ?, ?)');
                 for (const cat of categories) {
                     // Check if category already exists
-                    const existing = db.prepare('SELECT id FROM categories WHERE name = ? AND house_key = ?').get(cat.name, houseKey);
+                    const existing = existingCategoriesByName.get(cat.name);
                     if (existing) {
                         categoryMap[cat.id] = existing.id;
                     } else {
-                        const result = insertCategory.run(cat.name, cat.icon || '📦', cat.color || '#6366f1', houseKey);
+                        const result = insertCategory.run(
+                            encryptCategoryName(cat.name),
+                            cat.icon || '📦',
+                            cat.color || '#6366f1',
+                            houseKey
+                        );
                         categoryMap[cat.id] = result.lastInsertRowid;
+                        existingCategoriesByName.set(cat.name, {
+                            id: result.lastInsertRowid,
+                            name: cat.name,
+                            icon: cat.icon || '📦',
+                            color: cat.color || '#6366f1'
+                        });
                         importedCategories++;
                     }
                 }
@@ -121,12 +180,21 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
             if (rooms && Array.isArray(rooms)) {
                 const insertRoom = db.prepare('INSERT INTO rooms (name, description, house_key) VALUES (?, ?, ?)');
                 for (const room of rooms) {
-                    const existing = db.prepare('SELECT id FROM rooms WHERE name = ? AND house_key = ?').get(room.name, houseKey);
+                    const existing = existingRoomsByName.get(room.name);
                     if (existing) {
                         roomMap[room.id] = existing.id;
                     } else {
-                        const result = insertRoom.run(room.name, room.description || '', houseKey);
+                        const result = insertRoom.run(
+                            encryptRoomName(room.name),
+                            room.description ? encryptRoomDescription(room.description) : '',
+                            houseKey
+                        );
                         roomMap[room.id] = result.lastInsertRowid;
+                        existingRoomsByName.set(room.name, {
+                            id: result.lastInsertRowid,
+                            name: room.name,
+                            description: room.description || ''
+                        });
                         importedRooms++;
                     }
                 }
@@ -136,7 +204,7 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
             if (locations && Array.isArray(locations)) {
                 const insertLocation = db.prepare('INSERT INTO locations (name, room_id, created_by, house_key) VALUES (?, ?, ?, ?)');
                 for (const loc of locations) {
-                    const existing = db.prepare('SELECT id FROM locations WHERE name = ? AND house_key = ?').get(loc.name, houseKey);
+                    const existing = existingLocationsByName.get(loc.name);
                     if (existing) {
                         locationMap[loc.id] = existing.id;
                     } else {
@@ -145,11 +213,16 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
                         if (loc.room_id && roomMap[loc.room_id]) {
                             roomId = roomMap[loc.room_id];
                         } else if (loc.room_name) {
-                            const room = db.prepare('SELECT id FROM rooms WHERE name = ? AND house_key = ?').get(loc.room_name, houseKey);
+                            const room = existingRoomsByName.get(loc.room_name);
                             if (room) roomId = room.id;
                         }
-                        const result = insertLocation.run(loc.name, roomId, req.user.id, houseKey);
+                        const result = insertLocation.run(encryptLocationName(loc.name), roomId, req.user.id, houseKey);
                         locationMap[loc.id] = result.lastInsertRowid;
+                        existingLocationsByName.set(loc.name, {
+                            id: result.lastInsertRowid,
+                            name: loc.name,
+                            room_id: roomId
+                        });
                         importedLocations++;
                     }
                 }
@@ -157,8 +230,8 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
 
             // Import items
             const insertItem = db.prepare(`
-                INSERT INTO items (name, description, quantity, barcode, category_id, room_id, location_id, user_id, house_key)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO items (name, description, quantity, barcode, barcode_lookup, category_id, room_id, location_id, user_id, house_key)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             `);
 
             for (const item of items) {
@@ -167,7 +240,7 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
                 if (item.category_id && categoryMap[item.category_id]) {
                     categoryId = categoryMap[item.category_id];
                 } else if (item.category_name) {
-                    const cat = db.prepare('SELECT id FROM categories WHERE name = ? AND house_key = ?').get(item.category_name, houseKey);
+                    const cat = existingCategoriesByName.get(item.category_name);
                     if (cat) categoryId = cat.id;
                 }
 
@@ -176,7 +249,7 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
                 if (item.room_id && roomMap[item.room_id]) {
                     roomId = roomMap[item.room_id];
                 } else if (item.room_name) {
-                    const room = db.prepare('SELECT id FROM rooms WHERE name = ? AND house_key = ?').get(item.room_name, houseKey);
+                    const room = existingRoomsByName.get(item.room_name);
                     if (room) roomId = room.id;
                 }
 
@@ -185,15 +258,16 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
                 if (item.location_id && locationMap[item.location_id]) {
                     locationId = locationMap[item.location_id];
                 } else if (item.location_name) {
-                    const loc = db.prepare('SELECT id FROM locations WHERE name = ? AND house_key = ?').get(item.location_name, houseKey);
+                    const loc = existingLocationsByName.get(item.location_name);
                     if (loc) locationId = loc.id;
                 }
 
                 insertItem.run(
-                    item.name,
-                    item.description || '',
+                    encryptItemName(item.name),
+                    item.description ? encryptItemDescription(item.description) : '',
                     item.quantity || 1,
-                    item.barcode || null,
+                    item.barcode ? encryptItemBarcode(item.barcode) : null,
+                    buildBarcodeLookup(item.barcode),
                     categoryId,
                     roomId,
                     locationId,

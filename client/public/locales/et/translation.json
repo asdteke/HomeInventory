@@ -1,0 +1,696 @@
+{
+    "items": {
+        "qrcode": {
+            "title": "QR-kood",
+            "desc": "Saad selle QR-koodi välja printida ja eseme külge kleepida. Selle skaneerimine suunab otse sellele lehele."
+        },
+        "title_new": "Lisa uus ese",
+        "title_edit": "Muuda eset",
+        "subtitle": "Sisesta üksuse andmed",
+        "load_error": "Üksust ei õnnestunud laadida",
+        "form": {
+            "name": "Üksuse nimi",
+            "name_placeholder": "nt Samsung TV 55 tolli",
+            "required": "*",
+            "description": "Kirjeldus",
+            "description_placeholder": "Märkused üksuse kohta...",
+            "quantity": "Kogus",
+            "category": "Kategooria",
+            "select_category": "Vali",
+            "room": "Tuba",
+            "select_room": "Vali tuba",
+            "location_details": "Asukoha andmed",
+            "location_optional": "(valikuline)",
+            "location_placeholder": "Otsi või lisa uus asukoht...",
+            "location_help": "Kus toas? (nt 'Sinise kapis ülemine riiul')",
+            "location_create": "Loo asukoht \"{{name}}\"",
+            "location_privacy": "Asukoha privaatsus",
+            "location_public": "Kõik näevad seda asukohta",
+            "location_private": "Ainult sina näed seda",
+            "location_save": "Salvesta asukoht",
+            "location_saving": "Lisamine...",
+            "location_selected": "Valitud asukoht: {{name}}",
+            "location_empty": "Selles toas pole veel asukohta määratud. Alusta trükkimist, et luua uus.",
+            "photo": "Foto",
+            "add_photo": "Lisa",
+            "barcode": "Vöötkood",
+            "barcode_optional": "(Valikuline)",
+            "barcode_placeholder": "nt 8690123456789",
+            "scan_barcode": "Skaneeri vöötkood",
+            "search_db": "Otsi andmebaasist",
+            "search_google": "Otsi Google'is",
+            "barcode_saved": "✓ Vöötkood salvestatakse",
+            "visibility": "Kauba nähtavus",
+            "visibility_public": "Nähtav kõigile pereliikmetele",
+            "visibility_private": "Ainult sinu jaoks nähtav",
+            "submit_add": "Lisa ese",
+            "submit_save": "Salvesta muudatused",
+            "submitting": "Salvestatakse..."
+        },
+        "messages": {
+            "quick_add_success": "✓ \"{{barcode}}\" kiire lisamine - saad hiljem redigeerida",
+            "quick_add_fail": "⚠ Kiire lisamine ebaõnnestus",
+            "searching": "Otsin...",
+            "found_local": "✓ Kohalik: registreeritud kui \"{{name}}\"",
+            "found_remote": "✓ Leitud {{source}} {{note}}: \"{{name}}\"",
+            "not_found": "⚠ Toodet andmebaasist ei leitud. Saate otsida Google'is.",
+            "search_fail": "⚠ Otsing ebaõnnestus",
+            "name_required": "Eseme nimi on nõutud",
+            "location_add_error": "Asukoha lisamine ebaõnnestus"
+        }
+    },
+    "common": {
+        "save": "Salvesta",
+        "cancel": "Tühista",
+        "loading": "Laadimine...",
+        "error": "Ilmnes viga",
+        "success": "Tegevus õnnestus",
+        "search": "Otsi...",
+        "edit": "Muuda",
+        "delete": "Kustuta",
+        "add": "Lisa",
+        "new": "Uus",
+        "all": "Kõik",
+        "manage": "Halda",
+        "help_support": "Abi ja tugi",
+        "theme": {
+            "light": "Hele režiim",
+            "dark": "Tume režiim"
+        },
+        "select": "Vali",
+        "refresh": "Värskenda",
+        "close": "Sule",
+        "logout": "Logi välja",
+        "copyright": "© {{year}} HomeInventory - Kõik õigused kaitstud"
+    },
+    "auth": {
+        "login": {
+            "title": "Logi sisse",
+            "subtitle": "Halda kogu oma koduse inventari nutikalt",
+            "welcome": "Tere tulemast HomeInventory'sse",
+            "username_or_email": "Kasutajanimi või e-post",
+            "password": "Parool",
+            "forgot_password": "Unustasid parooli?",
+            "submit": "Logi sisse",
+            "submitting": "Sisselogimine...",
+            "google_continue": "Jätka Google'iga",
+            "or": "või",
+            "no_account": "Kas pole veel kontot?",
+            "register_link": "Registreeru",
+            "support_contact": "Sisselogimise probleemide korral:",
+            "terms_title": "📋 Kasutustingimused ja vastutusest loobumine",
+            "terms_beta": "BETA versioon: HomeInventory on praegu testimisetapis. Teie andmete püsivuse või turvalisuse osas garantiid ei anta.",
+            "terms_disclaimer": "Vastutusest loobumine: Selle rakenduse kasutamisel nõustute, et te ei saa nõuda hüvitist võimaliku andmekao, juurdepääsuhäirete või muude tehniliste rikete eest.",
+            "terms_backup": "Andmete varundamine: Soovitame tungivalt regulaarselt varundada oma olulised andmed.",
+            "terms_accept": "Sisselogimisel loetakse, et olete need tingimused aktsepteerinud."
+        },
+        "register": {
+            "title": "Tere tulemast HomeInventory-sse",
+            "subtitle": "Looge uus konto või liituge olemasoleva majaga",
+            "create_house": "Loo uus maja",
+            "join_house": "Liitu majaga",
+            "create_house_desc": "🏠 Luues uue maja saate ainulaadse <strong>majavõtme</strong>. Jagage seda võtit perega, et pääseda samale inventarile.",
+            "join_house_desc": "👨‍👩‍👧‍👦 Sisestage teile jagatud <strong>majavõti</strong>, et liituda olemasoleva majaga. Kõik, kellel on võti, saavad pääseda jagatud inventarile.",
+            "form_title": "Registreeru",
+            "username": "Kasutajanimi",
+            "username_placeholder": "nt john",
+            "email": "E-post",
+            "email_placeholder": "nt john@example.com",
+            "password": "Parool",
+            "password_placeholder": "Vähemalt 6 tähemärki",
+            "password_confirm": "Kinnita parool",
+            "password_confirm_placeholder": "Sisesta parool uuesti",
+            "house_key": "Maja võti",
+            "house_key_placeholder": "Kleebi 64-tähemärgi pikkune maja võti",
+            "submit_create": "Loo uus maja",
+            "submit_join": "Liitu majaga",
+            "submitting": "Registreerimine...",
+            "already_have_account": "Kas sul on juba konto?",
+            "login_link": "Logi sisse",
+            "support": "Registreerimisprobleemid:",
+            "terms": "Kasutustingimused ja vastutusest loobumine",
+            "passwords_mismatch": "Paroolid ei ühti",
+            "password_length": "Parool peab olema vähemalt 6 tähemärki",
+            "key_required": "Olemasolevasse majja liitumiseks on vajalik maja võti",
+            "modals": {
+                "key_created": {
+                    "title": "🎉 Maja loodud!",
+                    "subtitle": "Salvesta allpool olev võti turvalisse kohta",
+                    "warning": "Tähtis: seda võtit näidatakse ainult üks kord. Jaga seda pereliikmetega, et nad saaksid juurde pääseda samale inventuurile.",
+                    "copy": "Kopeeri",
+                    "copied": "Kopeeritud",
+                    "button": "Ma salvestasin võtmе, jätka"
+                },
+                "email_verification": {
+                    "title": "📧 E-posti kinnitamine on vajalik",
+                    "message": "Konto loodud! Palun kinnita oma e-posti aadress, et sisse logida.",
+                    "step_1": "Saatsime kinnituskirja aadressile <1>{{email}}</1>.",
+                    "step_2": "Klõpsa e-kirjas <1>\"Kinnita minu konto\"</1> nupule.",
+                    "step_3": "Pärast kinnitamist, <1>saate sisse logida</1>.",
+                    "spam_note": "Kontrollige rämpsposti/prügikasti kausta, kui e-kiri ei jõua kohale.",
+                    "key_note": "Tähtis: Teie maja võti saadeti samuti e-kirjas. Saate seda jagada pereliikmetega.",
+                    "button": "Okei, Mine Sisselogimisele"
+                }
+            }
+        },
+        "forgot_password": {
+            "title": "Unustasin parooli",
+            "subtitle": "Kontole uuesti juurdepääsuks alustage turvalist taastevoogu.",
+            "identifier": "Kasutajanimi või e-post",
+            "identifier_placeholder": "nt. john või john@example.com",
+            "submit": "Alustage taastamist",
+            "requesting": "Kontrollimine...",
+            "email_success": "Kui konto on olemas, on saadetud parooli lähtestamise link, mis kehtib 15 minutit.",
+            "back_to_login": "Tagasi sisselogimise juurde",
+            "recovery_mode_info": "E-post on selles serveris keelatud. Jätkake konto seadistamise ajal salvestatud taastevõtmega.",
+            "recovery_key": "taastevõti",
+            "recovery_key_placeholder": "nt. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "Uus parool",
+            "new_password_placeholder": "Sisestage oma uus tugev parool",
+            "confirm_password": "Kinnitage uus parool",
+            "confirm_password_placeholder": "Sisestage oma parool uuesti",
+            "reset_submit": "Lähtestage parool",
+            "resetting": "Lähtestamine..."
+        },
+        "reset_password": {
+            "title": "Lähtestage parool",
+            "subtitle": "Uue parooli määramiseks kasutage turvalist linki.",
+            "missing_token": "Parooli lähtestamise link näib olevat puudulik või katkine.",
+            "new_password": "Uus parool",
+            "new_password_placeholder": "Sisestage oma uus tugev parool",
+            "confirm_password": "Kinnitage uus parool",
+            "confirm_password_placeholder": "Sisestage oma parool uuesti",
+            "submit": "Värskenda parooli",
+            "submitting": "Värskendamine...",
+            "back_to_login": "Tagasi sisselogimise juurde"
+        },
+        "recovery_setup": {
+            "title": "Looge taastevõti",
+            "subtitle": "Kuni selle lõpetamiseni ei peeta teie kontot kohaliku parooli taastamise jaoks turvaliseks.",
+            "warning": "Seda klahvi näidatakse ainult üks kord. Salvestage see paroolihaldurisse või muusse turvalisesse võrguühenduseta asukohta.",
+            "account": "Konto {{username}} jaoks luuakse taastevõti.",
+            "description": "Kuna e-post on keelatud, saate edaspidi oma parooli lähtestada ainult selle võtmega.",
+            "submit": "Looge taastevõti",
+            "generating": "Loomine..."
+        },
+        "recovery_key_modal": {
+            "register_title": "Salvestage oma taastevõti",
+            "google_title": "Salvestage oma taastevõti",
+            "setup_title": "Salvestage oma taastevõti",
+            "reset_title": "Salvestage oma uus taastevõti",
+            "settings_title": "Salvestage oma uus taastevõti",
+            "subtitle": "Seda klahvi näidatakse ainult üks kord.",
+            "warning": "Kui kaotate selle võtme, kui meil on keelatud, ei pruugi teil olla võimalik oma parooli taastada. Kopeerige see ja hoidke seda turvaliselt.",
+            "confirm": "Salvestasin võtme"
+        }
+    },
+    "navigation": {
+        "home": "Avaleht",
+        "inventory": "Inventar",
+        "rooms": "Toalised",
+        "categories": "Kategooriad",
+        "settings": "Seaded",
+        "new_item": "Uus Ese",
+        "share_house": "Jaga Maja",
+        "admin_panel": "Admin Paneel",
+        "logout": "Logi Välja",
+        "menu": "Menüü"
+    },
+    "dashboard": {
+        "welcome": "Tere tulemast, <1>{{name}}</1>! 👋",
+        "subtitle": "Ülevaade teie inventarist",
+        "quick_search": "Kiire otsing...",
+        "filters": {
+            "private": "🔒 Minu privaatesemed",
+            "public": "🌐 Avalik",
+            "remove": "Tühjenda filter",
+            "no_items": "Ükski ese ei vasta sellele filtrile"
+        },
+        "stats": {
+            "total_items": "Kõik esemed",
+            "total_quantity": "Koguhulk",
+            "fullest_room": "Täisim tuba",
+            "category_count": "Kategooriad",
+            "items_suffix": "esemed"
+        },
+        "recent_items": {
+            "title": "Hiljuti lisatud",
+            "see_all": "Vaata kõiki"
+        },
+        "categories": {
+            "title": "Kategooriad",
+            "manage": "Halda",
+            "empty": "Ühtegi eset veel lisatud"
+        },
+        "rooms": {
+            "title": "Ruumid",
+            "manage": "Halda"
+        },
+        "quick_actions": {
+            "title": "⚡ Kiired toimingud",
+            "add_item": "Lisa ese",
+            "search_item": "Otsi esemeid",
+            "categories": "Kategooriad",
+            "settings": "Seaded"
+        }
+    },
+    "beta_banner": {
+        "title": "BEETA:",
+        "text": "HomeInventory on hetkel testimise ja hobi etapis. Andmete säilimisele või turvalisusele ei anta garantiid. Palun hoidke olulist teavet varukoopiatena.",
+        "contact": "Kontakt:"
+    },
+    "footer": {
+        "rights": "© {{year}} HomeInventory - Kõik õigused kaitstud",
+        "contact": "Kontakt:"
+    },
+    "settings": {
+        "title": "Seaded",
+        "subtitle": "Halda rakenduse eelistusi",
+        "messages": {
+            "house_switched": "✅ {{name}} aktiveeritud!",
+            "house_switch_error": "Ümberlülitus majja ebaõnnestus",
+            "house_joined_success": "✅ Sa liitusid majaga edukalt!",
+            "house_join_error": "Liitumine majaga ebaõnnestus",
+            "house_created_success": "✅ \"{{name}}\" loodud!",
+            "house_create_error": "Maja loomine ebaõnnestus",
+            "house_left_success": "Majast lahkumine õnnestus",
+            "house_left_error": "Majast lahkumine ebaõnnestus",
+            "house_leave_confirm": "Kas oled kindel, et soovid lahkuda majast \"{{name}}\"?",
+            "backup_downloaded": "✅ Varukoopia allalaadimine õnnestus! ({{count}} eset)",
+            "export_error": "❌ Eksportimise käigus ilmnes viga",
+            "import_invalid_format": "Varukoopia faili formaat ei sobi",
+            "import_success": "✅ {{items}} eset, {{categories}} kategooriat, {{rooms}} tuba, {{locations}} asukohta lisatud.",
+            "import_error": "❌ Importimise viga: {{error}}",
+            "password_changed": "Parool edukalt vahetatud!",
+            "password_error_current": "Praegune parool on vale",
+            "password_error_invalid": "Saadetud andmed ei sobi",
+            "session_expired": "Sessioon on aegunud. Palun logige uuesti sisse.",
+            "server_error": "Serveris tekkis viga",
+            "connection_error": "Serveriga ei õnnestu ühendust luua. Kontrollige oma internetiühendust.",
+            "unexpected_error": "Ilmnes ootamatu viga",
+            "username_changed": "✅ Kasutajanimi muudetud!",
+            "username_error": "Kasutajanime ei õnnestu muuta",
+            "username_len_error": "Kasutajanimi peab olema vähemalt 3 tähemärki",
+            "fill_all_fields": "Palun täitke kõik väljad",
+            "passwords_mismatch": "Uued paroolid ei ühti",
+            "password_min_len": "Uus parool peab olema vähemalt 6 tähemärki",
+            "house_request_sent_success": "✅ Sinu liitumissoov on saadetud!",
+            "request_approved": "✅ Liitumistaotlus kinnitatud",
+            "request_rejected": "Liitumistaotlus lükati tagasi",
+            "request_action_error": "Päringut ei saanud värskendada",
+            "member_kick_confirm": "Kas olete kindel, et soovite \"{{name}}\" majast eemaldada?",
+            "member_kicked": "Liige eemaldati majast",
+            "member_kick_error": "Liikmest ei saanud majast eemaldada",
+            "recovery_key_regenerated": "Taastevõti taastati",
+            "recovery_key_error": "Taastevõtit ei saanud uuesti luua"
+        },
+        "user_profile": {
+            "edit_username": "Muuda kasutajanime"
+        },
+        "my_houses": {
+            "title": "Minu majad",
+            "join_house": "Liitu majaga",
+            "join_short": "Liitu",
+            "new_house": "Uus maja",
+            "new_short": "Uus",
+            "no_house": "Te ei ole veel ühegi maja liige",
+            "owner": "Omanik",
+            "active": "Aktiivne",
+            "member_count": "{{count}} liiget",
+            "item_count": "{{count}} eset",
+            "switch": "Vaheta",
+            "leave": "Lahku majast",
+            "info": "💡 Sa saad kuuluda mitmesse majja ja nende vahel vahetada. Igal majal on eraldi inventar."
+        },
+        "house_info": {
+            "title": "Aktiivse maja võti",
+            "key_label": "Maja võti",
+            "mask_key": "•••••••••{{suffix}}",
+            "hide": "Peida",
+            "show": "Näita",
+            "copy": "Kopeeri",
+            "share_info": "💡 Kasutajad, kellega sa seda võtit jagad, pääsevad sinu inventarile ligi, kasutades registreerimisel valikut \"Liitu majaga\".",
+            "members_title": "Maja liikmed ({{count}})",
+            "you": "(Sina)",
+            "joined_at": "Liitus: {{date, datetime}}",
+            "no_members": "Teisi liikmeid veel pole",
+            "invite_title": "Kutsu pereliikmeid",
+            "invite_desc": "Jaga oma maja võtit, et pereliikmed pääseksid samale inventarile. Iga liige logib sisse oma kontoga, kuid pääseb ligi samadele andmetele.",
+            "active_members": "Aktiivsed liikmed",
+            "pending_requests": "Ootel taotlused",
+            "no_pending_requests": "Ootel taotlusi pole",
+            "owner_controls": "Omaniku juhtnupud on lubatud",
+            "approve": "Kinnitage",
+            "reject": "Keeldu",
+            "kick": "Eemalda"
+        },
+        "theme": {
+            "title": "Teema",
+            "dark": "Tume režiim",
+            "light": "Hele režiim"
+        },
+        "security": {
+            "title": "Turvalisus",
+            "change_password": "Muuda parooli",
+            "change_password_desc": "Uuenda oma konto parooli",
+            "recovery_key_title": "taastevõti",
+            "recovery_key_desc": "Saate luua kohaliku parooli taastamiseks uue võtme.",
+            "recovery_key_missing": "Selle konto jaoks pole veel taastevõtit näha.",
+            "current_key_label": "Salvestatud taastevõti",
+            "recovery_key_unavailable": "Praegust taastevõtit ei saa kuvada. Vajadusel taastage see.",
+            "recovery_key_action": "Regenereerige",
+            "recovery_key_modal_desc": "Jätkamiseks kinnitage oma praegune parool. Uut võtit näidatakse ainult üks kord.",
+            "recovery_key_loading": "Ettevalmistus..."
+        },
+        "data_management": {
+            "title": "Andmete haldamine",
+            "download_backup": "Laadi varukoopia alla",
+            "downloading": "Laadimine...",
+            "export_json": "Ekspordi JSON-ina",
+            "upload_backup": "Laadi varukoopia üles",
+            "uploading": "Üleslaadimine...",
+            "import_json": "Impordi JSON-ist"
+        },
+        "about": {
+            "title": "📱 Rakenduse kohta",
+            "version": "Versioon",
+            "brand": "Bränd",
+            "feedback": "✉️ Saada tagasisidet"
+        },
+        "modals": {
+            "password": {
+                "title": "Muuda parooli",
+                "current": "Praegune parool",
+                "new": "Uus parool",
+                "confirm": "Uus parool (Kinnita)",
+                "changing": "Muudetakse...",
+                "submit": "Muuda parooli"
+            },
+            "join_house": {
+                "title": "Liitu majaga",
+                "key_placeholder": "Sisesta 64-täheline maja võti",
+                "key_help": "Sisesta võti, mille said oma pereliikmelt",
+                "name_label": "Maja nimi (valikuline)",
+                "name_placeholder": "nt Vanemate maja",
+                "joining": "Liitumine...",
+                "submit": "Liitu majaga"
+            },
+            "create_house": {
+                "title": "Loo uus maja",
+                "name_label": "Maja nimi",
+                "name_placeholder": "nt. Suvemaja, Kontor, Ladu",
+                "name_help": "Kui jätta tühi, saab nimeks \"Minu uus maja\"",
+                "info": "ℹ️ Uue maja jaoks luuakse vaikimisi kategooriad ja toad. Saad neid hiljem muuta.",
+                "creating": "Luuakse...",
+                "submit": "Loo maja"
+            },
+            "username": {
+                "title": "Muuda kasutajanime",
+                "new_label": "Uus kasutajanimi",
+                "placeholder": "Sinu uus kasutajanimi",
+                "help": "3-30 tähemärki, vaid tähed, numbrid, alakriips ja sidekriips",
+                "saving": "Salvestamine...",
+                "submit": "Muuda"
+            }
+        },
+        "select_language": "Vali keel",
+        "pending_requests": {
+            "title": "Minu ootel liitumistaotlused",
+            "waiting_since": "Ootel alates: {{date, datetime}}",
+            "pending_badge": "Ootel"
+        }
+    },
+    "inventory": {
+        "title": "Inventar",
+        "subtitle": "{{count}} eset leitud",
+        "new_item": "Uus ese",
+        "add_first": "Lisa esimene ese",
+        "search_placeholder": "Otsi esemeid...",
+        "all_categories": "Kõik kategooriad",
+        "all_rooms": "Kõik ruumid",
+        "empty_title": "Ei leitud ühtegi eset",
+        "empty_filter": "Ükski ese ei vasta teie filtritele",
+        "empty_msg": "Esimesi esemeid pole veel lisatud",
+        "delete_confirm": "Kas olete kindel, et soovite selle eseme kustutada?",
+        "delete_error": "Kustutamise viga"
+    },
+    "categories": {
+        "title": "Kategooriad",
+        "subtitle": "{{count}} kategooriat",
+        "new_category": "Uus kategooria",
+        "edit_title": "Muuda kategooriat",
+        "new_title": "Uus kategooria",
+        "name_label": "Kategooria nimi",
+        "icon_label": "Ikoon",
+        "color_label": "Värv",
+        "delete_confirm": "Kas olete kindel, et soovite selle kategooria kustutada?",
+        "delete_error": "Kustutamise viga"
+    },
+    "rooms": {
+        "title": "Toas",
+        "subtitle": "{{count}} tuba",
+        "new_room": "Uus tuba",
+        "edit_title": "Muuda tuba",
+        "new_title": "Uus tuba",
+        "name_label": "Tuba nimi",
+        "description_label": "Kirjeldus (valikuline)",
+        "name_placeholder": "nt Magamistuba",
+        "desc_placeholder": "nt Põhituba",
+        "delete_confirm": "Kas olete kindel, et soovite selle toa kustutada?",
+        "delete_error": "Kustutamise viga"
+    },
+    "admin": {
+        "title": "Administraatori paneel",
+        "subtitle": "Süsteemi haldus ja jälgimine",
+        "refresh": "Värskenda",
+        "tabs": {
+            "dashboard": "Töölaud",
+            "users": "Kasutajad",
+            "logs": "Logid",
+            "email": "Saada e-kiri"
+        },
+        "stats": {
+            "total_users": "Kasutajate koguarv",
+            "new_today": "Täna: +{{count}} uusi",
+            "total_inventory": "Koguinventar",
+            "inventory_details": "{{rooms}} tuba, {{categories}} kategooriat",
+            "banned_users": "Keelatud kasutajad",
+            "access_blocked": "Juurdepääs blokeeritud",
+            "server_memory": "Serveri mälu",
+            "uptime": "Töösoleku aeg: {{hours}} tundi"
+        },
+        "users": {
+            "user": "Kasutaja",
+            "role": "Roll",
+            "status": "Staatus",
+            "action": "Tegevus",
+            "banned": "Bännitud",
+            "active": "Aktiivne",
+            "unban": "Bänniefduse eemaldamine",
+            "ban": "Bännimine",
+            "delete": "Kustuta konto",
+            "confirm_ban": "Kas olete kindel, et soovite {{status}} seda kasutajat?",
+            "ban_lift": "bänniefduse eemaldamine",
+            "ban_apply": "bännimine",
+            "confirm_delete_1": "Kas olete kindel, et soovite kustutada kasutaja \"{{username}}\"?",
+            "confirm_delete_2": "⚠️ HOIATUS: See kustutab PÜSIVALT KÕIK andmed (varud, toad, kategooriad) kasutaja \"{{username}}\" jaoks!",
+            "confirm_delete_3": "🚨 LÕPLIK HOIATUS: Konto \"{{username}}\" ja kõik andmed kustutatakse TAGASTAMATULT. Kas soovite jätkata?"
+        },
+        "logs": {
+            "title": "Admini logid",
+            "no_logs": "logisid veel pole",
+            "errors_title": "Süsteemi vead (viimased 10)",
+            "no_errors": "// Süsteem on terve, vealogisid ei ole.",
+            "date_fmt": "{{date, datetime}}"
+        },
+        "email": {
+            "title": "Saada e-kiri",
+            "to": "Saaja (To)",
+            "subject": "Teema",
+            "message": "Sõnum (HTML toetatud)",
+            "placeholder_message": "Siia kirjuta oma sõnum...",
+            "send": "Saada",
+            "sending": "Saatmine...",
+            "success": "E-kiri saadetud edukalt!",
+            "error": "Saadetis ebaõnnestus"
+        }
+    },
+    "landing": {
+        "nav": {
+            "login": "Logi sisse"
+        },
+        "hero": {
+            "title_1": "Halda kõike",
+            "title_2": "Oma kodus!",
+            "description": "Digiteeri oma kodu inventar. Kategooriseeri esemed, kutsu perekond ja pääse ligi kõikjalt. Kaasaegne, turvaline ja lihtne kasutada.",
+            "cta_start": "Alusta",
+            "cta_register": "Loo konto",
+            "stat_free": "Tasuta",
+            "stat_access": "Juurdepääs"
+        },
+        "features": {
+            "title": "Miks <1>HomeInventory</1>?",
+            "subtitle": "Kõik funktsioonid koduhalduse lihtsustamiseks ühes platvormis",
+            "items": {
+                "categorize": {
+                    "title": "Kategooriseeri esemed",
+                    "desc": "Korralda kõik esemed toa ja kategooria järgi, leia see, mida vajad, sekunditega."
+                },
+                "family": {
+                    "title": "Kutsu perekond majavõtmega",
+                    "desc": "Kutsu pereliikmeid oma unikaalse koduvõtmega, halda inventari koos."
+                },
+                "access": {
+                    "title": "Juurdepääs igalt poolt",
+                    "desc": "Kodus, tööl või puhkusel – pääse turvaliselt oma inventarile igalt poolt."
+                },
+                "barcode": {
+                    "title": "Kiire lisamine vöötkoodi abil",
+                    "desc": "Skaneeri toote vöötkoodid, andmed täituvad automaatselt."
+                },
+                "security": {
+                    "title": "Turvaline ja privaatne",
+                    "desc": "Sinu andmed on krüpteeritud ja kaitstud KVKK-le vastava infrastruktuuriga."
+                },
+                "backup": {
+                    "title": "Varundamine ja eksportimine",
+                    "desc": "Varunda oma inventar JSON-vormingus, taasta alati kui soovid."
+                }
+            }
+        },
+        "cta_bottom": {
+            "title": "Alusta kasutamist kohe!",
+            "description": "Loo tasuta konto ja digitaliseeri oma kodu inventar. Registreerimine võtab vaid paar sekundit.",
+            "button": "Logi sisse"
+        },
+        "footer": {
+            "desc": "Lihtne ja turvaline platvorm kodu inventari digitaliseerimiseks.",
+            "links": "Kiirlingid",
+            "contact": "Võta meiega ühendust",
+            "copyright": "© {{year}} HomeInventory. Kõik õigused kaitstud."
+        },
+        "preview_privacy_notice": "Demo vaade: reaalset kasutajaandmeid ei kuvata."
+    },
+    "intro": {
+        "inventory": {
+            "title": "Inventuur",
+            "content": "Siin saad lisada ja loetleda oma esemeid. Jälgi kõiki koduseid esemeid ühes kohas!"
+        },
+        "house_key": {
+            "title": "Majavõti",
+            "content": "See on sinu majavõti, kasuta seda teiste kutsumiseks. Lisa pere liikmeid oma majja!"
+        },
+        "categories": {
+            "title": "Kategooriad",
+            "content": "Korralda esemed kategooriate järgi. Elektroonika, mööbel, köök ja palju muud!"
+        },
+        "buttons": {
+            "back": "Tagasi",
+            "close": "Sule",
+            "last": "Lõpeta",
+            "next": "Järgmine",
+            "skip": "Jäta vahele",
+            "open": "Ava"
+        }
+    },
+    "google_house_select": {
+        "title": "Tere tulemast!",
+        "subtitle": "Sa logisid sisse Google'iga. Nüüd vali maja.",
+        "welcome_options": "Mida sooviksid teha?",
+        "create": {
+            "title": "Loo uus maja",
+            "desc": "Alusta oma inventari"
+        },
+        "join": {
+            "title": "Liitu olemasoleva majaga",
+            "desc": "Liitu pereliikme majaga"
+        },
+        "back": "Tagasi",
+        "house_name": "Maja nimi (valikuline)",
+        "house_name_placeholder": "nt Minu Kodu, Kontor",
+        "house_name_hint": "Kui see jäetakse tühjaks, nimetatakse seda \"Minu Kodu\"-ks",
+        "house_key": "Maja võti",
+        "house_key_placeholder": "Sisesta maja võti",
+        "house_key_hint": "Sisesta 64-tähemeline võti, mille said pereliikmelt",
+        "house_name_join": "Selle maja nimi (valikuline)",
+        "submit_create": "Loo maja",
+        "submit_join": "Liitu Majaga",
+        "processing": "Töötlemine..."
+    },
+    "scanner": {
+        "title": "Vöötkoodi skanner",
+        "qr_title": "QR-koodi lugeja",
+        "init": "Kaamera käivitamine...",
+        "permission_error": "Kaamera luba keelatud. Kontrollige brauseri sätteid.",
+        "busy_error": "Kaamera hõivatud. Sulgege teised rakendused.",
+        "not_found_error": "Kaamerat ei leitud.",
+        "generic_error": "Kaamerat ei saanud käivitada.",
+        "hint": "Keskenda vöötkood raamile",
+        "qr_hint": "Joonda QR-kood raamile",
+        "searching": "Otsitakse toodet...",
+        "found_local": "Juba registreeritud!",
+        "found_local_msg": "See vöötkood on juba teie inventuuris.",
+        "found_online": "Toode leitud!",
+        "google_result": "⚡ Google'i otsingutulemus - palun kontrollige",
+        "barcode": "Vöötkood: {{code}}",
+        "new_product": "Uus toode",
+        "not_found_db": "Seda vöötkoodi ei leitud andmebaasides.",
+        "google_search": "Otsi Google'ist",
+        "quick_add": "Kiire lisamine (muuda hiljem)",
+        "rescan": "Skanni uuesti",
+        "retry": "Proovi uuesti",
+        "flash_on": "🔦 Taskulamp sisse",
+        "flash_unsupported": "Taskulampi ei toetata",
+        "zoom_hint": "💡 Suurendage selgust parandamiseks ja hoidke telefoni stabiilselt",
+        "found_item_redirect": "Ese leitud! Suunatakse...",
+        "found_page_redirect": "Lehekülg leitud! Suunatakse...",
+        "invalid_qr": "See QR-kood ei ole selle rakenduse jaoks.",
+        "not_found": "Toodet ei leitud. Proovige teist vöötkoodi."
+    },
+    "item_qr": {
+        "hint_mobile": "📱 Skaneeri see QR-kood oma telefoniga, et esemele kiiresti juurde pääseda",
+        "network_ip": "Võrgu IP",
+        "url_loading": "Laadimine URL...",
+        "copied": "Kopeeritud!",
+        "copy_url": "Kopeeri URL",
+        "download": "Laadi QR alla",
+        "usage_title": "Kasutamine",
+        "usage_desc": "Trüki QR-kood ja kleebi see esemele. Skaneeri oma telefoniga, et sellele lehele kohe ligi pääseda!"
+    },
+    "house_access_pending": {
+        "eyebrow": "Juurdepääs majale",
+        "fallback_house": "Valitud maja",
+        "signed_in_as": "Sisse logitud kui {{username}}",
+        "logout": "Väljalogimine",
+        "messages": {
+            "create_error": "Maja ei saanud luua",
+            "join_success": "Teie liitumissoov on saadetud",
+            "join_error": "Liitumistaotlust ei saanud saata"
+        },
+        "pending": {
+            "title": "Ootan majaomaniku kinnitust",
+            "description": "Teie taotlus \"{{house}}\" kohta ootab endiselt otsust.",
+            "current_request": "Praegune ootel päring: {{house}}"
+        },
+        "no_house": {
+            "title": "Te ei ole praegu ühegi majaga ühendatud",
+            "description": "Looge uus maja või saatke olemasolevaga liitumistaotlus."
+        },
+        "create": {
+            "title": "Looge uus maja",
+            "description": "Alustage oma kodu inventuuri ja jätkake kohe.",
+            "name_label": "Maja nimi",
+            "name_placeholder": "nt. Minu kodu, suvemaja, panipaik",
+            "submitting": "Loomine...",
+            "submit": "Loo maja"
+        },
+        "join": {
+            "title": "Saada liitumistaotlus",
+            "description": "Sisestage majavõti ja saatke päring otse majaomanikule.",
+            "key_label": "majavõti",
+            "key_placeholder": "Sisestage 64-kohaline majavõti",
+            "submitting": "Saadan...",
+            "submit": "Saada taotlus"
+        }
+    }
+}

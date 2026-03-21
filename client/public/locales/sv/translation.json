@@ -1,0 +1,696 @@
+{
+    "items": {
+        "qrcode": {
+            "title": "QR Code",
+            "desc": "Du kan skriva ut och sätta denna QR-kod på artikeln. Skanning leder direkt till denna sida."
+        },
+        "title_new": "Lägg till nytt objekt",
+        "title_edit": "Redigera objekt",
+        "subtitle": "Ange artikeluppgifter",
+        "load_error": "Kunde inte ladda artikel",
+        "form": {
+            "name": "Artikelnamn",
+            "name_placeholder": "t.ex. Samsung TV 55 tum",
+            "required": "*",
+            "description": "Beskrivning",
+            "description_placeholder": "Anteckningar om artikeln...",
+            "quantity": "Kvantitet",
+            "category": "Kategori",
+            "select_category": "Välj",
+            "room": "Rum",
+            "select_room": "Välj rum",
+            "location_details": "Platsdetaljer",
+            "location_optional": "(Valfritt)",
+            "location_placeholder": "Sök eller lägg till ny plats...",
+            "location_help": "Var i rummet? (t.ex. 'Översta hyllan i blå skåp')",
+            "location_create": "Skapa plats \"{{name}}\"",
+            "location_privacy": "Platsintegritet",
+            "location_public": "Alla kan se denna plats",
+            "location_private": "Endast du kan se denna",
+            "location_save": "Spara plats",
+            "location_saving": "Lägger till...",
+            "location_selected": "Plats vald: {{name}}",
+            "location_empty": "Ingen plats definierad i detta rum ännu. Börja skriva för att skapa en.",
+            "photo": "Foto",
+            "add_photo": "Lägg till",
+            "barcode": "Streckkod",
+            "barcode_optional": "(Valfritt)",
+            "barcode_placeholder": "t.ex. 8690123456789",
+            "scan_barcode": "Skanna streckkod",
+            "search_db": "Sök databas",
+            "search_google": "Sök på Google",
+            "barcode_saved": "✓ Streckkod kommer att sparas",
+            "visibility": "Artikelns synlighet",
+            "visibility_public": "Synlig för alla hushållsmedlemmar",
+            "visibility_private": "Endast synlig för dig",
+            "submit_add": "Lägg till artikel",
+            "submit_save": "Spara ändringar",
+            "submitting": "Sparar..."
+        },
+        "messages": {
+            "quick_add_success": "✓ \"{{barcode}}\" snabb tillagd - du kan ändra senare",
+            "quick_add_fail": "⚠ Snabbtillägg misslyckades",
+            "searching": "Söker...",
+            "found_local": "✓ Lokalt: registrerad som \"{{name}}\"",
+            "found_remote": "✓ Hittad i {{source}} {{note}}: \"{{name}}\"",
+            "not_found": "⚠ Produkten hittades inte i databaserna. Du kan söka på Google.",
+            "search_fail": "⚠ Söket misslyckades",
+            "name_required": "Artikelns namn krävs",
+            "location_add_error": "Misslyckades med att lägga till plats"
+        }
+    },
+    "common": {
+        "save": "Spara",
+        "cancel": "Avbryt",
+        "loading": "Laddar...",
+        "error": "Ett fel uppstod",
+        "success": "Åtgärden lyckades",
+        "search": "Sök...",
+        "edit": "Redigera",
+        "delete": "Ta bort",
+        "add": "Lägg till",
+        "new": "Ny",
+        "all": "Alla",
+        "manage": "Hantera",
+        "help_support": "Hjälp & Support",
+        "theme": {
+            "light": "Ljust läge",
+            "dark": "Mörkt läge"
+        },
+        "select": "Välj",
+        "refresh": "Uppdatera",
+        "close": "Stäng",
+        "logout": "Logga ut",
+        "copyright": "© {{year}} HomeInventory - Alla rättigheter förbehållna"
+    },
+    "auth": {
+        "login": {
+            "title": "Logga in",
+            "subtitle": "Hantera allt ditt hemförråd smart",
+            "welcome": "Välkommen till HomeInventory",
+            "username_or_email": "Användarnamn eller e-post",
+            "password": "Lösenord",
+            "forgot_password": "Glömt lösenord?",
+            "submit": "Logga in",
+            "submitting": "Loggar in...",
+            "google_continue": "Fortsätt med Google",
+            "or": "eller",
+            "no_account": "Har du inget konto?",
+            "register_link": "Registrera",
+            "support_contact": "För inloggningsproblem:",
+            "terms_title": "📋 Användarvillkor och ansvarsfriskrivning",
+            "terms_beta": "BETA-version: HomeInventory är för närvarande i testfas. Ingen garanti ges för lagring eller säkerhet för dina data.",
+            "terms_disclaimer": "Ansvarsfriskrivning: Genom att använda denna applikation accepterar du att du inte kan kräva någon ersättning för eventuell dataförlust, åtkomstproblem eller andra tekniska fel.",
+            "terms_backup": "Säkerhetskopiering av data: Vi rekommenderar starkt att du regelbundet säkerhetskopierar viktig information.",
+            "terms_accept": "Genom att logga in anses du ha accepterat dessa villkor."
+        },
+        "register": {
+            "title": "Välkommen till HomeInventory",
+            "subtitle": "Skapa ett nytt konto eller gå med i ett befintligt hushåll",
+            "create_house": "Skapa nytt hushåll",
+            "join_house": "Gå med i hushåll",
+            "create_house_desc": "🏠 Ett nytt hushåll kommer att skapas och du får en unik <strong>Husstnyckel</strong>. Dela denna nyckel med familjen för att komma åt samma inventarielista.",
+            "join_house_desc": "👨‍👩‍👧‍👦 Ange den <strong>Husstnyckel</strong> som delats med dig för att gå med i ett befintligt hushåll. Alla som har nyckeln kan komma åt den delade inventarien.",
+            "form_title": "Registrera",
+            "username": "Användarnamn",
+            "username_placeholder": "t.ex. john",
+            "email": "E-post",
+            "email_placeholder": "t.ex. john@example.com",
+            "password": "Lösenord",
+            "password_placeholder": "Minst 6 tecken",
+            "password_confirm": "Bekräfta lösenord",
+            "password_confirm_placeholder": "Skriv in lösenord igen",
+            "house_key": "Husnyckel",
+            "house_key_placeholder": "Klistra in 64-teckens husnyckel",
+            "submit_create": "Skapa nytt hus",
+            "submit_join": "Gå med i hus",
+            "submitting": "Registrerar...",
+            "already_have_account": "Har du redan ett konto?",
+            "login_link": "Logga in",
+            "support": "Registreringsproblem:",
+            "terms": "Användarvillkor och ansvarsfriskrivning",
+            "passwords_mismatch": "Lösenorden matchar inte",
+            "password_length": "Lösenordet måste vara minst 6 tecken",
+            "key_required": "Husnyckel krävs för att gå med i ett befintligt hus",
+            "modals": {
+                "key_created": {
+                    "title": "🎉 Hus skapades!",
+                    "subtitle": "Spara nyckeln nedan på en säker plats",
+                    "warning": "Viktigt: Denna nyckel visas bara en gång. Dela den med familjemedlemmar så att de kan få tillgång till samma inventarie.",
+                    "copy": "Kopiera",
+                    "copied": "Kopierad",
+                    "button": "Jag har sparat nyckeln, fortsätt"
+                },
+                "email_verification": {
+                    "title": "📧 E-postverifiering krävs",
+                    "message": "Konto skapat! Vänligen verifiera din e-postadress för att logga in.",
+                    "step_1": "Vi skickade ett verifieringsmail till <1>{{email}}</1>.",
+                    "step_2": "Klicka på <1>\"Verifiera mitt konto\"</1>-knappen i mailet.",
+                    "step_3": "Efter verifiering, <1>kan du logga in</1>.",
+                    "spam_note": "Kontrollera skräppostmappen om e-postmeddelandet inte kommer fram.",
+                    "key_note": "Viktigt: Din husnyckel skickades också i e-postmeddelandet. Du kan dela den med familjemedlemmar.",
+                    "button": "Okej, gå till inloggning"
+                }
+            }
+        },
+        "forgot_password": {
+            "title": "Forgot Password",
+            "subtitle": "Start a secure recovery flow to access your account again.",
+            "identifier": "Username or Email",
+            "identifier_placeholder": "e.g. john or john@example.com",
+            "submit": "Start Recovery",
+            "requesting": "Checking...",
+            "email_success": "If an account exists, a password reset link valid for 15 minutes has been sent.",
+            "back_to_login": "Back to Login",
+            "recovery_mode_info": "Email is disabled on this server. Continue with the Recovery Key you saved during account setup.",
+            "recovery_key": "Recovery Key",
+            "recovery_key_placeholder": "e.g. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "reset_submit": "Reset Password",
+            "resetting": "Resetting..."
+        },
+        "reset_password": {
+            "title": "Reset Password",
+            "subtitle": "Use the secure link to set a new password.",
+            "missing_token": "The password reset link looks incomplete or broken.",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "submit": "Update Password",
+            "submitting": "Updating...",
+            "back_to_login": "Back to Login"
+        },
+        "recovery_setup": {
+            "title": "Create Recovery Key",
+            "subtitle": "Until this is completed, your account is not considered safe for local password recovery.",
+            "warning": "This key will only be shown once. Save it in a password manager or another secure offline location.",
+            "account": "A recovery key will be created for account {{username}}.",
+            "description": "Because email is disabled, you will only be able to reset your password with this key in the future.",
+            "submit": "Create Recovery Key",
+            "generating": "Creating..."
+        },
+        "recovery_key_modal": {
+            "register_title": "Save Your Recovery Key",
+            "google_title": "Save Your Recovery Key",
+            "setup_title": "Save Your Recovery Key",
+            "reset_title": "Save Your New Recovery Key",
+            "settings_title": "Save Your New Recovery Key",
+            "subtitle": "This key is shown only once.",
+            "warning": "If you lose this key while email is disabled, you may not be able to recover your password. Copy it and store it safely.",
+            "confirm": "I Saved the Key"
+        }
+    },
+    "navigation": {
+        "home": "Hem",
+        "inventory": "Inventering",
+        "rooms": "Rum",
+        "categories": "Kategorier",
+        "settings": "Inställningar",
+        "new_item": "Nytt objekt",
+        "share_house": "Dela hus",
+        "admin_panel": "Adminpanel",
+        "logout": "Logga ut",
+        "menu": "Meny"
+    },
+    "dashboard": {
+        "welcome": "Välkommen, <1>{{name}}</1>! 👋",
+        "subtitle": "Översikt över ditt lager",
+        "quick_search": "Snabbsök...",
+        "filters": {
+            "private": "🔒 Mina privata föremål",
+            "public": "🌐 Offentliga",
+            "remove": "Rensa filter",
+            "no_items": "Inga föremål matchar detta filter"
+        },
+        "stats": {
+            "total_items": "Totalt antal föremål",
+            "total_quantity": "Total kvantitet",
+            "fullest_room": "Fullaste rum",
+            "category_count": "Kategorier",
+            "items_suffix": "föremål"
+        },
+        "recent_items": {
+            "title": "Nyligen tillagda",
+            "see_all": "Se alla"
+        },
+        "categories": {
+            "title": "Kategorier",
+            "manage": "Hantera",
+            "empty": "Inga objekt tillagda än"
+        },
+        "rooms": {
+            "title": "Rum",
+            "manage": "Hantera"
+        },
+        "quick_actions": {
+            "title": "⚡ Snabba åtgärder",
+            "add_item": "Lägg till objekt",
+            "search_item": "Sök objekt",
+            "categories": "Kategorier",
+            "settings": "Inställningar"
+        }
+    },
+    "beta_banner": {
+        "title": "BETA:",
+        "text": "HomeInventory är för närvarande i test- och hobbyfas. Ingen garanti ges för datalagring eller säkerhet. Vänligen ta backup på viktig information.",
+        "contact": "Kontakt:"
+    },
+    "footer": {
+        "rights": "© {{year}} HomeInventory - Alla rättigheter förbehållna",
+        "contact": "Kontakt:"
+    },
+    "settings": {
+        "title": "Inställningar",
+        "subtitle": "Hantera applikationsinställningar",
+        "messages": {
+            "house_switched": "✅ {{name}} aktiverad!",
+            "house_switch_error": "Misslyckades med att byta hus",
+            "house_joined_success": "✅ Du gick med i huset!",
+            "house_join_error": "Misslyckades med att gå med i hus",
+            "house_created_success": "✅ \"{{name}}\" skapad!",
+            "house_create_error": "Misslyckades med att skapa hus",
+            "house_left_success": "Du har lämnat huset",
+            "house_left_error": "Misslyckades med att lämna hus",
+            "house_leave_confirm": "Är du säker på att du vill lämna \"{{name}}\"?",
+            "backup_downloaded": "✅ Backup hämtad framgångsrikt! ({{count}} objekt)",
+            "export_error": "❌ Ett fel uppstod under export",
+            "import_invalid_format": "Ogiltigt backup-filformat",
+            "import_success": "✅ {{items}} objekt, {{categories}} kategorier, {{rooms}} rum, {{locations}} platser tillagda.",
+            "import_error": "❌ Importfel: {{error}}",
+            "password_changed": "Lösenord ändrat framgångsrikt!",
+            "password_error_current": "Nuvarande lösenord är fel",
+            "password_error_invalid": "Ogiltiga data skickade",
+            "session_expired": "Sessionen har löpt ut. Vänligen logga in igen.",
+            "server_error": "Serverfel uppstod",
+            "connection_error": "Kunde inte ansluta till servern. Kontrollera din internetanslutning.",
+            "unexpected_error": "Ett oväntat fel uppstod",
+            "username_changed": "✅ Användarnamn ändrat!",
+            "username_error": "Kunde inte ändra användarnamn",
+            "username_len_error": "Användarnamnet måste vara minst 3 tecken",
+            "fill_all_fields": "Vänligen fyll i alla fält",
+            "passwords_mismatch": "Nya lösenord matchar inte",
+            "password_min_len": "Nya lösenordet måste vara minst 6 tecken",
+            "house_request_sent_success": "✅ Your join request was sent!",
+            "request_approved": "✅ Join request approved",
+            "request_rejected": "Join request rejected",
+            "request_action_error": "Could not update request",
+            "member_kick_confirm": "Are you sure you want to remove \"{{name}}\" from the house?",
+            "member_kicked": "Member removed from the house",
+            "member_kick_error": "Could not remove member from the house",
+            "recovery_key_regenerated": "Recovery key regenerated",
+            "recovery_key_error": "Could not regenerate recovery key"
+        },
+        "user_profile": {
+            "edit_username": "Byt användarnamn"
+        },
+        "my_houses": {
+            "title": "Mina hus",
+            "join_house": "Gå med i hus",
+            "join_short": "Gå med",
+            "new_house": "Nytt hus",
+            "new_short": "Ny",
+            "no_house": "Du är inte medlem i något hus än",
+            "owner": "Ägare",
+            "active": "Aktiv",
+            "member_count": "{{count}} medlemmar",
+            "item_count": "{{count}} objekt",
+            "switch": "Växla",
+            "leave": "Lämna hus",
+            "info": "💡 Du kan vara medlem i flera hus och växla mellan dem. Varje hus har ett separat förråd."
+        },
+        "house_info": {
+            "title": "Aktivt husnyckel",
+            "key_label": "Husnyckel",
+            "mask_key": "••••••••{{suffix}}",
+            "hide": "Dölj",
+            "show": "Visa",
+            "copy": "Kopiera",
+            "share_info": "💡 Användare som du delar denna nyckel med kan få tillgång till ditt förråd genom att använda alternativet \"Gå med i hus\" vid registrering.",
+            "members_title": "Husmedlemmar ({{count}})",
+            "you": "(Du)",
+            "joined_at": "Gick med: {{date, datetime}}",
+            "no_members": "Inga andra medlemmar ännu",
+            "invite_title": "Bjud in familjemedlemmar",
+            "invite_desc": "Dela din husnyckel för att låta familjemedlemmar få tillgång till samma förråd. Varje medlem loggar in med sitt eget konto men får åtkomst till samma data.",
+            "active_members": "Active Members",
+            "pending_requests": "Pending Requests",
+            "no_pending_requests": "No pending requests",
+            "owner_controls": "Owner controls enabled",
+            "approve": "Approve",
+            "reject": "Reject",
+            "kick": "Remove"
+        },
+        "theme": {
+            "title": "Tema",
+            "dark": "Mörkt läge",
+            "light": "Ljust läge"
+        },
+        "security": {
+            "title": "Säkerhet",
+            "change_password": "Byt lösenord",
+            "change_password_desc": "Uppdatera ditt kontolösenord",
+            "recovery_key_title": "Recovery Key",
+            "recovery_key_desc": "You can generate a new key for local password recovery.",
+            "recovery_key_missing": "No recovery key is visible for this account yet.",
+            "current_key_label": "Saved Recovery Key",
+            "recovery_key_unavailable": "The current recovery key cannot be displayed. Regenerate it if needed.",
+            "recovery_key_action": "Regenerate",
+            "recovery_key_modal_desc": "Confirm your current password to continue. The new key will be shown only once.",
+            "recovery_key_loading": "Preparing..."
+        },
+        "data_management": {
+            "title": "Databashantering",
+            "download_backup": "Ladda ner säkerhetskopia",
+            "downloading": "Laddar ner...",
+            "export_json": "Exportera som JSON",
+            "upload_backup": "Ladda upp säkerhetskopia",
+            "uploading": "Laddar upp...",
+            "import_json": "Importera från JSON"
+        },
+        "about": {
+            "title": "📱 Om applikationen",
+            "version": "Version",
+            "brand": "Brand",
+            "feedback": "✉️ Skicka feedback"
+        },
+        "modals": {
+            "password": {
+                "title": "Byt lösenord",
+                "current": "Nuvarande lösenord",
+                "new": "Nytt lösenord",
+                "confirm": "Nytt lösenord (bekräfta)",
+                "changing": "Ändrar...",
+                "submit": "Byt lösenord"
+            },
+            "join_house": {
+                "title": "Gå med i hus",
+                "key_placeholder": "Ange 64-teckens husnyckel",
+                "key_help": "Ange nyckeln du fått från din familjemedlem",
+                "name_label": "Namn för detta hus (valfritt)",
+                "name_placeholder": "t.ex. Föräldrars hus",
+                "joining": "Går med...",
+                "submit": "Gå med i hus"
+            },
+            "create_house": {
+                "title": "Skapa nytt hus",
+                "name_label": "Husnamn",
+                "name_placeholder": "t.ex. Sommarhus, Kontor, Lager",
+                "name_help": "Om det lämnas tomt kommer det att heta \"Mitt nya hus\"",
+                "info": "ℹ️ Standardkategorier och rum kommer att skapas för det nya huset. Du kan redigera dem senare.",
+                "creating": "Skapar...",
+                "submit": "Skapa hus"
+            },
+            "username": {
+                "title": "Byt användarnamn",
+                "new_label": "Nytt användarnamn",
+                "placeholder": "Ditt nya användarnamn",
+                "help": "3–30 tecken, endast bokstäver, siffror, understreck och bindestreck",
+                "saving": "Sparar...",
+                "submit": "Byt"
+            }
+        },
+        "select_language": "Välj språk",
+        "pending_requests": {
+            "title": "My Pending Join Requests",
+            "waiting_since": "Waiting since: {{date, datetime}}",
+            "pending_badge": "Pending"
+        }
+    },
+    "inventory": {
+        "title": "Inventarielista",
+        "subtitle": "{{count}} objekt hittades",
+        "new_item": "Nytt objekt",
+        "add_first": "Lägg till första objektet",
+        "search_placeholder": "Sök objekt...",
+        "all_categories": "Alla kategorier",
+        "all_rooms": "Alla rum",
+        "empty_title": "Inga objekt hittades",
+        "empty_filter": "Inga objekt matchar dina filter",
+        "empty_msg": "Inga objekt tillagda än",
+        "delete_confirm": "Är du säker på att du vill ta bort detta objekt?",
+        "delete_error": "Raderingsfel"
+    },
+    "categories": {
+        "title": "Kategorier",
+        "subtitle": "{{count}} kategorier",
+        "new_category": "Ny kategori",
+        "edit_title": "Redigera kategori",
+        "new_title": "Ny kategori",
+        "name_label": "Kategorinamn",
+        "icon_label": "Ikon",
+        "color_label": "Färg",
+        "delete_confirm": "Är du säker på att du vill ta bort denna kategori?",
+        "delete_error": "Fel vid borttagning"
+    },
+    "rooms": {
+        "title": "Rum",
+        "subtitle": "{{count}} rum",
+        "new_room": "Nytt rum",
+        "edit_title": "Redigera rum",
+        "new_title": "Nytt rum",
+        "name_label": "Rum namn",
+        "description_label": "Beskrivning (valfri)",
+        "name_placeholder": "t.ex. Master Bedroom",
+        "desc_placeholder": "t.ex. Huvudsovrum",
+        "delete_confirm": "Är du säker på att du vill ta bort detta rum?",
+        "delete_error": "Raderingsfel"
+    },
+    "admin": {
+        "title": "Administrationspanel",
+        "subtitle": "Systemhantering och övervakning",
+        "refresh": "Uppdatera",
+        "tabs": {
+            "dashboard": "Kontrollpanel",
+            "users": "Användare",
+            "logs": "Loggar",
+            "email": "Skicka e-post"
+        },
+        "stats": {
+            "total_users": "Totalt antal användare",
+            "new_today": "Idag: +{{count}} nya",
+            "total_inventory": "Totalt lager",
+            "inventory_details": "{{rooms}} rum, {{categories}} kategorier",
+            "banned_users": "Bannlysta användare",
+            "access_blocked": "Åtkomst blockerad",
+            "server_memory": "Serverminne",
+            "uptime": "Drifttid: {{hours}} timmar"
+        },
+        "users": {
+            "user": "Användare",
+            "role": "Roll",
+            "status": "Status",
+            "action": "Handling",
+            "banned": "Blockerad",
+            "active": "Aktiv",
+            "unban": "Avblockera",
+            "ban": "Blockera",
+            "delete": "Radera konto",
+            "confirm_ban": "Är du säker på att du vill {{status}} denna användare?",
+            "ban_lift": "avblockera",
+            "ban_apply": "blockera",
+            "confirm_delete_1": "Är du säker på att du vill radera användare \"{{username}}\"?",
+            "confirm_delete_2": "⚠️ VARNING: Detta kommer PERMANENT att radera ALLA data (inventarier, rum, kategorier) för användare \"{{username}}\"!",
+            "confirm_delete_3": "🚨 SLUTGILTIG VARNING: Konto \"{{username}}\" och all data kommer att OÅTERKALLELIGT raderas. Vill du fortsätta?"
+        },
+        "logs": {
+            "title": "Adminloggar",
+            "no_logs": "inga loggar än",
+            "errors_title": "Systemfel (Sista 10)",
+            "no_errors": "// Systemet är friskt, inga felloggar.",
+            "date_fmt": "{{date, datetime}}"
+        },
+        "email": {
+            "title": "Skicka E-post",
+            "to": "Mottagare (Till)",
+            "subject": "Ämne",
+            "message": "Meddelande (HTML stöds)",
+            "placeholder_message": "Skriv ditt meddelande här...",
+            "send": "Skicka",
+            "sending": "Skickar...",
+            "success": "E-post skickad framgångsrikt!",
+            "error": "Skickning misslyckades"
+        }
+    },
+    "landing": {
+        "nav": {
+            "login": "Logga in"
+        },
+        "hero": {
+            "title_1": "Hantera allt",
+            "title_2": "I ditt hem!",
+            "description": "Digitalisera ditt heminventarier. Kategorisera saker, bjud in familj och få tillgång från var som helst. Modernt, säkert och enkelt att använda.",
+            "cta_start": "Kom igång",
+            "cta_register": "Skapa konto",
+            "stat_free": "Gratis",
+            "stat_access": "Åtkomst"
+        },
+        "features": {
+            "title": "Varför <1>HomeInventory</1>?",
+            "subtitle": "Alla funktioner för att förenkla hemhantering på en plattform",
+            "items": {
+                "categorize": {
+                    "title": "Kategorisera saker",
+                    "desc": "Organisera alla saker efter rum och kategori, hitta vad du behöver på sekunder."
+                },
+                "family": {
+                    "title": "Bjud in familj med husnyckel",
+                    "desc": "Bjud in familjemedlemmar med din unika husnyckel, hantera inventarier tillsammans."
+                },
+                "access": {
+                    "title": "Åtkomst från var som helst",
+                    "desc": "Hemma, på jobbet eller på semester - få säker åtkomst till dina inventarier var som helst."
+                },
+                "barcode": {
+                    "title": "Snabbt tillägg med streckkod",
+                    "desc": "Skanna produktstreckkoder, detaljer fylls i automatiskt."
+                },
+                "security": {
+                    "title": "Säker och privat",
+                    "desc": "Dina data är krypterade och skyddade med KVKK-kompatibel infrastruktur."
+                },
+                "backup": {
+                    "title": "Säkerhetskopiering & export",
+                    "desc": "Säkerhetskopiera dina inventarier i JSON-format, återställ när du vill."
+                }
+            }
+        },
+        "cta_bottom": {
+            "title": "Börja använda nu!",
+            "description": "Skapa ett gratis konto och digitalisera ditt heminventarium. Registreringen tar bara några sekunder.",
+            "button": "Logga in"
+        },
+        "footer": {
+            "desc": "Plattformen som är enkel och säker för att digitalisera ditt heminventarium.",
+            "links": "Snabblänkar",
+            "contact": "Kontakta oss",
+            "copyright": "© {{year}} HomeInventory. Alla rättigheter förbehållna."
+        },
+        "preview_privacy_notice": "Demoversion: inga riktiga användardata visas."
+    },
+    "intro": {
+        "inventory": {
+            "title": "Inventering",
+            "content": "Här kan du lägga till och lista dina saker. Håll koll på alla hemartiklar på ett ställe!"
+        },
+        "house_key": {
+            "title": "Husnyckel",
+            "content": "Detta är din husnyckel, använd den för att bjuda in andra. Lägg till familjemedlemmar i ditt hus!"
+        },
+        "categories": {
+            "title": "Kategorier",
+            "content": "Organisera genom att kategorisera dina saker. Elektronik, möbler, kök och mer!"
+        },
+        "buttons": {
+            "back": "Tillbaka",
+            "close": "Stäng",
+            "last": "Klart",
+            "next": "Nästa",
+            "skip": "Hoppa över",
+            "open": "Öppna"
+        }
+    },
+    "google_house_select": {
+        "title": "Välkommen!",
+        "subtitle": "Du har loggat in med Google. Välj nu ett hus.",
+        "welcome_options": "Vad vill du göra?",
+        "create": {
+            "title": "Skapa nytt hus",
+            "desc": "Starta din egen inventering"
+        },
+        "join": {
+            "title": "Gå med i befintligt hus",
+            "desc": "Gå med i en familjemedlems hus"
+        },
+        "back": "Tillbaka",
+        "house_name": "Husnamn (valfritt)",
+        "house_name_placeholder": "t.ex. Mitt hem, Kontor",
+        "house_name_hint": "Om det lämnas tomt kommer det att heta \"Mitt hem\"",
+        "house_key": "Husnyckel",
+        "house_key_placeholder": "Ange husnyckel",
+        "house_key_hint": "Ange den 64-tecken långa nyckel som mottagits från en familjemedlem",
+        "house_name_join": "Namn för detta hus (valfritt)",
+        "submit_create": "Skapa hus",
+        "submit_join": "Gå med i House",
+        "processing": "Bearbetar..."
+    },
+    "scanner": {
+        "title": "Streckkodsläsare",
+        "qr_title": "QR-kodsläsare",
+        "init": "Startar kamera...",
+        "permission_error": "Kameratillstånd nekades. Kontrollera webbläsarinställningarna.",
+        "busy_error": "Kameran är upptagen. Stäng andra appar.",
+        "not_found_error": "Kamera hittades inte.",
+        "generic_error": "Kunde inte starta kamera.",
+        "hint": "Centrera streckkod i ramen",
+        "qr_hint": "Justera QR-kod i ramen",
+        "searching": "Söker produkt...",
+        "found_local": "Redan registrerad!",
+        "found_local_msg": "Denna streckkod finns redan i ditt lager.",
+        "found_online": "Produkt hittad!",
+        "google_result": "⚡ Google-sökresultat - vänligen verifiera",
+        "barcode": "Streckkod: {{code}}",
+        "new_product": "Ny produkt",
+        "not_found_db": "Denna streckkod hittades inte i databaserna.",
+        "google_search": "Sök på Google",
+        "quick_add": "Snabbtillägg (redigera senare)",
+        "rescan": "Skanna igen",
+        "retry": "Försök igen",
+        "flash_on": "🔦 Blixt på",
+        "flash_unsupported": "Blixt stöds inte",
+        "zoom_hint": "💡 Öka zoom för tydlighet och håll telefonen stadigt",
+        "found_item_redirect": "Artikel hittad! Omdirigerar...",
+        "found_page_redirect": "Sida hittad! Omdirigerar...",
+        "invalid_qr": "Denna QR-kod är inte för denna app.",
+        "not_found": "Produkt hittades inte. Prova en annan streckkod."
+    },
+    "item_qr": {
+        "hint_mobile": "📱 Skanna denna QR-kod med din telefon för att snabbt komma åt föremålet",
+        "network_ip": "Nätverks-IP",
+        "url_loading": "Laddar URL...",
+        "copied": "Kopierat!",
+        "copy_url": "Kopiera URL",
+        "download": "Ladda ner QR",
+        "usage_title": "Användning",
+        "usage_desc": "Skriv ut QR-koden och sätt den på föremålet. Skanna med din telefon för att omedelbart komma åt denna sida!"
+    },
+    "house_access_pending": {
+        "eyebrow": "House Access",
+        "fallback_house": "Selected house",
+        "signed_in_as": "Signed in as {{username}}",
+        "logout": "Logout",
+        "messages": {
+            "create_error": "Could not create house",
+            "join_success": "Your join request was sent",
+            "join_error": "Could not send join request"
+        },
+        "pending": {
+            "title": "Waiting for house owner approval",
+            "description": "Your request for \"{{house}}\" is still waiting for a decision.",
+            "current_request": "Current pending request: {{house}}"
+        },
+        "no_house": {
+            "title": "You are not connected to a house right now",
+            "description": "Create a new house or send a join request to an existing one."
+        },
+        "create": {
+            "title": "Create a New House",
+            "description": "Start your own home inventory and continue right away.",
+            "name_label": "House Name",
+            "name_placeholder": "e.g. My Home, Summer House, Storage",
+            "submitting": "Creating...",
+            "submit": "Create House"
+        },
+        "join": {
+            "title": "Send a Join Request",
+            "description": "Enter a house key and send the request directly to the house owner.",
+            "key_label": "House Key",
+            "key_placeholder": "Enter the 64-character house key",
+            "submitting": "Sending...",
+            "submit": "Send Request"
+        }
+    }
+}

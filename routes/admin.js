@@ -10,6 +10,7 @@ import { authenticateToken, requireAdmin } from '../middleware/auth.js';
 import { logError } from '../utils/logger.js';
 import { buildDefaultIndexNowUrls, getIndexNowConfig, submitIndexNowUrls } from '../utils/indexNow.js';
 import db from '../database.js';
+import { buildEmailLookup, decryptUserRecord, decryptUsername } from '../utils/protectedFields.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -127,7 +128,7 @@ router.get('/users', authenticateToken, requireAdmin, (req, res) => {
         const users = db.prepare(`
             SELECT id, username, email, role, is_banned, failed_login_count, last_login, created_at
             FROM users ORDER BY created_at DESC
-        `).all();
+        `).all().map(decryptUserRecord);
 
         // KVKK uyumlu - e-postaları maskele
         const maskedUsers = users.map(u => ({
@@ -158,6 +159,8 @@ router.post('/users/:id/ban', authenticateToken, requireAdmin, (req, res) => {
             return res.status(404).json({ success: false, error: 'Kullanıcı bulunamadı' });
         }
 
+        const username = decryptUsername(user.username);
+
         // Diğer adminleri banlayamaz
         if (user.role === 'admin') {
             return res.status(403).json({ success: false, error: 'Admin kullanıcılar banlanamaz' });
@@ -165,11 +168,11 @@ router.post('/users/:id/ban', authenticateToken, requireAdmin, (req, res) => {
 
         db.prepare('UPDATE users SET is_banned = ? WHERE id = ?').run(ban ? 1 : 0, userId);
 
-        saveAdminLog('user', ban ? 'ban' : 'unban', `Kullanıcı: ${user.username}`, req.user.id, userId);
+        saveAdminLog('user', ban ? 'ban' : 'unban', `Kullanıcı: ${username}`, req.user.id, userId);
 
         res.json({
             success: true,
-            message: ban ? `${user.username} banlandı` : `${user.username} ban kaldırıldı`
+            message: ban ? `${username} banlandı` : `${username} ban kaldırıldı`
         });
     } catch (error) {
         console.error('[Admin Ban] Hata:', error);
@@ -199,10 +202,12 @@ router.delete('/users/:id', authenticateToken, requireAdmin, (req, res) => {
             return res.status(400).json({ success: false, error: 'Kendinizi silemezsiniz' });
         }
 
-        const user = db.prepare('SELECT username, role, email FROM users WHERE id = ?').get(userId);
-        if (!user) {
+        const userRow = db.prepare('SELECT username, role, email FROM users WHERE id = ?').get(userId);
+        if (!userRow) {
             return res.status(404).json({ success: false, error: 'Kullanıcı bulunamadı' });
         }
+
+        const user = decryptUserRecord(userRow);
 
         // Diğer adminleri silemez
         if (user.role === 'admin') {
@@ -265,7 +270,8 @@ router.delete('/users/:id', authenticateToken, requireAdmin, (req, res) => {
 
             // pending_registrations kayıtlarını sil (varsa email ile)
             if (user.email) {
-                db.prepare('DELETE FROM pending_registrations WHERE email = ?').run(user.email);
+                db.prepare('DELETE FROM pending_registrations WHERE email_lookup = ? OR email = ?')
+                    .run(buildEmailLookup(user.email), user.email);
             }
 
             // Kullanıcıyı sil

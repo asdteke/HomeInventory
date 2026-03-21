@@ -3,6 +3,8 @@ import Joyride, { STATUS, EVENTS } from 'react-joyride';
 import { useTheme } from '../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
 
+const INTRO_TOUR_BOOT_FLAG = '__homeInventoryIntroBooted';
+
 export default function IntroTour() {
     const { t } = useTranslation();
     const [run, setRun] = useState(false);
@@ -12,7 +14,8 @@ export default function IntroTour() {
     useEffect(() => {
         // Check if user has seen the tour
         const hasSeenTour = localStorage.getItem('hasSeenIntroTour');
-        if (!hasSeenTour) {
+        if (!hasSeenTour && !window[INTRO_TOUR_BOOT_FLAG]) {
+            window[INTRO_TOUR_BOOT_FLAG] = true;
             // Longer delay to ensure page fully renders and sidebar is visible
             const timer = setTimeout(() => {
                 // Check if target elements exist before starting

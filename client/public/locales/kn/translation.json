@@ -1,0 +1,696 @@
+{
+    "items": {
+        "qrcode": {
+            "title": "QR Code",
+            "desc": "ನೀವು ಈ ಕ್ಯೂಆರ್ ಕೋಡ್ ಅನ್ನು ಐಟಂನ ಮೇಲೆ ಮುದ್ರಿಸಬಹುದು ಮತ್ತು ಅಂಟಿಸಬಹುದು. ಅದನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡುವುದರಿಂದ ನೇರವಾಗಿ ಈ ಪುಟಕ್ಕೆ ಮರುನಿರ್ದೇಶಿಸುತ್ತದೆ."
+        },
+        "title_new": "ಹೊಸ ಐಟಂ ಸೇರಿಸಿ",
+        "title_edit": "ಐಟಂ ಸಂಪಾದಿಸಿ",
+        "subtitle": "ಐಟಂ ವಿವರಗಳನ್ನು ನಮೂದಿಸಿ",
+        "load_error": "ಐಟಂ ಲೋಡ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ",
+        "form": {
+            "name": "ಐಟಂ ಹೆಸರು",
+            "name_placeholder": "ಉದಾ. ಸ್ಯಾಂಸಂಗ್ ಟಿವಿ 55 ಇಂಚು",
+            "required": "*",
+            "description": "ವಿವರಣೆ",
+            "description_placeholder": "ಐಟಂ ಕುರಿತು ಟಿಪ್ಪಣಿಗಳು...",
+            "quantity": "ಪ್ರಮಾಣ",
+            "category": "ವರ್ಗ",
+            "select_category": "ಆಯ್ಕೆಮಾಡಿ",
+            "room": "ಕೋಣೆ",
+            "select_room": "ಕೋಣೆ ಆಯ್ಕೆಮಾಡಿ",
+            "location_details": "ಸ್ಥಳ ವಿವರಗಳು",
+            "location_optional": "(ಐಚ್ಛಿಕ)",
+            "location_placeholder": "ಹೊಸ ಸ್ಥಳವನ್ನು ಹುಡುಕಿ ಅಥವಾ ಸೇರಿಸಿ...",
+            "location_help": "ಕಣ್‌ಣೆಯಲ್ಲಿ ಎಲ್ಲಿ? (ಉದಾ. 'ನೀಲಿ ಕ್ಯಾಬಿನೆಟ್‌ನ ಮೇಲಿನ ಶೆಲ್ಫ್')",
+            "location_create": "ಸ್ಥಳವನ್ನು ರಚಿಸಿ \"{{name}}\"",
+            "location_privacy": "ಸ್ಥಳದ ಗೌಪ್ಯತೆ",
+            "location_public": "ಎಲ್ಲರೂ ಈ ಸ್ಥಳವನ್ನು ನೋಡಬಹುದು",
+            "location_private": "ನೀವು ಮಾತ್ರ ಇದನ್ನು ನೋಡಬಹುದು",
+            "location_save": "ಸ್ಥಳವನ್ನು ಉಳಿಸಿ",
+            "location_saving": "ಸೇರ್ಪಡೆಗೊಳಿಸಲಾಗುತ್ತಿದೆ...",
+            "location_selected": "ಆಯ್ದ ಸ್ಥಳ: {{name}}",
+            "location_empty": "ಈ ಕೊಠಡಿಯಲ್ಲಿ ಯಾವುದೇ ಸ್ಥಳವನ್ನು ಇನ್ನೂ ನಿರ್ಧರಿಸಿಲ್ಲ. ಒಂದನ್ನು ರಚಿಸಲು ಟೈಪಿಂಗ್ ಆರಂಭಿಸಿ.",
+            "photo": "ಫೋಟೋ",
+            "add_photo": "ಸೇರಿಸಿ",
+            "barcode": "ಬಾರ್ಕೋಡ್",
+            "barcode_optional": "(ಐಚ್ಛಿಕ)",
+            "barcode_placeholder": "ಉದಾ. 8690123456789",
+            "scan_barcode": "ಬಾರ್ಕೋಡ್ სკ್ಯಾನ್ ಮಾಡಿ",
+            "search_db": "ಶೋಧ ಡೇಟಾಬೇಸ್",
+            "search_google": "ಗೂಗಲ್ ನಲ್ಲಿ ಹುಡುಕಿ",
+            "barcode_saved": "✓ ಬಾರ್ ಕೋಡ್ ಅನ್ನು ಉಳಿಸಲಾಗುತ್ತದೆ",
+            "visibility": "ಐಟಂ ಗೋಚರತೆ",
+            "visibility_public": "ಮನೆಯ ಎಲ್ಲ ಸದಸ್ಯರಿಗೆ ಗೋಚರಿಸುವುದು",
+            "visibility_private": "ನಿಮಗೆ ಮಾತ್ರ ಗೋಚರಿಸುತ್ತದೆ",
+            "submit_add": "ಐಟಂ ಸೇರಿಸಿ",
+            "submit_save": "ಬದಲಾವಣೆಗಳನ್ನು ಉಳಿಸಿ",
+            "submitting": "ಉಳಿಸಲಾಗುತ್ತಿದೆ..."
+        },
+        "messages": {
+            "quick_add_success": "✓ \"{{barcode}}\" quick added - you can edit later",
+            "quick_add_fail": "⚠ ತ್ವರಿತ ಸೇರಿಸಲು ವಿಫಲವಾಗಿದೆ",
+            "searching": "ಹುಡುಕಲಾಗುತ್ತಿದೆ...",
+            "found_local": "✓ ಸ್ಥಳೀಯ: \"{{name}}\" ಎಂದು ನೋಂದಾಯಿಸಲಾಗಿದೆ",
+            "found_remote": "✓ {{source}} {{note}}: \"{{name}}\" ನಲ್ಲಿ ಕಂಡುಬಂದಿದೆ",
+            "not_found": "⚠ ಉತ್ಪನ್ನವನ್ನು ಡೇಟಾಬೇಸಿನಲ್ಲಿ ಕಂಡುಹಿಡಿಯಲಾಗಲಿಲ್ಲ. ನೀವು Google ನಲ್ಲಿ ಹುಡುಕಬಹುದು.",
+            "search_fail": "⚠ ಹುಡುಕಾಟ ವಿಫಲವಾಗಿದೆ",
+            "name_required": "ಐಟಂ ಹೆಸರಿನ ಅಗತ್ಯವಿದೆ",
+            "location_add_error": "ಸ್ಥಳವನ್ನು ಸೇರಿಸಲು ವಿಫಲವಾಗಿದೆ"
+        }
+    },
+    "common": {
+        "save": "ಉಳಿಸಿ",
+        "cancel": "ರದ್ದುಮಾಡಿ",
+        "loading": "ಲೋಡಿಂಗ್...",
+        "error": "ದೋಷ ಸಂಭವಿಸಿದೆ",
+        "success": "ಕಾರ್ಯ ಯಶಸ್ವಿ",
+        "search": "ಹುಡುಕಿ...",
+        "edit": "ಸಂಪಾದಿಸಿ",
+        "delete": "ಅಳಿಸಿ",
+        "add": "ಸೇರಿಸಿ",
+        "new": "ಹೊಸದು",
+        "all": "ಎಲ್ಲ",
+        "manage": "ನಿರ್ವಹಿಸಿ",
+        "help_support": "ಸಹಾಯ & ಬೆಂಬಲ",
+        "theme": {
+            "light": "ಲೈಟ್ ಮೋಡ್",
+            "dark": "ಡಾರ್ಕ್ ಮೋಡ್"
+        },
+        "select": "ಆಯ್ಕೆಮಾಡಿ",
+        "refresh": "تازهಗೊಳಿಸು",
+        "close": "ಮುಚ್ಚು",
+        "logout": "ಲಾಗ್ ಔಟ್",
+        "copyright": "© {{year}} HomeInventory - ಎಲ್ಲ ಹಕ್ಕುಗಳನ್ನು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ"
+    },
+    "auth": {
+        "login": {
+            "title": "ಲಾಗಿನ್",
+            "subtitle": "ನಿಮ್ಮ ಮನೆ ಸಂಗ್ರಹಣೆಯನ್ನು ವೈದ್ಯಕೀಯವಾಗಿ ನಿರ್ವಹಿಸಿ",
+            "welcome": "HomeInventory ಗೆ ಸುಸ್ವಾಗತ",
+            "username_or_email": "ಬಳಕೆದಾರ ಹೆಸರು ಅಥವಾ ಇಮೇಲ್",
+            "password": "ಗುಪ್ತಪದ",
+            "forgot_password": "ಗುಪ್ತಪದ ಮರೆತೀರಾ?",
+            "submit": "ಲಾಗಿನ್",
+            "submitting": "ಲಾಗಿನ್ ಆಗುತ್ತಿದೆ...",
+            "google_continue": "Google ಮೂಲಕ ಮುಂದುವರಿಸಿ",
+            "or": "ಅಥವಾ",
+            "no_account": "ಖಾತೆ ಇಲ್ಲವೇ?",
+            "register_link": "ನೋಂದಣಿ",
+            "support_contact": "ಲಾಗಿನ್ ಸಮಸ್ಯೆಗಳಿಗೆ:",
+            "terms_title": "📋 ಬಳಕೆ ನಿಯಮಗಳು ಮತ್ತು ಅಸ್ವೀಕಾರ",
+            "terms_beta": "ಬೇಟಾ ಆವೃತ್ತಿ: HomeInventory ಪ್ರಸ್ತುತ परीक्षण ಹಂತದಲ್ಲಿದೆ. ನಿಮ್ಮ ಡೇಟಾದ ಸ್ಥಿರತೆ ಅಥವಾ ಭದ್ರತೆಯ ಕುರಿತು ಯಾವುದೇ ಗ್ಯಾರಂಟಿ ನೀಡಲಾಗುವುದಿಲ್ಲ.",
+            "terms_disclaimer": "ಅಸ್ವೀಕಾರ: ಈ ಅಪ್ಲಿಕೇಶನ್ ಅನ್ನು ಬಳಸುವ ಮೂಲಕ, ನೀವು ಯಾವುದೇ ಡೇಟಾ ನಷ್ಟ, ಪ್ರವೇಶ ಸಮಸ್ಯೆಗಳು, ಅಥವಾ ಇತರ ತಾಂತ್ರಿಕ ದೋಷಗಳಿಗೆ ಯಾವುದೇ ಹನಿಯನ್ನು ದಾವೆ ಸಲ್ಲಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ ಎಂದು ಒಪ್ಪಿಕೊಂಡಿದ್ದೀರಿ.",
+            "terms_backup": "ಡೇಟಾ ಬ್ಯಾಕಪ್: ನಿಮ್ಮ ಪ್ರಮುಖ ಮಾಹಿತಿಯನ್ನು ನಿಯಮಿತವಾಗಿ ಬ್ಯಾಕಪ್ ಮಾಡಲು ನಾವು ಶಿಫಾರಸು ಮಾಡುತ್ತೇವೆ.",
+            "terms_accept": "ಲಾಗಿನ್ ಮಾಡಿದ ನಂತರ, ನೀವು ಈ ನಿಯಮಗಳನ್ನು ಒಪ್ಪಿಕೊಂಡಿರುವಂತೆ ಪರಿಗಣಿಸಲಾಗುತ್ತದೆ."
+        },
+        "register": {
+            "title": "HomeInventory ಗೆ ಸ್ವಾಗತ",
+            "subtitle": "ಹೊಸ ಖಾತೆಯನ್ನು ರಚಿಸು ಅಥವಾ գոյಿನ ಮನೆಯೊಂದಿಗೆ ಸೇರು",
+            "create_house": "ಹೊಸ ಮನೆ ರಚಿಸಿ",
+            "join_house": "ಮನೆ ಸೇರಿ",
+            "create_house_desc": "🏠 ಹೊಸ ಮನೆ ರಚಿಸಲಾಗುತ್ತದೆ ಮತ್ತು ನಿಮಗೆ ವಿಶಿಷ್ಟ <strong>ಮನೆ ಕೀ</strong> ದೊರೆಯುತ್ತದೆ. ಈ ಕೀಯನ್ನು ಕುಟುಂಬದೊಂದಿಗೆ ಹಂಚಿಕೊಂಡು 동일 ಇನ್ವೆಂತೋರಿಗೆ ಪ್ರವೇಶ ಪಡೆಯಬಹುದು.",
+            "join_house_desc": "👨‍👩‍👧‍👦 ಮೊದಲಾಗಿರುವ ಮನೆಗೆ ಸೇರುವುದಕ್ಕಾಗಿ ನೀವು ಹಂಚಿದ <strong>ಮನೆ ಕೀ</strong> ನಮೂದಿಸಿ. ಕೀ ಇರುವ ಎಲ್ಲರೂ ಹಂಚಿದ ಇನ್ವೆಂತೋರಿಗೆ ಪ್ರವೇಶ ಪಡೆಯಬಹುದು.",
+            "form_title": "ಸೈನ್ ಅಪ್",
+            "username": "ಬಳಕೆದಾರಹೆಸರು",
+            "username_placeholder": "ಉದಾ. ಜಾನ್",
+            "email": "ಇಮೇಲ್",
+            "email_placeholder": "ಉದಾ. john@example.com",
+            "password": "ಪಾಸ್ವರ್ಡ್",
+            "password_placeholder": "ಕನಿಷ್ಠ 6 ಅಕ್ಷರಗಳು",
+            "password_confirm": "ಪಾಸ್ವರ್ಡ್ ದೃಢೀಕರಿಸಿ",
+            "password_confirm_placeholder": "ಪಾಸ್ವರ್ಡ್ ಮರುಪ್ರವೇಶಿಸಿ",
+            "house_key": "ಮನೆ ಕೀ",
+            "house_key_placeholder": "64-ಅಕ್ಷರಗಳ ಮನೆ ಕಿಯನ್ನು ಪೇಸ್ಟ್ ಮಾಡಿ",
+            "submit_create": "ಹೊಸ ಮನೆ ಸೃಷ್ಟಿಸಿ",
+            "submit_join": "дому ಸೇರಿ",
+            "submitting": "ನೋಂದಣಿ ನಡೆಯುತ್ತಿದೆ...",
+            "already_have_account": "ಈಗಾಗಲೇ ಖಾತೆ ಇದೆಯೆ?",
+            "login_link": "ಲಾಗಿನ್",
+            "support": "ನೋಂದಣಿ ಸಮಸ್ಯೆಗಳು:",
+            "terms": "ಬಳಕೆ ನಿಯಮಗಳು ಮತ್ತು ತಾತ್ಕಾಲಿಕ ಅಸ್ವೀಕರಣ ಪತ್ರ",
+            "passwords_mismatch": "ಪಾಸ್‌ವರ್ಡ್‌ಗಳು ಹೊಂದಿಕೆಯಾಗುತ್ತಿಲ್ಲ",
+            "password_length": "ಪಾಸ್‌ವರ್ಡ್ ಕನಿಷ್ಠ 6 ಅಕ್ಷರಗಳಿದ್ದಿರಬೇಕು",
+            "key_required": "ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಮನೆ ಸೇರಲು ಮನೆಯ ಕೀ ಅಗತ್ಯವಿದೆ",
+            "modals": {
+                "key_created": {
+                    "title": "🎉 ಮನೆ ರಚಿಸಲಾಗಿದೆ!",
+                    "subtitle": "ಕೆಳಗಿನ ಕೀವನ್ನು ಸುರಕ್ಷಿತ ಸ್ಥಳದಲ್ಲಿ ಉಳಿಸಿ",
+                    "warning": "ಮುಖ್ಯ: ಈ ಕೀ ಮಾತ್ರ ಒಂದು ಬಾರಿ ತೋರಿಸಲಾಗುವುದು. ಅದನ್ನು ಕುಟುಂಬ ಸದಸ್ಯರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ যাতে ಅವರು ಅದೇ ಇನ್ವೆಂಟರಿಯನ್ನು ಪ್ರವೇಶಿಸಬಹುದು.",
+                    "copy": "ನಕಲಿಸಿ",
+                    "copied": "ನಕಲಿಸಲಾಗಿದೆ",
+                    "button": "ನಾನು ಕೀ ಉಳಸಿಕೆ, ಮುಂದುವರೆಯಿರಿ"
+                },
+                "email_verification": {
+                    "title": "📧 ಇಮೇಲ್ ಪರಿಶೀಲನೆ ಅಗತ್ಯವಿದೆ",
+                    "message": "ಖಾತೆ ರಚಿಸಲಾಗಿದೆ! ದಯವಿಟ್ಟು ಲಾಗಿನ್ ಮಾಡಲು ನಿಮ್ಮ ಇಮೇಲ್ ವಿಳಾಸವನ್ನು ಪರಿಶೀಲಿಸಿ.",
+                    "step_1": "ನಾವು <1>{{email}}</1> ಗೆ ಪರಿಶೀಲನಾ ಇಮೇಲ್ ಕಳುಹಿಸಿದ್ದೇವೆ.",
+                    "step_2": "ಇಮೇಲ್‌ನಲ್ಲಿ <1>\"ನನ್ನ ಖಾತೆ ಪರಿಶೀಲಿಸಿ\"</1> ಬಟನ್ ಕ್ಲಿಕ್ ಮಾಡಿ.",
+                    "step_3": "ಪರಿಶೀಲನೆಯ ನಂತರ, <1>ನೀವು ಲಾಗಿನ್ ಮಾಡಬಹುದು</1>.",
+                    "spam_note": "ಇಮೇಲ್ ತಲುಪದಿದ್ದರೆ ಸ್ಪ್ಯಾಮ್/ಜಂಕ್ ಫೋಲ್ಡರ್ ಪರಿಶೀಲಿಸಿ.",
+                    "key_note": "ಮುಖ್ಯ: ನಿಮ್ಮ ಮನೆಯ ಕೀಲಿಯು ಸಹ ಇಮೇಲ್‌ನಲ್ಲಿ ಕಳುಹಿಸಲಾಗಿತ್ತು. ನೀವು ಅದನ್ನು ಕುಟುಂಬ ಸದಸ್ಯರೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಬಹುದು.",
+                    "button": "ಸರಿಯಾಗಿದೆ, ಲಾಗಿನ್‌ಗೆ ಹೋಗಿ"
+                }
+            }
+        },
+        "forgot_password": {
+            "title": "Forgot Password",
+            "subtitle": "Start a secure recovery flow to access your account again.",
+            "identifier": "Username or Email",
+            "identifier_placeholder": "e.g. john or john@example.com",
+            "submit": "Start Recovery",
+            "requesting": "Checking...",
+            "email_success": "If an account exists, a password reset link valid for 15 minutes has been sent.",
+            "back_to_login": "Back to Login",
+            "recovery_mode_info": "Email is disabled on this server. Continue with the Recovery Key you saved during account setup.",
+            "recovery_key": "Recovery Key",
+            "recovery_key_placeholder": "e.g. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "reset_submit": "Reset Password",
+            "resetting": "Resetting..."
+        },
+        "reset_password": {
+            "title": "Reset Password",
+            "subtitle": "Use the secure link to set a new password.",
+            "missing_token": "The password reset link looks incomplete or broken.",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "submit": "Update Password",
+            "submitting": "Updating...",
+            "back_to_login": "Back to Login"
+        },
+        "recovery_setup": {
+            "title": "Create Recovery Key",
+            "subtitle": "Until this is completed, your account is not considered safe for local password recovery.",
+            "warning": "This key will only be shown once. Save it in a password manager or another secure offline location.",
+            "account": "A recovery key will be created for account {{username}}.",
+            "description": "Because email is disabled, you will only be able to reset your password with this key in the future.",
+            "submit": "Create Recovery Key",
+            "generating": "Creating..."
+        },
+        "recovery_key_modal": {
+            "register_title": "Save Your Recovery Key",
+            "google_title": "Save Your Recovery Key",
+            "setup_title": "Save Your Recovery Key",
+            "reset_title": "Save Your New Recovery Key",
+            "settings_title": "Save Your New Recovery Key",
+            "subtitle": "This key is shown only once.",
+            "warning": "If you lose this key while email is disabled, you may not be able to recover your password. Copy it and store it safely.",
+            "confirm": "I Saved the Key"
+        }
+    },
+    "navigation": {
+        "home": "ಮನೆ",
+        "inventory": "ಇನ್‌ವೆಂಟರಿ",
+        "rooms": "ಕೊಠಡಿಗಳು",
+        "categories": "ವರ್ಗಗಳು",
+        "settings": "ಸೆಟ್ಟಿಂಗ್ಸ್",
+        "new_item": "ಹೊಸ ಐಟಂ",
+        "share_house": "ಮನೆ ಹಂಚಿಕೊಳ್ಳಿ",
+        "admin_panel": "ಆಡ್ಮಿನ್ ಪ್ಯಾನೆಲ್",
+        "logout": "ಲಾಗ್ ಔಟ್",
+        "menu": "ಮೆನು"
+    },
+    "dashboard": {
+        "welcome": "ಸ್ವಾಗತ, <1>{{name}}</1>! 👋",
+        "subtitle": "ನಿಮ್ಮ ವಸ್ತುಗಳ ಸಾರಾಂಶ",
+        "quick_search": "ದ್ರುತ ಶೋಧನೆ...",
+        "filters": {
+            "private": "🔒 ನನ್ನ ವೈಯಕ್ತಿಕ ವಸ್ತುಗಳು",
+            "public": "🌐 ಸಾರ್ವಜನಿಕ",
+            "remove": "ಫಿಲ್ಟರನ್ನು ತೆರವುಗೊಳಿಸಿ",
+            "no_items": "ಈ ಫಿಲ್ಟರ್‌ಗೆ ಯಾವುದೇ ವಸ್ತುಗಳು ಹೊಂದಿಕೆಯಾಗುತ್ತಿಲ್ಲ"
+        },
+        "stats": {
+            "total_items": "ಒಟ್ಟು ವಸ್ತುಗಳು",
+            "total_quantity": "ಒಟ್ಟು ಪ್ರಮಾಣ",
+            "fullest_room": "ತುಂಬಿದ ಕೋಣೆ",
+            "category_count": "ವರ್ಗಗಳು",
+            "items_suffix": "ವಸ್ತುಗಳು"
+        },
+        "recent_items": {
+            "title": "ಇತ್ತೀಚೆಗೆ ಸೇರಿಸಲಾದವು",
+            "see_all": "ಎಲ್ಲಾ ನೋಡಿ"
+        },
+        "categories": {
+            "title": "ವರ್ಗಗಳು",
+            "manage": "ನಿರ್ವಹಿಸಿ",
+            "empty": "ಯಾವುದೇ ಐಟಂಗಳು ಇನ್ನೂ ಸೇರಿಸಲಾಗಿಲ್ಲ"
+        },
+        "rooms": {
+            "title": "ಕೊಠಡಿಗಳು",
+            "manage": "ನಿರ್ವಹಿಸು"
+        },
+        "quick_actions": {
+            "title": "⚡ ತ್ವರಿತ ಕ್ರಿಯೆಗಳು",
+            "add_item": "ಐಟಂ ಸೇರಿಸಿ",
+            "search_item": "ಐಟಂ ಹುಡುಕಿ",
+            "categories": "ವರ್ಗಗಳು",
+            "settings": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು"
+        }
+    },
+    "beta_banner": {
+        "title": "ಬೇಟಾ:",
+        "text": "HomeInventory ಪ್ರಸ್ತುತ ಪರೀಕ್ಷಾ ಮತ್ತು ಹಬ್ಬದ ಹಂತದಲ್ಲಿದೆ. ಡೇಟಾ ಸ್ಥಿರತೆ ಅಥವಾ ಭದ್ರತೆಯ ಬಗ್ಗೆ ಯಾವುದೇ ಭರವಸೆ ನೀಡಲಾಗುವುದಿಲ್ಲ. ಪ್ರಮುಖ ಮಾಹಿತಿಯ ಬ್ಯಾಕಪ್‌ಗಳನ್ನು ದಯವಿಟ್ಟು ನಿಗದಿತವಾಗಿರಿ.",
+        "contact": "ಸಂಪರ್ಕ:"
+    },
+    "footer": {
+        "rights": "© {{year}} HomeInventory - ಎಲ್ಲಾ ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ",
+        "contact": "ಸಂಪರ್ಕ:"
+    },
+    "settings": {
+        "title": "ಸೆಟ್ಟಿಂಗ್ಸ್",
+        "subtitle": "ಆಪ್ಲಿಕೆಶನ್ ಆದ್ಯತೆಯನ್ನು ನಿರ್ವಹಿಸಿ",
+        "messages": {
+            "house_switched": "✅ {{name}} ಸಕ್ರಿಯಗೊಂಡಿದೆ!",
+            "house_switch_error": "ಮನೆವನ್ನು ಬದಲಿಸಲು ವಿಫಲವಾಗಿದೆ",
+            "house_joined_success": "✅ ನೀವು ಯಶಸ್ವಿಯಾಗಿ ಮನೆಗೆ ಸೇರ್ಪಡೆ ಮಾಡಿದ್ದೀರಿ!",
+            "house_join_error": "ಮನೆಯ ಸೇರಲು ವಿಫಲವಾಗಿದೆ",
+            "house_created_success": "✅ \"{{name}}\" ರಚಿಸಲಾಗಿದೆ!",
+            "house_create_error": "ಮನೆ ರಚಿಸಲು ವಿಫಲವಾಗಿದೆ",
+            "house_left_success": "ಯಶಸ್ವಿಯಾಗಿ ಮನೆಯನ್ನೇ ಬಿಟ್ಟುಬಿಟ್ಟಿದ್ದೀರಿ",
+            "house_left_error": "ಮನೆಯ ಬಿಟ್ಟುಬಿಡಲು ವಿಫಲವಾಗಿದೆ",
+            "house_leave_confirm": "ನೀವು ಖಚಿತವಾಗಿ \"{{name}}\" ಬಿಟ್ಟುಬಿಡಲು ಬಯಸುತ್ತೀರಾ?",
+            "backup_downloaded": "✅ ಬ್ಯಾಕ್ಅಪ್ ಯಶಸ್ವಿಯಾಗಿ ಡೌನ್‌ಲೋಡ್ ಮಾಡಲಾಗಿದೆ! ({{count}} ವಸ್ತುಗಳು)",
+            "export_error": "❌ ರಫ್ತು ಮಾಡುವಾಗ ದೋಷ ಸಂಭವಿಸಿತು",
+            "import_invalid_format": "ಅಮಾನ್ಯ ಬ್ಯಾಕ್ಅಪ್ ಫೈಲ್ ಪ್ರಕಾರ",
+            "import_success": "✅ {{items}} ವಸ್ತುಗಳು, {{categories}} ವರ್ಗಗಳು, {{rooms}} ಕೊಠಡಿಗಳು, {{locations}} ಸ್ಥಳಗಳು ಸೇರಿಸಿದ್ದಾರೆ.",
+            "import_error": "❌ ಆಮದು ದೋಷ: {{error}}",
+            "password_changed": "ರಹಸ್ಯಕೋಡ್ ಯಶಸ್ವಿಯಾಗಿ ಬದಲಾಯಿಸಲಾಗಿದೆ!",
+            "password_error_current": "ಪ್ರಸ್ತುತ ರಹಸ್ಯಕೋಡ್ ತಪ್ಪಾಗಿದೆ",
+            "password_error_invalid": "ಅಮಾನ್ಯ ಡೇಟಾ ಕಳುಹಿಸಲಾಗಿದೆ",
+            "session_expired": "ಸೆಷನ್ ಅವಧಿ ಸಲ್ಲಿತು. ದಯವಿಟ್ಟು ಮತ್ತೆ ಲಾಗಿನ್ ಮಾಡಿ.",
+            "server_error": "ಸರ್ವರ್ ದೋಷ ಸಂಭವಿಸಿದೆ",
+            "connection_error": "ಸರ್ವರ್‌ಸಹ ಸಂಪರ್ಕಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ನಿಮ್ಮ ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕವನ್ನು ಪರಿಶೀಲಿಸಿ.",
+            "unexpected_error": "ಅನುಮಾನಾಸ್ಪದ ದೋಷ ಸಂಭವಿಸಿದೆ",
+            "username_changed": "✅ ಬಳಕೆದಾರನಾಮ ಬದಲಾಗಿದೆ!",
+            "username_error": "ಬಳಕೆದಾರನಾಮ ಬದಲಾಯಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ",
+            "username_len_error": "ಬಳಕೆದಾರನಾಮ ಕನಿಷ್ಠ 3 ಅಕ್ಷರಗಳು ಇರಬೇಕು",
+            "fill_all_fields": "ದಯವಿಟ್ಟು ಎಲ್ಲ ಕ್ಷೇತ್ರಗಳನ್ನೂ ಭರ್ತಿ ಮಾಡಿ",
+            "passwords_mismatch": "ಹೊಸ ಪಾಸ್‌ವર્ડ್ಗಳು ಹೊಂದಿಲ್ಲ",
+            "password_min_len": "ಹೊಸ ಪಾಸ್‌ವರ್ಡ್ ಕನಿಷ್ಠ 6 ಅಕ್ಷರಗಳಿದ್ದುಹೋಗಬೇಕು",
+            "house_request_sent_success": "✅ Your join request was sent!",
+            "request_approved": "✅ Join request approved",
+            "request_rejected": "Join request rejected",
+            "request_action_error": "Could not update request",
+            "member_kick_confirm": "Are you sure you want to remove \"{{name}}\" from the house?",
+            "member_kicked": "Member removed from the house",
+            "member_kick_error": "Could not remove member from the house",
+            "recovery_key_regenerated": "Recovery key regenerated",
+            "recovery_key_error": "Could not regenerate recovery key"
+        },
+        "user_profile": {
+            "edit_username": "ಬಳಕೆದಾರಹೆಸರನ್ನು ಬದಲಿಸಿ"
+        },
+        "my_houses": {
+            "title": "ನನ್ನ ಮನೆಯಗಳು",
+            "join_house": "ಮನೆ ಸೇರಿ",
+            "join_short": "ಸೇರಿ",
+            "new_house": "ಹೊಸ ಮನೆ",
+            "new_short": "ಹೊಸದು",
+            "no_house": "ನೀವು ಇನ್ನೂ ಯಾವುದೇ ಮನೆಯ ಸದಸ್ಯರಾಗಿಲ್ಲ",
+            "owner": "ಮಾಲೀಕರು",
+            "active": "ಸಕ್ರಿಯ",
+            "member_count": "{{count}} ಸದಸ್ಯರು",
+            "item_count": "{{count}} ಐಟಂಗಳು",
+            "switch": "ಬದಲಿಸಿ",
+            "leave": "ಮನೆಯಿಂದ ಓಡಿಸಿ",
+            "info": "💡 ನೀವು ಹಲವಾರು ಮನೆಯ ಸದಸ್ಯರಾಗಬಹುದು ಮತ್ತು ಅವುಗಳ ನಡುವೆ ಬದಲಾಯಿಸಬಹುದು. ಪ್ರತಿ ಮನೆ ಪ್ರತ್ಯೇಕ ಇನ್‌ವೆಂಟರಿ ನಿರ್ವಹಿಸುತ್ತದೆ."
+        },
+        "house_info": {
+            "title": "ಸಕ್ರಿಯ ಮನೆ ಕೀ",
+            "key_label": "ಮನೆ ಕೀ",
+            "mask_key": "••••••••{{suffix}}",
+            "hide": "ಮರೆಮಾಡಿ",
+            "show": "ತೋರಿಸಿ",
+            "copy": "ನಕಲು",
+            "share_info": "💡 ನೀವು ಈ ಕೀ ಅನ್ನು ಹಂಚಿಕೊಂಡ ಬಳಕೆದಾರರು ನೋಂದಾಯಿಸುವಾಗ 'ಮನೆ ಸೇರಿ' ಆಯ್ಕೆಯನ್ನು ಬಳಸಿಕೊಂಡು ನಿಮ್ಮ ಇನ್‌ವೆಂಟರಿಯನ್ನು ಪ್ರವೇಶಿಸಬಹುದು.",
+            "members_title": "ಮನೆಯ ಸದಸ್ಯರು ({{count}})",
+            "you": "(ನೀವು)",
+            "joined_at": "ಸೇರಿದ್ದು: {{date, datetime}}",
+            "no_members": "ಇನ್ನೂ ಯಾವುದೇ ಸದಸ್ಯರಿಲ್ಲ",
+            "invite_title": "ಕುಟುಂಬದ ಸದಸ್ಯರನ್ನು ಆಹ್ವಾನಿಸಿ",
+            "invite_desc": "ಕುಟುಂಬದ ಸದಸ್ಯರು 동일ವಾದ ಇನ್‌ವೆಂಟರಿಯನ್ನು ಪ್ರವೇಶಿಸಬಹುದಾಗಲು ನಿಮ್ಮ ಮನೆ ಕೀ ಹಂಚಿಕೊಳ್ಳಿ. ಪ್ರತಿ ಸದಸ್ಯನು ತನ್ನ ಖಾತೆಯಿಂದ ಲಾಗಿನ್ ಆಗುತ್ತಾನೆ ಆದರೆ ಅದೇ ಡೇಟಾವನ್ನು ಪ್ರವೇಶಿಸುತ್ತಾನೆ.",
+            "active_members": "Active Members",
+            "pending_requests": "Pending Requests",
+            "no_pending_requests": "No pending requests",
+            "owner_controls": "Owner controls enabled",
+            "approve": "Approve",
+            "reject": "Reject",
+            "kick": "Remove"
+        },
+        "theme": {
+            "title": "ಥೀಮ್",
+            "dark": "ಡಾರ್ಕ್ ಮೋಡ್",
+            "light": "ಲೈಟ್ ಮೋಡ್"
+        },
+        "security": {
+            "title": "ಭದ್ರತೆ",
+            "change_password": "ಪಾಸ್ವರ್ಡ್ ಬದಲಾಯಿಸಿ",
+            "change_password_desc": "ನಿಮ್ಮ ಖಾತೆ ಪಾಸ್ವರ್ಡ್ ನವೀಕರಿಸಿ",
+            "recovery_key_title": "Recovery Key",
+            "recovery_key_desc": "You can generate a new key for local password recovery.",
+            "recovery_key_missing": "No recovery key is visible for this account yet.",
+            "current_key_label": "Saved Recovery Key",
+            "recovery_key_unavailable": "The current recovery key cannot be displayed. Regenerate it if needed.",
+            "recovery_key_action": "Regenerate",
+            "recovery_key_modal_desc": "Confirm your current password to continue. The new key will be shown only once.",
+            "recovery_key_loading": "Preparing..."
+        },
+        "data_management": {
+            "title": "ಡೇಟಾ ನಿರ್ವಹಣೆ",
+            "download_backup": "ಬ್ಯಾಕಪ್ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
+            "downloading": "ಡೌನ್‌ಲೋಡ್ ಆಗುತ್ತಿದೆ...",
+            "export_json": "JSON ಆಗಿ ರಫ್ತು ಮಾಡಿ",
+            "upload_backup": "ಬ್ಯಾಕಪ್ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ",
+            "uploading": "ಅಪ್‌ಲೋಡ್ ಆಗುತ್ತಿದೆ...",
+            "import_json": "JSON ನಿಂದ ಆಮದು ಮಾಡಿ"
+        },
+        "about": {
+            "title": "📱 ಅಪ್ಲಿಕೇಶನ್ ಬಗ್ಗೆ",
+            "version": "ಆವೃತ್ತಿ",
+            "brand": "ಬ್ರಾಂಡ್",
+            "feedback": "✉️ ಪ್ರತಿಕ್ರಿಯೆ ಕಳುಹಿಸಿ"
+        },
+        "modals": {
+            "password": {
+                "title": "ಪಾಸ್ವರ್ಡ್ ಬದಲಾಯಿಸಿ",
+                "current": "ಪ್ರಸ್ತುತ ಪಾಸ್ವರ್ಡ್",
+                "new": "ಹೊಸ ಪಾಸ್ವರ್ಡ್",
+                "confirm": "ಹೊಸ ಪಾಸ್ವರ್ಡ್ (ನಿಶ್ಚಿತಪಡಿಸಿ)",
+                "changing": "ಬದಲಾಯಿಸಲಾಗುತ್ತಿದೆ...",
+                "submit": "ಪಾಸ್ವರ್ಡ್ ಬದಲಾಯಿಸಿ"
+            },
+            "join_house": {
+                "title": "ಮನೆ ಸೇರಿ",
+                "key_placeholder": "64-ಅಕ್ಷರಗಳ ಮನೆಯ ಕೀ ಇನ್ಪುಟ್ ಮಾಡಿ",
+                "key_help": "ನಿಮ್ಮ ಕುಟುಂಬ ಸದಸ್ಯರಿಂದ ಪಡೆದ ಕೀ ಅನ್ನು ಇನ್ಪುಟ್ ಮಾಡಿ",
+                "name_label": "ಈ ಮನೆಯ ನಾಮ (ಐಚ್ಛಿಕ)",
+                "name_placeholder": "ಉದಾಹರಣೆ: ಪೋಷಕರ ಮನೆ",
+                "joining": "ಸೇರಿಸಲಾಗುತ್ತಿದೆ...",
+                "submit": "ಮನೆ ಸೇರಿ"
+            },
+            "create_house": {
+                "title": "ಹೊಸ ಮನೆ ನಿರ್ಮಿಸಿ",
+                "name_label": "ಮನೆಯ ಹೆಸರು",
+                "name_placeholder": "ಉದಾ. ಸಮರ್ ಹೌಸ್, ಕಚೇರಿ, ಗೋದಾಮು",
+                "name_help": "ಖಾಲಿ bırakಿದರೆ, 'ನನ್ನ ಹೊಸ ಮನೆ' ಎಂದು ಹೆಸರಿಸಲಾಗುತ್ತದೆ",
+                "info": "ℹ️ ಹೊಸ ಮನೆಯಿಗಾಗಿ ಡೀಫಾಲ್ಟ್ ವರ್ಗಗಳು ಮತ್ತು ಕೊಠಡಿಗಳು ನಿರ್ಮಿಸಲಾಗುತ್ತದೆ. ನೀವು ನಂತರ ಅವುಗಳನ್ನು ಸಂಪಾದಿಸಬಹುದು.",
+                "creating": "ರಚಿಸಲಾಗುತ್ತಿದೆ...",
+                "submit": "ಮನೆ ರಚಿಸಿ"
+            },
+            "username": {
+                "title": "ಬಳಕೆದಾರ ಹೆಸರು ಬದಲಿಸಿ",
+                "new_label": "ಹೊಸ ಬಳಕೆದಾರ ಹೆಸರು",
+                "placeholder": "ನಿಮ್ಮ ಹೊಸ ಬಳಕೆದಾರ ಹೆಸರು",
+                "help": "3-30 ಅಕ್ಷರಗಳು, ಅಕ್ಷರಗಳು, ಸಂಖ್ಯೆಗಳು, ಅಂಡರ್‌ಸ್ಕೋರ್ ಮತ್ತು ಡ್ಯಾಶ್ ಮಾತ್ರ",
+                "saving": "ಉಳಿಸಲಾಗುತ್ತಿದೆ...",
+                "submit": "ಬದಲಿಸು"
+            }
+        },
+        "select_language": "ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+        "pending_requests": {
+            "title": "My Pending Join Requests",
+            "waiting_since": "Waiting since: {{date, datetime}}",
+            "pending_badge": "Pending"
+        }
+    },
+    "inventory": {
+        "title": "ಇನ್‌ವೆಂಟರಿ",
+        "subtitle": "{{count}} ಐಟಂಗಳ ಪತ್ತೆ",
+        "new_item": "ಹೊಸ ಐಟಂ",
+        "add_first": "ಮೊದಲ ಐಟಂ ಸೇರಿಸಿ",
+        "search_placeholder": "ಐಟಂಗಳನ್ನು ಹುಡುಕಿ...",
+        "all_categories": "ಎಲ್ಲಾ ವರ್ಗಗಳು",
+        "all_rooms": "ಎಲ್ಲಾ ಕೊಠଡಿಗಳು",
+        "empty_title": "ಯಾವುದೇ ಐಟಂಗಳು ಕಂಡುಬಂದಿಲ್ಲ",
+        "empty_filter": "ಯಾವುದೇ ಐಟಂಗಳು ನಿಮ್ಮ ಫಿಲ್ಟರ್‌ಗಳಿಗೆ ಹೊಂದಿಕೆಯಾಗುತ್ತಿಲ್ಲ",
+        "empty_msg": "ಇನ್ನೂ ಯಾವುದೇ ಐಟಂ ಸೇರಿಸಲಾಗಿಲ್ಲ",
+        "delete_confirm": "ನೀವು ಈ ಐಟಂ ಅನ್ನು ಅಳಿಸಲು ಖಚಿತವಾಗಿದ್ದೀರಾ?",
+        "delete_error": "ಅಳಿಸುವ过程中 ದೋಷ"
+    },
+    "categories": {
+        "title": "ವರ್ಗಗಳು",
+        "subtitle": "{{count}} ವರ್ಗಗಳು",
+        "new_category": "ಹೊಸ ವರ್ಗ",
+        "edit_title": "ವರ್ಗವನ್ನು ಸಂಪಾದಿಸಿ",
+        "new_title": "ಹೊಸದಾದ ವರ್ಗ",
+        "name_label": "ವರ್ಗದ ಹೆಸರು",
+        "icon_label": "ಐಕಾನ್",
+        "color_label": "ಬಣ್ಣ",
+        "delete_confirm": "ನೀವು ಈ ವರ್ಗವನ್ನು ಅಳಿಸಬೇಕೆಂದು ಖಚಿತವಾಗಿದ್ದೀರಾ?",
+        "delete_error": "ಅಳಿಸುವಿಕೆಯಲ್ಲಿ ದೋಷ"
+    },
+    "rooms": {
+        "title": "ಕೊಠಡಿಗಳು",
+        "subtitle": "{{count}} ಕೊಠಡಿಗಳು",
+        "new_room": "ಹೊಸ ಕೊಠಡಿ",
+        "edit_title": "ಕೊಠಡಿಯನ್ನು ಸಂಪಾದಿಸಿ",
+        "new_title": "ಹೊಸ ಕೊಠಡಿ",
+        "name_label": "ಕೊಠಡಿಯ ಹೆಸರು",
+        "description_label": "ವಿವರಣೆ (ಐಚ್ಛಿಕ)",
+        "name_placeholder": "ಉದಾಹರಣೆಗೆ ಮಾಸ್ಟರ್ ಬೆಡ್ ರೂಮ್",
+        "desc_placeholder": "ಉದಾಹರಣೆಗೆ ಮುಖ್ಯ ಬೆಡ್ ರೂಮ್",
+        "delete_confirm": "ನೀವು ಖಚಿತವಾಗಿರುವಿರಾ ಈ ಕೊಠಡಿಯನ್ನು ಅಳಿಸಲು?",
+        "delete_error": "ಅಳಿಸುವಲ್ಲಿ ದೋಷ"
+    },
+    "admin": {
+        "title": "ನಿರ್ವಾಹಕ ಫಲಕ",
+        "subtitle": "ವ್ಯವಸ್ಥೆ ನಿರ್ವಹಣೆ ಮತ್ತು ಮೇಲ್ವಿಚಾರಣೆ",
+        "refresh": "ಮರುತಾಜಾ ಮಾಡಿ",
+        "tabs": {
+            "dashboard": "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
+            "users": "ಬಳಕೆದಾರರು",
+            "logs": "ಲಾಗ್‌ಗಳು",
+            "email": "ಮೇಲ್ ಕಳುಹಿಸಿ"
+        },
+        "stats": {
+            "total_users": "ಒಟ್ಟು ಬಳಕೆದಾರರು",
+            "new_today": "ಇಂದು: +{{count}} ಹೊಸ",
+            "total_inventory": "ಒಟ್ಟು ಸಂಗ್ರಹಣೆ",
+            "inventory_details": "{{rooms}} ಕೊಠಡಿಗಳು, {{categories}} ವರ್ಗಗಳು",
+            "banned_users": "ನಿರ್ಬಂಧಿತ ಬಳಕೆದಾರರು",
+            "access_blocked": "ಪ್ರವೇಶವನ್ನು ತಡೆಹಿಡಿಸಲಾಗಿದೆ",
+            "server_memory": "ಸರ್ವರ್ ಮೆಮೊರಿ",
+            "uptime": "ಅಪ್ ಟೈಮ್: {{hours}} ಗಂಟೆಗಳು"
+        },
+        "users": {
+            "user": "ಬಳಕೆದಾರ",
+            "role": "ಪಾತ್ರ",
+            "status": "ಸ್ಥಿತಿ",
+            "action": "ಕ್ರಿಯೆ",
+            "banned": "ನಿಷೇಧಿಸಲಾಗಿದೆ",
+            "active": "ಸಕ್ರಿಯ",
+            "unban": "ಅನ್ ಬ್ಯಾನ್",
+            "ban": "ನಿಷೇಧ",
+            "delete": "ಖಾತೆಯನ್ನು ಅಳಿಸಿ",
+            "confirm_ban": "ಈ ಬಳಕೆದಾರನನ್ನು {{status}} ಮಾಡಲು ನೀವು ಖಚಿತವಾಗಿ ಬಯಸುವಿರಾ?",
+            "ban_lift": "ಅನ್ ಬ್ಯಾನ್",
+            "ban_apply": "ನಿಷೇಧ",
+            "confirm_delete_1": "ಬಳಕೆದಾರ \"{{username}}\" ಅನ್ನು ಅಳಿಸಲು ನೀವು ಖಚಿತವಾಗಿ ಬಯಸುವಿರಾ?",
+            "confirm_delete_2": "⚠️ ಎಚ್ಚರಿಕೆ: ಇದು ಬಳಕೆದಾರ \"{{username}}\" ಗಾಗಿ ಎಲ್ಲಾ ಡೇಟಾವನ್ನು (ದಾಸ್ತಾನುಗಳು, ಕೊಠಡಿಗಳು, ವರ್ಗಗಳು) ಶಾಶ್ವತವಾಗಿ ಅಳಿಸುತ್ತದೆ!",
+            "confirm_delete_3": "🚨 ಅಂತಿಮ ಎಚ್ಚರಿಕೆ: ಖಾತೆ \"{{username}}\" ಮತ್ತು ಎಲ್ಲಾ ಡೇಟಾವನ್ನು ಬದಲಾಯಿಸಲಾಗದಷ್ಟು ಅಳಿಸಲಾಗುತ್ತದೆ. ನೀವು ಮುಂದುವರಿಸಲು ಬಯಸುವಿರಾ?"
+        },
+        "logs": {
+            "title": "ನಿರ್ವಾಹಕ ಲಾಗ್ ಗಳು",
+            "no_logs": "ಇನ್ನೂ ಲಾಗ್ ಗಳಿಲ್ಲ",
+            "errors_title": "ಸಿಸ್ಟಂ ದೋಷಗಳು (ಕೊನೆಯ 10)",
+            "no_errors": "ಸಿಸ್ಟಂ ಆರೋಗ್ಯಕರವಾಗಿದೆ, ಯಾವುದೇ ದೋಷ ಲಾಗ್ ಗಳಿಲ್ಲ.",
+            "date_fmt": "{{date, datetime}}"
+        },
+        "email": {
+            "title": "ಇಮೇಲ್ ಕಳಿಸಿ",
+            "to": "ಸ್ವೀಕೃತಕರ್ತ (ಗೆ)",
+            "subject": "ವಿಷಯ",
+            "message": "ಸಂದೇಶ (HTML ಬೆಂಬಲಿತ)",
+            "placeholder_message": "ನಿಮ್ಮ ಸಂದೇಶವನ್ನು ಇಲ್ಲಿ ಬೆರಳಚ್ಚಿಸಿ...",
+            "send": "ಕಳುಹಿಸಿ",
+            "sending": "ಕಳುಹಿಸಲಾಗುತ್ತಿದೆ...",
+            "success": "ಇಮೇಲ್ ಅನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಕಳುಹಿಸಲಾಗಿದೆ!",
+            "error": "ಸಂದೇಶ ಕಳುಹಿಸುವುದು ವಿಫಲವಾಗಿದೆ"
+        }
+    },
+    "landing": {
+        "nav": {
+            "login": "ಲಾಗಿನ್"
+        },
+        "hero": {
+            "title_1": "ಎಲ್ಲವನ್ನೂ ನಿರ್ವಹಿಸಿ",
+            "title_2": "ನಿಮ್ಮ ಮನೆಯಲ್ಲಿ!",
+            "description": "ನಿಮ್ಮ ಮನೆಯ ಇನ್ವೆಂಟರಿಯನ್ನು ಡಿಜಿಟಲ್ ಮಾಡಿಕೊಳ್ಳಿ. ವಸ್ತುಗಳನ್ನು ವರ್ಗೀಕರಿಸಿ, ಕುಟುಂಬವನ್ನು ಆಹ್ವಾನಿಸಿ, ಮತ್ತು ಎಲ್ಲೆಡೆಂದರೂ ಪ್ರాప్తಿ ಪಡೆಯಿರಿ. ಆಧುನಿಕ, ಸುರಕ್ಷಿತ, ಮತ್ತು ಬಳಸಲು ಸುಲಭ.",
+            "cta_start": "ಪ್ರಾರಂಭಿಸಿ",
+            "cta_register": "ಖಾತೆ ರಚಿಸಿ",
+            "stat_free": "ಉಚಿತ",
+            "stat_access": "ಪ್ರವೇಶ"
+        },
+        "features": {
+            "title": "<1>HomeInventory</1> ಯಾಕೆ?",
+            "subtitle": "ಮನೆಯ ನಿರ್ವಹಣೆಯನ್ನು ಸರಳಗೊಳಿಸಲು ಎಲ್ಲಾ ವೈಶಿಷ್ಟ್ಯಗಳು ಒಂದೇ ವೇದಿಕೆಯಲ್ಲಿ",
+            "items": {
+                "categorize": {
+                    "title": "ವಸ್ತುಗಳನ್ನು ವರ್ಗೀಕರಿಸಿ",
+                    "desc": "ವ್ಯತ್ಯಾಸ ಮತ್ತು ಕೋಷ್ಟಕ ಪ್ರಕಾರ ಎಲ್ಲ ವಸ್ತುಗಳನ್ನು ಸಂಘಟಿಸಿ, ನಿಮಗೆ ಬೇಕಾದುದನ್ನು ಸೆಕೆಂಡುಗಳಲ್ಲಿ ಕಂಡುಹಿಡಿಯಿರಿ."
+                },
+                "family": {
+                    "title": "ಕುಟುಂಬವನ್ನು House Key ಮೂಲಕ ಆಹ್ವಾನಿಸಿ",
+                    "desc": "ವೈಶಿಷ್ಟ್ಯಪೂರ್ಣ ಮನೆಯ ಕೀ ಮೂಲಕ ಕುಟುಂಬದ ಸದಸ್ಯರನ್ನು ಆಮಂತ್ರಿಸಿ, ಇನ್‌ವೆಂಟರಿ ಅನ್ನು ಒಂದೆಡೆ ನಿರ್ವಹಿಸಿ."
+                },
+                "access": {
+                    "title": "ಎಲ್ಲಿಯಿಂದಲಾದ ಪ್ರವೇಶ",
+                    "desc": "ಮನೆಯಲ್ಲಿರಲಿ, ಕೆಲಸದಲ್ಲಿರಲಿ ಅಥವಾ ರಜೆ ಇಡಲೇ ಇರಲಿ - ಎಲ್ಲಿದ್ದರೂ ಸುರಕ್ಷಿತವಾಗಿ ನಿಮ್ಮ ಇನ್‌ವೆಂಟರಿಗೆ ಪ್ರವೇಶ ಪಡೆದಿರಿ."
+                },
+                "barcode": {
+                    "title": "ಬಾರ್ಕೋಡ್ ಮೂಲಕ ವೇಗದ ಸೇರ್ಪಡೆ",
+                    "desc": "ಉತ್ಪನ್ನದ ಬಾರ್ಕೋಡ್‌ಗಳನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ, ವಿವರಗಳು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಭರ್ತಿಯಾಗುತ್ತವೆ."
+                },
+                "security": {
+                    "title": "ಸುರಕ್ಷಿತ ಮತ್ತು ಖಾಸಗಿ",
+                    "desc": "ನಿಮ್ಮ ಡೇಟಾವನ್ನು ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಿ, ಕೆವಿಕೇವಿಕೆ (KVKK) ಅನುಗುಣ ಇನ್‌ಫ್ರಾಸ್ಟ್ರಕ್ಚರ್ ಮೂಲಕ ರಕ್ಷಿಸಲಾಗಿದೆ."
+                },
+                "backup": {
+                    "title": "ಬ್ಯಾಕಪ್ & ರಫ್ತು",
+                    "desc": "ನಿಮ್ಮ ಇನ್‌ವೆಂಟರಿಯನ್ನು JSON ಫಾರ್ಮ್ಯಾಟ್‌ನಲ್ಲಿ ಬ್ಯಾಕಪ್ ಮಾಡಿ, ಬೇಕಾದಾಗ ಯಾವಾಗ ಬೇಕಾದರೂ ಪುನಃಸ್ಥಾಪಿಸಬಹುದು."
+                }
+            }
+        },
+        "cta_bottom": {
+            "title": "ಈಗಲೇ ಬಳಸಲು ಪ್ರಾರಂಭಿಸಿ!",
+            "description": "ಉಚಿತ ಖಾತೆಯನ್ನು ರಚಿಸಿ ಮತ್ತು ನಿಮ್ಮ ಮನೆಯ ಇನ್‌ವೆಂಟರಿಗೆ ಡಿಜಿಟೆಲೈಸ್ ಮಾಡಿ. ನೋಂದಣಿ ಕೆಲವು ಸೆಕೆಂಡುಗಳಲ್ಲಿಯೇ ಆಗುತ್ತದೆ.",
+            "button": "ಲಾಗಿನ್"
+        },
+        "footer": {
+            "desc": "ನಿಮ್ಮ ಮನೆಯ ಇನ್‌ವೆಂಟರಿ ಡಿಜಿಟೆಲೈಸ್ ಮಾಡಲು ಸುಲಭ ಮತ್ತು ಸುರಕ್ಷಿತ ವೇದಿಕೆ.",
+            "links": "ವೇಗದ ಕೊಂಡಿಗಳು",
+            "contact": "ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ",
+            "copyright": "© {{year}} ಹೋಂಇನ್ವೆಂಟರಿ. ಎಲ್ಲಾ ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ."
+        },
+        "preview_privacy_notice": "ಡೆಮೊ ವೀಕ್ಷಣೆ: ಯಾವುದೇ ನಿಜವಾದ ಬಳಕೆದಾರರ ಡೇಟಾ ಪ್ರದರ್ಶಿಸಲಾಗುವುದಿಲ್ಲ."
+    },
+    "intro": {
+        "inventory": {
+            "title": "ಇನ್ವೆಂಟರಿ",
+            "content": "ಇಲ್ಲಿ ನೀವು ನಿಮ್ಮ ವಸ್ತುಗಳನ್ನು ಸೇರಿಸಿ ಪಟ್ಟಿ ಮಾಡಬಹುದು. ಎಲ್ಲ ಮನೆ ವಸ್ತುಗಳನ್ನು ಒಂದೇ ಸ್ಥಳದಲ್ಲಿ ಟ್ರ್ಯಾಕ್ ಮಾಡಿ!"
+        },
+        "house_key": {
+            "title": "ಮನೆ ಕೀ",
+            "content": "ಇದು ನಿಮ್ಮ ಮನೆ ಕೀ, ಇತರರನ್ನು ಆಹ್ವಾನಿಸಲು ಇದನ್ನು ಬಳಸಿ. ನಿಮ್ಮ ಮನೆಯೊಂದಿಗೆ ಕುಟುಂಬ ಸದಸ್ಯರನ್ನು ಸೇರಿಸಿ!"
+        },
+        "categories": {
+            "title": "ವರ್ಗಗಳು",
+            "content": "ನಿಮ್ಮ ವಸ್ತುಗಳನ್ನು ವರ್ಗೀಕರಿಸುವ ಮೂಲಕ ಆಯೋಜಿಸಿ. ಎಲೆಕ್ಟ್ರಾನಿಕ್ಸ್, ಫರ್ನಿಚರ್, ಕಿಚನ್, ಮತ್ತಿತರ!"
+        },
+        "buttons": {
+            "back": "ಹಿಂತೆಗೆದುಕೊಳ್ಳಿ",
+            "close": "ಮುಚ್ಚಿ",
+            "last": "ಮುಗಿಸು",
+            "next": "ಮುಂದಕ್ಕೆ",
+            "skip": "اسکಿಪ್",
+            "open": "ತೆರೆಯು"
+        }
+    },
+    "google_house_select": {
+        "title": "ಸ್ವಾಗತ!",
+        "subtitle": "ನೀವು Google ಮೂಲಕ ಲಾಗಿನ್ ಆಗಿದ್ದೀರಿ. ಈಗ ಒಂದು ಮನೆ ಆಯ್ಕೆಮಾಡಿ.",
+        "welcome_options": "ನೀವು ಏನು ಮಾಡಲು ಇಚ್ಛಿಸುತ್ತೀರಿ?",
+        "create": {
+            "title": "ಹೊಸ ಮನೆ ರಚಿಸಿ",
+            "desc": "ನಿಮ್ಮ ಸ್ವಂತ ಇನ್ವೆಂಟರಿ ಪ್ರಾರಂಭಿಸಿ"
+        },
+        "join": {
+            "title": "നിലവിലുള്ള ಮನೆಗೆ ಸೇರಿ",
+            "desc": "ಕುಟುಂಬ ಸದಸ್ಯರ ಮನೆಯೊಂದಿಗೆ ಸೇರ್ಪಡೆಗೊಳ್ಳಿ"
+        },
+        "back": "ಹಿಂದಕ್ಕೆ",
+        "house_name": "ಮನೆಯ ಹೆಸರು (ಐಚ್ಛಿಕ)",
+        "house_name_placeholder": "ಉದಾ: ನನ್ನ ಮನೆ, ಕೆಲಸದ ಸ್ಥಳ",
+        "house_name_hint": "ಖಾಲಿ ಬಿಡಿದರೆ, ಅದಕ್ಕೆ \"ನನ್ನ ಮನೆ\" ಎಂದು ಹೆಸರು ನೀಡಲಾಗುತ್ತದೆ",
+        "house_key": "ಮನೆಯ ಕೀಲಿ",
+        "house_key_placeholder": "ಮನೆಯ ಕೀಲಿಯನ್ನು ನಮೂದಿಸಿ",
+        "house_key_hint": "ಕುಟುಂಬ ಸದಸ್ಯರಿಂದ ಪಡೆದ 64-ಅಕ್ಷರಗಳ ಕೀಲಿಯನ್ನು ನಮೂದಿಸಿ",
+        "house_name_join": "ಈ ಮನೆಯ ಹೆಸರು (ಐಚ್ಛಿಕ)",
+        "submit_create": "ಮನೆ ರಚಿಸಿ",
+        "submit_join": "ಹೌಸ್ ಸೇರಿ",
+        "processing": "ಪ್ರಕ್ರಿಯೆ ನಡೆಯುತ್ತಿದೆ..."
+    },
+    "scanner": {
+        "title": "ಬಾರ್ಕೋಡ್ ಸ್ಕ್ಯಾನರ್",
+        "qr_title": "ಕ್ಯೂಆರ್ ಕೋಡ್ ರೀಡರ್",
+        "init": "ಕ್ಯಾಮೆರಾ ಪ್ರಾರಂಭವಾಗುತ್ತಿದೆ...",
+        "permission_error": "ಕ್ಯಾಮೆರಾ ಅನುಮತಿ ನಿರಾಕರಿಸಲಾಗಿದೆ. ಬ್ರೌಸರ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.",
+        "busy_error": "ಕ್ಯಾಮೆರಾ ಬ್ಯುಸಿ. ಇತರ ಆ್ಯಪ್‌ಗಳನ್ನು ಮುಚ್ಚಿ.",
+        "not_found_error": "ಕ್ಯಾಮೆರಾ ಕಂಡುಬಂದಿಲ್ಲ.",
+        "generic_error": "ಕ್ಯಾಮೆರಾವನ್ನು ಪ್ರಾರಂಭಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.",
+        "hint": "ಫ್ರೇಮಿನಲ್ಲಿನ ಬಾರ್ಕೋಡನ್ನು ಕೇಂದ್ರಗೊಳಿಸಿ",
+        "qr_hint": "ಫ್ರೇಮಿನಲ್ಲಿ ಕ್ಯೂಆರ್ ಕೋಡ್ ಅನ್ನು ಸರಿಹೊಂದಿಸಿ",
+        "searching": "ಉತ್ಪನ್ನವನ್ನು ಹುಡುಕಲಾಗುತ್ತಿದೆ...",
+        "found_local": "ಈಗಾಗಲೇ ನೋಂದಾಯಿಸಲಾಗಿದೆ!",
+        "found_local_msg": "ಈ ಬಾರ್ಕೋಡ್ ಈಗಾಗಲೇ ನಿಮ್ಮ ಇನ್ವೆಂಟರಿಯಲ್ಲಿ ಇದೆ.",
+        "found_online": "ಉತ್ಪನ್ನ ಕಂಡು ಬಂದಿದೆ!",
+        "google_result": "⚡ ಗೂಗಲ್ ಹುಡುಕಾಟ ಫಲಿತಾಂಶ - ದಯವಿಟ್ಟು ಪರಿಶೀಲಿಸಿ",
+        "barcode": "ಬಾರ್ಕೋಡ್: {{code}}",
+        "new_product": "ಹೊಸ ಉತ್ಪನ್ನ",
+        "not_found_db": "ಈ ಬಾರ್ಕೋಡ್ ಡೇಟಾಬೇಸ್‌ಗಳಲ್ಲಿ ಕಂಡುಬರಲಿಲ್ಲ.",
+        "google_search": "ಗೂಗಲ್ನಲ್ಲಿ ಹುಡುಕಿ",
+        "quick_add": "ವೇಗವಾಗಿ ಸೇರ್ಪಡೆಗೊಳಿಸಿ (ಮುಂದೆ ಸಂಪಾದನೆ ಮಾಡಬಹುದು)",
+        "rescan": "ಮರುಸ್ಕ್ಯಾನ್ ಮಾಡಿ",
+        "retry": "ಮರುಪ್ರಯತ್ನ",
+        "flash_on": "🔦 ಫ್ಲ್ಯಾಶ್ ಆನ್",
+        "flash_unsupported": "ಫ್ಲ್ಯಾಶ್ ಬೆಂಬಲಿತವಲ್ಲ",
+        "zoom_hint": "💡 ಸ್ಪಷ್ಟತೆಗೆ ಜೂಮ್ ಮಾಡಿ ಮತ್ತು ಫೋನನ್ನು ಸ್ಥಿರವಾಗಿ ಹಿಡಿಯಿರಿ",
+        "found_item_redirect": "ಐಟಂ ಕಂಡುಬಂದಿದೆ! ಮರುದಾರಿ ಮಾಡಲಾಗುತ್ತಿದೆ...",
+        "found_page_redirect": "ಪುಟ ಕಂಡುಬಂದಿದೆ! ಮರುದಾರಿ ಮಾಡಲಾಗುತ್ತಿದೆ...",
+        "invalid_qr": "ಈ ಕ್ಯೂಆರ್ ಕೋಡ್ ಈ ಅಪ್ಲಿಕೇಶನ್‌ಗಾಗಿ ಅಲ್ಲ.",
+        "not_found": "ಉತ್ಪನ್ನ ಕಂಡುಬಂದಿಲ್ಲ. ವಿಭಿನ್ನ ಬಾರ್ಕೋಡ್ ಪ್ರಯತ್ನಿಸಿ."
+    },
+    "item_qr": {
+        "hint_mobile": "📱 ನಿಮ್ಮ ಫೋನ್‌ನಿಂದ ಈ QR ಕೋಡ್ ಅನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ ಐಟಮ್‌ಗೆ ತಕ್ಷಣ ಪ್ರವೇಶಿಸಿ",
+        "network_ip": "ನೆಟ್‌ವರ್ಕ್ IP",
+        "url_loading": "URL ಲೋಡ್ ಆಗುತ್ತಿದೆ...",
+        "copied": "ನಕಲು ಮಾಡಲಾಗಿದೆ!",
+        "copy_url": "URL ನಕಲುಮಾಡಿ",
+        "download": "QR ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ",
+        "usage_title": "ಬಳಕೆ",
+        "usage_desc": "QR ಕೋಡ್ ಅನ್ನು ಪ್ರಿಂಟ್ ಮಾಡಿ ಮತ್ತು ಐಟಮ್‌ನಲ್ಲಿ ಅಂಟಿಸಿ. ಈ ಪುಟಕ್ಕೆ ತಕ್ಷಣ ಪ್ರವೇಶಿಸಲು ನಿಮ್ಮ ಫೋನ್‌ನಿಂದ ಸ್ಕ್ಯಾನ್ ಮಾಡಿ!"
+    },
+    "house_access_pending": {
+        "eyebrow": "House Access",
+        "fallback_house": "Selected house",
+        "signed_in_as": "Signed in as {{username}}",
+        "logout": "Logout",
+        "messages": {
+            "create_error": "Could not create house",
+            "join_success": "Your join request was sent",
+            "join_error": "Could not send join request"
+        },
+        "pending": {
+            "title": "Waiting for house owner approval",
+            "description": "Your request for \"{{house}}\" is still waiting for a decision.",
+            "current_request": "Current pending request: {{house}}"
+        },
+        "no_house": {
+            "title": "You are not connected to a house right now",
+            "description": "Create a new house or send a join request to an existing one."
+        },
+        "create": {
+            "title": "Create a New House",
+            "description": "Start your own home inventory and continue right away.",
+            "name_label": "House Name",
+            "name_placeholder": "e.g. My Home, Summer House, Storage",
+            "submitting": "Creating...",
+            "submit": "Create House"
+        },
+        "join": {
+            "title": "Send a Join Request",
+            "description": "Enter a house key and send the request directly to the house owner.",
+            "key_label": "House Key",
+            "key_placeholder": "Enter the 64-character house key",
+            "submitting": "Sending...",
+            "submit": "Send Request"
+        }
+    }
+}

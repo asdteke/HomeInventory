@@ -1,0 +1,698 @@
+{
+    "items": {
+        "qrcode": {
+            "title": "QR kód",
+            "desc": "Můžete vytisknout a nalepit tento QR kód na položku. Jeho naskenováním se přesměrujete přímo na tuto stránku."
+        },
+        "title_new": "Přidat novou položku",
+        "title_edit": "Upravit položku",
+        "subtitle": "Zadejte údaje o položce",
+        "load_error": "Nepodařilo se načíst položku",
+        "form": {
+            "name": "Název položky",
+            "name_placeholder": "např. Samsung TV 55 palců",
+            "required": "*",
+            "description": "Popis",
+            "description_placeholder": "Poznámky k položce...",
+            "quantity": "Množství",
+            "category": "Kategorie",
+            "select_category": "Vybrat",
+            "room": "Místnost",
+            "select_room": "Vybrat místnost",
+            "location_details": "Podrobnosti o umístění",
+            "location_optional": "(Volitelné)",
+            "location_placeholder": "Hledat nebo přidat nové umístění...",
+            "location_help": "Kde v místnosti? (např. 'Horní police modré skříňky')",
+            "location_create": "Vytvořit umístění „{{name}}\"",
+            "location_privacy": "Soukromí umístění",
+            "location_public": "Každý toto umístění může vidět",
+            "location_private": "Pouze vy toto můžete vidět",
+            "location_save": "Uložit umístění",
+            "location_saving": "Přidává se...",
+            "location_selected": "Vybrané umístění: {{name}}",
+            "location_empty": "V této místnosti ještě není definováno žádné umístění. Začněte psát pro jeho vytvoření.",
+            "photo": "Fotografie",
+            "add_photo": "Přidat",
+            "barcode": "Čárový kód",
+            "barcode_optional": "(Volitelné)",
+            "barcode_placeholder": "např. 8690123456789",
+            "scan_barcode": "Naskenovat čárový kód",
+            "search_db": "Prohledat databázi",
+            "search_google": "Hledat na Googlu",
+            "barcode_saved": "✓ Čárový kód bude uložen",
+            "visibility": "Viditelnost položky",
+            "visibility_public": "Viditelné všem členům domácnosti",
+            "visibility_private": "Viditelné pouze vám",
+            "submit_add": "Přidat položku",
+            "submit_save": "Uložit změny",
+            "submitting": "Ukládání..."
+        },
+        "messages": {
+            "quick_add_success": "✓ \"{{barcode}}\" rychle přidáno - můžete později upravit",
+            "quick_add_fail": "⚠ Rychlé přidání selhalo",
+            "searching": "Hledám...",
+            "found_local": "✓ Místní: registrováno jako \"{{name}}\"",
+            "found_remote": "✓ Nalezeno v {{source}} {{note}}: \"{{name}}\"",
+            "not_found": "⚠ Produkt nebyl nalezen v databázích. Můžete vyhledat na Google.",
+            "search_fail": "⚠ Hledání selhalo",
+            "name_required": "Název položky je povinný",
+            "location_add_error": "Nepodařilo se přidat lokaci"
+        }
+    },
+    "common": {
+        "save": "Uložit",
+        "cancel": "Zrušit",
+        "loading": "Načítání...",
+        "error": "Došlo k chybě",
+        "success": "Operace byla úspěšná",
+        "search": "Hledat...",
+        "edit": "Upravit",
+        "delete": "Smazat",
+        "add": "Přidat",
+        "new": "Nový",
+        "all": "Vše",
+        "manage": "Spravovat",
+        "help_support": "Nápověda a podpora",
+        "theme": {
+            "light": "Světlý režim",
+            "dark": "Tmavý režim"
+        },
+        "select": "Vybrat",
+        "refresh": "Obnovit",
+        "close": "Zavřít",
+        "logout": "Odhlásit se",
+        "copyright": "© {{year}} HomeInventory - Všechna práva vyhrazena"
+    },
+    "auth": {
+        "login": {
+            "title": "Přihlášení",
+            "subtitle": "Spravujte veškerý svůj domácí inventář chytře",
+            "welcome": "Vítejte v HomeInventory",
+            "username_or_email": "Uživatelské jméno nebo e-mail",
+            "password": "Heslo",
+            "forgot_password": "Zapomenuté heslo?",
+            "submit": "Přihlásit se",
+            "submitting": "Probíhá přihlašování...",
+            "google_continue": "Pokračovat s Google",
+            "or": "nebo",
+            "no_account": "Nemáte účet?",
+            "register_link": "Registrovat",
+            "support_contact": "Pro problémy s přihlášením:",
+            "terms_title": "📋 Podmínky použití a prohlášení",
+            "terms_beta": "BETA verze: HomeInventory je aktuálně ve fázi testování. Není zaručena trvanlivost ani bezpečnost vašich dat.",
+            "terms_disclaimer": "Prohlášení: Používáním této aplikace souhlasíte, že nemůžete požadovat žádnou náhradu za případnou ztrátu dat, problémy s přístupem nebo jiné technické závady.",
+            "terms_backup": "Zálohování dat: Důrazně doporučujeme pravidelně zálohovat své důležité informace.",
+            "terms_accept": "Přihlášením se považuje za přijetí těchto podmínek."
+        },
+        "register": {
+            "title": "Vítejte v HomeInventory",
+            "subtitle": "Vytvořte nový účet nebo se připojte ke stávajícímu domu",
+            "create_house": "Vytvořit nový dům",
+            "join_house": "Připojit se k domu",
+            "create_house_desc": "🏠 Bude vytvořen nový dům a získáte unikátní <strong>klíč domu</strong>. Sdílejte tento klíč s rodinou pro přístup ke stejnému inventáři.",
+            "join_house_desc": "👨‍👩‍👧‍👦 Zadejte <strong>klíč domu</strong>, který vám byl sdílen, abyste se připojili ke stávajícímu domu. Každý, kdo má klíč, může přistupovat ke sdílenému inventáři.",
+            "form_title": "Zaregistrovat se",
+            "username": "Uživatelské jméno",
+            "username_placeholder": "např. john",
+            "email": "E-mail",
+            "email_placeholder": "např. john@example.com",
+            "password": "Heslo",
+            "password_placeholder": "Alespoň 6 znaků",
+            "password_confirm": "Potvrzení hesla",
+            "password_confirm_placeholder": "Zadejte heslo znovu",
+            "house_key": "Klíč domu",
+            "house_key_placeholder": "Vložte 64-znakový klíč domu",
+            "submit_create": "Vytvořit nový dům",
+            "submit_join": "Připojit se k domu",
+            "submitting": "Registrace...",
+            "already_have_account": "Už máte účet?",
+            "login_link": "Přihlášení",
+            "support": "Problémy s registrací:",
+            "terms": "Podmínky použití a prohlášení o odmítnutí odpovědnosti",
+            "passwords_mismatch": "Hesla se neshodují",
+            "password_length": "Heslo musí mít alespoň 6 znaků",
+            "key_required": "Klíč domu je vyžadován pro připojení k existujícímu domu",
+            "modals": {
+                "key_created": {
+                    "title": "🎉 Dům byl vytvořen!",
+                    "subtitle": "Uložte klíč níže na bezpečné místo",
+                    "warning": "Důležité: Tento klíč bude zobrazen pouze jednou. Sdílejte jej s členy rodiny, aby měli přístup ke stejnému inventáři.",
+                    "copy": "Kopírovat",
+                    "copied": "Zkopírováno",
+                    "button": "Uložil(a) jsem klíč, pokračovat"
+                },
+                "email_verification": {
+                    "title": "📧 Vyžadováno ověření e-mailem",
+                    "message": "Účet byl vytvořen! Prosím ověřte svou e-mailovou adresu pro přihlášení.",
+                    "step_1": "Poslali jsme ověřovací e-mail na <1>{{email}}</1>.",
+                    "step_2": "Klikněte na tlačítko <1>\"Ověřit můj účet\"</1> v e-mailu.",
+                    "step_3": "Po ověření, <1>se můžete přihlásit</1>.",
+                    "spam_note": "Zkontrolujte složku spam/nevyžádanou poštu, pokud e-mail nedorazí.",
+                    "key_note": "Důležité: Klíč od vašeho domu byl také odeslán e-mailem. Můžete jej sdílet s členy rodiny.",
+                    "button": "Dobře, přejít na přihlášení"
+                }
+            }
+        },
+        "forgot_password": {
+            "title": "Zapomenuté heslo",
+            "subtitle": "Spusťte zabezpečený proces obnovy, abyste se znovu dostali ke svému účtu.",
+            "identifier": "Uživatelské jméno nebo e-mail",
+            "identifier_placeholder": "např. john nebo john@example.com",
+            "submit": "Spusťte obnovu",
+            "requesting": "Kontrola...",
+            "email_success": "Pokud účet existuje, byl odeslán odkaz pro resetování hesla platný 15 minut.",
+            "back_to_login": "Zpět na přihlášení",
+            "recovery_mode_info": "E-mail je na tomto serveru zakázán. Pokračujte s obnovovacím klíčem, který jste si uložili při nastavování účtu.\nObnovovací klíč",
+            "recovery_key": "Obnova klíče",
+            "recovery_key_placeholder": "např. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "Nové heslo",
+            "new_password_placeholder": "Zadejte své nové silné heslo",
+            "confirm_password": "Potvrďte nové heslo",
+            "confirm_password_placeholder": "Zadejte znovu své heslo",
+            "reset_submit": "Resetovat heslo",
+            "resetting": "Resetování..."
+        },
+        "reset_password": {
+            "title": "Resetovat heslo",
+            "subtitle": "Pomocí zabezpečeného odkazu nastavte nové heslo.",
+            "missing_token": "Odkaz pro resetování hesla vypadá neúplný nebo poškozený.",
+            "new_password": "Nové heslo",
+            "new_password_placeholder": "Zadejte své nové silné heslo",
+            "confirm_password": "Potvrďte nové heslo",
+            "confirm_password_placeholder": "Zadejte znovu své heslo\nAktualizační heslo",
+            "submit": "Aktualizovat heslo",
+            "submitting": "Aktualizace...",
+            "back_to_login": "Zpět na přihlášení"
+        },
+        "recovery_setup": {
+            "title": "Vytvořte obnovovací klíč",
+            "subtitle": "Dokud to nebude dokončeno, váš účet není považován za bezpečný pro místní obnovení hesla.",
+            "warning": "Tato klávesa se zobrazí pouze jednou. Uložte jej do správce hesel nebo jiného bezpečného offline umístění.",
+            "account": "Pro účet {{username}} bude vytvořen obnovovací klíč.",
+            "description": "Protože je e-mail zakázán, v budoucnu budete moci resetovat své heslo pouze pomocí tohoto klíče.",
+            "submit": "Vytvořit klíč pro obnovení",
+            "generating": "Vytváření..."
+        },
+        "recovery_key_modal": {
+            "register_title": "Uložte si obnovovací klíč",
+            "google_title": "Uložte si obnovovací klíč",
+            "setup_title": "Uložte si obnovovací klíč",
+            "reset_title": "Uložte nový klíč pro obnovení",
+            "settings_title": "Uložte nový klíč pro obnovení",
+            "subtitle": "Tato klávesa je zobrazena pouze jednou.",
+            "warning": "Pokud tento klíč ztratíte, když je e-mail vypnutý, možná nebudete moci obnovit své heslo. Zkopírujte jej a bezpečně uložte.",
+            "confirm": "Uložil jsem klíč\nNabídka"
+        },
+        "password_requirements": "Použijte alespoň {{min}} znaků s velkými písmeny, malými písmeny, číslicí a symbolem."
+    },
+    "navigation": {
+        "home": "Domů",
+        "inventory": "Inventář",
+        "rooms": "Pokoje",
+        "categories": "Kategorie",
+        "settings": "Nastavení",
+        "new_item": "Nová položka",
+        "share_house": "Sdílet dům",
+        "admin_panel": "Administrátorský panel",
+        "logout": "Odhlásit se",
+        "menu": "Menu"
+    },
+    "dashboard": {
+        "welcome": "Vítejte, <1>{{name}}</1>! 👋",
+        "subtitle": "Přehled vašeho inventáře",
+        "quick_search": "Rychlé hledání...",
+        "filters": {
+            "private": "🔒 Mé soukromé položky",
+            "public": "🌐 Veřejné",
+            "remove": "Vyčistit filtr",
+            "no_items": "Žádné položky neodpovídají tomuto filtru"
+        },
+        "stats": {
+            "total_items": "Celkový počet položek",
+            "total_quantity": "Celkové množství",
+            "fullest_room": "Nejsurovější místnost",
+            "category_count": "Kategorie",
+            "items_suffix": "položky"
+        },
+        "recent_items": {
+            "title": "Nedávno přidáno",
+            "see_all": "Zobrazit vše"
+        },
+        "categories": {
+            "title": "Kategorie",
+            "manage": "Spravovat",
+            "empty": "Žádné položky dosud nepřidány"
+        },
+        "rooms": {
+            "title": "Místnosti",
+            "manage": "Spravovat"
+        },
+        "quick_actions": {
+            "title": "⚡ Rychlé akce",
+            "add_item": "Přidat položku",
+            "search_item": "Hledat položku",
+            "categories": "Kategorie",
+            "settings": "Nastavení"
+        }
+    },
+    "beta_banner": {
+        "title": "BETA:",
+        "text": "HomeInventory je momentálně v testovací a hobby fázi. Není zaručena trvalost ani bezpečnost dat. Prosím, uchovávejte zálohy důležitých informací.",
+        "contact": "Kontakt:"
+    },
+    "footer": {
+        "rights": "© {{year}} HomeInventory - Všechna práva vyhrazena",
+        "contact": "Kontakt:"
+    },
+    "settings": {
+        "title": "Nastavení",
+        "subtitle": "Spravovat preference aplikace",
+        "messages": {
+            "house_switched": "✅ {{name}} aktivováno!",
+            "house_switch_error": "Nepodařilo se přepnout dům",
+            "house_joined_success": "✅ Úspěšně jste se připojili k domu!",
+            "house_join_error": "Nepodařilo se připojit k domu",
+            "house_created_success": "✅ \"{{name}}\" vytvořeno!",
+            "house_create_error": "Nepodařilo se vytvořit dům",
+            "house_left_success": "Úspěšně opuštěn dům",
+            "house_left_error": "Nepodařilo se opustit dům",
+            "house_leave_confirm": "Opravdu chcete opustit \"{{name}}\"?",
+            "backup_downloaded": "✅ Záloha byla úspěšně stažena! ({{count}} položek)",
+            "export_error": "❌ Při exportu došlo k chybě",
+            "import_invalid_format": "Neplatný formát záložního souboru",
+            "import_success": "✅ Přidáno {{items}} položek, {{categories}} kategorií, {{rooms}} místností, {{locations}} umístění.",
+            "import_error": "❌ Chyba při importu: {{error}}",
+            "password_changed": "Heslo bylo úspěšně změněno!",
+            "password_error_current": "Aktuální heslo je nesprávné",
+            "password_error_invalid": "Odeslaná data jsou neplatná",
+            "session_expired": "Platnost relace vypršela. Prosím, přihlaste se znovu.",
+            "server_error": "Došlo k chybě serveru",
+            "connection_error": "Nelze se připojit k serveru. Zkontrolujte své internetové připojení.",
+            "unexpected_error": "Došlo k neočekávané chybě",
+            "username_changed": "✅ Uživatelské jméno bylo změněno!",
+            "username_error": "Nelze změnit uživatelské jméno",
+            "username_len_error": "Uživatelské jméno musí mít alespoň 3 znaky",
+            "fill_all_fields": "Prosím, vyplňte všechna pole",
+            "passwords_mismatch": "Nová hesla se neshodují",
+            "password_min_len": "Nové heslo musí mít alespoň 6 znaků",
+            "house_request_sent_success": "✅ Vaše žádost o připojení byla odeslána!",
+            "request_approved": "✅ Žádost o připojení schválena",
+            "request_rejected": "Žádost o připojení zamítnuta",
+            "request_action_error": "Nelze aktualizovat požadavek",
+            "member_kick_confirm": "Opravdu chcete odstranit \"{{name}}\" z domu?",
+            "member_kicked": "Člen odstraněn z domu",
+            "member_kick_error": "Nelze odebrat člena z domu\nObnovovací klíč",
+            "recovery_key_regenerated": "byl obnoven",
+            "recovery_key_error": "Nelze obnovit klíč pro obnovení"
+        },
+        "user_profile": {
+            "edit_username": "Změnit uživatelské jméno"
+        },
+        "my_houses": {
+            "title": "Mé domy",
+            "join_house": "Připojit se k domu",
+            "join_short": "Připojit",
+            "new_house": "Nový dům",
+            "new_short": "Nový",
+            "no_house": "Ještě nejste členem žádného domu",
+            "owner": "Vlastník",
+            "active": "Aktivní",
+            "member_count": "{{count}} členů",
+            "item_count": "{{count}} položek",
+            "switch": "Přepnout",
+            "leave": "Opustit Dům",
+            "info": "💡 Můžete být členem více domů a mezi nimi přepínat. Každý dům má svůj vlastní inventář."
+        },
+        "house_info": {
+            "title": "Aktivní Klíč Domu",
+            "key_label": "Klíč Domu",
+            "mask_key": "••••••••{{suffix}}\nAktivní členové",
+            "hide": "Skrýt",
+            "show": "Zobrazit",
+            "copy": "Kopírovat",
+            "share_info": "💡 Uživatelé, se kterými tento klíč sdílíte, mohou použít možnost \"Připojit se k domu\" během registrace a získat přístup k vašemu inventáři.",
+            "members_title": "Členové Domu ({{count}})",
+            "you": "(Vy)",
+            "joined_at": "Připojeno: {{date, datetime}}",
+            "no_members": "Zatím žádní další členové",
+            "invite_title": "Pozvat Členy Rodiny",
+            "invite_desc": "Sdílejte svůj klíč od domu, aby členové rodiny měli přístup ke stejnému inventáři. Každý člen se přihlásí svým vlastním účtem, ale získá přístup ke stejným datům.",
+            "active_members": "Aktivní členové",
+            "pending_requests": "Nevyřízené požadavky",
+            "no_pending_requests": "Žádné nevyřízené požadavky",
+            "owner_controls": "Ovládací prvky vlastníka povoleny",
+            "approve": "Schválit",
+            "reject": "Odmítnout",
+            "kick": "Odebrat"
+        },
+        "theme": {
+            "title": "Téma",
+            "dark": "Tmavý režim",
+            "light": "Světlý režim"
+        },
+        "security": {
+            "title": "Zabezpečení",
+            "change_password": "Změnit heslo",
+            "change_password_desc": "Aktualizujte heslo svého účtu",
+            "recovery_key_title": "Obnova klíče",
+            "recovery_key_desc": "Můžete vygenerovat nový klíč pro místní obnovu hesla.",
+            "recovery_key_missing": "Pro tento účet zatím není viditelný žádný klíč pro obnovení.",
+            "current_key_label": "uložený obnovovací klíč",
+            "recovery_key_unavailable": "Aktuální obnovovací klíč nelze zobrazit. V případě potřeby jej regenerujte.",
+            "recovery_key_action": "Regenerovat",
+            "recovery_key_modal_desc": "Pro pokračování potvrďte své aktuální heslo. Nový klíč se zobrazí pouze jednou.",
+            "recovery_key_loading": "Příprava...\nRole"
+        },
+        "data_management": {
+            "title": "Správa dat",
+            "download_backup": "Stáhnout zálohu",
+            "downloading": "Stahování...",
+            "export_json": "Exportovat jako JSON",
+            "upload_backup": "Nahrát zálohu",
+            "uploading": "Nahrávání...",
+            "import_json": "Importovat z JSON"
+        },
+        "about": {
+            "title": "📱 O aplikaci",
+            "version": "Verze",
+            "brand": "Značka",
+            "feedback": "✉️ Poslat zpětnou vazbu"
+        },
+        "modals": {
+            "password": {
+                "title": "Změnit heslo",
+                "current": "Aktuální heslo",
+                "new": "Nové heslo",
+                "confirm": "Nové heslo (Potvrdit)",
+                "changing": "Měním...",
+                "submit": "Změnit heslo"
+            },
+            "join_house": {
+                "title": "Připojit se k domu",
+                "key_placeholder": "Zadejte 64-znakový klíč domu",
+                "key_help": "Zadejte klíč, který jste obdrželi od člena rodiny",
+                "name_label": "Název tohoto domu (volitelné)",
+                "name_placeholder": "např. Dům rodičů",
+                "joining": "Připojuji se...",
+                "submit": "Připojit se k domu"
+            },
+            "create_house": {
+                "title": "Vytvořit nový dům",
+                "name_label": "Název domu",
+                "name_placeholder": "např. Letní dům, Kancelář, Sklad",
+                "name_help": "Pokud bude prázdné, bude pojmenován „Můj nový dům“",
+                "info": "ℹ️ Pro nový dům budou vytvořeny výchozí kategorie a místnosti. Můžete je později upravit.",
+                "creating": "Probíhá vytváření...",
+                "submit": "Vytvořit dům"
+            },
+            "username": {
+                "title": "Změnit uživatelské jméno",
+                "new_label": "Nové uživatelské jméno",
+                "placeholder": "Vaše nové uživatelské jméno",
+                "help": "3-30 znaků, pouze písmena, čísla, podtržítko a pomlčka",
+                "saving": "Ukládání...",
+                "submit": "Změnit"
+            }
+        },
+        "select_language": "Vybrat jazyk",
+        "pending_requests": {
+            "title": "Moje nevyřízené žádosti o připojení",
+            "waiting_since": "Čekání od: {{date, datetime}}",
+            "pending_badge": "Čeká na vyřízení\nObnovovací klíč"
+        }
+    },
+    "inventory": {
+        "title": "Inventář",
+        "subtitle": "{{count}} položek nalezeno",
+        "new_item": "Nová položka",
+        "add_first": "Přidat první položku",
+        "search_placeholder": "Hledat položky...",
+        "all_categories": "Všechny kategorie",
+        "all_rooms": "Všechny místnosti",
+        "empty_title": "Žádné položky nenalezeny",
+        "empty_filter": "Žádné položky neodpovídají vašim filtrům",
+        "empty_msg": "Žádné položky ještě nebyly přidány",
+        "delete_confirm": "Opravdu chcete tuto položku smazat?",
+        "delete_error": "Chyba při mazání"
+    },
+    "categories": {
+        "title": "Kategorie",
+        "subtitle": "{{count}} kategorie",
+        "new_category": "Nová kategorie",
+        "edit_title": "Upravit kategorii",
+        "new_title": "Nová kategorie",
+        "name_label": "Název kategorie",
+        "icon_label": "Ikona",
+        "color_label": "Barva",
+        "delete_confirm": "Opravdu chcete tuto kategorii smazat?",
+        "delete_error": "Chyba při mazání"
+    },
+    "rooms": {
+        "title": "Místnosti",
+        "subtitle": "{{count}} místnosti",
+        "new_room": "Nová místnost",
+        "edit_title": "Upravit místnost",
+        "new_title": "Nová místnost",
+        "name_label": "Název místnosti",
+        "description_label": "Popis (volitelně)",
+        "name_placeholder": "např. Hlavní ložnice",
+        "desc_placeholder": "např. Hlavní ložnice",
+        "delete_confirm": "Opravdu chcete tuto místnost smazat?",
+        "delete_error": "Chyba při mazání"
+    },
+    "admin": {
+        "title": "Administrátorský panel",
+        "subtitle": "Správa a sledování systému",
+        "refresh": "Obnovit",
+        "tabs": {
+            "dashboard": "Přehled",
+            "users": "Uživatelé",
+            "logs": "Záznamy",
+            "email": "Odeslat poštu"
+        },
+        "stats": {
+            "total_users": "Celkový počet uživatelů",
+            "new_today": "Dnes: +{{count}} nových",
+            "total_inventory": "Celkový inventář",
+            "inventory_details": "{{rooms}} místností, {{categories}} kategorií",
+            "banned_users": "Zakázaní uživatelé",
+            "access_blocked": "Přístup zablokován",
+            "server_memory": "Paměť serveru",
+            "uptime": "Provozní doba: {{hours}} hodin"
+        },
+        "users": {
+            "user": "Uživatel",
+            "role": "Role",
+            "status": "Stav",
+            "action": "Akce",
+            "banned": "Zablokován",
+            "active": "Aktivní",
+            "unban": "Odblokovat",
+            "ban": "Zablokovat",
+            "delete": "Smazat účet",
+            "confirm_ban": "Opravdu chcete {{status}} tohoto uživatele?",
+            "ban_lift": "odblokovat",
+            "ban_apply": "zablokovat",
+            "confirm_delete_1": "Opravdu chcete smazat uživatele \"{{username}}\"?",
+            "confirm_delete_2": "⚠️ UPOZORNĚNÍ: Toto TRVALE smaže VŠECHNA data (inventáře, místnosti, kategorie) uživatele „{{username}}“!",
+            "confirm_delete_3": "🚨 POSLEDNÍ UPOZORNĚNÍ: Účet „{{username}}“ a všechna data budou NEVRATNĚ smazána. Chcete pokračovat?"
+        },
+        "logs": {
+            "title": "Protokoly administrace",
+            "no_logs": "zatím žádné protokoly",
+            "errors_title": "Systémové chyby (posledních 10)",
+            "no_errors": "// Systém v pořádku, žádné chybové protokoly.",
+            "date_fmt": "{{date, datetime}}"
+        },
+        "email": {
+            "title": "Odeslat e-mail",
+            "to": "Příjemce (Komu)",
+            "subject": "Předmět",
+            "message": "Zpráva (HTML podporováno)",
+            "placeholder_message": "Zadejte svou zprávu zde...",
+            "send": "Odeslat",
+            "sending": "Odesílání...",
+            "success": "E-mail byl úspěšně odeslán!",
+            "error": "Odeslání selhalo"
+        }
+    },
+    "landing": {
+        "nav": {
+            "login": "Přihlášení"
+        },
+        "hero": {
+            "title_1": "Spravujte vše",
+            "title_2": "Ve svém domově!",
+            "description": "Zdigitalizujte svůj domácí inventář. Kategorizujte položky, zvažte rodinu a přistupujte odkudkoliv. Moderní, bezpečné a snadné na používání.",
+            "cta_start": "Začněte",
+            "cta_register": "Vytvořit účet",
+            "stat_free": "Zdarma",
+            "stat_access": "Přístup",
+            "free_badge": "Zcela zdarma"
+        },
+        "features": {
+            "title": "Proč <1>HomeInventory</1>?",
+            "subtitle": "Všechny funkce pro zjednodušení správy domácnosti na jedné platformě",
+            "items": {
+                "categorize": {
+                    "title": "Kategorizujte položky",
+                    "desc": "Organizujte všechny položky podle místnosti a kategorie, najděte, co potřebujete, během několika sekund."
+                },
+                "family": {
+                    "title": "Pozvěte rodinu s klíčem od domu",
+                    "desc": "Pozvěte členy rodiny s vaším unikátním klíčem od domu, spravujte inventář společně."
+                },
+                "access": {
+                    "title": "Přístup odkudkoli",
+                    "desc": "Doma, v práci nebo na dovolené - bezpečně přistupujte k vašemu inventáři odkudkoli."
+                },
+                "barcode": {
+                    "title": "Rychlé přidání s čárovým kódem",
+                    "desc": "Skenujte čárové kódy produktů, údaje se vyplní automaticky."
+                },
+                "security": {
+                    "title": "Bezpečné a soukromé",
+                    "desc": "Vaše data jsou šifrována a chráněna infrastrukturou v souladu s KVKK."
+                },
+                "backup": {
+                    "title": "Záloha a export",
+                    "desc": "Zálohujte svůj inventář ve formátu JSON, obnovte kdykoli budete chtít."
+                }
+            }
+        },
+        "cta_bottom": {
+            "title": "Začněte používat nyní!",
+            "description": "Vytvořte si bezplatný účet a digitalizujte domácí inventář. Registrace trvá jen pár sekund.",
+            "button": "Přihlásit se"
+        },
+        "footer": {
+            "desc": "Jednoduchá a bezpečná platforma pro digitalizaci domácího inventáře.",
+            "links": "Rychlé odkazy",
+            "contact": "Kontaktujte nás",
+            "copyright": "© {{year}} HomeInventory. Všechna práva vyhrazena."
+        },
+        "preview_privacy_notice": "Ukázkový pohled: nejsou zobrazena žádná skutečná uživatelská data."
+    },
+    "intro": {
+        "inventory": {
+            "title": "Inventář",
+            "content": "Zde můžete přidávat a seznamovat své položky. Sledujte všechny domácí předměty na jednom místě!"
+        },
+        "house_key": {
+            "title": "Klíč od domu",
+            "content": "Toto je váš klíč od domu, použijte ho k pozvání ostatních. Přidejte členy rodiny do svého domu!"
+        },
+        "categories": {
+            "title": "Kategorie",
+            "content": "Třiďte své položky podle kategorií. Elektronika, nábytek, kuchyň a další!"
+        },
+        "buttons": {
+            "back": "Zpět",
+            "close": "Zavřít",
+            "last": "Dokončit",
+            "next": "Další",
+            "skip": "Přeskočit",
+            "open": "Otevřít"
+        }
+    },
+    "google_house_select": {
+        "title": "Vítejte!",
+        "subtitle": "Přihlásili jste se přes Google. Nyní vyberte dům.",
+        "welcome_options": "Co byste chtěli dělat?",
+        "create": {
+            "title": "Vytvořit nový dům",
+            "desc": "Začít vlastní inventář"
+        },
+        "join": {
+            "title": "Připojit se k existujícímu domu",
+            "desc": "Připojit se k domu člena rodiny"
+        },
+        "back": "Zpět",
+        "house_name": "Název domu (volitelné)",
+        "house_name_placeholder": "např. Můj domov, Kancelář",
+        "house_name_hint": "Pokud zůstane prázdné, bude pojmenován \"Můj domov\"",
+        "house_key": "Klíč domu",
+        "house_key_placeholder": "Zadejte klíč domu",
+        "house_key_hint": "Zadejte 64-znakový klíč, který jste obdrželi od člena rodiny",
+        "house_name_join": "Název tohoto domu (volitelné)",
+        "submit_create": "Vytvořit dům",
+        "submit_join": "Připojit dům",
+        "processing": "Zpracovává se..."
+    },
+    "scanner": {
+        "title": "Snímač čárových kódů",
+        "qr_title": "Čtečka QR kódů",
+        "init": "Spouštím kameru...",
+        "permission_error": "Přístup ke kameře zamítnut. Zkontrolujte nastavení prohlížeče.",
+        "busy_error": "Kamera je obsazená. Zavřete jiné aplikace.",
+        "not_found_error": "Kamera nebyla nalezena.",
+        "generic_error": "Nepodařilo se spustit kameru.",
+        "hint": "Umístěte čárový kód do středu rámu",
+        "qr_hint": "Zarovnejte QR kód do rámu",
+        "searching": "Hledám produkt...",
+        "found_local": "Již registrováno!",
+        "found_local_msg": "Tento čárový kód je již ve vašem inventáři.",
+        "found_online": "Produkt nalezen!",
+        "google_result": "⚡ Výsledek vyhledávání Google - prosím ověřte",
+        "barcode": "Čárový kód: {{code}}",
+        "new_product": "Nový produkt",
+        "not_found_db": "Tento čárový kód nebyl nalezen v databázích.",
+        "google_search": "Hledat na Googlu",
+        "quick_add": "Rychlé přidání (upravit později)",
+        "rescan": "Skenovat znovu",
+        "retry": "Zkusit znovu",
+        "flash_on": "🔦 Zapnout blesk",
+        "flash_unsupported": "Blesk není podporován",
+        "zoom_hint": "💡 Zvětšete přiblížení pro větší jasnost a držte telefon pevně",
+        "found_item_redirect": "Položka nalezena! Přesměrování...",
+        "found_page_redirect": "Stránka nalezena! Přesměrování...",
+        "invalid_qr": "Tento QR kód není pro tuto aplikaci.",
+        "not_found": "Produkt nenalezen. Zkuste jiný čárový kód."
+    },
+    "item_qr": {
+        "hint_mobile": "📱 Naskenujte tento QR kód svým telefonem pro rychlý přístup k položce",
+        "network_ip": "Síťová IP",
+        "url_loading": "Načítání URL...",
+        "copied": "Zkopírováno!",
+        "copy_url": "Kopírovat URL",
+        "download": "Stáhnout QR",
+        "usage_title": "Použití",
+        "usage_desc": "Vytiskněte QR kód a přilepte ho na položku. Naskenujte ho svým telefonem pro okamžitý přístup na tuto stránku!"
+    },
+    "house_access_pending": {
+        "eyebrow": "Přístup k domu",
+        "fallback_house": "Vybraný dům",
+        "signed_in_as": "Přihlášeno jako {{username}}",
+        "logout": "Odhlášení",
+        "messages": {
+            "create_error": "Nelze vytvořit dům",
+            "join_success": "Vaše žádost o připojení byla odeslána",
+            "join_error": "Nelze odeslat žádost o připojení"
+        },
+        "pending": {
+            "title": "Čekání na souhlas majitele domu",
+            "description": "Vaše žádost o „{{house}}“ stále čeká na rozhodnutí.",
+            "current_request": "Aktuální nevyřízený požadavek: {{house}}"
+        },
+        "no_house": {
+            "title": "Momentálně nejste připojeni k domu",
+            "description": "Vytvořte nový dům nebo odešlete žádost o připojení k existujícímu domu."
+        },
+        "create": {
+            "title": "Vytvořte nový dům",
+            "description": "Začněte svůj vlastní domácí inventář a hned pokračujte.",
+            "name_label": "Název domu",
+            "name_placeholder": "např. Můj domov, letní dům, sklad",
+            "submitting": "Vytváření...",
+            "submit": "Vytvořte dům"
+        },
+        "join": {
+            "title": "Pošlete žádost o připojení",
+            "description": "Zadejte klíč od domu a odešlete požadavek přímo majiteli domu.\nKlíč od domu",
+            "key_label": "Klíč od domu",
+            "key_placeholder": "Zadejte 64místný domovní klíč",
+            "submitting": "Odesílání...",
+            "submit": "Odeslat požadavek"
+        }
+    }
+}

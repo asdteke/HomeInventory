@@ -50,7 +50,7 @@
             "create_house": "Crear nueva casa",
             "join_house": "Unirse a la casa",
             "create_house_desc": "🏠 Se creará una nueva casa y obtendrás una <strong>Llave de la casa</strong> única. Comparta esta clave con su familia para acceder al mismo inventario.",
-            "join_house_desc": "👨‍👩‍👧‍👦 Ingresa la <strong>House Key</strong> compartida contigo para unirte a una casa existente. Todos los que tengan la clave pueden acceder al inventario compartido.",
+            "join_house_desc": "👨‍👩‍👧‍👦 Ingresa la <strong>Clave de la casa</strong> compartida contigo para unirte a una casa existente. Todos los que tengan la clave pueden acceder al inventario compartido.",
             "form_title": "Inscribirse",
             "username": "Nombre de usuario",
             "username_placeholder": "p.ej. John",
@@ -66,12 +66,12 @@
             "submit_join": "Unirse a la casa",
             "submitting": "Registrando...",
             "already_have_account": "¿Ya tienes una cuenta?",
-            "login_link": "Acceso",
+            "login_link": "Iniciar sesión",
             "support": "Problemas de registro:",
             "terms": "Términos de uso y descargo de responsabilidad",
             "passwords_mismatch": "Las contraseñas no coinciden",
             "password_length": "La contraseña debe tener al menos 6 caracteres.",
-            "key_required": "Se requiere House Key para unirse a una casa existente",
+            "key_required": "Se requiere la clave de la casa para unirse a una casa existente",
             "modals": {
                 "key_created": {
                     "title": "🎉¡Casa Creada!",
@@ -92,7 +92,58 @@
                     "button": "Bien, ve a iniciar sesión"
                 }
             }
-        }
+        },
+        "forgot_password": {
+            "title": "¿Olvidó su contraseña?",
+            "subtitle": "Inicie un flujo de recuperación seguro para acceder a su cuenta nuevamente.",
+            "identifier": "Nombre de usuario o correo electrónico",
+            "identifier_placeholder": "p.ej. juan o juan@ejemplo.com",
+            "submit": "Iniciar recuperación",
+            "requesting": "Comprobando...",
+            "email_success": "Si existe una cuenta, se ha enviado un enlace para restablecer la contraseña válido por 15 minutos.",
+            "back_to_login": "Volver a iniciar sesión",
+            "recovery_mode_info": "El correo electrónico está deshabilitado en este servidor. Continúe con la clave de recuperación que guardó durante la configuración de la cuenta.",
+            "recovery_key": "Clave de recuperación",
+            "recovery_key_placeholder": "p.ej. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "Nueva contraseña",
+            "new_password_placeholder": "Ingrese su nueva contraseña segura",
+            "confirm_password": "Confirmar nueva contraseña",
+            "confirm_password_placeholder": "Vuelva a ingresar su contraseña",
+            "reset_submit": "Restablecer contraseña",
+            "resetting": "Restableciendo..."
+        },
+        "reset_password": {
+            "title": "Restablecer contraseña",
+            "subtitle": "Utilice el enlace seguro para establecer una nueva contraseña.",
+            "missing_token": "El enlace para restablecer la contraseña parece incompleto o roto.",
+            "new_password": "Nueva contraseña",
+            "new_password_placeholder": "Ingrese su nueva contraseña segura",
+            "confirm_password": "Confirmar nueva contraseña",
+            "confirm_password_placeholder": "Vuelva a ingresar su contraseña",
+            "submit": "Actualizar contraseña",
+            "submitting": "Actualizando...",
+            "back_to_login": "Volver a iniciar sesión"
+        },
+        "recovery_setup": {
+            "title": "Crear clave de recuperación",
+            "subtitle": "Hasta que esto se complete, su cuenta no se considera segura para la recuperación de contraseña local.",
+            "warning": "Esta clave solo se mostrará una vez. Guárdelo en un administrador de contraseñas u otra ubicación segura sin conexión.",
+            "account": "Se creará una clave de recuperación para la cuenta {{username}}.",
+            "description": "Debido a que el correo electrónico está deshabilitado, solo podrás restablecer tu contraseña con esta clave en el futuro.",
+            "submit": "Crear clave de recuperación",
+            "generating": "Creando..."
+        },
+        "recovery_key_modal": {
+            "register_title": "Guarde su clave de recuperación",
+            "google_title": "Guarde su clave de recuperación",
+            "setup_title": "Guarde su clave de recuperación",
+            "reset_title": "Guarde su nueva clave de recuperación",
+            "settings_title": "Guarde su nueva clave de recuperación",
+            "subtitle": "Esta clave se muestra solo una vez.",
+            "warning": "Si pierde esta clave mientras el correo electrónico está deshabilitado, es posible que no pueda recuperar su contraseña. Cópialo y guárdalo de forma segura.",
+            "confirm": "Guardé la clave"
+        },
+        "password_requirements": "Usa al menos {{min}} caracteres con mayúsculas, minúsculas, números y símbolos."
     },
     "navigation": {
         "home": "Inicio",
@@ -133,7 +184,7 @@
             "empty": "Aún no se han añadido elementos"
         },
         "rooms": {
-            "title": "Alojamiento",
+            "title": "Habitaciones",
             "manage": "Administrar"
         },
         "quick_actions": {
@@ -243,13 +294,22 @@
             "username_len_error": "El nombre de usuario debe tener al menos 3 caracteres.",
             "fill_all_fields": "Por favor complete todos los campos",
             "passwords_mismatch": "Las nuevas contraseñas no coinciden",
-            "password_min_len": "La nueva contraseña debe tener al menos 6 caracteres"
+            "password_min_len": "La nueva contraseña debe tener al menos 6 caracteres",
+            "house_request_sent_success": "✅ ¡Tu solicitud de unión fue enviada!",
+            "request_approved": "✅ Solicitud de inscripción aprobada",
+            "request_rejected": "Solicitud de unión rechazada",
+            "request_action_error": "No se pudo actualizar la solicitud",
+            "member_kick_confirm": "¿Está seguro de que desea eliminar \"{{name}}\" de la casa?",
+            "member_kicked": "Miembro retirado de la casa",
+            "member_kick_error": "No se pudo eliminar al miembro de la casa",
+            "recovery_key_regenerated": "Clave de recuperación regenerada",
+            "recovery_key_error": "No se pudo regenerar la clave de recuperación"
         },
         "user_profile": {
             "edit_username": "Cambiar nombre de usuario"
         },
         "my_houses": {
-            "title": "mis casas",
+            "title": "Mis casas",
             "join_house": "Unirse a la casa",
             "join_short": "Unirse",
             "new_house": "Casa nueva",
@@ -260,33 +320,48 @@
             "member_count": "{{count}} miembros",
             "item_count": "{{count}} artículos",
             "switch": "Cambiar",
-            "leave": "salir de casa",
+            "leave": "Salir de la casa",
             "info": "💡 Puedes ser miembro de varias casas y cambiar entre ellas. Cada casa mantiene un inventario separado."
         },
         "house_info": {
-            "title": "Llave de casa activa",
-            "key_label": "llave de la casa",
+            "title": "Clave activa de la casa",
+            "key_label": "Clave de la casa",
             "mask_key": "••••••••{{suffix}}",
-            "hide": "Esconder",
-            "show": "Espectáculo",
+            "hide": "Ocultar",
+            "show": "Mostrar",
             "copy": "Copiar",
-            "share_info": "💡 Los usuarios con los que compartes esta clave pueden acceder a tu inventario utilizando la opción \"Unirse a House\" durante el registro.",
-            "members_title": "Miembros de la Cámara ({{count}})",
+            "share_info": "💡 Los usuarios con los que compartas esta clave pueden acceder a tu inventario usando la opción \"Unirse a la casa\" durante el registro.",
+            "members_title": "Miembros de la casa ({{count}})",
             "you": "(Tú)",
             "joined_at": "Se unió: {{date, datetime}}",
             "no_members": "Ningún otro miembro todavía",
             "invite_title": "Invitar a miembros de la familia",
-            "invite_desc": "Comparta la llave de su casa para permitir que los miembros de la familia accedan al mismo inventario. Cada miembro inicia sesión con su propia cuenta pero accede a los mismos datos."
+            "invite_desc": "Comparta la llave de su casa para permitir que los miembros de la familia accedan al mismo inventario. Cada miembro inicia sesión con su propia cuenta pero accede a los mismos datos.",
+            "active_members": "Miembros activos",
+            "pending_requests": "Solicitudes pendientes",
+            "no_pending_requests": "No hay solicitudes pendientes",
+            "owner_controls": "Controles de propietario habilitados",
+            "approve": "Aprobar",
+            "reject": "Rechazar",
+            "kick": "Eliminar"
         },
         "theme": {
             "title": "Tema",
-            "dark": "modo oscuro",
-            "light": "Modo de luz"
+            "dark": "Modo oscuro",
+            "light": "Modo claro"
         },
         "security": {
             "title": "Seguridad",
             "change_password": "Cambiar la contraseña",
-            "change_password_desc": "Actualiza la contraseña de tu cuenta"
+            "change_password_desc": "Actualiza la contraseña de tu cuenta",
+            "recovery_key_title": "Clave de recuperación",
+            "recovery_key_desc": "Puede generar una nueva clave para la recuperación de contraseña local.",
+            "recovery_key_missing": "Aún no hay ninguna clave de recuperación visible para esta cuenta.",
+            "current_key_label": "Clave de recuperación guardada",
+            "recovery_key_unavailable": "No se puede mostrar la clave de recuperación actual. Regenerarlo si es necesario.",
+            "recovery_key_action": "Regenerar",
+            "recovery_key_modal_desc": "Confirme su contraseña actual para continuar. La nueva clave se mostrará solo una vez.",
+            "recovery_key_loading": "Preparando..."
         },
         "data_management": {
             "title": "Gestión de datos",
@@ -339,7 +414,12 @@
                 "submit": "Cambiar"
             }
         },
-        "select_language": "Seleccionar idioma"
+        "select_language": "Seleccionar idioma",
+        "pending_requests": {
+            "title": "Mis solicitudes de ingreso pendientes",
+            "waiting_since": "Esperando desde: {{date, datetime}}",
+            "pending_badge": "Pendiente"
+        }
     },
     "inventory": {
         "title": "Inventario",
@@ -368,7 +448,7 @@
         "delete_error": "Eliminar error"
     },
     "rooms": {
-        "title": "Alojamiento",
+        "title": "Habitaciones",
         "subtitle": "{{count}} habitaciones",
         "new_room": "Nueva habitación",
         "edit_title": "Editar sala",
@@ -402,7 +482,7 @@
         },
         "users": {
             "user": "Usuario",
-            "role": "Role",
+            "role": "Rol",
             "status": "Estado",
             "action": "Acción",
             "banned": "Prohibido",
@@ -441,14 +521,14 @@
             "login": "Iniciar sesión"
         },
         "hero": {
-            "free_badge": "Gratis para usar",
             "title_1": "Administrar todo",
             "title_2": "¡En tu casa!",
             "description": "Digitalice el inventario de su hogar. Clasifique artículos, invite a familiares y acceda desde cualquier lugar. Moderno, seguro y fácil de usar.",
             "cta_start": "Empezar",
             "cta_register": "Crear una cuenta",
             "stat_free": "Gratis",
-            "stat_access": "Acceso"
+            "stat_access": "Acceso",
+            "free_badge": "Completamente Gratis"
         },
         "features": {
             "title": "¿Por qué <1>HomeInventory</1>?",
@@ -483,7 +563,7 @@
         "cta_bottom": {
             "title": "¡Empieza a usarlo ahora!",
             "description": "Cree una cuenta gratuita y digitalice el inventario de su hogar. El registro sólo lleva unos segundos.",
-            "button": "Acceso"
+            "button": "Iniciar sesión"
         },
         "footer": {
             "desc": "La plataforma fácil y segura para digitalizar el inventario de tu casa.",
@@ -531,13 +611,13 @@
         "house_name": "Nombre de la casa (opcional)",
         "house_name_placeholder": "p.ej. Mi casa, oficina",
         "house_name_hint": "Si se deja vacío, se llamará \"Mi casa\".",
-        "house_key": "llave de la casa",
+        "house_key": "Clave de la casa",
         "house_key_placeholder": "Introduzca la clave de la casa",
         "house_key_hint": "Ingrese la clave de 64 caracteres recibida de un familiar",
         "house_name_join": "Nombre de esta casa (opcional)",
-        "submit_create": "crear casa",
+        "submit_create": "Crear casa",
         "submit_join": "Unirse a la casa",
-        "processing": "Tratamiento..."
+        "processing": "Procesando..."
     },
     "scanner": {
         "title": "Escáner de código de barras",
@@ -560,7 +640,7 @@
         "google_search": "Buscar en Google",
         "quick_add": "Agregar rápido (editar más tarde)",
         "rescan": "Escanear de nuevo",
-        "retry": "Rever",
+        "retry": "Reintentar",
         "flash_on": "🔦 Flash encendido",
         "flash_unsupported": "Flash no compatible",
         "zoom_hint": "💡 Aumente el zoom para mayor claridad y mantenga el teléfono firme",
@@ -578,5 +658,41 @@
         "download": "Descargar QR",
         "usage_title": "Uso",
         "usage_desc": "Imprime el código QR y pégalo en el artículo. ¡Escanee con su teléfono para acceder a esta página al instante!"
+    },
+    "house_access_pending": {
+        "eyebrow": "Acceso a la casa",
+        "fallback_house": "Casa seleccionada",
+        "signed_in_as": "Sesión iniciada como {{username}}",
+        "logout": "Cerrar sesión",
+        "messages": {
+            "create_error": "No se pudo crear la casa",
+            "join_success": "Tu solicitud de unión fue enviada",
+            "join_error": "No se pudo enviar la solicitud de unión"
+        },
+        "pending": {
+            "title": "Esperando la aprobación del propietario de la casa",
+            "description": "Su solicitud para \"{{house}}\" todavía está esperando una decisión.",
+            "current_request": "Solicitud pendiente actual: {{house}}"
+        },
+        "no_house": {
+            "title": "No estás conectado a una casa en este momento",
+            "description": "Cree una nueva casa o envíe una solicitud de unión a una existente."
+        },
+        "create": {
+            "title": "Crear una nueva casa",
+            "description": "Inicia el inventario de tu hogar y continúa de inmediato.",
+            "name_label": "Nombre de la casa",
+            "name_placeholder": "p.ej. Mi Hogar, Casa De Verano, Almacenamiento",
+            "submitting": "Creando...",
+            "submit": "Crear casa"
+        },
+        "join": {
+            "title": "Enviar una solicitud de inscripción",
+            "description": "Ingrese una clave de casa y envíe la solicitud directamente al propietario de la casa.",
+            "key_label": "Clave de la casa",
+            "key_placeholder": "Ingrese la clave de la casa de 64 caracteres",
+            "submitting": "Enviando...",
+            "submit": "Enviar solicitud"
+        }
     }
 }

@@ -1,0 +1,696 @@
+{
+    "items": {
+        "qrcode": {
+            "title": "QR Code",
+            "desc": "Kinyomtathatod és felragaszthatod ezt a QR-kódot az elemre. Az olvasása közvetlenül erre az oldalra irányít."
+        },
+        "title_new": "Új elem hozzáadása",
+        "title_edit": "Elem szerkesztése",
+        "subtitle": "Adja meg a tétel adatait",
+        "load_error": "Nem sikerült betölteni a tételt",
+        "form": {
+            "name": "Tétel neve",
+            "name_placeholder": "pl. Samsung TV 55 hüvelyk",
+            "required": "*",
+            "description": "Leírás",
+            "description_placeholder": "Megjegyzések a tételhez...",
+            "quantity": "Mennyiség",
+            "category": "Kategória",
+            "select_category": "Kiválasztás",
+            "room": "Szoba",
+            "select_room": "Szoba kiválasztása",
+            "location_details": "Helyszín részletei",
+            "location_optional": "(Opcionális)",
+            "location_placeholder": "Keresés vagy új helyszín hozzáadása...",
+            "location_help": "Hol a szobában? (pl. 'Kék szekrény felső polca')",
+            "location_create": "Hely létrehozása \"{{name}}\"",
+            "location_privacy": "Hely adatvédelme",
+            "location_public": "Mindenki láthatja ezt a helyet",
+            "location_private": "Csak te láthatod ezt",
+            "location_save": "Hely mentése",
+            "location_saving": "Hozzáadás...",
+            "location_selected": "Kiválasztott hely: {{name}}",
+            "location_empty": "Ebben a szobában még nincs meghatározva hely. Kezdj el gépelni egy létrehozáshoz.",
+            "photo": "Fotó",
+            "add_photo": "Hozzáadás",
+            "barcode": "Vonalkód",
+            "barcode_optional": "(Opcionális)",
+            "barcode_placeholder": "pl. 8690123456789",
+            "scan_barcode": "Vonalkód beolvasása",
+            "search_db": "Keresés az adatbázisban",
+            "search_google": "Keresés a Google-on",
+            "barcode_saved": "✓ A vonalkód elmentve",
+            "visibility": "Elem láthatósága",
+            "visibility_public": "Minden háztartási tag számára látható",
+            "visibility_private": "Csak neked látható",
+            "submit_add": "Elem hozzáadása",
+            "submit_save": "Változtatások mentése",
+            "submitting": "Mentés..."
+        },
+        "messages": {
+            "quick_add_success": "✓ \"{{barcode}}\" gyorsan hozzáadva - később szerkesztheted",
+            "quick_add_fail": "⚠ Gyors hozzáadás sikertelen",
+            "searching": "Keresés...",
+            "found_local": "✓ Helyi: regisztrálva mint \"{{name}}\"",
+            "found_remote": "✓ Található a {{source}} {{note}}: \"{{name}}\"",
+            "not_found": "⚠ Terméket nem található az adatbázisokban. Kereshet a Google-on.",
+            "search_fail": "⚠ A keresés sikertelen",
+            "name_required": "A tétel neve kötelező",
+            "location_add_error": "Sikertelen hely hozzáadása"
+        }
+    },
+    "common": {
+        "save": "Mentés",
+        "cancel": "Mégse",
+        "loading": "Betöltés...",
+        "error": "Hiba történt",
+        "success": "Művelet sikeres",
+        "search": "Keresés...",
+        "edit": "Szerkesztés",
+        "delete": "Törlés",
+        "add": "Hozzáadás",
+        "new": "Új",
+        "all": "Összes",
+        "manage": "Kezelés",
+        "help_support": "Súgó és támogatás",
+        "theme": {
+            "light": "Világos mód",
+            "dark": "Sötét mód"
+        },
+        "select": "Kiválaszt",
+        "refresh": "Frissítés",
+        "close": "Bezárás",
+        "logout": "Kijelentkezés",
+        "copyright": "© {{year}} HomeInventory - Minden jog fenntartva"
+    },
+    "auth": {
+        "login": {
+            "title": "Bejelentkezés",
+            "subtitle": "Kezelje okosan az összes otthoni készletét",
+            "welcome": "Üdvözöljük a HomeInventory-ban",
+            "username_or_email": "Felhasználónév vagy e-mail",
+            "password": "Jelszó",
+            "forgot_password": "Elfelejtett jelszó?",
+            "submit": "Bejelentkezés",
+            "submitting": "Bejelentkezés...",
+            "google_continue": "Folytatás Google-lal",
+            "or": "vagy",
+            "no_account": "Nincs még fiókod?",
+            "register_link": "Regisztráció",
+            "support_contact": "Bejelentkezési problémák esetén:",
+            "terms_title": "📋 Felhasználási feltételek és nyilatkozat",
+            "terms_beta": "BETA verzió: A HomeInventory jelenleg tesztelési fázisban van. Nem garantáljuk az adatok tartósságát vagy biztonságát.",
+            "terms_disclaimer": "Nyilatkozat: Ezt az alkalmazást használva elfogadja, hogy nem támaszthat igényt esetleges adatvesztés, hozzáférési problémák vagy egyéb technikai hibák miatt.",
+            "terms_backup": "Adatmentés: Erősen ajánljuk, hogy rendszeresen készítsen biztonsági másolatot fontos adatairól.",
+            "terms_accept": "A bejelentkezéssel azzal kerül elfogadásra, hogy elfogadja ezeket a feltételeket."
+        },
+        "register": {
+            "title": "Üdvözöljük a HomeInventory-ban",
+            "subtitle": "Hozzon létre egy új fiókot vagy csatlakozzon egy meglévő házhoz",
+            "create_house": "Új ház létrehozása",
+            "join_house": "Csatlakozás házhoz",
+            "create_house_desc": "🏠 Egy új ház jön létre, és egy egyedi <strong>Házkulcsot</strong> kap. Ossza meg a kulcsot a családtagokkal, hogy hozzáférjenek ugyanahhoz a készlethez.",
+            "join_house_desc": "👨‍👩‍👧‍👦 Adja meg a megosztott <strong>Házkulcsot</strong>, hogy csatlakozzon egy meglévő házhoz. A kulccsal rendelkező összes személy hozzáférhet a megosztott készlethez.",
+            "form_title": "Regisztráció",
+            "username": "Felhasználónév",
+            "username_placeholder": "pl. john",
+            "email": "Email",
+            "email_placeholder": "pl. john@example.com",
+            "password": "Jelszó",
+            "password_placeholder": "Legalább 6 karakter",
+            "password_confirm": "Jelszó megerősítése",
+            "password_confirm_placeholder": "Írd be újra a jelszót",
+            "house_key": "Háztkulcs",
+            "house_key_placeholder": "Illeszd be a 64 karakteres háztkulcsot",
+            "submit_create": "Új ház létrehozása",
+            "submit_join": "Csatlakozás házhoz",
+            "submitting": "Regisztrálás...",
+            "already_have_account": "Már van fiókod?",
+            "login_link": "Bejelentkezés",
+            "support": "Regisztrációs problémák:",
+            "terms": "Felhasználási feltételek és nyilatkozat",
+            "passwords_mismatch": "A jelszavak nem egyeznek",
+            "password_length": "A jelszónak legalább 6 karakter hosszúnak kell lennie",
+            "key_required": "A házkulcs szükséges a meglévő házhoz való csatlakozáshoz",
+            "modals": {
+                "key_created": {
+                    "title": "🎉 Ház létrehozva!",
+                    "subtitle": "Mentse el az alábbi kulcsot biztonságos helyen",
+                    "warning": "Fontos: Ezt a kulcsot csak egyszer fogjuk megjeleníteni. Ossza meg családtagjaival, hogy hozzáférhessenek ugyanahhoz a készlethez.",
+                    "copy": "Másolás",
+                    "copied": "Másolva",
+                    "button": "Elmentettem a kulcsot, Folytatás"
+                },
+                "email_verification": {
+                    "title": "📧 Email cím megerősítése szükséges",
+                    "message": "Fiók létrehozva! Kérjük, erősítse meg email címét a bejelentkezéshez.",
+                    "step_1": "Küldtünk egy megerősítő emailt ide: <1>{{email}}</1>.",
+                    "step_2": "Kattintson az emailben található <1>\"Fiókom megerősítése\"</1> gombra.",
+                    "step_3": "A hitelesítés után, <1>be tudsz jelentkezni</1>.",
+                    "spam_note": "Ellenőrizd a spam/levélszemét mappát, ha az e-mail nem érkezik meg.",
+                    "key_note": "Fontos: A házad kulcsa is elküldésre került az e-mailben. Megoszthatod családtagjaiddal.",
+                    "button": "Rendben, Bejelentkezéshez"
+                }
+            }
+        },
+        "forgot_password": {
+            "title": "Forgot Password",
+            "subtitle": "Start a secure recovery flow to access your account again.",
+            "identifier": "Username or Email",
+            "identifier_placeholder": "e.g. john or john@example.com",
+            "submit": "Start Recovery",
+            "requesting": "Checking...",
+            "email_success": "If an account exists, a password reset link valid for 15 minutes has been sent.",
+            "back_to_login": "Back to Login",
+            "recovery_mode_info": "Email is disabled on this server. Continue with the Recovery Key you saved during account setup.",
+            "recovery_key": "Recovery Key",
+            "recovery_key_placeholder": "e.g. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "reset_submit": "Reset Password",
+            "resetting": "Resetting..."
+        },
+        "reset_password": {
+            "title": "Reset Password",
+            "subtitle": "Use the secure link to set a new password.",
+            "missing_token": "The password reset link looks incomplete or broken.",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "submit": "Update Password",
+            "submitting": "Updating...",
+            "back_to_login": "Back to Login"
+        },
+        "recovery_setup": {
+            "title": "Create Recovery Key",
+            "subtitle": "Until this is completed, your account is not considered safe for local password recovery.",
+            "warning": "This key will only be shown once. Save it in a password manager or another secure offline location.",
+            "account": "A recovery key will be created for account {{username}}.",
+            "description": "Because email is disabled, you will only be able to reset your password with this key in the future.",
+            "submit": "Create Recovery Key",
+            "generating": "Creating..."
+        },
+        "recovery_key_modal": {
+            "register_title": "Save Your Recovery Key",
+            "google_title": "Save Your Recovery Key",
+            "setup_title": "Save Your Recovery Key",
+            "reset_title": "Save Your New Recovery Key",
+            "settings_title": "Save Your New Recovery Key",
+            "subtitle": "This key is shown only once.",
+            "warning": "If you lose this key while email is disabled, you may not be able to recover your password. Copy it and store it safely.",
+            "confirm": "I Saved the Key"
+        }
+    },
+    "navigation": {
+        "home": "Főoldal",
+        "inventory": "Leltár",
+        "rooms": "Szobák",
+        "categories": "Kategóriák",
+        "settings": "Beállítások",
+        "new_item": "Új elem",
+        "share_house": "Ház megosztása",
+        "admin_panel": "Adminisztrációs panel",
+        "logout": "Kijelentkezés",
+        "menu": "Menü"
+    },
+    "dashboard": {
+        "welcome": "Üdvözlünk, <1>{{name}}</1>! 👋",
+        "subtitle": "Áttekintés a készletedről",
+        "quick_search": "Gyors keresés...",
+        "filters": {
+            "private": "🔒 Saját privát elemeim",
+            "public": "🌐 Nyilvános",
+            "remove": "Szűrő törlése",
+            "no_items": "Egyetlen elem sem felel meg ennek a szűrőnek"
+        },
+        "stats": {
+            "total_items": "Összes elem",
+            "total_quantity": "Összes mennyiség",
+            "fullest_room": "Legtelítettebb szoba",
+            "category_count": "Kategóriák",
+            "items_suffix": "elemek"
+        },
+        "recent_items": {
+            "title": "Nemrég hozzáadott",
+            "see_all": "Összes megtekintése"
+        },
+        "categories": {
+            "title": "Kategóriák",
+            "manage": "Kezelés",
+            "empty": "Még nem lett hozzáadva elem"
+        },
+        "rooms": {
+            "title": "Szobák",
+            "manage": "Kezelés"
+        },
+        "quick_actions": {
+            "title": "⚡ Gyors műveletek",
+            "add_item": "Elem hozzáadása",
+            "search_item": "Elem keresése",
+            "categories": "Kategóriák",
+            "settings": "Beállítások"
+        }
+    },
+    "beta_banner": {
+        "title": "BÉTA:",
+        "text": "A HomeInventory jelenleg tesztelési és hobbi fázisban van. Az adatok megőrzésére vagy biztonságára nincs garancia. Kérjük, készítsen biztonsági mentést a fontos információkról.",
+        "contact": "Kapcsolat:"
+    },
+    "footer": {
+        "rights": "© {{year}} HomeInventory - Minden jog fenntartva",
+        "contact": "Kapcsolat:"
+    },
+    "settings": {
+        "title": "Beállítások",
+        "subtitle": "Alkalmazásbeállítások kezelése",
+        "messages": {
+            "house_switched": "✅ {{name}} aktiválva!",
+            "house_switch_error": "Sikertelen házváltás",
+            "house_joined_success": "✅ Sikeresen csatlakoztál a házhoz!",
+            "house_join_error": "Sikertelen csatlakozás a házhoz",
+            "house_created_success": "✅ \"{{name}}\" létrehozva!",
+            "house_create_error": "Sikertelen házkészítés",
+            "house_left_success": "Sikeresen elhagytad a házat",
+            "house_left_error": "Sikertelen házelhagyás",
+            "house_leave_confirm": "Biztosan el akarod hagyni a \"{{name}}\" házat?",
+            "backup_downloaded": "✅ A biztonsági mentés sikeresen letöltve! ({{count}} elem)",
+            "export_error": "❌ Hiba történt az exportálás során",
+            "import_invalid_format": "Érvénytelen biztonsági mentés fájlformátum",
+            "import_success": "✅ {{items}} elem, {{categories}} kategória, {{rooms}} szoba, {{locations}} hely hozzáadva.",
+            "import_error": "❌ Importálási hiba: {{error}}",
+            "password_changed": "A jelszó sikeresen megváltoztatva!",
+            "password_error_current": "A jelenlegi jelszó hibás",
+            "password_error_invalid": "Érvénytelen adat lett elküldve",
+            "session_expired": "A munkamenet lejárt. Kérjük, jelentkezzen be újra.",
+            "server_error": "Szerverhiba történt",
+            "connection_error": "Nem sikerült csatlakozni a szerverhez. Ellenőrizze az internetkapcsolatát.",
+            "unexpected_error": "Váratlan hiba történt",
+            "username_changed": "✅ Felhasználónév megváltoztatva!",
+            "username_error": "Nem sikerült megváltoztatni a felhasználónevet",
+            "username_len_error": "A felhasználónévnek legalább 3 karakter hosszúnak kell lennie",
+            "fill_all_fields": "Kérjük, töltsön ki minden mezőt",
+            "passwords_mismatch": "Az új jelszavak nem egyeznek",
+            "password_min_len": "Az új jelszónak legalább 6 karakter hosszúnak kell lennie",
+            "house_request_sent_success": "✅ Your join request was sent!",
+            "request_approved": "✅ Join request approved",
+            "request_rejected": "Join request rejected",
+            "request_action_error": "Could not update request",
+            "member_kick_confirm": "Are you sure you want to remove \"{{name}}\" from the house?",
+            "member_kicked": "Member removed from the house",
+            "member_kick_error": "Could not remove member from the house",
+            "recovery_key_regenerated": "Recovery key regenerated",
+            "recovery_key_error": "Could not regenerate recovery key"
+        },
+        "user_profile": {
+            "edit_username": "Felhasználónév megváltoztatása"
+        },
+        "my_houses": {
+            "title": "Az én házaim",
+            "join_house": "Csatlakozás házhoz",
+            "join_short": "Csatlakozás",
+            "new_house": "Új ház",
+            "new_short": "Új",
+            "no_house": "Még nem tagja egyetlen háznak sem",
+            "owner": "Tulajdonos",
+            "active": "Aktív",
+            "member_count": "{{count}} tag",
+            "item_count": "{{count}} elem",
+            "switch": "Váltás",
+            "leave": "Elhagyás otthon",
+            "info": "💡 Több ház tagja is lehet, és válthat közöttük. Minden ház külön készletet tart fenn."
+        },
+        "house_info": {
+            "title": "Aktív ház kulcs",
+            "key_label": "Ház kulcs",
+            "mask_key": "••••••••{{suffix}}",
+            "hide": "Elrejtés",
+            "show": "Megjelenítés",
+            "copy": "Másolás",
+            "share_info": "💡 Azok a felhasználók, akikkel megosztja ezt a kulcsot, a regisztráció során a \"Hozzáadás házhoz\" opciót használva férhetnek hozzá a készletéhez.",
+            "members_title": "Ház tagjai ({{count}})",
+            "you": "(Ön)",
+            "joined_at": "Csatlakozott: {{date, datetime}}",
+            "no_members": "Még nincs más tag",
+            "invite_title": "Családtagok meghívása",
+            "invite_desc": "Ossza meg ház kulcsát, hogy a családtagok is hozzáférhessenek ugyanahhoz a készlethez. Minden tag a saját fiókjával jelentkezik be, de ugyanazokhoz az adatokhoz fér hozzá.",
+            "active_members": "Active Members",
+            "pending_requests": "Pending Requests",
+            "no_pending_requests": "No pending requests",
+            "owner_controls": "Owner controls enabled",
+            "approve": "Approve",
+            "reject": "Reject",
+            "kick": "Remove"
+        },
+        "theme": {
+            "title": "Téma",
+            "dark": "Sötét mód",
+            "light": "Világos mód"
+        },
+        "security": {
+            "title": "Biztonság",
+            "change_password": "Jelszó módosítása",
+            "change_password_desc": "Fiókjának jelszavának frissítése",
+            "recovery_key_title": "Recovery Key",
+            "recovery_key_desc": "You can generate a new key for local password recovery.",
+            "recovery_key_missing": "No recovery key is visible for this account yet.",
+            "current_key_label": "Saved Recovery Key",
+            "recovery_key_unavailable": "The current recovery key cannot be displayed. Regenerate it if needed.",
+            "recovery_key_action": "Regenerate",
+            "recovery_key_modal_desc": "Confirm your current password to continue. The new key will be shown only once.",
+            "recovery_key_loading": "Preparing..."
+        },
+        "data_management": {
+            "title": "Adatkezelés",
+            "download_backup": "Biztonsági mentés letöltése",
+            "downloading": "Letöltés...",
+            "export_json": "JSON formátumban exportálás",
+            "upload_backup": "Biztonsági mentés feltöltése",
+            "uploading": "Feltöltés...",
+            "import_json": "JSON-ból importálás"
+        },
+        "about": {
+            "title": "📱 Az alkalmazásról",
+            "version": "Verzió",
+            "brand": "Márka",
+            "feedback": "✉️ Visszajelzés küldése"
+        },
+        "modals": {
+            "password": {
+                "title": "Jelszó módosítása",
+                "current": "Jelenlegi jelszó",
+                "new": "Új jelszó",
+                "confirm": "Új jelszó (Megerősítés)",
+                "changing": "Módosítás...",
+                "submit": "Jelszó módosítása"
+            },
+            "join_house": {
+                "title": "Csatlakozás házhoz",
+                "key_placeholder": "Írd be a 64 karakteres házkulcsot",
+                "key_help": "Írd be a kulcsot, amit a családtagodtól kaptál",
+                "name_label": "Név ennek a háznak (opcionális)",
+                "name_placeholder": "pl. Szülők háza",
+                "joining": "Csatlakozás...",
+                "submit": "Csatlakozás házhoz"
+            },
+            "create_house": {
+                "title": "Új ház létrehozása",
+                "name_label": "Ház neve",
+                "name_placeholder": "pl. Nyári ház, Iroda, Raktár",
+                "name_help": "Ha üresen hagyja, a neve \"Az új házam\" lesz",
+                "info": "ℹ️ Alapértelmezett kategóriák és szobák jönnek létre az új házhoz. Később szerkesztheti őket.",
+                "creating": "Létrehozás...",
+                "submit": "Ház létrehozása"
+            },
+            "username": {
+                "title": "Felhasználónév módosítása",
+                "new_label": "Új felhasználónév",
+                "placeholder": "Az új felhasználóneved",
+                "help": "3-30 karakter, csak betűk, számok, aláhúzás és kötőjel",
+                "saving": "Mentés...",
+                "submit": "Módosítás"
+            }
+        },
+        "select_language": "Nyelv kiválasztása",
+        "pending_requests": {
+            "title": "My Pending Join Requests",
+            "waiting_since": "Waiting since: {{date, datetime}}",
+            "pending_badge": "Pending"
+        }
+    },
+    "inventory": {
+        "title": "Készlet",
+        "subtitle": "{{count}} találat",
+        "new_item": "Új tétel",
+        "add_first": "Első tétel hozzáadása",
+        "search_placeholder": "Tételek keresése...",
+        "all_categories": "Minden kategória",
+        "all_rooms": "Minden szoba",
+        "empty_title": "Nincs találat",
+        "empty_filter": "Egyetlen tétel sem felel meg a szűrőidnek",
+        "empty_msg": "Még nem lett tétel hozzáadva",
+        "delete_confirm": "Biztosan törölni szeretnéd ezt a tételt?",
+        "delete_error": "Törlési hiba"
+    },
+    "categories": {
+        "title": "Kategóriák",
+        "subtitle": "{{count}} kategória",
+        "new_category": "Új kategória",
+        "edit_title": "Kategória szerkesztése",
+        "new_title": "Új kategória",
+        "name_label": "Kategória neve",
+        "icon_label": "Ikon",
+        "color_label": "Szín",
+        "delete_confirm": "Biztosan törölni szeretné ezt a kategóriát?",
+        "delete_error": "Törlési hiba"
+    },
+    "rooms": {
+        "title": "Szobák",
+        "subtitle": "{{count}} szoba",
+        "new_room": "Új szoba",
+        "edit_title": "Szoba szerkesztése",
+        "new_title": "Új szoba",
+        "name_label": "Szoba neve",
+        "description_label": "Leírás (opcionális)",
+        "name_placeholder": "pl. Fő hálószoba",
+        "desc_placeholder": "pl. Fő hálószoba",
+        "delete_confirm": "Biztosan törölni szeretnéd ezt a szobát?",
+        "delete_error": "Törlési hiba"
+    },
+    "admin": {
+        "title": "Adminisztrációs panel",
+        "subtitle": "Rendszerkezelés és felügyelet",
+        "refresh": "Frissítés",
+        "tabs": {
+            "dashboard": "Irányítópult",
+            "users": "Felhasználók",
+            "logs": "Naplók",
+            "email": "Levél küldése"
+        },
+        "stats": {
+            "total_users": "Összes felhasználó",
+            "new_today": "Ma: +{{count}} új",
+            "total_inventory": "Összes készlet",
+            "inventory_details": "{{rooms}} szoba, {{categories}} kategória",
+            "banned_users": "Tiltott felhasználók",
+            "access_blocked": "Hozzáférés blokkolva",
+            "server_memory": "Szerver memória",
+            "uptime": "Üzemidő: {{hours}} óra"
+        },
+        "users": {
+            "user": "Felhasználó",
+            "role": "Szerep",
+            "status": "Állapot",
+            "action": "Művelet",
+            "banned": "Tiltva",
+            "active": "Aktív",
+            "unban": "Tiltás feloldása",
+            "ban": "Tiltás",
+            "delete": "Fiók törlése",
+            "confirm_ban": "Biztosan szeretné {{status}} ezt a felhasználót?",
+            "ban_lift": "tiltás feloldása",
+            "ban_apply": "tiltás",
+            "confirm_delete_1": "Biztosan törölni szeretné a(z) \"{{username}}\" felhasználót?",
+            "confirm_delete_2": "⚠️ FIGYELMEZTETÉS: Ez VÉGLEGESEN törölni fog MINDEN adatot (készletek, szobák, kategóriák) a(z) \"{{username}}\" felhasználó számára!",
+            "confirm_delete_3": "🚨 VÉGSŐ FIGYELMEZTETÉS: A(z) \"{{username}}\" fiók és minden adat VISSZAFORDÍTHATATLANUL törlődni fog. Folytatni szeretné?"
+        },
+        "logs": {
+            "title": "Admin Naplók",
+            "no_logs": "még nincs napló",
+            "errors_title": "Rendszerhibák (Utolsó 10)",
+            "no_errors": "// Rendszer egészséges, nincs hibanapló.",
+            "date_fmt": "{{date, datetime}}"
+        },
+        "email": {
+            "title": "E-mail küldése",
+            "to": "Címzett (Címzett)",
+            "subject": "Tárgy",
+            "message": "Üzenet (HTML támogatott)",
+            "placeholder_message": "Ide írja az üzenetet...",
+            "send": "Küldés",
+            "sending": "Küldés folyamatban...",
+            "success": "E-mail sikeresen elküldve!",
+            "error": "Küldés sikertelen"
+        }
+    },
+    "landing": {
+        "nav": {
+            "login": "Bejelentkezés"
+        },
+        "hero": {
+            "title_1": "Mindent kezel",
+            "title_2": "Otthonodban!",
+            "description": "Digitalizáld otthoni készleted. Kategorizáld a tárgyakat, hívd meg a családtagokat, és férj hozzá bárhonnan. Modern, biztonságos és könnyen használható.",
+            "cta_start": "Kezdés",
+            "cta_register": "Fiók létrehozása",
+            "stat_free": "Ingyenes",
+            "stat_access": "Hozzáférés"
+        },
+        "features": {
+            "title": "Miért a <1>HomeInventory</1>?",
+            "subtitle": "Minden funkció egy platformon az otthon menedzselésének egyszerűsítésére",
+            "items": {
+                "categorize": {
+                    "title": "Tárgyak kategorizálása",
+                    "desc": "Szervezd az összes tárgyat szobánként és kategóriánként, találj meg mindent másodpercek alatt."
+                },
+                "family": {
+                    "title": "Család meghívása házkulccsal",
+                    "desc": "Hívd meg családtagjaidat az egyedi házkulcsoddal, kezeljétek együtt a készletet."
+                },
+                "access": {
+                    "title": "Hozzáférés bárhonnan",
+                    "desc": "Otthon, munkahelyen vagy nyaraláson - biztonságosan férhetsz hozzá a készletedhez bárhonnan."
+                },
+                "barcode": {
+                    "title": "Gyors hozzáadás vonalkóddal",
+                    "desc": "Szkennelj termékvonalkódokat, az adatok automatikusan kitöltődnek."
+                },
+                "security": {
+                    "title": "Biztonságos és privát",
+                    "desc": "Az adataid titkosítva vannak és a KVKK-kompatibilis infrastruktúrával védve."
+                },
+                "backup": {
+                    "title": "Biztonsági mentés és export",
+                    "desc": "Készíts biztonsági mentést a készletedről JSON formátumban, bármikor visszaállíthatod."
+                }
+            }
+        },
+        "cta_bottom": {
+            "title": "Kezdj el használni most!",
+            "description": "Hozz létre egy ingyenes fiókot és digitalizáld az otthoni készletedet. A regisztráció csak néhány másodpercet vesz igénybe.",
+            "button": "Bejelentkezés"
+        },
+        "footer": {
+            "desc": "Az egyszerű és biztonságos platform az otthoni készlet digitalizálásához.",
+            "links": "Gyors hivatkozások",
+            "contact": "Kapcsolatfelvétel",
+            "copyright": "© {{year}} HomeInventory. Minden jog fenntartva."
+        },
+        "preview_privacy_notice": "Demó nézet: valós felhasználói adat nem jelenik meg."
+    },
+    "intro": {
+        "inventory": {
+            "title": "Készlet",
+            "content": "Itt hozzáadhatja és felsorolhatja a tételeit. Kövesse nyomon az összes otthoni tárgyat egy helyen!"
+        },
+        "house_key": {
+            "title": "Házkulcs",
+            "content": "Ez az Ön házának kulcsa, használja mások meghívásához. Adjon hozzá családtagokat a házához!"
+        },
+        "categories": {
+            "title": "Kategóriák",
+            "content": "Szervezze elemeit kategorizálás segítségével. Elektronika, bútorok, konyha és még sok más!"
+        },
+        "buttons": {
+            "back": "Vissza",
+            "close": "Bezárás",
+            "last": "Befejezés",
+            "next": "Következő",
+            "skip": "Kihagyás",
+            "open": "Megnyitás"
+        }
+    },
+    "google_house_select": {
+        "title": "Üdvözöljük!",
+        "subtitle": "Google-fiókkal jelentkeztél be. Most válassz egy házat.",
+        "welcome_options": "Mit szeretnél tenni?",
+        "create": {
+            "title": "Új ház létrehozása",
+            "desc": "Saját készlet indítása"
+        },
+        "join": {
+            "title": "Meglévő házhoz csatlakozás",
+            "desc": "Családtag házához csatlakozás"
+        },
+        "back": "Vissza",
+        "house_name": "Ház neve (opcionális)",
+        "house_name_placeholder": "pl. Otthonom, Iroda",
+        "house_name_hint": "Ha üresen hagyod, 'Otthonom' lesz a neve",
+        "house_key": "Házkulcs",
+        "house_key_placeholder": "Add meg a ház kulcsát",
+        "house_key_hint": "Add meg a családtagtól kapott 64 karakteres kulcsot",
+        "house_name_join": "E ház neve (opcionális)",
+        "submit_create": "Ház létrehozása",
+        "submit_join": "Csatlakozás a házhoz",
+        "processing": "Feldolgozás..."
+    },
+    "scanner": {
+        "title": "Vonalkód-olvasó",
+        "qr_title": "QR kód olvasó",
+        "init": "Kamera indítása...",
+        "permission_error": "Kamera engedély megtagadva. Ellenőrizze a böngésző beállításait.",
+        "busy_error": "Kamera foglalt. Zárja be a többi alkalmazást.",
+        "not_found_error": "Kamera nem található.",
+        "generic_error": "Nem sikerült indítani a kamerát.",
+        "hint": "Helyezze a vonalkódot a keret közepére",
+        "qr_hint": "Igazítsa a QR kódot a kerethez",
+        "searching": "Termék keresése...",
+        "found_local": "Már regisztrálva!",
+        "found_local_msg": "Ez a vonalkód már szerepel a készletében.",
+        "found_online": "Termék megtalálva!",
+        "google_result": "⚡ Google keresési eredmény - kérjük, ellenőrizze",
+        "barcode": "Vonalkód: {{code}}",
+        "new_product": "Új termék",
+        "not_found_db": "Ezt a vonalkódot nem találtuk az adatbázisokban.",
+        "google_search": "Keresés a Google-on",
+        "quick_add": "Gyors hozzáadás (szerkeszthető később)",
+        "rescan": "Újra beolvasás",
+        "retry": "Újrapróbálkozás",
+        "flash_on": "🔦 Villanófény be",
+        "flash_unsupported": "Villanófény nem támogatott",
+        "zoom_hint": "💡 Nagyítsa a képet a tisztább látásért és tartsa stabilan a telefont",
+        "found_item_redirect": "Termék talált! Átirányítás...",
+        "found_page_redirect": "Oldal találat! Átirányítás...",
+        "invalid_qr": "Ez a QR-kód nem ehhez az alkalmazáshoz készült.",
+        "not_found": "Termék nem található. Próbáljon meg egy másik vonalkódot."
+    },
+    "item_qr": {
+        "hint_mobile": "📱 Használd a telefonodat a QR-kód beolvasásához, hogy gyorsan hozzáférj a tárgyhoz",
+        "network_ip": "Hálózati IP",
+        "url_loading": "URL betöltése...",
+        "copied": "Másolva!",
+        "copy_url": "URL másolása",
+        "download": "QR letöltése",
+        "usage_title": "Használat",
+        "usage_desc": "Nyomtasd ki a QR-kódot, és ragaszd a tárgyra. Olvasd be a telefonoddal, hogy azonnal hozzáférj ehhez az oldalhoz!"
+    },
+    "house_access_pending": {
+        "eyebrow": "House Access",
+        "fallback_house": "Selected house",
+        "signed_in_as": "Signed in as {{username}}",
+        "logout": "Logout",
+        "messages": {
+            "create_error": "Could not create house",
+            "join_success": "Your join request was sent",
+            "join_error": "Could not send join request"
+        },
+        "pending": {
+            "title": "Waiting for house owner approval",
+            "description": "Your request for \"{{house}}\" is still waiting for a decision.",
+            "current_request": "Current pending request: {{house}}"
+        },
+        "no_house": {
+            "title": "You are not connected to a house right now",
+            "description": "Create a new house or send a join request to an existing one."
+        },
+        "create": {
+            "title": "Create a New House",
+            "description": "Start your own home inventory and continue right away.",
+            "name_label": "House Name",
+            "name_placeholder": "e.g. My Home, Summer House, Storage",
+            "submitting": "Creating...",
+            "submit": "Create House"
+        },
+        "join": {
+            "title": "Send a Join Request",
+            "description": "Enter a house key and send the request directly to the house owner.",
+            "key_label": "House Key",
+            "key_placeholder": "Enter the 64-character house key",
+            "submitting": "Sending...",
+            "submit": "Send Request"
+        }
+    }
+}

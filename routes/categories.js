@@ -1,17 +1,30 @@
 import express from 'express';
 import db from '../database.js';
-import { authenticateToken } from '../middleware/auth.js';
+import { authenticateToken, requireActiveHouse } from '../middleware/auth.js';
+import {
+    decryptCategoryRecord,
+    encryptCategoryName,
+    sortByName
+} from '../utils/protectedFields.js';
 
 const router = express.Router();
 
+function getDecryptedCategoriesForHouse(houseKey) {
+    return sortByName(
+        db.prepare('SELECT * FROM categories WHERE house_key = ?')
+            .all(houseKey)
+            .map(decryptCategoryRecord)
+    );
+}
+
 // Apply auth to all routes
 router.use(authenticateToken);
+router.use(requireActiveHouse);
 
 // Get all categories (only from same house)
 router.get('/', (req, res) => {
     try {
-        const categories = db.prepare('SELECT * FROM categories WHERE house_key = ? ORDER BY name')
-            .all(req.user.house_key);
+        const categories = getDecryptedCategoriesForHouse(req.user.house_key);
         res.json({ categories });
     } catch (err) {
         console.error('Get categories error:', err);
@@ -29,8 +42,8 @@ router.post('/', (req, res) => {
         }
 
         // Check if category name already exists in this house
-        const existing = db.prepare('SELECT id FROM categories WHERE name = ? AND house_key = ?')
-            .get(name, req.user.house_key);
+        const existing = getDecryptedCategoriesForHouse(req.user.house_key)
+            .find((category) => category.name === name);
 
         if (existing) {
             return res.status(400).json({ error: 'Bu kategori zaten mevcut' });
@@ -38,9 +51,9 @@ router.post('/', (req, res) => {
 
         const result = db.prepare(
             'INSERT INTO categories (name, icon, color, house_key) VALUES (?, ?, ?, ?)'
-        ).run(name, icon || '📦', color || '#6366f1', req.user.house_key);
+        ).run(encryptCategoryName(name), icon || '📦', color || '#6366f1', req.user.house_key);
 
-        const category = db.prepare('SELECT * FROM categories WHERE id = ?').get(result.lastInsertRowid);
+        const category = decryptCategoryRecord(db.prepare('SELECT * FROM categories WHERE id = ?').get(result.lastInsertRowid));
 
         res.status(201).json({ message: 'Kategori eklendi', category });
     } catch (err) {
@@ -55,8 +68,10 @@ router.put('/:id', (req, res) => {
         const { name, icon, color } = req.body;
         const categoryId = req.params.id;
 
-        const existing = db.prepare('SELECT * FROM categories WHERE id = ? AND house_key = ?')
+        const existingRow = db.prepare('SELECT * FROM categories WHERE id = ? AND house_key = ?')
             .get(categoryId, req.user.house_key);
+
+        const existing = decryptCategoryRecord(existingRow);
 
         if (!existing) {
             return res.status(404).json({ error: 'Kategori bulunamadı' });
@@ -64,8 +79,8 @@ router.put('/:id', (req, res) => {
 
         // Check for duplicate name
         if (name && name !== existing.name) {
-            const duplicate = db.prepare('SELECT id FROM categories WHERE name = ? AND house_key = ? AND id != ?')
-                .get(name, req.user.house_key, categoryId);
+            const duplicate = getDecryptedCategoriesForHouse(req.user.house_key)
+                .find((category) => category.id !== Number(categoryId) && category.name === name);
             if (duplicate) {
                 return res.status(400).json({ error: 'Bu isimde bir kategori zaten mevcut' });
             }
@@ -74,13 +89,13 @@ router.put('/:id', (req, res) => {
         db.prepare(
             'UPDATE categories SET name = ?, icon = ?, color = ? WHERE id = ?'
         ).run(
-            name || existing.name,
+            name ? encryptCategoryName(name) : existingRow.name,
             icon || existing.icon,
             color || existing.color,
             categoryId
         );
 
-        const category = db.prepare('SELECT * FROM categories WHERE id = ?').get(categoryId);
+        const category = decryptCategoryRecord(db.prepare('SELECT * FROM categories WHERE id = ?').get(categoryId));
 
         res.json({ message: 'Kategori güncellendi', category });
     } catch (err) {

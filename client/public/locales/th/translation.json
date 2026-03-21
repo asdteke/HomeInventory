@@ -1,0 +1,696 @@
+{
+    "items": {
+        "qrcode": {
+            "title": "QR Code",
+            "desc": "คุณสามารถพิมพ์และติดรหัส QR นี้บนรายการ สแกนแล้วจะไปยังหน้านี้โดยตรง"
+        },
+        "title_new": "เพิ่มรายการใหม่",
+        "title_edit": "แก้ไขรายการ",
+        "subtitle": "ป้อนรายละเอียดสินค้า",
+        "load_error": "ไม่สามารถโหลดสินค้าได้",
+        "form": {
+            "name": "ชื่อสินค้า",
+            "name_placeholder": "เช่น ทีวี Samsung 55 นิ้ว",
+            "required": "*",
+            "description": "คำอธิบาย",
+            "description_placeholder": "หมายเหตุเกี่ยวกับสินค้า...",
+            "quantity": "จำนวน",
+            "category": "หมวดหมู่",
+            "select_category": "เลือก",
+            "room": "ห้อง",
+            "select_room": "เลือกห้อง",
+            "location_details": "รายละเอียดสถานที่",
+            "location_optional": "(ไม่บังคับ)",
+            "location_placeholder": "ค้นหาหรือเพิ่มสถานที่ใหม่...",
+            "location_help": "อยู่ส่วนไหนของห้อง? (เช่น 'ชั้นบนของตู้สีน้ำเงิน')",
+            "location_create": "สร้างที่ตั้ง \"{{name}}\"",
+            "location_privacy": "ความเป็นส่วนตัวของที่ตั้ง",
+            "location_public": "ทุกคนสามารถเห็นที่ตั้งนี้",
+            "location_private": "มีเพียงคุณเท่านั้นที่สามารถเห็นได้",
+            "location_save": "บันทึกที่ตั้ง",
+            "location_saving": "กำลังเพิ่ม...",
+            "location_selected": "ที่ตั้งที่เลือก: {{name}}",
+            "location_empty": "ยังไม่มีการกำหนดที่ตั้งในห้องนี้ เริ่มพิมพ์เพื่อสร้างหนึ่ง",
+            "photo": "รูปภาพ",
+            "add_photo": "เพิ่ม",
+            "barcode": "บาร์โค้ด",
+            "barcode_optional": "(ไม่บังคับ)",
+            "barcode_placeholder": "เช่น 8690123456789",
+            "scan_barcode": "สแกนบาร์โค้ด",
+            "search_db": "ค้นหาฐานข้อมูล",
+            "search_google": "ค้นหาใน Google",
+            "barcode_saved": "✓ บาร์โค้ดจะถูกบันทึก",
+            "visibility": "การมองเห็นรายการ",
+            "visibility_public": "มองเห็นได้สำหรับสมาชิกทุกคนในบ้าน",
+            "visibility_private": "มองเห็นได้เฉพาะคุณ",
+            "submit_add": "เพิ่มรายการ",
+            "submit_save": "บันทึกการเปลี่ยนแปลง",
+            "submitting": "กำลังบันทึก..."
+        },
+        "messages": {
+            "quick_add_success": "✓ \"{{barcode}}\" เพิ่มด่วน - คุณสามารถแก้ไขภายหลังได้",
+            "quick_add_fail": "⚠ การเพิ่มด่วนล้มเหลว",
+            "searching": "กำลังค้นหา...",
+            "found_local": "✓ ในเครื่อง: ลงทะเบียนเป็น \"{{name}}\"",
+            "found_remote": "✓ พบใน {{source}} {{note}}: \"{{name}}\"",
+            "not_found": "⚠ ไม่พบสินค้านี้ในฐานข้อมูล คุณสามารถค้นหาใน Google ได้",
+            "search_fail": "⚠ การค้นหาล้มเหลว",
+            "name_required": "จำเป็นต้องกรอกชื่อสินค้า",
+            "location_add_error": "การเพิ่มสถานที่ล้มเหลว"
+        }
+    },
+    "common": {
+        "save": "บันทึก",
+        "cancel": "ยกเลิก",
+        "loading": "กำลังโหลด...",
+        "error": "เกิดข้อผิดพลาด",
+        "success": "การดำเนินการสำเร็จ",
+        "search": "ค้นหา...",
+        "edit": "แก้ไข",
+        "delete": "ลบ",
+        "add": "เพิ่ม",
+        "new": "ใหม่",
+        "all": "ทั้งหมด",
+        "manage": "จัดการ",
+        "help_support": "ความช่วยเหลือ & การสนับสนุน",
+        "theme": {
+            "light": "โหมดสว่าง",
+            "dark": "โหมดมืด"
+        },
+        "select": "เลือก",
+        "refresh": "รีเฟรช",
+        "close": "ปิด",
+        "logout": "ออกจากระบบ",
+        "copyright": "© {{year}} HomeInventory - สงวนลิขสิทธิ์"
+    },
+    "auth": {
+        "login": {
+            "title": "เข้าสู่ระบบ",
+            "subtitle": "จัดการสินค้าภายในบ้านของคุณอย่างชาญฉลาด",
+            "welcome": "ยินดีต้อนรับสู่ HomeInventory",
+            "username_or_email": "ชื่อผู้ใช้หรืออีเมล",
+            "password": "รหัสผ่าน",
+            "forgot_password": "ลืมรหัสผ่าน?",
+            "submit": "เข้าสู่ระบบ",
+            "submitting": "กำลังเข้าสู่ระบบ...",
+            "google_continue": "ดำเนินการต่อด้วย Google",
+            "or": "หรือ",
+            "no_account": "ยังไม่มีบัญชีผู้ใช้?",
+            "register_link": "สมัคร",
+            "support_contact": "สำหรับปัญหาการเข้าสู่ระบบ:",
+            "terms_title": "📋 ข้อกำหนดในการใช้งานและการปฏิเสธความรับผิด",
+            "terms_beta": "รุ่น BETA: HomeInventory อยู่ในช่วงทดสอบ ข้อมูลของคุณอาจไม่ถาวรหรือปลอดภัย",
+            "terms_disclaimer": "การปฏิเสธความรับผิด: การใช้แอปพลิเคชันนี้ถือว่าคุณยอมรับว่าคุณไม่สามารถเรียกร้องค่าชดเชยใด ๆ สำหรับการเสียหายของข้อมูล การเข้าถึงที่มีปัญหา หรือความผิดพลาดทางเทคนิคอื่น ๆ",
+            "terms_backup": "การสำรองข้อมูล: เราแนะนำให้สำรองข้อมูลสำคัญของคุณอย่างสม่ำเสมอ",
+            "terms_accept": "การเข้าสู่ระบบถือว่าคุณได้ยอมรับข้อกำหนดเหล่านี้"
+        },
+        "register": {
+            "title": "ยินดีต้อนรับสู่ HomeInventory",
+            "subtitle": "สร้างบัญชีใหม่หรือเข้าร่วมบ้านที่มีอยู่",
+            "create_house": "สร้างบ้านใหม่",
+            "join_house": "เข้าร่วมบ้าน",
+            "create_house_desc": "🏠 จะมีการสร้างบ้านใหม่และคุณจะได้รับ <strong>House Key</strong> เฉพาะตัว แชร์กุญแจนี้กับครอบครัวเพื่อเข้าถึงสินทรัพย์เดียวกัน",
+            "join_house_desc": "👨‍👩‍👧‍👦 ใส่ <strong>House Key</strong> ที่แชร์กับคุณเพื่อเข้าร่วมบ้านที่มีอยู่ ทุกคนที่มีกุญแจสามารถเข้าถึงสินทรัพย์ที่แชร์ได้",
+            "form_title": "สมัครสมาชิก",
+            "username": "ชื่อผู้ใช้",
+            "username_placeholder": "เช่น john",
+            "email": "อีเมล",
+            "email_placeholder": "เช่น john@example.com",
+            "password": "รหัสผ่าน",
+            "password_placeholder": "อย่างน้อย 6 ตัวอักษร",
+            "password_confirm": "ยืนยันรหัสผ่าน",
+            "password_confirm_placeholder": "ป้อนรหัสผ่านอีกครั้ง",
+            "house_key": "กุญแจบ้าน",
+            "house_key_placeholder": "วางกุญแจบ้าน 64 ตัวอักษร",
+            "submit_create": "สร้างบ้านใหม่",
+            "submit_join": "เข้าร่วมบ้าน",
+            "submitting": "กำลังลงทะเบียน...",
+            "already_have_account": "มีบัญชีอยู่แล้ว?",
+            "login_link": "เข้าสู่ระบบ",
+            "support": "ปัญหาการลงทะเบียน:",
+            "terms": "ข้อกำหนดในการใช้งานและข้อจำกัดความรับผิด",
+            "passwords_mismatch": "รหัสผ่านไม่ตรงกัน",
+            "password_length": "รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร",
+            "key_required": "ต้องมีรหัสบ้านเพื่อเข้าร่วมบ้านที่มีอยู่",
+            "modals": {
+                "key_created": {
+                    "title": "🎉 สร้างบ้านเรียบร้อยแล้ว!",
+                    "subtitle": "บันทึกรหัสด้านล่างในที่ปลอดภัย",
+                    "warning": "สำคัญ: รหัสนี้จะแสดงเพียงครั้งเดียวเท่านั้น แบ่งปันให้กับสมาชิกในครอบครัวเพื่อให้พวกเขาสามารถเข้าถึงสินค้าคงคลังเดียวกันได้",
+                    "copy": "คัดลอก",
+                    "copied": "คัดลอกแล้ว",
+                    "button": "ฉันได้บันทึกรหัสแล้ว ดำเนินการต่อ"
+                },
+                "email_verification": {
+                    "title": "📧 ต้องยืนยันอีเมล",
+                    "message": "สร้างบัญชีเรียบร้อยแล้ว! โปรดยืนยันที่อยู่อีเมลของคุณเพื่อเข้าสู่ระบบ",
+                    "step_1": "เราได้ส่งอีเมลยืนยันไปที่ <1>{{email}}</1>",
+                    "step_2": "คลิกปุ่ม <1>\"ยืนยันบัญชีของฉัน\"</1> ในอีเมล",
+                    "step_3": "หลังจากยืนยันแล้ว, <1>คุณสามารถเข้าสู่ระบบ</1>ได้",
+                    "spam_note": "ตรวจสอบโฟลเดอร์สแปมหรือจดหมายขยะหากอีเมลไม่มาถึง",
+                    "key_note": "สำคัญ: กุญแจบ้านของคุณก็ถูกส่งในอีเมลด้วย คุณสามารถแชร์ให้สมาชิกครอบครัวได้",
+                    "button": "ตกลง ไปที่หน้าเข้าสู่ระบบ"
+                }
+            }
+        },
+        "forgot_password": {
+            "title": "Forgot Password",
+            "subtitle": "Start a secure recovery flow to access your account again.",
+            "identifier": "Username or Email",
+            "identifier_placeholder": "e.g. john or john@example.com",
+            "submit": "Start Recovery",
+            "requesting": "Checking...",
+            "email_success": "If an account exists, a password reset link valid for 15 minutes has been sent.",
+            "back_to_login": "Back to Login",
+            "recovery_mode_info": "Email is disabled on this server. Continue with the Recovery Key you saved during account setup.",
+            "recovery_key": "Recovery Key",
+            "recovery_key_placeholder": "e.g. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "reset_submit": "Reset Password",
+            "resetting": "Resetting..."
+        },
+        "reset_password": {
+            "title": "Reset Password",
+            "subtitle": "Use the secure link to set a new password.",
+            "missing_token": "The password reset link looks incomplete or broken.",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "submit": "Update Password",
+            "submitting": "Updating...",
+            "back_to_login": "Back to Login"
+        },
+        "recovery_setup": {
+            "title": "Create Recovery Key",
+            "subtitle": "Until this is completed, your account is not considered safe for local password recovery.",
+            "warning": "This key will only be shown once. Save it in a password manager or another secure offline location.",
+            "account": "A recovery key will be created for account {{username}}.",
+            "description": "Because email is disabled, you will only be able to reset your password with this key in the future.",
+            "submit": "Create Recovery Key",
+            "generating": "Creating..."
+        },
+        "recovery_key_modal": {
+            "register_title": "Save Your Recovery Key",
+            "google_title": "Save Your Recovery Key",
+            "setup_title": "Save Your Recovery Key",
+            "reset_title": "Save Your New Recovery Key",
+            "settings_title": "Save Your New Recovery Key",
+            "subtitle": "This key is shown only once.",
+            "warning": "If you lose this key while email is disabled, you may not be able to recover your password. Copy it and store it safely.",
+            "confirm": "I Saved the Key"
+        }
+    },
+    "navigation": {
+        "home": "หน้าแรก",
+        "inventory": "สต็อกสินค้า",
+        "rooms": "ห้อง",
+        "categories": "หมวดหมู่",
+        "settings": "การตั้งค่า",
+        "new_item": "สร้างรายการใหม่",
+        "share_house": "แชร์บ้าน",
+        "admin_panel": "แผงผู้ดูแลระบบ",
+        "logout": "ออกจากระบบ",
+        "menu": "เมนู"
+    },
+    "dashboard": {
+        "welcome": "ยินดีต้อนรับ, <1>{{name}}</1>! 👋",
+        "subtitle": "ภาพรวมของสินค้าคงคลังของคุณ",
+        "quick_search": "การค้นหาอย่างรวดเร็ว...",
+        "filters": {
+            "private": "🔒 รายการส่วนตัวของฉัน",
+            "public": "🌐 สาธารณะ",
+            "remove": "ล้างตัวกรอง",
+            "no_items": "ไม่มีรายการที่ตรงกับตัวกรองนี้"
+        },
+        "stats": {
+            "total_items": "จำนวนรายการทั้งหมด",
+            "total_quantity": "จำนวนทั้งหมด",
+            "fullest_room": "ห้องที่เต็มที่สุด",
+            "category_count": "หมวดหมู่",
+            "items_suffix": "รายการ"
+        },
+        "recent_items": {
+            "title": "เพิ่มล่าสุด",
+            "see_all": "ดูทั้งหมด"
+        },
+        "categories": {
+            "title": "หมวดหมู่",
+            "manage": "จัดการ",
+            "empty": "ยังไม่มีรายการที่เพิ่ม"
+        },
+        "rooms": {
+            "title": "ห้อง",
+            "manage": "จัดการ"
+        },
+        "quick_actions": {
+            "title": "⚡ การดำเนินการด่วน",
+            "add_item": "เพิ่มรายการ",
+            "search_item": "ค้นหารายการ",
+            "categories": "หมวดหมู่",
+            "settings": "การตั้งค่า"
+        }
+    },
+    "beta_banner": {
+        "title": "BETA:",
+        "text": "HomeInventory อยู่ในระยะทดสอบและงานอดิเรกในขณะนี้ ไม่มีการรับประกันสำหรับการคงอยู่หรือความปลอดภัยของข้อมูล โปรดสำรองข้อมูลที่สำคัญ",
+        "contact": "ติดต่อ:"
+    },
+    "footer": {
+        "rights": "© {{year}} HomeInventory - สงวนลิขสิทธิ์",
+        "contact": "ติดต่อ:"
+    },
+    "settings": {
+        "title": "การตั้งค่า",
+        "subtitle": "จัดการการตั้งค่าของแอป",
+        "messages": {
+            "house_switched": "✅ {{name}} เปิดใช้งานแล้ว!",
+            "house_switch_error": "การสลับบ้านล้มเหลว",
+            "house_joined_success": "✅ คุณเข้าร่วมบ้านเรียบร้อยแล้ว!",
+            "house_join_error": "การเข้าร่วมบ้านล้มเหลว",
+            "house_created_success": "✅ \"{{name}}\" ถูกสร้างแล้ว!",
+            "house_create_error": "การสร้างบ้านล้มเหลว",
+            "house_left_success": "ออกจากบ้านเรียบร้อยแล้ว",
+            "house_left_error": "การออกจากบ้านล้มเหลว",
+            "house_leave_confirm": "คุณแน่ใจหรือว่าต้องการออกจาก \"{{name}}\"?",
+            "backup_downloaded": "✅ สำรองข้อมูลดาวน์โหลดเรียบร้อย! ({{count}} รายการ)",
+            "export_error": "❌ เกิดข้อผิดพลาดระหว่างการส่งออก",
+            "import_invalid_format": "รูปแบบไฟล์สำรองข้อมูลไม่ถูกต้อง",
+            "import_success": "✅ เพิ่ม {{items}} รายการ, {{categories}} หมวดหมู่, {{rooms}} ห้อง, {{locations}} สถานที่เรียบร้อยแล้ว",
+            "import_error": "❌ ข้อผิดพลาดในการนำเข้า: {{error}}",
+            "password_changed": "เปลี่ยนรหัสผ่านเรียบร้อย!",
+            "password_error_current": "รหัสผ่านปัจจุบันไม่ถูกต้อง",
+            "password_error_invalid": "ข้อมูลที่ส่งไม่ถูกต้อง",
+            "session_expired": "การเข้าสู่ระบบหมดอายุ กรุณาเข้าสู่ระบบอีกครั้ง",
+            "server_error": "เกิดข้อผิดพลาดของเซิร์ฟเวอร์",
+            "connection_error": "ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้ ตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ",
+            "unexpected_error": "เกิดข้อผิดพลาดที่ไม่คาดคิด",
+            "username_changed": "✅ เปลี่ยนชื่อผู้ใช้เรียบร้อย!",
+            "username_error": "ไม่สามารถเปลี่ยนชื่อผู้ใช้ได้",
+            "username_len_error": "ชื่อผู้ใช้ต้องมีอย่างน้อย 3 ตัวอักษร",
+            "fill_all_fields": "โปรดกรอกทุกช่อง",
+            "passwords_mismatch": "รหัสผ่านใหม่ไม่ตรงกัน",
+            "password_min_len": "รหัสผ่านใหม่ต้องมีความยาวอย่างน้อย 6 ตัวอักษร",
+            "house_request_sent_success": "✅ Your join request was sent!",
+            "request_approved": "✅ Join request approved",
+            "request_rejected": "Join request rejected",
+            "request_action_error": "Could not update request",
+            "member_kick_confirm": "Are you sure you want to remove \"{{name}}\" from the house?",
+            "member_kicked": "Member removed from the house",
+            "member_kick_error": "Could not remove member from the house",
+            "recovery_key_regenerated": "Recovery key regenerated",
+            "recovery_key_error": "Could not regenerate recovery key"
+        },
+        "user_profile": {
+            "edit_username": "เปลี่ยนชื่อผู้ใช้"
+        },
+        "my_houses": {
+            "title": "บ้านของฉัน",
+            "join_house": "เข้าร่วมบ้าน",
+            "join_short": "เข้าร่วม",
+            "new_house": "บ้านใหม่",
+            "new_short": "ใหม่",
+            "no_house": "คุณยังไม่ได้เป็นสมาชิกของบ้านใด",
+            "owner": "เจ้าของ",
+            "active": "กำลังใช้งาน",
+            "member_count": "สมาชิก {{count}} คน",
+            "item_count": "รายการ {{count}} รายการ",
+            "switch": "สลับ",
+            "leave": "ออกจากบ้าน",
+            "info": "💡 คุณสามารถเป็นสมาชิกของหลายบ้านและสลับระหว่างบ้านได้ แต่ละบ้านจะมีสินค้าคงคลังแยกต่างหาก"
+        },
+        "house_info": {
+            "title": "กุญแจบ้านปัจจุบัน",
+            "key_label": "กุญแจบ้าน",
+            "mask_key": "••••••••{{suffix}}",
+            "hide": "ซ่อน",
+            "show": "แสดง",
+            "copy": "คัดลอก",
+            "share_info": "💡 ผู้ใช้ที่คุณแชร์กุญแจนี้ด้วยสามารถเข้าถึงสินค้าคงคลังของคุณได้โดยใช้ตัวเลือก \"เข้าร่วมบ้าน\" ตอนลงทะเบียน",
+            "members_title": "สมาชิกบ้าน ({{count}})",
+            "you": "(คุณ)",
+            "joined_at": "เข้าร่วม: {{date, datetime}}",
+            "no_members": "ยังไม่มีสมาชิกคนอื่น",
+            "invite_title": "เชิญสมาชิกในครอบครัว",
+            "invite_desc": "แชร์กุญแจบ้านของคุณเพื่อให้สมาชิกในครอบครัวเข้าถึงสินค้าคงคลังเดียวกันได้ สมาชิกแต่ละคนเข้าสู่ระบบด้วยบัญชีของตนเองแต่เข้าถึงข้อมูลเดียวกัน",
+            "active_members": "Active Members",
+            "pending_requests": "Pending Requests",
+            "no_pending_requests": "No pending requests",
+            "owner_controls": "Owner controls enabled",
+            "approve": "Approve",
+            "reject": "Reject",
+            "kick": "Remove"
+        },
+        "theme": {
+            "title": "ธีม",
+            "dark": "โหมดมืด",
+            "light": "โหมดสว่าง"
+        },
+        "security": {
+            "title": "ความปลอดภัย",
+            "change_password": "เปลี่ยนรหัสผ่าน",
+            "change_password_desc": "อัปเดตรหัสผ่านบัญชีของคุณ",
+            "recovery_key_title": "Recovery Key",
+            "recovery_key_desc": "You can generate a new key for local password recovery.",
+            "recovery_key_missing": "No recovery key is visible for this account yet.",
+            "current_key_label": "Saved Recovery Key",
+            "recovery_key_unavailable": "The current recovery key cannot be displayed. Regenerate it if needed.",
+            "recovery_key_action": "Regenerate",
+            "recovery_key_modal_desc": "Confirm your current password to continue. The new key will be shown only once.",
+            "recovery_key_loading": "Preparing..."
+        },
+        "data_management": {
+            "title": "การจัดการข้อมูล",
+            "download_backup": "ดาวน์โหลดสำรองข้อมูล",
+            "downloading": "กำลังดาวน์โหลด...",
+            "export_json": "ส่งออกเป็น JSON",
+            "upload_backup": "อัปโหลดสำรองข้อมูล",
+            "uploading": "กำลังอัปโหลด...",
+            "import_json": "นำเข้าจาก JSON"
+        },
+        "about": {
+            "title": "📱 เกี่ยวกับแอปพลิเคชัน",
+            "version": "เวอร์ชัน",
+            "brand": "แบรนด์",
+            "feedback": "✉️ ส่งความคิดเห็น"
+        },
+        "modals": {
+            "password": {
+                "title": "เปลี่ยนรหัสผ่าน",
+                "current": "รหัสผ่านปัจจุบัน",
+                "new": "รหัสผ่านใหม่",
+                "confirm": "ยืนยันรหัสผ่านใหม่",
+                "changing": "กำลังเปลี่ยน...",
+                "submit": "เปลี่ยนรหัสผ่าน"
+            },
+            "join_house": {
+                "title": "เข้าร่วมบ้าน",
+                "key_placeholder": "ใส่รหัสบ้าน 64 ตัวอักษร",
+                "key_help": "ใส่รหัสที่คุณได้รับจากสมาชิกครอบครัว",
+                "name_label": "ชื่อสำหรับบ้านนี้ (ไม่บังคับ)",
+                "name_placeholder": "เช่น บ้านพ่อแม่",
+                "joining": "กำลังเข้าร่วม...",
+                "submit": "เข้าร่วมบ้าน"
+            },
+            "create_house": {
+                "title": "สร้างบ้านใหม่",
+                "name_label": "ชื่อบ้าน",
+                "name_placeholder": "เช่น บ้านฤดูร้อน, สำนักงาน, คลังสินค้า",
+                "name_help": "หากเว้นว่าง จะตั้งชื่อว่า \"บ้านใหม่ของฉัน\"",
+                "info": "ℹ️ หมวดหมู่และห้องเริ่มต้นจะถูกสร้างสำหรับบ้านใหม่ คุณสามารถแก้ไขทีหลังได้",
+                "creating": "กำลังสร้าง...",
+                "submit": "สร้างบ้าน"
+            },
+            "username": {
+                "title": "เปลี่ยนชื่อผู้ใช้",
+                "new_label": "ชื่อผู้ใช้ใหม่",
+                "placeholder": "ชื่อผู้ใช้ใหม่ของคุณ",
+                "help": "3-30 ตัวอักษร, ใช้ได้เฉพาะตัวอักษร ตัวเลข ขีดล่าง และขีดกลาง",
+                "saving": "กำลังบันทึก...",
+                "submit": "เปลี่ยน"
+            }
+        },
+        "select_language": "เลือกภาษา",
+        "pending_requests": {
+            "title": "My Pending Join Requests",
+            "waiting_since": "Waiting since: {{date, datetime}}",
+            "pending_badge": "Pending"
+        }
+    },
+    "inventory": {
+        "title": "สินค้าคงคลัง",
+        "subtitle": "{{count}} รายการที่พบ",
+        "new_item": "รายการใหม่",
+        "add_first": "เพิ่มรายการแรก",
+        "search_placeholder": "ค้นหารายการ...",
+        "all_categories": "ทุกหมวดหมู่",
+        "all_rooms": "ทุกห้อง",
+        "empty_title": "ไม่พบรายการ",
+        "empty_filter": "ไม่มีรายการที่ตรงกับตัวกรองของคุณ",
+        "empty_msg": "ยังไม่ได้เพิ่มรายการ",
+        "delete_confirm": "คุณแน่ใจหรือว่าต้องการลบรายการนี้?",
+        "delete_error": "ข้อผิดพลาดในการลบ"
+    },
+    "categories": {
+        "title": "หมวดหมู่",
+        "subtitle": "{{count}} หมวดหมู่",
+        "new_category": "หมวดหมู่ใหม่",
+        "edit_title": "แก้ไขหมวดหมู่",
+        "new_title": "หมวดหมู่ใหม่",
+        "name_label": "ชื่อหมวดหมู่",
+        "icon_label": "ไอคอน",
+        "color_label": "สี",
+        "delete_confirm": "คุณแน่ใจหรือว่าต้องการลบหมวดหมู่นี้?",
+        "delete_error": "ข้อผิดพลาดในการลบ"
+    },
+    "rooms": {
+        "title": "ห้อง",
+        "subtitle": "{{count}} ห้อง",
+        "new_room": "ห้องใหม่",
+        "edit_title": "แก้ไขห้อง",
+        "new_title": "ห้องใหม่",
+        "name_label": "ชื่อห้อง",
+        "description_label": "คำอธิบาย (ไม่บังคับ)",
+        "name_placeholder": "เช่น ห้องนอนหลัก",
+        "desc_placeholder": "เช่น ห้องนอนหลัก",
+        "delete_confirm": "คุณแน่ใจหรือว่าต้องการลบห้องนี้?",
+        "delete_error": "ข้อผิดพลาดในการลบ"
+    },
+    "admin": {
+        "title": "แผงควบคุมผู้ดูแลระบบ",
+        "subtitle": "การจัดการและการตรวจสอบระบบ",
+        "refresh": "รีเฟรช",
+        "tabs": {
+            "dashboard": "แดชบอร์ด",
+            "users": "ผู้ใช้",
+            "logs": "บันทึก",
+            "email": "ส่งจดหมาย"
+        },
+        "stats": {
+            "total_users": "ผู้ใช้ทั้งหมด",
+            "new_today": "วันนี้: +{{count}} ใหม่",
+            "total_inventory": "สินค้าคงคลังทั้งหมด",
+            "inventory_details": "{{rooms}} ห้อง, {{categories}} หมวดหมู่",
+            "banned_users": "ผู้ใช้ที่ถูกแบน",
+            "access_blocked": "การเข้าถึงถูกบล็อก",
+            "server_memory": "หน่วยความจำเซิร์ฟเวอร์",
+            "uptime": "ระยะเวลาทำงาน: {{hours}} ชั่วโมง"
+        },
+        "users": {
+            "user": "ผู้ใช้",
+            "role": "บทบาท",
+            "status": "สถานะ",
+            "action": "การกระทำ",
+            "banned": "ถูกห้าม",
+            "active": "กำลังใช้งาน",
+            "unban": "ยกเลิกการห้าม",
+            "ban": "ห้าม",
+            "delete": "ลบบัญชี",
+            "confirm_ban": "คุณแน่ใจหรือว่าต้องการ {{status}} ผู้ใช้นี้?",
+            "ban_lift": "ยกเลิกการห้าม",
+            "ban_apply": "ห้าม",
+            "confirm_delete_1": "คุณแน่ใจหรือว่าต้องการลบผู้ใช้ \"{{username}}\"?",
+            "confirm_delete_2": "⚠️ คำเตือน: สิ่งนี้จะลบข้อมูลทั้งหมด (คลังสินค้า ห้อง หมวดหมู่) ของผู้ใช้ \"{{username}}\" อย่างถาวร!",
+            "confirm_delete_3": "🚨 คำเตือนขั้นสุดท้าย: บัญชี \"{{username}}\" และข้อมูลทั้งหมดจะถูกลบอย่างไม่สามารถกู้คืนได้ คุณต้องการดำเนินการต่อหรือไม่?"
+        },
+        "logs": {
+            "title": "บันทึกผู้ดูแลระบบ",
+            "no_logs": "ยังไม่มีบันทึก",
+            "errors_title": "ข้อผิดพลาดของระบบ (ล่าสุด 10 รายการ)",
+            "no_errors": "// ระบบปกติ ไม่มีบันทึกข้อผิดพลาด",
+            "date_fmt": "{{date, datetime}}"
+        },
+        "email": {
+            "title": "ส่งอีเมล",
+            "to": "ผู้รับ (ถึง)",
+            "subject": "หัวข้อ",
+            "message": "ข้อความ (รองรับ HTML)",
+            "placeholder_message": "พิมพ์ข้อความของคุณที่นี่...",
+            "send": "ส่ง",
+            "sending": "กำลังส่ง...",
+            "success": "ส่งอีเมลเรียบร้อยแล้ว!",
+            "error": "การส่งล้มเหลว"
+        }
+    },
+    "landing": {
+        "nav": {
+            "login": "เข้าสู่ระบบ"
+        },
+        "hero": {
+            "title_1": "จัดการทุกอย่าง",
+            "title_2": "ในบ้านของคุณ!",
+            "description": "แปลงสินค้าคงคลังในบ้านให้เป็นดิจิทัล จัดประเภทสิ่งของ, เชิญครอบครัว, และเข้าถึงได้จากทุกที่ ทันสมัย ปลอดภัย และใช้งานง่าย",
+            "cta_start": "เริ่มต้น",
+            "cta_register": "สร้างบัญชี",
+            "stat_free": "ฟรี",
+            "stat_access": "เข้าถึง"
+        },
+        "features": {
+            "title": "ทำไมถึงเลือก <1>HomeInventory</1>?",
+            "subtitle": "ฟีเจอร์ทั้งหมดเพื่อลดความยุ่งยากในการจัดการบ้านในแพลตฟอร์มเดียว",
+            "items": {
+                "categorize": {
+                    "title": "จัดประเภทสิ่งของ",
+                    "desc": "จัดระเบียบสิ่งของทั้งหมดตามห้องและประเภท, ค้นหาสิ่งที่คุณต้องการได้ในไม่กี่วินาที"
+                },
+                "family": {
+                    "title": "เชิญครอบครัวด้วยกุญแจบ้าน",
+                    "desc": "เชิญสมาชิกในครอบครัวด้วยกุญแจบ้านเฉพาะของคุณ จัดการสินค้าคงคลังร่วมกัน"
+                },
+                "access": {
+                    "title": "เข้าถึงได้จากทุกที่",
+                    "desc": "ที่บ้าน ที่ทำงาน หรือในวันหยุด - เข้าถึงสินค้าคงคลังของคุณได้อย่างปลอดภัยจากทุกที่"
+                },
+                "barcode": {
+                    "title": "เพิ่มอย่างรวดเร็วด้วยบาร์โค้ด",
+                    "desc": "สแกนบาร์โค้ดของสินค้า รายละเอียดจะถูกเติมโดยอัตโนมัติ"
+                },
+                "security": {
+                    "title": "ปลอดภัยและเป็นส่วนตัว",
+                    "desc": "ข้อมูลของคุณถูกเข้ารหัสและป้องกันด้วยโครงสร้างพื้นฐานที่สอดคล้องกับ KVKK"
+                },
+                "backup": {
+                    "title": "สำรองข้อมูล & ส่งออก",
+                    "desc": "สำรองสินค้าคงคลังของคุณในรูปแบบ JSON กู้คืนได้เมื่อคุณต้องการ"
+                }
+            }
+        },
+        "cta_bottom": {
+            "title": "เริ่มใช้งานตอนนี้!",
+            "description": "สร้างบัญชีฟรีและทำให้สินค้าคงคลังที่บ้านเป็นดิจิทัล การลงทะเบียนใช้เวลาเพียงไม่กี่วินาที",
+            "button": "เข้าสู่ระบบ"
+        },
+        "footer": {
+            "desc": "แพลตฟอร์มที่ง่ายและปลอดภัยในการทำสินค้าคงคลังที่บ้านเป็นดิจิทัล",
+            "links": "ลิงก์ด่วน",
+            "contact": "ติดต่อเรา",
+            "copyright": "© {{year}} HomeInventory. สงวนลิขสิทธิ์ทุกประการ"
+        },
+        "preview_privacy_notice": "ตัวอย่างการดู: ไม่มีการแสดงข้อมูลผู้ใช้จริง"
+    },
+    "intro": {
+        "inventory": {
+            "title": "สินค้าคงคลัง",
+            "content": "ที่นี่คุณสามารถเพิ่มและลิสต์รายการของคุณ ติดตามสินค้าทั้งหมดในบ้านได้ในที่เดียว!"
+        },
+        "house_key": {
+            "title": "กุญแจบ้าน",
+            "content": "นี่คือกุญแจบ้านของคุณ ใช้มันเพื่อเชิญคนอื่น เพิ่มสมาชิกในครอบครัวเข้าบ้านของคุณ!"
+        },
+        "categories": {
+            "title": "หมวดหมู่",
+            "content": "จัดระเบียบโดยการจัดหมวดหมู่รายการของคุณ อิเล็กทรอนิกส์ เฟอร์นิเจอร์ ห้องครัว และอื่น ๆ!"
+        },
+        "buttons": {
+            "back": "ย้อนกลับ",
+            "close": "ปิด",
+            "last": "เสร็จสิ้น",
+            "next": "ถัดไป",
+            "skip": "ข้าม",
+            "open": "เปิด"
+        }
+    },
+    "google_house_select": {
+        "title": "ยินดีต้อนรับ!",
+        "subtitle": "คุณเข้าสู่ระบบด้วย Google แล้ว ตอนนี้เลือกบ้าน",
+        "welcome_options": "คุณต้องการทำอะไร?",
+        "create": {
+            "title": "สร้างบ้านใหม่",
+            "desc": "เริ่มรายการของคุณเอง"
+        },
+        "join": {
+            "title": "เข้าร่วมห้องที่มีอยู่",
+            "desc": "เข้าร่วมบ้านของสมาชิกในครอบครัว"
+        },
+        "back": "กลับ",
+        "house_name": "ชื่อบ้าน (ไม่บังคับ)",
+        "house_name_placeholder": "เช่น บ้านของฉัน, สำนักงาน",
+        "house_name_hint": "หากปล่อยว่าง จะตั้งชื่อว่า \"บ้านของฉัน\"",
+        "house_key": "รหัสบ้าน",
+        "house_key_placeholder": "ใส่รหัสบ้าน",
+        "house_key_hint": "ใส่รหัส 64 ตัวอักษรที่ได้รับจากสมาชิกในครอบครัว",
+        "house_name_join": "ชื่อสำหรับบ้านนี้ (ไม่บังคับ)",
+        "submit_create": "สร้างบ้าน",
+        "submit_join": "เข้าร่วมบ้าน",
+        "processing": "กำลังประมวลผล..."
+    },
+    "scanner": {
+        "title": "เครื่องสแกนบาร์โค้ด",
+        "qr_title": "เครื่องอ่าน QR โค้ด",
+        "init": "กำลังเริ่มกล้อง...",
+        "permission_error": "การอนุญาตกล้องถูกปฏิเสธ ตรวจสอบการตั้งค่าเบราว์เซอร์",
+        "busy_error": "กล้องยุ่งอยู่ ปิดแอปอื่น ๆ",
+        "not_found_error": "ไม่พบกล้อง",
+        "generic_error": "ไม่สามารถเริ่มกล้องได้",
+        "hint": "จัดกึ่งกลางบาร์โค้ดในกรอบ",
+        "qr_hint": "จัด QR โค้ดให้อยู่ในกรอบ",
+        "searching": "กำลังค้นหาผลิตภัณฑ์...",
+        "found_local": "ลงทะเบียนแล้ว!",
+        "found_local_msg": "บาร์โค้ดนี้มีอยู่ในสต็อกของคุณแล้ว",
+        "found_online": "พบผลิตภัณฑ์!",
+        "google_result": "⚡ ผลการค้นหาของ Google - โปรดตรวจสอบ",
+        "barcode": "รหัสบาร์โค้ด: {{code}}",
+        "new_product": "สินค้าใหม่",
+        "not_found_db": "ไม่พบบาร์โค้ดนี้ในฐานข้อมูล",
+        "google_search": "ค้นหาใน Google",
+        "quick_add": "เพิ่มด่วน (แก้ไขภายหลัง)",
+        "rescan": "สแกนอีกครั้ง",
+        "retry": "ลองใหม่",
+        "flash_on": "🔦 เปิดแฟลช",
+        "flash_unsupported": "อุปกรณ์ไม่รองรับแฟลช",
+        "zoom_hint": "💡 ขยายภาพเพื่อความชัดเจนและถือโทรศัพท์ให้มั่นคง",
+        "found_item_redirect": "พบสินค้าแล้ว! กำลังเปลี่ยนเส้นทาง...",
+        "found_page_redirect": "พบหน้าเว็บแล้ว! กำลังเปลี่ยนเส้นทาง...",
+        "invalid_qr": "QR โค้ดนี้ไม่ใช่ของแอปนี้",
+        "not_found": "ไม่พบสินค้า ลองใช้บาร์โค้ดอื่น"
+    },
+    "item_qr": {
+        "hint_mobile": "📱 สแกนรหัส QR นี้ด้วยโทรศัพท์ของคุณเพื่อเข้าถึงรายการได้อย่างรวดเร็ว",
+        "network_ip": "IP ของเครือข่าย",
+        "url_loading": "กำลังโหลด URL...",
+        "copied": "คัดลอกแล้ว!",
+        "copy_url": "คัดลอก URL",
+        "download": "ดาวน์โหลด QR",
+        "usage_title": "การใช้งาน",
+        "usage_desc": "พิมพ์รหัส QR และติดบนรายการ สแกนด้วยโทรศัพท์ของคุณเพื่อเข้าถึงหน้านี้ทันที!"
+    },
+    "house_access_pending": {
+        "eyebrow": "House Access",
+        "fallback_house": "Selected house",
+        "signed_in_as": "Signed in as {{username}}",
+        "logout": "Logout",
+        "messages": {
+            "create_error": "Could not create house",
+            "join_success": "Your join request was sent",
+            "join_error": "Could not send join request"
+        },
+        "pending": {
+            "title": "Waiting for house owner approval",
+            "description": "Your request for \"{{house}}\" is still waiting for a decision.",
+            "current_request": "Current pending request: {{house}}"
+        },
+        "no_house": {
+            "title": "You are not connected to a house right now",
+            "description": "Create a new house or send a join request to an existing one."
+        },
+        "create": {
+            "title": "Create a New House",
+            "description": "Start your own home inventory and continue right away.",
+            "name_label": "House Name",
+            "name_placeholder": "e.g. My Home, Summer House, Storage",
+            "submitting": "Creating...",
+            "submit": "Create House"
+        },
+        "join": {
+            "title": "Send a Join Request",
+            "description": "Enter a house key and send the request directly to the house owner.",
+            "key_label": "House Key",
+            "key_placeholder": "Enter the 64-character house key",
+            "submitting": "Sending...",
+            "submit": "Send Request"
+        }
+    }
+}

@@ -5,6 +5,9 @@ import { useTheme } from '../context/ThemeContext';
 import { Sun, Moon, Eye, EyeOff, Home, Users, Key, Copy, Check, AlertTriangle, Mail } from 'lucide-react';
 import { useTranslation, Trans } from 'react-i18next';
 import BrandLogo from './BrandLogo';
+import RecoveryKeyModal from './RecoveryKeyModal';
+import { copyTextToClipboard } from '../utils/clipboard';
+import { validatePasswordStrengthClient } from '../utils/passwordValidation';
 
 export default function Register() {
     const { t } = useTranslation();
@@ -22,9 +25,12 @@ export default function Register() {
     const [showKeyModal, setShowKeyModal] = useState(false);
     const [showDisclaimerModal, setShowDisclaimerModal] = useState(false);
     const [showEmailVerificationModal, setShowEmailVerificationModal] = useState(false);
+    const [showRecoveryKeyModal, setShowRecoveryKeyModal] = useState(false);
     const [generatedKey, setGeneratedKey] = useState('');
+    const [generatedRecoveryKey, setGeneratedRecoveryKey] = useState('');
+    const [showHouseKeyAfterRecovery, setShowHouseKeyAfterRecovery] = useState(false);
     const [keyCopied, setKeyCopied] = useState(false);
-    const { register } = useAuth();
+    const { register, refreshUser } = useAuth();
     const { isDark, toggleTheme } = useTheme();
     const navigate = useNavigate();
 
@@ -32,7 +38,7 @@ export default function Register() {
 
     const copyKey = async () => {
         try {
-            await navigator.clipboard.writeText(generatedKey);
+            await copyTextToClipboard(generatedKey);
             setKeyCopied(true);
             setTimeout(() => setKeyCopied(false), 2000);
         } catch (err) {
@@ -48,8 +54,9 @@ export default function Register() {
             setError(t('auth.register.passwords_mismatch'));
             return;
         }
-        if (formData.password.length < 6) {
-            setError(t('auth.register.password_length'));
+        const passwordValidation = validatePasswordStrengthClient(formData.password, t);
+        if (!passwordValidation.valid) {
+            setError(passwordValidation.error);
             return;
         }
         if (mode === 'join' && !formData.house_key) {
@@ -76,10 +83,25 @@ export default function Register() {
                 return;
             }
 
-            // Legacy: If new house was created and no verification needed
+            if (result.newRecoveryKey) {
+                setGeneratedRecoveryKey(result.newRecoveryKey);
+                if (result.isNewHouse && result.house_key) {
+                    setGeneratedKey(result.house_key);
+                    setShowHouseKeyAfterRecovery(true);
+                }
+                setShowRecoveryKeyModal(true);
+                return;
+            }
+
             if (result.isNewHouse && result.house_key) {
                 setGeneratedKey(result.house_key);
                 setShowKeyModal(true);
+                return;
+            }
+
+            if (result.user) {
+                await refreshUser();
+                navigate('/');
             }
         } catch (err) {
             setError(err.response?.data?.error || t('common.error'));
@@ -88,9 +110,23 @@ export default function Register() {
         }
     };
 
-    const handleCloseModal = () => {
+    const handleCloseModal = async () => {
         setShowKeyModal(false);
-        window.location.href = '/';
+        await refreshUser();
+        navigate('/');
+    };
+
+    const handleRecoveryKeyConfirm = async () => {
+        setShowRecoveryKeyModal(false);
+
+        if (showHouseKeyAfterRecovery && generatedKey) {
+            setShowHouseKeyAfterRecovery(false);
+            setShowKeyModal(true);
+            return;
+        }
+
+        await refreshUser();
+        navigate('/');
     };
 
     const handleEmailVerificationModalClose = () => {
@@ -318,6 +354,17 @@ export default function Register() {
                         </button>
                     </div>
                 </div>
+            )}
+
+            {showRecoveryKeyModal && (
+                <RecoveryKeyModal
+                    recoveryKey={generatedRecoveryKey}
+                    title={t('auth.recovery_key_modal.register_title')}
+                    subtitle={t('auth.recovery_key_modal.subtitle')}
+                    warning={t('auth.recovery_key_modal.warning')}
+                    confirmLabel={t('auth.recovery_key_modal.confirm')}
+                    onConfirm={handleRecoveryKeyConfirm}
+                />
             )}
 
             {/* Disclaimer Modal */}

@@ -6,15 +6,23 @@ import {
     Settings as SettingsIcon, User, LogOut, Moon, Sun, Shield,
     Save, Key, Copy, Eye, EyeOff, Building, Plus, ArrowRightLeft,
     Database, Download, Upload, Loader2, AlertCircle, CheckCircle,
-    X, Home, Users, Edit3
+    X, Home, Users, Edit3, UserX
 } from 'lucide-react';
 import BrandLogo from './BrandLogo';
+import { useAuth } from '../context/AuthContext';
+import RecoveryKeyModal from './RecoveryKeyModal';
+import { copyTextToClipboard } from '../utils/clipboard';
+import { validatePasswordStrengthClient } from '../utils/passwordValidation';
 
 export default function Settings() {
     const { t } = useTranslation();
     const { theme, setTheme } = useTheme();
+    const { refreshUser } = useAuth();
     const [user, setUser] = useState(null);
+    const [passwordRecoveryMode, setPasswordRecoveryMode] = useState('email');
+    const [hasRecoveryKey, setHasRecoveryKey] = useState(false);
     const [houses, setHouses] = useState([]);
+    const [userPendingRequests, setUserPendingRequests] = useState([]);
     const [activeHouseId, setActiveHouseId] = useState(null);
     const [formData, setFormData] = useState({
         currentPassword: '',
@@ -37,6 +45,12 @@ export default function Settings() {
     const [showPasswordModal, setShowPasswordModal] = useState(false);
     const [showJoinHouseModal, setShowJoinHouseModal] = useState(false);
     const [showCreateHouseModal, setShowCreateHouseModal] = useState(false);
+    const [showRecoveryKeyRegenerateModal, setShowRecoveryKeyRegenerateModal] = useState(false);
+    const [recoveryKeyPassword, setRecoveryKeyPassword] = useState('');
+    const [recoveryKeyLoading, setRecoveryKeyLoading] = useState(false);
+    const [displayRecoveryKey, setDisplayRecoveryKey] = useState('');
+    const [currentRecoveryKey, setCurrentRecoveryKey] = useState('');
+    const [showStoredRecoveryKey, setShowStoredRecoveryKey] = useState(false);
 
     // Join/Create House form states
     const [joinHouseKey, setJoinHouseKey] = useState('');
@@ -45,7 +59,10 @@ export default function Settings() {
 
     // Members state
     const [members, setMembers] = useState([]);
+    const [pendingRequests, setPendingRequests] = useState([]);
+    const [viewerCanManageMembers, setViewerCanManageMembers] = useState(false);
     const [loadingMembers, setLoadingMembers] = useState(false);
+    const [memberActionLoading, setMemberActionLoading] = useState('');
 
     // Username change state
     const [showUsernameModal, setShowUsernameModal] = useState(false);
@@ -72,14 +89,31 @@ export default function Settings() {
         if (activeHouseId) {
             fetchHouseKey();
             fetchMembers();
+        } else {
+            setHouseKey('');
+            setMembers([]);
+            setPendingRequests([]);
+            setViewerCanManageMembers(false);
         }
     }, [activeHouseId]);
+
+    useEffect(() => {
+        if (passwordRecoveryMode === 'recovery_key' && hasRecoveryKey) {
+            fetchCurrentRecoveryKey();
+            return;
+        }
+
+        setCurrentRecoveryKey('');
+        setShowStoredRecoveryKey(false);
+    }, [passwordRecoveryMode, hasRecoveryKey]);
 
     const fetchUserData = async () => {
         try {
             const res = await axios.get('/api/auth/me');
             setUser(res.data.user);
             setActiveHouseId(res.data.user.active_house_id);
+            setPasswordRecoveryMode(res.data.password_recovery_mode || 'email');
+            setHasRecoveryKey(Boolean(res.data.has_recovery_key));
         } catch (error) {
             console.error('Error fetching user:', error);
         }
@@ -89,8 +123,19 @@ export default function Settings() {
         try {
             const res = await axios.get('/api/houses');
             setHouses(res.data.houses || []);
+            setUserPendingRequests(res.data.pendingRequests || []);
         } catch (error) {
             console.error('Error fetching houses:', error);
+        }
+    };
+
+    const fetchCurrentRecoveryKey = async () => {
+        try {
+            const res = await axios.get('/api/auth/recovery-key/current');
+            setCurrentRecoveryKey(res.data.recoveryKey || '');
+        } catch (requestError) {
+            console.error('Error fetching recovery key:', requestError);
+            setCurrentRecoveryKey('');
         }
     };
 
@@ -108,6 +153,8 @@ export default function Settings() {
         try {
             const res = await axios.get('/api/houses/members');
             setMembers(res.data.members);
+            setPendingRequests(res.data.pendingRequests || []);
+            setViewerCanManageMembers(Boolean(res.data.viewerCanManageMembers));
         } catch (error) {
             console.error('Error fetching members:', error);
         } finally {
@@ -121,6 +168,7 @@ export default function Settings() {
         setHouseActionLoading(true);
         try {
             const res = await axios.post('/api/houses/switch', { house_id: houseId });
+            await refreshUser();
             setActiveHouseId(houseId);
             setHouseKey(''); // Clear old key
             setMembers([]); // Clear members
@@ -150,10 +198,11 @@ export default function Settings() {
             });
 
             await fetchHouses();
+            await refreshUser();
             setShowJoinHouseModal(false);
             setJoinHouseKey('');
             setNewHouseName('');
-            setMessage(t('settings.messages.house_joined_success'));
+            setMessage(t('settings.messages.house_request_sent_success'));
             setTimeout(() => setMessage(''), 3000);
         } catch (err) {
             setHouseError(err.response?.data?.error || t('settings.messages.house_join_error'));
@@ -173,6 +222,7 @@ export default function Settings() {
             });
 
             // Auto switch to new house
+            await refreshUser();
             setActiveHouseId(res.data.house.id);
             await fetchHouses();
             window.dispatchEvent(new Event('houseChanged'));
@@ -194,6 +244,7 @@ export default function Settings() {
         setHouseActionLoading(true);
         try {
             await axios.post(`/api/houses/${houseToLeave.id}/leave`);
+            await refreshUser();
 
             // If we left the active house, refresh to get the new active house (backend logic handles fallback)
             if (houseToLeave.id === activeHouseId) {
@@ -213,9 +264,69 @@ export default function Settings() {
         }
     };
 
+    const handleApproveRequest = async (requestId) => {
+        setMemberActionLoading(`approve-${requestId}`);
+        try {
+            await axios.post(`/api/houses/requests/${requestId}/approve`);
+            await fetchMembers();
+            await fetchHouses();
+            setMessage(t('settings.messages.request_approved'));
+            setTimeout(() => setMessage(''), 3000);
+        } catch (err) {
+            setError(err.response?.data?.error || t('settings.messages.request_action_error'));
+            setTimeout(() => setError(''), 3000);
+        } finally {
+            setMemberActionLoading('');
+        }
+    };
+
+    const handleRejectRequest = async (requestId) => {
+        setMemberActionLoading(`reject-${requestId}`);
+        try {
+            await axios.post(`/api/houses/requests/${requestId}/reject`);
+            await fetchMembers();
+            await fetchHouses();
+            setMessage(t('settings.messages.request_rejected'));
+            setTimeout(() => setMessage(''), 3000);
+        } catch (err) {
+            setError(err.response?.data?.error || t('settings.messages.request_action_error'));
+            setTimeout(() => setError(''), 3000);
+        } finally {
+            setMemberActionLoading('');
+        }
+    };
+
+    const handleKickMember = async (member) => {
+        if (!confirm(t('settings.messages.member_kick_confirm', { name: member.username }))) return;
+
+        setMemberActionLoading(`kick-${member.id}`);
+        try {
+            await axios.post(`/api/houses/members/${member.id}/kick`);
+            await fetchMembers();
+            setMessage(t('settings.messages.member_kicked'));
+            setTimeout(() => setMessage(''), 3000);
+        } catch (err) {
+            setError(err.response?.data?.error || t('settings.messages.member_kick_error'));
+            setTimeout(() => setError(''), 3000);
+        } finally {
+            setMemberActionLoading('');
+        }
+    };
+
     const copyToClipboard = () => {
-        navigator.clipboard.writeText(houseKey);
-        // Show temporary success indicator?
+        copyTextToClipboard(houseKey).catch((copyError) => {
+            console.error('House key copy failed:', copyError);
+        });
+    };
+
+    const maskRecoveryKey = (value) => {
+        const safeValue = String(value || '');
+        if (!safeValue) {
+            return '';
+        }
+
+        const visibleChars = 6;
+        return `${'•'.repeat(Math.max(0, safeValue.length - visibleChars))}${safeValue.slice(-visibleChars)}`;
     };
 
     const downloadBackup = async () => {
@@ -296,16 +407,18 @@ export default function Settings() {
             return;
         }
 
-        if (formData.newPassword.length < 6) {
-            setError(t('settings.messages.password_min_len'));
+        const passwordValidation = validatePasswordStrengthClient(formData.newPassword, t);
+        if (!passwordValidation.valid) {
+            setError(passwordValidation.error);
             setLoading(false);
             return;
         }
 
         try {
-            await axios.put('/api/auth/password', {
+            await axios.post('/api/auth/change-password', {
                 currentPassword: formData.currentPassword,
-                newPassword: formData.newPassword
+                newPassword: formData.newPassword,
+                confirmPassword: formData.confirmPassword
             });
             setMessage(t('settings.messages.password_changed'));
             setFormData({ currentPassword: '', newPassword: '', confirmPassword: '' });
@@ -341,8 +454,9 @@ export default function Settings() {
         setUsernameSuccess('');
 
         try {
-            const res = await axios.put('/api/auth/profile', { username: newUsername });
-            setUser(prev => ({ ...prev, username: res.data.user.username }));
+            const res = await axios.post('/api/auth/change-username', { newUsername });
+            setUser(prev => ({ ...prev, username: res.data.username }));
+            await refreshUser();
             setUsernameSuccess(t('settings.messages.username_changed'));
 
             // Update global user state if it exists (via context or reload)
@@ -363,6 +477,30 @@ export default function Settings() {
             window.location.href = '/login';
         } catch (err) {
             console.error('Logout failed', err);
+        }
+    };
+
+    const handleRegenerateRecoveryKey = async (event) => {
+        event.preventDefault();
+        setRecoveryKeyLoading(true);
+        setHouseError('');
+
+        try {
+            const response = await axios.post('/api/auth/recovery-key/regenerate', {
+                currentPassword: recoveryKeyPassword
+            });
+
+            setShowRecoveryKeyRegenerateModal(false);
+            setRecoveryKeyPassword('');
+            setDisplayRecoveryKey(response.data.recoveryKey);
+            await refreshUser();
+            await fetchUserData();
+            setMessage(t('settings.messages.recovery_key_regenerated'));
+            setTimeout(() => setMessage(''), 3000);
+        } catch (requestError) {
+            setHouseError(requestError.response?.data?.error || t('settings.messages.recovery_key_error'));
+        } finally {
+            setRecoveryKeyLoading(false);
         }
     };
 
@@ -459,7 +597,7 @@ export default function Settings() {
                                             <h3 className={`font-semibold ${house.id === activeHouseId ? 'text-primary-700 dark:text-primary-400' : 'text-slate-900 dark:text-white'}`}>
                                                 {house.name}
                                             </h3>
-                                            {house.role === 'owner' && (
+                                            {house.is_owner === 1 && (
                                                 <span className="text-[10px] uppercase font-bold px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-500/20 text-amber-700 dark:text-amber-400">
                                                     {t('settings.my_houses.owner')}
                                                 </span>
@@ -473,7 +611,7 @@ export default function Settings() {
                                         <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                                             <span>{t('settings.my_houses.member_count', { count: house.member_count })}</span>
                                             <span>•</span>
-                                            <span>{t('settings.my_houses.item_count', { count: house.item_count })}</span>
+                                            <span>{t('settings.my_houses.item_count', { count: house.item_count || 0 })}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -507,6 +645,34 @@ export default function Settings() {
                 <p className="text-xs text-slate-500 mt-3 px-1">
                     {t('settings.my_houses.info')}
                 </p>
+
+                {userPendingRequests.length > 0 && (
+                    <div className="mt-5 border-t border-slate-200 dark:border-slate-800 pt-4">
+                        <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                            {t('settings.pending_requests.title')}
+                        </h3>
+                        <div className="space-y-2">
+                            {userPendingRequests.map((request) => (
+                                <div
+                                    key={request.id}
+                                    className="flex items-center justify-between rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm dark:border-amber-500/20 dark:bg-amber-500/10"
+                                >
+                                    <div>
+                                        <p className="font-medium text-slate-900 dark:text-white">
+                                            {request.requested_house_name}
+                                        </p>
+                                        <p className="text-slate-500 dark:text-slate-400">
+                                            {t('settings.pending_requests.waiting_since', { date: new Date(request.created_at) })}
+                                        </p>
+                                    </div>
+                                    <span className="rounded-full bg-amber-100 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-amber-700 dark:bg-amber-500/20 dark:text-amber-300">
+                                        {t('settings.pending_requests.pending_badge')}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
             </div>
 
             {/* House Key & Members */}
@@ -555,29 +721,111 @@ export default function Settings() {
                             {t('settings.house_info.members_title', { count: members.length })}
                         </h2>
 
-                        <div className="space-y-3 max-h-60 overflow-y-auto pr-1">
-                            {members.map(member => (
-                                <div key={member.id} className="flex items-center gap-3 p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors">
-                                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary-500 to-blue-500 flex items-center justify-center text-white text-xs font-bold shadow-sm">
-                                        {member.username?.[0]?.toUpperCase() || '?'}
-                                    </div>
-                                    <div className="flex-1 min-w-0">
-                                        <p className="text-sm font-medium text-slate-900 dark:text-white truncate">
-                                            {member.username}
-                                            {member.id === user?.id && <span className="text-slate-400 font-normal ml-1">{t('settings.house_info.you')}</span>}
-                                        </p>
-                                        <p className="text-xs text-slate-500">
-                                            {member.created_at ? t('settings.house_info.joined_at', { date: new Date(member.created_at) }) : '-'}
-                                        </p>
-                                    </div>
-                                    {member.role === 'owner' && (
-                                        <Shield className="w-4 h-4 text-amber-500" />
+                        <div className="space-y-4">
+                            <div>
+                                <div className="mb-2 flex items-center justify-between">
+                                    <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                                        {t('settings.house_info.active_members')}
+                                    </h3>
+                                    {viewerCanManageMembers && (
+                                        <span className="text-xs text-slate-400">{t('settings.house_info.owner_controls')}</span>
                                     )}
                                 </div>
-                            ))}
-                            {members.length === 1 && (
-                                <p className="text-sm text-slate-500 text-center py-4">{t('settings.house_info.no_members')}</p>
-                            )}
+
+                                <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
+                                    {loadingMembers && (
+                                        <div className="flex justify-center py-6">
+                                            <Loader2 className="h-5 w-5 animate-spin text-slate-400" />
+                                        </div>
+                                    )}
+
+                                    {!loadingMembers && members.map((member) => (
+                                        <div key={member.id} className="flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800">
+                                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary-500 to-blue-500 flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                                                {member.username?.[0]?.toUpperCase() || '?'}
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <p className="text-sm font-medium text-slate-900 dark:text-white truncate">
+                                                    {member.username}
+                                                    {member.id === user?.id && <span className="text-slate-400 font-normal ml-1">{t('settings.house_info.you')}</span>}
+                                                </p>
+                                                <p className="text-xs text-slate-500">
+                                                    {member.joined_at ? t('settings.house_info.joined_at', { date: new Date(member.joined_at) }) : '-'}
+                                                </p>
+                                            </div>
+                                            {member.is_owner === 1 && (
+                                                <Shield className="w-4 h-4 text-amber-500" />
+                                            )}
+                                            {viewerCanManageMembers && member.id !== user?.id && member.is_owner !== 1 && (
+                                                <button
+                                                    type="button"
+                                                    onClick={() => handleKickMember(member)}
+                                                    disabled={memberActionLoading === `kick-${member.id}`}
+                                                    className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-medium text-red-600 transition-colors hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-500/10 disabled:opacity-50"
+                                                >
+                                                    {memberActionLoading === `kick-${member.id}` ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <UserX className="h-3.5 w-3.5" />}
+                                                    {t('settings.house_info.kick')}
+                                                </button>
+                                            )}
+                                        </div>
+                                    ))}
+
+                                    {!loadingMembers && members.length === 0 && (
+                                        <p className="py-4 text-center text-sm text-slate-500">{t('settings.house_info.no_members')}</p>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className="border-t border-slate-100 pt-4 dark:border-slate-800">
+                                <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                                    {t('settings.house_info.pending_requests')}
+                                </h3>
+
+                                <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
+                                    {pendingRequests.map((request) => (
+                                        <div key={request.id} className="rounded-xl border border-slate-200 p-3 dark:border-slate-800">
+                                            <div className="flex items-start justify-between gap-3">
+                                                <div>
+                                                    <p className="text-sm font-medium text-slate-900 dark:text-white">
+                                                        {request.username}
+                                                    </p>
+                                                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                                                        {request.requested_house_name}
+                                                    </p>
+                                                    <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
+                                                        {t('settings.pending_requests.waiting_since', { date: new Date(request.created_at) })}
+                                                    </p>
+                                                </div>
+
+                                                {viewerCanManageMembers && (
+                                                    <div className="flex gap-2">
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => handleApproveRequest(request.id)}
+                                                            disabled={memberActionLoading === `approve-${request.id}`}
+                                                            className="rounded-lg bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700 transition-colors hover:bg-green-100 dark:bg-green-500/10 dark:text-green-300 disabled:opacity-50"
+                                                        >
+                                                            {memberActionLoading === `approve-${request.id}` ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : t('settings.house_info.approve')}
+                                                        </button>
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => handleRejectRequest(request.id)}
+                                                            disabled={memberActionLoading === `reject-${request.id}`}
+                                                            className="rounded-lg bg-red-50 px-2.5 py-1 text-xs font-medium text-red-700 transition-colors hover:bg-red-100 dark:bg-red-500/10 dark:text-red-300 disabled:opacity-50"
+                                                        >
+                                                            {memberActionLoading === `reject-${request.id}` ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : t('settings.house_info.reject')}
+                                                        </button>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    ))}
+
+                                    {pendingRequests.length === 0 && (
+                                        <p className="py-4 text-center text-sm text-slate-500">{t('settings.house_info.no_pending_requests')}</p>
+                                    )}
+                                </div>
+                            </div>
                         </div>
 
                         <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
@@ -620,16 +868,80 @@ export default function Settings() {
                         <Shield className="w-5 h-5 text-green-500" />
                         {t('settings.security.title')}
                     </h2>
-                    <button
-                        onClick={() => setShowPasswordModal(true)}
-                        className="w-full flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors group"
-                    >
-                        <div className="text-left">
-                            <p className="font-medium text-slate-900 dark:text-white">{t('settings.security.change_password')}</p>
-                            <p className="text-sm text-slate-500 dark:text-slate-400">{t('settings.security.change_password_desc')}</p>
-                        </div>
-                        <ArrowRightLeft className="w-5 h-5 text-slate-400 group-hover:text-primary-500 transition-colors" />
-                    </button>
+                    <div className="space-y-3">
+                        <button
+                            onClick={() => setShowPasswordModal(true)}
+                            className="w-full flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors group"
+                        >
+                            <div className="text-left">
+                                <p className="font-medium text-slate-900 dark:text-white">{t('settings.security.change_password')}</p>
+                                <p className="text-sm text-slate-500 dark:text-slate-400">{t('settings.security.change_password_desc')}</p>
+                            </div>
+                            <ArrowRightLeft className="w-5 h-5 text-slate-400 group-hover:text-primary-500 transition-colors" />
+                        </button>
+
+                        {passwordRecoveryMode === 'recovery_key' && (
+                            <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-500/20 dark:bg-amber-500/10">
+                                <div className="flex items-start justify-between gap-4">
+                                    <div>
+                                        <p className="font-medium text-slate-900 dark:text-white">{t('settings.security.recovery_key_title')}</p>
+                                        <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+                                            {hasRecoveryKey ? t('settings.security.recovery_key_desc') : t('settings.security.recovery_key_missing')}
+                                        </p>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setHouseError('');
+                                            setShowRecoveryKeyRegenerateModal(true);
+                                        }}
+                                        className="btn-secondary shrink-0 px-4 py-2 text-sm"
+                                    >
+                                        {t('settings.security.recovery_key_action')}
+                                    </button>
+                                </div>
+
+                                {hasRecoveryKey && currentRecoveryKey && (
+                                    <div className="mt-4 rounded-xl border border-slate-200 bg-white/70 p-3 dark:border-slate-700 dark:bg-slate-900/60">
+                                        <div className="mb-2 flex items-center justify-between gap-3">
+                                            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                                                {t('settings.security.current_key_label')}
+                                            </span>
+                                            <div className="flex items-center gap-2">
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setShowStoredRecoveryKey((prev) => !prev)}
+                                                    className="text-xs text-primary-600 hover:text-primary-700"
+                                                >
+                                                    {showStoredRecoveryKey ? t('settings.house_info.hide') : t('settings.house_info.show')}
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        copyTextToClipboard(currentRecoveryKey).catch((copyError) => {
+                                                            console.error('Recovery key copy failed:', copyError);
+                                                        });
+                                                    }}
+                                                    className="text-xs text-primary-600 hover:text-primary-700"
+                                                >
+                                                    {t('settings.house_info.copy')}
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <code className="block rounded-lg border border-slate-200 bg-slate-50 p-3 font-mono text-xs text-slate-700 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200">
+                                            {showStoredRecoveryKey ? currentRecoveryKey : maskRecoveryKey(currentRecoveryKey)}
+                                        </code>
+                                    </div>
+                                )}
+
+                                {hasRecoveryKey && !currentRecoveryKey && (
+                                    <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">
+                                        {t('settings.security.recovery_key_unavailable')}
+                                    </p>
+                                )}
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
 
@@ -828,6 +1140,72 @@ export default function Settings() {
                 </div>
             )}
 
+            {showRecoveryKeyRegenerateModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowRecoveryKeyRegenerateModal(false)} />
+                    <div className="relative w-full max-w-md rounded-2xl bg-white shadow-2xl dark:bg-slate-900">
+                        <div className="flex items-center justify-between border-b border-slate-200 p-6 dark:border-slate-800">
+                            <div className="flex items-center gap-3">
+                                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100 dark:bg-amber-500/20">
+                                    <Key className="h-5 w-5 text-amber-600 dark:text-amber-300" />
+                                </div>
+                                <h2 className="text-xl font-semibold text-slate-900 dark:text-white">
+                                    {t('settings.security.recovery_key_action')}
+                                </h2>
+                            </div>
+                            <button
+                                onClick={() => setShowRecoveryKeyRegenerateModal(false)}
+                                className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-800 dark:hover:text-slate-300"
+                            >
+                                <X className="h-5 w-5" />
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleRegenerateRecoveryKey} className="space-y-4 p-6">
+                            {houseError && (
+                                <div className="flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-600 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-400">
+                                    <AlertCircle className="h-4 w-4 flex-shrink-0" />
+                                    {houseError}
+                                </div>
+                            )}
+
+                            <p className="text-sm text-slate-600 dark:text-slate-300">
+                                {t('settings.security.recovery_key_modal_desc')}
+                            </p>
+
+                            <div>
+                                <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                                    {t('settings.modals.password.current')}
+                                </label>
+                                <input
+                                    type="password"
+                                    value={recoveryKeyPassword}
+                                    onChange={(event) => setRecoveryKeyPassword(event.target.value)}
+                                    className="input-field"
+                                    required
+                                />
+                            </div>
+
+                            <div className="flex gap-3 pt-2">
+                                <button type="submit" disabled={recoveryKeyLoading} className="btn-primary flex-1 py-3">
+                                    {recoveryKeyLoading ? (
+                                        <span className="flex items-center justify-center gap-2">
+                                            <Loader2 className="h-5 w-5 animate-spin" />
+                                            {t('settings.security.recovery_key_loading')}
+                                        </span>
+                                    ) : (
+                                        t('settings.security.recovery_key_action')
+                                    )}
+                                </button>
+                                <button type="button" onClick={() => setShowRecoveryKeyRegenerateModal(false)} className="btn-secondary px-6 py-3">
+                                    {t('common.cancel')}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
             {/* Username Change Modal */}
             {showUsernameModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -884,6 +1262,17 @@ export default function Settings() {
                         </form>
                     </div>
                 </div>
+            )}
+
+            {displayRecoveryKey && (
+                <RecoveryKeyModal
+                    recoveryKey={displayRecoveryKey}
+                    title={t('auth.recovery_key_modal.settings_title')}
+                    subtitle={t('auth.recovery_key_modal.subtitle')}
+                    warning={t('auth.recovery_key_modal.warning')}
+                    confirmLabel={t('auth.recovery_key_modal.confirm')}
+                    onConfirm={() => setDisplayRecoveryKey('')}
+                />
             )}
 
             {/* Uygulama Hakkında */}

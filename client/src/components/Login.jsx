@@ -94,6 +94,12 @@ export default function Login() {
                     </form>
 
 
+                    <div className="mt-4 text-right">
+                        <Link to="/forgot-password" className="text-sm font-medium text-primary-500 hover:text-primary-600">
+                            {t('auth.login.forgot_password')}
+                        </Link>
+                    </div>
+
                     <div className="mt-6 text-center">
                         <p className="text-slate-500 dark:text-slate-400">{t('auth.login.no_account')} <Link to="/register" className="text-primary-500 hover:text-primary-600 font-medium">{t('auth.login.register_link')}</Link></p>
                     </div>

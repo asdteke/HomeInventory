@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import fs from 'fs';
 import os from 'os';
+import crypto from 'crypto';
 
 // Import routes
 import authRoutes from './routes/auth.js';
@@ -136,13 +137,37 @@ app.use(passport.initialize());
 // i18n middleware - enables req.t() for translations
 app.use(i18nMiddleware);
 
-// SECURITY: Rate limiting - protect against brute-force and DoS
-const apiLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // Limit each IP to 100 requests per windowMs
-    message: { error: 'Çok fazla istek gönderdiniz. Lütfen 15 dakika sonra tekrar deneyin.' },
+function buildRateLimitKey(req) {
+    const token = String(req.cookies?.token || '').trim();
+    if (!token) {
+        return req.ip;
+    }
+
+    const tokenFingerprint = crypto
+        .createHash('sha256')
+        .update(token)
+        .digest('hex')
+        .slice(0, 24);
+
+    return `${req.ip}:${tokenFingerprint}`;
+}
+
+// SECURITY: Keep a generous interactive limiter for day-to-day app usage,
+// but avoid punishing normal inventory flows with long lockouts.
+const interactiveApiLimiter = rateLimit({
+    windowMs: 5 * 60 * 1000, // 5 minutes
+    max: (req) => {
+        if (['GET', 'HEAD', 'OPTIONS'].includes(req.method)) {
+            return 600;
+        }
+
+        return 240;
+    },
+    message: { error: 'Kısa sürede çok fazla işlem yapıldı. Lütfen birkaç dakika sonra tekrar deneyin.' },
     standardHeaders: true,
     legacyHeaders: false,
+    validate: false,
+    keyGenerator: buildRateLimitKey
 });
 
 // Stricter limit for auth endpoints (login/register)
@@ -154,10 +179,17 @@ const authLimiter = rateLimit({
     legacyHeaders: false,
 });
 
-// Apply rate limiting to API routes
-app.use('/api/', apiLimiter);
+// Apply rate limiting to interactive app routes.
+// Sensitive routes such as auth/reset, backup, and admin mail keep their own stricter policies.
 app.use('/api/auth/login', authLimiter);
 app.use('/api/auth/register', authLimiter);
+app.use('/api/auth/forgot-password', authLimiter);
+app.use('/api/items', interactiveApiLimiter);
+app.use('/api/categories', interactiveApiLimiter);
+app.use('/api/rooms', interactiveApiLimiter);
+app.use('/api/locations', interactiveApiLimiter);
+app.use('/api/houses', interactiveApiLimiter);
+app.use('/api/barcode', interactiveApiLimiter);
 
 // API Routes
 app.use('/api/auth', authRoutes);
@@ -229,16 +261,16 @@ app.use(errorMiddleware);
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`
 ╔════════════════════════════════════════════════════════════╗
-║              🏠 HomeInventory Başlatıldı 🏠                ║
+║              🏠 HomeInventory Started 🏠                   ║
 ╠════════════════════════════════════════════════════════════╣
-║  Backend:   http://localhost:${PORT}                         ║
-║  Ağ:        http://${localIP}:${PORT}                     ║
+║  Backend:   http://localhost:${PORT}${' '.repeat(Math.max(0, 24 - PORT.toString().length))} ║
+║  Network:   http://${localIP}:${PORT}${' '.repeat(Math.max(0, 24 - (localIP.length + 1 + PORT.toString().length)))} ║
 ║                                                            ║
-║  Frontend:  http://localhost:${FRONTEND_PORT}                       ║
-║  Ağ:        http://${localIP}:${FRONTEND_PORT}                   ║
+║  Frontend:  ${process.env.SITE_URL || 'http://localhost:5173'}${' '.repeat(Math.max(0, 58 - 10 - (process.env.SITE_URL || 'http://localhost:5173').length))} ║
+║  Network:   http://${localIP}:5173${' '.repeat(Math.max(0, 24 - (localIP.length + 1 + 4)))} ║
 ║                                                            ║
-║  📱 Telefondan erişmek için Ağ adreslerini kullanın!       ║
-║  📁 Log dosyaları: ./logs/ (7 gün saklanır)               ║
+║  📱 Use Network addresses to access from your phone!       ║
+║  📁 Log files: ./logs/ (kept for 7 days)                  ║
 ╚════════════════════════════════════════════════════════════╝
-  `);
+    `);
 });

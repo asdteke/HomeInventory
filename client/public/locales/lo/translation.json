@@ -1,0 +1,696 @@
+{
+    "items": {
+        "qrcode": {
+            "title": "QR Code",
+            "desc": "ທ່ານສາມາດພິມແລະຕິດລະຫັດ QR ນີ້ໃສ່ໃນລາຍການ. ການກວດສອບມັນຈະປ່ຽນໄປທີ່ຫນ້ານີ້ໂດຍກົງ."
+        },
+        "title_new": "ເພີ່ມລາຍການໃຫມ່",
+        "title_edit": "ແກ້ໄຂລາຍການ",
+        "subtitle": "ໃສ່ລາຍລະອຽດຂອງລາຍການ",
+        "load_error": "ບໍ່ສາມາດโหลดລາຍການ",
+        "form": {
+            "name": "ຊື່ລາຍການ",
+            "name_placeholder": "ຕົວຢ່າງ: Samsung TV 55 inch",
+            "required": "*",
+            "description": "ຄໍາອະທິບາຍ",
+            "description_placeholder": "ບັນທຶກກ່ຽວກັບລາຍການ...",
+            "quantity": "ປະລິມານ",
+            "category": "ປະເພດ",
+            "select_category": "ເລືອກ",
+            "room": "ຫ້ອງ",
+            "select_room": "ເລືອກຫ້ອງ",
+            "location_details": "ລາຍລະອຽດສະຖານທີ່",
+            "location_optional": "(ບໍ່ເລືອກ)",
+            "location_placeholder": "ຄົ້ນຫາ ຫຼື ເພີ່ມສະຖານທີ່ໃຫມ່...",
+            "location_help": "ຢູ່ ໃສ ໃນ ຫ້ອງ? (ຕົວຢ່າງ: 'Top shelf of blue cabinet')",
+            "location_create": "ສ້າງສະຖານທີ່ \"{{name}}\"",
+            "location_privacy": "ຄວາມເປັນສ່ວນຕົວຂອງສະຖານທີ່",
+            "location_public": "ທຸກຄົນສາມາດເຫັນສະຖານທີ່ນີ້",
+            "location_private": "ມີແຕ່ທ່ານເທົ່ານັ້ນທີ່ສາມາດເຫັນສິ່ງນີ້",
+            "location_save": "Save Location",
+            "location_saving": "ເພີ່ມເຕີມ...",
+            "location_selected": "ສະຖານທີ່ເລືອກ: {{name}}",
+            "location_empty": "ຍັງ ບໍ່ ມີ ສະຖານ ທີ່ ໃດ ຖືກ ກໍານົດ ໄວ້ ໃນ ຫ້ອງ ນີ້. ເລີ່ມພິມເພື່ອສ້າງ.",
+            "photo": "ຮູບພາບ",
+            "add_photo": "ເພີ່ມ",
+            "barcode": "Barcode",
+            "barcode_optional": "(ບໍ່ເລືອກ)",
+            "barcode_placeholder": "ຕົວຢ່າງ: 8690123456789",
+            "scan_barcode": "Scan Barcode",
+            "search_db": "ຄົ້ນຫາຖານຂໍ້ມູນ",
+            "search_google": "ຄົ້ນຫາໃນ Google",
+            "barcode_saved": "✓ Barcode ຈະຖືກເກັບໄວ້",
+            "visibility": "ການເຫັນວັດຖຸ",
+            "visibility_public": "ສະ ມາ ຊິກ ໃນ ບ້ານ ທຸກ ຄົນ ສາ ມາດ ເຫັນ ໄດ້",
+            "visibility_private": "ເຫັນໄດ້ພຽງແຕ່ທ່ານເທົ່ານັ້ນ",
+            "submit_add": "ເພີ່ມລາຍການ",
+            "submit_save": "ບັນທຶກການປ່ຽນແປງ",
+            "submitting": "ການທ້ອນເງິນ..."
+        },
+        "messages": {
+            "quick_add_success": "✓ \"{{barcode}}\" ເພີ່ມໄວໆ - ທ່ານສາມາດແກ້ໄຂໄດ້ພາຍຫຼັງ",
+            "quick_add_fail": "⚠ ການເພີ່ມໄວບໍ່ສໍາເລັດ",
+            "searching": "ກໍາລັງຄົ້ນຫາ...",
+            "found_local": "✓ ທ້ອງຖິ່ນ: ຈົດທະບຽນເປັນ \"{{name}}\"",
+            "found_remote": "✓ ພົບໃນ {{source}} {{note}}: \"{{name}}\"",
+            "not_found": "⚠ ບໍ່ພົບຜະລິດຕະພັນໃນຖານຂໍ້ມູນ. ທ່ານ ສາມາດ ຊອກ ຫາ ຢູ່ ໃນ Google.",
+            "search_fail": "⚠ ການຄົ້ນຄວ້າບໍ່ສໍາເລັດ",
+            "name_required": "ຕ້ອງມີຊື່ລາຍການ",
+            "location_add_error": "ບໍ່ສາມາດເພີ່ມສະຖານທີ່"
+        }
+    },
+    "common": {
+        "save": "Save",
+        "cancel": "ຍົກເລີກ",
+        "loading": "ກໍາລັງโหลด...",
+        "error": "ເກີດຄວາມຜິດພາດ",
+        "success": "ການຜ່າຕັດປະສົບຜົນສໍາເລັດ",
+        "search": "ຄົ້ນຫາ...",
+        "edit": "ແກ້ໄຂ",
+        "delete": "ລຶບ",
+        "add": "ເພີ່ມ",
+        "new": "ໃຫມ່",
+        "all": "ທັງຫມົດ",
+        "manage": "ຈັດການ",
+        "help_support": "ຊ່ວຍເຫຼືອ ແລະ ສະຫນັບສະຫນູນ",
+        "theme": {
+            "light": "ແສງສະຫວ່າງ",
+            "dark": "Mode ມືດ"
+        },
+        "select": "ເລືອກ",
+        "refresh": "ຟື້ນຟູ",
+        "close": "ປິດ",
+        "logout": "ອອກຈາກລະບົບ",
+        "copyright": "© {{year}} HomeInventory - All rights reserved"
+    },
+    "auth": {
+        "login": {
+            "title": "ເຂົ້າ",
+            "subtitle": "ຈັດການບັນຊີເຮືອນທັງຫມົດຂອງທ່ານຢ່າງສະຫລາດ",
+            "welcome": "ຍິນດີຕ້ອນຮັບສູ່ HomeInventory",
+            "username_or_email": "ຊື່ຜູ້ໃຊ້ຫຼືອີເມວ",
+            "password": "ລະຫັດຜ່ານ",
+            "forgot_password": "ລືມລະຫັດ?",
+            "submit": "ເຂົ້າ",
+            "submitting": "ກໍາລັງເຂົ້າ...",
+            "google_continue": "Continue with Google",
+            "or": "ຫຼື",
+            "no_account": "ຍັງບໍ່ມີບັນຊີ?",
+            "register_link": "ລົງທະບຽນ",
+            "support_contact": "ສໍາລັບບັນຫາການເຂົ້າລະບົບ:",
+            "terms_title": "📋 ເງື່ອນໄຂການນໍາໃຊ້ ແລະ ການປະຕິເສດ",
+            "terms_beta": "ລຸ້ນ BETA: HomeInventory ກໍາລັງ ຢູ່ ໃນ ຂັ້ນ ຕອນ ການ ທົດ ສອບ. ບໍ່ມີການຮັບປະກັນກ່ຽວກັບຄວາມຫມັ້ນຄົງຫຼືຄວາມປອດໄພຂອງຂໍ້ມູນຂອງທ່ານ.",
+            "terms_disclaimer": "ການປະຕິເສດ: ໂດຍການໃຊ້ໂປຣເເກຣມນີ້, ທ່ານເຫັນດີວ່າທ່ານບໍ່ສາມາດຮຽກຮ້ອງຄ່າຊົດເຊີຍໃດໆສໍາລັບການສູນເສຍຂໍ້ມູນ, ບັນຫາການເຂົ້າເຖິງ ຫຼືຄວາມຜິດປົກກະຕິທາງດ້ານເຕັກນິກອື່ນໆ.",
+            "terms_backup": "ການສໍາຮອງຂໍ້ມູນ: ພວກເຮົາຂໍແນະນໍາຢ່າງແຮງກ້າໃຫ້ສໍາຮອງຂໍ້ມູນສໍາຄັນຂອງທ່ານເປັນປະຈໍາ.",
+            "terms_accept": "ໂດຍການເຂົ້າສູ່ລະບົບ, ທ່ານຈະຖືວ່າໄດ້ຍອມຮັບເງື່ອນໄຂເຫຼົ່ານີ້."
+        },
+        "register": {
+            "title": "ຍິນດີຕ້ອນຮັບສູ່ HomeInventory",
+            "subtitle": "ສ້າງບັນຊີໃຫມ່ ຫຼື ເຂົ້າຮ່ວມກັບເຮືອນທີ່ມີຢູ່",
+            "create_house": "ສ້າງເຮືອນໃຫມ່",
+            "join_house": "ເຂົ້າຮ່ວມເຮືອນ",
+            "create_house_desc": "🏠 ເຮືອນ ໃຫມ່ ຈະ ຖືກ ສ້າງ ຂຶ້ນ ແລະ ທ່ານ ຈະ ໄດ້ ຮັບ <strong>ກະ ແຈ ບ້ານ</strong> ທີ່ ພິ ເສດ. ແບ່ງປັນກະແຈນີ້ກັບຄອບຄົວເພື່ອເຂົ້າເຖິງບັນຊີດຽວກັນ.",
+            "join_house_desc": "👨 👦 👩 👧 ໃສ່ກະແຈເຮືອນທີ່ແບ່ງປັນກັບເຈົ້າເພື່ອເຂົ້າຮ່ວມກັບເຮືອນທີ່ມີຢູ່.<strong></strong> ທຸກຄົນທີ່ມີກະແຈສາມາດເຂົ້າເຖິງວັດຖຸທີ່ແບ່ງປັນໄດ້.",
+            "form_title": "ລົງທະບຽນ",
+            "username": "ຊື່ຜູ້ໃຊ້",
+            "username_placeholder": "ຕົວຢ່າງ: ຈອນ",
+            "email": "ອີເມວ",
+            "email_placeholder": "ຕົວຢ່າງ: john@example.com",
+            "password": "ລະຫັດຜ່ານ",
+            "password_placeholder": "ຢ່າງຫນ້ອຍ 6 ຕົວອັກສອນ",
+            "password_confirm": "ຢືນຢັນລະຫັດຜ່ານ",
+            "password_confirm_placeholder": "ໃສ່ລະຫັດຜ່ານຄືນ",
+            "house_key": "ກະແຈເຮືອນ",
+            "house_key_placeholder": "ຕິດກະແຈເຮືອນ 64 ຕົວອັກສອນ",
+            "submit_create": "ສ້າງເຮືອນໃຫມ່",
+            "submit_join": "ເຂົ້າຮ່ວມເຮືອນ",
+            "submitting": "ການລົງທະບຽນ...",
+            "already_have_account": "ມີບັນຊີແລ້ວບໍ?",
+            "login_link": "ເຂົ້າສູ່ລະບົບ",
+            "support": "ບັນຫາການຈົດທະບຽນ:",
+            "terms": "ເງື່ອນໄຂການນໍາໃຊ້ ແລະ ການປະຕິເສດ",
+            "passwords_mismatch": "ລະຫັດບໍ່ສອດຄ່ອງ",
+            "password_length": "ລະຫັດຜ່ານຕ້ອງມີຢ່າງຫນ້ອຍ 6 ຕົວອັກສອນ",
+            "key_required": "ຕ້ອງມີກະແຈເຮືອນເພື່ອເຂົ້າຮ່ວມກັບເຮືອນທີ່ມີຢູ່",
+            "modals": {
+                "key_created": {
+                    "title": "🎉 ສ້າງເຮືອນ!",
+                    "subtitle": "ເກັບກະແຈໄວ້ທາງລຸ່ມນີ້ໃນບ່ອນທີ່ປອດໄພ",
+                    "warning": "ສໍາຄັນ: ກະແຈນີ້ຈະສະແດງພຽງເທື່ອດຽວເທົ່ານັ້ນ. ແບ່ງປັນ ມັນ ກັບ ສະມາຊິກ ໃນ ຄອບຄົວ ເພື່ອ ວ່າ ເຂົາ ເຈົ້າຈະ ສາມາດ ເຂົ້າ ເຖິງ ບັນຊີ ອັນ ດຽວ ກັນ.",
+                    "copy": "ສໍາເນົາ",
+                    "copied": "ສໍາເນົາ",
+                    "button": "ຂ້ອຍເກັບກະແຈໄວ້, ຕໍ່ໄປ"
+                },
+                "email_verification": {
+                    "title": "📧 ຕ້ອງມີການຢືນຢັນອີເມວ",
+                    "message": "ສ້າງບັນຊີແລ້ວ! ກະລຸນາຢືນຢັນທີ່ຢູ່ອີເມວຂອງທ່ານເພື່ອເຂົ້າສູ່ລະບົບ.",
+                    "step_1": "ພວກ ເຮົາ ໄດ້ ສົ່ງ ອີ ເມວ ຢືນຢັນ ໄປ ຫາ <1>{{email}}</1>.",
+                    "step_2": "ໃຫ້ຄລິກປຸ່ມ <1>\"Verify My Account\"</1> ໃນອີເມວ.",
+                    "step_3": "ຫຼັງຈາກການຢືນຢັນແລ້ວ, <1>ທ່ານສາມາດເຂົ້າສູ່ລະບົບ</1>.",
+                    "spam_note": "ກວດ ເບິ່ງ spam / junk folder ຖ້າ ຫາກ ອີ ເມວ ບໍ່ ມາ ເຖິງ.",
+                    "key_note": "ສໍາຄັນ: ກະແຈເຮືອນຂອງເຈົ້າກໍຖືກສົ່ງໄປໃນອີເມວ. ທ່ານ ສາມາດ ແບ່ງປັນ ມັນ ກັບ ສະມາຊິກ ໃນ ຄອບຄົວ.",
+                    "button": "Okay, Go to Login"
+                }
+            }
+        },
+        "forgot_password": {
+            "title": "Forgot Password",
+            "subtitle": "Start a secure recovery flow to access your account again.",
+            "identifier": "Username or Email",
+            "identifier_placeholder": "e.g. john or john@example.com",
+            "submit": "Start Recovery",
+            "requesting": "Checking...",
+            "email_success": "If an account exists, a password reset link valid for 15 minutes has been sent.",
+            "back_to_login": "Back to Login",
+            "recovery_mode_info": "Email is disabled on this server. Continue with the Recovery Key you saved during account setup.",
+            "recovery_key": "Recovery Key",
+            "recovery_key_placeholder": "e.g. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "reset_submit": "Reset Password",
+            "resetting": "Resetting..."
+        },
+        "reset_password": {
+            "title": "Reset Password",
+            "subtitle": "Use the secure link to set a new password.",
+            "missing_token": "The password reset link looks incomplete or broken.",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "submit": "Update Password",
+            "submitting": "Updating...",
+            "back_to_login": "Back to Login"
+        },
+        "recovery_setup": {
+            "title": "Create Recovery Key",
+            "subtitle": "Until this is completed, your account is not considered safe for local password recovery.",
+            "warning": "This key will only be shown once. Save it in a password manager or another secure offline location.",
+            "account": "A recovery key will be created for account {{username}}.",
+            "description": "Because email is disabled, you will only be able to reset your password with this key in the future.",
+            "submit": "Create Recovery Key",
+            "generating": "Creating..."
+        },
+        "recovery_key_modal": {
+            "register_title": "Save Your Recovery Key",
+            "google_title": "Save Your Recovery Key",
+            "setup_title": "Save Your Recovery Key",
+            "reset_title": "Save Your New Recovery Key",
+            "settings_title": "Save Your New Recovery Key",
+            "subtitle": "This key is shown only once.",
+            "warning": "If you lose this key while email is disabled, you may not be able to recover your password. Copy it and store it safely.",
+            "confirm": "I Saved the Key"
+        }
+    },
+    "navigation": {
+        "home": "ບ້ານ",
+        "inventory": "ບັນຊີ",
+        "rooms": "ຫ້ອງ",
+        "categories": "ປະເພດ",
+        "settings": "ການຕັ້ງຄ່າ",
+        "new_item": "ລາຍການໃຫມ່",
+        "share_house": "ແບ່ງປັນ ເຮືອນ",
+        "admin_panel": "Admin Panel",
+        "logout": "ອອກຈາກລະບົບ",
+        "menu": "ລາຍການ"
+    },
+    "dashboard": {
+        "welcome": "ຍິນດີຕ້ອນຮັບ, <1>{{name}}</1>! 👋",
+        "subtitle": "ພາບລວມຂອງສິນຄ້າຂອງທ່ານ",
+        "quick_search": "ຄົ້ນຫາໄວ...",
+        "filters": {
+            "private": "🔒 ເຄື່ອງຂອງສ່ວນຕົວຂອງຂ້ອຍ",
+            "public": "🌐 ສາທາລະນະ",
+            "remove": "ແກ້ໄຂ",
+            "no_items": "ບໍ່ມີລາຍການໃດທີ່ເຫມາະກັບເຄື່ອງຕອງນີ້"
+        },
+        "stats": {
+            "total_items": "ລາຍການທັງຫມົດ",
+            "total_quantity": "ປະລິມານທັງຫມົດ",
+            "fullest_room": "ຫ້ອງ ເຕັມ",
+            "category_count": "ປະເພດ",
+            "items_suffix": "ວັດຖຸ"
+        },
+        "recent_items": {
+            "title": "ຫາກໍເພີ່ມຂຶ້ນ",
+            "see_all": "ເບິ່ງ ທັງ ຫມົດ"
+        },
+        "categories": {
+            "title": "ປະເພດ",
+            "manage": "ຈັດການ",
+            "empty": "ຍັງບໍ່ທັນມີລາຍການເພີ່ມເຕີມ"
+        },
+        "rooms": {
+            "title": "ຫ້ອງ",
+            "manage": "ຈັດການ"
+        },
+        "quick_actions": {
+            "title": "⚡ ການກະທໍາໄວໆ",
+            "add_item": "ເພີ່ມລາຍການ",
+            "search_item": "ລາຍການຄົ້ນຫາ",
+            "categories": "ປະເພດ",
+            "settings": "ການຕັ້ງຄ່າ"
+        }
+    },
+    "beta_banner": {
+        "title": "ເບັດຕາ:",
+        "text": "HomeInventory ກໍາລັງ ຢູ່ ໃນ ຂັ້ນ ຕອນ ການ ທົດ ສອບ ແລະ ວຽກ ງານ ຫລິ້ນ. ບໍ່ມີການຮັບປະກັນສໍາລັບຄວາມຫມັ້ນຄົງຫຼືຄວາມປອດໄພຂອງຂໍ້ມູນ. ກະລຸນາສໍາຮອງຂໍ້ມູນທີ່ສໍາຄັນ.",
+        "contact": "ຕິດຕໍ່:"
+    },
+    "footer": {
+        "rights": "© {{year}} HomeInventory - All rights reserved",
+        "contact": "ຕິດຕໍ່:"
+    },
+    "settings": {
+        "title": "ການຕັ້ງຄ່າ",
+        "subtitle": "ຈັດການປັບປຸງໂປຣເເກຣມ",
+        "messages": {
+            "house_switched": "✅ {{name}} ເປີດ!",
+            "house_switch_error": "ບໍ່ສາມາດປ່ຽນເຮືອນ",
+            "house_joined_success": "✅ ເຈົ້າ ໄດ້ ເຂົ້າ ຮ່ວມ ບ້ານ ຢ່າງ ສໍາ ເລັດ ຜົນ!",
+            "house_join_error": "ບໍ່ສາມາດເຂົ້າຮ່ວມເຮືອນ",
+            "house_created_success": "✅ \"{{name}}\" ຖືກສ້າງຂຶ້ນ!",
+            "house_create_error": "ບໍ່ສາມາດສ້າງເຮືອນ",
+            "house_left_success": "ອອກຈາກເຮືອນໄດ້ສໍາເລັດ",
+            "house_left_error": "ບໍ່ ສາມາດ ອອກ ຈາກ ເຮືອນ",
+            "house_leave_confirm": "ທ່ານແນ່ໃຈບໍວ່າຢາກອອກຈາກ \"{{name}}\"?",
+            "backup_downloaded": "✅ ດາວ ໂຫລດ ສໍາຮອງ ສໍາ ເລັດ ແລ້ວ! ({{count}} ລາຍການ)",
+            "export_error": "❌ ເກີດຄວາມຜິດພາດໃນລະຫວ່າງການສົ່ງອອກ",
+            "import_invalid_format": "ຮູບແບບແຟ້ມສໍາຮອງບໍ່ຖືກຕ້ອງ",
+            "import_success": "✅ {{items}} ລາຍການ, {{categories}} ປະເພດ, {{rooms}} ຫ້ອງ, {{locations}} ສະຖານທີ່ເພີ່ມເຕີມ.",
+            "import_error": "❌ ຄວາມຜິດພາດໃນການນໍາເຂົ້າ: {{error}}",
+            "password_changed": "ປ່ຽນລະຫັດຜ່ານໄດ້ສໍາເລັດ!",
+            "password_error_current": "ລະຫັດຜ່ານປະຈຸບັນບໍ່ຖືກຕ້ອງ",
+            "password_error_invalid": "ຂໍ້ມູນທີ່ສົ່ງບໍ່ຖືກຕ້ອງ",
+            "session_expired": "ພາກ ໄດ້ ສິ້ນ ສຸດ ລົງ. ກະລຸນາ login ອີກ.",
+            "server_error": "ເກີດຄວາມຜິດພາດຂອງລະບົບແມ່ແຈກ",
+            "connection_error": "ບໍ່ສາມາດເຊື່ອມຕໍ່ກັບລະບົບແມ່ແຈກ. ໃຫ້ກວດເບິ່ງການເຊື່ອມຕໍ່ອິນເຕີເນັດຂອງທ່ານ.",
+            "unexpected_error": "ເກີດຄວາມຜິດພາດທີ່ບໍ່ຄາດຄິດ",
+            "username_changed": "✅ ປ່ຽນຊື່ຜູ້ໃຊ້!",
+            "username_error": "ບໍ່ສາມາດປ່ຽນຊື່ຜູ້ໃຊ້",
+            "username_len_error": "Username ຕ້ອງມີຢ່າງຫນ້ອຍ 3 ຕົວອັກສອນ",
+            "fill_all_fields": "ກະລຸນາຂຽນທຸກຂອບເຂດ",
+            "passwords_mismatch": "ລະຫັດຜ່ານໃຫມ່ບໍ່ສອດຄ່ອງກັບ",
+            "password_min_len": "ລະຫັດໃຫມ່ຕ້ອງມີຢ່າງຫນ້ອຍ 6 ອັກຂະລະ",
+            "house_request_sent_success": "✅ Your join request was sent!",
+            "request_approved": "✅ Join request approved",
+            "request_rejected": "Join request rejected",
+            "request_action_error": "Could not update request",
+            "member_kick_confirm": "Are you sure you want to remove \"{{name}}\" from the house?",
+            "member_kicked": "Member removed from the house",
+            "member_kick_error": "Could not remove member from the house",
+            "recovery_key_regenerated": "Recovery key regenerated",
+            "recovery_key_error": "Could not regenerate recovery key"
+        },
+        "user_profile": {
+            "edit_username": "ປ່ຽນຊື່ຜູ້ໃຊ້"
+        },
+        "my_houses": {
+            "title": "ເຮືອນຂອງຂ້ອຍ",
+            "join_house": "ເຂົ້າຮ່ວມເຮືອນ",
+            "join_short": "ເຂົ້າຮ່ວມ",
+            "new_house": "ເຮືອນໃຫມ່",
+            "new_short": "ໃຫມ່",
+            "no_house": "ທ່ານ ຍັງ ບໍ່ ໄດ້ ເປັນ ສະມາຊິກ ຂອງ ບ້ານ ເຮືອນ ໃດ ເລີຍ",
+            "owner": "ເຈົ້າຂອງ",
+            "active": "ເຂັ້ມແຂງ",
+            "member_count": "{{count}} ສະມາຊິກ",
+            "item_count": "{{count}} ລາຍການ",
+            "switch": "ສະຫຼັບ",
+            "leave": "ອອກຈາກເຮືອນ",
+            "info": "💡 ທ່ານ ສາມາດ ເປັນ ສະມາຊິກ ຂອງ ຫລາຍ ບ້ານ ແລະ ປ່ຽນ ລະຫວ່າງ ເຂົາ ເຈົ້າ. ແຕ່ ລະ ເຮືອນ ມີ ບັນຊີ ທີ່ ແຕກ ຕ່າງ ກັນ."
+        },
+        "house_info": {
+            "title": "ກະແຈເຮືອນທີ່ເຂັ້ມແຂງ",
+            "key_label": "ກະແຈເຮືອນ",
+            "mask_key": "••••••••{{suffix}}",
+            "hide": "ເຊື່ອງ",
+            "show": "ສະແດງ",
+            "copy": "ສໍາເນົາ",
+            "share_info": "💡 ຜູ້ໃຊ້ທີ່ທ່ານແບ່ງປັນກະແຈນີ້ສາມາດເຂົ້າເຖິງບັນຊີຂອງທ່ານໄດ້ໂດຍໃຊ້ທາງເລືອກ \"Join House\" ໃນລະຫວ່າງການຈົດທະບຽນ.",
+            "members_title": "ສະມາຊິກສະພາ ({{count}})",
+            "you": "(ທ່ານ)",
+            "joined_at": "ເຂົ້າຮ່ວມ: {{date, datetime}}",
+            "no_members": "ຍັງ ບໍ່ ມີ ສະມາຊິກ ຄົນ ອື່ນ",
+            "invite_title": "ເຊີນສະມາຊິກຄອບຄົວ",
+            "invite_desc": "ແບ່ງປັນກະແຈເຮືອນຂອງເຈົ້າເພື່ອໃຫ້ສະມາຊິກໃນຄອບຄົວເຂົ້າເຖິງບັນຊີດຽວກັນ. ສະມາຊິກ ແຕ່ລະຄົນ ເຂົ້າ ໄປ ໃນ ບັນຊີ ຂອງ ຕົນ ເອງ ແຕ່ ເຂົ້າ ເຖິງ ຂໍ້ ມູນ ດຽວ ກັນ.",
+            "active_members": "Active Members",
+            "pending_requests": "Pending Requests",
+            "no_pending_requests": "No pending requests",
+            "owner_controls": "Owner controls enabled",
+            "approve": "Approve",
+            "reject": "Reject",
+            "kick": "Remove"
+        },
+        "theme": {
+            "title": "ຫົວຂໍ້",
+            "dark": "โหมดມືດ",
+            "light": "โหมดແສງສະຫວ່າງ"
+        },
+        "security": {
+            "title": "ຄວາມປອດໄພ",
+            "change_password": "ປ່ຽນລະຫັດຜ່ານ",
+            "change_password_desc": "ປັບປຸງລະຫັດຜ່ານບັນຊີຂອງທ່ານ",
+            "recovery_key_title": "Recovery Key",
+            "recovery_key_desc": "You can generate a new key for local password recovery.",
+            "recovery_key_missing": "No recovery key is visible for this account yet.",
+            "current_key_label": "Saved Recovery Key",
+            "recovery_key_unavailable": "The current recovery key cannot be displayed. Regenerate it if needed.",
+            "recovery_key_action": "Regenerate",
+            "recovery_key_modal_desc": "Confirm your current password to continue. The new key will be shown only once.",
+            "recovery_key_loading": "Preparing..."
+        },
+        "data_management": {
+            "title": "ການຈັດການຂໍ້ມູນ",
+            "download_backup": "ດາວໂຫຼດສໍາຮອງ",
+            "downloading": "ກໍາລັງດາວໂຫຼດ...",
+            "export_json": "ສົ່ງອອກເປັນ JSON",
+            "upload_backup": "ອັບໂຫຼດສໍາຮອງ",
+            "uploading": "ກໍາລັງອັບໂຫຼດ...",
+            "import_json": "ນໍາເຂົ້າຈາກ JSON"
+        },
+        "about": {
+            "title": "📱 ກ່ຽວກັບການສະຫມັກ",
+            "version": "ລຸ້ນ",
+            "brand": "brand",
+            "feedback": "✉️ ສົ່ງຄໍາຕອບ"
+        },
+        "modals": {
+            "password": {
+                "title": "ປ່ຽນລະຫັດຜ່ານ",
+                "current": "ລະຫັດຜ່ານປະຈຸບັນ",
+                "new": "ລະຫັດຜ່ານໃຫມ່",
+                "confirm": "ລະຫັດຜ່ານໃຫມ່ (ຢືນຢັນ)",
+                "changing": "ປ່ຽນແປງ...",
+                "submit": "ປ່ຽນລະຫັດຜ່ານ"
+            },
+            "join_house": {
+                "title": "ເຂົ້າຮ່ວມເຮືອນ",
+                "key_placeholder": "ໃສ່ກະແຈເຮືອນ 64 ຕົວອັກສອນ",
+                "key_help": "ໃສ່ກະແຈທີ່ທ່ານໄດ້ຮັບຈາກສະມາຊິກໃນຄອບຄົວ",
+                "name_label": "ຊື່ສະພານີ້ (ບໍ່ເລືອກ)",
+                "name_placeholder": "ຕົວຢ່າງ: ເຮືອນພໍ່ແມ່",
+                "joining": "ເຂົ້າຮ່ວມ...",
+                "submit": "ເຂົ້າຮ່ວມເຮືອນ"
+            },
+            "create_house": {
+                "title": "ສ້າງເຮືອນໃຫມ່",
+                "name_label": "ຊື່ເຮືອນ",
+                "name_placeholder": "ຕົວຢ່າງ: ເຮືອນລະດູຮ້ອນ, ຫ້ອງການ, ສາງ",
+                "name_help": "ຖ້າປ່ອຍໃຫ້ວ່າງເປົ່າ ຈະຕັ້ງຊື່ວ່າ \"ເຮືອນໃຫມ່ຂອງຂ້ອຍ\"",
+                "info": "i️ ປະເພດ ແລະ ຫ້ອງ ມາດຕະຖານ ຈະ ຖືກ ສ້າງ ຂຶ້ນ ສໍາລັບ ເຮືອນ ໃຫມ່. ທ່ານສາມາດແກ້ໄຂໄດ້ພາຍຫຼັງ.",
+                "creating": "ການສ້າງ...",
+                "submit": "ສ້າງເຮືອນ"
+            },
+            "username": {
+                "title": "ປ່ຽນຊື່ຜູ້ໃຊ້",
+                "new_label": "ຊື່ຜູ້ໃຊ້ໃຫມ່",
+                "placeholder": "ຊື່ຜູ້ໃຊ້ໃຫມ່ຂອງເຈົ້າ",
+                "help": "3-30 ຕົວອັກສອນ, ຕົວອັກສອນ, ຕົວເລກ, ກ້ອງ ແລະ dash ເທົ່ານັ້ນ",
+                "saving": "ການທ້ອນເງິນ...",
+                "submit": "ປ່ຽນ"
+            }
+        },
+        "select_language": "ເລືອກພາສາ",
+        "pending_requests": {
+            "title": "My Pending Join Requests",
+            "waiting_since": "Waiting since: {{date, datetime}}",
+            "pending_badge": "Pending"
+        }
+    },
+    "inventory": {
+        "title": "ບັນຊີ",
+        "subtitle": "{{count}} ພົບລາຍການ",
+        "new_item": "ລາຍການໃຫມ່",
+        "add_first": "ເພີ່ມລາຍການທໍາອິດ",
+        "search_placeholder": "ຄົ້ນຫາລາຍການ...",
+        "all_categories": "ທຸກປະເພດ",
+        "all_rooms": "ທຸກຫ້ອງ",
+        "empty_title": "ບໍ່ ພົບ ສິ່ງ ຂອງ",
+        "empty_filter": "ບໍ່ມີລາຍການໃດທີ່ເຫມາະກັບເຄື່ອງຕອງຂອງເຈົ້າ",
+        "empty_msg": "ຍັງບໍ່ທັນມີລາຍການເພີ່ມເຕີມ",
+        "delete_confirm": "ທ່ານແນ່ໃຈບໍວ່າຢາກລຶບລາຍການນີ້?",
+        "delete_error": "ລຶບຂໍ້ຜິດພາດ"
+    },
+    "categories": {
+        "title": "ປະເພດ",
+        "subtitle": "{{count}} ປະເພດ",
+        "new_category": "ປະເພດໃຫມ່",
+        "edit_title": "ແກ້ໄຂປະເພດ",
+        "new_title": "ປະເພດໃຫມ່",
+        "name_label": "ຊື່ປະເພດ",
+        "icon_label": "ไอคอน",
+        "color_label": "ສີ",
+        "delete_confirm": "ທ່ານແນ່ໃຈບໍວ່າຢາກລຶບປະເພດນີ້?",
+        "delete_error": "ລຶບຂໍ້ຜິດພາດ"
+    },
+    "rooms": {
+        "title": "ຫ້ອງ",
+        "subtitle": "{{count}} ຫ້ອງ",
+        "new_room": "ຫ້ອງໃຫມ່",
+        "edit_title": "ຫ້ອງແກ້ໄຂ",
+        "new_title": "ຫ້ອງໃຫມ່",
+        "name_label": "ຊື່ຫ້ອງ",
+        "description_label": "ຄໍາອະທິບາຍ (ບໍ່ເລືອກ)",
+        "name_placeholder": "ຕົວຢ່າງ: Master Bedroom",
+        "desc_placeholder": "ຕົວຢ່າງ: ຫ້ອງນອນຫຼັກ",
+        "delete_confirm": "ທ່ານ ແນ່ ໃຈ ບໍ ວ່າ ທ່ານ ຢາກ ລຶບ ຫ້ອງ ນີ້?",
+        "delete_error": "ລຶບຂໍ້ຜິດພາດ"
+    },
+    "admin": {
+        "title": "Admin Panel",
+        "subtitle": "ການຈັດການແລະຕິດຕາມລະບົບ",
+        "refresh": "ຟື້ນຟູ",
+        "tabs": {
+            "dashboard": "Dashboard",
+            "users": "ຜູ້ໃຊ້",
+            "logs": "ບັນທຶກ",
+            "email": "ສົ່ງອີເມວ"
+        },
+        "stats": {
+            "total_users": "ຜູ້ໃຊ້ທັງຫມົດ",
+            "new_today": "ມື້ນີ້: +{{count}} ໃຫມ່",
+            "total_inventory": "ຈໍານວນສິນຄ້າທັງຫມົດ",
+            "inventory_details": "{{rooms}} ຫ້ອງ, {{categories}} ປະເພດ",
+            "banned_users": "ຜູ້ໃຊ້ທີ່ຖືກສັ່ງຫ້າມ",
+            "access_blocked": "ການເຂົ້າເຖິງຖືກບັງຄັບໄວ້",
+            "server_memory": "ຄວາມຊົງຈໍາຂອງລະບົບແມ່ແຈກ",
+            "uptime": "ເວລາເຮັດວຽກ: {{hours}} ຊົ່ວໂມງ"
+        },
+        "users": {
+            "user": "ຜູ້ໃຊ້",
+            "role": "ບົດບາດ",
+            "status": "ສະຖານະພາບ",
+            "action": "ການກະທໍາ",
+            "banned": "ຖືກສັ່ງຫ້າມ",
+            "active": "ເຂັ້ມແຂງ",
+            "unban": "Unban",
+            "ban": "ສັ່ງຫ້າມ",
+            "delete": "ລຶບບັນຊີ",
+            "confirm_ban": "ທ່ານແນ່ໃຈບໍວ່າທ່ານຕ້ອງການ {{status}} ຜູ້ໃຊ້ຄົນນີ້?",
+            "ban_lift": "unban",
+            "ban_apply": "ສັ່ງຫ້າມ",
+            "confirm_delete_1": "ທ່ານແນ່ໃຈບໍວ່າຢາກລຶບຜູ້ໃຊ້ \"{{username}}\"?",
+            "confirm_delete_2": "⚠️ ຄໍາເຕືອນ: ສິ່ງນີ້ຈະລຶບຂໍ້ມູນທັງຫມົດ (ບັນຊີ, ຫ້ອງ, ປະເພດ) ຂອງຜູ້ໃຊ້ \"{{username}}\"ຢ່າງຖາວອນ!",
+            "confirm_delete_3": "🚨 ຄໍາເຕືອນສຸດທ້າຍ: ບັນຊີ \"{{username}}\" ແລະຂໍ້ມູນທັງຫມົດຈະຖືກລຶບຄືນບໍ່ໄດ້. ເຈົ້າຢາກເຮັດຕໍ່ໄປບໍ?"
+        },
+        "logs": {
+            "title": "ບັນທຶກຜູ້ບໍລິຫານ",
+            "no_logs": "ຍັງບໍ່ທັນມີບັນທຶກ",
+            "errors_title": "ຄວາມຜິດພາດຂອງລະບົບ (10 ສຸດທ້າຍ)",
+            "no_errors": "ລະບົບມີສຸຂະພາບດີ, ບໍ່ມີບັນທຶກຄວາມຜິດພາດ.",
+            "date_fmt": "{{date, datetime}}"
+        },
+        "email": {
+            "title": "ສົ່ງອີເມວ",
+            "to": "ຜູ້ຮັບ (ເຖິງ)",
+            "subject": "ຫົວຂໍ້",
+            "message": "ຂ່າວສານ (ສະຫນັບສະຫນູນ HTML)",
+            "placeholder_message": "ພິມຂໍ້ຄວາມຂອງທ່ານທີ່ນີ້...",
+            "send": "ສົ່ງ",
+            "sending": "ກໍາລັງສົ່ງ...",
+            "success": "ສົ່ງ ອີ ເມວ ສໍາ ເລັດ ແລ້ວ!",
+            "error": "ການສົ່ງບໍ່ສໍາເລັດ"
+        }
+    },
+    "landing": {
+        "nav": {
+            "login": "ເຂົ້າ"
+        },
+        "hero": {
+            "title_1": "ຈັດການທຸກສິ່ງ",
+            "title_2": "ໃນເຮືອນຂອງເຈົ້າ!",
+            "description": "ເຮັດ ໃຫ້ ບັນຊີ ບ້ານ ເຮືອນ ຂອງ ທ່ານ ເປັນ digital. ຈັດແບ່ງລາຍການ, ເຊື້ອເຊີນຄອບຄົວ ແລະ ເຂົ້າເຖິງໄດ້ຈາກບ່ອນໃດກໍໄດ້. ສະ ໄຫມ ໃຫມ່, ປອດ ໄພ ແລະ ງ່າຍ ທີ່ ຈະ ໃຊ້.",
+            "cta_start": "ເລີ່ມຕົ້ນ",
+            "cta_register": "ສ້າງບັນຊີ",
+            "stat_free": "ຟຣີ",
+            "stat_access": "ເຂົ້າເຖິງ"
+        },
+        "features": {
+            "title": "ເປັນຫຍັງ <1>HomeInventory</1>?",
+            "subtitle": "ລັກສະນະທັງຫມົດເພື່ອເຮັດໃຫ້ການຈັດການເຮືອນງ່າຍຂຶ້ນໃນລະບົບດຽວ",
+            "items": {
+                "categorize": {
+                    "title": "ຈັດແບ່ງລາຍການ",
+                    "desc": "ຈັດລະບຽບສິ່ງຂອງທັງຫມົດຕາມຫ້ອງແລະປະເພດ, ຊອກຫາສິ່ງທີ່ເຈົ້າຕ້ອງການພາຍໃນສອງວິນາທີ."
+                },
+                "family": {
+                    "title": "ເຊື້ອ ເຊີນ ຄອບຄົວ ດ້ວຍ ຂໍ ກະ ແຈ ບ້ານ",
+                    "desc": "ເຊື້ອ ເຊີນ ສະ ມາ ຊິກ ໃນ ຄອບ ຄົວ ດ້ວຍ ກະ ແຈ ບ້ານ ທີ່ ພິ ເສດ ຂອງ ທ່ານ, ຈັດ ການ ກັບ ວັດ ຖຸ ປະ ສົງ ນໍາ ກັນ."
+                },
+                "access": {
+                    "title": "ເຂົ້າເຖິງໄດ້ຈາກທຸກບ່ອນ",
+                    "desc": "ຢູ່ເຮືອນ, ຢູ່ບ່ອນເຮັດວຽກ ຫຼືຕອນທ່ອງທ່ຽວ - ເຂົ້າເຖິງບັນຊີຂອງເຈົ້າຢ່າງປອດໄພຈາກບ່ອນໃດກໍໄດ້."
+                },
+                "barcode": {
+                    "title": "ເພີ່ມໄວດ້ວຍ Barcode",
+                    "desc": "scan barcode ຜະລິດຕະພັນ, ລາຍລະອຽດຈະຖືກຂຽນໂດຍອັດຕະໂນມັດ."
+                },
+                "security": {
+                    "title": "ປອດໄພ ແລະ ເປັນສ່ວນຕົວ",
+                    "desc": "ຂໍ້ມູນຂອງທ່ານຖືກລະຫັດແລະປົກປ້ອງດ້ວຍໂຄງສ້າງທີ່ສອດຄ່ອງກັບ KVKK."
+                },
+                "backup": {
+                    "title": "ສໍາຮອງ ແລະ ສົ່ງອອກ",
+                    "desc": "ສໍາຮອງບັນຊີຂອງເຈົ້າໃນຮູບແບບ JSON, ຟື້ນຟູເມື່ອໃດກໍຕາມທີ່ເຈົ້າຕ້ອງການ."
+                }
+            }
+        },
+        "cta_bottom": {
+            "title": "ເລີ່ມໃຊ້ດຽວນີ້!",
+            "description": "ສ້າງ ບັນຊີ ຟຣີ ແລະ ເຮັດ ໃຫ້ ບັນຊີ ບ້ານ ເຮືອນ ຂອງ ທ່ານ ເປັນ digital. ການ ຈົດ ທະບຽນ ໃຊ້ ເວລາ ພຽງ ແຕ່ ສອງ ສາມ ວິນາທີ.",
+            "button": "ເຂົ້າ"
+        },
+        "footer": {
+            "desc": "ລະບົບທີ່ງ່າຍແລະປອດໄພເພື່ອເຮັດໃຫ້ບັນຊີເຮືອນຂອງເຈົ້າເປັນລະບົບຄອມພິວເຕີ.",
+            "links": "ລິ້ງໄວໆ",
+            "contact": "ຕິດຕໍ່ພວກເຮົາ",
+            "copyright": "© {{year}} HomeInventory. All rights reserved."
+        },
+        "preview_privacy_notice": "Demo view: ບໍ່ມີການສະແດງຂໍ້ມູນຜູ້ໃຊ້ແທ້ໆ."
+    },
+    "intro": {
+        "inventory": {
+            "title": "ບັນຊີ",
+            "content": "ຢູ່ທີ່ນີ້ທ່ານສາມາດເພີ່ມແລະລາຍການລາຍການຂອງທ່ານ. ຕິດຕາມສິ່ງຂອງເຮືອນທັງຫມົດໃນບ່ອນດຽວ!"
+        },
+        "house_key": {
+            "title": "ກະແຈເຮືອນ",
+            "content": "ນີ້ແມ່ນກະແຈເຮືອນຂອງເຈົ້າ, ໃຊ້ມັນເພື່ອເຊື້ອເຊີນຄົນອື່ນ. ເພີ່ມສະມາຊິກໃນຄອບຄົວເຂົ້າໄປໃນເຮືອນຂອງເຈົ້າ!"
+        },
+        "categories": {
+            "title": "ປະເພດ",
+            "content": "ຈັດ ລະບຽບ ໂດຍ ການ ແບ່ງ ແຍກ ສິ່ງ ຂອງ ຂອງ ທ່ານ. ເຄື່ອງເອເລັກໂຕຣນິກ, ເຄື່ອງເຮືອນ, ເຮືອນຄົວ ແລະ ອື່ນໆ!"
+        },
+        "buttons": {
+            "back": "ກັບຄືນ",
+            "close": "ປິດ",
+            "last": "ສໍາ ເລັດ",
+            "next": "ຕໍ່ໄປ",
+            "skip": "Skip",
+            "open": "ເປີດ"
+        }
+    },
+    "google_house_select": {
+        "title": "ຍິນດີຕ້ອນຮັບ!",
+        "subtitle": "ທ່ານ ໄດ້ ເຂົ້າ ໄປ ໃນ Google. ບັດ ນີ້ ເລືອກ ເຮືອນ ຫລັງ ຫນຶ່ງ.",
+        "welcome_options": "ເຈົ້າຢາກເຮັດຫຍັງ?",
+        "create": {
+            "title": "ສ້າງເຮືອນໃຫມ່",
+            "desc": "ເລີ່ມຕົ້ນບັນຊີຂອງເຈົ້າເອງ"
+        },
+        "join": {
+            "title": "ເຂົ້າຮ່ວມກັບບ້ານທີ່ມີຢູ່",
+            "desc": "ເຂົ້າຮ່ວມກັບເຮືອນຂອງສະມາຊິກໃນຄອບຄົວ"
+        },
+        "back": "ກັບຄືນ",
+        "house_name": "ຊື່ເຮືອນ (ບໍ່ເລືອກ)",
+        "house_name_placeholder": "ຕົວຢ່າງ: My Home, Office",
+        "house_name_hint": "ຖ້າປ່ອຍໄວ້ວ່າງເປົ່າ ຈະມີຊື່ວ່າ \"ບ້ານຂອງຂ້ອຍ\"",
+        "house_key": "ກະແຈເຮືອນ",
+        "house_key_placeholder": "ໃສ່ກະແຈເຮືອນ",
+        "house_key_hint": "ໃສ່ກະແຈ 64 ຕົວອັກສອນທີ່ໄດ້ຮັບຈາກສະມາຊິກໃນຄອບຄົວ",
+        "house_name_join": "ຊື່ສະພານີ້ (ບໍ່ເລືອກ)",
+        "submit_create": "ສ້າງເຮືອນ",
+        "submit_join": "ເຂົ້າຮ່ວມເຮືອນ",
+        "processing": "ຂະບວນການ..."
+    },
+    "scanner": {
+        "title": "Barcode scanner",
+        "qr_title": "QR Code Reader",
+        "init": "ກ້ອງຖ່າຍຮູບເລີ່ມຕົ້ນ...",
+        "permission_error": "ການ ອະນຸຍາດ ຈາກ ກ້ອງຖ່າຍຮູບ ຖືກ ປະຕິ ເສດ. ກວດເບິ່ງການຕັ້ງຄ່າຂອງเบราว์เซอร์.",
+        "busy_error": "ກ້ອງຖ່າຍຮູບ ຫຍຸ້ງ ຢູ່. ປິດແອັບອື່ນໆ.",
+        "not_found_error": "ບໍ່ ພົບ ກ້ອງຖ່າຍຮູບ.",
+        "generic_error": "ບໍ່ສາມາດເລີ່ມກ້ອງຖ່າຍຮູບ.",
+        "hint": "barcode ກາງໃນໂຄງ",
+        "qr_hint": "ຈັດ QR code ໃນ ໂຄງ ຮ່າງ",
+        "searching": "ຄົ້ນຫາຜະລິດຕະພັນ...",
+        "found_local": "ລົງທະບຽນແລ້ວ!",
+        "found_local_msg": "barcode ນີ້ ມີ ຢູ່ ໃນ ບັນຊີ ຂອງ ທ່ານ ແລ້ວ.",
+        "found_online": "ພົບຜະລິດຕະພັນ!",
+        "google_result": "⚡ ຜົນການຄົ້ນຄວ້າຂອງ Google - ກະລຸນາຢືນຢັນ",
+        "barcode": "Barcode: {{code}}",
+        "new_product": "ຜະລິດຕະພັນໃຫມ່",
+        "not_found_db": "barcode ນີ້ບໍ່ພົບໃນຖານຂໍ້ມູນ.",
+        "google_search": "ຄົ້ນຫາໃນ Google",
+        "quick_add": "ເພີ່ມໄວ (ແກ້ໄຂພາຍຫຼັງ)",
+        "rescan": "Scan ອີກ",
+        "retry": "ລອງອີກ",
+        "flash_on": "🔦 Flash On",
+        "flash_unsupported": "ບໍ່ສະຫນັບສະຫນູນ Flash",
+        "zoom_hint": "💡 ເພີ່ມການຂະຫຍາຍເພື່ອຄວາມແຈ່ມແຈ້ງແລະຈັບໂທລະສັບໃຫ້ຫມັ້ນຄົງ",
+        "found_item_redirect": "ພົບ ສິ່ງ ຂອງ! ການປ່ຽນແປງ...",
+        "found_page_redirect": "ພົບຫນ້າ! ການປ່ຽນແປງ...",
+        "invalid_qr": "QR code ນີ້ບໍ່ແມ່ນສໍາລັບແອັບນີ້.",
+        "not_found": "ບໍ່ພົບຜະລິດຕະພັນ. ໃຫ້ ລອງ ໃຊ້ barcode ອື່ນ."
+    },
+    "item_qr": {
+        "hint_mobile": "📱 scan QR code ນີ້ດ້ວຍໂທລະສັບຂອງເຈົ້າເພື່ອເຂົ້າເຖິງລາຍການໄດ້ໄວ",
+        "network_ip": "IP ເຄືອຂ່າຍ",
+        "url_loading": "ກໍາລັງโหลด URL...",
+        "copied": "ສໍາເນົາ!",
+        "copy_url": "ສໍາເນົາ URL",
+        "download": "ດາວໂຫຼດ QR",
+        "usage_title": "ການໃຊ້",
+        "usage_desc": "ພິມລະຫັດ QR ແລະຕິດໃສ່ລາຍການ. scan ດ້ວຍໂທລະສັບຂອງທ່ານເພື່ອເຂົ້າເຖິງຫນ້ານີ້ທັນທີ!"
+    },
+    "house_access_pending": {
+        "eyebrow": "House Access",
+        "fallback_house": "Selected house",
+        "signed_in_as": "Signed in as {{username}}",
+        "logout": "Logout",
+        "messages": {
+            "create_error": "Could not create house",
+            "join_success": "Your join request was sent",
+            "join_error": "Could not send join request"
+        },
+        "pending": {
+            "title": "Waiting for house owner approval",
+            "description": "Your request for \"{{house}}\" is still waiting for a decision.",
+            "current_request": "Current pending request: {{house}}"
+        },
+        "no_house": {
+            "title": "You are not connected to a house right now",
+            "description": "Create a new house or send a join request to an existing one."
+        },
+        "create": {
+            "title": "Create a New House",
+            "description": "Start your own home inventory and continue right away.",
+            "name_label": "House Name",
+            "name_placeholder": "e.g. My Home, Summer House, Storage",
+            "submitting": "Creating...",
+            "submit": "Create House"
+        },
+        "join": {
+            "title": "Send a Join Request",
+            "description": "Enter a house key and send the request directly to the house owner.",
+            "key_label": "House Key",
+            "key_placeholder": "Enter the 64-character house key",
+            "submitting": "Sending...",
+            "submit": "Send Request"
+        }
+    }
+}

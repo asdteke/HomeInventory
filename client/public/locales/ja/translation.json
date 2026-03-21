@@ -1,0 +1,696 @@
+{
+    "common": {
+        "save": "保存",
+        "cancel": "キャンセル",
+        "loading": "読み込み中...",
+        "error": "エラーが発生しました",
+        "success": "操作が成功しました",
+        "search": "検索...",
+        "edit": "編集",
+        "delete": "削除",
+        "add": "追加",
+        "new": "新規",
+        "all": "すべて",
+        "manage": "管理",
+        "help_support": "ヘルプ＆サポート",
+        "theme": {
+            "light": "ライトモード",
+            "dark": "ダークモード"
+        },
+        "select": "選択",
+        "refresh": "更新",
+        "close": "閉じる",
+        "logout": "ログアウト",
+        "copyright": "© {{year}} HomeInventory - すべての権利を保有"
+    },
+    "auth": {
+        "login": {
+            "title": "ログイン",
+            "subtitle": "家の在庫をスマートに管理",
+            "welcome": "HomeInventoryへようこそ",
+            "username_or_email": "ユーザー名またはメールアドレス",
+            "password": "パスワード",
+            "forgot_password": "パスワードをお忘れですか？",
+            "submit": "ログイン",
+            "submitting": "ログイン中...",
+            "google_continue": "Googleで続行",
+            "or": "or",
+            "no_account": "アカウントをお持ちでないですか？",
+            "register_link": "登録",
+            "support_contact": "ログインの問題について:",
+            "terms_title": "📋 利用規約および免責事項",
+            "terms_beta": "BETA版: HomeInventoryは現在テスト段階にあります。データの永続性やセキュリティについての保証はありません。",
+            "terms_disclaimer": "免責事項: 本アプリケーションを使用することにより、データの損失、アクセスの問題、その他技術的な不具合に対して補償を請求できないことに同意したものとみなされます。",
+            "terms_backup": "データバックアップ: 重要な情報は定期的にバックアップすることを強く推奨します。",
+            "terms_accept": "ログインすることで、これらの条件に同意したとみなされます。"
+        },
+        "register": {
+            "title": "HomeInventoryへようこそ",
+            "subtitle": "新しいアカウントを作成するか、既存の家に参加してください",
+            "create_house": "新しい家を作成",
+            "join_house": "家に参加",
+            "create_house_desc": "🏠 新しい家が作成され、ユニークな<strong>家のキー</strong>が付与されます。このキーを家族と共有することで同じインベントリにアクセスできます。",
+            "join_house_desc": "👨‍👩‍👧‍👦 共有された<strong>家のキー</strong>を入力して既存の家に参加してください。キーを持っている人は誰でも共有インベントリにアクセスできます。",
+            "form_title": "サインアップ",
+            "username": "ユーザー名",
+            "username_placeholder": "例: john",
+            "email": "メール",
+            "email_placeholder": "例: john@example.com",
+            "password": "パスワード",
+            "password_placeholder": "6文字以上",
+            "password_confirm": "パスワードの確認",
+            "password_confirm_placeholder": "パスワードを再入力",
+            "house_key": "ハウスキー",
+            "house_key_placeholder": "64文字のハウスキーを貼り付け",
+            "submit_create": "新しいハウスを作成",
+            "submit_join": "ハウスに参加",
+            "submitting": "登録中...",
+            "already_have_account": "すでにアカウントをお持ちですか？",
+            "login_link": "ログイン",
+            "support": "登録の問題:",
+            "terms": "利用規約と免責事項",
+            "passwords_mismatch": "パスワードが一致しません",
+            "password_length": "パスワードは6文字以上である必要があります",
+            "key_required": "既存のハウスに参加するにはハウスキーが必要です",
+            "modals": {
+                "key_created": {
+                    "title": "🎉 ハウスが作成されました！",
+                    "subtitle": "以下のキーを安全な場所に保存してください",
+                    "warning": "重要: このキーは一度しか表示されません。家族と共有して、同じインベントリにアクセスできるようにしてください。",
+                    "copy": "コピー",
+                    "copied": "コピーされました",
+                    "button": "キーを保存しました。続行"
+                },
+                "email_verification": {
+                    "title": "📧 メール確認が必要です",
+                    "message": "アカウントが作成されました！ログインするにはメールアドレスの確認をしてください。",
+                    "step_1": "確認メールを <1>{{email}}</1> に送りました。",
+                    "step_2": "メール内の <1>［アカウントを確認する］</1> ボタンをクリックしてください。",
+                    "step_3": "確認後、<1>ログインできるようになります</1>。",
+                    "spam_note": "メールが届かない場合は、迷惑メール/ジャンクフォルダーを確認してください。",
+                    "key_note": "重要: あなたの家の鍵もメールで送信されました。家族と共有できます。",
+                    "button": "はい、ログインへ"
+                }
+            }
+        },
+        "forgot_password": {
+            "title": "Forgot Password",
+            "subtitle": "Start a secure recovery flow to access your account again.",
+            "identifier": "Username or Email",
+            "identifier_placeholder": "e.g. john or john@example.com",
+            "submit": "Start Recovery",
+            "requesting": "Checking...",
+            "email_success": "If an account exists, a password reset link valid for 15 minutes has been sent.",
+            "back_to_login": "Back to Login",
+            "recovery_mode_info": "Email is disabled on this server. Continue with the Recovery Key you saved during account setup.",
+            "recovery_key": "Recovery Key",
+            "recovery_key_placeholder": "e.g. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "reset_submit": "Reset Password",
+            "resetting": "Resetting..."
+        },
+        "reset_password": {
+            "title": "Reset Password",
+            "subtitle": "Use the secure link to set a new password.",
+            "missing_token": "The password reset link looks incomplete or broken.",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "submit": "Update Password",
+            "submitting": "Updating...",
+            "back_to_login": "Back to Login"
+        },
+        "recovery_setup": {
+            "title": "Create Recovery Key",
+            "subtitle": "Until this is completed, your account is not considered safe for local password recovery.",
+            "warning": "This key will only be shown once. Save it in a password manager or another secure offline location.",
+            "account": "A recovery key will be created for account {{username}}.",
+            "description": "Because email is disabled, you will only be able to reset your password with this key in the future.",
+            "submit": "Create Recovery Key",
+            "generating": "Creating..."
+        },
+        "recovery_key_modal": {
+            "register_title": "Save Your Recovery Key",
+            "google_title": "Save Your Recovery Key",
+            "setup_title": "Save Your Recovery Key",
+            "reset_title": "Save Your New Recovery Key",
+            "settings_title": "Save Your New Recovery Key",
+            "subtitle": "This key is shown only once.",
+            "warning": "If you lose this key while email is disabled, you may not be able to recover your password. Copy it and store it safely.",
+            "confirm": "I Saved the Key"
+        }
+    },
+    "navigation": {
+        "home": "ホーム",
+        "inventory": "在庫",
+        "rooms": "部屋",
+        "categories": "カテゴリ",
+        "settings": "設定",
+        "new_item": "新しいアイテム",
+        "share_house": "家を共有",
+        "admin_panel": "管理パネル",
+        "logout": "ログアウト",
+        "menu": "メニュー"
+    },
+    "dashboard": {
+        "welcome": "ようこそ、<1>{{name}}</1>! 👋",
+        "subtitle": "在庫の概要",
+        "quick_search": "クイック検索...",
+        "filters": {
+            "private": "🔒 私のプライベートアイテム",
+            "public": "🌐 公開",
+            "remove": "フィルターをクリア",
+            "no_items": "このフィルターに一致するアイテムはありません"
+        },
+        "stats": {
+            "total_items": "合計アイテム",
+            "total_quantity": "総数",
+            "fullest_room": "最も満たされた部屋",
+            "category_count": "カテゴリ",
+            "items_suffix": "アイテム"
+        },
+        "recent_items": {
+            "title": "最近追加された",
+            "see_all": "すべて見る"
+        },
+        "categories": {
+            "title": "カテゴリ",
+            "manage": "管理",
+            "empty": "まだアイテムは追加されていません"
+        },
+        "rooms": {
+            "title": "部屋",
+            "manage": "管理"
+        },
+        "quick_actions": {
+            "title": "⚡ クイックアクション",
+            "add_item": "アイテムを追加",
+            "search_item": "アイテムを検索",
+            "categories": "カテゴリ",
+            "settings": "設定"
+        }
+    },
+    "beta_banner": {
+        "title": "ベータ:",
+        "text": "HomeInventoryは現在テストおよび趣味段階です。データの永続性やセキュリティについて保証はありません。重要な情報はバックアップを取ってください。",
+        "contact": "連絡先:"
+    },
+    "footer": {
+        "rights": "© {{year}} HomeInventory - 無断転載を禁じます",
+        "contact": "連絡先:"
+    },
+    "items": {
+        "title_new": "新しいアイテムを追加",
+        "title_edit": "アイテムを編集",
+        "subtitle": "アイテムの詳細を入力",
+        "load_error": "アイテムの読み込みに失敗しました",
+        "form": {
+            "name": "アイテム名",
+            "name_placeholder": "例：サムスン TV 55インチ",
+            "required": "*",
+            "description": "説明",
+            "description_placeholder": "アイテムに関するメモ...",
+            "quantity": "数量",
+            "category": "カテゴリ",
+            "select_category": "選択",
+            "room": "部屋",
+            "select_room": "部屋を選択",
+            "location_details": "場所の詳細",
+            "location_optional": "（任意）",
+            "location_placeholder": "新しい場所を検索または追加...",
+            "location_help": "部屋のどこですか？（例：「青いキャビネットの上段」）",
+            "location_create": "場所 \"{{name}}\" を作成",
+            "location_privacy": "位置のプライバシー",
+            "location_public": "この位置は誰でも見られます",
+            "location_private": "あなただけが見られます",
+            "location_save": "位置を保存",
+            "location_saving": "追加中...",
+            "location_selected": "選択された位置: {{name}}",
+            "location_empty": "この部屋にはまだ位置が定義されていません。作成するには入力を開始してください。",
+            "photo": "写真",
+            "add_photo": "追加",
+            "barcode": "バーコード",
+            "barcode_optional": "（任意）",
+            "barcode_placeholder": "例: 8690123456789",
+            "scan_barcode": "バーコードをスキャン",
+            "search_db": "データベースを検索",
+            "search_google": "Googleで検索",
+            "barcode_saved": "✓ バーコードが保存されます",
+            "visibility": "アイテムの表示",
+            "visibility_public": "家族全員に表示",
+            "visibility_private": "あなただけに表示",
+            "submit_add": "アイテムを追加",
+            "submit_save": "変更を保存",
+            "submitting": "保存中..."
+        },
+        "qrcode": {
+            "title": "QR Code",
+            "desc": "このQRコードを印刷してアイテムに貼ることができます。スキャンすると直接このページに移動します。"
+        },
+        "messages": {
+            "quick_add_success": "✓ \"{{barcode}}\" をクイック追加しました - 後で編集可能です",
+            "quick_add_fail": "⚠ クイック追加に失敗しました",
+            "searching": "検索中...",
+            "found_local": "✓ ローカル: \"{{name}}\" として登録済み",
+            "found_remote": "✓ {{source}} {{note}} で見つかりました: \"{{name}}\"",
+            "not_found": "⚠ データベースに商品が見つかりません。Googleで検索できます。",
+            "search_fail": "⚠ 検索に失敗しました",
+            "name_required": "アイテム名は必須です",
+            "location_add_error": "場所の追加に失敗しました"
+        }
+    },
+    "settings": {
+        "title": "設定",
+        "subtitle": "アプリケーションの設定を管理",
+        "messages": {
+            "house_switched": "✅ {{name}} が有効化されました！",
+            "house_switch_error": "家の切り替えに失敗しました",
+            "house_joined_success": "✅ 家に正常に参加しました！",
+            "house_join_error": "家への参加に失敗しました",
+            "house_created_success": "✅ \"{{name}}\" が作成されました！",
+            "house_create_error": "家の作成に失敗しました",
+            "house_left_success": "家を正常に退出しました",
+            "house_left_error": "家の退出に失敗しました",
+            "house_leave_confirm": "本当に \"{{name}}\" を退出しますか？",
+            "backup_downloaded": "✅ バックアップが正常にダウンロードされました！ ({{count}} 件)",
+            "export_error": "❌ エクスポート中にエラーが発生しました",
+            "import_invalid_format": "無効なバックアップファイル形式",
+            "import_success": "✅ {{items}} アイテム、{{categories}} カテゴリ、{{rooms}} 部屋、{{locations}} 場所を追加しました。",
+            "import_error": "❌ インポートエラー: {{error}}",
+            "password_changed": "パスワードが正常に変更されました！",
+            "password_error_current": "現在のパスワードが正しくありません",
+            "password_error_invalid": "送信されたデータが無効です",
+            "session_expired": "セッションの有効期限が切れました。再度ログインしてください。",
+            "server_error": "サーバーエラーが発生しました",
+            "connection_error": "サーバーに接続できませんでした。インターネット接続を確認してください。",
+            "unexpected_error": "予期しないエラーが発生しました",
+            "username_changed": "✅ ユーザー名が変更されました！",
+            "username_error": "ユーザー名を変更できませんでした",
+            "username_len_error": "ユーザー名は少なくとも3文字である必要があります",
+            "fill_all_fields": "すべての項目を入力してください",
+            "passwords_mismatch": "新しいパスワードが一致しません",
+            "password_min_len": "新しいパスワードは6文字以上でなければなりません",
+            "house_request_sent_success": "✅ Your join request was sent!",
+            "request_approved": "✅ Join request approved",
+            "request_rejected": "Join request rejected",
+            "request_action_error": "Could not update request",
+            "member_kick_confirm": "Are you sure you want to remove \"{{name}}\" from the house?",
+            "member_kicked": "Member removed from the house",
+            "member_kick_error": "Could not remove member from the house",
+            "recovery_key_regenerated": "Recovery key regenerated",
+            "recovery_key_error": "Could not regenerate recovery key"
+        },
+        "user_profile": {
+            "edit_username": "ユーザー名を変更する"
+        },
+        "my_houses": {
+            "title": "マイハウス",
+            "join_house": "ハウスに参加",
+            "join_short": "参加",
+            "new_house": "新しいハウス",
+            "new_short": "新しい",
+            "no_house": "あなたはまだどのハウスにも所属していません",
+            "owner": "オーナー",
+            "active": "アクティブ",
+            "member_count": "{{count}} メンバー",
+            "item_count": "{{count}} アイテム",
+            "switch": "切り替え",
+            "leave": "ハウスを離れる",
+            "info": "💡 複数のハウスに所属し、切り替えることができます。各ハウスごとに別々のインベントリが管理されます。"
+        },
+        "house_info": {
+            "title": "アクティブハウスキー",
+            "key_label": "ハウスキー",
+            "mask_key": "••••••••{{suffix}}",
+            "hide": "非表示",
+            "show": "表示",
+            "copy": "コピー",
+            "share_info": "💡 このキーを共有したユーザーは、登録時に「ハウスに参加」オプションを使用してあなたのインベントリにアクセスできます。",
+            "members_title": "ハウスメンバー ({{count}})",
+            "you": "(あなた)",
+            "joined_at": "参加日: {{date, datetime}}",
+            "no_members": "まだ他のメンバーはいません",
+            "invite_title": "家族メンバーを招待",
+            "invite_desc": "あなたのハウスキーを共有して、家族が同じインベントリにアクセスできるようにします。それぞれのメンバーは自分のアカウントでログインしますが、同じデータにアクセスします。",
+            "active_members": "Active Members",
+            "pending_requests": "Pending Requests",
+            "no_pending_requests": "No pending requests",
+            "owner_controls": "Owner controls enabled",
+            "approve": "Approve",
+            "reject": "Reject",
+            "kick": "Remove"
+        },
+        "theme": {
+            "title": "テーマ",
+            "dark": "ダークモード",
+            "light": "ライトモード"
+        },
+        "security": {
+            "title": "セキュリティ",
+            "change_password": "パスワードを変更",
+            "change_password_desc": "アカウントのパスワードを更新",
+            "recovery_key_title": "Recovery Key",
+            "recovery_key_desc": "You can generate a new key for local password recovery.",
+            "recovery_key_missing": "No recovery key is visible for this account yet.",
+            "current_key_label": "Saved Recovery Key",
+            "recovery_key_unavailable": "The current recovery key cannot be displayed. Regenerate it if needed.",
+            "recovery_key_action": "Regenerate",
+            "recovery_key_modal_desc": "Confirm your current password to continue. The new key will be shown only once.",
+            "recovery_key_loading": "Preparing..."
+        },
+        "data_management": {
+            "title": "データ管理",
+            "download_backup": "バックアップをダウンロード",
+            "downloading": "ダウンロード中...",
+            "export_json": "JSONとしてエクスポート",
+            "upload_backup": "バックアップをアップロード",
+            "uploading": "アップロード中...",
+            "import_json": "JSONからインポート"
+        },
+        "about": {
+            "title": "📱 アプリケーションについて",
+            "version": "バージョン",
+            "brand": "ブランド",
+            "feedback": "✉️ フィードバックを送信"
+        },
+        "modals": {
+            "password": {
+                "title": "パスワードを変更",
+                "current": "現在のパスワード",
+                "new": "新しいパスワード",
+                "confirm": "新しいパスワード（確認）",
+                "changing": "変更中...",
+                "submit": "パスワードを変更"
+            },
+            "join_house": {
+                "title": "ハウスに参加",
+                "key_placeholder": "64文字のハウスキーを入力",
+                "key_help": "ご家族から受け取ったキーを入力",
+                "name_label": "このハウスの名前（任意）",
+                "name_placeholder": "例: 親の家",
+                "joining": "参加中...",
+                "submit": "ハウスに参加"
+            },
+            "create_house": {
+                "title": "新しいハウスを作成",
+                "name_label": "ハウス名",
+                "name_placeholder": "例: サマーハウス、オフィス、倉庫",
+                "name_help": "空欄のままにすると「My New House」と名付けられます",
+                "info": "ℹ️ 新しい家のためにデフォルトのカテゴリーと部屋が作成されます。後で編集可能です",
+                "creating": "作成中...",
+                "submit": "家を作成"
+            },
+            "username": {
+                "title": "ユーザー名を変更",
+                "new_label": "新しいユーザー名",
+                "placeholder": "あなたの新しいユーザー名",
+                "help": "3～30文字、文字、数字、アンダースコア、ハイフンのみ",
+                "saving": "保存中...",
+                "submit": "変更"
+            }
+        },
+        "select_language": "言語を選択",
+        "pending_requests": {
+            "title": "My Pending Join Requests",
+            "waiting_since": "Waiting since: {{date, datetime}}",
+            "pending_badge": "Pending"
+        }
+    },
+    "inventory": {
+        "title": "インベントリ",
+        "subtitle": "{{count}} 件見つかりました",
+        "new_item": "新しいアイテム",
+        "add_first": "最初のアイテムを追加",
+        "search_placeholder": "アイテムを検索...",
+        "all_categories": "すべてのカテゴリー",
+        "all_rooms": "すべての部屋",
+        "empty_title": "アイテムが見つかりません",
+        "empty_filter": "フィルターに一致するアイテムはありません",
+        "empty_msg": "まだアイテムが追加されていません",
+        "delete_confirm": "本当にこのアイテムを削除しますか？",
+        "delete_error": "削除エラー"
+    },
+    "categories": {
+        "title": "カテゴリー",
+        "subtitle": "{{count}}件のカテゴリー",
+        "new_category": "新しいカテゴリー",
+        "edit_title": "カテゴリーを編集",
+        "new_title": "新しいカテゴリー",
+        "name_label": "カテゴリー名",
+        "icon_label": "アイコン",
+        "color_label": "色",
+        "delete_confirm": "本当にこのカテゴリーを削除してもよろしいですか？",
+        "delete_error": "削除エラー"
+    },
+    "rooms": {
+        "title": "部屋",
+        "subtitle": "{{count}} 部屋",
+        "new_room": "新しい部屋",
+        "edit_title": "部屋を編集",
+        "new_title": "新しい部屋",
+        "name_label": "部屋名",
+        "description_label": "説明（任意）",
+        "name_placeholder": "例：主寝室",
+        "desc_placeholder": "例：メインベッドルーム",
+        "delete_confirm": "本当にこの部屋を削除してもよろしいですか？",
+        "delete_error": "削除エラー"
+    },
+    "admin": {
+        "title": "管理パネル",
+        "subtitle": "システム管理と監視",
+        "refresh": "更新",
+        "tabs": {
+            "dashboard": "ダッシュボード",
+            "users": "ユーザー",
+            "logs": "ログ",
+            "email": "メール送信"
+        },
+        "stats": {
+            "total_users": "総ユーザー数",
+            "new_today": "今日: +{{count}} 新規",
+            "total_inventory": "総在庫",
+            "inventory_details": "{{rooms}} 部屋、{{categories}} カテゴリ",
+            "banned_users": "追放ユーザー",
+            "access_blocked": "アクセス拒否",
+            "server_memory": "サーバーメモリ",
+            "uptime": "稼働時間: {{hours}} 時間"
+        },
+        "users": {
+            "user": "ユーザー",
+            "role": "役割",
+            "status": "ステータス",
+            "action": "操作",
+            "banned": "禁止",
+            "active": "アクティブ",
+            "unban": "禁止解除",
+            "ban": "禁止する",
+            "delete": "アカウント削除",
+            "confirm_ban": "本当にこのユーザーを{{status}}しますか？",
+            "ban_lift": "禁止解除",
+            "ban_apply": "禁止する",
+            "confirm_delete_1": "本当にユーザー\"{{username}}\"を削除しますか？",
+            "confirm_delete_2": "⚠️ 警告：これによりユーザー\"{{username}}\"のすべてのデータ（インベントリ、ルーム、カテゴリ）が永久に削除されます！",
+            "confirm_delete_3": "🚨 最終警告：アカウント\"{{username}}\"とすべてのデータは元に戻せなくなります。本当に続行しますか？"
+        },
+        "logs": {
+            "title": "管理者ログ",
+            "no_logs": "まだログはありません",
+            "errors_title": "システムエラー（直近10件）",
+            "no_errors": "// システムは正常、エラーログはありません。",
+            "date_fmt": "{{date, datetime}}"
+        },
+        "email": {
+            "title": "メール送信",
+            "to": "受信者（To）",
+            "subject": "件名",
+            "message": "メッセージ（HTML対応）",
+            "placeholder_message": "ここにメッセージを入力してください...",
+            "send": "送信",
+            "sending": "送信中...",
+            "success": "メールが正常に送信されました！",
+            "error": "送信に失敗しました"
+        }
+    },
+    "landing": {
+        "nav": {
+            "login": "ログイン"
+        },
+        "hero": {
+            "title_1": "すべてを管理",
+            "title_2": "自宅で！",
+            "description": "自宅の在庫をデジタル化。アイテムを分類し、家族を招待し、どこからでもアクセス可能。モダンで安全、かつ使いやすい。",
+            "cta_start": "はじめる",
+            "cta_register": "アカウント作成",
+            "stat_free": "無料",
+            "stat_access": "アクセス"
+        },
+        "features": {
+            "title": "なぜ<1>HomeInventory</1>？",
+            "subtitle": "家の管理を簡単にするすべての機能が1つのプラットフォームに",
+            "items": {
+                "categorize": {
+                    "title": "アイテムを分類",
+                    "desc": "すべてのアイテムを部屋とカテゴリ別に整理し、必要なものを数秒で見つける。"
+                },
+                "family": {
+                    "title": "家族をハウスキーで招待",
+                    "desc": "あなたのユニークなハウスキーで家族を招待し、在庫を一緒に管理。"
+                },
+                "access": {
+                    "title": "どこからでもアクセス可能",
+                    "desc": "自宅でも、職場でも、休暇中でも - どこからでも安全に在庫にアクセスできます。"
+                },
+                "barcode": {
+                    "title": "バーコードで素早く追加",
+                    "desc": "製品のバーコードをスキャンすると詳細が自動で入力されます。"
+                },
+                "security": {
+                    "title": "安全でプライベート",
+                    "desc": "データは暗号化されており、KVKK準拠のインフラで保護されています。"
+                },
+                "backup": {
+                    "title": "バックアップ＆エクスポート",
+                    "desc": "在庫をJSON形式でバックアップし、必要なときに復元できます。"
+                }
+            }
+        },
+        "cta_bottom": {
+            "title": "今すぐ利用開始！",
+            "description": "無料アカウントを作成して、家庭の在庫をデジタル化しましょう。登録は数秒で完了します。",
+            "button": "ログイン"
+        },
+        "footer": {
+            "desc": "家の在庫をデジタル化するための簡単で安全なプラットフォーム。",
+            "links": "クイックリンク",
+            "contact": "お問い合わせ",
+            "copyright": "© {{year}} HomeInventory. 無断転載を禁じます。"
+        },
+        "preview_privacy_notice": "デモ表示：実際のユーザーデータは表示されません。"
+    },
+    "intro": {
+        "inventory": {
+            "title": "在庫",
+            "content": "ここでアイテムを追加したり一覧表示したりできます。すべての家庭用品を一か所で管理しましょう！"
+        },
+        "house_key": {
+            "title": "家の鍵",
+            "content": "これはあなたの家の鍵です。他の人を招待するために使いましょう。家族を家に追加してください！"
+        },
+        "categories": {
+            "title": "カテゴリ",
+            "content": "アイテムをカテゴリ分けして整理しましょう。家電、家具、キッチン用品など！"
+        },
+        "buttons": {
+            "back": "戻る",
+            "close": "閉じる",
+            "last": "完了",
+            "next": "次へ",
+            "skip": "スキップ",
+            "open": "開く"
+        }
+    },
+    "google_house_select": {
+        "title": "ようこそ！",
+        "subtitle": "Googleでログインしました。まず家を選択してください。",
+        "welcome_options": "何をしたいですか？",
+        "create": {
+            "title": "新しい家を作成",
+            "desc": "自分の在庫を始める"
+        },
+        "join": {
+            "title": "既存の家に参加",
+            "desc": "家族の家に参加"
+        },
+        "back": "戻る",
+        "house_name": "家の名前（任意）",
+        "house_name_placeholder": "例：マイホーム、オフィス",
+        "house_name_hint": "空欄の場合、名前は「マイホーム」となります",
+        "house_key": "家の鍵",
+        "house_key_placeholder": "家の鍵を入力",
+        "house_key_hint": "家族から受け取った64文字の鍵を入力",
+        "house_name_join": "この家の名前（任意）",
+        "submit_create": "家を作成",
+        "submit_join": "家に参加",
+        "processing": "処理中..."
+    },
+    "scanner": {
+        "title": "バーコードスキャナー",
+        "qr_title": "QRコードリーダー",
+        "init": "カメラを起動中...",
+        "permission_error": "カメラの許可が拒否されました。ブラウザの設定を確認してください。",
+        "busy_error": "カメラが使用中です。他のアプリを閉じてください。",
+        "not_found_error": "カメラが見つかりません。",
+        "generic_error": "カメラを起動できませんでした。",
+        "hint": "フレームの中央にバーコードを合わせてください",
+        "qr_hint": "フレーム内にQRコードを合わせてください",
+        "searching": "商品を検索中...",
+        "found_local": "すでに登録済みです！",
+        "found_local_msg": "このバーコードはあなたの在庫にすでに登録されています。",
+        "found_online": "商品が見つかりました！",
+        "google_result": "⚡ Google検索結果 - 確認してください",
+        "barcode": "バーコード: {{code}}",
+        "new_product": "新しい製品",
+        "not_found_db": "このバーコードはデータベースに見つかりませんでした。",
+        "google_search": "Googleで検索",
+        "quick_add": "クイック追加（後で編集）",
+        "rescan": "再スキャン",
+        "retry": "再試行",
+        "flash_on": "🔦 フラッシュオン",
+        "flash_unsupported": "フラッシュ非対応",
+        "zoom_hint": "💡 明瞭にするためにズームを拡大し、スマホをしっかり持ってください",
+        "found_item_redirect": "商品が見つかりました！リダイレクト中...",
+        "found_page_redirect": "ページが見つかりました！リダイレクト中...",
+        "invalid_qr": "このQRコードはこのアプリ用ではありません。",
+        "not_found": "商品が見つかりません。別のバーコードを試してください。"
+    },
+    "item_qr": {
+        "hint_mobile": "📱 このQRコードをスマホでスキャンして、アイテムに素早くアクセス",
+        "network_ip": "ネットワークIP",
+        "url_loading": "URLを読み込み中...",
+        "copied": "コピーしました！",
+        "copy_url": "URLをコピー",
+        "download": "QRをダウンロード",
+        "usage_title": "使用法",
+        "usage_desc": "QRコードを印刷して商品に貼ってください。スマートフォンでスキャンするとこのページにすぐアクセスできます！"
+    },
+    "house_access_pending": {
+        "eyebrow": "House Access",
+        "fallback_house": "Selected house",
+        "signed_in_as": "Signed in as {{username}}",
+        "logout": "Logout",
+        "messages": {
+            "create_error": "Could not create house",
+            "join_success": "Your join request was sent",
+            "join_error": "Could not send join request"
+        },
+        "pending": {
+            "title": "Waiting for house owner approval",
+            "description": "Your request for \"{{house}}\" is still waiting for a decision.",
+            "current_request": "Current pending request: {{house}}"
+        },
+        "no_house": {
+            "title": "You are not connected to a house right now",
+            "description": "Create a new house or send a join request to an existing one."
+        },
+        "create": {
+            "title": "Create a New House",
+            "description": "Start your own home inventory and continue right away.",
+            "name_label": "House Name",
+            "name_placeholder": "e.g. My Home, Summer House, Storage",
+            "submitting": "Creating...",
+            "submit": "Create House"
+        },
+        "join": {
+            "title": "Send a Join Request",
+            "description": "Enter a house key and send the request directly to the house owner.",
+            "key_label": "House Key",
+            "key_placeholder": "Enter the 64-character house key",
+            "submitting": "Sending...",
+            "submit": "Send Request"
+        }
+    }
+}

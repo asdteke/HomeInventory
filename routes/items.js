@@ -7,10 +7,24 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import sharp from 'sharp';
 import db from '../database.js';
-import { authenticateToken } from '../middleware/auth.js';
+import { authenticateToken, requireActiveHouse } from '../middleware/auth.js';
+import {
+    decryptBufferFromStorage,
+    encryptBufferForStorage
+} from '../utils/encryption.js';
+import {
+    buildBarcodeLookup,
+    decryptItemRecord,
+    decryptRoomName,
+    encryptItemBarcode,
+    encryptItemDescription,
+    encryptItemName
+} from '../utils/protectedFields.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const ITEM_PHOTO_MEDIA_PURPOSE = 'inventory.media.photo';
+const ITEM_THUMBNAIL_MEDIA_PURPOSE = 'inventory.media.thumbnail';
 
 const router = express.Router();
 const MEDIA_FILE_REGEX = /^[A-Za-z0-9._-]+\.webp$/;
@@ -55,24 +69,35 @@ async function processImage(buffer, originalName) {
 
     try {
         // Ana görsel: Max 1200px, WebP, kalite 80, EXIF kaldır
-        await sharp(buffer)
+        const optimizedImage = await sharp(buffer)
             .resize(1200, 1200, {
                 fit: 'inside',
                 withoutEnlargement: true
             })
             .webp({ quality: 80 })
             .withMetadata(false)  // EXIF/metadata kaldır (güvenlik)
-            .toFile(outputPath);
+            .toBuffer();
 
         // Thumbnail: 200x200, WebP, kalite 70
-        await sharp(buffer)
+        const optimizedThumbnail = await sharp(buffer)
             .resize(200, 200, {
                 fit: 'cover',
                 position: 'center'
             })
             .webp({ quality: 70 })
             .withMetadata(false)
-            .toFile(thumbnailPath);
+            .toBuffer();
+
+        fs.writeFileSync(
+            outputPath,
+            encryptBufferForStorage(optimizedImage, { purpose: ITEM_PHOTO_MEDIA_PURPOSE }),
+            'utf8'
+        );
+        fs.writeFileSync(
+            thumbnailPath,
+            encryptBufferForStorage(optimizedThumbnail, { purpose: ITEM_THUMBNAIL_MEDIA_PURPOSE }),
+            'utf8'
+        );
 
         console.log(`[ImageOptimizer] Processed: ${filename}`);
 
@@ -125,10 +150,12 @@ function serializeItem(item) {
         return item;
     }
 
+    const decryptedItem = decryptItemRecord(item);
+
     return {
-        ...item,
-        photo_path: buildMediaUrl(item.photo_path),
-        thumbnail_path: buildMediaUrl(item.thumbnail_path)
+        ...decryptedItem,
+        photo_path: buildMediaUrl(decryptedItem.photo_path),
+        thumbnail_path: buildMediaUrl(decryptedItem.thumbnail_path)
     };
 }
 
@@ -160,6 +187,7 @@ function getMediaRecord(type, filename, houseKey) {
 }
 
 router.use(authenticateToken);
+router.use(requireActiveHouse);
 
 router.get('/media/:type/:filename', (req, res) => {
     try {
@@ -180,7 +208,12 @@ router.get('/media/:type/:filename', (req, res) => {
         }
 
         res.setHeader('Cache-Control', 'private, max-age=300');
-        return res.sendFile(mediaPath);
+        res.type('image/webp');
+        return res.send(
+            decryptBufferFromStorage(fs.readFileSync(mediaPath), {
+                purpose: type === 'thumbnail' ? ITEM_THUMBNAIL_MEDIA_PURPOSE : ITEM_PHOTO_MEDIA_PURPOSE
+            })
+        );
     } catch (err) {
         console.error('Media access error:', err);
         return res.status(500).json({ error: 'Medya yüklenemedi' });
@@ -205,14 +238,22 @@ router.get('/', (req, res) => {
         `;
         const params = [houseKey];
 
-        if (search) { query += ' AND items.name LIKE ?'; params.push(`%${search}%`); }
         if (category_id) { query += ' AND items.category_id = ?'; params.push(category_id); }
         if (room_id) { query += ' AND items.room_id = ?'; params.push(room_id); }
         if (location_id) { query += ' AND items.location_id = ?'; params.push(location_id); }
-        if (barcode) { query += ' AND items.barcode = ?'; params.push(barcode); }
+        if (barcode) {
+            query += ' AND items.barcode_lookup = ?';
+            params.push(buildBarcodeLookup(barcode));
+        }
 
         query += ' ORDER BY items.updated_at DESC';
-        const items = db.prepare(query).all(...params).map(serializeItem);
+        let items = db.prepare(query).all(...params).map(serializeItem);
+
+        if (search) {
+            const normalizedSearch = String(search).toLocaleLowerCase();
+            items = items.filter((item) => item.name?.toLocaleLowerCase().includes(normalizedSearch));
+        }
+
         res.json({ items });
     } catch (err) {
         console.error('Get items error:', err);
@@ -228,8 +269,8 @@ router.get('/barcode/:code', (req, res) => {
             FROM items
             LEFT JOIN categories ON items.category_id = categories.id
             LEFT JOIN rooms ON items.room_id = rooms.id
-            WHERE items.barcode = ? AND items.house_key = ?
-        `).get(req.params.code, req.user.house_key);
+            WHERE items.barcode_lookup = ? AND items.house_key = ?
+        `).get(buildBarcodeLookup(req.params.code), req.user.house_key);
 
         if (!item) {
             return res.json({ found: false, barcode: req.params.code });
@@ -278,10 +319,16 @@ router.post('/', upload.single('photo'), async (req, res) => {
         }
 
         const result = db.prepare(`
-            INSERT INTO items (name, description, quantity, photo_path, thumbnail_path, barcode, category_id, room_id, location_id, is_public, user_id, house_key)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO items (name, description, quantity, photo_path, thumbnail_path, barcode, barcode_lookup, category_id, room_id, location_id, is_public, user_id, house_key)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `).run(
-            name, description || null, parseInt(quantity) || 1, photoPath, thumbnailPath, barcode || null,
+            encryptItemName(name),
+            description ? encryptItemDescription(description) : null,
+            parseInt(quantity) || 1,
+            photoPath,
+            thumbnailPath,
+            barcode ? encryptItemBarcode(barcode) : null,
+            buildBarcodeLookup(barcode),
             category_id || null, room_id || null, location_id || null,
             is_public !== undefined ? (is_public === 'true' || is_public === true ? 1 : 0) : 1,
             req.user.id, houseKey
@@ -324,15 +371,17 @@ router.put('/:id', upload.single('photo'), async (req, res) => {
         }
 
         db.prepare(`
-            UPDATE items SET name = ?, description = ?, quantity = ?, photo_path = ?, thumbnail_path = ?, barcode = ?,
+            UPDATE items SET name = ?, description = ?, quantity = ?, photo_path = ?, thumbnail_path = ?, barcode = ?, barcode_lookup = ?,
             category_id = ?, room_id = ?, location_id = ?, is_public = ?, updated_at = CURRENT_TIMESTAMP
-            WHERE id = ?
+        WHERE id = ?
         `).run(
-            name || existing.name, description !== undefined ? description : existing.description,
+            name ? encryptItemName(name) : existing.name, description !== undefined ? (description ? encryptItemDescription(description) : description) : existing.description,
             parseInt(quantity) || existing.quantity, photoPath, thumbnailPath,
-            barcode !== undefined ? (barcode || null) : existing.barcode,
-            category_id || existing.category_id, room_id || existing.room_id,
-            location_id || existing.location_id,
+            barcode !== undefined ? (barcode ? encryptItemBarcode(barcode) : null) : existing.barcode,
+            barcode !== undefined ? buildBarcodeLookup(barcode) : existing.barcode_lookup,
+            category_id !== undefined ? (category_id || null) : existing.category_id,
+            room_id !== undefined ? (room_id || null) : existing.room_id,
+            location_id !== undefined ? (location_id || null) : existing.location_id,
             is_public !== undefined ? (is_public === 'true' || is_public === true ? 1 : 0) : existing.is_public,
             itemId
         );
@@ -381,11 +430,15 @@ router.get('/stats/summary', (req, res) => {
         `).get(houseKey);
 
         const topRoom = db.prepare(`
-            SELECT rooms.name, COUNT(*) as count FROM items
-            LEFT JOIN rooms ON items.room_id = rooms.id
-            WHERE items.house_key = ? AND rooms.name IS NOT NULL
-            GROUP BY rooms.id ORDER BY count DESC LIMIT 1
+            SELECT room_id, COUNT(*) as count
+            FROM items
+            WHERE house_key = ? AND room_id IS NOT NULL
+            GROUP BY room_id ORDER BY count DESC LIMIT 1
         `).get(houseKey);
+
+        const topRoomRecord = topRoom?.room_id
+            ? db.prepare('SELECT name FROM rooms WHERE id = ?').get(topRoom.room_id)
+            : null;
 
         const categoryCount = db.prepare(`
             SELECT COUNT(DISTINCT category_id) as count FROM items WHERE house_key = ? AND category_id IS NOT NULL
@@ -394,7 +447,7 @@ router.get('/stats/summary', (req, res) => {
         res.json({
             totalItems: totalItems?.count || 0,
             totalQuantity: totalQuantity?.total || 0,
-            topRoom: topRoom?.name || '-',
+            topRoom: topRoomRecord?.name ? decryptRoomName(topRoomRecord.name) : '-',
             topRoomCount: topRoom?.count || 0,
             categoryCount: categoryCount?.count || 0
         });

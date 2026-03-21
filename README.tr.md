@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://envanterim.net.tr">envanterim.net.tr</a>'nin açık kaynak projesidir.<br/>
-  Ev eşyalarınızı, odalarınızı ve kategorilerinizi tek bir yerden yönetin.
+  100 dil destekli arayüz ve hassas veriler için alan bazlı şifreleme sunan açık kaynak ev envanter sistemi.
 </p>
 
 <p align="center">
@@ -31,13 +31,23 @@
 - 🏷️ **Kategoriler & Odalar** — Eşyaları özel kategoriler, odalar ve konumlarla düzenleyin
 - 📱 **Barkod / QR tarama** — Cihaz kamerasıyla hızla eşya ekleyin veya bulun
 - 🔐 **Kimlik doğrulama** — JWT tabanlı giriş, Google OAuth ve e-posta doğrulama desteği
+- 🛡️ **Alan bazlı şifreleme** — Hassas doğrulama ve envanter alanları için AES-256-GCM koruması
 - 👨‍💼 **Admin paneli** — Kullanıcı yönetimi, yasaklama, e-posta gönderimi ve sistem logları
 - 📧 **E-posta sistemi** — Resend API ile doğrulama ve bilgilendirme e-postaları
 - 💾 **Yedekleme & Geri Yükleme** — Envanter verilerinizi dışa/içe aktarın
-- 🌍 **Çoklu dil** — Arayüz 50 dile çevrildi; backend şu an 5 dil destekliyor (genişletiliyor)
+- 🌍 **100 dil destekli arayüz** — Frontend küresel kullanım için 100 seçilebilir dille gelir
 - 🌙 **Karanlık / Aydınlık tema** — Sistem tercihini otomatik algılar
 - 📱 **Duyarlı tasarım** — Mobil öncelikli, tüm ekran boyutlarında çalışır
 - 🔍 **SEO hazır** — Sitemap, robots.txt, meta etiketler ve IndexNow desteği
+
+## Güvenlik ve Gizlilik (Sıfır Bilgi Mimarisi)
+
+HomeInventory, kişisel verilerinizin tamamen gizli kalmasını sağlamak için kurumsal düzeyde (enterprise-grade) güvenlik standartlarıyla tasarlanmıştır. Proje "Sıfır Bilgi Mimarisi" (Zero-Knowledge) kullanır; yani veritabanı veya sunucu dosyaları tümüyle çalınsa bile, doğru şifreleme anahtarları olmadan eşya detaylarınız, fotoğraflarınız veya kişisel verileriniz asla okunamaz.
+
+- **Alan Bazlı Şifreleme (Field-Level Encryption)**: Eşya isimleri, açıklamaları, özel oluşturulan kategori ve oda adları veritabanına yazılmadan önce AES-256-GCM ile şifrelenir.
+- **Şifreli Medya Depolama**: Yüklenen tüm fotoğrafların ve küçük resimlerin EXIF (konum, tarih, cihaz) metadataları otomatik silinir. Dosyalar diske AES-256-GCM ile şifrelenmiş bulanık baytlar (blob) olarak yazılır ve sadece kimliği doğrulanmış kullanıcılar için RAM'de anlık olarak çözülerek sunulur.
+- **Kişisel Veri Koruması (PII)**: Kullanıcı e-posta adresleri ve isimleri şifreli saklanır. Giriş işlemleri, orijinal veriyi ele vermeyen ve Rainbow Table saldırılarına karşı korumalı HMAC-SHA-256 tabanlı arama token'ları (lookup token) ile gerçekleştirilir.
+- **Anahtar Rotasyonu (Key Rotation)**: Sistem, ana şifreleme anahtarının (Master Key) periyodik olarak değiştirilebilmesine olanak tanıyan bir "Keyring" (Anahtarlık) mimarisi kullanır. Bu sayede aktif anahtar değişse bile eski veriler sorunsuz bir şekilde okunmaya devam eder.
 
 ## Teknoloji Yığını
 
@@ -95,6 +105,8 @@ NODE_ENV=development
 PORT=3001
 SITE_URL=http://localhost:5173
 JWT_SECRET=en-az-32-karakter-uzunlugunda-rastgele-bir-metin-yazin
+APP_ENCRYPTION_KEY=32-byte-base64-veya-64-karakter-hex-anahtar
+APP_ENCRYPTION_KEY_ID=2026-03-local
 ```
 
 > **💡 İpucu:** Güvenli bir JWT_SECRET oluşturmak için:
@@ -102,7 +114,12 @@ JWT_SECRET=en-az-32-karakter-uzunlugunda-rastgele-bir-metin-yazin
 > node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 > ```
 
-Diğer değişkenler (`GOOGLE_CLIENT_ID`, `RESEND_API_KEY` vb.) local geliştirme için **opsiyoneldir**. Bu değişkenlere bağlı özellikler (Google giriş, e-posta gönderimi) otomatik olarak devre dışı kalır.
+> **🔐 Şifreleme anahtarı:** `APP_ENCRYPTION_KEY` üretmek için:
+> ```bash
+> openssl rand -base64 32
+> ```
+
+`APP_ENCRYPTION_KEY` ve `APP_ENCRYPTION_KEY_ID` zorunludur; çünkü hassas alan şifrelemesi uygulama açılışında fail-secure çalışır. Diğer değişkenler (`GOOGLE_CLIENT_ID`, `RESEND_API_KEY` vb.) local geliştirme için **opsiyoneldir**. Bu değişkenlere bağlı özellikler (Google giriş, e-posta gönderimi) otomatik olarak devre dışı kalır.
 
 ### 3. Geliştirme Sunucusunu Başlat
 
@@ -138,6 +155,9 @@ npm start
 | `PORT` | ✅ | Backend sunucu portu (varsayılan: `3001`) |
 | `SITE_URL` | ✅ | Sitenizin genel URL'si |
 | `JWT_SECRET` | ✅ | JWT imzalama için rastgele gizli anahtar (min 32 karakter) |
+| `APP_ENCRYPTION_KEY` | ✅ | Hassas alanları koruyan 32-byte şifreleme anahtarı |
+| `APP_ENCRYPTION_KEY_ID` | ✅ | Yeni şifreli kayıtlar için sabit anahtar kimliği |
+| `APP_ENCRYPTION_KEYRING` | ⬜ | Rotation sonrası eski verileri çözmek için legacy anahtarları içeren opsiyonel JSON haritası |
 | `GOOGLE_CLIENT_ID` | ⬜ | Google OAuth istemci kimliği |
 | `GOOGLE_CLIENT_SECRET` | ⬜ | Google OAuth istemci gizli anahtarı |
 | `RESEND_API_KEY` | ⬜ | Resend.com API anahtarı (e-posta için) |
@@ -181,6 +201,8 @@ Home-inventory/
 │   └── ...
 │
 ├── utils/
+│   ├── encryption.js         # AES-256-GCM alan şifreleme yardımcıları
+│   ├── protectedFields.js    # Envanter alanı şifreleme/çözme yardımcıları
 │   ├── emailService.js       # Resend e-posta entegrasyonu
 │   ├── indexNow.js           # IndexNow SEO gönderimi
 │   └── logger.js             # KVKK uyumlu loglama
@@ -188,6 +210,7 @@ Home-inventory/
 ├── locales/                  # Backend çoklu dil dosyaları (5 dil, genişletiliyor)
 │
 ├── scripts/
+│   ├── backfill-field-encryption.mjs # Legacy düz metin alanları şifreler
 │   ├── generate-locales.js   # Dil dosyası oluşturma betikleri
 │   └── indexnow-submit.mjs   # CLI IndexNow gönderimi
 │

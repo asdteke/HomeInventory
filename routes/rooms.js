@@ -1,17 +1,31 @@
 import express from 'express';
 import db from '../database.js';
-import { authenticateToken } from '../middleware/auth.js';
+import { authenticateToken, requireActiveHouse } from '../middleware/auth.js';
+import {
+    decryptRoomRecord,
+    encryptRoomDescription,
+    encryptRoomName,
+    sortByName
+} from '../utils/protectedFields.js';
 
 const router = express.Router();
 
+function getDecryptedRoomsForHouse(houseKey) {
+    return sortByName(
+        db.prepare('SELECT * FROM rooms WHERE house_key = ?')
+            .all(houseKey)
+            .map(decryptRoomRecord)
+    );
+}
+
 // Apply auth to all routes
 router.use(authenticateToken);
+router.use(requireActiveHouse);
 
 // Get all rooms (only from same house)
 router.get('/', (req, res) => {
     try {
-        const rooms = db.prepare('SELECT * FROM rooms WHERE house_key = ? ORDER BY name')
-            .all(req.user.house_key);
+        const rooms = getDecryptedRoomsForHouse(req.user.house_key);
         res.json({ rooms });
     } catch (err) {
         console.error('Get rooms error:', err);
@@ -29,8 +43,8 @@ router.post('/', (req, res) => {
         }
 
         // Check if room name already exists in this house
-        const existing = db.prepare('SELECT id FROM rooms WHERE name = ? AND house_key = ?')
-            .get(name, req.user.house_key);
+        const existing = getDecryptedRoomsForHouse(req.user.house_key)
+            .find((room) => room.name === name);
 
         if (existing) {
             return res.status(400).json({ error: 'Bu oda zaten mevcut' });
@@ -38,9 +52,9 @@ router.post('/', (req, res) => {
 
         const result = db.prepare(
             'INSERT INTO rooms (name, description, house_key) VALUES (?, ?, ?)'
-        ).run(name, description || null, req.user.house_key);
+        ).run(encryptRoomName(name), description ? encryptRoomDescription(description) : null, req.user.house_key);
 
-        const room = db.prepare('SELECT * FROM rooms WHERE id = ?').get(result.lastInsertRowid);
+        const room = decryptRoomRecord(db.prepare('SELECT * FROM rooms WHERE id = ?').get(result.lastInsertRowid));
 
         res.status(201).json({ message: 'Oda eklendi', room });
     } catch (err) {
@@ -55,8 +69,10 @@ router.put('/:id', (req, res) => {
         const { name, description } = req.body;
         const roomId = req.params.id;
 
-        const existing = db.prepare('SELECT * FROM rooms WHERE id = ? AND house_key = ?')
+        const existingRow = db.prepare('SELECT * FROM rooms WHERE id = ? AND house_key = ?')
             .get(roomId, req.user.house_key);
+
+        const existing = decryptRoomRecord(existingRow);
 
         if (!existing) {
             return res.status(404).json({ error: 'Oda bulunamadı' });
@@ -64,8 +80,8 @@ router.put('/:id', (req, res) => {
 
         // Check for duplicate name
         if (name && name !== existing.name) {
-            const duplicate = db.prepare('SELECT id FROM rooms WHERE name = ? AND house_key = ? AND id != ?')
-                .get(name, req.user.house_key, roomId);
+            const duplicate = getDecryptedRoomsForHouse(req.user.house_key)
+                .find((room) => room.id !== Number(roomId) && room.name === name);
             if (duplicate) {
                 return res.status(400).json({ error: 'Bu isimde bir oda zaten mevcut' });
             }
@@ -74,12 +90,12 @@ router.put('/:id', (req, res) => {
         db.prepare(
             'UPDATE rooms SET name = ?, description = ? WHERE id = ?'
         ).run(
-            name || existing.name,
-            description !== undefined ? description : existing.description,
+            name ? encryptRoomName(name) : existingRow.name,
+            description !== undefined ? (description ? encryptRoomDescription(description) : description) : existingRow.description,
             roomId
         );
 
-        const room = db.prepare('SELECT * FROM rooms WHERE id = ?').get(roomId);
+        const room = decryptRoomRecord(db.prepare('SELECT * FROM rooms WHERE id = ?').get(roomId));
 
         res.json({ message: 'Oda güncellendi', room });
     } catch (err) {

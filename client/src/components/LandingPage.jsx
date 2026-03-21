@@ -19,7 +19,7 @@ import {
     Menu,
     X
 } from 'lucide-react';
-import LanguageSwitcher from './LanguageSwitcher';
+import LanguageSwitcher, { LANGUAGE_OPTIONS } from './LanguageSwitcher';
 import BrandLogo from './BrandLogo';
 
 const featureIconMap = {
@@ -37,6 +37,7 @@ const LandingPage = () => {
     const { isDark, toggleTheme } = useTheme();
     const { t } = useTranslation();
     const [mobileNavOpen, setMobileNavOpen] = useState(false);
+    const supportedLanguageCount = LANGUAGE_OPTIONS.length;
 
     const features = [
         {
@@ -187,7 +188,7 @@ const LandingPage = () => {
                                 <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">{t('landing.hero.stat_free')}</p>
                             </div>
                             <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/85 dark:bg-slate-900/80 backdrop-blur p-4">
-                                <p className="text-2xl sm:text-3xl font-black text-blue-600 dark:text-blue-400">7/24</p>
+                                <p className="text-2xl sm:text-3xl font-black text-blue-600 dark:text-blue-400">{supportedLanguageCount}+</p>
                                 <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">{t('landing.hero.stat_access')}</p>
                             </div>
                         </div>

@@ -1,0 +1,696 @@
+{
+    "items": {
+        "qrcode": {
+            "title": "QR Code",
+            "desc": "Можете одштампати и залепити овај QR код на предмет. Скенирање ће вас директно одвести на ову страницу."
+        },
+        "title_new": "Додај нову ставку",
+        "title_edit": "Уреди ставку",
+        "subtitle": "Унесите детаље о предмету",
+        "load_error": "Није успело учитавање предмета",
+        "form": {
+            "name": "Назив предмета",
+            "name_placeholder": "нпр. Samsung TV 55 инча",
+            "required": "*",
+            "description": "Опис",
+            "description_placeholder": "Белешке о предмету...",
+            "quantity": "Количина",
+            "category": "Категорија",
+            "select_category": "Одаберите",
+            "room": "Соба",
+            "select_room": "Одаберите собу",
+            "location_details": "Детаљи локације",
+            "location_optional": "(Опционо)",
+            "location_placeholder": "Претражите или додајте нову локацију...",
+            "location_help": "Где у соби? (нпр. 'Горња полица плавог ормара')",
+            "location_create": "Креирај локацију \"{{name}}\"",
+            "location_privacy": "Приватност локације",
+            "location_public": "Сви могу видети ову локацију",
+            "location_private": "Само ви можете видети ово",
+            "location_save": "Сачувај локацију",
+            "location_saving": "Додаје се...",
+            "location_selected": "Изабрана локација: {{name}}",
+            "location_empty": "Још није дефинисана локација у овој соби. Почните да куцате да бисте креирали једну.",
+            "photo": "Фотографија",
+            "add_photo": "Додај",
+            "barcode": "Бар код",
+            "barcode_optional": "(Опционо)",
+            "barcode_placeholder": "нпр. 8690123456789",
+            "scan_barcode": "Скенирај бар код",
+            "search_db": "Претражи базу података",
+            "search_google": "Претражи на Гуглу",
+            "barcode_saved": "✓ Баркод ће бити сачуван",
+            "visibility": "Видљивост предмета",
+            "visibility_public": "Видљиво свим члановима куће",
+            "visibility_private": "Видљиво само вама",
+            "submit_add": "Додај предмет",
+            "submit_save": "Сачувај измене",
+            "submitting": "Снимање..."
+        },
+        "messages": {
+            "quick_add_success": "✓ \"{{barcode}}\" брзо додато - можете уредити касније",
+            "quick_add_fail": "⚠ Брзо додавање није успело",
+            "searching": "Претраживање...",
+            "found_local": "✓ Локално: регистровано као \"{{name}}\"",
+            "found_remote": "✓ Пронађено у {{source}} {{note}}: \"{{name}}\"",
+            "not_found": "⚠ Производ није пронађен у базама података. Можете претражити на Гуглу.",
+            "search_fail": "⚠ Претрага није успела",
+            "name_required": "Име предмета је обавезно",
+            "location_add_error": "Није успело додавање локације"
+        }
+    },
+    "common": {
+        "save": "Сачувај",
+        "cancel": "Откажи",
+        "loading": "Учитавање...",
+        "error": "Дошло је до грешке",
+        "success": "Операција је успешна",
+        "search": "Претрага...",
+        "edit": "Уреди",
+        "delete": "Обриши",
+        "add": "Додај",
+        "new": "Ново",
+        "all": "Све",
+        "manage": "Управљање",
+        "help_support": "Помоћ и подршка",
+        "theme": {
+            "light": "Светли режим",
+            "dark": "Тамни режим"
+        },
+        "select": "Изабери",
+        "refresh": "Освежи",
+        "close": "Затвори",
+        "logout": "Одјави се",
+        "copyright": "© {{year}} HomeInventory - Сва права задржана"
+    },
+    "auth": {
+        "login": {
+            "title": "Пријава",
+            "subtitle": "Управљајте свим својим кућним инвентаром паметно",
+            "welcome": "Добродошли у HomeInventory",
+            "username_or_email": "Корисничко име или Е-пошта",
+            "password": "Лозинка",
+            "forgot_password": "Заборавили сте лозинку?",
+            "submit": "Пријава",
+            "submitting": "Пријава у току...",
+            "google_continue": "Наставите са Гугл",
+            "or": "или",
+            "no_account": "Nemate nalog?",
+            "register_link": "Registrujte se",
+            "support_contact": "Za probleme sa prijavom:",
+            "terms_title": "📋 Uslovi korišćenja i odricanje od odgovornosti",
+            "terms_beta": "BETA verzija: HomeInventory je trenutno u fazi testiranja. Nema garancije u vezi sa postojanošću ili bezbednošću vaših podataka.",
+            "terms_disclaimer": "Odricanje od odgovornosti: Korišćenjem ove aplikacije, prihvatate da ne možete tražiti nikakvu nadoknadu za potencijalni gubitak podataka, probleme sa pristupom ili druge tehničke kvarove.",
+            "terms_backup": "Bekap podataka: Snažno preporučujemo redovno pravljenje rezervnih kopija vaših važnih informacija.",
+            "terms_accept": "Prijavom se smatra da ste prihvatili ove uslove."
+        },
+        "register": {
+            "title": "Dobrodošli u HomeInventory",
+            "subtitle": "Kreirajte novi nalog ili se pridružite postojećem domu",
+            "create_house": "Kreiraj novi dom",
+            "join_house": "Pridruži se domu",
+            "create_house_desc": "🏠 Biće kreiran novi dom i dobićete jedinstveni <strong>Ključ doma</strong>. Podelite ovaj ključ sa porodicom da biste imali pristup istom inventaru.",
+            "join_house_desc": "👨‍👩‍👧‍👦 Unesite <strong>Ključ doma</strong> koji vam je podeljen da biste se pridružili postojećem domu. Svi sa ključem mogu pristupiti zajedničkom inventaru.",
+            "form_title": "Prijavite se",
+            "username": "Корисничко име",
+            "username_placeholder": "нпр. john",
+            "email": "Е-пошта",
+            "email_placeholder": "нпр. john@example.com",
+            "password": "Лозинка",
+            "password_placeholder": "Најмање 6 карактера",
+            "password_confirm": "Потврда лозинке",
+            "password_confirm_placeholder": "Унесите лозинку поново",
+            "house_key": "Кључ куће",
+            "house_key_placeholder": "Налепите кључ куће од 64 карактера",
+            "submit_create": "Креирај нову кућу",
+            "submit_join": "Придружи се кући",
+            "submitting": "Регистрација...",
+            "already_have_account": "Већ имате налог?",
+            "login_link": "Пријава",
+            "support": "Проблеми при регистрацији:",
+            "terms": "Услови коришћења и одрицање од одговорности",
+            "passwords_mismatch": "Лозинке се не поклапају",
+            "password_length": "Лозинка мора имати најмање 6 карактера",
+            "key_required": "Кључ куће је потребан да бисте се придружили постојећој кући",
+            "modals": {
+                "key_created": {
+                    "title": "🎉 Кућа је креирана!",
+                    "subtitle": "Сачувајте кључ испод на сигурном месту",
+                    "warning": "Важно: Овај кључ ће бити приказан само једном. Поделите га са члановима породице како би они могли приступити истом инвентару.",
+                    "copy": "Копирај",
+                    "copied": "Копирано",
+                    "button": "Сачувао сам кључ, настави"
+                },
+                "email_verification": {
+                    "title": "📧 Потврда е-поште је неопходна",
+                    "message": "Налог је креиран! Молимо вас да потврдите своју е-пошту да бисте се пријавили.",
+                    "step_1": "Послали смо верификациони имејл на <1>{{email}}</1>.",
+                    "step_2": "Кликните на <1>„Потврди мој налог“</1> дугме у имејлу.",
+                    "step_3": "Након верификације, <1>можете се пријавити</1>.",
+                    "spam_note": "Проверите фасциклу за спам/нежељену пошту ако имејл не стигне.",
+                    "key_note": "Важно: Кључ вашег дома је такође послат у имејлу. Можете га делити са члановима породице.",
+                    "button": "У реду, иди на Пријаву"
+                }
+            }
+        },
+        "forgot_password": {
+            "title": "Forgot Password",
+            "subtitle": "Start a secure recovery flow to access your account again.",
+            "identifier": "Username or Email",
+            "identifier_placeholder": "e.g. john or john@example.com",
+            "submit": "Start Recovery",
+            "requesting": "Checking...",
+            "email_success": "If an account exists, a password reset link valid for 15 minutes has been sent.",
+            "back_to_login": "Back to Login",
+            "recovery_mode_info": "Email is disabled on this server. Continue with the Recovery Key you saved during account setup.",
+            "recovery_key": "Recovery Key",
+            "recovery_key_placeholder": "e.g. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "reset_submit": "Reset Password",
+            "resetting": "Resetting..."
+        },
+        "reset_password": {
+            "title": "Reset Password",
+            "subtitle": "Use the secure link to set a new password.",
+            "missing_token": "The password reset link looks incomplete or broken.",
+            "new_password": "New Password",
+            "new_password_placeholder": "Enter your new strong password",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "submit": "Update Password",
+            "submitting": "Updating...",
+            "back_to_login": "Back to Login"
+        },
+        "recovery_setup": {
+            "title": "Create Recovery Key",
+            "subtitle": "Until this is completed, your account is not considered safe for local password recovery.",
+            "warning": "This key will only be shown once. Save it in a password manager or another secure offline location.",
+            "account": "A recovery key will be created for account {{username}}.",
+            "description": "Because email is disabled, you will only be able to reset your password with this key in the future.",
+            "submit": "Create Recovery Key",
+            "generating": "Creating..."
+        },
+        "recovery_key_modal": {
+            "register_title": "Save Your Recovery Key",
+            "google_title": "Save Your Recovery Key",
+            "setup_title": "Save Your Recovery Key",
+            "reset_title": "Save Your New Recovery Key",
+            "settings_title": "Save Your New Recovery Key",
+            "subtitle": "This key is shown only once.",
+            "warning": "If you lose this key while email is disabled, you may not be able to recover your password. Copy it and store it safely.",
+            "confirm": "I Saved the Key"
+        }
+    },
+    "navigation": {
+        "home": "Почетна",
+        "inventory": "Инвентар",
+        "rooms": "Соби",
+        "categories": "Категорије",
+        "settings": "Подешавања",
+        "new_item": "Нова ставка",
+        "share_house": "Подели кућу",
+        "admin_panel": "Админ панел",
+        "logout": "Одјава",
+        "menu": "Мени"
+    },
+    "dashboard": {
+        "welcome": "Добродошли, <1>{{name}}</1>! 👋",
+        "subtitle": "Преглед вашег инвентара",
+        "quick_search": "Брза претрага...",
+        "filters": {
+            "private": "🔒 Моје приватне ставке",
+            "public": "🌐 Јавно",
+            "remove": "Очисти филтер",
+            "no_items": "Нема ставки које одговарају овом филтру"
+        },
+        "stats": {
+            "total_items": "Укупно ставки",
+            "total_quantity": "Укупна количина",
+            "fullest_room": "Најпунија соба",
+            "category_count": "Категорије",
+            "items_suffix": "ставке"
+        },
+        "recent_items": {
+            "title": "Недавно додато",
+            "see_all": "Погледај све"
+        },
+        "categories": {
+            "title": "Категорије",
+            "manage": "Управљање",
+            "empty": "Још нема додатих ставки"
+        },
+        "rooms": {
+            "title": "Просторије",
+            "manage": "Управљање"
+        },
+        "quick_actions": {
+            "title": "⚡ Брзе радње",
+            "add_item": "Додај ставку",
+            "search_item": "Претражи ставку",
+            "categories": "Категорије",
+            "settings": "Подешавања"
+        }
+    },
+    "beta_banner": {
+        "title": "БЕТА:",
+        "text": "HomeInventory је тренутно у фази тестирања и хобија. Није дато гаранција за трајност или безбедност података. Молимо вас да правите резервне копије важних информација.",
+        "contact": "Контакт:"
+    },
+    "footer": {
+        "rights": "© {{year}} HomeInventory - Сва права задржана",
+        "contact": "Контакт:"
+    },
+    "settings": {
+        "title": "Подешавања",
+        "subtitle": "Управљање подешавањима апликације",
+        "messages": {
+            "house_switched": "✅ {{name}} активиран!",
+            "house_switch_error": "Није успело прелазак на кућу",
+            "house_joined_success": "✅ Успешно сте се придружили кући!",
+            "house_join_error": "Није успело придруживање кући",
+            "house_created_success": "✅ \"{{name}}\" креиран!",
+            "house_create_error": "Није успело креирање куће",
+            "house_left_success": "Успешно напуштена кућа",
+            "house_left_error": "Није успело напуштање куће",
+            "house_leave_confirm": "Да ли сте сигурни да желите да напустите \"{{name}}\"?",
+            "backup_downloaded": "✅ Backup uspešno preuzet! ({{count}} stavki)",
+            "export_error": "❌ Došlo je do greške prilikom izvoza",
+            "import_invalid_format": "Nevažeći format backup fajla",
+            "import_success": "✅ {{items}} stavki, {{categories}} kategorija, {{rooms}} soba, {{locations}} lokacija dodato.",
+            "import_error": "❌ Greška prilikom uvoza: {{error}}",
+            "password_changed": "Lozinka uspešno promenjena!",
+            "password_error_current": "Trenutna lozinka je netačna",
+            "password_error_invalid": "Poslati podaci su nevažeći",
+            "session_expired": "Sesija je istekla. Molimo prijavite se ponovo.",
+            "server_error": "Došlo je do greške na serveru",
+            "connection_error": "Nije moguće povezati se sa serverom. Proverite internet konekciju.",
+            "unexpected_error": "Došlo je do neočekivane greške",
+            "username_changed": "✅ Korisničko ime promenjeno!",
+            "username_error": "Nije moguće promeniti korisničko ime",
+            "username_len_error": "Korisničko ime mora imati najmanje 3 karaktera",
+            "fill_all_fields": "Молимо попуните сва поља",
+            "passwords_mismatch": "Нове лозинке се не поклапају",
+            "password_min_len": "Нова лозинка мора имати најмање 6 карактера",
+            "house_request_sent_success": "✅ Your join request was sent!",
+            "request_approved": "✅ Join request approved",
+            "request_rejected": "Join request rejected",
+            "request_action_error": "Could not update request",
+            "member_kick_confirm": "Are you sure you want to remove \"{{name}}\" from the house?",
+            "member_kicked": "Member removed from the house",
+            "member_kick_error": "Could not remove member from the house",
+            "recovery_key_regenerated": "Recovery key regenerated",
+            "recovery_key_error": "Could not regenerate recovery key"
+        },
+        "user_profile": {
+            "edit_username": "Промени корисничко име"
+        },
+        "my_houses": {
+            "title": "Моје куће",
+            "join_house": "Придружи се кући",
+            "join_short": "Придружи се",
+            "new_house": "Нова кућа",
+            "new_short": "Нова",
+            "no_house": "Још нисте члан ниједне куће",
+            "owner": "Власник",
+            "active": "Активно",
+            "member_count": "{{count}} чланова",
+            "item_count": "{{count}} ставки",
+            "switch": "Пребаци",
+            "leave": "Napusti kuću",
+            "info": "💡 Možete biti član više kuća i prelaziti između njih. Svaka kuća vodi zasebnu zalihu."
+        },
+        "house_info": {
+            "title": "Aktivna ključa kuće",
+            "key_label": "Ključ kuće",
+            "mask_key": "••••••••{{suffix}}",
+            "hide": "Sakrij",
+            "show": "Prikaži",
+            "copy": "Kopiraj",
+            "share_info": "💡 Korisnici sa kojima delite ovaj ključ mogu pristupiti vašoj zalihi koristeći opciju \"Pridruži se kući\" tokom registracije.",
+            "members_title": "Članovi kuće ({{count}})",
+            "you": "(Vi)",
+            "joined_at": "Pridružio/la se: {{date, datetime}}",
+            "no_members": "Još nema drugih članova",
+            "invite_title": "Pozovi članove porodice",
+            "invite_desc": "Podelite svoj ključ kuće kako biste članovima porodice omogućili pristup istoj zalihi. Svaki član se prijavljuje svojim nalogom, ali pristupa istim podacima.",
+            "active_members": "Active Members",
+            "pending_requests": "Pending Requests",
+            "no_pending_requests": "No pending requests",
+            "owner_controls": "Owner controls enabled",
+            "approve": "Approve",
+            "reject": "Reject",
+            "kick": "Remove"
+        },
+        "theme": {
+            "title": "Тема",
+            "dark": "Тамни режим",
+            "light": "Светли режим"
+        },
+        "security": {
+            "title": "Безбедност",
+            "change_password": "Промени лозинку",
+            "change_password_desc": "Ажурирајте лозинку на свом налогу",
+            "recovery_key_title": "Recovery Key",
+            "recovery_key_desc": "You can generate a new key for local password recovery.",
+            "recovery_key_missing": "No recovery key is visible for this account yet.",
+            "current_key_label": "Saved Recovery Key",
+            "recovery_key_unavailable": "The current recovery key cannot be displayed. Regenerate it if needed.",
+            "recovery_key_action": "Regenerate",
+            "recovery_key_modal_desc": "Confirm your current password to continue. The new key will be shown only once.",
+            "recovery_key_loading": "Preparing..."
+        },
+        "data_management": {
+            "title": "Управљање подацима",
+            "download_backup": "Преузми резервну копију",
+            "downloading": "Преузимање...",
+            "export_json": "Извези као JSON",
+            "upload_backup": "Отпреми резервну копију",
+            "uploading": "Отпремање...",
+            "import_json": "Увези из JSON"
+        },
+        "about": {
+            "title": "📱 О апликацији",
+            "version": "Верзија",
+            "brand": "Бренд",
+            "feedback": "✉️ Пошаљите повратне информације"
+        },
+        "modals": {
+            "password": {
+                "title": "Промени лозинку",
+                "current": "Тренутна лозинка",
+                "new": "Нова лозинка",
+                "confirm": "Нова лозинка (потврда)",
+                "changing": "У току промена...",
+                "submit": "Промени лозинку"
+            },
+            "join_house": {
+                "title": "Придружи се кући",
+                "key_placeholder": "Унесите 64-цифрени кључ куће",
+                "key_help": "Унесите кључ који сте добили од члана породице",
+                "name_label": "Назив за ову кућу (опционо)",
+                "name_placeholder": "нпр. Кућа родитеља",
+                "joining": "Придруживање...",
+                "submit": "Придружи се кући"
+            },
+            "create_house": {
+                "title": "Направи нову кућу",
+                "name_label": "Име куће",
+                "name_placeholder": "нпр. Летња кућа, Канцеларија, Складиште",
+                "name_help": "Ако се остави празно, биће названа 'Моја нова кућа'",
+                "info": "ℹ️ Подразумеване категорије и собе биће креиране за нову кућу. Можете их касније изменити.",
+                "creating": "Креирање...",
+                "submit": "Направи кућу"
+            },
+            "username": {
+                "title": "Промени корисничко име",
+                "new_label": "Ново корисничко име",
+                "placeholder": "Ваше ново корисничко име",
+                "help": "3-30 знакова, само слова, бројеви, подвучени и цртица",
+                "saving": "Снимање...",
+                "submit": "Промени"
+            }
+        },
+        "select_language": "Изабери језик",
+        "pending_requests": {
+            "title": "My Pending Join Requests",
+            "waiting_since": "Waiting since: {{date, datetime}}",
+            "pending_badge": "Pending"
+        }
+    },
+    "inventory": {
+        "title": "Инвентар",
+        "subtitle": "{{count}} пронађених ставки",
+        "new_item": "Нова ставка",
+        "add_first": "Додај прву ставку",
+        "search_placeholder": "Претражи ставке...",
+        "all_categories": "Све категорије",
+        "all_rooms": "Све собе",
+        "empty_title": "Ниједна ставка није пронађена",
+        "empty_filter": "Ниједна ставка не одговара вашим филтерима",
+        "empty_msg": "Још нису додате ниједна ставка",
+        "delete_confirm": "Да ли сте сигурни да желите да обришете ову ставку?",
+        "delete_error": "Грешка при брисању"
+    },
+    "categories": {
+        "title": "Категорије",
+        "subtitle": "{{count}} категорија",
+        "new_category": "Нова категорија",
+        "edit_title": "Уреди категорију",
+        "new_title": "Нова категорија",
+        "name_label": "Назив категорије",
+        "icon_label": "Икона",
+        "color_label": "Боја",
+        "delete_confirm": "Да ли сте сигурни да желите да обришете ову категорију?",
+        "delete_error": "Грешка приликом брисања"
+    },
+    "rooms": {
+        "title": "Соба",
+        "subtitle": "{{count}} соба",
+        "new_room": "Нова соба",
+        "edit_title": "Уреди собу",
+        "new_title": "Нова соба",
+        "name_label": "Назив собе",
+        "description_label": "Опис (опционо)",
+        "name_placeholder": "нпр. Главна спаваћа соба",
+        "desc_placeholder": "нпр. Главна соба",
+        "delete_confirm": "Да ли сте сигурни да желите да обришете ову собу?",
+        "delete_error": "Грешка при брисању"
+    },
+    "admin": {
+        "title": "Админ панел",
+        "subtitle": "Управљање и надзор система",
+        "refresh": "Освежи",
+        "tabs": {
+            "dashboard": "Контролна табла",
+            "users": "Корисници",
+            "logs": "Записи",
+            "email": "Пошаљи имејл"
+        },
+        "stats": {
+            "total_users": "Укупно корисника",
+            "new_today": "Данас: +{{count}} нових",
+            "total_inventory": "Укупно инвентара",
+            "inventory_details": "{{rooms}} соба, {{categories}} категорија",
+            "banned_users": "Забрањени корисници",
+            "access_blocked": "Приступ блокиран",
+            "server_memory": "Серверска меморија",
+            "uptime": "Уптайм: {{hours}} сати"
+        },
+        "users": {
+            "user": "Корисник",
+            "role": "Улога",
+            "status": "Статус",
+            "action": "Акција",
+            "banned": "Забрањен",
+            "active": "Активан",
+            "unban": "Деблокирај",
+            "ban": "Забрани",
+            "delete": "Избриши налог",
+            "confirm_ban": "Да ли сте сигурни да желите да {{status}} овог корисника?",
+            "ban_lift": "деблокирај",
+            "ban_apply": "забрани",
+            "confirm_delete_1": "Да ли сте сигурни да желите да избришете корисника \"{{username}}\"?",
+            "confirm_delete_2": "⚠️ УПОЗОРЕЊЕ: Ово ће ЗАУВЕК избрисати СВЕ податке (инвентаре, собе, категорије) за корисника \"{{username}}\"!",
+            "confirm_delete_3": "🚨 КОНАЧНО УПОЗОРЕЊЕ: Налог \"{{username}}\" и сви подаци биће НЕПОПРАВЉИВО избрисани. Да ли желите да наставите?"
+        },
+        "logs": {
+            "title": "Админ Логови",
+            "no_logs": "још нема логова",
+            "errors_title": "Системске Грешке (Последњих 10)",
+            "no_errors": "// Систем здрав, нема евидентираних грешака.",
+            "date_fmt": "{{date, datetime}}"
+        },
+        "email": {
+            "title": "Пошаљи Емаил",
+            "to": "Прималац (За)",
+            "subject": "Тема",
+            "message": "Порука (HTML подржан)",
+            "placeholder_message": "Унесите вашу поруку овде...",
+            "send": "Пошаљи",
+            "sending": "Слање...",
+            "success": "Емаил успешно послат!",
+            "error": "Slanje nije uspelo"
+        }
+    },
+    "landing": {
+        "nav": {
+            "login": "Prijava"
+        },
+        "hero": {
+            "title_1": "Upravljajte svime",
+            "title_2": "U vašem domu!",
+            "description": "Digitalizujte inventar vašeg doma. Kategorizujte predmete, pozovite članove porodice i pristupajte sa bilo kog mesta. Moderno, sigurno i lako za korišćenje.",
+            "cta_start": "Počnite",
+            "cta_register": "Kreirajte nalog",
+            "stat_free": "Besplatno",
+            "stat_access": "Pristup"
+        },
+        "features": {
+            "title": "Zašto <1>HomeInventory</1>?",
+            "subtitle": "Sve funkcije za pojednostavljenje upravljanja domom na jednoj platformi",
+            "items": {
+                "categorize": {
+                    "title": "Kategorizujte predmete",
+                    "desc": "Organizujte sve predmete po sobama i kategorijama, pronađite ono što vam treba za sekunde."
+                },
+                "family": {
+                    "title": "Pozovite porodicu pomoću kućnog ključa",
+                    "desc": "Позовите чланове породице помоћу свог јединственог кључа куће, управљајте инвентаром заједно."
+                },
+                "access": {
+                    "title": "Приступ са било ког места",
+                    "desc": "Код куће, на послу или на одмору - безбедно приступајте свом инвентару са било ког места."
+                },
+                "barcode": {
+                    "title": "Брзо додавање помоћу бар кода",
+                    "desc": "Скенирајте бар кодове производа, детаљи се аутоматски попуњавају."
+                },
+                "security": {
+                    "title": "Безбедно и приватно",
+                    "desc": "Ваши подаци су шифровани и заштићени инфраструктуром у складу са KVKK."
+                },
+                "backup": {
+                    "title": "Резервна копија и извоз",
+                    "desc": "Направите резервну копију свог инвентара у JSON формату, вратите кад год желите."
+                }
+            }
+        },
+        "cta_bottom": {
+            "title": "Почните са коришћењем сада!",
+            "description": "Креирајте бесплатан налог и дигитализујте свој кућни инвентар. Регистрација траје само неколико секунди.",
+            "button": "Пријава"
+        },
+        "footer": {
+            "desc": "Једноставна и безбедна платформа за дигитализацију вашег кућног инвентара.",
+            "links": "Брзи линкови",
+            "contact": "Контактирајте нас",
+            "copyright": "© {{year}} HomeInventory. Sva prava zadržana."
+        },
+        "preview_privacy_notice": "Prikaz demoa: ne prikazuju se stvarni korisnički podaci."
+    },
+    "intro": {
+        "inventory": {
+            "title": "Inventar",
+            "content": "Ovde možete dodavati i praviti spisak svojih predmeta. Pratite sve kućne predmete na jednom mestu!"
+        },
+        "house_key": {
+            "title": "Ključ od kuće",
+            "content": "Ovo je vaš ključ od kuće, koristite ga da pozovete druge. Dodajte članove porodice u svoju kuću!"
+        },
+        "categories": {
+            "title": "Kategorije",
+            "content": "Organizujte tako što ćete kategorizovati svoje predmete. Elektronika, nameštaj, kuhinja i još mnogo toga!"
+        },
+        "buttons": {
+            "back": "Nazad",
+            "close": "Zatvori",
+            "last": "Završi",
+            "next": "Sledeće",
+            "skip": "Preskoči",
+            "open": "Otvori"
+        }
+    },
+    "google_house_select": {
+        "title": "Dobrodošli!",
+        "subtitle": "Пријавили сте се преко Гугла. Сада изаберите кућу.",
+        "welcome_options": "Шта желите да урадите?",
+        "create": {
+            "title": "Креирај нову кућу",
+            "desc": "Покрени свој инвентар"
+        },
+        "join": {
+            "title": "Придружи се постојећој кући",
+            "desc": "Придружи се кући члана породице"
+        },
+        "back": "Назад",
+        "house_name": "Назив куће (опционо)",
+        "house_name_placeholder": "нпр. Мој Дом, Канцеларија",
+        "house_name_hint": "Ако се остави празно, биће названо \"Мој Дом\"",
+        "house_key": "Кључ куће",
+        "house_key_placeholder": "Унесите кључ куће",
+        "house_key_hint": "Унесите 64-карактерски кључ који сте добили од члана породице",
+        "house_name_join": "Назив за ову кућу (опционо)",
+        "submit_create": "Креирај кућу",
+        "submit_join": "Придружите се кући",
+        "processing": "Обрада..."
+    },
+    "scanner": {
+        "title": "Скенирање бар кода",
+        "qr_title": "Читач QR кода",
+        "init": "Покретање камере...",
+        "permission_error": "Дозвола за камеру одбијена. Проверите подешавања прегледача.",
+        "busy_error": "Камера је заузета. Затворите друге апликације.",
+        "not_found_error": "Камера није пронађена.",
+        "generic_error": "Није могуће покренути камеру.",
+        "hint": "Центрирујте бар код у оквир",
+        "qr_hint": "Ускладите QR код у оквир",
+        "searching": "Претрага производа...",
+        "found_local": "Већ регистровано!",
+        "found_local_msg": "Овај бар код је већ у вашем инвентару.",
+        "found_online": "Производ пронађен!",
+        "google_result": "⚡ Резултат Google претраге - молимо проверите",
+        "barcode": "Баркод: {{code}}",
+        "new_product": "Нови производ",
+        "not_found_db": "Овај баркод није пронађен у базама података.",
+        "google_search": "Претражи на Google-у",
+        "quick_add": "Брзо додавање (позније уређивање)",
+        "rescan": "Скенирај поново",
+        "retry": "Покушај поново",
+        "flash_on": "🔦 Укључи блиц",
+        "flash_unsupported": "Блиц није подржан",
+        "zoom_hint": "💡 Повећај зумирање за јасноћу и држите телефон стабилно",
+        "found_item_redirect": "Пронађен предмет! Преусмерење...",
+        "found_page_redirect": "Страница пронађена! Преусмерење...",
+        "invalid_qr": "Овај QR код није за ову апликацију.",
+        "not_found": "Производ није пронађен. Покушајте са другим баркодом."
+    },
+    "item_qr": {
+        "hint_mobile": "📱 Скенирајте овај QR код својим телефоном да бисте брзо приступили предмету",
+        "network_ip": "Мрежни ИП",
+        "url_loading": "Учитавање URL-а...",
+        "copied": "Копирано!",
+        "copy_url": "Копирај URL",
+        "download": "Преузми QR",
+        "usage_title": "Употреба",
+        "usage_desc": "Штампајте QR код и залепите га на предмет. Скенирајте телефоном да бисте одмах приступили овој страници!"
+    },
+    "house_access_pending": {
+        "eyebrow": "House Access",
+        "fallback_house": "Selected house",
+        "signed_in_as": "Signed in as {{username}}",
+        "logout": "Logout",
+        "messages": {
+            "create_error": "Could not create house",
+            "join_success": "Your join request was sent",
+            "join_error": "Could not send join request"
+        },
+        "pending": {
+            "title": "Waiting for house owner approval",
+            "description": "Your request for \"{{house}}\" is still waiting for a decision.",
+            "current_request": "Current pending request: {{house}}"
+        },
+        "no_house": {
+            "title": "You are not connected to a house right now",
+            "description": "Create a new house or send a join request to an existing one."
+        },
+        "create": {
+            "title": "Create a New House",
+            "description": "Start your own home inventory and continue right away.",
+            "name_label": "House Name",
+            "name_placeholder": "e.g. My Home, Summer House, Storage",
+            "submitting": "Creating...",
+            "submit": "Create House"
+        },
+        "join": {
+            "title": "Send a Join Request",
+            "description": "Enter a house key and send the request directly to the house owner.",
+            "key_label": "House Key",
+            "key_placeholder": "Enter the 64-character house key",
+            "submitting": "Sending...",
+            "submit": "Send Request"
+        }
+    }
+}
