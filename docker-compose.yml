@@ -1,29 +1,20 @@
-version: '3.8'
-
 services:
   homeinventory:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: homeinventory
     restart: unless-stopped
+    env_file:
+      - .env
     ports:
       - "3001:3001"
     environment:
-      - NODE_ENV=production
-      - PORT=3001
-      - SITE_URL=${SITE_URL:-http://localhost:3001}
-      - JWT_SECRET=${JWT_SECRET:?JWT_SECRET is required}
-      - APP_ENCRYPTION_KEY=${APP_ENCRYPTION_KEY:?APP_ENCRYPTION_KEY is required}
-      - APP_ENCRYPTION_KEY_ID=${APP_ENCRYPTION_KEY_ID:-2026-docker}
-      # Optional: Google OAuth
-      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-}
-      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:-}
-      # Optional: Email via Resend
-      - RESEND_API_KEY=${RESEND_API_KEY:-}
-      - SUPPORT_EMAIL=${SUPPORT_EMAIL:-}
-      # Optional: Admin bootstrap
-      - BOOTSTRAP_ADMIN_EMAIL=${BOOTSTRAP_ADMIN_EMAIL:-}
+      NODE_ENV: production
+      PORT: 3001
+      SITE_URL: ${SITE_URL:-http://localhost:3001}
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required}
+      APP_ENCRYPTION_KEY: ${APP_ENCRYPTION_KEY:?APP_ENCRYPTION_KEY is required}
+      APP_ENCRYPTION_KEY_ID: ${APP_ENCRYPTION_KEY_ID:-2026-docker}
     volumes:
       # Persistent data (SQLite database)
       - homeinventory_data:/app/data
@@ -38,9 +29,7 @@ services:
 
 volumes:
   homeinventory_data:
-    name: homeinventory_data
   homeinventory_uploads:
-    name: homeinventory_uploads
 
 # Optional: Add a reverse proxy network
 # networks:

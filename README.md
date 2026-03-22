@@ -161,10 +161,12 @@ cp .env.example .env
 # Edit .env and set JWT_SECRET, APP_ENCRYPTION_KEY, APP_ENCRYPTION_KEY_ID
 
 # Start with Docker Compose
-docker-compose up -d
+docker compose up -d
 ```
 
 The app will be available at `http://localhost:3001`
+
+The full `.env` file is passed through to the container, so optional settings such as `APP_ENCRYPTION_KEYRING`, `EXPOSE_SERVER_INFO`, and `INDEXNOW_*` continue to work in Docker.
 
 For detailed Docker configuration, reverse proxy setup, backup/restore, and Unraid deployment, see **[DOCKER.md](DOCKER.md)**.
 

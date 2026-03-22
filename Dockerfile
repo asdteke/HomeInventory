@@ -65,8 +65,6 @@ RUN mkdir -p /app/data /app/uploads && \
 # Set environment defaults
 ENV NODE_ENV=production
 ENV PORT=3001
-ENV DATABASE_PATH=/app/data/inventory.db
-ENV UPLOADS_PATH=/app/uploads
 
 # Expose port
 EXPOSE 3001

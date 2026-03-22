@@ -42,7 +42,7 @@ openssl rand -base64 32
 ### 3. Start with Docker Compose
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 The app will be available at `http://localhost:3001`
@@ -51,10 +51,10 @@ The app will be available at `http://localhost:3001`
 
 ```bash
 # Check container status
-docker-compose ps
+docker compose ps
 
 # View logs
-docker-compose logs -f
+docker compose logs -f
 
 # Test health endpoint
 curl http://localhost:3001/api/health
@@ -76,39 +76,48 @@ curl http://localhost:3001/api/health
 | `SUPPORT_EMAIL` | ⬜ | Support email address |
 | `BOOTSTRAP_ADMIN_EMAIL` | ⬜ | Auto-promote this email to admin |
 
+`docker compose` loads the full `.env` file into the container, so optional settings from [`.env.example`](.env.example) such as `APP_ENCRYPTION_KEYRING`, `EXPOSE_SERVER_INFO`, and `INDEXNOW_*` work without editing `docker-compose.yml`.
+
 ### Data Persistence
 
-Docker volumes store persistent data:
+Docker Compose creates project-scoped volumes for persistent data:
 
 | Volume | Path | Contents |
 |--------|------|----------|
 | `homeinventory_data` | `/app/data` | SQLite database |
 | `homeinventory_uploads` | `/app/uploads` | Encrypted photos |
 
+The actual Docker volume names are automatically prefixed with the Compose project name, which prevents collisions when you run multiple stacks on the same host.
+
 ### Backup
 
 ```bash
+CONTAINER_ID=$(docker compose ps -q homeinventory)
+
 # Backup database
-docker cp homeinventory:/app/data/inventory.db ./backup-$(date +%Y%m%d).db
+docker cp "$CONTAINER_ID":/app/data/inventory.db ./backup-$(date +%Y%m%d).db
 
 # Backup uploads
-docker cp homeinventory:/app/uploads ./uploads-backup-$(date +%Y%m%d)
+docker cp "$CONTAINER_ID":/app/uploads ./uploads-backup-$(date +%Y%m%d)
 ```
 
 ### Restore
 
 ```bash
-# Stop container
-docker-compose down
+# Stop and recreate the service container without starting it
+docker compose down
+docker compose build
+docker compose create
+CONTAINER_ID=$(docker compose ps -q homeinventory)
 
 # Restore database
-docker cp ./backup.db homeinventory:/app/data/inventory.db
+docker cp ./backup.db "$CONTAINER_ID":/app/data/inventory.db
 
 # Restore uploads
-docker cp ./uploads-backup/. homeinventory:/app/uploads/
+docker cp ./uploads-backup/. "$CONTAINER_ID":/app/uploads/
 
 # Start container
-docker-compose up -d
+docker compose start
 ```
 
 ## Reverse Proxy
@@ -134,7 +143,7 @@ server {
 }
 ```
 
-### Traefik (docker-compose)
+### Traefik (docker compose)
 
 ```yaml
 services:
@@ -162,8 +171,8 @@ ingress:
 git pull
 
 # Rebuild and restart
-docker-compose build --no-cache
-docker-compose up -d
+docker compose build --no-cache
+docker compose up -d
 ```
 
 ## Troubleshooting
@@ -172,7 +181,7 @@ docker-compose up -d
 
 ```bash
 # Check logs
-docker-compose logs homeinventory
+docker compose logs homeinventory
 
 # Common issues:
 # - Missing JWT_SECRET or APP_ENCRYPTION_KEY
@@ -181,18 +190,20 @@ docker-compose logs homeinventory
 
 ### Permission issues
 
+With the default named-volume setup, permission issues are uncommon. If they do happen, reset ownership inside the mounted volumes:
+
 ```bash
-# Fix volume permissions
-docker-compose down
-sudo chown -R 1001:1001 ./data ./uploads
-docker-compose up -d
+docker compose run --rm --user root --entrypoint sh homeinventory -lc 'chown -R 1001:1001 /app/data /app/uploads'
+docker compose up -d
 ```
+
+If you switch to bind mounts instead of named volumes, apply the same ownership to the host directories before starting the stack.
 
 ### Database locked
 
 ```bash
 # Restart container (clears SQLite locks)
-docker-compose restart
+docker compose restart
 ```
 
 ## Unraid Deployment
@@ -214,7 +225,7 @@ For Unraid users:
      - /your/chosen/path/homeinventory/data:/app/data
      - /your/chosen/path/homeinventory/uploads:/app/uploads
    ```
-6. Run: `docker-compose up -d`
+6. Run: `docker compose up -d`
 
 ## Building Locally
 
