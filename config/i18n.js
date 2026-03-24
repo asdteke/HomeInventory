@@ -1,6 +1,7 @@
 import i18next from 'i18next';
 import Backend from 'i18next-fs-backend';
 import middleware from 'i18next-http-middleware';
+import { readdirSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -11,8 +12,12 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 // RTL diller
 export const RTL_LANGUAGES = ['ar', 'fa', 'he', 'ur'];
 
-// Uygulamada aktif 10 dil
-export const SUPPORTED_LANGUAGES = ['tr', 'en', 'es', 'de', 'ar', 'fr', 'ru', 'pt', 'it', 'ja'];
+const LOCALES_DIR = join(__dirname, '../locales');
+
+export const SUPPORTED_LANGUAGES = readdirSync(LOCALES_DIR)
+    .filter((file) => file.endsWith('.json'))
+    .map((file) => file.replace(/\.json$/, ''))
+    .sort((left, right) => left.localeCompare(right));
 
 function normalizeLanguageCode(lang) {
     if (!lang) return 'tr';
@@ -30,10 +35,11 @@ export const initI18n = async () => {
         .use(middleware.LanguageDetector)
         .init({
             fallbackLng: getFallbackLanguages,
+            load: 'currentOnly',
             supportedLngs: SUPPORTED_LANGUAGES,
             preload: SUPPORTED_LANGUAGES,
             backend: {
-                loadPath: join(__dirname, '../locales/{{lng}}.json')
+                loadPath: join(LOCALES_DIR, '{{lng}}.json')
             },
             detection: {
                 order: ['querystring', 'cookie', 'header'],

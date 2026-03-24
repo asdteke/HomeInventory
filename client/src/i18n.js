@@ -4,7 +4,6 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import Backend from 'i18next-http-backend';
 
 const RTL_LANGUAGES = ['ar', 'fa', 'he', 'ur'];
-const UNAVAILABLE_LANGUAGE_CODES = new Set(['yi', 'tg']);
 
 function normalizeLanguageCode(lang) {
     if (!lang) return 'tr';
@@ -64,9 +63,7 @@ i18n
         detection: {
             order: ['localStorage', 'navigator'],
             caches: ['localStorage'],
-            convertDetectedLanguage: (lang) => (
-                UNAVAILABLE_LANGUAGE_CODES.has(normalizeLanguageCode(lang)) ? 'en' : lang
-            )
+            convertDetectedLanguage: (lang) => lang
         },
         backend: {
             loadPath: '/locales/{{lng}}/translation.json?v=' + new Date().getTime()

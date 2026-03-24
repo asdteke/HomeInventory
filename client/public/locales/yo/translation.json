@@ -1,0 +1,698 @@
+{
+    "common": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "loading": "Loading...",
+        "error": "An error occurred",
+        "success": "Operation successful",
+        "search": "Search...",
+        "edit": "Edit",
+        "delete": "Delete",
+        "add": "Add",
+        "new": "New",
+        "all": "All",
+        "manage": "Manage",
+        "help_support": "Help & Support",
+        "theme": {
+            "light": "Light Mode",
+            "dark": "Dark Mode"
+        },
+        "select": "Select",
+        "refresh": "Refresh",
+        "close": "Close",
+        "logout": "Logout",
+        "copyright": "© {{year}} HomeInventory - All rights reserved"
+    },
+    "auth": {
+        "password_requirements": "Use at least {{min}} characters with uppercase, lowercase, number, and symbol.",
+        "login": {
+            "title": "Login",
+            "subtitle": "Manage all your home inventory smartly",
+            "welcome": "Welcome to HomeInventory",
+            "username_or_email": "Username or Email",
+            "password": "Password",
+            "forgot_password": "Forgot Password?",
+            "submit": "Login",
+            "submitting": "Logging in...",
+            "google_continue": "Continue with Google",
+            "or": "or",
+            "no_account": "Don't have an account?",
+            "register_link": "Register",
+            "support_contact": "For login issues:",
+            "terms_title": "📋 Terms of Use and Disclaimer",
+            "terms_beta": "BETA Version: HomeInventory is currently in testing phase. No guarantee is given regarding the persistence or security of your data.",
+            "terms_disclaimer": "Disclaimer: By using this application, you agree that you cannot claim any compensation for potential data loss, access issues, or other technical malfunctions.",
+            "terms_backup": "Data Backup: We strongly recommend backing up your important information regularly.",
+            "terms_accept": "By logging in, you are deemed to have accepted these terms."
+        },
+        "register": {
+            "title": "Welcome to HomeInventory",
+            "subtitle": "Create a new account or join an existing house",
+            "create_house": "Create New House",
+            "join_house": "Join House",
+            "create_house_desc": "🏠 A new house will be created and you'll get a unique <strong>House Key</strong>. Share this key with family to access the same inventory.",
+            "join_house_desc": "👨‍👩‍👧‍👦 Enter the <strong>House Key</strong> shared with you to join an existing house. Your request will be sent to the house owner for approval.",
+            "form_title": "Sign Up",
+            "username": "Username",
+            "username_placeholder": "e.g. john",
+            "email": "Email",
+            "email_placeholder": "e.g. john@example.com",
+            "password": "Password",
+            "password_placeholder": "At least 10 chars, uppercase, lowercase, number, symbol",
+            "password_confirm": "Confirm Password",
+            "password_confirm_placeholder": "Re-enter password",
+            "house_key": "House Key",
+            "house_key_placeholder": "Paste the 64-character house key",
+            "submit_create": "Create New House",
+            "submit_join": "Send Request",
+            "submitting": "Registering...",
+            "already_have_account": "Already have an account?",
+            "login_link": "Login",
+            "support": "Registration issues:",
+            "terms": "Terms of Use and Disclaimer",
+            "passwords_mismatch": "Passwords do not match",
+            "password_length": "Password must be at least 6 characters",
+            "key_required": "House Key is required to join an existing house",
+            "modals": {
+                "key_created": {
+                    "title": "🎉 House Created!",
+                    "subtitle": "Save the key below in a safe place",
+                    "warning": "Important: This key will only be shown once. Share it with family members so they can access the same inventory.",
+                    "copy": "Copy",
+                    "copied": "Copied",
+                    "button": "I Saved the Key, Continue"
+                },
+                "email_verification": {
+                    "title": "📧 Email Verification Required",
+                    "message": "Account created! Please verify your email address to login.",
+                    "step_1": "We sent a verification email to <1>{{email}}</1>.",
+                    "step_2": "Click the <1>\"Verify My Account\"</1> button in the email.",
+                    "step_3": "After verification, <1>you can login</1>.",
+                    "spam_note": "Check spam/junk folder if email doesn't arrive.",
+                    "key_note": "Important: Your house key was also sent in the email. You can share it with family members.",
+                    "button": "Okay, Go to Login"
+                }
+            }
+        },
+        "forgot_password": {
+            "title": "Forgot Password",
+            "subtitle": "Start a secure recovery flow to access your account again.",
+            "identifier": "Username or Email",
+            "identifier_placeholder": "e.g. john or john@example.com",
+            "submit": "Start Recovery",
+            "requesting": "Checking...",
+            "email_success": "If an account exists, a password reset link valid for 15 minutes has been sent.",
+            "back_to_login": "Back to Login",
+            "recovery_mode_info": "Email is disabled on this server. Continue with the Recovery Key you saved during account setup.",
+            "recovery_key": "Recovery Key",
+            "recovery_key_placeholder": "e.g. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+            "new_password": "New Password",
+            "new_password_placeholder": "At least 10 chars, uppercase, lowercase, number, symbol",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "reset_submit": "Reset Password",
+            "resetting": "Resetting..."
+        },
+        "reset_password": {
+            "title": "Reset Password",
+            "subtitle": "Use the secure link to set a new password.",
+            "missing_token": "The password reset link looks incomplete or broken.",
+            "new_password": "New Password",
+            "new_password_placeholder": "At least 10 chars, uppercase, lowercase, number, symbol",
+            "confirm_password": "Confirm New Password",
+            "confirm_password_placeholder": "Re-enter your password",
+            "submit": "Update Password",
+            "submitting": "Updating...",
+            "back_to_login": "Back to Login"
+        },
+        "recovery_setup": {
+            "title": "Create Recovery Key",
+            "subtitle": "Until this is completed, your account is not considered safe for local password recovery.",
+            "warning": "This key will only be shown once. Save it in a password manager or another secure offline location.",
+            "account": "A recovery key will be created for account {{username}}.",
+            "description": "Because email is disabled, you will only be able to reset your password with this key in the future.",
+            "submit": "Create Recovery Key",
+            "generating": "Creating..."
+        },
+        "recovery_key_modal": {
+            "register_title": "Save Your Recovery Key",
+            "google_title": "Save Your Recovery Key",
+            "setup_title": "Save Your Recovery Key",
+            "reset_title": "Save Your New Recovery Key",
+            "settings_title": "Save Your New Recovery Key",
+            "subtitle": "This key is shown only once.",
+            "warning": "If you lose this key while email is disabled, you may not be able to recover your password. Copy it and store it safely.",
+            "confirm": "I Saved the Key"
+        }
+    },
+    "navigation": {
+        "home": "Home",
+        "inventory": "Inventory",
+        "rooms": "Rooms",
+        "categories": "Categories",
+        "settings": "Settings",
+        "new_item": "New Item",
+        "share_house": "Share House",
+        "admin_panel": "Admin Panel",
+        "logout": "Logout",
+        "menu": "Menu"
+    },
+    "dashboard": {
+        "welcome": "Welcome, <1>{{name}}</1>! 👋",
+        "subtitle": "Overview of your inventory",
+        "quick_search": "Quick search...",
+        "filters": {
+            "private": "🔒 My Private Items",
+            "public": "🌐 Public",
+            "remove": "Clear Filter",
+            "no_items": "No items match this filter"
+        },
+        "stats": {
+            "total_items": "Total Items",
+            "total_quantity": "Total Quantity",
+            "fullest_room": "Fullest Room",
+            "category_count": "Categories",
+            "items_suffix": "items"
+        },
+        "recent_items": {
+            "title": "Recently Added",
+            "see_all": "See All"
+        },
+        "categories": {
+            "title": "Categories",
+            "manage": "Manage",
+            "empty": "No items added yet"
+        },
+        "rooms": {
+            "title": "Rooms",
+            "manage": "Manage"
+        },
+        "quick_actions": {
+            "title": "⚡ Quick Actions",
+            "add_item": "Add Item",
+            "search_item": "Search Item",
+            "categories": "Categories",
+            "settings": "Settings"
+        }
+    },
+    "beta_banner": {
+        "title": "BETA:",
+        "text": "HomeInventory is currently in testing and hobby phase. No guarantee is given for data persistence or security. Please keep backups of important information.",
+        "contact": "Contact:"
+    },
+    "footer": {
+        "rights": "© {{year}} HomeInventory - All rights reserved",
+        "contact": "Contact:"
+    },
+    "items": {
+        "title_new": "Add New Item",
+        "title_edit": "Edit Item",
+        "subtitle": "Enter item details",
+        "load_error": "Failed to load item",
+        "form": {
+            "name": "Item Name",
+            "name_placeholder": "e.g. Samsung TV 55 inch",
+            "required": "*",
+            "description": "Description",
+            "description_placeholder": "Notes about the item...",
+            "quantity": "Quantity",
+            "category": "Category",
+            "select_category": "Select",
+            "room": "Room",
+            "select_room": "Select room",
+            "location_details": "Location Details",
+            "location_optional": "(Optional)",
+            "location_placeholder": "Search or add new location...",
+            "location_help": "Where in the room? (e.g. 'Top shelf of blue cabinet')",
+            "location_create": "Create location \"{{name}}\"",
+            "location_privacy": "Location Privacy",
+            "location_public": "Everyone can see this location",
+            "location_private": "Only you can see this",
+            "location_save": "Save Location",
+            "location_saving": "Adding...",
+            "location_selected": "Location selected: {{name}}",
+            "location_empty": "No location defined in this room yet. Start typing to create one.",
+            "photo": "Photo",
+            "add_photo": "Add",
+            "barcode": "Barcode",
+            "barcode_optional": "(Optional)",
+            "barcode_placeholder": "e.g. 8690123456789",
+            "scan_barcode": "Scan Barcode",
+            "search_db": "Search Database",
+            "search_google": "Search on Google",
+            "barcode_saved": "✓ Barcode will be saved",
+            "visibility": "Item Visibility",
+            "visibility_public": "Visible to all house members",
+            "visibility_private": "Only visible to you",
+            "submit_add": "Add Item",
+            "submit_save": "Save Changes",
+            "submitting": "Saving..."
+        },
+        "qrcode": {
+            "title": "QR Code",
+            "desc": "You can print and stick this QR code on the item. Scanning it redirects directly to this page."
+        },
+        "messages": {
+            "quick_add_success": "✓ \"{{barcode}}\" quick added - you can edit later",
+            "quick_add_fail": "⚠ Quick add failed",
+            "searching": "Searching...",
+            "found_local": "✓ Local: registered as \"{{name}}\"",
+            "found_remote": "✓ Found in {{source}} {{note}}: \"{{name}}\"",
+            "not_found": "⚠ Product not found in databases. You can search on Google.",
+            "search_fail": "⚠ Search failed",
+            "name_required": "Item name is required",
+            "location_add_error": "Failed to add location"
+        }
+    },
+    "settings": {
+        "title": "Settings",
+        "subtitle": "Manage application preferences",
+        "messages": {
+            "house_switched": "✅ {{name}} activated!",
+            "house_switch_error": "Failed to switch house",
+            "house_joined_success": "✅ You successfully joined the house!",
+            "house_request_sent_success": "✅ Your join request was sent!",
+            "house_join_error": "Failed to join house",
+            "house_created_success": "✅ \"{{name}}\" created!",
+            "house_create_error": "Failed to create house",
+            "house_left_success": "Successfully left the house",
+            "house_left_error": "Failed to leave house",
+            "house_leave_confirm": "Are you sure you want to leave \"{{name}}\"?",
+            "backup_downloaded": "✅ Backup downloaded successfully! ({{count}} items)",
+            "export_error": "❌ An error occurred during export",
+            "import_invalid_format": "Invalid backup file format",
+            "import_success": "✅ {{items}} items, {{categories}} categories, {{rooms}} rooms, {{locations}} locations added.",
+            "import_error": "❌ Import error: {{error}}",
+            "password_changed": "Password changed successfully!",
+            "password_error_current": "Current password incorrect",
+            "password_error_invalid": "Invalid data sent",
+            "session_expired": "Session expired. Please login again.",
+            "server_error": "Server error occurred",
+            "connection_error": "Could not connect to server. Check your internet connection.",
+            "unexpected_error": "An unexpected error occurred",
+            "username_changed": "✅ Username changed!",
+            "username_error": "Could not change username",
+            "username_len_error": "Username must be at least 3 characters",
+            "fill_all_fields": "Please fill all fields",
+            "passwords_mismatch": "New passwords do not match",
+            "password_min_len": "New password must be at least 6 characters",
+            "request_approved": "✅ Join request approved",
+            "request_rejected": "Join request rejected",
+            "request_action_error": "Could not update request",
+            "member_kick_confirm": "Are you sure you want to remove \"{{name}}\" from the house?",
+            "member_kicked": "Member removed from the house",
+            "member_kick_error": "Could not remove member from the house",
+            "recovery_key_regenerated": "Recovery key regenerated",
+            "recovery_key_error": "Could not regenerate recovery key"
+        },
+        "user_profile": {
+            "edit_username": "Change username"
+        },
+        "my_houses": {
+            "title": "My Houses",
+            "join_house": "Join House",
+            "join_short": "Join",
+            "new_house": "New House",
+            "new_short": "New",
+            "no_house": "You are not a member of any house yet",
+            "owner": "Owner",
+            "active": "Active",
+            "member_count": "{{count}} members",
+            "item_count": "{{count}} items",
+            "switch": "Switch",
+            "leave": "Leave House",
+            "info": "💡 You can be a member of multiple houses and switch between them. Each house maintains a separate inventory."
+        },
+        "house_info": {
+            "title": "Active House Key",
+            "key_label": "House Key",
+            "mask_key": "••••••••{{suffix}}",
+            "hide": "Hide",
+            "show": "Show",
+            "copy": "Copy",
+            "share_info": "💡 Users you share this key with can access your inventory by using the \"Join House\" option during registration.",
+            "members_title": "House Members ({{count}})",
+            "active_members": "Active Members",
+            "pending_requests": "Pending Requests",
+            "you": "(You)",
+            "joined_at": "Joined: {{date, datetime}}",
+            "no_members": "No other members yet",
+            "no_pending_requests": "No pending requests",
+            "owner_controls": "Owner controls enabled",
+            "approve": "Approve",
+            "reject": "Reject",
+            "kick": "Remove",
+            "invite_title": "Invite Family Members",
+            "invite_desc": "Share your house key to let family members access the same inventory. Each member logs in with their own account but accesses the same data."
+        },
+        "pending_requests": {
+            "title": "My Pending Join Requests",
+            "waiting_since": "Waiting since: {{date, datetime}}",
+            "pending_badge": "Pending"
+        },
+        "theme": {
+            "title": "Theme",
+            "dark": "Dark mode",
+            "light": "Light mode"
+        },
+        "security": {
+            "title": "Security",
+            "change_password": "Change Password",
+            "change_password_desc": "Update your account password",
+            "recovery_key_title": "Recovery Key",
+            "recovery_key_desc": "You can generate a new key for local password recovery.",
+            "recovery_key_missing": "No recovery key is visible for this account yet.",
+            "current_key_label": "Saved Recovery Key",
+            "recovery_key_unavailable": "The current recovery key cannot be displayed. Regenerate it if needed.",
+            "recovery_key_action": "Regenerate",
+            "recovery_key_modal_desc": "Confirm your current password to continue. The new key will be shown only once.",
+            "recovery_key_loading": "Preparing..."
+        },
+        "data_management": {
+            "title": "Data Management",
+            "download_backup": "Download Backup",
+            "downloading": "Downloading...",
+            "export_json": "Export as JSON",
+            "upload_backup": "Upload Backup",
+            "uploading": "Uploading...",
+            "import_json": "Import from JSON"
+        },
+        "about": {
+            "title": "📱 About Application",
+            "version": "Version",
+            "brand": "Brand",
+            "feedback": "✉️ Send Feedback"
+        },
+        "modals": {
+            "password": {
+                "title": "Change Password",
+                "current": "Current Password",
+                "new": "New Password",
+                "confirm": "New Password (Confirm)",
+                "changing": "Changing...",
+                "submit": "Change Password"
+            },
+            "join_house": {
+                "title": "Join House",
+                "key_placeholder": "Enter 64-character house key",
+                "key_help": "Enter the key you received from your family member. The request will wait for owner approval.",
+                "name_label": "Name for this House (optional)",
+                "name_placeholder": "e.g. Parents' House",
+                "joining": "Sending request...",
+                "submit": "Send Request"
+            },
+            "create_house": {
+                "title": "Create New House",
+                "name_label": "House Name",
+                "name_placeholder": "e.g. Summer House, Office, Warehouse",
+                "name_help": "If left empty, will be named \"My New House\"",
+                "info": "ℹ️ Default categories and rooms will be created for the new house. You can edit them later.",
+                "creating": "Creating...",
+                "submit": "Create House"
+            },
+            "username": {
+                "title": "Change Username",
+                "new_label": "New Username",
+                "placeholder": "Your new username",
+                "help": "3-30 characters, letters, numbers, underscore and dash only",
+                "saving": "Saving...",
+                "submit": "Change"
+            }
+        },
+        "select_language": "Select Language"
+    },
+    "inventory": {
+        "title": "Inventory",
+        "subtitle": "{{count}} items found",
+        "new_item": "New Item",
+        "add_first": "Add First Item",
+        "search_placeholder": "Search items...",
+        "all_categories": "All Categories",
+        "all_rooms": "All Rooms",
+        "empty_title": "No items found",
+        "empty_filter": "No items match your filters",
+        "empty_msg": "No items added yet",
+        "delete_confirm": "Are you sure you want to delete this item?",
+        "delete_error": "Delete error"
+    },
+    "categories": {
+        "title": "Categories",
+        "subtitle": "{{count}} categories",
+        "new_category": "New Category",
+        "edit_title": "Edit Category",
+        "new_title": "New Category",
+        "name_label": "Category Name",
+        "icon_label": "Icon",
+        "color_label": "Color",
+        "delete_confirm": "Are you sure you want to delete this category?",
+        "delete_error": "Delete error"
+    },
+    "rooms": {
+        "title": "Rooms",
+        "subtitle": "{{count}} rooms",
+        "new_room": "New Room",
+        "edit_title": "Edit Room",
+        "new_title": "New Room",
+        "name_label": "Room Name",
+        "description_label": "Description (Optional)",
+        "name_placeholder": "e.g. Master Bedroom",
+        "desc_placeholder": "e.g. Main bedroom",
+        "delete_confirm": "Are you sure you want to delete this room?",
+        "delete_error": "Delete error"
+    },
+    "admin": {
+        "title": "Admin Panel",
+        "subtitle": "System Management and Monitoring",
+        "refresh": "Refresh",
+        "tabs": {
+            "dashboard": "Dashboard",
+            "users": "Users",
+            "logs": "Logs",
+            "email": "Send Mail"
+        },
+        "stats": {
+            "total_users": "Total Users",
+            "new_today": "Today: +{{count}} new",
+            "total_inventory": "Total Inventory",
+            "inventory_details": "{{rooms}} rooms, {{categories}} categories",
+            "banned_users": "Banned Users",
+            "access_blocked": "Access blocked",
+            "server_memory": "Server Memory",
+            "uptime": "Uptime: {{hours}} hours"
+        },
+        "users": {
+            "user": "User",
+            "role": "Role",
+            "status": "Status",
+            "action": "Action",
+            "banned": "Banned",
+            "active": "Active",
+            "unban": "Unban",
+            "ban": "Ban",
+            "delete": "Delete Account",
+            "confirm_ban": "Are you sure you want to {{status}} this user?",
+            "ban_lift": "unban",
+            "ban_apply": "ban",
+            "confirm_delete_1": "Are you sure you want to delete user \"{{username}}\"?",
+            "confirm_delete_2": "⚠️ WARNING: This will PERMANENTLY delete ALL data (inventories, rooms, categories) for user \"{{username}}\"!",
+            "confirm_delete_3": "🚨 FINAL WARNING: Account \"{{username}}\" and all data will be IRREVERSIBLY deleted. Do you want to continue?"
+        },
+        "logs": {
+            "title": "Admin Logs",
+            "no_logs": "no logs yet",
+            "errors_title": "System Errors (Last 10)",
+            "no_errors": "// System healthy, no error logs.",
+            "date_fmt": "{{date, datetime}}"
+        },
+        "email": {
+            "title": "Send Email",
+            "to": "Recipient (To)",
+            "subject": "Subject",
+            "message": "Message (HTML supported)",
+            "placeholder_message": "Type your message here...",
+            "send": "Send",
+            "sending": "Sending...",
+            "success": "Email sent successfully!",
+            "error": "Sending failed"
+        }
+    },
+    "landing": {
+        "nav": {
+            "login": "Login"
+        },
+        "hero": {
+            "free_badge": "Completely Free",
+            "title_1": "Manage Everything",
+            "title_2": "In Your Home!",
+            "description": "Digitize your home inventory with support for 100 languages. Categorize items, invite family, and protect sensitive fields with modern encryption.",
+            "cta_start": "Get Started",
+            "cta_register": "Create Account",
+            "stat_free": "Free",
+            "stat_access": "Languages"
+        },
+        "features": {
+            "title": "Why <1>HomeInventory</1>?",
+            "subtitle": "Home management, multilingual access, and encryption for sensitive data in one platform",
+            "items": {
+                "categorize": {
+                    "title": "Categorize Items",
+                    "desc": "Organize all items by room and category, find what you need in seconds."
+                },
+                "family": {
+                    "title": "Invite Family with House Key",
+                    "desc": "Invite family members with your unique house key, manage inventory together."
+                },
+                "access": {
+                    "title": "Access from Anywhere",
+                    "desc": "At home, at work, or on vacation - access your inventory from any device and in your own language."
+                },
+                "barcode": {
+                    "title": "Quick Add with Barcode",
+                    "desc": "Scan product barcodes, details are filled automatically."
+                },
+                "security": {
+                    "title": "Field-Level Security",
+                    "desc": "Sensitive inventory fields and verification data are protected with AES-256-GCM field encryption."
+                },
+                "backup": {
+                    "title": "Backup & Export",
+                    "desc": "Backup your inventory in JSON format, restore whenever you want."
+                }
+            }
+        },
+        "cta_bottom": {
+            "title": "Start Using Now!",
+            "description": "Create a free account and digitize your home inventory. Registration takes only a few seconds.",
+            "button": "Login"
+        },
+        "footer": {
+            "desc": "A multilingual and security-focused platform for digitizing your home inventory.",
+            "links": "Quick Links",
+            "contact": "Contact Us",
+            "copyright": "© {{year}} HomeInventory. All rights reserved."
+        },
+        "preview_privacy_notice": "Demo view: no real user data is displayed."
+    },
+    "intro": {
+        "inventory": {
+            "title": "Inventory",
+            "content": "Here you can add and list your items. Track all home items in one place!"
+        },
+        "house_key": {
+            "title": "House Key",
+            "content": "This is your house key, use it to invite others. Add family members to your house!"
+        },
+        "categories": {
+            "title": "Categories",
+            "content": "Organize by categorizing your items. Electronics, furniture, kitchen, and more!"
+        },
+        "buttons": {
+            "back": "Back",
+            "close": "Close",
+            "last": "Finish",
+            "next": "Next",
+            "skip": "Skip",
+            "open": "Open"
+        }
+    },
+    "google_house_select": {
+        "title": "Welcome!",
+        "subtitle": "You logged in with Google. Now select a house.",
+        "welcome_options": "What would you like to do?",
+        "create": {
+            "title": "Create New House",
+            "desc": "Start your own inventory"
+        },
+        "join": {
+            "title": "Join Existing House",
+            "desc": "Send a request to join a family member's house"
+        },
+        "back": "Back",
+        "house_name": "House Name (optional)",
+        "house_name_placeholder": "e.g. My Home, Office",
+        "house_name_hint": "If left empty, it will be named \"My Home\"",
+        "house_key": "House Key",
+        "house_key_placeholder": "Enter house key",
+        "house_key_hint": "Enter the 64-character key received from a family member",
+        "house_name_join": "Name for this House (optional)",
+        "submit_create": "Create House",
+        "submit_join": "Send Request",
+        "processing": "Processing..."
+    },
+    "house_access_pending": {
+        "eyebrow": "House Access",
+        "fallback_house": "Selected house",
+        "signed_in_as": "Signed in as {{username}}",
+        "logout": "Logout",
+        "messages": {
+            "create_error": "Could not create house",
+            "join_success": "Your join request was sent",
+            "join_error": "Could not send join request"
+        },
+        "pending": {
+            "title": "Waiting for house owner approval",
+            "description": "Your request for \"{{house}}\" is still waiting for a decision.",
+            "current_request": "Current pending request: {{house}}"
+        },
+        "no_house": {
+            "title": "You are not connected to a house right now",
+            "description": "Create a new house or send a join request to an existing one."
+        },
+        "create": {
+            "title": "Create a New House",
+            "description": "Start your own home inventory and continue right away.",
+            "name_label": "House Name",
+            "name_placeholder": "e.g. My Home, Summer House, Storage",
+            "submitting": "Creating...",
+            "submit": "Create House"
+        },
+        "join": {
+            "title": "Send a Join Request",
+            "description": "Enter a house key and send the request directly to the house owner.",
+            "key_label": "House Key",
+            "key_placeholder": "Enter the 64-character house key",
+            "submitting": "Sending...",
+            "submit": "Send Request"
+        }
+    },
+    "scanner": {
+        "title": "Barcode Scanner",
+        "qr_title": "QR Code Reader",
+        "init": "Starting camera...",
+        "permission_error": "Camera permission denied. Check browser settings.",
+        "busy_error": "Camera busy. Close other apps.",
+        "not_found_error": "Camera not found.",
+        "generic_error": "Could not start camera.",
+        "hint": "Center barcode in frame",
+        "qr_hint": "Align QR code in frame",
+        "searching": "Searching product...",
+        "found_local": "Already Registered!",
+        "found_local_msg": "This barcode is already in your inventory.",
+        "found_online": "Product Found!",
+        "google_result": "⚡ Google search result - please verify",
+        "barcode": "Barcode: {{code}}",
+        "new_product": "New Product",
+        "not_found_db": "This barcode was not found in databases.",
+        "google_search": "Search on Google",
+        "quick_add": "Quick Add (Edit Later)",
+        "rescan": "Scan Again",
+        "retry": "Retry",
+        "flash_on": "🔦 Flash On",
+        "flash_unsupported": "Flash not supported",
+        "zoom_hint": "💡 Increase zoom for clarity and hold phone steady",
+        "found_item_redirect": "Item found! Redirecting...",
+        "found_page_redirect": "Page found! Redirecting...",
+        "invalid_qr": "This QR code is not for this app.",
+        "not_found": "Product not found. Try a different barcode."
+    },
+    "item_qr": {
+        "hint_mobile": "📱 Scan this QR code with your phone to access the item quickly",
+        "network_ip": "Network IP",
+        "url_loading": "Loading URL...",
+        "copied": "Copied!",
+        "copy_url": "Copy URL",
+        "download": "Download QR",
+        "usage_title": "Usage",
+        "usage_desc": "Print the QR code and stick it on the item. Scan with your phone to access this page instantly!"
+    }
+}
