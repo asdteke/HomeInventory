@@ -2,6 +2,7 @@ import express from 'express';
 import rateLimit from 'express-rate-limit';
 import db from '../database.js';
 import { authenticateToken } from '../middleware/auth.js';
+import { normalizeWarrantyDetails } from '../utils/warrantyValidation.js';
 import {
     buildBarcodeLookup,
     decryptCategoryRecord,
@@ -11,7 +12,14 @@ import {
     encryptCategoryName,
     encryptItemBarcode,
     encryptItemDescription,
+    encryptItemInvoiceCurrency,
+    encryptItemInvoiceDate,
+    encryptItemInvoicePrice,
     encryptItemName,
+    encryptItemWarrantyDurationUnit,
+    encryptItemWarrantyDurationValue,
+    encryptItemWarrantyExpiryDate,
+    encryptItemWarrantyStartDate,
     encryptLocationName,
     encryptRoomDescription,
     encryptRoomName
@@ -54,6 +62,8 @@ router.get('/export', authenticateToken, backupRateLimiter, (req, res) => {
         const items = db.prepare(`
             SELECT 
                 i.id, i.name, i.description, i.quantity, i.barcode,
+                i.invoice_price, i.invoice_currency, i.invoice_date,
+                i.warranty_start_date, i.warranty_duration_value, i.warranty_duration_unit, i.warranty_expiry_date,
                 c.name as category_name, c.icon as category_icon, c.color as category_color,
                 r.name as room_name,
                 l.name as location_name,
@@ -85,7 +95,7 @@ router.get('/export', authenticateToken, backupRateLimiter, (req, res) => {
         `).all(houseKey).map(decryptLocationRecord);
 
         const exportData = {
-            version: '1.0',
+            version: '1.2',
             exportDate: new Date().toISOString(),
             items,
             categories,
@@ -230,8 +240,12 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
 
             // Import items
             const insertItem = db.prepare(`
-                INSERT INTO items (name, description, quantity, barcode, barcode_lookup, category_id, room_id, location_id, user_id, house_key)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO items (
+                    name, description, quantity, barcode, invoice_price, invoice_currency, invoice_date,
+                    warranty_start_date, warranty_duration_value, warranty_duration_unit, warranty_expiry_date,
+                    barcode_lookup, category_id, room_id, location_id, user_id, house_key
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             `);
 
             for (const item of items) {
@@ -263,16 +277,35 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
                 }
 
                 insertItem.run(
+                    ...(() => {
+                        const normalizedWarrantyDetails = normalizeWarrantyDetails({
+                            invoice_date: item.invoice_date || '',
+                            warranty_start_date: item.warranty_start_date || '',
+                            warranty_duration_value: item.warranty_duration_value || '',
+                            warranty_duration_unit: item.warranty_duration_unit || '',
+                            warranty_expiry_date: item.warranty_expiry_date || ''
+                        });
+
+                        return [
                     encryptItemName(item.name),
                     item.description ? encryptItemDescription(item.description) : '',
                     item.quantity || 1,
                     item.barcode ? encryptItemBarcode(item.barcode) : null,
+                    item.invoice_price ? encryptItemInvoicePrice(item.invoice_price) : null,
+                    item.invoice_currency ? encryptItemInvoiceCurrency(item.invoice_currency) : null,
+                    item.invoice_date ? encryptItemInvoiceDate(item.invoice_date) : null,
+                    normalizedWarrantyDetails.warranty_start_date ? encryptItemWarrantyStartDate(normalizedWarrantyDetails.warranty_start_date) : null,
+                    normalizedWarrantyDetails.warranty_duration_value ? encryptItemWarrantyDurationValue(String(normalizedWarrantyDetails.warranty_duration_value)) : null,
+                    normalizedWarrantyDetails.warranty_duration_unit ? encryptItemWarrantyDurationUnit(normalizedWarrantyDetails.warranty_duration_unit) : null,
+                    normalizedWarrantyDetails.warranty_expiry_date ? encryptItemWarrantyExpiryDate(normalizedWarrantyDetails.warranty_expiry_date) : null,
                     buildBarcodeLookup(item.barcode),
                     categoryId,
                     roomId,
                     locationId,
                     req.user.id,
                     houseKey
+                        ];
+                    })()
                 );
                 importedItems++;
             }

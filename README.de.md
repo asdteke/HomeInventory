@@ -5,15 +5,24 @@
 <h1 align="center">HomeInventory</h1>
 
 <p align="center">
+  <img src="https://img.shields.io/badge/Security-AES--256--GCM-blue?style=for-the-badge&logo=security" alt="Security" />
+  <img src="https://img.shields.io/badge/Docker-Supported-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
+  <img src="https://img.shields.io/badge/PWA-Ready-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white" alt="PWA" />
+  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License" />
+</p>
+
+<p align="center">
   Das Open-Source-Projekt hinter <a href="https://envanterim.net.tr">envanterim.net.tr</a><br/>
-  Verwalten Sie Ihre Haushaltsgegenstände, Räume und Kategorien an einem Ort.
+  Ein Open-Source-Hausverwaltungssystem mit Unterstützung für 100+ Sprachen und Verschlüsselung auf Feldebene für sensible Daten.
 </p>
 
 <p align="center">
   <a href="#funktionen">Funktionen</a> •
   <a href="#technologie-stack">Technologien</a> •
   <a href="#schnellstart">Schnellstart</a> •
+  <a href="#docker">Docker</a> •
   <a href="#umgebungsvariablen">Umgebung</a> •
+  <a href="#projektstruktur">Struktur</a> •
   <a href="#lizenz">Lizenz</a>
 </p>
 
@@ -33,7 +42,7 @@
 - 👨‍💼 **Admin-Panel** — Benutzerverwaltung, Sperren, E-Mail-Versand und Systemprotokolle
 - 📧 **E-Mail-System** — Transaktions-E-Mails über die Resend-API (Verifizierung, Admin-Benachrichtigungen)
 - 💾 **Sicherung & Wiederherstellung** — Exportieren und importieren Sie Ihre Inventardaten
-- 🌍 **Mehrsprachig** — Benutzeroberfläche in 100+ Sprachen übersetzt; Backend unterstützt derzeit 5 (wird erweitert)
+- 🌍 **100+ Sprachen** — Die Benutzeroberfläche wird mit über 100 auswählbaren Sprachen ausgeliefert
 - 🌙 **Dunkles / Helles Design** — Erkennt automatisch die Systemeinstellung
 - 📱 **Responsiv** — Mobile-First-Design, funktioniert auf allen Bildschirmgrößen
 - 🔍 **SEO-bereit** — Sitemap, robots.txt, Meta-Tags und IndexNow-Unterstützung
@@ -116,6 +125,33 @@ APP_ENCRYPTION_KEY_ID=2026-03-local
 
 Die übrigen Variablen (`GOOGLE_CLIENT_ID`, `RESEND_API_KEY` usw.) sind für die lokale Entwicklung **optional**. Funktionen, die davon abhängen (Google-Login, E-Mail-Versand), werden automatisch deaktiviert.
 
+> **🔐 Verschlüsselungsschlüssel:** Generieren Sie `APP_ENCRYPTION_KEY` mit:
+> ```bash
+> openssl rand -base64 32
+> ```
+
+### Optional: Oracle Cloud Secret Management
+
+Wenn Sie HomeInventory auf einer Oracle Cloud Infrastructure (OCI) Compute-Instanz bereitstellen, können Sie Produktions-Secrets in OCI Secret Management speichern und zur Laufzeit vor dem App-Start laden lassen.
+
+Empfohlenes Muster:
+
+```env
+SECRET_PROVIDER=oci
+OCI_AUTH_MODE=instance_principal
+OCI_REGION=eu-frankfurt-1
+OCI_VAULT_ID=ocid1.vault.oc1..exampleuniqueID
+OCI_SECRET_MAPPINGS={"JWT_SECRET":"homeinventory-jwt-secret","APP_ENCRYPTION_KEY":"homeinventory-app-encryption-key","APP_ENCRYPTION_KEY_ID":"homeinventory-app-encryption-key-id","RESEND_API_KEY":"homeinventory-resend-api-key"}
+```
+
+Hinweise:
+
+- Lassen Sie `SECRET_PROVIDER=env` für die lokale Entwicklung.
+- `OCI_SECRET_MAPPINGS` kann auf Secret-OCIDs oder Secret-Namen verweisen.
+- `OCI_VAULT_ID` ist nur erforderlich, wenn Sie Secret-Namen statt OCIDs verwenden.
+- Der Server-Einstiegspunkt lädt Runtime-Secrets automatisch, sodass `node server.js`, `npm run dev` und `npm start` weiterhin funktionieren.
+- Wartungsskripte wie Verschlüsselungs-Backfill und IndexNow-Einreichung verwenden denselben OCI-Bootstrap-Pfad.
+
 ### 3. Entwicklungsserver starten
 
 ```bash
@@ -140,6 +176,29 @@ npm run build
 npm start
 ```
 
+## Docker
+
+Stellen Sie HomeInventory mit Docker für einfaches Self-Hosting bereit:
+
+```bash
+# Klonen und Verzeichnis betreten
+git clone https://github.com/asdteke/HomeInventory.git
+cd HomeInventory
+
+# Umgebungsdatei erstellen
+cp .env.example .env
+# .env bearbeiten und JWT_SECRET, APP_ENCRYPTION_KEY, APP_ENCRYPTION_KEY_ID setzen
+
+# Mit Docker Compose starten
+docker compose up -d
+```
+
+Die App ist unter `http://localhost:3001` erreichbar.
+
+Die vollständige `.env`-Datei wird an den Container weitergegeben; optionale Einstellungen wie `APP_ENCRYPTION_KEYRING`, `EXPOSE_SERVER_INFO` und `INDEXNOW_*` funktionieren auch in Docker.
+
+Für detaillierte Docker-Konfiguration, Reverse-Proxy-Setup, Backup/Wiederherstellung und Unraid-Bereitstellung siehe **[DOCKER.md](DOCKER.md)**.
+
 ## Umgebungsvariablen
 
 Kopieren Sie `.env.example` nach `.env` und füllen Sie die erforderlichen Werte aus:
@@ -159,9 +218,114 @@ Kopieren Sie `.env.example` nach `.env` und füllen Sie die erforderlichen Werte
 | `SUPPORT_EMAIL` | ⬜ | Support-E-Mail-Adresse |
 | `BOOTSTRAP_ADMIN_EMAIL` | ⬜ | Diese E-Mail automatisch zum Admin befördern |
 | `EXPOSE_SERVER_INFO` | ⬜ | Server-Info-Endpoint anzeigen (`true`/`false`) |
+| `APP_EMAIL_LANGUAGE` | ⬜ | Sprache für ausgehende E-Mails (Standard: `en`) |
 | `INDEXNOW_KEY` | ⬜ | IndexNow-API-Schlüssel für SEO-Indizierung |
+| `INDEXNOW_BASE_URL` | ⬜ | Basis-URL für IndexNow-Einreichungen |
+| `INDEXNOW_ENDPOINT` | ⬜ | IndexNow-API-Endpoint-URL |
+| `INDEXNOW_KEY_LOCATION` | ⬜ | Optionale Standort-Überschreibung für IndexNow-Schlüsseldatei |
 
 > **⚠️ Committen Sie niemals Ihre `.env`-Datei!** Sie ist bereits in `.gitignore` eingetragen.
+
+## Projektstruktur
+
+```
+Home-inventory/
+├── app.js                    # Express-App-Setup & Middleware
+├── server.js                 # Runtime-Bootstrap & Server-Einstiegspunkt
+├── auth.js                   # JWT-Middleware & Token-Generierung
+├── database.js               # SQLite-DB-Initialisierung & Migrationen
+├── package.json              # Backend-Abhängigkeiten & Skripte
+├── .env.example              # Vorlage für Umgebungsvariablen
+├── .gitignore
+├── LICENSE
+│
+├── config/
+│   └── i18n.js               # i18next-Serverkonfiguration
+│
+├── middleware/
+│   └── auth.js               # Auth- & Admin-Middleware
+│
+├── routes/
+│   ├── auth.js               # Login, Registrierung, OAuth, Passwort
+│   ├── items.js              # CRUD für Inventarartikel
+│   ├── categories.js         # Kategorieverwaltung
+│   ├── rooms.js              # Raumverwaltung
+│   ├── locations.js          # Standortverwaltung
+│   ├── barcode.js            # Barcode-Suche & Scanning
+│   ├── houses.js             # Multi-Haus-Verwaltung
+│   ├── admin.js              # Admin-Panel-Endpoints
+│   ├── admin-email.js        # Admin-E-Mail-Versand
+│   ├── email.js              # E-Mail-Verifizierung & Status
+│   ├── backup.js             # Backup/Wiederherstellung
+│   └── ...
+│
+├── utils/
+│   ├── encryption.js         # AES-256-GCM-Feldverschlüsselungshilfen
+│   ├── protectedFields.js    # Inventarfeld-Verschlüsselungs-/Entschlüsselungshilfen
+│   ├── passwordRecovery.js   # Wiederherstellungsschlüssel-Generierung & Verifizierung
+│   ├── mediaStorage.js       # Verschlüsselter Medienlese-/Schreibhilfen
+│   ├── runtimeSecrets.js     # OCI Secret Management Bootstrap
+│   ├── emailService.js       # Resend-E-Mail-Integration
+│   ├── indexNow.js           # IndexNow-SEO-Einreichung
+│   └── logger.js             # DSGVO-konforme Protokollierung
+│
+├── locales/                  # Backend-i18n (100+ Sprachen)
+│
+├── scripts/
+│   ├── run-with-runtime-secrets.mjs # OCI-Runtime-Secret-Bootstrap für Wartungsskripte
+│   ├── backfill-field-encryption.mjs # Legacy-Klartextfelder verschlüsseln
+│   ├── generate-locales.js   # Sprachdatei-Generierungsskripte
+│   └── indexnow-submit.mjs   # CLI IndexNow-Einreichung
+│
+└── client/                   # React-Frontend
+    ├── index.html
+    ├── package.json
+    ├── vite.config.js
+    ├── tailwind.config.js
+    ├── public/
+    │   ├── brand/            # Logo-Assets (dunkel/hell)
+    │   ├── locales/          # Frontend-i18n-Dateien
+    │   ├── robots.txt
+    │   └── sitemap.xml
+    └── src/
+        ├── App.jsx           # Hauptkomponente & Routing
+        ├── main.jsx          # Einstiegspunkt
+        ├── index.css         # Globale Stile
+        ├── i18n.js           # Frontend-i18n-Konfiguration
+        ├── components/       # Alle React-Komponenten
+        │   ├── Dashboard.jsx
+        │   ├── ItemList.jsx
+        │   ├── ItemForm.jsx
+        │   ├── CategoryManager.jsx
+        │   ├── RoomManager.jsx
+        │   ├── Settings.jsx
+        │   ├── AdminPanel.jsx
+        │   ├── BarcodeScanner.jsx
+        │   ├── LandingPage.jsx
+        │   ├── Login.jsx
+        │   ├── Register.jsx
+        │   └── ...
+        ├── context/          # React-Kontexte (Auth, Theme)
+        └── utils/            # Frontend-Hilfsfunktionen
+```
+
+## API-Endpunkte
+
+| Methode | Endpunkt | Beschreibung |
+|---|---|---|
+| `POST` | `/api/auth/register` | Neuen Benutzer registrieren |
+| `POST` | `/api/auth/login` | Anmelden |
+| `GET` | `/api/items` | Artikel auflisten |
+| `POST` | `/api/items` | Artikel erstellen |
+| `PUT` | `/api/items/:id` | Artikel aktualisieren |
+| `DELETE` | `/api/items/:id` | Artikel löschen |
+| `GET` | `/api/categories` | Kategorien auflisten |
+| `GET` | `/api/rooms` | Räume auflisten |
+| `GET` | `/api/houses` | Häuser des Benutzers auflisten |
+| `GET` | `/api/admin/*` | Admin-Panel-Endpunkte |
+| `GET` | `/api/health` | Gesundheitsprüfung |
+
+> Alle `/api/*`-Endpunkte (außer Auth) erfordern ein JWT-Bearer-Token.
 
 ## Mitwirken
 

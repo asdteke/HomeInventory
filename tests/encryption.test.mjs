@@ -73,7 +73,14 @@ const {
   encryptHouseName,
   encryptItemBarcode,
   encryptItemDescription,
+  encryptItemInvoiceCurrency,
+  encryptItemInvoiceDate,
+  encryptItemInvoicePrice,
   encryptItemName,
+  encryptItemWarrantyDurationUnit,
+  encryptItemWarrantyDurationValue,
+  encryptItemWarrantyExpiryDate,
+  encryptItemWarrantyStartDate,
   encryptLocationName,
   encryptRoomDescription,
   encryptRoomName
@@ -179,6 +186,13 @@ test('protected inventory fields decrypt cleanly for API responses', () => {
   const item = decryptItemRecord({
     name: encryptItemName('Pasaport'),
     description: encryptItemDescription('Yatak odasi ust cekmece'),
+    invoice_price: encryptItemInvoicePrice('24999.90'),
+    invoice_currency: encryptItemInvoiceCurrency('TRY'),
+    invoice_date: encryptItemInvoiceDate('2026-03-25'),
+    warranty_start_date: encryptItemWarrantyStartDate('2026-03-25'),
+    warranty_duration_value: encryptItemWarrantyDurationValue('24'),
+    warranty_duration_unit: encryptItemWarrantyDurationUnit('months'),
+    warranty_expiry_date: encryptItemWarrantyExpiryDate('2028-03-25'),
     room_name: encryptRoomName('Yatak Odasi'),
     location_name: encryptLocationName('Ust cekmece'),
     username: 'ahmet'
@@ -196,6 +210,13 @@ test('protected inventory fields decrypt cleanly for API responses', () => {
 
   assert.equal(item.name, 'Pasaport');
   assert.equal(item.description, 'Yatak odasi ust cekmece');
+  assert.equal(item.invoice_price, '24999.90');
+  assert.equal(item.invoice_currency, 'TRY');
+  assert.equal(item.invoice_date, '2026-03-25');
+  assert.equal(item.warranty_start_date, '2026-03-25');
+  assert.equal(item.warranty_duration_value, '24');
+  assert.equal(item.warranty_duration_unit, 'months');
+  assert.equal(item.warranty_expiry_date, '2028-03-25');
   assert.equal(item.room_name, 'Yatak Odasi');
   assert.equal(item.location_name, 'Ust cekmece');
   assert.equal(item.owner_name, 'ahmet');

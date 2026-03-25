@@ -5,6 +5,13 @@
 <h1 align="center">HomeInventory</h1>
 
 <p align="center">
+  <img src="https://img.shields.io/badge/Security-AES--256--GCM-blue?style=for-the-badge&logo=security" alt="Security" />
+  <img src="https://img.shields.io/badge/Docker-Supported-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
+  <img src="https://img.shields.io/badge/PWA-Ready-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white" alt="PWA" />
+  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License" />
+</p>
+
+<p align="center">
   <a href="https://envanterim.net.tr">envanterim.net.tr</a>'nin açık kaynak projesidir.<br/>
   100+ dil destekli arayüz ve hassas veriler için alan bazlı şifreleme sunan açık kaynak ev envanter sistemi.
 </p>
@@ -13,6 +20,7 @@
   <a href="#özellikler">Özellikler</a> •
   <a href="#teknoloji-yığını">Teknolojiler</a> •
   <a href="#hızlı-başlangıç">Kurulum</a> •
+  <a href="#docker">Docker</a> •
   <a href="#ortam-değişkenleri">Ortam Değişkenleri</a> •
   <a href="#proje-yapısı">Proje Yapısı</a> •
   <a href="#lisans">Lisans</a>
@@ -122,6 +130,28 @@ APP_ENCRYPTION_KEY_ID=2026-03-local
 
 `APP_ENCRYPTION_KEY` ve `APP_ENCRYPTION_KEY_ID` zorunludur; çünkü hassas alan şifrelemesi uygulama açılışında fail-secure çalışır. Diğer değişkenler (`GOOGLE_CLIENT_ID`, `RESEND_API_KEY` vb.) local geliştirme için **opsiyoneldir**. Bu değişkenlere bağlı özellikler (Google giriş, e-posta gönderimi) otomatik olarak devre dışı kalır.
 
+### Opsiyonel: Oracle Cloud Secret Management
+
+HomeInventory'yi bir Oracle Cloud Infrastructure (OCI) compute instance üzerinde dağıtıyorsanız, production sırlarını OCI Secret Management'ta tutabilir ve çalışma zamanında uygulama başlamadan önce yükletebilirsiniz.
+
+Önerilen yapılandırma:
+
+```env
+SECRET_PROVIDER=oci
+OCI_AUTH_MODE=instance_principal
+OCI_REGION=eu-frankfurt-1
+OCI_VAULT_ID=ocid1.vault.oc1..exampleuniqueID
+OCI_SECRET_MAPPINGS={"JWT_SECRET":"homeinventory-jwt-secret","APP_ENCRYPTION_KEY":"homeinventory-app-encryption-key","APP_ENCRYPTION_KEY_ID":"homeinventory-app-encryption-key-id","RESEND_API_KEY":"homeinventory-resend-api-key"}
+```
+
+Notlar:
+
+- Yerel geliştirme için `SECRET_PROVIDER=env` bırakın.
+- `OCI_SECRET_MAPPINGS` gizli OCID'lere veya gizli adlara işaret edebilir.
+- `OCI_VAULT_ID` yalnızca gizli OCID'ler yerine gizli adlar kullandığınızda gereklidir.
+- Sunucu giriş noktası artık çalışma zamanı sırlarını otomatik olarak yükler, dolayısıyla `node server.js`, `npm run dev` ve `npm start` komutları çalışmaya devam eder.
+- Şifreleme backfill ve IndexNow gönderimi gibi bakım betikleri de aynı OCI bootstrap yolunu kullanır.
+
 ### 3. Geliştirme Sunucusunu Başlat
 
 ```bash
@@ -146,6 +176,29 @@ npm run build
 npm start
 ```
 
+## Docker
+
+Kolay self-hosting için HomeInventory'yi Docker ile dağıtın:
+
+```bash
+# Klonla ve dizine gir
+git clone https://github.com/asdteke/HomeInventory.git
+cd HomeInventory
+
+# Ortam dosyasını oluştur
+cp .env.example .env
+# .env dosyasını düzenleyip JWT_SECRET, APP_ENCRYPTION_KEY, APP_ENCRYPTION_KEY_ID değerlerini ayarlayın
+
+# Docker Compose ile başlat
+docker compose up -d
+```
+
+Uygulama `http://localhost:3001` adresinde erişilebilir olacaktır.
+
+Tam `.env` dosyası konteyner'a aktarılır; `APP_ENCRYPTION_KEYRING`, `EXPOSE_SERVER_INFO` ve `INDEXNOW_*` gibi opsiyonel ayarlar Docker'da da çalışmaya devam eder.
+
+Detaylı Docker yapılandırması, reverse proxy kurulumu, yedekleme/geri yükleme ve Unraid dağıtımı için **[DOCKER.md](DOCKER.md)** belgesine bakın.
+
 ## Ortam Değişkenleri
 
 `.env.example` dosyasını `.env` olarak kopyalayıp gerekli değerleri doldurun:
@@ -165,7 +218,11 @@ npm start
 | `SUPPORT_EMAIL` | ⬜ | Destek e-posta adresi |
 | `BOOTSTRAP_ADMIN_EMAIL` | ⬜ | Bu e-postayı otomatik admin yap |
 | `EXPOSE_SERVER_INFO` | ⬜ | Sunucu bilgi endpoint'ini göster (`true`/`false`) |
+| `APP_EMAIL_LANGUAGE` | ⬜ | Gönderilen e-postaların dili (varsayılan: `en`) |
 | `INDEXNOW_KEY` | ⬜ | SEO indeksleme için IndexNow API anahtarı |
+| `INDEXNOW_BASE_URL` | ⬜ | IndexNow gönderimleri için temel URL |
+| `INDEXNOW_ENDPOINT` | ⬜ | IndexNow API endpoint URL'si |
+| `INDEXNOW_KEY_LOCATION` | ⬜ | İsteğe bağlı IndexNow anahtar dosyası konum override'u |
 
 > **⚠️ `.env` dosyanızı asla commit etmeyin!** Zaten `.gitignore`'da tanımlıdır.
 
@@ -173,7 +230,8 @@ npm start
 
 ```
 Home-inventory/
-├── server.js                 # Express uygulama giriş noktası
+├── app.js                    # Express uygulama kurulumu & middleware
+├── server.js                 # Çalışma zamanı başlatıcı & sunucu giriş noktası
 ├── auth.js                   # JWT middleware & token oluşturma
 ├── database.js               # SQLite DB başlatma & migration'lar
 ├── package.json              # Backend bağımlılıkları & komutlar
@@ -204,13 +262,17 @@ Home-inventory/
 ├── utils/
 │   ├── encryption.js         # AES-256-GCM alan şifreleme yardımcıları
 │   ├── protectedFields.js    # Envanter alanı şifreleme/çözme yardımcıları
+│   ├── passwordRecovery.js   # Kurtarma anahtarı oluşturma & doğrulama
+│   ├── mediaStorage.js       # Şifreli medya okuma/yazma yardımcıları
+│   ├── runtimeSecrets.js     # OCI Secret Management başlatıcısı
 │   ├── emailService.js       # Resend e-posta entegrasyonu
 │   ├── indexNow.js           # IndexNow SEO gönderimi
 │   └── logger.js             # KVKK uyumlu loglama
 │
-├── locales/                  # Backend çoklu dil dosyaları (5 dil, genişletiliyor)
+├── locales/                  # Backend çoklu dil dosyaları (100+ dil)
 │
 ├── scripts/
+│   ├── run-with-runtime-secrets.mjs # OCI bakım betikleri için çalışma zamanı sır başlatıcısı
 │   ├── backfill-field-encryption.mjs # Legacy düz metin alanları şifreler
 │   ├── generate-locales.js   # Dil dosyası oluşturma betikleri
 │   └── indexnow-submit.mjs   # CLI IndexNow gönderimi

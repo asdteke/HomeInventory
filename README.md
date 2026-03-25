@@ -5,6 +5,13 @@
 <h1 align="center">HomeInventory</h1>
 
 <p align="center">
+  <img src="https://img.shields.io/badge/Security-AES--256--GCM-blue?style=for-the-badge&logo=security" alt="Security" />
+  <img src="https://img.shields.io/badge/Docker-Supported-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
+  <img src="https://img.shields.io/badge/PWA-Ready-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white" alt="PWA" />
+  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License" />
+</p>
+
+<p align="center">
   The open-source project behind <a href="https://envanterim.net.tr">envanterim.net.tr</a><br/>
   An open-source home inventory management system with 100+ language UI support and field-level encryption for sensitive data.
 </p>
@@ -50,6 +57,7 @@ HomeInventory is designed with enterprise-grade security to ensure your personal
 - **Encrypted Media Storage**: All uploaded photos and thumbnails have their EXIF metadata stripped and are stored on disk as AES-256-GCM encrypted blobs. They are only decrypted in RAM when requested by authenticated users.
 - **PII Protection**: User emails and usernames are stored encrypted. Authentication utilizes a deterministic HMAC-SHA-256 lookup token system, allowing seamless login without exposing the underlying PII to rainbow table attacks.
 - **Key Rotation Ready**: The application supports a Keyring map, allowing administrators to rotate the primary encryption key without breaking legacy encrypted data.
+- **Enterprise Secret Management (Optional)**: For enterprise deployments, the standard `.env`-based encryption key delivery can be upgraded to Oracle Cloud Infrastructure (OCI) Secret Management. HomeInventory already supports Instance Principals-based runtime secret loading, eliminating hardcoded production secrets and allowing encryption keys to be managed through OCI Vault.
 
 ## Tech Stack
 
@@ -123,6 +131,28 @@ APP_ENCRYPTION_KEY_ID=2026-03-local
 
 `APP_ENCRYPTION_KEY` and `APP_ENCRYPTION_KEY_ID` are required because sensitive fields now use fail-secure encryption at startup. The remaining variables (`GOOGLE_CLIENT_ID`, `RESEND_API_KEY`, etc.) are **optional** for local development. Features that depend on them (Google login, email sending) will be gracefully disabled.
 
+### Optional: Oracle Cloud Secret Management
+
+If you deploy HomeInventory on an Oracle Cloud Infrastructure compute instance, you can keep production secrets in OCI Secret Management and let the runtime load them before the app starts.
+
+Recommended pattern:
+
+```env
+SECRET_PROVIDER=oci
+OCI_AUTH_MODE=instance_principal
+OCI_REGION=eu-frankfurt-1
+OCI_VAULT_ID=ocid1.vault.oc1..exampleuniqueID
+OCI_SECRET_MAPPINGS={"JWT_SECRET":"homeinventory-jwt-secret","APP_ENCRYPTION_KEY":"homeinventory-app-encryption-key","APP_ENCRYPTION_KEY_ID":"homeinventory-app-encryption-key-id","RESEND_API_KEY":"homeinventory-resend-api-key"}
+```
+
+Notes:
+
+- Leave `SECRET_PROVIDER=env` for local development.
+- `OCI_SECRET_MAPPINGS` can point to secret OCIDs or secret names.
+- `OCI_VAULT_ID` is required only when you use secret names instead of secret OCIDs.
+- The server entrypoint now bootstraps runtime secrets automatically, so `node server.js`, `npm run dev`, and `npm start` continue to work.
+- Maintenance scripts such as encryption backfill and IndexNow submission also use the same OCI bootstrap path.
+
 ### 3. Start Development
 
 ```bash
@@ -179,6 +209,13 @@ Copy `.env.example` to `.env` and fill in the required values:
 | `NODE_ENV` | ✅ | `development` or `production` |
 | `PORT` | ✅ | Backend server port (default: `3001`) |
 | `SITE_URL` | ✅ | Your site's public URL |
+| `SECRET_PROVIDER` | ⬜ | `env` (default) or `oci` for OCI Secret Management bootstrap |
+| `OCI_AUTH_MODE` | ⬜ | Runtime auth mode for OCI bootstrap (`instance_principal`) |
+| `OCI_REGION` | ⬜ | Optional OCI region override for secret retrieval |
+| `OCI_VAULT_ID` | ⬜ | Required only when `OCI_SECRET_MAPPINGS` uses secret names |
+| `OCI_SECRET_MAPPINGS` | ⬜ | JSON map of env var names to OCI secret OCIDs or secret names |
+| `OCI_SECRET_OVERWRITE` | ⬜ | Overwrite already-set env values with OCI secret values |
+| `OCI_SECRET_BUNDLE_STAGE` | ⬜ | Secret bundle stage to read (`CURRENT` by default) |
 | `JWT_SECRET` | ✅ | Random secret for JWT signing (min 32 chars) |
 | `APP_ENCRYPTION_KEY` | ✅ | 32-byte encryption key for sensitive field protection |
 | `APP_ENCRYPTION_KEY_ID` | ✅ | Stable key identifier for new encrypted payloads |
@@ -189,7 +226,11 @@ Copy `.env.example` to `.env` and fill in the required values:
 | `SUPPORT_EMAIL` | ⬜ | Support email address |
 | `BOOTSTRAP_ADMIN_EMAIL` | ⬜ | Auto-promote this email to admin |
 | `EXPOSE_SERVER_INFO` | ⬜ | Show server info endpoint (`true`/`false`) |
+| `APP_EMAIL_LANGUAGE` | ⬜ | Language for outgoing emails (default: `en`) |
 | `INDEXNOW_KEY` | ⬜ | IndexNow API key for SEO indexing |
+| `INDEXNOW_BASE_URL` | ⬜ | Base URL for IndexNow submissions |
+| `INDEXNOW_ENDPOINT` | ⬜ | IndexNow API endpoint URL |
+| `INDEXNOW_KEY_LOCATION` | ⬜ | Optional IndexNow key file location override |
 
 > **⚠️ Never commit your `.env` file!** It is already in `.gitignore`.
 
@@ -197,7 +238,8 @@ Copy `.env.example` to `.env` and fill in the required values:
 
 ```
 Home-inventory/
-├── server.js                 # Express app entry point
+├── app.js                    # Express app setup & middleware
+├── server.js                 # Runtime bootstrap & server entry point
 ├── auth.js                   # JWT middleware & token generation
 ├── database.js               # SQLite DB initialization & migrations
 ├── package.json              # Backend dependencies & scripts
@@ -228,13 +270,17 @@ Home-inventory/
 ├── utils/
 │   ├── encryption.js         # AES-256-GCM field encryption helpers
 │   ├── protectedFields.js    # Inventory field encrypt/decrypt helpers
+│   ├── passwordRecovery.js   # Recovery key generation & verification
+│   ├── mediaStorage.js       # Encrypted media read/write helpers
+│   ├── runtimeSecrets.js     # OCI Secret Management bootstrap
 │   ├── emailService.js       # Resend email integration
 │   ├── indexNow.js           # IndexNow SEO submission
 │   └── logger.js             # KVKK-compliant logging
 │
-├── locales/                  # Backend i18n (5 languages, expanding)
+├── locales/                  # Backend i18n (100+ languages)
 │
 ├── scripts/
+│   ├── run-with-runtime-secrets.mjs # OCI runtime secret bootstrap for maintenance scripts
 │   ├── backfill-field-encryption.mjs # Encrypt legacy plaintext field data
 │   ├── generate-locales.js   # Locale generation scripts
 │   └── indexnow-submit.mjs   # CLI IndexNow submission

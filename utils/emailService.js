@@ -24,6 +24,7 @@ const DEFAULT_FROM = `HomeInventory Team <${SUPPORT_EMAIL}>`;
 const EMAIL_LANGUAGE_ENV = process.env.APP_EMAIL_LANGUAGE || process.env.EMAIL_LANGUAGE || 'en';
 const EMAIL_FALLBACK_LANGUAGE = 'en';
 const EMAIL_LANG_PATTERN = /^[A-Za-z0-9-]{2,20}$/;
+const TEMPLATE_TOKEN_PATTERN = /\{\{([A-Za-z0-9_]+)\}\}/g;
 const LOCALE_CACHE = new Map();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -135,6 +136,42 @@ function normalizeEmailLanguage(rawLanguage) {
     return language;
 }
 
+function extractTemplateTokens(template) {
+    return new Set(
+        Array.from(String(template || '').matchAll(TEMPLATE_TOKEN_PATTERN), (match) => match[1])
+    );
+}
+
+function templateMatchesRequirements(template, { required = [], allowed = [], oneOf = [] } = {}) {
+    const tokens = extractTemplateTokens(template);
+
+    if (required.some((token) => !tokens.has(token))) {
+        return false;
+    }
+
+    if (oneOf.length > 0 && !oneOf.some((token) => tokens.has(token))) {
+        return false;
+    }
+
+    if (allowed.length > 0 && Array.from(tokens).some((token) => !allowed.includes(token))) {
+        return false;
+    }
+
+    return true;
+}
+
+function fallbackEmailCopyValue(baseSection, defaultSection, key) {
+    return baseSection?.[key] ?? defaultSection?.[key];
+}
+
+function hasTemplateTokens(template) {
+    return extractTemplateTokens(template).size > 0;
+}
+
+function isSafeLiteralString(value) {
+    return typeof value === 'string' && String(value).trim() !== '' && !hasTemplateTokens(value);
+}
+
 function escapeHtml(value) {
     return String(value)
         .replaceAll('&', '&amp;')
@@ -185,6 +222,189 @@ function mergeEmailDictionaries(baseDictionary, overrideDictionary) {
     return output;
 }
 
+function sanitizeEmailCopy(sectionName, copy, { defaultSection, baseSection, targetLocale }) {
+    const sanitized = { ...copy };
+    const fallback = (key) => {
+        sanitized[key] = fallbackEmailCopyValue(baseSection, defaultSection, key);
+    };
+    const fallbackDefault = (key) => {
+        sanitized[key] = defaultSection?.[key];
+    };
+    const ensureLiteral = (key) => {
+        if (!isSafeLiteralString(sanitized[key])) {
+            fallbackDefault(key);
+        }
+    };
+    const ensureLiteralArray = (key, expectedLength = null) => {
+        if (
+            !Array.isArray(sanitized[key]) ||
+            (expectedLength !== null && sanitized[key].length !== expectedLength) ||
+            sanitized[key].some((entry) => !isSafeLiteralString(entry))
+        ) {
+            fallbackDefault(key);
+        }
+    };
+
+    if (sectionName === 'verification') {
+        ensureLiteralArray('features', defaultSection.features.length);
+
+        const localizedPasswordResetFallback = targetLocale?.emails?.passwordReset?.fallback;
+        if (
+            typeof sanitized.fallback !== 'string' ||
+            sanitized.fallback === localizedPasswordResetFallback ||
+            /password reset/i.test(sanitized.fallback) ||
+            /şifre sıfırlama/i.test(sanitized.fallback)
+        ) {
+            fallbackDefault('fallback');
+        }
+
+        for (const key of [
+            'subject',
+            'headerTitle',
+            'headerSubtitle',
+            'greeting',
+            'intro',
+            'verifyPrompt',
+            'verifyButton',
+            'warningTitle',
+            'warningBody',
+            'houseKeyLabel',
+            'houseKeyNote',
+            'featuresTitle',
+            'fallback',
+            'support',
+            'footer'
+        ]) {
+            ensureLiteral(key);
+        }
+    }
+
+    if (sectionName === 'welcome') {
+        ensureLiteralArray('features', defaultSection.features.length);
+
+        if (typeof sanitized.intro !== 'string' || /,\s*!\s*(👋)?\s*$/.test(sanitized.intro)) {
+            fallbackDefault('intro');
+        }
+
+        for (const key of [
+            'subject',
+            'headerTitle',
+            'headerSubtitle',
+            'greeting',
+            'intro',
+            'houseKeyLabel',
+            'houseKeyNote',
+            'featuresTitle',
+            'support',
+            'footer'
+        ]) {
+            ensureLiteral(key);
+        }
+    }
+
+    if (sectionName === 'houseJoinRequest') {
+        if (!templateMatchesRequirements(sanitized.bodyLine1Template, {
+            required: ['username', 'house'],
+            allowed: ['username', 'house']
+        })) {
+            fallbackDefault('bodyLine1Template');
+        }
+
+        for (const key of ['subject', 'greeting', 'bodyLine2']) {
+            ensureLiteral(key);
+        }
+    }
+
+    if (sectionName === 'houseJoinDecision') {
+        if (!templateMatchesRequirements(sanitized.subjectTemplate, {
+            oneOf: ['status', 'statusLabel'],
+            allowed: ['status', 'statusLabel']
+        })) {
+            fallbackDefault('subjectTemplate');
+        }
+
+        if (!templateMatchesRequirements(sanitized.bodyLine1Template, {
+            required: ['house'],
+            oneOf: ['status', 'statusLabel'],
+            allowed: ['house', 'status', 'statusLabel']
+        })) {
+            fallbackDefault('bodyLine1Template');
+        }
+
+        if (extractTemplateTokens(sanitized.bodyLine2).size > 0) {
+            fallbackDefault('bodyLine2');
+        }
+
+        const fallbackStatusLabels = defaultSection.statusLabels;
+        if (!sanitized.statusLabels || typeof sanitized.statusLabels !== 'object') {
+            sanitized.statusLabels = fallbackStatusLabels;
+        } else {
+            sanitized.statusLabels = {
+                approved: sanitized.statusLabels.approved || fallbackStatusLabels.approved,
+                rejected: sanitized.statusLabels.rejected || fallbackStatusLabels.rejected,
+                updated: sanitized.statusLabels.updated || fallbackStatusLabels.updated
+            };
+        }
+
+        if (
+            !isSafeLiteralString(sanitized.statusLabels.approved) ||
+            !isSafeLiteralString(sanitized.statusLabels.rejected) ||
+            !isSafeLiteralString(sanitized.statusLabels.updated)
+        ) {
+            sanitized.statusLabels = fallbackStatusLabels;
+        }
+
+        ensureLiteral('greeting');
+        ensureLiteral('bodyLine2');
+    }
+
+    if (sectionName === 'houseKick') {
+        if (!templateMatchesRequirements(sanitized.bodyLine1Template, {
+            required: ['house'],
+            allowed: ['house']
+        })) {
+            fallbackDefault('bodyLine1Template');
+        }
+
+        for (const key of ['subject', 'greeting', 'bodyLine2']) {
+            ensureLiteral(key);
+        }
+    }
+
+    if (sectionName === 'passwordReset') {
+        for (const key of [
+            'subject',
+            'headerTitle',
+            'greeting',
+            'intro',
+            'buttonLabel',
+            'warningTitle',
+            'warningBody',
+            'fallback',
+            'footer'
+        ]) {
+            ensureLiteral(key);
+        }
+    }
+
+    if (sectionName === 'testEmail') {
+        for (const key of [
+            'subject',
+            'headerTitle',
+            'successTitle',
+            'successBody',
+            'sentAtLabel',
+            'senderLabel',
+            'serviceLabel',
+            'footer'
+        ]) {
+            ensureLiteral(key);
+        }
+    }
+
+    return sanitized;
+}
+
 export function getEmailLanguage() {
     return normalizeEmailLanguage(EMAIL_LANGUAGE_ENV);
 }
@@ -197,8 +417,13 @@ function getEmailCopy(sectionName, language = EMAIL_LANGUAGE_ENV) {
     const defaultSection = DEFAULT_EMAIL_COPY?.[sectionName] || {};
     const baseSection = mergeEmailDictionaries(defaultSection, baseLocale?.emails?.[sectionName] || {});
     const targetSection = targetLocale?.emails?.[sectionName] || {};
+    const mergedSection = mergeEmailDictionaries(baseSection, targetSection);
 
-    return mergeEmailDictionaries(baseSection, targetSection);
+    return sanitizeEmailCopy(sectionName, mergedSection, {
+        defaultSection,
+        baseSection,
+        targetLocale
+    });
 }
 
 function fillTemplate(template, variables = {}) {
@@ -469,7 +694,7 @@ export async function sendHouseJoinRequestNotification({ to, requesterUsername, 
         html: `
             <p>${escapeHtml(copy.greeting)}</p>
             <p>${escapeHtml(fillTemplate(copy.bodyLine1Template, { username: safeRequesterUsername, house: safeHouseName }))}</p>
-            <p>${escapeHtml(copy.bodyLine2)}</p>
+            <p>${escapeHtml(fillTemplate(copy.bodyLine2, { username: safeRequesterUsername, house: safeHouseName }))}</p>
         `
     });
 }
@@ -494,7 +719,7 @@ export async function sendHouseJoinRequestDecisionNotification({ to, status, req
         html: `
             <p>${escapeHtml(copy.greeting)}</p>
             <p>${escapeHtml(fillTemplate(copy.bodyLine1Template, { house: safeHouseName, status: statusLabel, statusLabel }))}</p>
-            <p>${escapeHtml(copy.bodyLine2)}</p>
+            <p>${escapeHtml(fillTemplate(copy.bodyLine2, { house: safeHouseName, status: statusLabel, statusLabel }))}</p>
         `
     });
 }
@@ -514,7 +739,7 @@ export async function sendHouseKickNotification({ to, houseName }) {
         html: `
             <p>${escapeHtml(copy.greeting)}</p>
             <p>${escapeHtml(fillTemplate(copy.bodyLine1Template, { house: safeHouseName }))}</p>
-            <p>${escapeHtml(copy.bodyLine2)}</p>
+            <p>${escapeHtml(fillTemplate(copy.bodyLine2, { house: safeHouseName }))}</p>
         `
     });
 }

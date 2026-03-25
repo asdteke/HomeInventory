@@ -47,6 +47,7 @@ RUN addgroup -g 1001 -S nodejs && \
 # Copy built assets
 COPY --from=backend-builder /app/node_modules ./node_modules
 COPY --from=frontend-builder /app/client/dist ./client/dist
+COPY --from=frontend-builder /app/client/public/locales ./client/public/locales
 
 # Copy application files
 COPY server.js auth.js database.js ./

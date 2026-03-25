@@ -11,9 +11,10 @@
     "build": "npm run build --prefix client",
     "start": "NODE_ENV=production node server.js",
     "install-all": "npm install && cd client && npm install",
-    "security:backfill-encryption": "node scripts/backfill-field-encryption.mjs",
+    "security:backfill-encryption": "node scripts/run-with-runtime-secrets.mjs scripts/backfill-field-encryption.mjs",
     "test:encryption": "node --test tests/encryption.test.mjs",
-    "indexnow:submit": "node -r dotenv/config scripts/indexnow-submit.mjs"
+    "test:runtime-secrets": "node --test tests/runtimeSecrets.test.mjs",
+    "indexnow:submit": "node scripts/run-with-runtime-secrets.mjs scripts/indexnow-submit.mjs"
   },
   "dependencies": {
     "@vitalets/google-translate-api": "^9.2.1",
@@ -35,6 +36,7 @@
     "jsonwebtoken": "^9.0.2",
     "multer": "^2.1.1",
     "npmlog": "^7.0.1",
+    "oci-sdk": "^2.126.3",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "resend": "^6.9.4",

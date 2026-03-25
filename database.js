@@ -20,7 +20,14 @@ import {
   encryptEmail,
   encryptItemDescription,
   encryptItemBarcode,
+  encryptItemInvoiceCurrency,
+  encryptItemInvoiceDate,
+  encryptItemInvoicePrice,
   encryptItemName,
+  encryptItemWarrantyDurationUnit,
+  encryptItemWarrantyDurationValue,
+  encryptItemWarrantyExpiryDate,
+  encryptItemWarrantyStartDate,
   encryptHouseName,
   encryptLocationName,
   encryptRoomDescription,
@@ -32,6 +39,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const ITEM_PHOTO_MEDIA_PURPOSE = 'inventory.media.photo';
 const ITEM_THUMBNAIL_MEDIA_PURPOSE = 'inventory.media.thumbnail';
+const ITEM_INVOICE_MEDIA_PURPOSE = 'inventory.media.invoice';
+const ITEM_INVOICE_THUMBNAIL_MEDIA_PURPOSE = 'inventory.media.invoice_thumbnail';
 
 function normalizeStoredPath(storedPath) {
   if (!storedPath) {
@@ -112,7 +121,17 @@ db.exec(`
     description TEXT,
     quantity INTEGER DEFAULT 1,
     photo_path TEXT,
+    thumbnail_path TEXT,
+    invoice_photo_path TEXT,
+    invoice_thumbnail_path TEXT,
     barcode TEXT,
+    invoice_price TEXT,
+    invoice_currency TEXT,
+    invoice_date TEXT,
+    warranty_start_date TEXT,
+    warranty_duration_value TEXT,
+    warranty_duration_unit TEXT,
+    warranty_expiry_date TEXT,
     category_id INTEGER,
     room_id INTEGER,
     location_id INTEGER,
@@ -173,6 +192,16 @@ try {
   console.log('[Database] thumbnail_path column added to items table');
 } catch (e) { /* Column exists */ }
 
+try {
+  db.exec(`ALTER TABLE items ADD COLUMN invoice_photo_path TEXT`);
+  console.log('[Database] invoice_photo_path column added to items table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE items ADD COLUMN invoice_thumbnail_path TEXT`);
+  console.log('[Database] invoice_thumbnail_path column added to items table');
+} catch (e) { /* Column exists */ }
+
 // Migration: Add barcode column to items table (for older databases)
 try {
   db.exec(`ALTER TABLE items ADD COLUMN barcode TEXT`);
@@ -182,6 +211,41 @@ try {
 try {
   db.exec(`ALTER TABLE items ADD COLUMN barcode_lookup TEXT`);
   console.log('[Database] barcode_lookup column added to items table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE items ADD COLUMN invoice_price TEXT`);
+  console.log('[Database] invoice_price column added to items table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE items ADD COLUMN invoice_currency TEXT`);
+  console.log('[Database] invoice_currency column added to items table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE items ADD COLUMN invoice_date TEXT`);
+  console.log('[Database] invoice_date column added to items table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE items ADD COLUMN warranty_expiry_date TEXT`);
+  console.log('[Database] warranty_expiry_date column added to items table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE items ADD COLUMN warranty_start_date TEXT`);
+  console.log('[Database] warranty_start_date column added to items table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE items ADD COLUMN warranty_duration_value TEXT`);
+  console.log('[Database] warranty_duration_value column added to items table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE items ADD COLUMN warranty_duration_unit TEXT`);
+  console.log('[Database] warranty_duration_unit column added to items table');
 } catch (e) { /* Column exists */ }
 
 // Migration: Add role column to users table (for admin panel)
@@ -478,6 +542,13 @@ function backfillSensitiveFieldProtection() {
     itemNamesEncrypted: 0,
     itemDescriptionsEncrypted: 0,
     itemBarcodesEncrypted: 0,
+    itemInvoicePricesEncrypted: 0,
+    itemInvoiceCurrenciesEncrypted: 0,
+    itemInvoiceDatesEncrypted: 0,
+    itemWarrantyStartDatesEncrypted: 0,
+    itemWarrantyDurationValuesEncrypted: 0,
+    itemWarrantyDurationUnitsEncrypted: 0,
+    itemWarrantyDatesEncrypted: 0,
     itemBarcodeLookupsBackfilled: 0,
     roomNamesEncrypted: 0,
     roomDescriptionsEncrypted: 0,
@@ -485,7 +556,9 @@ function backfillSensitiveFieldProtection() {
     categoryNamesEncrypted: 0,
     houseNamesEncrypted: 0,
     itemPhotosEncrypted: 0,
-    itemThumbnailsEncrypted: 0
+    itemThumbnailsEncrypted: 0,
+    itemInvoicePhotosEncrypted: 0,
+    itemInvoiceThumbnailsEncrypted: 0
   };
 
   const pendingRows = db.prepare(`
@@ -665,13 +738,21 @@ function backfillSensitiveFieldProtection() {
       name,
       description,
       barcode,
+      invoice_price,
+      invoice_currency,
+      invoice_date,
+      warranty_start_date,
+      warranty_duration_value,
+      warranty_duration_unit,
+      warranty_expiry_date,
       barcode_lookup
     FROM items
   `).all();
 
   const updateItemProtectedFields = db.prepare(`
     UPDATE items
-    SET name = ?, description = ?, barcode = ?, barcode_lookup = ?
+    SET name = ?, description = ?, barcode = ?, invoice_price = ?, invoice_currency = ?, invoice_date = ?,
+        warranty_start_date = ?, warranty_duration_value = ?, warranty_duration_unit = ?, warranty_expiry_date = ?, barcode_lookup = ?
     WHERE id = ?
   `);
 
@@ -681,6 +762,13 @@ function backfillSensitiveFieldProtection() {
       let nextName = row.name;
       let nextDescription = row.description;
       let nextBarcode = row.barcode;
+      let nextInvoicePrice = row.invoice_price;
+      let nextInvoiceCurrency = row.invoice_currency;
+      let nextInvoiceDate = row.invoice_date;
+      let nextWarrantyStartDate = row.warranty_start_date;
+      let nextWarrantyDurationValue = row.warranty_duration_value;
+      let nextWarrantyDurationUnit = row.warranty_duration_unit;
+      let nextWarrantyExpiryDate = row.warranty_expiry_date;
       let nextBarcodeLookup = row.barcode_lookup || null;
 
       if (nextName && !isEncryptedPayload(nextName)) {
@@ -701,6 +789,48 @@ function backfillSensitiveFieldProtection() {
         changed = true;
       }
 
+      if (nextInvoicePrice && !isEncryptedPayload(nextInvoicePrice)) {
+        nextInvoicePrice = encryptItemInvoicePrice(nextInvoicePrice);
+        summary.itemInvoicePricesEncrypted++;
+        changed = true;
+      }
+
+      if (nextInvoiceCurrency && !isEncryptedPayload(nextInvoiceCurrency)) {
+        nextInvoiceCurrency = encryptItemInvoiceCurrency(nextInvoiceCurrency);
+        summary.itemInvoiceCurrenciesEncrypted++;
+        changed = true;
+      }
+
+      if (nextInvoiceDate && !isEncryptedPayload(nextInvoiceDate)) {
+        nextInvoiceDate = encryptItemInvoiceDate(nextInvoiceDate);
+        summary.itemInvoiceDatesEncrypted++;
+        changed = true;
+      }
+
+      if (nextWarrantyStartDate && !isEncryptedPayload(nextWarrantyStartDate)) {
+        nextWarrantyStartDate = encryptItemWarrantyStartDate(nextWarrantyStartDate);
+        summary.itemWarrantyStartDatesEncrypted++;
+        changed = true;
+      }
+
+      if (nextWarrantyDurationValue && !isEncryptedPayload(nextWarrantyDurationValue)) {
+        nextWarrantyDurationValue = encryptItemWarrantyDurationValue(nextWarrantyDurationValue);
+        summary.itemWarrantyDurationValuesEncrypted++;
+        changed = true;
+      }
+
+      if (nextWarrantyDurationUnit && !isEncryptedPayload(nextWarrantyDurationUnit)) {
+        nextWarrantyDurationUnit = encryptItemWarrantyDurationUnit(nextWarrantyDurationUnit);
+        summary.itemWarrantyDurationUnitsEncrypted++;
+        changed = true;
+      }
+
+      if (nextWarrantyExpiryDate && !isEncryptedPayload(nextWarrantyExpiryDate)) {
+        nextWarrantyExpiryDate = encryptItemWarrantyExpiryDate(nextWarrantyExpiryDate);
+        summary.itemWarrantyDatesEncrypted++;
+        changed = true;
+      }
+
       const barcodeValue = nextBarcode ? decryptFromStorage(nextBarcode, { purpose: 'inventory.item.barcode' }) : '';
       const expectedBarcodeLookup = barcodeValue ? buildBarcodeLookup(barcodeValue) : null;
 
@@ -711,7 +841,20 @@ function backfillSensitiveFieldProtection() {
       }
 
       if (changed) {
-        updateItemProtectedFields.run(nextName, nextDescription, nextBarcode, nextBarcodeLookup, row.id);
+        updateItemProtectedFields.run(
+          nextName,
+          nextDescription,
+          nextBarcode,
+          nextInvoicePrice,
+          nextInvoiceCurrency,
+          nextInvoiceDate,
+          nextWarrantyStartDate,
+          nextWarrantyDurationValue,
+          nextWarrantyDurationUnit,
+          nextWarrantyExpiryDate,
+          nextBarcodeLookup,
+          row.id
+        );
       }
     }
   });
@@ -864,9 +1007,14 @@ function backfillSensitiveFieldProtection() {
   const mediaRows = db.prepare(`
     SELECT
       photo_path,
-      thumbnail_path
+      thumbnail_path,
+      invoice_photo_path,
+      invoice_thumbnail_path
     FROM items
-    WHERE COALESCE(photo_path, '') != '' OR COALESCE(thumbnail_path, '') != ''
+    WHERE COALESCE(photo_path, '') != ''
+       OR COALESCE(thumbnail_path, '') != ''
+       OR COALESCE(invoice_photo_path, '') != ''
+       OR COALESCE(invoice_thumbnail_path, '') != ''
   `).all();
 
   for (const row of mediaRows) {
@@ -896,6 +1044,36 @@ function backfillSensitiveFieldProtection() {
             'utf8'
           );
           summary.itemThumbnailsEncrypted++;
+        }
+      }
+    }
+
+    if (row.invoice_photo_path) {
+      const invoicePhotoPath = resolveStoredPath(row.invoice_photo_path);
+      if (invoicePhotoPath && fs.existsSync(invoicePhotoPath)) {
+        const invoicePhotoPayload = fs.readFileSync(invoicePhotoPath);
+        if (!isEncryptedPayload(invoicePhotoPayload)) {
+          fs.writeFileSync(
+            invoicePhotoPath,
+            encryptBufferForStorage(invoicePhotoPayload, { purpose: ITEM_INVOICE_MEDIA_PURPOSE }),
+            'utf8'
+          );
+          summary.itemInvoicePhotosEncrypted++;
+        }
+      }
+    }
+
+    if (row.invoice_thumbnail_path) {
+      const invoiceThumbnailPath = resolveStoredPath(row.invoice_thumbnail_path);
+      if (invoiceThumbnailPath && fs.existsSync(invoiceThumbnailPath)) {
+        const invoiceThumbnailPayload = fs.readFileSync(invoiceThumbnailPath);
+        if (!isEncryptedPayload(invoiceThumbnailPayload)) {
+          fs.writeFileSync(
+            invoiceThumbnailPath,
+            encryptBufferForStorage(invoiceThumbnailPayload, { purpose: ITEM_INVOICE_THUMBNAIL_MEDIA_PURPOSE }),
+            'utf8'
+          );
+          summary.itemInvoiceThumbnailsEncrypted++;
         }
       }
     }

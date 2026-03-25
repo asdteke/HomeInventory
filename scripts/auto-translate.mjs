@@ -1,9 +1,10 @@
 import fs from 'fs';
 import path from 'path';
-import { translate } from 'bing-translate-api';
+import { translate } from '@vitalets/google-translate-api';
 
 const LOCALES_DIR = path.join(process.cwd(), 'client', 'public', 'locales');
 const BASE_LANG = 'en';
+const BATCH_SEPARATOR = '<<<__HI_SEP__>>>';
 
 // Deep clone object
 function deepClone(obj) {
@@ -31,19 +32,10 @@ function setDeepVal(obj, path, value) {
     current[parts[parts.length - 1]] = value;
 }
 
-// Convert lang code format if necessary (e.g., pt -> pt, ja -> ja)
-const BING_LANGS = {
-    'pt': 'pt',
-    'fr': 'fr',
-    'it': 'it',
-    'ru': 'ru',
-    'ja': 'ja',
-    'tr': 'tr',
-    'en': 'en',
-    'es': 'es',
-    'de': 'de',
-    'ar': 'ar',
-    'no': 'nb'
+const GOOGLE_LANGS = {
+    'sr-Cyrl': 'sr',
+    'zh-Hans': 'zh-CN',
+    'zh-Hant': 'zh-TW'
 };
 
 async function translateBatched(baseObj, targetObj, targetLang) {
@@ -65,18 +57,17 @@ async function translateBatched(baseObj, targetObj, targetLang) {
     if (itemsToTranslate.length === 0) return result;
 
     console.log(`Found ${itemsToTranslate.length} strings to translate to ${targetLang}. Batching...`);
-    
-    const BATCH_SIZE = 15; // Bing text limit is 1000 chars usually. 15 strings is safe.
+
+    const mappedTargetLang = GOOGLE_LANGS[targetLang] || targetLang;
+    const BATCH_SIZE = 15;
     for (let i = 0; i < itemsToTranslate.length; i += BATCH_SIZE) {
         const batch = itemsToTranslate.slice(i, i + BATCH_SIZE);
-        const combinedText = batch.map(b => b.text).join(' ||| ');
+        const combinedText = batch.map(b => b.text).join(` ${BATCH_SEPARATOR} `);
         
         try {
             console.log(`Translating batch ${Math.floor(i / BATCH_SIZE) + 1}...`);
-            const res = await translate(combinedText, null, BING_LANGS[targetLang] || targetLang);
-            
-            // Bing might be slow or return an error if we bombard it.
-            const translatedSegments = res.translation.split(/(?:\s*\|\|\|\s*)+/);
+            const res = await translate(combinedText, { to: mappedTargetLang });
+            const translatedSegments = res.text.split(new RegExp(`\\s*${BATCH_SEPARATOR}\\s*`, 'g'));
             
             for (let j = 0; j < batch.length; j++) {
                 const item = batch[j];
@@ -85,13 +76,13 @@ async function translateBatched(baseObj, targetObj, targetLang) {
                 setDeepVal(result, item.path, finalStr);
             }
             
-            await new Promise(r => setTimeout(r, 1500));
+            await new Promise(r => setTimeout(r, 500));
         } catch (err) {
             console.error('Batch translation error:', err.message);
             for (const item of batch) {
                 setDeepVal(result, item.path, item.text);
             }
-            await new Promise(r => setTimeout(r, 4000));
+            await new Promise(r => setTimeout(r, 1000));
         }
     }
     

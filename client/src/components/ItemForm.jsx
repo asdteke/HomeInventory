@@ -2,24 +2,220 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, Camera, X, Lock, Globe, MapPin, Plus, Loader2, ChevronDown, Check, QrCode, ScanBarcode, Search, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Camera, X, Lock, Globe, MapPin, Plus, Loader2, ChevronDown, Check, QrCode, ScanBarcode, Search, ExternalLink, CalendarDays } from 'lucide-react';
 import ItemQRCode from './ItemQRCode';
 import BarcodeScanner from './BarcodeScanner';
 import SecureImage from './SecureImage';
+
+function createInitialFormData() {
+    return {
+        name: '',
+        description: '',
+        quantity: 1,
+        category_id: '',
+        room_id: '',
+        location_id: '',
+        is_public: true,
+        barcode: '',
+        invoice_price: '',
+        invoice_currency: '',
+        invoice_currency_custom: '',
+        invoice_date: '',
+        warranty_start_date: '',
+        warranty_duration_value: '',
+        warranty_duration_unit: '',
+        warranty_expiry_date: ''
+    };
+}
+
+const CURRENCY_OPTIONS = [
+    { code: 'TRY', label: 'TRY (₺)' },
+    { code: 'USD', label: 'USD ($)' },
+    { code: 'EUR', label: 'EUR (€)' },
+    { code: 'GBP', label: 'GBP (£)' },
+    { code: 'CHF', label: 'CHF' },
+    { code: 'CAD', label: 'CAD (C$)' },
+    { code: 'AUD', label: 'AUD (A$)' },
+    { code: 'JPY', label: 'JPY (¥)' },
+    { code: 'SAR', label: 'SAR (﷼)' },
+    { code: 'AED', label: 'AED (د.إ)' }
+];
+const CUSTOM_CURRENCY_OPTION = '__OTHER__';
+const WARRANTY_DURATION_OPTIONS = [
+    { code: 'months', labelKey: 'items.form.warranty_duration_months' },
+    { code: 'years', labelKey: 'items.form.warranty_duration_years' }
+];
+
+const DATE_INPUT_PLACEHOLDER = 'DD.MM.YYYY';
+
+function isPresetCurrency(code) {
+    return CURRENCY_OPTIONS.some((currency) => currency.code === code);
+}
+
+function buildValidatedIsoDate(yearValue, monthValue, dayValue) {
+    const year = String(yearValue || '').padStart(4, '0');
+    const month = String(monthValue || '').padStart(2, '0');
+    const day = String(dayValue || '').padStart(2, '0');
+    const isoDate = `${year}-${month}-${day}`;
+
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) {
+        return '';
+    }
+
+    const parsed = new Date(`${isoDate}T00:00:00.000Z`);
+    if (Number.isNaN(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== isoDate) {
+        return '';
+    }
+
+    return isoDate;
+}
+
+function normalizeDurationValue(value) {
+    return String(value || '').replace(/[^\d]/g, '').slice(0, 4);
+}
+
+function parseDurationValue(value) {
+    const normalized = String(value || '').trim();
+    if (!/^\d{1,4}$/.test(normalized)) {
+        return null;
+    }
+
+    const parsed = Number.parseInt(normalized, 10);
+    if (!Number.isInteger(parsed) || parsed < 1 || parsed > 1200) {
+        return null;
+    }
+
+    return parsed;
+}
+
+function addMonthsClamped(isoDate, monthDelta) {
+    const match = String(isoDate || '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!match) {
+        return '';
+    }
+
+    const year = Number(match[1]);
+    const month = Number(match[2]);
+    const day = Number(match[3]);
+    const baseMonthIndex = (year * 12) + (month - 1);
+    const targetMonthIndex = baseMonthIndex + monthDelta;
+    const targetYear = Math.floor(targetMonthIndex / 12);
+    const targetMonth = (targetMonthIndex % 12) + 1;
+    const lastDayOfTargetMonth = new Date(Date.UTC(targetYear, targetMonth, 0)).getUTCDate();
+
+    return buildValidatedIsoDate(targetYear, targetMonth, Math.min(day, lastDayOfTargetMonth));
+}
+
+function normalizeDateForSubmit(value) {
+    const normalized = String(value || '').trim();
+    if (!normalized) {
+        return '';
+    }
+
+    let match = normalized.match(/^(\d{4})[./-](\d{1,2})[./-](\d{1,2})$/);
+    if (match) {
+        return buildValidatedIsoDate(match[1], match[2], match[3]) || normalized;
+    }
+
+    match = normalized.match(/^(\d{1,2})[./-](\d{1,2})[./-](\d{4})$/);
+    if (match) {
+        return buildValidatedIsoDate(match[3], match[2], match[1]) || normalized;
+    }
+
+    return normalized;
+}
+
+function formatDateInputValue(value) {
+    const normalized = String(value || '').replace(/[^\d./-]/g, '').trim();
+    if (!normalized) {
+        return '';
+    }
+
+    const fullyNormalized = normalizeDateForSubmit(normalized);
+    if (/^\d{4}-\d{2}-\d{2}$/.test(fullyNormalized)) {
+        return formatIsoDateForDisplay(fullyNormalized);
+    }
+
+    const digits = normalized.replace(/\D/g, '').slice(0, 8);
+    if (!digits) {
+        return '';
+    }
+
+    const leadingYear = Number.parseInt(digits.slice(0, 4), 10);
+    const looksLikeYearFirst = digits.length > 4 && leadingYear >= 1900 && leadingYear <= 2200;
+
+    if (looksLikeYearFirst) {
+        if (digits.length <= 4) {
+            return digits;
+        }
+        if (digits.length <= 6) {
+            return `${digits.slice(0, 4)}-${digits.slice(4)}`;
+        }
+        return `${digits.slice(0, 4)}-${digits.slice(4, 6)}-${digits.slice(6, 8)}`;
+    }
+
+    if (digits.length <= 2) {
+        return digits;
+    }
+
+    if (digits.length <= 4) {
+        return `${digits.slice(0, 2)}.${digits.slice(2)}`;
+    }
+
+    return `${digits.slice(0, 2)}.${digits.slice(2, 4)}.${digits.slice(4, 8)}`;
+}
+
+function formatIsoDateForDisplay(value) {
+    const isoDate = normalizeDateForSubmit(value);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) {
+        return String(value || '');
+    }
+
+    const [year, month, day] = isoDate.split('-');
+    return `${day}.${month}.${year}`;
+}
+
+function calculateWarrantyExpiryDisplay(startDateValue, durationValue, durationUnit) {
+    const normalizedStartDate = normalizeDateForSubmit(startDateValue);
+    const parsedDurationValue = parseDurationValue(durationValue);
+
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(normalizedStartDate) || !parsedDurationValue) {
+        return '';
+    }
+
+    if (!WARRANTY_DURATION_OPTIONS.some((option) => option.code === durationUnit)) {
+        return '';
+    }
+
+    const monthDelta = durationUnit === 'years'
+        ? parsedDurationValue * 12
+        : parsedDurationValue;
+    const expiryDate = addMonthsClamped(normalizedStartDate, monthDelta);
+
+    return expiryDate ? formatIsoDateForDisplay(expiryDate) : '';
+}
 
 export default function ItemForm() {
     const { id } = useParams();
     const navigate = useNavigate();
     const { t } = useTranslation();
     const fileInputRef = useRef(null);
+    const invoiceFileInputRef = useRef(null);
+    const invoiceDatePickerRef = useRef(null);
+    const warrantyStartDatePickerRef = useRef(null);
+    const warrantyDatePickerRef = useRef(null);
     const isEditing = Boolean(id);
 
-    const [formData, setFormData] = useState({
-        name: '', description: '', quantity: 1, category_id: '', room_id: '', location_id: '', is_public: true, barcode: ''
-    });
+    const [formData, setFormData] = useState(createInitialFormData);
     const [photo, setPhoto] = useState(null);
     const [photoPreview, setPhotoPreview] = useState(null);
     const [existingPhoto, setExistingPhoto] = useState(null);
+    const [removePhoto, setRemovePhoto] = useState(false);
+    const [invoicePhoto, setInvoicePhoto] = useState(null);
+    const [invoicePhotoPreview, setInvoicePhotoPreview] = useState(null);
+    const [existingInvoicePhoto, setExistingInvoicePhoto] = useState(null);
+    const [removeInvoicePhoto, setRemoveInvoicePhoto] = useState(false);
+    const [showInvoiceSection, setShowInvoiceSection] = useState(false);
     const [categories, setCategories] = useState([]);
     const [rooms, setRooms] = useState([]);
     const [locations, setLocations] = useState([]);
@@ -42,12 +238,33 @@ export default function ItemForm() {
 
     const locationDropdownRef = useRef(null);
 
-    useEffect(() => { fetchOptions(); if (isEditing) fetchItem(); }, [id]);
+    useEffect(() => {
+        fetchOptions();
+
+        if (isEditing) {
+            setFetching(true);
+            fetchItem();
+            return;
+        }
+
+        setFetching(false);
+        setFormData(createInitialFormData());
+        setPhoto(null);
+        setPhotoPreview(null);
+        setExistingPhoto(null);
+        setRemovePhoto(false);
+        setInvoicePhoto(null);
+        setInvoicePhotoPreview(null);
+        setExistingInvoicePhoto(null);
+        setRemoveInvoicePhoto(false);
+        setShowInvoiceSection(false);
+        setLocationSearch('');
+        setLocations([]);
+    }, [id, isEditing]);
+
     useEffect(() => {
         if (formData.room_id) {
             fetchLocations();
-            setFormData(prev => ({ ...prev, location_id: '' }));
-            setLocationSearch('');
         } else {
             setLocations([]);
         }
@@ -85,12 +302,46 @@ export default function ItemForm() {
             const res = await axios.get(`/api/items/${id}`);
             const item = res.data.item;
             setFormData({
-                name: item.name, description: item.description || '', quantity: item.quantity,
-                category_id: item.category_id || '', room_id: item.room_id || '',
-                location_id: item.location_id || '', is_public: item.is_public === 1, barcode: item.barcode || ''
+                name: item.name,
+                description: item.description || '',
+                quantity: item.quantity,
+                category_id: item.category_id || '',
+                room_id: item.room_id || '',
+                location_id: item.location_id || '',
+                is_public: item.is_public === 1,
+                barcode: item.barcode || '',
+                invoice_price: item.invoice_price || '',
+                invoice_currency: item.invoice_currency
+                    ? (isPresetCurrency(item.invoice_currency) ? item.invoice_currency : CUSTOM_CURRENCY_OPTION)
+                    : '',
+                invoice_currency_custom: item.invoice_currency && !isPresetCurrency(item.invoice_currency)
+                    ? item.invoice_currency
+                    : '',
+                invoice_date: formatIsoDateForDisplay(item.invoice_date || ''),
+                warranty_start_date: formatIsoDateForDisplay(item.warranty_start_date || ''),
+                warranty_duration_value: item.warranty_duration_value || '',
+                warranty_duration_unit: item.warranty_duration_unit || '',
+                warranty_expiry_date: formatIsoDateForDisplay(item.warranty_expiry_date || '')
             });
-            if (item.photo_path) setExistingPhoto(item.photo_path);
-            if (item.location_name) setLocationSearch(item.location_name);
+            setPhoto(null);
+            setPhotoPreview(null);
+            setExistingPhoto(item.photo_path || null);
+            setRemovePhoto(false);
+            setInvoicePhoto(null);
+            setInvoicePhotoPreview(null);
+            setExistingInvoicePhoto(item.invoice_photo_path || null);
+            setRemoveInvoicePhoto(false);
+            setShowInvoiceSection(Boolean(
+                item.invoice_photo_path ||
+                item.invoice_price ||
+                item.invoice_currency ||
+                item.invoice_date ||
+                item.warranty_start_date ||
+                item.warranty_duration_value ||
+                item.warranty_duration_unit ||
+                item.warranty_expiry_date
+            ));
+            setLocationSearch(item.location_name || '');
         } catch (e) { setError(t('items.load_error')); }
         finally { setFetching(false); }
     };
@@ -100,24 +351,123 @@ export default function ItemForm() {
         if (name === 'room_id') {
             setFormData({ ...formData, [name]: value, location_id: '' });
             setLocationSearch('');
+        } else if (name === 'invoice_currency') {
+            setFormData((prev) => ({
+                ...prev,
+                invoice_currency: value,
+                invoice_currency_custom: value === CUSTOM_CURRENCY_OPTION ? prev.invoice_currency_custom : ''
+            }));
         } else {
             setFormData({ ...formData, [name]: value });
         }
+    };
+
+    const handleCustomCurrencyChange = (value) => {
+        setFormData((prev) => ({
+            ...prev,
+            invoice_currency_custom: String(value || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 10)
+        }));
+    };
+
+    const handleWarrantyDurationChange = (value) => {
+        setFormData((prev) => ({
+            ...prev,
+            warranty_duration_value: normalizeDurationValue(value)
+        }));
+    };
+
+    const handleDateInputChange = (name, value) => {
+        setFormData((prev) => ({
+            ...prev,
+            [name]: formatDateInputValue(value)
+        }));
+    };
+
+    const handleDateInputBlur = (name) => {
+        setFormData((prev) => {
+            const normalized = normalizeDateForSubmit(prev[name]);
+            return {
+                ...prev,
+                [name]: /^\d{4}-\d{2}-\d{2}$/.test(normalized) ? formatIsoDateForDisplay(normalized) : String(prev[name] || '').trim()
+            };
+        });
+    };
+
+    const handleDatePickerChange = (name, value) => {
+        setFormData((prev) => ({
+            ...prev,
+            [name]: formatIsoDateForDisplay(value)
+        }));
+    };
+
+    const getDatePickerValue = (value) => {
+        const normalized = normalizeDateForSubmit(value);
+        return /^\d{4}-\d{2}-\d{2}$/.test(normalized) ? normalized : '';
+    };
+
+    const openDatePicker = (inputRef) => {
+        const input = inputRef.current;
+        if (!input) {
+            return;
+        }
+
+        if (typeof input.showPicker === 'function') {
+            input.showPicker();
+            return;
+        }
+
+        input.focus();
+        input.click();
+    };
+
+    const updateImagePreview = (file, onPreviewReady) => {
+        const reader = new FileReader();
+        reader.onloadend = () => onPreviewReady(reader.result);
+        reader.readAsDataURL(file);
     };
 
     const handlePhotoChange = (e) => {
         const file = e.target.files[0];
         if (file) {
             setPhoto(file);
-            const reader = new FileReader();
-            reader.onloadend = () => setPhotoPreview(reader.result);
-            reader.readAsDataURL(file);
+            setRemovePhoto(false);
+            updateImagePreview(file, setPhotoPreview);
         }
     };
 
     const handleRemovePhoto = () => {
-        setPhoto(null); setPhotoPreview(null); setExistingPhoto(null);
+        if (photo) {
+            setPhoto(null);
+            setPhotoPreview(null);
+            setRemovePhoto(false);
+        } else if (existingPhoto) {
+            setExistingPhoto(null);
+            setRemovePhoto(true);
+        }
+
         if (fileInputRef.current) fileInputRef.current.value = '';
+    };
+
+    const handleInvoicePhotoChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setInvoicePhoto(file);
+            setRemoveInvoicePhoto(false);
+            updateImagePreview(file, setInvoicePhotoPreview);
+        }
+    };
+
+    const handleRemoveInvoicePhoto = () => {
+        if (invoicePhoto) {
+            setInvoicePhoto(null);
+            setInvoicePhotoPreview(null);
+            setRemoveInvoicePhoto(false);
+        } else if (existingInvoicePhoto) {
+            setExistingInvoicePhoto(null);
+            setRemoveInvoicePhoto(true);
+        }
+
+        if (invoiceFileInputRef.current) invoiceFileInputRef.current.value = '';
     };
 
     // Location selection
@@ -248,8 +598,46 @@ export default function ItemForm() {
 
         try {
             const data = new FormData();
-            Object.keys(formData).forEach(key => data.append(key, formData[key]));
+            const resolvedInvoiceCurrency = formData.invoice_currency === CUSTOM_CURRENCY_OPTION
+                ? formData.invoice_currency_custom
+                : formData.invoice_currency;
+            const effectiveWarrantyStartDate = formData.warranty_start_date || formData.invoice_date;
+            const hasWarrantyCalculationInput = Boolean(
+                formData.warranty_start_date ||
+                formData.warranty_duration_value ||
+                formData.warranty_duration_unit
+            );
+            const calculatedWarrantyExpiryDate = calculateWarrantyExpiryDisplay(
+                effectiveWarrantyStartDate,
+                formData.warranty_duration_value,
+                formData.warranty_duration_unit
+            );
+            const normalizedFormData = {
+                ...formData,
+                invoice_currency: resolvedInvoiceCurrency,
+                invoice_date: normalizeDateForSubmit(formData.invoice_date),
+                warranty_start_date: hasWarrantyCalculationInput
+                    ? normalizeDateForSubmit(effectiveWarrantyStartDate)
+                    : normalizeDateForSubmit(formData.warranty_start_date),
+                warranty_duration_value: String(formData.warranty_duration_value || '').trim(),
+                warranty_duration_unit: formData.warranty_duration_unit,
+                warranty_expiry_date: normalizeDateForSubmit(
+                    calculatedWarrantyExpiryDate || formData.warranty_expiry_date
+                )
+            };
+
+            Object.keys(normalizedFormData).forEach(key => {
+                if (key === 'invoice_currency_custom') {
+                    return;
+                }
+                data.append(key, normalizedFormData[key]);
+            });
             if (photo) data.append('photo', photo);
+            if (invoicePhoto) data.append('invoice_photo', invoicePhoto);
+            if (isEditing) {
+                data.append('remove_photo', removePhoto ? 'true' : 'false');
+                data.append('remove_invoice_photo', removeInvoicePhoto ? 'true' : 'false');
+            }
 
             const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
@@ -258,9 +646,16 @@ export default function ItemForm() {
             } else {
                 await axios.post('/api/items', data, config);
                 // Clear form state after successful creation
-                setFormData({ name: '', description: '', quantity: 1, category_id: '', room_id: '', location_id: '', is_public: true, barcode: '' });
+                setFormData(createInitialFormData());
                 setPhoto(null);
                 setPhotoPreview(null);
+                setExistingPhoto(null);
+                setRemovePhoto(false);
+                setInvoicePhoto(null);
+                setInvoicePhotoPreview(null);
+                setExistingInvoicePhoto(null);
+                setRemoveInvoicePhoto(false);
+                setShowInvoiceSection(false);
             }
 
             navigate('/items');
@@ -270,6 +665,31 @@ export default function ItemForm() {
             setLoading(false);
         }
     };
+
+    const effectiveWarrantyStartDate = formData.warranty_start_date || formData.invoice_date;
+    const hasWarrantyCalculationInput = Boolean(
+        formData.warranty_start_date ||
+        formData.warranty_duration_value ||
+        formData.warranty_duration_unit
+    );
+    const calculatedWarrantyExpiryDate = calculateWarrantyExpiryDisplay(
+        effectiveWarrantyStartDate,
+        formData.warranty_duration_value,
+        formData.warranty_duration_unit
+    );
+    const displayedWarrantyExpiryDate = calculatedWarrantyExpiryDate || formData.warranty_expiry_date;
+
+    const hasInvoiceContent = Boolean(
+        invoicePhotoPreview ||
+        existingInvoicePhoto ||
+        formData.invoice_price ||
+        (formData.invoice_currency === CUSTOM_CURRENCY_OPTION ? formData.invoice_currency_custom : formData.invoice_currency) ||
+        formData.invoice_date ||
+        formData.warranty_start_date ||
+        formData.warranty_duration_value ||
+        formData.warranty_duration_unit ||
+        formData.warranty_expiry_date
+    );
 
     if (fetching) return <div className="flex justify-center py-20"><div className="spinner"></div></div>;
 
@@ -395,6 +815,286 @@ export default function ItemForm() {
                     <div>
                         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.description')}</label>
                         <textarea name="description" value={formData.description} onChange={handleChange} className="input-field min-h-[100px] resize-none" placeholder={t('items.form.description_placeholder')} rows={3} />
+                    </div>
+
+                    {/* Optional Invoice Section */}
+                    <div className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden bg-white dark:bg-slate-900">
+                        <button
+                            type="button"
+                            onClick={() => setShowInvoiceSection(prev => !prev)}
+                            className="w-full flex items-center justify-between gap-4 px-4 py-4 text-left hover:bg-slate-50 dark:hover:bg-slate-800/70 transition-colors"
+                        >
+                            <div>
+                                <p className="font-medium text-slate-900 dark:text-white">{t('items.form.invoice_section')}</p>
+                                <p className="text-sm text-slate-500 dark:text-slate-400">
+                                    {showInvoiceSection ? t('items.form.invoice_section_help') : t('items.form.invoice_section_collapsed')}
+                                </p>
+                            </div>
+                            <div className="flex items-center gap-3 flex-shrink-0">
+                                {hasInvoiceContent && !showInvoiceSection && (
+                                    <span className="px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-xs font-medium">
+                                        {t('items.form.invoice_section_filled')}
+                                    </span>
+                                )}
+                                <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform ${showInvoiceSection ? 'rotate-180' : ''}`} />
+                            </div>
+                        </button>
+
+                        {showInvoiceSection && (
+                            <div className="px-4 pb-4 pt-1 border-t border-slate-200 dark:border-slate-700 space-y-4 bg-slate-50/70 dark:bg-slate-900">
+                                <p className="text-xs text-slate-500 dark:text-slate-400">
+                                    {t('items.form.invoice_security')}
+                                </p>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.invoice_photo')}</label>
+                                    <div className="flex items-start gap-4">
+                                        <div
+                                            onClick={() => invoiceFileInputRef.current?.click()}
+                                            className="w-32 h-32 rounded-2xl bg-white dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-600 flex items-center justify-center overflow-hidden cursor-pointer hover:border-primary-500 transition-colors"
+                                        >
+                                            {invoicePhotoPreview ? (
+                                                <img src={invoicePhotoPreview} alt="" className="w-full h-full object-cover" />
+                                            ) : existingInvoicePhoto ? (
+                                                <SecureImage
+                                                    src={existingInvoicePhoto}
+                                                    alt=""
+                                                    className="w-full h-full object-cover"
+                                                    fallback={
+                                                        <div className="text-center">
+                                                            <Camera className="w-8 h-8 text-slate-400 mx-auto mb-1" />
+                                                            <span className="text-xs text-slate-400">{t('items.form.add_photo')}</span>
+                                                        </div>
+                                                    }
+                                                />
+                                            ) : (
+                                                <div className="text-center">
+                                                    <Camera className="w-8 h-8 text-slate-400 mx-auto mb-1" />
+                                                    <span className="text-xs text-slate-400">{t('items.form.add_photo')}</span>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <input
+                                            ref={invoiceFileInputRef}
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={handleInvoicePhotoChange}
+                                            className="hidden"
+                                        />
+                                        {(invoicePhotoPreview || existingInvoicePhoto) && (
+                                            <button type="button" onClick={handleRemoveInvoicePhoto} className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-lg">
+                                                <X className="w-5 h-5" />
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.invoice_price')}</label>
+                                        <input
+                                            type="number"
+                                            name="invoice_price"
+                                            value={formData.invoice_price}
+                                            onChange={handleChange}
+                                            className="input-field"
+                                            min="0"
+                                            step="0.01"
+                                            placeholder={t('items.form.invoice_price_placeholder')}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.invoice_currency')}</label>
+                                        <select
+                                            name="invoice_currency"
+                                            value={formData.invoice_currency}
+                                            onChange={handleChange}
+                                            className="input-field"
+                                        >
+                                            <option value="">{t('common.select')}</option>
+                                            {CURRENCY_OPTIONS.map((currency) => (
+                                                <option key={currency.code} value={currency.code}>
+                                                    {currency.label}
+                                                </option>
+                                            ))}
+                                            <option value={CUSTOM_CURRENCY_OPTION}>{t('common.other')}</option>
+                                        </select>
+                                        {formData.invoice_currency === CUSTOM_CURRENCY_OPTION && (
+                                            <input
+                                                type="text"
+                                                value={formData.invoice_currency_custom}
+                                                onChange={(e) => handleCustomCurrencyChange(e.target.value)}
+                                                className="input-field mt-3 uppercase"
+                                                inputMode="text"
+                                                autoComplete="off"
+                                                maxLength={10}
+                                                placeholder="NOK / BTC"
+                                                required={Boolean(formData.invoice_price)}
+                                            />
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.invoice_date')}</label>
+                                        <div className="relative">
+                                            <input
+                                                type="text"
+                                                name="invoice_date"
+                                                value={formData.invoice_date}
+                                                onChange={(e) => handleDateInputChange('invoice_date', e.target.value)}
+                                                onBlur={() => handleDateInputBlur('invoice_date')}
+                                                className="input-field pr-12"
+                                                inputMode="numeric"
+                                                autoComplete="off"
+                                                placeholder={DATE_INPUT_PLACEHOLDER}
+                                                pattern="(?:\d{2}[./-]\d{2}[./-]\d{4}|\d{4}[./-]\d{2}[./-]\d{2})"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => openDatePicker(invoiceDatePickerRef)}
+                                                className="absolute inset-y-0 right-0 px-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                                                aria-label={t('items.form.invoice_date')}
+                                                title={t('items.form.invoice_date')}
+                                            >
+                                                <CalendarDays className="w-5 h-5" />
+                                            </button>
+                                            <input
+                                                ref={invoiceDatePickerRef}
+                                                type="date"
+                                                value={getDatePickerValue(formData.invoice_date)}
+                                                onChange={(e) => handleDatePickerChange('invoice_date', e.target.value)}
+                                                className="sr-only"
+                                                tabIndex={-1}
+                                                aria-hidden="true"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.warranty_start_date')}</label>
+                                        <div className="relative">
+                                            <input
+                                                type="text"
+                                                name="warranty_start_date"
+                                                value={formData.warranty_start_date}
+                                                onChange={(e) => handleDateInputChange('warranty_start_date', e.target.value)}
+                                                onBlur={() => handleDateInputBlur('warranty_start_date')}
+                                                className="input-field pr-12"
+                                                inputMode="numeric"
+                                                autoComplete="off"
+                                                placeholder={DATE_INPUT_PLACEHOLDER}
+                                                pattern="(?:\d{2}[./-]\d{2}[./-]\d{4}|\d{4}[./-]\d{2}[./-]\d{2})"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => openDatePicker(warrantyStartDatePickerRef)}
+                                                className="absolute inset-y-0 right-0 px-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                                                aria-label={t('items.form.warranty_start_date')}
+                                                title={t('items.form.warranty_start_date')}
+                                            >
+                                                <CalendarDays className="w-5 h-5" />
+                                            </button>
+                                            <input
+                                                ref={warrantyStartDatePickerRef}
+                                                type="date"
+                                                value={getDatePickerValue(formData.warranty_start_date)}
+                                                onChange={(e) => handleDatePickerChange('warranty_start_date', e.target.value)}
+                                                className="sr-only"
+                                                tabIndex={-1}
+                                                aria-hidden="true"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <p className="text-xs text-slate-500 dark:text-slate-400">
+                                    {t('items.form.warranty_calculation_help')}
+                                </p>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.warranty_duration_value')}</label>
+                                        <input
+                                            type="text"
+                                            name="warranty_duration_value"
+                                            value={formData.warranty_duration_value}
+                                            onChange={(e) => handleWarrantyDurationChange(e.target.value)}
+                                            className="input-field"
+                                            inputMode="numeric"
+                                            autoComplete="off"
+                                            placeholder={t('items.form.warranty_duration_placeholder')}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.warranty_duration_unit')}</label>
+                                        <select
+                                            name="warranty_duration_unit"
+                                            value={formData.warranty_duration_unit}
+                                            onChange={handleChange}
+                                            className="input-field"
+                                        >
+                                            <option value="">{t('common.select')}</option>
+                                            {WARRANTY_DURATION_OPTIONS.map((option) => (
+                                                <option key={option.code} value={option.code}>
+                                                    {t(option.labelKey)}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.warranty_expiry_date')}</label>
+                                        <div className="relative">
+                                            <input
+                                                type="text"
+                                                name="warranty_expiry_date"
+                                                value={displayedWarrantyExpiryDate}
+                                                onChange={(e) => {
+                                                    if (!hasWarrantyCalculationInput) {
+                                                        handleDateInputChange('warranty_expiry_date', e.target.value);
+                                                    }
+                                                }}
+                                                onBlur={() => {
+                                                    if (!hasWarrantyCalculationInput) {
+                                                        handleDateInputBlur('warranty_expiry_date');
+                                                    }
+                                                }}
+                                                className={`input-field pr-12 ${hasWarrantyCalculationInput ? 'bg-slate-100 dark:bg-slate-800 cursor-not-allowed' : ''}`}
+                                                inputMode="numeric"
+                                                autoComplete="off"
+                                                placeholder={DATE_INPUT_PLACEHOLDER}
+                                                pattern="(?:\d{2}[./-]\d{2}[./-]\d{4}|\d{4}[./-]\d{2}[./-]\d{2})"
+                                                readOnly={hasWarrantyCalculationInput}
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    if (!hasWarrantyCalculationInput) {
+                                                        openDatePicker(warrantyDatePickerRef);
+                                                    }
+                                                }}
+                                                className={`absolute inset-y-0 right-0 px-3 transition-colors ${hasWarrantyCalculationInput ? 'text-slate-300 dark:text-slate-600 cursor-not-allowed' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'}`}
+                                                aria-label={t('items.form.warranty_expiry_date')}
+                                                title={t('items.form.warranty_expiry_date')}
+                                                disabled={hasWarrantyCalculationInput}
+                                            >
+                                                <CalendarDays className="w-5 h-5" />
+                                            </button>
+                                            <input
+                                                ref={warrantyDatePickerRef}
+                                                type="date"
+                                                value={getDatePickerValue(displayedWarrantyExpiryDate)}
+                                                onChange={(e) => handleDatePickerChange('warranty_expiry_date', e.target.value)}
+                                                className="sr-only"
+                                                tabIndex={-1}
+                                                aria-hidden="true"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                        )}
                     </div>
 
                     {/* Quantity & Category */}
