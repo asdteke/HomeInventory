@@ -1,5 +1,5 @@
 import express from 'express';
-import { sendEmail } from '../utils/emailService.js';
+import { sendTestEmail } from '../utils/emailService.js';
 import { logError } from '../utils/logger.js';
 import { authenticateToken, requireAdmin } from '../middleware/auth.js';
 
@@ -32,49 +32,7 @@ router.post('/test', authenticateToken, requireAdmin, async (req, res) => {
 
         console.log(`🧪 Test e-postası gönderiliyor: ${to}`);
 
-        const result = await sendEmail({
-            to,
-            subject: '🧪 HomeInventory Test E-postası',
-            html: `
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <meta charset="UTF-8">
-                <style>
-                    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f5f5f5; }
-                    .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-                    .header { background: linear-gradient(135deg, #22c55e, #16a34a); padding: 30px; text-align: center; }
-                    .header h1 { color: white; margin: 0; font-size: 28px; }
-                    .content { padding: 30px; text-align: center; }
-                    .success-icon { font-size: 64px; margin: 20px 0; }
-                    .info-box { background: #f0f9ff; border-radius: 8px; padding: 20px; margin: 20px 0; }
-                    .footer { background: #f9fafb; padding: 20px; text-align: center; color: #6b7280; font-size: 14px; }
-                </style>
-            </head>
-            <body>
-                <div class="container">
-                    <div class="header">
-                        <h1>🧪 Test E-postası</h1>
-                    </div>
-                    <div class="content">
-                        <div class="success-icon">✅</div>
-                        <h2>E-posta Sistemi Çalışıyor!</h2>
-                        <p>Bu e-postayı aldıysanız, HomeInventory e-posta gönderim sistemi doğru şekilde yapılandırılmış demektir.</p>
-                        
-                        <div class="info-box">
-                            <p><strong>Gönderim Zamanı:</strong> ${new Date().toLocaleString('tr-TR')}</p>
-                            <p><strong>Gönderen:</strong> support@homeinventory.local</p>
-                            <p><strong>Servis:</strong> Resend API</p>
-                        </div>
-                    </div>
-                    <div class="footer">
-                        <p>© 2024 HomeInventory - Ev Envanter Yönetim Sistemi</p>
-                    </div>
-                </div>
-            </body>
-            </html>
-            `
-        });
+        const result = await sendTestEmail(to);
 
         if (result.success) {
             res.json({

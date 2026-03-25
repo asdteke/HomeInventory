@@ -1,4 +1,7 @@
 import { Resend } from 'resend';
+import { readdirSync, readFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { logError } from './logger.js';
 
 // Resend API istemcisi - lazy initialization (dotenv yüklendikten sonra çalışır)
@@ -18,6 +21,193 @@ const PUBLIC_BASE_URL = String(
 const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || 'support@homeinventory.local';
 // Varsayılan gönderen bilgisi
 const DEFAULT_FROM = `HomeInventory Team <${SUPPORT_EMAIL}>`;
+const EMAIL_LANGUAGE_ENV = process.env.APP_EMAIL_LANGUAGE || process.env.EMAIL_LANGUAGE || 'en';
+const EMAIL_FALLBACK_LANGUAGE = 'en';
+const EMAIL_LANG_PATTERN = /^[A-Za-z0-9-]{2,20}$/;
+const LOCALE_CACHE = new Map();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const EMAIL_LOCALES_DIR = resolve(__dirname, '../client/public/locales');
+const AVAILABLE_EMAIL_LANGUAGES = new Set(
+    readdirSync(EMAIL_LOCALES_DIR, { withFileTypes: true })
+        .filter((entry) => entry.isDirectory())
+        .map((entry) => entry.name)
+);
+const DEFAULT_EMAIL_COPY = {
+    verification: {
+        subject: '🏠 HomeInventory - 📧 Email Verification Required',
+        headerTitle: 'Welcome to HomeInventory',
+        headerSubtitle: 'Create a new account or join an existing house',
+        greeting: 'Welcome to HomeInventory 👋',
+        intro: 'Please verify your email address to activate your account.',
+        verifyPrompt: 'Email verification required',
+        verifyButton: 'Verify my account',
+        warningTitle: 'Important:',
+        warningBody: 'Check your spam/junk folder if you cannot find this email.',
+        houseKeyLabel: 'House Key',
+        houseKeyNote: 'Keep this key secure. You can share it with family members to join your house.',
+        featuresTitle: 'What you can do next',
+        features: [
+            'Invite family members with your house key',
+            'Join an existing house',
+            'Create your own house',
+            'You can belong to multiple houses and switch between them.'
+        ],
+        fallback: 'If the button does not work, copy and paste this link into your browser:',
+        support: 'Need help? Contact',
+        footer: '© 2026 HomeInventory'
+    },
+    welcome: {
+        subject: '🏠 Welcome to HomeInventory',
+        headerTitle: 'Welcome to HomeInventory',
+        headerSubtitle: 'Your account is ready',
+        greeting: 'Welcome! 👋',
+        intro: 'Your account has been created successfully.',
+        houseKeyLabel: 'House Key',
+        houseKeyNote: 'Use this key to invite trusted members to your house.',
+        featuresTitle: 'What you can do next',
+        features: [
+            'Add and categorize your items',
+            'Invite family members',
+            'Track home inventory securely',
+            'Switch between multiple houses when needed'
+        ],
+        support: 'Need help? Contact',
+        footer: '© 2026 HomeInventory'
+    },
+    houseJoinRequest: {
+        subject: '🏠 New house join request',
+        greeting: 'House access update',
+        bodyLine1Template: '{{username}} requested to join "{{house}}".',
+        bodyLine2: 'Please review the request in the app.'
+    },
+    houseJoinDecision: {
+        subjectTemplate: '🏠 House request {{statusLabel}}',
+        greeting: 'House access update',
+        bodyLine1Template: 'Your request for "{{house}}" was {{statusLabel}}.',
+        bodyLine2: 'You can open the app to see your latest access status.',
+        statusLabels: {
+            approved: 'approved',
+            rejected: 'rejected',
+            updated: 'updated'
+        }
+    },
+    houseKick: {
+        subject: '🏠 House access removed',
+        greeting: 'House access update',
+        bodyLine1Template: 'Your access to "{{house}}" has been removed.',
+        bodyLine2: 'You can join another house from the app at any time.'
+    },
+    passwordReset: {
+        subject: '🔐 HomeInventory Password Reset',
+        headerTitle: '🔐 Reset your password',
+        greeting: 'Password reset request',
+        intro: 'Use the button below to reset your password securely.',
+        buttonLabel: 'Reset my password',
+        warningTitle: 'Important:',
+        warningBody: 'This link expires in 15 minutes. If you did not request this, you can ignore this email.',
+        fallback: 'If the button does not work, copy and paste this link into your browser:',
+        footer: '© 2026 HomeInventory'
+    },
+    testEmail: {
+        subject: '🧪 HomeInventory Test Email',
+        headerTitle: '🧪 Test Email',
+        successTitle: 'Email system is working',
+        successBody: 'If you received this email, HomeInventory email delivery is configured correctly.',
+        sentAtLabel: 'Sent at',
+        senderLabel: 'Sender',
+        serviceLabel: 'Service',
+        footer: '© 2026 HomeInventory'
+    }
+};
+
+function normalizeEmailLanguage(rawLanguage) {
+    const language = String(rawLanguage || '').trim();
+    if (!EMAIL_LANG_PATTERN.test(language)) {
+        return EMAIL_FALLBACK_LANGUAGE;
+    }
+
+    if (!AVAILABLE_EMAIL_LANGUAGES.has(language)) {
+        return EMAIL_FALLBACK_LANGUAGE;
+    }
+
+    return language;
+}
+
+function escapeHtml(value) {
+    return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll('\'', '&#39;');
+}
+
+function readLocaleFile(language) {
+    const normalizedLanguage = normalizeEmailLanguage(language);
+    const cached = LOCALE_CACHE.get(normalizedLanguage);
+    if (cached) {
+        return cached;
+    }
+
+    const localePath = resolve(EMAIL_LOCALES_DIR, normalizedLanguage, 'translation.json');
+    try {
+        const parsed = JSON.parse(readFileSync(localePath, 'utf8'));
+        LOCALE_CACHE.set(normalizedLanguage, parsed);
+        return parsed;
+    } catch (error) {
+        logError(error, {
+            context: 'emailService.readLocaleFile',
+            details: { language: normalizedLanguage, localePath }
+        });
+        return {};
+    }
+}
+
+function mergeEmailDictionaries(baseDictionary, overrideDictionary) {
+    const output = { ...baseDictionary };
+
+    for (const [key, value] of Object.entries(overrideDictionary || {})) {
+        if (Array.isArray(value)) {
+            output[key] = value;
+            continue;
+        }
+
+        if (value && typeof value === 'object') {
+            output[key] = mergeEmailDictionaries(baseDictionary?.[key] || {}, value);
+            continue;
+        }
+
+        output[key] = value;
+    }
+
+    return output;
+}
+
+export function getEmailLanguage() {
+    return normalizeEmailLanguage(EMAIL_LANGUAGE_ENV);
+}
+
+function getEmailCopy(sectionName, language = EMAIL_LANGUAGE_ENV) {
+    const normalizedLanguage = normalizeEmailLanguage(language);
+    const baseLocale = readLocaleFile(EMAIL_FALLBACK_LANGUAGE);
+    const targetLocale = readLocaleFile(normalizedLanguage);
+
+    const defaultSection = DEFAULT_EMAIL_COPY?.[sectionName] || {};
+    const baseSection = mergeEmailDictionaries(defaultSection, baseLocale?.emails?.[sectionName] || {});
+    const targetSection = targetLocale?.emails?.[sectionName] || {};
+
+    return mergeEmailDictionaries(baseSection, targetSection);
+}
+
+function fillTemplate(template, variables = {}) {
+    let result = String(template || '');
+    for (const [key, value] of Object.entries(variables)) {
+        result = result.replaceAll(`{{${key}}}`, String(value ?? ''));
+    }
+    return result;
+}
 
 /**
  * E-posta gönderim fonksiyonu
@@ -115,6 +305,7 @@ export async function sendEmail({ to, subject, html, text, from = DEFAULT_FROM }
  */
 export async function sendVerificationEmail(email, houseKey, verificationToken) {
     const verificationUrl = `${PUBLIC_BASE_URL}/api/auth/verify-email?token=${verificationToken}`;
+    const copy = getEmailCopy('verification');
 
     const html = `
     <!DOCTYPE html>
@@ -143,43 +334,43 @@ export async function sendVerificationEmail(email, houseKey, verificationToken) 
     <body>
         <div class="container">
             <div class="header">
-                <h1>🏠 HomeInventory'e Hoş Geldiniz!</h1>
-                <p>Ev envanter yönetim sisteminiz hazır</p>
+                <h1>${escapeHtml(copy.headerTitle)}</h1>
+                <p>${escapeHtml(copy.headerSubtitle)}</p>
             </div>
             <div class="content">
-                <p>Merhaba,</p>
-                <p>HomeInventory'e kayıt olduğunuz için teşekkür ederiz! Hesabınızı aktifleştirmek için lütfen e-posta adresinizi doğrulayın:</p>
+                <p>${escapeHtml(copy.greeting)}</p>
+                <p>${escapeHtml(copy.intro)}</p>
                 
                 <div class="verify-box">
-                    <p style="color: white; margin: 0 0 15px; font-size: 16px;">📧 E-posta Adresinizi Doğrulayın</p>
-                    <a href="${verificationUrl}" class="verify-button">✓ Hesabımı Doğrula</a>
+                    <p style="color: white; margin: 0 0 15px; font-size: 16px;">${escapeHtml(copy.verifyPrompt)}</p>
+                    <a href="${verificationUrl}" class="verify-button">${escapeHtml(copy.verifyButton)}</a>
                 </div>
 
                 <div class="warning">
-                    <strong>⚠️ Önemli:</strong> Bu doğrulama linki 24 saat geçerlidir. Hesabınızı doğrulamadan bazı özellikleri kullanamazsınız.
+                    <strong>${escapeHtml(copy.warningTitle)}</strong> ${escapeHtml(copy.warningBody)}
                 </div>
                 
                 <div class="house-key">
-                    <p style="margin: 0 0 10px; color: #6b7280;">Ev Anahtarınız:</p>
-                    <code>${houseKey}</code>
-                    <p style="margin: 10px 0 0; color: #6b7280; font-size: 12px;">Bu anahtarı saklayın! Diğer aile üyeleri bu anahtarla eve katılabilir.</p>
+                    <p style="margin: 0 0 10px; color: #6b7280;">${escapeHtml(copy.houseKeyLabel)}</p>
+                    <code>${escapeHtml(houseKey)}</code>
+                    <p style="margin: 10px 0 0; color: #6b7280; font-size: 12px;">${escapeHtml(copy.houseKeyNote)}</p>
                 </div>
 
-                <h3>Neler yapabilirsiniz?</h3>
+                <h3>${escapeHtml(copy.featuresTitle)}</h3>
                 <ul class="features">
-                    <li>Eşyalarınızı fotoğraf ve barkod ile kaydedin</li>
-                    <li>Odalar ve kategoriler oluşturun</li>
-                    <li>Aile üyelerini eve davet edin</li>
-                    <li>Verilerinizi JSON olarak yedekleyin</li>
+                    <li>${escapeHtml(copy.features[0])}</li>
+                    <li>${escapeHtml(copy.features[1])}</li>
+                    <li>${escapeHtml(copy.features[2])}</li>
+                    <li>${escapeHtml(copy.features[3])}</li>
                 </ul>
 
-                <p style="font-size: 12px; color: #6b7280;">Link çalışmıyorsa, aşağıdaki adresi tarayıcınıza yapıştırın:</p>
+                <p style="font-size: 12px; color: #6b7280;">${escapeHtml(copy.fallback)}</p>
                 <p style="word-break: break-all; color: #6b7280; font-size: 11px; background: #f3f4f6; padding: 10px; border-radius: 4px;">${verificationUrl}</p>
 
-                <p>Sorularınız için <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a> adresinden bize ulaşabilirsiniz.</p>
+                <p>${escapeHtml(copy.support)} <a href="mailto:${SUPPORT_EMAIL}">${escapeHtml(SUPPORT_EMAIL)}</a>.</p>
             </div>
             <div class="footer">
-                <p>© 2026 HomeInventory - Ev Envanter Yönetim Sistemi</p>
+                <p>${escapeHtml(copy.footer)}</p>
             </div>
         </div>
     </body>
@@ -188,7 +379,7 @@ export async function sendVerificationEmail(email, houseKey, verificationToken) 
 
     return sendEmail({
         to: email,
-        subject: '🏠 HomeInventory - Hesabınızı Doğrulayın',
+        subject: copy.subject,
         html
     });
 }
@@ -199,6 +390,7 @@ export async function sendVerificationEmail(email, houseKey, verificationToken) 
  * @param {string} houseKey - Ev anahtarı
  */
 export async function sendWelcomeEmail(email, houseKey) {
+    const copy = getEmailCopy('welcome');
     const html = `
     <!DOCTYPE html>
     <html>
@@ -223,31 +415,31 @@ export async function sendWelcomeEmail(email, houseKey) {
     <body>
         <div class="container">
             <div class="header">
-                <h1>🏠 HomeInventory'e Hoş Geldiniz!</h1>
-                <p>Ev envanter yönetim sisteminiz hazır</p>
+                <h1>${escapeHtml(copy.headerTitle)}</h1>
+                <p>${escapeHtml(copy.headerSubtitle)}</p>
             </div>
             <div class="content">
-                <p>Merhaba,</p>
-                <p>HomeInventory'e kayıt olduğunuz için teşekkür ederiz! Evinizin envanter yönetimini artık kolayca yapabilirsiniz.</p>
+                <p>${escapeHtml(copy.greeting)}</p>
+                <p>${escapeHtml(copy.intro)}</p>
                 
                 <div class="house-key">
-                    <p style="margin: 0 0 10px; color: #6b7280;">Ev Anahtarınız:</p>
-                    <code>${houseKey}</code>
-                    <p style="margin: 10px 0 0; color: #6b7280; font-size: 12px;">Bu anahtarı saklayın! Diğer aile üyeleri bu anahtarla yeni cihazlardan eve katılabilir.</p>
+                    <p style="margin: 0 0 10px; color: #6b7280;">${escapeHtml(copy.houseKeyLabel)}</p>
+                    <code>${escapeHtml(houseKey)}</code>
+                    <p style="margin: 10px 0 0; color: #6b7280; font-size: 12px;">${escapeHtml(copy.houseKeyNote)}</p>
                 </div>
 
-                <h3>Neler yapabilirsiniz?</h3>
+                <h3>${escapeHtml(copy.featuresTitle)}</h3>
                 <ul class="features">
-                    <li>Eşyalarınızı fotoğraf ve barkod ile kaydedin</li>
-                    <li>Odalar ve kategoriler oluşturun</li>
-                    <li>Aile üyelerini eve davet edin</li>
-                    <li>Verilerinizi JSON olarak yedekleyin</li>
+                    <li>${escapeHtml(copy.features[0])}</li>
+                    <li>${escapeHtml(copy.features[1])}</li>
+                    <li>${escapeHtml(copy.features[2])}</li>
+                    <li>${escapeHtml(copy.features[3])}</li>
                 </ul>
 
-                <p>Sorularınız için <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a> adresinden bize ulaşabilirsiniz.</p>
+                <p>${escapeHtml(copy.support)} <a href="mailto:${SUPPORT_EMAIL}">${escapeHtml(SUPPORT_EMAIL)}</a>.</p>
             </div>
             <div class="footer">
-                <p>© 2026 HomeInventory - Ev Envanter Yönetim Sistemi</p>
+                <p>${escapeHtml(copy.footer)}</p>
             </div>
         </div>
     </body>
@@ -256,7 +448,7 @@ export async function sendWelcomeEmail(email, houseKey) {
 
     return sendEmail({
         to: email,
-        subject: '🏠 HomeInventory\'e Hoş Geldiniz!',
+        subject: copy.subject,
         html
     });
 }
@@ -269,13 +461,15 @@ export async function sendHouseJoinRequestNotification({ to, requesterUsername, 
     const safeHouseName = String(requestedHouseName || 'bir ev').trim();
     const safeRequesterUsername = String(requesterUsername || 'Bir kullanici').trim();
 
+    const copy = getEmailCopy('houseJoinRequest');
+
     return sendEmail({
         to,
-        subject: 'HomeInventory - Yeni katilim istegi',
+        subject: copy.subject,
         html: `
-            <p>Merhaba,</p>
-            <p><strong>${safeRequesterUsername}</strong> kullanicisi <strong>${safeHouseName}</strong> icin katilim istegi gonderdi.</p>
-            <p>Istekleri uygulama icindeki Ayarlar ekranindan yonetebilirsiniz.</p>
+            <p>${escapeHtml(copy.greeting)}</p>
+            <p>${escapeHtml(fillTemplate(copy.bodyLine1Template, { username: safeRequesterUsername, house: safeHouseName }))}</p>
+            <p>${escapeHtml(copy.bodyLine2)}</p>
         `
     });
 }
@@ -286,19 +480,21 @@ export async function sendHouseJoinRequestDecisionNotification({ to, status, req
     }
 
     const safeHouseName = String(requestedHouseName || 'ev').trim();
-    const statusLabel = status === 'approved'
-        ? 'onaylandi'
+    const statusKey = status === 'approved'
+        ? 'approved'
         : status === 'rejected'
-            ? 'reddedildi'
-            : 'guncellendi';
+            ? 'rejected'
+            : 'updated';
+    const copy = getEmailCopy('houseJoinDecision');
+    const statusLabel = copy?.statusLabels?.[statusKey] || DEFAULT_EMAIL_COPY.houseJoinDecision.statusLabels[statusKey];
 
     return sendEmail({
         to,
-        subject: `HomeInventory - Katilim isteginiz ${statusLabel}`,
+        subject: fillTemplate(copy.subjectTemplate, { status: statusLabel, statusLabel }),
         html: `
-            <p>Merhaba,</p>
-            <p><strong>${safeHouseName}</strong> icin gonderdiginiz katilim istegi <strong>${statusLabel}</strong>.</p>
-            <p>Guncel durumu uygulama icinden takip edebilirsiniz.</p>
+            <p>${escapeHtml(copy.greeting)}</p>
+            <p>${escapeHtml(fillTemplate(copy.bodyLine1Template, { house: safeHouseName, status: statusLabel, statusLabel }))}</p>
+            <p>${escapeHtml(copy.bodyLine2)}</p>
         `
     });
 }
@@ -310,13 +506,15 @@ export async function sendHouseKickNotification({ to, houseName }) {
 
     const safeHouseName = String(houseName || 'ev').trim();
 
+    const copy = getEmailCopy('houseKick');
+
     return sendEmail({
         to,
-        subject: 'HomeInventory - Ev erisiminiz guncellendi',
+        subject: copy.subject,
         html: `
-            <p>Merhaba,</p>
-            <p><strong>${safeHouseName}</strong> evindeki uyeliginiz sonlandirildi.</p>
-            <p>Farkli bir eve istek gonderebilir veya yeni bir ev olusturabilirsiniz.</p>
+            <p>${escapeHtml(copy.greeting)}</p>
+            <p>${escapeHtml(fillTemplate(copy.bodyLine1Template, { house: safeHouseName }))}</p>
+            <p>${escapeHtml(copy.bodyLine2)}</p>
         `
     });
 }
@@ -328,6 +526,7 @@ export async function sendHouseKickNotification({ to, houseName }) {
  * @param {string} options.resetUrl - Sıfırlama linki
  */
 export async function sendPasswordResetEmail({ email, resetUrl }) {
+    const copy = getEmailCopy('passwordReset');
     const html = `
     <!DOCTYPE html>
     <html>
@@ -347,25 +546,25 @@ export async function sendPasswordResetEmail({ email, resetUrl }) {
     <body>
         <div class="container">
             <div class="header">
-                <h1>🔐 Şifre Sıfırlama</h1>
+                <h1>${escapeHtml(copy.headerTitle)}</h1>
             </div>
             <div class="content">
-                <p>Merhaba,</p>
-                <p>HomeInventory hesabınız için şifre sıfırlama talebinde bulundunuz. Şifrenizi sıfırlamak için aşağıdaki butona tıklayın:</p>
+                <p>${escapeHtml(copy.greeting)}</p>
+                <p>${escapeHtml(copy.intro)}</p>
                 
                 <p style="text-align: center;">
-                    <a href="${resetUrl}" class="button">Şifremi Sıfırla</a>
+                    <a href="${resetUrl}" class="button">${escapeHtml(copy.buttonLabel)}</a>
                 </p>
 
                 <div class="warning">
-                    <strong>⚠️ Önemli:</strong> Bu link 15 dakika boyunca geçerlidir. Eğer bu talebi siz yapmadıysanız, bu e-postayı görmezden gelebilirsiniz.
+                    <strong>${escapeHtml(copy.warningTitle)}</strong> ${escapeHtml(copy.warningBody)}
                 </div>
 
-                <p>Link çalışmıyorsa, aşağıdaki adresi tarayıcınıza yapıştırın:</p>
+                <p>${escapeHtml(copy.fallback)}</p>
                 <p style="word-break: break-all; color: #6b7280; font-size: 12px;">${resetUrl}</p>
             </div>
             <div class="footer">
-                <p>© 2026 HomeInventory - Ev Envanter Yönetim Sistemi</p>
+                <p>${escapeHtml(copy.footer)}</p>
             </div>
         </div>
     </body>
@@ -374,8 +573,57 @@ export async function sendPasswordResetEmail({ email, resetUrl }) {
 
     return sendEmail({
         to: email,
-        subject: '🔐 HomeInventory Şifre Sıfırlama',
+        subject: copy.subject,
         html
+    });
+}
+
+export async function sendTestEmail(to) {
+    const language = getEmailLanguage();
+    const copy = getEmailCopy('testEmail', language);
+    const sentAt = new Date().toLocaleString(language);
+
+    return sendEmail({
+        to,
+        subject: copy.subject,
+        html: `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <style>
+                body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f5f5f5; }
+                .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+                .header { background: linear-gradient(135deg, #22c55e, #16a34a); padding: 30px; text-align: center; }
+                .header h1 { color: white; margin: 0; font-size: 28px; }
+                .content { padding: 30px; text-align: center; }
+                .success-icon { font-size: 64px; margin: 20px 0; }
+                .info-box { background: #f0f9ff; border-radius: 8px; padding: 20px; margin: 20px 0; }
+                .footer { background: #f9fafb; padding: 20px; text-align: center; color: #6b7280; font-size: 14px; }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="header">
+                    <h1>${escapeHtml(copy.headerTitle)}</h1>
+                </div>
+                <div class="content">
+                    <div class="success-icon">✅</div>
+                    <h2>${escapeHtml(copy.successTitle)}</h2>
+                    <p>${escapeHtml(copy.successBody)}</p>
+                    <div class="info-box">
+                        <p><strong>${escapeHtml(copy.sentAtLabel)}:</strong> ${escapeHtml(sentAt)}</p>
+                        <p><strong>${escapeHtml(copy.senderLabel)}:</strong> ${escapeHtml(DEFAULT_FROM)}</p>
+                        <p><strong>${escapeHtml(copy.serviceLabel)}:</strong> Resend API</p>
+                    </div>
+                </div>
+                <div class="footer">
+                    <p>${escapeHtml(copy.footer)}</p>
+                </div>
+            </div>
+        </body>
+        </html>
+        `
     });
 }
 
@@ -383,5 +631,6 @@ export default {
     sendEmail,
     sendWelcomeEmail,
     sendVerificationEmail,
-    sendPasswordResetEmail
+    sendPasswordResetEmail,
+    sendTestEmail
 };
