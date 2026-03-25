@@ -49,9 +49,9 @@
 - 🛡️ **Cifrado a nivel de campo** — Protección AES-256-GCM para datos sensibles
 - 🔑 **Recuperación de contraseña segura** — Restablecimiento por correo o Clave de Recuperación sin conexión
 
-## Seguridad y Privacidad (Arquitectura de Conocimiento Cero)
+## Seguridad y Privacidad (Cifrado en Reposo del Lado del Servidor)
 
-HomeInventory está diseñado con seguridad de nivel empresarial para garantizar que sus datos personales permanezcan completamente privados.
+HomeInventory está diseñado con seguridad de nivel empresarial para proteger tus datos personales. Todos los campos sensibles, archivos multimedia y datos personales se cifran en el servidor con AES-256-GCM antes de escribirse en disco o base de datos. Esto protege contra el robo de bases de datos y el acceso no autorizado a archivos. Nota: dado que las claves de cifrado se gestionan del lado del servidor, un administrador con acceso tanto a la base de datos como a las variables de entorno puede descifrar los datos.
 
 - **Cifrado a nivel de campo**: Los datos sensibles (nombres de artículos, descripciones) se cifran mediante AES-256-GCM.
 - **Almacenamiento multimedia cifrado**: Las fotos se almacenan como datos cifrados (AES-256-GCM) sin metadatos EXIF.

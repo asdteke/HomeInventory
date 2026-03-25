@@ -49,9 +49,9 @@
 - 🛡️ **Feld-Ebenen-Verschlüsselung** — AES-256-GCM-Schutz für sensible Daten
 - 🔑 **Sichere Passwortwiederherstellung** — E-Mail-basiertes Zurücksetzen oder Offline-Wiederherstellungsschlüssel
 
-## Sicherheit & Privatsphäre (Zero-Knowledge-Architektur)
+## Sicherheit & Privatsphäre (Serverseitige Verschlüsselung im Ruhezustand)
 
-HomeInventory wurde mit Sicherheitsstandards auf Unternehmensniveau entwickelt.
+HomeInventory wurde mit Sicherheitsstandards auf Unternehmensniveau zum Schutz Ihrer persönlichen Daten entwickelt. Alle sensiblen Felder, Mediendateien und personenbezogenen Daten werden auf dem Server mit AES-256-GCM verschlüsselt, bevor sie auf die Festplatte oder in die Datenbank geschrieben werden. Dies schützt vor Datenbankdiebstahl und unbefugtem Dateizugriff. Hinweis: Da die Verschlüsselungsschlüssel serverseitig verwaltet werden, kann ein Serveradministrator mit Zugriff auf Datenbank und Umgebungsvariablen die Daten entschlüsseln.
 
 - **Feld-Ebenen-Verschlüsselung**: Sensible Daten (Artikelnamen, Beschreibungen) werden über AES-256-GCM verschlüsselt.
 - **Verschlüsselter Medienspeicher**: Fotos werden als AES-256-GCM verschlüsselte Blobs ohne EXIF-Metadaten gespeichert.

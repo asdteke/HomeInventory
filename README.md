@@ -49,9 +49,9 @@
 - 🔍 **SEO ready** — Sitemap, robots.txt, meta tags, and IndexNow support
 - 🔑 **Secure Password Recovery** — Email-based reset or offline Recovery Key for local account recovery
 
-## Security & Privacy (Zero-Knowledge Architecture)
+## Security & Privacy (Server-Side Encryption at Rest)
 
-HomeInventory is designed with enterprise-grade security to ensure your personal data remains completely private. It employs a Zero-Knowledge Architecture meaning that even with direct database access, individual item details, photos, and personal information cannot be read without the proper encryption keys.
+HomeInventory is designed with enterprise-grade security to protect your personal data. All sensitive fields, media files, and PII are encrypted on the server using AES-256-GCM before being written to disk or database. This protects against database theft and unauthorized file access. Note: because encryption keys are managed server-side, a server administrator with access to both the database and the environment variables can decrypt the data.
 
 - **Field-Level Encryption**: Sensitive data like item names, descriptions, barcodes, and custom categories are encrypted via AES-256-GCM before ever hitting the database.
 - **Encrypted Media Storage**: All uploaded photos and thumbnails have their EXIF metadata stripped and are stored on disk as AES-256-GCM encrypted blobs. They are only decrypted in RAM when requested by authenticated users.

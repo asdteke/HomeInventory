@@ -49,9 +49,9 @@
 - 🔍 **SEO hazır** — Sitemap, robots.txt, meta etiketler ve IndexNow desteği
 - 🔑 **Güvenli Şifre Kurtarma** — E-posta tabanlı veya çevrimdışı (offline) Kurtarma Anahtarı ile yerel hesap kurtarma
 
-## Güvenlik ve Gizlilik (Sıfır Bilgi Mimarisi)
+## Güvenlik ve Gizlilik (Sunucu Taraflı Durağan Şifreleme)
 
-HomeInventory, kişisel verilerinizin tamamen gizli kalmasını sağlamak için kurumsal düzeyde (enterprise-grade) güvenlik standartlarıyla tasarlanmıştır. Proje "Sıfır Bilgi Mimarisi" (Zero-Knowledge) kullanır; yani veritabanı veya sunucu dosyaları tümüyle çalınsa bile, doğru şifreleme anahtarları olmadan eşya detaylarınız, fotoğraflarınız veya kişisel verileriniz asla okunamaz.
+HomeInventory, kişisel verilerinizi korumak için kurumsal düzeyde güvenlik standartlarıyla tasarlanmıştır. Tüm hassas alanlar, medya dosyaları ve kişisel veriler, diske veya veritabanına yazılmadan önce sunucuda AES-256-GCM ile şifrelenir. Bu, veritabanı hırsızlığına ve yetkisiz dosya erişimine karşı koruma sağlar. Not: şifreleme anahtarları sunucu tarafında yönetildiğinden, hem veritabanına hem de ortam değişkenlerine erişimi olan bir sunucu yöneticisi verileri çözebilir.
 
 - **Alan Bazlı Şifreleme (Field-Level Encryption)**: Eşya isimleri, açıklamaları, özel oluşturulan kategori ve oda adları veritabanına yazılmadan önce AES-256-GCM ile şifrelenir.
 - **Şifreli Medya Depolama**: Yüklenen tüm fotoğrafların ve küçük resimlerin EXIF (konum, tarih, cihaz) metadataları otomatik silinir. Dosyalar diske AES-256-GCM ile şifrelenmiş bulanık baytlar (blob) olarak yazılır ve sadece kimliği doğrulanmış kullanıcılar için RAM'de anlık olarak çözülerek sunulur.
