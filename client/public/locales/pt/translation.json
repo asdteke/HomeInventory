@@ -22,7 +22,9 @@
         "close": "Fechar",
         "logout": "Sair",
         "copyright": "© {{year}} HomeInventory - Todos os direitos reservados",
-        "other": "Outro"
+        "other": "Outro",
+        "copy": "Copy",
+        "download": "Download"
     },
     "auth": {
         "login": {
@@ -156,7 +158,8 @@
         "share_house": "Compartilhar Casa",
         "admin_panel": "Painel de Administração",
         "logout": "Sair",
-        "menu": "Menu"
+        "menu": "Menu",
+        "personal_vault": "Cofre Pessoal"
     },
     "dashboard": {
         "welcome": "Bem-vindo, <1>{{name}}</1>! 👋",
@@ -785,5 +788,69 @@
             "fallback": "O link de redefinição de senha parece incompleto ou quebrado.",
             "footer": "© 2026 HomeInventory"
         }
+    },
+    "vault": {
+        "title": "Cofre Pessoal",
+        "subtitle": "Uma área pessoal que é descriptografada apenas no navegador e não pode ser lida pelo servidor como texto simples.",
+        "status_unlocked": "Cofre desbloqueado",
+        "status_locked": "Cofre bloqueado",
+        "lock_action": "Bloquear",
+        "setup_title": "Configurar Cofre Pessoal",
+        "setup_description": "A chave do cofre é gerada no navegador. O servidor armazena apenas a chave embrulhada e os registros criptografados.",
+        "setup_warning": "Se você perder tanto a senha do cofre quanto a chave de recuperação, os dados não poderão ser restaurados.",
+        "passphrase": "Senha do Cofre",
+        "passphrase_placeholder": "Escolha uma senha forte com pelo menos 12 caracteres",
+        "passphrase_confirm": "Senha do Cofre (Confirmar)",
+        "passphrase_confirm_placeholder": "Digite a senha novamente",
+        "setup_action": "Criar Cofre Pessoal",
+        "setting_up": "Preparando o cofre...",
+        "protection_title": "O que isso protege?",
+        "protection_item_1": "Campos de nome do item, descrição, código de barras, preço, data e garantia são criptografados no navegador.",
+        "protection_item_2": "O servidor vê apenas o envelope criptografado, a contagem de itens e os carimbos de data/hora.",
+        "protection_item_3": "O primeiro lançamento é intencionalmente pessoal e focado em texto; compartilhamento e mídia precisam de um fluxo seguro separado.",
+        "unlock_title": "Desbloquear Cofre",
+        "unlock_description": "Você pode desbloquear o cofre com sua senha ou com a chave de recuperação que salvou anteriormente.",
+        "unlock_with_passphrase": "Usar senha",
+        "unlock_with_recovery": "Usar chave de recuperação",
+        "unlock_passphrase_placeholder": "Digite a senha do seu cofre",
+        "unlock_recovery_placeholder": "por exemplo, ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+        "unlock_action": "Desbloquear Cofre",
+        "unlocking": "Desbloqueando o cofre...",
+        "security_note_title": "Nota de Segurança",
+        "security_note_1": "A chave do cofre vive apenas na memória do navegador. Ela é apagada quando você sai da página ou bloqueia o cofre.",
+        "security_note_2": "Se você esquecer a senha, pode usar a chave de recuperação. Se ambos forem perdidos, o conteúdo se torna permanentemente inacessível.",
+        "recovery_ready_title": "Chave de Recuperação Pronta",
+        "recovery_ready_description": "Mostramos esta chave apenas uma vez. Guarde-a em algum lugar seguro.",
+        "recovery_visible_once": "Esta chave não será mostrada novamente mais tarde.",
+        "record_new_title": "Novo Registro de Cofre",
+        "record_edit_title": "Editar Registro de Cofre",
+        "record_form_subtitle": "Isso segue o fluxo normal de itens mais de perto, mas o texto simples nunca sai do navegador.",
+        "record_save_new": "Adicionar Registro de Cofre",
+        "record_save_edit": "Salvar Alterações",
+        "barcode_privacy_hint": "Os códigos de barras do cofre não são consultados automaticamente em serviços externos; o texto do código de barras é armazenado apenas como dados criptografados.",
+        "media_note": "Fotos, leitura de código de barras e consulta de produtos externos estão intencionalmente desativadas neste primeiro fluxo de cofre. Eles precisam de uma mídia criptografada e pipeline de privacidade separada.",
+        "search_placeholder": "Pesquisar dentro do cofre...",
+        "all_categories": "Todas as categorias",
+        "all_rooms": "Todos os cômodos",
+        "empty_title": "O cofre ainda está vazio",
+        "empty_description": "Comece adicionando seu primeiro registro pessoal no cofre.",
+        "empty_filter_title": "Nenhum registro corresponde ao filtro atual",
+        "empty_filter_description": "Tente uma pesquisa diferente ou ajuste os filtros.",
+        "updated_at": "Última atualização",
+        "delete_confirm": "Tem certeza de que deseja excluir este registro do cofre?",
+        "messages": {
+            "passphrase_mismatch": "As senhas do cofre não coincidem.",
+            "setup_failed": "O cofre pessoal não pôde ser criado.",
+            "unlock_failed": "O cofre não pôde ser desbloqueado. Verifique as informações que você inseriu.",
+            "save_failed": "O registro do cofre não pôde ser salvo.",
+            "delete_failed": "O registro do cofre não pôde ser excluído.",
+            "decrypt_failed": "O conteúdo do cofre não pôde ser descriptografado.",
+            "name_required": "É necessário um nome de item para um registro do cofre.",
+            "options_failed": "As opções de categoria e de quarto não puderam ser carregadas."
+        },
+        "recovery_file_title": "Chave de Recuperação do Cofre Pessoal do HomeInventory",
+        "recovery_file_created_label": "Criado",
+        "recovery_file_key_label": "Chave de Recuperação",
+        "recovery_file_warning": "Se você perder tanto esta chave quanto a senha do seu cofre, o cofre não poderá ser recuperado."
     }
 }

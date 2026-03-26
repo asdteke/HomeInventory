@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import { getEnvOrSecret } from './secrets.js';
 
 const STORAGE_PAYLOAD_VERSION = 1;
 const STORAGE_ALGORITHM = 'aes-256-gcm';
@@ -37,7 +38,7 @@ function decodeMasterKey(rawValue) {
     const value = String(rawValue || '').trim();
 
     if (!value) {
-        failStartup('APP_ENCRYPTION_KEY environment variable is not set. Generate one with "openssl rand -base64 32".');
+        failStartup('APP_ENCRYPTION_KEY environment variable or Docker secret is not set. Generate one with "openssl rand -base64 32".');
     }
 
     if (/^[a-f0-9]{64}$/i.test(value)) {
@@ -67,7 +68,7 @@ function readActiveKeyId(rawValue) {
     const value = String(rawValue || '').trim();
 
     if (!value) {
-        failStartup('APP_ENCRYPTION_KEY_ID environment variable is not set. Set a stable identifier such as "2026-03-primary".');
+        failStartup('APP_ENCRYPTION_KEY_ID environment variable or Docker secret is not set. Set a stable identifier such as "2026-03-primary".');
     }
 
     if (!KEY_ID_PATTERN.test(value)) {
@@ -163,8 +164,8 @@ function parseEncryptedPayload(value) {
     return null;
 }
 
-const MASTER_KEY = decodeMasterKey(process.env.APP_ENCRYPTION_KEY);
-const ACTIVE_KEY_ID = readActiveKeyId(process.env.APP_ENCRYPTION_KEY_ID);
+const MASTER_KEY = decodeMasterKey(getEnvOrSecret('APP_ENCRYPTION_KEY', 'app_encryption_key'));
+const ACTIVE_KEY_ID = readActiveKeyId(getEnvOrSecret('APP_ENCRYPTION_KEY_ID', 'app_encryption_key_id'));
 const KEYRING = readKeyring(process.env.APP_ENCRYPTION_KEYRING, ACTIVE_KEY_ID, MASTER_KEY);
 
 function deriveFieldKey(purpose, keyId, masterKey) {

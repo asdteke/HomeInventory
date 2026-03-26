@@ -17,19 +17,22 @@ cd HomeInventory
 cp .env.example .env
 ```
 
-Edit `.env` and set the required values:
+Edit `.env` for non-secret settings:
 
 ```env
-# Required
-JWT_SECRET=your-random-secret-at-least-32-characters
-APP_ENCRYPTION_KEY=your-32-byte-base64-key
-APP_ENCRYPTION_KEY_ID=2026-docker
-
-# Optional but recommended
+# Recommended
 SITE_URL=https://your-domain.com
 ```
 
-Generate secure keys:
+### 3. Create Docker Secret Files
+
+`docker-compose.yml` expects the required runtime secrets as files in `${HOMEINVENTORY_SECRETS_DIR:-./secrets}` on the host.
+
+```bash
+mkdir -p secrets
+```
+
+Generate secure values:
 
 ```bash
 # Generate JWT_SECRET
@@ -39,7 +42,17 @@ openssl rand -hex 32
 openssl rand -base64 32
 ```
 
-### 3. Start with Docker Compose
+Save them into files:
+
+```bash
+printf '%s' 'your-random-secret-at-least-32-characters' > secrets/jwt_secret.txt
+printf '%s' 'your-32-byte-base64-key' > secrets/app_encryption_key.txt
+printf '%s' '2026-docker' > secrets/app_encryption_key_id.txt
+```
+
+If you want to keep the secret files elsewhere on the host, set `HOMEINVENTORY_SECRETS_DIR=/absolute/path/to/secrets` before running Compose.
+
+### 4. Start with Docker Compose
 
 ```bash
 docker compose up -d
@@ -47,7 +60,7 @@ docker compose up -d
 
 The app will be available at `http://localhost:3001`
 
-### 4. Verify
+### 5. Verify
 
 ```bash
 # Check container status
@@ -62,19 +75,25 @@ curl http://localhost:3001/api/health
 
 ## Configuration
 
+### Docker Secret Files
+
+| Host file | Mounted as | Required | Description |
+|----------|------------|----------|-------------|
+| `${HOMEINVENTORY_SECRETS_DIR:-./secrets}/jwt_secret.txt` | `/run/secrets/jwt_secret` | ✅ | JWT signing secret |
+| `${HOMEINVENTORY_SECRETS_DIR:-./secrets}/app_encryption_key.txt` | `/run/secrets/app_encryption_key` | ✅ | AES-256 key for field encryption |
+| `${HOMEINVENTORY_SECRETS_DIR:-./secrets}/app_encryption_key_id.txt` | `/run/secrets/app_encryption_key_id` | ✅ | Stable key identifier for new encrypted payloads |
+
 ### Environment Variables
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `JWT_SECRET` | ✅ | Secret for JWT signing (min 32 chars) |
-| `APP_ENCRYPTION_KEY` | ✅ | AES-256 key for field encryption |
-| `APP_ENCRYPTION_KEY_ID` | ✅ | Key identifier for encryption |
 | `SITE_URL` | ⬜ | Public URL (default: http://localhost:3001) |
 | `GOOGLE_CLIENT_ID` | ⬜ | Google OAuth client ID |
 | `GOOGLE_CLIENT_SECRET` | ⬜ | Google OAuth secret |
 | `RESEND_API_KEY` | ⬜ | Resend.com API key for emails |
 | `SUPPORT_EMAIL` | ⬜ | Support email address |
 | `BOOTSTRAP_ADMIN_EMAIL` | ⬜ | Auto-promote this email to admin |
+| `DOCKER_SECRETS_DIR` | ⬜ | Override the in-container secret directory when it is not `/run/secrets` |
 
 `docker compose` loads the full `.env` file into the container, so optional settings from [`.env.example`](.env.example) such as `APP_ENCRYPTION_KEYRING`, `EXPOSE_SERVER_INFO`, and `INDEXNOW_*` work without editing `docker-compose.yml`.
 

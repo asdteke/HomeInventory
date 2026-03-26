@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import {
     Home, Package, FolderOpen, Settings, Plus, Menu, X, ChevronLeft, ChevronRight,
-    Sun, Moon, LogOut, User, MapPin, ScanLine, Share2, HelpCircle, Shield
+    Sun, Moon, LogOut, User, MapPin, ScanLine, Share2, HelpCircle, Shield, KeyRound
 } from 'lucide-react';
 import QRScanner from './QRScanner';
 import IntroTour from './IntroTour';
@@ -26,6 +26,7 @@ export default function Layout() {
     const navItems = [
         { to: '/', label: t('navigation.home'), icon: Home, end: true },
         { to: '/items', label: t('navigation.inventory'), icon: Package, id: 'intro-inventory' },
+        { to: '/vault', label: t('navigation.personal_vault'), icon: KeyRound },
         { to: '/rooms', label: t('navigation.rooms'), icon: FolderOpen },
         { to: '/categories', label: t('navigation.categories'), icon: MapPin, id: 'intro-categories' },
         { to: '/settings', label: t('navigation.settings'), icon: Settings },

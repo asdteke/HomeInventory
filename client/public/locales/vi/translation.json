@@ -100,7 +100,9 @@
         "close": "Đóng",
         "logout": "Đăng xuất",
         "copyright": "© {{year}} HomeInventory - Bảo lưu mọi quyền",
-        "other": "Khác"
+        "other": "Khác",
+        "copy": "Copy",
+        "download": "Download"
     },
     "auth": {
         "login": {
@@ -234,7 +236,8 @@
         "share_house": "Chia sẻ nhà",
         "admin_panel": "Bảng quản trị",
         "logout": "Đăng xuất",
-        "menu": "Menu"
+        "menu": "Menu",
+        "personal_vault": "Kho cá nhân"
     },
     "dashboard": {
         "welcome": "Chào mừng, <1>{{name}}</1>! 👋",
@@ -785,5 +788,69 @@
             "fallback": "Liên kết đặt lại mật khẩu có vẻ không đầy đủ hoặc bị hỏng.",
             "footer": "© 2026 HomeInventory"
         }
+    },
+    "vault": {
+        "title": "Kho cá nhân",
+        "subtitle": "Một khu vực cá nhân chỉ được giải mã trong trình duyệt và không thể đọc được bởi máy chủ dưới dạng văn bản thuần túy.",
+        "status_unlocked": "Kho đã mở khóa",
+        "status_locked": "Kho đã khóa",
+        "lock_action": "Khóa",
+        "setup_title": "Thiết lập Kho cá nhân",
+        "setup_description": "Khóa của kho được tạo trong trình duyệt. Máy chủ chỉ lưu trữ khóa đã được bao bọc và các bản ghi đã được mã hóa.",
+        "setup_warning": "Nếu bạn mất cả cụm từ mật khẩu của kho và khóa phục hồi, dữ liệu không thể khôi phục.",
+        "passphrase": "Cụm từ mật khẩu kho",
+        "passphrase_placeholder": "Chọn một cụm từ mật khẩu mạnh với ít nhất 12 ký tự",
+        "passphrase_confirm": "Cụm từ mật khẩu kho (Xác nhận)",
+        "passphrase_confirm_placeholder": "Nhập lại cụm từ mật khẩu",
+        "setup_action": "Tạo Kho Cá Nhân",
+        "setting_up": "Đang chuẩn bị kho...",
+        "protection_title": "Điều này bảo vệ cái gì?",
+        "protection_item_1": "Tên mục, mô tả, mã vạch, giá, ngày tháng và các trường bảo hành được mã hóa trong trình duyệt.",
+        "protection_item_2": "Máy chủ chỉ thấy phong bì đã mã hóa, số lượng mục và dấu thời gian.",
+        "protection_item_3": "Phiên bản phát hành đầu tiên chủ yếu mang tính cá nhân và tập trung vào văn bản; chia sẻ và phương tiện cần một luồng bảo mật riêng.",
+        "unlock_title": "Mở khóa Vault",
+        "unlock_description": "Bạn có thể mở khóa vault bằng cụm mật khẩu hoặc khóa khôi phục mà bạn đã lưu trước đó.",
+        "unlock_with_passphrase": "Sử dụng cụm mật khẩu",
+        "unlock_with_recovery": "Sử dụng khóa khôi phục",
+        "unlock_passphrase_placeholder": "Nhập cụm mật khẩu vault của bạn",
+        "unlock_recovery_placeholder": "ví dụ ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+        "unlock_action": "Mở Kho",
+        "unlocking": "Đang mở kho...",
+        "security_note_title": "Lưu ý bảo mật",
+        "security_note_1": "Chìa khóa kho chỉ tồn tại trong bộ nhớ trình duyệt. Nó sẽ bị xóa khi bạn rời trang hoặc khóa kho.",
+        "security_note_2": "Nếu bạn quên cụm mật khẩu, bạn có thể sử dụng chìa khóa khôi phục. Nếu cả hai bị mất, nội dung sẽ trở nên không thể truy cập vĩnh viễn.",
+        "recovery_ready_title": "Chìa khóa khôi phục đã sẵn sàng",
+        "recovery_ready_description": "Chúng tôi chỉ hiển thị chìa khóa này một lần. Hãy lưu nó ở nơi an toàn.",
+        "recovery_visible_once": "Khóa này sẽ không được hiển thị lại sau này.",
+        "record_new_title": "Bản ghi Kho mới",
+        "record_edit_title": "Chỉnh sửa Bản ghi Kho",
+        "record_form_subtitle": "Điều này theo đúng hơn với luồng mục bình thường, nhưng bản văn bản thuần túy vẫn không bao giờ rời trình duyệt.",
+        "record_save_new": "Thêm Bản ghi Kho",
+        "record_save_edit": "Lưu Thay đổi",
+        "barcode_privacy_hint": "Mã vạch trong kho không được tra cứu tự động trên các dịch vụ bên ngoài; văn bản mã vạch chỉ được lưu dưới dạng dữ liệu được mã hóa.",
+        "media_note": "Ảnh, quét mã vạch và tra cứu sản phẩm bên ngoài được cố ý vô hiệu hóa trong luồng kho đầu tiên này. Chúng cần một đường dẫn mã hóa phương tiện và quyền riêng tư riêng biệt.",
+        "search_placeholder": "Tìm kiếm bên trong két...",
+        "all_categories": "Tất cả các danh mục",
+        "all_rooms": "Tất cả các phòng",
+        "empty_title": "Két vẫn còn trống",
+        "empty_description": "Bắt đầu bằng cách thêm bản ghi két cá nhân đầu tiên của bạn.",
+        "empty_filter_title": "Không có bản ghi nào khớp với bộ lọc hiện tại",
+        "empty_filter_description": "Thử tìm kiếm khác hoặc điều chỉnh bộ lọc.",
+        "updated_at": "Cập nhật lần cuối",
+        "delete_confirm": "Bạn có chắc chắn muốn xóa bản ghi kho này không?",
+        "messages": {
+            "passphrase_mismatch": "Mật khẩu kho không khớp.",
+            "setup_failed": "Không thể tạo kho cá nhân.",
+            "unlock_failed": "Không thể mở kho. Kiểm tra thông tin bạn đã nhập.",
+            "save_failed": "Không thể lưu bản ghi kho.",
+            "delete_failed": "Không thể xóa bản ghi kho.",
+            "decrypt_failed": "Không thể giải mã nội dung kho.",
+            "name_required": "Tên mục là bắt buộc cho một bản ghi kho.",
+            "options_failed": "Không thể tải các tùy chọn danh mục và phòng."
+        },
+        "recovery_file_title": "Khóa Phục Hồi Kho Riêng Tư HomeInventory",
+        "recovery_file_created_label": "Đã Tạo",
+        "recovery_file_key_label": "Khóa Phục Hồi",
+        "recovery_file_warning": "Nếu bạn mất cả khóa này và mật khẩu kho, kho sẽ không thể phục hồi."
     }
 }

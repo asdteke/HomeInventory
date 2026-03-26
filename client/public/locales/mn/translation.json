@@ -100,7 +100,9 @@
         "refresh": "Refresh",
         "close": "Close",
         "logout": "Logout",
-        "copyright": "© {{year}} HomeInventory - All rights reserved"
+        "copyright": "© {{year}} HomeInventory - All rights reserved",
+        "copy": "Copy",
+        "download": "Download"
     },
     "auth": {
         "login": {
@@ -234,7 +236,8 @@
         "share_house": "Share House",
         "admin_panel": "Admin Panel",
         "logout": "Logout",
-        "menu": "Menu"
+        "menu": "Menu",
+        "personal_vault": "Хувийн сейф"
     },
     "dashboard": {
         "welcome": "Welcome, <1>{{name}}</1>! 👋",
@@ -784,6 +787,70 @@
             "warningBody": "If an account exists, a password reset link valid for 15 minutes has been sent.",
             "fallback": "The password reset link looks incomplete or broken.",
             "footer": "© 2026 HomeInventory"
+        }
+    },
+    "vault": {
+        "title": "Хувийн сейф",
+        "subtitle": "Зөвхөн хөтөч дээр тайлагддаг бөгөөд сервер энгийн текстээр уншиж чаддаггүй хувийн хэсэг.",
+        "status_unlocked": "Сейф нээгдсэн",
+        "status_locked": "Сейф түгжээтэй",
+        "lock_action": "Түгжих",
+        "setup_title": "Хувийн сейф тохируулах",
+        "setup_description": "Сейфийн түлхүүр хөтөч дээр үүснэ. Сервер зөвхөн боосон түлхүүр болон шифрлэгдсэн бичлэгүүдийг хадгална.",
+        "setup_warning": "Хэрэв сейфийн нууц хэллэг болон сэргээх түлхүүр хоёулаа алдагдвал өгөгдлийг сэргээх боломжгүй.",
+        "passphrase": "Сейфийн нууц хэллэг",
+        "passphrase_placeholder": "Дор хаяж 12 тэмдэгттэй хүчтэй нууц хэллэг сонгоно уу",
+        "passphrase_confirm": "Сейфийн нууц хэллэг (Баталгаажуулах)",
+        "passphrase_confirm_placeholder": "Нууц хэллэгийг дахин оруулна уу",
+        "setup_action": "Хувийн сейф үүсгэх",
+        "setting_up": "Сейф бэлдэж байна...",
+        "protection_title": "Энэ юу хамгаалдаг вэ?",
+        "protection_item_1": "Барааны нэр, тайлбар, баркод, үнэ, огноо, баталгааны талбарууд хөтөч дээр шифрлэгдэнэ.",
+        "protection_item_2": "Сервер зөвхөн шифрлэгдсэн багц, барааны тоо, хугацааны тэмдэглэгээг харна.",
+        "protection_item_3": "Эхний хувилбар нь зориуд хувийн ба текст төвтэй; хуваалцах болон медиа нь тусдаа аюулгүй урсгал шаарддаг.",
+        "unlock_title": "Сейф нээх",
+        "unlock_description": "Та сейфийг нууц хэллэг эсвэл өмнө нь хадгалсан сэргээх түлхүүрээрээ нээж болно.",
+        "unlock_with_passphrase": "Нууц хэллэг ашиглах",
+        "unlock_with_recovery": "Сэргээх түлхүүр ашиглах",
+        "unlock_passphrase_placeholder": "Сейфийн нууц хэллэгээ оруулна уу",
+        "unlock_recovery_placeholder": "жишээ нь ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+        "unlock_action": "Сейф нээх",
+        "unlocking": "Сейф нээж байна...",
+        "security_note_title": "Аюулгүй байдлын тэмдэглэл",
+        "security_note_1": "Сейфийн түлхүүр зөвхөн хөтчийн санах ойд хадгалагдана. Та хуудсаас гарах эсвэл сейфээ түгжихэд устна.",
+        "security_note_2": "Хэрэв та нууц хэллэгээ мартвал сэргээх түлхүүр ашиглаж болно. Хэрэв хоёулаа алдагдвал агуулга бүрмөсөн хүрэх боломжгүй болно.",
+        "recovery_ready_title": "Сэргээх түлхүүр бэлэн боллоо",
+        "recovery_ready_description": "Бид энэ түлхүүрийг зөвхөн нэг удаа харуулна. Аюулгүй газар хадгална уу.",
+        "recovery_visible_once": "Энэ түлхүүр дараа дахин харагдахгүй.",
+        "recovery_file_title": "HomeInventory Хувийн Сейфийн Сэргээх Түлхүүр",
+        "recovery_file_created_label": "Үүсгэсэн",
+        "recovery_file_key_label": "Сэргээх түлхүүр",
+        "recovery_file_warning": "Хэрэв энэ түлхүүр болон таны сейфийн нууц хэллэг хоёулаа алдагдвал сейфийг сэргээх боломжгүй.",
+        "record_new_title": "Шинэ сейфийн бичлэг",
+        "record_edit_title": "Сейфийн бичлэг засах",
+        "record_form_subtitle": "Энэ нь энгийн барааны урсгалтай илүү ойр боловч энгийн текст хэзээ ч хөтчөөс гарахгүй.",
+        "record_save_new": "Сейфийн бичлэг нэмэх",
+        "record_save_edit": "Өөрчлөлтийг хадгалах",
+        "barcode_privacy_hint": "Сейфийн баркодууд гадаад үйлчилгээн дээр автоматаар хайгдахгүй; баркодын текст зөвхөн шифрлэгдсэн өгөгдөл хэлбэрээр хадгалагдана.",
+        "media_note": "Энэ эхний сейфийн урсгалд зураг, баркод уншуулах болон гадаад бүтээгдэхүүн хайлт зориуд хаалттай. Эдгээр нь тусдаа шифрлэгдсэн медиа болон нууцлалын дамжуулалт шаарддаг.",
+        "search_placeholder": "Сейф дотроос хайх...",
+        "all_categories": "Бүх ангилал",
+        "all_rooms": "Бүх өрөө",
+        "empty_title": "Сейф одоогоор хоосон байна",
+        "empty_description": "Анхны хувийн сейфийн бичлэгээ нэмж эхлээрэй.",
+        "empty_filter_title": "Одоогийн шүүлтүүрт тохирох бичлэг алга",
+        "empty_filter_description": "Өөр хайлт хийх эсвэл шүүлтүүрээ өөрчилнө үү.",
+        "updated_at": "Сүүлд шинэчилсэн",
+        "delete_confirm": "Энэ сейфийн бичлэгийг устгахдаа итгэлтэй байна уу?",
+        "messages": {
+            "passphrase_mismatch": "Сейфийн нууц хэллэгүүд таарахгүй байна.",
+            "setup_failed": "Хувийн сейфийг үүсгэж чадсангүй.",
+            "unlock_failed": "Сейфийг нээж чадсангүй. Оруулсан мэдээллээ шалгана уу.",
+            "save_failed": "Сейфийн бичлэгийг хадгалж чадсангүй.",
+            "delete_failed": "Сейфийн бичлэгийг устгаж чадсангүй.",
+            "decrypt_failed": "Сейфийн агуулгыг тайлж чадсангүй.",
+            "name_required": "Сейфийн бичлэгт барааны нэр шаардлагатай.",
+            "options_failed": "Ангилал болон өрөөний сонголтуудыг ачаалж чадсангүй."
         }
     }
 }

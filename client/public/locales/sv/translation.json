@@ -100,7 +100,9 @@
         "close": "Stäng",
         "logout": "Logga ut",
         "copyright": "© {{year}} HomeInventory - Alla rättigheter förbehållna",
-        "other": "Annat"
+        "other": "Annat",
+        "copy": "Copy",
+        "download": "Download"
     },
     "auth": {
         "login": {
@@ -234,7 +236,8 @@
         "share_house": "Dela hus",
         "admin_panel": "Adminpanel",
         "logout": "Logga ut",
-        "menu": "Meny"
+        "menu": "Meny",
+        "personal_vault": "Personligt valv"
     },
     "dashboard": {
         "welcome": "Välkommen, <1>{{name}}</1>! 👋",
@@ -785,5 +788,69 @@
             "fallback": "Länken för återställning av lösenord verkar ofullständig eller skadad.",
             "footer": "© 2026 HomeInventory"
         }
+    },
+    "vault": {
+        "title": "Personligt valv",
+        "subtitle": "Ett personligt område som endast dekrypteras i webbläsaren och inte kan läsas av servern som klartext.",
+        "status_unlocked": "Valvet upplåst",
+        "status_locked": "Valvet låst",
+        "lock_action": "Lås",
+        "setup_title": "Ställ in personligt valv",
+        "setup_description": "Valvnyckeln genereras i webbläsaren. Servern lagrar endast den omslutna nyckeln och krypterade poster.",
+        "setup_warning": "Om du förlorar både valvets lösenfras och återställningsnyckeln kan datan inte återställas.",
+        "passphrase": "Valvets lösenfras",
+        "passphrase_placeholder": "Välj en stark lösenfras med minst 12 tecken",
+        "passphrase_confirm": "Valvets lösenfras (Bekräfta)",
+        "passphrase_confirm_placeholder": "Ange lösenfrasen igen",
+        "setup_action": "Skapa personligt valv",
+        "setting_up": "Förbereder valvet...",
+        "protection_title": "Vad skyddar detta?",
+        "protection_item_1": "Artikelnamn, beskrivning, streckkod, pris, datum och garantifält är krypterade i webbläsaren.",
+        "protection_item_2": "Servern ser bara det krypterade kuvertet, antalet artiklar och tidsstämplar.",
+        "protection_item_3": "Den första versionen är medvetet personlig och textfokuserad; delning och media behöver ett separat säkert flöde.",
+        "unlock_title": "Lås upp Valvet",
+        "unlock_description": "Du kan låsa upp valvet med ditt lösenord eller återställningsnyckeln som du sparade tidigare.",
+        "unlock_with_passphrase": "Använd lösenord",
+        "unlock_with_recovery": "Använd återställningsnyckel",
+        "unlock_passphrase_placeholder": "Ange ditt valvlösenord",
+        "unlock_recovery_placeholder": "t.ex. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+        "unlock_action": "Lås upp valvet",
+        "unlocking": "Låser upp valvet...",
+        "security_note_title": "Säkerhetsanmärkning",
+        "security_note_1": "Valvnyckeln finns endast i webbläsarens minne. Den raderas när du lämnar sidan eller låser valvet.",
+        "security_note_2": "Om du glömmer lösenfrasen kan du använda återställningsnyckeln. Om båda går förlorade blir innehållet permanent otillgängligt.",
+        "recovery_ready_title": "Återställningsnyckel redo",
+        "recovery_ready_description": "Vi visar denna nyckel endast en gång. Spara den på en säker plats.",
+        "recovery_visible_once": "Denna nyckel kommer inte att visas igen senare.",
+        "record_new_title": "Nytt kassavalvsinlägg",
+        "record_edit_title": "Redigera kassavalvsinlägg",
+        "record_form_subtitle": "Detta följer den normala artikelströmmen närmare, men klartext lämnar fortfarande aldrig webbläsaren.",
+        "record_save_new": "Lägg till kassavalvsinlägg",
+        "record_save_edit": "Spara ändringar",
+        "barcode_privacy_hint": "Kassavalvets streckkoder söks inte upp på externa tjänster automatiskt; streckkodstexten lagras endast som krypterad data.",
+        "media_note": "Foton, streckkodsskanning och extern produktuppslagning är avsiktligt inaktiverade i detta första kassavalvsflöde. De behöver en separat krypterad media- och integritetspipeline.",
+        "search_placeholder": "Sök i valvet...",
+        "all_categories": "Alla kategorier",
+        "all_rooms": "Alla rum",
+        "empty_title": "Valvet är fortfarande tomt",
+        "empty_description": "Börja med att lägga till din första personliga valvpost.",
+        "empty_filter_title": "Inga poster matchar det aktuella filtret",
+        "empty_filter_description": "Försök en annan sökning eller justera filtren.",
+        "updated_at": "Senast uppdaterad",
+        "delete_confirm": "Är du säker på att du vill radera denna valvpost?",
+        "messages": {
+            "passphrase_mismatch": "Valvets lösenfraser matchar inte.",
+            "setup_failed": "Det personliga valvet kunde inte skapas.",
+            "unlock_failed": "Valvet kunde inte låsas upp. Kontrollera informationen du angav.",
+            "save_failed": "Valvposten kunde inte sparas.",
+            "delete_failed": "Valvposten kunde inte raderas.",
+            "decrypt_failed": "Valvets innehåll kunde inte dekrypteras.",
+            "name_required": "Ett objektnamn krävs för en valvpost.",
+            "options_failed": "Kategori- och rumsalternativ kunde inte laddas."
+        },
+        "recovery_file_title": "HomeInventory Personlig Valv Återställningsnyckel",
+        "recovery_file_created_label": "Skapad",
+        "recovery_file_key_label": "Återställningsnyckel",
+        "recovery_file_warning": "Om du förlorar både denna nyckel och ditt valvs lösenfras kan valvet inte återställas."
     }
 }

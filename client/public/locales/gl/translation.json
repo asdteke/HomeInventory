@@ -100,7 +100,9 @@
         "close": "Pechar",
         "logout": "Pechar sesión",
         "copyright": "© {{year}} HomeInventory - Todos os dereitos reservados",
-        "other": "Outro"
+        "other": "Outro",
+        "copy": "Copiar",
+        "download": "Descargar"
     },
     "auth": {
         "login": {
@@ -234,7 +236,8 @@
         "share_house": "Compartir Casa",
         "admin_panel": "Panel de Admin",
         "logout": "Pechar sesión",
-        "menu": "Menú"
+        "menu": "Menú",
+        "personal_vault": "Bóveda persoal"
     },
     "dashboard": {
         "welcome": "Benvido, <1>{{name}}</1>! 👋",
@@ -345,7 +348,7 @@
         "house_info": {
             "title": "Chave da casa activa",
             "key_label": "Chave da casa",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{sufixo}}",
             "hide": "Ocultar",
             "show": "Amosar",
             "copy": "Copiar",
@@ -754,7 +757,7 @@
                 "💡 Podes ser membro de varias casas e cambiar entre elas. Cada casa mantén un inventario separado."
             ],
             "support": "Problemas de rexistro:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 HomeInventory <<<__HI_SEP___>>>{estadoInventory"
         },
         "houseJoinRequest": {
             "subject": "Unirse a unha casa",
@@ -763,7 +766,7 @@
             "bodyLine2": "Agardando a aprobación do propietario da casa"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "© 2026 HomeInventory",
             "greeting": "Acceso á casa",
             "bodyLine1Template": "Solicitude pendente actual: {{house}} ({{status}})",
             "bodyLine2": "A túa solicitude para \"{{house}}\" aínda está agardando unha decisión."
@@ -785,5 +788,69 @@
             "fallback": "O enlace para restablecer o contrasinal parece incompleto ou roto.",
             "footer": "© 2026 HomeInventory"
         }
+    },
+    "vault": {
+        "title": "Bóveda persoal",
+        "subtitle": "Unha área persoal que só se descifra no navegador e que o servidor non pode leer como texto simple.",
+        "status_unlocked": "Bóveda desbloqueada",
+        "status_locked": "Bóveda bloqueada",
+        "lock_action": "Bloqueo",
+        "setup_title": "Configurar Bóveda persoal",
+        "setup_description": "A clave da bóveda xérase no navegador. O servidor almacena só a clave embalada e os rexistros cifrados.",
+        "setup_warning": "Se perde tanto a frase de acceso da bóveda como a clave de recuperación, os datos non se poderán restaurar.",
+        "passphrase": "Frase de contraseña de Vault",
+        "passphrase_placeholder": "Escolla unha frase de contraseña segura con polo menos 12 caracteres",
+        "passphrase_confirm": "Frase de contraseña de Vault (Confirmar)",
+        "passphrase_confirm_placeholder": "Introduza de novo a contrasinal",
+        "setup_action": "Crear bóveda persoal",
+        "setting_up": "Preparando bóveda...",
+        "protection_title": "Que protexe isto?",
+        "protection_item_1": "O nome do artigo, a descrición, o código de barras, o prezo, a data e os campos de garantía están cifrados no navegador.",
+        "protection_item_2": "O servidor só ve o sobre cifrado, o reconto de elementos e as marcas de tempo.",
+        "protection_item_3": "A primeira versión é intencionalmente persoal e enfocada ao texto; compartir e multimedia necesitan un fluxo seguro separado.",
+        "unlock_title": "Desbloquear a bóveda",
+        "unlock_description": "Podes desbloquear a bóveda coa túa frase de acceso ou a clave de recuperación que gardou anteriormente.",
+        "unlock_with_passphrase": "Usar contrasinal",
+        "unlock_with_recovery": "Usar clave de recuperación",
+        "unlock_passphrase_placeholder": "Introduza a frase de acceso da bóveda",
+        "unlock_recovery_placeholder": "p.ex. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+        "unlock_action": "Desbloquear bóveda",
+        "unlocking": "Desbloqueando bóveda...",
+        "security_note_title": "Nota de seguridade",
+        "security_note_1": "A chave da bóveda só vive na memoria do navegador. Borrárase cando abandonas a páxina ou bloqueas a bóveda.",
+        "security_note_2": "Se esquece o contrasinal, pode utilizar a clave de recuperación. Se se perden ambos, o contido pasa a ser permanentemente inaccesible.",
+        "recovery_ready_title": "Chave de recuperación lista",
+        "recovery_ready_description": "Amosamos esta chave só unha vez. Gárdao nun lugar seguro.",
+        "recovery_visible_once": "Esta chave non se volverá mostrar máis tarde.",
+        "record_new_title": "Novo rexistro de bóveda",
+        "record_edit_title": "Editar rexistro de bóveda",
+        "record_form_subtitle": "Isto segue máis de preto o fluxo de elementos normal, pero o texto claro aínda non sae do navegador.",
+        "record_save_new": "Engadir rexistro de Vault",
+        "record_save_edit": "Gardar cambios",
+        "barcode_privacy_hint": "Os códigos de barras de Vault non se buscan automaticamente nos servizos externos; o texto do código de barras almacénase só como datos cifrados.",
+        "media_note": "As fotos, a dixitalización de códigos de barras e a busca de produtos externos están desactivadas intencionadamente neste primeiro fluxo de bóveda. Necesitan medios cifrados separados e canalización de privacidade.",
+        "search_placeholder": "Busca dentro da bóveda...",
+        "all_categories": "Todas as categorías",
+        "all_rooms": "Todas as salas",
+        "empty_title": "A bóveda aínda está baleira",
+        "empty_description": "Comeza engadindo o teu primeiro rexistro de bóveda persoal.",
+        "empty_filter_title": "Ningún rexistro coincide co filtro actual",
+        "empty_filter_description": "Proba unha busca diferente ou axusta os filtros.",
+        "updated_at": "Última actualización",
+        "delete_confirm": "Estás seguro de que queres eliminar este rexistro de bóveda?",
+        "messages": {
+            "passphrase_mismatch": "As frases de contraseña de Vault non coinciden.",
+            "setup_failed": "Non se puido crear a bóveda persoal.",
+            "unlock_failed": "Non se puido desbloquear a bóveda. Comprobe a información que introduciu.",
+            "save_failed": "Non se puido gardar o rexistro da bóveda.",
+            "delete_failed": "Non se puido eliminar o rexistro da bóveda.",
+            "decrypt_failed": "Non se puido descifrar o contido da bóveda.",
+            "name_required": "É necesario un nome de elemento para un rexistro de bóveda.",
+            "options_failed": "Non se puideron cargar as opcións de categoría e sala."
+        },
+        "recovery_file_title": "Chave de Recuperación do Caixón Persoal de HomeInventory",
+        "recovery_file_created_label": "Creado",
+        "recovery_file_key_label": "Chave de Recuperación",
+        "recovery_file_warning": "Se perdas tanto esta chave como a contrasinal do caixón, non se poderá recuperar o caixón."
     }
 }

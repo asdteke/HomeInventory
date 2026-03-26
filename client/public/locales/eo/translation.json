@@ -28,8 +28,8 @@
             "location_public": "Nur vi povas vidi ĉi tiun EP Konservi <<<__HI>_S <<<__HI>_S",
             "location_private": "Aldonante...",
             "location_save": "Elektita loko: {{nomo}}",
-            "location_saving": "Adding...",
-            "location_selected": "Location selected: {{name}}",
+            "location_saving": "✓ \"{{barkodo}}\" rapide aldonita - vi povas redakti poste <<<__HI_SEP__> Rapide malsukcesis ⚠_>",
+            "location_selected": "Persona Trezorejo",
             "location_empty": "Ankoraŭ neniu loko difinita en ĉi tiu ĉambro. Komencu tajpi por krei unu.",
             "photo": "Foto",
             "add_photo": "Aldonu",
@@ -66,7 +66,7 @@
             "warranty_expiry_date": "Findato de garantio"
         },
         "messages": {
-            "quick_add_success": "✓ \"{{barcode}}\" quick added - you can edit later",
+            "quick_add_success": "Persona areo kiu estas deĉifrita nur en la retumilo kaj ne estas legebla de la servilo kiel klarteksto.",
             "quick_add_fail": "⚠ Quick add failed",
             "searching": "Serĉante...",
             "found_local": "✓ Loka: registrita kiel \"{{name}}\"",
@@ -100,7 +100,9 @@
         "refresh": "Refreŝigi",
         "close": "Fermu",
         "logout": "Elsaluti",
-        "copyright": "© {{year}} Hejma Inventaro - Ĉiuj rajtoj rezervitaj"
+        "copyright": "© {{year}} Hejma Inventaro - Ĉiuj rajtoj rezervitaj",
+        "copy": "Kopiu",
+        "download": "Elŝutu"
     },
     "auth": {
         "login": {
@@ -234,7 +236,8 @@
         "share_house": "Kunhavigi Domon",
         "admin_panel": "Administra Panelo",
         "logout": "Elsaluti",
-        "menu": "Menuo"
+        "menu": "Menuo",
+        "personal_vault": "Persona Trezorejo"
     },
     "dashboard": {
         "welcome": "Bonvenon, <1>{{name}}</1>! 👋",
@@ -244,7 +247,7 @@
             "private": "🌐 Publika",
             "public": "Forigi Filtrilon",
             "remove": "Neniuj eroj kongruas kun ĉi tiu filtrilo",
-            "no_items": "No items match this filter"
+            "no_items": "Neniuj elementoj kongruas kun ĉi tiu filtrilo"
         },
         "stats": {
             "total_items": "Totalaj Eroj",
@@ -267,15 +270,15 @@
             "manage": "Aldoni Eron <<<__HI_SEP___>>> Serĉi Erojn <<<__HI_SEP___>>> Serĉi Erojn_S <<<__>_>>"
         },
         "quick_actions": {
-            "title": "⚡ Quick Actions",
-            "add_item": "Add Item",
-            "search_item": "Search Item",
-            "categories": "Categories",
+            "title": "⚡ Rapidaj Agoj",
+            "add_item": "Aldoni Eron <<<__HI_SEP__>_> Serĉi Eron <<<__HI_SEP__>_>_> Serĉi Eron <<<__HI_SEP__>_>_>",
+            "search_item": "BETA:",
+            "categories": "Aldono...",
             "settings": "Agordoj"
         }
     },
     "beta_banner": {
-        "title": "BETA:",
+        "title": "Loko elektita: {{name}}",
         "text": "HomeInventory estas nuntempe en testado kaj ŝatokupofazo. Neniu garantio estas donita por datuma persisto aŭ sekureco. Bonvolu konservi sekurkopiojn de gravaj informoj.",
         "contact": "Kontakto:"
     },
@@ -322,7 +325,7 @@
             "member_kicked": "Ne eblis forigi membron de la domo",
             "member_kick_error": "Reakira ŝlosilo regenerita",
             "recovery_key_regenerated": "Ne eblis regeneri reakira ŝlosilon",
-            "recovery_key_error": "Could not regenerate recovery key"
+            "recovery_key_error": "Ne eblis regeneri reakiran ŝlosilon"
         },
         "user_profile": {
             "edit_username": "Ŝanĝu uzantnomon"
@@ -343,7 +346,7 @@
             "info": "Aktiva Domo Ŝlosilo"
         },
         "house_info": {
-            "title": "Active House Key",
+            "title": "Aktiva Doma Ŝlosilo",
             "key_label": "Domo Ŝlosilo",
             "mask_key": "••••••••{{sufikso}}",
             "hide": "Kaŝi",
@@ -360,7 +363,7 @@
             "pending_requests": "Pritraktataj Petoj",
             "no_pending_requests": "Kontroloj de posedantoj ebligitaj",
             "owner_controls": "Aprobi",
-            "approve": "Approve",
+            "approve": "Aprobi",
             "reject": "Malakcepti",
             "kick": "Forigi"
         },
@@ -374,7 +377,7 @@
             "change_password": "Ĝisdatigu vian kontan pasvorton",
             "change_password_desc": "Reakira Ŝlosilo",
             "recovery_key_title": "Vi povas generi novan ŝlosilon por loka pasvorta reakiro.",
-            "recovery_key_desc": "You can generate a new key for local password recovery.",
+            "recovery_key_desc": "Vi povas generi novan ŝlosilon por loka pasvorta reakiro.",
             "recovery_key_missing": "Ankoraŭ neniu reakira ŝlosilo estas videbla por ĉi tiu konto.",
             "current_key_label": "Konservita Reakira Ŝlosilo",
             "recovery_key_unavailable": "La nuna Reakira Ŝlosilo ne povas esti montrata. Regeneri ĝin se necese.",
@@ -392,8 +395,8 @@
             "import_json": "Versio"
         },
         "about": {
-            "title": "📱 About Application",
-            "version": "Version",
+            "title": "📱 Pri Apliko",
+            "version": "Versio",
             "brand": "Marko",
             "feedback": "✉️ Sendu komenton"
         },
@@ -417,8 +420,8 @@
             },
             "create_house": {
                 "title": "ekz. Somera Domo, Oficejo, Stokejo",
-                "name_label": "House Name",
-                "name_placeholder": "e.g. Summer House, Office, Warehouse",
+                "name_label": "Domnomo",
+                "name_placeholder": "ekz. Somera Domo, Oficejo, Stokejo",
                 "name_help": "Se lasita malplena, estos nomita \"Mia Nova Domo\"",
                 "info": "ℹ️ Defaŭltaj kategorioj kaj ĉambroj estos kreitaj por la nova domo. Vi povas redakti ilin poste.",
                 "creating": "Kreante...",
@@ -444,7 +447,7 @@
         "title": "Stokregistro",
         "subtitle": "{{count}} eroj trovitaj",
         "new_item": "> Nova Ero <<<__HI_SEP___>_>> Aldoni Unua Ero",
-        "add_first": "Add First Item",
+        "add_first": "Aldoni Unuan Eron",
         "search_placeholder": "Serĉu erojn...",
         "all_categories": "Ĉiuj Kategorioj",
         "all_rooms": "Ĉiuj Ĉambroj",
@@ -459,9 +462,9 @@
         "subtitle": "Nova Kategorio",
         "new_category": "Redakti Kategorion <<<__HI_SEP__>>_ Nova Kategorio <<<__HI_SEP__>>__ Nova Kategorio <<<__HI_SEP__>>__ Kategoria Nomo",
         "edit_title": "Ikono",
-        "new_title": "New Category",
-        "name_label": "Category Name",
-        "icon_label": "Icon",
+        "new_title": "Nova Kategorio",
+        "name_label": "Kategoria Nomo",
+        "icon_label": "Ikono",
         "color_label": "Koloro",
         "delete_confirm": "Ĉu vi certas, ke vi volas forigi ĉi tiun kategorion?",
         "delete_error": "Forigi eraron"
@@ -480,7 +483,7 @@
         "delete_error": "Admin Panelo"
     },
     "admin": {
-        "title": "Admin Panel",
+        "title": "Administra Panelo",
         "subtitle": "Sistemadministrado kaj Monitorado",
         "refresh": "Refreŝigi",
         "tabs": {
@@ -495,12 +498,12 @@
             "total_inventory": "Malpermesitaj Uzantoj",
             "inventory_details": "Aliro blokita <<<__HI_SEP_SEP__><_> Servilo Memory <<<__HI_SEP>___> Aktivtempo: {{hours}} horoj",
             "banned_users": "Uzanto",
-            "access_blocked": "Access blocked",
-            "server_memory": "Server Memory",
-            "uptime": "Uptime: {{hours}} hours"
+            "access_blocked": "Aliro <<<__HI_SEP__><_>_SEP__>_> Servila Memoro",
+            "server_memory": "Daŭro: {{hours}} horoj",
+            "uptime": "Uzanto"
         },
         "users": {
-            "user": "User",
+            "user": "Ĉu vi certas, ke vi volas {{status}} ĉi tiun uzanton?",
             "role": "Rolo",
             "status": "Statuso",
             "action": "Ago",
@@ -509,7 +512,7 @@
             "unban": "Malbanigi",
             "ban": "Forigi",
             "delete": "Forigi la konton",
-            "confirm_ban": "Are you sure you want to {{status}} this user?",
+            "confirm_ban": "{{dato, datotempo}}",
             "ban_lift": "Ĉu vi certas, ke vi volas {{status}} ĉi tiun uzanton?",
             "ban_apply": "malbanigi",
             "confirm_delete_1": "forbari",
@@ -521,7 +524,7 @@
             "no_logs": "ankoraŭ neniuj protokoloj",
             "errors_title": "Sistemaj Eraroj (Lasta 10)",
             "no_errors": "// Sistemo sana, neniuj eraroj.",
-            "date_fmt": "{{date, datetime}}"
+            "date_fmt": "Domŝlosilo"
         },
         "email": {
             "title": "Sendi Retpoŝton",
@@ -630,7 +633,7 @@
         "house_name": "Domnomo (laŭvola) <<<__HI_SEP__>> e.__>>. Mia Hejmo, Oficejo",
         "house_name_placeholder": "Se lasita malplena, ĝi estos nomita \"Mia Hejmo\"",
         "house_name_hint": "Domŝlosilo",
-        "house_key": "House Key",
+        "house_key": "Nuna pritraktata peto: {{domo}}",
         "house_key_placeholder": "Enigu domŝlosilon",
         "house_key_hint": "Enigu la 64-karakteran ŝlosilon ricevitan de familiano",
         "house_name_join": "Nomo por ĉi tiu domo (laŭvola)",
@@ -641,42 +644,42 @@
     "scanner": {
         "title": "Strekkoda Skanilo",
         "qr_title": "QR Code Reader",
-        "init": "Starting camera...",
-        "permission_error": "Camera permission denied. Check browser settings.",
-        "busy_error": "Camera busy. Close other apps.",
-        "not_found_error": "Camera not found.",
-        "generic_error": "Could not start camera.",
-        "hint": "Center barcode in frame",
-        "qr_hint": "Align QR code in frame",
-        "searching": "Searching product...",
-        "found_local": "Already Registered!",
-        "found_local_msg": "This barcode is already in your inventory.",
-        "found_online": "Product Found!",
-        "google_result": "⚡ Google search result - please verify",
-        "barcode": "Barcode: {{code}}",
-        "new_product": "New Product",
-        "not_found_db": "This barcode was not found in databases.",
-        "google_search": "Search on Google",
-        "quick_add": "Quick Add (Edit Later)",
-        "rescan": "Scan Again",
-        "retry": "Retry",
-        "flash_on": "🔦 Flash On",
-        "flash_unsupported": "Flash not supported",
-        "zoom_hint": "💡 Increase zoom for clarity and hold phone steady",
-        "found_item_redirect": "Item found! Redirecting...",
-        "found_page_redirect": "Page found! Redirecting...",
-        "invalid_qr": "This QR code is not for this app.",
-        "not_found": "Product not found. Try a different barcode."
+        "init": "Komencante fotilon...",
+        "permission_error": "Fotila permeso rifuzita. Kontrolu la agordojn de la retumilo.",
+        "busy_error": "Fotilo okupata. Fermu aliajn programojn.",
+        "not_found_error": "Fotilo ne trovita.",
+        "generic_error": "Ne eblis lanĉi fotilon.",
+        "hint": "Centri strekkodon en kadro",
+        "qr_hint": "Vicigi QR-kodon en kadro",
+        "searching": "Serĉante produkton...",
+        "found_local": "Jam Registrita!",
+        "found_local_msg": "Ĉi tiu strekkodo jam estas en via inventaro.",
+        "found_online": "Produkto Trovita!",
+        "google_result": "⚡ Gugla serĉrezulto - bonvolu kontroli",
+        "barcode": "Strekkodo: {{code}}",
+        "new_product": "Nova Produkto",
+        "not_found_db": "Ĉi tiu strekkodo ne estis trovita en datumbazoj.",
+        "google_search": "Serĉu ĉe Guglo",
+        "quick_add": "Rapida Aldono (Redaktu Poste)",
+        "rescan": "Skanu Denove",
+        "retry": "Reprovi",
+        "flash_on": "🔦 Flash On <<<__HI_SEP ne subtenata",
+        "flash_unsupported": "💡 Pliigu zomon por klareco kaj tenu la telefonon stabila",
+        "zoom_hint": "Trovita objekto! Alidirektanta...",
+        "found_item_redirect": "Paĝo trovita! Alidirektanta...",
+        "found_page_redirect": "Ĉi tiu QR-kodo ne estas por ĉi tiu programo.",
+        "invalid_qr": "Produkto ne trovita. Provu malsaman strekkodon.",
+        "not_found": "📱 Skanu ĉi tiun QR-kodon per via telefono por rapide aliri la objekton"
     },
     "item_qr": {
-        "hint_mobile": "📱 Scan this QR code with your phone to access the item quickly",
-        "network_ip": "Network IP",
+        "hint_mobile": "Reto IP",
+        "network_ip": "Ŝarĝante URL...",
         "url_loading": "Loading URL...",
-        "copied": "Copied!",
-        "copy_url": "Copy URL",
-        "download": "Download QR",
-        "usage_title": "Usage",
-        "usage_desc": "Print the QR code and stick it on the item. Scan with your phone to access this page instantly!"
+        "copied": "Kopiita!",
+        "copy_url": "Kopiu URL",
+        "download": "Elŝutu QR",
+        "usage_title": "Uzado",
+        "usage_desc": "Presu la QR-kodon kaj algluu ĝin sur la objekto. Skanu per via telefono por aliri ĉi tiun paĝon tuj!"
     },
     "house_access_pending": {
         "eyebrow": "Domo Elektita",
@@ -717,62 +720,62 @@
     "emails": {
         "verification": {
             "subject": "🏠 HomeInventory - 📧 Retpoŝta Konfirmo Bezonata",
-            "headerTitle": "Welcome to HomeInventory",
+            "headerTitle": "Bonvenon al Hejma Inventaro",
             "headerSubtitle": "Kreu novan konton aŭ aliĝu al ekzistanta domo",
-            "greeting": "Welcome to HomeInventory",
+            "greeting": "Bonvenon al Hejma Inventaro",
             "intro": "Konto kreita! Bonvolu kontroli vian retadreson por ensaluti.",
             "verifyPrompt": "📧 Retpoŝta Konfirmo Bezonata",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Konfirmu Mian Konton",
             "warningTitle": "⚠️",
             "warningBody": "Kontrolu spamon/rubdosierujon se retpoŝto ne alvenas.",
-            "houseKeyLabel": "House Key",
+            "houseKeyLabel": "Domŝlosilo",
             "houseKeyNote": "Grava: Via domŝlosilo ankaŭ estis sendita en la retpoŝto. Vi povas dividi ĝin kun familianoj.",
-            "featuresTitle": "House Key",
+            "featuresTitle": "Domŝlosilo <<<__> Invitu Domŝlosilon <<<__>Invitu Familion",
             "features": [
-                "Invite Family with House Key",
-                "Join House",
-                "New House",
-                "💡 You can be a member of multiple houses and switch between them. Each house maintains a separate inventory."
+                "Aliĝu al Domo",
+                "Nova Domo",
+                "💡 Vi povas esti membro de pluraj domoj kaj ŝanĝi inter ili. Ĉiu domo konservas apartan stokregistron.",
+                "© 2026 Hejma Inventaro"
             ],
             "fallback": "La ligilo de rekomencigita pasvorto aspektas nekompleta aŭ rompita.",
             "support": "Registradaj problemoj:",
             "footer": "© 2026 HomeInventory"
         },
         "welcome": {
-            "subject": "Welcome to HomeInventory",
-            "headerTitle": "Welcome to HomeInventory",
+            "subject": "Bonvenon al HomeInventory",
+            "headerTitle": "Bonvenon al HomeInventory",
             "headerSubtitle": "Kreu novan konton aŭ aliĝu al ekzistanta domo",
-            "greeting": "Welcome to HomeInventory",
+            "greeting": "Bonvenon al HomeInventory",
             "intro": "Bonvenon, ! 👋",
-            "houseKeyLabel": "House Key",
-            "houseKeyNote": "This is your house key, use it to invite others. Add family members to your house!",
-            "featuresTitle": "My Houses",
+            "houseKeyLabel": "Domŝlosilo",
+            "houseKeyNote": "Ĉi tiu estas via domŝlosilo, uzu ĝin por inviti aliajn. Aldonu familianojn al via domo!",
+            "featuresTitle": "Miaj Domoj",
             "features": [
-                "Invite Family with House Key",
-                "Join House",
-                "New House",
-                "💡 You can be a member of multiple houses and switch between them. Each house maintains a separate inventory."
+                "Invitu Familion per Domŝlosilo",
+                "Aliĝu al Domo",
+                "Nova Domo",
+                "💡 Vi povas esti membro de pluraj domoj kaj ŝanĝi inter ili. Ĉiu domo konservas apartan stokregistron."
             ],
             "support": "Registradaj problemoj:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 Hejma Inventaro"
         },
         "houseJoinRequest": {
-            "subject": "Join House",
-            "greeting": "House Access",
-            "bodyLine1Template": "{{username}} Send Request {{house}}",
-            "bodyLine2": "Waiting for house owner approval"
+            "subject": "Aliĝu al Domo",
+            "greeting": "Domo-Aliro",
+            "bodyLine1Template": "{{uzantnomo}} Sendu Peton {{domo}}",
+            "bodyLine2": "aprobo de domo"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
-            "greeting": "House Access",
-            "bodyLine1Template": "Current pending request: {{house}} ({{status}})",
-            "bodyLine2": "Your request for \"{{house}}\" is still waiting for a decision."
+            "subjectTemplate": "Hejma Inventaro - {{stato}}",
+            "greeting": "Domo-Aliro",
+            "bodyLine1Template": "Nuna pritraktata peto: {{domo}} ({{stato}})",
+            "bodyLine2": "Via peto por \"{{domo}}\" ankoraŭ atendas decidon."
         },
         "houseKick": {
-            "subject": "Member removed from the house",
-            "greeting": "House Access",
-            "bodyLine1Template": "Are you sure you want to remove \"{{name}}\" from the house?",
-            "bodyLine2": "Create a new house or send a join request to an existing one."
+            "subject": "Membro forigita de la domo",
+            "greeting": "Domo-Aliro",
+            "bodyLine1Template": "Ĉu vi certas, ke vi volas forigi \"{{name}}\" de la domo?",
+            "bodyLine2": "Kreu novan domon aŭ sendu aligpeton al ekzistanta."
         },
         "passwordReset": {
             "subject": "🔐 Restarigi Pasvorton",
@@ -783,7 +786,71 @@
             "warningTitle": "⚠️",
             "warningBody": "Se konto ekzistas, pasvorta rekomencigita ligilo valida por 15 minutoj estas sendita.",
             "fallback": "La ligilo de rekomencigita pasvorto aspektas nekompleta aŭ rompita.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 Hejma Inventaro"
+        }
+    },
+    "vault": {
+        "title": "Persona Trezorejo",
+        "subtitle": "Persona areo kiu malĉifriĝas nur en la retumilo kaj ne estas legebla de la servilo kiel simpla teksto.",
+        "status_unlocked": "Trezorejo malŝlosita",
+        "status_locked": "Trezorejo ŝlosita",
+        "lock_action": "Ŝlosi",
+        "setup_title": "Agordi Personan Trezorejon",
+        "setup_description": "La trezoreja ŝlosilo estas generata en la retumilo. La servilo konservas nur la envolvitan ŝlosilon kaj ĉifritajn registrojn.",
+        "setup_warning": "Se vi perdas kaj la trezorejan pasfrazon kaj la reakiran ŝlosilon, la datumoj ne povas esti restaŭritaj.",
+        "passphrase": "Trezoreja pasfrazo",
+        "passphrase_placeholder": "Elektu fortan pasfrazon kun almenaŭ 12 signoj",
+        "passphrase_confirm": "Trezoreja pasfrazo (Konfirmo)",
+        "passphrase_confirm_placeholder": "Enigu la pasfrazon denove",
+        "setup_action": "Krei Personan Trezorejon",
+        "setting_up": "Preparante trezorejon...",
+        "protection_title": "Kion tio protektas?",
+        "protection_item_1": "Era nomo, priskribo, strekkodo, prezo, dato kaj garantiaj kampoj estas ĉifritaj en la retumilo.",
+        "protection_item_2": "La servilo vidas nur la ĉifritan pakaĵon, ernombron kaj tempomarkojn.",
+        "protection_item_3": "La unua eldono estas intence persona kaj tekst-fokusita; kundivido kaj amaskomunikiloj bezonas apartan sekuran fluon.",
+        "unlock_title": "Malŝlosi Trezorejon",
+        "unlock_description": "Vi povas malŝlosi la trezorejon per via pasfrazo aŭ per la reakira ŝlosilo kiun vi konservis pli frue.",
+        "unlock_with_passphrase": "Uzi pasfrazon",
+        "unlock_with_recovery": "Uzi reakiran ŝlosilon",
+        "unlock_passphrase_placeholder": "Enigu vian trezorejan pasfrazon",
+        "unlock_recovery_placeholder": "ekz. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+        "unlock_action": "Malŝlosi Trezorejon",
+        "unlocking": "Malŝlosante trezorejon...",
+        "security_note_title": "Sekureca noto",
+        "security_note_1": "La trezoreja ŝlosilo ekzistas nur en la memoro de la retumilo. Ĝi estas forigita kiam vi forlasas la paĝon aŭ ŝlosas la trezorejon.",
+        "security_note_2": "Se vi forgesas la pasfrazon, vi povas uzi la reakiran ŝlosilon. Se ambaŭ perdiĝas, la enhavo fariĝas konstante neatingebla.",
+        "recovery_ready_title": "Reakira ŝlosilo preta",
+        "recovery_ready_description": "Ni montras ĉi tiun ŝlosilon nur unufoje. Konservu ĝin en sekura loko.",
+        "recovery_visible_once": "Ĉi tiu ŝlosilo ne estos montrata denove poste.",
+        "recovery_file_title": "HomeInventory Persona Trezoreja Reakira Ŝlosilo",
+        "recovery_file_created_label": "Kreita",
+        "recovery_file_key_label": "Reakira ŝlosilo",
+        "recovery_file_warning": "Se vi perdas kaj ĉi tiun ŝlosilon kaj vian trezorejan pasfrazon, la trezorejo ne povas esti reakirita.",
+        "record_new_title": "Nova Trezoreja Registro",
+        "record_edit_title": "Redakti Trezorejan Registron",
+        "record_form_subtitle": "Tio pli proksime sekvas la normalan eran fluon, sed klara teksto ankoraŭ neniam forlasas la retumilon.",
+        "record_save_new": "Aldoni Trezorejan Registron",
+        "record_save_edit": "Konservi Ŝanĝojn",
+        "barcode_privacy_hint": "Trezorejaj strekkodoj ne estas aŭtomate serĉataj en eksteraj servoj; la strekkoda teksto estas konservata nur kiel ĉifritaj datumoj.",
+        "media_note": "Fotoj, strekkoda skanado kaj ekstera produkta serĉado estas intence malŝaltitaj en ĉi tiu unua trezoreja fluo. Ili bezonas apartan ĉifritan amaskomunikan kaj privatecan dukton.",
+        "search_placeholder": "Serĉi en la trezorejo...",
+        "all_categories": "Ĉiuj kategorioj",
+        "all_rooms": "Ĉiuj ĉambroj",
+        "empty_title": "La trezorejo ankoraŭ estas malplena",
+        "empty_description": "Komencu per aldono de via unua persona trezoreja registro.",
+        "empty_filter_title": "Neniuj registroj kongruas kun la nuna filtrilo",
+        "empty_filter_description": "Provu alian serĉon aŭ ĝustigu la filtrilojn.",
+        "updated_at": "Laste ĝisdatigita",
+        "delete_confirm": "Ĉu vi certas, ke vi volas forigi ĉi tiun trezorejan registron?",
+        "messages": {
+            "passphrase_mismatch": "Trezorejaj pasfrazoj ne kongruas.",
+            "setup_failed": "La persona trezorejo ne povis esti kreita.",
+            "unlock_failed": "La trezorejo ne povis esti malŝlosita. Kontrolu la enigitajn informojn.",
+            "save_failed": "La trezoreja registro ne povis esti konservita.",
+            "delete_failed": "La trezoreja registro ne povis esti forigita.",
+            "decrypt_failed": "La trezoreja enhavo ne povis esti malĉifrita.",
+            "name_required": "Era nomo estas postulata por trezoreja registro.",
+            "options_failed": "Kategori- kaj ĉambro-opcioj ne povis esti ŝargitaj."
         }
     }
 }

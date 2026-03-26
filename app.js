@@ -21,6 +21,7 @@ import emailRoutes from './routes/email.js';
 import adminRoutes from './routes/admin.js';
 import housesRoutes from './routes/houses.js';
 import backupRoutes from './routes/backup.js';
+import vaultRoutes from './routes/vault.js';
 import passport from 'passport';
 
 // Import KVKK-compliant logger
@@ -190,6 +191,7 @@ app.use('/api/rooms', interactiveApiLimiter);
 app.use('/api/locations', interactiveApiLimiter);
 app.use('/api/houses', interactiveApiLimiter);
 app.use('/api/barcode', interactiveApiLimiter);
+app.use('/api/vault', interactiveApiLimiter);
 
 // API Routes
 app.use('/api/auth', authRoutes);
@@ -202,6 +204,7 @@ app.use('/api/email', emailRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/houses', housesRoutes);
 app.use('/api/backup', backupRoutes);
+app.use('/api/vault', vaultRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

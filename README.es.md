@@ -39,6 +39,8 @@
 - 🏷️ **Categorías y Habitaciones** — Organiza artículos por categorías, habitaciones y ubicaciones personalizadas
 - 📱 **Escaneo de códigos de barras / QR** — Agrega o busca artículos rápidamente con la cámara de tu dispositivo
 - 🔐 **Autenticación** — Inicio de sesión basado en JWT con soporte para Google OAuth y verificación por correo electrónico
+- ✅ **2FA y dispositivos de confianza** — Apps TOTP, códigos de respaldo de un solo uso y controles para recordar dispositivos
+- 🔒 **Bóveda personal** — Claves de bóveda generadas en el navegador y registros cifrados para información de alta sensibilidad
 - 👨‍💼 **Panel de administración** — Gestión de usuarios, bloqueos, envío de correos y registros del sistema
 - 📧 **Sistema de correo** — Correos transaccionales vía API de Resend (verificación, avisos de admin)
 - 💾 **Respaldo y restauración** — Exporta e importa tus datos de inventario
@@ -47,6 +49,7 @@
 - 📱 **Diseño responsivo** — Diseño mobile-first, funciona en todos los tamaños de pantalla
 - 🔍 **Listo para SEO** — Sitemap, robots.txt, meta tags y soporte IndexNow
 - 🛡️ **Cifrado a nivel de campo** — Protección AES-256-GCM para datos sensibles
+- 🐳 **Entrega de secretos con Docker y la nube** — Docker secrets y bootstrap OCI en runtime para claves de producción
 - 🔑 **Recuperación de contraseña segura** — Restablecimiento por correo o Clave de Recuperación sin conexión
 
 ## Seguridad y Privacidad (Cifrado en Reposo del Lado del Servidor)
@@ -149,6 +152,7 @@ Notas:
 - Deja `SECRET_PROVIDER=env` para desarrollo local.
 - `OCI_SECRET_MAPPINGS` puede apuntar a OCIDs de secretos o nombres de secretos.
 - `OCI_VAULT_ID` solo es necesario cuando usas nombres de secretos en lugar de OCIDs.
+- Para secretos Docker basados en archivos, mantén el montaje por defecto en `/run/secrets` o configura `DOCKER_SECRETS_DIR` si tu runtime monta los secretos en otra ruta.
 - El punto de entrada del servidor carga los secretos de runtime automáticamente, por lo que `node server.js`, `npm run dev` y `npm start` siguen funcionando.
 - Los scripts de mantenimiento como backfill de cifrado y envío de IndexNow también usan la misma ruta de bootstrap OCI.
 
@@ -185,15 +189,22 @@ Despliega HomeInventory con Docker para un auto-hosting sencillo:
 git clone https://github.com/asdteke/HomeInventory.git
 cd HomeInventory
 
-# Crear archivo de entorno
+# Crear archivo de entorno para ajustes no secretos
 cp .env.example .env
-# Edita .env y configura JWT_SECRET, APP_ENCRYPTION_KEY, APP_ENCRYPTION_KEY_ID
+
+# Crear archivos de secretos Docker (o usar otra carpeta con HOMEINVENTORY_SECRETS_DIR)
+mkdir -p secrets
+printf '%s' 'jwt-secret-aqui' > secrets/jwt_secret.txt
+printf '%s' '32-byte-base64-key-aqui' > secrets/app_encryption_key.txt
+printf '%s' '2026-compose' > secrets/app_encryption_key_id.txt
 
 # Iniciar con Docker Compose
 docker compose up -d
 ```
 
 La aplicación estará disponible en `http://localhost:3001`
+
+`docker-compose.yml` lee por defecto los archivos fuente de secretos desde `${HOMEINVENTORY_SECRETS_DIR:-./secrets}` en el host y los monta dentro del contenedor en `/run/secrets`.
 
 El archivo `.env` completo se pasa al contenedor; configuraciones opcionales como `APP_ENCRYPTION_KEYRING`, `EXPOSE_SERVER_INFO` e `INDEXNOW_*` continúan funcionando en Docker.
 
@@ -208,6 +219,14 @@ Copia `.env.example` a `.env` y completa los valores requeridos:
 | `NODE_ENV` | ✅ | `development` o `production` |
 | `PORT` | ✅ | Puerto del servidor backend (por defecto: `3001`) |
 | `SITE_URL` | ✅ | URL pública de tu sitio |
+| `SECRET_PROVIDER` | ⬜ | `env` (por defecto) u `oci` para bootstrap de OCI Secret Management |
+| `OCI_AUTH_MODE` | ⬜ | Modo de autenticación runtime para OCI (`instance_principal`) |
+| `OCI_REGION` | ⬜ | Región OCI opcional para recuperar secretos |
+| `OCI_VAULT_ID` | ⬜ | Requerido cuando `OCI_SECRET_MAPPINGS` usa nombres de secretos |
+| `OCI_SECRET_MAPPINGS` | ⬜ | Mapa JSON de variables de entorno a OCIDs o nombres de secretos OCI |
+| `OCI_SECRET_OVERWRITE` | ⬜ | Sobrescribe valores ya definidos con secretos OCI |
+| `OCI_SECRET_BUNDLE_STAGE` | ⬜ | Etapa del bundle de secretos a leer (`CURRENT` por defecto) |
+| `DOCKER_SECRETS_DIR` | ⬜ | Sobrescribe la ruta runtime para secretos Docker basados en archivos (`/run/secrets`) |
 | `JWT_SECRET` | ✅ | Clave secreta aleatoria para firmar JWT (mín. 32 caracteres) |
 | `APP_ENCRYPTION_KEY` | ✅ | Clave de cifrado de 32 bytes para protección de campos |
 | `APP_ENCRYPTION_KEY_ID` | ✅ | Identificador de clave estable |

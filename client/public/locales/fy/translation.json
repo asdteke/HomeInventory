@@ -100,7 +100,9 @@
         "close": "Slute",
         "logout": "Útlogge",
         "copyright": "© {{year}} HomeInventory - Alle rjochten foarbehâlden",
-        "other": "Oar"
+        "other": "Oar",
+        "copy": "Kopiearje",
+        "download": "Download"
     },
     "auth": {
         "login": {
@@ -121,7 +123,19 @@
             "terms_beta": "BETA Ferzje: HomeInventory is op it stuit yn testfase. Gjin garânsje wurdt jûn oer de langduorjendheid of feiligens fan jo gegevens.",
             "terms_disclaimer": "Fersiensferklearring: Troch dizze applikaasje te brûken, stimme jo dermei yn dat jo gjin fergoeding ride kinne easkje foar mooglike gegevensferlies, tagongproblemen of oare technyske mankeminten.",
             "terms_backup": "Gegevensbackup: Wy riede sterk oan om jo wichtige ynformaasje regelmjittich te back-uppen.",
-            "terms_accept": "Troch oan te melden, wurdt oannommen dat jo dizze betingsten akseptearje."
+            "terms_accept": "Troch oan te melden, wurdt oannommen dat jo dizze betingsten akseptearje.",
+            "two_factor": {
+                "title": "Twa-faktore-autentikaasje",
+                "subtitle": "Fier de 6-sifers koade yn fan jo autentikaasje-app",
+                "backup_subtitle": "Fier ien fan jo reservekoades yn",
+                "code_label": "Ferifikaasjekoade",
+                "backup_code_label": "Reservekoade",
+                "remember_device": "ûnthâlde dit apparaat foar 30 dagen",
+                "verify": "Ferifiearje",
+                "back": "Werom",
+                "use_backup": "Brûk reservekoade",
+                "use_totp": "Brûk autentikaasje-app"
+            }
         },
         "register": {
             "title": "Wolkom by HomeInventory",
@@ -234,7 +248,8 @@
         "share_house": "Hús Diele",
         "admin_panel": "Behear Paniel",
         "logout": "Útloggen",
-        "menu": "Menu"
+        "menu": "> Menu",
+        "personal_vault": "Persoanlike Vault"
     },
     "dashboard": {
         "welcome": "Wolkom, <1>{{name}}</1>! 👋",
@@ -345,7 +360,7 @@
         "house_info": {
             "title": "Aktive Hûssleutel",
             "key_label": "Hûssleutel",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{suffiks}}",
             "hide": "Ferljochtsje net",
             "show": "Lit sjen",
             "copy": "Kopiearje",
@@ -438,6 +453,48 @@
             "title": "Myn oanwêzige oanfragen foar lidmaatskip",
             "waiting_since": "Wachtsje sûnt: {{date, datetime}}",
             "pending_badge": "Yn ôfwachting"
+        },
+        "two_factor": {
+            "title": "Twa-Faktor-authentikaasje",
+            "description": "Foegje in ekstra laach fan feiligens ta oan jo akkount mei TOTP-basearre 2FA",
+            "active": "Aktyf",
+            "enable": "Skeakelje 2FA yn",
+            "disable": "Skeakelje 2FA út",
+            "disable_desc": "Ferwider twa-faktor-autentikaasje fan jo akkount",
+            "disable_title": "Skeakelje Twa-Faktor-authentikaasje út",
+            "disable_confirm": "Skeakelje 2FA út",
+            "disable_error": "Net slagge om 2FA út te skeakeljen",
+            "disabled_success": "Twa-faktor-autentikaasje is útskeakele",
+            "password_label": "Wachtwurd",
+            "password_placeholder": "Fier jo wachtwurd yn",
+            "method_totp": "Authenticator",
+            "method_backup": "Backupkoade",
+            "method_recovery": "Herstelkaai",
+            "totp_code_label": "Authenticatorkoade",
+            "backup_code_label": "Backupkoade",
+            "recovery_key_label": "Herstelkaai",
+            "cancel": "Annulearje",
+            "setup_title": "Stel 2FA yn",
+            "setup_error": "It slagge net om 2FA-ynstelling te begjinnen",
+            "step_1": "Stap 1: Scan QR-koade",
+            "step_2": "Stap 2: Fêststelle koade",
+            "step_3": "Stap 3: Bewarje backup-koade",
+            "scan_instruction": "Scan dizze QR-koade mei jo autentifikaasje-app (Google Authenticator, Authy, of elke TOTP-app)",
+            "manual_entry": "Kin net scanne? Fier dizze kaai hânmjittich yn:",
+            "copy_secret": "Kopiearje geheim",
+            "next": "Folgjende",
+            "verify_instruction": "Fier de 6-sifers koade yn dy't yn jo autentifikaasje-app werjûn wurdt om ynstelling te fêststellen",
+            "verify_error": "Fêststelling mislearre",
+            "code_label": "6-Siferskoade",
+            "back": "Werom",
+            "activate": "Aktivearje 2FA",
+            "backup_warning_title": "Bewarje Dizze Backup-Koades!",
+            "backup_warning_text": "As jo tagong ta jo autentifikaasje-app ferlieze, kinne jo dizze koades brûke om yn te loggen. Elke koade kin mar ien kear brûkt wurde. Bewarje se op in feilige plak.",
+            "download_codes": "Download Backup-Koades",
+            "backup_acknowledge": "Ik haw myn backup-koades op in feilige plak bewarre",
+            "done": "Klear",
+            "regenerate_codes": "Resintrale Backup-Koades",
+            "regenerate_codes_desc": "Generearje nije backup-koades (âlders wurde ûngeldig makke)"
         }
     },
     "inventory": {
@@ -521,7 +578,7 @@
             "no_logs": "gjin logs oant no ta",
             "errors_title": "Systeemflaters (Lêste 10)",
             "no_errors": "// Systeem sûn, gjin flaterlogs.",
-            "date_fmt": "{{date, datetime}}"
+            "date_fmt": "{{datum, datetime}} <<<__HI_SEP__><<__HI_SEP__><__> Barcode Scanner <__>> Streepjeskoadescanner"
         },
         "email": {
             "title": "E-mail Stjoere",
@@ -639,7 +696,7 @@
         "processing": "Ferwurking..."
     },
     "scanner": {
-        "title": "Barcode Scanner",
+        "title": "© 2026 HomeInventory",
         "qr_title": "QR-koade lêzer",
         "init": "Kamera begjint...",
         "permission_error": "Kamera tastimming ûntwiisd. Kontrolearje browserynstellingen.",
@@ -653,7 +710,7 @@
         "found_local_msg": "Dizze barcode sit al yn dyn ynventaris.",
         "found_online": "Produkt fûn!",
         "google_result": "⚡ Google sykopdracht resultaat - ferifiearje asjebleaft",
-        "barcode": "Barcode: {{code}}",
+        "barcode": "© 2026 HomeInventory",
         "new_product": "Nij produkt",
         "not_found_db": "Dizze barcode waard net fûn yn databases.",
         "google_search": "Sykje op Google",
@@ -736,7 +793,7 @@
             ],
             "fallback": "De keppeling foar reset fan wachtwurd liket net kompleet of brutsen.",
             "support": "Registratieproblemen:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "HomeInventory - {{status}}"
         },
         "welcome": {
             "subject": "Wolkom by HomeInventory",
@@ -785,5 +842,69 @@
             "fallback": "De keppeling foar reset fan wachtwurd liket net kompleet of brutsen.",
             "footer": "© 2026 HomeInventory"
         }
+    },
+    "vault": {
+        "title": "Persoanlike Vault <<<__> in persoanlik gebiet dat kin net lêzen wurde troch de browser dy't net lêzen is troch de browser tsjinner as platte tekst.",
+        "subtitle": "Vault ûntskoattele",
+        "status_unlocked": "Vault beskoattele",
+        "status_locked": "Beskoattelje",
+        "lock_action": "Persoanlike Vault ynstelle",
+        "setup_title": "> De klûskaai wurdt oanmakke yn de browser. De tsjinner bewarret allinich de ynpakt kaai en fersifere records.",
+        "setup_description": "As jo ​​sawol de ferwulftswachtwurd as de herstelkaai ferlieze, kinne de gegevens net weromset wurde.",
+        "setup_warning": "Vault Passphrase",
+        "passphrase": "Vault Wachtwurd",
+        "passphrase_placeholder": "Kies in sterke passphrase mei op syn minst 12 karakters",
+        "passphrase_confirm": "Vault Passphrase (Befêstigje)",
+        "passphrase_confirm_placeholder": "Fier it wachtwurd nochris yn",
+        "setup_action": "Persoanlike ferwulft oanmeitsje",
+        "setting_up": "Vault tariede... <<__<__HI_>> Wat beskermet dit?",
+        "protection_title": "Item namme, beskriuwing, barcode, priis, datum, en garânsje fjilden binne fersifere yn de browser.",
+        "protection_item_1": "De tsjinner sjocht allinnich de fersifere envelop, it oantal items en tiidstempels.",
+        "protection_item_2": "De earste release is mei opsetsin persoanlik en tekst-rjochte; dielen en media hawwe in aparte feilige stream nedich.",
+        "protection_item_3": "Untskoattelje Vault",
+        "unlock_title": "Jo kinne de klûs ûntskoattelje mei jo wachtwurdfrase of de herstelkaai dy't jo earder bewarre hawwe.",
+        "unlock_description": "Passphrase brûke",
+        "unlock_with_passphrase": "Herstelkaai brûke",
+        "unlock_with_recovery": "Fier jo vault-wachtwurd yn",
+        "unlock_passphrase_placeholder": "bgl. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+        "unlock_recovery_placeholder": "bygelyks ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+        "unlock_action": "Untskoattelje Vault",
+        "unlocking": "Vault ûntskoattelje...",
+        "security_note_title": "Feiligensnotysje",
+        "security_note_1": "De kluiskaai libbet allinnich yn it blêderûnthâld. It wurdt wiske as jo de side ferlitte of it ferwulft beskoattelje.",
+        "security_note_2": "As jo ​​de passphrase ferjitte, kinne jo de herstelkaai brûke. As beide ferlern geane, wurdt de ynhâld permanint ûnberikber.",
+        "recovery_ready_title": "Herstelkaai klear",
+        "recovery_ready_description": "Wy litte dizze kaai mar ien kear sjen. Bewarje it earne feilich.",
+        "recovery_visible_once": "Dizze kaai sil letter net wer toand wurde.",
+        "record_new_title": "Nije Vault Rekôr",
+        "record_edit_title": "Vault Record bewurkje",
+        "record_form_subtitle": "Dit folget de normale itemstream nauwer, mar platte tekst ferlit noch noait de browser.",
+        "record_save_new": "Vault Record tafoegje",
+        "record_save_edit": "Feroarings bewarje",
+        "barcode_privacy_hint": "Vault-barcodes wurde net automatysk opsocht op eksterne tsjinsten; de barcode tekst wurdt opslein allinnich as fersifere gegevens.",
+        "media_note": "Foto's, barcode skennen, en eksterne produkt sykjen binne mei opsetsin útskeakele yn dizze earste kelderstream. Se hawwe in aparte fersifere media- en privacypipeline nedich.",
+        "search_placeholder": "Sykje binnen de ferwulft...",
+        "all_categories": "Alle kategoryen",
+        "all_rooms": "Alle keamers",
+        "empty_title": "De ferwulft is noch leech",
+        "empty_description": "Begjin mei it tafoegjen fan jo earste persoanlike ferwulftsrecord.",
+        "empty_filter_title": "Gjin records oerienkomme mei it aktive filter",
+        "empty_filter_description": "Besykje in oare sykopdracht of oanpasse de filters.",
+        "updated_at": "Lêst bywurke",
+        "delete_confirm": "Binne jo wis dat jo dit ferwulftsrecord wiskje wolle?",
+        "messages": {
+            "passphrase_mismatch": "Vault-wachtwurden komme net oerien.",
+            "setup_failed": "De persoanlike ferwulf koe net oanmakke wurde.",
+            "unlock_failed": "De ferwulft koe net ûntskoattele wurde. Kontrolearje de ynformaasje dy't jo ynfierd hawwe.",
+            "save_failed": "It ferwulftsrecord koe net bewarre wurde.",
+            "delete_failed": "It ferwulftsrecord koe net wiske wurde.",
+            "decrypt_failed": "De ynhâld fan 'e kelder koe net ûntsifere wurde.",
+            "name_required": "In item namme is nedich foar in ferwulft record.",
+            "options_failed": "Kategory- en keameropsjes koene net laden wurde."
+        },
+        "recovery_file_title": "Thúsynventaris Persoanlike Kluis Herstelkaai",
+        "recovery_file_created_label": "Makke",
+        "recovery_file_key_label": "Herstelkaai",
+        "recovery_file_warning": "As jo sawol dizze kaai as jo kluispasfraach ferlieze, kin de kluis net weromfûn wurde."
     }
 }

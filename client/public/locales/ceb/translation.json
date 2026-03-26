@@ -100,7 +100,9 @@
         "close": "Isira",
         "logout": "Pag-logout",
         "copyright": "© {{year}} HomeInventory - Tanang katungod gipreserbar",
-        "other": "Uban pa"
+        "other": "Uban pa",
+        "copy": "Kopyaha",
+        "download": "I-download"
     },
     "auth": {
         "login": {
@@ -121,7 +123,19 @@
             "terms_beta": "BETA Bersyon: Ang HomeInventory kasamtangang anaay testing phase. Wala gi garantiya ang padayon o seguridad sa imong datos.",
             "terms_disclaimer": "Disclaimer: Pinaagi sa paggamit niini nga aplikasyon, imong giuyonan nga dili ka makaangkon og kompensasyon alang sa posible nga pagkawala sa datos, mga problema sa pag-access, o uban pang teknikal nga kapakyasan.",
             "terms_backup": "Data Backup: Hugot namong girekomenda nga regular nga i-backup ang imong importante nga impormasyon.",
-            "terms_accept": "Pinaagi sa pag-login, giila nga imong giuyonan kini nga mga termino."
+            "terms_accept": "Pinaagi sa pag-login, giila nga imong giuyonan kini nga mga termino.",
+            "two_factor": {
+                "title": "Duhang-Paktor nga Pagpamatuod",
+                "subtitle": "Isulod ang 6-ka-digit nga kodigo gikan sa imong authenticator app",
+                "backup_subtitle": "Isulod ang usa sa imong backup nga kodigo",
+                "code_label": "Kodigo sa Pagpamatuod",
+                "backup_code_label": "Backup nga Kodigo",
+                "remember_device": "Hinumdumi kini nga device sulod sa 30 ka adlaw",
+                "verify": "Pamatuod",
+                "back": "Balik",
+                "use_backup": "Gamita ang backup nga kodigo",
+                "use_totp": "Gamita ang authenticator"
+            }
         },
         "register": {
             "title": "Welcome sa HomeInventory",
@@ -232,9 +246,10 @@
         "settings": "Mga Setting",
         "new_item": "Bag-ong Butang",
         "share_house": "Ipaambit ang Balay",
-        "admin_panel": "Admin Panel",
+        "admin_panel": "Admin Panel <__>HI_SEP <__>HI_SEP <__>HI_SEP",
         "logout": "Pag-log out",
-        "menu": "Menu"
+        "menu": "Personal Vault",
+        "personal_vault": "Personal nga Kahon"
     },
     "dashboard": {
         "welcome": "Maayong pag-abot, <1>{{name}}</1>! 👋",
@@ -275,7 +290,7 @@
         }
     },
     "beta_banner": {
-        "title": "BETA:",
+        "title": "Usa ka personal nga lugar nga gi-decrypted lang sa browser ug dili mabasa sa server isip plaintext.",
         "text": "Ang HomeInventory kasamtangang naa sa yugto sa pagsulay ug hilig. Wala'y garantiya nga gihatag alang sa pagpadayon sa datos o seguridad. Palihug panalipdi ang mga backup sa importante nga impormasyon.",
         "contact": "Kontaka:"
     },
@@ -438,6 +453,56 @@
             "title": "Ang Akong Naghulat nga Pag-apil nga mga Gihangyo",
             "waiting_since": "Naghulat sukad: {{date, datetime}}",
             "pending_badge": "Naghulat"
+        },
+        "two_factor": {
+            "title": "Two-Factor Authentication",
+            "description": "Idungag ang dugang nga lebel sa seguridad sa imong account gamit ang TOTP-based nga 2FA",
+            "active": "Aktibo",
+            "enable": "I-enable ang 2FA",
+            "disable": "I-disable ang 2FA",
+            "disable_desc": "Tangtanga ang two-factor authentication sa imong account",
+            "disable_title": "I-disable ang Two-Factor Authentication",
+            "disable_confirm": "I-disable ang 2FA",
+            "disable_error": "Napakyas sa pag-disable sa 2FA",
+            "disabled_success": "Na-disable na ang two-factor authentication",
+            "password_label": "Password",
+            "password_placeholder": "Isulod ang imong password",
+            "method_totp": "Authenticator",
+            "method_backup": "Backup Code",
+            "method_recovery": "Recovery Key",
+            "totp_code_label": "Authenticator Code",
+            "backup_code_label": "Backup Code",
+            "recovery_key_label": "Recovery Key",
+            "cancel": "Kanselahin",
+            "setup_title": "I-setup ang 2FA",
+            "setup_error": "Napakyas sa pagsugod sa 2FA nga setup",
+            "step_1": "Lakat 1: I-scan ang QR Code",
+            "step_2": "Lakat 2: I-verify ang Code",
+            "step_3": "Lakat 3: I-save ang Backup Codes",
+            "scan_instruction": "I-scan kini nga QR code gamit ang imong authenticator app (Google Authenticator, Authy, o bisan unsang TOTP app)",
+            "manual_entry": "Dili ka makascan? Isulod kini nga key manually:",
+            "copy_secret": "Kopyaha ang tinago",
+            "next": "Sunod",
+            "verify_instruction": "Isulod ang 6-digit nga code nga gipakita sa imong authenticator app aron i-verify ang setup",
+            "verify_error": "Napakyas ang pag-verify",
+            "code_label": "6-Digit nga Kodigo",
+            "back": "Balik",
+            "activate": "I-activate ang 2FA",
+            "backup_warning_title": "I-save Kini nga Backup Codes!",
+            "backup_warning_text": "Kung mawala ang access sa imong authenticator app, magamit nimo kini nga mga kodigo sa pag-log in. Ang matag kodigo magamit lamang og usa ka beses. Ibutang kini sa luwas nga lugar.",
+            "download_codes": "I-download ang Backup Codes",
+            "backup_acknowledge": "Na-save nako ang akong backup codes sa luwas nga lugar",
+            "done": "Human",
+            "regenerate_codes": "I-regenerate ang Backup Codes",
+            "regenerate_codes_desc": "Maghimo og bag-ong backup codes (ang daan mahimong dili na valid)",
+            "regenerate": "Pag-usab",
+            "codes_regenerated": "Ang mga backup nga kodigo nausab",
+            "codes_error": "Napakyas sa pag-usab sa backup nga kodigo",
+            "close_codes": "Isira",
+            "revoke_devices": "Pawala ang mga Gi-salig nga Device",
+            "revoke_devices_desc": "Tangtanga ang tanang nahinumdoman nga mga device, nanginahanglan ug 2FA sa sunod nga pag-login",
+            "devices_revoked": "{{count}} nga gi-salig nga device gitangtang",
+            "devices_error": "Napakyas sa pagkuha sa mga device"
         }
     },
     "inventory": {
@@ -736,7 +801,7 @@
             ],
             "fallback": "Ang link sa pag-reset sa password morag dili kompleto o guba.",
             "support": "Mga isyu sa pagparehistro:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "Home_Inventory> 202 2026 HomeInventory"
         },
         "welcome": {
             "subject": "Welcome sa HomeInventory",
@@ -785,5 +850,69 @@
             "fallback": "Ang link sa pag-reset sa password morag dili kompleto o guba.",
             "footer": "© 2026 HomeInventory"
         }
+    },
+    "vault": {
+        "title": "Gi-unlock ang Vault",
+        "subtitle": "Gi-lock ang Vault",
+        "status_unlocked": "Lock",
+        "status_locked": "Nakasirado ang Kahon",
+        "lock_action": "Sirado",
+        "setup_title": "I-set Up ang Personal nga Vault",
+        "setup_description": "Ang vault key gihimo sa browser. Ang server nagtipig lamang sa giputos nga yawe ug naka-encrypt nga mga rekord.",
+        "setup_warning": "Kung mawala nimo ang vault passphrase ug ang recovery key, ang data dili na mabalik.",
+        "passphrase": "Passphrase sa Kahon",
+        "passphrase_placeholder": "Pagpili og lig-on nga passphrase nga adunay labing menos 12 ka karakter",
+        "passphrase_confirm": "Vault Passphrase (Kumpirma)",
+        "passphrase_confirm_placeholder": "Isulod pag-usab ang passphrase",
+        "setup_action": "Paghimo og Personal Vault <<<__>HI_<<SEP__> nanalipod ba kini?",
+        "setting_up": "Ngalan sa butang, deskripsyon, barcode, presyo, petsa, ug mga field sa warranty gi-encrypt sa browser.",
+        "protection_title": "Makita ra sa server ang naka-encrypt nga sobre, ihap sa aytem, ​​ug mga timestamp.",
+        "protection_item_1": "Ang unang pagpagawas kay tinuyo nga personal ug naka-focus sa text; ang pagpaambit ug media nagkinahanglan ug bulag nga luwas nga dagan.",
+        "protection_item_2": "Unlock Vault",
+        "protection_item_3": "Mahimo nimong ablihan ang vault gamit ang imong passphrase o ang recovery key nga imong gitipigan kaniadto.",
+        "unlock_title": "Ablihi ang Kahon",
+        "unlock_description": "Mahimo nimo ablihan ang kahon gamit ang imong passphrase o ang recovery key nga imong gisave kaniadto.",
+        "unlock_with_passphrase": "Gamita ang passphrase",
+        "unlock_with_recovery": "Gamita ang recovery key",
+        "unlock_passphrase_placeholder": "Isulod ang imong vault passphrase",
+        "unlock_recovery_placeholder": "pananglitan ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+        "unlock_action": "Ablihi ang Kahon",
+        "unlocking": "Gibuksan ang vault...",
+        "security_note_title": "Nota sa Seguridad",
+        "security_note_1": "Ang vault key mabuhi lang sa browser memory. Ma-clear kini kung mobiya ka sa panid o i-lock ang vault.",
+        "security_note_2": "Kung nakalimtan nimo ang passphrase, mahimo nimong gamiton ang recovery key. Kung ang duha nawala, ang sulud mahimong permanente nga dili ma-access.",
+        "recovery_ready_title": "Andam na ang Yawe sa Pagbawi",
+        "recovery_ready_description": "Kausa ra namo ipakita kini nga yawe. I-save kini sa lugar nga luwas.",
+        "recovery_visible_once": "Kini nga yawe dili na ipakita pag-usab sa ulahi.",
+        "record_new_title": "Bag-ong Vault Record",
+        "record_edit_title": "Usba ang Rekord sa Vault",
+        "record_form_subtitle": "Kini nagsunod sa normal nga dagan sa butang nga mas duol, apan ang plaintext wala gihapon mobiya sa browser.",
+        "record_save_new": "Idugang ang Vault Record",
+        "record_save_edit": "I-save ang mga Pagbag-o",
+        "barcode_privacy_hint": "Ang Vault barcodes dili awtomatikong tan-awon sa external services; ang teksto sa barcode gitipigan lamang isip naka-encrypt nga datos.",
+        "media_note": "Ang mga litrato, pag-scan sa barcode, ug pagtan-aw sa gawas nga produkto gituyo nga ma-disable niining unang vault flow. Kinahanglan nila ang usa ka bulag nga naka-encrypt nga media ug pipeline sa privacy.",
+        "search_placeholder": "Pangitaa sulod sa vault...",
+        "all_categories": "Tanang kategorya",
+        "all_rooms": "Tanang kwarto",
+        "empty_title": "Ang vault walay sulod",
+        "empty_description": "Sugdi pinaagi sa pagdugang sa imong unang personal nga rekord sa vault.",
+        "empty_filter_title": "Walay mga rekord nga motakdo sa kasamtangang filter",
+        "empty_filter_description": "Sulayi ang laing pagpangita o i-adjust ang mga filter.",
+        "updated_at": "Katapusang gi-update",
+        "delete_confirm": "Sigurado ka ba nga gusto nimong papason kining rekord sa vault?",
+        "messages": {
+            "passphrase_mismatch": "Ang mga passphrase sa Vault dili motakdo.",
+            "setup_failed": "Ang personal nga vault dili mahimo.",
+            "unlock_failed": "Dili ma-unlock ang vault. Susiha ang impormasyon nga imong gisulod.",
+            "save_failed": "Ang rekord sa vault dili ma-save.",
+            "delete_failed": "Ang rekord sa vault dili mapapas.",
+            "decrypt_failed": "Ang sulod sa vault dili ma-decrypt.",
+            "name_required": "Usa ka ngalan sa butang ang gikinahanglan alang sa usa ka rekord sa vault.",
+            "options_failed": "Ang mga kapilian sa kategorya ug kwarto dili ma-load."
+        },
+        "recovery_file_title": "HomeInventory Personal Vault Recovery Key",
+        "recovery_file_created_label": "Gihimo",
+        "recovery_file_key_label": "Recovery Key",
+        "recovery_file_warning": "Kung mawala nimo ang niining yawe ug ang imong vault passphrase, dili na mabawi ang vault."
     }
 }

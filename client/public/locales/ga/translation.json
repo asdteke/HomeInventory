@@ -100,7 +100,9 @@
         "close": "Dún",
         "logout": "Logáil Amach",
         "copyright": "© {{year}} HomeInventory - Gach ceart ar cosaint",
-        "other": "Eile"
+        "other": "Eile",
+        "copy": "Cóipeáil",
+        "download": "Íoslódáil"
     },
     "auth": {
         "login": {
@@ -121,7 +123,19 @@
             "terms_beta": "Leagan BETA: Tá HomeInventory faoi thástáil faoi láthair. Ní thugtar aon ráthaíocht maidir le buanús nó slándáil do chuid sonraí.",
             "terms_disclaimer": "Eisiamh Freagrachta: Trí úsáid a bhaint as an iarratas seo, aontaíonn tú nach féidir leo aon chúiteamh a éileamh as caillteanas sonraí féideartha, fadhbanna rochtana, nó teipeanna teicniúla eile.",
             "terms_backup": "Cúltaca Sonraí: Mholtar go láidir sonraí tábhachtacha a chóipeáil go rialta.",
-            "terms_accept": "Trí logáil isteach, glacann tú leis na téarmaí seo."
+            "terms_accept": "Trí logáil isteach, glacann tú leis na téarmaí seo.",
+            "two_factor": {
+                "title": "Fíordheimhniú Dhá Fhachtóir",
+                "subtitle": "Iontráil an cód 6-dhigit ó d'aip fíordheimhnithe",
+                "backup_subtitle": "Cuir isteach ceann de do chóid chúltaca",
+                "code_label": "Cód Fíoraithe",
+                "backup_code_label": "Cód Cúltaca",
+                "remember_device": "Cuimhnigh ar an bhfeiste seo ar feadh 30 lá",
+                "verify": "Fíoraigh",
+                "back": "Ar ais",
+                "use_backup": "Úsáid cód cúltaca",
+                "use_totp": "Úsáid fíordheimhnitheoir"
+            }
         },
         "register": {
             "title": "Fáilte go HomeInventory",
@@ -234,7 +248,8 @@
         "share_house": "Roinn an Teach",
         "admin_panel": "Painéal Riarthóra",
         "logout": "Logáil Amach",
-        "menu": "Roghchlár"
+        "menu": "Roghchlár",
+        "personal_vault": "Cruinneachán Pearsanta"
     },
     "dashboard": {
         "welcome": "Fáilte, <1>{{name}}</1>! 👋",
@@ -438,6 +453,56 @@
             "title": "Mo Iarratais Cheangail ar Feitheamh",
             "waiting_since": "Ag fanacht ó: {{date, datetime}}",
             "pending_badge": "Ar feitheamh"
+        },
+        "two_factor": {
+            "title": "Fíordheimhniú Dhá Fhachtóir",
+            "description": "Cuir ciseal breise de slándáil do do chuntas le 2FA bunaithe ar TOTP",
+            "active": "Gníomhach",
+            "enable": "Cumasaigh 2FA",
+            "disable": "Díchumasaigh 2FA",
+            "disable_desc": "Bain fíordheimhniú dhá fhachtóir ó do chuntas",
+            "disable_title": "Díchumasaigh Fíordheimhniú Dhá Fhachtóir",
+            "disable_confirm": "Díchumasaigh 2FA",
+            "disable_error": "Theip ar 2FA a dhíchumasú",
+            "disabled_success": "Díchumasaíodh fíordheimhniú dhá fhachtóir",
+            "password_label": "Pasfhocal",
+            "password_placeholder": "Iontráil do phasfhocal",
+            "method_totp": "Fíordheimhnitheoir",
+            "method_backup": "Cód Cúltaca",
+            "method_recovery": "Eochair Aisghabhála",
+            "totp_code_label": "Cód Fíordheimhnithe",
+            "backup_code_label": "Cód Cúltaca",
+            "recovery_key_label": "Eochair Aisghabhála",
+            "cancel": "Cealú",
+            "setup_title": "Socrú 2FA",
+            "setup_error": "Theip ar shocrú 2FA a thosú",
+            "step_1": "Céim 1: Cód QR a scanadh",
+            "step_2": "Céim 2: Fíoraigh Cód",
+            "step_3": "Céim 3: Sábháil Cóid Cúltaca",
+            "scan_instruction": "Scanadh an cód QR seo le d'aip fíordheimhnithe (Google Fíordheimhnitheoir, Authy, nó aon aip TOTP)",
+            "manual_entry": "Ní féidir scanadh? Iontráil an eochair seo de láimh:",
+            "copy_secret": "Cóipeáil rún",
+            "next": "Ar Aghaidh",
+            "verify_instruction": "Cuir isteach an cód 6-dhigit a thaispeántar i d'aip fíordheimhnithe chun socrú a fhíorú",
+            "verify_error": "Theip ar an bhfíorú",
+            "code_label": "Cód 6-Dhigit",
+            "back": "Ar ais",
+            "activate": "Gníomhachtaigh 2FA",
+            "backup_warning_title": "Sábháil na Cóid Chúltaca seo!",
+            "backup_warning_text": "Má chailleann tú rochtain ar d'aip fíordheimhnithe, is féidir leat na cóid seo a úsáid chun logáil isteach. Ní féidir gach cód a úsáid ach uair amháin. Stóráil iad in áit shábháilte.",
+            "download_codes": "Íoslódáil Cóid Cúltaca",
+            "backup_acknowledge": "Shábháil mé mo chóid chúltaca in áit shábháilte",
+            "done": "Déanta",
+            "regenerate_codes": "Cóid Cúltaca a Athghiniúint",
+            "regenerate_codes_desc": "Cóid chúltaca nua a ghiniúint (beidh sean-cinn neamhbhailí)",
+            "regenerate": "Athghiniúint",
+            "codes_regenerated": "Cóid Cúltaca athghiniúna",
+            "codes_error": "Theip orthu cóid chúltaca a athghiniúint",
+            "close_codes": "Dún",
+            "revoke_devices": "Gléasanna Iontaofa a Chúlghairm",
+            "revoke_devices_desc": "Bain gach feiste cuimhne, a éilíonn 2FA ar an gcéad logáil isteach eile",
+            "devices_revoked": "{{count}} feiste(í) iontaofa bainte",
+            "devices_error": "Theip ar ghléasanna a chúlghairm"
         }
     },
     "inventory": {
@@ -521,7 +586,7 @@
             "no_logs": "níl aon loganna fós",
             "errors_title": "Earráidí Córas (10 deireanacha)",
             "no_errors": "// Córas sláintiúil, níl aon loganna earráide.",
-            "date_fmt": "{{date, datetime}}"
+            "date_fmt": "{{ dáta, am dáta}}"
         },
         "email": {
             "title": "Seol Ríomhphost",
@@ -736,7 +801,7 @@
             ],
             "fallback": "Breathnaíonn an nasc athshocraithe pasfhocail neamhiomlán nó briste.",
             "support": "Fadhbanna Cláraigh:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 Fardal Baile"
         },
         "welcome": {
             "subject": "Fáilte go HomeInventory",
@@ -754,7 +819,7 @@
                 "💡 Is féidir leat a bheith i do bhall de iliomad tithe agus sleamhnaigh eatarthu. Coinníonn gach teach stocaireacht ar leith."
             ],
             "support": "Fadhbanna Cláraigh:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 Fardal Baile"
         },
         "houseJoinRequest": {
             "subject": "Bí páirteach i d'Thí",
@@ -785,5 +850,69 @@
             "fallback": "Breathnaíonn an nasc athshocraithe pasfhocail neamhiomlán nó briste.",
             "footer": "© 2026 InnéacsBaile"
         }
+    },
+    "vault": {
+        "title": "Cruinneachán Pearsanta",
+        "subtitle": "Réimse pearsanta atá díchriptithe sa bhrabhsálaí amháin agus nach bhfuil inléite ag an bhfreastalaí mar ghnáththéacs.",
+        "status_unlocked": "Cruinneachán díghlasáilte",
+        "status_locked": "Cruinneachán faoi ghlas",
+        "lock_action": "Glasáil <<<_HI_SEP__>>> Socrú cruinneachán pearsanta",
+        "setup_title": "Gintear an eochair cruinneachán sa bhrabhsálaí. Ní stórálann an freastalaí ach an eochair fhillte agus taifid criptithe.",
+        "setup_description": "Má chailleann tú an pasfhrása cruinneachán agus an eochair athshlánaithe, ní féidir na sonraí a chur ar ais.",
+        "setup_warning": "Pasfhrása cruinneachán",
+        "passphrase": "Roghnaigh pasfhrása láidir a bhfuil 12 charachtar ar a laghad ann.",
+        "passphrase_placeholder": "Roghnaigh pasfhocal láidir le i bhfad ar a laghad 12 charachtar",
+        "passphrase_confirm": "Pasfhocal an Vault (Deimhnigh)",
+        "passphrase_confirm_placeholder": "Cuir isteach an pasfhocal arís",
+        "setup_action": "Cruthaigh Cruinneachán Pearsanta",
+        "setting_up": "Ag ullmhú cruinneachán...",
+        "protection_title": "Cad a chosnaíonn sé seo?",
+        "protection_item_1": "Tá ainm na míre, cur síos, barrachóid, praghas, dáta agus réimsí baránta criptithe sa bhrabhsálaí.",
+        "protection_item_2": "Ní fheiceann an freastalaí ach an clúdach criptithe, comhaireamh na míreanna, agus na stampaí ama.",
+        "protection_item_3": "Tá an chéad eisiúint d'aon ghnó pearsanta agus dírithe ar théacs; teastaíonn sreabhadh slán ar leith ó chomhroinnt agus ó na meáin.",
+        "unlock_title": "Díghlasáil cruinneachán",
+        "unlock_description": "Is féidir leat an cruinneachán a dhíghlasáil le do phasfhrása nó leis an eochair athshlánaithe a shábháil tú níos luaithe.",
+        "unlock_with_passphrase": "Úsáid pasfhrása",
+        "unlock_with_recovery": "Úsáid eochair athshlánaithe",
+        "unlock_passphrase_placeholder": "Cuir isteach do phasfhrása cruinneogach",
+        "unlock_recovery_placeholder": "m.sh. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+        "unlock_action": "Díghlasáil cruinneachán",
+        "unlocking": "Díghlasáil cruinneachán...",
+        "security_note_title": "Nóta Slándála",
+        "security_note_1": "Is i gcuimhne an bhrabhsálaí amháin a chónaíonn an eochair boghtach. Déantar é a ghlanadh nuair a fhágann tú an leathanach nó nuair a ghlasálann tú an cruinneachán.",
+        "security_note_2": "Má dhéanann tú dearmad ar an bpasfhrása, is féidir leat an eochair athshlánaithe a úsáid. Má chailltear an dá rud, éiríonn an t-ábhar dorochtana go buan.",
+        "recovery_ready_title": "Eochair Athshlánaithe Réidh",
+        "recovery_ready_description": "Ní thaispeánaimid an eochair seo ach uair amháin. Sábháil é áit éigin sábháilte.",
+        "recovery_visible_once": "Ní thaispeánfar an eochair seo arís ar ball.",
+        "record_new_title": "Taifead Cruinneachán Nua",
+        "record_edit_title": "Cuir Taifead Cruinneachán in Eagar",
+        "record_form_subtitle": "Leanann sé seo an gnáthshreabhadh míreanna níos dlúithe, ach ní fhágann gnáththéacs an brabhsálaí riamh.",
+        "record_save_new": "Cuir Taifead Cruinneog Leis",
+        "record_save_edit": "Sábháil na hAthruithe",
+        "barcode_privacy_hint": "Ní bhreathnaítear go huathoibríoch ar bharrachóid cruinneachán ar sheirbhísí seachtracha; ní stóráiltear an téacs barrachóid ach mar shonraí criptithe.",
+        "media_note": "Tá grianghraif, scanadh barrachóid, agus cuardach táirge seachtrach díchumasaithe d'aon ghnó sa chéad sreabhadh cruinneachán seo. Teastaíonn píblíne meán criptithe agus príobháideachta ar leith uathu.",
+        "search_placeholder": "Cuardaigh taobh istigh den cruinneachán...",
+        "all_categories": "Gach catagóir",
+        "all_rooms": "Gach seomra",
+        "empty_title": "Tá an cruinneachán fós folamh",
+        "empty_description": "Tosaigh trí do chéad taifead pearsanta cruinneachán a chur leis.",
+        "empty_filter_title": "Níl aon taifead ag teacht leis an scagaire reatha",
+        "empty_filter_description": "Bain triail as cuardach eile nó coigeartaigh na scagairí.",
+        "updated_at": "An nuashonrú is déanaí",
+        "delete_confirm": "An bhfuil tú cinnte gur mian leat an taifead cruinneachán seo a scriosadh?",
+        "messages": {
+            "passphrase_mismatch": "Ní ionann pasfhrásaí cruinneachán.",
+            "setup_failed": "Níorbh fhéidir an cruinneachán pearsanta a chruthú.",
+            "unlock_failed": "Níorbh fhéidir an cruinneachán a dhíghlasáil. Seiceáil an fhaisnéis a d'iontráil tú.",
+            "save_failed": "Níorbh fhéidir an taifead cruinneachán a shábháil.",
+            "delete_failed": "Níorbh fhéidir an taifead cruinneachán a scriosadh.",
+            "decrypt_failed": "Níorbh fhéidir ábhar an chruinneacháin a dhíchriptiú.",
+            "name_required": "Tá ainm míre ag teastáil le haghaidh taifead cruinneachán.",
+            "options_failed": "Níorbh fhéidir roghanna catagóir agus seomra a luchtú."
+        },
+        "recovery_file_title": "Eochair Aisghabhála Vault Pearsanta Tí",
+        "recovery_file_created_label": "Cruthaithe",
+        "recovery_file_key_label": "Eochair Aisghabhála",
+        "recovery_file_warning": "Mura bhfaigheann tú an eochair seo agus do phasfhocal an vault, ní féidir an vault a aisghabháil."
     }
 }

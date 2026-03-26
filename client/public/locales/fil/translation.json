@@ -100,7 +100,9 @@
         "close": "Isara",
         "logout": "Mag-log out",
         "copyright": "© {{year}} HomeInventory - Lahat ng karapatan ay nakalaan",
-        "other": "Iba"
+        "other": "Iba",
+        "copy": "Kopyahin ang",
+        "download": "I-download"
     },
     "auth": {
         "login": {
@@ -121,7 +123,19 @@
             "terms_beta": "BETA Bersyon: Ang HomeInventory ay kasalukuyang nasa yugto ng pagsubok. Walang garantiya na ibinibigay tungkol sa pagpapatuloy o seguridad ng iyong data.",
             "terms_disclaimer": "Paunawa: Sa paggamit ng aplikasyon na ito, pumapayag ka na hindi ka maaaring humiling ng anumang kabayaran para sa posibleng pagkawala ng data, mga isyu sa pag-access, o iba pang teknikal na problema.",
             "terms_backup": "Pag-backup ng Data: Lubos naming inirerekomenda ang regular na pag-backup ng iyong mga mahalagang impormasyon.",
-            "terms_accept": "Sa pag-login, itinuturing na tinanggap mo ang mga tuntuning ito."
+            "terms_accept": "Sa pag-login, itinuturing na tinanggap mo ang mga tuntuning ito.",
+            "two_factor": {
+                "title": "Dalawang-Factor na Pagpapatunay",
+                "subtitle": "Ipasok ang 6-digit na code mula sa iyong authenticator app",
+                "backup_subtitle": "Ipasok ang isa sa iyong mga backup code",
+                "code_label": "Code ng Pagpapatunay",
+                "backup_code_label": "Code ng Backup",
+                "remember_device": "Tandaan ang device na ito sa loob ng 30 araw",
+                "verify": "I-verify",
+                "back": "Pabalik",
+                "use_backup": "Gumamit ng backup code",
+                "use_totp": "Gumamit ng authenticator"
+            }
         },
         "register": {
             "title": "Maligayang pagdating sa HomeInventory",
@@ -232,9 +246,10 @@
         "settings": "Mga Setting",
         "new_item": "Bagong Item",
         "share_house": "Ibahagi ang Bahay",
-        "admin_panel": "Admin Panel",
+        "admin_panel": "Admin Panel <__>HI_SEP <__>HI_SEP <__>HI_SEP>",
         "logout": "Mag-logout",
-        "menu": "Menu"
+        "menu": "Personal Vault",
+        "personal_vault": "Personal na Imbakan"
     },
     "dashboard": {
         "welcome": "Maligayang Pagdating, <1>{{name}}</1>! 👋",
@@ -275,7 +290,7 @@
         }
     },
     "beta_banner": {
-        "title": "BETA:",
+        "title": "Isang personal na lugar na nade-decrypt lamang sa browser at hindi nababasa ng server bilang plaintext.",
         "text": "Kasalukuyang nasa yugto ng pagsubok at libangan ang HomeInventory. Walang garantiya na ibinibigay para sa pagpapanatili o seguridad ng datos. Mangyaring magtago ng mga backup ng mahahalagang impormasyon.",
         "contact": "Makipag-ugnayan:"
     },
@@ -438,6 +453,56 @@
             "title": "Aking Mga Nakabinbing Kahilingan sa Pagsali",
             "waiting_since": "Naghihintay mula noong: {{date, datetime}}",
             "pending_badge": "Nakabinbin"
+        },
+        "two_factor": {
+            "title": "Dalawang-Hakbang na Pagpapatunay",
+            "description": "Magdagdag ng dagdag na layer ng seguridad sa iyong account gamit ang 2FA na nakabatay sa TOTP",
+            "active": "Aktibong",
+            "enable": "Paganahin ang 2FA",
+            "disable": "Huwag paganahin ang 2FA",
+            "disable_desc": "Alisin ang dalawang-factor na pagpapatunay mula sa iyong account",
+            "disable_title": "Huwag paganahin ang Two-Factor Authentication",
+            "disable_confirm": "Huwag paganahin ang 2FA",
+            "disable_error": "Nabigong huwag paganahin ang 2FA",
+            "disabled_success": "Hindi pinagana ang dalawang-factor na pagpapatunay",
+            "password_label": "Password",
+            "password_placeholder": "Ipasok ang iyong password",
+            "method_totp": "Tagapagtibay",
+            "method_backup": "Backup Code",
+            "method_recovery": "Susi sa Pagbawi",
+            "totp_code_label": "Kodigo ng Tagapagtibay",
+            "backup_code_label": "Backup Code",
+            "recovery_key_label": "Susi sa Pagbawi",
+            "cancel": "Kanselahin",
+            "setup_title": "I-set up ang 2FA",
+            "setup_error": "Nabigong simulan ang pag-setup ng 2FA",
+            "step_1": "Hakbang 1: I-scan ang QR Code",
+            "step_2": "Hakbang 2: I-verify ang Code",
+            "step_3": "Hakbang 3: I-save ang Mga Backup Code",
+            "scan_instruction": "I-scan ang QR code na ito gamit ang iyong authenticator app (Google Authenticator, Authy, o anumang TOTP app)",
+            "manual_entry": "hindi makapag-scan? Manu-manong ipasok ang key na ito:",
+            "copy_secret": "Kopyahin ang lihim na",
+            "next": "Susunod na",
+            "verify_instruction": "Ipasok ang 6-digit na code na ipinapakita sa iyong authenticator app upang i-verify ang pag-setup",
+            "verify_error": "Nabigo ang pag-verify",
+            "code_label": "6-Digit na Code",
+            "back": "Bumalik",
+            "activate": "I-activate ang 2FA",
+            "backup_warning_title": "I-save ang mga Backup Code na ito!",
+            "backup_warning_text": "Kung nawalan ka ng access sa iyong authenticator app, maaari mong gamitin ang mga code na ito upang mag-log in. Ang bawat code ay maaari lamang gamitin nang isang beses. Ilagay ang mga ito sa isang ligtas na lugar.",
+            "download_codes": "I-download ang Mga Code ng Backup",
+            "backup_acknowledge": "nai-save ko ang aking mga backup code sa isang ligtas na lugar",
+            "done": "Tapos na",
+            "regenerate_codes": "Muling Pagbuo ng Mga Code ng Backup",
+            "regenerate_codes_desc": "Bumuo ng mga bagong code ng backup (ang mga luma ay hindi mapawalang-bisa)",
+            "regenerate": "Muling buuin ang mga code ng",
+            "codes_regenerated": "Ang mga backup code ay na-regenerated",
+            "codes_error": "Nabigong muling buuin ang mga backup code",
+            "close_codes": "Isara",
+            "revoke_devices": "Bawiin ang Mga Pinagkakatiwalaang Device",
+            "revoke_devices_desc": "Alisin lahat ng naaalala na mga aparato, na nangangailangan ng 2FA sa susunod na pag-login",
+            "devices_revoked": "Tinanggal ang (mga) pinagkakatiwalaang aparato ng {{count}}",
+            "devices_error": "Nabigong bawiin ang mga aparato"
         }
     },
     "inventory": {
@@ -521,7 +586,7 @@
             "no_logs": "walang log pa",
             "errors_title": "Mga Error sa Sistema (Huling 10)",
             "no_errors": "// Sistema ay maayos, walang error logs.",
-            "date_fmt": "{{date, datetime}}"
+            "date_fmt": "{{date, datetime}} <<<__HI_SEP__>__>_ IP <<__HI_SEP__>__>> NetworkS HomeInventory"
         },
         "email": {
             "title": "Magpadala ng Email",
@@ -670,7 +735,7 @@
     },
     "item_qr": {
         "hint_mobile": "📱 I-scan ang QR code na ito gamit ang iyong telepono para mabilis na ma-access ang item",
-        "network_ip": "Network IP",
+        "network_ip": "HomeInventory - {{status}}",
         "url_loading": "Ina-load ang URL...",
         "copied": "Nakopya!",
         "copy_url": "Kopyahin ang URL",
@@ -785,5 +850,69 @@
             "fallback": "Ang link sa pag-reset ng password ay mukhang hindi kumpleto o sira.",
             "footer": "© 2026 HomeInventory"
         }
+    },
+    "vault": {
+        "title": "Naka-unlock ang Vault",
+        "subtitle": "Naka-lock ang Vault",
+        "status_unlocked": "Lock",
+        "status_locked": "Nakalakip ang Imbakan",
+        "lock_action": "I-lock",
+        "setup_title": "I-set Up ang Personal na Vault",
+        "setup_description": "Ang vault key ay nabuo sa browser. Iniimbak lamang ng server ang nakabalot na susi at naka-encrypt na mga tala.",
+        "setup_warning": "Kung nawala mo pareho ang vault passphrase at ang recovery key, hindi na maibabalik ang data.",
+        "passphrase": "Parirala ng Imbakan",
+        "passphrase_placeholder": "Pumili ng malakas na passphrase na may hindi bababa sa 12 character",
+        "passphrase_confirm": "Vault Passphrase (Kumpirmahin)",
+        "passphrase_confirm_placeholder": "Ilagay muli ang passphrase",
+        "setup_action": "Lumikha ng Personal na Vault <<<__>HI_SEP__>Paghahanda ng Personal Vault <<<__>HI_<<SEP__> pinoprotektahan ba nito?",
+        "setting_up": "Ang pangalan ng item, paglalarawan, barcode, presyo, petsa, at mga field ng warranty ay naka-encrypt sa browser.",
+        "protection_title": "Nakikita lang ng server ang naka-encrypt na sobre, bilang ng item, at mga timestamp.",
+        "protection_item_1": "Ang unang release ay sadyang personal at nakatuon sa text; ang pagbabahagi at media ay nangangailangan ng hiwalay na secure na daloy.",
+        "protection_item_2": "I-unlock ang Vault",
+        "protection_item_3": "Maaari mong i-unlock ang vault gamit ang iyong passphrase o ang recovery key na na-save mo kanina.",
+        "unlock_title": "I-unlock ang Imbakan",
+        "unlock_description": "Maaari mong i-unlock ang imbakan gamit ang iyong parirala o ang recovery key na iningatan mo kanina.",
+        "unlock_with_passphrase": "Gamitin ang passphrase",
+        "unlock_with_recovery": "Gamitin ang recovery key",
+        "unlock_passphrase_placeholder": "Ilagay ang iyong vault passphrase",
+        "unlock_recovery_placeholder": "hal. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+        "unlock_action": "I-unlock ang Vault",
+        "unlocking": "Ina-unlock ang vault...",
+        "security_note_title": "Paalala sa Seguridad",
+        "security_note_1": "Ang vault key ay nabubuhay lamang sa memorya ng browser. Na-clear ito kapag umalis ka sa page o ni-lock ang vault.",
+        "security_note_2": "Kung nakalimutan mo ang passphrase, maaari mong gamitin ang recovery key. Kung pareho silang nawala, ang nilalaman ay magiging permanenteng hindi naa-access.",
+        "recovery_ready_title": "Handa na ang Recovery Key",
+        "recovery_ready_description": "Isang beses lang namin ipinapakita ang key na ito. I-save ito sa isang lugar na ligtas.",
+        "recovery_visible_once": "Ang key na ito ay hindi na muling ipapakita sa ibang pagkakataon.",
+        "record_new_title": "Bagong Vault Record",
+        "record_edit_title": "I-edit ang Vault Record",
+        "record_form_subtitle": "Ito ay sumusunod sa normal na daloy ng item nang mas malapit, ngunit ang plaintext ay hindi pa rin umaalis sa browser.",
+        "record_save_new": "Magdagdag ng Vault Record",
+        "record_save_edit": "I-save ang Mga Pagbabago",
+        "barcode_privacy_hint": "Ang mga barcode ng Vault ay hindi awtomatikong hinahanap sa mga panlabas na serbisyo; ang teksto ng barcode ay iniimbak lamang bilang naka-encrypt na data.",
+        "media_note": "Ang mga larawan, pag-scan ng barcode, at panlabas na paghahanap ng produkto ay sadyang hindi pinagana sa unang daloy ng vault na ito. Kailangan nila ng hiwalay na naka-encrypt na media at privacy pipeline.",
+        "search_placeholder": "Maghanap sa loob ng vault...",
+        "all_categories": "Lahat ng kategorya",
+        "all_rooms": "Lahat ng kwarto",
+        "empty_title": "Wala pa ring laman ang vault",
+        "empty_description": "Magsimula sa pagdaragdag ng iyong unang personal na record ng vault.",
+        "empty_filter_title": "Walang mga tala na tumutugma sa kasalukuyang filter",
+        "empty_filter_description": "Subukan ang ibang paghahanap o ayusin ang mga filter.",
+        "updated_at": "Huling na-update",
+        "delete_confirm": "Sigurado ka bang gusto mong tanggalin ang vault record na ito?",
+        "messages": {
+            "passphrase_mismatch": "Hindi tugma ang mga passphrase sa Vault.",
+            "setup_failed": "Hindi magawa ang personal na vault.",
+            "unlock_failed": "Hindi ma-unlock ang vault. Suriin ang impormasyong iyong ipinasok.",
+            "save_failed": "Hindi ma-save ang vault record.",
+            "delete_failed": "Hindi matanggal ang vault record.",
+            "decrypt_failed": "Hindi ma-decrypt ang nilalaman ng vault.",
+            "name_required": "Kailangan ng pangalan ng item para sa isang vault record.",
+            "options_failed": "Hindi ma-load ang kategorya at mga opsyon sa kwarto."
+        },
+        "recovery_file_title": "HomeInventory Personal Vault Recovery Key",
+        "recovery_file_created_label": "Nilikha",
+        "recovery_file_key_label": "Recovery Key",
+        "recovery_file_warning": "Kung mawawala mo ang parehong susi at ang iyong vault passphrase, hindi mare-recover ang vault."
     }
 }

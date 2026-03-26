@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import { CompactEncrypt, compactDecrypt } from 'jose';
 import { hashLookupToken } from './encryption.js';
+import { getEnvOrSecret } from './secrets.js';
 
 export const PASSWORD_RESET_TOKEN_TTL_MINUTES = 15;
 export const PASSWORD_RESET_MAX_FAILURES = 5;
@@ -18,7 +19,7 @@ const DUMMY_COMPARE_HASH = bcrypt.hashSync('HOMEINVENTORY-DUMMY-RECOVERY-KEY', 1
 function getPasswordResetJweKey() {
     const secret = String(
         process.env.PASSWORD_RESET_JWE_SECRET ||
-        process.env.JWT_SECRET ||
+        getEnvOrSecret('JWT_SECRET', 'jwt_secret') ||
         process.env.SESSION_SECRET ||
         'development-only-password-reset-secret'
     );

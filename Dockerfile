@@ -50,7 +50,7 @@ COPY --from=frontend-builder /app/client/dist ./client/dist
 COPY --from=frontend-builder /app/client/public/locales ./client/public/locales
 
 # Copy application files
-COPY server.js auth.js database.js ./
+COPY app.js server.js auth.js database.js ./
 COPY config/ ./config/
 COPY middleware/ ./middleware/
 COPY routes/ ./routes/
@@ -59,8 +59,9 @@ COPY locales/ ./locales/
 COPY scripts/ ./scripts/
 COPY package.json ./
 
-# Create directories for persistent data
-RUN mkdir -p /app/data /app/uploads && \
+# Ensure the non-root runtime user can read the bundled app files.
+RUN chmod -R a+rX /app && \
+    mkdir -p /app/data /app/uploads && \
     chown -R homeinv:nodejs /app/data /app/uploads
 
 # Set environment defaults
@@ -72,7 +73,7 @@ EXPOSE 3001
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:3001/api/health || exit 1
+    CMD wget --no-verbose --tries=1 --spider http://127.0.0.1:3001/api/health || exit 1
 
 # Switch to non-root user
 USER homeinv

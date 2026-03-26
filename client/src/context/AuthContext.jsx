@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
     const [passwordRecoveryMode, setPasswordRecoveryMode] = useState('email');
     const [hasRecoveryKey, setHasRecoveryKey] = useState(false);
     const [mustSetupRecoveryKey, setMustSetupRecoveryKey] = useState(false);
+    const [totpEnabled, setTotpEnabled] = useState(false);
     const [loading, setLoading] = useState(true);
 
     const fetchUser = async () => {
@@ -34,6 +35,7 @@ export const AuthProvider = ({ children }) => {
             setPasswordRecoveryMode(response.data.password_recovery_mode || 'email');
             setHasRecoveryKey(Boolean(response.data.has_recovery_key));
             setMustSetupRecoveryKey(Boolean(response.data.must_setup_recovery_key));
+            setTotpEnabled(Boolean(response.data.totp_enabled));
             return response.data.user;
         } catch (error) {
             console.error('Auth check failed:', error);
@@ -44,6 +46,7 @@ export const AuthProvider = ({ children }) => {
             setPasswordRecoveryMode('email');
             setHasRecoveryKey(false);
             setMustSetupRecoveryKey(false);
+            setTotpEnabled(false);
             return null;
         }
     };
@@ -57,8 +60,18 @@ export const AuthProvider = ({ children }) => {
         checkAuth();
     }, []);
 
-    const login = async (username, password) => {
-        const response = await axios.post('/api/auth/login', { username, password });
+    const login = async (username, password, totpCode = null, rememberDevice = false) => {
+        const payload = { username, password };
+        if (totpCode) payload.totpCode = totpCode;
+        if (rememberDevice) payload.rememberDevice = true;
+
+        const response = await axios.post('/api/auth/login', payload);
+
+        // If 2FA is required, return the flag without fetching user
+        if (response.data.requiresTwoFactor) {
+            return { requiresTwoFactor: true };
+        }
+
         await fetchUser();
         return response.data;
     };
@@ -95,6 +108,7 @@ export const AuthProvider = ({ children }) => {
             setPasswordRecoveryMode('email');
             setHasRecoveryKey(false);
             setMustSetupRecoveryKey(false);
+            setTotpEnabled(false);
         }
     };
 
@@ -115,6 +129,7 @@ export const AuthProvider = ({ children }) => {
             passwordRecoveryMode,
             hasRecoveryKey,
             mustSetupRecoveryKey,
+            totpEnabled,
             login,
             register,
             logout,

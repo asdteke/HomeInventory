@@ -1,9 +1,11 @@
 import jwt from 'jsonwebtoken';
+import { getEnvOrSecret } from './utils/secrets.js';
 
-if (!process.env.JWT_SECRET) {
-    throw new Error('FATAL: JWT_SECRET environment variable is not set! Application cannot start securely.');
+const JWT_SECRET = getEnvOrSecret('JWT_SECRET', 'jwt_secret');
+
+if (!JWT_SECRET) {
+    throw new Error('FATAL: JWT_SECRET environment variable or Docker secret is not set! Application cannot start securely.');
 }
-const JWT_SECRET = process.env.JWT_SECRET;
 
 export const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];

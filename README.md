@@ -39,7 +39,10 @@
 - 🏷️ **Categories & Rooms** — Organize items by custom categories, rooms, and locations
 - 📱 **Barcode / QR scanning** — Quickly add or find items using your device camera
 - 🔐 **Authentication** — JWT-based auth with Google OAuth support and email verification
+- ✅ **2FA & trusted devices** — TOTP authenticator apps, one-time backup codes, and remembered-device controls
+- 🔒 **Personal Vault** — Browser-generated vault keys and encrypted personal records for high-sensitivity items
 - 🛡️ **Field-level encryption** — AES-256-GCM protection for sensitive verification and inventory fields
+- 🐳 **Docker & cloud secret delivery** — Docker secrets and OCI runtime secret bootstrap for production key management
 - 👨‍💼 **Admin panel** — User management, ban controls, email sending, and system logs
 - 📧 **Email system** — Transactional emails via Resend API (verification, admin notices)
 - 💾 **Backup & Restore** — Export and import your inventory data
@@ -150,6 +153,7 @@ Notes:
 - Leave `SECRET_PROVIDER=env` for local development.
 - `OCI_SECRET_MAPPINGS` can point to secret OCIDs or secret names.
 - `OCI_VAULT_ID` is required only when you use secret names instead of secret OCIDs.
+- For file-based Docker secrets, keep the default `/run/secrets` mount or set `DOCKER_SECRETS_DIR` when your runtime mounts secrets elsewhere.
 - The server entrypoint now bootstraps runtime secrets automatically, so `node server.js`, `npm run dev`, and `npm start` continue to work.
 - Maintenance scripts such as encryption backfill and IndexNow submission also use the same OCI bootstrap path.
 
@@ -186,15 +190,22 @@ Deploy HomeInventory with Docker for easy self-hosting:
 git clone https://github.com/asdteke/HomeInventory.git
 cd HomeInventory
 
-# Create environment file
+# Create environment file for non-secret settings
 cp .env.example .env
-# Edit .env and set JWT_SECRET, APP_ENCRYPTION_KEY, APP_ENCRYPTION_KEY_ID
+
+# Create Docker secret files (or point HOMEINVENTORY_SECRETS_DIR at another folder)
+mkdir -p secrets
+printf '%s' 'change-this-jwt-secret' > secrets/jwt_secret.txt
+printf '%s' 'change-this-32-byte-base64-key' > secrets/app_encryption_key.txt
+printf '%s' '2026-compose' > secrets/app_encryption_key_id.txt
 
 # Start with Docker Compose
 docker compose up -d
 ```
 
 The app will be available at `http://localhost:3001`
+
+`docker-compose.yml` reads secret source files from `${HOMEINVENTORY_SECRETS_DIR:-./secrets}` on the host and mounts them inside the container at `/run/secrets`.
 
 The full `.env` file is passed through to the container, so optional settings such as `APP_ENCRYPTION_KEYRING`, `EXPOSE_SERVER_INFO`, and `INDEXNOW_*` continue to work in Docker.
 
@@ -216,6 +227,7 @@ Copy `.env.example` to `.env` and fill in the required values:
 | `OCI_SECRET_MAPPINGS` | ⬜ | JSON map of env var names to OCI secret OCIDs or secret names |
 | `OCI_SECRET_OVERWRITE` | ⬜ | Overwrite already-set env values with OCI secret values |
 | `OCI_SECRET_BUNDLE_STAGE` | ⬜ | Secret bundle stage to read (`CURRENT` by default) |
+| `DOCKER_SECRETS_DIR` | ⬜ | Override runtime path for file-based Docker secrets (default: `/run/secrets`) |
 | `JWT_SECRET` | ✅ | Random secret for JWT signing (min 32 chars) |
 | `APP_ENCRYPTION_KEY` | ✅ | 32-byte encryption key for sensitive field protection |
 | `APP_ENCRYPTION_KEY_ID` | ✅ | Stable key identifier for new encrypted payloads |

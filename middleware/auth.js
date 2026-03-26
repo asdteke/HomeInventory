@@ -2,14 +2,21 @@ import jwt from 'jsonwebtoken';
 import db from '../database.js';
 import { decryptUserRecord } from '../utils/protectedFields.js';
 import { syncUserHousePointers } from '../utils/houseMembership.js';
+import { getEnvOrSecret } from '../utils/secrets.js';
 
-// Helper to get JWT_SECRET lazily, because ES module imports are hoisted
-// before dotenv/config has finished parsing .env in server.js
+let jwtSecret;
+
+// Resolve lazily so runtime secret loaders and env setup can finish first.
 const getJwtSecret = () => {
-    if (!process.env.JWT_SECRET) {
-        throw new Error('FATAL: JWT_SECRET environment variable is not set! Application cannot start securely.');
+    if (!jwtSecret) {
+        jwtSecret = getEnvOrSecret('JWT_SECRET', 'jwt_secret');
     }
-    return process.env.JWT_SECRET;
+
+    if (!jwtSecret) {
+        throw new Error('FATAL: JWT_SECRET environment variable or Docker secret is not set! Application cannot start securely.');
+    }
+
+    return jwtSecret;
 };
 
 export const cookieOptions = {

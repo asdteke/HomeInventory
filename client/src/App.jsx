@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { VaultProvider } from './context/VaultContext';
 
 import LandingPage from './components/LandingPage';
 import Login from './components/Login';
@@ -18,6 +19,7 @@ import AdminPanel from './components/AdminPanel';
 import GoogleHouseSelect from './components/GoogleHouseSelect';
 import HouseAccessPending from './components/HouseAccessPending';
 import RecoveryKeySetup from './components/RecoveryKeySetup';
+import PersonalVault from './components/PersonalVault';
 
 const FullscreenSpinner = () => (
     <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950">
@@ -107,6 +109,7 @@ function AppRoutes() {
             <Route path="/" element={<ActiveMembershipRoute><Layout /></ActiveMembershipRoute>}>
                 <Route index element={<Dashboard />} />
                 <Route path="items" element={<ItemList />} />
+                <Route path="vault" element={<PersonalVault />} />
                 <Route path="items/new" element={<ItemForm />} />
                 <Route path="items/:id/edit" element={<ItemForm />} />
                 <Route path="categories" element={<CategoryManager />} />
@@ -123,9 +126,11 @@ function App() {
     return (
         <ThemeProvider>
             <AuthProvider>
-                <Router>
-                    <AppRoutes />
-                </Router>
+                <VaultProvider>
+                    <Router>
+                        <AppRoutes />
+                    </Router>
+                </VaultProvider>
             </AuthProvider>
         </ThemeProvider>
     );

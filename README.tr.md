@@ -39,7 +39,10 @@
 - 🏷️ **Kategoriler & Odalar** — Eşyaları özel kategoriler, odalar ve konumlarla düzenleyin
 - 📱 **Barkod / QR tarama** — Cihaz kamerasıyla hızla eşya ekleyin veya bulun
 - 🔐 **Kimlik doğrulama** — JWT tabanlı giriş, Google OAuth ve e-posta doğrulama desteği
+- ✅ **2FA & güvenilen cihazlar** — TOTP doğrulayıcı uygulamalar, tek kullanımlık yedek kodlar ve hatırlanan cihaz kontrolleri
+- 🔒 **Kişisel Kasa (Personal Vault)** — Tarayıcıda üretilen anahtarlarla yüksek hassasiyetli kayıtlar için şifreli özel kasa
 - 🛡️ **Alan bazlı şifreleme** — Hassas doğrulama ve envanter alanları için AES-256-GCM koruması
+- 🐳 **Docker ve bulut secret yönetimi** — Production anahtar teslimi için Docker secrets ve OCI runtime secret bootstrap
 - 👨‍💼 **Admin paneli** — Kullanıcı yönetimi, yasaklama, e-posta gönderimi ve sistem logları
 - 📧 **E-posta sistemi** — Resend API ile doğrulama ve bilgilendirme e-postaları
 - 💾 **Yedekleme & Geri Yükleme** — Envanter verilerinizi dışa/içe aktarın
@@ -149,6 +152,7 @@ Notlar:
 - Yerel geliştirme için `SECRET_PROVIDER=env` bırakın.
 - `OCI_SECRET_MAPPINGS` gizli OCID'lere veya gizli adlara işaret edebilir.
 - `OCI_VAULT_ID` yalnızca gizli OCID'ler yerine gizli adlar kullandığınızda gereklidir.
+- Dosya tabanlı Docker secret kullanıyorsanız varsayılan `/run/secrets` mount noktasını koruyun veya runtime secret'lar başka klasöre bağlanıyorsa `DOCKER_SECRETS_DIR` ayarlayın.
 - Sunucu giriş noktası artık çalışma zamanı sırlarını otomatik olarak yükler, dolayısıyla `node server.js`, `npm run dev` ve `npm start` komutları çalışmaya devam eder.
 - Şifreleme backfill ve IndexNow gönderimi gibi bakım betikleri de aynı OCI bootstrap yolunu kullanır.
 
@@ -185,15 +189,22 @@ Kolay self-hosting için HomeInventory'yi Docker ile dağıtın:
 git clone https://github.com/asdteke/HomeInventory.git
 cd HomeInventory
 
-# Ortam dosyasını oluştur
+# Ortam dosyasını oluştur (gizli olmayan ayarlar için)
 cp .env.example .env
-# .env dosyasını düzenleyip JWT_SECRET, APP_ENCRYPTION_KEY, APP_ENCRYPTION_KEY_ID değerlerini ayarlayın
+
+# Docker secret dosyalarını oluşturun (veya HOMEINVENTORY_SECRETS_DIR ile başka klasör kullanın)
+mkdir -p secrets
+printf '%s' 'jwt-secret-buraya' > secrets/jwt_secret.txt
+printf '%s' '32-byte-base64-key-buraya' > secrets/app_encryption_key.txt
+printf '%s' '2026-compose' > secrets/app_encryption_key_id.txt
 
 # Docker Compose ile başlat
 docker compose up -d
 ```
 
 Uygulama `http://localhost:3001` adresinde erişilebilir olacaktır.
+
+`docker-compose.yml`, host üzerindeki secret kaynak dosyalarını varsayılan olarak `${HOMEINVENTORY_SECRETS_DIR:-./secrets}` klasöründen okur ve konteyner içinde `/run/secrets` altına bağlar.
 
 Tam `.env` dosyası konteyner'a aktarılır; `APP_ENCRYPTION_KEYRING`, `EXPOSE_SERVER_INFO` ve `INDEXNOW_*` gibi opsiyonel ayarlar Docker'da da çalışmaya devam eder.
 
@@ -208,6 +219,14 @@ Detaylı Docker yapılandırması, reverse proxy kurulumu, yedekleme/geri yükle
 | `NODE_ENV` | ✅ | `development` veya `production` |
 | `PORT` | ✅ | Backend sunucu portu (varsayılan: `3001`) |
 | `SITE_URL` | ✅ | Sitenizin genel URL'si |
+| `SECRET_PROVIDER` | ⬜ | OCI Secret Management bootstrap için `env` (varsayılan) veya `oci` |
+| `OCI_AUTH_MODE` | ⬜ | OCI bootstrap çalışma zamanı kimlik modu (`instance_principal`) |
+| `OCI_REGION` | ⬜ | OCI secret okuma için opsiyonel bölge |
+| `OCI_VAULT_ID` | ⬜ | `OCI_SECRET_MAPPINGS` secret adı kullanıyorsa gereklidir |
+| `OCI_SECRET_MAPPINGS` | ⬜ | Env değişken adlarını OCI secret OCID/adlarına eşleyen JSON |
+| `OCI_SECRET_OVERWRITE` | ⬜ | Zaten set edilmiş env değerlerini OCI secret ile ez |
+| `OCI_SECRET_BUNDLE_STAGE` | ⬜ | Okunacak secret bundle aşaması (`CURRENT` varsayılan) |
+| `DOCKER_SECRETS_DIR` | ⬜ | Dosya tabanlı Docker secret'lar için runtime yolunu ez (`/run/secrets` varsayılan) |
 | `JWT_SECRET` | ✅ | JWT imzalama için rastgele gizli anahtar (min 32 karakter) |
 | `APP_ENCRYPTION_KEY` | ✅ | Hassas alanları koruyan 32-byte şifreleme anahtarı |
 | `APP_ENCRYPTION_KEY_ID` | ✅ | Yeni şifreli kayıtlar için sabit anahtar kimliği |

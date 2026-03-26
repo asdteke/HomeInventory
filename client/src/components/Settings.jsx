@@ -3,14 +3,15 @@ import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
 import {
-    Settings as SettingsIcon, User, LogOut, Moon, Sun, Shield,
+    Settings as SettingsIcon, User, LogOut, Moon, Sun, Shield, ShieldCheck,
     Save, Key, Copy, Eye, EyeOff, Building, Plus, ArrowRightLeft,
     Database, Download, Upload, Loader2, AlertCircle, CheckCircle,
-    X, Home, Users, Edit3, UserX
+    X, Home, Users, Edit3, UserX, Smartphone, Trash2
 } from 'lucide-react';
 import BrandLogo from './BrandLogo';
 import { useAuth } from '../context/AuthContext';
 import RecoveryKeyModal from './RecoveryKeyModal';
+import TwoFactorSetup from './TwoFactorSetup';
 import { copyTextToClipboard } from '../utils/clipboard';
 import { validatePasswordStrengthClient } from '../utils/passwordValidation';
 
@@ -71,6 +72,20 @@ export default function Settings() {
     const [usernameError, setUsernameError] = useState('');
     const [usernameSuccess, setUsernameSuccess] = useState('');
 
+    // Two-Factor Authentication state
+    const [show2FASetup, setShow2FASetup] = useState(false);
+    const [show2FADisableModal, setShow2FADisableModal] = useState(false);
+    const [totpEnabled, setTotpEnabled] = useState(false);
+    const [disablePassword, setDisablePassword] = useState('');
+    const [disableCode, setDisableCode] = useState('');
+    const [disableMethod, setDisableMethod] = useState('totp'); // totp, backup, recovery
+    const [disableLoading, setDisableLoading] = useState(false);
+    const [disableError, setDisableError] = useState('');
+    const [backupCodesResult, setBackupCodesResult] = useState(null);
+    const [regeneratePassword, setRegeneratePassword] = useState('');
+    const [regenerateLoading, setRegenerateLoading] = useState(false);
+    const [revokeLoading, setRevokeLoading] = useState(false);
+
     useEffect(() => {
         fetchUserData();
         fetchHouses();
@@ -114,6 +129,7 @@ export default function Settings() {
             setActiveHouseId(res.data.user.active_house_id);
             setPasswordRecoveryMode(res.data.password_recovery_mode || 'email');
             setHasRecoveryKey(Boolean(res.data.has_recovery_key));
+            setTotpEnabled(Boolean(res.data.totp_enabled));
         } catch (error) {
             console.error('Error fetching user:', error);
         }
@@ -945,6 +961,133 @@ export default function Settings() {
                 </div>
             </div>
 
+            {/* Two-Factor Authentication Section */}
+            <div className="card mb-6">
+                <div className="flex items-center gap-3 mb-4">
+                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${totpEnabled ? 'bg-green-100 dark:bg-green-500/20' : 'bg-slate-100 dark:bg-slate-800'}`}>
+                        <ShieldCheck className={`w-5 h-5 ${totpEnabled ? 'text-green-600 dark:text-green-400' : 'text-slate-400'}`} />
+                    </div>
+                    <div className="flex-1">
+                        <h2 className="text-lg font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                            {t('settings.two_factor.title')}
+                            {totpEnabled && (
+                                <span className="text-[10px] uppercase font-bold px-1.5 py-0.5 rounded bg-green-100 dark:bg-green-500/20 text-green-700 dark:text-green-400">
+                                    {t('settings.two_factor.active')}
+                                </span>
+                            )}
+                        </h2>
+                        <p className="text-sm text-slate-500 dark:text-slate-400">
+                            {t('settings.two_factor.description')}
+                        </p>
+                    </div>
+                </div>
+
+                {!totpEnabled ? (
+                    <button
+                        onClick={() => setShow2FASetup(true)}
+                        className="btn-primary py-3 px-6 flex items-center gap-2"
+                    >
+                        <ShieldCheck className="w-4 h-4" />
+                        {t('settings.two_factor.enable')}
+                    </button>
+                ) : (
+                    <div className="space-y-3">
+                        {/* Disable 2FA */}
+                        <button
+                            onClick={() => { setShow2FADisableModal(true); setDisableError(''); setDisablePassword(''); setDisableCode(''); setDisableMethod('totp'); }}
+                            className="w-full flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors group"
+                        >
+                            <div className="text-left">
+                                <p className="font-medium text-slate-900 dark:text-white">{t('settings.two_factor.disable')}</p>
+                                <p className="text-sm text-slate-500 dark:text-slate-400">{t('settings.two_factor.disable_desc')}</p>
+                            </div>
+                            <X className="w-5 h-5 text-slate-400 group-hover:text-red-500 transition-colors" />
+                        </button>
+
+                        {/* Regenerate Backup Codes */}
+                        <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-xl">
+                            <div className="flex items-center justify-between mb-3">
+                                <div>
+                                    <p className="font-medium text-slate-900 dark:text-white">{t('settings.two_factor.regenerate_codes')}</p>
+                                    <p className="text-sm text-slate-500 dark:text-slate-400">{t('settings.two_factor.regenerate_codes_desc')}</p>
+                                </div>
+                            </div>
+                            {!backupCodesResult ? (
+                                <div className="flex items-center gap-2">
+                                    <input
+                                        type="password"
+                                        value={regeneratePassword}
+                                        onChange={(e) => setRegeneratePassword(e.target.value)}
+                                        placeholder={t('settings.two_factor.password_placeholder')}
+                                        className="input-field flex-1 text-sm"
+                                    />
+                                    <button
+                                        disabled={regenerateLoading || !regeneratePassword}
+                                        onClick={async () => {
+                                            setRegenerateLoading(true);
+                                            try {
+                                                const res = await axios.post('/api/auth/2fa/backup-codes', { password: regeneratePassword });
+                                                setBackupCodesResult(res.data.backupCodes);
+                                                setRegeneratePassword('');
+                                                setMessage(t('settings.two_factor.codes_regenerated'));
+                                                setTimeout(() => setMessage(''), 3000);
+                                            } catch (err) {
+                                                setError(err.response?.data?.error || t('settings.two_factor.codes_error'));
+                                                setTimeout(() => setError(''), 3000);
+                                            } finally {
+                                                setRegenerateLoading(false);
+                                            }
+                                        }}
+                                        className="btn-secondary py-2.5 px-4 text-sm flex items-center gap-1"
+                                    >
+                                        {regenerateLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Key className="w-4 h-4" />}
+                                        {t('settings.two_factor.regenerate')}
+                                    </button>
+                                </div>
+                            ) : (
+                                <div>
+                                    <div className="grid grid-cols-2 gap-1.5 mb-3">
+                                        {backupCodesResult.map((code, i) => (
+                                            <div key={i} className="px-2 py-1.5 bg-white dark:bg-slate-900 rounded border border-slate-200 dark:border-slate-700 text-center font-mono text-xs text-slate-700 dark:text-slate-300 select-all">
+                                                {code}
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <button onClick={() => setBackupCodesResult(null)} className="text-sm text-primary-500 hover:text-primary-600">
+                                        {t('settings.two_factor.close_codes')}
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Revoke Trusted Devices */}
+                        <button
+                            disabled={revokeLoading}
+                            onClick={async () => {
+                                setRevokeLoading(true);
+                                try {
+                                    const res = await axios.delete('/api/auth/2fa/trusted-devices');
+                                    setMessage(t('settings.two_factor.devices_revoked', { count: res.data.devicesRevoked || 0 }));
+                                    setTimeout(() => setMessage(''), 3000);
+                                } catch (err) {
+                                    setError(err.response?.data?.error || t('settings.two_factor.devices_error'));
+                                    setTimeout(() => setError(''), 3000);
+                                } finally {
+                                    setRevokeLoading(false);
+                                }
+                            }}
+                            className="w-full flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors group"
+                        >
+                            <div className="text-left">
+                                <p className="font-medium text-slate-900 dark:text-white">{t('settings.two_factor.revoke_devices')}</p>
+                                <p className="text-sm text-slate-500 dark:text-slate-400">{t('settings.two_factor.revoke_devices_desc')}</p>
+                            </div>
+                            {revokeLoading ? <Loader2 className="w-5 h-5 animate-spin text-slate-400" /> : <Trash2 className="w-5 h-5 text-slate-400 group-hover:text-red-500 transition-colors" />}
+                        </button>
+                    </div>
+                )}
+            </div>
+
             {/* Data Management Section */}
             <div className="card mb-6">
                 <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
@@ -1305,6 +1448,117 @@ export default function Settings() {
                     </div>
                 </div>
             </div>
+
+            {/* 2FA Setup Modal */}
+            {show2FASetup && (
+                <TwoFactorSetup
+                    onClose={() => setShow2FASetup(false)}
+                    onEnabled={() => { fetchUserData(); }}
+                />
+            )}
+
+            {/* 2FA Disable Modal */}
+            {show2FADisableModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-fade-in">
+                    <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-md">
+                        <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-800">
+                            <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
+                                {t('settings.two_factor.disable_title')}
+                            </h2>
+                            <button onClick={() => setShow2FADisableModal(false)} className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg">
+                                <X className="w-5 h-5" />
+                            </button>
+                        </div>
+                        <form
+                            onSubmit={async (e) => {
+                                e.preventDefault();
+                                setDisableLoading(true);
+                                setDisableError('');
+                                try {
+                                    const payload = { password: disablePassword };
+                                    if (disableMethod === 'totp') payload.token = disableCode;
+                                    else if (disableMethod === 'backup') payload.backupCode = disableCode;
+                                    else if (disableMethod === 'recovery') payload.recoveryKey = disableCode;
+
+                                    await axios.post('/api/auth/2fa/disable', payload);
+                                    setShow2FADisableModal(false);
+                                    fetchUserData();
+                                    setMessage(t('settings.two_factor.disabled_success'));
+                                    setTimeout(() => setMessage(''), 3000);
+                                } catch (err) {
+                                    setDisableError(err.response?.data?.error || t('settings.two_factor.disable_error'));
+                                } finally {
+                                    setDisableLoading(false);
+                                }
+                            }}
+                            className="p-6 space-y-4"
+                        >
+                            {disableError && (
+                                <div className="p-3 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 rounded-xl text-sm text-red-600 dark:text-red-400">
+                                    {disableError}
+                                </div>
+                            )}
+
+                            <div>
+                                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                    {t('settings.two_factor.password_label')}
+                                </label>
+                                <input
+                                    type="password"
+                                    value={disablePassword}
+                                    onChange={(e) => setDisablePassword(e.target.value)}
+                                    className="input-field"
+                                    required
+                                />
+                            </div>
+
+                            {/* Method Selector */}
+                            <div className="flex gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
+                                {[
+                                    { key: 'totp', label: t('settings.two_factor.method_totp') },
+                                    { key: 'backup', label: t('settings.two_factor.method_backup') },
+                                    { key: 'recovery', label: t('settings.two_factor.method_recovery') }
+                                ].map(m => (
+                                    <button
+                                        key={m.key}
+                                        type="button"
+                                        onClick={() => { setDisableMethod(m.key); setDisableCode(''); }}
+                                        className={`flex-1 py-1.5 px-2 rounded text-xs font-medium transition-all ${disableMethod === m.key ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                                    >
+                                        {m.label}
+                                    </button>
+                                ))}
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                    {disableMethod === 'totp' && t('settings.two_factor.totp_code_label')}
+                                    {disableMethod === 'backup' && t('settings.two_factor.backup_code_label')}
+                                    {disableMethod === 'recovery' && t('settings.two_factor.recovery_key_label')}
+                                </label>
+                                <input
+                                    type="text"
+                                    value={disableCode}
+                                    onChange={(e) => setDisableCode(e.target.value)}
+                                    className={`input-field ${disableMethod === 'totp' ? 'text-center text-xl tracking-[0.3em] font-mono' : ''}`}
+                                    placeholder={disableMethod === 'totp' ? '000000' : disableMethod === 'backup' ? 'ABCD1234' : ''}
+                                    maxLength={disableMethod === 'totp' ? 6 : disableMethod === 'backup' ? 8 : undefined}
+                                    required
+                                />
+                            </div>
+
+                            <div className="flex gap-3 pt-2">
+                                <button type="button" onClick={() => setShow2FADisableModal(false)} className="btn-secondary flex-1 py-3">
+                                    {t('settings.two_factor.cancel')}
+                                </button>
+                                <button type="submit" disabled={disableLoading} className="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-medium transition-colors disabled:opacity-50">
+                                    {disableLoading ? <Loader2 className="w-5 h-5 animate-spin mx-auto" /> : t('settings.two_factor.disable_confirm')}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
 
             {/* App Info Footer */}
             <div className="text-center text-sm text-slate-400 dark:text-slate-600 pb-8">

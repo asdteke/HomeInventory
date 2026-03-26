@@ -1,6 +1,6 @@
 import Database from 'better-sqlite3';
 import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import { dirname, join, resolve } from 'path';
 import fs from 'fs';
 import crypto from 'crypto';
 import {
@@ -63,13 +63,21 @@ function resolveStoredPath(storedPath) {
 }
 
 // Ensure data directory exists
-const dataDir = join(__dirname, 'data');
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir, { recursive: true });
+const configuredDbPath = String(process.env.HOMEINVENTORY_DB_PATH || '').trim();
+const dataDir = String(process.env.HOMEINVENTORY_DATA_DIR || '').trim()
+  ? resolve(process.cwd(), String(process.env.HOMEINVENTORY_DATA_DIR || '').trim())
+  : join(__dirname, 'data');
+const databasePath = configuredDbPath
+  ? resolve(process.cwd(), configuredDbPath)
+  : join(dataDir, 'inventory.db');
+const databaseDir = dirname(databasePath);
+
+if (!fs.existsSync(databaseDir)) {
+  fs.mkdirSync(databaseDir, { recursive: true });
 }
 
 // Initialize database
-const db = new Database(join(dataDir, 'inventory.db'));
+const db = new Database(databasePath);
 db.pragma('journal_mode = WAL');
 
 // Create tables (only creates if they don't exist)
@@ -507,6 +515,81 @@ db.exec(`
     ON password_reset_requests(user_id);
   CREATE INDEX IF NOT EXISTS idx_password_reset_requests_expires
     ON password_reset_requests(expires_at);
+`);
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS personal_vaults (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL UNIQUE,
+    kdf_algorithm TEXT NOT NULL,
+    kdf_salt TEXT NOT NULL,
+    kdf_iterations INTEGER NOT NULL,
+    wrap_algorithm TEXT NOT NULL,
+    wrap_iv TEXT NOT NULL,
+    wrapped_vault_key TEXT NOT NULL,
+    recovery_kdf_algorithm TEXT NOT NULL,
+    recovery_kdf_salt TEXT NOT NULL,
+    recovery_kdf_iterations INTEGER NOT NULL,
+    recovery_wrap_algorithm TEXT NOT NULL,
+    recovery_wrap_iv TEXT NOT NULL,
+    recovery_wrapped_vault_key TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+  );
+  CREATE INDEX IF NOT EXISTS idx_personal_vaults_user ON personal_vaults(user_id);
+`);
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS personal_vault_items (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    encrypted_payload TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+  );
+  CREATE INDEX IF NOT EXISTS idx_personal_vault_items_user ON personal_vault_items(user_id);
+`);
+
+// Migration: Add TOTP 2FA columns to users table
+try {
+  db.exec(`ALTER TABLE users ADD COLUMN totp_secret TEXT`);
+  console.log('[Database] totp_secret column added to users table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE users ADD COLUMN totp_enabled INTEGER DEFAULT 0`);
+  console.log('[Database] totp_enabled column added to users table');
+} catch (e) { /* Column exists */ }
+
+// Create TOTP backup codes table
+db.exec(`
+  CREATE TABLE IF NOT EXISTS totp_backup_codes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    code_hash TEXT NOT NULL,
+    used_at DATETIME,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+  );
+  CREATE INDEX IF NOT EXISTS idx_totp_backup_codes_user ON totp_backup_codes(user_id);
+`);
+
+// Create trusted devices table for "Remember this device" feature
+db.exec(`
+  CREATE TABLE IF NOT EXISTS trusted_devices (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    token_hash TEXT NOT NULL,
+    user_agent TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    expires_at DATETIME NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+  );
+  CREATE INDEX IF NOT EXISTS idx_trusted_devices_user ON trusted_devices(user_id);
+  CREATE INDEX IF NOT EXISTS idx_trusted_devices_token ON trusted_devices(token_hash);
+  CREATE INDEX IF NOT EXISTS idx_trusted_devices_expires ON trusted_devices(expires_at);
 `);
 
 // Migrate existing users to user_houses table

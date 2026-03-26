@@ -31,6 +31,16 @@ This project runs in production on a cloud VM behind Nginx and PM2. To avoid bre
 - `BOOTSTRAP_ADMIN_EMAIL`
 - `EXPOSE_SERVER_INFO`
 
+### Optional: Docker Compose secrets
+If you use the bundled `docker-compose.yml`, keep the mandatory runtime secrets in files instead of `.env`.
+
+Expected host-side files:
+- `${HOMEINVENTORY_SECRETS_DIR:-./secrets}/jwt_secret.txt`
+- `${HOMEINVENTORY_SECRETS_DIR:-./secrets}/app_encryption_key.txt`
+- `${HOMEINVENTORY_SECRETS_DIR:-./secrets}/app_encryption_key_id.txt`
+
+Compose mounts those files inside the container under `/run/secrets`. Only set `DOCKER_SECRETS_DIR` when your runtime exposes the secret files in a different directory.
+
 ### Optional: OCI Secret Management on Oracle Cloud
 If the app runs on an OCI compute instance, you can keep production secrets in OCI Secret Management instead of the VM `.env`.
 

@@ -53,6 +53,16 @@ import {
     performFakeRecoveryKeyCheck,
     verifyPasswordResetToken
 } from '../utils/passwordRecovery.js';
+import {
+    generateTotpSecret,
+    verifyTotpToken,
+    generateBackupCodes,
+    hashBackupCode,
+    verifyBackupCode,
+    generateDeviceToken,
+    hashDeviceToken
+} from '../utils/totp.js';
+import { toSqliteUtcTimestamp } from '../utils/sqliteDate.js';
 
 const router = express.Router();
 const SALT_ROUNDS = 10;
@@ -60,6 +70,9 @@ const HOUSE_KEY_REGEX = /^[a-f0-9]{64}$/i;
 const MIN_PASSWORD_LENGTH = 10;
 const PENDING_REGISTRATION_HOUSE_KEY_PURPOSE = 'pending_registration.house_key';
 const USER_RECOVERY_KEY_PURPOSE = 'user.recovery_key';
+const TOTP_SECRET_PURPOSE = 'user.totp_secret';
+const TRUSTED_DEVICE_DAYS = 30;
+const TRUSTED_DEVICE_COOKIE = 'trusted_device';
 const SITE_URL = String(
     process.env.SITE_URL ||
     process.env.INDEXNOW_BASE_URL ||
@@ -590,7 +603,7 @@ router.post('/register', async (req, res) => {
         const encryptedHouseKey = encryptForStorage(userHouseKey, {
             purpose: PENDING_REGISTRATION_HOUSE_KEY_PURPOSE
         });
-        const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+        const expiresAt = toSqliteUtcTimestamp(Date.now() + (24 * 60 * 60 * 1000));
 
         // Save to pending_registrations (NOT to users table)
         db.prepare(`
@@ -638,7 +651,7 @@ router.post('/register', async (req, res) => {
 // Login
 router.post('/login', async (req, res) => {
     try {
-        const { username, password } = req.body;
+        const { username, password, totpCode, rememberDevice } = req.body;
         const loginIdentifier = String(username || '').trim();
 
         if (!loginIdentifier || !password) {
@@ -675,6 +688,65 @@ router.post('/login', async (req, res) => {
             });
         }
 
+        // ── TOTP 2FA Check ──
+        if (user.totp_enabled === 1 && user.totp_secret) {
+            // Check for trusted device cookie first
+            const trustedDeviceCookie = req.cookies?.[TRUSTED_DEVICE_COOKIE];
+            let deviceTrusted = false;
+
+            if (trustedDeviceCookie) {
+                const tokenHash = hashDeviceToken(trustedDeviceCookie);
+                const device = db.prepare(
+                    'SELECT id FROM trusted_devices WHERE user_id = ? AND token_hash = ? AND expires_at > CURRENT_TIMESTAMP'
+                ).get(user.id, tokenHash);
+                deviceTrusted = Boolean(device);
+            }
+
+            if (!deviceTrusted) {
+                // No trusted device – require TOTP code
+                if (!totpCode) {
+                    return res.status(200).json({ requiresTwoFactor: true });
+                }
+
+                // Decrypt TOTP secret and verify
+                const base32Secret = decryptFromStorage(user.totp_secret, { purpose: TOTP_SECRET_PURPOSE });
+                const totpValid = verifyTotpToken(base32Secret, totpCode);
+
+                if (!totpValid) {
+                    // Try backup codes
+                    const unusedBackupCodes = db.prepare(
+                        'SELECT id, code_hash FROM totp_backup_codes WHERE user_id = ? AND used_at IS NULL'
+                    ).all(user.id);
+                    const matchedBackupId = verifyBackupCode(totpCode, unusedBackupCodes);
+
+                    if (!matchedBackupId) {
+                        return res.status(401).json({ error: 'Doğrulama kodu hatalı', requiresTwoFactor: true });
+                    }
+
+                    // Mark backup code as used
+                    db.prepare('UPDATE totp_backup_codes SET used_at = CURRENT_TIMESTAMP WHERE id = ?').run(matchedBackupId);
+                }
+
+                // Set trusted device cookie if requested
+                if (rememberDevice) {
+                    const deviceToken = generateDeviceToken();
+                    const deviceTokenHash = hashDeviceToken(deviceToken);
+                    const expiresAt = toSqliteUtcTimestamp(Date.now() + (TRUSTED_DEVICE_DAYS * 24 * 60 * 60 * 1000));
+
+                    db.prepare(
+                        'INSERT INTO trusted_devices (user_id, token_hash, user_agent, expires_at) VALUES (?, ?, ?, ?)'
+                    ).run(user.id, deviceTokenHash, req.headers['user-agent'] || '', expiresAt);
+
+                    res.cookie(TRUSTED_DEVICE_COOKIE, deviceToken, {
+                        httpOnly: true,
+                        secure: process.env.NODE_ENV === 'production',
+                        sameSite: 'lax',
+                        maxAge: TRUSTED_DEVICE_DAYS * 24 * 60 * 60 * 1000
+                    });
+                }
+            }
+        }
+
         const normalizedUser = syncUserHousePointers(user.id);
         const liveUser = db.prepare('SELECT * FROM users WHERE id = ?').get(user.id);
         const liveDecryptedUser = getDecryptedUser(liveUser);
@@ -701,7 +773,7 @@ router.post('/login', async (req, res) => {
 router.get('/me', authenticateToken, (req, res) => {
     const normalizedUser = syncUserHousePointers(req.user.id);
     const userRow = db.prepare(
-        'SELECT id, username, email, house_key, active_house_key, role, created_at FROM users WHERE id = ?'
+        'SELECT id, username, email, house_key, active_house_key, role, created_at, totp_enabled FROM users WHERE id = ?'
     ).get(req.user.id);
     const userSecurityRow = db.prepare(
         'SELECT recovery_key_hash FROM users WHERE id = ?'
@@ -739,7 +811,8 @@ router.get('/me', authenticateToken, (req, res) => {
         houseMemberCount: houseMemberCount ? houseMemberCount.count : 0,
         password_recovery_mode: passwordRecoveryFlags.passwordRecoveryMode,
         has_recovery_key: passwordRecoveryFlags.hasRecoveryKey,
-        must_setup_recovery_key: passwordRecoveryFlags.mustSetupRecoveryKey
+        must_setup_recovery_key: passwordRecoveryFlags.mustSetupRecoveryKey,
+        totp_enabled: Boolean(userRow.totp_enabled)
     });
 });
 
@@ -780,7 +853,7 @@ router.post('/forgot-password', async (req, res) => {
         db.prepare(`
             INSERT INTO password_reset_requests (user_id, token_lookup_hash, channel, expires_at)
             VALUES (?, ?, 'email', ?)
-        `).run(user.id, issuedToken.tokenLookupHash, issuedToken.expiresAt);
+        `).run(user.id, issuedToken.tokenLookupHash, toSqliteUtcTimestamp(issuedToken.expiresAt));
 
         fireAndForget(
             () => sendPasswordResetEmail({
@@ -1141,6 +1214,9 @@ router.post('/change-password', authenticateToken, async (req, res) => {
             console.error('Database UPDATE error:', updateError);
             return res.status(500).json({ error: 'Veritabanı yazma hatası - dosya izinlerini kontrol edin' });
         }
+
+        // Revoke all trusted devices on password change
+        db.prepare('DELETE FROM trusted_devices WHERE user_id = ?').run(req.user.id);
 
         res.json({ message: 'Şifre başarıyla değiştirildi' });
 
@@ -1796,7 +1872,239 @@ router.post('/rename-house', authenticateToken, (req, res) => {
 // Logout endpoint
 router.post('/logout', (req, res) => {
     res.clearCookie('token', cookieOptions);
+    res.clearCookie(TRUSTED_DEVICE_COOKIE, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax'
+    });
     res.json({ message: 'Başarıyla çıkış yapıldı' });
+});
+
+// ══════════════════════════════════════════════════════════
+// TOTP Two-Factor Authentication Endpoints
+// ══════════════════════════════════════════════════════════
+
+// Start 2FA setup – generate TOTP secret and otpauth URL
+router.post('/2fa/setup', authenticateToken, (req, res) => {
+    try {
+        const userRow = db.prepare('SELECT id, totp_enabled FROM users WHERE id = ?').get(req.user.id);
+
+        if (!userRow) {
+            return res.status(404).json({ error: 'Kullanıcı bulunamadı' });
+        }
+
+        if (userRow.totp_enabled === 1) {
+            return res.status(400).json({ error: '2FA zaten etkin durumda' });
+        }
+
+        const { secret, otpauthUrl } = generateTotpSecret(req.user.username || 'User');
+
+        // Store the secret temporarily (encrypted) but don't enable yet
+        const encryptedSecret = encryptForStorage(secret, { purpose: TOTP_SECRET_PURPOSE });
+        db.prepare('UPDATE users SET totp_secret = ?, totp_enabled = 0 WHERE id = ?')
+            .run(encryptedSecret, req.user.id);
+
+        res.json({ secret, otpauthUrl });
+    } catch (err) {
+        console.error('2FA setup error:', err);
+        res.status(500).json({ error: '2FA kurulumu sırasında hata oluştu' });
+    }
+});
+
+// Verify first TOTP code and activate 2FA
+router.post('/2fa/verify-setup', authenticateToken, (req, res) => {
+    try {
+        const { token: totpCode } = req.body;
+
+        if (!totpCode) {
+            return res.status(400).json({ error: 'Doğrulama kodu gerekli' });
+        }
+
+        const userRow = db.prepare('SELECT id, totp_secret, totp_enabled FROM users WHERE id = ?').get(req.user.id);
+
+        if (!userRow) {
+            return res.status(404).json({ error: 'Kullanıcı bulunamadı' });
+        }
+
+        if (userRow.totp_enabled === 1) {
+            return res.status(400).json({ error: '2FA zaten etkin durumda' });
+        }
+
+        if (!userRow.totp_secret) {
+            return res.status(400).json({ error: 'Önce 2FA kurulumunu başlatın' });
+        }
+
+        const base32Secret = decryptFromStorage(userRow.totp_secret, { purpose: TOTP_SECRET_PURPOSE });
+        const isValid = verifyTotpToken(base32Secret, totpCode);
+
+        if (!isValid) {
+            return res.status(400).json({ error: 'Doğrulama kodu hatalı. Lütfen tekrar deneyin.' });
+        }
+
+        // Enable 2FA
+        db.prepare('UPDATE users SET totp_enabled = 1 WHERE id = ?').run(req.user.id);
+
+        // Generate backup codes
+        const backupCodes = generateBackupCodes();
+        const insertBackupCode = db.prepare(
+            'INSERT INTO totp_backup_codes (user_id, code_hash) VALUES (?, ?)'
+        );
+
+        const insertAll = db.transaction((codes) => {
+            // Clear any existing codes
+            db.prepare('DELETE FROM totp_backup_codes WHERE user_id = ?').run(req.user.id);
+            for (const code of codes) {
+                insertBackupCode.run(req.user.id, hashBackupCode(code));
+            }
+        });
+        insertAll(backupCodes);
+
+        res.json({
+            success: true,
+            message: '2FA başarıyla etkinleştirildi',
+            backupCodes
+        });
+    } catch (err) {
+        console.error('2FA verify-setup error:', err);
+        res.status(500).json({ error: '2FA etkinleştirme sırasında hata oluştu' });
+    }
+});
+
+// Disable 2FA – requires password + (TOTP code | backup code | recovery key)
+router.post('/2fa/disable', authenticateToken, async (req, res) => {
+    try {
+        const { password, token: totpCode, backupCode, recoveryKey } = req.body;
+
+        if (!password) {
+            return res.status(400).json({ error: 'Şifre gerekli' });
+        }
+
+        if (!totpCode && !backupCode && !recoveryKey) {
+            return res.status(400).json({ error: 'TOTP kodu, yedek kod veya kurtarma anahtarı gerekli' });
+        }
+
+        const userRow = db.prepare('SELECT * FROM users WHERE id = ?').get(req.user.id);
+
+        if (!userRow) {
+            return res.status(404).json({ error: 'Kullanıcı bulunamadı' });
+        }
+
+        if (userRow.totp_enabled !== 1) {
+            return res.status(400).json({ error: '2FA zaten devre dışı' });
+        }
+
+        // Verify password
+        const validPassword = await bcrypt.compare(password, userRow.password_hash);
+        if (!validPassword) {
+            return res.status(401).json({ error: 'Şifre hatalı' });
+        }
+
+        // Verify the second factor
+        let secondFactorValid = false;
+
+        if (totpCode) {
+            const base32Secret = decryptFromStorage(userRow.totp_secret, { purpose: TOTP_SECRET_PURPOSE });
+            secondFactorValid = verifyTotpToken(base32Secret, totpCode);
+        } else if (backupCode) {
+            const unusedCodes = db.prepare(
+                'SELECT id, code_hash FROM totp_backup_codes WHERE user_id = ? AND used_at IS NULL'
+            ).all(req.user.id);
+            const matchedId = verifyBackupCode(backupCode, unusedCodes);
+            if (matchedId) {
+                db.prepare('UPDATE totp_backup_codes SET used_at = CURRENT_TIMESTAMP WHERE id = ?').run(matchedId);
+                secondFactorValid = true;
+            }
+        } else if (recoveryKey && userRow.recovery_key_hash) {
+            secondFactorValid = await compareRecoveryKey(recoveryKey, userRow.recovery_key_hash);
+        }
+
+        if (!secondFactorValid) {
+            return res.status(401).json({ error: 'Doğrulama başarısız. Kodu kontrol edip tekrar deneyin.' });
+        }
+
+        // Disable 2FA and clean up
+        db.prepare('UPDATE users SET totp_enabled = 0, totp_secret = NULL WHERE id = ?').run(req.user.id);
+        db.prepare('DELETE FROM totp_backup_codes WHERE user_id = ?').run(req.user.id);
+        db.prepare('DELETE FROM trusted_devices WHERE user_id = ?').run(req.user.id);
+
+        res.clearCookie(TRUSTED_DEVICE_COOKIE, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax'
+        });
+
+        res.json({ success: true, message: '2FA başarıyla devre dışı bırakıldı' });
+    } catch (err) {
+        console.error('2FA disable error:', err);
+        res.status(500).json({ error: '2FA devre dışı bırakılırken hata oluştu' });
+    }
+});
+
+// Regenerate backup codes
+router.post('/2fa/backup-codes', authenticateToken, async (req, res) => {
+    try {
+        const { password } = req.body;
+
+        if (!password) {
+            return res.status(400).json({ error: 'Şifre gerekli' });
+        }
+
+        const userRow = db.prepare('SELECT id, password_hash, totp_enabled FROM users WHERE id = ?').get(req.user.id);
+
+        if (!userRow || userRow.totp_enabled !== 1) {
+            return res.status(400).json({ error: '2FA etkin değil' });
+        }
+
+        const validPassword = await bcrypt.compare(password, userRow.password_hash);
+        if (!validPassword) {
+            return res.status(401).json({ error: 'Şifre hatalı' });
+        }
+
+        // Generate new backup codes
+        const backupCodes = generateBackupCodes();
+        const insertBackupCode = db.prepare(
+            'INSERT INTO totp_backup_codes (user_id, code_hash) VALUES (?, ?)'
+        );
+
+        const replaceAll = db.transaction((codes) => {
+            db.prepare('DELETE FROM totp_backup_codes WHERE user_id = ?').run(req.user.id);
+            for (const code of codes) {
+                insertBackupCode.run(req.user.id, hashBackupCode(code));
+            }
+        });
+        replaceAll(backupCodes);
+
+        res.json({
+            success: true,
+            message: 'Yedek kodlar yenilendi',
+            backupCodes
+        });
+    } catch (err) {
+        console.error('2FA backup-codes error:', err);
+        res.status(500).json({ error: 'Yedek kodlar oluşturulurken hata oluştu' });
+    }
+});
+
+// Revoke all trusted devices
+router.delete('/2fa/trusted-devices', authenticateToken, (req, res) => {
+    try {
+        const result = db.prepare('DELETE FROM trusted_devices WHERE user_id = ?').run(req.user.id);
+
+        res.clearCookie(TRUSTED_DEVICE_COOKIE, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax'
+        });
+
+        res.json({
+            success: true,
+            message: 'Tüm güvenilen cihazlar kaldırıldı',
+            devicesRevoked: result.changes
+        });
+    } catch (err) {
+        console.error('Trusted devices revoke error:', err);
+        res.status(500).json({ error: 'Güvenilen cihazlar kaldırılırken hata oluştu' });
+    }
 });
 
 export default router;

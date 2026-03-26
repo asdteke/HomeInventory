@@ -170,7 +170,7 @@ test('module import fails securely when APP_ENCRYPTION_KEY is missing', () => {
   });
 
   assert.notEqual(result.status, 0);
-  assert.match(result.stderr, /APP_ENCRYPTION_KEY environment variable is not set/);
+  assert.match(result.stderr, /APP_ENCRYPTION_KEY environment variable(?: or Docker secret)? is not set/);
 });
 
 test('module import fails securely when APP_ENCRYPTION_KEY_ID is missing', () => {
@@ -179,7 +179,7 @@ test('module import fails securely when APP_ENCRYPTION_KEY_ID is missing', () =>
   });
 
   assert.notEqual(result.status, 0);
-  assert.match(result.stderr, /APP_ENCRYPTION_KEY_ID environment variable is not set/);
+  assert.match(result.stderr, /APP_ENCRYPTION_KEY_ID environment variable(?: or Docker secret)? is not set/);
 });
 
 test('protected inventory fields decrypt cleanly for API responses', () => {

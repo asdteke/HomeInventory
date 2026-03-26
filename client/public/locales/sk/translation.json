@@ -100,7 +100,9 @@
         "close": "Zavrieť",
         "logout": "Odhlásiť sa",
         "copyright": "© {{year}} HomeInventory - Všetky práva vyhradené",
-        "other": "Iné"
+        "other": "Iné",
+        "copy": "Copy",
+        "download": "Download"
     },
     "auth": {
         "login": {
@@ -234,7 +236,8 @@
         "share_house": "Zdieľať dom",
         "admin_panel": "Administrátorský panel",
         "logout": "Odhlásiť sa",
-        "menu": "Menu"
+        "menu": "Menu",
+        "personal_vault": "Osobný trezor"
     },
     "dashboard": {
         "welcome": "Vitajte, <1>{{name}}</1>! 👋",
@@ -785,5 +788,69 @@
             "fallback": "Odkaz na obnovenie hesla vyzerá neúplne alebo je poškodený.",
             "footer": "© 2026 HomeInventory"
         }
+    },
+    "vault": {
+        "title": "Osobný trezor",
+        "subtitle": "Osobná oblasť, ktorá sa dešifruje iba v prehliadači a server ju nemôže čítať v čitateľnej podobe.",
+        "status_unlocked": "Trezor odomknutý",
+        "status_locked": "Trezor zamknutý",
+        "lock_action": "Zamknúť",
+        "setup_title": "Nastaviť osobný trezor",
+        "setup_description": "Kľúč trezora je generovaný v prehliadači. Server ukladá iba obalený kľúč a šifrované záznamy.",
+        "setup_warning": "Ak stratíte heslo k trezoru aj obnovovací kľúč, dáta nie je možné obnoviť.",
+        "passphrase": "Heslo k trezoru",
+        "passphrase_placeholder": "Zvoľte silné heslo s minimálne 12 znakmi",
+        "passphrase_confirm": "Heslo k trezoru (potvrdenie)",
+        "passphrase_confirm_placeholder": "Zadajte heslo znova",
+        "setup_action": "Vytvoriť osobný trezor",
+        "setting_up": "Príprava trezoru...",
+        "protection_title": "Čo toto chráni?",
+        "protection_item_1": "Názov položky, popis, čiarový kód, cena, dátum a polia záruky sú v prehliadači šifrované.",
+        "protection_item_2": "Server vidí iba šifrovaný obal, počet položiek a časové značky.",
+        "protection_item_3": "Prvé vydanie je zámerne osobné a zamerané na text; zdieľanie a média vyžadujú samostatný bezpečný proces.",
+        "unlock_title": "Odomknúť trezor",
+        "unlock_description": "Môžete odomknúť trezor pomocou svojho hesla alebo obnovovacieho kľúča, ktorý ste si uložili predtým.",
+        "unlock_with_passphrase": "Použiť heslo",
+        "unlock_with_recovery": "Použiť obnovovací kľúč",
+        "unlock_passphrase_placeholder": "Zadajte svoje heslo do trezora",
+        "unlock_recovery_placeholder": "napr. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+        "unlock_action": "Odomknúť trezor",
+        "unlocking": "Odomykanie trezoru...",
+        "security_note_title": "Bezpečnostná poznámka",
+        "security_note_1": "Kľúč k trezoru žije iba v pamäti prehliadača. Vymaže sa, keď opustíte stránku alebo zamknete trezor.",
+        "security_note_2": "Ak zabudnete heslo, môžete použiť obnovovací kľúč. Ak sú stratené oba, obsah sa stane trvalo nedostupným.",
+        "recovery_ready_title": "Obnovovací kľúč pripravený",
+        "recovery_ready_description": "Tento kľúč zobrazíme iba raz. Uložte ho na bezpečné miesto.",
+        "recovery_visible_once": "Tento kľúč sa neskôr už nezobrazí.",
+        "record_new_title": "Nový záznam vo vault",
+        "record_edit_title": "Upraviť záznam vo vault",
+        "record_form_subtitle": "Toto viac zodpovedá bežnému toku položiek, ale nešifrovaný text nikdy neopúšťa prehliadač.",
+        "record_save_new": "Pridať záznam vo vault",
+        "record_save_edit": "Uložiť zmeny",
+        "barcode_privacy_hint": "Čiarové kódy vo vault sa automaticky nevyhľadávajú na externých službách; text čiarového kódu sa ukladá iba ako šifrované údaje.",
+        "media_note": "Fotografie, skenovanie čiarového kódu a externé vyhľadávanie produktov sú v tomto prvom toku vault zámerne zakázané. Vyžadujú samostatný šifrovaný systém pre médiá a ochranu súkromia.",
+        "search_placeholder": "Hľadať vo vaultu...",
+        "all_categories": "Všetky kategórie",
+        "all_rooms": "Všetky miestnosti",
+        "empty_title": "Vault je stále prázdny",
+        "empty_description": "Začnite pridaním svojho prvého osobného záznamu vo vaultu.",
+        "empty_filter_title": "Žiadne záznamy nezodpovedajú aktuálnemu filtru",
+        "empty_filter_description": "Skúste iné vyhľadávanie alebo upravte filtre.",
+        "updated_at": "Naposledy aktualizované",
+        "delete_confirm": "Ste si istý, že chcete vymazať tento záznam trezora?",
+        "messages": {
+            "passphrase_mismatch": "Heslá trezora sa nezhodujú.",
+            "setup_failed": "Osobný trezor sa nepodarilo vytvoriť.",
+            "unlock_failed": "Trezor sa nepodarilo odomknúť. Skontrolujte zadané informácie.",
+            "save_failed": "Záznam trezora sa nepodarilo uložiť.",
+            "delete_failed": "Záznam trezora sa nepodarilo vymazať.",
+            "decrypt_failed": "Obsah trezora sa nepodarilo dešifrovať.",
+            "name_required": "Pre záznam trezora je potrebné meno položky.",
+            "options_failed": "Možnosti kategórie a miestnosti sa nedali načítať."
+        },
+        "recovery_file_title": "Domáci Inventár Osobný sejf Obnovovací kľúč",
+        "recovery_file_created_label": "Vytvorené",
+        "recovery_file_key_label": "Obnovovací kľúč",
+        "recovery_file_warning": "Ak stratíte tento kľúč aj heslo do sejfu, sejf nebude možné obnoviť."
     }
 }

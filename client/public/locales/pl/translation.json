@@ -100,7 +100,9 @@
         "close": "Zamknij",
         "logout": "Wyloguj",
         "copyright": "© {{year}} HomeInventory - Wszelkie prawa zastrzeżone",
-        "other": "Inny"
+        "other": "Inny",
+        "copy": "Copy",
+        "download": "Download"
     },
     "auth": {
         "login": {
@@ -234,7 +236,8 @@
         "share_house": "Udostępnij Dom",
         "admin_panel": "Panel Administratora",
         "logout": "Wyloguj się",
-        "menu": "Menu"
+        "menu": "Menu",
+        "personal_vault": "Skarbiec osobisty"
     },
     "dashboard": {
         "welcome": "Witaj, <1>{{name}}</1>! 👋",
@@ -785,5 +788,69 @@
             "fallback": "Link do resetowania hasła wygląda na niekompletny lub uszkodzony.",
             "footer": "© 2026 HomeInventory"
         }
+    },
+    "vault": {
+        "title": "Skarbiec osobisty",
+        "subtitle": "Osobista przestrzeń, która jest odszyfrowywana tylko w przeglądarce i nie jest czytelna dla serwera jako tekst jawny.",
+        "status_unlocked": "Skarbiec odblokowany",
+        "status_locked": "Skarbiec zablokowany",
+        "lock_action": "Zablokuj",
+        "setup_title": "Skonfiguruj Skarbiec Osobisty",
+        "setup_description": "Klucz do skarbca jest generowany w przeglądarce. Serwer przechowuje tylko owinięty klucz i zaszyfrowane rekordy.",
+        "setup_warning": "Jeśli utracisz zarówno hasło do sejfu, jak i klucz odzyskiwania, danych nie będzie można przywrócić.",
+        "passphrase": "Hasło do sejfu",
+        "passphrase_placeholder": "Wybierz silne hasło składające się z co najmniej 12 znaków",
+        "passphrase_confirm": "Hasło do sejfu (Potwierdź)",
+        "passphrase_confirm_placeholder": "Wprowadź hasło ponownie",
+        "setup_action": "Utwórz Sejf Osobisty",
+        "setting_up": "Przygotowywanie sejfu...",
+        "protection_title": "Co to chroni?",
+        "protection_item_1": "Nazwy przedmiotów, opis, kod kreskowy, cena, data i pola gwarancji są szyfrowane w przeglądarce.",
+        "protection_item_2": "Serwer widzi tylko zaszyfrowaną kopertę, liczbę przedmiotów i znaczniki czasu.",
+        "protection_item_3": "Pierwsze wydanie jest celowo osobiste i skupione na tekście; udostępnianie i media wymagają osobnego, bezpiecznego procesu.",
+        "unlock_title": "Odblokuj sejf",
+        "unlock_description": "Możesz odblokować sejf za pomocą swojego hasła lub klucza odzyskiwania, który wcześniej zapisałeś.",
+        "unlock_with_passphrase": "Użyj hasła",
+        "unlock_with_recovery": "Użyj klucza odzyskiwania",
+        "unlock_passphrase_placeholder": "Wprowadź hasło do swojego sejfu",
+        "unlock_recovery_placeholder": "np. ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
+        "unlock_action": "Odblokuj Skarbiec",
+        "unlocking": "Odblokowywanie skarbca...",
+        "security_note_title": "Nota Bezpieczeństwa",
+        "security_note_1": "Klucz do skarbca istnieje tylko w pamięci przeglądarki. Jest usuwany, gdy opuszczasz stronę lub blokujesz skarbiec.",
+        "security_note_2": "Jeśli zapomnisz hasła, możesz użyć klucza odzyskiwania. Jeśli oba zostaną utracone, zawartość stanie się trwale niedostępna.",
+        "recovery_ready_title": "Klucz Odzyskiwania Gotowy",
+        "recovery_ready_description": "Pokazujemy ten klucz tylko raz. Zapisz go w bezpiecznym miejscu.",
+        "recovery_visible_once": "Ten klucz nie będzie później wyświetlany.",
+        "record_new_title": "Nowy rekord skarbca",
+        "record_edit_title": "Edytuj rekord skarbca",
+        "record_form_subtitle": "To bardziej odpowiada normalnemu przepływowi elementów, ale tekst jawny nigdy nie opuszcza przeglądarki.",
+        "record_save_new": "Dodaj rekord skarbca",
+        "record_save_edit": "Zapisz zmiany",
+        "barcode_privacy_hint": "Kody kreskowe w skarbcu nie są automatycznie wyszukiwane w usługach zewnętrznych; tekst kodu kreskowego jest przechowywany tylko jako zaszyfrowane dane.",
+        "media_note": "Zdjęcia, skanowanie kodów kreskowych i wyszukiwanie produktów zewnętrznych są celowo wyłączone w tym pierwszym przepływie skarbca. Wymagają oddzielnego szyfrowanego kanału mediów i prywatności.",
+        "search_placeholder": "Szukaj wewnątrz sejfu...",
+        "all_categories": "Wszystkie kategorie",
+        "all_rooms": "Wszystkie pokoje",
+        "empty_title": "Sejf jest nadal pusty",
+        "empty_description": "Zacznij od dodania pierwszego osobistego wpisu do sejfu.",
+        "empty_filter_title": "Żadne rekordy nie pasują do bieżącego filtra",
+        "empty_filter_description": "Spróbuj innego wyszukiwania lub dostosuj filtry.",
+        "updated_at": "Ostatnia aktualizacja",
+        "delete_confirm": "Czy na pewno chcesz usunąć ten rekord sejfu?",
+        "messages": {
+            "passphrase_mismatch": "Hasła do sejfu nie pasują.",
+            "setup_failed": "Nie udało się utworzyć sejfu osobistego.",
+            "unlock_failed": "Nie udało się odblokować sejfu. Sprawdź wprowadzone informacje.",
+            "save_failed": "Nie udało się zapisać rekordu sejfu.",
+            "delete_failed": "Nie udało się usunąć rekordu sejfu.",
+            "decrypt_failed": "Nie udało się odszyfrować zawartości sejfu.",
+            "name_required": "Nazwa elementu jest wymagana dla rekordu sejfu.",
+            "options_failed": "Nie można było załadować opcji kategorii i pokoju."
+        },
+        "recovery_file_title": "HomeInventory Osobisty Skarbiec Klucz Odzyskiwania",
+        "recovery_file_created_label": "Utworzono",
+        "recovery_file_key_label": "Klucz Odzyskiwania",
+        "recovery_file_warning": "Jeśli utracisz zarówno ten klucz, jak i hasło do skarbca, skarbiec nie może zostać odzyskany."
     }
 }

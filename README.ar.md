@@ -41,6 +41,8 @@
 - 🏷️ **الفئات والغرف** — نظّم العناصر حسب فئات وغرف ومواقع مخصصة
 - 📱 **مسح الباركود / QR** — أضف أو ابحث عن العناصر بسرعة باستخدام كاميرا جهازك
 - 🔐 **المصادقة** — تسجيل دخول بـ JWT مع دعم Google OAuth والتحقق عبر البريد الإلكتروني
+- ✅ **المصادقة الثنائية والأجهزة الموثوقة** — تطبيقات TOTP، أكواد احتياطية لمرة واحدة، والتحكم في تذكّر الجهاز
+- 🔒 **الخزنة الشخصية** — مفاتيح خزنة تُنشأ داخل المتصفح وسجلات مشفرة للعناصر شديدة الحساسية
 - 👨‍💼 **لوحة الإدارة** — إدارة المستخدمين، الحظر، إرسال البريد الإلكتروني، وسجلات النظام
 - 📧 **نظام البريد** — رسائل بريد إلكتروني عبر Resend API (التحقق، إشعارات المدير)
 - 💾 **النسخ الاحتياطي والاستعادة** — تصدير واستيراد بيانات المخزون
@@ -49,6 +51,7 @@
 - 📱 **تصميم متجاوب** — تصميم للجوال أولاً، يعمل على جميع أحجام الشاشات
 - 🔍 **جاهز لـ SEO** — خريطة الموقع، robots.txt، علامات meta، ودعم IndexNow
 - 🛡️ **تشفير على مستوى الحقل** — حماية AES-256-GCM للبيانات الحساسة
+- 🐳 **تسليم الأسرار عبر Docker والسحابة** — Docker secrets وتهيئة OCI وقت التشغيل لمفاتيح الإنتاج
 - 🔑 **استرداد آمن لكلمة المرور** — إعادة تعيين بالبريد الإلكتروني أو مفتاح استرداد دون اتصال
 
 ## الأمان والخصوصية (التشفير من جانب الخادم أثناء السكون)
@@ -167,6 +170,7 @@ OCI_SECRET_MAPPINGS={"JWT_SECRET":"homeinventory-jwt-secret","APP_ENCRYPTION_KEY
 - اترك `SECRET_PROVIDER=env` للتطوير المحلي.
 - `OCI_SECRET_MAPPINGS` يمكن أن يشير إلى OCIDs أو أسماء الأسرار.
 - `OCI_VAULT_ID` مطلوب فقط عند استخدام أسماء الأسرار بدلاً من OCIDs.
+- عند استخدام أسرار Docker المعتمدة على الملفات، أبقِ نقطة الربط الافتراضية `/run/secrets` أو اضبط `DOCKER_SECRETS_DIR` إذا كانت بيئة التشغيل تربط الأسرار في مسار آخر.
 - نقطة دخول الخادم تحمّل الأسرار تلقائياً، لذا `node server.js` و `npm run dev` و `npm start` تستمر بالعمل.
 - برامج الصيانة مثل backfill التشفير وإرسال IndexNow تستخدم نفس مسار OCI bootstrap.
 
@@ -212,13 +216,19 @@ npm start
 git clone https://github.com/asdteke/HomeInventory.git
 cd HomeInventory
 cp .env.example .env
-# عدّل .env وعيّن JWT_SECRET, APP_ENCRYPTION_KEY, APP_ENCRYPTION_KEY_ID
+# أنشئ ملفات أسرار Docker (أو استخدم مجلداً آخر عبر HOMEINVENTORY_SECRETS_DIR)
+mkdir -p secrets
+printf '%s' 'jwt-secret-here' > secrets/jwt_secret.txt
+printf '%s' '32-byte-base64-key-here' > secrets/app_encryption_key.txt
+printf '%s' '2026-compose' > secrets/app_encryption_key_id.txt
 docker compose up -d
 ```
 
 </div>
 
 التطبيق سيكون متاحاً على `http://localhost:3001`
+
+يقرأ `docker-compose.yml` ملفات مصدر الأسرار من `${HOMEINVENTORY_SECRETS_DIR:-./secrets}` على المضيف بشكل افتراضي، ثم يربطها داخل الحاوية تحت `/run/secrets`.
 
 يتم تمرير ملف `.env` الكامل إلى الحاوية؛ الإعدادات الاختيارية مثل `APP_ENCRYPTION_KEYRING` و `EXPOSE_SERVER_INFO` و `INDEXNOW_*` تستمر بالعمل في Docker.
 
@@ -233,6 +243,14 @@ docker compose up -d
 | `NODE_ENV` | ✅ | `development` أو `production` |
 | `PORT` | ✅ | منفذ خادم الخلفية (افتراضي: `3001`) |
 | `SITE_URL` | ✅ | عنوان URL العام لموقعك |
+| `SECRET_PROVIDER` | ⬜ | `env` (الافتراضي) أو `oci` لتهيئة OCI Secret Management |
+| `OCI_AUTH_MODE` | ⬜ | نمط مصادقة وقت التشغيل لـ OCI (`instance_principal`) |
+| `OCI_REGION` | ⬜ | منطقة OCI اختيارية لاسترجاع الأسرار |
+| `OCI_VAULT_ID` | ⬜ | مطلوب عندما تستخدم `OCI_SECRET_MAPPINGS` أسماء الأسرار |
+| `OCI_SECRET_MAPPINGS` | ⬜ | خريطة JSON من أسماء متغيرات البيئة إلى OCIDs أو أسماء أسرار OCI |
+| `OCI_SECRET_OVERWRITE` | ⬜ | استبدال القيم المضبوطة مسبقاً بأسرار OCI |
+| `OCI_SECRET_BUNDLE_STAGE` | ⬜ | مرحلة حزمة السر المراد قراءتها (`CURRENT` افتراضياً) |
+| `DOCKER_SECRETS_DIR` | ⬜ | تجاوز مسار وقت التشغيل لأسرار Docker المعتمدة على الملفات (`/run/secrets`) |
 | `JWT_SECRET` | ✅ | مفتاح سري عشوائي لتوقيع JWT (32 حرفاً على الأقل) |
 | `APP_ENCRYPTION_KEY` | ✅ | مفتاح تشفير عشوائي 32 بايت |
 | `APP_ENCRYPTION_KEY_ID` | ✅ | مُعرف مفتاح التشفير الأساسي |
