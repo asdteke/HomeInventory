@@ -44,6 +44,7 @@
 - 🛡️ **Alan bazlı şifreleme** — Hassas doğrulama ve envanter alanları için AES-256-GCM koruması
 - 🐳 **Docker ve bulut secret yönetimi** — Production anahtar teslimi için Docker secrets ve OCI runtime secret bootstrap
 - 👨‍💼 **Admin paneli** — Kullanıcı yönetimi, yasaklama, e-posta gönderimi ve sistem logları
+- 🤝 **Ödünç Sistemi** — Ödünç verilen ve alınan eşyaları takip edin, talepleri yönetin, iade tarihlerini belirleyin ve durumları izleyin
 - 📧 **E-posta sistemi** — Resend API ile doğrulama ve bilgilendirme e-postaları
 - 💾 **Yedekleme & Geri Yükleme** — Envanter verilerinizi dışa/içe aktarın
 - 🌍 **100+ dil destekli arayüz** — Frontend küresel kullanım için 100'den fazla seçilebilir dille gelir
@@ -272,6 +273,8 @@ Home-inventory/
 │   ├── locations.js          # Konum yönetimi
 │   ├── barcode.js            # Barkod arama & tarama
 │   ├── houses.js             # Çoklu ev yönetimi
+│   ├── borrowRequests.js     # Ödünç sistemi & takip
+│   ├── vault.js              # Kişisel kasa (Vault) endpoint'leri
 │   ├── admin.js              # Admin panel endpoint'leri
 │   ├── admin-email.js        # Admin e-posta gönderimi
 │   ├── email.js              # E-posta doğrulama & durum
@@ -341,6 +344,8 @@ Home-inventory/
 | `GET` | `/api/categories` | Kategorileri listele |
 | `GET` | `/api/rooms` | Odaları listele |
 | `GET` | `/api/houses` | Kullanıcının evlerini listele |
+| `GET/POST`| `/api/borrow-requests` | Ödünç sistemi endpoint'leri |
+| `GET/POST`| `/api/vault` | Kişisel kasa endpoint'leri |
 | `GET` | `/api/admin/*` | Admin panel endpoint'leri |
 | `GET` | `/api/health` | Sağlık kontrolü |
 

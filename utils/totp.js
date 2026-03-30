@@ -1,8 +1,9 @@
 import { TOTP, Secret } from 'otpauth';
 import crypto from 'crypto';
 import { hashLookupToken } from './encryption.js';
+import { BRAND_NAME } from './branding.js';
 
-const APP_NAME = 'HomeInventory';
+const APP_NAME = BRAND_NAME;
 const TOTP_DIGITS = 6;
 const TOTP_PERIOD = 30;
 const TOTP_ALGORITHM = 'SHA1';

@@ -15,18 +15,25 @@ import {
 import {
     ensurePrivateDirectory,
     normalizeStoredPath,
+    readPrivateFileWithinLimit,
     resolveStoredMediaPath,
     writePrivateFile
 } from '../utils/mediaStorage.js';
+import { MAX_PHOTO_UPLOAD_BYTES, MAX_PHOTO_UPLOAD_MB } from '../utils/mediaLimits.js';
 import { normalizeOptionalCurrency } from '../utils/currencyValidation.js';
 import { normalizeOptionalDate } from '../utils/dateValidation.js';
 import { validateUploadedImageBuffer } from '../utils/imageValidation.js';
 import { normalizeWarrantyDetails } from '../utils/warrantyValidation.js';
 import {
     buildBarcodeLookup,
+    decryptBorrowRecord,
     decryptItemInvoiceDate,
     decryptItemRecord,
     decryptRoomName,
+    encryptBorrowerContact,
+    encryptBorrowerName,
+    encryptBorrowNote,
+    encryptBorrowReturnNote,
     encryptItemBarcode,
     encryptItemDescription,
     encryptItemInvoiceCurrency,
@@ -46,6 +53,7 @@ const ITEM_PHOTO_MEDIA_PURPOSE = 'inventory.media.photo';
 const ITEM_THUMBNAIL_MEDIA_PURPOSE = 'inventory.media.thumbnail';
 const ITEM_INVOICE_MEDIA_PURPOSE = 'inventory.media.invoice';
 const ITEM_INVOICE_THUMBNAIL_MEDIA_PURPOSE = 'inventory.media.invoice_thumbnail';
+const MAX_MEDIA_READ_BYTES = 16 * 1024 * 1024;
 
 const router = express.Router();
 const MEDIA_FILE_REGEX = /^[A-Za-z0-9._-]+\.webp$/;
@@ -84,15 +92,43 @@ const MEDIA_CONFIG = {
         storedThumbnailPrefix: 'uploads/invoices/thumbnails'
     }
 };
+const ITEM_MEDIA_FIELD_LABELS = {
+    photo: 'Fotoğraf',
+    invoice_photo: 'Fatura fotoğrafı'
+};
 const ALLOWED_MEDIA_PREFIXES = Object.values(MEDIA_CONFIG).flatMap((config) => ([
     config.storedPathPrefix,
     config.storedThumbnailPrefix
 ]));
+const ACTIVE_BORROW_SELECT = `
+    active_borrow.id AS active_borrow_id,
+    active_borrow.borrower_type AS active_borrow_borrower_type,
+    active_borrow.borrower_user_id AS active_borrow_borrower_user_id,
+    active_borrow.borrower_name AS active_borrow_borrower_name,
+    active_borrow.borrower_contact AS active_borrow_borrower_contact,
+    active_borrow.note AS active_borrow_note,
+    active_borrow.borrowed_at AS active_borrow_borrowed_at,
+    active_borrow.due_date AS active_borrow_due_date,
+    active_borrow.returned_at AS active_borrow_returned_at,
+    active_borrow.return_note AS active_borrow_return_note,
+    borrower.username AS active_borrow_borrower_username,
+    lender.username AS active_borrow_lent_by_username,
+    returner.username AS active_borrow_returned_by_username
+`;
+const ACTIVE_BORROW_JOINS = `
+    LEFT JOIN item_borrows active_borrow
+        ON active_borrow.item_id = items.id
+       AND active_borrow.house_key = items.house_key
+       AND active_borrow.returned_at IS NULL
+    LEFT JOIN users borrower ON active_borrow.borrower_user_id = borrower.id
+    LEFT JOIN users lender ON active_borrow.lent_by_user_id = lender.id
+    LEFT JOIN users returner ON active_borrow.returned_by_user_id = returner.id
+`;
 
 // Configure multer with memory storage (for sharp processing)
 const upload = multer({
     storage: multer.memoryStorage(),
-    limits: { fileSize: 10 * 1024 * 1024 },
+    limits: { fileSize: MAX_PHOTO_UPLOAD_BYTES },
     fileFilter(req, file, cb) {
         const allowed = /jpeg|jpg|png|gif|webp/;
         const ext = allowed.test(path.extname(file.originalname).toLowerCase());
@@ -101,10 +137,36 @@ const upload = multer({
     }
 });
 
-const uploadFields = upload.fields([
+const rawUploadFields = upload.fields([
     { name: 'photo', maxCount: 1 },
     { name: 'invoice_photo', maxCount: 1 }
 ]);
+
+function createBadRequestError(message) {
+    const error = new Error(message);
+    error.statusCode = 400;
+    return error;
+}
+
+function normalizeUploadError(error) {
+    if (error instanceof multer.MulterError && error.code === 'LIMIT_FILE_SIZE') {
+        const fieldLabel = ITEM_MEDIA_FIELD_LABELS[error.field] || 'Fotoğraf';
+        return createBadRequestError(`${fieldLabel} en fazla ${MAX_PHOTO_UPLOAD_MB} MB olabilir`);
+    }
+
+    return error;
+}
+
+function uploadFields(req, res, next) {
+    rawUploadFields(req, res, (error) => {
+        if (error) {
+            next(normalizeUploadError(error));
+            return;
+        }
+
+        next();
+    });
+}
 
 /**
  * Görüntü optimizasyonu - Sharp ile işleme
@@ -194,7 +256,104 @@ function normalizeOptionalMoney(value) {
 }
 
 function getRequestErrorStatus(error) {
-    return /ge(?:ç|c)ersiz|gerekli/i.test(String(error?.message || '')) ? 400 : 500;
+    return /ge(?:ç|c)ersiz|gerekli|çok uzun|üyesi değil|kendinize/i.test(String(error?.message || '')) ? 400 : 500;
+}
+
+function normalizeOptionalText(value, fieldLabel, maxLength = 500) {
+    const normalized = String(value || '').trim();
+    if (!normalized) {
+        return null;
+    }
+
+    if (normalized.length > maxLength) {
+        throw new Error(`${fieldLabel} çok uzun`);
+    }
+
+    return normalized;
+}
+
+function buildActiveBorrowSnapshot(record) {
+    if (!record?.active_borrow_id) {
+        return null;
+    }
+
+    return decryptBorrowRecord({
+        id: record.active_borrow_id,
+        item_id: record.id,
+        borrower_type: record.active_borrow_borrower_type,
+        borrower_user_id: record.active_borrow_borrower_user_id,
+        borrower_name: record.active_borrow_borrower_name,
+        borrower_contact: record.active_borrow_borrower_contact,
+        note: record.active_borrow_note,
+        borrowed_at: record.active_borrow_borrowed_at,
+        due_date: record.active_borrow_due_date,
+        returned_at: record.active_borrow_returned_at,
+        return_note: record.active_borrow_return_note,
+        borrower_username: record.active_borrow_borrower_username,
+        lent_by_username: record.active_borrow_lent_by_username,
+        returned_by_username: record.active_borrow_returned_by_username
+    });
+}
+
+function serializeBorrowRecord(record) {
+    return decryptBorrowRecord(record);
+}
+
+function getActiveBorrowForItem(itemId, houseKey) {
+    return db.prepare(`
+        SELECT
+            ib.*,
+            borrower.username AS borrower_username,
+            lender.username AS lent_by_username,
+            returner.username AS returned_by_username
+        FROM item_borrows ib
+        LEFT JOIN users borrower ON ib.borrower_user_id = borrower.id
+        LEFT JOIN users lender ON ib.lent_by_user_id = lender.id
+        LEFT JOIN users returner ON ib.returned_by_user_id = returner.id
+        WHERE ib.item_id = ? AND ib.house_key = ? AND ib.returned_at IS NULL
+        ORDER BY ib.borrowed_at DESC, ib.id DESC
+        LIMIT 1
+    `).get(itemId, houseKey);
+}
+
+function listBorrowHistory(itemId, houseKey) {
+    return db.prepare(`
+        SELECT
+            ib.*,
+            borrower.username AS borrower_username,
+            lender.username AS lent_by_username,
+            returner.username AS returned_by_username
+        FROM item_borrows ib
+        LEFT JOIN users borrower ON ib.borrower_user_id = borrower.id
+        LEFT JOIN users lender ON ib.lent_by_user_id = lender.id
+        LEFT JOIN users returner ON ib.returned_by_user_id = returner.id
+        WHERE ib.item_id = ? AND ib.house_key = ?
+        ORDER BY ib.borrowed_at DESC, ib.id DESC
+    `).all(itemId, houseKey).map(serializeBorrowRecord);
+}
+
+function validateBorrowerMember(houseKey, borrowerUserId, actorUserId) {
+    if (!borrowerUserId) {
+        throw new Error('Ev üyesi seçin');
+    }
+
+    if (borrowerUserId === actorUserId) {
+        throw new Error('Eşyayı kendinize ödünç veremezsiniz');
+    }
+
+    const member = db.prepare(`
+        SELECT u.id, u.username
+        FROM user_houses uh
+        JOIN users u ON u.id = uh.user_id
+        WHERE uh.house_key = ? AND uh.user_id = ?
+        LIMIT 1
+    `).get(houseKey, borrowerUserId);
+
+    if (!member) {
+        throw new Error('Seçilen kullanıcı bu evin üyesi değil');
+    }
+
+    return member;
 }
 
 function resolveStoredPath(storedPath) {
@@ -239,13 +398,16 @@ function serializeItem(item) {
     }
 
     const decryptedItem = decryptItemRecord(item);
+    const activeBorrow = buildActiveBorrowSnapshot(item);
 
     return {
         ...decryptedItem,
         photo_path: buildMediaUrl(decryptedItem.photo_path),
         thumbnail_path: buildMediaUrl(decryptedItem.thumbnail_path),
         invoice_photo_path: buildMediaUrl(decryptedItem.invoice_photo_path),
-        invoice_thumbnail_path: buildMediaUrl(decryptedItem.invoice_thumbnail_path)
+        invoice_thumbnail_path: buildMediaUrl(decryptedItem.invoice_thumbnail_path),
+        active_borrow: activeBorrow,
+        is_borrowed: Boolean(activeBorrow)
     };
 }
 
@@ -295,7 +457,7 @@ function getMediaRecord(type, filename, houseKey) {
 router.use(authenticateToken);
 router.use(requireActiveHouse);
 
-router.get('/media/:type/:filename', (req, res) => {
+router.get('/media/:type/:filename', async (req, res) => {
     try {
         const { type, filename } = req.params;
         const purpose = (
@@ -320,8 +482,23 @@ router.get('/media/:type/:filename', (req, res) => {
         }
 
         const mediaPath = resolveStoredPath(record.media_path);
-        if (!mediaPath || !fs.existsSync(mediaPath)) {
+        if (!mediaPath) {
             return res.status(404).json({ error: 'Medya bulunamadı' });
+        }
+
+        const encryptedMedia = await readPrivateFileWithinLimit(mediaPath, {
+            maxBytes: MAX_MEDIA_READ_BYTES
+        });
+
+        let decryptedMedia;
+        try {
+            decryptedMedia = decryptBufferFromStorage(encryptedMedia, {
+                purpose
+            });
+        } finally {
+            if (Buffer.isBuffer(encryptedMedia)) {
+                encryptedMedia.fill(0);
+            }
         }
 
         res.set({
@@ -331,12 +508,17 @@ router.get('/media/:type/:filename', (req, res) => {
             'Vary': 'Cookie'
         });
         res.type('image/webp');
-        return res.send(
-            decryptBufferFromStorage(fs.readFileSync(mediaPath), {
-                purpose
-            })
-        );
+        return res.send(decryptedMedia);
     } catch (err) {
+        if (err?.code === 'ENOENT' || err?.code === 'EINVAL') {
+            return res.status(404).json({ error: 'Medya bulunamadı' });
+        }
+
+        if (err?.statusCode === 413 || err?.code === 'FILE_TOO_LARGE') {
+            console.warn('Media access blocked due to oversized file:', err.message);
+            return res.status(413).json({ error: 'Medya dosyası güvenli sınırı aşıyor' });
+        }
+
         console.error('Media access error:', err);
         return res.status(500).json({ error: 'Medya yüklenemedi' });
     }
@@ -350,12 +532,14 @@ router.get('/', (req, res) => {
 
         let query = `
             SELECT items.*, categories.name as category_name, categories.icon as category_icon,
-                   rooms.name as room_name, locations.name as location_name, users.username
+                   rooms.name as room_name, locations.name as location_name, users.username,
+                   ${ACTIVE_BORROW_SELECT}
             FROM items
             LEFT JOIN categories ON items.category_id = categories.id
             LEFT JOIN rooms ON items.room_id = rooms.id
             LEFT JOIN locations ON items.location_id = locations.id
             LEFT JOIN users ON items.user_id = users.id
+            ${ACTIVE_BORROW_JOINS}
             WHERE items.house_key = ?
         `;
         const params = [houseKey];
@@ -387,10 +571,12 @@ router.get('/', (req, res) => {
 router.get('/barcode/:code', (req, res) => {
     try {
         const item = db.prepare(`
-            SELECT items.*, categories.name as category_name, rooms.name as room_name
+            SELECT items.*, categories.name as category_name, rooms.name as room_name,
+                   ${ACTIVE_BORROW_SELECT}
             FROM items
             LEFT JOIN categories ON items.category_id = categories.id
             LEFT JOIN rooms ON items.room_id = rooms.id
+            ${ACTIVE_BORROW_JOINS}
             WHERE items.barcode_lookup = ? AND items.house_key = ?
         `).get(buildBarcodeLookup(req.params.code), req.user.house_key);
 
@@ -408,12 +594,14 @@ router.get('/:id', (req, res) => {
     try {
         const item = db.prepare(`
             SELECT items.*, categories.name as category_name, rooms.name as room_name,
-                   locations.name as location_name, users.username
+                   locations.name as location_name, users.username,
+                   ${ACTIVE_BORROW_SELECT}
             FROM items
             LEFT JOIN categories ON items.category_id = categories.id
             LEFT JOIN rooms ON items.room_id = rooms.id
             LEFT JOIN locations ON items.location_id = locations.id
             LEFT JOIN users ON items.user_id = users.id
+            ${ACTIVE_BORROW_JOINS}
             WHERE items.id = ? AND items.house_key = ?
         `).get(req.params.id, req.user.house_key);
 
@@ -421,6 +609,186 @@ router.get('/:id', (req, res) => {
         res.json({ item: serializeItem(item) });
     } catch (err) {
         res.status(500).json({ error: 'Eşya yüklenirken hata oluştu' });
+    }
+});
+
+router.get('/:id/borrow-history', (req, res) => {
+    try {
+        const item = db.prepare('SELECT id FROM items WHERE id = ? AND house_key = ?')
+            .get(req.params.id, req.user.house_key);
+
+        if (!item) {
+            return res.status(404).json({ error: 'Eşya bulunamadı' });
+        }
+
+        res.json({
+            history: listBorrowHistory(item.id, req.user.house_key)
+        });
+    } catch (err) {
+        console.error('Borrow history error:', err);
+        res.status(500).json({ error: 'Ödünç geçmişi yüklenemedi' });
+    }
+});
+
+router.post('/:id/borrow', (req, res) => {
+    try {
+        const item = db.prepare('SELECT id, name FROM items WHERE id = ? AND house_key = ?')
+            .get(req.params.id, req.user.house_key);
+
+        if (!item) {
+            return res.status(404).json({ error: 'Eşya bulunamadı' });
+        }
+
+        const activeBorrow = getActiveBorrowForItem(item.id, req.user.house_key);
+        if (activeBorrow) {
+            return res.status(409).json({ error: 'Bu eşya zaten ödünçte' });
+        }
+
+        const borrowerType = (
+            String(req.body.borrower_type || '').trim() === 'member' || req.body.borrower_user_id
+        ) ? 'member' : 'external';
+        const dueDate = normalizeOptionalDate(req.body.due_date, 'Planlanan teslim tarihi');
+        const note = normalizeOptionalText(req.body.note, 'Ödünç notu', 1000);
+
+        let borrowerUserId = null;
+        let borrowerName = null;
+        let borrowerContact = null;
+
+        if (borrowerType === 'member') {
+            borrowerUserId = Number.parseInt(req.body.borrower_user_id, 10) || null;
+            validateBorrowerMember(req.user.house_key, borrowerUserId, req.user.id);
+        } else {
+            borrowerName = normalizeOptionalText(req.body.borrower_name, 'Ödünç alan adı', 120);
+            borrowerContact = normalizeOptionalText(req.body.borrower_contact, 'İletişim bilgisi', 160);
+
+            if (!borrowerName) {
+                throw new Error('Ödünç alan adı gerekli');
+            }
+        }
+
+        const result = db.prepare(`
+            INSERT INTO item_borrows (
+                item_id, house_key, borrower_type, borrower_user_id, borrower_name,
+                borrower_contact, note, due_date, lent_by_user_id
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `).run(
+            item.id,
+            req.user.house_key,
+            borrowerType,
+            borrowerUserId,
+            borrowerName ? encryptBorrowerName(borrowerName) : null,
+            borrowerContact ? encryptBorrowerContact(borrowerContact) : null,
+            note ? encryptBorrowNote(note) : null,
+            dueDate,
+            req.user.id
+        );
+
+        const borrow = db.prepare(`
+            SELECT
+                ib.*,
+                borrower.username AS borrower_username,
+                lender.username AS lent_by_username,
+                returner.username AS returned_by_username
+            FROM item_borrows ib
+            LEFT JOIN users borrower ON ib.borrower_user_id = borrower.id
+            LEFT JOIN users lender ON ib.lent_by_user_id = lender.id
+            LEFT JOIN users returner ON ib.returned_by_user_id = returner.id
+            WHERE ib.id = ?
+        `).get(result.lastInsertRowid);
+
+        const updatedItem = db.prepare(`
+            SELECT items.*, categories.name as category_name, categories.icon as category_icon,
+                   rooms.name as room_name, locations.name as location_name, users.username,
+                   ${ACTIVE_BORROW_SELECT}
+            FROM items
+            LEFT JOIN categories ON items.category_id = categories.id
+            LEFT JOIN rooms ON items.room_id = rooms.id
+            LEFT JOIN locations ON items.location_id = locations.id
+            LEFT JOIN users ON items.user_id = users.id
+            ${ACTIVE_BORROW_JOINS}
+            WHERE items.id = ?
+        `).get(item.id);
+
+        res.status(201).json({
+            message: 'Eşya ödünç verildi',
+            borrow: serializeBorrowRecord(borrow),
+            item: serializeItem(updatedItem)
+        });
+    } catch (err) {
+        console.error('Borrow item error:', err);
+
+        if (String(err?.message || '').includes('idx_item_borrows_active_item')) {
+            return res.status(409).json({ error: 'Bu eşya zaten ödünçte' });
+        }
+
+        res.status(getRequestErrorStatus(err)).json({ error: err.message || 'Eşya ödünç verilemedi' });
+    }
+});
+
+router.post('/:id/return', (req, res) => {
+    try {
+        const item = db.prepare('SELECT id FROM items WHERE id = ? AND house_key = ?')
+            .get(req.params.id, req.user.house_key);
+
+        if (!item) {
+            return res.status(404).json({ error: 'Eşya bulunamadı' });
+        }
+
+        const activeBorrow = getActiveBorrowForItem(item.id, req.user.house_key);
+        if (!activeBorrow) {
+            return res.status(409).json({ error: 'Bu eşya için aktif ödünç kaydı yok' });
+        }
+
+        const returnNote = normalizeOptionalText(req.body.return_note, 'Teslim notu', 1000);
+
+        db.prepare(`
+            UPDATE item_borrows
+            SET returned_at = CURRENT_TIMESTAMP,
+                return_note = ?,
+                returned_by_user_id = ?,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE id = ?
+        `).run(
+            returnNote ? encryptBorrowReturnNote(returnNote) : null,
+            req.user.id,
+            activeBorrow.id
+        );
+
+        const borrow = db.prepare(`
+            SELECT
+                ib.*,
+                borrower.username AS borrower_username,
+                lender.username AS lent_by_username,
+                returner.username AS returned_by_username
+            FROM item_borrows ib
+            LEFT JOIN users borrower ON ib.borrower_user_id = borrower.id
+            LEFT JOIN users lender ON ib.lent_by_user_id = lender.id
+            LEFT JOIN users returner ON ib.returned_by_user_id = returner.id
+            WHERE ib.id = ?
+        `).get(activeBorrow.id);
+
+        const updatedItem = db.prepare(`
+            SELECT items.*, categories.name as category_name, categories.icon as category_icon,
+                   rooms.name as room_name, locations.name as location_name, users.username,
+                   ${ACTIVE_BORROW_SELECT}
+            FROM items
+            LEFT JOIN categories ON items.category_id = categories.id
+            LEFT JOIN rooms ON items.room_id = rooms.id
+            LEFT JOIN locations ON items.location_id = locations.id
+            LEFT JOIN users ON items.user_id = users.id
+            ${ACTIVE_BORROW_JOINS}
+            WHERE items.id = ?
+        `).get(item.id);
+
+        res.json({
+            message: 'Eşya teslim alındı',
+            borrow: serializeBorrowRecord(borrow),
+            item: serializeItem(updatedItem)
+        });
+    } catch (err) {
+        console.error('Return item error:', err);
+        res.status(getRequestErrorStatus(err)).json({ error: err.message || 'Eşya teslim alınamadı' });
     }
 });
 
@@ -510,7 +878,18 @@ router.post('/', uploadFields, async (req, res) => {
             req.user.id, houseKey
         );
 
-        const item = db.prepare('SELECT * FROM items WHERE id = ?').get(result.lastInsertRowid);
+        const item = db.prepare(`
+            SELECT items.*, categories.name as category_name, categories.icon as category_icon,
+                   rooms.name as room_name, locations.name as location_name, users.username,
+                   ${ACTIVE_BORROW_SELECT}
+            FROM items
+            LEFT JOIN categories ON items.category_id = categories.id
+            LEFT JOIN rooms ON items.room_id = rooms.id
+            LEFT JOIN locations ON items.location_id = locations.id
+            LEFT JOIN users ON items.user_id = users.id
+            ${ACTIVE_BORROW_JOINS}
+            WHERE items.id = ?
+        `).get(result.lastInsertRowid);
         res.status(201).json({ message: 'Eşya eklendi', item: serializeItem(item) });
     } catch (err) {
         console.error('Create item error:', err);
@@ -659,7 +1038,18 @@ router.put('/:id', uploadFields, async (req, res) => {
             itemId
         );
 
-        const item = db.prepare('SELECT * FROM items WHERE id = ?').get(itemId);
+        const item = db.prepare(`
+            SELECT items.*, categories.name as category_name, categories.icon as category_icon,
+                   rooms.name as room_name, locations.name as location_name, users.username,
+                   ${ACTIVE_BORROW_SELECT}
+            FROM items
+            LEFT JOIN categories ON items.category_id = categories.id
+            LEFT JOIN rooms ON items.room_id = rooms.id
+            LEFT JOIN locations ON items.location_id = locations.id
+            LEFT JOIN users ON items.user_id = users.id
+            ${ACTIVE_BORROW_JOINS}
+            WHERE items.id = ?
+        `).get(itemId);
         res.json({ message: 'Eşya güncellendi', item: serializeItem(item) });
     } catch (err) {
         console.error('Update item error:', err);
@@ -684,6 +1074,15 @@ router.delete('/:id', (req, res) => {
         deleteStoredFile(item.invoice_photo_path);
         deleteStoredFile(item.invoice_thumbnail_path);
 
+        db.prepare(`
+            UPDATE borrow_requests
+            SET status = CASE WHEN status = 'pending' THEN 'cancelled' ELSE status END,
+                item_id = NULL,
+                borrow_id = NULL,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE item_id = ?
+        `).run(req.params.id);
+        db.prepare('DELETE FROM item_borrows WHERE item_id = ?').run(req.params.id);
         db.prepare('DELETE FROM items WHERE id = ?').run(req.params.id);
         res.json({ message: 'Eşya silindi' });
     } catch (err) {

@@ -3,6 +3,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { logError } from './logger.js';
+import { BRAND_NAME, DEFAULT_FROM, SUPPORT_EMAIL } from './branding.js';
 
 // Resend API istemcisi - lazy initialization (dotenv yüklendikten sonra çalışır)
 let resend = null;
@@ -18,13 +19,11 @@ const PUBLIC_BASE_URL = String(
     process.env.INDEXNOW_BASE_URL ||
     'http://localhost:3001'
 ).trim().replace(/\/+$/, '');
-const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || 'support@homeinventory.local';
-// Varsayılan gönderen bilgisi
-const DEFAULT_FROM = `HomeInventory Team <${SUPPORT_EMAIL}>`;
 const EMAIL_LANGUAGE_ENV = process.env.APP_EMAIL_LANGUAGE || process.env.EMAIL_LANGUAGE || 'en';
 const EMAIL_FALLBACK_LANGUAGE = 'en';
 const EMAIL_LANG_PATTERN = /^[A-Za-z0-9-]{2,20}$/;
 const TEMPLATE_TOKEN_PATTERN = /\{\{([A-Za-z0-9_]+)\}\}/g;
+const SAFE_LITERAL_TEMPLATE_TOKENS = new Set(['brandName', 'supportEmail', 'siteHost']);
 const LOCALE_CACHE = new Map();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -37,10 +36,10 @@ const AVAILABLE_EMAIL_LANGUAGES = new Set(
 );
 const DEFAULT_EMAIL_COPY = {
     verification: {
-        subject: '🏠 HomeInventory - 📧 Email Verification Required',
-        headerTitle: 'Welcome to HomeInventory',
+        subject: `🏠 ${BRAND_NAME} - 📧 Email Verification Required`,
+        headerTitle: `Welcome to ${BRAND_NAME}`,
         headerSubtitle: 'Create a new account or join an existing house',
-        greeting: 'Welcome to HomeInventory 👋',
+        greeting: `Welcome to ${BRAND_NAME} 👋`,
         intro: 'Please verify your email address to activate your account.',
         verifyPrompt: 'Email verification required',
         verifyButton: 'Verify my account',
@@ -57,11 +56,11 @@ const DEFAULT_EMAIL_COPY = {
         ],
         fallback: 'If the button does not work, copy and paste this link into your browser:',
         support: 'Need help? Contact',
-        footer: '© 2026 HomeInventory'
+        footer: `© 2026 ${BRAND_NAME}`
     },
     welcome: {
-        subject: '🏠 Welcome to HomeInventory',
-        headerTitle: 'Welcome to HomeInventory',
+        subject: `🏠 Welcome to ${BRAND_NAME}`,
+        headerTitle: `Welcome to ${BRAND_NAME}`,
         headerSubtitle: 'Your account is ready',
         greeting: 'Welcome! 👋',
         intro: 'Your account has been created successfully.',
@@ -75,7 +74,7 @@ const DEFAULT_EMAIL_COPY = {
             'Switch between multiple houses when needed'
         ],
         support: 'Need help? Contact',
-        footer: '© 2026 HomeInventory'
+        footer: `© 2026 ${BRAND_NAME}`
     },
     houseJoinRequest: {
         subject: '🏠 New house join request',
@@ -101,7 +100,7 @@ const DEFAULT_EMAIL_COPY = {
         bodyLine2: 'You can join another house from the app at any time.'
     },
     passwordReset: {
-        subject: '🔐 HomeInventory Password Reset',
+        subject: `🔐 ${BRAND_NAME} Password Reset`,
         headerTitle: '🔐 Reset your password',
         greeting: 'Password reset request',
         intro: 'Use the button below to reset your password securely.',
@@ -109,17 +108,21 @@ const DEFAULT_EMAIL_COPY = {
         warningTitle: 'Important:',
         warningBody: 'This link expires in 15 minutes. If you did not request this, you can ignore this email.',
         fallback: 'If the button does not work, copy and paste this link into your browser:',
-        footer: '© 2026 HomeInventory'
+        footer: `© 2026 ${BRAND_NAME}`
     },
     testEmail: {
-        subject: '🧪 HomeInventory Test Email',
+        subject: `🧪 ${BRAND_NAME} Test Email`,
         headerTitle: '🧪 Test Email',
         successTitle: 'Email system is working',
-        successBody: 'If you received this email, HomeInventory email delivery is configured correctly.',
+        successBody: `If you received this email, ${BRAND_NAME} email delivery is configured correctly.`,
         sentAtLabel: 'Sent at',
         senderLabel: 'Sender',
         serviceLabel: 'Service',
-        footer: '© 2026 HomeInventory'
+        footer: `© 2026 ${BRAND_NAME}`
+    },
+    adminEmail: {
+        sentBy: `This email was sent by ${BRAND_NAME}.`,
+        footer: `© 2026 ${BRAND_NAME} - ${SUPPORT_EMAIL}`
     }
 };
 
@@ -169,7 +172,12 @@ function hasTemplateTokens(template) {
 }
 
 function isSafeLiteralString(value) {
-    return typeof value === 'string' && String(value).trim() !== '' && !hasTemplateTokens(value);
+    if (typeof value !== 'string' || String(value).trim() === '') {
+        return false;
+    }
+
+    const tokens = extractTemplateTokens(value);
+    return Array.from(tokens).every((token) => SAFE_LITERAL_TEMPLATE_TOKENS.has(token));
 }
 
 function escapeHtml(value) {
@@ -402,11 +410,21 @@ function sanitizeEmailCopy(sectionName, copy, { defaultSection, baseSection, tar
         }
     }
 
+    if (sectionName === 'adminEmail') {
+        for (const key of ['sentBy', 'footer']) {
+            ensureLiteral(key);
+        }
+    }
+
     return sanitized;
 }
 
 export function getEmailLanguage() {
     return normalizeEmailLanguage(EMAIL_LANGUAGE_ENV);
+}
+
+export function getAdminEmailCopy(language = EMAIL_LANGUAGE_ENV) {
+    return getEmailCopy('adminEmail', language);
 }
 
 function getEmailCopy(sectionName, language = EMAIL_LANGUAGE_ENV) {
@@ -419,19 +437,50 @@ function getEmailCopy(sectionName, language = EMAIL_LANGUAGE_ENV) {
     const targetSection = targetLocale?.emails?.[sectionName] || {};
     const mergedSection = mergeEmailDictionaries(baseSection, targetSection);
 
-    return sanitizeEmailCopy(sectionName, mergedSection, {
+    return resolveBrandPlaceholders(sanitizeEmailCopy(sectionName, mergedSection, {
         defaultSection,
         baseSection,
         targetLocale
-    });
+    }));
 }
 
 function fillTemplate(template, variables = {}) {
     let result = String(template || '');
-    for (const [key, value] of Object.entries(variables)) {
+    const resolvedVariables = {
+        brandName: BRAND_NAME,
+        supportEmail: SUPPORT_EMAIL,
+        siteHost: (() => {
+            try {
+                return new URL(PUBLIC_BASE_URL).hostname.replace(/^www\./, '');
+            } catch {
+                return 'localhost';
+            }
+        })(),
+        ...variables
+    };
+
+    for (const [key, value] of Object.entries(resolvedVariables)) {
         result = result.replaceAll(`{{${key}}}`, String(value ?? ''));
     }
     return result;
+}
+
+function resolveBrandPlaceholders(value) {
+    if (typeof value === 'string') {
+        return fillTemplate(value);
+    }
+
+    if (Array.isArray(value)) {
+        return value.map((entry) => resolveBrandPlaceholders(entry));
+    }
+
+    if (value && typeof value === 'object') {
+        return Object.fromEntries(
+            Object.entries(value).map(([key, entry]) => [key, resolveBrandPlaceholders(entry)])
+        );
+    }
+
+    return value;
 }
 
 /**
@@ -441,7 +490,7 @@ function fillTemplate(template, variables = {}) {
  * @param {string} options.subject - E-posta konusu
  * @param {string} options.html - HTML içerik
  * @param {string} [options.text] - Düz metin içerik (opsiyonel)
- * @param {string} [options.from] - Gönderen (varsayılan: HomeInventory Team)
+ * @param {string} [options.from] - Gönderen (varsayılan: marka destek adresi)
  * @returns {Promise<{success: boolean, data?: Object, error?: string}>}
  */
 export async function sendEmail({ to, subject, html, text, from = DEFAULT_FROM }) {

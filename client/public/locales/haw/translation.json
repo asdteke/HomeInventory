@@ -63,7 +63,10 @@
             "warranty_duration_months": "Mahina",
             "warranty_duration_years": "Makahiki",
             "warranty_calculation_help": "Inā waiho hakahaka ʻoe i ka lā hoʻomaka hōʻoia, e hoʻohana ʻia ka lā pila. Ke hoʻokomo ʻoe i ka lōʻihi, e helu ʻakomi ʻia ka lā pau o ka hōʻoia.",
-            "warranty_expiry_date": "Lā Pau ka Hōʻoia"
+            "warranty_expiry_date": "Lā Pau ka Hōʻoia",
+            "vault_hint_title": "Very sensitive record?",
+            "vault_hint_description": "For passports, deeds, identity details, access codes, and other records that should stay out of the standard inventory flow, keep them in Personal Vault instead.",
+            "vault_hint_action": "Open Personal Vault"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" hoʻohui wikiwiki - hiki iā ʻoe ke hoʻoponopono ma hope",
@@ -74,7 +77,8 @@
             "not_found": "⚠ ʻAʻole i loaʻa ka huahana ma nā waihona. Hiki iā ʻoe ke ʻimi ma Google.",
             "search_fail": "⚠ Haʻalele ka huli",
             "name_required": "Pono ka inoa ʻikamu",
-            "location_add_error": "ʻAʻole hiki ke hoʻohui i kahi"
+            "location_add_error": "ʻAʻole hiki ke hoʻohui i kahi",
+            "photo_too_large": "Photos can be at most {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -100,14 +104,14 @@
         "refresh": "Hoʻohou",
         "close": "Pani",
         "logout": "Puka",
-        "copyright": "© {{makahiki}} HomeInventory - Ua mālama ʻia nā kuleana āpau ma ka liʻiliʻi loa o ka {__>>HI_SEP} ma lalo o {__>>HI_S} ka helu haʻahaʻa, ka helu, a me ka hōʻailona.",
+        "copyright": "© {{makahiki}} {{brandName}} - Ua mālama ʻia nā kuleana āpau ma ka liʻiliʻi loa o ka {__>>HI_SEP} ma lalo o {__>>HI_S} ka helu haʻahaʻa, ka helu, a me ka hōʻailona.",
         "copy": "Kopi",
         "download": "Hoʻoiho"
     },
     "auth": {
         "login": {
             "title": "E mālama pono i kāu waihona home a pau",
-            "subtitle": "Welina mai i ka HomeInventory",
+            "subtitle": "Welina mai i ka {{brandName}}",
             "welcome": "inoa mea hoʻohana a leka uila",
             "username_or_email": "ʻōlelo huna",
             "password": "Poina i ka ʻōlelo huna?",
@@ -120,13 +124,25 @@
             "register_link": "Kākau inoa",
             "support_contact": "No nā pilikia komo:",
             "terms_title": "📋 Nā Manaʻo o ka hoʻohana a me ka hōʻole",
-            "terms_beta": "Manaʻo BETA: Aia ʻo HomeInventory i ka manawa hoʻāʻo. ʻAʻole hāʻawi ʻia kahi hōʻoia e pili ana i ka hoʻomau a palekana paha o kāu ʻikepili.",
+            "terms_beta": "Manaʻo BETA: Aia ʻo {{brandName}} i ka manawa hoʻāʻo. ʻAʻole hāʻawi ʻia kahi hōʻoia e pili ana i ka hoʻomau a palekana paha o kāu ʻikepili.",
             "terms_disclaimer": "Hōʻole: Ma ka hoʻohana ʻana i kēia palapala noi, ʻae ʻoe ʻaʻole hiki iā ʻoe ke koi i ka uku no ka nalowale ʻana o ka ʻikepili, nā pilikia komo, a i ʻole nā ​​​​hana ʻenehana ʻē aʻe.",
             "terms_backup": "Hoʻihoʻi ʻikepili: Manaʻo mākou e kākoʻo mau i kāu ʻike koʻikoʻi.",
-            "terms_accept": "Ma ke komo ʻana, ua manaʻo ʻia ua ʻae ʻoe i kēia mau ʻōlelo."
+            "terms_accept": "Ma ke komo ʻana, ua manaʻo ʻia ua ʻae ʻoe i kēia mau ʻōlelo.",
+            "two_factor": {
+                "title": "Two-Factor Authentication",
+                "subtitle": "Enter the 6-digit code from your authenticator app",
+                "backup_subtitle": "Enter one of your backup codes",
+                "code_label": "Verification Code",
+                "backup_code_label": "Backup Code",
+                "remember_device": "Remember this device for 30 days",
+                "verify": "Verify",
+                "back": "Back",
+                "use_backup": "Use backup code",
+                "use_totp": "Use authenticator"
+            }
         },
         "register": {
-            "title": "Welina mai i ka HomeInventory",
+            "title": "Welina mai i ka {{brandName}}",
             "subtitle": "E hana i moʻokāki hou a i ʻole e hui pū me kahi hale e kū nei",
             "create_house": "E hana i ka Hale Hou",
             "join_house": "Hui Hale",
@@ -237,7 +253,8 @@
         "admin_panel": "Admin Panel <<<__HI_SEP <__>>_ Logout",
         "logout": "Welina mai, <1>{{name}}</1>! 👋",
         "menu": "Ka nānā 'ana o kāu waihona waiwai",
-        "personal_vault": "Waihona Pilikino"
+        "personal_vault": "Waihona Pilikino",
+        "borrow_requests": "Nā Noi Hōʻaiʻē"
     },
     "dashboard": {
         "welcome": "Huli wikiwiki...",
@@ -279,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory i kēia manawa i ka hoʻāʻo ʻana a me ka hana leʻaleʻa. ʻAʻole hāʻawi ʻia kahi hōʻoia no ka hoʻomau ʻana i ka ʻikepili a palekana paha. E ʻoluʻolu e mālama i nā ʻikepili koʻikoʻi.",
+        "text": "{{brandName}} i kēia manawa i ka hoʻāʻo ʻana a me ka hana leʻaleʻa. ʻAʻole hāʻawi ʻia kahi hōʻoia no ka hoʻomau ʻana i ka ʻikepili a palekana paha. E ʻoluʻolu e mālama i nā ʻikepili koʻikoʻi.",
         "contact": "Hoʻokaʻaʻike:"
     },
     "footer": {
-        "rights": "© {{makahiki}} HomeInventory - Ua mālama ʻia nā kuleana āpau",
+        "rights": "© {{makahiki}} {{brandName}} - Ua mālama ʻia nā kuleana āpau",
         "contact": "Hoʻokaʻaʻike:"
     },
     "settings": {
@@ -325,7 +342,8 @@
             "member_kicked": "Member removed from the house",
             "member_kick_error": "Could not remove member from the house",
             "recovery_key_regenerated": "Recovery key regenerated",
-            "recovery_key_error": "Could not regenerate recovery key"
+            "recovery_key_error": "Could not regenerate recovery key",
+            "account_delete_error": "The account could not be deleted"
         },
         "user_profile": {
             "edit_username": "Change username"
@@ -392,13 +410,20 @@
             "export_json": "Export as JSON",
             "upload_backup": "Upload Backup",
             "uploading": "Uploading...",
-            "import_json": "Import from JSON"
+            "import_json": "Import from JSON",
+            "export_sensitive_title": "Exported backups contain plaintext data",
+            "export_sensitive_notice": "This backup includes decrypted household data. Store it securely after download, encrypt it if possible, and avoid sharing it over insecure channels.",
+            "export_sensitive_confirm": "This backup will include decrypted household data in plaintext. Do you confirm that you will store it securely?"
         },
         "about": {
             "title": "📱 About Application",
             "version": "Version",
             "brand": "Brand",
-            "feedback": "✉️ Send Feedback"
+            "feedback": "✉️ Send Feedback",
+            "legal_title": "Legal Documents",
+            "legal_description": "You can reopen the terms and privacy texts from here even after accepting them.",
+            "terms_link": "Terms of Service",
+            "privacy_link": "Privacy Policy"
         },
         "modals": {
             "password": {
@@ -441,6 +466,69 @@
             "title": "My Pending Join Requests",
             "waiting_since": "Waiting since: {{date, datetime}}",
             "pending_badge": "Pending"
+        },
+        "two_factor": {
+            "title": "Two-Factor Authentication",
+            "description": "Add an extra layer of security to your account with TOTP-based 2FA",
+            "active": "Active",
+            "enable": "Enable 2FA",
+            "disable": "Disable 2FA",
+            "disable_desc": "Remove two-factor authentication from your account",
+            "disable_title": "Disable Two-Factor Authentication",
+            "disable_confirm": "Disable 2FA",
+            "disable_error": "Failed to disable 2FA",
+            "disabled_success": "Two-factor authentication has been disabled",
+            "password_label": "Password",
+            "password_placeholder": "Enter your password",
+            "method_totp": "Authenticator",
+            "method_backup": "Backup Code",
+            "method_recovery": "Recovery Key",
+            "totp_code_label": "Authenticator Code",
+            "backup_code_label": "Backup Code",
+            "recovery_key_label": "Recovery Key",
+            "cancel": "Cancel",
+            "setup_title": "Set Up 2FA",
+            "setup_error": "Failed to start 2FA setup",
+            "step_1": "Step 1: Scan QR Code",
+            "step_2": "Step 2: Verify Code",
+            "step_3": "Step 3: Save Backup Codes",
+            "scan_instruction": "Scan this QR code with your authenticator app (Google Authenticator, Authy, or any TOTP app)",
+            "manual_entry": "Can't scan? Enter this key manually:",
+            "copy_secret": "Copy secret",
+            "next": "Next",
+            "verify_instruction": "Enter the 6-digit code shown in your authenticator app to verify setup",
+            "verify_error": "Verification failed",
+            "code_label": "6-Digit Code",
+            "back": "Back",
+            "activate": "Activate 2FA",
+            "backup_warning_title": "Save These Backup Codes!",
+            "backup_warning_text": "If you lose access to your authenticator app, you can use these codes to log in. Each code can only be used once. Store them in a safe place.",
+            "download_codes": "Download Backup Codes",
+            "backup_acknowledge": "I have saved my backup codes in a safe place",
+            "done": "Done",
+            "regenerate_codes": "Regenerate Backup Codes",
+            "regenerate_codes_desc": "Generate new backup codes (old ones will be invalidated)",
+            "regenerate": "Regenerate",
+            "codes_regenerated": "Backup codes have been regenerated",
+            "codes_error": "Failed to regenerate backup codes",
+            "close_codes": "Close",
+            "revoke_devices": "Revoke Trusted Devices",
+            "revoke_devices_desc": "Remove all remembered devices, requiring 2FA on next login",
+            "devices_revoked": "{{count}} trusted device(s) removed",
+            "devices_error": "Failed to revoke devices"
+        },
+        "danger_zone": {
+            "title": "Account",
+            "delete_title": "Delete account",
+            "delete_description": "If you want, you can permanently remove the personal data and uploaded files tied to this account.",
+            "delete_warning": "This action cannot be undone.",
+            "delete_action": "Delete account",
+            "modal_title": "Delete account",
+            "modal_warning_title": "This action is irreversible",
+            "modal_warning_body": "After confirmation, you will immediately lose access to the account and the deleted application data cannot be restored from the app.",
+            "password_label": "Confirm with your current password",
+            "confirm_delete": "Confirm deletion",
+            "deleting": "Deleting..."
         }
     },
     "inventory": {
@@ -455,7 +543,53 @@
         "empty_filter": "No items match your filters",
         "empty_msg": "No items added yet",
         "delete_confirm": "Are you sure you want to delete this item?",
-        "delete_error": "Delete error"
+        "delete_error": "Delete error",
+        "load_warning": {
+            "title": "ʻAno hoʻouka hapa",
+            "body": "Ke pane lohi nei kekahi ʻikepili kākoʻo i kēia manawa, no laila ua wehe ʻia ka ʻaoʻao me ka ʻole o ka metadata kānana piha. E hoʻāʻo hou mākou ke hōʻano hou ʻoe."
+        },
+        "borrow": {
+            "section_title": "Ka Nānā ʻana i ka Hōʻaiʻē",
+            "section_subtitle": "Ke kūlana a me ka mōʻaukala o kēia manawa no ka hōʻaiʻē",
+            "dialog_lend_title": "Hāʻawi i ka Mea",
+            "dialog_lend_subtitle": "E hana i kahi moʻolelo hōʻaiʻē hou no &quot;{{item}}&quot;",
+            "dialog_return_title": "Ua hoʻi mai ʻo Mark",
+            "dialog_return_subtitle": "E pani i ka moʻolelo hōʻaiʻē hana no &quot;{{item}}&quot;",
+            "member": "Lālā o ka Hale",
+            "external": "Kanaka o waho",
+            "borrower_member": "ʻO wai ka mea i loaʻa?",
+            "no_members": "ʻAʻohe lālā ʻē aʻe i hiki ke koho ʻia ma kēia hale. Hiki iā ʻoe ke hana i ka moʻolelo ma ke ʻano he kanaka o waho.",
+            "borrower_name": "Inoa kanaka",
+            "borrower_name_placeholder": "e.g. Hoalauna Alex",
+            "borrower_contact": "ʻIke pili",
+            "borrower_contact_placeholder": "Kelepona, leka uila, a i ʻole memo pōkole",
+            "due_date": "Lā hoʻihoʻi i manaʻo ʻia",
+            "note": "Mea Ho‘omaopopo:",
+            "note_placeholder": "e.g. Lent no ka hopena pule",
+            "submitting_lend": "Ke mālama nei...",
+            "lend": "Hāʻawi kālā",
+            "return_note": "Leka hoʻihoʻi",
+            "return_note_placeholder": "eg Hoʻihoʻi ʻia i ke kūlana maikaʻi",
+            "submitting_return": "Ke pani nei...",
+            "mark_returned": "Ua hoʻi mai ʻo Mark",
+            "current_borrower_label": "I kēia manawa me:",
+            "unknown": "ʻIke ʻole ʻia",
+            "overdue_badge": "Ua hala ka manawa",
+            "borrowed_badge": "Ua hōʻaiʻē ʻia",
+            "borrowed_to": "Me {{inoa}}",
+            "due_date_short": "Palena pau}}",
+            "actions_error": "ʻAʻole hiki ke hoʻopau ʻia ka hana hōʻaiʻē",
+            "borrowed_at": "Lent ma: {{date}}",
+            "due_date_label": "Hoʻihoʻi i manaʻo ʻia: {{date}}",
+            "note_label": "Nānā: {{note}}",
+            "return_note_label": "Palapala hoʻihoʻi: {{note}}",
+            "no_active": "ʻAʻole i hōʻaiʻē ʻia kēia mea i kēia manawa.",
+            "history_title": "Moʻolelo",
+            "history_active": "E wehe i ka moʻolelo no {{name}}",
+            "history_returned": "Moʻolelo pani no {{name}}",
+            "returned_at": "Hoʻihoʻi ʻia ma: {{date}}",
+            "no_history": "ʻAʻohe mōʻaukala hōʻaiʻē no kēia mea i kēia manawa."
+        }
     },
     "categories": {
         "title": "Categories",
@@ -553,7 +687,7 @@
             "free_badge": "Completely Free"
         },
         "features": {
-            "title": "Why <1>HomeInventory</1>?",
+            "title": "Why <1>{{brandName}}</1>?",
             "subtitle": "All features to simplify home management in one platform",
             "items": {
                 "categorize": {
@@ -591,7 +725,7 @@
             "desc": "The easy and secure platform to digitize your home inventory.",
             "links": "Quick Links",
             "contact": "Contact Us",
-            "copyright": "© {{year}} HomeInventory. All rights reserved."
+            "copyright": "© {{year}} {{brandName}}. All rights reserved."
         },
         "preview_privacy_notice": "Demo view: no real user data is displayed."
     },
@@ -719,10 +853,10 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Email Verification Required",
-            "headerTitle": "Welcome to HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Email Verification Required",
+            "headerTitle": "Welcome to {{brandName}}",
             "headerSubtitle": "Create a new account or join an existing house",
-            "greeting": "Welcome to HomeInventory",
+            "greeting": "Welcome to {{brandName}}",
             "intro": "Account created! Please verify your email address to login.",
             "verifyPrompt": "📧 Email Verification Required",
             "verifyButton": "✓ Verify My Account",
@@ -739,13 +873,13 @@
             ],
             "fallback": "The password reset link looks incomplete or broken.",
             "support": "Registration issues:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Welcome to HomeInventory",
-            "headerTitle": "Welcome to HomeInventory",
+            "subject": "Welcome to {{brandName}}",
+            "headerTitle": "Welcome to {{brandName}}",
             "headerSubtitle": "Create a new account or join an existing house",
-            "greeting": "Welcome to HomeInventory",
+            "greeting": "Welcome to {{brandName}}",
             "intro": "Welcome, ! 👋",
             "houseKeyLabel": "House Key",
             "houseKeyNote": "This is your house key, use it to invite others. Add family members to your house!",
@@ -757,7 +891,7 @@
                 "💡 You can be a member of multiple houses and switch between them. Each house maintains a separate inventory."
             ],
             "support": "Registration issues:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Join House",
@@ -766,7 +900,7 @@
             "bodyLine2": "Waiting for house owner approval"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "House Access",
             "bodyLine1Template": "Current pending request: {{house}} ({{status}})",
             "bodyLine2": "Your request for \"{{house}}\" is still waiting for a decision."
@@ -786,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "If an account exists, a password reset link valid for 15 minutes has been sent.",
             "fallback": "The password reset link looks incomplete or broken.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "This email was sent by {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -822,7 +960,7 @@
         "recovery_ready_title": "Mākaukau ke kī hoʻihoʻi",
         "recovery_ready_description": "Hōʻike ʻia kēia kī hoʻokahi wale nō manawa. E mālama iā ia ma kahi palekana.",
         "recovery_visible_once": "ʻAʻole e hōʻike hou ʻia kēia kī ma hope.",
-        "recovery_file_title": "HomeInventory Kī Hoʻihoʻi no ka Waihona Pilikino",
+        "recovery_file_title": "{{brandName}} Kī Hoʻihoʻi no ka Waihona Pilikino",
         "recovery_file_created_label": "Hana ʻia",
         "recovery_file_key_label": "Kī hoʻihoʻi",
         "recovery_file_warning": "Inā nalowale kēia kī a me kāu ʻōlelo huna waihona, ʻaʻole hiki ke hoʻihoʻi ʻia ka waihona.",
@@ -832,7 +970,6 @@
         "record_save_new": "Hoʻohui i ka Moʻolelo Waihona",
         "record_save_edit": "Mālama i nā hoʻololi",
         "barcode_privacy_hint": "ʻAʻole nānā ʻakomi ʻia nā barcode o ka waihona ma nā lawelawe waho; mālama wale ʻia ka kikokikona barcode ma ke ʻano he ʻikepili i hoʻopāpā ʻia.",
-        "media_note": "Ua pio me ka manaʻo nā kiʻi, ka scan barcode, a me ka huli huahana waho i kēia kahe waihona mua. Pono lākou i kahi pipeline media a me ka pilikino i hoʻopāpā ʻia.",
         "search_placeholder": "Huli i loko o ka waihona...",
         "all_categories": "Nā māhele a pau",
         "all_rooms": "Nā lumi a pau",
@@ -851,6 +988,109 @@
             "decrypt_failed": "ʻAʻole i hiki ke wehewehe ʻia ka ʻike o ka waihona.",
             "name_required": "Pono ka inoa mea no kahi moʻolelo waihona.",
             "options_failed": "ʻAʻole i hiki ke hoʻouka ʻia nā koho māhele a lumi."
+        },
+        "media_note": "Photo uploads, barcode scanning, and external product lookup are not supported yet. These features will be added once a dedicated encrypted media and privacy flow is ready."
+    },
+    "borrow_requests": {
+        "title": "Kikowaena Hōʻaiʻē",
+        "subtitle": "E hoʻokele i nā kahe noi a me nā hāʻawi palekana me nā mea hoʻohana {{brandName}} ʻē aʻe.",
+        "incoming_title": "Nā Noi e Hiki Mai Ana",
+        "incoming_subtitle": "Nā noi a me nā hāʻawi i hoʻouna ʻia iā ʻoe",
+        "outgoing_title": "Hoʻouna ʻia e aʻu",
+        "outgoing_subtitle": "Nā hāʻawi a me nā noi mea āu i hoʻomaka ai",
+        "empty_incoming": "ʻAʻohe noi hōʻaiʻē nāu i kēia manawa.",
+        "empty_outgoing": "ʻAʻole ʻoe i hoʻouna mai i kahi hāʻawi a noi paha.",
+        "stats": {
+            "incoming": "Ke kali nei e hiki mai ana",
+            "outgoing": "Ke kali nei e puka i waho",
+            "active": "Nā Hōʻaiʻē Hana"
+        },
+        "active": {
+            "title": "Nā Hōʻaiʻē Hana",
+            "subtitle": "Nā mea i loaʻa iā ʻoe i kēia manawa a i hāʻawi ʻia paha e ʻoe",
+            "empty": "ʻAʻohe hōʻaiʻē hana i kēia manawa.",
+            "borrowed_from": "Ua hōʻaiʻē ʻia mai {{name}}",
+            "lent_to": "Me {{name}} i kēia manawa"
+        },
+        "status": {
+            "pending": "Ke kali nei",
+            "accepted": "ʻAi ikaika",
+            "rejected": "Ua hōʻole ʻia",
+            "cancelled": "Ua hoʻōki ʻia",
+            "expired": "Pau ka manawa",
+            "returned": "Hoʻihoʻi ʻia"
+        },
+        "actions": {
+            "send_request": "Noi Mea",
+            "send_offer": "Hoʻouna i ka hāʻawi",
+            "accept": "ʻAe",
+            "reject": "Hōʻole",
+            "cancel": "Kāpae",
+            "fulfill_request": "Hoʻokō i ke noi"
+        },
+        "labels": {
+            "offer": "Hāʻawi",
+            "request": "Noi",
+            "unspecified_item": "Mea i kuhikuhi ʻole ʻia",
+            "counterparty": "ʻAoʻao kū&#39;ē: {{name}}",
+            "created_at": "I hana ʻia: {{date}}",
+            "due_date": "Hoʻihoʻi i manaʻo ʻia: {{date}}",
+            "waiting_delivery": "Ke kali nei paha ke noi no kahi moʻokāki kūpono ma mua o kona ʻike ʻia ʻana.",
+            "returned_on": "Hoʻihoʻi ʻia ma: {{date}}",
+            "borrow_started": "Ua hoʻomaka ʻia: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Hoʻouna i ka hāʻawi",
+            "offer_subtitle_item": "E hana i kahi hāʻawi palekana no ka mea hoʻohana no &quot;{{item}}&quot;",
+            "offer_subtitle_general": "E koho i kahi mea mai kāu waihona a hoʻouna i kahi hāʻawi palekana",
+            "item_label": "Mea",
+            "item_placeholder": "E koho i kahi mea",
+            "target_label": "Inoa mea hoʻohana a leka uila paha",
+            "target_placeholder": "e.g. alex a i ʻole alex@example.com",
+            "target_help": "ʻAʻole hōʻike ka ʻōnaehana inā loaʻa kēia moʻokāki. Inā kūlike, ʻike ʻia ke noi ma ka pahu leka o ka mea loaʻa.",
+            "offer_note_placeholder": "eg Hiki iā ʻoe ke mālama a hiki i ka hopena pule inā makemake ʻoe",
+            "offer_submitting": "Ke hoʻouna nei...",
+            "request_title": "Noi Mea",
+            "request_subtitle": "E hana i kahi noi laulā me ka ʻole o ka nānā ʻana i ka waihona o kekahi kanaka ʻē aʻe",
+            "requested_item_label": "He aha kāu mea e pono ai?",
+            "requested_item_placeholder": "e.g. Drill, tripod, noho hoʻomoana",
+            "request_note_placeholder": "e.g. pono iaʻu no 2 mau lā wale nō",
+            "request_submitting": "Ke hoʻouna nei...",
+            "fulfill_title": "Hoʻokō i ke noi",
+            "fulfill_subtitle": "E koho i kahi mea mai kāu waihona no &quot;{{item}}&quot;",
+            "fulfill_target": "E hāʻawi ʻia aku kēia mea iā {{name}}.",
+            "no_available_items": "ʻAʻohe mea kūpono e hāʻawi aku i loko o kou hale hana i kēia manawa.",
+            "fulfill_submitting": "Ke mālama nei...",
+            "return_title": "Ua hoʻi mai ʻo Mark",
+            "return_subtitle": "E pani i ka hōʻaiʻē hana no &quot;{{item}}&quot;",
+            "return_target": "Ua hōʻike ʻia i kēia manawa me {{name}}."
+        },
+        "messages": {
+            "load_error": "ʻAʻole hiki ke hoʻouka ʻia ke kikowaena hōʻaiʻē",
+            "action_error": "ʻAʻole hiki ke hoʻopau ʻia ka hana"
+        },
+        "preview": {
+            "title": "ʻAno nānā mua",
+            "body": "ʻAʻole hiki ke kiʻi ʻia ka ʻaoʻao hope o kēia ʻaoʻao i ka hoʻāʻo kūloko i kēia manawa. Hiki nō iā ʻoe ke nānā mua i ka hoʻonohonoho a me ke kaʻina hana; e hoʻā mākou i ka ʻaoʻao kikowaena ma hope o kou ʻae ʻana."
         }
+    },
+    "legal": {
+        "privacy_policy_title": "Privacy Policy",
+        "terms_of_service_title": "Terms of Service",
+        "privacy_policy_content": "PRIVACY NOTICE\n\nData controller: {{brandName}} ({{siteHost}}). Contact: {{supportEmail}}.\n\n1. WHAT WE PROCESS\n- Account data: username, email address, password hash, session cookies, trusted-device data, and security logs.\n- Service data: houses, rooms, categories, items, uploaded media, borrow requests, and personal vault records that you create.\n- Technical data: IP address, browser/session identifiers, and language preference data needed for localization and account security.\n\n2. WHY WE PROCESS IT\nWe process personal data to create and operate your account, authenticate you, secure sessions and two-factor authentication, provide inventory, backup, and vault features, respond to support requests, and satisfy legal or security obligations.\n\n3. LEGAL BASIS\nWhere applicable, processing is based on contract performance, legal obligations, and our legitimate interest in service and account security. If a future feature relies on optional cookies or optional third-party processing, consent must be requested separately for that purpose.\n\n4. SHARING AND RETENTION\nWe do not sell personal data. Data is stored on hosting and email infrastructure that is necessary to operate the service, and may be disclosed to authorities only when legally required. Account data is retained while your account is active. When you delete your account from Settings, your account data, personal vault content, uploaded media, and application records owned by your account are deleted from the application without undue delay, except information that must be retained for legal claims, statutory duties, or security obligations.\n\n5. YOUR RIGHTS\nDepending on the applicable law, you may request access, correction, deletion, restriction, objection, or a copy of your personal data. You can use the in-app account deletion flow or contact {{supportEmail}} for privacy requests.\n\n6. IMPORTANT NOTE\nThis notice is provided for transparency. It is separate from any optional marketing, analytics, or non-essential cookie consent, which must be requested separately when required.",
+        "terms_of_service_content": "TERMS OF SERVICE\n\nBy using {{brandName}}, you agree to use the service lawfully and only for data you are authorized to upload, store, or share. You are responsible for the legality, accuracy, and ownership of the content you place in the service. Keep your password, recovery materials, and backups secure. We may suspend or remove accounts that abuse the service, violate these terms, or create a security or legal risk. The service is provided on an \"as is\" and \"as available\" basis to the extent permitted by law. Keep your own backups of important information. Deleting your account from Settings permanently removes application data and uploaded media owned by your account and cannot be undone.",
+        "register_consent": "I accept the <1>Terms of Service</1> and acknowledge that I have read the <2>Privacy Notice</2>.",
+        "consent_title": "Review legal documents",
+        "consent_subtitle": "Please confirm the current terms before continuing.",
+        "consent_notice": "We need a recorded acknowledgment for the current Terms of Service and Privacy Notice before you can continue using the application.",
+        "consent_checkbox": "I accept the Terms of Service and confirm that I have read the Privacy Notice.",
+        "consent_submit": "Continue",
+        "consent_submitting": "Saving...",
+        "consent_required": "You need to confirm the Terms of Service and Privacy Notice before continuing."
+    },
+    "cookies": {
+        "banner_text": "We use only essential cookies required for login, session security, trusted-device protection, and language preference. Non-essential analytics or marketing cookies are not enabled by default.",
+        "accept": "Understood",
+        "learn_more": "Learn More"
     }
 }

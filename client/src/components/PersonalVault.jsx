@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import {
     CalendarDays,
+    ImagePlus,
     KeyRound,
     Lock,
     LockOpen,
@@ -17,6 +18,7 @@ import {
 } from 'lucide-react';
 import { copyTextToClipboard } from '../utils/clipboard';
 import { useVault } from '../context/VaultContext';
+import { MAX_PHOTO_UPLOAD_MB, isPhotoUploadTooLarge } from '../utils/mediaLimits';
 import { validateVaultPassphrase } from '../utils/personalVaultCrypto';
 
 const CURRENCY_OPTIONS = [
@@ -32,6 +34,12 @@ const CURRENCY_OPTIONS = [
     { code: 'AED', label: 'AED (د.إ)' }
 ];
 const CUSTOM_CURRENCY_OPTION = '__OTHER__';
+const VAULT_PHOTO_MAX_BYTES = 2 * 1024 * 1024;
+const VAULT_PHOTO_PREVIEW_MAX_BYTES = 256 * 1024;
+const VAULT_PHOTO_MAX_DIMENSION = 1600;
+const VAULT_PHOTO_PREVIEW_MAX_DIMENSION = 480;
+const VAULT_PHOTO_DIMENSION_FACTORS = [1, 0.92, 0.84, 0.76];
+const VAULT_PHOTO_QUALITY_STEPS = [0.88, 0.82, 0.76, 0.7, 0.64];
 const WARRANTY_DURATION_OPTIONS = [
     { code: 'months', labelKey: 'items.form.warranty_duration_months' },
     { code: 'years', labelKey: 'items.form.warranty_duration_years' }
@@ -177,7 +185,7 @@ function formatLocalDateTime(dateValue, locale) {
     }).format(parsed);
 }
 
-function normalizeVaultItemPayload(payload, fallbackId, createdAt, updatedAt) {
+function normalizeVaultItemPayload(payload, fallbackId, createdAt, updatedAt, hasPhoto = false) {
     const quantity = Number.parseInt(payload?.quantity, 10);
     const category = payload?.category || null;
     const room = payload?.room || null;
@@ -202,6 +210,7 @@ function normalizeVaultItemPayload(payload, fallbackId, createdAt, updatedAt) {
         warranty_duration_value: String(payload?.warranty_duration_value || '').trim(),
         warranty_duration_unit: String(payload?.warranty_duration_unit || '').trim(),
         warranty_expiry_date: String(payload?.warranty_expiry_date || '').trim(),
+        has_photo: Boolean(hasPhoto),
         created_at: createdAt,
         updated_at: updatedAt
     };
@@ -289,6 +298,184 @@ function downloadRecoveryKeyFile(recoveryKey, labels) {
     URL.revokeObjectURL(url);
 }
 
+function isTurkishLanguage(language) {
+    return String(language || '').toLowerCase().startsWith('tr');
+}
+
+function getVaultPhotoCopy(language) {
+    if (isTurkishLanguage(language)) {
+        return {
+            attachAction: 'Fotoğraf ekle',
+            replaceAction: 'Fotoğrafı değiştir',
+            emptyState: 'Seçtiğiniz fotoğraf tarayıcıda yeniden işlenir, meta verileri temizlenir ve yüklenmeden önce şifrelenir.',
+            hint: 'Fotoğraflar tarayıcı içinde küçültülür, EXIF/meta verileri atılır ve sadece şifreli hali sunucuya gönderilir.',
+            privacyNote: 'Barkod arama ve dış servislerden veri çekme gizlilik için kapalı kalır.',
+            processing: 'Fotoğraf güvenli yükleme için hazırlanıyor...',
+            pendingRemoval: 'Kaydettiğinizde mevcut fotoğraf kaldırılacak.',
+            viewerHint: 'Tam boy görünüm vault içindeki şifreli asıl fotoğraftan açılır.',
+            viewerLoading: 'Fotoğraf çözülüyor...',
+            viewerFailed: 'Fotoğraf tam boy açılamadı.',
+            openFullAction: 'Tam boy görüntüle',
+            unsupported: 'Lütfen desteklenen bir görsel dosyası seçin.',
+            sourceTooLarge: `Kaynak fotoğraf en fazla ${MAX_PHOTO_UPLOAD_MB} MB olabilir.`,
+            prepareFailed: 'Fotoğraf güvenli biçimde hazırlanamadı.',
+            tooLarge: 'Fotoğraf güvenli boyut sınırına sığmadı. Daha küçük veya daha sade bir görsel deneyin.'
+        };
+    }
+
+    return {
+        attachAction: 'Add photo',
+        replaceAction: 'Replace photo',
+        emptyState: 'Selected photos are reprocessed in your browser, stripped of metadata, and encrypted before upload.',
+        hint: 'Photos are resized in the browser, EXIF/metadata is removed, and only encrypted data is sent to the server.',
+        privacyNote: 'Barcode lookup and external data fetching remain disabled for privacy.',
+        processing: 'Preparing photo for secure upload...',
+        pendingRemoval: 'The current photo will be removed when you save.',
+        viewerHint: 'The full-size view is opened from the encrypted original stored in the vault.',
+        viewerLoading: 'Decrypting photo...',
+        viewerFailed: 'The full-size photo could not be opened.',
+        openFullAction: 'View full size',
+        unsupported: 'Please choose a supported image file.',
+        sourceTooLarge: `Source photos can be at most ${MAX_PHOTO_UPLOAD_MB} MB.`,
+        prepareFailed: 'The photo could not be prepared securely.',
+        tooLarge: 'The photo did not fit within the secure size limit. Try a smaller or simpler image.'
+    };
+}
+
+function revokeObjectUrl(url) {
+    if (url) {
+        URL.revokeObjectURL(url);
+    }
+}
+
+function revokeObjectUrlMap(urlMap = {}) {
+    Object.values(urlMap).forEach(revokeObjectUrl);
+}
+
+function getScaledDimensions(width, height, maxDimension) {
+    const longestEdge = Math.max(width, height);
+    if (!Number.isFinite(longestEdge) || longestEdge <= 0) {
+        throw new Error('Gecersiz fotograf boyutu');
+    }
+
+    if (longestEdge <= maxDimension) {
+        return { width, height };
+    }
+
+    const ratio = maxDimension / longestEdge;
+    return {
+        width: Math.max(1, Math.round(width * ratio)),
+        height: Math.max(1, Math.round(height * ratio))
+    };
+}
+
+function loadImageElementFromFile(file) {
+    return new Promise((resolve, reject) => {
+        const objectUrl = URL.createObjectURL(file);
+        const image = new Image();
+        image.decoding = 'async';
+        image.onload = () => {
+            URL.revokeObjectURL(objectUrl);
+            resolve(image);
+        };
+        image.onerror = () => {
+            URL.revokeObjectURL(objectUrl);
+            reject(new Error('Fotograf okunamadi'));
+        };
+        image.src = objectUrl;
+    });
+}
+
+function canvasToBlob(canvas, type, quality) {
+    return new Promise((resolve, reject) => {
+        canvas.toBlob((blob) => {
+            if (!blob) {
+                reject(new Error('Fotograf olusturulamadi'));
+                return;
+            }
+
+            resolve(blob);
+        }, type, quality);
+    });
+}
+
+async function renderImageVariant(image, maxDimension, quality) {
+    const intrinsicWidth = image.naturalWidth || image.width;
+    const intrinsicHeight = image.naturalHeight || image.height;
+    const { width, height } = getScaledDimensions(intrinsicWidth, intrinsicHeight, maxDimension);
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+
+    const context = canvas.getContext('2d');
+    if (!context) {
+        throw new Error('Canvas kullanilamiyor');
+    }
+
+    context.imageSmoothingEnabled = true;
+    context.imageSmoothingQuality = 'high';
+    context.clearRect(0, 0, width, height);
+    context.drawImage(image, 0, 0, width, height);
+
+    return canvasToBlob(canvas, 'image/webp', quality);
+}
+
+async function encodeImageWithinLimit(image, { maxDimension, maxBytes, tooLargeMessage }) {
+    let lastBlob = null;
+
+    for (const dimensionFactor of VAULT_PHOTO_DIMENSION_FACTORS) {
+        const effectiveDimension = Math.max(160, Math.round(maxDimension * dimensionFactor));
+        for (const quality of VAULT_PHOTO_QUALITY_STEPS) {
+            const blob = await renderImageVariant(image, effectiveDimension, quality);
+            lastBlob = blob;
+            if (blob.size <= maxBytes) {
+                return blob;
+            }
+        }
+    }
+
+    if (lastBlob && lastBlob.size <= maxBytes) {
+        return lastBlob;
+    }
+
+    throw new Error(tooLargeMessage);
+}
+
+async function createVaultPhotoDraft(file, language) {
+    const photoCopy = getVaultPhotoCopy(language);
+    if (!file || !String(file.type || '').startsWith('image/')) {
+        throw new Error(photoCopy.unsupported);
+    }
+
+    if (isPhotoUploadTooLarge(file)) {
+        throw new Error(photoCopy.sourceTooLarge);
+    }
+
+    const image = await loadImageElementFromFile(file);
+    const [fullBlob, previewBlob] = await Promise.all([
+        encodeImageWithinLimit(image, {
+            maxDimension: VAULT_PHOTO_MAX_DIMENSION,
+            maxBytes: VAULT_PHOTO_MAX_BYTES,
+            tooLargeMessage: photoCopy.tooLarge
+        }),
+        encodeImageWithinLimit(image, {
+            maxDimension: VAULT_PHOTO_PREVIEW_MAX_DIMENSION,
+            maxBytes: VAULT_PHOTO_PREVIEW_MAX_BYTES,
+            tooLargeMessage: photoCopy.tooLarge
+        })
+    ]);
+
+    return {
+        fullBytes: new Uint8Array(await fullBlob.arrayBuffer()),
+        previewBytes: new Uint8Array(await previewBlob.arrayBuffer()),
+        previewUrl: URL.createObjectURL(previewBlob)
+    };
+}
+
+function createImageUrlFromBytes(bytes, type = 'image/webp') {
+    return URL.createObjectURL(new Blob([bytes], { type }));
+}
+
 export default function PersonalVault() {
     const { t, i18n } = useTranslation();
     const {
@@ -301,10 +488,18 @@ export default function PersonalVault() {
         unlockWithRecoveryKey,
         encryptPayload,
         decryptPayload,
+        encryptBytes,
+        decryptBytes,
         lockVault,
         refreshVaultStatus
     } = useVault();
+    const fileInputRef = useRef(null);
+    const itemPhotoPreviewUrlsRef = useRef({});
+    const photoDraftRef = useRef(null);
+    const photoViewerUrlRef = useRef(null);
+    const photoViewerRequestRef = useRef(0);
     const [items, setItems] = useState([]);
+    const [itemPhotoPreviewUrls, setItemPhotoPreviewUrls] = useState({});
     const [categories, setCategories] = useState([]);
     const [rooms, setRooms] = useState([]);
     const [itemsLoading, setItemsLoading] = useState(false);
@@ -319,6 +514,16 @@ export default function PersonalVault() {
     const [editingId, setEditingId] = useState(null);
     const [formState, setFormState] = useState(createInitialVaultFormData);
     const [showInvoiceSection, setShowInvoiceSection] = useState(false);
+    const [photoDraft, setPhotoDraft] = useState(null);
+    const [photoMarkedForRemoval, setPhotoMarkedForRemoval] = useState(false);
+    const [photoProcessing, setPhotoProcessing] = useState(false);
+    const [photoViewer, setPhotoViewer] = useState({
+        open: false,
+        title: '',
+        url: '',
+        loading: false,
+        error: ''
+    });
     const [setupPassphrase, setSetupPassphrase] = useState('');
     const [setupPassphraseConfirm, setSetupPassphraseConfirm] = useState('');
     const [setupError, setSetupError] = useState('');
@@ -326,6 +531,121 @@ export default function PersonalVault() {
     const [unlockMode, setUnlockMode] = useState('passphrase');
     const [unlockSecret, setUnlockSecret] = useState('');
     const [unlockError, setUnlockError] = useState('');
+    const photoCopy = useMemo(() => getVaultPhotoCopy(i18n.language), [i18n.language]);
+    const editingItem = useMemo(
+        () => items.find((item) => item.id === editingId) || null,
+        [items, editingId]
+    );
+    const hasStoredFormPhoto = Boolean(editingItem?.has_photo) && !photoMarkedForRemoval;
+    const activeFormPhotoPreviewUrl = photoDraft?.previewUrl || (
+        !photoMarkedForRemoval && editingItem ? itemPhotoPreviewUrls[editingItem.id] || '' : ''
+    );
+    const hasActiveFormPhoto = Boolean(activeFormPhotoPreviewUrl);
+    const canRemoveFormPhoto = Boolean(photoDraft) || Boolean(editingItem?.has_photo);
+
+    const replaceItemPhotoPreviewUrls = (nextUrls) => {
+        const nextValues = new Set(Object.values(nextUrls));
+        Object.values(itemPhotoPreviewUrlsRef.current).forEach((url) => {
+            if (url && !nextValues.has(url)) {
+                revokeObjectUrl(url);
+            }
+        });
+        itemPhotoPreviewUrlsRef.current = nextUrls;
+        setItemPhotoPreviewUrls(nextUrls);
+    };
+
+    const replacePhotoDraft = (nextDraft) => {
+        const previousUrl = photoDraftRef.current?.previewUrl;
+        if (previousUrl && previousUrl !== nextDraft?.previewUrl) {
+            revokeObjectUrl(previousUrl);
+        }
+
+        photoDraftRef.current = nextDraft;
+        setPhotoDraft(nextDraft);
+    };
+
+    const replacePhotoViewer = (nextViewer) => {
+        const previousUrl = photoViewerUrlRef.current;
+        const nextUrl = nextViewer?.url || null;
+        if (previousUrl && previousUrl !== nextUrl) {
+            revokeObjectUrl(previousUrl);
+        }
+
+        photoViewerUrlRef.current = nextUrl;
+        setPhotoViewer(nextViewer);
+    };
+
+    const closePhotoViewer = () => {
+        photoViewerRequestRef.current += 1;
+        replacePhotoViewer({
+            open: false,
+            title: '',
+            url: '',
+            loading: false,
+            error: ''
+        });
+    };
+
+    const openStoredPhotoViewer = async (item) => {
+        if (!item?.id) {
+            return;
+        }
+
+        const requestId = photoViewerRequestRef.current + 1;
+        photoViewerRequestRef.current = requestId;
+        replacePhotoViewer({
+            open: true,
+            title: item.name || t('items.form.photo'),
+            url: '',
+            loading: true,
+            error: ''
+        });
+
+        try {
+            const response = await axios.get(`/api/vault/items/${item.id}/photo`);
+            const fullBytes = await decryptBytes(response.data.encrypted_photo_payload);
+
+            if (photoViewerRequestRef.current !== requestId) {
+                return;
+            }
+
+            replacePhotoViewer({
+                open: true,
+                title: item.name || t('items.form.photo'),
+                url: createImageUrlFromBytes(fullBytes),
+                loading: false,
+                error: ''
+            });
+        } catch (error) {
+            console.error(`Vault full photo fetch error for item ${item.id}:`, error);
+            if (photoViewerRequestRef.current !== requestId) {
+                return;
+            }
+
+            replacePhotoViewer({
+                open: true,
+                title: item.name || t('items.form.photo'),
+                url: '',
+                loading: false,
+                error: error.response?.data?.error || photoCopy.viewerFailed
+            });
+        }
+    };
+
+    const openDraftPhotoViewer = () => {
+        if (!photoDraft) {
+            return;
+        }
+
+        photoViewerRequestRef.current += 1;
+        replacePhotoViewer({
+            open: true,
+            title: formState.name || t('items.form.photo'),
+            url: createImageUrlFromBytes(photoDraft.fullBytes),
+            loading: false,
+            error: ''
+        });
+    };
 
     const filteredItems = useMemo(() => {
         const needle = search.trim().toLowerCase();
@@ -388,6 +708,7 @@ export default function PersonalVault() {
     const fetchItems = async () => {
         if (!vaultUnlocked) {
             setItems([]);
+            replaceItemPhotoPreviewUrls({});
             return;
         }
 
@@ -398,13 +719,35 @@ export default function PersonalVault() {
             const decryptedItems = await Promise.all(
                 (response.data.items || []).map(async (item) => {
                     const payload = await decryptPayload(item.encrypted_payload);
-                    return normalizeVaultItemPayload(payload, item.id, item.created_at, item.updated_at);
+                    return normalizeVaultItemPayload(
+                        payload,
+                        item.id,
+                        item.created_at,
+                        item.updated_at,
+                        item.has_photo
+                    );
                 })
             );
+            const photoPreviewEntries = await Promise.all(
+                decryptedItems
+                    .filter((item) => item.has_photo)
+                    .map(async (item) => {
+                        try {
+                            const previewResponse = await axios.get(`/api/vault/items/${item.id}/photo-preview`);
+                            const previewBytes = await decryptBytes(previewResponse.data.encrypted_photo_preview_payload);
+                            return [item.id, createImageUrlFromBytes(previewBytes)];
+                        } catch (error) {
+                            console.error(`Vault photo preview fetch error for item ${item.id}:`, error);
+                            return null;
+                        }
+                    })
+            );
             setItems(decryptedItems);
+            replaceItemPhotoPreviewUrls(Object.fromEntries(photoPreviewEntries.filter(Boolean)));
         } catch (error) {
             console.error('Vault items fetch error:', error);
             setItems([]);
+            replaceItemPhotoPreviewUrls({});
             setItemsError(error.response?.data?.error || t('vault.messages.decrypt_failed'));
         } finally {
             setItemsLoading(false);
@@ -415,6 +758,10 @@ export default function PersonalVault() {
         if (!vaultUnlocked) {
             setItems([]);
             setItemsError('');
+            replaceItemPhotoPreviewUrls({});
+            replacePhotoDraft(null);
+            setPhotoMarkedForRemoval(false);
+            closePhotoViewer();
             return;
         }
 
@@ -424,10 +771,39 @@ export default function PersonalVault() {
         ]);
     }, [vaultUnlocked]);
 
+    useEffect(() => () => {
+        revokeObjectUrlMap(itemPhotoPreviewUrlsRef.current);
+        revokeObjectUrl(photoDraftRef.current?.previewUrl);
+        revokeObjectUrl(photoViewerUrlRef.current);
+    }, []);
+
+    useEffect(() => {
+        if (!photoViewer.open) {
+            return undefined;
+        }
+
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                closePhotoViewer();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [photoViewer.open]);
+
     const resetForm = () => {
         setEditingId(null);
         setFormState(createInitialVaultFormData());
         setShowInvoiceSection(false);
+        setPhotoMarkedForRemoval(false);
+        replacePhotoDraft(null);
+        closePhotoViewer();
+        if (fileInputRef.current) {
+            fileInputRef.current.value = '';
+        }
     };
 
     const handleSetup = async (event) => {
@@ -536,8 +912,47 @@ export default function PersonalVault() {
         }));
     };
 
+    const handlePhotoFileChange = async (event) => {
+        const [file] = Array.from(event.target.files || []);
+        event.target.value = '';
+
+        if (!file) {
+            return;
+        }
+
+        setPhotoProcessing(true);
+        setItemsError('');
+        try {
+            const nextDraft = await createVaultPhotoDraft(file, i18n.language);
+            replacePhotoDraft(nextDraft);
+            setPhotoMarkedForRemoval(false);
+        } catch (error) {
+            console.error('Vault photo prepare error:', error);
+            setItemsError(error.message || photoCopy.prepareFailed);
+        } finally {
+            setPhotoProcessing(false);
+        }
+    };
+
+    const handleRemovePhoto = () => {
+        if (photoDraft) {
+            replacePhotoDraft(null);
+            setPhotoMarkedForRemoval(false);
+        } else if (editingItem?.has_photo) {
+            setPhotoMarkedForRemoval((current) => !current);
+        }
+
+        if (fileInputRef.current) {
+            fileInputRef.current.value = '';
+        }
+    };
+
     const handleSubmitItem = async (event) => {
         event.preventDefault();
+        if (photoProcessing) {
+            return;
+        }
+
         const payload = buildVaultItemPayload(formState, categories, rooms);
 
         if (!payload.name) {
@@ -549,14 +964,21 @@ export default function PersonalVault() {
         setItemsError('');
         try {
             const encryptedPayload = await encryptPayload(payload);
+            const requestBody = {
+                encrypted_payload: encryptedPayload
+            };
+
+            if (photoDraft) {
+                requestBody.encrypted_photo_payload = await encryptBytes(photoDraft.fullBytes);
+                requestBody.encrypted_photo_preview_payload = await encryptBytes(photoDraft.previewBytes);
+            } else if (editingId && photoMarkedForRemoval) {
+                requestBody.remove_photo = true;
+            }
+
             if (editingId) {
-                await axios.put(`/api/vault/items/${editingId}`, {
-                    encrypted_payload: encryptedPayload
-                });
+                await axios.put(`/api/vault/items/${editingId}`, requestBody);
             } else {
-                await axios.post('/api/vault/items', {
-                    encrypted_payload: encryptedPayload
-                });
+                await axios.post('/api/vault/items', requestBody);
             }
 
             await refreshVaultStatus();
@@ -572,6 +994,11 @@ export default function PersonalVault() {
 
     const handleEdit = (item) => {
         setEditingId(item.id);
+        setPhotoMarkedForRemoval(false);
+        replacePhotoDraft(null);
+        if (fileInputRef.current) {
+            fileInputRef.current.value = '';
+        }
         setFormState({
             name: item.name,
             description: item.description || '',
@@ -642,6 +1069,8 @@ export default function PersonalVault() {
         formState.warranty_duration_unit
     );
     const displayedWarrantyExpiryDate = calculatedWarrantyExpiryDate || formState.warranty_expiry_date;
+    const photoActionLabel = (hasActiveFormPhoto || hasStoredFormPhoto) ? photoCopy.replaceAction : photoCopy.attachAction;
+    const showPendingPhotoRemoval = Boolean(editingItem?.has_photo) && photoMarkedForRemoval && !photoDraft;
 
     return (
         <div className="space-y-6 animate-fade-in">
@@ -943,6 +1372,93 @@ export default function PersonalVault() {
                                 />
                             </div>
 
+                            <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-4 dark:border-slate-700 dark:bg-slate-900/70">
+                                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                                    <div className="min-w-0">
+                                        <p className="text-sm font-medium text-slate-900 dark:text-white">{t('items.form.photo')}</p>
+                                        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{photoCopy.hint}</p>
+                                    </div>
+                                    <div className="flex flex-wrap gap-2">
+                                        <input
+                                            ref={fileInputRef}
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={handlePhotoFileChange}
+                                            className="hidden"
+                                        />
+                                        <button
+                                            type="button"
+                                            onClick={() => fileInputRef.current?.click()}
+                                            disabled={photoProcessing || savingItem}
+                                            className="btn-secondary inline-flex items-center gap-2"
+                                        >
+                                            <ImagePlus className="h-4 w-4" />
+                                            {photoActionLabel}
+                                        </button>
+                                        {canRemoveFormPhoto && (
+                                            <button
+                                                type="button"
+                                                onClick={handleRemovePhoto}
+                                                disabled={photoProcessing || savingItem}
+                                            className="inline-flex items-center gap-2 rounded-xl border border-red-200 px-4 py-2 text-sm font-medium text-red-600 transition-colors hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-60 dark:border-red-500/30 dark:text-red-300 dark:hover:bg-red-500/10"
+                                        >
+                                            <Trash2 className="h-4 w-4" />
+                                            {showPendingPhotoRemoval ? t('common.cancel') : t('common.delete')}
+                                        </button>
+                                    )}
+                                    </div>
+                                </div>
+
+                                {photoProcessing && (
+                                    <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">{photoCopy.processing}</p>
+                                )}
+
+                                {showPendingPhotoRemoval && (
+                                    <p className="mt-3 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-200">
+                                        {photoCopy.pendingRemoval}
+                                    </p>
+                                )}
+
+                                {hasActiveFormPhoto ? (
+                                    <div className="mt-4 space-y-3">
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                if (photoDraft) {
+                                                    openDraftPhotoViewer();
+                                                } else if (editingItem?.has_photo && !photoMarkedForRemoval) {
+                                                    void openStoredPhotoViewer(editingItem);
+                                                }
+                                            }}
+                                            className="group block w-full overflow-hidden rounded-2xl border border-slate-200 bg-white text-left transition hover:border-slate-300 dark:border-slate-700 dark:bg-slate-950 dark:hover:border-slate-600"
+                                        >
+                                            <img
+                                                src={activeFormPhotoPreviewUrl}
+                                                alt={formState.name || t('items.form.photo')}
+                                                className="h-56 w-full object-cover transition duration-200 group-hover:scale-[1.01]"
+                                            />
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                if (photoDraft) {
+                                                    openDraftPhotoViewer();
+                                                } else if (editingItem?.has_photo && !photoMarkedForRemoval) {
+                                                    void openStoredPhotoViewer(editingItem);
+                                                }
+                                            }}
+                                            className="text-xs font-medium text-slate-500 underline-offset-4 transition hover:text-slate-700 hover:underline dark:text-slate-400 dark:hover:text-slate-200"
+                                        >
+                                            {photoCopy.openFullAction}
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <div className="mt-4 rounded-2xl border border-dashed border-slate-300 bg-white px-4 py-6 text-sm text-slate-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-400">
+                                        {photoCopy.emptyState}
+                                    </div>
+                                )}
+                            </div>
+
                             <div className="rounded-2xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900">
                                 <button
                                     type="button"
@@ -1088,12 +1604,13 @@ export default function PersonalVault() {
                         </div>
 
                         <div className="rounded-2xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-800 dark:border-blue-500/30 dark:bg-blue-500/10 dark:text-blue-200">
-                            {t('vault.media_note')}
+                            <p>{photoCopy.hint}</p>
+                            <p className="mt-1">{photoCopy.privacyNote}</p>
                         </div>
 
-                        <button type="submit" disabled={savingItem} className="btn-primary inline-flex items-center gap-2">
+                        <button type="submit" disabled={savingItem || photoProcessing} className="btn-primary inline-flex items-center gap-2">
                             <Save className="h-4 w-4" />
-                            {savingItem
+                            {savingItem || photoProcessing
                                 ? t('items.form.submitting')
                                 : editingId
                                     ? t('vault.record_save_edit')
@@ -1195,6 +1712,30 @@ export default function PersonalVault() {
                                                     )}
                                                 </div>
 
+                                                {itemPhotoPreviewUrls[item.id] && (
+                                                    <div className="mt-4 space-y-3">
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => { void openStoredPhotoViewer(item); }}
+                                                            className="group block w-full overflow-hidden rounded-2xl border border-slate-200 bg-white text-left transition hover:border-slate-300 dark:border-slate-700 dark:bg-slate-950 dark:hover:border-slate-600"
+                                                        >
+                                                            <img
+                                                                src={itemPhotoPreviewUrls[item.id]}
+                                                                alt={item.name || t('items.form.photo')}
+                                                                className="h-52 w-full object-cover transition duration-200 group-hover:scale-[1.01]"
+                                                                loading="lazy"
+                                                            />
+                                                        </button>
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => { void openStoredPhotoViewer(item); }}
+                                                            className="text-xs font-medium text-slate-500 underline-offset-4 transition hover:text-slate-700 hover:underline dark:text-slate-400 dark:hover:text-slate-200"
+                                                        >
+                                                            {photoCopy.openFullAction}
+                                                        </button>
+                                                    </div>
+                                                )}
+
                                                 {item.description && (
                                                     <p className="mt-3 whitespace-pre-wrap text-sm text-slate-600 dark:text-slate-300">
                                                         {item.description}
@@ -1251,6 +1792,48 @@ export default function PersonalVault() {
                                 ))}
                             </div>
                         )}
+                    </div>
+                </div>
+            )}
+
+            {photoViewer.open && (
+                <div
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 px-4 py-6 backdrop-blur-sm"
+                    onClick={closePhotoViewer}
+                >
+                    <div
+                        className="w-full max-w-6xl rounded-3xl border border-slate-200 bg-white p-4 shadow-2xl dark:border-slate-700 dark:bg-slate-900"
+                        onClick={(event) => event.stopPropagation()}
+                    >
+                        <div className="mb-4 flex items-start justify-between gap-4">
+                            <div className="min-w-0">
+                                <h2 className="truncate text-lg font-semibold text-slate-900 dark:text-white">
+                                    {photoViewer.title || t('items.form.photo')}
+                                </h2>
+                                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{photoCopy.viewerHint}</p>
+                            </div>
+                            <button type="button" onClick={closePhotoViewer} className="btn-secondary inline-flex items-center gap-2">
+                                <XCircle className="h-4 w-4" />
+                                {t('common.close')}
+                            </button>
+                        </div>
+
+                        <div className="flex min-h-[320px] max-h-[78vh] items-center justify-center overflow-auto rounded-2xl bg-slate-100 p-3 dark:bg-slate-950">
+                            {photoViewer.loading ? (
+                                <div className="flex flex-col items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+                                    <div className="spinner"></div>
+                                    <p>{photoCopy.viewerLoading}</p>
+                                </div>
+                            ) : photoViewer.error ? (
+                                <p className="text-sm text-red-600 dark:text-red-300">{photoViewer.error}</p>
+                            ) : (
+                                <img
+                                    src={photoViewer.url}
+                                    alt={photoViewer.title || t('items.form.photo')}
+                                    className="max-h-[72vh] w-auto max-w-full object-contain"
+                                />
+                            )}
+                        </div>
                     </div>
                 </div>
             )}

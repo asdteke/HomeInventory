@@ -1,0 +1,82 @@
+name: Feature request
+description: Have an awesome idea? We'd love to hear it!
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 💡 Got a brilliant idea? 
+        
+        We're so glad you want to help HomeInventory grow! Whether it's a small tweak or a massive new module, we'd love to hear your thoughts. Clear problem statements really help us understand *why* this feature would be awesome. Let's build something great together. 🚀
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 🤔 The Problem or Opportunity
+      description: What workflow gap, user need, or pain point does this solve? Tell us about the struggle you're facing.
+      placeholder: "I always run into trouble when I try to..., and it takes me too much time to..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: ✨ Proposed Solution
+      description: How would you like this to work? Describe your dream implementation!
+      placeholder: "It would be amazing if there was a button that just..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 🔄 Alternatives Considered
+      description: How are you currently getting around this problem? (Any temporary workarounds?)
+      placeholder: "Right now, I have to open a spreadsheet and manually..."
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: 🏷️ Relevant Area
+      description: Which part of the app does this idea belong to?
+      options:
+        - Items / Inventory Management
+        - Borrowing System
+        - Authentication / Account Settings
+        - Security / Privacy
+        - Admin Dashboard
+        - Localization / Translations
+        - Mobile / Responsive Design
+        - PWA / Offline Mode
+        - Backup / Restore
+        - Docker / Self-Hosting
+        - API / Third-Party Integrations
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: ❤️ Expected Impact
+      description: Who will benefit from this change, and how will it improve their day?
+      placeholder: "This would save a ton of time for users who frequently..."
+
+  - type: textarea
+    id: context
+    attributes:
+      label: 📎 Additional Context
+      description: Got mockups, screenshots, sketches, or links to similar features? Drop them here!
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: ✅ Final Checklist
+      description: Before you hit submit, just confirm a few things!
+      options:
+        - label: I searched the existing issues to make sure this hasn't been requested already.
+          required: true
+        - label: I made sure to explain the *problem* I'm facing, not just the solution I want.
+          required: true

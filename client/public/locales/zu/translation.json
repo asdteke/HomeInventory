@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Iyunithi Yesikhathi Sokusebenza Kwesevisi Yokuqinisekiswa",
             "warranty_duration_months": "Izinyanga",
             "warranty_duration_years": "Iminyaka",
-            "warranty_calculation_help": "Uma ushiya usuku lokuqala lwesiqinisekiso lingenalutho, usuku lwe-invoyisi luyasetshenziswa. Uma ufaka isikhathi, usuku lokuphela kwesiqinisekiso lubalwa ngokuzenzakalelayo."
+            "warranty_calculation_help": "Uma ushiya usuku lokuqala lwesiqinisekiso lingenalutho, usuku lwe-invoyisi luyasetshenziswa. Uma ufaka isikhathi, usuku lokuphela kwesiqinisekiso lubalwa ngokuzenzakalelayo.",
+            "vault_hint_title": "Irekhodi elibucayi kakhulu?",
+            "vault_hint_description": "Ngamapasipoti, amadokhumenti, imininingwane yobuwena, amakhodi okufinyelela, nezinye izinqolobane okumele zihlale zingekho ohlelweni olujwayelekile lokugeleza kwezinqolobane, zigcine ku-Personal Vault esikhundleni salokho.",
+            "vault_hint_action": "Vula i-Personal Vault"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" engezwe ngokushesha - ungahlela kamuva",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Umkhiqizo awutholakali kumadathabheyisi. Ungasesha ku-Google.",
             "search_fail": "⚠ Ukusesha kwehlulekile",
             "name_required": "Igama lentambo liyadingeka",
-            "location_add_error": "Ukwengeza indawo kwehlulekile"
+            "location_add_error": "Ukwengeza indawo kwehlulekile",
+            "photo_too_large": "Izithombe zingaba nesisindo esiphakeme kakhulu esingu-{{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,16 +103,16 @@
         "refresh": "Buyekeza",
         "close": "Vala",
         "logout": "Phuma",
-        "copyright": "© {{year}} I-HomeInventory - Wonke amalungelo agodliwe",
+        "copyright": "© {{year}} I-{{brandName}} - Wonke amalungelo agodliwe",
         "other": "Okunye",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "Kopisha",
+        "download": "Landa"
     },
     "auth": {
         "login": {
             "title": "Ngena",
             "subtitle": "Phatha yonke impahla yasekhaya yakho ngokuhlakanipha",
-            "welcome": "Siyakwamukela ku-HomeInventory",
+            "welcome": "Siyakwamukela ku-{{brandName}}",
             "username_or_email": "Igama lomsebenzisi noma I-imeyili",
             "password": "Iphasiwedi",
             "forgot_password": "Ukhohlwe iphasiwedi?",
@@ -120,13 +124,25 @@
             "register_link": "Bhalisa",
             "support_contact": "Ezinkingeni zokungena:",
             "terms_title": "📋 Imigomo Yokusebenzisa kanye Nesaziso Sokungathathi Nxaxheba",
-            "terms_beta": "Uhlobo Lwe-BETA: I-HomeInventory okwamanje isesigabeni sokuhlola. Akukho siqinisekiso esinikezwa mayelana nokuhlala noma ukuphepha kwedatha yakho.",
+            "terms_beta": "Uhlobo Lwe-BETA: I-{{brandName}} okwamanje isesigabeni sokuhlola. Akukho siqinisekiso esinikezwa mayelana nokuhlala noma ukuphepha kwedatha yakho.",
             "terms_disclaimer": "Isaziso Sokungathathi Nxaxheba: Ngokusebenzisa lolu hlelo, uyavuma ukuthi awukwazi ukufuna noma yikuphi ukukhokhelwa ngenxa yokulahleka kwedatha okungenzeka, izinkinga zokufinyelela, noma eminye imiphumela yezobuchwepheshe.",
             "terms_backup": "Ukugcinwa Kwedatha: Siyoncoma kakhulu ukuthi ugcine ikhophi yolwazi lwakho olubalulekile njalo.",
-            "terms_accept": "Ngokungena, kubhekwa ukuthi uyavuma le migomo."
+            "terms_accept": "Ngokungena, kubhekwa ukuthi uyavuma le migomo.",
+            "two_factor": {
+                "title": "Ukuqinisekiswa Okunezindlela Ezinhlanu",
+                "subtitle": "Faka ikhodi enezinombolo ezi-6 evela kuhlelo lwakho lokuqinisekisa",
+                "backup_subtitle": "Faka enye yamakhodi akho okusekela",
+                "code_label": "Ikhodi Yokuqinisekisa",
+                "backup_code_label": "Ikhodi Yokusekela",
+                "remember_device": "Khumbula le divayisi izinsuku ezingama-30",
+                "verify": "Qinisekisa",
+                "back": "Buyela",
+                "use_backup": "Sebenzisa ikhodi yokusekela",
+                "use_totp": "Sebenzisa i-authenticator"
+            }
         },
         "register": {
-            "title": "Siyakwamukela ku-HomeInventory",
+            "title": "Siyakwamukela ku-{{brandName}}",
             "subtitle": "Dala i-akhawunti entsha noma ujoyine indlu ekhona",
             "create_house": "Dala Indlu Entsha",
             "join_house": "Joyina Indlu",
@@ -237,7 +253,8 @@
         "admin_panel": "Iphaneli YoMphathi",
         "logout": "Phuma",
         "menu": "Imenyu",
-        "personal_vault": "Ihhovisi Lokuqala"
+        "personal_vault": "Ihhovisi Lokuqala",
+        "borrow_requests": "Izicelo Zokubolekwa"
     },
     "dashboard": {
         "welcome": "Siyakwamukela, <1>{{name}}</1>! 👋",
@@ -278,12 +295,12 @@
         }
     },
     "beta_banner": {
-        "title": "BETA:",
-        "text": "I-HomeInventory okwamanje isesigabeni sokuhlola neshashalazi. Akukho siqinisekiso esinikeziwe sokungapheli kwedatha noma ukuphepha. Sicela ugcine amakhophi alondolozekayo nolwazi olubalulekile.",
+        "title": "BETA: I-akhawunti ayikwazanga ukususwa ••••••••{{suffix}} I-akhawunti Susa i-akhawunti Uma ufuna, ungakhipha ngok永久 idatha yomuntu siqu namafayela alayishiwe ahlobene nale akhawunti. Le nqubo ayikwazi ukubuyiselwa emuva. Susa i-akhawunti",
+        "text": "I-{{brandName}} okwamanje isesigabeni sokuhlola neshashalazi. Akukho siqinisekiso esinikeziwe sokungapheli kwedatha noma ukuphepha. Sicela ugcine amakhophi alondolozekayo nolwazi olubalulekile.",
         "contact": "Xhumana Nathi:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Wonke amalungelo agodliwe",
+        "rights": "© {{year}} {{brandName}} - Wonke amalungelo agodliwe",
         "contact": "Xhumana Nathi:"
     },
     "settings": {
@@ -325,7 +342,8 @@
             "member_kicked": "Ilungu lisusiwe endlini",
             "member_kick_error": "Akukwazanga ukususa ilungu endlini",
             "recovery_key_regenerated": "Ukhiye wokubuyisela uphinde wenziwa",
-            "recovery_key_error": "Akukwazanga ukuphinda wenze ukhiye wokubuyisela"
+            "recovery_key_error": "Akukwazanga ukuphinda wenze ukhiye wokubuyisela",
+            "account_delete_error": "The account could not be deleted"
         },
         "user_profile": {
             "edit_username": "Shintsha igama lomsebenzisi"
@@ -392,13 +410,20 @@
             "export_json": "Thumela ngaphandle njenge-JSON",
             "upload_backup": "Layisha Ikhophi Eselondoloziwe",
             "uploading": "Kuyalayishwa...",
-            "import_json": "Ngenisa kusuka ku-JSON"
+            "import_json": "Ngenisa kusuka ku-JSON",
+            "export_sensitive_title": "Ama-backup akhishwe aqukethe idatha ecacile",
+            "export_sensitive_notice": "Leli backup liqukethe idatha yasendlini evuliwe. Ligcine ngokuphepha ngemuva kokulanda, lifihle uma kungenzeka, futhi ugweme ukwabelana ngalo ngezindlela ezingaphephile.",
+            "export_sensitive_confirm": "Leli backup lizofaka idatha yasendlini evuliwe ngokucacile. Uyavuma ukuthi uzozigcina ngokuphepha?"
         },
         "about": {
             "title": "📱 Mayelana nohlelo lokusebenza",
             "version": "inguqulo",
             "brand": "Uphawu",
-            "feedback": "✉️ Thumela Impendulo"
+            "feedback": "✉️ Thumela Impendulo",
+            "legal_title": "Amadokhumenti Ezomthetho",
+            "legal_description": "Ungavula kabusha imigomo nemibhalo yobumfihlo kusuka lapha ngisho nangemva kokuba uyamukele.",
+            "terms_link": "Imigomo Yesevisi",
+            "privacy_link": "Inqubomgomo Yobumfihlo"
         },
         "modals": {
             "password": {
@@ -441,6 +466,69 @@
             "title": "Izicelo zami Ezilindile Zokuhlanganyela",
             "waiting_since": "Kulindile kusukela: {{date, datetime}}",
             "pending_badge": "Elindile"
+        },
+        "two_factor": {
+            "title": "Ukuqinisekiswa kwe-Factor ezimbili",
+            "description": "Faka ungqimba olwengeziwe lokuphepha ku-akhawunti yakho usebenzisa i-TOTP-based 2FA",
+            "active": "Iyasebenza",
+            "enable": "Vumela 2FA",
+            "disable": "Vala 2FA",
+            "disable_desc": "Susa ukuqinisekiswa kwe-Factor ezimbili ku-akhawunti yakho",
+            "disable_title": "Khubaza Ukuqinisekiswa Okunezigaba ezimbili",
+            "disable_confirm": "Khubaza i-2FA",
+            "disable_error": "Kuhlulekile ukukhubaza i-2FA",
+            "disabled_success": "Ukuqinisekiswa okunezigaba ezimbili sekukhubazekile",
+            "password_label": "Iphasiwedi",
+            "password_placeholder": "Faka iphasiwedi yakho",
+            "method_totp": "Umqinisekisi",
+            "method_backup": "Ikhodi Yezipele",
+            "method_recovery": "Ukhiye Wokubuyisela",
+            "totp_code_label": "Ikhodi Yesiqinisekisi",
+            "backup_code_label": "Ikhodi Esekela",
+            "recovery_key_label": "Ukhiye Wokubuyisela",
+            "cancel": "Khansela",
+            "setup_title": "Setha 2FA",
+            "setup_error": "Akuqaliswanga ukusetha i-2FA",
+            "step_1": "Isinyathelo 1: Skena Ikhodi ye-QR",
+            "step_2": "Isinyathelo 2: Qinisekisa Ikhodi",
+            "step_3": "Isinyathelo 3: Londoloza Amakhodi E-Backup",
+            "scan_instruction": "Skena le khodi ye-QR usebenzisa uhlelo lwakho lokuziqinisekisa (Google Authenticator, Authy, noma iyiphi i-TOTP app)",
+            "manual_entry": "Awukwazi ukuskena? Faka le kiyi ngesandla:",
+            "copy_secret": "Kopisha imfihlo",
+            "next": "Okulandelayo",
+            "verify_instruction": "Faka ikhodi enezinombolo ezi-6 eboniswe kuhlelo lwakho lokuziqinisekisa ukuze uqinisekise ukusethwa",
+            "verify_error": "Ukuqinisekiswa kwehlulekile",
+            "code_label": "Ikhodi Enezibalo Eziyisithupha",
+            "back": "Buyela",
+            "activate": "Vula i-2FA",
+            "backup_warning_title": "Londoloza Lezi Khodi Zokulondoloza!",
+            "backup_warning_text": "Uma ulahlekelwa ukufinyelela kuhlelo lwakho lokuqinisekisa, ungasebenzisa lezi khodi ukungena. Ikhodi ngayinye ingasetshenziswa kanye kuphela. Zigcine endaweni ephephile.",
+            "download_codes": "Landa Amakhodi Okulondoloza",
+            "backup_acknowledge": "Ngilondoloze amakhodi ami okusekelayo endaweni ephephile",
+            "done": "Sekuphelile",
+            "regenerate_codes": "Phinda Uvuselele Amakhodi Wokubuyisela",
+            "regenerate_codes_desc": "Dala amakhodi amasha okuphindisela (amadala azobe engasebenzi)",
+            "regenerate": "Phinda uvuselele",
+            "codes_regenerated": "Amakhodi wokubuyisela asethungelwe kabusha",
+            "codes_error": "Yehlulekile ukuphinda uvuselele amakhodi wokubuyisela",
+            "close_codes": "Vala",
+            "revoke_devices": "Khansela Amadivayisi Athembele",
+            "revoke_devices_desc": "Susa wonke amadivayisi akhunjuliwe, kudingeka i-2FA ekungeni okulandelayo",
+            "devices_revoked": "{{count}} idivayisi ethembekile isuswe",
+            "devices_error": "Akuzenzekanga ukukhipha amadivayisi"
+        },
+        "danger_zone": {
+            "title": "Account",
+            "delete_title": "Delete account",
+            "delete_description": "If you want, you can permanently remove the personal data and uploaded files tied to this account.",
+            "delete_warning": "This action cannot be undone.",
+            "delete_action": "Delete account",
+            "modal_title": "Susa i-akhawunti",
+            "modal_warning_title": "Lesi senzo asibuyiseki",
+            "modal_warning_body": "Ngemva kokuqinisekisa, uzolahlekelwa ngokushesha ukufinyelela kwi-akhawunti futhi idatha yesicelo esisusiwe ayinakubuyiselwa kusuka kuhlelo.",
+            "password_label": "Qinisekisa ngephasiwedi yakho yamanje",
+            "confirm_delete": "Qinisekisa ukususa",
+            "deleting": "Kususwa..."
         }
     },
     "inventory": {
@@ -455,7 +543,53 @@
         "empty_filter": "Azikho izinto ezihambelana nezihlungi zakho",
         "empty_msg": "Azikho izinto ezifakiwe okwamanje",
         "delete_confirm": "Uqinisekile ukuthi ufuna ukususa le nto?",
-        "delete_error": "Iphutha lokususa"
+        "delete_error": "Iphutha lokususa",
+        "load_warning": {
+            "title": "Imodi yokulayisha ngokwengxenye",
+            "body": "Eminye imininingwane esekelayo isabela kancane manje, ngakho ikhasi lavuleka ngaphandle kwemininingwane ephelele yokuhlunga. Sizozama futhi uma uyivuselela."
+        },
+        "borrow": {
+            "section_title": "Ukulandela Ukubolekwa",
+            "section_subtitle": "Isimo semalimboleko samanje nomlando",
+            "dialog_lend_title": "Nika Into",
+            "dialog_lend_subtitle": "Dala irekhodi elisha lokubolekwa kwe \"{{item}}\"",
+            "dialog_return_title": "Chaza Ukubuyisiwe",
+            "dialog_return_subtitle": "Vala irekhodi lesikweletu esisebenzayo le \"{{item}}\"",
+            "member": "Ilungu lasekhaya",
+            "external": "Umuntu wangaphandle",
+            "borrower_member": "Ubani owamukela?",
+            "no_members": "Akekho omunye ilungu ongakhethwa kule ndlu. Ungadala irekhodi njengomuntu wangaphandle esikhundleni salokho.",
+            "borrower_name": "Igama lomuntu",
+            "borrower_name_placeholder": "isb. Umakhelwane uAlex",
+            "borrower_contact": "Ulwazi lokuxhumana",
+            "borrower_contact_placeholder": "Ucingo, i-imeyili, noma inothi elifushane",
+            "due_date": "Usuku oluqondiswe ukubuyiselwa",
+            "note": "Inothi",
+            "note_placeholder": "isb. Boleka ngeSonto",
+            "submitting_lend": "Ulondoloza...",
+            "lend": "Boleka",
+            "return_note": "Inothi lokubuyiselwa",
+            "return_note_placeholder": "isb. Ibuyiswe isesimweni esihle",
+            "submitting_return": "Ukuvala...",
+            "mark_returned": "UMak wabuya",
+            "current_borrower_label": "Njengamanje no:",
+            "unknown": "Akaziwa",
+            "overdue_badge": "Sekwephuze",
+            "borrowed_badge": "Ebolekiwe",
+            "borrowed_to": "No {{name}}",
+            "due_date_short": "Okufanele: {{date}}",
+            "actions_error": "Izenzo zokuboleka azikwazanga ukuqedwa",
+            "borrowed_at": "Kubolekiwe ngo: {{date}}",
+            "due_date_label": "Okulindeleke ukubuyiselwa: {{date}}",
+            "note_label": "Qaphela: {{note}}",
+            "return_note_label": "Qaphela ukubuyiselwa: {{note}}",
+            "no_active": "Le nto okwamanje ayikabolekiwa.",
+            "history_title": "Umlando",
+            "history_active": "Vula irekhodi lika {{name}}",
+            "history_returned": "Ibhalansi evaliwe ye-{{name}}",
+            "returned_at": "Ibuyiselwe ngo: {{date}}",
+            "no_history": "Akukho umlando wokubolekwa kwalo mkhiqizo okwamanje."
+        }
     },
     "categories": {
         "title": "Izigaba",
@@ -553,7 +687,7 @@
             "free_badge": "Mahhala Ngempela"
         },
         "features": {
-            "title": "Kungani <1>HomeInventory</1>?",
+            "title": "Kungani <1>{{brandName}}</1>?",
             "subtitle": "Zonke izici zokwenza ukuphatha ikhaya kube lula endaweni eyodwa",
             "items": {
                 "categorize": {
@@ -591,7 +725,7 @@
             "desc": "Ipulatifomu elula nevikelekile yokuguqula izinto zakho zekhaya zibe zenombolo.",
             "links": "Izixhumanisi Ezisheshayo",
             "contact": "Xhumana Nathi",
-            "copyright": "© {{year}} HomeInventory. Wonke amalungelo agodliwe."
+            "copyright": "© {{year}} {{brandName}}. Wonke amalungelo agodliwe."
         },
         "preview_privacy_notice": "Umbono wedeshiba: akukho idatha yomsebenzisi yangempela eboniswa."
     },
@@ -719,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Ukuqinisekisa I-imeyili Kuyadingeka",
-            "headerTitle": "Siyakwamukela ku-HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Ukuqinisekisa I-imeyili Kuyadingeka",
+            "headerTitle": "Siyakwamukela ku-{{brandName}}",
             "headerSubtitle": "Dala i-akhawunti entsha noma ujoyine indlu ekhona",
-            "greeting": "Siyakwamukela ku-HomeInventory",
+            "greeting": "Siyakwamukela ku-{{brandName}}",
             "intro": "I-akhawunti idaliwe! Sicela uqinisekise ikheli lakho le-imeyili ukuze ungene.",
             "verifyPrompt": "📧 Ukuqinisekisa I-imeyili Kuyadingeka",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Qinisekisa I-Akhawunti Yami",
             "warningTitle": "⚠️",
             "warningBody": "Hlola ifolda ye-spam/junk uma i-imeyili ingafiki.",
             "houseKeyLabel": "Ukhiye Wekhaya",
@@ -739,13 +873,13 @@
             ],
             "fallback": "Isixhumanisi sokusetha kabusha iphasiwedi sibonakala singaphelele noma siphukile.",
             "support": "Izinkinga zokubhalisa:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Siyakwamukela ku-HomeInventory",
-            "headerTitle": "Siyakwamukela ku-HomeInventory",
+            "subject": "Siyakwamukela ku-{{brandName}}",
+            "headerTitle": "Siyakwamukela ku-{{brandName}}",
             "headerSubtitle": "Dala i-akhawunti entsha noma ujoyine indlu ekhona",
-            "greeting": "Siyakwamukela ku-HomeInventory",
+            "greeting": "Siyakwamukela ku-{{brandName}}",
             "intro": "Siyakwamukela, ! 👋",
             "houseKeyLabel": "Ukhiye Wekhaya",
             "houseKeyNote": "Lona ukhiye wakho wasekhaya, uwusebenzise ukumema abanye. Faka amalungu omndeni endlini yakho!",
@@ -757,7 +891,7 @@
                 "💡 Ungaba yilungu lezindlu eziningi futhi ushintshe phakathi kwazo. Indlu ngayinye igcina impahla yayo ngendlela ehlukile."
             ],
             "support": "Izinkinga zokubhalisa:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Joyina Indlu",
@@ -766,7 +900,7 @@
             "bodyLine2": "Silindele ukuvunywa umnikazi wekhaya"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Ukufinyelela Endlini",
             "bodyLine1Template": "Isicelo esilindile samanje: {{house}} ({{status}})",
             "bodyLine2": "Isicelo sakho se \"{{house}}\" sisalindile isinqumo."
@@ -786,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Uma i-akhawunti ikhona, isixhumanisi sokusetha kabusha iphasiwedi esivumelekile imizuzu engu-15 sithunyelwe.",
             "fallback": "Isixhumanisi sokusetha kabusha iphasiwedi sibonakala singaphelele noma siphukile.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "Le imeyili ithunyelwe ngu {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -828,7 +966,6 @@
         "record_save_new": "Engeza Irekhodi LeVault",
         "record_save_edit": "Londoloza Izinguquko",
         "barcode_privacy_hint": "Amabhakhodi eVault awabhekwa ezinsizeni zangaphandle ngokuzenzakalelayo; umbhalo webhakhodi ugcinwa kuphela njengedatha esefihlwe.",
-        "media_note": "Izithombe, ukuhlohla amabhakhodi, nokubheka imikhiqizo yangaphandle kuhlosiwe ukudismiss emgqeni wokuqala wevault. Zidinga isitokwe se-media esifihliwe kanye nezindlela zokuzimela zabucala.",
         "search_placeholder": "Sesha ngaphakathi kwe-vault...",
         "all_categories": "Zonke izigaba",
         "all_rooms": "Zonke izindawo zokulala",
@@ -851,6 +988,109 @@
         "recovery_file_title": "Ikhaya Lemfihlo Ukhiye Wokululama",
         "recovery_file_created_label": "Kudaliwe",
         "recovery_file_key_label": "Ukhiye Wokululama",
-        "recovery_file_warning": "Uma ulahle womabili lo khiye negama lokungena kwi-vault yakho, i-vault ayinakubuyiselwa."
+        "recovery_file_warning": "Uma ulahle womabili lo khiye negama lokungena kwi-vault yakho, i-vault ayinakubuyiselwa.",
+        "media_note": "Ukulayishwa kwezithombe, ukubheka amakhowudi ebha, nokusesha imikhiqizo yangaphandle akukasekelwa okwamanje. Lezi zici zizongezwa lapho sekulungele ukusebenzisa imidiya evikelekile kanye nomfutho wokuphepha."
+    },
+    "borrow_requests": {
+        "title": "Isikhungo Sokuboleka",
+        "subtitle": "Phatha izicelo eziphephile kanye nemijikelezo yezenzo nabanye abasebenzisi be-{{brandName}}.",
+        "incoming_title": "Izicelo Ezingenayo",
+        "incoming_subtitle": "Izicelo nezinikezelo ezithunyelwe kuwe",
+        "outgoing_title": "Ezithunyelwe Ngami",
+        "outgoing_subtitle": "Izipesheli nezicelo zezinto ozaqala ngazo",
+        "empty_incoming": "Asikho isicelo sokubolekwa okwamanje kuwe.",
+        "empty_outgoing": "Awukathumeli isipho noma isicelo okwamanje.",
+        "stats": {
+            "incoming": "Okulindelekile Okungena",
+            "outgoing": "Okulindelekile Okuphuma",
+            "active": "Izikweletu Eziphila"
+        },
+        "active": {
+            "title": "Izikweletu Eziphila",
+            "subtitle": "Izinto okwamanje ezinakho noma ozibolekile",
+            "empty": "Kusakhona okuthathwe okubolekiwe okwamanje.",
+            "borrowed_from": "Kubolekwe ku-{{name}}",
+            "lent_to": "Njengamanje kuse-{{name}}"
+        },
+        "status": {
+            "pending": "Kusalindile",
+            "accepted": "Okusebenza",
+            "rejected": "Kunqatshelwe",
+            "cancelled": "Khansela",
+            "expired": "Kuphelelwe isikhathi",
+            "returned": "Kubuyisiwe"
+        },
+        "actions": {
+            "send_request": "Sicela Into",
+            "send_offer": "Thumela Isiphakamiso",
+            "accept": "Yamukela",
+            "reject": "Nqaba",
+            "cancel": "Khansela",
+            "fulfill_request": "Gcwalisa Isicelo"
+        },
+        "labels": {
+            "offer": "Isiphakamiso",
+            "request": "Isicelo",
+            "unspecified_item": "Into engachazwanga",
+            "counterparty": "Umuntu oseceleni: {{name}}",
+            "created_at": "Kudaliwe: {{date}}",
+            "due_date": "Ukubuya okulindelekile: {{date}}",
+            "waiting_delivery": "Isicelo singase sisalindile i-akhawunti efanayo ngaphambi kokuba sivele.",
+            "returned_on": "Kubuyiswe ngo: {{date}}",
+            "borrow_started": "Kuqale: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Thumela Isiphakamiso",
+            "offer_subtitle_item": "Dala isiphakamiso somsebenzisi esiphephile se-\"{{item}}\"",
+            "offer_subtitle_general": "Khetha into kusukela esitokisini sakho bese uthumela isiphakamiso esiphephile",
+            "item_label": "Into",
+            "item_placeholder": "Khetha into",
+            "target_label": "Igama lomsebenzisi noma i-imeyili",
+            "target_placeholder": "isb. alex noma alex@example.com",
+            "target_help": "Uhlelo aludaluli ukuthi le akhawunti ikhona yini. Uma kuhambisana, isicelo sibonakala ebhokisini lokungenayo lomamukeli.",
+            "offer_note_placeholder": "isb. Ungayigcina kuze kube ngeSonto uma ufuna",
+            "offer_submitting": "Ukuthumela...",
+            "request_title": "Into Yeceli",
+            "request_subtitle": "Dala isicelo jikelele ngaphandle kokuphequlula impahla yomunye umuntu",
+            "requested_item_label": "Udinga ini?",
+            "requested_item_placeholder": "isb. Idrili, ithrepi, isihlalo sokukhempa",
+            "request_note_placeholder": "isb. Ngiyidinga kuphela izinsuku ezi-2",
+            "request_submitting": "Ukuthumela...",
+            "fulfill_title": "Gcwalisa Isicelo",
+            "fulfill_subtitle": "Khetha into esitokisini sakho ye-\"{{item}}\"",
+            "fulfill_target": "Le nto izobolekwa ku-{{name}}.",
+            "no_available_items": "Asikho isitembu esifanele ukunikelwa endlini yakho esebenzayo okwamanje.",
+            "fulfill_submitting": "Sigcina...",
+            "return_title": "Phawula Ukubuyiswe",
+            "return_subtitle": "Vala ukubolekwa okusebenzayo kwe-\"{{item}}\"",
+            "return_target": "Okwamanje kukhonjiswa ukuthi kuse-{{name}}."
+        },
+        "messages": {
+            "load_error": "Isikhungo sokubolekwa asikwazanga ukulayishwa",
+            "action_error": "Isenzo asikwazanga ukuqedwa"
+        },
+        "preview": {
+            "title": "Imodi yokubuka kuqala",
+            "body": "Ingxenye yangemuva yale ikhasi ayifinyeleleki ngesikhathi sokuhlola kwendawo okwamanje. Ungakwazi ukuqhubeka ubuke uhlaka nokugeleza kuqala; sizokwenza ukuthi ingxenye yesiphakeli isebenze ngemva kokuyivuma."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Inqubomgomo Yobumfihlo",
+        "terms_of_service_title": "Imigomo Yesevisi",
+        "privacy_policy_content": "Ubumfihlo bakho bubalulekile kithi. Lolu hlelo lokusebenza lugcina idatha oyilayishayo ngokuphepha ngokusebenzisa ukuvikeleka kwedatha ngezinga lenkambu. Asidayisi noma sabelani ngemininingwane yakho yomuntu siqu nabanye. Ngokusebenzisa le sevisi, uyavuma ukuqoqwa kwedatha edingekayo ukuphatha i-akhawunti nokusebenza kohlelo lokusebenza.",
+        "terms_of_service_content": "Ngokusebenzisa i-{{brandName}}, uyavuma le migomo. Isevisi inikezwa 'njengoba injalo' ngaphandle kwesiqinisekiso. Unezibopho ngemininingwane oyilayishayo futhi ukuqinisekisa ukuthi unamalungelo kuyo. Sigodla ilungelo lokumisa ama-akhawunti aphula izinqubomgomo noma abusise uhlelo.",
+        "register_consent": "Ngifunde, ngiyaqonda, futhi ngiyavuma ku-<1>Imibandela Yesevisi</1> kanye ne-<2>Inqubomgomo Yobumfihlo</2>.",
+        "consent_title": "Buka imibhalo yezomthetho",
+        "consent_subtitle": "Sicela uqinisekise imigomo yamanje ngaphambi kokuqhubeka.",
+        "consent_notice": "Sidinga ukuqoshwa kokwamukela Imigomo Yesevisi yamanje kanye Nesaziso Sobumfihlo ngaphambi kokuba uqhubeke nokusebenzisa uhlelo lokusebenza.",
+        "consent_checkbox": "Ngiyavuma Imigomo Yesevisi futhi ngiyakuqinisekisa ukuthi ngifunde Isaziso Sobumfihlo.",
+        "consent_submit": "Qhubeka",
+        "consent_submitting": "Ukulondoloza...",
+        "consent_required": "Udinga ukuqinisekisa Imigomo Yesevisi kanye Nesaziso Sobumfihlo ngaphambi kokuqhubeka."
+    },
+    "cookies": {
+        "banner_text": "Sisebenzisa amakuki abalulekile ukuze sigcine ungene futhi siphephe iseshini yakho. Ngokusebenzisa ngokuqhubekayo le sayithi, uyavuma kwezinqubomgomo zethu.",
+        "accept": "Ngiyavuma",
+        "learn_more": "Funda okwengeziwe"
     }
 }

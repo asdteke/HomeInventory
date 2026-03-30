@@ -230,10 +230,12 @@ export async function unlockPersonalVaultWithRecoveryKey(config, recoveryKey) {
     }, normalizeSecret(recoveryKey, 'Recovery key'));
 }
 
-export async function encryptPersonalVaultPayload(vaultKey, payload) {
+export async function encryptPersonalVaultBytes(vaultKey, bytes) {
     ensureCrypto();
     const iv = randomBytes(IV_BYTES);
-    const plaintext = TEXT_ENCODER.encode(JSON.stringify(payload));
+    const plaintext = bytes instanceof Uint8Array
+        ? bytes
+        : new Uint8Array(bytes);
     const ciphertext = await globalThis.crypto.subtle.encrypt(
         {
             name: 'AES-GCM',
@@ -251,7 +253,7 @@ export async function encryptPersonalVaultPayload(vaultKey, payload) {
     };
 }
 
-export async function decryptPersonalVaultPayload(vaultKey, envelope) {
+export async function decryptPersonalVaultBytes(vaultKey, envelope) {
     ensureCrypto();
     const plaintext = await globalThis.crypto.subtle.decrypt(
         {
@@ -262,6 +264,14 @@ export async function decryptPersonalVaultPayload(vaultKey, envelope) {
         base64UrlToBytes(envelope.ciphertext)
     );
 
-    return JSON.parse(TEXT_DECODER.decode(plaintext));
+    return new Uint8Array(plaintext);
 }
 
+export async function encryptPersonalVaultPayload(vaultKey, payload) {
+    return encryptPersonalVaultBytes(vaultKey, TEXT_ENCODER.encode(JSON.stringify(payload)));
+}
+
+export async function decryptPersonalVaultPayload(vaultKey, envelope) {
+    const plaintext = await decryptPersonalVaultBytes(vaultKey, envelope);
+    return JSON.parse(TEXT_DECODER.decode(plaintext));
+}

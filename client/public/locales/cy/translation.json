@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Uned Hyd Gwarant",
             "warranty_duration_months": "Mis",
             "warranty_duration_years": "Blynyddoedd",
-            "warranty_calculation_help": "Os byddwch yn gadael dyddiad dechrau'r warant yn wag, defnyddir dyddiad y filys. Pan fyddwch yn nodi'r hyd, caiff dyddiad diwedd y warant ei gyfrifo'n awtomatig."
+            "warranty_calculation_help": "Os byddwch yn gadael dyddiad dechrau'r warant yn wag, defnyddir dyddiad y filys. Pan fyddwch yn nodi'r hyd, caiff dyddiad diwedd y warant ei gyfrifo'n awtomatig.",
+            "vault_hint_title": "Cofnod hynod sensitif?",
+            "vault_hint_description": "Ar gyfer pasbortiau, cofnodion, manylion adnabod, codau mynediad, a chofnodion eraill y dylid eu cadw y tu allan i lif cofnodion safonol, cadwch nhw yn Ystafell Bersonol yn hytrach.",
+            "vault_hint_action": "Agor Ystafell Bersonol"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" wedi'i ychwanegu'n gyflym - gallwch olygu yn ddiweddarach",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Cynnyrch heb ei ganfod yn y gronfeydd data. Gallwch chwilio ar Google.",
             "search_fail": "⚠ Methwyd â chwilio",
             "name_required": "Mae angen enw eitem",
-            "location_add_error": "Methwyd â ychwanegu lleoliad"
+            "location_add_error": "Methwyd â ychwanegu lleoliad",
+            "photo_too_large": "Gall lluniau fod o'r mwyaf {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,7 +103,7 @@
         "refresh": "Ail-lwytho",
         "close": "Cau",
         "logout": "Allgofnodi",
-        "copyright": "© {{year}} HomeInventory - Hawliau pawb wedi'u cadw",
+        "copyright": "© {{year}} {{brandName}} - Hawliau pawb wedi'u cadw",
         "other": "Arall",
         "copy": "Copi",
         "download": "Lawrlwythwch"
@@ -108,7 +112,7 @@
         "login": {
             "title": "Mewngofnodi",
             "subtitle": "Rheoli eich holl gefnlen cartref yn ddoeth",
-            "welcome": "Croeso i HomeInventory",
+            "welcome": "Croeso i {{brandName}}",
             "username_or_email": "Enw Defnyddiwr neu E-bost",
             "password": "Cyfrinair",
             "forgot_password": "Wedi anghofio Cyfrinair?",
@@ -120,7 +124,7 @@
             "register_link": "Cofrestru",
             "support_contact": "Am broblemau mewngofnodi:",
             "terms_title": "📋 Telerau Defnyddio a Datganiad Ymddiheuriad",
-            "terms_beta": "Fersiwn BETA: Mae HomeInventory ar hyn o bryd mewn cam prawf. Nid oes gwarant ynghylch parhaoldeb neu ddiogelwch eich data.",
+            "terms_beta": "Fersiwn BETA: Mae {{brandName}} ar hyn o bryd mewn cam prawf. Nid oes gwarant ynghylch parhaoldeb neu ddiogelwch eich data.",
             "terms_disclaimer": "Datganiad Ymddiheuriad: Drwy ddefnyddio'r ap hwn, rydych yn cytuno na allwch hawlio unrhyw iawndal am golli data posibl, problemau mynediad, neu namau technegol eraill.",
             "terms_backup": "Copïo Data: Rydym yn argymell yn gryf wrth gefn eich gwybodaeth bwysig yn rheolaidd.",
             "terms_accept": "Drwy fewngofnodi, ystyrir eich bod wedi derbyn y telerau hyn.",
@@ -138,7 +142,7 @@
             }
         },
         "register": {
-            "title": "Croeso i HomeInventory",
+            "title": "Croeso i {{brandName}}",
             "subtitle": "Creu cyfrif newydd neu ymuno â thŷ sydd eisoes yn bodoli",
             "create_house": "Creu Tŷ Newydd",
             "join_house": "Ymuno â Thŷ",
@@ -249,7 +253,8 @@
         "admin_panel": "Panel Gweinyddol",
         "logout": "Allgofnodi",
         "menu": "Dewislen",
-        "personal_vault": "Ffwrdd Personol"
+        "personal_vault": "Ffwrdd Personol",
+        "borrow_requests": "Cais Benthyciad"
     },
     "dashboard": {
         "welcome": "Croeso, <1>{{name}}</1>! 👋",
@@ -291,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "Mae HomeInventory ar hyn o bryd yn yr ystod prawf a hobïau. Nid oes gwarant am barhad neu ddiogelwch data. Cadwch gopïau wrth gefn o wybodaeth bwysig.",
+        "text": "Mae {{brandName}} ar hyn o bryd yn yr ystod prawf a hobïau. Nid oes gwarant am barhad neu ddiogelwch data. Cadwch gopïau wrth gefn o wybodaeth bwysig.",
         "contact": "Cysylltu:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Pob hawl wedi'i harbed",
+        "rights": "© {{year}} {{brandName}} - Pob hawl wedi'i harbed",
         "contact": "Cysylltu:"
     },
     "settings": {
@@ -337,7 +342,8 @@
             "member_kicked": "Aelod wedi'i dynnu o'r tŷ",
             "member_kick_error": "Methu symud aelod o'r tŷ\nAllwedd adfer",
             "recovery_key_regenerated": "wedi'i hadfywio",
-            "recovery_key_error": "Methu ag adfywio'r allwedd adfer"
+            "recovery_key_error": "Methu ag adfywio'r allwedd adfer",
+            "account_delete_error": "Ni ellir dileu'r cyfrif"
         },
         "user_profile": {
             "edit_username": "Newid enw defnyddiwr"
@@ -404,13 +410,20 @@
             "export_json": "Allforio fel JSON",
             "upload_backup": "Lanlwytho Copïo wrth Gefn",
             "uploading": "Yn Lanlwytho...",
-            "import_json": "Mewnforio o JSON"
+            "import_json": "Mewnforio o JSON",
+            "export_sensitive_title": "Mae copi wrth gefn allforiedig yn cynnwys data testun plaen",
+            "export_sensitive_notice": "Mae'r copi wrth gefn hwn yn cynnwys data tai chwiltiedig. Cadwch ef yn ddiogel ar ôl ei lawrlwytho, ei amgryptio os yn bosibl, a pheidiwch â'i rannu dros sianeli diogelwch gwael.",
+            "export_sensitive_confirm": "Bydd y copi wrth gefn hwn yn cynnwys data cartref wedi'i ddadgryptio mewn testun plaen. A ydych yn cadarnhau y byddwch yn ei storio'n ddiogel?"
         },
         "about": {
             "title": "📱 Am y Cais",
             "version": "Fersiwn",
             "brand": "Brand",
-            "feedback": "✉️ Anfon Adborth"
+            "feedback": "✉️ Anfon Adborth",
+            "legal_title": "Dogfennau Cyfreithiol",
+            "legal_description": "Gallwch ailagor y testunau telerau ac preifatrwydd o yma hyd yn oed ar ôl eu derbyn.",
+            "terms_link": "Telerau Gwasanaeth",
+            "privacy_link": "Polisi Preifatrwydd"
         },
         "modals": {
             "password": {
@@ -503,6 +516,19 @@
             "revoke_devices_desc": "Tynnu pob dyfais wedi'i gofio, sy'n gofyn am 2FA ar y mewngofnodi nesaf",
             "devices_revoked": "ddyfeisiau( au) dibynadwy wedi'u dileu",
             "devices_error": "Wedi methu dirymu dyfeisiau"
+        },
+        "danger_zone": {
+            "title": "Cyfrif",
+            "delete_title": "Dileu cyfrif",
+            "delete_description": "Os ydych chi eisiau, gallwch dynnu'r data personol a'r ffeiliau a lwythwyd yn barhaol sy'n gysylltiedig â'r cyfrif hwn.",
+            "delete_warning": "Ni ellir dadwneud y gweithred hon.",
+            "delete_action": "Dileu cyfrif",
+            "modal_title": "Dileu cyfrif",
+            "modal_warning_title": "Mae'r weithred hon yn anadferadwy",
+            "modal_warning_body": "Ar ôl cadarnhad, byddwch yn colli mynediad i'r cyfrif ar unwaith ac ni ellir adfer y data cais wedi'i ddileu o'r ap.",
+            "password_label": "Cadarnhau gyda'ch cyfrinair presennol",
+            "confirm_delete": "Cadarnhau dileu",
+            "deleting": "Yn dileu..."
         }
     },
     "inventory": {
@@ -517,7 +543,53 @@
         "empty_filter": "Dim eitemau yn cyd-fynd â'ch hidlwyr",
         "empty_msg": "Dim eitemau wedi'u hychwanegu eto",
         "delete_confirm": "Ydych chi'n siŵr eich bod am ddileu'r eitem hon?",
-        "delete_error": "Gwall wrth ddileu"
+        "delete_error": "Gwall wrth ddileu",
+        "load_warning": {
+            "title": "Modd llwythiant rhannol",
+            "body": "Mae rhywfaint o ddata cynorthwyol yn ymateb yn araf ar hyn o bryd, felly agorwyd y dudalen heb fetadata hidlydd llawn. Byddwn yn ceisio eto pan fyddwch yn ail-lwytho."
+        },
+        "borrow": {
+            "section_title": "Olrhain Benthyciad",
+            "section_subtitle": "Statws a hanes benthyciad cyfredol",
+            "dialog_lend_title": "Benthyca Eitem",
+            "dialog_lend_subtitle": "Creu cofnod benthyciad newydd ar gyfer \"{{item}}\"",
+            "dialog_return_title": "Nodwch Fel Wedi Dychwelyd",
+            "dialog_return_subtitle": "Cau'r cofnod benthyciad gweithredol ar gyfer \"{{item}}\"",
+            "member": "Aelod y tŷ",
+            "external": "Person allanol",
+            "borrower_member": "Pwy gafodd e?",
+            "no_members": "Nid oes aelod arall y gellir ei ddewis yn y tŷ hwn. Gallwch greu'r cofnod fel person allanol yn hytrach.",
+            "borrower_name": "Enw'r person",
+            "borrower_name_placeholder": "e.e. Cymydog Alex",
+            "borrower_contact": "Gwybodaeth gyswllt",
+            "borrower_contact_placeholder": "Ffôn, e-bost, neu nodyn byr",
+            "due_date": "Dyddiad dychwelyd disgwyliedig",
+            "note": "Nodyn",
+            "note_placeholder": "e.e. Benthyciodd dros y penwythnos",
+            "submitting_lend": "Arbed...",
+            "lend": "Benthyca",
+            "return_note": "Nodyn dychwelyd",
+            "return_note_placeholder": "e.e. Dychwelwyd mewn cyflwr da",
+            "submitting_return": "Cau...",
+            "mark_returned": "Mark Wedi Dychwelyd",
+            "current_borrower_label": "Ar hyn o bryd gyda:",
+            "unknown": "Anwybyddus",
+            "overdue_badge": "Gor-dal",
+            "borrowed_badge": "Benthyciwyd",
+            "borrowed_to": "Gyda {{name}}",
+            "due_date_short": "Dyddiad Ymwneud: {{date}}",
+            "actions_error": "Methwyd cwblhau gweithred benthyg",
+            "borrowed_at": "Benthycwyd ar: {{date}}",
+            "due_date_label": "Dychwelwyd disgwyliedig: {{date}}",
+            "note_label": "Nodyn: {{note}}",
+            "return_note_label": "Nodyn dychwelyd: {{note}}",
+            "no_active": "Nid yw'r eitem hon wedi'i benthyg ar hyn o bryd.",
+            "history_title": "Hanes",
+            "history_active": "Agor cofnod ar gyfer {{name}}",
+            "history_returned": "Cofnod wedi cau ar gyfer {{name}}",
+            "returned_at": "Wedi dychwelyd ar: {{date}}",
+            "no_history": "Nid oes hanes benthyg ar gyfer y eitem hon eto."
+        }
     },
     "categories": {
         "title": "Categoriadau",
@@ -615,7 +687,7 @@
             "free_badge": "Yn Hollol Am Ddim"
         },
         "features": {
-            "title": "Pam <1>HomeInventory</1>?",
+            "title": "Pam <1>{{brandName}}</1>?",
             "subtitle": "Pob nodwedd i symlhau rheoli cartref mewn un platfform",
             "items": {
                 "categorize": {
@@ -653,7 +725,7 @@
             "desc": "Y llwyfan hawdd a diogel i digideiddio rhestr eitemau eich tŷ.",
             "links": "Dolenni Cyflym",
             "contact": "Cysylltwch â Ni",
-            "copyright": "© {{year}} HomeInventory. Pob hawl wedi'i gadw."
+            "copyright": "© {{year}} {{brandName}}. Pob hawl wedi'i gadw."
         },
         "preview_privacy_notice": "Golygfa demo: dim data defnyddiwr go iawn yn cael ei arddangos."
     },
@@ -781,10 +853,10 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Cyfrif e-bost wedi'i Gwahardd",
-            "headerTitle": "Croeso i HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Cyfrif e-bost wedi'i Gwahardd",
+            "headerTitle": "Croeso i {{brandName}}",
             "headerSubtitle": "Creu cyfrif newydd neu ymuno â thŷ sydd eisoes yn bodoli",
-            "greeting": "Croeso i HomeInventory",
+            "greeting": "Croeso i {{brandName}}",
             "intro": "Cyfrif wedi'i greu! Gwiriwch eich cyfeiriad e-bost i fewngofnodi.",
             "verifyPrompt": "📧 Cyfrif e-bost wedi'i Gwahardd",
             "verifyButton": "✓ Gwiriwch Fy Nghyfrif",
@@ -804,10 +876,10 @@
             "footer": "© 2026Rhestr Cartref"
         },
         "welcome": {
-            "subject": "Croeso i HomeInventory",
-            "headerTitle": "Croeso i HomeInventory",
+            "subject": "Croeso i {{brandName}}",
+            "headerTitle": "Croeso i {{brandName}}",
             "headerSubtitle": "Creu cyfrif newydd neu ymuno â thŷ sydd eisoes yn bodoli",
-            "greeting": "Croeso i HomeInventory",
+            "greeting": "Croeso i {{brandName}}",
             "intro": "Croeso, ! 👋",
             "houseKeyLabel": "Allweddol Tŷ",
             "houseKeyNote": "Dyma'ch allwedd tŷ, defnyddiwch hi i wahodd eraill. Ychwanegwch aelodau'r teulu i'ch tŷ!",
@@ -849,6 +921,10 @@
             "warningBody": "Os oes cyfrif yn bodoli, mae dolen ailosod cyfrinair sy'n ddilys am 15 munud wedi'i anfon.",
             "fallback": "Mae'r ddolen ailosod cyfrinair yn edrych yn anghyflawn neu wedi torri.",
             "footer": "© 2026Rhestr Cartref"
+        },
+        "adminEmail": {
+            "sentBy": "Anfonwyd y e-bost hwn gan {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -890,7 +966,6 @@
         "record_save_new": "Ychwanegu Cofnod Vault",
         "record_save_edit": "Cadw Newidiadau",
         "barcode_privacy_hint": "Nid yw codau bar vault yn cael eu chwilio ar wasanaethau allanol yn awtomatig; dim ond fel data wedi'i amgryptio y caiff testun y cod bar ei storio.",
-        "media_note": "Mae lluniau, sganio cod bar, a chwilio cynnyrch allanol wedi'u hanalluogi'n fwriadol yn y llif gladdgell cyntaf hwn. Mae angen piblinell cyfryngau a phreifatrwydd wedi'i hamgryptio ar wahân arnynt.",
         "search_placeholder": "Chwilio y tu mewn i'r gladdgell...",
         "all_categories": "Pob categori",
         "all_rooms": "Pob ystafell",
@@ -913,6 +988,109 @@
         "recovery_file_title": "Allweddiad Personol Adfer Allwedd",
         "recovery_file_created_label": "Wedi creu",
         "recovery_file_key_label": "Allwedd Adfer",
-        "recovery_file_warning": "Os collwch yr allwedd hon a'ch cyfrinair clwyd, ni ellir adfer y clwyd."
+        "recovery_file_warning": "Os collwch yr allwedd hon a'ch cyfrinair clwyd, ni ellir adfer y clwyd.",
+        "media_note": "Nid yw llwytho lluniau, sganio codau bar, a chwilio am gynhyrchion allanol yn cael eu cefnogi eto. Bydd y nodweddion hyn yn cael eu hychwanegu unwaith y bydd llif cyfryngau amgryptiedig a phreifatrwydd pwrpasol ar gael."
+    },
+    "borrow_requests": {
+        "title": "Canolfan Benthyciad",
+        "subtitle": "Rheoli ceisiadau a chynigion diogel gyda defnyddwyr {{brandName}} eraill.",
+        "incoming_title": "Ceisiadau sy'n Dod I Mewn",
+        "incoming_subtitle": "Ceisiadau a chynigion wedi'u hanfon atoch chi",
+        "outgoing_title": "Wedi'i Anfon Gan Fi",
+        "outgoing_subtitle": "Cynigion a cheisiadau eitemau a ddechreuoch",
+        "empty_incoming": "Nid oes ceisiadau benthyg ar eich cyfer ar hyn o bryd.",
+        "empty_outgoing": "Nid ydych wedi anfon cynnig na cais eto.",
+        "stats": {
+            "incoming": "Yn aros i ddod i mewn",
+            "outgoing": "Yn aros i fynd allan",
+            "active": "Benthyciadau Gweithredol"
+        },
+        "active": {
+            "title": "Benthyciadau Gweithredol",
+            "subtitle": "Eitemau sydd gennych ar hyn o bryd neu a benthyciwyd gennych",
+            "empty": "Does dim benthyciadau gweithgar ar hyn o bryd.",
+            "borrowed_from": "Benthycaf gan {{name}}",
+            "lent_to": "Gyda {{name}} ar hyn o bryd"
+        },
+        "status": {
+            "pending": "Yn aros",
+            "accepted": "Gweithgar",
+            "rejected": "Wedi'i wrthod",
+            "cancelled": "Wedi'i ganslo",
+            "expired": "Wedi dod i ben",
+            "returned": "Dychwelwyd"
+        },
+        "actions": {
+            "send_request": "Eitem Gais",
+            "send_offer": "Anfon Cynnig",
+            "accept": "Derbyn",
+            "reject": "Gwrthod",
+            "cancel": "Diddymu",
+            "fulfill_request": "Cyflawni Gais"
+        },
+        "labels": {
+            "offer": "Cynnig",
+            "request": "Cais",
+            "unspecified_item": "Eitem heb ei nodi",
+            "counterparty": "Wrthwyneb: {{name}}",
+            "created_at": "Wedi'i greu: {{date}}",
+            "due_date": "Dychwelwyd disgwyliedig: {{date}}",
+            "waiting_delivery": "Efallai bod y cais yn dal i aros am gyfrif cyfatebol cyn iddo ymddangos.",
+            "returned_on": "Wedi'i ddychwelyd ar: {{date}}",
+            "borrow_started": "Wedi dechrau: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Anfon Cynnig",
+            "offer_subtitle_item": "Creu cynnig defnyddiwr diogel ar gyfer \"{{item}}\"",
+            "offer_subtitle_general": "Dewiswch eitem o'ch rhestr eitemau ac anfonwch gynnig diogel",
+            "item_label": "Eitem",
+            "item_placeholder": "Dewis eitem",
+            "target_label": "Enw defnyddiwr neu e-bost",
+            "target_placeholder": "e.e. alex neu alex@example.com",
+            "target_help": "Nid yw'r system yn datgelu a yw'r cyfrif hwn yn bodoli. Os yw'n cyfateb, mae'r cais yn ymddangos yn blwch derbyn y derbynnydd.",
+            "offer_note_placeholder": "e.e. Gallwch ei gadw hyd at y penwythnos os ydych chi eisiau",
+            "offer_submitting": "Anfon...",
+            "request_title": "Eitem Gais",
+            "request_subtitle": "Creu cais cyffredinol heb bori trwy stoc y person arall",
+            "requested_item_label": "Beth sydd ei angen arnoch chi?",
+            "requested_item_placeholder": "e.e. Dril, tri-pedair, cadair gwersylla",
+            "request_note_placeholder": "e.e. Dim ond ar gyfer 2 ddiwrnod sydd ei angen arnaf",
+            "request_submitting": "Anfon...",
+            "fulfill_title": "Lliniwch y Cais",
+            "fulfill_subtitle": "Dewiswch eitem o'ch stoc ar gyfer \"{{item}}\"",
+            "fulfill_target": "Bydd y eitem hon yn cael ei benthyca i {{name}}.",
+            "no_available_items": "Nid oes eitem gymwys i'w cynnig yn eich tŷ gweithredol ar hyn o bryd.",
+            "fulfill_submitting": "Wrthi'n Arbed...",
+            "return_title": "Marcwch a ddychwelyd",
+            "return_subtitle": "Cae'r benthyciad gweithredol ar gyfer \"{{item}}\"",
+            "return_target": "Ar hyn o bryd, dangosir ei fod gyda {{name}}."
+        },
+        "messages": {
+            "load_error": "Ni fyddai canolfan benthyciadau yn gallu cael ei llwytho",
+            "action_error": "Ni ellid cwblhau'r weithred"
+        },
+        "preview": {
+            "title": "Modd rhagolwg",
+            "body": "Nid yw rhan cefn y dudalen hon yn hygyrch yn y profion lleol ar hyn o bryd. Gallwch dal i adolygu'r cynllun a'r llif yn gyntaf; byddwn yn galluogi ochr y gweinydd ar ôl i chi ei gymeradwyo."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Polisi Preifatrwydd",
+        "terms_of_service_title": "Termau Gwasanaeth",
+        "privacy_policy_content": "Mae eich preifatrwydd yn bwysig i ni. Mae'r cais hwn yn storio'ch data a uwchlwynnwyd yn ddiogel gan ddefnyddio amgryptio lefel-maes. Nid ydym yn gwerthu nac yn rhannu eich data personol gyda thrydydd partïon. Drwy ddefnyddio'r gwasanaeth, rydych yn rhoi eich caniatâd i gasglu data angenrheidiol ar gyfer rheoli cyfrif ac ar gyfer swyddogaeth y cais.",
+        "terms_of_service_content": "Drwy defnyddio {{brandName}}, rydych yn cytuno â'r telerau hyn. Darperir y gwasanaeth 'fel y mae' heb warantau. Rydych yn gyfrifol am y data rydych yn ei uwchlwytho a sicrhau bod gennych y hawliau iddo. Rydym yn cadw'r hawl i atal cyfrifon sy'n torri polisïau neu'n camddefnyddio'r system.",
+        "register_consent": "Rwyf wedi darllen, deall, ac yn cytuno â'r <1>Telerau Gwasanaeth</1> a'r <2>Polisi Preifatrwydd</2>.",
+        "consent_title": "Adolygu dogfennau cyfreithiol",
+        "consent_subtitle": "Cadarnhewch y telerau cyfredol cyn parhau.",
+        "consent_notice": "Mae angen cydnabyddiaeth wedi'i chofnodi gennym ar gyfer y Telerau Gwasanaeth a'r Hysbysiad Preifatrwydd cyfredol cyn i chi allu parhau i ddefnyddio'r cais.",
+        "consent_checkbox": "Derbyniaf y Telerau Gwasanaeth ac yn cadarnhau fy mod wedi darllen yr Hysbysiad Preifatrwydd.",
+        "consent_submit": "Parhau",
+        "consent_submitting": "Arbed...",
+        "consent_required": "Mae angen i chi gadarnhau'r Telerau Gwasanaeth a'r Hysbysiad Preifatrwydd cyn parhau."
+    },
+    "cookies": {
+        "banner_text": "Rydym yn defnyddio cwcis hanfodol i gadw chi wedi mewngofnodi ac i ddiogelu eich sesiwn. Drwy barhau i ddefnyddio'r safle hwn, rydych yn cytuno â'n polisïau.",
+        "accept": "Derbyniaf",
+        "learn_more": "Dysgu Mwy"
     }
 }

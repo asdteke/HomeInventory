@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Garantijas ilguma vienība",
             "warranty_duration_months": "Mēneši",
             "warranty_duration_years": "Gadi",
-            "warranty_calculation_help": "Ja atstājat garantijas sākuma datumu tukšu, tiek izmantots rēķina datums. Kad ievadāt ilgumu, garantijas beigu datums tiek aprēķināts automātiski."
+            "warranty_calculation_help": "Ja atstājat garantijas sākuma datumu tukšu, tiek izmantots rēķina datums. Kad ievadāt ilgumu, garantijas beigu datums tiek aprēķināts automātiski.",
+            "vault_hint_title": "Ļoti sensitīvs ieraksts?",
+            "vault_hint_description": "Pasei, nolīgumiem, identitātes datiem, piekļuves kodiem un citiem ierakstiem, kas jāuzglabā ārpus standarta inventāra plūsmas, glabājiet tos Personīgajā seifā.",
+            "vault_hint_action": "Atvērt Personīgo seifu"
         },
         "messages": {
             "quick_add_success": "✓ „{{barcode}}” ātra pievienošana - vēlāk var rediģēt",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Produkts nav atrasts datu bāzēs. Jūs varat meklēt Google.",
             "search_fail": "⚠ Meklēšana neizdevās",
             "name_required": "Preces nosaukums ir obligāts",
-            "location_add_error": "Neizdevās pievienot atrašanās vietu"
+            "location_add_error": "Neizdevās pievienot atrašanās vietu",
+            "photo_too_large": "Fotogrāfijas var būt ne vairāk kā {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,16 +103,16 @@
         "refresh": "Atsvaidzināt",
         "close": "Aizvērt",
         "logout": "Izrakstīties",
-        "copyright": "© {{year}} HomeInventory - Visas tiesības aizsargātas",
+        "copyright": "© {{year}} {{brandName}} - Visas tiesības aizsargātas",
         "other": "Cits",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "Kopēt",
+        "download": "Lejupielādēt"
     },
     "auth": {
         "login": {
             "title": "Pieslēgties",
             "subtitle": "Pārvaldiet visu savu mājas inventāru gudri",
-            "welcome": "Laipni lūdzam HomeInventory",
+            "welcome": "Laipni lūdzam {{brandName}}",
             "username_or_email": "Lietotājvārds vai e-pasts",
             "password": "Parole",
             "forgot_password": "Aizmirsāt paroli?",
@@ -120,7 +124,7 @@
             "register_link": "Reģistrēties",
             "support_contact": "Ja rodas problēmas pieslēgšanās laikā:",
             "terms_title": "📋 Lietošanas noteikumi un atruna",
-            "terms_beta": "BETA Versija: HomeInventory pašlaik ir testēšanas fāzē. Nav garantijas par jūsu datu saglabāšanu vai drošību.",
+            "terms_beta": "BETA Versija: {{brandName}} pašlaik ir testēšanas fāzē. Nav garantijas par jūsu datu saglabāšanu vai drošību.",
             "terms_disclaimer": "Atruna: Izmantojot šo lietotni, jūs piekrītat, ka nevarēsiet prasīt atlīdzību par iespējamu datu zudumu, piekļuves problēmām vai citām tehniskām kļūmēm.",
             "terms_backup": "Datu rezerves kopijas: Mēs stingri iesakām regulāri veidot svarīgo informāciju rezerves kopijas.",
             "terms_accept": "Piesakoties, tiek uzskatīts, ka jūs esat pieņēmis šos noteikumus.",
@@ -138,7 +142,7 @@
             }
         },
         "register": {
-            "title": "Laipni lūdzam HomeInventory",
+            "title": "Laipni lūdzam {{brandName}}",
             "subtitle": "Izveidot jaunu kontu vai pievienoties esošai mājai",
             "create_house": "Izveidot jaunu māju",
             "join_house": "Pievienoties mājai",
@@ -249,7 +253,8 @@
         "admin_panel": "Administrācijas panelis",
         "logout": "Atslēgties",
         "menu": "Izvēlne",
-        "personal_vault": "Personīgais seifs"
+        "personal_vault": "Personīgais seifs",
+        "borrow_requests": "Aizdevuma pieprasījumi"
     },
     "dashboard": {
         "welcome": "Laipni lūdzam, <1>{{name}}</1>! 👋",
@@ -291,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BĒTA:",
-        "text": "HomeInventory pašlaik ir testēšanas un hobija stadijā. Nav garantijas datu saglabāšanai vai drošībai. Lūdzu, saglabājiet svarīgu informāciju rezerves kopijās.",
+        "text": "{{brandName}} pašlaik ir testēšanas un hobija stadijā. Nav garantijas datu saglabāšanai vai drošībai. Lūdzu, saglabājiet svarīgu informāciju rezerves kopijās.",
         "contact": "Kontakti:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Visas tiesības aizsargātas",
+        "rights": "© {{year}} {{brandName}} - Visas tiesības aizsargātas",
         "contact": "Kontakti:"
     },
     "settings": {
@@ -337,7 +342,8 @@
             "member_kicked": "Dalībnieks izņemts no mājas",
             "member_kick_error": "Neizdevās izņemt dalībnieku no mājas",
             "recovery_key_regenerated": "Atjaunošanas atslēga ģenerēta atkārtoti",
-            "recovery_key_error": "Neizdevās ģenerēt atjaunošanas atslēgu"
+            "recovery_key_error": "Neizdevās ģenerēt atjaunošanas atslēgu",
+            "account_delete_error": "Kontu nevarēja izdzēst"
         },
         "user_profile": {
             "edit_username": "Mainīt lietotājvārdu"
@@ -404,13 +410,20 @@
             "export_json": "Eksportēt kā JSON",
             "upload_backup": "Augšupielādēt rezerves kopiju",
             "uploading": "Augšupielādē...",
-            "import_json": "Importēt no JSON"
+            "import_json": "Importēt no JSON",
+            "export_sensitive_title": "Eksportētās dublējumkopijas satur nešifrētus datus",
+            "export_sensitive_notice": "Šī dublējumkopija ietver atšifrētus mājsaimniecības datus. Saglabājiet to droši pēc lejupielādes, ja iespējams, šifrējiet to un izvairieties no koplietošanas caur nedrošiem kanāliem.",
+            "export_sensitive_confirm": "Šī dublējumkopija ietvers atšifrētus mājsaimniecības datus nešifrētā veidā. Vai apstiprināt, ka jūs saglabāsiet to droši?"
         },
         "about": {
             "title": "📱 Par lietotni",
             "version": "Versija",
             "brand": "Zīmols",
-            "feedback": "✉️ Sūtīt atsauksmes"
+            "feedback": "✉️ Sūtīt atsauksmes",
+            "legal_title": "Juridiskie dokumenti",
+            "legal_description": "Jūs varat šeit atkārtoti atvērt lietošanas noteikumus un privātuma tekstus pat pēc to pieņemšanas.",
+            "terms_link": "Pakalpojumu sniegšanas noteikumi",
+            "privacy_link": "Privātuma politika"
         },
         "modals": {
             "password": {
@@ -503,6 +516,19 @@
             "revoke_devices_desc": "Noņemt visas iecerētās ierīces, kurām nepieciešama 2FA nākamajā pieteikšanās reizē",
             "devices_revoked": "{{count}} uzticamās(-ās) ierīces(-es) noņemtas",
             "devices_error": "neizdevās atsaukt ierīces"
+        },
+        "danger_zone": {
+            "title": "Konts",
+            "delete_title": "Izdzēst kontu",
+            "delete_description": "Ja vēlaties, varat pastāvīgi noņemt personas datus un augšupielādētos failus, kas saistīti ar šo kontu.",
+            "delete_warning": "Šo darbību nevar atsaukt.",
+            "delete_action": "Izdzēst kontu",
+            "modal_title": "Izdzēst kontu",
+            "modal_warning_title": "Šī darbība ir neatgriezeniska",
+            "modal_warning_body": "Pēc apstiprināšanas jūs nekavējoties zaudēsiet piekļuvi kontam un dzēstos lietotnes datus no lietotnes nebūs iespējams atjaunot.",
+            "password_label": "Apstipriniet ar savu pašreizējo paroli",
+            "confirm_delete": "Apstipriniet dzēšanu",
+            "deleting": "Dzēšana..."
         }
     },
     "inventory": {
@@ -517,7 +543,53 @@
         "empty_filter": "Neviena vienība neatbilst jūsu filtriem",
         "empty_msg": "Vienības vēl nav pievienotas",
         "delete_confirm": "Vai tiešām vēlaties dzēst šo vienību?",
-        "delete_error": "Dzēšanas kļūda"
+        "delete_error": "Dzēšanas kļūda",
+        "load_warning": {
+            "title": "Daļējas ielādes režīms",
+            "body": "Daži atbalstošie dati šobrīd reaģē lēni, tāpēc lapa tika atvērta bez pilnas filtra metadatu informācijas. Mēs mēģināsim vēlreiz, kad atsvaidzināsiet."
+        },
+        "borrow": {
+            "section_title": "Aizdevuma izsekošana",
+            "section_subtitle": "Pašreizējais aizdevuma statuss un vēsture",
+            "dialog_lend_title": "Aizdot vienību",
+            "dialog_lend_subtitle": "Izveidot jaunu aizdevuma ierakstu priekš \"{{item}}\"",
+            "dialog_return_title": "Atzīmēt kā atgrieztu",
+            "dialog_return_subtitle": "Aizveriet aktīvo aizdevuma ierakstu priekš \"{{item}}\"",
+            "member": "Mājas loceklis",
+            "external": "Ārējā persona",
+            "borrower_member": "Kas to saņēma?",
+            "no_members": "Šajā mājā nav citu izvēlēties iespējamu locekļu. Tā vietā varat izveidot ierakstu kā ārēju personu.",
+            "borrower_name": "Personas vārds",
+            "borrower_name_placeholder": "piemēram, kaimiņš Aleks",
+            "borrower_contact": "Kontakta informācija",
+            "borrower_contact_placeholder": "Telefons, e-pasts vai īsa piezīme",
+            "due_date": "Paredzamā atgriešanās datums",
+            "note": "Piezīme",
+            "note_placeholder": "piem. Aizdots uz nedēļas nogali",
+            "submitting_lend": "Notiek saglabāšana...",
+            "lend": "Aizdot",
+            "return_note": "Atgriešanas piezīme",
+            "return_note_placeholder": "piem. Atgriezts labā stāvoklī",
+            "submitting_return": "Aizveras...",
+            "mark_returned": "Marka atgriezts",
+            "current_borrower_label": "Pašlaik pie:",
+            "unknown": "Nezināms",
+            "overdue_badge": "Aizkavēts",
+            "borrowed_badge": "Aizlienēts",
+            "borrowed_to": "Pie {{name}}",
+            "due_date_short": "Termiņš: {{date}}",
+            "actions_error": "Aizdevuma darbību nevarēja pabeigt",
+            "borrowed_at": "Aizdots: {{date}}",
+            "due_date_label": "Paredzamā atgriešana: {{date}}",
+            "note_label": "Piezīme: {{note}}",
+            "return_note_label": "Atgriešanas piezīme: {{note}}",
+            "no_active": "Šis priekšmets pašlaik nav aizdots.",
+            "history_title": "Vēsture",
+            "history_active": "Atvērt ierakstu priekš {{name}}",
+            "history_returned": "Aizvērts ieraksts {{name}}",
+            "returned_at": "Atgriezts: {{date}}",
+            "no_history": "Šim priekšmetam vēl nav aizņemšanās vēstures."
+        }
     },
     "categories": {
         "title": "Kategorijas",
@@ -615,7 +687,7 @@
             "free_badge": "Pilnīgi bez maksas"
         },
         "features": {
-            "title": "Kāpēc <1>HomeInventory</1>?",
+            "title": "Kāpēc <1>{{brandName}}</1>?",
             "subtitle": "Visas funkcijas, lai vienkāršotu mājokļa pārvaldību vienā platformā",
             "items": {
                 "categorize": {
@@ -653,7 +725,7 @@
             "desc": "Vienkāršā un drošā platforma jūsu mājas krājuma digitalizēšanai.",
             "links": "Ātrās saites",
             "contact": "Sazinieties ar mums",
-            "copyright": "© {{year}} HomeInventory. Visas tiesības aizsargātas."
+            "copyright": "© {{year}} {{brandName}}. Visas tiesības aizsargātas."
         },
         "preview_privacy_notice": "Demonstrācijas skats: netiek rādīti reālie lietotāju dati."
     },
@@ -781,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Nepieciešama e-pasta verifikācija",
-            "headerTitle": "Laipni lūdzam HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Nepieciešama e-pasta verifikācija",
+            "headerTitle": "Laipni lūdzam {{brandName}}",
             "headerSubtitle": "Izveidot jaunu kontu vai pievienoties esošai mājai",
-            "greeting": "Laipni lūdzam HomeInventory",
+            "greeting": "Laipni lūdzam {{brandName}}",
             "intro": "Konts izveidots! Lūdzu, verificējiet savu e-pasta adresi, lai pieteiktos.",
             "verifyPrompt": "📧 Nepieciešama e-pasta verifikācija",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Verificēt manu kontu",
             "warningTitle": "⚠️",
             "warningBody": "Pārbaudiet surogātpasta / nevēlamo e-pastu ja e-pasts nenonāk.",
             "houseKeyLabel": "Mājas atslēga",
@@ -801,13 +873,13 @@
             ],
             "fallback": "Paroles atjaunošanas saite izskatās nepilnīga vai bojāta.",
             "support": "Reģistrācijas problēmas:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Laipni lūdzam HomeInventory",
-            "headerTitle": "Laipni lūdzam HomeInventory",
+            "subject": "Laipni lūdzam {{brandName}}",
+            "headerTitle": "Laipni lūdzam {{brandName}}",
             "headerSubtitle": "Izveidot jaunu kontu vai pievienoties esošai mājai",
-            "greeting": "Laipni lūdzam HomeInventory",
+            "greeting": "Laipni lūdzam {{brandName}}",
             "intro": "Laipni lūdzam, ! 👋",
             "houseKeyLabel": "Mājas atslēga",
             "houseKeyNote": "Tā ir jūsu mājas atslēga, izmantojiet to, lai uzaicinātu citus. Pievienojiet ģimenes locekļus savai mājai!",
@@ -819,7 +891,7 @@
                 "💡 Jūs varat būt vairāku māju biedrs un pārslēgties starp tām. Katrai mājai ir atsevišķs inventārs."
             ],
             "support": "Reģistrācijas problēmas:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Pievienoties mājai",
@@ -828,7 +900,7 @@
             "bodyLine2": "Gaida mājas īpašnieka apstiprinājumu"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Pieeja mājai",
             "bodyLine1Template": "Pašreizējais gaidošais pieprasījums: {{house}} ({{status}})",
             "bodyLine2": "Jūsu pieprasījums par \"{{house}}\" joprojām gaida lēmumu."
@@ -848,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Ja konts pastāv, paroles atiestatīšanas saite, derīga 15 minūtes, ir nosūtīta.",
             "fallback": "Paroles atjaunošanas saite izskatās nepilnīga vai bojāta.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 MājasInventārs"
+        },
+        "adminEmail": {
+            "sentBy": "Šo e-pastu nosūtīja {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -890,7 +966,6 @@
         "record_save_new": "Pievienot seifa ierakstu",
         "record_save_edit": "Saglabāt izmaiņas",
         "barcode_privacy_hint": "Seifa svītrkodi netiek automātiski meklēti ārējos pakalpojumos; svītrkoda teksts tiek glabāts tikai kā šifrēti dati.",
-        "media_note": "Fotogrāfijas, svītrkodu skenēšana un ārējo produktu meklēšana šajā pirmajā seifa plūsmā ir apzināti atspējotas. Tām nepieciešama atsevišķa šifrētu multivides un privātuma plūsma.",
         "search_placeholder": "Meklēt seifā...",
         "all_categories": "Visas kategorijas",
         "all_rooms": "Visas telpas",
@@ -913,6 +988,109 @@
         "recovery_file_title": "Mājas Inventāra Personīgās Glabātuves Atkopšanas Atslēga",
         "recovery_file_created_label": "Izveidots",
         "recovery_file_key_label": "Atkopšanas Atslēga",
-        "recovery_file_warning": "Ja pazaudējat gan šo atslēgu, gan glabātuves paroli, glabātuvi nevar atgūt."
+        "recovery_file_warning": "Ja pazaudējat gan šo atslēgu, gan glabātuves paroli, glabātuvi nevar atgūt.",
+        "media_note": "Fotogrāfiju augšupielāde, svītrkodu skenēšana un ārējo produktu meklēšana vēl netiek atbalstīta. Šīs funkcijas tiks pievienotas, tiklīdz būs gatava īpaša šifrēta multivides un privātuma plūsma."
+    },
+    "borrow_requests": {
+        "title": "Aizņēmumu centrs",
+        "subtitle": "Pārvaldiet drošas pieprasījumu un piedāvājumu plūsmas ar citiem {{brandName}} lietotājiem.",
+        "incoming_title": "Ienākošie pieprasījumi",
+        "incoming_subtitle": "Pieprasījumi un piedāvājumi, kas nosūtīti jums",
+        "outgoing_title": "Nosūtīts no manis",
+        "outgoing_subtitle": "Piedāvājumi un priekšmetu pieprasījumi, kurus jūs esat uzsācis",
+        "empty_incoming": "Šobrīd jums nav aizdevuma pieprasījumu.",
+        "empty_outgoing": "Jūs vēl neesat nosūtījis piedāvājumu vai pieprasījumu.",
+        "stats": {
+            "incoming": "Gaidošie ienākošie",
+            "outgoing": "Gaidošie izejošie",
+            "active": "Aktīvi aizņēmumi"
+        },
+        "active": {
+            "title": "Aktīvi aizņēmumi",
+            "subtitle": "Priekšmeti, kas pašlaik ir pie jums vai ko jūs esat aizdevis",
+            "empty": "Pašlaik nav aktīvu aizdevumu.",
+            "borrowed_from": "Aizņemts no {{name}}",
+            "lent_to": "Pašlaik pie {{name}}"
+        },
+        "status": {
+            "pending": "Gaidāms",
+            "accepted": "Aktīvs",
+            "rejected": "Noraidīts",
+            "cancelled": "Atcelts",
+            "expired": "Beidzies",
+            "returned": "Atgriezts"
+        },
+        "actions": {
+            "send_request": "Pieprasīt preci",
+            "send_offer": "Nosūtīt piedāvājumu",
+            "accept": "Pieņemt",
+            "reject": "Noraidīt",
+            "cancel": "Atcelt",
+            "fulfill_request": "Izpildīt pieprasījumu"
+        },
+        "labels": {
+            "offer": "Piedāvājums",
+            "request": "Pieprasījums",
+            "unspecified_item": "Nenorādīts priekšmets",
+            "counterparty": "Pretējā puse: {{name}}",
+            "created_at": "Izveidots: {{date}}",
+            "due_date": "Paredzamā atgriešanās: {{date}}",
+            "waiting_delivery": "Pieprasījums joprojām var gaidīt atbilstošu kontu, pirms tas parādās.",
+            "returned_on": "Atgriezts: {{date}}",
+            "borrow_started": "Sākts: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Sūtīt piedāvājumu",
+            "offer_subtitle_item": "Izveidot drošu lietotāja piedāvājumu priekš \"{{item}}\"",
+            "offer_subtitle_general": "Izvēlieties priekšmetu no sava inventāra un nosūtiet drošu piedāvājumu",
+            "item_label": "Priekšmets",
+            "item_placeholder": "Izvēlieties priekšmetu",
+            "target_label": "Lietotājvārds vai e-pasts",
+            "target_placeholder": "piem. alex vai alex@example.com",
+            "target_help": "Sistēma neatklāj, vai šis konts pastāv. Ja tas atbilst, pieprasījums parādās saņēmēja iesūtnē.",
+            "offer_note_placeholder": "piem. Jūs varat to paturēt līdz nedēļas beigām, ja vēlaties",
+            "offer_submitting": "Sūta...",
+            "request_title": "Pieprasīt priekšmetu",
+            "request_subtitle": "Izveidot vispārēju pieprasījumu, neskatoties uz otras personas krājumu",
+            "requested_item_label": "Kas jums nepieciešams?",
+            "requested_item_placeholder": "piem. Urbis, statīvs, telts krēsls",
+            "request_note_placeholder": "piem. Man tas nepieciešams tikai uz 2 dienām",
+            "request_submitting": "Sūta...",
+            "fulfill_title": "Izpildīt pieprasījumu",
+            "fulfill_subtitle": "Izvēlieties priekšmetu no sava inventāra priekš \"{{item}}\"",
+            "fulfill_target": "Šis priekšmets tiks aizdots {{name}}.",
+            "no_available_items": "Pašlaik nav neviena piemērota priekšmeta, ko piedāvāt jūsu aktīvajā mājā.",
+            "fulfill_submitting": "Saglabā...",
+            "return_title": "Atzīmēt kā atgriezto",
+            "return_subtitle": "Aizvērt aktīvo aizņēmumu priekš \"{{item}}\"",
+            "return_target": "Pašlaik tas tiek parādīts pie {{name}}."
+        },
+        "messages": {
+            "load_error": "Aizņemšanās centrs nevarēja tikt ielādēts",
+            "action_error": "Darbība nevarēja tikt pabeigta"
+        },
+        "preview": {
+            "title": "Priekšskatījuma režīms",
+            "body": "Šīs lapas servera daļa šobrīd vietējā testēšanā nav pieejama. Jūs joprojām varat pārskatīt izkārtojumu un plūsmu vispirms; mēs ieslēgsim servera pusi pēc jūsu apstiprinājuma."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Privātuma politika",
+        "terms_of_service_title": "Pakalpojumu noteikumi",
+        "privacy_policy_content": "Jūsu privātums ir svarīgs mums. Šī lietotne droši glabā jūsu augšupielādētos datus, izmantojot lauka līmeņa šifrēšanu. Mēs nepārdodam un nesniedzam jūsu personīgos datus trešajām pusēm. Izmantojot pakalpojumu, jūs piekrītat nepieciešamo datu vākšanai konta pārvaldībai un lietotnes funkcionalitātei.",
+        "terms_of_service_content": "Izmantojot {{brandName}}, jūs piekrītat šiem noteikumiem. Pakalpojums tiek sniegts \"tāds, kāds ir\" bez garantijām. Jūs esat atbildīgs par augšupielādētajiem datiem un par to, lai jums būtu tiesības uz tiem. Mēs paturam tiesības apturēt kontus, kas pārkāpj politikas vai ļaunprātīgi izmanto sistēmu.",
+        "register_consent": "Es esmu izlasījis, sapratis un piekrītu <1>Pakalpojumu noteikumiem</1> un <2>Privātuma politikai</2>.",
+        "consent_title": "Pārskatīt juridiskos dokumentus",
+        "consent_subtitle": "Lūdzu, apstipriniet pašreizējos noteikumus pirms turpināt.",
+        "consent_notice": "Mums nepieciešama ierakstīta piekrišana pašreizējiem Pakalpojumu noteikumiem un Privātuma paziņojumam, pirms jūs varat turpināt lietot lietotni.",
+        "consent_checkbox": "Es piekrītu Pakalpojumu noteikumiem un apliecinu, ka esmu izlasījis Privātuma paziņojumu.",
+        "consent_submit": "Turpināt",
+        "consent_submitting": "Saglabā...",
+        "consent_required": "Jums ir jāapstiprina Pakalpojumu noteikumi un Privātuma paziņojums, pirms turpināt."
+    },
+    "cookies": {
+        "banner_text": "Mēs izmantojam būtiskās sīkdatnes, lai jūs saglabātu pieteikušos un nodrošinātu jūsu sesijas drošību. Turpinot izmantot šo vietni, jūs piekrītat mūsu politikām.",
+        "accept": "Es piekrītu",
+        "learn_more": "Uzzināt vairāk"
     }
 }

@@ -1,7 +1,10 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
+import fs from 'node:fs';
 import rateLimit from 'express-rate-limit';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
 import db from '../database.js';
 import { generateToken, authenticateToken, cookieOptions } from '../middleware/auth.js';
 import passport from 'passport';
@@ -20,6 +23,7 @@ import {
     decryptPendingRegistrationRecord,
     decryptUserRecord,
     decryptUsername,
+    encryptBorrowerName,
     encryptCategoryName,
     encryptEmail,
     encryptHouseName,
@@ -62,8 +66,11 @@ import {
     generateDeviceToken,
     hashDeviceToken
 } from '../utils/totp.js';
+import { resolveStoredMediaPath } from '../utils/mediaStorage.js';
 import { toSqliteUtcTimestamp } from '../utils/sqliteDate.js';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const router = express.Router();
 const SALT_ROUNDS = 10;
 const HOUSE_KEY_REGEX = /^[a-f0-9]{64}$/i;
@@ -73,6 +80,9 @@ const USER_RECOVERY_KEY_PURPOSE = 'user.recovery_key';
 const TOTP_SECRET_PURPOSE = 'user.totp_secret';
 const TRUSTED_DEVICE_DAYS = 30;
 const TRUSTED_DEVICE_COOKIE = 'trusted_device';
+const LEGAL_TERMS_VERSION = '2026-03-29';
+const PRIVACY_NOTICE_VERSION = '2026-03-29';
+const BOOTSTRAP_ADMIN_EMAIL = String(process.env.BOOTSTRAP_ADMIN_EMAIL || '').trim().toLowerCase();
 const SITE_URL = String(
     process.env.SITE_URL ||
     process.env.INDEXNOW_BASE_URL ||
@@ -81,6 +91,15 @@ const SITE_URL = String(
 const RESET_PASSWORD_FAILURE_MESSAGE = 'İşlem gerçekleştirilemedi. Bilgileri kontrol edip tekrar deneyin.';
 const RESET_PASSWORD_LOCKED_MESSAGE = 'İşlem gerçekleştirilemedi. Lütfen daha sonra tekrar deneyin.';
 const FORGOT_PASSWORD_GENERIC_MESSAGE = 'Hesap mevcutsa gerekli yönlendirme gönderildi.';
+const repoRoot = join(__dirname, '..');
+const uploadsRoot = join(repoRoot, 'uploads');
+const ACCOUNT_MEDIA_ALLOWED_PREFIXES = [
+    'uploads',
+    'uploads/thumbnails',
+    'uploads/invoices',
+    'uploads/invoices/thumbnails'
+];
+const DELETED_ACCOUNT_BORROWER_NAME = encryptBorrowerName('Silinmiş hesap');
 
 const COMMON_PASSWORDS = new Set([
     '123456', '12345678', '123456789', '1234567890', 'password', 'password1',
@@ -89,6 +108,256 @@ const COMMON_PASSWORDS = new Set([
     'asdfgh', 'asdf1234', 'zaq12wsx', '1q2w3e4r', '654321', '987654321',
     '123456a', 'turkiye123', 'ev123456', 'sifre123'
 ]);
+
+function resolveRoleForEmail(email) {
+    const normalizedEmail = String(email || '').trim().toLowerCase();
+    return BOOTSTRAP_ADMIN_EMAIL && normalizedEmail === BOOTSTRAP_ADMIN_EMAIL
+        ? 'admin'
+        : 'user';
+}
+
+function clearSessionCookies(res) {
+    const baseCookieOptions = {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/'
+    };
+
+    res.clearCookie('token', baseCookieOptions);
+    res.clearCookie(TRUSTED_DEVICE_COOKIE, baseCookieOptions);
+}
+
+function clearAuthTokenCookie(res) {
+    res.clearCookie('token', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/'
+    });
+}
+
+function hasAcceptedCurrentLegalDocuments(row) {
+    return Boolean(
+        row?.legal_terms_accepted_at &&
+        row?.privacy_notice_acknowledged_at &&
+        row?.legal_terms_version === LEGAL_TERMS_VERSION &&
+        row?.privacy_notice_version === PRIVACY_NOTICE_VERSION
+    );
+}
+
+function resolveAccountMediaPath(storedPath) {
+    return resolveStoredMediaPath(storedPath, {
+        repoRoot,
+        mediaRoot: uploadsRoot,
+        allowedPrefixes: ACCOUNT_MEDIA_ALLOWED_PREFIXES
+    });
+}
+
+function deleteAccountMediaFiles(mediaPaths) {
+    for (const storedPath of mediaPaths) {
+        const fullPath = resolveAccountMediaPath(storedPath);
+        if (!fullPath) {
+            continue;
+        }
+
+        try {
+            fs.unlinkSync(fullPath);
+        } catch (error) {
+            if (error?.code === 'ENOENT') {
+                continue;
+            }
+
+            throw error;
+        }
+    }
+}
+
+function buildSqlPlaceholders(values) {
+    return values.map(() => '?').join(', ');
+}
+
+function promoteReplacementHouseOwners(userId) {
+    const ownedMemberships = db.prepare(`
+        SELECT house_key
+        FROM user_houses
+        WHERE user_id = ? AND is_owner = 1
+    `).all(userId);
+
+    for (const membership of ownedMemberships) {
+        const anotherOwner = db.prepare(`
+            SELECT id
+            FROM user_houses
+            WHERE house_key = ? AND user_id != ? AND is_owner = 1
+            LIMIT 1
+        `).get(membership.house_key, userId);
+
+        if (anotherOwner) {
+            continue;
+        }
+
+        const replacement = db.prepare(`
+            SELECT id
+            FROM user_houses
+            WHERE house_key = ? AND user_id != ?
+            ORDER BY joined_at ASC, id ASC
+            LIMIT 1
+        `).get(membership.house_key, userId);
+
+        if (replacement) {
+            db.prepare('UPDATE user_houses SET is_owner = 1 WHERE id = ?').run(replacement.id);
+        }
+    }
+}
+
+function reassignOrDeleteUserLocations(userId) {
+    const locations = db.prepare(`
+        SELECT id, house_key
+        FROM locations
+        WHERE created_by = ?
+    `).all(userId);
+
+    for (const location of locations) {
+        const replacementMember = db.prepare(`
+            SELECT user_id
+            FROM user_houses
+            WHERE house_key = ? AND user_id != ?
+            ORDER BY is_owner DESC, joined_at ASC, id ASC
+            LIMIT 1
+        `).get(location.house_key, userId);
+
+        if (replacementMember?.user_id) {
+            db.prepare(`
+                UPDATE locations
+                SET created_by = ?
+                WHERE id = ?
+            `).run(replacementMember.user_id, location.id);
+            continue;
+        }
+
+        const locationUsage = db.prepare(`
+            SELECT id
+            FROM items
+            WHERE location_id = ?
+            LIMIT 1
+        `).get(location.id);
+
+        if (locationUsage) {
+            throw new Error('Kullanıcıya ait konumlar başka kayıtlar tarafından kullanılmaya devam ediyor');
+        }
+
+        db.prepare('DELETE FROM locations WHERE id = ?').run(location.id);
+    }
+}
+
+function runDeleteAccountTransaction({
+    userId,
+    emailLookup,
+    usernameLookup,
+    itemIds = []
+}) {
+    const deleteAccount = db.transaction((input) => {
+        const { userId: deletingUserId, emailLookup: deletingEmailLookup, usernameLookup: deletingUsernameLookup, itemIds: ownedItemIds } = input;
+
+        promoteReplacementHouseOwners(deletingUserId);
+
+        let ownedBorrowIds = [];
+        if (ownedItemIds.length > 0) {
+            const itemPlaceholders = buildSqlPlaceholders(ownedItemIds);
+            ownedBorrowIds = db.prepare(`
+                SELECT id
+                FROM item_borrows
+                WHERE item_id IN (${itemPlaceholders})
+            `).all(...ownedItemIds).map((row) => row.id);
+        }
+
+        if (ownedBorrowIds.length > 0) {
+            const borrowPlaceholders = buildSqlPlaceholders(ownedBorrowIds);
+            db.prepare(`
+                DELETE FROM borrow_requests
+                WHERE borrow_id IN (${borrowPlaceholders})
+            `).run(...ownedBorrowIds);
+        }
+
+        if (ownedItemIds.length > 0) {
+            const itemPlaceholders = buildSqlPlaceholders(ownedItemIds);
+
+            db.prepare(`
+                DELETE FROM borrow_requests
+                WHERE item_id IN (${itemPlaceholders})
+            `).run(...ownedItemIds);
+
+            db.prepare(`
+                DELETE FROM item_borrows
+                WHERE item_id IN (${itemPlaceholders})
+            `).run(...ownedItemIds);
+
+            db.prepare(`
+                DELETE FROM items
+                WHERE id IN (${itemPlaceholders})
+            `).run(...ownedItemIds);
+        }
+
+        db.prepare(`
+            DELETE FROM borrow_requests
+            WHERE initiator_user_id = ?
+               OR recipient_user_id = ?
+               OR decided_by_user_id = ?
+        `).run(deletingUserId, deletingUserId, deletingUserId);
+
+        db.prepare(`
+            UPDATE item_borrows
+            SET borrower_type = 'external',
+                borrower_user_id = NULL,
+                borrower_name = ?,
+                borrower_contact = NULL,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE borrower_user_id = ?
+        `).run(DELETED_ACCOUNT_BORROWER_NAME, deletingUserId);
+
+        db.prepare(`
+            UPDATE item_borrows
+            SET lent_by_user_id = NULL,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE lent_by_user_id = ?
+        `).run(deletingUserId);
+
+        db.prepare(`
+            UPDATE item_borrows
+            SET returned_by_user_id = NULL,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE returned_by_user_id = ?
+        `).run(deletingUserId);
+
+        db.prepare('DELETE FROM personal_vault_items WHERE user_id = ?').run(deletingUserId);
+        db.prepare('DELETE FROM personal_vaults WHERE user_id = ?').run(deletingUserId);
+        db.prepare('DELETE FROM password_reset_requests WHERE user_id = ?').run(deletingUserId);
+        db.prepare('DELETE FROM trusted_devices WHERE user_id = ?').run(deletingUserId);
+        db.prepare('DELETE FROM totp_backup_codes WHERE user_id = ?').run(deletingUserId);
+        db.prepare('DELETE FROM house_join_requests WHERE requester_user_id = ?').run(deletingUserId);
+        db.prepare('UPDATE house_join_requests SET decided_by_user_id = NULL WHERE decided_by_user_id = ?').run(deletingUserId);
+
+        reassignOrDeleteUserLocations(deletingUserId);
+
+        db.prepare('DELETE FROM user_houses WHERE user_id = ?').run(deletingUserId);
+
+        if (deletingUsernameLookup || deletingEmailLookup) {
+            db.prepare(`
+                DELETE FROM pending_registrations
+                WHERE username_lookup = ? OR email_lookup = ?
+            `).run(deletingUsernameLookup || '', deletingEmailLookup || '');
+        }
+
+        db.prepare('DELETE FROM users WHERE id = ?').run(deletingUserId);
+    });
+
+    deleteAccount({
+        userId,
+        emailLookup,
+        usernameLookup,
+        itemIds
+    });
+}
 
 function validatePasswordStrength(password, context = {}) {
     const value = String(password || '');
@@ -284,21 +553,6 @@ async function assignRecoveryKeyToUser(userId) {
     return recoveryMaterial.recoveryKey;
 }
 
-function getCurrentRecoveryKey(userRow) {
-    if (!userRow?.recovery_key_value) {
-        return null;
-    }
-
-    try {
-        return decryptFromStorage(userRow.recovery_key_value, {
-            purpose: USER_RECOVERY_KEY_PURPOSE
-        });
-    } catch (error) {
-        console.error('Recovery key decrypt error:', error);
-        return null;
-    }
-}
-
 function incrementPasswordResetFailure(userId) {
     if (!userId) {
         return;
@@ -449,13 +703,29 @@ function getResetPasswordUrl(token) {
 // Register new user - saves to pending_registrations until email is verified
 router.post('/register', async (req, res) => {
     try {
-        const { username, email, password, mode, house_key } = req.body;
+        const {
+            username,
+            email,
+            password,
+            mode,
+            house_key,
+            acceptedTerms,
+            acknowledgedPrivacyNotice
+        } = req.body;
         const safeUsername = String(username || '').trim();
         const safeEmail = String(email || '').trim().toLowerCase();
+        const hasAcceptedTerms = acceptedTerms === true;
+        const hasAcknowledgedPrivacyNotice = acknowledgedPrivacyNotice === true;
 
         // Validation
         if (!safeUsername || !safeEmail || !password) {
             return res.status(400).json({ error: 'Tüm alanları doldurun' });
+        }
+
+        if (!hasAcceptedTerms || !hasAcknowledgedPrivacyNotice) {
+            return res.status(400).json({
+                error: 'Devam etmek için Kullanım Koşulları ile Aydınlatma Metni onayları gerekli'
+            });
         }
 
         if (!/^[a-zA-Z0-9_-]{3,30}$/.test(safeUsername)) {
@@ -533,20 +803,40 @@ router.post('/register', async (req, res) => {
 
         // Hash password with bcrypt
         const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
+        const legalAcceptedAt = toSqliteUtcTimestamp(Date.now());
 
         // If email verification is disabled (no API key), register directly
         if (!process.env.RESEND_API_KEY) {
             const passwordRecoveryMode = getPasswordRecoveryMode();
+            const initialRole = resolveRoleForEmail(safeEmail);
             const result = db.prepare(`
-                INSERT INTO users (username, email, username_lookup, email_lookup, password_hash, house_key, is_verified)
-                VALUES (?, ?, ?, ?, ?, ?, 1)
+                INSERT INTO users (
+                    username,
+                    email,
+                    username_lookup,
+                    email_lookup,
+                    password_hash,
+                    house_key,
+                    role,
+                    is_verified,
+                    legal_terms_version,
+                    legal_terms_accepted_at,
+                    privacy_notice_version,
+                    privacy_notice_acknowledged_at
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?, ?)
             `).run(
                 encryptUsername(safeUsername),
                 encryptEmail(safeEmail),
                 buildUsernameLookup(safeUsername),
                 buildEmailLookup(safeEmail),
                 passwordHash,
-                isNewHouse ? userHouseKey : null
+                isNewHouse ? userHouseKey : null,
+                initialRole,
+                LEGAL_TERMS_VERSION,
+                legalAcceptedAt,
+                PRIVACY_NOTICE_VERSION,
+                legalAcceptedAt
             );
             
             const newUserId = result.lastInsertRowid;
@@ -608,8 +898,24 @@ router.post('/register', async (req, res) => {
         // Save to pending_registrations (NOT to users table)
         db.prepare(`
             INSERT INTO pending_registrations 
-            (username, email, username_lookup, email_lookup, password_hash, house_key, mode, is_new_house, verification_token, verification_token_hashed, expires_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            (
+                username,
+                email,
+                username_lookup,
+                email_lookup,
+                password_hash,
+                house_key,
+                mode,
+                is_new_house,
+                verification_token,
+                verification_token_hashed,
+                expires_at,
+                legal_terms_version,
+                legal_terms_accepted_at,
+                privacy_notice_version,
+                privacy_notice_acknowledged_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `).run(
             encryptUsername(safeUsername),
             encryptEmail(safeEmail),
@@ -621,7 +927,11 @@ router.post('/register', async (req, res) => {
             isNewHouse ? 1 : 0,
             verificationTokenHash,
             1,
-            expiresAt
+            expiresAt,
+            LEGAL_TERMS_VERSION,
+            legalAcceptedAt,
+            PRIVACY_NOTICE_VERSION,
+            legalAcceptedAt
         );
 
         // Send verification email
@@ -773,7 +1083,21 @@ router.post('/login', async (req, res) => {
 router.get('/me', authenticateToken, (req, res) => {
     const normalizedUser = syncUserHousePointers(req.user.id);
     const userRow = db.prepare(
-        'SELECT id, username, email, house_key, active_house_key, role, created_at, totp_enabled FROM users WHERE id = ?'
+        `SELECT
+            id,
+            username,
+            email,
+            house_key,
+            active_house_key,
+            role,
+            created_at,
+            totp_enabled,
+            legal_terms_version,
+            legal_terms_accepted_at,
+            privacy_notice_version,
+            privacy_notice_acknowledged_at
+        FROM users
+        WHERE id = ?`
     ).get(req.user.id);
     const userSecurityRow = db.prepare(
         'SELECT recovery_key_hash FROM users WHERE id = ?'
@@ -812,8 +1136,53 @@ router.get('/me', authenticateToken, (req, res) => {
         password_recovery_mode: passwordRecoveryFlags.passwordRecoveryMode,
         has_recovery_key: passwordRecoveryFlags.hasRecoveryKey,
         must_setup_recovery_key: passwordRecoveryFlags.mustSetupRecoveryKey,
-        totp_enabled: Boolean(userRow.totp_enabled)
+        totp_enabled: Boolean(userRow.totp_enabled),
+        must_accept_legal: !hasAcceptedCurrentLegalDocuments(userRow)
     });
+});
+
+router.post('/legal-acceptance', authenticateToken, (req, res) => {
+    try {
+        const {
+            acceptedTerms,
+            acknowledgedPrivacyNotice
+        } = req.body;
+
+        if (acceptedTerms !== true || acknowledgedPrivacyNotice !== true) {
+            return res.status(400).json({
+                error: 'Kullanım Koşulları ve Aydınlatma Metni onayı gereklidir'
+            });
+        }
+
+        const user = db.prepare('SELECT id FROM users WHERE id = ?').get(req.user.id);
+        if (!user) {
+            return res.status(404).json({ error: 'Kullanıcı bulunamadı' });
+        }
+
+        const acceptedAt = toSqliteUtcTimestamp(Date.now());
+        db.prepare(`
+            UPDATE users
+            SET legal_terms_version = ?,
+                legal_terms_accepted_at = ?,
+                privacy_notice_version = ?,
+                privacy_notice_acknowledged_at = ?
+            WHERE id = ?
+        `).run(
+            LEGAL_TERMS_VERSION,
+            acceptedAt,
+            PRIVACY_NOTICE_VERSION,
+            acceptedAt,
+            req.user.id
+        );
+
+        return res.json({
+            success: true,
+            message: 'Yasal metin onayları kaydedildi'
+        });
+    } catch (error) {
+        console.error('Legal acceptance error:', error);
+        return res.status(500).json({ error: 'Yasal onay kaydedilemedi' });
+    }
 });
 
 router.post('/forgot-password', async (req, res) => {
@@ -1094,37 +1463,6 @@ router.post('/recovery-key/regenerate', authenticateToken, async (req, res) => {
     }
 });
 
-router.get('/recovery-key/current', authenticateToken, async (req, res) => {
-    try {
-        if (getPasswordRecoveryMode() !== 'recovery_key') {
-            return res.status(400).json({ error: 'Bu ortamda kurtarma anahtarı kullanılmıyor' });
-        }
-
-        const user = db.prepare(`
-            SELECT id, recovery_key_hash, recovery_key_value
-            FROM users
-            WHERE id = ?
-        `).get(req.user.id);
-
-        if (!user || !user.recovery_key_hash) {
-            return res.status(404).json({ error: 'Kurtarma anahtarı bulunamadı' });
-        }
-
-        const recoveryKey = getCurrentRecoveryKey(user);
-        if (!recoveryKey) {
-            return res.status(404).json({ error: 'Kurtarma anahtarı gösterilemiyor. Lütfen yeniden üretin.' });
-        }
-
-        return res.json({
-            success: true,
-            recoveryKey
-        });
-    } catch (err) {
-        console.error('Get current recovery key error:', err);
-        return res.status(500).json({ error: 'Kurtarma anahtarı alınamadı' });
-    }
-});
-
 // Get house members
 router.get('/house-members', authenticateToken, (req, res) => {
     const members = db.prepare(`
@@ -1226,6 +1564,67 @@ router.post('/change-password', authenticateToken, async (req, res) => {
     }
 });
 
+async function handleDeleteAccountRequest(req, res) {
+    try {
+        const { currentPassword } = req.body;
+
+        if (!currentPassword) {
+            return res.status(400).json({ error: 'Mevcut şifre gerekli' });
+        }
+
+        const user = db.prepare(`
+            SELECT *
+            FROM users
+            WHERE id = ?
+        `).get(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ error: 'Kullanıcı bulunamadı' });
+        }
+
+        const validPassword = await bcrypt.compare(currentPassword, user.password_hash);
+        if (!validPassword) {
+            return res.status(401).json({ error: 'Mevcut şifre hatalı' });
+        }
+
+        const userItems = db.prepare(`
+            SELECT id, photo_path, thumbnail_path, invoice_photo_path, invoice_thumbnail_path
+            FROM items
+            WHERE user_id = ?
+        `).all(req.user.id);
+        const itemIds = userItems.map((item) => item.id);
+        const mediaPaths = Array.from(new Set(
+            userItems.flatMap((item) => ([
+                item.photo_path,
+                item.thumbnail_path,
+                item.invoice_photo_path,
+                item.invoice_thumbnail_path
+            ])).filter(Boolean)
+        ));
+
+        deleteAccountMediaFiles(mediaPaths);
+        runDeleteAccountTransaction({
+            userId: req.user.id,
+            emailLookup: user.email_lookup,
+            usernameLookup: user.username_lookup,
+            itemIds
+        });
+
+        clearSessionCookies(res);
+
+        return res.json({
+            success: true,
+            message: 'Hesabınız ve ilişkili verileriniz kalıcı olarak silindi'
+        });
+    } catch (error) {
+        console.error('Delete account error:', error);
+        return res.status(500).json({ error: 'Hesap silinirken bir hata oluştu' });
+    }
+}
+
+router.delete('/delete-account', authenticateToken, handleDeleteAccountRequest);
+router.post('/delete-account', authenticateToken, handleDeleteAccountRequest);
+
 // Change username
 router.post('/change-username', authenticateToken, async (req, res) => {
     try {
@@ -1316,15 +1715,16 @@ passport.use(new GoogleStrategy({
 
                 // Insert user with is_verified = 1 (Google already verified their email)
                 const result = db.prepare(
-                    `INSERT INTO users (username, email, username_lookup, email_lookup, password_hash, house_key, is_verified)
-                     VALUES (?, ?, ?, ?, ?, ?, 1)`
+                    `INSERT INTO users (username, email, username_lookup, email_lookup, password_hash, house_key, role, is_verified)
+                     VALUES (?, ?, ?, ?, ?, ?, ?, 1)`
                 ).run(
                     encryptUsername(username),
                     encryptEmail(email),
                     buildUsernameLookup(username),
                     buildEmailLookup(email),
                     passwordHash,
-                    null
+                    null,
+                    resolveRoleForEmail(email)
                 );
 
                 const newUser = {
@@ -1332,7 +1732,7 @@ passport.use(new GoogleStrategy({
                     username: username,
                     email: email,
                     house_key: null,
-                    role: 'user' // Default role
+                    role: resolveRoleForEmail(email)
                 };
                 return cb(null, newUser);
             }
@@ -1488,16 +1888,35 @@ router.get('/verify-email', (req, res) => {
             return res.status(400).send('Bu e-posta veya kullanıcı adı artık kullanımda. Lütfen yeniden kayıt olun.');
         }
 
+        const initialRole = resolveRoleForEmail(decryptedPending.email);
         const result = db.prepare(`
-            INSERT INTO users (username, email, username_lookup, email_lookup, password_hash, house_key, is_verified)
-            VALUES (?, ?, ?, ?, ?, ?, 1)
+            INSERT INTO users (
+                username,
+                email,
+                username_lookup,
+                email_lookup,
+                password_hash,
+                house_key,
+                role,
+                is_verified,
+                legal_terms_version,
+                legal_terms_accepted_at,
+                privacy_notice_version,
+                privacy_notice_acknowledged_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?, ?)
         `).run(
             pending.username,
             pending.email,
             buildUsernameLookup(decryptedPending.username),
             buildEmailLookup(decryptedPending.email),
             pending.password_hash,
-            pending.is_new_house === 1 ? pendingHouseKey : null
+            pending.is_new_house === 1 ? pendingHouseKey : null,
+            initialRole,
+            pending.legal_terms_version || LEGAL_TERMS_VERSION,
+            pending.legal_terms_accepted_at || toSqliteUtcTimestamp(Date.now()),
+            pending.privacy_notice_version || PRIVACY_NOTICE_VERSION,
+            pending.privacy_notice_acknowledged_at || toSqliteUtcTimestamp(Date.now())
         );
 
         const userId = result.lastInsertRowid;
@@ -1871,12 +2290,7 @@ router.post('/rename-house', authenticateToken, (req, res) => {
 
 // Logout endpoint
 router.post('/logout', (req, res) => {
-    res.clearCookie('token', cookieOptions);
-    res.clearCookie(TRUSTED_DEVICE_COOKIE, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax'
-    });
+    clearAuthTokenCookie(res);
     res.json({ message: 'Başarıyla çıkış yapıldı' });
 });
 

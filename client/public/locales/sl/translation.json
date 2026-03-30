@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Enota trajanja garancije",
             "warranty_duration_months": "Mesece",
             "warranty_duration_years": "Leta",
-            "warranty_calculation_help": "Če pustite prazno začetni datum garancije, se uporabi datum računa. Ko vnesete trajanje, se datum konca garancije samodejno izračuna."
+            "warranty_calculation_help": "Če pustite prazno začetni datum garancije, se uporabi datum računa. Ko vnesete trajanje, se datum konca garancije samodejno izračuna.",
+            "vault_hint_title": "Zelo občutljiv zapis?",
+            "vault_hint_description": "Za potne liste, listine, identifikacijske podatke, dostopne kode in druge zapise, ki naj ostanejo izven standardnega toka inventarja, jih hranite v Osebni skrinjici.",
+            "vault_hint_action": "Odpri Osebno skrinjico"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" hitro dodano - urejate lahko kasneje",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Izdelek ni bil najden v bazah podatkov. Lahko iščete na Googlu.",
             "search_fail": "⚠ Iskanje ni uspelo",
             "name_required": "Potrebno je vnesti ime izdelka",
-            "location_add_error": "Ni bilo mogoče dodati lokacije"
+            "location_add_error": "Ni bilo mogoče dodati lokacije",
+            "photo_too_large": "Fotografije so lahko največ {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,16 +103,16 @@
         "refresh": "Osveži",
         "close": "Zapri",
         "logout": "Odjava",
-        "copyright": "© {{year}} HomeInventory - Vse pravice pridržane",
+        "copyright": "© {{year}} {{brandName}} - Vse pravice pridržane",
         "other": "Drugo",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "Kopiraj",
+        "download": "Prenesi"
     },
     "auth": {
         "login": {
             "title": "Prijava",
             "subtitle": "Pametno upravljajte celoten svoj domači inventar",
-            "welcome": "Dobrodošli v HomeInventory",
+            "welcome": "Dobrodošli v {{brandName}}",
             "username_or_email": "Uporabniško ime ali e-pošta",
             "password": "Geslo",
             "forgot_password": "Ste pozabili geslo?",
@@ -120,13 +124,25 @@
             "register_link": "Registrirajte se",
             "support_contact": "Za težave pri prijavi:",
             "terms_title": "📋 Pogoji uporabe in izjave o omejitvi odgovornosti",
-            "terms_beta": "BETA različica: HomeInventory je trenutno v fazi testiranja. Ni zagotovila glede trajnosti ali varnosti vaših podatkov.",
+            "terms_beta": "BETA različica: {{brandName}} je trenutno v fazi testiranja. Ni zagotovila glede trajnosti ali varnosti vaših podatkov.",
             "terms_disclaimer": "Izjava o omejitvi odgovornosti: Z uporabo te aplikacije se strinjate, da ne morete zahtevati odškodnine za morebitno izgubo podatkov, težave s prijavo ali druge tehnične okvare.",
             "terms_backup": "Varnostno kopiranje podatkov: Priporočamo redno varnostno kopiranje pomembnih informacij.",
-            "terms_accept": "S prijavo se šteje, da ste sprejeli te pogoje."
+            "terms_accept": "S prijavo se šteje, da ste sprejeli te pogoje.",
+            "two_factor": {
+                "title": "Dvofaktorska avtentikacija",
+                "subtitle": "Vnesite 6-mestno kodo iz vaše aplikacije za avtentikacijo",
+                "backup_subtitle": "Vnesite eno od vaših rezervnih kod",
+                "code_label": "Preveritvena koda",
+                "backup_code_label": "Rezervna koda",
+                "remember_device": "Zapomni si to napravo za 30 dni",
+                "verify": "Preveri",
+                "back": "Nazaj",
+                "use_backup": "Uporabi varnostno kodo",
+                "use_totp": "Uporabi avtentikator"
+            }
         },
         "register": {
-            "title": "Dobrodošli v HomeInventory",
+            "title": "Dobrodošli v {{brandName}}",
             "subtitle": "Ustvarite nov račun ali se pridružite obstoječemu domu",
             "create_house": "Ustvari nov dom",
             "join_house": "Pridruži se domu",
@@ -237,7 +253,8 @@
         "admin_panel": "Administratorska plošča",
         "logout": "Odjava",
         "menu": "Meni",
-        "personal_vault": "Osebni seif"
+        "personal_vault": "Osebni seif",
+        "borrow_requests": "Zahteve za izposojo"
     },
     "dashboard": {
         "welcome": "Dobrodošli, <1>{{name}}</1>! 👋",
@@ -279,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory je trenutno v fazi testiranja in hobija. Ni zagotovila za trajnost ali varnost podatkov. Prosimo, naredite varnostne kopije pomembnih informacij.",
+        "text": "{{brandName}} je trenutno v fazi testiranja in hobija. Ni zagotovila za trajnost ali varnost podatkov. Prosimo, naredite varnostne kopije pomembnih informacij.",
         "contact": "Kontakt:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Vse pravice pridržane",
+        "rights": "© {{year}} {{brandName}} - Vse pravice pridržane",
         "contact": "Kontakt:"
     },
     "settings": {
@@ -325,7 +342,8 @@
             "member_kicked": "Član je bil odstranjen iz hiše",
             "member_kick_error": "Člana ni bilo mogoče odstraniti iz hiše",
             "recovery_key_regenerated": "Ključ za obnovitev je bil ponovno ustvarjen",
-            "recovery_key_error": "Ključa za obnovitev ni bilo mogoče ponovno ustvariti"
+            "recovery_key_error": "Ključa za obnovitev ni bilo mogoče ponovno ustvariti",
+            "account_delete_error": "Računa ni bilo mogoče izbrisati"
         },
         "user_profile": {
             "edit_username": "Spremeni uporabniško ime"
@@ -392,13 +410,20 @@
             "export_json": "Izvoz kot JSON",
             "upload_backup": "Naloži varnostno kopijo",
             "uploading": "Nalaganje...",
-            "import_json": "Uvozi iz JSON"
+            "import_json": "Uvozi iz JSON",
+            "export_sensitive_title": "Izvožene varnostne kopije vsebujejo podatke v običajni obliki",
+            "export_sensitive_notice": "Ta varnostna kopija vključuje dešifrirane podatke gospodinjstva. Po prenosu jo shranite na varno mesto, po možnosti jo šifrirajte in se izogibajte deljenju po nezavarovanih kanalih.",
+            "export_sensitive_confirm": "Ta varnostna kopija bo vključevala dešifrirane podatke gospodinjstva v običajni obliki. Ali potrjujete, da jo boste shranili na varno mesto?"
         },
         "about": {
             "title": "📱 O aplikaciji",
             "version": "Različica",
             "brand": "Blagovna znamka",
-            "feedback": "✉️ Pošlji povratne informacije"
+            "feedback": "✉️ Pošlji povratne informacije",
+            "legal_title": "Pravne listine",
+            "legal_description": "Tukaj lahko ponovno odprete besedilo pogojev in zasebnosti tudi po tem, ko jih sprejmete.",
+            "terms_link": "Pogoji uporabe",
+            "privacy_link": "Politika zasebnosti"
         },
         "modals": {
             "password": {
@@ -441,6 +466,69 @@
             "title": "Moje čakajoče zahteve za pridružitev",
             "waiting_since": "Čakanje od: {{date, datetime}}",
             "pending_badge": "V teku"
+        },
+        "two_factor": {
+            "title": "Dvodnevna avtentikacija",
+            "description": "Dodajte dodatno plast varnosti vašemu računu z 2FA, temelječo na TOTP",
+            "active": "Aktivno",
+            "enable": "Omogoči 2FA",
+            "disable": "Onemogoči 2FA",
+            "disable_desc": "Odstranite dvostopenjsko avtentikacijo iz vašega računa",
+            "disable_title": "Onemogoči dvofaktorsko avtentikacijo",
+            "disable_confirm": "Onemogoči 2FA",
+            "disable_error": "Onemogočanje 2FA ni uspelo",
+            "disabled_success": "Dvofaktorska avtentikacija je bila onemogočena",
+            "password_label": "Geslo",
+            "password_placeholder": "Vnesite svoje geslo",
+            "method_totp": "Avtentikator",
+            "method_backup": "Rezervna koda",
+            "method_recovery": "Ključ za obnovitev",
+            "totp_code_label": "Koda avtentikatorja",
+            "backup_code_label": "Rezervna koda",
+            "recovery_key_label": "Ključ za obnovitev",
+            "cancel": "Prekliči",
+            "setup_title": "Nastavi 2FA",
+            "setup_error": "Začetek nastavitev 2FA ni uspel",
+            "step_1": "Korak 1: Skenirajte QR kodo",
+            "step_2": "2. korak: Preverite kodo",
+            "step_3": "3. korak: Shranite varnostne kode",
+            "scan_instruction": "Skenirajte ta QR kodo s svojo aplikacijo za avtentikacijo (Google Authenticator, Authy ali katero koli TOTP aplikacijo)",
+            "manual_entry": "Ne morete skenirati? Vnesite ta ključ ročno:",
+            "copy_secret": "Kopiraj skrivnost",
+            "next": "Naprej",
+            "verify_instruction": "Vnesite 6-mestno kodo, prikazano v vaši aplikaciji za avtentikacijo, da preverite nastavitev",
+            "verify_error": "Preverjanje ni uspelo",
+            "code_label": "6-mestna koda",
+            "back": "Nazaj",
+            "activate": "Aktiviraj 2FA",
+            "backup_warning_title": "Shranite te rezervne kode!",
+            "backup_warning_text": "Če izgubite dostop do svoje aplikacije za preverjanje pristnosti, lahko za prijavo uporabite te kode. Vsaka koda je uporabna samo enkrat. Shranite jih na varno mesto.",
+            "download_codes": "Prenesi rezervne kode",
+            "backup_acknowledge": "Shranil/a sem svoje rezervne kode na varno mesto",
+            "done": "Končano",
+            "regenerate_codes": "Obnovi varnostne kode",
+            "regenerate_codes_desc": "Ustvari nove varnostne kode (stare bodo razveljavljene)",
+            "regenerate": "Obnovi",
+            "codes_regenerated": "Varnostne kode so bile obnovljene",
+            "codes_error": "Obnovitev varnostnih kod ni uspela",
+            "close_codes": "Zapri",
+            "revoke_devices": "Razveljavi zaupanja vredne naprave",
+            "revoke_devices_desc": "Odstrani vse zapomnjene naprave, ob naslednji prijavi bo potrebna 2FA",
+            "devices_revoked": "{{count}} zaupanja vredna naprava(i) odstranjena",
+            "devices_error": "Ni uspelo preklicati naprav"
+        },
+        "danger_zone": {
+            "title": "Račun",
+            "delete_title": "Izbriši račun",
+            "delete_description": "Če želite, lahko trajno odstranite osebne podatke in naložene datoteke, povezane s tem računom.",
+            "delete_warning": "Teh dejanj ni mogoče razveljaviti.",
+            "delete_action": "Izbriši račun",
+            "modal_title": "Izbriši račun",
+            "modal_warning_title": "Ta dejanje je nepovratno",
+            "modal_warning_body": "Po potrditvi boste takoj izgubili dostop do računa, izbrisani podatki aplikacije pa jih ni mogoče obnoviti iz aplikacije.",
+            "password_label": "Potrdite z vašim trenutnim geslom",
+            "confirm_delete": "Potrdi izbris",
+            "deleting": "Brisanje..."
         }
     },
     "inventory": {
@@ -455,7 +543,53 @@
         "empty_filter": "Noben predmet ne ustreza vašim filtrom",
         "empty_msg": "Še niso dodani nobeni predmeti",
         "delete_confirm": "Ste prepričani, da želite izbrisati ta predmet?",
-        "delete_error": "Napaka pri brisanju"
+        "delete_error": "Napaka pri brisanju",
+        "load_warning": {
+            "title": "Način delnega nalaganja",
+            "body": "Nekateri podporni podatki trenutno reagirajo počasi, zato se je stran odprla brez celotnih metapodatkov filtra. Poskusili bomo znova, ko osvežite."
+        },
+        "borrow": {
+            "section_title": "Sledenje izposoje",
+            "section_subtitle": "Trenutni status posojila in zgodovina",
+            "dialog_lend_title": "Posodobi predmet",
+            "dialog_lend_subtitle": "Ustvari nov zapis izposoje za \"{{item}}\"",
+            "dialog_return_title": "Označi kot vrnjeno",
+            "dialog_return_subtitle": "Zaprite aktivni zapis izposoje za \"{{item}}\"",
+            "member": "Član hiše",
+            "external": "Zunanja oseba",
+            "borrower_member": "Kdo ga je prejel?",
+            "no_members": "V tej hiši ni drugega izbirnega člana. Namesto tega lahko ustvarite zapis kot zunanja oseba.",
+            "borrower_name": "Ime osebe",
+            "borrower_name_placeholder": "npr. Sosed Alex",
+            "borrower_contact": "Kontaktni podatki",
+            "borrower_contact_placeholder": "Telefon, e-pošta ali kratek zapis",
+            "due_date": "Pričakovani datum vrnitve",
+            "note": "Zapis",
+            "note_placeholder": "npr. Posojeno za vikend",
+            "submitting_lend": "Shranjevanje...",
+            "lend": "Posoditi",
+            "return_note": "Zapis o vrnitvi",
+            "return_note_placeholder": "npr. Vrnjeno v dobrem stanju",
+            "submitting_return": "Zapiranje...",
+            "mark_returned": "Oznaka vrnjena",
+            "current_borrower_label": "Trenutno pri:",
+            "unknown": "Neznano",
+            "overdue_badge": "Zapadlo",
+            "borrowed_badge": "Izposojeno",
+            "borrowed_to": "Pri {{name}}",
+            "due_date_short": "Rok: {{date}}",
+            "actions_error": "Dejanje izposoje ni bilo mogoče dokončati",
+            "borrowed_at": "Izposojeno dne: {{date}}",
+            "due_date_label": "Pričakovani datum vrnitve: {{date}}",
+            "note_label": "Opomba: {{note}}",
+            "return_note_label": "Opomba ob vrnitvi: {{note}}",
+            "no_active": "Ta predmet trenutno ni izposojen.",
+            "history_title": "Zgodovina",
+            "history_active": "Odpri zapis za {{name}}",
+            "history_returned": "Zaprta kartoteka za {{name}}",
+            "returned_at": "Vrnjen: {{date}}",
+            "no_history": "Za ta predmet še ni zgodovine izposoj."
+        }
     },
     "categories": {
         "title": "Kategorije",
@@ -553,7 +687,7 @@
             "free_badge": "Popolnoma brezplačno"
         },
         "features": {
-            "title": "Zakaj <1>HomeInventory</1>?",
+            "title": "Zakaj <1>{{brandName}}</1>?",
             "subtitle": "Vse funkcije za poenostavitev upravljanja doma na eni platformi",
             "items": {
                 "categorize": {
@@ -591,7 +725,7 @@
             "desc": "Enostavna in varna platforma za digitalizacijo vaših domačih zalog.",
             "links": "Hitre povezave",
             "contact": "Kontaktirajte nas",
-            "copyright": "© {{year}} HomeInventory. Vse pravice pridržane."
+            "copyright": "© {{year}} {{brandName}}. Vse pravice pridržane."
         },
         "preview_privacy_notice": "Demo prikaz: prikazani niso pravi podatki uporabnikov."
     },
@@ -719,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Zahteva po preverjanju e-pošte",
-            "headerTitle": "Dobrodošli v HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Zahteva po preverjanju e-pošte",
+            "headerTitle": "Dobrodošli v {{brandName}}",
             "headerSubtitle": "Ustvarite nov račun ali se pridružite obstoječemu domu",
-            "greeting": "Dobrodošli v HomeInventory",
+            "greeting": "Dobrodošli v {{brandName}}",
             "intro": "Račun ustvarjen! Prosimo, preverite svoj e-poštni naslov, da se prijavite.",
             "verifyPrompt": "📧 Zahteva po preverjanju e-pošte",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Preveri moj račun",
             "warningTitle": "⚠️",
             "warningBody": "Preverite mapo za neželeno pošto, če e-pošta ne prispe.",
             "houseKeyLabel": "Ključ hiše",
@@ -739,13 +873,13 @@
             ],
             "fallback": "Povezava za ponastavitev gesla je videti nepopolna ali pokvarjena.",
             "support": "Težave pri registraciji:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Dobrodošli v HomeInventory",
-            "headerTitle": "Dobrodošli v HomeInventory",
+            "subject": "Dobrodošli v {{brandName}}",
+            "headerTitle": "Dobrodošli v {{brandName}}",
             "headerSubtitle": "Ustvarite nov račun ali se pridružite obstoječemu domu",
-            "greeting": "Dobrodošli v HomeInventory",
+            "greeting": "Dobrodošli v {{brandName}}",
             "intro": "Dobrodošli, ! 👋",
             "houseKeyLabel": "Ključ hiše",
             "houseKeyNote": "To je vaš ključ od hiše, uporabite ga za povabilo drugih. Dodajte družinske člane v svoj dom!",
@@ -757,7 +891,7 @@
                 "💡 Lahko ste član več hiš in med njimi preklapljate. Vsaka hiša ima ločeno zalogo."
             ],
             "support": "Težave pri registraciji:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Pridruži se hiši",
@@ -766,7 +900,7 @@
             "bodyLine2": "Čakanje na odobritev lastnika hiše"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Dostop do hiše",
             "bodyLine1Template": "Trenutna čakajoča zahteva: {{house}} ({{status}})",
             "bodyLine2": "Vaša zahteva za \"{{house}}\" še čaka na odločitev."
@@ -786,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Če račun obstaja, je bil poslan povezava za ponastavitev gesla, veljavna 15 minut.",
             "fallback": "Povezava za ponastavitev gesla je videti nepopolna ali pokvarjena.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 DomačaInventura"
+        },
+        "adminEmail": {
+            "sentBy": "Ta e-pošta je bila poslana s strani {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -828,7 +966,6 @@
         "record_save_new": "Dodaj zapis skrinje",
         "record_save_edit": "Shrani spremembe",
         "barcode_privacy_hint": "Črtne kode skrinje se samodejno ne preverjajo na zunanjih storitvah; besedilo črtne kode je shranjeno samo kot šifrirani podatki.",
-        "media_note": "Fotografije, skeniranje črtnih kod in iskanje izdelkov na zunanjih virih so v prvem toku skrinje namerno onemogočeni. Potrebovali bodo ločeno šifrirano medijsko in zasebno komunikacijsko pot.",
         "search_placeholder": "Išči znotraj trezorja...",
         "all_categories": "Vse kategorije",
         "all_rooms": "Vse sobe",
@@ -851,6 +988,109 @@
         "recovery_file_title": "Domača inventurna osebna ključavnica obnovitvena ključ",
         "recovery_file_created_label": "Ustvarjeno",
         "recovery_file_key_label": "Obnovitveni ključ",
-        "recovery_file_warning": "Če izgubite tako ta ključ kot geslo ključavnice, ključavnica ne bo mogoče obnoviti."
+        "recovery_file_warning": "Če izgubite tako ta ključ kot geslo ključavnice, ključavnica ne bo mogoče obnoviti.",
+        "media_note": "Nalaganje fotografij, skeniranje črtnih kod in iskanje izdelkov zunaj še ni podprto. Te funkcije bodo dodane, ko bo pripravljen namenski šifrirani medijski in zasebnostni proces."
+    },
+    "borrow_requests": {
+        "title": "Center izposoje",
+        "subtitle": "Upravljajte varne zahteve in ponudbe z drugimi uporabniki {{brandName}}.",
+        "incoming_title": "Prihajajoče zahteve",
+        "incoming_subtitle": "Zahteve in ponudbe, poslane vam",
+        "outgoing_title": "Poslal sem jaz",
+        "outgoing_subtitle": "Ponudbe in zahteve za predmete, ki ste jih začeli",
+        "empty_incoming": "Trenutno za vas ni nobenih prošenj za izposojo.",
+        "empty_outgoing": "Še niste poslali ponudbe ali zahteve.",
+        "stats": {
+            "incoming": "Čaka na prihod",
+            "outgoing": "Čaka na odhod",
+            "active": "Aktivne izposoje"
+        },
+        "active": {
+            "title": "Aktivne izposoje",
+            "subtitle": "Predmeti, ki so trenutno pri vas ali ki ste jih vi izposodili",
+            "empty": "Trenutno ni aktivnih izposoj.",
+            "borrowed_from": "Izposojeno od {{name}}",
+            "lent_to": "Trenutno pri {{name}}"
+        },
+        "status": {
+            "pending": "V čakanju",
+            "accepted": "Aktivno",
+            "rejected": "Zavrnjeno",
+            "cancelled": "Preklicano",
+            "expired": "Poteklo",
+            "returned": "Vračeno"
+        },
+        "actions": {
+            "send_request": "Zahteva predmet",
+            "send_offer": "Pošlji ponudbo",
+            "accept": "Sprejmi",
+            "reject": "Zavrniti",
+            "cancel": "Prekliči",
+            "fulfill_request": "Izpolni zahtevo"
+        },
+        "labels": {
+            "offer": "Ponudba",
+            "request": "Zahteva",
+            "unspecified_item": "Nepovedan predmet",
+            "counterparty": "Proti stranka: {{name}}",
+            "created_at": "Ustvarjeno: {{date}}",
+            "due_date": "Pričakovani datum vrnitve: {{date}}",
+            "waiting_delivery": "Zahteva morda še vedno čaka na ujemajoči se račun, preden se prikaže.",
+            "returned_on": "Vrnjeno dne: {{date}}",
+            "borrow_started": "Začeto: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Pošlji ponudbo",
+            "offer_subtitle_item": "Ustvari varno uporabniško ponudbo za \"{{item}}\"",
+            "offer_subtitle_general": "Izberi predmet iz svojega inventarja in pošlji varno ponudbo",
+            "item_label": "Predmet",
+            "item_placeholder": "Izberi predmet",
+            "target_label": "Uporniško ime ali e-pošta",
+            "target_placeholder": "npr. alex ali alex@example.com",
+            "target_help": "Sistem ne razkriva, ali ta račun obstaja. Če se ujema, se zahteva prikaže v prejemnikovem poštnem predalu.",
+            "offer_note_placeholder": "npr. Lahko ga obdržiš do konca tedna, če želiš",
+            "offer_submitting": "Pošiljanje...",
+            "request_title": "Zahteva za predmet",
+            "request_subtitle": "Ustvari splošno zahtevo brez pregledovanja zaloge druge osebe",
+            "requested_item_label": "Kaj potrebuješ?",
+            "requested_item_placeholder": "npr. Vrtalnik, stojalo, kamp stol",
+            "request_note_placeholder": "npr. Potrebujem ga samo za 2 dni",
+            "request_submitting": "Pošiljanje...",
+            "fulfill_title": "Izpolnite zahtevo",
+            "fulfill_subtitle": "Izberite predmet iz svojega inventarja za \"{{item}}\"",
+            "fulfill_target": "Ta predmet bo izposojen {{name}}.",
+            "no_available_items": "Trenutno ni nobenega primernega predmeta za ponudbo v vašem aktivnem domu.",
+            "fulfill_submitting": "Shranjevanje...",
+            "return_title": "Označi kot vrnjeno",
+            "return_subtitle": "Zapri aktivno izposojo za \"{{item}}\"",
+            "return_target": "Trenutno je prikazano, da je pri {{name}}."
+        },
+        "messages": {
+            "load_error": "Središče za izposojo ni bilo mogoče naložiti",
+            "action_error": "Dejanja ni bilo mogoče dokončati"
+        },
+        "preview": {
+            "title": "Način predogleda",
+            "body": "Zadnji del te strani trenutno ni dosegljiv pri lokalnem testiranju. Še vedno lahko najprej pregledate postavitev in tok; strežniški del bomo omogočili, ko ga boste odobrili."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Politika zasebnosti",
+        "terms_of_service_title": "Pogoji storitve",
+        "privacy_policy_content": "Vaša zasebnost nam je pomembna. Ta aplikacija varno shranjuje vaše naložene podatke z uporabo šifriranja na ravni polj. Vaših osebnih podatkov ne prodajamo niti ne delimo s tretjimi osebami. Z uporabo storitve se strinjate z zbiranjem potrebnih podatkov za upravljanje računa in delovanje aplikacije.",
+        "terms_of_service_content": "Z uporabo {{brandName}} se strinjate s temi pogoji. Storitev je na voljo 'kot je' brez kakršnih koli jamstev. Odgovorni ste za podatke, ki jih naložite, in za zagotavljanje, da imate za to pravice. Pridržujemo si pravico, da začasno prekličemo račune, ki kršijo politike ali zlorabljajo sistem.",
+        "register_consent": "Prebral(a) sem, razumel(a) in se strinjam s <1>Pogoji storitve</1> in <2>Politiko zasebnosti</2>.",
+        "consent_title": "Pregled pravnih dokumentov",
+        "consent_subtitle": "Prosimo, potrdite trenutne pogoje, preden nadaljujete.",
+        "consent_notice": "Preden lahko nadaljujete z uporabo aplikacije, potrebujemo zabeleženo potrditev trenutnih Pogojev uporabe in Obvestila o zasebnosti.",
+        "consent_checkbox": "Sprejemam Pogoje uporabe in potrjujem, da sem prebral Obvestilo o zasebnosti.",
+        "consent_submit": "Nadaljuj",
+        "consent_submitting": "Shranjevanje...",
+        "consent_required": "Pred nadaljevanjem morate potrditi Pogoje storitve in Obvestilo o zasebnosti."
+    },
+    "cookies": {
+        "banner_text": "Uporabljamo nujne piškotke, da vas ohranimo prijavljene in varne med sejo. Z nadaljevanjem uporabe te strani se strinjate z našimi politikami.",
+        "accept": "Sprejemam",
+        "learn_more": "Izvedi več"
     }
 }

@@ -5,7 +5,8 @@ import os from 'os';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import { sendEmail } from '../utils/emailService.js';
+import { getAdminEmailCopy, sendEmail } from '../utils/emailService.js';
+import { BRAND_NAME } from '../utils/branding.js';
 import { authenticateToken, requireAdmin } from '../middleware/auth.js';
 import { logError } from '../utils/logger.js';
 import { buildDefaultIndexNowUrls, getIndexNowConfig, submitIndexNowUrls } from '../utils/indexNow.js';
@@ -14,6 +15,7 @@ import { buildEmailLookup, decryptUserRecord, decryptUsername } from '../utils/p
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const MAX_ADMIN_EMAIL_MESSAGE_LENGTH = 10000;
 
 const router = express.Router();
 
@@ -45,14 +47,17 @@ function sanitizeInput(input) {
     return validator.escape(String(input).trim());
 }
 
-// HTML temizleme
-function sanitizeHtml(html) {
-    if (!html) return '';
-    return String(html)
-        .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-        .replace(/on\w+\s*=/gi, '')
-        .replace(/javascript:/gi, '')
-        .trim();
+// Admin e-postalarında ham HTML'e güvenmeyip metni güvenli biçimde işleriz.
+function renderSafeEmailMessageHtml(message) {
+    const normalized = String(message || '').trim();
+    if (!normalized) {
+        return '';
+    }
+
+    return normalized
+        .split(/\n{2,}/)
+        .map((paragraph) => `<p>${validator.escape(paragraph).replace(/\r?\n/g, '<br />')}</p>`)
+        .join('');
 }
 
 // Log kaydet
@@ -369,11 +374,20 @@ router.post('/email/send', authenticateToken, requireAdmin, emailRateLimiter, as
         }
 
         const cleanSubject = sanitizeInput(subject);
-        const cleanMessage = sanitizeHtml(message);
+        const rawMessage = String(message || '').trim();
+        const cleanMessage = renderSafeEmailMessageHtml(rawMessage);
 
         if (cleanSubject.length > 200) {
             return res.status(400).json({ success: false, error: 'Konu max 200 karakter' });
         }
+        if (!cleanMessage) {
+            return res.status(400).json({ success: false, error: 'Mesaj boş olamaz' });
+        }
+        if (rawMessage.length > MAX_ADMIN_EMAIL_MESSAGE_LENGTH) {
+            return res.status(400).json({ success: false, error: `Mesaj max ${MAX_ADMIN_EMAIL_MESSAGE_LENGTH} karakter olabilir` });
+        }
+
+        const emailCopy = getAdminEmailCopy();
 
         const html = `
         <!DOCTYPE html>
@@ -388,11 +402,11 @@ router.post('/email/send', authenticateToken, requireAdmin, emailRateLimiter, as
         </style>
         </head><body>
             <div class="container">
-                <div class="header"><h1>🏠 HomeInventory</h1></div>
+                <div class="header"><h1>🏠 ${BRAND_NAME}</h1></div>
                 <div class="content">${cleanMessage}</div>
                 <div class="footer">
-                    <p>This email was sent by HomeInventory Team.</p>
-                    <p>© 2026 HomeInventory - support@homeinventory.local</p>
+                    <p>${emailCopy.sentBy}</p>
+                    <p>${emailCopy.footer}</p>
                 </div>
             </div>
         </body></html>
@@ -417,7 +431,7 @@ router.post('/email/send', authenticateToken, requireAdmin, emailRateLimiter, as
 router.get('/email/status', authenticateToken, requireAdmin, (req, res) => {
     res.json({
         configured: !!process.env.RESEND_API_KEY,
-        from: 'HomeInventory Team <support@homeinventory.local>',
+        from: DEFAULT_FROM,
         rateLimit: '3/dakika',
         user: { id: req.user.id, username: req.user.username, role: req.user.role }
     });

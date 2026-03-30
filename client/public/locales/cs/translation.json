@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Jednotka délky záruky",
             "warranty_duration_months": "Měsíce",
             "warranty_duration_years": "Roky",
-            "warranty_calculation_help": "Pokud necháte datum začátku záruky prázdné, použije se datum faktury. Když zadáte délku, datum ukončení záruky se vypočítá automaticky."
+            "warranty_calculation_help": "Pokud necháte datum začátku záruky prázdné, použije se datum faktury. Když zadáte délku, datum ukončení záruky se vypočítá automaticky.",
+            "vault_hint_title": "Velmi citlivý záznam?",
+            "vault_hint_description": "Pro pasy, listiny, údaje o totožnosti, přístupové kódy a další záznamy, které by měly zůstat mimo standardní tok inventáře, je raději uchovávejte v Osobní trezoru.",
+            "vault_hint_action": "Otevřít Osobní trezor"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" rychle přidáno - můžete později upravit",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Produkt nebyl nalezen v databázích. Můžete vyhledat na Google.",
             "search_fail": "⚠ Hledání selhalo",
             "name_required": "Název položky je povinný",
-            "location_add_error": "Nepodařilo se přidat lokaci"
+            "location_add_error": "Nepodařilo se přidat lokaci",
+            "photo_too_large": "Fotografie mohou mít maximálně {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,7 +103,7 @@
         "refresh": "Obnovit",
         "close": "Zavřít",
         "logout": "Odhlásit se",
-        "copyright": "© {{year}} HomeInventory - Všechna práva vyhrazena",
+        "copyright": "© {{year}} {{brandName}} - Všechna práva vyhrazena",
         "other": "Jiný",
         "copy": "Kopírovat",
         "download": "Stáhnout"
@@ -108,7 +112,7 @@
         "login": {
             "title": "Přihlášení",
             "subtitle": "Spravujte veškerý svůj domácí inventář chytře",
-            "welcome": "Vítejte v HomeInventory",
+            "welcome": "Vítejte v {{brandName}}",
             "username_or_email": "Uživatelské jméno nebo e-mail",
             "password": "Heslo",
             "forgot_password": "Zapomenuté heslo?",
@@ -120,7 +124,7 @@
             "register_link": "Registrovat",
             "support_contact": "Pro problémy s přihlášením:",
             "terms_title": "📋 Podmínky použití a prohlášení",
-            "terms_beta": "BETA verze: HomeInventory je aktuálně ve fázi testování. Není zaručena trvanlivost ani bezpečnost vašich dat.",
+            "terms_beta": "BETA verze: {{brandName}} je aktuálně ve fázi testování. Není zaručena trvanlivost ani bezpečnost vašich dat.",
             "terms_disclaimer": "Prohlášení: Používáním této aplikace souhlasíte, že nemůžete požadovat žádnou náhradu za případnou ztrátu dat, problémy s přístupem nebo jiné technické závady.",
             "terms_backup": "Zálohování dat: Důrazně doporučujeme pravidelně zálohovat své důležité informace.",
             "terms_accept": "Přihlášením se považuje za přijetí těchto podmínek.",
@@ -138,7 +142,7 @@
             }
         },
         "register": {
-            "title": "Vítejte v HomeInventory",
+            "title": "Vítejte v {{brandName}}",
             "subtitle": "Vytvořte nový účet nebo se připojte ke stávajícímu domu",
             "create_house": "Vytvořit nový dům",
             "join_house": "Připojit se k domu",
@@ -249,7 +253,8 @@
         "admin_panel": "Administrátorský panel",
         "logout": "Odhlásit se",
         "menu": "Nabídka",
-        "personal_vault": "Osobní trezor"
+        "personal_vault": "Osobní trezor",
+        "borrow_requests": "Požadavky na půjčení"
     },
     "dashboard": {
         "welcome": "Vítejte, <1>{{name}}</1>! 👋",
@@ -291,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory je momentálně v testovací a hobby fázi. Není zaručena trvalost ani bezpečnost dat. Prosím, uchovávejte zálohy důležitých informací.",
+        "text": "{{brandName}} je momentálně v testovací a hobby fázi. Není zaručena trvalost ani bezpečnost dat. Prosím, uchovávejte zálohy důležitých informací.",
         "contact": "Kontakt:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Všechna práva vyhrazena",
+        "rights": "© {{year}} {{brandName}} - Všechna práva vyhrazena",
         "contact": "Kontakt:"
     },
     "settings": {
@@ -337,7 +342,8 @@
             "member_kicked": "Člen odstraněn z domu",
             "member_kick_error": "Nelze odebrat člena z domu\nObnovovací klíč",
             "recovery_key_regenerated": "byl obnoven",
-            "recovery_key_error": "Nelze obnovit klíč pro obnovení"
+            "recovery_key_error": "Nelze obnovit klíč pro obnovení",
+            "account_delete_error": "Účet nebylo možné smazat"
         },
         "user_profile": {
             "edit_username": "Změnit uživatelské jméno"
@@ -404,13 +410,20 @@
             "export_json": "Exportovat jako JSON",
             "upload_backup": "Nahrát zálohu",
             "uploading": "Nahrávání...",
-            "import_json": "Importovat z JSON"
+            "import_json": "Importovat z JSON",
+            "export_sensitive_title": "Exportované zálohy obsahují nešifrovaná data",
+            "export_sensitive_notice": "Tato záloha obsahuje dešifrovaná data domácnosti. Uchovávejte ji bezpečně po stažení, pokud možno ji zašifrujte a vyhněte se sdílení přes nezabezpečené kanály.",
+            "export_sensitive_confirm": "Tato záloha bude obsahovat dešifrovaná data domácnosti v prostém textu. Potvrzujete, že je budete uchovávat bezpečně?"
         },
         "about": {
             "title": "📱 O aplikaci",
             "version": "Verze",
             "brand": "Značka",
-            "feedback": "✉️ Poslat zpětnou vazbu"
+            "feedback": "✉️ Poslat zpětnou vazbu",
+            "legal_title": "Právní dokumenty",
+            "legal_description": "Texty podmínek a zásad ochrany soukromí můžete znovu otevřít i po jejich přijetí.",
+            "terms_link": "Podmínky služby",
+            "privacy_link": "Zásady ochrany osobních údajů"
         },
         "modals": {
             "password": {
@@ -503,6 +516,19 @@
             "revoke_devices_desc": "Odstranit všechna zapamatovaná zařízení, vyžadující 2FA při dalším přihlášení",
             "devices_revoked": "{{count}} důvěryhodné zařízení odstraněno",
             "devices_error": "Nepodařilo se zařízení odvolat"
+        },
+        "danger_zone": {
+            "title": "Účet",
+            "delete_title": "Smazat účet",
+            "delete_description": "Pokud chcete, můžete trvale odstranit osobní údaje a nahrané soubory spojené s tímto účtem.",
+            "delete_warning": "Tuto akci nelze vrátit zpět.",
+            "delete_action": "Smazat účet",
+            "modal_title": "Smazat účet",
+            "modal_warning_title": "Tato akce je nevratná",
+            "modal_warning_body": "Po potvrzení okamžitě ztratíte přístup k účtu a smazaná data aplikace nelze obnovit z aplikace.",
+            "password_label": "Potvrďte svým aktuálním heslem",
+            "confirm_delete": "Potvrdit smazání",
+            "deleting": "Mazání..."
         }
     },
     "inventory": {
@@ -517,7 +543,53 @@
         "empty_filter": "Žádné položky neodpovídají vašim filtrům",
         "empty_msg": "Žádné položky ještě nebyly přidány",
         "delete_confirm": "Opravdu chcete tuto položku smazat?",
-        "delete_error": "Chyba při mazání"
+        "delete_error": "Chyba při mazání",
+        "load_warning": {
+            "title": "Režim částečného načítání",
+            "body": "Některá podpůrná data momentálně reagují pomalu, takže stránka se otevřela bez úplných metadat filtrů. Zkusíme to znovu při obnovení."
+        },
+        "borrow": {
+            "section_title": "Sledování půjček",
+            "section_subtitle": "Aktuální stav a historie půjček",
+            "dialog_lend_title": "Půjčit položku",
+            "dialog_lend_subtitle": "Vytvořit nový záznam o půjčení pro \"{{item}}\"",
+            "dialog_return_title": "Označit jako vrácené",
+            "dialog_return_subtitle": "Uzavřete aktivní výpůjční záznam pro \"{{item}}\"",
+            "member": "Člen domu",
+            "external": "Externí osoba",
+            "borrower_member": "Kdo jej obdržel?",
+            "no_members": "V tomto domě není žádný jiný člen k výběru. Můžete místo toho vytvořit záznam jako externí osoba.",
+            "borrower_name": "Jméno osoby",
+            "borrower_name_placeholder": "např. Soused Alex",
+            "borrower_contact": "Kontaktní informace",
+            "borrower_contact_placeholder": "Telefon, e-mail nebo krátká poznámka",
+            "due_date": "Očekávané datum vrácení",
+            "note": "Poznámka",
+            "note_placeholder": "např. Půjčeno na víkend",
+            "submitting_lend": "Ukládání...",
+            "lend": "Půjčit",
+            "return_note": "Poznámka o vrácení",
+            "return_note_placeholder": "např. Vráceno v dobrém stavu",
+            "submitting_return": "Zavírání...",
+            "mark_returned": "Vráceno",
+            "current_borrower_label": "Aktuálně u:",
+            "unknown": "Neznámé",
+            "overdue_badge": "Po termínu",
+            "borrowed_badge": "Půjčeno",
+            "borrowed_to": "U {{name}}",
+            "due_date_short": "Splatnost: {{date}}",
+            "actions_error": "Akce půjčení nemohla být dokončena",
+            "borrowed_at": "Půjčeno dne: {{date}}",
+            "due_date_label": "Očekávané vrácení: {{date}}",
+            "note_label": "Poznámka: {{note}}",
+            "return_note_label": "Poznámka k vrácení: {{note}}",
+            "no_active": "Tato položka není momentálně půjčena.",
+            "history_title": "Historie",
+            "history_active": "Otevřít záznam pro {{name}}",
+            "history_returned": "Uzavřený záznam pro {{name}}",
+            "returned_at": "Vráceno dne: {{date}}",
+            "no_history": "Pro tuto položku zatím neexistuje žádná historie půjčování."
+        }
     },
     "categories": {
         "title": "Kategorie",
@@ -615,7 +687,7 @@
             "free_badge": "Zcela zdarma"
         },
         "features": {
-            "title": "Proč <1>HomeInventory</1>?",
+            "title": "Proč <1>{{brandName}}</1>?",
             "subtitle": "Všechny funkce pro zjednodušení správy domácnosti na jedné platformě",
             "items": {
                 "categorize": {
@@ -653,7 +725,7 @@
             "desc": "Jednoduchá a bezpečná platforma pro digitalizaci domácího inventáře.",
             "links": "Rychlé odkazy",
             "contact": "Kontaktujte nás",
-            "copyright": "© {{year}} HomeInventory. Všechna práva vyhrazena."
+            "copyright": "© {{year}} {{brandName}}. Všechna práva vyhrazena."
         },
         "preview_privacy_notice": "Ukázkový pohled: nejsou zobrazena žádná skutečná uživatelská data."
     },
@@ -781,10 +853,10 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Vyžadováno ověření e-mailem",
-            "headerTitle": "Vítejte v HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Vyžadováno ověření e-mailem",
+            "headerTitle": "Vítejte v {{brandName}}",
             "headerSubtitle": "Vytvořte nový účet nebo se připojte ke stávajícímu domu",
-            "greeting": "Vítejte v HomeInventory",
+            "greeting": "Vítejte v {{brandName}}",
             "intro": "Účet byl vytvořen! Prosím ověřte svou e-mailovou adresu pro přihlášení.",
             "verifyPrompt": "📧 Vyžadováno ověření e-mailem",
             "verifyButton": "✓ Ověřit můj účet",
@@ -801,13 +873,13 @@
             ],
             "fallback": "Odkaz pro resetování hesla vypadá neúplný nebo poškozený.",
             "support": "Problémy s registrací:",
-            "footer": "© 2026 HomeInventory << -__HI_SEP__>>>> © 2026 HomeInventory HI___> © 2026 HomeInventory HI____ {{status}}"
+            "footer": "© 2026 {{brandName}} << -__HI_SEP__>>>> © 2026 {{brandName}} HI___> © 2026 {{brandName}} HI____ {{status}}"
         },
         "welcome": {
-            "subject": "Vítejte v HomeInventory",
-            "headerTitle": "Vítejte v HomeInventory",
+            "subject": "Vítejte v {{brandName}}",
+            "headerTitle": "Vítejte v {{brandName}}",
             "headerSubtitle": "Vytvořte nový účet nebo se připojte ke stávajícímu domu",
-            "greeting": "Vítejte v HomeInventory",
+            "greeting": "Vítejte v {{brandName}}",
             "intro": "Vítejte, ! 👋",
             "houseKeyLabel": "Klíč domu",
             "houseKeyNote": "Toto je váš klíč od domu, použijte ho k pozvání ostatních. Přidejte členy rodiny do svého domu!",
@@ -819,7 +891,7 @@
                 "💡 Můžete být členem více domů a mezi nimi přepínat. Každý dům má svůj vlastní inventář."
             ],
             "support": "Problémy s registrací:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Připojit se k domu",
@@ -828,7 +900,7 @@
             "bodyLine2": "Čekání na souhlas majitele domu"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}} <<<__HI_SEP__2>>6 Domovská stránka ©",
+            "subjectTemplate": "{{brandName}} - {{status}} <<<__HI_SEP__2>>6 Domovská stránka ©",
             "greeting": "Přístup k domu",
             "bodyLine1Template": "Aktuální nevyřízený požadavek: {{house}} ({{status}})",
             "bodyLine2": "Vaše žádost o „{{house}}“ stále čeká na rozhodnutí."
@@ -848,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Pokud účet existuje, byl odeslán odkaz pro resetování hesla platný 15 minut.",
             "fallback": "Odkaz pro resetování hesla vypadá neúplný nebo poškozený.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "Tento e-mail byl odeslán společností {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -890,7 +966,6 @@
         "record_save_new": "Přidat záznam úschovny",
         "record_save_edit": "Uložit změny",
         "barcode_privacy_hint": "Čárové kódy úschovny nejsou v externích službách automaticky vyhledávány; text čárového kódu je uložen pouze jako šifrovaná data.",
-        "media_note": "Fotografie, skenování čárových kódů a externí vyhledávání produktů jsou v tomto prvním toku úložiště záměrně zakázány. Potřebují samostatný kanál pro šifrovaná média a soukromí.",
         "search_placeholder": "Hledat uvnitř trezoru...",
         "all_categories": "Všechny kategorie",
         "all_rooms": "Všechny místnosti",
@@ -913,6 +988,109 @@
         "recovery_file_title": "Domovní inventář Osobní trezor Obnova klíče",
         "recovery_file_created_label": "Vytvořeno",
         "recovery_file_key_label": "Klíč pro obnovení",
-        "recovery_file_warning": "Pokud ztratíte tento klíč i své heslo k trezoru, trezor nelze obnovit."
+        "recovery_file_warning": "Pokud ztratíte tento klíč i své heslo k trezoru, trezor nelze obnovit.",
+        "media_note": "Nahrávání fotografií, skenování čárových kódů a vyhledávání produktů z externích zdrojů zatím není podporováno. Tyto funkce budou přidány, jakmile bude připraven samostatný šifrovaný tok médií a soukromí."
+    },
+    "borrow_requests": {
+        "title": "Půjčovací centrum",
+        "subtitle": "Spravujte zabezpečené žádosti a nabídky s ostatními uživateli {{brandName}}.",
+        "incoming_title": "Příchozí žádosti",
+        "incoming_subtitle": "Žádosti a nabídky zaslané vám",
+        "outgoing_title": "Odesláno mnou",
+        "outgoing_subtitle": "Nabídky a žádosti o položky, které jste zahájili",
+        "empty_incoming": "Momentálně pro vás neexistují žádné žádosti o půjčení.",
+        "empty_outgoing": "Ještě jste neposlali žádnou nabídku nebo žádost.",
+        "stats": {
+            "incoming": "Čekající příchozí",
+            "outgoing": "Čekající odchozí",
+            "active": "Aktivní půjčky"
+        },
+        "active": {
+            "title": "Aktivní půjčky",
+            "subtitle": "Položky aktuálně u vás nebo půjčené vámi",
+            "empty": "Právě nejsou žádné aktivní výpůjčky.",
+            "borrowed_from": "Půjčeno od {{name}}",
+            "lent_to": "Aktuálně u {{name}}"
+        },
+        "status": {
+            "pending": "Čeká na schválení",
+            "accepted": "Aktivní",
+            "rejected": "Zamítnuto",
+            "cancelled": "Zrušeno",
+            "expired": "Vypršelo",
+            "returned": "Vráceno"
+        },
+        "actions": {
+            "send_request": "Položka požadavku",
+            "send_offer": "Odeslat nabídku",
+            "accept": "Přijmout",
+            "reject": "Odmítnout",
+            "cancel": "Zrušit",
+            "fulfill_request": "Vyplnit požadavek"
+        },
+        "labels": {
+            "offer": "Nabídka",
+            "request": "Žádost",
+            "unspecified_item": "Nespecifikovaná položka",
+            "counterparty": "Protistrana: {{name}}",
+            "created_at": "Vytvořeno: {{date}}",
+            "due_date": "Očekávané vrácení: {{date}}",
+            "waiting_delivery": "Žádost může stále čekat na odpovídající účet, než se zobrazí.",
+            "returned_on": "Vráceno dne: {{date}}",
+            "borrow_started": "Zahájeno: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Odeslat nabídku",
+            "offer_subtitle_item": "Vytvořit zabezpečenou uživatelskou nabídku pro \"{{item}}\"",
+            "offer_subtitle_general": "Vyberte položku ze svého inventáře a odešlete zabezpečenou nabídku",
+            "item_label": "Položka",
+            "item_placeholder": "Vyberte položku",
+            "target_label": "Uživatelské jméno nebo e-mail",
+            "target_placeholder": "např. alex nebo alex@example.com",
+            "target_help": "Systém neprozradí, zda tento účet existuje. Pokud se shoduje, požadavek se objeví v doručené poště příjemce.",
+            "offer_note_placeholder": "např. Můžeš si to nechat až do víkendu, pokud chceš",
+            "offer_submitting": "Odesílání...",
+            "request_title": "Položit žádost",
+            "request_subtitle": "Vytvořit obecnou žádost, aniž byste prohlíželi inventář druhé osoby",
+            "requested_item_label": "Co potřebuješ?",
+            "requested_item_placeholder": "např. Vrtačka, stativ, kempingová židle",
+            "request_note_placeholder": "např. Potřebuji to jen na 2 dny",
+            "request_submitting": "Odesílání...",
+            "fulfill_title": "Splnit žádost",
+            "fulfill_subtitle": "Vyberte položku ze svého inventáře pro \"{{item}}\"",
+            "fulfill_target": "Tato položka bude půjčena {{name}}.",
+            "no_available_items": "Váš aktuální dům momentálně nemá žádnou vhodnou položku k nabídnutí.",
+            "fulfill_submitting": "Ukládání...",
+            "return_title": "Označit jako vrácené",
+            "return_subtitle": "Uzavřít aktivní půjčku pro \"{{item}}\"",
+            "return_target": "Momentálně je zobrazena jako u {{name}}."
+        },
+        "messages": {
+            "load_error": "Centrum půjček nebylo možné načíst",
+            "action_error": "Akci se nepodařilo dokončit"
+        },
+        "preview": {
+            "title": "Režim náhledu",
+            "body": "Back-end této stránky není při lokálním testování momentálně dostupný. Stále můžete nejprve zkontrolovat rozložení a tok; serverovou část povolíme po vašem schválení."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Zásady ochrany soukromí",
+        "terms_of_service_title": "Podmínky služby",
+        "privacy_policy_content": "Vaše soukromí je pro nás důležité. Tato aplikace bezpečně ukládá vaše nahraná data pomocí šifrování na úrovni polí. Vaše osobní údaje neprodáváme ani nesdílíme s třetími stranami. Používáním služby souhlasíte se shromažďováním nezbytných údajů pro správu účtu a funkčnost aplikace.",
+        "terms_of_service_content": "Používáním {{brandName}} souhlasíte s těmito podmínkami. Služba je poskytována 'tak jak je' bez záruk. Za data, která nahrajete, a za zajištění toho, že k nim máte práva, jste odpovědní vy. Vyhrazujeme si právo pozastavit účty, které porušují zásady nebo zneužívají systém.",
+        "register_consent": "Přečetl(a) jsem si, rozumím a souhlasím s <1>Podmínkami služby</1> a <2>Zásadami ochrany osobních údajů</2>.",
+        "consent_title": "Přezkoumat právní dokumenty",
+        "consent_subtitle": "Před pokračováním prosím potvrďte aktuální podmínky.",
+        "consent_notice": "Potřebujeme zaznamenané potvrzení o současných Podmínkách služby a Oznámení o ochraně osobních údajů, než budete moci pokračovat v používání aplikace.",
+        "consent_checkbox": "Souhlasím s Podmínkami služby a potvrzuji, že jsem si přečetl Oznámení o ochraně osobních údajů.",
+        "consent_submit": "Pokračovat",
+        "consent_submitting": "Ukládání...",
+        "consent_required": "Musíte potvrdit Podmínky služby a Oznámení o ochraně osobních údajů, než budete pokračovat."
+    },
+    "cookies": {
+        "banner_text": "Používáme nezbytné soubory cookie, abychom vás udrželi přihlášené a zabezpečili vaši relaci. Pokračováním v používání tohoto webu souhlasíte s našimi zásadami.",
+        "accept": "Souhlasím",
+        "learn_more": "Zjistit více"
     }
 }

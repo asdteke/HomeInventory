@@ -49,3 +49,13 @@ test('serializePersonalVaultEnvelope rejects oversized payloads', () => {
     });
 });
 
+test('serializePersonalVaultEnvelope respects custom size limits', () => {
+    assert.throws(() => {
+        serializePersonalVaultEnvelope({
+            v: 1,
+            alg: 'A256GCM',
+            iv: 'a8v8F0xQ5K3L7mNp',
+            ciphertext: 'Q2lwaGVydGV4dF9wYXlsb2FkX2RhdGE'
+        }, 'encrypted_photo_preview_payload', { maxBytes: 32 });
+    });
+});

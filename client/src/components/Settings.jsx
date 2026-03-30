@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
 import {
     Settings as SettingsIcon, User, LogOut, Moon, Sun, Shield, ShieldCheck,
@@ -14,6 +15,7 @@ import RecoveryKeyModal from './RecoveryKeyModal';
 import TwoFactorSetup from './TwoFactorSetup';
 import { copyTextToClipboard } from '../utils/clipboard';
 import { validatePasswordStrengthClient } from '../utils/passwordValidation';
+import { BRAND_NAME, SUPPORT_EMAIL } from '../constants/branding';
 
 export default function Settings() {
     const { t } = useTranslation();
@@ -50,8 +52,10 @@ export default function Settings() {
     const [recoveryKeyPassword, setRecoveryKeyPassword] = useState('');
     const [recoveryKeyLoading, setRecoveryKeyLoading] = useState(false);
     const [displayRecoveryKey, setDisplayRecoveryKey] = useState('');
-    const [currentRecoveryKey, setCurrentRecoveryKey] = useState('');
-    const [showStoredRecoveryKey, setShowStoredRecoveryKey] = useState(false);
+    const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
+    const [deletePassword, setDeletePassword] = useState('');
+    const [deleteAccountLoading, setDeleteAccountLoading] = useState(false);
+    const [deleteAccountError, setDeleteAccountError] = useState('');
 
     // Join/Create House form states
     const [joinHouseKey, setJoinHouseKey] = useState('');
@@ -112,16 +116,6 @@ export default function Settings() {
         }
     }, [activeHouseId]);
 
-    useEffect(() => {
-        if (passwordRecoveryMode === 'recovery_key' && hasRecoveryKey) {
-            fetchCurrentRecoveryKey();
-            return;
-        }
-
-        setCurrentRecoveryKey('');
-        setShowStoredRecoveryKey(false);
-    }, [passwordRecoveryMode, hasRecoveryKey]);
-
     const fetchUserData = async () => {
         try {
             const res = await axios.get('/api/auth/me');
@@ -142,16 +136,6 @@ export default function Settings() {
             setUserPendingRequests(res.data.pendingRequests || []);
         } catch (error) {
             console.error('Error fetching houses:', error);
-        }
-    };
-
-    const fetchCurrentRecoveryKey = async () => {
-        try {
-            const res = await axios.get('/api/auth/recovery-key/current');
-            setCurrentRecoveryKey(res.data.recoveryKey || '');
-        } catch (requestError) {
-            console.error('Error fetching recovery key:', requestError);
-            setCurrentRecoveryKey('');
         }
     };
 
@@ -335,17 +319,14 @@ export default function Settings() {
         });
     };
 
-    const maskRecoveryKey = (value) => {
-        const safeValue = String(value || '');
-        if (!safeValue) {
-            return '';
+    const downloadBackup = async () => {
+        const confirmed = window.confirm(
+            t('settings.data_management.export_sensitive_confirm')
+        );
+        if (!confirmed) {
+            return;
         }
 
-        const visibleChars = 6;
-        return `${'•'.repeat(Math.max(0, safeValue.length - visibleChars))}${safeValue.slice(-visibleChars)}`;
-    };
-
-    const downloadBackup = async () => {
         setDownloading(true);
         try {
             const response = await axios.get('/api/backup/export');
@@ -493,6 +474,53 @@ export default function Settings() {
             window.location.href = '/login';
         } catch (err) {
             console.error('Logout failed', err);
+        }
+    };
+
+    const openDeleteAccountModal = () => {
+        setDeletePassword('');
+        setDeleteAccountError('');
+        setShowDeleteAccountModal(true);
+    };
+
+    const closeDeleteAccountModal = () => {
+        setShowDeleteAccountModal(false);
+        setDeletePassword('');
+        setDeleteAccountError('');
+    };
+
+    const handleDeleteAccount = async (event) => {
+        event.preventDefault();
+        setDeleteAccountLoading(true);
+        setDeleteAccountError('');
+
+        try {
+            const payload = {
+                currentPassword: deletePassword
+            };
+
+            try {
+                await axios.delete('/api/auth/delete-account', {
+                    data: payload
+                });
+            } catch (requestError) {
+                const status = requestError.response?.status;
+                if (![404, 405].includes(status)) {
+                    throw requestError;
+                }
+
+                await axios.post('/api/auth/delete-account', payload);
+            }
+
+            window.localStorage.removeItem('cookie_notice_dismissed');
+            window.localStorage.removeItem('cookie_consent');
+            window.location.href = '/login';
+        } catch (requestError) {
+            setDeleteAccountError(
+                requestError.response?.data?.error || t('settings.messages.account_delete_error')
+            );
+        } finally {
+            setDeleteAccountLoading(false);
         }
     };
 
@@ -917,44 +945,6 @@ export default function Settings() {
                                     </button>
                                 </div>
 
-                                {hasRecoveryKey && currentRecoveryKey && (
-                                    <div className="mt-4 rounded-xl border border-slate-200 bg-white/70 p-3 dark:border-slate-700 dark:bg-slate-900/60">
-                                        <div className="mb-2 flex items-center justify-between gap-3">
-                                            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                                                {t('settings.security.current_key_label')}
-                                            </span>
-                                            <div className="flex items-center gap-2">
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setShowStoredRecoveryKey((prev) => !prev)}
-                                                    className="text-xs text-primary-600 hover:text-primary-700"
-                                                >
-                                                    {showStoredRecoveryKey ? t('settings.house_info.hide') : t('settings.house_info.show')}
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    onClick={() => {
-                                                        copyTextToClipboard(currentRecoveryKey).catch((copyError) => {
-                                                            console.error('Recovery key copy failed:', copyError);
-                                                        });
-                                                    }}
-                                                    className="text-xs text-primary-600 hover:text-primary-700"
-                                                >
-                                                    {t('settings.house_info.copy')}
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <code className="block rounded-lg border border-slate-200 bg-slate-50 p-3 font-mono text-xs text-slate-700 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200">
-                                            {showStoredRecoveryKey ? currentRecoveryKey : maskRecoveryKey(currentRecoveryKey)}
-                                        </code>
-                                    </div>
-                                )}
-
-                                {hasRecoveryKey && !currentRecoveryKey && (
-                                    <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">
-                                        {t('settings.security.recovery_key_unavailable')}
-                                    </p>
-                                )}
                             </div>
                         )}
                     </div>
@@ -1117,6 +1107,46 @@ export default function Settings() {
                     </button>
                 </div>
                 <input type="file" ref={fileInputRef} onChange={handleRestoreBackup} accept=".json" className="hidden" />
+
+                <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-amber-900 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-100">
+                    <div className="flex items-start gap-3">
+                        <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-amber-600 dark:text-amber-300" />
+                        <div>
+                            <p className="font-medium">{t('settings.data_management.export_sensitive_title')}</p>
+                            <p className="mt-1 text-sm text-amber-800 dark:text-amber-200">
+                                {t('settings.data_management.export_sensitive_notice')}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="card mb-6">
+                <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                    <UserX className="w-5 h-5 text-slate-500 dark:text-slate-400" />
+                    {t('settings.danger_zone.title')}
+                </h2>
+
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-900/60">
+                    <p className="font-medium text-slate-900 dark:text-white">
+                        {t('settings.danger_zone.delete_title')}
+                    </p>
+                    <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
+                        {t('settings.danger_zone.delete_description')}
+                    </p>
+                    <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
+                        {t('settings.danger_zone.delete_warning')}
+                    </p>
+
+                    <button
+                        type="button"
+                        onClick={openDeleteAccountModal}
+                        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-red-200 bg-white px-4 py-3 font-medium text-red-600 transition-colors hover:bg-red-50 dark:border-red-500/30 dark:bg-slate-950 dark:text-red-300 dark:hover:bg-red-500/10"
+                    >
+                        <UserX className="h-4 w-4" />
+                        {t('settings.danger_zone.delete_action')}
+                    </button>
+                </div>
             </div>
 
             {/* Logout Button */}
@@ -1153,6 +1183,74 @@ export default function Settings() {
                                 <button type="submit" disabled={loading} className="btn-primary w-full py-3 flex items-center justify-center gap-2">
                                     {loading && <Loader2 className="w-5 h-5 animate-spin" />}
                                     {loading ? t('settings.modals.password.changing') : t('settings.modals.password.submit')}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {showDeleteAccountModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={closeDeleteAccountModal} />
+                    <div className="relative w-full max-w-md rounded-2xl bg-white shadow-2xl dark:bg-slate-900">
+                        <div className="flex items-center justify-between border-b border-slate-200 p-6 dark:border-slate-800">
+                            <div className="flex items-center gap-3">
+                                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800">
+                                    <UserX className="h-5 w-5 text-slate-700 dark:text-slate-200" />
+                                </div>
+                                <h2 className="text-xl font-semibold text-slate-900 dark:text-white">
+                                    {t('settings.danger_zone.modal_title')}
+                                </h2>
+                            </div>
+                            <button
+                                onClick={closeDeleteAccountModal}
+                                className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-800 dark:hover:text-slate-300"
+                            >
+                                <X className="h-5 w-5" />
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleDeleteAccount} className="space-y-4 p-6">
+                            {deleteAccountError && (
+                                <div className="flex items-center gap-2 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-600 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-400">
+                                    <AlertCircle className="h-4 w-4 flex-shrink-0" />
+                                    {deleteAccountError}
+                                </div>
+                            )}
+
+                            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300">
+                                <p className="font-medium">{t('settings.danger_zone.modal_warning_title')}</p>
+                                <p className="mt-2">{t('settings.danger_zone.modal_warning_body')}</p>
+                            </div>
+
+                            <div>
+                                <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                                    {t('settings.danger_zone.password_label')}
+                                </label>
+                                <input
+                                    type="password"
+                                    value={deletePassword}
+                                    onChange={(event) => setDeletePassword(event.target.value)}
+                                    className="input-field"
+                                    autoComplete="current-password"
+                                    required
+                                />
+                            </div>
+
+                            <div className="flex gap-3 pt-2">
+                                <button type="submit" disabled={deleteAccountLoading} className="flex-1 rounded-xl bg-red-600 px-4 py-3 font-medium text-white transition-colors hover:bg-red-700 disabled:opacity-50">
+                                    {deleteAccountLoading ? (
+                                        <span className="flex items-center justify-center gap-2">
+                                            <Loader2 className="h-5 w-5 animate-spin" />
+                                            {t('settings.danger_zone.deleting')}
+                                        </span>
+                                    ) : (
+                                        t('settings.danger_zone.confirm_delete')
+                                    )}
+                                </button>
+                                <button type="button" onClick={closeDeleteAccountModal} className="btn-secondary px-6 py-3">
+                                    {t('common.cancel')}
                                 </button>
                             </div>
                         </form>
@@ -1437,14 +1535,32 @@ export default function Settings() {
                     </div>
                     <div className="pt-2">
                         <a
-                            href="mailto:support@homeinventory.local?subject=Geri Bildirim - HomeInventory"
+                            href={`mailto:${SUPPORT_EMAIL}?subject=Geri Bildirim - ${BRAND_NAME}`}
                             className="btn-secondary w-full py-3 flex items-center justify-center gap-2"
                         >
                             {t('settings.about.feedback')}
                         </a>
                         <p className="text-xs text-center text-slate-400 dark:text-slate-500 mt-2">
-                            support@homeinventory.local
+                            {SUPPORT_EMAIL}
                         </p>
+                    </div>
+                    <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50/80 dark:bg-slate-800/60 p-4">
+                        <div className="mb-3">
+                            <p className="text-sm font-semibold text-slate-900 dark:text-white">
+                                {t('settings.about.legal_title')}
+                            </p>
+                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                                {t('settings.about.legal_description')}
+                            </p>
+                        </div>
+                        <div className="grid gap-2 sm:grid-cols-2">
+                            <Link to="/terms-of-service" className="btn-secondary py-3 text-center">
+                                {t('settings.about.terms_link')}
+                            </Link>
+                            <Link to="/privacy-policy" className="btn-secondary py-3 text-center">
+                                {t('settings.about.privacy_link')}
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>

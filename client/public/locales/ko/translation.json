@@ -63,7 +63,10 @@
             "warranty_duration_unit": "보증 기간 단위",
             "warranty_duration_months": "개월",
             "warranty_duration_years": "년",
-            "warranty_calculation_help": "보증 시작일을 비워 두면 청구서 날짜가 사용됩니다. 기간을 입력하면 보증 종료일이 자동으로 계산됩니다."
+            "warranty_calculation_help": "보증 시작일을 비워 두면 청구서 날짜가 사용됩니다. 기간을 입력하면 보증 종료일이 자동으로 계산됩니다.",
+            "vault_hint_title": "매우 민감한 기록인가요?",
+            "vault_hint_description": "여권, 소유권 증서, 신원 정보, 접근 코드 및 표준 인벤토리 흐름에서 제외되어야 하는 기타 기록은 개인 금고에 보관하세요.",
+            "vault_hint_action": "개인 금고 열기"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" 빠른 추가 - 나중에 편집할 수 있습니다",
@@ -74,7 +77,8 @@
             "not_found": "⚠ 데이터베이스에서 제품을 찾을 수 없습니다. Google에서 검색할 수 있습니다.",
             "search_fail": "⚠ 검색 실패",
             "name_required": "항목 이름이 필요합니다",
-            "location_add_error": "위치 추가 실패"
+            "location_add_error": "위치 추가 실패",
+            "photo_too_large": "사진은 최대 {{maxSizeMb}} MB까지 업로드할 수 있습니다."
         }
     },
     "common": {
@@ -99,16 +103,16 @@
         "refresh": "새로고침",
         "close": "닫기",
         "logout": "로그아웃",
-        "copyright": "© {{year}} HomeInventory - 판권 소유",
+        "copyright": "© {{year}} {{brandName}} - 판권 소유",
         "other": "기타",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "복사",
+        "download": "다운로드"
     },
     "auth": {
         "login": {
             "title": "로그인",
             "subtitle": "모든 가정용 재고를 스마트하게 관리하세요",
-            "welcome": "HomeInventory에 오신 것을 환영합니다",
+            "welcome": "{{brandName}}에 오신 것을 환영합니다",
             "username_or_email": "사용자 이름 또는 이메일",
             "password": "비밀번호",
             "forgot_password": "비밀번호를 잊으셨나요?",
@@ -120,7 +124,7 @@
             "register_link": "회원가입",
             "support_contact": "로그인 문제:",
             "terms_title": "📋 이용약관 및 면책조항",
-            "terms_beta": "BETA 버전: HomeInventory는 현재 테스트 단계에 있습니다. 데이터의 지속성이나 보안에 대해 보장이 제공되지 않습니다.",
+            "terms_beta": "BETA 버전: {{brandName}}는 현재 테스트 단계에 있습니다. 데이터의 지속성이나 보안에 대해 보장이 제공되지 않습니다.",
             "terms_disclaimer": "면책조항: 이 애플리케이션을 사용함으로써, 잠재적인 데이터 손실, 접근 문제 또는 기타 기술적 오류에 대해 어떠한 보상도 청구할 수 없다는 것에 동의하는 것으로 간주됩니다.",
             "terms_backup": "데이터 백업: 중요한 정보를 정기적으로 백업할 것을 강력히 권장합니다.",
             "terms_accept": "로그인함으로써, 귀하는 이러한 조건에 동의한 것으로 간주됩니다.",
@@ -138,7 +142,7 @@
             }
         },
         "register": {
-            "title": "HomeInventory에 오신 것을 환영합니다",
+            "title": "{{brandName}}에 오신 것을 환영합니다",
             "subtitle": "새 계정을 만들거나 기존 가정에 참여하세요",
             "create_house": "새 가정 만들기",
             "join_house": "가정 참여하기",
@@ -249,7 +253,8 @@
         "admin_panel": "관리자 패널",
         "logout": "로그아웃",
         "menu": "메뉴",
-        "personal_vault": "개인 금고"
+        "personal_vault": "개인 금고",
+        "borrow_requests": "대출 요청"
     },
     "dashboard": {
         "welcome": "환영합니다, <1>{{name}}</1>! 👋",
@@ -291,11 +296,11 @@
     },
     "beta_banner": {
         "title": "베타:",
-        "text": "HomeInventory는 현재 테스트 및 취미 단계에 있습니다. 데이터 지속성이나 보안에 대한 보장은 제공되지 않습니다. 중요한 정보는 백업해 주세요.",
+        "text": "{{brandName}}는 현재 테스트 및 취미 단계에 있습니다. 데이터 지속성이나 보안에 대한 보장은 제공되지 않습니다. 중요한 정보는 백업해 주세요.",
         "contact": "연락처:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - 판권 소유",
+        "rights": "© {{year}} {{brandName}} - 판권 소유",
         "contact": "연락처:"
     },
     "settings": {
@@ -337,7 +342,8 @@
             "member_kicked": "집에서 멤버가 제거되었습니다",
             "member_kick_error": "집에서 멤버를 제거할 수 없습니다",
             "recovery_key_regenerated": "복구 키가 재생성되었습니다",
-            "recovery_key_error": "복구 키를 재생성할 수 없습니다"
+            "recovery_key_error": "복구 키를 재생성할 수 없습니다",
+            "account_delete_error": "계정을 삭제할 수 없습니다"
         },
         "user_profile": {
             "edit_username": "사용자 이름 변경"
@@ -404,13 +410,20 @@
             "export_json": "JSON으로 내보내기",
             "upload_backup": "백업 업로드",
             "uploading": "업로드 중...",
-            "import_json": "JSON에서 가져오기"
+            "import_json": "JSON에서 가져오기",
+            "export_sensitive_title": "내보낸 백업에는 평문 데이터가 포함되어 있습니다",
+            "export_sensitive_notice": "이 백업에는 복호화된 가정 데이터가 포함되어 있습니다. 다운로드 후 안전하게 보관하고 가능하면 암호화하며, 안전하지 않은 채널을 통해 공유하지 마십시오.",
+            "export_sensitive_confirm": "이 백업에는 평문으로 된 복호화된 가정 데이터가 포함될 예정입니다. 안전하게 보관할 것임을 확인하십니까?"
         },
         "about": {
             "title": "📱 애플리케이션 정보",
             "version": "버전",
             "brand": "브랜드",
-            "feedback": "✉️ 피드백 보내기"
+            "feedback": "✉️ 피드백 보내기",
+            "legal_title": "법적 문서",
+            "legal_description": "약관과 개인정보 보호 내용을 승인한 후에도 여기에서 다시 열어볼 수 있습니다.",
+            "terms_link": "서비스 약관",
+            "privacy_link": "개인정보 보호정책"
         },
         "modals": {
             "password": {
@@ -465,7 +478,7 @@
             "disable_confirm": "2단계 인증 비활성화",
             "disable_error": "2단계 인증 비활성화",
             "disabled_success": "2단계 인증이 비활성화되었습니다 비밀번호",
-            "password_label": "Password",
+            "password_label": "비밀번호",
             "password_placeholder": "비밀번호 입력",
             "method_totp": "인증기",
             "method_backup": "백업 코드",
@@ -486,7 +499,7 @@
             "verify_instruction": "인증 앱에 표시된 6자리 코드를 입력해 설정",
             "verify_error": "검증 실패",
             "code_label": "6자리 코드를 다시 입력",
-            "back": "Back",
+            "back": "뒤로",
             "activate": "2단계 인증을 활성화",
             "backup_warning_title": "백업 코드를 저장하세요!",
             "backup_warning_text": "인증 앱 접근 권한을 잃으면 이 코드를 사용해 로그인할 수 있습니다. 각 코드는 한 번만 사용할 수 있습니다. 안전한 곳에 보관하세요. 백업 코드를 안전하게 저장한",
@@ -494,7 +507,7 @@
             "backup_acknowledge": "백업 코드",
             "done": "생성 완료",
             "regenerate_codes": "새 백업 코드 생성 (오래된 코드는 무효화됨)",
-            "regenerate_codes_desc": "Generate new backup codes (old ones will be invalidated)",
+            "regenerate_codes_desc": "새 백업 코드를 생성합니다 (기존 코드는 더 이상 유효하지 않음)",
             "regenerate": "생성 백업 코드가 다시 생성되었습니다",
             "codes_regenerated": "백업 코드 생성 실패",
             "codes_error": "닫기",
@@ -503,6 +516,19 @@
             "revoke_devices_desc": "기억하는 모든 기기, 다음 로그인 시 2단계 인증(2FA)",
             "devices_revoked": "{{count}} 신뢰 장치 제거",
             "devices_error": "장치 취소 실패"
+        },
+        "danger_zone": {
+            "title": "계정",
+            "delete_title": "계정 삭제",
+            "delete_description": "원하시면 이 계정과 연결된 개인 데이터 및 업로드된 파일을 영구적으로 제거할 수 있습니다.",
+            "delete_warning": "이 작업은 되돌릴 수 없습니다.",
+            "delete_action": "계정 삭제",
+            "modal_title": "계정 삭제",
+            "modal_warning_title": "이 작업은 되돌릴 수 없습니다",
+            "modal_warning_body": "확인 후, 계정 접근 권한을 즉시 잃게 되며 삭제된 앱 데이터는 앱에서 복원할 수 없습니다.",
+            "password_label": "현재 비밀번호로 확인",
+            "confirm_delete": "삭제 확인",
+            "deleting": "삭제 중..."
         }
     },
     "inventory": {
@@ -517,7 +543,53 @@
         "empty_filter": "필터와 일치하는 항목이 없습니다",
         "empty_msg": "아직 항목이 추가되지 않았습니다",
         "delete_confirm": "이 항목을 삭제하시겠습니까?",
-        "delete_error": "삭제 오류"
+        "delete_error": "삭제 오류",
+        "load_warning": {
+            "title": "부분 로드 모드",
+            "body": "일부 지원 데이터가 현재 응답이 느려서 페이지가 전체 필터 메타데이터 없이 열렸습니다. 새로 고침할 때 다시 시도하겠습니다."
+        },
+        "borrow": {
+            "section_title": "대출 추적",
+            "section_subtitle": "현재 대출 상태 및 기록",
+            "dialog_lend_title": "항목 대여",
+            "dialog_lend_subtitle": "\"{{item}}\"에 대한 새 대출 기록 생성",
+            "dialog_return_title": "반납 표시",
+            "dialog_return_subtitle": "활성 대출 기록을 \"{{item}}\"에 대해 종료하기",
+            "member": "하우스 회원",
+            "external": "외부인",
+            "borrower_member": "누가 받았습니까?",
+            "no_members": "이 하우스에는 다른 선택 가능한 회원이 없습니다. 대신 외부인으로 기록을 생성할 수 있습니다.",
+            "borrower_name": "사람 이름",
+            "borrower_name_placeholder": "예: 이웃 알렉스",
+            "borrower_contact": "연락처 정보",
+            "borrower_contact_placeholder": "전화, 이메일 또는 짧은 메모",
+            "due_date": "예상 반납일",
+            "note": "메모",
+            "note_placeholder": "예: 주말 동안 빌림",
+            "submitting_lend": "저장 중...",
+            "lend": "빌려주기",
+            "return_note": "반납 메모",
+            "return_note_placeholder": "예: 양호한 상태로 반납됨",
+            "submitting_return": "마감 중...",
+            "mark_returned": "마크 반납됨",
+            "current_borrower_label": "현재 소지자:",
+            "unknown": "알 수 없음",
+            "overdue_badge": "연체",
+            "borrowed_badge": "대출됨",
+            "borrowed_to": "{{name}} 소지",
+            "due_date_short": "반납 예정일: {{date}}",
+            "actions_error": "대출 동작을 완료할 수 없습니다",
+            "borrowed_at": "대출일: {{date}}",
+            "due_date_label": "예상 반납일: {{date}}",
+            "note_label": "메모: {{note}}",
+            "return_note_label": "반납 메모: {{note}}",
+            "no_active": "이 항목은 현재 대출 중이 아닙니다.",
+            "history_title": "기록",
+            "history_active": "{{name}}의 기록 열기",
+            "history_returned": "{{name}}의 기록이 종료되었습니다",
+            "returned_at": "반납일: {{date}}",
+            "no_history": "이 항목의 대출 기록이 아직 없습니다."
+        }
     },
     "categories": {
         "title": "카테고리",
@@ -615,7 +687,7 @@
             "free_badge": "완전히 무료"
         },
         "features": {
-            "title": "왜 <1>HomeInventory</1>인가요?",
+            "title": "왜 <1>{{brandName}}</1>인가요?",
             "subtitle": "한 플랫폼에서 집 관리 기능을 모두 쉽게 사용",
             "items": {
                 "categorize": {
@@ -781,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 이메일 인증 필요",
-            "headerTitle": "HomeInventory에 오신 것을 환영합니다",
+            "subject": "🏠 {{brandName}} - 📧 이메일 인증 필요",
+            "headerTitle": "{{brandName}}에 오신 것을 환영합니다",
             "headerSubtitle": "새 계정을 만들거나 기존 가정에 참여하세요",
-            "greeting": "HomeInventory에 오신 것을 환영합니다",
+            "greeting": "{{brandName}}에 오신 것을 환영합니다",
             "intro": "계정이 생성되었습니다! 로그인하려면 이메일 주소를 인증해주세요.",
             "verifyPrompt": "📧 이메일 인증 필요",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ 내 계정 확인",
             "warningTitle": "⚠️",
             "warningBody": "이메일이 도착하지 않으면 스팸/정크 메일함을 확인하세요.",
             "houseKeyLabel": "하우스 키",
@@ -801,13 +873,13 @@
             ],
             "fallback": "비밀번호 재설정 링크가 불완전하거나 손상된 것 같습니다.",
             "support": "등록 문제:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 홈인벤토리"
         },
         "welcome": {
-            "subject": "HomeInventory에 오신 것을 환영합니다",
-            "headerTitle": "HomeInventory에 오신 것을 환영합니다",
+            "subject": "{{brandName}}에 오신 것을 환영합니다",
+            "headerTitle": "{{brandName}}에 오신 것을 환영합니다",
             "headerSubtitle": "새 계정을 만들거나 기존 가정에 참여하세요",
-            "greeting": "HomeInventory에 오신 것을 환영합니다",
+            "greeting": "{{brandName}}에 오신 것을 환영합니다",
             "intro": "환영합니다, ! 👋",
             "houseKeyLabel": "하우스 키",
             "houseKeyNote": "이것은 당신의 집 열쇠입니다. 다른 사람을 초대할 때 사용하세요. 가족 구성원을 집에 추가하세요!",
@@ -819,7 +891,7 @@
                 "💡 여러 집의 회원이 될 수 있으며, 집 간에 전환할 수 있습니다. 각 집은 별도의 인벤토리를 유지합니다."
             ],
             "support": "등록 문제:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 홈인벤토리"
         },
         "houseJoinRequest": {
             "subject": "집 참여",
@@ -828,7 +900,7 @@
             "bodyLine2": "집 소유자의 승인을 기다리는 중"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "홈인벤토리 - {{status}}",
             "greeting": "집 접근",
             "bodyLine1Template": "현재 대기 중인 요청: {{house}} ({{status}})",
             "bodyLine2": "\"{{house}}\"에 대한 귀하의 요청이 아직 결정되지 않았습니다."
@@ -848,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "계정이 존재하면 15분 동안 유효한 비밀번호 재설정 링크가 전송되었습니다.",
             "fallback": "비밀번호 재설정 링크가 불완전하거나 손상된 것 같습니다.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 홈인벤토리"
+        },
+        "adminEmail": {
+            "sentBy": "이 이메일은 {{brandName}}에서 발송되었습니다.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -890,7 +966,6 @@
         "record_save_new": "금고 기록 추가",
         "record_save_edit": "변경 사항 저장",
         "barcode_privacy_hint": "금고 바코드는 외부 서비스에서 자동으로 조회되지 않습니다; 바코드 텍스트는 암호화된 데이터로만 저장됩니다.",
-        "media_note": "사진, 바코드 스캔, 외부 제품 조회는 이 첫 번째 금고 흐름에서는 의도적으로 비활성화되어 있습니다. 이들은 별도의 암호화된 미디어 및 개인정보 파이프라인이 필요합니다.",
         "search_placeholder": "금고 안에서 검색...",
         "all_categories": "모든 카테고리",
         "all_rooms": "모든 방",
@@ -913,6 +988,109 @@
         "recovery_file_title": "홈인벤토리 개인 금고 복구 키",
         "recovery_file_created_label": "생성됨",
         "recovery_file_key_label": "복구 키",
-        "recovery_file_warning": "이 키와 금고 비밀번호를 모두 잃어버리면 금고를 복구할 수 없습니다."
+        "recovery_file_warning": "이 키와 금고 비밀번호를 모두 잃어버리면 금고를 복구할 수 없습니다.",
+        "media_note": "사진 업로드, 바코드 스캔 및 외부 제품 검색은 아직 지원되지 않습니다. 이러한 기능은 전용 암호화 미디어 및 개인정보 보호 흐름이 준비되면 추가될 예정입니다."
+    },
+    "borrow_requests": {
+        "title": "대출 센터",
+        "subtitle": "다른 {{brandName}} 사용자와 안전 요청 및 제공 흐름을 관리하세요.",
+        "incoming_title": "들어오는 요청",
+        "incoming_subtitle": "귀하에게 보내진 요청 및 제공",
+        "outgoing_title": "내가 보낸 것",
+        "outgoing_subtitle": "시작한 제안 및 물품 요청",
+        "empty_incoming": "현재 귀하를 위한 대여 요청이 없습니다.",
+        "empty_outgoing": "아직 제안이나 요청을 보내지 않았습니다.",
+        "stats": {
+            "incoming": "수신 대기",
+            "outgoing": "발신 대기",
+            "active": "활성 대여"
+        },
+        "active": {
+            "title": "활성 대여",
+            "subtitle": "현재 귀하가 보유하거나 귀하가 대여한 물품",
+            "empty": "현재 활성화된 대출이 없습니다.",
+            "borrowed_from": "{{name}}에게서 대출됨",
+            "lent_to": "현재 {{name}}와 함께 있음"
+        },
+        "status": {
+            "pending": "대기 중",
+            "accepted": "활성",
+            "rejected": "거부됨",
+            "cancelled": "취소됨",
+            "expired": "만료됨",
+            "returned": "반환됨"
+        },
+        "actions": {
+            "send_request": "요청 항목",
+            "send_offer": "제안 보내기",
+            "accept": "수락",
+            "reject": "거부",
+            "cancel": "취소",
+            "fulfill_request": "요청 이행"
+        },
+        "labels": {
+            "offer": "제안",
+            "request": "요청",
+            "unspecified_item": "지정되지 않은 항목",
+            "counterparty": "상대방: {{name}}",
+            "created_at": "생성일: {{date}}",
+            "due_date": "예상 반환일: {{date}}",
+            "waiting_delivery": "요청은 나타나기 전에 여전히 일치하는 계정을 기다리고 있을 수 있습니다.",
+            "returned_on": "반환일: {{date}}",
+            "borrow_started": "시작일: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "제안 보내기",
+            "offer_subtitle_item": "\"{{item}}\"에 대한 안전한 사용자 제안을 생성하세요",
+            "offer_subtitle_general": "인벤토리에서 아이템을 선택하고 안전한 제안을 보내세요",
+            "item_label": "아이템",
+            "item_placeholder": "아이템 선택",
+            "target_label": "사용자 이름 또는 이메일",
+            "target_placeholder": "예: alex 또는 alex@example.com",
+            "target_help": "시스템은 이 계정이 존재하는지 여부를 공개하지 않습니다. 일치하면 요청이 수신자의 받은편지함에 표시됩니다.",
+            "offer_note_placeholder": "예: 원하시면 주말까지 보관하실 수 있습니다",
+            "offer_submitting": "전송 중...",
+            "request_title": "요청 항목",
+            "request_subtitle": "상대방의 물품 목록을 확인하지 않고 일반 요청을 만드세요",
+            "requested_item_label": "무엇이 필요하신가요?",
+            "requested_item_placeholder": "예: 드릴, 삼각대, 캠핑 의자",
+            "request_note_placeholder": "예: 2일 동안만 필요합니다",
+            "request_submitting": "전송 중...",
+            "fulfill_title": "요청 수행",
+            "fulfill_subtitle": "인벤토리에서 '{{item}}' 항목을 선택하세요",
+            "fulfill_target": "이 항목은 {{name}}에게 빌려질 것입니다.",
+            "no_available_items": "현재 활성 하우스에서 제공할 수 있는 적합한 항목이 없습니다.",
+            "fulfill_submitting": "저장 중...",
+            "return_title": "반납 표시",
+            "return_subtitle": "'{{item}}'에 대한 활성 대여를 종료합니다",
+            "return_target": "현재 {{name}}와 함께 있는 것으로 표시됩니다."
+        },
+        "messages": {
+            "load_error": "대출 센터를 불러올 수 없습니다",
+            "action_error": "작업을 완료할 수 없습니다"
+        },
+        "preview": {
+            "title": "미리보기 모드",
+            "body": "이 페이지의 백엔드 부분은 현재 로컬 테스트에서 접근할 수 없습니다. 먼저 레이아웃과 흐름을 검토할 수 있으며, 사용자가 승인한 후 서버 측을 활성화할 예정입니다."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "개인정보 보호정책",
+        "terms_of_service_title": "서비스 약관",
+        "privacy_policy_content": "귀하의 개인정보는 저희에게 중요합니다. 이 애플리케이션은 업로드된 데이터를 필드 수준 암호화를 사용하여 안전하게 저장합니다. 저희는 개인 데이터를 제3자와 판매하거나 공유하지 않습니다. 서비스를 사용함으로써 계정 관리 및 애플리케이션 기능을 위해 필요한 데이터 수집에 동의하게 됩니다.",
+        "terms_of_service_content": "{{brandName}}를 사용함으로써 귀하는 이 약관에 동의하게 됩니다. 서비스는 보증 없이 '있는 그대로' 제공됩니다. 업로드하는 데이터와 해당 데이터에 대한 권리를 보유하고 있는지 확인하는 책임은 사용자에게 있습니다. 저희는 정책을 위반하거나 시스템을 악용하는 계정을 중단할 권리를 보유합니다.",
+        "register_consent": "저는 <1>서비스 약관</1> 및 <2>개인정보 처리방침</2>을 읽고 이해하였으며 이에 동의합니다.",
+        "consent_title": "법적 문서 검토",
+        "consent_subtitle": "계속하기 전에 현재 약관을 확인해주세요.",
+        "consent_notice": "애플리케이션 사용을 계속하기 전에 현재 서비스 약관 및 개인정보 보호 고지에 대한 기록된 확인이 필요합니다.",
+        "consent_checkbox": "나는 서비스 약관에 동의하며 개인정보 보호 고지를 읽었음을 확인합니다.",
+        "consent_submit": "계속",
+        "consent_submitting": "저장 중...",
+        "consent_required": "계속하기 전에 서비스 약관 및 개인정보 보호정책을 확인해야 합니다."
+    },
+    "cookies": {
+        "banner_text": "우리는 필수 쿠키를 사용하여 사용자가 로그인 상태를 유지하고 세션을 안전하게 보호합니다. 이 사이트를 계속 사용함으로써 귀하는 당사의 정책에 동의하게 됩니다.",
+        "accept": "동의합니다",
+        "learn_more": "자세히 알아보기"
     }
 }

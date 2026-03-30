@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Unit tal-Garanzija",
             "warranty_duration_months": "Xhur",
             "warranty_duration_years": "Snin",
-            "warranty_calculation_help": "Jekk tħalli vojta data tal-bidu tal-garanzija, tidħol id-data tal-fattura. Meta tidħol id-durata, id-data ta' tmiem il-garanzija tiġi kkalkolata awtomatikament."
+            "warranty_calculation_help": "Jekk tħalli vojta data tal-bidu tal-garanzija, tidħol id-data tal-fattura. Meta tidħol id-durata, id-data ta' tmiem il-garanzija tiġi kkalkolata awtomatikament.",
+            "vault_hint_title": "Rekord ħafna sensittiv?",
+            "vault_hint_description": "Għall-passaporti, deed, dettalji tal-identità, kodiċijiet ta’ aċċess, u rekord ieħor li għandu jibqa’ barra mill-fluss tal-inventarju standard, żommhom fil-Kaxxa Personali minflok.",
+            "vault_hint_action": "Iftaħ il-Kaxxa Personali"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" ġie miżjud malajr - tista' teditja aktar tard",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Prodott ma sabitx fid-database. Tista' tfittex fuq Google.",
             "search_fail": "⚠ Tfittxija falliet",
             "name_required": "Isem tal-oġġett meħtieġ",
-            "location_add_error": "Ma rnexxiliex iżżid il-lokazzjoni"
+            "location_add_error": "Ma rnexxiliex iżżid il-lokazzjoni",
+            "photo_too_large": "Ir-ritratti jistgħu jkunu massimu ta’ {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,16 +103,16 @@
         "refresh": "Irrisettja",
         "close": "Agħlaq",
         "logout": "Erġa' ddaħħal",
-        "copyright": "© {{year}} HomeInventory - Id-drittijiet kollha huma riservati",
+        "copyright": "© {{year}} {{brandName}} - Id-drittijiet kollha huma riservati",
         "other": "Oħra",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "Ikkopja",
+        "download": "Niżżel"
     },
     "auth": {
         "login": {
             "title": "Id-daħħal",
             "subtitle": "Immaniġġja l-inventarju tad-dar tiegħek b'intelliġenza",
-            "welcome": "Merħba f'HomeInventory",
+            "welcome": "Merħba f'{{brandName}}",
             "username_or_email": "Isem ta' l-utent jew Email",
             "password": "Password",
             "forgot_password": "Injora Password?",
@@ -120,13 +124,25 @@
             "register_link": "Irreġistra",
             "support_contact": "Għal problemi fil-login:",
             "terms_title": "📋 Termini ta' Użu u Dikjarazzjoni Disclaimer",
-            "terms_beta": "Verżjoni BETA: HomeInventory huwa bħalissa fi stadju ta' test. Ma jingħata l-ebda garanzija rigward il-peristenza jew is-sigurtà tad-dejta tiegħek.",
+            "terms_beta": "Verżjoni BETA: {{brandName}} huwa bħalissa fi stadju ta' test. Ma jingħata l-ebda garanzija rigward il-peristenza jew is-sigurtà tad-dejta tiegħek.",
             "terms_disclaimer": "Dikjarazzjoni Disclaimer: Billi tuża din l-applikazzjoni, taqbel li ma tista' titlob l-ebda kumpens għal telf potenzjali tad-dejta, problemi ta' aċċess, jew malfunzjonijiet tekniċi oħra.",
             "terms_backup": "Backup tad-Data: Nissuġġerixxu b'saħħtu li tagħmel backup tal-informazzjoni importanti tiegħek b'mod regolari.",
-            "terms_accept": "Billi tidħol, qed tgħodd li aċċettajt dawn it-termini."
+            "terms_accept": "Billi tidħol, qed tgħodd li aċċettajt dawn it-termini.",
+            "two_factor": {
+                "title": "Awtentikazzjoni b'Żewġ Fatturi",
+                "subtitle": "Daħħal il-kodiċi ta' 6 ċifri mill-app tal-awtentikatur tiegħek",
+                "backup_subtitle": "Daħħal wieħed mill-kodiċijiet ta' backup tiegħek",
+                "code_label": "Kodiċi ta' Verifika",
+                "backup_code_label": "Kodiċi ta' Backup",
+                "remember_device": "Ftakar dan l-apparat għal 30 ġurnata",
+                "verify": "Ivverifika",
+                "back": "lura",
+                "use_backup": "Uża kodiċi ta' backup",
+                "use_totp": "Uża authenticator"
+            }
         },
         "register": {
-            "title": "Merħba f'HomeInventory",
+            "title": "Merħba f'{{brandName}}",
             "subtitle": "Oħloq kont ġdid jew ingħaqad ma’ dar eżistenti",
             "create_house": "Oħloq Dar Ġdida",
             "join_house": "Ingħaqad ma' Dar",
@@ -237,7 +253,8 @@
         "admin_panel": "Pannell tal-Amministratur",
         "logout": "Iddeskrivi",
         "menu": "Menu",
-        "personal_vault": "Cavette Personali"
+        "personal_vault": "Cavette Personali",
+        "borrow_requests": "Talbiet ta' Self"
     },
     "dashboard": {
         "welcome": "Merħba, <1>{{name}}</1>! 👋",
@@ -279,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory bħalissa qiegħed fil-fażi tat-test u tal-hobby. Ma hemm l-ebda garanzija għall-perseveranza jew sigurtà tad-dejta. Jekk jogħġbok żomm back-ups tal-informazzjoni importanti.",
+        "text": "{{brandName}} bħalissa qiegħed fil-fażi tat-test u tal-hobby. Ma hemm l-ebda garanzija għall-perseveranza jew sigurtà tad-dejta. Jekk jogħġbok żomm back-ups tal-informazzjoni importanti.",
         "contact": "Kuntatt:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Id-drittijiet kollha محفوظين",
+        "rights": "© {{year}} {{brandName}} - Id-drittijiet kollha محفوظين",
         "contact": "Kuntatt:"
     },
     "settings": {
@@ -325,7 +342,8 @@
             "member_kicked": "Membru neħħa mid-dar",
             "member_kick_error": "Ma setgħax jneħħi l-membru mid-dar",
             "recovery_key_regenerated": "Ċavetta ta' irkupru ġiet ġġenerata mill-ġdid",
-            "recovery_key_error": "Ma setgħax tiġġenera mill-ġdid iċ-ċavetta ta' irkupru"
+            "recovery_key_error": "Ma setgħax tiġġenera mill-ġdid iċ-ċavetta ta' irkupru",
+            "account_delete_error": "Ma setgħetx tħassar il-kont"
         },
         "user_profile": {
             "edit_username": "Ibdel l-isem tal-utent"
@@ -392,13 +410,20 @@
             "export_json": "Esporta bħala JSON",
             "upload_backup": "Ittella' Backup",
             "uploading": "Qed ittella'...",
-            "import_json": "Importa minn JSON"
+            "import_json": "Importa minn JSON",
+            "export_sensitive_title": "L-backups esportati fihom data f'forma ċara",
+            "export_sensitive_notice": "Dan il-backup jinkludi data tad-dar dekriptata. Aħżinha b'mod sigur wara t-tniżżil, enkriptila jekk possibbli, u evita li taqsamha permezz ta' kanali insikuri.",
+            "export_sensitive_confirm": "Dan il-backup se jinkludi data tad-dar dekriptata f'forma ċara. Tikkonfermax li se tħallasha b'mod sigur?"
         },
         "about": {
             "title": "📱 Dwar l-Applikazzjoni",
             "version": "Verżjoni",
             "brand": "Marka",
-            "feedback": "✉️ Ibgħat Feedback"
+            "feedback": "✉️ Ibgħat Feedback",
+            "legal_title": "Dokumenti Legali",
+            "legal_description": "Tista' terġa tiftaħ it-termini u t-testijiet tal-privatezza minn hawn anki wara li taċċettahom.",
+            "terms_link": "Termini tas-Servizz",
+            "privacy_link": "Politika tal-Privatezza"
         },
         "modals": {
             "password": {
@@ -441,6 +466,69 @@
             "title": "It-talbiet tiegħi pendenti biex jingħaqdu",
             "waiting_since": "Wieħed jistenna sa: {{date, datetime}}",
             "pending_badge": "Pendenti"
+        },
+        "two_factor": {
+            "title": "Awtentikazzjoni bi Tnejn fatturi",
+            "description": "Żid saff addizzjonali ta’ sigurtà għall-kont tiegħek bil-2FA bbażat fuq TOTP",
+            "active": "Attiv",
+            "enable": "Ittella' 2FA",
+            "disable": "Ipprevedi 2FA",
+            "disable_desc": "Neħħi l-awtentikazzjoni bi tnejn fatturi mill-kont tiegħek",
+            "disable_title": "Ipprevedi l-Awtentikazzjoni bi Tnejn Fatturi",
+            "disable_confirm": "Ipprova 2FA",
+            "disable_error": "Ma setgħax jinqatta' 2FA",
+            "disabled_success": "L-awtentikazzjoni b'żewġ fatturi ġiet diżattivata",
+            "password_label": "Password",
+            "password_placeholder": "Daħħal il-password tiegħek",
+            "method_totp": "Awtentikatur",
+            "method_backup": "Kodiċi ta' Backup",
+            "method_recovery": "Ċavetta ta' Rkupru",
+            "totp_code_label": "Kodiċi tal-Authenticator",
+            "backup_code_label": "Kodiċi ta' Backup",
+            "recovery_key_label": "Ċavetta ta' Rikuperazzjoni",
+            "cancel": "Ikkanċella",
+            "setup_title": "Iġġedded 2FA",
+            "setup_error": "Tħassart biex tibda l-issettjar ta' 2FA",
+            "step_1": "Pass 1: Iskennja Kodiċi QR",
+            "step_2": "Pass 2: Ivverifika l-Kodiċi",
+            "step_3": "Pass 3: Iffranka Kodiċijiet ta' Backup",
+            "scan_instruction": "Ibbarras dan il-Kodiċi QR bl-applikazzjoni tal-awtentikatur tiegħek (Google Authenticator, Authy, jew kwalunkwe app TOTP)",
+            "manual_entry": "Ma tistax tibbarras? Daħħal din iċ-Ċavetta manwalment:",
+            "copy_secret": "Kopja sigriet",
+            "next": "Li jmiss",
+            "verify_instruction": "Daħħal il-kodiċi ta' 6 dijiti murija fl-applikazzjoni tal-awtentikatur tiegħek biex tivverifika s-settjar",
+            "verify_error": "Ivvverifika iffaċċjat falliment",
+            "code_label": "Kodiċi ta' 6 Dijiti",
+            "back": "Lura",
+            "activate": "Ittella 2FA",
+            "backup_warning_title": "Issejvja Dawn il-Kodiċi ta' Backup!",
+            "backup_warning_text": "Jekk titlef aċċess għall-app tal-awtentikazzjoni tiegħek, tista' tuża dawn il-kodiċi biex tidħol. Kull kodiċi jista' jintuża darba biss. Ħu ħsieb li taħżinhom f'post sigur.",
+            "download_codes": "Niżżel il-Kodiċi ta' Backup",
+            "backup_acknowledge": "Iżżomm il-kodiċi tiegħi ta' backup f'post sigur",
+            "done": "Lesta",
+            "regenerate_codes": "Iġġedded il-Kodiċi ta' Backup",
+            "regenerate_codes_desc": "Ġenera kodiċijiet ta' backup ġodda (dak l-antik se jkun invalida)",
+            "regenerate": "Ġenera mill-ġdid",
+            "codes_regenerated": "Il-kodiċijiet ta' backup ġew ġenerati mill-ġdid",
+            "codes_error": "Falliet il-ġenerazzjoni mill-ġdid tal-kodiċijiet ta' backup",
+            "close_codes": "Għalaq",
+            "revoke_devices": "Rifuża Apparati Affidabbli",
+            "revoke_devices_desc": "Neħħi l-apparati kollha miftakra, li talbet 2FA fil-login li jmiss",
+            "devices_revoked": "{{count}} apparat affidabbli tnaddaf",
+            "devices_error": "Falli rtirar tal-apparati"
+        },
+        "danger_zone": {
+            "title": "Kont",
+            "delete_title": "Ħassar il-kont",
+            "delete_description": "Jekk trid, tista' tħassar b'mod permanenti d-dejta personali u l-fajls imħaddma marbuta ma' dan il-kont.",
+            "delete_warning": "Din l-azzjoni ma tistax tiġi revokata.",
+            "delete_action": "Ħassar il-kont",
+            "modal_title": "Ħassar il-kont",
+            "modal_warning_title": "Din l-azzjoni ma tistax tiġi rritornata",
+            "modal_warning_body": "Wara l-konferma, tħalli aċċess għall-kont immedjatament u d-dejta tal-applikazzjoni mħassra ma tistax tiġi rkuprata mill-app.",
+            "password_label": "Ikkonferma bil-password attwali tiegħek",
+            "confirm_delete": "Ikkonferma l-ħassil",
+            "deleting": "Qed tħassar..."
         }
     },
     "inventory": {
@@ -455,7 +543,53 @@
         "empty_filter": "L-ebda oġġett ma jikkorrispondi mal-filtri tiegħek",
         "empty_msg": "L-ebda oġġett ma ġie miżjud sa issa",
         "delete_confirm": "Int ċert li trid tħassar dan l-oġġett?",
-        "delete_error": "Żball fil-ħassar"
+        "delete_error": "Żball fil-ħassar",
+        "load_warning": {
+            "title": "Modalità ta' tagħbija parzjali",
+            "body": "Xi dejta ta' appoġġ qed tirrispondi bil-mod bħalissa, hekk il-paġna nfetħet mingħajr il-metadata sħiħa tal-filtru. Se nħadmu mill-ġdid meta tirfreska."
+        },
+        "borrow": {
+            "section_title": "Trackjar ta' Self",
+            "section_subtitle": "Stat tal-qarz kurrenti u storja",
+            "dialog_lend_title": "Aqsegħ Oġġett",
+            "dialog_lend_subtitle": "Oħloq rekord ġdid ta' self għal \"{{item}}\"",
+            "dialog_return_title": "Immarka Ritorn",
+            "dialog_return_subtitle": "Agħlaq ir-rekord tal-miskata attiv għal \"{{item}}\"",
+            "member": "Membru tal-ħanut",
+            "external": "Persuna esterna",
+            "borrower_member": "Min irċieva dan?",
+            "no_members": "M'hemm l-ebda membru ieħor li jista' jintgħażel f'dan id-dar. Tista' toħloq ir-rekord bħala persuna esterna minflok.",
+            "borrower_name": "Isem il-persuna",
+            "borrower_name_placeholder": "per eż. Għaqda Alex",
+            "borrower_contact": "Informazzjoni ta' kuntatt",
+            "borrower_contact_placeholder": "Telefon, email, jew nota qasira",
+            "due_date": "Data mistennija tar-ritorn",
+            "note": "Nota",
+            "note_placeholder": "pereżempju L-ewwel Ġimgħa tal-Ġimgħa",
+            "submitting_lend": "Ġġib ħażna...",
+            "lend": "Iffriża",
+            "return_note": "Nota tar-ritorn",
+            "return_note_placeholder": "pereżempju Ritornat f’kundizzjoni tajba",
+            "submitting_return": "Qed nagħlqu...",
+            "mark_returned": "Mark Irrid",
+            "current_borrower_label": "Bħalissa ma':",
+            "unknown": "Mhux magħruf",
+            "overdue_badge": "Skadut",
+            "borrowed_badge": "Mokkor",
+            "borrowed_to": "Ma' {{name}}",
+            "due_date_short": "Skadenzjat: {{date}}",
+            "actions_error": "Ma setax jitlesta l-azzjoni ta' self",
+            "borrowed_at": "Imselfet fid-data: {{date}}",
+            "due_date_label": "Ritorn mistenni: {{date}}",
+            "note_label": "Nota: {{note}}",
+            "return_note_label": "Nota ta' ritorn: {{note}}",
+            "no_active": "Dan l-oġġett bħalissa mhux imsajjar.",
+            "history_title": "Storja",
+            "history_active": "Iftaħ ir-rekord għal {{name}}",
+            "history_returned": "Rekord magħluq għal {{name}}",
+            "returned_at": "Irritornat fid: {{date}}",
+            "no_history": "M'hemm l-ebda storja ta' self għal dan l-oġġett sa issa."
+        }
     },
     "categories": {
         "title": "Kategoriji",
@@ -487,7 +621,7 @@
         "subtitle": "Ġestjoni u Monitoraġġ tas-Sistema",
         "refresh": "Aġġorna",
         "tabs": {
-            "dashboard": "Dashboard",
+            "dashboard": "Dashbord",
             "users": "Utenti",
             "logs": "Logs",
             "email": "Ibgħat Mail"
@@ -553,7 +687,7 @@
             "free_badge": "B'xejn kompletament"
         },
         "features": {
-            "title": "Għaliex <1>HomeInventory</1>?",
+            "title": "Għaliex <1>{{brandName}}</1>?",
             "subtitle": "L-għajnuniet kollha biex tissimplifika l-immaniġġjar tad-dar f'pjattaforma waħda",
             "items": {
                 "categorize": {
@@ -591,7 +725,7 @@
             "desc": "Il-pjattaforma faċli u sigura biex ddiġitalizza l-inventarju tad-dar tiegħek.",
             "links": "Links Malajr",
             "contact": "Ikkuntattjana",
-            "copyright": "© {{year}} HomeInventory. Id-drittijiet kollha miżżammu."
+            "copyright": "© {{year}} {{brandName}}. Id-drittijiet kollha miżżammu."
         },
         "preview_privacy_notice": "Vista demo: ma jintagħżlux dejta reali tal-utent."
     },
@@ -656,7 +790,7 @@
         "found_local_msg": "Dan il-barcode diġà jinsab fl-inventarju tiegħek.",
         "found_online": "Prodott Misjub!",
         "google_result": "⚡ Riżultat ta' tfittxija fuq Google - jekk jogħġbok ivverifika",
-        "barcode": "Barcode: {{code}}",
+        "barcode": "Kodiċi tal-Barkod: {{code}}",
         "new_product": "Prodott Ġdid",
         "not_found_db": "Dan il-barcode ma nstabx fid-databases.",
         "google_search": "Fittex fuq Google",
@@ -719,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Verifika bl-Email meħtieġa",
-            "headerTitle": "Merħba f'HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Verifika bl-Email meħtieġa",
+            "headerTitle": "Merħba f'{{brandName}}",
             "headerSubtitle": "Oħloq kont ġdid jew ingħaqad ma’ dar eżistenti",
-            "greeting": "Merħba f'HomeInventory",
+            "greeting": "Merħba f'{{brandName}}",
             "intro": "Kont inħoloq! Jekk jogħġbok ivverifika l-indirizz tal-email tiegħek biex tidħol.",
             "verifyPrompt": "📧 Verifika bl-Email meħtieġa",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Ivverifika l-Kont Tiegħi",
             "warningTitle": "⚠️",
             "warningBody": "Iċċekkja l-folder tal-ispam/junk jekk l-email ma jasalx.",
             "houseKeyLabel": "Ħjiel tad-Dar",
@@ -739,13 +873,13 @@
             ],
             "fallback": "Il-link għall-reset tal-password jidher mhux komplut jew mibdul.",
             "support": "Problemi tar-Reġistrazzjoni:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Merħba f'HomeInventory",
-            "headerTitle": "Merħba f'HomeInventory",
+            "subject": "Merħba f'{{brandName}}",
+            "headerTitle": "Merħba f'{{brandName}}",
             "headerSubtitle": "Oħloq kont ġdid jew ingħaqad ma’ dar eżistenti",
-            "greeting": "Merħba f'HomeInventory",
+            "greeting": "Merħba f'{{brandName}}",
             "intro": "Merħba, ! 👋",
             "houseKeyLabel": "Ħjiel tad-Dar",
             "houseKeyNote": "Din hija ċavetta tad-dar tiegħek, użaha biex tistieden oħrajn. Żid membri tal-familja mad-dar tiegħek!",
@@ -757,7 +891,7 @@
                 "💡 Tista' tkun membru ta' bosta djar u tibdel bejn dawn. Kull dar iżżomm inventarju separat."
             ],
             "support": "Problemi tar-Reġistrazzjoni:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Ingħaqad ma' Dar",
@@ -766,7 +900,7 @@
             "bodyLine2": "Tistenna l-approvazzjoni tal-propjetarju tal-binja"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Aċċess għall-binja",
             "bodyLine1Template": "Attendenza pendenti kurrenti: {{house}} ({{status}})",
             "bodyLine2": "It-talba tiegħek għal \"{{house}}\" għadha qed tistenna deċiżjoni."
@@ -786,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Jekk ikun hexd kont, link ta' reset tal-password valida għal 15-il minuta ġie mibgħut.",
             "fallback": "Il-link għall-reset tal-password jidher mhux komplut jew mibdul.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "Dan l-imejl ġie mibgħut minn {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -828,7 +966,6 @@
         "record_save_new": "Żid Rekord tal-Vault",
         "record_save_edit": "Ħlief Bidliet",
         "barcode_privacy_hint": "Il-barcodes tal-vault ma jinqabdx fuq servizzi esterni awtomatikament; it-test tal-barcode jinħażen biss bħala data kriptata.",
-        "media_note": "Ritratti, skannjar tal-barcode, u tfittxija ta' prodotti esterni ġew maħsuba biex jiġu diżattivati f'dan il-fluss inizjali tal-vault. Għandhom bżonn pipeline separata għall-midja kriptata u l-privatezza.",
         "search_placeholder": "Fittex ġewwa l-bobulina...",
         "all_categories": "Kategoriji kollha",
         "all_rooms": "Kamra kollha",
@@ -848,9 +985,112 @@
             "name_required": "Hemm bżonn nome ta' oġġett għal rekord tal-vault.",
             "options_failed": "Ma setgħux jitħaddmu l-għażliet tal-kategorija u tal-kamra."
         },
-        "recovery_file_title": "HomeInventory Ċavetta ta' Rkupru tal-Fajja Personali",
+        "recovery_file_title": "{{brandName}} Ċavetta ta' Rkupru tal-Fajja Personali",
         "recovery_file_created_label": "Maħluq",
         "recovery_file_key_label": "Ċavetta ta' Rkupru",
-        "recovery_file_warning": "Jekk titlef kemm din iċ-ċavetta kif ukoll il-password tal-fajja tiegħek, il-fajja ma tistax tiġi rkuprata."
+        "recovery_file_warning": "Jekk titlef kemm din iċ-ċavetta kif ukoll il-password tal-fajja tiegħek, il-fajja ma tistax tiġi rkuprata.",
+        "media_note": "L-upload tar-ritratti, l-iskenjar tal-barcode, u t-tfittxija ta’ prodotti esterni għadhom ma jappoġġjawx. Dawn il-karatteristiċi se jiġu miżjuda ladarba jkun hawn fluss dedikat ta’ media kodifikata u privatezza."
+    },
+    "borrow_requests": {
+        "title": "Ċentru tas-Self",
+        "subtitle": "Immaniġġja talbiet u offerti sigur ma' utenti oħra ta' {{brandName}}.",
+        "incoming_title": "Talbiet li għadhom jaslu",
+        "incoming_subtitle": "Talbiet u offerti mibgħuta lilek",
+        "outgoing_title": "Ibgħat minn Jien",
+        "outgoing_subtitle": "Offerti u talbiet ta' oġġetti li bdejt",
+        "empty_incoming": "M'hemm l-ebda talbiet ta' self għalik bħalissa.",
+        "empty_outgoing": "Għadek ma bgħattx offerta jew talba.",
+        "stats": {
+            "incoming": "Li qed jaslu pendenti",
+            "outgoing": "Li jidħlu pendenti",
+            "active": "Self attiv"
+        },
+        "active": {
+            "title": "Self attiv",
+            "subtitle": "Oġġetti li bħalissa huma miegħek jew imħallsa minn għandek",
+            "empty": "M'hemm l-ebda self attiv bħalissa.",
+            "borrowed_from": "Self minn {{name}}",
+            "lent_to": "Kurrentement ma' {{name}}"
+        },
+        "status": {
+            "pending": "Qiegħed fil-proċess",
+            "accepted": "Attiv",
+            "rejected": "Mirtab",
+            "cancelled": "Ikkanċellat",
+            "expired": "Skadut",
+            "returned": "Irritornat"
+        },
+        "actions": {
+            "send_request": "Oħloq Talba",
+            "send_offer": "Ibgħat Offerta",
+            "accept": "Aċċetta",
+            "reject": "Irrifjuta",
+            "cancel": "Ikkanċella",
+            "fulfill_request": "Imlew Talba"
+        },
+        "labels": {
+            "offer": "Offerta",
+            "request": "Talba",
+            "unspecified_item": "Oġġett mhux speċifikat",
+            "counterparty": "Kontrapartija: {{name}}",
+            "created_at": "Ġie maħluq: {{date}}",
+            "due_date": "Ritorn mistenni: {{date}}",
+            "waiting_delivery": "It-talba tista' għad tkun qed tistenna għal kont jikkorrispondi qabel ma tidher.",
+            "returned_on": "Irritornat fuq: {{date}}",
+            "borrow_started": "Bdew: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Ibgħat Offerta",
+            "offer_subtitle_item": "Oħloq offerta sigur għall-utent għal \"{{item}}\"",
+            "offer_subtitle_general": "Agħżel oġġett mill-inventarju tiegħek u ibgħat offerta sigur",
+            "item_label": "Oġġett",
+            "item_placeholder": "Agħżel oġġett",
+            "target_label": "Isem tal-utent jew email",
+            "target_placeholder": "eż. alex jew alex@example.com",
+            "target_help": "Is-sistema ma turi xejn dwar jekk dan l-akkont jeżisti. Jekk jaqbel, ir-rikjesta tidher fil-kaxxa tal-inbox tal-ritent.",
+            "offer_note_placeholder": "eż. Tista' żżommha sal-weekend jekk trid",
+            "offer_submitting": "Qed nibgħat...",
+            "request_title": "Oġġett ta' Talba",
+            "request_subtitle": "Oħloq talba ġenerali mingħajr li tħares lejn l-inventarju ta' persuna oħra",
+            "requested_item_label": "X'tħobb?",
+            "requested_item_placeholder": "eż. Drill, tridipod, siġġu għall-kampeġġ",
+            "request_note_placeholder": "eż. Għandi bżonnha biss għal 2 ijiem",
+            "request_submitting": "Qed nibgħat...",
+            "fulfill_title": "Ikkumplimenta l-Kwotazzjoni",
+            "fulfill_subtitle": "Agħżel oġġett mill-inventarju tiegħek għal \"{{item}}\"",
+            "fulfill_target": "Dan l-oġġett se jinħalla lil {{name}}.",
+            "no_available_items": "M'hemm l-ebda oġġett eliġibbli biex toffri fid-dar attiva tiegħek bħalissa.",
+            "fulfill_submitting": "Ġarrif...",
+            "return_title": "Immarka Ritornat",
+            "return_subtitle": "Agħlaq il-ħatra attiva għal \"{{item}}\"",
+            "return_target": "Hija kurrentement muri li tinsab ma' {{name}}."
+        },
+        "messages": {
+            "load_error": "Ma tistax titħaddem ċentru tal-qari",
+            "action_error": "L-azzjoni ma setgħetx tiġi kompluta"
+        },
+        "preview": {
+            "title": "Mod ta' anteprima",
+            "body": "Il-parti ta' wara tal-paġna mhix aċċessibbli fit-testijiet lokali bħalissa. Tista' xorta tħares lejn il-format u l-fluss l-ewwel; se nħeġġu l-parti tas-server wara li tagħti l-approvazzjoni."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Politika dwar il-Privatezza",
+        "terms_of_service_title": "Termini tas-Servizz",
+        "privacy_policy_content": "Il-privatezza tiegħek hija importanti għalina. Din l-applikazzjoni taħżen id-dejta li tella' b'mod sigur billi tuża kriptyar f'livell ta' kamp. Ma nbiegħux jew ma naqsmux id-dejta personali tiegħek ma' terzi. Billi tuża s-servizz, inti taqbel mal-ġbir tad-dejta meħtieġa għall-immaniġġjar tal-kont u l-funzjonalità tal-applikazzjoni.",
+        "terms_of_service_content": "Billi tuża {{brandName}}, inti taqbel ma' dawn it-termini. Is-servizz jingħata 'kif inhu' mingħajr garanziji. Inti responsabbli għall-informazzjoni li tttella' u biex tiżgura li għandek id-drittijiet għalih. Aħna nirriservaw id-dritt li nsospendu kontijiet li jiksru l-politiki jew jaħdmu kontra s-sistema.",
+        "register_consent": "Qrajt, fehmejt, u naqbel ma' <1>Termini tas-Servizz</1> u <2>Politika tal-Privatezza</2>.",
+        "consent_title": "Irrivedi d-dokumenti legali",
+        "consent_subtitle": "Jekk jogħġbok ikkonferma t-termini kurrenti qabel tkompli.",
+        "consent_notice": "Jeħtieġ li jkollna Conferma rreġistrata għat-Termini tas-Servizz u l-Avviż dwar il-Privatezza kurrenti qabel ma tkompli tuża l-applikazzjoni.",
+        "consent_checkbox": "Inċettajt it-Termini tas-Servizz u nikkonferma li qrajt in-Notifika dwar il-Privatezza.",
+        "consent_submit": "Kompli",
+        "consent_submitting": "Li qed jiġi salvajt...",
+        "consent_required": "Trid tikkonferma t-Termini tas-Servizz u n-Notifika dwar il-Privatezza qabel tkompli."
+    },
+    "cookies": {
+        "banner_text": "Nużaw cookies essenzjali biex inżommlik imdaħħal u sigura l-session tiegħek. Billi tkompli tuża dan is-sit, inti taqbel mal-politiki tagħna.",
+        "accept": "Naqbel",
+        "learn_more": "Tgħallem Aktar"
     }
 }

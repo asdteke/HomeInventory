@@ -1,0 +1,106 @@
+name: Bug report
+description: Found a bug? Let us know so we can fix it!
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 👋 Hello there! Thanks for your help!
+        
+        We really appreciate you taking the time to report this bug. Your detailed reports help us make HomeInventory better and more stable for everyone. 🐛✨
+        
+        *(Wait! Does this involve a security vulnerability? If so, please stop here and follow our private reporting process outlined in `SECURITY.md` to keep our users safe).*
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: 📝 Summary
+      description: What exactly broke or went wrong?
+      placeholder: Tell us a little bit about the problem...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: 🔍 Affected Area
+      description: Where did you encounter this issue?
+      options:
+        - Authentication / Login
+        - 2FA / Account Recovery
+        - Items / Inventory Management
+        - Borrowing System
+        - Uploads / Media Library
+        - Backup / Restore
+        - Admin Dashboard
+        - Localization / Translations
+        - Frontend / UI / Mobile View
+        - API / Backend
+        - Docker / Self-Hosting
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 👣 Steps to Reproduce
+      description: How can we make this bug happen on our end? The more specific, the better!
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See the error '...'
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 🎯 Expected Behavior
+      description: What were you hoping would happen instead?
+      placeholder: Ideally, the app should have...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: 💥 Actual Behavior
+      description: What actually happened? (Did things crash? Did an error pop up?)
+      placeholder: Instead, the app completely froze and...
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 💻 Your Environment
+      description: Tell us a bit about your setup so we can test under the same conditions.
+      placeholder: |
+        - Operating System (e.g., macOS, Windows, Linux, iOS, Android):
+        - Browser (e.g., Chrome, Safari, Firefox):
+        - App Mode: (Local dev / Docker / Production version):
+        - App Version / Commit hash (if known):
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 📸 Logs, Screenshots, or Error Traces
+      description: A picture is worth a thousand words! Feel free to paste logs or drag-and-drop screenshots here.
+      render: shell
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: ✅ Final Checklist
+      description: Just a couple of quick checks before you submit!
+      options:
+        - label: I searched existing issues, and I couldn't find anyone else reporting this yet.
+          required: true
+        - label: I double-checked that my logs/screenshots don't contain any sensitive personal data or passwords.
+          required: true
+        - label: I confirm this is a generic bug, NOT a private security vulnerability report.
+          required: true

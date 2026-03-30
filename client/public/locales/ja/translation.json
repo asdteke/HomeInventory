@@ -21,16 +21,16 @@
         "refresh": "更新",
         "close": "閉じる",
         "logout": "ログアウト",
-        "copyright": "© {{year}} HomeInventory - すべての権利を保有",
+        "copyright": "© {{year}} {{brandName}} - すべての権利を保有",
         "other": "その他",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "コピー",
+        "download": "ダウンロード"
     },
     "auth": {
         "login": {
             "title": "ログイン",
             "subtitle": "家の在庫をスマートに管理",
-            "welcome": "HomeInventoryへようこそ",
+            "welcome": "{{brandName}}へようこそ",
             "username_or_email": "ユーザー名またはメールアドレス",
             "password": "パスワード",
             "forgot_password": "パスワードをお忘れですか？",
@@ -42,7 +42,7 @@
             "register_link": "登録",
             "support_contact": "ログインの問題について:",
             "terms_title": "📋 利用規約および免責事項",
-            "terms_beta": "BETA版: HomeInventoryは現在テスト段階にあります。データの永続性やセキュリティについての保証はありません。",
+            "terms_beta": "BETA版: {{brandName}}は現在テスト段階にあります。データの永続性やセキュリティについての保証はありません。",
             "terms_disclaimer": "免責事項: 本アプリケーションを使用することにより、データの損失、アクセスの問題、その他技術的な不具合に対して補償を請求できないことに同意したものとみなされます。",
             "terms_backup": "データバックアップ: 重要な情報は定期的にバックアップすることを強く推奨します。",
             "terms_accept": "ログインすることで、これらの条件に同意したとみなされます。",
@@ -54,13 +54,13 @@
                 "backup_code_label": "バックアップコード",
                 "remember_device": "このデバイスを30日間記憶する",
                 "verify": "検証",
-                "back": "Back",
+                "back": "戻る",
                 "use_backup": "バックアップコードを使用",
                 "use_totp": "認証"
             }
         },
         "register": {
-            "title": "HomeInventoryへようこそ",
+            "title": "{{brandName}}へようこそ",
             "subtitle": "新しいアカウントを作成するか、既存の家に参加してください",
             "create_house": "新しい家を作成",
             "join_house": "家に参加",
@@ -171,7 +171,8 @@
         "admin_panel": "管理パネル",
         "logout": "ログアウト",
         "menu": "メニュー",
-        "personal_vault": "個人用ボールト"
+        "personal_vault": "個人用ボールト",
+        "borrow_requests": "借用リクエスト"
     },
     "dashboard": {
         "welcome": "ようこそ、<1>{{name}}</1>! 👋",
@@ -213,11 +214,11 @@
     },
     "beta_banner": {
         "title": "ベータ:",
-        "text": "HomeInventoryは現在テストおよび趣味段階です。データの永続性やセキュリティについて保証はありません。重要な情報はバックアップを取ってください。",
+        "text": "{{brandName}}は現在テストおよび趣味段階です。データの永続性やセキュリティについて保証はありません。重要な情報はバックアップを取ってください。",
         "contact": "連絡先:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - 無断転載を禁じます",
+        "rights": "© {{year}} {{brandName}} - 無断転載を禁じます",
         "contact": "連絡先:"
     },
     "items": {
@@ -280,7 +281,10 @@
             "warranty_duration_unit": "保証期間の単位",
             "warranty_duration_months": "月",
             "warranty_duration_years": "年",
-            "warranty_calculation_help": "保証開始日を空欄にすると、請求日が使用されます。期間を入力すると、保証終了日が自動的に計算されます。"
+            "warranty_calculation_help": "保証開始日を空欄にすると、請求日が使用されます。期間を入力すると、保証終了日が自動的に計算されます。",
+            "vault_hint_title": "非常に機密性の高い記録ですか？",
+            "vault_hint_description": "パスポート、権利証、身元詳細、アクセスコード、その他標準の在庫フローから外しておくべき記録は、代わりにパーソナルボルトに保管してください。",
+            "vault_hint_action": "パーソナルボルトを開く"
         },
         "qrcode": {
             "title": "QR Code",
@@ -295,7 +299,8 @@
             "not_found": "⚠ データベースに商品が見つかりません。Googleで検索できます。",
             "search_fail": "⚠ 検索に失敗しました",
             "name_required": "アイテム名は必須です",
-            "location_add_error": "場所の追加に失敗しました"
+            "location_add_error": "場所の追加に失敗しました",
+            "photo_too_large": "写真は最大で{{maxSizeMb}} MBまでです。"
         }
     },
     "settings": {
@@ -337,7 +342,8 @@
             "member_kicked": "メンバーが家から削除されました",
             "member_kick_error": "メンバーを家から削除できませんでした",
             "recovery_key_regenerated": "回復キーが再生成されました",
-            "recovery_key_error": "回復キーを再生成できませんでした"
+            "recovery_key_error": "回復キーを再生成できませんでした",
+            "account_delete_error": "アカウントを削除できません ••••••••{{suffix}} アカウント アカウントを削除 このアカウントに関連する個人データやアップロードされたファイルを完全に削除することができます。この操作は元に戻せません。アカウントを削除 アカウントを削除"
         },
         "user_profile": {
             "edit_username": "ユーザー名を変更する"
@@ -404,13 +410,20 @@
             "export_json": "JSONとしてエクスポート",
             "upload_backup": "バックアップをアップロード",
             "uploading": "アップロード中...",
-            "import_json": "JSONからインポート"
+            "import_json": "JSONからインポート",
+            "export_sensitive_title": "エクスポートされたバックアップには平文データが含まれています",
+            "export_sensitive_notice": "このバックアップには復号済みの家庭データが含まれています。ダウンロード後は安全に保管し、可能であれば暗号化し、安全でないチャネルでの共有は避けてください。",
+            "export_sensitive_confirm": "このバックアップには平文の復号済み家庭データが含まれます。安全に保管することを確認しますか？"
         },
         "about": {
             "title": "📱 アプリケーションについて",
             "version": "バージョン",
             "brand": "ブランド",
-            "feedback": "✉️ フィードバックを送信"
+            "feedback": "✉️ フィードバックを送信",
+            "legal_title": "法的文書",
+            "legal_description": "一度同意した後でも、こちらから利用規約やプライバシー文書を再度開くことができます。",
+            "terms_link": "サービス利用規約",
+            "privacy_link": "プライバシーポリシー"
         },
         "modals": {
             "password": {
@@ -503,6 +516,19 @@
             "revoke_devices_desc": "削除すべての記憶されたデバイス、次回ログイン時に2段階認証が必要",
             "devices_revoked": "{{count}} 信頼されたデバイスが削除された",
             "devices_error": "デバイスの取り消しに失敗"
+        },
+        "danger_zone": {
+            "title": "Account",
+            "delete_title": "Delete account",
+            "delete_description": "If you want, you can permanently remove the personal data and uploaded files tied to this account.",
+            "delete_warning": "This action cannot be undone.",
+            "delete_action": "Delete account",
+            "modal_title": "Delete account",
+            "modal_warning_title": "この操作は取り消せません",
+            "modal_warning_body": "確認後、アカウントへのアクセスは直ちに失われ、削除されたアプリケーションデータはアプリから復元できません。",
+            "password_label": "現在のパスワードで確認",
+            "confirm_delete": "削除を確認",
+            "deleting": "削除中..."
         }
     },
     "inventory": {
@@ -517,7 +543,53 @@
         "empty_filter": "フィルターに一致するアイテムはありません",
         "empty_msg": "まだアイテムが追加されていません",
         "delete_confirm": "本当にこのアイテムを削除しますか？",
-        "delete_error": "削除エラー"
+        "delete_error": "削除エラー",
+        "load_warning": {
+            "title": "部分読み込みモード",
+            "body": "現在、一部のサポートデータの応答が遅いため、ページは完全なフィルタメタデータなしで開かれました。更新時に再試行します。"
+        },
+        "borrow": {
+            "section_title": "借用追跡",
+            "section_subtitle": "現在の貸出状況と履歴",
+            "dialog_lend_title": "アイテムを貸す",
+            "dialog_lend_subtitle": "「{{item}}」の新しい借用記録を作成",
+            "dialog_return_title": "返却済みとしてマーク",
+            "dialog_return_subtitle": "「{{item}}」のアクティブな貸出記録を閉じる",
+            "member": "ハウスメンバー",
+            "external": "外部の人",
+            "borrower_member": "誰が受け取りましたか？",
+            "no_members": "この家には他に選択可能なメンバーがいません。代わりに外部の人物として記録を作成できます。",
+            "borrower_name": "名前",
+            "borrower_name_placeholder": "例: 隣人のアレックス",
+            "borrower_contact": "連絡先情報",
+            "borrower_contact_placeholder": "電話、メール、または短いメモ",
+            "due_date": "予定返却日",
+            "note": "メモ",
+            "note_placeholder": "例：週末に貸し出し",
+            "submitting_lend": "保存中…",
+            "lend": "貸す",
+            "return_note": "返却メモ",
+            "return_note_placeholder": "例：良好な状態で返却",
+            "submitting_return": "閉鎖中...",
+            "mark_returned": "マーク返却済み",
+            "current_borrower_label": "現在所持者:",
+            "unknown": "不明",
+            "overdue_badge": "期限超過",
+            "borrowed_badge": "借用中",
+            "borrowed_to": "{{name}} 所持",
+            "due_date_short": "期日: {{date}}",
+            "actions_error": "借用アクションを完了できませんでした",
+            "borrowed_at": "貸出日: {{date}}",
+            "due_date_label": "返却予定日: {{date}}",
+            "note_label": "メモ: {{note}}",
+            "return_note_label": "返却メモ: {{note}}",
+            "no_active": "このアイテムは現在借りられていません。",
+            "history_title": "履歴",
+            "history_active": "{{name}} の記録を開く",
+            "history_returned": "{{name}} の記録は閉鎖されました",
+            "returned_at": "返却日: {{date}}",
+            "no_history": "このアイテムの貸出履歴はまだありません。"
+        }
     },
     "categories": {
         "title": "カテゴリー",
@@ -615,7 +687,7 @@
             "free_badge": "完全に無料"
         },
         "features": {
-            "title": "なぜ<1>HomeInventory</1>？",
+            "title": "なぜ<1>{{brandName}}</1>？",
             "subtitle": "家の管理を簡単にするすべての機能が1つのプラットフォームに",
             "items": {
                 "categorize": {
@@ -653,7 +725,7 @@
             "desc": "家の在庫をデジタル化するための簡単で安全なプラットフォーム。",
             "links": "クイックリンク",
             "contact": "お問い合わせ",
-            "copyright": "© {{year}} HomeInventory. 無断転載を禁じます。"
+            "copyright": "© {{year}} {{brandName}}. 無断転載を禁じます。"
         },
         "preview_privacy_notice": "デモ表示：実際のユーザーデータは表示されません。"
     },
@@ -781,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 メール確認が必要です",
-            "headerTitle": "HomeInventoryへようこそ",
+            "subject": "🏠 {{brandName}} - 📧 メール確認が必要です",
+            "headerTitle": "{{brandName}}へようこそ",
             "headerSubtitle": "新しいアカウントを作成するか、既存の家に参加してください",
-            "greeting": "HomeInventoryへようこそ",
+            "greeting": "{{brandName}}へようこそ",
             "intro": "アカウントが作成されました！ログインするにはメールアドレスの確認をしてください。",
             "verifyPrompt": "📧 メール確認が必要です",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ アカウントを確認",
             "warningTitle": "⚠️",
             "warningBody": "メールが届かない場合は、迷惑メール/ジャンクフォルダーを確認してください。",
             "houseKeyLabel": "ハウスキー",
@@ -801,13 +873,13 @@
             ],
             "fallback": "パスワードリセットリンクが不完全または壊れているようです。",
             "support": "登録の問題:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "HomeInventoryへようこそ",
-            "headerTitle": "HomeInventoryへようこそ",
+            "subject": "{{brandName}}へようこそ",
+            "headerTitle": "{{brandName}}へようこそ",
             "headerSubtitle": "新しいアカウントを作成するか、既存の家に参加してください",
-            "greeting": "HomeInventoryへようこそ",
+            "greeting": "{{brandName}}へようこそ",
             "intro": "ようこそ、! 👋",
             "houseKeyLabel": "ハウスキー",
             "houseKeyNote": "これはあなたの家の鍵です。他の人を招待するために使いましょう。家族を家に追加してください！",
@@ -819,7 +891,7 @@
                 "💡 複数のハウスに所属し、切り替えることができます。各ハウスごとに別々のインベントリが管理されます。"
             ],
             "support": "登録の問題:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "ハウスに参加",
@@ -828,7 +900,7 @@
             "bodyLine2": "ハウスオーナーの承認を待っています"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "ハウスアクセス",
             "bodyLine1Template": "現在の保留中のリクエスト: {{house}} ({{status}})",
             "bodyLine2": "「{{house}}」へのリクエストはまだ決定待ちです"
@@ -848,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "アカウントが存在する場合、15分間有効なパスワードリセットリンクが送信されました。",
             "fallback": "パスワードリセットリンクが不完全または壊れているようです。",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "このメールは{{brandName}}から送信されました。",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -890,7 +966,6 @@
         "record_save_new": "ボールトレコードを追加",
         "record_save_edit": "変更を保存",
         "barcode_privacy_hint": "ボールトのバーコードは外部サービスで自動的に照会されません。バーコードのテキストは暗号化されたデータとしてのみ保存されます。",
-        "media_note": "写真、バーコードスキャン、および外部製品照会は、この最初のボールトフローでは意図的に無効になっています。それらには別の暗号化されたメディアおよびプライバシーパイプラインが必要です。",
         "search_placeholder": "金庫内を検索...",
         "all_categories": "すべてのカテゴリー",
         "all_rooms": "すべての部屋",
@@ -913,6 +988,109 @@
         "recovery_file_title": "ホームインベントリ個人用ボールト回復キー",
         "recovery_file_created_label": "作成",
         "recovery_file_key_label": "回復キー",
-        "recovery_file_warning": "このキーとボールトのパスフレーズの両方を失った場合、ボールトは回復できません。"
+        "recovery_file_warning": "このキーとボールトのパスフレーズの両方を失った場合、ボールトは回復できません。",
+        "media_note": "写真のアップロード、バーコードスキャン、外部製品の検索はまだサポートされていません。これらの機能は、専用の暗号化メディアおよびプライバシーフローが準備でき次第追加されます。"
+    },
+    "borrow_requests": {
+        "title": "貸出センター",
+        "subtitle": "他の {{brandName}} ユーザーと安全なリクエストおよびオファーフローを管理します。",
+        "incoming_title": "受信リクエスト",
+        "incoming_subtitle": "あなたに送られたリクエストおよびオファー",
+        "outgoing_title": "私が送信",
+        "outgoing_subtitle": "あなたが始めたオファーとアイテムリクエスト",
+        "empty_incoming": "現在、あなた宛の借用リクエストはありません。",
+        "empty_outgoing": "まだオファーやリクエストは送信していません。",
+        "stats": {
+            "incoming": "保留中の受信",
+            "outgoing": "保留中の送信",
+            "active": "アクティブな借用"
+        },
+        "active": {
+            "title": "アクティブな借用",
+            "subtitle": "現在あなたが所有している、またはあなたが貸しているアイテム",
+            "empty": "現在、アクティブな借用はありません。",
+            "borrowed_from": "{{name}} から借りました",
+            "lent_to": "現在 {{name}} が持っています"
+        },
+        "status": {
+            "pending": "保留中",
+            "accepted": "アクティブ",
+            "rejected": "拒否されました",
+            "cancelled": "キャンセルされました",
+            "expired": "期限切れ",
+            "returned": "返品"
+        },
+        "actions": {
+            "send_request": "リクエストアイテム",
+            "send_offer": "オファーを送信",
+            "accept": "承認",
+            "reject": "拒否",
+            "cancel": "キャンセル",
+            "fulfill_request": "リクエストを完了"
+        },
+        "labels": {
+            "offer": "オファー",
+            "request": "リクエスト",
+            "unspecified_item": "未指定の項目",
+            "counterparty": "相手方: {{name}}",
+            "created_at": "作成日: {{date}}",
+            "due_date": "返却予定日: {{date}}",
+            "waiting_delivery": "リクエストは、表示される前にまだ一致するアカウントを待っている可能性があります。",
+            "returned_on": "返却日: {{date}}",
+            "borrow_started": "開始日: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "オファーを送信",
+            "offer_subtitle_item": "「{{item}}」の安全なユーザーオファーを作成",
+            "offer_subtitle_general": "インベントリからアイテムを選択して安全なオファーを送信",
+            "item_label": "アイテム",
+            "item_placeholder": "アイテムを選択",
+            "target_label": "ユーザー名またはメールアドレス",
+            "target_placeholder": "例: alex または alex@example.com",
+            "target_help": "システムはこのアカウントが存在するかどうかを明らかにしません。一致する場合、リクエストは受信者の受信箱に表示されます。",
+            "offer_note_placeholder": "例えば、もしよければ週末までそれを保持することができます",
+            "offer_submitting": "送信中...",
+            "request_title": "アイテムをリクエスト",
+            "request_subtitle": "相手の在庫を確認せずに一般的なリクエストを作成",
+            "requested_item_label": "何が必要ですか？",
+            "requested_item_placeholder": "例えば、ドリル、三脚、キャンプ用チェア",
+            "request_note_placeholder": "例えば、それは2日間だけ必要です",
+            "request_submitting": "送信中...",
+            "fulfill_title": "リクエストを完了する",
+            "fulfill_subtitle": "\"{{item}}\" のためにインベントリからアイテムを選択してください",
+            "fulfill_target": "このアイテムは {{name}} に貸し出されます。",
+            "no_available_items": "現在、あなたのアクティブな家には提供可能なアイテムがありません。",
+            "fulfill_submitting": "保存中...",
+            "return_title": "返却済みにする",
+            "return_subtitle": "\"{{item}}\" のアクティブな借用を終了する",
+            "return_target": "現在、{{name}} が所持していると表示されています。"
+        },
+        "messages": {
+            "load_error": "借用センターを読み込むことができませんでした",
+            "action_error": "操作を完了できませんでした"
+        },
+        "preview": {
+            "title": "プレビューモード",
+            "body": "このページのバックエンド部分は、現在ローカルでのテストではアクセスできません。最初にレイアウトとフローを確認することは可能です；承認後にサーバー側を有効にします。"
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "プライバシーポリシー",
+        "terms_of_service_title": "利用規約",
+        "privacy_policy_content": "お客様のプライバシーは私たちにとって重要です。このアプリケーションは、アップロードされたデータをフィールドレベルの暗号化を使用して安全に保管します。お客様の個人データを第三者に販売または共有することはありません。サービスを利用することで、アカウント管理およびアプリケーションの機能のために必要なデータの収集に同意したことになります。",
+        "terms_of_service_content": "{{brandName}}を利用することで、これらの利用規約に同意したことになります。サービスは\"現状のまま\"提供され、保証はありません。アップロードするデータおよびその権利を保持していることは利用者の責任です。ポリシーに違反したりシステムを悪用したアカウントを停止する権利を留保します。",
+        "register_consent": "私は、<1>サービス利用規約</1>および<2>プライバシーポリシー</2>を読み、理解し、同意します。",
+        "consent_title": "法的文書を確認",
+        "consent_subtitle": "続行する前に現在の利用規約を確認してください。",
+        "consent_notice": "アプリケーションの使用を続ける前に、現在の利用規約およびプライバシー通知に対する承認の記録が必要です。",
+        "consent_checkbox": "利用規約に同意し、プライバシー通知を読んだことを確認します。",
+        "consent_submit": "続行",
+        "consent_submitting": "保存中...",
+        "consent_required": "続行する前に、利用規約とプライバシー通知を確認する必要があります。"
+    },
+    "cookies": {
+        "banner_text": "当サイトは、ログイン状態を維持し、セッションを保護するために必須のクッキーを使用します。当サイトの利用を続けることにより、当社のポリシーに同意したものとみなされます。",
+        "accept": "同意します",
+        "learn_more": "詳しくはこちら"
     }
 }

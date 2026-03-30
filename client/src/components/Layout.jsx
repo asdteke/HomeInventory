@@ -1,21 +1,23 @@
 import { useState } from 'react';
-import { Link, Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { Link, Outlet, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import {
     Home, Package, FolderOpen, Settings, Plus, Menu, X, ChevronLeft, ChevronRight,
-    Sun, Moon, LogOut, User, MapPin, ScanLine, Share2, HelpCircle, Shield, KeyRound
+    Sun, Moon, LogOut, User, MapPin, ScanLine, Share2, HelpCircle, Shield, KeyRound, ArrowRightLeft
 } from 'lucide-react';
 import QRScanner from './QRScanner';
 import IntroTour from './IntroTour';
 import LanguageSwitcher from './LanguageSwitcher';
 import BrandLogo from './BrandLogo';
+import { SUPPORT_EMAIL } from '../constants/branding';
 
 export default function Layout() {
     const { user, logout, isAdmin } = useAuth();
     const { isDark, toggleTheme } = useTheme();
     const { t } = useTranslation();
+    const location = useLocation();
     const navigate = useNavigate();
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -26,6 +28,7 @@ export default function Layout() {
     const navItems = [
         { to: '/', label: t('navigation.home'), icon: Home, end: true },
         { to: '/items', label: t('navigation.inventory'), icon: Package, id: 'intro-inventory' },
+        { to: '/borrow-requests', label: t('navigation.borrow_requests'), icon: ArrowRightLeft },
         { to: '/vault', label: t('navigation.personal_vault'), icon: KeyRound },
         { to: '/rooms', label: t('navigation.rooms'), icon: FolderOpen },
         { to: '/categories', label: t('navigation.categories'), icon: MapPin, id: 'intro-categories' },
@@ -68,7 +71,7 @@ export default function Layout() {
                     <div className={`flex items-center gap-3 ${!sidebarOpen && 'justify-center w-full'}`}>
                         <Link to="/" onClick={() => setMobileMenuOpen(false)}>
                             {sidebarOpen ? (
-                                <BrandLogo variant="full" size="sm" className="w-auto max-h-[50px]" />
+                                <BrandLogo variant="full" size="sm" className="w-auto max-h-[54px]" />
                             ) : (
                                 <BrandLogo variant="symbol" size="sm" className="shrink-0 w-auto max-h-[40px]" />
                             )}
@@ -138,7 +141,7 @@ export default function Layout() {
 
                     {/* Help & Support */}
                     <a
-                        href="mailto:support@homeinventory.local"
+                        href={`mailto:${SUPPORT_EMAIL}`}
                         className={`flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors ${!sidebarOpen && 'justify-center'}`}
                     >
                         <HelpCircle className="w-5 h-5" />
@@ -278,7 +281,7 @@ export default function Layout() {
         pt-16 pb-20 lg:pt-0 lg:pb-0
         ${sidebarOpen ? 'lg:ml-64' : 'lg:ml-20'}
       `}>
-                <div className="p-4 lg:p-8">
+                <div key={`${location.pathname}${location.search}`} className="p-4 lg:p-8">
                     <Outlet />
                 </div>
 
@@ -290,8 +293,8 @@ export default function Layout() {
                             <span className="font-bold text-amber-600 dark:text-amber-400">{t('beta_banner.title')} </span>
                             {t('beta_banner.text')}
                             <span className="hidden sm:inline"> {t('beta_banner.contact')} </span>
-                            <a href="mailto:support@homeinventory.local" className="text-amber-600 dark:text-amber-400 hover:underline font-medium">
-                                support@homeinventory.local
+                            <a href={`mailto:${SUPPORT_EMAIL}`} className="text-amber-600 dark:text-amber-400 hover:underline font-medium">
+                                {SUPPORT_EMAIL}
                             </a>
                         </div>
                     </div>
@@ -303,7 +306,7 @@ export default function Layout() {
                         {t('footer.rights', { year: new Date().getFullYear() })}
                         <span className="hidden sm:inline mx-2">•</span>
                         <br className="sm:hidden" />
-                        {t('footer.contact')} <a href="mailto:support@homeinventory.local" className="text-primary-500 hover:underline">support@homeinventory.local</a>
+                        {t('footer.contact')} <a href={`mailto:${SUPPORT_EMAIL}`} className="text-primary-500 hover:underline">{SUPPORT_EMAIL}</a>
                     </p>
                 </footer>
             </main>

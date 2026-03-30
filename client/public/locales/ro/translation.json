@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Unitatea de durată a garanției",
             "warranty_duration_months": "Luni",
             "warranty_duration_years": "Ani",
-            "warranty_calculation_help": "Dacă lăsați data de început a garanției necompletată, se folosește data facturii. Când introduceți durata, data de finalizare a garanției se calculează automat."
+            "warranty_calculation_help": "Dacă lăsați data de început a garanției necompletată, se folosește data facturii. Când introduceți durata, data de finalizare a garanției se calculează automat.",
+            "vault_hint_title": "Înregistrare foarte sensibilă?",
+            "vault_hint_description": "Pentru pașapoarte, acte, detalii de identitate, coduri de acces și alte înregistrări care ar trebui să rămână în afara fluxului standard de inventar, păstrați-le în Seiful Personal în schimb.",
+            "vault_hint_action": "Deschide Seiful Personal"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" adăugat rapid - poți edita mai târziu",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Produsul nu a fost găsit în baze de date. Poți căuta pe Google.",
             "search_fail": "⚠ Căutarea a eșuat",
             "name_required": "Numele articolului este obligatoriu",
-            "location_add_error": "Eșuat la adăugarea locației"
+            "location_add_error": "Eșuat la adăugarea locației",
+            "photo_too_large": "Fotografiile pot avea maximum {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,16 +103,16 @@
         "refresh": "Reîmprospătează",
         "close": "Închide",
         "logout": "Deconectare",
-        "copyright": "© {{year}} HomeInventory - Toate drepturile rezervate",
+        "copyright": "© {{year}} {{brandName}} - Toate drepturile rezervate",
         "other": "Altul",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "Copiază",
+        "download": "Descarcă"
     },
     "auth": {
         "login": {
             "title": "Conectare",
             "subtitle": "Gestionează-ți toate inventarele casei inteligent",
-            "welcome": "Bun venit la HomeInventory",
+            "welcome": "Bun venit la {{brandName}}",
             "username_or_email": "Nume de utilizator sau Email",
             "password": "Parolă",
             "forgot_password": "Ai uitat parola?",
@@ -120,13 +124,25 @@
             "register_link": "Înregistrează-te",
             "support_contact": "Pentru probleme la autentificare:",
             "terms_title": "📋 Termeni de utilizare și Declarație de responsabilitate",
-            "terms_beta": "Versiune BETA: HomeInventory se află în prezent în faza de testare. Nu se oferă garanții privind persistența sau securitatea datelor tale.",
+            "terms_beta": "Versiune BETA: {{brandName}} se află în prezent în faza de testare. Nu se oferă garanții privind persistența sau securitatea datelor tale.",
             "terms_disclaimer": "Declarație de responsabilitate: Prin utilizarea acestei aplicații, ești de acord că nu poți revendica nicio despăgubire pentru pierderea potențială a datelor, probleme de acces sau alte defecțiuni tehnice.",
             "terms_backup": "Backup de date: Recomandăm cu tărie să faci backup regulat pentru informațiile tale importante.",
-            "terms_accept": "Prin autentificare, se consideră că ai acceptat acești termeni."
+            "terms_accept": "Prin autentificare, se consideră că ai acceptat acești termeni.",
+            "two_factor": {
+                "title": "Autentificare în doi pași",
+                "subtitle": "Introdu codul de 6 cifre din aplicația ta de autentificare",
+                "backup_subtitle": "Introdu unul dintre codurile tale de rezervă",
+                "code_label": "Cod de verificare",
+                "backup_code_label": "Cod de rezervă",
+                "remember_device": "Ține minte acest dispozitiv pentru 30 de zile",
+                "verify": "Verifică",
+                "back": "Înapoi",
+                "use_backup": "Folosește codul de rezervă",
+                "use_totp": "Folosește autentificatorul"
+            }
         },
         "register": {
-            "title": "Bun venit la HomeInventory",
+            "title": "Bun venit la {{brandName}}",
             "subtitle": "Creează un cont nou sau alătură-te unei case existente",
             "create_house": "Creează casă nouă",
             "join_house": "Alătură-te unei case",
@@ -135,7 +151,7 @@
             "form_title": "Înregistrează-te",
             "username": "Nume de utilizator",
             "username_placeholder": "ex. john",
-            "email": "Email",
+            "email": "Email 🌐 Public BETA: Contact: Contact: ••••••••{{suffix}} {{date, datetime}} Politica de confidențialitate",
             "email_placeholder": "ex. john@example.com",
             "password": "Parolă",
             "password_placeholder": "Cel puțin 6 caractere",
@@ -237,7 +253,8 @@
         "admin_panel": "Panou Administrator",
         "logout": "Deconectare",
         "menu": "Meniu",
-        "personal_vault": "Seif Personal"
+        "personal_vault": "Seif Personal",
+        "borrow_requests": "Cereri de împrumut"
     },
     "dashboard": {
         "welcome": "Bun venit, <1>{{name}}</1>! 👋",
@@ -279,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory este în prezent în faza de testare și hobby. Nu se oferă nicio garanție pentru persistența sau securitatea datelor. Vă rugăm să păstrați copii de siguranță ale informațiilor importante.",
+        "text": "{{brandName}} este în prezent în faza de testare și hobby. Nu se oferă nicio garanție pentru persistența sau securitatea datelor. Vă rugăm să păstrați copii de siguranță ale informațiilor importante.",
         "contact": "Contact:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Toate drepturile rezervate",
+        "rights": "© {{year}} {{brandName}} - Toate drepturile rezervate",
         "contact": "Contact:"
     },
     "settings": {
@@ -325,7 +342,8 @@
             "member_kicked": "Membru eliminat din casă",
             "member_kick_error": "Nu s-a putut elimina membrul din casă",
             "recovery_key_regenerated": "Cheia de recuperare a fost regenerată",
-            "recovery_key_error": "Nu s-a putut regenera cheia de recuperare"
+            "recovery_key_error": "Nu s-a putut regenera cheia de recuperare",
+            "account_delete_error": "Contul nu a putut fi șters"
         },
         "user_profile": {
             "edit_username": "Schimbă numele de utilizator"
@@ -392,13 +410,20 @@
             "export_json": "Exportă ca JSON",
             "upload_backup": "Încarcă backup",
             "uploading": "Se încarcă...",
-            "import_json": "Importă din JSON"
+            "import_json": "Importă din JSON",
+            "export_sensitive_title": "Backup-urile exportate conțin date necriptate",
+            "export_sensitive_notice": "Această copie de rezervă include datele căminului decriptate. Păstreaz-o în siguranță după descărcare, cripteaz-o dacă este posibil și evită să o partajezi prin canale nesigure.",
+            "export_sensitive_confirm": "Această copie de rezervă va include datele căminului decriptate în text clar. Confirmi că o vei păstra în siguranță?"
         },
         "about": {
             "title": "📱 Despre aplicație",
             "version": "Versiune",
-            "brand": "Brand",
-            "feedback": "✉️ Trimite Feedback"
+            "brand": "Marcă",
+            "feedback": "✉️ Trimite Feedback",
+            "legal_title": "Documente legale",
+            "legal_description": "Poți redeschide termenii și textele de confidențialitate de aici chiar și după ce le-ai acceptat.",
+            "terms_link": "Termeni și condiții",
+            "privacy_link": "Politica de confidențialitate"
         },
         "modals": {
             "password": {
@@ -441,6 +466,69 @@
             "title": "Cererile mele de aderare în așteptare",
             "waiting_since": "În așteptare de la: {{date, datetime}}",
             "pending_badge": "În așteptare"
+        },
+        "two_factor": {
+            "title": "Autentificarea în Doi Pași",
+            "description": "Adaugă un strat suplimentar de securitate contului tău cu 2FA bazat pe TOTP",
+            "active": "Activ",
+            "enable": "Activează 2FA",
+            "disable": "Dezactivează 2FA",
+            "disable_desc": "Elimină autentificarea în doi pași din contul tău",
+            "disable_title": "Dezactivează autentificarea în doi pași",
+            "disable_confirm": "Dezactivează 2FA",
+            "disable_error": "Nu s-a reușit dezactivarea 2FA",
+            "disabled_success": "Autentificarea în doi pași a fost dezactivată",
+            "password_label": "Parolă",
+            "password_placeholder": "Introdu parola ta",
+            "method_totp": "Autentificator",
+            "method_backup": "Cod de rezervă",
+            "method_recovery": "Cheie de recuperare",
+            "totp_code_label": "Cod autentificator",
+            "backup_code_label": "Cod de rezervă",
+            "recovery_key_label": "Cheie de recuperare",
+            "cancel": "Anulează",
+            "setup_title": "Configurați 2FA",
+            "setup_error": "Eșuat la pornirea configurării 2FA",
+            "step_1": "Pasul 1: Scanați codul QR",
+            "step_2": "Pasul 2: Verificați codul",
+            "step_3": "Pasul 3: Salvați codurile de rezervă",
+            "scan_instruction": "Scanați acest cod QR cu aplicația dumneavoastră de autentificare (Google Authenticator, Authy sau orice aplicație TOTP)",
+            "manual_entry": "Nu puteți scana? Introduceți această cheie manual:",
+            "copy_secret": "Copiază secretul",
+            "next": "Următorul",
+            "verify_instruction": "Introdu codul de 6 cifre afișat în aplicația ta de autentificare pentru a verifica configurarea",
+            "verify_error": "Verificarea a eșuat",
+            "code_label": "Cod de 6 cifre",
+            "back": "Înapoi",
+            "activate": "Activează 2FA",
+            "backup_warning_title": "Salvează aceste coduri de rezervă!",
+            "backup_warning_text": "Dacă pierdeți accesul la aplicația de autentificare, puteți folosi aceste coduri pentru a vă conecta. Fiecare cod poate fi folosit o singură dată. Păstrați-le într-un loc sigur.",
+            "download_codes": "Descărcați codurile de rezervă",
+            "backup_acknowledge": "Mi-am salvat codurile de rezervă într-un loc sigur",
+            "done": "Gata",
+            "regenerate_codes": "Regenerare coduri de rezervă",
+            "regenerate_codes_desc": "Generați coduri de rezervă noi (cele vechi vor fi invalide)",
+            "regenerate": "Regenerare",
+            "codes_regenerated": "Codurile de rezervă au fost regenerate",
+            "codes_error": "Eșec la regenerarea codurilor de rezervă",
+            "close_codes": "Închidere",
+            "revoke_devices": "Anulează dispozitivele de încredere",
+            "revoke_devices_desc": "Elimină toate dispozitivele memorate, necesitând 2FA la următoarea autentificare",
+            "devices_revoked": "{{count}} dispozitiv(e) de încredere eliminate",
+            "devices_error": "Eșec la anularea dispozitivelor"
+        },
+        "danger_zone": {
+            "title": "Cont",
+            "delete_title": "Șterge contul",
+            "delete_description": "Dacă doriți, puteți elimina permanent datele personale și fișierele încărcate asociate acestui cont.",
+            "delete_warning": "Această acțiune nu poate fi anulată.",
+            "delete_action": "Șterge contul",
+            "modal_title": "Șterge contul",
+            "modal_warning_title": "Această acțiune este ireversibilă",
+            "modal_warning_body": "După confirmare, veți pierde imediat accesul la cont și datele aplicației șterse nu pot fi restaurate din aplicație.",
+            "password_label": "Confirmă cu parola ta actuală",
+            "confirm_delete": "Confirmă ștergerea",
+            "deleting": "Ștergere..."
         }
     },
     "inventory": {
@@ -455,7 +543,53 @@
         "empty_filter": "Niciun articol nu corespunde filtrului tău",
         "empty_msg": "Nu au fost adăugate articole încă",
         "delete_confirm": "Ești sigur că vrei să ștergi acest articol?",
-        "delete_error": "Eroare la ștergere"
+        "delete_error": "Eroare la ștergere",
+        "load_warning": {
+            "title": "Mod de încărcare parțială",
+            "body": "Unele date de suport răspund încet în acest moment, astfel încât pagina s-a deschis fără metadatele complete ale filtrului. Vom încerca din nou când reîmprospătați."
+        },
+        "borrow": {
+            "section_title": "Urmărirea împrumuturilor",
+            "section_subtitle": "Starea și istoricul actual al împrumutului",
+            "dialog_lend_title": "Împrumută obiectul",
+            "dialog_lend_subtitle": "Creează un nou record de împrumut pentru \"{{item}}\"",
+            "dialog_return_title": "Marchează ca returnat",
+            "dialog_return_subtitle": "Închideți înregistrarea activă de împrumut pentru \"{{item}}\"",
+            "member": "Membru al casei",
+            "external": "Persoană externă",
+            "borrower_member": "Cine a primit-o?",
+            "no_members": "Nu există alt membru selectabil în această casă. Puteți crea înregistrarea ca persoană externă în schimb.",
+            "borrower_name": "Numele persoanei",
+            "borrower_name_placeholder": "ex. Vecinul Alex",
+            "borrower_contact": "Informații de contact",
+            "borrower_contact_placeholder": "Telefon, email sau notă scurtă",
+            "due_date": "Data estimată a returnării",
+            "note": "Notă",
+            "note_placeholder": "de ex. Împrumutat pentru weekend",
+            "submitting_lend": "Salvare...",
+            "lend": "Împrumut",
+            "return_note": "Notă de returnare",
+            "return_note_placeholder": "de ex. Returnat în stare bună",
+            "submitting_return": "Se închide...",
+            "mark_returned": "Marcat returnat",
+            "current_borrower_label": "În prezent cu:",
+            "unknown": "Necunoscut",
+            "overdue_badge": "Întârziat",
+            "borrowed_badge": "Împrumutat",
+            "borrowed_to": "Cu {{name}}",
+            "due_date_short": "Scadent: {{date}}",
+            "actions_error": "Împrumutul nu a putut fi finalizat",
+            "borrowed_at": "Împrumutat la: {{date}}",
+            "due_date_label": "Returnare estimată: {{date}}",
+            "note_label": "Notă: {{note}}",
+            "return_note_label": "Notă de returnare: {{note}}",
+            "no_active": "Acest articol nu este împrumutat în prezent.",
+            "history_title": "Istoric",
+            "history_active": "Deschide înregistrarea pentru {{name}}",
+            "history_returned": "Istoric închis pentru {{name}}",
+            "returned_at": "Returnat la: {{date}}",
+            "no_history": "Nu există istoricul de împrumut pentru acest articol încă."
+        }
     },
     "categories": {
         "title": "Categorii",
@@ -553,7 +687,7 @@
             "free_badge": "Complet Gratuit"
         },
         "features": {
-            "title": "De ce <1>HomeInventory</1>?",
+            "title": "De ce <1>{{brandName}}</1>?",
             "subtitle": "Toate funcțiile pentru a simplifica gestionarea casei într-o singură platformă",
             "items": {
                 "categorize": {
@@ -577,7 +711,7 @@
                     "desc": "Datele tale sunt criptate și protejate cu infrastructură conformă KVKK."
                 },
                 "backup": {
-                    "title": "Backup & Export",
+                    "title": "Copiere de rezervă & Export",
                     "desc": "Fă backup la inventarul tău în format JSON, restaurează-l ori de câte ori vrei."
                 }
             }
@@ -591,7 +725,7 @@
             "desc": "Platforma simplă și sigură pentru a digitaliza inventarul casei tale.",
             "links": "Linkuri rapide",
             "contact": "Contactează-ne",
-            "copyright": "© {{year}} HomeInventory. Toate drepturile rezervate."
+            "copyright": "© {{year}} {{brandName}}. Toate drepturile rezervate."
         },
         "preview_privacy_notice": "Vizualizare demo: nu sunt afișate date reale ale utilizatorilor."
     },
@@ -719,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Verificare email necesară",
-            "headerTitle": "Bun venit la HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Verificare email necesară",
+            "headerTitle": "Bun venit la {{brandName}}",
             "headerSubtitle": "Creează un cont nou sau alătură-te unei case existente",
-            "greeting": "Bun venit la HomeInventory",
+            "greeting": "Bun venit la {{brandName}}",
             "intro": "Cont creat! Te rugăm să-ți verifici adresa de email pentru a te autentifica.",
             "verifyPrompt": "📧 Verificare email necesară",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Verifică contul meu",
             "warningTitle": "⚠️",
             "warningBody": "Verifică dosarul de spam/junk dacă emailul nu ajunge.",
             "houseKeyLabel": "Cheie casă",
@@ -739,13 +873,13 @@
             ],
             "fallback": "Linkul de resetare a parolei pare incomplet sau rupt.",
             "support": "Probleme de înregistrare:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Bun venit la HomeInventory",
-            "headerTitle": "Bun venit la HomeInventory",
+            "subject": "Bun venit la {{brandName}}",
+            "headerTitle": "Bun venit la {{brandName}}",
             "headerSubtitle": "Creează un cont nou sau alătură-te unei case existente",
-            "greeting": "Bun venit la HomeInventory",
+            "greeting": "Bun venit la {{brandName}}",
             "intro": "Bun venit, ! 👋",
             "houseKeyLabel": "Cheie casă",
             "houseKeyNote": "Aceasta este cheia casei tale, folosește-o pentru a invita pe alții. Adaugă membri ai familiei în casa ta!",
@@ -757,7 +891,7 @@
                 "💡 Poți fi membru al mai multor case și să faci schimb între ele. Fiecare casă păstrează un inventar separat."
             ],
             "support": "Probleme de înregistrare:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Alătură-te unei case",
@@ -766,7 +900,7 @@
             "bodyLine2": "Așteptarea aprobării proprietarului casei"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Acces la casă",
             "bodyLine1Template": "Cererea curentă în așteptare: {{house}} ({{status}})",
             "bodyLine2": "Cererea ta pentru \"{{house}}\" este încă în așteptare pentru o decizie."
@@ -786,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Dacă există un cont, a fost trimis un link de resetare a parolei valabil timp de 15 minute.",
             "fallback": "Linkul de resetare a parolei pare incomplet sau rupt.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "Acest e-mail a fost trimis de {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -828,7 +966,6 @@
         "record_save_new": "Adăugare înregistrare în seif",
         "record_save_edit": "Salvare modificări",
         "barcode_privacy_hint": "Codurile de bare din seif nu sunt căutate automat pe servicii externe; textul codului de bare este stocat doar ca date criptate.",
-        "media_note": "Fotografiile, scanarea codurilor de bare și căutarea produselor externe sunt dezactivate intenționat în acest prim flux al seifului. Ele necesită un pipeline separat pentru media criptată și confidențialitate.",
         "search_placeholder": "Caută în seif...",
         "all_categories": "Toate categoriile",
         "all_rooms": "Toate camerele",
@@ -848,9 +985,112 @@
             "name_required": "Este necesar un nume de articol pentru o înregistrare din seif.",
             "options_failed": "Opțiunile de categorie și cameră nu au putut fi încărcate."
         },
-        "recovery_file_title": "Cheia de Recuperare a Seifului Personal HomeInventory",
+        "recovery_file_title": "Cheia de Recuperare a Seifului Personal {{brandName}}",
         "recovery_file_created_label": "Creat",
         "recovery_file_key_label": "Cheia de Recuperare",
-        "recovery_file_warning": "Dacă pierdeți atât această cheie, cât și parola seifului, seiful nu poate fi recuperat."
+        "recovery_file_warning": "Dacă pierdeți atât această cheie, cât și parola seifului, seiful nu poate fi recuperat.",
+        "media_note": "Încărcările de fotografii, scanarea codurilor de bare și căutarea produselor externe nu sunt încă suportate. Aceste funcții vor fi adăugate odată ce un flux dedicat de media criptată și confidențialitate va fi pregătit."
+    },
+    "borrow_requests": {
+        "title": "Centru de împrumut",
+        "subtitle": "Gestionează fluxurile de cereri și oferte securizate cu alți utilizatori {{brandName}}.",
+        "incoming_title": "Cereri primite",
+        "incoming_subtitle": "Cereri și oferte trimise către tine",
+        "outgoing_title": "Trimise de mine",
+        "outgoing_subtitle": "Oferte și cereri de articole pe care le-ai început",
+        "empty_incoming": "În acest moment nu există cereri de împrumut pentru tine.",
+        "empty_outgoing": "Nu ai trimis încă nicio ofertă sau cerere.",
+        "stats": {
+            "incoming": "În așteptare, primite",
+            "outgoing": "În așteptare, trimise",
+            "active": "Împrumuturi active"
+        },
+        "active": {
+            "title": "Împrumuturi active",
+            "subtitle": "Articole aflate în prezent la tine sau împrumutate de tine",
+            "empty": "Nu există împrumuturi active în acest moment.",
+            "borrowed_from": "Împrumutat de la {{name}}",
+            "lent_to": "În prezent la {{name}}"
+        },
+        "status": {
+            "pending": "În așteptare",
+            "accepted": "Activ",
+            "rejected": "Respins",
+            "cancelled": "Anulat",
+            "expired": "Expirat",
+            "returned": "Întors"
+        },
+        "actions": {
+            "send_request": "Articol cerere",
+            "send_offer": "Trimite ofertă",
+            "accept": "Acceptă",
+            "reject": "Respinge",
+            "cancel": "Anulează",
+            "fulfill_request": "Îndeplinește cererea"
+        },
+        "labels": {
+            "offer": "Ofertă",
+            "request": "Cerere",
+            "unspecified_item": "Element nespecificat",
+            "counterparty": "Contraparte: {{name}}",
+            "created_at": "Creat: {{date}}",
+            "due_date": "Întoarcere estimată: {{date}}",
+            "waiting_delivery": "Cererea poate fi încă în așteptarea unui cont corespunzător înainte de a apărea.",
+            "returned_on": "Returnat la: {{date}}",
+            "borrow_started": "Început: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Trimite ofertă",
+            "offer_subtitle_item": "Creează o ofertă sigură pentru utilizator pentru „{{item}}”",
+            "offer_subtitle_general": "Alege un obiect din inventarul tău și trimite o ofertă sigură",
+            "item_label": "Obiect",
+            "item_placeholder": "Selectează un obiect",
+            "target_label": "Nume de utilizator sau email",
+            "target_placeholder": "de ex. alex sau alex@example.com",
+            "target_help": "Sistemul nu dezvăluie dacă acest cont există. Dacă se potrivește, cererea apare în inbox-ul destinatarului.",
+            "offer_note_placeholder": "de ex. Poți să-l ții până în weekend dacă vrei",
+            "offer_submitting": "Trimitere...",
+            "request_title": "Cerere articol",
+            "request_subtitle": "Creează o cerere generală fără a răsfoi inventarul altei persoane",
+            "requested_item_label": "De ce ai nevoie?",
+            "requested_item_placeholder": "de ex. Bormașină, trepied, scaun de camping",
+            "request_note_placeholder": "de ex. Am nevoie doar pentru 2 zile",
+            "request_submitting": "Trimitere...",
+            "fulfill_title": "Îndeplinește cererea",
+            "fulfill_subtitle": "Alege un obiect din inventarul tău pentru „{{item}}”",
+            "fulfill_target": "Acest obiect va fi împrumutat lui {{name}}.",
+            "no_available_items": "Nu există niciun obiect eligibil de oferit în casa ta activă în acest moment.",
+            "fulfill_submitting": "Se salvează...",
+            "return_title": "Marchează ca returnat",
+            "return_subtitle": "Închide împrumutul activ pentru „{{item}}”",
+            "return_target": "În prezent este afișat că se află la {{name}}."
+        },
+        "messages": {
+            "load_error": "Centrul de împrumut nu a putut fi încărcat",
+            "action_error": "Acțiunea nu a putut fi finalizată"
+        },
+        "preview": {
+            "title": "Modul de previzualizare",
+            "body": "Partea de backend a acestei pagini nu este accesibilă în testarea locală în acest moment. Poți totuși să revizuiești mai întâi aspectul și fluxul; vom activa partea de server după ce o aprobi."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Politica de confidențialitate",
+        "terms_of_service_title": "Termeni și Condiții",
+        "privacy_policy_content": "Confidențialitatea dvs. este importantă pentru noi. Această aplicație stochează în siguranță datele încărcate de dvs. folosind criptarea la nivel de câmp. Nu vindem și nu partajăm datele dvs. personale cu terțe părți. Prin utilizarea serviciului, sunteți de acord cu colectarea datelor necesare pentru gestionarea contului și funcționalitatea aplicației.",
+        "terms_of_service_content": "Prin utilizarea {{brandName}}, sunteți de acord cu acești termeni. Serviciul este oferit „ca atare”, fără garanții. Sunteți responsabil pentru datele pe care le încărcați și pentru a vă asigura că aveți drepturile asupra acestora. Ne rezervăm dreptul de a suspenda conturile care încalcă politicile sau abuzează de sistem.",
+        "register_consent": "Am citit, am înțeles și sunt de acord cu <1>Termenii și Condițiile</1> și <2>Politica de Confidențialitate</2>.",
+        "consent_title": "Revizuiește documentele legale",
+        "consent_subtitle": "Vă rugăm să confirmați termenii actuali înainte de a continua.",
+        "consent_notice": "Avem nevoie de o confirmare înregistrată a Termenilor de Utilizare și a Notificării de Confidențialitate înainte de a putea continua să utilizați aplicația.",
+        "consent_checkbox": "Accept Termenii de Utilizare și confirm că am citit Notificarea de Confidențialitate.",
+        "consent_submit": "Continuă",
+        "consent_submitting": "Se salvează...",
+        "consent_required": "Trebuie să confirmați Termenii de Utilizare și Notificarea de Confidențialitate înainte de a continua."
+    },
+    "cookies": {
+        "banner_text": "Folosim cookie-uri esențiale pentru a vă menține conectat și pentru a vă securiza sesiunea. Continuând să utilizați acest site, sunteți de acord cu politicile noastre.",
+        "accept": "Accept",
+        "learn_more": "Aflați mai multe"
     }
 }

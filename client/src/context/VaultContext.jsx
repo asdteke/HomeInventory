@@ -3,7 +3,9 @@ import axios from 'axios';
 import { useAuth } from './AuthContext';
 import {
     createPersonalVaultSetup,
+    decryptPersonalVaultBytes,
     decryptPersonalVaultPayload,
+    encryptPersonalVaultBytes,
     encryptPersonalVaultPayload,
     unlockPersonalVaultWithPassphrase,
     unlockPersonalVaultWithRecoveryKey
@@ -115,6 +117,22 @@ export function VaultProvider({ children }) {
         return decryptPersonalVaultPayload(vaultKeyRef.current, payload);
     };
 
+    const encryptBytes = async (payload) => {
+        if (!vaultKeyRef.current) {
+            throw new Error('Vault kilitli.');
+        }
+
+        return encryptPersonalVaultBytes(vaultKeyRef.current, payload);
+    };
+
+    const decryptBytes = async (payload) => {
+        if (!vaultKeyRef.current) {
+            throw new Error('Vault kilitli.');
+        }
+
+        return decryptPersonalVaultBytes(vaultKeyRef.current, payload);
+    };
+
     return (
         <VaultContext.Provider
             value={{
@@ -129,6 +147,8 @@ export function VaultProvider({ children }) {
                 unlockWithRecoveryKey,
                 encryptPayload,
                 decryptPayload,
+                encryptBytes,
+                decryptBytes,
                 lockVault
             }}
         >
@@ -136,4 +156,3 @@ export function VaultProvider({ children }) {
         </VaultContext.Provider>
     );
 }
-

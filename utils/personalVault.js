@@ -7,6 +7,8 @@ export const PERSONAL_VAULT_ITEM_PAYLOAD_VERSION = 1;
 export const PERSONAL_VAULT_KDF_MIN_ITERATIONS = 310000;
 export const PERSONAL_VAULT_KDF_MAX_ITERATIONS = 900000;
 export const PERSONAL_VAULT_ITEM_MAX_BYTES = 128 * 1024;
+export const PERSONAL_VAULT_PHOTO_MAX_BYTES = 2 * 1024 * 1024;
+export const PERSONAL_VAULT_PHOTO_PREVIEW_MAX_BYTES = 256 * 1024;
 
 function createValidationError(message) {
     const error = new Error(message);
@@ -59,7 +61,7 @@ function normalizeKnownAlgorithm(value, fieldName, expectedValue) {
     return normalized;
 }
 
-function normalizeEnvelopeObject(value, fieldName) {
+function normalizeEnvelopeObject(value, fieldName, maxBytes) {
     if (!value || typeof value !== 'object' || Array.isArray(value)) {
         throw createValidationError(`${fieldName} nesne olmalidir`);
     }
@@ -75,7 +77,7 @@ function normalizeEnvelopeObject(value, fieldName) {
         iv: normalizeBase64Url(value.iv, `${fieldName}.iv`),
         ciphertext: normalizeBase64Url(value.ciphertext, `${fieldName}.ciphertext`, {
             minLength: 24,
-            maxLength: PERSONAL_VAULT_ITEM_MAX_BYTES * 3
+            maxLength: maxBytes * 3
         })
     };
 }
@@ -97,7 +99,11 @@ export function normalizePersonalVaultSetupPayload(body = {}) {
     };
 }
 
-export function normalizePersonalVaultEnvelope(value, fieldName = 'encrypted_payload') {
+export function normalizePersonalVaultEnvelope(
+    value,
+    fieldName = 'encrypted_payload',
+    { maxBytes = PERSONAL_VAULT_ITEM_MAX_BYTES } = {}
+) {
     if (typeof value === 'string') {
         let parsed;
         try {
@@ -106,20 +112,23 @@ export function normalizePersonalVaultEnvelope(value, fieldName = 'encrypted_pay
             throw createValidationError(`${fieldName} gecerli JSON degil`);
         }
 
-        return normalizeEnvelopeObject(parsed, fieldName);
+        return normalizeEnvelopeObject(parsed, fieldName, maxBytes);
     }
 
-    return normalizeEnvelopeObject(value, fieldName);
+    return normalizeEnvelopeObject(value, fieldName, maxBytes);
 }
 
-export function serializePersonalVaultEnvelope(value, fieldName = 'encrypted_payload') {
-    const normalized = normalizePersonalVaultEnvelope(value, fieldName);
+export function serializePersonalVaultEnvelope(
+    value,
+    fieldName = 'encrypted_payload',
+    { maxBytes = PERSONAL_VAULT_ITEM_MAX_BYTES } = {}
+) {
+    const normalized = normalizePersonalVaultEnvelope(value, fieldName, { maxBytes });
     const serialized = JSON.stringify(normalized);
 
-    if (Buffer.byteLength(serialized, 'utf8') > PERSONAL_VAULT_ITEM_MAX_BYTES) {
+    if (Buffer.byteLength(serialized, 'utf8') > maxBytes) {
         throw createValidationError(`${fieldName} boyutu limiti asti`);
     }
 
     return serialized;
 }
-

@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Eining lengdar ábyrgðar",
             "warranty_duration_months": "Mánuðir",
             "warranty_duration_years": "Ár",
-            "warranty_calculation_help": "Ef þú skilur upphafsdagsetningu ábyrgðar eftir autt, er reikningsdagsetningin notuð. Þegar þú slærð inn lengdina er lokadagsetning ábyrgðar reiknuð sjálfkrafa."
+            "warranty_calculation_help": "Ef þú skilur upphafsdagsetningu ábyrgðar eftir autt, er reikningsdagsetningin notuð. Þegar þú slærð inn lengdina er lokadagsetning ábyrgðar reiknuð sjálfkrafa.",
+            "vault_hint_title": "Mjög viðkvæmur skrá?",
+            "vault_hint_description": "Fyrir vegabréf, skjöl, auðkennisupplýsingar, aðgangskóða og aðrar skrár sem ættu að vera utan venjulegs skráningaferils, geymdu þær frekar í Persónulegu öryggishólfi.",
+            "vault_hint_action": "Opna Persónulegt öryggishólf"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" fljótt bætt við - þú getur breytt síðar",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Vara fannst ekki í gagnagrunnum. Þú getur leitað á Google.",
             "search_fail": "⚠ Leit mistókst",
             "name_required": "Nafn atriðis er krafist",
-            "location_add_error": "Mistókst að bæta staðsetningu við"
+            "location_add_error": "Mistókst að bæta staðsetningu við",
+            "photo_too_large": "Myndir mega vera að hámarki {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,16 +103,16 @@
         "refresh": "Endurhlaða",
         "close": "Loka",
         "logout": "Skrá út",
-        "copyright": "© {{year}} HomeInventory - Öll réttindi áskilin",
+        "copyright": "© {{year}} {{brandName}} - Öll réttindi áskilin",
         "other": "Annað",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "Afrita",
+        "download": "Sækja"
     },
     "auth": {
         "login": {
             "title": "Skrá inn",
             "subtitle": "Stjórnaðu allri heimilisáhöldum þínum snjallt",
-            "welcome": "Velkomin/Velkominn á HomeInventory",
+            "welcome": "Velkomin/Velkominn á {{brandName}}",
             "username_or_email": "Notandanafn eða Netfang",
             "password": "Lykilorð",
             "forgot_password": "Gleymt lykilorð?",
@@ -120,13 +124,25 @@
             "register_link": "Nýskráning",
             "support_contact": "Fyrir innskráningarvandamál:",
             "terms_title": "📋 Notkunarskilmálar og ábyrgðarfyrirvari",
-            "terms_beta": "BETA Útgáfa: HomeInventory er nú í prófunarfasa. Engin trygging er gefin varðandi varðveislu eða öryggi gagna þinna.",
+            "terms_beta": "BETA Útgáfa: {{brandName}} er nú í prófunarfasa. Engin trygging er gefin varðandi varðveislu eða öryggi gagna þinna.",
             "terms_disclaimer": "Ábyrgðarfyrirvari: Með því að nota þessa forrit samþykkir þú að þú getir ekki krafist bætur vegna mögulegs tap á gögnum, aðgangsvandamála eða annarra tæknilegra bilana.",
             "terms_backup": "Afritun gagna: Mælt er með reglulegri afritun mikilvægra upplýsinga þinna.",
-            "terms_accept": "Með innskráningu er talið að þú hafir samþykkt þessa skilmála."
+            "terms_accept": "Með innskráningu er talið að þú hafir samþykkt þessa skilmála.",
+            "two_factor": {
+                "title": "Tveggja þátta auðkenning",
+                "subtitle": "Sláðu inn 6 stafa kóða úr auðkenningarforritinu þínu",
+                "backup_subtitle": "Sláðu inn einn af varakóðunum þínum",
+                "code_label": "Staðfestingarkóði",
+                "backup_code_label": "Varakóði",
+                "remember_device": "Mundu þennan tæki í 30 daga",
+                "verify": "Staðfesta",
+                "back": "Til baka",
+                "use_backup": "Notaðu öryggisafritskóða",
+                "use_totp": "Notaðu auðkenningartæki"
+            }
         },
         "register": {
-            "title": "Velkomin(n) til HomeInventory",
+            "title": "Velkomin(n) til {{brandName}}",
             "subtitle": "Búðu til nýjan reikning eða tengstu við núverandi hús",
             "create_house": "Búa til nýtt hús",
             "join_house": "Taka þátt í húsi",
@@ -237,7 +253,8 @@
         "admin_panel": "Stjórnborð stjórnanda",
         "logout": "Útskrá",
         "menu": "Valmynd",
-        "personal_vault": "Persónulegt fjárhirslu"
+        "personal_vault": "Persónulegt fjárhirslu",
+        "borrow_requests": "Lánabeiðnir"
     },
     "dashboard": {
         "welcome": "Velkomin(n), <1>{{name}}</1>! 👋",
@@ -279,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory er núna í prófunar- og áhugamáli. Engin trygging er gefin fyrir varðveislu eða öryggi gagna. Vinsamlegast geymið öryggisafrit af mikilvægum upplýsingum.",
+        "text": "{{brandName}} er núna í prófunar- og áhugamáli. Engin trygging er gefin fyrir varðveislu eða öryggi gagna. Vinsamlegast geymið öryggisafrit af mikilvægum upplýsingum.",
         "contact": "Hafðu samband:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Öll réttindi áskilin",
+        "rights": "© {{year}} {{brandName}} - Öll réttindi áskilin",
         "contact": "Hafðu samband:"
     },
     "settings": {
@@ -325,7 +342,8 @@
             "member_kicked": "Meðlimur fjarlægður úr húsinu",
             "member_kick_error": "Gat ekki fjarlægt meðlim úr húsinu",
             "recovery_key_regenerated": "Endurheimtarlykill endurmyndaður",
-            "recovery_key_error": "Gat ekki endurmyndað endurheimtarlykil"
+            "recovery_key_error": "Gat ekki endurmyndað endurheimtarlykil",
+            "account_delete_error": "Ekki var hægt að eyða reikningnum"
         },
         "user_profile": {
             "edit_username": "Breyta notandanafni"
@@ -392,13 +410,20 @@
             "export_json": "Flytja út sem JSON",
             "upload_backup": "Hlaða upp afriti",
             "uploading": "Hleðst upp...",
-            "import_json": "Flytja inn úr JSON"
+            "import_json": "Flytja inn úr JSON",
+            "export_sensitive_title": "Flytjanlegar afrit innihalda textagögn",
+            "export_sensitive_notice": "Þetta afrit inniheldur afkóðuð heimilishaldsgögn. Geymdu það örugglega eftir niðurhal, dulkóðaðu ef mögulegt er, og forðastu að deila því yfir óöruggum rásum.",
+            "export_sensitive_confirm": "Þetta afrit mun innihalda afkóðuð heimilishaldsgögn í texta. Staðfestir þú að þú munir geyma það örugglega?"
         },
         "about": {
             "title": "📱 Um forritið",
             "version": "Útgáfa",
             "brand": "Vörumerki",
-            "feedback": "✉️ Senda endurgjöf"
+            "feedback": "✉️ Senda endurgjöf",
+            "legal_title": "Lagaleg skjöl",
+            "legal_description": "Þú getur opnað skilmála og persónuverndartexta hér aftur jafnvel eftir að þú hefur samþykkt þá.",
+            "terms_link": "Notendaskilmálar",
+            "privacy_link": "Persónuverndarstefna"
         },
         "modals": {
             "password": {
@@ -441,6 +466,69 @@
             "title": "Mina biðbeiðnir um aðgang",
             "waiting_since": "Bíður síðan: {{date, datetime}}",
             "pending_badge": "Í bið"
+        },
+        "two_factor": {
+            "title": "Tveggja þátta auðkenning",
+            "description": "Bættu við auka öryggishluta á reikninginn þinn með TOTP-bundinni tveggja þátta auðkenningu",
+            "active": "Virk",
+            "enable": "Virkja tveggja þátta auðkenningu",
+            "disable": "Afvirkja tveggja þátta auðkenningu",
+            "disable_desc": "Fjarlægja tveggja þátta auðkenningu af reikningnum þínum",
+            "disable_title": "Óvirkja tveggja þátta auðkenningu",
+            "disable_confirm": "Óvirkja 2FA",
+            "disable_error": "Mistókst að óvirkja 2FA",
+            "disabled_success": "Tveggja þátta auðkenning hefur verið óvirkjað",
+            "password_label": "Lykilorð",
+            "password_placeholder": "Sláðu inn lykilorðið þitt",
+            "method_totp": "Auðkennisforrit",
+            "method_backup": "Afritakóði",
+            "method_recovery": "Endurheimtarlykill",
+            "totp_code_label": "Auðkenningarkóði",
+            "backup_code_label": "Varakóði",
+            "recovery_key_label": "Endurheimtarlykill",
+            "cancel": "Hætta við",
+            "setup_title": "Setja upp 2FA",
+            "setup_error": "Ekki tókst að hefja uppsetningu 2FA",
+            "step_1": "Skref 1: Skanna QR kóða",
+            "step_2": "Skref 2: Staðfestu kóða",
+            "step_3": "Skref 3: Vistaðu öryggiskóða",
+            "scan_instruction": "Skannaðu þennan QR-kóða með auðkenningarforritinu þínu (Google Authenticator, Authy, eða hvaða TOTP-forrit sem er)",
+            "manual_entry": "Geturðu ekki skannað? Sláðu inn þetta lykilorð handvirkt:",
+            "copy_secret": "Afritaðu leynilykli",
+            "next": "Næst",
+            "verify_instruction": "Sláðu inn 6 stafa kóðann sem birtist í auðkenningarforritinu þínu til að staðfesta uppsetningu",
+            "verify_error": "Staðfesting mistókst",
+            "code_label": "6-stafa kóði",
+            "back": "Til baka",
+            "activate": "Virkja 2FA",
+            "backup_warning_title": "Vistaðu þessar varakóða!",
+            "backup_warning_text": "Ef þú missir aðgang að auðkennisforritinu þínu geturðu notað þessa kóða til að skrá þig inn. Hver kóði má aðeins nota einu sinni. Geymdu þá á öruggum stað.",
+            "download_codes": "Sækja varakóða",
+            "backup_acknowledge": "Ég hef vistað varakóðana mína á öruggum stað",
+            "done": "Klárað",
+            "regenerate_codes": "Endurgera öryggiskóða",
+            "regenerate_codes_desc": "Búa til nýja öryggiskóða (gamli verður ógildur)",
+            "regenerate": "Endurgera",
+            "codes_regenerated": "Öryggiskóðar hafa verið endurgerðir",
+            "codes_error": "Mistókst að endurgera öryggiskóða",
+            "close_codes": "Loka",
+            "revoke_devices": "Aftengja Traust tæki",
+            "revoke_devices_desc": "Fjarlægja öll munað tæki, krefst 2FA við næsta innskráningu",
+            "devices_revoked": "{{count}} traust tæki fjarlægð",
+            "devices_error": "Mistókst að afturkalla tæki"
+        },
+        "danger_zone": {
+            "title": "Reikningur",
+            "delete_title": "Eyða reikningi",
+            "delete_description": "Ef þú vilt geturðu varanlega fjarlægt persónulegu gögnin og upphleðsluskrár sem tengjast þessum reikningi.",
+            "delete_warning": "Þessi aðgerð er óafturkræf.",
+            "delete_action": "Eyða reikningi",
+            "modal_title": "Eyða reikningi",
+            "modal_warning_title": "Þessi aðgerð er óafturkallanleg",
+            "modal_warning_body": "Eftir staðfestingu muntu strax missa aðgang að reikningnum og eyddar forritsgögn er ekki hægt að endurheimta úr forritinu.",
+            "password_label": "Staðfesta með núverandi lykilorði þínu",
+            "confirm_delete": "Staðfesta eyðingu",
+            "deleting": "Eyði..."
         }
     },
     "inventory": {
@@ -455,7 +543,53 @@
         "empty_filter": "Engir hlutir passa við síurnar þínar",
         "empty_msg": "Engir hlutir bættir enn",
         "delete_confirm": "Ertu viss um að þú viljir eyða þessu atriði?",
-        "delete_error": "Villa við að eyða"
+        "delete_error": "Villa við að eyða",
+        "load_warning": {
+            "title": "Hlutahleðsla",
+            "body": "Sum gögn sem styðja eru að svara hægt núna, svo síðunni var opnuð án fullrar síugagna. Við munum reyna aftur þegar þú uppfærir."
+        },
+        "borrow": {
+            "section_title": "Lánaspor",
+            "section_subtitle": "Núverandi lánastaða og saga",
+            "dialog_lend_title": "Lána hlut",
+            "dialog_lend_subtitle": "Búa til nýtt lánaskrá fyrir \"{{item}}\"",
+            "dialog_return_title": "Merkja sem skilað",
+            "dialog_return_subtitle": "Lokaðu virku lánaskrá fyrir \"{{item}}\"",
+            "member": "Húsameðlimur",
+            "external": "Utan aðili",
+            "borrower_member": "Hver fékk það?",
+            "no_members": "Enginn annar valkostur er í þessu húsi. Þú getur búið til skrána sem utan aðila í staðinn.",
+            "borrower_name": "Nafn manns",
+            "borrower_name_placeholder": "t.d. Nágranni Alex",
+            "borrower_contact": "Upplýsingar um tengilið",
+            "borrower_contact_placeholder": "Sími, tölvupóstur eða stutt skeyti",
+            "due_date": "Áætluð skiladagsetning",
+            "note": "Athugasemd",
+            "note_placeholder": "t.d. Lánað í helgarleytið",
+            "submitting_lend": "Vista...",
+            "lend": "Lána",
+            "return_note": "Skilaskeyti",
+            "return_note_placeholder": "t.d. Skilað í góðu ástandi",
+            "submitting_return": "Lokun...",
+            "mark_returned": "Merki skilað",
+            "current_borrower_label": "Nú með:",
+            "unknown": "Óþekkt",
+            "overdue_badge": "Yfirfært",
+            "borrowed_badge": "Lánast",
+            "borrowed_to": "Með {{name}}",
+            "due_date_short": "Eftir: {{date}}",
+            "actions_error": "Lántaka gat ekki verið framkvæmd",
+            "borrowed_at": "Lánað þann: {{date}}",
+            "due_date_label": "Áætluð skil: {{date}}",
+            "note_label": "Athugasemd: {{note}}",
+            "return_note_label": "Skilathugasemd: {{note}}",
+            "no_active": "Þessi vara er ekki lánuð núna.",
+            "history_title": "Saga",
+            "history_active": "Opna skrá fyrir {{name}}",
+            "history_returned": "Lokað skjal fyrir {{name}}",
+            "returned_at": "Skilað: {{date}}",
+            "no_history": "Engin lánasaga er til fyrir þennan hlut enn."
+        }
     },
     "categories": {
         "title": "Flokkar",
@@ -553,7 +687,7 @@
             "free_badge": "Algjörlega ókeypis"
         },
         "features": {
-            "title": "Af hverju <1>HomeInventory</1>?",
+            "title": "Af hverju <1>{{brandName}}</1>?",
             "subtitle": "Allar aðgerðir til að einfalda heimilisstjórnun á einum vettvangi",
             "items": {
                 "categorize": {
@@ -591,7 +725,7 @@
             "desc": "Auðveld og örugg vettvangur til að stafræna heimilisbirgðir þínar.",
             "links": "Flýtileiðir",
             "contact": "Hafðu samband við okkur",
-            "copyright": "© {{year}} HomeInventory. Öll réttindi áskilin."
+            "copyright": "© {{year}} {{brandName}}. Öll réttindi áskilin."
         },
         "preview_privacy_notice": "Sýnidæmi: engin raunveruleg notendagögn eru birt."
     },
@@ -719,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Staðfesting tölvupósts nauðsynleg",
-            "headerTitle": "Velkomin(n) til HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Staðfesting tölvupósts nauðsynleg",
+            "headerTitle": "Velkomin(n) til {{brandName}}",
             "headerSubtitle": "Búðu til nýjan reikning eða tengstu við núverandi hús",
-            "greeting": "Velkomin/Velkominn á HomeInventory",
+            "greeting": "Velkomin/Velkominn á {{brandName}}",
             "intro": "Reikningur búinn til! Vinsamlegast staðfestu netfangið þitt til að skrá þig inn.",
             "verifyPrompt": "📧 Staðfesting tölvupósts nauðsynleg",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Staðfestu reikninginn minn",
             "warningTitle": "⚠️",
             "warningBody": "Athugaðu ruslpóst/malta möppu ef tölvupósturinn berst ekki.",
             "houseKeyLabel": "Húsalykill",
@@ -739,13 +873,13 @@
             ],
             "fallback": "Tengillinn til að endurstilla lykilorð virðist ófullkominn eða brotinn.",
             "support": "Skráningarvandamál:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Velkomin(n) til HomeInventory",
-            "headerTitle": "Velkomin(n) til HomeInventory",
+            "subject": "Velkomin(n) til {{brandName}}",
+            "headerTitle": "Velkomin(n) til {{brandName}}",
             "headerSubtitle": "Búðu til nýjan reikning eða tengstu við núverandi hús",
-            "greeting": "Velkomin/Velkominn á HomeInventory",
+            "greeting": "Velkomin/Velkominn á {{brandName}}",
             "intro": "Velkomin(n), ! 👋",
             "houseKeyLabel": "Húsalykill",
             "houseKeyNote": "Þetta er húsalykillinn þinn, notaðu hann til að bjóða öðrum. Bættu fjölskyldumeðlimum við húsið þitt!",
@@ -757,7 +891,7 @@
                 "💡 Þú getur verið meðlimur í mörgum húsum og skipt á milli þeirra. Hvert hús hefur sína eigin birgðaskrá."
             ],
             "support": "Skráningarvandamál:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Sláðu í hús",
@@ -766,7 +900,7 @@
             "bodyLine2": "Bið eftir samþykki húsráðanda"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Aðgangur að húsi",
             "bodyLine1Template": "Núverandi biðbeiðni: {{house}} ({{status}})",
             "bodyLine2": "Beiðni þín um \"{{house}}\" er enn að bíða eftir ákvörðun."
@@ -786,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Ef reikningur er til hefur tengill til að endurstilla lykilorð, sem gildir í 15 mínútur, verið sendur.",
             "fallback": "Tengillinn til að endurstilla lykilorð virðist ófullkominn eða brotinn.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "Þessi tölvupóstur var sendur af {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -828,7 +966,6 @@
         "record_save_new": "Bæta við skrá í geymslu",
         "record_save_edit": "Vista breytingar",
         "barcode_privacy_hint": "Strikamerki geymslunnar eru ekki leituð sjálfkrafa á utanaðkomandi þjónustur; strikamerkjatölur eru aðeins geymdar sem dulkóðuð gögn.",
-        "media_note": "Myndir, skönnun strikamerkja og utanaðkomandi vöruleit eru meðvitað óvirk í þessu fyrsta flæði geymslu. Þau þurfa sérstakt dulkóðað fjölmiðla- og persónuverndarflæði.",
         "search_placeholder": "Leitaðu inni í geymslunni...",
         "all_categories": "Allar flokka",
         "all_rooms": "Öll herbergi",
@@ -851,6 +988,109 @@
         "recovery_file_title": "Heimilisbirgðir Persónuleg geymslulykill endurheimtar",
         "recovery_file_created_label": "Búið til",
         "recovery_file_key_label": "Endurheimtarlykill",
-        "recovery_file_warning": "Ef þú missir bæði þennan lykil og aðgangsorð geymslunnar, er ekki hægt að endurheimta geymsluna."
+        "recovery_file_warning": "Ef þú missir bæði þennan lykil og aðgangsorð geymslunnar, er ekki hægt að endurheimta geymsluna.",
+        "media_note": "Hleðsla mynda, skanni strikamerkja og leit að vörum utan kerfis eru ekki studd enn. Þessar aðgerðir verða bættar við þegar sérstakt dulkóðað fjölmiðla- og persónuverndarkerfi er tilbúið."
+    },
+    "borrow_requests": {
+        "title": "Lánamiðstöð",
+        "subtitle": "Stjórnaðu öruggum beiðna- og tilboðsferlum með öðrum {{brandName}} notendum.",
+        "incoming_title": "Innkomandi beiðnir",
+        "incoming_subtitle": "Beiðnir og tilboð send til þín",
+        "outgoing_title": "Sent af mér",
+        "outgoing_subtitle": "Tilboð og beiðnir um atriði sem þú byrjaðir",
+        "empty_incoming": "Engar lána beiðnir eru fyrir þig núna.",
+        "empty_outgoing": "Þú hefur ekki sent tilboð eða beiðni enn.",
+        "stats": {
+            "incoming": "Beiðni sem bíður innkomu",
+            "outgoing": "Beiðni sem bíður útgöngu",
+            "active": "Virk lán"
+        },
+        "active": {
+            "title": "Virk lán",
+            "subtitle": "Atriði sem eru nú hjá þér eða lánað af þér",
+            "empty": "Það eru engin virk lán núna.",
+            "borrowed_from": "Lánt tekið frá {{name}}",
+            "lent_to": "Lánt í vörslu {{name}}"
+        },
+        "status": {
+            "pending": "Beiðni í vinnslu",
+            "accepted": "Virkt",
+            "rejected": "Hafnað",
+            "cancelled": "Hætt við",
+            "expired": "Útrunnið",
+            "returned": "Skilað"
+        },
+        "actions": {
+            "send_request": "Fyrirspurnaratriði",
+            "send_offer": "Senda tilboð",
+            "accept": "samþykkja",
+            "reject": "Hafna",
+            "cancel": "Hætta við",
+            "fulfill_request": "Uppfylla fyrirspurn"
+        },
+        "labels": {
+            "offer": "Tilboð",
+            "request": "Fyrirspurn",
+            "unspecified_item": "Ótilgreint atriði",
+            "counterparty": "Samningsaðili: {{name}}",
+            "created_at": "Búið til: {{date}}",
+            "due_date": "Væntanleg endurheimt: {{date}}",
+            "waiting_delivery": "Fyrirspurnin kann enn að bíða eftir samræmdum reikningi áður en hún birtist.",
+            "returned_on": "Skilað: {{date}}",
+            "borrow_started": "Byrjað: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Senda tilboð",
+            "offer_subtitle_item": "Búðu til öruggt notendatilboð fyrir \"{{item}}\"",
+            "offer_subtitle_general": "Veldu atriði úr birgðunum þínum og sendu öruggt tilboð",
+            "item_label": "Atriði",
+            "item_placeholder": "Veldu atriði",
+            "target_label": "Notandanafn eða netfang",
+            "target_placeholder": "t.d. alex eða alex@example.com",
+            "target_help": "Kerfið sýnir ekki hvort þessi aðgangur sé til. Ef það passar, birtist beiðnin í pósthólfi viðtakanda.",
+            "offer_note_placeholder": "t.d. Þú getur haldið því til helgar ef þú vilt",
+            "offer_submitting": "Að senda...",
+            "request_title": "Beiðni um hlutur",
+            "request_subtitle": "Búa til almenna beiðni án þess að skoða birgðir annarra",
+            "requested_item_label": "Hvað þarftu?",
+            "requested_item_placeholder": "t.d. Rótorbor, þrífótur, tjaldstóll",
+            "request_note_placeholder": "t.d. Ég þarf það aðeins í 2 daga",
+            "request_submitting": "Að senda...",
+            "fulfill_title": "Uppfyllið beiðni",
+            "fulfill_subtitle": "Veldu hlut úr birgðunum þínum fyrir „{{item}}\"",
+            "fulfill_target": "Þessi hlutur verður lánaður til {{name}}.",
+            "no_available_items": "Það er enginn gjaldgengur hlutur til að bjóða í virku húsinu þínu núna.",
+            "fulfill_submitting": "Vistar...",
+            "return_title": "Merkja sem skilað",
+            "return_subtitle": "Loka virku láni fyrir „{{item}}\"",
+            "return_target": "Hann er nú sýndur hjá {{name}}."
+        },
+        "messages": {
+            "load_error": "Lánamiðstöðvar var ekki hægt að hlaða",
+            "action_error": "Aðgerðinni var ekki hægt að ljúka"
+        },
+        "preview": {
+            "title": "Forskoðunarmáti",
+            "body": "Bakendahluti þessa síðuhlutans er ekki aðgengilegur í staðbundnum prófunum eins og er. Þú getur samt skoðað uppsetningu og flæði fyrst; við munum virkja þjónustuhliðina eftir að þú samþykkir það."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Persónuvernd",
+        "terms_of_service_title": "Skilmálar þjónustu",
+        "privacy_policy_content": "Persónuvernd þín er okkur mikilvæg. Þessi forrit geymir gögnin sem þú hleður upp á öruggan hátt með reitastigsdulkóðun. Við seljum eða deilum ekki persónuupplýsingum þínum með þriðja aðila. Með því að nota þjónustuna veitir þú samþykki þitt fyrir söfnun nauðsynlegra gagna til stjórnar reikninga og virkni forrits.",
+        "terms_of_service_content": "Með því að nota {{brandName}} samþykkir þú þessa skilmála. Þjónustan er veitt „eins og hún er“ án ábyrgðar. Þú berð ábyrgð á þeim gögnum sem þú hleður upp og að tryggja að þú hafir rétt á þeim. Við áskiljum okkur rétt til að stöðva reikninga sem brjóta á stefnumörkun eða misnota kerfið.",
+        "register_consent": "Ég hef lesið, skilið og samþykki <1>Notkunarskilmála</1> og <2>Persónuverndarstefnu</2>.",
+        "consent_title": "Skoða lagaleg skjöl",
+        "consent_subtitle": "Vinsamlegast staðfestu núverandi skilmála áður en þú heldur áfram.",
+        "consent_notice": "Við þurfum skráða viðurkenningu á núverandi notendaskilmálum og persónuverndarstefnu áður en þú getur haldið áfram að nota forritið.",
+        "consent_checkbox": "Ég samþykki notendaskilmála og staðfesti að ég hafi lesið persónuverndarstefnu.",
+        "consent_submit": "Haltu áfram",
+        "consent_submitting": "Vistað...",
+        "consent_required": "Þú þarft að samþykkja notkunarskilmála og persónuverndarstefnu áður en þú heldur áfram."
+    },
+    "cookies": {
+        "banner_text": "Við notum nauðsynlega smáköku (cookies) til að halda þér innskráðum og tryggja öryggi vinnusessunnar þinnar. Með því að halda áfram að nota þessa síðu samþykkir þú stefnur okkar.",
+        "accept": "Ég samþykki",
+        "learn_more": "Lærðu meira"
     }
 }

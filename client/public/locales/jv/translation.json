@@ -63,7 +63,10 @@
             "warranty_duration_months": "Wulan",
             "warranty_duration_years": "Taun",
             "warranty_calculation_help": "Yen tanggal wiwitan garansi dikosongi, tanggal invoice bakal digunakake. Yen sampeyan ngisi suwene, tanggal pungkasan garansi bakal diitung kanthi otomatis.",
-            "warranty_expiry_date": "Tanggal garansi entek"
+            "warranty_expiry_date": "Tanggal garansi entek",
+            "vault_hint_title": "Very sensitive record?",
+            "vault_hint_description": "For passports, deeds, identity details, access codes, and other records that should stay out of the standard inventory flow, keep them in Personal Vault instead.",
+            "vault_hint_action": "Open Personal Vault"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" quick added - you can edit later",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Product not found in databases. You can search on Google.",
             "search_fail": "⚠ Search failed",
             "name_required": "Item name is required",
-            "location_add_error": "Failed to add location"
+            "location_add_error": "Failed to add location",
+            "photo_too_large": "Photos can be at most {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -100,7 +104,7 @@
         "refresh": "Refresh",
         "close": "Close",
         "logout": "Logout",
-        "copyright": "© {{year}} HomeInventory - All rights reserved",
+        "copyright": "© {{year}} {{brandName}} - All rights reserved",
         "copy": "Copy",
         "download": "Download"
     },
@@ -108,7 +112,7 @@
         "login": {
             "title": "Login",
             "subtitle": "Manage all your home inventory smartly",
-            "welcome": "Welcome to HomeInventory",
+            "welcome": "Welcome to {{brandName}}",
             "username_or_email": "Username or Email",
             "password": "Password",
             "forgot_password": "Forgot Password?",
@@ -120,13 +124,25 @@
             "register_link": "Register",
             "support_contact": "For login issues:",
             "terms_title": "📋 Terms of Use and Disclaimer",
-            "terms_beta": "BETA Version: HomeInventory is currently in testing phase. No guarantee is given regarding the persistence or security of your data.",
+            "terms_beta": "BETA Version: {{brandName}} is currently in testing phase. No guarantee is given regarding the persistence or security of your data.",
             "terms_disclaimer": "Disclaimer: By using this application, you agree that you cannot claim any compensation for potential data loss, access issues, or other technical malfunctions.",
             "terms_backup": "Data Backup: We strongly recommend backing up your important information regularly.",
-            "terms_accept": "By logging in, you are deemed to have accepted these terms."
+            "terms_accept": "By logging in, you are deemed to have accepted these terms.",
+            "two_factor": {
+                "title": "Two-Factor Authentication",
+                "subtitle": "Enter the 6-digit code from your authenticator app",
+                "backup_subtitle": "Enter one of your backup codes",
+                "code_label": "Verification Code",
+                "backup_code_label": "Backup Code",
+                "remember_device": "Remember this device for 30 days",
+                "verify": "Verify",
+                "back": "Back",
+                "use_backup": "Use backup code",
+                "use_totp": "Use authenticator"
+            }
         },
         "register": {
-            "title": "Welcome to HomeInventory",
+            "title": "Welcome to {{brandName}}",
             "subtitle": "Create a new account or join an existing house",
             "create_house": "Create New House",
             "join_house": "Join House",
@@ -237,7 +253,8 @@
         "admin_panel": "Admin Panel",
         "logout": "Logout",
         "menu": "Menu",
-        "personal_vault": "Brankas Pribadi"
+        "personal_vault": "Brankas Pribadi",
+        "borrow_requests": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT"
     },
     "dashboard": {
         "welcome": "Welcome, <1>{{name}}</1>! 👋",
@@ -279,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory is currently in testing and hobby phase. No guarantee is given for data persistence or security. Please keep backups of important information.",
+        "text": "{{brandName}} is currently in testing and hobby phase. No guarantee is given for data persistence or security. Please keep backups of important information.",
         "contact": "Contact:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - All rights reserved",
+        "rights": "© {{year}} {{brandName}} - All rights reserved",
         "contact": "Contact:"
     },
     "settings": {
@@ -325,7 +342,8 @@
             "member_kicked": "Member removed from the house",
             "member_kick_error": "Could not remove member from the house",
             "recovery_key_regenerated": "Recovery key regenerated",
-            "recovery_key_error": "Could not regenerate recovery key"
+            "recovery_key_error": "Could not regenerate recovery key",
+            "account_delete_error": "The account could not be deleted"
         },
         "user_profile": {
             "edit_username": "Change username"
@@ -392,13 +410,20 @@
             "export_json": "Export as JSON",
             "upload_backup": "Upload Backup",
             "uploading": "Uploading...",
-            "import_json": "Import from JSON"
+            "import_json": "Import from JSON",
+            "export_sensitive_title": "Exported backups contain plaintext data",
+            "export_sensitive_notice": "This backup includes decrypted household data. Store it securely after download, encrypt it if possible, and avoid sharing it over insecure channels.",
+            "export_sensitive_confirm": "This backup will include decrypted household data in plaintext. Do you confirm that you will store it securely?"
         },
         "about": {
             "title": "📱 About Application",
             "version": "Version",
             "brand": "Brand",
-            "feedback": "✉️ Send Feedback"
+            "feedback": "✉️ Send Feedback",
+            "legal_title": "Legal Documents",
+            "legal_description": "You can reopen the terms and privacy texts from here even after accepting them.",
+            "terms_link": "Terms of Service",
+            "privacy_link": "Privacy Policy"
         },
         "modals": {
             "password": {
@@ -441,6 +466,69 @@
             "title": "My Pending Join Requests",
             "waiting_since": "Waiting since: {{date, datetime}}",
             "pending_badge": "Pending"
+        },
+        "two_factor": {
+            "title": "Two-Factor Authentication",
+            "description": "Add an extra layer of security to your account with TOTP-based 2FA",
+            "active": "Active",
+            "enable": "Enable 2FA",
+            "disable": "Disable 2FA",
+            "disable_desc": "Remove two-factor authentication from your account",
+            "disable_title": "Disable Two-Factor Authentication",
+            "disable_confirm": "Disable 2FA",
+            "disable_error": "Failed to disable 2FA",
+            "disabled_success": "Two-factor authentication has been disabled",
+            "password_label": "Password",
+            "password_placeholder": "Enter your password",
+            "method_totp": "Authenticator",
+            "method_backup": "Backup Code",
+            "method_recovery": "Recovery Key",
+            "totp_code_label": "Authenticator Code",
+            "backup_code_label": "Backup Code",
+            "recovery_key_label": "Recovery Key",
+            "cancel": "Cancel",
+            "setup_title": "Set Up 2FA",
+            "setup_error": "Failed to start 2FA setup",
+            "step_1": "Step 1: Scan QR Code",
+            "step_2": "Step 2: Verify Code",
+            "step_3": "Step 3: Save Backup Codes",
+            "scan_instruction": "Scan this QR code with your authenticator app (Google Authenticator, Authy, or any TOTP app)",
+            "manual_entry": "Can't scan? Enter this key manually:",
+            "copy_secret": "Copy secret",
+            "next": "Next",
+            "verify_instruction": "Enter the 6-digit code shown in your authenticator app to verify setup",
+            "verify_error": "Verification failed",
+            "code_label": "6-Digit Code",
+            "back": "Back",
+            "activate": "Activate 2FA",
+            "backup_warning_title": "Save These Backup Codes!",
+            "backup_warning_text": "If you lose access to your authenticator app, you can use these codes to log in. Each code can only be used once. Store them in a safe place.",
+            "download_codes": "Download Backup Codes",
+            "backup_acknowledge": "I have saved my backup codes in a safe place",
+            "done": "Done",
+            "regenerate_codes": "Regenerate Backup Codes",
+            "regenerate_codes_desc": "Generate new backup codes (old ones will be invalidated)",
+            "regenerate": "Regenerate",
+            "codes_regenerated": "Backup codes have been regenerated",
+            "codes_error": "Failed to regenerate backup codes",
+            "close_codes": "Close",
+            "revoke_devices": "Revoke Trusted Devices",
+            "revoke_devices_desc": "Remove all remembered devices, requiring 2FA on next login",
+            "devices_revoked": "{{count}} trusted device(s) removed",
+            "devices_error": "Failed to revoke devices"
+        },
+        "danger_zone": {
+            "title": "Account",
+            "delete_title": "Delete account",
+            "delete_description": "If you want, you can permanently remove the personal data and uploaded files tied to this account.",
+            "delete_warning": "This action cannot be undone.",
+            "delete_action": "Delete account",
+            "modal_title": "Delete account",
+            "modal_warning_title": "This action is irreversible",
+            "modal_warning_body": "After confirmation, you will immediately lose access to the account and the deleted application data cannot be restored from the app.",
+            "password_label": "Confirm with your current password",
+            "confirm_delete": "Confirm deletion",
+            "deleting": "Deleting..."
         }
     },
     "inventory": {
@@ -455,7 +543,53 @@
         "empty_filter": "No items match your filters",
         "empty_msg": "No items added yet",
         "delete_confirm": "Are you sure you want to delete this item?",
-        "delete_error": "Delete error"
+        "delete_error": "Delete error",
+        "load_warning": {
+            "title": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "body": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT"
+        },
+        "borrow": {
+            "section_title": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "section_subtitle": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "dialog_lend_title": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "dialog_lend_subtitle": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "dialog_return_title": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "dialog_return_subtitle": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "member": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "external": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "borrower_member": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "no_members": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "borrower_name": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "borrower_name_placeholder": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "borrower_contact": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "borrower_contact_placeholder": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "due_date": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "note": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "note_placeholder": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "submitting_lend": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "lend": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "return_note": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "return_note_placeholder": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "submitting_return": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "mark_returned": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "current_borrower_label": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "unknown": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "overdue_badge": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "borrowed_badge": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "borrowed_to": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "due_date_short": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "actions_error": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "borrowed_at": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "due_date_label": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "note_label": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "return_note_label": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "no_active": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "history_title": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "history_active": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "history_returned": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "returned_at": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "no_history": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT"
+        }
     },
     "categories": {
         "title": "Categories",
@@ -553,7 +687,7 @@
             "free_badge": "Completely Free"
         },
         "features": {
-            "title": "Why <1>HomeInventory</1>?",
+            "title": "Why <1>{{brandName}}</1>?",
             "subtitle": "All features to simplify home management in one platform",
             "items": {
                 "categorize": {
@@ -591,7 +725,7 @@
             "desc": "The easy and secure platform to digitize your home inventory.",
             "links": "Quick Links",
             "contact": "Contact Us",
-            "copyright": "© {{year}} HomeInventory. All rights reserved."
+            "copyright": "© {{year}} {{brandName}}. All rights reserved."
         },
         "preview_privacy_notice": "Demo view: no real user data is displayed."
     },
@@ -719,10 +853,10 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Email Verification Required",
-            "headerTitle": "Welcome to HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Email Verification Required",
+            "headerTitle": "Welcome to {{brandName}}",
             "headerSubtitle": "Create a new account or join an existing house",
-            "greeting": "Welcome to HomeInventory",
+            "greeting": "Welcome to {{brandName}}",
             "intro": "Account created! Please verify your email address to login.",
             "verifyPrompt": "📧 Email Verification Required",
             "verifyButton": "✓ Verify My Account",
@@ -739,13 +873,13 @@
             ],
             "fallback": "The password reset link looks incomplete or broken.",
             "support": "Registration issues:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Welcome to HomeInventory",
-            "headerTitle": "Welcome to HomeInventory",
+            "subject": "Welcome to {{brandName}}",
+            "headerTitle": "Welcome to {{brandName}}",
             "headerSubtitle": "Create a new account or join an existing house",
-            "greeting": "Welcome to HomeInventory",
+            "greeting": "Welcome to {{brandName}}",
             "intro": "Welcome, ! 👋",
             "houseKeyLabel": "House Key",
             "houseKeyNote": "This is your house key, use it to invite others. Add family members to your house!",
@@ -757,7 +891,7 @@
                 "💡 You can be a member of multiple houses and switch between them. Each house maintains a separate inventory."
             ],
             "support": "Registration issues:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Join House",
@@ -766,7 +900,7 @@
             "bodyLine2": "Waiting for house owner approval"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "House Access",
             "bodyLine1Template": "Current pending request: {{house}} ({{status}})",
             "bodyLine2": "Your request for \"{{house}}\" is still waiting for a decision."
@@ -786,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "If an account exists, a password reset link valid for 15 minutes has been sent.",
             "fallback": "The password reset link looks incomplete or broken.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "This email was sent by {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -822,7 +960,7 @@
         "recovery_ready_title": "Recovery key wis siap",
         "recovery_ready_description": "Kita mung nuduhake kunci iki sepisan. Simpena ing panggonan sing aman.",
         "recovery_visible_once": "Kunci iki ora bakal dituduhake maneh mengko.",
-        "recovery_file_title": "Recovery Key Brankas Pribadi HomeInventory",
+        "recovery_file_title": "Recovery Key Brankas Pribadi {{brandName}}",
         "recovery_file_created_label": "Digawe",
         "recovery_file_key_label": "Recovery key",
         "recovery_file_warning": "Yen sampeyan kelangan kunci iki lan passphrase brankas sampeyan sekaligus, brankas ora bisa dipulihake.",
@@ -832,7 +970,6 @@
         "record_save_new": "Tambah Cathetan Brankas",
         "record_save_edit": "Simpen Owahan",
         "barcode_privacy_hint": "Barcode brankas ora digoleki otomatis ing layanan njaba; teks barcode mung disimpen minangka data terenkripsi.",
-        "media_note": "Foto, scan barcode, lan telusur produk njaba sengaja dipateni ing alur brankas pisanan iki. Kabeh iku butuh pipeline media lan privasi terenkripsi sing kapisah.",
         "search_placeholder": "Goleki ing njero brankas...",
         "all_categories": "Kabeh kategori",
         "all_rooms": "Kabeh kamar",
@@ -851,6 +988,109 @@
             "decrypt_failed": "Isi brankas ora bisa didekripsi.",
             "name_required": "Jeneng barang dibutuhake kanggo cathetan brankas.",
             "options_failed": "Opsi kategori lan kamar ora bisa dimuat."
+        },
+        "media_note": "Photo uploads, barcode scanning, and external product lookup are not supported yet. These features will be added once a dedicated encrypted media and privacy flow is ready."
+    },
+    "borrow_requests": {
+        "title": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+        "subtitle": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+        "incoming_title": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+        "incoming_subtitle": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+        "outgoing_title": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+        "outgoing_subtitle": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+        "empty_incoming": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+        "empty_outgoing": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+        "stats": {
+            "incoming": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "outgoing": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "active": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT"
+        },
+        "active": {
+            "title": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "subtitle": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "empty": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "borrowed_from": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "lent_to": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT"
+        },
+        "status": {
+            "pending": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "accepted": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "rejected": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "cancelled": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "expired": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "returned": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT"
+        },
+        "actions": {
+            "send_request": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "send_offer": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "accept": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "reject": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "cancel": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "fulfill_request": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT"
+        },
+        "labels": {
+            "offer": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "request": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "unspecified_item": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "counterparty": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "created_at": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "due_date": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "waiting_delivery": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "returned_on": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "borrow_started": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT"
+        },
+        "dialogs": {
+            "offer_title": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "offer_subtitle_item": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "offer_subtitle_general": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "item_label": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "item_placeholder": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "target_label": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "target_placeholder": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "target_help": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "offer_note_placeholder": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "offer_submitting": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "request_title": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "request_subtitle": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "requested_item_label": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "requested_item_placeholder": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "request_note_placeholder": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "request_submitting": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "fulfill_title": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "fulfill_subtitle": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "fulfill_target": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "no_available_items": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "fulfill_submitting": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "return_title": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "return_subtitle": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "return_target": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT"
+        },
+        "messages": {
+            "load_error": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "action_error": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT"
+        },
+        "preview": {
+            "title": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT",
+            "body": "'JW' IS AN INVALID TARGET LANGUAGE . EXAMPLE: LANGPAIR=EN|IT USING 2 LETTER ISO OR RFC3066 LIKE ZH-CN. ALMOST ALL LANGUAGES SUPPORTED BUT SOME MAY HAVE NO CONTENT"
         }
+    },
+    "legal": {
+        "privacy_policy_title": "Privacy Policy",
+        "terms_of_service_title": "Terms of Service",
+        "privacy_policy_content": "PRIVACY NOTICE\n\nData controller: {{brandName}} ({{siteHost}}). Contact: {{supportEmail}}.\n\n1. WHAT WE PROCESS\n- Account data: username, email address, password hash, session cookies, trusted-device data, and security logs.\n- Service data: houses, rooms, categories, items, uploaded media, borrow requests, and personal vault records that you create.\n- Technical data: IP address, browser/session identifiers, and language preference data needed for localization and account security.\n\n2. WHY WE PROCESS IT\nWe process personal data to create and operate your account, authenticate you, secure sessions and two-factor authentication, provide inventory, backup, and vault features, respond to support requests, and satisfy legal or security obligations.\n\n3. LEGAL BASIS\nWhere applicable, processing is based on contract performance, legal obligations, and our legitimate interest in service and account security. If a future feature relies on optional cookies or optional third-party processing, consent must be requested separately for that purpose.\n\n4. SHARING AND RETENTION\nWe do not sell personal data. Data is stored on hosting and email infrastructure that is necessary to operate the service, and may be disclosed to authorities only when legally required. Account data is retained while your account is active. When you delete your account from Settings, your account data, personal vault content, uploaded media, and application records owned by your account are deleted from the application without undue delay, except information that must be retained for legal claims, statutory duties, or security obligations.\n\n5. YOUR RIGHTS\nDepending on the applicable law, you may request access, correction, deletion, restriction, objection, or a copy of your personal data. You can use the in-app account deletion flow or contact {{supportEmail}} for privacy requests.\n\n6. IMPORTANT NOTE\nThis notice is provided for transparency. It is separate from any optional marketing, analytics, or non-essential cookie consent, which must be requested separately when required.",
+        "terms_of_service_content": "TERMS OF SERVICE\n\nBy using {{brandName}}, you agree to use the service lawfully and only for data you are authorized to upload, store, or share. You are responsible for the legality, accuracy, and ownership of the content you place in the service. Keep your password, recovery materials, and backups secure. We may suspend or remove accounts that abuse the service, violate these terms, or create a security or legal risk. The service is provided on an \"as is\" and \"as available\" basis to the extent permitted by law. Keep your own backups of important information. Deleting your account from Settings permanently removes application data and uploaded media owned by your account and cannot be undone.",
+        "register_consent": "I accept the <1>Terms of Service</1> and acknowledge that I have read the <2>Privacy Notice</2>.",
+        "consent_title": "Review legal documents",
+        "consent_subtitle": "Please confirm the current terms before continuing.",
+        "consent_notice": "We need a recorded acknowledgment for the current Terms of Service and Privacy Notice before you can continue using the application.",
+        "consent_checkbox": "I accept the Terms of Service and confirm that I have read the Privacy Notice.",
+        "consent_submit": "Continue",
+        "consent_submitting": "Saving...",
+        "consent_required": "You need to confirm the Terms of Service and Privacy Notice before continuing."
+    },
+    "cookies": {
+        "banner_text": "We use only essential cookies required for login, session security, trusted-device protection, and language preference. Non-essential analytics or marketing cookies are not enabled by default.",
+        "accept": "Understood",
+        "learn_more": "Learn More"
     }
 }

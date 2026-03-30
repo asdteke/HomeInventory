@@ -22,7 +22,9 @@ import adminRoutes from './routes/admin.js';
 import housesRoutes from './routes/houses.js';
 import backupRoutes from './routes/backup.js';
 import vaultRoutes from './routes/vault.js';
+import borrowRequestsRoutes from './routes/borrowRequests.js';
 import passport from 'passport';
+import { BRAND_NAME } from './utils/branding.js';
 
 // Import KVKK-compliant logger
 import { errorMiddleware, notFoundHandler } from './utils/logger.js';
@@ -45,12 +47,34 @@ const SITE_URL = String(
     'http://localhost:5173'
 ).trim().replace(/\/+$/, '');
 
+function parseTrustProxySetting(value) {
+    const normalized = String(value || '').trim();
+
+    if (!normalized) {
+        return false;
+    }
+
+    if (['false', '0', 'off', 'no'].includes(normalized.toLowerCase())) {
+        return false;
+    }
+
+    if (['true', 'on', 'yes'].includes(normalized.toLowerCase())) {
+        return true;
+    }
+
+    if (/^\d+$/.test(normalized)) {
+        return Number.parseInt(normalized, 10);
+    }
+
+    return normalized;
+}
+
 const app = express();
 app.disable('x-powered-by');
 
-// SECURITY: Trust proxy is required when running behind Nginx/Apache
-// This ensures req.ip and rate limiters work correctly
-app.set('trust proxy', 1);
+// SECURITY: Trust proxy must match the real network topology.
+// Default to disabled and let deployments opt in explicitly with TRUST_PROXY.
+app.set('trust proxy', parseTrustProxySetting(process.env.TRUST_PROXY));
 
 const siteOrigins = [];
 try {
@@ -80,6 +104,7 @@ app.use(helmet({
 }));
 const PORT = process.env.PORT || 3001;
 const FRONTEND_PORT = 5173;
+const HOST = process.env.HOST || '0.0.0.0';
 
 // Get local network IP address
 function getLocalIP() {
@@ -192,6 +217,7 @@ app.use('/api/locations', interactiveApiLimiter);
 app.use('/api/houses', interactiveApiLimiter);
 app.use('/api/barcode', interactiveApiLimiter);
 app.use('/api/vault', interactiveApiLimiter);
+app.use('/api/borrow-requests', interactiveApiLimiter);
 
 // API Routes
 app.use('/api/auth', authRoutes);
@@ -205,6 +231,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/houses', housesRoutes);
 app.use('/api/backup', backupRoutes);
 app.use('/api/vault', vaultRoutes);
+app.use('/api/borrow-requests', borrowRequestsRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
@@ -260,20 +287,29 @@ app.get('*', (req, res) => {
 // Error handling middleware (KVKK uyumlu)
 app.use(errorMiddleware);
 
-// Start server on all network interfaces (0.0.0.0)
-app.listen(PORT, '0.0.0.0', () => {
+// Start server on configurable host; defaults to all network interfaces.
+app.listen(PORT, HOST, () => {
+    const frontendUrl = process.env.SITE_URL || 'http://localhost:5173';
+    const backendUrl = `http://localhost:${PORT}`;
+    const networkBackendUrl = `http://${localIP}:${PORT}`;
+    const networkFrontendUrl = `http://${localIP}:5173`;
+
     console.log(`
-╔════════════════════════════════════════════════════════════╗
-║              🏠 HomeInventory Started 🏠                   ║
-╠════════════════════════════════════════════════════════════╣
-║  Backend:   http://localhost:${PORT}${' '.repeat(Math.max(0, 24 - PORT.toString().length))} ║
-║  Network:   http://${localIP}:${PORT}${' '.repeat(Math.max(0, 24 - (localIP.length + 1 + PORT.toString().length)))} ║
-║                                                            ║
-║  Frontend:  ${process.env.SITE_URL || 'http://localhost:5173'}${' '.repeat(Math.max(0, 58 - 10 - (process.env.SITE_URL || 'http://localhost:5173').length))} ║
-║  Network:   http://${localIP}:5173${' '.repeat(Math.max(0, 24 - (localIP.length + 1 + 4)))} ║
-║                                                            ║
-║  📱 Use Network addresses to access from your phone!       ║
-║  📁 Log files: ./logs/ (kept for 7 days)                  ║
-╚════════════════════════════════════════════════════════════╝
+  \x1b[90m╭───────────────────────────────────────────────────────────────────╮\x1b[0m
+  \x1b[90m│\x1b[0m                                                                   \x1b[90m│\x1b[0m
+  \x1b[90m│\x1b[0m          \x1b[1;36m🏠  ${BRAND_NAME} Started  🏠\x1b[0m                               \x1b[90m│\x1b[0m
+  \x1b[90m│\x1b[0m                                                                   \x1b[90m│\x1b[0m
+  \x1b[90m├───────────────────────────────────────────────────────────────────┤\x1b[0m
+  \x1b[90m│\x1b[0m                                                                   \x1b[90m│\x1b[0m
+  \x1b[90m│\x1b[0m  \x1b[33mBackend:\x1b[0m   \x1b[36m${backendUrl.padEnd(48)}\x1b[0m \x1b[90m│\x1b[0m
+  \x1b[90m│\x1b[0m  \x1b[33mNetwork:\x1b[0m   \x1b[36m${networkBackendUrl.padEnd(48)}\x1b[0m \x1b[90m│\x1b[0m
+  \x1b[90m│\x1b[0m                                                                   \x1b[90m│\x1b[0m
+  \x1b[90m│\x1b[0m  \x1b[33mFrontend:\x1b[0m  \x1b[36m${frontendUrl.padEnd(48)}\x1b[0m \x1b[90m│\x1b[0m
+  \x1b[90m│\x1b[0m  \x1b[33mNetwork:\x1b[0m   \x1b[36m${networkFrontendUrl.padEnd(48)}\x1b[0m \x1b[90m│\x1b[0m
+  \x1b[90m│\x1b[0m                                                                   \x1b[90m│\x1b[0m
+  \x1b[90m│\x1b[0m  \x1b[32m📱 Use Network addresses to access from your phone!\x1b[0m               \x1b[90m│\x1b[0m
+  \x1b[90m│\x1b[0m  \x1b[90m📁 Log files: ./logs/ (kept for 7 days)\x1b[0m                           \x1b[90m│\x1b[0m
+  \x1b[90m│\x1b[0m                                                                   \x1b[90m│\x1b[0m
+  \x1b[90m╰───────────────────────────────────────────────────────────────────╯\x1b[0m
     `);
 });

@@ -24,14 +24,14 @@
         "copy": "Kopyala",
         "download": "İndir",
         "logout": "Çıkış Yap",
-        "copyright": "© {{year}} HomeInventory - Tüm hakları saklıdır"
+        "copyright": "© {{year}} {{brandName}} - Tüm hakları saklıdır"
     },
     "auth": {
         "password_requirements": "Şifre en az {{min}} karakter olmalı; büyük harf, küçük harf, rakam ve özel karakter içermeli.",
         "login": {
             "title": "Giriş Yap",
             "subtitle": "Evinizin tüm eşyalarını akıllıca yönetin",
-            "welcome": "HomeInventory'e Hoş Geldiniz",
+            "welcome": "{{brandName}}'ye Hoş Geldiniz",
             "username_or_email": "Kullanıcı Adı veya E-posta",
             "password": "Şifre",
             "forgot_password": "Şifremi Unuttum",
@@ -43,10 +43,10 @@
             "register_link": "Kayıt Ol",
             "support_contact": "Giriş sorunları için:",
             "terms_title": "📋 Kullanım Şartları ve Sorumluluk Reddi",
-            "terms_beta": "BETA Sürümü: HomeInventory şu anda test aşamasındadır. Verilerinizin kalıcılığı veya güvenliği konusunda hiçbir garanti verilmemektedir.",
+            "terms_beta": "BETA Sürümü: {{brandName}} şu anda test aşamasındadır. Verilerinizin kalıcılığı veya güvenliği konusunda hiçbir garanti verilmemektedir.",
             "terms_disclaimer": "Sorumluluk Reddi: Bu uygulamayı kullanarak, olası veri kaybı, erişim sorunları veya diğer teknik aksaklıklardan dolayı hiçbir tazminat talep edemeyeceğinizi kabul etmiş olursunuz.",
             "terms_backup": "Veri Yedekleme: Önemli bilgilerinizi düzenli olarak yedeklemenizi şiddetle tavsiye ederiz.",
-            "terms_accept": "Giriş yaparak bu şartları kabul etmiş sayılırsınız.",
+            "terms_accept": "Giriş sonrası güncel yasal metinleri gözden geçirip onaylamanız istenebilir.",
             "two_factor": {
                 "title": "İki Faktörlü Doğrulama",
                 "subtitle": "Kimlik doğrulama uygulamanızdaki 6 haneli kodu girin",
@@ -61,7 +61,7 @@
             }
         },
         "register": {
-            "title": "HomeInventory'e Hoş Geldiniz",
+            "title": "{{brandName}}'ye Hoş Geldiniz",
             "subtitle": "Yeni hesap oluşturun veya mevcut eve katılın",
             "create_house": "Yeni Ev Oluştur",
             "join_house": "Eve Katıl",
@@ -163,6 +163,7 @@
     "navigation": {
         "home": "Ana Sayfa",
         "inventory": "Envanter",
+        "borrow_requests": "Ödünç Merkezi",
         "rooms": "Odalar",
         "categories": "Kategoriler",
         "personal_vault": "Kişisel Kasa",
@@ -213,11 +214,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory şu anda test ve hobi aşamasındadır. Verilerin kalıcılığı veya güvenliği konusunda garanti verilmez. Önemli bilgilerinizi lütfen yedekli tutun.",
+        "text": "{{brandName}} şu anda test ve hobi aşamasındadır. Verilerin kalıcılığı veya güvenliği konusunda garanti verilmez. Önemli bilgilerinizi lütfen yedekli tutun.",
         "contact": "İletişim:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Tüm hakları saklıdır",
+        "rights": "© {{year}} {{brandName}} - Tüm hakları saklıdır",
         "contact": "İletişim:"
     },
     "items": {
@@ -250,6 +251,9 @@
             "location_empty": "Bu odada henüz konum tanımlı değil. Yazmaya başlayarak yeni konum oluşturabilirsiniz.",
             "photo": "Fotoğraf",
             "add_photo": "Ekle",
+            "vault_hint_title": "Çok hassas bir kayıt mı?",
+            "vault_hint_description": "Pasaport, tapu, kimlik bilgileri, erişim kodları ve standart envanter akışında tutulmaması gereken diğer kayıtlar için bunun yerine Kişisel Kasa'yı kullanın.",
+            "vault_hint_action": "Kişisel Kasa'yı Aç",
             "invoice_section": "Fatura Bilgileri",
             "invoice_section_help": "Fatura fotoğrafı, fiyat ve garanti takibini buradan güvenli şekilde tutabilirsiniz.",
             "invoice_section_collapsed": "İsterseniz açıp fatura fotoğrafı, fiyat ve garanti tarihi ekleyebilirsiniz.",
@@ -295,7 +299,8 @@
             "not_found": "⚠ Ürün veritabanlarında bulunamadı. Google ile arayabilirsiniz.",
             "search_fail": "⚠ Arama başarısız oldu",
             "name_required": "Eşya adı gerekli",
-            "location_add_error": "Konum eklenemedi"
+            "location_add_error": "Konum eklenemedi",
+            "photo_too_large": "Fotoğraflar en fazla {{maxSizeMb}} MB olabilir."
         }
     },
     "vault": {
@@ -331,7 +336,7 @@
         "recovery_ready_title": "Kurtarma Anahtarı Hazır",
         "recovery_ready_description": "Bu anahtarı yalnızca bir kez gösteriyoruz. Güvenli bir yerde saklayın.",
         "recovery_visible_once": "Bu anahtar daha sonra tekrar gösterilmez.",
-        "recovery_file_title": "HomeInventory Kişisel Kasa Kurtarma Anahtarı",
+        "recovery_file_title": "{{brandName}} Kişisel Kasa Kurtarma Anahtarı",
         "recovery_file_created_label": "Oluşturulma",
         "recovery_file_key_label": "Kurtarma Anahtarı",
         "recovery_file_warning": "Hem bu anahtarı hem de kasa parolanızı kaybederseniz kasa kurtarılamaz.",
@@ -341,7 +346,7 @@
         "record_save_new": "Kasa Kaydını Ekle",
         "record_save_edit": "Değişiklikleri Kaydet",
         "barcode_privacy_hint": "Kasa barkodu dış servislerde otomatik aranmaz; barkod metni yalnızca şifreli olarak saklanır.",
-        "media_note": "Fotoğraf, barkod tarayıcı ve harici ürün araması bu ilk kasada özellikle kapalı. Bunlar için ayrı bir şifreli medya ve gizlilik akışı gerekir.",
+        "media_note": "Fotoğraf yükleme, barkod tarama ve harici ürün arama şu anda desteklenmiyor. Bu özellikler, ayrı bir şifreli medya ve gizlilik akışı hazır olduğunda eklenecek.",
         "search_placeholder": "Kasada ara...",
         "all_categories": "Tüm kategoriler",
         "all_rooms": "Tüm odalar",
@@ -451,7 +456,8 @@
             "member_kicked": "Üye evden çıkarıldı",
             "member_kick_error": "Üye evden çıkarılamadı",
             "recovery_key_regenerated": "Kurtarma anahtarı yenilendi",
-            "recovery_key_error": "Kurtarma anahtarı yenilenemedi"
+            "recovery_key_error": "Kurtarma anahtarı yenilenemedi",
+            "account_delete_error": "Hesap silinemedi"
         },
         "user_profile": {
             "edit_username": "Kullanıcı adını değiştir"
@@ -521,15 +527,35 @@
             "download_backup": "Yedeği İndir",
             "downloading": "İndiriliyor...",
             "export_json": "JSON olarak dışa aktar",
+            "export_sensitive_title": "Dışa aktarılan dosya açık metin veri içerir",
+            "export_sensitive_notice": "Bu yedek dosyası ev verilerinizi çözülmüş haliyle içerir. İndirdikten sonra güvenli bir yerde saklayın, şifreleyin ve güvensiz kanallardan paylaşmayın.",
+            "export_sensitive_confirm": "Bu yedek dosyası çözülmüş ev verilerini açık metin olarak içerecek. Güvenli şekilde saklayacağınızı onaylıyor musunuz?",
             "upload_backup": "Yedeği Yükle",
             "uploading": "Yükleniyor...",
             "import_json": "JSON'dan içe aktar"
+        },
+        "danger_zone": {
+            "title": "Hesap",
+            "delete_title": "Hesabı sil",
+            "delete_description": "İsterseniz bu hesaba bağlı kişisel verileri ve yüklediğiniz dosyaları kalıcı olarak kaldırabilirsiniz.",
+            "delete_warning": "Bu işlem geri alınamaz.",
+            "delete_action": "Hesabı sil",
+            "modal_title": "Hesabı sil",
+            "modal_warning_title": "Bu işlem geri döndürülemez",
+            "modal_warning_body": "Onaydan sonra hesaba erişiminizi hemen kaybedersiniz ve silinen uygulama verileri uygulama içinden geri getirilemez.",
+            "password_label": "Mevcut şifrenizle doğrulayın",
+            "confirm_delete": "Silmeyi onayla",
+            "deleting": "Siliniyor..."
         },
         "about": {
             "title": "📱 Uygulama Hakkında",
             "version": "Sürüm",
             "brand": "Marka",
-            "feedback": "✉️ Geri Bildirim Gönder"
+            "feedback": "✉️ Geri Bildirim Gönder",
+            "legal_title": "Yasal Metinler",
+            "legal_description": "Kabul ettikten sonra da kullanım koşulları ve gizlilik metinlerini buradan tekrar açabilirsiniz.",
+            "terms_link": "Kullanım Koşulları",
+            "privacy_link": "Gizlilik Politikası"
         },
         "modals": {
             "password": {
@@ -581,7 +607,136 @@
         "empty_filter": "Filtrelerinize uygun eşya yok",
         "empty_msg": "Henüz eşya eklenmemiş",
         "delete_confirm": "Bu eşyayı silmek istediğinize emin misiniz?",
-        "delete_error": "Silme hatası"
+        "delete_error": "Silme hatası",
+        "load_warning": {
+            "title": "Kismi yukleme modu",
+            "body": "Bazi yardimci veriler su anda gec geldiginden sayfa tam filtre bilgileri olmadan acildi. Yenile dediginizde tekrar deneyecegiz."
+        },
+        "borrow": {
+            "section_title": "Ödünç Takibi",
+            "section_subtitle": "Aktif ödünç durumu ve geçmiş hareketler",
+            "dialog_lend_title": "Eşyayı Ödünç Ver",
+            "dialog_lend_subtitle": "\"{{item}}\" için yeni ödünç kaydı oluştur",
+            "dialog_return_title": "Teslim Al",
+            "dialog_return_subtitle": "\"{{item}}\" için aktif ödünç kaydını kapat",
+            "member": "Ev üyesi",
+            "external": "Dış kişi",
+            "borrower_member": "Kime verildi?",
+            "no_members": "Bu evde seçilebilecek başka üye yok. Dilerseniz dış kişi olarak kayıt açabilirsiniz.",
+            "borrower_name": "Kişi adı",
+            "borrower_name_placeholder": "örn: Komşu Ayşe",
+            "borrower_contact": "İletişim bilgisi",
+            "borrower_contact_placeholder": "Telefon, e-posta veya kısa not",
+            "due_date": "Planlanan iade tarihi",
+            "note": "Not",
+            "note_placeholder": "Örn: Matkap hafta sonu için verildi",
+            "submitting_lend": "Kaydediliyor...",
+            "lend": "Ödünç Ver",
+            "return_note": "Teslim notu",
+            "return_note_placeholder": "Örn: Sorunsuz teslim alındı",
+            "submitting_return": "Kapatılıyor...",
+            "mark_returned": "Teslim Alındı",
+            "current_borrower_label": "Şu anda kimde:",
+            "unknown": "Bilinmiyor",
+            "overdue_badge": "Gecikti",
+            "borrowed_badge": "Ödünçte",
+            "borrowed_to": "{{name}} kişisinde",
+            "due_date_short": "İade: {{date}}",
+            "actions_error": "Ödünç işlemi tamamlanamadı",
+            "borrowed_at": "Veriliş: {{date}}",
+            "due_date_label": "Planlanan iade: {{date}}",
+            "note_label": "Not: {{note}}",
+            "return_note_label": "Teslim notu: {{note}}",
+            "no_active": "Bu eşya şu anda ödünçte değil.",
+            "history_title": "Geçmiş",
+            "history_active": "{{name}} için açık kayıt",
+            "history_returned": "{{name}} kaydı kapatıldı",
+            "returned_at": "Teslim alındı: {{date}}",
+            "no_history": "Bu eşya için henüz ödünç geçmişi yok."
+        }
+    },
+    "borrow_requests": {
+        "title": "Ödünç Merkezi",
+        "subtitle": "{{brandName}} kullanıcılarıyla güvenli istek ve teklif akışlarını buradan yönetin.",
+        "incoming_title": "Gelen İstekler",
+        "incoming_subtitle": "Size yöneltilen bekleyen veya sonuçlanmış talepler",
+        "outgoing_title": "Gönderdiklerim",
+        "outgoing_subtitle": "Başlattığınız teklifler ve eşya istekleri",
+        "empty_incoming": "Size ulaşan bir ödünç isteği yok.",
+        "empty_outgoing": "Henüz bir teklif veya eşya isteği göndermediniz.",
+        "stats": {
+            "incoming": "Bekleyen Gelen",
+            "outgoing": "Bekleyen Giden",
+            "active": "Aktif Ödünç"
+        },
+        "active": {
+            "title": "Aktif Ödünçler",
+            "subtitle": "Şu anda sizde olan veya sizin verdiğiniz eşyalar",
+            "empty": "Şu anda aktif ödünç görünmüyor.",
+            "borrowed_from": "{{name}} kullanıcısından aldınız",
+            "lent_to": "{{name}} kullanıcısında"
+        },
+        "status": {
+            "pending": "Bekliyor",
+            "accepted": "Aktif",
+            "rejected": "Reddedildi",
+            "cancelled": "İptal",
+            "expired": "Süresi Doldu",
+            "returned": "Teslim Edildi"
+        },
+        "actions": {
+            "send_request": "Eşya İste",
+            "send_offer": "Teklif Gönder",
+            "accept": "Kabul Et",
+            "reject": "Reddet",
+            "cancel": "İptal Et",
+            "fulfill_request": "İsteği Karşıla"
+        },
+        "labels": {
+            "offer": "Teklif",
+            "request": "İstek",
+            "unspecified_item": "Belirtilmeyen eşya",
+            "counterparty": "Karşı taraf: {{name}}",
+            "created_at": "Oluşturulma: {{date}}",
+            "due_date": "Planlanan iade: {{date}}",
+            "waiting_delivery": "Hedef kullanıcıya görünmesi için eşleşme bekleniyor olabilir.",
+            "returned_on": "Teslim alındı: {{date}}",
+            "borrow_started": "Başlangıç: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Teklif Gönder",
+            "offer_subtitle_item": "\"{{item}}\" için güvenli kullanıcı teklifi oluştur",
+            "offer_subtitle_general": "Envanterinizden bir eşya seçip güvenli teklif gönderin",
+            "item_label": "Eşya",
+            "item_placeholder": "Eşya seçin",
+            "target_label": "Kullanıcı adı veya e-posta",
+            "target_placeholder": "örn: ayse veya ayse@example.com",
+            "target_help": "Sistem bu hesabın var olup olmadığını açık etmez. Eşleşirse istek alıcının inbox ekranında görünür.",
+            "offer_note_placeholder": "Örn: Dilersen hafta sonuna kadar sende kalabilir",
+            "offer_submitting": "Gönderiliyor...",
+            "request_title": "Eşya İste",
+            "request_subtitle": "Karşı tarafın envanterini görmeden genel bir ihtiyaç talebi oluşturun",
+            "requested_item_label": "Ne istiyorsunuz?",
+            "requested_item_placeholder": "örn: Matkap, tripod, kamp sandalyesi",
+            "request_note_placeholder": "Örn: Sadece 2 günlüğüne lazım",
+            "request_submitting": "Gönderiliyor...",
+            "fulfill_title": "İsteği Karşıla",
+            "fulfill_subtitle": "\"{{item}}\" talebi için envanterinizden eşya seçin",
+            "fulfill_target": "Bu eşya {{name}} kullanıcısına verilecek.",
+            "no_available_items": "Aktif evinizde şu anda teklif edebileceğiniz uygun eşya görünmüyor.",
+            "fulfill_submitting": "Kaydediliyor...",
+            "return_title": "Teslim Al",
+            "return_subtitle": "\"{{item}}\" için aktif ödünç kaydını kapat",
+            "return_target": "Şu anda {{name}} kullanıcısında görünüyor."
+        },
+        "messages": {
+            "load_error": "Ödünç merkezi yüklenemedi",
+            "action_error": "İşlem tamamlanamadı"
+        },
+        "preview": {
+            "title": "Önizleme modu",
+            "body": "Bu sayfanın backend kısmı şu anda local testte erişilebilir değil. Yine de yerleşimi ve akışı inceleyebilirsiniz; sunucu tarafını sen onayladıktan sonra açacağız."
+        }
     },
     "categories": {
         "title": "Kategoriler",
@@ -664,6 +819,25 @@
             "error": "Gönderim başarısız"
         }
     },
+    "legal": {
+        "privacy_policy_title": "Gizlilik Politikası (Aydınlatma Metni)",
+        "terms_of_service_title": "Kullanım Koşulları",
+        "privacy_policy_content": "AYDINLATMA METNİ\n\nVeri sorumlusu: {{brandName}} ({{siteHost}}). İletişim: {{supportEmail}}.\n\n1. HANGİ VERİLERİ İŞLİYORUZ?\n- Hesap verileri: kullanıcı adı, e-posta adresi, parola özeti, oturum çerezleri, güvenilen cihaz kayıtları ve güvenlik logları.\n- Hizmet verileri: oluşturduğunuz ev, oda, kategori, eşya, yüklenen medya, ödünç talepleri ve kişisel kasa kayıtları.\n- Teknik veriler: hesap güvenliği ve dil yerelleştirmesi için gereken IP adresi, tarayıcı/oturum tanımlayıcıları ve dil tercih verileri.\n\n2. İŞLEME AMAÇLARI\nBu veriler; hesabınızı oluşturmak ve işletmek, sizi doğrulamak, oturum güvenliğini ve iki faktörlü doğrulamayı sağlamak, envanter/yedek/kasa özelliklerini sunmak, destek taleplerini yanıtlamak ve hukuki ya da güvenlik yükümlülüklerini yerine getirmek için işlenir.\n\n3. HUKUKİ SEBEP\nUygun olduğu ölçüde işleme; sözleşmenin kurulması veya ifası, hukuki yükümlülüklerin yerine getirilmesi ve hizmet ile hesap güvenliğinin sağlanmasına yönelik meşru menfaatlerimize dayanır. İleride isteğe bağlı çerezler veya isteğe bağlı üçüncü taraf işleme faaliyetleri kullanılacaksa, ilgili amaç için ayrıca açık rıza alınmalıdır.\n\n4. AKTARIM VE SAKLAMA\nKişisel veriler satılmaz. Veriler, hizmetin çalışması için gerekli barındırma ve e-posta altyapılarında saklanır; yalnızca kanunen zorunlu olduğunda yetkili kurumlarla paylaşılabilir. Hesap verileri hesabınız aktif olduğu sürece tutulur. Ayarlar bölümünden hesabınızı sildiğinizde; hesabınıza ait uygulama kayıtları, kişisel kasa içeriği, yüklediğiniz medya ve hesabınızın sahibi olduğu kayıtlar, hukuki talep, yasal saklama veya güvenlik zorunlulukları kapsamında tutulması gereken bilgiler hariç, uygulamadan gecikmeksizin silinir.\n\n5. HAKLARINIZ\nUygulanan mevzuata göre kişisel verilerinize erişim, düzeltme, silme, işleme kısıtlama, itiraz etme veya veri kopyası talep etme hakkına sahip olabilirsiniz. Gizlilik talepleriniz için uygulama içindeki hesap silme akışını kullanabilir veya {{supportEmail}} adresiyle iletişime geçebilirsiniz.\n\n6. ÖNEMLİ NOT\nBu metin şeffaflık amacıyla sunulur. Zorunlu olmayan pazarlama, analitik veya isteğe bağlı çerez onaylarının yerine geçmez; böyle bir işleme gerekiyorsa ayrıca talep edilmelidir.",
+        "terms_of_service_content": "KULLANIM KOŞULLARI\n\n{{brandName}} hizmetini kullanarak, hizmeti hukuka uygun şekilde ve yalnızca yüklemeye, saklamaya veya paylaşmaya yetkili olduğunuz veriler için kullanacağınızı kabul edersiniz. Hizmete eklediğiniz içeriklerin hukuka uygunluğu, doğruluğu ve hak sahipliği sizin sorumluluğunuzdadır. Şifrenizi, kurtarma materyallerinizi ve yedeklerinizi güvenli şekilde saklayın. Hizmeti kötüye kullanan, bu koşulları ihlal eden veya güvenlik ya da hukuki risk oluşturan hesaplar askıya alınabilir veya kaldırılabilir. Hizmet, kanunun izin verdiği ölçüde \"olduğu gibi\" ve \"mevcut olduğu haliyle\" sunulur. Önemli bilgilerinizin kendi yedeklerini tutmanız önerilir. Ayarlar bölümünden hesap silme işlemi başlatıldığında hesabınıza ait uygulama verileri ve yüklediğiniz medya kalıcı olarak silinir; bu işlem geri alınamaz.",
+        "register_consent": "<1>Kullanım Koşulları</1>'nı kabul ediyor, <2>Aydınlatma Metni</2>'ni okuduğumu onaylıyorum.",
+        "consent_title": "Yasal metinleri gözden geçirin",
+        "consent_subtitle": "Devam etmek için güncel metinleri onaylayın.",
+        "consent_notice": "Uygulamayı kullanmaya devam etmeden önce güncel Kullanım Koşulları ile Aydınlatma Metni için kayıtlı bir onaya ihtiyacımız var.",
+        "consent_checkbox": "Kullanım Koşulları'nı kabul ediyor ve Aydınlatma Metni'ni okuduğumu onaylıyorum.",
+        "consent_submit": "Devam Et",
+        "consent_submitting": "Kaydediliyor...",
+        "consent_required": "Devam etmek için Kullanım Koşulları ve Aydınlatma Metni onayı vermelisiniz."
+    },
+    "cookies": {
+        "banner_text": "Yalnızca giriş, oturum güvenliği, güvenilen cihaz koruması ve dil tercihi için gerekli zorunlu çerezleri kullanıyoruz. Zorunlu olmayan analitik veya pazarlama çerezleri varsayılan olarak etkin değildir.",
+        "accept": "Anladım",
+        "learn_more": "Detaylı Bilgi"
+    },
     "landing": {
         "nav": {
             "login": "Giriş Yap"
@@ -679,7 +853,7 @@
             "stat_access": "Dil Desteği"
         },
         "features": {
-            "title": "Neden <1>HomeInventory</1>?",
+            "title": "Neden <1>{{brandName}}</1>?",
             "subtitle": "Ev yönetimi, çok dilli kullanım ve hassas veriler için şifreleme tek platformda",
             "items": {
                 "categorize": {
@@ -717,7 +891,7 @@
             "desc": "Ev envanterini dijital ortama taşıyan, çok dilli ve güvenlik odaklı platform.",
             "links": "Hızlı Bağlantılar",
             "contact": "Bize Ulaşın",
-            "copyright": "© {{year}} HomeInventory. Tüm hakları saklıdır."
+            "copyright": "© {{year}} {{brandName}}. Tüm hakları saklıdır."
         },
         "preview_privacy_notice": "Demo görünüm: gerçek kullanıcı verisi gösterilmez."
     },
@@ -845,74 +1019,93 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 E-posta Doğrulama Gerekli",
-            "headerTitle": "HomeInventory'e Hoş Geldiniz",
+            "subject": "🏠 {{brandName}} - 📧 E-posta Doğrulama Gerekli",
+            "headerTitle": "{{brandName}}'ye Hoş Geldiniz",
             "headerSubtitle": "Yeni hesap oluşturun veya mevcut eve katılın",
-            "greeting": "HomeInventory'e Hoş Geldiniz",
+            "greeting": "{{brandName}}'ye Hoş Geldiniz",
             "intro": "Hesabınız oluşturuldu! Giriş yapmak için e-posta adresinizi doğrulayın.",
             "verifyPrompt": "📧 E-posta Doğrulama Gerekli",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Hesabımı Doğrula",
             "warningTitle": "⚠️",
             "warningBody": "E-posta gelmediyse spam/gereksiz klasörünü kontrol edin.",
             "houseKeyLabel": "Ev Anahtarı",
             "houseKeyNote": "Önemli: Ev anahtarınız e-postada da gönderildi. Aile üyelerinizle paylaşabilirsiniz.",
-            "featuresTitle": "Ev Anahtarı",
+            "featuresTitle": "Sonraki Adımlar",
             "features": [
-                "Ev Anahtarı ile Aile Davet Et",
-                "Eve Katıl",
-                "Yeni Ev",
-                "💡 Birden fazla eve üye olabilir ve aralarında geçiş yapabilirsiniz. Her ev için ayrı envanter tutulur."
+                "Ev anahtarınızla aile üyelerini davet edin",
+                "Mevcut bir eve katılın",
+                "Kendi evinizi oluşturun",
+                "Birden fazla eve üye olabilir ve aralarında geçiş yapabilirsiniz."
             ],
-            "fallback": "Şifre sıfırlama bağlantısı eksik veya bozuk görünüyor.",
+            "fallback": "Buton çalışmazsa bu bağlantıyı tarayıcınıza kopyalayıp yapıştırın:",
             "support": "Kayıt sorunları için:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "HomeInventory'e Hoş Geldiniz",
-            "headerTitle": "HomeInventory'e Hoş Geldiniz",
-            "headerSubtitle": "Yeni hesap oluşturun veya mevcut eve katılın",
-            "greeting": "HomeInventory'e Hoş Geldiniz",
-            "intro": "Hoş geldin, ! 👋",
+            "subject": "{{brandName}}'ye Hoş Geldiniz",
+            "headerTitle": "{{brandName}}'ye Hoş Geldiniz",
+            "headerSubtitle": "Hesabınız hazır",
+            "greeting": "Hoş geldiniz 👋",
+            "intro": "Hesabınız başarıyla oluşturuldu.",
             "houseKeyLabel": "Ev Anahtarı",
-            "houseKeyNote": "Bu senin ev anahtarın, başkalarını davet etmek için kullanabilirsin. Aile üyelerini eve ekle!",
-            "featuresTitle": "Evlerim",
+            "houseKeyNote": "Bu anahtarı güvenilir aile üyelerini veya ev üyelerini davet etmek için kullanabilirsiniz.",
+            "featuresTitle": "Sonraki Adımlar",
             "features": [
-                "Ev Anahtarı ile Aile Davet Et",
-                "Eve Katıl",
-                "Yeni Ev",
-                "💡 Birden fazla eve üye olabilir ve aralarında geçiş yapabilirsiniz. Her ev için ayrı envanter tutulur."
+                "Eşyalarınızı ekleyip kategorilere ayırın",
+                "Aile üyelerini davet edin",
+                "Ev envanterinizi güvenli şekilde yönetin",
+                "Gerektiğinde birden fazla ev arasında geçiş yapın"
             ],
             "support": "Kayıt sorunları için:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
-            "subject": "Eve Katıl",
-            "greeting": "Ev Erişimi",
-            "bodyLine1Template": "{{username}} İstek Gönder {{house}}",
-            "bodyLine2": "Ev sahibi onayı bekleniyor"
+            "subject": "🏠 Yeni eve katılma isteği",
+            "greeting": "Ev erişim güncellemesi",
+            "bodyLine1Template": "{{username}}, \"{{house}}\" evine katılmak istedi.",
+            "bodyLine2": "Lütfen isteği uygulama içinden inceleyin."
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
-            "greeting": "Ev Erişimi",
-            "bodyLine1Template": "Şu an bekleyen isteğiniz: {{house}} ({{status}})",
-            "bodyLine2": "\"{{house}}\" için gönderdiğiniz istek henüz sonuçlanmadı."
+            "subjectTemplate": "🏠 Eve katılma isteği {{statusLabel}}",
+            "greeting": "Ev erişim güncellemesi",
+            "bodyLine1Template": "\"{{house}}\" için isteğiniz {{statusLabel}}.",
+            "bodyLine2": "Güncel erişim durumunuzu görmek için uygulamayı açabilirsiniz.",
+            "statusLabels": {
+                "approved": "onaylandı",
+                "rejected": "reddedildi",
+                "updated": "güncellendi"
+            }
         },
         "houseKick": {
-            "subject": "Üye evden çıkarıldı",
-            "greeting": "Ev Erişimi",
-            "bodyLine1Template": "\"{{name}}\" kullanıcısını evden çıkarmak istediğinize emin misiniz?",
-            "bodyLine2": "Yeni bir ev oluşturabilir veya bir eve katılma isteği gönderebilirsiniz."
+            "subject": "🏠 Ev erişiminiz kaldırıldı",
+            "greeting": "Ev erişim güncellemesi",
+            "bodyLine1Template": "\"{{house}}\" evine erişiminiz kaldırıldı.",
+            "bodyLine2": "İstediğiniz zaman uygulama içinden başka bir eve katılabilirsiniz."
         },
         "passwordReset": {
             "subject": "🔐 Şifreyi Sıfırla",
             "headerTitle": "🔐 Şifreyi Sıfırla",
-            "greeting": "Şifremi Unuttum",
-            "intro": "Hesabınıza yeniden erişmek için güvenli sıfırlama akışını başlatın.",
+            "greeting": "Şifre sıfırlama talebi",
+            "intro": "Şifrenizi güvenli şekilde sıfırlamak için aşağıdaki butonu kullanın.",
             "buttonLabel": "Şifreyi Sıfırla",
             "warningTitle": "⚠️",
-            "warningBody": "Eğer bu hesaba ait kayıt varsa, 15 dakika geçerli şifre sıfırlama bağlantısı gönderildi.",
-            "fallback": "Şifre sıfırlama bağlantısı eksik veya bozuk görünüyor.",
-            "footer": "© 2026 HomeInventory"
+            "warningBody": "Bu bağlantı 15 dakika içinde geçerliliğini yitirir. Bu işlemi siz başlatmadıysanız bu e-postayı yok sayabilirsiniz.",
+            "fallback": "Buton çalışmazsa bu bağlantıyı tarayıcınıza kopyalayıp yapıştırın:",
+            "footer": "© 2026 {{brandName}}"
+        },
+        "testEmail": {
+            "subject": "🧪 {{brandName}} Deneme E-postası",
+            "headerTitle": "🧪 Deneme E-postası",
+            "successTitle": "E-posta sistemi çalışıyor",
+            "successBody": "Bu e-postayı aldıysanız {{brandName}} e-posta gönderimi doğru şekilde yapılandırılmış demektir.",
+            "sentAtLabel": "Gönderim zamanı",
+            "senderLabel": "Gönderen",
+            "serviceLabel": "Servis",
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "Bu e-posta {{brandName}} tarafından gönderildi.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     }
 }

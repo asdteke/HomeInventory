@@ -4,6 +4,7 @@ import middleware from 'i18next-http-middleware';
 import { readdirSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import { BRAND_HOST, BRAND_NAME, SUPPORT_EMAIL } from '../utils/branding.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -53,11 +54,23 @@ export const initI18n = async () => {
                 cookiePath: '/'
             },
             interpolation: {
-                escapeValue: false
+                escapeValue: false,
+                defaultVariables: {
+                    brandName: BRAND_NAME,
+                    supportEmail: SUPPORT_EMAIL,
+                    siteHost: BRAND_HOST
+                }
             }
         });
 
-    console.log('✅ i18n initialized with', SUPPORTED_LANGUAGES.length, 'languages');
+    // Calculate unique language count (deduplicating redundant fallbacks like 'zh' and 'sr-Cyrl')
+    const uniqueLangs = new Set(SUPPORTED_LANGUAGES.map(lang => {
+        if (lang === 'zh') return 'zh-Hans'; // zh is a fallback for zh-Hans
+        if (lang === 'sr-Cyrl') return 'sr'; // sr-Cyrl is a script variant for sr
+        return lang;
+    }));
+
+    console.log(`✅ i18n initialized with \x1b[32m${uniqueLangs.size}\x1b[0m languages`);
     return i18next;
 };
 

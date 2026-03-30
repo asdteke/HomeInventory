@@ -4,6 +4,7 @@ import QRCode from 'qrcode';
 import { useTranslation } from 'react-i18next';
 import { X, Copy, Download, ShieldCheck, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { copyTextToClipboard } from '../utils/clipboard';
+import { BRAND_NAME } from '../constants/branding';
 
 export default function TwoFactorSetup({ onClose, onEnabled }) {
     const { t } = useTranslation();
@@ -68,7 +69,7 @@ export default function TwoFactorSetup({ onClose, onEnabled }) {
 
     const downloadBackupCodes = () => {
         const content = [
-            'HomeInventory - 2FA Backup Codes',
+            `${BRAND_NAME} - 2FA Backup Codes`,
             '================================',
             `Generated: ${new Date().toISOString()}`,
             '',
@@ -84,7 +85,7 @@ export default function TwoFactorSetup({ onClose, onEnabled }) {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `homeinventory-2fa-backup-codes-${new Date().toISOString().split('T')[0]}.txt`;
+        a.download = `envanterim-2fa-backup-codes-${new Date().toISOString().split('T')[0]}.txt`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);

@@ -21,16 +21,16 @@
         "refresh": "Обновить",
         "close": "Закрыть",
         "logout": "Выйти",
-        "copyright": "© {{year}} HomeInventory - Все права защищены",
+        "copyright": "© {{year}} {{brandName}} - Все права защищены",
         "other": "Другое",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "Копировать",
+        "download": "Скачать"
     },
     "auth": {
         "login": {
             "title": "Войти",
             "subtitle": "Управляйте всем своим домашним инвентарем умно",
-            "welcome": "Добро пожаловать в HomeInventory",
+            "welcome": "Добро пожаловать в {{brandName}}",
             "username_or_email": "Имя пользователя или Email",
             "password": "Пароль",
             "forgot_password": "Забыли пароль?",
@@ -42,25 +42,25 @@
             "register_link": "Зарегистрироваться",
             "support_contact": "По вопросам входа:",
             "terms_title": "📋 Условия использования и Отказ от ответственности",
-            "terms_beta": "БЕТА-версия: HomeInventory находится на стадии тестирования. Нет гарантии сохранности или безопасности ваших данных.",
+            "terms_beta": "БЕТА-версия: {{brandName}} находится на стадии тестирования. Нет гарантии сохранности или безопасности ваших данных.",
             "terms_disclaimer": "Отказ от ответственности: Используя это приложение, вы соглашаетесь с тем, что не можете требовать компенсацию за возможную потерю данных, проблемы с доступом или другие технические сбои.",
             "terms_backup": "Резервное копирование данных: Мы настоятельно рекомендуем регулярно создавать резервные копии вашей важной информации.",
             "terms_accept": "Входя в систему, вы считаете, что принимаете эти условия.",
             "two_factor": {
-                "title": "Two-Factor Authentication",
-                "subtitle": "Enter the 6-digit code from your authenticator app",
-                "backup_subtitle": "Enter one of your backup codes",
-                "code_label": "Verification Code",
-                "backup_code_label": "Backup Code",
-                "remember_device": "Remember this device for 30 days",
-                "verify": "Verify",
-                "back": "Back",
-                "use_backup": "Use backup code",
-                "use_totp": "Use authenticator"
+                "title": "Двухфакторная аутентификация",
+                "subtitle": "Введите 6-значный код из вашего приложения-аутентификатора",
+                "backup_subtitle": "Введите один из ваших резервных кодов",
+                "code_label": "Код подтверждения",
+                "backup_code_label": "Резервный код",
+                "remember_device": "Запомнить это устройство на 30 дней",
+                "verify": "Проверить",
+                "back": "Назад",
+                "use_backup": "Использовать резервный код",
+                "use_totp": "Использовать аутентификатор"
             }
         },
         "register": {
-            "title": "Добро пожаловать в HomeInventory",
+            "title": "Добро пожаловать в {{brandName}}",
             "subtitle": "Создать новый аккаунт или присоединиться к существующему дому",
             "create_house": "Создать новый дом",
             "join_house": "Присоединиться к дому",
@@ -171,7 +171,8 @@
         "admin_panel": "Панель администратора",
         "logout": "Выйти",
         "menu": "Меню",
-        "personal_vault": "Личный сейф"
+        "personal_vault": "Личный сейф",
+        "borrow_requests": "Запросы на заимствование"
     },
     "dashboard": {
         "welcome": "Добро пожаловать, <1>{{name}}</1>! 👋",
@@ -213,11 +214,11 @@
     },
     "beta_banner": {
         "title": "БЕТА:",
-        "text": "HomeInventory в настоящее время находится на этапе тестирования и хобби. Нет гарантии сохранности или безопасности данных. Пожалуйста, делайте резервные копии важной информации.",
+        "text": "{{brandName}} в настоящее время находится на этапе тестирования и хобби. Нет гарантии сохранности или безопасности данных. Пожалуйста, делайте резервные копии важной информации.",
         "contact": "Контакт:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Все права защищены",
+        "rights": "© {{year}} {{brandName}} - Все права защищены",
         "contact": "Контакт:"
     },
     "items": {
@@ -280,7 +281,10 @@
             "warranty_duration_unit": "Единица срока гарантии",
             "warranty_duration_months": "Месяцы",
             "warranty_duration_years": "Годы",
-            "warranty_calculation_help": "Если вы оставите поле начала гарантии пустым, используется дата выставления счета. Когда вы вводите срок действия, дата окончания гарантии рассчитывается автоматически."
+            "warranty_calculation_help": "Если вы оставите поле начала гарантии пустым, используется дата выставления счета. Когда вы вводите срок действия, дата окончания гарантии рассчитывается автоматически.",
+            "vault_hint_title": "Очень конфиденциальная запись?",
+            "vault_hint_description": "Для паспортов, документов на недвижимость, данных личности, кодов доступа и других записей, которые не должны попадать в стандартный инвентарный поток, храните их в Личном сейфе.",
+            "vault_hint_action": "Открыть Личный сейф"
         },
         "qrcode": {
             "title": "QR Code",
@@ -295,7 +299,8 @@
             "not_found": "⚠ Продукт не найден в базах данных. Вы можете поискать в Google.",
             "search_fail": "⚠ Поиск не удался",
             "name_required": "Название элемента обязательно",
-            "location_add_error": "Не удалось добавить местоположение"
+            "location_add_error": "Не удалось добавить местоположение",
+            "photo_too_large": "Фотографии могут иметь размер максимум {{maxSizeMb}} МБ."
         }
     },
     "settings": {
@@ -337,7 +342,8 @@
             "member_kicked": "Участник удалён из дома",
             "member_kick_error": "Не удалось удалить участника из дома",
             "recovery_key_regenerated": "Ключ восстановления сгенерирован заново",
-            "recovery_key_error": "Не удалось сгенерировать ключ восстановления заново"
+            "recovery_key_error": "Не удалось сгенерировать ключ восстановления заново",
+            "account_delete_error": "Учётную запись не удалось удалить"
         },
         "user_profile": {
             "edit_username": "Изменить имя пользователя"
@@ -404,13 +410,20 @@
             "export_json": "Экспорт в формате JSON",
             "upload_backup": "Загрузить резервную копию",
             "uploading": "Загрузка...",
-            "import_json": "Импорт из JSON"
+            "import_json": "Импорт из JSON",
+            "export_sensitive_title": "Экспортированные резервные копии содержат данные в открытом виде",
+            "export_sensitive_notice": "Эта резервная копия включает расшифрованные данные о доме. Храните её в безопасности после загрузки, при возможности шифруйте и избегайте передачи через небезопасные каналы.",
+            "export_sensitive_confirm": "Эта резервная копия будет включать расшифрованные данные о доме в открытом виде. Вы подтверждаете, что сохраните её в безопасности?"
         },
         "about": {
             "title": "📱 О приложении",
             "version": "Версия",
             "brand": "Бренд",
-            "feedback": "✉️ Отправить отзыв"
+            "feedback": "✉️ Отправить отзыв",
+            "legal_title": "Юридические документы",
+            "legal_description": "Вы можете снова открыть тексты условий и политики конфиденциальности отсюда даже после их принятия.",
+            "terms_link": "Условия предоставления услуг",
+            "privacy_link": "Политика конфиденциальности"
         },
         "modals": {
             "password": {
@@ -455,54 +468,67 @@
             "pending_badge": "Ожидание"
         },
         "two_factor": {
-            "title": "Two-Factor Authentication",
-            "description": "Add an extra layer of security to your account with TOTP-based 2FA",
-            "active": "Active",
-            "enable": "Enable 2FA",
-            "disable": "Disable 2FA",
-            "disable_desc": "Remove two-factor authentication from your account",
-            "disable_title": "Disable Two-Factor Authentication",
-            "disable_confirm": "Disable 2FA",
-            "disable_error": "Failed to disable 2FA",
-            "disabled_success": "Two-factor authentication has been disabled",
-            "password_label": "Password",
-            "password_placeholder": "Enter your password",
-            "method_totp": "Authenticator",
-            "method_backup": "Backup Code",
-            "method_recovery": "Recovery Key",
-            "totp_code_label": "Authenticator Code",
-            "backup_code_label": "Backup Code",
-            "recovery_key_label": "Recovery Key",
-            "cancel": "Cancel",
-            "setup_title": "Set Up 2FA",
-            "setup_error": "Failed to start 2FA setup",
-            "step_1": "Step 1: Scan QR Code",
-            "step_2": "Step 2: Verify Code",
-            "step_3": "Step 3: Save Backup Codes",
-            "scan_instruction": "Scan this QR code with your authenticator app (Google Authenticator, Authy, or any TOTP app)",
-            "manual_entry": "Can't scan? Enter this key manually:",
-            "copy_secret": "Copy secret",
-            "next": "Next",
-            "verify_instruction": "Enter the 6-digit code shown in your authenticator app to verify setup",
-            "verify_error": "Verification failed",
-            "code_label": "6-Digit Code",
-            "back": "Back",
-            "activate": "Activate 2FA",
-            "backup_warning_title": "Save These Backup Codes!",
-            "backup_warning_text": "If you lose access to your authenticator app, you can use these codes to log in. Each code can only be used once. Store them in a safe place.",
-            "download_codes": "Download Backup Codes",
-            "backup_acknowledge": "I have saved my backup codes in a safe place",
-            "done": "Done",
-            "regenerate_codes": "Regenerate Backup Codes",
-            "regenerate_codes_desc": "Generate new backup codes (old ones will be invalidated)",
-            "regenerate": "Regenerate",
-            "codes_regenerated": "Backup codes have been regenerated",
-            "codes_error": "Failed to regenerate backup codes",
-            "close_codes": "Close",
-            "revoke_devices": "Revoke Trusted Devices",
-            "revoke_devices_desc": "Remove all remembered devices, requiring 2FA on next login",
-            "devices_revoked": "{{count}} trusted device(s) removed",
-            "devices_error": "Failed to revoke devices"
+            "title": "Двухфакторная аутентификация",
+            "description": "Добавьте дополнительный уровень безопасности для вашей учетной записи с помощью TOTP-основанной 2FA",
+            "active": "Активно",
+            "enable": "Включить 2FA",
+            "disable": "Отключить 2FA",
+            "disable_desc": "Удалить двухфакторную аутентификацию из вашей учетной записи",
+            "disable_title": "Отключить двухфакторную аутентификацию",
+            "disable_confirm": "Отключить 2FA",
+            "disable_error": "Не удалось отключить 2FA",
+            "disabled_success": "Двухфакторная аутентификация была отключена",
+            "password_label": "Пароль",
+            "password_placeholder": "Введите ваш пароль",
+            "method_totp": "Аутентификатор",
+            "method_backup": "Резервный код",
+            "method_recovery": "Ключ восстановления",
+            "totp_code_label": "Код аутентификатора",
+            "backup_code_label": "Резервный код",
+            "recovery_key_label": "Ключ восстановления",
+            "cancel": "Отмена",
+            "setup_title": "Настроить 2FA",
+            "setup_error": "Не удалось начать настройку 2FA",
+            "step_1": "Шаг 1: Сканируйте QR-код",
+            "step_2": "Шаг 2: Подтвердите код",
+            "step_3": "Шаг 3: Сохраните резервные коды",
+            "scan_instruction": "Отсканируйте этот QR-код с помощью вашего приложения-аутентификатора (Google Authenticator, Authy или любого TOTP приложения)",
+            "manual_entry": "Не удается сканировать? Введите этот ключ вручную:",
+            "copy_secret": "Скопировать секрет",
+            "next": "Далее",
+            "verify_instruction": "Введите 6-значный код, показанный в вашем приложении-аутентификаторе, чтобы подтвердить настройку",
+            "verify_error": "Проверка не прошла",
+            "code_label": "6-значный код",
+            "back": "Назад",
+            "activate": "Активировать 2FA",
+            "backup_warning_title": "Сохраните эти резервные коды!",
+            "backup_warning_text": "Если вы потеряете доступ к приложению аутентификатора, вы можете использовать эти коды для входа. Каждый код можно использовать только один раз. Храните их в безопасном месте.",
+            "download_codes": "Скачать резервные коды",
+            "backup_acknowledge": "Я сохранил(а) свои резервные коды в безопасном месте",
+            "done": "Готово",
+            "regenerate_codes": "Сгенерировать резервные коды заново",
+            "regenerate_codes_desc": "Создать новые резервные коды (старые станут недействительными)",
+            "regenerate": "Создать заново",
+            "codes_regenerated": "Резервные коды были созданы заново",
+            "codes_error": "Не удалось создать резервные коды заново",
+            "close_codes": "Закрыть",
+            "revoke_devices": "Отозвать доверенные устройства",
+            "revoke_devices_desc": "Удалить все запомненные устройства, потребуется двухфакторная аутентификация при следующем входе",
+            "devices_revoked": "{{count}} доверенное устройство(а) удалено",
+            "devices_error": "Не удалось отозвать устройства"
+        },
+        "danger_zone": {
+            "title": "Учетная запись",
+            "delete_title": "Удалить учетную запись",
+            "delete_description": "Если хотите, вы можете навсегда удалить персональные данные и загруженные файлы, связанные с этой учетной записью.",
+            "delete_warning": "Это действие нельзя отменить.",
+            "delete_action": "Удалить учетную запись",
+            "modal_title": "Удалить учетную запись",
+            "modal_warning_title": "Это действие необратимо",
+            "modal_warning_body": "После подтверждения вы немедленно потеряете доступ к аккаунту, а удалённые данные приложения нельзя будет восстановить из приложения.",
+            "password_label": "Подтвердите своим текущим паролем",
+            "confirm_delete": "Подтвердить удаление",
+            "deleting": "Удаление..."
         }
     },
     "inventory": {
@@ -517,7 +543,53 @@
         "empty_filter": "Нет элементов, соответствующих вашим фильтрам",
         "empty_msg": "Элементы ещё не добавлены",
         "delete_confirm": "Вы уверены, что хотите удалить этот элемент?",
-        "delete_error": "Ошибка удаления"
+        "delete_error": "Ошибка удаления",
+        "load_warning": {
+            "title": "Режим частичной загрузки",
+            "body": "Некоторые вспомогательные данные сейчас отвечают медленно, поэтому страница открылась без полной метаданных фильтра. Мы попробуем снова при обновлении."
+        },
+        "borrow": {
+            "section_title": "Отслеживание заимствований",
+            "section_subtitle": "Текущий статус и история займов",
+            "dialog_lend_title": "Выдать предмет",
+            "dialog_lend_subtitle": "Создать новую запись заимствования для \"{{item}}\"",
+            "dialog_return_title": "Отметить как возвращённое",
+            "dialog_return_subtitle": "Закрыть активную запись о займе для \"{{item}}\"",
+            "member": "Член дома",
+            "external": "Внешнее лицо",
+            "borrower_member": "Кто получил?",
+            "no_members": "В этом доме нет других доступных членов. Вы можете создать запись как внешнее лицо.",
+            "borrower_name": "Имя лица",
+            "borrower_name_placeholder": "например, Сосед Алекс",
+            "borrower_contact": "Контактная информация",
+            "borrower_contact_placeholder": "Телефон, электронная почта или короткая заметка",
+            "due_date": "Ожидаемая дата возврата",
+            "note": "Заметка",
+            "note_placeholder": "например, Одалживал на выходные",
+            "submitting_lend": "Сохранение...",
+            "lend": "Одолжить",
+            "return_note": "Заметка о возврате",
+            "return_note_placeholder": "например, Возвращено в хорошем состоянии",
+            "submitting_return": "Закрытие...",
+            "mark_returned": "Возвращено Марком",
+            "current_borrower_label": "В настоящее время у:",
+            "unknown": "Неизвестно",
+            "overdue_badge": "Просрочено",
+            "borrowed_badge": "Взято в долг",
+            "borrowed_to": "У {{name}}",
+            "due_date_short": "Срок: {{date}}",
+            "actions_error": "Действие заимствования не может быть выполнено",
+            "borrowed_at": "Дата выдачи: {{date}}",
+            "due_date_label": "Ожидаемая дата возврата: {{date}}",
+            "note_label": "Примечание: {{note}}",
+            "return_note_label": "Примечание при возврате: {{note}}",
+            "no_active": "Этот предмет в данный момент не заимствован.",
+            "history_title": "История",
+            "history_active": "Открыть запись для {{name}}",
+            "history_returned": "Закрытая запись для {{name}}",
+            "returned_at": "Возвращено: {{date}}",
+            "no_history": "История заимствований для этого предмета пока отсутствует."
+        }
     },
     "categories": {
         "title": "Категории",
@@ -615,7 +687,7 @@
             "free_badge": "Абсолютно бесплатно"
         },
         "features": {
-            "title": "Почему <1>HomeInventory</1>?",
+            "title": "Почему <1>{{brandName}}</1>?",
             "subtitle": "Все функции для упрощения управления домом на одной платформе",
             "items": {
                 "categorize": {
@@ -653,7 +725,7 @@
             "desc": "Простая и безопасная платформа для оцифровки домашнего инвентаря.",
             "links": "Быстрые ссылки",
             "contact": "Связаться с нами",
-            "copyright": "© {{year}} HomeInventory. Все права защищены."
+            "copyright": "© {{year}} {{brandName}}. Все права защищены."
         },
         "preview_privacy_notice": "Просмотр демо: реальные данные пользователей не отображаются."
     },
@@ -781,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Требуется подтверждение электронной почты",
-            "headerTitle": "Добро пожаловать в HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Требуется подтверждение электронной почты",
+            "headerTitle": "Добро пожаловать в {{brandName}}",
             "headerSubtitle": "Создать новый аккаунт или присоединиться к существующему дому",
-            "greeting": "Добро пожаловать в HomeInventory",
+            "greeting": "Добро пожаловать в {{brandName}}",
             "intro": "Аккаунт создан! Пожалуйста, подтвердите ваш адрес электронной почты для входа.",
             "verifyPrompt": "📧 Требуется подтверждение электронной почты",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Подтвердить мой аккаунт",
             "warningTitle": "⚠️",
             "warningBody": "Проверьте папку спам/нежелательная почта, если письмо не пришло.",
             "houseKeyLabel": "Ключ дома",
@@ -801,13 +873,13 @@
             ],
             "fallback": "Ссылка для сброса пароля выглядит неполной или поврежденной.",
             "support": "Проблемы с регистрацией:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Добро пожаловать в HomeInventory",
-            "headerTitle": "Добро пожаловать в HomeInventory",
+            "subject": "Добро пожаловать в {{brandName}}",
+            "headerTitle": "Добро пожаловать в {{brandName}}",
             "headerSubtitle": "Создать новый аккаунт или присоединиться к существующему дому",
-            "greeting": "Добро пожаловать в HomeInventory",
+            "greeting": "Добро пожаловать в {{brandName}}",
             "intro": "Добро пожаловать, ! 👋",
             "houseKeyLabel": "Ключ дома",
             "houseKeyNote": "Это ваш ключ от дома, используйте его, чтобы пригласить других. Добавьте членов семьи в ваш дом!",
@@ -819,7 +891,7 @@
                 "💡 Вы можете быть членом нескольких домов и переключаться между ними. Каждый дом ведет отдельный инвентарь."
             ],
             "support": "Проблемы с регистрацией:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Присоединиться к дому",
@@ -828,7 +900,7 @@
             "bodyLine2": "Ожидание одобрения владельцем дома"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Доступ к дому",
             "bodyLine1Template": "Текущий ожидающий запрос: {{house}} ({{status}})",
             "bodyLine2": "Ваш запрос на \"{{house}}\" все еще ожидает решения."
@@ -848,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Если учетная запись существует, ссылка для сброса пароля, действительная 15 минут, была отправлена.",
             "fallback": "Ссылка для сброса пароля выглядит неполной или поврежденной.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "Это письмо было отправлено {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -890,7 +966,6 @@
         "record_save_new": "Добавить запись в хранилище",
         "record_save_edit": "Сохранить изменения",
         "barcode_privacy_hint": "Штрихкоды хранилища не проверяются автоматически через внешние сервисы; текст штрихкода хранится только в зашифрованном виде.",
-        "media_note": "Фотографии, сканирование штрихкодов и проверка продуктов через внешние сервисы намеренно отключены в этом первом потоке хранилища. Им необходим отдельный зашифрованный медиапоток и политика конфиденциальности.",
         "search_placeholder": "Поиск внутри хранилища...",
         "all_categories": "Все категории",
         "all_rooms": "Все комнаты",
@@ -910,9 +985,112 @@
             "name_required": "Для записи в хранилище требуется название предмета.",
             "options_failed": "Не удалось загрузить параметры категории и комнаты."
         },
-        "recovery_file_title": "Личный сейф HomeInventory - ключ восстановления",
+        "recovery_file_title": "Личный сейф {{brandName}} - ключ восстановления",
         "recovery_file_created_label": "Создан",
         "recovery_file_key_label": "Ключ восстановления",
-        "recovery_file_warning": "Если вы потеряете как этот ключ, так и пароль от сейфа, восстановить сейф будет невозможно."
+        "recovery_file_warning": "Если вы потеряете как этот ключ, так и пароль от сейфа, восстановить сейф будет невозможно.",
+        "media_note": "Загрузка фотографий, сканирование штрих-кодов и поиск внешних продуктов пока не поддерживаются. Эти функции будут добавлены, как только будет готова выделенная безопасная система для работы с медиа и конфиденциальностью."
+    },
+    "borrow_requests": {
+        "title": "Центр заимствований",
+        "subtitle": "Управляйте безопасными запросами и предложениями с другими пользователями {{brandName}}.",
+        "incoming_title": "Входящие запросы",
+        "incoming_subtitle": "Запросы и предложения, отправленные вам",
+        "outgoing_title": "Отправлено мной",
+        "outgoing_subtitle": "Предложения и запросы на предметы, которые вы начали",
+        "empty_incoming": "В данный момент у вас нет запросов на заимствование.",
+        "empty_outgoing": "Вы пока не отправляли предложение или запрос.",
+        "stats": {
+            "incoming": "В ожидании входящих",
+            "outgoing": "В ожидании исходящих",
+            "active": "Активные заимствования"
+        },
+        "active": {
+            "title": "Активные заимствования",
+            "subtitle": "Предметы, находящиеся у вас или одолженные вами",
+            "empty": "В данный момент активных заимствований нет.",
+            "borrowed_from": "Заимствовано у {{name}}",
+            "lent_to": "В настоящее время у {{name}}"
+        },
+        "status": {
+            "pending": "В ожидании",
+            "accepted": "Активно",
+            "rejected": "Отклонено",
+            "cancelled": "Отменено",
+            "expired": "Истекло",
+            "returned": "Возвращено"
+        },
+        "actions": {
+            "send_request": "Запросить товар",
+            "send_offer": "Отправить предложение",
+            "accept": "Принять",
+            "reject": "Отклонить",
+            "cancel": "Отменить",
+            "fulfill_request": "Выполнить запрос"
+        },
+        "labels": {
+            "offer": "Предложение",
+            "request": "Запрос",
+            "unspecified_item": "Неуказанный предмет",
+            "counterparty": "Контрагент: {{name}}",
+            "created_at": "Создано: {{date}}",
+            "due_date": "Ожидаемое возвращение: {{date}}",
+            "waiting_delivery": "Запрос может все еще ожидать соответствующий счет, прежде чем он отобразится.",
+            "returned_on": "Возвращено: {{date}}",
+            "borrow_started": "Начато: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Отправить предложение",
+            "offer_subtitle_item": "Создайте безопасное предложение для пользователя для \"{{item}}\"",
+            "offer_subtitle_general": "Выберите предмет из вашего инвентаря и отправьте безопасное предложение",
+            "item_label": "Предмет",
+            "item_placeholder": "Выберите предмет",
+            "target_label": "Имя пользователя или электронная почта",
+            "target_placeholder": "например, alex или alex@example.com",
+            "target_help": "Система не раскрывает, существует ли этот аккаунт. Если информация совпадает, запрос появится в почтовом ящике получателя.",
+            "offer_note_placeholder": "например, вы можете оставить это до выходных, если хотите",
+            "offer_submitting": "Отправка...",
+            "request_title": "Запрос предмета",
+            "request_subtitle": "Создайте общий запрос, не просматривая инвентарь другого человека",
+            "requested_item_label": "Что вам нужно?",
+            "requested_item_placeholder": "например, дрель, штатив, походный стул",
+            "request_note_placeholder": "например, мне это нужно только на 2 дня",
+            "request_submitting": "Отправка...",
+            "fulfill_title": "Выполнить запрос",
+            "fulfill_subtitle": "Выберите предмет из вашего инвентаря для \"{{item}}\"",
+            "fulfill_target": "Этот предмет будет одолжен {{name}}.",
+            "no_available_items": "В вашем активном доме сейчас нет подходящих предметов для предложения.",
+            "fulfill_submitting": "Сохранение...",
+            "return_title": "Отметить как возвращённое",
+            "return_subtitle": "Закрыть активное заимствование для \"{{item}}\"",
+            "return_target": "В настоящее время он указан как находящийся у {{name}}."
+        },
+        "messages": {
+            "load_error": "Центр заимствований не может быть загружен",
+            "action_error": "Действие не может быть выполнено"
+        },
+        "preview": {
+            "title": "Режим предварительного просмотра",
+            "body": "Серверная часть этой страницы в данный момент недоступна при локальном тестировании. Вы все еще можете сначала просмотреть макет и поток; мы включим серверную часть после вашего утверждения."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Политика конфиденциальности",
+        "terms_of_service_title": "Условия обслуживания",
+        "privacy_policy_content": "Ваша конфиденциальность важна для нас. Это приложение хранит загруженные вами данные надежно, используя шифрование на уровне полей. Мы не продаем и не передаем ваши личные данные третьим лицам. Используя сервис, вы соглашаетесь на сбор необходимых данных для управления учетной записью и функционирования приложения.",
+        "terms_of_service_content": "Используя {{brandName}}, вы соглашаетесь с этими условиями. Сервис предоставляется «как есть» без гарантий. Вы несете ответственность за данные, которые загружаете, и за то, что у вас есть права на них. Мы оставляем за собой право приостанавливать учетные записи, которые нарушают правила или злоупотребляют системой.",
+        "register_consent": "Я прочитал, понял и согласен с <1>Условиями использования</1> и <2>Политикой конфиденциальности</2>.",
+        "consent_title": "Просмотр юридических документов",
+        "consent_subtitle": "Пожалуйста, подтвердите текущие условия перед продолжением.",
+        "consent_notice": "Нам необходимо зарегистрированное подтверждение текущих Условий предоставления услуг и Уведомления о конфиденциальности, прежде чем вы сможете продолжить использование приложения.",
+        "consent_checkbox": "Я принимаю Условия предоставления услуг и подтверждаю, что ознакомился с Уведомлением о конфиденциальности.",
+        "consent_submit": "Продолжить",
+        "consent_submitting": "Сохранение...",
+        "consent_required": "Вам нужно подтвердить Условия использования и Уведомление о конфиденциальности перед продолжением."
+    },
+    "cookies": {
+        "banner_text": "Мы используем необходимые файлы cookie, чтобы поддерживать ваш вход в систему и обеспечивать безопасность вашей сессии. Продолжая использовать этот сайт, вы соглашаетесь с нашими политиками.",
+        "accept": "Я принимаю",
+        "learn_more": "Узнать больше"
     }
 }

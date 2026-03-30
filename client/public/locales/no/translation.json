@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Garantiperiodens enhet",
             "warranty_duration_months": "Måneder",
             "warranty_duration_years": "År",
-            "warranty_calculation_help": "Hvis du lar garantistartdatoen stå tom, brukes fakturadatoen. Når du skriver inn varigheten, beregnes garantisluttdatoen automatisk."
+            "warranty_calculation_help": "Hvis du lar garantistartdatoen stå tom, brukes fakturadatoen. Når du skriver inn varigheten, beregnes garantisluttdatoen automatisk.",
+            "vault_hint_title": "Svært sensitiv opptegnelse?",
+            "vault_hint_description": "For pass, skjøter, identitetsdetaljer, tilgangskoder og andre opptegnelser som bør holdes utenfor standard lagerflyt, oppbevar dem i Personlig Safe i stedet.",
+            "vault_hint_action": "Åpne Personlig Safe"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" raskt lagt til - du kan redigere senere",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Produkt ikke funnet i databaser. Du kan søke på Google.",
             "search_fail": "⚠ Søk mislyktes",
             "name_required": "Varenavn er påkrevd",
-            "location_add_error": "Kunne ikke legge til plassering"
+            "location_add_error": "Kunne ikke legge til plassering",
+            "photo_too_large": "Bilder kan være på maks {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,16 +103,16 @@
         "refresh": "Oppdater",
         "close": "Lukk",
         "logout": "Logg ut",
-        "copyright": "© {{year}} HomeInventory - Alle rettigheter reservert",
+        "copyright": "© {{year}} {{brandName}} - Alle rettigheter reservert",
         "other": "Annet",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "Kopier",
+        "download": "Last ned"
     },
     "auth": {
         "login": {
             "title": "Logg inn",
             "subtitle": "Administrer hele hjemmets inventar smart",
-            "welcome": "Velkommen til HomeInventory",
+            "welcome": "Velkommen til {{brandName}}",
             "username_or_email": "Brukernavn eller e-post",
             "password": "Passord",
             "forgot_password": "Glemt passord?",
@@ -120,13 +124,25 @@
             "register_link": "Registrer",
             "support_contact": "For innloggingsproblemer:",
             "terms_title": "📋 Bruksvilkår og ansvarsfraskrivelse",
-            "terms_beta": "BETA-versjon: HomeInventory er for øyeblikket i testfase. Ingen garanti gis for lagring eller sikkerhet av dine data.",
+            "terms_beta": "BETA-versjon: {{brandName}} er for øyeblikket i testfase. Ingen garanti gis for lagring eller sikkerhet av dine data.",
             "terms_disclaimer": "Ansvarsfraskrivelse: Ved å bruke denne applikasjonen aksepterer du at du ikke kan kreve kompensasjon for potensielt datatap, tilgangsproblemer eller andre tekniske feil.",
             "terms_backup": "Sikkerhetskopiering av data: Vi anbefaler sterkt å ta sikkerhetskopi av viktig informasjon regelmessig.",
-            "terms_accept": "Ved å logge inn anses du å ha akseptert disse vilkårene."
+            "terms_accept": "Ved å logge inn anses du å ha akseptert disse vilkårene.",
+            "two_factor": {
+                "title": "To-faktor-autentisering",
+                "subtitle": "Skriv inn den 6-sifrede koden fra autentiseringsappen din",
+                "backup_subtitle": "Skriv inn en av reservekodene dine",
+                "code_label": "Verifiseringskode",
+                "backup_code_label": "Reservkode",
+                "remember_device": "Husk denne enheten i 30 dager",
+                "verify": "Bekreft",
+                "back": "Tilbake",
+                "use_backup": "Bruk reservekode",
+                "use_totp": "Bruk autentiseringsapp"
+            }
         },
         "register": {
-            "title": "Velkommen til HomeInventory",
+            "title": "Velkommen til {{brandName}}",
             "subtitle": "Opprett en ny konto eller bli med i et eksisterende hus",
             "create_house": "Opprett nytt hus",
             "join_house": "Bli med hus",
@@ -237,7 +253,8 @@
         "admin_panel": "Adminpanel",
         "logout": "Logg ut",
         "menu": "Meny",
-        "personal_vault": "Personlig hvelv"
+        "personal_vault": "Personlig hvelv",
+        "borrow_requests": "Låneforespørsler"
     },
     "dashboard": {
         "welcome": "Velkommen, <1>{{name}}</1>! 👋",
@@ -279,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory er for øyeblikket i test- og hobbyfase. Ingen garanti gis for datalagring eller sikkerhet. Vennligst behold sikkerhetskopier av viktig informasjon.",
+        "text": "{{brandName}} er for øyeblikket i test- og hobbyfase. Ingen garanti gis for datalagring eller sikkerhet. Vennligst behold sikkerhetskopier av viktig informasjon.",
         "contact": "Kontakt:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Alle rettigheter reservert",
+        "rights": "© {{year}} {{brandName}} - Alle rettigheter reservert",
         "contact": "Kontakt:"
     },
     "settings": {
@@ -325,7 +342,8 @@
             "member_kicked": "Medlem fjernet fra huset",
             "member_kick_error": "Kunne ikke fjerne medlem fra huset",
             "recovery_key_regenerated": "Gjenopprettingsnøkkel regenerert",
-            "recovery_key_error": "Kunne ikke regenerere gjenopprettingsnøkkel"
+            "recovery_key_error": "Kunne ikke regenerere gjenopprettingsnøkkel",
+            "account_delete_error": "Kontoen kunne ikke slettes"
         },
         "user_profile": {
             "edit_username": "Endre brukernavn"
@@ -392,13 +410,20 @@
             "export_json": "Eksporter som JSON",
             "upload_backup": "Last opp sikkerhetskopi",
             "uploading": "Laster opp...",
-            "import_json": "Importer fra JSON"
+            "import_json": "Importer fra JSON",
+            "export_sensitive_title": "Eksporterte sikkerhetskopier inneholder ukrypterte data",
+            "export_sensitive_notice": "Denne sikkerhetskopien inkluderer dekryptert husholdningsdata. Lagre den sikkert etter nedlasting, krypter den om mulig, og unngå å dele den over usikre kanaler.",
+            "export_sensitive_confirm": "Denne sikkerhetskopien vil inkludere dekryptert husholdningsdata i klartekst. Bekrefter du at du vil lagre den sikkert?"
         },
         "about": {
             "title": "📱 Om applikasjonen",
             "version": "Versjon",
             "brand": "Merke",
-            "feedback": "✉️ Send tilbakemelding"
+            "feedback": "✉️ Send tilbakemelding",
+            "legal_title": "Juridiske dokumenter",
+            "legal_description": "Du kan åpne vilkår- og personverntekstene på nytt her, selv etter at du har akseptert dem.",
+            "terms_link": "Vilkår for tjenesten",
+            "privacy_link": "Personvernregler"
         },
         "modals": {
             "password": {
@@ -441,6 +466,69 @@
             "title": "Mine ventende forespørsler om å bli med",
             "waiting_since": "Ventet siden: {{date, datetime}}",
             "pending_badge": "Venter"
+        },
+        "two_factor": {
+            "title": "To-faktor autentisering",
+            "description": "Legg til et ekstra lag med sikkerhet på kontoen din med TOTP-basert 2FA",
+            "active": "Aktiv",
+            "enable": "Aktiver 2FA",
+            "disable": "Deaktiver 2FA",
+            "disable_desc": "Fjern tofaktorautentisering fra kontoen din",
+            "disable_title": "Deaktiver tofaktorautentisering",
+            "disable_confirm": "Deaktiver 2FA",
+            "disable_error": "Kunne ikke deaktivere 2FA",
+            "disabled_success": "Tofaktorautentisering er deaktivert",
+            "password_label": "Passord",
+            "password_placeholder": "Skriv inn passordet ditt",
+            "method_totp": "Autentisator",
+            "method_backup": "Sikkerhetskode",
+            "method_recovery": "Gjenopprettingsnøkkel",
+            "totp_code_label": "Autentiseringskode",
+            "backup_code_label": "Sikkerhetskopikode",
+            "recovery_key_label": "Gjenopprettingsnøkkel",
+            "cancel": "Avbryt",
+            "setup_title": "Sett opp 2FA",
+            "setup_error": "Klarte ikke å starte 2FA-oppsett",
+            "step_1": "Trinn 1: Skann QR-kode",
+            "step_2": "Trinn 2: Bekreft kode",
+            "step_3": "Trinn 3: Lagre sikkerhetskopikoder",
+            "scan_instruction": "Skann denne QR-koden med autentiseringsappen din (Google Authenticator, Authy, eller en hvilken som helst TOTP-app)",
+            "manual_entry": "Kan du ikke skanne? Skriv inn denne nøkkelen manuelt:",
+            "copy_secret": "Kopier hemmelig nøkkel",
+            "next": "Neste",
+            "verify_instruction": "Skriv inn den 6-sifrede koden som vises i autentiseringsappen din for å bekrefte oppsettet",
+            "verify_error": "Bekreftelsen mislyktes",
+            "code_label": "6-sifret kode",
+            "back": "Tilbake",
+            "activate": "Aktiver 2FA",
+            "backup_warning_title": "Lagre disse sikkerhetskodene!",
+            "backup_warning_text": "Hvis du mister tilgang til autentiseringsappen, kan du bruke disse kodene for å logge inn. Hver kode kan bare brukes én gang. Oppbevar dem på et trygt sted.",
+            "download_codes": "Last ned sikkerhetskoder",
+            "backup_acknowledge": "Jeg har lagret mine sikkerhetskoder på et trygt sted",
+            "done": "Ferdig",
+            "regenerate_codes": "Generer sikkerhetskopikoder på nytt",
+            "regenerate_codes_desc": "Generer nye sikkerhetskopikoder (de gamle vil bli ugyldige)",
+            "regenerate": "Generer på nytt",
+            "codes_regenerated": "Sikkerhetskopikodene har blitt generert på nytt",
+            "codes_error": "Kunne ikke generere sikkerhetskopikoder på nytt",
+            "close_codes": "Lukk",
+            "revoke_devices": "Tilbakekall betrodde enheter",
+            "revoke_devices_desc": "Fjern alle lagrede enheter, krever 2FA ved neste pålogging",
+            "devices_revoked": "{{count}} pålitelig(e) enhet(er) fjernet",
+            "devices_error": "Kunne ikke tilbakekalle enheter"
+        },
+        "danger_zone": {
+            "title": "Konto",
+            "delete_title": "Slett konto",
+            "delete_description": "Hvis du vil, kan du permanent fjerne de personlige dataene og opplastede filene knyttet til denne kontoen.",
+            "delete_warning": "Denne handlingen kan ikke angres.",
+            "delete_action": "Slett konto",
+            "modal_title": "Slett konto",
+            "modal_warning_title": "Denne handlingen kan ikke angres",
+            "modal_warning_body": "Etter bekreftelse vil du umiddelbart miste tilgang til kontoen, og de slettede applikasjonsdataene kan ikke gjenopprettes fra appen.",
+            "password_label": "Bekreft med ditt nåværende passord",
+            "confirm_delete": "Bekreft sletting",
+            "deleting": "Sletter..."
         }
     },
     "inventory": {
@@ -455,7 +543,53 @@
         "empty_filter": "Ingen varer matcher filtrene dine",
         "empty_msg": "Ingen varer lagt til ennå",
         "delete_confirm": "Er du sikker på at du vil slette denne varen?",
-        "delete_error": "Slettefeil"
+        "delete_error": "Slettefeil",
+        "load_warning": {
+            "title": "Delvis lastemodus",
+            "body": "Noen støttedata reagerer sakte akkurat nå, så siden åpnet uten full filtreringsmetadata. Vi vil prøve igjen når du oppdaterer."
+        },
+        "borrow": {
+            "section_title": "Lånesporing",
+            "section_subtitle": "Nåværende lånestatus og historikk",
+            "dialog_lend_title": "Lån ut element",
+            "dialog_lend_subtitle": "Opprett en ny lånepost for \"{{item}}\"",
+            "dialog_return_title": "Merk som returnert",
+            "dialog_return_subtitle": "Lukk den aktive låneoppføringen for \"{{item}}\"",
+            "member": "Husmedlem",
+            "external": "Ekstern person",
+            "borrower_member": "Hvem mottok det?",
+            "no_members": "Det finnes ingen andre valgfrie medlemmer i dette huset. Du kan opprette oppføringen som en ekstern person i stedet.",
+            "borrower_name": "Personnavn",
+            "borrower_name_placeholder": "f.eks. Nabo Alex",
+            "borrower_contact": "Kontaktinformasjon",
+            "borrower_contact_placeholder": "Telefon, e-post eller kort notat",
+            "due_date": "Forventet returdatum",
+            "note": "Notat",
+            "note_placeholder": "f.eks. Lånt for helgen",
+            "submitting_lend": "Lagrer...",
+            "lend": "Lån",
+            "return_note": "Returnotat",
+            "return_note_placeholder": "f.eks. Returnert i god stand",
+            "submitting_return": "Lukker...",
+            "mark_returned": "Markert returnert",
+            "current_borrower_label": "For øyeblikket med:",
+            "unknown": "Ukjent",
+            "overdue_badge": "Forsinket",
+            "borrowed_badge": "Lånt",
+            "borrowed_to": "Hos {{name}}",
+            "due_date_short": "Forfallsdato: {{date}}",
+            "actions_error": "Lånehandling kunne ikke fullføres",
+            "borrowed_at": "Utlånt den: {{date}}",
+            "due_date_label": "Forventet retur: {{date}}",
+            "note_label": "Merknad: {{note}}",
+            "return_note_label": "Returmerknad: {{note}}",
+            "no_active": "Denne varen er ikke lånt for øyeblikket.",
+            "history_title": "Historikk",
+            "history_active": "Åpne post for {{name}}",
+            "history_returned": "Lukket post for {{name}}",
+            "returned_at": "Returnert den: {{date}}",
+            "no_history": "Det finnes ingen lånehistorikk for dette elementet ennå."
+        }
     },
     "categories": {
         "title": "Kategorier",
@@ -553,7 +687,7 @@
             "free_badge": "Helt gratis"
         },
         "features": {
-            "title": "Hvorfor <1>HomeInventory</1>?",
+            "title": "Hvorfor <1>{{brandName}}</1>?",
             "subtitle": "Alle funksjoner for å forenkle hjemmestyring på én plattform",
             "items": {
                 "categorize": {
@@ -591,7 +725,7 @@
             "desc": "Plattformen som er enkel og sikker for å digitalisere hjemmets inventar.",
             "links": "Hurtiglenker",
             "contact": "Kontakt Oss",
-            "copyright": "© {{year}} HomeInventory. Alle rettigheter reservert."
+            "copyright": "© {{year}} {{brandName}}. Alle rettigheter reservert."
         },
         "preview_privacy_notice": "Demovisning: ingen ekte brukerdata vises."
     },
@@ -719,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 E-postbekreftelse kreves",
-            "headerTitle": "Velkommen til HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 E-postbekreftelse kreves",
+            "headerTitle": "Velkommen til {{brandName}}",
             "headerSubtitle": "Opprett en ny konto eller bli med i et eksisterende hus",
-            "greeting": "Velkommen til HomeInventory",
+            "greeting": "Velkommen til {{brandName}}",
             "intro": "Konto opprettet! Vennligst bekreft e-postadressen din for å logge inn.",
             "verifyPrompt": "📧 E-postbekreftelse kreves",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Bekreft kontoen min",
             "warningTitle": "⚠️",
             "warningBody": "Sjekk spam-/søppelpostmappen hvis e-posten ikke kommer.",
             "houseKeyLabel": "Husnøkkel",
@@ -739,13 +873,13 @@
             ],
             "fallback": "Lenken for tilbakestilling av passord ser ufullstendig eller ødelagt ut.",
             "support": "Registreringsproblemer:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Velkommen til HomeInventory",
-            "headerTitle": "Velkommen til HomeInventory",
+            "subject": "Velkommen til {{brandName}}",
+            "headerTitle": "Velkommen til {{brandName}}",
             "headerSubtitle": "Opprett en ny konto eller bli med i et eksisterende hus",
-            "greeting": "Velkommen til HomeInventory",
+            "greeting": "Velkommen til {{brandName}}",
             "intro": "Velkommen, ! 👋",
             "houseKeyLabel": "Husnøkkel",
             "houseKeyNote": "Dette er husnøkkelen din, bruk den for å invitere andre. Legg til familiemedlemmer i huset ditt!",
@@ -757,7 +891,7 @@
                 "💡 Du kan være medlem av flere hus og bytte mellom dem. Hvert hus har eget inventar."
             ],
             "support": "Registreringsproblemer:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Bli med i Hus",
@@ -766,7 +900,7 @@
             "bodyLine2": "Venter på godkjenning fra huseier"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Husadgang",
             "bodyLine1Template": "Nåværende ventende forespørsel: {{house}} ({{status}})",
             "bodyLine2": "Din forespørsel om \"{{house}}\" venter fortsatt på avgjørelse."
@@ -786,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Hvis en konto eksisterer, har en tilbakestillingslink for passord gyldig i 15 minutter blitt sendt.",
             "fallback": "Lenken for tilbakestilling av passord ser ufullstendig eller ødelagt ut.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 HjemmeInventar"
+        },
+        "adminEmail": {
+            "sentBy": "Denne e-posten ble sendt av {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -828,7 +966,6 @@
         "record_save_new": "Legg til hvelvoppføring",
         "record_save_edit": "Lagre endringer",
         "barcode_privacy_hint": "Hvelvbarkoder blir ikke automatisk slått opp på eksterne tjenester; barkodeteksten lagres kun som krypterte data.",
-        "media_note": "Bilder, strekkodeskanning og ekstern produktopplysning er bevisst deaktivert i denne første hvelvflyten. De trenger en separat kryptert medie- og personvernprosess.",
         "search_placeholder": "Søk inne i hvelvet...",
         "all_categories": "Alle kategorier",
         "all_rooms": "Alle rom",
@@ -848,9 +985,112 @@
             "name_required": "Et varenavn er påkrevd for en hvelvregistrering.",
             "options_failed": "Kategori- og romalternativer kunne ikke lastes."
         },
-        "recovery_file_title": "HomeInventory Personlig Hvelv Gjenopprettingsnøkkel",
+        "recovery_file_title": "{{brandName}} Personlig Hvelv Gjenopprettingsnøkkel",
         "recovery_file_created_label": "Opprettet",
         "recovery_file_key_label": "Gjenopprettingsnøkkel",
-        "recovery_file_warning": "Hvis du mister både denne nøkkelen og hvelvets passordfrase, kan ikke hvelvet gjenopprettes."
+        "recovery_file_warning": "Hvis du mister både denne nøkkelen og hvelvets passordfrase, kan ikke hvelvet gjenopprettes.",
+        "media_note": "Opplasting av bilder, strekkodeskanning og ekstern produktoppslag støttes ikke ennå. Disse funksjonene vil bli lagt til når et dedikert kryptert medie- og personvernflyt er klart."
+    },
+    "borrow_requests": {
+        "title": "Lånesenter",
+        "subtitle": "Administrer sikre forespørsler og tilbudsstrømmer med andre {{brandName}}-brukere.",
+        "incoming_title": "Innkommende forespørsler",
+        "incoming_subtitle": "Forespørsler og tilbud sendt til deg",
+        "outgoing_title": "Sendt av meg",
+        "outgoing_subtitle": "Tilbud og vareforespørsler du har startet",
+        "empty_incoming": "Det er ingen låneforespørsler for deg akkurat nå.",
+        "empty_outgoing": "Du har ikke sendt et tilbud eller en forespørsel ennå.",
+        "stats": {
+            "incoming": "Ventende innkommende",
+            "outgoing": "Ventende utgående",
+            "active": "Aktive lån"
+        },
+        "active": {
+            "title": "Aktive lån",
+            "subtitle": "Varer som for øyeblikket er hos deg eller utlånt av deg",
+            "empty": "Det er ingen aktive lån akkurat nå.",
+            "borrowed_from": "Lånt fra {{name}}",
+            "lent_to": "For øyeblikket hos {{name}}"
+        },
+        "status": {
+            "pending": "Ventende",
+            "accepted": "Aktiv",
+            "rejected": "Avvist",
+            "cancelled": "Avlyst",
+            "expired": "Utløpt",
+            "returned": "Returnert"
+        },
+        "actions": {
+            "send_request": "Be om vare",
+            "send_offer": "Send tilbud",
+            "accept": "Aksepter",
+            "reject": "Avslå",
+            "cancel": "Avbryt",
+            "fulfill_request": "Oppfyll forespørsel"
+        },
+        "labels": {
+            "offer": "Tilbud",
+            "request": "Forespørsel",
+            "unspecified_item": "Uspesifisert element",
+            "counterparty": "Motpart: {{name}}",
+            "created_at": "Opprettet: {{date}}",
+            "due_date": "Forventet retur: {{date}}",
+            "waiting_delivery": "Forespørselen kan fortsatt vente på en matchende konto før den vises.",
+            "returned_on": "Returnert: {{date}}",
+            "borrow_started": "Startet: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Send tilbud",
+            "offer_subtitle_item": "Opprett et sikkert brukertilbud for \"{{item}}\"",
+            "offer_subtitle_general": "Velg en vare fra inventaret ditt og send et sikkert tilbud",
+            "item_label": "Vare",
+            "item_placeholder": "Velg en vare",
+            "target_label": "Brukernavn eller e-post",
+            "target_placeholder": "f.eks. alex eller alex@example.com",
+            "target_help": "Systemet avslører ikke om denne kontoen finnes. Hvis den stemmer, vises forespørselen i mottakerens innboks.",
+            "offer_note_placeholder": "f.eks. Du kan beholde det til helgen hvis du vil",
+            "offer_submitting": "Sender...",
+            "request_title": "Forespørsel om gjenstand",
+            "request_subtitle": "Lag en generell forespørsel uten å bla gjennom den andre personens inventar",
+            "requested_item_label": "Hva trenger du?",
+            "requested_item_placeholder": "f.eks. Drill, stativ, campingstol",
+            "request_note_placeholder": "f.eks. Jeg trenger det bare i 2 dager",
+            "request_submitting": "Sender...",
+            "fulfill_title": "Oppfyll forespørsel",
+            "fulfill_subtitle": "Velg et element fra inventaret ditt for \"{{item}}\"",
+            "fulfill_target": "Dette elementet vil bli lånt til {{name}}.",
+            "no_available_items": "Det finnes ingen kvalifiserte elementer å tilby i ditt aktive hus akkurat nå.",
+            "fulfill_submitting": "Lagrer...",
+            "return_title": "Merk som returnert",
+            "return_subtitle": "Lukk det aktive lånet for \"{{item}}\"",
+            "return_target": "Det vises for øyeblikket som værende hos {{name}}."
+        },
+        "messages": {
+            "load_error": "Lånesenteret kunne ikke lastes",
+            "action_error": "Handlingen kunne ikke fullføres"
+        },
+        "preview": {
+            "title": "Forhåndsvisningsmodus",
+            "body": "Backend-delen av denne siden er ikke tilgjengelig i lokal testing akkurat nå. Du kan fortsatt gå gjennom utformingen og flyten først; vi vil aktivere serversiden etter at du godkjenner den."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Personvernregler",
+        "terms_of_service_title": "Brukervilkår",
+        "privacy_policy_content": "Ditt personvern er viktig for oss. Denne applikasjonen lagrer dataene du laster opp sikkert ved bruk av feltnivåkryptering. Vi selger eller deler ikke dine personlige data med tredjeparter. Ved å bruke tjenesten samtykker du til innsamling av nødvendige data for kontoadministrasjon og applikasjonens funksjonalitet.",
+        "terms_of_service_content": "Ved å bruke {{brandName}} godtar du disse vilkårene. Tjenesten tilbys 'som den er' uten garantier. Du er ansvarlig for dataene du laster opp og for å sikre at du har rettighetene til dem. Vi forbeholder oss retten til å suspendere kontoer som bryter retningslinjene eller misbruker systemet.",
+        "register_consent": "Jeg har lest, forstått og godtar <1>Vilkår for tjenesten</1> og <2>Personvernpolicy</2>.",
+        "consent_title": "Gjennomgå juridiske dokumenter",
+        "consent_subtitle": "Vennligst bekreft de gjeldende vilkårene før du fortsetter.",
+        "consent_notice": "Vi trenger en registrert bekreftelse på de gjeldende vilkårene for tjenesten og personvernerklæringen før du kan fortsette å bruke applikasjonen.",
+        "consent_checkbox": "Jeg godtar tjenestevilkårene og bekrefter at jeg har lest personvernerklæringen.",
+        "consent_submit": "Fortsett",
+        "consent_submitting": "Lagrer...",
+        "consent_required": "Du må bekrefte tjenestevilkårene og personvernerklæringen før du fortsetter."
+    },
+    "cookies": {
+        "banner_text": "Vi bruker nødvendige informasjonskapsler for å holde deg logget inn og sikre din økt. Ved å fortsette å bruke dette nettstedet, godtar du våre retningslinjer.",
+        "accept": "Jeg godtar",
+        "learn_more": "Lær mer"
     }
 }

@@ -1,8 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { tmpdir } from 'node:os';
 
 import {
     normalizeStoredPath,
+    readPrivateFileWithinLimit,
     resolveStoredMediaPath
 } from '../utils/mediaStorage.js';
 
@@ -61,5 +65,29 @@ test('resolveStoredMediaPath rejects traversal and unknown prefixes', () => {
             allowedPrefixes
         }),
         null
+    );
+});
+
+test('readPrivateFileWithinLimit reads small files and blocks oversized ones', async (t) => {
+    const tempDir = mkdtempSync(join(tmpdir(), 'homeinventory-media-storage-'));
+    const smallFile = join(tempDir, 'small.bin');
+    const largeFile = join(tempDir, 'large.bin');
+
+    t.after(() => {
+        rmSync(tempDir, { recursive: true, force: true });
+    });
+
+    writeFileSync(smallFile, Buffer.from('safe'));
+    writeFileSync(largeFile, Buffer.alloc(8, 1));
+
+    const smallContents = await readPrivateFileWithinLimit(smallFile, {
+        maxBytes: 16
+    });
+
+    assert.equal(smallContents.toString('utf8'), 'safe');
+
+    await assert.rejects(
+        () => readPrivateFileWithinLimit(largeFile, { maxBytes: 4 }),
+        (error) => error?.code === 'FILE_TOO_LARGE' && error?.statusCode === 413
     );
 });

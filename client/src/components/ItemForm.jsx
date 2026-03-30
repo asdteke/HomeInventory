@@ -6,6 +6,14 @@ import { ArrowLeft, Camera, X, Lock, Globe, MapPin, Plus, Loader2, ChevronDown, 
 import ItemQRCode from './ItemQRCode';
 import BarcodeScanner from './BarcodeScanner';
 import SecureImage from './SecureImage';
+import { MAX_PHOTO_UPLOAD_MB, isPhotoUploadTooLarge } from '../utils/mediaLimits';
+import { formatBorrowDate, formatBorrowDateTime, isBorrowOverdue } from '../utils/borrowFormatting';
+import {
+    ACTION_REQUEST_TIMEOUT_MS,
+    createRequestConfig,
+    getRequestErrorMessage,
+    isRequestCanceled
+} from '../utils/httpRequests';
 
 function createInitialFormData() {
     return {
@@ -198,12 +206,13 @@ function calculateWarrantyExpiryDisplay(startDateValue, durationValue, durationU
 export default function ItemForm() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const fileInputRef = useRef(null);
     const invoiceFileInputRef = useRef(null);
     const invoiceDatePickerRef = useRef(null);
     const warrantyStartDatePickerRef = useRef(null);
     const warrantyDatePickerRef = useRef(null);
+    const isMountedRef = useRef(true);
     const isEditing = Boolean(id);
 
     const [formData, setFormData] = useState(createInitialFormData);
@@ -219,6 +228,9 @@ export default function ItemForm() {
     const [categories, setCategories] = useState([]);
     const [rooms, setRooms] = useState([]);
     const [locations, setLocations] = useState([]);
+    const [activeBorrow, setActiveBorrow] = useState(null);
+    const [borrowHistory, setBorrowHistory] = useState([]);
+    const [borrowHistoryLoading, setBorrowHistoryLoading] = useState(isEditing);
 
     // Location selector state
     const [locationSearch, setLocationSearch] = useState('');
@@ -239,12 +251,20 @@ export default function ItemForm() {
     const locationDropdownRef = useRef(null);
 
     useEffect(() => {
-        fetchOptions();
+        const optionsController = new AbortController();
+        fetchOptions(optionsController.signal);
 
         if (isEditing) {
+            const itemController = new AbortController();
+
             setFetching(true);
-            fetchItem();
-            return;
+            setBorrowHistoryLoading(true);
+            fetchItem(itemController.signal);
+
+            return () => {
+                optionsController.abort();
+                itemController.abort();
+            };
         }
 
         setFetching(false);
@@ -258,16 +278,29 @@ export default function ItemForm() {
         setExistingInvoicePhoto(null);
         setRemoveInvoicePhoto(false);
         setShowInvoiceSection(false);
+        setActiveBorrow(null);
+        setBorrowHistory([]);
+        setBorrowHistoryLoading(false);
         setLocationSearch('');
         setLocations([]);
+
+        return () => {
+            optionsController.abort();
+        };
     }, [id, isEditing]);
 
     useEffect(() => {
+        const controller = new AbortController();
+
         if (formData.room_id) {
-            fetchLocations();
+            fetchLocations(controller.signal);
         } else {
             setLocations([]);
         }
+
+        return () => {
+            controller.abort();
+        };
     }, [formData.room_id]);
 
     // Close dropdown when clicking outside
@@ -282,25 +315,69 @@ export default function ItemForm() {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    const fetchOptions = async () => {
+    useEffect(() => {
+        isMountedRef.current = true;
+        return () => {
+            isMountedRef.current = false;
+        };
+    }, []);
+
+    const fetchOptions = async (signal) => {
         try {
-            const [catRes, roomRes] = await Promise.all([axios.get('/api/categories'), axios.get('/api/rooms')]);
+            const [catRes, roomRes] = await Promise.all([
+                axios.get('/api/categories', createRequestConfig({ signal })),
+                axios.get('/api/rooms', createRequestConfig({ signal }))
+            ]);
+
+            if (!isMountedRef.current) {
+                return;
+            }
+
             setCategories(catRes.data.categories);
             setRooms(roomRes.data.rooms);
-        } catch (e) { console.error(e); }
+        } catch (error) {
+            if (!isRequestCanceled(error)) {
+                console.error(error);
+            }
+        }
     };
 
-    const fetchLocations = async () => {
+    const fetchLocations = async (signal) => {
         try {
-            const res = await axios.get(`/api/locations?room_id=${formData.room_id}`);
+            const res = await axios.get(
+                `/api/locations?room_id=${formData.room_id}`,
+                createRequestConfig({ signal })
+            );
+
+            if (!isMountedRef.current) {
+                return;
+            }
+
             setLocations(res.data.locations);
-        } catch (e) { console.error(e); }
+        } catch (error) {
+            if (!isRequestCanceled(error)) {
+                console.error(error);
+            }
+        }
     };
 
-    const fetchItem = async () => {
+    const fetchItem = async (signal) => {
         try {
-            const res = await axios.get(`/api/items/${id}`);
-            const item = res.data.item;
+            const [itemRes, historyRes] = await Promise.all([
+                axios.get(`/api/items/${id}`, createRequestConfig({ signal })),
+                axios.get(`/api/items/${id}/borrow-history`, createRequestConfig({ signal })).catch((error) => {
+                    if (isRequestCanceled(error)) {
+                        throw error;
+                    }
+                    return { data: { history: [] } };
+                })
+            ]);
+            const item = itemRes.data.item;
+
+            if (!isMountedRef.current) {
+                return;
+            }
+
             setFormData({
                 name: item.name,
                 description: item.description || '',
@@ -342,8 +419,19 @@ export default function ItemForm() {
                 item.warranty_expiry_date
             ));
             setLocationSearch(item.location_name || '');
-        } catch (e) { setError(t('items.load_error')); }
-        finally { setFetching(false); }
+            setActiveBorrow(item.active_borrow || null);
+            setBorrowHistory(historyRes.data.history || []);
+        } catch (error) {
+            if (!isRequestCanceled(error) && isMountedRef.current) {
+                setError(t('items.load_error'));
+            }
+        }
+        finally {
+            if (isMountedRef.current) {
+                setBorrowHistoryLoading(false);
+                setFetching(false);
+            }
+        }
     };
 
     const handleChange = (e) => {
@@ -426,9 +514,21 @@ export default function ItemForm() {
         reader.readAsDataURL(file);
     };
 
+    const clearPhotoLimitError = () => {
+        const photoLimitMessage = t('items.messages.photo_too_large', { maxSizeMb: MAX_PHOTO_UPLOAD_MB });
+        setError((currentError) => (currentError === photoLimitMessage ? '' : currentError));
+    };
+
     const handlePhotoChange = (e) => {
         const file = e.target.files[0];
         if (file) {
+            if (isPhotoUploadTooLarge(file)) {
+                setError(t('items.messages.photo_too_large', { maxSizeMb: MAX_PHOTO_UPLOAD_MB }));
+                e.target.value = '';
+                return;
+            }
+
+            clearPhotoLimitError();
             setPhoto(file);
             setRemovePhoto(false);
             updateImagePreview(file, setPhotoPreview);
@@ -451,6 +551,13 @@ export default function ItemForm() {
     const handleInvoicePhotoChange = (e) => {
         const file = e.target.files[0];
         if (file) {
+            if (isPhotoUploadTooLarge(file)) {
+                setError(t('items.messages.photo_too_large', { maxSizeMb: MAX_PHOTO_UPLOAD_MB }));
+                e.target.value = '';
+                return;
+            }
+
+            clearPhotoLimitError();
             setInvoicePhoto(file);
             setRemoveInvoicePhoto(false);
             updateImagePreview(file, setInvoicePhotoPreview);
@@ -488,11 +595,15 @@ export default function ItemForm() {
         if (!locationSearch.trim()) return;
         setSavingLocation(true);
         try {
-            const res = await axios.post('/api/locations', {
-                name: locationSearch.trim(),
-                room_id: formData.room_id,
-                is_public: newLocationPublic
-            });
+            const res = await axios.post(
+                '/api/locations',
+                {
+                    name: locationSearch.trim(),
+                    room_id: formData.room_id,
+                    is_public: newLocationPublic
+                },
+                createRequestConfig({ timeout: ACTION_REQUEST_TIMEOUT_MS })
+            );
             const newLoc = res.data.location;
             setLocations([...locations, newLoc]);
             setFormData({ ...formData, location_id: newLoc.id });
@@ -500,7 +611,7 @@ export default function ItemForm() {
             setIsCreatingLocation(false);
             setNewLocationPublic(false);
         } catch (e) {
-            alert(e.response?.data?.error || t('items.messages.location_add_error'));
+            alert(getRequestErrorMessage(e, t('items.messages.location_add_error')));
         } finally {
             setSavingLocation(false);
         }
@@ -533,7 +644,10 @@ export default function ItemForm() {
             data.append('is_public', 'true');
             data.append('description', t('items.messages.quick_add_success', { barcode }));
 
-            await axios.post('/api/items', data, { headers: { 'Content-Type': 'multipart/form-data' } });
+            await axios.post('/api/items', data, createRequestConfig({
+                timeout: ACTION_REQUEST_TIMEOUT_MS,
+                headers: { 'Content-Type': 'multipart/form-data' }
+            }));
             setBarcodeMessage(t('items.messages.quick_add_success', { barcode }));
         } catch (err) {
             console.error('Quick add error:', err);
@@ -552,7 +666,10 @@ export default function ItemForm() {
 
         try {
             // Use backend proxy for waterfall lookup
-            const response = await axios.get(`/api/barcode/${barcode}`);
+            const response = await axios.get(
+                `/api/barcode/${barcode}`,
+                createRequestConfig({ timeout: ACTION_REQUEST_TIMEOUT_MS })
+            );
             const result = response.data;
 
             if (result.found) {
@@ -642,9 +759,19 @@ export default function ItemForm() {
             const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
             if (isEditing) {
-                await axios.put(`/api/items/${id}`, data, config);
+                await axios.put(`/api/items/${id}`, data, {
+                    ...config,
+                    timeout: ACTION_REQUEST_TIMEOUT_MS
+                });
             } else {
-                await axios.post('/api/items', data, config);
+                await axios.post(
+                    '/api/items',
+                    data,
+                    {
+                        ...config,
+                        timeout: ACTION_REQUEST_TIMEOUT_MS
+                    }
+                );
                 // Clear form state after successful creation
                 setFormData(createInitialFormData());
                 setPhoto(null);
@@ -660,7 +787,7 @@ export default function ItemForm() {
 
             navigate('/items');
         } catch (err) {
-            setError(err.response?.data?.error || t('common.error'));
+            setError(getRequestErrorMessage(err, t('common.error')));
         } finally {
             setLoading(false);
         }
@@ -690,6 +817,7 @@ export default function ItemForm() {
         formData.warranty_duration_unit ||
         formData.warranty_expiry_date
     );
+    const activeBorrowOverdue = isBorrowOverdue(activeBorrow);
 
     if (fetching) return <div className="flex justify-center py-20"><div className="spinner"></div></div>;
 
@@ -726,6 +854,97 @@ export default function ItemForm() {
                             <span className={`absolute top-1 w-6 h-6 bg-white rounded-full shadow transition-transform duration-200 ${formData.is_public ? 'left-7' : 'left-1'}`} />
                         </button>
                     </div>
+
+                    {isEditing && (
+                        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+                            <div className="px-4 py-4 bg-slate-50 dark:bg-slate-800/70 border-b border-slate-200 dark:border-slate-700">
+                                <h2 className="font-semibold text-slate-900 dark:text-white">{t('inventory.borrow.section_title')}</h2>
+                                <p className="text-sm text-slate-500 dark:text-slate-400">{t('inventory.borrow.section_subtitle')}</p>
+                            </div>
+
+                            <div className="p-4 space-y-4">
+                                {activeBorrow ? (
+                                    <div className={`rounded-2xl border px-4 py-3 ${activeBorrowOverdue
+                                        ? 'border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-300'
+                                        : 'border-sky-200 bg-sky-50 text-sky-700 dark:border-sky-500/30 dark:bg-sky-500/10 dark:text-sky-300'
+                                        }`}>
+                                        <div className="flex flex-col gap-1">
+                                            <p className="font-medium">
+                                                {t('inventory.borrow.borrowed_to', { name: activeBorrow.borrower_display_name || t('inventory.borrow.unknown') })}
+                                            </p>
+                                            <p className="text-sm">
+                                                {t('inventory.borrow.borrowed_at', { date: formatBorrowDateTime(activeBorrow.borrowed_at, i18n.language) })}
+                                            </p>
+                                            {activeBorrow.due_date && (
+                                                <p className="text-sm">
+                                                    {t('inventory.borrow.due_date_label', { date: formatBorrowDate(activeBorrow.due_date, i18n.language) })}
+                                                </p>
+                                            )}
+                                            {activeBorrow.note && (
+                                                <p className="text-sm">
+                                                    {t('inventory.borrow.note_label', { note: activeBorrow.note })}
+                                                </p>
+                                            )}
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="rounded-2xl border border-dashed border-slate-300 dark:border-slate-600 px-4 py-3">
+                                        <p className="text-sm text-slate-500 dark:text-slate-400">{t('inventory.borrow.no_active')}</p>
+                                    </div>
+                                )}
+
+                                <div>
+                                    <div className="flex items-center justify-between mb-3">
+                                        <h3 className="text-sm font-semibold text-slate-900 dark:text-white">{t('inventory.borrow.history_title')}</h3>
+                                        <span className="text-xs text-slate-400">{borrowHistory.length}</span>
+                                    </div>
+
+                                    {borrowHistoryLoading ? (
+                                        <div className="flex justify-center py-6"><div className="spinner"></div></div>
+                                    ) : borrowHistory.length > 0 ? (
+                                        <div className="space-y-3">
+                                            {borrowHistory.map((entry) => (
+                                                <div key={entry.id} className="rounded-2xl border border-slate-200 dark:border-slate-700 px-4 py-3">
+                                                    <div className="flex flex-col gap-1">
+                                                        <p className="font-medium text-slate-900 dark:text-white">
+                                                            {entry.returned_at
+                                                                ? t('inventory.borrow.history_returned', { name: entry.borrower_display_name || t('inventory.borrow.unknown') })
+                                                                : t('inventory.borrow.history_active', { name: entry.borrower_display_name || t('inventory.borrow.unknown') })}
+                                                        </p>
+                                                        <p className="text-sm text-slate-500 dark:text-slate-400">
+                                                            {t('inventory.borrow.borrowed_at', { date: formatBorrowDateTime(entry.borrowed_at, i18n.language) })}
+                                                        </p>
+                                                        {entry.returned_at && (
+                                                            <p className="text-sm text-slate-500 dark:text-slate-400">
+                                                                {t('inventory.borrow.returned_at', { date: formatBorrowDateTime(entry.returned_at, i18n.language) })}
+                                                            </p>
+                                                        )}
+                                                        {entry.due_date && (
+                                                            <p className="text-sm text-slate-500 dark:text-slate-400">
+                                                                {t('inventory.borrow.due_date_label', { date: formatBorrowDate(entry.due_date, i18n.language) })}
+                                                            </p>
+                                                        )}
+                                                        {entry.note && (
+                                                            <p className="text-sm text-slate-500 dark:text-slate-400">
+                                                                {t('inventory.borrow.note_label', { note: entry.note })}
+                                                            </p>
+                                                        )}
+                                                        {entry.return_note && (
+                                                            <p className="text-sm text-slate-500 dark:text-slate-400">
+                                                                {t('inventory.borrow.return_note_label', { note: entry.return_note })}
+                                                            </p>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    ) : (
+                                        <p className="text-sm text-slate-500 dark:text-slate-400">{t('inventory.borrow.no_history')}</p>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    )}
 
                     {/* Photo Upload */}
                     <div>
@@ -815,6 +1034,36 @@ export default function ItemForm() {
                     <div>
                         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.description')}</label>
                         <textarea name="description" value={formData.description} onChange={handleChange} className="input-field min-h-[100px] resize-none" placeholder={t('items.form.description_placeholder')} rows={3} />
+                    </div>
+
+                    <div className="rounded-2xl border border-amber-200 bg-amber-50/80 px-4 py-3 dark:border-amber-500/30 dark:bg-amber-500/10">
+                        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                            <div className="flex items-start gap-3">
+                                <div className="mt-0.5 flex h-9 w-9 items-center justify-center rounded-xl bg-white/80 text-amber-600 shadow-sm dark:bg-slate-900/60 dark:text-amber-300">
+                                    <Lock className="h-4.5 w-4.5" />
+                                </div>
+                                <div>
+                                    <p className="font-medium text-amber-950 dark:text-amber-100">
+                                        {t('items.form.vault_hint_title', { defaultValue: 'Very sensitive record?' })}
+                                    </p>
+                                    <p className="mt-1 text-sm text-amber-800 dark:text-amber-200/90">
+                                        {t('items.form.vault_hint_description', {
+                                            defaultValue: 'For passports, deeds, identity details, access codes, and other records that should stay out of the standard inventory flow, keep them in Personal Vault instead.'
+                                        })}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <a
+                                href="/vault"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center justify-center gap-2 rounded-xl border border-amber-300 bg-white px-3 py-2 text-sm font-medium text-amber-900 transition-colors hover:bg-amber-100 dark:border-amber-400/30 dark:bg-slate-900/70 dark:text-amber-100 dark:hover:bg-amber-500/10"
+                            >
+                                <span>{t('items.form.vault_hint_action', { defaultValue: 'Open Personal Vault' })}</span>
+                                <ExternalLink className="h-4 w-4" />
+                            </a>
+                        </div>
                     </div>
 
                     {/* Optional Invoice Section */}

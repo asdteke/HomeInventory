@@ -21,7 +21,7 @@
         "refresh": "Actualizar",
         "close": "Cerrar",
         "logout": "Cerrar sesión",
-        "copyright": "© {{year}} HomeInventory - Todos los derechos reservados",
+        "copyright": "© {{year}} {{brandName}} - Todos los derechos reservados",
         "other": "Otro",
         "copy": "Copiar",
         "download": "Descargar"
@@ -30,7 +30,7 @@
         "login": {
             "title": "Iniciar sesión",
             "subtitle": "Administre todo el inventario de su hogar de manera inteligente",
-            "welcome": "Bienvenido a HomeInventory",
+            "welcome": "Bienvenido a {{brandName}}",
             "username_or_email": "Nombre de usuario o correo electrónico",
             "password": "Contraseña",
             "forgot_password": "¿Has olvidado tu contraseña?",
@@ -42,7 +42,7 @@
             "register_link": "Registrarse",
             "support_contact": "Para problemas de inicio de sesión:",
             "terms_title": "📋 Términos de uso y descargo de responsabilidad",
-            "terms_beta": "Versión BETA: HomeInventory se encuentra actualmente en fase de prueba. No se ofrece ninguna garantía con respecto a la persistencia o seguridad de sus datos.",
+            "terms_beta": "Versión BETA: {{brandName}} se encuentra actualmente en fase de prueba. No se ofrece ninguna garantía con respecto a la persistencia o seguridad de sus datos.",
             "terms_disclaimer": "Descargo de responsabilidad: al utilizar esta aplicación, usted acepta que no puede reclamar ninguna compensación por posibles pérdidas de datos, problemas de acceso u otros fallos técnicos.",
             "terms_backup": "Copia de seguridad de datos: recomendamos encarecidamente realizar copias de seguridad de su información importante con regularidad.",
             "terms_accept": "Al iniciar sesión, se considera que ha aceptado estos términos.",
@@ -60,7 +60,7 @@
             }
         },
         "register": {
-            "title": "Bienvenido a HomeInventory",
+            "title": "Bienvenido a {{brandName}}",
             "subtitle": "Crea una nueva cuenta o únete a una casa existente",
             "create_house": "Crear nueva casa",
             "join_house": "Unirse a la casa",
@@ -171,7 +171,8 @@
         "admin_panel": "Panel de administración",
         "logout": "Cerrar sesión",
         "menu": "Menú",
-        "personal_vault": "Bóveda personal"
+        "personal_vault": "Bóveda personal",
+        "borrow_requests": "Solicitudes de Préstamo"
     },
     "dashboard": {
         "welcome": "¡Bienvenido, <1>{{name}}</1>! 👋",
@@ -213,11 +214,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory se encuentra actualmente en fase de prueba y hobby. No se ofrece ninguna garantía sobre la persistencia o seguridad de los datos. Mantenga copias de seguridad de la información importante.",
+        "text": "{{brandName}} se encuentra actualmente en fase de prueba y hobby. No se ofrece ninguna garantía sobre la persistencia o seguridad de los datos. Mantenga copias de seguridad de la información importante.",
         "contact": "Contacto:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Todos los derechos reservados",
+        "rights": "© {{year}} {{brandName}} - Todos los derechos reservados",
         "contact": "Contacto:"
     },
     "items": {
@@ -280,7 +281,10 @@
             "warranty_duration_unit": "Unidad de duración de la garantía",
             "warranty_duration_months": "Meses",
             "warranty_duration_years": "Años",
-            "warranty_calculation_help": "Si deja vacía la fecha de inicio de la garantía, se utiliza la fecha de la factura. Cuando ingresa la duración, la fecha de finalización de la garantía se calcula automáticamente."
+            "warranty_calculation_help": "Si deja vacía la fecha de inicio de la garantía, se utiliza la fecha de la factura. Cuando ingresa la duración, la fecha de finalización de la garantía se calcula automáticamente.",
+            "vault_hint_title": "¿Registro muy sensible?",
+            "vault_hint_description": "Para pasaportes, escrituras, datos de identidad, códigos de acceso y otros registros que deben mantenerse fuera del flujo estándar de inventario, guárdalos en la Bóveda Personal en su lugar.",
+            "vault_hint_action": "Abrir Bóveda Personal"
         },
         "qrcode": {
             "title": "Código QR",
@@ -295,7 +299,8 @@
             "not_found": "⚠ Producto no encontrado en bases de datos. Puedes buscar en Google.",
             "search_fail": "⚠ La búsqueda falló",
             "name_required": "El nombre del artículo es obligatorio.",
-            "location_add_error": "No se pudo agregar la ubicación"
+            "location_add_error": "No se pudo agregar la ubicación",
+            "photo_too_large": "Las fotos pueden tener como máximo {{maxSizeMb}} MB."
         }
     },
     "settings": {
@@ -337,7 +342,8 @@
             "member_kicked": "Miembro retirado de la casa",
             "member_kick_error": "No se pudo eliminar al miembro de la casa",
             "recovery_key_regenerated": "Clave de recuperación regenerada",
-            "recovery_key_error": "No se pudo regenerar la clave de recuperación"
+            "recovery_key_error": "No se pudo regenerar la clave de recuperación",
+            "account_delete_error": "No se pudo eliminar la cuenta"
         },
         "user_profile": {
             "edit_username": "Cambiar nombre de usuario"
@@ -404,13 +410,20 @@
             "export_json": "Exportar como JSON",
             "upload_backup": "Cargar copia de seguridad",
             "uploading": "Subiendo...",
-            "import_json": "Importar desde JSON"
+            "import_json": "Importar desde JSON",
+            "export_sensitive_title": "Las copias de seguridad exportadas contienen datos en texto sin formato",
+            "export_sensitive_notice": "Esta copia de seguridad incluye datos domésticos descifrados. Guárdala de manera segura después de la descarga, encríptala si es posible y evita compartirla por canales inseguros.",
+            "export_sensitive_confirm": "Esta copia de seguridad incluirá datos del hogar descifrados en texto plano. ¿Confirma que los almacenará de manera segura?"
         },
         "about": {
             "title": "📱 Acerca de la aplicación",
             "version": "Versión",
             "brand": "Marca",
-            "feedback": "✉️ Enviar comentarios"
+            "feedback": "✉️ Enviar comentarios",
+            "legal_title": "Documentos legales",
+            "legal_description": "Incluso después de aceptarlos, puede volver a abrir desde aquí los términos y el texto de privacidad.",
+            "terms_link": "Términos del servicio",
+            "privacy_link": "Política de privacidad"
         },
         "modals": {
             "password": {
@@ -503,6 +516,19 @@
             "revoke_devices_desc": "Eliminar todos los dispositivos recordados, requiriendo 2FA en el siguiente inicio de sesión",
             "devices_revoked": "{{count}} dispositivo(s) confiable(s) eliminado(s)",
             "devices_error": "No se han podido revocar dispositivos"
+        },
+        "danger_zone": {
+            "title": "Cuenta",
+            "delete_title": "Eliminar cuenta",
+            "delete_description": "Si lo desea, puede eliminar de forma permanente los datos personales y archivos subidos vinculados a esta cuenta.",
+            "delete_warning": "Esta acción no se puede deshacer.",
+            "delete_action": "Eliminar cuenta",
+            "modal_title": "Eliminar cuenta",
+            "modal_warning_title": "Esta acción es irreversible",
+            "modal_warning_body": "Después de la confirmación, perderá inmediatamente el acceso a la cuenta y los datos de la aplicación eliminados no se pueden restaurar desde la aplicación.",
+            "password_label": "Confirme con su contraseña actual",
+            "confirm_delete": "Confirmar eliminación",
+            "deleting": "Eliminando..."
         }
     },
     "inventory": {
@@ -517,7 +543,53 @@
         "empty_filter": "Ningún artículo coincide con tus filtros",
         "empty_msg": "Aún no se han añadido elementos",
         "delete_confirm": "¿Está seguro de que desea eliminar este elemento?",
-        "delete_error": "Eliminar error"
+        "delete_error": "Eliminar error",
+        "load_warning": {
+            "title": "Modo de carga parcial",
+            "body": "Algunos datos de soporte están respondiendo lentamente en este momento, por lo que la página se abrió sin todos los metadatos de filtrado. Intentaremos nuevamente cuando actualices."
+        },
+        "borrow": {
+            "section_title": "Seguimiento de Préstamos",
+            "section_subtitle": "Estado y historial actual del préstamo",
+            "dialog_lend_title": "Prestar Ítem",
+            "dialog_lend_subtitle": "Crear un nuevo registro de préstamo para \"{{item}}\"",
+            "dialog_return_title": "Marcar como Devuelto",
+            "dialog_return_subtitle": "Cerrar el registro de préstamo activo para \"{{item}}\"",
+            "member": "Miembro de la casa",
+            "external": "Persona externa",
+            "borrower_member": "¿Quién lo recibió?",
+            "no_members": "No hay otro miembro seleccionable en esta casa. Puedes crear el registro como persona externa en su lugar.",
+            "borrower_name": "Nombre de la persona",
+            "borrower_name_placeholder": "p.ej. Vecino Alex",
+            "borrower_contact": "Información de contacto",
+            "borrower_contact_placeholder": "Teléfono, correo electrónico o nota breve",
+            "due_date": "Fecha de devolución esperada",
+            "note": "Nota",
+            "note_placeholder": "p.ej. Prestado por el fin de semana",
+            "submitting_lend": "Guardando...",
+            "lend": "Prestar",
+            "return_note": "Nota de devolución",
+            "return_note_placeholder": "p.ej. Devuelto en buen estado",
+            "submitting_return": "Cerrando...",
+            "mark_returned": "Marcado como Devuelto",
+            "current_borrower_label": "Actualmente con:",
+            "unknown": "Desconocido",
+            "overdue_badge": "Vencido",
+            "borrowed_badge": "Prestado",
+            "borrowed_to": "Con {{name}}",
+            "due_date_short": "Vencimiento: {{date}}",
+            "actions_error": "No se pudo completar la acción de préstamo",
+            "borrowed_at": "Prestado el: {{date}}",
+            "due_date_label": "Devolución prevista: {{date}}",
+            "note_label": "Nota: {{note}}",
+            "return_note_label": "Nota de devolución: {{note}}",
+            "no_active": "Este artículo no está actualmente prestado.",
+            "history_title": "Historial",
+            "history_active": "Abrir registro de {{name}}",
+            "history_returned": "Registro cerrado para {{name}}",
+            "returned_at": "Devuelto el: {{date}}",
+            "no_history": "Aún no hay historial de préstamos para este artículo."
+        }
     },
     "categories": {
         "title": "Categorías",
@@ -615,7 +687,7 @@
             "free_badge": "Completamente Gratis"
         },
         "features": {
-            "title": "¿Por qué <1>HomeInventory</1>?",
+            "title": "¿Por qué <1>{{brandName}}</1>?",
             "subtitle": "Todas las funciones para simplificar la gestión del hogar en una sola plataforma",
             "items": {
                 "categorize": {
@@ -653,7 +725,7 @@
             "desc": "La plataforma fácil y segura para digitalizar el inventario de tu casa.",
             "links": "Enlaces rápidos",
             "contact": "Contáctenos",
-            "copyright": "© {{year}} HomeInventory. Reservados todos los derechos."
+            "copyright": "© {{year}} {{brandName}}. Reservados todos los derechos."
         },
         "preview_privacy_notice": "Vista de demostración: no se muestran datos reales de usuarios."
     },
@@ -781,10 +853,10 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Se requiere verificación por correo electrónico",
-            "headerTitle": "Bienvenido a HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Se requiere verificación por correo electrónico",
+            "headerTitle": "Bienvenido a {{brandName}}",
             "headerSubtitle": "Crea una nueva cuenta o únete a una casa existente",
-            "greeting": "Bienvenido a HomeInventory",
+            "greeting": "Bienvenido a {{brandName}}",
             "intro": "¡Cuenta creada! Por favor verifique su dirección de correo electrónico para iniciar sesión.",
             "verifyPrompt": "📧 Se requiere verificación por correo electrónico",
             "verifyButton": "✓ Verificar mi cuenta",
@@ -801,13 +873,13 @@
             ],
             "fallback": "El enlace para restablecer la contraseña parece incompleto o roto.",
             "support": "Problemas de registro:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Bienvenido a HomeInventory",
-            "headerTitle": "Bienvenido a HomeInventory",
+            "subject": "Bienvenido a {{brandName}}",
+            "headerTitle": "Bienvenido a {{brandName}}",
             "headerSubtitle": "Crea una nueva cuenta o únete a una casa existente",
-            "greeting": "Bienvenido a HomeInventory",
+            "greeting": "Bienvenido a {{brandName}}",
             "intro": "¡Bienvenido, ! 👋",
             "houseKeyLabel": "llave de la casa",
             "houseKeyNote": "Esta es la llave de tu casa, úsala para invitar a otros. ¡Agrega miembros de la familia a tu casa!",
@@ -819,7 +891,7 @@
                 "💡 Puedes ser miembro de varias casas y cambiar entre ellas. Cada casa mantiene un inventario separado."
             ],
             "support": "Problemas de registro:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Unirse a la casa",
@@ -849,6 +921,10 @@
             "warningBody": "Si existe una cuenta, se ha enviado un enlace para restablecer la contraseña válido por 15 minutos.",
             "fallback": "El enlace para restablecer la contraseña parece incompleto o roto.",
             "footer": "© 2026 Inventario de Inicio"
+        },
+        "adminEmail": {
+            "sentBy": "Este correo electrónico fue enviado por {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -890,7 +966,6 @@
         "record_save_new": "Agregar registro de bóveda",
         "record_save_edit": "Guardar cambios",
         "barcode_privacy_hint": "Los códigos de barras de bóveda no se buscan automáticamente en servicios externos; el texto del código de barras se almacena únicamente como datos cifrados.",
-        "media_note": "Las fotos, el escaneo de códigos de barras y la búsqueda externa de productos están deshabilitados intencionalmente en este primer flujo de bóveda. Necesitan un canal de privacidad y medios cifrados separados.",
         "search_placeholder": "Buscar dentro de la bóveda...",
         "all_categories": "Todas las categorías",
         "all_rooms": "Todas las habitaciones",
@@ -913,6 +988,109 @@
         "recovery_file_title": "Clave de Recuperación de Bóveda Personal de Inventario en Casa",
         "recovery_file_created_label": "Creado",
         "recovery_file_key_label": "Clave de Recuperación",
-        "recovery_file_warning": "Si pierde tanto esta clave como la contraseña de su bóveda, la bóveda no se puede recuperar."
+        "recovery_file_warning": "Si pierde tanto esta clave como la contraseña de su bóveda, la bóveda no se puede recuperar.",
+        "media_note": "Las cargas de fotos, el escaneo de códigos de barras y la búsqueda de productos externos aún no son compatibles. Estas funciones se agregarán una vez que esté listo un flujo dedicado de medios cifrados y privacidad."
+    },
+    "borrow_requests": {
+        "title": "Centro de Préstamos",
+        "subtitle": "Gestiona solicitudes seguras y flujos de ofertas con otros usuarios de {{brandName}}.",
+        "incoming_title": "Solicitudes entrantes",
+        "incoming_subtitle": "Solicitudes y ofertas enviadas a ti",
+        "outgoing_title": "Enviado por mí",
+        "outgoing_subtitle": "Ofertas y solicitudes de artículos que iniciaste",
+        "empty_incoming": "No hay solicitudes de préstamo para ti en este momento.",
+        "empty_outgoing": "Aún no has enviado una oferta o solicitud.",
+        "stats": {
+            "incoming": "Pendiente de entrada",
+            "outgoing": "Pendiente de salida",
+            "active": "Préstamos activos"
+        },
+        "active": {
+            "title": "Préstamos activos",
+            "subtitle": "Artículos que actualmente tienes o que has prestado",
+            "empty": "No hay préstamos activos en este momento.",
+            "borrowed_from": "Prestado por {{name}}",
+            "lent_to": "Actualmente con {{name}}"
+        },
+        "status": {
+            "pending": "Pendiente",
+            "accepted": "Activo",
+            "rejected": "Rechazado",
+            "cancelled": "Cancelado",
+            "expired": "Expirado",
+            "returned": "Devuelto"
+        },
+        "actions": {
+            "send_request": "Solicitar artículo",
+            "send_offer": "Enviar oferta",
+            "accept": "Aceptar",
+            "reject": "Rechazar",
+            "cancel": "Cancelar",
+            "fulfill_request": "Cumplir solicitud"
+        },
+        "labels": {
+            "offer": "Oferta",
+            "request": "Solicitud",
+            "unspecified_item": "Artículo no especificado",
+            "counterparty": "Contraparte: {{name}}",
+            "created_at": "Creado: {{date}}",
+            "due_date": "Devolución esperada: {{date}}",
+            "waiting_delivery": "La solicitud aún puede estar esperando una cuenta coincidente antes de aparecer.",
+            "returned_on": "Devuelto el: {{date}}",
+            "borrow_started": "Iniciado: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Enviar Oferta",
+            "offer_subtitle_item": "Crear una oferta segura para el usuario de \"{{item}}\"",
+            "offer_subtitle_general": "Elige un artículo de tu inventario y envía una oferta segura",
+            "item_label": "Artículo",
+            "item_placeholder": "Selecciona un artículo",
+            "target_label": "Nombre de usuario o correo electrónico",
+            "target_placeholder": "p.ej. alex o alex@example.com",
+            "target_help": "El sistema no revela si esta cuenta existe. Si coincide, la solicitud aparece en la bandeja de entrada del destinatario.",
+            "offer_note_placeholder": "por ejemplo. Puedes quedártelo hasta el fin de semana si quieres",
+            "offer_submitting": "Enviando...",
+            "request_title": "Solicitar artículo",
+            "request_subtitle": "Crear una solicitud general sin revisar el inventario de la otra persona",
+            "requested_item_label": "¿Qué necesitas?",
+            "requested_item_placeholder": "por ejemplo. Taladro, trípode, silla de camping",
+            "request_note_placeholder": "por ejemplo. Solo lo necesito por 2 días",
+            "request_submitting": "Enviando...",
+            "fulfill_title": "Cumplir solicitud",
+            "fulfill_subtitle": "Elige un objeto de tu inventario para \"{{item}}\"",
+            "fulfill_target": "Este objeto será prestado a {{name}}.",
+            "no_available_items": "No hay ningún objeto elegible para ofrecer en tu casa activa en este momento.",
+            "fulfill_submitting": "Guardando...",
+            "return_title": "Marcar como devuelto",
+            "return_subtitle": "Cerrar el préstamo activo de \"{{item}}\"",
+            "return_target": "Actualmente se muestra como que está con {{name}}."
+        },
+        "messages": {
+            "load_error": "No se pudo cargar el centro de préstamos",
+            "action_error": "No se pudo completar la acción"
+        },
+        "preview": {
+            "title": "Modo de vista previa",
+            "body": "La parte del backend de esta página no es accesible en las pruebas locales en este momento. Aún puede revisar primero el diseño y el flujo; activaremos el lado del servidor después de que lo apruebe."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Política de Privacidad",
+        "terms_of_service_title": "Términos de Servicio",
+        "privacy_policy_content": "Su privacidad es importante para nosotros. Esta aplicación almacena sus datos subidos de forma segura utilizando encriptación a nivel de campo. No vendemos ni compartimos sus datos personales con terceros. Al usar el servicio, usted consiente la recopilación de datos necesarios para la gestión de la cuenta y la funcionalidad de la aplicación.",
+        "terms_of_service_content": "Al usar {{brandName}}, usted acepta estos términos. El servicio se proporciona 'tal cual' sin garantías. Usted es responsable de los datos que sube y de asegurarse de que tiene los derechos sobre ellos. Nos reservamos el derecho de suspender cuentas que violen las políticas o abusen del sistema.",
+        "register_consent": "He leído, comprendido y acepto los <1>Términos de Servicio</1> y la <2>Política de Privacidad</2>.",
+        "consent_title": "Revisar documentos legales",
+        "consent_subtitle": "Por favor confirme los términos actuales antes de continuar.",
+        "consent_notice": "Necesitamos un reconocimiento registrado de los Términos de Servicio y el Aviso de Privacidad actuales antes de que pueda continuar usando la aplicación.",
+        "consent_checkbox": "Acepto los Términos de Servicio y confirmo que he leído el Aviso de Privacidad.",
+        "consent_submit": "Continuar",
+        "consent_submitting": "Guardando...",
+        "consent_required": "Necesita confirmar los Términos de Servicio y el Aviso de Privacidad antes de continuar."
+    },
+    "cookies": {
+        "banner_text": "Utilizamos cookies esenciales para mantener su sesión iniciada y segura. Al continuar usando este sitio, usted acepta nuestras políticas.",
+        "accept": "Acepto",
+        "learn_more": "Más información"
     }
 }

@@ -5,10 +5,16 @@ import { authenticateToken } from '../middleware/auth.js';
 import { normalizeWarrantyDetails } from '../utils/warrantyValidation.js';
 import {
     buildBarcodeLookup,
+    buildUsernameLookup,
+    decryptBorrowRecord,
     decryptCategoryRecord,
     decryptItemRecord,
     decryptLocationRecord,
     decryptRoomRecord,
+    encryptBorrowerContact,
+    encryptBorrowerName,
+    encryptBorrowNote,
+    encryptBorrowReturnNote,
     encryptCategoryName,
     encryptItemBarcode,
     encryptItemDescription,
@@ -94,13 +100,38 @@ router.get('/export', authenticateToken, backupRateLimiter, (req, res) => {
             WHERE l.house_key = ?
         `).all(houseKey).map(decryptLocationRecord);
 
+        const borrows = db.prepare(`
+            SELECT
+                ib.id,
+                ib.item_id,
+                ib.borrower_type,
+                ib.borrower_user_id,
+                ib.borrower_name,
+                ib.borrower_contact,
+                ib.note,
+                ib.borrowed_at,
+                ib.due_date,
+                ib.returned_at,
+                ib.return_note,
+                borrower.username as borrower_username
+            FROM item_borrows ib
+            LEFT JOIN users borrower ON borrower.id = ib.borrower_user_id
+            WHERE ib.house_key = ?
+            ORDER BY ib.borrowed_at DESC, ib.id DESC
+        `).all(houseKey).map(decryptBorrowRecord);
+
         const exportData = {
-            version: '1.2',
+            version: '1.3',
             exportDate: new Date().toISOString(),
+            meta: {
+                containsDecryptedData: true,
+                securityWarning: 'This backup contains decrypted household data. Store it in a secure location and do not share it over insecure channels.'
+            },
             items,
             categories,
             rooms,
-            locations
+            locations,
+            borrows
         };
 
         res.json(exportData);
@@ -120,7 +151,7 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
             return res.status(400).json({ error: 'Aktif ev bulunamadı' });
         }
 
-        const { items, categories, rooms, locations } = req.body;
+        const { items, categories, rooms, locations, borrows } = req.body;
 
         if (!items || !Array.isArray(items)) {
             return res.status(400).json({ error: 'Geçersiz yedek dosyası formatı' });
@@ -133,11 +164,13 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
         let importedRooms = 0;
         let importedLocations = 0;
         let importedItems = 0;
+        let importedBorrows = 0;
 
         // Map to store old_id -> new_id for foreign key references
         const categoryMap = {};
         const roomMap = {};
         const locationMap = {};
+        const itemMap = {};
 
         // Import operation in a transaction
         const importAll = db.transaction(() => {
@@ -276,7 +309,7 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
                     if (loc) locationId = loc.id;
                 }
 
-                insertItem.run(
+                const result = insertItem.run(
                     ...(() => {
                         const normalizedWarrantyDetails = normalizeWarrantyDetails({
                             invoice_date: item.invoice_date || '',
@@ -307,7 +340,71 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
                         ];
                     })()
                 );
+                itemMap[item.id] = result.lastInsertRowid;
                 importedItems++;
+            }
+
+            if (borrows && Array.isArray(borrows)) {
+                const insertBorrow = db.prepare(`
+                    INSERT INTO item_borrows (
+                        item_id, house_key, borrower_type, borrower_user_id, borrower_name,
+                        borrower_contact, note, borrowed_at, due_date, returned_at, return_note,
+                        lent_by_user_id, returned_by_user_id, created_at, updated_at
+                    )
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                `);
+
+                for (const borrow of borrows) {
+                    const mappedItemId = itemMap[borrow.item_id];
+                    if (!mappedItemId) {
+                        continue;
+                    }
+
+                    let borrowerType = borrow.borrower_type === 'member' ? 'member' : 'external';
+                    let borrowerUserId = null;
+                    let borrowerName = borrow.borrower_name || null;
+
+                    if (borrowerType === 'member' && borrow.borrower_username) {
+                        const member = db.prepare(`
+                            SELECT u.id
+                            FROM user_houses uh
+                            JOIN users u ON u.id = uh.user_id
+                            WHERE uh.house_key = ? AND u.username_lookup = ?
+                            LIMIT 1
+                        `).get(houseKey, buildUsernameLookup(borrow.borrower_username));
+
+                        if (member?.id) {
+                            borrowerUserId = member.id;
+                            borrowerName = null;
+                        } else {
+                            borrowerType = 'external';
+                            borrowerName = borrow.borrower_username || borrower.borrower_name || 'Bilinmeyen üye';
+                        }
+                    }
+
+                    if (borrowerType === 'external' && !borrowerName) {
+                        borrowerName = 'Bilinmeyen kişi';
+                    }
+
+                    insertBorrow.run(
+                        mappedItemId,
+                        houseKey,
+                        borrowerType,
+                        borrowerUserId,
+                        borrowerName ? encryptBorrowerName(borrowerName) : null,
+                        borrow.borrower_contact ? encryptBorrowerContact(borrow.borrower_contact) : null,
+                        borrow.note ? encryptBorrowNote(borrow.note) : null,
+                        borrow.borrowed_at || new Date().toISOString(),
+                        borrow.due_date || null,
+                        borrow.returned_at || null,
+                        borrow.return_note ? encryptBorrowReturnNote(borrow.return_note) : null,
+                        req.user.id,
+                        borrow.returned_at ? req.user.id : null,
+                        borrow.borrowed_at || new Date().toISOString(),
+                        borrow.returned_at || borrow.borrowed_at || new Date().toISOString()
+                    );
+                    importedBorrows++;
+                }
             }
         });
 
@@ -319,7 +416,8 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
                 items: importedItems,
                 categories: importedCategories,
                 rooms: importedRooms,
-                locations: importedLocations
+                locations: importedLocations,
+                borrows: importedBorrows
             }
         });
     } catch (err) {

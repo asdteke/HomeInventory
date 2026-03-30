@@ -63,7 +63,10 @@
             "warranty_duration_months": "Сар",
             "warranty_duration_years": "Жил",
             "warranty_calculation_help": "Хэрэв та баталгааны эхлэх огноог хоосон орхивол нэхэмжлэлийн огноог ашиглана. Хугацааг оруулмагц баталгааны дуусах огноо автоматаар тооцоологдоно.",
-            "warranty_expiry_date": "Баталгааны дуусах огноо"
+            "warranty_expiry_date": "Баталгааны дуусах огноо",
+            "vault_hint_title": "Very sensitive record?",
+            "vault_hint_description": "For passports, deeds, identity details, access codes, and other records that should stay out of the standard inventory flow, keep them in Personal Vault instead.",
+            "vault_hint_action": "Open Personal Vault"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" quick added - you can edit later",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Product not found in databases. You can search on Google.",
             "search_fail": "⚠ Search failed",
             "name_required": "Item name is required",
-            "location_add_error": "Failed to add location"
+            "location_add_error": "Failed to add location",
+            "photo_too_large": "Photos can be at most {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -100,7 +104,7 @@
         "refresh": "Refresh",
         "close": "Close",
         "logout": "Logout",
-        "copyright": "© {{year}} HomeInventory - All rights reserved",
+        "copyright": "© {{year}} {{brandName}} - All rights reserved",
         "copy": "Copy",
         "download": "Download"
     },
@@ -108,7 +112,7 @@
         "login": {
             "title": "Login",
             "subtitle": "Manage all your home inventory smartly",
-            "welcome": "Welcome to HomeInventory",
+            "welcome": "Welcome to {{brandName}}",
             "username_or_email": "Username or Email",
             "password": "Password",
             "forgot_password": "Forgot Password?",
@@ -120,13 +124,25 @@
             "register_link": "Register",
             "support_contact": "For login issues:",
             "terms_title": "📋 Terms of Use and Disclaimer",
-            "terms_beta": "BETA Version: HomeInventory is currently in testing phase. No guarantee is given regarding the persistence or security of your data.",
+            "terms_beta": "BETA Version: {{brandName}} is currently in testing phase. No guarantee is given regarding the persistence or security of your data.",
             "terms_disclaimer": "Disclaimer: By using this application, you agree that you cannot claim any compensation for potential data loss, access issues, or other technical malfunctions.",
             "terms_backup": "Data Backup: We strongly recommend backing up your important information regularly.",
-            "terms_accept": "By logging in, you are deemed to have accepted these terms."
+            "terms_accept": "By logging in, you are deemed to have accepted these terms.",
+            "two_factor": {
+                "title": "Two-Factor Authentication",
+                "subtitle": "Enter the 6-digit code from your authenticator app",
+                "backup_subtitle": "Enter one of your backup codes",
+                "code_label": "Verification Code",
+                "backup_code_label": "Backup Code",
+                "remember_device": "Remember this device for 30 days",
+                "verify": "Verify",
+                "back": "Back",
+                "use_backup": "Use backup code",
+                "use_totp": "Use authenticator"
+            }
         },
         "register": {
-            "title": "Welcome to HomeInventory",
+            "title": "Welcome to {{brandName}}",
             "subtitle": "Create a new account or join an existing house",
             "create_house": "Create New House",
             "join_house": "Join House",
@@ -237,7 +253,8 @@
         "admin_panel": "Admin Panel",
         "logout": "Logout",
         "menu": "Menu",
-        "personal_vault": "Хувийн сейф"
+        "personal_vault": "Хувийн сейф",
+        "borrow_requests": "Урьдчилан авах хүсэлт"
     },
     "dashboard": {
         "welcome": "Welcome, <1>{{name}}</1>! 👋",
@@ -279,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory is currently in testing and hobby phase. No guarantee is given for data persistence or security. Please keep backups of important information.",
+        "text": "{{brandName}} is currently in testing and hobby phase. No guarantee is given for data persistence or security. Please keep backups of important information.",
         "contact": "Contact:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - All rights reserved",
+        "rights": "© {{year}} {{brandName}} - All rights reserved",
         "contact": "Contact:"
     },
     "settings": {
@@ -325,7 +342,8 @@
             "member_kicked": "Member removed from the house",
             "member_kick_error": "Could not remove member from the house",
             "recovery_key_regenerated": "Recovery key regenerated",
-            "recovery_key_error": "Could not regenerate recovery key"
+            "recovery_key_error": "Could not regenerate recovery key",
+            "account_delete_error": "The account could not be deleted"
         },
         "user_profile": {
             "edit_username": "Change username"
@@ -392,13 +410,20 @@
             "export_json": "Export as JSON",
             "upload_backup": "Upload Backup",
             "uploading": "Uploading...",
-            "import_json": "Import from JSON"
+            "import_json": "Import from JSON",
+            "export_sensitive_title": "Exported backups contain plaintext data",
+            "export_sensitive_notice": "This backup includes decrypted household data. Store it securely after download, encrypt it if possible, and avoid sharing it over insecure channels.",
+            "export_sensitive_confirm": "This backup will include decrypted household data in plaintext. Do you confirm that you will store it securely?"
         },
         "about": {
             "title": "📱 About Application",
             "version": "Version",
             "brand": "Brand",
-            "feedback": "✉️ Send Feedback"
+            "feedback": "✉️ Send Feedback",
+            "legal_title": "Legal Documents",
+            "legal_description": "You can reopen the terms and privacy texts from here even after accepting them.",
+            "terms_link": "Terms of Service",
+            "privacy_link": "Privacy Policy"
         },
         "modals": {
             "password": {
@@ -441,6 +466,69 @@
             "title": "My Pending Join Requests",
             "waiting_since": "Waiting since: {{date, datetime}}",
             "pending_badge": "Pending"
+        },
+        "two_factor": {
+            "title": "Two-Factor Authentication",
+            "description": "Add an extra layer of security to your account with TOTP-based 2FA",
+            "active": "Active",
+            "enable": "Enable 2FA",
+            "disable": "Disable 2FA",
+            "disable_desc": "Remove two-factor authentication from your account",
+            "disable_title": "Disable Two-Factor Authentication",
+            "disable_confirm": "Disable 2FA",
+            "disable_error": "Failed to disable 2FA",
+            "disabled_success": "Two-factor authentication has been disabled",
+            "password_label": "Password",
+            "password_placeholder": "Enter your password",
+            "method_totp": "Authenticator",
+            "method_backup": "Backup Code",
+            "method_recovery": "Recovery Key",
+            "totp_code_label": "Authenticator Code",
+            "backup_code_label": "Backup Code",
+            "recovery_key_label": "Recovery Key",
+            "cancel": "Cancel",
+            "setup_title": "Set Up 2FA",
+            "setup_error": "Failed to start 2FA setup",
+            "step_1": "Step 1: Scan QR Code",
+            "step_2": "Step 2: Verify Code",
+            "step_3": "Step 3: Save Backup Codes",
+            "scan_instruction": "Scan this QR code with your authenticator app (Google Authenticator, Authy, or any TOTP app)",
+            "manual_entry": "Can't scan? Enter this key manually:",
+            "copy_secret": "Copy secret",
+            "next": "Next",
+            "verify_instruction": "Enter the 6-digit code shown in your authenticator app to verify setup",
+            "verify_error": "Verification failed",
+            "code_label": "6-Digit Code",
+            "back": "Back",
+            "activate": "Activate 2FA",
+            "backup_warning_title": "Save These Backup Codes!",
+            "backup_warning_text": "If you lose access to your authenticator app, you can use these codes to log in. Each code can only be used once. Store them in a safe place.",
+            "download_codes": "Download Backup Codes",
+            "backup_acknowledge": "I have saved my backup codes in a safe place",
+            "done": "Done",
+            "regenerate_codes": "Regenerate Backup Codes",
+            "regenerate_codes_desc": "Generate new backup codes (old ones will be invalidated)",
+            "regenerate": "Regenerate",
+            "codes_regenerated": "Backup codes have been regenerated",
+            "codes_error": "Failed to regenerate backup codes",
+            "close_codes": "Close",
+            "revoke_devices": "Revoke Trusted Devices",
+            "revoke_devices_desc": "Remove all remembered devices, requiring 2FA on next login",
+            "devices_revoked": "{{count}} trusted device(s) removed",
+            "devices_error": "Failed to revoke devices"
+        },
+        "danger_zone": {
+            "title": "Account",
+            "delete_title": "Delete account",
+            "delete_description": "If you want, you can permanently remove the personal data and uploaded files tied to this account.",
+            "delete_warning": "This action cannot be undone.",
+            "delete_action": "Delete account",
+            "modal_title": "Delete account",
+            "modal_warning_title": "This action is irreversible",
+            "modal_warning_body": "After confirmation, you will immediately lose access to the account and the deleted application data cannot be restored from the app.",
+            "password_label": "Confirm with your current password",
+            "confirm_delete": "Confirm deletion",
+            "deleting": "Deleting..."
         }
     },
     "inventory": {
@@ -455,7 +543,53 @@
         "empty_filter": "No items match your filters",
         "empty_msg": "No items added yet",
         "delete_confirm": "Are you sure you want to delete this item?",
-        "delete_error": "Delete error"
+        "delete_error": "Delete error",
+        "load_warning": {
+            "title": "Хэсэгчилсэн ачааллын горим",
+            "body": "Зарим туслах өгөгдөл яг одоо аажмаар хариу өгч байна, тиймээс энэ хуудсыг шүүлтүүр бүрэн мета өгөгдөлгүйгээр нээгдэнэ. Та дахин сэргэх гэж оролдоно."
+        },
+        "borrow": {
+            "section_title": "Мөнгө олох",
+            "section_subtitle": "Зээлийн одоогийн байдал, түүх",
+            "dialog_lend_title": "Өргөх зүйл",
+            "dialog_lend_subtitle": "\"{item}}\" -н шинэ зээл бүртгэх",
+            "dialog_return_title": "Буцаагдсан Тэмдэг",
+            "dialog_return_subtitle": "\"{item}}\" -ийн идэвхтэй зээлийг бүртгэх бүртгэлийг хаах",
+            "member": "Байшингийн гишүүн",
+            "external": "Гадны хүн",
+            "borrower_member": "Хэн үүнийг авсан бэ?",
+            "no_members": "Энэ гэрт өөр сонгогдох гишүүн байхгүй. Үүний оронд та гадаад хүний бичгийг бий болгож болно.",
+            "borrower_name": "ХҮНСНИЙ НЭР",
+            "borrower_name_placeholder": "хөрш Алекс",
+            "borrower_contact": "Холбоо барих мэдээлэл",
+            "borrower_contact_placeholder": "Утас, имэйл, эсвэл богино тэмдэглэл",
+            "due_date": "Хүлээгдэж буй нөөцийн огноо",
+            "note": "Тэмдэглэл:",
+            "note_placeholder": "ж .нь: Амралтын өдрүүдэд өнгөрсөн",
+            "submitting_lend": "Хадгалж байна...",
+            "lend": "Урьдчилан төлөх",
+            "return_note": "Тэмдэглэл буцаах",
+            "return_note_placeholder": "ж .нь: Сайн нөхцөлд буцсан",
+            "submitting_return": "Хаах...",
+            "mark_returned": "Буцаагдсан Тэмдэг",
+            "current_borrower_label": "Одоогоор:",
+            "unknown": "Үл мэдэгдэх",
+            "overdue_badge": "Хэтэрсэн",
+            "borrowed_badge": "Зээл авсан",
+            "borrowed_to": "{{name}} -тэй хамт",
+            "due_date_short": "Дуусах Огноо:",
+            "actions_error": "Мөнгө зээл авах арга хэмжээг бөглөж чадсангүй",
+            "borrowed_at": "Өвчтөн: {{date}}",
+            "due_date_label": "Хүлээгдэж буй өгөөж: {{date}}",
+            "note_label": "Тэмдэглэл: {{note}}",
+            "return_note_label": "Буцах тэмдэглэл: {{note}}",
+            "no_active": "Энэ зүйл Одоогоор зээлдүүлээгүй байна.",
+            "history_title": "Түүх",
+            "history_active": "{{name}} -ийн бичлэгийг нээх",
+            "history_returned": "{{name}} -ийн хаалттай бичлэг",
+            "returned_at": "Буцаагдсан: {{date}}",
+            "no_history": "Энэ зүйлийн хувьд зээл олгох түүх одоогоор байхгүй байна."
+        }
     },
     "categories": {
         "title": "Categories",
@@ -553,7 +687,7 @@
             "free_badge": "Completely Free"
         },
         "features": {
-            "title": "Why <1>HomeInventory</1>?",
+            "title": "Why <1>{{brandName}}</1>?",
             "subtitle": "All features to simplify home management in one platform",
             "items": {
                 "categorize": {
@@ -591,7 +725,7 @@
             "desc": "The easy and secure platform to digitize your home inventory.",
             "links": "Quick Links",
             "contact": "Contact Us",
-            "copyright": "© {{year}} HomeInventory. All rights reserved."
+            "copyright": "© {{year}} {{brandName}}. All rights reserved."
         },
         "preview_privacy_notice": "Demo view: no real user data is displayed."
     },
@@ -719,10 +853,10 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Email Verification Required",
-            "headerTitle": "Welcome to HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Email Verification Required",
+            "headerTitle": "Welcome to {{brandName}}",
             "headerSubtitle": "Create a new account or join an existing house",
-            "greeting": "Welcome to HomeInventory",
+            "greeting": "Welcome to {{brandName}}",
             "intro": "Account created! Please verify your email address to login.",
             "verifyPrompt": "📧 Email Verification Required",
             "verifyButton": "✓ Verify My Account",
@@ -739,13 +873,13 @@
             ],
             "fallback": "The password reset link looks incomplete or broken.",
             "support": "Registration issues:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Welcome to HomeInventory",
-            "headerTitle": "Welcome to HomeInventory",
+            "subject": "Welcome to {{brandName}}",
+            "headerTitle": "Welcome to {{brandName}}",
             "headerSubtitle": "Create a new account or join an existing house",
-            "greeting": "Welcome to HomeInventory",
+            "greeting": "Welcome to {{brandName}}",
             "intro": "Welcome, ! 👋",
             "houseKeyLabel": "House Key",
             "houseKeyNote": "This is your house key, use it to invite others. Add family members to your house!",
@@ -757,7 +891,7 @@
                 "💡 You can be a member of multiple houses and switch between them. Each house maintains a separate inventory."
             ],
             "support": "Registration issues:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Join House",
@@ -766,7 +900,7 @@
             "bodyLine2": "Waiting for house owner approval"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "House Access",
             "bodyLine1Template": "Current pending request: {{house}} ({{status}})",
             "bodyLine2": "Your request for \"{{house}}\" is still waiting for a decision."
@@ -786,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "If an account exists, a password reset link valid for 15 minutes has been sent.",
             "fallback": "The password reset link looks incomplete or broken.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "This email was sent by {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -822,7 +960,7 @@
         "recovery_ready_title": "Сэргээх түлхүүр бэлэн боллоо",
         "recovery_ready_description": "Бид энэ түлхүүрийг зөвхөн нэг удаа харуулна. Аюулгүй газар хадгална уу.",
         "recovery_visible_once": "Энэ түлхүүр дараа дахин харагдахгүй.",
-        "recovery_file_title": "HomeInventory Хувийн Сейфийн Сэргээх Түлхүүр",
+        "recovery_file_title": "{{brandName}} Хувийн Сейфийн Сэргээх Түлхүүр",
         "recovery_file_created_label": "Үүсгэсэн",
         "recovery_file_key_label": "Сэргээх түлхүүр",
         "recovery_file_warning": "Хэрэв энэ түлхүүр болон таны сейфийн нууц хэллэг хоёулаа алдагдвал сейфийг сэргээх боломжгүй.",
@@ -832,7 +970,6 @@
         "record_save_new": "Сейфийн бичлэг нэмэх",
         "record_save_edit": "Өөрчлөлтийг хадгалах",
         "barcode_privacy_hint": "Сейфийн баркодууд гадаад үйлчилгээн дээр автоматаар хайгдахгүй; баркодын текст зөвхөн шифрлэгдсэн өгөгдөл хэлбэрээр хадгалагдана.",
-        "media_note": "Энэ эхний сейфийн урсгалд зураг, баркод уншуулах болон гадаад бүтээгдэхүүн хайлт зориуд хаалттай. Эдгээр нь тусдаа шифрлэгдсэн медиа болон нууцлалын дамжуулалт шаарддаг.",
         "search_placeholder": "Сейф дотроос хайх...",
         "all_categories": "Бүх ангилал",
         "all_rooms": "Бүх өрөө",
@@ -851,6 +988,109 @@
             "decrypt_failed": "Сейфийн агуулгыг тайлж чадсангүй.",
             "name_required": "Сейфийн бичлэгт барааны нэр шаардлагатай.",
             "options_failed": "Ангилал болон өрөөний сонголтуудыг ачаалж чадсангүй."
+        },
+        "media_note": "Photo uploads, barcode scanning, and external product lookup are not supported yet. These features will be added once a dedicated encrypted media and privacy flow is ready."
+    },
+    "borrow_requests": {
+        "title": "Зээлийн төв",
+        "subtitle": "Аюулгүй хүсэлтийг удирдаж, гэрээс урьдчилан сэргийлэх бусад хэрэглэгчидтэй урсгалыг санал болгох.",
+        "incoming_title": "Ирж буй Шаардах Хуудас",
+        "incoming_subtitle": "Танд илгээсэн хүсэлт, санал",
+        "outgoing_title": "Намайг илгээсэн",
+        "outgoing_subtitle": "Таны эхлүүлсэн саналууд, эд зүйлсийн хүсэлт",
+        "empty_incoming": "Одоогоор танд зээл авах хүсэлт алга.",
+        "empty_outgoing": "Та одоогоор санал, хүсэлт илгээгээгүй байна.",
+        "stats": {
+            "incoming": "Хүлээгдэж буй",
+            "outgoing": "Хүлээгдэж буй",
+            "active": "Идэвхтэй бороо"
+        },
+        "active": {
+            "title": "Идэвхтэй бороо",
+            "subtitle": "Одоогоор танд байгаа зүйлс эсвэл өөртөө зээлүүлсэн зүйлүүд",
+            "empty": "Одоогоор ямар ч идэвхтэй түрээс байхгүй.",
+            "borrowed_from": "Зээлж авсан {{NAME}}",
+            "lent_to": "Одоогоор {{name}} -ээр"
+        },
+        "status": {
+            "pending": "Хүлээгдэж байна",
+            "accepted": "Идэвхтэй",
+            "rejected": "Татгалзсан",
+            "cancelled": "Цуцлагдсан",
+            "expired": "Хугацаа дууссан",
+            "returned": "Буцаагдсан"
+        },
+        "actions": {
+            "send_request": "Хүсэлтийн зүйл",
+            "send_offer": "Санал Илгээх",
+            "accept": "Зөвшөөрөх",
+            "reject": "Татгалзах",
+            "cancel": "Цуцлах",
+            "fulfill_request": "Хүсэлтийг биелүүлэх"
+        },
+        "labels": {
+            "offer": "Санал болголт",
+            "request": "Хүсэлт",
+            "unspecified_item": "Тодорхойгүй зүйл",
+            "counterparty": "Эсрэг тал: {{name}}",
+            "created_at": "Үүсгэсэн: {{date}}",
+            "due_date": "Хүлээгдэж буй өгөөж: {{date}}",
+            "waiting_delivery": "Хүсэлт нь харагдахаас өмнө харгалдах дансаа хүлээж байгаа хэвээр байж магадгүй юм.",
+            "returned_on": "Буцаагдсан: {{date}}",
+            "borrow_started": "Эхэлсэн: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Санал Илгээх",
+            "offer_subtitle_item": "\"{{item}}\" -г аюулгүй хэрэглэгчийн санал болгох",
+            "offer_subtitle_general": "Бараа материалаас ямар нэгэн зүйлийг сонгоод аюулгүй санал илгээнэ үү",
+            "item_label": "Зүйл",
+            "item_placeholder": "Зүйл сонгоно уу",
+            "target_label": "Хэрэглэгчийн нэр ба Имэйл хаяг",
+            "target_placeholder": "жишээ нь alex эсвэл alex@example.com",
+            "target_help": "Систем нь энэ данс байгаа эсэхийг заагаагүй байна. Хэрэв хангасан бол хүсэлт хүлээн авагчийн ирсэн нүдэнд харагдана.",
+            "offer_note_placeholder": "жишээлбэл, та хүсэж байгаа бол амралтын өдрүүдэд үүнийг хадгалж болно",
+            "offer_submitting": "Илгээж байна...",
+            "request_title": "Хүсэлтийн зүйл",
+            "request_subtitle": "Нөгөө хүний бараа материалыг үзэхгүйгээр ерөнхий хүсэлт үүсгэх",
+            "requested_item_label": "Танд юу хэрэгтэй вэ?",
+            "requested_item_placeholder": "ж .нь: Өрөмдлөг, tripod, кемпийн сандал",
+            "request_note_placeholder": "жишээлбэл надад 2 өдрийн турш л хэрэгтэй",
+            "request_submitting": "Илгээж байна...",
+            "fulfill_title": "Хүсэлтийг биелүүлэх",
+            "fulfill_subtitle": "Бараа материалаас \"{{item}}\" -г сонгоно уу",
+            "fulfill_target": "Энэ зүйл {{name}} -р илгээгдэнэ.",
+            "no_available_items": "Таны идэвхтэй байшинд яг одоо санал болгох тохирох зүйл одоогоор байхгүй.",
+            "fulfill_submitting": "Хадгалж байна...",
+            "return_title": "Буцаагдсан Тэмдэг",
+            "return_subtitle": "\"{item}}\" -г идэвхтэй зээлийг хаах",
+            "return_target": "Энэ нь одоогоор {{name}} -тэй хамт байгаатай адил харагдаж байна."
+        },
+        "messages": {
+            "load_error": "Зээлийн төвийг дуудаж болохгүй",
+            "action_error": "Үйлдлийг дуусгаж чадсангүй"
+        },
+        "preview": {
+            "title": "Урьдчилан харах горим",
+            "body": "Энэ хуудасны арын хэсэг нь одоо орон нутгийн туршилтанд хүрч чадахгүй байна. Та эхлээд зохион байгуулалт, урсгалыг хянаж болно. Үүнийг зөвшөөрсний дараа серверийн талыг идэвхжүүлнэ."
         }
+    },
+    "legal": {
+        "privacy_policy_title": "Privacy Policy",
+        "terms_of_service_title": "Terms of Service",
+        "privacy_policy_content": "PRIVACY NOTICE\n\nData controller: {{brandName}} ({{siteHost}}). Contact: {{supportEmail}}.\n\n1. WHAT WE PROCESS\n- Account data: username, email address, password hash, session cookies, trusted-device data, and security logs.\n- Service data: houses, rooms, categories, items, uploaded media, borrow requests, and personal vault records that you create.\n- Technical data: IP address, browser/session identifiers, and language preference data needed for localization and account security.\n\n2. WHY WE PROCESS IT\nWe process personal data to create and operate your account, authenticate you, secure sessions and two-factor authentication, provide inventory, backup, and vault features, respond to support requests, and satisfy legal or security obligations.\n\n3. LEGAL BASIS\nWhere applicable, processing is based on contract performance, legal obligations, and our legitimate interest in service and account security. If a future feature relies on optional cookies or optional third-party processing, consent must be requested separately for that purpose.\n\n4. SHARING AND RETENTION\nWe do not sell personal data. Data is stored on hosting and email infrastructure that is necessary to operate the service, and may be disclosed to authorities only when legally required. Account data is retained while your account is active. When you delete your account from Settings, your account data, personal vault content, uploaded media, and application records owned by your account are deleted from the application without undue delay, except information that must be retained for legal claims, statutory duties, or security obligations.\n\n5. YOUR RIGHTS\nDepending on the applicable law, you may request access, correction, deletion, restriction, objection, or a copy of your personal data. You can use the in-app account deletion flow or contact {{supportEmail}} for privacy requests.\n\n6. IMPORTANT NOTE\nThis notice is provided for transparency. It is separate from any optional marketing, analytics, or non-essential cookie consent, which must be requested separately when required.",
+        "terms_of_service_content": "TERMS OF SERVICE\n\nBy using {{brandName}}, you agree to use the service lawfully and only for data you are authorized to upload, store, or share. You are responsible for the legality, accuracy, and ownership of the content you place in the service. Keep your password, recovery materials, and backups secure. We may suspend or remove accounts that abuse the service, violate these terms, or create a security or legal risk. The service is provided on an \"as is\" and \"as available\" basis to the extent permitted by law. Keep your own backups of important information. Deleting your account from Settings permanently removes application data and uploaded media owned by your account and cannot be undone.",
+        "register_consent": "I accept the <1>Terms of Service</1> and acknowledge that I have read the <2>Privacy Notice</2>.",
+        "consent_title": "Review legal documents",
+        "consent_subtitle": "Please confirm the current terms before continuing.",
+        "consent_notice": "We need a recorded acknowledgment for the current Terms of Service and Privacy Notice before you can continue using the application.",
+        "consent_checkbox": "I accept the Terms of Service and confirm that I have read the Privacy Notice.",
+        "consent_submit": "Continue",
+        "consent_submitting": "Saving...",
+        "consent_required": "You need to confirm the Terms of Service and Privacy Notice before continuing."
+    },
+    "cookies": {
+        "banner_text": "We use only essential cookies required for login, session security, trusted-device protection, and language preference. Non-essential analytics or marketing cookies are not enabled by default.",
+        "accept": "Understood",
+        "learn_more": "Learn More"
     }
 }

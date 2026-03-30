@@ -14,6 +14,28 @@ export const useAuth = () => {
 // Configure axios to always send cookies
 axios.defaults.withCredentials = true;
 
+function buildClientAuthError(error, fallbackMessage) {
+    if (axios.isAxiosError(error)) {
+        return error;
+    }
+
+    if (error && typeof error === 'object' && error.response?.data?.error) {
+        return error;
+    }
+
+    const message = error instanceof Error && error.message
+        ? error.message
+        : fallbackMessage;
+    const wrappedError = new Error(message);
+    wrappedError.cause = error;
+    wrappedError.response = {
+        data: {
+            error: message
+        }
+    };
+    return wrappedError;
+}
+
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [membershipState, setMembershipState] = useState('no_house');
@@ -22,8 +44,21 @@ export const AuthProvider = ({ children }) => {
     const [passwordRecoveryMode, setPasswordRecoveryMode] = useState('email');
     const [hasRecoveryKey, setHasRecoveryKey] = useState(false);
     const [mustSetupRecoveryKey, setMustSetupRecoveryKey] = useState(false);
+    const [mustAcceptLegal, setMustAcceptLegal] = useState(false);
     const [totpEnabled, setTotpEnabled] = useState(false);
     const [loading, setLoading] = useState(true);
+
+    const resetAuthState = () => {
+        setUser(null);
+        setMembershipState('no_house');
+        setPendingHouseRequest(null);
+        setHouseMemberCount(0);
+        setPasswordRecoveryMode('email');
+        setHasRecoveryKey(false);
+        setMustSetupRecoveryKey(false);
+        setMustAcceptLegal(false);
+        setTotpEnabled(false);
+    };
 
     const fetchUser = async () => {
         try {
@@ -35,18 +70,12 @@ export const AuthProvider = ({ children }) => {
             setPasswordRecoveryMode(response.data.password_recovery_mode || 'email');
             setHasRecoveryKey(Boolean(response.data.has_recovery_key));
             setMustSetupRecoveryKey(Boolean(response.data.must_setup_recovery_key));
+            setMustAcceptLegal(Boolean(response.data.must_accept_legal));
             setTotpEnabled(Boolean(response.data.totp_enabled));
             return response.data.user;
         } catch (error) {
             console.error('Auth check failed:', error);
-            setUser(null);
-            setMembershipState('no_house');
-            setPendingHouseRequest(null);
-            setHouseMemberCount(0);
-            setPasswordRecoveryMode('email');
-            setHasRecoveryKey(false);
-            setMustSetupRecoveryKey(false);
-            setTotpEnabled(false);
+            resetAuthState();
             return null;
         }
     };
@@ -61,38 +90,61 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = async (username, password, totpCode = null, rememberDevice = false) => {
-        const payload = { username, password };
-        if (totpCode) payload.totpCode = totpCode;
-        if (rememberDevice) payload.rememberDevice = true;
+        try {
+            const payload = { username, password };
+            if (totpCode) payload.totpCode = totpCode;
+            if (rememberDevice) payload.rememberDevice = true;
 
-        const response = await axios.post('/api/auth/login', payload);
+            const response = await axios.post('/api/auth/login', payload);
 
-        // If 2FA is required, return the flag without fetching user
-        if (response.data.requiresTwoFactor) {
-            return { requiresTwoFactor: true };
+            // If 2FA is required, return the flag without fetching user
+            if (response.data.requiresTwoFactor) {
+                return { requiresTwoFactor: true };
+            }
+
+            const authenticatedUser = await fetchUser();
+            if (!authenticatedUser) {
+                throw buildClientAuthError(null, 'Oturum doğrulanamadı');
+            }
+
+            return response.data;
+        } catch (error) {
+            console.error('Login failed:', error);
+            throw buildClientAuthError(error, 'Giriş sırasında bir hata oluştu');
         }
-
-        await fetchUser();
-        return response.data;
     };
 
-    const register = async (username, email, password, mode = 'create', house_key = null) => {
-        const payload = { username, email, password, mode };
-        if (mode === 'join' && house_key) {
-            payload.house_key = house_key;
+    const register = async (
+        username,
+        email,
+        password,
+        mode = 'create',
+        house_key = null,
+        legalAcceptance = {}
+    ) => {
+        try {
+            const payload = { username, email, password, mode };
+            if (mode === 'join' && house_key) {
+                payload.house_key = house_key;
+            }
+            payload.acceptedTerms = legalAcceptance.acceptedTerms === true;
+            payload.acknowledgedPrivacyNotice = legalAcceptance.acknowledgedPrivacyNotice === true;
+
+            const response = await axios.post('/api/auth/register', payload);
+
+            // If email verification is required, don't auto-login
+            if (response.data.requiresEmailVerification) {
+                return {
+                    ...response.data,
+                    requiresEmailVerification: true
+                };
+            }
+
+            return response.data;
+        } catch (error) {
+            console.error('Register failed:', error);
+            throw buildClientAuthError(error, 'Kayıt sırasında bir hata oluştu');
         }
-
-        const response = await axios.post('/api/auth/register', payload);
-
-        // If email verification is required, don't auto-login
-        if (response.data.requiresEmailVerification) {
-            return {
-                ...response.data,
-                requiresEmailVerification: true
-            };
-        }
-
-        return response.data;
     };
 
     const logout = async () => {
@@ -101,14 +153,7 @@ export const AuthProvider = ({ children }) => {
         } catch(err) {
             console.error('Logout error:', err);
         } finally {
-            setUser(null);
-            setMembershipState('no_house');
-            setPendingHouseRequest(null);
-            setHouseMemberCount(0);
-            setPasswordRecoveryMode('email');
-            setHasRecoveryKey(false);
-            setMustSetupRecoveryKey(false);
-            setTotpEnabled(false);
+            resetAuthState();
         }
     };
 
@@ -129,13 +174,13 @@ export const AuthProvider = ({ children }) => {
             passwordRecoveryMode,
             hasRecoveryKey,
             mustSetupRecoveryKey,
+            mustAcceptLegal,
             totpEnabled,
             login,
             register,
             logout,
             isAdmin,
             refreshUser,
-            fetchUser
         }}>
             {children}
         </AuthContext.Provider>

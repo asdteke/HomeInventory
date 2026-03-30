@@ -3,15 +3,18 @@ import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
-import { mkdtempSync, rmSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import net from 'node:net';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { TOTP, Secret } from 'otpauth';
+import Database from 'better-sqlite3';
 
 import {
     createPersonalVaultSetup,
+    decryptPersonalVaultBytes,
     decryptPersonalVaultPayload,
+    encryptPersonalVaultBytes,
     encryptPersonalVaultPayload,
     unlockPersonalVaultWithPassphrase
 } from '../client/src/utils/personalVaultCrypto.js';
@@ -193,6 +196,10 @@ test('2FA, trusted-device cookies, logout, and personal vault flows are enforced
     });
 
     await waitForServer(port, child);
+    const directDb = new Database(dbPath);
+    t.after(() => {
+        directDb.close();
+    });
 
     const aliceJar = new CookieJar();
     const registerAlice = await requestJson(port, '/api/auth/register', {
@@ -201,7 +208,9 @@ test('2FA, trusted-device cookies, logout, and personal vault flows are enforced
             username: 'aliceuser',
             email: 'alice@example.com',
             password: 'Stronger!Pass123',
-            mode: 'create'
+            mode: 'create',
+            acceptedTerms: true,
+            acknowledgedPrivacyNotice: true
         }
     }, aliceJar);
 
@@ -330,19 +339,27 @@ test('2FA, trusted-device cookies, logout, and personal vault flows are enforced
         warranty_duration_unit: '',
         warranty_expiry_date: ''
     });
+    const firstPhotoBytes = Uint8Array.from([137, 80, 78, 71, 13, 10, 26, 10, 1, 2, 3, 4]);
+    const firstPhotoPreviewBytes = Uint8Array.from([82, 73, 70, 70, 9, 8, 7, 6]);
+    const firstPhotoEnvelope = await encryptPersonalVaultBytes(vaultSetupMaterial.vaultKey, firstPhotoBytes);
+    const firstPhotoPreviewEnvelope = await encryptPersonalVaultBytes(vaultSetupMaterial.vaultKey, firstPhotoPreviewBytes);
 
     const createVaultItem = await requestJson(port, '/api/vault/items', {
         method: 'POST',
         body: {
-            encrypted_payload: firstEnvelope
+            encrypted_payload: firstEnvelope,
+            encrypted_photo_payload: firstPhotoEnvelope,
+            encrypted_photo_preview_payload: firstPhotoPreviewEnvelope
         }
     }, rememberJar);
     assert.equal(createVaultItem.status, 201);
     assert.ok(createVaultItem.data.item.id > 0);
+    assert.equal(createVaultItem.data.item.has_photo, true);
 
     const listVaultItems = await requestJson(port, '/api/vault/items', {}, rememberJar);
     assert.equal(listVaultItems.status, 200);
     assert.equal(listVaultItems.data.items.length, 1);
+    assert.equal(listVaultItems.data.items[0].has_photo, true);
 
     const decryptedStoredItem = await decryptPersonalVaultPayload(
         vaultSetupMaterial.vaultKey,
@@ -350,6 +367,22 @@ test('2FA, trusted-device cookies, logout, and personal vault flows are enforced
     );
     assert.equal(decryptedStoredItem.name, 'Pasaport');
     assert.equal(decryptedStoredItem.location_details, 'Kasa');
+
+    const storedPhoto = await requestJson(port, `/api/vault/items/${createVaultItem.data.item.id}/photo`, {}, rememberJar);
+    assert.equal(storedPhoto.status, 200);
+    const decryptedStoredPhoto = await decryptPersonalVaultBytes(
+        vaultSetupMaterial.vaultKey,
+        storedPhoto.data.encrypted_photo_payload
+    );
+    assert.deepEqual(Array.from(decryptedStoredPhoto), Array.from(firstPhotoBytes));
+
+    const storedPhotoPreview = await requestJson(port, `/api/vault/items/${createVaultItem.data.item.id}/photo-preview`, {}, rememberJar);
+    assert.equal(storedPhotoPreview.status, 200);
+    const decryptedStoredPhotoPreview = await decryptPersonalVaultBytes(
+        vaultSetupMaterial.vaultKey,
+        storedPhotoPreview.data.encrypted_photo_preview_payload
+    );
+    assert.deepEqual(Array.from(decryptedStoredPhotoPreview), Array.from(firstPhotoPreviewBytes));
 
     const unlockedVaultKey = await unlockPersonalVaultWithPassphrase(setupVault.data.config, vaultPassphrase);
     const decryptedWithUnlockedKey = await decryptPersonalVaultPayload(
@@ -369,6 +402,7 @@ test('2FA, trusted-device cookies, logout, and personal vault flows are enforced
         }
     }, rememberJar);
     assert.equal(updateVaultItem.status, 200);
+    assert.equal(updateVaultItem.data.item.has_photo, true);
 
     const bobJar = new CookieJar();
     const registerBob = await requestJson(port, '/api/auth/register', {
@@ -377,7 +411,9 @@ test('2FA, trusted-device cookies, logout, and personal vault flows are enforced
             username: 'bobuser',
             email: 'bob@example.com',
             password: 'EvenStronger!Pass123',
-            mode: 'create'
+            mode: 'create',
+            acceptedTerms: true,
+            acknowledgedPrivacyNotice: true
         }
     }, bobJar);
     assert.equal(registerBob.status, 201);
@@ -402,11 +438,27 @@ test('2FA, trusted-device cookies, logout, and personal vault flows are enforced
     }, bobJar);
     assert.equal(bobCrossUpdate.status, 404);
 
+    const bobCrossPhotoPreview = await requestJson(port, `/api/vault/items/${createVaultItem.data.item.id}/photo-preview`, {}, bobJar);
+    assert.equal(bobCrossPhotoPreview.status, 404);
+
+    const removePhotoFromVaultItem = await requestJson(port, `/api/vault/items/${createVaultItem.data.item.id}`, {
+        method: 'PUT',
+        body: {
+            encrypted_payload: updatedEnvelope,
+            remove_photo: true
+        }
+    }, rememberJar);
+    assert.equal(removePhotoFromVaultItem.status, 200);
+    assert.equal(removePhotoFromVaultItem.data.item.has_photo, false);
+
+    const removedPhotoPreview = await requestJson(port, `/api/vault/items/${createVaultItem.data.item.id}/photo-preview`, {}, rememberJar);
+    assert.equal(removedPhotoPreview.status, 404);
+
     const logoutRemembered = await requestJson(port, '/api/auth/logout', {
         method: 'POST'
     }, rememberJar);
     assert.equal(logoutRemembered.status, 200);
-    assert.equal(rememberJar.get('trusted_device'), undefined);
+    assert.equal(rememberJar.get('trusted_device'), trustedDeviceToken);
 
     const loginAfterLogout = await requestJson(port, '/api/auth/login', {
         method: 'POST',
@@ -416,7 +468,109 @@ test('2FA, trusted-device cookies, logout, and personal vault flows are enforced
         }
     }, rememberJar);
     assert.equal(loginAfterLogout.status, 200);
-    assert.equal(loginAfterLogout.data.requiresTwoFactor, true);
+    assert.equal(loginAfterLogout.data.requiresTwoFactor, undefined);
+    assert.ok(rememberJar.get('token'));
+
+    const meBeforeDelete = await requestJson(port, '/api/auth/me', {}, rememberJar);
+    assert.equal(meBeforeDelete.status, 200);
+    const aliceUserId = meBeforeDelete.data.user.id;
+    const aliceHouseKey = meBeforeDelete.data.user.house_key;
+
+    const mediaFileSuffix = `delete-account-${Date.now()}`;
+    const storedPhotoPath = `uploads/${mediaFileSuffix}.webp`;
+    const storedThumbnailPath = `uploads/thumbnails/${mediaFileSuffix}-thumb.webp`;
+    const photoFullPath = join(repoRoot, storedPhotoPath);
+    const thumbnailFullPath = join(repoRoot, storedThumbnailPath);
+
+    mkdirSync(join(repoRoot, 'uploads', 'thumbnails'), { recursive: true });
+    writeFileSync(photoFullPath, Buffer.from('delete-account-photo'));
+    writeFileSync(thumbnailFullPath, Buffer.from('delete-account-thumb'));
+
+    const deleteLocation = directDb.prepare(`
+        INSERT INTO locations (name, room_id, created_by, house_key)
+        VALUES (?, NULL, ?, ?)
+    `).run('Delete Test Location', aliceUserId, aliceHouseKey);
+
+    directDb.prepare(`
+        INSERT INTO items (
+            name,
+            quantity,
+            photo_path,
+            thumbnail_path,
+            user_id,
+            house_key,
+            location_id
+        )
+        VALUES (?, 1, ?, ?, ?, ?, ?)
+    `).run(
+        'Delete Test Item',
+        storedPhotoPath,
+        storedThumbnailPath,
+        aliceUserId,
+        aliceHouseKey,
+        Number(deleteLocation.lastInsertRowid)
+    );
+
+    const deleteWrongPassword = await requestJson(port, '/api/auth/delete-account', {
+        method: 'DELETE',
+        body: {
+            currentPassword: 'Wrong!Pass123'
+        }
+    }, rememberJar);
+    assert.equal(deleteWrongPassword.status, 401);
+
+    const deleteAccount = await requestJson(port, '/api/auth/delete-account', {
+        method: 'DELETE',
+        body: {
+            currentPassword: 'Stronger!Pass123'
+        }
+    }, rememberJar);
+    assert.equal(deleteAccount.status, 200);
+    assert.equal(deleteAccount.data.success, true);
+    assert.equal(rememberJar.get('token'), undefined);
+    assert.equal(rememberJar.get('trusted_device'), undefined);
+    assert.equal(existsSync(photoFullPath), false);
+    assert.equal(existsSync(thumbnailFullPath), false);
+
+    const meAfterDelete = await requestJson(port, '/api/auth/me', {}, rememberJar);
+    assert.equal(meAfterDelete.status, 401);
+
+    const loginAfterDelete = await requestJson(port, '/api/auth/login', {
+        method: 'POST',
+        body: {
+            username: 'aliceuser',
+            password: 'Stronger!Pass123'
+        }
+    }, new CookieJar());
+    assert.equal(loginAfterDelete.status, 401);
+
+    assert.equal(directDb.prepare('SELECT COUNT(*) AS count FROM users WHERE id = ?').get(aliceUserId).count, 0);
+    assert.equal(directDb.prepare('SELECT COUNT(*) AS count FROM items WHERE user_id = ?').get(aliceUserId).count, 0);
+    assert.equal(directDb.prepare('SELECT COUNT(*) AS count FROM locations WHERE created_by = ?').get(aliceUserId).count, 0);
+    assert.equal(directDb.prepare('SELECT COUNT(*) AS count FROM personal_vaults WHERE user_id = ?').get(aliceUserId).count, 0);
+    assert.equal(directDb.prepare('SELECT COUNT(*) AS count FROM personal_vault_items WHERE user_id = ?').get(aliceUserId).count, 0);
+    assert.equal(directDb.prepare('SELECT COUNT(*) AS count FROM trusted_devices WHERE user_id = ?').get(aliceUserId).count, 0);
+    assert.equal(directDb.prepare('SELECT COUNT(*) AS count FROM totp_backup_codes WHERE user_id = ?').get(aliceUserId).count, 0);
+    assert.equal(directDb.prepare('SELECT COUNT(*) AS count FROM user_houses WHERE user_id = ?').get(aliceUserId).count, 0);
+
+    const bobDeleteAccount = await requestJson(port, '/api/auth/delete-account', {
+        method: 'POST',
+        body: {
+            currentPassword: 'EvenStronger!Pass123'
+        }
+    }, bobJar);
+    assert.equal(bobDeleteAccount.status, 200);
+    assert.equal(bobDeleteAccount.data.success, true);
+    assert.equal(bobJar.get('token'), undefined);
+
+    const bobLoginAfterDelete = await requestJson(port, '/api/auth/login', {
+        method: 'POST',
+        body: {
+            username: 'bobuser',
+            password: 'EvenStronger!Pass123'
+        }
+    }, new CookieJar());
+    assert.equal(bobLoginAfterDelete.status, 401);
 
     const combinedLogs = serverLogs.join('');
     assert.doesNotMatch(combinedLogs, /LOGIN DEBUG|trustedDeviceCookie|req\.cookies/);

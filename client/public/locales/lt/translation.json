@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Garantijos trukmės vienetas",
             "warranty_duration_months": "Mėnesiai",
             "warranty_duration_years": "Metai",
-            "warranty_calculation_help": "Jei paliksite garantijos pradžios datą tuščią, bus naudojama sąskaitos faktūros data. Įvedus trukmę, garantijos pabaigos data apskaičiuojama automatiškai."
+            "warranty_calculation_help": "Jei paliksite garantijos pradžios datą tuščią, bus naudojama sąskaitos faktūros data. Įvedus trukmę, garantijos pabaigos data apskaičiuojama automatiškai.",
+            "vault_hint_title": "Labai jautri byla?",
+            "vault_hint_description": "Pasus, nuosavybės dokumentus, tapatybės duomenis, prieigos kodus ir kitas bylas, kurios neturėtų patekti į įprastą inventoriaus srautą, laikykite Asmeniniame seife.",
+            "vault_hint_action": "Atidaryti Asmeninį seifą"
         },
         "messages": {
             "quick_add_success": "✓ „{{barcode}}“ greitai pridėta - vėliau galite redaguoti",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Produktas nerastas duomenų bazėse. Galite ieškoti Google.",
             "search_fail": "⚠ Paieška nepavyko",
             "name_required": "Elemento pavadinimas yra privalomas",
-            "location_add_error": "Nepavyko pridėti vietos"
+            "location_add_error": "Nepavyko pridėti vietos",
+            "photo_too_large": "Nuotraukos gali būti ne didesnės kaip {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,16 +103,16 @@
         "refresh": "Atnaujinti",
         "close": "Uždaryti",
         "logout": "Atsijungti",
-        "copyright": "© {{year}} HomeInventory - Visos teisės saugomos",
+        "copyright": "© {{year}} {{brandName}} - Visos teisės saugomos",
         "other": "Kitas",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "Kopijuoti",
+        "download": "Atsisiųsti"
     },
     "auth": {
         "login": {
             "title": "Prisijungti",
             "subtitle": "Valdykite visą savo namų inventorių išmaniai",
-            "welcome": "Sveiki atvykę į HomeInventory",
+            "welcome": "Sveiki atvykę į {{brandName}}",
             "username_or_email": "Vartotojo vardas arba el. paštas",
             "password": "Slaptažodis",
             "forgot_password": "Pamiršote slaptažodį?",
@@ -120,7 +124,7 @@
             "register_link": "Registruotis",
             "support_contact": "Dėl prisijungimo problemų:",
             "terms_title": "📋 Naudojimo sąlygos ir atsakomybės apribojimas",
-            "terms_beta": "BETA Versija: HomeInventory šiuo metu yra testavimo stadijoje. Nevykdoma jokia garantija dėl jūsų duomenų išsaugojimo ar saugumo.",
+            "terms_beta": "BETA Versija: {{brandName}} šiuo metu yra testavimo stadijoje. Nevykdoma jokia garantija dėl jūsų duomenų išsaugojimo ar saugumo.",
             "terms_disclaimer": "Atsakomybės apribojimas: Naudodami šią programą, sutinkate, kad negalite reikalauti jokios kompensacijos už galimus duomenų praradimus, prisijungimo problemas ar kitus techninius sutrikimus.",
             "terms_backup": "Duomenų atsarginė kopija: Rekomenduojame reguliariai kurti svarbios informacijos atsargines kopijas.",
             "terms_accept": "Prisijungdami, laikoma, kad sutinkate su šiomis sąlygomis.",
@@ -138,7 +142,7 @@
             }
         },
         "register": {
-            "title": "Sveiki atvykę į HomeInventory",
+            "title": "Sveiki atvykę į {{brandName}}",
             "subtitle": "Sukurkite naują paskyrą arba prisijunkite prie esamos namų grupės",
             "create_house": "Sukurti Naują Namas",
             "join_house": "Prisijungti prie Namų",
@@ -249,7 +253,8 @@
         "admin_panel": "Administravimo Skydas",
         "logout": "Atsijungti",
         "menu": "Meniu",
-        "personal_vault": "Asmeninė saugykla"
+        "personal_vault": "Asmeninė saugykla",
+        "borrow_requests": "Skolinimosi užklausos"
     },
     "dashboard": {
         "welcome": "Sveiki, <1>{{name}}</1>! 👋",
@@ -291,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory šiuo metu yra testavimo ir hobio fazėje. Nėra garantijos, kad duomenys išliks ar bus saugūs. Prašome laikyti svarbių duomenų atsargines kopijas.",
+        "text": "{{brandName}} šiuo metu yra testavimo ir hobio fazėje. Nėra garantijos, kad duomenys išliks ar bus saugūs. Prašome laikyti svarbių duomenų atsargines kopijas.",
         "contact": "Kontaktai:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Visos teisės saugomos",
+        "rights": "© {{year}} {{brandName}} - Visos teisės saugomos",
         "contact": "Kontaktai:"
     },
     "settings": {
@@ -337,7 +342,8 @@
             "member_kicked": "Narys pašalintas iš namo",
             "member_kick_error": "Nepavyko pašalinti nario iš namo",
             "recovery_key_regenerated": "Atkūrimo raktas regeneruotas",
-            "recovery_key_error": "Nepavyko regeneruoti atkūrimo rakto"
+            "recovery_key_error": "Nepavyko regeneruoti atkūrimo rakto",
+            "account_delete_error": "Paskyros pašalinti nepavyko"
         },
         "user_profile": {
             "edit_username": "Pakeisti vartotojo vardą"
@@ -404,13 +410,20 @@
             "export_json": "Eksportuoti kaip JSON",
             "upload_backup": "Įkelti atsarginę kopiją",
             "uploading": "Įkeliama...",
-            "import_json": "Importuoti iš JSON"
+            "import_json": "Importuoti iš JSON",
+            "export_sensitive_title": "Eksportuotos atsarginės kopijos turi nešifruotus duomenis",
+            "export_sensitive_notice": "Ši atsarginė kopija apima dešifruotus namų ūkių duomenis. Išsaugokite ją saugiai po atsisiuntimo, jei įmanoma, šifruokite ir venkite dalintis per nesaugias priemones.",
+            "export_sensitive_confirm": "Ši atsarginė kopija apims dešifruotus namų ūkių duomenis nešifruotu pavidalu. Ar patvirtinate, kad ją saugiai išsaugosite?"
         },
         "about": {
             "title": "📱 Apie programą",
             "version": "Versija",
             "brand": "Prekinis ženklas",
-            "feedback": "✉️ Siųsti atsiliepimą"
+            "feedback": "✉️ Siųsti atsiliepimą",
+            "legal_title": "Teisiniai dokumentai",
+            "legal_description": "Čia galite vėl atidaryti sąlygų ir privatumo tekstus net po jų patvirtinimo.",
+            "terms_link": "Paslaugų teikimo sąlygos",
+            "privacy_link": "Privatumo politika"
         },
         "modals": {
             "password": {
@@ -503,6 +516,19 @@
             "revoke_devices_desc": "Pašalinti visi įsimenami įrenginiai, kuriems reikia 2FA kitą kartą prisijungiant",
             "devices_revoked": "{{count}} patikimas (-i) įrenginys (-ai) pašalintas",
             "devices_error": "Nepavyko atšaukti įrenginių"
+        },
+        "danger_zone": {
+            "title": "Paskyra",
+            "delete_title": "Ištrinti paskyrą",
+            "delete_description": "Jei norite, galite visam laikui pašalinti asmens duomenis ir įkeltus failus, susijusius su šia paskyra.",
+            "delete_warning": "Šio veiksmo neįmanoma atšaukti.",
+            "delete_action": "Ištrinti paskyrą",
+            "modal_title": "Ištrinti paskyrą",
+            "modal_warning_title": "Šio veiksmo neįmanoma atšaukti",
+            "modal_warning_body": "Patvirtinus, iš karto prarasite prieigą prie paskyros, o ištrintų programos duomenų negalima atstatyti iš programos.",
+            "password_label": "Patvirtinkite naudodami esamą slaptažodį",
+            "confirm_delete": "Patvirtinti ištrynimą",
+            "deleting": "Trinama..."
         }
     },
     "inventory": {
@@ -517,7 +543,53 @@
         "empty_filter": "Elementai neatitinka jūsų filtrų",
         "empty_msg": "Elementų dar nepridėta",
         "delete_confirm": "Ar tikrai norite ištrinti šį elementą?",
-        "delete_error": "Trinimo klaida"
+        "delete_error": "Trinimo klaida",
+        "load_warning": {
+            "title": "Dalinis įkėlimo režimas",
+            "body": "Kai kurie pagalbiniai duomenys dabar reaguoja lėtai, todėl puslapis atidarytas be visos filtro metaduomenų informacijos. Pabandysime dar kartą, kai atnaujinsite."
+        },
+        "borrow": {
+            "section_title": "Skolinimosi stebėjimas",
+            "section_subtitle": "Dabartinė paskolos būklė ir istorija",
+            "dialog_lend_title": "Paskolinti elementą",
+            "dialog_lend_subtitle": "Sukurti naują skolinimosi įrašą „{{item}}“",
+            "dialog_return_title": "Pažymėti kaip grąžintą",
+            "dialog_return_subtitle": "Uždaryti aktyvų skolinimosi įrašą už „{{item}}“",
+            "member": "Namo narys",
+            "external": "Išorinė asmuo",
+            "borrower_member": "Kas jį gavo?",
+            "no_members": "Šiame name nėra kito pasirinkimo nario. Vietoje to galite sukurti įrašą kaip išorinis asmuo.",
+            "borrower_name": "Asmens vardas",
+            "borrower_name_placeholder": "pvz., Kaimynas Aleksas",
+            "borrower_contact": "Kontaktinė informacija",
+            "borrower_contact_placeholder": "Telefonas, el. paštas arba trumpa pastaba",
+            "due_date": "Numatyta grąžinimo data",
+            "note": "Pastaba",
+            "note_placeholder": "pvz., Paskolinta savaitgaliui",
+            "submitting_lend": "Įrašoma...",
+            "lend": "Paskolinti",
+            "return_note": "Grąžinimo pastaba",
+            "return_note_placeholder": "pvz., Grąžinta geros būklės",
+            "submitting_return": "Uždarymas...",
+            "mark_returned": "Marka Grąžinta",
+            "current_borrower_label": "Šiuo metu pas:",
+            "unknown": "Nežinoma",
+            "overdue_badge": "Pradelsta",
+            "borrowed_badge": "Paskolinta",
+            "borrowed_to": "Pas {{name}}",
+            "due_date_short": "Terminas: {{date}}",
+            "actions_error": "Skolinimosi veiksmas negalėjo būti atliktas",
+            "borrowed_at": "Išsiskolino: {{date}}",
+            "due_date_label": "Tikėtinas grąžinimo laikas: {{date}}",
+            "note_label": "Pastaba: {{note}}",
+            "return_note_label": "Grąžinimo pastaba: {{note}}",
+            "no_active": "Šis daiktas šiuo metu nėra pasiskolintas.",
+            "history_title": "Istorija",
+            "history_active": "Atidaryti įrašą {{name}}",
+            "history_returned": "Uždaryta byla {{name}}",
+            "returned_at": "Grąžinta: {{date}}",
+            "no_history": "Šio daikto paskolos istorija dar nėra."
+        }
     },
     "categories": {
         "title": "Kategorijos",
@@ -615,7 +687,7 @@
             "free_badge": "Visiškai nemokama"
         },
         "features": {
-            "title": "Kodėl <1>HomeInventory</1>?",
+            "title": "Kodėl <1>{{brandName}}</1>?",
             "subtitle": "Visos funkcijos, kad supaprastintumėte namų valdymą vienoje platformoje",
             "items": {
                 "categorize": {
@@ -653,7 +725,7 @@
             "desc": "Lengva ir saugi platforma skaitmenizuoti jūsų namų inventorių.",
             "links": "Greitosios nuorodos",
             "contact": "Susisiekite su mumis",
-            "copyright": "© {{year}} HomeInventory. Visos teisės saugomos."
+            "copyright": "© {{year}} {{brandName}}. Visos teisės saugomos."
         },
         "preview_privacy_notice": "Demo peržiūra: tikri vartotojų duomenys nerodomi."
     },
@@ -781,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Reikalingas el. pašto patvirtinimas",
-            "headerTitle": "Sveiki atvykę į HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Reikalingas el. pašto patvirtinimas",
+            "headerTitle": "Sveiki atvykę į {{brandName}}",
             "headerSubtitle": "Sukurkite naują paskyrą arba prisijunkite prie esamos namų grupės",
-            "greeting": "Sveiki atvykę į HomeInventory",
+            "greeting": "Sveiki atvykę į {{brandName}}",
             "intro": "Paskyra sukurta! Prašome patvirtinti savo el. pašto adresą, kad galėtumėte prisijungti.",
             "verifyPrompt": "📧 Reikalingas el. pašto patvirtinimas",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Patvirtinkite Mano Paskyrą",
             "warningTitle": "⚠️",
             "warningBody": "Patikrinkite šlamšto/šiukšlių aplanką, jei laiškas nepasieks.",
             "houseKeyLabel": "Namų raktas",
@@ -801,13 +873,13 @@
             ],
             "fallback": "Slaptažodžio atstatymo nuoroda atrodo nebaigta arba sugadinta.",
             "support": "Registracijos problemos:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Sveiki atvykę į HomeInventory",
-            "headerTitle": "Sveiki atvykę į HomeInventory",
+            "subject": "Sveiki atvykę į {{brandName}}",
+            "headerTitle": "Sveiki atvykę į {{brandName}}",
             "headerSubtitle": "Sukurkite naują paskyrą arba prisijunkite prie esamos namų grupės",
-            "greeting": "Sveiki atvykę į HomeInventory",
+            "greeting": "Sveiki atvykę į {{brandName}}",
             "intro": "Sveiki, ! 👋",
             "houseKeyLabel": "Namų raktas",
             "houseKeyNote": "Tai jūsų namo raktas, naudokite jį kviesdami kitus. Pridėkite šeimos narius prie savo namų!",
@@ -819,7 +891,7 @@
                 "💡 Galite būti kelių namų nariu ir perjungti tarp jų. Kiekvienas namas turi atskirą inventorių."
             ],
             "support": "Registracijos problemos:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Prisijungti prie namo",
@@ -828,7 +900,7 @@
             "bodyLine2": "Laukiama namų savininko patvirtinimo"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Prieiga į namus",
             "bodyLine1Template": "Dabartinis laukiantis prašymas: {{house}} ({{status}})",
             "bodyLine2": "Jūsų prašymas dėl „{{house}}“ vis dar laukia sprendimo."
@@ -848,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Jei paskyra egzistuoja, slaptažodžio atstatymo nuoroda, galiojanti 15 minučių, buvo išsiųsta.",
             "fallback": "Slaptažodžio atstatymo nuoroda atrodo nebaigta arba sugadinta.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "Šis el. laiškas buvo išsiųstas {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -890,7 +966,6 @@
         "record_save_new": "Pridėti saugyklos įrašą",
         "record_save_edit": "Išsaugoti pakeitimus",
         "barcode_privacy_hint": "Saugyklos brūkšninių kodų ieška išoriniame paslaugų tinkle nėra atliekama automatiškai; brūkšninio kodo tekstas saugomas tik kaip užšifruoti duomenys.",
-        "media_note": "Nuotraukos, brūkšninių kodų skanavimas ir išorinė prekių paieška šioje pirmoje saugyklos sekos dalyje yra tyčia išjungti. Jiems reikia atskiro užšifruotų medijų ir privatumo proceso.",
         "search_placeholder": "Ieškoti seife...",
         "all_categories": "Visos kategorijos",
         "all_rooms": "Visos patalpos",
@@ -913,6 +988,109 @@
         "recovery_file_title": "Namų Inventoriaus Asmeninis Saugyklos Atsigavimo Raktas",
         "recovery_file_created_label": "Sukurtas",
         "recovery_file_key_label": "Atsigavimo Raktas",
-        "recovery_file_warning": "Jei prarasite tiek šį raktą, tiek savo saugyklos slaptafrazę, saugyklos atkurti nebus galima."
+        "recovery_file_warning": "Jei prarasite tiek šį raktą, tiek savo saugyklos slaptafrazę, saugyklos atkurti nebus galima.",
+        "media_note": "Nuotraukų įkėlimas, brūkšninių kodų skenavimas ir išorinė produktų paieška dar nėra palaikomi. Šios funkcijos bus pridėtos, kai bus paruoštas specialus užšifruotų medijų ir privatumo procesas."
+    },
+    "borrow_requests": {
+        "title": "Paskolų centras",
+        "subtitle": "Tvarkykite saugių užklausų ir pasiūlymų srautus su kitais {{brandName}} vartotojais.",
+        "incoming_title": "Gaunamos užklausos",
+        "incoming_subtitle": "Užklausos ir pasiūlymai, atsiųsti jums",
+        "outgoing_title": "Siųsta manęs",
+        "outgoing_subtitle": "Pasiūlymai ir daiktų užklausos, kurias pradėjote",
+        "empty_incoming": "Šiuo metu jokių paskolų užklausų jums nėra.",
+        "empty_outgoing": "Jūs dar neišsiuntėte pasiūlymo ar užklausos.",
+        "stats": {
+            "incoming": "Laukia gaunama",
+            "outgoing": "Laukia siunčiama",
+            "active": "Aktyvios paskolos"
+        },
+        "active": {
+            "title": "Aktyvios paskolos",
+            "subtitle": "Daiktai, kurie šiuo metu yra pas jus arba išnuomoti jūsų",
+            "empty": "Šiuo metu nėra aktyvių paskolų.",
+            "borrowed_from": "Paskolinta iš {{name}}",
+            "lent_to": "Šiuo metu pas {{name}}"
+        },
+        "status": {
+            "pending": "Laukia patvirtinimo",
+            "accepted": "Aktyvuota",
+            "rejected": "Atmesta",
+            "cancelled": "Atšaukta",
+            "expired": "Pasibaigusi",
+            "returned": "Grąžinta"
+        },
+        "actions": {
+            "send_request": "Prašymo elementas",
+            "send_offer": "Siųsti pasiūlymą",
+            "accept": "Priimti",
+            "reject": "Atmesti",
+            "cancel": "Atšaukti",
+            "fulfill_request": "Įvykdyti prašymą"
+        },
+        "labels": {
+            "offer": "Pasiūlymas",
+            "request": "Užklausa",
+            "unspecified_item": "Nenurodytas daiktas",
+            "counterparty": "Priešininkas: {{name}}",
+            "created_at": "Sukurta: {{date}}",
+            "due_date": "Tikėtina grąžinimo data: {{date}}",
+            "waiting_delivery": "Užklausa vis dar gali laukti atitinkamos sąskaitos, kol ji bus rodoma.",
+            "returned_on": "Grąžinta: {{date}}",
+            "borrow_started": "Pradėta: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Siųsti pasiūlymą",
+            "offer_subtitle_item": "Sukurkite saugų naudotojo pasiūlymą „{{item}}“",
+            "offer_subtitle_general": "Pasirinkite prekę iš savo atsargų ir siųskite saugų pasiūlymą",
+            "item_label": "Prekė",
+            "item_placeholder": "Pasirinkite prekę",
+            "target_label": "Vartotojo vardas arba el. paštas",
+            "target_placeholder": "pvz., alex arba alex@example.com",
+            "target_help": "Sistema neatskleidžia, ar šis paskyra egzistuoja. Jei sutampa, užklausa pasirodo gavėjo gautuosiuose.",
+            "offer_note_placeholder": "pvz. Galite pasilikti tai iki savaitgalio, jei norite",
+            "offer_submitting": "Siunčiama...",
+            "request_title": "Prašymo elementas",
+            "request_subtitle": "Sukurkite bendrą prašymą neperžiūrėdami kito asmens inventoriaus",
+            "requested_item_label": "Ko jums reikia?",
+            "requested_item_placeholder": "pvz. Gręžtuvas, trikojis, stovyklavimo kėdė",
+            "request_note_placeholder": "pvz. Man to reikia tik 2 dienoms",
+            "request_submitting": "Siunčiama...",
+            "fulfill_title": "Įvykdyti prašymą",
+            "fulfill_subtitle": "Pasirinkite daiktą iš savo inventoriaus '{{item}}'",
+            "fulfill_target": "Šis daiktas bus paskolintas {{name}}.",
+            "no_available_items": "Šiuo metu jūsų aktyviuose namuose nėra tinkamų siūlomų daiktų.",
+            "fulfill_submitting": "Įrašoma...",
+            "return_title": "Pažymėti kaip grąžintą",
+            "return_subtitle": "Uždaryti aktyvų paskolą '{{item}}'",
+            "return_target": "Šiuo metu jis rodomas pas {{name}}."
+        },
+        "messages": {
+            "load_error": "Paskolų centras negalėjo būti įkeltas",
+            "action_error": "Veiksmas negalėjo būti užbaigtas"
+        },
+        "preview": {
+            "title": "Peržiūros režimas",
+            "body": "Šios puslapio dalies serverio pusė šiuo metu vietiniame testavime nepasiekiama. Vis tiek galite pirmiausia peržiūrėti išdėstymą ir srautą; mes įjungsime serverio pusę po jūsų patvirtinimo."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Privatumo politika",
+        "terms_of_service_title": "Paslaugų teikimo sąlygos",
+        "privacy_policy_content": "Jūsų privatumas mums svarbus. Ši programa saugo jūsų įkeltus duomenis saugiai, naudodama lauko lygio šifravimą. Mes neparduodame ir nesidalijame jūsų asmeniniais duomenimis su trečiosiomis šalimis. Naudodamiesi paslauga, jūs sutinkate, kad būtų renkami būtini duomenys paskyros valdymui ir programos funkcionalumui.",
+        "terms_of_service_content": "Naudodamiesi {{brandName}}, jūs sutinkate su šiomis sąlygomis. Paslauga teikiama „tokios, kokia yra“ be garantijų. Jūs esate atsakingi už įkeltus duomenis ir už tai, kad turite teises juos naudoti. Mes pasiliekame teisę sustabdyti paskyras, kurios pažeidžia taisykles arba piktnaudžiauja sistema.",
+        "register_consent": "Aš perskaičiau, supratau ir sutinku su <1>Paslaugų teikimo sąlygomis</1> ir <2>Privatumo politika</2>.",
+        "consent_title": "Peržiūrėti teisinius dokumentus",
+        "consent_subtitle": "Prašome patvirtinti galiojančias sąlygas prieš tęsiant.",
+        "consent_notice": "Norėdami toliau naudotis programa, turime gauti įrašytą patvirtinimą dėl galiojančių Paslaugų teikimo sąlygų ir Privatumo pranešimo.",
+        "consent_checkbox": "Aš sutinku su Paslaugų teikimo sąlygomis ir patvirtinu, kad perskaičiau Privatumo pranešimą.",
+        "consent_submit": "Tęsti",
+        "consent_submitting": "Išsaugoma...",
+        "consent_required": "Jums reikia patvirtinti Paslaugų teikimo sąlygas ir Privatumo pranešimą, kad galėtumėte tęsti."
+    },
+    "cookies": {
+        "banner_text": "Mes naudojame būtinus slapukus, kad būtumėte prisijungę ir užtikrintume jūsų sesijos saugumą. Toliau naudodamiesi šia svetaine sutinkate su mūsų politika.",
+        "accept": "Sutinku",
+        "learn_more": "Sužinoti daugiau"
     }
 }

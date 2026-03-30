@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import LanguageSwitcher, { LANGUAGE_OPTIONS } from './LanguageSwitcher';
 import BrandLogo from './BrandLogo';
+import { SUPPORT_EMAIL } from '../constants/branding';
 
 const featureIconMap = {
     categorize: Boxes,
@@ -322,8 +323,8 @@ const LandingPage = () => {
 
                     <div>
                         <p className="text-sm uppercase tracking-wider font-bold text-slate-500 dark:text-slate-400 mb-3">{t('landing.footer.contact')}</p>
-                        <a href="mailto:support@homeinventory.local" className="text-sm hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors">
-                            support@homeinventory.local
+                        <a href={`mailto:${SUPPORT_EMAIL}`} className="text-sm hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors">
+                            {SUPPORT_EMAIL}
                         </a>
                     </div>
                 </div>

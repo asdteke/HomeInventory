@@ -63,7 +63,10 @@
             "warranty_duration_months": "Hli",
             "warranty_duration_years": "Xyoo",
             "warranty_calculation_help": "Yog tias koj cia hnub pib warranty nyob khoob, hnub invoice yuav raug siv. Thaum koj sau lub sijhawm warranty, hnub warranty tas yuav raug xam tau cia li.",
-            "warranty_expiry_date": "Hnub warranty tas"
+            "warranty_expiry_date": "Hnub warranty tas",
+            "vault_hint_title": "Very sensitive record?",
+            "vault_hint_description": "For passports, deeds, identity details, access codes, and other records that should stay out of the standard inventory flow, keep them in Personal Vault instead.",
+            "vault_hint_action": "Open Personal Vault"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" quick added - you can edit later",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Product not found in databases. You can search on Google.",
             "search_fail": "⚠ Search failed",
             "name_required": "Item name is required",
-            "location_add_error": "Failed to add location"
+            "location_add_error": "Failed to add location",
+            "photo_too_large": "Photos can be at most {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -100,7 +104,7 @@
         "refresh": "Refresh",
         "close": "Close",
         "logout": "Logout",
-        "copyright": "© {{year}} HomeInventory - All rights reserved",
+        "copyright": "© {{year}} {{brandName}} - All rights reserved",
         "copy": "Copy",
         "download": "Download"
     },
@@ -108,7 +112,7 @@
         "login": {
             "title": "Login",
             "subtitle": "Manage all your home inventory smartly",
-            "welcome": "Welcome to HomeInventory",
+            "welcome": "Welcome to {{brandName}}",
             "username_or_email": "Username or Email",
             "password": "Password",
             "forgot_password": "Forgot Password?",
@@ -120,13 +124,25 @@
             "register_link": "Register",
             "support_contact": "For login issues:",
             "terms_title": "📋 Terms of Use and Disclaimer",
-            "terms_beta": "BETA Version: HomeInventory is currently in testing phase. No guarantee is given regarding the persistence or security of your data.",
+            "terms_beta": "BETA Version: {{brandName}} is currently in testing phase. No guarantee is given regarding the persistence or security of your data.",
             "terms_disclaimer": "Disclaimer: By using this application, you agree that you cannot claim any compensation for potential data loss, access issues, or other technical malfunctions.",
             "terms_backup": "Data Backup: We strongly recommend backing up your important information regularly.",
-            "terms_accept": "By logging in, you are deemed to have accepted these terms."
+            "terms_accept": "By logging in, you are deemed to have accepted these terms.",
+            "two_factor": {
+                "title": "Two-Factor Authentication",
+                "subtitle": "Enter the 6-digit code from your authenticator app",
+                "backup_subtitle": "Enter one of your backup codes",
+                "code_label": "Verification Code",
+                "backup_code_label": "Backup Code",
+                "remember_device": "Remember this device for 30 days",
+                "verify": "Verify",
+                "back": "Back",
+                "use_backup": "Use backup code",
+                "use_totp": "Use authenticator"
+            }
         },
         "register": {
-            "title": "Welcome to HomeInventory",
+            "title": "Welcome to {{brandName}}",
             "subtitle": "Create a new account or join an existing house",
             "create_house": "Create New House",
             "join_house": "Join House",
@@ -237,7 +253,8 @@
         "admin_panel": "Admin Panel",
         "logout": "Logout",
         "menu": "Menu",
-        "personal_vault": "Lub Vault Ntiag Tug"
+        "personal_vault": "Lub Vault Ntiag Tug",
+        "borrow_requests": "Cov Kev Thov Qiv Nyiaj"
     },
     "dashboard": {
         "welcome": "Welcome, <1>{{name}}</1>! 👋",
@@ -279,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory is currently in testing and hobby phase. No guarantee is given for data persistence or security. Please keep backups of important information.",
+        "text": "{{brandName}} is currently in testing and hobby phase. No guarantee is given for data persistence or security. Please keep backups of important information.",
         "contact": "Contact:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - All rights reserved",
+        "rights": "© {{year}} {{brandName}} - All rights reserved",
         "contact": "Contact:"
     },
     "settings": {
@@ -325,7 +342,8 @@
             "member_kicked": "Member removed from the house",
             "member_kick_error": "Could not remove member from the house",
             "recovery_key_regenerated": "Recovery key regenerated",
-            "recovery_key_error": "Could not regenerate recovery key"
+            "recovery_key_error": "Could not regenerate recovery key",
+            "account_delete_error": "The account could not be deleted"
         },
         "user_profile": {
             "edit_username": "Change username"
@@ -392,13 +410,20 @@
             "export_json": "Export as JSON",
             "upload_backup": "Upload Backup",
             "uploading": "Uploading...",
-            "import_json": "Import from JSON"
+            "import_json": "Import from JSON",
+            "export_sensitive_title": "Exported backups contain plaintext data",
+            "export_sensitive_notice": "This backup includes decrypted household data. Store it securely after download, encrypt it if possible, and avoid sharing it over insecure channels.",
+            "export_sensitive_confirm": "This backup will include decrypted household data in plaintext. Do you confirm that you will store it securely?"
         },
         "about": {
             "title": "📱 About Application",
             "version": "Version",
             "brand": "Brand",
-            "feedback": "✉️ Send Feedback"
+            "feedback": "✉️ Send Feedback",
+            "legal_title": "Legal Documents",
+            "legal_description": "You can reopen the terms and privacy texts from here even after accepting them.",
+            "terms_link": "Terms of Service",
+            "privacy_link": "Privacy Policy"
         },
         "modals": {
             "password": {
@@ -441,6 +466,69 @@
             "title": "My Pending Join Requests",
             "waiting_since": "Waiting since: {{date, datetime}}",
             "pending_badge": "Pending"
+        },
+        "two_factor": {
+            "title": "Two-Factor Authentication",
+            "description": "Add an extra layer of security to your account with TOTP-based 2FA",
+            "active": "Active",
+            "enable": "Enable 2FA",
+            "disable": "Disable 2FA",
+            "disable_desc": "Remove two-factor authentication from your account",
+            "disable_title": "Disable Two-Factor Authentication",
+            "disable_confirm": "Disable 2FA",
+            "disable_error": "Failed to disable 2FA",
+            "disabled_success": "Two-factor authentication has been disabled",
+            "password_label": "Password",
+            "password_placeholder": "Enter your password",
+            "method_totp": "Authenticator",
+            "method_backup": "Backup Code",
+            "method_recovery": "Recovery Key",
+            "totp_code_label": "Authenticator Code",
+            "backup_code_label": "Backup Code",
+            "recovery_key_label": "Recovery Key",
+            "cancel": "Cancel",
+            "setup_title": "Set Up 2FA",
+            "setup_error": "Failed to start 2FA setup",
+            "step_1": "Step 1: Scan QR Code",
+            "step_2": "Step 2: Verify Code",
+            "step_3": "Step 3: Save Backup Codes",
+            "scan_instruction": "Scan this QR code with your authenticator app (Google Authenticator, Authy, or any TOTP app)",
+            "manual_entry": "Can't scan? Enter this key manually:",
+            "copy_secret": "Copy secret",
+            "next": "Next",
+            "verify_instruction": "Enter the 6-digit code shown in your authenticator app to verify setup",
+            "verify_error": "Verification failed",
+            "code_label": "6-Digit Code",
+            "back": "Back",
+            "activate": "Activate 2FA",
+            "backup_warning_title": "Save These Backup Codes!",
+            "backup_warning_text": "If you lose access to your authenticator app, you can use these codes to log in. Each code can only be used once. Store them in a safe place.",
+            "download_codes": "Download Backup Codes",
+            "backup_acknowledge": "I have saved my backup codes in a safe place",
+            "done": "Done",
+            "regenerate_codes": "Regenerate Backup Codes",
+            "regenerate_codes_desc": "Generate new backup codes (old ones will be invalidated)",
+            "regenerate": "Regenerate",
+            "codes_regenerated": "Backup codes have been regenerated",
+            "codes_error": "Failed to regenerate backup codes",
+            "close_codes": "Close",
+            "revoke_devices": "Revoke Trusted Devices",
+            "revoke_devices_desc": "Remove all remembered devices, requiring 2FA on next login",
+            "devices_revoked": "{{count}} trusted device(s) removed",
+            "devices_error": "Failed to revoke devices"
+        },
+        "danger_zone": {
+            "title": "Account",
+            "delete_title": "Delete account",
+            "delete_description": "If you want, you can permanently remove the personal data and uploaded files tied to this account.",
+            "delete_warning": "This action cannot be undone.",
+            "delete_action": "Delete account",
+            "modal_title": "Delete account",
+            "modal_warning_title": "This action is irreversible",
+            "modal_warning_body": "After confirmation, you will immediately lose access to the account and the deleted application data cannot be restored from the app.",
+            "password_label": "Confirm with your current password",
+            "confirm_delete": "Confirm deletion",
+            "deleting": "Deleting..."
         }
     },
     "inventory": {
@@ -455,7 +543,53 @@
         "empty_filter": "No items match your filters",
         "empty_msg": "No items added yet",
         "delete_confirm": "Are you sure you want to delete this item?",
-        "delete_error": "Delete error"
+        "delete_error": "Delete error",
+        "load_warning": {
+            "title": "Hom thauj khoom ib nrab",
+            "body": "Qee cov ntaub ntawv txhawb nqa teb qeeb qeeb tam sim no, yog li nplooj ntawv qhib yam tsis muaj cov metadata lim tag nrho. Peb yuav sim dua thaum koj rov ua dua tshiab."
+        },
+        "borrow": {
+            "section_title": "Kev Tshawb Xyuas Qiv Nyiaj",
+            "section_subtitle": "Qhov xwm txheej qiv nyiaj tam sim no thiab keeb kwm",
+            "dialog_lend_title": "Qiv Khoom",
+            "dialog_lend_subtitle": "Tsim ib daim ntawv qiv tshiab rau &quot;{{item}}&quot;",
+            "dialog_return_title": "Mark Rov Qab Los",
+            "dialog_return_subtitle": "Kaw cov ntaub ntawv qiv nyiaj uas tseem siv tau rau &quot;{{item}}&quot;",
+            "member": "Tus tswv cuab ntawm lub tsev",
+            "external": "Tus neeg sab nraud",
+            "borrower_member": "Leej twg tau txais nws?",
+            "no_members": "Tsis muaj lwm tus tswv cuab uas koj xaiv tau hauv lub tsev no. Koj tuaj yeem tsim cov ntaub ntawv ua ib tus neeg sab nraud hloov chaw.",
+            "borrower_name": "Lub npe ntawm tus neeg",
+            "borrower_name_placeholder": "piv txwv li Tus Neeg Nyob Ze Alex",
+            "borrower_contact": "Cov ntaub ntawv tiv tauj",
+            "borrower_contact_placeholder": "Xov tooj, email, lossis tsab ntawv luv luv",
+            "due_date": "Hnub uas xav tias yuav rov qab los",
+            "note": "Lus Cim Tseg:",
+            "note_placeholder": "piv txwv li Lent rau hnub so",
+            "submitting_lend": "Nyiaj Txuag $",
+            "lend": "Qiv",
+            "return_note": "Daim ntawv qhia rov qab",
+            "return_note_placeholder": "piv txwv li Rov qab los rau hauv qhov xwm txheej zoo",
+            "submitting_return": "Kev Kaw",
+            "mark_returned": "Mark Rov Qab Los",
+            "current_borrower_label": "Tam sim no nrog:",
+            "unknown": "Tsis paub",
+            "overdue_badge": "Dhau sijhawm lawm",
+            "borrowed_badge": "Qiv tau",
+            "borrowed_to": "Nrog {{lub npe}}",
+            "due_date_short": "Hnub Xaus:",
+            "actions_error": "Kev qiv nyiaj tsis tuaj yeem ua tiav",
+            "borrowed_at": "Qiv rau hnub tim: {{date}}",
+            "due_date_label": "Xav tias yuav tau txais rov qab: {{date}}",
+            "note_label": "Lus Cim: {{lus cim}}",
+            "return_note_label": "Rov qab los lus ceeb toom: {{note}}",
+            "no_active": "Cov khoom no tsis tau qiv tam sim no.",
+            "history_title": "Keeb Kwm",
+            "history_active": "Qhib cov ntaub ntawv rau {{name}}",
+            "history_returned": "Cov ntaub ntawv kaw rau {{name}}",
+            "returned_at": "Rov qab los rau hnub tim: {{date}}",
+            "no_history": "Tseem tsis tau muaj keeb kwm qiv rau yam khoom no."
+        }
     },
     "categories": {
         "title": "Categories",
@@ -553,7 +687,7 @@
             "free_badge": "Completely Free"
         },
         "features": {
-            "title": "Why <1>HomeInventory</1>?",
+            "title": "Why <1>{{brandName}}</1>?",
             "subtitle": "All features to simplify home management in one platform",
             "items": {
                 "categorize": {
@@ -591,7 +725,7 @@
             "desc": "The easy and secure platform to digitize your home inventory.",
             "links": "Quick Links",
             "contact": "Contact Us",
-            "copyright": "© {{year}} HomeInventory. All rights reserved."
+            "copyright": "© {{year}} {{brandName}}. All rights reserved."
         },
         "preview_privacy_notice": "Demo view: no real user data is displayed."
     },
@@ -719,10 +853,10 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Email Verification Required",
-            "headerTitle": "Welcome to HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Email Verification Required",
+            "headerTitle": "Welcome to {{brandName}}",
             "headerSubtitle": "Create a new account or join an existing house",
-            "greeting": "Welcome to HomeInventory",
+            "greeting": "Welcome to {{brandName}}",
             "intro": "Account created! Please verify your email address to login.",
             "verifyPrompt": "📧 Email Verification Required",
             "verifyButton": "✓ Verify My Account",
@@ -739,13 +873,13 @@
             ],
             "fallback": "The password reset link looks incomplete or broken.",
             "support": "Registration issues:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Welcome to HomeInventory",
-            "headerTitle": "Welcome to HomeInventory",
+            "subject": "Welcome to {{brandName}}",
+            "headerTitle": "Welcome to {{brandName}}",
             "headerSubtitle": "Create a new account or join an existing house",
-            "greeting": "Welcome to HomeInventory",
+            "greeting": "Welcome to {{brandName}}",
             "intro": "Welcome, ! 👋",
             "houseKeyLabel": "House Key",
             "houseKeyNote": "This is your house key, use it to invite others. Add family members to your house!",
@@ -757,7 +891,7 @@
                 "💡 You can be a member of multiple houses and switch between them. Each house maintains a separate inventory."
             ],
             "support": "Registration issues:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Join House",
@@ -766,7 +900,7 @@
             "bodyLine2": "Waiting for house owner approval"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "House Access",
             "bodyLine1Template": "Current pending request: {{house}} ({{status}})",
             "bodyLine2": "Your request for \"{{house}}\" is still waiting for a decision."
@@ -786,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "If an account exists, a password reset link valid for 15 minutes has been sent.",
             "fallback": "The password reset link looks incomplete or broken.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "This email was sent by {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -822,7 +960,7 @@
         "recovery_ready_title": "Recovery key npaj lawm",
         "recovery_ready_description": "Peb tsuas qhia tus yuam sij no ib zaug xwb. Khaws cia rau qhov chaw nyab xeeb.",
         "recovery_visible_once": "Tus yuam sij no yuav tsis raug qhia dua tom qab no.",
-        "recovery_file_title": "HomeInventory Tus Recovery Key rau Lub Vault Ntiag Tug",
+        "recovery_file_title": "{{brandName}} Tus Recovery Key rau Lub Vault Ntiag Tug",
         "recovery_file_created_label": "Tsim thaum",
         "recovery_file_key_label": "Recovery key",
         "recovery_file_warning": "Yog koj poob tus yuam sij no thiab koj vault passphrase tib si, ces vault yuav tsis rov qab tau.",
@@ -832,7 +970,6 @@
         "record_save_new": "Ntxiv Ntaub Ntawv Vault",
         "record_save_edit": "Khaws Kev Hloov",
         "barcode_privacy_hint": "Barcode hauv vault tsis raug mus tshawb rau sab nraud cov kev pab cuam; cov ntawv barcode raug khaws cia ua cov ntaub ntawv encrypt xwb.",
-        "media_note": "Duab, barcode scan, thiab kev tshawb nrhiav khoom sab nraud raug kaw tseg hauv thawj vault flow no. Lawv xav tau ib pipeline media thiab privacy uas raug encrypt cais tawm.",
         "search_placeholder": "Nrhiav hauv vault...",
         "all_categories": "Txhua pawg",
         "all_rooms": "Txhua chav",
@@ -851,6 +988,109 @@
             "decrypt_failed": "Tsis tau txhais tau cov ntsiab lus vault.",
             "name_required": "Yuav tsum muaj npe khoom rau ib daim ntaub ntawv vault.",
             "options_failed": "Tsis tau thauj cov kev xaiv pawg thiab chav."
+        },
+        "media_note": "Photo uploads, barcode scanning, and external product lookup are not supported yet. These features will be added once a dedicated encrypted media and privacy flow is ready."
+    },
+    "borrow_requests": {
+        "title": "Chaw Qiv Nyiaj",
+        "subtitle": "Tswj kev thov thiab kev muab khoom muaj kev nyab xeeb nrog lwm tus neeg siv {{brandName}}.",
+        "incoming_title": "Cov Kev Thov Tuaj",
+        "incoming_subtitle": "Cov lus thov thiab cov lus cog tseg xa tuaj rau koj",
+        "outgoing_title": "Xa los ntawm kuv",
+        "outgoing_subtitle": "Cov kev tshaj tawm thiab cov khoom thov uas koj tau pib",
+        "empty_incoming": "Tam sim no tsis muaj kev thov qiv nyiaj rau koj.",
+        "empty_outgoing": "Koj tseem tsis tau xa ib daim ntawv thov lossis ib daim ntawv thov.",
+        "stats": {
+            "incoming": "Tos Txais Tuaj",
+            "outgoing": "Tos Txais Kev Xa Tawm",
+            "active": "Cov Nyiaj Qiv Uas Siv Tau"
+        },
+        "active": {
+            "title": "Cov Nyiaj Qiv Uas Siv Tau",
+            "subtitle": "Cov khoom uas koj muaj tam sim no los yog koj qiv",
+            "empty": "Tsis muaj cov qiv nyiaj uas siv tau tam sim no.",
+            "borrowed_from": "Qiv los ntawm {{name}}",
+            "lent_to": "Tam sim no nrog {{name}}"
+        },
+        "status": {
+            "pending": "Tos Txais",
+            "accepted": "Ua haujlwm",
+            "rejected": "Tsis lees txais",
+            "cancelled": "Tso tseg lawm",
+            "expired": "Tas Sij Hawm Lawm",
+            "returned": "Rov qab los"
+        },
+        "actions": {
+            "send_request": "Thov Khoom",
+            "send_offer": "Xa Kev Muab",
+            "accept": "<pc id=\"block_0\"><ph dataRef=\"generic_1\" id=\"generic_1\"/><pc dataRefStart=\"span_2\" id=\"span_2\">TXAIS YUAV</pc></pc>",
+            "reject": "Tsis lees txais",
+            "cancel": "Tshem tawm",
+            "fulfill_request": "Ua tiav qhov kev thov"
+        },
+        "labels": {
+            "offer": "Muab",
+            "request": "Kev Thov",
+            "unspecified_item": "Yam khoom tsis tau teev tseg",
+            "counterparty": "Tus Neeg Sib Tw: {{name}}",
+            "created_at": "Tsim: {{date}}",
+            "due_date": "Xav tias yuav tau txais rov qab: {{date}}",
+            "waiting_delivery": "Daim ntawv thov tej zaum tseem tos ib tus account sib phim ua ntej nws tshwm sim.",
+            "returned_on": "Rov qab los rau hnub tim: {{date}}",
+            "borrow_started": "Pib: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Xa Kev Muab",
+            "offer_subtitle_item": "Tsim ib qho kev muab kev ruaj ntseg rau tus neeg siv rau &quot;{{item}}&quot;",
+            "offer_subtitle_general": "Xaiv ib yam khoom los ntawm koj cov khoom muag thiab xa ib qho kev cog lus ruaj ntseg",
+            "item_label": "Yam khoom",
+            "item_placeholder": "Xaiv ib yam khoom",
+            "target_label": "Lub npe neeg siv los yog email",
+            "target_placeholder": "piv txwv li alex lossis alex@example.com",
+            "target_help": "Lub kaw lus tsis qhia seb tus account no puas muaj. Yog tias nws phim, qhov kev thov yuav tshwm sim hauv lub inbox ntawm tus neeg tau txais.",
+            "offer_note_placeholder": "piv txwv li Koj tuaj yeem khaws cia kom txog thaum hnub so yog tias koj xav tau",
+            "offer_submitting": "Xa...",
+            "request_title": "Thov Khoom",
+            "request_subtitle": "Tsim ib daim ntawv thov dav dav yam tsis tas saib lwm tus neeg cov khoom muag",
+            "requested_item_label": "\"Koj xav tau dab tsi?\")",
+            "requested_item_placeholder": "piv txwv li Lub Tshuab Drill, lub tripod, lub rooj zaum pw hav zoov",
+            "request_note_placeholder": "piv txwv li kuv tsuas xav tau nws rau 2 hnub xwb",
+            "request_submitting": "Xa...",
+            "fulfill_title": "Ua tiav qhov kev thov",
+            "fulfill_subtitle": "Xaiv ib yam khoom los ntawm koj cov khoom muag rau &quot;{{item}}&quot;",
+            "fulfill_target": "Cov khoom no yuav raug qiv rau {{name}}.",
+            "no_available_items": "Tam sim no tsis muaj khoom tsim nyog los muab rau hauv koj lub tsev uas siv tau.",
+            "fulfill_submitting": "Nyiaj Txuag $",
+            "return_title": "Mark Rov Qab Los",
+            "return_subtitle": "Kaw qhov qiv nyiaj uas siv tau rau &quot;{{item}}&quot;",
+            "return_target": "Tam sim no nws pom tias yog nrog {{name}}."
+        },
+        "messages": {
+            "load_error": "Chaw qiv nyiaj tsis tuaj yeem thauj khoom tau",
+            "action_error": "Qhov kev nqis tes ua tsis tau tiav"
+        },
+        "preview": {
+            "title": "Hom saib ua ntej",
+            "body": "Qhov backend ntawm nplooj ntawv no tsis tuaj yeem nkag mus tau hauv kev sim hauv zos tam sim no. Koj tseem tuaj yeem tshuaj xyuas qhov layout thiab flow ua ntej; peb yuav qhib sab server tom qab koj pom zoo."
         }
+    },
+    "legal": {
+        "privacy_policy_title": "Privacy Policy",
+        "terms_of_service_title": "Terms of Service",
+        "privacy_policy_content": "PRIVACY NOTICE\n\nData controller: {{brandName}} ({{siteHost}}). Contact: {{supportEmail}}.\n\n1. WHAT WE PROCESS\n- Account data: username, email address, password hash, session cookies, trusted-device data, and security logs.\n- Service data: houses, rooms, categories, items, uploaded media, borrow requests, and personal vault records that you create.\n- Technical data: IP address, browser/session identifiers, and language preference data needed for localization and account security.\n\n2. WHY WE PROCESS IT\nWe process personal data to create and operate your account, authenticate you, secure sessions and two-factor authentication, provide inventory, backup, and vault features, respond to support requests, and satisfy legal or security obligations.\n\n3. LEGAL BASIS\nWhere applicable, processing is based on contract performance, legal obligations, and our legitimate interest in service and account security. If a future feature relies on optional cookies or optional third-party processing, consent must be requested separately for that purpose.\n\n4. SHARING AND RETENTION\nWe do not sell personal data. Data is stored on hosting and email infrastructure that is necessary to operate the service, and may be disclosed to authorities only when legally required. Account data is retained while your account is active. When you delete your account from Settings, your account data, personal vault content, uploaded media, and application records owned by your account are deleted from the application without undue delay, except information that must be retained for legal claims, statutory duties, or security obligations.\n\n5. YOUR RIGHTS\nDepending on the applicable law, you may request access, correction, deletion, restriction, objection, or a copy of your personal data. You can use the in-app account deletion flow or contact {{supportEmail}} for privacy requests.\n\n6. IMPORTANT NOTE\nThis notice is provided for transparency. It is separate from any optional marketing, analytics, or non-essential cookie consent, which must be requested separately when required.",
+        "terms_of_service_content": "TERMS OF SERVICE\n\nBy using {{brandName}}, you agree to use the service lawfully and only for data you are authorized to upload, store, or share. You are responsible for the legality, accuracy, and ownership of the content you place in the service. Keep your password, recovery materials, and backups secure. We may suspend or remove accounts that abuse the service, violate these terms, or create a security or legal risk. The service is provided on an \"as is\" and \"as available\" basis to the extent permitted by law. Keep your own backups of important information. Deleting your account from Settings permanently removes application data and uploaded media owned by your account and cannot be undone.",
+        "register_consent": "I accept the <1>Terms of Service</1> and acknowledge that I have read the <2>Privacy Notice</2>.",
+        "consent_title": "Review legal documents",
+        "consent_subtitle": "Please confirm the current terms before continuing.",
+        "consent_notice": "We need a recorded acknowledgment for the current Terms of Service and Privacy Notice before you can continue using the application.",
+        "consent_checkbox": "I accept the Terms of Service and confirm that I have read the Privacy Notice.",
+        "consent_submit": "Continue",
+        "consent_submitting": "Saving...",
+        "consent_required": "You need to confirm the Terms of Service and Privacy Notice before continuing."
+    },
+    "cookies": {
+        "banner_text": "We use only essential cookies required for login, session security, trusted-device protection, and language preference. Non-essential analytics or marketing cookies are not enabled by default.",
+        "accept": "Understood",
+        "learn_more": "Learn More"
     }
 }

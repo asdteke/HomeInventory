@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Garantiperiodens enhet",
             "warranty_duration_months": "Månader",
             "warranty_duration_years": "År",
-            "warranty_calculation_help": "Om du lämnar startdatumet för garantin tomt används fakturadatumet. När du anger tiden beräknas garantins slutdatum automatiskt."
+            "warranty_calculation_help": "Om du lämnar startdatumet för garantin tomt används fakturadatumet. När du anger tiden beräknas garantins slutdatum automatiskt.",
+            "vault_hint_title": "Mycket känslig post?",
+            "vault_hint_description": "För pass, handlingar, identitetsuppgifter, åtkomstkoder och andra poster som bör hållas utanför standardflödet, förvara dem istället i Personligt Valv.",
+            "vault_hint_action": "Öppna Personligt Valv"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" snabb tillagd - du kan ändra senare",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Produkten hittades inte i databaserna. Du kan söka på Google.",
             "search_fail": "⚠ Söket misslyckades",
             "name_required": "Artikelns namn krävs",
-            "location_add_error": "Misslyckades med att lägga till plats"
+            "location_add_error": "Misslyckades med att lägga till plats",
+            "photo_too_large": "Fotografier kan vara högst {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,16 +103,16 @@
         "refresh": "Uppdatera",
         "close": "Stäng",
         "logout": "Logga ut",
-        "copyright": "© {{year}} HomeInventory - Alla rättigheter förbehållna",
+        "copyright": "© {{year}} {{brandName}} - Alla rättigheter förbehållna",
         "other": "Annat",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "Kopiera",
+        "download": "Ladda ner"
     },
     "auth": {
         "login": {
             "title": "Logga in",
             "subtitle": "Hantera allt ditt hemförråd smart",
-            "welcome": "Välkommen till HomeInventory",
+            "welcome": "Välkommen till {{brandName}}",
             "username_or_email": "Användarnamn eller e-post",
             "password": "Lösenord",
             "forgot_password": "Glömt lösenord?",
@@ -120,13 +124,25 @@
             "register_link": "Registrera",
             "support_contact": "För inloggningsproblem:",
             "terms_title": "📋 Användarvillkor och ansvarsfriskrivning",
-            "terms_beta": "BETA-version: HomeInventory är för närvarande i testfas. Ingen garanti ges för lagring eller säkerhet för dina data.",
+            "terms_beta": "BETA-version: {{brandName}} är för närvarande i testfas. Ingen garanti ges för lagring eller säkerhet för dina data.",
             "terms_disclaimer": "Ansvarsfriskrivning: Genom att använda denna applikation accepterar du att du inte kan kräva någon ersättning för eventuell dataförlust, åtkomstproblem eller andra tekniska fel.",
             "terms_backup": "Säkerhetskopiering av data: Vi rekommenderar starkt att du regelbundet säkerhetskopierar viktig information.",
-            "terms_accept": "Genom att logga in anses du ha accepterat dessa villkor."
+            "terms_accept": "Genom att logga in anses du ha accepterat dessa villkor.",
+            "two_factor": {
+                "title": "Tvåfaktorsautentisering",
+                "subtitle": "Ange den 6-siffriga koden från din autentiseringsapp",
+                "backup_subtitle": "Ange en av dina reservkoder",
+                "code_label": "Verifieringskod",
+                "backup_code_label": "Reservkod",
+                "remember_device": "Kom ihåg den här enheten i 30 dagar",
+                "verify": "Verifiera",
+                "back": "Tillbaka",
+                "use_backup": "Använd reservkod",
+                "use_totp": "Använd autentiserare"
+            }
         },
         "register": {
-            "title": "Välkommen till HomeInventory",
+            "title": "Välkommen till {{brandName}}",
             "subtitle": "Skapa ett nytt konto eller gå med i ett befintligt hushåll",
             "create_house": "Skapa nytt hushåll",
             "join_house": "Gå med i hushåll",
@@ -237,7 +253,8 @@
         "admin_panel": "Adminpanel",
         "logout": "Logga ut",
         "menu": "Meny",
-        "personal_vault": "Personligt valv"
+        "personal_vault": "Personligt valv",
+        "borrow_requests": "Låneförfrågningar"
     },
     "dashboard": {
         "welcome": "Välkommen, <1>{{name}}</1>! 👋",
@@ -279,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory är för närvarande i test- och hobbyfas. Ingen garanti ges för datalagring eller säkerhet. Vänligen ta backup på viktig information.",
+        "text": "{{brandName}} är för närvarande i test- och hobbyfas. Ingen garanti ges för datalagring eller säkerhet. Vänligen ta backup på viktig information.",
         "contact": "Kontakt:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Alla rättigheter förbehållna",
+        "rights": "© {{year}} {{brandName}} - Alla rättigheter förbehållna",
         "contact": "Kontakt:"
     },
     "settings": {
@@ -325,7 +342,8 @@
             "member_kicked": "Medlem borttagen från huset",
             "member_kick_error": "Kunde inte ta bort medlem från huset",
             "recovery_key_regenerated": "Återställningsnyckel omgenererad",
-            "recovery_key_error": "Kunde inte omgenerera återställningsnyckel"
+            "recovery_key_error": "Kunde inte omgenerera återställningsnyckel",
+            "account_delete_error": "Kontot kunde inte tas bort"
         },
         "user_profile": {
             "edit_username": "Byt användarnamn"
@@ -392,13 +410,20 @@
             "export_json": "Exportera som JSON",
             "upload_backup": "Ladda upp säkerhetskopia",
             "uploading": "Laddar upp...",
-            "import_json": "Importera från JSON"
+            "import_json": "Importera från JSON",
+            "export_sensitive_title": "Exporterade säkerhetskopior innehåller oförsäkrad data",
+            "export_sensitive_notice": "Denna säkerhetskopia inkluderar dekrypterad hushållsdata. Spara den säkert efter nedladdning, kryptera den om möjligt och undvik att dela den över osäkra kanaler.",
+            "export_sensitive_confirm": "Denna säkerhetskopia kommer att inkludera dekrypterad hushållsdata i klartext. Bekräftar du att du kommer att spara den säkert?"
         },
         "about": {
             "title": "📱 Om applikationen",
             "version": "Version",
             "brand": "Märke",
-            "feedback": "✉️ Skicka feedback"
+            "feedback": "✉️ Skicka feedback",
+            "legal_title": "Juridiska dokument",
+            "legal_description": "Du kan öppna villkoren och sekretesspolicyn här även efter att du har accepterat dem.",
+            "terms_link": "Användarvillkor",
+            "privacy_link": "Sekretesspolicy"
         },
         "modals": {
             "password": {
@@ -441,6 +466,69 @@
             "title": "Mina väntande anslutningsförfrågningar",
             "waiting_since": "Väntar sedan: {{date, datetime}}",
             "pending_badge": "Väntande"
+        },
+        "two_factor": {
+            "title": "Tvåfaktorsautentisering",
+            "description": "Lägg till ett extra säkerhetslager till ditt konto med TOTP-baserad 2FA",
+            "active": "Aktiv",
+            "enable": "Aktivera 2FA",
+            "disable": "Inaktivera 2FA",
+            "disable_desc": "Ta bort tvåfaktorsautentisering från ditt konto",
+            "disable_title": "Inaktivera tvåfaktorsautentisering",
+            "disable_confirm": "Inaktivera 2FA",
+            "disable_error": "Misslyckades med att inaktivera 2FA",
+            "disabled_success": "Tvåfaktorsautentisering har inaktiverats",
+            "password_label": "Lösenord",
+            "password_placeholder": "Ange ditt lösenord",
+            "method_totp": "Autentiserare",
+            "method_backup": "Backupkod",
+            "method_recovery": "Återställningsnyckel",
+            "totp_code_label": "Authenticator-kod",
+            "backup_code_label": "Säkerhetskopieringskod",
+            "recovery_key_label": "Återställningsnyckel",
+            "cancel": "Avbryt",
+            "setup_title": "Ställ in 2FA",
+            "setup_error": "Kunde inte starta 2FA-inställning",
+            "step_1": "Steg 1: Skanna QR-koden",
+            "step_2": "Steg 2: Verifiera kod",
+            "step_3": "Steg 3: Spara backupkoder",
+            "scan_instruction": "Skanna denna QR-kod med din autentiseringsapp (Google Authenticator, Authy eller någon TOTP-app)",
+            "manual_entry": "Kan du inte skanna? Ange denna nyckel manuellt:",
+            "copy_secret": "Kopiera hemlighet",
+            "next": "Nästa",
+            "verify_instruction": "Ange den 6-siffriga koden som visas i din autentiseringsapp för att verifiera inställningen",
+            "verify_error": "Verifiering misslyckades",
+            "code_label": "6-siffrig kod",
+            "back": "Tillbaka",
+            "activate": "Aktivera 2FA",
+            "backup_warning_title": "Spara dessa reservkoder!",
+            "backup_warning_text": "Om du förlorar åtkomst till din autentiseringsapp kan du använda dessa koder för att logga in. Varje kod kan endast användas en gång. Förvara dem på en säker plats.",
+            "download_codes": "Ladda ner reservkoder",
+            "backup_acknowledge": "Jag har sparat mina reservkoder på en säker plats",
+            "done": "Klart",
+            "regenerate_codes": "Generera om säkerhetskoder",
+            "regenerate_codes_desc": "Generera nya säkerhetskoder (de gamla kommer att ogiltigförklaras)",
+            "regenerate": "Generera om",
+            "codes_regenerated": "Säkerhetskoder har genererats om",
+            "codes_error": "Misslyckades med att generera om säkerhetskoder",
+            "close_codes": "Stäng",
+            "revoke_devices": "Återkalla betrodda enheter",
+            "revoke_devices_desc": "Ta bort alla sparade enheter, vilket kräver 2FA vid nästa inloggning",
+            "devices_revoked": "{{count}} betrodda enhet(er) borttagna",
+            "devices_error": "Misslyckades med att återkalla enheter"
+        },
+        "danger_zone": {
+            "title": "Konto",
+            "delete_title": "Ta bort konto",
+            "delete_description": "Om du vill kan du permanent ta bort personuppgifter och uppladdade filer kopplade till detta konto.",
+            "delete_warning": "Denna åtgärd kan inte ångras.",
+            "delete_action": "Radera konto",
+            "modal_title": "Radera konto",
+            "modal_warning_title": "Denna åtgärd är oåterkallelig",
+            "modal_warning_body": "Efter bekräftelse förlorar du omedelbart åtkomst till kontot och de raderade applikationsdata kan inte återställas från appen.",
+            "password_label": "Bekräfta med ditt nuvarande lösenord",
+            "confirm_delete": "Bekräfta radering",
+            "deleting": "Raderar..."
         }
     },
     "inventory": {
@@ -455,7 +543,53 @@
         "empty_filter": "Inga objekt matchar dina filter",
         "empty_msg": "Inga objekt tillagda än",
         "delete_confirm": "Är du säker på att du vill ta bort detta objekt?",
-        "delete_error": "Raderingsfel"
+        "delete_error": "Raderingsfel",
+        "load_warning": {
+            "title": "Delvis laddningsläge",
+            "body": "Några stöddata svarar långsamt just nu, så sidan öppnades utan fullständig filtermetadata. Vi kommer att försöka igen när du uppdaterar."
+        },
+        "borrow": {
+            "section_title": "Lånespårning",
+            "section_subtitle": "Nuvarande lånestatus och historik",
+            "dialog_lend_title": "Låna objekt",
+            "dialog_lend_subtitle": "Skapa en ny lånepost för \"{{item}}\"",
+            "dialog_return_title": "Markera som återlämnad",
+            "dialog_return_subtitle": "Stäng den aktiva låneposten för \"{{item}}\"",
+            "member": "Husmedlem",
+            "external": "Extern person",
+            "borrower_member": "Vem tog emot det?",
+            "no_members": "Det finns ingen annan valbar medlem i detta hus. Du kan skapa posten som en extern person istället.",
+            "borrower_name": "Personnamn",
+            "borrower_name_placeholder": "t.ex. Grannen Alex",
+            "borrower_contact": "Kontaktinformation",
+            "borrower_contact_placeholder": "Telefon, e-post eller kort meddelande",
+            "due_date": "Förväntat återlämningsdatum",
+            "note": "Anteckning",
+            "note_placeholder": "t.ex. Lånade över helgen",
+            "submitting_lend": "Sparar...",
+            "lend": "Låna ut",
+            "return_note": "Återlämningsanteckning",
+            "return_note_placeholder": "t.ex. Återlämnad i gott skick",
+            "submitting_return": "Stänger...",
+            "mark_returned": "Markerad som återlämnad",
+            "current_borrower_label": "För närvarande hos:",
+            "unknown": "Okänd",
+            "overdue_badge": "Försenad",
+            "borrowed_badge": "Utlånad",
+            "borrowed_to": "Hos {{name}}",
+            "due_date_short": "Förfallodatum: {{date}}",
+            "actions_error": "Låneåtgärd kunde inte genomföras",
+            "borrowed_at": "Lånades ut: {{date}}",
+            "due_date_label": "Förväntad återlämning: {{date}}",
+            "note_label": "Notering: {{note}}",
+            "return_note_label": "Återlämningsnotering: {{note}}",
+            "no_active": "Denna vara är för närvarande inte utlånad.",
+            "history_title": "Historik",
+            "history_active": "Öppna register för {{name}}",
+            "history_returned": "Stängt register för {{name}}",
+            "returned_at": "Återlämnat den: {{date}}",
+            "no_history": "Det finns ingen lånehistorik för denna artikel än."
+        }
     },
     "categories": {
         "title": "Kategorier",
@@ -553,7 +687,7 @@
             "free_badge": "Helt gratis"
         },
         "features": {
-            "title": "Varför <1>HomeInventory</1>?",
+            "title": "Varför <1>{{brandName}}</1>?",
             "subtitle": "Alla funktioner för att förenkla hemhantering på en plattform",
             "items": {
                 "categorize": {
@@ -591,7 +725,7 @@
             "desc": "Plattformen som är enkel och säker för att digitalisera ditt heminventarium.",
             "links": "Snabblänkar",
             "contact": "Kontakta oss",
-            "copyright": "© {{year}} HomeInventory. Alla rättigheter förbehållna."
+            "copyright": "© {{year}} {{brandName}}. Alla rättigheter förbehållna."
         },
         "preview_privacy_notice": "Demoversion: inga riktiga användardata visas."
     },
@@ -719,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 E-postverifiering krävs",
-            "headerTitle": "Välkommen till HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 E-postverifiering krävs",
+            "headerTitle": "Välkommen till {{brandName}}",
             "headerSubtitle": "Skapa ett nytt konto eller gå med i ett befintligt hushåll",
-            "greeting": "Välkommen till HomeInventory",
+            "greeting": "Välkommen till {{brandName}}",
             "intro": "Konto skapat! Vänligen verifiera din e-postadress för att logga in.",
             "verifyPrompt": "📧 E-postverifiering krävs",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Verifiera mitt konto",
             "warningTitle": "⚠️",
             "warningBody": "Kontrollera skräppostmappen om e-postmeddelandet inte kommer fram.",
             "houseKeyLabel": "Husnyckel",
@@ -739,13 +873,13 @@
             ],
             "fallback": "Länken för återställning av lösenord verkar ofullständig eller skadad.",
             "support": "Registreringsproblem:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Välkommen till HomeInventory",
-            "headerTitle": "Välkommen till HomeInventory",
+            "subject": "Välkommen till {{brandName}}",
+            "headerTitle": "Välkommen till {{brandName}}",
             "headerSubtitle": "Skapa ett nytt konto eller gå med i ett befintligt hushåll",
-            "greeting": "Välkommen till HomeInventory",
+            "greeting": "Välkommen till {{brandName}}",
             "intro": "Välkommen, ! 👋",
             "houseKeyLabel": "Husnyckel",
             "houseKeyNote": "Detta är din husnyckel, använd den för att bjuda in andra. Lägg till familjemedlemmar i ditt hus!",
@@ -757,7 +891,7 @@
                 "💡 Du kan vara medlem i flera hus och växla mellan dem. Varje hus har ett separat förråd."
             ],
             "support": "Registreringsproblem:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Gå med i hus",
@@ -766,7 +900,7 @@
             "bodyLine2": "Väntar på husägarens godkännande"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Husåtkomst",
             "bodyLine1Template": "Nuvarande väntande begäran: {{house}} ({{status}})",
             "bodyLine2": "Din begäran om \"{{house}}\" väntar fortfarande på ett beslut."
@@ -786,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Om ett konto finns skickas en länk för återställning av lösenord som är giltig i 15 minuter.",
             "fallback": "Länken för återställning av lösenord verkar ofullständig eller skadad.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "Detta e-postmeddelande skickades av {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -828,7 +966,6 @@
         "record_save_new": "Lägg till kassavalvsinlägg",
         "record_save_edit": "Spara ändringar",
         "barcode_privacy_hint": "Kassavalvets streckkoder söks inte upp på externa tjänster automatiskt; streckkodstexten lagras endast som krypterad data.",
-        "media_note": "Foton, streckkodsskanning och extern produktuppslagning är avsiktligt inaktiverade i detta första kassavalvsflöde. De behöver en separat krypterad media- och integritetspipeline.",
         "search_placeholder": "Sök i valvet...",
         "all_categories": "Alla kategorier",
         "all_rooms": "Alla rum",
@@ -848,9 +985,112 @@
             "name_required": "Ett objektnamn krävs för en valvpost.",
             "options_failed": "Kategori- och rumsalternativ kunde inte laddas."
         },
-        "recovery_file_title": "HomeInventory Personlig Valv Återställningsnyckel",
+        "recovery_file_title": "{{brandName}} Personlig Valv Återställningsnyckel",
         "recovery_file_created_label": "Skapad",
         "recovery_file_key_label": "Återställningsnyckel",
-        "recovery_file_warning": "Om du förlorar både denna nyckel och ditt valvs lösenfras kan valvet inte återställas."
+        "recovery_file_warning": "Om du förlorar både denna nyckel och ditt valvs lösenfras kan valvet inte återställas.",
+        "media_note": "Foto-uppladdningar, streckkodsläsning och extern produktuppslagning stöds ännu inte. Dessa funktioner kommer att läggas till när ett dedikerat krypterat medie- och sekretessflöde är klart."
+    },
+    "borrow_requests": {
+        "title": "Lånecenter",
+        "subtitle": "Hantera säkra förfrågningar och erbjudandeflöden med andra {{brandName}}-användare.",
+        "incoming_title": "Inkommande förfrågningar",
+        "incoming_subtitle": "Förfrågningar och erbjudanden skickade till dig",
+        "outgoing_title": "Skickat av mig",
+        "outgoing_subtitle": "Erbjudanden och artikelbegäranden du startade",
+        "empty_incoming": "Det finns inga låneförfrågningar för dig just nu.",
+        "empty_outgoing": "Du har inte skickat något erbjudande eller begäran än.",
+        "stats": {
+            "incoming": "Väntande inkommande",
+            "outgoing": "Väntande utgående",
+            "active": "Aktiva lån"
+        },
+        "active": {
+            "title": "Aktiva lån",
+            "subtitle": "Artiklar som för närvarande är hos dig eller utlånade av dig",
+            "empty": "Det finns inga aktiva lån just nu.",
+            "borrowed_from": "Lånat från {{name}}",
+            "lent_to": "För närvarande hos {{name}}"
+        },
+        "status": {
+            "pending": "Väntande",
+            "accepted": "Aktiv",
+            "rejected": "Avvisad",
+            "cancelled": "Avbruten",
+            "expired": "Utgånget",
+            "returned": "Återlämnad"
+        },
+        "actions": {
+            "send_request": "Begär objekt",
+            "send_offer": "Skicka erbjudande",
+            "accept": "Acceptera",
+            "reject": "Avvisa",
+            "cancel": "Avbryt",
+            "fulfill_request": "Uppfyll begäran"
+        },
+        "labels": {
+            "offer": "Erbjudande",
+            "request": "Begäran",
+            "unspecified_item": "Ospecificerad artikel",
+            "counterparty": "Motpart: {{name}}",
+            "created_at": "Skapad: {{date}}",
+            "due_date": "Förväntad återkomst: {{date}}",
+            "waiting_delivery": "Begäran kan fortfarande vänta på ett matchande konto innan den visas.",
+            "returned_on": "Returnerad den: {{date}}",
+            "borrow_started": "Startad: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Skicka erbjudande",
+            "offer_subtitle_item": "Skapa ett säkert användarerbjudande för \"{{item}}\"",
+            "offer_subtitle_general": "Välj ett föremål från ditt lager och skicka ett säkert erbjudande",
+            "item_label": "Föremål",
+            "item_placeholder": "Välj ett föremål",
+            "target_label": "Användarnamn eller e-post",
+            "target_placeholder": "t.ex. alex eller alex@example.com",
+            "target_help": "Systemet avslöjar inte om detta konto finns. Om det matchar, visas förfrågan i mottagarens inkorg.",
+            "offer_note_placeholder": "t.ex. Du kan behålla det till helgen om du vill",
+            "offer_submitting": "Skickar...",
+            "request_title": "Begär objekt",
+            "request_subtitle": "Skapa en allmän förfrågan utan att bläddra i den andres inventarier",
+            "requested_item_label": "Vad behöver du?",
+            "requested_item_placeholder": "t.ex. borrmaskin, stativ, campingstol",
+            "request_note_placeholder": "t.ex. Jag behöver det bara i 2 dagar",
+            "request_submitting": "Skickar...",
+            "fulfill_title": "Uppfyll begäran",
+            "fulfill_subtitle": "Välj ett föremål från ditt förråd för \"{{item}}\"",
+            "fulfill_target": "Detta föremål kommer att lånas ut till {{name}}.",
+            "no_available_items": "Det finns inget berättigat föremål att erbjuda i ditt aktiva hus just nu.",
+            "fulfill_submitting": "Sparar...",
+            "return_title": "Markera som återlämnat",
+            "return_subtitle": "Stäng den aktiva utlåningen för \"{{item}}\"",
+            "return_target": "Det visas för närvarande som hos {{name}}."
+        },
+        "messages": {
+            "load_error": "Lånecenter kunde inte laddas",
+            "action_error": "Åtgärden kunde inte slutföras"
+        },
+        "preview": {
+            "title": "Förhandsgranskningsläge",
+            "body": "Den bakre delen av denna sida är för närvarande inte nåbar vid lokal testning. Du kan fortfarande granska layouten och flödet först; vi kommer att aktivera serversidan efter att du godkänt den."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Integritetspolicy",
+        "terms_of_service_title": "Användarvillkor",
+        "privacy_policy_content": "Din integritet är viktig för oss. Denna applikation lagrar dina uppladdade data säkert med fältnivåkryptering. Vi säljer eller delar inte dina personuppgifter med tredje part. Genom att använda tjänsten samtycker du till insamlingen av nödvändiga uppgifter för kontohantering och applikationens funktionalitet.",
+        "terms_of_service_content": "Genom att använda {{brandName}} godkänner du dessa villkor. Tjänsten tillhandahålls \"i befintligt skick\" utan garantier. Du ansvarar för de data du laddar upp och för att säkerställa att du har rättigheterna till dem. Vi förbehåller oss rätten att stänga av konton som bryter mot regler eller missbrukar systemet.",
+        "register_consent": "Jag har läst, förstått och godkänner <1>Servicevillkoren</1> och <2>Integritetspolicyn</2>.",
+        "consent_title": "Granska juridiska dokument",
+        "consent_subtitle": "Bekräfta de nuvarande villkoren innan du fortsätter.",
+        "consent_notice": "Vi behöver en registrerad bekräftelse på de aktuella Användarvillkoren och Integritetsmeddelandet innan du kan fortsätta använda applikationen.",
+        "consent_checkbox": "Jag accepterar Användarvillkoren och bekräftar att jag har läst Integritetsmeddelandet.",
+        "consent_submit": "Fortsätt",
+        "consent_submitting": "Sparar...",
+        "consent_required": "Du behöver bekräfta Användarvillkoren och Integritetsmeddelandet innan du fortsätter."
+    },
+    "cookies": {
+        "banner_text": "Vi använder nödvändiga cookies för att hålla dig inloggad och säkra din session. Genom att fortsätta använda den här webbplatsen godkänner du våra policyer.",
+        "accept": "Jag accepterar",
+        "learn_more": "Läs mer"
     }
 }

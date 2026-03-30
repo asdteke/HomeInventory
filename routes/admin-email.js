@@ -1,7 +1,8 @@
 import express from 'express';
 import rateLimit from 'express-rate-limit';
 import validator from 'validator';
-import { sendEmail } from '../utils/emailService.js';
+import { getAdminEmailCopy, sendEmail } from '../utils/emailService.js';
+import { BRAND_NAME } from '../utils/branding.js';
 import { authenticateToken, requireAdmin } from '../middleware/auth.js';
 import { logError } from '../utils/logger.js';
 
@@ -83,6 +84,8 @@ router.post('/send', authenticateToken, requireAdmin, emailRateLimiter, async (r
             });
         }
 
+        const emailCopy = getAdminEmailCopy();
+
         // E-posta gönder
         const html = `
         <!DOCTYPE html>
@@ -99,16 +102,16 @@ router.post('/send', authenticateToken, requireAdmin, emailRateLimiter, async (r
             </style>
         </head>
         <body>
-            <div class="container">
+                <div class="container">
                 <div class="header">
-                    <h1>🏠 HomeInventory</h1>
+                    <h1>🏠 ${BRAND_NAME}</h1>
                 </div>
                 <div class="content">
                     ${cleanMessage}
                 </div>
                 <div class="footer">
-                    <p>This email was sent by HomeInventory Team.</p>
-                    <p>© 2026 HomeInventory - support@homeinventory.local</p>
+                    <p>${emailCopy.sentBy}</p>
+                    <p>${emailCopy.footer}</p>
                 </div>
             </div>
         </body>
@@ -168,7 +171,7 @@ router.get('/status', authenticateToken, requireAdmin, (req, res) => {
 
     res.json({
         configured: apiKeyExists,
-        from: 'HomeInventory Team <support@homeinventory.local>',
+        from: DEFAULT_FROM,
         service: 'Resend API',
         rateLimit: '3 e-posta / dakika',
         user: {

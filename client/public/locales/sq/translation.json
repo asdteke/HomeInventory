@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Njësia e Kohëzgjatjes së Garancisë",
             "warranty_duration_months": "Muaj",
             "warranty_duration_years": "Vite",
-            "warranty_calculation_help": "Nëse lini bosh datën e fillimit të garancisë, përdoret data e faturës. Kur shkruani kohëzgjatjen, data e përfundimit të garancisë llogaritet automatikisht."
+            "warranty_calculation_help": "Nëse lini bosh datën e fillimit të garancisë, përdoret data e faturës. Kur shkruani kohëzgjatjen, data e përfundimit të garancisë llogaritet automatikisht.",
+            "vault_hint_title": "Regjistër shumë i ndjeshëm?",
+            "vault_hint_description": "Për pasaportat, dokumentet, detajet e identitetit, kodet e aksesit dhe të tjera të dhëna që duhen mbajtur jashtë rrjedhës standarde të inventarit, mbajini në Kasafortën Personale në vend të kësaj.",
+            "vault_hint_action": "Hapur Kasafortën Personale"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" u shtua shpejt - mund ta redaktoni më vonë",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Produkti nuk u gjet në bazat e të dhënave. Mund të kërkoni në Google.",
             "search_fail": "⚠ Kërkimi dështoi",
             "name_required": "Emri i artikullit është i nevojshëm",
-            "location_add_error": "Dështoi shtimi i vendndodhjes"
+            "location_add_error": "Dështoi shtimi i vendndodhjes",
+            "photo_too_large": "Fotot mund të jenë maksimalisht {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,16 +103,16 @@
         "refresh": "Rifresko",
         "close": "Mbyll",
         "logout": "Dil",
-        "copyright": "© {{year}} HomeInventory - Të gjitha të drejtat e rezervuara",
+        "copyright": "© {{year}} {{brandName}} - Të gjitha të drejtat e rezervuara",
         "other": "Tjetër",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "Kopjo",
+        "download": "Shkarko"
     },
     "auth": {
         "login": {
             "title": "Hyrje",
             "subtitle": "Menaxho të gjithë inventarin e shtëpisë tënd me zgjuarsi",
-            "welcome": "Mirësevini në HomeInventory",
+            "welcome": "Mirësevini në {{brandName}}",
             "username_or_email": "Emri i përdoruesit ose Email",
             "password": "Fjalëkalimi",
             "forgot_password": "Haruat fjalëkalimin?",
@@ -120,13 +124,25 @@
             "register_link": "Regjistrohu",
             "support_contact": "Për problemet me hyrjen:",
             "terms_title": "📋 Kushtet e Përdorimit dhe Përjashtimi i Përgjegjësisë",
-            "terms_beta": "Versioni BETA: HomeInventory aktualisht është në fazën e testimit. Nuk jepet asnjë garanci në lidhje me qëndrueshmërinë ose sigurinë e të dhënave tuaja.",
+            "terms_beta": "Versioni BETA: {{brandName}} aktualisht është në fazën e testimit. Nuk jepet asnjë garanci në lidhje me qëndrueshmërinë ose sigurinë e të dhënave tuaja.",
             "terms_disclaimer": "Përjashtim përgjegjësie: Duke përdorur këtë aplikacion, ju pranoni që nuk mund të kërkoni ndonjë kompensim për humbjen e mundshme të të dhënave, problemet e aksesit ose funksionimet teknike të tjera.",
             "terms_backup": "Ruajtja e të dhënave: Ne rekomandojmë fuqimisht që të bëni kopje rezervë të informacionit tuaj të rëndësishëm rregullisht.",
-            "terms_accept": "Duke hyrë, ju konsideroheni se keni pranuar këto kushte."
+            "terms_accept": "Duke hyrë, ju konsideroheni se keni pranuar këto kushte.",
+            "two_factor": {
+                "title": "Vërtetimi në Dy Hapa",
+                "subtitle": "Shkruani kodin 6-shifror nga aplikacioni juaj i autentikimit",
+                "backup_subtitle": "Shkruani njërin nga kodet tuaja rezervë",
+                "code_label": "Kodi i Vërtetimit",
+                "backup_code_label": "Kodi Rezervë",
+                "remember_device": "Mbani mend këtë pajisje për 30 ditë",
+                "verify": "Verifiko",
+                "back": "Kthehu",
+                "use_backup": "Përdor kodin rezervë",
+                "use_totp": "Përdor autenthikuesin"
+            }
         },
         "register": {
-            "title": "Mirësevini në HomeInventory",
+            "title": "Mirësevini në {{brandName}}",
             "subtitle": "Krijoni një llogari të re ose bashkohuni me një shtëpi ekzistuese",
             "create_house": "Krijo Shtëpi të Re",
             "join_house": "Bashkohuni me Shtëpi",
@@ -237,7 +253,8 @@
         "admin_panel": "Paneli i Administrimit",
         "logout": "Çkyçu",
         "menu": "Menu",
-        "personal_vault": "Kasafortë Personale"
+        "personal_vault": "Kasafortë Personale",
+        "borrow_requests": "Kërkesat për Huazim"
     },
     "dashboard": {
         "welcome": "Mirësevini, <1>{{name}}</1>! 👋",
@@ -279,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory është aktualisht në fazën e testimit dhe hobit. Nuk jepet asnjë garanci për ruajtjen apo sigurinë e të dhënave. Ju lutemi mbani kopje rezervë të informacionit të rëndësishëm.",
+        "text": "{{brandName}} është aktualisht në fazën e testimit dhe hobit. Nuk jepet asnjë garanci për ruajtjen apo sigurinë e të dhënave. Ju lutemi mbani kopje rezervë të informacionit të rëndësishëm.",
         "contact": "Kontakti:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Të gjitha të drejtat e rezervuara",
+        "rights": "© {{year}} {{brandName}} - Të gjitha të drejtat e rezervuara",
         "contact": "Kontakti:"
     },
     "settings": {
@@ -325,7 +342,8 @@
             "member_kicked": "Anëtari u hoq nga shtëpia",
             "member_kick_error": "Nuk mund të hiqet anëtari nga shtëpia",
             "recovery_key_regenerated": "Çelësi i rikuperimit u rikrijua",
-            "recovery_key_error": "Nuk mund të rikrijohet çelësi i rikuperimit"
+            "recovery_key_error": "Nuk mund të rikrijohet çelësi i rikuperimit",
+            "account_delete_error": "Llogaria nuk mund të fshihet"
         },
         "user_profile": {
             "edit_username": "Ndrysho emrin e përdoruesit"
@@ -392,13 +410,20 @@
             "export_json": "Eksporto si JSON",
             "upload_backup": "Ngarko Rezervën",
             "uploading": "Po ngarkohet...",
-            "import_json": "Importo nga JSON"
+            "import_json": "Importo nga JSON",
+            "export_sensitive_title": "Kopjet rezervë të eksportuara përmbajnë të dhëna të thjeshta",
+            "export_sensitive_notice": "Kjo kopje rezervë përfshin të dhëna të shtruara të shtëpisë. Ruaje atë në mënyrë të sigurt pas shkarkimit, kriptoje nëse është e mundur, dhe shmang ndarjen e saj përmes kanaleve të pasigurta.",
+            "export_sensitive_confirm": "Kjo kopje rezervë do të përfshijë të dhëna të shtruara të shtëpisë në tekst të thjeshtë. A e konfirmoni që do ta ruani atë në mënyrë të sigurt?"
         },
         "about": {
             "title": "📱 Rreth Aplikacionit",
             "version": "Versioni",
             "brand": "Markë",
-            "feedback": "✉️ Dërgo Feedback"
+            "feedback": "✉️ Dërgo Feedback",
+            "legal_title": "Dokumentet Ligjore",
+            "legal_description": "Ju mund të rihapni tekstet e kushteve dhe privatësisë nga këtu edhe pasi t'i keni pranuar ato.",
+            "terms_link": "Kushtet e Shërbimit",
+            "privacy_link": "Politika e Privatësisë"
         },
         "modals": {
             "password": {
@@ -441,6 +466,69 @@
             "title": "Kërkesat e mia të Pritshme për Të Bashkuar",
             "waiting_since": "Duke pritur që: {{date, datetime}}",
             "pending_badge": "Në pritje"
+        },
+        "two_factor": {
+            "title": "Autentikimi me Dy Faktorë",
+            "description": "Shto një shtresë shtesë sigurie në llogarinë tënde me TOTP-bazuar 2FA",
+            "active": "Aktiv",
+            "enable": "Aktivizo 2FA",
+            "disable": "Çaktivizo 2FA",
+            "disable_desc": "Hiq autentifikimin me dy faktorë nga llogaria juaj",
+            "disable_title": "Çaktivizo Autentifikimin me Dy Faktorë",
+            "disable_confirm": "Çaktivizo 2FA",
+            "disable_error": "Dështoi të çaktivizohet 2FA",
+            "disabled_success": "Autentifikimi me dy faktorë është çaktivizuar",
+            "password_label": "Fjalëkalimi",
+            "password_placeholder": "Shkruani fjalëkalimin tuaj",
+            "method_totp": "Autentifikues",
+            "method_backup": "Kodi i Rezervës",
+            "method_recovery": "Çelësi i Rimëkëmbjes",
+            "totp_code_label": "Kodi i Autentifikuesit",
+            "backup_code_label": "Kodi i Rezervës",
+            "recovery_key_label": "Çelësi i Rimëkëmbjes",
+            "cancel": "Anulo",
+            "setup_title": "Konfiguro 2FA",
+            "setup_error": "Dështoi fillimi i konfigurimit të 2FA",
+            "step_1": "Hapi 1: Skano Kodin QR",
+            "step_2": "Hapi 2: Verifiko Kodin",
+            "step_3": "Hapi 3: Ruaj Kodet e Rezervës",
+            "scan_instruction": "Skano këtë kod QR me aplikacionin tënd të autentifikimit (Google Authenticator, Authy, ose çdo aplikacion TOTP)",
+            "manual_entry": "Nuk mund ta skanon? Fut këtë çelës manualisht:",
+            "copy_secret": "Kopjo sekretin",
+            "next": "Tjetër",
+            "verify_instruction": "Shkruani kodin 6-shifror që shfaqet në aplikacionin tuaj të autentikimit për të verifikuar konfigurimin",
+            "verify_error": "Verifikimi dështoi",
+            "code_label": "Kodi 6-shifror",
+            "back": "Kthehu",
+            "activate": "Aktivizo 2FA",
+            "backup_warning_title": "Ruani këto kode rezervë!",
+            "backup_warning_text": "Nëse humbni aksesin në aplikacionin tuaj të autentikimit, mund të përdorni këto kode për t'u kyçur. Çdo kod mund të përdoret vetëm një herë. Ruajini në një vend të sigurt.",
+            "download_codes": "Shkarkoni kodet rezervë",
+            "backup_acknowledge": "Kam ruajtur kodet e mia të rezervës në një vend të sigurt",
+            "done": "Bërë",
+            "regenerate_codes": "Rikrijo kodet e rezervës",
+            "regenerate_codes_desc": "Gjenero kode të reja rezervë (të vjetrat do të bëhen të pavlefshme)",
+            "regenerate": "Rikrijo",
+            "codes_regenerated": "Kodet e rezervës janë rikrijuar",
+            "codes_error": "Dështoi të rikrijohen kodet e rezervës",
+            "close_codes": "Mbyll",
+            "revoke_devices": "Revoko Pajisjet e Besuara",
+            "revoke_devices_desc": "Hiq të gjitha pajisjet e ruajtura, duke kërkuar 2FA në hyrjen tjetër",
+            "devices_revoked": "{{count}} pajisje e besuar u larguan",
+            "devices_error": "Dështoi revokimi i pajisjeve"
+        },
+        "danger_zone": {
+            "title": "Llogaria",
+            "delete_title": "Fshi llogarinë",
+            "delete_description": "Nëse dëshiron, mund të heqësh përgjithmonë të dhënat personale dhe skedarët e ngarkuar të lidhur me këtë llogari.",
+            "delete_warning": "Kjo veprim nuk mund të zhbëhet.",
+            "delete_action": "Fshi llogarinë",
+            "modal_title": "Fshi llogarinë",
+            "modal_warning_title": "Ky veprim është i pakthyeshëm",
+            "modal_warning_body": "Pas konfirmimit, menjëherë do të humbisni qasjen në llogari dhe të dhënat e fshira të aplikacionit nuk mund të rikuperohen nga aplikacioni.",
+            "password_label": "Konfirmo me fjalëkalimin aktual",
+            "confirm_delete": "Konfirmo fshirjen",
+            "deleting": "Po fshihet..."
         }
     },
     "inventory": {
@@ -455,7 +543,53 @@
         "empty_filter": "Asnjë artikull nuk përputhet me filtrat tuaj",
         "empty_msg": "Nuk janë shtuar ende artikuj",
         "delete_confirm": "A jeni i sigurt që dëshironi të fshini këtë artikull?",
-        "delete_error": "Gabim gjatë fshirjes"
+        "delete_error": "Gabim gjatë fshirjes",
+        "load_warning": {
+            "title": "Modaliteti i ngarkesës së pjesshme",
+            "body": "Disa të dhëna mbështetëse po përgjigjen ngadalë tani, kështu që faqja u hap pa metadata të plotë të filtrit. Ne do të përpiqemi përsëri kur ta rifreskoni."
+        },
+        "borrow": {
+            "section_title": "Ndjekja e Huazimeve",
+            "section_subtitle": "Statusi aktual i huasë dhe historia",
+            "dialog_lend_title": "Huazo Send",
+            "dialog_lend_subtitle": "Krijo një rekord të ri huazimi për \"{{item}}\"",
+            "dialog_return_title": "Shëno Si Kthyer",
+            "dialog_return_subtitle": "Mbyll regjistrimin aktiv të huazimit për \"{{item}}\"",
+            "member": "Anëtar shtëpie",
+            "external": "Person i jashtëm",
+            "borrower_member": "Kush e mori atë?",
+            "no_members": "Nuk ka anëtar të tjerë të zgjedhshëm në këtë shtëpi. Mund të krijoni regjistrimin si person i jashtëm në vend të kësaj.",
+            "borrower_name": "Emri i personit",
+            "borrower_name_placeholder": "p.sh. Fqinj Alex",
+            "borrower_contact": "Informacion kontakti",
+            "borrower_contact_placeholder": "Telefon, email, ose shënim i shkurtër",
+            "due_date": "Data e pritshme e kthimit",
+            "note": "Shënim",
+            "note_placeholder": "p.sh. Huazua për fundjavë",
+            "submitting_lend": "Po ruhet...",
+            "lend": "Huazo",
+            "return_note": "Shënim kthimi",
+            "return_note_placeholder": "p.sh. U kthye në gjendje të mirë",
+            "submitting_return": "Mbyllje...",
+            "mark_returned": "Marka E Kthyer",
+            "current_borrower_label": "Aktualisht me:",
+            "unknown": "E panjohur",
+            "overdue_badge": "E vonuar",
+            "borrowed_badge": "E huazuar",
+            "borrowed_to": "Me {{name}}",
+            "due_date_short": "Afati: {{date}}",
+            "actions_error": "Veprimi i huazimit nuk mund të përfundohej",
+            "borrowed_at": "Huazuar më: {{date}}",
+            "due_date_label": "Kthimi i pritur: {{date}}",
+            "note_label": "Shënim: {{note}}",
+            "return_note_label": "Shënim kthimi: {{note}}",
+            "no_active": "Ky artikull aktualisht nuk është huazuar.",
+            "history_title": "Historia",
+            "history_active": "Hap regjistrin për {{name}}",
+            "history_returned": "Regjistri i mbyllur për {{name}}",
+            "returned_at": "Kthyer më: {{date}}",
+            "no_history": "Nuk ka histori huazimi për këtë artikull ende."
+        }
     },
     "categories": {
         "title": "Kategoritë",
@@ -553,7 +687,7 @@
             "free_badge": "Krejtësisht falas"
         },
         "features": {
-            "title": "Pse <1>HomeInventory</1>?",
+            "title": "Pse <1>{{brandName}}</1>?",
             "subtitle": "Të gjitha veçoritë për të thjeshtuar menaxhimin e shtëpisë në një platformë",
             "items": {
                 "categorize": {
@@ -591,7 +725,7 @@
             "desc": "Platforma e lehtë dhe e sigurt për të dixhitalizuar inventarin e shtëpisë tuaj.",
             "links": "Lidhje të Shpejta",
             "contact": "Na Kontaktoni",
-            "copyright": "© {{year}} HomeInventory. Të gjitha të drejtat e rezervuara."
+            "copyright": "© {{year}} {{brandName}}. Të gjitha të drejtat e rezervuara."
         },
         "preview_privacy_notice": "Pamje demo: nuk shfaqen të dhëna reale të përdoruesve."
     },
@@ -719,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Kërkohet Verifikimi i Emailit",
-            "headerTitle": "Mirësevini në HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Kërkohet Verifikimi i Emailit",
+            "headerTitle": "Mirësevini në {{brandName}}",
             "headerSubtitle": "Krijoni një llogari të re ose bashkohuni me një shtëpi ekzistuese",
-            "greeting": "Mirësevini në HomeInventory",
+            "greeting": "Mirësevini në {{brandName}}",
             "intro": "Llogaria u krijua! Ju lutemi verifikoni adresën tuaj të emailit për të hyrë.",
             "verifyPrompt": "📧 Kërkohet Verifikimi i Emailit",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Verifiko Llogarinë Time",
             "warningTitle": "⚠️",
             "warningBody": "Kontrolloni dosjen e spam/junk nëse emaili nuk mbërrin.",
             "houseKeyLabel": "Çelësi i Shtëpisë",
@@ -739,13 +873,13 @@
             ],
             "fallback": "Lidhja për rikthimin e fjalëkalimit duket e paplotë ose e prishur.",
             "support": "Probleme me regjistrimin:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Mirësevini në HomeInventory",
-            "headerTitle": "Mirësevini në HomeInventory",
+            "subject": "Mirësevini në {{brandName}}",
+            "headerTitle": "Mirësevini në {{brandName}}",
             "headerSubtitle": "Krijoni një llogari të re ose bashkohuni me një shtëpi ekzistuese",
-            "greeting": "Mirësevini në HomeInventory",
+            "greeting": "Mirësevini në {{brandName}}",
             "intro": "Mirësevini, ! 👋",
             "houseKeyLabel": "Çelësi i Shtëpisë",
             "houseKeyNote": "Ky është çelësi i shtëpisë suaj, përdoreni për të ftuar të tjerët. Shtoni anëtarët e familjes në shtëpinë tuaj!",
@@ -757,7 +891,7 @@
                 "💡 Ju mund të jeni anëtar i disa shtëpive dhe të ndërroni midis tyre. Çdo shtëpi ruan një inventar të veçantë."
             ],
             "support": "Probleme me regjistrimin:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Bashkangjitu Shtëpisë",
@@ -766,7 +900,7 @@
             "bodyLine2": "Duke pritur miratimin e pronarit të shtëpisë"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Akses në shtëpi",
             "bodyLine1Template": "Kërkesa aktuale në pritje: {{house}} ({{status}})",
             "bodyLine2": "Kërkesa juaj për \"{{house}}\" ende po pret një vendim."
@@ -786,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Nëse ekziston një llogari, një lidhje për rivendosjen e fjalëkalimit e vlefshme për 15 minuta është dërguar.",
             "fallback": "Lidhja për rikthimin e fjalëkalimit duket e paplotë ose e prishur.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 InventariShtëpisë"
+        },
+        "adminEmail": {
+            "sentBy": "Ky email u dërgua nga {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -828,7 +966,6 @@
         "record_save_new": "Shto Regjistrin e Trezorisë",
         "record_save_edit": "Ruaj Ndryshimet",
         "barcode_privacy_hint": "Barkodet e trezorisë nuk kontrollohen automatikisht në shërbime të jashtme; teksti i barkodit ruhet vetëm si të dhënë të koduar.",
-        "media_note": "Fotografitë, skanimi i barkodit dhe kontrolli i produkteve të jashtme janë qëllimisht çaktivizuar në këtë rrjedhë të parë të trezorisë. Ato kërkojnë një rrjedhë të veçantë të mediave të koduara dhe privatësisë.",
         "search_placeholder": "Kërko brenda kasës së fortë...",
         "all_categories": "Të gjitha kategoritë",
         "all_rooms": "Të gjitha dhomat",
@@ -851,6 +988,109 @@
         "recovery_file_title": "Çelësi i Rimëkëmbjes së Thesarit Personal të Inventarit të Shtëpisë",
         "recovery_file_created_label": "Krijuar",
         "recovery_file_key_label": "Çelësi i Rimëkëmbjes",
-        "recovery_file_warning": "Nëse humbni si këtë çelës ashtu edhe fjalëkalimin e thesarit, thesari nuk mund të rikuperohet."
+        "recovery_file_warning": "Nëse humbni si këtë çelës ashtu edhe fjalëkalimin e thesarit, thesari nuk mund të rikuperohet.",
+        "media_note": "Ngarkimet e fotove, skanimi i barkodit dhe kërkimi i produkteve të jashtme ende nuk mbështeten. Këto veçori do të shtohen sapo të jetë gati një rrjedhë e dedikuar e mediave të koduara dhe privatësisë."
+    },
+    "borrow_requests": {
+        "title": "Qendra e Huazimit",
+        "subtitle": "Menaxho kërkesat e sigurta dhe ofertat me përdoruesit e tjerë të {{brandName}}.",
+        "incoming_title": "Kërkesat hyrëse",
+        "incoming_subtitle": "Kërkesat dhe ofertat e dërguara tek ju",
+        "outgoing_title": "Dërguar nga unë",
+        "outgoing_subtitle": "Oferta dhe kërkesat për sende që keni filluar",
+        "empty_incoming": "Aktualisht nuk ka kërkesa huazimi për ju.",
+        "empty_outgoing": "Ju nuk keni dërguar ende një ofertë ose kërkesë.",
+        "stats": {
+            "incoming": "Në pritje hyrëse",
+            "outgoing": "Në pritje dalëse",
+            "active": "Huazime aktive"
+        },
+        "active": {
+            "title": "Huazime aktive",
+            "subtitle": "Sendet aktualisht me ju ose të huazuara nga ju",
+            "empty": "Aktualisht nuk ka huazime aktive.",
+            "borrowed_from": "Huazuar nga {{name}}",
+            "lent_to": "Aktualisht me {{name}}"
+        },
+        "status": {
+            "pending": "Në pritje",
+            "accepted": "Aktiv",
+            "rejected": "Refuzuar",
+            "cancelled": "Anuluar",
+            "expired": "Skaduar",
+            "returned": "Kthyer"
+        },
+        "actions": {
+            "send_request": "Kërkesa për Artikull",
+            "send_offer": "Dërgo Ofertë",
+            "accept": "Prano",
+            "reject": "Refuzo",
+            "cancel": "Anulo",
+            "fulfill_request": "Përmbush Kërkesën"
+        },
+        "labels": {
+            "offer": "Ofertë",
+            "request": "Kërkesa",
+            "unspecified_item": "Artikull i papërcaktuar",
+            "counterparty": "Palë kundërshtare: {{name}}",
+            "created_at": "Krijuar: {{date}}",
+            "due_date": "Kthimi i pritur: {{date}}",
+            "waiting_delivery": "Kërkesa mund të jetë ende duke pritur për një llogari që përputhet para se të shfaqet.",
+            "returned_on": "Kthyer më: {{date}}",
+            "borrow_started": "Filluar: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Dërgo Oferta",
+            "offer_subtitle_item": "Krijo një ofertë të sigurt për përdoruesin për \"{{item}}\"",
+            "offer_subtitle_general": "Zgjidh një artikull nga inventari yt dhe dërgo një ofertë të sigurt",
+            "item_label": "Artikulli",
+            "item_placeholder": "Zgjidh një artikull",
+            "target_label": "Emri i përdoruesit ose email",
+            "target_placeholder": "p.sh. alex ose alex@example.com",
+            "target_help": "Sistemi nuk zbulon nëse kjo llogari ekziston. Nëse përputhet, kërkesa shfaqet në kutinë postare të marrësit.",
+            "offer_note_placeholder": "p.sh. Mund ta mbash deri në fundjavë nëse dëshiron",
+            "offer_submitting": "Dërgimi...",
+            "request_title": "Kërko Artikul",
+            "request_subtitle": "Krijo një kërkesë të përgjithshme pa shfletuar inventarin e personit tjetër",
+            "requested_item_label": "Çfarë të duhet?",
+            "requested_item_placeholder": "p.sh. Furçë elektrike, stativ, karrige kampingu",
+            "request_note_placeholder": "p.sh. Më duhet vetëm për 2 ditë",
+            "request_submitting": "Dërgimi...",
+            "fulfill_title": "Përcill Kërkesën",
+            "fulfill_subtitle": "Zgjidh një artikull nga inventari yt për \"{{item}}\"",
+            "fulfill_target": "Ky artikull do t'i huazohet {{name}}.",
+            "no_available_items": "Nuk ka asnjë artikull të pranueshëm për të ofruar në shtëpinë tënde aktive tani.",
+            "fulfill_submitting": "Duke ruajtur...",
+            "return_title": "Shëno si Kthyer",
+            "return_subtitle": "Mbyll huazimin aktiv për \"{{item}}\"",
+            "return_target": "Aktualisht shfaqet si duke qenë me {{name}}."
+        },
+        "messages": {
+            "load_error": "Qendra e huazimit nuk mund të ngarkohej",
+            "action_error": "Veprimi nuk mund të përfundonte"
+        },
+        "preview": {
+            "title": "Modaliteti i parashikimit",
+            "body": "Pjesa e prapme e kësaj faqeje nuk është e arritshme në testimin lokal tani. Ju mund të rishikoni ende paraqitjen dhe rrjedhën fillimisht; ne do të aktivizojmë anën e serverit pasi ta miratoni atë."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Politika e Privatësisë",
+        "terms_of_service_title": "Kushtet e Shërbimit",
+        "privacy_policy_content": "Privatësia juaj është e rëndësishme për ne. Ky aplikacion ruan të dhënat tuaja të ngarkuara në mënyrë të sigurt duke përdorur kriptim në nivel fushash. Ne nuk shesim apo ndajmë të dhënat tuaja personale me palët e treta. Duke përdorur shërbimin, ju pranoni mbledhjen e të dhënave të nevojshme për menaxhimin e llogarisë dhe funksionalitetin e aplikacionit.",
+        "terms_of_service_content": "Duke përdorur {{brandName}}, ju pranoni këto kushte. Shërbimi ofrohet 'as is' pa garanci. Ju jeni përgjegjës për të dhënat që ngarkoni dhe për të siguruar që keni të drejta mbi to. Ne rezervojmë të drejtën për të pezulluar llogaritë që shkelin politikat ose keqpunojnë sistemin.",
+        "register_consent": "Kam lexuar, kuptuar, dhe pranoj <1>Kushtet e Shërbimit</1> dhe <2>Politikën e Privatësisë</2>.",
+        "consent_title": "Rishikoni dokumentet ligjore",
+        "consent_subtitle": "Ju lutemi konfirmoni kushtet aktuale para se të vazhdoni.",
+        "consent_notice": "Na nevojitet një pranim i regjistruar për Kushtet dhe Njoftimin për Privatësi aktual para se të mund të vazhdoni të përdorni aplikacionin.",
+        "consent_checkbox": "Unë pranoj Kushtet e Shërbimit dhe konfirmoj se kam lexuar Njoftimin e Privatësisë.",
+        "consent_submit": "Vazhdoni",
+        "consent_submitting": "Po ruhet...",
+        "consent_required": "Ju duhet të konfirmoni Kushtet e Shërbimit dhe Njoftimin e Privatësisë përpara se të vazhdoni."
+    },
+    "cookies": {
+        "banner_text": "Ne përdorim cookies thelbësore për të mbajtur sesionin tuaj të kyçur dhe të sigurt. Duke vazhduar përdorimin e këtij siti, ju pranoni politikat tona.",
+        "accept": "Unë Pranoj",
+        "learn_more": "Mësoni Më Tepër"
     }
 }

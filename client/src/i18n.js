@@ -2,11 +2,18 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import Backend from 'i18next-http-backend';
+import { BRAND_HOST, BRAND_NAME, SUPPORT_EMAIL } from './constants/branding';
 
 const RTL_LANGUAGES = ['ar', 'fa', 'he', 'ur'];
+const DEFAULT_LANGUAGE = 'en';
+const LOCALE_ASSET_VERSION = (
+    typeof __APP_BUILD_ID__ === 'string' && __APP_BUILD_ID__.trim()
+        ? __APP_BUILD_ID__.trim()
+        : 'dev'
+);
 
 function normalizeLanguageCode(lang) {
-    if (!lang) return 'tr';
+    if (!lang) return DEFAULT_LANGUAGE;
     return lang.split('-')[0].toLowerCase();
 }
 
@@ -29,11 +36,19 @@ i18n
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
+        react: {
+            useSuspense: false
+        },
         fallbackLng: getFallbackLanguages,
         load: 'currentOnly',
         debug: false,
         interpolation: {
             escapeValue: false,
+            defaultVariables: {
+                brandName: BRAND_NAME,
+                supportEmail: SUPPORT_EMAIL,
+                siteHost: BRAND_HOST
+            },
             format: (value, format, lng) => {
                 if (value instanceof Date) {
                     if (format === 'datetime') {
@@ -61,14 +76,19 @@ i18n
             }
         },
         detection: {
-            order: ['localStorage', 'navigator'],
+            order: ['localStorage'],
             caches: ['localStorage'],
             convertDetectedLanguage: (lang) => lang
         },
         backend: {
-            loadPath: '/locales/{{lng}}/translation.json?v=' + new Date().getTime()
+            // Keep locale asset URLs stable within a build so the service worker can cache them safely.
+            loadPath: `/locales/{{lng}}/translation.json?v=${encodeURIComponent(LOCALE_ASSET_VERSION)}`
         }
     });
+
+if (typeof document !== 'undefined') {
+    document.title = BRAND_NAME;
+}
 
 applyDocumentLanguage(i18n.resolvedLanguage || i18n.language);
 i18n.on('languageChanged', applyDocumentLanguage);

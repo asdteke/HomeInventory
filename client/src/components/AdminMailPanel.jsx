@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { Mail, Send, AlertCircle, CheckCircle, Loader2, Shield } from 'lucide-react';
+import { SUPPORT_EMAIL } from '../constants/branding';
 
 const AdminMailPanel = () => {
     const { isAdmin, user } = useAuth();
@@ -73,7 +74,7 @@ const AdminMailPanel = () => {
                         Admin E-posta Paneli
                     </h1>
                     <p className="text-slate-500 dark:text-slate-400 text-sm">
-                        support@homeinventory.local adresinden e-posta gönderin
+                        {SUPPORT_EMAIL} adresinden e-posta gönderin
                     </p>
                 </div>
             </div>
@@ -202,7 +203,7 @@ const AdminMailPanel = () => {
             <div className="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-4 text-sm text-slate-600 dark:text-slate-400">
                 <p className="font-medium text-slate-700 dark:text-slate-300 mb-2">📋 Bilgilendirme</p>
                 <ul className="space-y-1 list-disc list-inside">
-                    <li>E-postalar <strong>support@homeinventory.local</strong> adresinden gönderilir</li>
+                    <li>E-postalar <strong>{SUPPORT_EMAIL}</strong> adresinden gönderilir</li>
                     <li>Spam önleme için dakikada maksimum 3 e-posta gönderilebilir</li>
                     <li>Tüm gönderimler güvenlik için loglanır (içerik hariç)</li>
                 </ul>

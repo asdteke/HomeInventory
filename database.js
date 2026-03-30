@@ -41,6 +41,14 @@ const ITEM_PHOTO_MEDIA_PURPOSE = 'inventory.media.photo';
 const ITEM_THUMBNAIL_MEDIA_PURPOSE = 'inventory.media.thumbnail';
 const ITEM_INVOICE_MEDIA_PURPOSE = 'inventory.media.invoice';
 const ITEM_INVOICE_THUMBNAIL_MEDIA_PURPOSE = 'inventory.media.invoice_thumbnail';
+const SHOULD_LOG_DATABASE_EVENTS = process.env.NODE_ENV !== 'production'
+  || String(process.env.LOG_DATABASE_EVENTS || '').trim() === 'true';
+
+function emitDatabaseLog(...args) {
+  if (SHOULD_LOG_DATABASE_EVENTS) {
+    console.log(...args);
+  }
+}
 
 function normalizeStoredPath(storedPath) {
   if (!storedPath) {
@@ -79,6 +87,7 @@ if (!fs.existsSync(databaseDir)) {
 // Initialize database
 const db = new Database(databasePath);
 db.pragma('journal_mode = WAL');
+db.pragma('foreign_keys = ON');
 
 // Create tables (only creates if they don't exist)
 db.exec(`
@@ -162,7 +171,7 @@ db.exec(`
 // Migration: Add house_key to users table (for old databases without it)
 try {
   db.exec(`ALTER TABLE users ADD COLUMN house_key TEXT`);
-  console.log('[Database] house_key column added to users table');
+  emitDatabaseLog('[Database] house_key column added to users table');
   // Set default house_key for existing users without one
   const defaultKey = crypto.randomBytes(8).toString('hex');
   db.prepare('UPDATE users SET house_key = ? WHERE house_key IS NULL').run(defaultKey);
@@ -173,171 +182,191 @@ try {
 // Migration: Add house_key to items table (for old databases)
 try {
   db.exec(`ALTER TABLE items ADD COLUMN house_key TEXT`);
-  console.log('[Database] house_key column added to items table');
+  emitDatabaseLog('[Database] house_key column added to items table');
 } catch (e) { /* Column exists */ }
 
 // Migration: Add house_key to rooms table (for old databases)
 try {
   db.exec(`ALTER TABLE rooms ADD COLUMN house_key TEXT`);
-  console.log('[Database] house_key column added to rooms table');
+  emitDatabaseLog('[Database] house_key column added to rooms table');
 } catch (e) { /* Column exists */ }
 
 // Migration: Add house_key to categories table (for old databases)
 try {
   db.exec(`ALTER TABLE categories ADD COLUMN house_key TEXT`);
-  console.log('[Database] house_key column added to categories table');
+  emitDatabaseLog('[Database] house_key column added to categories table');
 } catch (e) { /* Column exists */ }
 
 // Migration: Add house_key to locations table (for old databases)
 try {
   db.exec(`ALTER TABLE locations ADD COLUMN house_key TEXT`);
-  console.log('[Database] house_key column added to locations table');
+  emitDatabaseLog('[Database] house_key column added to locations table');
 } catch (e) { /* Column exists */ }
 
 // Migration: Add thumbnail_path column to items table (for image optimization)
 try {
   db.exec(`ALTER TABLE items ADD COLUMN thumbnail_path TEXT`);
-  console.log('[Database] thumbnail_path column added to items table');
+  emitDatabaseLog('[Database] thumbnail_path column added to items table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE items ADD COLUMN invoice_photo_path TEXT`);
-  console.log('[Database] invoice_photo_path column added to items table');
+  emitDatabaseLog('[Database] invoice_photo_path column added to items table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE items ADD COLUMN invoice_thumbnail_path TEXT`);
-  console.log('[Database] invoice_thumbnail_path column added to items table');
+  emitDatabaseLog('[Database] invoice_thumbnail_path column added to items table');
 } catch (e) { /* Column exists */ }
 
 // Migration: Add barcode column to items table (for older databases)
 try {
   db.exec(`ALTER TABLE items ADD COLUMN barcode TEXT`);
-  console.log('[Database] barcode column added to items table');
+  emitDatabaseLog('[Database] barcode column added to items table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE items ADD COLUMN barcode_lookup TEXT`);
-  console.log('[Database] barcode_lookup column added to items table');
+  emitDatabaseLog('[Database] barcode_lookup column added to items table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE items ADD COLUMN invoice_price TEXT`);
-  console.log('[Database] invoice_price column added to items table');
+  emitDatabaseLog('[Database] invoice_price column added to items table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE items ADD COLUMN invoice_currency TEXT`);
-  console.log('[Database] invoice_currency column added to items table');
+  emitDatabaseLog('[Database] invoice_currency column added to items table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE items ADD COLUMN invoice_date TEXT`);
-  console.log('[Database] invoice_date column added to items table');
+  emitDatabaseLog('[Database] invoice_date column added to items table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE items ADD COLUMN warranty_expiry_date TEXT`);
-  console.log('[Database] warranty_expiry_date column added to items table');
+  emitDatabaseLog('[Database] warranty_expiry_date column added to items table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE items ADD COLUMN warranty_start_date TEXT`);
-  console.log('[Database] warranty_start_date column added to items table');
+  emitDatabaseLog('[Database] warranty_start_date column added to items table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE items ADD COLUMN warranty_duration_value TEXT`);
-  console.log('[Database] warranty_duration_value column added to items table');
+  emitDatabaseLog('[Database] warranty_duration_value column added to items table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE items ADD COLUMN warranty_duration_unit TEXT`);
-  console.log('[Database] warranty_duration_unit column added to items table');
+  emitDatabaseLog('[Database] warranty_duration_unit column added to items table');
 } catch (e) { /* Column exists */ }
 
 // Migration: Add role column to users table (for admin panel)
 try {
   db.exec(`ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'user'`);
-  console.log('[Database] role column added to users table');
+  emitDatabaseLog('[Database] role column added to users table');
 } catch (e) { /* Column exists */ }
 
 // Migration: Add is_banned and failed_login_count to users table
 try {
   db.exec(`ALTER TABLE users ADD COLUMN is_banned INTEGER DEFAULT 0`);
-  console.log('[Database] is_banned column added to users table');
+  emitDatabaseLog('[Database] is_banned column added to users table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE users ADD COLUMN failed_login_count INTEGER DEFAULT 0`);
-  console.log('[Database] failed_login_count column added to users table');
+  emitDatabaseLog('[Database] failed_login_count column added to users table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE users ADD COLUMN last_login DATETIME`);
-  console.log('[Database] last_login column added to users table');
+  emitDatabaseLog('[Database] last_login column added to users table');
 } catch (e) { /* Column exists */ }
 
 // Migration: Add email verification columns
 try {
   db.exec(`ALTER TABLE users ADD COLUMN is_verified INTEGER DEFAULT 0`);
-  console.log('[Database] is_verified column added to users table');
+  emitDatabaseLog('[Database] is_verified column added to users table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE users ADD COLUMN verification_token TEXT`);
-  console.log('[Database] verification_token column added to users table');
+  emitDatabaseLog('[Database] verification_token column added to users table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE users ADD COLUMN verification_token_hashed INTEGER DEFAULT 0`);
-  console.log('[Database] verification_token_hashed column added to users table');
+  emitDatabaseLog('[Database] verification_token_hashed column added to users table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE users ADD COLUMN verification_token_expires DATETIME`);
-  console.log('[Database] verification_token_expires column added to users table');
+  emitDatabaseLog('[Database] verification_token_expires column added to users table');
 } catch (e) { /* Column exists */ }
 
 // Migration: Add active_house_key to users table for tracking current house
 try {
   db.exec(`ALTER TABLE users ADD COLUMN active_house_key TEXT`);
-  console.log('[Database] active_house_key column added to users table');
+  emitDatabaseLog('[Database] active_house_key column added to users table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE users ADD COLUMN username_lookup TEXT`);
-  console.log('[Database] username_lookup column added to users table');
+  emitDatabaseLog('[Database] username_lookup column added to users table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE users ADD COLUMN email_lookup TEXT`);
-  console.log('[Database] email_lookup column added to users table');
+  emitDatabaseLog('[Database] email_lookup column added to users table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE users ADD COLUMN recovery_key_hash TEXT`);
-  console.log('[Database] recovery_key_hash column added to users table');
+  emitDatabaseLog('[Database] recovery_key_hash column added to users table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE users ADD COLUMN recovery_key_value TEXT`);
-  console.log('[Database] recovery_key_value column added to users table');
+  emitDatabaseLog('[Database] recovery_key_value column added to users table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE users ADD COLUMN recovery_key_generated_at DATETIME`);
-  console.log('[Database] recovery_key_generated_at column added to users table');
+  emitDatabaseLog('[Database] recovery_key_generated_at column added to users table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE users ADD COLUMN password_reset_failed_count INTEGER DEFAULT 0`);
-  console.log('[Database] password_reset_failed_count column added to users table');
+  emitDatabaseLog('[Database] password_reset_failed_count column added to users table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE users ADD COLUMN password_reset_locked_until DATETIME`);
-  console.log('[Database] password_reset_locked_until column added to users table');
+  emitDatabaseLog('[Database] password_reset_locked_until column added to users table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE users ADD COLUMN legal_terms_version TEXT`);
+  emitDatabaseLog('[Database] legal_terms_version column added to users table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE users ADD COLUMN legal_terms_accepted_at DATETIME`);
+  emitDatabaseLog('[Database] legal_terms_accepted_at column added to users table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE users ADD COLUMN privacy_notice_version TEXT`);
+  emitDatabaseLog('[Database] privacy_notice_version column added to users table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE users ADD COLUMN privacy_notice_acknowledged_at DATETIME`);
+  emitDatabaseLog('[Database] privacy_notice_acknowledged_at column added to users table');
 } catch (e) { /* Column exists */ }
 
 // Optional bootstrap admin assignment from env
@@ -353,13 +382,13 @@ try {
     `).get(bootstrapAdminLookup, bootstrapAdminEmail);
     if (adminUser) {
       db.prepare('UPDATE users SET role = ? WHERE id = ?').run('admin', adminUser.id);
-      console.log(`[Database] Bootstrap admin set: '${decryptUsername(adminUser.username)}'`);
+      emitDatabaseLog(`[Database] Bootstrap admin set: '${decryptUsername(adminUser.username)}'`);
     }
   }
   // Ensure role is never null
   db.prepare('UPDATE users SET role = ? WHERE role IS NULL').run('user');
 } catch (e) {
-  console.log('[Database] Bootstrap admin setup skipped:', e.message);
+  emitDatabaseLog('[Database] Bootstrap admin setup skipped:', e.message);
 }
 
 // ======================================================
@@ -387,7 +416,7 @@ try {
     CREATE INDEX IF NOT EXISTS idx_users_verification_token_lookup ON users(verification_token_hashed, verification_token);
   `);
 } catch (e) {
-  console.log('[Database] Index creation skipped:', e.message);
+  emitDatabaseLog('[Database] Index creation skipped:', e.message);
 }
 
 // ======================================================
@@ -415,23 +444,43 @@ db.exec(`
 
 try {
   db.exec(`ALTER TABLE pending_registrations ADD COLUMN verification_token_hashed INTEGER DEFAULT 0`);
-  console.log('[Database] verification_token_hashed column added to pending_registrations table');
+  emitDatabaseLog('[Database] verification_token_hashed column added to pending_registrations table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE pending_registrations ADD COLUMN username_lookup TEXT`);
-  console.log('[Database] username_lookup column added to pending_registrations table');
+  emitDatabaseLog('[Database] username_lookup column added to pending_registrations table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE pending_registrations ADD COLUMN email_lookup TEXT`);
-  console.log('[Database] email_lookup column added to pending_registrations table');
+  emitDatabaseLog('[Database] email_lookup column added to pending_registrations table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE pending_registrations ADD COLUMN legal_terms_version TEXT`);
+  emitDatabaseLog('[Database] legal_terms_version column added to pending_registrations table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE pending_registrations ADD COLUMN legal_terms_accepted_at DATETIME`);
+  emitDatabaseLog('[Database] legal_terms_accepted_at column added to pending_registrations table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE pending_registrations ADD COLUMN privacy_notice_version TEXT`);
+  emitDatabaseLog('[Database] privacy_notice_version column added to pending_registrations table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE pending_registrations ADD COLUMN privacy_notice_acknowledged_at DATETIME`);
+  emitDatabaseLog('[Database] privacy_notice_acknowledged_at column added to pending_registrations table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`CREATE INDEX IF NOT EXISTS idx_pending_token_lookup ON pending_registrations(verification_token_hashed, verification_token)`);
 } catch (e) {
-  console.log('[Database] pending_registrations verification token lookup index skipped:', e.message);
+  emitDatabaseLog('[Database] pending_registrations verification token lookup index skipped:', e.message);
 }
 
 try {
@@ -440,7 +489,7 @@ try {
     CREATE INDEX IF NOT EXISTS idx_pending_email_lookup ON pending_registrations(email_lookup);
   `);
 } catch (e) {
-  console.log('[Database] pending_registrations lookup index creation skipped:', e.message);
+  emitDatabaseLog('[Database] pending_registrations lookup index creation skipped:', e.message);
 }
 
 // Create admin_logs table for tracking admin actions and system events
@@ -497,6 +546,77 @@ db.exec(`
 `);
 
 db.exec(`
+  CREATE TABLE IF NOT EXISTS item_borrows (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    item_id INTEGER NOT NULL,
+    house_key TEXT NOT NULL,
+    borrower_type TEXT NOT NULL DEFAULT 'external',
+    borrower_user_id INTEGER,
+    borrower_name TEXT,
+    borrower_contact TEXT,
+    note TEXT,
+    borrowed_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    due_date TEXT,
+    returned_at DATETIME,
+    return_note TEXT,
+    lent_by_user_id INTEGER NOT NULL,
+    returned_by_user_id INTEGER,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE,
+    FOREIGN KEY (borrower_user_id) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (lent_by_user_id) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (returned_by_user_id) REFERENCES users(id) ON DELETE SET NULL,
+    CHECK (borrower_type IN ('member', 'external'))
+  );
+  CREATE INDEX IF NOT EXISTS idx_item_borrows_item ON item_borrows(item_id);
+  CREATE INDEX IF NOT EXISTS idx_item_borrows_house ON item_borrows(house_key);
+  CREATE INDEX IF NOT EXISTS idx_item_borrows_borrower_user ON item_borrows(borrower_user_id);
+  CREATE INDEX IF NOT EXISTS idx_item_borrows_due_date ON item_borrows(due_date);
+  CREATE UNIQUE INDEX IF NOT EXISTS idx_item_borrows_active_item
+    ON item_borrows(item_id)
+    WHERE returned_at IS NULL;
+`);
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS borrow_requests (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    direction TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'pending',
+    initiator_user_id INTEGER NOT NULL,
+    recipient_user_id INTEGER,
+    recipient_lookup_type TEXT NOT NULL,
+    recipient_lookup_hash TEXT NOT NULL,
+    recipient_identifier TEXT NOT NULL,
+    item_id INTEGER,
+    requested_item_label TEXT,
+    note TEXT,
+    due_date TEXT,
+    decided_at DATETIME,
+    decided_by_user_id INTEGER,
+    borrow_id INTEGER,
+    expires_at DATETIME NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (initiator_user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (recipient_user_id) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (decided_by_user_id) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE SET NULL,
+    FOREIGN KEY (borrow_id) REFERENCES item_borrows(id) ON DELETE SET NULL,
+    CHECK (direction IN ('offer', 'request')),
+    CHECK (status IN ('pending', 'accepted', 'rejected', 'cancelled', 'expired')),
+    CHECK (recipient_lookup_type IN ('email', 'username'))
+  );
+  CREATE INDEX IF NOT EXISTS idx_borrow_requests_initiator ON borrow_requests(initiator_user_id);
+  CREATE INDEX IF NOT EXISTS idx_borrow_requests_recipient ON borrow_requests(recipient_user_id);
+  CREATE INDEX IF NOT EXISTS idx_borrow_requests_lookup ON borrow_requests(recipient_lookup_type, recipient_lookup_hash);
+  CREATE INDEX IF NOT EXISTS idx_borrow_requests_status ON borrow_requests(status);
+  CREATE INDEX IF NOT EXISTS idx_borrow_requests_item ON borrow_requests(item_id);
+  CREATE INDEX IF NOT EXISTS idx_borrow_requests_borrow ON borrow_requests(borrow_id);
+  CREATE INDEX IF NOT EXISTS idx_borrow_requests_expires ON borrow_requests(expires_at);
+`);
+
+db.exec(`
   CREATE TABLE IF NOT EXISTS password_reset_requests (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
@@ -545,6 +665,8 @@ db.exec(`
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
     encrypted_payload TEXT NOT NULL,
+    photo_encrypted_payload TEXT,
+    photo_preview_encrypted_payload TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
@@ -552,15 +674,25 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_personal_vault_items_user ON personal_vault_items(user_id);
 `);
 
+try {
+  db.exec(`ALTER TABLE personal_vault_items ADD COLUMN photo_encrypted_payload TEXT`);
+  emitDatabaseLog('[Database] photo_encrypted_payload column added to personal_vault_items table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE personal_vault_items ADD COLUMN photo_preview_encrypted_payload TEXT`);
+  emitDatabaseLog('[Database] photo_preview_encrypted_payload column added to personal_vault_items table');
+} catch (e) { /* Column exists */ }
+
 // Migration: Add TOTP 2FA columns to users table
 try {
   db.exec(`ALTER TABLE users ADD COLUMN totp_secret TEXT`);
-  console.log('[Database] totp_secret column added to users table');
+  emitDatabaseLog('[Database] totp_secret column added to users table');
 } catch (e) { /* Column exists */ }
 
 try {
   db.exec(`ALTER TABLE users ADD COLUMN totp_enabled INTEGER DEFAULT 0`);
-  console.log('[Database] totp_enabled column added to users table');
+  emitDatabaseLog('[Database] totp_enabled column added to users table');
 } catch (e) { /* Column exists */ }
 
 // Create TOTP backup codes table
@@ -603,10 +735,10 @@ try {
     updateActiveHouse.run(user.house_key, user.id);
   }
   if (usersWithHouses.length > 0) {
-    console.log(`[Database] Migrated ${usersWithHouses.length} users to user_houses table`);
+    emitDatabaseLog(`[Database] Migrated ${usersWithHouses.length} users to user_houses table`);
   }
 } catch (e) {
-  console.log('[Database] User houses migration skipped:', e.message);
+  emitDatabaseLog('[Database] User houses migration skipped:', e.message);
 }
 
 function backfillSensitiveFieldProtection() {
@@ -1164,7 +1296,7 @@ function backfillSensitiveFieldProtection() {
 
   const totalChanges = Object.values(summary).reduce((total, count) => total + count, 0);
   if (totalChanges > 0) {
-    console.log('[Database] Sensitive field backfill completed:', summary);
+    emitDatabaseLog('[Database] Sensitive field backfill completed:', summary);
   }
 
   return summary;

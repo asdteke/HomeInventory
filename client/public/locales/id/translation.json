@@ -5,7 +5,7 @@
             "desc": "Anda dapat mencetak dan menempelkan kode QR ini pada barang. Memindainya akan langsung mengarahkan ke halaman ini."
         },
         "title_new": "Tambah Item Baru",
-        "title_edit": "Edit Item",
+        "title_edit": "Sunting Item",
         "subtitle": "Masukkan detail barang",
         "load_error": "Gagal memuat barang",
         "form": {
@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Satuan Durasi Garansi",
             "warranty_duration_months": "Bulan",
             "warranty_duration_years": "Tahun",
-            "warranty_calculation_help": "Jika Anda membiarkan tanggal mulai garansi kosong, tanggal faktur akan digunakan. Ketika Anda memasukkan durasinya, tanggal berakhir garansi akan dihitung secara otomatis."
+            "warranty_calculation_help": "Jika Anda membiarkan tanggal mulai garansi kosong, tanggal faktur akan digunakan. Ketika Anda memasukkan durasinya, tanggal berakhir garansi akan dihitung secara otomatis.",
+            "vault_hint_title": "Rekaman yang sangat sensitif?",
+            "vault_hint_description": "Untuk paspor, akta, detail identitas, kode akses, dan catatan lainnya yang seharusnya tidak masuk dalam alur inventaris standar, simpanlah di Brankas Pribadi sebagai gantinya.",
+            "vault_hint_action": "Buka Brankas Pribadi"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" ditambahkan cepat - Anda dapat mengeditnya nanti",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Produk tidak ditemukan di database. Anda dapat mencari di Google.",
             "search_fail": "⚠ Pencarian gagal",
             "name_required": "Nama item diperlukan",
-            "location_add_error": "Gagal menambahkan lokasi"
+            "location_add_error": "Gagal menambahkan lokasi",
+            "photo_too_large": "Foto maksimal berukuran {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -84,7 +88,7 @@
         "error": "Terjadi kesalahan",
         "success": "Operasi berhasil",
         "search": "Cari...",
-        "edit": "Edit",
+        "edit": "Sunting",
         "delete": "Hapus",
         "add": "Tambah",
         "new": "Baru",
@@ -99,16 +103,16 @@
         "refresh": "Segarkan",
         "close": "Tutup",
         "logout": "Keluar",
-        "copyright": "© {{year}} HomeInventory - Hak cipta dilindungi undang-undang",
+        "copyright": "© {{year}} {{brandName}} - Hak cipta dilindungi undang-undang",
         "other": "Lain",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "Salin",
+        "download": "Unduh"
     },
     "auth": {
         "login": {
             "title": "Masuk",
             "subtitle": "Kelola semua inventaris rumah Anda dengan cerdas",
-            "welcome": "Selamat datang di HomeInventory",
+            "welcome": "Selamat datang di {{brandName}}",
             "username_or_email": "Nama Pengguna atau Email",
             "password": "Kata Sandi",
             "forgot_password": "Lupa Kata Sandi?",
@@ -120,7 +124,7 @@
             "register_link": "Daftar",
             "support_contact": "Untuk masalah login:",
             "terms_title": "📋 Syarat Penggunaan dan Penyangkalan",
-            "terms_beta": "Versi BETA: HomeInventory saat ini dalam tahap pengujian. Tidak ada jaminan mengenai keberlangsungan atau keamanan data Anda.",
+            "terms_beta": "Versi BETA: {{brandName}} saat ini dalam tahap pengujian. Tidak ada jaminan mengenai keberlangsungan atau keamanan data Anda.",
             "terms_disclaimer": "Penyangkalan: Dengan menggunakan aplikasi ini, Anda menyetujui bahwa Anda tidak dapat mengklaim kompensasi atas potensi kehilangan data, masalah akses, atau malfungsi teknis lainnya.",
             "terms_backup": "Cadangan Data: Kami sangat menyarankan untuk rutin mencadangkan informasi penting Anda.",
             "terms_accept": "Dengan masuk, Anda dianggap telah menerima syarat ini.",
@@ -138,7 +142,7 @@
             }
         },
         "register": {
-            "title": "Selamat datang di HomeInventory",
+            "title": "Selamat datang di {{brandName}}",
             "subtitle": "Buat akun baru atau gabung dengan rumah yang sudah ada",
             "create_house": "Buat Rumah Baru",
             "join_house": "Gabung Rumah",
@@ -147,7 +151,7 @@
             "form_title": "Daftar",
             "username": "Nama Pengguna",
             "username_placeholder": "mis. john",
-            "email": "Email",
+            "email": "Surel",
             "email_placeholder": "mis. john@example.com",
             "password": "Kata Sandi",
             "password_placeholder": "Minimal 6 karakter",
@@ -249,7 +253,8 @@
         "admin_panel": "Panel Admin",
         "logout": "Keluar",
         "menu": "Menu",
-        "personal_vault": "Brankas Pribadi"
+        "personal_vault": "Brankas Pribadi",
+        "borrow_requests": "Permintaan Pinjaman"
     },
     "dashboard": {
         "welcome": "Selamat datang, <1>{{name}}</1>! 👋",
@@ -291,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory saat ini dalam tahap pengujian dan hobi. Tidak ada jaminan yang diberikan untuk ketahanan atau keamanan data. Harap buat cadangan informasi penting.",
+        "text": "{{brandName}} saat ini dalam tahap pengujian dan hobi. Tidak ada jaminan yang diberikan untuk ketahanan atau keamanan data. Harap buat cadangan informasi penting.",
         "contact": "Kontak:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Semua hak dilindungi",
+        "rights": "© {{year}} {{brandName}} - Semua hak dilindungi",
         "contact": "Kontak:"
     },
     "settings": {
@@ -337,7 +342,8 @@
             "member_kicked": "Anggota dihapus dari rumah",
             "member_kick_error": "Tidak dapat menghapus anggota dari rumah",
             "recovery_key_regenerated": "Kunci pemulihan dihasilkan kembali",
-            "recovery_key_error": "Tidak dapat menghasilkan kembali kunci pemulihan"
+            "recovery_key_error": "Tidak dapat menghasilkan kembali kunci pemulihan",
+            "account_delete_error": "Akun tidak dapat dihapus"
         },
         "user_profile": {
             "edit_username": "Ubah nama pengguna"
@@ -404,13 +410,20 @@
             "export_json": "Ekspor sebagai JSON",
             "upload_backup": "Unggah Cadangan",
             "uploading": "Sedang mengunggah...",
-            "import_json": "Impor dari JSON"
+            "import_json": "Impor dari JSON",
+            "export_sensitive_title": "Cadangan yang diekspor berisi data teks biasa",
+            "export_sensitive_notice": "Cadangan ini mencakup data rumah tangga yang telah didekripsi. Simpan dengan aman setelah diunduh, enkripsi jika memungkinkan, dan hindari membagikannya melalui saluran yang tidak aman.",
+            "export_sensitive_confirm": "Cadangan ini akan mencakup data rumah tangga yang didekripsi dalam teks biasa. Apakah Anda mengonfirmasi bahwa Anda akan menyimpannya dengan aman?"
         },
         "about": {
             "title": "📱 Tentang Aplikasi",
             "version": "Versi",
             "brand": "Merek",
-            "feedback": "✉️ Kirim Masukan"
+            "feedback": "✉️ Kirim Masukan",
+            "legal_title": "Dokumen Legal",
+            "legal_description": "Anda dapat membuka kembali teks syarat dan privasi dari sini bahkan setelah menerimanya.",
+            "terms_link": "Syarat Layanan",
+            "privacy_link": "Kebijakan Privasi"
         },
         "modals": {
             "password": {
@@ -503,6 +516,19 @@
             "revoke_devices_desc": "Hapus semua perangkat yang diingat, memerlukan 2FA pada login berikutnya",
             "devices_revoked": "{{count}} perangkat tepercaya dihapus",
             "devices_error": "Gagal mencabut perangkat"
+        },
+        "danger_zone": {
+            "title": "Akun",
+            "delete_title": "Hapus akun",
+            "delete_description": "Jika Anda mau, Anda dapat secara permanen menghapus data pribadi dan file yang diunggah yang terkait dengan akun ini.",
+            "delete_warning": "Tindakan ini tidak dapat dibatalkan.",
+            "delete_action": "Hapus akun",
+            "modal_title": "Hapus akun",
+            "modal_warning_title": "Tindakan ini tidak dapat dibatalkan",
+            "modal_warning_body": "Setelah konfirmasi, Anda akan segera kehilangan akses ke akun dan data aplikasi yang dihapus tidak dapat dipulihkan dari aplikasi.",
+            "password_label": "Konfirmasi dengan kata sandi Anda saat ini",
+            "confirm_delete": "Konfirmasi penghapusan",
+            "deleting": "Menghapus..."
         }
     },
     "inventory": {
@@ -517,7 +543,53 @@
         "empty_filter": "Tidak ada item yang cocok dengan filter Anda",
         "empty_msg": "Belum ada item yang ditambahkan",
         "delete_confirm": "Apakah Anda yakin ingin menghapus item ini?",
-        "delete_error": "Kesalahan penghapusan"
+        "delete_error": "Kesalahan penghapusan",
+        "load_warning": {
+            "title": "Mode pemuatan sebagian",
+            "body": "Beberapa data pendukung saat ini merespons dengan lambat, jadi halaman dibuka tanpa metadata filter lengkap. Kami akan mencoba lagi saat Anda menyegarkan."
+        },
+        "borrow": {
+            "section_title": "Pelacakan Pinjaman",
+            "section_subtitle": "Status pinjaman saat ini dan riwayat",
+            "dialog_lend_title": "Pinjamkan Item",
+            "dialog_lend_subtitle": "Buat catatan pinjaman baru untuk \"{{item}}\"",
+            "dialog_return_title": "Tandai Dikembalikan",
+            "dialog_return_subtitle": "Tutup catatan pinjaman aktif untuk \"{{item}}\"",
+            "member": "Anggota rumah",
+            "external": "Orang luar",
+            "borrower_member": "Siapa yang menerimanya?",
+            "no_members": "Tidak ada anggota lain yang bisa dipilih di rumah ini. Anda dapat membuat catatan sebagai orang luar.",
+            "borrower_name": "Nama orang",
+            "borrower_name_placeholder": "misal: Tetangga Alex",
+            "borrower_contact": "Info kontak",
+            "borrower_contact_placeholder": "Telepon, email, atau catatan singkat",
+            "due_date": "Tanggal pengembalian yang diharapkan",
+            "note": "Catatan",
+            "note_placeholder": "mis. Dipinjam untuk akhir pekan",
+            "submitting_lend": "Menyimpan...",
+            "lend": "Meminjamkan",
+            "return_note": "Catatan pengembalian",
+            "return_note_placeholder": "mis. Dikembalikan dalam kondisi baik",
+            "submitting_return": "Menutup...",
+            "mark_returned": "Mark Dikembalikan",
+            "current_borrower_label": "Saat ini dengan:",
+            "unknown": "Tidak Diketahui",
+            "overdue_badge": "Terlambat",
+            "borrowed_badge": "Dipinjam",
+            "borrowed_to": "Dengan {{name}}",
+            "due_date_short": "Jatuh tempo: {{date}}",
+            "actions_error": "Tindakan pinjam tidak dapat diselesaikan",
+            "borrowed_at": "Dipinjam pada: {{date}}",
+            "due_date_label": "Perkiraan pengembalian: {{date}}",
+            "note_label": "Catatan: {{note}}",
+            "return_note_label": "Catatan pengembalian: {{note}}",
+            "no_active": "Barang ini saat ini tidak sedang dipinjam.",
+            "history_title": "Riwayat",
+            "history_active": "Buka catatan untuk {{name}}",
+            "history_returned": "Catatan ditutup untuk {{name}}",
+            "returned_at": "Dikembalikan pada: {{date}}",
+            "no_history": "Belum ada riwayat peminjaman untuk item ini."
+        }
     },
     "categories": {
         "title": "Kategori",
@@ -615,7 +687,7 @@
             "free_badge": "Sepenuhnya Gratis"
         },
         "features": {
-            "title": "Mengapa <1>HomeInventory</1>?",
+            "title": "Mengapa <1>{{brandName}}</1>?",
             "subtitle": "Semua fitur untuk menyederhanakan manajemen rumah dalam satu platform",
             "items": {
                 "categorize": {
@@ -653,7 +725,7 @@
             "desc": "Platform yang mudah dan aman untuk mendigitalisasi inventaris rumah Anda.",
             "links": "Tautan Cepat",
             "contact": "Hubungi Kami",
-            "copyright": "© {{year}} HomeInventory. Semua hak dilindungi."
+            "copyright": "© {{year}} {{brandName}}. Semua hak dilindungi."
         },
         "preview_privacy_notice": "Tampilan demo: tidak ada data pengguna nyata yang ditampilkan."
     },
@@ -781,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Verifikasi Email Diperlukan",
-            "headerTitle": "Selamat datang di HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Verifikasi Email Diperlukan",
+            "headerTitle": "Selamat datang di {{brandName}}",
             "headerSubtitle": "Buat akun baru atau gabung dengan rumah yang sudah ada",
-            "greeting": "Selamat datang di HomeInventory",
+            "greeting": "Selamat datang di {{brandName}}",
             "intro": "Akun dibuat! Silakan verifikasi alamat email Anda untuk login.",
             "verifyPrompt": "📧 Verifikasi Email Diperlukan",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Verifikasi Akun Saya",
             "warningTitle": "⚠️",
             "warningBody": "Periksa folder spam/sampah jika email tidak tiba.",
             "houseKeyLabel": "Kunci Rumah",
@@ -801,13 +873,13 @@
             ],
             "fallback": "Tautan reset kata sandi tampak tidak lengkap atau rusak.",
             "support": "Masalah pendaftaran:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Selamat datang di HomeInventory",
-            "headerTitle": "Selamat datang di HomeInventory",
+            "subject": "Selamat datang di {{brandName}}",
+            "headerTitle": "Selamat datang di {{brandName}}",
             "headerSubtitle": "Buat akun baru atau gabung dengan rumah yang sudah ada",
-            "greeting": "Selamat datang di HomeInventory",
+            "greeting": "Selamat datang di {{brandName}}",
             "intro": "Selamat datang, ! 👋",
             "houseKeyLabel": "Kunci Rumah",
             "houseKeyNote": "Ini adalah kunci rumah Anda, gunakan untuk mengundang orang lain. Tambahkan anggota keluarga ke rumah Anda!",
@@ -819,7 +891,7 @@
                 "💡 Anda dapat menjadi anggota beberapa rumah dan beralih di antara mereka. Setiap rumah memiliki inventaris yang terpisah."
             ],
             "support": "Masalah pendaftaran:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Bergabung dengan Rumah",
@@ -828,7 +900,7 @@
             "bodyLine2": "Menunggu persetujuan pemilik rumah"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Akses Rumah",
             "bodyLine1Template": "Permintaan tertunda saat ini: {{house}} ({{status}})",
             "bodyLine2": "Permintaan Anda untuk \"{{house}}\" masih menunggu keputusan."
@@ -848,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Jika akun ada, tautan reset kata sandi yang berlaku selama 15 menit telah dikirim.",
             "fallback": "Tautan reset kata sandi tampak tidak lengkap atau rusak.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "Email ini dikirim oleh {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -890,7 +966,6 @@
         "record_save_new": "Tambah Rekam Brankas",
         "record_save_edit": "Simpan Perubahan",
         "barcode_privacy_hint": "Barcode brankas tidak dicari secara otomatis di layanan eksternal; teks barcode hanya disimpan sebagai data terenkripsi.",
-        "media_note": "Foto, pemindaian barcode, dan pencarian produk eksternal sengaja dinonaktifkan dalam alur brankas pertama ini. Mereka memerlukan jalur media terenkripsi dan privasi yang terpisah.",
         "search_placeholder": "Cari di dalam brankas...",
         "all_categories": "Semua kategori",
         "all_rooms": "Semua ruangan",
@@ -910,9 +985,112 @@
             "name_required": "Nama item diperlukan untuk catatan brankas.",
             "options_failed": "Kategori dan opsi kamar tidak dapat dimuat."
         },
-        "recovery_file_title": "HomeInventory Kunci Pemulihan Brankas Pribadi",
+        "recovery_file_title": "{{brandName}} Kunci Pemulihan Brankas Pribadi",
         "recovery_file_created_label": "Dibuat",
         "recovery_file_key_label": "Kunci Pemulihan",
-        "recovery_file_warning": "Jika Anda kehilangan kedua kunci ini dan frase sandi brankas Anda, brankas tidak dapat dipulihkan."
+        "recovery_file_warning": "Jika Anda kehilangan kedua kunci ini dan frase sandi brankas Anda, brankas tidak dapat dipulihkan.",
+        "media_note": "Unggahan foto, pemindaian kode batang, dan pencarian produk eksternal belum didukung. Fitur-fitur ini akan ditambahkan setelah alur media terenkripsi dan privasi khusus tersedia."
+    },
+    "borrow_requests": {
+        "title": "Pusat Peminjaman",
+        "subtitle": "Kelola permintaan aman dan alur penawaran dengan pengguna {{brandName}} lainnya.",
+        "incoming_title": "Permintaan Masuk",
+        "incoming_subtitle": "Permintaan dan penawaran yang dikirimkan kepada Anda",
+        "outgoing_title": "Dikirim oleh Saya",
+        "outgoing_subtitle": "Penawaran dan permintaan barang yang Anda mulai",
+        "empty_incoming": "Saat ini tidak ada permintaan pinjaman untuk Anda.",
+        "empty_outgoing": "Anda belum mengirim penawaran atau permintaan.",
+        "stats": {
+            "incoming": "Masuk yang Menunggu",
+            "outgoing": "Keluar yang Menunggu",
+            "active": "Pinjaman Aktif"
+        },
+        "active": {
+            "title": "Pinjaman Aktif",
+            "subtitle": "Barang yang saat ini ada pada Anda atau dipinjamkan oleh Anda",
+            "empty": "Saat ini tidak ada pinjaman aktif.",
+            "borrowed_from": "Dipinjam dari {{name}}",
+            "lent_to": "Saat ini dengan {{name}}"
+        },
+        "status": {
+            "pending": "Tertunda",
+            "accepted": "Aktif",
+            "rejected": "Ditolak",
+            "cancelled": "Dibatalkan",
+            "expired": "Kedaluwarsa",
+            "returned": "Dikembalikan"
+        },
+        "actions": {
+            "send_request": "Minta Barang",
+            "send_offer": "Kirim Penawaran",
+            "accept": "Terima",
+            "reject": "Tolak",
+            "cancel": "Batalkan",
+            "fulfill_request": "Penuhi Permintaan"
+        },
+        "labels": {
+            "offer": "Penawaran",
+            "request": "Permintaan",
+            "unspecified_item": "Item tidak ditentukan",
+            "counterparty": "Pihak lawan: {{name}}",
+            "created_at": "Dibuat: {{date}}",
+            "due_date": "Perkiraan pengembalian: {{date}}",
+            "waiting_delivery": "Permintaan mungkin masih menunggu akun yang cocok sebelum muncul.",
+            "returned_on": "Dikembalikan pada: {{date}}",
+            "borrow_started": "Dimulai: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Kirim Penawaran",
+            "offer_subtitle_item": "Buat penawaran pengguna yang aman untuk \"{{item}}\"",
+            "offer_subtitle_general": "Pilih item dari inventaris Anda dan kirim penawaran yang aman",
+            "item_label": "Item",
+            "item_placeholder": "Pilih item",
+            "target_label": "Nama pengguna atau email",
+            "target_placeholder": "mis. alex atau alex@example.com",
+            "target_help": "Sistem tidak mengungkapkan apakah akun ini ada. Jika cocok, permintaan akan muncul di kotak masuk penerima.",
+            "offer_note_placeholder": "mis. Anda bisa menyimpannya sampai akhir pekan jika ingin",
+            "offer_submitting": "Mengirim...",
+            "request_title": "Meminta Barang",
+            "request_subtitle": "Buat permintaan umum tanpa melihat inventaris orang lain",
+            "requested_item_label": "Apa yang Anda butuhkan?",
+            "requested_item_placeholder": "mis. Bor, tripod, kursi camping",
+            "request_note_placeholder": "mis. Saya hanya membutuhkannya selama 2 hari",
+            "request_submitting": "Mengirim...",
+            "fulfill_title": "Penuhi Permintaan",
+            "fulfill_subtitle": "Pilih item dari inventaris Anda untuk \"{{item}}\"",
+            "fulfill_target": "Item ini akan dipinjamkan kepada {{name}}.",
+            "no_available_items": "Tidak ada item yang memenuhi syarat untuk ditawarkan di rumah aktif Anda saat ini.",
+            "fulfill_submitting": "Menyimpan...",
+            "return_title": "Tandai Kembali",
+            "return_subtitle": "Tutup pinjaman aktif untuk \"{{item}}\"",
+            "return_target": "Saat ini ditampilkan sedang dibawa oleh {{name}}."
+        },
+        "messages": {
+            "load_error": "Pusat pinjaman tidak dapat dimuat",
+            "action_error": "Tindakan tidak dapat diselesaikan"
+        },
+        "preview": {
+            "title": "Mode pratinjau",
+            "body": "Bagian backend dari halaman ini tidak dapat diakses dalam pengujian lokal saat ini. Anda masih dapat meninjau tata letak dan alurnya terlebih dahulu; kami akan mengaktifkan sisi server setelah Anda menyetujuinya."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Kebijakan Privasi",
+        "terms_of_service_title": "Syarat Layanan",
+        "privacy_policy_content": "Privasi Anda penting bagi kami. Aplikasi ini menyimpan data yang Anda unggah dengan aman menggunakan enkripsi tingkat field. Kami tidak menjual atau membagikan data pribadi Anda kepada pihak ketiga. Dengan menggunakan layanan ini, Anda menyetujui pengumpulan data yang diperlukan untuk pengelolaan akun dan fungsi aplikasi.",
+        "terms_of_service_content": "Dengan menggunakan {{brandName}}, Anda menyetujui syarat ini. Layanan disediakan 'apa adanya' tanpa jaminan. Anda bertanggung jawab atas data yang Anda unggah dan memastikan bahwa Anda memiliki hak atasnya. Kami berhak untuk menangguhkan akun yang melanggar kebijakan atau menyalahgunakan sistem.",
+        "register_consent": "Saya telah membaca, memahami, dan menyetujui <1>Syarat Layanan</1> dan <2>Kebijakan Privasi</2>.",
+        "consent_title": "Tinjau dokumen hukum",
+        "consent_subtitle": "Harap konfirmasi syarat saat ini sebelum melanjutkan.",
+        "consent_notice": "Kami memerlukan pengakuan yang direkam untuk Syarat Layanan dan Pemberitahuan Privasi saat ini sebelum Anda dapat melanjutkan penggunaan aplikasi.",
+        "consent_checkbox": "Saya menerima Syarat Layanan dan mengonfirmasi bahwa saya telah membaca Pemberitahuan Privasi.",
+        "consent_submit": "Lanjutkan",
+        "consent_submitting": "Menyimpan...",
+        "consent_required": "Anda perlu mengonfirmasi Syarat Layanan dan Pemberitahuan Privasi sebelum melanjutkan."
+    },
+    "cookies": {
+        "banner_text": "Kami menggunakan cookie penting untuk menjaga Anda tetap masuk dan mengamankan sesi Anda. Dengan terus menggunakan situs ini, Anda setuju dengan kebijakan kami.",
+        "accept": "Saya Setuju",
+        "learn_more": "Pelajari Lebih Lanjut"
     }
 }

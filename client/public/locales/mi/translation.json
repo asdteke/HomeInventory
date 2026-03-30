@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Wāhanga Roanga Pūnaha Taipitopito",
             "warranty_duration_months": "Marama",
             "warranty_duration_years": "Tau",
-            "warranty_calculation_help": "Mēnā ka waiho koe te rā tīmata raihana kia kī kore, ka whakamahia te rā nama. I te wā ka tāpirihia e koe te roa, ka tatau aunoa te rā mutunga o te raihana."
+            "warranty_calculation_help": "Mēnā ka waiho koe te rā tīmata raihana kia kī kore, ka whakamahia te rā nama. I te wā ka tāpirihia e koe te roa, ka tatau aunoa te rā mutunga o te raihana.",
+            "vault_hint_title": "He tuhinga tino pāwera?",
+            "vault_hint_description": "Mō ngā uruwhenua, tuhinga, taipitopito tuakiri, waehere uru, me ērā atu tuhinga me noho ki waho i te rerenga tauwhāinga paerewa, puritia ngā mea nei i roto i te Wharepouaka Motuhake.",
+            "vault_hint_action": "Whakatuwheratia te Wharepouaka Motuhake"
         },
         "messages": {
             "quick_add_success": "✓ Kua tāpirihia tere te \"{{barcode}}\" - ka taea e koe te whakatika ā muri ake",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Kāore he hua i kitea i ngā pātengi raraunga. Ka taea e koe te rapu i runga i Google.",
             "search_fail": "⚠ Kua hē te rapu",
             "name_required": "Me whai ingoa taonga",
-            "location_add_error": "Kua hē te tāpiri i te wāhi"
+            "location_add_error": "Kua hē te tāpiri i te wāhi",
+            "photo_too_large": "Ka taea e ngā whakaahua te noho kia ${{maxSizeMb}} MB te rahi teitei rawa."
         }
     },
     "common": {
@@ -99,16 +103,16 @@
         "refresh": "Tāwharautia",
         "close": "Katia",
         "logout": "Putanga",
-        "copyright": "© {{year}} HomeInventory - Kua rēhitatia ētehi tika katoa",
+        "copyright": "© {{year}} {{brandName}} - Kua rēhitatia ētehi tika katoa",
         "other": "Tētahi atu",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "Tāruatia",
+        "download": "Tikiake"
     },
     "auth": {
         "login": {
             "title": "Tāuru",
             "subtitle": "Whakahaerehia katoa ō taonga o te kāinga me te mātau",
-            "welcome": "Nau mai ki HomeInventory",
+            "welcome": "Nau mai ki {{brandName}}",
             "username_or_email": "Ingoa Kaiwhakamahi rānei īmēra",
             "password": "Kupuhipa",
             "forgot_password": "Kua wareware Kupuhipa?",
@@ -120,13 +124,25 @@
             "register_link": "Rēhita",
             "support_contact": "Mō ngā raru takiuru:",
             "terms_title": "📋 Ngā Āhua Whakamahi me te Whakakāhoretanga",
-            "terms_beta": "Putanga BETA: Kei te whakamātautau ināianei a HomeInventory. Kāore he taurite ka tukuna mō te toitūtanga, te haumaru rānei o ō raraunga.",
+            "terms_beta": "Putanga BETA: Kei te whakamātautau ināianei a {{brandName}}. Kāore he taurite ka tukuna mō te toitūtanga, te haumaru rānei o ō raraunga.",
             "terms_disclaimer": "Whakakāhoretanga: Mā te whakamahi i tēnei taupānga, ka whakaae koe kāore e taea e koe te tono hōpunga mō te ngaronga o ngā raraunga pea, ngā raruraru takiuru, ngā hapa hangarau rānei.",
             "terms_backup": "Tārua Raraunga: Ka tūtohu kaha mātou ki te tārua i ō kōrero hira i ia wā.",
-            "terms_accept": "Mā te takiuru, ka whakaarohia kua whakaaetia e koe ēnei tikanga."
+            "terms_accept": "Mā te takiuru, ka whakaarohia kua whakaaetia e koe ēnei tikanga.",
+            "two_factor": {
+                "title": "Tūtukitanga-rua",
+                "subtitle": "Tāurua te waehere 6-matata mai i tō taupānga matua",
+                "backup_subtitle": "Tāurua tētahi o ō waehere tāpiritanga",
+                "code_label": "Waehere Whakau",
+                "backup_code_label": "Waehere Tāpiritanga",
+                "remember_device": "Maumahara ki tēnei pūrere mō te 30 rā",
+                "verify": "Whakauiuia",
+                "back": "Hoki",
+                "use_backup": "Whakamahia waehere pūrua",
+                "use_totp": "Whakamahia te kaiwhakarite pupuri tuakiri"
+            }
         },
         "register": {
-            "title": "Nau mai ki HomeInventory",
+            "title": "Nau mai ki {{brandName}}",
             "subtitle": "Waihangahia he pūkete hou, whakawhāngai rānei ki te whare e noho ana",
             "create_house": "Waihanga Whare Hou",
             "join_house": "Whakauru ki te Whare",
@@ -237,7 +253,8 @@
         "admin_panel": "Paewhiri Kaiwhakahaere",
         "logout": "Putanga",
         "menu": "Tahua",
-        "personal_vault": "Pūtaka Whaiaro"
+        "personal_vault": "Pūtaka Whaiaro",
+        "borrow_requests": "Ngā Tonu Āwhina"
     },
     "dashboard": {
         "welcome": "Nau mai, <1>{{name}}</1>! 👋",
@@ -279,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "Kei te whakamātautau me te hākinakina a HomeInventory i tēnei wā. Kāore he whakamana mō te mau tonu o ngā raraunga, o te haumaru rānei. Tēnā kia mau tonu ngā tārua pūrua o ngā kōrero nui.",
+        "text": "Kei te whakamātautau me te hākinakina a {{brandName}} i tēnei wā. Kāore he whakamana mō te mau tonu o ngā raraunga, o te haumaru rānei. Tēnā kia mau tonu ngā tārua pūrua o ngā kōrero nui.",
         "contact": "Whakapā:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Katoa ngā mana pupuri",
+        "rights": "© {{year}} {{brandName}} - Katoa ngā mana pupuri",
         "contact": "Whakapā:"
     },
     "settings": {
@@ -325,7 +342,8 @@
             "member_kicked": "Kua tangohia te mema mai i te whare",
             "member_kick_error": "Kaore i taea te tango i te mema mai i te whare",
             "recovery_key_regenerated": "Kua whakahou te kī whakaora",
-            "recovery_key_error": "Kaore i taea te whakahou i te kī whakaora"
+            "recovery_key_error": "Kaore i taea te whakahou i te kī whakaora",
+            "account_delete_error": "Kāore i taea te muku i te pūkete"
         },
         "user_profile": {
             "edit_username": "Panoni ingoa kaiwhakamahi"
@@ -392,13 +410,20 @@
             "export_json": "Kaweake hei JSON",
             "upload_backup": "Tukuake Pūrua",
             "uploading": "E tukuake ana...",
-            "import_json": "Kawemai mai i JSON"
+            "import_json": "Kawemai mai i JSON",
+            "export_sensitive_title": "He raraunga kuputuhi te nuinga o ngā pūrua ka kawea mai",
+            "export_sensitive_notice": "Kei roto i tēnei pūruatanga ngā raraunga kāinga kua wetewetehia. Penapena kia haumaru i muri i te tikiake, whakamuna mēnā ka taea, ā, karo i te tiri i runga i ngā ara kāore i te haumaru.",
+            "export_sensitive_confirm": "Ka nui ake te pūrua nei i ngā raraunga kāinga kua wetewetehia i roto i te kuputuhi mārama. Ka whakapūmau koe ka penapenahia kia haumaru?"
         },
         "about": {
             "title": "📱 Mō te Taupānga",
             "version": "Putanga",
             "brand": "Waitohu",
-            "feedback": "✉️ Tukua Urupare"
+            "feedback": "✉️ Tukua Urupare",
+            "legal_title": "Tuhinga ā-Ture",
+            "legal_description": "Ka taea e koe te whakatuwhera anō i ngā tikanga me ngā kuputuhi tūmataitinga i konei ahakoa kua whakaaetia e koe.",
+            "terms_link": "Ngā Kaupapa Whakamahinga",
+            "privacy_link": "Kaupapa Here Matatapu"
         },
         "modals": {
             "password": {
@@ -441,6 +466,69 @@
             "title": "Āku Tono Hono E Tūmanako Ana",
             "waiting_since": "E tatari ana mai i: {{date, datetime}}",
             "pending_badge": "E tatari ana"
+        },
+        "two_factor": {
+            "title": "Tāwharautanga Rua-Tāhuinga",
+            "description": "Tāpiri he papa taapiri o te haumaru ki tō pūkete mā te TOTP-ārahi 2FA",
+            "active": "Mahi",
+            "enable": "Whakatūwhera 2FA",
+            "disable": "Whakakā 2FA",
+            "disable_desc": "Tangohia te tāwharautanga rua-tāhuinga i tō pūkete",
+            "disable_title": "Tahuri Kua Kore te Whakau Tu-Hua",
+            "disable_confirm": "Tahuri Kua Kore te 2FA",
+            "disable_error": "Kua Hē te Tahuri Kua Kore te 2FA",
+            "disabled_success": "Kua Tahuri te Whakau Tu-Hua",
+            "password_label": "Kupuhipa",
+            "password_placeholder": "Takiuru to kupuhipa",
+            "method_totp": "Kaiwhakatuaki",
+            "method_backup": "Waehere Pūrua",
+            "method_recovery": "Kī Whakaora",
+            "totp_code_label": "Waehere Tautuhi",
+            "backup_code_label": "Waehere Pūrua",
+            "recovery_key_label": "Kī Whakaora",
+            "cancel": "Whakakāhoretia",
+            "setup_title": "Whirihora 2FA",
+            "setup_error": "I rahua te tīmata i te whirihoranga 2FA",
+            "step_1": "Hipanga 1: Matawai i te Waehere QR",
+            "step_2": "Hipanga 2: Whakau Kodhi",
+            "step_3": "Hipanga 3: Tiakina ngā Waehere Pūrua",
+            "scan_instruction": "Karapahia tēnei waehere QR mā tō taupānga tūpono (Google Authenticator, Authy, rānei he taupānga TOTP)",
+            "manual_entry": "Kāore e taea te karapa? Tāuru tēnei kī ā-ringa:",
+            "copy_secret": "Tārua te huna",
+            "next": "Panuku",
+            "verify_instruction": "Tāuru te waehere 6-matua i te taupānga tūpono kia whakau i te tautuhi",
+            "verify_error": "I hinga te whakau",
+            "code_label": "Waehere 6-Matua",
+            "back": "Hoki",
+            "activate": "Whakaoho 2FA",
+            "backup_warning_title": "Tiakina ēnei Waehere Pūtea!",
+            "backup_warning_text": "Mēnā ka ngaro tō urunga ki tō taupānga whakatika, ka taea e koe te whakamahi i ēnei waehere ki te takiuru. Ka taea te whakamahi i ia waehere kotahi anake. Tiakina rātou ki tētahi wāhi haumaru.",
+            "download_codes": "Tāutuhia ngā Waehere Pūtea",
+            "backup_acknowledge": "Kua tiakina ēnei waehere pūtea i tētahi wāhi haumaru",
+            "done": "Kua oti",
+            "regenerate_codes": "Whakahou Anō i Ngā Waehere Tārua",
+            "regenerate_codes_desc": "Hangaia he waehere tārua hōu (ka whakakorehia ngā tawhito)",
+            "regenerate": "Whakahou Anō",
+            "codes_regenerated": "Kua whakahoutia ngā waehere tārua",
+            "codes_error": "Kua hinga te whakahou i ngā waehere tārua",
+            "close_codes": "Kāti",
+            "revoke_devices": "Whakakore i Ngā Pūrere Whai Whakaaro",
+            "revoke_devices_desc": "Tangohia katoatia ngā pūrere kua maumahara, me whakamahi 2FA i te takiuru ka whai ake",
+            "devices_revoked": "{{count}} taputapu whakawhirinaki i tangohia",
+            "devices_error": "Kua whakamātauria te whakahē i ngā taputapu"
+        },
+        "danger_zone": {
+            "title": "Pūkete",
+            "delete_title": "Mukua te pūkete",
+            "delete_description": "Mēnā e hiahia ana koe, ka taea e koe te tango tonotono i ngā raraunga whaiaro me ngā kōnae kua tukuna e hono ana ki tēnei pūkete.",
+            "delete_warning": "Kāore e taea te whakahoki i tēnei mahi.",
+            "delete_action": "Mukua te pūkete",
+            "modal_title": "Mukua te kaute",
+            "modal_warning_title": "He mahi kāore e taea te huri",
+            "modal_warning_body": "I muri i te whakau, ka ngaro tonu tō uru ki te kaute ā, kāore e taea te whakahoki mai i ngā raraunga tono kua mukua mai i te taupānga.",
+            "password_label": "Whakau nā tō kupuhipa o nāianei",
+            "confirm_delete": "Whakau te mukunga",
+            "deleting": "E muku ana..."
         }
     },
     "inventory": {
@@ -455,7 +543,53 @@
         "empty_filter": "Kāore he tūemi e ōrite ana ki ō tātari",
         "empty_msg": "Kāore anō he tūemi i tapirihia",
         "delete_confirm": "E tino tika ana kia muku i tēnei tūemi?",
-        "delete_error": "Hapa muku"
+        "delete_error": "Hapa muku",
+        "load_warning": {
+            "title": "Aronga uta wāhanga",
+            "body": "E whakautua ana ētahi raraunga tautoko teitei ināianei, nā reira i whakatuwherahia te whārangi me te kore raraunga tātari katoa. Ka ngana anō mātou ina ka whakatōmene koe."
+        },
+        "borrow": {
+            "section_title": "Aroturuki Tonu",
+            "section_subtitle": "Tūnga nama me te hītori o nāianei",
+            "dialog_lend_title": "Whakarato Tūemi",
+            "dialog_lend_subtitle": "Waihangahia he tuhinga nama hou mō \"{{item}}\"",
+            "dialog_return_title": "Tohu Kua Whakahokia",
+            "dialog_return_subtitle": "Katia te tuhinga nama ā-tinana mo \"{{item}}\"",
+            "member": "Memi o te whare",
+            "external": "Tangata tāwāhi",
+            "borrower_member": "Nā wai i whiwhi?",
+            "no_members": "Kāore he memi kē o tēnei whare e taea te kōwhiri. Ka taea e koe te waihanga i te tuhinga hei tangata tāwāhi anō.",
+            "borrower_name": "Ingoa tangata",
+            "borrower_name_placeholder": "hei tauira: Hoa noho Alex",
+            "borrower_contact": "Ngā pārongo whakapā",
+            "borrower_contact_placeholder": "Waea, īmēra, tuhinga poto",
+            "due_date": "Rā hokinga e tumanakohia ana",
+            "note": "Tuhinga",
+            "note_placeholder": "hei tauira, I tuku mō te mutunga wiki",
+            "submitting_lend": "E tiaki ana...",
+            "lend": "Tuku",
+            "return_note": "Tuhinga hokinga",
+            "return_note_placeholder": "hei tauira, I hoki i te āhua pai",
+            "submitting_return": "E kati ana...",
+            "mark_returned": "Kua hoki a Mark",
+            "current_borrower_label": "I tenei wa kei:",
+            "unknown": "Kore e mohiotia",
+            "overdue_badge": "Kua pau te wā",
+            "borrowed_badge": "Kua tākere",
+            "borrowed_to": "Kei a {{name}}",
+            "due_date_short": "Tiketike: {{date}}",
+            "actions_error": "Kaore i oti te mahi nama",
+            "borrowed_at": "I nama ai i te: {{date}}",
+            "due_date_label": "Whakaorangia e te tumanako: {{date}}",
+            "note_label": "Tuhipoka: {{note}}",
+            "return_note_label": "Tuhipoka whakahokia: {{note}}",
+            "no_active": "Kāore tēnei tuhinga i te nama nāianei.",
+            "history_title": "Hītori",
+            "history_active": "Whakatuwherahia te tuhinga mō {{name}}",
+            "history_returned": "Rekoata kua kati mō {{name}}",
+            "returned_at": "I whakahokia i: {{date}}",
+            "no_history": "Kāore anō he hītori nama mō tēnei tūemi."
+        }
     },
     "categories": {
         "title": "Ngā Kāwai",
@@ -553,7 +687,7 @@
             "free_badge": "Kore utu katoa"
         },
         "features": {
-            "title": "He Aha <1>HomeInventory</1>?",
+            "title": "He Aha <1>{{brandName}}</1>?",
             "subtitle": "Ngā āhuatanga katoa hei whakangawari i te whakahaere kāinga i roto i te papa kotahi",
             "items": {
                 "categorize": {
@@ -591,7 +725,7 @@
             "desc": "Te papa māmā, haumaru hoki hei matapōkerei i tō rārangi taonga whare.",
             "links": "Hononga Tere",
             "contact": "Whakapā Mai",
-            "copyright": "© {{year}} HomeInventory. Kua rahuitia ngā tika katoa."
+            "copyright": "© {{year}} {{brandName}}. Kua rahuitia ngā tika katoa."
         },
         "preview_privacy_notice": "Tirohanga whakaaturanga: kāore he raraunga kaiwhakamahi tūturu e whakaatuhia."
     },
@@ -719,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Me Whakatautuhia te īmēra",
-            "headerTitle": "Nau mai ki HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Me Whakatautuhia te īmēra",
+            "headerTitle": "Nau mai ki {{brandName}}",
             "headerSubtitle": "Waihangahia he pūkete hou, whakawhāngai rānei ki te whare e noho ana",
-            "greeting": "Nau mai ki HomeInventory",
+            "greeting": "Nau mai ki {{brandName}}",
             "intro": "Kua waihangatia te pūkete! Tēnā whakapūmautia tō wāhitau īmēra hei whakakāinga.",
             "verifyPrompt": "📧 Me Whakatautuhia te īmēra",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Whakamana i taku Pūkete",
             "warningTitle": "⚠️",
             "warningBody": "Tirohia te kōpaki hapa / otaota mēnā kāore te īmēra i tae mai.",
             "houseKeyLabel": "Kī Whare",
@@ -739,13 +873,13 @@
             ],
             "fallback": "Kei te ahua kāore i oti, kāore rānei, te hono whakahou kupuhipa.",
             "support": "Ngā take tāpui:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Nau mai ki HomeInventory",
-            "headerTitle": "Nau mai ki HomeInventory",
+            "subject": "Nau mai ki {{brandName}}",
+            "headerTitle": "Nau mai ki {{brandName}}",
             "headerSubtitle": "Waihangahia he pūkete hou, whakawhāngai rānei ki te whare e noho ana",
-            "greeting": "Nau mai ki HomeInventory",
+            "greeting": "Nau mai ki {{brandName}}",
             "intro": "Nau mai, ! 👋",
             "houseKeyLabel": "Kī Whare",
             "houseKeyNote": "Koinei tō kī kāinga, whakamahia hei pōwhiri i ētahi atu. Tāpirihia ngā mema whānau ki tō kāinga!",
@@ -757,7 +891,7 @@
                 "💡 Ka taea e koe te noho hei mema o ngā whare maha me te whakawhiti i waenga i a rātou. Ka pupuri ia whare i tētahi rarangi motuhake."
             ],
             "support": "Ngā take tāpui:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Hono ki te Whare",
@@ -766,7 +900,7 @@
             "bodyLine2": "E tatari ana mō te whakaaetanga a te kaipupuri whare"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Uru Whare",
             "bodyLine1Template": "Tono e tatari ana ināianei: {{house}} ({{status}})",
             "bodyLine2": "E tatari tonu ana tō tono mō \"{{house}}\" mō tētahi whakataunga."
@@ -786,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Mēnā he pūkete tā, kua tukuna tētahi hono tautuhi kupuhipa e manako mō te 15 meneti.",
             "fallback": "Kei te ahua kāore i oti, kāore rānei, te hono whakahou kupuhipa.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "I tukuna tēnei īmēra e {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -828,7 +966,6 @@
         "record_save_new": "Tāpiri Rehita Pouaka",
         "record_save_edit": "Tiaki Ngā Panoni",
         "barcode_privacy_hint": "Kāore e tirotirohia ngā pāteke ā-pouaka i ngā ratonga o waho ā-ringa; kua penapenahia te kuputuhi pāteke hei raraunga hōmi katoa.",
-        "media_note": "Kua whakakorehia ngā whakaahua, te pānui pāteke, me te rapu hua waho i tēnei rere pouaka tuatahi. Me whai rārangi pāpāho hōmi motuhake me ngā tikanga tūmataitinga rerekē ki tēnei.",
         "search_placeholder": "Rapua i roto i te pātaka...",
         "all_categories": "Ngā kāwai katoa",
         "all_rooms": "Ngā rūma katoa",
@@ -851,6 +988,109 @@
         "recovery_file_title": "Matapihi Kōpaki Tauwhiro Whaiaro Kī Whakaora",
         "recovery_file_created_label": "I Hanga",
         "recovery_file_key_label": "Kī Whakaora",
-        "recovery_file_warning": "Mēnā ka ngaro ētahi nei kī me tō kupuhipa kōpaki, kāore e taea te whakaora i te kōpaki."
+        "recovery_file_warning": "Mēnā ka ngaro ētahi nei kī me tō kupuhipa kōpaki, kāore e taea te whakaora i te kōpaki.",
+        "media_note": "Kāore e tautokohia ināianei te tuku whakaahua, te matawai pānuitanga, me te rapu hua o waho. Ka tāpirihia ēnei āheinga ina kua rite te rerenga pāpāho whakamunatia motuhake me te tūmataitinga."
+    },
+    "borrow_requests": {
+        "title": "Pokapū Nama",
+        "subtitle": "Whakahaerehia ngā tono haumaru me ngā tuku me ērā atu kaiwhakamahi {{brandName}}.",
+        "incoming_title": "Ngā Tono Whakatokanga",
+        "incoming_subtitle": "Ngā tono me ngā tuku kua tukuna ki a koe",
+        "outgoing_title": "I tukuna e Au",
+        "outgoing_subtitle": "Ngā tuku me ngā tono tūemi i tīmatahia e koe",
+        "empty_incoming": "Kāore he tono tāpui tāu i tēnei wā.",
+        "empty_outgoing": "Kāore āu i tukuna he tuku, he tono rānei.",
+        "stats": {
+            "incoming": "E tatari ana te uru mai",
+            "outgoing": "E tatari ana te tuku atu",
+            "active": "Ngā Tāpuhi Mahi"
+        },
+        "active": {
+            "title": "Ngā Tāpuhi Mahi",
+            "subtitle": "Ngā tūemi kei a koe ināianei, inā rānei i tāpuihia e koe",
+            "empty": "Kāore he nama e mahi ana ināianei.",
+            "borrowed_from": "I namaa i a {{name}}",
+            "lent_to": "Kei a {{name}} ināianei"
+        },
+        "status": {
+            "pending": "E tūmanakohia ana",
+            "accepted": "Mahi ana",
+            "rejected": "Kāore i whakaaetia",
+            "cancelled": "Kua whakakore",
+            "expired": "Kua pau te wā",
+            "returned": "Ua hoki mai"
+        },
+        "actions": {
+            "send_request": "Tono Ite",
+            "send_offer": "Tukuna Te Tono",
+            "accept": "Whakarite",
+            "reject": "Whakakāhore",
+            "cancel": "Whakakore",
+            "fulfill_request": "Whakakī Tono"
+        },
+        "labels": {
+            "offer": "Tono",
+            "request": "Pātai",
+            "unspecified_item": "Tūemi kāore i tautuhia",
+            "counterparty": "Tāngata tauwhāinga: {{name}}",
+            "created_at": "I hanga: {{date}}",
+            "due_date": "Te tūmanako whakahoki: {{date}}",
+            "waiting_delivery": "Ka taea tonu te tatari a te pātai mō te pūkete e hāngai ana i mua i te puta.",
+            "returned_on": "I whakahokia rā: {{date}}",
+            "borrow_started": "I tīmata: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Tukuna te Tono",
+            "offer_subtitle_item": "Waihangahia he tono kaiwhakamahi haumaru mō \"{{item}}\"",
+            "offer_subtitle_general": "Kōwhiria tētahi tūemi i tō kohinga ka tukuna he tono haumaru",
+            "item_label": "Tūemi",
+            "item_placeholder": "Kōwhiria tētahi tūemi",
+            "target_label": "Ingoa kaiwhakamahi rānei īmēra",
+            "target_placeholder": "arā, alex, rānei alex@example.com",
+            "target_help": "Kāore te pūnaha e whakaatu mēnā e noho ana tēnei pūkete. Mēnā e ōrite ana, ka puta te tono ki te pouaka mēra o te kaiwhiwhi.",
+            "offer_note_placeholder": "hei tauira. Ka taea e koe te pupuri i a ia tae noa ki te mutunga o te wiki mēnā e hiahia ana koe",
+            "offer_submitting": "E tuku ana...",
+            "request_title": "Tono Taonga",
+            "request_subtitle": "Waihanga tono whānui me te kore tirotiro i ngā taonga a te tangata kē",
+            "requested_item_label": "He aha āu hiahia?",
+            "requested_item_placeholder": "hei tauira. Pūoro, tripot, tūru pārekereke",
+            "request_note_placeholder": "hei tauira. E hiahia ana au i a ia mō ngā rā 2 anake",
+            "request_submitting": "E tuku ana...",
+            "fulfill_title": "Whakakīhia te Pēke",
+            "fulfill_subtitle": "Tīpakohia tētahi mea i tō rārangi taonga mō \"{{item}}\"",
+            "fulfill_target": "Ka whakaaweawe tēnei mea ki a {{name}}.",
+            "no_available_items": "Kāore he mea tika hei tuku i tō whare e mahi ana ināianei.",
+            "fulfill_submitting": "E tiakina ana...",
+            "return_title": "Tohu Kua Whakahoki",
+            "return_subtitle": "Katia te nama e mahi ana mō \"{{item}}\"",
+            "return_target": "Kei te whakaatuhia inaianei kei a {{name}}."
+        },
+        "messages": {
+            "load_error": "Kāore i taea te uta i te pokapū nama <<<__KIA ORA_MISSING_SEP__>>> Kāore i taea te whakaoti i te hohenga <<<__KIA ORA_MISSING_SEP__>>> Aratau arokite <<<__KIA ORA_MISSING_SEP__>>> Kāore e taea te tae atu ki te wāhanga o muri o tēnei whārangi i te whakamātautau paetata i tēnei wā tonu. Ka taea tonutia te arotake i te tahora me te rere i te tuatahi; Ka whakahohe mātou i te taha tūmau i muri i tō whakaaetanga.",
+            "action_error": "Kāore i taea te whakaoti i te mahi"
+        },
+        "preview": {
+            "title": "Aratau arotake",
+            "body": "Ko te taha papamuri o tēnei whārangi kāore e taea te toro i te wā whakamātautau ā-rohe ināianei. Ka taea tonu e koe te arotake i te āhua me te rerenga tuatahi; ka whakahohe mātou i te taha tūmau ā muri i tō whakaaetanga."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Kaupapa Noho Matatapu",
+        "terms_of_service_title": "Ngā Tikanga Ratonga",
+        "privacy_policy_content": "He mea nui ki a mātou tō noho matatapu. Ka tiakina e tēnei taupānga ō raraunga kua tuku haumaru mā te kīanga ā-papakōrero. Kāore mātou e hoko, e tiri rānei i ō raraunga whaiaro ki ētahi atu rōpū. Mā te whakamahi i te ratonga, ka whakaae koe ki te kohikohi i ngā raraunga e hiahiatia ana mō te whakahaere kaute me te mahi o te taupānga.",
+        "terms_of_service_content": "Mā te whakamahi i te {{brandName}}, ka whakaae koe ki ēnei tikanga. Ka tukuna te ratonga 'pērā tonu' kāore he whakamana. Ko koe te kawenga mō ngā raraunga ka tuku koe me te whakarite kei a koe ngā tika ki aua raraunga. Kei a mātou te mana ki te whakatā i ngā kaute e takahi ana i ngā kaupapa here, e tāhae rānei i te pūnaha.",
+        "register_consent": "Kua pānui, kua mārama, ā, e whakaae ana ahau ki te <1>Ngā Kaupapa Ratonga</1> me te <2>Ngā Kaupapa Matatapu</2>.",
+        "consent_title": "Arotakehia ngā tuhinga ture",
+        "consent_subtitle": "Tēnā, whakauhia ngā kaupapa o nāianei i mua i te haere tonu.",
+        "consent_notice": "Me whai tātou i tētahi tautuhinga tuhi hei whakamana i ngā Kaupapa Whakamahinga me te Panui Matatapu i mua i tō taea ki te whakamahi tonutia i te taupānga.",
+        "consent_checkbox": "Whakaae ahau ki ngā Kaupapa Whakamahinga, ā, e whakau ana ahau kua pānui au i te Panui Matatapu.",
+        "consent_submit": "Haere tonu",
+        "consent_submitting": "Te tiaki...",
+        "consent_required": "Me whakamana e koe ngā Kaupapa Whakamahi me te Panui Kūmata i mua i te haere tonu."
+    },
+    "cookies": {
+        "banner_text": "Ka whakamahia e mātou ngā kōkī e tika ana hei pupuri i a koe i te takiuru me te haumaru o tō wātaka. Mā te haere tonu ki te whakamahi i tēnei pae, e whakaae ana koe ki ā mātou kaupapa here.",
+        "accept": "Ka Whakaaetia e Au",
+        "learn_more": "Akohia Atu"
     }
 }

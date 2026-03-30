@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Inite Dire Garanti",
             "warranty_duration_months": "Mwa",
             "warranty_duration_years": "Ane",
-            "warranty_calculation_help": "Si ou kite dat kòmansman garanti a vid, yo itilize dat fakti a. Lè ou antre dire a, dat fen garanti a kalkile otomatikman."
+            "warranty_calculation_help": "Si ou kite dat kòmansman garanti a vid, yo itilize dat fakti a. Lè ou antre dire a, dat fen garanti a kalkile otomatikman.",
+            "vault_hint_title": "Dosye trè sansib?",
+            "vault_hint_description": "Pou paspò, akò, detay idantite, kòd aksè, ak lòt dosye ki dwe rete deyò nan flux envantè estanda a, kenbe yo nan Personal Vault pito.",
+            "vault_hint_action": "Louvri Personal Vault"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" te ajoute rapidman - ou ka modifye pita",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Pwodwi pa jwenn nan baz done yo. Ou ka fè rechèch sou Google.",
             "search_fail": "⚠ Rechèch echwe",
             "name_required": "Non atik obligatwa",
-            "location_add_error": "Echwe pou ajoute kote"
+            "location_add_error": "Echwe pou ajoute kote",
+            "photo_too_large": "Foto yo ka gen maksimòm {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,16 +103,16 @@
         "refresh": "Rafrechi",
         "close": "Fèmen",
         "logout": "Dekonekte",
-        "copyright": "© {{year}} HomeInventory - Tout dwa rezève",
+        "copyright": "© {{year}} {{brandName}} - Tout dwa rezève",
         "other": "Lòt",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "Kopi",
+        "download": "Telechaje"
     },
     "auth": {
         "login": {
             "title": "Antre",
             "subtitle": "Jere tout envantè kay ou avèk entèlijans",
-            "welcome": "Byenveni nan HomeInventory",
+            "welcome": "Byenveni nan {{brandName}}",
             "username_or_email": "Non itilizatè oswa Imèl",
             "password": "Modpas",
             "forgot_password": "Ou bliye modpas ou?",
@@ -120,7 +124,7 @@
             "register_link": "Enskri",
             "support_contact": "Pou pwoblèm koneksyon:",
             "terms_title": "📋 Tèm Itilizasyon ak Deklarasyon",
-            "terms_beta": "Vèsyon BETA: HomeInventory kounye a nan faz tès. Pa gen okenn garanti ki bay konsènan pèzistans oswa sekirite done ou yo.",
+            "terms_beta": "Vèsyon BETA: {{brandName}} kounye a nan faz tès. Pa gen okenn garanti ki bay konsènan pèzistans oswa sekirite done ou yo.",
             "terms_disclaimer": "Deklarasyon: Lè w itilize aplikasyon sa a, ou dakò ke ou pa ka reklame okenn konpansasyon pou pèt done potansyèl, pwoblèm aksè, oswa lòt pann teknik.",
             "terms_backup": "Sovgad Done: Nou rekòmande fòsman pou w fè backup regilyèman pou enfòmasyon enpòtan ou yo.",
             "terms_accept": "Lè w konekte, yo konsidere ou te aksepte tèm sa yo.",
@@ -138,7 +142,7 @@
             }
         },
         "register": {
-            "title": "Byenveni nan HomeInventory",
+            "title": "Byenveni nan {{brandName}}",
             "subtitle": "Kreye yon nouvo kont oswa rantre nan yon kay ki egziste deja",
             "create_house": "Kreye Nouvo Kay",
             "join_house": "Rantre nan Kay",
@@ -249,7 +253,8 @@
         "admin_panel": "Pane Administratè",
         "logout": "Dekonekte",
         "menu": "Menyu",
-        "personal_vault": "Vòl pèsonèl"
+        "personal_vault": "Vòl pèsonèl",
+        "borrow_requests": "Demann Prè"
     },
     "dashboard": {
         "welcome": "Byenveni, <1>{{name}}</1>! 👋",
@@ -291,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory kounye a nan faz tès ak lwazi. Pa gen garanti pou pèsistans oswa sekirite done yo. Tanpri, kenbe kopi sovè nan enfòmasyon enpòtan.",
+        "text": "{{brandName}} kounye a nan faz tès ak lwazi. Pa gen garanti pou pèsistans oswa sekirite done yo. Tanpri, kenbe kopi sovè nan enfòmasyon enpòtan.",
         "contact": "Kontakte:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Tout dwa rezève",
+        "rights": "© {{year}} {{brandName}} - Tout dwa rezève",
         "contact": "Kontakte:"
     },
     "settings": {
@@ -337,7 +342,8 @@
             "member_kicked": "Manm retire nan kay la",
             "member_kick_error": "Pa t kapab retire manm nan kay la",
             "recovery_key_regenerated": "Kle rekiperasyon rejenere",
-            "recovery_key_error": "Pa t kapab rejenere kle rekiperasyon an"
+            "recovery_key_error": "Pa t kapab rejenere kle rekiperasyon an",
+            "account_delete_error": "Kont lan pa t ka efase"
         },
         "user_profile": {
             "edit_username": "Chanje non itilizatè"
@@ -404,13 +410,20 @@
             "export_json": "Ekspòte kòm JSON",
             "upload_backup": "Telechaje Sove",
             "uploading": "Ap telechaje...",
-            "import_json": "Enpòte soti nan JSON"
+            "import_json": "Enpòte soti nan JSON",
+            "export_sensitive_title": "Sovgad ekspòte yo gen done nan tèks klè",
+            "export_sensitive_notice": "Sovgad sa a gen ladan done kay dekripte. Mete l an sekirite apre ou fin telechaje li, ankripte li si sa posib, epi evite pataje li atravè chanèl ki pa an sekirite.",
+            "export_sensitive_confirm": "Sovgad sa a pral gen ladan done kay dekripte nan tèks klè. Èske ou konfime ke ou pral mete l an sekirite?"
         },
         "about": {
             "title": "📱 Sou Aplikasyon",
             "version": "Vèsyon",
             "brand": "Mak",
-            "feedback": "✉️ Voye Feedback"
+            "feedback": "✉️ Voye Feedback",
+            "legal_title": "Dokiman legal",
+            "legal_description": "Ou ka relouvri tèks tèm yo ak enfòmasyon sou vi prive soti isit la menm apre ou fin aksepte yo.",
+            "terms_link": "Tèm Sèvis",
+            "privacy_link": "Règleman sou Konfidansyalite"
         },
         "modals": {
             "password": {
@@ -482,7 +495,7 @@
             "scan_instruction": "Eskane kòd QR sa a ak app otantifikatè ou (Google Authenticator, Authy, oswa nenpòt TOTP app)",
             "manual_entry": "pa ka eskane? Antre kle sa a manyèlman:",
             "copy_secret": "Kopi sekrè",
-            "next": "Next",
+            "next": "Pwochen",
             "verify_instruction": "Antre kòd la 6-chif ki montre nan app otantifikasyon ou a pou verifye konfigirasyon",
             "verify_error": "Verifikasyon echwe",
             "code_label": "6-chif Kòd",
@@ -503,6 +516,19 @@
             "revoke_devices_desc": "Retire tout aparèy sonje, ki egzije 2FA sou pwochen login",
             "devices_revoked": "{{konte}} aparèy konfyans (yo) retire",
             "devices_error": "Echwe pou revoke aparèy"
+        },
+        "danger_zone": {
+            "title": "Kont",
+            "delete_title": "Efase kont",
+            "delete_description": "Si ou vle, ou ka retire pèmanan done pèsonèl yo ak dosye telechaje ki lye ak kont sa a.",
+            "delete_warning": "Aksyon sa a pa ka anile.",
+            "delete_action": "Efase kont",
+            "modal_title": "Efase kont",
+            "modal_warning_title": "Aksyon sa a pa ka ranvèse",
+            "modal_warning_body": "Apre konfimasyon, ou pral pèdi aksè nan kont lan imedyatman epi done aplikasyon ou efase yo pa ka retabli soti nan app a.",
+            "password_label": "Konfime ak modpas ou aktyèl",
+            "confirm_delete": "Konfime efasman",
+            "deleting": "Ap efase..."
         }
     },
     "inventory": {
@@ -517,7 +543,53 @@
         "empty_filter": "Pa gen atik ki koresponn ak filtè ou yo",
         "empty_msg": "Pa gen atik ajoute ankò",
         "delete_confirm": "Èske ou sèten ou vle efase atik sa a?",
-        "delete_error": "Erè efase"
+        "delete_error": "Erè efase",
+        "load_warning": {
+            "title": "Mòd chajman pasyèl",
+            "body": "Kèk done sipò ap reponn dousman kounye a, kidonk paj la louvri san tout metadata filtre yo. N ap eseye ankò lè ou rafrechi."
+        },
+        "borrow": {
+            "section_title": "Swivi Prè",
+            "section_subtitle": "Sitiyasyon prè kouran ak istwa",
+            "dialog_lend_title": "Prete Atik",
+            "dialog_lend_subtitle": "Kreye yon nouvo dosye prè pou \"{{item}}\"",
+            "dialog_return_title": "Make kòm Retounen",
+            "dialog_return_subtitle": "Fèmen dosye prete aktif pou \"{{item}}\"",
+            "member": "Manm kay la",
+            "external": "Moun ekstèn",
+            "borrower_member": "Ki moun ki resevwa li?",
+            "no_members": "Pa gen okenn lòt manm ki ka chwazi nan kay sa a. Ou ka kreye dosye a kòm yon moun ekstèn olye de sa.",
+            "borrower_name": "Non moun",
+            "borrower_name_placeholder": "egzanp: Vwazen Alex",
+            "borrower_contact": "Enfòmasyon kontak",
+            "borrower_contact_placeholder": "Telefòn, imèl, oswa yon ti nòt",
+            "due_date": "Dat retou espere",
+            "note": "Nòt",
+            "note_placeholder": "egzanp: Prete pandan wikenn",
+            "submitting_lend": "Ap sove...",
+            "lend": "Prete",
+            "return_note": "Nòt retou",
+            "return_note_placeholder": "egzanp: Retounen nan bon kondisyon",
+            "submitting_return": "Fèmen...",
+            "mark_returned": "Mark Retounen",
+            "current_borrower_label": "Kounye a avèk:",
+            "unknown": "Enkonu",
+            "overdue_badge": "Depase dat",
+            "borrowed_badge": "Prete",
+            "borrowed_to": "Avèk {{name}}",
+            "due_date_short": "Ak dat limit: {{date}}",
+            "actions_error": "Aksyon prete a pa t kapab konplete",
+            "borrowed_at": "Preté sou: {{date}}",
+            "due_date_label": "Retou prevwa: {{date}}",
+            "note_label": "Nòt: {{note}}",
+            "return_note_label": "Nòt retou: {{note}}",
+            "no_active": "Atik sa a pa prete kounye a.",
+            "history_title": "Istwa",
+            "history_active": "Louvri dosye pou {{name}}",
+            "history_returned": "Dosye fèmen pou {{name}}",
+            "returned_at": "Retounen nan: {{date}}",
+            "no_history": "Pa gen okenn istwa prè pou atik sa a ankò."
+        }
     },
     "categories": {
         "title": "Kategori",
@@ -615,7 +687,7 @@
             "free_badge": "Konplètman Gratis"
         },
         "features": {
-            "title": "Poukisa <1>HomeInventory</1>?",
+            "title": "Poukisa <1>{{brandName}}</1>?",
             "subtitle": "Tout fonksyon pou senplifye jere kay nan yon sèl platfòm",
             "items": {
                 "categorize": {
@@ -653,7 +725,7 @@
             "desc": "Platfòm fasil ak sekirize pou dijitalize envantè kay ou.",
             "links": "Link Rapid",
             "contact": "Kontakte Nou",
-            "copyright": "© {{year}} HomeInventory. Tout dwa rezève."
+            "copyright": "© {{year}} {{brandName}}. Tout dwa rezève."
         },
         "preview_privacy_notice": "Vizyon demonstrasyon: pa gen okenn done itilizatè reyèl ki parèt."
     },
@@ -781,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Verifikasyon Imèl Obligatwa",
-            "headerTitle": "Byenveni nan HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Verifikasyon Imèl Obligatwa",
+            "headerTitle": "Byenveni nan {{brandName}}",
             "headerSubtitle": "Kreye yon nouvo kont oswa rantre nan yon kay ki egziste deja",
-            "greeting": "Byenveni nan HomeInventory",
+            "greeting": "Byenveni nan {{brandName}}",
             "intro": "Kont kreye! Tanpri verifye adrès imel ou pou konekte.",
             "verifyPrompt": "📧 Verifikasyon Imèl Obligatwa",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Verifye Kont Mwen",
             "warningTitle": "⚠️",
             "warningBody": "Tcheke katab spam/junk si imèl la pa rive.",
             "houseKeyLabel": "Kle Kay",
@@ -801,13 +873,13 @@
             ],
             "fallback": "Lyen pou reyajiste modpas la parèt enkonplè oswa kraze.",
             "support": "Pwoblèm enskripsyon:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Byenveni nan HomeInventory",
-            "headerTitle": "Byenveni nan HomeInventory",
+            "subject": "Byenveni nan {{brandName}}",
+            "headerTitle": "Byenveni nan {{brandName}}",
             "headerSubtitle": "Kreye yon nouvo kont oswa rantre nan yon kay ki egziste deja",
-            "greeting": "Byenveni nan HomeInventory",
+            "greeting": "Byenveni nan {{brandName}}",
             "intro": "Byenveni, ! 👋",
             "houseKeyLabel": "Kle Kay",
             "houseKeyNote": "Sa a se kle kay ou, itilize li pou envite lòt moun. Ajoute manm fanmi nan kay ou!",
@@ -819,7 +891,7 @@
                 "💡 Ou ka fè pati de plizyè kay epi chanje ant yo. Chak kay kenbe yon envantè separe."
             ],
             "support": "Pwoblèm enskripsyon:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Antre nan Kay",
@@ -828,7 +900,7 @@
             "bodyLine2": "Ap tann apwobasyon pwopriyetè kay la"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Aksè Kay",
             "bodyLine1Template": "Demann ki an atant kounye a: {{house}} ({{status}})",
             "bodyLine2": "Demann ou pou \"{{house}}\" toujou ap tann yon desizyon."
@@ -848,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Si yon kont egziste, yon lyen rekiperasyon modpas ki valab pou 15 minit te voye.",
             "fallback": "Lyen pou reyajiste modpas la parèt enkonplè oswa kraze.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "Imèl sa a te voye pa {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -890,7 +966,6 @@
         "record_save_new": "Ajoute Dosye Valè",
         "record_save_edit": "Sove Chanjman",
         "barcode_privacy_hint": "Kòd bar Valè yo pa gade otomatikman sou sèvis ekstèn; tèks kòd bar la estoke sèlman kòm done an kripté.",
-        "media_note": "Foto, eskan kòd bar, ak rechech pwodwi ekstèn yo entansyonèlman dezaktive nan premye koule valè sa a. Yo bezwen yon pipeline separe pou medya an kripté ak vi prive.",
         "search_placeholder": "Rechèch andedan kas la...",
         "all_categories": "Tout kategori",
         "all_rooms": "Tout chanm",
@@ -910,9 +985,112 @@
             "name_required": "Yon non atik obligatwa pou yon dosye fò bous.",
             "options_failed": "Kategori ak opsyon chanm yo pa t kapab chaje."
         },
-        "recovery_file_title": "Kle Rekiperasyon Bòl Pèsonèl HomeInventory",
+        "recovery_file_title": "Kle Rekiperasyon Bòl Pèsonèl {{brandName}}",
         "recovery_file_created_label": "Kreye",
         "recovery_file_key_label": "Kle Rekiperasyon",
-        "recovery_file_warning": "Si ou pèdi tou de kle sa a ak modpas bòl ou a, bòl la pap ka rekipere."
+        "recovery_file_warning": "Si ou pèdi tou de kle sa a ak modpas bòl ou a, bòl la pap ka rekipere.",
+        "media_note": "Telechajman foto, eskane kòd bar, ak rechèch pwodwi ekstèn poko sipòte. Fè karakteristik sa yo ap ajoute yon fwa yon medya ankripte dedye ak flux vi prive pare."
+    },
+    "borrow_requests": {
+        "title": "Sant Prè",
+        "subtitle": "Jere demann ak òf sekirize avèk lòt itilizatè {{brandName}}.",
+        "incoming_title": "Demann Anbake",
+        "incoming_subtitle": "Demann ak òf yo voye ba ou",
+        "outgoing_title": "Voye pa Mwen",
+        "outgoing_subtitle": "Ofri ak demann atik ou te kòmanse",
+        "empty_incoming": "Pa gen okenn demann prete pou ou kounye a.",
+        "empty_outgoing": "Ou poko voye okenn ofri oswa demann ankò.",
+        "stats": {
+            "incoming": "Ap tann K ap vini",
+            "outgoing": "Ap tann K ap soti",
+            "active": "Pèsonèl ki aktif"
+        },
+        "active": {
+            "title": "Pèsonèl ki aktif",
+            "subtitle": "Atik ki kounye a avèk ou oswa prete pa ou",
+            "empty": "Pa gen okenn prete aktif kounye a.",
+            "borrowed_from": "Prete nan men {{name}}",
+            "lent_to": "Kounye a ak {{name}}"
+        },
+        "status": {
+            "pending": "An atant",
+            "accepted": "Aktif",
+            "rejected": "Rejte",
+            "cancelled": "Anile",
+            "expired": "Ekspire",
+            "returned": "Retounen"
+        },
+        "actions": {
+            "send_request": "Mande Atik",
+            "send_offer": "Voye Òf",
+            "accept": "Aksepte",
+            "reject": "Refize",
+            "cancel": "Anile",
+            "fulfill_request": "Reponn Mande"
+        },
+        "labels": {
+            "offer": "Òf",
+            "request": "Demann",
+            "unspecified_item": "Atik ki pa espesifye",
+            "counterparty": "Kontrapart: {{name}}",
+            "created_at": "Kreye: {{date}}",
+            "due_date": "Retou espere: {{date}}",
+            "waiting_delivery": "Demann lan ka toujou ap tann pou yon kont ki matche anvan li parèt.",
+            "returned_on": "Retounen nan: {{date}}",
+            "borrow_started": "Kòmanse: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Voye Ofri",
+            "offer_subtitle_item": "Kreye yon ofri itilizatè ki an sekirite pou \"{{item}}\"",
+            "offer_subtitle_general": "Chwazi yon atik nan envantè ou epi voye yon ofri ki an sekirite",
+            "item_label": "Atik",
+            "item_placeholder": "Chwazi yon atik",
+            "target_label": "Non itilizatè oswa imèl",
+            "target_placeholder": "pa egzanp alex oswa alex@example.com",
+            "target_help": "Sistèm nan pa revele si kont sa a egziste. Si li koresponn, demann lan parèt nan bwat resevwa moun k ap resevwa a.",
+            "offer_note_placeholder": "pa egzanp. Ou ka kenbe li jiska wikenn si ou vle",
+            "offer_submitting": "Ap voye...",
+            "request_title": "Mande Atik",
+            "request_subtitle": "Kreye yon demann jeneral san navige nan envantè lòt moun nan",
+            "requested_item_label": "Kisa ou bezwen?",
+            "requested_item_placeholder": "pa egzanp. Perforatè, tripot, chèz kan",
+            "request_note_placeholder": "pa egzanp. Mwen sèlman bezwen li pou 2 jou",
+            "request_submitting": "Ap voye...",
+            "fulfill_title": "Ranpli Demann",
+            "fulfill_subtitle": "Chwazi yon atik nan envantè ou pou \"{{item}}\"",
+            "fulfill_target": "Atik sa a pral prete bay {{name}}.",
+            "no_available_items": "Pa gen okenn atik kalifye pou ofri nan kay aktif ou kounye a.",
+            "fulfill_submitting": "Ap sove...",
+            "return_title": "Make Retounen",
+            "return_subtitle": "Fèmen prete aktif pou \"{{item}}\"",
+            "return_target": "Li montre kounye a tankou li avèk {{name}}."
+        },
+        "messages": {
+            "load_error": "Sant prete a pa t kapab chaje",
+            "action_error": "Aksyon an pa t kapab fini"
+        },
+        "preview": {
+            "title": "Mòd aperçu",
+            "body": "Pati backend paj sa a pa aksesib nan tès lokal kounye a. Ou ka toujou revize Layout ak koule a an premye; n ap aktive bò sèvè a apre ou fin apwouve li."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Règleman sou vi prive",
+        "terms_of_service_title": "Kondisyon Sèvis",
+        "privacy_policy_content": "Vi prive ou enpòtan pou nou. Aplikasyon sa a sere done ou telechaje yo an sekirite itilize chifreman nan nivo chan. Nou pa vann ni pataje done pèsonèl ou ak twazyèm pati. Lè w itilize sèvis la, ou dakò pou kolekte done nesesè pou jesyon kont ak fonksyonalite aplikasyon an.",
+        "terms_of_service_content": "Lè w itilize {{brandName}}, ou dakò ak kondisyon sa yo. Sèvis la ofri 'tankou li ye a' san okenn garanti. Ou responsab pou done ou telechaje yo epi asire w ke ou gen dwa sou yo. Nou rezève dwa pou sispann kont ki vyole politik yo oswa ki abize sistèm nan.",
+        "register_consent": "Mwen li, mwen konprann, epi mwen dakò ak <1>Regleman Sèvis yo</1> ak <2>Règleman sou Konfidansyalite</2>.",
+        "consent_title": "Revize dokiman legal yo",
+        "consent_subtitle": "Tanpri konfime tèm aktyèl yo anvan ou kontinye.",
+        "consent_notice": "Nou bezwen yon rekonesans anrejistre pou Tèm Sèvis ak Nòt Konfidansyalite aktyèl yo anvan ou kapab kontinye itilize aplikasyon an.",
+        "consent_checkbox": "Mwen aksepte Tèm Sèvis la epi mwen konfime ke mwen li Nòt Konfidansyalite a.",
+        "consent_submit": "Kontinye",
+        "consent_submitting": "Ap sove...",
+        "consent_required": "Ou bezwen konfime Kondisyon Sèvis la ak Avi sou Konfidansyalite anvan ou kontinye."
+    },
+    "cookies": {
+        "banner_text": "Nou itilize bonbon esansyèl pou kenbe ou konekte epi sekirize sesyon ou. Lè ou kontinye sèvi ak sit sa a, ou dakò ak politik nou yo.",
+        "accept": "Mwen Aksepte",
+        "learn_more": "Aprann Plis"
     }
 }

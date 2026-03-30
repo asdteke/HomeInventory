@@ -42,6 +42,7 @@
 - ✅ **2FA & vertrauenswürdige Geräte** — TOTP-Authenticator-Apps, Einmal-Backup-Codes und Remember-Device-Steuerung
 - 🔒 **Persönlicher Tresor** — Im Browser erzeugte Tresorschlüssel und verschlüsselte private Datensätze für besonders sensible Inhalte
 - 👨‍💼 **Admin-Panel** — Benutzerverwaltung, Sperren, E-Mail-Versand und Systemprotokolle
+- 🤝 **Ausleihsystem** — Verfolgen Sie verliehene und geliehene Artikel, verwalten Sie Anfragen, legen Sie Fälligkeitsdaten fest und überwachen Sie den Status
 - 📧 **E-Mail-System** — Transaktions-E-Mails über die Resend-API (Verifizierung, Admin-Benachrichtigungen)
 - 💾 **Sicherung & Wiederherstellung** — Exportieren und importieren Sie Ihre Inventardaten
 - 🌍 **100+ Sprachen** — Die Benutzeroberfläche wird mit über 100 auswählbaren Sprachen ausgeliefert
@@ -272,6 +273,8 @@ Home-inventory/
 │   ├── locations.js          # Standortverwaltung
 │   ├── barcode.js            # Barcode-Suche & Scanning
 │   ├── houses.js             # Multi-Haus-Verwaltung
+│   ├── borrowRequests.js     # Ausleihsystem & Verfolgung
+│   ├── vault.js              # Persönliche Tresor-Endpoints
 │   ├── admin.js              # Admin-Panel-Endpoints
 │   ├── admin-email.js        # Admin-E-Mail-Versand
 │   ├── email.js              # E-Mail-Verifizierung & Status
@@ -341,6 +344,8 @@ Home-inventory/
 | `GET` | `/api/categories` | Kategorien auflisten |
 | `GET` | `/api/rooms` | Räume auflisten |
 | `GET` | `/api/houses` | Häuser des Benutzers auflisten |
+| `GET/POST`| `/api/borrow-requests` | Ausleihsystem-Endpunkte |
+| `GET/POST`| `/api/vault` | Persönliche Tresor-Endpunkte |
 | `GET` | `/api/admin/*` | Admin-Panel-Endpunkte |
 | `GET` | `/api/health` | Gesundheitsprüfung |
 

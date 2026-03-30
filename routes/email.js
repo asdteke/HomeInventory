@@ -1,5 +1,6 @@
 import express from 'express';
 import { sendTestEmail } from '../utils/emailService.js';
+import { DEFAULT_FROM } from '../utils/branding.js';
 import { logError } from '../utils/logger.js';
 import { authenticateToken, requireAdmin } from '../middleware/auth.js';
 
@@ -68,7 +69,7 @@ router.get('/status', authenticateToken, requireAdmin, (req, res) => {
 
     res.json({
         configured: apiKeyExists,
-        from: 'HomeInventory Team <support@homeinventory.local>',
+        from: DEFAULT_FROM,
         service: 'Resend API',
         message: apiKeyExists
             ? '✅ E-posta servisi yapılandırılmış'

@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Unidade de Duración da Garantía",
             "warranty_duration_months": "Meses",
             "warranty_duration_years": "Anos",
-            "warranty_calculation_help": "Se deixa o campo da data de inicio da garantía baleiro, usarase a data da factura. Cando introduce a duración, a data de finalización da garantía calcúlase automaticamente."
+            "warranty_calculation_help": "Se deixa o campo da data de inicio da garantía baleiro, usarase a data da factura. Cando introduce a duración, a data de finalización da garantía calcúlase automaticamente.",
+            "vault_hint_title": "Rexistro moi sensible?",
+            "vault_hint_description": "Para pasaportes, escritura, detalles de identidade, códigos de acceso e outros rexistros que deben permanecer fóra do fluxo estándar de inventario, gardalos en Bóveda Persoal en vez diso.",
+            "vault_hint_action": "Abrir Bóveda Persoal"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" engadido rapidamente - podes editar máis tarde",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Produto non atopado nas bases de datos. Podes buscar en Google.",
             "search_fail": "⚠ Fallou a búsqueda",
             "name_required": "Requírese o nome do artigo",
-            "location_add_error": "Fallou engadir a localización"
+            "location_add_error": "Fallou engadir a localización",
+            "photo_too_large": "As fotos poden ter como máximo {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,7 +103,7 @@
         "refresh": "Refrescar",
         "close": "Pechar",
         "logout": "Pechar sesión",
-        "copyright": "© {{year}} HomeInventory - Todos os dereitos reservados",
+        "copyright": "© {{year}} {{brandName}} - Todos os dereitos reservados",
         "other": "Outro",
         "copy": "Copiar",
         "download": "Descargar"
@@ -108,7 +112,7 @@
         "login": {
             "title": "Iniciar sesión",
             "subtitle": "Xestiona todo o teu inventario doméstico intelixentemente",
-            "welcome": "Benvido a HomeInventory",
+            "welcome": "Benvido a {{brandName}}",
             "username_or_email": "Nome de usuario ou correo electrónico",
             "password": "Contrasinal",
             "forgot_password": "Esqueceu o contrasinal?",
@@ -120,13 +124,25 @@
             "register_link": "Rexistrarse",
             "support_contact": "Para problemas de inicio de sesión:",
             "terms_title": "📋 Termos de uso e aviso legal",
-            "terms_beta": "Versión BETA: HomeInventory atópase actualmente en fase de proba. Non se ofrece garantía en relación coa persistencia ou seguridade dos teus datos.",
+            "terms_beta": "Versión BETA: {{brandName}} atópase actualmente en fase de proba. Non se ofrece garantía en relación coa persistencia ou seguridade dos teus datos.",
             "terms_disclaimer": "Aviso legal: Ao usar esta aplicación, aceptas que non podes reclamar compensación algunha por posibles perdas de datos, problemas de acceso ou outros fallos técnicos.",
             "terms_backup": "Copia de seguridade de datos: Recomendamos encarecidamente facer copias de seguridade da túa información importante regularmente.",
-            "terms_accept": "Ao iniciar sesión, considérase que aceptas estos termos."
+            "terms_accept": "Ao iniciar sesión, considérase que aceptas estos termos.",
+            "two_factor": {
+                "title": "Autenticación en dous factores",
+                "subtitle": "Introduce o código de 6 díxitos da túa aplicación de autenticación",
+                "backup_subtitle": "Introduce un dos teus códigos de reserva",
+                "code_label": "Código de verificación",
+                "backup_code_label": "Código de reserva",
+                "remember_device": "Lembrar este dispositivo durante 30 días",
+                "verify": "Verificar",
+                "back": "Volver",
+                "use_backup": "Usa o código de respaldo",
+                "use_totp": "Usa o autenticador"
+            }
         },
         "register": {
-            "title": "Benvido a HomeInventory",
+            "title": "Benvido a {{brandName}}",
             "subtitle": "Crea unha nova conta ou únete a unha casa existente",
             "create_house": "Crear nova casa",
             "join_house": "Unirse á casa",
@@ -237,7 +253,8 @@
         "admin_panel": "Panel de Admin",
         "logout": "Pechar sesión",
         "menu": "Menú",
-        "personal_vault": "Bóveda persoal"
+        "personal_vault": "Bóveda persoal",
+        "borrow_requests": "Solicitudes de préstamo"
     },
     "dashboard": {
         "welcome": "Benvido, <1>{{name}}</1>! 👋",
@@ -279,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory está actualmente en fase de probas e afeccións. Non se ofrece garantía ningunha sobre a persistencia ou seguridade dos datos. Por favor, manteña copias de seguridade da información importante.",
+        "text": "{{brandName}} está actualmente en fase de probas e afeccións. Non se ofrece garantía ningunha sobre a persistencia ou seguridade dos datos. Por favor, manteña copias de seguridade da información importante.",
         "contact": "Contacto:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Todos os dereitos reservados",
+        "rights": "© {{year}} {{brandName}} - Todos os dereitos reservados",
         "contact": "Contacto:"
     },
     "settings": {
@@ -325,7 +342,8 @@
             "member_kicked": "Membro eliminado da casa",
             "member_kick_error": "Non se puido eliminar o membro da casa",
             "recovery_key_regenerated": "Chave de recuperación rexenerada",
-            "recovery_key_error": "Non se puido rexenerar a chave de recuperación"
+            "recovery_key_error": "Non se puido rexenerar a chave de recuperación",
+            "account_delete_error": "Non se puido eliminar a conta"
         },
         "user_profile": {
             "edit_username": "Cambiar nome de usuario"
@@ -392,13 +410,20 @@
             "export_json": "Exportar como JSON",
             "upload_backup": "Cargar copia de seguridade",
             "uploading": "Cargando...",
-            "import_json": "Importar desde JSON"
+            "import_json": "Importar desde JSON",
+            "export_sensitive_title": "As copias de seguridade exportadas conteñen datos en texto plano",
+            "export_sensitive_notice": "Esta copia de seguridade inclúe datos do fogar descifrados. Gardádea de forma segura tras a descarga, encríptaa se é posible e evita compartila por canles inseguras.",
+            "export_sensitive_confirm": "Esta copia de seguridade inclúe datos do fogar descifrados en texto plano. Confirma que os gardarás de forma segura?"
         },
         "about": {
             "title": "📱 Sobre a aplicación",
             "version": "Versión",
             "brand": "Marca",
-            "feedback": "✉️ Enviar comentarios"
+            "feedback": "✉️ Enviar comentarios",
+            "legal_title": "Documentos legais",
+            "legal_description": "Podes reabrir os textos de termos e privacidade desde aquí incluso despois de aceptalos.",
+            "terms_link": "Termos de servizo",
+            "privacy_link": "Política de privacidade"
         },
         "modals": {
             "password": {
@@ -441,6 +466,69 @@
             "title": "As miñas solicitudes de unión pendentes",
             "waiting_since": "Agardando desde: {{date, datetime}}",
             "pending_badge": "Pendente"
+        },
+        "two_factor": {
+            "title": "Autenticación en dous factores",
+            "description": "Engade unha capa extra de seguridade á túa conta con 2FA baseado en TOTP",
+            "active": "Activo",
+            "enable": "Activar 2FA",
+            "disable": "Desactivar 2FA",
+            "disable_desc": "Eliminar a autenticación de dous factores da túa conta",
+            "disable_title": "Desactivar a autenticación de dous factores",
+            "disable_confirm": "Desactivar 2FA",
+            "disable_error": "Fallou ao desactivar 2FA",
+            "disabled_success": "A autenticación en dous factores foi desactivada",
+            "password_label": "Contrasinal",
+            "password_placeholder": "Introduce o teu contrasinal",
+            "method_totp": "Autenticador",
+            "method_backup": "Código de reserva",
+            "method_recovery": "Chave de recuperación",
+            "totp_code_label": "Código do autenticador",
+            "backup_code_label": "Código de reserva",
+            "recovery_key_label": "Clave de recuperación",
+            "cancel": "Cancelar",
+            "setup_title": "Configurar 2FA",
+            "setup_error": "Non se puido iniciar a configuración de 2FA",
+            "step_1": "Paso 1: Escanea o código QR",
+            "step_2": "Paso 2: Verifica o código",
+            "step_3": "Paso 3: Garda os códigos de respaldo",
+            "scan_instruction": "Escanea este código QR coa túa aplicación de autenticación (Google Authenticator, Authy ou calquera aplicación TOTP)",
+            "manual_entry": "Non podes escanear? Introduce esta chave manualmente:",
+            "copy_secret": "Copiar segredo",
+            "next": "Seguinte",
+            "verify_instruction": "Introduce o código de 6 díxitos que se mostra na túa aplicación de autenticación para verificar a configuración",
+            "verify_error": "Verificación fallida",
+            "code_label": "Código de 6 díxitos",
+            "back": "Voltar",
+            "activate": "Activar 2FA",
+            "backup_warning_title": "Garda estes códigos de copia de seguridade!",
+            "backup_warning_text": "Se perdas o acceso á túa aplicación de autenticación, podes usar estes códigos para iniciar sesión. Cada código só se pode usar unha vez. Gárdaos nun lugar seguro.",
+            "download_codes": "Descargar códigos de copia de seguridade",
+            "backup_acknowledge": "Gardei os meus códigos de copia de seguridade nun lugar seguro",
+            "done": "Listo",
+            "regenerate_codes": "Rexenerar códigos de copia de seguridade",
+            "regenerate_codes_desc": "Xerar novos códigos de copia de seguridade (os antigos deixarán de ser válidos)",
+            "regenerate": "Rexenerar",
+            "codes_regenerated": "Os códigos de copia de seguridade foron rexenerados",
+            "codes_error": "Fallou a rexeneración dos códigos de copia de seguridade",
+            "close_codes": "Pechar",
+            "revoke_devices": "Revogar dispositivos de confianza",
+            "revoke_devices_desc": "Eliminar todos os dispositivos lembrados, requirindo 2FA no seguinte inicio de sesión",
+            "devices_revoked": "{{count}} dispositivo(s) de confianza eliminado(s)",
+            "devices_error": "Fallou a revogación dos dispositivos"
+        },
+        "danger_zone": {
+            "title": "Conta",
+            "delete_title": "Eliminar conta",
+            "delete_description": "Se queres, podes eliminar permanentemente os datos persoais e os arquivos cargados asociados a esta conta.",
+            "delete_warning": "Esta acción non se pode desfacerse.",
+            "delete_action": "Eliminar conta",
+            "modal_title": "Eliminar conta",
+            "modal_warning_title": "Esta acción é irreversible",
+            "modal_warning_body": "Despois da confirmación, perderás inmediatamente o acceso á conta e os datos da aplicación eliminada non se poden restaurar desde a aplicación.",
+            "password_label": "Confirma co teu contrasinal actual",
+            "confirm_delete": "Confirmar eliminación",
+            "deleting": "Eliminando..."
         }
     },
     "inventory": {
@@ -455,7 +543,53 @@
         "empty_filter": "Non hai elementos que coincidan cos teus filtros",
         "empty_msg": "Aínda non se engadiron elementos",
         "delete_confirm": "Estás seguro de que queres eliminar este elemento?",
-        "delete_error": "Erro ao eliminar"
+        "delete_error": "Erro ao eliminar",
+        "load_warning": {
+            "title": "Modo de carga parcial",
+            "body": "Algúns datos de soporte están respondendo lentamente neste momento, así que a páxina abriuse sen metadatos completos de filtro. Intentarémolo de novo cando actualices."
+        },
+        "borrow": {
+            "section_title": "Seguimento de préstamos",
+            "section_subtitle": "Estado actual do préstamo e historial",
+            "dialog_lend_title": "Prestar elemento",
+            "dialog_lend_subtitle": "Crear un novo rexistro de préstamo para \"{{item}}\"",
+            "dialog_return_title": "Marcar como devolto",
+            "dialog_return_subtitle": "Pechar o rexistro de préstamo activo para \"{{item}}\"",
+            "member": "Presente da casa",
+            "external": "Persoa externa",
+            "borrower_member": "Quién o recibiu?",
+            "no_members": "Non hai ningún outro membro seleccionable nesta casa. Podes crear o rexistro como persoa externa en vez diso.",
+            "borrower_name": "Nome da persoa",
+            "borrower_name_placeholder": "por exemplo, Veciño Alex",
+            "borrower_contact": "Información de contacto",
+            "borrower_contact_placeholder": "Teléfono, correo electrónico ou nota curta",
+            "due_date": "Data de devolución prevista",
+            "note": "Nota",
+            "note_placeholder": "por exemplo, Prestado para o fin de semana",
+            "submitting_lend": "Gardando...",
+            "lend": "Prestar",
+            "return_note": "Nota de devolución",
+            "return_note_placeholder": "por exemplo, Devolto en bo estado",
+            "submitting_return": "Pechando...",
+            "mark_returned": "Marcador devolto",
+            "current_borrower_label": "Actualmente con:",
+            "unknown": "Descoñecido",
+            "overdue_badge": "Atrasado",
+            "borrowed_badge": "Empregado",
+            "borrowed_to": "Con {{name}}",
+            "due_date_short": "Data de vencemento: {{date}}",
+            "actions_error": "Non se puido completar a acción de préstamo",
+            "borrowed_at": "Prestado o: {{date}}",
+            "due_date_label": "Devolución esperada: {{date}}",
+            "note_label": "Nota: {{note}}",
+            "return_note_label": "Nota de devolución: {{note}}",
+            "no_active": "Este ítem non está actualmente prestado.",
+            "history_title": "Historial",
+            "history_active": "Abrir rexistro para {{name}}",
+            "history_returned": "Rexistro pechado para {{name}}",
+            "returned_at": "Devolto o: {{date}}",
+            "no_history": "Aínda non hai historial de préstamos para este artículo."
+        }
     },
     "categories": {
         "title": "Categorías",
@@ -553,7 +687,7 @@
             "free_badge": "Completamente gratuíto"
         },
         "features": {
-            "title": "Por que <1>HomeInventory</1>?",
+            "title": "Por que <1>{{brandName}}</1>?",
             "subtitle": "Todas as funcións para simplificar a xestión do fogar nunha única plataforma",
             "items": {
                 "categorize": {
@@ -591,7 +725,7 @@
             "desc": "A plataforma sinxela e segura para dixitalizar o inventario da túa casa.",
             "links": "Enlaces rápidos",
             "contact": "Contacta connosco",
-            "copyright": "© {{year}} HomeInventory. Todos os dereitos reservados."
+            "copyright": "© {{year}} {{brandName}}. Todos os dereitos reservados."
         },
         "preview_privacy_notice": "Vista de demostración: non se amosan datos reais de usuarios."
     },
@@ -719,10 +853,10 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Verificación do correo electrónico requirida",
-            "headerTitle": "Benvido a HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Verificación do correo electrónico requirida",
+            "headerTitle": "Benvido a {{brandName}}",
             "headerSubtitle": "Crea unha nova conta ou únete a unha casa existente",
-            "greeting": "Benvido a HomeInventory",
+            "greeting": "Benvido a {{brandName}}",
             "intro": "Conta creada! Por favor, verifica a túa dirección de correo electrónico para iniciar sesión.",
             "verifyPrompt": "📧 Verificación do correo electrónico requirida",
             "verifyButton": "✓ Verificar a miña conta",
@@ -739,13 +873,13 @@
             ],
             "fallback": "O enlace para restablecer o contrasinal parece incompleto ou roto.",
             "support": "Problemas de rexistro:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Benvido a HomeInventory",
-            "headerTitle": "Benvido a HomeInventory",
+            "subject": "Benvido a {{brandName}}",
+            "headerTitle": "Benvido a {{brandName}}",
             "headerSubtitle": "Crea unha nova conta ou únete a unha casa existente",
-            "greeting": "Benvido a HomeInventory",
+            "greeting": "Benvido a {{brandName}}",
             "intro": "Benvido, ! 👋",
             "houseKeyLabel": "Chave da casa",
             "houseKeyNote": "Esta é a chave da túa casa, úsaa para invitar a outros. Engade membros da familia á túa casa!",
@@ -757,7 +891,7 @@
                 "💡 Podes ser membro de varias casas e cambiar entre elas. Cada casa mantén un inventario separado."
             ],
             "support": "Problemas de rexistro:",
-            "footer": "© 2026 HomeInventory <<<__HI_SEP___>>>{estadoInventory"
+            "footer": "© 2026 {{brandName}} <<<__HI_SEP___>>>{estadoInventory"
         },
         "houseJoinRequest": {
             "subject": "Unirse a unha casa",
@@ -766,7 +900,7 @@
             "bodyLine2": "Agardando a aprobación do propietario da casa"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "© 2026 HomeInventory",
+            "subjectTemplate": "© 2026 {{brandName}}",
             "greeting": "Acceso á casa",
             "bodyLine1Template": "Solicitude pendente actual: {{house}} ({{status}})",
             "bodyLine2": "A túa solicitude para \"{{house}}\" aínda está agardando unha decisión."
@@ -786,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Se existe unha conta, enviouse un enlace para restablecer o contrasinal válido durante 15 minutos.",
             "fallback": "O enlace para restablecer o contrasinal parece incompleto ou roto.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "Este correo electrónico foi enviado por {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -828,7 +966,6 @@
         "record_save_new": "Engadir rexistro de Vault",
         "record_save_edit": "Gardar cambios",
         "barcode_privacy_hint": "Os códigos de barras de Vault non se buscan automaticamente nos servizos externos; o texto do código de barras almacénase só como datos cifrados.",
-        "media_note": "As fotos, a dixitalización de códigos de barras e a busca de produtos externos están desactivadas intencionadamente neste primeiro fluxo de bóveda. Necesitan medios cifrados separados e canalización de privacidade.",
         "search_placeholder": "Busca dentro da bóveda...",
         "all_categories": "Todas as categorías",
         "all_rooms": "Todas as salas",
@@ -848,9 +985,112 @@
             "name_required": "É necesario un nome de elemento para un rexistro de bóveda.",
             "options_failed": "Non se puideron cargar as opcións de categoría e sala."
         },
-        "recovery_file_title": "Chave de Recuperación do Caixón Persoal de HomeInventory",
+        "recovery_file_title": "Chave de Recuperación do Caixón Persoal de {{brandName}}",
         "recovery_file_created_label": "Creado",
         "recovery_file_key_label": "Chave de Recuperación",
-        "recovery_file_warning": "Se perdas tanto esta chave como a contrasinal do caixón, non se poderá recuperar o caixón."
+        "recovery_file_warning": "Se perdas tanto esta chave como a contrasinal do caixón, non se poderá recuperar o caixón.",
+        "media_note": "As subidas de fotos, a lectura de códigos de barras e a busca de produtos externos aínda non están soportadas. Estas funcións se engadirán unha vez que se teña listo un fluxo dedicado de medios encriptados e privacidade."
+    },
+    "borrow_requests": {
+        "title": "Centro de préstamos",
+        "subtitle": "Xestiona solicitudes e ofertas seguras con outros usuarios de {{brandName}}.",
+        "incoming_title": "Solicitudes entrantes",
+        "incoming_subtitle": "Solicitudes e ofertas enviadas a ti",
+        "outgoing_title": "Enviado por min",
+        "outgoing_subtitle": "Ofertas e solicitudes de artigos que empezaches",
+        "empty_incoming": "Non hai solicitudes de préstamo para ti neste momento.",
+        "empty_outgoing": "Aínda non enviaches ningunha oferta ou solicitude.",
+        "stats": {
+            "incoming": "Pendentes de entrada",
+            "outgoing": "Pendentes de saída",
+            "active": "Préstamos activos"
+        },
+        "active": {
+            "title": "Préstamos activos",
+            "subtitle": "Artigos actualmente contigo ou prestados por ti",
+            "empty": "Actualmente non hai préstamos activos.",
+            "borrowed_from": "Prestado por {{name}}",
+            "lent_to": "Actualmente con {{name}}"
+        },
+        "status": {
+            "pending": "Pendente",
+            "accepted": "Activo",
+            "rejected": "Rechazado",
+            "cancelled": "Cancelado",
+            "expired": "Caducado",
+            "returned": "Devolto"
+        },
+        "actions": {
+            "send_request": "Solicitar elemento",
+            "send_offer": "Enviar oferta",
+            "accept": "Aceptar",
+            "reject": "Rexeitar",
+            "cancel": "Cancelar",
+            "fulfill_request": "Cumprir solicitude"
+        },
+        "labels": {
+            "offer": "Oferta",
+            "request": "Solicitude",
+            "unspecified_item": "Elemento non especificado",
+            "counterparty": "Contraparte: {{name}}",
+            "created_at": "Creado: {{date}}",
+            "due_date": "Devolución esperada: {{date}}",
+            "waiting_delivery": "A solicitude aínda pode estar agardando unha conta correspondente antes de aparecer.",
+            "returned_on": "Devolto en: {{date}}",
+            "borrow_started": "Iniciado: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Enviar oferta",
+            "offer_subtitle_item": "Crear una oferta segura para o usuario de \"{{item}}\"",
+            "offer_subtitle_general": "Escolla un artigo do seu inventario e envíe unha oferta segura",
+            "item_label": "Artigo",
+            "item_placeholder": "Seleccione un artigo",
+            "target_label": "Nome de usuario ou correo electrónico",
+            "target_placeholder": "p.ex. alex ou alex@example.com",
+            "target_help": "O sistema non revela se esta conta existe. Se coincide, a solicitude aparece na caixa de entrada do destinatario.",
+            "offer_note_placeholder": "por exemplo, podes quedarte con el ata o fin de semana se queres",
+            "offer_submitting": "Enviando...",
+            "request_title": "Solicitar artigo",
+            "request_subtitle": "Crear unha solicitude xeral sen navegar polo inventario doutra persoa",
+            "requested_item_label": "Que necesitas?",
+            "requested_item_placeholder": "por exemplo, taladro, trípode, cadeira de campamento",
+            "request_note_placeholder": "por exemplo, só o necesito durante 2 días",
+            "request_submitting": "Enviando...",
+            "fulfill_title": "Cumprir solicitude",
+            "fulfill_subtitle": "Escolla un elemento do seu inventario para \"{{item}}\"",
+            "fulfill_target": "Este elemento será prestado a {{name}}.",
+            "no_available_items": "Non hai ningún elemento elegible para ofrecer na súa casa activa neste momento.",
+            "fulfill_submitting": "Gardando...",
+            "return_title": "Marcar como devolto",
+            "return_subtitle": "Pechar o empréstito activo de \"{{item}}\"",
+            "return_target": "Actualmente está mostrado como que está con {{name}}."
+        },
+        "messages": {
+            "load_error": "Non se puido cargar o centro de préstamos",
+            "action_error": "Non se puido completar a acción"
+        },
+        "preview": {
+            "title": "Modo de vista previa",
+            "body": "A parte do backend desta páxina non está accesible nas probas locais neste momento. Aínda podes revisar primeiro o deseño e o fluxo; activaremos o lado do servidor despois de que o aprobes."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Política de Privacidade",
+        "terms_of_service_title": "Termos de Servizo",
+        "privacy_policy_content": "A súa privacidade é importante para nós. Esta aplicación garda os seus datos subidos de forma segura usando cifrado a nivel de campo. Non vendemos nin compartimos os seus datos persoais con terceiros. Ao usar o servizo, acepta a recollida dos datos necesarios para xestionar a conta e o funcionamento da aplicación.",
+        "terms_of_service_content": "Ao usar {{brandName}}, acepta estes termos. O servizo ofrécese 'tal como está' sen garantía ningunha. Usted é responsable dos datos que suba e de asegurarse de que ten os dereitos sobre eles. Reservámonos o dereito de suspender contas que infrinxan as políticas ou abusen do sistema.",
+        "register_consent": "Lin, comprendo e estou de acordo cos <1>Termos de servizo</1> e a <2>Política de privacidade</2>.",
+        "consent_title": "Revisar documentos legais",
+        "consent_subtitle": "Por favor, confirme os termos actuais antes de continuar.",
+        "consent_notice": "Necesitamos un recoñecemento gravado para os Termos de Servizo e Aviso de Privacidade actuais antes de que poida continuar usando a aplicación.",
+        "consent_checkbox": "Accepto os Termos de Servizo e confirmo que lin o Aviso de Privacidade.",
+        "consent_submit": "Continuar",
+        "consent_submitting": "Gardando...",
+        "consent_required": "Necesitas confirmar os Termos de servizo e a Notificación de privacidade antes de continuar."
+    },
+    "cookies": {
+        "banner_text": "Usamos cookies esenciais para manterche conectado e garantir a seguridade da túa sesión. Ao seguir usando este sitio, aceptas as nosas políticas.",
+        "accept": "Aceito",
+        "learn_more": "Saber máis"
     }
 }

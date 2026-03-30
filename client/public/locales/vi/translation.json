@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Đơn Vị Thời Hạn Bảo Hành",
             "warranty_duration_months": "Tháng",
             "warranty_duration_years": "Năm",
-            "warranty_calculation_help": "Nếu bạn để trống ngày bắt đầu bảo hành, ngày trên hóa đơn sẽ được sử dụng. Khi bạn nhập thời gian bảo hành, ngày kết thúc bảo hành sẽ được tính tự động."
+            "warranty_calculation_help": "Nếu bạn để trống ngày bắt đầu bảo hành, ngày trên hóa đơn sẽ được sử dụng. Khi bạn nhập thời gian bảo hành, ngày kết thúc bảo hành sẽ được tính tự động.",
+            "vault_hint_title": "Hồ sơ rất nhạy cảm?",
+            "vault_hint_description": "Đối với hộ chiếu, giấy tờ, thông tin cá nhân, mã truy cập và các hồ sơ khác nên tránh luồng kiểm kê tiêu chuẩn, hãy giữ chúng trong Kho Riêng thay vào đó.",
+            "vault_hint_action": "Mở Kho Cá Nhân"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" đã được thêm nhanh - bạn có thể chỉnh sửa sau",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Không tìm thấy sản phẩm trong cơ sở dữ liệu. Bạn có thể tìm trên Google.",
             "search_fail": "⚠ Tìm kiếm thất bại",
             "name_required": "Tên mục là bắt buộc",
-            "location_add_error": "Thêm vị trí thất bại"
+            "location_add_error": "Thêm vị trí thất bại",
+            "photo_too_large": "Ảnh có dung lượng tối đa là {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,16 +103,16 @@
         "refresh": "Làm mới",
         "close": "Đóng",
         "logout": "Đăng xuất",
-        "copyright": "© {{year}} HomeInventory - Bảo lưu mọi quyền",
+        "copyright": "© {{year}} {{brandName}} - Bảo lưu mọi quyền",
         "other": "Khác",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "Sao chép",
+        "download": "Tải xuống"
     },
     "auth": {
         "login": {
             "title": "Đăng nhập",
             "subtitle": "Quản lý toàn bộ kho đồ tại nhà của bạn một cách thông minh",
-            "welcome": "Chào mừng đến với HomeInventory",
+            "welcome": "Chào mừng đến với {{brandName}}",
             "username_or_email": "Tên người dùng hoặc Email",
             "password": "Mật khẩu",
             "forgot_password": "Quên mật khẩu?",
@@ -120,13 +124,25 @@
             "register_link": "Đăng ký",
             "support_contact": "Vấn đề đăng nhập:",
             "terms_title": "📋 Điều khoản Sử dụng và Tuyên bố từ chối trách nhiệm",
-            "terms_beta": "Phiên bản BETA: HomeInventory hiện đang trong giai đoạn thử nghiệm. Không có đảm bảo nào về việc dữ liệu của bạn sẽ được lưu trữ hoặc bảo mật.",
+            "terms_beta": "Phiên bản BETA: {{brandName}} hiện đang trong giai đoạn thử nghiệm. Không có đảm bảo nào về việc dữ liệu của bạn sẽ được lưu trữ hoặc bảo mật.",
             "terms_disclaimer": "Tuyên bố từ chối trách nhiệm: Bằng việc sử dụng ứng dụng này, bạn đồng ý rằng bạn không thể yêu cầu bất kỳ bồi thường nào về việc mất dữ liệu tiềm ẩn, vấn đề truy cập hoặc các sự cố kỹ thuật khác.",
             "terms_backup": "Sao lưu dữ liệu: Chúng tôi khuyên bạn nên sao lưu thông tin quan trọng thường xuyên.",
-            "terms_accept": "Bằng việc đăng nhập, bạn được coi là đã chấp nhận các điều khoản này."
+            "terms_accept": "Bằng việc đăng nhập, bạn được coi là đã chấp nhận các điều khoản này.",
+            "two_factor": {
+                "title": "Xác thực hai yếu tố",
+                "subtitle": "Nhập mã 6 chữ số từ ứng dụng xác thực của bạn",
+                "backup_subtitle": "Nhập một trong các mã dự phòng của bạn",
+                "code_label": "Mã xác minh",
+                "backup_code_label": "Mã dự phòng",
+                "remember_device": "Ghi nhớ thiết bị này trong 30 ngày",
+                "verify": "Xác minh",
+                "back": "Quay lại",
+                "use_backup": "Sử dụng mã dự phòng",
+                "use_totp": "Sử dụng trình xác thực"
+            }
         },
         "register": {
-            "title": "Chào mừng đến với HomeInventory",
+            "title": "Chào mừng đến với {{brandName}}",
             "subtitle": "Tạo tài khoản mới hoặc tham gia một ngôi nhà hiện có",
             "create_house": "Tạo Ngôi Nhà Mới",
             "join_house": "Tham Gia Ngôi Nhà",
@@ -237,7 +253,8 @@
         "admin_panel": "Bảng quản trị",
         "logout": "Đăng xuất",
         "menu": "Menu",
-        "personal_vault": "Kho cá nhân"
+        "personal_vault": "Kho cá nhân",
+        "borrow_requests": "Yêu Cầu Mượn"
     },
     "dashboard": {
         "welcome": "Chào mừng, <1>{{name}}</1>! 👋",
@@ -279,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BẢN THỬ NGHIỆM:",
-        "text": "HomeInventory hiện đang trong giai đoạn thử nghiệm và sở thích. Không có đảm bảo về việc duy trì dữ liệu hay bảo mật. Vui lòng giữ bản sao lưu thông tin quan trọng.",
+        "text": "{{brandName}} hiện đang trong giai đoạn thử nghiệm và sở thích. Không có đảm bảo về việc duy trì dữ liệu hay bảo mật. Vui lòng giữ bản sao lưu thông tin quan trọng.",
         "contact": "Liên hệ:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Bảo lưu mọi quyền",
+        "rights": "© {{year}} {{brandName}} - Bảo lưu mọi quyền",
         "contact": "Liên hệ:"
     },
     "settings": {
@@ -325,7 +342,8 @@
             "member_kicked": "Thành viên đã bị xóa khỏi nhà",
             "member_kick_error": "Không thể xóa thành viên khỏi nhà",
             "recovery_key_regenerated": "Khóa phục hồi đã được tạo lại",
-            "recovery_key_error": "Không thể tạo lại khóa phục hồi"
+            "recovery_key_error": "Không thể tạo lại khóa phục hồi",
+            "account_delete_error": "Không thể xóa tài khoản"
         },
         "user_profile": {
             "edit_username": "Đổi tên người dùng"
@@ -392,13 +410,20 @@
             "export_json": "Xuất dưới dạng JSON",
             "upload_backup": "Tải bản sao lưu lên",
             "uploading": "Đang tải lên...",
-            "import_json": "Nhập từ JSON"
+            "import_json": "Nhập từ JSON",
+            "export_sensitive_title": "Các bản sao lưu đã xuất chứa dữ liệu dạng văn bản thuần túy",
+            "export_sensitive_notice": "Bản sao lưu này bao gồm dữ liệu hộ gia đình đã giải mã. Hãy lưu trữ nó an toàn sau khi tải xuống, mã hóa nếu có thể, và tránh chia sẻ qua các kênh không an toàn.",
+            "export_sensitive_confirm": "Bản sao lưu này sẽ bao gồm dữ liệu hộ gia đình đã giải mã ở dạng văn bản thuần túy. Bạn có xác nhận rằng sẽ lưu trữ nó an toàn không?"
         },
         "about": {
             "title": "📱 Về ứng dụng",
             "version": "Phiên bản",
             "brand": "Thương hiệu",
-            "feedback": "✉️ Gửi Phản Hồi"
+            "feedback": "✉️ Gửi Phản Hồi",
+            "legal_title": "Tài liệu pháp lý",
+            "legal_description": "Bạn có thể mở lại các văn bản về điều khoản và quyền riêng tư từ đây ngay cả sau khi đã chấp nhận chúng.",
+            "terms_link": "Điều Khoản Dịch Vụ",
+            "privacy_link": "Chính Sách Quyền Riêng Tư"
         },
         "modals": {
             "password": {
@@ -441,6 +466,69 @@
             "title": "Các Yêu Cầu Tham Gia Đang Chờ Xử Lý",
             "waiting_since": "Đang chờ từ: {{date, datetime}}",
             "pending_badge": "Đang chờ"
+        },
+        "two_factor": {
+            "title": "Xác Thực Hai Yếu Tố",
+            "description": "Thêm một lớp bảo mật cho tài khoản của bạn với 2FA dựa trên TOTP",
+            "active": "Đang hoạt động",
+            "enable": "Kích hoạt 2FA",
+            "disable": "Vô hiệu hóa 2FA",
+            "disable_desc": "Xóa xác thực hai yếu tố khỏi tài khoản của bạn",
+            "disable_title": "Vô hiệu hóa xác thực hai yếu tố",
+            "disable_confirm": "Vô hiệu hóa 2FA",
+            "disable_error": "Không thể vô hiệu hóa 2FA",
+            "disabled_success": "Xác thực hai yếu tố đã bị vô hiệu hóa",
+            "password_label": "Mật khẩu",
+            "password_placeholder": "Nhập mật khẩu của bạn",
+            "method_totp": "Ứng dụng xác thực",
+            "method_backup": "Mã sao lưu",
+            "method_recovery": "Khóa khôi phục",
+            "totp_code_label": "Mã xác thực",
+            "backup_code_label": "Mã sao lưu",
+            "recovery_key_label": "Khóa khôi phục",
+            "cancel": "Hủy",
+            "setup_title": "Thiết lập 2FA",
+            "setup_error": "Không thể bắt đầu thiết lập 2FA",
+            "step_1": "Bước 1: Quét Mã QR",
+            "step_2": "Bước 2: Xác minh Mã",
+            "step_3": "Bước 3: Lưu Mã Dự phòng",
+            "scan_instruction": "Quét mã QR này bằng ứng dụng xác thực của bạn (Google Authenticator, Authy hoặc bất kỳ ứng dụng TOTP nào)",
+            "manual_entry": "Không quét được? Nhập khóa này thủ công:",
+            "copy_secret": "Sao chép bí mật",
+            "next": "Tiếp theo",
+            "verify_instruction": "Nhập mã 6 chữ số hiển thị trong ứng dụng xác thực của bạn để xác minh cài đặt",
+            "verify_error": "Xác minh thất bại",
+            "code_label": "Mã 6 chữ số",
+            "back": "Quay lại",
+            "activate": "Kích hoạt 2FA",
+            "backup_warning_title": "Lưu những mã dự phòng này!",
+            "backup_warning_text": "Nếu bạn mất quyền truy cập vào ứng dụng xác thực, bạn có thể sử dụng những mã này để đăng nhập. Mỗi mã chỉ có thể được sử dụng một lần. Lưu chúng ở nơi an toàn.",
+            "download_codes": "Tải xuống mã dự phòng",
+            "backup_acknowledge": "Tôi đã lưu các mã dự phòng của mình ở nơi an toàn",
+            "done": "Hoàn tất",
+            "regenerate_codes": "Tạo lại mã dự phòng",
+            "regenerate_codes_desc": "Tạo mã dự phòng mới (các mã cũ sẽ bị vô hiệu)",
+            "regenerate": "Tạo lại",
+            "codes_regenerated": "Mã dự phòng đã được tạo lại",
+            "codes_error": "Không thể tạo lại mã dự phòng",
+            "close_codes": "Đóng",
+            "revoke_devices": "Thu hồi thiết bị tin cậy",
+            "revoke_devices_desc": "Xóa tất cả các thiết bị đã nhớ, yêu cầu 2FA khi đăng nhập lần tiếp theo",
+            "devices_revoked": "{{count}} thiết bị tin cậy đã bị xóa",
+            "devices_error": "Không thể thu hồi các thiết bị"
+        },
+        "danger_zone": {
+            "title": "Tài khoản",
+            "delete_title": "Xóa tài khoản",
+            "delete_description": "Nếu bạn muốn, bạn có thể loại bỏ vĩnh viễn dữ liệu cá nhân và các tệp đã tải lên liên quan đến tài khoản này.",
+            "delete_warning": "Hành động này không thể hoàn tác.",
+            "delete_action": "Xóa tài khoản",
+            "modal_title": "Xóa tài khoản",
+            "modal_warning_title": "Hành động này không thể hoàn tác",
+            "modal_warning_body": "Sau khi xác nhận, bạn sẽ ngay lập tức mất quyền truy cập vào tài khoản và dữ liệu ứng dụng đã xóa sẽ không thể khôi phục từ ứng dụng.",
+            "password_label": "Xác nhận bằng mật khẩu hiện tại của bạn",
+            "confirm_delete": "Xác nhận xóa",
+            "deleting": "Đang xóa..."
         }
     },
     "inventory": {
@@ -455,7 +543,53 @@
         "empty_filter": "Không có mục nào phù hợp với bộ lọc của bạn",
         "empty_msg": "Chưa có mục nào được thêm",
         "delete_confirm": "Bạn có chắc chắn muốn xóa mục này không?",
-        "delete_error": "Lỗi khi xóa"
+        "delete_error": "Lỗi khi xóa",
+        "load_warning": {
+            "title": "Chế Độ Tải Một Phần",
+            "body": "Một số dữ liệu hỗ trợ hiện đang phản hồi chậm, vì vậy trang đã mở mà không có đầy đủ siêu dữ liệu bộ lọc. Chúng tôi sẽ thử lại khi bạn làm mới."
+        },
+        "borrow": {
+            "section_title": "Theo Dõi Việc Mượn",
+            "section_subtitle": "Tình trạng và lịch sử cho vay hiện tại",
+            "dialog_lend_title": "Cho Mượn Vật Phẩm",
+            "dialog_lend_subtitle": "Tạo bản ghi mượn mới cho \"{{item}}\"",
+            "dialog_return_title": "Đánh dấu đã trả",
+            "dialog_return_subtitle": "Đóng hồ sơ mượn đang hoạt động cho \"{{item}}\"",
+            "member": "Thành viên nhà",
+            "external": "Người bên ngoài",
+            "borrower_member": "Ai đã nhận?",
+            "no_members": "Không có thành viên nào khác chọn được trong nhà này. Bạn có thể tạo hồ sơ với vai trò người bên ngoài thay thế.",
+            "borrower_name": "Tên người",
+            "borrower_name_placeholder": "ví dụ: Hàng xóm Alex",
+            "borrower_contact": "Thông tin liên hệ",
+            "borrower_contact_placeholder": "Điện thoại, email, hoặc ghi chú ngắn",
+            "due_date": "Ngày dự kiến trả",
+            "note": "Ghi chú",
+            "note_placeholder": "ví dụ: Cho vay cuối tuần",
+            "submitting_lend": "Đang lưu...",
+            "lend": "Cho vay",
+            "return_note": "Ghi chú trả lại",
+            "return_note_placeholder": "ví dụ: Trả lại trong tình trạng tốt",
+            "submitting_return": "Đang đóng...",
+            "mark_returned": "Mark Đã Trả",
+            "current_borrower_label": "Hiện tại với:",
+            "unknown": "Không rõ",
+            "overdue_badge": "Quá hạn",
+            "borrowed_badge": "Đang mượn",
+            "borrowed_to": "Với {{name}}",
+            "due_date_short": "Hạn: {{date}}",
+            "actions_error": "Không thể hoàn tất thao tác mượn",
+            "borrowed_at": "Ngày cho mượn: {{date}}",
+            "due_date_label": "Ngày dự kiến trả: {{date}}",
+            "note_label": "Ghi chú: {{note}}",
+            "return_note_label": "Ghi chú trả: {{note}}",
+            "no_active": "Mục này hiện không có ai mượn.",
+            "history_title": "Lịch sử",
+            "history_active": "Mở hồ sơ cho {{name}}",
+            "history_returned": "Hồ sơ đã đóng cho {{name}}",
+            "returned_at": "Trả vào ngày: {{date}}",
+            "no_history": "Chưa có lịch sử mượn cho mục này."
+        }
     },
     "categories": {
         "title": "Danh Mục",
@@ -553,7 +687,7 @@
             "free_badge": "Hoàn Toàn Miễn Phí"
         },
         "features": {
-            "title": "Tại sao <1>HomeInventory</1>?",
+            "title": "Tại sao <1>{{brandName}}</1>?",
             "subtitle": "Tất cả các tính năng để đơn giản hóa quản lý nhà trong một nền tảng",
             "items": {
                 "categorize": {
@@ -591,7 +725,7 @@
             "desc": "Nền tảng dễ dàng và an toàn để số hóa kho nhà của bạn.",
             "links": "Liên kết nhanh",
             "contact": "Liên hệ với chúng tôi",
-            "copyright": "© {{year}} HomeInventory. Bảo lưu mọi quyền."
+            "copyright": "© {{year}} {{brandName}}. Bảo lưu mọi quyền."
         },
         "preview_privacy_notice": "Xem bản demo: không hiển thị dữ liệu người dùng thực."
     },
@@ -719,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Cần xác minh Email",
-            "headerTitle": "Chào mừng đến với HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Cần xác minh Email",
+            "headerTitle": "Chào mừng đến với {{brandName}}",
             "headerSubtitle": "Tạo tài khoản mới hoặc tham gia một ngôi nhà hiện có",
-            "greeting": "Chào mừng đến với HomeInventory",
+            "greeting": "Chào mừng đến với {{brandName}}",
             "intro": "Tài khoản đã được tạo! Vui lòng xác minh địa chỉ email của bạn để đăng nhập.",
             "verifyPrompt": "📧 Cần xác minh Email",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Xác minh Tài khoản của Tôi",
             "warningTitle": "⚠️",
             "warningBody": "Kiểm tra thư mục spam/junk nếu email không đến.",
             "houseKeyLabel": "Khóa nhà",
@@ -739,13 +873,13 @@
             ],
             "fallback": "Liên kết đặt lại mật khẩu có vẻ không đầy đủ hoặc bị hỏng.",
             "support": "Vấn đề đăng ký:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Chào mừng đến với HomeInventory",
-            "headerTitle": "Chào mừng đến với HomeInventory",
+            "subject": "Chào mừng đến với {{brandName}}",
+            "headerTitle": "Chào mừng đến với {{brandName}}",
             "headerSubtitle": "Tạo tài khoản mới hoặc tham gia một ngôi nhà hiện có",
-            "greeting": "Chào mừng đến với HomeInventory",
+            "greeting": "Chào mừng đến với {{brandName}}",
             "intro": "Chào mừng, ! 👋",
             "houseKeyLabel": "Khóa nhà",
             "houseKeyNote": "Đây là chìa khóa nhà của bạn, sử dụng nó để mời người khác. Thêm thành viên gia đình vào nhà của bạn!",
@@ -757,7 +891,7 @@
                 "💡 Bạn có thể trở thành thành viên của nhiều ngôi nhà và chuyển đổi giữa chúng. Mỗi ngôi nhà sẽ có kho riêng."
             ],
             "support": "Vấn đề đăng ký:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Tham gia Nhà",
@@ -766,7 +900,7 @@
             "bodyLine2": "Đang chờ sự phê duyệt của chủ nhà"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Truy Cập Nhà",
             "bodyLine1Template": "Yêu cầu đang chờ hiện tại: {{house}} ({{status}})",
             "bodyLine2": "Yêu cầu của bạn cho \"{{house}}\" vẫn đang chờ quyết định."
@@ -786,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Nếu tài khoản tồn tại, một liên kết đặt lại mật khẩu có hiệu lực trong 15 phút đã được gửi.",
             "fallback": "Liên kết đặt lại mật khẩu có vẻ không đầy đủ hoặc bị hỏng.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 Kiểm kê Nhà"
+        },
+        "adminEmail": {
+            "sentBy": "Email này được gửi bởi {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -828,7 +966,6 @@
         "record_save_new": "Thêm Bản ghi Kho",
         "record_save_edit": "Lưu Thay đổi",
         "barcode_privacy_hint": "Mã vạch trong kho không được tra cứu tự động trên các dịch vụ bên ngoài; văn bản mã vạch chỉ được lưu dưới dạng dữ liệu được mã hóa.",
-        "media_note": "Ảnh, quét mã vạch và tra cứu sản phẩm bên ngoài được cố ý vô hiệu hóa trong luồng kho đầu tiên này. Chúng cần một đường dẫn mã hóa phương tiện và quyền riêng tư riêng biệt.",
         "search_placeholder": "Tìm kiếm bên trong két...",
         "all_categories": "Tất cả các danh mục",
         "all_rooms": "Tất cả các phòng",
@@ -848,9 +985,112 @@
             "name_required": "Tên mục là bắt buộc cho một bản ghi kho.",
             "options_failed": "Không thể tải các tùy chọn danh mục và phòng."
         },
-        "recovery_file_title": "Khóa Phục Hồi Kho Riêng Tư HomeInventory",
+        "recovery_file_title": "Khóa Phục Hồi Kho Riêng Tư {{brandName}}",
         "recovery_file_created_label": "Đã Tạo",
         "recovery_file_key_label": "Khóa Phục Hồi",
-        "recovery_file_warning": "Nếu bạn mất cả khóa này và mật khẩu kho, kho sẽ không thể phục hồi."
+        "recovery_file_warning": "Nếu bạn mất cả khóa này và mật khẩu kho, kho sẽ không thể phục hồi.",
+        "media_note": "Tải ảnh lên, quét mã vạch và tra cứu sản phẩm bên ngoài hiện chưa được hỗ trợ. Những tính năng này sẽ được thêm vào khi một quy trình truyền thông mã hóa và bảo mật riêng biệt sẵn sàng."
+    },
+    "borrow_requests": {
+        "title": "Trung tâm mượn",
+        "subtitle": "Quản lý yêu cầu và luồng đề nghị an toàn với những người dùng {{brandName}} khác.",
+        "incoming_title": "Yêu cầu đến",
+        "incoming_subtitle": "Các yêu cầu và đề nghị gửi đến bạn",
+        "outgoing_title": "Gửi bởi tôi",
+        "outgoing_subtitle": "Các ưu đãi và yêu cầu món đồ bạn đã bắt đầu",
+        "empty_incoming": "Hiện tại không có yêu cầu mượn nào dành cho bạn.",
+        "empty_outgoing": "Bạn chưa gửi ưu đãi hoặc yêu cầu nào.",
+        "stats": {
+            "incoming": "Đang chờ đến",
+            "outgoing": "Đang chờ đi",
+            "active": "Đang mượn"
+        },
+        "active": {
+            "title": "Đang mượn",
+            "subtitle": "Các món đồ hiện đang ở bạn hoặc do bạn cho mượn",
+            "empty": "Hiện không có khoản vay nào đang hoạt động.",
+            "borrowed_from": "Đã vay từ {{name}}",
+            "lent_to": "Hiện đang với {{name}}"
+        },
+        "status": {
+            "pending": "Đang chờ xử lý",
+            "accepted": "Đang hoạt động",
+            "rejected": "Bị từ chối",
+            "cancelled": "Đã hủy",
+            "expired": "Hết hạn",
+            "returned": "Đã trả lại"
+        },
+        "actions": {
+            "send_request": "Yêu cầu mục",
+            "send_offer": "Gửi đề nghị",
+            "accept": "Chấp nhận",
+            "reject": "Từ chối",
+            "cancel": "Hủy",
+            "fulfill_request": "Thực hiện yêu cầu"
+        },
+        "labels": {
+            "offer": "Đề nghị",
+            "request": "Yêu cầu",
+            "unspecified_item": "Mục chưa xác định",
+            "counterparty": "Bên đối tác: {{name}}",
+            "created_at": "Ngày tạo: {{date}}",
+            "due_date": "Ngày trả dự kiến: {{date}}",
+            "waiting_delivery": "Yêu cầu có thể vẫn đang chờ tài khoản phù hợp trước khi xuất hiện.",
+            "returned_on": "Ngày trả: {{date}}",
+            "borrow_started": "Bắt đầu: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Gửi Ưu Đãi",
+            "offer_subtitle_item": "Tạo một ưu đãi người dùng an toàn cho \"{{item}}\"",
+            "offer_subtitle_general": "Chọn một món đồ từ kho của bạn và gửi một ưu đãi an toàn",
+            "item_label": "Món đồ",
+            "item_placeholder": "Chọn một món đồ",
+            "target_label": "Tên người dùng hoặc email",
+            "target_placeholder": "ví dụ: alex hoặc alex@example.com",
+            "target_help": "Hệ thống không tiết lộ liệu tài khoản này có tồn tại hay không. Nếu khớp, yêu cầu sẽ xuất hiện trong hộp thư đến của người nhận.",
+            "offer_note_placeholder": "ví dụ. Bạn có thể giữ nó đến cuối tuần nếu bạn muốn",
+            "offer_submitting": "Đang gửi...",
+            "request_title": "Yêu cầu Mặt hàng",
+            "request_subtitle": "Tạo một yêu cầu chung mà không xem kho của người khác",
+            "requested_item_label": "Bạn cần gì?",
+            "requested_item_placeholder": "ví dụ. Máy khoan, giá ba chân, ghế cắm trại",
+            "request_note_placeholder": "ví dụ. Tôi chỉ cần nó trong 2 ngày",
+            "request_submitting": "Đang gửi...",
+            "fulfill_title": "Hoàn tất Yêu cầu",
+            "fulfill_subtitle": "Chọn một món đồ từ kho của bạn cho \"{{item}}\"",
+            "fulfill_target": "Món đồ này sẽ được cho {{name}} mượn.",
+            "no_available_items": "Hiện tại không có món đồ phù hợp nào để cung cấp trong nhà hoạt động của bạn.",
+            "fulfill_submitting": "Đang lưu...",
+            "return_title": "Đánh dấu Đã Trả",
+            "return_subtitle": "Đóng việc mượn đang hoạt động cho \"{{item}}\"",
+            "return_target": "Hiện đang được hiển thị là đang ở với {{name}}."
+        },
+        "messages": {
+            "load_error": "Trung tâm vay không thể tải được",
+            "action_error": "Hành động không thể hoàn thành"
+        },
+        "preview": {
+            "title": "Chế độ xem trước",
+            "body": "Phần backend của trang này hiện không thể truy cập trong kiểm tra cục bộ. Bạn vẫn có thể xem trước bố cục và luồng; chúng tôi sẽ kích hoạt phía máy chủ sau khi bạn phê duyệt."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Chính sách bảo mật",
+        "terms_of_service_title": "Điều khoản dịch vụ",
+        "privacy_policy_content": "Quyền riêng tư của bạn quan trọng đối với chúng tôi. Ứng dụng này lưu trữ dữ liệu bạn tải lên một cách an toàn bằng cách sử dụng mã hóa cấp trường. Chúng tôi không bán hoặc chia sẻ dữ liệu cá nhân của bạn với bên thứ ba. Bằng cách sử dụng dịch vụ, bạn đồng ý với việc thu thập dữ liệu cần thiết để quản lý tài khoản và chức năng của ứng dụng.",
+        "terms_of_service_content": "Bằng cách sử dụng {{brandName}}, bạn đồng ý với các điều khoản này. Dịch vụ được cung cấp 'nguyên trạng' mà không có bất kỳ bảo đảm nào. Bạn chịu trách nhiệm về dữ liệu bạn tải lên và đảm bảo rằng bạn có quyền sử dụng dữ liệu đó. Chúng tôi giữ quyền tạm ngưng các tài khoản vi phạm chính sách hoặc lạm dụng hệ thống.",
+        "register_consent": "Tôi đã đọc, hiểu và đồng ý với <1>Điều khoản Dịch vụ</1> và <2>Chính sách Bảo mật</2>.",
+        "consent_title": "Xem lại các tài liệu pháp lý",
+        "consent_subtitle": "Vui lòng xác nhận các điều khoản hiện tại trước khi tiếp tục.",
+        "consent_notice": "Chúng tôi cần một xác nhận đã được ghi nhận về Điều Khoản Dịch Vụ và Thông Báo Quyền Riêng Tư hiện tại trước khi bạn có thể tiếp tục sử dụng ứng dụng.",
+        "consent_checkbox": "Tôi chấp nhận Điều Khoản Dịch Vụ và xác nhận rằng tôi đã đọc Thông Báo Quyền Riêng Tư.",
+        "consent_submit": "Tiếp tục",
+        "consent_submitting": "Đang lưu...",
+        "consent_required": "Bạn cần xác nhận Điều khoản Dịch vụ và Thông báo Quyền riêng tư trước khi tiếp tục."
+    },
+    "cookies": {
+        "banner_text": "Chúng tôi sử dụng các cookie thiết yếu để giữ cho bạn đăng nhập và phiên làm việc của bạn được bảo mật. Bằng cách tiếp tục sử dụng trang web này, bạn đồng ý với các chính sách của chúng tôi.",
+        "accept": "Tôi Chấp Nhận",
+        "learn_more": "Tìm Hiểu Thêm"
     }
 }

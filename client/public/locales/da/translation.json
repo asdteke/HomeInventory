@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Garantiens periodeenhed",
             "warranty_duration_months": "Måneder",
             "warranty_duration_years": "År",
-            "warranty_calculation_help": "Hvis du efterlader garantistartdatoen tom, bruges fakturadatoen. Når du indtaster varigheden, beregnes garantislutdatoen automatisk."
+            "warranty_calculation_help": "Hvis du efterlader garantistartdatoen tom, bruges fakturadatoen. Når du indtaster varigheden, beregnes garantislutdatoen automatisk.",
+            "vault_hint_title": "Meget følsom registrering?",
+            "vault_hint_description": "For pas, skøde, identitetsoplysninger, adgangskoder og andre poster, der bør holdes uden for standard inventarstrømmen, skal de i stedet gemmes i Personlig Vault.",
+            "vault_hint_action": "Åbn Personlig Vault"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" hurtigt tilføjet - du kan redigere senere",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Produkt ikke fundet i databaser. Du kan søge på Google.",
             "search_fail": "⚠ Søgning mislykkedes",
             "name_required": "Varenavn er påkrævet",
-            "location_add_error": "Kunne ikke tilføje placering"
+            "location_add_error": "Kunne ikke tilføje placering",
+            "photo_too_large": "Fotos kan være maksimalt {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,7 +103,7 @@
         "refresh": "Opdater",
         "close": "Luk",
         "logout": "Log ud",
-        "copyright": "© {{year}} HomeInventory - Alle rettigheder forbeholdes",
+        "copyright": "© {{year}} {{brandName}} - Alle rettigheder forbeholdes",
         "other": "Andet",
         "copy": "Kopiér",
         "download": "Download"
@@ -108,7 +112,7 @@
         "login": {
             "title": "Log ind",
             "subtitle": "Administrer alt dit hjemmeinventar smart",
-            "welcome": "Velkommen til HomeInventory",
+            "welcome": "Velkommen til {{brandName}}",
             "username_or_email": "Brugernavn eller Email",
             "password": "Adgangskode",
             "forgot_password": "Glemt adgangskode?",
@@ -120,7 +124,7 @@
             "register_link": "Registrer",
             "support_contact": "For login-problemer:",
             "terms_title": "📋 Brugsbetingelser og ansvarsfraskrivelse",
-            "terms_beta": "BETA Version: HomeInventory er i øjeblikket i testfase. Der gives ingen garanti for vedvarende opbevaring eller sikkerhed af dine data.",
+            "terms_beta": "BETA Version: {{brandName}} er i øjeblikket i testfase. Der gives ingen garanti for vedvarende opbevaring eller sikkerhed af dine data.",
             "terms_disclaimer": "Ansvarsfraskrivelse: Ved at bruge denne applikation accepterer du, at du ikke kan kræve nogen kompensation for potentielt datatab, adgangsproblemer eller andre tekniske fejl.",
             "terms_backup": "Databackup: Vi anbefaler kraftigt at tage backup af dine vigtige oplysninger regelmæssigt.",
             "terms_accept": "Ved at logge ind anses du for at have accepteret disse vilkår.",
@@ -138,7 +142,7 @@
             }
         },
         "register": {
-            "title": "Velkommen til HomeInventory",
+            "title": "Velkommen til {{brandName}}",
             "subtitle": "Opret en ny konto eller bliv medlem af et eksisterende hus",
             "create_house": "Opret Nyt Hus",
             "join_house": "Bliv medlem af Hus",
@@ -249,7 +253,8 @@
         "admin_panel": "Adminpanel",
         "logout": "Log ud",
         "menu": "Menu",
-        "personal_vault": "Personlig Valut"
+        "personal_vault": "Personlig Valut",
+        "borrow_requests": "Låneanmodninger"
     },
     "dashboard": {
         "welcome": "Velkommen, <1>{{name}}</1>! 👋",
@@ -291,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory er i øjeblikket i test- og hobbyfase. Ingen garanti gives for dataperistens eller sikkerhed. Venligst lav backups af vigtige oplysninger.",
+        "text": "{{brandName}} er i øjeblikket i test- og hobbyfase. Ingen garanti gives for dataperistens eller sikkerhed. Venligst lav backups af vigtige oplysninger.",
         "contact": "Kontakt:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Alle rettigheder forbeholdes",
+        "rights": "© {{year}} {{brandName}} - Alle rettigheder forbeholdes",
         "contact": "Kontakt:"
     },
     "settings": {
@@ -337,7 +342,8 @@
             "member_kicked": "Medlem fjernet fra huset",
             "member_kick_error": "Kunne ikke fjerne medlem fra huset",
             "recovery_key_regenerated": "Gendannelsesnøgle gendannet",
-            "recovery_key_error": "Kunne ikke genskabe gendannelsesnøglen"
+            "recovery_key_error": "Kunne ikke genskabe gendannelsesnøglen",
+            "account_delete_error": "Kontoen kunne ikke slettes"
         },
         "user_profile": {
             "edit_username": "Skift brugernavn"
@@ -404,13 +410,20 @@
             "export_json": "Eksporter som JSON",
             "upload_backup": "Upload sikkerhedskopi",
             "uploading": "Uploader...",
-            "import_json": "Importer fra JSON"
+            "import_json": "Importer fra JSON",
+            "export_sensitive_title": "Eksporterede backups indeholder klartekstdata",
+            "export_sensitive_notice": "Denne backup inkluderer dekrypterede husholdningsdata. Gem den sikkert efter download, krypter den hvis muligt, og undgå at dele den via usikre kanaler.",
+            "export_sensitive_confirm": "Denne backup vil inkludere dekrypterede husholdningsdata i klartekst. Bekræfter du, at du vil gemme den sikkert?"
         },
         "about": {
             "title": "📱 Om applikationen",
             "version": "version\nMærke",
             "brand": "Mærke",
-            "feedback": "✉️ Send feedback"
+            "feedback": "✉️ Send feedback",
+            "legal_title": "Juridiske dokumenter",
+            "legal_description": "Du kan genåbne vilkår og privatlivstekster herfra, selv efter at have accepteret dem.",
+            "terms_link": "Servicevilkår",
+            "privacy_link": "Privatlivspolitik"
         },
         "modals": {
             "password": {
@@ -503,6 +516,19 @@
             "revoke_devices_desc": "Fjerner alle huskede enheder, kræver 2FA ved næste login",
             "devices_revoked": "{{count}} betroede enheder(e) fjernet",
             "devices_error": "Manglende tilbagekaldelse af enheder"
+        },
+        "danger_zone": {
+            "title": "Konto",
+            "delete_title": "Slet konto",
+            "delete_description": "Hvis du vil, kan du permanent fjerne de personlige data og uploadede filer knyttet til denne konto.",
+            "delete_warning": "Denne handling kan ikke fortrydes.",
+            "delete_action": "Slet konto",
+            "modal_title": "Slet konto",
+            "modal_warning_title": "Denne handling er irreversibel",
+            "modal_warning_body": "Efter bekræftelse vil du straks miste adgangen til kontoen, og de slettede applikationsdata kan ikke gendannes fra appen.",
+            "password_label": "Bekræft med din nuværende adgangskode",
+            "confirm_delete": "Bekræft sletning",
+            "deleting": "Sletter..."
         }
     },
     "inventory": {
@@ -517,7 +543,53 @@
         "empty_filter": "Ingen varer matcher dine filtre",
         "empty_msg": "Ingen varer tilføjet endnu",
         "delete_confirm": "Er du sikker på, at du vil slette denne vare?",
-        "delete_error": "Sletningsfejl"
+        "delete_error": "Sletningsfejl",
+        "load_warning": {
+            "title": "Delvis indlæsningsfunktion",
+            "body": "Nogle understøttende data reagerer langsomt lige nu, så siden åbnede uden fuld filtermetadata. Vi vil prøve igen, når du opdaterer."
+        },
+        "borrow": {
+            "section_title": "Låneregistrering",
+            "section_subtitle": "Nuværende lånestatus og historie",
+            "dialog_lend_title": "Udlån vare",
+            "dialog_lend_subtitle": "Opret en ny lånepost for \"{{item}}\"",
+            "dialog_return_title": "Marker som returneret",
+            "dialog_return_subtitle": "Luk den aktive lånepost for \"{{item}}\"",
+            "member": "Husmedlem",
+            "external": "Ekstern person",
+            "borrower_member": "Hvem modtog det?",
+            "no_members": "Der er ikke andre valgbare medlemmer i dette hus. Du kan oprette posten som en ekstern person i stedet.",
+            "borrower_name": "Personnavn",
+            "borrower_name_placeholder": "f.eks. Nabo Alex",
+            "borrower_contact": "Kontaktoplysninger",
+            "borrower_contact_placeholder": "Telefon, e-mail eller kort note",
+            "due_date": "Forventet returneringsdato",
+            "note": "Bemærk",
+            "note_placeholder": "f.eks. Lånt i weekenden",
+            "submitting_lend": "Gemmer...",
+            "lend": "Lån",
+            "return_note": "Retur note",
+            "return_note_placeholder": "f.eks. Returneret i god stand",
+            "submitting_return": "Lukker...",
+            "mark_returned": "Markeret tilbage",
+            "current_borrower_label": "Aktuelt hos:",
+            "unknown": "Ukendt",
+            "overdue_badge": "Forsinket",
+            "borrowed_badge": "Udlånt",
+            "borrowed_to": "Hos {{name}}",
+            "due_date_short": "Forfald: {{date}}",
+            "actions_error": "Udlånsaktionen kunne ikke gennemføres",
+            "borrowed_at": "Udlånt den: {{date}}",
+            "due_date_label": "Forventet tilbagelevering: {{date}}",
+            "note_label": "Bemærkning: {{note}}",
+            "return_note_label": "Tilbageleveringsbemærkning: {{note}}",
+            "no_active": "Denne vare er ikke udlånt i øjeblikket.",
+            "history_title": "Historik",
+            "history_active": "Åbn register for {{name}}",
+            "history_returned": "Lukket post for {{name}}",
+            "returned_at": "Returneret den: {{date}}",
+            "no_history": "Der er endnu ingen lånehistorik for denne genstand."
+        }
     },
     "categories": {
         "title": "Kategorier",
@@ -594,7 +666,7 @@
             "subject": "Emne",
             "message": "Besked (HTML understøttes)",
             "placeholder_message": "Skriv din besked her...",
-            "send": "© 2026 HomeInventory",
+            "send": "© 2026 {{brandName}}",
             "sending": "Sender...",
             "success": "E-mail sendt succesfuldt!",
             "error": "Afsendelse mislykkedes"
@@ -615,7 +687,7 @@
             "free_badge": "Helt gratis"
         },
         "features": {
-            "title": "Hvorfor <1>HomeInventory</1>?",
+            "title": "Hvorfor <1>{{brandName}}</1>?",
             "subtitle": "Alle funktioner til at forenkle hjemmestyring på én platform",
             "items": {
                 "categorize": {
@@ -653,7 +725,7 @@
             "desc": "Den nemme og sikre platform til at digitalisere dit hjemmelager.",
             "links": "Hurtige links",
             "contact": "Kontakt os",
-            "copyright": "© {{year}} HomeInventory. Alle rettigheder forbeholdes."
+            "copyright": "© {{year}} {{brandName}}. Alle rettigheder forbeholdes."
         },
         "preview_privacy_notice": "Demo visning: ingen rigtige brugerdata vises."
     },
@@ -739,7 +811,7 @@
         "url_loading": "Indlæser URL...",
         "copied": "Kopieret!",
         "copy_url": "Kopiér URL",
-        "download": "© 2026 HomeInventory",
+        "download": "© 2026 {{brandName}}",
         "usage_title": "Brug",
         "usage_desc": "Print QR-koden og sæt den på varen. Scan med din telefon for straks at få adgang til denne side!"
     },
@@ -781,10 +853,10 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 E-mailbekræftelse påkrævet",
-            "headerTitle": "Velkommen til HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 E-mailbekræftelse påkrævet",
+            "headerTitle": "Velkommen til {{brandName}}",
             "headerSubtitle": "Opret en ny konto eller bliv medlem af et eksisterende hus",
-            "greeting": "Velkommen til HomeInventory",
+            "greeting": "Velkommen til {{brandName}}",
             "intro": "Konto oprettet! Bekræft venligst din e-mailadresse for at logge ind.",
             "verifyPrompt": "📧 E-mailbekræftelse påkrævet",
             "verifyButton": "✓ Bekræft min konto",
@@ -801,13 +873,13 @@
             ],
             "fallback": "Linket til nulstilling af adgangskode ser ufuldstændigt eller ødelagt ud.",
             "support": "Registreringsproblemer:",
-            "footer": "HomeInventory - {{status}}"
+            "footer": "{{brandName}} - {{status}}"
         },
         "welcome": {
-            "subject": "Velkommen til HomeInventory",
-            "headerTitle": "Velkommen til HomeInventory",
+            "subject": "Velkommen til {{brandName}}",
+            "headerTitle": "Velkommen til {{brandName}}",
             "headerSubtitle": "Opret en ny konto eller bliv medlem af et eksisterende hus",
-            "greeting": "Velkommen til HomeInventory",
+            "greeting": "Velkommen til {{brandName}}",
             "intro": "Velkommen, ! 👋",
             "houseKeyLabel": "Husnøgle",
             "houseKeyNote": "Dette er din husnøgle, brug den til at invitere andre. Tilføj familiemedlemmer til dit hus!",
@@ -819,7 +891,7 @@
                 "💡 Du kan være medlem af flere huse og skifte mellem dem. Hvert hus har et separat lager."
             ],
             "support": "Registreringsproblemer:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Deltag i hus",
@@ -828,7 +900,7 @@
             "bodyLine2": "Venter på husejers godkendelse"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "> HomeInventory_} <<{__0>status Boliginventar",
+            "subjectTemplate": "> {{brandName}}_} <<{__0>status Boliginventar",
             "greeting": "Husadgang",
             "bodyLine1Template": "Aktuel afventende anmodning: {{house}} ({{status}})",
             "bodyLine2": "Din anmodning om \"{{house}}\" venter stadig på en afgørelse."
@@ -848,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Hvis der findes en konto, er der sendt et link til nulstilling af adgangskode, der er gyldigt i 15 minutter.",
             "fallback": "Linket til nulstilling af adgangskode ser ufuldstændigt eller ødelagt ud.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "Denne e-mail blev sendt af {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -890,7 +966,6 @@
         "record_save_new": "Tilføj Vault Record",
         "record_save_edit": "Gem ændringer",
         "barcode_privacy_hint": "Vault-stregkoder slås ikke automatisk op på eksterne tjenester; stregkodeteksten gemmes kun som krypteret data.",
-        "media_note": "Fotos, stregkodescanning og eksternt produktopslag er bevidst deaktiveret i dette første boksflow. De har brug for en separat krypteret medie- og privatlivspipeline.",
         "search_placeholder": "Søg inde i hvælvingen...",
         "all_categories": "Alle kategorier",
         "all_rooms": "Alle rum",
@@ -910,9 +985,112 @@
             "name_required": "Et elementnavn er påkrævet for en vault record.",
             "options_failed": "Indstillinger for kategori og rum kunne ikke indlæses."
         },
-        "recovery_file_title": "HomeInventory Personlig Hvelv Gendannelsesnøgle",
+        "recovery_file_title": "{{brandName}} Personlig Hvelv Gendannelsesnøgle",
         "recovery_file_created_label": "Oprettet",
         "recovery_file_key_label": "Gendannelsesnøgle",
-        "recovery_file_warning": "Hvis du mister både denne nøgle og din hvelv-adgangskode, kan hvelvet ikke gendannes."
+        "recovery_file_warning": "Hvis du mister både denne nøgle og din hvelv-adgangskode, kan hvelvet ikke gendannes.",
+        "media_note": "Fotoupload, stregkodescanning og ekstern produktopslag understøttes endnu ikke. Disse funktioner vil blive tilføjet, når et dedikeret krypteret medie- og privatlivsflow er klar."
+    },
+    "borrow_requests": {
+        "title": "Lånecenter",
+        "subtitle": "Administrer sikre forespørgsler og tilbudsflows med andre {{brandName}}-brugere.",
+        "incoming_title": "Indkommende forespørgsler",
+        "incoming_subtitle": "Forespørgsler og tilbud sendt til dig",
+        "outgoing_title": "Sendt af mig",
+        "outgoing_subtitle": "Tilbud og vareanmodninger, du har startet",
+        "empty_incoming": "Der er ingen låneanmodninger til dig lige nu.",
+        "empty_outgoing": "Du har ikke sendt et tilbud eller en anmodning endnu.",
+        "stats": {
+            "incoming": "Afventende indkommende",
+            "outgoing": "Afventende udgående",
+            "active": "Aktive lån"
+        },
+        "active": {
+            "title": "Aktive lån",
+            "subtitle": "Varer, der aktuelt er hos dig eller udlånt af dig",
+            "empty": "Der er ingen aktive lån lige nu.",
+            "borrowed_from": "Lånt fra {{name}}",
+            "lent_to": "Hos {{name}} lige nu"
+        },
+        "status": {
+            "pending": "Afventer",
+            "accepted": "Aktiv",
+            "rejected": "Afvist",
+            "cancelled": "Annulleret",
+            "expired": "Udløbet",
+            "returned": "Returneret"
+        },
+        "actions": {
+            "send_request": "Anmodningsvare",
+            "send_offer": "Send tilbud",
+            "accept": "Accepter",
+            "reject": "Afvis",
+            "cancel": "Annuller",
+            "fulfill_request": "Opfyld anmodning"
+        },
+        "labels": {
+            "offer": "Tilbud",
+            "request": "Anmodning",
+            "unspecified_item": "Uspecificeret vare",
+            "counterparty": "Modpart: {{name}}",
+            "created_at": "Oprettet: {{date}}",
+            "due_date": "Forventet retur: {{date}}",
+            "waiting_delivery": "Anmodningen kan stadig vente på en matchende konto, før den vises.",
+            "returned_on": "Returneret den: {{date}}",
+            "borrow_started": "Startet: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Send tilbud",
+            "offer_subtitle_item": "Opret et sikkert brugertilbud for \"{{item}}\"",
+            "offer_subtitle_general": "Vælg et element fra din beholdning og send et sikkert tilbud",
+            "item_label": "Element",
+            "item_placeholder": "Vælg et element",
+            "target_label": "Brugernavn eller e-mail",
+            "target_placeholder": "f.eks. alex eller alex@example.com",
+            "target_help": "Systemet afslører ikke, om denne konto findes. Hvis den matcher, vises forespørgslen i modtagerens indbakke.",
+            "offer_note_placeholder": "f.eks. Du kan beholde det indtil weekenden, hvis du vil",
+            "offer_submitting": "Sender...",
+            "request_title": "Anmodningsvare",
+            "request_subtitle": "Opret en generel anmodning uden at browse den anden persons inventar",
+            "requested_item_label": "Hvad har du brug for?",
+            "requested_item_placeholder": "f.eks. Boremaskine, stativ, campingstol",
+            "request_note_placeholder": "f.eks. Jeg har kun brug for det i 2 dage",
+            "request_submitting": "Sender...",
+            "fulfill_title": "Opfyld anmodning",
+            "fulfill_subtitle": "Vælg en genstand fra dit lager til \"{{item}}\"",
+            "fulfill_target": "Denne genstand vil blive udlånt til {{name}}.",
+            "no_available_items": "Der er ingen gyldig genstand at tilbyde i dit aktive hus lige nu.",
+            "fulfill_submitting": "Gemmer...",
+            "return_title": "Marker som returneret",
+            "return_subtitle": "Luk den aktive udlån for \"{{item}}\"",
+            "return_target": "Den vises i øjeblikket som værende hos {{name}}."
+        },
+        "messages": {
+            "load_error": "Lånecenter kunne ikke indlæses",
+            "action_error": "Handlingen kunne ikke fuldføres"
+        },
+        "preview": {
+            "title": "Eksempelfunktion",
+            "body": "Bagsidestyringen af denne side er ikke tilgængelig i lokal test lige nu. Du kan stadig gennemgå layoutet og flowet først; vi vil aktivere serversiden, når du godkender det."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Privatlivspolitik",
+        "terms_of_service_title": "Servicevilkår",
+        "privacy_policy_content": "Dit privatliv er vigtigt for os. Denne applikation gemmer dine uploadede data sikkert ved hjælp af kryptering på feltniveau. Vi sælger eller deler ikke dine personlige oplysninger med tredjepart. Ved at bruge tjenesten giver du samtykke til indsamling af nødvendige data til kontostyring og applikationsfunktionalitet.",
+        "terms_of_service_content": "Ved at bruge {{brandName}} accepterer du disse vilkår. Tjenesten leveres 'som den er' uden garantier. Du er ansvarlig for de data, du uploader, og for at sikre, at du har rettighederne til dem. Vi forbeholder os retten til at suspendere konti, der overtræder politikkerne eller misbruger systemet.",
+        "register_consent": "Jeg har læst, forstået og accepterer <1>Servicevilkår</1> og <2>Privatlivspolitik</2>.",
+        "consent_title": "Gennemgå juridiske dokumenter",
+        "consent_subtitle": "Bekræft venligst de nuværende vilkår, inden du fortsætter.",
+        "consent_notice": "Vi har brug for en registreret bekræftelse af de nuværende Servicevilkår og Privatlivspolitik, før du kan fortsætte med at bruge applikationen.",
+        "consent_checkbox": "Jeg accepterer Servicevilkårene og bekræfter, at jeg har læst Privatlivspolitikken.",
+        "consent_submit": "Fortsæt",
+        "consent_submitting": "Gemmer...",
+        "consent_required": "Du skal bekræfte Servicevilkårene og Privatlivspolitikken, inden du fortsætter."
+    },
+    "cookies": {
+        "banner_text": "Vi bruger nødvendige cookies for at holde dig logget ind og sikre din session. Ved at fortsætte med at bruge dette site, accepterer du vores politikker.",
+        "accept": "Jeg accepterer",
+        "learn_more": "Læs mere"
     }
 }

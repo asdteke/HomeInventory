@@ -6,11 +6,13 @@ import { Sun, Moon, Eye, EyeOff, Home, Users, Key, Copy, Check, AlertTriangle, M
 import { useTranslation, Trans } from 'react-i18next';
 import BrandLogo from './BrandLogo';
 import RecoveryKeyModal from './RecoveryKeyModal';
+import { resolveBrandLegalLanguage } from './LegalLanguageToggle';
 import { copyTextToClipboard } from '../utils/clipboard';
 import { validatePasswordStrengthClient } from '../utils/passwordValidation';
+import { SUPPORT_EMAIL } from '../constants/branding';
 
 export default function Register() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -18,6 +20,7 @@ export default function Register() {
         confirmPassword: '',
         house_key: ''
     });
+    const [legalAccepted, setLegalAccepted] = useState(false);
     const [mode, setMode] = useState('create'); // 'create' = new house, 'join' = existing house
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
@@ -33,6 +36,8 @@ export default function Register() {
     const { register, refreshUser } = useAuth();
     const { isDark, toggleTheme } = useTheme();
     const navigate = useNavigate();
+    const legalLanguage = resolveBrandLegalLanguage(i18n);
+    const legalT = i18n.getFixedT(legalLanguage);
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -63,6 +68,10 @@ export default function Register() {
             setError(t('auth.register.key_required'));
             return;
         }
+        if (!legalAccepted) {
+            setError(t('legal.consent_required'));
+            return;
+        }
 
         setLoading(true);
         try {
@@ -71,7 +80,11 @@ export default function Register() {
                 formData.email,
                 formData.password,
                 mode,
-                mode === 'join' ? formData.house_key : null
+                mode === 'join' ? formData.house_key : null,
+                {
+                    acceptedTerms: true,
+                    acknowledgedPrivacyNotice: true
+                }
             );
 
             // If email verification is required, show the verification modal
@@ -278,7 +291,28 @@ export default function Register() {
                             </div>
                         )}
 
-                        <button type="submit" disabled={loading} className="btn-primary w-full py-3 text-lg disabled:opacity-50">
+                        <div className="flex items-start gap-3 mt-4 mb-2 p-3 bg-slate-100/50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700 transition-colors hover:border-primary-300 dark:hover:border-primary-500/50">
+                            <input
+                                type="checkbox"
+                                id="legal_consent"
+                                checked={legalAccepted}
+                                onChange={(event) => setLegalAccepted(event.target.checked)}
+                                required
+                                className="mt-0.5 w-4 h-4 text-primary-600 dark:bg-slate-700 border-slate-300 dark:border-slate-600 rounded focus:ring-primary-500 cursor-pointer"
+                            />
+                            <label htmlFor="legal_consent" className="text-sm text-slate-600 dark:text-slate-400 cursor-pointer select-none">
+                                <Trans
+                                    t={legalT}
+                                    i18nKey="legal.register_consent"
+                                    components={{
+                                        1: <Link to="/terms-of-service" target="_blank" className="font-medium text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 underline hover:no-underline transition-all" />,
+                                        2: <Link to="/privacy-policy" target="_blank" className="font-medium text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 underline hover:no-underline transition-all" />
+                                    }}
+                                />
+                            </label>
+                        </div>
+
+                        <button type="submit" disabled={loading} className="btn-primary w-full py-3 text-lg disabled:opacity-50 mt-2">
                             {loading ? t('auth.register.submitting') : (mode === 'create' ? t('auth.register.submit_create') : t('auth.register.submit_join'))}
                         </button>
                     </form>
@@ -291,7 +325,7 @@ export default function Register() {
 
                     <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700 text-center space-y-2">
                         <p className="text-xs text-slate-400 dark:text-slate-500">
-                            {t('auth.register.support')} <a href="mailto:support@homeinventory.local" className="text-primary-500 hover:underline">support@homeinventory.local</a>
+                            {t('auth.register.support')} <a href={`mailto:${SUPPORT_EMAIL}`} className="text-primary-500 hover:underline">{SUPPORT_EMAIL}</a>
                         </p>
                         <button
                             type="button"
@@ -407,7 +441,7 @@ export default function Register() {
                         </div>
 
                         <div className="text-center text-xs text-slate-500 dark:text-slate-400 mb-4">
-                            {t('auth.register.support')} <a href="mailto:support@homeinventory.local" className="text-primary-500 hover:underline">support@homeinventory.local</a>
+                            {t('auth.register.support')} <a href={`mailto:${SUPPORT_EMAIL}`} className="text-primary-500 hover:underline">{SUPPORT_EMAIL}</a>
                         </div>
 
                         <button

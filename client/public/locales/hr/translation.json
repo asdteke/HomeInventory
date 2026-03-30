@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Jedinica trajanja jamstva",
             "warranty_duration_months": "Mjeseci",
             "warranty_duration_years": "Godine",
-            "warranty_calculation_help": "Ako ostavite datum početka jamstva prazan, koristi se datum računa. Kada unesete trajanje, datum završetka jamstva se izračunava automatski."
+            "warranty_calculation_help": "Ako ostavite datum početka jamstva prazan, koristi se datum računa. Kada unesete trajanje, datum završetka jamstva se izračunava automatski.",
+            "vault_hint_title": "Vrlo osjetljiv zapis?",
+            "vault_hint_description": "Za putovnice, isprave, podatke o identitetu, pristupne kodove i druge zapise koji bi trebali ostati izvan standardnog inventara, držite ih u Osobnom Trezoru.",
+            "vault_hint_action": "Otvori Osobni Trezor"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" brzo dodano - kasnije možete urediti",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Proizvod nije pronađen u bazama podataka. Možete pretražiti na Googleu.",
             "search_fail": "⚠ Pretraživanje nije uspjelo",
             "name_required": "Naziv stavke je obavezan",
-            "location_add_error": "Neuspjelo dodavanje lokacije"
+            "location_add_error": "Neuspjelo dodavanje lokacije",
+            "photo_too_large": "Fotografije mogu biti maksimalno {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,16 +103,16 @@
         "refresh": "Osvježi",
         "close": "Zatvori",
         "logout": "Odjavi se",
-        "copyright": "© {{year}} HomeInventory - Sva prava pridržana",
+        "copyright": "© {{year}} {{brandName}} - Sva prava pridržana",
         "other": "Drugo",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "Kopiraj",
+        "download": "Preuzmi"
     },
     "auth": {
         "login": {
             "title": "Prijava",
             "subtitle": "Upravljajte svim svojim kućnim inventarom pametno",
-            "welcome": "Dobrodošli u HomeInventory",
+            "welcome": "Dobrodošli u {{brandName}}",
             "username_or_email": "Korisničko ime ili Email",
             "password": "Lozinka",
             "forgot_password": "Zaboravili ste lozinku?",
@@ -120,7 +124,7 @@
             "register_link": "Registrirajte se",
             "support_contact": "Za probleme s prijavom:",
             "terms_title": "📋 Uvjeti korištenja i odricanje odgovornosti",
-            "terms_beta": "BETA verzija: HomeInventory je trenutno u fazi testiranja. Ne daje se nikakva garancija u vezi trajnosti ili sigurnosti vaših podataka.",
+            "terms_beta": "BETA verzija: {{brandName}} je trenutno u fazi testiranja. Ne daje se nikakva garancija u vezi trajnosti ili sigurnosti vaših podataka.",
             "terms_disclaimer": "Odricanje odgovornosti: Korištenjem ove aplikacije prihvaćate da ne možete tražiti naknadu za mogući gubitak podataka, probleme s pristupom ili druge tehničke kvarove.",
             "terms_backup": "Sigurnosna kopija podataka: Toplo preporučujemo redovito izrađivanje sigurnosnih kopija važnih informacija.",
             "terms_accept": "Prijavom se smatra da prihvaćate ove uvjete.",
@@ -131,14 +135,14 @@
                 "code_label": "Verifikacijski kod",
                 "backup_code_label": "Backup kod",
                 "remember_device": "Zapamtite ovaj uređaj 30 dana",
-                "verify": "Verify",
-                "back": "Back",
+                "verify": "Provjeri",
+                "back": "Natrag",
                 "use_backup": "Koristite backup kod",
                 "use_totp": "Koristite autentifikator"
             }
         },
         "register": {
-            "title": "Dobrodošli u HomeInventory",
+            "title": "Dobrodošli u {{brandName}}",
             "subtitle": "Izradite novi račun ili se pridružite postojećem domu",
             "create_house": "Stvori novi dom",
             "join_house": "Pridruži se domu",
@@ -249,7 +253,8 @@
         "admin_panel": "Administratorska ploča",
         "logout": "Odjava",
         "menu": "Izbornik",
-        "personal_vault": "Osobni sef"
+        "personal_vault": "Osobni sef",
+        "borrow_requests": "Zahtjevi za posudbu"
     },
     "dashboard": {
         "welcome": "Dobrodošli, <1>{{name}}</1>! 👋",
@@ -291,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory je trenutno u fazi testiranja i hobija. Nema jamstva za trajnost ili sigurnost podataka. Molimo čuvajte sigurnosne kopije važnih informacija.",
+        "text": "{{brandName}} je trenutno u fazi testiranja i hobija. Nema jamstva za trajnost ili sigurnost podataka. Molimo čuvajte sigurnosne kopije važnih informacija.",
         "contact": "Kontakt:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Sva prava pridržana",
+        "rights": "© {{year}} {{brandName}} - Sva prava pridržana",
         "contact": "Kontakt:"
     },
     "settings": {
@@ -337,7 +342,8 @@
             "member_kicked": "Član uklonjen iz kuće",
             "member_kick_error": "Nije bilo moguće ukloniti člana iz kuće",
             "recovery_key_regenerated": "Ključ za oporavak regeneriran",
-            "recovery_key_error": "Nije bilo moguće regenerirati ključ za oporavak"
+            "recovery_key_error": "Nije bilo moguće regenerirati ključ za oporavak",
+            "account_delete_error": "Račun nije moguće izbrisati"
         },
         "user_profile": {
             "edit_username": "Promijeni korisničko ime"
@@ -404,13 +410,20 @@
             "export_json": "Izvezi kao JSON",
             "upload_backup": "Učitaj sigurnosnu kopiju",
             "uploading": "Učitavanje...",
-            "import_json": "Uvezi iz JSON-a"
+            "import_json": "Uvezi iz JSON-a",
+            "export_sensitive_title": "Izvezene sigurnosne kopije sadrže podatke u običnom tekstu",
+            "export_sensitive_notice": "Ova sigurnosna kopija uključuje dešifrirane podatke o kućanstvu. Spremite je sigurno nakon preuzimanja, šifrirajte ako je moguće i izbjegavajte dijeljenje preko nesigurnih kanala.",
+            "export_sensitive_confirm": "Ova sigurnosna kopija uključivat će dešifrirane podatke o kućanstvu u običnom tekstu. Potvrđujete li da ćete je spremiti sigurno?"
         },
         "about": {
             "title": "📱 O aplikaciji",
             "version": "Verzija",
             "brand": "Marka",
-            "feedback": "✉️ Pošalji povratnu informaciju"
+            "feedback": "✉️ Pošalji povratnu informaciju",
+            "legal_title": "Pravna dokumentacija",
+            "legal_description": "Tekstove uvjeta i privatnosti možete ponovno otvoriti odavde čak i nakon što ste ih prihvatili.",
+            "terms_link": "Uvjeti korištenja",
+            "privacy_link": "Pravila privatnosti"
         },
         "modals": {
             "password": {
@@ -503,6 +516,19 @@
             "revoke_devices_desc": "uklonite svi zapamćeni uređaji, zahtijevaju 2FA pri sljedećoj prijavi",
             "devices_revoked": "{{count}} pouzdani uređaj(i) uklonjeni",
             "devices_error": "Nije uspjelo opozvati uređaje"
+        },
+        "danger_zone": {
+            "title": "Račun",
+            "delete_title": "Izbriši račun",
+            "delete_description": "Ako želiš, možeš trajno ukloniti osobne podatke i učitane datoteke vezane uz ovaj račun.",
+            "delete_warning": "Ovu radnju nije moguće poništiti.",
+            "delete_action": "Izbriši račun",
+            "modal_title": "Izbriši račun",
+            "modal_warning_title": "Ova radnja je nepovratna",
+            "modal_warning_body": "Nakon potvrde, odmah ćete izgubiti pristup računu i obrisani podaci aplikacije ne mogu se vratiti iz aplikacije.",
+            "password_label": "Potvrdite s trenutnom lozinkom",
+            "confirm_delete": "Potvrdite brisanje",
+            "deleting": "Briše se..."
         }
     },
     "inventory": {
@@ -517,7 +543,53 @@
         "empty_filter": "Nijedna stavka ne odgovara vašim filtrima",
         "empty_msg": "Još nisu dodane stavke",
         "delete_confirm": "Jeste li sigurni da želite izbrisati ovu stavku?",
-        "delete_error": "Greška pri brisanju"
+        "delete_error": "Greška pri brisanju",
+        "load_warning": {
+            "title": "Način djelomičnog učitavanja",
+            "body": "Neki pomoćni podaci trenutno sporo odgovaraju, pa je stranica otvorena bez potpune metadata filtera. Pokušat ćemo ponovno kada osvježite."
+        },
+        "borrow": {
+            "section_title": "Praćenje posudbe",
+            "section_subtitle": "Trenutno stanje i povijest zajmova",
+            "dialog_lend_title": "Posudi stavku",
+            "dialog_lend_subtitle": "Stvori novi zapis posudbe za \"{{item}}\"",
+            "dialog_return_title": "Označi kao vraćeno",
+            "dialog_return_subtitle": "Zatvori aktivni zapis posudbe za \"{{item}}\"",
+            "member": "Član kuće",
+            "external": "Vanjska osoba",
+            "borrower_member": "Tko ga je primio?",
+            "no_members": "Nema drugog člana za odabir u ovoj kući. Umjesto toga možete stvoriti zapis kao vanjska osoba.",
+            "borrower_name": "Ime osobe",
+            "borrower_name_placeholder": "npr. Susjed Alex",
+            "borrower_contact": "Kontakt informacije",
+            "borrower_contact_placeholder": "Telefon, e-pošta ili kratka bilješka",
+            "due_date": "Očekivani datum povrata",
+            "note": "Bilješka",
+            "note_placeholder": "npr. Posuđeno za vikend",
+            "submitting_lend": "Spremanje...",
+            "lend": "Posuditi",
+            "return_note": "Napomena o povratu",
+            "return_note_placeholder": "npr. Vraćeno u dobrom stanju",
+            "submitting_return": "Zatvaranje...",
+            "mark_returned": "Vraćeno",
+            "current_borrower_label": "Trenutno kod:",
+            "unknown": "Nepoznato",
+            "overdue_badge": "Zakašnjelo",
+            "borrowed_badge": "Posuđeno",
+            "borrowed_to": "Kod {{name}}",
+            "due_date_short": "Rok: {{date}}",
+            "actions_error": "Posudba nije mogla biti dovršena",
+            "borrowed_at": "Posuđeno dana: {{date}}",
+            "due_date_label": "Očekivani povratak: {{date}}",
+            "note_label": "Napomena: {{note}}",
+            "return_note_label": "Povratna napomena: {{note}}",
+            "no_active": "Ovaj predmet trenutno nije posuđen.",
+            "history_title": "Povijest",
+            "history_active": "Otvori zapis za {{name}}",
+            "history_returned": "Zatvoren zapis za {{name}}",
+            "returned_at": "Vraćeno dana: {{date}}",
+            "no_history": "Za ovu stavku još nema povijesti posudbi."
+        }
     },
     "categories": {
         "title": "Kategorije",
@@ -615,7 +687,7 @@
             "free_badge": "Potpuno besplatno"
         },
         "features": {
-            "title": "Zašto <1>HomeInventory</1>?",
+            "title": "Zašto <1>{{brandName}}</1>?",
             "subtitle": "Sve značajke za jednostavnije upravljanje domom na jednoj platformi",
             "items": {
                 "categorize": {
@@ -653,7 +725,7 @@
             "desc": "Jednostavna i sigurna platforma za digitalizaciju vaših kućnih zaliha.",
             "links": "Brze veze",
             "contact": "Kontaktirajte nas",
-            "copyright": "© {{year}} HomeInventory. Sva prava pridržana."
+            "copyright": "© {{year}} {{brandName}}. Sva prava pridržana."
         },
         "preview_privacy_notice": "Demo prikaz: nisu prikazani stvarni korisnički podaci."
     },
@@ -781,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Potvrda e-pošte je potrebna",
-            "headerTitle": "Dobrodošli u HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Potvrda e-pošte je potrebna",
+            "headerTitle": "Dobrodošli u {{brandName}}",
             "headerSubtitle": "Izradite novi račun ili se pridružite postojećem domu",
-            "greeting": "Dobrodošli u HomeInventory",
+            "greeting": "Dobrodošli u {{brandName}}",
             "intro": "Račun je stvoren! Molimo potvrdite svoju adresu e-pošte kako biste se mogli prijaviti.",
             "verifyPrompt": "📧 Potvrda e-pošte je potrebna",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Potvrdi moj račun",
             "warningTitle": "⚠️",
             "warningBody": "Provjerite mapu neželjene pošte/spam ako email ne stigne.",
             "houseKeyLabel": "Kućni ključ",
@@ -801,13 +873,13 @@
             ],
             "fallback": "Poveznica za poništavanje lozinke izgleda nepotpuno ili je oštećena.",
             "support": "Problemi s registracijom:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Dobrodošli u HomeInventory",
-            "headerTitle": "Dobrodošli u HomeInventory",
+            "subject": "Dobrodošli u {{brandName}}",
+            "headerTitle": "Dobrodošli u {{brandName}}",
             "headerSubtitle": "Izradite novi račun ili se pridružite postojećem domu",
-            "greeting": "Dobrodošli u HomeInventory",
+            "greeting": "Dobrodošli u {{brandName}}",
             "intro": "Dobrodošli, ! 👋",
             "houseKeyLabel": "Kućni ključ",
             "houseKeyNote": "Ovo je vaš ključ od kuće, koristite ga za pozivanje drugih. Dodajte članove obitelji u svoj dom!",
@@ -819,7 +891,7 @@
                 "💡 Možete biti član više kuća i prebacivati se između njih. Svaka kuća ima svoj odvojeni inventar."
             ],
             "support": "Problemi s registracijom:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Pridruži se kući",
@@ -828,7 +900,7 @@
             "bodyLine2": "Čekanje na odobrenje vlasnika kuće"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Pristup kući",
             "bodyLine1Template": "Trenutni neriješeni zahtjev: {{house}} ({{status}})",
             "bodyLine2": "Vaš zahtjev za \"{{house}}\" još uvijek čeka odluku."
@@ -848,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Ako račun postoji, veza za resetiranje lozinke koja vrijedi 15 minuta je poslana.",
             "fallback": "Poveznica za poništavanje lozinke izgleda nepotpuno ili je oštećena.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "Ovaj e-mail poslao je {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -890,7 +966,6 @@
         "record_save_new": "Dodaj zapis u trezoru",
         "record_save_edit": "Spremi promjene",
         "barcode_privacy_hint": "Barkodovi u trezoru se ne traže automatski na vanjskim servisima; tekst barkoda se čuva samo kao šifrirani podatak.",
-        "media_note": "Fotografije, skeniranje barkoda i vanjska provjera proizvoda su namjerno onemogućeni u ovom prvom toku trezora. Oni zahtijevaju zaseban šifrirani medijski i privatni proces.",
         "search_placeholder": "Pretraži unutar sef...",
         "all_categories": "Sve kategorije",
         "all_rooms": "Sve sobe",
@@ -910,9 +985,112 @@
             "name_required": "Za zapis pohrane potreban je naziv stavke.",
             "options_failed": "Kategorije i opcije soba nisu se mogle učitati."
         },
-        "recovery_file_title": "HomeInventory Osobni trezor ključ za oporavak",
+        "recovery_file_title": "{{brandName}} Osobni trezor ključ za oporavak",
         "recovery_file_created_label": "Kreirano",
         "recovery_file_key_label": "Ključ za oporavak",
-        "recovery_file_warning": "Ako izgubite i ovaj ključ i lozinku trezora, trezor se ne može oporaviti."
+        "recovery_file_warning": "Ako izgubite i ovaj ključ i lozinku trezora, trezor se ne može oporaviti.",
+        "media_note": "Učitavanja fotografija, skeniranje barkoda i vanjska pretraga proizvoda još nisu podržani. Ove će značajke biti dodane kada bude spreman poseban šifrirani medijski i privatni tok."
+    },
+    "borrow_requests": {
+        "title": "Centar za posudbu",
+        "subtitle": "Upravljajte sigurnim zahtjevima i ponudama s drugim korisnicima {{brandName}}ja.",
+        "incoming_title": "Dolazni zahtjevi",
+        "incoming_subtitle": "Zahtjevi i ponude poslane vama",
+        "outgoing_title": "Poslano od mene",
+        "outgoing_subtitle": "Ponude i zahtjevi za stavkama koje ste pokrenuli",
+        "empty_incoming": "Trenutno nemate zahtjeva za posudbu.",
+        "empty_outgoing": "Još niste poslali ponudu ili zahtjev.",
+        "stats": {
+            "incoming": "Čekanje dolaznih",
+            "outgoing": "Čekanje odlaznih",
+            "active": "Aktivne posudbe"
+        },
+        "active": {
+            "title": "Aktivne posudbe",
+            "subtitle": "Stavke koje su trenutno kod vas ili koje ste posudili",
+            "empty": "Trenutno nema aktivnih pozajmica.",
+            "borrowed_from": "Pozajmljeno od {{name}}",
+            "lent_to": "Trenutno kod {{name}}"
+        },
+        "status": {
+            "pending": "Na čekanju",
+            "accepted": "Aktivno",
+            "rejected": "Odbijeno",
+            "cancelled": "Otkazano",
+            "expired": "Istečeno",
+            "returned": "Vraćeno"
+        },
+        "actions": {
+            "send_request": "Zatraži Stavku",
+            "send_offer": "Pošalji Ponudu",
+            "accept": "Prihvati",
+            "reject": "Odbij",
+            "cancel": "Otkaži",
+            "fulfill_request": "Ispuni Zahtjev"
+        },
+        "labels": {
+            "offer": "Ponuda",
+            "request": "Zahtjev",
+            "unspecified_item": "Nespecificirani predmet",
+            "counterparty": "Protustrana: {{name}}",
+            "created_at": "Kreirano: {{date}}",
+            "due_date": "Očekivani povrat: {{date}}",
+            "waiting_delivery": "Zahtjev možda još uvijek čeka odgovarajući račun prije nego što se prikaže.",
+            "returned_on": "Vraćeno: {{date}}",
+            "borrow_started": "Početak: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Pošalji ponudu",
+            "offer_subtitle_item": "Kreiraj sigurnu korisničku ponudu za \"{{item}}\"",
+            "offer_subtitle_general": "Odaberi predmet iz svog inventara i pošalji sigurnu ponudu",
+            "item_label": "Predmet",
+            "item_placeholder": "Odaberi predmet",
+            "target_label": "Korisničko ime ili e-pošta",
+            "target_placeholder": "npr. alex ili alex@example.com",
+            "target_help": "Sustav ne otkriva postoji li ovaj račun. Ako se podudara, zahtjev se pojavljuje u primateljevom inboxu.",
+            "offer_note_placeholder": "npr. Možeš ga zadržati do vikenda ako želiš",
+            "offer_submitting": "Slanje...",
+            "request_title": "Zahtjev za predmet",
+            "request_subtitle": "Napravi opći zahtjev bez pregledavanja inventara druge osobe",
+            "requested_item_label": "Što ti treba?",
+            "requested_item_placeholder": "npr. Bušilica, stalak za kameru, kamp stolica",
+            "request_note_placeholder": "npr. Trebam ga samo 2 dana",
+            "request_submitting": "Slanje...",
+            "fulfill_title": "Ispunite Zahtjev",
+            "fulfill_subtitle": "Odaberite predmet iz svog inventara za \"{{item}}\"",
+            "fulfill_target": "Ovaj predmet će biti posuđen {{name}}.",
+            "no_available_items": "Trenutno nema prikladnog predmeta za ponuditi u vašoj aktivnoj kući.",
+            "fulfill_submitting": "Spremanje...",
+            "return_title": "Označi kao vraćeno",
+            "return_subtitle": "Zatvori aktivno posuđivanje za \"{{item}}\"",
+            "return_target": "Trenutno je prikazano da je kod {{name}}."
+        },
+        "messages": {
+            "load_error": "Centar za posudbu nije se mogao učitati",
+            "action_error": "Radnja nije mogla biti dovršena"
+        },
+        "preview": {
+            "title": "Način pregleda",
+            "body": "Dio stranice s poslužiteljske strane trenutno nije dostupan u lokalnom testiranju. I dalje možete pregledati raspored i tijek; omogućit ćemo poslužiteljsku stranu nakon što to odobrite."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Pravila privatnosti",
+        "terms_of_service_title": "Uvjeti pružanja usluge",
+        "privacy_policy_content": "Vaša privatnost nam je važna. Ova aplikacija sigurno pohranjuje vaše učitane podatke koristeći šifriranje na razini polja. Ne prodajemo niti dijelimo vaše osobne podatke s trećim stranama. Korištenjem usluge pristajete na prikupljanje potrebnih podataka za upravljanje računom i funkcionalnost aplikacije.",
+        "terms_of_service_content": "Korištenjem {{brandName}}ja pristajete na ove uvjete. Usluga se pruža 'takva kakva jest' bez jamstava. Vi ste odgovorni za podatke koje prenesete i za to da imate prava na njih. Zadržavamo pravo suspenzije računa koji krše pravila ili zloupotrebljavaju sustav.",
+        "register_consent": "Pročitao/la sam, razumio/la i slažem se s <1>Uvjetima pružanja usluge</1> i <2>Politikom privatnosti</2>.",
+        "consent_title": "Pregled pravnih dokumenata",
+        "consent_subtitle": "Molimo potvrdite važeće uvjete prije nastavka.",
+        "consent_notice": "Potrebno nam je zabilježeno priznanje važećih Uvjeta korištenja i Obavijesti o privatnosti prije nego što možete nastaviti koristiti aplikaciju.",
+        "consent_checkbox": "Prihvaćam Uvjete korištenja i potvrđujem da sam pročitao Obavijest o privatnosti.",
+        "consent_submit": "Nastavite",
+        "consent_submitting": "Spremanje...",
+        "consent_required": "Morate potvrditi Uvjete pružanja usluge i Obavijest o privatnosti prije nastavka."
+    },
+    "cookies": {
+        "banner_text": "Koristimo osnovne kolačiće kako bismo vas držali prijavljenima i osigurali vašu sesiju. Nastavkom korištenja ove stranice pristajete na naše politike.",
+        "accept": "Prihvaćam",
+        "learn_more": "Saznaj više"
     }
 }

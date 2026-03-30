@@ -44,6 +44,7 @@
 - 🛡️ **Field-level encryption** — AES-256-GCM protection for sensitive verification and inventory fields
 - 🐳 **Docker & cloud secret delivery** — Docker secrets and OCI runtime secret bootstrap for production key management
 - 👨‍💼 **Admin panel** — User management, ban controls, email sending, and system logs
+- 🤝 **Borrow System** — Track lent and borrowed items, manage requests, set due dates, and monitor statuses
 - 📧 **Email system** — Transactional emails via Resend API (verification, admin notices)
 - 💾 **Backup & Restore** — Export and import your inventory data
 - 🌍 **100+ language UI** — The frontend ships with 100+ selectable languages for global access
@@ -273,6 +274,8 @@ Home-inventory/
 │   ├── locations.js          # Location management
 │   ├── barcode.js            # Barcode lookup & scanning
 │   ├── houses.js             # Multi-house management
+│   ├── borrowRequests.js     # Borrow system & tracking
+│   ├── vault.js              # Personal Vault endpoints
 │   ├── admin.js              # Admin panel endpoints
 │   ├── admin-email.js        # Admin email sending
 │   ├── email.js              # Email verification & status
@@ -342,6 +345,8 @@ Home-inventory/
 | `GET` | `/api/categories` | List categories |
 | `GET` | `/api/rooms` | List rooms |
 | `GET` | `/api/houses` | List user's houses |
+| `GET/POST`| `/api/borrow-requests` | Borrow system endpoints |
+| `GET/POST`| `/api/vault` | Personal vault endpoints |
 | `GET` | `/api/admin/*` | Admin panel endpoints |
 | `GET` | `/api/health` | Health check |
 

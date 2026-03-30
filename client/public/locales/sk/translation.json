@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Jednotka dĺžky trvania záruky",
             "warranty_duration_months": "Mesiace",
             "warranty_duration_years": "Roky",
-            "warranty_calculation_help": "Ak necháte dátum začiatku záruky prázdny, použije sa dátum faktúry. Keď zadáte trvanie, dátum konca záruky sa automaticky vypočíta."
+            "warranty_calculation_help": "Ak necháte dátum začiatku záruky prázdny, použije sa dátum faktúry. Keď zadáte trvanie, dátum konca záruky sa automaticky vypočíta.",
+            "vault_hint_title": "Veľmi citlivý záznam?",
+            "vault_hint_description": "Pre pasy, listiny, identifikačné údaje, prístupové kódy a ďalšie záznamy, ktoré by mali zostať mimo štandardného toku inventára, ich uchovávajte v Osobnom trezore.",
+            "vault_hint_action": "Otvoriť osobnú trezor"
         },
         "messages": {
             "quick_add_success": "✓ „{{barcode}}“ rýchlo pridané - môžete neskôr upraviť",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Produkt sa nenašiel v databázach. Môžete vyhľadať na Google.",
             "search_fail": "⚠ Hľadanie zlyhalo",
             "name_required": "Názov položky je povinný",
-            "location_add_error": "Nepodarilo sa pridať polohu"
+            "location_add_error": "Nepodarilo sa pridať polohu",
+            "photo_too_large": "Fotografie môžu mať maximálne {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,16 +103,16 @@
         "refresh": "Obnoviť",
         "close": "Zavrieť",
         "logout": "Odhlásiť sa",
-        "copyright": "© {{year}} HomeInventory - Všetky práva vyhradené",
+        "copyright": "© {{year}} {{brandName}} - Všetky práva vyhradené",
         "other": "Iné",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "Kopírovať",
+        "download": "Stiahnuť"
     },
     "auth": {
         "login": {
             "title": "Prihlásiť sa",
             "subtitle": "Spravujte celý váš domáci inventár inteligentne",
-            "welcome": "Vitajte v HomeInventory",
+            "welcome": "Vitajte v {{brandName}}",
             "username_or_email": "Užívateľské meno alebo Email",
             "password": "Heslo",
             "forgot_password": "Zabudli ste heslo?",
@@ -120,13 +124,25 @@
             "register_link": "Registrovať sa",
             "support_contact": "Pri problémoch s prihlásením:",
             "terms_title": "📋 Podmienky používania a Zrieknutie sa zodpovednosti",
-            "terms_beta": "BETA verzia: HomeInventory je momentálne vo fáze testovania. Nie je poskytovaná žiadna záruka týkajúca sa trvalosti alebo bezpečnosti vašich údajov.",
+            "terms_beta": "BETA verzia: {{brandName}} je momentálne vo fáze testovania. Nie je poskytovaná žiadna záruka týkajúca sa trvalosti alebo bezpečnosti vašich údajov.",
             "terms_disclaimer": "Zrieknutie sa zodpovednosti: Používaním tejto aplikácie súhlasíte, že nemôžete žiadať žiadnu kompenzáciu za možné straty údajov, problémy s prístupom alebo iné technické poruchy.",
             "terms_backup": "Zálohovanie údajov: Dôrazne odporúčame pravidelne zálohovať svoje dôležité informácie.",
-            "terms_accept": "Pri prihlásení sa považuje, že ste tieto podmienky akceptovali."
+            "terms_accept": "Pri prihlásení sa považuje, že ste tieto podmienky akceptovali.",
+            "two_factor": {
+                "title": "Dvojfaktorová autentifikácia",
+                "subtitle": "Zadajte 6-miestny kód z vašej autentifikačnej aplikácie",
+                "backup_subtitle": "Zadajte jeden zo svojich záložných kódov",
+                "code_label": "Overovací kód",
+                "backup_code_label": "Záložný kód",
+                "remember_device": "Pamätať si toto zariadenie na 30 dní",
+                "verify": "Overiť",
+                "back": "Späť",
+                "use_backup": "Použiť záložný kód",
+                "use_totp": "Použiť autentifikátor"
+            }
         },
         "register": {
-            "title": "Vitajte v HomeInventory",
+            "title": "Vitajte v {{brandName}}",
             "subtitle": "Vytvorte nový účet alebo sa pripojte k existujúcej domácnosti",
             "create_house": "Vytvoriť novú domácnosť",
             "join_house": "Pripojiť sa k domácnosti",
@@ -236,8 +252,9 @@
         "share_house": "Zdieľať dom",
         "admin_panel": "Administrátorský panel",
         "logout": "Odhlásiť sa",
-        "menu": "Menu",
-        "personal_vault": "Osobný trezor"
+        "menu": "Ponuka",
+        "personal_vault": "Osobný trezor",
+        "borrow_requests": "Požiadavky na požičanie"
     },
     "dashboard": {
         "welcome": "Vitajte, <1>{{name}}</1>! 👋",
@@ -279,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory je momentálne v testovacej a hobby fáze. Nie je zaručená trvalosť ani bezpečnosť údajov. Prosím, zálohujte dôležité informácie.",
+        "text": "{{brandName}} je momentálne v testovacej a hobby fáze. Nie je zaručená trvalosť ani bezpečnosť údajov. Prosím, zálohujte dôležité informácie.",
         "contact": "Kontakt:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Všetky práva vyhradené",
+        "rights": "© {{year}} {{brandName}} - Všetky práva vyhradené",
         "contact": "Kontakt:"
     },
     "settings": {
@@ -325,7 +342,8 @@
             "member_kicked": "Člen odstránený z domu",
             "member_kick_error": "Nepodarilo sa odstrániť člena z domu",
             "recovery_key_regenerated": "Obnova kľúča znovu vygenerovaná",
-            "recovery_key_error": "Nepodarilo sa znovu vygenerovať kľúč obnovy"
+            "recovery_key_error": "Nepodarilo sa znovu vygenerovať kľúč obnovy",
+            "account_delete_error": "Konto sa nedalo vymazať"
         },
         "user_profile": {
             "edit_username": "Zmeniť používateľské meno"
@@ -392,13 +410,20 @@
             "export_json": "Exportovať ako JSON",
             "upload_backup": "Nahrať zálohu",
             "uploading": "Nahrávanie...",
-            "import_json": "Importovať z JSON"
+            "import_json": "Importovať z JSON",
+            "export_sensitive_title": "Exportované zálohy obsahujú nešifrované údaje",
+            "export_sensitive_notice": "Táto záloha obsahuje dešifrované údaje domácnosti. Po stiahnutí ich uložte bezpečne, ak je to možné, zašifrujte ich a vyhnite sa zdieľaniu cez nezabezpečené kanály.",
+            "export_sensitive_confirm": "Táto záloha bude obsahovať dešifrované údaje domácnosti v nešifrovanej forme. Potvrdzujete, že ich uložíte bezpečne?"
         },
         "about": {
             "title": "📱 O aplikácii",
             "version": "Verzia",
             "brand": "Značka",
-            "feedback": "✉️ Poslať spätnú väzbu"
+            "feedback": "✉️ Poslať spätnú väzbu",
+            "legal_title": "Právne dokumenty",
+            "legal_description": "Tieto podmienky a texty o ochrane osobných údajov môžete otvoriť aj po ich prijatí.",
+            "terms_link": "Podmienky služby",
+            "privacy_link": "Zásady ochrany osobných údajov"
         },
         "modals": {
             "password": {
@@ -441,6 +466,69 @@
             "title": "Moje čakajúce žiadosti o pripojenie",
             "waiting_since": "Čakanie od: {{date, datetime}}",
             "pending_badge": "Čaká sa"
+        },
+        "two_factor": {
+            "title": "Dvojfaktorové overenie",
+            "description": "Pridajte ďalšiu vrstvu zabezpečenia svojho účtu pomocou TOTP založeného 2FA",
+            "active": "Aktívne",
+            "enable": "Povoliť 2FA",
+            "disable": "Zakázať 2FA",
+            "disable_desc": "Odstrániť dvojfaktorovú autentifikáciu z vášho účtu",
+            "disable_title": "Zakázať dvojfaktorovú autentifikáciu",
+            "disable_confirm": "Zakázať 2FA",
+            "disable_error": "Nepodarilo sa zakázať 2FA",
+            "disabled_success": "Dvojfaktorová autentifikácia bola zakázaná",
+            "password_label": "Heslo",
+            "password_placeholder": "Zadajte svoje heslo",
+            "method_totp": "Overovateľ",
+            "method_backup": "Záložný kód",
+            "method_recovery": "Obnovovací kľúč",
+            "totp_code_label": "Kód autentifikátora",
+            "backup_code_label": "Záložný kód",
+            "recovery_key_label": "Obnovovací kľúč",
+            "cancel": "Zrušiť",
+            "setup_title": "Nastaviť 2FA",
+            "setup_error": "Nepodarilo sa spustiť nastavenie 2FA",
+            "step_1": "Krok 1: Naskenujte QR kód",
+            "step_2": "Krok 2: Overte kód",
+            "step_3": "Krok 3: Uložte záložné kódy",
+            "scan_instruction": "Naskenujte tento QR kód vo vašej autentifikačnej aplikácii (Google Authenticator, Authy alebo akákoľvek TOTP aplikácia)",
+            "manual_entry": "Nemôžete skenovať? Zadajte tento kľúč manuálne:",
+            "copy_secret": "Kopírovať tajný kód",
+            "next": "Ďalej",
+            "verify_instruction": "Zadajte 6-miestny kód zobrazený vo vašej autentifikačnej aplikácii na overenie nastavenia",
+            "verify_error": "Overenie zlyhalo",
+            "code_label": "6-ciferný kód",
+            "back": "Späť",
+            "activate": "Aktivovať 2FA",
+            "backup_warning_title": "Uložte si tieto záložné kódy!",
+            "backup_warning_text": "Ak stratíte prístup k svojej autentifikačnej aplikácii, môžete tieto kódy použiť na prihlásenie. Každý kód je možné použiť iba raz. Uložte ich na bezpečné miesto.",
+            "download_codes": "Stiahnuť záložné kódy",
+            "backup_acknowledge": "Uložil som svoje záložné kódy na bezpečné miesto",
+            "done": "Hotovo",
+            "regenerate_codes": "Obnoviť záložné kódy",
+            "regenerate_codes_desc": "Vygenerovať nové záložné kódy (staré budú neplatné)",
+            "regenerate": "Obnoviť",
+            "codes_regenerated": "Záložné kódy boli obnovené",
+            "codes_error": "Nepodarilo sa obnoviť záložné kódy",
+            "close_codes": "Zavrieť",
+            "revoke_devices": "Odvolať dôveryhodné zariadenia",
+            "revoke_devices_desc": "Odstrániť všetky zapamätané zariadenia, vyžadovať 2FA pri ďalšom prihlásení",
+            "devices_revoked": "{{count}} dôveryhodné zariadenie(a) odstránené",
+            "devices_error": "Nepodarilo sa odvolať zariadenia"
+        },
+        "danger_zone": {
+            "title": "Konto",
+            "delete_title": "Vymazať konto",
+            "delete_description": "Ak chcete, môžete natrvalo odstrániť osobné údaje a nahrané súbory viazané na toto konto.",
+            "delete_warning": "Túto akciu nie je možné vrátiť späť.",
+            "delete_action": "Vymazať účet",
+            "modal_title": "Vymazať účet",
+            "modal_warning_title": "Táto akcia je nezvratná",
+            "modal_warning_body": "Po potvrdení okamžite stratíte prístup k účtu a vymazané údaje aplikácie sa nedajú obnoviť z aplikácie.",
+            "password_label": "Potvrďte vaším aktuálnym heslom",
+            "confirm_delete": "Potvrdiť vymazanie",
+            "deleting": "Mazanie..."
         }
     },
     "inventory": {
@@ -455,7 +543,53 @@
         "empty_filter": "Žiadne položky nezodpovedajú vašim filtrám",
         "empty_msg": "Žiadne položky ešte pridané",
         "delete_confirm": "Ste si istí, že chcete túto položku vymazať?",
-        "delete_error": "Chyba pri mazaní"
+        "delete_error": "Chyba pri mazaní",
+        "load_warning": {
+            "title": "Režim čiastočného načítania",
+            "body": "Niektoré podporujúce údaje momentálne reagujú pomaly, takže stránka sa otvorila bez úplných metadát filtra. Skúsime to znova, keď obnovíte stránku."
+        },
+        "borrow": {
+            "section_title": "Sledovanie požičania",
+            "section_subtitle": "Aktuálny stav úveru a história",
+            "dialog_lend_title": "Požičať položku",
+            "dialog_lend_subtitle": "Vytvoriť nový záznam o požičaní pre \"{{item}}\"",
+            "dialog_return_title": "Označiť ako vrátené",
+            "dialog_return_subtitle": "Zatvoriť aktívny záznam o výpožičke pre „{{item}}\"",
+            "member": "Člen domu",
+            "external": "Externá osoba",
+            "borrower_member": "Kto ho dostal?",
+            "no_members": "V tomto dome nie je k dispozícii žiadny iný člen. Namiesto toho môžete vytvoriť záznam ako externá osoba.",
+            "borrower_name": "Meno osoby",
+            "borrower_name_placeholder": "napr. Sused Alex",
+            "borrower_contact": "Kontaktné informácie",
+            "borrower_contact_placeholder": "Telefón, e-mail alebo krátka poznámka",
+            "due_date": "Očakávaný dátum vrátenia",
+            "note": "Poznámka",
+            "note_placeholder": "napr. Pôžička na víkend",
+            "submitting_lend": "Ukladanie...",
+            "lend": "Pôžička",
+            "return_note": "Poznámka o vrátení",
+            "return_note_placeholder": "napr. Vrátené v dobrom stave",
+            "submitting_return": "Zatváranie...",
+            "mark_returned": "Vrátil Mark",
+            "current_borrower_label": "Momentálne u:",
+            "unknown": "Neznáme",
+            "overdue_badge": "Mešká",
+            "borrowed_badge": "Požičané",
+            "borrowed_to": "U {{name}}",
+            "due_date_short": "Splatné: {{date}}",
+            "actions_error": "Požičanie sa nedalo dokončiť",
+            "borrowed_at": "Pôžičané dňa: {{date}}",
+            "due_date_label": "Očakávaný návrat: {{date}}",
+            "note_label": "Poznámka: {{note}}",
+            "return_note_label": "Poznámka k vráteniu: {{note}}",
+            "no_active": "Táto položka momentálne nie je požičaná.",
+            "history_title": "História",
+            "history_active": "Otvoriť záznam pre {{name}}",
+            "history_returned": "Uzavretý záznam pre {{name}}",
+            "returned_at": "Vrátené dňa: {{date}}",
+            "no_history": "Tento predmet ešte nemá žiadnu históriu výpožičiek."
+        }
     },
     "categories": {
         "title": "Kategórie",
@@ -487,7 +621,7 @@
         "subtitle": "Správa a monitorovanie systému",
         "refresh": "Obnoviť",
         "tabs": {
-            "dashboard": "Dashboard",
+            "dashboard": "Nástrojový panel",
             "users": "Používatelia",
             "logs": "Záznamy",
             "email": "Odoslať e-mail"
@@ -553,7 +687,7 @@
             "free_badge": "Úplne zadarmo"
         },
         "features": {
-            "title": "Prečo <1>HomeInventory</1>?",
+            "title": "Prečo <1>{{brandName}}</1>?",
             "subtitle": "Všetky funkcie na zjednodušenie správy domácnosti v jednej platforme",
             "items": {
                 "categorize": {
@@ -591,7 +725,7 @@
             "desc": "Jednoduchá a bezpečná platforma na digitalizáciu domácich zásob.",
             "links": "Rýchle odkazy",
             "contact": "Kontaktujte nás",
-            "copyright": "© {{year}} HomeInventory. Všetky práva vyhradené."
+            "copyright": "© {{year}} {{brandName}}. Všetky práva vyhradené."
         },
         "preview_privacy_notice": "Ukážka: nie sú zobrazované žiadne skutočné údaje používateľov."
     },
@@ -719,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Overenie e-mailu vyžadované",
-            "headerTitle": "Vitajte v HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Overenie e-mailu vyžadované",
+            "headerTitle": "Vitajte v {{brandName}}",
             "headerSubtitle": "Vytvorte nový účet alebo sa pripojte k existujúcej domácnosti",
-            "greeting": "Vitajte v HomeInventory",
+            "greeting": "Vitajte v {{brandName}}",
             "intro": "Účet bol vytvorený! Prosím, overte svoju e-mailovú adresu pre prihlásenie.",
             "verifyPrompt": "📧 Overenie e-mailu vyžadované",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Overiť môj účet",
             "warningTitle": "⚠️",
             "warningBody": "Skontrolujte priečinok so spamom/nevyžiadanou poštou, ak e-mail nedorazí.",
             "houseKeyLabel": "Kľúč domu",
@@ -739,13 +873,13 @@
             ],
             "fallback": "Odkaz na obnovenie hesla vyzerá neúplne alebo je poškodený.",
             "support": "Problémy s registráciou:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Vitajte v HomeInventory",
-            "headerTitle": "Vitajte v HomeInventory",
+            "subject": "Vitajte v {{brandName}}",
+            "headerTitle": "Vitajte v {{brandName}}",
             "headerSubtitle": "Vytvorte nový účet alebo sa pripojte k existujúcej domácnosti",
-            "greeting": "Vitajte v HomeInventory",
+            "greeting": "Vitajte v {{brandName}}",
             "intro": "Vitajte, ! 👋",
             "houseKeyLabel": "Kľúč domu",
             "houseKeyNote": "Toto je váš kľúč od domu, použite ho na pozvanie ostatných. Pridajte členov rodiny do svojho domu!",
@@ -757,7 +891,7 @@
                 "💡 Môžete byť členom viacerých domov a prepínať medzi nimi. Každý dom si udržiava samostatný inventár."
             ],
             "support": "Problémy s registráciou:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Pripojiť sa k domu",
@@ -766,7 +900,7 @@
             "bodyLine2": "Čakanie na schválenie vlastníkom domu"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Prístup do domu",
             "bodyLine1Template": "Aktuálna čakajúca požiadavka: {{house}} ({{status}})",
             "bodyLine2": "Vaša žiadosť o \"{{house}}\" stále čaká na rozhodnutie."
@@ -786,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Ak účet existuje, bol odoslaný odkaz na obnovenie hesla platný 15 minút.",
             "fallback": "Odkaz na obnovenie hesla vyzerá neúplne alebo je poškodený.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 DomáciInventár"
+        },
+        "adminEmail": {
+            "sentBy": "Tento e-mail bol odoslaný spoločnosťou {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -828,7 +966,6 @@
         "record_save_new": "Pridať záznam vo vault",
         "record_save_edit": "Uložiť zmeny",
         "barcode_privacy_hint": "Čiarové kódy vo vault sa automaticky nevyhľadávajú na externých službách; text čiarového kódu sa ukladá iba ako šifrované údaje.",
-        "media_note": "Fotografie, skenovanie čiarového kódu a externé vyhľadávanie produktov sú v tomto prvom toku vault zámerne zakázané. Vyžadujú samostatný šifrovaný systém pre médiá a ochranu súkromia.",
         "search_placeholder": "Hľadať vo vaultu...",
         "all_categories": "Všetky kategórie",
         "all_rooms": "Všetky miestnosti",
@@ -851,6 +988,109 @@
         "recovery_file_title": "Domáci Inventár Osobný sejf Obnovovací kľúč",
         "recovery_file_created_label": "Vytvorené",
         "recovery_file_key_label": "Obnovovací kľúč",
-        "recovery_file_warning": "Ak stratíte tento kľúč aj heslo do sejfu, sejf nebude možné obnoviť."
+        "recovery_file_warning": "Ak stratíte tento kľúč aj heslo do sejfu, sejf nebude možné obnoviť.",
+        "media_note": "Nahrávanie fotografií, skenovanie čiarových kódov a externé vyhľadávanie produktov ešte nie sú podporované. Tieto funkcie budú pridané, keď bude pripravený špeciálny šifrovaný tok médií a súkromia."
+    },
+    "borrow_requests": {
+        "title": "Výpožičné centrum",
+        "subtitle": "Spravujte bezpečné žiadosti a ponuky s ostatnými používateľmi {{brandName}}.",
+        "incoming_title": "Prichádzajúce žiadosti",
+        "incoming_subtitle": "Žiadosti a ponuky, ktoré vám boli zaslané",
+        "outgoing_title": "Odoslané mnou",
+        "outgoing_subtitle": "Ponuky a požiadavky na položky, ktoré ste začali",
+        "empty_incoming": "Momentálne pre vás nie sú žiadne požiadavky na požičanie.",
+        "empty_outgoing": "Ešte ste neposlali žiadnu ponuku ani požiadavku.",
+        "stats": {
+            "incoming": "Čaká na príchod",
+            "outgoing": "Čaká na odoslanie",
+            "active": "Aktívne požičané"
+        },
+        "active": {
+            "title": "Aktívne požičané",
+            "subtitle": "Položky, ktoré sú momentálne u vás alebo ktoré ste požičali",
+            "empty": "Momentálne nie sú žiadne aktívne požičania.",
+            "borrowed_from": "Požičané od {{name}}",
+            "lent_to": "Momentálne u {{name}}"
+        },
+        "status": {
+            "pending": "Čaká sa",
+            "accepted": "Aktívne",
+            "rejected": "Zamietnuté",
+            "cancelled": "Zrušené",
+            "expired": "Expirovalo",
+            "returned": "Vrátené"
+        },
+        "actions": {
+            "send_request": "Požiadať o položku",
+            "send_offer": "Poslať ponuku",
+            "accept": "Prijať",
+            "reject": "Odmietnuť",
+            "cancel": "Zrušiť",
+            "fulfill_request": "Splniť požiadavku"
+        },
+        "labels": {
+            "offer": "Ponuka",
+            "request": "Žiadosť",
+            "unspecified_item": "Nešpecifikovaná položka",
+            "counterparty": "Protiúčastník: {{name}}",
+            "created_at": "Vytvorené: {{date}}",
+            "due_date": "Očakávaný návrat: {{date}}",
+            "waiting_delivery": "Žiadosť môže stále čakať na zodpovedajúci účet, než sa zobrazí.",
+            "returned_on": "Vrátené: {{date}}",
+            "borrow_started": "Začaté: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Odoslať ponuku",
+            "offer_subtitle_item": "Vytvorte bezpečnú ponuku pre používateľa pre \"{{item}}\"",
+            "offer_subtitle_general": "Vyberte položku zo svojho inventára a odošlite bezpečnú ponuku",
+            "item_label": "Položka",
+            "item_placeholder": "Vyberte položku",
+            "target_label": "Používateľské meno alebo e-mail",
+            "target_placeholder": "napr. alex alebo alex@example.com",
+            "target_help": "Systém neodhaľuje, či tento účet existuje. Ak sa zhoduje, požiadavka sa zobrazí v príjemcovej schránke.",
+            "offer_note_placeholder": "napr. Môžeš si to nechať až do víkendu, ak chceš",
+            "offer_submitting": "Odosielanie...",
+            "request_title": "Požiadať o položku",
+            "request_subtitle": "Vytvorte všeobecnú žiadosť bez prehliadania inventára druhej osoby",
+            "requested_item_label": "Čo potrebuješ?",
+            "requested_item_placeholder": "napr. Vŕtačka, statív, kempingová stolička",
+            "request_note_placeholder": "napr. Potrebujem to len na 2 dni",
+            "request_submitting": "Odosielanie...",
+            "fulfill_title": "Splniť požiadavku",
+            "fulfill_subtitle": "Vyberte predmet zo svojho inventára pre \"{{item}}\"",
+            "fulfill_target": "Tento predmet bude požičaný {{name}}.",
+            "no_available_items": "Momentálne nie je k dispozícii žiadny oprávnený predmet na ponúknutie vo vašej aktívnej domácnosti.",
+            "fulfill_submitting": "Ukladanie...",
+            "return_title": "Označiť ako vrátené",
+            "return_subtitle": "Zatvoriť aktívnu požičku pre \"{{item}}\"",
+            "return_target": "Momentálne je zobrazené, že je u {{name}}."
+        },
+        "messages": {
+            "load_error": "Centrum požičania sa nedalo načítať",
+            "action_error": "Akciu sa nepodarilo dokončiť"
+        },
+        "preview": {
+            "title": "Náhľadový režim",
+            "body": "Backendová časť tejto stránky momentálne nie je pri lokálnom testovaní dostupná. Stále si môžete najprv skontrolovať rozloženie a tok; serverovú časť povolíme až po vašom schválení."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Zásady ochrany osobných údajov",
+        "terms_of_service_title": "Podmienky služby",
+        "privacy_policy_content": "Vaša súkromie je pre nás dôležité. Táto aplikácia bezpečne ukladá vaše nahrané údaje pomocou šifrovania na úrovni polí. Vaše osobné údaje nepredávame ani nezdieľame s tretími stranami. Používaním služby súhlasíte so zhromažďovaním potrebných údajov na správu účtu a funkčnosť aplikácie.",
+        "terms_of_service_content": "Používaním {{brandName}} súhlasíte s týmito podmienkami. Služba je poskytovaná „tak, ako je“, bez záruk. Ste zodpovední za údaje, ktoré nahráte, a za to, že máte práva na ich použitie. Vyhradzujeme si právo pozastaviť účty, ktoré porušujú pravidlá alebo zneužívajú systém.",
+        "register_consent": "Prečítal(a) som, rozumiem a súhlasím s <1>Podmienkami služby</1> a <2>Zásadami ochrany osobných údajov</2>.",
+        "consent_title": "Skontrolovať právne dokumenty",
+        "consent_subtitle": "Prosím, potvrďte aktuálne podmienky pred pokračovaním.",
+        "consent_notice": "Pred pokračovaním v používaní aplikácie potrebujeme zaznamenané potvrdenie aktuálnych Podmienok služby a Zásad ochrany osobných údajov.",
+        "consent_checkbox": "Súhlasím s Podmienkami služby a potvrdzujem, že som si prečítal Zásady ochrany osobných údajov.",
+        "consent_submit": "Pokračovať",
+        "consent_submitting": "Ukladanie...",
+        "consent_required": "Pred pokračovaním musíte potvrdiť Podmienky služby a Oznámenie o ochrane osobných údajov."
+    },
+    "cookies": {
+        "banner_text": "Používame nevyhnutné súbory cookie, aby sme vás udržali prihlásených a zabezpečili vašu reláciu. Pokračovaním v používaní tejto stránky súhlasíte s našimi zásadami.",
+        "accept": "Súhlasím",
+        "learn_more": "Zistiť viac"
     }
 }

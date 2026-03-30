@@ -6,6 +6,7 @@ import { useTheme } from '../context/ThemeContext';
 import { Sun, Moon, Eye, EyeOff, ShieldCheck, KeyRound } from 'lucide-react';
 import LanguageSwitcher from './LanguageSwitcher';
 import BrandLogo from './BrandLogo';
+import { SUPPORT_EMAIL } from '../constants/branding';
 
 export default function Login() {
     const [username, setUsername] = useState('');
@@ -223,7 +224,7 @@ export default function Login() {
 
                             <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700 text-center">
                                 <p className="text-xs text-slate-400 dark:text-slate-500">
-                                    {t('auth.login.support_contact')} <a href="mailto:support@homeinventory.local" className="text-primary-500 hover:underline">support@homeinventory.local</a>
+                                    {t('auth.login.support_contact')} <a href={`mailto:${SUPPORT_EMAIL}`} className="text-primary-500 hover:underline">{SUPPORT_EMAIL}</a>
                                 </p>
                             </div>
 

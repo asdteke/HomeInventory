@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Bermearen Iraupen Unitatea",
             "warranty_duration_months": "Hilabeteak",
             "warranty_duration_years": "Urteak",
-            "warranty_calculation_help": "Bermearen hasiera data hutsik uzten baduzu, fakturaren data erabiliko da. Iraupena sartzen duzunean, bermearen amaiera data automatikoki kalkulatzen da."
+            "warranty_calculation_help": "Bermearen hasiera data hutsik uzten baduzu, fakturaren data erabiliko da. Iraupena sartzen duzunean, bermearen amaiera data automatikoki kalkulatzen da.",
+            "vault_hint_title": "Erregistro oso sentikorra?",
+            "vault_hint_description": "Pasaportuak, akzioak, nortasun xehetasunak, sarbide kodeak eta inventario estandarretatik kanpo mantendu beharreko beste erregistroak Personal Vault-en gorde.",
+            "vault_hint_action": "Ireki Personal Vault"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" azkar gehitu da - gero editatu dezakezu",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Produktua ez da aurkitu datu-baseetan. Google-n bilatu dezakezu.",
             "search_fail": "⚠ Bilaketa huts egin du",
             "name_required": "Elementuaren izena beharrezkoa da",
-            "location_add_error": "Ezin izan da lekua gehitu"
+            "location_add_error": "Ezin izan da lekua gehitu",
+            "photo_too_large": "Argazkiak gehienez {{maxSizeMb}} MB izan daitezke."
         }
     },
     "common": {
@@ -99,7 +103,7 @@
         "refresh": "Freskatu",
         "close": "Itxi",
         "logout": "Saioa amaitu",
-        "copyright": "© {{year}} HomeInventory - Eskubide guztiak erreserbatuta",
+        "copyright": "© {{year}} {{brandName}} - Eskubide guztiak erreserbatuta",
         "other": "Beste",
         "copy": "Kopiatu",
         "download": "Deskargatu"
@@ -108,7 +112,7 @@
         "login": {
             "title": "Saioa hasi",
             "subtitle": "Kudeatu zure etxeko inventarioa modu adimentsuan",
-            "welcome": "Ongi etorri HomeInventory-era",
+            "welcome": "Ongi etorri {{brandName}}-era",
             "username_or_email": "Erabiltzaile izena edo Posta elektronikoa",
             "password": "Pasahitza",
             "forgot_password": "Pasahitza ahaztu duzu?",
@@ -120,7 +124,7 @@
             "register_link": "Erregistratu",
             "support_contact": "Saioa hasteko arazoak izanez gero:",
             "terms_title": "📋 Erabilera-baldintzak eta Exonerazioa",
-            "terms_beta": "BETA Bertsioa: HomeInventory oraindik probako fasean dago. Ez da ezer bermatzen zure datuen iraunkortasunari edo segurtasunari dagokionez.",
+            "terms_beta": "BETA Bertsioa: {{brandName}} oraindik probako fasean dago. Ez da ezer bermatzen zure datuen iraunkortasunari edo segurtasunari dagokionez.",
             "terms_disclaimer": "Exonerazioa: Aplikazio hau erabiliz, onartzen duzu ez duzula konpentsazio eskaerarik egin dezaketen datu-galera, sarbide-arazoak edo bestelako akats teknikoengatik.",
             "terms_backup": "Datuen Babeskopia: Zure informazio garrantzitsua aldian-aldian babestea modu sendoan gomendatzen dugu.",
             "terms_accept": "Saioa hasten duzunean, baldintza hauek onartu dituzula kontsideratzen da.",
@@ -138,7 +142,7 @@
             }
         },
         "register": {
-            "title": "Ongi etorri HomeInventory-ra",
+            "title": "Ongi etorri {{brandName}}-ra",
             "subtitle": "Sortu kontu berria edo batu etxe existentera",
             "create_house": "Etxe Berria Sortu",
             "join_house": "Etxera Batu",
@@ -249,7 +253,8 @@
         "admin_panel": "Administrazio Panela",
         "logout": "Saioa Itxi",
         "menu": "Menua",
-        "personal_vault": "Personal Bault"
+        "personal_vault": "Personal Bault",
+        "borrow_requests": "Mailegu eskaerak"
     },
     "dashboard": {
         "welcome": "Ongi etorri, <1>{{name}}</1>! 👋",
@@ -291,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory momentu honetan probak eta zaletasun fasean dago. Ez da bermerik ematen datuen iraunkortasun edo segurtasunari buruz. Gorde mesedez informazio garrantzitsuaren babes-kopiak.",
+        "text": "{{brandName}} momentu honetan probak eta zaletasun fasean dago. Ez da bermerik ematen datuen iraunkortasun edo segurtasunari buruz. Gorde mesedez informazio garrantzitsuaren babes-kopiak.",
         "contact": "Harremana:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Eskubide guztiak erreserbatuta",
+        "rights": "© {{year}} {{brandName}} - Eskubide guztiak erreserbatuta",
         "contact": "Harremana:"
     },
     "settings": {
@@ -337,7 +342,8 @@
             "member_kicked": "Kidea etxetik baztertu da",
             "member_kick_error": "Ezin izan da kidea etxetik kendu",
             "recovery_key_regenerated": "Berreskurapen gakoa berriz sortu da",
-            "recovery_key_error": "Berreskurapen gakoa ezin izan da berriz sortu"
+            "recovery_key_error": "Berreskurapen gakoa ezin izan da berriz sortu",
+            "account_delete_error": "Kontua ezin izan da ezabatu"
         },
         "user_profile": {
             "edit_username": "Aldatu erabiltzaile-izena"
@@ -404,13 +410,20 @@
             "export_json": "JSON bezala esportatu",
             "upload_backup": "Babeskopia igo",
             "uploading": "Igatzen...",
-            "import_json": "JSON-tik inportatu"
+            "import_json": "JSON-tik inportatu",
+            "export_sensitive_title": "Esportatutako babeskopiak testu zuzena daukate",
+            "export_sensitive_notice": "Babeskopi honek etxeko datu deszifratua dauka. Gorde segurtasunez deskargatu ondoren, nahi izanez gero enkriptatu, eta saihestu komunikabide seguruak ez direnak erabiltzea partekatzeko.",
+            "export_sensitive_confirm": "Babeskopi honek etxeko datuak testu argian deskodifikatuta barne hartuko ditu. Ba al duzu bermatzen hori modu seguruan gordeko duzula?"
         },
         "about": {
             "title": "📱 Aplikazioari buruz",
             "version": "Bertsioa",
             "brand": "Marka",
-            "feedback": "✉️ Iruzkinak Bidali"
+            "feedback": "✉️ Iruzkinak Bidali",
+            "legal_title": "Dokumentu Legalak",
+            "legal_description": "Hemen berriro ireki ditzakezu baldintzak eta pribatutasun testuak, baita onartu ondoren ere.",
+            "terms_link": "Zerbitzuaren Baldintzak",
+            "privacy_link": "Pribatutasun Politika"
         },
         "modals": {
             "password": {
@@ -503,6 +516,19 @@
             "revoke_devices_desc": "Guztiak gorde diren gailuak kendu, hurrengo saio-hasierako 2FA eskatu ahal izateko",
             "devices_revoked": "{{count}} gailu(e) konfiantzazkoak kendu dira",
             "devices_error": "Gailuak baliogabetzea huts egin da"
+        },
+        "danger_zone": {
+            "title": "Kontua",
+            "delete_title": "Kontua ezabatu",
+            "delete_description": "nahi baduzu, kontu honi lotutako datu pertsonalak eta igotako fitxategiak betiko ezabatu ditzakezu.",
+            "delete_warning": "Ekintza honek ez du atzeraezina.",
+            "delete_action": "Kontua ezabatu",
+            "modal_title": "Kontua ezabatu",
+            "modal_warning_title": "Ekintza hau atzerabegorra da",
+            "modal_warning_body": "Berretsi ondoren, berehala galduko duzu kontura sartzeko aukera eta ezingo dira ezabatutako aplikazioaren datuak aplikaziotik berreskuratu.",
+            "password_label": "Egiaztatu zure oraingo pasahitzarekin",
+            "confirm_delete": "Ezabapena berretsi",
+            "deleting": "Ezabatzen..."
         }
     },
     "inventory": {
@@ -517,7 +543,53 @@
         "empty_filter": "Zure iragazkiekin bat datozen elementurik ez",
         "empty_msg": "Oraindik ez da elementurik gehitu",
         "delete_confirm": "Ziur zaude elementu hau ezabatu nahi duzula?",
-        "delete_error": "Ezabatzeko errorea"
+        "delete_error": "Ezabatzeko errorea",
+        "load_warning": {
+            "title": "karga partzialeko modua",
+            "body": "Euskarriko datu batzuk poliki-poliki erantzuten ari dira oraintxe bertan, beraz, orrialdea iragazkiaren metadatu osorik gabe ireki da. Berriro saiatuko gara freskatzen duzunean."
+        },
+        "borrow": {
+            "section_title": "Maileguaren jarraipena",
+            "section_subtitle": "Maileguaren uneko egoera eta historia",
+            "dialog_lend_title": "Mailegu-elementua",
+            "dialog_lend_subtitle": "Sortu mailegu-erregistro berri bat \"{{item}}\" marka itzulita",
+            "dialog_return_title": "Itzulita Markatu",
+            "dialog_return_subtitle": "Itxi \"{{item}}\" mailegu aktiboaren erregistroa",
+            "member": "Etxeko kidea",
+            "external": "Kanpoko pertsona",
+            "borrower_member": "Nor jaso zuen?",
+            "no_members": "Ez dago beste kide hautagarri gehiagorik etxe honetan. Erregistroa kanpoko pertsona gisa sor dezakezu ordez.",
+            "borrower_name": "Pertsonaren izena",
+            "borrower_name_placeholder": "adib. auzokidea Alex",
+            "borrower_contact": "Harremanetarako informazioa",
+            "borrower_contact_placeholder": "Telefonoa, posta elektronikoa edo ohar laburra",
+            "due_date": "Itzulera data espero dena",
+            "note": "Oharra",
+            "note_placeholder": "adib. Aste bukaerarako mailegatua",
+            "submitting_lend": "Gorde...",
+            "lend": "Mailegatu",
+            "return_note": "Itzulera oharra",
+            "return_note_placeholder": "adib. Egoera onean itzuli da",
+            "submitting_return": "Itxitzen...",
+            "mark_returned": "Itzuli da",
+            "current_borrower_label": "Uneko egoera:",
+            "unknown": "Ezezaguna",
+            "overdue_badge": "Epeka gainditua",
+            "borrowed_badge": "Mailegatua",
+            "borrowed_to": "{{name}}-ekin",
+            "due_date_short": "Epea: {{date}}",
+            "actions_error": "Mailegu ekintza ezin izan da burutu",
+            "borrowed_at": "Mailegatu zen: {{date}}",
+            "due_date_label": "Itzulera espero zena: {{date}}",
+            "note_label": "Oharra: {{note}}",
+            "return_note_label": "Itzultze-oharra: {{note}}",
+            "no_active": "Elementu hau ez dago oraingoan mailegaturik.",
+            "history_title": "Historia",
+            "history_active": "Ireki {{name}}-rako erregistroa",
+            "history_returned": "Itxita dagoen erregistroa {{name}}-rako",
+            "returned_at": "Itzuli zen: {{date}}",
+            "no_history": "Oraindik ez dago mailegu-historikorik elementu honentzat."
+        }
     },
     "categories": {
         "title": "Kategoriak",
@@ -615,7 +687,7 @@
             "free_badge": "Oso doakoa"
         },
         "features": {
-            "title": "Zergatik <1>HomeInventory</1>?",
+            "title": "Zergatik <1>{{brandName}}</1>?",
             "subtitle": "Etxeko kudeaketa errazteko ezaugarri guztiak plataforma bakarrean",
             "items": {
                 "categorize": {
@@ -653,7 +725,7 @@
             "desc": "Zure etxeko inventarioa digitalizatzeko plataforma erraza eta segurua.",
             "links": "Lotura Azkarrak",
             "contact": "Jarri gurekin harremanetan",
-            "copyright": "© {{year}} HomeInventory. Eskubide guztiak erreserbatuta."
+            "copyright": "© {{year}} {{brandName}}. Eskubide guztiak erreserbatuta."
         },
         "preview_privacy_notice": "Demo ikuspegia: ez da benetako erabiltzaile daturik erakusten."
     },
@@ -781,10 +853,10 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Posta elektronikoa berretsi behar da",
-            "headerTitle": "Ongi etorri HomeInventory-ra",
+            "subject": "🏠 {{brandName}} - 📧 Posta elektronikoa berretsi behar da",
+            "headerTitle": "Ongi etorri {{brandName}}-ra",
             "headerSubtitle": "Sortu kontu berria edo batu etxe existentera",
-            "greeting": "Ongi etorri HomeInventory-era",
+            "greeting": "Ongi etorri {{brandName}}-era",
             "intro": "Kontua sortu da! Mesedez, berretsi zure posta elektronikoa saioa hasteko.",
             "verifyPrompt": "📧 Posta elektronikoa berretsi behar da",
             "verifyButton": "✓ Nire Kontua Egiaztatu",
@@ -801,13 +873,13 @@
             ],
             "fallback": "Pasahitza berrezartzeko estekak osatu gabe edo hautsita dirudi.",
             "support": "Erregistro arazoak:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Ongi etorri HomeInventory-ra",
-            "headerTitle": "Ongi etorri HomeInventory-ra",
+            "subject": "Ongi etorri {{brandName}}-ra",
+            "headerTitle": "Ongi etorri {{brandName}}-ra",
             "headerSubtitle": "Sortu kontu berria edo batu etxe existentera",
-            "greeting": "Ongi etorri HomeInventory-era",
+            "greeting": "Ongi etorri {{brandName}}-era",
             "intro": "Ongi etorri, ! 👋",
             "houseKeyLabel": "Etxeko giltza",
             "houseKeyNote": "Hau zure etxeko gakoa da, erabiltzaileei gonbidatzeko erabili. Gehitu familia kideak zure etxera!",
@@ -819,7 +891,7 @@
                 "💡 Etxe anitzetako kide izan zaitezke eta horien artean aldatu. Etxe bakoitzak inventario bereizi bat mantentzen du."
             ],
             "support": "Erregistro arazoak:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Etxearekin batu",
@@ -828,7 +900,7 @@
             "bodyLine2": "Etxearen jabearen onespenaren zain"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{egoera}}",
+            "subjectTemplate": "{{brandName}} - {{egoera}}",
             "greeting": "Etxerako sarbidea",
             "bodyLine1Template": "Gaur egun dagoen eskaera: {{house}} ({{status}})",
             "bodyLine2": "\"{{house}}\"-ren eskaera oraindik erabakiaren zain dago."
@@ -849,6 +921,10 @@
             "warningBody": "Kontu bat badago, pasahitza berrezartzeko 15 minuturako balio duen esteka bidali da.",
             "fallback": "Pasahitza berrezartzeko estekak osatu gabe edo hautsita dirudi.",
             "footer": "> Hasiera ©2026 Inventory"
+        },
+        "adminEmail": {
+            "sentBy": "Mezu elektroniko hau {{brandName}}-k bidali du.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -890,7 +966,6 @@
         "record_save_new": "Gehitu Vault Erregistroa",
         "record_save_edit": "Gorde aldaketak",
         "barcode_privacy_hint": "Gangaren barra-kodeak ez dira kanpoko zerbitzuetan automatikoki bilatzen; barra-kodearen testua datu enkriptatu gisa soilik gordetzen da.",
-        "media_note": "Argazkiak, barra-kodeen eskaneamendua eta kanpoko produktuen bilaketa nahita desgaituta daude lehen ganga-fluxu honetan. Komunikabide enkriptatutako eta pribatutasun kanal bereizi bat behar dute.",
         "search_placeholder": "Bilatu gangaren barruan...",
         "all_categories": "Kategoria guztiak",
         "all_rooms": "Gela guztiak",
@@ -910,9 +985,112 @@
             "name_required": "Elementu-izena behar da ganga-erregistro baterako.",
             "options_failed": "Ezin izan dira kargatu kategoria eta gelako aukerak."
         },
-        "recovery_file_title": "HomeInventory Pertsonala Gordailu Berreskuratzeko Gakoa",
+        "recovery_file_title": "{{brandName}} Pertsonala Gordailu Berreskuratzeko Gakoa",
         "recovery_file_created_label": "Sortua",
         "recovery_file_key_label": "Berreskuratzeko Gakoa",
-        "recovery_file_warning": "Gakoa eta gordailuko pasahitza biak galtzen badituzu, gordailua ezin da berreskuratu."
+        "recovery_file_warning": "Gakoa eta gordailuko pasahitza biak galtzen badituzu, gordailua ezin da berreskuratu.",
+        "media_note": "Argazki kargak, kode-barrak eskaneatzea eta kanpoko produktuen bilaketa oraindik ez da onartzen. Ezaugarri hauek gehituko dira medio enkriptatu eta pribatutasun fluxu dedikatu bat prest dagoenean."
+    },
+    "borrow_requests": {
+        "title": "Mailegu Zentroa",
+        "subtitle": "Kudeatu eskariak eta eskaintzak seguru beste {{brandName}} erabiltzaileekin.",
+        "incoming_title": "Sarrerako Eskariak",
+        "incoming_subtitle": "Zuri bidalitako eskaerak eta eskaintzak",
+        "outgoing_title": "Nire aldetik bidalia",
+        "outgoing_subtitle": "Zure eskaintzak eta elementu eskaerak",
+        "empty_incoming": "Une honetan ez dago zordunketa eskaerarik zuretzat.",
+        "empty_outgoing": "Ez duzu oraindik eskaintza edo eskaera bidali.",
+        "stats": {
+            "incoming": "Eten gabe sartzen direnak",
+            "outgoing": "Eten gabe irteten direnak",
+            "active": "Mailegu aktiboak"
+        },
+        "active": {
+            "title": "Mailegu aktiboak",
+            "subtitle": "Uneko elementuak zurekin daudenak edo zuk mailegatutakoak",
+            "empty": "Une honetan ez dago mailegu aktiborik.",
+            "borrowed_from": "{{name}}-tik maileguan hartu da",
+            "lent_to": "Une honetan {{name}}-ekin"
+        },
+        "status": {
+            "pending": "Zain",
+            "accepted": "Aktiboa",
+            "rejected": "Ukatua",
+            "cancelled": "Ezeztatua",
+            "expired": "Iraungita",
+            "returned": "Itzuli"
+        },
+        "actions": {
+            "send_request": "Eskatu Elementua",
+            "send_offer": "Bidali Eskaintza",
+            "accept": "Onartu",
+            "reject": "Ukatu",
+            "cancel": "Ezeztatu",
+            "fulfill_request": "Eskaria Betetzea"
+        },
+        "labels": {
+            "offer": "Eskaintza",
+            "request": "Eskaera",
+            "unspecified_item": "Zehaztugabea den artikulua",
+            "counterparty": "Aurkako aldea: {{name}}",
+            "created_at": "Sortua: {{date}}",
+            "due_date": "Itzulera esperoan: {{date}}",
+            "waiting_delivery": "Eskaera oraindik kontu bateragarria aurkitu gabe egon daiteke agertzen den arte.",
+            "returned_on": "Itzulita: {{date}}",
+            "borrow_started": "Hasiera: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Bidali eskaintza",
+            "offer_subtitle_item": "Sortu erabiltzaile-eskaintza segurua \"{{item}}\"-rentzat",
+            "offer_subtitle_general": "Aukeratu elementu bat zure inbentarioan eta bidali eskaintza segurua",
+            "item_label": "Gauza",
+            "item_placeholder": "Hautatu elementu bat",
+            "target_label": "Erabiltzaile-izena edo posta elektronikoko",
+            "target_placeholder": "adibidez, alex edo alex@example.com",
+            "target_help": "Sistemak ez du kontu hori existitzen den ala ez agerian uzten. Bat badator, eskaera hartzailearen sarrera-ontzian agertuko da.",
+            "offer_note_placeholder": "adibidez. Aste amaiera arte mantendu dezakezu nahi baduzu",
+            "offer_submitting": "Bidaltzen...",
+            "request_title": "Eskaera Elementua",
+            "request_subtitle": "Sortu eskaera orokor bat beste pertsonaren stock bidez arakatu gabe",
+            "requested_item_label": "Zer behar duzu?",
+            "requested_item_placeholder": "adibidez. Birak, tripodea, kanpoko aulkia",
+            "request_note_placeholder": "adibidez. Bi egunetarako bakarrik behar dut",
+            "request_submitting": "Bidaltzen...",
+            "fulfill_title": "Bete eskaera",
+            "fulfill_subtitle": "Aukeratu zure inbentarioko elementu bat \"{{item}}\"",
+            "fulfill_target": "Elementu hau {{name}} maileguan emango zaio.",
+            "no_available_items": "Une honetan ez zure etxe aktiboan eskaintzeko elementu egokirik.",
+            "fulfill_submitting": "aurrezten...",
+            "return_title": "marka itzuli",
+            "return_subtitle": "Itxi \"{{item}}\"-ren mailegu aktiboa",
+            "return_target": "Une honetan {{name}}-rekin agertzen da."
+        },
+        "messages": {
+            "load_error": "Mailegu zentrora ezin izan da kargatu",
+            "action_error": "Ekintza ezin izan da burutu"
+        },
+        "preview": {
+            "title": "Aurrebista modua",
+            "body": "Orrialde honen atzeko partea ez dago eskuragarri tokiko proban une honetan. Oraindik diseinua eta fluxua lehenik berrikusi ditzakezu; zerbitzari aldeko partea aktibatuko dugu zuk onartutakoan."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Pribatutasun Politika",
+        "terms_of_service_title": "Zerbitzuaren Baldintzak",
+        "privacy_policy_content": "Zure pribatutasuna garrantzitsua da guretzat. Aplikazio honek zure igo ditzakezun datuak segurtasunez gordetzen ditu eremu-mailako enkriptatzearekin. Ez dugu zure datu pertsonalik saltzen edo hirugarrenei partekatzen. Zerbitzua erabiliz, kontuaren kudeaketarako eta aplikazioaren funtzionaltasunerako beharrezko datuak biltzeko baimena ematen duzu.",
+        "terms_of_service_content": "{{brandName}} erabiltzean, baldintza hauei onartzen diezu. Zerbitzua 'dagoen moduan' ematen da, inolako bermerik gabe. Zure igo dituzun datuen arduraduna zu zara eta datu horien jabetza duzula ziurtatzea zure ardura da. Politiken aurka egiten duten edo sistemaren erabilera txarraren kasuetan kontuak etetea eskubidea gordetzen dugu.",
+        "register_consent": "Irakurri, ulertu eta ados nago <1> Zerbitzu Baldintzekin </1> eta <2> Pribatutasun Politikarekin </2>.",
+        "consent_title": "Dokumentu legalak berrikusi",
+        "consent_subtitle": "Mesedez, baieztatu egungo baldintzak jarraitu aurretik.",
+        "consent_notice": "Aplikazioa erabiltzen jarraitu ahal izateko, zerbitzu-baldintzen eta pribatutasun-oharraren eguneroko aitortza grabatua behar dugu.",
+        "consent_checkbox": "Onartzen dut Zerbitzuaren Baldintzak eta baieztatzen dut Pribatutasun-Oharra irakurri dudala.",
+        "consent_submit": "Jarraitu",
+        "consent_submitting": "Gordeta...",
+        "consent_required": "Zerbitzuaren Baldintzak eta Pribatutasun-Oharra baieztatu behar dituzu jarraitu aurretik."
+    },
+    "cookies": {
+        "banner_text": "Garrantzitsua den cookie-ak erabiltzen ditugu saioa hasi duzula mantentzeko eta zure saioa seguru mantentzeko. Gunearen erabilera jarraitzen baduzu, gure politikekin ados zaude.",
+        "accept": "Onartzen dut",
+        "learn_more": "Ikasi Gehiago"
     }
 }

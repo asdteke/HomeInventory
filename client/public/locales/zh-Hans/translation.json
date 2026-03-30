@@ -63,7 +63,10 @@
             "warranty_duration_unit": "保修期限单位",
             "warranty_duration_months": "月",
             "warranty_duration_years": "年",
-            "warranty_calculation_help": "如果您将保修开始日期留空，则使用发票日期。当您输入期限时，保修结束日期会自动计算。"
+            "warranty_calculation_help": "如果您将保修开始日期留空，则使用发票日期。当您输入期限时，保修结束日期会自动计算。",
+            "vault_hint_title": "非常敏感的记录？",
+            "vault_hint_description": "对于护照、契约、身份信息、访问代码以及其他应避免进入标准库存流程的记录，请将它们保存在个人保险库中。",
+            "vault_hint_action": "打开个人保险库"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" 快速添加 - 你以后可以编辑",
@@ -74,7 +77,8 @@
             "not_found": "⚠ 数据库中未找到产品。您可以在 Google 上搜索。",
             "search_fail": "⚠ 搜索失败",
             "name_required": "物品名称为必填项",
-            "location_add_error": "添加位置失败"
+            "location_add_error": "添加位置失败",
+            "photo_too_large": "照片最大可为 {{maxSizeMb}} MB。"
         }
     },
     "common": {
@@ -100,7 +104,9 @@
         "close": "关闭",
         "logout": "登出",
         "copyright": "© {{year}} 家居库存 - 版权所有",
-        "other": "其他"
+        "other": "其他",
+        "copy": "复制",
+        "download": "下载"
     },
     "auth": {
         "login": {
@@ -118,25 +124,25 @@
             "register_link": "注册",
             "support_contact": "登录问题：",
             "terms_title": "📋 使用条款和免责声明",
-            "terms_beta": "BETA 版本：HomeInventory 当前处于测试阶段。对于您的数据的持久性或安全性不作任何保证。",
+            "terms_beta": "BETA 版本：{{brandName}} 当前处于测试阶段。对于您的数据的持久性或安全性不作任何保证。",
             "terms_disclaimer": "免责声明：使用本应用程序即表示您同意不可因潜在的数据丢失、访问问题或其他技术故障要求任何赔偿。",
             "terms_backup": "数据备份：我们强烈建议定期备份您的重要信息。",
             "terms_accept": "登录即表示您已被视为接受这些条款。",
             "two_factor": {
-                "title": "Two-Factor Authentication",
-                "subtitle": "Enter the 6-digit code from your authenticator app",
-                "backup_subtitle": "Enter one of your backup codes",
-                "code_label": "Verification Code",
-                "backup_code_label": "Backup Code",
-                "remember_device": "Remember this device for 30 days",
-                "verify": "Verify",
-                "back": "Back",
-                "use_backup": "Use backup code",
-                "use_totp": "Use authenticator"
+                "title": "双重身份验证",
+                "subtitle": "输入您的身份验证应用提供的6位代码",
+                "backup_subtitle": "输入您的备用代码之一",
+                "code_label": "验证码",
+                "backup_code_label": "备用代码",
+                "remember_device": "在此设备上记住30天",
+                "verify": "验证",
+                "back": "返回",
+                "use_backup": "使用备用代码",
+                "use_totp": "使用身份验证器"
             }
         },
         "register": {
-            "title": "欢迎使用 HomeInventory",
+            "title": "欢迎使用 {{brandName}}",
             "subtitle": "创建新账户或加入现有家庭",
             "create_house": "创建新家庭",
             "join_house": "加入家庭",
@@ -247,7 +253,8 @@
         "admin_panel": "管理面板",
         "logout": "登出",
         "menu": "菜单",
-        "personal_vault": "个人保险库"
+        "personal_vault": "个人保险库",
+        "borrow_requests": "借阅请求"
     },
     "dashboard": {
         "welcome": "欢迎，<1>{{name}}</1>! 👋",
@@ -289,11 +296,11 @@
     },
     "beta_banner": {
         "title": "测试版:",
-        "text": "HomeInventory 目前处于测试和爱好阶段。不保证数据的持久性或安全性。请备份重要信息。",
+        "text": "{{brandName}} 目前处于测试和爱好阶段。不保证数据的持久性或安全性。请备份重要信息。",
         "contact": "联系方式:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - 保留所有权利",
+        "rights": "© {{year}} {{brandName}} - 保留所有权利",
         "contact": "联系方式:"
     },
     "settings": {
@@ -335,7 +342,8 @@
             "member_kicked": "已将成员从房子中移除",
             "member_kick_error": "无法将成员从房子中移除",
             "recovery_key_regenerated": "恢复密钥已重新生成",
-            "recovery_key_error": "无法重新生成恢复密钥"
+            "recovery_key_error": "无法重新生成恢复密钥",
+            "account_delete_error": "该账户无法删除 ••••••••{{suffix}} 账户 删除账户 如果您愿意，您可以永久删除与此账户相关的个人数据和上传的文件。 此操作无法撤销。 删除账户 删除账户"
         },
         "user_profile": {
             "edit_username": "修改用户名"
@@ -402,13 +410,20 @@
             "export_json": "导出为 JSON",
             "upload_backup": "上传备份",
             "uploading": "上传中...",
-            "import_json": "从 JSON 导入"
+            "import_json": "从 JSON 导入",
+            "export_sensitive_title": "导出的备份包含明文数据",
+            "export_sensitive_notice": "此备份包含已解密的家庭数据。下载后请妥善存储，如可能请加密，并避免通过不安全的渠道分享。",
+            "export_sensitive_confirm": "此备份将以明文形式包含已解密的家庭数据。您确认会妥善存储吗？"
         },
         "about": {
             "title": "📱 关于应用程序",
             "version": "版本",
             "brand": "品牌",
-            "feedback": "✉️ 发送反馈"
+            "feedback": "✉️ 发送反馈",
+            "legal_title": "法律文档",
+            "legal_description": "即使已接受，您仍可以从此处重新打开条款和隐私文本。",
+            "terms_link": "服务条款",
+            "privacy_link": "隐私政策"
         },
         "modals": {
             "password": {
@@ -453,54 +468,67 @@
             "pending_badge": "待处理"
         },
         "two_factor": {
-            "title": "Two-Factor Authentication",
-            "description": "Add an extra layer of security to your account with TOTP-based 2FA",
-            "active": "Active",
-            "enable": "Enable 2FA",
-            "disable": "Disable 2FA",
-            "disable_desc": "Remove two-factor authentication from your account",
-            "disable_title": "Disable Two-Factor Authentication",
-            "disable_confirm": "Disable 2FA",
-            "disable_error": "Failed to disable 2FA",
-            "disabled_success": "Two-factor authentication has been disabled",
-            "password_label": "Password",
-            "password_placeholder": "Enter your password",
-            "method_totp": "Authenticator",
-            "method_backup": "Backup Code",
-            "method_recovery": "Recovery Key",
-            "totp_code_label": "Authenticator Code",
-            "backup_code_label": "Backup Code",
-            "recovery_key_label": "Recovery Key",
-            "cancel": "Cancel",
-            "setup_title": "Set Up 2FA",
-            "setup_error": "Failed to start 2FA setup",
-            "step_1": "Step 1: Scan QR Code",
-            "step_2": "Step 2: Verify Code",
-            "step_3": "Step 3: Save Backup Codes",
-            "scan_instruction": "Scan this QR code with your authenticator app (Google Authenticator, Authy, or any TOTP app)",
-            "manual_entry": "Can't scan? Enter this key manually:",
-            "copy_secret": "Copy secret",
-            "next": "Next",
-            "verify_instruction": "Enter the 6-digit code shown in your authenticator app to verify setup",
-            "verify_error": "Verification failed",
-            "code_label": "6-Digit Code",
-            "back": "Back",
-            "activate": "Activate 2FA",
-            "backup_warning_title": "Save These Backup Codes!",
-            "backup_warning_text": "If you lose access to your authenticator app, you can use these codes to log in. Each code can only be used once. Store them in a safe place.",
-            "download_codes": "Download Backup Codes",
-            "backup_acknowledge": "I have saved my backup codes in a safe place",
-            "done": "Done",
-            "regenerate_codes": "Regenerate Backup Codes",
-            "regenerate_codes_desc": "Generate new backup codes (old ones will be invalidated)",
-            "regenerate": "Regenerate",
-            "codes_regenerated": "Backup codes have been regenerated",
-            "codes_error": "Failed to regenerate backup codes",
-            "close_codes": "Close",
-            "revoke_devices": "Revoke Trusted Devices",
-            "revoke_devices_desc": "Remove all remembered devices, requiring 2FA on next login",
-            "devices_revoked": "{{count}} trusted device(s) removed",
-            "devices_error": "Failed to revoke devices"
+            "title": "双因素认证",
+            "description": "使用基于TOTP的双因素认证为您的账户增加额外的安全层",
+            "active": "活动",
+            "enable": "启用双因素认证",
+            "disable": "禁用双因素认证",
+            "disable_desc": "从您的账户中移除双因素认证",
+            "disable_title": "禁用双因素认证",
+            "disable_confirm": "禁用二步验证",
+            "disable_error": "禁用二步验证失败",
+            "disabled_success": "二步验证已被禁用",
+            "password_label": "密码",
+            "password_placeholder": "输入你的密码",
+            "method_totp": "验证器",
+            "method_backup": "备用代码",
+            "method_recovery": "恢复密钥",
+            "totp_code_label": "认证器代码",
+            "backup_code_label": "备用代码",
+            "recovery_key_label": "恢复密钥",
+            "cancel": "取消",
+            "setup_title": "设置双因素认证",
+            "setup_error": "启动双因素认证设置失败",
+            "step_1": "第1步：扫描二维码",
+            "step_2": "第2步：验证代码",
+            "step_3": "第3步：保存备份码",
+            "scan_instruction": "使用您的身份验证器应用扫描此二维码（Google身份验证器、Authy或任何TOTP应用）",
+            "manual_entry": "无法扫描？请手动输入此密钥：",
+            "copy_secret": "复制密钥",
+            "next": "下一步",
+            "verify_instruction": "输入身份验证器应用中显示的6位代码以验证设置",
+            "verify_error": "验证失败",
+            "code_label": "6位代码",
+            "back": "返回",
+            "activate": "激活双重认证",
+            "backup_warning_title": "保存这些备份代码！",
+            "backup_warning_text": "如果您无法访问身份验证应用程序，可以使用这些代码登录。每个代码只能使用一次。请将它们存放在安全的地方。",
+            "download_codes": "下载备份代码",
+            "backup_acknowledge": "我已将备份代码安全地保存",
+            "done": "完成",
+            "regenerate_codes": "重新生成备份代码",
+            "regenerate_codes_desc": "生成新的备份代码（旧的将作废）",
+            "regenerate": "重新生成",
+            "codes_regenerated": "备份代码已重新生成",
+            "codes_error": "备份代码重新生成失败",
+            "close_codes": "关闭",
+            "revoke_devices": "撤销受信任设备",
+            "revoke_devices_desc": "删除所有记住的设备，下次登录需要二次验证",
+            "devices_revoked": "已删除 {{count}} 个受信任设备",
+            "devices_error": "无法撤销设备"
+        },
+        "danger_zone": {
+            "title": "Account",
+            "delete_title": "Delete account",
+            "delete_description": "If you want, you can permanently remove the personal data and uploaded files tied to this account.",
+            "delete_warning": "This action cannot be undone.",
+            "delete_action": "Delete account",
+            "modal_title": "Delete account",
+            "modal_warning_title": "此操作不可逆",
+            "modal_warning_body": "确认后，您将立即失去对账户的访问权限，且已删除的应用数据无法从应用中恢复。",
+            "password_label": "使用当前密码确认",
+            "confirm_delete": "确认删除",
+            "deleting": "删除中..."
         }
     },
     "inventory": {
@@ -515,7 +543,53 @@
         "empty_filter": "没有项目符合您的筛选条件",
         "empty_msg": "尚未添加任何项目",
         "delete_confirm": "您确定要删除此项目吗？",
-        "delete_error": "删除错误"
+        "delete_error": "删除错误",
+        "load_warning": {
+            "title": "部分加载模式",
+            "body": "一些支持数据响应较慢，因此页面在没有完整筛选元数据的情况下打开。刷新时我们会再次尝试。"
+        },
+        "borrow": {
+            "section_title": "借阅跟踪",
+            "section_subtitle": "当前借阅状态和历史记录",
+            "dialog_lend_title": "借出物品",
+            "dialog_lend_subtitle": "为“{{item}}”创建新的借阅记录",
+            "dialog_return_title": "标记为已归还",
+            "dialog_return_subtitle": "关闭“{{item}}”的活跃借阅记录",
+            "member": "房屋成员",
+            "external": "外部人员",
+            "borrower_member": "谁收到了？",
+            "no_members": "该房屋中没有其他可选择的成员。您可以将记录创建为外部人员。",
+            "borrower_name": "姓名",
+            "borrower_name_placeholder": "例如：邻居 Alex",
+            "borrower_contact": "联系方式",
+            "borrower_contact_placeholder": "电话，电子邮件或简短笔记",
+            "due_date": "预计归还日期",
+            "note": "备注",
+            "note_placeholder": "例如：周末借出",
+            "submitting_lend": "保存中...",
+            "lend": "借出",
+            "return_note": "归还备注",
+            "return_note_placeholder": "例如：归还时状况良好",
+            "submitting_return": "正在关闭……",
+            "mark_returned": "马克已归还",
+            "current_borrower_label": "当前持有人：",
+            "unknown": "未知",
+            "overdue_badge": "逾期",
+            "borrowed_badge": "已借出",
+            "borrowed_to": "在 {{name}} 手中",
+            "due_date_short": "应归还日期：{{date}}",
+            "actions_error": "借阅操作无法完成",
+            "borrowed_at": "借出时间：{{date}}",
+            "due_date_label": "预计归还时间：{{date}}",
+            "note_label": "备注：{{note}}",
+            "return_note_label": "归还备注：{{note}}",
+            "no_active": "此物品当前未被借出。",
+            "history_title": "历史记录",
+            "history_active": "打开{{name}}的记录",
+            "history_returned": "已关闭记录：{{name}}",
+            "returned_at": "归还日期：{{date}}",
+            "no_history": "该物品尚无借阅历史。"
+        }
     },
     "categories": {
         "title": "类别",
@@ -779,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 需要邮箱验证",
-            "headerTitle": "欢迎使用 HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 需要邮箱验证",
+            "headerTitle": "欢迎使用 {{brandName}}",
             "headerSubtitle": "创建新账户或加入现有家庭",
             "greeting": "欢迎使用家居库存",
             "intro": "账户已创建！请验证您的邮箱以登录。",
             "verifyPrompt": "📧 需要邮箱验证",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ 验证我的账户",
             "warningTitle": "⚠️",
             "warningBody": "如果邮件未到，请检查垃圾邮件/垃圾邮箱。",
             "houseKeyLabel": "房屋钥匙",
@@ -799,11 +873,11 @@
             ],
             "fallback": "密码重置链接看起来不完整或损坏。",
             "support": "注册问题：",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 家居库存"
         },
         "welcome": {
-            "subject": "欢迎使用 HomeInventory",
-            "headerTitle": "欢迎使用 HomeInventory",
+            "subject": "欢迎使用 {{brandName}}",
+            "headerTitle": "欢迎使用 {{brandName}}",
             "headerSubtitle": "创建新账户或加入现有家庭",
             "greeting": "欢迎使用家居库存",
             "intro": "欢迎，! 👋",
@@ -817,7 +891,7 @@
                 "💡 您可以成为多个房屋的成员并在它们之间切换。每个房屋都有独立的库存。"
             ],
             "support": "注册问题：",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 家庭库存"
         },
         "houseJoinRequest": {
             "subject": "加入房屋",
@@ -826,7 +900,7 @@
             "bodyLine2": "等待房主批准"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "家庭库存 - {{status}}",
             "greeting": "房屋访问",
             "bodyLine1Template": "当前待处理请求：{{house}} ({{status}})",
             "bodyLine2": "你对“{{house}}”的请求仍在等待决定。"
@@ -846,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "如果账户存在，密码重置链接（有效期15分钟）已发送。",
             "fallback": "密码重置链接看起来不完整或损坏。",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 家庭库存"
+        },
+        "adminEmail": {
+            "sentBy": "本电子邮件由 {{brandName}} 发送。",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -888,7 +966,6 @@
         "record_save_new": "添加保险库记录",
         "record_save_edit": "保存更改",
         "barcode_privacy_hint": "保险库条形码不会自动在外部服务中查询；条形码文本仅以加密数据形式存储。",
-        "media_note": "照片、条形码扫描和外部产品查询在第一个保险库流程中被有意禁用。它们需要单独的加密媒体和隐私管道。",
         "search_placeholder": "在保险库中搜索...",
         "all_categories": "所有类别",
         "all_rooms": "所有房间",
@@ -911,6 +988,109 @@
         "recovery_file_title": "家庭库存个人保险库恢复密钥",
         "recovery_file_created_label": "已创建",
         "recovery_file_key_label": "恢复密钥",
-        "recovery_file_warning": "如果您同时丢失此密钥和保险库密码，则无法恢复保险库。"
+        "recovery_file_warning": "如果您同时丢失此密钥和保险库密码，则无法恢复保险库。",
+        "media_note": "照片上传、条形码扫描和外部产品查询尚不支持。这些功能将在专用加密媒体和隐私流程准备好后添加。"
+    },
+    "borrow_requests": {
+        "title": "借阅中心",
+        "subtitle": "管理与其他{{brandName}}用户的安全请求和提供流程。",
+        "incoming_title": "收到的请求",
+        "incoming_subtitle": "发给您的请求和提供",
+        "outgoing_title": "我发送的",
+        "outgoing_subtitle": "您发起的优惠和物品请求",
+        "empty_incoming": "目前没有属于您的借用请求。",
+        "empty_outgoing": "您尚未发送任何优惠或请求。",
+        "stats": {
+            "incoming": "待处理的待入请求",
+            "outgoing": "待处理的待出请求",
+            "active": "活跃的借用"
+        },
+        "active": {
+            "title": "活跃的借用",
+            "subtitle": "当前在您手中或由您借出的物品",
+            "empty": "当前没有活跃的借出。",
+            "borrowed_from": "借自 {{name}}",
+            "lent_to": "当前借给 {{name}}"
+        },
+        "status": {
+            "pending": "待处理",
+            "accepted": "活跃",
+            "rejected": "已拒绝",
+            "cancelled": "已取消",
+            "expired": "已过期",
+            "returned": "已退回"
+        },
+        "actions": {
+            "send_request": "请求项目",
+            "send_offer": "发送报价",
+            "accept": "接受",
+            "reject": "拒绝",
+            "cancel": "取消",
+            "fulfill_request": "完成请求"
+        },
+        "labels": {
+            "offer": "报价",
+            "request": "请求",
+            "unspecified_item": "未指定的项目",
+            "counterparty": "对手方: {{name}}",
+            "created_at": "创建时间: {{date}}",
+            "due_date": "预期归还时间: {{date}}",
+            "waiting_delivery": "该请求可能仍在等待匹配账户，然后才会显示。",
+            "returned_on": "归还时间: {{date}}",
+            "borrow_started": "开始时间: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "发送报价",
+            "offer_subtitle_item": "为“{{item}}”创建安全的用户报价",
+            "offer_subtitle_general": "从您的库存中选择一个物品并发送安全报价",
+            "item_label": "物品",
+            "item_placeholder": "选择一个物品",
+            "target_label": "用户名或电子邮件",
+            "target_placeholder": "例如 alex 或 alex@example.com",
+            "target_help": "系统不会显示该账户是否存在。如果匹配，请求将出现在接收者的收件箱中。",
+            "offer_note_placeholder": "例如。如果你愿意，你可以一直保留到周末",
+            "offer_submitting": "正在发送...",
+            "request_title": "请求物品",
+            "request_subtitle": "创建一个通用请求，而不浏览对方的库存",
+            "requested_item_label": "你需要什么？",
+            "requested_item_placeholder": "例如 电钻、三脚架、折叠椅",
+            "request_note_placeholder": "例如 我只需要两天",
+            "request_submitting": "正在发送...",
+            "fulfill_title": "完成请求",
+            "fulfill_subtitle": "从你的库存中选择一件物品用于“{{item}}”",
+            "fulfill_target": "这件物品将借给 {{name}}。",
+            "no_available_items": "目前在你当前的房屋中没有可提供的合适物品。",
+            "fulfill_submitting": "保存中...",
+            "return_title": "标记为已归还",
+            "return_subtitle": "关闭“{{item}}”的活跃借出",
+            "return_target": "目前显示它在 {{name}} 手中。"
+        },
+        "messages": {
+            "load_error": "借阅中心无法加载",
+            "action_error": "操作无法完成"
+        },
+        "preview": {
+            "title": "预览模式",
+            "body": "该页面的后端部分在本地测试中暂时无法访问。您仍然可以先查看布局和流程；在您批准之后，我们将启用服务器端。"
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "隐私政策",
+        "terms_of_service_title": "服务条款",
+        "privacy_policy_content": "我们重视您的隐私。本应用使用字段级加密安全存储您上传的数据。我们不会将您的个人数据出售或共享给第三方。使用本服务即表示您同意收集必要的数据以进行账户管理和应用功能。",
+        "terms_of_service_content": "使用 {{brandName}} 即表示您同意这些条款。该服务按“原样”提供，不提供任何保证。您需对上传的数据负责，并确保拥有该数据的使用权。我们保留暂停违反政策或滥用系统账户的权利。",
+        "register_consent": "我已阅读、理解并同意<1>服务条款</1>和<2>隐私政策</2>。",
+        "consent_title": "审查法律文件",
+        "consent_subtitle": "在继续之前，请确认当前条款。",
+        "consent_notice": "在您继续使用应用程序之前，我们需要对当前的服务条款和隐私声明进行记录确认。",
+        "consent_checkbox": "我接受服务条款，并确认已阅读隐私声明。",
+        "consent_submit": "继续",
+        "consent_submitting": "正在保存...",
+        "consent_required": "在继续之前，您需要确认服务条款和隐私声明。"
+    },
+    "cookies": {
+        "banner_text": "我们使用必要的 Cookie 来保持您的登录状态并保护您的会话安全。继续使用本网站，即表示您同意我们的政策。",
+        "accept": "我接受",
+        "learn_more": "了解更多"
     }
 }

@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Takuu keston yksikkö",
             "warranty_duration_months": "Kuukautta",
             "warranty_duration_years": "Vuotta",
-            "warranty_calculation_help": "Jos jätät takuun aloituspäivän tyhjäksi, käytetään laskun päivämäärää. Kun syötät keston, takuun päättymispäivä lasketaan automaattisesti."
+            "warranty_calculation_help": "Jos jätät takuun aloituspäivän tyhjäksi, käytetään laskun päivämäärää. Kun syötät keston, takuun päättymispäivä lasketaan automaattisesti.",
+            "vault_hint_title": "Erittäin arkaluonteinen tallenne?",
+            "vault_hint_description": "Passien, kauppakirjojen, henkilötietojen, pääsykoodien ja muiden tietojen, jotka tulisi pitää standardivaraston ulkopuolella, säilytys onnistuu paremmin Henkilökohtaisessa Holvissa.",
+            "vault_hint_action": "Avaa Henkilökohtainen Holvi"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" lisätty nopeasti - voit muokata myöhemmin",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Tuotetta ei löydy tietokannoista. Voit etsiä Googlella.",
             "search_fail": "⚠ Haku epäonnistui",
             "name_required": "Tuotteen nimi vaaditaan",
-            "location_add_error": "Paikan lisääminen epäonnistui"
+            "location_add_error": "Paikan lisääminen epäonnistui",
+            "photo_too_large": "Valokuvat voivat olla enintään {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,7 +103,7 @@
         "refresh": "Päivitä",
         "close": "Sulje",
         "logout": "Kirjaudu ulos",
-        "copyright": "© {{year}} HomeInventory - Kaikki oikeudet pidätetään",
+        "copyright": "© {{year}} {{brandName}} - Kaikki oikeudet pidätetään",
         "other": "Muu",
         "copy": "Kopioi",
         "download": "Lataa"
@@ -108,7 +112,7 @@
         "login": {
             "title": "Kirjaudu sisään",
             "subtitle": "Hallitse kotivarastosi älykkäästi",
-            "welcome": "Tervetuloa HomeInventoryen",
+            "welcome": "Tervetuloa {{brandName}}en",
             "username_or_email": "Käyttäjänimi tai sähköposti",
             "password": "Salasana",
             "forgot_password": "Unohtuiko salasana?",
@@ -120,7 +124,7 @@
             "register_link": "Rekisteröidy",
             "support_contact": "Sisäänkirjautumisongelmissa:",
             "terms_title": "📋 Käyttöehdot ja vastuuvapauslauseke",
-            "terms_beta": "BETA Versio: HomeInventory on tällä hetkellä testausvaiheessa. Ei anneta takuuta tietojesi säilymisestä tai turvallisuudesta.",
+            "terms_beta": "BETA Versio: {{brandName}} on tällä hetkellä testausvaiheessa. Ei anneta takuuta tietojesi säilymisestä tai turvallisuudesta.",
             "terms_disclaimer": "Vastuuvapauslauseke: Käyttämällä tätä sovellusta hyväksyt, ettet voi vaatia korvausta mahdollisista tietojen menetyksistä, käyttöongelmista tai muista teknisistä vioista.",
             "terms_backup": "Tiedostojen varmuuskopiointi: Suosittelemme vahvasti tärkeitä tietojasi säännöllisesti varmuuskopioimaan.",
             "terms_accept": "Kirjautumalla sisään, katsotaan, että olet hyväksynyt nämä ehdot.",
@@ -138,7 +142,7 @@
             }
         },
         "register": {
-            "title": "Tervetuloa HomeInventoryyn",
+            "title": "Tervetuloa {{brandName}}yn",
             "subtitle": "Luo uusi tili tai liity olemassa olevaan taloon",
             "create_house": "Luo uusi talo",
             "join_house": "Liity taloon",
@@ -249,7 +253,8 @@
         "admin_panel": "Hallintapaneeli",
         "logout": "Kirjaudu ulos",
         "menu": "Valikko",
-        "personal_vault": "Henkilökohtainen Arkku"
+        "personal_vault": "Henkilökohtainen Arkku",
+        "borrow_requests": "Lainapyyntöjä"
     },
     "dashboard": {
         "welcome": "Tervetuloa, <1>{{name}}</1>! 👋",
@@ -291,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory on tällä hetkellä testaus- ja harrastevaiheessa. Tietojen säilyvyydestä tai turvallisuudesta ei anneta takuuta. Ole hyvä ja pidä varmuuskopiot tärkeistä tiedoista.",
+        "text": "{{brandName}} on tällä hetkellä testaus- ja harrastevaiheessa. Tietojen säilyvyydestä tai turvallisuudesta ei anneta takuuta. Ole hyvä ja pidä varmuuskopiot tärkeistä tiedoista.",
         "contact": "Yhteystiedot:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Kaikki oikeudet pidätetään",
+        "rights": "© {{year}} {{brandName}} - Kaikki oikeudet pidätetään",
         "contact": "Yhteystiedot:"
     },
     "settings": {
@@ -337,7 +342,8 @@
             "member_kicked": "Jäsen poistettu talosta",
             "member_kick_error": "Jäsentä ei voitu poistaa talosta",
             "recovery_key_regenerated": "Palautusavain luotu uudelleen",
-            "recovery_key_error": "Palautusavainta ei voitu luoda uudelleen"
+            "recovery_key_error": "Palautusavainta ei voitu luoda uudelleen",
+            "account_delete_error": "Tiliä ei voitu poistaa"
         },
         "user_profile": {
             "edit_username": "Vaihda käyttäjätunnus"
@@ -404,13 +410,20 @@
             "export_json": "Vie JSON-muodossa",
             "upload_backup": "Lataa varmuuskopio",
             "uploading": "Ladataan...",
-            "import_json": "Tuo JSON-muodosta"
+            "import_json": "Tuo JSON-muodosta",
+            "export_sensitive_title": "Viedyt varmuuskopiot sisältävät selväkielisiä tietoja",
+            "export_sensitive_notice": "Tämä varmuuskopio sisältää purettuja kotitaloustietoja. Säilytä se turvallisesti lataamisen jälkeen, salaa se mahdollisuuksien mukaan ja vältä sen jakamista epävarmojen kanavien kautta.",
+            "export_sensitive_confirm": "Tämä varmuuskopio sisältää puretun kotitaloustiedon selväkielisenä. Vahvistatko, että säilytät sen turvallisesti?"
         },
         "about": {
             "title": "📱 Sovelluksesta",
             "version": "Versio",
             "brand": "Brändi",
-            "feedback": "✉️ Lähetä palautetta"
+            "feedback": "✉️ Lähetä palautetta",
+            "legal_title": "Lailliset asiakirjat",
+            "legal_description": "Voit avata käyttö- ja tietosuojatekstit uudelleen täältä, vaikka olisit jo hyväksynyt ne.",
+            "terms_link": "Palveluehdot",
+            "privacy_link": "Tietosuojakäytäntö"
         },
         "modals": {
             "password": {
@@ -503,6 +516,19 @@
             "revoke_devices_desc": "poista kaikki muistetut laitteet, jotka vaativat 2FA seuraavassa kirjautumisessa",
             "devices_revoked": "{{count}} luotettu laite(t) poistettu",
             "devices_error": "Laitteiden peruuttaminen epäonnistui"
+        },
+        "danger_zone": {
+            "title": "Tili",
+            "delete_title": "Poista tili",
+            "delete_description": "Jos haluat, voit pysyvästi poistaa tähän tiliin liittyvät henkilötiedot ja ladatut tiedostot.",
+            "delete_warning": "Tätä toimintoa ei voi peruuttaa.",
+            "delete_action": "Poista tili",
+            "modal_title": "Poista tili",
+            "modal_warning_title": "Tämä toimenpide on peruuttamaton",
+            "modal_warning_body": "Vahvistuksen jälkeen menetät välittömästi pääsyn tilille, etkä voi palauttaa sovelluksen poistettuja tietoja sovelluksesta.",
+            "password_label": "Vahvista nykyisellä salasanallasi",
+            "confirm_delete": "Vahvista poisto",
+            "deleting": "Poistetaan..."
         }
     },
     "inventory": {
@@ -517,7 +543,53 @@
         "empty_filter": "Mikään kohde ei vastaa suodattimiasi",
         "empty_msg": "Kohteita ei ole lisätty vielä",
         "delete_confirm": "Haluatko varmasti poistaa tämän kohteen?",
-        "delete_error": "Poistovirhe"
+        "delete_error": "Poistovirhe",
+        "load_warning": {
+            "title": "Osittaisen latauksen tila",
+            "body": "Jotkut tukitiedot vastaavat tällä hetkellä hitaasti, joten sivu avautui ilman täydellisiä suodatusmetatietoja. Yritämme uudelleen, kun päivität."
+        },
+        "borrow": {
+            "section_title": "Lainojen seuranta",
+            "section_subtitle": "Nykyinen lainatila ja historia",
+            "dialog_lend_title": "Lainaaminen",
+            "dialog_lend_subtitle": "Luo uusi lainatieto kohteelle \"{{item}}\"",
+            "dialog_return_title": "Merkitse palautetuksi",
+            "dialog_return_subtitle": "Sulje aktiivinen lainausmerkintä kohteelle \"{{item}}\"",
+            "member": "Talon jäsen",
+            "external": "Ulkopuolinen henkilö",
+            "borrower_member": "Kuka vastaanotti sen?",
+            "no_members": "Tässä talossa ei ole muita valittavissa olevia jäseniä. Voit luoda merkinnän sen sijaan ulkopuolisena henkilönä.",
+            "borrower_name": "Henkilön nimi",
+            "borrower_name_placeholder": "esim. Naapuri Alex",
+            "borrower_contact": "Yhteystiedot",
+            "borrower_contact_placeholder": "Puhelin, sähköposti tai lyhyt muistiinpano",
+            "due_date": "Odotettu palautuspäivä",
+            "note": "Muistiinpano",
+            "note_placeholder": "esim. Lainattu viikonlopuksi",
+            "submitting_lend": "Tallennetaan...",
+            "lend": "Lainaa",
+            "return_note": "Palautusmuistiinpano",
+            "return_note_placeholder": "esim. Palautettu hyvässä kunnossa",
+            "submitting_return": "Suljetaan...",
+            "mark_returned": "Mark Palautettu",
+            "current_borrower_label": "Tällä hetkellä:",
+            "unknown": "Tuntematon",
+            "overdue_badge": "Myöhässä",
+            "borrowed_badge": "Lainassa",
+            "borrowed_to": "{{name}}:lla",
+            "due_date_short": "Eräpäivä: {{date}}",
+            "actions_error": "Lainaus-toimintoa ei voitu suorittaa",
+            "borrowed_at": "Lainattu: {{date}}",
+            "due_date_label": "Odotettu palautus: {{date}}",
+            "note_label": "Huomautus: {{note}}",
+            "return_note_label": "Palautushuomautus: {{note}}",
+            "no_active": "Tätä kohdetta ei ole tällä hetkellä lainattu.",
+            "history_title": "Historia",
+            "history_active": "Avaa tietue henkilölle {{name}}",
+            "history_returned": "Suljettu tietue käyttäjälle {{name}}",
+            "returned_at": "Palautettu: {{date}}",
+            "no_history": "Tälle tuotteelle ei ole vielä lainahistoriaa."
+        }
     },
     "categories": {
         "title": "Kategoriat",
@@ -615,7 +687,7 @@
             "free_badge": "Täysin ilmainen"
         },
         "features": {
-            "title": "Miksi <1>HomeInventory</1>?",
+            "title": "Miksi <1>{{brandName}}</1>?",
             "subtitle": "Kaikki ominaisuudet kodin hallinnan yksinkertaistamiseen yhdellä alustalla",
             "items": {
                 "categorize": {
@@ -653,7 +725,7 @@
             "desc": "Helppo ja turvallinen alusta kotisi inventaarion digitalisointiin.",
             "links": "Pikavalinnat",
             "contact": "Ota yhteyttä",
-            "copyright": "© {{year}} HomeInventory. Kaikki oikeudet pidätetään."
+            "copyright": "© {{year}} {{brandName}}. Kaikki oikeudet pidätetään."
         },
         "preview_privacy_notice": "Demonäkymä: ei näytetä todellisia käyttäjätietoja."
     },
@@ -781,10 +853,10 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Sähköpostivarmistus vaaditaan",
-            "headerTitle": "Tervetuloa HomeInventoryyn",
+            "subject": "🏠 {{brandName}} - 📧 Sähköpostivarmistus vaaditaan",
+            "headerTitle": "Tervetuloa {{brandName}}yn",
             "headerSubtitle": "Luo uusi tili tai liity olemassa olevaan taloon",
-            "greeting": "Tervetuloa HomeInventoryen",
+            "greeting": "Tervetuloa {{brandName}}en",
             "intro": "Tili luotu! Vahvista sähköpostiosoitteesi kirjautuaksesi sisään.",
             "verifyPrompt": "📧 Sähköpostivarmistus vaaditaan",
             "verifyButton": "✓ Vahvista tilini",
@@ -801,13 +873,13 @@
             ],
             "fallback": "Salasanan palautuslinkki näyttää epätäydeltä tai rikki.",
             "support": "Rekisteröitymisongelmat:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Tervetuloa HomeInventoryyn",
-            "headerTitle": "Tervetuloa HomeInventoryyn",
+            "subject": "Tervetuloa {{brandName}}yn",
+            "headerTitle": "Tervetuloa {{brandName}}yn",
             "headerSubtitle": "Luo uusi tili tai liity olemassa olevaan taloon",
-            "greeting": "Tervetuloa HomeInventoryen",
+            "greeting": "Tervetuloa {{brandName}}en",
             "intro": "Tervetuloa, ! 👋",
             "houseKeyLabel": "Talon avain",
             "houseKeyNote": "Tämä on talosi avain, käytä sitä kutsuaksesi muita. Lisää perheenjäseniä taloosi!",
@@ -849,6 +921,10 @@
             "warningBody": "Jos tili on olemassa, salasanan palautuslinkki, joka on voimassa 15 minuuttia, on lähetetty.",
             "fallback": "Salasanan palautuslinkki näyttää epätäydeltä tai rikki.",
             "footer": "© 2026 Kotivarasto"
+        },
+        "adminEmail": {
+            "sentBy": "Tämä sähköposti on lähetetty osoitteesta {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -890,7 +966,6 @@
         "record_save_new": "Lisää Holvin tietue",
         "record_save_edit": "Tallenna muutokset",
         "barcode_privacy_hint": "Holvin viivakoodeja ei haeta automaattisesti ulkoisista palveluista. viivakooditeksti tallennetaan vain salattuina tietoina.",
-        "media_note": "Valokuvat, viivakoodin skannaus ja ulkoinen tuotehaku on tarkoituksella poistettu käytöstä tässä ensimmäisessä varastotyössä. He tarvitsevat erillisen salatun media- ja tietosuojaputken.",
         "search_placeholder": "Hae varastosta...",
         "all_categories": "Kaikki luokat",
         "all_rooms": "Kaikki huoneet",
@@ -910,9 +985,112 @@
             "name_required": "Varastotietueelle vaaditaan nimikkeen nimi.",
             "options_failed": "Luokka- ja huonevaihtoehtoja ei voitu ladata."
         },
-        "recovery_file_title": "HomeInventory Henkilökohtaisen holvin palautusavain",
+        "recovery_file_title": "{{brandName}} Henkilökohtaisen holvin palautusavain",
         "recovery_file_created_label": "Luotu",
         "recovery_file_key_label": "Palautusavain",
-        "recovery_file_warning": "Jos menetät sekä tämän avaimen että holvin salasana-lauseen, holvia ei voida palauttaa."
+        "recovery_file_warning": "Jos menetät sekä tämän avaimen että holvin salasana-lauseen, holvia ei voida palauttaa.",
+        "media_note": "Valokuvien latausta, viivakoodin skannausta ja ulkoista tuotetietojen hakua ei vielä tueta. Nämä ominaisuudet lisätään, kun erillinen salattu media- ja yksityisyysvirtaus on valmis."
+    },
+    "borrow_requests": {
+        "title": "Lainakeskus",
+        "subtitle": "Hallinnoi turvallisia pyyntö- ja tarjousprosesseja muiden {{brandName}}-käyttäjien kanssa.",
+        "incoming_title": "Saapuvat pyynnöt",
+        "incoming_subtitle": "Pyynnöt ja tarjoukset, jotka on lähetetty sinulle",
+        "outgoing_title": "Lähetetty minun puolestani",
+        "outgoing_subtitle": "Tarjoukset ja alkaneet tavarapyynnöt",
+        "empty_incoming": "Sinulle ei ole tällä hetkellä lainapyyntöjä.",
+        "empty_outgoing": "Et ole vielä lähettänyt tarjousta tai pyyntöä.",
+        "stats": {
+            "incoming": "Odottavat saapuvat",
+            "outgoing": "Odottavat lähtevät",
+            "active": "Aktiiviset lainat"
+        },
+        "active": {
+            "title": "Aktiiviset lainat",
+            "subtitle": "Tavarat, jotka ovat tällä hetkellä sinulla tai joita olet lainannut",
+            "empty": "Tällä hetkellä ei ole aktiivisia lainoja.",
+            "borrowed_from": "Lainattu käyttäjältä {{name}}",
+            "lent_to": "Tällä hetkellä käyttäjällä {{name}}"
+        },
+        "status": {
+            "pending": "Odottaa",
+            "accepted": "Aktiivinen",
+            "rejected": "Hylätty",
+            "cancelled": "Peruuntunut",
+            "expired": "Vanhentunut",
+            "returned": "Palautettu"
+        },
+        "actions": {
+            "send_request": "Pyydä kohdetta",
+            "send_offer": "Lähetä tarjous",
+            "accept": "Hyväksy",
+            "reject": "Hylkää",
+            "cancel": "Peruuta",
+            "fulfill_request": "Toteuta pyyntö"
+        },
+        "labels": {
+            "offer": "Tarjous",
+            "request": "Pyyntö",
+            "unspecified_item": "Määrittelemätön kohde",
+            "counterparty": "Vastapuoli: {{name}}",
+            "created_at": "Luotu: {{date}}",
+            "due_date": "Odotettu palautus: {{date}}",
+            "waiting_delivery": "Pyyntö saattaa edelleen odottaa vastaavaa tiliä ennen kuin se näkyy.",
+            "returned_on": "Palautettu: {{date}}",
+            "borrow_started": "Aloitettu: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Lähetä tarjous",
+            "offer_subtitle_item": "Luo turvallinen käyttäjäkohtainen tarjous tuotteelle \"{{item}}\"",
+            "offer_subtitle_general": "Valitse tuotteesi varastosta ja lähetä turvallinen tarjous",
+            "item_label": "Tuote",
+            "item_placeholder": "Valitse tuote",
+            "target_label": "Käyttäjänimi tai sähköposti",
+            "target_placeholder": "esim. alex tai alex@example.com",
+            "target_help": "Järjestelmä ei paljasta, onko tämä tili olemassa. Jos se vastaa, pyyntö näkyy vastaanottajan postilaatikossa.",
+            "offer_note_placeholder": "esim. Voit pitää sitä viikonloppuun asti, jos haluat",
+            "offer_submitting": "Lähetetään...",
+            "request_title": "Pyydä kohdetta",
+            "request_subtitle": "Luo yleinen pyyntö selaamatta toisen henkilön varastoa",
+            "requested_item_label": "Mitä tarvitset?",
+            "requested_item_placeholder": "esim. Porakone, jalusta, retkituoli",
+            "request_note_placeholder": "esim. Tarvitsen sitä vain kahdeksi päiväksi",
+            "request_submitting": "Lähetetään...",
+            "fulfill_title": "Toteuta pyyntö",
+            "fulfill_subtitle": "Valitse esine varastostasi kohteelle \"{{item}}\"",
+            "fulfill_target": "Tämä esine lainataan henkilölle {{name}}.",
+            "no_available_items": "Aktiivisessa talossasi ei tällä hetkellä ole tarjottavaa kelvollista esinettä.",
+            "fulfill_submitting": "Tallennetaan...",
+            "return_title": "Merkitse palautetuksi",
+            "return_subtitle": "Sulje aktiivinen laina kohteelle \"{{item}}\"",
+            "return_target": "Se on tällä hetkellä näytetty olevan henkilöllä {{name}}."
+        },
+        "messages": {
+            "load_error": "Lainakeskusta ei voitu ladata",
+            "action_error": "Toimintoa ei voitu suorittaa"
+        },
+        "preview": {
+            "title": "Esikatselutila",
+            "body": "Tämän sivun taustajärjestelmää ei tällä hetkellä päästä käsiksi paikallisessa testauksessa. Voit silti tarkastella asettelua ja kulkua ensin; otamme palvelinpuolen käyttöön sen jälkeen, kun hyväksyt sen."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Tietosuojakäytäntö",
+        "terms_of_service_title": "Käyttöehdot",
+        "privacy_policy_content": "Yksityisyytesi on meille tärkeää. Tämä sovellus tallentaa lataamasi tiedot turvallisesti kenttätason salauksella. Emme myy tai jaa henkilötietojasi kolmansille osapuolille. Käyttämällä palvelua annat suostumuksesi tarvittavien tietojen keräämiseen tilinhallintaa ja sovelluksen toimintaa varten.",
+        "terms_of_service_content": "Käyttämällä {{brandName}}a hyväksyt nämä ehdot. Palvelu tarjotaan 'sellaisena kuin se on' ilman takuita. Olet vastuussa lataamistasi tiedoista ja siitä, että sinulla on oikeudet niihin. Pidätämme oikeuden keskeyttää tilit, jotka rikkovat sääntöjä tai väärinkäyttävät järjestelmää.",
+        "register_consent": "Olen lukenut, ymmärtänyt ja hyväksyn <1>käyttöehdot</1> ja <2>tietosuojakäytännön</2>.",
+        "consent_title": "Tarkista oikeudelliset asiakirjat",
+        "consent_subtitle": "Vahvista nykyiset ehdot ennen jatkamista.",
+        "consent_notice": "Tarvitsemme kirjallisen vahvistuksen nykyisistä Käyttöehdoista ja Tietosuojaselosteesta, ennen kuin voit jatkaa sovelluksen käyttöä.",
+        "consent_checkbox": "Hyväksyn Käyttöehdot ja vahvistan lukeneeni Tietosuojaselosteen.",
+        "consent_submit": "Jatka",
+        "consent_submitting": "Tallennetaan...",
+        "consent_required": "Sinun täytyy hyväksyä Käyttöehdot ja Tietosuojailmoitus ennen jatkamista."
+    },
+    "cookies": {
+        "banner_text": "Käytämme välttämättömiä evästeitä pitääksesi sinut kirjautuneena ja suojataksemme istuntosi. Jatkamalla tämän sivuston käyttöä hyväksyt käytäntömme.",
+        "accept": "Hyväksyn",
+        "learn_more": "Lue lisää"
     }
 }

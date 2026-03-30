@@ -1,9 +1,14 @@
 import sharp from 'sharp';
+import { MAX_PHOTO_UPLOAD_BYTES, MAX_PHOTO_UPLOAD_MB } from './mediaLimits.js';
 
 const MAX_IMAGE_PIXELS = 40_000_000;
 const ALLOWED_IMAGE_FORMATS = new Set(['jpeg', 'png', 'webp', 'gif']);
 
 export async function validateUploadedImageBuffer(buffer, { fieldLabel = 'Görsel' } = {}) {
+    if (Buffer.isBuffer(buffer) && buffer.byteLength > MAX_PHOTO_UPLOAD_BYTES) {
+        throw new Error(`${fieldLabel} en fazla ${MAX_PHOTO_UPLOAD_MB} MB olabilir`);
+    }
+
     try {
         const metadata = await sharp(buffer, {
             limitInputPixels: MAX_IMAGE_PIXELS

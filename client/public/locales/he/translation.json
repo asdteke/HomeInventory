@@ -63,7 +63,10 @@
             "warranty_duration_unit": "יחידת משך האחריות",
             "warranty_duration_months": "חודשים",
             "warranty_duration_years": "שנים",
-            "warranty_calculation_help": "אם תשאיר את תאריך תחילת האחריות ריק, תאריך החשבונית יישמש. כאשר אתה מזין את משך הזמן, תאריך סיום האחריות מחושב אוטומטית."
+            "warranty_calculation_help": "אם תשאיר את תאריך תחילת האחריות ריק, תאריך החשבונית יישמש. כאשר אתה מזין את משך הזמן, תאריך סיום האחריות מחושב אוטומטית.",
+            "vault_hint_title": "רישום רגיש מאוד?",
+            "vault_hint_description": "עבור דרכונים, תעודות, פרטי זהות, קודי גישה ורשומות אחרות שצריכות להישאר מחוץ לזרם המלאי הרגיל, שמור אותן בכספת אישית במקום.",
+            "vault_hint_action": "פתח את הכספת האישית"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" נוסף במהירות - ניתן לערוך מאוחר יותר",
@@ -74,7 +77,8 @@
             "not_found": "⚠ המוצר לא נמצא במסדי הנתונים. אתה יכול לחפש בגוגל.",
             "search_fail": "⚠ החיפוש נכשל",
             "name_required": "שם הפריט נדרש",
-            "location_add_error": "נכשל בהוספת מיקום"
+            "location_add_error": "נכשל בהוספת מיקום",
+            "photo_too_large": "תמונות יכולות להיות בגודל מקסימלי של {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,16 +103,16 @@
         "refresh": "רענן",
         "close": "סגור",
         "logout": "התנתק",
-        "copyright": "© {{year}} HomeInventory - כל הזכויות שמורות",
+        "copyright": "© {{year}} {{brandName}} - כל הזכויות שמורות",
         "other": "אחר",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "העתק",
+        "download": "הורד"
     },
     "auth": {
         "login": {
             "title": "התחבר",
             "subtitle": "נהל את כל המלאי בביתך בצורה חכמה",
-            "welcome": "ברוך הבא ל-HomeInventory",
+            "welcome": "ברוך הבא ל-{{brandName}}",
             "username_or_email": "שם משתמש או דוא\"ל",
             "password": "סיסמה",
             "forgot_password": "שכחת סיסמה?",
@@ -120,7 +124,7 @@
             "register_link": "הירשמו",
             "support_contact": "לבעיות בהתחברות:",
             "terms_title": "📋 תנאי שימוש והצהרת אחריות",
-            "terms_beta": "גרסת בטא: HomeInventory נמצאת כרגע בשלב ניסיוני. אין ערבות לתקפות או לביטחון הנתונים שלכם.",
+            "terms_beta": "גרסת בטא: {{brandName}} נמצאת כרגע בשלב ניסיוני. אין ערבות לתקפות או לביטחון הנתונים שלכם.",
             "terms_disclaimer": "הצהרת אחריות: בשימוש באפליקציה זו, אתם מסכימים שאינכם יכולים לטעון לפיצוי עקב אובדן נתונים אפשרי, בעיות גישה או תקלות טכניות אחרות.",
             "terms_backup": "גיבוי נתונים: אנו ממליצים בחום לבצע גיבוי קבוע של המידע החשוב שלכם.",
             "terms_accept": "בהתחברותכם, נחשב שאתם מקבלים תנאים אלה.",
@@ -138,7 +142,7 @@
             }
         },
         "register": {
-            "title": "ברוכים הבאים ל-HomeInventory",
+            "title": "ברוכים הבאים ל-{{brandName}}",
             "subtitle": "יצירת חשבון חדש או הצטרפות לבית קיים",
             "create_house": "צור בית חדש",
             "join_house": "הצטרף לבית",
@@ -249,7 +253,8 @@
         "admin_panel": "לוח מנהל",
         "logout": "התנתackson",
         "menu": "תפריט",
-        "personal_vault": "ארון אישי"
+        "personal_vault": "ארון אישי",
+        "borrow_requests": "בקשות הלוואה"
     },
     "dashboard": {
         "welcome": "ברוך הבא, <1>{{name}}</1>! 👋",
@@ -291,11 +296,11 @@
     },
     "beta_banner": {
         "title": "בטא:",
-        "text": "HomeInventory נמצא כרגע בשלב בדיקה ותחביב. אין ערבות לשמירת נתונים או לביטחונם. נא לשמור גיבויים של מידע חשוב.",
+        "text": "{{brandName}} נמצא כרגע בשלב בדיקה ותחביב. אין ערבות לשמירת נתונים או לביטחונם. נא לשמור גיבויים של מידע חשוב.",
         "contact": "צור קשר:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - כל הזכויות שמורות",
+        "rights": "© {{year}} {{brandName}} - כל הזכויות שמורות",
         "contact": "צור קשר:"
     },
     "settings": {
@@ -337,7 +342,8 @@
             "member_kicked": "החבר הוסר מהבית",
             "member_kick_error": "לא ניתן היה להסיר את החבר מהבית",
             "recovery_key_regenerated": "מפתח ההתאוששות נוצר מחדש",
-            "recovery_key_error": "לא ניתן היה ליצור מחדש את מפתח ההתאוששות"
+            "recovery_key_error": "לא ניתן היה ליצור מחדש את מפתח ההתאוששות",
+            "account_delete_error": "לא ניתן למחוק את החשבון"
         },
         "user_profile": {
             "edit_username": "שנה שם משתמש"
@@ -404,13 +410,20 @@
             "export_json": "ייצא כ-JSON",
             "upload_backup": "העלה גיבוי",
             "uploading": "מעלה...",
-            "import_json": "ייבא מ-JSON"
+            "import_json": "ייבא מ-JSON",
+            "export_sensitive_title": "גיבויים מיוצאים מכילים נתונים בכתב ברור",
+            "export_sensitive_notice": "גיבוי זה כולל נתוני משק בית מפוענחים. שמור אותו בבטחה לאחר ההורדה, הצפן אם אפשר, והימנע משיתוף בערוצים לא מאובטחים.",
+            "export_sensitive_confirm": "גיבוי זה יכלול נתוני משק בית מפוענחים בכתב ברור. האם אתה מאשר שתאחסן אותו בבטחה?"
         },
         "about": {
             "title": "📱 אודות האפליקציה",
             "version": "גרסה",
             "brand": "מותג",
-            "feedback": "✉️ שלח משוב"
+            "feedback": "✉️ שלח משוב",
+            "legal_title": "מסמכים משפטיים",
+            "legal_description": "ניתן לפתוח מחדש את טקסטי התנאים והפרטיות מכאן גם לאחר שקיבלת אותם.",
+            "terms_link": "תנאי השירות",
+            "privacy_link": "מדיניות פרטיות"
         },
         "modals": {
             "password": {
@@ -495,7 +508,7 @@
             "done": "סיימתי",
             "regenerate_codes": "לשחזר קודי גיבוי",
             "regenerate_codes_desc": "ליצור קודי גיבוי חדשים (הישנים יבוטלו)",
-            "regenerate": "Regenerate",
+            "regenerate": "צור מחדש",
             "codes_regenerated": "קודי גיבוי שוחזרו",
             "codes_error": "נכשל ביצירת קודי גיבוי",
             "close_codes": "סגירת",
@@ -503,6 +516,19 @@
             "revoke_devices_desc": "הסרה של מכשירים מהימנים כל המכשירים שנזכרו, דורשים אימות דו-שלבי בכניסה הבאה",
             "devices_revoked": "{{count}} התקנים(ים) מהימנים הוסרו",
             "devices_error": "נכשל בביטול התקנים"
+        },
+        "danger_zone": {
+            "title": "חשבון",
+            "delete_title": "מחיקת חשבון",
+            "delete_description": "אם אתה רוצה, אתה יכול להסיר לצמיתות את הנתונים האישיים והקבצים שהועלו הקשורים לחשבון זה.",
+            "delete_warning": "פעולה זו אינה ניתנת לביטול.",
+            "delete_action": "מחיקת חשבון",
+            "modal_title": "מחיקת חשבון",
+            "modal_warning_title": "פעולה זו אינה ניתנת לביטול",
+            "modal_warning_body": "לאחר האישור, תאבד מיד את הגישה לחשבון ונתוני האפליקציה שנמחקו אינם ניתנים לשחזור מהאפליקציה.",
+            "password_label": "אשר עם הסיסמה הנוכחית שלך",
+            "confirm_delete": "אשר מחיקה",
+            "deleting": "נמחק..."
         }
     },
     "inventory": {
@@ -517,7 +543,53 @@
         "empty_filter": "אין פריטים התואמים את המסננים שלך",
         "empty_msg": "לא נוספו פריטים עדיין",
         "delete_confirm": "האם אתה בטוח שברצונך למחוק פריט זה?",
-        "delete_error": "שגיאת מחיקה"
+        "delete_error": "שגיאת מחיקה",
+        "load_warning": {
+            "title": "מצב טעינה חלקי",
+            "body": "חלק מהנתונים התומכים מגיבים לאט כרגע, ולכן הדף נפתח ללא כל המטא-דאטה של המסנן. אנו ננסה שוב כאשר תתרענן."
+        },
+        "borrow": {
+            "section_title": "מעקב הלוואות",
+            "section_subtitle": "סטטוס ההלוואה הנוכחי וההיסטוריה",
+            "dialog_lend_title": "להשאיל פריט",
+            "dialog_lend_subtitle": "ליצור רשומת הלוואה חדשה עבור \"{{item}}\"",
+            "dialog_return_title": "סמן כהוחזר",
+            "dialog_return_subtitle": "סגור את רשומת ההשאלה הפעילה עבור \"{{item}}\"",
+            "member": "חבר הבית",
+            "external": "אדם חיצוני",
+            "borrower_member": "מי קיבל זאת?",
+            "no_members": "אין חבר אחר שניתן לבחור בתוך הבית הזה. ניתן ליצור את הרשומה כאדם חיצוני במקום זאת.",
+            "borrower_name": "שם האדם",
+            "borrower_name_placeholder": "לדוגמה: שכן אלכס",
+            "borrower_contact": "פרטי קשר",
+            "borrower_contact_placeholder": "טלפון, דואר אלקטרוני, או פתק קצר",
+            "due_date": "תאריך החזרה משוער",
+            "note": "פתק",
+            "note_placeholder": "לדוגמה: נשלח לסוף השבוע",
+            "submitting_lend": "שמירה...",
+            "lend": "להלוות",
+            "return_note": "פתק החזרה",
+            "return_note_placeholder": "לדוגמה: הוחזר במצב טוב",
+            "submitting_return": "סגירה...",
+            "mark_returned": "סימון הוחזר",
+            "current_borrower_label": "כרגע עם:",
+            "unknown": "נבדק",
+            "overdue_badge": "פג תוקף",
+            "borrowed_badge": "מושאל",
+            "borrowed_to": "עם {{name}}",
+            "due_date_short": "מועד אחרון: {{date}}",
+            "actions_error": "לא ניתן להשלים את פעולת ההשאלה",
+            "borrowed_at": "הושאל בתאריך: {{date}}",
+            "due_date_label": "החזרה צפויה: {{date}}",
+            "note_label": "הערה: {{note}}",
+            "return_note_label": "הערת החזרה: {{note}}",
+            "no_active": "פריט זה אינו מושאל כרגע.",
+            "history_title": "היסטוריה",
+            "history_active": "פתח את הרשומה עבור {{name}}",
+            "history_returned": "רשומה סגורה עבור {{name}}",
+            "returned_at": "הוחזר בתאריך: {{date}}",
+            "no_history": "אין עדיין היסטוריית השאלות עבור פריט זה."
+        }
     },
     "categories": {
         "title": "קטגוריות",
@@ -615,7 +687,7 @@
             "free_badge": "חינם לחלוטין"
         },
         "features": {
-            "title": "למה <1>HomeInventory</1>?",
+            "title": "למה <1>{{brandName}}</1>?",
             "subtitle": "כל הפיצ'רים לפישוט ניהול הבית בפלטפורמה אחת",
             "items": {
                 "categorize": {
@@ -653,7 +725,7 @@
             "desc": "הפלטפורמה הקלה והבטוחה לדיגיטציה של מלאי הבית שלך.",
             "links": "קישורים מהירים",
             "contact": "צרו איתנו קשר",
-            "copyright": "© {{year}} HomeInventory. כל הזכויות שמורות."
+            "copyright": "© {{year}} {{brandName}}. כל הזכויות שמורות."
         },
         "preview_privacy_notice": "הצגת הדגמה: אין הצגת נתוני משתמש אמיתיים."
     },
@@ -781,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 דרושה אימות דוא\"ל",
-            "headerTitle": "ברוכים הבאים ל-HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 דרושה אימות דוא\"ל",
+            "headerTitle": "ברוכים הבאים ל-{{brandName}}",
             "headerSubtitle": "יצירת חשבון חדש או הצטרפות לבית קיים",
-            "greeting": "ברוך הבא ל-HomeInventory",
+            "greeting": "ברוך הבא ל-{{brandName}}",
             "intro": "החשבון נוצר! נא לאמת את כתובת הדוא\"ל שלך כדי להתחבר.",
             "verifyPrompt": "📧 דרושה אימות דוא\"ל",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ אשר את חשבוני",
             "warningTitle": "⚠️",
             "warningBody": "בדוק את תיקיית הספאם/זבל אם המייל לא מגיע.",
             "houseKeyLabel": "מפתח בית",
@@ -801,13 +873,13 @@
             ],
             "fallback": "נראה שקישור איפוס הסיסמה אינו מושלם או שבור.",
             "support": "בעיות רישום:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "ברוכים הבאים ל-HomeInventory",
-            "headerTitle": "ברוכים הבאים ל-HomeInventory",
+            "subject": "ברוכים הבאים ל-{{brandName}}",
+            "headerTitle": "ברוכים הבאים ל-{{brandName}}",
             "headerSubtitle": "יצירת חשבון חדש או הצטרפות לבית קיים",
-            "greeting": "ברוך הבא ל-HomeInventory",
+            "greeting": "ברוך הבא ל-{{brandName}}",
             "intro": "ברוך הבא, ! 👋",
             "houseKeyLabel": "מפתח בית",
             "houseKeyNote": "זהו מפתח הבית שלכם, השתמשו בו כדי להזמין אחרים. הוסיפו בני משפחה לביתכם!",
@@ -819,7 +891,7 @@
                 "💡 אתה יכול להיות חבר בכמה בתים ולעבור ביניהם. כל בית שומר רשימת מלאי נפרדת."
             ],
             "support": "בעיות רישום:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "הצטרף לבית",
@@ -828,7 +900,7 @@
             "bodyLine2": "ממתין לאישור בעל הבית"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "גישה לבית",
             "bodyLine1Template": "בקשה ממתינה נוכחית: {{house}} ({{status}})",
             "bodyLine2": "הבקשה שלך ל\"{{house}}\" עדיין ממתינה להחלטה."
@@ -848,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "אם קיים חשבון, נשלח קישור לאיפוס הסיסמה בתוקף ל-15 דקות.",
             "fallback": "נראה שקישור איפוס הסיסמה אינו מושלם או שבור.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "דוא\"ל זה נשלח על ידי {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -890,7 +966,6 @@
         "record_save_new": "הוסף רשומה למאגר",
         "record_save_edit": "שמור שינויים",
         "barcode_privacy_hint": "קודי הברקוד של המאגר לא נבדקים אוטומטית על ידי שירותים חיצוניים; הטקסט של הברקוד נשמר רק כנתונים מוצפנים.",
-        "media_note": "צילום תמונות, סריקת ברקוד וחיפוש מוצר חיצוני מושבתים בכוונה במהלך המאגר הראשון הזה. הם זקוקים לצינור נפרד של מדיה מוצפנת ופרטיות.",
         "search_placeholder": "חפש בתוך הכספת...",
         "all_categories": "כל הקטגוריות",
         "all_rooms": "כל החדרים",
@@ -910,9 +985,112 @@
             "name_required": "נדרש שם פריט עבור רשומת הכספת.",
             "options_failed": "לא ניתן לטעון את אפשרויות הקטגוריה והחדר."
         },
-        "recovery_file_title": "מפתח שחזור למאגר האישי של HomeInventory",
+        "recovery_file_title": "מפתח שחזור למאגר האישי של {{brandName}}",
         "recovery_file_created_label": "נוצר",
         "recovery_file_key_label": "מפתח שחזור",
-        "recovery_file_warning": "אם תאבד גם את המפתח הזה וגם את סיסמת המאגר שלך, לא ניתן יהיה לשחזר את המאגר."
+        "recovery_file_warning": "אם תאבד גם את המפתח הזה וגם את סיסמת המאגר שלך, לא ניתן יהיה לשחזר את המאגר.",
+        "media_note": "העלאות תמונות, סריקת ברקוד וחיפוש מוצר חיצוני עדיין לא נתמכים. תכונות אלה יתווספו ברגע שזרימת מדיה מוצפנת ומוקדשת לפרטיות תהיה מוכנה."
+    },
+    "borrow_requests": {
+        "title": "מרכז השאלות",
+        "subtitle": "נהל בקשות ואפשרויות מאובטחות עם משתמשי {{brandName}} אחרים.",
+        "incoming_title": "בקשות נכנסות",
+        "incoming_subtitle": "בקשות והצעות שנשלחו אליך",
+        "outgoing_title": "נשלח על ידי",
+        "outgoing_subtitle": "הצעות ובקשות פריטים שהתחלת",
+        "empty_incoming": "אין כרגע בקשות השאלה עבורך.",
+        "empty_outgoing": "לא שלחת עדיין הצעה או בקשה.",
+        "stats": {
+            "incoming": "ממתינים נכנסים",
+            "outgoing": "ממתינים יוצאים",
+            "active": "השאלות פעילות"
+        },
+        "active": {
+            "title": "השאלות פעילות",
+            "subtitle": "פריטים הנמצאים כרגע אצלך או מושאלים על ידך",
+            "empty": "אין הלוואות פעילות כרגע.",
+            "borrowed_from": "נלווה מ-{{name}}",
+            "lent_to": "נמצא כרגע אצל {{name}}"
+        },
+        "status": {
+            "pending": "בהמתנה",
+            "accepted": "פעיל",
+            "rejected": "נדחה",
+            "cancelled": "מבוטל",
+            "expired": "פג תוקף",
+            "returned": "הוחזר"
+        },
+        "actions": {
+            "send_request": "בקשת פריט",
+            "send_offer": "שלח הצעה",
+            "accept": "קבל",
+            "reject": "דחה",
+            "cancel": "בטל",
+            "fulfill_request": "מימוש בקשה"
+        },
+        "labels": {
+            "offer": "הצעה",
+            "request": "בקשה",
+            "unspecified_item": "פריט לא מוגדר",
+            "counterparty": "צד שני: {{name}}",
+            "created_at": "נוצר בתאריך: {{date}}",
+            "due_date": "החזרה צפויה: {{date}}",
+            "waiting_delivery": "ייתכן שהבקשה עדיין ממתינה לחשבון תואם לפני שהיא תופיע.",
+            "returned_on": "הוחזר בתאריך: {{date}}",
+            "borrow_started": "התחיל בתאריך: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "שלח הצעה",
+            "offer_subtitle_item": "צור הצעת משתמש מאובטחת עבור \"{{item}}\"",
+            "offer_subtitle_general": "בחר פריט מהמלאי שלך ושלח הצעה מאובטחת",
+            "item_label": "פריט",
+            "item_placeholder": "בחר פריט",
+            "target_label": "שם משתמש או דואר אלקטרוני",
+            "target_placeholder": "לדוגמה alex או alex@example.com",
+            "target_help": "המערכת לא חושפת אם החשבון הזה קיים. אם יש התאמה, הבקשה תופיע בתיבת הדואר הנכנס של הנמען.",
+            "offer_note_placeholder": "למשל, אתה יכול לשמור אותו עד סוף השבוע אם אתה רוצה",
+            "offer_submitting": "נשלח...",
+            "request_title": "בקשת פריט",
+            "request_subtitle": "צור בקשה כללית ללא עיון במלאי של האדם האחר",
+            "requested_item_label": "מה אתה צריך?",
+            "requested_item_placeholder": "למשל, מקדחה, חצובה, כיסא קמפינג",
+            "request_note_placeholder": "למשל, אני צריך את זה רק ליומיים",
+            "request_submitting": "נשלח...",
+            "fulfill_title": "מלא בקשה",
+            "fulfill_subtitle": "בחר פריט ממלאי שלך עבור \"{{item}}\"",
+            "fulfill_target": "פריט זה יושאל ל-{{name}}.",
+            "no_available_items": "אין פריט מתאים להציע בבית הפעיל שלך כרגע.",
+            "fulfill_submitting": "שומר...",
+            "return_title": "סמן כהוחזר",
+            "return_subtitle": "סגור את ההשאלה הפעילה עבור \"{{item}}\"",
+            "return_target": "הוא מוצג כרגע אצל {{name}}."
+        },
+        "messages": {
+            "load_error": "מרכז ההשאלה לא נטען",
+            "action_error": "הפעולה לא הושלמה"
+        },
+        "preview": {
+            "title": "מצב תצוגה מקדימה",
+            "body": "החלק האחורי של דף זה אינו נגיש בבדיקות מקומיות כרגע. אתה עדיין יכול לבדוק את הפריסה והזרימה קודם; אנו נפעיל את צד השרת לאחר שתאשר זאת."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "מדיניות פרטיות",
+        "terms_of_service_title": "תנאי שירות",
+        "privacy_policy_content": "הפרטיות שלך חשובה לנו. יישום זה מאחסן את הנתונים שהועלו על ידך בצורה מאובטחת באמצעות הצפנה ברמת שדה. אנו לא מוכרים או משתפים את הנתונים האישיים שלך עם צדדים שלישיים. בשימוש בשירות, אתה מסכים לאיסוף נתונים נחוצים לניהול חשבון ולתפקוד היישום.",
+        "terms_of_service_content": "בשימוש ב-{{brandName}}, אתה מסכים לתנאים אלה. השירות ניתן 'כפי שהוא' ללא אחריות. הנך אחראי על הנתונים שאתה מעלה ועל הבטחת שיש לך זכויות לגביהם. אנו שומרים לעצמנו את הזכות להשעות חשבונות המפרים את המדיניות או מתעללים במערכת.",
+        "register_consent": "קראתי, הבנתי, ואני מסכים ל<1>תנאי השירות</1> ול<2>מדיניות הפרטיות</2>.",
+        "consent_title": "סקירת מסמכים משפטיים",
+        "consent_subtitle": "אנא אשר את התנאים הנוכחיים לפני ההמשך.",
+        "consent_notice": "אנו זקוקים לאישור מתועד עבור תנאי השירות ומדיניות הפרטיות הנוכחיים לפני שתוכל להמשיך להשתמש באפליקציה.",
+        "consent_checkbox": "אני מסכים לתנאי השירות ומאשר שקראתי את הודעת הפרטיות.",
+        "consent_submit": "המשך",
+        "consent_submitting": "שמירה...",
+        "consent_required": "אתה צריך לאשר את תנאי השירות וההודעה על הפרטיות לפני שתמשיך."
+    },
+    "cookies": {
+        "banner_text": "אנו משתמשים בעוגיות חיוניות כדי לשמור עליך מחובר ולהבטיח את המפגש שלך. בהמשך השימוש באתר זה, אתה מסכים למדיניות שלנו.",
+        "accept": "אני מסכים",
+        "learn_more": "למידע נוסף"
     }
 }

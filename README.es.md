@@ -42,6 +42,7 @@
 - ✅ **2FA y dispositivos de confianza** — Apps TOTP, códigos de respaldo de un solo uso y controles para recordar dispositivos
 - 🔒 **Bóveda personal** — Claves de bóveda generadas en el navegador y registros cifrados para información de alta sensibilidad
 - 👨‍💼 **Panel de administración** — Gestión de usuarios, bloqueos, envío de correos y registros del sistema
+- 🤝 **Sistema de Préstamos** — Rastrear artículos prestados y tomados en préstamo, administrar solicitudes, establecer fechas de vencimiento y monitorear estados
 - 📧 **Sistema de correo** — Correos transaccionales vía API de Resend (verificación, avisos de admin)
 - 💾 **Respaldo y restauración** — Exporta e importa tus datos de inventario
 - 🌍 **100+ idiomas** — La interfaz incluye más de 100 idiomas seleccionables para acceso global
@@ -272,6 +273,8 @@ Home-inventory/
 │   ├── locations.js          # Gestión de ubicaciones
 │   ├── barcode.js            # Búsqueda & escaneo de códigos de barras
 │   ├── houses.js             # Gestión multi-hogar
+│   ├── borrowRequests.js     # Sistema de préstamos & seguimiento
+│   ├── vault.js              # Endpoints de la bóveda personal
 │   ├── admin.js              # Endpoints del panel de admin
 │   ├── admin-email.js        # Envío de correo del admin
 │   ├── email.js              # Verificación de correo & estado
@@ -341,6 +344,8 @@ Home-inventory/
 | `GET` | `/api/categories` | Listar categorías |
 | `GET` | `/api/rooms` | Listar habitaciones |
 | `GET` | `/api/houses` | Listar hogares del usuario |
+| `GET/POST`| `/api/borrow-requests` | Endpoints del sistema de préstamos |
+| `GET/POST`| `/api/vault` | Endpoints de la bóveda personal |
 | `GET` | `/api/admin/*` | Endpoints del panel de admin |
 | `GET` | `/api/health` | Verificación de salud |
 

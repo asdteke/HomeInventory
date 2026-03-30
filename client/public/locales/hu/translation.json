@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Jótállás időtartam egysége",
             "warranty_duration_months": "Hónap",
             "warranty_duration_years": "Év",
-            "warranty_calculation_help": "Ha üresen hagyja a garancia kezdő dátumát, a számla dátuma lesz használva. Amikor megadja az időtartamot, a garancia végső dátuma automatikusan kiszámításra kerül."
+            "warranty_calculation_help": "Ha üresen hagyja a garancia kezdő dátumát, a számla dátuma lesz használva. Amikor megadja az időtartamot, a garancia végső dátuma automatikusan kiszámításra kerül.",
+            "vault_hint_title": "Nagyon érzékeny felvétel?",
+            "vault_hint_description": "Útlevelekhez, okiratokhoz, személyazonosító adatokhoz, hozzáférési kódokhoz és más olyan feljegyzésekhez, amelyeknek kívül kell maradniuk a szabványos készletáramláson, inkább a Személyes Trezorban tárolja őket.",
+            "vault_hint_action": "Személyes Trezor megnyitása"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" gyorsan hozzáadva - később szerkesztheted",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Terméket nem található az adatbázisokban. Kereshet a Google-on.",
             "search_fail": "⚠ A keresés sikertelen",
             "name_required": "A tétel neve kötelező",
-            "location_add_error": "Sikertelen hely hozzáadása"
+            "location_add_error": "Sikertelen hely hozzáadása",
+            "photo_too_large": "A fényképek legfeljebb {{maxSizeMb}} MB méretűek lehetnek."
         }
     },
     "common": {
@@ -99,16 +103,16 @@
         "refresh": "Frissítés",
         "close": "Bezárás",
         "logout": "Kijelentkezés",
-        "copyright": "© {{year}} HomeInventory - Minden jog fenntartva",
+        "copyright": "© {{year}} {{brandName}} - Minden jog fenntartva",
         "other": "Egyéb",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "Másolás",
+        "download": "Letöltés"
     },
     "auth": {
         "login": {
             "title": "Bejelentkezés",
             "subtitle": "Kezelje okosan az összes otthoni készletét",
-            "welcome": "Üdvözöljük a HomeInventory-ban",
+            "welcome": "Üdvözöljük a {{brandName}}-ban",
             "username_or_email": "Felhasználónév vagy e-mail",
             "password": "Jelszó",
             "forgot_password": "Elfelejtett jelszó?",
@@ -120,7 +124,7 @@
             "register_link": "Regisztráció",
             "support_contact": "Bejelentkezési problémák esetén:",
             "terms_title": "📋 Felhasználási feltételek és nyilatkozat",
-            "terms_beta": "BETA verzió: A HomeInventory jelenleg tesztelési fázisban van. Nem garantáljuk az adatok tartósságát vagy biztonságát.",
+            "terms_beta": "BETA verzió: A {{brandName}} jelenleg tesztelési fázisban van. Nem garantáljuk az adatok tartósságát vagy biztonságát.",
             "terms_disclaimer": "Nyilatkozat: Ezt az alkalmazást használva elfogadja, hogy nem támaszthat igényt esetleges adatvesztés, hozzáférési problémák vagy egyéb technikai hibák miatt.",
             "terms_backup": "Adatmentés: Erősen ajánljuk, hogy rendszeresen készítsen biztonsági másolatot fontos adatairól.",
             "terms_accept": "A bejelentkezéssel azzal kerül elfogadásra, hogy elfogadja ezeket a feltételeket.",
@@ -138,7 +142,7 @@
             }
         },
         "register": {
-            "title": "Üdvözöljük a HomeInventory-ban",
+            "title": "Üdvözöljük a {{brandName}}-ban",
             "subtitle": "Hozzon létre egy új fiókot vagy csatlakozzon egy meglévő házhoz",
             "create_house": "Új ház létrehozása",
             "join_house": "Csatlakozás házhoz",
@@ -249,7 +253,8 @@
         "admin_panel": "Adminisztrációs panel",
         "logout": "Kijelentkezés",
         "menu": "Menü",
-        "personal_vault": "Személyes Lakat"
+        "personal_vault": "Személyes Lakat",
+        "borrow_requests": "Kölcsönkérések"
     },
     "dashboard": {
         "welcome": "Üdvözlünk, <1>{{name}}</1>! 👋",
@@ -291,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BÉTA:",
-        "text": "A HomeInventory jelenleg tesztelési és hobbi fázisban van. Az adatok megőrzésére vagy biztonságára nincs garancia. Kérjük, készítsen biztonsági mentést a fontos információkról.",
+        "text": "A {{brandName}} jelenleg tesztelési és hobbi fázisban van. Az adatok megőrzésére vagy biztonságára nincs garancia. Kérjük, készítsen biztonsági mentést a fontos információkról.",
         "contact": "Kapcsolat:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Minden jog fenntartva",
+        "rights": "© {{year}} {{brandName}} - Minden jog fenntartva",
         "contact": "Kapcsolat:"
     },
     "settings": {
@@ -337,7 +342,8 @@
             "member_kicked": "Tag eltávolítva a házból",
             "member_kick_error": "Nem sikerült eltávolítani a tagot a házból",
             "recovery_key_regenerated": "Helyreállítási kulcs újragenerálva",
-            "recovery_key_error": "Nem sikerült újragenerálni a helyreállítási kulcsot"
+            "recovery_key_error": "Nem sikerült újragenerálni a helyreállítási kulcsot",
+            "account_delete_error": "A fiókot nem lehetett törölni"
         },
         "user_profile": {
             "edit_username": "Felhasználónév megváltoztatása"
@@ -404,13 +410,20 @@
             "export_json": "JSON formátumban exportálás",
             "upload_backup": "Biztonsági mentés feltöltése",
             "uploading": "Feltöltés...",
-            "import_json": "JSON-ból importálás"
+            "import_json": "JSON-ból importálás",
+            "export_sensitive_title": "Az exportált biztonsági mentések tartalmaznak titkosítatlan adatokat",
+            "export_sensitive_notice": "Ez a biztonsági mentés dekódolt háztartási adatokat tartalmaz. Töltés után tárolja biztonságosan, ha lehetséges, titkosítsa, és kerülje a megosztást nem biztonságos csatornákon keresztül.",
+            "export_sensitive_confirm": "Ez a biztonsági mentés dekódolt háztartási adatokat tartalmaz titkosítatlan formában. Megerősíti, hogy biztonságosan fogja tárolni?"
         },
         "about": {
             "title": "📱 Az alkalmazásról",
             "version": "Verzió",
             "brand": "Márka",
-            "feedback": "✉️ Visszajelzés küldése"
+            "feedback": "✉️ Visszajelzés küldése",
+            "legal_title": "Jogi dokumentumok",
+            "legal_description": "A feltételeket és az adatvédelmi szövegeket itt újra megnyithatod még az elfogadás után is.",
+            "terms_link": "Felhasználási feltételek",
+            "privacy_link": "Adatvédelmi irányelvek"
         },
         "modals": {
             "password": {
@@ -503,6 +516,19 @@
             "revoke_devices_desc": "Eltávolítottam minden megemlékezett eszköz, amely 2FA szükséges a következő bejelentkezésnél,",
             "devices_revoked": "{{count}} megbízható eszköz(ek) eltávolítottak",
             "devices_error": "Nem sikerült visszavonni az eszközöket"
+        },
+        "danger_zone": {
+            "title": "Fiók",
+            "delete_title": "Fiók törlése",
+            "delete_description": "Ha szeretné, véglegesen eltávolíthatja a személyes adatokat és a fiókhoz feltöltött fájlokat.",
+            "delete_warning": "Ezt a műveletet nem lehet visszavonni.",
+            "delete_action": "Fiók törlése",
+            "modal_title": "Fiók törlése",
+            "modal_warning_title": "Ez a művelet visszafordíthatatlan",
+            "modal_warning_body": "A megerősítés után azonnal elveszíted a hozzáférést a fiókhoz, és a törölt alkalmazásadatok az alkalmazásból nem állíthatók vissza.",
+            "password_label": "Erősítsd meg a jelenlegi jelszavaddal",
+            "confirm_delete": "Törlés megerősítése",
+            "deleting": "Törlés folyamatban..."
         }
     },
     "inventory": {
@@ -517,7 +543,53 @@
         "empty_filter": "Egyetlen tétel sem felel meg a szűrőidnek",
         "empty_msg": "Még nem lett tétel hozzáadva",
         "delete_confirm": "Biztosan törölni szeretnéd ezt a tételt?",
-        "delete_error": "Törlési hiba"
+        "delete_error": "Törlési hiba",
+        "load_warning": {
+            "title": "Részleges betöltési mód",
+            "body": "Néhány támogató adat most lassan válaszol, így az oldal teljes szűrő metaadatok nélkül nyílt meg. Újra megpróbáljuk, amikor frissíted."
+        },
+        "borrow": {
+            "section_title": "Kölcsönkövetés",
+            "section_subtitle": "Jelenlegi kölcsön állapot és előzmények",
+            "dialog_lend_title": "Könyv kölcsönzése",
+            "dialog_lend_subtitle": "Új kölcsön felvétele a(z) \"{{item}}\" számára",
+            "dialog_return_title": "Visszavéve jelölés",
+            "dialog_return_subtitle": "Zárja le az aktív kölcsönzési nyilvántartást a(z) \"{{item}}\" esetében",
+            "member": "Háztag",
+            "external": "Külső személy",
+            "borrower_member": "Ki kapta meg?",
+            "no_members": "Nincs más kiválasztható tag ebben a házban. Ehelyett létrehozhatja a nyilvántartást külső személyként.",
+            "borrower_name": "Személy neve",
+            "borrower_name_placeholder": "pl. Szomszéd Alex",
+            "borrower_contact": "Kapcsolattartási információ",
+            "borrower_contact_placeholder": "Telefon, e-mail vagy rövid jegyzet",
+            "due_date": "Várható visszavételi dátum",
+            "note": "Megjegyzés",
+            "note_placeholder": "pl. Kölcsönadva a hétvégére",
+            "submitting_lend": "Mentés...",
+            "lend": "Kölcsönadás",
+            "return_note": "Visszavételi jegyzet",
+            "return_note_placeholder": "pl. Jó állapotban visszaadva",
+            "submitting_return": "Bezárás...",
+            "mark_returned": "Visszahozva",
+            "current_borrower_label": "Jelenleg nála:",
+            "unknown": "Ismeretlen",
+            "overdue_badge": "Késedelmes",
+            "borrowed_badge": "Kölcsönözve",
+            "borrowed_to": "Nálad: {{name}}",
+            "due_date_short": "Esedékes: {{date}}",
+            "actions_error": "A kölcsönzés nem hajtható végre",
+            "borrowed_at": "Kölcsönadva: {{date}}",
+            "due_date_label": "Várható visszahozatal: {{date}}",
+            "note_label": "Megjegyzés: {{note}}",
+            "return_note_label": "Visszahozatali megjegyzés: {{note}}",
+            "no_active": "Ez az elem jelenleg nincs kikölcsönözve.",
+            "history_title": "Előzmények",
+            "history_active": "Rekord megnyitása: {{name}}",
+            "history_returned": "Lezárt nyilvántartás {{name}} számára",
+            "returned_at": "Visszaküldve: {{date}}",
+            "no_history": "Ehhez a tételhez még nincs kölcsönzési előzmény."
+        }
     },
     "categories": {
         "title": "Kategóriák",
@@ -615,7 +687,7 @@
             "free_badge": "Teljesen ingyenes"
         },
         "features": {
-            "title": "Miért a <1>HomeInventory</1>?",
+            "title": "Miért a <1>{{brandName}}</1>?",
             "subtitle": "Minden funkció egy platformon az otthon menedzselésének egyszerűsítésére",
             "items": {
                 "categorize": {
@@ -653,7 +725,7 @@
             "desc": "Az egyszerű és biztonságos platform az otthoni készlet digitalizálásához.",
             "links": "Gyors hivatkozások",
             "contact": "Kapcsolatfelvétel",
-            "copyright": "© {{year}} HomeInventory. Minden jog fenntartva."
+            "copyright": "© {{year}} {{brandName}}. Minden jog fenntartva."
         },
         "preview_privacy_notice": "Demó nézet: valós felhasználói adat nem jelenik meg."
     },
@@ -781,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Email cím megerősítése szükséges",
-            "headerTitle": "Üdvözöljük a HomeInventory-ban",
+            "subject": "🏠 {{brandName}} - 📧 Email cím megerősítése szükséges",
+            "headerTitle": "Üdvözöljük a {{brandName}}-ban",
             "headerSubtitle": "Hozzon létre egy új fiókot vagy csatlakozzon egy meglévő házhoz",
-            "greeting": "Üdvözöljük a HomeInventory-ban",
+            "greeting": "Üdvözöljük a {{brandName}}-ban",
             "intro": "Fiók létrehozva! Kérjük, erősítse meg email címét a bejelentkezéshez.",
             "verifyPrompt": "📧 Email cím megerősítése szükséges",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Fiókom megerősítése",
             "warningTitle": "⚠️",
             "warningBody": "Ellenőrizd a spam/levélszemét mappát, ha az e-mail nem érkezik meg.",
             "houseKeyLabel": "Háztkulcs",
@@ -801,13 +873,13 @@
             ],
             "fallback": "A jelszó-visszaállító link hiányosnak vagy sérültnek tűnik.",
             "support": "Regisztrációs problémák:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Üdvözöljük a HomeInventory-ban",
-            "headerTitle": "Üdvözöljük a HomeInventory-ban",
+            "subject": "Üdvözöljük a {{brandName}}-ban",
+            "headerTitle": "Üdvözöljük a {{brandName}}-ban",
             "headerSubtitle": "Hozzon létre egy új fiókot vagy csatlakozzon egy meglévő házhoz",
-            "greeting": "Üdvözöljük a HomeInventory-ban",
+            "greeting": "Üdvözöljük a {{brandName}}-ban",
             "intro": "Üdvözlünk, ! 👋",
             "houseKeyLabel": "Háztkulcs",
             "houseKeyNote": "Ez az Ön házának kulcsa, használja mások meghívásához. Adjon hozzá családtagokat a házához!",
@@ -819,7 +891,7 @@
                 "💡 Több ház tagja is lehet, és válthat közöttük. Minden ház külön készletet tart fenn."
             ],
             "support": "Regisztrációs problémák:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Csatlakozás házhoz",
@@ -828,7 +900,7 @@
             "bodyLine2": "Várakozás a ház tulajdonosának jóváhagyására"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Házhoz való hozzáférés",
             "bodyLine1Template": "Jelenlegi függő kérelem: {{house}} ({{status}})",
             "bodyLine2": "Kérésed a(z) \"{{house}}\" házhoz még mindig döntésre vár."
@@ -848,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Ha létezik a fiók, 15 percig érvényes jelszó-visszaállító link került elküldésre.",
             "fallback": "A jelszó-visszaállító link hiányosnak vagy sérültnek tűnik.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 OtthonKészlet"
+        },
+        "adminEmail": {
+            "sentBy": "Ezt az e-mailt a {{brandName}} küldte.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -890,7 +966,6 @@
         "record_save_new": "Tároló Bejegyzés Hozzáadása",
         "record_save_edit": "Változtatások Mentése",
         "barcode_privacy_hint": "A tároló vonalkódjait nem keresik automatikusan külső szolgáltatásokban; a vonalkód szövege csak titkosított adatként van eltárolva.",
-        "media_note": "A fényképek, vonalkódolvasás és a külső termékkeresés szándékosan le van tiltva ezen az első tároló folyamaton. Ezekhez külön titkosított média- és adatvédelmi folyamat szükséges.",
         "search_placeholder": "Keresés a trezorban...",
         "all_categories": "Minden kategória",
         "all_rooms": "Minden szoba",
@@ -910,9 +985,112 @@
             "name_required": "Egy elem neve szükséges a páncélszekrény bejegyzéséhez.",
             "options_failed": "A kategória- és szobaválasztási lehetőségek nem tölthetők be."
         },
-        "recovery_file_title": "HomeInventory Személyes Trezor Helyreállítási Kulcs",
+        "recovery_file_title": "{{brandName}} Személyes Trezor Helyreállítási Kulcs",
         "recovery_file_created_label": "Létrehozva",
         "recovery_file_key_label": "Helyreállítási Kulcs",
-        "recovery_file_warning": "Ha elveszíti ezt a kulcsot és a trezor jelszavát is, a trezor nem állítható vissza."
+        "recovery_file_warning": "Ha elveszíti ezt a kulcsot és a trezor jelszavát is, a trezor nem állítható vissza.",
+        "media_note": "A fényképek feltöltése, vonalkód beolvasása és külső termékkeresés még nem támogatott. Ezek a funkciók hozzáadásra kerülnek, amint elkészül egy dedikált titkosított média- és adatvédelmi folyamat."
+    },
+    "borrow_requests": {
+        "title": "Kölcsönzési Központ",
+        "subtitle": "Kezelje a biztonságos kérések és ajánlatok folyamatait más {{brandName}} felhasználókkal.",
+        "incoming_title": "Bejövő kérések",
+        "incoming_subtitle": "Önhöz küldött kérések és ajánlatok",
+        "outgoing_title": "Általam küldve",
+        "outgoing_subtitle": "Általad indított ajánlatok és tárgykérések",
+        "empty_incoming": "Jelenleg nincs kölcsönkérése számodra.",
+        "empty_outgoing": "Még nem küldtél ajánlatot vagy kérelmet.",
+        "stats": {
+            "incoming": "Függőben lévő bejövő",
+            "outgoing": "Függőben lévő kimenő",
+            "active": "Aktív kölcsönzések"
+        },
+        "active": {
+            "title": "Aktív kölcsönzések",
+            "subtitle": "Jelenleg nálad lévő vagy általad kölcsönadott tárgyak",
+            "empty": "Jelenleg nincsenek aktív kölcsönzések.",
+            "borrowed_from": "Kölcsönözve {{name}}-tól/-(től)",
+            "lent_to": "Jelenleg {{name}}-nél"
+        },
+        "status": {
+            "pending": "Függőben",
+            "accepted": "Aktív",
+            "rejected": "Elutasítva",
+            "cancelled": "Mégse",
+            "expired": "Lejárt",
+            "returned": "Visszaküldve"
+        },
+        "actions": {
+            "send_request": "Kérés Tétele",
+            "send_offer": "Ajánlat Küldése",
+            "accept": "Elfogadás",
+            "reject": "Elutasítás",
+            "cancel": "Mégse",
+            "fulfill_request": "Kérés Teljesítése"
+        },
+        "labels": {
+            "offer": "Ajánlat",
+            "request": "Kérés",
+            "unspecified_item": "Meg nem határozott tétel",
+            "counterparty": "Ellenfél: {{name}}",
+            "created_at": "Létrehozva: {{date}}",
+            "due_date": "Várható visszatérés: {{date}}",
+            "waiting_delivery": "A kérés még várhat egy megfelelő számlára, mielőtt megjelenik.",
+            "returned_on": "Visszaadva: {{date}}",
+            "borrow_started": "Elkezdve: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Ajánlat küldése",
+            "offer_subtitle_item": "Hozzon létre egy biztonságos felhasználói ajánlatot a(z) \"{{item}}\" számára",
+            "offer_subtitle_general": "Válasszon egy tételt a készletéből, és küldjön biztonságos ajánlatot",
+            "item_label": "Tétel",
+            "item_placeholder": "Válasszon egy tételt",
+            "target_label": "Felhasználónév vagy email",
+            "target_placeholder": "pl. alex vagy alex@example.com",
+            "target_help": "A rendszer nem árulja el, hogy ez a fiók létezik-e. Ha egyezik, a kérés megjelenik a címzett beérkező levelei között.",
+            "offer_note_placeholder": "például. Megtarthatod hétvégéig, ha akarod",
+            "offer_submitting": "Küldés...",
+            "request_title": "Kérelmi tétel",
+            "request_subtitle": "Hozz létre egy általános kérelmet anélkül, hogy átnéznéd a másik személy készletét",
+            "requested_item_label": "Mire van szükséged?",
+            "requested_item_placeholder": "például Fúró, állvány, kempingszék",
+            "request_note_placeholder": "például Csak 2 napra van szükségem rá",
+            "request_submitting": "Küldés...",
+            "fulfill_title": "Teljesítsd a kérést",
+            "fulfill_subtitle": "Válassz egy tárgyat a készletedből a(z) \"{{item}}\" számára",
+            "fulfill_target": "Ezt a tárgyat kölcsönadják {{name}}-nek.",
+            "no_available_items": "Jelenleg nincs jogosult tárgy, amit felajánlhatnál az aktív házadban.",
+            "fulfill_submitting": "Mentés...",
+            "return_title": "Jelöld visszaadottnak",
+            "return_subtitle": "Zárd le az aktív kölcsönzést a(z) \"{{item}}\" számára",
+            "return_target": "Jelenleg {{name}}-nel van feltüntetve."
+        },
+        "messages": {
+            "load_error": "A kölcsönző központ nem tölthető be",
+            "action_error": "A művelet nem hajtható végre"
+        },
+        "preview": {
+            "title": "Előnézeti mód",
+            "body": "Ennek az oldalnak a háttérrendszere jelenleg nem érhető el helyi tesztelés során. Még mindig átvizsgálhatja az elrendezést és a folyamatot először; a szerver oldalt csak az Ön jóváhagyása után kapcsoljuk be."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Adatvédelmi Szabályzat",
+        "terms_of_service_title": "Felhasználási Feltételek",
+        "privacy_policy_content": "Az Ön magánélete fontos számunkra. Ez az alkalmazás biztonságosan tárolja a feltöltött adatait mezőszintű titkosítás alkalmazásával. Nem adjuk el, és nem osztjuk meg személyes adatait harmadik felekkel. A szolgáltatás használatával hozzájárul a szükséges adatok gyűjtéséhez a fiókkezelés és az alkalmazás működésének biztosítása érdekében.",
+        "terms_of_service_content": "A {{brandName}} használatával Ön elfogadja ezeket a feltételeket. A szolgáltatást 'ahogy van' alapon nyújtjuk, garanciák nélkül. Ön felel az általa feltöltött adatokért, és azért, hogy rendelkezik a megfelelő jogokkal azok felett. Fenntartjuk a jogot a fiókok felfüggesztésére, ha azok megsértik a szabályzatot vagy visszaélnek a rendszerrel.",
+        "register_consent": "Elolvastam, megértettem és egyetértek a <1>Szolgáltatási feltételekkel</1> és az <2>Adatvédelmi szabályzattal</2>.",
+        "consent_title": "Jogi dokumentumok áttekintése",
+        "consent_subtitle": "Kérjük, erősítse meg a jelenlegi feltételeket a folytatás előtt.",
+        "consent_notice": "Szükségünk van egy rögzített visszaigazolásra a jelenlegi Szolgáltatási Feltételekről és Adatvédelmi Tájékoztatóról, mielőtt folytathatná az alkalmazás használatát.",
+        "consent_checkbox": "Elfogadom a Szolgáltatási Feltételeket, és megerősítem, hogy elolvastam az Adatvédelmi Tájékoztatót.",
+        "consent_submit": "Folytatás",
+        "consent_submitting": "Mentés...",
+        "consent_required": "Folytatás előtt meg kell erősítenie a Felhasználási feltételeket és az Adatvédelmi tájékoztatót."
+    },
+    "cookies": {
+        "banner_text": "Alapvető sütiket használunk, hogy bejelentkezve maradj és biztosítsuk a munkameneted védelmét. A webhely további használatával elfogadod a szabályzatunkat.",
+        "accept": "Elfogadom",
+        "learn_more": "További információ"
     }
 }

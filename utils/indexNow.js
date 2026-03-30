@@ -17,7 +17,7 @@ function toAbsoluteUrl(baseUrl, value) {
 export function getIndexNowConfig() {
     const key = (process.env.INDEXNOW_KEY || '').trim();
     const baseUrl = sanitizeBaseUrl(
-        process.env.INDEXNOW_BASE_URL || process.env.SITE_URL || 'https://homeinventory.local'
+        process.env.INDEXNOW_BASE_URL || process.env.SITE_URL || 'https://example.com'
     );
     const endpoint = (process.env.INDEXNOW_ENDPOINT || DEFAULT_INDEXNOW_ENDPOINT).trim();
 
@@ -48,7 +48,7 @@ export function getIndexNowConfig() {
 }
 
 export function buildDefaultIndexNowUrls(baseUrl) {
-    const root = sanitizeBaseUrl(baseUrl || process.env.INDEXNOW_BASE_URL || 'https://homeinventory.local');
+    const root = sanitizeBaseUrl(baseUrl || process.env.INDEXNOW_BASE_URL || process.env.SITE_URL || 'https://example.com');
     return [`${root}/`, `${root}/landing`, `${root}/login`, `${root}/register`, `${root}/sitemap.xml`];
 }
 
@@ -100,4 +100,3 @@ export async function submitIndexNowUrls(urls) {
         response: parsedBody
     };
 }
-

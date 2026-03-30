@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Eenheid van garantieperiode",
             "warranty_duration_months": "Maanden",
             "warranty_duration_years": "Jaren",
-            "warranty_calculation_help": "Als u de startdatum van de garantie leeg laat, wordt de factuurdatum gebruikt. Wanneer u de duur invoert, wordt de einddatum van de garantie automatisch berekend."
+            "warranty_calculation_help": "Als u de startdatum van de garantie leeg laat, wordt de factuurdatum gebruikt. Wanneer u de duur invoert, wordt de einddatum van de garantie automatisch berekend.",
+            "vault_hint_title": "Zeer gevoelige registratie?",
+            "vault_hint_description": "Voor paspoorten, akten, identiteitsgegevens, toegangscodes en andere gegevens die buiten de standaard inventarisstroom moeten blijven, bewaar ze in Persoonlijke Kluis.",
+            "vault_hint_action": "Open Persoonlijke Kluis"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" snel toegevoegd - je kunt later bewerken",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Product niet gevonden in databases. U kunt op Google zoeken.",
             "search_fail": "⚠ Zoeken mislukt",
             "name_required": "Artikelnaam is vereist",
-            "location_add_error": "Locatie toevoegen mislukt"
+            "location_add_error": "Locatie toevoegen mislukt",
+            "photo_too_large": "Foto's mogen maximaal {{maxSizeMb}} MB zijn."
         }
     },
     "common": {
@@ -99,16 +103,16 @@
         "refresh": "Vernieuwen",
         "close": "Sluiten",
         "logout": "Uitloggen",
-        "copyright": "© {{year}} HomeInventory - Alle rechten voorbehouden",
+        "copyright": "© {{year}} {{brandName}} - Alle rechten voorbehouden",
         "other": "Overige",
-        "copy": "Copy",
+        "copy": "Kopiëren",
         "download": "Download"
     },
     "auth": {
         "login": {
             "title": "Inloggen",
             "subtitle": "Beheer al je thuisinventaris slim",
-            "welcome": "Welkom bij HomeInventory",
+            "welcome": "Welkom bij {{brandName}}",
             "username_or_email": "Gebruikersnaam of E-mail",
             "password": "Wachtwoord",
             "forgot_password": "Wachtwoord vergeten?",
@@ -120,13 +124,25 @@
             "register_link": "Registreren",
             "support_contact": "Voor inlogproblemen:",
             "terms_title": "📋 Gebruiksvoorwaarden en Disclaimer",
-            "terms_beta": "BETA Versie: HomeInventory bevindt zich momenteel in de testfase. Er wordt geen garantie gegeven over de persistentie of veiligheid van uw gegevens.",
+            "terms_beta": "BETA Versie: {{brandName}} bevindt zich momenteel in de testfase. Er wordt geen garantie gegeven over de persistentie of veiligheid van uw gegevens.",
             "terms_disclaimer": "Disclaimer: Door deze applicatie te gebruiken, gaat u ermee akkoord dat u geen aanspraak kunt maken op enige compensatie voor mogelijk dataverlies, toegangsproblemen of andere technische storingen.",
             "terms_backup": "Gegevensback-up: We raden sterk aan om regelmatig een back-up van uw belangrijke informatie te maken.",
-            "terms_accept": "Door in te loggen, wordt aangenomen dat u deze voorwaarden heeft geaccepteerd."
+            "terms_accept": "Door in te loggen, wordt aangenomen dat u deze voorwaarden heeft geaccepteerd.",
+            "two_factor": {
+                "title": "Tweefactorauthenticatie",
+                "subtitle": "Voer de 6-cijferige code in van uw authenticator-app",
+                "backup_subtitle": "Voer een van uw back-upcodes in",
+                "code_label": "verificatiecode",
+                "backup_code_label": "Back-upcode",
+                "remember_device": "Dit apparaat 30 dagen onthouden",
+                "verify": "Verifiëren",
+                "back": "Terug",
+                "use_backup": "Gebruik back-upcode",
+                "use_totp": "Gebruik authenticator"
+            }
         },
         "register": {
-            "title": "Welkom bij HomeInventory",
+            "title": "Welkom bij {{brandName}}",
             "subtitle": "Maak een nieuw account aan of sluit je aan bij een bestaand huis",
             "create_house": "Nieuw Huis Maken",
             "join_house": "Aan Huis Deelnemen",
@@ -237,7 +253,8 @@
         "admin_panel": "Beheerderpaneel",
         "logout": "Uitloggen",
         "menu": "Menu",
-        "personal_vault": "Persoonlijke Kluis"
+        "personal_vault": "Persoonlijke Kluis",
+        "borrow_requests": "Leningsaanvragen"
     },
     "dashboard": {
         "welcome": "Welkom, <1>{{name}}</1>! 👋",
@@ -279,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory bevindt zich momenteel in de test- en hobbyfase. Er wordt geen garantie gegeven voor gegevensbehoud of veiligheid. Maak alstublieft back-ups van belangrijke informatie.",
+        "text": "{{brandName}} bevindt zich momenteel in de test- en hobbyfase. Er wordt geen garantie gegeven voor gegevensbehoud of veiligheid. Maak alstublieft back-ups van belangrijke informatie.",
         "contact": "Contact:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Alle rechten voorbehouden",
+        "rights": "© {{year}} {{brandName}} - Alle rechten voorbehouden",
         "contact": "Contact:"
     },
     "settings": {
@@ -325,7 +342,8 @@
             "member_kicked": "Lid verwijderd uit het huis",
             "member_kick_error": "Kon lid niet uit het huis verwijderen",
             "recovery_key_regenerated": "Herstelsleutel opnieuw gegenereerd",
-            "recovery_key_error": "Kon herstelsleutel niet opnieuw genereren"
+            "recovery_key_error": "Kon herstelsleutel niet opnieuw genereren",
+            "account_delete_error": "Het account kon niet worden verwijderd"
         },
         "user_profile": {
             "edit_username": "Wijzig gebruikersnaam"
@@ -340,7 +358,7 @@
             "owner": "Eigenaar",
             "active": "Actief",
             "member_count": "{{count}} leden",
-            "item_count": "{{count}} items",
+            "item_count": "{{count}} items ••••••••{{suffix}} Item Dashboard Status {{date, datetime}} Privacybeleid Servicevoorwaarden",
             "switch": "Wisselen",
             "leave": "Huis Verlaten",
             "info": "💡 Je kunt lid zijn van meerdere huizen en tussen hen schakelen. Elk huis heeft een aparte inventaris."
@@ -392,13 +410,20 @@
             "export_json": "Exporteren als JSON",
             "upload_backup": "Back-up uploaden",
             "uploading": "Uploaden...",
-            "import_json": "Importeren vanuit JSON"
+            "import_json": "Importeren vanuit JSON",
+            "export_sensitive_title": "Geëxporteerde back-ups bevatten onversleutelde gegevens",
+            "export_sensitive_notice": "Deze back-up bevat ontsleutelde huishoudgegevens. Bewaar deze veilig na het downloaden, versleutel deze indien mogelijk en vermijd het delen via onveilige kanalen.",
+            "export_sensitive_confirm": "Deze back-up zal ontsleutelde huishoudgegevens in platte tekst bevatten. Bevestigt u dat u deze veilig zult opslaan?"
         },
         "about": {
             "title": "📱 Over de applicatie",
             "version": "Versie",
             "brand": "Merk",
-            "feedback": "✉️ Feedback Verzenden"
+            "feedback": "✉️ Feedback Verzenden",
+            "legal_title": "Wettelijke documenten",
+            "legal_description": "Je kunt de voorwaarden en privac teksten hier opnieuw openen, zelfs nadat je ze hebt geaccepteerd.",
+            "terms_link": "Gebruiksvoorwaarden",
+            "privacy_link": "Privacybeleid"
         },
         "modals": {
             "password": {
@@ -441,6 +466,69 @@
             "title": "Mijn lopende verzoeken om lid te worden",
             "waiting_since": "Wachten sinds: {{date, datetime}}",
             "pending_badge": "In afwachting"
+        },
+        "two_factor": {
+            "title": "Twee-Factor Authenticatie",
+            "description": "Voeg een extra beveiligingslaag toe aan uw account met TOTP-gebaseerde 2FA",
+            "active": "Actief",
+            "enable": "2FA inschakelen",
+            "disable": "2FA uitschakelen",
+            "disable_desc": "Twee-factor-authenticatie uit uw account verwijderen",
+            "disable_title": "Twee-factor-authenticatie uitschakelen",
+            "disable_confirm": "2FA uitschakelen",
+            "disable_error": "2FA uitschakelen is mislukt",
+            "disabled_success": "Twee-factor-authenticatie is uitgeschakeld",
+            "password_label": "Wachtwoord",
+            "password_placeholder": "Voer uw wachtwoord in",
+            "method_totp": "Authenticator",
+            "method_backup": "Back-upcode",
+            "method_recovery": "Herstelcode",
+            "totp_code_label": "Authenticator-code",
+            "backup_code_label": "Back-upcode",
+            "recovery_key_label": "Herstelcode",
+            "cancel": "Annuleren",
+            "setup_title": "2FA instellen",
+            "setup_error": "Kon 2FA-setup niet starten",
+            "step_1": "Stap 1: Scan QR-code",
+            "step_2": "Stap 2: Verifieer code",
+            "step_3": "Stap 3: Sla back-upcodes op",
+            "scan_instruction": "Scan deze QR-code met je authenticator-app (Google Authenticator, Authy of een andere TOTP-app)",
+            "manual_entry": "Kan niet scannen? Voer deze sleutel handmatig in:",
+            "copy_secret": "Kopieer geheim",
+            "next": "Volgende",
+            "verify_instruction": "Voer de 6-cijferige code in die in uw authenticator-app wordt weergegeven om de installatie te verifiëren",
+            "verify_error": "Verificatie mislukt",
+            "code_label": "6-cijferige code",
+            "back": "Terug",
+            "activate": "2FA activeren",
+            "backup_warning_title": "Bewaar Deze Backupcodes!",
+            "backup_warning_text": "Als je geen toegang meer hebt tot je authenticator-app, kun je deze codes gebruiken om in te loggen. Elke code kan maar één keer worden gebruikt. Bewaar ze op een veilige plaats.",
+            "download_codes": "Download Backupcodes",
+            "backup_acknowledge": "Ik heb mijn backupcodes op een veilige plaats opgeslagen",
+            "done": "Klaar",
+            "regenerate_codes": "Backupcodes opnieuw genereren",
+            "regenerate_codes_desc": "Genereer nieuwe backupcodes (oude zullen ongeldig worden)",
+            "regenerate": "Opnieuw genereren",
+            "codes_regenerated": "Backupcodes zijn opnieuw gegenereerd",
+            "codes_error": "Kon backupcodes niet opnieuw genereren",
+            "close_codes": "Sluiten",
+            "revoke_devices": "Vertrouwde apparaten intrekken",
+            "revoke_devices_desc": "Verwijder alle onthouden apparaten, waardoor 2FA bij de volgende aanmelding vereist is",
+            "devices_revoked": "{{count}} vertrouwd apparaat(en) verwijderd",
+            "devices_error": "Kon apparaten niet intrekken"
+        },
+        "danger_zone": {
+            "title": "Account",
+            "delete_title": "Account verwijderen",
+            "delete_description": "Als je wilt, kun je de persoonlijke gegevens en geüploade bestanden die aan dit account verbonden zijn permanent verwijderen.",
+            "delete_warning": "Deze actie kan niet ongedaan worden gemaakt.",
+            "delete_action": "Account verwijderen",
+            "modal_title": "Account verwijderen",
+            "modal_warning_title": "Deze actie is onomkeerbaar",
+            "modal_warning_body": "Na bevestiging verlies je onmiddellijk toegang tot het account en de verwijderde applicatiegegevens kunnen niet vanuit de app worden hersteld.",
+            "password_label": "Bevestig met je huidige wachtwoord",
+            "confirm_delete": "Bevestig verwijdering",
+            "deleting": "Verwijderen..."
         }
     },
     "inventory": {
@@ -455,7 +543,53 @@
         "empty_filter": "Geen items komen overeen met je filters",
         "empty_msg": "Nog geen items toegevoegd",
         "delete_confirm": "Weet je zeker dat je dit item wilt verwijderen?",
-        "delete_error": "Verwijderfout"
+        "delete_error": "Verwijderfout",
+        "load_warning": {
+            "title": "Gedeeltelijke laadmodus",
+            "body": "Sommige ondersteunende gegevens reageren momenteel langzaam, dus de pagina is geopend zonder volledige filtermetadata. We proberen het opnieuw wanneer u vernieuwt."
+        },
+        "borrow": {
+            "section_title": "Lening volgen",
+            "section_subtitle": "Huidige leenstatus en geschiedenis",
+            "dialog_lend_title": "Item uitlenen",
+            "dialog_lend_subtitle": "Maak een nieuw leendossier voor \"{{item}}\"",
+            "dialog_return_title": "Als teruggebracht markeren",
+            "dialog_return_subtitle": "Sluit het actieve leenrecord voor \"{{item}}\"",
+            "member": "Leden van het huis",
+            "external": "Externe persoon",
+            "borrower_member": "Wie heeft het ontvangen?",
+            "no_members": "Er is geen ander selecteerbaar lid in dit huis. U kunt het record in plaats daarvan als externe persoon aanmaken.",
+            "borrower_name": "Naam van de persoon",
+            "borrower_name_placeholder": "bijv. Buurman Alex",
+            "borrower_contact": "Contactinformatie",
+            "borrower_contact_placeholder": "Telefoon, e-mail of korte notitie",
+            "due_date": "Verwachte terugkeerdatum",
+            "note": "Notitie",
+            "note_placeholder": "bijv. Uitgeleend voor het weekend",
+            "submitting_lend": "Bezig met opslaan...",
+            "lend": "Uitlenen",
+            "return_note": "Terugbrengen notitie",
+            "return_note_placeholder": "bijv. Teruggebracht in goede staat",
+            "submitting_return": "Afsluiten...",
+            "mark_returned": "Mark Teruggebracht",
+            "current_borrower_label": "Momenteel bij:",
+            "unknown": "Onbekend",
+            "overdue_badge": "Te laat",
+            "borrowed_badge": "Uitgeleend",
+            "borrowed_to": "Bij {{name}}",
+            "due_date_short": "Vervaldatum: {{date}}",
+            "actions_error": "Leenactie kon niet worden voltooid",
+            "borrowed_at": "Uitgeleend op: {{date}}",
+            "due_date_label": "Verwachte terugkeer: {{date}}",
+            "note_label": "Opmerking: {{note}}",
+            "return_note_label": "Terugbrengopmerking: {{note}}",
+            "no_active": "Dit item is momenteel niet uitgeleend.",
+            "history_title": "Geschiedenis",
+            "history_active": "Open record voor {{name}}",
+            "history_returned": "Gesloten record voor {{name}}",
+            "returned_at": "Teruggave op: {{date}}",
+            "no_history": "Er is nog geen uitleengeschiedenis voor dit item."
+        }
     },
     "categories": {
         "title": "Categorieën",
@@ -553,7 +687,7 @@
             "free_badge": "Volledig gratis"
         },
         "features": {
-            "title": "Waarom <1>HomeInventory</1>?",
+            "title": "Waarom <1>{{brandName}}</1>?",
             "subtitle": "Alle functies om huisbeheer te vereenvoudigen op één platform",
             "items": {
                 "categorize": {
@@ -591,7 +725,7 @@
             "desc": "Het gemakkelijke en veilige platform om je thuisinventaris te digitaliseren.",
             "links": "Snelle links",
             "contact": "Neem contact met ons op",
-            "copyright": "© {{year}} HomeInventory. Alle rechten voorbehouden."
+            "copyright": "© {{year}} {{brandName}}. Alle rechten voorbehouden."
         },
         "preview_privacy_notice": "Demoweergave: er worden geen echte gebruikersgegevens weergegeven."
     },
@@ -719,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 E-mailverificatie vereist",
-            "headerTitle": "Welkom bij HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 E-mailverificatie vereist",
+            "headerTitle": "Welkom bij {{brandName}}",
             "headerSubtitle": "Maak een nieuw account aan of sluit je aan bij een bestaand huis",
-            "greeting": "Welkom bij HomeInventory",
+            "greeting": "Welkom bij {{brandName}}",
             "intro": "Account aangemaakt! Verifieer uw e-mailadres om in te loggen.",
             "verifyPrompt": "📧 E-mailverificatie vereist",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Mijn account verifiëren",
             "warningTitle": "⚠️",
             "warningBody": "Controleer de spam-/ongewenste e-mailmap als de e-mail niet aankomt.",
             "houseKeyLabel": "Huissleutel",
@@ -739,13 +873,13 @@
             ],
             "fallback": "De link voor het resetten van het wachtwoord lijkt onvolledig of beschadigd.",
             "support": "Registratieproblemen:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Welkom bij HomeInventory",
-            "headerTitle": "Welkom bij HomeInventory",
+            "subject": "Welkom bij {{brandName}}",
+            "headerTitle": "Welkom bij {{brandName}}",
             "headerSubtitle": "Maak een nieuw account aan of sluit je aan bij een bestaand huis",
-            "greeting": "Welkom bij HomeInventory",
+            "greeting": "Welkom bij {{brandName}}",
             "intro": "Welkom, ! 👋",
             "houseKeyLabel": "Huissleutel",
             "houseKeyNote": "Dit is uw huissleutel, gebruik deze om anderen uit te nodigen. Voeg gezinsleden toe aan uw huis!",
@@ -757,7 +891,7 @@
                 "💡 Je kunt lid zijn van meerdere huizen en tussen hen schakelen. Elk huis heeft een aparte inventaris."
             ],
             "support": "Registratieproblemen:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Word lid van Huis",
@@ -766,7 +900,7 @@
             "bodyLine2": "Wachten op goedkeuring van huis eigenaar"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Toegang tot huis",
             "bodyLine1Template": "Huidig in behandeling zijnd verzoek: {{house}} ({{status}})",
             "bodyLine2": "Uw verzoek voor \"{{house}}\" wacht nog op een beslissing."
@@ -786,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Als er een account bestaat, is er een wachtwoordresetlink verzonden die 15 minuten geldig is.",
             "fallback": "De link voor het resetten van het wachtwoord lijkt onvolledig of beschadigd.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "Deze e-mail is verzonden door {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -828,7 +966,6 @@
         "record_save_new": "Kluisrecord Toevoegen",
         "record_save_edit": "Wijzigingen Opslaan",
         "barcode_privacy_hint": "Kluisbarcodes worden niet automatisch opgezocht bij externe diensten; de barcode-tekst wordt alleen opgeslagen als versleutelde gegevens.",
-        "media_note": "Foto's, barcode-scannen en externe productopzoeking zijn opzettelijk uitgeschakeld in deze eerste kluisstroom. Ze hebben een aparte versleutelde media- en privacy-pijplijn nodig.",
         "search_placeholder": "Zoek in de kluis...",
         "all_categories": "Alle categorieën",
         "all_rooms": "Alle kamers",
@@ -848,9 +985,112 @@
             "name_required": "Een itemnaam is vereist voor een kluisrecord.",
             "options_failed": "Categorie- en kameropties konden niet worden geladen."
         },
-        "recovery_file_title": "HomeInventory Persoonlijke Kluis Herstel Sleutel",
+        "recovery_file_title": "{{brandName}} Persoonlijke Kluis Herstel Sleutel",
         "recovery_file_created_label": "Gemaakt",
         "recovery_file_key_label": "Herstel Sleutel",
-        "recovery_file_warning": "Als u zowel deze sleutel als uw kluiswachtwoord verliest, kan de kluis niet worden hersteld."
+        "recovery_file_warning": "Als u zowel deze sleutel als uw kluiswachtwoord verliest, kan de kluis niet worden hersteld.",
+        "media_note": "Foto-upload, barcode scannen en extern product opzoeken worden nog niet ondersteund. Deze functies worden toegevoegd zodra er een speciale versleutelde media- en privacystroom beschikbaar is."
+    },
+    "borrow_requests": {
+        "title": "Uitleencentrum",
+        "subtitle": "Beheer veilige verzoek- en aanbodstromen met andere {{brandName}}-gebruikers.",
+        "incoming_title": "Binnenkomende verzoeken",
+        "incoming_subtitle": "Verzoeken en aanbiedingen die naar jou zijn gestuurd",
+        "outgoing_title": "Door mij verzonden",
+        "outgoing_subtitle": "Aanbiedingen en itemverzoeken die je gestart bent",
+        "empty_incoming": "Er zijn momenteel geen leenverzoeken voor jou.",
+        "empty_outgoing": "Je hebt nog geen aanbod of verzoek gestuurd.",
+        "stats": {
+            "incoming": "Binnenkomend in afwachting",
+            "outgoing": "Uitgaand in afwachting",
+            "active": "Actieve leningen"
+        },
+        "active": {
+            "title": "Actieve leningen",
+            "subtitle": "Items die momenteel bij jou zijn of door jou zijn uitgeleend",
+            "empty": "Er zijn momenteel geen actieve leningen.",
+            "borrowed_from": "Geleend van {{name}}",
+            "lent_to": "Momenteel bij {{name}}"
+        },
+        "status": {
+            "pending": "In afwachting",
+            "accepted": "Actief",
+            "rejected": "Afgewezen",
+            "cancelled": "Geannuleerd",
+            "expired": "Verlopen",
+            "returned": "Teruggemeld"
+        },
+        "actions": {
+            "send_request": "Verzoekitem",
+            "send_offer": "Stuur Aanbod",
+            "accept": "Accepteer",
+            "reject": "Weiger",
+            "cancel": "Annuleer",
+            "fulfill_request": "Vervul Verzoek"
+        },
+        "labels": {
+            "offer": "Aanbod",
+            "request": "Verzoek",
+            "unspecified_item": "Onbepaald item",
+            "counterparty": "Tegenpartij: {{name}}",
+            "created_at": "Aangemaakt: {{date}}",
+            "due_date": "Verwachte terugkeer: {{date}}",
+            "waiting_delivery": "Het verzoek kan nog wachten op een overeenkomende rekening voordat het verschijnt.",
+            "returned_on": "Teruggegeven op: {{date}}",
+            "borrow_started": "Gestart: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Aanbieding Verzenden",
+            "offer_subtitle_item": "Maak een veilige gebruikeraanbieding voor \"{{item}}\"",
+            "offer_subtitle_general": "Kies een item uit je inventaris en verstuur een veilige aanbieding",
+            "item_label": "Item",
+            "item_placeholder": "Selecteer een item",
+            "target_label": "Gebruikersnaam of e-mail",
+            "target_placeholder": "bijv. alex of alex@example.com",
+            "target_help": "Het systeem onthult niet of dit account bestaat. Als het overeenkomt, verschijnt het verzoek in de inbox van de ontvanger.",
+            "offer_note_placeholder": "bijv. Je kunt het tot het weekend houden als je wilt",
+            "offer_submitting": "Verzenden...",
+            "request_title": "Verzoekitem",
+            "request_subtitle": "Maak een algemeen verzoek zonder in de inventaris van de ander te kijken",
+            "requested_item_label": "Wat heb je nodig?",
+            "requested_item_placeholder": "bijv. Boor, statief, campingstoel",
+            "request_note_placeholder": "bijv. Ik heb het maar 2 dagen nodig",
+            "request_submitting": "Verzenden...",
+            "fulfill_title": "Verzoek uitvoeren",
+            "fulfill_subtitle": "Kies een item uit je inventaris voor \"{{item}}\"",
+            "fulfill_target": "Dit item wordt uitgeleend aan {{name}}.",
+            "no_available_items": "Er is momenteel geen geschikt item beschikbaar om aan te bieden in je actieve huis.",
+            "fulfill_submitting": "Opslaan...",
+            "return_title": "Gemarkeerd als teruggegeven",
+            "return_subtitle": "Sluit het actieve leenitem voor \"{{item}}\"",
+            "return_target": "Het staat momenteel aangegeven als in bezit van {{name}}."
+        },
+        "messages": {
+            "load_error": "Leencentrum kon niet worden geladen",
+            "action_error": "De actie kon niet worden voltooid"
+        },
+        "preview": {
+            "title": "Voorbeeldweergave",
+            "body": "Het backend-gedeelte van deze pagina is momenteel niet bereikbaar bij lokaal testen. U kunt het ontwerp en de workflow nog steeds eerst bekijken; we zullen de serverzijde inschakelen nadat u het heeft goedgekeurd."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Privacybeleid",
+        "terms_of_service_title": "Servicevoorwaarden",
+        "privacy_policy_content": "Uw privacy is belangrijk voor ons. Deze applicatie slaat uw geüploade gegevens veilig op met veldniveau-encryptie. Wij verkopen of delen uw persoonlijke gegevens niet met derden. Door gebruik te maken van de dienst, stemt u in met het verzamelen van noodzakelijke gegevens voor accountbeheer en functionaliteit van de applicatie.",
+        "terms_of_service_content": "Door {{brandName}} te gebruiken, gaat u akkoord met deze voorwaarden. De dienst wordt 'zoals het is' geleverd zonder garanties. U bent verantwoordelijk voor de gegevens die u uploadt en ervoor te zorgen dat u de rechten daarop heeft. Wij behouden ons het recht voor om accounts die de beleidsregels schenden of het systeem misbruiken, op te schorten.",
+        "register_consent": "Ik heb de <1>Algemene voorwaarden</1> en het <2>Privacybeleid</2> gelezen, begrepen en ga ermee akkoord.",
+        "consent_title": "Juridische documenten beoordelen",
+        "consent_subtitle": "Bevestig alstublieft de huidige voorwaarden voordat u doorgaat.",
+        "consent_notice": "We hebben een geregistreerde bevestiging nodig van de huidige Servicevoorwaarden en het Privacybeleid voordat u de applicatie kunt blijven gebruiken.",
+        "consent_checkbox": "Ik accepteer de Servicevoorwaarden en bevestig dat ik het Privacybeleid heb gelezen.",
+        "consent_submit": "Doorgaan",
+        "consent_submitting": "Opslaan...",
+        "consent_required": "U moet de Servicevoorwaarden en het Privacybeleid bevestigen voordat u doorgaat."
+    },
+    "cookies": {
+        "banner_text": "We gebruiken essentiële cookies om u ingelogd te houden en uw sessie te beveiligen. Door deze site te blijven gebruiken, gaat u akkoord met ons beleid.",
+        "accept": "Ik accepteer",
+        "learn_more": "Meer informatie"
     }
 }

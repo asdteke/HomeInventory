@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Unitas Tempus Spondeo",
             "warranty_duration_months": "Menses",
             "warranty_duration_years": "Anni",
-            "warranty_calculation_help": "Si reliqueris warantiam initium diem vacuum, facturae diem adhibetur. Cum inseris durationem, warantiam finem diem automatice computatur."
+            "warranty_calculation_help": "Si reliqueris warantiam initium diem vacuum, facturae diem adhibetur. Cum inseris durationem, warantiam finem diem automatice computatur.",
+            "vault_hint_title": "Recordum valde sensibile?",
+            "vault_hint_description": "Pro specibus civilium, litteris, identitatis notis, codicibus accessus, et aliis rebus quae extra normam inventarii fluxum manere debent, eas in Thesauro Personali conserva",
+            "vault_hint_action": "Aperi Arcam Personalem (Optionale) Photographemata possunt esse ad summam {{maxSizeMb}} MB. Prima emissio est intentionaliter personalis et textus-focus; communicatio et media requirunt separatum tutum fluxum. Solve Arcam Potes arcum solvere cum tessera tua vel clave recuperationis quam antea servasti. Utere tesseram Utere clavem recuperationis"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" celeriter additum - potes postea emendare",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Productum non inventum in tabulis. Potes quaerere in Google.",
             "search_fail": "⚠ Quaerere defecit",
             "name_required": "Nomen rei requiritur",
-            "location_add_error": "Defecit addere locum"
+            "location_add_error": "Defecit addere locum",
+            "photo_too_large": "Photographiae possunt esse maximo {{maxSizeMb}} MB. Prima emissio est manifeste personalis et textu-focus; communicatio et media requirunt separatum securum fluxum. Aperi Thesaurum Potes aperire thesaurum cum tua tessera vel clavi recuperationis quam prius servasti. Utere tesseram Utere clavem recuperationis Authenticator Rationem delere non potuit"
         }
     },
     "common": {
@@ -99,16 +103,16 @@
         "refresh": "Recense",
         "close": "Claude",
         "logout": "Discede",
-        "copyright": "© {{year}} HomeInventory - Omnia iura reservata",
+        "copyright": "© {{year}} {{brandName}} - Omnia iura reservata",
         "other": "Alius",
-        "copy": "Copy",
-        "download": "Download"
+        "copy": "Replica Descargar Duo-Factor Authentication Inserere 6-digitum codicem ex authenticator app Inserere unum ex codicibus subsidiis Verification Code Backup Code Memento hoc instrumentum per 30 dies",
+        "download": "Descendere Authenticationem Duo-Factorium Intra codicem 6-digitum ex app authenticator Intra unum ex codicibus reposito Codex Verificationis Codex Repositus Memento hoc instrumentum per XXX dies Menu"
     },
     "auth": {
         "login": {
             "title": "Intra",
             "subtitle": "Administra omnia tua domus inventarium sapienter",
-            "welcome": "Bene venisti ad HomeInventory",
+            "welcome": "Bene venisti ad {{brandName}}",
             "username_or_email": "Nomen usoris vel Epistula electronica",
             "password": "Tessera",
             "forgot_password": "Password oblitus?",
@@ -120,13 +124,25 @@
             "register_link": "Registra",
             "support_contact": "Pro problematibus accessus:",
             "terms_title": "📋 Termini Usus et Disclaimer",
-            "terms_beta": "Versio BETA: HomeInventory nunc in gradu probationis est. Nulla obligatio datur de diuturnitate vel securitate tuorum datorum.",
+            "terms_beta": "Versio BETA: {{brandName}} nunc in gradu probationis est. Nulla obligatio datur de diuturnitate vel securitate tuorum datorum.",
             "terms_disclaimer": "Disclaimer: Per usum huius applicationis, consentis te non posse reclamare ullam compensationem pro potentiali damno datorum, problematibus accessus, vel aliis defectibus technicis.",
             "terms_backup": "Backup Datorum: Fortiter suadimus regulariter tuas informationes importantes servare.",
-            "terms_accept": "Per accessum, censetur hos terminos acceptasse."
+            "terms_accept": "Per accessum, censetur hos terminos acceptasse.",
+            "two_factor": {
+                "title": "Authentication Duo-Factor >>> Intra 6-digitum codicem ex authenticator app tua >>> Intra unum ex codicibus tuis subsidiis >>> Verification Codex >>> Subsidiis Codex >>> Memento hoc instrumentum per XXX dies >>> Menu >>> (Optional)",
+                "subtitle": "Enter the 6-digit code from your authenticator app",
+                "backup_subtitle": "Enter one of your backup codes",
+                "code_label": "Verification Code",
+                "backup_code_label": "Backup Code",
+                "remember_device": "Remember this device for 30 days",
+                "verify": "Verifica",
+                "back": "Redi",
+                "use_backup": "Utere codice subsidiario",
+                "use_totp": "Utere authenticator"
+            }
         },
         "register": {
-            "title": "Gratus ad HomeInventory",
+            "title": "Gratus ad {{brandName}}",
             "subtitle": "Creare novam rationem vel iungere domui existentis",
             "create_house": "Creare Novam Domum",
             "join_house": "Iungere Domui",
@@ -237,7 +253,8 @@
         "admin_panel": "Administra Tabula",
         "logout": "Exire",
         "menu": "Menu",
-        "personal_vault": "Arca Personalis"
+        "personal_vault": "Arca Personalis",
+        "borrow_requests": "Petitiones Mutui"
     },
     "dashboard": {
         "welcome": "Salve, <1>{{name}}</1>! 👋",
@@ -278,12 +295,12 @@
         }
     },
     "beta_banner": {
-        "title": "BETA:",
-        "text": "HomeInventory nunc est in probatione et ludibrium fase. Nulla praesidium datur pro persistantia vel securitate data. Quaeso serva subsidia magni momenti informationis.",
+        "title": "BETA: (Optativum) Imagines possunt esse maximo {{maxSizeMb}} MB. Prima emissio est proprie personalis et textu focus; communicatio et media necessitant separatum securum fluxum. Aperi Arcam Poteris arcam aperire cum tessera vel clavi recuperationis quam antea servasti. Utere tessera Utere clavem recuperationis",
+        "text": "{{brandName}} nunc est in probatione et ludibrium fase. Nulla praesidium datur pro persistantia vel securitate data. Quaeso serva subsidia magni momenti informationis.",
         "contact": "Contactus:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Omnia iura reservata",
+        "rights": "© {{year}} {{brandName}} - Omnia iura reservata",
         "contact": "Contactus:"
     },
     "settings": {
@@ -325,7 +342,8 @@
             "member_kicked": "Socius e domo removitus",
             "member_kick_error": "Socium e domo removere non potuit",
             "recovery_key_regenerated": "Clavis recuperationis regenerata est",
-            "recovery_key_error": "Clavem recuperationis regenerare non potuit"
+            "recovery_key_error": "Clavem recuperationis regenerare non potuit",
+            "account_delete_error": "The account could not be deleted"
         },
         "user_profile": {
             "edit_username": "Muta nomen usoris"
@@ -348,7 +366,7 @@
         "house_info": {
             "title": "Clavis Domus Activa",
             "key_label": "Clavis Domus",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "Remove Rationem Dele rationem Si vis, potes permanente tollere data personalia et fasciculos sublatos huius rationi coniunctos. Haec actio retractari non potest. Dele rationem Dele rationem",
             "hide": "Occulta",
             "show": "Ostende",
             "copy": "Copia",
@@ -388,17 +406,24 @@
         "data_management": {
             "title": "Data Administratio",
             "download_backup": "Download Subsidium",
-            "downloading": "Downloading...",
+            "downloading": "Downloadings...",
             "export_json": "Exportare ut JSON",
             "upload_backup": "Upload Subsidium",
-            "uploading": "Uploading...",
-            "import_json": "Importare ex JSON"
+            "uploading": "Sarcina...",
+            "import_json": "Importare ex JSON",
+            "export_sensitive_title": "Exportata subsidia continent data in plano textu",
+            "export_sensitive_notice": "Hoc subsidium includit data domestica decrypta. Id secure post download reponere, si possibile encryptare, et vitare communicare per canales insecuras.",
+            "export_sensitive_confirm": "Hoc subsidium includet data domestica decrypta in plano textu. Confirmasne te id secure repositurum?"
         },
         "about": {
             "title": "📱 De Applicatione",
             "version": "Versio",
             "brand": "Notam",
-            "feedback": "✉️ Mitte Feedback"
+            "feedback": "✉️ Mitte Feedback",
+            "legal_title": "Documenta Legalia",
+            "legal_description": "Potes reaperire terminos et privatum textus hinc etiam post acceptationem eorum.",
+            "terms_link": "Termini Servitii",
+            "privacy_link": "Privatus Consilium"
         },
         "modals": {
             "password": {
@@ -441,6 +466,69 @@
             "title": "Meae Pendentis Iungere Petitions",
             "waiting_since": "Exspectans ex: {{date, datetime}}",
             "pending_badge": "Pendente"
+        },
+        "two_factor": {
+            "title": "Duorum Factor Authenticationis",
+            "description": "Addere extra stratum securitatis ad rationem tuam cum TOTP-based 2FA",
+            "active": "Activa",
+            "enable": "Activare 2FA",
+            "disable": "Desactivare 2FA",
+            "disable_desc": "Remove duorum-factor authentication a ratione tua",
+            "disable_title": "Desi duo-factor Authentication",
+            "disable_confirm": "Desi 2FA",
+            "disable_error": "Defectum est desinere 2FA",
+            "disabled_success": "Duo-factor authentication desitum est",
+            "password_label": "Tessera",
+            "password_placeholder": "Ingredere tuam tessera",
+            "method_totp": "Authenticator",
+            "method_backup": "Codex Substitutio",
+            "method_recovery": "Clavis Recuperationis",
+            "totp_code_label": "Codex Authenticatoris",
+            "backup_code_label": "Codex Subsidii",
+            "recovery_key_label": "Clavis Recuperationis",
+            "cancel": "Cancellare",
+            "setup_title": "Constituere 2FA",
+            "setup_error": "Defecit incipere 2FA constitutionem",
+            "step_1": "Gradus 1: Scana Codicem QR",
+            "step_2": "Gradus 2: Codicem Verifica",
+            "step_3": "Gradus 3: Codices Subscriptio Serva",
+            "scan_instruction": "Hunc QR codicem scana cum authenticator app tua (Google Authenticator, Authy, vel quavis app TOTP)",
+            "manual_entry": "Non potes scan? Hoc Clavem manualiter inserere:",
+            "copy_secret": "Secretum copia",
+            "next": "Proximum",
+            "verify_instruction": "Inserere codicem 6-digitum ostentum in authenticator app tua ad confirmandum constitutionem",
+            "verify_error": "Confirmatio defecit",
+            "code_label": "Codex Sex Digitorum",
+            "back": "Retro",
+            "activate": "Active 2FA",
+            "backup_warning_title": "Serva Hos Codes Backup!",
+            "backup_warning_text": "Si amittis accessum ad app authenticatorium, hos codices uti potes ad introeundum. Unusquisque codex semel tantum adhiberi potest. Serva eos in loco tuto.",
+            "download_codes": "Descende Codes Backup",
+            "backup_acknowledge": "Codices meos backup in loco tuto servavi",
+            "done": "Perfectum",
+            "regenerate_codes": "Codices Support Sequentialiter Redde Novos codices support generare (vetera irritabuntur) Redde Codices support redintegrati redintegra codices support Defectum redintegrandi codices support Claude Recede Machinas Fidatas Omnes machinas memoratas remove, 2FA in proximo login requirens",
+            "regenerate_codes_desc": "Generare novum tergum codices (vetera invalidabuntur)",
+            "regenerate": "Regenerare",
+            "codes_regenerated": "Codices tergum regenerati sunt",
+            "codes_error": "Defuit regenerare codices tergum",
+            "close_codes": "Claudere",
+            "revoke_devices": "Revoca Fida Machinas",
+            "revoke_devices_desc": "Omnes memoratas machinas remove, require 2FA in proximo login",
+            "devices_revoked": "{{count}} fiducialiter machina(e) removetur",
+            "devices_error": "Machinas revocare non potuit"
+        },
+        "danger_zone": {
+            "title": "Account",
+            "delete_title": "Delete account",
+            "delete_description": "If you want, you can permanently remove the personal data and uploaded files tied to this account.",
+            "delete_warning": "This action cannot be undone.",
+            "delete_action": "Delete account",
+            "modal_title": "Delete account",
+            "modal_warning_title": "Haec actio irreversibilis est",
+            "modal_warning_body": "Post confirmationem, statim amittes accessum ad rationem et data applicationis deletae ex app restituere non potest.",
+            "password_label": "Confirma cum tua currentis tessera",
+            "confirm_delete": "Confirma deletionem",
+            "deleting": "Deletio..."
         }
     },
     "inventory": {
@@ -455,7 +543,53 @@
         "empty_filter": "Nullae res conveniunt tuis filtris",
         "empty_msg": "Nulla res adhuc addita",
         "delete_confirm": "Esne certus vis hoc item delere?",
-        "delete_error": "Error deletionis"
+        "delete_error": "Error deletionis",
+        "load_warning": {
+            "title": "Modus Oneris Partialis",
+            "body": "Quaedam subsidium notitia nunc lente respondet, ita pagina aperta est sine plena metadata filtus. Iterum temptabimus cum renovabis."
+        },
+        "borrow": {
+            "section_title": "Sequor Mutui",
+            "section_subtitle": "Status et historia currentis mutui",
+            "dialog_lend_title": "Dale Res",
+            "dialog_lend_subtitle": "Creare novum recordum mutui pro \"{{item}}\"",
+            "dialog_return_title": "Signa Redditum",
+            "dialog_return_subtitle": "Claudere activum recordum mutui pro \"{{item}}\"",
+            "member": "Membrum domus",
+            "external": "Persona externa",
+            "borrower_member": "Quis accepit?",
+            "no_members": "Non est alius membrum eligibile in hac domo. Potes creare recordum ut persona externa pro.",
+            "borrower_name": "Nomen personae",
+            "borrower_name_placeholder": "exempli gratia. Vicinus Alex",
+            "borrower_contact": "Contactum info",
+            "borrower_contact_placeholder": "Telephonum, electronica epistula, vel brevis nota",
+            "due_date": "Praevisa data reddendi",
+            "note": "Nota",
+            "note_placeholder": "exempli gratia. Mutuum pro hebdomada",
+            "submitting_lend": "Servans...",
+            "lend": "Mutua",
+            "return_note": "Nota reddendi",
+            "return_note_placeholder": "exempli gratia. Reddita in bono statu",
+            "submitting_return": "Claudens... Reversus est Marc Currente cum: Incognitum Praeteritum Mutuum Cum {{name}} Datum: {{date}}",
+            "mark_returned": "Marcus Rediit",
+            "current_borrower_label": "Nunc cum:",
+            "unknown": "Incognitus",
+            "overdue_badge": "Praeteritum",
+            "borrowed_badge": "Commutatum",
+            "borrowed_to": "Cum {{name}}",
+            "due_date_short": "Debitum: {{date}}",
+            "actions_error": "Actio mutuandi compleri non potuit",
+            "borrowed_at": "Mutuum datum: {{date}}",
+            "due_date_label": "Reditus expectatus: {{date}}",
+            "note_label": "Nota: {{note}}",
+            "return_note_label": "Reditus nota: {{note}}",
+            "no_active": "Hoc item nunc non est mutuum.",
+            "history_title": "Historia",
+            "history_active": "Aperi scripturam pro {{name}}",
+            "history_returned": "Clausum recordum pro {{name}}",
+            "returned_at": "Redditum die: {{date}}",
+            "no_history": "Nullum historiam mutui huius rei adhuc est."
+        }
     },
     "categories": {
         "title": "Categoriae",
@@ -464,7 +598,7 @@
         "edit_title": "Edita Categoria",
         "new_title": "Nova Categoria",
         "name_label": "Nomen Categoriae",
-        "icon_label": "Icon",
+        "icon_label": "Imago",
         "color_label": "Color",
         "delete_confirm": "Certusne es te velle delere hanc categoriam?",
         "delete_error": "Error deletionis"
@@ -540,7 +674,7 @@
     },
     "landing": {
         "nav": {
-            "login": "Login"
+            "login": "Intra"
         },
         "hero": {
             "title_1": "Omnia Administrare",
@@ -553,7 +687,7 @@
             "free_badge": "Completissime Liber"
         },
         "features": {
-            "title": "Cur <1>HomeInventory</1>?",
+            "title": "Cur <1>{{brandName}}</1>?",
             "subtitle": "Omnia officia ad simpliciorem domum administrationem in uno suggestu",
             "items": {
                 "categorize": {
@@ -577,7 +711,7 @@
                     "desc": "Your data is encrypted and protected with KVKK compliant infrastructure."
                 },
                 "backup": {
-                    "title": "Backup & Export",
+                    "title": "Copia & Exportare",
                     "desc": "Serva inventarium tuum in forma JSON, restituere quando vis."
                 }
             }
@@ -591,7 +725,7 @@
             "desc": "The easy and secure platform to digitize your home inventory.",
             "links": "Celeres Nexus",
             "contact": "Continge Nos",
-            "copyright": "© {{year}} HomeInventory. Omnia iura servata."
+            "copyright": "© {{year}} {{brandName}}. Omnia iura servata."
         },
         "preview_privacy_notice": "Demonstratio visio: nullus verus usor data ostenditur."
     },
@@ -719,13 +853,13 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Confirmatio Email Requiratur",
-            "headerTitle": "Gratus ad HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Confirmatio Email Requiratur",
+            "headerTitle": "Gratus ad {{brandName}}",
             "headerSubtitle": "Creare novam rationem vel iungere domui existentis",
-            "greeting": "Bene venisti ad HomeInventory",
+            "greeting": "Bene venisti ad {{brandName}}",
             "intro": "Computatio creata! Quaeso confirma inscriptionem electronicam tuam ut login possis.",
             "verifyPrompt": "📧 Confirmatio Email Requiratur",
-            "verifyButton": "✓ Verify My Account",
+            "verifyButton": "✓ Rationem Meam Reprobare",
             "warningTitle": "⚠️",
             "warningBody": "Reprehendo spam/immundus folder si epistula non advenit.",
             "houseKeyLabel": "Clavis Domus",
@@ -739,13 +873,13 @@
             ],
             "fallback": "Tessera reset nexus videtur imperfectus vel fractus.",
             "support": "Quaestiones Registrationis:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 InventariumDomus"
         },
         "welcome": {
-            "subject": "Gratus ad HomeInventory",
-            "headerTitle": "Gratus ad HomeInventory",
+            "subject": "Gratus ad {{brandName}}",
+            "headerTitle": "Gratus ad {{brandName}}",
             "headerSubtitle": "Creare novam rationem vel iungere domui existentis",
-            "greeting": "Bene venisti ad HomeInventory",
+            "greeting": "Bene venisti ad {{brandName}}",
             "intro": "Salve, ! 👋",
             "houseKeyLabel": "Clavis Domus",
             "houseKeyNote": "Haec est clavis tua domus, utere ad alios invitandos. Addere familiares ad domum tuam!",
@@ -757,7 +891,7 @@
                 "💡 Potes esse membrum plurium domorum et inter eas commutare. Unaquaeque domus servat separatum inventarium."
             ],
             "support": "Quaestiones Registrationis:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 InventariumDomus"
         },
         "houseJoinRequest": {
             "subject": "Coniunge Domum",
@@ -766,7 +900,7 @@
             "bodyLine2": "Exspectans domus domini approbationem"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "InventariumDomus - {{status}}",
             "greeting": "Accessus Domus",
             "bodyLine1Template": "Petitiomem praesentem exspectantem: {{house}} ({{status}})",
             "bodyLine2": "Petitionem tuam pro \"{{house}}\" adhuc exspectat decisionem."
@@ -786,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Si ratio existit, nexus ad repositum tesserae validus per 15 minuta missus est.",
             "fallback": "Tessera reset nexus videtur imperfectus vel fractus.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 InventariumDomus"
+        },
+        "adminEmail": {
+            "sentBy": "This email was sent by {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -812,7 +950,7 @@
         "unlock_description": "You can unlock the vault with your passphrase or the recovery key you saved earlier.",
         "unlock_with_passphrase": "Use passphrase",
         "unlock_with_recovery": "Use recovery key",
-        "unlock_passphrase_placeholder": "Enter your vault passphrase",
+        "unlock_passphrase_placeholder": "Ingredere tuum arcis tessera secretum",
         "unlock_recovery_placeholder": "exempli gratia ABCDE-FGHIJ-KLMNO-PQRST-UVWXY-Z2345",
         "unlock_action": "Aperi Armarium",
         "unlocking": "Aperiens armarium...",
@@ -822,13 +960,12 @@
         "recovery_ready_title": "Clavis Recuperationis Parata",
         "recovery_ready_description": "Hanc clavem semel tantum ostendimus. Serva eam alicubi tuto.",
         "recovery_visible_once": "Clavis haec non ostendetur iterum postea. Nova Vallis Record Edita Vallis Record Haec sequitur communem item fluxum propius, sed textus planus numquam relinquit navigatrum. Adde Vallis Record Serva Mutationes Vallis codices non spectantur in officiis exterioribus automatice; textus codicis tantum reconditur ut data encrypta. Photographiae, codicis scanatio, et externa producti inquisitione sunt consilio impeditum in hoc primo vallis fluxu. Eae egent separata encrypta media et secretum canalem.",
-        "record_new_title": "New Vault Record",
-        "record_edit_title": "Edit Vault Record",
-        "record_form_subtitle": "This follows the normal item flow more closely, but plaintext still never leaves the browser.",
-        "record_save_new": "Add Vault Record",
-        "record_save_edit": "Save Changes",
+        "record_new_title": "Novum Arca Recordum",
+        "record_edit_title": "Emenda Arca Recordum",
+        "record_form_subtitle": "Hoc sequitur ordinarium rerum fluxum propius, sed sermo simplex numquam relinquit navigatrum.",
+        "record_save_new": "Adde Arca Recordum",
+        "record_save_edit": "Servo Mutationes",
         "barcode_privacy_hint": "Linea codicis arcis non automatice in servitiis externis investigatur; textus codicis nucis tantum tamquam data encrypta conservatur. Imagines, codicis scansionem, et productum externum investigationem proposito in hoc primo arcis cursu sunt inhibita. Eae indigent separato encrypta media et privata linea.",
-        "media_note": "Photos, barcode scanning, and external product lookup are intentionally disabled in this first vault flow. They need a separate encrypted media and privacy pipeline.",
         "search_placeholder": "Quaere intra arcam...",
         "all_categories": "Omnes categorias",
         "all_rooms": "Omnes conclavia",
@@ -848,9 +985,112 @@
             "name_required": "Nomen rei necessarium est pro recordo thesauri.",
             "options_failed": "Categoria et cella optiones non potuerunt onerari."
         },
-        "recovery_file_title": "HomeInventory Personal Vault Recovery Key",
+        "recovery_file_title": "Domus Inventarium Personalis Arcae Recuperatio Clavis",
         "recovery_file_created_label": "Creata Clavis Recuperationis Si amittas et hanc clavem et tessera arcis, arca recuperari non potest. Novum Arca Recordum Edita Arca Recordum Hoc sequitur ordinarium fluxum rerum propius, sed textus simplex numquam relinquit pasco. Adde Arca Recordum Serva Mutationes",
-        "recovery_file_key_label": "Recovery Key",
-        "recovery_file_warning": "If you lose both this key and your vault passphrase, the vault cannot be recovered."
+        "recovery_file_key_label": "Recuperatio Clavis",
+        "recovery_file_warning": "Si amittis utrumque hanc clavem et tuum arca tessera secretum, arca non potest recuperari.",
+        "media_note": "Photographia upload, barcode scanning, et externa product lookup nondum sustinetur. Hae functiones addentur cum dedicata media encrypta et privatatem fluxus parata erit."
+    },
+    "borrow_requests": {
+        "title": "Centrum Mutui",
+        "subtitle": "Curare securum rogationem et offer fluit cum aliis {{brandName}} utentibus.",
+        "incoming_title": "Rogationes Incedentes",
+        "incoming_subtitle": "Rogationes et offers missae tibi",
+        "outgoing_title": "A me missa",
+        "outgoing_subtitle": "Oblationes et rerum petitiones quas coepisti",
+        "empty_incoming": "Nullae petitiones mutuandi pro te nunc sunt.",
+        "empty_outgoing": "Non misisti oblationem aut petitionem adhuc.",
+        "stats": {
+            "incoming": "Editorialia Intrantes",
+            "outgoing": "Editorialia Exeuntes",
+            "active": "Mutua Activa"
+        },
+        "active": {
+            "title": "Mutua Activa",
+            "subtitle": "Res nunc apud te aut a te concessae",
+            "empty": "Nihil activum mutuatur nunc. Mutuatus est ab {{name}} Nunc cum {{name}} Exspectans Activum Reiectum Abrogatum Peractum",
+            "borrowed_from": "Mutuatum a {{name}}",
+            "lent_to": "Nunc cum {{name}}"
+        },
+        "status": {
+            "pending": "Exspectans",
+            "accepted": "Activum",
+            "rejected": "Reiectum",
+            "cancelled": "Abrogatum",
+            "expired": "Exspiravit",
+            "returned": "Rediit"
+        },
+        "actions": {
+            "send_request": "Petitio Res",
+            "send_offer": "Mitte Oblationem",
+            "accept": "Accipe",
+            "reject": "Reicere",
+            "cancel": "Cancellare",
+            "fulfill_request": "Exple Petitio"
+        },
+        "labels": {
+            "offer": "Oblatio",
+            "request": "Petitio",
+            "unspecified_item": "Res non specificata",
+            "counterparty": "Particeps: {{name}}",
+            "created_at": "Creata: {{date}}",
+            "due_date": "Reditus expectatus: {{date}}",
+            "waiting_delivery": "Petitio adhuc exspectare potest rationem congruentem antequam appareat.",
+            "returned_on": "Reditus die: {{date}}",
+            "borrow_started": "Coepta: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Mitte Oblationem",
+            "offer_subtitle_item": "Crea securam usoris oblationem pro \"{{item}}\"",
+            "offer_subtitle_general": "Selige rem ex inventario tuo et mitte securam oblationem",
+            "item_label": "Res",
+            "item_placeholder": "Selige rem",
+            "target_label": "Usoris nomen vel epistula electronica",
+            "target_placeholder": "Exempli gratia alex vel alex@example.com",
+            "target_help": "Systema non revelat utrum hic ratio existat. Si congruit, petitio apparet in receptaculo destinatarii.",
+            "offer_note_placeholder": "exempli gratia Potes id servare usque ad finem hebdomadis si vis Mittens Petitio Res Facere communem petitionem sine inspicienda rerum alterius Quid tibi opus est exempli gratia Teres, tripodus, scaena castra exempli gratia Id solum opus est pro duobus diebus Mittens",
+            "offer_submitting": "Mittens...",
+            "request_title": "Rogatio Res",
+            "request_subtitle": "Creare generalem rogationem sine inspiciendo aliorum inventarium",
+            "requested_item_label": "Quid tibi opus est?",
+            "requested_item_placeholder": "exempli gratia Perforator, tripus, sella casu",
+            "request_note_placeholder": "exempli gratia Solum mihi opus est per dies 2",
+            "request_submitting": "Mittens...",
+            "fulfill_title": "Exple Postulationem",
+            "fulfill_subtitle": "Elige rem ex tuo inventario pro \"{{item}}\"",
+            "fulfill_target": "Haec res erit commissa {{name}}.",
+            "no_available_items": "Nulla res idonea est ad offerendum in tua domo activa hoc tempore.",
+            "fulfill_submitting": "Servans...",
+            "return_title": "Signa Reditum",
+            "return_subtitle": "Claude activum mutuum pro \"{{item}}\"",
+            "return_target": "Nunc monstratur esse cum {{name}}."
+        },
+        "messages": {
+            "load_error": "Centrum mutui oneri non potuit oneri recipi",
+            "action_error": "Actio perfici non potuit"
+        },
+        "preview": {
+            "title": "Modus praevisionis",
+            "body": "Pars posterior huius paginae in locale testando nunc non est accessibilis. Potes adhuc videre dispositionem et fluxum primo; tunc servientis partem enablebimus postquam approbas."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Politia Secretorum",
+        "terms_of_service_title": "Condiciones Servitii",
+        "privacy_policy_content": "Secretum tuum est nobis importante. Haec applicatio tua data sublata tuto recondit utens encryptione ad gradum agri. Non vendimus nec condividimus tua data personalia cum tertiis partibus. Per usum servici, consenti ad collectionem necessariam data pro administratione rationis et functionibus applicationis.",
+        "terms_of_service_content": "Per usum {{brandName}}, consentis his conditionibus. Servitium praebetur 'sicut est' sine cautiones. Tu responsalis es pro data quam sublatis et curans ut iura habeas ad eam. Ius servamus suspendendi rationes quae normas violant vel systema abuti.",
+        "register_consent": "Legi, intellexi, et consentio ad <1>Terminos Servitii</1> et <2>Privatam Politicam</2>. Utimur essentialibus coquinae ad te in sessio logatum tenendum et securitatem vestrae sessionis. Continuando hoc loco utens, consentiens politicis nostris. Accipio Discere Plura",
+        "consent_title": "Reprehendo documenta legalia",
+        "consent_subtitle": "Quaeso confirma condiciones actuales antequam pergere.",
+        "consent_notice": "Opus est nobis agnitionem registratam pro currentibus Terminis Servitii et Nuntii Privati antequam possis pergere utendo applicatione.",
+        "consent_checkbox": "Terminos Servitii accipio et confirmo me Legisse Notitiam de Privatia. Continua Servare... Antequam continuare, necesse est confirmare Terminos Servitii et Notitiam de Privatia. Discere Plura. Hic electronica missa est a {{brandName}}. © 2026 {{brandName}} - {{supportEmail}}",
+        "consent_submit": "Continue",
+        "consent_submitting": "Saving...",
+        "consent_required": "You need to confirm the Terms of Service and Privacy Notice before continuing."
+    },
+    "cookies": {
+        "banner_text": "We use essential cookies to keep you logged in and secure your session. By continuing to use this site, you agree to our policies.",
+        "accept": "I Accept",
+        "learn_more": "Learn More"
     }
 }

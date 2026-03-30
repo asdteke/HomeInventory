@@ -21,7 +21,7 @@
         "refresh": "Aktualisieren",
         "close": "Schließen",
         "logout": "Abmelden",
-        "copyright": "© {{year}} HomeInventory - Alle Rechte vorbehalten",
+        "copyright": "© {{year}} {{brandName}} - Alle Rechte vorbehalten",
         "other": "Andere",
         "copy": "Kopieren",
         "download": "Herunterladen"
@@ -30,7 +30,7 @@
         "login": {
             "title": "Anmelden",
             "subtitle": "Verwalten Sie Ihr gesamtes Hausinventar intelligent",
-            "welcome": "Willkommen bei HomeInventory",
+            "welcome": "Willkommen bei {{brandName}}",
             "username_or_email": "Benutzername oder E-Mail",
             "password": "Passwort",
             "forgot_password": "Passwort vergessen?",
@@ -42,7 +42,7 @@
             "register_link": "Registrieren",
             "support_contact": "Bei Login-Problemen:",
             "terms_title": "📋 Nutzungsbedingungen und Haftungsausschluss",
-            "terms_beta": "BETA-Version: HomeInventory befindet sich derzeit in der Testphase. Es wird keine Garantie für die Persistenz oder Sicherheit Ihrer Daten übernommen.",
+            "terms_beta": "BETA-Version: {{brandName}} befindet sich derzeit in der Testphase. Es wird keine Garantie für die Persistenz oder Sicherheit Ihrer Daten übernommen.",
             "terms_disclaimer": "Haftungsausschluss: Durch die Nutzung dieser Anwendung erklären Sie sich damit einverstanden, dass Sie keinen Anspruch auf Entschädigung für mögliche Datenverluste, Zugriffsprobleme oder andere technische Störungen haben.",
             "terms_backup": "Datensicherung: Wir empfehlen dringend, Ihre wichtigen Informationen regelmäßig zu sichern.",
             "terms_accept": "Mit der Anmeldung erklären Sie sich mit diesen Bedingungen einverstanden.",
@@ -60,7 +60,7 @@
             }
         },
         "register": {
-            "title": "Willkommen bei HomeInventory",
+            "title": "Willkommen bei {{brandName}}",
             "subtitle": "Erstellen Sie ein neues Konto oder treten Sie einem bestehenden Haus bei",
             "create_house": "Erstellen Sie ein neues Haus",
             "join_house": "Treten Sie dem Haus bei",
@@ -171,7 +171,8 @@
         "admin_panel": "Admin-Panel",
         "logout": "Abmelden",
         "menu": "Menü",
-        "personal_vault": "Persönlicher Tresor"
+        "personal_vault": "Persönlicher Tresor",
+        "borrow_requests": "Ausleihanfragen"
     },
     "dashboard": {
         "welcome": "Willkommen, <1>{{name}}</1>! 👋",
@@ -213,11 +214,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory befindet sich derzeit in der Test- und Hobbyphase. Es wird keine Garantie für die Datenpersistenz oder -sicherheit übernommen. Bitte bewahren Sie Sicherungskopien wichtiger Informationen auf.",
+        "text": "{{brandName}} befindet sich derzeit in der Test- und Hobbyphase. Es wird keine Garantie für die Datenpersistenz oder -sicherheit übernommen. Bitte bewahren Sie Sicherungskopien wichtiger Informationen auf.",
         "contact": "Kontakt:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory – Alle Rechte vorbehalten",
+        "rights": "© {{year}} {{brandName}} – Alle Rechte vorbehalten",
         "contact": "Kontakt:"
     },
     "items": {
@@ -280,7 +281,10 @@
             "warranty_duration_unit": "Einheit der Garantiedauer",
             "warranty_duration_months": "Monate",
             "warranty_duration_years": "Jahre",
-            "warranty_calculation_help": "Wenn Sie das Startdatum der Garantie leer lassen, wird das Rechnungsdatum verwendet. Wenn Sie die Dauer eingeben, wird das Enddatum der Garantie automatisch berechnet."
+            "warranty_calculation_help": "Wenn Sie das Startdatum der Garantie leer lassen, wird das Rechnungsdatum verwendet. Wenn Sie die Dauer eingeben, wird das Enddatum der Garantie automatisch berechnet.",
+            "vault_hint_title": "Sehr sensibler Datensatz?",
+            "vault_hint_description": "Für Reisepässe, Urkunden, Identitätsdaten, Zugangscodes und andere Aufzeichnungen, die nicht im Standardinventar erscheinen sollen, bewahren Sie diese stattdessen im Persönlichen Tresor auf.",
+            "vault_hint_action": "Persönlichen Tresor öffnen"
         },
         "qrcode": {
             "title": "QR-Code",
@@ -295,7 +299,8 @@
             "not_found": "⚠ Produkt nicht in Datenbanken gefunden. Sie können bei Google suchen.",
             "search_fail": "⚠ Suche fehlgeschlagen",
             "name_required": "Artikelname ist erforderlich",
-            "location_add_error": "Standort konnte nicht hinzugefügt werden"
+            "location_add_error": "Standort konnte nicht hinzugefügt werden",
+            "photo_too_large": "Fotos dürfen höchstens {{maxSizeMb}} MB groß sein."
         }
     },
     "settings": {
@@ -337,7 +342,8 @@
             "member_kicked": "Mitglied aus dem Haus entfernt",
             "member_kick_error": "Das Mitglied konnte nicht aus dem Haus entfernt werden",
             "recovery_key_regenerated": "Wiederherstellungsschlüssel neu generiert",
-            "recovery_key_error": "Der Wiederherstellungsschlüssel konnte nicht neu generiert werden"
+            "recovery_key_error": "Der Wiederherstellungsschlüssel konnte nicht neu generiert werden",
+            "account_delete_error": "Das Konto konnte nicht gelöscht werden"
         },
         "user_profile": {
             "edit_username": "Benutzernamen ändern"
@@ -404,13 +410,20 @@
             "export_json": "Als JSON exportieren",
             "upload_backup": "Backup hochladen",
             "uploading": "Hochladen...",
-            "import_json": "Import aus JSON"
+            "import_json": "Import aus JSON",
+            "export_sensitive_title": "Exportierte Sicherungen enthalten Klartextdaten",
+            "export_sensitive_notice": "Dieses Backup enthält entschlüsselte Haushaltsdaten. Speichern Sie es nach dem Herunterladen sicher, verschlüsseln Sie es wenn möglich und vermeiden Sie es, es über unsichere Kanäle zu teilen.",
+            "export_sensitive_confirm": "Dieses Backup wird entschlüsselte Haushaltsdaten im Klartext enthalten. Bestätigen Sie, dass Sie es sicher speichern werden?"
         },
         "about": {
             "title": "📱 Über die App",
             "version": "Version",
             "brand": "Marke",
-            "feedback": "✉️ Feedback senden"
+            "feedback": "✉️ Feedback senden",
+            "legal_title": "Rechtliche Dokumente",
+            "legal_description": "Auch nach der Bestätigung können Sie die Nutzungsbedingungen und den Datenschutzhinweis hier erneut öffnen.",
+            "terms_link": "Nutzungsbedingungen",
+            "privacy_link": "Datenschutzerklärung"
         },
         "modals": {
             "password": {
@@ -503,6 +516,19 @@
             "revoke_devices_desc": "Entfernen alle gespeicherten Geräte, die beim nächsten Login 2FA benötigen",
             "devices_revoked": "{{count}} Vertrauensgeräte(n) entfernt",
             "devices_error": "Geräte wurden nicht widerrufen"
+        },
+        "danger_zone": {
+            "title": "Konto",
+            "delete_title": "Konto löschen",
+            "delete_description": "Wenn Sie möchten, können Sie die persönlichen Daten und hochgeladenen Dateien, die mit diesem Konto verbunden sind, dauerhaft entfernen.",
+            "delete_warning": "Diese Aktion kann nicht rückgängig gemacht werden.",
+            "delete_action": "Konto löschen",
+            "modal_title": "Konto löschen",
+            "modal_warning_title": "Diese Aktion ist unumkehrbar",
+            "modal_warning_body": "Nach der Bestätigung verlieren Sie sofort den Zugriff auf das Konto, und die gelöschten Anwendungsdaten können nicht aus der App wiederhergestellt werden.",
+            "password_label": "Mit Ihrem aktuellen Passwort bestätigen",
+            "confirm_delete": "Löschung bestätigen",
+            "deleting": "Wird gelöscht..."
         }
     },
     "inventory": {
@@ -517,7 +543,53 @@
         "empty_filter": "Keine Artikel entsprechen Ihren Filtern",
         "empty_msg": "Es wurden noch keine Artikel hinzugefügt",
         "delete_confirm": "Sind Sie sicher, dass Sie dieses Element löschen möchten?",
-        "delete_error": "Fehler löschen"
+        "delete_error": "Fehler löschen",
+        "load_warning": {
+            "title": "Teilweiser Lademodus",
+            "body": "Einige unterstützende Daten reagieren momentan langsam, daher wurde die Seite ohne vollständige Filtermetadaten geöffnet. Wir versuchen es erneut, wenn Sie aktualisieren."
+        },
+        "borrow": {
+            "section_title": "Ausleihverfolgung",
+            "section_subtitle": "Aktueller Leihstatus und Verlauf",
+            "dialog_lend_title": "Gegenstand verleihen",
+            "dialog_lend_subtitle": "Einen neuen Ausleihdatensatz für \"{{item}}\" erstellen",
+            "dialog_return_title": "Als zurückgegeben markieren",
+            "dialog_return_subtitle": "Schließen Sie den aktiven Ausleihdatensatz für \"{{item}}\"",
+            "member": "Haushaltsmitglied",
+            "external": "Externe Person",
+            "borrower_member": "Wer hat es erhalten?",
+            "no_members": "Es gibt kein anderes auswählbares Mitglied in diesem Haushalt. Sie können den Datensatz stattdessen als externe Person erstellen.",
+            "borrower_name": "Personenname",
+            "borrower_name_placeholder": "z.B. Nachbar Alex",
+            "borrower_contact": "Kontaktinformationen",
+            "borrower_contact_placeholder": "Telefon, E-Mail oder kurze Notiz",
+            "due_date": "Erwartetes Rückgabedatum",
+            "note": "Notiz",
+            "note_placeholder": "z.B. Für das Wochenende ausgeliehen",
+            "submitting_lend": "Speichern...",
+            "lend": "Ausleihen",
+            "return_note": "Rückgabevermerk",
+            "return_note_placeholder": "z.B. In gutem Zustand zurückgegeben",
+            "submitting_return": "Schließen...",
+            "mark_returned": "Zurückgegeben",
+            "current_borrower_label": "Derzeit bei:",
+            "unknown": "Unbekannt",
+            "overdue_badge": "Überfällig",
+            "borrowed_badge": "Geliehen",
+            "borrowed_to": "Bei {{name}}",
+            "due_date_short": "Fällig: {{date}}",
+            "actions_error": "Ausleihvorgang konnte nicht abgeschlossen werden",
+            "borrowed_at": "Ausgeliehen am: {{date}}",
+            "due_date_label": "Voraussichtliche Rückgabe: {{date}}",
+            "note_label": "Hinweis: {{note}}",
+            "return_note_label": "Rückgabehinweis: {{note}}",
+            "no_active": "Dieser Artikel ist derzeit nicht ausgeliehen.",
+            "history_title": "Verlauf",
+            "history_active": "Datensatz für {{name}} öffnen",
+            "history_returned": "Geschlossener Datensatz für {{name}}",
+            "returned_at": "Zurückgegeben am: {{date}}",
+            "no_history": "Für diesen Artikel gibt es noch keine Ausleihhistorie."
+        }
     },
     "categories": {
         "title": "Kategorien",
@@ -615,7 +687,7 @@
             "free_badge": "Völlig Kostenlos"
         },
         "features": {
-            "title": "Warum <1>HomeInventory</1>?",
+            "title": "Warum <1>{{brandName}}</1>?",
             "subtitle": "Alle Funktionen zur Vereinfachung der Hausverwaltung auf einer Plattform",
             "items": {
                 "categorize": {
@@ -653,7 +725,7 @@
             "desc": "Die einfache und sichere Plattform zur Digitalisierung Ihres Hausinventars.",
             "links": "Quicklinks",
             "contact": "Kontaktieren Sie uns",
-            "copyright": "© {{year}} HomeInventory. Alle Rechte vorbehalten."
+            "copyright": "© {{year}} {{brandName}}. Alle Rechte vorbehalten."
         },
         "preview_privacy_notice": "Demoansicht: Es werden keine echten Benutzerdaten angezeigt."
     },
@@ -781,10 +853,10 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 E-Mail-Bestätigung erforderlich",
-            "headerTitle": "Willkommen bei HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 E-Mail-Bestätigung erforderlich",
+            "headerTitle": "Willkommen bei {{brandName}}",
             "headerSubtitle": "Erstellen Sie ein neues Konto oder treten Sie einem bestehenden Haus bei",
-            "greeting": "Willkommen bei HomeInventory",
+            "greeting": "Willkommen bei {{brandName}}",
             "intro": "Konto erstellt! Bitte bestätigen Sie Ihre E-Mail-Adresse, um sich anzumelden.",
             "verifyPrompt": "📧 E-Mail-Bestätigung erforderlich",
             "verifyButton": "✓ Mein Konto überprüfen",
@@ -801,13 +873,13 @@
             ],
             "fallback": "Der Link zum Zurücksetzen des Passworts scheint unvollständig oder defekt zu sein.",
             "support": "Registrierungsprobleme:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Willkommen bei HomeInventory",
-            "headerTitle": "Willkommen bei HomeInventory",
+            "subject": "Willkommen bei {{brandName}}",
+            "headerTitle": "Willkommen bei {{brandName}}",
             "headerSubtitle": "Erstellen Sie ein neues Konto oder treten Sie einem bestehenden Haus bei",
-            "greeting": "Willkommen bei HomeInventory",
+            "greeting": "Willkommen bei {{brandName}}",
             "intro": "Willkommen, ! 👋",
             "houseKeyLabel": "Hausschlüssel",
             "houseKeyNote": "Dies ist Ihr Hausschlüssel. Benutzen Sie ihn, um andere einzuladen. Fügen Sie Familienmitglieder zu Ihrem Haus hinzu!",
@@ -819,7 +891,7 @@
                 "💡 Du kannst Mitglied mehrerer Häuser sein und zwischen ihnen wechseln. Jedes Haus führt ein separates Inventar."
             ],
             "support": "Registrierungsprobleme:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Treten Sie dem Haus bei",
@@ -828,7 +900,7 @@
             "bodyLine2": "Warten auf die Genehmigung des Hausbesitzers"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Hauszugang",
             "bodyLine1Template": "Aktuell ausstehende Anfrage: {{house}} ({{status}})",
             "bodyLine2": "Ihre Anfrage für „{{house}}“ wartet noch auf eine Entscheidung."
@@ -848,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Wenn ein Konto vorhanden ist, wurde ein Link zum Zurücksetzen des Passworts gesendet, der 15 Minuten gültig ist.",
             "fallback": "Der Link zum Zurücksetzen des Passworts scheint unvollständig oder defekt zu sein.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "Diese E-Mail wurde von {{brandName}} gesendet.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -890,7 +966,6 @@
         "record_save_new": "Tresordatensatz hinzufügen",
         "record_save_edit": "Änderungen speichern",
         "barcode_privacy_hint": "Tresor-Barcodes werden bei externen Diensten nicht automatisch nachgeschlagen; Der Barcodetext wird nur als verschlüsselte Daten gespeichert.",
-        "media_note": "Fotos, Barcode-Scannen und externe Produktsuche sind in diesem ersten Tresorablauf absichtlich deaktiviert. Sie benötigen eine separate Pipeline für verschlüsselte Medien und Datenschutz.",
         "search_placeholder": "Im Tresor suchen...",
         "all_categories": "Alle Kategorien",
         "all_rooms": "Alle Räume",
@@ -910,9 +985,112 @@
             "name_required": "Für einen Tresordatensatz ist ein Artikelname erforderlich.",
             "options_failed": "Kategorie- und Raumoptionen konnten nicht geladen werden."
         },
-        "recovery_file_title": "HomeInventory Persönlicher Tresor Wiederherstellungsschlüssel",
+        "recovery_file_title": "{{brandName}} Persönlicher Tresor Wiederherstellungsschlüssel",
         "recovery_file_created_label": "Erstellen",
         "recovery_file_key_label": "Wiederherstellungsschlüssel",
-        "recovery_file_warning": "Wenn Sie sowohl diesen Schlüssel als auch Ihr Tresor-Passwort verlieren, kann der Tresor nicht wiederhergestellt werden."
+        "recovery_file_warning": "Wenn Sie sowohl diesen Schlüssel als auch Ihr Tresor-Passwort verlieren, kann der Tresor nicht wiederhergestellt werden.",
+        "media_note": "Foto-Uploads, Barcode-Scannen und externe Produktsuche werden noch nicht unterstützt. Diese Funktionen werden hinzugefügt, sobald ein dedizierter verschlüsselter Medien- und Datenschutzfluss bereit ist."
+    },
+    "borrow_requests": {
+        "title": "Ausleihzentrum",
+        "subtitle": "Sichere Anfragen und Angebotsabläufe mit anderen {{brandName}}-Nutzern verwalten.",
+        "incoming_title": "Eingehende Anfragen",
+        "incoming_subtitle": "Anfragen und Angebote, die Ihnen gesendet wurden",
+        "outgoing_title": "Von mir gesendet",
+        "outgoing_subtitle": "Angebote und Artikelanfragen, die Sie gestartet haben",
+        "empty_incoming": "Es gibt derzeit keine Ausleihanfragen für Sie.",
+        "empty_outgoing": "Sie haben noch kein Angebot oder keine Anfrage gesendet.",
+        "stats": {
+            "incoming": "Ausstehend Eingehend",
+            "outgoing": "Ausstehend Ausgehend",
+            "active": "Aktive Ausleihen"
+        },
+        "active": {
+            "title": "Aktive Ausleihen",
+            "subtitle": "Artikel, die sich derzeit bei Ihnen befinden oder von Ihnen verliehen wurden",
+            "empty": "Es gibt derzeit keine aktiven Ausleihen.",
+            "borrowed_from": "Geliehen von {{name}}",
+            "lent_to": "Derzeit bei {{name}}"
+        },
+        "status": {
+            "pending": "Ausstehend",
+            "accepted": "Aktiv",
+            "rejected": "Abgelehnt",
+            "cancelled": "Abgebrochen",
+            "expired": "Abgelaufen",
+            "returned": "Zurückgegeben"
+        },
+        "actions": {
+            "send_request": "Anfrageartikel",
+            "send_offer": "Angebot senden",
+            "accept": "Akzeptieren",
+            "reject": "Ablehnen",
+            "cancel": "Abbrechen",
+            "fulfill_request": "Anfrage erfüllen"
+        },
+        "labels": {
+            "offer": "Angebot",
+            "request": "Anfrage",
+            "unspecified_item": "Nicht spezifizierter Artikel",
+            "counterparty": "Gegenpartei: {{name}}",
+            "created_at": "Erstellt: {{date}}",
+            "due_date": "Erwartete Rückgabe: {{date}}",
+            "waiting_delivery": "Die Anfrage könnte noch darauf warten, dass ein passendes Konto zugeordnet wird, bevor sie erscheint.",
+            "returned_on": "Zurückgegeben am: {{date}}",
+            "borrow_started": "Gestartet: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Angebot senden",
+            "offer_subtitle_item": "Erstellen Sie ein sicheres Benutzerangebot für \"{{item}}\"",
+            "offer_subtitle_general": "Wählen Sie einen Artikel aus Ihrem Inventar und senden Sie ein sicheres Angebot",
+            "item_label": "Artikel",
+            "item_placeholder": "Wählen Sie einen Artikel aus",
+            "target_label": "Benutzername oder E-Mail",
+            "target_placeholder": "z. B. alex oder alex@example.com",
+            "target_help": "Das System zeigt nicht an, ob dieses Konto existiert. Wenn es übereinstimmt, erscheint die Anfrage im Posteingang des Empfängers.",
+            "offer_note_placeholder": "z.B. Du kannst es bis zum Wochenende behalten, wenn du willst",
+            "offer_submitting": "Senden...",
+            "request_title": "Anfrageartikel",
+            "request_subtitle": "Erstelle eine allgemeine Anfrage, ohne im Inventar der anderen Person zu stöbern",
+            "requested_item_label": "Was brauchst du?",
+            "requested_item_placeholder": "z.B. Bohrmaschine, Stativ, Campingstuhl",
+            "request_note_placeholder": "z.B. Ich brauche es nur für 2 Tage",
+            "request_submitting": "Senden...",
+            "fulfill_title": "Anfrage erfüllen",
+            "fulfill_subtitle": "Wähle einen Gegenstand aus deinem Inventar für „{{item}}“",
+            "fulfill_target": "Dieser Gegenstand wird an {{name}} ausgeliehen.",
+            "no_available_items": "Es gibt derzeit keinen geeigneten Gegenstand in deinem aktiven Haus anzubieten.",
+            "fulfill_submitting": "Speichern...",
+            "return_title": "Als zurückgegeben markieren",
+            "return_subtitle": "Schließe die aktive Ausleihe für „{{item}}“",
+            "return_target": "Es wird derzeit angezeigt, dass es sich bei {{name}} befindet."
+        },
+        "messages": {
+            "load_error": "Ausleihzentrum konnte nicht geladen werden",
+            "action_error": "Die Aktion konnte nicht abgeschlossen werden"
+        },
+        "preview": {
+            "title": "Vorschau-Modus",
+            "body": "Der Backend-Teil dieser Seite ist derzeit im lokalen Test nicht erreichbar. Sie können dennoch zuerst das Layout und den Ablauf überprüfen; wir werden die Serverseite aktivieren, nachdem Sie sie genehmigt haben."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Datenschutzrichtlinie",
+        "terms_of_service_title": "Nutzungsbedingungen",
+        "privacy_policy_content": "Ihre Privatsphäre ist uns wichtig. Diese Anwendung speichert Ihre hochgeladenen Daten sicher mittels Verschlüsselung auf Feldebene. Wir verkaufen oder teilen Ihre persönlichen Daten nicht mit Dritten. Durch die Nutzung des Dienstes stimmen Sie der Erhebung notwendiger Daten für die Kontoverwaltung und die Funktionalität der Anwendung zu.",
+        "terms_of_service_content": "Durch die Nutzung von {{brandName}} stimmen Sie diesen Bedingungen zu. Der Dienst wird 'wie besehen' ohne Garantien bereitgestellt. Sie sind verantwortlich für die Daten, die Sie hochladen, und dafür, dass Sie die Rechte daran besitzen. Wir behalten uns das Recht vor, Konten zu sperren, die gegen Richtlinien verstoßen oder das System missbrauchen.",
+        "register_consent": "Ich habe die <1>Nutzungsbedingungen</1> und die <2>Datenschutzrichtlinie</2> gelesen, verstanden und stimme ihnen zu.",
+        "consent_title": "Rechtliche Dokumente prüfen",
+        "consent_subtitle": "Bitte bestätigen Sie die aktuellen Bedingungen, bevor Sie fortfahren.",
+        "consent_notice": "Wir benötigen eine aufgezeichnete Bestätigung der aktuellen Nutzungsbedingungen und Datenschutzbestimmungen, bevor Sie die Anwendung weiterhin nutzen können.",
+        "consent_checkbox": "Ich akzeptiere die Nutzungsbedingungen und bestätige, dass ich die Datenschutzbestimmungen gelesen habe.",
+        "consent_submit": "Fortfahren",
+        "consent_submitting": "Speichern...",
+        "consent_required": "Sie müssen die Nutzungsbedingungen und die Datenschutzerklärung bestätigen, bevor Sie fortfahren."
+    },
+    "cookies": {
+        "banner_text": "Wir verwenden essenzielle Cookies, um Sie eingeloggt zu halten und Ihre Sitzung zu sichern. Indem Sie diese Seite weiterhin nutzen, stimmen Sie unseren Richtlinien zu.",
+        "accept": "Ich akzeptiere",
+        "learn_more": "Mehr erfahren"
     }
 }

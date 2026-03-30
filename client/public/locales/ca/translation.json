@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Unitat de durada de la garantia",
             "warranty_duration_months": "Mesos",
             "warranty_duration_years": "Anys",
-            "warranty_calculation_help": "Si deixeu el camp de la data d'inici de la garantia buit, s'utilitza la data de la factura. Quan introduïu la durada, la data de finalització de la garantia es calcula automàticament."
+            "warranty_calculation_help": "Si deixeu el camp de la data d'inici de la garantia buit, s'utilitza la data de la factura. Quan introduïu la durada, la data de finalització de la garantia es calcula automàticament.",
+            "vault_hint_title": "Registre molt sensible?",
+            "vault_hint_description": "Per a passaports, escriptures, detalls d'identitat, codis d'accés i altres registres que haurien de mantenir-se fora del flux d'inventari estàndard, guarda'ls a la Bóveda Personal en canvi.",
+            "vault_hint_action": "Obre la Bóveda Personal"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" afegit ràpidament - pots editar-lo més tard",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Producte no trobat a les bases de dades. Pots cercar a Google.",
             "search_fail": "⚠ La cerca ha fallat",
             "name_required": "El nom de l'article és obligatori",
-            "location_add_error": "No s'ha pogut afegir la ubicació"
+            "location_add_error": "No s'ha pogut afegir la ubicació",
+            "photo_too_large": "Les fotos poden tenir com a màxim {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,7 +103,7 @@
         "refresh": "Refrescar",
         "close": "Tancar",
         "logout": "Tancar sessió",
-        "copyright": "© {{year}} HomeInventory - Tots els drets reservats",
+        "copyright": "© {{year}} {{brandName}} - Tots els drets reservats",
         "other": "Altres",
         "copy": "Còpia",
         "download": "Descarrega"
@@ -108,7 +112,7 @@
         "login": {
             "title": "Inicia sessió",
             "subtitle": "Gestiona tot el teu inventari domèstic de manera intel·ligent",
-            "welcome": "Benvingut a HomeInventory",
+            "welcome": "Benvingut a {{brandName}}",
             "username_or_email": "Nom d'usuari o correu electrònic",
             "password": "Contrasenya",
             "forgot_password": "Has oblidat la contrasenya?",
@@ -120,7 +124,7 @@
             "register_link": "Registra't",
             "support_contact": "Per problemes d'inici de sessió:",
             "terms_title": "📋 Termes d'ús i Avís legal",
-            "terms_beta": "Versió BETA: HomeInventory actualment està en fase de proves. No es garanteix la persistència ni la seguretat de les teves dades.",
+            "terms_beta": "Versió BETA: {{brandName}} actualment està en fase de proves. No es garanteix la persistència ni la seguretat de les teves dades.",
             "terms_disclaimer": "Avís legal: En utilitzar aquesta aplicació, acceptes que no pots reclamar cap compensació per possibles pèrdues de dades, problemes d'accés o altres falles tècniques.",
             "terms_backup": "Còpia de seguretat de dades: Recomanem fer còpies de seguretat de la informació important de manera regular.",
             "terms_accept": "En iniciar sessió, es considera que has acceptat aquests termes.",
@@ -138,7 +142,7 @@
             }
         },
         "register": {
-            "title": "Benvingut a HomeInventory",
+            "title": "Benvingut a {{brandName}}",
             "subtitle": "Crea un nou compte o uneix-te a una casa existent",
             "create_house": "Crea Nova Casa",
             "join_house": "Uneix-te a Casa",
@@ -249,7 +253,8 @@
         "admin_panel": "Panell d'Administració",
         "logout": "Tancar Sessió",
         "menu": "Menú",
-        "personal_vault": "Arxiu personal"
+        "personal_vault": "Arxiu personal",
+        "borrow_requests": "Sol·licituds de préstec"
     },
     "dashboard": {
         "welcome": "Benvingut, <1>{{name}}</1>! 👋",
@@ -291,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA: BETA: <<<_>>",
-        "text": "HomeInventory està actualment en fase de proves i afició. No es garanteix la persistència ni la seguretat de les dades. Si us plau, mantingueu còpies de seguretat de la informació important.",
+        "text": "{{brandName}} està actualment en fase de proves i afició. No es garanteix la persistència ni la seguretat de les dades. Si us plau, mantingueu còpies de seguretat de la informació important.",
         "contact": "Contacte:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Tots els drets reservats",
+        "rights": "© {{year}} {{brandName}} - Tots els drets reservats",
         "contact": "Contacte:"
     },
     "settings": {
@@ -337,7 +342,8 @@
             "member_kicked": "Membre eliminat de la casa",
             "member_kick_error": "No s'ha pogut eliminar el membre de la casa",
             "recovery_key_regenerated": "Clau de recuperació regenerada",
-            "recovery_key_error": "No s'ha pogut regenerar la clau de recuperació"
+            "recovery_key_error": "No s'ha pogut regenerar la clau de recuperació",
+            "account_delete_error": "No s'ha pogut eliminar el compte"
         },
         "user_profile": {
             "edit_username": "Canviar nom d'usuari"
@@ -404,13 +410,20 @@
             "export_json": "Exportar com JSON",
             "upload_backup": "Pujar còpia de seguretat",
             "uploading": "Pujant...",
-            "import_json": "Importar des de JSON"
+            "import_json": "Importar des de JSON",
+            "export_sensitive_title": "Les còpies de seguretat exportades contenen dades en text pla",
+            "export_sensitive_notice": "Aquesta còpia de seguretat inclou dades domèstiques desxifrades. Emmagatzemeu-la de manera segura després de la descàrrega, xifreu-la si és possible i eviteu compartir-la per canals insegurs.",
+            "export_sensitive_confirm": "Aquesta còpia de seguretat inclourà dades domèstiques desxifrades en text clar. Confirmeu que l'emmagatzemareu de manera segura?"
         },
         "about": {
             "title": "📱 Sobre l'aplicació",
             "version": "Versió",
             "brand": "Marca",
-            "feedback": "✉️ Envia Comentaris"
+            "feedback": "✉️ Envia Comentaris",
+            "legal_title": "Documents legals",
+            "legal_description": "Podeu tornar a obrir els textos de termes i privadesa des d'aquí fins i tot després d'acceptar-los.",
+            "terms_link": "Termes de servei",
+            "privacy_link": "Política de privadesa"
         },
         "modals": {
             "password": {
@@ -503,6 +516,19 @@
             "revoke_devices_desc": "Eliminar tots els dispositius recordats, que requereixen 2FA en el següent inici de sessió",
             "devices_revoked": "{{count}} dispositiu(s) de confiança eliminats",
             "devices_error": "No s'ha pogut revocar dispositius"
+        },
+        "danger_zone": {
+            "title": "Compte",
+            "delete_title": "Eliminar compte",
+            "delete_description": "Si voleu, podeu eliminar de forma permanent les dades personals i els fitxers pujats vinculats a aquest compte.",
+            "delete_warning": "Aquesta acció no es pot desfer.",
+            "delete_action": "Eliminar compte",
+            "modal_title": "Eliminar compte",
+            "modal_warning_title": "Aquesta acció és irreversible",
+            "modal_warning_body": "Després de la confirmació, perdreu immediatament l'accés al compte i les dades de l'aplicació eliminades no es poden restaurar des de l'aplicació.",
+            "password_label": "Confirmeu amb la vostra contrasenya actual",
+            "confirm_delete": "Confirmeu l'eliminació",
+            "deleting": "S'elimina..."
         }
     },
     "inventory": {
@@ -517,7 +543,53 @@
         "empty_filter": "Cap article coincideix amb els teus filtres",
         "empty_msg": "Encara no s'ha afegit cap article",
         "delete_confirm": "Estàs segur que vols eliminar aquest article?",
-        "delete_error": "Error en eliminar"
+        "delete_error": "Error en eliminar",
+        "load_warning": {
+            "title": "Mode de càrrega parcial",
+            "body": "Algunes dades de suport estan responent lentament ara mateix, així que la pàgina s'ha obert sense tota la metainformació del filtre. Tornarem a intentar-ho quan actualitzis."
+        },
+        "borrow": {
+            "section_title": "Seguiment de préstec",
+            "section_subtitle": "Estat actual del préstec i historial",
+            "dialog_lend_title": "Prèstec d'ítem",
+            "dialog_lend_subtitle": "Crear un nou registre de préstec per a \"{{item}}\"",
+            "dialog_return_title": "Marcar com a retornat",
+            "dialog_return_subtitle": "Tanca el registre de préstec actiu per a \"{{item}}\"",
+            "member": "Membre de la casa",
+            "external": "Persona externa",
+            "borrower_member": "Qui el va rebre?",
+            "no_members": "No hi ha cap altre membre seleccionable en aquesta casa. Pots crear el registre com a persona externa en canvi.",
+            "borrower_name": "Nom de la persona",
+            "borrower_name_placeholder": "p. ex., Veí Alex",
+            "borrower_contact": "Informació de contacte",
+            "borrower_contact_placeholder": "Telèfon, correu electrònic o nota breu",
+            "due_date": "Data de retorn prevista",
+            "note": "Nota",
+            "note_placeholder": "per exemple, Prestada per al cap de setmana",
+            "submitting_lend": "Desa...",
+            "lend": "Prestar",
+            "return_note": "Nota de retorn",
+            "return_note_placeholder": "per exemple, Retornada en bon estat",
+            "submitting_return": "Tancant...",
+            "mark_returned": "Marcat com a retornat",
+            "current_borrower_label": "Actualment amb:",
+            "unknown": "Desconegut",
+            "overdue_badge": "Atrasat",
+            "borrowed_badge": "Pres",
+            "borrowed_to": "Amb {{name}}",
+            "due_date_short": "Data de venciment: {{date}}",
+            "actions_error": "No s'ha pogut completar l'acció de préstec",
+            "borrowed_at": "Préstec en: {{date}}",
+            "due_date_label": "Retorn previst: {{date}}",
+            "note_label": "Nota: {{note}}",
+            "return_note_label": "Nota de retorn: {{note}}",
+            "no_active": "Aquest article no està actualment prestat.",
+            "history_title": "Historial",
+            "history_active": "Obre registre de {{name}}",
+            "history_returned": "Registre tancat per {{name}}",
+            "returned_at": "Retornat el: {{date}}",
+            "no_history": "Encara no hi ha historial de préstecs per aquest article."
+        }
     },
     "categories": {
         "title": "Categories",
@@ -615,7 +687,7 @@
             "free_badge": "Completament gratuït"
         },
         "features": {
-            "title": "Per què <1>HomeInventory</1>?",
+            "title": "Per què <1>{{brandName}}</1>?",
             "subtitle": "Totes les funcions per simplificar la gestió de la llar en una sola plataforma",
             "items": {
                 "categorize": {
@@ -653,7 +725,7 @@
             "desc": "La plataforma fàcil i segura per digitalitzar l'inventari de casa teva.",
             "links": "Enllaços ràpids",
             "contact": "Contacta'ns",
-            "copyright": "© {{year}} HomeInventory. Tots els drets reservats."
+            "copyright": "© {{year}} {{brandName}}. Tots els drets reservats."
         },
         "preview_privacy_notice": "Vista de demostració: no es mostren dades reals d'usuaris."
     },
@@ -781,10 +853,10 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Verificació del correu electrònic requerida",
-            "headerTitle": "Benvingut a HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Verificació del correu electrònic requerida",
+            "headerTitle": "Benvingut a {{brandName}}",
             "headerSubtitle": "Crea un nou compte o uneix-te a una casa existent",
-            "greeting": "Benvingut a HomeInventory",
+            "greeting": "Benvingut a {{brandName}}",
             "intro": "Compte creat! Si us plau, verifica la teva adreça de correu electrònic per iniciar sessió.",
             "verifyPrompt": "📧 Verificació del correu electrònic requerida",
             "verifyButton": "✓ Verifica el meu compte",
@@ -801,13 +873,13 @@
             ],
             "fallback": "L'enllaç de restabliment de la contrasenya sembla incomplet o trencat.",
             "support": "Problemes de registre:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Benvingut a HomeInventory",
-            "headerTitle": "Benvingut a HomeInventory",
+            "subject": "Benvingut a {{brandName}}",
+            "headerTitle": "Benvingut a {{brandName}}",
             "headerSubtitle": "Crea un nou compte o uneix-te a una casa existent",
-            "greeting": "Benvingut a HomeInventory",
+            "greeting": "Benvingut a {{brandName}}",
             "intro": "Benvingut, ! 👋",
             "houseKeyLabel": "Clau de la casa",
             "houseKeyNote": "Aquesta és la clau de casa teva, utilitza-la per convidar altres persones. Afegeix membres de la família a casa teva!",
@@ -819,7 +891,7 @@
                 "💡 Pots ser membre de diverses cases i canviar entre elles. Cada casa manté un inventari separat."
             ],
             "support": "Problemes de registre:",
-            "footer": "© 2026 HomeInventory <<<__HI_SEP___>>> {estatus d'inventari"
+            "footer": "© 2026 {{brandName}} <<<__HI_SEP___>>> {estatus d'inventari"
         },
         "houseJoinRequest": {
             "subject": "Unir-se a una casa",
@@ -828,7 +900,7 @@
             "bodyLine2": "S'està esperant l'aprovació del propietari"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "© 2026 HomeInventory",
+            "subjectTemplate": "© 2026 {{brandName}}",
             "greeting": "Accés a la casa",
             "bodyLine1Template": "Sol·licitud pendent actual: {{house}} ({{status}})",
             "bodyLine2": "La vostra sol·licitud de \"{{house}}\" encara està esperant una decisió."
@@ -848,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Si existeix un compte, s'ha enviat un enllaç de restabliment de la contrasenya vàlid durant 15 minuts.",
             "fallback": "L'enllaç de restabliment de la contrasenya sembla incomplet o trencat.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "Aquest correu electrònic ha estat enviat per {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -890,7 +966,6 @@
         "record_save_new": "Afegeix un registre de Vault",
         "record_save_edit": "Desa els canvis",
         "barcode_privacy_hint": "Els codis de barres de Vault no es busquen automàticament als serveis externs; el text del codi de barres només s'emmagatzema com a dades xifrades.",
-        "media_note": "Les fotos, l'escaneig de codis de barres i la cerca externa de productes estan desactivats intencionadament en aquest primer flux de volta. Necessiten un canal de privadesa i un mitjà xifrat separat.",
         "search_placeholder": "Cerca dins de la volta...",
         "all_categories": "Totes les categories",
         "all_rooms": "Totes les habitacions",
@@ -910,9 +985,112 @@
             "name_required": "Es requereix un nom d'element per a un registre de volta.",
             "options_failed": "No s'han pogut carregar les opcions de categoria i sala."
         },
-        "recovery_file_title": "Clau de recuperació de la bodega personal de HomeInventory",
+        "recovery_file_title": "Clau de recuperació de la bodega personal de {{brandName}}",
         "recovery_file_created_label": "Creat",
         "recovery_file_key_label": "Clau de recuperació",
-        "recovery_file_warning": "Si perds tant aquesta clau com la frase de pas de la bodega, la bodega no es pot recuperar."
+        "recovery_file_warning": "Si perds tant aquesta clau com la frase de pas de la bodega, la bodega no es pot recuperar.",
+        "media_note": "Les càrregues de fotos, l'escaneig de codis de barres i la cerca externa de productes encara no són compatibles. Aquestes funcions s'afegiran un cop estigui llest un flux dedicat d'enregistrament xifrat i privacitat."
+    },
+    "borrow_requests": {
+        "title": "Centre de préstecs",
+        "subtitle": "Gestiona sol·licituds i ofertes segures amb altres usuaris de {{brandName}}.",
+        "incoming_title": "Sol·licituds entrants",
+        "incoming_subtitle": "Sol·licituds i ofertes enviades a vostè",
+        "outgoing_title": "Enviat per mi",
+        "outgoing_subtitle": "Ofertes i sol·licituds d'articles que has iniciat",
+        "empty_incoming": "No hi ha sol·licituds de préstec per a tu en aquest moment.",
+        "empty_outgoing": "Encara no has enviat cap oferta o sol·licitud.",
+        "stats": {
+            "incoming": "Entrant pendent",
+            "outgoing": "Sortint pendent",
+            "active": "Préstecs actius"
+        },
+        "active": {
+            "title": "Préstecs actius",
+            "subtitle": "Articles que tens actualment o que has prestat",
+            "empty": "No hi ha préstecs actius ara mateix.",
+            "borrowed_from": "Pres en préstec de {{name}}",
+            "lent_to": "Actualment amb {{name}}"
+        },
+        "status": {
+            "pending": "Pendent",
+            "accepted": "Actiu",
+            "rejected": "Rebutjat",
+            "cancelled": "Cancel·lat",
+            "expired": "Caducat",
+            "returned": "Retornat"
+        },
+        "actions": {
+            "send_request": "Sol·licitar article",
+            "send_offer": "Enviar oferta",
+            "accept": "Acceptar",
+            "reject": "Rebutjar",
+            "cancel": "Cancel·lar",
+            "fulfill_request": "Complir sol·licitud"
+        },
+        "labels": {
+            "offer": "Oferta",
+            "request": "Sol·licitud",
+            "unspecified_item": "Element no especificat",
+            "counterparty": "Contrapart: {{name}}",
+            "created_at": "Creat: {{date}}",
+            "due_date": "Retorn previst: {{date}}",
+            "waiting_delivery": "La sol·licitud encara pot estar esperant un compte coincident abans que aparegui.",
+            "returned_on": "Retornat el: {{date}}",
+            "borrow_started": "Iniciat: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Envia oferta",
+            "offer_subtitle_item": "Crea una oferta d'usuari segura per a \"{{item}}\"",
+            "offer_subtitle_general": "Tria un article del teu inventari i envia una oferta segura",
+            "item_label": "Article",
+            "item_placeholder": "Selecciona un article",
+            "target_label": "Nom d'usuari o correu electrònic",
+            "target_placeholder": "per exemple alex o alex@example.com",
+            "target_help": "El sistema no revela si aquest compte existeix. Si coincideix, la sol·licitud apareix a la safata d'entrada del destinatari.",
+            "offer_note_placeholder": "per exemple, el pots guardar fins al cap de setmana si vols",
+            "offer_submitting": "Enviant...",
+            "request_title": "Sol·licitud d'article",
+            "request_subtitle": "Crea una sol·licitud general sense consultar l'inventari de l'altra persona",
+            "requested_item_label": "Què necessites?",
+            "requested_item_placeholder": "per exemple, taladre, trípode, cadira de càmping",
+            "request_note_placeholder": "per exemple, només ho necessito durant 2 dies",
+            "request_submitting": "Enviant...",
+            "fulfill_title": "Complir la sol·licitud",
+            "fulfill_subtitle": "Trieu un article del vostre inventari per a \"{{item}}\"",
+            "fulfill_target": "Aquest article serà prestat a {{name}}.",
+            "no_available_items": "Actualment no hi ha cap article elegible per oferir a la vostra casa activa.",
+            "fulfill_submitting": "Desant...",
+            "return_title": "Marcar com retornat",
+            "return_subtitle": "Tancar el préstec actiu per a \"{{item}}\"",
+            "return_target": "Actualment es mostra que està amb {{name}}."
+        },
+        "messages": {
+            "load_error": "No s'ha pogut carregar el centre de préstecs",
+            "action_error": "No s'ha pogut completar l'acció"
+        },
+        "preview": {
+            "title": "Mode de vista prèvia",
+            "body": "La part del backend d'aquesta pàgina no és accessible en les proves locals en aquest moment. Encara podeu revisar primer la disposició i el flux; activarem la part del servidor després que ho aproveu."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Política de privadesa",
+        "terms_of_service_title": "Condicions del servei",
+        "privacy_policy_content": "La teva privadesa és important per a nosaltres. Aquesta aplicació emmagatzema les dades que carregues de manera segura amb xifratge a nivell de camp. No venem ni compartim les teves dades personals amb tercers. En utilitzar el servei, consentes la recopilació de les dades necessàries per a la gestió del compte i el funcionament de l'aplicació.",
+        "terms_of_service_content": "En fer servir {{brandName}}, accepteu aquests termes. El servei es proporciona 'tal qual' sense garanties. Vostè és responsable de les dades que carregui i d'assegurar-se que en té els drets. Ens reservem el dret de suspendre els comptes que incompleixin les polítiques o facin un mal ús del sistema.",
+        "register_consent": "He llegit, comprès i accepto els <1>Termes del servei</1> i la <2>Política de privacitat</2>.",
+        "consent_title": "Revisar documents legals",
+        "consent_subtitle": "Si us plau, confirmeu els termes actuals abans de continuar.",
+        "consent_notice": "Necessitem un reconeixement enregistrat dels Termes de servei i l'Avis de privadesa actuals abans de poder continuar utilitzant l'aplicació.",
+        "consent_checkbox": "Accepto els Termes de servei i confirmo que he llegit l'Avis de privadesa.",
+        "consent_submit": "Continua",
+        "consent_submitting": "Desant...",
+        "consent_required": "Has de confirmar els Termes de Servei i l'Avis de Privadesa abans de continuar."
+    },
+    "cookies": {
+        "banner_text": "Utilitzem galetes essencials per mantenir-vos connectat i assegurar la vostra sessió. En continuar utilitzant aquest lloc, accepteu les nostres polítiques.",
+        "accept": "Accepto",
+        "learn_more": "Més informació"
     }
 }

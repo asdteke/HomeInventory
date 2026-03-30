@@ -63,7 +63,10 @@
             "warranty_duration_unit": "Garantiiaja ühik",
             "warranty_duration_months": "Kuud",
             "warranty_duration_years": "Aastad",
-            "warranty_calculation_help": "Kui jätate garantii alguskuupäeva tühjaks, kasutatakse arve kuupäeva. Kui sisestate kestuse, arvutatakse garantiiperioodi lõppkuupäev automaatselt."
+            "warranty_calculation_help": "Kui jätate garantii alguskuupäeva tühjaks, kasutatakse arve kuupäeva. Kui sisestate kestuse, arvutatakse garantiiperioodi lõppkuupäev automaatselt.",
+            "vault_hint_title": "Väga tundlik kirje?",
+            "vault_hint_description": "Passide, notariaalaktide, isikuandmete, juurdepääsukoodide ja muude kirjete jaoks, mis peaksid jääma standardse inventuuri voogust välja, hoia neid selle asemel Isiklikus Kapis.",
+            "vault_hint_action": "Ava Isiklik Kapis"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" kiire lisamine - saad hiljem redigeerida",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Toodet andmebaasist ei leitud. Saate otsida Google'is.",
             "search_fail": "⚠ Otsing ebaõnnestus",
             "name_required": "Eseme nimi on nõutud",
-            "location_add_error": "Asukoha lisamine ebaõnnestus"
+            "location_add_error": "Asukoha lisamine ebaõnnestus",
+            "photo_too_large": "Fotod võivad olla maksimaalselt {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -99,7 +103,7 @@
         "refresh": "Värskenda",
         "close": "Sule",
         "logout": "Logi välja",
-        "copyright": "© {{year}} HomeInventory - Kõik õigused kaitstud",
+        "copyright": "© {{year}} {{brandName}} - Kõik õigused kaitstud",
         "other": "Teine",
         "copy": "Kopeeri",
         "download": "Laadi alla"
@@ -108,7 +112,7 @@
         "login": {
             "title": "Logi sisse",
             "subtitle": "Halda kogu oma koduse inventari nutikalt",
-            "welcome": "Tere tulemast HomeInventory'sse",
+            "welcome": "Tere tulemast {{brandName}}'sse",
             "username_or_email": "Kasutajanimi või e-post",
             "password": "Parool",
             "forgot_password": "Unustasid parooli?",
@@ -120,7 +124,7 @@
             "register_link": "Registreeru",
             "support_contact": "Sisselogimise probleemide korral:",
             "terms_title": "📋 Kasutustingimused ja vastutusest loobumine",
-            "terms_beta": "BETA versioon: HomeInventory on praegu testimisetapis. Teie andmete püsivuse või turvalisuse osas garantiid ei anta.",
+            "terms_beta": "BETA versioon: {{brandName}} on praegu testimisetapis. Teie andmete püsivuse või turvalisuse osas garantiid ei anta.",
             "terms_disclaimer": "Vastutusest loobumine: Selle rakenduse kasutamisel nõustute, et te ei saa nõuda hüvitist võimaliku andmekao, juurdepääsuhäirete või muude tehniliste rikete eest.",
             "terms_backup": "Andmete varundamine: Soovitame tungivalt regulaarselt varundada oma olulised andmed.",
             "terms_accept": "Sisselogimisel loetakse, et olete need tingimused aktsepteerinud.",
@@ -138,7 +142,7 @@
             }
         },
         "register": {
-            "title": "Tere tulemast HomeInventory-sse",
+            "title": "Tere tulemast {{brandName}}-sse",
             "subtitle": "Looge uus konto või liituge olemasoleva majaga",
             "create_house": "Loo uus maja",
             "join_house": "Liitu majaga",
@@ -249,7 +253,8 @@
         "admin_panel": "Admin Paneel",
         "logout": "Logi Välja",
         "menu": "Menüü",
-        "personal_vault": "Isiklik varahoidla"
+        "personal_vault": "Isiklik varahoidla",
+        "borrow_requests": "Laenamistaotlused"
     },
     "dashboard": {
         "welcome": "Tere tulemast, <1>{{name}}</1>! 👋",
@@ -291,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BEETA:",
-        "text": "HomeInventory on hetkel testimise ja hobi etapis. Andmete säilimisele või turvalisusele ei anta garantiid. Palun hoidke olulist teavet varukoopiatena.",
+        "text": "{{brandName}} on hetkel testimise ja hobi etapis. Andmete säilimisele või turvalisusele ei anta garantiid. Palun hoidke olulist teavet varukoopiatena.",
         "contact": "Kontakt:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - Kõik õigused kaitstud",
+        "rights": "© {{year}} {{brandName}} - Kõik õigused kaitstud",
         "contact": "Kontakt:"
     },
     "settings": {
@@ -337,7 +342,8 @@
             "member_kicked": "Liige eemaldati majast",
             "member_kick_error": "Liikmest ei saanud majast eemaldada",
             "recovery_key_regenerated": "Taastevõti taastati",
-            "recovery_key_error": "Taastevõtit ei saanud uuesti luua"
+            "recovery_key_error": "Taastevõtit ei saanud uuesti luua",
+            "account_delete_error": "Kontot ei saanud kustutada"
         },
         "user_profile": {
             "edit_username": "Muuda kasutajanime"
@@ -404,13 +410,20 @@
             "export_json": "Ekspordi JSON-ina",
             "upload_backup": "Laadi varukoopia üles",
             "uploading": "Üleslaadimine...",
-            "import_json": "Impordi JSON-ist"
+            "import_json": "Impordi JSON-ist",
+            "export_sensitive_title": "Eksporditud varukoopiad sisaldavad tavalekujul andmeid",
+            "export_sensitive_notice": "See varukoopia sisaldab dekrüpteeritud majapidamise andmeid. Salvestage see pärast allalaadimist turvaliselt, krüpteerige see, kui võimalik, ja vältige selle jagamist ebaturvaliste kanalite kaudu.",
+            "export_sensitive_confirm": "See varukoopia sisaldab dekrüpteeritud majapidamisteavet lihttekstina. Kas kinnitate, et hoiate seda turvaliselt?"
         },
         "about": {
             "title": "📱 Rakenduse kohta",
             "version": "Versioon",
             "brand": "Bränd",
-            "feedback": "✉️ Saada tagasisidet"
+            "feedback": "✉️ Saada tagasisidet",
+            "legal_title": "Õiguslikud dokumendid",
+            "legal_description": "Siit saate tingimuste ja privaatsustekstide uuesti avada, isegi pärast nende aktsepteerimist.",
+            "terms_link": "Teenusetingimused",
+            "privacy_link": "Privaatsuspoliitika"
         },
         "modals": {
             "password": {
@@ -503,6 +516,19 @@
             "revoke_devices_desc": "Eemalda kõik meeldejäävad seadmed, mis nõuavad järgmise sisselogimise puhul 2FA-d",
             "devices_revoked": "{{count}} usaldusväärsed seadmed eemaldati",
             "devices_error": "Seadmete tühistamine ebaõnnestus"
+        },
+        "danger_zone": {
+            "title": "Konto",
+            "delete_title": "Kustuta konto",
+            "delete_description": "Kui soovid, saad püsivalt eemaldada selle kontoga seotud isikuandmed ja üleslaaditud failid.",
+            "delete_warning": "Seda tegevust ei saa tagasi võtta.",
+            "delete_action": "Kustuta konto",
+            "modal_title": "Kustuta konto",
+            "modal_warning_title": "See tegevus on pöördumatu",
+            "modal_warning_body": "Pärast kinnitamist kaotate koheselt juurdepääsu kontole ja kustutatud rakenduse andmeid ei saa rakendusest taastada.",
+            "password_label": "Kinnita oma praeguse parooliga",
+            "confirm_delete": "Kinnita kustutamine",
+            "deleting": "Kustutamine..."
         }
     },
     "inventory": {
@@ -517,7 +543,53 @@
         "empty_filter": "Ükski ese ei vasta teie filtritele",
         "empty_msg": "Esimesi esemeid pole veel lisatud",
         "delete_confirm": "Kas olete kindel, et soovite selle eseme kustutada?",
-        "delete_error": "Kustutamise viga"
+        "delete_error": "Kustutamise viga",
+        "load_warning": {
+            "title": "Osaline laadimisrežiim",
+            "body": "Mõned toetavad andmed reageerivad praegu aeglaselt, nii et leht avaneb ilma täieliku filtri metaandmeteta. Proovime uuesti, kui sa värskendad."
+        },
+        "borrow": {
+            "section_title": "Laenu jälgimine",
+            "section_subtitle": "Laenu praegune staatus ja ajalugu",
+            "dialog_lend_title": "laenu",
+            "dialog_lend_subtitle": "Loo uus laenukirje \"{{item}}\"",
+            "dialog_return_title": "Mark Return",
+            "dialog_return_subtitle": "Sulge aktiivne laenutusregister \"{{item}}\"",
+            "member": "Maja liige",
+            "external": "Väline isik",
+            "borrower_member": "Kes selle kätte sai?",
+            "no_members": "Selles majas pole teisi valitavaid liikmeid. Selle asemel saate kirje luua välimise isiku jaoks.",
+            "borrower_name": "Isiku nimi",
+            "borrower_name_placeholder": "nt Naaber Alex",
+            "borrower_contact": "Kontaktinfo",
+            "borrower_contact_placeholder": "Telefon, e-post või lühike märkus",
+            "due_date": "Oodatav tagastamise kuupäev",
+            "note": "Märkus",
+            "note_placeholder": "nt. Laenatud nädalavahetuseks",
+            "submitting_lend": "Salvestamine...",
+            "lend": "Laenamine",
+            "return_note": "Tagastamise märkus",
+            "return_note_placeholder": "nt. Tagastatud heas seisukorras",
+            "submitting_return": "Sulgemine...",
+            "mark_returned": "Märgistatud tagastatud",
+            "current_borrower_label": "Praegu koos:",
+            "unknown": "Teadmata",
+            "overdue_badge": "Aega ületanud",
+            "borrowed_badge": "Laenutatud",
+            "borrowed_to": "Koos {{name}}",
+            "due_date_short": "Tähtaeg: {{date}}",
+            "actions_error": "Laenamise toimingut ei saanud lõpule viia",
+            "borrowed_at": "Laenatud kuupäev: {{date}}",
+            "due_date_label": "Oodatav tagastamise kuupäev: {{date}}",
+            "note_label": "Märkus: {{note}}",
+            "return_note_label": "Tagastamise märkus: {{note}}",
+            "no_active": "Seda eset ei ole praegu laenatud.",
+            "history_title": "Ajalugu",
+            "history_active": "Ava {{name}} kirje",
+            "history_returned": "Suletud aruanne {{name}} jaoks",
+            "returned_at": "Tagastatud: {{date}}",
+            "no_history": "Selle eseme laenutuste ajalugu puudub veel."
+        }
     },
     "categories": {
         "title": "Kategooriad",
@@ -615,7 +687,7 @@
             "free_badge": "Täielikult tasuta"
         },
         "features": {
-            "title": "Miks <1>HomeInventory</1>?",
+            "title": "Miks <1>{{brandName}}</1>?",
             "subtitle": "Kõik funktsioonid koduhalduse lihtsustamiseks ühes platvormis",
             "items": {
                 "categorize": {
@@ -653,7 +725,7 @@
             "desc": "Lihtne ja turvaline platvorm kodu inventari digitaliseerimiseks.",
             "links": "Kiirlingid",
             "contact": "Võta meiega ühendust",
-            "copyright": "© {{year}} HomeInventory. Kõik õigused kaitstud."
+            "copyright": "© {{year}} {{brandName}}. Kõik õigused kaitstud."
         },
         "preview_privacy_notice": "Demo vaade: reaalset kasutajaandmeid ei kuvata."
     },
@@ -781,10 +853,10 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 E-posti kinnitamine on vajalik",
-            "headerTitle": "Tere tulemast HomeInventory-sse",
+            "subject": "🏠 {{brandName}} - 📧 E-posti kinnitamine on vajalik",
+            "headerTitle": "Tere tulemast {{brandName}}-sse",
             "headerSubtitle": "Looge uus konto või liituge olemasoleva majaga",
-            "greeting": "Tere tulemast HomeInventory'sse",
+            "greeting": "Tere tulemast {{brandName}}'sse",
             "intro": "Konto loodud! Palun kinnita oma e-posti aadress, et sisse logida.",
             "verifyPrompt": "📧 E-posti kinnitamine on vajalik",
             "verifyButton": "✓ Kontrolli oma kontot",
@@ -801,13 +873,13 @@
             ],
             "fallback": "Parooli lähtestamise link näib olevat puudulik või katkine.",
             "support": "Registreerimisprobleemid:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Tere tulemast HomeInventory-sse",
-            "headerTitle": "Tere tulemast HomeInventory-sse",
+            "subject": "Tere tulemast {{brandName}}-sse",
+            "headerTitle": "Tere tulemast {{brandName}}-sse",
             "headerSubtitle": "Looge uus konto või liituge olemasoleva majaga",
-            "greeting": "Tere tulemast HomeInventory'sse",
+            "greeting": "Tere tulemast {{brandName}}'sse",
             "intro": "Tere tulemast, ! 👋",
             "houseKeyLabel": "Maja võti",
             "houseKeyNote": "See on sinu majavõti, kasuta seda teiste kutsumiseks. Lisa pere liikmeid oma majja!",
@@ -819,7 +891,7 @@
                 "💡 Sa saad kuuluda mitmesse majja ja nende vahel vahetada. Igal majal on eraldi inventar."
             ],
             "support": "Registreerimisprobleemid:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Liitu majaga",
@@ -828,7 +900,7 @@
             "bodyLine2": "Ootan majaomaniku kinnitust"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory – {{status}}",
+            "subjectTemplate": "{{brandName}} – {{status}}",
             "greeting": "Juurdepääs majale",
             "bodyLine1Template": "Praegune ootel päring: {{house}} ({{status}})",
             "bodyLine2": "Teie taotlus \"{{house}}\" kohta ootab endiselt otsust."
@@ -848,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Kui konto on olemas, on saadetud parooli lähtestamise link, mis kehtib 15 minutit.",
             "fallback": "Parooli lähtestamise link näib olevat puudulik või katkine.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "Seda e-kirja saatis {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -890,7 +966,6 @@
         "record_save_new": "Lisa Vault Record",
         "record_save_edit": "Salvesta muudatused",
         "barcode_privacy_hint": "Vara vöötkoode ei otsita välisteenustes automaatselt; vöötkoodi tekst salvestatakse ainult krüpteeritud andmetena.",
-        "media_note": "Fotod, vöötkoodi skannimine ja väline tooteotsing on selles esimeses hoidlas sihilikult keelatud. Nad vajavad eraldi krüptitud meediumi- ja privaatsuskonveierit.",
         "search_placeholder": "Otsige varahoidlast...",
         "all_categories": "Kõik kategooriad",
         "all_rooms": "Kõik toad",
@@ -910,9 +985,112 @@
             "name_required": "Varasalve jaoks on nõutav üksuse nimi.",
             "options_failed": "Kategooria ja ruumi valikuid ei saanud laadida."
         },
-        "recovery_file_title": "HomeInventory isikliku kappi taastamise võti",
+        "recovery_file_title": "{{brandName}} isikliku kappi taastamise võti",
         "recovery_file_created_label": "Loodud",
         "recovery_file_key_label": "Taastamise võti",
-        "recovery_file_warning": "Kui kaotate nii selle võtme kui ka oma kappi parooliväljendi, ei ole kappi võimalik taastada."
+        "recovery_file_warning": "Kui kaotate nii selle võtme kui ka oma kappi parooliväljendi, ei ole kappi võimalik taastada.",
+        "media_note": "Fotode üleslaadimine, vöötkoodi skannimine ja välise toote otsingut ei toetata veel. Need funktsioonid lisatakse, kui spetsiaalne krüpteeritud meedia ja privaatsuse voog on valmis."
+    },
+    "borrow_requests": {
+        "title": "Laenutuskeskus",
+        "subtitle": "Halda turvalisi päringu- ja pakkumisvooge teiste {{brandName}} kasutajatega.",
+        "incoming_title": "Sissetulevad päringud",
+        "incoming_subtitle": "Sulle saadetud päringud ja pakkumised",
+        "outgoing_title": "Minu poolt saadetud",
+        "outgoing_subtitle": "Pakkumised ja esemete taotlused, mida alustasite",
+        "empty_incoming": "Hetkel pole teie jaoks ühtegi laenutaotlust.",
+        "empty_outgoing": "Te ei ole veel pakkumist ega taotlust saatnud.",
+        "stats": {
+            "incoming": "Ootel, saabuvad",
+            "outgoing": "Ootel, väljuvad",
+            "active": "Aktiivsed laenud"
+        },
+        "active": {
+            "title": "Aktiivsed laenud",
+            "subtitle": "Esemed, mis on praegu teil või mida olete laenanud",
+            "empty": "Praegu pole aktiivseid laene.",
+            "borrowed_from": "Laenatud {{name}}-lt",
+            "lent_to": "Hetkel {{name}} juures"
+        },
+        "status": {
+            "pending": "Ootel",
+            "accepted": "Aktiivne",
+            "rejected": "Tagasi lükatud",
+            "cancelled": "Tühistatud",
+            "expired": "Aegunud",
+            "returned": "Tagastatud"
+        },
+        "actions": {
+            "send_request": "Taotlusüksus",
+            "send_offer": "Saada Pakkumine",
+            "accept": "Nõustu",
+            "reject": "Keeldu",
+            "cancel": "Tühista",
+            "fulfill_request": "Täida Taotlus"
+        },
+        "labels": {
+            "offer": "Pakkumine",
+            "request": "Päring",
+            "unspecified_item": "Määramata ese",
+            "counterparty": "Vastaspool: {{name}}",
+            "created_at": "Loodud: {{date}}",
+            "due_date": "Oodatav tagastamine: {{date}}",
+            "waiting_delivery": "Päring võib endiselt oodata sobiva konto leidumist, enne kui see ilmub.",
+            "returned_on": "Tagastatud: {{date}}",
+            "borrow_started": "Alustatud: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Saada pakkumine",
+            "offer_subtitle_item": "Loo turvaline kasutajapakkumine \"{{item}}\"",
+            "offer_subtitle_general": "Vali oma inventarist ese ja saada turvaline pakkumine",
+            "item_label": "Ese",
+            "item_placeholder": "Vali ese",
+            "target_label": "kasutajanime või e-posti",
+            "target_placeholder": "näiteks Alex või alex@example.com",
+            "target_help": "Süsteem ei näita, kas see konto eksisteerib. Kui see klapib, ilmub taotlus saaja postkasti.",
+            "offer_note_placeholder": "nt. Sa võid seda hoida nädalavahetuseni, kui soovid",
+            "offer_submitting": "Saatmine...",
+            "request_title": "Taotlusese ese",
+            "request_subtitle": "Loo üldine taotlus, ilma et sirviksid teise inimese inventari",
+            "requested_item_label": "Mida sa vajad?",
+            "requested_item_placeholder": "nt. Trell, statiivi, telgitoa tool",
+            "request_note_placeholder": "nt. Ma vajan seda ainult 2 päevaks",
+            "request_submitting": "Saatmine...",
+            "fulfill_title": "Täida taotlus",
+            "fulfill_subtitle": "Vali oma inventarist ese \"{{item}}\"",
+            "fulfill_target": "See ese antakse laenule {{name}}.",
+            "no_available_items": "Praegu pole sinu aktiivses majas ühtegi sobivat eset, mida pakkuda.",
+            "fulfill_submitting": "Päästmine...",
+            "return_title": "Mark tagastas",
+            "return_subtitle": "Sulge aktiivne laenamine \"{{item}}\" jaoks",
+            "return_target": "Hetkel kuvatakse see koos {{name}}-ga."
+        },
+        "messages": {
+            "load_error": "Laenamiskeskust ei saanud laadida",
+            "action_error": "Tegevust ei saanud lõpetada"
+        },
+        "preview": {
+            "title": "Eelvaate režiim",
+            "body": "Selle lehe tagapoolset osa ei ole praegu kohalikus testimises kättesaadav. Saad siiski kõigepealt üle vaadata paigutuse ja voolu; lubame serveripoolse osa pärast sinu kinnitust."
+        }
+    },
+    "legal": {
+        "privacy_policy_title": "Privaatsuspoliitika",
+        "terms_of_service_title": "Teenusetingimused",
+        "privacy_policy_content": "Teie privaatsus on meile oluline. See rakendus salvestab teie üleslaaditud andmed turvaliselt, kasutades välja-põhist krüpteerimist. Me ei müü ega jaga teie isikuandmeid kolmandate osapooltega. Teenuse kasutamisega annate nõusoleku vajalike andmete kogumiseks konto haldamise ja rakenduse funktsionaalsuse tagamiseks.",
+        "terms_of_service_content": "{{brandName}} kasutamisega nõustute nende tingimustega. Teenust pakutakse 'nagu on' ilma garantiideta. Te olete vastutav üleslaaditud andmete eest ja veenduma, et teil on nendega seotud õigused. Me jätame endale õiguse peatada kontod, mis rikuvad poliitikaid või kuritarvitavad süsteemi.",
+        "register_consent": "Ma olen lugenud, mõistnud ja nõustun <1>Teenuse tingimustega</1> ning <2>Privaatsuspõhimõttega</2>.",
+        "consent_title": "Vaadake läbi juriidilised dokumendid",
+        "consent_subtitle": "Palun kinnitage praegused tingimused enne jätkamist.",
+        "consent_notice": "Me vajame salvestatud kinnitust kehtivate teenusetingimuste ja privaatsusteate kohta, enne kui saate rakendust edasi kasutada.",
+        "consent_checkbox": "Ma aktsepteerin teenusetingimusi ja kinnitan, et olen lugenud privaatsusteadet.",
+        "consent_submit": "Jätka",
+        "consent_submitting": "Salvestamine...",
+        "consent_required": "Enne jätkamist peate kinnitama teenusetingimused ja privaatsusteate."
+    },
+    "cookies": {
+        "banner_text": "Kasutame olulisi küpsiseid, et hoida teid sisse logituna ja turvaliselt teie sessiooni. Jätkates sellel saidil, nõustute meie poliitikatega.",
+        "accept": "Nõustun",
+        "learn_more": "Lisateave"
     }
 }

@@ -63,7 +63,10 @@
             "warranty_duration_months": "חדשים",
             "warranty_duration_years": "יאָרן",
             "warranty_calculation_help": "אויב איר לאָזט די אָנהייב־דאַטע פֿון וואָראַנטי ליידיק, וועט מען ניצן די דאַטע פֿון דער אינווויס. ווען איר גיט אַרײַן די לענג, וועט די סוף־דאַטע פֿון וואָראַנטי אויסגערעכנט ווערן אויטאָמאַטיש.",
-            "warranty_expiry_date": "דאַטע פֿון סוף וואָראַנטי"
+            "warranty_expiry_date": "דאַטע פֿון סוף וואָראַנטי",
+            "vault_hint_title": "Very sensitive record?",
+            "vault_hint_description": "For passports, deeds, identity details, access codes, and other records that should stay out of the standard inventory flow, keep them in Personal Vault instead.",
+            "vault_hint_action": "Open Personal Vault"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" quick added - you can edit later",
@@ -74,7 +77,8 @@
             "not_found": "⚠ Product not found in databases. You can search on Google.",
             "search_fail": "⚠ Search failed",
             "name_required": "Item name is required",
-            "location_add_error": "Failed to add location"
+            "location_add_error": "Failed to add location",
+            "photo_too_large": "Photos can be at most {{maxSizeMb}} MB."
         }
     },
     "common": {
@@ -100,7 +104,7 @@
         "refresh": "Refresh",
         "close": "Close",
         "logout": "Logout",
-        "copyright": "© {{year}} HomeInventory - All rights reserved",
+        "copyright": "© {{year}} {{brandName}} - All rights reserved",
         "copy": "Copy",
         "download": "Download"
     },
@@ -108,7 +112,7 @@
         "login": {
             "title": "Login",
             "subtitle": "Manage all your home inventory smartly",
-            "welcome": "Welcome to HomeInventory",
+            "welcome": "Welcome to {{brandName}}",
             "username_or_email": "Username or Email",
             "password": "Password",
             "forgot_password": "Forgot Password?",
@@ -120,13 +124,25 @@
             "register_link": "Register",
             "support_contact": "For login issues:",
             "terms_title": "📋 Terms of Use and Disclaimer",
-            "terms_beta": "BETA Version: HomeInventory is currently in testing phase. No guarantee is given regarding the persistence or security of your data.",
+            "terms_beta": "BETA Version: {{brandName}} is currently in testing phase. No guarantee is given regarding the persistence or security of your data.",
             "terms_disclaimer": "Disclaimer: By using this application, you agree that you cannot claim any compensation for potential data loss, access issues, or other technical malfunctions.",
             "terms_backup": "Data Backup: We strongly recommend backing up your important information regularly.",
-            "terms_accept": "By logging in, you are deemed to have accepted these terms."
+            "terms_accept": "By logging in, you are deemed to have accepted these terms.",
+            "two_factor": {
+                "title": "Two-Factor Authentication",
+                "subtitle": "Enter the 6-digit code from your authenticator app",
+                "backup_subtitle": "Enter one of your backup codes",
+                "code_label": "Verification Code",
+                "backup_code_label": "Backup Code",
+                "remember_device": "Remember this device for 30 days",
+                "verify": "Verify",
+                "back": "Back",
+                "use_backup": "Use backup code",
+                "use_totp": "Use authenticator"
+            }
         },
         "register": {
-            "title": "Welcome to HomeInventory",
+            "title": "Welcome to {{brandName}}",
             "subtitle": "Create a new account or join an existing house",
             "create_house": "Create New House",
             "join_house": "Join House",
@@ -237,7 +253,8 @@
         "admin_panel": "Admin Panel",
         "logout": "Logout",
         "menu": "Menu",
-        "personal_vault": "פערזענלעכער וואָלט"
+        "personal_vault": "פערזענלעכער וואָלט",
+        "borrow_requests": "Borrow Center"
     },
     "dashboard": {
         "welcome": "Welcome, <1>{{name}}</1>! 👋",
@@ -279,11 +296,11 @@
     },
     "beta_banner": {
         "title": "BETA:",
-        "text": "HomeInventory is currently in testing and hobby phase. No guarantee is given for data persistence or security. Please keep backups of important information.",
+        "text": "{{brandName}} is currently in testing and hobby phase. No guarantee is given for data persistence or security. Please keep backups of important information.",
         "contact": "Contact:"
     },
     "footer": {
-        "rights": "© {{year}} HomeInventory - All rights reserved",
+        "rights": "© {{year}} {{brandName}} - All rights reserved",
         "contact": "Contact:"
     },
     "settings": {
@@ -325,7 +342,8 @@
             "member_kicked": "Member removed from the house",
             "member_kick_error": "Could not remove member from the house",
             "recovery_key_regenerated": "Recovery key regenerated",
-            "recovery_key_error": "Could not regenerate recovery key"
+            "recovery_key_error": "Could not regenerate recovery key",
+            "account_delete_error": "The account could not be deleted"
         },
         "user_profile": {
             "edit_username": "Change username"
@@ -392,13 +410,20 @@
             "export_json": "Export as JSON",
             "upload_backup": "Upload Backup",
             "uploading": "Uploading...",
-            "import_json": "Import from JSON"
+            "import_json": "Import from JSON",
+            "export_sensitive_title": "Exported backups contain plaintext data",
+            "export_sensitive_notice": "This backup includes decrypted household data. Store it securely after download, encrypt it if possible, and avoid sharing it over insecure channels.",
+            "export_sensitive_confirm": "This backup will include decrypted household data in plaintext. Do you confirm that you will store it securely?"
         },
         "about": {
             "title": "📱 About Application",
             "version": "Version",
             "brand": "Brand",
-            "feedback": "✉️ Send Feedback"
+            "feedback": "✉️ Send Feedback",
+            "legal_title": "Legal Documents",
+            "legal_description": "You can reopen the terms and privacy texts from here even after accepting them.",
+            "terms_link": "Terms of Service",
+            "privacy_link": "Privacy Policy"
         },
         "modals": {
             "password": {
@@ -441,6 +466,69 @@
             "title": "My Pending Join Requests",
             "waiting_since": "Waiting since: {{date, datetime}}",
             "pending_badge": "Pending"
+        },
+        "two_factor": {
+            "title": "Two-Factor Authentication",
+            "description": "Add an extra layer of security to your account with TOTP-based 2FA",
+            "active": "Active",
+            "enable": "Enable 2FA",
+            "disable": "Disable 2FA",
+            "disable_desc": "Remove two-factor authentication from your account",
+            "disable_title": "Disable Two-Factor Authentication",
+            "disable_confirm": "Disable 2FA",
+            "disable_error": "Failed to disable 2FA",
+            "disabled_success": "Two-factor authentication has been disabled",
+            "password_label": "Password",
+            "password_placeholder": "Enter your password",
+            "method_totp": "Authenticator",
+            "method_backup": "Backup Code",
+            "method_recovery": "Recovery Key",
+            "totp_code_label": "Authenticator Code",
+            "backup_code_label": "Backup Code",
+            "recovery_key_label": "Recovery Key",
+            "cancel": "Cancel",
+            "setup_title": "Set Up 2FA",
+            "setup_error": "Failed to start 2FA setup",
+            "step_1": "Step 1: Scan QR Code",
+            "step_2": "Step 2: Verify Code",
+            "step_3": "Step 3: Save Backup Codes",
+            "scan_instruction": "Scan this QR code with your authenticator app (Google Authenticator, Authy, or any TOTP app)",
+            "manual_entry": "Can't scan? Enter this key manually:",
+            "copy_secret": "Copy secret",
+            "next": "Next",
+            "verify_instruction": "Enter the 6-digit code shown in your authenticator app to verify setup",
+            "verify_error": "Verification failed",
+            "code_label": "6-Digit Code",
+            "back": "Back",
+            "activate": "Activate 2FA",
+            "backup_warning_title": "Save These Backup Codes!",
+            "backup_warning_text": "If you lose access to your authenticator app, you can use these codes to log in. Each code can only be used once. Store them in a safe place.",
+            "download_codes": "Download Backup Codes",
+            "backup_acknowledge": "I have saved my backup codes in a safe place",
+            "done": "Done",
+            "regenerate_codes": "Regenerate Backup Codes",
+            "regenerate_codes_desc": "Generate new backup codes (old ones will be invalidated)",
+            "regenerate": "Regenerate",
+            "codes_regenerated": "Backup codes have been regenerated",
+            "codes_error": "Failed to regenerate backup codes",
+            "close_codes": "Close",
+            "revoke_devices": "Revoke Trusted Devices",
+            "revoke_devices_desc": "Remove all remembered devices, requiring 2FA on next login",
+            "devices_revoked": "{{count}} trusted device(s) removed",
+            "devices_error": "Failed to revoke devices"
+        },
+        "danger_zone": {
+            "title": "Account",
+            "delete_title": "Delete account",
+            "delete_description": "If you want, you can permanently remove the personal data and uploaded files tied to this account.",
+            "delete_warning": "This action cannot be undone.",
+            "delete_action": "Delete account",
+            "modal_title": "Delete account",
+            "modal_warning_title": "This action is irreversible",
+            "modal_warning_body": "After confirmation, you will immediately lose access to the account and the deleted application data cannot be restored from the app.",
+            "password_label": "Confirm with your current password",
+            "confirm_delete": "Confirm deletion",
+            "deleting": "Deleting..."
         }
     },
     "inventory": {
@@ -455,7 +543,53 @@
         "empty_filter": "No items match your filters",
         "empty_msg": "No items added yet",
         "delete_confirm": "Are you sure you want to delete this item?",
-        "delete_error": "Delete error"
+        "delete_error": "Delete error",
+        "load_warning": {
+            "title": "Partial load mode",
+            "body": "Some supporting data is responding slowly right now, so the page opened without full filter metadata. We will try again when you refresh."
+        },
+        "borrow": {
+            "section_title": "Borrow Tracking",
+            "section_subtitle": "Current loan status and history",
+            "dialog_lend_title": "Lend Item",
+            "dialog_lend_subtitle": "Create a new borrow record for \"{{item}}\"",
+            "dialog_return_title": "Mark Returned",
+            "dialog_return_subtitle": "Close the active borrow record for \"{{item}}\"",
+            "member": "House member",
+            "external": "External person",
+            "borrower_member": "Who received it?",
+            "no_members": "There is no other selectable member in this house. You can create the record as an external person instead.",
+            "borrower_name": "Person name",
+            "borrower_name_placeholder": "e.g. Neighbor Alex",
+            "borrower_contact": "Contact info",
+            "borrower_contact_placeholder": "Phone, email, or short note",
+            "due_date": "Expected return date",
+            "note": "Note",
+            "note_placeholder": "e.g. Lent for the weekend",
+            "submitting_lend": "Saving...",
+            "lend": "Lend",
+            "return_note": "Return note",
+            "return_note_placeholder": "e.g. Returned in good condition",
+            "submitting_return": "Closing...",
+            "mark_returned": "Mark Returned",
+            "current_borrower_label": "Currently with:",
+            "unknown": "Unknown",
+            "overdue_badge": "Overdue",
+            "borrowed_badge": "Borrowed",
+            "borrowed_to": "With {{name}}",
+            "due_date_short": "Due: {{date}}",
+            "actions_error": "Borrow action could not be completed",
+            "borrowed_at": "Lent on: {{date}}",
+            "due_date_label": "Expected return: {{date}}",
+            "note_label": "Note: {{note}}",
+            "return_note_label": "Return note: {{note}}",
+            "no_active": "This item is not currently borrowed.",
+            "history_title": "History",
+            "history_active": "Open record for {{name}}",
+            "history_returned": "Closed record for {{name}}",
+            "returned_at": "Returned on: {{date}}",
+            "no_history": "There is no borrow history for this item yet."
+        }
     },
     "categories": {
         "title": "Categories",
@@ -553,7 +687,7 @@
             "free_badge": "Completely Free"
         },
         "features": {
-            "title": "Why <1>HomeInventory</1>?",
+            "title": "Why <1>{{brandName}}</1>?",
             "subtitle": "All features to simplify home management in one platform",
             "items": {
                 "categorize": {
@@ -591,7 +725,7 @@
             "desc": "The easy and secure platform to digitize your home inventory.",
             "links": "Quick Links",
             "contact": "Contact Us",
-            "copyright": "© {{year}} HomeInventory. All rights reserved."
+            "copyright": "© {{year}} {{brandName}}. All rights reserved."
         },
         "preview_privacy_notice": "Demo view: no real user data is displayed."
     },
@@ -719,10 +853,10 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 HomeInventory - 📧 Email Verification Required",
-            "headerTitle": "Welcome to HomeInventory",
+            "subject": "🏠 {{brandName}} - 📧 Email Verification Required",
+            "headerTitle": "Welcome to {{brandName}}",
             "headerSubtitle": "Create a new account or join an existing house",
-            "greeting": "Welcome to HomeInventory",
+            "greeting": "Welcome to {{brandName}}",
             "intro": "Account created! Please verify your email address to login.",
             "verifyPrompt": "📧 Email Verification Required",
             "verifyButton": "✓ Verify My Account",
@@ -739,13 +873,13 @@
             ],
             "fallback": "The password reset link looks incomplete or broken.",
             "support": "Registration issues:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Welcome to HomeInventory",
-            "headerTitle": "Welcome to HomeInventory",
+            "subject": "Welcome to {{brandName}}",
+            "headerTitle": "Welcome to {{brandName}}",
             "headerSubtitle": "Create a new account or join an existing house",
-            "greeting": "Welcome to HomeInventory",
+            "greeting": "Welcome to {{brandName}}",
             "intro": "Welcome, ! 👋",
             "houseKeyLabel": "House Key",
             "houseKeyNote": "This is your house key, use it to invite others. Add family members to your house!",
@@ -757,7 +891,7 @@
                 "💡 You can be a member of multiple houses and switch between them. Each house maintains a separate inventory."
             ],
             "support": "Registration issues:",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Join House",
@@ -766,7 +900,7 @@
             "bodyLine2": "Waiting for house owner approval"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "HomeInventory - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "House Access",
             "bodyLine1Template": "Current pending request: {{house}} ({{status}})",
             "bodyLine2": "Your request for \"{{house}}\" is still waiting for a decision."
@@ -786,7 +920,11 @@
             "warningTitle": "⚠️",
             "warningBody": "If an account exists, a password reset link valid for 15 minutes has been sent.",
             "fallback": "The password reset link looks incomplete or broken.",
-            "footer": "© 2026 HomeInventory"
+            "footer": "© 2026 {{brandName}}"
+        },
+        "adminEmail": {
+            "sentBy": "This email was sent by {{brandName}}.",
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         }
     },
     "vault": {
@@ -822,7 +960,7 @@
         "recovery_ready_title": "רעקאָווערי־שליסל איז גרייט",
         "recovery_ready_description": "מיר ווײַזן דעם שליסל נאָר איין מאָל. היט עס אויף אין אַ זיכער אָרט.",
         "recovery_visible_once": "דער שליסל וועט שפּעטער נישט ווידער געוויזן ווערן.",
-        "recovery_file_title": "HomeInventory פערזענלעכער וואָלט־רעקאָווערי־שליסל",
+        "recovery_file_title": "{{brandName}} פערזענלעכער וואָלט־רעקאָווערי־שליסל",
         "recovery_file_created_label": "געשאַפֿן",
         "recovery_file_key_label": "רעקאָווערי־שליסל",
         "recovery_file_warning": "אויב איר פֿאַרלירט סיי דעם שליסל סיי אײַער וואָלט־פּאַספֿראַזע, קען מען נישט צוריקקריגן דעם וואָלט.",
@@ -832,7 +970,6 @@
         "record_save_new": "צולייגן וואָלט־רעקאָרד",
         "record_save_edit": "היטן ענדערונגען",
         "barcode_privacy_hint": "וואָלט־באַרקאָדן ווערן נישט אויטאָמאַטיש געזוכט אין דרויסנדיקע סערוויסן; דער באַרקאָד־טעקסט ווערט געהיט בלויז ווי ענקריפּטירטע דאַטן.",
-        "media_note": "פֿאָטאָס, באַרקאָד־סקאַנירן און דרויסנדיקער פּראָדוקט־לוקאַפּ זענען בכּיוון אויסגעשאַלט אין דעם ערשטן וואָלט־פֿלוס. זיי דאַרפֿן אַ באַזונדערע ענקריפּטירטע מידיאַ־ און פּריוואַטקייט־שיכט.",
         "search_placeholder": "זוכן אין וואָלט...",
         "all_categories": "אַלע קאַטעגאָריעס",
         "all_rooms": "אַלע צימערן",
@@ -851,6 +988,109 @@
             "decrypt_failed": "מען האָט נישט געקענט דעשיפֿרירן דעם וואָלט־אינהאַלט.",
             "name_required": "פֿאַר אַ וואָלט־רעקאָרד דאַרף מען אַ נאָמען פֿון אַ זאַך.",
             "options_failed": "מען האָט נישט געקענט לאָדן קאַטעגאָריע־ און צימער־אָפּציעס."
+        },
+        "media_note": "Photo uploads, barcode scanning, and external product lookup are not supported yet. These features will be added once a dedicated encrypted media and privacy flow is ready."
+    },
+    "borrow_requests": {
+        "title": "Borrow Center",
+        "subtitle": "Manage secure request and offer flows with other {{brandName}} users.",
+        "incoming_title": "Incoming Requests",
+        "incoming_subtitle": "Requests and offers sent to you",
+        "outgoing_title": "Sent by Me",
+        "outgoing_subtitle": "Offers and item requests you started",
+        "empty_incoming": "There are no borrow requests for you right now.",
+        "empty_outgoing": "You have not sent an offer or request yet.",
+        "stats": {
+            "incoming": "Pending Incoming",
+            "outgoing": "Pending Outgoing",
+            "active": "Active Borrows"
+        },
+        "active": {
+            "title": "Active Borrows",
+            "subtitle": "Items currently with you or lent by you",
+            "empty": "There are no active borrows right now.",
+            "borrowed_from": "Borrowed from {{name}}",
+            "lent_to": "Currently with {{name}}"
+        },
+        "status": {
+            "pending": "Pending",
+            "accepted": "Active",
+            "rejected": "Rejected",
+            "cancelled": "Cancelled",
+            "expired": "Expired",
+            "returned": "Returned"
+        },
+        "actions": {
+            "send_request": "Request Item",
+            "send_offer": "Send Offer",
+            "accept": "Accept",
+            "reject": "Reject",
+            "cancel": "Cancel",
+            "fulfill_request": "Fulfill Request"
+        },
+        "labels": {
+            "offer": "Offer",
+            "request": "Request",
+            "unspecified_item": "Unspecified item",
+            "counterparty": "Counterparty: {{name}}",
+            "created_at": "Created: {{date}}",
+            "due_date": "Expected return: {{date}}",
+            "waiting_delivery": "The request may still be waiting for a matching account before it appears.",
+            "returned_on": "Returned on: {{date}}",
+            "borrow_started": "Started: {{date}}"
+        },
+        "dialogs": {
+            "offer_title": "Send Offer",
+            "offer_subtitle_item": "Create a secure user offer for \"{{item}}\"",
+            "offer_subtitle_general": "Choose an item from your inventory and send a secure offer",
+            "item_label": "Item",
+            "item_placeholder": "Select an item",
+            "target_label": "Username or email",
+            "target_placeholder": "e.g. alex or alex@example.com",
+            "target_help": "The system does not reveal whether this account exists. If it matches, the request appears in the recipient's inbox.",
+            "offer_note_placeholder": "e.g. You can keep it until the weekend if you want",
+            "offer_submitting": "Sending...",
+            "request_title": "Request Item",
+            "request_subtitle": "Create a general request without browsing the other person's inventory",
+            "requested_item_label": "What do you need?",
+            "requested_item_placeholder": "e.g. Drill, tripod, camping chair",
+            "request_note_placeholder": "e.g. I only need it for 2 days",
+            "request_submitting": "Sending...",
+            "fulfill_title": "Fulfill Request",
+            "fulfill_subtitle": "Pick an item from your inventory for \"{{item}}\"",
+            "fulfill_target": "This item will be lent to {{name}}.",
+            "no_available_items": "There is no eligible item to offer in your active house right now.",
+            "fulfill_submitting": "Saving...",
+            "return_title": "Mark Returned",
+            "return_subtitle": "Close the active borrow for \"{{item}}\"",
+            "return_target": "It is currently shown as being with {{name}}."
+        },
+        "messages": {
+            "load_error": "Borrow center could not be loaded",
+            "action_error": "The action could not be completed"
+        },
+        "preview": {
+            "title": "Preview mode",
+            "body": "The backend part of this page is not reachable in local testing right now. You can still review the layout and flow first; we will enable the server side after you approve it."
         }
+    },
+    "legal": {
+        "privacy_policy_title": "Privacy Policy",
+        "terms_of_service_title": "Terms of Service",
+        "privacy_policy_content": "PRIVACY NOTICE\n\nData controller: {{brandName}} ({{siteHost}}). Contact: {{supportEmail}}.\n\n1. WHAT WE PROCESS\n- Account data: username, email address, password hash, session cookies, trusted-device data, and security logs.\n- Service data: houses, rooms, categories, items, uploaded media, borrow requests, and personal vault records that you create.\n- Technical data: IP address, browser/session identifiers, and language preference data needed for localization and account security.\n\n2. WHY WE PROCESS IT\nWe process personal data to create and operate your account, authenticate you, secure sessions and two-factor authentication, provide inventory, backup, and vault features, respond to support requests, and satisfy legal or security obligations.\n\n3. LEGAL BASIS\nWhere applicable, processing is based on contract performance, legal obligations, and our legitimate interest in service and account security. If a future feature relies on optional cookies or optional third-party processing, consent must be requested separately for that purpose.\n\n4. SHARING AND RETENTION\nWe do not sell personal data. Data is stored on hosting and email infrastructure that is necessary to operate the service, and may be disclosed to authorities only when legally required. Account data is retained while your account is active. When you delete your account from Settings, your account data, personal vault content, uploaded media, and application records owned by your account are deleted from the application without undue delay, except information that must be retained for legal claims, statutory duties, or security obligations.\n\n5. YOUR RIGHTS\nDepending on the applicable law, you may request access, correction, deletion, restriction, objection, or a copy of your personal data. You can use the in-app account deletion flow or contact {{supportEmail}} for privacy requests.\n\n6. IMPORTANT NOTE\nThis notice is provided for transparency. It is separate from any optional marketing, analytics, or non-essential cookie consent, which must be requested separately when required.",
+        "terms_of_service_content": "TERMS OF SERVICE\n\nBy using {{brandName}}, you agree to use the service lawfully and only for data you are authorized to upload, store, or share. You are responsible for the legality, accuracy, and ownership of the content you place in the service. Keep your password, recovery materials, and backups secure. We may suspend or remove accounts that abuse the service, violate these terms, or create a security or legal risk. The service is provided on an \"as is\" and \"as available\" basis to the extent permitted by law. Keep your own backups of important information. Deleting your account from Settings permanently removes application data and uploaded media owned by your account and cannot be undone.",
+        "register_consent": "I accept the <1>Terms of Service</1> and acknowledge that I have read the <2>Privacy Notice</2>.",
+        "consent_title": "Review legal documents",
+        "consent_subtitle": "Please confirm the current terms before continuing.",
+        "consent_notice": "We need a recorded acknowledgment for the current Terms of Service and Privacy Notice before you can continue using the application.",
+        "consent_checkbox": "I accept the Terms of Service and confirm that I have read the Privacy Notice.",
+        "consent_submit": "Continue",
+        "consent_submitting": "Saving...",
+        "consent_required": "You need to confirm the Terms of Service and Privacy Notice before continuing."
+    },
+    "cookies": {
+        "banner_text": "We use only essential cookies required for login, session security, trusted-device protection, and language preference. Non-essential analytics or marketing cookies are not enabled by default.",
+        "accept": "Understood",
+        "learn_more": "Learn More"
     }
 }

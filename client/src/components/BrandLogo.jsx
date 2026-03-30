@@ -1,3 +1,4 @@
+import { BRAND_HOST, BRAND_NAME } from '../constants/branding';
 import { useTheme } from '../context/ThemeContext';
 
 const SIZE_MAP = {
@@ -8,16 +9,18 @@ const SIZE_MAP = {
     xl: 168
 };
 
-const LOGO_VERSION = '20260301d';
+const LOGO_VERSION = '20260329-brandfix-logo';
+
+const USE_ENVANTERIM_LEGACY_LOGO = BRAND_HOST === 'envanterim.net.tr' || BRAND_NAME === 'Envanterim';
 
 const LOGO_PATHS = {
-    light: {
-        full: '/brand/logo-full-light.png',
-        symbol: '/brand/logo-symbol-light.png'
+    full: {
+        dark: USE_ENVANTERIM_LEGACY_LOGO ? '/brand/logo-full.png' : '/brand/logo-full-dark.png',
+        light: USE_ENVANTERIM_LEGACY_LOGO ? '/brand/logo-full.png' : '/brand/logo-full-light.png'
     },
-    dark: {
-        full: '/brand/logo-full-dark.png',
-        symbol: '/brand/logo-symbol-dark.png'
+    symbol: {
+        dark: USE_ENVANTERIM_LEGACY_LOGO ? '/brand/logo-symbol.png' : '/brand/logo-symbol-dark.png',
+        light: USE_ENVANTERIM_LEGACY_LOGO ? '/brand/logo-symbol.png' : '/brand/logo-symbol-light.png'
     }
 };
 
@@ -25,12 +28,12 @@ export default function BrandLogo({
     variant = 'symbol',
     size = 'md',
     className = '',
-    alt = 'HomeInventory logo'
+    alt = `${BRAND_NAME} logo`
 }) {
     const { isDark } = useTheme();
     const height = SIZE_MAP[size] || SIZE_MAP.md;
     const themeKey = isDark ? 'dark' : 'light';
-    const sourcePath = LOGO_PATHS[themeKey][variant] || LOGO_PATHS[themeKey].symbol;
+    const sourcePath = (LOGO_PATHS[variant] || LOGO_PATHS.symbol)[themeKey];
     const src = `${sourcePath}?v=${LOGO_VERSION}`;
 
     return (

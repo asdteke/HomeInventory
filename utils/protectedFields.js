@@ -10,6 +10,13 @@ export const ITEM_WARRANTY_START_PURPOSE = 'inventory.item.warranty_start_date';
 export const ITEM_WARRANTY_DURATION_VALUE_PURPOSE = 'inventory.item.warranty_duration_value';
 export const ITEM_WARRANTY_DURATION_UNIT_PURPOSE = 'inventory.item.warranty_duration_unit';
 export const ITEM_WARRANTY_EXPIRY_PURPOSE = 'inventory.item.warranty_expiry_date';
+export const BORROWER_NAME_PURPOSE = 'inventory.borrow.borrower_name';
+export const BORROWER_CONTACT_PURPOSE = 'inventory.borrow.borrower_contact';
+export const BORROW_NOTE_PURPOSE = 'inventory.borrow.note';
+export const BORROW_RETURN_NOTE_PURPOSE = 'inventory.borrow.return_note';
+export const BORROW_REQUEST_TARGET_PURPOSE = 'inventory.borrow_request.target_identifier';
+export const BORROW_REQUEST_ITEM_LABEL_PURPOSE = 'inventory.borrow_request.requested_item_label';
+export const BORROW_REQUEST_NOTE_PURPOSE = 'inventory.borrow_request.note';
 export const ROOM_NAME_PURPOSE = 'inventory.room.name';
 export const ROOM_DESCRIPTION_PURPOSE = 'inventory.room.description';
 export const LOCATION_NAME_PURPOSE = 'inventory.location.name';
@@ -133,6 +140,62 @@ export function encryptItemWarrantyDurationUnit(value) {
 
 export function decryptItemWarrantyDurationUnit(value) {
     return decryptFromStorage(value, { purpose: ITEM_WARRANTY_DURATION_UNIT_PURPOSE });
+}
+
+export function encryptBorrowerName(value) {
+    return encryptForStorage(value, { purpose: BORROWER_NAME_PURPOSE });
+}
+
+export function decryptBorrowerName(value) {
+    return decryptFromStorage(value, { purpose: BORROWER_NAME_PURPOSE });
+}
+
+export function encryptBorrowerContact(value) {
+    return encryptForStorage(value, { purpose: BORROWER_CONTACT_PURPOSE });
+}
+
+export function decryptBorrowerContact(value) {
+    return decryptFromStorage(value, { purpose: BORROWER_CONTACT_PURPOSE });
+}
+
+export function encryptBorrowNote(value) {
+    return encryptForStorage(value, { purpose: BORROW_NOTE_PURPOSE });
+}
+
+export function decryptBorrowNote(value) {
+    return decryptFromStorage(value, { purpose: BORROW_NOTE_PURPOSE });
+}
+
+export function encryptBorrowReturnNote(value) {
+    return encryptForStorage(value, { purpose: BORROW_RETURN_NOTE_PURPOSE });
+}
+
+export function decryptBorrowReturnNote(value) {
+    return decryptFromStorage(value, { purpose: BORROW_RETURN_NOTE_PURPOSE });
+}
+
+export function encryptBorrowRequestTarget(value) {
+    return encryptForStorage(value, { purpose: BORROW_REQUEST_TARGET_PURPOSE });
+}
+
+export function decryptBorrowRequestTarget(value) {
+    return decryptFromStorage(value, { purpose: BORROW_REQUEST_TARGET_PURPOSE });
+}
+
+export function encryptBorrowRequestItemLabel(value) {
+    return encryptForStorage(value, { purpose: BORROW_REQUEST_ITEM_LABEL_PURPOSE });
+}
+
+export function decryptBorrowRequestItemLabel(value) {
+    return decryptFromStorage(value, { purpose: BORROW_REQUEST_ITEM_LABEL_PURPOSE });
+}
+
+export function encryptBorrowRequestNote(value) {
+    return encryptForStorage(value, { purpose: BORROW_REQUEST_NOTE_PURPOSE });
+}
+
+export function decryptBorrowRequestNote(value) {
+    return decryptFromStorage(value, { purpose: BORROW_REQUEST_NOTE_PURPOSE });
 }
 
 export function encryptRoomName(value) {
@@ -304,6 +367,46 @@ export function decryptHouseJoinRequestRecord(record) {
     return {
         ...record,
         requested_house_name: decryptHouseName(record.requested_house_name)
+    };
+}
+
+export function decryptBorrowRecord(record) {
+    if (!record) {
+        return record;
+    }
+
+    const borrowerName = decryptBorrowerName(record.borrower_name);
+    const borrowerContact = decryptBorrowerContact(record.borrower_contact);
+    const note = decryptBorrowNote(record.note);
+    const returnNote = decryptBorrowReturnNote(record.return_note);
+    const borrowerUsername = decryptUsername(record.borrower_username);
+
+    return {
+        ...record,
+        borrower_name: borrowerName,
+        borrower_contact: borrowerContact,
+        note,
+        return_note: returnNote,
+        borrower_username: borrowerUsername,
+        borrower_display_name: borrowerUsername || borrowerName,
+        lent_by_username: decryptUsername(record.lent_by_username),
+        returned_by_username: decryptUsername(record.returned_by_username)
+    };
+}
+
+export function decryptBorrowRequestRecord(record) {
+    if (!record) {
+        return record;
+    }
+
+    return {
+        ...record,
+        recipient_identifier: decryptBorrowRequestTarget(record.recipient_identifier),
+        requested_item_label: decryptBorrowRequestItemLabel(record.requested_item_label),
+        note: decryptBorrowRequestNote(record.note),
+        initiator_username: decryptUsername(record.initiator_username),
+        recipient_username: decryptUsername(record.recipient_username),
+        decided_by_username: decryptUsername(record.decided_by_username)
     };
 }
 

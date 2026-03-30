@@ -4,6 +4,7 @@ import { useTheme } from '../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
 
 const INTRO_TOUR_BOOT_FLAG = '__homeInventoryIntroBooted';
+const INTRO_TOUR_OPT_IN_KEY = 'enableIntroTour';
 
 export default function IntroTour() {
     const { t } = useTranslation();
@@ -12,6 +13,11 @@ export default function IntroTour() {
     const { isDark } = useTheme();
 
     useEffect(() => {
+        const autoStartEnabled = localStorage.getItem(INTRO_TOUR_OPT_IN_KEY) === 'true';
+        if (!autoStartEnabled) {
+            return;
+        }
+
         // Check if user has seen the tour
         const hasSeenTour = localStorage.getItem('hasSeenIntroTour');
         if (!hasSeenTour && !window[INTRO_TOUR_BOOT_FLAG]) {

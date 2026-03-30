@@ -80,3 +80,22 @@ export function writePrivateFile(filePath, contents, encoding = 'utf8') {
         }
     }
 }
+
+export async function readPrivateFileWithinLimit(filePath, { maxBytes = Number.POSITIVE_INFINITY } = {}) {
+    const stats = await fs.promises.stat(filePath);
+
+    if (!stats.isFile()) {
+        const error = new Error('Stored media file is not a regular file');
+        error.code = 'EINVAL';
+        throw error;
+    }
+
+    if (Number.isFinite(maxBytes) && stats.size > maxBytes) {
+        const error = new Error(`Stored media file exceeds safe read limit (${maxBytes} bytes)`);
+        error.code = 'FILE_TOO_LARGE';
+        error.statusCode = 413;
+        throw error;
+    }
+
+    return fs.promises.readFile(filePath);
+}
