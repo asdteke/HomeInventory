@@ -29,6 +29,7 @@ import {
     decryptBorrowRecord,
     decryptItemInvoiceDate,
     decryptItemRecord,
+    redactBorrowRecordForViewer,
     decryptRoomName,
     encryptBorrowerContact,
     encryptBorrowerName,
@@ -104,6 +105,8 @@ const ACTIVE_BORROW_SELECT = `
     active_borrow.id AS active_borrow_id,
     active_borrow.borrower_type AS active_borrow_borrower_type,
     active_borrow.borrower_user_id AS active_borrow_borrower_user_id,
+    active_borrow.lent_by_user_id AS active_borrow_lent_by_user_id,
+    active_borrow.returned_by_user_id AS active_borrow_returned_by_user_id,
     active_borrow.borrower_name AS active_borrow_borrower_name,
     active_borrow.borrower_contact AS active_borrow_borrower_contact,
     active_borrow.note AS active_borrow_note,
@@ -256,7 +259,69 @@ function normalizeOptionalMoney(value) {
 }
 
 function getRequestErrorStatus(error) {
-    return /ge(?:ç|c)ersiz|gerekli|çok uzun|üyesi değil|kendinize/i.test(String(error?.message || '')) ? 400 : 500;
+    return /yetki|yalnızca|izniniz/i.test(String(error?.message || ''))
+        ? 403
+        : /ge(?:ç|c)ersiz|gerekli|çok uzun|üyesi değil|kendinize|ait değil/i.test(String(error?.message || ''))
+            ? 400
+            : 500;
+}
+
+function visibleItemCondition(alias = 'items') {
+    return `(${alias}.is_public = 1 OR ${alias}.user_id = ?)`;
+}
+
+const HOUSE_SCOPED_REFERENCE_QUERIES = {
+    category: db.prepare('SELECT id FROM categories WHERE id = ? AND house_key = ? LIMIT 1'),
+    room: db.prepare('SELECT id FROM rooms WHERE id = ? AND house_key = ? LIMIT 1'),
+    location: db.prepare('SELECT id FROM locations WHERE id = ? AND house_key = ? LIMIT 1')
+};
+
+function normalizeHouseScopedReferenceId(value, { fieldLabel, query, houseKey }) {
+    const normalized = String(value ?? '').trim();
+    if (!normalized) {
+        return null;
+    }
+
+    const parsedId = Number.parseInt(normalized, 10);
+    if (!Number.isInteger(parsedId) || parsedId <= 0) {
+        throw new Error(`${fieldLabel} geçersiz`);
+    }
+
+    if (!query.get(parsedId, houseKey)) {
+        throw new Error(`${fieldLabel} bu eve ait değil`);
+    }
+
+    return parsedId;
+}
+
+function resolveItemReferenceIds(body, houseKey, existingItem = null) {
+    const categoryId = body.category_id !== undefined
+        ? normalizeHouseScopedReferenceId(body.category_id, {
+            fieldLabel: 'Kategori',
+            query: HOUSE_SCOPED_REFERENCE_QUERIES.category,
+            houseKey
+        })
+        : existingItem?.category_id;
+    const roomId = body.room_id !== undefined
+        ? normalizeHouseScopedReferenceId(body.room_id, {
+            fieldLabel: 'Oda',
+            query: HOUSE_SCOPED_REFERENCE_QUERIES.room,
+            houseKey
+        })
+        : existingItem?.room_id;
+    const locationId = body.location_id !== undefined
+        ? normalizeHouseScopedReferenceId(body.location_id, {
+            fieldLabel: 'Konum',
+            query: HOUSE_SCOPED_REFERENCE_QUERIES.location,
+            houseKey
+        })
+        : existingItem?.location_id;
+
+    return {
+        categoryId: categoryId ?? null,
+        roomId: roomId ?? null,
+        locationId: locationId ?? null
+    };
 }
 
 function normalizeOptionalText(value, fieldLabel, maxLength = 500) {
@@ -272,16 +337,18 @@ function normalizeOptionalText(value, fieldLabel, maxLength = 500) {
     return normalized;
 }
 
-function buildActiveBorrowSnapshot(record) {
+function buildActiveBorrowSnapshot(record, viewerUserId, itemOwnerUserId = null) {
     if (!record?.active_borrow_id) {
         return null;
     }
 
-    return decryptBorrowRecord({
+    const borrow = decryptBorrowRecord({
         id: record.active_borrow_id,
         item_id: record.id,
         borrower_type: record.active_borrow_borrower_type,
         borrower_user_id: record.active_borrow_borrower_user_id,
+        lent_by_user_id: record.active_borrow_lent_by_user_id,
+        returned_by_user_id: record.active_borrow_returned_by_user_id,
         borrower_name: record.active_borrow_borrower_name,
         borrower_contact: record.active_borrow_borrower_contact,
         note: record.active_borrow_note,
@@ -293,10 +360,18 @@ function buildActiveBorrowSnapshot(record) {
         lent_by_username: record.active_borrow_lent_by_username,
         returned_by_username: record.active_borrow_returned_by_username
     });
+
+    return redactBorrowRecordForViewer(borrow, {
+        viewerUserId,
+        itemOwnerUserId
+    });
 }
 
-function serializeBorrowRecord(record) {
-    return decryptBorrowRecord(record);
+function serializeBorrowRecord(record, viewerUserId, itemOwnerUserId = null) {
+    return redactBorrowRecordForViewer(decryptBorrowRecord(record), {
+        viewerUserId,
+        itemOwnerUserId
+    });
 }
 
 function getActiveBorrowForItem(itemId, houseKey) {
@@ -316,7 +391,7 @@ function getActiveBorrowForItem(itemId, houseKey) {
     `).get(itemId, houseKey);
 }
 
-function listBorrowHistory(itemId, houseKey) {
+function listBorrowHistory(itemId, houseKey, viewerUserId, itemOwnerUserId = null) {
     return db.prepare(`
         SELECT
             ib.*,
@@ -329,7 +404,7 @@ function listBorrowHistory(itemId, houseKey) {
         LEFT JOIN users returner ON ib.returned_by_user_id = returner.id
         WHERE ib.item_id = ? AND ib.house_key = ?
         ORDER BY ib.borrowed_at DESC, ib.id DESC
-    `).all(itemId, houseKey).map(serializeBorrowRecord);
+    `).all(itemId, houseKey).map((record) => serializeBorrowRecord(record, viewerUserId, itemOwnerUserId));
 }
 
 function validateBorrowerMember(houseKey, borrowerUserId, actorUserId) {
@@ -392,23 +467,93 @@ function buildMediaUrl(storedPath) {
     return null;
 }
 
-function serializeItem(item) {
+function serializeItem(item, viewerUserId = null) {
     if (!item) {
         return item;
     }
 
     const decryptedItem = decryptItemRecord(item);
-    const activeBorrow = buildActiveBorrowSnapshot(item);
+    const activeBorrow = buildActiveBorrowSnapshot(item, viewerUserId, item.user_id);
+    const {
+        active_borrow_id,
+        active_borrow_borrower_type,
+        active_borrow_borrower_user_id,
+        active_borrow_lent_by_user_id,
+        active_borrow_returned_by_user_id,
+        active_borrow_borrower_name,
+        active_borrow_borrower_contact,
+        active_borrow_note,
+        active_borrow_borrowed_at,
+        active_borrow_due_date,
+        active_borrow_returned_at,
+        active_borrow_return_note,
+        active_borrow_borrower_username,
+        active_borrow_lent_by_username,
+        active_borrow_returned_by_username,
+        ...publicItem
+    } = decryptedItem;
 
     return {
-        ...decryptedItem,
+        ...publicItem,
         photo_path: buildMediaUrl(decryptedItem.photo_path),
         thumbnail_path: buildMediaUrl(decryptedItem.thumbnail_path),
         invoice_photo_path: buildMediaUrl(decryptedItem.invoice_photo_path),
         invoice_thumbnail_path: buildMediaUrl(decryptedItem.invoice_thumbnail_path),
+        can_manage_visibility: viewerUserId !== null && decryptedItem.user_id === viewerUserId,
         active_borrow: activeBorrow,
         is_borrowed: Boolean(activeBorrow)
     };
+}
+
+function normalizeSearchValue(value) {
+    if (typeof value !== 'string' && typeof value !== 'number') {
+        return '';
+    }
+
+    return String(value).trim().toLocaleLowerCase();
+}
+
+function resolveSearchableItemTitle(item) {
+    const candidates = [
+        item?.name,
+        item?.item_name,
+        item?.title,
+        item?.label
+    ];
+
+    for (const candidate of candidates) {
+        const normalized = typeof candidate === 'string' || typeof candidate === 'number'
+            ? String(candidate).trim()
+            : '';
+
+        if (!normalized || /^\d+$/.test(normalized)) {
+            continue;
+        }
+
+        return normalized;
+    }
+
+    return 'Untitled item';
+}
+
+function matchesItemSearch(item, searchTerm) {
+    const normalizedSearch = normalizeSearchValue(searchTerm);
+    if (!normalizedSearch) {
+        return true;
+    }
+
+    const searchableFields = [
+        resolveSearchableItemTitle(item),
+        item?.description,
+        item?.category_name,
+        item?.room_name,
+        item?.location_name,
+        item?.location_details,
+        item?.barcode,
+        item?.username
+    ];
+
+    return searchableFields.some((fieldValue) => normalizeSearchValue(fieldValue).includes(normalizedSearch));
 }
 
 function deleteStoredFile(storedPath) {
@@ -418,7 +563,7 @@ function deleteStoredFile(storedPath) {
     }
 }
 
-function getMediaRecord(type, filename, houseKey) {
+function getMediaRecord(type, filename, houseKey, viewerUserId) {
     if (!MEDIA_FILE_REGEX.test(filename)) {
         return null;
     }
@@ -447,11 +592,11 @@ function getMediaRecord(type, filename, houseKey) {
     const query = `
         SELECT id, ${typeConfig.column} as media_path
         FROM items
-        WHERE house_key = ? AND ${typeConfig.column} IN (?, ?)
+        WHERE house_key = ? AND ${visibleItemCondition('items')} AND ${typeConfig.column} IN (?, ?)
         LIMIT 1
     `;
 
-    return db.prepare(query).get(houseKey, candidates[0], candidates[1]);
+    return db.prepare(query).get(houseKey, viewerUserId, candidates[0], candidates[1]);
 }
 
 router.use(authenticateToken);
@@ -476,7 +621,7 @@ router.get('/media/:type/:filename', async (req, res) => {
             return res.status(404).json({ error: 'Medya bulunamadı' });
         }
 
-        const record = getMediaRecord(type, filename, req.user.house_key);
+        const record = getMediaRecord(type, filename, req.user.house_key, req.user.id);
         if (!record?.media_path) {
             return res.status(404).json({ error: 'Medya bulunamadı' });
         }
@@ -535,14 +680,14 @@ router.get('/', (req, res) => {
                    rooms.name as room_name, locations.name as location_name, users.username,
                    ${ACTIVE_BORROW_SELECT}
             FROM items
-            LEFT JOIN categories ON items.category_id = categories.id
-            LEFT JOIN rooms ON items.room_id = rooms.id
-            LEFT JOIN locations ON items.location_id = locations.id
+            LEFT JOIN categories ON items.category_id = categories.id AND categories.house_key = items.house_key
+            LEFT JOIN rooms ON items.room_id = rooms.id AND rooms.house_key = items.house_key
+            LEFT JOIN locations ON items.location_id = locations.id AND locations.house_key = items.house_key
             LEFT JOIN users ON items.user_id = users.id
             ${ACTIVE_BORROW_JOINS}
-            WHERE items.house_key = ?
+            WHERE items.house_key = ? AND ${visibleItemCondition('items')}
         `;
-        const params = [houseKey];
+        const params = [houseKey, req.user.id];
 
         if (category_id) { query += ' AND items.category_id = ?'; params.push(category_id); }
         if (room_id) { query += ' AND items.room_id = ?'; params.push(room_id); }
@@ -553,11 +698,10 @@ router.get('/', (req, res) => {
         }
 
         query += ' ORDER BY items.updated_at DESC';
-        let items = db.prepare(query).all(...params).map(serializeItem);
+        let items = db.prepare(query).all(...params).map((item) => serializeItem(item, req.user.id));
 
         if (search) {
-            const normalizedSearch = String(search).toLocaleLowerCase();
-            items = items.filter((item) => item.name?.toLocaleLowerCase().includes(normalizedSearch));
+            items = items.filter((item) => matchesItemSearch(item, search));
         }
 
         res.json({ items });
@@ -574,18 +718,81 @@ router.get('/barcode/:code', (req, res) => {
             SELECT items.*, categories.name as category_name, rooms.name as room_name,
                    ${ACTIVE_BORROW_SELECT}
             FROM items
-            LEFT JOIN categories ON items.category_id = categories.id
-            LEFT JOIN rooms ON items.room_id = rooms.id
+            LEFT JOIN categories ON items.category_id = categories.id AND categories.house_key = items.house_key
+            LEFT JOIN rooms ON items.room_id = rooms.id AND rooms.house_key = items.house_key
             ${ACTIVE_BORROW_JOINS}
-            WHERE items.barcode_lookup = ? AND items.house_key = ?
-        `).get(buildBarcodeLookup(req.params.code), req.user.house_key);
+            WHERE items.barcode_lookup = ? AND items.house_key = ? AND ${visibleItemCondition('items')}
+        `).get(buildBarcodeLookup(req.params.code), req.user.house_key, req.user.id);
 
         if (!item) {
             return res.json({ found: false, barcode: req.params.code });
         }
-        res.json({ found: true, item: serializeItem(item) });
+        res.json({ found: true, item: serializeItem(item, req.user.id) });
     } catch (err) {
         res.status(500).json({ error: 'Barkod araması başarısız' });
+    }
+});
+
+// Stats summary (only for same house)
+router.get('/stats/summary', (req, res) => {
+    try {
+        const houseKey = req.user.house_key;
+
+        const totalItems = db.prepare(`
+            SELECT COUNT(*) as count FROM items WHERE house_key = ? AND ${visibleItemCondition('items')}
+        `).get(houseKey, req.user.id);
+
+        const totalQuantity = db.prepare(`
+            SELECT COALESCE(SUM(quantity), 0) as total FROM items WHERE house_key = ? AND ${visibleItemCondition('items')}
+        `).get(houseKey, req.user.id);
+
+        const configuredRooms = db.prepare(`
+            SELECT COUNT(*) as count
+            FROM rooms
+            WHERE house_key = ?
+        `).get(houseKey);
+
+        const roomsInUse = db.prepare(`
+            SELECT COUNT(DISTINCT room_id) as count
+            FROM items
+            WHERE house_key = ? AND room_id IS NOT NULL AND ${visibleItemCondition('items')}
+        `).get(houseKey, req.user.id);
+
+        const topRoom = db.prepare(`
+            SELECT room_id, COUNT(*) as count
+            FROM items
+            WHERE house_key = ? AND room_id IS NOT NULL AND ${visibleItemCondition('items')}
+            GROUP BY room_id ORDER BY count DESC LIMIT 1
+        `).get(houseKey, req.user.id);
+
+        const topRoomRecord = topRoom?.room_id
+            ? db.prepare('SELECT name FROM rooms WHERE id = ? AND house_key = ?').get(topRoom.room_id, houseKey)
+            : null;
+
+        const configuredCategories = db.prepare(`
+            SELECT COUNT(*) as count
+            FROM categories
+            WHERE house_key = ?
+        `).get(houseKey);
+
+        const categoriesUsed = db.prepare(`
+            SELECT COUNT(DISTINCT category_id) as count FROM items WHERE house_key = ? AND category_id IS NOT NULL AND ${visibleItemCondition('items')}
+        `).get(houseKey, req.user.id);
+
+        res.json({
+            totalItems: totalItems?.count || 0,
+            totalQuantity: totalQuantity?.total || 0,
+            configuredRooms: configuredRooms?.count || 0,
+            roomsInUse: roomsInUse?.count || 0,
+            topRoom: topRoomRecord?.name ? decryptRoomName(topRoomRecord.name) : '-',
+            topRoomCount: topRoom?.count || 0,
+            configuredCategories: configuredCategories?.count || 0,
+            categoriesUsed: categoriesUsed?.count || 0,
+            roomCount: roomsInUse?.count || 0,
+            categoryCount: categoriesUsed?.count || 0
+        });
+    } catch (err) {
+        res.status(500).json({ error: 'İstatistikler yüklenemedi' });
     }
 });
 
@@ -597,16 +804,16 @@ router.get('/:id', (req, res) => {
                    locations.name as location_name, users.username,
                    ${ACTIVE_BORROW_SELECT}
             FROM items
-            LEFT JOIN categories ON items.category_id = categories.id
-            LEFT JOIN rooms ON items.room_id = rooms.id
-            LEFT JOIN locations ON items.location_id = locations.id
+            LEFT JOIN categories ON items.category_id = categories.id AND categories.house_key = items.house_key
+            LEFT JOIN rooms ON items.room_id = rooms.id AND rooms.house_key = items.house_key
+            LEFT JOIN locations ON items.location_id = locations.id AND locations.house_key = items.house_key
             LEFT JOIN users ON items.user_id = users.id
             ${ACTIVE_BORROW_JOINS}
-            WHERE items.id = ? AND items.house_key = ?
-        `).get(req.params.id, req.user.house_key);
+            WHERE items.id = ? AND items.house_key = ? AND ${visibleItemCondition('items')}
+        `).get(req.params.id, req.user.house_key, req.user.id);
 
         if (!item) return res.status(404).json({ error: 'Eşya bulunamadı' });
-        res.json({ item: serializeItem(item) });
+        res.json({ item: serializeItem(item, req.user.id) });
     } catch (err) {
         res.status(500).json({ error: 'Eşya yüklenirken hata oluştu' });
     }
@@ -614,15 +821,15 @@ router.get('/:id', (req, res) => {
 
 router.get('/:id/borrow-history', (req, res) => {
     try {
-        const item = db.prepare('SELECT id FROM items WHERE id = ? AND house_key = ?')
-            .get(req.params.id, req.user.house_key);
+        const item = db.prepare(`SELECT id, user_id FROM items WHERE id = ? AND house_key = ? AND ${visibleItemCondition('items')}`)
+            .get(req.params.id, req.user.house_key, req.user.id);
 
         if (!item) {
             return res.status(404).json({ error: 'Eşya bulunamadı' });
         }
 
         res.json({
-            history: listBorrowHistory(item.id, req.user.house_key)
+            history: listBorrowHistory(item.id, req.user.house_key, req.user.id, item.user_id)
         });
     } catch (err) {
         console.error('Borrow history error:', err);
@@ -632,11 +839,15 @@ router.get('/:id/borrow-history', (req, res) => {
 
 router.post('/:id/borrow', (req, res) => {
     try {
-        const item = db.prepare('SELECT id, name FROM items WHERE id = ? AND house_key = ?')
-            .get(req.params.id, req.user.house_key);
+        const item = db.prepare(`SELECT id, name, user_id FROM items WHERE id = ? AND house_key = ? AND ${visibleItemCondition('items')}`)
+            .get(req.params.id, req.user.house_key, req.user.id);
 
         if (!item) {
             return res.status(404).json({ error: 'Eşya bulunamadı' });
+        }
+
+        if (item.user_id !== req.user.id) {
+            return res.status(403).json({ error: 'Bu eşyayı yalnızca sahibi ödünç verebilir' });
         }
 
         const activeBorrow = getActiveBorrowForItem(item.id, req.user.house_key);
@@ -702,18 +913,18 @@ router.post('/:id/borrow', (req, res) => {
                    rooms.name as room_name, locations.name as location_name, users.username,
                    ${ACTIVE_BORROW_SELECT}
             FROM items
-            LEFT JOIN categories ON items.category_id = categories.id
-            LEFT JOIN rooms ON items.room_id = rooms.id
-            LEFT JOIN locations ON items.location_id = locations.id
+            LEFT JOIN categories ON items.category_id = categories.id AND categories.house_key = items.house_key
+            LEFT JOIN rooms ON items.room_id = rooms.id AND rooms.house_key = items.house_key
+            LEFT JOIN locations ON items.location_id = locations.id AND locations.house_key = items.house_key
             LEFT JOIN users ON items.user_id = users.id
             ${ACTIVE_BORROW_JOINS}
-            WHERE items.id = ?
-        `).get(item.id);
+            WHERE items.id = ? AND items.house_key = ? AND ${visibleItemCondition('items')}
+        `).get(item.id, req.user.house_key, req.user.id);
 
         res.status(201).json({
             message: 'Eşya ödünç verildi',
-            borrow: serializeBorrowRecord(borrow),
-            item: serializeItem(updatedItem)
+            borrow: serializeBorrowRecord(borrow, req.user.id, updatedItem?.user_id || null),
+            item: serializeItem(updatedItem, req.user.id)
         });
     } catch (err) {
         console.error('Borrow item error:', err);
@@ -728,8 +939,8 @@ router.post('/:id/borrow', (req, res) => {
 
 router.post('/:id/return', (req, res) => {
     try {
-        const item = db.prepare('SELECT id FROM items WHERE id = ? AND house_key = ?')
-            .get(req.params.id, req.user.house_key);
+        const item = db.prepare(`SELECT id, user_id FROM items WHERE id = ? AND house_key = ? AND ${visibleItemCondition('items')}`)
+            .get(req.params.id, req.user.house_key, req.user.id);
 
         if (!item) {
             return res.status(404).json({ error: 'Eşya bulunamadı' });
@@ -738,6 +949,10 @@ router.post('/:id/return', (req, res) => {
         const activeBorrow = getActiveBorrowForItem(item.id, req.user.house_key);
         if (!activeBorrow) {
             return res.status(409).json({ error: 'Bu eşya için aktif ödünç kaydı yok' });
+        }
+
+        if (item.user_id !== req.user.id && activeBorrow.lent_by_user_id !== req.user.id) {
+            return res.status(403).json({ error: 'Bu ödünç kaydını yalnızca eşyayı veren kişi veya sahibi kapatabilir' });
         }
 
         const returnNote = normalizeOptionalText(req.body.return_note, 'Teslim notu', 1000);
@@ -773,18 +988,18 @@ router.post('/:id/return', (req, res) => {
                    rooms.name as room_name, locations.name as location_name, users.username,
                    ${ACTIVE_BORROW_SELECT}
             FROM items
-            LEFT JOIN categories ON items.category_id = categories.id
-            LEFT JOIN rooms ON items.room_id = rooms.id
-            LEFT JOIN locations ON items.location_id = locations.id
+            LEFT JOIN categories ON items.category_id = categories.id AND categories.house_key = items.house_key
+            LEFT JOIN rooms ON items.room_id = rooms.id AND rooms.house_key = items.house_key
+            LEFT JOIN locations ON items.location_id = locations.id AND locations.house_key = items.house_key
             LEFT JOIN users ON items.user_id = users.id
             ${ACTIVE_BORROW_JOINS}
-            WHERE items.id = ?
-        `).get(item.id);
+            WHERE items.id = ? AND items.house_key = ? AND ${visibleItemCondition('items')}
+        `).get(item.id, req.user.house_key, req.user.id);
 
         res.json({
             message: 'Eşya teslim alındı',
-            borrow: serializeBorrowRecord(borrow),
-            item: serializeItem(updatedItem)
+            borrow: serializeBorrowRecord(borrow, req.user.id, updatedItem?.user_id || null),
+            item: serializeItem(updatedItem, req.user.id)
         });
     } catch (err) {
         console.error('Return item error:', err);
@@ -829,6 +1044,7 @@ router.post('/', uploadFields, async (req, res) => {
             warranty_expiry_date
         });
         const normalizedQuantity = Math.max(1, parseInt(quantity, 10) || 1);
+        const { categoryId, roomId, locationId } = resolveItemReferenceIds(req.body, houseKey);
 
         // Görsel işleme
         let photoPath = null;
@@ -873,7 +1089,7 @@ router.post('/', uploadFields, async (req, res) => {
             normalizedWarrantyDetails.warranty_duration_unit ? encryptItemWarrantyDurationUnit(normalizedWarrantyDetails.warranty_duration_unit) : null,
             normalizedWarrantyDetails.warranty_expiry_date ? encryptItemWarrantyExpiryDate(normalizedWarrantyDetails.warranty_expiry_date) : null,
             buildBarcodeLookup(barcode),
-            category_id || null, room_id || null, location_id || null,
+            categoryId, roomId, locationId,
             is_public !== undefined ? (parseBoolean(is_public) ? 1 : 0) : 1,
             req.user.id, houseKey
         );
@@ -883,14 +1099,14 @@ router.post('/', uploadFields, async (req, res) => {
                    rooms.name as room_name, locations.name as location_name, users.username,
                    ${ACTIVE_BORROW_SELECT}
             FROM items
-            LEFT JOIN categories ON items.category_id = categories.id
-            LEFT JOIN rooms ON items.room_id = rooms.id
-            LEFT JOIN locations ON items.location_id = locations.id
+            LEFT JOIN categories ON items.category_id = categories.id AND categories.house_key = items.house_key
+            LEFT JOIN rooms ON items.room_id = rooms.id AND rooms.house_key = items.house_key
+            LEFT JOIN locations ON items.location_id = locations.id AND locations.house_key = items.house_key
             LEFT JOIN users ON items.user_id = users.id
             ${ACTIVE_BORROW_JOINS}
             WHERE items.id = ?
         `).get(result.lastInsertRowid);
-        res.status(201).json({ message: 'Eşya eklendi', item: serializeItem(item) });
+        res.status(201).json({ message: 'Eşya eklendi', item: serializeItem(item, req.user.id) });
     } catch (err) {
         console.error('Create item error:', err);
         res.status(getRequestErrorStatus(err)).json({ error: err.message || 'Eşya eklenirken hata oluştu' });
@@ -935,12 +1151,24 @@ router.put('/:id', uploadFields, async (req, res) => {
             ? normalizeOptionalDate(invoice_date, 'Fatura tarihi')
             : null;
 
-        // Check if item belongs to same house (any member can edit)
+        // Check if item belongs to same house and is visible to the viewer.
         const existing = db.prepare('SELECT * FROM items WHERE id = ? AND house_key = ?')
             .get(itemId, req.user.house_key);
 
         if (!existing) {
             return res.status(404).json({ error: 'Eşya bulunamadı veya yetkiniz yok' });
+        }
+
+        if (!existing.is_public && existing.user_id !== req.user.id) {
+            return res.status(404).json({ error: 'Eşya bulunamadı veya yetkiniz yok' });
+        }
+
+        const requestedVisibility = is_public !== undefined
+            ? (parseBoolean(is_public) ? 1 : 0)
+            : existing.is_public;
+
+        if (requestedVisibility !== existing.is_public && existing.user_id !== req.user.id) {
+            return res.status(403).json({ error: 'Görünürlük ayarını yalnızca eşyayı ekleyen kişi değiştirebilir' });
         }
 
         const existingInvoiceDate = decryptItemInvoiceDate(existing.invoice_date);
@@ -963,6 +1191,7 @@ router.put('/:id', uploadFields, async (req, res) => {
         const normalizedQuantity = quantity !== undefined
             ? Math.max(1, parseInt(quantity, 10) || 1)
             : existing.quantity;
+        const { categoryId, roomId, locationId } = resolveItemReferenceIds(req.body, req.user.house_key, existing);
 
         // Görsel işleme
         let photoPath = existing.photo_path;
@@ -1031,10 +1260,10 @@ router.put('/:id', uploadFields, async (req, res) => {
                 ? (normalizedWarrantyDetails.warranty_expiry_date ? encryptItemWarrantyExpiryDate(normalizedWarrantyDetails.warranty_expiry_date) : null)
                 : existing.warranty_expiry_date,
             barcode !== undefined ? buildBarcodeLookup(barcode) : existing.barcode_lookup,
-            category_id !== undefined ? (category_id || null) : existing.category_id,
-            room_id !== undefined ? (room_id || null) : existing.room_id,
-            location_id !== undefined ? (location_id || null) : existing.location_id,
-            is_public !== undefined ? (parseBoolean(is_public) ? 1 : 0) : existing.is_public,
+            categoryId,
+            roomId,
+            locationId,
+            requestedVisibility,
             itemId
         );
 
@@ -1043,14 +1272,14 @@ router.put('/:id', uploadFields, async (req, res) => {
                    rooms.name as room_name, locations.name as location_name, users.username,
                    ${ACTIVE_BORROW_SELECT}
             FROM items
-            LEFT JOIN categories ON items.category_id = categories.id
-            LEFT JOIN rooms ON items.room_id = rooms.id
-            LEFT JOIN locations ON items.location_id = locations.id
+            LEFT JOIN categories ON items.category_id = categories.id AND categories.house_key = items.house_key
+            LEFT JOIN rooms ON items.room_id = rooms.id AND rooms.house_key = items.house_key
+            LEFT JOIN locations ON items.location_id = locations.id AND locations.house_key = items.house_key
             LEFT JOIN users ON items.user_id = users.id
             ${ACTIVE_BORROW_JOINS}
-            WHERE items.id = ?
-        `).get(itemId);
-        res.json({ message: 'Eşya güncellendi', item: serializeItem(item) });
+            WHERE items.id = ? AND items.house_key = ? AND ${visibleItemCondition('items')}
+        `).get(itemId, req.user.house_key, req.user.id);
+        res.json({ message: 'Eşya güncellendi', item: serializeItem(item, req.user.id) });
     } catch (err) {
         console.error('Update item error:', err);
         res.status(getRequestErrorStatus(err)).json({ error: err.message || 'Eşya güncellenirken hata oluştu' });
@@ -1060,11 +1289,15 @@ router.put('/:id', uploadFields, async (req, res) => {
 // Delete item (any house member can delete)
 router.delete('/:id', (req, res) => {
     try {
-        // Check if item belongs to same house (any member can delete)
+        // Check if item belongs to same house and is visible to the viewer.
         const item = db.prepare('SELECT * FROM items WHERE id = ? AND house_key = ?')
             .get(req.params.id, req.user.house_key);
 
         if (!item) {
+            return res.status(404).json({ error: 'Eşya bulunamadı veya yetkiniz yok' });
+        }
+
+        if (!item.is_public && item.user_id !== req.user.id) {
             return res.status(404).json({ error: 'Eşya bulunamadı veya yetkiniz yok' });
         }
 
@@ -1087,46 +1320,6 @@ router.delete('/:id', (req, res) => {
         res.json({ message: 'Eşya silindi' });
     } catch (err) {
         res.status(500).json({ error: 'Eşya silinirken hata oluştu' });
-    }
-});
-
-// Stats summary (only for same house)
-router.get('/stats/summary', (req, res) => {
-    try {
-        const houseKey = req.user.house_key;
-
-        const totalItems = db.prepare(`
-            SELECT COUNT(*) as count FROM items WHERE house_key = ?
-        `).get(houseKey);
-
-        const totalQuantity = db.prepare(`
-            SELECT COALESCE(SUM(quantity), 0) as total FROM items WHERE house_key = ?
-        `).get(houseKey);
-
-        const topRoom = db.prepare(`
-            SELECT room_id, COUNT(*) as count
-            FROM items
-            WHERE house_key = ? AND room_id IS NOT NULL
-            GROUP BY room_id ORDER BY count DESC LIMIT 1
-        `).get(houseKey);
-
-        const topRoomRecord = topRoom?.room_id
-            ? db.prepare('SELECT name FROM rooms WHERE id = ?').get(topRoom.room_id)
-            : null;
-
-        const categoryCount = db.prepare(`
-            SELECT COUNT(DISTINCT category_id) as count FROM items WHERE house_key = ? AND category_id IS NOT NULL
-        `).get(houseKey);
-
-        res.json({
-            totalItems: totalItems?.count || 0,
-            totalQuantity: totalQuantity?.total || 0,
-            topRoom: topRoomRecord?.name ? decryptRoomName(topRoomRecord.name) : '-',
-            topRoomCount: topRoom?.count || 0,
-            categoryCount: categoryCount?.count || 0
-        });
-    } catch (err) {
-        res.status(500).json({ error: 'İstatistikler yüklenemedi' });
     }
 });
 

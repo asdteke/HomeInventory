@@ -1,117 +1,151 @@
 <div dir="rtl">
 
 <p align="center">
-  <img src="client/public/brand/logo-full-dark.png" alt="HomeInventory Logo" width="280" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="client/public/brand/logo-full-dark.svg" />
+    <img src="client/public/brand/logo-full-light.svg" alt="HomeInventory Logo" width="420" />
+  </picture>
 </p>
 
 <h1 align="center">HomeInventory</h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Security-AES--256--GCM-blue?style=for-the-badge&logo=security" alt="Security" />
-  <img src="https://img.shields.io/badge/Docker-Supported-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
-  <img src="https://img.shields.io/badge/PWA-Ready-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white" alt="PWA" />
-  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License" />
+  <strong>جرد منزلي خاص وقابل للاستضافة الذاتية للمنازل المشتركة.</strong><br/>
+  إدارة العناصر والضمانات والمستندات والإعارات والسجلات الشخصية الحساسة من تطبيق React هادئ.
 </p>
 
 <p align="center">
-  المشروع مفتوح المصدر وراء <a href="https://envanterim.net.tr">envanterim.net.tr</a><br/>
-  نظام إدارة مخزون منزلي مفتوح المصدر يدعم أكثر من 100 لغة في الواجهة مع تشفير على مستوى الحقل للبيانات الحساسة.
+  <a href="README.md">English</a> ·
+  <a href="README.tr.md">Türkçe</a> ·
+  <a href="README.de.md">Deutsch</a> ·
+  <a href="README.es.md">Español</a> ·
+  <a href="README.ar.md">العربية</a>
 </p>
 
 <p align="center">
-  <a href="#المميزات">المميزات</a> •
-  <a href="#التقنيات">التقنيات</a> •
-  <a href="#البدء-السريع">البدء السريع</a> •
-  <a href="#docker">Docker</a> •
-  <a href="#متغيرات-البيئة">متغيرات البيئة</a> •
-  <a href="#هيكل-المشروع">الهيكل</a> •
-  <a href="#الرخصة">الرخصة</a>
+  <img src="https://img.shields.io/github/stars/asdteke/HomeInventory?style=for-the-badge&logo=github&color=f4c542" alt="GitHub stars" />
+  <img src="https://img.shields.io/github/last-commit/asdteke/HomeInventory?style=for-the-badge&color=2f6f55" alt="Last commit" />
+  <img src="https://img.shields.io/badge/security-AES--256--GCM-2f6f55?style=for-the-badge" alt="AES-256-GCM encryption" />
+  <img src="https://img.shields.io/badge/PWA-ready-334155?style=for-the-badge" alt="PWA ready" />
+  <img src="https://img.shields.io/badge/Docker-supported-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker supported" />
+  <img src="https://img.shields.io/badge/license-MIT-111827?style=for-the-badge" alt="MIT license" />
 </p>
 
 <p align="center">
-  <strong>🌐 اللغة:</strong> العربية | <a href="README.md">English</a> | <a href="README.tr.md">Türkçe</a> | <a href="README.de.md">Deutsch</a> | <a href="README.es.md">Español</a>
+  <a href="#المعاينة">المعاينة</a> ·
+  <a href="#لماذا-homeinventory">لماذا</a> ·
+  <a href="#الميزات">الميزات</a> ·
+  <a href="#الأمان--الخصوصية">الأمان</a> ·
+  <a href="#البدء-السريع">البدء السريع</a> ·
+  <a href="#التوثيق">التوثيق</a>
 </p>
 
 ---
 
-## المميزات
+## المعاينة
 
-- 🏠 **دعم منازل متعددة** — أنشئ منزلاً جديداً أو انضم إلى منزل قائم مع مخزون مشترك
-- 📦 **إدارة العناصر** — تتبع العناصر بالصور والكميات والباركود والأوصاف
-- 🏷️ **الفئات والغرف** — نظّم العناصر حسب فئات وغرف ومواقع مخصصة
-- 📱 **مسح الباركود / QR** — أضف أو ابحث عن العناصر بسرعة باستخدام كاميرا جهازك
-- 🔐 **المصادقة** — تسجيل دخول بـ JWT مع دعم Google OAuth والتحقق عبر البريد الإلكتروني
-- ✅ **المصادقة الثنائية والأجهزة الموثوقة** — تطبيقات TOTP، أكواد احتياطية لمرة واحدة، والتحكم في تذكّر الجهاز
-- 🔒 **الخزنة الشخصية** — مفاتيح خزنة تُنشأ داخل المتصفح وسجلات مشفرة للعناصر شديدة الحساسية
-- 👨‍💼 **لوحة الإدارة** — إدارة المستخدمين، الحظر، إرسال البريد الإلكتروني، وسجلات النظام
-- 🤝 **نظام الإعارة** — تتبع العناصر المعارة والمستعارة، وإدارة الطلبات، وتحديد تواريخ الاستحقاق، ومراقبة الحالات
-- 📧 **نظام البريد** — رسائل بريد إلكتروني عبر Resend API (التحقق، إشعارات المدير)
-- 💾 **النسخ الاحتياطي والاستعادة** — تصدير واستيراد بيانات المخزون
-- 🌍 **100+ لغة** — تأتي الواجهة مع أكثر من 100 لغة قابلة للاختيار للوصول العالمي
-- 🌙 **وضع داكن / فاتح** — يكتشف تفضيل النظام تلقائياً
-- 📱 **تصميم متجاوب** — تصميم للجوال أولاً، يعمل على جميع أحجام الشاشات
-- 🔍 **جاهز لـ SEO** — خريطة الموقع، robots.txt، علامات meta، ودعم IndexNow
-- 🛡️ **تشفير على مستوى الحقل** — حماية AES-256-GCM للبيانات الحساسة
-- 🐳 **تسليم الأسرار عبر Docker والسحابة** — Docker secrets وتهيئة OCI وقت التشغيل لمفاتيح الإنتاج
-- 🔑 **استرداد آمن لكلمة المرور** — إعادة تعيين بالبريد الإلكتروني أو مفتاح استرداد دون اتصال
+<p align="center">
+  <img src="docs/assets/screenshot-landing.png" alt="معاينة صفحة HomeInventory الرئيسية" width="88%" />
+</p>
 
-## الأمان والخصوصية (التشفير من جانب الخادم أثناء السكون)
+<details>
+<summary><strong>لقطات إضافية: الجرد، Borrow Center، Vault، الفئات</strong></summary>
 
-تم تصميم HomeInventory بمعايير أمان مؤسسية لحماية بياناتك الشخصية. يتم تشفير جميع الحقول الحساسة وملفات الوسائط والبيانات الشخصية على الخادم باستخدام AES-256-GCM قبل كتابتها على القرص أو قاعدة البيانات. هذا يحمي من سرقة قاعدة البيانات والوصول غير المصرح به للملفات. ملاحظة: نظراً لأن مفاتيح التشفير تُدار من جانب الخادم، يمكن لمسؤول الخادم الذي لديه وصول إلى قاعدة البيانات ومتغيرات البيئة فك تشفير البيانات.
+<br/>
 
-- **تشفير على مستوى الحقل**: يتم تشفير البيانات الحساسة (أسماء العناصر والأوصاف) بواسطة AES-256-GCM قبل حفظها.
-- **تخزين الوسائط المشفر**: يتم تخزين الصور بعد إزالة البيانات الوصفية (EXIF) الخاصة بها وتشفيرها بواسطة AES-256-GCM.
-- **حماية البيانات الشخصية (PII)**: يتم تشفير رسائل البريد الإلكتروني وأسماء المستخدمين. يستند البحث إلى رموز HMAC-SHA-256.
-- **تدوير المفاتيح**: دعم "حلقة المفاتيح" (Keyring) لتغيير المفتاح الأساسي دون فقدان الوصول للبيانات القديمة.
+<p align="center">
+  <img src="docs/assets/screenshot-inventory.png" alt="شاشة الجرد" width="48%" />
+  &nbsp;
+  <img src="docs/assets/screenshot-borrow.png" alt="شاشة Borrow Center" width="48%" />
+</p>
+<p align="center">
+  <img src="docs/assets/screenshot-vault.png" alt="شاشة Personal Vault" width="48%" />
+  &nbsp;
+  <img src="docs/assets/screenshot-categories.png" alt="شاشة الفئات" width="48%" />
+</p>
+
+</details>
+
+HomeInventory صُمم للعائلات وزملاء السكن والمنازل الصغيرة التي تحتاج إلى جرد عملي من دون تحويل السجلات الخاصة إلى جدول مشترك.
+
+## لماذا HomeInventory
+
+- **منزل واحد وعدة أشخاص:** أنشئ منزلاً أو انضم إلى منزل، بدّل المنزل النشط، واجعل الجرد المشترك محصوراً بالأعضاء الصحيحين.
+- **سجلات عناصر حقيقية:** الصور، الغرف، المواقع، الفئات، الكميات، تواريخ الضمان، بيانات الفواتير، الملاحظات والمرفقات.
+- **مكان أفضل للبيانات الحساسة:** يحافظ Personal Vault على السجلات الخاصة جداً بعيداً عن البحث والتعاون العادي داخل المنزل.
+- **عثور سريع في الحياة اليومية:** البحث، مسح الباركود، ملصقات QR، وشاشات مناسبة للجوال عندما تكون أمام الرف مباشرة.
+- **جاهز للاستضافة الذاتية:** يتضمن Express وSQLite ودعم Docker وتوثيق البيئة وتدفقات تحميل الأسرار للإنتاج.
+
+## الميزات
+
+| المجال | ما يغطيه |
+| --- | --- |
+| الجرد | العناصر، الصور، الغرف، الفئات، المواقع، الكميات، وبيانات الضمان والفواتير |
+| المنازل المشتركة | إنشاء المنازل، الانضمام عبر تدفقات الوصول، تبديل المنزل النشط، وحصر البيانات حسب العضوية |
+| Borrow Center | سجلات الإعارة الواردة والصادرة والنشطة مع حالات طلب واضحة |
+| Personal Vault | تدفق vault مشفر من جهة العميل للهويات ومستندات الملكية ورموز الوصول والملاحظات الحساسة |
+| الملصقات والمسح | مسح الباركود، ملصقات QR للعناصر، والوصول السريع من الجوال |
+| النسخ الاحتياطي والاستعادة | تصدير/استيراد مخصص للمالك فقط مع تأكيدات محمية |
+| المصادقة والاسترداد | JWT وGoogle OAuth والتحقق بالبريد وTOTP 2FA والأجهزة الموثوقة ومفاتيح الاسترداد |
+| التدويل | أكثر من 100 حزمة لغة للواجهة مع fallback لكل مفتاح |
+
+## الأمان & الخصوصية
+
+- **تشفير AES-256-GCM** يحمي بيانات الجرد والمصادقة والملف الشخصي الحساسة قبل كتابتها إلى القرص أو SQLite.
+- **معالجة وسائط مشفرة** تزيل بيانات الصور الوصفية وتخزن blobs محمية بدلاً من الرفعات الخام.
+- **تفويض محصور بالمنزل** يحد الغرف والفئات والعناصر والوسائط والنسخ الاحتياطية بعضوية المنزل النشط.
+- **فصل Personal Vault** يبقي السجلات الأكثر حساسية خارج تدفقات الجرد المشتركة المعتادة.
+- **تحديد المعدل وتحصين مسارات المصادقة** يقللان مخاطر القوة الغاشمة وإساءة الاستخدام في تسجيل الدخول والنسخ الاحتياطي والنقاط التفاعلية.
+
+> [!IMPORTANT]
+> يستخدم HomeInventory تشفيراً قوياً من جهة الخادم، لكن مفتاح تشفير الجرد الرئيسي ما يزال يُدار بواسطة الخادم. يمكن للمشغّل الذي يملك وصولاً إلى قاعدة البيانات وأسرار التشغيل فك بيانات الجرد المحمية. استخدم Personal Vault للسجلات التي تحتاج إلى فصل أقوى عن تدفقات المنزل المشتركة.
+
+## المعمارية
+
+<div dir="ltr">
+
+```text
+React SPA (Vite, PWA, Tailwind)
+        |
+        v
+Express API (JWT, OAuth, rate limiting)
+        |
+        v
+SQLite storage + encrypted media
+```
+
+</div>
 
 ## التقنيات
 
-### الخلفية (Backend)
-| التقنية | الغرض |
-|---|---|
-| **Node.js** + **Express** | خادم REST API |
-| **better-sqlite3** | قاعدة بيانات SQLite مدمجة |
-| **JWT** + **bcrypt** | المصادقة وتشفير كلمات المرور |
-| **Passport.js** | تكامل Google OAuth 2.0 |
-| **Helmet** | رؤوس أمان HTTP |
-| **express-rate-limit** | الحماية من هجمات القوة الغاشمة / DDoS |
-| **Resend** | خدمة البريد الإلكتروني |
-| **Sharp** | معالجة الصور والصور المصغرة |
-| **i18next** | دعم تعدد اللغات من جانب الخادم |
-
-### الواجهة الأمامية (Frontend)
-| التقنية | الغرض |
-|---|---|
-| **React 18** | مكتبة واجهة المستخدم |
-| **Vite** | أداة البناء وخادم التطوير |
-| **Tailwind CSS** | إطار عمل CSS |
-| **React Router v7** | التوجيه من جانب العميل |
-| **Lucide React** | مكتبة الأيقونات |
-| **html5-qrcode** | مسح الباركود و QR |
-| **react-i18next** | دعم تعدد اللغات للواجهة |
-| **react-joyride** | جولات تعريفية تفاعلية |
+| الخلفية | الواجهة الأمامية |
+| --- | --- |
+| Node.js, Express, better-sqlite3 | React 18, Vite, Tailwind CSS |
+| JWT, bcrypt, Passport Google OAuth 2.0 | React Router v6, react-i18next |
+| Helmet, express-rate-limit, i18next | Lucide React, html5-qrcode |
+| Sharp وتخزين وسائط مشفر | واجهة متجاوبة وجاهزة PWA |
 
 ## البدء السريع
 
-### المتطلبات الأساسية
-- **Node.js** ≥ 18 — [تحميل](https://nodejs.org/)
-- **npm** ≥ 9 (يأتي مع Node.js)
+### المتطلبات
 
-### 1. استنساخ وتثبيت
+- Node.js 18+
+- npm 9+
+- Git
+
+### 1. تثبيت الاعتماديات
 
 <div dir="ltr">
 
 ```bash
 git clone https://github.com/asdteke/HomeInventory.git
 cd HomeInventory
-
-# تثبيت جميع التبعيات (الخلفية + الواجهة) بأمر واحد
 npm run install-all
 ```
 
 </div>
 
-### 2. إنشاء ملف البيئة
+### 2. إنشاء ملف البيئة المحلي
 
 <div dir="ltr">
 
@@ -121,7 +155,7 @@ cp .env.example .env
 
 </div>
 
-افتح `.env` في محررك وعيّن **كحد أدنى** هذه القيم للتطوير المحلي:
+اضبط هذه القيم على الأقل:
 
 <div dir="ltr">
 
@@ -129,53 +163,19 @@ cp .env.example .env
 NODE_ENV=development
 PORT=3001
 SITE_URL=http://localhost:5173
-JWT_SECRET=غير-هذا-إلى-نص-عشوائي-لا-يقل-عن-32-حرفاً
-APP_ENCRYPTION_KEY=استبدل-بمفتاح-تشفير-32-بايت
+JWT_SECRET=replace-with-a-long-random-secret
+APP_ENCRYPTION_KEY=replace-with-32-byte-base64-or-64-char-hex-key
 APP_ENCRYPTION_KEY_ID=2026-03-local
 ```
 
 </div>
 
-> **💡 نصيحة:** يمكنك توليد JWT_SECRET آمن بواسطة:
-> ```bash
-> node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-> ```
+> [!TIP]
+> أنشئ أسراراً محلية آمنة باستخدام `openssl rand -hex 32` لقيمة `JWT_SECRET` و`openssl rand -base64 32` لقيمة `APP_ENCRYPTION_KEY`.
 
-المتغيرات المتبقية (`GOOGLE_CLIENT_ID`، `RESEND_API_KEY`، إلخ) **اختيارية** للتطوير المحلي. الميزات التي تعتمد عليها (تسجيل الدخول بـ Google، إرسال البريد) ستُعطّل تلقائياً.
+اختياري للتطوير المحلي: `GOOGLE_CLIENT_ID` و`GOOGLE_CLIENT_SECRET` و`RESEND_API_KEY`.
 
-> **🔐 مفتاح التشفير:** قم بتوليد `APP_ENCRYPTION_KEY` بواسطة:
-> ```bash
-> openssl rand -base64 32
-> ```
-
-### اختياري: Oracle Cloud Secret Management
-
-إذا كنت تنشر HomeInventory على مثيل Oracle Cloud Infrastructure (OCI)، يمكنك تخزين أسرار الإنتاج في OCI Secret Management وتحميلها تلقائياً قبل بدء التطبيق.
-
-النمط الموصى به:
-
-<div dir="ltr">
-
-```env
-SECRET_PROVIDER=oci
-OCI_AUTH_MODE=instance_principal
-OCI_REGION=eu-frankfurt-1
-OCI_VAULT_ID=ocid1.vault.oc1..exampleuniqueID
-OCI_SECRET_MAPPINGS={"JWT_SECRET":"homeinventory-jwt-secret","APP_ENCRYPTION_KEY":"homeinventory-app-encryption-key","APP_ENCRYPTION_KEY_ID":"homeinventory-app-encryption-key-id","RESEND_API_KEY":"homeinventory-resend-api-key"}
-```
-
-</div>
-
-ملاحظات:
-
-- اترك `SECRET_PROVIDER=env` للتطوير المحلي.
-- `OCI_SECRET_MAPPINGS` يمكن أن يشير إلى OCIDs أو أسماء الأسرار.
-- `OCI_VAULT_ID` مطلوب فقط عند استخدام أسماء الأسرار بدلاً من OCIDs.
-- عند استخدام أسرار Docker المعتمدة على الملفات، أبقِ نقطة الربط الافتراضية `/run/secrets` أو اضبط `DOCKER_SECRETS_DIR` إذا كانت بيئة التشغيل تربط الأسرار في مسار آخر.
-- نقطة دخول الخادم تحمّل الأسرار تلقائياً، لذا `node server.js` و `npm run dev` و `npm start` تستمر بالعمل.
-- برامج الصيانة مثل backfill التشفير وإرسال IndexNow تستخدم نفس مسار OCI bootstrap.
-
-### 3. تشغيل خادم التطوير
+### 3. تشغيل التطبيق
 
 <div dir="ltr">
 
@@ -185,178 +185,55 @@ npm run dev
 
 </div>
 
-هذا يشغل الخلفية والواجهة معاً. افتح متصفحك:
+العناوين المحلية:
 
-| الخدمة | العنوان |
-|---|---|
-| 🖥️ الواجهة الأمامية | http://localhost:5173 |
-| ⚙️ واجهة API | http://localhost:3001 |
-| 📱 الشبكة (الهاتف) | `http://<عنوان-IP-المحلي>:5173` |
+- Frontend: `http://localhost:5173`
+- Backend API: `http://localhost:3001`
 
-### 4. بناء الإنتاج (اختياري)
+### 4. بناء الإنتاج
 
 <div dir="ltr">
 
 ```bash
-# بناء الواجهة للإنتاج
 npm run build
-
-# تشغيل خادم الإنتاج (الواجهة المبنية + API)
 npm start
 ```
 
 </div>
 
-## Docker
-
-انشر HomeInventory باستخدام Docker للاستضافة الذاتية السهلة:
+### بديل Docker
 
 <div dir="ltr">
 
 ```bash
-git clone https://github.com/asdteke/HomeInventory.git
-cd HomeInventory
-cp .env.example .env
-# أنشئ ملفات أسرار Docker (أو استخدم مجلداً آخر عبر HOMEINVENTORY_SECRETS_DIR)
-mkdir -p secrets
-printf '%s' 'jwt-secret-here' > secrets/jwt_secret.txt
-printf '%s' '32-byte-base64-key-here' > secrets/app_encryption_key.txt
-printf '%s' '2026-compose' > secrets/app_encryption_key_id.txt
 docker compose up -d
 ```
 
 </div>
 
-التطبيق سيكون متاحاً على `http://localhost:3001`
+للتكوين المتقدم، reverse proxy، ونشر الإنتاج، راجع [DOCKER.md](DOCKER.md).
 
-يقرأ `docker-compose.yml` ملفات مصدر الأسرار من `${HOMEINVENTORY_SECRETS_DIR:-./secrets}` على المضيف بشكل افتراضي، ثم يربطها داخل الحاوية تحت `/run/secrets`.
+## التوثيق
 
-يتم تمرير ملف `.env` الكامل إلى الحاوية؛ الإعدادات الاختيارية مثل `APP_ENCRYPTION_KEYRING` و `EXPOSE_SERVER_INFO` و `INDEXNOW_*` تستمر بالعمل في Docker.
+- [DOCKER.md](DOCKER.md): Docker وreverse proxy والاستضافة الذاتية
+- [README_ENVIRONMENT_SETUP.md](README_ENVIRONMENT_SETUP.md): متغيرات البيئة وإدارة الأسرار
+- [CONTRIBUTING.md](CONTRIBUTING.md): إرشادات المساهمة
+- [SECURITY.md](SECURITY.md): عملية الإبلاغ عن الثغرات
 
-للتفاصيل حول إعداد Docker والبروكسي العكسي والنسخ الاحتياطي/الاستعادة ونشر Unraid، انظر **[DOCKER.md](DOCKER.md)**.
+## ملاحظة حول اللغات
 
-## متغيرات البيئة
-
-انسخ `.env.example` إلى `.env` واملأ القيم المطلوبة:
-
-| المتغير | مطلوب | الوصف |
-|---|---|---|
-| `NODE_ENV` | ✅ | `development` أو `production` |
-| `PORT` | ✅ | منفذ خادم الخلفية (افتراضي: `3001`) |
-| `SITE_URL` | ✅ | عنوان URL العام لموقعك |
-| `SECRET_PROVIDER` | ⬜ | `env` (الافتراضي) أو `oci` لتهيئة OCI Secret Management |
-| `OCI_AUTH_MODE` | ⬜ | نمط مصادقة وقت التشغيل لـ OCI (`instance_principal`) |
-| `OCI_REGION` | ⬜ | منطقة OCI اختيارية لاسترجاع الأسرار |
-| `OCI_VAULT_ID` | ⬜ | مطلوب عندما تستخدم `OCI_SECRET_MAPPINGS` أسماء الأسرار |
-| `OCI_SECRET_MAPPINGS` | ⬜ | خريطة JSON من أسماء متغيرات البيئة إلى OCIDs أو أسماء أسرار OCI |
-| `OCI_SECRET_OVERWRITE` | ⬜ | استبدال القيم المضبوطة مسبقاً بأسرار OCI |
-| `OCI_SECRET_BUNDLE_STAGE` | ⬜ | مرحلة حزمة السر المراد قراءتها (`CURRENT` افتراضياً) |
-| `DOCKER_SECRETS_DIR` | ⬜ | تجاوز مسار وقت التشغيل لأسرار Docker المعتمدة على الملفات (`/run/secrets`) |
-| `JWT_SECRET` | ✅ | مفتاح سري عشوائي لتوقيع JWT (32 حرفاً على الأقل) |
-| `APP_ENCRYPTION_KEY` | ✅ | مفتاح تشفير عشوائي 32 بايت |
-| `APP_ENCRYPTION_KEY_ID` | ✅ | مُعرف مفتاح التشفير الأساسي |
-| `APP_ENCRYPTION_KEYRING` | ⬜ | خريطة JSON اختيارية لتدوير المفاتيح |
-| `GOOGLE_CLIENT_ID` | ⬜ | معرّف عميل Google OAuth |
-| `GOOGLE_CLIENT_SECRET` | ⬜ | سر عميل Google OAuth |
-| `RESEND_API_KEY` | ⬜ | مفتاح API لـ Resend.com للبريد الإلكتروني |
-| `SUPPORT_EMAIL` | ⬜ | عنوان بريد الدعم |
-| `BOOTSTRAP_ADMIN_EMAIL` | ⬜ | ترقية هذا البريد تلقائياً إلى مدير |
-| `EXPOSE_SERVER_INFO` | ⬜ | إظهار نقطة نهاية معلومات الخادم (`true`/`false`) |
-| `APP_EMAIL_LANGUAGE` | ⬜ | لغة رسائل البريد الإلكتروني الصادرة (افتراضي: `en`) |
-| `INDEXNOW_KEY` | ⬜ | مفتاح IndexNow API لفهرسة SEO |
-| `INDEXNOW_BASE_URL` | ⬜ | عنوان URL الأساسي لعمليات إرسال IndexNow |
-| `INDEXNOW_ENDPOINT` | ⬜ | عنوان URL لنقطة نهاية IndexNow API |
-| `INDEXNOW_KEY_LOCATION` | ⬜ | موقع ملف مفتاح IndexNow (اختياري) |
-
-> **⚠️ لا تقم أبداً بعمل commit لملف `.env`!** إنه مدرج بالفعل في `.gitignore`.
-
-## هيكل المشروع
-
-<div dir="ltr">
-
-```
-Home-inventory/
-├── app.js                    # Express app setup & middleware
-├── server.js                 # Runtime bootstrap & server entry point
-├── auth.js                   # JWT middleware & token generation
-├── database.js               # SQLite DB initialization & migrations
-├── package.json
-├── .env.example
-├── .gitignore
-├── LICENSE
-│
-├── config/
-│   └── i18n.js
-│
-├── middleware/
-│   └── auth.js
-│
-├── routes/
-│   ├── auth.js, items.js, categories.js, rooms.js
-│   ├── locations.js, barcode.js, houses.js
-│   ├── borrowRequests.js, vault.js
-│   ├── admin.js, admin-email.js, email.js, backup.js
-│   └── ...
-│
-├── utils/
-│   ├── encryption.js, protectedFields.js, passwordRecovery.js
-│   ├── mediaStorage.js, runtimeSecrets.js, emailService.js
-│   ├── indexNow.js, logger.js
-│   └── ...
-│
-├── locales/                  # Backend i18n (100+ languages)
-├── scripts/                  # Maintenance & generation scripts
-│
-└── client/                   # React frontend
-    ├── src/
-    │   ├── components/       # Dashboard, ItemList, ItemForm, ...
-    │   ├── context/          # Auth, Theme contexts
-    │   └── utils/
-    └── public/
-        ├── brand/, locales/, robots.txt, sitemap.xml
-        └── ...
-```
-
-</div>
-
-## نقاط نهاية API
-
-| الطريقة | نقطة النهاية | الوصف |
-|---|---|---|
-| `POST` | `/api/auth/register` | تسجيل مستخدم جديد |
-| `POST` | `/api/auth/login` | تسجيل الدخول |
-| `GET` | `/api/items` | عرض العناصر |
-| `POST` | `/api/items` | إنشاء عنصر |
-| `PUT` | `/api/items/:id` | تحديث عنصر |
-| `DELETE` | `/api/items/:id` | حذف عنصر |
-| `GET` | `/api/categories` | عرض الفئات |
-| `GET` | `/api/rooms` | عرض الغرف |
-| `GET` | `/api/houses` | عرض منازل المستخدم |
-| `GET/POST`| `/api/borrow-requests` | نقاط نهاية نظام الإعارة |
-| `GET/POST`| `/api/vault` | نقاط نهاية الخزنة الشخصية |
-| `GET` | `/api/admin/*` | نقاط نهاية لوحة الإدارة |
-| `GET` | `/api/health` | فحص الصحة |
-
-> جميع نقاط نهاية `/api/*` (باستثناء auth) تتطلب رمز JWT Bearer.
+يأتي المنتج مع **أكثر من 100 حزمة لغة قابلة للاختيار للواجهة**. الإنجليزية والتركية هما أكثر لغات المنتج مراجعة؛ ويمكن للغات الأخرى استخدام fallback لكل مفتاح عند نقص الترجمة.
 
 ## المساهمة
 
-1. قم بعمل Fork للمستودع
-2. أنشئ فرع الميزة الخاص بك (`git checkout -b feature/ميزة-رائعة`)
-3. قم بعمل commit لتغييراتك (`git commit -m 'إضافة ميزة رائعة'`)
-4. ادفع الفرع (`git push origin feature/ميزة-رائعة`)
-5. افتح Pull Request
+نرحب بالـ issues وpull requests. للتغييرات الكبيرة، افتح issue أولاً حتى تبقى الإضافة متوافقة مع نموذج الأمان، ونطاق المنزل، وبنية الترجمة.
 
-## إخلاء المسؤولية
+## ملاحظة قانونية
 
-هذا مشروع مفتوح المصدر مستقل. لا علاقة له بأي منتج تجاري أو شركة تستخدم اسماً مشابهاً، ولا يحظى بدعمها أو ارتباطها.
-
-## التطوير بمساعدة الذكاء الاصطناعي
-
-تم تطوير هذا المشروع بمساعدة كبيرة من أدوات الذكاء الاصطناعي (بما في ذلك Google Gemini و OpenAI GPT).
+HomeInventory مشروع مفتوح المصدر ومستقل. لا يرتبط بأي منتج تجاري أو شركة تستخدم اسماً مشابهاً، ولا يمثلها أو يحصل على دعم منها.
 
 ## الرخصة
 
-MIT — انظر [LICENSE](LICENSE) للتفاصيل.
+MIT. راجع [LICENSE](LICENSE).
 
 </div>

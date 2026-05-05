@@ -1,373 +1,217 @@
 <p align="center">
-  <img src="client/public/brand/logo-full-dark.png" alt="HomeInventory Logo" width="280" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="client/public/brand/logo-full-dark.svg" />
+    <img src="client/public/brand/logo-full-light.svg" alt="HomeInventory Logo" width="420" />
+  </picture>
 </p>
 
 <h1 align="center">HomeInventory</h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Security-AES--256--GCM-blue?style=for-the-badge&logo=security" alt="Security" />
-  <img src="https://img.shields.io/badge/Docker-Supported-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
-  <img src="https://img.shields.io/badge/PWA-Ready-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white" alt="PWA" />
-  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License" />
+  <strong>Private, self-hostable household inventory for shared homes.</strong><br/>
+  Track items, warranties, documents, borrowing, and sensitive personal records from one calm React app.
 </p>
 
 <p align="center">
-  The open-source project behind <a href="https://envanterim.net.tr">envanterim.net.tr</a><br/>
-  An open-source home inventory management system with 100+ language UI support and field-level encryption for sensitive data.
+  <a href="README.md">English</a> ·
+  <a href="README.tr.md">Türkçe</a> ·
+  <a href="README.de.md">Deutsch</a> ·
+  <a href="README.es.md">Español</a> ·
+  <a href="README.ar.md">العربية</a>
 </p>
 
 <p align="center">
-  <a href="#features">Features</a> •
-  <a href="#tech-stack">Tech Stack</a> •
-  <a href="#quick-start">Quick Start</a> •
-  <a href="#docker">Docker</a> •
-  <a href="#environment-variables">Environment</a> •
-  <a href="#project-structure">Structure</a> •
-  <a href="#license">License</a>
+  <img src="https://img.shields.io/github/stars/asdteke/HomeInventory?style=for-the-badge&logo=github&color=f4c542" alt="GitHub stars" />
+  <img src="https://img.shields.io/github/last-commit/asdteke/HomeInventory?style=for-the-badge&color=2f6f55" alt="Last commit" />
+  <img src="https://github.com/asdteke/HomeInventory/actions/workflows/ci.yml/badge.svg" alt="CI status" />
+  <img src="https://img.shields.io/badge/security-AES--256--GCM-2f6f55?style=for-the-badge" alt="AES-256-GCM encryption" />
+  <img src="https://img.shields.io/badge/PWA-ready-334155?style=for-the-badge" alt="PWA ready" />
+  <img src="https://img.shields.io/badge/Docker-supported-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker supported" />
+  <img src="https://img.shields.io/badge/license-MIT-111827?style=for-the-badge" alt="MIT license" />
 </p>
 
 <p align="center">
-  <strong>🌐 Language:</strong> English | <a href="README.tr.md">Türkçe</a> | <a href="README.de.md">Deutsch</a> | <a href="README.es.md">Español</a> | <a href="README.ar.md">العربية</a>
+  <a href="#preview">Preview</a> ·
+  <a href="#why-homeinventory">Why</a> ·
+  <a href="#features">Features</a> ·
+  <a href="#security--privacy">Security</a> ·
+  <a href="#quick-start">Quick Start</a> ·
+  <a href="#documentation">Docs</a> ·
+  <a href="CHANGELOG.md">Changelog</a> ·
+  <a href="ROADMAP.md">Roadmap</a>
 </p>
 
 ---
 
+## Preview
+
+<p align="center">
+  <img src="docs/assets/screenshot-landing.png" alt="HomeInventory landing page preview" width="88%" />
+</p>
+
+<details>
+<summary><strong>More screenshots: Inventory, Borrow Center, Vault, Categories</strong></summary>
+
+<br/>
+
+<p align="center">
+  <img src="docs/assets/screenshot-inventory.png" alt="Inventory screen" width="48%" />
+  &nbsp;
+  <img src="docs/assets/screenshot-borrow.png" alt="Borrow Center screen" width="48%" />
+</p>
+<p align="center">
+  <img src="docs/assets/screenshot-vault.png" alt="Personal Vault screen" width="48%" />
+  &nbsp;
+  <img src="docs/assets/screenshot-categories.png" alt="Categories screen" width="48%" />
+</p>
+
+</details>
+
+HomeInventory is built for families, roommates, and small households that need a practical inventory without turning private records into a shared spreadsheet.
+
+> [!NOTE]
+> **v2.0.0 is the redesigned release.** This version refreshes the main app experience, strengthens security-sensitive flows, expands localization quality checks, and improves PWA/brand assets while keeping the project self-hostable.
+
+## Why HomeInventory
+
+- **One household, many people:** create or join homes, switch the active home, and keep shared inventory scoped to the right members.
+- **Real item records:** track photos, rooms, locations, categories, quantities, warranty dates, invoice data, notes, and attachments.
+- **Sensitive data has a better place:** Personal Vault keeps highly private records away from regular household search and collaboration.
+- **Fast lookup in daily life:** use search, barcode scanning, QR labels, and mobile-friendly screens when you are standing in front of the shelf.
+- **Built to self-host:** Express, SQLite, Docker support, environment documentation, and production secret-loading flows are included.
+
 ## Features
 
-- 🏠 **Multi-house support** — Create or join households with shared inventories
-- 📦 **Item management** — Track items with photos, quantities, barcodes, and descriptions
-- 🏷️ **Categories & Rooms** — Organize items by custom categories, rooms, and locations
-- 📱 **Barcode / QR scanning** — Quickly add or find items using your device camera
-- 🔐 **Authentication** — JWT-based auth with Google OAuth support and email verification
-- ✅ **2FA & trusted devices** — TOTP authenticator apps, one-time backup codes, and remembered-device controls
-- 🔒 **Personal Vault** — Browser-generated vault keys and encrypted personal records for high-sensitivity items
-- 🛡️ **Field-level encryption** — AES-256-GCM protection for sensitive verification and inventory fields
-- 🐳 **Docker & cloud secret delivery** — Docker secrets and OCI runtime secret bootstrap for production key management
-- 👨‍💼 **Admin panel** — User management, ban controls, email sending, and system logs
-- 🤝 **Borrow System** — Track lent and borrowed items, manage requests, set due dates, and monitor statuses
-- 📧 **Email system** — Transactional emails via Resend API (verification, admin notices)
-- 💾 **Backup & Restore** — Export and import your inventory data
-- 🌍 **100+ language UI** — The frontend ships with 100+ selectable languages for global access
-- 🌙 **Dark / Light theme** — Auto-detects system preference
-- 📱 **Responsive** — Mobile-first design, works on all screen sizes
-- 🔍 **SEO ready** — Sitemap, robots.txt, meta tags, and IndexNow support
-- 🔑 **Secure Password Recovery** — Email-based reset or offline Recovery Key for local account recovery
+| Area | What it covers |
+| --- | --- |
+| Inventory | Items, photos, rooms, categories, locations, quantities, warranty and invoice metadata |
+| Shared homes | Create homes, join with house access flows, switch active homes, and keep data scoped by membership |
+| Borrow Center | Incoming, outgoing, and active lending records with clear request states |
+| Personal Vault | Client-side encrypted vault flow for IDs, property documents, access codes, and sensitive notes |
+| Labels and scanning | Barcode scanning, item QR labels, and mobile-friendly lookup |
+| Backup and restore | Owner-only export/import flows with guarded confirmations |
+| Auth and recovery | JWT auth, Google OAuth, email verification, TOTP 2FA, trusted devices, and recovery keys |
+| Internationalization | 100+ selectable UI locale packs with key-level fallback support |
 
-## Security & Privacy (Server-Side Encryption at Rest)
+## Security & Privacy
 
-HomeInventory is designed with enterprise-grade security to protect your personal data. All sensitive fields, media files, and PII are encrypted on the server using AES-256-GCM before being written to disk or database. This protects against database theft and unauthorized file access. Note: because encryption keys are managed server-side, a server administrator with access to both the database and the environment variables can decrypt the data.
+- **AES-256-GCM encryption at rest** protects sensitive inventory, auth, and profile fields before they are written to disk or SQLite.
+- **Encrypted media handling** strips image metadata and stores protected media blobs instead of raw uploads.
+- **Household-scoped authorization** keeps rooms, categories, items, media, and backups limited to the active household membership.
+- **Personal Vault separation** keeps highly sensitive records out of normal shared inventory flows.
+- **Rate limiting and hardened auth routes** reduce brute-force and abuse risk around login, backup, and interactive endpoints.
 
-- **Field-Level Encryption**: Sensitive data like item names, descriptions, barcodes, and custom categories are encrypted via AES-256-GCM before ever hitting the database.
-- **Encrypted Media Storage**: All uploaded photos and thumbnails have their EXIF metadata stripped and are stored on disk as AES-256-GCM encrypted blobs. They are only decrypted in RAM when requested by authenticated users.
-- **PII Protection**: User emails and usernames are stored encrypted. Authentication utilizes a deterministic HMAC-SHA-256 lookup token system, allowing seamless login without exposing the underlying PII to rainbow table attacks.
-- **Key Rotation Ready**: The application supports a Keyring map, allowing administrators to rotate the primary encryption key without breaking legacy encrypted data.
-- **Enterprise Secret Management (Optional)**: For enterprise deployments, the standard `.env`-based encryption key delivery can be upgraded to Oracle Cloud Infrastructure (OCI) Secret Management. HomeInventory already supports Instance Principals-based runtime secret loading, eliminating hardcoded production secrets and allowing encryption keys to be managed through OCI Vault.
+> [!IMPORTANT]
+> HomeInventory uses strong server-side encryption, but the main inventory encryption key is still managed by the server. An operator with database access and runtime secrets can decrypt protected inventory data. Use Personal Vault for records that need stronger separation from shared household workflows.
+
+## Architecture
+
+```text
+React SPA (Vite, PWA, Tailwind)
+        |
+        v
+Express API (JWT, OAuth, rate limiting)
+        |
+        v
+SQLite storage + encrypted media
+```
 
 ## Tech Stack
 
-### Backend
-| Technology | Purpose |
-|---|---|
-| **Node.js** + **Express** | REST API server |
-| **better-sqlite3** | Embedded SQLite database |
-| **JWT** + **bcrypt** | Authentication & password hashing |
-| **Passport.js** | Google OAuth 2.0 integration |
-| **Helmet** | HTTP security headers |
-| **express-rate-limit** | Brute-force / DDoS protection |
-| **Resend** | Transactional email service |
-| **Sharp** | Image processing & thumbnails |
-| **i18next** | Server-side internationalization |
-
-### Frontend
-| Technology | Purpose |
-|---|---|
-| **React 18** | UI library |
-| **Vite** | Build tool & dev server |
-| **Tailwind CSS** | Utility-first styling |
-| **React Router v7** | Client-side routing |
-| **Lucide React** | Icon library |
-| **html5-qrcode** | Barcode & QR scanning |
-| **react-i18next** | Frontend internationalization |
-| **react-joyride** | Interactive onboarding tours |
+| Backend | Frontend |
+| --- | --- |
+| Node.js, Express, better-sqlite3 | React 18, Vite, Tailwind CSS |
+| JWT, bcrypt, Passport Google OAuth 2.0 | React Router v6, react-i18next |
+| Helmet, express-rate-limit, i18next | Lucide React, html5-qrcode |
+| Sharp, encrypted media storage | PWA-ready responsive UI |
 
 ## Quick Start
 
 ### Prerequisites
-- **Node.js** ≥ 18 — [download](https://nodejs.org/)
-- **npm** ≥ 9 (comes with Node.js)
 
-### 1. Clone & Install
+- Node.js 18+
+- npm 9+
+- Git
+
+### 1. Install dependencies
 
 ```bash
 git clone https://github.com/asdteke/HomeInventory.git
 cd HomeInventory
-
-# Install backend + frontend dependencies in one command
 npm run install-all
 ```
 
-### 2. Create Environment File
+### 2. Create a local environment file
 
 ```bash
 cp .env.example .env
 ```
 
-Open `.env` in your editor and set **at minimum** these values for local development:
+Set at least these values:
 
 ```env
 NODE_ENV=development
 PORT=3001
 SITE_URL=http://localhost:5173
-JWT_SECRET=change-this-to-any-random-string-at-least-32-chars
+JWT_SECRET=replace-with-a-long-random-secret
 APP_ENCRYPTION_KEY=replace-with-32-byte-base64-or-64-char-hex-key
 APP_ENCRYPTION_KEY_ID=2026-03-local
 ```
 
-> **💡 Tip:** You can generate a secure JWT_SECRET with:
-> ```bash
-> node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-> ```
+> [!TIP]
+> Generate secure local secrets with `openssl rand -hex 32` for `JWT_SECRET` and `openssl rand -base64 32` for `APP_ENCRYPTION_KEY`.
 
-> **🔐 Encryption key:** Generate `APP_ENCRYPTION_KEY` with:
-> ```bash
-> openssl rand -base64 32
-> ```
+Optional for local development: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, and `RESEND_API_KEY`.
 
-`APP_ENCRYPTION_KEY` and `APP_ENCRYPTION_KEY_ID` are required because sensitive fields now use fail-secure encryption at startup. The remaining variables (`GOOGLE_CLIENT_ID`, `RESEND_API_KEY`, etc.) are **optional** for local development. Features that depend on them (Google login, email sending) will be gracefully disabled.
-
-### Optional: Oracle Cloud Secret Management
-
-If you deploy HomeInventory on an Oracle Cloud Infrastructure compute instance, you can keep production secrets in OCI Secret Management and let the runtime load them before the app starts.
-
-Recommended pattern:
-
-```env
-SECRET_PROVIDER=oci
-OCI_AUTH_MODE=instance_principal
-OCI_REGION=eu-frankfurt-1
-OCI_VAULT_ID=ocid1.vault.oc1..exampleuniqueID
-OCI_SECRET_MAPPINGS={"JWT_SECRET":"homeinventory-jwt-secret","APP_ENCRYPTION_KEY":"homeinventory-app-encryption-key","APP_ENCRYPTION_KEY_ID":"homeinventory-app-encryption-key-id","RESEND_API_KEY":"homeinventory-resend-api-key"}
-```
-
-Notes:
-
-- Leave `SECRET_PROVIDER=env` for local development.
-- `OCI_SECRET_MAPPINGS` can point to secret OCIDs or secret names.
-- `OCI_VAULT_ID` is required only when you use secret names instead of secret OCIDs.
-- For file-based Docker secrets, keep the default `/run/secrets` mount or set `DOCKER_SECRETS_DIR` when your runtime mounts secrets elsewhere.
-- The server entrypoint now bootstraps runtime secrets automatically, so `node server.js`, `npm run dev`, and `npm start` continue to work.
-- Maintenance scripts such as encryption backfill and IndexNow submission also use the same OCI bootstrap path.
-
-### 3. Start Development
+### 3. Run the app
 
 ```bash
 npm run dev
 ```
 
-This starts both backend and frontend concurrently. Open your browser:
+Local URLs:
 
-| Service | URL |
-|---|---|
-| 🖥️ Frontend | http://localhost:5173 |
-| ⚙️ Backend API | http://localhost:3001 |
-| 📱 Network (phone) | `http://<your-local-ip>:5173` |
+- Frontend: `http://localhost:5173`
+- Backend API: `http://localhost:3001`
 
-### 4. Production Build (optional)
+### 4. Build for production
 
 ```bash
-# Build frontend for production
 npm run build
-
-# Start production server (serves built frontend + API)
 npm start
 ```
 
-## Docker
-
-Deploy HomeInventory with Docker for easy self-hosting:
+### Docker alternative
 
 ```bash
-# Clone and enter directory
-git clone https://github.com/asdteke/HomeInventory.git
-cd HomeInventory
-
-# Create environment file for non-secret settings
-cp .env.example .env
-
-# Create Docker secret files (or point HOMEINVENTORY_SECRETS_DIR at another folder)
-mkdir -p secrets
-printf '%s' 'change-this-jwt-secret' > secrets/jwt_secret.txt
-printf '%s' 'change-this-32-byte-base64-key' > secrets/app_encryption_key.txt
-printf '%s' '2026-compose' > secrets/app_encryption_key_id.txt
-
-# Start with Docker Compose
 docker compose up -d
 ```
 
-The app will be available at `http://localhost:3001`
+For advanced configuration, reverse proxy setup, and production deployment, see [DOCKER.md](DOCKER.md).
 
-`docker-compose.yml` reads secret source files from `${HOMEINVENTORY_SECRETS_DIR:-./secrets}` on the host and mounts them inside the container at `/run/secrets`.
+## Documentation
 
-The full `.env` file is passed through to the container, so optional settings such as `APP_ENCRYPTION_KEYRING`, `EXPOSE_SERVER_INFO`, and `INDEXNOW_*` continue to work in Docker.
+- [DOCKER.md](DOCKER.md): Docker, reverse proxy, and self-hosting notes
+- [README_ENVIRONMENT_SETUP.md](README_ENVIRONMENT_SETUP.md): environment variables and secret-management setup
+- [CONTRIBUTING.md](CONTRIBUTING.md): contribution guidelines
+- [SECURITY.md](SECURITY.md): vulnerability reporting process
+- [CHANGELOG.md](CHANGELOG.md): release history and upgrade notes
+- [ROADMAP.md](ROADMAP.md): short-term project direction
 
-For detailed Docker configuration, reverse proxy setup, backup/restore, and Unraid deployment, see **[DOCKER.md](DOCKER.md)**.
+Recommended GitHub topics for maintainers: `home-inventory`, `self-hosted`, `inventory-management`, `household`, `pwa`, `sqlite`, `express`, `react`, `docker`, `privacy`, `qr-code`, `barcode`, `2fa`.
 
-## Environment Variables
+## Language Note
 
-Copy `.env.example` to `.env` and fill in the required values:
-
-| Variable | Required | Description |
-|---|---|---|
-| `NODE_ENV` | ✅ | `development` or `production` |
-| `PORT` | ✅ | Backend server port (default: `3001`) |
-| `SITE_URL` | ✅ | Your site's public URL |
-| `SECRET_PROVIDER` | ⬜ | `env` (default) or `oci` for OCI Secret Management bootstrap |
-| `OCI_AUTH_MODE` | ⬜ | Runtime auth mode for OCI bootstrap (`instance_principal`) |
-| `OCI_REGION` | ⬜ | Optional OCI region override for secret retrieval |
-| `OCI_VAULT_ID` | ⬜ | Required only when `OCI_SECRET_MAPPINGS` uses secret names |
-| `OCI_SECRET_MAPPINGS` | ⬜ | JSON map of env var names to OCI secret OCIDs or secret names |
-| `OCI_SECRET_OVERWRITE` | ⬜ | Overwrite already-set env values with OCI secret values |
-| `OCI_SECRET_BUNDLE_STAGE` | ⬜ | Secret bundle stage to read (`CURRENT` by default) |
-| `DOCKER_SECRETS_DIR` | ⬜ | Override runtime path for file-based Docker secrets (default: `/run/secrets`) |
-| `JWT_SECRET` | ✅ | Random secret for JWT signing (min 32 chars) |
-| `APP_ENCRYPTION_KEY` | ✅ | 32-byte encryption key for sensitive field protection |
-| `APP_ENCRYPTION_KEY_ID` | ✅ | Stable key identifier for new encrypted payloads |
-| `APP_ENCRYPTION_KEYRING` | ⬜ | Optional JSON map of legacy key IDs to keys for decryption after rotation |
-| `GOOGLE_CLIENT_ID` | ⬜ | Google OAuth client ID |
-| `GOOGLE_CLIENT_SECRET` | ⬜ | Google OAuth client secret |
-| `RESEND_API_KEY` | ⬜ | Resend.com API key for emails |
-| `SUPPORT_EMAIL` | ⬜ | Support email address |
-| `BOOTSTRAP_ADMIN_EMAIL` | ⬜ | Auto-promote this email to admin |
-| `EXPOSE_SERVER_INFO` | ⬜ | Show server info endpoint (`true`/`false`) |
-| `APP_EMAIL_LANGUAGE` | ⬜ | Language for outgoing emails (default: `en`) |
-| `INDEXNOW_KEY` | ⬜ | IndexNow API key for SEO indexing |
-| `INDEXNOW_BASE_URL` | ⬜ | Base URL for IndexNow submissions |
-| `INDEXNOW_ENDPOINT` | ⬜ | IndexNow API endpoint URL |
-| `INDEXNOW_KEY_LOCATION` | ⬜ | Optional IndexNow key file location override |
-
-> **⚠️ Never commit your `.env` file!** It is already in `.gitignore`.
-
-## Project Structure
-
-```
-Home-inventory/
-├── app.js                    # Express app setup & middleware
-├── server.js                 # Runtime bootstrap & server entry point
-├── auth.js                   # JWT middleware & token generation
-├── database.js               # SQLite DB initialization & migrations
-├── package.json              # Backend dependencies & scripts
-├── .env.example              # Environment variable template
-├── .gitignore
-├── LICENSE
-│
-├── config/
-│   └── i18n.js               # i18next server config
-│
-├── middleware/
-│   └── auth.js               # Auth & admin middleware
-│
-├── routes/
-│   ├── auth.js               # Login, register, OAuth, password
-│   ├── items.js              # CRUD for inventory items
-│   ├── categories.js         # Category management
-│   ├── rooms.js              # Room management
-│   ├── locations.js          # Location management
-│   ├── barcode.js            # Barcode lookup & scanning
-│   ├── houses.js             # Multi-house management
-│   ├── borrowRequests.js     # Borrow system & tracking
-│   ├── vault.js              # Personal Vault endpoints
-│   ├── admin.js              # Admin panel endpoints
-│   ├── admin-email.js        # Admin email sending
-│   ├── email.js              # Email verification & status
-│   ├── backup.js             # Backup/restore endpoints
-│   └── ...
-│
-├── utils/
-│   ├── encryption.js         # AES-256-GCM field encryption helpers
-│   ├── protectedFields.js    # Inventory field encrypt/decrypt helpers
-│   ├── passwordRecovery.js   # Recovery key generation & verification
-│   ├── mediaStorage.js       # Encrypted media read/write helpers
-│   ├── runtimeSecrets.js     # OCI Secret Management bootstrap
-│   ├── emailService.js       # Resend email integration
-│   ├── indexNow.js           # IndexNow SEO submission
-│   └── logger.js             # KVKK-compliant logging
-│
-├── locales/                  # Backend i18n (100+ languages)
-│
-├── scripts/
-│   ├── run-with-runtime-secrets.mjs # OCI runtime secret bootstrap for maintenance scripts
-│   ├── backfill-field-encryption.mjs # Encrypt legacy plaintext field data
-│   ├── generate-locales.js   # Locale generation scripts
-│   └── indexnow-submit.mjs   # CLI IndexNow submission
-│
-└── client/                   # React frontend
-    ├── index.html
-    ├── package.json
-    ├── vite.config.js
-    ├── tailwind.config.js
-    ├── public/
-    │   ├── brand/            # Logo assets (dark/light)
-    │   ├── locales/          # Frontend i18n files
-    │   ├── robots.txt
-    │   └── sitemap.xml
-    └── src/
-        ├── App.jsx           # Root component & routing
-        ├── main.jsx          # Entry point
-        ├── index.css         # Global styles
-        ├── i18n.js           # Frontend i18n config
-        ├── components/       # All React components
-        │   ├── Dashboard.jsx
-        │   ├── ItemList.jsx
-        │   ├── ItemForm.jsx
-        │   ├── CategoryManager.jsx
-        │   ├── RoomManager.jsx
-        │   ├── Settings.jsx
-        │   ├── AdminPanel.jsx
-        │   ├── BarcodeScanner.jsx
-        │   ├── LandingPage.jsx
-        │   ├── Login.jsx
-        │   ├── Register.jsx
-        │   └── ...
-        ├── context/          # React contexts (Auth, Theme)
-        └── utils/            # Frontend utilities
-```
-
-## API Endpoints
-
-| Method | Endpoint | Description |
-|---|---|---|
-| `POST` | `/api/auth/register` | Register new user |
-| `POST` | `/api/auth/login` | Login |
-| `GET` | `/api/items` | List items |
-| `POST` | `/api/items` | Create item |
-| `PUT` | `/api/items/:id` | Update item |
-| `DELETE` | `/api/items/:id` | Delete item |
-| `GET` | `/api/categories` | List categories |
-| `GET` | `/api/rooms` | List rooms |
-| `GET` | `/api/houses` | List user's houses |
-| `GET/POST`| `/api/borrow-requests` | Borrow system endpoints |
-| `GET/POST`| `/api/vault` | Personal vault endpoints |
-| `GET` | `/api/admin/*` | Admin panel endpoints |
-| `GET` | `/api/health` | Health check |
-
-> All `/api/*` endpoints (except auth) require a JWT Bearer token.
+The product ships with **100+ selectable UI locale packs**. English and Turkish are the most actively reviewed product languages; other locales can fall back per key when a translation is incomplete.
 
 ## Contributing
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+Issues and pull requests are welcome. For larger changes, open an issue first so the implementation can stay aligned with the security model, household scoping, and localization structure.
 
-## Disclaimer
+## Legal Note
 
-This is an independent open-source project. It is not affiliated with, endorsed by, or connected to any commercial product or company using a similar name.
-
-## AI-Assisted Development
-
-This project was developed with significant assistance from AI tools (including Google Gemini and OpenAI GPT).
+HomeInventory is an independent open-source project. It is not affiliated with, endorsed by, or connected to any commercial product or company using a similar name.
 
 ## License
 
-MIT — see [LICENSE](LICENSE) for details.
+MIT. See [LICENSE](LICENSE).

@@ -14,3 +14,21 @@ export function toSqliteUtcTimestamp(value = new Date()) {
         `${padNumber(date.getUTCHours())}:${padNumber(date.getUTCMinutes())}:${padNumber(date.getUTCSeconds())}`
     ].join(' ');
 }
+
+export function parseSqliteUtcTimestamp(value) {
+    const normalized = String(value || '').trim();
+    if (!normalized) {
+        return null;
+    }
+
+    const utcCandidate = normalized.includes('T')
+        ? normalized
+        : `${normalized.replace(' ', 'T')}Z`;
+    const date = new Date(utcCandidate);
+
+    if (Number.isNaN(date.getTime())) {
+        return null;
+    }
+
+    return date.getTime();
+}

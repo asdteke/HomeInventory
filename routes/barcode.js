@@ -19,10 +19,15 @@ import { buildBarcodeLookup, decryptItemRecord } from '../utils/protectedFields.
 
 const router = express.Router();
 
-// Google scraper function - extracts product name from search results
+// Geçerli barkod formatı: sadece rakam, harf, tire ve nokta, max 50 karakter.
+// Bu standart GS1 (EAN-13, UPC-A, Code128 vb.) barkodları kapsıyor.
+const BARCODE_REGEX = /^[A-Za-z0-9.\-]{1,50}$/;
+
+// Google scraper function - ürün adı almak için son çare olarak kullanılır
 async function scrapeGoogle(barcode) {
     try {
-        const response = await axios.get(`https://www.google.com/search?q=${barcode}+ürün`, {
+        // encodeURIComponent: barkod değeri URL'e güvenli şekilde ekleniyor
+        const response = await axios.get(`https://www.google.com/search?q=${encodeURIComponent(barcode)}+ürün`, {
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -147,7 +152,11 @@ async function tryOpenBeautyFacts(barcode) {
 // Main barcode lookup endpoint - Waterfall API
 router.get('/:code', authenticateToken, requireActiveHouse, async (req, res) => {
     const barcode = req.params.code;
-    console.log(`[Barcode Proxy] Searching for: ${barcode}`);
+
+    // Barkod format doğrulaması: sadece standart karakter setine izin ver
+    if (!BARCODE_REGEX.test(barcode)) {
+        return res.status(400).json({ error: 'Geçersiz barkod formatı' });
+    }
 
     try {
         // STEP 1: Check local database
@@ -161,7 +170,6 @@ router.get('/:code', authenticateToken, requireActiveHouse, async (req, res) => 
 
         if (localItem) {
             const decryptedLocalItem = decryptItemRecord(localItem);
-            console.log(`[Barcode Proxy] Found in local DB: ${decryptedLocalItem.name}`);
             return res.json({
                 found: true,
                 source: 'Yerel Veritabanı',
@@ -171,34 +179,26 @@ router.get('/:code', authenticateToken, requireActiveHouse, async (req, res) => 
         }
 
         // STEP 2: Try Open Food Facts
-        console.log('[Barcode Proxy] Trying Open Food Facts...');
         const foodResult = await tryOpenFoodFacts(barcode);
         if (foodResult) {
-            console.log(`[Barcode Proxy] Found in Open Food Facts: ${foodResult.name}`);
             return res.json(foodResult);
         }
 
         // STEP 3: Try Open Products Facts
-        console.log('[Barcode Proxy] Trying Open Products Facts...');
         const productResult = await tryOpenProductsFacts(barcode);
         if (productResult) {
-            console.log(`[Barcode Proxy] Found in Open Products Facts: ${productResult.name}`);
             return res.json(productResult);
         }
 
         // STEP 4: Try Open Beauty Facts
-        console.log('[Barcode Proxy] Trying Open Beauty Facts...');
         const beautyResult = await tryOpenBeautyFacts(barcode);
         if (beautyResult) {
-            console.log(`[Barcode Proxy] Found in Open Beauty Facts: ${beautyResult.name}`);
             return res.json(beautyResult);
         }
 
         // STEP 5: Try Google Scraping as last resort
-        console.log('[Barcode Proxy] Trying Google Scraping...');
         const googleName = await scrapeGoogle(barcode);
         if (googleName) {
-            console.log(`[Barcode Proxy] Found via Google: ${googleName}`);
             return res.json({
                 found: true,
                 source: 'Google Arama',
@@ -211,7 +211,6 @@ router.get('/:code', authenticateToken, requireActiveHouse, async (req, res) => 
         }
 
         // Not found anywhere
-        console.log('[Barcode Proxy] Product not found in any source');
         res.json({
             found: false,
             barcode: barcode,
@@ -220,7 +219,7 @@ router.get('/:code', authenticateToken, requireActiveHouse, async (req, res) => 
 
     } catch (error) {
         console.error('[Barcode Proxy] Error:', error);
-        res.status(500).json({ error: 'Barkod araması başarısız', details: error.message });
+        res.status(500).json({ error: 'Barkod araması başarısız' });
     }
 });
 

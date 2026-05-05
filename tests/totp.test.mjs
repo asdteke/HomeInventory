@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { TOTP, Secret } from 'otpauth';
+import { BRAND_NAME } from '../utils/branding.js';
 
 process.env.APP_ENCRYPTION_KEY = '0123456789abcdef0123456789abcdef';
 process.env.APP_ENCRYPTION_KEY_ID = 'test-key';
@@ -20,13 +21,13 @@ test('generateTotpSecret returns a base32 secret and usable otpauth URL', () => 
 
     assert.match(secret, /^[A-Z2-7]+$/);
     assert.match(otpauthUrl, /^otpauth:\/\/totp\//);
-    assert.match(otpauthUrl, /issuer=HomeInventory/);
+    assert.match(otpauthUrl, new RegExp(`issuer=${BRAND_NAME}`));
 });
 
 test('verifyTotpToken accepts the current authenticator code and rejects invalid input', () => {
     const { secret } = generateTotpSecret('alice');
     const totp = new TOTP({
-        issuer: 'HomeInventory',
+        issuer: BRAND_NAME,
         algorithm: 'SHA1',
         digits: 6,
         period: 30,

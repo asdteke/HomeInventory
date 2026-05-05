@@ -1,7 +1,8 @@
 import express from 'express';
 import db from '../database.js';
-import { authenticateToken } from '../middleware/auth.js';
+import { authenticateToken, requireActiveHouse } from '../middleware/auth.js';
 import { normalizeOptionalDate } from '../utils/dateValidation.js';
+import { ensureHouseAccessForUser } from '../utils/houseMembership.js';
 import {
     buildEmailLookup,
     buildUsernameLookup,
@@ -345,11 +346,21 @@ function listActiveBorrowsForUser(userId) {
         WHERE ib.returned_at IS NULL
           AND (
             ib.borrower_user_id = ?
-            OR ib.lent_by_user_id = ?
-            OR items.user_id = ?
+            OR (
+                (
+                    ib.lent_by_user_id = ?
+                    OR items.user_id = ?
+                )
+                AND EXISTS(
+                    SELECT 1
+                    FROM user_houses viewer_house
+                    WHERE viewer_house.user_id = ?
+                      AND viewer_house.house_key = items.house_key
+                )
+            )
           )
         ORDER BY ib.borrowed_at DESC, ib.id DESC
-    `).all(userId, userId, userId).map((record) => serializeActiveBorrow(record, userId));
+    `).all(userId, userId, userId, userId).map((record) => serializeActiveBorrow(record, userId));
 }
 
 function assertViewerCanAccessRequest(request, userId) {
@@ -381,10 +392,19 @@ function getOwnedAvailableItem(itemId, ownerUserId) {
         throw new Error('Seçilen eşya bulunamadı veya şu anda ödünçte');
     }
 
+    try {
+        ensureHouseAccessForUser(ownerUserId, item.house_key);
+    } catch {
+        const error = new Error('Seçilen eşya artık erişilebilir değil');
+        error.statusCode = 409;
+        throw error;
+    }
+
     return item;
 }
 
 router.use(authenticateToken);
+router.use(requireActiveHouse);
 
 router.get('/', (req, res) => {
     try {
@@ -734,8 +754,14 @@ router.post('/active-borrows/:id/return', (req, res) => {
             WHERE ib.id = ?
               AND ib.returned_at IS NULL
               AND (ib.lent_by_user_id = ? OR items.user_id = ?)
+              AND EXISTS(
+                  SELECT 1
+                  FROM user_houses viewer_house
+                  WHERE viewer_house.user_id = ?
+                    AND viewer_house.house_key = items.house_key
+              )
             LIMIT 1
-        `).get(borrowId, req.user.id, req.user.id);
+        `).get(borrowId, req.user.id, req.user.id, req.user.id);
 
         if (!activeBorrow) {
             return res.status(404).json({ error: 'Aktif ödünç kaydı bulunamadı' });

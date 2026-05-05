@@ -79,7 +79,43 @@
             "name_required": "Potrebno je vnesti ime izdelka",
             "location_add_error": "Ni bilo mogoče dodati lokacije",
             "photo_too_large": "Fotografije so lahko največ {{maxSizeMb}} MB."
-        }
+        },
+        "title": "Inventar",
+        "add": "Dodaj predmet",
+        "edit": "Uredi predmet",
+        "delete": "Izbriši predmet",
+        "name": "Ime predmeta",
+        "description": "Opis",
+        "quantity": "Količina",
+        "category": "Kategorija",
+        "room": "Soba",
+        "location": "Lokacija",
+        "barcode": "Črtna koda",
+        "photo": "Fotografija",
+        "add_photo": "Dodaj fotografijo",
+        "change_photo": "Spremeni fotografijo",
+        "is_public": "Javno",
+        "save": "Shrani",
+        "cancel": "Prekliči",
+        "saving": "Shranjevanje...",
+        "no_items_found": "Ni najdenih elementov",
+        "search_placeholder": "Išči elemente...",
+        "filter_by_category": "Filtriraj po kategoriji",
+        "filter_by_room": "Filtriraj po sobi",
+        "all_categories": "Vse kategorije",
+        "all_rooms": "Vse sobe",
+        "confirm_delete": "Ste prepričani, da želite izbrisati ta element?",
+        "items_deleted": "{{count}} element(i) izbrisan(o)",
+        "added": "Element dodan",
+        "updated": "Element posodobljen",
+        "deleted": "Element izbrisan",
+        "not_found": "Predmet ni najden",
+        "add_error": "Element za dodajanje napake",
+        "update_error": "Napaka pri posodabljanju elementa",
+        "delete_error": "Napaka pri brisanju elementa",
+        "no_permission": "No permission",
+        "barcode_search_error": "Iskanje črtne kode ni uspelo",
+        "stats_error": "Stats error"
     },
     "common": {
         "save": "Shrani",
@@ -106,7 +142,27 @@
         "copyright": "© {{year}} {{brandName}} - Vse pravice pridržane",
         "other": "Drugo",
         "copy": "Kopiraj",
-        "download": "Prenesi"
+        "download": "Prenesi",
+        "clear": "Počisti",
+        "deleting": "Brisanje...",
+        "filter": "Filter",
+        "sort": "Razvrsti",
+        "yes": "Da",
+        "no": "No",
+        "confirm": "Potrdi",
+        "back": "Nazaj",
+        "next": "Naprej",
+        "retry": "Poskusi znova",
+        "actions": "Dejanja",
+        "created_at": "Ustvarjeno",
+        "updated_at": "Posodobljeno",
+        "none": "Nobeno",
+        "total": "Skupaj",
+        "not_found": "Ni najdeno",
+        "unauthorized": "Nepooblaščen dostop",
+        "forbidden": "Permission denied",
+        "validation_error": "Napaka validacije",
+        "server_error": "Napaka strežnika"
     },
     "auth": {
         "login": {
@@ -139,10 +195,19 @@
                 "back": "Nazaj",
                 "use_backup": "Uporabi varnostno kodo",
                 "use_totp": "Uporabi avtentikator"
-            }
+            },
+            "welcome_title": "Dobrodošel nazaj",
+            "welcome_subtitle": "Prijavite se, da dostopate do svojega inventarja",
+            "identifier_placeholder": "npr. john@example.com",
+            "legal_intro": "Z nadaljevanjem se strinjate z našim",
+            "header_kicker": "Varno prijavljanje",
+            "header_title": "Vrnitev v vaš inventar",
+            "header_subtitle": "Sobe, predmeti in zasebni zapisi ostanejo na enem mirnem mestu.",
+            "trust_signal": "Zasebno po zasnovi. Podpira 2FA in zaupanja vredne naprave.",
+            "support_link": "Kontaktirajte podporo"
         },
         "register": {
-            "title": "Dobrodošli v {{brandName}}",
+            "title": "Set up your household",
             "subtitle": "Ustvarite nov račun ali se pridružite obstoječemu domu",
             "create_house": "Ustvari nov dom",
             "join_house": "Pridruži se domu",
@@ -176,7 +241,11 @@
                     "warning": "Pomembno: Ta ključ bo prikazan samo enkrat. Delite ga s člani družine, da bodo lahko dostopali do istega inventarja.",
                     "copy": "Kopiraj",
                     "copied": "Kopirano",
-                    "button": "Shranil sem ključ, nadaljuj"
+                    "button": "Shranil sem ključ, nadaljuj",
+                    "badge": "Dostop do hiše",
+                    "important": "Pomembno",
+                    "key_label": "Ključ hiše",
+                    "storage_hint": "Ta ključ shranite na varno mesto, da se mu lahko kasneje pridružijo zaupanja vredni družinski člani."
                 },
                 "email_verification": {
                     "title": "📧 Zahteva po preverjanju e-pošte",
@@ -188,7 +257,33 @@
                     "key_note": "Pomembno: Vaš hišni ključ je bil poslan tudi v e-pošti. Delite ga lahko s člani družine.",
                     "button": "V redu, Pojdi na Prijavo"
                 }
-            }
+            },
+            "eyebrow": "Skupna uporaba gospodinjstva",
+            "create_house_hint": "Začnite novo skupno gospodinjstvo",
+            "join_house_hint": "Uporabite ključ hiše, ki ste ga prejeli",
+            "mode_label": "Dostop do gospodinjstva",
+            "mode_create_body": "Tukaj začnite svoje gospodinjstvo, nato povabite druge.",
+            "mode_join_body": "Pridružite se s ključem hiše, ki ste ga prejeli.",
+            "account_section": "Vaš račun",
+            "access_section": "Dostop do hiše",
+            "access_hint": "Uporabite ključ hiše, ki ga je delil lastnik hiše.",
+            "step_choose_title": "Izberite ustvarjanje ali pridružitev",
+            "step_choose_body": "Začnite novo ali se pridružite z Hišnim ključem.",
+            "step_account_title": "Dodajte svoje podatke",
+            "step_account_body": "Nastavite svoje uporabniško ime, e-pošto in geslo.",
+            "step_use_title": "Začnite ga uporabljati",
+            "step_use_body": "Skupni predmeti za dom, zasebni zapisi za vas.",
+            "trust_private": "Zasnovano kot zasebno",
+            "trust_self_hosted": "Prijazno do samo-gostovanja",
+            "trust_shared": "Sistem skupnega gospodinjstva",
+            "password_hint": "Cilj je 10+ znakov z velikimi/malimi črkami, številko in simbolom.",
+            "legal_notice": "Vprašamo le za hitro pravno potrditev, da lahko ustvarimo vaš račun.",
+            "notes_link": "Hitre opombe",
+            "notes_title": "Nekaj hitrih opomb",
+            "notes_subtitle": "BETA, varnostne kopije in odgovornost na enem mestu.",
+            "trust_signal": "Zasnovano kot zasebno, da ostane skupna raba gospodinjstva varna z 2FA.",
+            "early_access_badge": "Zgodnji dostop",
+            "early_access_note": "Nastavitev ohranjamo preprosto in pokažemo vse ključe takoj po prijavi."
         },
         "forgot_password": {
             "title": "Ste pozabili geslo",
@@ -207,7 +302,8 @@
             "confirm_password": "Potrdi novo geslo",
             "confirm_password_placeholder": "Ponovno vnesite geslo",
             "reset_submit": "Ponastavi geslo",
-            "resetting": "Ponastavljanje..."
+            "resetting": "Ponastavljanje...",
+            "identifier_required": "Enter your username or email"
         },
         "reset_password": {
             "title": "Ponastavi geslo",
@@ -238,9 +334,83 @@
             "settings_title": "Shranite svoj novi obnovitveni ključ",
             "subtitle": "Ta ključ je prikazan le enkrat.",
             "warning": "Če izgubite ta ključ, medtem ko je e-pošta onemogočena, morda ne boste mogli obnoviti gesla. Kopirajte ga in ga shranite na varno mesto.",
-            "confirm": "Shranil sem ključ"
+            "confirm": "Shranil sem ključ",
+            "badge": "Dostop za obnovitev",
+            "important": "Pomembno",
+            "key_label": "Ključ za obnovitev",
+            "storage_hint": "To shrani v upravitelja gesel ali na drugo varno spletno mesto.",
+            "copied": "Kopirano"
         },
-        "password_requirements": "Uporabite vsaj {{min}} znakov z velikimi in malimi črkami, številko in simbolom."
+        "password_requirements": "Uporabite vsaj {{min}} znakov z velikimi in malimi črkami, številko in simbolom.",
+        "logout": "Odjava",
+        "logging_in": "Prijava...",
+        "welcome": "Welcome to {{brandName}}",
+        "username_email": "Uporabniško ime ali e-pošta",
+        "username": "Uporabniško ime",
+        "email": "E-pošta",
+        "password": "Geslo",
+        "confirm_password": "Potrdi geslo",
+        "new_password": "Novo geslo",
+        "current_password": "Trenutno geslo",
+        "no_account": "Nimate računa?",
+        "have_account": "Že imate račun?",
+        "or": "or",
+        "google_login": "Nadaljujte z Google",
+        "login_issues": "Za težave z prijavo",
+        "placeholder_username": "npr.: john",
+        "placeholder_password": "••••••••",
+        "login_two_factor": {
+            "title": "Dvofaktorska avtentikacija",
+            "subtitle": "Vnesite 6-mestno kodo iz aplikacije za avtentikacijo",
+            "backup_subtitle": "Vnesite eno od svojih rezervnih kod",
+            "code_label": "Preverjanje kode",
+            "backup_code_label": "Varnostna koda",
+            "remember_device": "Zapomnite si to napravo 30 dni",
+            "verify": "Preveri",
+            "back": "Nazaj",
+            "use_backup": "Uporabite varnostno kodo",
+            "use_totp": "Uporabi avtentikator"
+        },
+        "login_required": "Please log in",
+        "invalid_token": "Neveljaven ali potekel žeton",
+        "admin_required": "Admin required",
+        "authorization_required": "Potrebno dovoljenje",
+        "fill_all_fields": "Fill all fields",
+        "email_already_registered": "Email already registered",
+        "username_already_registered": "Username already registered",
+        "email_pending_verification": "Verification pending",
+        "username_pending_verification": "Verification pending",
+        "invalid_house_key": "Neveljaven hišni ključ",
+        "registration_success": "Registration successful!",
+        "registration_error": "Registration error",
+        "username_password_required": "Potrebno je uporabniško ime in geslo",
+        "invalid_credentials": "Invalid credentials",
+        "account_banned": "Account banned",
+        "login_success": "Uspešna prijava",
+        "login_error": "Napaka prijave",
+        "user_not_found": "Uporabnik ni najden",
+        "current_password_wrong": "Current password wrong",
+        "passwords_dont_match": "Passwords do not match",
+        "password_too_short": "Password too short",
+        "password_change_success": "Password changed",
+        "password_change_error": "Password change error",
+        "database_error": "Napaka v podatkovni bazi",
+        "database_read_error": "Napaka pri branju baze podatkov",
+        "new_password_error": "New password error",
+        "email_verification_required": "Potrebna je e-poštna potrditev",
+        "verification_link_expired": "Verification link expired",
+        "email_verified_success": "Email verified!",
+        "email_send_error": "Email send error",
+        "legal_acceptance_required": "Za nadaljevanje morate sprejeti Pogoje uporabe in potrditi Obvestilo o zasebnosti",
+        "identifier_already_registered": "To uporabniško ime ali e-pošta je že registrirana",
+        "username_in_use": "To uporabniško ime je že v uporabi",
+        "invalid_username": "Uporabniško ime mora imeti od 3 do 30 znakov in lahko vsebuje le črke, številke, podčrtave ali vezaje",
+        "invalid_email": "Prosimo, vnesite veljaven e-poštni naslov",
+        "invalid_house_key_format": "Neveljaven format hišnega ključa",
+        "join_house_key_required": "Za povezavo z obstoječo hišo je potreben ključ od hiše",
+        "house_key_not_found": "Neveljaven ključ od hiše. Prosimo, vnesite pravilen tip.",
+        "email_not_verified": "Vaš e-poštni naslov še ni preverjen. Prosimo, preverite svoj e-poštni nabiralnik.",
+        "two_factor_invalid": "Preverjanje kode je napačno"
     },
     "navigation": {
         "home": "Domov",
@@ -254,7 +424,12 @@
         "logout": "Odjava",
         "menu": "Meni",
         "personal_vault": "Osebni seif",
-        "borrow_requests": "Zahteve za izposojo"
+        "borrow_requests": "Zahteve za izposojo",
+        "scan_item_qr": "QR predmet",
+        "logout_aria": "Odjavite se iz svojega računa",
+        "logout_title": "Odjava?",
+        "logout_description": "Vrnili se boste na zaslon za prijavo in boste morali ponovno vpisati geslo za upravljanje z zalogami gospodinjstva.",
+        "logout_warning": "Uporabite to, ko končate na deljeni ali osebni napravi."
     },
     "dashboard": {
         "welcome": "Dobrodošli, <1>{{name}}</1>! 👋",
@@ -292,12 +467,104 @@
             "search_item": "Iskanje predmeta",
             "categories": "Kategorije",
             "settings": "Nastavitve"
-        }
+        },
+        "page": {
+            "kicker": "Domov",
+            "title": "Domov",
+            "description_ready": "Preišči svojo zalogo, preglej nedavne dodatke in hitro preidi na naslednjo nalogo.",
+            "description_empty": "Začnite graditi miren, iskalno prijazen domači zapis iz ene jasne izhodiščne točke.",
+            "loading_description": "Priprava pogleda vašega doma. Nedavne pridobitve in hitri iskalnik se bosta kmalu prikazala."
+        },
+        "top_bar": {
+            "beta": "Beta",
+            "items_tracked": "Spremljani predmeti: {{count}}",
+            "total_quantity": "Skupna količina: {{count}}",
+            "shared_items": "Skupni predmeti: {{count}}",
+            "borrowed_now": "Trenutno izposojeno: {{count}}",
+            "status_empty": "Pripravljeno za vaš prvi predmet"
+        },
+        "header": {
+            "eyebrow": "Skupni inventar",
+            "title_ready": "Domači inventar za {{name}}",
+            "title_empty": "Začnite svoj domači inventar",
+            "summary_ready": "{{count}} predmetov je že evidentiranih v {{rooms}} prostorih. Preiščite seznam, dodajte naslednji predmet ali pa vodite zasebne evidence ločeno.",
+            "summary_ready_no_rooms": "{{count}} predmetov je že evidentiranih. Dodajte prostore za boljši pregled lokacij in iskanje.",
+            "summary_empty": "Dodajte prvi predmet, da omogočite iskanje, zgodovino prostorov in boljše sledenje domačim predmetom."
+        },
+        "search_panel": {
+            "title": "Išči v inventarju",
+            "description": "Poiščite predmet, prostor, lokacijo ali črtno kodo na enem mestu.",
+            "placeholder": "Išči predmet, sobo, lokacijo ali črtno kodo",
+            "submit": "Išči v zalogi",
+            "secondary_hint": "Občutljivi zapisi ostanejo ločeni."
+        },
+        "actions_panel": {
+            "title": "Glavna dejanja",
+            "description": "Ustvari nov predmet ali premakni občutljive zapise v Osebni sef.",
+            "new_item_description": "Dodaj nov predmet za gospodinjstvo s sobo, količino in fotografijo.",
+            "vault_description": "Shranjuj dokumente, kode in druge občutljive zapise izven skupnega iskanja."
+        },
+        "content": {
+            "title": "Najnovejše dodatki",
+            "description": "Najnovejši predmeti, dodani v vaš domači inventar",
+            "description_empty": "To območje postane vaš vir nedavnih dejavnosti, ko je dodan prvi predmet.",
+            "empty_title": "Še ni nobenih nedavnih dodatkov",
+            "empty_description": "Ta seznam se začne polniti takoj, ko dodate prvi predmet. Začnite z nečim, kar bo kasneje enostavno prepoznati, nato bodo sobe in kategorije od prvega dne ostale pravilne.",
+            "empty_tip_one_title": "Začnite z enim vidnim predmetom v gospodinjstvu",
+            "empty_tip_one_body": "Izberite nekaj, kar boste kasneje takoj prepoznali, kot je aparat, škatla za shranjevanje ali majhno orodje.",
+            "empty_tip_two_title": "Dodelite pravo sobo",
+            "empty_tip_two_body": "Število sob in kategorij ostane natančno le, če so novi predmeti dodeljeni takoj, ko so ustvarjeni.",
+            "empty_tip_three_title": "Ne razkrivajte skrivnosti v deljenem viru",
+            "empty_tip_three_body": "Uporabite Osebni sef za ključe, kode, listine ali karkoli, kar ne sme biti prikazano v zgodovini gospodinjskega inventarja.",
+            "see_all": "Odpri inventar",
+            "untitled_item": "Neimenovan predmet",
+            "location_fallback": "Dodajte sobo ali lokacijo, da bo ta predmet lažje najti",
+            "quantity": "Količina {{count}}",
+            "added_on": "Dodano {{date}}"
+        },
+        "visibility": {
+            "public": "Deljeno",
+            "private": "Zasebno"
+        },
+        "empty_state": {
+            "title": "Dodajte svoj prvi gospodinjski predmet",
+            "description": "Začnite z nečim, kar boste kasneje enostavno prepoznali, na primer aparat, dokument ali rezervni del. Ko ga dodate, se začnejo polniti iskanje in metrike.",
+            "primary_cta": "Dodaj predmet",
+            "secondary_cta": "Odpri osebni trezor",
+            "step_one_title": "Začnite z enim jasnim predmetom",
+            "step_one_body": "Dodajte prepoznaven naziv predmeta, da bo inventar dobil močan prvi zapis.",
+            "step_two_title": "Postavite ga v sobo",
+            "step_two_body": "Nastavite sobo in količino, da bosta iskanje in metrike takoj koristna.",
+            "step_three_title": "Osebne zapise hranite ločeno",
+            "step_three_body": "Za potne liste, listine in dostopne kode uporabite Osebni trezor."
+        },
+        "title": "Nadzorna plošča",
+        "total_items": "Skupno število elementov",
+        "total_rooms": "Skupno število sob",
+        "total_categories": "Skupno število kategorij",
+        "search_placeholder": "Hitro iskanje...",
+        "no_items": "Še niso bili dodani nobeni predmeti",
+        "add_first_item": "Dodajte svoj prvi predmet",
+        "view_all": "Poglej vse",
+        "total_quantity": "Skupna količina",
+        "top_room": "Najpolnejša soba",
+        "category_count": "Kategorija",
+        "items_count": "predmeti",
+        "private_items": "Moji zasebni predmeti",
+        "public_items": "Javno",
+        "remove_filter": "Odstrani filter",
+        "no_items_filter": "Noben predmet ne ustreza temu filtru",
+        "manage": "Upravljaj",
+        "add_item": "Dodaj predmet",
+        "search_item": "Išči predmet"
     },
     "beta_banner": {
         "title": "BETA:",
         "text": "{{brandName}} je trenutno v fazi testiranja in hobija. Ni zagotovila za trajnost ali varnost podatkov. Prosimo, naredite varnostne kopije pomembnih informacij.",
-        "contact": "Kontakt:"
+        "contact": "Kontakt:",
+        "badge": "Beta",
+        "aria_label": "Obvestilo o beta različici",
+        "tooltip": "Funkcije z zgodnjim dostopom se lahko še spremenijo."
     },
     "footer": {
         "rights": "© {{year}} {{brandName}} - Vse pravice pridržane",
@@ -343,7 +610,8 @@
             "member_kick_error": "Člana ni bilo mogoče odstraniti iz hiše",
             "recovery_key_regenerated": "Ključ za obnovitev je bil ponovno ustvarjen",
             "recovery_key_error": "Ključa za obnovitev ni bilo mogoče ponovno ustvariti",
-            "account_delete_error": "Računa ni bilo mogoče izbrisati"
+            "account_delete_error": "Računa ni bilo mogoče izbrisati",
+            "backup_downloaded_encrypted": "Šifrirana varnostna kopija je bila uspešno prenesena! ({{count}} elementov)"
         },
         "user_profile": {
             "edit_username": "Spremeni uporabniško ime"
@@ -361,7 +629,10 @@
             "item_count": "{{count}} predmetov",
             "switch": "Preklopi",
             "leave": "Zapusti hišo",
-            "info": "💡 Lahko ste član več hiš in med njimi preklapljate. Vsaka hiša ima ločeno zalogo."
+            "info": "💡 Lahko ste član več hiš in med njimi preklapljate. Vsaka hiša ima ločeno zalogo.",
+            "accordion_description": "Preklapljajte med gospodinjstvi, ustvarite novo ali se pridružite obstoječemu s preverjenim ključem.",
+            "empty_description": "Ustvarite novo gospodinjstvo za začetek deljenja ali se pridružite obstoječemu s preverjenim hišnim ključem.",
+            "leave_success_body": "Več ne imate dostopa do tega gospodinjstva in vaše aktivno gospodinjstvo je bilo osveženo."
         },
         "house_info": {
             "title": "Aktivni ključ hiše",
@@ -383,12 +654,35 @@
             "owner_controls": "Nadzor lastnika omogočen",
             "approve": "Potrdi",
             "reject": "Zavrni",
-            "kick": "Odstrani"
+            "kick": "Odstrani",
+            "access_section_title": "Dostop do hiše in člani",
+            "access_section_body": "Preglejte aktivni ključ gospodinjstva, upravljajte člane in ohranjajte dostop omejen na zanesljive osebe.",
+            "hidden_state": "Skrito, dokler ga ne pregledate varno",
+            "show_securely": "Varnostno preverite",
+            "copy_securely": "Varnostno kopirajte",
+            "share_warning_title": "Delite previdno",
+            "share_warning_body": "Kdor koli s to ključno lahko zahteva dostop do družinskega inventarja. Delite ga le s zaupanja vrednimi člani in uporabite zaseben kanal.",
+            "reveal_confirm_title": "Razkriti ključ od hiše?",
+            "reveal_confirm_body": "Ta ključ omogoča zahteve za dostop do hiše. Pred nadaljevanjem se prepričajte, da nihče drug ne gleda vašega zaslona.",
+            "copy_confirm_title": "Kopirati ključ od hiše?",
+            "copy_confirm_body": "Kopirajte le, ko ste pripravljeni prilepiti v zaupanja vredno sporočilo ali varen upravitelj gesel.",
+            "copy_confirm_tip": "Ne lepite tega v skupinske klepete, posnetke zaslona ali kateri koli kanal, kateremu ne zaupate svojega kode za vhodna vrata.",
+            "reveal_confirm_acknowledge": "Razumem, da lahko kdorkoli s tem ključem zahteva dostop do te hiše.",
+            "copy_confirm_acknowledge": "Razumem, da naj bi bil ta ključ le prilepljen v zaupanja vreden zasebni kanal ali upravitelja gesel.",
+            "copy_success_title": "Ključ za hišo je kopiran",
+            "copy_success_body": "Obnašajte se, kot da je to geslo za hišo, in ga delite samo prek zaupanja vrednega kanala.",
+            "copy_error": "Ključa za hišo ni bilo mogoče kopirati.",
+            "modal_title": "Dostop do ključa za hišo",
+            "modal_subtitle": "Ta ključ uporabljajte samo za zaupanja vredne člane gospodinjstva, ki naj zahtevajo dostop do tega skupnega inventarja.",
+            "loading_members": "Nalaganje članov..."
         },
         "theme": {
             "title": "Tema",
             "dark": "Temni način",
-            "light": "Svetli način"
+            "light": "Svetli način",
+            "description": "Izberite, kako naj delovno okolje izgleda na tej napravi.",
+            "light_aria": "Preklopi na svetlo temo",
+            "dark_aria": "Preklopi na temno temo"
         },
         "security": {
             "title": "Varnost",
@@ -413,7 +707,20 @@
             "import_json": "Uvozi iz JSON",
             "export_sensitive_title": "Izvožene varnostne kopije vsebujejo podatke v običajni obliki",
             "export_sensitive_notice": "Ta varnostna kopija vključuje dešifrirane podatke gospodinjstva. Po prenosu jo shranite na varno mesto, po možnosti jo šifrirajte in se izogibajte deljenju po nezavarovanih kanalih.",
-            "export_sensitive_confirm": "Ta varnostna kopija bo vključevala dešifrirane podatke gospodinjstva v običajni obliki. Ali potrjujete, da jo boste shranili na varno mesto?"
+            "export_sensitive_confirm": "Ta varnostna kopija bo vključevala dešifrirane podatke gospodinjstva v običajni obliki. Ali potrjujete, da jo boste shranili na varno mesto?",
+            "accordion_description": "Prenesite šifrirane varnostne kopije, obnovite zaupanja vredne datoteke in ločite občutljive izvoze od vsakodnevnih nastavitev.",
+            "backup_modal_title": "Prenesite varnostno kopijo gospodinjstva",
+            "backup_modal_body": "Izvozi vključujejo dešifrirane podatke o gospodinjstvu. Šifriranje obdržite, razen če nujno potrebujete navadno JSON datoteko.",
+            "encrypt_toggle_title": "Šifrirajte varnostno kopijo pred prenosom",
+            "encrypt_toggle_body": "Priporočeno. Prenesena datoteka je zaščitena z geslom, ki ga izberete, in jo je mogoče kasneje obnoviti z istim geslom.",
+            "passphrase_label": "Geslo za varnostno kopijo",
+            "passphrase_confirm_label": "Potrdite geslo",
+            "passphrase_length": "Uporabite geslo za varnostno kopijo, ki ima vsaj 12 znakov.",
+            "passphrase_mismatch": "Gesli za varnostno kopijo se ne ujemata.",
+            "unencrypted_warning": "Preprosti JSON izvozi so lažji za pregled, vendar lahko kdorkoli, ki odpre datoteko, takoj prebere vaše podatke gospodinjstva.",
+            "import_encrypted_title": "Odkleni šifrirano varnostno kopijo",
+            "import_encrypted_body": "Vnesite geslo za varnostno kopijo, uporabljeno med prenosom, da obnovite to šifrirano datoteko.",
+            "unlock_and_import": "Odkleni in uvozi"
         },
         "about": {
             "title": "📱 O aplikaciji",
@@ -423,7 +730,10 @@
             "legal_title": "Pravne listine",
             "legal_description": "Tukaj lahko ponovno odprete besedilo pogojev in zasebnosti tudi po tem, ko jih sprejmete.",
             "terms_link": "Pogoji uporabe",
-            "privacy_link": "Politika zasebnosti"
+            "privacy_link": "Politika zasebnosti",
+            "beta_title": "Beta stanje",
+            "beta_body": "{{brandName}} je še v beta fazi. Funkcije se lahko spremenijo, delovni tokovi se lahko razvijajo, pomembni podatki o gospodinjstvu pa naj bodo vedno varno shranjeni.",
+            "feedback_subject": "Povratne informacije - {{brandName}}"
         },
         "modals": {
             "password": {
@@ -529,7 +839,65 @@
             "password_label": "Potrdite z vašim trenutnim geslom",
             "confirm_delete": "Potrdi izbris",
             "deleting": "Brisanje..."
-        }
+        },
+        "language": "Jezik",
+        "control_sections": {
+            "account": "Račun",
+            "houses": "Hiše",
+            "security": "Varnost",
+            "data": "Podatki",
+            "preferences": "Nastavitve",
+            "about": "O"
+        },
+        "workspace_section": {
+            "eyebrow": "Račun in hiše",
+            "title": "Račun in dostop do gospodinjstva",
+            "description": "Upravljajte svoj profil, aktivno hišo in dostop članov iz enega kontrolnega območja."
+        },
+        "account_overview": {
+            "title": "Pregled računa",
+            "description": "Osnovni podrobnosti profila za prijavljeni račun."
+        },
+        "security_section": {
+            "eyebrow": "Varnost in nastavitve",
+            "title": "Zaščita in nastavitve",
+            "description": "Nadzorujte prijavo, obnovitev računa, zaupanja vredne naprave in videz brez iskanja po ločenih panelih."
+        },
+        "preferences_section": {
+            "title": "Videz in jezik",
+            "description": "Ohranite udobno delovno okolje na tej napravi in nastavite jezik, ki se uporablja v navigaciji in pravnih besedilih."
+        },
+        "data_section": {
+            "eyebrow": "Podatki in informacije",
+            "title": "Podatki, pravni vidiki in lastništvo računa",
+            "description": "Izvoze, informacije o izdelkih in nepovratne ukrepe na računu imejte jasno ločene."
+        },
+        "language_description": "Uporabi en jezik za navigacijo, oznake, pravne besedilo in oblikovanje datumov.",
+        "language_updated_title": "Jezik posodobljen",
+        "language_updated_body": "{{language}} je zdaj aktiven. Ponovno nalaganje je potrebno le, če druga odprta zavihka še vedno prikazuje starejše besedilo.",
+        "select_language_tooltip": "Spremeni jezik. Trenutni: {{language}}",
+        "select_language_aria": "Izberite jezik. Trenutni: {{language}}",
+        "frequently_used": "Pogosto uporabljeno",
+        "other_languages": "Vsi jeziki",
+        "no_language_found": "Noben jezik ni ustrezal iskanju.",
+        "account": "Račun",
+        "house": "Podatki o hiši",
+        "house_key": "Ključ od hiše",
+        "copy_key": "Kopiraj ključ",
+        "share_key": "Deli ključ",
+        "house_members": "Člani hiše",
+        "change_password": "Spremeni geslo",
+        "backup": "Varnostna kopija",
+        "export_data": "Izvozi podatke",
+        "import_data": "Uvozi podatke",
+        "notifications": "Obvestila",
+        "appearance": "Videz",
+        "version": "Različica",
+        "search_language": "Iskanje jezika...",
+        "popular_languages": "Priljubljeni jeziki",
+        "search_results": "Rezultati iskanja",
+        "current_language": "Trenutni jezik",
+        "languages_available": "razpoložljivi jeziki"
     },
     "inventory": {
         "title": "Inventar",
@@ -588,8 +956,25 @@
             "history_active": "Odpri zapis za {{name}}",
             "history_returned": "Zaprta kartoteka za {{name}}",
             "returned_at": "Vrnjen: {{date}}",
-            "no_history": "Za ta predmet še ni zgodovine izposoj."
-        }
+            "no_history": "Za ta predmet še ni zgodovine izposoj.",
+            "lend_success_title": "Element izposojen",
+            "lend_success_body": "{{item}} je zdaj označen kot izposojen."
+        },
+        "untitled_item": "Brez naslova",
+        "delete_action": "Izbriši predmet",
+        "delete_title": "Izbrisati ta predmet?",
+        "delete_description": "S tem odstranite predmet iz domačega inventarja. Uporabite to samo, ko ste prepričani, da ne bi smel ostati v zgodovini.",
+        "delete_warning": "Fotografije, opis in podatki o postavitvi, povezani s tem zapisom, bodo odstranjeni iz pogleda aktivnega inventarja.",
+        "delete_success_title": "Predmet izbrisan",
+        "delete_success_body": "Predmet je bil odstranjen iz aktivnega domačega inventarja.",
+        "view_mode": "Postavitev predmeta",
+        "grid_view": "Mreža",
+        "list_view": "Seznam",
+        "loading_description": "Priprava predmetov, prostorov in filtrov.",
+        "category_filter_label": "Filtriraj po kategoriji",
+        "room_filter_label": "Filtriraj po prostoru",
+        "refreshing_results": "Osveževanje predmetov...",
+        "empty_filter_title": "Noben predmet ni ustrezal iskanju"
     },
     "categories": {
         "title": "Kategorije",
@@ -601,7 +986,42 @@
         "icon_label": "Ikona",
         "color_label": "Barva",
         "delete_confirm": "Ali ste prepričani, da želite izbrisati to kategorijo?",
-        "delete_error": "Napaka pri brisanju"
+        "delete_error": "Napaka pri brisanju",
+        "edit_action": "Uredi kategorijo",
+        "delete_action": "Izbriši kategorijo",
+        "delete_title": "Izbrisati to kategorijo?",
+        "delete_description": "Brisanje kategorije lahko vpliva na to, kako so predmeti razvrščeni in pozneje najdeni.",
+        "delete_warning": "Predmeti, ki že uporabljajo to kategorijo, bodo morda morali biti ponovno dodeljeni, da bodo filtri in števila jasni.",
+        "delete_success_title": "Kategorija izbrisana",
+        "delete_success_body": "Kategorija je bila odstranjena iz vaše strukture inventarja.",
+        "defaults": {
+            "kitchen": "Kuhinja",
+            "electronics": "Elektronika",
+            "hobbies": "Hobiji",
+            "furniture": "Pohištvo",
+            "clothing": "Oblačila",
+            "books": "Knjige",
+            "tools": "Orodje",
+            "sports": "Šport",
+            "other": "Drugo"
+        },
+        "add": "Dodaj kategorijo",
+        "edit": "Uredi kategorijo",
+        "delete": "Izbriši kategorijo",
+        "name": "Ime kategorije",
+        "icon": "Ikona",
+        "color": "Barva",
+        "item_count": "Število elementov",
+        "no_categories": "Še ni dodanih kategorij",
+        "confirm_delete": "Ste prepričani, da želite izbrisati to kategorijo?",
+        "added": "Dodana kategorija",
+        "updated": "Posodobljena kategorija",
+        "deleted": "Kategorija izbrisana",
+        "not_found": "Kategorija ni najdena",
+        "name_required": "Name required",
+        "load_error": "Error loading",
+        "add_error": "Error adding",
+        "update_error": "Error updating"
     },
     "rooms": {
         "title": "Sobe",
@@ -614,7 +1034,68 @@
         "name_placeholder": "npr. Glavna spalnica",
         "desc_placeholder": "npr. Glavna spalnica",
         "delete_confirm": "Ali ste prepričani, da želite izbrisati to sobo?",
-        "delete_error": "Napaka pri brisanju"
+        "delete_error": "Napaka pri brisanju",
+        "edit_action": "Uredi sobo",
+        "delete_action": "Izbriši sobo",
+        "delete_title": "Izbrisati to sobo?",
+        "delete_description": "Brisanje sobe lahko začasno zmanjša jasnost lokacij predmetov, dokler niso ponovno dodeljene.",
+        "delete_warning": "Predmeti, dodeljeni tukaj, morda potrebujejo novo sobo, da iskanje, štetje in zgodovina namestitve ostanejo zanesljivi.",
+        "delete_success_title": "Soba izbrisana",
+        "delete_success_body": "Soba je bila odstranjena in povezane predmete je zdaj mogoče dodeliti znova.",
+        "defaults": {
+            "living_room": {
+                "name": "Dnevna soba",
+                "description": "Glavno vsakdanje bivalno območje"
+            },
+            "bedroom": {
+                "name": "Spalnica",
+                "description": "Področje za spanje in počitek"
+            },
+            "kitchen": {
+                "name": "Kuhinja",
+                "description": "Področje za pripravo hrane"
+            },
+            "bathroom": {
+                "name": "Kopalnica",
+                "description": "Področje za čiščenje in nego"
+            },
+            "office": {
+                "name": "Pisarna",
+                "description": "Področje za osredotočeno delo"
+            },
+            "kids_room": {
+                "name": "Otroška soba",
+                "description": "Otroška soba"
+            },
+            "garage": {
+                "name": "Garaža",
+                "description": "Površina za vozila in shranjevanje"
+            },
+            "balcony": {
+                "name": "Balkon",
+                "description": "Zunanji podaljšek prostora"
+            },
+            "storage": {
+                "name": "Skladišče",
+                "description": "Splošno skladišče"
+            }
+        },
+        "add": "Dodaj sobo",
+        "edit": "Uredi sobo",
+        "delete": "Izbriši sobo",
+        "name": "Ime sobe",
+        "icon": "Ikona",
+        "item_count": "Število elementov",
+        "no_rooms": "Še ni dodanih sob",
+        "confirm_delete": "Ste prepričani, da želite izbrisati to sobo?",
+        "added": "Dodana soba",
+        "updated": "Soba posodobljena",
+        "deleted": "Soba izbrisana",
+        "not_found": "Soba ni najdena",
+        "name_required": "Name required",
+        "load_error": "Error loading",
+        "add_error": "Error adding",
+        "update_error": "Error updating"
     },
     "admin": {
         "title": "Administratorski panel",
@@ -639,7 +1120,7 @@
         "users": {
             "user": "Uporabnik",
             "role": "Vloga",
-            "status": "Status",
+            "status": "Stanje",
             "action": "Dejanje",
             "banned": "Prepovedano",
             "active": "Aktivno",
@@ -651,14 +1132,81 @@
             "ban_apply": "prepovej",
             "confirm_delete_1": "Ste prepričani, da želite izbrisati uporabnika \"{{username}}\"?",
             "confirm_delete_2": "⚠️ OPOZORILO: To bo TRAJNO izbrisalo VSE podatke (zaloge, sobe, kategorije) za uporabnika \"{{username}}\"!",
-            "confirm_delete_3": "🚨 KONČNO OPOZORILO: Račun \"{{username}}\" in vsi podatki bodo NEPOVRATNO izbrisani. Ali želite nadaljevati?"
+            "confirm_delete_3": "🚨 KONČNO OPOZORILO: Račun \"{{username}}\" in vsi podatki bodo NEPOVRATNO izbrisani. Ali želite nadaljevati?",
+            "ban_action": "Prepovedi uporabnika",
+            "unban_action": "Obnovi dostop uporabniku",
+            "ban_title": "Prepovedati tega uporabnika?",
+            "ban_description": "Prepoved uporabnika takoj blokira dostop, dokler ga skrbnik ne obnovi.",
+            "ban_warning": "Uporabnik izgubi dostop, dokler ga drugi skrbnik izrecno ne obnovi.",
+            "unban_title": "Obnoviti tega uporabnika?",
+            "unban_description": "Obnovitev dostopa omogoča temu uporabniku ponovno prijavo.",
+            "unban_warning": "Uporabnik ponovno pridobi dostop ob naslednji uspešni prijavi.",
+            "delete_title": "Izbrisati ta račun?",
+            "delete_description": "Brisanje {{username}} trajno odstrani račun in njegove podatke o lastništvu inventarja.",
+            "delete_warning": "To dejanje je nepovratno in odstrani sobe, kategorije, predmete ter povezano zgodovino lastništva, povezano s tem računom.",
+            "ban_success_title": "Uporabnik je prepovedan",
+            "ban_success_body": "{{username}} je bil blokiran za prijavo.",
+            "unban_success_title": "Dostop obnovljen",
+            "unban_success_body": "{{username}} se lahko znova prijavi.",
+            "delete_success_title": "Račun izbrisan",
+            "delete_success_body": "{{username}} in povezani podatki v lasti so bili trajno odstranjeni.",
+            "section_title": "Nadzor dostopa uporabnikov",
+            "search_label": "Išči uporabnike",
+            "search_placeholder": "Išči po uporabniškem imenu",
+            "filtered_total": "{{count}} vidnih računov",
+            "total_platform": "{{count}} vseh računov",
+            "empty_title": "Noben račun ne ustreza",
+            "empty_body": "Poskusite z drugim iskanjem ali filtrom, da se uporabniki ponovno prikažejo.",
+            "filters": {
+                "all": "Vsi",
+                "active": "Aktivni",
+                "banned": "Prepovedano",
+                "admin": "Administratorji"
+            },
+            "protected_admin": "Zaščiten račun skrbnika",
+            "private_contact_hidden": "Zasebni kontaktni podatki ostanejo skriti v preglednici skrbnika.",
+            "no_last_login": "Še ni prijave",
+            "section_body": "Iskanje računov, pregled njihovih trenutnih stanj in ukrepanje brez izgube konteksta.",
+            "section_eyebrow": "Umerjanje",
+            "no_date": "Neznano",
+            "joined_label": "Pridružil se",
+            "last_seen_label": "Zadnja prijava",
+            "households_label": "Gospodinjstva",
+            "items_label": "Lastnine",
+            "last_seen_short": "Videno",
+            "last_seen_short_never": "Novo"
         },
         "logs": {
             "title": "Dnevniki skrbnika",
             "no_logs": "še ni dnevnikov",
             "errors_title": "Napake sistema (Zadnjih 10)",
             "no_errors": "// Sistem je zdrav, brez zapisov napak.",
-            "date_fmt": "{{date, datetime}}"
+            "date_fmt": "{{date, datetime}}",
+            "type": {
+                "email": "E-pošta",
+                "user": "Uporabnik",
+                "system": "Sistem",
+                "event": "Dogodek"
+            },
+            "action": {
+                "send": "Pošlji",
+                "delete": "Izbriši",
+                "update": "Posodobi",
+                "create": "Ustvari",
+                "enable": "Omogoči",
+                "disable": "Onemogoči"
+            },
+            "audit": {
+                "email_sent": "Prejemnik: {{recipient}} | Zadeva: {{subject}}",
+                "user_deleted": "Uporabnik izbrisan: {{username}} | Izbrisane gospodinjstva: {{deletedHouses}} | Prenosi lastništva: {{transferredOwnerships}}",
+                "user_target": "Uporabnik: {{username}}",
+                "indexnow_submitted": "Oddaja IndexNow uspešna. Število URL-jev: {{count}}"
+            },
+            "no_errors_title": "V zadnjem času ni bilo sistemskih napak",
+            "section_eyebrow": "Revizijska sled",
+            "errors_eyebrow": "Diagnostika",
+            "section_body": "Vsako zmerjanje ali operativna sprememba, ki jo je zabeležila administrativna plast.",
+            "errors_body": "Zadnje analizirane vrstice napak iz dnevniških datotek strežnika."
         },
         "email": {
             "title": "Pošlji e-pošto",
@@ -669,12 +1217,122 @@
             "send": "Pošlji",
             "sending": "Pošiljanje...",
             "success": "E-pošta uspešno poslana!",
-            "error": "Pošiljanje ni uspelo"
-        }
+            "error": "Pošiljanje ni uspelo",
+            "compose_eyebrow": "Sporočilo",
+            "compose_body": "Sestavite en sam odhodni e-poštni naslov z varnim HTML formatiranjem in blagovno znamko platforme.",
+            "security_title": "Varen prenos",
+            "security_body": "Skrbnik: {{username}} • Omejitev: {{remaining}}/3 e-poštna sporočila na minuto",
+            "from_unconfigured": "Na voljo po nastavitvi e-pošte",
+            "notes_label": "Opomba o uporabi",
+            "notes_body": "Uporabite to za operativno podporo ali stik glede računa. Občutljiva vsebina naj ostane v aplikaciji, kadar je to mogoče.",
+            "notes_body_with_rate_limit": "Uporabite to za operativno podporo ali stik glede računa. Občutljiva vsebina naj ostane v aplikaciji, kadar je to mogoče. Trenutna zaščita pred pošiljanjem: {{rateLimit}}.",
+            "rate_limit_fallback": "3 e-poštna sporočila na minuto",
+            "placeholder_to": "ime@primer.com",
+            "placeholder_subject": "Zadeva sporočila",
+            "send_success_with_id": "✅ E-pošta je bila uspešno poslana! ID: {{emailId}}",
+            "send_error": "E-pošte ni bilo mogoče poslati",
+            "rate_limit_reached": "⏳ Dosežena omejitev pošiljanja. Prosimo, počakajte 1 minuto.",
+            "info_title": "Informacije",
+            "info_bullet_1": "E-pošte so poslane iz {{supportEmail}}",
+            "info_bullet_2": "Za preprečevanje neželene pošte lahko pošljete največ 3 e-pošte na minuto",
+            "info_bullet_3": "Vsa pošiljanja so beležena zaradi varnosti, razen vsebine",
+            "status_title": "Status odhodnega e-poštnega sporočila",
+            "status_body": "Hiter pregled zaupanja pred pošiljanjem operativne komunikacije.",
+            "unconfigured_title": "Dostava e-pošte ni nastavljena",
+            "unconfigured_body": "Obrazec za pošiljanje ostane viden za pregled nastavitve, vendar bo dostava neuspešna, dokler ponudnik e-pošte ni nastavljen.",
+            "status_eyebrow": "Dostava"
+        },
+        "overview": {
+            "email_warning_title": "Dostava e-pošte ni nastavljena",
+            "sections": {
+                "governance_title": "Posnetek upravljanja",
+                "activity_title": "Nedavne administrativne aktivnosti",
+                "governance_eyebrow": "Dostop",
+                "governance_body": "Osredotočite se na pritisk moderiranja, zaščitena administratorska mesta in zahteve za dostop gospodinjstva, ne da bi zapustili stran.",
+                "footprint_eyebrow": "Inventar",
+                "footprint_title": "Odtis inventarja",
+                "footprint_body": "Splošen pregled, koliko strukture in vsebine trenutno obstaja v izdelku.",
+                "activity_eyebrow": "Revizija",
+                "activity_body": "Najnovejši zabeleženi ukrepi moderacije in delovanja platforme.",
+                "recent_users_eyebrow": "Novi računi",
+                "recent_users_title": "Najnovejše prijave",
+                "recent_users_body": "Hiter vpogled, kdo se je pred kratkim pridružil in ali so se že prijavili.",
+                "recent_users_private_note": "Osebni kontaktni podatki ostajajo skriti.",
+                "recent_users_empty_title": "Še noben uporabnik",
+                "recent_users_empty_body": "Ko se ljudje registrirajo, se bodo najnovejši računi prikazali tukaj."
+            },
+            "summary": {
+                "admin_seats": "Zaščitena administratorska mesta",
+                "admin_seats_body": "Računi, ki lahko dostopajo do administratorske površine.",
+                "banned_accounts": "Prepovedani računi",
+                "banned_accounts_body": "Uporabniki, ki so trenutno blokirani za prijavo.",
+                "locked_accounts": "Začasno zaklenjeno",
+                "locked_accounts_body": "Računi zaklenjeni zaradi ponavljajočih se neuspešnih prijav",
+                "pending_households": "Čakajoča odobritev gospodinjstva",
+                "pending_households_body": "Zahteve za pridružitev, ki čakajo na odločitev lastnika",
+                "rooms_global": "Konfigurirani zapisi sob",
+                "rooms_global_body": "Vse definicije sob shranjene v vseh gospodinjstvih",
+                "categories_global": "Konfigurirani zapisi kategorij",
+                "categories_global_body": "Vse definicije kategorij shranjene v vseh gospodinjstvih",
+                "locations_global": "Shranjene lokacije",
+                "locations_global_body": "Zaznamki lokacij, ustvarjeni znotraj sob.",
+                "active_borrows": "Aktivna izposoja",
+                "active_borrows_body": "Zaznamki izposoje, ki so še odprti."
+            },
+            "email_warning_body": "Administratorji lahko še vedno pregledujejo platformo, vendar so dejavnosti pošiljanja e-pošte trenutno nedosegljive, dokler ni nastavljena možnost Ponovni pošiljanje.",
+            "locked_users_title": "Zaklenjeni računi potrebujejo pregled",
+            "locked_users_body": "{{count}} račun(i) je trenutno blokiranih za prijavo.",
+            "pending_requests_title": "Čakajo odobritve gospodinjstva",
+            "pending_requests_body": "{{count}} zahtevek(i) za pridružitev čaka na odločitev lastnika.",
+            "cards": {
+                "accounts": "Računi",
+                "accounts_body": "{{count}} novih prijav v zadnjih 7 dneh",
+                "admins_chip": "{{count}} skrbnikov",
+                "banned_chip": "{{count}} prepovedanih",
+                "households": "Gospodinjstva",
+                "households_body": "{{count}} aktivnih članstev po platformi",
+                "pending_chip": "{{count}} v čakanju",
+                "inventory": "Zapisniki zalog",
+                "inventory_body": "{{count}} aktivnih izposoj trenutno odprtih",
+                "public_items_chip": "{{count}} deljeno",
+                "private_items_chip": "{{count}} zasebno",
+                "system": "Zdravje sistema",
+                "system_body": "{{count}} ur delovanja",
+                "storage_chip": "{{count}} MB naložb"
+            }
+        },
+        "meta": {
+            "users_total": "{{count}} računov",
+            "households_total": "{{count}} gospodinjstev",
+            "pending_requests": "{{count}} čakajočih odobritev",
+            "pending_requests_clear": "Ni čakajočih odobritev"
+        },
+        "refresh_complete_title": "Podatki skrbnika osveženi",
+        "refresh_complete_body": "Najnovejši podatki skrbnika so zdaj na zaslonu.",
+        "ban_user": "Prepove",
+        "unban_user": "Odblokiraj",
+        "delete_user": "Izbriši uporabnika",
+        "reset_attempts": "Ponovni poskusi",
+        "total_users": "Skupno število uporabnikov",
+        "total_items": "Skupno število elementov",
+        "server_uptime": "Čas delovanja strežnika",
+        "memory_usage": "Poraba pomnilnika",
+        "users_loaded": "Uporabniki naloženi",
+        "user_banned": "Uporabnik prepovedan",
+        "user_unbanned": "Uporabnik odblokiran",
+        "user_deleted": "Uporabnik izbrisan",
+        "attempts_reset": "Attempts reset",
+        "stats_loaded": "Stats loaded",
+        "logs_loaded": "Dnevniki naloženi",
+        "load_error": "Error loading",
+        "action_error": "Action error"
     },
     "landing": {
         "nav": {
-            "login": "Prijava"
+            "login": "Prijava",
+            "features": "Značilnosti",
+            "security": "Varnost",
+            "details": "Podrobnosti"
         },
         "hero": {
             "title_1": "Upravljajte vse",
@@ -684,10 +1342,12 @@
             "cta_register": "Ustvari račun",
             "stat_free": "Brezplačno",
             "stat_access": "Dostop",
-            "free_badge": "Popolnoma brezplačno"
+            "free_badge": "Popolnoma brezplačno",
+            "badge": "HomeInventory v2.0 je tukaj",
+            "cta_explore": "Razišči funkcije"
         },
         "features": {
-            "title": "Zakaj <1>{{brandName}}</1>?",
+            "title": "Why <1>HomeInventory</1>?",
             "subtitle": "Vse funkcije za poenostavitev upravljanja doma na eni platformi",
             "items": {
                 "categorize": {
@@ -727,7 +1387,166 @@
             "contact": "Kontaktirajte nas",
             "copyright": "© {{year}} {{brandName}}. Vse pravice pridržane."
         },
-        "preview_privacy_notice": "Demo prikaz: prikazani niso pravi podatki uporabnikov."
+        "preview_privacy_notice": "Demo prikaz: prikazani niso pravi podatki uporabnikov.",
+        "sections": {
+            "capabilities": "ZMOŽNOSTI IZDELKA",
+            "capabilities_heading": "Vse, kar potrebujete za dobro urejen dom.",
+            "security_eyebrow": "Varnost na ravni podjetij",
+            "security_heading": "Tvoje zasebno življenje ostaja zasebno.",
+            "recovery_setup": "Nastavitev ključa za okrevanje",
+            "updated": "Zadnja posodobitev pred 2 dnevoma",
+            "authenticator_required": "Zahteva aplikacijo za avtentikacijo",
+            "about": "O NAS",
+            "workflow": "DOMAČI POTEK DELA",
+            "workflow_heading": "Mirnejši način upravljanja vsega, kar vaš dom vsebuje.",
+            "ready": "PRIPRAVLJEN ZA ZAČETEK",
+            "ready_heading": "Zgradite bolj miren, bolje organiziran dom.",
+            "hero_vault_caption": "Šifrirano in varno",
+            "security_status": "Aktivni"
+        },
+        "about": {
+            "headline": "Odprtokoden, večjezični, varnostno usmerjen sistem za upravljanje vašega domačega inventarja.",
+            "description": "HomeInventory ni le dovršen vmesnik; gre za praktičen sistem, zasnovan za vsakodnevno uporabo, od črtnih kod in QR tokov do deljenja več hiš, izposoje, osebnega trezorja in varnostnih kopij."
+        },
+        "homeinventory": {
+            "hero": {
+                "statement": "Veste, kaj imate. Poiščite to brez težav.",
+                "statementAccent": "Skupni inventar za gospodinjstvo. Osebni trezor samo za vas.",
+                "description": "Shranjujte predmete, garancije, pomembne dokumente in evidenco izposoj na enem mirnem mestu. Na prvi pogled si oglejte, kaj vsebuje vaš dom.",
+                "primaryCta": "Začni brezplačno",
+                "secondaryCta": "Oglejte si izdelek",
+                "trustSignal": "Popolnoma brezplačno • Narejeno za skupno rabo v gospodinjstvu • Občutljivi zapisi ostanejo ločeni v Osebnem trezorju",
+                "searchPlaceholder": "Poiščite predmet, sobo ali črtno kodo"
+            },
+            "heroInventoryRows": [
+                {
+                    "name": "Zračni cvrtnik",
+                    "meta": "Kuhinjski pult • Garancija do 08/2028",
+                    "state": null
+                },
+                {
+                    "name": "Sveder komplet",
+                    "meta": "Shramba • 14 kosov",
+                    "state": "Izposojeno"
+                },
+                {
+                    "name": "Mrežna enota",
+                    "meta": "TV konzola • Deco M4",
+                    "state": null
+                },
+                {
+                    "name": "Rezervni ključ od vrat",
+                    "meta": "Predal za vhod",
+                    "state": null
+                },
+                {
+                    "name": "PDF garancija za bojler",
+                    "meta": "Dokumenti • PDF priložen",
+                    "state": null
+                },
+                {
+                    "name": "HEPA filter",
+                    "meta": "Otroška soba • Zamenjati 11/2026",
+                    "state": null
+                }
+            ],
+            "features": {
+                "eyebrow": "ZAKAJ HOMEINVENTORY",
+                "heading": "Poznavanje tega, kar imate, olajša upravljanje domačega življenja.",
+                "description": "Skupni seznam ohranja vsakodnevno inventuro pregledno, medtem ko Osebni trezor hrani občutljive zapise izven pogleda."
+            },
+            "productLanes": [
+                {
+                    "eyebrow": "Skupna inventura",
+                    "title": "Oglejte si, kaj vse vsebuje vaš dom, na enem preglednem mestu.",
+                    "description": "Organizirajte predmete po sobah, dodajte garancije in zapiske ter najdite, kar potrebujete, v nekaj sekundah.",
+                    "signal": "Vsakodnevna uporaba",
+                    "metric": "Hitro iskanje",
+                    "note": "Sobe • kategorije • zapiski o garanciji"
+                },
+                {
+                    "eyebrow": "Sledenje izposoj",
+                    "title": "Vedno vedite, kdo ima kaj doma.",
+                    "description": "Izposojeni predmeti ostanejo v evidenci, tako da se nič ne izgubi.",
+                    "signal": "Skupna raba",
+                    "metric": "Jasna zgodovina",
+                    "note": "Člani gospodinjstva • zgodovina izposoj • sledenje čiščenju"
+                },
+                {
+                    "eyebrow": "Osebni sef",
+                    "title": "Potni listi, listine in kode ostanejo izven skupnega iskanja.",
+                    "description": "Občutljivi zapisi ostanejo vidni samo vam in so ločeni od vsakodnevnega seznama.",
+                    "signal": "Zasebni zapisi",
+                    "metric": "Samo vi jih lahko vidite",
+                    "note": "Dokumenti • dostopne kode • osebne beležke"
+                }
+            ],
+            "security": {
+                "eyebrow": "UPORABLJAJTE Z ZAUPANJEM",
+                "heading": "Skupno iskanje nikoli ne doseže zasebnih zapisov.",
+                "description": "Osebni trezor ostaja ločen od skupnega inventarja in je zaščiten z večplastno varnostjo računa.",
+                "bullets": [
+                    "Občutljiva polja se obravnavajo ločeno in se varno shranjujejo.",
+                    "Zaščitite dostop z 2FA, rezervnimi kodami in zaupanja vrednimi napravami."
+                ]
+            },
+            "about": {
+                "eyebrow": "VI OSTAJATE V KONTROLI",
+                "heading": "HomeInventory je zasnovan tako, da v vsakdanjem življenju daje občutek miru, uporabnosti in zaupanja.",
+                "description": "Prednost je, da vam pomagamo vedeti, kaj imate, in hitro doseči prave informacije. Tehnična preglednost ostaja na voljo, vendar ne potrebuje biti osrednja v zgodbi.",
+                "pills": [
+                    "Popolnoma brezplačno",
+                    "Skupna uporaba v gospodinjstvu",
+                    "Hitro iskanje",
+                    "Osebni trezor"
+                ],
+                "strips": [
+                    {
+                        "title": "Popolnoma brezplačno",
+                        "description": "Trenutno je vse brezplačno; lahko uporabljate vse funkcije HomeInventorya brez plačila.",
+                        "number": "01"
+                    },
+                    {
+                        "title": "Tok skupne uporabe v gospodinjstvu",
+                        "description": "Člani družine lahko skupaj pregledajo in vzdržujejo isti seznam stvari v gospodinjstvu.",
+                        "number": "02"
+                    },
+                    {
+                        "title": "Dokumenti in garancije",
+                        "description": "Shranite račune, podatke o garancijah in servisne zapiske blizu vsakega predmeta.",
+                        "number": "03"
+                    },
+                    {
+                        "title": "Zasebni zapisi ostanejo ločeni",
+                        "description": "Občutljive informacije ostanejo zunaj skupnega seznama in so vidne samo vam.",
+                        "number": "04"
+                    }
+                ],
+                "advanced": {
+                    "eyebrow": "Tehnični podatki",
+                    "title": "Pregledno po zasnovi, tiho v ozadju.",
+                    "description": "Za vse, ki jih zanima osnovna nastavitev, HomeInventory še vedno ohranja svoje odprtokodno jedro, licenco MIT in možnost samostojnega gostovanja kot podporne podrobnosti.",
+                    "link": "Oglejte si tehnične podrobnosti na GitHubu"
+                }
+            },
+            "cta": {
+                "eyebrow": "ZAČNI DANES",
+                "heading": "Ustvarite svojo prvo sobo. Dodajte svoj prvi predmet.",
+                "description": "Začetek je brezplačen in vzame le nekaj mirnih minut, da zgradite bolj jasen domači sistem."
+            },
+            "security_panel": {
+                "eyebrow": "Dostop po obsegu",
+                "title": "Zasebni zapisi se nikoli ne pojavijo na skupnem seznamu",
+                "description": "Potni listi, listine in dostopne kode ostanejo ločeni od skupnega inventarja. Podatki iz trezorja so shranjeni šifrirano.",
+                "vault_scope": "Obseg trezorja",
+                "identity_docs": "Identifikacijski dokumenti",
+                "identity_docs_meta": "Potni listi, osebne izkaznice",
+                "property_records": "Evidenca o lastnini",
+                "property_records_meta": "Listine, najemne pogodbe",
+                "access_codes": "Dostopne kode",
+                "access_codes_meta": "Gesla, PIN-številke"
+            }
+        }
     },
     "intro": {
         "inventory": {
@@ -749,7 +1568,19 @@
             "next": "Naprej",
             "skip": "Preskoči",
             "open": "Odpri"
-        }
+        },
+        "inventory_title": "Inventar",
+        "inventory_desc": "Tu dodajte in navedite svoje predmete. Spremljajte vse svoje domače stvari na enem mestu!",
+        "house_key_title": "Ključ od hiše",
+        "house_key_desc": "To je vaš ključ od hiše, uporabite ga za povabilo drugih. Dodajte družinske člane v svoj dom!",
+        "categories_title": "Kategorije",
+        "categories_desc": "Organizirajte svoje predmete v kategorije. Elektronika, pohištvo, kuhinja in več!",
+        "back": "Nazaj",
+        "close": "Zapri",
+        "last": "Dokončaj",
+        "next": "Naprej",
+        "open": "Odpri",
+        "skip": "Preskoči"
     },
     "google_house_select": {
         "title": "Dobrodošli!",
@@ -803,7 +1634,8 @@
         "found_item_redirect": "Izdelek najden! Preusmerjanje...",
         "found_page_redirect": "Stran najdena! Preusmerjanje...",
         "invalid_qr": "Ta QR koda ni za to aplikacijo.",
-        "not_found": "Izdelek ni najden. Poskusite z drugo črtno kodo."
+        "not_found": "Izdelek ni najden. Poskusite z drugo črtno kodo.",
+        "qr_subtitle": "Uporabite to samo za QR oznake elementov v HomeInventory."
     },
     "item_qr": {
         "hint_mobile": "📱 Skenirajte to QR kodo s svojim telefonom, da hitro dostopate do artikla",
@@ -813,7 +1645,29 @@
         "copy_url": "Kopiraj URL",
         "download": "Prenesi QR",
         "usage_title": "Uporaba",
-        "usage_desc": "Natisnite QR kodo in jo prilepite na izdelek. Skenirajte s telefonom, da takoj dostopate do te strani!"
+        "usage_desc": "Natisnite QR kodo in jo prilepite na izdelek. Skenirajte s telefonom, da takoj dostopate do te strani!",
+        "caption": "Povezava do elementa",
+        "caption_hint": "Kopirajte ali natisnite neposredno pot do elementa, ko potrebujete hiter dostop.",
+        "format_badge": "Izvoz SVG",
+        "link_preview_label": "Neposredna povezava do elementa",
+        "link_preview_aria": "Predogled neposredne povezave do elementa",
+        "copy_url_safe": "Kopiraj povezavo",
+        "copy_url_aria": "Kopiraj povezavo do elementa",
+        "actions_title": "Dejanja skupne rabe",
+        "actions_desc": "Kopirajte neposredno povezavo do predmeta ali shranite jasen QR element za tiskanje.",
+        "copy_success_title": "Povezava QR je kopirana",
+        "copy_success_body": "Povezava za urejanje predmeta je pripravljena za deljenje, ko jo potrebujete.",
+        "copy_error": "Povezave QR ni bilo mogoče kopirati.",
+        "download_aria": "Prenesite QR kodo",
+        "download_success_title": "QR prenesen",
+        "download_success_body": "Slika QR je bila shranjena z imenom, primernim za deljenje.",
+        "render_error": "QR kode trenutno ni mogoče ustvariti.",
+        "privacy_title": "Zasebne opombe",
+        "privacy_summary": "Podrobnosti omrežja ostanejo skrite, dokler ne potrebujete navodil.",
+        "link_privacy_note": "Naslov omrežja ostane tukaj skrit. Skenirajte kodo ali kopirajte povezavo samo, ko namerno želite deliti neposreden dostop do elementa na vašem lokalnem sistemu.",
+        "helper": "Skenirajte za takojšnje odpiranje tega elementa ali kopirajte neposredno povezavo, kadar je to potrebno.",
+        "copy_error_title": "Link could not be copied automatically",
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
     },
     "house_access_pending": {
         "eyebrow": "Dostop do hiše",
@@ -903,7 +1757,12 @@
             "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Dostop do hiše",
             "bodyLine1Template": "Trenutna čakajoča zahteva: {{house}} ({{status}})",
-            "bodyLine2": "Vaša zahteva za \"{{house}}\" še čaka na odločitev."
+            "bodyLine2": "Vaša zahteva za \"{{house}}\" še čaka na odločitev.",
+            "statusLabels": {
+                "approved": "odobreno",
+                "rejected": "zavrnjeno",
+                "updated": "posodobljeno"
+            }
         },
         "houseKick": {
             "subject": "Član je bil odstranjen iz hiše",
@@ -920,11 +1779,21 @@
             "warningTitle": "⚠️",
             "warningBody": "Če račun obstaja, je bil poslan povezava za ponastavitev gesla, veljavna 15 minut.",
             "fallback": "Povezava za ponastavitev gesla je videti nepopolna ali pokvarjena.",
-            "footer": "© 2026 DomačaInventura"
+            "footer": "© 2026 {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "Ta e-pošta je bila poslana s strani {{brandName}}.",
             "footer": "© 2026 {{brandName}} - {{supportEmail}}"
+        },
+        "testEmail": {
+            "subject": "🧪 {{brandName}} testni e-poštni naslov",
+            "headerTitle": "🧪 testni e-poštni naslov",
+            "successTitle": "E-poštni sistem deluje",
+            "successBody": "Če ste prejeli to e-pošto, je dostava e-pošte {{brandName}} pravilno konfigurirana.",
+            "sentAtLabel": "Poslano ob",
+            "senderLabel": "Pošiljatelj",
+            "serviceLabel": "Storitev",
+            "footer": "© 2026 {{brandName}}"
         }
     },
     "vault": {
@@ -983,13 +1852,35 @@
             "delete_failed": "Zapis v trezorju ni bilo mogoče izbrisati.",
             "decrypt_failed": "Vsebina trezorja ni bilo mogoče dešifrirati.",
             "name_required": "Za zapis v trezorju je potrebno ime predmeta.",
-            "options_failed": "Možnosti kategorije in sobe ni bilo mogoče naložiti."
+            "options_failed": "Možnosti kategorije in sobe ni bilo mogoče naložiti.",
+            "delete_success_title": "Zapis skrinjice izbrisan",
+            "delete_success_body": "Zasebni zapis je bil trajno odstranjen iz vaše skrinjice."
         },
-        "recovery_file_title": "Domača inventurna osebna ključavnica obnovitvena ključ",
+        "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
         "recovery_file_created_label": "Ustvarjeno",
         "recovery_file_key_label": "Obnovitveni ključ",
         "recovery_file_warning": "Če izgubite tako ta ključ kot geslo ključavnice, ključavnica ne bo mogoče obnoviti.",
-        "media_note": "Nalaganje fotografij, skeniranje črtnih kod in iskanje izdelkov zunaj še ni podprto. Te funkcije bodo dodane, ko bo pripravljen namenski šifrirani medijski in zasebnostni proces."
+        "media_note": "Nalaganje fotografij, skeniranje črtnih kod in iskanje izdelkov zunaj še ni podprto. Te funkcije bodo dodane, ko bo pripravljen namenski šifrirani medijski in zasebnostni proces.",
+        "delete_title": "Izbrisati ta zapis v trezorju?",
+        "delete_description": "Brisanje zapisa osebne skrinjice trajno odstrani njeno šifrirano vsebino.",
+        "delete_warning": "Tega dejanja ni mogoče razveljaviti. Zapis odstranite le, če ga v svoji zasebni skrinjici več ne potrebujete.",
+        "photo": {
+            "attach_action": "Dodaj fotografijo",
+            "replace_action": "Zamenjaj fotografijo",
+            "empty_state": "Vsaka izbrana fotografija se obdeluje v vašem brskalniku, odstranjeni so metapodatki in pred nalaganjem je šifrirana.",
+            "hint": "Fotografije se pripravijo lokalno v vašem brskalniku, odstranijo se EXIF metapodatki, na strežnik pa se pošljejo le šifrirani podatki.",
+            "privacy_note": "Iskanje po črtnih kodah in pridobivanje zunanjih podatkov ostajata onemogočena zaradi zasebnosti.",
+            "processing": "Priprava fotografije za varno nalaganje...",
+            "pending_removal": "Trenutna fotografija bo odstranjena, ko jo shranite.",
+            "viewer_hint": "Odprto iz šifrirane izvirne datoteke, shranjene v Osebnem trezorju.",
+            "viewer_loading": "Dekriptiranje fotografije...",
+            "viewer_failed": "Fotografije v polni velikosti ni bilo mogoče odpreti.",
+            "open_full_action": "Odpri polno velikost",
+            "unsupported": "Prosimo, izberite podprto slikovno datoteko.",
+            "source_too_large": "Izvorne fotografije so lahko do {{maxSizeMb}} MB.",
+            "prepare_failed": "Fotografija ni bila mogoče varno pripraviti.",
+            "too_large": "Fotografija ni ustrezala varnostni velikostni omejitvi. Poskusite z manjšo ali preprostejšo sliko."
+        }
     },
     "borrow_requests": {
         "title": "Center izposoje",
@@ -1010,7 +1901,9 @@
             "subtitle": "Predmeti, ki so trenutno pri vas ali ki ste jih vi izposodili",
             "empty": "Trenutno ni aktivnih izposoj.",
             "borrowed_from": "Izposojeno od {{name}}",
-            "lent_to": "Trenutno pri {{name}}"
+            "lent_to": "Trenutno pri {{name}}",
+            "empty_title": "Trenutno ni aktivnih izposoj",
+            "empty_description": "Sprejete zahteve se tukaj prikažejo, ko je predmet izposojen ali posojen, skupaj z roki vrnitve in statusom vračila."
         },
         "status": {
             "pending": "V čakanju",
@@ -1026,7 +1919,8 @@
             "accept": "Sprejmi",
             "reject": "Zavrniti",
             "cancel": "Prekliči",
-            "fulfill_request": "Izpolni zahtevo"
+            "fulfill_request": "Izpolni zahtevo",
+            "open_inventory": "Odpri inventar"
         },
         "labels": {
             "offer": "Ponudba",
@@ -1072,13 +1966,18 @@
         "preview": {
             "title": "Način predogleda",
             "body": "Zadnji del te strani trenutno ni dosegljiv pri lokalnem testiranju. Še vedno lahko najprej pregledate postavitev in tok; strežniški del bomo omogočili, ko ga boste odobrili."
-        }
+        },
+        "subtitle_compact": "Spremljajte zahtevke, ki ste jih poslali, zahtevke, ki čakajo na vas, in trenutno izposojene predmete.",
+        "incoming_empty_title": "Nobenih zahtevkov za vašo pregledovanje",
+        "outgoing_empty_title": "Še ni odhodnih zahtevkov",
+        "refreshing": "Osveževanje zahtev in aktivnih izposoj...",
+        "loading_description": "Priprava zahtevkov in aktivnost izposoje."
     },
     "legal": {
         "privacy_policy_title": "Politika zasebnosti",
         "terms_of_service_title": "Pogoji storitve",
-        "privacy_policy_content": "Vaša zasebnost nam je pomembna. Ta aplikacija varno shranjuje vaše naložene podatke z uporabo šifriranja na ravni polj. Vaših osebnih podatkov ne prodajamo niti ne delimo s tretjimi osebami. Z uporabo storitve se strinjate z zbiranjem potrebnih podatkov za upravljanje računa in delovanje aplikacije.",
-        "terms_of_service_content": "Z uporabo {{brandName}} se strinjate s temi pogoji. Storitev je na voljo 'kot je' brez kakršnih koli jamstev. Odgovorni ste za podatke, ki jih naložite, in za zagotavljanje, da imate za to pravice. Pridržujemo si pravico, da začasno prekličemo račune, ki kršijo politike ali zlorabljajo sistem.",
+        "privacy_policy_content": "## Pregled\n**{{brandName}}** je odprtokodna programska oprema in je lahko na voljo prek uradne namestitve ali namestitve, ki jo gostuje sam. Za to namestitev je upravljavec podatkov ali operater storitve **{{controllerName}}**.\n- **Naslov upravljavca:** {{controllerAddress}}\n- **Stik za zasebnost:** {{privacyEmail}}\n- **Splošni kontakt za podporo:** {{supportEmail}}\n\nTo obvestilo pojasnjuje, **kateri osebni podatki se obdelujejo**, **kako se pridobivajo**, **zakaj se obdelujejo**, **kdo jih lahko prejme**, **kako dolgo se hranijo** in **kakšne pravice lahko imate**.\n\nČe to namestitev upravlja tretja oseba, je ta operater odgovoren za kakršno koli identiteto krmilnika, specifične za uvedbo, zaveze podpore, podrobnosti o prenosu, nastavitve hrambe in veljavna lokalna pravna obvestila.\n\n## Katere podatke zbiramo in obdelujemo\n- **Podatki o računu:** uporabniško ime, e-poštni naslov, zgoščena vrednost gesla, sejni piškotki, podatki o zaupanja vrednih napravah in varnostni dnevniki.\n- **Storitveni podatki:** hiše, sobe, kategorije, predmeti, naloženi mediji, zahteve za izposojo in osebni zapisi trezorja, ki jih ustvarite.\n- **Tehnični podatki:** naslov IP, identifikatorji brskalnika/seje in podatki o jezikovnih nastavitvah, potrebni za lokalizacijo in varnost računa.\n- **Izbirni podatki ponudnika identitete:** če izberete prijavo z Googlom, Google z nami deli vaš e-poštni naslov, identifikator Google računa in prikazno ime profila, da vas lahko preverimo ali ustvarimo vaš račun.\n- **Izbirni podatki za zahtevo po iskanju:** če uporabljate črtno kodo ali iskanje po izdelku, bo naš strežnik morda poslal vrednost črtne kode, ki jo pošljete, Open Food Facts, Open Products Facts, Open Beauty Facts ali Googlu, tako da je mogoče vrniti zahtevani rezultat.\n\n## Kako pridobivamo podatke\n- **Neposredno od vas:** ko se registrirate, prijavite, ustvarjate ali urejate zapise, nalagate medije, konfigurirate varnostne nastavitve ali kontaktirate podporo.\n- **Samodejno iz vašega brskalnika ali naprave:** prek zahtevanih sejnih piškotkov, mehanizmov zaupanja vrednih naprav, obravnavanja IP-ja, jezikovnih nastavitev in varnostnih dnevnikov, potrebnih za delovanje in zaščito aplikacije.\n- **Od Googla:** samo, če izberete prijavo z Googlom, omejeno na podatke o identiteti, potrebne za preverjanje pristnosti ali ustvarjanje vašega računa.\n- **Iz zunanjih virov podatkov o izdelkih:** samo, če sprožite črtno kodo ali iskanje izdelka, omejeno na zahtevo za iskanje in vrnjene metapodatke izdelka.\n\n## Zakaj ga obdelujemo\n- **Upravljanje računa:** za ustvarjanje in upravljanje vašega računa.\n- **Avtentikacija in varnost:** za vašo avtentikacijo in varne seje ter dvostopenjsko avtentikacijo.\n- **Osnovne funkcije:** za zagotavljanje inventarja, varnostnega kopiranja in funkcij osebnega trezorja.\n- **Podpora:** za odgovor na zahteve za podporo.\n- **Izbirne funkcije prijave in iskanja:** za dokončanje prijave Google in zunanjega iskanja črtne kode/izdelka samo, ko izberete te funkcije.\n- **Pravne in varnostne obveznosti:** za izpolnitev pravnih ali varnostnih obveznosti.\n\n## Pravna podlaga in način zbiranja\n- **V skladu z GDPR, kjer je primerno:** obdelava temelji na izvajanju pogodbe, zakonskih obveznostih, soglasju za katero koli funkcijo, ki temelji na soglasju, in operaterjevem zakonitem interesu za storitev in varnost računa.\n- **V skladu s KVKK, kjer je primerno:** obdelava temelji na pravnih podlagah iz 5. in 6. člena, vključno, kadar je to potrebno za sklenitev ali izvajanje pogodbe, izpolnjevanje zakonskih obveznosti, uveljavljanje ali zaščito pravic ali zakonitih interesov upravljavca, pod pogojem, da vaše temeljne pravice in svoboščine niso oškodovane.\n- **Način zbiranja:** podatki se zbirajo z elektronskimi sredstvi prek obrazcev, overjenih sej, obveznih piškotkov, neobveznih tokov OAuth, dnevnikov aplikacij, nalaganja in zahtev API.\n\n## Shranjevanje in prenos\n- **Osebnih podatkov ne prodajamo.**\n- Osebne podatke lahko prejmejo ponudniki gostovanja, zbirke podatkov, shranjevanja, e-pošte, avtentikacije in infrastrukture, ki se uporabljajo za upravljanje te namestitve.\n- Če izberete prijavo v Google ali iskanje črtne kode/izdelka, se ustrezni podatki za preverjanje pristnosti ali iskanje delijo z izbranim ponudnikom samo za dokončanje funkcije, ki ste jo sprožili.\n- Podatki se lahko razkrijejo sodiščem, regulatorjem ali javnim organom, ko to zahteva zakon.\n- **Razkritje prenosa za to namestitev:** {{transferDisclosure}}\n- Podatki o računu se hranijo, dokler je vaš račun aktiven.\n- Ko izbrišete svoj račun iz nastavitev, se podatki o vašem računu, vsebina osebnega trezorja, naložena predstavnost in zapisi aplikacije, ki so v lasti vašega računa, brez nepotrebnega odlašanja izbrišejo iz aplikacije, razen informacij, ki jih je treba obdržati zaradi pravnih zahtevkov, zakonskih dolžnosti ali varnostnih obveznosti.\n\n## Vaše pravice\n- Odvisno od veljavne zakonodaje lahko zahtevate potrditev, ali se vaši osebni podatki obdelujejo, dostop do njih ter informacije o namenih, kategorijah, prejemnikih in prenosih.\n- Zahtevate lahko popravek, izbris, uničenje, omejitev ali ugovor in, kjer je primerno, prenosljivost podatkov.\n- Če obdelava temelji na privolitvi, lahko privolitev kadar koli prekličete, ne da bi to vplivalo na predhodno zakonito obdelavo.\n– Zahtevate lahko, da se rezultati popravka, izbrisa ali uničenja sporočijo prejemnikom, če to zahteva zakon.\n- Lahko ugovarjate rezultatom, ustvarjenim izključno z avtomatiziranimi sredstvi, če vam zakon daje to pravico.\n- Kjer to dovoljuje zakon, lahko zahtevate odškodnino za škodo, povzročeno z nezakonito obdelavo.\n- Pritožbo lahko vložite pri **{{complaintAuthority}}**\n\n## Kako uveljaviti pravice\n- Uporabite potek brisanja računa v aplikaciji ali se obrnite na **{{privacyEmail}}** za zahteve glede zasebnosti.\n- Kjer velja GDPR, je treba na zahteve odgovoriti brez nepotrebnega odlašanja in načeloma v 1 mesecu po preverjanju identitete.\n\n## Avtomatizirano odločanje\n- Ta aplikacija ne uporablja samo avtomatiziranega odločanja ali profiliranja, ki ima na vas pravne ali podobno pomembne učinke.\n\n## Pomembna opomba\nTo obvestilo je namenjeno preglednosti. **Ločeno je od kakršnega koli izbirnega trženja, analitike ali nebistvenega soglasja za piškotke**, ki ga je treba zahtevati ločeno, kadar je to potrebno.\n\nNavzgornji vzdrževalci odprtokodnih projektov niso samodejno upravljavci ali obdelovalci podatkov za uvedbe, ki jih sami gostijo tretje osebe.",
+        "terms_of_service_content": "Pogoji storitve\n\n1. Pregled\n{{brandName}} je odprtokodna programska oprema in jo je mogoče uporabljati v uradnih ali samostojnih namestitvah. Ti pogoji veljajo za določeno namestitev, ki jo uporabljate.\n- Če to namestitev upravlja tretja oseba, lahko ta operater dopolni te pogoje s posebnimi pravili za uvajanje, zavezami podpore ali lokalnimi pravnimi obvestili.\n\n2. Pravila uporabe\n- Odgovorni ste za zakonitost, točnost in lastništvo vsebine, ki jo postavite v storitev.\n- Odprtokodna razpoložljivost programske opreme vam ne daje pravic do nalaganja, shranjevanja ali skupne rabe podatkov, za uporabo katerih niste pooblaščeni.\n- Račune, ki zlorabljajo storitev, kršijo te pogoje ali ustvarjajo varnostno ali pravno tveganje, lahko začasno prekinemo ali odstranimo.\n\n3. Varnost računa\n- Poskrbite za varno geslo, materiale za obnovitev in varnostne kopije.\n\n4. Življenjski cikel podatkov\n- Hranite lastne varnostne kopije pomembnih informacij.\n- Če izbrišete svoj račun iz nastavitev, trajno odstranite podatke aplikacije in naložene medije v lasti vašega računa in tega dejanja ni mogoče razveljaviti.\n\n5. Omejitve in zavrnitev odgovornosti\n- Razpoložljivost, podpora, integracije in odzivni časi so odvisni od operaterja te namestitve.\n- Storitev je zagotovljena na podlagi \"kot je\" in \"kot je na voljo\" v obsegu, ki ga dovoljuje zakon.",
         "register_consent": "Prebral(a) sem, razumel(a) in se strinjam s <1>Pogoji storitve</1> in <2>Politiko zasebnosti</2>.",
         "consent_title": "Pregled pravnih dokumentov",
         "consent_subtitle": "Prosimo, potrdite trenutne pogoje, preden nadaljujete.",
@@ -1086,11 +1985,182 @@
         "consent_checkbox": "Sprejemam Pogoje uporabe in potrjujem, da sem prebral Obvestilo o zasebnosti.",
         "consent_submit": "Nadaljuj",
         "consent_submitting": "Shranjevanje...",
-        "consent_required": "Pred nadaljevanjem morate potrditi Pogoje storitve in Obvestilo o zasebnosti."
+        "consent_required": "Pred nadaljevanjem morate potrditi Pogoje storitve in Obvestilo o zasebnosti.",
+        "document_badge": "Pravni dokument",
+        "data_privacy_badge": "Podatki in zasebnost",
+        "back_to_home": "Nazaj na domačo stran",
+        "quick_access": "Hitri dostop",
+        "on_this_page": "Na tej strani",
+        "contents": "Vsebina",
+        "page_label": "Stran",
+        "overview": "Pregled",
+        "contact": "Kontakt",
+        "jump_to": "Skoči na",
+        "privacy_description": "Obvestilo o zasebnosti za to namestitev {{brandName}} pojasnjuje, kateri podatki se obdelujejo, kako se zbirajo, kako se delijo ali prenašajo in katere pravice in pritožbene poti lahko veljajo.",
+        "privacy_support_label": "Za zahteve glede zasebnosti, prijave pravic in poizvedbe v zvezi s pritožbami o tej namestitvi:",
+        "privacy_summary": {
+            "title": "V praksi",
+            "description": "Ta kratek povzetek je tukaj, da si lahko najprej ogledate bistvene.",
+            "items": {
+                "what": "**Kaj obdelujemo:** Obdelujemo podatke o računu, storitvi, tehnični varnosti in neobvezne podatke ponudnika, ki so potrebni za delovanje vašega računa in aplikacije.",
+                "why": "**Zakaj:** Podatki se uporabljajo za preverjanje pristnosti, varnost seje, delovne tokove inventarja, varnostne kopije in funkcije osebnega trezorja.",
+                "sharing": "**Skupna raba in shranjevanje:** Osebnih podatkov ne prodajamo. Ohranja se na infrastrukturi, izbrani za to namestitev; če izberete prijavo v Google ali iskanje črtne kode, se omejeni podatki delijo z izbranim ponudnikom za dokončanje te funkcije, operater pa mora razkriti države in zaščitne ukrepe, kjer je to potrebno.",
+                "control": "**Vaš nadzor:** Lahko zahtevate dostop, popravek, izbris, omejitev, ugovor, prenosljivost, kjer je primerno, ali se pritožite pri pristojnem organu tako, da se obrnete na naslov za zasebnost te namestitve."
+            },
+            "shortcuts": {
+                "what": "Kaj obdelujemo",
+                "why": "Zakaj",
+                "sharing": "Deljenje",
+                "rights": "Pravice"
+            },
+            "section_titles": {
+                "what": "Katere podatke zbiramo in obdelujemo",
+                "why": "Zakaj jih obdelujemo",
+                "sharing": "Shranjevanje in prenos",
+                "rights": "Vaše pravice"
+            }
+        },
+        "terms_description": "Pogoji za to namestitev {{brandName}} pojasnjujejo sprejemljivo uporabo, vaše varnostne odgovornosti in posledice izbrisa računa v jasnejši obliki, ki jo je lažje pregledati.",
+        "terms_support_label": "Za vprašanja o pogojih, ki veljajo za to namestitev:",
+        "terms_summary": {
+            "eyebrow": "Kratek povzetek",
+            "title": "Kaj to pomeni v praksi",
+            "items": {
+                "use": "Storitev uporabljajte samo za podatke, za katere ste pooblaščeni za nalaganje, shranjevanje ali skupno rabo.",
+                "responsibility": "Ostajate odgovorni za zakonitost, točnost in lastništvo tega, kar naložite ali daste v skupno rabo.",
+                "security": "Poskrbite za varno geslo, materiale za obnovitev in varnostne kopije.",
+                "backups": "Izbris računa je trajen, zato morate imeti lastne varnostne kopije pomembnih informacij.",
+                "disclaimer": "Razpoložljivost, podpora in integracije so odvisne od operaterja te namestitve; storitev je zagotovljena na podlagi \"kot je\" in \"kot je na voljo\" v obsegu, ki ga dovoljuje zakon."
+            }
+        },
+        "controller_name_generic": "operater te namestitve",
+        "controller_name_public_host": "operater {{brandHost}}",
+        "controller_address_unconfigured": "Ni konfigurirano s strani operaterja te namestitve",
+        "transfer_disclosure_default": "Prenosi se lahko izvajajo do ponudnikov gostovanja, e-pošte in po želji Google/Open*Facts/Google Search, ki jih uporablja ta namestitev. Operater te namestitve mora navesti ustrezne ciljne države in zaščitne ukrepe, kjer je to primerno.",
+        "complaint_authority": "Pristojni organ za varstvo podatkov v vaši državi; za Turčijo, Urad za varstvo osebnih podatkov (KVKK).",
+        "consent_doc01_label": "Dokument 01",
+        "consent_doc01_desc": "Preglejte trenutno pogodbo o storitvah na namenski strani.",
+        "consent_doc02_label": "Dokument 02",
+        "consent_doc02_desc": "Preglejte, kako se obdelujejo podatki in katere pravice se vam splošno nanašajo."
     },
     "cookies": {
         "banner_text": "Uporabljamo nujne piškotke, da vas ohranimo prijavljene in varne med sejo. Z nadaljevanjem uporabe te strani se strinjate z našimi politikami.",
         "accept": "Sprejemam",
         "learn_more": "Izvedi več"
+    },
+    "layout": {
+        "secondary_controls_title": "Pripomočki",
+        "secondary_controls_hint": "Jezik, tema in podrobnosti različice ostanejo združene tukaj.",
+        "collapse_sidebar": "Strni stransko vrstico",
+        "expand_sidebar": "Razširi stransko vrstico",
+        "account_menu_title": "Meni računa",
+        "account_menu_aria": "Odpri meni računa za {{name}}",
+        "account_menu_tooltip": "Meni računa {{name}}"
+    },
+    "app": {
+        "name": "{{brandName}}",
+        "tagline": "Pametno upravljajte vse svoje gospodinjske predmete"
+    },
+    "nav": {
+        "home": "Dom",
+        "inventory": "Inventar",
+        "rooms": "Sobe",
+        "categories": "Kategorije",
+        "settings": "Nastavitve",
+        "admin_panel": "Administratorski Ploščo",
+        "share_house": "Deli hišo",
+        "new_item": "Novi predmet",
+        "menu": "Meni",
+        "help": "Pomoč & Podpora"
+    },
+    "theme": {
+        "light": "Svetli način",
+        "dark": "Temni način"
+    },
+    "terms": {
+        "title": "Pogoji uporabe in izključitev odgovornosti",
+        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "disclaimer": "Izključitev odgovornosti: Z uporabo te aplikacije se strinjate, da ne morete zahtevati odškodnine za morebitno izgubo podatkov, težave z dostopom ali druge tehnične težave.",
+        "backup_warning": "Varnostno kopiranje podatkov: Močno priporočamo, da redno varnostno kopirate svoje pomembne informacije.",
+        "accept": "Z prijavo se strinjate s temi pogoji.",
+        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "contact": "Kontakt"
+    },
+    "locations": {
+        "title": "Lokacije",
+        "add": "Dodaj lokacijo",
+        "edit": "Uredi lokacijo",
+        "delete": "Izbriši lokacijo",
+        "name": "Ime lokacije",
+        "room": "Soba",
+        "select_room": "Izberi sobo",
+        "added": "Dodana lokacija",
+        "updated": "Posodobljena lokacija",
+        "deleted": "Lokacija izbrisana",
+        "not_found": "Lokacija ni najdena",
+        "name_required": "Name required",
+        "room_required": "Room required",
+        "load_error": "Error loading",
+        "add_error": "Error adding",
+        "update_error": "Error updating",
+        "delete_error": "Error deleting"
+    },
+    "barcode": {
+        "scan": "Skeniraj črtno kodo",
+        "scanning": "Skaniranje...",
+        "enter_manually": "Vnesi ročno",
+        "search_database": "Iskanje v bazi",
+        "not_found": "Črtna koda ni najdena",
+        "search_google": "Iskanje na Googlu",
+        "camera_permission": "Zahtevana dovoljenje za kamero",
+        "search_error": "Search error",
+        "invalid_code": "Invalid code"
+    },
+    "qr": {
+        "scan": "Skeniraj QR",
+        "generate": "Ustvari QR",
+        "share": "Deli QR"
+    },
+    "house": {
+        "create_new": "Ustvari nov dom",
+        "join_existing": "Pridruži se obstoječemu domu",
+        "enter_key": "Vnesite ključ doma",
+        "key_placeholder": "npr.: ABC123XYZ",
+        "select_option": "Izberite možnost",
+        "created": "Hiša ustvarjena",
+        "joined": "Joined house",
+        "invalid_key": "Invalid key",
+        "members_loaded": "Members loaded",
+        "key_copied": "Key copied"
+    },
+    "errors": {
+        "generic": "Prišlo je do napake",
+        "network": "Napaka povezave",
+        "not_found": "Ni najdeno",
+        "unauthorized": "Nepooblaščen dostop",
+        "server": "Napaka strežnika",
+        "validation": "Napaka preverjanja"
+    },
+    "email": {
+        "sent": "Poslan e-pošta",
+        "send_error": "Send error",
+        "invalid_email": "Invalid email",
+        "subject_required": "Subject required",
+        "message_required": "Message required"
+    },
+    "rate_limit": {
+        "too_many_requests": "Too many requests",
+        "too_many_login_attempts": "Too many login attempts"
+    },
+    "meta": {
+        "page_title_sign_in": "Sign in",
+        "page_title_register": "Create account",
+        "page_title_choose_house": "Choose house",
+        "page_title_recovery_key": "Recovery key",
+        "page_title_house_access": "House access",
+        "page_title_legal_review": "Legal review",
+        "page_title_new_item": "New item",
+        "page_title_edit_item": "Edit item",
+        "page_title_items": "Inventory"
     }
 }

@@ -25,6 +25,7 @@ import vaultRoutes from './routes/vault.js';
 import borrowRequestsRoutes from './routes/borrowRequests.js';
 import passport from 'passport';
 import { BRAND_NAME } from './utils/branding.js';
+import { renderStartupSummary } from './utils/devConsole.js';
 
 // Import KVKK-compliant logger
 import { errorMiddleware, notFoundHandler } from './utils/logger.js';
@@ -46,6 +47,53 @@ const SITE_URL = String(
     process.env.INDEXNOW_BASE_URL ||
     'http://localhost:5173'
 ).trim().replace(/\/+$/, '');
+
+function logLegalConfigurationWarnings() {
+    if (NODE_ENV !== 'production') {
+        return;
+    }
+
+    let host = '';
+    try {
+        host = new URL(SITE_URL).hostname.replace(/^www\./, '');
+    } catch {
+        host = '';
+    }
+
+    if (!host || /(^|\.)localhost$/.test(host) || host === '127.0.0.1') {
+        return;
+    }
+
+    const missingRequired = [
+        ['APP_DATA_CONTROLLER_NAME', process.env.APP_DATA_CONTROLLER_NAME],
+        ['APP_DATA_CONTROLLER_ADDRESS', process.env.APP_DATA_CONTROLLER_ADDRESS],
+        ['SUPPORT_EMAIL', process.env.SUPPORT_EMAIL]
+    ]
+        .filter(([, value]) => !String(value || '').trim())
+        .map(([name]) => name);
+
+    const missingRecommended = [
+        ['APP_DPO_EMAIL', process.env.APP_DPO_EMAIL],
+        ['APP_PRIVACY_TRANSFER_DISCLOSURE', process.env.APP_PRIVACY_TRANSFER_DISCLOSURE],
+        ['APP_PRIVACY_COMPLAINT_AUTHORITY', process.env.APP_PRIVACY_COMPLAINT_AUTHORITY]
+    ]
+        .filter(([, value]) => !String(value || '').trim())
+        .map(([name]) => name);
+
+    if (!missingRequired.length && !missingRecommended.length) {
+        return;
+    }
+
+    console.warn('[Privacy] Production legal configuration is incomplete for this public deployment.');
+
+    if (missingRequired.length) {
+        console.warn(`[Privacy] Missing required identity/contact settings: ${missingRequired.join(', ')}`);
+    }
+
+    if (missingRecommended.length) {
+        console.warn(`[Privacy] Missing recommended privacy disclosure settings: ${missingRecommended.join(', ')}`);
+    }
+}
 
 function parseTrustProxySetting(value) {
     const normalized = String(value || '').trim();
@@ -71,6 +119,7 @@ function parseTrustProxySetting(value) {
 
 const app = express();
 app.disable('x-powered-by');
+logLegalConfigurationWarnings();
 
 // SECURITY: Trust proxy must match the real network topology.
 // Default to disabled and let deployments opt in explicitly with TRUST_PROXY.
@@ -103,8 +152,8 @@ app.use(helmet({
     crossOriginEmbedderPolicy: false
 }));
 const PORT = process.env.PORT || 3001;
-const FRONTEND_PORT = 5173;
-const HOST = process.env.HOST || '0.0.0.0';
+const FRONTEND_PORT = process.env.FRONTEND_PORT || 5173;
+const HOST = process.env.HOST || (NODE_ENV === 'production' ? '0.0.0.0' : '127.0.0.1');
 
 // Get local network IP address
 function getLocalIP() {
@@ -132,11 +181,11 @@ const localIP = getLocalIP();
 const allowedOrigins = [
     ...siteOrigins,
     'http://localhost:3000',
-    'http://localhost:5173',
+    `http://localhost:${FRONTEND_PORT}`,
     'http://127.0.0.1:3000',
-    'http://127.0.0.1:5173',
+    `http://127.0.0.1:${FRONTEND_PORT}`,
     `http://${localIP}:3000`,
-    `http://${localIP}:5173`
+    `http://${localIP}:${FRONTEND_PORT}`
 ];
 const devLanOriginRegex = /^http:\/\/((localhost|127\.0\.0\.1)|((10|192\.168)\.\d{1,3}\.\d{1,3})|(172\.(1[6-9]|2\d|3[0-1])\.\d{1,3}\.\d{1,3}))(:\d+)?$/;
 app.use(cors({
@@ -289,27 +338,21 @@ app.use(errorMiddleware);
 
 // Start server on configurable host; defaults to all network interfaces.
 app.listen(PORT, HOST, () => {
-    const frontendUrl = process.env.SITE_URL || 'http://localhost:5173';
+    const frontendUrl = String(process.env.SITE_URL || `http://localhost:${FRONTEND_PORT}`)
+        .trim()
+        .replace(/\/+$/, '');
     const backendUrl = `http://localhost:${PORT}`;
-    const networkBackendUrl = `http://${localIP}:${PORT}`;
-    const networkFrontendUrl = `http://${localIP}:5173`;
+    const hasLanAddress = localIP && localIP !== 'localhost' && localIP !== '127.0.0.1';
+    const networkBackendUrl = hasLanAddress ? `http://${localIP}:${PORT}` : null;
+    const networkFrontendUrl = hasLanAddress ? `http://${localIP}:${FRONTEND_PORT}` : null;
 
-    console.log(`
-  \x1b[90m╭───────────────────────────────────────────────────────────────────╮\x1b[0m
-  \x1b[90m│\x1b[0m                                                                   \x1b[90m│\x1b[0m
-  \x1b[90m│\x1b[0m          \x1b[1;36m🏠  ${BRAND_NAME} Started  🏠\x1b[0m                               \x1b[90m│\x1b[0m
-  \x1b[90m│\x1b[0m                                                                   \x1b[90m│\x1b[0m
-  \x1b[90m├───────────────────────────────────────────────────────────────────┤\x1b[0m
-  \x1b[90m│\x1b[0m                                                                   \x1b[90m│\x1b[0m
-  \x1b[90m│\x1b[0m  \x1b[33mBackend:\x1b[0m   \x1b[36m${backendUrl.padEnd(48)}\x1b[0m \x1b[90m│\x1b[0m
-  \x1b[90m│\x1b[0m  \x1b[33mNetwork:\x1b[0m   \x1b[36m${networkBackendUrl.padEnd(48)}\x1b[0m \x1b[90m│\x1b[0m
-  \x1b[90m│\x1b[0m                                                                   \x1b[90m│\x1b[0m
-  \x1b[90m│\x1b[0m  \x1b[33mFrontend:\x1b[0m  \x1b[36m${frontendUrl.padEnd(48)}\x1b[0m \x1b[90m│\x1b[0m
-  \x1b[90m│\x1b[0m  \x1b[33mNetwork:\x1b[0m   \x1b[36m${networkFrontendUrl.padEnd(48)}\x1b[0m \x1b[90m│\x1b[0m
-  \x1b[90m│\x1b[0m                                                                   \x1b[90m│\x1b[0m
-  \x1b[90m│\x1b[0m  \x1b[32m📱 Use Network addresses to access from your phone!\x1b[0m               \x1b[90m│\x1b[0m
-  \x1b[90m│\x1b[0m  \x1b[90m📁 Log files: ./logs/ (kept for 7 days)\x1b[0m                           \x1b[90m│\x1b[0m
-  \x1b[90m│\x1b[0m                                                                   \x1b[90m│\x1b[0m
-  \x1b[90m╰───────────────────────────────────────────────────────────────────╯\x1b[0m
-    `);
+    console.log(renderStartupSummary({
+        appName: BRAND_NAME,
+        status: 'Ready',
+        frontendUrl,
+        backendUrl,
+        lanAppUrl: networkFrontendUrl,
+        lanApiUrl: networkBackendUrl,
+        helpText: 'Use Ctrl+C to stop'
+    }));
 });

@@ -1,0 +1,57 @@
+name: Translation improvement
+description: Report or improve a HomeInventory locale string.
+title: "[Translation]: "
+labels:
+  - localization
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for incorrect, unclear, incomplete, or untranslated UI text.
+
+  - type: input
+    id: language
+    attributes:
+      label: Language
+      description: Which locale needs attention?
+      placeholder: "Example: Turkish, German, Arabic, fr, tr"
+    validations:
+      required: true
+
+  - type: textarea
+    id: current
+    attributes:
+      label: Current text
+      description: Paste the current text or screenshot location.
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested
+    attributes:
+      label: Suggested text
+      description: Provide the corrected wording if you know it.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where does it appear?
+      options:
+        - Landing page
+        - Authentication
+        - Dashboard
+        - Inventory
+        - Borrow Center
+        - Personal Vault
+        - Settings
+        - Legal pages
+        - Email
+        - Other
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I checked that the suggested text does not include private data.
+          required: true

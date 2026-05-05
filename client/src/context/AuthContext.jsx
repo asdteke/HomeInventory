@@ -16,7 +16,22 @@ axios.defaults.withCredentials = true;
 
 function buildClientAuthError(error, fallbackMessage) {
     if (axios.isAxiosError(error)) {
-        return error;
+        if (error.response?.data?.error) {
+            return error;
+        }
+
+        const networkMessage = error.code === 'ERR_NETWORK' || !error.response
+            ? 'Sunucuya baglanilamadi. Yerel backend servisinin calistigindan emin olun.'
+            : (error.message || fallbackMessage);
+
+        const wrappedAxiosError = new Error(networkMessage);
+        wrappedAxiosError.cause = error;
+        wrappedAxiosError.response = {
+            data: {
+                error: networkMessage
+            }
+        };
+        return wrappedAxiosError;
     }
 
     if (error && typeof error === 'object' && error.response?.data?.error) {
@@ -74,7 +89,14 @@ export const AuthProvider = ({ children }) => {
             setTotpEnabled(Boolean(response.data.totp_enabled));
             return response.data.user;
         } catch (error) {
-            console.error('Auth check failed:', error);
+            if (error?.response?.status === 429) {
+                console.warn('Auth check rate limited; keeping current session state.');
+                return user;
+            }
+
+            if (error?.response?.status !== 401) {
+                console.error('Auth check failed:', error);
+            }
             resetAuthState();
             return null;
         }
@@ -164,6 +186,10 @@ export const AuthProvider = ({ children }) => {
         return await fetchUser();
     };
 
+    const markLegalAccepted = () => {
+        setMustAcceptLegal(false);
+    };
+
     return (
         <AuthContext.Provider value={{
             user,
@@ -181,6 +207,7 @@ export const AuthProvider = ({ children }) => {
             logout,
             isAdmin,
             refreshUser,
+            markLegalAccepted,
         }}>
             {children}
         </AuthContext.Provider>

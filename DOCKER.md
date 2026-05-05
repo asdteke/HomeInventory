@@ -22,6 +22,12 @@ Edit `.env` for non-secret settings:
 ```env
 # Recommended
 SITE_URL=https://your-domain.com
+APP_DATA_CONTROLLER_NAME=Your Company Ltd.
+APP_DATA_CONTROLLER_ADDRESS=Your Company Ltd., Example Street 1, City, Country
+APP_DPO_EMAIL=privacy@your-domain.com
+APP_PRIVACY_TRANSFER_DISCLOSURE=EU-hosted infrastructure; optional Google services may involve transfers outside your jurisdiction.
+APP_PRIVACY_COMPLAINT_AUTHORITY=Your competent data protection authority (for Turkey: KVKK)
+SUPPORT_EMAIL=privacy@your-domain.com
 ```
 
 ### 3. Create Docker Secret Files
@@ -88,6 +94,11 @@ curl http://localhost:3001/api/health
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `SITE_URL` | ⬜ | Public URL (default: http://localhost:3001) |
+| `APP_DATA_CONTROLLER_NAME` | ⬜ | Legal name of the self-hosted operator/controller shown in privacy documents |
+| `APP_DATA_CONTROLLER_ADDRESS` | ⬜ | Postal or registered address shown in the privacy notice |
+| `APP_DPO_EMAIL` | ⬜ | Privacy or DPO contact email if different from support |
+| `APP_PRIVACY_TRANSFER_DISCLOSURE` | ⬜ | Human-readable disclosure of countries/providers/safeguards used for transfers |
+| `APP_PRIVACY_COMPLAINT_AUTHORITY` | ⬜ | Authority named in the complaint-rights section of the privacy notice |
 | `GOOGLE_CLIENT_ID` | ⬜ | Google OAuth client ID |
 | `GOOGLE_CLIENT_SECRET` | ⬜ | Google OAuth secret |
 | `RESEND_API_KEY` | ⬜ | Resend.com API key for emails |

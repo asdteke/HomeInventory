@@ -1,5 +1,5 @@
 name: Feature request
-description: Have an awesome idea? We'd love to hear it!
+description: Propose an improvement to HomeInventory.
 title: "[Feature]: "
 labels:
   - enhancement
@@ -7,40 +7,35 @@ body:
   - type: markdown
     attributes:
       value: |
-        ### 💡 Got a brilliant idea? 
-        
-        We're so glad you want to help HomeInventory grow! Whether it's a small tweak or a massive new module, we'd love to hear your thoughts. Clear problem statements really help us understand *why* this feature would be awesome. Let's build something great together. 🚀
+        Thanks for proposing an improvement. Clear problem statements help keep HomeInventory focused, secure, and practical for self-hosted households.
 
   - type: textarea
     id: problem
     attributes:
-      label: 🤔 The Problem or Opportunity
-      description: What workflow gap, user need, or pain point does this solve? Tell us about the struggle you're facing.
-      placeholder: "I always run into trouble when I try to..., and it takes me too much time to..."
+      label: Problem or opportunity
+      description: What workflow gap, user need, or pain point does this address?
+      placeholder: Describe the problem before describing the solution.
     validations:
       required: true
 
   - type: textarea
     id: proposal
     attributes:
-      label: ✨ Proposed Solution
-      description: How would you like this to work? Describe your dream implementation!
-      placeholder: "It would be amazing if there was a button that just..."
+      label: Proposed solution
+      description: How should this work from the user's perspective?
     validations:
       required: true
 
   - type: textarea
     id: alternatives
     attributes:
-      label: 🔄 Alternatives Considered
-      description: How are you currently getting around this problem? (Any temporary workarounds?)
-      placeholder: "Right now, I have to open a spreadsheet and manually..."
+      label: Alternatives considered
+      description: What workaround do you use today, or what other approach did you consider?
 
   - type: dropdown
     id: area
     attributes:
-      label: 🏷️ Relevant Area
-      description: Which part of the app does this idea belong to?
+      label: Relevant area
       options:
         - Items / Inventory Management
         - Borrowing System
@@ -60,23 +55,21 @@ body:
   - type: textarea
     id: impact
     attributes:
-      label: ❤️ Expected Impact
-      description: Who will benefit from this change, and how will it improve their day?
-      placeholder: "This would save a ton of time for users who frequently..."
+      label: Expected impact
+      description: Who benefits, and how does this improve daily use or self-hosting?
 
   - type: textarea
-    id: context
+    id: security
     attributes:
-      label: 📎 Additional Context
-      description: Got mockups, screenshots, sketches, or links to similar features? Drop them here!
+      label: Security and privacy considerations
+      description: Could this affect authentication, household scoping, encryption, backups, uploads, or personal data?
 
   - type: checkboxes
     id: checks
     attributes:
-      label: ✅ Final Checklist
-      description: Before you hit submit, just confirm a few things!
+      label: Checklist
       options:
-        - label: I searched the existing issues to make sure this hasn't been requested already.
+        - label: I searched existing issues first.
           required: true
-        - label: I made sure to explain the *problem* I'm facing, not just the solution I want.
+        - label: I described the problem, not only a preferred implementation.
           required: true

@@ -1,4 +1,4 @@
-import { BRAND_HOST, BRAND_NAME } from '../constants/branding';
+import { BRAND_NAME } from '../constants/branding';
 import { useTheme } from '../context/ThemeContext';
 
 const SIZE_MAP = {
@@ -8,19 +8,16 @@ const SIZE_MAP = {
     lg: 128,
     xl: 168
 };
-
-const LOGO_VERSION = '20260329-brandfix-logo';
-
-const USE_ENVANTERIM_LEGACY_LOGO = BRAND_HOST === 'envanterim.net.tr' || BRAND_NAME === 'Envanterim';
+const LOGO_VERSION = '20260503-hi-svg-logo';
 
 const LOGO_PATHS = {
     full: {
-        dark: USE_ENVANTERIM_LEGACY_LOGO ? '/brand/logo-full.png' : '/brand/logo-full-dark.png',
-        light: USE_ENVANTERIM_LEGACY_LOGO ? '/brand/logo-full.png' : '/brand/logo-full-light.png'
+        dark: '/brand/logo-full-dark.svg',
+        light: '/brand/logo-full-light.svg'
     },
     symbol: {
-        dark: USE_ENVANTERIM_LEGACY_LOGO ? '/brand/logo-symbol.png' : '/brand/logo-symbol-dark.png',
-        light: USE_ENVANTERIM_LEGACY_LOGO ? '/brand/logo-symbol.png' : '/brand/logo-symbol-light.png'
+        dark: '/brand/logo-symbol-dark.svg',
+        light: '/brand/logo-symbol-light.svg'
     }
 };
 
@@ -35,13 +32,14 @@ export default function BrandLogo({
     const themeKey = isDark ? 'dark' : 'light';
     const sourcePath = (LOGO_PATHS[variant] || LOGO_PATHS.symbol)[themeKey];
     const src = `${sourcePath}?v=${LOGO_VERSION}`;
+    const style = { height: `${height}px`, width: 'auto' };
 
     return (
         <img
             src={src}
             alt={alt}
             className={`brand-logo ${variant === 'full' ? 'brand-logo-full' : 'brand-logo-symbol'} ${className}`.trim()}
-            style={{ height: `${height}px` }}
+            style={style}
             decoding="async"
             loading="eager"
         />

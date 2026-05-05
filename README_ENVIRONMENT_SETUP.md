@@ -1,69 +1,68 @@
 ## Environment Setup
 
-This project runs in production on a cloud VM behind Nginx and PM2. To avoid breaking production, never edit cloud files directly when preparing the repo for public GitHub.
+This repository contains a rebuilt frontend, encrypted storage flows, and optional secret-loading paths for Docker and OCI. Keep local and production secrets out of git.
 
 ### Safe workflow
-1. Keep cloud as source-of-truth and read-only for analysis.
-2. Copy required config structure to local only.
-3. Keep secrets in local/private `.env` files and cloud secret stores.
-4. Commit only safe files (`.env.example`, app code, docs).
+
+1. Treat `.env` as local-only.
+2. Commit only safe files such as `.env.example`, docs, and application code.
+3. Use Docker secrets or OCI Secret Management for production secrets when possible.
+4. Never copy real cloud secrets back into the repository.
 
 ### Local setup
+
 1. Install dependencies:
    - `npm install`
    - `npm install --prefix client`
-2. Create local env file from example:
+2. Create local env file:
    - `cp .env.example .env`
-3. Fill `.env` with real values (never commit it).
-4. Build/start:
-   - Dev: `npm run dev`
-   - Prod-like local: `npm run build --prefix client && npm run start`
+3. Set at least:
+   - `NODE_ENV`
+   - `PORT`
+   - `SITE_URL`
+   - `JWT_SECRET`
+   - `APP_ENCRYPTION_KEY`
+   - `APP_ENCRYPTION_KEY_ID`
+4. Start locally:
+   - `npm run dev`
 
-### Required environment variables
-- `NODE_ENV`
-- `PORT`
-- `JWT_SECRET`
+### Optional local integrations
+
+Set these only if you need the related feature locally:
+
 - `GOOGLE_CLIENT_ID`
 - `GOOGLE_CLIENT_SECRET`
 - `RESEND_API_KEY`
+- `SUPPORT_EMAIL`
 
-### Optional environment variables
-- `BOOTSTRAP_ADMIN_EMAIL`
-- `EXPOSE_SERVER_INFO`
+### Docker secrets
 
-### Optional: Docker Compose secrets
-If you use the bundled `docker-compose.yml`, keep the mandatory runtime secrets in files instead of `.env`.
+If you use `docker-compose.yml`, keep runtime secrets in files instead of `.env`.
 
 Expected host-side files:
+
 - `${HOMEINVENTORY_SECRETS_DIR:-./secrets}/jwt_secret.txt`
 - `${HOMEINVENTORY_SECRETS_DIR:-./secrets}/app_encryption_key.txt`
 - `${HOMEINVENTORY_SECRETS_DIR:-./secrets}/app_encryption_key_id.txt`
 
-Compose mounts those files inside the container under `/run/secrets`. Only set `DOCKER_SECRETS_DIR` when your runtime exposes the secret files in a different directory.
+These are mounted inside the container at `/run/secrets` by default.
 
-### Optional: OCI Secret Management on Oracle Cloud
-If the app runs on an OCI compute instance, you can keep production secrets in OCI Secret Management instead of the VM `.env`.
+### OCI Secret Management
 
-Suggested setup:
+For OCI-hosted deployments:
+
 1. Keep local development on plain `.env`.
-2. Create production secrets in OCI Vault / Secret Management.
-3. Put the compute instance in a dynamic group.
-4. Grant the instance permission to read secret bundles in the target compartment.
-5. Set `SECRET_PROVIDER=oci` and define `OCI_SECRET_MAPPINGS` in the production environment.
+2. Store production secrets in OCI Vault / Secret Management.
+3. Allow the compute instance to read secret bundles.
+4. Configure runtime bootstrap variables such as:
+   - `SECRET_PROVIDER=oci`
+   - `OCI_AUTH_MODE=instance_principal`
+   - `OCI_REGION=<your-region>`
+   - `OCI_VAULT_ID=<vault-ocid>` when secret names are used
+   - `OCI_SECRET_MAPPINGS={"JWT_SECRET":"...","APP_ENCRYPTION_KEY":"...","APP_ENCRYPTION_KEY_ID":"..."}`
 
-Example runtime variables:
-- `SECRET_PROVIDER=oci`
-- `OCI_AUTH_MODE=instance_principal`
-- `OCI_REGION=<your-region>`
-- `OCI_VAULT_ID=<vault-ocid>` when mappings use secret names
-- `OCI_SECRET_MAPPINGS={"JWT_SECRET":"homeinventory-jwt-secret","APP_ENCRYPTION_KEY":"homeinventory-app-encryption-key","APP_ENCRYPTION_KEY_ID":"homeinventory-app-encryption-key-id"}`
+### Notes
 
-Example IAM policy:
-- `allow dynamic-group <your-instance-dynamic-group> to read secret-bundles in compartment <your-compartment>`
-
-The production entrypoint `server.js` now bootstraps OCI secrets automatically before loading the Express app, and maintenance commands such as encryption backfill and IndexNow submission use the same bootstrap path.
-## Disclaimer
-
-This project is an independent open-source project.
-It is not affiliated with, endorsed by, or connected to any commercial product
-or company using a similar name.
+- `server.js` bootstraps runtime secrets before loading the Express app.
+- Maintenance commands such as encryption backfill and IndexNow submission use the same secret-loading path.
+- `.env.example` is the only env file that should be committed.

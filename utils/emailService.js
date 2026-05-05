@@ -19,7 +19,9 @@ const PUBLIC_BASE_URL = String(
     process.env.INDEXNOW_BASE_URL ||
     'http://localhost:3001'
 ).trim().replace(/\/+$/, '');
-const EMAIL_LANGUAGE_ENV = process.env.APP_EMAIL_LANGUAGE || process.env.EMAIL_LANGUAGE || 'en';
+const EMAIL_LANGUAGE_ENV = process.env.APP_EMAIL_LANGUAGE ||
+    process.env.EMAIL_LANGUAGE ||
+    'en';
 const EMAIL_FALLBACK_LANGUAGE = 'en';
 const EMAIL_LANG_PATTERN = /^[A-Za-z0-9-]{2,20}$/;
 const TEMPLATE_TOKEN_PATTERN = /\{\{([A-Za-z0-9_]+)\}\}/g;
@@ -43,8 +45,8 @@ const DEFAULT_EMAIL_COPY = {
         intro: 'Please verify your email address to activate your account.',
         verifyPrompt: 'Email verification required',
         verifyButton: 'Verify my account',
-        warningTitle: 'Important:',
-        warningBody: 'Check your spam/junk folder if you cannot find this email.',
+        warningTitle: 'Security note:',
+        warningBody: 'This email only verifies your address. House access details are shown after verification in the app.',
         houseKeyLabel: 'House Key',
         houseKeyNote: 'Keep this key secure. You can share it with family members to join your house.',
         featuresTitle: 'What you can do next',
@@ -63,9 +65,9 @@ const DEFAULT_EMAIL_COPY = {
         headerTitle: `Welcome to ${BRAND_NAME}`,
         headerSubtitle: 'Your account is ready',
         greeting: 'Welcome! 👋',
-        intro: 'Your account has been created successfully.',
+        intro: 'Your account has been created successfully. House access details are available after you sign in.',
         houseKeyLabel: 'House Key',
-        houseKeyNote: 'Use this key to invite trusted members to your house.',
+        houseKeyNote: 'House keys are not sent by email. You can view and share them inside the app.',
         featuresTitle: 'What you can do next',
         features: [
             'Add and categorize your items',
@@ -176,6 +178,13 @@ function isSafeLiteralString(value) {
         return false;
     }
 
+    const templateLikeMatches = Array.from(String(value).matchAll(/\{\{[^}]+\}\}/g), (match) => match[0]);
+    const strictTokenMatches = Array.from(String(value).matchAll(TEMPLATE_TOKEN_PATTERN), (match) => match[0]);
+
+    if (templateLikeMatches.length !== strictTokenMatches.length) {
+        return false;
+    }
+
     const tokens = extractTemplateTokens(value);
     return Array.from(tokens).every((token) => SAFE_LITERAL_TEMPLATE_TOKENS.has(token));
 }
@@ -187,6 +196,235 @@ function escapeHtml(value) {
         .replaceAll('>', '&gt;')
         .replaceAll('"', '&quot;')
         .replaceAll('\'', '&#39;');
+}
+
+function escapeAttribute(value) {
+    return escapeHtml(value);
+}
+
+function getSiteHost() {
+    try {
+        return new URL(PUBLIC_BASE_URL).hostname.replace(/^www\./, '');
+    } catch {
+        return 'localhost';
+    }
+}
+
+const EMAIL_BRAND_KEY = 'homeinventory';
+
+const EMAIL_BRAND_THEMES = {
+    homeinventory: {
+        key: 'homeinventory',
+        name: 'HomeInventory',
+        logoPath: '/brand/logo-full-dark.png',
+        logoWidth: 230,
+        logoMobileWidth: 198,
+        background: '#f6f2e9',
+        panel: '#ffffff',
+        panelMuted: '#f8f4ec',
+        border: '#d6cfc4',
+        borderStrong: '#c4bcb0',
+        text: '#1c2920',
+        textSoft: '#526150',
+        textMuted: '#687364',
+        accent: '#2d5241',
+        accentStrong: '#234434',
+        secondary: '#b89968',
+        secondarySoft: '#f1e6d5',
+        heroFrom: '#1c2920',
+        heroTo: '#4a7d64',
+        shadow: 'rgba(28, 41, 32, 0.14)'
+    }
+};
+
+function getEmailBrandTheme() {
+    return EMAIL_BRAND_THEMES[EMAIL_BRAND_KEY] || EMAIL_BRAND_THEMES.homeinventory;
+}
+
+function buildPublicAssetUrl(path) {
+    const normalizedPath = String(path || '').startsWith('/') ? path : `/${path}`;
+    return `${PUBLIC_BASE_URL}${normalizedPath}`;
+}
+
+function renderEmailShell({
+    eyebrow,
+    title,
+    subtitle,
+    preheader,
+    bodyHtml,
+    footerHtml,
+    tone = 'default'
+}) {
+    const theme = getEmailBrandTheme();
+    const logoUrl = buildPublicAssetUrl(theme.logoPath);
+    const siteHost = getSiteHost();
+    const safePreheader = escapeHtml(preheader || subtitle || title || BRAND_NAME);
+    const safeTitle = escapeHtml(title || BRAND_NAME);
+    const safeSubtitle = subtitle ? escapeHtml(subtitle) : '';
+    const safeEyebrow = eyebrow ? escapeHtml(eyebrow) : '';
+    const safeBrandName = escapeHtml(BRAND_NAME);
+    const safeSupportEmail = escapeHtml(SUPPORT_EMAIL);
+    const safeSiteHost = escapeHtml(siteHost);
+    const safeLogoUrl = escapeAttribute(logoUrl);
+    const logoWidth = Number(theme.logoWidth || 168);
+    const logoMobileWidth = Number(theme.logoMobileWidth || 148);
+    const accent = tone === 'security' ? '#bb4257' : theme.accent;
+    const accentStrong = tone === 'security' ? '#8d2f3f' : theme.accentStrong;
+
+    return `<!DOCTYPE html>
+<html lang="${escapeAttribute(getEmailLanguage())}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light">
+    <meta name="supported-color-schemes" content="light">
+    <title>${safeTitle}</title>
+    <style>
+        body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+        table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+        img { -ms-interpolation-mode: bicubic; border: 0; outline: none; text-decoration: none; }
+        body { margin: 0; padding: 0; width: 100% !important; background: ${theme.background}; color: ${theme.text}; }
+        a { color: ${theme.accent}; }
+        .email-root { width: 100%; background: ${theme.background}; padding: 34px 16px; }
+        .email-card { width: 100%; max-width: 640px; background: ${theme.panel}; border: 1px solid ${theme.border}; border-radius: 24px; overflow: hidden; box-shadow: 0 24px 60px ${theme.shadow}; }
+        .email-hero { background: linear-gradient(135deg, ${theme.heroFrom} 0%, ${theme.heroTo} 100%); padding: 28px 30px 30px; }
+        .brand-row { width: 100%; }
+        .brand-mark { width: ${logoWidth}px; max-width: ${logoWidth}px; height: auto; display: block; }
+        .eyebrow { display: inline-block; margin: 28px 0 12px; padding: 7px 12px; border: 1px solid rgba(255,255,255,0.24); border-radius: 999px; color: rgba(255,255,255,0.82); font: 700 12px/1.2 Arial, Helvetica, sans-serif; letter-spacing: 0.04em; text-transform: uppercase; }
+        .hero-title { margin: 0; color: #ffffff; font: 800 30px/1.12 Arial, Helvetica, sans-serif; letter-spacing: -0.02em; }
+        .hero-subtitle { margin: 12px 0 0; max-width: 500px; color: rgba(255,255,255,0.84); font: 500 15px/1.6 Arial, Helvetica, sans-serif; }
+        .email-content { padding: 32px 30px 26px; font: 400 15px/1.72 Arial, Helvetica, sans-serif; color: ${theme.textSoft}; }
+        .email-content p { margin: 0 0 16px; }
+        .email-content h2, .email-content h3 { color: ${theme.text}; margin: 0 0 12px; }
+        .button-wrap { text-align: center; padding: 8px 0 20px; }
+        .button { display: inline-block; background: linear-gradient(135deg, ${accent} 0%, ${accentStrong} 100%); color: #ffffff !important; text-decoration: none; border-radius: 14px; padding: 14px 24px; min-width: 190px; font: 800 15px/1 Arial, Helvetica, sans-serif; box-shadow: 0 14px 30px ${theme.shadow}; }
+        .info-card { background: ${theme.panelMuted}; border: 1px solid ${theme.border}; border-radius: 18px; padding: 18px 20px; margin: 22px 0; }
+        .label { color: ${theme.textMuted}; font: 800 11px/1.3 Arial, Helvetica, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
+        .code-value { display: block; margin-top: 8px; color: ${theme.text}; font: 800 22px/1.2 Arial, Helvetica, sans-serif; letter-spacing: 0.08em; word-break: break-all; }
+        .note { margin-top: 8px; color: ${theme.textMuted}; font: 500 13px/1.6 Arial, Helvetica, sans-serif; }
+        .feature-list { padding: 0; margin: 14px 0 2px; list-style: none; }
+        .feature-list li { margin: 0 0 10px; padding: 12px 14px; border: 1px solid ${theme.border}; border-radius: 14px; background: ${theme.panel}; color: ${theme.textSoft}; }
+        .feature-list span { color: ${theme.secondary}; font-weight: 900; margin-right: 8px; }
+        .notice { border: 1px solid ${theme.borderStrong}; background: ${theme.secondarySoft}; border-radius: 16px; padding: 15px 17px; margin: 20px 0; color: ${theme.textSoft}; }
+        .notice strong { color: ${theme.text}; }
+        .fallback-url { word-break: break-all; background: ${theme.panelMuted}; color: ${theme.textMuted}; border: 1px solid ${theme.border}; border-radius: 12px; padding: 12px 14px; font: 500 12px/1.55 Arial, Helvetica, sans-serif; }
+        .meta-table { width: 100%; border-collapse: collapse; margin: 18px 0; }
+        .meta-table td { padding: 11px 0; border-bottom: 1px solid ${theme.border}; color: ${theme.textSoft}; font: 500 14px/1.5 Arial, Helvetica, sans-serif; }
+        .meta-table td:first-child { color: ${theme.textMuted}; width: 38%; }
+        .status-pill { display: inline-block; padding: 7px 11px; border-radius: 999px; background: ${theme.secondarySoft}; color: ${theme.accentStrong}; font: 800 12px/1 Arial, Helvetica, sans-serif; }
+        .email-footer { padding: 22px 30px 30px; background: ${theme.panelMuted}; border-top: 1px solid ${theme.border}; text-align: center; color: ${theme.textMuted}; font: 500 12px/1.6 Arial, Helvetica, sans-serif; }
+        .email-footer p { margin: 0 0 8px; }
+        .preheader { display: none !important; visibility: hidden; opacity: 0; color: transparent; height: 0; width: 0; overflow: hidden; mso-hide: all; }
+        @media screen and (max-width: 520px) {
+            .email-root { padding: 18px 10px; }
+            .email-card { border-radius: 18px; }
+            .email-hero, .email-content, .email-footer { padding-left: 20px !important; padding-right: 20px !important; }
+            .hero-title { font-size: 25px !important; }
+            .brand-mark { width: ${logoMobileWidth}px !important; max-width: ${logoMobileWidth}px !important; }
+            .button { display: block !important; min-width: 0 !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="preheader">${safePreheader}</div>
+    <table role="presentation" class="email-root" cellspacing="0" cellpadding="0" border="0">
+        <tr>
+            <td align="center">
+                <table role="presentation" class="email-card" cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                        <td class="email-hero">
+                            <table role="presentation" class="brand-row" cellspacing="0" cellpadding="0" border="0">
+                                <tr>
+                                    <td align="left"><img class="brand-mark" src="${safeLogoUrl}" width="${logoWidth}" alt="${safeBrandName}"></td>
+                                </tr>
+                            </table>
+                            ${safeEyebrow ? `<div class="eyebrow">${safeEyebrow}</div>` : ''}
+                            <h1 class="hero-title">${safeTitle}</h1>
+                            ${safeSubtitle ? `<p class="hero-subtitle">${safeSubtitle}</p>` : ''}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="email-content">
+                            ${bodyHtml}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="email-footer">
+                            ${footerHtml || `<p>${safeBrandName}</p><p><a href="mailto:${escapeAttribute(SUPPORT_EMAIL)}">${safeSupportEmail}</a> · ${safeSiteHost}</p>`}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>`;
+}
+
+function renderButton(label, url) {
+    return `<div class="button-wrap"><a class="button" href="${escapeAttribute(url)}">${escapeHtml(label)}</a></div>`;
+}
+
+function renderNotice(title, body) {
+    return `<div class="notice"><strong>${escapeHtml(title)}</strong> ${escapeHtml(body)}</div>`;
+}
+
+function renderFallbackLink(label, url) {
+    return `<p class="note">${escapeHtml(label)}</p><div class="fallback-url">${escapeHtml(url)}</div>`;
+}
+
+function renderHouseKeyCard(copy, houseKey) {
+    return `<div class="info-card">
+        <div class="label">${escapeHtml(copy.houseKeyLabel)}</div>
+        <code class="code-value">${escapeHtml(houseKey)}</code>
+        <div class="note">${escapeHtml(copy.houseKeyNote)}</div>
+    </div>`;
+}
+
+function renderFeatureList(title, features = []) {
+    return `<h3>${escapeHtml(title)}</h3>
+    <ul class="feature-list">
+        ${features.map((feature) => `<li><span>✓</span>${escapeHtml(feature)}</li>`).join('')}
+    </ul>`;
+}
+
+function renderSupportLine(copy) {
+    return `<p>${escapeHtml(copy.support)} <a href="mailto:${escapeAttribute(SUPPORT_EMAIL)}">${escapeHtml(SUPPORT_EMAIL)}</a>.</p>`;
+}
+
+function renderEmailFooter(copy) {
+    const siteHost = getSiteHost();
+    return `<p>${escapeHtml(copy?.footer || `© 2026 ${BRAND_NAME}`)}</p>
+        <p><a href="mailto:${escapeAttribute(SUPPORT_EMAIL)}">${escapeHtml(SUPPORT_EMAIL)}</a> · ${escapeHtml(siteHost)}</p>`;
+}
+
+function renderSimpleNotificationEmail({ copy, subjectTitle, lines, statusLabel }) {
+    const safeLines = lines.filter(Boolean);
+    const bodyHtml = `
+        <p>${escapeHtml(copy.greeting)}</p>
+        ${statusLabel ? `<p><span class="status-pill">${escapeHtml(statusLabel)}</span></p>` : ''}
+        ${safeLines.map((line) => `<p>${escapeHtml(line)}</p>`).join('')}
+    `;
+
+    return renderEmailShell({
+        eyebrow: copy.greeting,
+        title: subjectTitle,
+        subtitle: '',
+        preheader: safeLines[0] || copy.greeting,
+        bodyHtml,
+        footerHtml: renderEmailFooter({ footer: `© 2026 ${BRAND_NAME}` })
+    });
+}
+
+export function buildAdminEmailHtml(messageHtml, copy = getAdminEmailCopy()) {
+    return renderEmailShell({
+        eyebrow: copy.sentBy,
+        title: 'Mesaj',
+        subtitle: '',
+        preheader: copy.sentBy,
+        bodyHtml: `<div>${messageHtml}</div>`,
+        footerHtml: `<p>${escapeHtml(copy.sentBy)}</p><p>${escapeHtml(copy.footer)}</p>`
+    });
 }
 
 function readLocaleFile(language) {
@@ -256,10 +494,8 @@ function sanitizeEmailCopy(sectionName, copy, { defaultSection, baseSection, tar
     if (sectionName === 'verification') {
         ensureLiteralArray('features', defaultSection.features.length);
 
-        const localizedPasswordResetFallback = targetLocale?.emails?.passwordReset?.fallback;
         if (
             typeof sanitized.fallback !== 'string' ||
-            sanitized.fallback === localizedPasswordResetFallback ||
             /password reset/i.test(sanitized.fallback) ||
             /şifre sıfırlama/i.test(sanitized.fallback)
         ) {
@@ -449,13 +685,7 @@ function fillTemplate(template, variables = {}) {
     const resolvedVariables = {
         brandName: BRAND_NAME,
         supportEmail: SUPPORT_EMAIL,
-        siteHost: (() => {
-            try {
-                return new URL(PUBLIC_BASE_URL).hostname.replace(/^www\./, '');
-            } catch {
-                return 'localhost';
-            }
-        })(),
+        siteHost: getSiteHost(),
         ...variables
     };
 
@@ -574,82 +804,28 @@ export async function sendEmail({ to, subject, html, text, from = DEFAULT_FROM }
 /**
  * E-posta doğrulama maili gönder (Hoş Geldin + Doğrulama)
  * @param {string} email - Kullanıcı e-posta adresi
- * @param {string} houseKey - Ev anahtarı
+ * @param {string} _houseKey - Geriye uyumluluk için tutulur; doğrulama e-postasında gönderilmez.
  * @param {string} verificationToken - Doğrulama token'ı
  */
-export async function sendVerificationEmail(email, houseKey, verificationToken) {
+export async function sendVerificationEmail(email, _houseKey, verificationToken) {
     const verificationUrl = `${PUBLIC_BASE_URL}/api/auth/verify-email?token=${verificationToken}`;
     const copy = getEmailCopy('verification');
-
-    const html = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <style>
-            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f5f5f5; }
-            .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-            .header { background: linear-gradient(135deg, #6366f1, #8b5cf6); padding: 30px; text-align: center; }
-            .header h1 { color: white; margin: 0; font-size: 28px; }
-            .header p { color: rgba(255,255,255,0.9); margin: 10px 0 0; }
-            .content { padding: 30px; }
-            .verify-box { background: linear-gradient(135deg, #10b981, #059669); padding: 25px; border-radius: 12px; text-align: center; margin: 25px 0; }
-            .verify-button { display: inline-block; background: white; color: #059669; padding: 15px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-            .house-key { background: #f0f9ff; border: 2px dashed #6366f1; padding: 20px; border-radius: 8px; text-align: center; margin: 20px 0; }
-            .house-key code { font-size: 20px; color: #6366f1; font-weight: bold; letter-spacing: 2px; word-break: break-all; }
-            .features { list-style: none; padding: 0; }
-            .features li { padding: 10px 0; border-bottom: 1px solid #eee; }
-            .features li:last-child { border-bottom: none; }
-            .features li::before { content: "✓"; color: #22c55e; margin-right: 10px; font-weight: bold; }
-            .warning { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; font-size: 14px; }
-            .footer { background: #f9fafb; padding: 20px; text-align: center; color: #6b7280; font-size: 14px; }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="header">
-                <h1>${escapeHtml(copy.headerTitle)}</h1>
-                <p>${escapeHtml(copy.headerSubtitle)}</p>
-            </div>
-            <div class="content">
-                <p>${escapeHtml(copy.greeting)}</p>
-                <p>${escapeHtml(copy.intro)}</p>
-                
-                <div class="verify-box">
-                    <p style="color: white; margin: 0 0 15px; font-size: 16px;">${escapeHtml(copy.verifyPrompt)}</p>
-                    <a href="${verificationUrl}" class="verify-button">${escapeHtml(copy.verifyButton)}</a>
-                </div>
-
-                <div class="warning">
-                    <strong>${escapeHtml(copy.warningTitle)}</strong> ${escapeHtml(copy.warningBody)}
-                </div>
-                
-                <div class="house-key">
-                    <p style="margin: 0 0 10px; color: #6b7280;">${escapeHtml(copy.houseKeyLabel)}</p>
-                    <code>${escapeHtml(houseKey)}</code>
-                    <p style="margin: 10px 0 0; color: #6b7280; font-size: 12px;">${escapeHtml(copy.houseKeyNote)}</p>
-                </div>
-
-                <h3>${escapeHtml(copy.featuresTitle)}</h3>
-                <ul class="features">
-                    <li>${escapeHtml(copy.features[0])}</li>
-                    <li>${escapeHtml(copy.features[1])}</li>
-                    <li>${escapeHtml(copy.features[2])}</li>
-                    <li>${escapeHtml(copy.features[3])}</li>
-                </ul>
-
-                <p style="font-size: 12px; color: #6b7280;">${escapeHtml(copy.fallback)}</p>
-                <p style="word-break: break-all; color: #6b7280; font-size: 11px; background: #f3f4f6; padding: 10px; border-radius: 4px;">${verificationUrl}</p>
-
-                <p>${escapeHtml(copy.support)} <a href="mailto:${SUPPORT_EMAIL}">${escapeHtml(SUPPORT_EMAIL)}</a>.</p>
-            </div>
-            <div class="footer">
-                <p>${escapeHtml(copy.footer)}</p>
-            </div>
-        </div>
-    </body>
-    </html>
+    const bodyHtml = `
+        <p>${escapeHtml(copy.intro)}</p>
+        ${renderButton(copy.verifyButton, verificationUrl)}
+        ${renderNotice(copy.warningTitle, copy.warningBody)}
+        ${renderFallbackLink(copy.fallback, verificationUrl)}
+        ${renderSupportLine(copy)}
     `;
+
+    const html = renderEmailShell({
+        eyebrow: copy.greeting,
+        title: copy.verifyPrompt,
+        subtitle: copy.headerSubtitle,
+        preheader: copy.intro,
+        bodyHtml,
+        footerHtml: renderEmailFooter(copy)
+    });
 
     return sendEmail({
         to: email,
@@ -665,60 +841,19 @@ export async function sendVerificationEmail(email, houseKey, verificationToken) 
  */
 export async function sendWelcomeEmail(email, houseKey) {
     const copy = getEmailCopy('welcome');
-    const html = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <style>
-            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f5f5f5; }
-            .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-            .header { background: linear-gradient(135deg, #6366f1, #8b5cf6); padding: 30px; text-align: center; }
-            .header h1 { color: white; margin: 0; font-size: 28px; }
-            .header p { color: rgba(255,255,255,0.9); margin: 10px 0 0; }
-            .content { padding: 30px; }
-            .house-key { background: #f0f9ff; border: 2px dashed #6366f1; padding: 20px; border-radius: 8px; text-align: center; margin: 20px 0; }
-            .house-key code { font-size: 24px; color: #6366f1; font-weight: bold; letter-spacing: 2px; }
-            .features { list-style: none; padding: 0; }
-            .features li { padding: 10px 0; border-bottom: 1px solid #eee; }
-            .features li:last-child { border-bottom: none; }
-            .features li::before { content: "✓"; color: #22c55e; margin-right: 10px; font-weight: bold; }
-            .footer { background: #f9fafb; padding: 20px; text-align: center; color: #6b7280; font-size: 14px; }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="header">
-                <h1>${escapeHtml(copy.headerTitle)}</h1>
-                <p>${escapeHtml(copy.headerSubtitle)}</p>
-            </div>
-            <div class="content">
-                <p>${escapeHtml(copy.greeting)}</p>
-                <p>${escapeHtml(copy.intro)}</p>
-                
-                <div class="house-key">
-                    <p style="margin: 0 0 10px; color: #6b7280;">${escapeHtml(copy.houseKeyLabel)}</p>
-                    <code>${escapeHtml(houseKey)}</code>
-                    <p style="margin: 10px 0 0; color: #6b7280; font-size: 12px;">${escapeHtml(copy.houseKeyNote)}</p>
-                </div>
-
-                <h3>${escapeHtml(copy.featuresTitle)}</h3>
-                <ul class="features">
-                    <li>${escapeHtml(copy.features[0])}</li>
-                    <li>${escapeHtml(copy.features[1])}</li>
-                    <li>${escapeHtml(copy.features[2])}</li>
-                    <li>${escapeHtml(copy.features[3])}</li>
-                </ul>
-
-                <p>${escapeHtml(copy.support)} <a href="mailto:${SUPPORT_EMAIL}">${escapeHtml(SUPPORT_EMAIL)}</a>.</p>
-            </div>
-            <div class="footer">
-                <p>${escapeHtml(copy.footer)}</p>
-            </div>
-        </div>
-    </body>
-    </html>
+    const bodyHtml = `
+        <p>${escapeHtml(copy.intro)}</p>
+        ${renderFeatureList(copy.featuresTitle, copy.features)}
+        ${renderSupportLine(copy)}
     `;
+    const html = renderEmailShell({
+        eyebrow: copy.greeting,
+        title: copy.headerTitle,
+        subtitle: copy.headerSubtitle,
+        preheader: copy.intro,
+        bodyHtml,
+        footerHtml: renderEmailFooter(copy)
+    });
 
     return sendEmail({
         to: email,
@@ -736,15 +871,23 @@ export async function sendHouseJoinRequestNotification({ to, requesterUsername, 
     const safeRequesterUsername = String(requesterUsername || 'Bir kullanici').trim();
 
     const copy = getEmailCopy('houseJoinRequest');
+    const bodyLine1 = fillTemplate(copy.bodyLine1Template, {
+        username: safeRequesterUsername,
+        house: safeHouseName
+    });
+    const bodyLine2 = fillTemplate(copy.bodyLine2, {
+        username: safeRequesterUsername,
+        house: safeHouseName
+    });
 
     return sendEmail({
         to,
         subject: copy.subject,
-        html: `
-            <p>${escapeHtml(copy.greeting)}</p>
-            <p>${escapeHtml(fillTemplate(copy.bodyLine1Template, { username: safeRequesterUsername, house: safeHouseName }))}</p>
-            <p>${escapeHtml(fillTemplate(copy.bodyLine2, { username: safeRequesterUsername, house: safeHouseName }))}</p>
-        `
+        html: renderSimpleNotificationEmail({
+            copy,
+            subjectTitle: copy.subject,
+            lines: [bodyLine1, bodyLine2]
+        })
     });
 }
 
@@ -761,15 +904,26 @@ export async function sendHouseJoinRequestDecisionNotification({ to, status, req
             : 'updated';
     const copy = getEmailCopy('houseJoinDecision');
     const statusLabel = copy?.statusLabels?.[statusKey] || DEFAULT_EMAIL_COPY.houseJoinDecision.statusLabels[statusKey];
+    const bodyLine1 = fillTemplate(copy.bodyLine1Template, {
+        house: safeHouseName,
+        status: statusLabel,
+        statusLabel
+    });
+    const bodyLine2 = fillTemplate(copy.bodyLine2, {
+        house: safeHouseName,
+        status: statusLabel,
+        statusLabel
+    });
 
     return sendEmail({
         to,
         subject: fillTemplate(copy.subjectTemplate, { status: statusLabel, statusLabel }),
-        html: `
-            <p>${escapeHtml(copy.greeting)}</p>
-            <p>${escapeHtml(fillTemplate(copy.bodyLine1Template, { house: safeHouseName, status: statusLabel, statusLabel }))}</p>
-            <p>${escapeHtml(fillTemplate(copy.bodyLine2, { house: safeHouseName, status: statusLabel, statusLabel }))}</p>
-        `
+        html: renderSimpleNotificationEmail({
+            copy,
+            subjectTitle: copy.greeting,
+            statusLabel,
+            lines: [bodyLine1, bodyLine2]
+        })
     });
 }
 
@@ -781,15 +935,17 @@ export async function sendHouseKickNotification({ to, houseName }) {
     const safeHouseName = String(houseName || 'ev').trim();
 
     const copy = getEmailCopy('houseKick');
+    const bodyLine1 = fillTemplate(copy.bodyLine1Template, { house: safeHouseName });
+    const bodyLine2 = fillTemplate(copy.bodyLine2, { house: safeHouseName });
 
     return sendEmail({
         to,
         subject: copy.subject,
-        html: `
-            <p>${escapeHtml(copy.greeting)}</p>
-            <p>${escapeHtml(fillTemplate(copy.bodyLine1Template, { house: safeHouseName }))}</p>
-            <p>${escapeHtml(fillTemplate(copy.bodyLine2, { house: safeHouseName }))}</p>
-        `
+        html: renderSimpleNotificationEmail({
+            copy,
+            subjectTitle: copy.subject,
+            lines: [bodyLine1, bodyLine2]
+        })
     });
 }
 
@@ -801,49 +957,22 @@ export async function sendHouseKickNotification({ to, houseName }) {
  */
 export async function sendPasswordResetEmail({ email, resetUrl }) {
     const copy = getEmailCopy('passwordReset');
-    const html = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <style>
-            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f5f5f5; }
-            .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-            .header { background: linear-gradient(135deg, #ef4444, #f97316); padding: 30px; text-align: center; }
-            .header h1 { color: white; margin: 0; font-size: 28px; }
-            .content { padding: 30px; }
-            .button { display: inline-block; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; margin: 20px 0; }
-            .warning { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; }
-            .footer { background: #f9fafb; padding: 20px; text-align: center; color: #6b7280; font-size: 14px; }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="header">
-                <h1>${escapeHtml(copy.headerTitle)}</h1>
-            </div>
-            <div class="content">
-                <p>${escapeHtml(copy.greeting)}</p>
-                <p>${escapeHtml(copy.intro)}</p>
-                
-                <p style="text-align: center;">
-                    <a href="${resetUrl}" class="button">${escapeHtml(copy.buttonLabel)}</a>
-                </p>
-
-                <div class="warning">
-                    <strong>${escapeHtml(copy.warningTitle)}</strong> ${escapeHtml(copy.warningBody)}
-                </div>
-
-                <p>${escapeHtml(copy.fallback)}</p>
-                <p style="word-break: break-all; color: #6b7280; font-size: 12px;">${resetUrl}</p>
-            </div>
-            <div class="footer">
-                <p>${escapeHtml(copy.footer)}</p>
-            </div>
-        </div>
-    </body>
-    </html>
+    const bodyHtml = `
+        <p>${escapeHtml(copy.greeting)}</p>
+        <p>${escapeHtml(copy.intro)}</p>
+        ${renderButton(copy.buttonLabel, resetUrl)}
+        ${renderNotice(copy.warningTitle, copy.warningBody)}
+        ${renderFallbackLink(copy.fallback, resetUrl)}
     `;
+    const html = renderEmailShell({
+        eyebrow: copy.greeting,
+        title: copy.headerTitle,
+        subtitle: copy.intro,
+        preheader: copy.warningBody,
+        bodyHtml,
+        footerHtml: renderEmailFooter(copy),
+        tone: 'security'
+    });
 
     return sendEmail({
         to: email,
@@ -856,48 +985,29 @@ export async function sendTestEmail(to) {
     const language = getEmailLanguage();
     const copy = getEmailCopy('testEmail', language);
     const sentAt = new Date().toLocaleString(language);
+    const bodyHtml = `
+        <div class="info-card">
+            <div class="label">${escapeHtml(copy.successTitle)}</div>
+            <p style="margin-top: 10px;">${escapeHtml(copy.successBody)}</p>
+        </div>
+        <table role="presentation" class="meta-table" cellspacing="0" cellpadding="0" border="0">
+            <tr><td>${escapeHtml(copy.sentAtLabel)}</td><td>${escapeHtml(sentAt)}</td></tr>
+            <tr><td>${escapeHtml(copy.senderLabel)}</td><td>${escapeHtml(DEFAULT_FROM)}</td></tr>
+            <tr><td>${escapeHtml(copy.serviceLabel)}</td><td>Resend API</td></tr>
+        </table>
+    `;
 
     return sendEmail({
         to,
         subject: copy.subject,
-        html: `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <style>
-                body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f5f5f5; }
-                .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-                .header { background: linear-gradient(135deg, #22c55e, #16a34a); padding: 30px; text-align: center; }
-                .header h1 { color: white; margin: 0; font-size: 28px; }
-                .content { padding: 30px; text-align: center; }
-                .success-icon { font-size: 64px; margin: 20px 0; }
-                .info-box { background: #f0f9ff; border-radius: 8px; padding: 20px; margin: 20px 0; }
-                .footer { background: #f9fafb; padding: 20px; text-align: center; color: #6b7280; font-size: 14px; }
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <div class="header">
-                    <h1>${escapeHtml(copy.headerTitle)}</h1>
-                </div>
-                <div class="content">
-                    <div class="success-icon">✅</div>
-                    <h2>${escapeHtml(copy.successTitle)}</h2>
-                    <p>${escapeHtml(copy.successBody)}</p>
-                    <div class="info-box">
-                        <p><strong>${escapeHtml(copy.sentAtLabel)}:</strong> ${escapeHtml(sentAt)}</p>
-                        <p><strong>${escapeHtml(copy.senderLabel)}:</strong> ${escapeHtml(DEFAULT_FROM)}</p>
-                        <p><strong>${escapeHtml(copy.serviceLabel)}:</strong> Resend API</p>
-                    </div>
-                </div>
-                <div class="footer">
-                    <p>${escapeHtml(copy.footer)}</p>
-                </div>
-            </div>
-        </body>
-        </html>
-        `
+        html: renderEmailShell({
+            eyebrow: copy.successTitle,
+            title: copy.headerTitle,
+            subtitle: '',
+            preheader: copy.successBody,
+            bodyHtml,
+            footerHtml: renderEmailFooter(copy)
+        })
     });
 }
 

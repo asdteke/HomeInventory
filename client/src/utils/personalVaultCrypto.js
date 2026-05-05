@@ -10,10 +10,12 @@ const IV_BYTES = 12;
 const RECOVERY_KEY_LENGTH = 30;
 const RECOVERY_KEY_GROUP_SIZE = 5;
 const RECOVERY_KEY_ALPHABET = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+const VAULT_PASSPHRASE_LABEL = 'Vault passphrase';
+const RECOVERY_KEY_LABEL = 'Recovery key';
 
 function ensureCrypto() {
     if (!globalThis.crypto?.subtle || typeof globalThis.crypto.getRandomValues !== 'function') {
-        throw new Error('Bu tarayici guvenli Web Crypto destegi sunmuyor.');
+        throw new Error('This browser does not support secure Web Crypto.');
     }
 }
 
@@ -45,7 +47,7 @@ function base64UrlToBytes(value) {
 function normalizeSecret(secret, label) {
     const value = String(secret || '');
     if (!value.trim()) {
-        throw new Error(`${label} gerekli.`);
+        throw new Error(`${label} is required.`);
     }
 
     return value;
@@ -161,19 +163,31 @@ export function validateVaultPassphrase(passphrase) {
     const issues = [];
 
     if (value.length < 12) {
-        issues.push('Vault parolasi en az 12 karakter olmali.');
+        issues.push({
+            code: 'min_length',
+            message: 'Vault passphrase must be at least 12 characters.'
+        });
     }
 
     if (!/[a-z]/.test(value)) {
-        issues.push('En az bir kucuk harf kullanin.');
+        issues.push({
+            code: 'lowercase',
+            message: 'Include at least one lowercase letter.'
+        });
     }
 
     if (!/[A-Z]/.test(value)) {
-        issues.push('En az bir buyuk harf kullanin.');
+        issues.push({
+            code: 'uppercase',
+            message: 'Include at least one uppercase letter.'
+        });
     }
 
     if (!/[0-9]/.test(value)) {
-        issues.push('En az bir rakam kullanin.');
+        issues.push({
+            code: 'number',
+            message: 'Include at least one number.'
+        });
     }
 
     return {
@@ -184,11 +198,11 @@ export function validateVaultPassphrase(passphrase) {
 
 export async function createPersonalVaultSetup(passphrase) {
     ensureCrypto();
-    const normalizedPassphrase = normalizeSecret(passphrase, 'Vault parolasi');
+    const normalizedPassphrase = normalizeSecret(passphrase, VAULT_PASSPHRASE_LABEL);
     const passphraseValidation = validateVaultPassphrase(normalizedPassphrase);
 
     if (!passphraseValidation.valid) {
-        throw new Error(passphraseValidation.issues[0]);
+        throw new Error(passphraseValidation.issues[0]?.message || 'Vault passphrase is invalid.');
     }
 
     const vaultKey = await generateVaultKey();
@@ -218,7 +232,7 @@ export async function unlockPersonalVaultWithPassphrase(config, passphrase) {
         wrapIv: config.wrapIv,
         kdfSalt: config.kdfSalt,
         kdfIterations: config.kdfIterations
-    }, normalizeSecret(passphrase, 'Vault parolasi'));
+    }, normalizeSecret(passphrase, VAULT_PASSPHRASE_LABEL));
 }
 
 export async function unlockPersonalVaultWithRecoveryKey(config, recoveryKey) {
@@ -227,7 +241,7 @@ export async function unlockPersonalVaultWithRecoveryKey(config, recoveryKey) {
         wrapIv: config.recoveryWrapIv,
         kdfSalt: config.recoveryKdfSalt,
         kdfIterations: config.recoveryKdfIterations
-    }, normalizeSecret(recoveryKey, 'Recovery key'));
+    }, normalizeSecret(recoveryKey, RECOVERY_KEY_LABEL));
 }
 
 export async function encryptPersonalVaultBytes(vaultKey, bytes) {

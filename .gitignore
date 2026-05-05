@@ -1,6 +1,7 @@
 # Cloud/local reference snapshots (never publish)
 cloud-reference/
 remote-edit/
+.local/
 
 # Environment and secrets
 .env
@@ -17,6 +18,7 @@ id_rsa*
 
 # Runtime data
 *.sqlite
+*.db
 database.sqlite
 data/
 uploads/
@@ -30,12 +32,15 @@ client/node_modules/
 dist/
 client/dist/
 client/build/
+test-results/
 
 # npm cache/temp
 .npm-cache/
 .npm-tmp/
 
 # Local scratch/debug scripts
+.codex/
+scratch/
 query.mjs
 server.log
 scripts/test-cookie.js
@@ -45,3 +50,4 @@ scripts/test-trusted-device.mjs
 
 # OS metadata
 .DS_Store
+.aider*

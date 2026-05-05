@@ -34,6 +34,7 @@ import {
   encryptRoomName,
   encryptUsername
 } from './utils/protectedFields.js';
+import { formatScopedLog, stripLogNamespace } from './utils/devConsole.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -46,7 +47,8 @@ const SHOULD_LOG_DATABASE_EVENTS = process.env.NODE_ENV !== 'production'
 
 function emitDatabaseLog(...args) {
   if (SHOULD_LOG_DATABASE_EVENTS) {
-    console.log(...args);
+    const [message, ...rest] = args;
+    console.log(formatScopedLog('db', stripLogNamespace(message)), ...rest);
   }
 }
 
@@ -102,6 +104,9 @@ db.exec(`
     recovery_key_generated_at DATETIME,
     password_reset_failed_count INTEGER DEFAULT 0,
     password_reset_locked_until DATETIME,
+    failed_login_count INTEGER DEFAULT 0,
+    login_failed_at DATETIME,
+    login_locked_until DATETIME,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
 
@@ -283,6 +288,16 @@ try {
 } catch (e) { /* Column exists */ }
 
 try {
+  db.exec(`ALTER TABLE users ADD COLUMN login_failed_at DATETIME`);
+  emitDatabaseLog('[Database] login_failed_at column added to users table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE users ADD COLUMN login_locked_until DATETIME`);
+  emitDatabaseLog('[Database] login_locked_until column added to users table');
+} catch (e) { /* Column exists */ }
+
+try {
   db.exec(`ALTER TABLE users ADD COLUMN last_login DATETIME`);
   emitDatabaseLog('[Database] last_login column added to users table');
 } catch (e) { /* Column exists */ }
@@ -399,6 +414,7 @@ try {
     CREATE INDEX IF NOT EXISTS idx_users_house_key ON users(house_key);
     CREATE INDEX IF NOT EXISTS idx_users_username_lookup ON users(username_lookup);
     CREATE INDEX IF NOT EXISTS idx_users_email_lookup ON users(email_lookup);
+    CREATE INDEX IF NOT EXISTS idx_users_login_locked_until ON users(login_locked_until);
     CREATE INDEX IF NOT EXISTS idx_users_password_reset_locked_until ON users(password_reset_locked_until);
     CREATE INDEX IF NOT EXISTS idx_items_category ON items(category_id);
     CREATE INDEX IF NOT EXISTS idx_items_room ON items(room_id);

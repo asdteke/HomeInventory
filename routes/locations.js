@@ -8,6 +8,29 @@ import {
 } from '../utils/protectedFields.js';
 
 const router = express.Router();
+const selectScopedRoom = db.prepare('SELECT id FROM rooms WHERE id = ? AND house_key = ? LIMIT 1');
+
+function normalizeRoomIdForHouse(value, houseKey) {
+    const normalized = String(value ?? '').trim();
+    if (!normalized) {
+        return null;
+    }
+
+    const roomId = Number.parseInt(normalized, 10);
+    if (!Number.isInteger(roomId) || roomId <= 0) {
+        throw new Error('Oda geçersiz');
+    }
+
+    if (!selectScopedRoom.get(roomId, houseKey)) {
+        throw new Error('Oda bu eve ait değil');
+    }
+
+    return roomId;
+}
+
+function getRequestErrorStatus(error) {
+    return /ge(?:ç|c)ersiz|gerekli|ait değil/i.test(String(error?.message || '')) ? 400 : 500;
+}
 
 // Apply auth to all routes
 router.use(authenticateToken);
@@ -22,7 +45,7 @@ router.get('/', (req, res) => {
             SELECT locations.*, users.username as created_by_name, rooms.name as room_name
             FROM locations
             LEFT JOIN users ON locations.created_by = users.id
-            LEFT JOIN rooms ON locations.room_id = rooms.id
+            LEFT JOIN rooms ON locations.room_id = rooms.id AND rooms.house_key = locations.house_key
             WHERE locations.house_key = ?
         `;
         const params = [req.user.house_key];
@@ -49,16 +72,18 @@ router.post('/', (req, res) => {
             return res.status(400).json({ error: 'Konum adı gerekli' });
         }
 
+        const scopedRoomId = normalizeRoomIdForHouse(room_id, req.user.house_key);
+
         const result = db.prepare(
             'INSERT INTO locations (name, room_id, created_by, is_public, house_key) VALUES (?, ?, ?, ?, ?)'
-        ).run(encryptLocationName(name), room_id || null, req.user.id, is_public ? 1 : 0, req.user.house_key);
+        ).run(encryptLocationName(name), scopedRoomId, req.user.id, is_public ? 1 : 0, req.user.house_key);
 
         const location = decryptLocationRecord(db.prepare('SELECT * FROM locations WHERE id = ?').get(result.lastInsertRowid));
 
         res.status(201).json({ message: 'Konum eklendi', location });
     } catch (err) {
         console.error('Create location error:', err);
-        res.status(500).json({ error: 'Konum eklenirken hata oluştu' });
+        res.status(getRequestErrorStatus(err)).json({ error: err.message || 'Konum eklenirken hata oluştu' });
     }
 });
 
@@ -78,11 +103,15 @@ router.put('/:id', (req, res) => {
             return res.status(404).json({ error: 'Konum bulunamadı veya yetkiniz yok' });
         }
 
+        const scopedRoomId = room_id !== undefined
+            ? normalizeRoomIdForHouse(room_id, req.user.house_key)
+            : existing.room_id;
+
         db.prepare(
             'UPDATE locations SET name = ?, room_id = ?, is_public = ? WHERE id = ?'
         ).run(
             name ? encryptLocationName(name) : existingRow.name,
-            room_id !== undefined ? room_id : existing.room_id,
+            scopedRoomId,
             is_public !== undefined ? (is_public ? 1 : 0) : existing.is_public,
             locationId
         );
@@ -91,7 +120,7 @@ router.put('/:id', (req, res) => {
         res.json({ message: 'Konum güncellendi', location });
     } catch (err) {
         console.error('Update location error:', err);
-        res.status(500).json({ error: 'Konum güncellenirken hata oluştu' });
+        res.status(getRequestErrorStatus(err)).json({ error: err.message || 'Konum güncellenirken hata oluştu' });
     }
 });
 

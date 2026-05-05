@@ -3,15 +3,15 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" sizes="32x32" href="__APP_FAVICON__" />
-  <link rel="icon" type="image/png" sizes="16x16" href="__APP_FAVICON__" />
-  <link rel="shortcut icon" type="image/png" href="__APP_FAVICON__" />
-  <link rel="manifest" href="/manifest.webmanifest" />
-  <link rel="apple-touch-icon" href="__APP_APPLE_TOUCH_ICON__" />
+  <link rel="icon" type="image/png" sizes="32x32" href="__APP_FAVICON_LIGHT__" data-app-favicon />
+  <link rel="icon" type="image/png" sizes="16x16" href="__APP_FAVICON_LIGHT__" data-app-favicon />
+  <link rel="shortcut icon" type="image/png" href="__APP_FAVICON_LIGHT__" data-app-favicon />
+  <link rel="manifest" href="__APP_MANIFEST_LIGHT__" data-app-manifest />
+  <link rel="apple-touch-icon" href="__APP_APPLE_TOUCH_ICON_LIGHT__" data-app-apple-touch-icon />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="application-name" content="__APP_BRAND_NAME__" />
   <meta name="description" content="__APP_META_DESCRIPTION__" />
-  <meta name="theme-color" content="#6366f1" />
+  <meta name="theme-color" content="__APP_THEME_COLOR_DARK__" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="__APP_BRAND_NAME__" />
@@ -23,10 +23,33 @@
   <script>
     // Prevent flash of wrong theme - runs before React loads
     (function () {
-      const saved = localStorage.getItem('theme');
+      const lightFavicon = '__APP_FAVICON_LIGHT__';
+      const darkFavicon = '__APP_FAVICON_DARK__';
+      const lightManifest = '__APP_MANIFEST_LIGHT__';
+      const darkManifest = '__APP_MANIFEST_DARK__';
+      const lightAppleTouchIcon = '__APP_APPLE_TOUCH_ICON_LIGHT__';
+      const darkAppleTouchIcon = '__APP_APPLE_TOUCH_ICON_DARK__';
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const saved = localStorage.getItem('theme');
       const theme = saved || (prefersDark ? 'dark' : 'light');
       document.documentElement.classList.add(theme);
+      const faviconHref = theme === 'dark' ? darkFavicon : lightFavicon;
+      const manifestHref = theme === 'dark' ? darkManifest : lightManifest;
+      const appleTouchIconHref = theme === 'dark' ? darkAppleTouchIcon : lightAppleTouchIcon;
+      const themeColor = theme === 'dark' ? '__APP_THEME_COLOR_DARK__' : '__APP_THEME_COLOR_LIGHT__';
+      document.querySelectorAll('link[data-app-favicon]').forEach((link) => {
+        link.setAttribute('href', faviconHref);
+      });
+      document.querySelectorAll('link[data-app-manifest]').forEach((link) => {
+        link.setAttribute('href', manifestHref);
+      });
+      document.querySelectorAll('link[data-app-apple-touch-icon]').forEach((link) => {
+        link.setAttribute('href', appleTouchIconHref);
+      });
+      const themeMeta = document.querySelector('meta[name="theme-color"]');
+      if (themeMeta) {
+        themeMeta.setAttribute('content', themeColor);
+      }
     })();
   </script>
 </head>

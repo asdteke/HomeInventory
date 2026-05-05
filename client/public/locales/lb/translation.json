@@ -20,7 +20,7 @@
             "room": "Raum",
             "select_room": "Raum auswielen",
             "location_details": "Lokaliséierungsdetailer",
-            "location_optional": "(Optional)",
+            "location_optional": "(Fakultativ)",
             "location_placeholder": "Sich oder addéiert eng nei Plaz...",
             "location_help": "Wou am Raum? (z.B. 'Uewen um bloen Schaf')",
             "location_create": "Erstellt Plaz „{{name}}“",
@@ -32,9 +32,9 @@
             "location_selected": "Gewielte Plaz: {{name}}",
             "location_empty": "Nach keng Plaz an dëser Kummer definéiert. Fänkt un ze tippen fir eng ze erstellen.",
             "photo": "Foto",
-            "add_photo": "Füügt dobäi Very sensitive record? Fir Päisser, Urkunden, Identitéitsdetailer, Zougangscoden an aner Opzeechnunge, déi aus dem Standard-Inventarstraum bleiwen sollten, hält se amplaz am Personal Vault. Personal Vault opmaachen Barcode (Optional) z.B. 8690123456789 Fotoe kënnen maximal {{maxSizeMb}} MB grouss sinn.",
-            "barcode": "Barcode",
-            "barcode_optional": "(Optional)",
+            "add_photo": "Add",
+            "barcode": "Bar-Code",
+            "barcode_optional": "(Fakultativ)",
             "barcode_placeholder": "z.B. 8690123456789",
             "scan_barcode": "Barcode scannen",
             "search_db": "Datebank sichen",
@@ -79,7 +79,43 @@
             "name_required": "Artikelnumm ass erfuerderlech",
             "location_add_error": "Lokatioun derbäi maachen huet net geklappt",
             "photo_too_large": "Fotoen dierfen maximal {{maxSizeMb}} MB sinn."
-        }
+        },
+        "title": "Inventar",
+        "add": "Item derbäisetzen",
+        "edit": "Artikel änneren",
+        "delete": "Element läschen",
+        "name": "Item-Numm",
+        "description": "Beschreiwung",
+        "quantity": "Quantitéit",
+        "category": "Kategorie",
+        "room": "Zëmmer",
+        "location": "Lokalitéit",
+        "barcode": "Sträifecode",
+        "photo": "Foto",
+        "add_photo": "Foto derbäisetzen",
+        "change_photo": "Foto änneren",
+        "is_public": "Ëffentlech",
+        "save": "Retten",
+        "cancel": "Ofbriechen",
+        "saving": "Retten...",
+        "no_items_found": "Keng Saachen fonnt",
+        "search_placeholder": "Duerchsicht Saachen...",
+        "filter_by_category": "Filter no Kategorie",
+        "filter_by_room": "Filter no Raum",
+        "all_categories": "All Kategorien",
+        "all_rooms": "All Zëmmeren",
+        "confirm_delete": "Bass de sécher, dass de dësen Artikel wëlls läschen?",
+        "items_deleted": "{{count}} Element(er) geläscht",
+        "added": "Bäigefüügt Element",
+        "updated": "Aktualiséiert Element",
+        "deleted": "Element geläscht",
+        "not_found": "Objet net fonnt",
+        "add_error": "Feeler Element derbäisetzen",
+        "update_error": "Feeler-Aktualiséierungs-Element",
+        "delete_error": "Feeler läscht Element",
+        "no_permission": "Dir hutt keng Erlaabnis, dëst Element z'änneren",
+        "barcode_search_error": "Barcode-Sich ass net gelongen",
+        "stats_error": "Feeler-Luedstatistiken"
     },
     "common": {
         "save": "Späicheren",
@@ -106,7 +142,27 @@
         "copyright": "© {{year}} {{brandName}} - All Rechter reservéiert",
         "other": "Aner",
         "copy": "Kopéieren",
-        "download": "Eroflueden"
+        "download": "Eroflueden",
+        "clear": "Kloer",
+        "deleting": "Läsche...",
+        "filter": "Filter",
+        "sort": "Sortéieren",
+        "yes": "Jo",
+        "no": "Nee",
+        "confirm": "Confirméiert",
+        "back": "Zréck",
+        "next": "Nächst",
+        "retry": "Neiversuch",
+        "actions": "Aktiounen",
+        "created_at": "Erstellt bei",
+        "updated_at": "Aktualiséiert um",
+        "none": "Keng",
+        "total": "Total •••••••• Dashboard Vollst Zëmmer",
+        "not_found": "Net fonnt",
+        "unauthorized": "Onerlaabten Zougang",
+        "forbidden": "Dir hutt keng Erlaabnis fir dës Aktioun",
+        "validation_error": "Validatiounsfeeler",
+        "server_error": "Serverfeeler"
     },
     "auth": {
         "login": {
@@ -139,10 +195,19 @@
                 "back": "Zeréck",
                 "use_backup": "Benotzt Backup-Code",
                 "use_totp": "Benotzt Authenticator"
-            }
+            },
+            "welcome_title": "Wëllkomm zeréck",
+            "welcome_subtitle": "Mellt Iech un fir Äre Inventaire ze kréien",
+            "identifier_placeholder": "z.B. john@example.com",
+            "legal_intro": "Wann Dir weiderfuert, sidd Dir averstanen mat eiser",
+            "header_kicker": "Séchert Aschreiwen",
+            "header_title": "Zréck an Äert Inventar",
+            "header_subtitle": "Raim, Objeten an privat Donnéeë bleiwe op engem rouege Plaz.",
+            "trust_signal": "Privat vun der Design. Ënnerstëtzt 2FA an zouverléisseg Apparater.",
+            "support_link": "Kontaktéiert de Support"
         },
         "register": {
-            "title": "Wëllkomm bei {{brandName}}",
+            "title": "Set up your household",
             "subtitle": "Erstellt e neie Kont oder gitt engem existéierende Haus bäi",
             "create_house": "Neit Haus erstellen",
             "join_house": "Haus bäitrieden",
@@ -176,7 +241,11 @@
                     "warning": "Wichteg: Dëse Schlëssel gëtt nëmmen eemol ugewisen. Deelt en mat Familljememberen sou datt se op déiselwecht Inventar zougräifen kënnen.",
                     "copy": "Kopéieren",
                     "copied": "Koupéiert",
-                    "button": "Ech hunn de Schlëssel gespäichert, weiderfueren"
+                    "button": "Ech hunn de Schlëssel gespäichert, weiderfueren",
+                    "badge": "Hauszougang",
+                    "important": "Wichteg",
+                    "key_label": "Hausschlëssel",
+                    "storage_hint": "Halt dëse Schlëssel op engem séchere Plaz, sou datt vertraut Familljememberen spéider kënnen dobäi sinn."
                 },
                 "email_verification": {
                     "title": "📧 E-Mail Verifikatioun erfuerderlech",
@@ -188,7 +257,33 @@
                     "key_note": "Wichteg: Äre Haaptschlëssel gouf och an der E-Mail geschéckt. Dir kënnt en mat Familljememberen deelen.",
                     "button": "Ok, op Login goen"
                 }
-            }
+            },
+            "eyebrow": "Deelen Zougang zum Hausstand",
+            "create_house_hint": "Start eng nei gemeinsam Haushaltsverwaltung",
+            "join_house_hint": "Benotzt en Haus Schlëssel deen Dir kritt hutt",
+            "mode_label": "Accès zum Haus",
+            "mode_create_body": "Start Äre Haushalt hei, da invitéiert aner.",
+            "mode_join_body": "Gitt mat dem kritt Haus Schlëssel bäi.",
+            "account_section": "Äre Kont",
+            "access_section": "Accès zum Haus",
+            "access_hint": "Benotzt den Haus Schlëssel deen vum Hausbesëtzer gedeelt gouf.",
+            "step_choose_title": "Wielt erstellen oder bäitrieden",
+            "step_choose_body": "Start en neit oder bäitrieden mat engem Haus Schlëssel",
+            "step_account_title": "Füügt Är Detailer derbäi",
+            "step_account_body": "Setzt Ären Benotzernumm, E-Mail an Passwuert",
+            "step_use_title": "Ufänken et ze benotzen",
+            "step_use_body": "Deele Saachen fir d'Heem, privat Recorden fir Iech",
+            "trust_private": "Privat vum Design",
+            "trust_self_hosted": "Selbst-Hosting frëndlech",
+            "trust_shared": "Gemaachte Haushaltsystem",
+            "password_hint": "Zielt op 10+ Zeechen mat Grouss-/Kleeschreiwung, enger Zuel, an engem Symbol.",
+            "legal_notice": "Mir froen nëmmen fir eng séier legal Bestätegung sou datt mir äert Kont erstellen kënnen.",
+            "notes_link": "Schnell Notizen",
+            "notes_title": "e puer séier Notizen",
+            "notes_subtitle": "Beta, Backups an Verantwortung an engem Plaz.",
+            "trust_signal": "Privater Design sou datt d'Haushaltdeelen sécher mat 2FA bleift.",
+            "early_access_badge": "Fréie Zougang",
+            "early_access_note": "Mir halen d'Astellungen einfach a weisen all Schlësselen direkt no der Umeldung. Artikelen QR Aus Ärem Kont ausloggen Ausloggen? Dir gitt zréck op d'Umeldescreen a musst erëm aloggen fir Äre Haushaltsinventar ze verwalten. Benotzt dëst wann Dir op engem gedeelt oder perséinleche Apparat fäerdeg sidd. Utilitéiten Sprooch, Thema an Release Detailer bleiwen hei gruppéiert."
         },
         "forgot_password": {
             "title": "Passwuert vergiess",
@@ -207,7 +302,8 @@
             "confirm_password": "Neit Passwuert bestätigen",
             "confirm_password_placeholder": "Gitt Äre Passwuert erëm an",
             "reset_submit": "Passwuert zrécksetzen",
-            "resetting": "Zrécksetzen..."
+            "resetting": "Zrécksetzen...",
+            "identifier_required": "Enter your username or email"
         },
         "reset_password": {
             "title": "Passwuert zrécksetzen",
@@ -238,9 +334,83 @@
             "settings_title": "Späichert Äre neie Erhuelungsschlëssel",
             "subtitle": "Dëse Schlëssel gëtt nëmmen eemol ugewise.",
             "warning": "Wanns de dëse Schlëssel verléiert während E-Mail deaktivéiert ass, kanns de Äre Passwuert vläicht net erholen. Kopéiert en a späichert en sécher.",
-            "confirm": "Ech hu de Schlëssel gespäichert"
+            "confirm": "Ech hu de Schlëssel gespäichert",
+            "badge": "Erhuelungszougang",
+            "important": "Wichteg",
+            "key_label": "Erhuelungsschlëssel",
+            "storage_hint": "Späichert dëst an Ärem Passwuertmanager oder an enger anerer sécherer offline Plaz.",
+            "copied": "Kopéiert"
         },
-        "password_requirements": "Benotzt mindestens {{min}} Zeechen mat Grouss- a Klengboustawen, Zuelen an Symboler."
+        "password_requirements": "Benotzt mindestens {{min}} Zeechen mat Grouss- a Klengboustawen, Zuelen an Symboler.",
+        "logout": "Ausloggen",
+        "logging_in": "Ech loggen mech an...",
+        "welcome": "Wëllkomm bei {{brandName}}",
+        "username_email": "Benotzernumm oder E-Mail",
+        "username": "Benotzernumm",
+        "email": "E-Mail",
+        "password": "Passwuert",
+        "confirm_password": "Passwuert bestätegen",
+        "new_password": "Neit Passwuert",
+        "current_password": "Aktuellt Passwuert",
+        "no_account": "Hues de kee Kont?",
+        "have_account": "Hues de schonn e Kont?",
+        "or": "oder",
+        "google_login": "Weider mat Google",
+        "login_issues": "Fir Login-Problemer",
+        "placeholder_username": "z.B.: John",
+        "placeholder_password": "••••••••",
+        "login_two_factor": {
+            "title": "Zwee-Faktor-Authentifikatioun",
+            "subtitle": "Gitt de 6-stellege Code aus Ärer Authentifikatiouns-App an",
+            "backup_subtitle": "Gitt ee vun äre Backup-Coden an",
+            "code_label": "Verifikatiounscode",
+            "backup_code_label": "Backup-Code",
+            "remember_device": "Erënnert Iech un dëst Gerät fir 30 Deeg",
+            "verify": "Verifizéieren",
+            "back": "Zréck",
+            "use_backup": "Benotzt Backup-Code",
+            "use_totp": "Benotz den Authenticator"
+        },
+        "login_required": "W.e.g. loggt Iech an fir Zougang ze kréien",
+        "invalid_token": "Ongëlteg oder ofgelaf Token",
+        "admin_required": "Administrativ Rechter erfuerderlech fir dës Aktioun",
+        "authorization_required": "Autorisatioun erfuerderlech",
+        "fill_all_fields": "Fëllt w.e.g. all Felder aus",
+        "email_already_registered": "Dës E-Mail ass schonn registréiert",
+        "username_already_registered": "Dësen Benotzernumm ass schonn registréiert",
+        "email_pending_verification": "Eng Verifikatioun ass schonn amgaang fir dës E-Mail. Kuckt w.e.g. an Äre Postfach oder waart e puer Minutten.",
+        "username_pending_verification": "Eng Verifikatioun ass schonn amgaang fir dëse Benotzernumm. Waart w.e.g. e puer Minutten.",
+        "invalid_house_key": "Ongëltege Hausschlëssel",
+        "registration_success": "Aschreiwung erfollegräich! E Verifizéierungslink gouf un Äre E-Mail geschéckt.",
+        "registration_error": "E Feeler ass bei der Registréierung opgetrueden",
+        "username_password_required": "Benotzernumm a Passwuert erfuerderlech",
+        "invalid_credentials": "Ongëltege Benotzernumm oder Passwuert",
+        "account_banned": "Äre Kont gouf gespaart. Kontaktéiert w.e.g. de Support.",
+        "login_success": "Login erfollegräich",
+        "login_error": "E Feeler ass beim Login opgetrueden",
+        "user_not_found": "Benotzer net fonnt",
+        "current_password_wrong": "Aktuellt Passwuert ass falsch",
+        "passwords_dont_match": "Nei Passwierder passen net zesummen",
+        "password_too_short": "E neit Passwuert muss op d'mannst 6 Zeechen hunn",
+        "password_change_success": "Passwuert erfollegräich geännert",
+        "password_change_error": "Feeler Passwuert änneren",
+        "database_error": "Datebankfeeler",
+        "database_read_error": "Datebank-Liesfeeler",
+        "new_password_error": "Feeler beim Neie Passwuert erstellen",
+        "email_verification_required": "E-Mail-Verifikatioun erfuerderlech",
+        "verification_link_expired": "De Verifikatiounslink ass ofgelaf oder ongëlteg",
+        "email_verified_success": "E-Mail erfollegräich verifizéiert! Dir kënnt Iech elo aloggen.",
+        "email_send_error": "Feeler beim Schécken vun der E-Mail",
+        "legal_acceptance_required": "Dir musst d'Benotzungsbedéngungen akzeptéieren an d'Privatsphärnotiz unerkennen, fir weiderzemaachen",
+        "identifier_already_registered": "Dësen Benotzernumm oder E-Mail ass schonn registréiert",
+        "username_in_use": "Dësen Benotzernumm ass schonn am Gebrauch",
+        "invalid_username": "De Benotzernumm muss 3-30 Zeechen hunn a kann nëmmen Buschtawen, Zuelen, Ënnersträicher oder Bindestrécher enthalen",
+        "invalid_email": "Gitt w.e.g. eng valabel E-Mail-Adress an.",
+        "invalid_house_key_format": "Ongëlteg Hausschlëssel-Format",
+        "join_house_key_required": "E Hausschlëssel ass néideg, fir an e bestehende Haus anzegoen",
+        "house_key_not_found": "Ongëltege Hausschlëssel. Gitt w.e.g. de richtege Schlëssel an.",
+        "email_not_verified": "Är E-Mail-Adress ass nach net verifizéiert ginn. Kuckt w.e.g. an Ären Inbox.",
+        "two_factor_invalid": "De Verifikatiounscode ass falsch"
     },
     "navigation": {
         "home": "Startsäit",
@@ -254,7 +424,12 @@
         "logout": "Ausloggen",
         "menu": "Menü",
         "personal_vault": "Perséinleche Tresor",
-        "borrow_requests": "Léierrechterfroen"
+        "borrow_requests": "Léierrechterfroen",
+        "scan_item_qr": "Objekt QR",
+        "logout_aria": "Aus Ärem Kont ausloggen",
+        "logout_title": "Ausloggen?",
+        "logout_description": "Dir kënnt zréck op de Connexiounsbildschierm ginn an musst Iech erëm aloggen fir Äre Haushaltsinventar ze verwalten.",
+        "logout_warning": "Benotzt dëst wann Dir op engem gedeelt oder perséinlechen Apparat fäerdeg sidd."
     },
     "dashboard": {
         "welcome": "Wëllkomm, <1>{{name}}</1>! 👋",
@@ -292,12 +467,104 @@
             "search_item": "Element sichen",
             "categories": "Kategorieen",
             "settings": "Astellungen"
-        }
+        },
+        "page": {
+            "kicker": "Heem",
+            "title": "Heem",
+            "description_ready": "Durchsich däin Inventar, iwwerpréif déi lescht Zousätz, an beweeg dech séier op déi nächst Aufgab.",
+            "description_empty": "Start building a calm, searchable home record from one clear starting point.",
+            "loading_description": "Äre Heembildschierm gëtt virbereet. Kürzlech Zousätz an séier Sich erschéngen an engem Moment."
+        },
+        "top_bar": {
+            "beta": "Beta",
+            "items_tracked": "Gekuckt Artikelen: {{count}}",
+            "total_quantity": "Total Quantitéit: {{count}}",
+            "shared_items": "Geteelt Artikelen: {{count}}",
+            "borrowed_now": "Lount elo: {{count}}",
+            "status_empty": "Bereet fir Äre éischte Artikel"
+        },
+        "header": {
+            "eyebrow": "Gedeelt Inventaire",
+            "title_ready": "Hausinventaire fir {{name}}",
+            "title_empty": "Start däi Hausinventaire",
+            "summary_ready": "{{count}} Artikele ginn schonn iwwer {{rooms}} Zëmmeren verfollegt. Sich d'Lëscht, füügt den nächsten Artikel derbäi, oder hält privat Rekorder getrennt.",
+            "summary_ready_no_rooms": "{{count}} Artikele ginn schonn verfollegt. Füügt Zëmmeren derbäi fir Standuerter méi kloer ze halen an d'Siche méi einfach ze maachen.",
+            "summary_empty": "Füügt den éischten Artikel derbäi fir d'Sich, Zëmmergeschicht, an eng méi kloer Haushaltsverfolgung fräi ze schalten."
+        },
+        "search_panel": {
+            "title": "Inventaire sichen",
+            "description": "Fannt en Artikel, Zëmmer, Standuert, oder Barcode vun enger Plaz.",
+            "placeholder": "Sicht en Artikel, Raum, Plaz oder Barcode",
+            "submit": "Lëscht Sich",
+            "secondary_hint": "Sensibel Dokumenter bleiwen getrennt."
+        },
+        "actions_panel": {
+            "title": "Haaptaktiounen",
+            "description": "Erstellt e neie Artikel oder setzt sensibel Dokumenter an de Perséinleche Schließfächer.",
+            "new_item_description": "Füügt e neie Haushaltsartikel mat Raum, Quantitéit a Foto derbäi.",
+            "vault_description": "Späichert Dokumenter, Coden an aner sensibel Dokumenter ausserhalb vum gëeegenten Sichbereich."
+        },
+        "content": {
+            "title": "Lescht Derbäigesat",
+            "description": "Déi neiste Wueren, déi zu Ärem Hausinventar derbäi sinn",
+            "description_empty": "Dës Zone gëtt Äre Feed fir rezent Aktivitéiten wann d'éischt Wuert derbäi komm ass.",
+            "empty_title": "Nach keng rezent Derbiergestallt",
+            "empty_description": "D'Lëscht fänkt un sech selwer ze fëllen soubal Dir d'éischt Wuert derbäi setzt. Fänkt mat eppes un, wat méi spéit einfach ze erkennen ass, dann bleiwen d'Rummen a Kategorien vun Dag een ugewisen.",
+            "empty_tip_one_title": "Fänkt mat engem sichtbar Haushaltsobjet un",
+            "empty_tip_one_body": "Wielt eppes, wat Dir méi spéit direkt erkennt, wéi en Apparat, Späicherkëscht oder klengt Tool.",
+            "empty_tip_two_title": "Ginn engem reellen Raum zou",
+            "empty_tip_two_body": "Rummen- an Kategoriezuelen bleiwen korrekt nëmme wann nei Wueren esou zougewisen ginn wéi se erstallt ginn.",
+            "empty_tip_three_title": "Halte Geheimnisser aus dem gedeeltenen Feed eraus",
+            "empty_tip_three_body": "Benotzt Perséinlechen Tresor fir Schlësselen, Coden, Aktiounen oder alles wat net an der Haishaltsinventar Geschicht sollt optrieden",
+            "see_all": "Inventar opmaachen",
+            "untitled_item": "Ongenannt Element",
+            "location_fallback": "Füügt eng Raum oder Plaz derbäi fir dëst Element méi einfach ze fannen",
+            "quantity": "Quantitéit {{count}}",
+            "added_on": "Derbäi gesat {{date}}"
+        },
+        "visibility": {
+            "public": "Gedeelt",
+            "private": "Privat>>>Füügt äert éischt Haushaltsobjekt derbäi>>>Ufank mat eppes Einfach ze erkennen, wéi en Apparat, Dokument oder Ersatzdeel. Wann Dir et derbäigesat hutt, fänken d'Lëscht a Metrik un sech ze fëllen.>>>Objekt derbäisetzen>>>Perséinleche Tresor opmaachen>>>Ufank mat engem kloerem Objet>>>Füügt en erkennbare Objetnumm derbäi sou datt d'Inventar eng staark éischt Aufzeechnung huet.>>>Leit et an engem Raum plazéieren"
+        },
+        "empty_state": {
+            "title": "Füügt Äre éischte Hausentspil-Artikel derbäi",
+            "description": "Start mat eppes Einfach ze erkennen, wéi e Gerät, Dokument, oder Ersatzdeel. Wann Dir et derbäisetzt, fänken d'Sich a Metriken un sech ze fëllen.",
+            "primary_cta": "Artikel derbäi maachen",
+            "secondary_cta": "Perséinleche Tresor opmaachen",
+            "step_one_title": "Mat engem kloerem Artikel ufänken",
+            "step_one_body": "E kannschenbaren Artikelnumm derbäi maachen sou datt d'Lëscht eng staark éischt Entrée huet.",
+            "step_two_title": "Et an engem Raum placéieren",
+            "step_two_body": "Sätz Raum a Quantitéit sou datt Sich an Metriken direkt nëtzlech ginn. Privathandel festhalen getrennt Perséinleche Safe fir Passporten, Quittungen, an Zougangscoden Benotzt Beta Beta Notiz Früizougangsfunktione kënnen nach änneren. Sträifcode Dëse Safe-Recor läschen?",
+            "step_three_title": "Privat Rekorder getrennt halen",
+            "step_three_body": "Den perséinleche Tresor fir Päisser, Urkundeën an Accès-Codes benotzen."
+        },
+        "title": "Dashboard",
+        "total_items": "Total Artikelen",
+        "total_rooms": "Total Zëmmeren",
+        "total_categories": "Total Kategorien",
+        "search_placeholder": "Séier Sich...",
+        "no_items": "Nach keng Objeten derbäigesat",
+        "add_first_item": "Füügt däin éischten Artikel derbäi",
+        "view_all": "Alles ukucken",
+        "total_quantity": "Total Quantitéit",
+        "top_room": "Fullest Room",
+        "category_count": "Kategorie",
+        "items_count": "Objeten",
+        "private_items": "Meng privat Saachen",
+        "public_items": "Ëffentlech",
+        "remove_filter": "Filter ewechhuelen",
+        "no_items_filter": "Keng Elementer passen zu dësem Filter",
+        "manage": "Leedung",
+        "add_item": "Item derbäisetzen",
+        "search_item": "Sichobjekt"
     },
     "beta_banner": {
-        "title": "BETA: (Optional) Barcode (Optional) D'Kont konnt net geläscht ginn ••••••••{{suffix}} Kont Kont läschen",
+        "title": "BETA:",
         "text": "{{brandName}} ass aktuell an der Test- an Hobbyphase. Keng Garantie gëtt fir d'Datepersistenz oder Sécherheet. Bewahrt wichteg Informatiounen reservéiert.",
-        "contact": "Kontakt:"
+        "contact": "Kontakt:",
+        "badge": "Beta Ich verstinn datt all Persoun mat dësem Schlëssel Zougang zu dësem Haus froe kann. Ich verstinn datt dëse Schlëssel nëmmen an engem vertraute private Kanal oder Passwuertmanager agefouert soll ginn. Hauschlëssel kopéiert. Behuecht et wéi e Haushalts-Passwuert an deelt et nëmmen iwwer e vertraute Kanal. De Hauschlëssel konnt net kopéiert ginn. Zougang zum Hauschlëssel. Dashboard",
+        "aria_label": "Beta-Meldung",
+        "tooltip": "Fréi Zougangsfunktiounen kënnen nach geännert ginn."
     },
     "footer": {
         "rights": "© {{year}} {{brandName}} - All Rechter virbehalten",
@@ -343,7 +610,8 @@
             "member_kick_error": "Konnt de Member net aus dem Haus ewechhuelen",
             "recovery_key_regenerated": "Erhuelungsschlëssel nei generéiert",
             "recovery_key_error": "Konnt de Erhuelungsschlëssel net nei generéieren",
-            "account_delete_error": "The account could not be deleted"
+            "account_delete_error": "De Kont konnt net geläscht ginn",
+            "backup_downloaded_encrypted": "Encrypted backup downloaded successfully! ({{count}} items)"
         },
         "user_profile": {
             "edit_username": "Benotzernumm änneren"
@@ -361,12 +629,15 @@
             "item_count": "{{count}} Artikelen",
             "switch": "Wiesselen",
             "leave": "Haus verloossen",
-            "info": "💡 Dir kënnt Member vu mehre Haiser sinn an tëscht hinnen wiesselen. All Haus hält en getrennte Bestänn."
+            "info": "💡 Dir kënnt Member vu mehre Haiser sinn an tëscht hinnen wiesselen. All Haus hält en getrennte Bestänn.",
+            "accordion_description": "Wiesselt tëscht Haushaltn, erstellt een neit, oder tritt engem bestehende bei mat engem vertraute Schlëssel.",
+            "empty_description": "Erstellt een neit Haushalt fir matzedeelen oder tritt engem mat engem vertraute Haussschlëssel bei.",
+            "leave_success_body": "Dir hutt keng Zougang méi zu dësem Haushalt an Äert aktive Haus gouf aktualiséiert."
         },
         "house_info": {
             "title": "Aktive Hausschlëssel",
             "key_label": "Hausschlëssel",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{suffix}} Verstoppt bis Dir et sécher iwwerpréift Ech verstinn, datt all Persoun mat dësem Schlëssel Zougang zu dësem Wuertshaus froe kann Ech verstinn, datt dëse Schlëssel nëmmen an e vertraute private Kanal oder an e Passwuert-Manager agefouert soll ginn Haus Schlëssel kopéiert Behandelt et wéi e Wuertshauspasswuert an deelt et nëmmen iwwer e vertrauten Kanal De Haus Schlëssel konnt net kopéiert ginn Zougang zum Haus-Schlëssel",
             "hide": "Verstoppen",
             "show": "Oweschen",
             "copy": "Kopéieren",
@@ -383,12 +654,35 @@
             "owner_controls": "Besëtzerkontrollen aktivéiert",
             "approve": "Guttheeschen",
             "reject": "Ofleenen",
-            "kick": "Ewechhuelen"
+            "kick": "Ewechhuelen",
+            "access_section_title": "Hauszougang an Membere",
+            "access_section_body": "Gitt de aktive Haushaltschlëssel iwwerpréift, verwaltet Membere, an haltet de Zougang limitéiert op vertraut Leit.",
+            "hidden_state": "Verstoppt bis Dir et sécher iwwerpréift. Ech verstinn, datt all déi mat dësem Schlëssel Zougang zu dësem Heem ufroe kënnen. Ech verstinn, datt dëse Schlëssel nëmme an engem vertraute private Kanal oder Passwuertmanager agefouert soll ginn. Heemscheess Schlëssel kopéiert. Behandele et wéi e Passwuert fir d'Heem a deelt et nëmme iwwer en vertraute Kanal. De Heemscheess Schlëssel konnt net kopéiert ginn. Zougang zum Heemscheess Schlëssel. Dashboard.",
+            "show_securely": "Iwwerpréift sécher",
+            "copy_securely": "Kopéiert sécher",
+            "share_warning_title": "Deelt virsiichteg",
+            "share_warning_body": "Jiddereen deen dëse Schlëssel huet, kann Zougang zum Haushaltsinventar ufroen. Deelt et nëmme mat vertrauten Memberen a benotzt e privaten Kanal.",
+            "reveal_confirm_title": "Den Haussschlëssel weisen?",
+            "reveal_confirm_body": "Dëse Schlëssel erlaabt Zougangsufroen fir de Haushalt. Gitt sécher datt keen aneren Äre Bildschierm gesäit ier Dir weidergeet.",
+            "copy_confirm_title": "Den Haussschlëssel kopéieren?",
+            "copy_confirm_body": "Kopéiert nëmme wann Dir prett sidd e an eng vertraut Noriicht oder en sécheren Passwuertmanager anzepassen.",
+            "copy_confirm_tip": "Paste dëst net an Gruppchats, Screenshots oder op en Kanal, dem Dir net Ärem Diercode vertraut. Ech verstinn datt jidderengem mat dësem Schlëssel Zougang zu dësem Haus kann ufroen. Ech verstinn datt dëse Schlëssel nëmme an engem vertraute private Kanal oder Passwuertmanager agepaste soll ginn. Haus Schlëssel kopéiert. Behandele et wéi e Hauspasswuert a deelt et nëmme iwwer en vertraute Kanal. De Haus Schlëssel konnt net kopéiert ginn. Zougang zum Haus Schlëssel. Benotzt dësen Schlëssel nëmme fir vertraut Membere vum Haus, déi Zougang zu dësem gedeelt Inventaire sollten ufroen.",
+            "reveal_confirm_acknowledge": "Ech verstoen, datt jiddereen mat dësem Schlëssel Zougang zu dësem Heem kann ufroen.",
+            "copy_confirm_acknowledge": "Ech verstinn datt dëse Schlëssel nëmmen an engem vertrauenswürdege privaten Kanal oder Passwuertmanager agesat soll ginn. Haussschlëssel geklofft Mat him ëmgoen wéi mat engem Hauspasswuert a just iwwer e vertrauenswürdege Kanal deelen. De Haussschlëssel konnt net geklofft ginn. Zougang zum Haussschlëssel Momentan kee aktive Verleihen Kichen Elektronik",
+            "copy_success_title": "Hauseschlëssel kopéiert",
+            "copy_success_body": "Behandele se wéi e Hauspasswuert an deelt se nëmmen iwwer en zouverlässege Kanal.",
+            "copy_error": "De Hauseschlëssel konnt net kopéiert ginn.",
+            "modal_title": "Haus Schlësselo Zougang",
+            "modal_subtitle": "Benotzt dëse Schlëssel nëmmen fir vertraute Familljememberen, déi Zougang zu dësem gedeelt Inventaire sollt ufroen.",
+            "loading_members": "Lueden Memberen..."
         },
         "theme": {
             "title": "Thema",
             "dark": "Däischter Modus",
-            "light": "Liichtmodus"
+            "light": "Liichtmodus",
+            "description": "Wielt wéi d'Aarbechtsfläch op dësem Apparat ausgesäit.",
+            "light_aria": "Op liicht Thema wiesselen",
+            "dark_aria": "Op däischtert Thema wiesselen"
         },
         "security": {
             "title": "Sécherheet",
@@ -413,7 +707,20 @@
             "import_json": "Aus JSON importéieren",
             "export_sensitive_title": "Exportéiert Backups enthalen Kloertextdaten",
             "export_sensitive_notice": "Dëst Backup enthält entschlësselte Haushaltsdaten. Späichert et sécher nom Download, këmmert et wann méiglech a vermeit et iwwer onsécher Kanäl ze deelen.",
-            "export_sensitive_confirm": "Dëst Backup wäert entschlësselte Haushaltsdaten am Kloertext enthalen. Bestätegt Dir, datt Dir et sécher späichert?"
+            "export_sensitive_confirm": "Dëst Backup wäert entschlësselte Haushaltsdaten am Kloertext enthalen. Bestätegt Dir, datt Dir et sécher späichert?",
+            "accordion_description": "Verschlësselt Backups eroflueden, vertraute Fichieren restauréieren a sensibel Exporter vun deegleche Astellungen getrennt behalen.",
+            "backup_modal_title": "Hausstand-Backup eroflueden",
+            "backup_modal_body": "Exporter enthalen entschlësselte Hausstandsdaten. Halten d’Verschlësselung un, ausser Dir braucht onbedéngt eng normal JSON Datei.",
+            "encrypt_toggle_title": "Backup virum Eroflueden verschlësselen",
+            "encrypt_toggle_body": "Recommandéiert. D'eroffgeluede Datei ass mat engem Passwuert verpaakt, dat Dir wielt, an kann spéider mat deemselwechte Passwuert erëmgestallt ginn.",
+            "passphrase_label": "Backup-Passwuert",
+            "passphrase_confirm_label": "Passwuert confirméieren",
+            "passphrase_length": "Benotzt e Backup-Passwuert mat mindestens 12 Zeechen.",
+            "passphrase_mismatch": "Backup-Passwierder entspriechen net.",
+            "unencrypted_warning": "Eifach JSON-Exporte sinn méi einfach z'iwwerpréiwen, awer jiddereen deen d'Datei opmaacht, kann direkt Är Haushaltsdaten liesen.",
+            "import_encrypted_title": "Verschlësselte Backup entspaare",
+            "import_encrypted_body": "Gitt d'Download-Passwuert vun der Backup-Datei an fir dës verschlësselt Datei z'erhuelen.",
+            "unlock_and_import": "Opmaachen a importéieren"
         },
         "about": {
             "title": "📱 Iwwer d'Applikatioun",
@@ -423,7 +730,10 @@
             "legal_title": "Legale Dokumenter",
             "legal_description": "Dir kënnt d'Bedingunge an Datenschutzteschter vun hei erëm opmaachen, och no hirer Akzeptéierung.",
             "terms_link": "Servicebedingunge",
-            "privacy_link": "Datenschutzrichtlinnen"
+            "privacy_link": "Datenschutzrichtlinnen",
+            "beta_title": "Beta-Status",
+            "beta_body": "{{brandName}} ass nach am Beta. Funktiounen kënnen sech änneren, Aarbechtsprozesser kënnen evoluéieren, an wichteg Haushaltsdaten sollten ëmmer geséchert ginn.",
+            "feedback_subject": "Feedback - {{brandName}}"
         },
         "modals": {
             "password": {
@@ -515,21 +825,79 @@
             "revoke_devices": "Vertrauend Apparater annuléieren",
             "revoke_devices_desc": "All gemierkt Apparater ewechhuele, 2FA beim nächsten Login erfuerderen",
             "devices_revoked": "{{count}} vertrauend Apparat(e) ewechgeholl",
-            "devices_error": "Konnt d'Geräter net annuléieren ••••••••{{suffix}} Exportéiert Backups enthalen Kloertextdaten Dëst Backup enthält entschlësselt Haushaltsdaten. Späichert et sécher no dem Download, verschlësselt et wann méiglech, a vermeit et iwwer onsécher Kanäl ze deelen. Dëst Backup enthält entschlësselt Haushaltsdaten am Kloertext. Bestätegt Dir, datt Dir et sécher wäert späicheren? Neit Haus erstellen Haus Numm z.B. Summerhaus, Büro, Lager"
+            "devices_error": "Failed to revoke devices"
         },
         "danger_zone": {
-            "title": "Account",
-            "delete_title": "Delete account",
+            "title": "Kont",
+            "delete_title": "Kont läschen",
             "delete_description": "Wann Dir wëllt, kënnt Dir perséinlech Donnéeën an eropgeluede Dateien, déi mat dësem Kont verbonnen sinn, permanent läschen. Dës Aktioun kann net zréckgesat ginn. Kont läschen Kont läschen Dës Aktioun ass irreversibel Nom Bestätegen verléiert Dir direkt den Zougang zum Kont a geläscht Applikatiounsdaten kënnen net méi aus der App restauréiert ginn. Bestätegt mat Ärem aktuellen Passwuert Léischen bestätegen",
-            "delete_warning": "This action cannot be undone.",
-            "delete_action": "Delete account",
-            "modal_title": "Delete account",
-            "modal_warning_title": "This action is irreversible",
-            "modal_warning_body": "After confirmation, you will immediately lose access to the account and the deleted application data cannot be restored from the app.",
-            "password_label": "Confirm with your current password",
-            "confirm_delete": "Confirm deletion",
+            "delete_warning": "Dës Aktioun kann net zréckgeholl ginn.",
+            "delete_action": "Kont läschen",
+            "modal_title": "Kont läschen",
+            "modal_warning_title": "Dës Aktioun ass irreversibel",
+            "modal_warning_body": "No der Bestätegung verléiert Dir direkt den Zougang zum Kont an d'geläscht Applikatiounsdaten kënnen net méi aus der App restauréiert ginn.",
+            "password_label": "Bestätegt mat Ärem aktuelle Passwuert",
+            "confirm_delete": "Bestätegt d'Läschung",
             "deleting": "Läschen..."
-        }
+        },
+        "language": "Sprooch",
+        "control_sections": {
+            "account": "Kont",
+            "houses": "Haiser",
+            "security": "Sécherheet",
+            "data": "Daten",
+            "preferences": "Preferenzen",
+            "about": "Iwwer"
+        },
+        "workspace_section": {
+            "eyebrow": "Kont an Haiser",
+            "title": "Kont- an Haushaltzougang",
+            "description": "Gestioun vun Ärem Profil, aktive Haus, a Memberzougang vun enger Kontrollzone aus."
+        },
+        "account_overview": {
+            "title": "Kontiwwerbléck",
+            "description": "Grondleeënd Profildetailer fir den ageloggte Kont."
+        },
+        "security_section": {
+            "eyebrow": "Sécherheet a Virléiften",
+            "title": "Schutz a Virléiften",
+            "description": "Kontrolléiert d'Aanmeldung, Kontwiederherstellung, vertraulech Apparater a Erscheinung ouni duerch verschidde Panels ze sichen."
+        },
+        "preferences_section": {
+            "title": "Erscheinung a Sprooch",
+            "description": "Maacht d'Aarbechtsberäich op dësem Apparat komfortabel a setzt d'Sprooch, déi iwwer Navigation an legal Text genotzt gëtt."
+        },
+        "data_section": {
+            "eyebrow": "Donnéeën an iwwer",
+            "title": "Donnéeën, gesetzlech an Kontbesëtz",
+            "description": "Behalen Exporter, Produktinformatioun a onëmkerbare Kont Handlung kloer getrennt."
+        },
+        "language_description": "Eng Sprooch fir Navigatioun, Etiketten, legalen Text a Datumsformatéierung uwenden.",
+        "language_updated_title": "Sprooch aktualiséiert",
+        "language_updated_body": "{{language}} ass elo aktiv. Eng nei Luedung ass nëmme néideg wann eng aner oppen Tab nach alen Text weist.",
+        "select_language_tooltip": "Sprooch änneren. Aktuell: {{language}}",
+        "select_language_aria": "Sprooch wielen. Aktuell: {{language}}",
+        "frequently_used": "Dacks benotzt",
+        "other_languages": "All Sproochen",
+        "no_language_found": "Keng Sprooch huet bei där Sich gepasst.",
+        "account": "Kont",
+        "house": "Hausinformatiounen",
+        "house_key": "Hausschlëssel",
+        "copy_key": "Schlëssel kopéieren",
+        "share_key": "Deel-Schlëssel",
+        "house_members": "Hausmemberen",
+        "change_password": "Passwuert änneren",
+        "backup": "Backup",
+        "export_data": "Exportdaten",
+        "import_data": "Importdaten",
+        "notifications": "Notifikatiounen",
+        "appearance": "Erscheinung",
+        "version": "Versioun",
+        "search_language": "Sichsprooch...",
+        "popular_languages": "Populär Sproochen",
+        "search_results": "Sichresultater",
+        "current_language": "Aktuell Sprooch",
+        "languages_available": "Verfügbar Sproochen"
     },
     "inventory": {
         "title": "Inventar",
@@ -588,8 +956,25 @@
             "history_active": "Op record fir {{name}}",
             "history_returned": "Gespaart Rekord fir {{name}}",
             "returned_at": "Zuréckginn den: {{date}}",
-            "no_history": "Et gëtt nach keng Prêtgeschicht fir dëst Artikelt."
-        }
+            "no_history": "Et gëtt nach keng Prêtgeschicht fir dëst Artikelt.",
+            "lend_success_title": "Verlieft Artikel",
+            "lend_success_body": "{{item}} ass elo als ausgeléint markéiert."
+        },
+        "untitled_item": "Onbenannt Artikel",
+        "delete_action": "Artikel läschen",
+        "delete_title": "Dëse Artikel läschen?",
+        "delete_description": "Dëst läscht den Artikel aus dem Haushaltsinventar. Benotzt dëst nëmmen wann Dir sécher sidd, datt en net an der Geschicht soll bleiwen.",
+        "delete_warning": "Fotoen, Beschreiwung an Plazéierungsdetailer verbonne mam Dossier ginn aus der aktiver Inventarperspektiv ewechgeholl.",
+        "delete_success_title": "Artikel geläscht",
+        "delete_success_body": "Den Artikel gouf aus dem aktive Haushaltsinventar ewechgeholl.",
+        "view_mode": "Artikellayout",
+        "grid_view": "Grid",
+        "list_view": "Lëscht",
+        "loading_description": "Virbereedung vun Artikelen, Zëmmeren an Filteren.",
+        "category_filter_label": "No Kategorie filteren",
+        "room_filter_label": "No Zëmmer filteren",
+        "refreshing_results": "Artikelen ginn erfrëscht...",
+        "empty_filter_title": "Keen Artikel huet deem Sichen entspriechend fonnt"
     },
     "categories": {
         "title": "Kategorien",
@@ -601,7 +986,42 @@
         "icon_label": "Ikon",
         "color_label": "Faarf",
         "delete_confirm": "Sidd Dir sécher, datt Dir dës Kategorie läsche wëllt?",
-        "delete_error": "Läschfeeler"
+        "delete_error": "Läschfeeler",
+        "edit_action": "Kategorie änneren",
+        "delete_action": "Kategorie läschen",
+        "delete_title": "Dës Kategorie läschen?",
+        "delete_description": "Eng Kategorie ze läschen kann beaflossen, wéi Objeten zesummegefaasst a spéider fonnt ginn.",
+        "delete_warning": "Objeten, déi dës Kategorie scho benotzen, mussen eventuell nei zougewise ginn, fir Filteren a Zuelen kloer ze behalen.",
+        "delete_success_title": "Kategorie geläscht",
+        "delete_success_body": "D'Kategorie gouf aus Ärer Inventarstruktur erofgeholl.",
+        "defaults": {
+            "kitchen": "Kichen",
+            "electronics": "Elektronik",
+            "hobbies": "Hobbien",
+            "furniture": "Miwwelen",
+            "clothing": "Kleeder",
+            "books": "Bicher",
+            "tools": "Wierkzeeger",
+            "sports": "Sport",
+            "other": "Aner"
+        },
+        "add": "Kategorie derbäisetzen",
+        "edit": "Edit Kategorie",
+        "delete": "Kategorie läschen",
+        "name": "Kategorie-Numm",
+        "icon": "Ikon",
+        "color": "Faarf",
+        "item_count": "Zuel vun den Artikelen",
+        "no_categories": "Nach keng Kategorien derbäigesat",
+        "confirm_delete": "Bass du sécher, datt s du dës Kategorie wëlls läschen?",
+        "added": "Kategorie derbäigesat",
+        "updated": "Kategorie aktualiséiert",
+        "deleted": "Kategorie geläscht",
+        "not_found": "Kategorie net fonnt",
+        "name_required": "Kategorie-Numm ass erfuerderlech",
+        "load_error": "Feeler-Lueden Kategorien",
+        "add_error": "Feeler-Addiéierungskategorie",
+        "update_error": "Feeler-Aktualiséierungskategorie"
     },
     "rooms": {
         "title": "Raim",
@@ -614,10 +1034,71 @@
         "name_placeholder": "z.B. Haaptschlofzëmmer",
         "desc_placeholder": "z.B. Haapt-Schlofzëmmer",
         "delete_confirm": "Sidd Dir sécher, datt Dir dëse Raum läschen wëllt?",
-        "delete_error": "Läschfehler"
+        "delete_error": "Läschfehler",
+        "edit_action": "Raum änneren",
+        "delete_action": "Raum läschen",
+        "delete_title": "Dëse Raum läschen?",
+        "delete_description": "Eng Raum läschen kann d'Plazen vun Objeten manner kloer maachen bis si nei zougewisen ginn.",
+        "delete_warning": "Objeten, déi hei zougewisen sinn, brauchen eventuell en neien Raum, sou datt Sich, Zuelen, an Placementgeschicht vertrauenswierdeg bleiwen.",
+        "delete_success_title": "Raum geläscht",
+        "delete_success_body": "D'Zëmmer gouf ewechgeholl a bezunn Artikelen kënnen elo nei zougewise ginn.>>>Dashboard>>>Status>>>Benotzer sperren>>>Benotzerzougang restauréieren>>>Dëse Benotzer sperren?>>>E Benotzer direkt ze sperren blokkéiert de Zougang bis en Admin en erëm restauréiert.>>>De Benotzer verléiert de Zougang bis en anere Admin en explizit restauréiert.",
+        "defaults": {
+            "living_room": {
+                "name": "Wunnzëmmer",
+                "description": "Haaptalltagsberäich"
+            },
+            "bedroom": {
+                "name": "Schlofkummer",
+                "description": "Schloof- an Entspanungsberäich"
+            },
+            "kitchen": {
+                "name": "Kichen",
+                "description": "Liewensmëttelvirbereedungsberäich"
+            },
+            "bathroom": {
+                "name": "Bad",
+                "description": "Botz- an Betreiungsberäich"
+            },
+            "office": {
+                "name": "Büro",
+                "description": "Fokuséiert Aarbechtsberäich"
+            },
+            "kids_room": {
+                "name": "Kannerzëmmer",
+                "description": "Kanderschlofzëmmer"
+            },
+            "garage": {
+                "name": "Garage",
+                "description": "Gefier- an Späicherberäich"
+            },
+            "balcony": {
+                "name": "Bësch",
+                "description": "Outdoor-Erweiderungsberäich"
+            },
+            "storage": {
+                "name": "Späicher",
+                "description": "Allgemeng Späicherberäich"
+            }
+        },
+        "add": "Füügt Plaz derbäi",
+        "edit": "Raum änneren",
+        "delete": "Läschen-Zëmmer",
+        "name": "Zëmmernumm",
+        "icon": "Ikon",
+        "item_count": "Zuel vun den Artikelen",
+        "no_rooms": "Nach keng Zëmmeren derbäigesat",
+        "confirm_delete": "Bass de sécher, dass de dëse Raum wëlls läschen?",
+        "added": "Zëmmer derbäigesat",
+        "updated": "Zëmmer aktualiséiert",
+        "deleted": "Zëmmer geläscht",
+        "not_found": "Zëmmer net fonnt",
+        "name_required": "Zëmmernumm ass erfuerderlech",
+        "load_error": "Feeler-Luedraim",
+        "add_error": "Feeler Plaz derbäisetzen",
+        "update_error": "Feeler-Aktualiséierungsraum"
     },
     "admin": {
-        "title": "Admin Panel",
+        "title": "Administratiounspanel",
         "subtitle": "Systemmanagement a Iwwerwaachung",
         "refresh": "Aktualiséieren",
         "tabs": {
@@ -651,14 +1132,81 @@
             "ban_apply": "verbueden",
             "confirm_delete_1": "Sidd Dir sécher, datt Dir de Benotzer \"{{username}}\" wëllt läschen?",
             "confirm_delete_2": "⚠️ WARNUNG: Dëst läscht PERMANENT ALL Daten (Inventairen, Zëmmeren, Kategorieën) vum Benotzer \"{{username}}\"!",
-            "confirm_delete_3": "🚨 LESCHT WARNUNG: Kont \"{{username}}\" an all Daten ginn IRREVERSIBEL geläscht. Wëllt Dir weiderfueren?"
+            "confirm_delete_3": "🚨 LESCHT WARNUNG: Kont \"{{username}}\" an all Daten ginn IRREVERSIBEL geläscht. Wëllt Dir weiderfueren?",
+            "ban_action": "Benotzer sperren",
+            "unban_action": "Benotzerzougang erëmherstellen",
+            "ban_title": "Dëse Benotzer sperren?",
+            "ban_description": "D'Blockéiere vun engem Benotzer blockéiert den Zougang direkt, bis en Admin en erëmherstellt.",
+            "ban_warning": "De Benotzer verléiert den Zougang bis e weidere Admin en explizit erëmherstellt.",
+            "unban_title": "Dëse Benotzer erëm herstellen?",
+            "unban_description": "Accès widderherstellen erlaabt dësem Benotzer erëm unzemellen.",
+            "unban_warning": "De Benotzer kritt Accès bei der nächster erfollegräicher Umeldung zréck.",
+            "delete_title": "Dëst Kont läschen?",
+            "delete_description": "D' Läschung vu {{username}} läscht permanent d'Kont an d'Donnéeën vum Inventaire vum Besëtz.",
+            "delete_warning": "Dës Aktioun ass onréckgängeg an läscht Zëmmeren, Kategorien, Objeten an d'Zougehéieregeschicht déi mam Kont verbonne sinn.",
+            "ban_success_title": "Benotzer gespaart",
+            "ban_success_body": "{{username}} gouf vum Umellen gespaart.",
+            "unban_success_title": "Zougang erëmhergestallt",
+            "unban_success_body": "{{username}} kann erëm ageloggt ginn.",
+            "delete_success_title": "Kont geläscht",
+            "delete_success_body": "{{username}} an déi zougehéierende besëtzt Daten goufen dauerhaft ewechgeholl.",
+            "section_title": "Benotzerzougrëffskontroll",
+            "search_label": "Benotzer sichen",
+            "search_placeholder": "No Benotzernumm sichen",
+            "filtered_total": "{{count}} sichtbar Konten",
+            "total_platform": "{{count}} Total Konten",
+            "empty_title": "Keng passend Konten",
+            "empty_body": "Probéiert eng aner Sich oder Filter fir d'Benotzer nees ze weisen.",
+            "filters": {
+                "all": "All Aktiv Gespaart Administratoren Keng rezent Systemfeeler {{date, datetime}} System Ausgaang E-Mail Status",
+                "active": "Aktiv",
+                "banned": "Verbuet",
+                "admin": "Administrateuren"
+            },
+            "protected_admin": "Geschützt Administrateurkonto",
+            "private_contact_hidden": "Privat Kontaktinformatiounen bleiwen vum Administrateur Iwwerbléck verstoppt.",
+            "no_last_login": "Nach keng Umeldung",
+            "section_body": "Sich Konten, iwwerpréift hire aktuellen Zoustand, an hëlt Aktiounen ouni de Kontext ze verléieren.",
+            "section_eyebrow": "Moderatioun",
+            "no_date": "Onbekannt",
+            "joined_label": "Bäigetrueden",
+            "last_seen_label": "Lescht Umellen",
+            "households_label": "Haushaltestaken",
+            "items_label": "Besëtzt Saache",
+            "last_seen_short": "Gekuckt",
+            "last_seen_short_never": "Neit"
         },
         "logs": {
             "title": "Admin Logbicher",
             "no_logs": "nach keng Logbicher",
             "errors_title": "Systemfeeler (Lescht 10)",
             "no_errors": "// System gesond, keng Feelerlogbicher.",
-            "date_fmt": "{{date, datetime}}"
+            "date_fmt": "{{date, datetime}}",
+            "type": {
+                "email": "E-Mail",
+                "user": "Benotzer",
+                "system": "System",
+                "event": "Evenement"
+            },
+            "action": {
+                "send": "Schécken",
+                "delete": "Läschten",
+                "update": "Aktualiséieren",
+                "create": "Erstelle",
+                "enable": "Aktivéiert",
+                "disable": "Desaktivéiert"
+            },
+            "audit": {
+                "email_sent": "Empfänger: {{recipient}} | Betreff: {{subject}}",
+                "user_deleted": "Benotzer geläscht: {{username}} | Geläschte Wunnenge: {{deletedHouses}} | Iwwerdroe Eigentümerrechter: {{transferredOwnerships}}",
+                "user_target": "Benotzer: {{username}}",
+                "indexnow_submitted": "IndexNow Iwwerpréiwung erfollegräich. URL Zuel: {{count}}"
+            },
+            "no_errors_title": "No rezent Systemfeeler",
+            "section_eyebrow": "Audit Spuer",
+            "errors_eyebrow": "Diagnostik",
+            "section_body": "All Mëttelung oder operativ Ännerung, déi vun der Adminschicht opgeholl gouf.",
+            "errors_body": "Déi lescht analyséiert Feelerzeilen aus den Server-Logdateien."
         },
         "email": {
             "title": "E-Mail schécken",
@@ -669,12 +1217,122 @@
             "send": "Schécken",
             "sending": "Schéckt...",
             "success": "E-Mail erfollegräich geschéckt!",
-            "error": "Umellen gescheitert"
-        }
+            "error": "Umellen gescheitert",
+            "compose_eyebrow": "Noriicht",
+            "compose_body": "Komponéiert eng eenzeg ausgaang E-Mail mat séchere HTML-Formatéierung an Plattformbranding.",
+            "security_title": "Séchert verschécken",
+            "security_body": "Admin: {{username}} • Limit: {{remaining}}/3 E-Mailen pro Minutt",
+            "from_unconfigured": "Disponibel no E-Mail-Astellunge",
+            "notes_label": "Notzungsnotiz",
+            "notes_body": "Benotzt dëst fir operativ Ënnerstëtzung oder Kont-bezunnen Aussoe. Sensibel Inhalt soll sou wäit wéi méiglech an der App bleiwen.",
+            "notes_body_with_rate_limit": "Benotzt dëst fir operativ Ënnerstëtzung oder Kont-bezunnen Aussoe. Sensibel Inhalt soll sou wäit wéi méiglech an der App bleiwen. Aktuell Versand-Sécherheetsmoossnam: {{rateLimit}}.",
+            "rate_limit_fallback": "3 E-Mailen pro Minutt",
+            "placeholder_to": "name@example.com",
+            "placeholder_subject": "Message Betreff",
+            "send_success_with_id": "✅ E-Mail gouf erfollegräich geschéckt! ID: {{emailId}}",
+            "send_error": "E-Mail konnt net geschéckt ginn",
+            "rate_limit_reached": "⏳ Tauxlimit erreecht. Wéilt w.e.g. 1 Minutt waarden.",
+            "info_title": "Informatioun",
+            "info_bullet_1": "E-Maile ginn geschéckt vun {{supportEmail}}",
+            "info_bullet_2": "Dir kënnt maximal 3 E-Maile pro Minutt verschécken fir Spam ze verhënneren",
+            "info_bullet_3": "All Sendungen ginn aus Sécherheetsgrënn geloggt, Inhalt ausgeholl",
+            "status_title": "Status vun ausgehender Email",
+            "status_body": "A quick confidence check before sending operational communication.",
+            "unconfigured_title": "E-Mail Liwwerung ass net konfiguréiert",
+            "unconfigured_body": "De Sendformular bleift sichtbar fir d'Iwwerpréiwung vun der Setup, mee d'Liwwerung wäert fehllen bis de Mailprovider konfiguréiert ass.",
+            "status_eyebrow": "Liwwerung"
+        },
+        "overview": {
+            "email_warning_title": "E-Mail Liwwerung ass net konfiguréiert",
+            "sections": {
+                "governance_title": "Gouvernance Snapshot",
+                "activity_title": "Rezent Admin Aktivitéit",
+                "governance_eyebrow": "Zougrëff",
+                "governance_body": "Fokus op Moderatiounsdrock, geschützte Adminsëtzplazen, an Hauszouganksufroe ouni d'Page ze verloossen.",
+                "footprint_eyebrow": "Inventar",
+                "footprint_title": "Inventar Foussofdrock",
+                "footprint_body": "Eng global Vue wéi vill Struktur an Inhalt aktuell am Produkt existéiert.",
+                "activity_eyebrow": "Auditéierung",
+                "activity_body": "Déi lescht Moderatiouns- an Operatiounsaktiounen, déi vun der Plattform enregistréiert goufen.",
+                "recent_users_eyebrow": "Nei Benotzerkonten",
+                "recent_users_title": "Lescht Aschreiwungen",
+                "recent_users_body": "E séiere Bléck op wien rezent bäikomm ass an ob se sech scho ageloggt hunn.",
+                "recent_users_private_note": "Privat Kontaktinformatiounen bleiwen verstoppt.",
+                "recent_users_empty_title": "Nach keng Benotzer",
+                "recent_users_empty_body": "Wann Leit sech aschreiwen, erschéngen déi lescht Konten hei."
+            },
+            "summary": {
+                "admin_seats": "Geschützte Admin-Sëtzer",
+                "admin_seats_body": "Konten déi Zougang zur Admin-Oberfläche hunn.",
+                "banned_accounts": "Verbuet Konten",
+                "banned_accounts_body": "Benotzer déi aktuell vum Umellen blockéiert sinn.",
+                "locked_accounts": "Temporär gespaart",
+                "locked_accounts_body": "Konten gespaart wéinst widderhuelte gescheiterte Umeldungsversich.",
+                "pending_households": "Awaander Geneemegunge am Pendel",
+                "pending_households_body": "Uschléi fir beizetrieden waarden op d’Entscheedung vum Proprietär.",
+                "rooms_global": "Konfiguréiert Raumdateien",
+                "rooms_global_body": "All Raumdefinitiounen déi an allen Haushalter gespäichert sinn.",
+                "categories_global": "Konfiguréiert Kategorie-Rekorder",
+                "categories_global_body": "All Kategorie-Definitiounen déi an allen Haushalter gespäichert sinn.",
+                "locations_global": "Gespäichert Plazen",
+                "locations_global_body": "Numméiert Plazrekorder déi an de Räim erstallt goufen.",
+                "active_borrows": "Aktiiv Entléinungen",
+                "active_borrows_body": "Entleenen-Rekorder déi nach op sinn."
+            },
+            "email_warning_body": "Administrateuren kënnen nach ëmmer d'Plattform iwwerpréiwen, mee E-Mail-Aktiounen an d'Fräi ginn aktuell net verfügbar bis Resend konfiguréiert ass.",
+            "locked_users_title": "Gespaart Konten brauchen Iwwerpréiwung",
+            "locked_users_body": "{{count}} Kont(en) sinn aktuell gespaart fir anzemellen.",
+            "pending_requests_title": "Geneemegungen vum Haus sinn nach am Gaangen",
+            "pending_requests_body": "{{count}} Memberufroen waarden op eng Bescheedung vum Proprietär.",
+            "cards": {
+                "accounts": "Konten",
+                "accounts_body": "{{count}} nei Umeldungen an den leschten 7 Deeg",
+                "admins_chip": "{{count}} Administrateuren",
+                "banned_chip": "{{count}} gespaart",
+                "households": "Haushalte",
+                "households_body": "{{count}} aktiv Memberchaften op der ganzer Plattform",
+                "pending_chip": "{{count}} ausstänneg",
+                "inventory": "Inventaire-Rekorder",
+                "inventory_body": "{{count}} aktiv Lounen elo op",
+                "public_items_chip": "{{count}} gedeelt",
+                "private_items_chip": "{{count}} privat",
+                "system": "Systemgesondheet",
+                "system_body": "{{count}} Stonnen Uptime",
+                "storage_chip": "{{count}} MB Uploads"
+            }
+        },
+        "meta": {
+            "users_total": "{{count}} Konten",
+            "households_total": "{{count}} Haushalte",
+            "pending_requests": "{{count}} ausstehend Geneemegungen",
+            "pending_requests_clear": "Keng ausstehend Geneemegungen"
+        },
+        "refresh_complete_title": "Administrateur Daten aktualiséiert",
+        "refresh_complete_body": "Déi lescht Administrateur Daten sinn elo um Écran.",
+        "ban_user": "Verbuet",
+        "unban_user": "Entbann",
+        "delete_user": "Benotzer läschen",
+        "reset_attempts": "Reset-Versich",
+        "total_users": "Total Benotzer",
+        "total_items": "Total Artikelen",
+        "server_uptime": "Server-Uptime",
+        "memory_usage": "Gedächtnisbenotzung",
+        "users_loaded": "Benotzer gelueden",
+        "user_banned": "Benotzer gespaart",
+        "user_unbanned": "Benotzer entbannt",
+        "user_deleted": "Benotzer geläscht",
+        "attempts_reset": "Net erfollegräich Login-Versich zréckgesat",
+        "stats_loaded": "Statistiken gelueden",
+        "logs_loaded": "Logs gelueden",
+        "load_error": "Feelerlueden Donnéeën",
+        "action_error": "Feeler-Ausféierungsaktioun"
     },
     "landing": {
         "nav": {
-            "login": "Umellen"
+            "login": "Umellen",
+            "features": "Eegenschaften",
+            "security": "Sécherheet",
+            "details": "Detailer"
         },
         "hero": {
             "title_1": "Gestioun vun allem",
@@ -684,10 +1342,12 @@
             "cta_register": "Kont erstellen",
             "stat_free": "Gratis",
             "stat_access": "Zougang",
-            "free_badge": "Vollstänneg gratis"
+            "free_badge": "Vollstänneg gratis",
+            "badge": "HomeInventory v2.0 ass hei",
+            "cta_explore": "Entdecken Funktiounen"
         },
         "features": {
-            "title": "Firwat <1>{{brandName}}</1>?",
+            "title": "Why <1>HomeInventory</1>?",
             "subtitle": "All Funktiounen fir Heemverwaltung op enger Plattform ze vereinfachen",
             "items": {
                 "categorize": {
@@ -727,7 +1387,166 @@
             "contact": "Kontaktéiert eis",
             "copyright": "© {{year}} {{brandName}}. All Rechter virbehalen."
         },
-        "preview_privacy_notice": "Demo Vue: keng reell Benotzerdaten ginn ugewisen."
+        "preview_privacy_notice": "Demo Vue: keng reell Benotzerdaten ginn ugewisen.",
+        "sections": {
+            "capabilities": "PRODUKTFÄEGKEETEN",
+            "capabilities_heading": "Alles wat s du fir e gutt gefouert Haus brauchs.",
+            "security_eyebrow": "Entreprise-Sécherheet",
+            "security_heading": "Äert Privatliewen bleift privat.",
+            "recovery_setup": "Erhuelungsschlëssel-Astellung",
+            "updated": "Lescht aktualiséiert viru 2 Deeg",
+            "authenticator_required": "Erfuerdert Authenticator App",
+            "about": "IWWERT",
+            "workflow": "HEEM-WORKFLOW",
+            "workflow_heading": "Eng méi roueg Manéier fir ze managen, wat Äert Haus enthält.",
+            "ready": "BEREET FIR UNZEFÄNKEN",
+            "ready_heading": "Baut e méi rouegt, besser organiséiert Heemsystem op.",
+            "hero_vault_caption": "Verschlësselt a sécher",
+            "security_status": "Aktiv"
+        },
+        "about": {
+            "headline": "E Open-Source, méisproochegt, sécherheetsorientéiert System fir d'Verwaltung vun Ärem Inventaire doheem.",
+            "description": "HomeInventory ass net nëmmen eng poléiert Interface; et ass e praktescht System, entwéckelt fir den Alldag, vu Barcode- a QR-Flëss bis zu Multi-Haus-Deelen, Ausléinen, Personal Vault an Backups."
+        },
+        "homeinventory": {
+            "hero": {
+                "statement": "Wëss wat Dir besëtzt. Fannt et ouni Reibung.",
+                "statementAccent": "Deelen Inventaire fir de Haushalt. Perséinlechen Tresor just fir Iech.",
+                "description": "Halt Saachen, Garantien, wichteg Dokumenter an Lounverfolgung op enger roueger Plaz. Kuckt wat Äert Heem op e Bléck enthält.",
+                "primaryCta": "Gratis starten",
+                "secondaryCta": "Produkt kucken",
+                "trustSignal": "Vollstänneg gratis • Fir de gemeinsame Hausbrauch gemaach • Sensibel Donnéeën bleiwen am Perséinleche Tresor getrennt",
+                "searchPlaceholder": "Sich no engem Artikel, Raum oder Sträifecode"
+            },
+            "heroInventoryRows": [
+                {
+                    "name": "Loftfrittéierer",
+                    "meta": "Kächthek • Garantie 08/2028",
+                    "state": null
+                },
+                {
+                    "name": "Drillsatz",
+                    "meta": "Späicherschaf • 14 Stécker",
+                    "state": "ausgeléint"
+                },
+                {
+                    "name": "Mesh Eenheet",
+                    "meta": "TV Konsole • Deco M4",
+                    "state": null
+                },
+                {
+                    "name": "Ersatz Dier Schlëssel",
+                    "meta": "Entrée Schacht",
+                    "state": null
+                },
+                {
+                    "name": "Boiler Garantie PDF",
+                    "meta": "Dokumenter • PDF ugefaangen",
+                    "state": null
+                },
+                {
+                    "name": "HEPA Filter",
+                    "meta": "Kannerzëmmer • Ersetze 11/2026",
+                    "state": null
+                }
+            ],
+            "features": {
+                "eyebrow": "FIRWAT HOMEINVENTORY",
+                "heading": "Wësse wat Dir hutt mécht d'Liewe doheem méi einfach ze verwalten.",
+                "description": "D'Lëscht déi gedeelt gëtt hält den deegleche Inventaire kloer, während Personal Vault sensibel Rekorder aus dem Bléck hält."
+            },
+            "productLanes": [
+                {
+                    "eyebrow": "Gedeelte Inventaire",
+                    "title": "Kuck wat däin Heem an engem kloere Plaz enthält.",
+                    "description": "Organiséier Saachen no Raum, befestegt Garantie- an Notizen, a fannt wat s du an Sekonnen brauch.",
+                    "signal": "Alldag Notzung",
+                    "metric": "Schnell Sich",
+                    "note": "Rummen • Kategorien • Garantie Notizen"
+                },
+                {
+                    "eyebrow": "Prêt Verfollegung",
+                    "title": "Weess ëmmer wien wat am Haus huet.",
+                    "description": "Prêt Saachen bleiwen am Rekord, sou datt näischt um Wee verluer geet.",
+                    "signal": "Zesumme benotzt",
+                    "metric": "Kloer Geschicht",
+                    "note": "Memberen vum Haus • Prêt Geschicht • Botz Follow-up"
+                },
+                {
+                    "eyebrow": "Perséinlechen Tresor",
+                    "title": "Pässporten, Aktë an Coden bleiwen ausser der gemeinsamer Sich.",
+                    "description": "Sensibel Rekorder si nëmmen fir Iech sichtbar an bleiwen getrennt vun der deeglecher Lëscht.",
+                    "signal": "Privatrekorder",
+                    "metric": "Nëmmen Dir kënnt se gesinn",
+                    "note": "Dokumenter • Zougangscoden • perséinlech Notizen"
+                }
+            ],
+            "security": {
+                "eyebrow": "MAT ZOUVERLÄSSIGKEET NOTZEN",
+                "heading": "Gemeinsamer Sich erreecht ni privat Rekorder.",
+                "description": "Perséinleche Safe bleift getrennt vum gemeinsamen Inventar a gëtt mat geschichteter Kontsécherheet geschützt.",
+                "bullets": [
+                    "Sensibel Felder gi getrennt gehandhabt a sécher gespäichert.",
+                    "Zougang schützen mat 2FA, Backupcoden a verlässlechen Apparater."
+                ]
+            },
+            "about": {
+                "eyebrow": "DIR BLEIFT AN DER KONTROLL",
+                "heading": "HomeInventory ass entworf fir sech roueg, nëtzlech a vertrauenswierdeg am Alldag ze fillen.",
+                "description": "D'Prioritéit ass Iech ze hëllefen ze wëssen wat Dir besitzt an d'richteg Informatioun schnell z'erreechen. Technesch Transparenz bleift verfügbar, mee et muss net d'Geschicht féieren.",
+                "pills": [
+                    "Vollstänneg gratis",
+                    "Shared household use",
+                    "Perséinlech Tresor",
+                    "Vollstänneg gratis"
+                ],
+                "strips": [
+                    {
+                        "title": "Dir kënnt appréciéiere mat der kompletter Kär-Erfarung ouni ze bezuelen fir Iech z'organiséieren.",
+                        "description": "Alles ass aktuell gratis; Dir kënnt all HomeInventory-Funktioune benotzen ouni ze bezuelen.",
+                        "number": "01"
+                    },
+                    {
+                        "title": "Familljememberen kënnen d'selwecht Hausinventar zesummen kucken an ënnerhalen.",
+                        "description": "Dokumenter an Garantien",
+                        "number": "02"
+                    },
+                    {
+                        "title": "Bewaart Quitten, Garantiedetailer an Service-Notizen no bei all Element.",
+                        "description": "Privatënnerlagen bleiwen getrennt",
+                        "number": "03"
+                    },
+                    {
+                        "title": "Private records stay separate",
+                        "description": "Sensibel Informatioun bleift ausserhalb vun der gedeelt Lëscht a bleift nëmmen fir Iech sichtbar.",
+                        "number": "04"
+                    }
+                ],
+                "advanced": {
+                    "eyebrow": "Technesch Detailer",
+                    "title": "Transparent vum Design, roueg am Hannergrond.",
+                    "description": "Fir jiddereen, deen sech fir d'Grondsätz vum Set-up interesséiert, hält HomeInventory nach ëmmer säi Open-Source-Kär, MIT-Lizenz, an d'Flexibilitéit fir eegen Hosting als ënnerstëtzend Detailer verfügbar.",
+                    "link": "Kuckt d'technesch Detailer op GitHub"
+                }
+            },
+            "cta": {
+                "eyebrow": "FIR HAUT STARTEN",
+                "heading": "Schaaft Äre éischte Raum. Füügt Äert éischt Objet derbäi.",
+                "description": "Ufangen ass gratis, a et brauch nëmme puer roueg Minutten fir e kloerere Heemsystem opzebauen."
+            },
+            "security_panel": {
+                "eyebrow": "Ofgegrenzten Zougang",
+                "title": "Privat Rekorder erschéngen ni an der gemeinsamer Lëscht",
+                "description": "Päss, Akten an Accès-Coden bleiwen getrennt vum gemeinsame Wuerebestand. Vault Donnéeën ginn verschlësselt gespäichert.",
+                "vault_scope": "Reechwäit vum Vault",
+                "identity_docs": "Identitéitsdokumenter",
+                "identity_docs_meta": "Päss, Identitéitskaarten",
+                "property_records": "Wunnengsrekorder",
+                "property_records_meta": "Akten, Loyerkontrakter",
+                "access_codes": "Accès-Coden",
+                "access_codes_meta": "Passwierder, PINs"
+            }
+        }
     },
     "intro": {
         "inventory": {
@@ -749,7 +1568,19 @@
             "next": "Nächste",
             "skip": "Iwwergoen",
             "open": "Opmaachen"
-        }
+        },
+        "inventory_title": "Inventar",
+        "inventory_desc": "Füügt Är Artikelen hei derbäi a lëscht se op. Verfollegt all Är Heemsaachen op enger Plaz!",
+        "house_key_title": "Hausschlëssel",
+        "house_key_desc": "Dat ass däi Hausschlëssel, benotz en fir anerer anzelueden. Füügt Familljememberen an Äert Haus derbäi!",
+        "categories_title": "Kategorien",
+        "categories_desc": "Organiséiert Är Artikelen an Kategorien. Elektronik, Miwwelen, Kichen an nach vill méi!",
+        "back": "Zréck",
+        "close": "Zoumaachen",
+        "last": "Ofschloss",
+        "next": "Nächst",
+        "open": "Op",
+        "skip": "Iwwerspringen"
     },
     "google_house_select": {
         "title": "Wëllkomm!",
@@ -803,7 +1634,8 @@
         "found_item_redirect": "Artikel fonnt! Weidergeleet...",
         "found_page_redirect": "Säit fonnt! Weidergeleet...",
         "invalid_qr": "Dëse QR-Code ass net fir dës App.",
-        "not_found": "Produit net fonnt. Probéier e bësse Sträifcode."
+        "not_found": "Produit net fonnt. Probéier e bësse Sträifcode.",
+        "qr_subtitle": "Benotzt dëst nëmme fir HomeInventory Artikel QR Labels."
     },
     "item_qr": {
         "hint_mobile": "📱 Scan dëse QR-Code mat Ärem Telefon fir schnell op den Artikel zouzegräifen",
@@ -813,7 +1645,29 @@
         "copy_url": "URL kopéieren",
         "download": "QR eroflueden",
         "usage_title": "Benotzung",
-        "usage_desc": "Dréckt de QR-Code an pecht en op den Artikel. Scan mat Ärem Telefon fir direkt op dës Säit zouzegräifen!"
+        "usage_desc": "Dréckt de QR-Code an pecht en op den Artikel. Scan mat Ärem Telefon fir direkt op dës Säit zouzegräifen!",
+        "caption": "Artikellink",
+        "caption_hint": "Kopéiert oder dréckt de direkte Artikellink wann Dir séier Zougang braucht.",
+        "format_badge": "SVG Export",
+        "link_preview_label": "Direkt Elementlink",
+        "link_preview_aria": "Virschau vum direkten Elementlink",
+        "copy_url_safe": "Link kopiéieren",
+        "copy_url_aria": "Elementlink kopiéieren",
+        "actions_title": "Deeleaktiounen",
+        "actions_desc": "Kopéiert den direkten Elementlink oder späichert en kloer QR-Asset fir Dréckerei.",
+        "copy_success_title": "QR-Link kopéiert",
+        "copy_success_body": "Den Editlink vum Element ass prett fir gedeelt ze ginn wann Dir en braucht.",
+        "copy_error": "De QR-Link konnt net kopéiert ginn. QR-Code eroflueden QR erofgeluede gouf D'QR-Bild gouf mat engem deelen-väerndleche Dateinumm gespäichert. De QR-Code konnt momentan net generéiert ginn. Privatsphär Notizen Netzwierk Detailer bleiwen verstoppt bis Dir d'Instruktioune braucht. D'Adress vum Netzwierk bleift hei verstoppt. Scannt de Code oder kopéiert de Link nëmmen wann Dir bewosst wëllt direkt Zougang zu engem Objet an Ärem lokalen Setup deelen.",
+        "download_aria": "QR Code eroflueden",
+        "download_success_title": "QR erofgeluede",
+        "download_success_body": "D'QR Bild gouf mat engem deelenfrëndlechen Dateinumm gespäichert.",
+        "render_error": "De QR Code konnt aktuell net generéiert ginn.",
+        "privacy_title": "Privatsphärenotizen",
+        "privacy_summary": "Netzwierkdetailer bleiwen verstoppt bis Dir d'Instruktioune braucht.",
+        "link_privacy_note": "D'Netzwierkadress bleift hei verstoppt. Scannt de Code oder kopéiert de Link nëmmen wann Dir bewosst direkten Zougang zu Itemen op Ärem lokale Setup deele wëllt.",
+        "helper": "Scan to open this item instantly, or copy the direct link when needed.",
+        "copy_error_title": "Link could not be copied automatically",
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
     },
     "house_access_pending": {
         "eyebrow": "Zougang zum Haus",
@@ -873,7 +1727,7 @@
             ],
             "fallback": "De Link fir d'Passwuert zréckzesetzen schéngt onvollstänneg oder zerstéiert.",
             "support": "Aschreiwungsproblemer:",
-            "footer": "© 2026 {{brandName}} © 2026 {{brandName}} {{brandName}} - {{status}} © 2026 {{brandName}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
             "subject": "Wëllkomm bei {{brandName}}",
@@ -903,7 +1757,12 @@
             "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Zougang zum Haus",
             "bodyLine1Template": "Aktuell ausstehend Ufro: {{house}} ({{status}})",
-            "bodyLine2": "Är Ufro fir \"{{house}}\" waart nach op eng Entscheedung."
+            "bodyLine2": "Är Ufro fir \"{{house}}\" waart nach op eng Entscheedung.",
+            "statusLabels": {
+                "approved": "genehmegt",
+                "rejected": "ofgeleent",
+                "updated": "aktualiséiert"
+            }
         },
         "houseKick": {
             "subject": "Member aus dem Haus ewechgeholl",
@@ -925,6 +1784,16 @@
         "adminEmail": {
             "sentBy": "Dësen E-Mail gouf vum {{brandName}} geschéckt.",
             "footer": "© 2026 {{brandName}} - {{supportEmail}}"
+        },
+        "testEmail": {
+            "subject": "🧪 {{brandName}} Test E-Mail",
+            "headerTitle": "🧪 Test E-Mail",
+            "successTitle": "De E-Mail-System funktionéiert",
+            "successBody": "Wann Dir dës E-Mail kritt hutt, ass d'E-Mail-Lieferung vun {{brandName}} korrekt konfiguréiert.",
+            "sentAtLabel": "Geschéckt um",
+            "senderLabel": "Sender",
+            "serviceLabel": "Déngscht",
+            "footer": "© 2026 {{brandName}}"
         }
     },
     "vault": {
@@ -983,13 +1852,35 @@
             "delete_failed": "De Schaf-Record konnt net geläscht ginn.",
             "decrypt_failed": "De Schaf-Inhalt konnt net entschlësselt ginn.",
             "name_required": "Eng Artikel-Iddi gëtt fir e Schaf-Record verlaangt.",
-            "options_failed": "Kategorie- a Raumoptiounen konnt net geluede ginn."
+            "options_failed": "Kategorie- a Raumoptiounen konnt net geluede ginn.",
+            "delete_success_title": "Tresor-Eintrag geläscht",
+            "delete_success_body": "De private Eintrag gouf dauerhaft aus Ärem Tresor ewechgeholl."
         },
         "recovery_file_title": "{{brandName}} Perséinleche Tresor Erhuelungsschlëssel",
         "recovery_file_created_label": "Ugeleeë",
         "recovery_file_key_label": "Erhuelungsschlëssel",
         "recovery_file_warning": "Wann Dir béid dëse Schlëssel an Äre Tresorpasswuert verléiert, kann de Tresor net erholl ginn.",
-        "media_note": "Fotoen eroplueden, Barcode scannen an extern Produkt no sichen ginn nach net ënnerstëtzt. Dës Funktiounen ginn dobäigesat, wann en dedizéierten verschlësselten Medien- an Privatsphärfluss fäerdeg ass. Zwei-Faktor-Authentifikatioun Füügt eng zousätzlech Sécherheetspositioun fir Äre Kont mat TOTP-baséierter 2FA Derbäi Aktiv 2FA aktivéieren 2FA deaktivéieren Zwei-Faktor-Authentifikatioun vun Ärem Kont ewechhuelen Zwei-Faktor-Authentifikatioun deaktivéieren"
+        "media_note": "Fotoen eroplueden, Barcode scannen an extern Produkt no sichen ginn nach net ënnerstëtzt. Dës Funktiounen ginn dobäigesat, wann en dedizéierten verschlësselten Medien- an Privatsphärfluss fäerdeg ass. Zwei-Faktor-Authentifikatioun Füügt eng zousätzlech Sécherheetspositioun fir Äre Kont mat TOTP-baséierter 2FA Derbäi Aktiv 2FA aktivéieren 2FA deaktivéieren Zwei-Faktor-Authentifikatioun vun Ärem Kont ewechhuelen Zwei-Faktor-Authentifikatioun deaktivéieren",
+        "delete_title": "Dëse Tresor-Eintrag läschen?",
+        "delete_description": "En perséinleche Tresor-Eintrag ze läschen läscht säin verschlësselte Inhalt permanent. Dës Aktioun kann net zréckgeholl ginn. Entfernt den Eintrag nëmmen, wann Dir en net méi an ärem privaten Tresor braucht. Tresor-Eintrag geläscht. Den privaten Eintrag gouf permanent aus ärem Tresor geläscht. Sprooch. Kont. Haiser. Sécherheet",
+        "delete_warning": "Dës Aktioun kann net retabléiert ginn. Ewechhuelen nëmme wann Dir et net méi an Ärem private Tresor braucht.",
+        "photo": {
+            "attach_action": "Foto derbäisetzen",
+            "replace_action": "Foto ersetzen",
+            "empty_state": "All ausgewielt Foto gëtt an Ärem Browser veraarbecht, vun Metadaten befreit an virum Upload verschlësselt.",
+            "hint": "Fotos ginn lokal an Ärem Browser virbereet, EXIF-Metadaten ginn ewechgeholl an nëmme verschlësselt Donnéeë ginn un de Server geschéckt.",
+            "privacy_note": "Barcode-Nokucken an extern Donnéeën ophalen bleiwe aus Datenschutzgrënn ausgeschalt.",
+            "processing": "Foto gëtt fir sécher Upload virbereet...",
+            "pending_removal": "D'aktuell Foto gëtt ewechgeholl wann Dir späichert.",
+            "viewer_hint": "Opgemaach vum verschlësselten Original deen am Personal Vault gespäichert ass.",
+            "viewer_loading": "Decrypting photo...",
+            "viewer_failed": "D'Foto an voller Gréisst konnt net opgemaach ginn.",
+            "open_full_action": "Voll Gréisst opmaachen",
+            "unsupported": "Wielt w.e.g. eng ënnerstëtzt Bilddatei.",
+            "source_too_large": "Quellfotos kënnen bis zu {{maxSizeMb}} MB grouss sinn.",
+            "prepare_failed": "D'Foto konnt net sécher virbereet ginn.",
+            "too_large": "D'Foto huet net an d'séchert Gréisstlimitt gepasst. Probéiert eng kleng oder méi einfach Bild."
+        }
     },
     "borrow_requests": {
         "title": "Prêtzentrum",
@@ -1010,7 +1901,9 @@
             "subtitle": "Wueren, déi aktuell bei Iech sinn oder vun Iech ausgeléint goufen",
             "empty": "Momentan ginn et keng aktive Lounungen.",
             "borrowed_from": "Gelount vun {{name}}",
-            "lent_to": "Momentan bei {{name}}"
+            "lent_to": "Momentan bei {{name}}",
+            "empty_title": "Momentan keng aktiv Verdengungen",
+            "empty_description": "Ugeholl Ufroen erschéngen hei, soubal eppes ausgeléint oder ausgeléint gouf, zesumme mat Datum fir widderzezréckginn an de Retourstatus."
         },
         "status": {
             "pending": "An Iwwerpréiwung",
@@ -1026,7 +1919,8 @@
             "accept": "Akzeptéieren",
             "reject": "Ofleenen",
             "cancel": "Annuléieren",
-            "fulfill_request": "Ufro erfëllen"
+            "fulfill_request": "Ufro erfëllen",
+            "open_inventory": "Oppen Inventaire"
         },
         "labels": {
             "offer": "Offeren",
@@ -1072,13 +1966,18 @@
         "preview": {
             "title": "Virschau-Modus",
             "body": "De Backend-Teil vun dëser Säit ass elo am lokalen Test net erreechbar. Dir kënnt awer nach ëmmer d'Layout an d'Floss éischt iwwerpréiwen; mir aktivéieren d'Server-Säit wann Dir se genehmegt hutt."
-        }
+        },
+        "subtitle_compact": "Verfollegt Ufroën, déi Dir geschéckt hutt, Ufroën déi op Iech waarden, an aktuell ausgeléint Artikelen.",
+        "incoming_empty_title": "Keng Ufroën erfuerderen Är Iwwerpréiwung",
+        "outgoing_empty_title": "Nach keng ausgoend Ufroën",
+        "refreshing": "Ufroen an aktiv ausgeléint erfrëschen...",
+        "loading_description": "Preparéiert Ufroën an aktiv ausgeléint Aktivitéit."
     },
     "legal": {
         "privacy_policy_title": "Privatsphär Politik",
         "terms_of_service_title": "Servicebedéngungen",
-        "privacy_policy_content": "Är Privatsphär ass wichteg fir eis. Dës Uwendung späichert Är eropgeluede Donnéeën sécher mat Feldniveau-Verschlësselung. Mir verkafen oder deelen Är perséinlech Donnéeën net mat Drëttpersounen. Andeems Dir de Service benotzt, gitt Dir der Sammelung vun néidegen Donnéeën fir Kontverwaltung a Funktiounalitéit vun der Uwendung zou.",
-        "terms_of_service_content": "Duerch d'Benotzung vun {{brandName}} akzeptéiert Dir dës Bedéngungen. De Service gëtt 'wéi en ass' ouni Garantie geliwwert. Dir sidd verantwortlech fir d'Daten, déi Dir eropluet, an d'Versécherung, datt Dir d'Rechter dozou hutt. Mir reservéieren eis d'Recht, Konten ze suspendéieren, déi d'Politiken verletzen oder de System missbrauchen.",
+        "privacy_policy_content": "## Iwwersiicht\n**{{brandName}}** ass Open-Source Software a kann duerch eng offiziell oder selbstgehost Installatioun geliwwert ginn. Fir dës Installatioun ass den Datekontroller oder Servicebetreiber **{{controllerName}}**.\n- **Kontroller Adress:** {{controllerAddress}}\n- **Privatsphär Kontakt:** {{privacyEmail}}\n- **General Support Kontakt:** {{supportEmail}}\n\nDës Ukënnegung erkläert **wat fir eng perséinlech Donnéeën veraarbecht ginn**, **wéi se kritt ginn**, **firwat se veraarbecht ginn**, **wien se kënne kréien**, **wéi laang se gespäichert ginn**, a **wéi eng Rechter Dir hutt**.\n\nWann dës Installatioun vun enger Drëtt Partei bedriwwe gëtt, ass dee Bedreiwer verantwortlech fir all Deployment-spezifesch Controller Identitéit, Ënnerstëtzungsverpflichtungen, Transferdetailer, Retentiounsastellungen a lokal legal Notifikatiounen déi zoutreffen.\n\n## Wéi eng Donnéeë mir sammelen a veraarbecht\n- **Kontodaten:** Benotzernumm, E-Mailadress, Passwuerthash, Sessiouns-Cookien, Vertrauensgerätdaten a Sécherheetsprotokoller.\n- **Servicedaten:** Haiser, Zëmmer, Kategorien, Artikelen, eropgeluede Medien, Ufroen ausléinen, a perséinlech Vault records déi Dir erstellt.\n- ** Technesch Donnéeën: ** IP Adress, Browser / Sessioun Identifizéierer, a Sprooch Preferenz Daten néideg fir Lokalisatioun a Kont Sécherheet.\n- **Optional Identitéitsprovider Donnéeën:** wann Dir Google Sign-In wielt, deelt Google Är E-Mailadress, Google Kont Identifizéierer, a Profil Display Numm mat eis, fir datt mir Iech authentifizéiere kënnen oder Äre Kont erstellen.\n- ** Optional Lookup-Ufrodaten:** wann Dir Barcode oder Produkt Lookup benotzt, kann de Barcode-Wäert, deen Dir ofgitt, vun eisem Server op Open Food Facts, Open Products Facts, Open Beauty Facts oder Google geschéckt ginn, sou datt dat ugefrote Resultat kann zréckginn.\n\n## Wéi mir Daten kréien\n- **Direkt vun Iech:** wann Dir Iech registréiert, umellt, records erstellt oder ännert, Medien eropluet, Sécherheetsastellungen konfiguréiert oder Ënnerstëtzung kontaktéiert.\n- **Automatesch vun Ärem Browser oder Ärem Apparat:** duerch erfuerderlech Sessiouns-Cookien, vertrauenswürdege Gerätmechanismus, IP-Handhabung, Sproochpreferenz, a Sécherheetsprotokoller néideg fir d'Applikatioun ze bedreiwen an ze schützen.\n- **Vu Google:** nëmmen wann Dir Google Sign-In wielt, limitéiert op d'Identitéitsdaten déi néideg sinn fir Iech z'authentifizéieren oder Äre Kont ze kreéieren.\n- ** Vun externen Produktdatenquellen:** nëmmen wann Dir Barcode oder Produkt Lookup ausléist, limitéiert op d'Sich Ufro an zréckginn Produkt Metadaten.\n\n## Firwat mir et veraarbecht\n- ** Kont Operatioun:** fir Äre Kont ze kreéieren an ze bedreiwen.\n- ** Authentifikatioun a Sécherheet:** fir Iech ze authentifizéieren a Sessiounen an Zwee-Faktor Authentifikatioun ze sécheren.\n- ** Core Features:** fir Inventar, Backup a Personal Vault Features ze bidden.\n- **Support:** fir op Ënnerstëtzungsufroen z'äntwerten.\n- ** Optional Umeldungs- a Lookup Features:** fir Google Umeldung an extern Barcode/Produkt Lookup nëmmen ze kompletéieren wann Dir dës Feature wielt.\n- ** Legal a Sécherheet Obligatiounen:** fir legal oder Sécherheet Obligatiounen ze erfëllen.\n\n## Juristesch Basis a Sammelmethod\n- ** Ënnert GDPR, wou zoutreffend:** Veraarbechtung baséiert op Kontrakt Leeschtung, gesetzlech Obligatiounen, Zoustëmmung fir all Zoustëmmung-baséiert Fonktioun, an de Bedreiwer d'berechtegten Interessi Service a Kont Sécherheet.\n- ** Ënnert KVKK, wou applicabel: ** Veraarbechtung baséiert op de gesetzleche Grënn an Artikelen 5 an 6, dorënner wou néideg fir d'Etablissement oder Leeschtung vun engem Kontrakt, Konformitéit mat gesetzleche Obligatiounen, Ausübe oder Schutz vun Rechter, oder de Kontroller seng legitim Interessen virausgesat Är fundamental Rechter a Fräiheeten sinn net schueden.\n- **Sammlungsmethod:** Daten ginn duerch elektronesch Mëttele gesammelt duerch Formulairen, authentifizéiert Sessiounen, erfuerderlech Cookien, optional OAuth Flows, Applikatiounsprotokoller, Eropluedungen an API Ufroen.\n\n## Späicheren an Transfer\n- **Mir verkafen keng perséinlech Donnéeën.**\n- Perséinlech Donnéeë kënne vum Hosting, Datebank, Lagerung, E-Mail, Authentifikatioun an Infrastruktur Ubidder kritt ginn, déi benotzt gi fir dës Installatioun ze bedreiwen.\n- Wann Dir Google Sign-In oder Barcode / Produkt Lookup wielt, ginn déi entspriechend Authentifikatioun oder Lookupdaten nëmme mam gewielte Provider gedeelt fir d'Feature ze kompletéieren déi Dir ausgeléist hutt.\n- Date kënnen u Geriichter, Reguléierer oder ëffentlech Autoritéite verëffentlecht ginn, wa gesetzlech erfuerderlech ass.\n- ** Iwwerweisung vun dëser Installatioun:** {{transferDisclosure}}\n- Kontdaten ginn erhale wärend Äre Kont aktiv ass.\n- Wann Dir Äre Kont aus Astellungen läscht, ginn Är Kontdaten, perséinleche Vault Inhalt, eropgeluede Medien, an Uwendungsrecords, déi vun Ärem Kont gehéiert, aus der Applikatioun geläscht ouni onnéideg Verspéidung, ausser Informatioun déi musse fir gesetzlech Fuerderungen, gesetzlech Flichten oder Sécherheetsverpflichtungen behalen ginn.\n\n## Är Rechter\n- Ofhängeg vum applicabele Gesetz, kënnt Dir Bestätegung ufroen ob Är perséinlech Donnéeën veraarbecht ginn, Zougang zu hinnen, an Informatioun iwwer Zwecker, Kategorien, Empfänger an Transfere.\n- Dir kënnt d'Krtifikatioun, d'Läschen, d'Zerstéierung, d'Restriktioun oder d'Obligatioun ufroen, a wa relevant Datenportabilitéit.\n- Wou d'Veraarbechtung op Zoustëmmung baséiert, kënnt Dir d'Zoustëmmung zu all Moment zréckzéien ouni d'virdrun gesetzlech Veraarbechtung ze beaflossen.\n- Dir kënnt ufroen datt d'Korrektur, d'Läschen oder d'Zerstéierungsresultater un d'Empfänger kommunizéiert ginn, wou d'Gesetz dat verlaangt.\n- Dir kënnt géint Resultater ausschliisslech mat automatiséierte Mëttelen entgéint kommen, wann d'Gesetz Iech dat Recht gëtt.\n- Wou et duerch Gesetz erlaabt ass, kënnt Dir Entschiedegung fir Schued ufroen, deen duerch onerlaabt Veraarbechtung verursaacht gëtt.\n- Dir kënnt eng Plainte bei **{{complaintAuthority}}** maachen\n\n## Wéi Rechter ausüben\n- Benotzt den In-App Kont Läschen Flux oder kontaktéiert **{{privacyEmail}}** fir Privatsphär Ufroen.\n- Wou GDPR gëlt, sollen Ufroe ouni onnéideg Verspéidung an am Prinzip bannent 1 Mount no der Identitéitsverifizéierung beäntwert ginn.\n\n## Automatiséiert Entscheedungsprozess\n- Dës Applikatioun benotzt net eleng automatiséiert Entscheedungsprozess oder Profiléierung déi legal oder ähnlech bedeitend Effekter op Iech produzéiert.\n\n## Wichteg Notiz\nDës Notifikatioun ass fir Transparenz virgesinn. ** Et ass getrennt vun all fakultativ Marketing, Analyse oder net wesentlech Cookie Zoustëmmung **, déi getrennt gefrot muss ginn wann néideg.\n\nD'upstream Open-Source Projet Ënnerhalter sinn net automatesch den Datekontroller oder Prozessor fir Drëtt Partei selbstgehost Deployementer.",
+        "terms_of_service_content": "Konditioune vum Service\n\n1. Iwwersiicht\n{{brandName}} ass Open-Source Software a kann duerch offiziell oder selbstgehost Installatiounen benotzt ginn. Dës Konditioune gëlle fir déi spezifesch Installatioun déi Dir benotzt.\n- Wann dës Installatioun vun engem Drëttubidder bedriwwe gëtt, kann dee Bedreiwer dës Konditioune ergänzen mat deploymentspezifesche Regelen, Ënnerstëtzungsverpflichtungen oder lokal juristesch Uschléi.\n\n2. Benotzen Regelen\n- Dir sidd verantwortlech fir d'Legalitéit, d'Genauegkeet an d'Besëtzer vum Inhalt deen Dir am Service setzt.\n- Open Source Disponibilitéit vun der Software gëtt Iech keng Rechter fir Daten eropzelueden, ze späicheren oder ze deelen, déi Dir net autoriséiert hutt ze benotzen.\n- Mir kënnen Konten suspendéieren oder ewechhuelen, déi de Service mëssbrauchen, dës Konditioune verletzen oder e Sécherheets- oder legale Risiko erstellen.\n\n3. Kont Sécherheet\n- Halt Äert Passwuert, Erhuelungsmaterial a Backups sécher.\n\n4. Donnéeën Liewenszyklus\n- Halt Är eege Backupe vu wichteg Informatioun.\n- Wann Dir Äre Kont aus Astellungen läschen, läscht d'Applikatiounsdaten an eropgeluede Medien, déi vun Ärem Kont gehéieren, permanent a kënnen net réckgängeg gemaach ginn.\n\n5. Aschränkungen an Verzichterklärung\n- Disponibilitéit, Ënnerstëtzung, Integratiounen an Äntwertzäiten hänkt vum Bedreiwer vun dëser Installatioun of.\n- De Service gëtt op enger \"wéi ass\" an \"wéi verfügbar\" Basis zur Verfügung gestallt, sou wéi d'Gesetz erlaabt.",
         "register_consent": "Ech hunn d'Konditioune gelies, verstanen a stëmmen de <1>Servicebedéngungen</1> an der <2>Privatsphärspolitik</2> zou.",
         "consent_title": "Iwwerschafft legal Dokumenter",
         "consent_subtitle": "W.e.g. bestätegt d'aktuell Bedéngungen ier Dir weiderfuert.",
@@ -1086,11 +1985,182 @@
         "consent_checkbox": "Ech akzeptéieren d'Nutzungsbedéngungen a bestätegen, datt ech d'Datenschutznotiz gelies hunn.",
         "consent_submit": "Weiderfueren",
         "consent_submitting": "Späicheren...",
-        "consent_required": "Dir musst d'Nutzungsbedéngungen an d'Datenschutznotiz bestätegen ier Dir weiderfuert."
+        "consent_required": "Dir musst d'Nutzungsbedéngungen an d'Datenschutznotiz bestätegen ier Dir weiderfuert.",
+        "document_badge": "Juristescht Dokument",
+        "data_privacy_badge": "Date a Privatsphär",
+        "back_to_home": "Zréck op d'Home",
+        "quick_access": "Schnellzugriff",
+        "on_this_page": "Op dëser Säit",
+        "contents": "Säit",
+        "page_label": "Iwwersiicht",
+        "overview": "Kontakt",
+        "contact": "Kontakt",
+        "jump_to": "Spréng op",
+        "privacy_description": "D'Dateschutzerklärung fir dës {{brandName}} Installatioun erkläert wéi eng Donnéeën veraarbecht ginn, wéi se gesammelt ginn, wéi se gedeelt oder iwwerdroe ginn, a wéi eng Rechter a Plainteweeër gëlle kënnen.",
+        "privacy_support_label": "Fir Privatsphär Ufroen, Rechter Uwendungen, a Reklamatiounsbetreffend Ufroen iwwer dës Installatioun:",
+        "privacy_summary": {
+            "title": "An der Praxis",
+            "description": "Dëse kuerze Resumé ass hei fir datt Dir déi wesentlech Saache gesinn.",
+            "items": {
+                "what": "**Wat mir veraarbechten:** Mir veraarbecht Kont, Service, technesch Sécherheet an optional Providerdaten déi néideg sinn fir Äre Kont an d'Applikatioun ze lafen.",
+                "why": "**Firwat:** Date gi fir Authentifikatioun, Sessiounssécherheet, Inventar Workflows, Backups a Personal Vault Feature benotzt.",
+                "sharing": "**Deelen a Späicheren:** Mir verkafen keng perséinlech Donnéeën. Et gëtt op der gewielter Infrastruktur fir dës Installatioun gehal; wann Dir Google Sign-In oder Barcode Lookup wielt, gi limitéiert Donnéeën mat dem gewielte Provider gedeelt fir dës Feature ze kompletéieren, an de Bedreiwer soll Länner a Sécherheetsmoossnamen verëffentlechen wann néideg.",
+                "control": "**Är Kontroll:** Dir kënnt Zougang, Korrektur, Läschen, Restriktioun, Contestatioun, Portabilitéit ufroen, wann zoutreffend, oder bei der zoustänneger Autoritéit beschwéieren andeems Dir d'Dateschutzadress fir dës Installatioun kontaktéiert."
+            },
+            "shortcuts": {
+                "what": "Wat mir veraarbecht",
+                "why": "Firwat",
+                "sharing": "Deelen",
+                "rights": "Rechter"
+            },
+            "section_titles": {
+                "what": "Wéi eng Daten mir sammelen a veraarbecht",
+                "why": "Firwat mir et veraarbechten",
+                "sharing": "Späicheren",
+                "rights": "Är Rechter"
+            }
+        },
+        "terms_description": "D'Konditioune fir dës {{brandName}} Installatioun erklären d'akzeptabel Notzung, Är Sécherheetsverantwortung an d'Konsequenze vun der Läschung vum Kont an engem méi kloer, méi einfach ze scannen Format.",
+        "terms_support_label": "Fir Froen iwwer d'Konditioune, déi fir dës Installatioun gëllen:",
+        "terms_summary": {
+            "eyebrow": "Schnell Zesummefaassung",
+            "title": "Wat dat an der Praxis bedeit",
+            "items": {
+                "use": "Benotzt de Service nëmme fir Daten déi Dir autoriséiert hutt eropzelueden, ze späicheren oder ze deelen.",
+                "responsibility": "Dir bleift verantwortlech fir d'Legalitéit, d'Genauegkeet an d'Besëtzer vun deem wat Dir eropluet oder deelt.",
+                "security": "Halt Äert Passwuert, Erhuelungsmaterial a Backups sécher.",
+                "backups": "D'Läsche vum Kont ass permanent, also sollt Dir Är eege Backupe vu wichtegen Informatioun behalen.",
+                "disclaimer": "Disponibilitéit, Ënnerstëtzung an Integratiounen hänkt vum Bedreiwer vun dëser Installatioun of; de Service gëtt op enger \"wéi ass\" an \"wéi verfügbar\" Basis zur Verfügung gestallt, sou wéi d'Gesetz erlaabt."
+            }
+        },
+        "controller_name_generic": "den Operateur vun dëser Installatioun",
+        "controller_name_public_host": "den Operateur vun {{brandHost}}",
+        "controller_address_unconfigured": "Net konfiguréiert vum Operateur vun dëser Installatioun",
+        "transfer_disclosure_default": "Iwwertragungen kënnen un d'Hoster-, E-Mail- an optional Google/Open*Facts/Google Search-Provider geschéckt ginn, déi vun dëser Installatioun benotzt ginn. Den Operateur vun dëser Installatioun muss déi relevant Destinatiounslänner an d'Belaaschtungen uginn, wou néideg.",
+        "complaint_authority": "D'kompetent Donnéeë-Schutzautoritéit an Ärem Land; fir d'Tierkei, d'Autoritéit fir d'Verbesserung vum Datenschutz (KVKK).",
+        "consent_doc01_label": "Dokument 01",
+        "consent_doc01_desc": "Kuckt d'aktuell Serviceterminologie op enger dedizéierter Säit.",
+        "consent_doc02_label": "Dokument 02",
+        "consent_doc02_desc": "Kuckt wéi Daten verschafft ginn an wéi Rechter fir Iech gëllen."
     },
     "cookies": {
         "banner_text": "Mir benotzen wesentlech Cookies, fir Iech ageloggt ze halen an Är Sitzung ze schützen. Andeems Dir weider dës Site benotzt, akzeptéiert Dir eis Politiken.",
         "accept": "Ech akzeptéieren",
         "learn_more": "Méi info"
+    },
+    "layout": {
+        "secondary_controls_title": "Utilitéiten",
+        "secondary_controls_hint": "Sprooch, Theema an Ausgabedetailer bleiwe hei gruppéiert.",
+        "collapse_sidebar": "Sidebar zoumaachen",
+        "expand_sidebar": "Sidebar ausdehnen",
+        "account_menu_title": "Kontomenu",
+        "account_menu_aria": "Kontomenu fir {{name}} oppen",
+        "account_menu_tooltip": "{{name}} Kontomenu"
+    },
+    "app": {
+        "name": "{{brandName}}",
+        "tagline": "Verwalten all Är Haushaltsartikelen intelligent"
+    },
+    "nav": {
+        "home": "Heem",
+        "inventory": "Inventar",
+        "rooms": "Zëmmeren",
+        "categories": "Kategorien",
+        "settings": "Ëmfeld",
+        "admin_panel": "Administratiounspanel",
+        "share_house": "Deele Wunneng",
+        "new_item": "Neit Element",
+        "menu": "Menü",
+        "help": "Hëllef & Ënnerstëtzung"
+    },
+    "theme": {
+        "light": "Liichtmodus",
+        "dark": "Däischter Modus"
+    },
+    "terms": {
+        "title": "Benotzungsbedéngungen a Disclaimer",
+        "beta_notice": "BETA Versioun: {{brandName}} ass aktuell an der Testphas. Et ginn keng Garantien betreffend Datepermanenz oder Sécherheet.",
+        "disclaimer": "Disclaimer: Andeems Dir dës Applikatioun benotzt, sidd Dir averstanen, datt Dir keng Entschiedegung fir méiglechen Donnéeënverloscht, Zougangsproblemer oder aner technesch Problemer fuerderen kënnt.",
+        "backup_warning": "Daten-Backup: Mir recommandéieren Iech staark, Är wichteg Informatiounen reegelméisseg ze sécheren.",
+        "accept": "Wann Dir Iech aloggt, akzeptéiert Dir dës Konditiounen.",
+        "short_notice": "{{brandName}} ass aktuell an der Test- a Hobby-Phas. Et ginn keng Garantien betreffend Datepermanenz oder Sécherheet. W.e.g. haalt Är wichteg Informatiounen als Backup.",
+        "contact": "Kontakt"
+    },
+    "locations": {
+        "title": "Standuerter",
+        "add": "Standuert derbäisetzen",
+        "edit": "Plaz änneren",
+        "delete": "Plaz läschen",
+        "name": "Numm vum Standuert",
+        "room": "Zëmmer",
+        "select_room": "Auswielzëmmer",
+        "added": "Plaz derbäigesat",
+        "updated": "Aktualiséiert Plaz",
+        "deleted": "Plaz geläscht",
+        "not_found": "Plaz net fonnt",
+        "name_required": "Den Numm vun der Plaz ass erfuerderlech",
+        "room_required": "Zëmmerauswiel ass erfuerderlech",
+        "load_error": "Feeler-Luedplazen",
+        "add_error": "Feeler Standuert derbäisetzen",
+        "update_error": "Feeleraktualiséierung vun der Plaz",
+        "delete_error": "Feeler d'Plaz läscht"
+    },
+    "barcode": {
+        "scan": "Barcode scannen",
+        "scanning": "Scannen...",
+        "enter_manually": "Manuell aginn",
+        "search_database": "Sichdatenbank",
+        "not_found": "Barcode net fonnt",
+        "search_google": "Sich op Google",
+        "camera_permission": "Erlaabnis fir d'Kamera erfuerderlech",
+        "search_error": "Feeler-Sich-Barcode",
+        "invalid_code": "Ongëltege Barcode"
+    },
+    "qr": {
+        "scan": "QR scannen",
+        "generate": "QR generéieren",
+        "share": "QR deelen"
+    },
+    "house": {
+        "create_new": "Nei Haus grënnen",
+        "join_existing": "Mat dem bestehende Haus bäitrieden",
+        "enter_key": "Gitt de Hausschlëssel eran",
+        "key_placeholder": "z.B.: ABC123XYZ",
+        "select_option": "Wielt eng Optioun",
+        "created": "Haus gegrënnt",
+        "joined": "Du bass an d'Haus komm",
+        "invalid_key": "Ongëltege Hausschlëssel",
+        "members_loaded": "Hausmemberen gelueden",
+        "key_copied": "Hausschlëssel kopéiert"
+    },
+    "errors": {
+        "generic": "Et ass e Feeler opgetrueden",
+        "network": "Verbindungsfeeler",
+        "not_found": "Net fonnt",
+        "unauthorized": "Onerlaabten Zougang",
+        "server": "Serverfeeler",
+        "validation": "Validatiounsfeeler"
+    },
+    "email": {
+        "sent": "E-Mail geschéckt",
+        "send_error": "Feeler beim Schécken vun der E-Mail",
+        "invalid_email": "Ongëlteg E-Mail-Adress",
+        "subject_required": "Fach ass erfuerderlech",
+        "message_required": "Eng Noriicht ass erfuerderlech"
+    },
+    "rate_limit": {
+        "too_many_requests": "Ze vill Ufroën. Probéiert w.e.g. nach eng Kéier an 15 Minutten.",
+        "too_many_login_attempts": "Ze vill Login-Versich. Probéiert w.e.g. nach eng Kéier an 15 Minutten."
+    },
+    "meta": {
+        "page_title_sign_in": "Sign in",
+        "page_title_register": "Create account",
+        "page_title_choose_house": "Choose house",
+        "page_title_recovery_key": "Recovery key",
+        "page_title_house_access": "House access",
+        "page_title_legal_review": "Legal review",
+        "page_title_new_item": "New item",
+        "page_title_edit_item": "Edit item",
+        "page_title_items": "Inventory"
     }
 }

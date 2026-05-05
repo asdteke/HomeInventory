@@ -1,54 +1,129 @@
+import { Shield } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { Shield, Sun, Moon, ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import BrandLogo from './BrandLogo';
-import LegalLanguageToggle, { resolveLegalLanguage } from './LegalLanguageToggle';
-import { useTheme } from '../context/ThemeContext';
-import { BRAND_HOST, BRAND_NAME, SUPPORT_EMAIL } from '../constants/branding';
+import LegalDocumentPage from './LegalDocumentPage';
+import {
+    BRAND_HOST,
+    BRAND_NAME,
+    DATA_CONTROLLER_ADDRESS,
+    DATA_CONTROLLER_NAME,
+    DPO_EMAIL,
+    PRIVACY_COMPLAINT_AUTHORITY,
+    PRIVACY_TRANSFER_DISCLOSURE,
+    SUPPORT_EMAIL
+} from '../constants/branding';
+import { resolveVerifiedLegalTranslationLanguage } from '../utils/legalTranslations';
+
+const PRIVACY_PAGE_KEYS = [
+    'legal.document_badge',
+    'legal.data_privacy_badge',
+    'legal.back_to_home',
+    'legal.quick_access',
+    'legal.on_this_page',
+    'legal.contents',
+    'legal.page_label',
+    'legal.overview',
+    'legal.contact',
+    'legal.jump_to',
+    'legal.privacy_policy_title',
+    'legal.privacy_policy_content',
+    'legal.privacy_description',
+    'legal.privacy_support_label',
+    'legal.controller_name_generic',
+    'legal.controller_name_public_host',
+    'legal.controller_address_unconfigured',
+    'legal.transfer_disclosure_default',
+    'legal.complaint_authority',
+    'legal.privacy_summary.title',
+    'legal.privacy_summary.description',
+    'legal.privacy_summary.items.what',
+    'legal.privacy_summary.items.why',
+    'legal.privacy_summary.items.sharing',
+    'legal.privacy_summary.items.control',
+    'legal.privacy_summary.shortcuts.what',
+    'legal.privacy_summary.shortcuts.why',
+    'legal.privacy_summary.shortcuts.sharing',
+    'legal.privacy_summary.shortcuts.rights',
+    'legal.privacy_summary.section_titles.what',
+    'legal.privacy_summary.section_titles.why',
+    'legal.privacy_summary.section_titles.sharing',
+    'legal.privacy_summary.section_titles.rights'
+];
 
 export default function PrivacyPolicy() {
-    const { t, i18n } = useTranslation();
-    const { isDark, toggleTheme } = useTheme();
-    const legalLanguage = resolveLegalLanguage(i18n);
-    const legalT = i18n.getFixedT(legalLanguage);
+    const { i18n } = useTranslation();
+    const documentLanguage = resolveVerifiedLegalTranslationLanguage(i18n, PRIVACY_PAGE_KEYS);
+    const pageT = i18n.getFixedT(documentLanguage);
+    const hasPublicHost = BRAND_HOST && !/(^|\.)localhost$/.test(BRAND_HOST);
+    const controllerName = DATA_CONTROLLER_NAME || (
+        pageT(
+            hasPublicHost
+                ? 'legal.controller_name_public_host'
+                : 'legal.controller_name_generic',
+            { brandHost: BRAND_HOST }
+        )
+    );
+    const controllerAddress = DATA_CONTROLLER_ADDRESS || (
+        pageT('legal.controller_address_unconfigured')
+    );
+    const privacyEmail = DPO_EMAIL || SUPPORT_EMAIL;
+    const transferDisclosure = PRIVACY_TRANSFER_DISCLOSURE || (
+        pageT('legal.transfer_disclosure_default')
+    );
+    const complaintAuthority = PRIVACY_COMPLAINT_AUTHORITY || (
+        pageT('legal.complaint_authority')
+    );
+
+    const summaryBlock = {
+        title: pageT('legal.privacy_summary.title'),
+        description: pageT('legal.privacy_summary.description'),
+        items: [
+            pageT('legal.privacy_summary.items.what'),
+            pageT('legal.privacy_summary.items.why'),
+            pageT('legal.privacy_summary.items.sharing'),
+            pageT('legal.privacy_summary.items.control')
+        ],
+        shortcuts: [
+            {
+                title: pageT('legal.privacy_summary.section_titles.what'),
+                label: pageT('legal.privacy_summary.shortcuts.what')
+            },
+            {
+                title: pageT('legal.privacy_summary.section_titles.why'),
+                label: pageT('legal.privacy_summary.shortcuts.why')
+            },
+            {
+                title: pageT('legal.privacy_summary.section_titles.sharing'),
+                label: pageT('legal.privacy_summary.shortcuts.sharing')
+            },
+            {
+                title: pageT('legal.privacy_summary.section_titles.rights'),
+                label: pageT('legal.privacy_summary.shortcuts.rights')
+            }
+        ]
+    };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300 p-4 sm:p-8">
-            <button onClick={toggleTheme} className="absolute top-4 right-4 p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:scale-110 transition-all shadow-sm">
-                {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
-            
-            <div className="max-w-3xl mx-auto pt-8">
-                <div className="mb-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <Link to="/" className="flex items-center gap-2 text-slate-500 hover:text-primary-500 font-medium transition-colors">
-                        <ArrowLeft className="w-4 h-4" />
-                        {t('common.cancel')}
-                    </Link>
-                    <LegalLanguageToggle />
-                </div>
-
-                <div className="text-center mb-10 animate-fade-in">
-                    <Link to="/" className="inline-block mb-6">
-                        <BrandLogo variant="full" size="md" className="mx-auto" />
-                    </Link>
-                    <div className="mx-auto inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-600 shadow-lg shadow-blue-500/30 mb-6">
-                        <Shield className="w-8 h-8 text-white" />
-                    </div>
-                    <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-                        {legalT('legal.privacy_policy_title')}
-                    </h1>
-                </div>
-                
-                <div className="card border border-slate-200/50 dark:border-slate-800/50 p-6 sm:p-10 animate-slide-up">
-                    <div className="text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap text-sm sm:text-base">
-                        {legalT('legal.privacy_policy_content', {
-                            brandName: BRAND_NAME,
-                            siteHost: BRAND_HOST,
-                            supportEmail: SUPPORT_EMAIL
-                        })}
-                    </div>
-                </div>
-            </div>
-        </div>
+        <LegalDocumentPage
+            translationLanguage={documentLanguage}
+            icon={Shield}
+            eyebrowLabel={pageT('legal.data_privacy_badge')}
+            title={pageT('legal.privacy_policy_title')}
+            description={pageT('legal.privacy_description', {
+                brandName: BRAND_NAME
+            })}
+            content={pageT('legal.privacy_policy_content', {
+                brandName: BRAND_NAME,
+                controllerName,
+                controllerAddress,
+                privacyEmail,
+                transferDisclosure,
+                complaintAuthority,
+                supportEmail: SUPPORT_EMAIL
+            })}
+            summaryBlock={summaryBlock}
+            supportLabel={pageT('legal.privacy_support_label')}
+            supportValue={privacyEmail}
+            backLabel={pageT('legal.back_to_home')}
+        />
     );
 }

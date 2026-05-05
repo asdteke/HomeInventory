@@ -1,7 +1,7 @@
 {
     "items": {
         "qrcode": {
-            "title": "QR Code",
+            "title": "二维码",
             "desc": "你可以打印并将此二维码贴在物品上。扫描它将直接跳转到此页面。"
         },
         "title_new": "添加新物品",
@@ -12,7 +12,7 @@
             "name": "项目名称",
             "name_placeholder": "例如：三星电视 55 英寸",
             "required": "*",
-            "description": "描述",
+            "description": "说明",
             "description_placeholder": "项目备注...",
             "quantity": "数量",
             "category": "类别",
@@ -79,7 +79,43 @@
             "name_required": "物品名称为必填项",
             "location_add_error": "添加位置失败",
             "photo_too_large": "照片最大可为 {{maxSizeMb}} MB。"
-        }
+        },
+        "title": "库存",
+        "add": "添加物品",
+        "edit": "编辑项目",
+        "delete": "删除项目",
+        "name": "项目名称",
+        "description": "描述",
+        "quantity": "数量",
+        "category": "类别",
+        "room": "房间",
+        "location": "位置",
+        "barcode": "条形码",
+        "photo": "照片",
+        "add_photo": "添加照片",
+        "change_photo": "更换照片",
+        "is_public": "公共",
+        "save": "保存",
+        "cancel": "取消",
+        "saving": "拯救......",
+        "no_items_found": "未找到任何物品",
+        "search_placeholder": "搜查物品......",
+        "filter_by_category": "按类别筛选",
+        "filter_by_room": "按房间筛选",
+        "all_categories": "所有类别",
+        "all_rooms": "所有房间",
+        "confirm_delete": "你确定要删除这个项目吗？",
+        "items_deleted": "{{count}} 已删除的项目",
+        "added": "新增项目",
+        "updated": "项目更新",
+        "deleted": "条目已删除",
+        "not_found": "未找到物品",
+        "add_error": "添加项目错误",
+        "update_error": "更新项目错误",
+        "delete_error": "错误删除项目",
+        "no_permission": "你没有权限修改这个项目",
+        "barcode_search_error": "条码搜索失败",
+        "stats_error": "错误加载统计"
     },
     "common": {
         "save": "保存",
@@ -103,16 +139,36 @@
         "refresh": "刷新",
         "close": "关闭",
         "logout": "登出",
-        "copyright": "© {{year}} 家居库存 - 版权所有",
+        "copyright": "© {{year}} {{brandName}} - All rights reserved",
         "other": "其他",
         "copy": "复制",
-        "download": "下载"
+        "download": "下载",
+        "clear": "清除",
+        "deleting": "删除中...",
+        "filter": "筛选",
+        "sort": "排序",
+        "yes": "是",
+        "no": "否",
+        "confirm": "确认",
+        "back": "返回",
+        "next": "下一步",
+        "retry": "重试",
+        "actions": "操作",
+        "created_at": "创建时间",
+        "updated_at": "更新于",
+        "none": "没有",
+        "total": "总计",
+        "not_found": "未找到",
+        "unauthorized": "未经授权的访问",
+        "forbidden": "你没有这个行为的许可",
+        "validation_error": "验证误差",
+        "server_error": "服务器错误"
     },
     "auth": {
         "login": {
             "title": "登录",
             "subtitle": "智能管理您的所有家居库存",
-            "welcome": "欢迎使用家居库存",
+            "welcome": "Welcome to {{brandName}}",
             "username_or_email": "用户名或邮箱",
             "password": "密码",
             "forgot_password": "忘记密码？",
@@ -139,10 +195,19 @@
                 "back": "返回",
                 "use_backup": "使用备用代码",
                 "use_totp": "使用身份验证器"
-            }
+            },
+            "welcome_title": "欢迎回来",
+            "welcome_subtitle": "登录以访问您的库存",
+            "identifier_placeholder": "例如 john@example.com",
+            "legal_intro": "继续，你同意我们的",
+            "header_kicker": "安全登录",
+            "header_title": "返回你的库存",
+            "header_subtitle": "房间、物品和私人记录都保存在一个安静的地方。",
+            "trust_signal": "从设计上就是私密的。支持 2FA 和受信任设备。",
+            "support_link": "联系支持"
         },
         "register": {
-            "title": "欢迎使用 {{brandName}}",
+            "title": "Set up your household",
             "subtitle": "创建新账户或加入现有家庭",
             "create_house": "创建新家庭",
             "join_house": "加入家庭",
@@ -159,8 +224,8 @@
             "password_confirm_placeholder": "重新输入密码",
             "house_key": "房屋钥匙",
             "house_key_placeholder": "粘贴 64 位房屋钥匙",
-            "submit_create": "创建新房屋",
-            "submit_join": "加入房屋",
+            "submit_create": "创建新家庭",
+            "submit_join": "加入家庭",
             "submitting": "注册中...",
             "already_have_account": "已经有账户？",
             "login_link": "登录",
@@ -176,7 +241,11 @@
                     "warning": "重要提示：此钥匙只会显示一次。请与家人分享，以便他们访问相同的库存。",
                     "copy": "复制",
                     "copied": "已复制",
-                    "button": "我已保存钥匙，继续"
+                    "button": "我已保存钥匙，继续",
+                    "badge": "房屋通行",
+                    "important": "重要",
+                    "key_label": "房屋钥匙",
+                    "storage_hint": "把这把钥匙放在安全的地方，方便信任的家人以后加入。"
                 },
                 "email_verification": {
                     "title": "📧 需要邮箱验证",
@@ -188,7 +257,33 @@
                     "key_note": "重要提示：您的房屋钥匙也已通过邮件发送。您可以与家人共享。",
                     "button": "好的，去登录"
                 }
-            }
+            },
+            "eyebrow": "共享家庭访问",
+            "create_house_hint": "开始一个新的共享家庭",
+            "join_house_hint": "使用你收到的房屋钥匙",
+            "mode_label": "家庭访问",
+            "mode_create_body": "先在这里创建你的家庭，然后再邀请其他人。",
+            "mode_join_body": "使用你收到的家庭密钥加入。",
+            "account_section": "你的账户",
+            "access_section": "家庭访问",
+            "access_hint": "使用房主共享的房屋钥匙。",
+            "step_choose_title": "选择创建或加入",
+            "step_choose_body": "使用房屋钥匙开始新的或加入。",
+            "step_account_title": "添加你的详细信息",
+            "step_account_body": "设置你的用户名、电子邮件和密码。",
+            "step_use_title": "开始使用它",
+            "step_use_body": "家庭共享物品，你的私人记录。",
+            "trust_private": "从设计上就是私密的",
+            "trust_self_hosted": "自托管友好",
+            "trust_shared": "共享的家庭系统",
+            "password_hint": "目标是使用10个以上字符，包括大小写字母、数字和符号。",
+            "legal_notice": "我们只需要一个快速的法律确认，以便我们可以创建您的账户。",
+            "notes_link": "快速说明",
+            "notes_title": "一些快速说明",
+            "notes_subtitle": "测试版、备份和责任集中管理。",
+            "trust_signal": "从设计上就是私密的，因此家庭共享在 2FA 保护下依然安全。",
+            "early_access_badge": "提前访问",
+            "early_access_note": "我们保持设置简单，并在注册后立即显示任何密钥。"
         },
         "forgot_password": {
             "title": "忘记密码",
@@ -207,7 +302,8 @@
             "confirm_password": "确认新密码",
             "confirm_password_placeholder": "重新输入您的密码",
             "reset_submit": "重置密码",
-            "resetting": "重置中..."
+            "resetting": "重置中...",
+            "identifier_required": "Enter your username or email"
         },
         "reset_password": {
             "title": "重置密码",
@@ -238,9 +334,83 @@
             "settings_title": "保存您的新恢复密钥",
             "subtitle": "此密钥仅显示一次。",
             "warning": "如果在电子邮件被禁用的情况下丢失此密钥，您可能无法找回密码。请复制并妥善保存。",
-            "confirm": "我已保存密钥"
+            "confirm": "我已保存密钥",
+            "badge": "恢复访问",
+            "important": "重要",
+            "key_label": "恢复密钥",
+            "storage_hint": "把这些信息存到密码管理器或其他安全的离线地点。",
+            "copied": "复制"
         },
-        "password_requirements": "使用至少 {{min}} 个字符，包括大写字母、小写字母、数字和符号。"
+        "password_requirements": "使用至少 {{min}} 个字符，包括大写字母、小写字母、数字和符号。",
+        "logout": "登出",
+        "logging_in": "正在登录......",
+        "welcome": "欢迎来到 {{brandName}}",
+        "username_email": "用户名或邮箱",
+        "username": "用户名",
+        "email": "电子邮件",
+        "password": "密码",
+        "confirm_password": "确认密码",
+        "new_password": "新密码",
+        "current_password": "当前密码",
+        "no_account": "没有账号？",
+        "have_account": "已经有账号了吗？",
+        "or": "或",
+        "google_login": "继续用谷歌",
+        "login_issues": "登录问题",
+        "placeholder_username": "例如：约翰",
+        "placeholder_password": "••••••••",
+        "login_two_factor": {
+            "title": "双因素认证",
+            "subtitle": "输入你身份验证器应用里的6位数验证码",
+            "backup_subtitle": "输入你的备用代码之一",
+            "code_label": "验证码",
+            "backup_code_label": "备份代码",
+            "remember_device": "记住这个装置30天",
+            "verify": "验证",
+            "back": "返回",
+            "use_backup": "使用备份代码",
+            "use_totp": "使用身份验证器"
+        },
+        "login_required": "请登录以访问",
+        "invalid_token": "无效或过期令牌",
+        "admin_required": "此操作需要管理员权限",
+        "authorization_required": "需要授权",
+        "fill_all_fields": "请填写所有字段",
+        "email_already_registered": "这个邮箱已经注册好了",
+        "username_already_registered": "这个用户名已经注册了",
+        "email_pending_verification": "这封邮件的验证程序已经在等待中。请查看您的收件箱或稍候几分钟。",
+        "username_pending_verification": "该用户名的验证已经在等待中。请稍等几分钟。",
+        "invalid_house_key": "无效的房屋钥匙",
+        "registration_success": "注册成功！已发送验证链接至您的邮箱。",
+        "registration_error": "注册时发生错误",
+        "username_password_required": "需要用户名和密码",
+        "invalid_credentials": "用户名或密码无效",
+        "account_banned": "你的账号已被封禁。请联系客服。",
+        "login_success": "登录成功",
+        "login_error": "登录时发生错误",
+        "user_not_found": "用户未找到",
+        "current_password_wrong": "当前密码错误",
+        "passwords_dont_match": "新密码不匹配",
+        "password_too_short": "新密码必须至少6个字符",
+        "password_change_success": "密码已成功更改",
+        "password_change_error": "更改密码错误",
+        "database_error": "数据库错误",
+        "database_read_error": "数据库读取错误",
+        "new_password_error": "创建新密码错误",
+        "email_verification_required": "需要电子邮件验证",
+        "verification_link_expired": "验证链接已过期或无效",
+        "email_verified_success": "邮件已成功验证！你现在可以登录了。",
+        "email_send_error": "发送邮件错误",
+        "legal_acceptance_required": "您必须接受服务条款并确认隐私声明，才能继续使用",
+        "identifier_already_registered": "这个用户名或邮箱已经注册了",
+        "username_in_use": "这个用户名已经在使用中了",
+        "invalid_username": "用户名应为3-30字符，且仅可包含字母、数字、下划线或连字符",
+        "invalid_email": "请输入有效的电子邮件地址",
+        "invalid_house_key_format": "无效的房屋钥匙格式",
+        "join_house_key_required": "加入现有学院需要房屋钥匙",
+        "house_key_not_found": "无效的房屋钥匙。请输入正确的密钥。",
+        "email_not_verified": "您的电子邮件地址尚未被验证。请查看您的收件箱。",
+        "two_factor_invalid": "验证码不正确"
     },
     "navigation": {
         "home": "主页",
@@ -254,7 +424,12 @@
         "logout": "登出",
         "menu": "菜单",
         "personal_vault": "个人保险库",
-        "borrow_requests": "借阅请求"
+        "borrow_requests": "借阅请求",
+        "scan_item_qr": "商品二维码",
+        "logout_aria": "退出您的账户",
+        "logout_title": "退出？",
+        "logout_description": "您将返回登录界面，并需要再次登录以管理您的家庭库存。",
+        "logout_warning": "当您在共享设备或个人设备上完成操作时使用此选项。"
     },
     "dashboard": {
         "welcome": "欢迎，<1>{{name}}</1>! 👋",
@@ -292,12 +467,104 @@
             "search_item": "搜索物品",
             "categories": "分类",
             "settings": "设置"
-        }
+        },
+        "page": {
+            "kicker": "首页",
+            "title": "首页",
+            "description_ready": "搜索您的库存，查看最近添加的内容，并快速进入下一个任务。",
+            "description_empty": "从一个清晰的起点开始，建立一个平静、可搜索的家庭记录。",
+            "loading_description": "正在准备您的家庭视图。最近添加的内容和快速搜索功能将很快显示。"
+        },
+        "top_bar": {
+            "beta": "测试版",
+            "items_tracked": "跟踪的物品：{{count}}",
+            "total_quantity": "总数量：{{count}}",
+            "shared_items": "共享物品：{{count}}",
+            "borrowed_now": "当前借出：{{count}}",
+            "status_empty": "准备好添加你的第一件物品"
+        },
+        "header": {
+            "eyebrow": "共享库存",
+            "title_ready": "{{name}} 的家庭库存",
+            "title_empty": "开始您的家庭物品清单",
+            "summary_ready": "{{count}}件物品已在{{rooms}}个房间中被跟踪。搜索列表，添加下一个物品，或保持私人记录分开。",
+            "summary_ready_no_rooms": "{{count}}件物品已被跟踪。添加房间以保持位置和搜索更清晰。",
+            "summary_empty": "添加第一件物品以解锁搜索、房间历史和更清晰的家庭跟踪。"
+        },
+        "search_panel": {
+            "title": "搜索库存",
+            "description": "从一个地方找到物品、房间、位置或条形码。",
+            "placeholder": "搜索物品、房间、位置或条形码",
+            "submit": "搜索库存",
+            "secondary_hint": "敏感记录保持分离。"
+        },
+        "actions_panel": {
+            "title": "主要操作",
+            "description": "创建新项目或将敏感记录移入个人保险库。",
+            "new_item_description": "添加带有房间、数量和照片的新家庭物品。",
+            "vault_description": "在共享搜索之外存储文档、代码和其他敏感记录。"
+        },
+        "content": {
+            "title": "最新添加",
+            "description": "添加到您的家庭库存中的最新物品",
+            "description_empty": "一旦添加第一个项目，该区域将成为您的最近活动动态。",
+            "empty_title": "尚无近期新增",
+            "empty_description": "当您添加第一个物品时，此列表就会开始自动填充。从稍后容易识别的物品开始，然后房间和类别从第一天起就会保持准确。",
+            "empty_tip_one_title": "从一个可见的家居物品开始",
+            "empty_tip_one_body": "选择一个您稍后能立即识别的东西，比如家电、收纳箱或小工具。",
+            "empty_tip_two_title": "分配一个真实的房间",
+            "empty_tip_two_body": "仅当新物品在创建时被分配时，房间和类别计数才保持准确。",
+            "empty_tip_three_title": "将秘密排除在共享动态之外",
+            "empty_tip_three_body": "对于钥匙、密码、契约或任何不应出现在家庭物品历史中的物品，请使用个人保险库。",
+            "see_all": "打开库存",
+            "untitled_item": "未命名物品",
+            "location_fallback": "添加房间或位置以便更容易找到此物品",
+            "quantity": "数量 {{count}}",
+            "added_on": "添加于 {{date}}"
+        },
+        "visibility": {
+            "public": "已共享",
+            "private": "私人"
+        },
+        "empty_state": {
+            "title": "添加您的第一个家庭物品",
+            "description": "从容易识别的东西开始，比如电器、文件或备用零件。一旦添加，它的搜索和指标就会开始显示。",
+            "primary_cta": "添加物品",
+            "secondary_cta": "打开个人保险箱",
+            "step_one_title": "从一个清晰的物品开始",
+            "step_one_body": "添加一个易于识别的物品名称，以便库存有一个强有力的第一条记录。",
+            "step_two_title": "放置在一个房间",
+            "step_two_body": "设置房间和数量，使搜索和指标立即发挥作用。",
+            "step_three_title": "保持私人记录分开",
+            "step_three_body": "将个人保险库用于护照、契约和访问代码。"
+        },
+        "title": "仪表板",
+        "total_items": "总物品",
+        "total_rooms": "总房间数",
+        "total_categories": "总类别",
+        "search_placeholder": "快速搜索......",
+        "no_items": "还没有新增任何物品",
+        "add_first_item": "添加你的第一个物品",
+        "view_all": "查看全部",
+        "total_quantity": "总量",
+        "top_room": "最满的房间",
+        "category_count": "类别",
+        "items_count": "物品",
+        "private_items": "我的私人物品",
+        "public_items": "公共",
+        "remove_filter": "移除过滤器",
+        "no_items_filter": "没有任何物品符合这个过滤器",
+        "manage": "管理",
+        "add_item": "添加物品",
+        "search_item": "检索项目"
     },
     "beta_banner": {
         "title": "测试版:",
         "text": "{{brandName}} 目前处于测试和爱好阶段。不保证数据的持久性或安全性。请备份重要信息。",
-        "contact": "联系方式:"
+        "contact": "联系方式:",
+        "badge": "测试版",
+        "aria_label": "测试版通知",
+        "tooltip": "早期访问功能可能仍会发生变化。"
     },
     "footer": {
         "rights": "© {{year}} {{brandName}} - 保留所有权利",
@@ -343,7 +610,8 @@
             "member_kick_error": "无法将成员从房子中移除",
             "recovery_key_regenerated": "恢复密钥已重新生成",
             "recovery_key_error": "无法重新生成恢复密钥",
-            "account_delete_error": "该账户无法删除 ••••••••{{suffix}} 账户 删除账户 如果您愿意，您可以永久删除与此账户相关的个人数据和上传的文件。 此操作无法撤销。 删除账户 删除账户"
+            "account_delete_error": "The account could not be deleted",
+            "backup_downloaded_encrypted": "加密备份下载成功！({{count}} 项)"
         },
         "user_profile": {
             "edit_username": "修改用户名"
@@ -361,7 +629,10 @@
             "item_count": "{{count}} 件物品",
             "switch": "切换",
             "leave": "离开房屋",
-            "info": "💡 您可以成为多个房屋的成员并在它们之间切换。每个房屋都有独立的库存。"
+            "info": "💡 您可以成为多个房屋的成员并在它们之间切换。每个房屋都有独立的库存。",
+            "accordion_description": "在家庭之间切换，创建新家庭或使用受信钥匙加入现有家庭。",
+            "empty_description": "创建新家庭以开始共享，或者使用受信家庭钥匙加入已有家庭。",
+            "leave_success_body": "您不再可以访问此家庭，并且您的活跃房屋已刷新。"
         },
         "house_info": {
             "title": "活动房屋钥匙",
@@ -383,12 +654,35 @@
             "owner_controls": "已启用所有者控制",
             "approve": "批准",
             "reject": "拒绝",
-            "kick": "移除"
+            "kick": "移除",
+            "access_section_title": "家庭访问与成员",
+            "access_section_body": "查看活跃家庭密钥，管理成员，并将访问权限限制在可信任的人群中。",
+            "hidden_state": "在您安全查看前保持隐藏",
+            "show_securely": "安全查看",
+            "copy_securely": "安全复制",
+            "share_warning_title": "小心分享",
+            "share_warning_body": "任何拥有此密钥的人都可以请求访问家庭物品清单。仅与可信任的成员分享，并通过私人渠道使用。",
+            "reveal_confirm_title": "显示房屋钥匙？",
+            "reveal_confirm_body": "这把钥匙允许请求进入家中。确保在继续之前没有其他人看到你的屏幕。",
+            "copy_confirm_title": "复制房屋钥匙？",
+            "copy_confirm_body": "仅在准备将其粘贴到受信任的消息或安全密码管理器时复制。",
+            "copy_confirm_tip": "不要将其粘贴到群聊、截图或任何你不信任的渠道中，这些地方不适合保存你的门口密码。",
+            "reveal_confirm_acknowledge": "我明白任何拥有这把钥匙的人都可以请求进入这户家庭。",
+            "copy_confirm_acknowledge": "我明白这把钥匙只应粘贴到受信任的私人渠道或密码管理器中。",
+            "copy_success_title": "房屋钥匙已复制",
+            "copy_success_body": "像对待家庭密码一样对待它，并且只能通过可信渠道共享。",
+            "copy_error": "房门钥匙无法复制。",
+            "modal_title": "房门钥匙访问",
+            "modal_subtitle": "仅将此钥匙用于需要访问此共享物品的可信家庭成员。",
+            "loading_members": "正在加载成员..."
         },
         "theme": {
             "title": "主题",
             "dark": "黑暗模式",
-            "light": "明亮模式"
+            "light": "明亮模式",
+            "description": "选择此设备上工作区的显示方式。",
+            "light_aria": "切换到浅色主题",
+            "dark_aria": "切换到深色主题"
         },
         "security": {
             "title": "安全",
@@ -413,7 +707,20 @@
             "import_json": "从 JSON 导入",
             "export_sensitive_title": "导出的备份包含明文数据",
             "export_sensitive_notice": "此备份包含已解密的家庭数据。下载后请妥善存储，如可能请加密，并避免通过不安全的渠道分享。",
-            "export_sensitive_confirm": "此备份将以明文形式包含已解密的家庭数据。您确认会妥善存储吗？"
+            "export_sensitive_confirm": "此备份将以明文形式包含已解密的家庭数据。您确认会妥善存储吗？",
+            "accordion_description": "下载加密备份，恢复受信任文件，并将敏感导出与日常设置分开保存。",
+            "backup_modal_title": "下载家庭备份",
+            "backup_modal_body": "导出内容包括解密的家庭数据。除非绝对需要纯 JSON 文件，否则请保持加密状态。",
+            "encrypt_toggle_title": "在下载前加密备份",
+            "encrypt_toggle_body": "推荐。下载的文件将使用您选择的密码进行加密，并且可以使用相同的密码在以后恢复。",
+            "passphrase_label": "备份密码",
+            "passphrase_confirm_label": "确认密码",
+            "passphrase_length": "使用至少12个字符的备份密码。",
+            "passphrase_mismatch": "备份密码不匹配。",
+            "unencrypted_warning": "纯JSON导出更容易检查，但任何打开文件的人都可以立即读取您的家庭数据。",
+            "import_encrypted_title": "解锁加密备份",
+            "import_encrypted_body": "输入下载时使用的备份密码以恢复此加密文件。",
+            "unlock_and_import": "解锁并导入"
         },
         "about": {
             "title": "📱 关于应用程序",
@@ -423,7 +730,10 @@
             "legal_title": "法律文档",
             "legal_description": "即使已接受，您仍可以从此处重新打开条款和隐私文本。",
             "terms_link": "服务条款",
-            "privacy_link": "隐私政策"
+            "privacy_link": "隐私政策",
+            "beta_title": "测试版状态",
+            "beta_body": "{{brandName}} 仍处于测试版阶段。功能可能会更改，工作流程可能会发展，重要的家庭数据应始终备份。",
+            "feedback_subject": "反馈 - {{brandName}}"
         },
         "modals": {
             "password": {
@@ -518,18 +828,76 @@
             "devices_error": "无法撤销设备"
         },
         "danger_zone": {
-            "title": "Account",
-            "delete_title": "Delete account",
-            "delete_description": "If you want, you can permanently remove the personal data and uploaded files tied to this account.",
-            "delete_warning": "This action cannot be undone.",
-            "delete_action": "Delete account",
-            "modal_title": "Delete account",
+            "title": "帐号",
+            "delete_title": "删除账户",
+            "delete_description": "如果你愿意，可以永久删除与该账户绑定的个人数据和上传文件。",
+            "delete_warning": "这一行为无法撤销。",
+            "delete_action": "删除账户",
+            "modal_title": "删除账户",
             "modal_warning_title": "此操作不可逆",
             "modal_warning_body": "确认后，您将立即失去对账户的访问权限，且已删除的应用数据无法从应用中恢复。",
             "password_label": "使用当前密码确认",
             "confirm_delete": "确认删除",
             "deleting": "删除中..."
-        }
+        },
+        "language": "语言",
+        "control_sections": {
+            "account": "帐号",
+            "houses": "房屋",
+            "security": "安全",
+            "data": "数据",
+            "preferences": "偏好设置",
+            "about": "关于"
+        },
+        "workspace_section": {
+            "eyebrow": "账户和房屋",
+            "title": "账户和家庭访问",
+            "description": "从一个控制区域管理您的个人资料、活跃房屋和成员访问权限。"
+        },
+        "account_overview": {
+            "title": "账户概览",
+            "description": "登录账户的基本个人资料信息。"
+        },
+        "security_section": {
+            "eyebrow": "安全性和偏好",
+            "title": "保护和偏好",
+            "description": "控制登录、账户恢复、受信设备和外观，无需在不同面板中查找。"
+        },
+        "preferences_section": {
+            "title": "外观和语言",
+            "description": "在此设备上保持工作区舒适，并设置在导航和法律文本中使用的语言。"
+        },
+        "data_section": {
+            "eyebrow": "数据和关于",
+            "title": "数据、法律和账户所有权",
+            "description": "保持导出、产品信息和不可逆的账户操作明确分开。"
+        },
+        "language_description": "将一种语言应用到导航、标签、法律文本和日期格式。",
+        "language_updated_title": "语言已更新",
+        "language_updated_body": "{{language}} 现已启用。只有在其他打开的标签页仍显示旧文本时才需要重新加载。",
+        "select_language_tooltip": "更改语言。当前：{{language}}",
+        "select_language_aria": "选择语言。当前：{{language}}",
+        "frequently_used": "常用",
+        "other_languages": "所有语言",
+        "no_language_found": "没有语言与搜索匹配。",
+        "account": "账号",
+        "house": "房屋信息",
+        "house_key": "学院钥匙",
+        "copy_key": "复制密钥",
+        "share_key": "分享说明",
+        "house_members": "众议员",
+        "change_password": "更改密码",
+        "backup": "备份",
+        "export_data": "出口数据",
+        "import_data": "导入数据",
+        "notifications": "通知",
+        "appearance": "外观",
+        "version": "版本",
+        "search_language": "搜索语言......",
+        "popular_languages": "流行语言",
+        "search_results": "搜索结果",
+        "current_language": "现行语言",
+        "languages_available": "可用语言"
     },
     "inventory": {
         "title": "库存",
@@ -588,8 +956,25 @@
             "history_active": "打开{{name}}的记录",
             "history_returned": "已关闭记录：{{name}}",
             "returned_at": "归还日期：{{date}}",
-            "no_history": "该物品尚无借阅历史。"
-        }
+            "no_history": "该物品尚无借阅历史。",
+            "lend_success_title": "物品已借出",
+            "lend_success_body": "{{item}} 现在已标记为已借出。"
+        },
+        "untitled_item": "未命名物品",
+        "delete_action": "删除物品",
+        "delete_title": "删除此物品？",
+        "delete_description": "这将从家庭库存中移除该物品。仅在确定它不应保留在历史记录中时使用。",
+        "delete_warning": "与此记录相关的照片、描述和放置细节将从活跃库存视图中删除。",
+        "delete_success_title": "物品已删除",
+        "delete_success_body": "该物品已从活跃的家庭库存中移除。",
+        "view_mode": "物品布局",
+        "grid_view": "网格",
+        "list_view": "列表",
+        "loading_description": "正在准备物品、房间和筛选器。",
+        "category_filter_label": "按类别筛选",
+        "room_filter_label": "按房间筛选",
+        "refreshing_results": "正在刷新物品...",
+        "empty_filter_title": "没有任何物品符合该搜索"
     },
     "categories": {
         "title": "类别",
@@ -601,7 +986,42 @@
         "icon_label": "图标",
         "color_label": "颜色",
         "delete_confirm": "您确定要删除此类别吗？",
-        "delete_error": "删除错误"
+        "delete_error": "删除错误",
+        "edit_action": "编辑类别",
+        "delete_action": "删除类别",
+        "delete_title": "删除此类别？",
+        "delete_description": "删除类别可能会影响物品的分组和后续查找。",
+        "delete_warning": "已使用此类别的项目可能需要重新分配，以保持筛选和计数清晰。",
+        "delete_success_title": "类别已删除",
+        "delete_success_body": "该类别已从您的库存结构中移除。",
+        "defaults": {
+            "kitchen": "厨房",
+            "electronics": "电子产品",
+            "hobbies": "爱好",
+            "furniture": "家具",
+            "clothing": "服装",
+            "books": "书籍",
+            "tools": "工具",
+            "sports": "运动",
+            "other": "其他"
+        },
+        "add": "添加类别",
+        "edit": "编辑分类",
+        "delete": "删除类别",
+        "name": "类别名称",
+        "icon": "图标",
+        "color": "颜色",
+        "item_count": "物品数量",
+        "no_categories": "目前还没有新增类别",
+        "confirm_delete": "你确定要删除这个分类吗？",
+        "added": "新增类别",
+        "updated": "类别更新",
+        "deleted": "分类已删除",
+        "not_found": "未找到类别",
+        "name_required": "需要类别名称",
+        "load_error": "错误加载类别",
+        "add_error": "错误加法类别",
+        "update_error": "错误更新类别"
     },
     "rooms": {
         "title": "房间",
@@ -614,17 +1034,80 @@
         "name_placeholder": "例如 主卧室",
         "desc_placeholder": "例如 主卧",
         "delete_confirm": "您确定要删除此房间吗？",
-        "delete_error": "删除错误"
+        "delete_error": "删除错误",
+        "edit_action": "编辑房间",
+        "delete_action": "删除房间",
+        "delete_title": "删除此房间？",
+        "delete_description": "删除房间可能会使项目位置不那么清晰，直到它们被重新分配。",
+        "delete_warning": "分配在此的项目可能需要一个新房间，以便搜索、计数和放置历史保持可靠。",
+        "delete_success_title": "房间已删除",
+        "delete_success_body": "房间已移除，相关项目现在可以重新分配。",
+        "defaults": {
+            "living_room": {
+                "name": "客厅",
+                "description": "主日常生活区域"
+            },
+            "bedroom": {
+                "name": "卧室",
+                "description": "睡眠和休息区域"
+            },
+            "kitchen": {
+                "name": "厨房",
+                "description": "食物准备区域"
+            },
+            "bathroom": {
+                "name": "浴室",
+                "description": "清洁和护理区域"
+            },
+            "office": {
+                "name": "办公室",
+                "description": "专注工作区域"
+            },
+            "kids_room": {
+                "name": "儿童房",
+                "description": "儿童房间"
+            },
+            "garage": {
+                "name": "车库",
+                "description": "车辆和储物区域"
+            },
+            "balcony": {
+                "name": "阳台",
+                "description": "户外延伸区域"
+            },
+            "storage": {
+                "name": "储藏室",
+                "description": "通用储物区域"
+            }
+        },
+        "add": "增加空间",
+        "edit": "剪辑室",
+        "delete": "删除房间",
+        "name": "房间名称",
+        "icon": "图标",
+        "item_count": "物品数量",
+        "no_rooms": "还没有新增房间",
+        "confirm_delete": "你确定要删掉这个房间吗？",
+        "added": "新增房间",
+        "updated": "房间更新",
+        "deleted": "房间已删除",
+        "not_found": "找不到房间",
+        "name_required": "需要房间名称",
+        "load_error": "错误加载室",
+        "add_error": "错误加房",
+        "update_error": "错误更新室"
     },
     "admin": {
         "title": "管理面板",
         "subtitle": "系统管理与监控",
         "refresh": "刷新",
+        "refresh_complete_title": "管理数据已刷新",
+        "refresh_complete_body": "最新的管理数据已显示在屏幕上。",
         "tabs": {
             "dashboard": "仪表板",
             "users": "用户",
             "logs": "日志",
-            "email": "发送邮件"
+            "email": "电子邮件"
         },
         "stats": {
             "total_users": "用户总数",
@@ -637,6 +1120,19 @@
             "uptime": "在线时间: {{hours}} 小时"
         },
         "users": {
+            "section_title": "用户访问控制",
+            "search_label": "搜索用户",
+            "search_placeholder": "按用户名搜索",
+            "filtered_total": "已显示 {{count}} 个账户",
+            "total_platform": "共 {{count}} 个账户",
+            "empty_title": "没有匹配的账户",
+            "empty_body": "尝试其他搜索或筛选条件把用户重新显示出来。",
+            "filters": {
+                "all": "全部",
+                "active": "启用",
+                "banned": "已封禁",
+                "admin": "管理员"
+            },
             "user": "用户",
             "role": "角色",
             "status": "状态",
@@ -651,16 +1147,74 @@
             "ban_apply": "封禁",
             "confirm_delete_1": "您确定要删除用户“{{username}}”吗？",
             "confirm_delete_2": "⚠️ 警告：这将永久删除用户“{{username}}”的所有数据（库存、房间、类别）！",
-            "confirm_delete_3": "🚨 最后警告：账户“{{username}}”及所有数据将被不可逆地删除。您要继续吗？"
+            "confirm_delete_3": "🚨 最后警告：账户“{{username}}”及所有数据将被不可逆地删除。您要继续吗？",
+            "ban_action": "禁止用户",
+            "unban_action": "恢复用户访问",
+            "ban_title": "禁止此用户？",
+            "ban_description": "禁止用户会立即阻止其访问，直到管理员恢复。",
+            "ban_warning": "用户将失去访问权限，直到另一位管理员明确恢复。",
+            "unban_title": "恢复此用户？",
+            "unban_description": "恢复访问权限允许该用户再次登录。",
+            "unban_warning": "用户将在下次成功登录时重新获得访问权限。",
+            "delete_title": "删除此账户？",
+            "delete_description": "删除 {{username}} 将永久移除该账户及其拥有的库存数据。",
+            "delete_warning": "此操作不可逆，并将删除与该账户相关的房间、类别、物品及相关所有权历史。",
+            "ban_success_title": "用户被禁止",
+            "ban_success_body": "{{username}} 已被阻止登录。",
+            "unban_success_title": "访问权限已恢复",
+            "unban_success_body": "{{username}} 可以再次登录。",
+            "delete_success_title": "账户已删除",
+            "delete_success_body": "{{username}} 及相关拥有的数据已被永久移除。",
+            "protected_admin": "受保护的管理员账号",
+            "private_contact_hidden": "私人联系方式会在管理员概览中保持隐藏。",
+            "no_last_login": "尚未登录",
+            "section_body": "搜索账户、查看当前状态，并在不丢失上下文的情况下执行操作。",
+            "section_eyebrow": "审核",
+            "no_date": "未知",
+            "joined_label": "加入",
+            "last_seen_label": "上次登录",
+            "households_label": "家庭",
+            "items_label": "拥有的物品",
+            "last_seen_short": "已看",
+            "last_seen_short_never": "新"
         },
         "logs": {
-            "title": "管理日志",
+            "title": "管理员日志",
             "no_logs": "暂无日志",
-            "errors_title": "系统错误（最近10条）",
+            "errors_title": "系统错误（最近 10 条）",
             "no_errors": "// 系统正常，无错误日志。",
-            "date_fmt": "{{date, datetime}}"
+            "date_fmt": "{{date, datetime}}",
+            "type": {
+                "email": "电子邮件",
+                "user": "用户",
+                "system": "系统",
+                "event": "事件"
+            },
+            "action": {
+                "send": "发送",
+                "delete": "删除",
+                "update": "更新",
+                "create": "创建",
+                "enable": "启用",
+                "disable": "禁用"
+            },
+            "audit": {
+                "email_sent": "接收者: {{recipient}} | 主题: {{subject}}",
+                "user_deleted": "用户已删除：{{username}} | 删除的家庭：{{deletedHouses}} | 转让的所有权：{{transferredOwnerships}}",
+                "user_target": "用户: {{username}}",
+                "indexnow_submitted": "IndexNow 提交成功。URL 数量: {{count}}"
+            },
+            "no_errors_title": "暂无最近系统错误",
+            "section_body": "每一次审核或运营变更都会记录在管理层。",
+            "errors_body": "从服务器日志文件中解析出的最新错误行。",
+            "section_eyebrow": "审计记录",
+            "errors_eyebrow": "诊断"
         },
         "email": {
+            "status_title": "外发邮件状态",
+            "status_body": "发送操作性通信前的快速检查。",
+            "unconfigured_title": "电子邮件投递尚未配置",
+            "unconfigured_body": "发送表单仍会显示以供设置检查，但在配置邮件服务商之前，投递将失败。",
             "title": "发送邮件",
             "to": "收件人 (To)",
             "subject": "主题",
@@ -669,12 +1223,116 @@
             "send": "发送",
             "sending": "正在发送...",
             "success": "邮件发送成功！",
-            "error": "发送失败"
-        }
+            "error": "发送失败",
+            "compose_eyebrow": "消息",
+            "compose_body": "撰写一封带有安全 HTML 格式和平台品牌的单封外发邮件。",
+            "security_title": "安全发送",
+            "security_body": "管理员: {{username}} • 限额: 每分钟 {{remaining}}/3 封邮件",
+            "from_unconfigured": "邮件设置完成后可用",
+            "notes_label": "使用说明",
+            "notes_body": "将此用于操作支持或账户相关的联系。敏感内容应尽可能保留在应用内。",
+            "notes_body_with_rate_limit": "将此用于操作支持或账户相关的联系。敏感内容应尽可能保留在应用内。当前发送保护措施: {{rateLimit}}.",
+            "rate_limit_fallback": "每分钟 3 封邮件",
+            "placeholder_to": "name@example.com",
+            "placeholder_subject": "消息主题",
+            "send_success_with_id": "✅ 电子邮件发送成功！ID: {{emailId}}",
+            "send_error": "电子邮件发送失败",
+            "rate_limit_reached": "⏳ 达到速率限制。请等待1分钟。",
+            "info_title": "信息",
+            "info_bullet_1": "电子邮件由 {{supportEmail}} 发送",
+            "info_bullet_2": "您每分钟最多可以发送3封电子邮件以防止垃圾邮件",
+            "info_bullet_3": "所有发送内容都会被记录以确保安全，但不包括内容",
+            "status_eyebrow": "投递"
+        },
+        "overview": {
+            "email_warning_title": "电子邮件投递尚未配置",
+            "sections": {
+                "governance_title": "治理快照",
+                "activity_title": "最近的管理活动",
+                "governance_eyebrow": "访问",
+                "governance_body": "专注于审核压力、受保护的管理员席位和家庭访问请求，而无需离开页面。",
+                "footprint_eyebrow": "库存",
+                "footprint_title": "库存足迹",
+                "footprint_body": "对产品中目前存在的结构和内容数量的全球视图。",
+                "activity_eyebrow": "审核",
+                "activity_body": "平台记录的最新审核和操作行为。",
+                "recent_users_eyebrow": "新账户",
+                "recent_users_title": "最新注册",
+                "recent_users_body": "快速查看最近加入的人，以及他们是否已登录。",
+                "recent_users_private_note": "私人联系方式会保持隐藏。",
+                "recent_users_empty_title": "目前没有用户",
+                "recent_users_empty_body": "当有人注册时，最新的账户将显示在这里。"
+            },
+            "summary": {
+                "admin_seats": "受保护的管理员席位",
+                "admin_seats_body": "可以访问管理员界面的账户。",
+                "banned_accounts": "被封禁的账户",
+                "banned_accounts_body": "目前被阻止登录的用户。",
+                "locked_accounts": "临时锁定",
+                "locked_accounts_body": "由于多次登录失败而锁定的账户。",
+                "pending_households": "待处理的家庭批准",
+                "pending_households_body": "等待所有者决定的加入请求。",
+                "rooms_global": "已配置的房间记录",
+                "rooms_global_body": "存储在每个家庭中的所有房间定义。",
+                "categories_global": "已配置的类别记录",
+                "categories_global_body": "存储在每个家庭中的所有类别定义。",
+                "locations_global": "已保存的位置",
+                "locations_global_body": "房间内创建的命名位置记录。",
+                "active_borrows": "活动借阅",
+                "active_borrows_body": "仍在进行的借阅记录。"
+            },
+            "email_warning_body": "管理员仍可查看平台，但在配置 Resend 之前，外发邮件操作不可用。",
+            "locked_users_title": "锁定账户需要审核",
+            "locked_users_body": "{{count}} 个账户当前被阻止登录。",
+            "pending_requests_title": "家庭审批待处理",
+            "pending_requests_body": "{{count}} 个加入请求正在等待所有者决定。",
+            "cards": {
+                "accounts": "账户",
+                "accounts_body": "{{count}} 个新注册在过去7天",
+                "admins_chip": "{{count}} 个管理员",
+                "banned_chip": "{{count}} 个被封禁",
+                "households": "家庭",
+                "households_body": "平台上 {{count}} 个活跃会员",
+                "pending_chip": "{{count}} 个待处理",
+                "inventory": "库存记录",
+                "inventory_body": "目前有 {{count}} 个活跃借阅",
+                "public_items_chip": "{{count}} 个共享",
+                "private_items_chip": "{{count}} 个私有",
+                "system": "系统健康",
+                "system_body": "{{count}} 小时正常运行",
+                "storage_chip": "{{count}} MB 上传"
+            }
+        },
+        "meta": {
+            "users_total": "{{count}} 个账户",
+            "households_total": "{{count}} 个家庭",
+            "pending_requests": "{{count}} 个待审批",
+            "pending_requests_clear": "没有待审批"
+        },
+        "ban_user": "禁令",
+        "unban_user": "解禁",
+        "delete_user": "删除用户",
+        "reset_attempts": "重置尝试",
+        "total_users": "总用户数",
+        "total_items": "总物品",
+        "server_uptime": "服务器运行时间",
+        "memory_usage": "内存使用",
+        "users_loaded": "已加载的用户",
+        "user_banned": "用户被封禁",
+        "user_unbanned": "用户解封",
+        "user_deleted": "用户已删除",
+        "attempts_reset": "登录失败将重置",
+        "stats_loaded": "统计数据加载",
+        "logs_loaded": "日志已加载",
+        "load_error": "错误加载数据",
+        "action_error": "错误执行动作"
     },
     "landing": {
         "nav": {
-            "login": "登录"
+            "login": "登录",
+            "features": "特色",
+            "security": "安全性",
+            "details": "详情"
         },
         "hero": {
             "title_1": "管理一切",
@@ -684,7 +1342,9 @@
             "cta_register": "创建账户",
             "stat_free": "免费",
             "stat_access": "访问",
-            "free_badge": "完全免费"
+            "free_badge": "完全免费",
+            "badge": "HomeInventory v2.0 来了",
+            "cta_explore": "探索功能"
         },
         "features": {
             "title": "为什么选择<1>家居库存</1>？",
@@ -725,9 +1385,168 @@
             "desc": "轻松安全的平台，用于数字化您的家庭库存。",
             "links": "快速链接",
             "contact": "联系我们",
-            "copyright": "© {{year}} 家居清单。保留所有权利。"
+            "copyright": "© {{year}} {{brandName}}. All rights reserved."
         },
-        "preview_privacy_notice": "演示视图：未显示真实用户数据。"
+        "preview_privacy_notice": "演示视图：未显示真实用户数据。",
+        "sections": {
+            "capabilities": "产品功能",
+            "capabilities_heading": "拥有管理良好的家所需的一切。",
+            "security_eyebrow": "企业级安全",
+            "security_heading": "你的私生活依然是私密的。",
+            "recovery_setup": "恢复密钥设置",
+            "updated": "最后更新于2天前",
+            "authenticator_required": "需要认证器应用",
+            "about": "关于",
+            "workflow": "家庭工作流程",
+            "workflow_heading": "一种更平静的方式来管理家中的物品。",
+            "ready": "准备开始了",
+            "ready_heading": "建立一个更平静、更有条理的家庭系统。",
+            "hero_vault_caption": "加密且安全",
+            "security_status": "活跃"
+        },
+        "about": {
+            "headline": "一个开源、多语言、以安全为先的系统，用于管理您的家庭库存。",
+            "description": "HomeInventory 不仅仅是一个精致的界面;这是一个实用的日常使用系统，涵盖条形码和二维码流、多户共享、借款、个人金库和备份。"
+        },
+        "homeinventory": {
+            "hero": {
+                "statement": "了解你所拥有的。无需摩擦即可找到它。",
+                "statementAccent": "家庭共享库存。个人保险柜只属于你。",
+                "description": "将物品、保修、重要文件和借用记录集中在一个安静的地方。一眼就能看到你家里有什么。",
+                "primaryCta": "免费开始",
+                "secondaryCta": "查看产品",
+                "trustSignal": "完全免费 • 适合家庭共享使用 • 个人保险柜中敏感记录保持独立",
+                "searchPlaceholder": "搜索物品、房间或条形码"
+            },
+            "heroInventoryRows": [
+                {
+                    "name": "空气炸锅",
+                    "meta": "厨房台面 • 保修至2028年08月",
+                    "state": null
+                },
+                {
+                    "name": "电钻套装",
+                    "meta": "储物柜 • 14件",
+                    "state": "已借出"
+                },
+                {
+                    "name": "网格单元",
+                    "meta": "电视柜 • Deco M4",
+                    "state": null
+                },
+                {
+                    "name": "备用门钥匙",
+                    "meta": "入门抽屉",
+                    "state": null
+                },
+                {
+                    "name": "锅炉保修 PDF",
+                    "meta": "文件 • 附加 PDF",
+                    "state": null
+                },
+                {
+                    "name": "HEPA 过滤器",
+                    "meta": "儿童房 • 2026 年 11 月更换",
+                    "state": null
+                }
+            ],
+            "features": {
+                "eyebrow": "为什么选择 HOMEINVENTORY",
+                "heading": "了解自己的资产能让家庭生活更容易管理。",
+                "description": "共享清单保持日常库存清晰，而个人保险库则将敏感记录隐藏起来。"
+            },
+            "productLanes": [
+                {
+                    "eyebrow": "共享库存",
+                    "title": "在一个清晰的地方查看您家的物品。",
+                    "description": "按房间整理物品，附上保修和备注，并在几秒钟内找到所需物品。",
+                    "signal": "日常使用",
+                    "metric": "快速搜索",
+                    "note": "房间 • 类别 • 保修备注"
+                },
+                {
+                    "eyebrow": "借用追踪",
+                    "title": "随时知道家里谁拥有何物。",
+                    "description": "借出的物品会保留记录，因此不会丢失。",
+                    "signal": "共享使用",
+                    "metric": "清除历史记录",
+                    "note": "家庭成员 • 借用记录 • 清洁员跟进"
+                },
+                {
+                    "eyebrow": "个人保险库",
+                    "title": "护照、契约和代码不会出现在共享搜索中。",
+                    "description": "敏感记录仅你可见，并与日常列表分开。",
+                    "signal": "私人记录",
+                    "metric": "只有你能看到它们",
+                    "note": "文件 • 访问代码 • 个人笔记"
+                }
+            ],
+            "security": {
+                "eyebrow": "请放心使用",
+                "heading": "共享搜索永远无法访问私人记录。",
+                "description": "个人保险库与共享清单分开，并通过多层账户安全保护。",
+                "bullets": [
+                    "敏感字段将单独处理并安全存储。",
+                    "使用双因素认证、备份代码和可信设备保护访问。"
+                ]
+            },
+            "about": {
+                "eyebrow": "你保持掌控",
+                "heading": "HomeInventory 旨在让日常生活中感到安心、实用和值得信赖。",
+                "description": "优先事项是帮助您了解自己拥有的物品并快速获取正确的信息。技术透明性仍然可用，但不需要成为故事的主线。",
+                "pills": [
+                    "完全免费",
+                    "家庭共享使用",
+                    "快速搜索",
+                    "个人保险库"
+                ],
+                "strips": [
+                    {
+                        "title": "完全免费",
+                        "description": "目前一切都是免费的；您可以在不付费的情况下使用 HomeInventory 的所有功能。",
+                        "number": "01"
+                    },
+                    {
+                        "title": "家庭共享流程",
+                        "description": "家庭成员可以共同查看和维护相同的家庭库存。",
+                        "number": "02"
+                    },
+                    {
+                        "title": "文件和保修信息",
+                        "description": "将收据、保修详情和服务记录与每个物品保持在一起。",
+                        "number": "03"
+                    },
+                    {
+                        "title": "私人记录保持分开",
+                        "description": "敏感信息不会出现在共享列表中，只对您可见。",
+                        "number": "04"
+                    }
+                ],
+                "advanced": {
+                    "eyebrow": "技术细节",
+                    "title": "天生透明，默默运行在后台。",
+                    "description": "对于关心底层设置的人来说，Envnaterim 仍然保留其开源核心、MIT 许可证及自托管的灵活性，作为支持性信息提供。",
+                    "link": "在 GitHub 上查看技术细节"
+                }
+            },
+            "cta": {
+                "eyebrow": "今天开始",
+                "heading": "创建您的第一个房间。添加您的第一个物品。",
+                "description": "开始免费，只需几分钟即可构建更清晰的家庭系统。"
+            },
+            "security_panel": {
+                "eyebrow": "受限访问",
+                "title": "私人记录不会出现在共享列表中",
+                "description": "护照、契约和访问代码保持与共享库存分开。保险库数据以加密方式存储。",
+                "vault_scope": "保险库范围",
+                "identity_docs": "身份文件",
+                "identity_docs_meta": "护照、身份证",
+                "property_records": "财产记录",
+                "property_records_meta": "契约、租约",
+                "access_codes": "访问代码",
+                "access_codes_meta": "密码、PIN码"
+            }
+        }
     },
     "intro": {
         "inventory": {
@@ -749,7 +1568,19 @@
             "next": "下一步",
             "skip": "跳过",
             "open": "打开"
-        }
+        },
+        "inventory_title": "库存",
+        "inventory_desc": "在这里添加并列出你的物品。将所有家居物品集中管理！",
+        "house_key_title": "学院钥匙",
+        "house_key_desc": "这是你的家钥匙，用它来邀请别人。把家人加入你的家！",
+        "categories_title": "类别",
+        "categories_desc": "将你的物品按类别分类。电子产品、家具、厨房等等！",
+        "back": "返回",
+        "close": "结束",
+        "last": "结局",
+        "next": "下一个",
+        "open": "开门",
+        "skip": "跳过"
     },
     "google_house_select": {
         "title": "欢迎！",
@@ -790,7 +1621,7 @@
         "found_local_msg": "此条码已在您的库存中。",
         "found_online": "找到产品！",
         "google_result": "⚡ Google 搜索结果 - 请验证",
-        "barcode": "条形码：{{code}}",
+        "barcode": "条形码: {{code}}",
         "new_product": "新产品",
         "not_found_db": "数据库中未找到此条形码。",
         "google_search": "在 Google 上搜索",
@@ -803,7 +1634,8 @@
         "found_item_redirect": "找到商品！正在重定向…",
         "found_page_redirect": "找到页面！正在重定向…",
         "invalid_qr": "此二维码不适用于此应用。",
-        "not_found": "未找到商品。请尝试其他条形码。"
+        "not_found": "未找到商品。请尝试其他条形码。",
+        "qr_subtitle": "仅将此用于家庭库存物品二维码标签。"
     },
     "item_qr": {
         "hint_mobile": "📱 使用手机扫描此二维码以快速访问该物品",
@@ -813,7 +1645,29 @@
         "copy_url": "复制URL",
         "download": "下载二维码",
         "usage_title": "使用方法",
-        "usage_desc": "打印二维码并贴在物品上。使用手机扫描即可立即访问此页面！"
+        "usage_desc": "打印二维码并贴在物品上。使用手机扫描即可立即访问此页面！",
+        "caption": "物品链接",
+        "caption_hint": "当您需要快速访问时，复制或打印直接的物品路径。",
+        "format_badge": "SVG 导出",
+        "link_preview_label": "直接物品链接",
+        "link_preview_aria": "直接物品链接预览",
+        "copy_url_safe": "复制链接",
+        "copy_url_aria": "复制物品链接",
+        "actions_title": "分享操作",
+        "actions_desc": "复制直接条目链接或保存一个清晰的二维码素材以便打印。",
+        "copy_success_title": "二维码链接已复制",
+        "copy_success_body": "当你需要时，条目编辑链接已准备好分享。",
+        "copy_error": "无法复制二维码链接。",
+        "download_aria": "下载二维码",
+        "download_success_title": "二维码已下载",
+        "download_success_body": "二维码图片已保存，文件名适合分享。",
+        "render_error": "二维码目前无法生成。",
+        "privacy_title": "隐私说明",
+        "privacy_summary": "网络详情将保持隐藏，直到你需要指导时才会显示。",
+        "link_privacy_note": "网络地址在此保持隐藏。仅在你有意分享本地设置中的直接项目访问时，扫描二维码或复制链接。",
+        "helper": "扫描以立即打开此项目，或在需要时复制直接链接。",
+        "copy_error_title": "Link could not be copied automatically",
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
     },
     "house_access_pending": {
         "eyebrow": "房屋访问",
@@ -856,7 +1710,7 @@
             "subject": "🏠 {{brandName}} - 📧 需要邮箱验证",
             "headerTitle": "欢迎使用 {{brandName}}",
             "headerSubtitle": "创建新账户或加入现有家庭",
-            "greeting": "欢迎使用家居库存",
+            "greeting": "Welcome to {{brandName}}",
             "intro": "账户已创建！请验证您的邮箱以登录。",
             "verifyPrompt": "📧 需要邮箱验证",
             "verifyButton": "✓ 验证我的账户",
@@ -873,13 +1727,13 @@
             ],
             "fallback": "密码重置链接看起来不完整或损坏。",
             "support": "注册问题：",
-            "footer": "© 2026 家居库存"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
             "subject": "欢迎使用 {{brandName}}",
             "headerTitle": "欢迎使用 {{brandName}}",
             "headerSubtitle": "创建新账户或加入现有家庭",
-            "greeting": "欢迎使用家居库存",
+            "greeting": "Welcome to {{brandName}}",
             "intro": "欢迎，! 👋",
             "houseKeyLabel": "房屋钥匙",
             "houseKeyNote": "这是您的房屋钥匙，用于邀请他人。将家庭成员添加到您的房屋！",
@@ -891,7 +1745,7 @@
                 "💡 您可以成为多个房屋的成员并在它们之间切换。每个房屋都有独立的库存。"
             ],
             "support": "注册问题：",
-            "footer": "© 2026 家庭库存"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "加入房屋",
@@ -900,10 +1754,15 @@
             "bodyLine2": "等待房主批准"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "家庭库存 - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "房屋访问",
             "bodyLine1Template": "当前待处理请求：{{house}} ({{status}})",
-            "bodyLine2": "你对“{{house}}”的请求仍在等待决定。"
+            "bodyLine2": "你对“{{house}}”的请求仍在等待决定。",
+            "statusLabels": {
+                "approved": "已批准",
+                "rejected": "已拒绝",
+                "updated": "已更新"
+            }
         },
         "houseKick": {
             "subject": "已将成员从房子中移除",
@@ -920,11 +1779,21 @@
             "warningTitle": "⚠️",
             "warningBody": "如果账户存在，密码重置链接（有效期15分钟）已发送。",
             "fallback": "密码重置链接看起来不完整或损坏。",
-            "footer": "© 2026 家庭库存"
+            "footer": "© 2026 {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "本电子邮件由 {{brandName}} 发送。",
             "footer": "© 2026 {{brandName}} - {{supportEmail}}"
+        },
+        "testEmail": {
+            "subject": "🧪 {{brandName}} 测试邮件",
+            "headerTitle": "🧪 测试邮件",
+            "successTitle": "邮件系统正在运行",
+            "successBody": "如果您收到此邮件，说明 {{brandName}} 的邮件发送配置正确。",
+            "sentAtLabel": "发送时间",
+            "senderLabel": "发件人",
+            "serviceLabel": "服务",
+            "footer": "© 2026 {{brandName}}"
         }
     },
     "vault": {
@@ -983,13 +1852,35 @@
             "delete_failed": "无法删除保险库记录。",
             "decrypt_failed": "无法解密保险库内容。",
             "name_required": "保险库记录必须有项目名称。",
-            "options_failed": "类别和房间选项无法加载。"
+            "options_failed": "类别和房间选项无法加载。",
+            "delete_success_title": "保险库记录已删除",
+            "delete_success_body": "私人记录已从您的保险库中永久移除。"
         },
-        "recovery_file_title": "家庭库存个人保险库恢复密钥",
+        "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
         "recovery_file_created_label": "已创建",
         "recovery_file_key_label": "恢复密钥",
         "recovery_file_warning": "如果您同时丢失此密钥和保险库密码，则无法恢复保险库。",
-        "media_note": "照片上传、条形码扫描和外部产品查询尚不支持。这些功能将在专用加密媒体和隐私流程准备好后添加。"
+        "media_note": "照片上传、条形码扫描和外部产品查询尚不支持。这些功能将在专用加密媒体和隐私流程准备好后添加。",
+        "photo": {
+            "attach_action": "添加照片",
+            "replace_action": "更换照片",
+            "empty_state": "所选照片会在浏览器中处理，移除元数据，并在上传前加密。",
+            "hint": "照片会先在浏览器本地处理，去除 EXIF 元数据，并且只会把加密数据发送到服务器。",
+            "privacy_note": "为保护隐私，条码查询和外部数据获取保持禁用。",
+            "processing": "正在准备照片以便安全上传...",
+            "pending_removal": "当前照片会在保存时删除。",
+            "viewer_hint": "从存储在个人保险库中的加密原件打开。",
+            "viewer_loading": "正在解密照片...",
+            "viewer_failed": "无法打开原尺寸照片。",
+            "open_full_action": "打开原尺寸",
+            "unsupported": "请选择受支持的图片文件。",
+            "source_too_large": "源照片最大可为 {{maxSizeMb}} MB。",
+            "prepare_failed": "无法安全准备该照片。",
+            "too_large": "照片未达到安全大小限制。请尝试更小或更简单的图片。"
+        },
+        "delete_title": "删除此保险库记录？",
+        "delete_description": "删除个人保险库记录将永久移除其加密内容。",
+        "delete_warning": "此操作无法撤销。仅在您不再需要在私人保险库中保留该记录时才删除。"
     },
     "borrow_requests": {
         "title": "借阅中心",
@@ -1010,7 +1901,9 @@
             "subtitle": "当前在您手中或由您借出的物品",
             "empty": "当前没有活跃的借出。",
             "borrowed_from": "借自 {{name}}",
-            "lent_to": "当前借给 {{name}}"
+            "lent_to": "当前借给 {{name}}",
+            "empty_title": "目前没有正在外借的物品",
+            "empty_description": "一旦物品被借出或借入，已接受的请求将在此显示，包括到期日期和归还状态。"
         },
         "status": {
             "pending": "待处理",
@@ -1026,7 +1919,8 @@
             "accept": "接受",
             "reject": "拒绝",
             "cancel": "取消",
-            "fulfill_request": "完成请求"
+            "fulfill_request": "完成请求",
+            "open_inventory": "打开库存"
         },
         "labels": {
             "offer": "报价",
@@ -1043,7 +1937,7 @@
             "offer_title": "发送报价",
             "offer_subtitle_item": "为“{{item}}”创建安全的用户报价",
             "offer_subtitle_general": "从您的库存中选择一个物品并发送安全报价",
-            "item_label": "物品",
+            "item_label": "项目",
             "item_placeholder": "选择一个物品",
             "target_label": "用户名或电子邮件",
             "target_placeholder": "例如 alex 或 alex@example.com",
@@ -1072,13 +1966,18 @@
         "preview": {
             "title": "预览模式",
             "body": "该页面的后端部分在本地测试中暂时无法访问。您仍然可以先查看布局和流程；在您批准之后，我们将启用服务器端。"
-        }
+        },
+        "subtitle_compact": "跟踪您发送的请求、等待您处理的请求和当前借出的物品。",
+        "incoming_empty_title": "没有需要您审核的请求",
+        "outgoing_empty_title": "尚无外发请求",
+        "refreshing": "正在刷新请求和当前借用...",
+        "loading_description": "准备请求和当前借用活动。"
     },
     "legal": {
         "privacy_policy_title": "隐私政策",
         "terms_of_service_title": "服务条款",
-        "privacy_policy_content": "我们重视您的隐私。本应用使用字段级加密安全存储您上传的数据。我们不会将您的个人数据出售或共享给第三方。使用本服务即表示您同意收集必要的数据以进行账户管理和应用功能。",
-        "terms_of_service_content": "使用 {{brandName}} 即表示您同意这些条款。该服务按“原样”提供，不提供任何保证。您需对上传的数据负责，并确保拥有该数据的使用权。我们保留暂停违反政策或滥用系统账户的权利。",
+        "privacy_policy_content": "## 概述\n**{{brandName}}** 是开源软件，可以通过官方或自托管安装提供。对于此安装，数据控制者或服务运营商是 **{{controllerName}}**。\n- **控制器地址：** {{controllerAddress}}\n- **隐私联系人：** {{privacyEmail}}\n- **一般支持联系人：** {{supportEmail}}\n\n本通知解释了**处理哪些个人数据**、**如何获取这些数据**、**处理这些数据的原因**、**谁可能会收到这些数据**、**保存这些数据的时间**以及**您可能拥有哪些权利**。\n\n如果此安装由第三方操作，则该操作员负责任何特定于部署的控制器身份、支持承诺、传输详细信息、保留设置和适用的当地法律声明。\n\n## 我们收集和处理哪些数据\n- **帐户数据：** 用户名、电子邮件地址、密码哈希、会话 cookie、可信设备数据和安全日志。\n- **服务数据：** 房屋、房间、类别、物品、上传的媒体、借阅请求以及您创建的个人保管库记录。\n- **技术数据：** 本地化和帐户安全所需的 IP 地址、浏览器/会话标识符以及语言首选项数据。\n- **可选身份提供商数据：** 如果您选择 Google 登录，Google 会与我们共享您的电子邮件地址、Google 帐户标识符和个人资料显示名称，以便我们对您进行身份验证或创建您的帐户。\n- **可选查找请求数据：** 如果您使用条形码或产品查找，我们的服务器可能会将您提交的条形码值发送到 Open Food Facts、Open Products Facts、Open Beauty Facts 或 Google，以便返回请求的结果。\n\n## 我们如何获取数据\n- **直接来自您：** 当您注册、登录、创建或编辑记录、上传媒体、配置安全设置或联系支持人员时。\n- **自动从您的浏览器或设备：**通过操作和保护应用程序所需的会话 cookie、可信设备机制、IP 处理、语言首选项和安全日志。\n- **来自 Google：** 仅当您选择 Google 登录时，仅限于验证您身份或创建帐户所需的身份数据。\n- **来自外部产品数据源：** 仅当您触发条形码或产品查找时，仅限于查找请求和返回的产品元数据。\n\n## 为什么我们处理它\n- **账户操作：** 创建和操作您的账户。\n- **身份验证和安全性：** 对您进行身份验证并保护会话和双因素身份验证。\n- **核心功能：**提供库存、备份和个人保管库功能。\n- **支持：**响应支持请求。\n- **可选的登录和查找功能：** 仅当您选择这些功能时才能完成 Google 登录和外部条形码/产品查找。\n- **法律和安全义务：** 履行法律或安全义务。\n\n## 法律依据及征收方式\n- **根据 GDPR（如适用）：** 处理基于合同履行、法律义务、对任何基于同意的功能的同意以及运营商在服务和帐户安全方面的合法利益。\n- **根据 KVKK（如适用）：** 处理基于第 5 条和第 6 条中的法律依据，包括在必要时为订立或履行合同、遵守法律义务、行使或保护权利或控制者的合法利益（前提是您的基本权利和自由不受损害）。\n- **收集方法：**数据通过表单、经过身份验证的会话、必需的 cookie、可选的 OAuth 流、应用程序日志、上传和 API 请求以电子方式收集。\n\n## 存储和传输\n- **我们不出售个人数据。**\n- 用于操作此安装的托管、数据库、存储、电子邮件、身份验证和基础设施提供商可能会接收个人数据。\n- 如果您选择 Google 登录或条形码/产品查找，相关身份验证或查找数据将与所选提供商共享，仅用于完成您触发的功能。\n- 根据法律要求，数据可能会向法院、监管机构或公共机构披露。\n- **此安装的传输披露：** {{transferDisclosure}}\n- 当您的帐户处于活动状态时，帐户数据将被保留。\n- 当您从“设置”中删除您的帐户时，您的帐户所拥有的帐户数据、个人保管库内容、上传的媒体和应用程序记录将从应用程序中立即删除，但出于法律索赔、法定职责或安全义务而必须保留的信息除外。\n\n## 您的权利\n- 根据适用法律，您可以要求确认您的个人数据是否已处理、访问权限以及有关目的、类别、接收者和传输的信息。\n- 您可以请求纠正、删除、销毁、限制或反对，以及适用的数据可移植性。\n- 如果处理是基于同意的，您可以随时撤回同意，而不影响之前的合法处理。\n- 如果法律要求，您可以要求将更正、删除或销毁结果传达给接收者。\n- 如果法律赋予您该权利，您可以反对仅通过自动化方式产生的结果。\n- 在法律允许的情况下，您可以就非法处理造成的损失寻求赔偿。\n- 您可以向 **{{complaintAuthority}}** 提出投诉\n\n## 如何行使权利\n- 使用应用内帐户删除流程或联系 **{{privacyEmail}}** 提出隐私请求。\n- 在适用 GDPR 的情况下，应立即答复请求，原则上应在身份验证后 1 个月内答复。\n\n## 自动化决策\n- 此应用程序不单独使用对您产生法律或类似重大影响的自动决策或分析。\n\n## 重要提示\n提供此通知是为了提高透明度。 **它独立于任何可选的营销、分析或非必要的 Cookie 同意**，需要时必须单独请求。\n\n上游开源项目维护者不会自动成为第三方自托管部署的数据控制者或处理者。",
+        "terms_of_service_content": "服务条款\n\n1. 概述\n{{brandName}} 是开源软件，可以通过官方或自托管安装使用。这些条款适用于您正在使用的特定安装。\n- 如果此安装由第三方操作，则该运营商可以使用特定于部署的规则、支持承诺或当地法律声明来补充这些条款。\n\n2. 使用规则\n- 您对您在服务中放置的内容的合法性、准确性和所有权负责。\n- 该软件的开源可用性并不授予您上传、存储或共享您无权使用的数据的权利。\n- 我们可能会暂停或删除滥用服务、违反这些条款或造成安全或法律风险的帐户。\n\n3. 账户安全\n- 确保您的密码、恢复材料和备份的安全。\n\n4. 数据生命周期\n- 保留重要信息的备份。\n- 从“设置”中删除您的帐户将永久删除您帐户拥有的应用程序数据和上传的媒体，并且无法撤消。\n\n5. 限制和免责声明\n- 可用性、支持、集成和响应时间取决于此安装的运营商。\n- 在法律允许的范围内，服务按“原样”和“可用”基础提供。",
         "register_consent": "我已阅读、理解并同意<1>服务条款</1>和<2>隐私政策</2>。",
         "consent_title": "审查法律文件",
         "consent_subtitle": "在继续之前，请确认当前条款。",
@@ -1086,11 +1985,182 @@
         "consent_checkbox": "我接受服务条款，并确认已阅读隐私声明。",
         "consent_submit": "继续",
         "consent_submitting": "正在保存...",
-        "consent_required": "在继续之前，您需要确认服务条款和隐私声明。"
+        "consent_required": "在继续之前，您需要确认服务条款和隐私声明。",
+        "document_badge": "法律文件",
+        "data_privacy_badge": "数据与隐私",
+        "back_to_home": "返回首页",
+        "quick_access": "快速访问",
+        "on_this_page": "本页",
+        "contents": "目录",
+        "page_label": "页面",
+        "overview": "概述",
+        "contact": "联系方式",
+        "jump_to": "跳转到",
+        "privacy_description": "此 {{brandName}} 安装的隐私声明解释了处理哪些数据、如何收集数据、如何共享或传输数据以及可能适用的权利和投诉路径。",
+        "privacy_support_label": "有关此安装的隐私请求、权利申请和投诉相关查询：",
+        "privacy_summary": {
+            "title": "实践",
+            "description": "此处提供了此简短摘要，以便您可以先了解要点。",
+            "items": {
+                "what": "**我们处理的内容：** 我们处理运行您的帐户和应用程序所需的帐户、服务、技术安全和可选提供商数据。",
+                "why": "**原因：** 数据用于身份验证、会话安全、库存工作流程、备份和个人保管库功能。",
+                "sharing": "**共享和存储：**我们不出售个人数据。它保存在为此安装选择的基础设施上；如果您选择 Google 登录或条形码查找，则会与所选提供商共享有限的数据以完成该功能，并且运营商应根据需要披露国家/地区和保障措施。",
+                "control": "**您的控制权：** 您可以请求访问、更正、删除、限制、反对、可移植性（如果适用），或通过联系此安装的隐私地址向主管当局投诉。"
+            },
+            "shortcuts": {
+                "what": "我们处理什么",
+                "why": "为什么",
+                "sharing": "共享",
+                "rights": "权利"
+            },
+            "section_titles": {
+                "what": "我们收集和处理哪些数据",
+                "why": "我们为何处理这些数据",
+                "sharing": "存储和传输",
+                "rights": "您的权利"
+            }
+        },
+        "terms_description": "本条款{{brandName}} 安装以更清晰、更易于扫描的格式解释可接受的使用、您的安全责任以及帐户删除的后果。",
+        "terms_support_label": "有关适用于此安装的条款的问题：",
+        "terms_summary": {
+            "eyebrow": "快速摘要",
+            "title": "这在实践中意味着什么",
+            "items": {
+                "use": "仅将服务用于您有权上传、存储或共享的数据。",
+                "responsibility": "您仍然对您上传或共享内容的合法性、准确性和所有权负责。",
+                "security": "确保您的密码、恢复材料和备份安全。",
+                "backups": "帐户删除是永久性的，因此您应该保留自己的重要信息备份。",
+                "disclaimer": "可用性、支持和集成取决于此安装的运营商；在法律允许的范围内，服务按“原样”和“现有”提供。"
+            }
+        },
+        "controller_name_generic": "此设施的运营商",
+        "controller_name_public_host": "{{brandHost}} 的运营商",
+        "controller_address_unconfigured": "未由此设施的运营商配置",
+        "transfer_disclosure_default": "转移可能发生到本设施使用的托管、电子邮件以及可选的 Google/Open*Facts/Google 搜索提供商。此设施的运营商必须在适用情况下指定相关的目标国家和保障措施。",
+        "complaint_authority": "您所在国家的主管数据保护机构；对于土耳其，为个人数据保护机构（KVKK）。",
+        "consent_doc01_label": "文档 01",
+        "consent_doc01_desc": "在专门页面上查看当前的服务条款。",
+        "consent_doc02_label": "文档 02",
+        "consent_doc02_desc": "查看数据如何被处理以及适用于您的权利。"
     },
     "cookies": {
         "banner_text": "我们使用必要的 Cookie 来保持您的登录状态并保护您的会话安全。继续使用本网站，即表示您同意我们的政策。",
         "accept": "我接受",
         "learn_more": "了解更多"
+    },
+    "layout": {
+        "secondary_controls_title": "工具",
+        "secondary_controls_hint": "语言、主题和版本详情保持在此分组。",
+        "collapse_sidebar": "收起侧边栏",
+        "expand_sidebar": "展开侧边栏",
+        "account_menu_title": "账户菜单",
+        "account_menu_aria": "打开 {{name}} 的账户菜单",
+        "account_menu_tooltip": "{{name}} 账户菜单"
+    },
+    "app": {
+        "name": "{{brandName}}",
+        "tagline": "聪明地管理你所有的家居物品"
+    },
+    "nav": {
+        "home": "首页",
+        "inventory": "库存",
+        "rooms": "房间",
+        "categories": "类别",
+        "settings": "背景设定",
+        "admin_panel": "管理面板",
+        "share_house": "合租屋",
+        "new_item": "新物品",
+        "menu": "菜单",
+        "help": "帮助与支持"
+    },
+    "theme": {
+        "light": "光模式",
+        "dark": "暗影模式"
+    },
+    "terms": {
+        "title": "使用条款与免责声明",
+        "beta_notice": "测试版：{{brandName}} 目前处于测试阶段。不保证数据的永久性或安全性。",
+        "disclaimer": "免责声明：使用本应用即表示您同意无法因潜在的数据丢失、访问问题或其他技术问题索赔任何赔偿。",
+        "backup_warning": "数据备份：我们强烈建议您定期备份重要信息。",
+        "accept": "登录即表示您同意这些条款。",
+        "short_notice": "{{brandName}} 目前处于测试和爱好者阶段。不保证数据的永久性或安全性。请妥善备份您的重要信息。",
+        "contact": "联系方式"
+    },
+    "locations": {
+        "title": "地点",
+        "add": "添加位置",
+        "edit": "编辑 位置",
+        "delete": "删除位置",
+        "name": "地点名称",
+        "room": "房间",
+        "select_room": "精选房间",
+        "added": "地点新增",
+        "updated": "位置更新",
+        "deleted": "位置已删除",
+        "not_found": "位置未找到",
+        "name_required": "需要提供地点名称",
+        "room_required": "需要选房",
+        "load_error": "错误加载位置",
+        "add_error": "错误添加位置",
+        "update_error": "错误更新位置",
+        "delete_error": "错误删除位置"
+    },
+    "barcode": {
+        "scan": "扫描条码",
+        "scanning": "扫描中......",
+        "enter_manually": "手动输入",
+        "search_database": "检索数据库",
+        "not_found": "条形码未找到",
+        "search_google": "在谷歌上搜索",
+        "camera_permission": "需要相机许可",
+        "search_error": "条码错误搜索",
+        "invalid_code": "条码无效"
+    },
+    "qr": {
+        "scan": "扫描二维码",
+        "generate": "生成二维码",
+        "share": "分享二维码"
+    },
+    "house": {
+        "create_new": "创建新宿舍",
+        "join_existing": "加入现有宿舍",
+        "enter_key": "输入房屋钥匙",
+        "key_placeholder": "例如：ABC123XYZ",
+        "select_option": "选择一个选项",
+        "created": "新建的学院",
+        "joined": "你已经加入了学院",
+        "invalid_key": "无效的房屋钥匙",
+        "members_loaded": "众议员满载",
+        "key_copied": "房屋钥匙复制"
+    },
+    "errors": {
+        "generic": "发生了错误",
+        "network": "连接错误",
+        "not_found": "未找到",
+        "unauthorized": "未经授权的访问",
+        "server": "服务器错误",
+        "validation": "验证误差"
+    },
+    "email": {
+        "sent": "已发送邮件",
+        "send_error": "发送邮件错误",
+        "invalid_email": "邮箱地址无效",
+        "subject_required": "必须填写主题",
+        "message_required": "需要留言"
+    },
+    "rate_limit": {
+        "too_many_requests": "请求太多了。请15分钟后再试。",
+        "too_many_login_attempts": "登录尝试太多了。请15分钟后再试。"
+    },
+    "meta": {
+        "page_title_sign_in": "Sign in",
+        "page_title_register": "Create account",
+        "page_title_choose_house": "Choose house",
+        "page_title_recovery_key": "Recovery key",
+        "page_title_house_access": "House access",
+        "page_title_legal_review": "Legal review",
+        "page_title_new_item": "New item",
+        "page_title_edit_item": "Edit item",
+        "page_title_items": "Inventory"
     }
 }

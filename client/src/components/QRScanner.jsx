@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Html5Qrcode } from 'html5-qrcode';
 import { X, Camera, AlertCircle, CheckCircle, RefreshCw } from 'lucide-react';
-import cameraManager from '../utils/cameraManager';
 import { useTranslation } from 'react-i18next';
+import { loadScannerRuntime } from '../utils/scannerRuntime';
 
 const SCANNER_ID = 'qr-scanner';
 
@@ -18,6 +17,7 @@ export default function QRScanner({ isOpen, onClose }) {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const [isScanning, setIsScanning] = useState(false);
+    const [preparingScanner, setPreparingScanner] = useState(false);
 
     // Track mounted state
     useEffect(() => {
@@ -46,6 +46,8 @@ export default function QRScanner({ isOpen, onClose }) {
         console.log('[QRScanner] Stopping scanner...');
 
         try {
+            const { cameraManager } = await loadScannerRuntime();
+
             // Release global camera streams first
             await cameraManager.releaseAllStreams();
 
@@ -96,8 +98,11 @@ export default function QRScanner({ isOpen, onClose }) {
         isStartingRef.current = true;
         setError('');
         setSuccess('');
+        setPreparingScanner(true);
 
         try {
+            const { Html5Qrcode, cameraManager } = await loadScannerRuntime();
+
             // CRITICAL: Release any existing camera streams first
             console.log('[QRScanner] Releasing existing streams...');
             await cameraManager.releaseAllStreams();
@@ -189,6 +194,9 @@ export default function QRScanner({ isOpen, onClose }) {
             }
         } finally {
             isStartingRef.current = false;
+            if (isMountedRef.current) {
+                setPreparingScanner(false);
+            }
         }
     };
 
@@ -242,7 +250,10 @@ export default function QRScanner({ isOpen, onClose }) {
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3 text-white">
                         <Camera className="w-6 h-6" />
-                        <span className="font-semibold">{t('scanner.qr_title')}</span>
+                        <div>
+                            <span className="block font-semibold">{t('scanner.qr_title')}</span>
+                            <span className="mt-0.5 block text-xs text-white/65">{t('scanner.qr_subtitle')}</span>
+                        </div>
                     </div>
                     <button onClick={handleClose} className="p-2 text-white bg-white/20 rounded-full hover:bg-white/30">
                         <X className="w-6 h-6" />
@@ -253,6 +264,15 @@ export default function QRScanner({ isOpen, onClose }) {
             {/* Scanner */}
             <div className="flex flex-col items-center justify-center min-h-screen p-4">
                 <div id="qr-reader" ref={scannerRef} className="w-full max-w-sm rounded-2xl overflow-hidden" />
+
+                {preparingScanner && !isScanning && !error && !success && (
+                    <div className="absolute inset-x-4 bottom-24 rounded-xl bg-black/65 px-4 py-3 text-center text-sm text-white">
+                        <span className="inline-flex items-center gap-2">
+                            <RefreshCw className="h-4 w-4 animate-spin" />
+                            {t('scanner.init')}
+                        </span>
+                    </div>
+                )}
 
                 {/* Error Message with Retry */}
                 {error && (

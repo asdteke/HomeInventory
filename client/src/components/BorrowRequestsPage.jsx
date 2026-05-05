@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import {
     ArrowRightLeft,
     AlertTriangle,
@@ -13,7 +14,6 @@ import {
     Undo2
 } from 'lucide-react';
 import {
-    BorrowOfferDialog,
     BorrowRequestCreateDialog,
     FulfillBorrowRequestDialog,
     ReturnBorrowRecordDialog
@@ -25,20 +25,45 @@ import {
     getRequestErrorMessage,
     isRequestCanceled
 } from '../utils/httpRequests';
+import { EmptyState, LoadingState, NoticeBanner, PageHeader } from './ProductUI';
 
-function StatCard({ icon: Icon, label, value, accent = 'text-primary-500' }) {
+const EMPTY_STATE_BUTTON_CLASS = 'btn-secondary min-w-[170px] justify-center';
+const REQUEST_EMPTY_STATE_CLASS = 'h-[17rem] justify-center';
+const POSITIVE_ACTION_BUTTON_CLASS = 'inline-flex items-center justify-center rounded-xl border border-emerald-500/20 bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700 transition-colors hover:bg-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] dark:bg-emerald-500/10 dark:text-emerald-300 dark:hover:bg-emerald-500/20';
+const NEGATIVE_ACTION_BUTTON_CLASS = 'inline-flex items-center justify-center rounded-xl border border-rose-500/20 bg-rose-50 px-4 py-2 text-sm font-medium text-rose-700 transition-colors hover:bg-rose-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] dark:bg-rose-500/10 dark:text-rose-300 dark:hover:bg-rose-500/20';
+const MUTED_ACTION_BUTTON_CLASS = 'inline-flex items-center justify-center rounded-[12px] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-2 text-sm font-medium text-[var(--hi-text-soft)] transition-colors hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]';
+
+function StatCard({ icon: Icon, label, value, accent = 'text-[var(--hi-accent)] bg-[var(--hi-accent-soft)]' }) {
     return (
-        <div className="card p-4">
+        <div className="stat-card border border-[var(--hi-border)] p-4">
             <div className="flex items-center justify-between gap-4">
                 <div>
-                    <p className="text-sm text-slate-500 dark:text-slate-400">{label}</p>
-                    <p className="mt-1 text-2xl font-semibold text-slate-900 dark:text-white">{value}</p>
+                    <p className="text-sm text-[var(--hi-text-soft)]">{label}</p>
+                    <p className="mt-1 text-2xl font-semibold text-[var(--hi-text)]">{value}</p>
                 </div>
-                <div className={`rounded-2xl p-3 bg-slate-100 dark:bg-slate-800 ${accent}`}>
+                <div className={`rounded-lg border border-[var(--hi-border)] p-3 ${accent}`}>
                     <Icon className="w-5 h-5" />
                 </div>
             </div>
         </div>
+    );
+}
+
+function BorrowPanel({ title, description, children, className = '' }) {
+    return (
+        <section className={`card flex h-full flex-col gap-4 p-5 ${className}`.trim()}>
+            <div className="border-b border-[var(--hi-border)] pb-3.5">
+                <h2 className="section-title text-xl text-[var(--hi-text)]">{title}</h2>
+                {description && (
+                    <p className="mt-1.5 text-sm leading-6 text-[var(--hi-text-soft)]">
+                        {description}
+                    </p>
+                )}
+            </div>
+            <div className="flex-1">
+                {children}
+            </div>
+        </section>
     );
 }
 
@@ -63,36 +88,36 @@ function RequestCard({ request, t, i18n, onAccept, onReject, onCancel }) {
     const effectiveStatus = request.borrow?.returned_at ? 'returned' : request.status;
 
     return (
-        <div className="card p-5 space-y-4">
+        <div className="card p-4 space-y-3.5">
             <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
                     <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                        <span className="text-sm font-medium text-[var(--hi-text-soft)]">
                             {request.direction === 'offer'
                                 ? t('borrow_requests.labels.offer')
                                 : t('borrow_requests.labels.request')}
                         </span>
                         <StatusBadge status={effectiveStatus} t={t} />
                     </div>
-                    <h3 className="mt-2 text-lg font-semibold text-slate-900 dark:text-white">
+                    <h3 className="mt-2 text-lg font-semibold text-[var(--hi-text)] [overflow-wrap:anywhere]">
                         {request.item?.name || request.requested_item_label || t('borrow_requests.labels.unspecified_item')}
                     </h3>
-                    <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                    <p className="mt-1 text-sm text-[var(--hi-text-soft)]">
                         {t('borrow_requests.labels.counterparty', { name: request.counterparty_display_name })}
                     </p>
                 </div>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-[var(--hi-text-muted)]">
                     {t('borrow_requests.labels.created_at', { date: formatBorrowDateTime(request.created_at, i18n.language) })}
                 </p>
             </div>
 
             {request.note && (
-                <div className="rounded-2xl bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm text-slate-600 dark:text-slate-300">
+                <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-sm text-[var(--hi-text-soft)]">
                     {request.note}
                 </div>
             )}
 
-            <div className="flex flex-wrap gap-3 text-sm text-slate-500 dark:text-slate-400">
+            <div className="flex flex-wrap gap-3 text-sm text-[var(--hi-text-soft)]">
                 {request.due_date && (
                     <span className="inline-flex items-center gap-1">
                         <Clock3 className="w-4 h-4" />
@@ -105,8 +130,8 @@ function RequestCard({ request, t, i18n, onAccept, onReject, onCancel }) {
             </div>
 
             {request.borrow && (
-                <div className="rounded-2xl border border-slate-200 dark:border-slate-700 px-4 py-3">
-                    <p className="text-sm font-medium text-slate-900 dark:text-white">
+                <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
+                    <p className="text-sm font-medium text-[var(--hi-text)]">
                         {request.borrow.returned_at
                             ? t('borrow_requests.labels.returned_on', { date: formatBorrowDateTime(request.borrow.returned_at, i18n.language) })
                             : t('borrow_requests.labels.borrow_started', { date: formatBorrowDateTime(request.borrow.borrowed_at, i18n.language) })}
@@ -119,7 +144,7 @@ function RequestCard({ request, t, i18n, onAccept, onReject, onCancel }) {
                     <button
                         type="button"
                         onClick={() => onAccept(request)}
-                        className="px-4 py-2 rounded-xl text-sm font-medium bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-300 dark:hover:bg-emerald-500/20 transition-colors"
+                        className={POSITIVE_ACTION_BUTTON_CLASS}
                     >
                         {request.needs_item_selection
                             ? t('borrow_requests.actions.fulfill_request')
@@ -130,7 +155,7 @@ function RequestCard({ request, t, i18n, onAccept, onReject, onCancel }) {
                     <button
                         type="button"
                         onClick={() => onReject(request)}
-                        className="px-4 py-2 rounded-xl text-sm font-medium bg-rose-50 text-rose-700 hover:bg-rose-100 dark:bg-rose-500/10 dark:text-rose-300 dark:hover:bg-rose-500/20 transition-colors"
+                        className={NEGATIVE_ACTION_BUTTON_CLASS}
                     >
                         {t('borrow_requests.actions.reject')}
                     </button>
@@ -139,7 +164,7 @@ function RequestCard({ request, t, i18n, onAccept, onReject, onCancel }) {
                     <button
                         type="button"
                         onClick={() => onCancel(request)}
-                        className="px-4 py-2 rounded-xl text-sm font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition-colors"
+                        className={MUTED_ACTION_BUTTON_CLASS}
                     >
                         {t('borrow_requests.actions.cancel')}
                     </button>
@@ -153,16 +178,16 @@ function ActiveBorrowCard({ borrow, t, i18n, onReturn }) {
     const overdue = isBorrowOverdue(borrow);
 
     return (
-        <div className="card p-5 space-y-4">
+        <div className="card p-4 space-y-3.5">
             <div className="flex items-start justify-between gap-3">
                 <div>
                     <div className="flex items-center gap-2">
                         <span className="text-xl">{borrow.item?.category_icon || '📦'}</span>
-                        <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+                        <h3 className="text-lg font-semibold text-[var(--hi-text)] [overflow-wrap:anywhere]">
                             {borrow.item?.name || t('borrow_requests.labels.unspecified_item')}
                         </h3>
                     </div>
-                    <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+                    <p className="mt-2 text-sm text-[var(--hi-text-soft)]">
                         {borrow.role === 'borrower'
                             ? t('borrow_requests.active.borrowed_from', { name: borrow.counterpart_display_name })
                             : t('borrow_requests.active.lent_to', { name: borrow.counterpart_display_name })}
@@ -173,7 +198,7 @@ function ActiveBorrowCard({ borrow, t, i18n, onReturn }) {
                 )}
             </div>
 
-            <div className="flex flex-wrap gap-3 text-sm text-slate-500 dark:text-slate-400">
+            <div className="flex flex-wrap gap-3 text-sm text-[var(--hi-text-soft)]">
                 <span className="inline-flex items-center gap-1">
                     <ArrowRightLeft className="w-4 h-4" />
                     {t('borrow_requests.labels.borrow_started', { date: formatBorrowDateTime(borrow.borrowed_at, i18n.language) })}
@@ -187,7 +212,7 @@ function ActiveBorrowCard({ borrow, t, i18n, onReturn }) {
             </div>
 
             {borrow.note && (
-                <div className="rounded-2xl bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm text-slate-600 dark:text-slate-300">
+                <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-sm text-[var(--hi-text-soft)]">
                     {borrow.note}
                 </div>
             )}
@@ -197,7 +222,7 @@ function ActiveBorrowCard({ borrow, t, i18n, onReturn }) {
                     <button
                         type="button"
                         onClick={() => onReturn(borrow)}
-                        className="px-4 py-2 rounded-xl text-sm font-medium bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-300 dark:hover:bg-emerald-500/20 transition-colors"
+                        className={POSITIVE_ACTION_BUTTON_CLASS}
                     >
                         {t('inventory.borrow.mark_returned')}
                     </button>
@@ -215,12 +240,11 @@ export default function BorrowRequestsPage() {
     const [requests, setRequests] = useState([]);
     const [activeBorrows, setActiveBorrows] = useState([]);
     const [availableItems, setAvailableItems] = useState([]);
-    const [counts, setCounts] = useState({ incomingPending: 0, outgoingPending: 0, activeBorrows: 0 });
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
     const [backendReady, setBackendReady] = useState(true);
+    const [actionError, setActionError] = useState('');
     const [requestDialogOpen, setRequestDialogOpen] = useState(false);
-    const [offerDialogOpen, setOfferDialogOpen] = useState(false);
     const [fulfillRequest, setFulfillRequest] = useState(null);
     const [returnBorrow, setReturnBorrow] = useState(null);
     const [submitting, setSubmitting] = useState(false);
@@ -240,6 +264,14 @@ export default function BorrowRequestsPage() {
     const lentByMe = useMemo(
         () => activeBorrows.filter((borrow) => borrow.role !== 'borrower'),
         [activeBorrows]
+    );
+    const sectionCounts = useMemo(
+        () => ({
+            active: activeBorrows.length,
+            incoming: incomingRequests.length,
+            outgoing: outgoingRequests.length
+        }),
+        [activeBorrows.length, incomingRequests.length, outgoingRequests.length]
     );
 
     useEffect(() => {
@@ -275,7 +307,6 @@ export default function BorrowRequestsPage() {
             setRequests(response.data.requests || []);
             setActiveBorrows(response.data.activeBorrows || []);
             setAvailableItems(response.data.availableItems || []);
-            setCounts(response.data.counts || { incomingPending: 0, outgoingPending: 0, activeBorrows: 0 });
             setBackendReady(true);
         } catch (error) {
             if (isRequestCanceled(error) || !isMountedRef.current || overviewRequestIdRef.current !== requestId) {
@@ -287,7 +318,6 @@ export default function BorrowRequestsPage() {
             setRequests([]);
             setActiveBorrows([]);
             setAvailableItems([]);
-            setCounts({ incomingPending: 0, outgoingPending: 0, activeBorrows: 0 });
         } finally {
             if (!isMountedRef.current || overviewRequestIdRef.current !== requestId) {
                 return;
@@ -304,6 +334,7 @@ export default function BorrowRequestsPage() {
 
     const runAction = async (task) => {
         setSubmitting(true);
+        setActionError('');
         try {
             await task();
             await fetchOverview({ silent: true });
@@ -327,25 +358,9 @@ export default function BorrowRequestsPage() {
                 setRequestDialogOpen(false);
             }
         } catch (error) {
-            alert(getRequestErrorMessage(error, t('borrow_requests.messages.action_error')));
-            throw error;
-        }
-    };
-
-    const handleOfferSubmit = async (payload) => {
-        try {
-            await runAction(async () => {
-                await axios.post(
-                    '/api/borrow-requests',
-                    payload,
-                    createRequestConfig({ timeout: ACTION_REQUEST_TIMEOUT_MS })
-                );
-            });
             if (isMountedRef.current) {
-                setOfferDialogOpen(false);
+                setActionError(getRequestErrorMessage(error, t('borrow_requests.messages.action_error')));
             }
-        } catch (error) {
-            alert(getRequestErrorMessage(error, t('borrow_requests.messages.action_error')));
             throw error;
         }
     };
@@ -365,7 +380,9 @@ export default function BorrowRequestsPage() {
                 );
             });
         } catch (error) {
-            alert(getRequestErrorMessage(error, t('borrow_requests.messages.action_error')));
+            if (isMountedRef.current) {
+                setActionError(getRequestErrorMessage(error, t('borrow_requests.messages.action_error')));
+            }
         }
     };
 
@@ -386,7 +403,9 @@ export default function BorrowRequestsPage() {
                 setFulfillRequest(null);
             }
         } catch (error) {
-            alert(getRequestErrorMessage(error, t('borrow_requests.messages.action_error')));
+            if (isMountedRef.current) {
+                setActionError(getRequestErrorMessage(error, t('borrow_requests.messages.action_error')));
+            }
             throw error;
         }
     };
@@ -401,7 +420,9 @@ export default function BorrowRequestsPage() {
                 );
             });
         } catch (error) {
-            alert(getRequestErrorMessage(error, t('borrow_requests.messages.action_error')));
+            if (isMountedRef.current) {
+                setActionError(getRequestErrorMessage(error, t('borrow_requests.messages.action_error')));
+            }
         }
     };
 
@@ -415,7 +436,9 @@ export default function BorrowRequestsPage() {
                 );
             });
         } catch (error) {
-            alert(getRequestErrorMessage(error, t('borrow_requests.messages.action_error')));
+            if (isMountedRef.current) {
+                setActionError(getRequestErrorMessage(error, t('borrow_requests.messages.action_error')));
+            }
         }
     };
 
@@ -424,6 +447,7 @@ export default function BorrowRequestsPage() {
             return;
         }
 
+        const returnedBorrowId = returnBorrow.id;
         try {
             await runAction(async () => {
                 await axios.post(
@@ -431,153 +455,192 @@ export default function BorrowRequestsPage() {
                     payload,
                     createRequestConfig({ timeout: ACTION_REQUEST_TIMEOUT_MS })
                 );
+                if (isMountedRef.current) {
+                    setActiveBorrows((currentBorrows) => currentBorrows.filter((borrow) => borrow.id !== returnedBorrowId));
+                    setRequests((currentRequests) => currentRequests.map((request) => (
+                        request.borrow?.id === returnedBorrowId
+                            ? { ...request, borrow: { ...request.borrow, returned_at: new Date().toISOString() } }
+                            : request
+                    )));
+                }
             });
             if (isMountedRef.current) {
                 setReturnBorrow(null);
             }
         } catch (error) {
-            alert(getRequestErrorMessage(error, t('borrow_requests.messages.action_error')));
+            if (isMountedRef.current) {
+                setActionError(getRequestErrorMessage(error, t('borrow_requests.messages.action_error')));
+            }
             throw error;
         }
     };
 
     if (loading) {
-        return <div className="flex justify-center py-20"><div className="spinner"></div></div>;
+        return (
+            <LoadingState
+                title={t('common.loading')}
+                description={t('borrow_requests.loading_description', {
+                    defaultValue: 'İstekler ve aktif ödünç hareketleri hazırlanıyor.'
+                })}
+            />
+        );
     }
 
     return (
-        <div className="space-y-6 animate-fade-in">
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-                <div>
-                    <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{t('borrow_requests.title')}</h1>
-                    <p className="text-slate-500 dark:text-slate-400">{t('borrow_requests.subtitle')}</p>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                    <button
-                        type="button"
-                        onClick={() => fetchOverview({ silent: true })}
-                        className="btn-secondary inline-flex items-center gap-2"
-                        disabled={refreshing}
-                    >
-                        <RefreshCcw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
-                        {t('common.refresh')}
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => setRequestDialogOpen(true)}
-                        className="btn-secondary inline-flex items-center gap-2"
-                        disabled={!backendReady}
-                    >
-                        <Inbox className="w-4 h-4" />
-                        {t('borrow_requests.actions.send_request')}
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => setOfferDialogOpen(true)}
-                        className="btn-primary inline-flex items-center gap-2"
-                        disabled={!backendReady || availableItems.length === 0}
-                    >
-                        <Send className="w-4 h-4" />
-                        {t('borrow_requests.actions.send_offer')}
-                    </button>
-                </div>
-            </div>
+        <div className="space-y-5 animate-fade-in">
+            <PageHeader
+                title={t('borrow_requests.title')}
+                description={t('borrow_requests.subtitle_compact', {
+                    defaultValue: 'Track requests you sent, requests waiting on you, and items currently out.'
+                })}
+                actions={(
+                    <>
+                        <button
+                            type="button"
+                            onClick={() => fetchOverview({ silent: true })}
+                            className="btn-secondary inline-flex items-center gap-2"
+                            disabled={refreshing}
+                        >
+                            <RefreshCcw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
+                            {t('common.refresh')}
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => setRequestDialogOpen(true)}
+                            className="btn-primary inline-flex items-center gap-2"
+                            disabled={!backendReady}
+                        >
+                            <Inbox className="w-4 h-4" />
+                            {t('borrow_requests.actions.send_request')}
+                        </button>
+                    </>
+                )}
+            />
 
             {!backendReady && (
-                <div className="rounded-3xl border border-amber-200 bg-amber-50 px-5 py-4 text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-200">
-                    <div className="flex items-start gap-3">
-                        <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0" />
-                        <div>
-                            <p className="font-semibold">{t('borrow_requests.preview.title')}</p>
-                            <p className="mt-1 text-sm">{t('borrow_requests.preview.body')}</p>
-                        </div>
-                    </div>
+                <NoticeBanner
+                    icon={AlertTriangle}
+                    tone="warning"
+                    title={t('borrow_requests.preview.title')}
+                    description={t('borrow_requests.preview.body')}
+                />
+            )}
+
+            {actionError && (
+                <NoticeBanner
+                    icon={AlertTriangle}
+                    tone="danger"
+                    title={t('borrow_requests.messages.action_error')}
+                    description={actionError}
+                />
+            )}
+
+            {refreshing && (
+                <div aria-live="polite" className="flex items-center gap-2 text-sm text-[var(--hi-text-soft)]">
+                    <RefreshCcw className="h-4 w-4 animate-spin text-[var(--hi-accent)]" />
+                    <span>{t('borrow_requests.refreshing', { defaultValue: 'Refreshing requests and active borrows...' })}</span>
                 </div>
             )}
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                <StatCard icon={Inbox} label={t('borrow_requests.stats.incoming')} value={counts.incomingPending} accent="text-amber-500" />
-                <StatCard icon={Send} label={t('borrow_requests.stats.outgoing')} value={counts.outgoingPending} accent="text-violet-500" />
-                <StatCard icon={Package} label={t('borrow_requests.stats.active')} value={counts.activeBorrows} accent="text-emerald-500" />
-            </div>
-
-            <section className="space-y-4">
-                <div className="flex items-center justify-between">
-                    <div>
-                        <h2 className="text-lg font-semibold text-slate-900 dark:text-white">{t('borrow_requests.active.title')}</h2>
-                        <p className="text-sm text-slate-500 dark:text-slate-400">{t('borrow_requests.active.subtitle')}</p>
-                    </div>
+            <div aria-busy={refreshing} className={`space-y-8 transition-opacity ${refreshing ? 'opacity-80' : 'opacity-100'}`}>
+                <div className={`grid grid-cols-1 gap-4 md:grid-cols-3 ${refreshing ? 'animate-pulse' : ''}`}>
+                    <StatCard icon={Package} label={t('borrow_requests.stats.active')} value={sectionCounts.active} accent="bg-[rgba(111,153,120,0.16)] text-[#6f9978]" />
+                    <StatCard icon={Inbox} label={t('borrow_requests.stats.incoming')} value={sectionCounts.incoming} accent="bg-[var(--hi-secondary-soft)] text-[var(--hi-secondary-strong)]" />
+                    <StatCard icon={Send} label={t('borrow_requests.stats.outgoing')} value={sectionCounts.outgoing} accent="bg-[var(--hi-panel-muted)] text-[var(--hi-accent)]" />
                 </div>
 
-                {activeBorrows.length === 0 ? (
-                    <div className="card py-12 text-center">
-                        <CheckCircle2 className="w-12 h-12 mx-auto text-slate-300 dark:text-slate-600" />
-                        <p className="mt-4 text-slate-500 dark:text-slate-400">{t('borrow_requests.active.empty')}</p>
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-                        {borrowedByMe.map((borrow) => (
-                            <ActiveBorrowCard key={borrow.id} borrow={borrow} t={t} i18n={i18n} onReturn={setReturnBorrow} />
-                        ))}
-                        {lentByMe.map((borrow) => (
-                            <ActiveBorrowCard key={borrow.id} borrow={borrow} t={t} i18n={i18n} onReturn={setReturnBorrow} />
-                        ))}
-                    </div>
-                )}
-            </section>
-
-            <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
-                <section className="space-y-4">
-                    <div>
-                        <h2 className="text-lg font-semibold text-slate-900 dark:text-white">{t('borrow_requests.incoming_title')}</h2>
-                        <p className="text-sm text-slate-500 dark:text-slate-400">{t('borrow_requests.incoming_subtitle')}</p>
-                    </div>
-
-                    {incomingRequests.length === 0 ? (
-                        <div className="card py-12 text-center">
-                            <Inbox className="w-12 h-12 mx-auto text-slate-300 dark:text-slate-600" />
-                            <p className="mt-4 text-slate-500 dark:text-slate-400">{t('borrow_requests.empty_incoming')}</p>
-                        </div>
+                <BorrowPanel
+                    title={t('borrow_requests.active.title')}
+                    description={t('borrow_requests.active.subtitle')}
+                >
+                    {activeBorrows.length === 0 ? (
+                        <EmptyState
+                            icon={CheckCircle2}
+                            title={t('borrow_requests.active.empty_title', { defaultValue: 'Nothing is currently out' })}
+                            description={t('borrow_requests.active.empty_description', { defaultValue: 'As soon as an item is borrowed or lent, it will appear here with due date and return status details.' })}
+                            className="min-h-[17.5rem]"
+                            actions={(
+                                <Link to="/items" className={EMPTY_STATE_BUTTON_CLASS}>
+                                    <Package className="w-4 h-4" />
+                                    <span>{t('borrow_requests.actions.open_inventory', { defaultValue: 'Open inventory' })}</span>
+                                </Link>
+                            )}
+                        />
                     ) : (
-                        incomingRequests.map((request) => (
-                            <RequestCard
-                                key={request.id}
-                                request={request}
-                                t={t}
-                                i18n={i18n}
-                                onAccept={handleAccept}
-                                onReject={handleReject}
-                                onCancel={handleCancel}
-                            />
-                        ))
-                    )}
-                </section>
-
-                <section className="space-y-4">
-                    <div>
-                        <h2 className="text-lg font-semibold text-slate-900 dark:text-white">{t('borrow_requests.outgoing_title')}</h2>
-                        <p className="text-sm text-slate-500 dark:text-slate-400">{t('borrow_requests.outgoing_subtitle')}</p>
-                    </div>
-
-                    {outgoingRequests.length === 0 ? (
-                        <div className="card py-12 text-center">
-                            <Send className="w-12 h-12 mx-auto text-slate-300 dark:text-slate-600" />
-                            <p className="mt-4 text-slate-500 dark:text-slate-400">{t('borrow_requests.empty_outgoing')}</p>
+                        <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
+                            {borrowedByMe.map((borrow) => (
+                                <ActiveBorrowCard key={borrow.id} borrow={borrow} t={t} i18n={i18n} onReturn={setReturnBorrow} />
+                            ))}
+                            {lentByMe.map((borrow) => (
+                                <ActiveBorrowCard key={borrow.id} borrow={borrow} t={t} i18n={i18n} onReturn={setReturnBorrow} />
+                            ))}
                         </div>
-                    ) : (
-                        outgoingRequests.map((request) => (
-                            <RequestCard
-                                key={request.id}
-                                request={request}
-                                t={t}
-                                i18n={i18n}
-                                onAccept={handleAccept}
-                                onReject={handleReject}
-                                onCancel={handleCancel}
-                            />
-                        ))
                     )}
-                </section>
+                </BorrowPanel>
+
+                <div className="borrow-requests-columns grid grid-cols-1 items-start gap-6 xl:grid-cols-2">
+                    <BorrowPanel
+                        title={t('borrow_requests.incoming_title')}
+                        description={t('borrow_requests.incoming_subtitle')}
+                    >
+                        {incomingRequests.length === 0 ? (
+                            <EmptyState
+                                icon={Inbox}
+                                title={t('borrow_requests.incoming_empty_title', { defaultValue: 'No requests need your review' })}
+                                description={t('borrow_requests.empty_incoming')}
+                                className={REQUEST_EMPTY_STATE_CLASS}
+                                actions={(
+                                    <Link to="/items" className={EMPTY_STATE_BUTTON_CLASS}>
+                                        <Package className="w-4 h-4" />
+                                        <span>{t('borrow_requests.actions.open_inventory', { defaultValue: 'Review inventory' })}</span>
+                                    </Link>
+                                )}
+                            />
+                        ) : (
+                            <div className="space-y-4">
+                                {incomingRequests.map((request) => (
+                                    <RequestCard
+                                        key={request.id}
+                                        request={request}
+                                        t={t}
+                                        i18n={i18n}
+                                        onAccept={handleAccept}
+                                        onReject={handleReject}
+                                        onCancel={handleCancel}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                    </BorrowPanel>
+
+                    <BorrowPanel
+                        title={t('borrow_requests.outgoing_title')}
+                        description={t('borrow_requests.outgoing_subtitle')}
+                    >
+                        {outgoingRequests.length === 0 ? (
+                            <EmptyState
+                                icon={Send}
+                                title={t('borrow_requests.outgoing_empty_title', { defaultValue: 'No outgoing requests yet' })}
+                                description={t('borrow_requests.empty_outgoing')}
+                                className={REQUEST_EMPTY_STATE_CLASS}
+                            />
+                        ) : (
+                            <div className="space-y-4">
+                                {outgoingRequests.map((request) => (
+                                    <RequestCard
+                                        key={request.id}
+                                        request={request}
+                                        t={t}
+                                        i18n={i18n}
+                                        onAccept={handleAccept}
+                                        onReject={handleReject}
+                                        onCancel={handleCancel}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                    </BorrowPanel>
+                </div>
             </div>
 
             <BorrowRequestCreateDialog
@@ -585,14 +648,6 @@ export default function BorrowRequestsPage() {
                 submitting={submitting}
                 onClose={() => !submitting && setRequestDialogOpen(false)}
                 onSubmit={handleRequestSubmit}
-            />
-
-            <BorrowOfferDialog
-                isOpen={offerDialogOpen}
-                items={availableItems}
-                submitting={submitting}
-                onClose={() => !submitting && setOfferDialogOpen(false)}
-                onSubmit={handleOfferSubmit}
             />
 
             <FulfillBorrowRequestDialog

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { KeyRound, Copy, Check, AlertTriangle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { useTheme } from '../context/ThemeContext';
 import { copyTextToClipboard } from '../utils/clipboard';
 
 export default function RecoveryKeyModal({
@@ -10,7 +12,21 @@ export default function RecoveryKeyModal({
     confirmLabel,
     onConfirm
 }) {
+    const { t } = useTranslation();
+    const { isDark } = useTheme();
     const [copied, setCopied] = useState(false);
+    const modalBackground = isDark
+        ? 'linear-gradient(180deg, var(--hi-bg-elevated) 0%, var(--hi-bg-strong) 100%)'
+        : 'linear-gradient(180deg, var(--hi-panel-strong) 0%, var(--hi-bg-strong) 100%)';
+    const heroGlow = isDark
+        ? 'radial-gradient(circle at top, var(--hi-secondary-soft), transparent 56%)'
+        : 'radial-gradient(circle at top, var(--hi-secondary-soft), transparent 54%)';
+    const keyPanelBackground = isDark
+        ? 'linear-gradient(180deg, color-mix(in srgb, var(--hi-bg-strong) 82%, transparent) 0%, color-mix(in srgb, var(--hi-panel) 92%, transparent) 100%)'
+        : 'linear-gradient(180deg, var(--hi-panel-strong) 0%, var(--hi-panel-muted) 100%)';
+    const keyValueBackground = isDark
+        ? 'color-mix(in srgb, var(--hi-bg-strong) 78%, black)'
+        : 'var(--hi-bg-strong)';
 
     const handleCopy = async () => {
         try {
@@ -23,41 +39,128 @@ export default function RecoveryKeyModal({
     };
 
     return (
-        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
-            <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl dark:bg-slate-900">
-                <div className="mb-6 text-center">
-                    <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 shadow-lg">
-                        <KeyRound className="h-8 w-8 text-white" />
-                    </div>
-                    <h2 className="mb-2 text-2xl font-bold text-slate-900 dark:text-white">{title}</h2>
-                    <p className="text-slate-500 dark:text-slate-400">{subtitle}</p>
-                </div>
+        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/72 p-4 backdrop-blur-md">
+            <div
+                className="relative w-full max-w-2xl overflow-hidden rounded-[2rem] border shadow-[0_40px_120px_rgba(0,0,0,0.34)]"
+                style={{
+                    background: modalBackground,
+                    borderColor: 'var(--hi-border-strong)'
+                }}
+            >
+                <div
+                    className="absolute inset-x-0 top-0 h-40 opacity-90"
+                    style={{ background: heroGlow }}
+                />
 
-                <div className="mb-6 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-300">
-                    <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0" />
-                    <p>{warning}</p>
-                </div>
-
-                <div className="relative mb-6">
-                    <div className="rounded-xl border border-slate-200 bg-slate-100 p-4 font-mono text-sm tracking-[0.22em] text-slate-800 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100">
-                        {recoveryKey}
+                <div className="relative p-6 sm:p-8">
+                    <div className="mb-6 flex flex-col items-center text-center sm:mb-8">
+                        <div
+                            className="mb-4 inline-flex h-20 w-20 items-center justify-center rounded-[1.75rem] border shadow-[var(--hi-shadow-soft)]"
+                            style={{
+                                background: 'linear-gradient(135deg, var(--hi-secondary), var(--hi-secondary-strong))',
+                                borderColor: 'rgba(255,255,255,0.18)'
+                            }}
+                        >
+                            <KeyRound className="h-9 w-9 text-white" />
+                        </div>
+                        <span
+                            className="mb-3 inline-flex rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em]"
+                            style={{
+                                background: 'var(--hi-secondary-soft)',
+                                borderColor: 'var(--hi-border)',
+                                color: 'var(--hi-secondary)'
+                            }}
+                        >
+                            {t('auth.recovery_key_modal.badge')}
+                        </span>
+                        <h2 className="mb-2 text-3xl font-semibold tracking-[-0.04em] sm:text-[2.4rem]" style={{ color: 'var(--hi-text)' }}>
+                            {title}
+                        </h2>
+                        <p className="max-w-xl text-base leading-7 sm:text-lg" style={{ color: 'var(--hi-text-soft)' }}>
+                            {subtitle}
+                        </p>
                     </div>
+
+                    <div
+                        className="mb-6 rounded-[1.5rem] border p-4 sm:mb-7 sm:p-5"
+                        style={{
+                            background: 'var(--hi-warning-soft)',
+                            borderColor: 'color-mix(in srgb, var(--hi-warning) 34%, transparent)'
+                        }}
+                    >
+                        <div className="flex items-start gap-3">
+                            <div
+                                className="mt-0.5 inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl"
+                                style={{
+                                    background: 'color-mix(in srgb, var(--hi-warning) 14%, transparent)',
+                                    color: 'var(--hi-warning)'
+                                }}
+                            >
+                                <AlertTriangle className="h-5 w-5" />
+                            </div>
+                            <div>
+                                <p className="text-sm font-semibold uppercase tracking-[0.2em]" style={{ color: 'var(--hi-warning)' }}>
+                                    {t('auth.recovery_key_modal.important')}
+                                </p>
+                                <p className="mt-2 text-base leading-7 sm:text-lg" style={{ color: 'var(--hi-text)' }}>
+                                    {warning}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        className="mb-6 rounded-[1.65rem] border p-4 sm:mb-8 sm:p-5"
+                        style={{
+                            background: keyPanelBackground,
+                            borderColor: 'var(--hi-border)'
+                        }}
+                    >
+                        <div className="mb-3 flex items-center justify-between gap-3">
+                            <div>
+                                <p className="text-xs font-semibold uppercase tracking-[0.22em]" style={{ color: 'var(--hi-text-muted)' }}>
+                                    {t('auth.recovery_key_modal.key_label')}
+                                </p>
+                                <p className="mt-1 text-sm" style={{ color: 'var(--hi-text-soft)' }}>
+                                    {t('auth.recovery_key_modal.storage_hint')}
+                                </p>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={handleCopy}
+                                className="inline-flex h-11 shrink-0 items-center gap-2 rounded-2xl border px-4 text-sm font-semibold transition hover:-translate-y-0.5"
+                                style={{
+                                    background: copied ? 'var(--hi-accent-soft)' : 'var(--hi-panel-muted)',
+                                    borderColor: copied ? 'color-mix(in srgb, var(--hi-accent) 32%, transparent)' : 'var(--hi-border)',
+                                    color: copied ? 'var(--hi-accent-strong)' : 'var(--hi-text)'
+                                }}
+                            >
+                                {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                <span>{copied ? t('auth.recovery_key_modal.copied') : t('common.copy')}</span>
+                            </button>
+                        </div>
+
+                        <div
+                            className="rounded-[1.35rem] border px-4 py-5 font-mono text-sm leading-8 tracking-[0.28em] sm:px-5 sm:text-[15px]"
+                            style={{
+                                background: keyValueBackground,
+                                borderColor: 'var(--hi-border)',
+                                color: 'var(--hi-text)',
+                                overflowWrap: 'anywhere'
+                            }}
+                        >
+                            {recoveryKey}
+                        </div>
+                    </div>
+
                     <button
                         type="button"
-                        onClick={handleCopy}
-                        className="absolute right-2 top-2 rounded-lg bg-white p-2 shadow transition-transform hover:scale-105 dark:bg-slate-700"
+                        onClick={onConfirm}
+                        className="btn-primary w-full py-3.5 text-base"
                     >
-                        {copied ? <Check className="h-5 w-5 text-green-500" /> : <Copy className="h-5 w-5 text-slate-500 dark:text-slate-200" />}
+                        {confirmLabel}
                     </button>
                 </div>
-
-                <button
-                    type="button"
-                    onClick={onConfirm}
-                    className="btn-primary w-full py-3"
-                >
-                    {confirmLabel}
-                </button>
             </div>
         </div>
     );

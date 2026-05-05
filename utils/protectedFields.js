@@ -410,6 +410,49 @@ export function decryptBorrowRequestRecord(record) {
     };
 }
 
+function normalizeViewerUserId(viewerUserId) {
+    return Number.isInteger(viewerUserId) ? viewerUserId : null;
+}
+
+function buildBorrowSensitiveViewerSet(record, itemOwnerUserId) {
+    const relatedUserIds = [
+        normalizeViewerUserId(record?.borrower_user_id),
+        normalizeViewerUserId(record?.lent_by_user_id),
+        normalizeViewerUserId(record?.returned_by_user_id),
+        normalizeViewerUserId(itemOwnerUserId)
+    ].filter((value, index, values) => value !== null && values.indexOf(value) === index);
+
+    return new Set(relatedUserIds);
+}
+
+export function redactBorrowRecordForViewer(record, { viewerUserId = null, itemOwnerUserId = null } = {}) {
+    if (!record) {
+        return record;
+    }
+
+    const normalizedViewerUserId = normalizeViewerUserId(viewerUserId);
+    if (normalizedViewerUserId === null) {
+        return {
+            ...record,
+            borrower_contact: null,
+            note: null,
+            return_note: null
+        };
+    }
+
+    const allowedViewerIds = buildBorrowSensitiveViewerSet(record, itemOwnerUserId);
+    if (allowedViewerIds.has(normalizedViewerUserId)) {
+        return record;
+    }
+
+    return {
+        ...record,
+        borrower_contact: null,
+        note: null,
+        return_note: null
+    };
+}
+
 export function sortByName(records) {
     return [...records].sort((left, right) => compareDisplayText(left?.name, right?.name));
 }

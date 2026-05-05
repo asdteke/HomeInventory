@@ -34,22 +34,22 @@ export default function RecoveryKeySetup() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 px-4 py-10 dark:bg-slate-950">
+        <div className="min-h-screen bg-[var(--hi-bg)] px-4 py-10 text-[var(--hi-text)]">
             <div className="mx-auto max-w-2xl">
                 <div className="mb-8 text-center">
-                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300">
+                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-[var(--hi-warning-soft)] text-[var(--hi-warning)]">
                         <ShieldAlert className="h-8 w-8" />
                     </div>
-                    <h1 className="mb-3 text-3xl font-bold text-slate-900 dark:text-white">{t('auth.recovery_setup.title')}</h1>
-                    <p className="text-slate-500 dark:text-slate-400">{t('auth.recovery_setup.subtitle')}</p>
+                    <h1 className="mb-3 text-3xl font-bold text-[var(--hi-text)]">{t('auth.recovery_setup.title')}</h1>
+                    <p className="text-[var(--hi-text-soft)]">{t('auth.recovery_setup.subtitle')}</p>
                 </div>
 
                 <div className="card">
-                    <div className="mb-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-300">
+                    <div className="mb-6 rounded-xl border border-[color:var(--hi-warning)] bg-[var(--hi-warning-soft)] p-4 text-sm text-[var(--hi-warning)]">
                         <p>{t('auth.recovery_setup.warning')}</p>
                     </div>
 
-                    <div className="space-y-4 text-sm text-slate-600 dark:text-slate-300">
+                    <div className="space-y-4 text-sm text-[var(--hi-text-soft)]">
                         <p>{t('auth.recovery_setup.account', { username: user?.username || '-' })}</p>
                         <p>{t('auth.recovery_setup.description')}</p>
                     </div>
