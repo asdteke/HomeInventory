@@ -25,6 +25,7 @@ import { normalizeOptionalDate } from '../utils/dateValidation.js';
 import { validateUploadedImageBuffer } from '../utils/imageValidation.js';
 import { normalizeWarrantyDetails } from '../utils/warrantyValidation.js';
 import {
+    buildUsernameLookup,
     buildBarcodeLookup,
     decryptBorrowRecord,
     decryptItemInvoiceDate,
@@ -34,6 +35,8 @@ import {
     encryptBorrowerContact,
     encryptBorrowerName,
     encryptBorrowNote,
+    encryptBorrowRequestNote,
+    encryptBorrowRequestTarget,
     encryptBorrowReturnNote,
     encryptItemBarcode,
     encryptItemDescription,
@@ -101,6 +104,12 @@ const ALLOWED_MEDIA_PREFIXES = Object.values(MEDIA_CONFIG).flatMap((config) => (
     config.storedPathPrefix,
     config.storedThumbnailPrefix
 ]));
+const BORROW_REQUEST_DIRECTION = {
+    OFFER: 'offer'
+};
+const BORROW_REQUEST_STATUS = {
+    PENDING: 'pending'
+};
 const ACTIVE_BORROW_SELECT = `
     active_borrow.id AS active_borrow_id,
     active_borrow.borrower_type AS active_borrow_borrower_type,
@@ -429,6 +438,75 @@ function validateBorrowerMember(houseKey, borrowerUserId, actorUserId) {
     }
 
     return member;
+}
+
+function buildBorrowRequestExpiresAt(days = 14) {
+    return new Date(Date.now() + (days * 24 * 60 * 60 * 1000)).toISOString();
+}
+
+function createMemberBorrowOffer({ item, houseKey, lenderUserId, borrowerUserId, dueDate, note }) {
+    const borrower = validateBorrowerMember(houseKey, borrowerUserId, lenderUserId);
+    const recipientLookupHash = buildUsernameLookup(borrower.username);
+
+    if (!recipientLookupHash) {
+        throw new Error('Seçilen kullanıcı için ödünç teklifi oluşturulamadı');
+    }
+
+    const existingOffer = db.prepare(`
+        SELECT id
+        FROM borrow_requests
+        WHERE direction = ?
+          AND status = ?
+          AND item_id = ?
+        LIMIT 1
+    `).get(
+        BORROW_REQUEST_DIRECTION.OFFER,
+        BORROW_REQUEST_STATUS.PENDING,
+        item.id
+    );
+
+    if (existingOffer) {
+        throw new Error('Bu eşya için zaten bekleyen bir ödünç teklifi var');
+    }
+
+    const result = db.prepare(`
+        INSERT INTO borrow_requests (
+            direction,
+            status,
+            initiator_user_id,
+            recipient_user_id,
+            recipient_lookup_type,
+            recipient_lookup_hash,
+            recipient_identifier,
+            item_id,
+            requested_item_label,
+            note,
+            due_date,
+            expires_at
+        )
+        VALUES (?, ?, ?, ?, 'username', ?, ?, ?, NULL, ?, ?, ?)
+    `).run(
+        BORROW_REQUEST_DIRECTION.OFFER,
+        BORROW_REQUEST_STATUS.PENDING,
+        lenderUserId,
+        borrower.id,
+        recipientLookupHash,
+        encryptBorrowRequestTarget(borrower.username),
+        item.id,
+        note ? encryptBorrowRequestNote(note) : null,
+        dueDate,
+        buildBorrowRequestExpiresAt()
+    );
+
+    return {
+        id: result.lastInsertRowid,
+        direction: BORROW_REQUEST_DIRECTION.OFFER,
+        status: BORROW_REQUEST_STATUS.PENDING,
+        recipient_user_id: borrower.id,
+        recipient_username: borrower.username,
+        item_id: item.id,
+        due_date: dueDate
+    };
 }
 
 function resolveStoredPath(storedPath) {
@@ -867,7 +945,19 @@ router.post('/:id/borrow', (req, res) => {
 
         if (borrowerType === 'member') {
             borrowerUserId = Number.parseInt(req.body.borrower_user_id, 10) || null;
-            validateBorrowerMember(req.user.house_key, borrowerUserId, req.user.id);
+            const request = createMemberBorrowOffer({
+                item,
+                houseKey: req.user.house_key,
+                lenderUserId: req.user.id,
+                borrowerUserId,
+                dueDate,
+                note
+            });
+
+            return res.status(202).json({
+                message: 'Ödünç teklifi gönderildi. Eşya karşı taraf onayladıktan sonra ödünçte sayılacak.',
+                request
+            });
         } else {
             borrowerName = normalizeOptionalText(req.body.borrower_name, 'Ödünç alan adı', 120);
             borrowerContact = normalizeOptionalText(req.body.borrower_contact, 'İletişim bilgisi', 160);

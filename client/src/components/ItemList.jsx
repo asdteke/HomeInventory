@@ -249,12 +249,21 @@ export default function ItemList() {
                 return;
             }
 
-            setItems((currentItems) => currentItems.map((item) => (
-                item.id === lendDialogItem.id
-                    ? (response.data.item || item)
-                    : item
-            )));
-            setToast({
+            const isPendingMemberOffer = Boolean(response.data?.request) && payload.borrower_type === 'member';
+            if (response.data?.item) {
+                setItems((currentItems) => currentItems.map((item) => (
+                    item.id === lendDialogItem.id
+                        ? response.data.item
+                        : item
+                )));
+            }
+            setToast(isPendingMemberOffer ? {
+                title: t('inventory.borrow.offer_sent_title', { defaultValue: 'Borrow offer sent' }),
+                description: t('inventory.borrow.offer_sent_body', {
+                    item: lendItemTitle,
+                    defaultValue: '{{item}} will be marked as borrowed after the other member accepts.'
+                })
+            } : {
                 title: t('inventory.borrow.lend_success_title', { defaultValue: 'Item lent' }),
                 description: t('inventory.borrow.lend_success_body', {
                     item: lendItemTitle,

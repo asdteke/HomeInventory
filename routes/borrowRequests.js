@@ -480,24 +480,18 @@ router.post('/', (req, res) => {
             const existingOffer = db.prepare(`
                 SELECT id
                 FROM borrow_requests
-                WHERE initiator_user_id = ?
-                  AND direction = ?
+                WHERE direction = ?
                   AND status = ?
                   AND item_id = ?
-                  AND recipient_lookup_type = ?
-                  AND recipient_lookup_hash = ?
                 LIMIT 1
             `).get(
-                req.user.id,
                 REQUEST_DIRECTION.OFFER,
                 REQUEST_STATUS.PENDING,
-                item.id,
-                recipientLookupType,
-                recipientLookupHash
+                item.id
             );
 
             if (existingOffer) {
-                throw new Error('Bu eşya için aynı kullanıcıya zaten bekleyen bir teklif var');
+                throw new Error('Bu eşya için zaten bekleyen bir teklif var');
             }
         } else {
             requestedItemLabel = normalizeRequiredText(req.body.requested_item_label, 'İstenen eşya', 160);
