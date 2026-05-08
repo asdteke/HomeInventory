@@ -27,6 +27,12 @@ import {
     sendHouseKickNotification,
     sendHouseJoinRequestNotification
 } from '../utils/emailService.js';
+import {
+    getDefaultCategorySeeds,
+    getDefaultNewHouseName,
+    getDefaultRoomSeeds,
+    resolveSeedLanguage
+} from '../utils/houseDefaults.js';
 
 const router = express.Router();
 
@@ -34,19 +40,9 @@ function generateHouseKey() {
     return crypto.randomBytes(32).toString('hex');
 }
 
-function createDefaultCategories(houseKey) {
+function createDefaultCategories(houseKey, language = 'tr') {
     const insertCategory = db.prepare('INSERT INTO categories (name, icon, color, house_key) VALUES (?, ?, ?, ?)');
-    const defaultCategories = [
-        ['Mutfak', '🍳', '#ef4444'],
-        ['Elektronik', '💻', '#3b82f6'],
-        ['Hobi', '🎨', '#8b5cf6'],
-        ['Mobilya', '🛋️', '#f59e0b'],
-        ['Giyim', '👕', '#ec4899'],
-        ['Kitaplar', '📚', '#10b981'],
-        ['Aletler', '🔧', '#6b7280'],
-        ['Spor', '⚽', '#14b8a6'],
-        ['Diğer', '📦', '#64748b']
-    ];
+    const defaultCategories = getDefaultCategorySeeds(language);
 
     const insertMany = db.transaction((categories) => {
         for (const category of categories) {
@@ -57,19 +53,9 @@ function createDefaultCategories(houseKey) {
     insertMany(defaultCategories);
 }
 
-function createDefaultRooms(houseKey) {
+function createDefaultRooms(houseKey, language = 'tr') {
     const insertRoom = db.prepare('INSERT INTO rooms (name, description, house_key) VALUES (?, ?, ?)');
-    const defaultRooms = [
-        ['Oturma Odası', 'Ana yaşam alanı'],
-        ['Yatak Odası', 'Uyku ve dinlenme alanı'],
-        ['Mutfak', 'Yemek hazırlama alanı'],
-        ['Banyo', 'Temizlik ve bakım alanı'],
-        ['Çalışma Odası', 'Ofis ve çalışma alanı'],
-        ['Çocuk Odası', 'Çocuklar için oda'],
-        ['Garaj', 'Araç ve depolama alanı'],
-        ['Balkon', 'Dış mekan alanı'],
-        ['Depo', 'Genel depolama alanı']
-    ];
+    const defaultRooms = getDefaultRoomSeeds(language);
 
     const insertMany = db.transaction((rooms) => {
         for (const room of rooms) {
@@ -155,7 +141,8 @@ router.get('/', authenticateToken, (req, res) => {
 router.post('/', authenticateToken, (req, res) => {
     try {
         const { name } = req.body;
-        const houseName = String(name || '').trim() || 'Yeni Evim';
+        const seedLanguage = resolveSeedLanguage(req);
+        const houseName = String(name || '').trim() || getDefaultNewHouseName(seedLanguage);
         const newHouseKey = generateHouseKey();
 
         const result = db.prepare(`
@@ -163,8 +150,8 @@ router.post('/', authenticateToken, (req, res) => {
             VALUES (?, ?, ?, 1)
         `).run(req.user.id, newHouseKey, encryptHouseName(houseName));
 
-        createDefaultCategories(newHouseKey);
-        createDefaultRooms(newHouseKey);
+        createDefaultCategories(newHouseKey, seedLanguage);
+        createDefaultRooms(newHouseKey, seedLanguage);
 
         db.prepare(`
             UPDATE users

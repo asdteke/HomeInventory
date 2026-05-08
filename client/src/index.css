@@ -1,6 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Manrope:wght@500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --hi-bg: #f6f2e9;
+  --hi-bg-elevated: rgba(255, 255, 255, 0.9);
+  --hi-bg-strong: #f8f4ec;
+  --hi-panel: rgba(255, 255, 255, 0.9);
+  --hi-panel-strong: rgba(255, 255, 255, 0.98);
+  --hi-panel-muted: rgba(242, 237, 228, 0.92);
+  --hi-border: rgba(214, 207, 196, 0.9);
+  --hi-border-strong: rgba(196, 188, 176, 1);
+  --hi-text: #1c2920;
+  --hi-text-soft: #526150;
+  --hi-text-muted: #687364;
+  --hi-accent: #2d5241;
+  --hi-accent-strong: #234434;
+  --hi-accent-soft: rgba(45, 82, 65, 0.1);
+  --hi-secondary: #b89968;
+  --hi-secondary-strong: #a68857;
+  --hi-secondary-soft: rgba(184, 153, 104, 0.14);
+  --hi-shadow: 0 18px 48px rgba(28, 41, 32, 0.08);
+  --hi-shadow-soft: 0 8px 28px rgba(28, 41, 32, 0.06);
+  --hi-shadow-lift: 0 18px 44px rgba(28, 41, 32, 0.12);
+  --hi-radius-xl: 28px;
+  --hi-radius-lg: 22px;
+  --hi-radius-md: 16px;
+  --hi-success: #417658;
+  --hi-success-soft: rgba(65, 118, 88, 0.12);
+  --hi-danger: #bb4257;
+  --hi-danger-soft: rgba(187, 66, 87, 0.1);
+  --hi-warning: #a07f44;
+  --hi-warning-soft: rgba(184, 153, 104, 0.16);
+  --hi-transition-standard: 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dark {
+  color-scheme: dark;
+  --hi-bg: #1a1f1c;
+  --hi-bg-elevated: rgba(35, 41, 37, 0.92);
+  --hi-bg-strong: #1a1f1c;
+  --hi-panel: rgba(35, 41, 37, 0.88);
+  --hi-panel-strong: rgba(35, 41, 37, 0.96);
+  --hi-panel-muted: rgba(42, 48, 44, 0.92);
+  --hi-border: rgba(58, 64, 59, 0.95);
+  --hi-border-strong: rgba(74, 82, 75, 1);
+  --hi-text: #f3f2ef;
+  --hi-text-soft: #c9ccc6;
+  --hi-text-muted: #9b9e97;
+  --hi-accent: #4a7d64;
+  --hi-accent-strong: #5b8f75;
+  --hi-accent-soft: rgba(74, 125, 100, 0.16);
+  --hi-secondary: #cdb088;
+  --hi-secondary-strong: #b89968;
+  --hi-secondary-soft: rgba(205, 176, 136, 0.14);
+  --hi-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
+  --hi-shadow-soft: 0 8px 28px rgba(0, 0, 0, 0.18);
+  --hi-shadow-lift: 0 18px 44px rgba(0, 0, 0, 0.26);
+  --hi-success: #8bc196;
+  --hi-success-soft: rgba(139, 193, 150, 0.14);
+  --hi-danger: #ff8d9b;
+  --hi-danger-soft: rgba(255, 141, 155, 0.12);
+  --hi-warning: #d6ba8f;
+  --hi-warning-soft: rgba(214, 186, 143, 0.16);
+}
+
+html[data-brand='homeinventory'] {
+  --hi-bg: #f5f7fb;
+  --hi-bg-elevated: rgba(255, 255, 255, 0.92);
+  --hi-bg-strong: #eef3fb;
+  --hi-panel: rgba(255, 255, 255, 0.88);
+  --hi-panel-strong: rgba(255, 255, 255, 0.97);
+  --hi-panel-muted: rgba(236, 242, 250, 0.92);
+  --hi-border: rgba(202, 214, 231, 0.9);
+  --hi-border-strong: rgba(176, 193, 216, 1);
+  --hi-text: #13233d;
+  --hi-text-soft: #50627f;
+  --hi-text-muted: #70809a;
+  --hi-accent: #0f4f99;
+  --hi-accent-strong: #0b3d79;
+  --hi-accent-soft: rgba(15, 79, 153, 0.1);
+  --hi-secondary: #129e9a;
+  --hi-secondary-strong: #0c817d;
+  --hi-secondary-soft: rgba(18, 158, 154, 0.12);
+  --hi-shadow: 0 18px 48px rgba(19, 35, 61, 0.08);
+  --hi-shadow-soft: 0 8px 28px rgba(19, 35, 61, 0.06);
+  --hi-shadow-lift: 0 18px 44px rgba(19, 35, 61, 0.12);
+  --hi-success: #128884;
+  --hi-success-soft: rgba(18, 136, 132, 0.12);
+  --hi-warning: #0f4f99;
+  --hi-warning-soft: rgba(15, 79, 153, 0.12);
+}
+
+html.dark[data-brand='homeinventory'] {
+  --hi-bg: #161c27;
+  --hi-bg-elevated: rgba(27, 35, 48, 0.94);
+  --hi-bg-strong: #0f141d;
+  --hi-panel: rgba(35, 46, 63, 0.92);
+  --hi-panel-strong: rgba(43, 56, 76, 0.98);
+  --hi-panel-muted: rgba(49, 63, 86, 0.94);
+  --hi-border: rgba(104, 130, 168, 0.56);
+  --hi-border-strong: rgba(139, 172, 219, 0.82);
+  --hi-text: #eef4fb;
+  --hi-text-soft: #d5e1ef;
+  --hi-text-muted: #aab8cd;
+  --hi-accent: #67e3f2;
+  --hi-accent-strong: #26c8de;
+  --hi-accent-soft: rgba(103, 227, 242, 0.22);
+  --hi-secondary: #8bb4ff;
+  --hi-secondary-strong: #d7e6ff;
+  --hi-secondary-soft: rgba(139, 180, 255, 0.2);
+  --hi-shadow: 0 22px 56px rgba(3, 7, 14, 0.34);
+  --hi-shadow-soft: 0 10px 28px rgba(3, 7, 14, 0.22);
+  --hi-shadow-lift: 0 22px 46px rgba(3, 7, 14, 0.28);
+  --hi-success: #67e3f2;
+  --hi-success-soft: rgba(103, 227, 242, 0.2);
+  --hi-warning: #8bb4ff;
+  --hi-warning-soft: rgba(139, 180, 255, 0.18);
+}
 
 * {
   margin: 0;
@@ -8,179 +128,1107 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: 'Inter', system-ui, sans-serif;
-  @apply bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300;
+html {
+  scroll-behavior: smooth;
 }
 
-/* Scrollbar */
+body {
+  min-height: 100vh;
+  font-family: 'Manrope', 'Inter', system-ui, sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(184, 153, 104, 0.05), transparent 24%),
+    radial-gradient(circle at top right, rgba(45, 82, 65, 0.04), transparent 22%),
+    linear-gradient(180deg, var(--hi-bg-strong) 0%, var(--hi-bg) 58%, #f4efe6 100%);
+  color: var(--hi-text);
+  line-height: 1.5;
+  transition: background-color var(--hi-transition-standard), color var(--hi-transition-standard);
+}
+
+html[data-brand='homeinventory'] body {
+  background:
+    radial-gradient(circle at top left, rgba(18, 158, 154, 0.08), transparent 22%),
+    radial-gradient(circle at top right, rgba(0, 43, 127, 0.08), transparent 24%),
+    linear-gradient(180deg, #eef3fb 0%, #f5f7fb 56%, #edf2f9 100%);
+}
+
+html.dark[data-brand='homeinventory'] body {
+  background:
+    radial-gradient(circle at top left, rgba(103, 227, 242, 0.075), transparent 24%),
+    radial-gradient(circle at top right, rgba(139, 180, 255, 0.07), transparent 28%),
+    linear-gradient(180deg, #0f141d 0%, #161c27 52%, #1a2230 100%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  transition:
+    color var(--hi-transition-standard),
+    background-color var(--hi-transition-standard),
+    border-color var(--hi-transition-standard),
+    box-shadow var(--hi-transition-standard),
+    transform var(--hi-transition-standard),
+    opacity var(--hi-transition-standard);
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+  cursor: not-allowed;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(45, 82, 65, 0.18);
+}
+
+html[data-brand='homeinventory'] a:focus-visible,
+html[data-brand='homeinventory'] button:focus-visible,
+html[data-brand='homeinventory'] input:focus-visible,
+html[data-brand='homeinventory'] select:focus-visible,
+html[data-brand='homeinventory'] textarea:focus-visible {
+  box-shadow: 0 0 0 3px rgba(18, 158, 154, 0.18);
+}
+
+::selection {
+  background: rgba(45, 82, 65, 0.2);
+}
+
+html[data-brand='homeinventory'] ::selection {
+  background: rgba(18, 158, 154, 0.22);
+}
+
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-slate-100 dark:bg-slate-900;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-300 dark:bg-slate-700 rounded-full;
+  background: rgba(99, 91, 80, 0.28);
+  border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-slate-400 dark:bg-slate-600;
+  background: rgba(99, 91, 80, 0.4);
 }
 
-/* Safe area for mobile bottom nav */
 .safe-area-pb {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
 @layer components {
-
-  /* Glass effects */
   .glass {
-    @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200 dark:border-slate-800 shadow-xl;
+    background: var(--hi-panel);
+    border: 1px solid var(--hi-border);
+    box-shadow: var(--hi-shadow-soft);
+    backdrop-filter: blur(18px);
   }
 
   .glass-solid {
-    @apply bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-lg;
+    background: var(--hi-panel-strong);
+    border: 1px solid var(--hi-border);
+    box-shadow: var(--hi-shadow-soft);
   }
 
-  /* Buttons */
   .btn-primary {
-    @apply bg-gradient-to-r from-primary-500 to-blue-500 text-white font-medium py-2.5 px-5 rounded-xl shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200;
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 font-semibold transition duration-200;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background-clip: padding-box;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    background: linear-gradient(135deg, var(--hi-accent-strong), var(--hi-accent));
+    color: white;
+    border: 1px solid rgba(35, 68, 52, 0.18);
+    box-shadow: 0 16px 32px rgba(45, 82, 65, 0.18);
+  }
+
+  html[data-brand='homeinventory'] .btn-primary {
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02)) padding-box,
+      linear-gradient(135deg, #0b4f99, #14b8c7) border-box;
+    border: 1px solid transparent;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      0 16px 32px rgba(8, 44, 110, 0.2);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 20px 38px rgba(45, 82, 65, 0.22);
+  }
+
+  html[data-brand='homeinventory'] .btn-primary:hover {
+    box-shadow: 0 20px 38px rgba(8, 44, 110, 0.24);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 10px 20px rgba(45, 82, 65, 0.16);
+  }
+
+  .btn-primary:disabled {
+    transform: none;
+    opacity: 0.62;
+    box-shadow: none;
+  }
+
+  .btn-primary:focus-visible {
+    outline: 2px solid var(--hi-accent);
+    outline-offset: 3px;
   }
 
   .btn-secondary {
-    @apply bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium py-2.5 px-5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200;
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 font-semibold transition duration-200;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background-clip: padding-box;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    background: var(--hi-panel-muted);
+    border: 1px solid var(--hi-border);
+    color: var(--hi-text);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  html[data-brand='homeinventory'] .btn-secondary {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(242, 247, 254, 0.95)) padding-box,
+      linear-gradient(180deg, rgba(176, 193, 216, 0.82), rgba(151, 174, 205, 0.64)) border-box;
+    border: 1px solid transparent;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.88),
+      0 8px 18px rgba(19, 35, 61, 0.07);
+    color: var(--hi-text);
+  }
+
+  html.dark[data-brand='homeinventory'] .btn-secondary {
+    background:
+      linear-gradient(180deg, rgba(30, 38, 50, 0.92), rgba(28, 35, 46, 0.96)) padding-box,
+      linear-gradient(180deg, rgba(137, 171, 222, 0.52), rgba(89, 112, 145, 0.42)) border-box;
+    border: 1px solid transparent;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .btn-secondary:hover {
+    transform: translateY(-1px);
+    border-color: var(--hi-border-strong);
+    background: var(--hi-panel-strong);
+    box-shadow: var(--hi-shadow-soft);
+  }
+
+  html[data-brand='homeinventory'] .btn-secondary:hover {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(246, 250, 255, 0.98)) padding-box,
+      linear-gradient(180deg, rgba(166, 188, 220, 0.9), rgba(132, 163, 204, 0.76)) border-box;
+    border: 1px solid transparent;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.94),
+      0 10px 22px rgba(19, 35, 61, 0.09);
+  }
+
+  html.dark[data-brand='homeinventory'] .btn-secondary:hover {
+    background:
+      linear-gradient(180deg, rgba(35, 45, 60, 0.96), rgba(31, 39, 52, 0.98)) padding-box,
+      linear-gradient(180deg, rgba(148, 182, 232, 0.58), rgba(101, 128, 164, 0.46)) border-box;
+    border: 1px solid transparent;
+  }
+
+  .btn-secondary:active {
+    transform: translateY(0);
+  }
+
+  .btn-secondary:disabled {
+    transform: none;
+    opacity: 0.6;
+    box-shadow: none;
+  }
+
+  .btn-secondary:focus-visible {
+    outline: 2px solid var(--hi-accent);
+    outline-offset: 3px;
   }
 
   .btn-danger {
-    @apply bg-red-500 text-white font-medium py-2.5 px-5 rounded-xl shadow-lg shadow-red-500/25 hover:bg-red-600 hover:shadow-xl hover:shadow-red-500/40 transition-all duration-200;
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 font-semibold text-white transition duration-200;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background-clip: padding-box;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    background: linear-gradient(135deg, #dc4c64, #b4233d);
+    border: 1px solid rgba(180, 35, 61, 0.18);
+    box-shadow: 0 16px 32px rgba(180, 35, 61, 0.18);
   }
 
-  /* Inputs */
+  .btn-danger:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 20px 38px rgba(180, 35, 61, 0.22);
+  }
+
+  .btn-danger:focus-visible {
+    outline: 2px solid #dc4c64;
+    outline-offset: 3px;
+  }
+
   .input-field {
-    @apply w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-200;
+    @apply w-full rounded-2xl px-4 py-3 transition duration-200 outline-none;
+    background: var(--hi-bg-strong);
+    border: 1px solid var(--hi-border);
+    color: var(--hi-text);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
 
-  /* Cards */
+  .dark .input-field {
+    background: #232925;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  }
+
+  html.dark[data-brand='homeinventory'] .input-field {
+    background: #171d26;
+    border-color: rgba(66, 82, 106, 0.5);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+  }
+
+  .input-field::placeholder {
+    color: var(--hi-text-muted);
+  }
+
+  .input-field:focus {
+    border-color: rgba(45, 82, 65, 0.42);
+    box-shadow:
+      0 0 0 4px rgba(45, 82, 65, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+
+  html[data-brand='homeinventory'] .input-field:focus {
+    border-color: rgba(18, 158, 154, 0.42);
+    box-shadow:
+      0 0 0 4px rgba(18, 158, 154, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+
   .card {
-    @apply bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm animate-fade-in transition-colors duration-300;
+    @apply rounded-[28px] p-6 transition duration-300;
+    background: linear-gradient(180deg, var(--hi-panel-strong), var(--hi-panel));
+    border: 1px solid var(--hi-border);
+    box-shadow: var(--hi-shadow-soft);
+    backdrop-filter: blur(18px);
   }
 
   .stat-card {
-    @apply bg-white dark:bg-slate-900 rounded-2xl p-5 flex items-center gap-4 border border-slate-200 dark:border-slate-800 hover:shadow-lg hover:scale-[1.02] transition-all duration-300;
+    @apply rounded-[24px] p-5 transition duration-300;
+    background: linear-gradient(180deg, var(--hi-panel-strong), var(--hi-panel));
+    border: 1px solid var(--hi-border);
+    box-shadow: var(--hi-shadow-soft);
   }
 
-  /* Badge */
   .badge {
-    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400;
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold;
+    background: var(--hi-secondary-soft);
+    color: var(--hi-accent);
+    border: 1px solid rgba(184, 153, 104, 0.2);
+  }
+
+  .section-title {
+    font-family: 'Manrope', 'Inter', system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+
+  .panel-grid {
+    @apply grid gap-5;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+
+  .premium-shell {
+    position: relative;
+  }
+
+  .premium-shell::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 15% 15%, rgba(45, 82, 65, 0.08), transparent 24%),
+      radial-gradient(circle at 85% 10%, rgba(148, 131, 106, 0.10), transparent 24%),
+      radial-gradient(circle at 78% 84%, rgba(40, 57, 49, 0.045), transparent 34%);
+    opacity: 0.82;
+    filter: blur(18px);
+    z-index: -1;
+  }
+
+  html[data-brand='homeinventory'] .premium-shell::before {
+    background:
+      radial-gradient(circle at 15% 15%, rgba(18, 158, 154, 0.08), transparent 24%),
+      radial-gradient(circle at 85% 10%, rgba(0, 43, 127, 0.09), transparent 24%),
+      radial-gradient(circle at 78% 84%, rgba(15, 79, 153, 0.05), transparent 34%);
   }
 }
 
-/* Gradient text */
-.gradient-text {
-  @apply bg-gradient-to-r from-primary-500 via-blue-500 to-cyan-500 bg-clip-text text-transparent;
+.app-kicker {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  line-height: 1.35;
+  text-transform: uppercase;
+  color: var(--hi-text-muted);
 }
 
-/* Loading spinner */
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid theme('colors.primary.500 / 0.3');
-  border-radius: 50%;
-  border-top-color: theme('colors.primary.500');
-  animation: spin 1s ease-in-out infinite;
+.app-kicker-subtle {
+  color: var(--hi-text-soft);
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+.app-page-header {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--hi-border);
+  border-radius: 32px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.72)),
+    radial-gradient(circle at top right, rgba(184, 153, 104, 0.12), transparent 30%);
+  padding: clamp(1.25rem, 1.1rem + 0.8vw, 1.75rem);
+  box-shadow: var(--hi-shadow-soft);
+  backdrop-filter: blur(16px);
 }
 
-/* Toggle switch */
-.toggle-switch {
-  @apply relative w-12 h-7 rounded-full transition-colors duration-200 cursor-pointer;
+html[data-brand='homeinventory'] .app-page-header {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(246, 249, 253, 0.8)),
+    radial-gradient(circle at top right, rgba(18, 158, 154, 0.1), transparent 30%);
 }
 
-.toggle-switch::after {
+.dark .app-page-header {
+  background:
+    linear-gradient(180deg, rgba(35, 41, 37, 0.94), rgba(31, 37, 33, 0.88)),
+    radial-gradient(circle at top right, rgba(205, 176, 136, 0.12), transparent 30%);
+}
+
+html.dark[data-brand='homeinventory'] .app-page-header {
+  background:
+    linear-gradient(180deg, rgba(24, 31, 40, 0.96), rgba(19, 25, 33, 0.92)),
+    radial-gradient(circle at top right, rgba(88, 198, 212, 0.08), transparent 30%);
+}
+
+.app-page-header::after {
   content: '';
-  @apply absolute top-1 left-1 w-5 h-5 bg-white rounded-full shadow transition-transform duration-200;
+  position: absolute;
+  inset: auto auto 0 0;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(45, 82, 65, 0.08), transparent 66%);
+  pointer-events: none;
 }
 
-.toggle-switch.active::after {
-  @apply translate-x-5;
+html[data-brand='homeinventory'] .app-page-header::after {
+  background: radial-gradient(circle, rgba(15, 79, 153, 0.1), transparent 66%);
 }
 
-/* Slide in animation for mobile menu */
-@keyframes slideInRight {
-  from {
-    transform: translateX(100%);
-  }
-
-  to {
-    transform: translateX(0);
-  }
+.app-page-description {
+  margin-top: 0.95rem;
+  max-width: 40rem;
+  font-size: 1rem;
+  line-height: 1.68;
+  color: var(--hi-text-soft);
 }
 
-.animate-slide-in-right {
-  animation: slideInRight 0.3s ease-out;
+.app-inline-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
 }
 
-/* Fade in animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.app-meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.3rem;
+  border-radius: 999px;
+  border: 1px solid var(--hi-border);
+  background: rgba(255, 255, 255, 0.58);
+  padding: 0.45rem 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--hi-text-soft);
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.3s ease-out;
+.dark .app-meta-pill {
+  background: rgba(255, 255, 255, 0.03);
 }
 
-/* UI Flexibility for long text */
-.btn-primary,
-.btn-secondary,
-.btn-danger,
-button {
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  min-width: fit-content;
+.app-meta-pill-accent {
+  border-color: rgba(45, 82, 65, 0.18);
+  background: var(--hi-accent-soft);
+  color: var(--hi-accent);
+}
+
+html[data-brand='homeinventory'] .app-meta-pill-accent {
+  border-color: rgba(15, 79, 153, 0.18);
+}
+
+.app-meta-pill-secondary {
+  border-color: rgba(184, 153, 104, 0.2);
+  background: var(--hi-secondary-soft);
+  color: var(--hi-secondary-strong);
+}
+
+html[data-brand='homeinventory'] .app-meta-pill-secondary {
+  border-color: rgba(18, 158, 154, 0.22);
+}
+
+.app-meta-pill-warning {
+  border-color: rgba(184, 153, 104, 0.2);
+  background: var(--hi-warning-soft);
+  color: var(--hi-warning);
+}
+
+html[data-brand='homeinventory'] .app-meta-pill-warning {
+  border-color: rgba(134, 182, 255, 0.2);
+}
+
+.app-page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0.65rem;
+}
+
+.app-page-header-body {
+  position: relative;
+  z-index: 1;
+  margin-top: 1.1rem;
+  border-top: 1px solid var(--hi-border);
+  padding-top: 1.1rem;
+}
+
+.app-section-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.7rem;
+}
+
+.app-section-header .app-kicker + .section-title {
+  margin-top: 0.9rem;
+}
+
+.app-section-header .section-title + p {
+  margin-top: 1rem;
+}
+
+.app-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  border: 1px solid var(--hi-border);
+  border-radius: 24px;
+  background: var(--hi-panel-strong);
+  padding: 1rem 1.1rem;
+}
+
+.app-notice-icon {
+  display: inline-flex;
+  height: 2.75rem;
+  width: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  background: var(--hi-accent-soft);
+  color: var(--hi-accent);
+  flex-shrink: 0;
+}
+
+.app-notice-success {
+  border-color: rgba(65, 118, 88, 0.2);
+  background: linear-gradient(180deg, rgba(65, 118, 88, 0.08), rgba(255, 255, 255, 0.78));
+}
+
+html[data-brand='homeinventory'] .app-notice-success {
+  border-color: rgba(88, 198, 212, 0.22);
+  background: linear-gradient(180deg, rgba(88, 198, 212, 0.1), rgba(255, 255, 255, 0.8));
+}
+
+.dark .app-notice-success {
+  background: linear-gradient(180deg, rgba(65, 118, 88, 0.12), rgba(35, 41, 37, 0.9));
+}
+
+html.dark[data-brand='homeinventory'] .app-notice-success {
+  background: linear-gradient(180deg, rgba(88, 198, 212, 0.12), rgba(24, 31, 40, 0.92));
+}
+
+.app-notice-success .app-notice-icon {
+  background: var(--hi-success-soft);
+  color: var(--hi-success);
+}
+
+.app-notice-warning {
+  border-color: rgba(184, 153, 104, 0.22);
+  background: linear-gradient(180deg, rgba(184, 153, 104, 0.1), rgba(255, 255, 255, 0.78));
+}
+
+html[data-brand='homeinventory'] .app-notice-warning {
+  border-color: rgba(134, 182, 255, 0.22);
+  background: linear-gradient(180deg, rgba(134, 182, 255, 0.1), rgba(255, 255, 255, 0.8));
+}
+
+.dark .app-notice-warning {
+  background: linear-gradient(180deg, rgba(184, 153, 104, 0.12), rgba(35, 41, 37, 0.9));
+}
+
+html.dark[data-brand='homeinventory'] .app-notice-warning {
+  background: linear-gradient(180deg, rgba(134, 182, 255, 0.12), rgba(24, 31, 40, 0.92));
+}
+
+.app-notice-warning .app-notice-icon {
+  background: var(--hi-warning-soft);
+  color: var(--hi-warning);
+}
+
+.app-notice-danger {
+  border-color: rgba(187, 66, 87, 0.2);
+  background: linear-gradient(180deg, rgba(187, 66, 87, 0.08), rgba(255, 255, 255, 0.78));
+}
+
+.dark .app-notice-danger {
+  background: linear-gradient(180deg, rgba(187, 66, 87, 0.12), rgba(35, 41, 37, 0.9));
+}
+
+.app-notice-danger .app-notice-icon {
+  background: var(--hi-danger-soft);
+  color: var(--hi-danger);
+}
+
+.app-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.95rem;
+  border: 1px dashed var(--hi-border-strong);
+  border-radius: 30px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.82)),
+    radial-gradient(circle at top center, rgba(45, 82, 65, 0.06), transparent 28%);
+  padding: clamp(1.35rem, 1.05rem + 1.25vw, 2.2rem);
   text-align: center;
 }
 
-nav,
-.nav-items {
+html[data-brand='homeinventory'] .app-empty-state {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.62), rgba(248, 251, 255, 0.84)),
+    radial-gradient(circle at top center, rgba(15, 79, 153, 0.08), transparent 28%);
+}
+
+.dark .app-empty-state {
+  background:
+    linear-gradient(180deg, rgba(35, 41, 37, 0.88), rgba(31, 37, 33, 0.94)),
+    radial-gradient(circle at top center, rgba(74, 125, 100, 0.12), transparent 28%);
+}
+
+html.dark[data-brand='homeinventory'] .app-empty-state {
+  background:
+    linear-gradient(180deg, rgba(16, 26, 43, 0.88), rgba(12, 21, 36, 0.94)),
+    radial-gradient(circle at top center, rgba(57, 183, 195, 0.1), transparent 28%);
+}
+
+.app-empty-state-left {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.app-empty-state-icon {
+  display: inline-flex;
+  height: 3.75rem;
+  width: 3.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 24px;
+  background: var(--hi-accent-soft);
+  color: var(--hi-accent);
+}
+
+.app-empty-state-actions {
+  display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
 }
 
-label,
-.label {
-  overflow-wrap: break-word;
-  word-break: break-word;
+.app-empty-state-left .app-empty-state-actions {
+  justify-content: flex-start;
 }
 
-table {
-  word-break: break-word;
+.app-empty-state-grid {
+  display: grid;
+  width: 100%;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
 
-th,
-td {
-  overflow-wrap: break-word;
+.app-empty-state-step {
+  border: 1px solid var(--hi-border);
+  border-radius: 24px;
+  background: var(--hi-panel);
+  padding: 0.9rem;
+  text-align: left;
 }
 
-.card,
-.stat-card {
-  overflow-wrap: break-word;
+.app-empty-state-step-index {
+  display: inline-flex;
+  height: 2rem;
+  width: 2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--hi-accent-soft);
+  color: var(--hi-accent);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.premium-shell {
+  --hi-bg: #f3f2ee;
+  --hi-bg-elevated: rgba(252, 251, 248, 0.92);
+  --hi-bg-strong: #f7f6f2;
+  --hi-panel: rgba(255, 255, 255, 0.84);
+  --hi-panel-strong: rgba(255, 255, 255, 0.96);
+  --hi-panel-muted: rgba(244, 242, 236, 0.86);
+  --hi-border: rgba(216, 214, 207, 0.84);
+  --hi-border-strong: rgba(184, 186, 178, 0.95);
+  --hi-shadow-soft: 0 8px 22px rgba(28, 41, 32, 0.045);
+  --hi-shadow-lift: 0 16px 34px rgba(28, 41, 32, 0.08);
+}
+
+html[data-brand='homeinventory'] .premium-shell {
+  --hi-bg: #f3f7fd;
+  --hi-bg-elevated: rgba(251, 253, 255, 0.94);
+  --hi-bg-strong: #edf3fb;
+  --hi-panel: rgba(255, 255, 255, 0.84);
+  --hi-panel-strong: rgba(255, 255, 255, 0.96);
+  --hi-panel-muted: rgba(238, 244, 252, 0.9);
+  --hi-border: rgba(198, 211, 228, 0.84);
+  --hi-border-strong: rgba(160, 183, 212, 0.95);
+  --hi-shadow-soft: 0 8px 22px rgba(19, 35, 61, 0.05);
+  --hi-shadow-lift: 0 16px 34px rgba(19, 35, 61, 0.09);
+}
+
+.dark .premium-shell {
+  --hi-bg: #1b201d;
+  --hi-bg-elevated: rgba(31, 36, 32, 0.94);
+  --hi-bg-strong: #181d1a;
+  --hi-panel: rgba(34, 39, 35, 0.84);
+  --hi-panel-strong: rgba(38, 43, 39, 0.96);
+  --hi-panel-muted: rgba(43, 48, 44, 0.84);
+  --hi-border: rgba(68, 74, 69, 0.72);
+  --hi-border-strong: rgba(86, 94, 87, 0.92);
+}
+
+html.dark[data-brand='homeinventory'] .premium-shell {
+  --hi-bg: #131924;
+  --hi-bg-elevated: rgba(25, 33, 45, 0.96);
+  --hi-bg-strong: #0f141d;
+  --hi-panel: rgba(36, 47, 65, 0.92);
+  --hi-panel-strong: rgba(44, 58, 79, 0.98);
+  --hi-panel-muted: rgba(52, 68, 92, 0.94);
+  --hi-border: rgba(105, 131, 171, 0.58);
+  --hi-border-strong: rgba(139, 171, 216, 0.8);
+  --hi-shadow-soft: 0 10px 28px rgba(3, 7, 14, 0.22);
+  --hi-shadow-lift: 0 20px 44px rgba(3, 7, 14, 0.28);
+}
+
+.premium-shell::before {
+  background:
+    radial-gradient(circle at 18% 14%, rgba(45, 82, 65, 0.045), transparent 26%),
+    radial-gradient(circle at 86% 18%, rgba(184, 153, 104, 0.052), transparent 28%),
+    radial-gradient(circle at 78% 86%, rgba(40, 57, 49, 0.025), transparent 36%);
+  opacity: 0.62;
+  filter: blur(22px);
+}
+
+html[data-brand='homeinventory'] .premium-shell::before {
+  background:
+    radial-gradient(circle at 18% 14%, rgba(18, 158, 154, 0.04), transparent 26%),
+    radial-gradient(circle at 86% 18%, rgba(0, 43, 127, 0.05), transparent 28%),
+    radial-gradient(circle at 78% 86%, rgba(15, 79, 153, 0.03), transparent 36%);
+}
+
+.premium-shell .card,
+.premium-shell .stat-card {
+  border-radius: 16px;
+  box-shadow: var(--hi-shadow-soft);
+}
+
+.premium-shell .btn-secondary,
+.premium-shell .btn-danger {
+  border-radius: 999px;
+}
+
+.premium-shell .input-field {
+  border-radius: 16px;
+}
+
+.premium-shell .btn-primary {
+  border-radius: 999px;
+  box-shadow: 0 16px 34px rgba(111, 153, 120, 0.22);
+}
+
+html[data-brand='homeinventory'] .premium-shell .btn-primary {
+  box-shadow: 0 14px 28px rgba(8, 44, 110, 0.18);
+}
+
+.premium-shell .btn-primary:hover {
+  box-shadow: 0 22px 44px rgba(111, 153, 120, 0.28);
+}
+
+html[data-brand='homeinventory'] .premium-shell .btn-primary:hover {
+  box-shadow: 0 18px 34px rgba(8, 44, 110, 0.22);
+}
+
+.premium-shell .btn-secondary:hover {
+  box-shadow: none;
+}
+
+.premium-shell .app-page-header {
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0.62)),
+    radial-gradient(circle at top right, rgba(184, 153, 104, 0.055), transparent 34%);
+  box-shadow: var(--hi-shadow-soft);
+}
+
+html[data-brand='homeinventory'] .premium-shell .app-page-header {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(247, 250, 254, 0.68)),
+    radial-gradient(circle at top right, rgba(18, 158, 154, 0.08), transparent 34%);
+}
+
+.premium-shell .app-page-header + section {
+  margin-top: 1.5rem;
+}
+
+.premium-shell section + section {
+  margin-top: 2rem;
+}
+
+.dark .premium-shell .app-page-header {
+  background:
+    linear-gradient(180deg, rgba(35, 41, 37, 0.9), rgba(31, 37, 33, 0.82)),
+    radial-gradient(circle at top right, rgba(205, 176, 136, 0.065), transparent 34%);
+}
+
+html.dark[data-brand='homeinventory'] .premium-shell .app-page-header {
+  background:
+    linear-gradient(180deg, rgba(39, 51, 70, 0.98), rgba(30, 39, 53, 0.92)),
+    radial-gradient(circle at top right, rgba(103, 227, 242, 0.14), transparent 36%);
+}
+
+.premium-shell .app-page-header::after {
+  width: 160px;
+  height: 160px;
+  opacity: 0.38;
+}
+
+.premium-shell .app-page-description {
+  max-width: 38rem;
+  line-height: 1.62;
+}
+
+.premium-shell .app-page-actions {
+  align-items: center;
+}
+
+.premium-shell .app-page-header-body {
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+}
+
+.premium-shell .app-meta-pill {
+  min-height: 2rem;
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+}
+
+.premium-shell .app-empty-state {
+  gap: 0.8rem;
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.46), rgba(255, 255, 255, 0.72)),
+    radial-gradient(circle at top center, rgba(45, 82, 65, 0.035), transparent 32%);
+}
+
+html[data-brand='homeinventory'] .premium-shell .app-empty-state {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.52), rgba(247, 250, 254, 0.76)),
+    radial-gradient(circle at top center, rgba(15, 79, 153, 0.05), transparent 32%);
+}
+
+.dark .premium-shell .app-empty-state {
+  background:
+    linear-gradient(180deg, rgba(35, 41, 37, 0.78), rgba(31, 37, 33, 0.9)),
+    radial-gradient(circle at top center, rgba(74, 125, 100, 0.08), transparent 32%);
+}
+
+html.dark[data-brand='homeinventory'] .premium-shell .app-empty-state {
+  background:
+    linear-gradient(180deg, rgba(38, 50, 69, 0.9), rgba(29, 39, 54, 0.94)),
+    radial-gradient(circle at top center, rgba(103, 227, 242, 0.1), transparent 34%);
+}
+
+.premium-shell .app-empty-state-icon,
+.premium-shell .app-empty-state-step,
+.premium-shell .app-notice,
+.premium-shell .app-notice-icon {
+  border-radius: 14px;
+}
+
+.premium-shell .app-empty-state-actions {
+  gap: 0.55rem;
+}
+
+.app-control-section {
+  border: 1px solid var(--hi-border);
+  border-radius: 16px;
+  background: var(--hi-panel);
+  padding: clamp(0.95rem, 0.86rem + 0.45vw, 1.18rem);
+  box-shadow: var(--hi-shadow-soft);
+}
+
+.app-control-section .app-kicker + .section-title,
+.app-control-section .app-kicker + h2 {
+  margin-top: 0.85rem;
+}
+
+.app-control-section h2 + p,
+.app-control-section h3 + p {
+  margin-top: 0.65rem;
+  line-height: 1.65;
+}
+
+.app-settings-section {
+  margin-top: clamp(2.3rem, 1.95rem + 1vw, 3rem);
+}
+
+.app-settings-section + .app-settings-section {
+  margin-top: clamp(2.8rem, 2.2rem + 1.5vw, 3.9rem);
+}
+
+.premium-shell .app-page-header + .app-settings-section,
+.premium-shell .app-notice + .app-settings-section {
+  margin-top: clamp(2.3rem, 1.95rem + 1vw, 3rem);
+}
+
+.borrow-requests-columns > section + section {
+  margin-top: 0;
+}
+
+.app-control-section-danger {
+  border-color: var(--hi-border);
+  background: var(--hi-panel);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--hi-accent), var(--hi-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.landing-page-shell {
+  position: relative;
+}
+
+.landing-display {
+  font-family: 'Manrope', 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.055em;
+}
+
+.landing-serif {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.landing-kicker {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+}
+
+.landing-chip {
+  border: 1px solid rgba(18, 32, 22, 0.05);
+  background: rgba(255, 251, 245, 0.6);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 8px 20px rgba(27, 35, 30, 0.04);
+  border-radius: 12px;
+}
+
+.dark .landing-chip {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(16, 21, 18, 0.65);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+}
+
+.landing-grid {
+  background-image:
+    linear-gradient(rgba(18, 32, 22, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 32, 22, 0.06) 1px, transparent 1px);
+  background-size: 112px 112px;
+  mask-image: radial-gradient(circle at center, black 24%, transparent 76%);
+}
+
+.dark .landing-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
+.landing-surface {
+  position: relative;
+  border: 1px solid rgba(18, 32, 22, 0.05);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(248, 243, 234, 0.74));
+  backdrop-filter: blur(22px);
+  box-shadow: 0 2px 6px rgba(24, 32, 26, 0.05);
+  border-radius: 16px;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+}
+
+.landing-surface::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 28%, transparent 72%, rgba(184, 153, 104, 0.06));
+}
+
+html[data-brand='homeinventory'] .landing-surface {
+  border-color: rgba(176, 193, 216, 0.36);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(240, 246, 253, 0.84));
+  box-shadow: 0 8px 24px rgba(19, 35, 61, 0.08);
+}
+
+html[data-brand='homeinventory'] .landing-surface::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent 30%, transparent 72%, rgba(139, 180, 255, 0.07));
+}
+
+.dark .landing-surface {
+  border-color: rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(180deg, rgba(20, 25, 22, 0.84), rgba(14, 18, 16, 0.8));
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+html.dark[data-brand='homeinventory'] .landing-surface {
+  border-color: rgba(105, 131, 171, 0.34);
+  background:
+    linear-gradient(180deg, rgba(23, 30, 42, 0.94), rgba(15, 21, 31, 0.92));
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+html.dark[data-brand='homeinventory'] .landing-surface::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 30%, transparent 72%, rgba(139, 180, 255, 0.06));
+}
+
+.landing-lift:hover {
+  transform: translateY(-3px);
+  border-color: rgba(184, 153, 104, 0.16);
+  box-shadow: 0 8px 24px rgba(24, 32, 26, 0.10);
+}
+
+.dark .landing-lift:hover {
+  border-color: rgba(205, 176, 136, 0.18);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+html.dark[data-brand='homeinventory'] .landing-lift:hover {
+  border-color: rgba(139, 171, 216, 0.26);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+}
+
+.landing-panel-glow {
+  background:
+    radial-gradient(circle at top right, rgba(205, 176, 136, 0.14), transparent 28%),
+    radial-gradient(circle at bottom left, rgba(74, 125, 100, 0.12), transparent 26%);
+}
+
+html[data-brand='homeinventory'] .landing-panel-glow {
+  background:
+    radial-gradient(circle at top right, rgba(139, 180, 255, 0.12), transparent 28%),
+    radial-gradient(circle at bottom left, rgba(18, 158, 154, 0.1), transparent 26%);
+}
+
+.dark .landing-panel-glow {
+  background:
+    radial-gradient(circle at top right, rgba(205, 176, 136, 0.12), transparent 30%),
+    radial-gradient(circle at bottom left, rgba(74, 125, 100, 0.14), transparent 28%);
+}
+
+html.dark[data-brand='homeinventory'] .landing-panel-glow {
+  background:
+    radial-gradient(circle at top right, rgba(139, 180, 255, 0.12), transparent 30%),
+    radial-gradient(circle at bottom left, rgba(103, 227, 242, 0.1), transparent 28%);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(184, 153, 104, 0.18);
+  border-top-color: var(--hi-accent);
+  border-radius: 999px;
+  animation: spin 0.9s linear infinite;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.35s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.28s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.34s ease-out;
 }
 
 .brand-logo {
@@ -189,10 +1237,59 @@ td {
   object-fit: contain;
 }
 
-.brand-logo-full {
-  max-width: 100%;
-}
-
 .brand-logo-symbol {
   aspect-ratio: 1 / 1;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -67,7 +67,14 @@ import {
     hashDeviceToken
 } from '../utils/totp.js';
 import { resolveStoredMediaPath } from '../utils/mediaStorage.js';
-import { toSqliteUtcTimestamp } from '../utils/sqliteDate.js';
+import {
+    getDefaultCategorySeeds,
+    getDefaultNewHouseName,
+    getDefaultOwnedHouseName,
+    getDefaultRoomSeeds,
+    resolveSeedLanguage
+} from '../utils/houseDefaults.js';
+import { parseSqliteUtcTimestamp, toSqliteUtcTimestamp } from '../utils/sqliteDate.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -80,8 +87,14 @@ const USER_RECOVERY_KEY_PURPOSE = 'user.recovery_key';
 const TOTP_SECRET_PURPOSE = 'user.totp_secret';
 const TRUSTED_DEVICE_DAYS = 30;
 const TRUSTED_DEVICE_COOKIE = 'trusted_device';
-const LEGAL_TERMS_VERSION = '2026-03-29';
-const PRIVACY_NOTICE_VERSION = '2026-03-29';
+const GOOGLE_OAUTH_STATE_COOKIE = 'google_oauth_state';
+const GOOGLE_OAUTH_STATE_TTL_MS = 10 * 60 * 1000;
+const LEGAL_TERMS_VERSION = '2026-04-16-selfhost';
+const PRIVACY_NOTICE_VERSION = '2026-04-17-privacy';
+const LOGIN_MAX_FAILURES = 10;
+const LOGIN_FAILURE_WINDOW_MINUTES = 15;
+const LOGIN_LOCK_DURATION_MINUTES = 60;
+const LOGIN_LOCKED_MESSAGE = 'Çok fazla başarısız giriş denemesi. Lütfen daha sonra tekrar deneyin.';
 const BOOTSTRAP_ADMIN_EMAIL = String(process.env.BOOTSTRAP_ADMIN_EMAIL || '').trim().toLowerCase();
 const SITE_URL = String(
     process.env.SITE_URL ||
@@ -109,6 +122,17 @@ const COMMON_PASSWORDS = new Set([
     '123456a', 'turkiye123', 'ev123456', 'sifre123'
 ]);
 
+function translateAuth(req, key, fallback, options = {}) {
+    try {
+        const translated = req?.t?.(key, options);
+        if (typeof translated === 'string' && translated.trim() && translated !== key) {
+            return translated;
+        }
+    } catch {}
+
+    return fallback;
+}
+
 function resolveRoleForEmail(email) {
     const normalizedEmail = String(email || '').trim().toLowerCase();
     return BOOTSTRAP_ADMIN_EMAIL && normalizedEmail === BOOTSTRAP_ADMIN_EMAIL
@@ -135,6 +159,55 @@ function clearAuthTokenCookie(res) {
         sameSite: 'lax',
         path: '/'
     });
+}
+
+function getGoogleOauthStateCookieOptions() {
+    return {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/api/auth/google'
+    };
+}
+
+function clearGoogleOauthStateCookie(res) {
+    res.clearCookie(GOOGLE_OAUTH_STATE_COOKIE, getGoogleOauthStateCookieOptions());
+}
+
+function timingSafeEqualStrings(left, right) {
+    const leftBuffer = Buffer.from(String(left || ''), 'utf8');
+    const rightBuffer = Buffer.from(String(right || ''), 'utf8');
+
+    if (leftBuffer.length === 0 || leftBuffer.length !== rightBuffer.length) {
+        return false;
+    }
+
+    return crypto.timingSafeEqual(leftBuffer, rightBuffer);
+}
+
+function issueGoogleOauthState(res) {
+    const state = generateOpaqueToken();
+    res.cookie(
+        GOOGLE_OAUTH_STATE_COOKIE,
+        hashLookupToken(state),
+        {
+            ...getGoogleOauthStateCookieOptions(),
+            maxAge: GOOGLE_OAUTH_STATE_TTL_MS
+        }
+    );
+    return state;
+}
+
+function consumeGoogleOauthState(req, res) {
+    const expectedStateHash = String(req.cookies?.[GOOGLE_OAUTH_STATE_COOKIE] || '').trim();
+    const receivedState = String(req.query?.state || '').trim();
+    clearGoogleOauthStateCookie(res);
+
+    if (!expectedStateHash || !receivedState) {
+        return false;
+    }
+
+    return timingSafeEqualStrings(expectedStateHash, hashLookupToken(receivedState));
 }
 
 function hasAcceptedCurrentLegalDocuments(row) {
@@ -586,7 +659,8 @@ function isPasswordResetLocked(userRow) {
         return false;
     }
 
-    return new Date(userRow.password_reset_locked_until).getTime() > Date.now();
+    const lockedUntil = parseSqliteUtcTimestamp(userRow.password_reset_locked_until);
+    return typeof lockedUntil === 'number' && lockedUntil > Date.now();
 }
 
 async function awaitPasswordResetFailureMitigations(candidateRecoveryKey = '') {
@@ -610,6 +684,83 @@ async function respondWithPasswordResetFailure(res, {
     return res.status(statusCode).json({ error: message });
 }
 
+function recordLoginFailure(userId) {
+    if (!userId) {
+        return null;
+    }
+
+    const loginFailureWindow = `-${LOGIN_FAILURE_WINDOW_MINUTES} minutes`;
+    const lockDuration = `+${LOGIN_LOCK_DURATION_MINUTES} minutes`;
+
+    db.prepare(`
+        UPDATE users
+        SET failed_login_count = CASE
+                WHEN login_failed_at IS NOT NULL AND login_failed_at > DATETIME('now', ?)
+                    THEN COALESCE(failed_login_count, 0) + 1
+                ELSE 1
+            END,
+            login_failed_at = CURRENT_TIMESTAMP,
+            login_locked_until = CASE
+                WHEN login_locked_until IS NOT NULL AND login_locked_until > CURRENT_TIMESTAMP
+                    THEN login_locked_until
+                WHEN (
+                    CASE
+                        WHEN login_failed_at IS NOT NULL AND login_failed_at > DATETIME('now', ?)
+                            THEN COALESCE(failed_login_count, 0) + 1
+                        ELSE 1
+                    END
+                ) >= ?
+                    THEN DATETIME('now', ?)
+                ELSE NULL
+            END
+        WHERE id = ?
+    `).run(
+        loginFailureWindow,
+        loginFailureWindow,
+        LOGIN_MAX_FAILURES,
+        lockDuration,
+        userId
+    );
+
+    return db.prepare(`
+        SELECT failed_login_count, login_failed_at, login_locked_until
+        FROM users
+        WHERE id = ?
+    `).get(userId);
+}
+
+function clearLoginFailureState(userId) {
+    db.prepare(`
+        UPDATE users
+        SET failed_login_count = 0,
+            login_failed_at = NULL,
+            login_locked_until = NULL,
+            last_login = CURRENT_TIMESTAMP
+        WHERE id = ?
+    `).run(userId);
+}
+
+function touchAuthenticatedActivity(userId) {
+    db.prepare(`
+        UPDATE users
+        SET last_login = CURRENT_TIMESTAMP
+        WHERE id = ?
+          AND (
+              last_login IS NULL
+              OR last_login < DATETIME('now', '-5 minutes')
+          )
+    `).run(userId);
+}
+
+function isLoginLocked(userRow) {
+    if (!userRow?.login_locked_until) {
+        return false;
+    }
+
+    const lockedUntil = parseSqliteUtcTimestamp(userRow.login_locked_until);
+    return typeof lockedUntil === 'number' && lockedUntil > Date.now();
+}
+
 const resetPasswordLimiter = rateLimit({
     windowMs: PASSWORD_RESET_LOCK_WINDOW_MS,
     max: PASSWORD_RESET_MAX_FAILURES,
@@ -622,19 +773,9 @@ const resetPasswordLimiter = rateLimit({
 });
 
 // Create default categories for a new house
-function createDefaultCategories(houseKey) {
+function createDefaultCategories(houseKey, language = 'tr') {
     const insertCategory = db.prepare('INSERT INTO categories (name, icon, color, house_key) VALUES (?, ?, ?, ?)');
-    const defaultCategories = [
-        ['Mutfak', '🍳', '#ef4444'],
-        ['Elektronik', '💻', '#3b82f6'],
-        ['Hobi', '🎨', '#8b5cf6'],
-        ['Mobilya', '🛋️', '#f59e0b'],
-        ['Giyim', '👕', '#ec4899'],
-        ['Kitaplar', '📚', '#10b981'],
-        ['Aletler', '🔧', '#6b7280'],
-        ['Spor', '⚽', '#14b8a6'],
-        ['Diğer', '📦', '#64748b']
-    ];
+    const defaultCategories = getDefaultCategorySeeds(language);
 
     const insertMany = db.transaction((categories) => {
         for (const cat of categories) {
@@ -645,19 +786,9 @@ function createDefaultCategories(houseKey) {
 }
 
 // Create default rooms for a new house
-function createDefaultRooms(houseKey) {
+function createDefaultRooms(houseKey, language = 'tr') {
     const insertRoom = db.prepare('INSERT INTO rooms (name, description, house_key) VALUES (?, ?, ?)');
-    const defaultRooms = [
-        ['Oturma Odası', 'Ana yaşam alanı'],
-        ['Yatak Odası', 'Uyku ve dinlenme alanı'],
-        ['Mutfak', 'Yemek hazırlama alanı'],
-        ['Banyo', 'Temizlik ve bakım alanı'],
-        ['Çalışma Odası', 'Ofis ve çalışma alanı'],
-        ['Çocuk Odası', 'Çocuklar için oda'],
-        ['Garaj', 'Araç ve depolama alanı'],
-        ['Balkon', 'Dış mekan alanı'],
-        ['Depo', 'Genel depolama alanı']
-    ];
+    const defaultRooms = getDefaultRoomSeeds(language);
 
     const insertMany = db.transaction((rooms) => {
         for (const room of rooms) {
@@ -719,21 +850,21 @@ router.post('/register', async (req, res) => {
 
         // Validation
         if (!safeUsername || !safeEmail || !password) {
-            return res.status(400).json({ error: 'Tüm alanları doldurun' });
+            return res.status(400).json({ error: translateAuth(req, 'auth.fill_all_fields', 'Tüm alanları doldurun') });
         }
 
         if (!hasAcceptedTerms || !hasAcknowledgedPrivacyNotice) {
             return res.status(400).json({
-                error: 'Devam etmek için Kullanım Koşulları ile Aydınlatma Metni onayları gerekli'
+                error: translateAuth(req, 'auth.legal_acceptance_required', 'Devam etmek için Kullanım Koşulları ile Aydınlatma Metni onayları gerekli')
             });
         }
 
         if (!/^[a-zA-Z0-9_-]{3,30}$/.test(safeUsername)) {
-            return res.status(400).json({ error: 'Kullanıcı adı 3-30 karakter olmalı ve sadece harf/rakam/_/- içermeli' });
+            return res.status(400).json({ error: translateAuth(req, 'auth.invalid_username', 'Kullanıcı adı 3-30 karakter olmalı ve sadece harf/rakam/_/- içermeli') });
         }
 
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(safeEmail)) {
-            return res.status(400).json({ error: 'Geçerli bir e-posta adresi girin' });
+            return res.status(400).json({ error: translateAuth(req, 'auth.invalid_email', 'Geçerli bir e-posta adresi girin') });
         }
 
         const passwordValidation = validatePasswordStrength(password, {
@@ -752,7 +883,7 @@ router.post('/register', async (req, res) => {
         const existingUsernameUser = getUserByUsername(safeUsername);
 
         if (existingEmailUser || existingUsernameUser) {
-            return res.status(400).json({ error: 'Bu kullanıcı adı veya e-posta zaten kayıtlı' });
+            return res.status(400).json({ error: translateAuth(req, 'auth.identifier_already_registered', 'Bu kullanıcı adı veya e-posta zaten kayıtlı') });
         }
 
         // Check if already pending registration
@@ -764,7 +895,7 @@ router.post('/register', async (req, res) => {
                 db.prepare('DELETE FROM pending_registrations WHERE id = ?').run(existingPending.id);
             } else {
                 return res.status(400).json({
-                    error: 'Bu e-posta için zaten bir doğrulama bekliyor. Lütfen e-postanızı kontrol edin veya birkaç dakika bekleyin.'
+                    error: translateAuth(req, 'auth.email_pending_verification', 'Bu e-posta için zaten bir doğrulama bekliyor. Lütfen e-postanızı kontrol edin veya birkaç dakika bekleyin.')
                 });
             }
         }
@@ -773,7 +904,7 @@ router.post('/register', async (req, res) => {
         const pendingUsername = getPendingRegistrationByUsername(safeUsername);
 
         if (pendingUsername) {
-            return res.status(400).json({ error: 'Bu kullanıcı adı zaten kullanımda' });
+            return res.status(400).json({ error: translateAuth(req, 'auth.username_in_use', 'Bu kullanıcı adı zaten kullanımda') });
         }
 
         let userHouseKey;
@@ -782,16 +913,16 @@ router.post('/register', async (req, res) => {
         if (mode === 'join') {
             // Mode B: Join existing house
             if (!house_key) {
-                return res.status(400).json({ error: 'Mevcut eve katılmak için Ev Anahtarı gerekli' });
+                return res.status(400).json({ error: translateAuth(req, 'auth.join_house_key_required', 'Mevcut eve katılmak için Ev Anahtarı gerekli') });
             }
             if (!HOUSE_KEY_REGEX.test(String(house_key))) {
-                return res.status(400).json({ error: 'Geçersiz Ev Anahtarı formatı' });
+                return res.status(400).json({ error: translateAuth(req, 'auth.invalid_house_key_format', 'Geçersiz Ev Anahtarı formatı') });
             }
 
             // Verify house key exists
             const existingHouse = db.prepare('SELECT id FROM user_houses WHERE house_key = ?').get(house_key);
             if (!existingHouse) {
-                return res.status(400).json({ error: 'Geçersiz Ev Anahtarı. Lütfen doğru anahtarı girin.' });
+                return res.status(400).json({ error: translateAuth(req, 'auth.house_key_not_found', 'Geçersiz Ev Anahtarı. Lütfen doğru anahtarı girin.') });
             }
 
             userHouseKey = house_key;
@@ -807,6 +938,7 @@ router.post('/register', async (req, res) => {
 
         // If email verification is disabled (no API key), register directly
         if (!process.env.RESEND_API_KEY) {
+            const seedLanguage = resolveSeedLanguage(req);
             const passwordRecoveryMode = getPasswordRecoveryMode();
             const initialRole = resolveRoleForEmail(safeEmail);
             const result = db.prepare(`
@@ -844,9 +976,9 @@ router.post('/register', async (req, res) => {
 
             if (isNewHouse) {
                 db.prepare('INSERT INTO user_houses (user_id, house_key, house_name, is_owner) VALUES (?, ?, ?, 1)')
-                    .run(newUserId, userHouseKey, encryptHouseName('Evim'));
-                createDefaultCategories(userHouseKey);
-                createDefaultRooms(userHouseKey);
+                    .run(newUserId, userHouseKey, encryptHouseName(getDefaultOwnedHouseName(seedLanguage)));
+                createDefaultCategories(userHouseKey, seedLanguage);
+                createDefaultRooms(userHouseKey, seedLanguage);
                 db.prepare('UPDATE users SET active_house_key = ? WHERE id = ?')
                     .run(userHouseKey, newUserId);
             } else {
@@ -937,10 +1069,11 @@ router.post('/register', async (req, res) => {
         // Send verification email
         sendVerificationEmail(safeEmail, userHouseKey, verificationToken)
             .then(result => {
+                const emailDomain = safeEmail.includes('@') ? safeEmail.split('@')[1] : '***';
                 if (result.success) {
-                    console.log(`📧 Doğrulama e-postası gönderildi: ${safeEmail}`);
+                    console.log(`📧 Doğrulama e-postası gönderildi: ***@${emailDomain}`);
                 } else {
-                    console.error(`❌ Doğrulama e-postası gönderilemedi: ${safeEmail}`, result.error);
+                    console.error(`❌ Doğrulama e-postası gönderilemedi: ***@${emailDomain}`, result.error);
                 }
             })
             .catch(err => console.error('Email gönderim hatası:', err));
@@ -954,7 +1087,7 @@ router.post('/register', async (req, res) => {
         });
     } catch (err) {
         console.error('Register error:', err);
-        res.status(500).json({ error: 'Kayıt sırasında bir hata oluştu' });
+        res.status(500).json({ error: translateAuth(req, 'auth.registration_error', 'Kayıt sırasında bir hata oluştu') });
     }
 });
 
@@ -965,34 +1098,41 @@ router.post('/login', async (req, res) => {
         const loginIdentifier = String(username || '').trim();
 
         if (!loginIdentifier || !password) {
-            return res.status(400).json({ error: 'Kullanıcı adı ve şifre gerekli' });
+            return res.status(400).json({ error: translateAuth(req, 'auth.username_password_required', 'Kullanıcı adı ve şifre gerekli') });
         }
 
         // Find user
         const user = getUserByLoginIdentifier(loginIdentifier);
 
         if (!user) {
-            return res.status(401).json({ error: 'Kullanıcı adı veya şifre hatalı' });
+            return res.status(401).json({ error: translateAuth(req, 'auth.invalid_credentials', 'Kullanıcı adı veya şifre hatalı') });
         }
 
         const decryptedUser = getDecryptedUser(user);
 
         if (user.is_banned === 1) {
-            return res.status(403).json({ error: 'Hesabınız askıya alınmış. Destek ile iletişime geçin.' });
+            return res.status(403).json({ error: translateAuth(req, 'auth.account_banned', 'Hesabınız askıya alınmış. Destek ile iletişime geçin.') });
+        }
+
+        if (isLoginLocked(user)) {
+            return res.status(429).json({ error: LOGIN_LOCKED_MESSAGE });
         }
 
         // Verify password
         const validPassword = await bcrypt.compare(password, user.password_hash);
 
         if (!validPassword) {
-            db.prepare('UPDATE users SET failed_login_count = COALESCE(failed_login_count, 0) + 1 WHERE id = ?').run(user.id);
-            return res.status(401).json({ error: 'Kullanıcı adı veya şifre hatalı' });
+            const updatedLoginState = recordLoginFailure(user.id);
+            if (isLoginLocked(updatedLoginState)) {
+                return res.status(429).json({ error: LOGIN_LOCKED_MESSAGE });
+            }
+            return res.status(401).json({ error: translateAuth(req, 'auth.invalid_credentials', 'Kullanıcı adı veya şifre hatalı') });
         }
 
         // Check if email is verified
         if (user.is_verified !== 1) {
             return res.status(403).json({
-                error: 'E-posta adresiniz doğrulanmamış. Lütfen gelen kutunuzu kontrol edin.',
+                error: translateAuth(req, 'auth.email_not_verified', 'E-posta adresiniz doğrulanmamış. Lütfen gelen kutunuzu kontrol edin.'),
                 emailNotVerified: true,
                 email: decryptedUser.email
             });
@@ -1030,7 +1170,10 @@ router.post('/login', async (req, res) => {
                     const matchedBackupId = verifyBackupCode(totpCode, unusedBackupCodes);
 
                     if (!matchedBackupId) {
-                        return res.status(401).json({ error: 'Doğrulama kodu hatalı', requiresTwoFactor: true });
+                        return res.status(401).json({
+                            error: translateAuth(req, 'auth.two_factor_invalid', 'Doğrulama kodu hatalı'),
+                            requiresTwoFactor: true
+                        });
                     }
 
                     // Mark backup code as used
@@ -1058,6 +1201,7 @@ router.post('/login', async (req, res) => {
         }
 
         const normalizedUser = syncUserHousePointers(user.id);
+        clearLoginFailureState(user.id);
         const liveUser = db.prepare('SELECT * FROM users WHERE id = ?').get(user.id);
         const liveDecryptedUser = getDecryptedUser(liveUser);
         const token = generateToken(getUserTokenPayload(liveUser, normalizedUser?.active_house_key || normalizedUser?.house_key || null));
@@ -1072,16 +1216,16 @@ router.post('/login', async (req, res) => {
                 role: liveDecryptedUser.role || 'user'
             }
         });
-        db.prepare('UPDATE users SET failed_login_count = 0, last_login = CURRENT_TIMESTAMP WHERE id = ?').run(user.id);
     } catch (err) {
         console.error('Login error:', err);
-        res.status(500).json({ error: 'Giriş sırasında bir hata oluştu' });
+        res.status(500).json({ error: translateAuth(req, 'auth.login_error', 'Giriş sırasında bir hata oluştu') });
     }
 });
 
 // Get current user
 router.get('/me', authenticateToken, (req, res) => {
     const normalizedUser = syncUserHousePointers(req.user.id);
+    touchAuthenticatedActivity(req.user.id);
     const userRow = db.prepare(
         `SELECT
             id,
@@ -1091,6 +1235,7 @@ router.get('/me', authenticateToken, (req, res) => {
             active_house_key,
             role,
             created_at,
+            last_login,
             totp_enabled,
             legal_terms_version,
             legal_terms_accepted_at,
@@ -1122,6 +1267,20 @@ router.get('/me', authenticateToken, (req, res) => {
     const houseMemberCount = normalizedUser.active_house_key
         ? db.prepare('SELECT COUNT(*) as count FROM user_houses WHERE house_key = ?').get(normalizedUser.active_house_key)
         : null;
+
+    const latestTokenPayload = getUserTokenPayload(
+        userRow,
+        normalizedUser.active_house_key || normalizedUser.house_key || null
+    );
+
+    if (
+        req.user.role !== latestTokenPayload.role ||
+        req.user.house_key !== latestTokenPayload.house_key ||
+        req.user.username !== latestTokenPayload.username ||
+        req.user.email !== latestTokenPayload.email
+    ) {
+        res.cookie('token', generateToken(latestTokenPayload), cookieOptions);
+    }
 
     res.json({
         user: {
@@ -1755,10 +1914,21 @@ passport.deserializeUser((id, done) => {
 });
 
 // Routes
-router.get('/google',
-    passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/google', (req, res, next) => {
+    const state = issueGoogleOauthState(res);
+    passport.authenticate('google', {
+        scope: ['profile', 'email'],
+        state
+    })(req, res, next);
+});
 
 router.get('/google/callback',
+    (req, res, next) => {
+        if (!consumeGoogleOauthState(req, res)) {
+            return res.redirect('/login');
+        }
+        next();
+    },
     passport.authenticate('google', { failureRedirect: '/login', session: false }),
     function (req, res) {
         // Successful authentication
@@ -1923,10 +2093,11 @@ router.get('/verify-email', (req, res) => {
 
         // If new house, create default categories and rooms
         if (pending.is_new_house === 1) {
-            createDefaultCategories(pendingHouseKey);
-            createDefaultRooms(pendingHouseKey);
+            const seedLanguage = resolveSeedLanguage(req);
+            createDefaultCategories(pendingHouseKey, seedLanguage);
+            createDefaultRooms(pendingHouseKey, seedLanguage);
             db.prepare('INSERT OR IGNORE INTO user_houses (user_id, house_key, house_name, is_owner) VALUES (?, ?, ?, 1)')
-                .run(userId, pendingHouseKey, encryptHouseName('Evim'));
+                .run(userId, pendingHouseKey, encryptHouseName(getDefaultOwnedHouseName(seedLanguage)));
             db.prepare('UPDATE users SET active_house_key = ? WHERE id = ?').run(pendingHouseKey, userId);
         } else {
             const { request } = createJoinRequest({
@@ -1941,7 +2112,7 @@ router.get('/verify-email', (req, res) => {
         // Delete the pending registration
         db.prepare('DELETE FROM pending_registrations WHERE id = ?').run(pending.id);
 
-        console.log(`✅ Hesap oluşturuldu ve doğrulandı: ${decryptedPending.email}`);
+        console.log(`✅ Hesap oluşturuldu ve doğrulandı: ***@${decryptedPending.email?.split('@')[1] || '***'}`);
 
         // Success response
         res.send(`
@@ -2145,17 +2316,18 @@ router.post('/leave-house', authenticateToken, (req, res) => {
 router.post('/create-house', authenticateToken, (req, res) => {
     try {
         const { house_name } = req.body;
+        const seedLanguage = resolveSeedLanguage(req);
 
         // Generate new house key
         const newHouseKey = generateHouseKey();
 
         // Add user to new house as owner
         db.prepare('INSERT INTO user_houses (user_id, house_key, house_name, is_owner) VALUES (?, ?, ?, 1)')
-            .run(req.user.id, newHouseKey, encryptHouseName(house_name || 'Yeni Evim'));
+            .run(req.user.id, newHouseKey, encryptHouseName(house_name || getDefaultNewHouseName(seedLanguage)));
 
         // Create default categories and rooms for the new house
-        createDefaultCategories(newHouseKey);
-        createDefaultRooms(newHouseKey);
+        createDefaultCategories(newHouseKey, seedLanguage);
+        createDefaultRooms(newHouseKey, seedLanguage);
 
         // Get updated houses
         const houses = getDecryptedHousesForUser(req.user.id);
@@ -2175,6 +2347,7 @@ router.post('/create-house', authenticateToken, (req, res) => {
 router.post('/google-complete', authenticateToken, async (req, res) => {
     try {
         const { mode, house_key, house_name } = req.body;
+        const seedLanguage = resolveSeedLanguage(req);
         const passwordRecoveryMode = getPasswordRecoveryMode();
         const currentUser = db.prepare('SELECT recovery_key_hash FROM users WHERE id = ?').get(req.user.id);
         let newRecoveryKey = null;
@@ -2185,15 +2358,15 @@ router.post('/google-complete', authenticateToken, async (req, res) => {
 
             // Add to user_houses
             db.prepare('INSERT INTO user_houses (user_id, house_key, house_name, is_owner) VALUES (?, ?, ?, 1)')
-                .run(req.user.id, newHouseKey, encryptHouseName(house_name || 'Evim'));
+                .run(req.user.id, newHouseKey, encryptHouseName(house_name || getDefaultOwnedHouseName(seedLanguage)));
 
             // Update user's active house and primary house_key
             db.prepare('UPDATE users SET house_key = ?, active_house_key = ? WHERE id = ?')
                 .run(newHouseKey, newHouseKey, req.user.id);
 
             // Create default data
-            createDefaultCategories(newHouseKey);
-            createDefaultRooms(newHouseKey);
+            createDefaultCategories(newHouseKey, seedLanguage);
+            createDefaultRooms(newHouseKey, seedLanguage);
 
             // Generate new token
             const token = generateToken({

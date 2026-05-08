@@ -16,6 +16,7 @@ const { default: db } = await import('../database.js');
 const {
     authenticateToken,
     generateToken,
+    requireActiveHouse,
     resolveAuthenticatedUser
 } = await import('../middleware/auth.js');
 const {
@@ -200,4 +201,23 @@ test('authenticateToken blocks already-banned users even with a valid JWT cookie
     assert.equal(res.statusCode, 403);
     assert.equal(res.body.error, 'Hesabınız askıya alınmış. Destek ile iletişime geçin.');
     assert.equal(res.clearedCookies[0]?.name, 'token');
+});
+
+test('requireActiveHouse rejects authenticated users without an active house', () => {
+    const req = {
+        user: {
+            id: 99,
+            house_key: null
+        }
+    };
+    const res = createMockResponse();
+    let nextCalled = false;
+
+    requireActiveHouse(req, res, () => {
+        nextCalled = true;
+    });
+
+    assert.equal(nextCalled, false);
+    assert.equal(res.statusCode, 403);
+    assert.equal(res.body.error, 'Aktif ev bulunamadi');
 });

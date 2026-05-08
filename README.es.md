@@ -1,372 +1,207 @@
 <p align="center">
-  <img src="client/public/brand/logo-full-dark.png" alt="HomeInventory Logo" width="280" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="client/public/brand/logo-full-dark.svg" />
+    <img src="client/public/brand/logo-full-light.svg" alt="HomeInventory Logo" width="420" />
+  </picture>
 </p>
 
 <h1 align="center">HomeInventory</h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Security-AES--256--GCM-blue?style=for-the-badge&logo=security" alt="Security" />
-  <img src="https://img.shields.io/badge/Docker-Supported-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
-  <img src="https://img.shields.io/badge/PWA-Ready-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white" alt="PWA" />
-  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License" />
+  <strong>Inventario privado y autoalojable para hogares compartidos.</strong><br/>
+  Gestiona objetos, garantías, documentos, préstamos y registros personales sensibles desde una app React tranquila.
 </p>
 
 <p align="center">
-  El proyecto de código abierto detrás de <a href="https://envanterim.net.tr">envanterim.net.tr</a><br/>
-  Un sistema de gestión de inventario doméstico de código abierto con soporte de interfaz en 100+ idiomas y cifrado a nivel de campo para datos sensibles.
+  <a href="README.md">English</a> ·
+  <a href="README.tr.md">Türkçe</a> ·
+  <a href="README.de.md">Deutsch</a> ·
+  <a href="README.es.md">Español</a> ·
+  <a href="README.ar.md">العربية</a>
 </p>
 
 <p align="center">
-  <a href="#características">Características</a> •
-  <a href="#tecnologías">Tecnologías</a> •
-  <a href="#inicio-rápido">Inicio Rápido</a> •
-  <a href="#docker">Docker</a> •
-  <a href="#variables-de-entorno">Variables</a> •
-  <a href="#estructura-del-proyecto">Estructura</a> •
-  <a href="#licencia">Licencia</a>
+  <img src="https://img.shields.io/github/stars/asdteke/HomeInventory?style=for-the-badge&logo=github&color=f4c542" alt="GitHub stars" />
+  <img src="https://img.shields.io/github/last-commit/asdteke/HomeInventory?style=for-the-badge&color=2f6f55" alt="Last commit" />
+  <img src="https://img.shields.io/badge/security-AES--256--GCM-2f6f55?style=for-the-badge" alt="AES-256-GCM encryption" />
+  <img src="https://img.shields.io/badge/PWA-ready-334155?style=for-the-badge" alt="PWA ready" />
+  <img src="https://img.shields.io/badge/Docker-supported-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker supported" />
+  <img src="https://img.shields.io/badge/license-MIT-111827?style=for-the-badge" alt="MIT license" />
 </p>
 
 <p align="center">
-  <strong>🌐 Idioma:</strong> Español | <a href="README.md">English</a> | <a href="README.tr.md">Türkçe</a> | <a href="README.de.md">Deutsch</a> | <a href="README.ar.md">العربية</a>
+  <a href="#vista-previa">Vista previa</a> ·
+  <a href="#por-qué-homeinventory">Por qué</a> ·
+  <a href="#funciones">Funciones</a> ·
+  <a href="#seguridad--privacidad">Seguridad</a> ·
+  <a href="#inicio-rápido">Inicio rápido</a> ·
+  <a href="#documentación">Docs</a>
 </p>
 
 ---
 
-## Características
+## Vista previa
 
-- 🏠 **Soporte multi-hogar** — Crea o únete a hogares con inventarios compartidos
-- 📦 **Gestión de artículos** — Registra artículos con fotos, cantidades, códigos de barras y descripciones
-- 🏷️ **Categorías y Habitaciones** — Organiza artículos por categorías, habitaciones y ubicaciones personalizadas
-- 📱 **Escaneo de códigos de barras / QR** — Agrega o busca artículos rápidamente con la cámara de tu dispositivo
-- 🔐 **Autenticación** — Inicio de sesión basado en JWT con soporte para Google OAuth y verificación por correo electrónico
-- ✅ **2FA y dispositivos de confianza** — Apps TOTP, códigos de respaldo de un solo uso y controles para recordar dispositivos
-- 🔒 **Bóveda personal** — Claves de bóveda generadas en el navegador y registros cifrados para información de alta sensibilidad
-- 👨‍💼 **Panel de administración** — Gestión de usuarios, bloqueos, envío de correos y registros del sistema
-- 🤝 **Sistema de Préstamos** — Rastrear artículos prestados y tomados en préstamo, administrar solicitudes, establecer fechas de vencimiento y monitorear estados
-- 📧 **Sistema de correo** — Correos transaccionales vía API de Resend (verificación, avisos de admin)
-- 💾 **Respaldo y restauración** — Exporta e importa tus datos de inventario
-- 🌍 **100+ idiomas** — La interfaz incluye más de 100 idiomas seleccionables para acceso global
-- 🌙 **Tema oscuro / claro** — Detecta automáticamente la preferencia del sistema
-- 📱 **Diseño responsivo** — Diseño mobile-first, funciona en todos los tamaños de pantalla
-- 🔍 **Listo para SEO** — Sitemap, robots.txt, meta tags y soporte IndexNow
-- 🛡️ **Cifrado a nivel de campo** — Protección AES-256-GCM para datos sensibles
-- 🐳 **Entrega de secretos con Docker y la nube** — Docker secrets y bootstrap OCI en runtime para claves de producción
-- 🔑 **Recuperación de contraseña segura** — Restablecimiento por correo o Clave de Recuperación sin conexión
+<p align="center">
+  <img src="docs/assets/screenshot-landing.png" alt="Vista previa de la landing de HomeInventory" width="88%" />
+</p>
 
-## Seguridad y Privacidad (Cifrado en Reposo del Lado del Servidor)
+<details>
+<summary><strong>Más capturas: Inventario, Borrow Center, Vault, Categorías</strong></summary>
 
-HomeInventory está diseñado con seguridad de nivel empresarial para proteger tus datos personales. Todos los campos sensibles, archivos multimedia y datos personales se cifran en el servidor con AES-256-GCM antes de escribirse en disco o base de datos. Esto protege contra el robo de bases de datos y el acceso no autorizado a archivos. Nota: dado que las claves de cifrado se gestionan del lado del servidor, un administrador con acceso tanto a la base de datos como a las variables de entorno puede descifrar los datos.
+<br/>
 
-- **Cifrado a nivel de campo**: Los datos sensibles (nombres de artículos, descripciones) se cifran mediante AES-256-GCM.
-- **Almacenamiento multimedia cifrado**: Las fotos se almacenan como datos cifrados (AES-256-GCM) sin metadatos EXIF.
-- **Protección de datos (PII)**: Correos electrónicos y nombres de usuario cifrados. Búsqueda basada en token HMAC-SHA-256.
-- **Rotación de claves**: Soporte para anillo de claves (Keyring) para rotar la clave principal de cifrado sin romper datos antiguos.
+<p align="center">
+  <img src="docs/assets/screenshot-inventory.png" alt="Pantalla de inventario" width="48%" />
+  &nbsp;
+  <img src="docs/assets/screenshot-borrow.png" alt="Pantalla de Borrow Center" width="48%" />
+</p>
+<p align="center">
+  <img src="docs/assets/screenshot-vault.png" alt="Pantalla de Personal Vault" width="48%" />
+  &nbsp;
+  <img src="docs/assets/screenshot-categories.png" alt="Pantalla de categorías" width="48%" />
+</p>
+
+</details>
+
+HomeInventory está pensado para familias, compañeros de piso y hogares pequeños que necesitan un inventario práctico sin convertir registros privados en una hoja compartida.
+
+## Por qué HomeInventory
+
+- **Un hogar, varias personas:** crea o únete a hogares, cambia el hogar activo y mantiene el inventario compartido limitado a los miembros correctos.
+- **Registros reales de objetos:** fotos, habitaciones, ubicaciones, categorías, cantidades, garantías, facturas, notas y adjuntos.
+- **Mejor lugar para datos sensibles:** Personal Vault mantiene los registros muy privados fuera de la búsqueda y colaboración normal del hogar.
+- **Búsqueda rápida en la vida diaria:** búsqueda, escaneo de códigos de barras, etiquetas QR y pantallas móviles cuando estás delante del estante.
+- **Listo para autoalojar:** incluye Express, SQLite, soporte Docker, documentación de entorno y flujos de carga de secretos para producción.
+
+## Funciones
+
+| Área | Qué cubre |
+| --- | --- |
+| Inventario | Objetos, fotos, habitaciones, categorías, ubicaciones, cantidades, garantía y metadatos de factura |
+| Hogares compartidos | Crear hogares, unirse mediante flujos de acceso, cambiar hogar activo y limitar datos por membresía |
+| Borrow Center | Préstamos entrantes, salientes y activos con estados de solicitud claros |
+| Personal Vault | Flujo de vault cifrado del lado del cliente para IDs, documentos de propiedad, códigos de acceso y notas sensibles |
+| Etiquetas y escaneo | Escaneo de códigos de barras, etiquetas QR de objetos y acceso rápido móvil |
+| Backup y restore | Exportación/importación solo para propietarios con confirmaciones protegidas |
+| Auth y recuperación | JWT, Google OAuth, verificación por correo, TOTP 2FA, dispositivos de confianza y recovery keys |
+| Internacionalización | 100+ paquetes de locale seleccionables con fallback por clave |
+
+## Seguridad & privacidad
+
+- **Cifrado AES-256-GCM** protege datos sensibles de inventario, autenticación y perfil antes de escribirlos en disco o SQLite.
+- **Procesamiento de medios cifrado** elimina metadatos de imágenes y guarda blobs protegidos en lugar de uploads crudos.
+- **Autorización por hogar** limita habitaciones, categorías, objetos, medios y backups a la membresía del hogar activo.
+- **Separación con Personal Vault** mantiene los registros más sensibles fuera de los flujos compartidos normales.
+- **Rate limiting y rutas de auth endurecidas** reducen el riesgo de fuerza bruta y abuso en login, backup y endpoints interactivos.
+
+> [!IMPORTANT]
+> HomeInventory usa cifrado fuerte del lado del servidor, pero la clave principal del inventario sigue siendo administrada por el servidor. Un operador con acceso a la base de datos y secretos de runtime puede descifrar datos protegidos del inventario. Usa Personal Vault para registros que necesitan más separación de los flujos compartidos del hogar.
+
+## Arquitectura
+
+```text
+React SPA (Vite, PWA, Tailwind)
+        |
+        v
+Express API (JWT, OAuth, rate limiting)
+        |
+        v
+SQLite + medios cifrados
+```
 
 ## Tecnologías
 
-### Backend
-| Tecnología | Propósito |
-|---|---|
-| **Node.js** + **Express** | Servidor REST API |
-| **better-sqlite3** | Base de datos SQLite integrada |
-| **JWT** + **bcrypt** | Autenticación y hash de contraseñas |
-| **Passport.js** | Integración Google OAuth 2.0 |
-| **Helmet** | Cabeceras de seguridad HTTP |
-| **express-rate-limit** | Protección contra fuerza bruta / DDoS |
-| **Resend** | Servicio de correo transaccional |
-| **Sharp** | Procesamiento de imágenes y miniaturas |
-| **i18next** | Internacionalización del servidor |
+| Backend | Frontend |
+| --- | --- |
+| Node.js, Express, better-sqlite3 | React 18, Vite, Tailwind CSS |
+| JWT, bcrypt, Passport Google OAuth 2.0 | React Router v6, react-i18next |
+| Helmet, express-rate-limit, i18next | Lucide React, html5-qrcode |
+| Sharp, almacenamiento cifrado de medios | UI responsive y PWA-ready |
 
-### Frontend
-| Tecnología | Propósito |
-|---|---|
-| **React 18** | Biblioteca de interfaz de usuario |
-| **Vite** | Herramienta de compilación y servidor de desarrollo |
-| **Tailwind CSS** | Framework CSS |
-| **React Router v7** | Enrutamiento del lado del cliente |
-| **Lucide React** | Biblioteca de iconos |
-| **html5-qrcode** | Escaneo de códigos de barras y QR |
-| **react-i18next** | Internacionalización del frontend |
-| **react-joyride** | Tours de incorporación interactivos |
+## Inicio rápido
 
-## Inicio Rápido
+### Requisitos
 
-### Requisitos previos
-- **Node.js** ≥ 18 — [descargar](https://nodejs.org/)
-- **npm** ≥ 9 (incluido con Node.js)
+- Node.js 18+
+- npm 9+
+- Git
 
-### 1. Clonar e instalar
+### 1. Instalar dependencias
 
 ```bash
 git clone https://github.com/asdteke/HomeInventory.git
 cd HomeInventory
-
-# Instalar dependencias del backend + frontend en un solo comando
 npm run install-all
 ```
 
-### 2. Crear archivo de entorno
+### 2. Crear el archivo de entorno local
 
 ```bash
 cp .env.example .env
 ```
 
-Abre `.env` en tu editor y configura **como mínimo** estos valores para desarrollo local:
+Configura al menos estos valores:
 
 ```env
 NODE_ENV=development
 PORT=3001
 SITE_URL=http://localhost:5173
-JWT_SECRET=cambia-esto-por-un-texto-aleatorio-de-al-menos-32-caracteres
-APP_ENCRYPTION_KEY=reemplazar-con-base64-de-32-bytes
+JWT_SECRET=un-secret-largo-y-aleatorio
+APP_ENCRYPTION_KEY=32-byte-base64-o-64-char-hex-key
 APP_ENCRYPTION_KEY_ID=2026-03-local
 ```
 
-> **💡 Consejo:** Puedes generar un JWT_SECRET seguro con:
-> ```bash
-> node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-> ```
+> [!TIP]
+> Genera secretos locales seguros con `openssl rand -hex 32` para `JWT_SECRET` y `openssl rand -base64 32` para `APP_ENCRYPTION_KEY`.
 
-Las demás variables (`GOOGLE_CLIENT_ID`, `RESEND_API_KEY`, etc.) son **opcionales** para desarrollo local. Las funciones que dependen de ellas (inicio con Google, envío de correos) se desactivarán automáticamente.
+Opcional en desarrollo local: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` y `RESEND_API_KEY`.
 
-> **🔐 Clave de cifrado:** Genera `APP_ENCRYPTION_KEY` con:
-> ```bash
-> openssl rand -base64 32
-> ```
-
-### Opcional: Oracle Cloud Secret Management
-
-Si despliegas HomeInventory en una instancia de Oracle Cloud Infrastructure (OCI), puedes almacenar los secretos de producción en OCI Secret Management y dejar que el runtime los cargue antes de iniciar la aplicación.
-
-Patrón recomendado:
-
-```env
-SECRET_PROVIDER=oci
-OCI_AUTH_MODE=instance_principal
-OCI_REGION=eu-frankfurt-1
-OCI_VAULT_ID=ocid1.vault.oc1..exampleuniqueID
-OCI_SECRET_MAPPINGS={"JWT_SECRET":"homeinventory-jwt-secret","APP_ENCRYPTION_KEY":"homeinventory-app-encryption-key","APP_ENCRYPTION_KEY_ID":"homeinventory-app-encryption-key-id","RESEND_API_KEY":"homeinventory-resend-api-key"}
-```
-
-Notas:
-
-- Deja `SECRET_PROVIDER=env` para desarrollo local.
-- `OCI_SECRET_MAPPINGS` puede apuntar a OCIDs de secretos o nombres de secretos.
-- `OCI_VAULT_ID` solo es necesario cuando usas nombres de secretos en lugar de OCIDs.
-- Para secretos Docker basados en archivos, mantén el montaje por defecto en `/run/secrets` o configura `DOCKER_SECRETS_DIR` si tu runtime monta los secretos en otra ruta.
-- El punto de entrada del servidor carga los secretos de runtime automáticamente, por lo que `node server.js`, `npm run dev` y `npm start` siguen funcionando.
-- Los scripts de mantenimiento como backfill de cifrado y envío de IndexNow también usan la misma ruta de bootstrap OCI.
-
-### 3. Iniciar el servidor de desarrollo
+### 3. Ejecutar la app
 
 ```bash
 npm run dev
 ```
 
-Esto inicia backend y frontend simultáneamente. Abre tu navegador:
+URLs locales:
 
-| Servicio | URL |
-|---|---|
-| 🖥️ Frontend | http://localhost:5173 |
-| ⚙️ Backend API | http://localhost:3001 |
-| 📱 Red (teléfono) | `http://<tu-ip-local>:5173` |
+- Frontend: `http://localhost:5173`
+- Backend API: `http://localhost:3001`
 
-### 4. Compilación para producción (opcional)
+### 4. Build de producción
 
 ```bash
-# Compilar frontend para producción
 npm run build
-
-# Iniciar servidor de producción (frontend compilado + API)
 npm start
 ```
 
-## Docker
-
-Despliega HomeInventory con Docker para un auto-hosting sencillo:
+### Alternativa con Docker
 
 ```bash
-# Clonar y entrar al directorio
-git clone https://github.com/asdteke/HomeInventory.git
-cd HomeInventory
-
-# Crear archivo de entorno para ajustes no secretos
-cp .env.example .env
-
-# Crear archivos de secretos Docker (o usar otra carpeta con HOMEINVENTORY_SECRETS_DIR)
-mkdir -p secrets
-printf '%s' 'jwt-secret-aqui' > secrets/jwt_secret.txt
-printf '%s' '32-byte-base64-key-aqui' > secrets/app_encryption_key.txt
-printf '%s' '2026-compose' > secrets/app_encryption_key_id.txt
-
-# Iniciar con Docker Compose
 docker compose up -d
 ```
 
-La aplicación estará disponible en `http://localhost:3001`
+Para configuración avanzada, reverse proxy y despliegue en producción, consulta [DOCKER.md](DOCKER.md).
 
-`docker-compose.yml` lee por defecto los archivos fuente de secretos desde `${HOMEINVENTORY_SECRETS_DIR:-./secrets}` en el host y los monta dentro del contenedor en `/run/secrets`.
+## Documentación
 
-El archivo `.env` completo se pasa al contenedor; configuraciones opcionales como `APP_ENCRYPTION_KEYRING`, `EXPOSE_SERVER_INFO` e `INDEXNOW_*` continúan funcionando en Docker.
+- [DOCKER.md](DOCKER.md): Docker, reverse proxy y autoalojamiento
+- [README_ENVIRONMENT_SETUP.md](README_ENVIRONMENT_SETUP.md): variables de entorno y gestión de secretos
+- [CONTRIBUTING.md](CONTRIBUTING.md): guía de contribución
+- [SECURITY.md](SECURITY.md): proceso para reportar vulnerabilidades
 
-Para configuración detallada de Docker, proxy inverso, respaldo/restauración y despliegue en Unraid, consulta **[DOCKER.md](DOCKER.md)**.
+## Nota sobre idiomas
 
-## Variables de Entorno
-
-Copia `.env.example` a `.env` y completa los valores requeridos:
-
-| Variable | Requerida | Descripción |
-|---|---|---|
-| `NODE_ENV` | ✅ | `development` o `production` |
-| `PORT` | ✅ | Puerto del servidor backend (por defecto: `3001`) |
-| `SITE_URL` | ✅ | URL pública de tu sitio |
-| `SECRET_PROVIDER` | ⬜ | `env` (por defecto) u `oci` para bootstrap de OCI Secret Management |
-| `OCI_AUTH_MODE` | ⬜ | Modo de autenticación runtime para OCI (`instance_principal`) |
-| `OCI_REGION` | ⬜ | Región OCI opcional para recuperar secretos |
-| `OCI_VAULT_ID` | ⬜ | Requerido cuando `OCI_SECRET_MAPPINGS` usa nombres de secretos |
-| `OCI_SECRET_MAPPINGS` | ⬜ | Mapa JSON de variables de entorno a OCIDs o nombres de secretos OCI |
-| `OCI_SECRET_OVERWRITE` | ⬜ | Sobrescribe valores ya definidos con secretos OCI |
-| `OCI_SECRET_BUNDLE_STAGE` | ⬜ | Etapa del bundle de secretos a leer (`CURRENT` por defecto) |
-| `DOCKER_SECRETS_DIR` | ⬜ | Sobrescribe la ruta runtime para secretos Docker basados en archivos (`/run/secrets`) |
-| `JWT_SECRET` | ✅ | Clave secreta aleatoria para firmar JWT (mín. 32 caracteres) |
-| `APP_ENCRYPTION_KEY` | ✅ | Clave de cifrado de 32 bytes para protección de campos |
-| `APP_ENCRYPTION_KEY_ID` | ✅ | Identificador de clave estable |
-| `APP_ENCRYPTION_KEYRING` | ⬜ | Mapa JSON opcional para rotación de claves |
-| `GOOGLE_CLIENT_ID` | ⬜ | ID de cliente de Google OAuth |
-| `GOOGLE_CLIENT_SECRET` | ⬜ | Secreto de cliente de Google OAuth |
-| `RESEND_API_KEY` | ⬜ | Clave API de Resend.com para correos |
-| `SUPPORT_EMAIL` | ⬜ | Dirección de correo de soporte |
-| `BOOTSTRAP_ADMIN_EMAIL` | ⬜ | Promover automáticamente este correo a admin |
-| `EXPOSE_SERVER_INFO` | ⬜ | Mostrar endpoint de info del servidor (`true`/`false`) |
-| `APP_EMAIL_LANGUAGE` | ⬜ | Idioma de los correos salientes (por defecto: `en`) |
-| `INDEXNOW_KEY` | ⬜ | Clave API de IndexNow para indexación SEO |
-| `INDEXNOW_BASE_URL` | ⬜ | URL base para envíos de IndexNow |
-| `INDEXNOW_ENDPOINT` | ⬜ | URL del endpoint de la API de IndexNow |
-| `INDEXNOW_KEY_LOCATION` | ⬜ | Ubicación del archivo de clave IndexNow (opcional) |
-
-> **⚠️ ¡Nunca hagas commit de tu archivo `.env`!** Ya está incluido en `.gitignore`.
-
-## Estructura del Proyecto
-
-```
-Home-inventory/
-├── app.js                    # Configuración de la app Express & middleware
-├── server.js                 # Bootstrap de runtime & punto de entrada del servidor
-├── auth.js                   # Middleware JWT & generación de tokens
-├── database.js               # Inicialización de SQLite DB & migraciones
-├── package.json              # Dependencias & scripts del backend
-├── .env.example              # Plantilla de variables de entorno
-├── .gitignore
-├── LICENSE
-│
-├── config/
-│   └── i18n.js               # Configuración i18next del servidor
-│
-├── middleware/
-│   └── auth.js               # Middleware de auth & admin
-│
-├── routes/
-│   ├── auth.js               # Login, registro, OAuth, contraseña
-│   ├── items.js              # CRUD de artículos de inventario
-│   ├── categories.js         # Gestión de categorías
-│   ├── rooms.js              # Gestión de habitaciones
-│   ├── locations.js          # Gestión de ubicaciones
-│   ├── barcode.js            # Búsqueda & escaneo de códigos de barras
-│   ├── houses.js             # Gestión multi-hogar
-│   ├── borrowRequests.js     # Sistema de préstamos & seguimiento
-│   ├── vault.js              # Endpoints de la bóveda personal
-│   ├── admin.js              # Endpoints del panel de admin
-│   ├── admin-email.js        # Envío de correo del admin
-│   ├── email.js              # Verificación de correo & estado
-│   ├── backup.js             # Respaldo/restauración
-│   └── ...
-│
-├── utils/
-│   ├── encryption.js         # Ayudantes de cifrado de campo AES-256-GCM
-│   ├── protectedFields.js    # Ayudantes de cifrado/descifrado de campos de inventario
-│   ├── passwordRecovery.js   # Generación & verificación de clave de recuperación
-│   ├── mediaStorage.js       # Ayudantes de lectura/escritura de medios cifrados
-│   ├── runtimeSecrets.js     # Bootstrap de OCI Secret Management
-│   ├── emailService.js       # Integración de correo con Resend
-│   ├── indexNow.js           # Envío de SEO IndexNow
-│   └── logger.js             # Registro compatible con RGPD
-│
-├── locales/                  # Backend i18n (100+ idiomas)
-│
-├── scripts/
-│   ├── run-with-runtime-secrets.mjs # Bootstrap de secretos OCI para scripts de mantenimiento
-│   ├── backfill-field-encryption.mjs # Cifrar campos de texto plano heredados
-│   ├── generate-locales.js   # Scripts de generación de idiomas
-│   └── indexnow-submit.mjs   # Envío CLI de IndexNow
-│
-└── client/                   # Frontend React
-    ├── index.html
-    ├── package.json
-    ├── vite.config.js
-    ├── tailwind.config.js
-    ├── public/
-    │   ├── brand/            # Assets de logo (oscuro/claro)
-    │   ├── locales/          # Archivos i18n del frontend
-    │   ├── robots.txt
-    │   └── sitemap.xml
-    └── src/
-        ├── App.jsx           # Componente raíz & enrutamiento
-        ├── main.jsx          # Punto de entrada
-        ├── index.css         # Estilos globales
-        ├── i18n.js           # Configuración i18n del frontend
-        ├── components/       # Todos los componentes React
-        │   ├── Dashboard.jsx
-        │   ├── ItemList.jsx
-        │   ├── ItemForm.jsx
-        │   ├── CategoryManager.jsx
-        │   ├── RoomManager.jsx
-        │   ├── Settings.jsx
-        │   ├── AdminPanel.jsx
-        │   ├── BarcodeScanner.jsx
-        │   ├── LandingPage.jsx
-        │   ├── Login.jsx
-        │   ├── Register.jsx
-        │   └── ...
-        ├── context/          # Contextos React (Auth, Theme)
-        └── utils/            # Utilidades del frontend
-```
-
-## Endpoints de la API
-
-| Método | Endpoint | Descripción |
-|---|---|---|
-| `POST` | `/api/auth/register` | Registrar nuevo usuario |
-| `POST` | `/api/auth/login` | Iniciar sesión |
-| `GET` | `/api/items` | Listar artículos |
-| `POST` | `/api/items` | Crear artículo |
-| `PUT` | `/api/items/:id` | Actualizar artículo |
-| `DELETE` | `/api/items/:id` | Eliminar artículo |
-| `GET` | `/api/categories` | Listar categorías |
-| `GET` | `/api/rooms` | Listar habitaciones |
-| `GET` | `/api/houses` | Listar hogares del usuario |
-| `GET/POST`| `/api/borrow-requests` | Endpoints del sistema de préstamos |
-| `GET/POST`| `/api/vault` | Endpoints de la bóveda personal |
-| `GET` | `/api/admin/*` | Endpoints del panel de admin |
-| `GET` | `/api/health` | Verificación de salud |
-
-> Todos los endpoints `/api/*` (excepto auth) requieren un token JWT Bearer.
+El producto incluye **100+ paquetes de locale seleccionables**. Inglés y turco son los idiomas del producto revisados con más frecuencia; otras locales pueden hacer fallback por clave cuando falta una traducción.
 
 ## Contribuir
 
-1. Haz fork del repositorio
-2. Crea tu rama de funcionalidad (`git checkout -b feature/funcionalidad-genial`)
-3. Haz commit de tus cambios (`git commit -m 'Agregar funcionalidad genial'`)
-4. Sube tu rama (`git push origin feature/funcionalidad-genial`)
-5. Abre un Pull Request
+Los issues y pull requests son bienvenidos. Para cambios grandes, abre primero un issue para mantener la implementación alineada con el modelo de seguridad, el alcance por hogar y la estructura de localización.
 
-## Aviso Legal
+## Nota legal
 
-Este es un proyecto de código abierto independiente. No está afiliado, respaldado ni conectado con ningún producto comercial o empresa que use un nombre similar.
-
-## Desarrollo Asistido por IA
-
-Este proyecto fue desarrollado con la asistencia significativa de herramientas de inteligencia artificial (incluyendo Google Gemini y OpenAI GPT).
+HomeInventory es un proyecto open source independiente. No está afiliado, respaldado ni conectado con ningún producto comercial o empresa que use un nombre similar.
 
 ## Licencia
 
-MIT — ver [LICENSE](LICENSE) para más detalles.
+MIT. Consulta [LICENSE](LICENSE).

@@ -53,7 +53,7 @@ export default function HouseAccessPending() {
 
     const handleLogout = async () => {
         await logout();
-        navigate('/login');
+        navigate('/', { replace: true });
     };
 
     const pendingTitle = membershipState === 'pending_approval'
@@ -64,28 +64,28 @@ export default function HouseAccessPending() {
         : t('house_access_pending.no_house.description');
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 px-4 py-8">
+        <div className="premium-shell min-h-screen bg-[var(--hi-bg)] px-4 py-8">
             <div className="mx-auto max-w-5xl">
                 <div className="mb-8 text-center">
                     <BrandLogo variant="full" size="md" className="mx-auto mb-6 w-auto max-h-[76px]" />
-                    <p className="text-sm uppercase tracking-[0.25em] text-slate-400">{t('house_access_pending.eyebrow')}</p>
-                    <h1 className="mt-3 text-3xl font-bold text-slate-900 dark:text-white">{pendingTitle}</h1>
-                    <p className="mx-auto mt-3 max-w-2xl text-slate-500 dark:text-slate-400">{pendingDescription}</p>
+                    <p className="app-kicker">{t('house_access_pending.eyebrow')}</p>
+                    <h1 className="section-title mt-3 text-3xl text-[var(--hi-text)]">{pendingTitle}</h1>
+                    <p className="mx-auto mt-3 max-w-2xl text-[var(--hi-text-soft)]">{pendingDescription}</p>
                     {user?.username && (
-                        <p className="mt-4 text-sm text-slate-400 dark:text-slate-500">
+                        <p className="mt-4 text-sm text-[var(--hi-text-muted)]">
                             {t('house_access_pending.signed_in_as', { username: user.username })}
                         </p>
                     )}
                 </div>
 
                 {message && (
-                    <div className="mb-6 rounded-2xl border border-green-200 bg-green-50 px-4 py-3 text-green-700 dark:border-green-500/30 dark:bg-green-500/10 dark:text-green-300">
+                    <div className="mb-6 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-green-700 dark:border-green-500/30 dark:bg-green-500/10 dark:text-green-300">
                         {message}
                     </div>
                 )}
 
                 {error && (
-                    <div className="mb-6 flex items-center gap-2 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-red-700 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-300">
+                    <div className="mb-6 flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-700 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-300">
                         <AlertCircle className="h-5 w-5 flex-shrink-0" />
                         {error}
                     </div>
@@ -94,18 +94,18 @@ export default function HouseAccessPending() {
                 <div className="grid gap-6 lg:grid-cols-2">
                     <section className="card">
                         <div className="mb-5 flex items-center gap-3">
-                            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">
+                            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
                                 <Plus className="h-6 w-6" />
                             </div>
                             <div>
-                                <h2 className="text-xl font-semibold text-slate-900 dark:text-white">{t('house_access_pending.create.title')}</h2>
-                                <p className="text-sm text-slate-500 dark:text-slate-400">{t('house_access_pending.create.description')}</p>
+                                <h2 className="text-xl font-semibold text-[var(--hi-text)]">{t('house_access_pending.create.title')}</h2>
+                                <p className="text-sm text-[var(--hi-text-soft)]">{t('house_access_pending.create.description')}</p>
                             </div>
                         </div>
 
                         <form onSubmit={handleCreateHouse} className="space-y-4">
                             <div>
-                                <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                                <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">
                                     <Home className="mr-1 inline h-4 w-4" />
                                     {t('house_access_pending.create.name_label')}
                                 </label>
@@ -131,18 +131,18 @@ export default function HouseAccessPending() {
 
                     <section className="card">
                         <div className="mb-5 flex items-center gap-3">
-                            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-100 text-blue-700 dark:bg-blue-500/10 dark:text-blue-300">
+                            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-[var(--hi-panel-muted)] text-[var(--hi-accent)]">
                                 <Users className="h-6 w-6" />
                             </div>
                             <div>
-                                <h2 className="text-xl font-semibold text-slate-900 dark:text-white">{t('house_access_pending.join.title')}</h2>
-                                <p className="text-sm text-slate-500 dark:text-slate-400">{t('house_access_pending.join.description')}</p>
+                                <h2 className="text-xl font-semibold text-[var(--hi-text)]">{t('house_access_pending.join.title')}</h2>
+                                <p className="text-sm text-[var(--hi-text-soft)]">{t('house_access_pending.join.description')}</p>
                             </div>
                         </div>
 
                         <form onSubmit={handleJoinRequest} className="space-y-4">
                             <div>
-                                <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                                <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">
                                     {t('house_access_pending.join.key_label')}
                                 </label>
                                 <input
@@ -156,7 +156,7 @@ export default function HouseAccessPending() {
                             </div>
 
                             {pendingHouseRequest && membershipState === 'pending_approval' && (
-                                <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300">
+                                <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-sm text-[var(--hi-text-soft)]">
                                     {t('house_access_pending.pending.current_request', {
                                         house: pendingHouseRequest.requested_house_name || t('house_access_pending.fallback_house')
                                     })}
@@ -179,7 +179,7 @@ export default function HouseAccessPending() {
                     <button
                         type="button"
                         onClick={handleLogout}
-                        className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-3 text-slate-600 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-900"
+                        className="inline-flex items-center gap-2 rounded-xl border border-[var(--hi-border)] px-4 py-3 text-[var(--hi-text-soft)] transition-colors hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)]"
                     >
                         <LogOut className="h-4 w-4" />
                         {t('house_access_pending.logout')}

@@ -2,17 +2,19 @@ import fs from 'fs';
 import path from 'path';
 import { translate } from 'bing-translate-api';
 import { translate as googleTranslate } from '@vitalets/google-translate-api';
+import { translateWithAzure } from './azure-translator.mjs';
 
 const LOCALES_DIR = path.join(process.cwd(), 'client', 'public', 'locales');
 const BASE_LANG = 'en';
-const SKIP_LANGS = new Set(['en', 'tr']);
+const SKIP_LANGS = new Set(['en']);
 const BATCH_SEPARATOR = '<<<__HI_MISSING_SEP__>>>';
 const RETRYABLE_ERROR_PATTERN = /Too Many Requests|429|ENOTFOUND|ECONNRESET|ETIMEDOUT/i;
 const UNSUPPORTED_LANG_PATTERN = /not supported/i;
-const MAX_BATCH_CHARS = 850;
-const MAX_BATCH_ITEMS = 8;
-const BATCH_DELAY_MS = 1200;
-const LANGUAGE_DELAY_MS = 1800;
+const MAX_BATCH_CHARS = Number(process.env.TRANSLATION_MAX_BATCH_CHARS || 650);
+const MAX_BATCH_ITEMS = Number(process.env.TRANSLATION_MAX_BATCH_ITEMS || 4);
+const BATCH_DELAY_MS = Number(process.env.TRANSLATION_BATCH_DELAY_MS || 1500);
+const LANGUAGE_DELAY_MS = Number(process.env.TRANSLATION_LANGUAGE_DELAY_MS || 2000);
+const LANGUAGE_CONCURRENCY = Math.max(1, Number(process.env.TRANSLATION_LANGUAGE_CONCURRENCY || 1));
 
 const TRANSLATION_LANGS = {
     no: 'nb',
@@ -33,6 +35,15 @@ const MYMEMORY_TRANSLATION_LANGS = {
     'sr-Cyrl': 'sr',
     'zh-Hans': 'zh-Hans',
     'zh-Hant': 'zh-Hant'
+};
+
+const USE_AZURE_TRANSLATOR = process.env.USE_AZURE_TRANSLATOR === '1' && Boolean(process.env.AZURE_TRANSLATOR_KEY);
+const AZURE_TRANSLATION_LANGS = {
+    no: 'nb',
+    'sr-Cyrl': 'sr',
+    'zh-Hans': 'zh-Hans',
+    'zh-Hant': 'zh-Hant',
+    jv: 'jw'
 };
 
 function getDeepValue(object, keyPath) {
@@ -60,6 +71,23 @@ function delay(ms) {
 
 function collectStringKeyPaths(object, prefix = '') {
     const keyPaths = [];
+
+    if (Array.isArray(object)) {
+        object.forEach((value, index) => {
+            const keyPath = prefix ? `${prefix}.${index}` : String(index);
+
+            if (value && typeof value === 'object') {
+                keyPaths.push(...collectStringKeyPaths(value, keyPath));
+                return;
+            }
+
+            if (typeof value === 'string') {
+                keyPaths.push(keyPath);
+            }
+        });
+
+        return keyPaths;
+    }
 
     for (const [key, value] of Object.entries(object)) {
         const keyPath = prefix ? `${prefix}.${key}` : key;
@@ -109,8 +137,26 @@ async function translateBatch(batch, targetLang) {
     const mappedTargetLang = TRANSLATION_LANGS[targetLang] || targetLang;
     const mappedGoogleTargetLang = GOOGLE_TRANSLATION_LANGS[targetLang] || targetLang;
     const mappedMyMemoryTargetLang = MYMEMORY_TRANSLATION_LANGS[targetLang] || targetLang;
+    const mappedAzureTargetLang = AZURE_TRANSLATION_LANGS[targetLang] || targetLang;
     const payload = batch.map((item) => item.text).join(` ${BATCH_SEPARATOR} `);
     let lastError;
+
+    if (USE_AZURE_TRANSLATOR) {
+        try {
+            const azureResults = await translateWithAzure(
+                batch.map((item) => item.text),
+                mappedAzureTargetLang
+            );
+
+            return batch.map((item, index) => ({
+                keyPath: item.keyPath,
+                value: azureResults[index] || item.text
+            }));
+        } catch (error) {
+            lastError = error;
+            console.warn(`Azure translation failed for ${targetLang}, falling back to public providers.`);
+        }
+    }
 
     for (let attempt = 0; attempt < 5; attempt += 1) {
         try {
@@ -145,7 +191,7 @@ async function translateBatch(batch, targetLang) {
             }
 
             if (attempt === 4 || isRetryableError || isUnsupportedError) {
-                const translatedEntries = [];
+                    const translatedEntries = [];
 
                 for (let itemIndex = 0; itemIndex < batch.length; itemIndex += 1) {
                     const item = batch[itemIndex];
@@ -153,18 +199,25 @@ async function translateBatch(batch, targetLang) {
                     let myMemoryResponseData = null;
 
                     for (let myMemoryAttempt = 0; myMemoryAttempt < 4; myMemoryAttempt += 1) {
-                        const response = await fetch(url);
-                        if (response.ok) {
-                            myMemoryResponseData = await response.json();
-                            break;
-                        }
+                        try {
+                            const response = await fetch(url);
+                            if (response.ok) {
+                                myMemoryResponseData = await response.json();
+                                break;
+                            }
 
-                        if (response.status !== 429 && response.status < 500) {
-                            throw new Error(`MyMemory request failed with status ${response.status}`);
-                        }
+                            if (response.status !== 429 && response.status < 500) {
+                                throw new Error(`MyMemory request failed with status ${response.status}`);
+                            }
 
-                        if (myMemoryAttempt === 3) {
-                            throw new Error(`MyMemory request failed with status ${response.status}`);
+                            if (myMemoryAttempt === 3) {
+                                throw new Error(`MyMemory request failed with status ${response.status}`);
+                            }
+                        } catch (error) {
+                            lastError = error;
+                            if (myMemoryAttempt === 3) {
+                                throw error;
+                            }
                         }
 
                         await delay(2500 * (myMemoryAttempt + 1));
@@ -303,8 +356,8 @@ async function run() {
 
     const failures = [];
 
-    for (let i = 0; i < languages.length; i += 6) {
-        const batch = languages.slice(i, i + 6);
+    for (let i = 0; i < languages.length; i += LANGUAGE_CONCURRENCY) {
+        const batch = languages.slice(i, i + LANGUAGE_CONCURRENCY);
         await Promise.allSettled(batch.map(async (lang) => {
             try {
                 await processLanguage(baseTranslation, lang, keyPaths, { force });

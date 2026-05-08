@@ -1,3 +1,5 @@
+import { formatDateForLanguage } from './appFormatting';
+
 function parseBorrowDate(value, endOfDay = false) {
     if (!value) {
         return null;
@@ -19,7 +21,7 @@ export function formatBorrowDate(value, locale = 'tr') {
         return '';
     }
 
-    return new Intl.DateTimeFormat(locale, { dateStyle: 'medium' }).format(parsed);
+    return formatDateForLanguage(parsed, locale, { dateStyle: 'medium' });
 }
 
 export function formatBorrowDateTime(value, locale = 'tr') {
@@ -28,10 +30,10 @@ export function formatBorrowDateTime(value, locale = 'tr') {
         return '';
     }
 
-    return new Intl.DateTimeFormat(locale, {
+    return formatDateForLanguage(parsed, locale, {
         dateStyle: 'medium',
         timeStyle: 'short'
-    }).format(parsed);
+    }, { fallback: 'datetime' });
 }
 
 export function isBorrowOverdue(borrow) {

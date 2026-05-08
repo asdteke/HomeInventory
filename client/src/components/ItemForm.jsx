@@ -1,10 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { Suspense, lazy, useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Camera, X, Lock, Globe, MapPin, Plus, Loader2, ChevronDown, Check, QrCode, ScanBarcode, Search, ExternalLink, CalendarDays } from 'lucide-react';
-import ItemQRCode from './ItemQRCode';
-import BarcodeScanner from './BarcodeScanner';
 import SecureImage from './SecureImage';
 import { MAX_PHOTO_UPLOAD_MB, isPhotoUploadTooLarge } from '../utils/mediaLimits';
 import { formatBorrowDate, formatBorrowDateTime, isBorrowOverdue } from '../utils/borrowFormatting';
@@ -14,6 +12,12 @@ import {
     getRequestErrorMessage,
     isRequestCanceled
 } from '../utils/httpRequests';
+import { resolveVisibleItemTitle } from '../utils/itemDisplay';
+import { getCategoryPresentation } from '../utils/categoryDisplay';
+import { getRoomPresentation } from '../utils/roomDisplay';
+
+const ItemQRCode = lazy(() => import('./ItemQRCode'));
+const BarcodeScanner = lazy(() => import('./BarcodeScanner'));
 
 function createInitialFormData() {
     return {
@@ -231,6 +235,11 @@ export default function ItemForm() {
     const [activeBorrow, setActiveBorrow] = useState(null);
     const [borrowHistory, setBorrowHistory] = useState([]);
     const [borrowHistoryLoading, setBorrowHistoryLoading] = useState(isEditing);
+    const [canManageVisibility, setCanManageVisibility] = useState(!isEditing);
+    const currentLanguage = i18n.resolvedLanguage || i18n.language;
+
+    const getVisibleCategoryName = (category) => getCategoryPresentation(category, currentLanguage).name;
+    const getVisibleRoomName = (room) => getRoomPresentation(room, currentLanguage).name;
 
     // Location selector state
     const [locationSearch, setLocationSearch] = useState('');
@@ -379,7 +388,7 @@ export default function ItemForm() {
             }
 
             setFormData({
-                name: item.name,
+                name: resolveVisibleItemTitle(item, t('inventory.untitled_item')),
                 description: item.description || '',
                 quantity: item.quantity,
                 category_id: item.category_id || '',
@@ -420,6 +429,7 @@ export default function ItemForm() {
             ));
             setLocationSearch(item.location_name || '');
             setActiveBorrow(item.active_borrow || null);
+            setCanManageVisibility(Boolean(item.can_manage_visibility));
             setBorrowHistory(historyRes.data.history || []);
         } catch (error) {
             if (!isRequestCanceled(error) && isMountedRef.current) {
@@ -747,6 +757,9 @@ export default function ItemForm() {
                 if (key === 'invoice_currency_custom') {
                     return;
                 }
+                if (isEditing && key === 'is_public' && !canManageVisibility) {
+                    return;
+                }
                 data.append(key, normalizedFormData[key]);
             });
             if (photo) data.append('photo', photo);
@@ -822,44 +835,55 @@ export default function ItemForm() {
     if (fetching) return <div className="flex justify-center py-20"><div className="spinner"></div></div>;
 
     return (
-        <div className="max-w-2xl mx-auto animate-fade-in">
+        <div className="mx-auto max-w-2xl animate-fade-in">
             {/* Header */}
             <div className="flex items-center gap-4 mb-6">
-                <button onClick={() => navigate(-1)} className="p-2 rounded-xl text-slate-500 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                <button
+                    onClick={() => navigate(-1)}
+                    className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)] transition-colors hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)]"
+                >
                     <ArrowLeft className="w-6 h-6" />
                 </button>
                 <div>
-                    <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{isEditing ? t('items.title_edit') : t('items.title_new')}</h1>
-                    <p className="text-slate-500 dark:text-slate-400 text-sm">{t('items.subtitle')}</p>
+                    <h1 className="section-title text-3xl text-[var(--hi-text)]">{isEditing ? t('items.title_edit') : t('items.title_new')}</h1>
+                    <p className="text-sm text-[var(--hi-text-soft)]">{t('items.subtitle')}</p>
                 </div>
             </div>
 
             <div className="card">
                 {error && <div className="bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 text-red-600 dark:text-red-400 px-4 py-3 rounded-xl mb-6">{error}</div>}
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} noValidate className="space-y-6">
                     {/* Item Privacy Toggle */}
-                    <div className="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                    <div className="flex items-center justify-between rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-4 shadow-[var(--hi-shadow-soft)]">
                         <div className="flex items-center gap-3">
-                            {formData.is_public ? <Globe className="w-5 h-5 text-green-500" /> : <Lock className="w-5 h-5 text-amber-500" />}
+                            {formData.is_public ? <Globe className="w-5 h-5 text-[var(--hi-accent)]" /> : <Lock className="w-5 h-5 text-[var(--hi-secondary)]" />}
                             <div>
-                                <p className="font-medium text-slate-900 dark:text-white">{t('items.form.visibility')}</p>
-                                <p className="text-sm text-slate-500 dark:text-slate-400">
+                                <p className="font-medium text-[var(--hi-text)]">{t('items.form.visibility')}</p>
+                                <p className="text-sm text-[var(--hi-text-soft)]">
                                     {formData.is_public ? t('items.form.visibility_public') : t('items.form.visibility_private')}
                                 </p>
                             </div>
                         </div>
-                        <button type="button" onClick={() => setFormData({ ...formData, is_public: !formData.is_public })}
-                            className={`relative w-14 h-8 rounded-full transition-colors duration-200 ${formData.is_public ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-600'}`}>
+                        <button type="button" onClick={() => canManageVisibility && setFormData({ ...formData, is_public: !formData.is_public })}
+                            disabled={!canManageVisibility}
+                            aria-disabled={!canManageVisibility}
+                            title={!canManageVisibility ? t('items.form.visibility_owner_only', { defaultValue: 'Görünürlüğü yalnızca eşyayı ekleyen kişi değiştirebilir' }) : undefined}
+                            className={`relative h-8 w-14 rounded-full border transition-colors duration-200 ${formData.is_public ? 'border-[var(--hi-border-strong)] bg-[var(--hi-accent)]' : 'border-[var(--hi-border)] bg-[var(--hi-panel-muted)]'} ${!canManageVisibility ? 'cursor-not-allowed opacity-55' : ''}`}>
                             <span className={`absolute top-1 w-6 h-6 bg-white rounded-full shadow transition-transform duration-200 ${formData.is_public ? 'left-7' : 'left-1'}`} />
                         </button>
                     </div>
+                    {isEditing && !canManageVisibility && (
+                        <p className="-mt-4 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-sm text-[var(--hi-text-soft)]">
+                            {t('items.form.visibility_owner_only', { defaultValue: 'Görünürlüğü yalnızca eşyayı ekleyen kişi değiştirebilir.' })}
+                        </p>
+                    )}
 
                     {isEditing && (
-                        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
-                            <div className="px-4 py-4 bg-slate-50 dark:bg-slate-800/70 border-b border-slate-200 dark:border-slate-700">
-                                <h2 className="font-semibold text-slate-900 dark:text-white">{t('inventory.borrow.section_title')}</h2>
-                                <p className="text-sm text-slate-500 dark:text-slate-400">{t('inventory.borrow.section_subtitle')}</p>
+                        <div className="overflow-hidden rounded-xl border border-[var(--hi-border)]">
+                            <div className="border-b border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-4">
+                                <h2 className="font-semibold text-[var(--hi-text)]">{t('inventory.borrow.section_title')}</h2>
+                                <p className="text-sm text-[var(--hi-text-soft)]">{t('inventory.borrow.section_subtitle')}</p>
                             </div>
 
                             <div className="p-4 space-y-4">
@@ -888,15 +912,15 @@ export default function ItemForm() {
                                         </div>
                                     </div>
                                 ) : (
-                                    <div className="rounded-2xl border border-dashed border-slate-300 dark:border-slate-600 px-4 py-3">
-                                        <p className="text-sm text-slate-500 dark:text-slate-400">{t('inventory.borrow.no_active')}</p>
+                                    <div className="rounded-xl border border-dashed border-[var(--hi-border-strong)] px-4 py-3">
+                                        <p className="text-sm text-[var(--hi-text-soft)]">{t('inventory.borrow.no_active')}</p>
                                     </div>
                                 )}
 
                                 <div>
                                     <div className="flex items-center justify-between mb-3">
-                                        <h3 className="text-sm font-semibold text-slate-900 dark:text-white">{t('inventory.borrow.history_title')}</h3>
-                                        <span className="text-xs text-slate-400">{borrowHistory.length}</span>
+                                        <h3 className="text-sm font-semibold text-[var(--hi-text)]">{t('inventory.borrow.history_title')}</h3>
+                                        <span className="text-xs text-[var(--hi-text-muted)]">{borrowHistory.length}</span>
                                     </div>
 
                                     {borrowHistoryLoading ? (
@@ -904,33 +928,33 @@ export default function ItemForm() {
                                     ) : borrowHistory.length > 0 ? (
                                         <div className="space-y-3">
                                             {borrowHistory.map((entry) => (
-                                                <div key={entry.id} className="rounded-2xl border border-slate-200 dark:border-slate-700 px-4 py-3">
+                                                <div key={entry.id} className="rounded-xl border border-[var(--hi-border)] px-4 py-3">
                                                     <div className="flex flex-col gap-1">
-                                                        <p className="font-medium text-slate-900 dark:text-white">
+                                                        <p className="font-medium text-[var(--hi-text)]">
                                                             {entry.returned_at
                                                                 ? t('inventory.borrow.history_returned', { name: entry.borrower_display_name || t('inventory.borrow.unknown') })
                                                                 : t('inventory.borrow.history_active', { name: entry.borrower_display_name || t('inventory.borrow.unknown') })}
                                                         </p>
-                                                        <p className="text-sm text-slate-500 dark:text-slate-400">
+                                                        <p className="text-sm text-[var(--hi-text-soft)]">
                                                             {t('inventory.borrow.borrowed_at', { date: formatBorrowDateTime(entry.borrowed_at, i18n.language) })}
                                                         </p>
                                                         {entry.returned_at && (
-                                                            <p className="text-sm text-slate-500 dark:text-slate-400">
+                                                            <p className="text-sm text-[var(--hi-text-soft)]">
                                                                 {t('inventory.borrow.returned_at', { date: formatBorrowDateTime(entry.returned_at, i18n.language) })}
                                                             </p>
                                                         )}
                                                         {entry.due_date && (
-                                                            <p className="text-sm text-slate-500 dark:text-slate-400">
+                                                            <p className="text-sm text-[var(--hi-text-soft)]">
                                                                 {t('inventory.borrow.due_date_label', { date: formatBorrowDate(entry.due_date, i18n.language) })}
                                                             </p>
                                                         )}
                                                         {entry.note && (
-                                                            <p className="text-sm text-slate-500 dark:text-slate-400">
+                                                            <p className="text-sm text-[var(--hi-text-soft)]">
                                                                 {t('inventory.borrow.note_label', { note: entry.note })}
                                                             </p>
                                                         )}
                                                         {entry.return_note && (
-                                                            <p className="text-sm text-slate-500 dark:text-slate-400">
+                                                            <p className="text-sm text-[var(--hi-text-soft)]">
                                                                 {t('inventory.borrow.return_note_label', { note: entry.return_note })}
                                                             </p>
                                                         )}
@@ -939,7 +963,7 @@ export default function ItemForm() {
                                             ))}
                                         </div>
                                     ) : (
-                                        <p className="text-sm text-slate-500 dark:text-slate-400">{t('inventory.borrow.no_history')}</p>
+                                        <p className="text-sm text-[var(--hi-text-soft)]">{t('inventory.borrow.no_history')}</p>
                                     )}
                                 </div>
                             </div>
@@ -948,10 +972,15 @@ export default function ItemForm() {
 
                     {/* Photo Upload */}
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.photo')}</label>
+                        <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.photo')}</label>
                         <div className="flex items-start gap-4">
-                            <div onClick={() => fileInputRef.current?.click()}
-                                className="w-32 h-32 rounded-2xl bg-slate-100 dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-600 flex items-center justify-center overflow-hidden cursor-pointer hover:border-primary-500 transition-colors">
+                            <button
+                                type="button"
+                                onClick={() => fileInputRef.current?.click()}
+                                aria-label={t('items.form.add_photo')}
+                                title={t('items.form.add_photo')}
+                                className="flex h-32 w-32 items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-[var(--hi-border-strong)] bg-[var(--hi-panel-muted)] transition-colors hover:border-[var(--hi-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]"
+                            >
                                 {photoPreview ? (
                                     <img src={photoPreview} alt="" className="w-full h-full object-cover" />
                                 ) : existingPhoto ? (
@@ -960,22 +989,28 @@ export default function ItemForm() {
                                         alt=""
                                         className="w-full h-full object-cover"
                                         fallback={
-                                            <div className="text-center">
-                                                <Camera className="w-8 h-8 text-slate-400 mx-auto mb-1" />
-                                                <span className="text-xs text-slate-400">{t('items.form.add_photo')}</span>
+                                                <div className="text-center">
+                                                <Camera className="mx-auto mb-1 h-8 w-8 text-[var(--hi-text-muted)]" />
+                                                <span className="text-xs text-[var(--hi-text-soft)]">{t('items.form.add_photo')}</span>
                                             </div>
                                         }
                                     />
                                 ) : (
                                     <div className="text-center">
-                                        <Camera className="w-8 h-8 text-slate-400 mx-auto mb-1" />
-                                        <span className="text-xs text-slate-400">{t('items.form.add_photo')}</span>
+                                        <Camera className="mx-auto mb-1 h-8 w-8 text-[var(--hi-text-muted)]" />
+                                        <span className="text-xs text-[var(--hi-text-soft)]">{t('items.form.add_photo')}</span>
                                     </div>
                                 )}
-                            </div>
+                            </button>
                             <input ref={fileInputRef} type="file" accept="image/*" onChange={handlePhotoChange} className="hidden" />
                             {(photoPreview || existingPhoto) && (
-                                <button type="button" onClick={handleRemovePhoto} className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-lg">
+                                <button
+                                    type="button"
+                                    onClick={handleRemovePhoto}
+                                    aria-label={t('items.form.remove_photo', { defaultValue: 'Remove photo' })}
+                                    title={t('items.form.remove_photo', { defaultValue: 'Remove photo' })}
+                                    className="rounded-2xl border border-red-500/18 bg-red-500/6 p-2 text-red-400 transition hover:bg-red-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]"
+                                >
                                     <X className="w-5 h-5" />
                                 </button>
                             )}
@@ -984,11 +1019,12 @@ export default function ItemForm() {
 
                     {/* Name with Barcode Scanner */}
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.name')} <span className="text-red-500">{t('items.form.required')}</span></label>
+                        <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.name')} <span className="text-red-500">{t('items.form.required')}</span></label>
                         <div className="flex gap-2">
-                            <input type="text" name="name" value={formData.name} onChange={handleChange} className="input-field flex-1" placeholder={t('items.form.name_placeholder')} required />
+                            <input type="text" name="name" value={formData.name} onChange={handleChange} className="input-field flex-1" placeholder={t('items.form.name_placeholder')} aria-required="true" />
                             <button type="button" onClick={() => setShowBarcodeScanner(true)}
-                                className="px-4 py-3 rounded-xl bg-primary-500 text-white hover:bg-primary-600 transition-colors flex items-center gap-2"
+                                aria-label={t('items.form.scan_barcode')}
+                                className="flex items-center gap-2 rounded-[12px] bg-[var(--hi-accent)] px-4 py-3 text-white transition-colors hover:bg-[var(--hi-accent-strong)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]"
                                 title={t('items.form.scan_barcode')}>
                                 <ScanBarcode className="w-5 h-5" />
                             </button>
@@ -997,8 +1033,8 @@ export default function ItemForm() {
 
                     {/* Barcode Field with Manual Search */}
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                            {t('items.form.barcode')} <span className="text-slate-400 font-normal">{t('items.form.barcode_optional')}</span>
+                        <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">
+                            {t('items.form.barcode')} <span className="font-normal text-[var(--hi-text-muted)]">{t('items.form.barcode_optional')}</span>
                         </label>
                         <div className="flex gap-2">
                             <input type="text" name="barcode" value={formData.barcode} onChange={(e) => {
@@ -1008,13 +1044,15 @@ export default function ItemForm() {
                                 className="input-field flex-1 font-mono" placeholder={t('items.form.barcode_placeholder')} />
                             <button type="button" onClick={handleManualBarcodeSearch}
                                 disabled={!formData.barcode || searchingBarcode}
-                                className="px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors disabled:opacity-50 flex items-center gap-2"
+                                aria-label={t('items.form.search_db')}
+                                className="flex items-center gap-2 rounded-[12px] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-[var(--hi-text-soft)] transition-colors hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] disabled:opacity-50"
                                 title={t('items.form.search_db')}>
                                 {searchingBarcode ? <Loader2 className="w-5 h-5 animate-spin" /> : <Search className="w-5 h-5" />}
                             </button>
                             {formData.barcode && (
                                 <a href={`https://www.google.com/search?q=${formData.barcode}`} target="_blank" rel="noopener noreferrer"
-                                    className="px-3 py-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-500/20 transition-colors"
+                                    aria-label={t('items.form.search_google')}
+                                    className="rounded-[12px] border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] px-3 py-3 text-[var(--hi-accent)] transition-colors hover:bg-[var(--hi-panel-strong)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]"
                                     title={t('items.form.search_google')}>
                                     <ExternalLink className="w-5 h-5" />
                                 </a>
@@ -1026,39 +1064,38 @@ export default function ItemForm() {
                             </p>
                         )}
                         {formData.barcode && !barcodeMessage && (
-                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{t('items.form.barcode_saved')}</p>
+                            <p className="mt-1 text-xs text-[var(--hi-text-soft)]">{t('items.form.barcode_saved')}</p>
                         )}
                     </div>
 
                     {/* Description */}
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.description')}</label>
+                        <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.description')}</label>
                         <textarea name="description" value={formData.description} onChange={handleChange} className="input-field min-h-[100px] resize-none" placeholder={t('items.form.description_placeholder')} rows={3} />
                     </div>
 
-                    <div className="rounded-2xl border border-amber-200 bg-amber-50/80 px-4 py-3 dark:border-amber-500/30 dark:bg-amber-500/10">
-                        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                            <div className="flex items-start gap-3">
-                                <div className="mt-0.5 flex h-9 w-9 items-center justify-center rounded-xl bg-white/80 text-amber-600 shadow-sm dark:bg-slate-900/60 dark:text-amber-300">
-                                    <Lock className="h-4.5 w-4.5" />
-                                </div>
-                                <div>
-                                    <p className="font-medium text-amber-950 dark:text-amber-100">
-                                        {t('items.form.vault_hint_title', { defaultValue: 'Very sensitive record?' })}
-                                    </p>
-                                    <p className="mt-1 text-sm text-amber-800 dark:text-amber-200/90">
-                                        {t('items.form.vault_hint_description', {
-                                            defaultValue: 'For passports, deeds, identity details, access codes, and other records that should stay out of the standard inventory flow, keep them in Personal Vault instead.'
-                                        })}
-                                    </p>
-                                </div>
+                    <div className="rounded-[1rem] border border-[rgba(184,153,104,0.18)] bg-[linear-gradient(180deg,rgba(184,153,104,0.06),rgba(184,153,104,0.02))] px-4 py-4">
+                        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                            <div className="min-w-0">
+                                <span className="inline-flex items-center gap-1.5 rounded-full border border-[rgba(184,153,104,0.18)] bg-[rgba(184,153,104,0.1)] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--hi-secondary-strong)]">
+                                    <span className="h-1.5 w-1.5 rounded-full bg-[var(--hi-secondary-strong)]" aria-hidden="true" />
+                                    <span>{t('navigation.personal_vault', { defaultValue: 'Personal Vault' })}</span>
+                                </span>
+                                <p className="mt-3 text-sm font-semibold leading-6 text-[var(--hi-text)]">
+                                    {t('items.form.vault_hint_title', { defaultValue: 'Very sensitive record?' })}
+                                </p>
+                                <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
+                                    {t('items.form.vault_hint_description', {
+                                        defaultValue: 'For passports, deeds, identity details, access codes, and other records that should stay out of the standard inventory flow, keep them in Personal Vault instead.'
+                                    })}
+                                </p>
                             </div>
 
                             <a
                                 href="/vault"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center justify-center gap-2 rounded-xl border border-amber-300 bg-white px-3 py-2 text-sm font-medium text-amber-900 transition-colors hover:bg-amber-100 dark:border-amber-400/30 dark:bg-slate-900/70 dark:text-amber-100 dark:hover:bg-amber-500/10"
+                                className="inline-flex items-center gap-2 self-start rounded-full px-1 py-1 text-sm font-semibold text-[var(--hi-accent)] transition-colors hover:text-[var(--hi-accent-strong)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] md:shrink-0"
                             >
                                 <span>{t('items.form.vault_hint_action', { defaultValue: 'Open Personal Vault' })}</span>
                                 <ExternalLink className="h-4 w-4" />
@@ -1067,40 +1104,40 @@ export default function ItemForm() {
                     </div>
 
                     {/* Optional Invoice Section */}
-                    <div className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden bg-white dark:bg-slate-900">
+                    <div className="overflow-hidden rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] shadow-[var(--hi-shadow-soft)]">
                         <button
                             type="button"
                             onClick={() => setShowInvoiceSection(prev => !prev)}
-                            className="w-full flex items-center justify-between gap-4 px-4 py-4 text-left hover:bg-slate-50 dark:hover:bg-slate-800/70 transition-colors"
+                            className="flex w-full items-center justify-between gap-4 px-4 py-4 text-left transition-colors hover:bg-[var(--hi-panel-muted)]"
                         >
                             <div>
-                                <p className="font-medium text-slate-900 dark:text-white">{t('items.form.invoice_section')}</p>
-                                <p className="text-sm text-slate-500 dark:text-slate-400">
+                                <p className="font-medium text-[var(--hi-text)]">{t('items.form.invoice_section')}</p>
+                                <p className="text-sm text-[var(--hi-text-soft)]">
                                     {showInvoiceSection ? t('items.form.invoice_section_help') : t('items.form.invoice_section_collapsed')}
                                 </p>
                             </div>
                             <div className="flex items-center gap-3 flex-shrink-0">
                                 {hasInvoiceContent && !showInvoiceSection && (
-                                    <span className="px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 text-xs font-medium">
+                                    <span className="rounded-full border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] px-2.5 py-1 text-xs font-medium text-[var(--hi-accent)]">
                                         {t('items.form.invoice_section_filled')}
                                     </span>
                                 )}
-                                <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform ${showInvoiceSection ? 'rotate-180' : ''}`} />
+                                <ChevronDown className={`w-5 h-5 text-[var(--hi-text-soft)] transition-transform ${showInvoiceSection ? 'rotate-180' : ''}`} />
                             </div>
                         </button>
 
                         {showInvoiceSection && (
-                            <div className="px-4 pb-4 pt-1 border-t border-slate-200 dark:border-slate-700 space-y-4 bg-slate-50/70 dark:bg-slate-900">
-                                <p className="text-xs text-slate-500 dark:text-slate-400">
+                            <div className="space-y-4 border-t border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 pb-4 pt-3">
+                                <p className="text-xs text-[var(--hi-text-soft)]">
                                     {t('items.form.invoice_security')}
                                 </p>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.invoice_photo')}</label>
+                                    <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.invoice_photo')}</label>
                                     <div className="flex items-start gap-4">
                                         <div
                                             onClick={() => invoiceFileInputRef.current?.click()}
-                                            className="w-32 h-32 rounded-2xl bg-white dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-600 flex items-center justify-center overflow-hidden cursor-pointer hover:border-primary-500 transition-colors"
+                                            className="flex h-32 w-32 cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-[var(--hi-border-strong)] bg-[var(--hi-bg-strong)] transition-colors hover:border-[var(--hi-accent)]"
                                         >
                                             {invoicePhotoPreview ? (
                                                 <img src={invoicePhotoPreview} alt="" className="w-full h-full object-cover" />
@@ -1111,15 +1148,15 @@ export default function ItemForm() {
                                                     className="w-full h-full object-cover"
                                                     fallback={
                                                         <div className="text-center">
-                                                            <Camera className="w-8 h-8 text-slate-400 mx-auto mb-1" />
-                                                            <span className="text-xs text-slate-400">{t('items.form.add_photo')}</span>
+                                                            <Camera className="mx-auto mb-1 h-8 w-8 text-[var(--hi-text-muted)]" />
+                                                            <span className="text-xs text-[var(--hi-text-soft)]">{t('items.form.add_photo')}</span>
                                                         </div>
                                                     }
                                                 />
                                             ) : (
                                                 <div className="text-center">
-                                                    <Camera className="w-8 h-8 text-slate-400 mx-auto mb-1" />
-                                                    <span className="text-xs text-slate-400">{t('items.form.add_photo')}</span>
+                                                    <Camera className="mx-auto mb-1 h-8 w-8 text-[var(--hi-text-muted)]" />
+                                                    <span className="text-xs text-[var(--hi-text-soft)]">{t('items.form.add_photo')}</span>
                                                 </div>
                                             )}
                                         </div>
@@ -1131,7 +1168,7 @@ export default function ItemForm() {
                                             className="hidden"
                                         />
                                         {(invoicePhotoPreview || existingInvoicePhoto) && (
-                                            <button type="button" onClick={handleRemoveInvoicePhoto} className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-lg">
+                                            <button type="button" onClick={handleRemoveInvoicePhoto} className="rounded-2xl border border-red-500/18 bg-red-500/6 p-2 text-red-400 transition hover:bg-red-500/10">
                                                 <X className="w-5 h-5" />
                                             </button>
                                         )}
@@ -1140,7 +1177,7 @@ export default function ItemForm() {
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.invoice_price')}</label>
+                                        <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.invoice_price')}</label>
                                         <input
                                             type="number"
                                             name="invoice_price"
@@ -1153,7 +1190,7 @@ export default function ItemForm() {
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.invoice_currency')}</label>
+                                        <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.invoice_currency')}</label>
                                         <select
                                             name="invoice_currency"
                                             value={formData.invoice_currency}
@@ -1186,7 +1223,7 @@ export default function ItemForm() {
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.invoice_date')}</label>
+                                        <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.invoice_date')}</label>
                                         <div className="relative">
                                             <input
                                                 type="text"
@@ -1203,7 +1240,7 @@ export default function ItemForm() {
                                             <button
                                                 type="button"
                                                 onClick={() => openDatePicker(invoiceDatePickerRef)}
-                                                className="absolute inset-y-0 right-0 px-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                                                className="absolute inset-y-0 right-0 px-3 text-[var(--hi-text-muted)] transition-colors hover:text-[var(--hi-text)]"
                                                 aria-label={t('items.form.invoice_date')}
                                                 title={t('items.form.invoice_date')}
                                             >
@@ -1221,7 +1258,7 @@ export default function ItemForm() {
                                         </div>
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.warranty_start_date')}</label>
+                                        <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.warranty_start_date')}</label>
                                         <div className="relative">
                                             <input
                                                 type="text"
@@ -1238,7 +1275,7 @@ export default function ItemForm() {
                                             <button
                                                 type="button"
                                                 onClick={() => openDatePicker(warrantyStartDatePickerRef)}
-                                                className="absolute inset-y-0 right-0 px-3 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                                                className="absolute inset-y-0 right-0 px-3 text-[var(--hi-text-muted)] transition-colors hover:text-[var(--hi-text)]"
                                                 aria-label={t('items.form.warranty_start_date')}
                                                 title={t('items.form.warranty_start_date')}
                                             >
@@ -1257,13 +1294,13 @@ export default function ItemForm() {
                                     </div>
                                 </div>
 
-                                <p className="text-xs text-slate-500 dark:text-slate-400">
+                                <p className="text-xs text-[var(--hi-text-soft)]">
                                     {t('items.form.warranty_calculation_help')}
                                 </p>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.warranty_duration_value')}</label>
+                                        <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.warranty_duration_value')}</label>
                                         <input
                                             type="text"
                                             name="warranty_duration_value"
@@ -1276,7 +1313,7 @@ export default function ItemForm() {
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.warranty_duration_unit')}</label>
+                                        <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.warranty_duration_unit')}</label>
                                         <select
                                             name="warranty_duration_unit"
                                             value={formData.warranty_duration_unit}
@@ -1294,7 +1331,7 @@ export default function ItemForm() {
                                 </div>
 
                                 <div>
-                                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.warranty_expiry_date')}</label>
+                                        <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.warranty_expiry_date')}</label>
                                         <div className="relative">
                                             <input
                                                 type="text"
@@ -1310,7 +1347,7 @@ export default function ItemForm() {
                                                         handleDateInputBlur('warranty_expiry_date');
                                                     }
                                                 }}
-                                                className={`input-field pr-12 ${hasWarrantyCalculationInput ? 'bg-slate-100 dark:bg-slate-800 cursor-not-allowed' : ''}`}
+                                                className={`input-field pr-12 ${hasWarrantyCalculationInput ? 'cursor-not-allowed bg-[var(--hi-panel-muted)]' : ''}`}
                                                 inputMode="numeric"
                                                 autoComplete="off"
                                                 placeholder={DATE_INPUT_PLACEHOLDER}
@@ -1324,7 +1361,7 @@ export default function ItemForm() {
                                                         openDatePicker(warrantyDatePickerRef);
                                                     }
                                                 }}
-                                                className={`absolute inset-y-0 right-0 px-3 transition-colors ${hasWarrantyCalculationInput ? 'text-slate-300 dark:text-slate-600 cursor-not-allowed' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'}`}
+                                                className={`absolute inset-y-0 right-0 px-3 transition-colors ${hasWarrantyCalculationInput ? 'cursor-not-allowed text-[var(--hi-text-muted)] opacity-50' : 'text-[var(--hi-text-muted)] hover:text-[var(--hi-text)]'}`}
                                                 aria-label={t('items.form.warranty_expiry_date')}
                                                 title={t('items.form.warranty_expiry_date')}
                                                 disabled={hasWarrantyCalculationInput}
@@ -1349,37 +1386,37 @@ export default function ItemForm() {
                     {/* Quantity & Category */}
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.quantity')}</label>
+                            <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.quantity')}</label>
                             <input type="number" name="quantity" value={formData.quantity} onChange={handleChange} className="input-field" min="1" />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.category')}</label>
+                            <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.category')}</label>
                             <select name="category_id" value={formData.category_id} onChange={handleChange} className="input-field">
                                 <option value="">{t('items.form.select_category')}</option>
-                                {categories.map(c => <option key={c.id} value={c.id}>{c.icon} {c.name}</option>)}
+                                {categories.map(c => <option key={c.id} value={c.id}>{c.icon} {getVisibleCategoryName(c)}</option>)}
                             </select>
                         </div>
                     </div>
 
                     {/* Room Selection */}
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{t('items.form.room')}</label>
+                        <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.room')}</label>
                         <select name="room_id" value={formData.room_id} onChange={handleChange} className="input-field">
                             <option value="">{t('items.form.select_room')}</option>
-                            {rooms.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
+                            {rooms.map(r => <option key={r.id} value={r.id}>{getVisibleRoomName(r)}</option>)}
                         </select>
                     </div>
 
                     {/* Smart Sub-Location Selector */}
                     {formData.room_id && (
-                        <div className="p-4 rounded-xl bg-gradient-to-br from-primary-50 to-purple-50 dark:from-slate-800 dark:to-slate-800 border border-primary-200 dark:border-slate-700">
+                        <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4">
                             <div className="flex items-center gap-2 mb-3">
-                                <MapPin className="w-4 h-4 text-primary-500" />
-                                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                                    {t('items.form.location_details')} <span className="text-slate-400 font-normal">{t('items.form.location_optional')}</span>
+                                <MapPin className="w-4 h-4 text-[var(--hi-accent)]" />
+                                <label className="text-sm font-medium text-[var(--hi-text)]">
+                                    {t('items.form.location_details')} <span className="font-normal text-[var(--hi-text-muted)]">{t('items.form.location_optional')}</span>
                                 </label>
                             </div>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">
+                            <p className="mb-3 text-xs text-[var(--hi-text-soft)]">
                                 {t('items.form.location_help')}
                             </p>
 
@@ -1402,17 +1439,17 @@ export default function ItemForm() {
                                     />
                                     <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
                                         {locationSearch && (
-                                            <button type="button" onClick={handleClearLocation} className="p-1 text-slate-400 hover:text-slate-600">
+                                            <button type="button" onClick={handleClearLocation} className="p-1 text-[var(--hi-text-muted)] hover:text-[var(--hi-text)]">
                                                 <X className="w-4 h-4" />
                                             </button>
                                         )}
-                                        <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${showLocationDropdown ? 'rotate-180' : ''}`} />
+                                        <ChevronDown className={`w-4 h-4 text-[var(--hi-text-muted)] transition-transform ${showLocationDropdown ? 'rotate-180' : ''}`} />
                                     </div>
                                 </div>
 
                                 {/* Dropdown */}
                                 {showLocationDropdown && (
-                                    <div className="absolute z-50 w-full mt-1 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 shadow-xl max-h-64 overflow-auto">
+                                    <div className="absolute z-50 mt-1 max-h-64 w-full overflow-auto rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] shadow-xl">
                                         {filteredLocations.length > 0 && (
                                             <div className="p-1">
                                                 {filteredLocations.map(loc => (
@@ -1422,11 +1459,11 @@ export default function ItemForm() {
                                                         onClick={() => handleSelectLocation(loc)}
                                                         className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-left transition-colors
                               ${formData.location_id === loc.id
-                                                                ? 'bg-primary-50 dark:bg-primary-500/20 text-primary-700 dark:text-primary-300'
-                                                                : 'hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'}`}
+                                                                ? 'bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]'
+                                                                : 'text-[var(--hi-text-soft)] hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)]'}`}
                                                     >
                                                         <span className="flex items-center gap-2">
-                                                            <MapPin className="w-4 h-4 text-slate-400" />
+                                                            <MapPin className="w-4 h-4 text-[var(--hi-text-muted)]" />
                                                             {loc.name}
                                                         </span>
                                                         <span className="flex items-center gap-2">
@@ -1435,7 +1472,7 @@ export default function ItemForm() {
                                                             ) : (
                                                                 <Lock className="w-3.5 h-3.5 text-amber-500" />
                                                             )}
-                                                            {formData.location_id === loc.id && <Check className="w-4 h-4 text-primary-500" />}
+                                                            {formData.location_id === loc.id && <Check className="w-4 h-4 text-[var(--hi-accent)]" />}
                                                         </span>
                                                     </button>
                                                 ))}
@@ -1445,28 +1482,28 @@ export default function ItemForm() {
                                         {/* Create new location option */}
                                         {locationSearch.trim() && !exactMatch && (
                                             <>
-                                                {filteredLocations.length > 0 && <div className="border-t border-slate-200 dark:border-slate-700" />}
+                                                {filteredLocations.length > 0 && <div className="border-t border-[var(--hi-border)]" />}
 
                                                 {!isCreatingLocation ? (
                                                     <button
                                                         type="button"
                                                         onClick={() => setIsCreatingLocation(true)}
-                                                        className="w-full flex items-center gap-2 px-3 py-3 text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-500/10 transition-colors"
+                                                        className="flex w-full items-center gap-2 px-3 py-3 text-[var(--hi-accent)] transition-colors hover:bg-[var(--hi-accent-soft)]"
                                                     >
                                                         <Plus className="w-4 h-4" />
                                                         <span>{t('items.form.location_create', { name: locationSearch })}</span>
                                                     </button>
                                                 ) : (
                                                     <div className="p-3 space-y-3">
-                                                        <div className="flex items-center justify-between p-3 rounded-lg bg-slate-50 dark:bg-slate-800">
+                                                        <div className="flex items-center justify-between rounded-lg bg-[var(--hi-bg-strong)] p-3">
                                                             <div className="flex items-center gap-2">
-                                                                <MapPin className="w-4 h-4 text-primary-500" />
-                                                                <span className="font-medium text-slate-900 dark:text-white">{locationSearch}</span>
+                                                                <MapPin className="w-4 h-4 text-[var(--hi-accent)]" />
+                                                                <span className="font-medium text-[var(--hi-text)]">{locationSearch}</span>
                                                             </div>
                                                         </div>
 
                                                         {/* Location Privacy Toggle */}
-                                                        <div className="flex items-center justify-between p-3 rounded-lg bg-slate-50 dark:bg-slate-800">
+                                                        <div className="flex items-center justify-between rounded-lg bg-[var(--hi-bg-strong)] p-3">
                                                             <div className="flex items-center gap-2">
                                                                 {newLocationPublic ? (
                                                                     <Globe className="w-4 h-4 text-green-500" />
@@ -1474,8 +1511,8 @@ export default function ItemForm() {
                                                                     <Lock className="w-4 h-4 text-amber-500" />
                                                                 )}
                                                                 <div>
-                                                                    <p className="text-sm font-medium text-slate-700 dark:text-slate-300">{t('items.form.location_privacy')}</p>
-                                                                    <p className="text-xs text-slate-500">
+                                                                    <p className="text-sm font-medium text-[var(--hi-text)]">{t('items.form.location_privacy')}</p>
+                                                                    <p className="text-xs text-[var(--hi-text-soft)]">
                                                                         {newLocationPublic ? t('items.form.location_public') : t('items.form.location_private')}
                                                                     </p>
                                                                 </div>
@@ -1483,7 +1520,7 @@ export default function ItemForm() {
                                                             <button
                                                                 type="button"
                                                                 onClick={() => setNewLocationPublic(!newLocationPublic)}
-                                                                className={`relative w-12 h-6 rounded-full transition-colors ${newLocationPublic ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-600'}`}
+                                                                className={`relative w-12 h-6 rounded-full transition-colors ${newLocationPublic ? 'bg-green-500' : 'bg-[var(--hi-border-strong)]'}`}
                                                             >
                                                                 <span className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${newLocationPublic ? 'left-6' : 'left-0.5'}`} />
                                                             </button>
@@ -1494,7 +1531,7 @@ export default function ItemForm() {
                                                                 type="button"
                                                                 onClick={handleCreateLocation}
                                                                 disabled={savingLocation}
-                                                                className="flex-1 btn-primary py-2 text-sm flex items-center justify-center gap-2"
+                                                                className="btn-secondary flex-1 py-2 text-sm flex items-center justify-center gap-2"
                                                             >
                                                                 {savingLocation ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
                                                                 {savingLocation ? t('items.form.location_saving') : t('items.form.location_save')}
@@ -1514,7 +1551,7 @@ export default function ItemForm() {
 
                                         {/* Empty state */}
                                         {filteredLocations.length === 0 && !locationSearch.trim() && (
-                                            <div className="p-4 text-center text-slate-500 dark:text-slate-400 text-sm">
+                                            <div className="p-4 text-center text-sm text-[var(--hi-text-soft)]">
                                                 {t('items.form.location_empty')}
                                             </div>
                                         )}
@@ -1524,10 +1561,10 @@ export default function ItemForm() {
 
                             {/* Selected location indicator */}
                             {formData.location_id && (
-                                <div className="mt-3 flex items-center gap-2 px-3 py-2 rounded-lg bg-primary-100 dark:bg-primary-500/20 text-primary-700 dark:text-primary-300">
+                                <div className="mt-3 flex items-center gap-2 rounded-lg bg-[var(--hi-accent-soft)] px-3 py-2 text-[var(--hi-accent)]">
                                     <Check className="w-4 h-4" />
                                     <span className="text-sm font-medium">{t('items.form.location_selected', { name: locationSearch })}</span>
-                                    <button type="button" onClick={handleClearLocation} className="ml-auto p-1 hover:bg-primary-200 dark:hover:bg-primary-500/30 rounded">
+                                    <button type="button" onClick={handleClearLocation} className="ml-auto rounded p-1 hover:bg-[var(--hi-panel-strong)]">
                                         <X className="w-3.5 h-3.5" />
                                     </button>
                                 </div>
@@ -1548,26 +1585,51 @@ export default function ItemForm() {
 
             {/* QR Code Section - Only for existing items */}
             {isEditing && (
-                <div className="mt-6 card">
-                    <div className="flex items-center gap-3 mb-4">
-                        <QrCode className="w-5 h-5 text-primary-500" />
-                        <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{t('items.qrcode.title')}</h3>
+                <div className="app-control-section mt-6">
+                    <div className="mb-3 flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-[0.95rem] bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
+                            <QrCode className="w-5 h-5" />
+                        </div>
+                        <h3 className="text-lg font-semibold text-[var(--hi-text)]">{t('items.qrcode.title')}</h3>
                     </div>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
+                    <p className="mb-4 text-sm text-[var(--hi-text-soft)]">
                         {t('items.qrcode.desc')}
                     </p>
-                    <ItemQRCode itemId={id} itemName={formData.name} />
+                    <Suspense
+                        fallback={(
+                            <div className="rounded-[1.2rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-5">
+                                <div className="flex items-center gap-3 text-sm text-[var(--hi-text-soft)]">
+                                    <Loader2 className="h-4 w-4 animate-spin text-[var(--hi-accent)]" />
+                                    <span>{t('item_qr.loading', { defaultValue: 'Preparing QR tools...' })}</span>
+                                </div>
+                            </div>
+                        )}
+                    >
+                        <ItemQRCode itemId={id} />
+                    </Suspense>
                 </div>
             )}
 
             {/* Barcode Scanner Modal */}
-            <BarcodeScanner
-                isOpen={showBarcodeScanner}
-                onClose={() => setShowBarcodeScanner(false)}
-                onProductFound={handleProductFound}
-                onBarcodeOnly={handleBarcodeOnly}
-                onQuickAdd={handleQuickAdd}
-            />
+            {showBarcodeScanner && (
+                <Suspense
+                    fallback={(
+                        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/92 px-6 text-center text-white">
+                            <Loader2 className="mb-4 h-10 w-10 animate-spin" />
+                            <p className="text-base font-medium">{t('scanner.init')}</p>
+                            <p className="mt-2 text-sm text-white/70">{t('scanner.hint')}</p>
+                        </div>
+                    )}
+                >
+                    <BarcodeScanner
+                        isOpen={showBarcodeScanner}
+                        onClose={() => setShowBarcodeScanner(false)}
+                        onProductFound={handleProductFound}
+                        onBarcodeOnly={handleBarcodeOnly}
+                        onQuickAdd={handleQuickAdd}
+                    />
+                </Suspense>
+            )}
         </div>
     );
 }

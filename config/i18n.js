@@ -5,6 +5,7 @@ import { readdirSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { BRAND_HOST, BRAND_NAME, SUPPORT_EMAIL } from '../utils/branding.js';
+import { formatScopedLog } from '../utils/devConsole.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -26,7 +27,7 @@ function normalizeLanguageCode(lang) {
 }
 
 function getFallbackLanguages(lang) {
-    return normalizeLanguageCode(lang) === 'tr' ? ['tr', 'en'] : ['en', 'tr'];
+    return normalizeLanguageCode(lang) === 'tr' ? ['tr', 'en'] : ['en'];
 }
 
 // i18next başlatma fonksiyonu
@@ -70,7 +71,7 @@ export const initI18n = async () => {
         return lang;
     }));
 
-    console.log(`✅ i18n initialized with \x1b[32m${uniqueLangs.size}\x1b[0m languages`);
+    console.log(formatScopedLog('i18n', `${uniqueLangs.size} languages loaded`));
     return i18next;
 };
 

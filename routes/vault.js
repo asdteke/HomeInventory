@@ -10,11 +10,118 @@ import {
 } from '../utils/personalVault.js';
 
 const router = express.Router();
+const STATE_CHANGING_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
 
 function createRequestError(message, statusCode = 400) {
     const error = new Error(message);
     error.statusCode = statusCode;
     return error;
+}
+
+function setVaultResponseHeaders(res) {
+    res.set({
+        'Cache-Control': 'private, no-store, max-age=0',
+        Pragma: 'no-cache',
+        Expires: '0',
+        'Cross-Origin-Resource-Policy': 'same-origin'
+    });
+}
+
+function addOriginVariants(origins, host, protocol) {
+    if (!host) {
+        return;
+    }
+
+    origins.add(`http://${host}`);
+    origins.add(`https://${host}`);
+
+    if (protocol) {
+        origins.add(`${protocol}://${host}`);
+    }
+}
+
+function addLocalhostAliases(origins, host, protocol) {
+    const match = String(host || '').match(/^([^:]+)(?::(\d+))?$/);
+    if (!match) {
+        return;
+    }
+
+    const [, hostname, port = ''] = match;
+    const isLoopbackHost = hostname === 'localhost' || hostname === '127.0.0.1';
+    if (!isLoopbackHost) {
+        return;
+    }
+
+    const aliases = hostname === 'localhost' ? ['127.0.0.1'] : ['localhost'];
+    for (const alias of aliases) {
+        addOriginVariants(origins, port ? `${alias}:${port}` : alias, protocol);
+    }
+}
+
+function getTrustedOrigins(req) {
+    const origins = new Set();
+    const forwardedHost = String(req.get('x-forwarded-host') || '').split(',')[0].trim();
+    const host = forwardedHost || String(req.get('host') || '').trim();
+    const forwardedProto = String(req.get('x-forwarded-proto') || '').split(',')[0].trim();
+    const requestProtocol = forwardedProto || req.protocol || 'http';
+
+    if (host) {
+        addOriginVariants(origins, host, requestProtocol);
+        addLocalhostAliases(origins, host, requestProtocol);
+
+        const hostnameOnly = host.replace(/:\d+$/, '');
+        const frontendPort = String(process.env.FRONTEND_PORT || '').trim();
+        if (frontendPort && hostnameOnly) {
+            addOriginVariants(origins, `${hostnameOnly}:${frontendPort}`, requestProtocol);
+            addLocalhostAliases(origins, `${hostnameOnly}:${frontendPort}`, requestProtocol);
+        }
+    }
+
+    const siteUrl = String(process.env.SITE_URL || process.env.INDEXNOW_BASE_URL || '').trim();
+    if (siteUrl) {
+        try {
+            const parsed = new URL(siteUrl);
+            origins.add(parsed.origin);
+
+            if (!parsed.hostname.startsWith('www.')) {
+                origins.add(`${parsed.protocol}//www.${parsed.host}`);
+            }
+        } catch {
+            // Ignore invalid deployment config and fall back to request-derived origins.
+        }
+    }
+
+    return origins;
+}
+
+function resolveOrigin(value) {
+    try {
+        return new URL(String(value || '')).origin;
+    } catch {
+        return null;
+    }
+}
+
+function ensureSameOriginRequest(req) {
+    const fetchSite = String(req.get('sec-fetch-site') || '').trim().toLowerCase();
+    if (fetchSite && !['same-origin', 'same-site', 'none'].includes(fetchSite)) {
+        throw createRequestError('Bu istek icin origin dogrulanamadi', 403);
+    }
+
+    const trustedOrigins = getTrustedOrigins(req);
+    const originHeader = String(req.get('origin') || '').trim();
+    if (originHeader) {
+        if (!trustedOrigins.has(originHeader)) {
+            throw createRequestError('Bu istek icin origin dogrulanamadi', 403);
+        }
+
+        return;
+    }
+
+    const refererOrigin = resolveOrigin(req.get('referer'));
+    if (refererOrigin && !trustedOrigins.has(refererOrigin)) {
+        throw createRequestError('Bu istek icin referer dogrulanamadi', 403);
+    }
 }
 
 function getVaultConfigRow(userId) {
@@ -151,18 +258,33 @@ function normalizeOptionalPhotoPayloads(body = {}) {
     };
 }
 
+router.use((req, res, next) => {
+    setVaultResponseHeaders(res);
+    next();
+});
+
+router.use((req, res, next) => {
+    if (!STATE_CHANGING_METHODS.has(req.method)) {
+        next();
+        return;
+    }
+
+    try {
+        ensureSameOriginRequest(req);
+        next();
+    } catch (error) {
+        return res.status(error.statusCode || 403).json({
+            error: error.message || 'Bu istek icin origin dogrulanamadi'
+        });
+    }
+});
+
 router.get('/', authenticateToken, (req, res) => {
     try {
         const vaultRow = getVaultConfigRow(req.user.id);
-        const itemCount = db.prepare(`
-            SELECT COUNT(*) AS count
-            FROM personal_vault_items
-            WHERE user_id = ?
-        `).get(req.user.id);
 
         return res.json({
             configured: Boolean(vaultRow),
-            itemCount: Number(itemCount?.count || 0),
             config: mapVaultConfig(vaultRow)
         });
     } catch (error) {

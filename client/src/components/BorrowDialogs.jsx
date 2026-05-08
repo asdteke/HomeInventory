@@ -5,21 +5,24 @@ import { X } from 'lucide-react';
 const EMPTY_OPTIONS = [];
 
 function DialogShell({ title, subtitle, children, onClose }) {
+    const { t } = useTranslation();
+
     return (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/60 p-4" onClick={onClose}>
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/55 p-4 backdrop-blur-sm" onClick={onClose}>
             <div
-                className="w-full max-w-lg rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-2xl"
+                className="w-full max-w-lg overflow-hidden rounded-[28px] border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] shadow-[var(--hi-shadow)]"
                 onClick={(event) => event.stopPropagation()}
             >
-                <div className="flex items-start justify-between gap-4 px-6 py-5 border-b border-slate-200 dark:border-slate-800">
+                <div className="flex items-start justify-between gap-4 border-b border-[var(--hi-border)] px-6 py-5">
                     <div>
-                        <h2 className="text-xl font-semibold text-slate-900 dark:text-white">{title}</h2>
-                        {subtitle && <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{subtitle}</p>}
+                        <h2 className="text-xl font-semibold text-[var(--hi-text)]">{title}</h2>
+                        {subtitle && <p className="mt-1 text-sm text-[var(--hi-text-soft)]">{subtitle}</p>}
                     </div>
                     <button
                         type="button"
                         onClick={onClose}
-                        className="rounded-xl p-2 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                        aria-label={t('common.close', { defaultValue: 'Kapat' })}
+                        className="rounded-xl p-2 text-[var(--hi-text-soft)] transition-colors hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)]"
                     >
                         <X className="w-5 h-5" />
                     </button>
@@ -82,14 +85,14 @@ export function BorrowItemDialog({ item, members = EMPTY_OPTIONS, currentUserId,
             subtitle={t('inventory.borrow.dialog_lend_subtitle', { item: item.name })}
             onClose={onClose}
         >
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} noValidate className="space-y-4">
                 <div className="grid grid-cols-2 gap-3">
                     <button
                         type="button"
                         onClick={() => setFormData((prev) => ({ ...prev, borrower_type: 'member' }))}
                         className={`rounded-2xl border px-4 py-3 text-sm font-medium transition-colors ${formData.borrower_type === 'member'
-                            ? 'border-primary-500 bg-primary-50 text-primary-700 dark:bg-primary-500/10 dark:text-primary-300'
-                            : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
+                            ? 'border-[var(--hi-border-strong)] bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]'
+                            : 'border-[var(--hi-border)] text-[var(--hi-text-soft)] hover:bg-[var(--hi-panel-muted)]'
                             }`}
                         disabled={selectableMembers.length === 0}
                     >
@@ -99,8 +102,8 @@ export function BorrowItemDialog({ item, members = EMPTY_OPTIONS, currentUserId,
                         type="button"
                         onClick={() => setFormData((prev) => ({ ...prev, borrower_type: 'external' }))}
                         className={`rounded-2xl border px-4 py-3 text-sm font-medium transition-colors ${formData.borrower_type === 'external'
-                            ? 'border-primary-500 bg-primary-50 text-primary-700 dark:bg-primary-500/10 dark:text-primary-300'
-                            : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
+                            ? 'border-[var(--hi-border-strong)] bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]'
+                            : 'border-[var(--hi-border)] text-[var(--hi-text-soft)] hover:bg-[var(--hi-panel-muted)]'
                             }`}
                     >
                         {t('inventory.borrow.external')}
@@ -127,7 +130,7 @@ export function BorrowItemDialog({ item, members = EMPTY_OPTIONS, currentUserId,
                         </select>
                         {selectableMembers.length === 0 && (
                             <p className="mt-2 text-xs text-amber-600 dark:text-amber-400">
-                                {t('inventory.borrow.no_members')}
+                            {t('inventory.borrow.no_members')}
                             </p>
                         )}
                     </div>
@@ -225,9 +228,9 @@ export function ReturnItemDialog({ item, submitting = false, onClose, onSubmit }
             subtitle={t('inventory.borrow.dialog_return_subtitle', { item: item.name })}
             onClose={onClose}
         >
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3">
-                    <p className="text-sm text-slate-600 dark:text-slate-300">
+            <form onSubmit={handleSubmit} noValidate className="space-y-4">
+                <div className="rounded-[20px] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
+                    <p className="text-sm text-[var(--hi-text-soft)]">
                         {t('inventory.borrow.current_borrower_label')} <span className="font-medium text-slate-900 dark:text-white">{item.active_borrow?.borrower_display_name || t('inventory.borrow.unknown')}</span>
                     </p>
                 </div>
@@ -266,6 +269,7 @@ export function BorrowOfferDialog({
     onSubmit
 }) {
     const { t } = useTranslation();
+    const hasSelectableItems = Boolean(item) || items.length > 0;
     const [formData, setFormData] = useState({
         item_id: item?.id ? String(item.id) : '',
         recipient_identifier: '',
@@ -306,7 +310,7 @@ export function BorrowOfferDialog({
                 : t('borrow_requests.dialogs.offer_subtitle_general')}
             onClose={onClose}
         >
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} noValidate className="space-y-4">
                 {!item && (
                     <div>
                         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
@@ -316,7 +320,7 @@ export function BorrowOfferDialog({
                             value={formData.item_id}
                             onChange={(event) => setFormData((prev) => ({ ...prev, item_id: event.target.value }))}
                             className="input-field"
-                            required
+                            required={hasSelectableItems}
                         >
                             <option value="">{t('borrow_requests.dialogs.item_placeholder')}</option>
                             {items.map((entry) => (
@@ -325,6 +329,11 @@ export function BorrowOfferDialog({
                                 </option>
                             ))}
                         </select>
+                        {!hasSelectableItems && (
+                            <div className="mt-3 rounded-[20px] border border-[rgba(184,153,104,0.22)] bg-[var(--hi-secondary-soft)] px-4 py-3 text-sm text-[var(--hi-secondary-strong)]">
+                                {t('borrow_requests.dialogs.no_available_items')}
+                            </div>
+                        )}
                     </div>
                 )}
 
@@ -340,7 +349,7 @@ export function BorrowOfferDialog({
                         placeholder={t('borrow_requests.dialogs.target_placeholder')}
                         required
                     />
-                    <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+                    <p className="mt-2 text-xs text-[var(--hi-text-soft)]">
                         {t('borrow_requests.dialogs.target_help')}
                     </p>
                 </div>
@@ -373,7 +382,7 @@ export function BorrowOfferDialog({
                     <button type="button" onClick={onClose} className="btn-secondary px-5 py-3" disabled={submitting}>
                         {t('common.cancel')}
                     </button>
-                    <button type="submit" className="btn-primary px-5 py-3 disabled:opacity-60" disabled={submitting}>
+                    <button type="submit" className="btn-primary px-5 py-3 disabled:opacity-60" disabled={submitting || !hasSelectableItems}>
                         {submitting ? t('borrow_requests.dialogs.offer_submitting') : t('borrow_requests.actions.send_offer')}
                     </button>
                 </div>
@@ -431,7 +440,7 @@ export function BorrowRequestCreateDialog({
             subtitle={t('borrow_requests.dialogs.request_subtitle')}
             onClose={onClose}
         >
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} noValidate className="space-y-4">
                 <div>
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                         {t('borrow_requests.dialogs.target_label')}
@@ -530,9 +539,9 @@ export function FulfillBorrowRequestDialog({
             subtitle={t('borrow_requests.dialogs.fulfill_subtitle', { item: request.requested_item_label })}
             onClose={onClose}
         >
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3">
-                    <p className="text-sm text-slate-600 dark:text-slate-300">
+            <form onSubmit={handleSubmit} noValidate className="space-y-4">
+                <div className="rounded-[20px] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
+                    <p className="text-sm text-[var(--hi-text-soft)]">
                         {t('borrow_requests.dialogs.fulfill_target', { name: request.counterparty_display_name })}
                     </p>
                 </div>
@@ -601,9 +610,9 @@ export function ReturnBorrowRecordDialog({ borrow = null, submitting = false, on
             subtitle={t('borrow_requests.dialogs.return_subtitle', { item: borrow.item?.name || '' })}
             onClose={onClose}
         >
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3">
-                    <p className="text-sm text-slate-600 dark:text-slate-300">
+            <form onSubmit={handleSubmit} noValidate className="space-y-4">
+                <div className="rounded-[20px] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
+                    <p className="text-sm text-[var(--hi-text-soft)]">
                         {t('borrow_requests.dialogs.return_target', { name: borrow.counterpart_display_name })}
                     </p>
                 </div>

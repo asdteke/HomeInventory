@@ -11,10 +11,6 @@ function deriveBrandName() {
             return 'Inventory';
         }
 
-        if (host === 'envanterim.net.tr') {
-            return 'Envanterim';
-        }
-
         const [label] = host.split('.');
         const normalized = label.replace(/[-_]+/g, ' ').trim();
         if (!normalized) {
@@ -49,5 +45,10 @@ export const BRAND_HOST = (() => {
 })();
 
 export const BRAND_NAME = String(process.env.APP_BRAND_NAME || deriveBrandName()).trim() || deriveBrandName();
+export const DATA_CONTROLLER_NAME = String(process.env.APP_DATA_CONTROLLER_NAME || '').trim();
+export const DATA_CONTROLLER_ADDRESS = String(process.env.APP_DATA_CONTROLLER_ADDRESS || '').trim();
+export const DPO_EMAIL = String(process.env.APP_DPO_EMAIL || '').trim();
+export const PRIVACY_TRANSFER_DISCLOSURE = String(process.env.APP_PRIVACY_TRANSFER_DISCLOSURE || '').trim();
+export const PRIVACY_COMPLAINT_AUTHORITY = String(process.env.APP_PRIVACY_COMPLAINT_AUTHORITY || '').trim();
 export const SUPPORT_EMAIL = String(process.env.SUPPORT_EMAIL || deriveSupportEmail()).trim() || deriveSupportEmail();
 export const DEFAULT_FROM = String(process.env.EMAIL_FROM || `${BRAND_NAME} <${SUPPORT_EMAIL}>`).trim();

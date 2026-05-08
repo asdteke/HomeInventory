@@ -44,8 +44,7 @@ router.post('/test', authenticateToken, requireAdmin, async (req, res) => {
         } else {
             res.status(500).json({
                 success: false,
-                error: result.error,
-                details: result.details
+                error: result.error || 'E-posta gönderilirken bir hata oluştu'
             });
         }
 
@@ -54,8 +53,7 @@ router.post('/test', authenticateToken, requireAdmin, async (req, res) => {
         logError(error, { context: 'email.test', body: req.body });
         res.status(500).json({
             success: false,
-            error: 'E-posta gönderilirken bir hata oluştu',
-            details: error.message
+            error: 'E-posta gönderilirken bir hata oluştu'
         });
     }
 });

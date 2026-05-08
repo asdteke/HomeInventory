@@ -1,8 +1,8 @@
 import express from 'express';
 import rateLimit from 'express-rate-limit';
 import validator from 'validator';
-import { getAdminEmailCopy, sendEmail } from '../utils/emailService.js';
-import { BRAND_NAME } from '../utils/branding.js';
+import { buildAdminEmailHtml, getAdminEmailCopy, sendEmail } from '../utils/emailService.js';
+import { DEFAULT_FROM } from '../utils/branding.js';
 import { authenticateToken, requireAdmin } from '../middleware/auth.js';
 import { logError } from '../utils/logger.js';
 
@@ -87,36 +87,7 @@ router.post('/send', authenticateToken, requireAdmin, emailRateLimiter, async (r
         const emailCopy = getAdminEmailCopy();
 
         // E-posta gönder
-        const html = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <style>
-                body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f5f5f5; }
-                .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-                .header { background: linear-gradient(135deg, #6366f1, #8b5cf6); padding: 30px; text-align: center; }
-                .header h1 { color: white; margin: 0; font-size: 24px; }
-                .content { padding: 30px; line-height: 1.6; }
-                .footer { background: #f9fafb; padding: 20px; text-align: center; color: #6b7280; font-size: 12px; }
-            </style>
-        </head>
-        <body>
-                <div class="container">
-                <div class="header">
-                    <h1>🏠 ${BRAND_NAME}</h1>
-                </div>
-                <div class="content">
-                    ${cleanMessage}
-                </div>
-                <div class="footer">
-                    <p>${emailCopy.sentBy}</p>
-                    <p>${emailCopy.footer}</p>
-                </div>
-            </div>
-        </body>
-        </html>
-        `;
+        const html = buildAdminEmailHtml(cleanMessage, emailCopy);
 
         const result = await sendEmail({
             to: cleanTo,

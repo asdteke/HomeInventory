@@ -82,10 +82,12 @@ async function getFreePort() {
     });
 }
 
-async function waitForServer(port, child) {
+async function waitForServer(port, child, serverLogs = []) {
     for (let attempt = 0; attempt < 100; attempt += 1) {
         if (child.exitCode !== null) {
-            throw new Error(`Server exited before becoming healthy (code ${child.exitCode}).`);
+            const logs = serverLogs.join('').trim();
+            const details = logs ? `\n\nServer output:\n${logs}` : '';
+            throw new Error(`Server exited before becoming healthy (code ${child.exitCode}).${details}`);
         }
 
         try {
@@ -120,8 +122,8 @@ async function stopServer(child) {
     ]);
 }
 
-async function requestJson(port, path, { method = 'GET', body } = {}, jar = null) {
-    const headers = {};
+async function requestJson(port, path, { method = 'GET', body, headers: extraHeaders = {} } = {}, jar = null) {
+    const headers = { ...extraHeaders };
 
     if (body !== undefined) {
         headers['content-type'] = 'application/json';
@@ -150,7 +152,8 @@ async function requestJson(port, path, { method = 'GET', body } = {}, jar = null
 
     return {
         status: response.status,
-        data
+        data,
+        headers: response.headers
     };
 }
 
@@ -174,6 +177,7 @@ test('2FA, trusted-device cookies, logout, and personal vault flows are enforced
         env: {
             ...process.env,
             NODE_ENV: 'test',
+            HOST: '127.0.0.1',
             PORT: String(port),
             SITE_URL: `http://127.0.0.1:${port}`,
             SECRET_PROVIDER: 'env',
@@ -181,6 +185,8 @@ test('2FA, trusted-device cookies, logout, and personal vault flows are enforced
             APP_ENCRYPTION_KEY: '0123456789abcdef0123456789abcdef',
             APP_ENCRYPTION_KEY_ID: 'integration-key',
             HOMEINVENTORY_DB_PATH: dbPath,
+            GOOGLE_CLIENT_ID: 'google-client-id-test',
+            GOOGLE_CLIENT_SECRET: 'google-client-secret-test',
             RESEND_API_KEY: '',
             SUPPORT_EMAIL: 'support@example.com'
         },
@@ -195,7 +201,7 @@ test('2FA, trusted-device cookies, logout, and personal vault flows are enforced
         rmSync(tempDir, { recursive: true, force: true });
     });
 
-    await waitForServer(port, child);
+    await waitForServer(port, child, serverLogs);
     const directDb = new Database(dbPath);
     t.after(() => {
         directDb.close();
@@ -310,7 +316,7 @@ test('2FA, trusted-device cookies, logout, and personal vault flows are enforced
     const vaultStatusBeforeSetup = await requestJson(port, '/api/vault', {}, rememberJar);
     assert.equal(vaultStatusBeforeSetup.status, 200);
     assert.equal(vaultStatusBeforeSetup.data.configured, false);
-    assert.equal(vaultStatusBeforeSetup.data.itemCount, 0);
+    assert.equal(vaultStatusBeforeSetup.headers.get('cache-control'), 'private, no-store, max-age=0');
 
     const vaultPassphrase = 'VaultPassphraseA1';
     const vaultSetupMaterial = await createPersonalVaultSetup(vaultPassphrase);
@@ -343,6 +349,19 @@ test('2FA, trusted-device cookies, logout, and personal vault flows are enforced
     const firstPhotoPreviewBytes = Uint8Array.from([82, 73, 70, 70, 9, 8, 7, 6]);
     const firstPhotoEnvelope = await encryptPersonalVaultBytes(vaultSetupMaterial.vaultKey, firstPhotoBytes);
     const firstPhotoPreviewEnvelope = await encryptPersonalVaultBytes(vaultSetupMaterial.vaultKey, firstPhotoPreviewBytes);
+
+    const rejectedCrossOriginCreate = await requestJson(port, '/api/vault/items', {
+        method: 'POST',
+        headers: {
+            Origin: 'https://evil.example'
+        },
+        body: {
+            encrypted_payload: firstEnvelope,
+            encrypted_photo_payload: firstPhotoEnvelope,
+            encrypted_photo_preview_payload: firstPhotoPreviewEnvelope
+        }
+    }, rememberJar);
+    assert.equal(rejectedCrossOriginCreate.status, 403);
 
     const createVaultItem = await requestJson(port, '/api/vault/items', {
         method: 'POST',

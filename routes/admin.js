@@ -5,8 +5,8 @@ import os from 'os';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import { getAdminEmailCopy, sendEmail } from '../utils/emailService.js';
-import { BRAND_NAME } from '../utils/branding.js';
+import { buildAdminEmailHtml, getAdminEmailCopy, sendEmail } from '../utils/emailService.js';
+import { DEFAULT_FROM } from '../utils/branding.js';
 import { authenticateToken, requireAdmin } from '../middleware/auth.js';
 import { logError } from '../utils/logger.js';
 import { buildDefaultIndexNowUrls, getIndexNowConfig, submitIndexNowUrls } from '../utils/indexNow.js';
@@ -19,6 +19,15 @@ const MAX_ADMIN_EMAIL_MESSAGE_LENGTH = 10000;
 
 const router = express.Router();
 
+function maskEmailForLogs(email) {
+    if (!email) return '';
+    const [local, domain] = String(email).split('@');
+    if (!domain) return String(email);
+    const domainParts = domain.split('.');
+    const tld = domainParts.length > 1 ? `.${domainParts.slice(1).join('.')}` : '';
+    return `${local.charAt(0)}•••@•••${tld}`;
+}
+
 // Rate limiter: Dakikada maksimum 3 e-posta
 const emailRateLimiter = rateLimit({
     windowMs: 60 * 1000,
@@ -29,17 +38,6 @@ const emailRateLimiter = rateLimit({
     validate: false,
     keyGenerator: (req) => String(req.user?.id || 'anonymous')
 });
-
-// KVKK uyumlu e-posta maskeleme
-function maskEmail(email) {
-    if (!email) return '';
-    const [local, domain] = email.split('@');
-    if (!domain) return email;
-    const maskedLocal = local.length > 2
-        ? local.charAt(0) + '*'.repeat(Math.min(local.length - 2, 5)) + local.slice(-1)
-        : local;
-    return `${maskedLocal}@${domain}`;
-}
 
 // XSS temizleme
 function sanitizeInput(input) {
@@ -63,13 +61,66 @@ function renderSafeEmailMessageHtml(message) {
 // Log kaydet
 function saveAdminLog(type, action, details, adminId, targetId = null) {
     try {
+        const serializedDetails = typeof details === 'string' ? details : JSON.stringify(details || {});
         db.prepare(`
             INSERT INTO admin_logs (type, action, details, admin_id, target_id)
             VALUES (?, ?, ?, ?, ?)
-        `).run(type, action, details, adminId, targetId);
+        `).run(type, action, serializedDetails, adminId, targetId);
     } catch (e) {
         console.error('[Admin Log] Kayıt hatası:', e.message);
     }
+}
+
+function getUploadsSizeMb() {
+    let uploadsSize = 0;
+    const uploadsDir = join(__dirname, '..', 'uploads');
+
+    if (!fs.existsSync(uploadsDir)) {
+        return 0;
+    }
+
+    const files = fs.readdirSync(uploadsDir);
+    files.forEach((file) => {
+        const stat = fs.statSync(join(uploadsDir, file));
+        if (stat.isFile()) {
+            uploadsSize += stat.size;
+        }
+    });
+
+    return Math.round((uploadsSize / 1024 / 1024) * 100) / 100;
+}
+
+function readRecentErrorLogs({ maxFiles = 3, maxLinesPerFile = 10, maxEntries = 10 } = {}) {
+    let errorLogs = [];
+    const logsDir = join(__dirname, '..', 'logs');
+
+    if (!fs.existsSync(logsDir)) {
+        return errorLogs;
+    }
+
+    const logFiles = fs.readdirSync(logsDir).filter((file) => file.endsWith('.log')).slice(-maxFiles);
+    logFiles.forEach((file) => {
+        try {
+            const content = fs.readFileSync(join(logsDir, file), 'utf8');
+            const lines = content.split('\n').filter((line) => line.trim()).slice(-maxLinesPerFile);
+            lines.forEach((line) => {
+                try {
+                    const parsed = JSON.parse(line);
+                    errorLogs.push({
+                        timestamp: parsed.timestamp,
+                        error: parsed.message || parsed.error,
+                        file
+                    });
+                } catch {
+                    // ignore malformed lines
+                }
+            });
+        } catch {
+            // ignore unreadable files
+        }
+    });
+
+    return errorLogs.slice(-maxEntries).reverse();
 }
 
 // ============================================
@@ -77,46 +128,89 @@ function saveAdminLog(type, action, details, adminId, targetId = null) {
 // ============================================
 router.get('/stats', authenticateToken, requireAdmin, (req, res) => {
     try {
-        const userCount = db.prepare('SELECT COUNT(*) as count FROM users').get().count;
-        const itemCount = db.prepare('SELECT COUNT(*) as count FROM items').get().count;
-        const roomCount = db.prepare('SELECT COUNT(*) as count FROM rooms').get().count;
-        const categoryCount = db.prepare('SELECT COUNT(*) as count FROM categories').get().count;
-        const bannedCount = db.prepare('SELECT COUNT(*) as count FROM users WHERE is_banned = 1').get().count;
+        const users = {
+            total: db.prepare('SELECT COUNT(*) as count FROM users').get().count,
+            admins: db.prepare("SELECT COUNT(*) as count FROM users WHERE role = 'admin'").get().count,
+            banned: db.prepare('SELECT COUNT(*) as count FROM users WHERE is_banned = 1').get().count,
+            locked: db.prepare(`
+                SELECT COUNT(*) as count
+                FROM users
+                WHERE login_locked_until IS NOT NULL
+                  AND login_locked_until > CURRENT_TIMESTAMP
+            `).get().count,
+            new_today: db.prepare(`
+                SELECT COUNT(*) as count
+                FROM users
+                WHERE created_at >= datetime('now', '-1 day')
+            `).get().count,
+            new_week: db.prepare(`
+                SELECT COUNT(*) as count
+                FROM users
+                WHERE created_at >= datetime('now', '-7 day')
+            `).get().count
+        };
 
-        // Son 24 saatteki yeni kullanıcılar
-        const newUsersToday = db.prepare(`
-            SELECT COUNT(*) as count FROM users 
-            WHERE created_at >= datetime('now', '-1 day')
-        `).get().count;
+        const households = {
+            total: db.prepare('SELECT COUNT(DISTINCT house_key) as count FROM user_houses').get().count,
+            memberships: db.prepare('SELECT COUNT(*) as count FROM user_houses').get().count,
+            pending_requests: db.prepare(`
+                SELECT COUNT(*) as count
+                FROM house_join_requests
+                WHERE status = 'pending'
+            `).get().count
+        };
 
-        // Sunucu bilgileri
+        const inventory = {
+            items: db.prepare('SELECT COUNT(*) as count FROM items').get().count,
+            public_items: db.prepare('SELECT COUNT(*) as count FROM items WHERE is_public = 1').get().count,
+            private_items: db.prepare('SELECT COUNT(*) as count FROM items WHERE is_public = 0').get().count,
+            active_borrows: db.prepare(`
+                SELECT COUNT(*) as count
+                FROM item_borrows
+                WHERE returned_at IS NULL
+            `).get().count,
+            rooms: db.prepare('SELECT COUNT(*) as count FROM rooms').get().count,
+            categories: db.prepare('SELECT COUNT(*) as count FROM categories').get().count,
+            locations: db.prepare('SELECT COUNT(*) as count FROM locations').get().count
+        };
+
         const totalMem = os.totalmem();
         const freeMem = os.freemem();
         const usedMemPercent = Math.round(((totalMem - freeMem) / totalMem) * 100);
-        const uptime = Math.floor(os.uptime() / 3600); // Saat
-
-        // Disk kullanımı (uploads klasörü)
-        let uploadsSize = 0;
-        const uploadsDir = join(__dirname, '..', 'uploads');
-        if (fs.existsSync(uploadsDir)) {
-            const files = fs.readdirSync(uploadsDir);
-            files.forEach(file => {
-                const stat = fs.statSync(join(uploadsDir, file));
-                if (stat.isFile()) uploadsSize += stat.size;
-            });
-        }
+        const uptime = Math.floor(os.uptime() / 3600);
+        const errorLogs = readRecentErrorLogs();
+        const recentActivity = db.prepare(`
+            SELECT id, type, action, details, admin_id, target_id, created_at
+            FROM admin_logs
+            ORDER BY created_at DESC
+            LIMIT 6
+        `).all();
+        const recentUsers = db.prepare(`
+            SELECT id, username, role, is_banned, created_at, last_login
+            FROM users
+            ORDER BY created_at DESC
+            LIMIT 6
+        `).all().map(decryptUserRecord).map((user) => ({
+            ...user,
+            is_banned: Boolean(user.is_banned)
+        }));
 
         res.json({
             success: true,
             stats: {
-                users: { total: userCount, new_today: newUsersToday, banned: bannedCount },
-                inventory: { items: itemCount, rooms: roomCount, categories: categoryCount },
+                users,
+                households,
+                inventory,
                 server: {
                     memory_percent: usedMemPercent,
                     uptime_hours: uptime,
-                    uploads_mb: Math.round(uploadsSize / 1024 / 1024 * 100) / 100,
-                    node_version: process.version
-                }
+                    uploads_mb: getUploadsSizeMb(),
+                    node_version: process.version,
+                    email_configured: Boolean(process.env.RESEND_API_KEY),
+                    error_log_count: errorLogs.length
+                },
+                recent_activity: recentActivity,
+                recent_users: recentUsers
             }
         });
     } catch (error) {
@@ -131,18 +225,43 @@ router.get('/stats', authenticateToken, requireAdmin, (req, res) => {
 router.get('/users', authenticateToken, requireAdmin, (req, res) => {
     try {
         const users = db.prepare(`
-            SELECT id, username, email, role, is_banned, failed_login_count, last_login, created_at
-            FROM users ORDER BY created_at DESC
+            SELECT
+                users.id,
+                users.username,
+                users.role,
+                users.is_banned,
+                users.failed_login_count,
+                users.last_login,
+                users.created_at,
+                (
+                    SELECT COUNT(*)
+                    FROM user_houses
+                    WHERE user_houses.user_id = users.id
+                ) AS house_count,
+                (
+                    SELECT COUNT(*)
+                    FROM items
+                    WHERE items.user_id = users.id
+                ) AS owned_item_count,
+                (
+                    SELECT COUNT(*)
+                    FROM house_join_requests
+                    WHERE house_join_requests.requester_user_id = users.id
+                      AND house_join_requests.status = 'pending'
+                ) AS pending_house_requests
+            FROM users
+            ORDER BY created_at DESC
         `).all().map(decryptUserRecord);
 
-        // KVKK uyumlu - e-postaları maskele
-        const maskedUsers = users.map(u => ({
+        const minimizedUsers = users.map(u => ({
             ...u,
-            email: maskEmail(u.email),
-            is_banned: !!u.is_banned
+            is_banned: !!u.is_banned,
+            house_count: Number(u.house_count || 0),
+            owned_item_count: Number(u.owned_item_count || 0),
+            pending_house_requests: Number(u.pending_house_requests || 0)
         }));
 
-        res.json({ success: true, users: maskedUsers });
+        res.json({ success: true, users: minimizedUsers });
     } catch (error) {
         console.error('[Admin Users] Hata:', error);
         res.status(500).json({ success: false, error: 'Kullanıcılar alınamadı' });
@@ -151,7 +270,10 @@ router.get('/users', authenticateToken, requireAdmin, (req, res) => {
 
 router.post('/users/:id/ban', authenticateToken, requireAdmin, (req, res) => {
     try {
-        const userId = parseInt(req.params.id);
+        const userId = Number.parseInt(req.params.id, 10);
+        if (!Number.isInteger(userId) || userId <= 0) {
+            return res.status(400).json({ success: false, error: 'Geçersiz kullanıcı kimliği' });
+        }
         const { ban } = req.body; // true = ban, false = unban
 
         // Admin kendini banlayamaz
@@ -173,7 +295,10 @@ router.post('/users/:id/ban', authenticateToken, requireAdmin, (req, res) => {
 
         db.prepare('UPDATE users SET is_banned = ? WHERE id = ?').run(ban ? 1 : 0, userId);
 
-        saveAdminLog('user', ban ? 'ban' : 'unban', `Kullanıcı: ${username}`, req.user.id, userId);
+        saveAdminLog('user', ban ? 'ban' : 'unban', {
+            kind: 'user_target',
+            username
+        }, req.user.id, userId);
 
         res.json({
             success: true,
@@ -187,8 +312,17 @@ router.post('/users/:id/ban', authenticateToken, requireAdmin, (req, res) => {
 
 router.post('/users/:id/reset-failed-logins', authenticateToken, requireAdmin, (req, res) => {
     try {
-        const userId = parseInt(req.params.id);
-        db.prepare('UPDATE users SET failed_login_count = 0 WHERE id = ?').run(userId);
+        const userId = Number.parseInt(req.params.id, 10);
+        if (!Number.isInteger(userId) || userId <= 0) {
+            return res.status(400).json({ success: false, error: 'Geçersiz kullanıcı kimliği' });
+        }
+        db.prepare(`
+            UPDATE users
+            SET failed_login_count = 0,
+                login_failed_at = NULL,
+                login_locked_until = NULL
+            WHERE id = ?
+        `).run(userId);
         res.json({ success: true, message: 'Başarısız giriş sayacı sıfırlandı' });
     } catch (error) {
         res.status(500).json({ success: false, error: 'İşlem başarısız' });
@@ -200,7 +334,10 @@ router.post('/users/:id/reset-failed-logins', authenticateToken, requireAdmin, (
 // ============================================
 router.delete('/users/:id', authenticateToken, requireAdmin, (req, res) => {
     try {
-        const userId = parseInt(req.params.id);
+        const userId = Number.parseInt(req.params.id, 10);
+        if (!Number.isInteger(userId) || userId <= 0) {
+            return res.status(400).json({ success: false, error: 'Geçersiz kullanıcı kimliği' });
+        }
 
         // Admin kendini silemez
         if (userId === req.user.id) {
@@ -286,8 +423,12 @@ router.delete('/users/:id', authenticateToken, requireAdmin, (req, res) => {
         deleteTransaction();
 
         // Admin log kaydı
-        const logDetails = `Kullanıcı silindi: ${user.username} | Silinen evler: ${deletedHouses} | Devredilen sahiplikler: ${transferredOwnership}`;
-        saveAdminLog('user', 'delete', logDetails, req.user.id, userId);
+        saveAdminLog('user', 'delete', {
+            kind: 'user_deleted',
+            username: user.username,
+            deletedHouses,
+            transferredOwnerships: transferredOwnership
+        }, req.user.id, userId);
 
         res.json({
             success: true,
@@ -316,30 +457,7 @@ router.get('/logs', authenticateToken, requireAdmin, (req, res) => {
             FROM admin_logs ORDER BY created_at DESC LIMIT 20
         `).all();
 
-        // Sistem hata loglarını dosyadan oku
-        let errorLogs = [];
-        const logsDir = join(__dirname, '..', 'logs');
-        if (fs.existsSync(logsDir)) {
-            const logFiles = fs.readdirSync(logsDir).filter(f => f.endsWith('.log')).slice(-3);
-            logFiles.forEach(file => {
-                try {
-                    const content = fs.readFileSync(join(logsDir, file), 'utf8');
-                    const lines = content.split('\n').filter(l => l.trim()).slice(-10);
-                    lines.forEach(line => {
-                        try {
-                            const parsed = JSON.parse(line);
-                            errorLogs.push({
-                                timestamp: parsed.timestamp,
-                                error: parsed.message || parsed.error,
-                                file: file
-                            });
-                        } catch (e) { /* JSON parse hatası */ }
-                    });
-                } catch (e) { /* Dosya okuma hatası */ }
-            });
-        }
-
-        errorLogs = errorLogs.slice(-10).reverse();
+        const errorLogs = readRecentErrorLogs();
 
         res.json({
             success: true,
@@ -389,32 +507,15 @@ router.post('/email/send', authenticateToken, requireAdmin, emailRateLimiter, as
 
         const emailCopy = getAdminEmailCopy();
 
-        const html = `
-        <!DOCTYPE html>
-        <html><head><meta charset="UTF-8">
-        <style>
-            body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background: #f5f5f5; }
-            .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-            .header { background: linear-gradient(135deg, #6366f1, #8b5cf6); padding: 30px; text-align: center; }
-            .header h1 { color: white; margin: 0; font-size: 24px; }
-            .content { padding: 30px; line-height: 1.6; }
-            .footer { background: #f9fafb; padding: 20px; text-align: center; color: #6b7280; font-size: 12px; }
-        </style>
-        </head><body>
-            <div class="container">
-                <div class="header"><h1>🏠 ${BRAND_NAME}</h1></div>
-                <div class="content">${cleanMessage}</div>
-                <div class="footer">
-                    <p>${emailCopy.sentBy}</p>
-                    <p>${emailCopy.footer}</p>
-                </div>
-            </div>
-        </body></html>
-        `;
+        const html = buildAdminEmailHtml(cleanMessage, emailCopy);
 
         const result = await sendEmail({ to: cleanTo, subject: cleanSubject, html });
 
-        saveAdminLog('email', 'send', `Alıcı: ${maskEmail(cleanTo)}, Konu: ${cleanSubject.substring(0, 50)}`, req.user.id);
+        saveAdminLog('email', 'send', {
+            kind: 'email_sent',
+            recipient: maskEmailForLogs(cleanTo),
+            subject: cleanSubject.substring(0, 50)
+        }, req.user.id);
 
         if (result.success) {
             res.json({ success: true, message: `E-posta gönderildi: ${cleanTo}`, emailId: result.data?.id });
@@ -449,12 +550,10 @@ router.post('/indexnow/submit', authenticateToken, requireAdmin, async (req, res
 
         const result = await submitIndexNowUrls(urls);
 
-        saveAdminLog(
-            'seo',
-            'indexnow_submit',
-            `IndexNow submission successful. URL count: ${result.submitted}`,
-            req.user.id
-        );
+        saveAdminLog('seo', 'indexnow_submit', {
+            kind: 'indexnow_submit',
+            count: result.submitted
+        }, req.user.id);
 
         return res.json({
             success: true,

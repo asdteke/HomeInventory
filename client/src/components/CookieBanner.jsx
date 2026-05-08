@@ -1,13 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Info, X } from 'lucide-react';
-import { resolveBrandLegalLanguage } from './LegalLanguageToggle';
+import { resolveVerifiedLegalTranslationLanguage } from '../utils/legalTranslations';
+
+const COOKIE_NOTICE_KEYS = [
+    'cookies.banner_text',
+    'cookies.accept',
+    'cookies.learn_more'
+];
 
 export default function CookieBanner() {
     const { i18n } = useTranslation();
+    const location = useLocation();
     const [isVisible, setIsVisible] = useState(false);
-    const legalLanguage = resolveBrandLegalLanguage(i18n);
+    const legalLanguage = resolveVerifiedLegalTranslationLanguage(i18n, COOKIE_NOTICE_KEYS);
     const legalT = i18n.getFixedT(legalLanguage);
 
     useEffect(() => {
@@ -23,37 +30,39 @@ export default function CookieBanner() {
         setIsVisible(false);
     };
 
-    if (!isVisible) return null;
+    if (!isVisible || location.pathname === '/legal-consent') return null;
 
     return (
         <div className="fixed bottom-0 left-0 right-0 z-[100] p-4 animate-slide-up pointer-events-none">
-            <div className="max-w-4xl mx-auto bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 p-4 sm:p-5 flex flex-col sm:flex-row items-center gap-4 pointer-events-auto relative">
-                <div className="hidden sm:flex flex-shrink-0 bg-blue-50 dark:bg-blue-900/30 p-2 rounded-xl">
-                    <Info className="w-6 h-6 text-blue-500" />
+            <div className="pointer-events-auto relative mx-auto flex max-w-6xl flex-col gap-4 rounded-[28px] border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-4 shadow-[var(--hi-shadow)] sm:flex-row sm:items-center sm:gap-5 sm:p-5">
+                <div className="hidden h-16 w-16 flex-shrink-0 items-center justify-center rounded-[20px] border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] sm:flex">
+                    <Info className="h-7 w-7 text-[var(--hi-accent)]" />
                 </div>
-                
-                <div className="flex-1 text-sm text-center sm:text-left text-slate-700 dark:text-slate-300 pr-4 sm:pr-0">
-                    <span className="sm:hidden inline-block mr-2">📌</span>
+
+                <div className="min-w-0 flex-1 pr-10 text-center text-sm leading-relaxed text-[var(--hi-text-soft)] sm:pr-0 sm:text-left">
+                    <span className="mr-2 inline-block align-middle sm:hidden">
+                        <Info className="inline h-4 w-4 text-[var(--hi-accent)]" />
+                    </span>
                     {legalT('cookies.banner_text')}
                 </div>
-                
-                <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto shrink-0 mt-2 sm:mt-0">
-                    <Link 
-                        to="/privacy-policy" 
+
+                <div className="flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center sm:justify-end">
+                    <Link
+                        to="/privacy-policy"
                         target="_blank"
-                        className="text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 font-medium px-2"
+                        className="inline-flex items-center justify-center rounded-2xl px-3 py-2 text-sm font-medium text-[var(--hi-text-soft)] transition hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)]"
                     >
                         {legalT('cookies.learn_more')}
                     </Link>
-                    <button 
+                    <button
                         onClick={handleAccept}
-                        className="btn-primary py-2 px-6 w-full sm:w-auto"
+                        className="btn-primary min-w-[160px] py-2.5"
                     >
                         {legalT('cookies.accept')}
                     </button>
-                    <button 
+                    <button
                         onClick={handleAccept}
-                        className="sm:hidden p-2 text-slate-400 hover:text-slate-600 rounded-lg absolute top-2 right-2"
+                        className="absolute right-3 top-3 rounded-xl p-2 text-[var(--hi-text-soft)] transition hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)] sm:hidden"
                     >
                         <X className="w-5 h-5" />
                     </button>

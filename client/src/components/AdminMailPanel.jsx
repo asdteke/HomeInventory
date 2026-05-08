@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import { Mail, Send, AlertCircle, CheckCircle, Loader2, Shield } from 'lucide-react';
 import { SUPPORT_EMAIL } from '../constants/branding';
 
 const AdminMailPanel = () => {
     const { isAdmin, user } = useAuth();
+    const { t } = useTranslation();
     const [formData, setFormData] = useState({
         to: '',
         subject: '',
@@ -37,7 +39,10 @@ const AdminMailPanel = () => {
             if (response.data.success) {
                 setStatus({
                     type: 'success',
-                    message: `✅ E-posta başarıyla gönderildi! ID: ${response.data.emailId || 'N/A'}`
+                    message: t('admin.email.send_success_with_id', {
+                        emailId: response.data.emailId || 'N/A',
+                        defaultValue: '✅ Email sent successfully! ID: {{emailId}}'
+                    })
                 });
                 setFormData({ to: '', subject: '', message: '' });
                 setRemainingEmails(prev => Math.max(0, prev - 1));
@@ -46,7 +51,7 @@ const AdminMailPanel = () => {
                 setTimeout(() => setRemainingEmails(3), 60000);
             }
         } catch (error) {
-            const errorMsg = error.response?.data?.error || 'E-posta gönderilemedi';
+            const errorMsg = error.response?.data?.error || t('admin.email.send_error', { defaultValue: 'Email could not be sent' });
             setStatus({
                 type: 'error',
                 message: errorMsg
@@ -71,10 +76,12 @@ const AdminMailPanel = () => {
                 </div>
                 <div>
                     <h1 className="text-2xl font-bold text-slate-800 dark:text-white">
-                        Admin E-posta Paneli
+                        {t('admin.email.title', { defaultValue: 'Send Email' })}
                     </h1>
                     <p className="text-slate-500 dark:text-slate-400 text-sm">
-                        {SUPPORT_EMAIL} adresinden e-posta gönderin
+                        {t('admin.email.compose_body', {
+                            defaultValue: 'Compose a single outbound email with safe HTML formatting and platform branding.'
+                        })}
                     </p>
                 </div>
             </div>
@@ -83,10 +90,15 @@ const AdminMailPanel = () => {
             <div className="bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-800 rounded-xl p-4 flex items-start gap-3">
                 <Shield className="w-5 h-5 text-indigo-600 dark:text-indigo-400 flex-shrink-0 mt-0.5" />
                 <div className="text-sm">
-                    <p className="font-medium text-indigo-800 dark:text-indigo-300">Güvenli Gönderim</p>
+                    <p className="font-medium text-indigo-800 dark:text-indigo-300">
+                        {t('admin.email.security_title', { defaultValue: 'Secure sending' })}
+                    </p>
                     <p className="text-indigo-600 dark:text-indigo-400 mt-1">
-                        Admin: <strong>{user?.username}</strong> •
-                        Limit: <strong>{remainingEmails}/3</strong> e-posta/dakika
+                        {t('admin.email.security_body', {
+                            username: user?.username || 'Admin',
+                            remaining: remainingEmails,
+                            defaultValue: 'Admin: {{username}} • Limit: {{remaining}}/3 emails per minute'
+                        })}
                     </p>
                 </div>
             </div>
@@ -117,7 +129,7 @@ const AdminMailPanel = () => {
                     {/* To Field */}
                     <div>
                         <label htmlFor="to" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                            Alıcı E-posta Adresi *
+                            {t('admin.email.to', { defaultValue: 'Recipient (To)' })} *
                         </label>
                         <input
                             type="email"
@@ -125,7 +137,7 @@ const AdminMailPanel = () => {
                             name="to"
                             value={formData.to}
                             onChange={handleChange}
-                            placeholder="ornek@email.com"
+                            placeholder={t('admin.email.placeholder_to', { defaultValue: 'name@example.com' })}
                             required
                             className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                         />
@@ -134,7 +146,7 @@ const AdminMailPanel = () => {
                     {/* Subject Field */}
                     <div>
                         <label htmlFor="subject" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                            Konu *
+                            {t('admin.email.subject', { defaultValue: 'Subject' })} *
                         </label>
                         <input
                             type="text"
@@ -142,7 +154,7 @@ const AdminMailPanel = () => {
                             name="subject"
                             value={formData.subject}
                             onChange={handleChange}
-                            placeholder="E-posta konusu"
+                            placeholder={t('admin.email.placeholder_subject', { defaultValue: 'Message subject' })}
                             maxLength={200}
                             required
                             className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
@@ -153,20 +165,22 @@ const AdminMailPanel = () => {
                     {/* Message Field */}
                     <div>
                         <label htmlFor="message" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                            Mesaj *
+                            {t('admin.email.message', { defaultValue: 'Message' })} *
                         </label>
                         <textarea
                             id="message"
                             name="message"
                             value={formData.message}
                             onChange={handleChange}
-                            placeholder="E-posta içeriğini buraya yazın..."
+                            placeholder={t('admin.email.placeholder_message', { defaultValue: 'Write your message here...' })}
                             rows={8}
                             required
                             className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none"
                         />
                         <p className="text-xs text-slate-400 mt-1">
-                            HTML desteklenir. Örn: &lt;b&gt;kalın&lt;/b&gt;, &lt;i&gt;italik&lt;/i&gt;, &lt;a href="..."&gt;link&lt;/a&gt;
+                            {t('admin.email.format_hint', {
+                                defaultValue: 'HTML is supported. For example: <b>bold</b>, <i>italic</i>, <a href="...">link</a>'
+                            })}
                         </p>
                     </div>
                 </div>
@@ -181,19 +195,19 @@ const AdminMailPanel = () => {
                         {loading ? (
                             <>
                                 <Loader2 className="w-5 h-5 animate-spin" />
-                                Gönderiliyor...
+                                {t('admin.email.sending', { defaultValue: 'Sending...' })}
                             </>
                         ) : (
                             <>
                                 <Send className="w-5 h-5" />
-                                E-posta Gönder
+                                {t('admin.email.send', { defaultValue: 'Send' })}
                             </>
                         )}
                     </button>
 
                     {remainingEmails === 0 && (
                         <p className="text-sm text-amber-600 dark:text-amber-400 mt-3">
-                            ⏳ Rate limit aşıldı. 1 dakika bekleyin.
+                            {t('admin.email.rate_limit_reached', { defaultValue: '⏳ Rate limit reached. Please wait 1 minute.' })}
                         </p>
                     )}
                 </div>
@@ -201,11 +215,13 @@ const AdminMailPanel = () => {
 
             {/* Info Card */}
             <div className="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-4 text-sm text-slate-600 dark:text-slate-400">
-                <p className="font-medium text-slate-700 dark:text-slate-300 mb-2">📋 Bilgilendirme</p>
+                <p className="font-medium text-slate-700 dark:text-slate-300 mb-2">
+                    {t('admin.email.info_title', { defaultValue: 'Information' })}
+                </p>
                 <ul className="space-y-1 list-disc list-inside">
-                    <li>E-postalar <strong>{SUPPORT_EMAIL}</strong> adresinden gönderilir</li>
-                    <li>Spam önleme için dakikada maksimum 3 e-posta gönderilebilir</li>
-                    <li>Tüm gönderimler güvenlik için loglanır (içerik hariç)</li>
+                    <li>{t('admin.email.info_bullet_1', { supportEmail: SUPPORT_EMAIL, defaultValue: 'Emails are sent from {{supportEmail}}' })}</li>
+                    <li>{t('admin.email.info_bullet_2', { defaultValue: 'You can send at most 3 emails per minute to prevent spam' })}</li>
+                    <li>{t('admin.email.info_bullet_3', { defaultValue: 'All sends are logged for security, excluding content' })}</li>
                 </ul>
             </div>
         </div>

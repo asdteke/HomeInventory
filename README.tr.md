@@ -1,372 +1,217 @@
 <p align="center">
-  <img src="client/public/brand/logo-full-dark.png" alt="HomeInventory Logo" width="280" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="client/public/brand/logo-full-dark.svg" />
+    <img src="client/public/brand/logo-full-light.svg" alt="HomeInventory Logo" width="420" />
+  </picture>
 </p>
 
 <h1 align="center">HomeInventory</h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Security-AES--256--GCM-blue?style=for-the-badge&logo=security" alt="Security" />
-  <img src="https://img.shields.io/badge/Docker-Supported-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
-  <img src="https://img.shields.io/badge/PWA-Ready-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white" alt="PWA" />
-  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License" />
+  <strong>Paylaşımlı evler için özel, self-host edilebilir ev envanteri.</strong><br/>
+  Eşyaları, garantileri, belgeleri, ödünç kayıtlarını ve hassas kişisel notları sakin bir React uygulamasında yönetin.
 </p>
 
 <p align="center">
-  <a href="https://envanterim.net.tr">envanterim.net.tr</a>'nin açık kaynak projesidir.<br/>
-  100+ dil destekli arayüz ve hassas veriler için alan bazlı şifreleme sunan açık kaynak ev envanter sistemi.
+  <a href="README.md">English</a> ·
+  <a href="README.tr.md">Türkçe</a> ·
+  <a href="README.de.md">Deutsch</a> ·
+  <a href="README.es.md">Español</a> ·
+  <a href="README.ar.md">العربية</a>
 </p>
 
 <p align="center">
-  <a href="#özellikler">Özellikler</a> •
-  <a href="#teknoloji-yığını">Teknolojiler</a> •
-  <a href="#hızlı-başlangıç">Kurulum</a> •
-  <a href="#docker">Docker</a> •
-  <a href="#ortam-değişkenleri">Ortam Değişkenleri</a> •
-  <a href="#proje-yapısı">Proje Yapısı</a> •
-  <a href="#lisans">Lisans</a>
+  <img src="https://img.shields.io/github/stars/asdteke/HomeInventory?style=for-the-badge&logo=github&color=f4c542" alt="GitHub stars" />
+  <img src="https://img.shields.io/github/last-commit/asdteke/HomeInventory?style=for-the-badge&color=2f6f55" alt="Last commit" />
+  <img src="https://github.com/asdteke/HomeInventory/actions/workflows/ci.yml/badge.svg" alt="CI status" />
+  <img src="https://img.shields.io/badge/security-AES--256--GCM-2f6f55?style=for-the-badge" alt="AES-256-GCM encryption" />
+  <img src="https://img.shields.io/badge/PWA-ready-334155?style=for-the-badge" alt="PWA ready" />
+  <img src="https://img.shields.io/badge/Docker-supported-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker supported" />
+  <img src="https://img.shields.io/badge/license-MIT-111827?style=for-the-badge" alt="MIT license" />
 </p>
 
 <p align="center">
-  <strong>🌐 Dil:</strong> Türkçe | <a href="README.md">English</a> | <a href="README.de.md">Deutsch</a> | <a href="README.es.md">Español</a> | <a href="README.ar.md">العربية</a>
+  <a href="#önizleme">Önizleme</a> ·
+  <a href="#neden-homeinventory">Neden</a> ·
+  <a href="#özellikler">Özellikler</a> ·
+  <a href="#güvenlik--gizlilik">Güvenlik</a> ·
+  <a href="#hızlı-başlangıç">Hızlı Başlangıç</a> ·
+  <a href="#dokümantasyon">Dokümanlar</a> ·
+  <a href="CHANGELOG.md">Changelog</a> ·
+  <a href="ROADMAP.md">Roadmap</a>
 </p>
 
 ---
 
+## Önizleme
+
+<p align="center">
+  <img src="docs/assets/screenshot-landing.png" alt="HomeInventory açılış ekranı önizlemesi" width="88%" />
+</p>
+
+<details>
+<summary><strong>Daha fazla ekran görüntüsü: Envanter, Borrow Center, Vault, Kategoriler</strong></summary>
+
+<br/>
+
+<p align="center">
+  <img src="docs/assets/screenshot-inventory.png" alt="Envanter ekranı" width="48%" />
+  &nbsp;
+  <img src="docs/assets/screenshot-borrow.png" alt="Borrow Center ekranı" width="48%" />
+</p>
+<p align="center">
+  <img src="docs/assets/screenshot-vault.png" alt="Personal Vault ekranı" width="48%" />
+  &nbsp;
+  <img src="docs/assets/screenshot-categories.png" alt="Kategoriler ekranı" width="48%" />
+</p>
+
+</details>
+
+HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtları ortak bir tabloya dönüştürmeden pratik envanter yönetimi sağlar.
+
+> [!NOTE]
+> **v2.0.0 yeniden tasarlanmış sürümdür.** Bu sürüm ana uygulama deneyimini yeniler, güvenlik açısından hassas akışları güçlendirir, lokalizasyon kalite kontrollerini genişletir ve self-host yapısını korurken PWA/marka varlıklarını iyileştirir.
+
+## Neden HomeInventory
+
+- **Tek ev, birden fazla kişi:** ev oluşturun veya eve katılın, aktif evi değiştirin ve ortak envanteri doğru üyelik kapsamında tutun.
+- **Gerçek eşya kayıtları:** fotoğraf, oda, konum, kategori, miktar, garanti tarihi, fatura bilgisi, not ve ek dosya saklayın.
+- **Hassas veriler için daha doğru alan:** Personal Vault, çok özel kayıtları normal ev araması ve ortak çalışma akışından ayrı tutar.
+- **Günlük kullanımda hızlı bulma:** rafın önündeyken arama, barkod tarama, QR etiketleri ve mobil uyumlu ekranlarla hızlı hareket edin.
+- **Self-host için hazır:** Express, SQLite, Docker desteği, ortam dokümantasyonu ve production secret yükleme akışları dahildir.
+
 ## Özellikler
 
-- 🏠 **Çoklu ev desteği** — Yeni ev oluşturun veya mevcut bir eve katılın, envanterleri paylaşın
-- 📦 **Eşya yönetimi** — Fotoğraf, miktar, barkod ve açıklamayla eşyalarınızı takip edin
-- 🏷️ **Kategoriler & Odalar** — Eşyaları özel kategoriler, odalar ve konumlarla düzenleyin
-- 📱 **Barkod / QR tarama** — Cihaz kamerasıyla hızla eşya ekleyin veya bulun
-- 🔐 **Kimlik doğrulama** — JWT tabanlı giriş, Google OAuth ve e-posta doğrulama desteği
-- ✅ **2FA & güvenilen cihazlar** — TOTP doğrulayıcı uygulamalar, tek kullanımlık yedek kodlar ve hatırlanan cihaz kontrolleri
-- 🔒 **Kişisel Kasa (Personal Vault)** — Tarayıcıda üretilen anahtarlarla yüksek hassasiyetli kayıtlar için şifreli özel kasa
-- 🛡️ **Alan bazlı şifreleme** — Hassas doğrulama ve envanter alanları için AES-256-GCM koruması
-- 🐳 **Docker ve bulut secret yönetimi** — Production anahtar teslimi için Docker secrets ve OCI runtime secret bootstrap
-- 👨‍💼 **Admin paneli** — Kullanıcı yönetimi, yasaklama, e-posta gönderimi ve sistem logları
-- 🤝 **Ödünç Sistemi** — Ödünç verilen ve alınan eşyaları takip edin, talepleri yönetin, iade tarihlerini belirleyin ve durumları izleyin
-- 📧 **E-posta sistemi** — Resend API ile doğrulama ve bilgilendirme e-postaları
-- 💾 **Yedekleme & Geri Yükleme** — Envanter verilerinizi dışa/içe aktarın
-- 🌍 **100+ dil destekli arayüz** — Frontend küresel kullanım için 100'den fazla seçilebilir dille gelir
-- 🌙 **Karanlık / Aydınlık tema** — Sistem tercihini otomatik algılar
-- 📱 **Duyarlı tasarım** — Mobil öncelikli, tüm ekran boyutlarında çalışır
-- 🔍 **SEO hazır** — Sitemap, robots.txt, meta etiketler ve IndexNow desteği
-- 🔑 **Güvenli Şifre Kurtarma** — E-posta tabanlı veya çevrimdışı (offline) Kurtarma Anahtarı ile yerel hesap kurtarma
+| Alan | Kapsam |
+| --- | --- |
+| Envanter | Eşyalar, fotoğraflar, odalar, kategoriler, konumlar, miktarlar, garanti ve fatura metadata alanları |
+| Paylaşımlı evler | Ev oluşturma, ev erişim akışlarıyla katılma, aktif ev değiştirme ve üyeliğe göre veri kapsamı |
+| Borrow Center | Gelen, giden ve aktif ödünç kayıtları; net istek durumları |
+| Personal Vault | Kimlikler, mülk belgeleri, erişim kodları ve hassas notlar için istemci tarafında şifrelenen vault akışı |
+| Etiket ve tarama | Barkod tarama, eşya QR etiketleri ve mobil uyumlu hızlı erişim |
+| Yedekleme ve geri yükleme | Sadece ev sahibine açık dışa/içe aktarma ve korumalı onay akışları |
+| Kimlik doğrulama | JWT, Google OAuth, e-posta doğrulama, TOTP 2FA, güvenilen cihaz ve recovery key |
+| Çok dil | Anahtar bazlı fallback desteğiyle 100+ seçilebilir arayüz locale paketi |
 
-## Güvenlik ve Gizlilik (Sunucu Taraflı Durağan Şifreleme)
+## Güvenlik & Gizlilik
 
-HomeInventory, kişisel verilerinizi korumak için kurumsal düzeyde güvenlik standartlarıyla tasarlanmıştır. Tüm hassas alanlar, medya dosyaları ve kişisel veriler, diske veya veritabanına yazılmadan önce sunucuda AES-256-GCM ile şifrelenir. Bu, veritabanı hırsızlığına ve yetkisiz dosya erişimine karşı koruma sağlar. Not: şifreleme anahtarları sunucu tarafında yönetildiğinden, hem veritabanına hem de ortam değişkenlerine erişimi olan bir sunucu yöneticisi verileri çözebilir.
+- **AES-256-GCM şifreleme**, hassas envanter, auth ve profil alanlarını disk veya SQLite üzerine yazılmadan önce korur.
+- **Şifreli medya işleme**, görsel metadata bilgisini temizler ve ham upload yerine korumalı medya blob depolar.
+- **Ev kapsamlı yetkilendirme**, oda, kategori, eşya, medya ve yedek verilerini aktif ev üyeliğiyle sınırlar.
+- **Personal Vault ayrımı**, en hassas kayıtları normal ortak envanter akışlarının dışında tutar.
+- **Rate limit ve sertleştirilmiş auth rotaları**, giriş, yedekleme ve etkileşimli uçlarda brute-force ve kötüye kullanım riskini azaltır.
 
-- **Alan Bazlı Şifreleme (Field-Level Encryption)**: Eşya isimleri, açıklamaları, özel oluşturulan kategori ve oda adları veritabanına yazılmadan önce AES-256-GCM ile şifrelenir.
-- **Şifreli Medya Depolama**: Yüklenen tüm fotoğrafların ve küçük resimlerin EXIF (konum, tarih, cihaz) metadataları otomatik silinir. Dosyalar diske AES-256-GCM ile şifrelenmiş bulanık baytlar (blob) olarak yazılır ve sadece kimliği doğrulanmış kullanıcılar için RAM'de anlık olarak çözülerek sunulur.
-- **Kişisel Veri Koruması (PII)**: Kullanıcı e-posta adresleri ve isimleri şifreli saklanır. Giriş işlemleri, orijinal veriyi ele vermeyen ve Rainbow Table saldırılarına karşı korumalı HMAC-SHA-256 tabanlı arama token'ları (lookup token) ile gerçekleştirilir.
-- **Anahtar Rotasyonu (Key Rotation)**: Sistem, ana şifreleme anahtarının (Master Key) periyodik olarak değiştirilebilmesine olanak tanıyan bir "Keyring" (Anahtarlık) mimarisi kullanır. Bu sayede aktif anahtar değişse bile eski veriler sorunsuz bir şekilde okunmaya devam eder.
+> [!IMPORTANT]
+> HomeInventory güçlü sunucu taraflı şifreleme kullanır; ancak ana envanter şifreleme anahtarı yine sunucu tarafından yönetilir. Veritabanına ve runtime secret'lara erişimi olan bir işletmeci korumalı envanter verilerini çözebilir. Ortak ev akışlarından daha güçlü ayrım gerektiren kayıtlar için Personal Vault kullanın.
+
+## Mimari
+
+```text
+React SPA (Vite, PWA, Tailwind)
+        |
+        v
+Express API (JWT, OAuth, rate limit)
+        |
+        v
+SQLite depolama + şifreli medya
+```
 
 ## Teknoloji Yığını
 
-### Backend
-| Teknoloji | Amaç |
-|---|---|
-| **Node.js** + **Express** | REST API sunucusu |
-| **better-sqlite3** | Gömülü SQLite veritabanı |
-| **JWT** + **bcrypt** | Kimlik doğrulama & şifre hashleme |
-| **Passport.js** | Google OAuth 2.0 entegrasyonu |
-| **Helmet** | HTTP güvenlik başlıkları |
-| **express-rate-limit** | Brute-force / DDoS koruması |
-| **Resend** | İşlemsel e-posta servisi |
-| **Sharp** | Görüntü işleme & küçük resimler |
-| **i18next** | Sunucu tarafı çoklu dil desteği |
-
-### Frontend
-| Teknoloji | Amaç |
-|---|---|
-| **React 18** | Kullanıcı arayüzü kütüphanesi |
-| **Vite** | Derleme aracı & geliştirme sunucusu |
-| **Tailwind CSS** | CSS framework |
-| **React Router v7** | İstemci tarafı yönlendirme |
-| **Lucide React** | İkon kütüphanesi |
-| **html5-qrcode** | Barkod & QR tarama |
-| **react-i18next** | Frontend çoklu dil desteği |
-| **react-joyride** | İnteraktif tanıtım turu |
+| Backend | Frontend |
+| --- | --- |
+| Node.js, Express, better-sqlite3 | React 18, Vite, Tailwind CSS |
+| JWT, bcrypt, Passport Google OAuth 2.0 | React Router v6, react-i18next |
+| Helmet, express-rate-limit, i18next | Lucide React, html5-qrcode |
+| Sharp, şifreli medya depolama | PWA-ready responsive arayüz |
 
 ## Hızlı Başlangıç
 
 ### Gereksinimler
-- **Node.js** ≥ 18 — [indir](https://nodejs.org/)
-- **npm** ≥ 9 (Node.js ile birlikte gelir)
 
-### 1. Klonla & Kur
+- Node.js 18+
+- npm 9+
+- Git
+
+### 1. Bağımlılıkları kur
 
 ```bash
 git clone https://github.com/asdteke/HomeInventory.git
 cd HomeInventory
-
-# Backend + frontend bağımlılıklarını tek komutla kur
 npm run install-all
 ```
 
-### 2. Ortam Dosyasını Oluştur
+### 2. Yerel ortam dosyasını oluştur
 
 ```bash
 cp .env.example .env
 ```
 
-`.env` dosyasını editörünüzde açın ve **en azından** şu değerleri girin:
+En az şu değerleri ayarla:
 
 ```env
 NODE_ENV=development
 PORT=3001
 SITE_URL=http://localhost:5173
-JWT_SECRET=en-az-32-karakter-uzunlugunda-rastgele-bir-metin-yazin
-APP_ENCRYPTION_KEY=32-byte-base64-veya-64-karakter-hex-anahtar
+JWT_SECRET=uzun-ve-rastgele-bir-secret
+APP_ENCRYPTION_KEY=32-byte-base64-veya-64-char-hex-key
 APP_ENCRYPTION_KEY_ID=2026-03-local
 ```
 
-> **💡 İpucu:** Güvenli bir JWT_SECRET oluşturmak için:
-> ```bash
-> node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
-> ```
+> [!TIP]
+> Yerel secret üretmek için `JWT_SECRET` tarafında `openssl rand -hex 32`, `APP_ENCRYPTION_KEY` tarafında `openssl rand -base64 32` kullanabilirsiniz.
 
-> **🔐 Şifreleme anahtarı:** `APP_ENCRYPTION_KEY` üretmek için:
-> ```bash
-> openssl rand -base64 32
-> ```
+Yerel geliştirmede opsiyonel: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` ve `RESEND_API_KEY`.
 
-`APP_ENCRYPTION_KEY` ve `APP_ENCRYPTION_KEY_ID` zorunludur; çünkü hassas alan şifrelemesi uygulama açılışında fail-secure çalışır. Diğer değişkenler (`GOOGLE_CLIENT_ID`, `RESEND_API_KEY` vb.) local geliştirme için **opsiyoneldir**. Bu değişkenlere bağlı özellikler (Google giriş, e-posta gönderimi) otomatik olarak devre dışı kalır.
-
-### Opsiyonel: Oracle Cloud Secret Management
-
-HomeInventory'yi bir Oracle Cloud Infrastructure (OCI) compute instance üzerinde dağıtıyorsanız, production sırlarını OCI Secret Management'ta tutabilir ve çalışma zamanında uygulama başlamadan önce yükletebilirsiniz.
-
-Önerilen yapılandırma:
-
-```env
-SECRET_PROVIDER=oci
-OCI_AUTH_MODE=instance_principal
-OCI_REGION=eu-frankfurt-1
-OCI_VAULT_ID=ocid1.vault.oc1..exampleuniqueID
-OCI_SECRET_MAPPINGS={"JWT_SECRET":"homeinventory-jwt-secret","APP_ENCRYPTION_KEY":"homeinventory-app-encryption-key","APP_ENCRYPTION_KEY_ID":"homeinventory-app-encryption-key-id","RESEND_API_KEY":"homeinventory-resend-api-key"}
-```
-
-Notlar:
-
-- Yerel geliştirme için `SECRET_PROVIDER=env` bırakın.
-- `OCI_SECRET_MAPPINGS` gizli OCID'lere veya gizli adlara işaret edebilir.
-- `OCI_VAULT_ID` yalnızca gizli OCID'ler yerine gizli adlar kullandığınızda gereklidir.
-- Dosya tabanlı Docker secret kullanıyorsanız varsayılan `/run/secrets` mount noktasını koruyun veya runtime secret'lar başka klasöre bağlanıyorsa `DOCKER_SECRETS_DIR` ayarlayın.
-- Sunucu giriş noktası artık çalışma zamanı sırlarını otomatik olarak yükler, dolayısıyla `node server.js`, `npm run dev` ve `npm start` komutları çalışmaya devam eder.
-- Şifreleme backfill ve IndexNow gönderimi gibi bakım betikleri de aynı OCI bootstrap yolunu kullanır.
-
-### 3. Geliştirme Sunucusunu Başlat
+### 3. Uygulamayı çalıştır
 
 ```bash
 npm run dev
 ```
 
-Bu komut backend ve frontend'i aynı anda başlatır. Tarayıcınızı açın:
+Yerel adresler:
 
-| Servis | Adres |
-|---|---|
-| 🖥️ Frontend | http://localhost:5173 |
-| ⚙️ Backend API | http://localhost:3001 |
-| 📱 Ağ (telefon) | `http://<yerel-ip-adresiniz>:5173` |
+- Frontend: `http://localhost:5173`
+- Backend API: `http://localhost:3001`
 
-### 4. Production Derlemesi (opsiyonel)
+### 4. Production build al
 
 ```bash
-# Frontend'i production için derle
 npm run build
-
-# Production sunucusunu başlat (derlenmiş frontend + API)
 npm start
 ```
 
-## Docker
-
-Kolay self-hosting için HomeInventory'yi Docker ile dağıtın:
+### Docker alternatifi
 
 ```bash
-# Klonla ve dizine gir
-git clone https://github.com/asdteke/HomeInventory.git
-cd HomeInventory
-
-# Ortam dosyasını oluştur (gizli olmayan ayarlar için)
-cp .env.example .env
-
-# Docker secret dosyalarını oluşturun (veya HOMEINVENTORY_SECRETS_DIR ile başka klasör kullanın)
-mkdir -p secrets
-printf '%s' 'jwt-secret-buraya' > secrets/jwt_secret.txt
-printf '%s' '32-byte-base64-key-buraya' > secrets/app_encryption_key.txt
-printf '%s' '2026-compose' > secrets/app_encryption_key_id.txt
-
-# Docker Compose ile başlat
 docker compose up -d
 ```
 
-Uygulama `http://localhost:3001` adresinde erişilebilir olacaktır.
+Gelişmiş yapılandırma, reverse proxy ve production dağıtımı için [DOCKER.md](DOCKER.md) dosyasına bakın.
 
-`docker-compose.yml`, host üzerindeki secret kaynak dosyalarını varsayılan olarak `${HOMEINVENTORY_SECRETS_DIR:-./secrets}` klasöründen okur ve konteyner içinde `/run/secrets` altına bağlar.
+## Dokümantasyon
 
-Tam `.env` dosyası konteyner'a aktarılır; `APP_ENCRYPTION_KEYRING`, `EXPOSE_SERVER_INFO` ve `INDEXNOW_*` gibi opsiyonel ayarlar Docker'da da çalışmaya devam eder.
+- [DOCKER.md](DOCKER.md): Docker, reverse proxy ve self-hosting notları
+- [README_ENVIRONMENT_SETUP.md](README_ENVIRONMENT_SETUP.md): ortam değişkenleri ve secret yönetimi kurulumu
+- [CONTRIBUTING.md](CONTRIBUTING.md): katkı yönergeleri
+- [SECURITY.md](SECURITY.md): güvenlik açığı bildirim süreci
+- [CHANGELOG.md](CHANGELOG.md): sürüm geçmişi ve yükseltme notları
+- [ROADMAP.md](ROADMAP.md): kısa vadeli proje yönü
 
-Detaylı Docker yapılandırması, reverse proxy kurulumu, yedekleme/geri yükleme ve Unraid dağıtımı için **[DOCKER.md](DOCKER.md)** belgesine bakın.
+Bakımcılar için önerilen GitHub topic'leri: `home-inventory`, `self-hosted`, `inventory-management`, `household`, `pwa`, `sqlite`, `express`, `react`, `docker`, `privacy`, `qr-code`, `barcode`, `2fa`.
 
-## Ortam Değişkenleri
+## Dil Notu
 
-`.env.example` dosyasını `.env` olarak kopyalayıp gerekli değerleri doldurun:
-
-| Değişken | Zorunlu | Açıklama |
-|---|---|---|
-| `NODE_ENV` | ✅ | `development` veya `production` |
-| `PORT` | ✅ | Backend sunucu portu (varsayılan: `3001`) |
-| `SITE_URL` | ✅ | Sitenizin genel URL'si |
-| `SECRET_PROVIDER` | ⬜ | OCI Secret Management bootstrap için `env` (varsayılan) veya `oci` |
-| `OCI_AUTH_MODE` | ⬜ | OCI bootstrap çalışma zamanı kimlik modu (`instance_principal`) |
-| `OCI_REGION` | ⬜ | OCI secret okuma için opsiyonel bölge |
-| `OCI_VAULT_ID` | ⬜ | `OCI_SECRET_MAPPINGS` secret adı kullanıyorsa gereklidir |
-| `OCI_SECRET_MAPPINGS` | ⬜ | Env değişken adlarını OCI secret OCID/adlarına eşleyen JSON |
-| `OCI_SECRET_OVERWRITE` | ⬜ | Zaten set edilmiş env değerlerini OCI secret ile ez |
-| `OCI_SECRET_BUNDLE_STAGE` | ⬜ | Okunacak secret bundle aşaması (`CURRENT` varsayılan) |
-| `DOCKER_SECRETS_DIR` | ⬜ | Dosya tabanlı Docker secret'lar için runtime yolunu ez (`/run/secrets` varsayılan) |
-| `JWT_SECRET` | ✅ | JWT imzalama için rastgele gizli anahtar (min 32 karakter) |
-| `APP_ENCRYPTION_KEY` | ✅ | Hassas alanları koruyan 32-byte şifreleme anahtarı |
-| `APP_ENCRYPTION_KEY_ID` | ✅ | Yeni şifreli kayıtlar için sabit anahtar kimliği |
-| `APP_ENCRYPTION_KEYRING` | ⬜ | Rotation sonrası eski verileri çözmek için legacy anahtarları içeren opsiyonel JSON haritası |
-| `GOOGLE_CLIENT_ID` | ⬜ | Google OAuth istemci kimliği |
-| `GOOGLE_CLIENT_SECRET` | ⬜ | Google OAuth istemci gizli anahtarı |
-| `RESEND_API_KEY` | ⬜ | Resend.com API anahtarı (e-posta için) |
-| `SUPPORT_EMAIL` | ⬜ | Destek e-posta adresi |
-| `BOOTSTRAP_ADMIN_EMAIL` | ⬜ | Bu e-postayı otomatik admin yap |
-| `EXPOSE_SERVER_INFO` | ⬜ | Sunucu bilgi endpoint'ini göster (`true`/`false`) |
-| `APP_EMAIL_LANGUAGE` | ⬜ | Gönderilen e-postaların dili (varsayılan: `en`) |
-| `INDEXNOW_KEY` | ⬜ | SEO indeksleme için IndexNow API anahtarı |
-| `INDEXNOW_BASE_URL` | ⬜ | IndexNow gönderimleri için temel URL |
-| `INDEXNOW_ENDPOINT` | ⬜ | IndexNow API endpoint URL'si |
-| `INDEXNOW_KEY_LOCATION` | ⬜ | İsteğe bağlı IndexNow anahtar dosyası konum override'u |
-
-> **⚠️ `.env` dosyanızı asla commit etmeyin!** Zaten `.gitignore`'da tanımlıdır.
-
-## Proje Yapısı
-
-```
-Home-inventory/
-├── app.js                    # Express uygulama kurulumu & middleware
-├── server.js                 # Çalışma zamanı başlatıcı & sunucu giriş noktası
-├── auth.js                   # JWT middleware & token oluşturma
-├── database.js               # SQLite DB başlatma & migration'lar
-├── package.json              # Backend bağımlılıkları & komutlar
-├── .env.example              # Ortam değişkeni şablonu
-├── .gitignore
-├── LICENSE
-│
-├── config/
-│   └── i18n.js               # i18next sunucu yapılandırması
-│
-├── middleware/
-│   └── auth.js               # Kimlik doğrulama & admin middleware
-│
-├── routes/
-│   ├── auth.js               # Giriş, kayıt, OAuth, şifre işlemleri
-│   ├── items.js              # Eşya CRUD işlemleri
-│   ├── categories.js         # Kategori yönetimi
-│   ├── rooms.js              # Oda yönetimi
-│   ├── locations.js          # Konum yönetimi
-│   ├── barcode.js            # Barkod arama & tarama
-│   ├── houses.js             # Çoklu ev yönetimi
-│   ├── borrowRequests.js     # Ödünç sistemi & takip
-│   ├── vault.js              # Kişisel kasa (Vault) endpoint'leri
-│   ├── admin.js              # Admin panel endpoint'leri
-│   ├── admin-email.js        # Admin e-posta gönderimi
-│   ├── email.js              # E-posta doğrulama & durum
-│   ├── backup.js             # Yedekleme/geri yükleme
-│   └── ...
-│
-├── utils/
-│   ├── encryption.js         # AES-256-GCM alan şifreleme yardımcıları
-│   ├── protectedFields.js    # Envanter alanı şifreleme/çözme yardımcıları
-│   ├── passwordRecovery.js   # Kurtarma anahtarı oluşturma & doğrulama
-│   ├── mediaStorage.js       # Şifreli medya okuma/yazma yardımcıları
-│   ├── runtimeSecrets.js     # OCI Secret Management başlatıcısı
-│   ├── emailService.js       # Resend e-posta entegrasyonu
-│   ├── indexNow.js           # IndexNow SEO gönderimi
-│   └── logger.js             # KVKK uyumlu loglama
-│
-├── locales/                  # Backend çoklu dil dosyaları (100+ dil)
-│
-├── scripts/
-│   ├── run-with-runtime-secrets.mjs # OCI bakım betikleri için çalışma zamanı sır başlatıcısı
-│   ├── backfill-field-encryption.mjs # Legacy düz metin alanları şifreler
-│   ├── generate-locales.js   # Dil dosyası oluşturma betikleri
-│   └── indexnow-submit.mjs   # CLI IndexNow gönderimi
-│
-└── client/                   # React frontend
-    ├── index.html
-    ├── package.json
-    ├── vite.config.js
-    ├── tailwind.config.js
-    ├── public/
-    │   ├── brand/            # Logo dosyaları (koyu/açık)
-    │   ├── locales/          # Frontend çoklu dil dosyaları
-    │   ├── robots.txt
-    │   └── sitemap.xml
-    └── src/
-        ├── App.jsx           # Ana bileşen & yönlendirme
-        ├── main.jsx          # Giriş noktası
-        ├── index.css         # Genel stiller
-        ├── i18n.js           # Frontend i18n yapılandırması
-        ├── components/       # Tüm React bileşenleri
-        │   ├── Dashboard.jsx
-        │   ├── ItemList.jsx
-        │   ├── ItemForm.jsx
-        │   ├── CategoryManager.jsx
-        │   ├── RoomManager.jsx
-        │   ├── Settings.jsx
-        │   ├── AdminPanel.jsx
-        │   ├── BarcodeScanner.jsx
-        │   ├── LandingPage.jsx
-        │   ├── Login.jsx
-        │   ├── Register.jsx
-        │   └── ...
-        ├── context/          # React context'leri (Auth, Theme)
-        └── utils/            # Frontend yardımcı fonksiyonlar
-```
-
-## API Endpoint'leri
-
-| Metod | Endpoint | Açıklama |
-|---|---|---|
-| `POST` | `/api/auth/register` | Yeni kullanıcı kaydı |
-| `POST` | `/api/auth/login` | Giriş yap |
-| `GET` | `/api/items` | Eşyaları listele |
-| `POST` | `/api/items` | Eşya oluştur |
-| `PUT` | `/api/items/:id` | Eşya güncelle |
-| `DELETE` | `/api/items/:id` | Eşya sil |
-| `GET` | `/api/categories` | Kategorileri listele |
-| `GET` | `/api/rooms` | Odaları listele |
-| `GET` | `/api/houses` | Kullanıcının evlerini listele |
-| `GET/POST`| `/api/borrow-requests` | Ödünç sistemi endpoint'leri |
-| `GET/POST`| `/api/vault` | Kişisel kasa endpoint'leri |
-| `GET` | `/api/admin/*` | Admin panel endpoint'leri |
-| `GET` | `/api/health` | Sağlık kontrolü |
-
-> Tüm `/api/*` endpoint'leri (auth hariç) JWT Bearer token gerektirir.
+Ürün **100+ seçilebilir arayüz locale paketi** ile gelir. English ve Türkçe en aktif gözden geçirilen ürün dilleridir; diğer dillerde eksik çeviri olduğunda anahtar bazlı fallback çalışabilir.
 
 ## Katkıda Bulunma
 
-1. Depoyu fork'layın
-2. Özellik dalınızı oluşturun (`git checkout -b feature/harika-ozellik`)
-3. Değişikliklerinizi commit'leyin (`git commit -m 'Harika özellik ekle'`)
-4. Dalınıza push'layın (`git push origin feature/harika-ozellik`)
-5. Pull Request açın
+Issue ve pull request'ler açıktır. Daha büyük değişiklikler için önce issue açmanız iyi olur; böylece uygulama güvenlik modeli, ev kapsamı ve lokalizasyon yapısıyla uyumlu kalır.
 
-## Yasal Uyarı
+## Yasal Not
 
-Bu bağımsız bir açık kaynak projesidir. Benzer isim kullanan herhangi bir ticari ürün veya şirketle bağlantılı, onlar tarafından desteklenen veya onlara bağlı değildir.
-
-## Yapay Zeka Destekli Geliştirme
-
-Bu proje, yapay zeka araçlarının (Google Gemini ve OpenAI GPT dahil) önemli desteğiyle geliştirilmiştir.
+HomeInventory bağımsız bir açık kaynak projesidir. Benzer isim kullanan herhangi bir ticari ürün veya şirketle bağlantılı, onlar tarafından desteklenen ya da onlara bağlı değildir.
 
 ## Lisans
 
-MIT — detaylar için [LICENSE](LICENSE) dosyasına bakın.
+MIT. Detaylar için [LICENSE](LICENSE).

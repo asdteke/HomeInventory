@@ -27,7 +27,6 @@ export function VaultProvider({ children }) {
     const vaultKeyRef = useRef(null);
     const [vaultConfigured, setVaultConfigured] = useState(false);
     const [vaultConfig, setVaultConfig] = useState(null);
-    const [vaultItemCount, setVaultItemCount] = useState(0);
     const [vaultUnlocked, setVaultUnlocked] = useState(false);
     const [vaultLoading, setVaultLoading] = useState(true);
 
@@ -40,7 +39,6 @@ export function VaultProvider({ children }) {
         lockVault();
         setVaultConfigured(false);
         setVaultConfig(null);
-        setVaultItemCount(0);
     };
 
     const refreshVaultStatus = async () => {
@@ -55,7 +53,6 @@ export function VaultProvider({ children }) {
             const response = await axios.get('/api/vault');
             setVaultConfigured(Boolean(response.data.configured));
             setVaultConfig(response.data.config || null);
-            setVaultItemCount(Number(response.data.itemCount || 0));
             return response.data;
         } catch (error) {
             console.error('Vault status fetch failed:', error);
@@ -77,7 +74,6 @@ export function VaultProvider({ children }) {
         setVaultUnlocked(true);
         setVaultConfigured(Boolean(response.data?.configured));
         setVaultConfig(response.data?.config || null);
-        setVaultItemCount(0);
         return {
             recoveryKey: setupResult.recoveryKey
         };
@@ -85,7 +81,7 @@ export function VaultProvider({ children }) {
 
     const unlockWithPassphrase = async (passphrase) => {
         if (!vaultConfig) {
-            throw new Error('Personal vault bilgisi bulunamadi.');
+            throw new Error('Personal vault configuration could not be found.');
         }
 
         vaultKeyRef.current = await unlockPersonalVaultWithPassphrase(vaultConfig, passphrase);
@@ -94,7 +90,7 @@ export function VaultProvider({ children }) {
 
     const unlockWithRecoveryKey = async (recoveryKey) => {
         if (!vaultConfig) {
-            throw new Error('Personal vault bilgisi bulunamadi.');
+            throw new Error('Personal vault configuration could not be found.');
         }
 
         vaultKeyRef.current = await unlockPersonalVaultWithRecoveryKey(vaultConfig, recoveryKey);
@@ -103,7 +99,7 @@ export function VaultProvider({ children }) {
 
     const encryptPayload = async (payload) => {
         if (!vaultKeyRef.current) {
-            throw new Error('Vault kilitli.');
+            throw new Error('Vault is locked.');
         }
 
         return encryptPersonalVaultPayload(vaultKeyRef.current, payload);
@@ -111,7 +107,7 @@ export function VaultProvider({ children }) {
 
     const decryptPayload = async (payload) => {
         if (!vaultKeyRef.current) {
-            throw new Error('Vault kilitli.');
+            throw new Error('Vault is locked.');
         }
 
         return decryptPersonalVaultPayload(vaultKeyRef.current, payload);
@@ -119,7 +115,7 @@ export function VaultProvider({ children }) {
 
     const encryptBytes = async (payload) => {
         if (!vaultKeyRef.current) {
-            throw new Error('Vault kilitli.');
+            throw new Error('Vault is locked.');
         }
 
         return encryptPersonalVaultBytes(vaultKeyRef.current, payload);
@@ -127,7 +123,7 @@ export function VaultProvider({ children }) {
 
     const decryptBytes = async (payload) => {
         if (!vaultKeyRef.current) {
-            throw new Error('Vault kilitli.');
+            throw new Error('Vault is locked.');
         }
 
         return decryptPersonalVaultBytes(vaultKeyRef.current, payload);
@@ -138,7 +134,6 @@ export function VaultProvider({ children }) {
             value={{
                 vaultConfigured,
                 vaultConfig,
-                vaultItemCount,
                 vaultUnlocked,
                 vaultLoading,
                 refreshVaultStatus,

@@ -79,7 +79,43 @@
             "name_required": "Preces nosaukums ir obligāts",
             "location_add_error": "Neizdevās pievienot atrašanās vietu",
             "photo_too_large": "Fotogrāfijas var būt ne vairāk kā {{maxSizeMb}} MB."
-        }
+        },
+        "title": "Inventārs",
+        "add": "Pievienot preci",
+        "edit": "Rediģēt preci",
+        "delete": "Dzēst vienumu",
+        "name": "Vienuma nosaukums",
+        "description": "Apraksts",
+        "quantity": "Daudzums",
+        "category": "Kategorija",
+        "room": "Istaba",
+        "location": "Atrašanās vieta",
+        "barcode": "Svītrkods",
+        "photo": "Foto",
+        "add_photo": "Pievienot foto",
+        "change_photo": "Mainīt foto",
+        "is_public": "Publisks",
+        "save": "Saglabāt",
+        "cancel": "Atcelt",
+        "saving": "Saglabā...",
+        "no_items_found": "Nav atrastu vienumu",
+        "search_placeholder": "Meklēt vienumus...",
+        "filter_by_category": "Filtrēt pēc kategorijas",
+        "filter_by_room": "Filtrēt pēc telpas",
+        "all_categories": "Visas kategorijas",
+        "all_rooms": "Visas istabas",
+        "confirm_delete": "Vai jūs tiešām vēlaties dzēst šo vienumu?",
+        "items_deleted": "{{count}} vienums(vienumi) dzēsts",
+        "added": "Vienums pievienots",
+        "updated": "Vienums atjaunināts",
+        "deleted": "Vienums dzēsts",
+        "not_found": "Prece nav atrasta",
+        "add_error": "Kļūda, pievienojot vienumu",
+        "update_error": "Kļūda, atjauninot vienumu",
+        "delete_error": "Kļūda, dzēšot vienumu",
+        "no_permission": "No permission",
+        "barcode_search_error": "Svītrkoda meklēšana neizdevās",
+        "stats_error": "Stats error"
     },
     "common": {
         "save": "Saglabāt",
@@ -106,7 +142,27 @@
         "copyright": "© {{year}} {{brandName}} - Visas tiesības aizsargātas",
         "other": "Cits",
         "copy": "Kopēt",
-        "download": "Lejupielādēt"
+        "download": "Lejupielādēt",
+        "clear": "Notīrīt",
+        "deleting": "Dzēst...",
+        "filter": "Filtrēt",
+        "sort": "Kārtot",
+        "yes": "Jā",
+        "no": "No",
+        "confirm": "Apstiprināt",
+        "back": "Atpakaļ",
+        "next": "Nākamais",
+        "retry": "Mēģināt vēlreiz",
+        "actions": "Darbības",
+        "created_at": "Izveidots",
+        "updated_at": "Atjaunināts",
+        "none": "Neviens",
+        "total": "Kopā",
+        "not_found": "Nav atrasts",
+        "unauthorized": "Nesankcionēta piekļuve",
+        "forbidden": "Permission denied",
+        "validation_error": "Validācijas kļūda",
+        "server_error": "Servera kļūda"
     },
     "auth": {
         "login": {
@@ -139,10 +195,19 @@
                 "back": "atpakaļ",
                 "use_backup": "Izmantojiet rezerves kodu",
                 "use_totp": "Izmantojiet autentifikatoru"
-            }
+            },
+            "welcome_title": "Laipni lūdzam atpakaļ",
+            "welcome_subtitle": "Pierakstieties, lai piekļūtu saviem krājumiem",
+            "identifier_placeholder": "piem., john@example.com",
+            "legal_intro": "Turpinot, jūs piekrītat mūsu",
+            "header_kicker": "Droša pierakstīšanās",
+            "header_title": "Atgriezties savā krātuvē",
+            "header_subtitle": "Telpas, priekšmeti un privātie ieraksti paliek vienā mierīgā vietā.",
+            "trust_signal": "Privāts pēc dizaina. Atbalsta 2FA un uzticamas ierīces.",
+            "support_link": "Sazināties ar atbalstu"
         },
         "register": {
-            "title": "Laipni lūdzam {{brandName}}",
+            "title": "Set up your household",
             "subtitle": "Izveidot jaunu kontu vai pievienoties esošai mājai",
             "create_house": "Izveidot jaunu māju",
             "join_house": "Pievienoties mājai",
@@ -176,7 +241,11 @@
                     "warning": "Svarīgi: šī atslēga tiks rādīta tikai vienu reizi. Kopīgojiet to ar ģimenes locekļiem, lai viņi varētu piekļūt tai pašai inventārai.",
                     "copy": "Kopēt",
                     "copied": "Nokopēts",
-                    "button": "Es saglabāju atslēgu, turpināt"
+                    "button": "Es saglabāju atslēgu, turpināt",
+                    "badge": "Piekļuve mājai",
+                    "important": "Svarīgi",
+                    "key_label": "Mājas atslēga",
+                    "storage_hint": "Glabājiet šo atslēgu drošā vietā, lai uzticami ģimenes locekļi varētu pievienoties vēlāk."
                 },
                 "email_verification": {
                     "title": "📧 Nepieciešama e-pasta verifikācija",
@@ -188,7 +257,33 @@
                     "key_note": "Svarīgi: Jūsu mājas atslēga arī tika nosūtīta e-pastā. Jūs varat to koplietot ar ģimenes locekļiem.",
                     "button": "Labi, Dodieties uz Pieslēgšanos"
                 }
-            }
+            },
+            "eyebrow": "Koplietota mājsaimniecības piekļuve",
+            "create_house_hint": "Sāciet jaunu kopīgu mājsaimniecību",
+            "join_house_hint": "Izmantojiet saņemto mājas atslēgu",
+            "mode_label": "Piekļuve mājsaimniecībai",
+            "mode_create_body": "Sāciet savu mājsaimniecību šeit, pēc tam uzaiciniet citus.",
+            "mode_join_body": "Pievienojieties ar saņemto mājas atslēgu.",
+            "account_section": "Jūsu konts",
+            "access_section": "Piekļuve mājai",
+            "access_hint": "Izmantojiet mājas atslēgu, ko kopīgojis mājas īpašnieks.",
+            "step_choose_title": "Izvēlieties izveidot vai pievienoties",
+            "step_choose_body": "Sāciet jaunu vai pievienojieties ar Mājas atslēgu.",
+            "step_account_title": "Pievienojiet savus datus",
+            "step_account_body": "Iestatiet savu lietotājvārdu, e-pastu un paroli.",
+            "step_use_title": "Sāciet lietot",
+            "step_use_body": "Koplietojami priekšmeti mājai, privātie ieraksti jums.",
+            "trust_private": "Privāts pēc dizaina",
+            "trust_self_hosted": "Draudzīgs pašpārziņošanai",
+            "trust_shared": "Koplietojamā mājsaimniecības sistēma",
+            "password_hint": "Mērķis ir 10+ simboli ar lielo/mazo burtu, numuru un simbolu.",
+            "legal_notice": "Mēs tikai lūdzam ātru juridisku apstiprinājumu, lai varētu izveidot jūsu kontu.",
+            "notes_link": "Ātras piezīmes",
+            "notes_title": "Dažas ātras piezīmes",
+            "notes_subtitle": "Beta, dublējumi un atbildība vienuviet.",
+            "trust_signal": "Privāts pēc dizaina, lai mājsaimniecības koplietošana paliktu droša ar 2FA.",
+            "early_access_badge": "Agrīna piekļuve",
+            "early_access_note": "Mēs uzturam iestatīšanu vienkāršu un parādām visus taustiņus uzreiz pēc reģistrācijas."
         },
         "forgot_password": {
             "title": "Aizmirsu paroli",
@@ -207,7 +302,8 @@
             "confirm_password": "Apstipriniet jauno paroli",
             "confirm_password_placeholder": "Ievadiet savu paroli vēlreiz",
             "reset_submit": "Atjaunot paroli",
-            "resetting": "Notiek paroles atjaunošana..."
+            "resetting": "Notiek paroles atjaunošana...",
+            "identifier_required": "Enter your username or email"
         },
         "reset_password": {
             "title": "Atjaunot paroli",
@@ -238,9 +334,83 @@
             "settings_title": "Saglabājiet savu jauno atkopšanas atslēgu",
             "subtitle": "Šī atslēga tiek rādīta tikai vienu reizi.",
             "warning": "Ja jūs pazaudējat šo atslēgu, kamēr e-pasts ir atspējots, iespējams, jūs nevarēsiet atgūt savu paroli. Nokopējiet to un droši saglabājiet.",
-            "confirm": "Es saglabāju atslēgu"
+            "confirm": "Es saglabāju atslēgu",
+            "badge": "Piekļuve atkopšanai",
+            "important": "Svarīgi",
+            "key_label": "Atkopšanas atslēga",
+            "storage_hint": "Saglabājiet to paroļu pārvaldniekā vai citā drošā bezsaistes vietā.",
+            "copied": "Kopēts"
         },
-        "password_requirements": "Izmantojiet vismaz {{min}} rakstzīmes ar lielajiem un mazajiem burtiem, ciparu un simbolu."
+        "password_requirements": "Izmantojiet vismaz {{min}} rakstzīmes ar lielajiem un mazajiem burtiem, ciparu un simbolu.",
+        "logout": "Izrakstīties",
+        "logging_in": "Ienākšana...",
+        "welcome": "Welcome to {{brandName}}",
+        "username_email": "Lietotājvārds vai e-pasts",
+        "username": "Lietotājvārds",
+        "email": "E-pasts",
+        "password": "Parole",
+        "confirm_password": "Apstiprināt paroli",
+        "new_password": "Jauna parole",
+        "current_password": "Pašreizējā parole",
+        "no_account": "Nav konta?",
+        "have_account": "Jau ir konts?",
+        "or": "or",
+        "google_login": "Turpināt ar Google",
+        "login_issues": "Par pieteikšanās problēmām",
+        "placeholder_username": "piemēram: john",
+        "placeholder_password": "••••••••",
+        "login_two_factor": {
+            "title": "Divu faktoru autentifikācija",
+            "subtitle": "Ievadiet 6 ciparu kodu no autentifikācijas lietotnes",
+            "backup_subtitle": "Ievadiet vienu no rezerves kodiem",
+            "code_label": "Verifikācijas kods",
+            "backup_code_label": "Rezerves kods",
+            "remember_device": "Atcerieties šo ierīci 30 dienas",
+            "verify": "Pārbaudīt",
+            "back": "Atpakaļ",
+            "use_backup": "Rezerves koda izmantošana",
+            "use_totp": "Autentifikatora izmantošana"
+        },
+        "login_required": "Please log in",
+        "invalid_token": "Nederīgs marķieris vai marķieris ar derīguma termiņu",
+        "admin_required": "Admin required",
+        "authorization_required": "Nepieciešama atļauja",
+        "fill_all_fields": "Fill all fields",
+        "email_already_registered": "Email already registered",
+        "username_already_registered": "Username already registered",
+        "email_pending_verification": "Verification pending",
+        "username_pending_verification": "Verification pending",
+        "invalid_house_key": "Nederīga mājas atslēga",
+        "registration_success": "Registration successful!",
+        "registration_error": "Registration error",
+        "username_password_required": "Nepieciešams lietotājvārds un parole",
+        "invalid_credentials": "Invalid credentials",
+        "account_banned": "Account banned",
+        "login_success": "Veiksmīga pieteikšanās",
+        "login_error": "Pieteikšanās kļūda",
+        "user_not_found": "Lietotājs nav atrasts",
+        "current_password_wrong": "Current password wrong",
+        "passwords_dont_match": "Passwords do not match",
+        "password_too_short": "Password too short",
+        "password_change_success": "Password changed",
+        "password_change_error": "Password change error",
+        "database_error": "Datu bāzes kļūda",
+        "database_read_error": "Datu bāzes lasīšanas kļūda",
+        "new_password_error": "New password error",
+        "email_verification_required": "Nepieciešama e-pasta verifikācija",
+        "verification_link_expired": "Verification link expired",
+        "email_verified_success": "Email verified!",
+        "email_send_error": "Email send error",
+        "legal_acceptance_required": "Lai turpinātu, jums ir jāpiekrīt pakalpojumu sniegšanas noteikumiem un jāatzīst paziņojums par konfidencialitāti",
+        "identifier_already_registered": "Šis lietotājvārds vai e-pasta adrese jau ir reģistrēta",
+        "username_in_use": "Šis lietotājvārds jau tiek izmantots",
+        "invalid_username": "Lietotājvārdam jābūt 3–30 rakstzīmēm, un tajā var būt tikai burti, cipari, pasvītrojumi vai defises",
+        "invalid_email": "Lūdzu, ievadiet derīgu e-pasta adresi",
+        "invalid_house_key_format": "Nederīgs mājas atslēgas formāts",
+        "join_house_key_required": "Mājas atslēga ir nepieciešama, lai pievienotos esošai mājai",
+        "house_key_not_found": "Nederīga mājas atslēga. Lūdzu, ievadiet pareizo atslēgu.",
+        "email_not_verified": "Jūsu e-pasta adrese vēl nav verificēta. Lūdzu, pārbaudiet savu iesūtni.",
+        "two_factor_invalid": "Verifikācijas kods ir nepareizs"
     },
     "navigation": {
         "home": "Sākums",
@@ -254,7 +424,12 @@
         "logout": "Atslēgties",
         "menu": "Izvēlne",
         "personal_vault": "Personīgais seifs",
-        "borrow_requests": "Aizdevuma pieprasījumi"
+        "borrow_requests": "Aizdevuma pieprasījumi",
+        "scan_item_qr": "Vienuma QR",
+        "logout_aria": "Izrakstīties no sava konta",
+        "logout_title": "Izrakstīties?",
+        "logout_description": "Jūs tiksiet pārvietots atpakaļ uz pierakstīšanās ekrānu un būs jāielogojas vēlreiz, lai pārvaldītu savu mājsaimniecības krājumu.",
+        "logout_warning": "Izmantojiet to, kad esat pabeidzis lietot koplietotu vai personīgu ierīci."
     },
     "dashboard": {
         "welcome": "Laipni lūdzam, <1>{{name}}</1>! 👋",
@@ -292,12 +467,104 @@
             "search_item": "Meklēt priekšmetu",
             "categories": "Kategorijas",
             "settings": "Iestatījumi"
-        }
+        },
+        "page": {
+            "kicker": "Sākums",
+            "title": "Sākums",
+            "description_ready": "Meklējiet savu inventāru, pārskatiet nesenos papildinājumus un ātri pārejiet pie nākamā uzdevuma.",
+            "description_empty": "Sāciet veidot mierīgu, meklējamu mājas ierakstu no viena skaidra sākumpunkta.",
+            "loading_description": "Tiek gatavots jūsu mājas skats. Pēdējie papildinājumi un ātrā meklēšana parādīsies drīz."
+        },
+        "top_bar": {
+            "beta": "Beta",
+            "items_tracked": "Izsekotie priekšmeti: {{count}}",
+            "total_quantity": "Kopējais skaits: {{count}}",
+            "shared_items": "Kopīgotie priekšmeti: {{count}}",
+            "borrowed_now": "Pašreiz izsniegts: {{count}}",
+            "status_empty": "Gatavs jūsu pirmajam priekšmetam"
+        },
+        "header": {
+            "eyebrow": "Koplietojamais krājums",
+            "title_ready": "Mājsaimniecības krājums {{name}}",
+            "title_empty": "Sāciet savu mājsaimniecības krājumu",
+            "summary_ready": "Jau tiek izsekoti {{count}} vienumi {{rooms}} telpās. Meklējiet sarakstā, pievienojiet nākamo priekšmetu vai uzturiet privātus ierakstus atsevišķi.",
+            "summary_ready_no_rooms": "Jau tiek izsekoti {{count}} vienumi. Pievienojiet telpas, lai saglabātu atrašanās vietas un skaidrāk meklētu.",
+            "summary_empty": "Pievienojiet pirmo priekšmetu, lai atbloķētu meklēšanu, telpu vēsturi un skaidrāku mājsaimniecības izsekošanu."
+        },
+        "search_panel": {
+            "title": "Meklēt krājumā",
+            "description": "Atrodiet priekšmetu, telpu, atrašanās vietu vai svītrkodu no viena vietas.",
+            "placeholder": "Meklēt priekšmetu, istabu, atrašanās vietu vai svītrkodu",
+            "submit": "Meklēt krājumā",
+            "secondary_hint": "Jutīgie ieraksti paliek atsevišķi."
+        },
+        "actions_panel": {
+            "title": "Galvenās darbības",
+            "description": "Izveidot jaunu priekšmetu vai pārvietot jutīgos ierakstus uz Personīgo seifu.",
+            "new_item_description": "Pievienot jaunu mājsaimniecības priekšmetu ar istabu, daudzumu un foto.",
+            "vault_description": "Glabāt dokumentus, kodus un citus jutīgos ierakstus ārpus koplietotās meklēšanas."
+        },
+        "content": {
+            "title": "Pēdējie papildinājumi",
+            "description": "Jaunākās preces, kas pievienotas jūsu mājsaimniecības inventāram",
+            "description_empty": "Šī zona kļūs par jūsu nesenās darbības plūsmu, tiklīdz tiks pievienota pirmā prece.",
+            "empty_title": "Vēl nav jaunu pievienojumu",
+            "empty_description": "Šī saraksta aizpildīšana sākas uzreiz, tiklīdz pievienojat pirmo preci. Sāciet ar kaut ko viegli atpazīstamu vēlāk, tad telpu un kategoriju skaits būs precīzs no pirmās dienas.",
+            "empty_tip_one_title": "Sāciet ar vienu redzamu mājsaimniecības preci",
+            "empty_tip_one_body": "Izvēlieties kaut ko, ko vēlāk atpazīsiet uzreiz, piemēram, ierīci, uzglabāšanas kasti vai mazu rīku.",
+            "empty_tip_two_title": "Piešķiriet īstu telpu",
+            "empty_tip_two_body": "Telpu un kategoriju skaits būs precīzs tikai tad, ja jaunās preces tiks piešķirtas, kad tās tiek izveidotas.",
+            "empty_tip_three_title": "Turiet noslēpumus ārpus koplietotā plūsmas",
+            "empty_tip_three_body": "Izmantojiet Personīgo Seifu atslēgām, kodiem, dokumentiem vai jebkam, kas nedrīkst parādīties mājsaimniecības inventāra vēsturē.",
+            "see_all": "Atvērt inventāru",
+            "untitled_item": "Nav nosaukuma vienība",
+            "location_fallback": "Pievienot telpu vai atrašanās vietu, lai šo vienību būtu vieglāk atrast",
+            "quantity": "Daudzums {{count}}",
+            "added_on": "Pievienots {{date}}"
+        },
+        "visibility": {
+            "public": "Koplietots",
+            "private": "Privāts"
+        },
+        "empty_state": {
+            "title": "Pievienojiet savu pirmo mājsaimniecības priekšmetu",
+            "description": "Sāciet ar kaut ko viegli atpazīstamu, piemēram, ierīci, dokumentu vai rezerves daļu. Tiklīdz to pievienosit, meklēšana un metriki sāks aizpildīties.",
+            "primary_cta": "Pievienot priekšmetu",
+            "secondary_cta": "Atvērt personīgo seifu",
+            "step_one_title": "Sāciet ar vienu skaidri atpazīstamu priekšmetu",
+            "step_one_body": "Pievienojiet atpazīstamu priekšmeta nosaukumu, lai inventārā būtu stiprs pirmais ieraksts.",
+            "step_two_title": "Novietojiet to telpā",
+            "step_two_body": "Iestatiet istabu un daudzumu, lai meklēšana un metrika kļūtu noderīga uzreiz.",
+            "step_three_title": "Glabājiet privātos ierakstus atsevišķi",
+            "step_three_body": "Izmantojiet Personīgo seifu pases, īpašuma dokumentiem un piekļuves kodiem."
+        },
+        "title": "Paneļa informācija",
+        "total_items": "Kopējais priekšmetu skaits",
+        "total_rooms": "Kopējais istabu skaits",
+        "total_categories": "Kopējās kategorijas",
+        "search_placeholder": "Ātra meklēšana...",
+        "no_items": "Vienumi vēl nav pievienoti",
+        "add_first_item": "Pievienot savu pirmo vienumu",
+        "view_all": "Skatīt visu",
+        "total_quantity": "Kopējais daudzums",
+        "top_room": "Pilnākā telpa",
+        "category_count": "Kategorija",
+        "items_count": "vienumi",
+        "private_items": "Mani privātie vienumi",
+        "public_items": "Publisks",
+        "remove_filter": "Noņemt filtru",
+        "no_items_filter": "Neviena prece neatbilst šim filtram",
+        "manage": "Pārvaldīt",
+        "add_item": "Pievienot preci",
+        "search_item": "Meklēt preci"
     },
     "beta_banner": {
         "title": "BĒTA:",
         "text": "{{brandName}} pašlaik ir testēšanas un hobija stadijā. Nav garantijas datu saglabāšanai vai drošībai. Lūdzu, saglabājiet svarīgu informāciju rezerves kopijās.",
-        "contact": "Kontakti:"
+        "contact": "Kontakti:",
+        "badge": "Beta",
+        "aria_label": "Beta paziņojums",
+        "tooltip": "Agrīnas piekļuves funkcijas joprojām var mainīties."
     },
     "footer": {
         "rights": "© {{year}} {{brandName}} - Visas tiesības aizsargātas",
@@ -343,7 +610,8 @@
             "member_kick_error": "Neizdevās izņemt dalībnieku no mājas",
             "recovery_key_regenerated": "Atjaunošanas atslēga ģenerēta atkārtoti",
             "recovery_key_error": "Neizdevās ģenerēt atjaunošanas atslēgu",
-            "account_delete_error": "Kontu nevarēja izdzēst"
+            "account_delete_error": "Kontu nevarēja izdzēst",
+            "backup_downloaded_encrypted": "Šifrētā dublējumkopija lejupielādēta veiksmīgi! ({{count}} elementi)"
         },
         "user_profile": {
             "edit_username": "Mainīt lietotājvārdu"
@@ -361,7 +629,10 @@
             "item_count": "{{count}} priekšmeti",
             "switch": "Pārslēgt",
             "leave": "Pamest māju",
-            "info": "💡 Jūs varat būt vairāku māju biedrs un pārslēgties starp tām. Katrai mājai ir atsevišķs inventārs."
+            "info": "💡 Jūs varat būt vairāku māju biedrs un pārslēgties starp tām. Katrai mājai ir atsevišķs inventārs.",
+            "accordion_description": "Pārslēdzieties starp mājsaimniecībām, izveidojiet jaunu vai pievienojieties esošai ar uzticamu atslēgu.",
+            "empty_description": "Izveidojiet jaunu mājsaimniecību, lai sāktu dalīšanos, vai pievienojieties jau esošai ar uzticamu mājas atslēgu.",
+            "leave_success_body": "Jums vairs nav piekļuves šai mājsaimniecībai, un jūsu aktīvā māja tika atjaunināta."
         },
         "house_info": {
             "title": "Aktīvās mājas atslēga",
@@ -383,12 +654,35 @@
             "owner_controls": "Īpašnieka kontroles iespējotas",
             "approve": "Apstiprināt",
             "reject": "Noraidīt",
-            "kick": "Izņemt"
+            "kick": "Izņemt",
+            "access_section_title": "Mājas piekļuve un dalībnieki",
+            "access_section_body": "Pārskatiet aktīvo mājas atslēgu, pārvaldiet dalībniekus un saglabājiet piekļuvi ierobežotu uzticamiem cilvēkiem.",
+            "hidden_state": "Paslēpts, līdz to droši pārskatāt",
+            "show_securely": "Pārskatīt droši",
+            "copy_securely": "Kopēt droši",
+            "share_warning_title": "Dalīties piesardzīgi",
+            "share_warning_body": "Ikviens ar šo atslēgu var pieprasīt piekļuvi mājas inventāram. Dalieties tikai ar uzticamiem cilvēkiem un izmantojiet privātu kanālu.",
+            "reveal_confirm_title": "Atklāt mājas atslēgu?",
+            "reveal_confirm_body": "Šī atslēga dod iespēju pieprasīt piekļuvi mājai. Pārliecinieties, ka neviens cits neredz jūsu ekrānu pirms turpināšanas.",
+            "copy_confirm_title": "Kopēt mājas atslēgu?",
+            "copy_confirm_body": "Kopējiet tikai tad, kad esat gatavs to ielīmēt uzticamā ziņojumā vai drošā paroļu pārvaldniekā.",
+            "copy_confirm_tip": "Nelīmējiet to grupu tērzēšanās, ekrānuzņēmumos vai jebkurā kanālā, kam jūs neuzticētu jūsu mājas durvju kodu.",
+            "reveal_confirm_acknowledge": "Es saprotu, ka ikviens ar šo atslēgu var pieprasīt piekļuvi šai mājsaimniecībai.",
+            "copy_confirm_acknowledge": "Es saprotu, ka šo atslēgu vajadzētu ievietot tikai uzticamā privātā kanālā vai paroļu pārvaldniekā.",
+            "copy_success_title": "Mājas atslēga nokopēta",
+            "copy_success_body": "Apieties ar to kā ar mājsaimniecības paroli un kopīgojiet tikai caur uzticamu kanālu.",
+            "copy_error": "Mājas atslēgu nevarēja kopēt.",
+            "modal_title": "Piekļuve mājas atslēgai",
+            "modal_subtitle": "Izmantojiet šo atslēgu tikai uzticamiem mājsaimniecības locekļiem, kuriem jāpieprasa piekļuve šim koplietotajam inventāram.",
+            "loading_members": "Tiek ielādēti locekļi..."
         },
         "theme": {
             "title": "Temats",
             "dark": "Tumšais režīms",
-            "light": "Gaismas režīms"
+            "light": "Gaismas režīms",
+            "description": "Izvēlieties, kā izskatās darba vide šajā ierīcē.",
+            "light_aria": "Pārslēgties uz gaišo tēmu",
+            "dark_aria": "Pārslēgties uz tumšo tēmu"
         },
         "security": {
             "title": "Drošība",
@@ -413,7 +707,20 @@
             "import_json": "Importēt no JSON",
             "export_sensitive_title": "Eksportētās dublējumkopijas satur nešifrētus datus",
             "export_sensitive_notice": "Šī dublējumkopija ietver atšifrētus mājsaimniecības datus. Saglabājiet to droši pēc lejupielādes, ja iespējams, šifrējiet to un izvairieties no koplietošanas caur nedrošiem kanāliem.",
-            "export_sensitive_confirm": "Šī dublējumkopija ietvers atšifrētus mājsaimniecības datus nešifrētā veidā. Vai apstiprināt, ka jūs saglabāsiet to droši?"
+            "export_sensitive_confirm": "Šī dublējumkopija ietvers atšifrētus mājsaimniecības datus nešifrētā veidā. Vai apstiprināt, ka jūs saglabāsiet to droši?",
+            "accordion_description": "Lejupielādējiet šifrētās rezerves kopijas, atjaunojiet uzticamus failus un turiet sensitīvos eksportus atsevišķi no ikdienas iestatījumiem.",
+            "backup_modal_title": "Lejupielādēt mājsaimniecības rezerves kopiju",
+            "backup_modal_body": "Eksporti ietver atšifrētus mājsaimniecības datus. Turiet šifrēšanu ieslēgtu, ja vien jums absolūti nav nepieciešams parasts JSON fails.",
+            "encrypt_toggle_title": "Šifrēt rezerves kopiju pirms lejupielādes",
+            "encrypt_toggle_body": "Ieteicams. Lejupielādētais fails ir ietīts ar paroli, ko izvēlaties, un to vēlāk var atjaunot ar to pašu paroli.",
+            "passphrase_label": "Rezerves parole",
+            "passphrase_confirm_label": "Apstipriniet paroli",
+            "passphrase_length": "Lietojiet rezerves paroli ar vismaz 12 rakstzīmēm.",
+            "passphrase_mismatch": "Rezerves paroles nesakrīt.",
+            "unencrypted_warning": "Pārlūkotie JSON faili ir vieglāk pārbaudāmi, bet ikviens, kurš atver failu, var uzreiz lasīt jūsu mājsaimniecības datus.",
+            "import_encrypted_title": "Atslēgt šifrēto rezerves kopiju",
+            "import_encrypted_body": "Ievadiet rezerves paroli, kas tika izmantota lejupielādes laikā, lai atjaunotu šo šifrēto failu.",
+            "unlock_and_import": "Atslēgt un importēt"
         },
         "about": {
             "title": "📱 Par lietotni",
@@ -423,7 +730,10 @@
             "legal_title": "Juridiskie dokumenti",
             "legal_description": "Jūs varat šeit atkārtoti atvērt lietošanas noteikumus un privātuma tekstus pat pēc to pieņemšanas.",
             "terms_link": "Pakalpojumu sniegšanas noteikumi",
-            "privacy_link": "Privātuma politika"
+            "privacy_link": "Privātuma politika",
+            "beta_title": "Beta statuss",
+            "beta_body": "{{brandName}} joprojām ir beta versijā. Funkcijas var mainīties, darbplūsmas var attīstīties, un svarīgi mājsaimniecības dati vienmēr jārezervē.",
+            "feedback_subject": "Atsauksmes - {{brandName}}"
         },
         "modals": {
             "password": {
@@ -529,7 +839,65 @@
             "password_label": "Apstipriniet ar savu pašreizējo paroli",
             "confirm_delete": "Apstipriniet dzēšanu",
             "deleting": "Dzēšana..."
-        }
+        },
+        "language": "Valoda",
+        "control_sections": {
+            "account": "Konts",
+            "houses": "Mājas",
+            "security": "Drošība",
+            "data": "Dati",
+            "preferences": "Iestatījumi",
+            "about": "Par"
+        },
+        "workspace_section": {
+            "eyebrow": "Konts un mājas",
+            "title": "Konta un mājsaimniecības piekļuve",
+            "description": "Pārvaldiet savu profilu, aktīvo māju un dalībnieku piekļuvi vienā vadības zonā."
+        },
+        "account_overview": {
+            "title": "Konta pārskats",
+            "description": "Pamata profila informācija par pierakstīto kontu."
+        },
+        "security_section": {
+            "eyebrow": "Drošība un iestatījumi",
+            "title": "Aizsardzība un iestatījumi",
+            "description": "Kontrolējiet pierakstīšanos, konta atjaunošanu, uzticamās ierīces un izskatu, neiedziļinoties atsevišķos paneļos."
+        },
+        "preferences_section": {
+            "title": "Izskats un valoda",
+            "description": "Uzturiet darba vidi ērtu šajā ierīcē un iestatiet valodu, kas tiek izmantota navigācijā un juridiskajos tekstos."
+        },
+        "data_section": {
+            "eyebrow": "Dati un informācija",
+            "title": "Dati, juridiskie jautājumi un konta īpašumtiesības",
+            "description": "Saglabājiet eksportus, produktu informāciju un neatgriezeniskas konta darbības skaidri atdalītas."
+        },
+        "language_description": "Lietot vienu valodu navigācijā, nosaukumos, juridiskajos tekstos un datuma formātēšanā.",
+        "language_updated_title": "Valoda atjaunināta",
+        "language_updated_body": "{{language}} tagad ir aktīva. Pārlādēt nepieciešams tikai tad, ja kādā citā atvērtā cilnē joprojām redzams vecais teksts.",
+        "select_language_tooltip": "Mainīt valodu. Pašreizējā: {{language}}",
+        "select_language_aria": "Izvēlēties valodu. Pašreizējā: {{language}}",
+        "frequently_used": "Bieži lietots",
+        "other_languages": "Visas valodas",
+        "no_language_found": "Neviena valoda neatbilda šai meklēšanai.",
+        "account": "Konts",
+        "house": "Mājas informācija",
+        "house_key": "Mājas atslēga",
+        "copy_key": "Kopēt atslēgu",
+        "share_key": "Koplietot atslēgu",
+        "house_members": "Mājas locekļi",
+        "change_password": "Mainīt paroli",
+        "backup": "Dublēt",
+        "export_data": "Eksportēt datus",
+        "import_data": "Importēt datus",
+        "notifications": "Paziņojumi",
+        "appearance": "Izskats",
+        "version": "Versija",
+        "search_language": "Meklējiet valodu...",
+        "popular_languages": "Populārākās valodas",
+        "search_results": "Meklēšanas rezultāti",
+        "current_language": "Pašreizējā valoda",
+        "languages_available": "pieejamās valodas"
     },
     "inventory": {
         "title": "Inventārs",
@@ -588,8 +956,27 @@
             "history_active": "Atvērt ierakstu priekš {{name}}",
             "history_returned": "Aizvērts ieraksts {{name}}",
             "returned_at": "Atgriezts: {{date}}",
-            "no_history": "Šim priekšmetam vēl nav aizņemšanās vēstures."
-        }
+            "no_history": "Šim priekšmetam vēl nav aizņemšanās vēstures.",
+            "lend_success_title": "Vienība izsniegta",
+            "lend_success_body": "{{item}} tagad ir atzīmēts kā aizņemts.",
+            "offer_sent_title": "Borrow offer sent",
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+        },
+        "untitled_item": "Nesaukts priekšmets",
+        "delete_action": "Dzēst vienumu",
+        "delete_title": "Dzēst šo vienumu?",
+        "delete_description": "Tas noņem vienumu no mājsaimniecības inventāra. Izmantojiet to tikai, ja esat pārliecināts, ka tas nevajadzētu saglabāt vēsturē.",
+        "delete_warning": "Fotoattēli, apraksti un izvietojuma detaļas, kas saistītas ar šo ierakstu, tiks noņemti no aktīvā inventāra skata.",
+        "delete_success_title": "Vienums dzēsts",
+        "delete_success_body": "Vienums tika noņemts no aktīvā mājsaimniecības inventāra.",
+        "view_mode": "Vienuma izkārtojums",
+        "grid_view": "Tīkls",
+        "list_view": "Saraksts",
+        "loading_description": "Sagatavo priekšmetus, istabas un filtrus.",
+        "category_filter_label": "Filtrēt pēc kategorijas",
+        "room_filter_label": "Filtrēt pēc istabas",
+        "refreshing_results": "Atsvaidzina priekšmetus...",
+        "empty_filter_title": "Neviens priekšmets neatbilda šim meklējumam"
     },
     "categories": {
         "title": "Kategorijas",
@@ -601,7 +988,42 @@
         "icon_label": "Ikona",
         "color_label": "Krāsa",
         "delete_confirm": "Vai tiešām vēlaties dzēst šo kategoriju?",
-        "delete_error": "Dzēšanas kļūda"
+        "delete_error": "Dzēšanas kļūda",
+        "edit_action": "Rediģēt kategoriju",
+        "delete_action": "Dzēst kategoriju",
+        "delete_title": "Dzēst šo kategoriju?",
+        "delete_description": "Kategorijas dzēšana var ietekmēt to, kā priekšmeti tiek grupēti un atrodami vēlāk.",
+        "delete_warning": "Priekšmetiem, kas jau izmanto šo kategoriju, var būt nepieciešams pārdalīt, lai saglabātu filtru un skaitu skaidrību.",
+        "delete_success_title": "Kategorija dzēsta",
+        "delete_success_body": "Kategorija tika noņemta no jūsu inventāra struktūras.",
+        "defaults": {
+            "kitchen": "Virtuve",
+            "electronics": "Elektronika",
+            "hobbies": "Hobiji",
+            "furniture": "Mēbeles",
+            "clothing": "Apģērbs",
+            "books": "Grāmatas",
+            "tools": "Rīki",
+            "sports": "Sports",
+            "other": "Citi"
+        },
+        "add": "Pievienot kategoriju",
+        "edit": "Rediģēt kategoriju",
+        "delete": "Dzēst kategoriju",
+        "name": "Kategorijas nosaukums",
+        "icon": "Ikona",
+        "color": "Krāsa",
+        "item_count": "Vienumu skaits",
+        "no_categories": "Vēl nav pievienotas kategorijas",
+        "confirm_delete": "Vai tiešām vēlaties dzēst šo kategoriju?",
+        "added": "Pievienota kategorija",
+        "updated": "Kategorija atjaunināta",
+        "deleted": "Kategorija svītrota",
+        "not_found": "Kategorija nav atrasta",
+        "name_required": "Name required",
+        "load_error": "Error loading",
+        "add_error": "Error adding",
+        "update_error": "Error updating"
     },
     "rooms": {
         "title": "Istabas",
@@ -614,7 +1036,68 @@
         "name_placeholder": "piemēram, Galvenā guļamistaba",
         "desc_placeholder": "piemēram, Galvenā guļamistaba",
         "delete_confirm": "Vai esat pārliecināts, ka vēlaties dzēst šo telpu?",
-        "delete_error": "Dzēšanas kļūda"
+        "delete_error": "Dzēšanas kļūda",
+        "edit_action": "Rediģēt istabu",
+        "delete_action": "Dzēst istabu",
+        "delete_title": "Dzēst šo istabu?",
+        "delete_description": "Istabas dzēšana var padarīt priekšmetu atrašanās vietas mazāk skaidras, līdz tās tiek piešķirtas atkārtoti.",
+        "delete_warning": "Šeit piešķirtajiem priekšmetiem, iespējams, būs nepieciešama jauna istaba, lai meklēšana, skaitīšana un izvietošanas vēsture būtu uzticama.",
+        "delete_success_title": "Istaba dzēsta",
+        "delete_success_body": "Istaba tika noņemta un saistītie priekšmeti tagad var tikt piešķirti atkārtoti.",
+        "defaults": {
+            "living_room": {
+                "name": "Dzīvojamā istaba",
+                "description": "Galvenā ikdienas dzīves zona"
+            },
+            "bedroom": {
+                "name": "Guļamistaba",
+                "description": "Miega un atpūtas zona"
+            },
+            "kitchen": {
+                "name": "Virtuve",
+                "description": "Pārtikas sagatavošanas zona"
+            },
+            "bathroom": {
+                "name": "Vannas istaba",
+                "description": "Tīrīšanas un kopšanas zona"
+            },
+            "office": {
+                "name": "Birojs",
+                "description": "Koncentrēta darba zona"
+            },
+            "kids_room": {
+                "name": "Bērnu istaba",
+                "description": "Bērnu istaba"
+            },
+            "garage": {
+                "name": "Garāža",
+                "description": "Transportlīdzekļu un uzglabāšanas zona"
+            },
+            "balcony": {
+                "name": "Balkons",
+                "description": "Āra paplašināšanas zona"
+            },
+            "storage": {
+                "name": "Glabāšana",
+                "description": "Vispārējā uzglabāšanas zona"
+            }
+        },
+        "add": "Pievienot istabu",
+        "edit": "Rediģēt istabu",
+        "delete": "Dzēst istabu",
+        "name": "Istabas nosaukums",
+        "icon": "Ikona",
+        "item_count": "Vienumu skaits",
+        "no_rooms": "Vēl nav pievienotas istabas",
+        "confirm_delete": "Vai tiešām vēlaties dzēst šo istabu?",
+        "added": "Numurs pievienots",
+        "updated": "Numurs atjaunināts",
+        "deleted": "Numurs svītrots",
+        "not_found": "Numurs nav atrasts",
+        "name_required": "Name required",
+        "load_error": "Error loading",
+        "add_error": "Error adding",
+        "update_error": "Error updating"
     },
     "admin": {
         "title": "Administrācijas panelis",
@@ -651,14 +1134,81 @@
             "ban_apply": "aizliegt",
             "confirm_delete_1": "Vai tiešām vēlaties dzēst lietotāju \"{{username}}\"?",
             "confirm_delete_2": "⚠️ BRĪDINĀJUMS: Tas PASTĀVĪGI izdzēsīs VISUS datus (inventārus, telpas, kategorijas) lietotājam \"{{username}}\"!",
-            "confirm_delete_3": "🚨 GALĪGAIS BRĪDINĀJUMS: Konts \"{{username}}\" un visi dati tiks NEATGRIEŽAMI dzēsti. Vai vēlaties turpināt?"
+            "confirm_delete_3": "🚨 GALĪGAIS BRĪDINĀJUMS: Konts \"{{username}}\" un visi dati tiks NEATGRIEŽAMI dzēsti. Vai vēlaties turpināt?",
+            "ban_action": "Bloķēt lietotāju",
+            "unban_action": "Atjaunot lietotāja piekļuvi",
+            "ban_title": "Bloķēt šo lietotāju?",
+            "ban_description": "Lietotāja bloķēšana nekavējoties bloķē piekļuvi, līdz administrators to atjauno.",
+            "ban_warning": "Lietotājs zaudē piekļuvi, līdz cits administrators to skaidri atjauno.",
+            "unban_title": "Atjaunot šo lietotāju?",
+            "unban_description": "Piekļuves atjaunošana ļauj šim lietotājam atkārtoti pierakstīties.",
+            "unban_warning": "Lietotājs atgūst piekļuvi nākamajā veiksmīgajā pierakstīšanās reizē.",
+            "delete_title": "Dzēst šo kontu?",
+            "delete_description": "Dzēšot {{username}}, konts un tā īpašumā esošie inventāra dati tiek neatgriezeniski noņemti.",
+            "delete_warning": "Šī darbība ir neatgriezeniska un noņem telpas, kategorijas, preces un saistīto īpašumtiesību vēsturi, kas saistīta ar šo kontu.",
+            "ban_success_title": "Lietotājs bloķēts",
+            "ban_success_body": "{{username}} ir bloķēts, lai pieteiktos.",
+            "unban_success_title": "Piekļuve atjaunota",
+            "unban_success_body": "{{username}} var atkal pieteikties.",
+            "delete_success_title": "Konts dzēsts",
+            "delete_success_body": "{{username}} un saistītie īpašumā esošie dati tika neatgriezeniski izdzēsti.",
+            "section_title": "Lietotāja piekļuves kontrole",
+            "search_label": "Meklēt lietotājus",
+            "search_placeholder": "Meklēt pēc lietotājvārda",
+            "filtered_total": "{{count}} redzami konti",
+            "total_platform": "{{count}} konti kopā",
+            "empty_title": "Atbilstošu kontu nav",
+            "empty_body": "Mēģiniet citu meklēšanu vai filtru, lai lietotāji atkārtoti parādītos",
+            "filters": {
+                "all": "Visi",
+                "active": "Aktīvie",
+                "banned": "Aizliegti",
+                "admin": "Administratori"
+            },
+            "protected_admin": "Aizsargāta administratora konts",
+            "private_contact_hidden": "Privātie kontakta dati paliek paslēpti no administratora pārskata.",
+            "no_last_login": "Vēl nav pierakstīšanās",
+            "section_body": "Meklējiet kontus, pārskatiet to pašreizējo stāvokli un rīkojieties, nezaudējot kontekstu.",
+            "section_eyebrow": "Moderēšana",
+            "no_date": "Nezināms",
+            "joined_label": "Pievienojās",
+            "last_seen_label": "Pēdējā pierakstīšanās",
+            "households_label": "Mājsaimniecības",
+            "items_label": "Piederumi",
+            "last_seen_short": "Redzēts",
+            "last_seen_short_never": "Jauns"
         },
         "logs": {
             "title": "Administratora žurnāli",
             "no_logs": "žurnālu vēl nav",
             "errors_title": "Sistēmas kļūdas (Pēdējās 10)",
             "no_errors": "// Sistēma ir vesela, kļūdu žurnālu nav.",
-            "date_fmt": "{{date, datetime}}"
+            "date_fmt": "{{date, datetime}}",
+            "type": {
+                "email": "E-pasts",
+                "user": "Lietotājs",
+                "system": "Sistēma",
+                "event": "Notikums"
+            },
+            "action": {
+                "send": "Sūtīt",
+                "delete": "Dzēst",
+                "update": "Atjaunināt",
+                "create": "Izveidot",
+                "enable": "Ieslēgt",
+                "disable": "Izslēgt"
+            },
+            "audit": {
+                "email_sent": "Saņēmējs: {{recipient}} | Temats: {{subject}}",
+                "user_deleted": "Lietotājs dzēsts: {{username}} | Dzēstās mājsaimniecības: {{deletedHouses}} | Pārdotā īpašuma tiesības: {{transferredOwnerships}}",
+                "user_target": "Lietotājs: {{username}}",
+                "indexnow_submitted": "IndexNow iesniegums veiksmīgs. URL skaits: {{count}}"
+            },
+            "no_errors_title": "Neskaņotas sistēmas kļūdas nav",
+            "section_eyebrow": "Audita pēdas",
+            "errors_eyebrow": "Diagnostika",
+            "section_body": "Katrā administrācijas slāņa fiksētajā moderācijā vai darbības izmaiņā.",
+            "errors_body": "Jaunākās analizētās kļūdu rindas no servera žurnāla failiem."
         },
         "email": {
             "title": "Sūtīt e-pastu",
@@ -669,12 +1219,122 @@
             "send": "Nosūtīt",
             "sending": "Nosūtīšana...",
             "success": "E-pasts veiksmīgi nosūtīts!",
-            "error": "Sūtīšana neizdevās"
-        }
+            "error": "Sūtīšana neizdevās",
+            "compose_eyebrow": "Ziņa",
+            "compose_body": "Sagatavojiet vienu izejošu e-pastu ar drošu HTML formatējumu un platformas zīmolu.",
+            "security_title": "Droša sūtīšana",
+            "security_body": "Administrators: {{username}} • Limits: {{remaining}}/3 e-pasti minūtē",
+            "from_unconfigured": "Pieejams pēc e-pasta iestatīšanas",
+            "notes_label": "Lietošanas piezīme",
+            "notes_body": "Izmantojiet to operatīvai atbalsta vai konta saistītu vajadzību saziņai. Jutīgs saturs, kad iespējams, jāglabā tikai lietotnē.",
+            "notes_body_with_rate_limit": "Izmantojiet to darbības atbalstam vai konta saistītai saziņai. Jutīgs saturs, kad vien iespējams, jāpaliek lietotnē. Pašreizējais sūtīšanas aizsargs: {{rateLimit}}.",
+            "rate_limit_fallback": "3 e-pasti minūtē",
+            "placeholder_to": "name@example.com",
+            "placeholder_subject": "Ziņas tēma",
+            "send_success_with_id": "✅ E-pasts veiksmīgi nosūtīts! ID: {{emailId}}",
+            "send_error": "E-pastu nevarēja nosūtīt",
+            "rate_limit_reached": "⏳ Sasniegts sūtīšanas limits. Lūdzu, pagaidiet 1 minūti.",
+            "info_title": "Informācija",
+            "info_bullet_1": "E-pasti tiek sūtīti no {{supportEmail}}",
+            "info_bullet_2": "Jūs varat nosūtīt ne vairāk kā 3 e-pastus minūtē, lai novērstu surogātpastu",
+            "info_bullet_3": "Visi sūtījumi tiek reģistrēti drošības nolūkos, izņemot saturu",
+            "status_title": "Izejošā e-pasta statuss",
+            "status_body": "Ātra pārliecības pārbaude pirms operacionālās saziņas nosūtīšanas.",
+            "unconfigured_title": "E-pasta piegāde nav konfigurēta",
+            "unconfigured_body": "Sūtīšanas forma paliek redzama pārskatīšanai, taču piegāde neizdosies, līdz e-pasta sniedzējs netiks konfigurēts.",
+            "status_eyebrow": "Piegāde"
+        },
+        "overview": {
+            "email_warning_title": "E-pasta piegāde nav konfigurēta",
+            "sections": {
+                "governance_title": "Pārvaldības momentuzņēmums",
+                "activity_title": "Nesenā administratīvā darbība",
+                "governance_eyebrow": "Piekļuve",
+                "governance_body": "Koncentrējieties uz moderēšanas spiedienu, aizsargātajām administratora vietām un pieprasījumiem par piekļuvi mājsaimniecībai, nepametot lapu.",
+                "footprint_eyebrow": "Krājumi",
+                "footprint_title": "Krājumu nospiedums",
+                "footprint_body": "Globāls pārskats par to, cik daudz struktūras un satura pašlaik pastāv produktā.",
+                "activity_eyebrow": "Audits",
+                "activity_body": "Platformā reģistrētās nesenākās moderēšanas un darbības.",
+                "recent_users_eyebrow": "Jauni konti",
+                "recent_users_title": "Pēdējās reģistrācijas",
+                "recent_users_body": "Ātra ieskats par to, kas nesen pievienojies un vai viņi jau ir pieslēgušies.",
+                "recent_users_private_note": "Privātie kontaktinformācija paliek slēpta.",
+                "recent_users_empty_title": "Vēl nav lietotāju",
+                "recent_users_empty_body": "Kad cilvēki reģistrējas, jaunākie konti parādīsies šeit."
+            },
+            "summary": {
+                "admin_seats": "Aizsargātās admin vietas",
+                "admin_seats_body": "Konti, kas var piekļūt administratora saskarnei.",
+                "banned_accounts": "Aizliegtie konti",
+                "banned_accounts_body": "Lietotāji, kurus pašlaik bloķē no pierakstīšanās.",
+                "locked_accounts": "Pagaidu bloķēts",
+                "locked_accounts_body": "Konti, kas bloķēti atkārtotu neizdevušos pierakstīšanās mēģinājumu dēļ.",
+                "pending_households": "Gaida mājsaimniecības apstiprināšanu",
+                "pending_households_body": "Pievienošanās pieprasījumi gaida īpašnieka lēmumu.",
+                "rooms_global": "Konfigurētie telpu ieraksti",
+                "rooms_global_body": "Visas telpu definīcijas, kas saglabātas visās mājsaimniecībās.",
+                "categories_global": "Konfigurētie kategoriju ieraksti",
+                "categories_global_body": "Visas kategoriju definīcijas, kas saglabātas visās mājsaimniecībās.",
+                "locations_global": "Saglabātās atrašanās vietas",
+                "locations_global_body": "Nosauktie atrašanās vietu ieraksti, kas izveidoti telpās.",
+                "active_borrows": "Aktīvās aizņēmumi",
+                "active_borrows_body": "Aizņēmumu ieraksti, kas joprojām ir atvērti."
+            },
+            "email_warning_body": "Administrators joprojām var pārskatīt platformu, bet izejošās pasta darbības pašlaik nav pieejamas, līdz tiks konfigurēts Resend.",
+            "locked_users_title": "Aizslēgtajām kontiem nepieciešama pārskatīšana",
+            "locked_users_body": "Pašlaik {{count}} konts(i) ir bloķēti pierakstīšanās izmantošanai.",
+            "pending_requests_title": "Ģimenes apstiprinājumi ir gaidāmi",
+            "pending_requests_body": "{{count}} pievienošanās pieprasījums(i) gaida īpašnieka lēmumu.",
+            "cards": {
+                "accounts": "Konti",
+                "accounts_body": "{{count}} jauni reģistrējies pēdējās 7 dienās",
+                "admins_chip": "{{count}} administratori",
+                "banned_chip": "{{count}} aizliegti",
+                "households": "Mājsaimniecības",
+                "households_body": "{{count}} aktīvās dalības visā platformā",
+                "pending_chip": "{{count}} gaidīšanā",
+                "inventory": "Inventāra ieraksti",
+                "inventory_body": "{{count}} aktīvas aizņemšanās pašlaik atvērtas",
+                "public_items_chip": "{{count}} kopīgoti",
+                "private_items_chip": "{{count}} privāti",
+                "system": "Sistēmas veselība",
+                "system_body": "{{count}} stundu darbības laiks",
+                "storage_chip": "{{count}} MB augšupielādes"
+            }
+        },
+        "meta": {
+            "users_total": "{{count}} konti",
+            "households_total": "{{count}} mājsaimniecības",
+            "pending_requests": "{{count}} gaidošās apstiprināšanas",
+            "pending_requests_clear": "Nav gaidošo apstiprināšanas"
+        },
+        "refresh_complete_title": "Administratīvie dati atjaunināti",
+        "refresh_complete_body": "Pēdējie administratīvie dati tagad tiek rādīti ekrānā.",
+        "ban_user": "Aizliegt",
+        "unban_user": "Atslēgt ban",
+        "delete_user": "Dzēst lietotāju",
+        "reset_attempts": "Atiestatīšanas mēģinājumi",
+        "total_users": "Kopējais lietotāju skaits",
+        "total_items": "Kopējais vienumu skaits",
+        "server_uptime": "Servera darbības laiks",
+        "memory_usage": "Atmiņas lietojums",
+        "users_loaded": "Lietotāji ielādēti",
+        "user_banned": "Lietotājs ir aizliegts",
+        "user_unbanned": "Lietotājs nav aizliegts",
+        "user_deleted": "Lietotājs izdzēsts",
+        "attempts_reset": "Attempts reset",
+        "stats_loaded": "Stats loaded",
+        "logs_loaded": "Ielādēti baļķi",
+        "load_error": "Error loading",
+        "action_error": "Action error"
     },
     "landing": {
         "nav": {
-            "login": "Pieslēgties"
+            "login": "Pieslēgties",
+            "features": "Funkcijas",
+            "security": "Drošība",
+            "details": "Detalizēti"
         },
         "hero": {
             "title_1": "Pārvaldīt visu",
@@ -684,10 +1344,15 @@
             "cta_register": "Izveidot kontu",
             "stat_free": "Bezmaksas",
             "stat_access": "Piekļuve",
-            "free_badge": "Pilnīgi bez maksas"
+            "free_badge": "Open Source",
+            "badge": "SākumsInventārs v2.0 ir šeit",
+            "cta_explore": "Izpētīt funkcijas",
+            "cta_login": "Sign in",
+            "stat_members": "Shared homes",
+            "stat_vault": "Private Vault"
         },
         "features": {
-            "title": "Kāpēc <1>{{brandName}}</1>?",
+            "title": "Kāpēc <1>HomeInventory</1>?",
             "subtitle": "Visas funkcijas, lai vienkāršotu mājokļa pārvaldību vienā platformā",
             "items": {
                 "categorize": {
@@ -727,7 +1392,166 @@
             "contact": "Sazinieties ar mums",
             "copyright": "© {{year}} {{brandName}}. Visas tiesības aizsargātas."
         },
-        "preview_privacy_notice": "Demonstrācijas skats: netiek rādīti reālie lietotāju dati."
+        "preview_privacy_notice": "Demonstrācijas skats: netiek rādīti reālie lietotāju dati.",
+        "sections": {
+            "capabilities": "PRODUKTU IESPĒJAS",
+            "capabilities_heading": "Viss, kas nepieciešams labi apsaimniekotai mājai.",
+            "security_eyebrow": "Uzņēmuma līmeņa drošība",
+            "security_heading": "Jūsu privātā dzīve paliek privāta.",
+            "recovery_setup": "Atkopšanas atslēgas iestatīšana",
+            "updated": "Pēdējo reizi atjaunināts pirms 2 dienām",
+            "authenticator_required": "Nepieciešama autentifikācijas lietotne",
+            "about": "PAR",
+            "workflow": "MĀJAS DARBPLŪSMA",
+            "workflow_heading": "Mierīgāks veids, kā pārvaldīt to, kas ir jūsu mājās.",
+            "ready": "GATAVS SĀKT",
+            "ready_heading": "Izveidojiet mierīgāku, labāk organizētu mājas sistēmu.",
+            "hero_vault_caption": "Šifrēts un drošs",
+            "security_status": "Aktīvs"
+        },
+        "about": {
+            "headline": "Atvērtā koda, daudzvalodu sistēma, kas vispirms ir drošība, lai pārvaldītu jūsu mājas inventāru.",
+            "description": "HomeInventory nav tikai slīpēts interfeiss; tā ir praktiska sistēma, kas izveidota ikdienas lietošanai, sākot no svītrkoda un QR plūsmām līdz vairāku māju koplietošanai, aizņemšanās, personīgajam seifam un dublējumiem."
+        },
+        "homeinventory": {
+            "hero": {
+                "statement": "Ziniet, kas jums pieder. Atrodiet to bez berzes.",
+                "statementAccent": "Kopīgais mājsaimniecības inventārs. Personīgais drošības seifs tikai jums.",
+                "description": "Saglabājiet priekšmetus, garantijas, svarīgus dokumentus un aizņemto lietu uzskaiti vienā mierīgā vietā. Uzreiz redziet, kas atrodas jūsu mājās.",
+                "primaryCta": "Sāciet bez maksas",
+                "secondaryCta": "Skatīt produktu",
+                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "searchPlaceholder": "Meklēt priekšmetu, istabu vai svītrkodu"
+            },
+            "heroInventoryRows": [
+                {
+                    "name": "Gaisa cepeškrāsns",
+                    "meta": "Virtuves letis • Garantija 08/2028",
+                    "state": null
+                },
+                {
+                    "name": "Urbumu komplekts",
+                    "meta": "Glabāšanas skapis • 14 gabali",
+                    "state": "Aizņemts"
+                },
+                {
+                    "name": "Tīkla ierīce",
+                    "meta": "TV konsoles • Deco M4",
+                    "state": null
+                },
+                {
+                    "name": "Rezerves durvju atslēga",
+                    "meta": "Ieejas atvilktne",
+                    "state": null
+                },
+                {
+                    "name": "Boileru garantijas PDF",
+                    "meta": "Dokumenti • Pievienots PDF",
+                    "state": null
+                },
+                {
+                    "name": "HEPA filtrs",
+                    "meta": "Bērnu istaba • Aizvietot 11/2026",
+                    "state": null
+                }
+            ],
+            "features": {
+                "eyebrow": "KĀPĒC HOMEINVENTORY",
+                "heading": "Zināt, kas jums pieder, padara mājas dzīvi vieglāk pārvaldāmu.",
+                "description": "Kopīgā sarakstā ikdienas inventārs ir skaidrs, kamēr Personīgais seifs saglabā sensitīvus ierakstus ārpus redzesloka."
+            },
+            "productLanes": [
+                {
+                    "eyebrow": "Kopīgais inventārs",
+                    "title": "Redziet, kas atrodas jūsu mājā, vienā skaidrā vietā.",
+                    "description": "Organizējiet priekšmetus pa istabām, pievienojiet garantijas un piezīmes, un atrodiet nepieciešamo sekundēs.",
+                    "signal": "Ikdienas lietošana",
+                    "metric": "Ātra meklēšana",
+                    "note": "Istabas • kategorijas • garantijas piezīmes"
+                },
+                {
+                    "eyebrow": "Aizņēmumu izsekošana",
+                    "title": "Vienmēr ziniet, kam mājā pieder kas.",
+                    "description": "Aizņemtie priekšmeti paliek ierakstā, tāpēc nekas nepazūd.",
+                    "signal": "Koplietojama lietošana",
+                    "metric": "Skaidra vēsture",
+                    "note": "Mājsaimniecības locekļi • aizņemto vēsture • tīrītāja sekošana"
+                },
+                {
+                    "eyebrow": "Personīgā kamera",
+                    "title": "Pases, dokumenti un kodi netiek iekļauti kopīgajā meklēšanā.",
+                    "description": "Jutīgi ieraksti ir redzami tikai jums un paliek atsevišķi no ikdienas saraksta.",
+                    "signal": "Privātie ieraksti",
+                    "metric": "Tos var redzēt tikai jūs",
+                    "note": "Dokumenti • piekļuves kodi • personiskie pieraksti"
+                }
+            ],
+            "security": {
+                "eyebrow": "LIETO AR PĀRLIECĪBU",
+                "heading": "Kopīgā meklēšana nekad neiedziļinās privātajos ierakstos.",
+                "description": "Personīgais glabātuve paliek atsevišķi no kopīgās inventarizācijas un ir aizsargāts ar vairākslāņu konta drošību.",
+                "bullets": [
+                    "Jutīgās jomas tiek apstrādātas atsevišķi un droši uzglabātas.",
+                    "Aizsargājiet piekļuvi ar 2FA, rezerves kodiem un uzticamām ierīcēm."
+                ]
+            },
+            "about": {
+                "eyebrow": "JŪS PALIEKAT KONTROLĒ",
+                "heading": "HomeInventory ir veidots tā, lai ikdienā liktos mierīgs, noderīgs un uzticams.",
+                "description": "Prioritāte ir palīdzēt jums zināt, kas jums pieder, un ātri iegūt pareizo informāciju. Tehniskā caurspīdība paliek pieejama, bet tai nav jāvada stāsts.",
+                "pills": [
+                    "Create account",
+                    "Koplietojama mājsaimniecības izmantošana",
+                    "Ātra meklēšana",
+                    "Personīgais glabātuve"
+                ],
+                "strips": [
+                    {
+                        "title": "Create the first account",
+                        "description": "Pašlaik viss ir bez maksas; jūs varat izmantot visas HomeInventory funkcijas bez maksas.",
+                        "number": "01"
+                    },
+                    {
+                        "title": "Koplietojama mājsaimniecības plūsma",
+                        "description": "Ģimenes locekļi var skatīt un uzturēt vienu un to pašu mājsaimniecības inventāru kopā.",
+                        "number": "02"
+                    },
+                    {
+                        "title": "Dokumenti un garantijas",
+                        "description": "Glabājiet kvītis, garantijas informāciju un servisa piezīmes pie katra priekšmeta.",
+                        "number": "03"
+                    },
+                    {
+                        "title": "Privātie ieraksti paliek atsevišķi",
+                        "description": "Jutīga informācija paliek ārpus kopīgā saraksta un paliek redzama tikai jums.",
+                        "number": "04"
+                    }
+                ],
+                "advanced": {
+                    "eyebrow": "Tehniskie dati",
+                    "title": "Caurspīdīgs pēc būtības, klusi fonā.",
+                    "description": "Ikvienam, kam rūp pamatā esošā uzstādīšana, HomeInventory joprojām saglabā savu atvērtā koda kodolu, MIT licenci un pašpārvaldīšanas elastību kā papildinformāciju.",
+                    "link": "Skatīt tehniskos datus GitHub"
+                }
+            },
+            "cta": {
+                "eyebrow": "SĀC ŠODIEN",
+                "heading": "Izveido savu pirmo istabu. Pievieno savu pirmo priekšmetu.",
+                "description": "Sākšana ir bez maksas, un tas prasa tikai dažas mierīgas minūtes, lai izveidotu skaidrāku mājas sistēmu."
+            },
+            "security_panel": {
+                "eyebrow": "Ierobežota piekļuve",
+                "title": "Privātie ieraksti nekad neparādās kopīgajā sarakstā",
+                "description": "Pases, īpašuma dokumenti un piekļuves kodi paliek atsevišķi no kopīgās uzskaites. Seifa dati tiek glabāti šifrētā veidā.",
+                "vault_scope": "Seifa darbības joma",
+                "identity_docs": "Identitātes dokumenti",
+                "identity_docs_meta": "Pases, ID",
+                "property_records": "Īpašuma ieraksti",
+                "property_records_meta": "Iegādes, nomas līgumi",
+                "access_codes": "Piekļuves kodi",
+                "access_codes_meta": "Paroles, PIN kodi"
+            }
+        }
     },
     "intro": {
         "inventory": {
@@ -749,7 +1573,19 @@
             "next": "Tālāk",
             "skip": "Izlaist",
             "open": "Atvērt"
-        }
+        },
+        "inventory_title": "Inventārs",
+        "inventory_desc": "Šeit pievienojiet un sarakstiet savas lietas. Izsekojiet visus mājas piederumus vienuviet!",
+        "house_key_title": "Mājas atslēga",
+        "house_key_desc": "Tā ir jūsu mājas atslēga, izmantojiet to, lai uzaicinātu citus. Pievienojiet ģimenes locekļus savām mājām!",
+        "categories_title": "Kategorijas",
+        "categories_desc": "Sakārtojiet savas lietas kategorijās. Elektronika, mēbeles, virtuve un vēl vairāk!",
+        "back": "Atpakaļ",
+        "close": "Aizvērt",
+        "last": "Pabeigt",
+        "next": "Nākamais",
+        "open": "Atvērt",
+        "skip": "Izlaist"
     },
     "google_house_select": {
         "title": "Laipni lūdzam!",
@@ -803,7 +1639,8 @@
         "found_item_redirect": "Prece atrasta! Tiek novirzīts...",
         "found_page_redirect": "Lapa atrasta! Tiek novirzīts...",
         "invalid_qr": "Šis QR kods nav paredzēts šai lietotnei.",
-        "not_found": "Produkts nav atrasts. Mēģiniet citu svītrkodu."
+        "not_found": "Produkts nav atrasts. Mēģiniet citu svītrkodu.",
+        "qr_subtitle": "Izmantojiet to tikai HomeInventory vienumu QR etiķetēm."
     },
     "item_qr": {
         "hint_mobile": "📱 Skenējiet šo QR kodu ar savu telefonu, lai ātri piekļūtu precei",
@@ -813,7 +1650,29 @@
         "copy_url": "Kopēt URL",
         "download": "Lejupielādēt QR",
         "usage_title": "Lietošana",
-        "usage_desc": "Izdrukājiet QR kodu un pielīmējiet to pie preces. Skenējiet ar savu telefonu, lai uzreiz piekļūtu šai lapai!"
+        "usage_desc": "Izdrukājiet QR kodu un pielīmējiet to pie preces. Skenējiet ar savu telefonu, lai uzreiz piekļūtu šai lapai!",
+        "caption": "Vienuma saite",
+        "caption_hint": "Kopējiet vai izdrukājiet tiešo vienuma maršrutu, ja jums nepieciešama ātra piekļuve.",
+        "format_badge": "SVG eksportēt",
+        "link_preview_label": "Tiešā elementa saite",
+        "link_preview_aria": "Tiešā elementa saites priekšskatījums",
+        "copy_url_safe": "Kopēt saiti",
+        "copy_url_aria": "Kopēt elementa saiti",
+        "actions_title": "Kopīgošanas darbības",
+        "actions_desc": "Kopējiet tiešo elementa saiti vai saglabājiet skaidru QR resursu drukāšanai.",
+        "copy_success_title": "QR saite nokopēta",
+        "copy_success_body": "Vienuma rediģēšanas saite ir gatava kopīgošanai, kad jums tā būs nepieciešama.",
+        "copy_error": "QR saites nevarēja kopēt.",
+        "download_aria": "Lejupielādēt QR kodu",
+        "download_success_title": "QR kods lejupielādēts",
+        "download_success_body": "QR attēls tika saglabāts ar kopīgošanai draudzīgu faila nosaukumu.",
+        "render_error": "Šobrīd QR kodu nevarēja ģenerēt.",
+        "privacy_title": "Konfidencialitātes piezīmes",
+        "privacy_summary": "Tīkla informācija paliek paslēpta, līdz jums būs nepieciešama vadība.",
+        "link_privacy_note": "Tīkla adrese šeit paliek slēpta. Skatiet kodu vai kopējiet saiti tikai tad, ja jums apzināti vajadzīgs dalīties ar tiešu piekļuvi vienumam savā lokālajā vidē.",
+        "helper": "Skatiet, lai uzreiz atvērtu šo vienumu, vai kopējiet tiešo saiti pēc nepieciešamības.",
+        "copy_error_title": "Link could not be copied automatically",
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
     },
     "house_access_pending": {
         "eyebrow": "Pieeja mājai",
@@ -873,7 +1732,7 @@
             ],
             "fallback": "Paroles atjaunošanas saite izskatās nepilnīga vai bojāta.",
             "support": "Reģistrācijas problēmas:",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026. gada {{brandName}}"
         },
         "welcome": {
             "subject": "Laipni lūdzam {{brandName}}",
@@ -891,7 +1750,7 @@
                 "💡 Jūs varat būt vairāku māju biedrs un pārslēgties starp tām. Katrai mājai ir atsevišķs inventārs."
             ],
             "support": "Reģistrācijas problēmas:",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026. gada {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Pievienoties mājai",
@@ -903,7 +1762,12 @@
             "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Pieeja mājai",
             "bodyLine1Template": "Pašreizējais gaidošais pieprasījums: {{house}} ({{status}})",
-            "bodyLine2": "Jūsu pieprasījums par \"{{house}}\" joprojām gaida lēmumu."
+            "bodyLine2": "Jūsu pieprasījums par \"{{house}}\" joprojām gaida lēmumu.",
+            "statusLabels": {
+                "approved": "apstiprināts",
+                "rejected": "noraidīts",
+                "updated": "atjaunināts"
+            }
         },
         "houseKick": {
             "subject": "Dalībnieks izņemts no mājas",
@@ -920,11 +1784,21 @@
             "warningTitle": "⚠️",
             "warningBody": "Ja konts pastāv, paroles atiestatīšanas saite, derīga 15 minūtes, ir nosūtīta.",
             "fallback": "Paroles atjaunošanas saite izskatās nepilnīga vai bojāta.",
-            "footer": "© 2026 MājasInventārs"
+            "footer": "© 2026 {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "Šo e-pastu nosūtīja {{brandName}}.",
             "footer": "© 2026 {{brandName}} - {{supportEmail}}"
+        },
+        "testEmail": {
+            "subject": "🧪 {{brandName}} testa e-pasts",
+            "headerTitle": "🧪 testa e-pasts",
+            "successTitle": "E-pasta sistēma darbojas",
+            "successBody": "Ja saņēmāt šo e-pastu, {{brandName}} e-pasta piegāde ir konfigurēta pareizi.",
+            "sentAtLabel": "Nosūtīts",
+            "senderLabel": "Sūtītājs",
+            "serviceLabel": "Pakalpojums",
+            "footer": "© 2026 {{brandName}}"
         }
     },
     "vault": {
@@ -983,13 +1857,35 @@
             "delete_failed": "Seifa ierakstu nevarēja dzēst.",
             "decrypt_failed": "Seifa saturu nevarēja atšifrēt.",
             "name_required": "Seifa ierakstam jānorāda vienuma nosaukums.",
-            "options_failed": "Kategorijas un istabas iespējas nevarēja ielādēt."
+            "options_failed": "Kategorijas un istabas iespējas nevarēja ielādēt.",
+            "delete_success_title": "Glabātuves ieraksts dzēsts",
+            "delete_success_body": "Privātais ieraksts tika pastāvīgi noņemts no jūsu glabātuves."
         },
-        "recovery_file_title": "Mājas Inventāra Personīgās Glabātuves Atkopšanas Atslēga",
+        "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
         "recovery_file_created_label": "Izveidots",
         "recovery_file_key_label": "Atkopšanas Atslēga",
         "recovery_file_warning": "Ja pazaudējat gan šo atslēgu, gan glabātuves paroli, glabātuvi nevar atgūt.",
-        "media_note": "Fotogrāfiju augšupielāde, svītrkodu skenēšana un ārējo produktu meklēšana vēl netiek atbalstīta. Šīs funkcijas tiks pievienotas, tiklīdz būs gatava īpaša šifrēta multivides un privātuma plūsma."
+        "media_note": "Fotogrāfiju augšupielāde, svītrkodu skenēšana un ārējo produktu meklēšana vēl netiek atbalstīta. Šīs funkcijas tiks pievienotas, tiklīdz būs gatava īpaša šifrēta multivides un privātuma plūsma.",
+        "delete_title": "Dzēst šo seifa ierakstu?",
+        "delete_description": "Dzēšot personīgā seifa ierakstu, tā šifrētais saturs tiek neatgriezeniski noņemts.",
+        "delete_warning": "Šo darbību nevar atsaukt. Ierakstu dzēsiet tikai tad, ja tas vairs nav nepieciešams jūsu privātajā glabātuvē.",
+        "photo": {
+            "attach_action": "Pievienot foto",
+            "replace_action": "Aizstāt foto",
+            "empty_state": "Jebkura izvēlētā fotogrāfija tiek apstrādāta jūsu pārlūkprogrammā, no tās tiek noņemta metadati un tā tiek šifrēta pirms augšupielādes.",
+            "hint": "Fotogrāfijas tiek sagatavotas lokāli jūsu pārlūkprogrammā, no tām tiek noņemti EXIF metadati, un uz serveri tiek nosūtīti tikai šifrēti dati.",
+            "privacy_note": "Svītrkodu meklēšana un ārēju datu iegūšana paliek atspējota privātuma nolūkos.",
+            "processing": "Sagatavo fotogrāfiju drošai augšupielādei...",
+            "pending_removal": "Pašreizējā foto tiks noņemta, kad jūs saglabāsiet.",
+            "viewer_hint": "Atvērts no šifrētā oriģināla, kas glabāts Personīgajā seifā.",
+            "viewer_loading": "Foto atšifrēšana...",
+            "viewer_failed": "Pilna izmēra foto nevarēja tikt atvērta.",
+            "open_full_action": "Atvērt pilna izmēra",
+            "unsupported": "Lūdzu, izvēlieties atbalstītu attēla failu.",
+            "source_too_large": "Avota foto var būt līdz {{maxSizeMb}} MB.",
+            "prepare_failed": "Foto nevarēja droši sagatavot.",
+            "too_large": "Fotogrāfija neiekļāvās drošajā izmēra limitā. Mēģiniet mazāku vai vienkāršāku attēlu."
+        }
     },
     "borrow_requests": {
         "title": "Aizņēmumu centrs",
@@ -1010,7 +1906,9 @@
             "subtitle": "Priekšmeti, kas pašlaik ir pie jums vai ko jūs esat aizdevis",
             "empty": "Pašlaik nav aktīvu aizdevumu.",
             "borrowed_from": "Aizņemts no {{name}}",
-            "lent_to": "Pašlaik pie {{name}}"
+            "lent_to": "Pašlaik pie {{name}}",
+            "empty_title": "Pašlaik nav aktīvu aizdevumu",
+            "empty_description": "Apstiprinātie pieprasījumi parādīsies šeit, kad vienība ir aizdota vai izsniegta, kopā ar atdošanas termiņiem un atgriešanas statusu."
         },
         "status": {
             "pending": "Gaidāms",
@@ -1026,7 +1924,8 @@
             "accept": "Pieņemt",
             "reject": "Noraidīt",
             "cancel": "Atcelt",
-            "fulfill_request": "Izpildīt pieprasījumu"
+            "fulfill_request": "Izpildīt pieprasījumu",
+            "open_inventory": "Atvērt inventāru"
         },
         "labels": {
             "offer": "Piedāvājums",
@@ -1072,13 +1971,18 @@
         "preview": {
             "title": "Priekšskatījuma režīms",
             "body": "Šīs lapas servera daļa šobrīd vietējā testēšanā nav pieejama. Jūs joprojām varat pārskatīt izkārtojumu un plūsmu vispirms; mēs ieslēgsim servera pusi pēc jūsu apstiprinājuma."
-        }
+        },
+        "subtitle_compact": "Sekojiet līdzi nosūtītajām pieprasījumiem, pieprasījumiem, kas gaida jūsu rīcību, un pašlaik izsniegtajām vienībām.",
+        "incoming_empty_title": "Nav pieprasījumu, kas prasītu jūsu pārskatīšanu",
+        "outgoing_empty_title": "Vēl nav izsniegto pieprasījumu",
+        "refreshing": "Atsvaidzināt pieprasījumus un aktīvos aizņēmumus...",
+        "loading_description": "Sagatavo pieprasījumus un aktīvo aizņemšanās darbību."
     },
     "legal": {
         "privacy_policy_title": "Privātuma politika",
         "terms_of_service_title": "Pakalpojumu noteikumi",
-        "privacy_policy_content": "Jūsu privātums ir svarīgs mums. Šī lietotne droši glabā jūsu augšupielādētos datus, izmantojot lauka līmeņa šifrēšanu. Mēs nepārdodam un nesniedzam jūsu personīgos datus trešajām pusēm. Izmantojot pakalpojumu, jūs piekrītat nepieciešamo datu vākšanai konta pārvaldībai un lietotnes funkcionalitātei.",
-        "terms_of_service_content": "Izmantojot {{brandName}}, jūs piekrītat šiem noteikumiem. Pakalpojums tiek sniegts \"tāds, kāds ir\" bez garantijām. Jūs esat atbildīgs par augšupielādētajiem datiem un par to, lai jums būtu tiesības uz tiem. Mēs paturam tiesības apturēt kontus, kas pārkāpj politikas vai ļaunprātīgi izmanto sistēmu.",
+        "privacy_policy_content": "## Pārskats\n**{{brandName}}** ir atvērtā pirmkoda programmatūra, un to var nodrošināt, izmantojot oficiālu vai pašu mitinātu instalāciju. Šai instalācijai datu pārzinis vai pakalpojuma operators ir **{{controllerName}}**.\n- ** Kontroliera adrese:** {{controllerAddress}}\n- **Konfidencialitātes kontaktpersona:** {{privacyEmail}}\n- **Vispārīga atbalsta kontaktpersona:** {{supportEmail}}\n\nŠajā paziņojumā ir paskaidrots, **kādi personas dati tiek apstrādāti**, **kā tie tiek iegūti**, **kāpēc tie tiek apstrādāti**, **kas tos var saņemt**, **cik ilgi tie tiek glabāti** un **kādas tiesības jums var būt**.\n\nJa šo instalāciju pārvalda trešā puse, šis operators ir atbildīgs par jebkuru izvietošanai raksturīgo kontroliera identitāti, atbalsta saistībām, pārsūtīšanas informāciju, saglabāšanas iestatījumiem un vietējiem juridiskiem paziņojumiem.\n\n## Kādus datus mēs apkopojam un apstrādājam\n- **Konta dati:** lietotājvārds, e-pasta adrese, paroles jaukšana, sesijas sīkfaili, uzticamu ierīču dati un drošības žurnāli.\n- ** Pakalpojumu dati:** mājas, telpas, kategorijas, vienumi, augšupielādētie multivides līdzekļi, aizņēmuma pieprasījumi un jūsu izveidotie personiskie glabātuves ieraksti.\n- ** Tehniskie dati:** IP adrese, pārlūkprogrammas/sesijas identifikatori un valodas preferenču dati, kas nepieciešami lokalizācijai un konta drošībai.\n- **Izvēles identitātes nodrošinātāja dati:** ja izvēlaties Google pierakstīšanos, Google kopīgo ar mums jūsu e-pasta adresi, Google konta identifikatoru un profila parādāmo vārdu, lai mēs varētu jūs autentificēt vai izveidot jūsu kontu.\n- **Izvēles uzmeklēšanas pieprasījuma dati:** ja izmantojat svītrkodu vai produkta uzmeklēšanu, mūsu serveris var nosūtīt jūsu iesniegto svītrkoda vērtību uz Open Food Facts, Open Products Facts, Open Beauty Facts vai Google, lai varētu atgriezt pieprasīto rezultātu.\n\n## Kā mēs iegūstam datus\n- **Tieši no jums:** reģistrējoties, pierakstoties, veidojot vai rediģējot ierakstus, augšupielādējot multividi, konfigurējot drošības iestatījumus vai sazinoties ar atbalsta dienestu.\n- **Automātiski no jūsu pārlūkprogrammas vai ierīces:** izmantojot nepieciešamos sesijas sīkfailus, uzticamu ierīču mehānismus, IP apstrādi, valodas preferences un drošības žurnālus, kas nepieciešami lietojumprogrammas darbībai un aizsardzībai.\n- **No Google:** tikai tad, ja izvēlaties Google pierakstīšanos, kas attiecas tikai uz identitātes datiem, kas nepieciešami, lai jūs autentificētu vai izveidotu kontu.\n- **No ārējiem produktu datu avotiem:** tikai tad, ja aktivizējat svītrkodu vai produkta meklēšanu, tikai uzmeklēšanas pieprasījumam un atgrieztajiem produkta metadatiem.\n\n## Kāpēc mēs to apstrādājam\n- **Konta darbība:**, lai izveidotu un pārvaldītu savu kontu.\n- **Autentifikācija un drošība:**, lai autentificētu jūs un nodrošinātu sesijas un divu faktoru autentifikāciju.\n- **Pamatfunkcijas:**, lai nodrošinātu inventāra, dublēšanas un personīgās glabātuves funkcijas.\n- **Atbalsts:**, lai atbildētu uz atbalsta pieprasījumiem.\n- **Izvēles pierakstīšanās un uzmeklēšanas funkcijas:** lai pabeigtu Google pierakstīšanos un ārējā svītrkoda/produkta uzmeklēšanu tikai tad, ja izvēlaties šīs funkcijas.\n- **Juridiskie un drošības pienākumi:** lai izpildītu juridiskās vai drošības saistības.\n\n## Juridiskais pamats un iekasēšanas metode\n- **Saskaņā ar VDAR, kur piemērojams:** apstrāde pamatojas uz līguma izpildi, juridiskajām saistībām, piekrišanu jebkurai funkcijai, kuras pamatā ir piekrišana, un operatora likumīgajām interesēm par pakalpojumu un konta drošību.\n- **Saskaņā ar KVKK, kur piemērojams:** apstrāde tiek veikta, pamatojoties uz 5. un 6. pantā norādītajiem juridiskajiem pamatiem, tostarp, ja tas ir nepieciešams līguma noslēgšanai vai izpildei, juridisko pienākumu izpildei, tiesību īstenošanai vai aizsardzībai vai pārziņa likumīgajām interesēm, ja netiek aizskartas jūsu pamattiesības un brīvības.\n- **Vākšanas metode:** dati tiek vākti elektroniski, izmantojot veidlapas, autentificētas sesijas, obligātos sīkfailus, izvēles OAuth plūsmas, lietojumprogrammu žurnālus, augšupielādes un API pieprasījumus.\n\n## Uzglabāšana un pārsūtīšana\n- **Mēs nepārdodam personas datus.**\n- Personas datus var saņemt mitināšanas, datu bāzes, krātuves, e-pasta, autentifikācijas un infrastruktūras nodrošinātāji, kas tiek izmantoti šīs instalācijas darbībai.\n- Ja izvēlaties Google pierakstīšanos vai svītrkoda/produkta uzmeklēšanu, attiecīgie autentifikācijas vai uzmeklēšanas dati tiek kopīgoti ar atlasīto pakalpojumu sniedzēju tikai, lai pabeigtu jūsu aktivizēto funkciju.\n- Datus var izpaust tiesām, regulatoriem vai valsts iestādēm, ja to pieprasa likums.\n- **Instalācijas informācijas nodošanas informācija:** {{transferDisclosure}}\n- Konta dati tiek saglabāti, kamēr konts ir aktīvs.\n- Dzēšot savu kontu sadaļā Iestatījumi, jūsu konta dati, personīgās glabātuves saturs, augšupielādētie multivides un lietojumprogrammu ieraksti, kas pieder jūsu kontam, tiek dzēsti no lietojumprogrammas bez nepamatotas kavēšanās, izņemot informāciju, kas ir jāsaglabā juridisku prasību, likumā noteikto pienākumu vai drošības saistību izpildei.\n\n## Jūsu tiesības\n- Atkarībā no piemērojamiem tiesību aktiem jūs varat pieprasīt apstiprinājumu, vai jūsu personas dati tiek apstrādāti, piekļuvi tiem, kā arī informāciju par mērķiem, kategorijām, saņēmējiem un pārsūtīšanu.\n- Jūs varat pieprasīt labošanu, dzēšanu, iznīcināšanu, ierobežošanu vai iebildumu un attiecīgā gadījumā datu pārnesamību.\n- Ja apstrāde ir balstīta uz piekrišanu, jūs varat atsaukt piekrišanu jebkurā laikā, neietekmējot iepriekšēju likumīgu apstrādi.\n- Varat pieprasīt, lai labošanas, dzēšanas vai iznīcināšanas rezultāti tiktu paziņoti saņēmējiem, ja to pieprasa tiesību akti.\n- Jūs varat iebilst pret rezultātiem, kas iegūti tikai ar automatizētiem līdzekļiem, ja likums jums paredz šādas tiesības.\n- Ja to atļauj likums, jūs varat pieprasīt kompensāciju par zaudējumiem, kas radušies nelikumīgas apstrādes rezultātā.\n- Jūs varat iesniegt sūdzību **{{complaintAuthority}}**\n\n## Kā izmantot tiesības\n- Izmantojiet lietotnē ietverto konta dzēšanas plūsmu vai sazinieties ar **{{privacyEmail}}**, lai saņemtu konfidencialitātes pieprasījumus.\n- Ja tiek piemērots VDAR, uz pieprasījumiem jāatbild bez liekas kavēšanās un principā viena mēneša laikā pēc identitātes verifikācijas.\n\n## Automatizēta lēmumu pieņemšana\n- Šajā lietojumprogrammā netiek izmantota tikai automatizēta lēmumu pieņemšana vai profilēšana, kas rada juridiskas vai līdzīgas sekas.\n\n## Svarīga piezīme\nŠis paziņojums ir paredzēts pārredzamības labad. **Tas ir nošķirts no jebkādas izvēles mārketinga, analīzes vai nebūtisku sīkfailu piekrišanas**, kas vajadzības gadījumā ir jāpieprasa atsevišķi.\n\nIepriekšējie atvērtā pirmkoda projektu uzturētāji nav automātiski datu pārzinis vai apstrādātājs trešās puses pašu mitinātām izvietošanām.",
+        "terms_of_service_content": "Pakalpojuma noteikumi\n\n1. Pārskats\n{{brandName}} ir atvērtā pirmkoda programmatūra, un to var izmantot, izmantojot oficiālas vai pašmitinātas instalācijas. Šie noteikumi attiecas uz konkrēto instalāciju, kuru izmantojat.\n- Ja šo instalāciju pārvalda trešā puse, šis operators var papildināt šos noteikumus ar izvietošanai īpašiem noteikumiem, atbalsta saistībām vai vietējiem juridiskiem paziņojumiem.\n\n2. Lietošanas noteikumi\n- Jūs esat atbildīgs par pakalpojumā ievietotā satura likumību, precizitāti un īpašumtiesībām.\n- Programmatūras pieejamība atklātā pirmkoda veidā nepiešķir jums tiesības augšupielādēt, uzglabāt vai koplietot datus, kurus neesat pilnvarots izmantot.\n- Mēs varam apturēt vai noņemt kontus, kuri ļaunprātīgi izmanto pakalpojumu, pārkāpj šos noteikumus vai rada drošības vai juridisku risku.\n\n3. Konta drošība\n- Saglabājiet savu paroli, atkopšanas materiālus un dublējumu drošību.\n\n4. Datu dzīves cikls\n- Saglabājiet savas svarīgas informācijas dublējumkopijas.\n- Dzēšot kontu sadaļā Iestatījumi, tiek neatgriezeniski noņemti lietojumprogrammu dati un augšupielādētais multivides saturs, kas pieder jūsu kontam, un šo darbību nevar atsaukt.\n\n5. Ierobežojumi un atruna\n- Pieejamība, atbalsts, integrācijas un reakcijas laiks ir atkarīgs no šīs instalācijas operatora.\n- Pakalpojums tiek sniegts \"kā tas ir\" un \"kā pieejams\" likumā atļautajā apjomā.",
         "register_consent": "Es esmu izlasījis, sapratis un piekrītu <1>Pakalpojumu noteikumiem</1> un <2>Privātuma politikai</2>.",
         "consent_title": "Pārskatīt juridiskos dokumentus",
         "consent_subtitle": "Lūdzu, apstipriniet pašreizējos noteikumus pirms turpināt.",
@@ -1086,11 +1990,182 @@
         "consent_checkbox": "Es piekrītu Pakalpojumu noteikumiem un apliecinu, ka esmu izlasījis Privātuma paziņojumu.",
         "consent_submit": "Turpināt",
         "consent_submitting": "Saglabā...",
-        "consent_required": "Jums ir jāapstiprina Pakalpojumu noteikumi un Privātuma paziņojums, pirms turpināt."
+        "consent_required": "Jums ir jāapstiprina Pakalpojumu noteikumi un Privātuma paziņojums, pirms turpināt.",
+        "document_badge": "Juridisks dokuments",
+        "data_privacy_badge": "Dati un privātums",
+        "back_to_home": "Atpakaļ uz sākumlapu",
+        "quick_access": "Ātra piekļuve",
+        "on_this_page": "Saturs",
+        "contents": "Lapa",
+        "page_label": "Lapa",
+        "overview": "uz",
+        "contact": "Kontaktinformācija",
+        "jump_to": "Izvēlēties",
+        "privacy_description": "Konfidencialitātes paziņojumā par šo {{brandName}} instalāciju ir paskaidrots, kādi dati tiek apstrādāti, kā tie tiek vākti, kā tie tiek kopīgoti vai pārsūtīti un kādas tiesības un sūdzību veidi var tikt piemēroti.",
+        "privacy_support_label": "Privātuma pieprasījumiem, tiesību lietojumprogrammām un ar sūdzībām saistītiem jautājumiem par šo instalāciju:",
+        "privacy_summary": {
+            "title": "Praksē",
+            "description": "Šis īsais kopsavilkums ir šeit, lai jūs vispirms varētu skatīt būtiskāko.",
+            "items": {
+                "what": "**Ko mēs apstrādājam:** Mēs apstrādājam konta, pakalpojumu, tehniskās drošības un izvēles nodrošinātāja datus, kas nepieciešami jūsu konta un lietojumprogrammas palaišanai.",
+                "why": "**Kāpēc:** dati tiek izmantoti autentifikācijai, sesijas drošībai, krājumu darbplūsmām, dublēšanai un Personal Vault funkcijām.",
+                "sharing": "**Koplietošana un uzglabāšana:** Mēs nepārdodam personas datus. Tas tiek glabāts šai iekārtai izvēlētajā infrastruktūrā; ja izvēlaties Google pierakstīšanos vai svītrkoda meklēšanu, ierobežoti dati tiek kopīgoti ar atlasīto pakalpojumu sniedzēju, lai pabeigtu šo funkciju, un operatoram vajadzības gadījumā ir jāatklāj valstis un drošības pasākumi.",
+                "control": "**Jūsu kontrole:** Varat pieprasīt piekļuvi, labošanu, dzēšanu, ierobežošanu, iebildumus, pārnesamību, ja nepieciešams, vai iesniegt sūdzību kompetentajai iestādei, sazinoties ar šīs instalācijas privātuma adresi."
+            },
+            "shortcuts": {
+                "what": "Ko mēs apstrādājam",
+                "why": "Kāpēc",
+                "sharing": "Kopīgošana",
+                "rights": "Tiesības"
+            },
+            "section_titles": {
+                "what": "Kādus datus mēs apkopojam un apstrādājam",
+                "why": "Kāpēc mēs to apstrādājam",
+                "sharing": "Jūsu tiesības",
+                "rights": "Jūsu tiesības"
+            }
+        },
+        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_support_label": "Īss kopsavilkums",
+        "terms_summary": {
+            "eyebrow": "Ko tas nozīmē praksē",
+            "title": "Ko tas nozīmē praksē",
+            "items": {
+                "use": "Izmantojiet pakalpojumu tikai tiem datiem, kurus esat pilnvarots augšupielādēt, uzglabāt vai kopīgot.",
+                "responsibility": "Jūs joprojām esat atbildīgs par augšupielādētā vai kopīgotā satura likumību, precizitāti un īpašumtiesībām.",
+                "security": "Saglabājiet savu paroli, atkopšanas materiālus un dublējumus drošībā.",
+                "backups": "Konta dzēšana ir neatgriezeniska, tāpēc jums ir jāveido svarīgas informācijas dublējumkopijas.",
+                "disclaimer": "Pieejamība, atbalsts un integrācijas ir atkarīgas no šīs instalācijas operatora; pakalpojums tiek sniegts, \"kāds ir\" un \"kā pieejams\" likumā atļautajā apjomā."
+            }
+        },
+        "controller_name_generic": "šīs instalācijas operators",
+        "controller_name_public_host": "{{brandHost}} operators",
+        "controller_address_unconfigured": "Nav konfigurēts šīs instalācijas operatora",
+        "transfer_disclosure_default": "Pārsūtīšana var notikt uz instalācijā izmantotajiem mitināšanas, e-pasta un izvēles Google/Open*Facts/Google Search pakalpojumu sniedzējiem. Šīs instalācijas operators ir jānorāda atbilstošās mērķa valstis un aizsardzības pasākumi, ja tas ir piemērojams.",
+        "complaint_authority": "Jūsu valsts kompetentā datu aizsardzības iestāde; Turcijā – Personas datu aizsardzības iestāde (KVKK).",
+        "consent_doc01_label": "Dokuments 01",
+        "consent_doc01_desc": "Pārskatiet pašreizējos pakalpojumu noteikumus īpašā lapā.",
+        "consent_doc02_label": "Dokuments 02",
+        "consent_doc02_desc": "Pārskatiet, kā dati tiek apstrādāti un kādas tiesības uz jums attiecas."
     },
     "cookies": {
         "banner_text": "Mēs izmantojam būtiskās sīkdatnes, lai jūs saglabātu pieteikušos un nodrošinātu jūsu sesijas drošību. Turpinot izmantot šo vietni, jūs piekrītat mūsu politikām.",
         "accept": "Es piekrītu",
         "learn_more": "Uzzināt vairāk"
+    },
+    "layout": {
+        "secondary_controls_title": "Komunālie pakalpojumi",
+        "secondary_controls_hint": "Valoda, tēma un izlaiduma informācija saglabājas šeit grupēta.",
+        "collapse_sidebar": "Sakļaut sānu paneli",
+        "expand_sidebar": "Izvērst sānu paneli",
+        "account_menu_title": "Konta izvēlne",
+        "account_menu_aria": "Atvērt {{name}} konta izvēlni",
+        "account_menu_tooltip": "{{name}} konta izvēlne"
+    },
+    "app": {
+        "name": "{{brandName}}",
+        "tagline": "Gudri pārvaldiet visus savus mājsaimniecības priekšmetus"
+    },
+    "nav": {
+        "home": "Mājas",
+        "inventory": "Inventārs",
+        "rooms": "Istabas",
+        "categories": "Kategorijas",
+        "settings": "Iestatījumi",
+        "admin_panel": "Administrācijas Panelis",
+        "share_house": "Koplietošanas Māja",
+        "new_item": "Jauns Ieraksts",
+        "menu": "Izvēlne",
+        "help": "Palīdzība un Atbalsts"
+    },
+    "theme": {
+        "light": "Gaišais Režīms",
+        "dark": "Tumšais Režīms"
+    },
+    "terms": {
+        "title": "Lietošanas Noteikumi un Atruna",
+        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "disclaimer": "Atruna: Izmantojot šo lietotni, jūs piekrītat, ka nevarat prasīt nekādu kompensāciju par iespējamu datu zudumu, piekļuves problēmām vai citiem tehniskiem traucējumiem.",
+        "backup_warning": "Datu dublēšana: Mēs stingri iesakām regulāri veikt svarīgās informācijas dublēšanu.",
+        "accept": "Piesakoties, jūs piekrītat šiem noteikumiem.",
+        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "contact": "Kontakts"
+    },
+    "locations": {
+        "title": "Atrašanās vietas",
+        "add": "Pievienot atrašanās vietu",
+        "edit": "Rediģēt atrašanās vietu",
+        "delete": "Dzēst atrašanās vietu",
+        "name": "Atrašanās vietas nosaukums",
+        "room": "Istaba",
+        "select_room": "Izvēlieties istabu",
+        "added": "Pievienota atrašanās vieta",
+        "updated": "Atrašanās vieta atjaunināta",
+        "deleted": "Atrašanās vieta izdzēsta",
+        "not_found": "Atrašanās vieta nav atrasta",
+        "name_required": "Name required",
+        "room_required": "Room required",
+        "load_error": "Error loading",
+        "add_error": "Error adding",
+        "update_error": "Error updating",
+        "delete_error": "Error deleting"
+    },
+    "barcode": {
+        "scan": "Skenēt svītrkodu",
+        "scanning": "Tiek skenēts...",
+        "enter_manually": "Ievadīt manuāli",
+        "search_database": "Meklēt datu bāzē",
+        "not_found": "Svītrkods nav atrasts",
+        "search_google": "Meklēt Google",
+        "camera_permission": "Nepieciešama kameras atļauja",
+        "search_error": "Search error",
+        "invalid_code": "Invalid code"
+    },
+    "qr": {
+        "scan": "Skenēt QR",
+        "generate": "Ģenerēt QR",
+        "share": "Kopīgot QR"
+    },
+    "house": {
+        "create_new": "Izveidot jaunu māju",
+        "join_existing": "Pievienoties esošajai mājai",
+        "enter_key": "Ievadiet mājas atslēgu",
+        "key_placeholder": "piemēram: ABC123XYZ",
+        "select_option": "Izvēlieties opciju",
+        "created": "Izveidota māja",
+        "joined": "Joined house",
+        "invalid_key": "Invalid key",
+        "members_loaded": "Members loaded",
+        "key_copied": "Key copied"
+    },
+    "errors": {
+        "generic": "Radās kļūda",
+        "network": "Savienojuma kļūda",
+        "not_found": "Nav atrasts",
+        "unauthorized": "Neautorizēta piekļuve",
+        "server": "Servera kļūda",
+        "validation": "Validācijas kļūda"
+    },
+    "email": {
+        "sent": "E-pasts nosūtīts",
+        "send_error": "Send error",
+        "invalid_email": "Invalid email",
+        "subject_required": "Subject required",
+        "message_required": "Message required"
+    },
+    "rate_limit": {
+        "too_many_requests": "Too many requests",
+        "too_many_login_attempts": "Too many login attempts"
+    },
+    "meta": {
+        "page_title_sign_in": "Sign in",
+        "page_title_register": "Create account",
+        "page_title_choose_house": "Choose house",
+        "page_title_recovery_key": "Recovery key",
+        "page_title_house_access": "House access",
+        "page_title_legal_review": "Legal review",
+        "page_title_new_item": "New item",
+        "page_title_edit_item": "Edit item",
+        "page_title_items": "Inventory"
     }
 }

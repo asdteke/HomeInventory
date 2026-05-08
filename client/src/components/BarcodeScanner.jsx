@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { Html5Qrcode, Html5QrcodeSupportedFormats } from 'html5-qrcode';
 import axios from 'axios';
 import { X, Camera, AlertCircle, CheckCircle, Loader2, Package, Search, Plus, ExternalLink, Flashlight, ZoomIn, ZoomOut, RefreshCw } from 'lucide-react';
-import cameraManager from '../utils/cameraManager';
 import { useTranslation } from 'react-i18next';
+import { loadScannerRuntime } from '../utils/scannerRuntime';
 
 // Beep sound for successful scan
 const playBeep = (success = true) => {
@@ -43,6 +42,7 @@ export default function BarcodeScanner({ isOpen, onClose, onProductFound, onBarc
     const [status, setStatus] = useState('');
     const [isScanning, setIsScanning] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [preparingScanner, setPreparingScanner] = useState(false);
     const [productInfo, setProductInfo] = useState(null);
     const scanProcessingRef = useRef(false);
 
@@ -84,6 +84,8 @@ export default function BarcodeScanner({ isOpen, onClose, onProductFound, onBarc
         console.log('[BarcodeScanner] Stopping scanner...');
 
         try {
+            const { cameraManager } = await loadScannerRuntime();
+
             // First release global camera streams
             await cameraManager.releaseAllStreams();
 
@@ -138,9 +140,12 @@ export default function BarcodeScanner({ isOpen, onClose, onProductFound, onBarc
         setError('');
         setStatus(t('scanner.init'));
         setProductInfo(null);
+        setPreparingScanner(true);
         scanProcessingRef.current = false;
 
         try {
+            const { Html5Qrcode, Html5QrcodeSupportedFormats, cameraManager } = await loadScannerRuntime();
+
             // CRITICAL: Release any existing camera streams first
             console.log('[BarcodeScanner] Releasing existing streams...');
             await cameraManager.releaseAllStreams();
@@ -297,6 +302,9 @@ export default function BarcodeScanner({ isOpen, onClose, onProductFound, onBarc
             }
         } finally {
             isStartingRef.current = false;
+            if (isMountedRef.current) {
+                setPreparingScanner(false);
+            }
         }
     };
 
@@ -810,7 +818,7 @@ export default function BarcodeScanner({ isOpen, onClose, onProductFound, onBarc
                 )}
 
                 {/* Loading State - if purely loading without camera */}
-                {loading && !isScanning && (
+                {(preparingScanner || (loading && !isScanning)) && (
                     <div className="flex flex-col items-center justify-center text-white">
                         <Loader2 className="w-10 h-10 animate-spin mb-4" />
                         <p>{status}</p>

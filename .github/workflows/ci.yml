@@ -1,0 +1,123 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - new-design-rebuild
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Build, test, and audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            client/package-lock.json
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Install client dependencies
+        run: npm ci --prefix client
+
+      - name: Validate JSON files
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const { execSync } = require('child_process');
+          const files = execSync('git ls-files "*.json"', { encoding: 'utf8' })
+            .trim()
+            .split(/\n/)
+            .filter(Boolean);
+          const failures = [];
+          for (const file of files) {
+            try {
+              JSON.parse(fs.readFileSync(file, 'utf8'));
+            } catch (error) {
+              failures.push(`${file}: ${error.message}`);
+            }
+          }
+          if (failures.length) {
+            console.error(failures.join('\n'));
+            process.exit(1);
+          }
+          console.log(`Validated ${files.length} JSON files.`);
+          NODE
+
+      - name: Validate locale parity and artifacts
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+
+          const artifactPattern = /QX7|QUERY LENGTH LIMIT EXCEEDED|<<<|<<|__HI_(?!PH_)[A-Z0-9_]+|HI_(?!PH_)[A-Z0-9_]+/i;
+          const localeDirs = [
+            ['client/public/locales', 'client/public/locales/en/translation.json'],
+            ['client/src/locales', 'client/src/locales/en/translation.json']
+          ];
+
+          function collectStringPaths(value, prefix = '') {
+            if (Array.isArray(value)) {
+              return value.flatMap((item, index) => collectStringPaths(item, `${prefix}[${index}]`));
+            }
+            if (value && typeof value === 'object') {
+              return Object.entries(value).flatMap(([key, child]) => {
+                const next = prefix ? `${prefix}.${key}` : key;
+                return collectStringPaths(child, next);
+              });
+            }
+            return typeof value === 'string' ? [prefix] : [];
+          }
+
+          const failures = [];
+          for (const [dir, baseFile] of localeDirs) {
+            const base = new Set(collectStringPaths(JSON.parse(fs.readFileSync(baseFile, 'utf8'))));
+            for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+              if (!entry.isDirectory()) continue;
+              const file = path.join(dir, entry.name, 'translation.json');
+              if (!fs.existsSync(file)) continue;
+              const data = JSON.parse(fs.readFileSync(file, 'utf8'));
+              const current = new Set(collectStringPaths(data));
+              const missing = [...base].filter((key) => !current.has(key));
+              const extra = [...current].filter((key) => !base.has(key));
+              if (missing.length || extra.length) {
+                failures.push(`${file}: missing ${missing.length}, extra ${extra.length}`);
+              }
+              const serialized = JSON.stringify(data);
+              if (artifactPattern.test(serialized)) {
+                failures.push(`${file}: translation artifact marker detected`);
+              }
+            }
+          }
+          if (failures.length) {
+            console.error(failures.join('\n'));
+            process.exit(1);
+          }
+          console.log('Locale parity and artifact checks passed.');
+          NODE
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: node --test --test-concurrency=1 tests/*.test.mjs
+
+      - name: Audit high severity dependencies
+        run: npm audit --audit-level=high
+
+      - name: Audit client high severity dependencies
+        run: npm audit --audit-level=high --prefix client

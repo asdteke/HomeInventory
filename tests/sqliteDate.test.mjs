@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import Database from 'better-sqlite3';
 
-import { toSqliteUtcTimestamp } from '../utils/sqliteDate.js';
+import { parseSqliteUtcTimestamp, toSqliteUtcTimestamp } from '../utils/sqliteDate.js';
 
 test('toSqliteUtcTimestamp emits SQLite-compatible UTC timestamps', () => {
     assert.equal(
@@ -24,4 +24,12 @@ test('SQLite-compatible timestamps preserve same-day ordering in SQL comparisons
         db.prepare('SELECT ? > ? AS gt').get(later, '2026-03-26 01:00:00').gt,
         1
     );
+});
+
+test('parseSqliteUtcTimestamp reads SQLite timestamps as UTC instead of local time', () => {
+    assert.equal(
+        parseSqliteUtcTimestamp('2026-03-26 01:02:03'),
+        Date.parse('2026-03-26T01:02:03.000Z')
+    );
+    assert.equal(parseSqliteUtcTimestamp(''), null);
 });

@@ -1,318 +1,748 @@
-import { useState } from 'react';
-import { Link, Outlet, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
+import { Link, NavLink, Outlet, useLocation, useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
-import { useTheme } from '../context/ThemeContext';
 import {
-    Home, Package, FolderOpen, Settings, Plus, Menu, X, ChevronLeft, ChevronRight,
-    Sun, Moon, LogOut, User, MapPin, ScanLine, Share2, HelpCircle, Shield, KeyRound, ArrowRightLeft
+    AlertTriangle,
+    ArrowRightLeft,
+    ChevronLeft,
+    ChevronDown,
+    ChevronRight,
+    FolderOpen,
+    Grid2x2,
+    HelpCircle,
+    Home,
+    KeyRound,
+    LogOut,
+    Menu,
+    Moon,
+    Package,
+    Plus,
+    ScanLine,
+    Settings,
+    Shield,
+    Sun,
+    User,
+    X
 } from 'lucide-react';
-import QRScanner from './QRScanner';
-import IntroTour from './IntroTour';
-import LanguageSwitcher from './LanguageSwitcher';
 import BrandLogo from './BrandLogo';
-import { SUPPORT_EMAIL } from '../constants/branding';
+import { BRAND_NAME, SUPPORT_EMAIL } from '../constants/branding';
+import { useTheme } from '../context/ThemeContext';
+import LanguageSwitcher from './LanguageSwitcher';
+import SegmentedToggle from './SegmentedToggle';
+import Tooltip from './Tooltip';
+import { ConfirmDialog } from './ModalDialog';
 
-export default function Layout() {
-    const { user, logout, isAdmin } = useAuth();
-    const { isDark, toggleTheme } = useTheme();
-    const { t } = useTranslation();
-    const location = useLocation();
-    const navigate = useNavigate();
-    const [sidebarOpen, setSidebarOpen] = useState(true);
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [showQRScanner, setShowQRScanner] = useState(false);
+const COMPACT_ICON_BUTTON_SIZE = 'h-[64px] w-[64px]';
+const COMPACT_ICON_INNER_SIZE = 'h-[48px] w-[48px]';
+const EXPANDED_NAV_BUTTON_MIN_HEIGHT = 'min-h-[clamp(64px,6.9vh,74px)]';
+const EXPANDED_NAV_ICON_SIZE = 'h-[clamp(40px,4.4vh,44px)] w-[clamp(40px,4.4vh,44px)]';
+const STANDARD_NAV_BUTTON_MIN_HEIGHT = 'min-h-[64px]';
+const STANDARD_NAV_ICON_SIZE = 'h-10 w-10';
+const MOBILE_DRAWER_NAV_ITEM_CLASS = '!min-h-[58px] !px-3.5 !py-2.5';
+const QRScanner = lazy(() => import('./QRScanner'));
+const IntroTour = lazy(() => import('./IntroTour'));
+const MOBILE_NAV_ITEM_CLASS = 'flex h-[72px] flex-col items-center justify-center px-1 text-[11px] font-medium leading-[1.1] text-center transition-all';
+const MOBILE_NAV_LINK_CLASS = 'relative flex h-[72px] flex-col items-center justify-start gap-0 px-1 pt-1.5 text-[10.5px] font-medium leading-none text-center transition-all';
+const MOBILE_NAV_LABEL_CLASS = 'mt-px max-w-[4.35rem] text-center leading-[1.02] tracking-[-0.01em]';
+const MOBILE_NAV_ICON_BASE_CLASS = 'flex h-10 w-10 items-center justify-center rounded-full border transition-all';
 
-    const handleLogout = () => { logout(); navigate('/login'); };
+function MobileBottomNavLink({ to, label, Icon, end = false }) {
+    return (
+        <NavLink to={to} end={end}>
+            {({ isActive }) => (
+                <span className={`${MOBILE_NAV_LINK_CLASS} ${isActive ? 'text-[var(--hi-accent)]' : 'text-[var(--hi-text-soft)]'}`}>
+                    <span className={`${MOBILE_NAV_ICON_BASE_CLASS} ${isActive ? 'border-[color:var(--hi-accent-soft)] bg-[var(--hi-accent-soft)] text-[var(--hi-accent)] shadow-[var(--hi-shadow-soft)]' : 'border-transparent bg-transparent text-current'}`}>
+                        <Icon className="h-4 w-4" />
+                    </span>
+                    <span className={MOBILE_NAV_LABEL_CLASS}>{label}</span>
+                </span>
+            )}
+        </NavLink>
+    );
+}
 
-    const navItems = [
-        { to: '/', label: t('navigation.home'), icon: Home, end: true },
-        { to: '/items', label: t('navigation.inventory'), icon: Package, id: 'intro-inventory' },
-        { to: '/borrow-requests', label: t('navigation.borrow_requests'), icon: ArrowRightLeft },
-        { to: '/vault', label: t('navigation.personal_vault'), icon: KeyRound },
-        { to: '/rooms', label: t('navigation.rooms'), icon: FolderOpen },
-        { to: '/categories', label: t('navigation.categories'), icon: MapPin, id: 'intro-categories' },
-        { to: '/settings', label: t('navigation.settings'), icon: Settings },
-    ];
+export function ShellLink({ item, compact = false, onClick, tone = 'default', className = '', spacious = false }) {
+    const Icon = item.icon;
+    const resolvedPath = useResolvedPath(item.to);
+    const isActive = Boolean(useMatch({ path: resolvedPath.pathname, end: item.end }));
+    const activeClasses = compact
+        ? tone === 'danger'
+            ? 'border border-red-300/40 bg-red-500/10 text-red-500'
+            : tone === 'admin'
+                ? 'border border-[rgba(184,153,104,0.26)] bg-[var(--hi-secondary-soft)] text-[var(--hi-secondary-strong)]'
+            : false
+                ? 'border border-[color:var(--hi-border-strong)] bg-[linear-gradient(135deg,var(--hi-accent-soft),rgba(255,255,255,0.03))] text-[var(--hi-accent)] shadow-[var(--hi-shadow-soft)]'
+                : 'border border-[color:var(--hi-accent-soft)] bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]'
+        : tone === 'danger'
+            ? 'border border-red-300/40 bg-red-500/10 text-red-500'
+            : tone === 'admin'
+                ? 'border border-[rgba(184,153,104,0.24)] bg-[linear-gradient(135deg,rgba(184,153,104,0.12),rgba(184,153,104,0.04))] text-[var(--hi-text)]'
+            : false
+                ? 'border border-[color:var(--hi-border-strong)] bg-[linear-gradient(135deg,var(--hi-accent-soft),rgba(255,255,255,0.03))] text-[var(--hi-text)] shadow-[var(--hi-shadow-soft)]'
+                : 'border border-[color:var(--hi-accent-soft)] bg-[var(--hi-accent-soft)] text-[var(--hi-text)]';
+    const inactiveClasses = compact
+        ? tone === 'danger'
+            ? 'border border-red-300/20 bg-red-500/5 text-red-500 hover:bg-red-500/10'
+            : tone === 'admin'
+                ? 'border border-[rgba(184,153,104,0.16)] bg-[rgba(184,153,104,0.05)] text-[var(--hi-secondary-strong)] hover:border-[rgba(184,153,104,0.24)] hover:bg-[rgba(184,153,104,0.1)]'
+            : 'border border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text-soft)] hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)]'
+        : tone === 'danger'
+            ? 'border border-red-300/20 bg-red-500/5 text-red-500 hover:bg-red-500/10'
+            : tone === 'admin'
+                ? 'border border-[rgba(184,153,104,0.12)] bg-[rgba(184,153,104,0.05)] text-[var(--hi-text-soft)] hover:border-[rgba(184,153,104,0.22)] hover:bg-[rgba(184,153,104,0.1)] hover:text-[var(--hi-text)]'
+            : false
+                ? 'border border-transparent text-[var(--hi-text-soft)] hover:border-[var(--hi-border)] hover:bg-[var(--hi-panel)] hover:text-[var(--hi-text)]'
+                : 'border border-transparent text-[var(--hi-text-soft)] hover:bg-white/45 hover:text-[var(--hi-text)] dark:hover:bg-white/5';
+    const activeIconClasses = compact
+        ? 'text-current'
+        : tone === 'danger'
+            ? 'bg-red-500/10 text-red-500'
+        : tone === 'admin'
+                ? 'bg-[rgba(184,153,104,0.18)] text-[var(--hi-secondary-strong)]'
+            : 'bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]';
+    const inactiveIconClasses = compact
+        ? 'text-current'
+        : tone === 'danger'
+            ? 'bg-red-500/10 text-red-500'
+            : tone === 'admin'
+                ? 'bg-[rgba(184,153,104,0.12)] text-[var(--hi-secondary-strong)]'
+            : 'bg-black/5 text-current dark:bg-white/5';
+    const expandedButtonSize = spacious ? EXPANDED_NAV_BUTTON_MIN_HEIGHT : STANDARD_NAV_BUTTON_MIN_HEIGHT;
+    const expandedIconSize = spacious ? EXPANDED_NAV_ICON_SIZE : STANDARD_NAV_ICON_SIZE;
+    const expandedLabelClass = spacious
+        ? 'text-[clamp(0.96rem,1vw,1.02rem)] font-semibold leading-6'
+        : 'text-sm font-semibold leading-6';
 
-    const NavItem = ({ item, mobile = false }) => (
+    const link = (
         <NavLink
             to={item.to}
             end={item.end}
-            id={item.id}
-            onClick={() => mobile && setMobileMenuOpen(false)}
-            className={({ isActive }) => `
-        flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200
-        ${mobile ? 'text-base' : sidebarOpen ? 'text-sm' : 'justify-center'}
-        ${isActive
-                    ? 'bg-primary-500/20 text-primary-500 dark:text-primary-400'
-                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
-                }
-      `}
+            onClick={onClick}
+            aria-current={isActive ? 'page' : undefined}
+            aria-label={compact ? item.label : undefined}
+            className={`
+                group flex items-center gap-3 rounded-full transition-all duration-200
+                ${compact ? `mx-auto ${COMPACT_ICON_BUTTON_SIZE} justify-center px-0 py-0` : `${expandedButtonSize} px-4 py-3`}
+                ${isActive ? activeClasses : inactiveClasses}
+                ${className}
+            `}
+            data-shell-link={item.to}
         >
-            <item.icon className="w-5 h-5 flex-shrink-0" />
-            {(sidebarOpen || mobile) && <span>{item.label}</span>}
+            <span className={`flex ${compact ? 'h-full w-full' : expandedIconSize} shrink-0 items-center justify-center ${compact ? 'mx-auto rounded-full' : 'rounded-full'} ${isActive ? activeIconClasses : inactiveIconClasses}`}>
+                <Icon className={`${compact ? 'h-5 w-5' : spacious ? 'h-5 w-5' : 'h-[18px] w-[18px]'}`} />
+            </span>
+            {!compact && (
+                <span className="min-w-0 flex-1">
+                    <span className={`block ${expandedLabelClass}`}>{item.label}</span>
+                </span>
+            )}
         </NavLink>
     );
 
-    return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
-            {/* Intro Tour */}
-            <IntroTour />
+    if (compact) {
+        return (
+            <Tooltip label={item.label} side="right">
+                {link}
+            </Tooltip>
+        );
+    }
 
-            {/* Desktop Sidebar */}
-            <aside className={`
-        hidden lg:flex flex-col fixed top-0 left-0 h-full z-40
-        bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800
-        transition-all duration-300 ${sidebarOpen ? 'w-64' : 'w-20'}
-      `}>
-                {/* Logo */}
-                <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-800">
-                    <div className={`flex items-center gap-3 ${!sidebarOpen && 'justify-center w-full'}`}>
-                        <Link to="/" onClick={() => setMobileMenuOpen(false)}>
-                            {sidebarOpen ? (
-                                <BrandLogo variant="full" size="sm" className="w-auto max-h-[54px]" />
-                            ) : (
-                                <BrandLogo variant="symbol" size="sm" className="shrink-0 w-auto max-h-[40px]" />
-                            )}
-                        </Link>
-                    </div>
+    return link;
+}
+
+function BetaBadge({ t, compact = false }) {
+    return (
+        <Tooltip
+            label={t('beta_banner.tooltip', { defaultValue: 'Early access features may still change.' })}
+            side={compact ? 'right' : 'top'}
+            panelClassName={compact ? '' : '!left-0 !translate-x-0 max-w-[14rem] text-left'}
+        >
+            <button
+                type="button"
+                aria-label={t('beta_banner.aria_label', { defaultValue: 'Beta notice' })}
+                className={`inline-flex items-center gap-2 rounded-full border border-[rgba(184,153,104,0.24)] bg-[var(--hi-secondary-soft)] text-[var(--hi-secondary-strong)] shadow-[var(--hi-shadow-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-secondary-strong)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-bg-elevated)] ${compact ? `${COMPACT_ICON_BUTTON_SIZE} justify-center px-0` : 'px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em]'}`}
+            >
+                <AlertTriangle className={compact ? 'h-[18px] w-[18px]' : 'h-3.5 w-3.5'} />
+                {!compact && <span>{t('beta_banner.badge', { defaultValue: 'Beta' })}</span>}
+            </button>
+        </Tooltip>
+    );
+}
+
+export default function Layout() {
+    const { user, logout, isAdmin } = useAuth();
+    const { t } = useTranslation();
+    const { theme, setTheme } = useTheme();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [sidebarOpen, setSidebarOpen] = useState(true);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [mobileAccountMenuOpen, setMobileAccountMenuOpen] = useState(false);
+    const [showQRScanner, setShowQRScanner] = useState(false);
+    const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+    const [logoutSubmitting, setLogoutSubmitting] = useState(false);
+    const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+    const profileMenuRef = useRef(null);
+    const compactUtilityButtonClass = '!mx-auto !h-[64px] !w-[64px] !justify-center !rounded-full !px-0 !py-0';
+    const bottomActionButtonClass = 'btn-secondary !w-full !min-h-[58px] !justify-start !gap-3 !rounded-[1rem] !border-[var(--hi-border)] !bg-[var(--hi-panel)] !px-3.5 !py-3 text-sm hover:!bg-[var(--hi-panel-muted)]';
+    const mobileBottomActionButtonClass = `${bottomActionButtonClass} !min-h-[54px] !py-2.5`;
+    const compactSidebar = !sidebarOpen;
+    const userInitial = user?.username?.charAt(0)?.toUpperCase() || 'H';
+    const betaT = (key, options) => t(key, { brandName: BRAND_NAME, ...options });
+    const [shouldMountIntroTour] = useState(() => {
+        if (typeof window === 'undefined') {
+            return false;
+        }
+
+        return window.localStorage?.getItem('enableIntroTour') === 'true';
+    });
+
+    const openLogoutConfirm = () => {
+        setMobileMenuOpen(false);
+        setMobileAccountMenuOpen(false);
+        setProfileMenuOpen(false);
+        setShowLogoutConfirm(true);
+    };
+
+    useEffect(() => {
+        setProfileMenuOpen(false);
+        setMobileAccountMenuOpen(false);
+    }, [location.pathname, location.search, location.hash]);
+
+    useEffect(() => {
+        if (!profileMenuOpen) {
+            return undefined;
+        }
+
+        const handlePointerDown = (event) => {
+            if (event.target instanceof Element && event.target.closest('[data-language-switcher-portal="true"]')) {
+                return;
+            }
+
+            if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
+                setProfileMenuOpen(false);
+            }
+        };
+
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                setProfileMenuOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handlePointerDown);
+        document.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            document.removeEventListener('mousedown', handlePointerDown);
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [profileMenuOpen]);
+
+    const handleLogout = async () => {
+        setLogoutSubmitting(true);
+        try {
+            await logout();
+            navigate('/', { replace: true });
+        } finally {
+            setLogoutSubmitting(false);
+        }
+    };
+
+    const navItems = useMemo(() => ([
+        {
+            to: '/',
+            label: t('navigation.home'),
+            icon: Home,
+            end: true
+        },
+        {
+            to: '/items',
+            label: t('navigation.inventory'),
+            icon: Package
+        },
+        {
+            to: '/borrow-requests',
+            label: t('navigation.borrow_requests'),
+            icon: ArrowRightLeft
+        },
+        {
+            to: '/vault',
+            label: t('navigation.personal_vault'),
+            icon: KeyRound
+        },
+        {
+            to: '/rooms',
+            label: t('navigation.rooms'),
+            icon: FolderOpen
+        },
+        {
+            to: '/categories',
+            label: t('navigation.categories'),
+            icon: Grid2x2
+        },
+        {
+            to: '/settings',
+            label: t('navigation.settings'),
+            icon: Settings
+        }
+    ]), [t]);
+
+    return (
+        <div className="premium-shell min-h-screen">
+            {shouldMountIntroTour && (
+                <Suspense fallback={null}>
+                    <IntroTour />
+                </Suspense>
+            )}
+
+            <aside
+                className={`
+                    fixed inset-y-0 left-0 z-40 hidden lg:flex flex-col border-r border-[var(--hi-border)]
+                    bg-[var(--hi-bg-elevated)] backdrop-blur-2xl transition-all duration-300
+                    ${sidebarOpen ? 'w-[288px]' : 'w-[112px]'}
+                `}
+            >
+                <div className={`flex items-center ${sidebarOpen ? 'gap-4 px-5 pb-[clamp(0.75rem,1.2vh,1rem)] pt-[clamp(1rem,2vh,1.5rem)]' : 'justify-center px-0 pb-4 pt-6'}`}>
+                    <Link to="/" aria-label={BRAND_NAME} className={`min-w-0 ${sidebarOpen ? 'flex-1 pr-3' : 'mx-auto'}`}>
+                        {sidebarOpen ? (
+                            <BrandLogo
+                                variant="full"
+                                size={false ? 'xl' : 'md'}
+                                className={false ? 'w-[258px] max-w-full' : 'max-h-[62px]'}
+                            />
+                        ) : (
+                            <span className={`mx-auto flex ${COMPACT_ICON_BUTTON_SIZE} items-center justify-center overflow-hidden rounded-[1.35rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] shadow-[var(--hi-shadow-soft)]`}>
+                                <BrandLogo variant="symbol" size={false ? 'sm' : 'sm'} className={false ? 'max-h-[50px]' : 'max-h-[42px]'} />
+                            </span>
+                        )}
+                    </Link>
+                    {sidebarOpen && (
+                        <button
+                            type="button"
+                            onClick={() => setSidebarOpen(false)}
+                            aria-label={t('layout.collapse_sidebar', { defaultValue: 'Collapse sidebar' })}
+                            className="ml-2 shrink-0 rounded-full border border-[var(--hi-border)] bg-white/50 p-2 text-[var(--hi-text-soft)] transition hover:text-[var(--hi-text)] dark:bg-white/5"
+                        >
+                            <ChevronLeft className="h-4 w-4" />
+                        </button>
+                    )}
                 </div>
 
-                {/* Navigation */}
-                <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
-                    {navItems.map(item => <NavItem key={item.to} item={item} />)}
+                {!sidebarOpen && (
+                    <div className="flex justify-center pb-3">
+                        <button
+                            type="button"
+                            onClick={() => setSidebarOpen(true)}
+                            aria-label={t('layout.expand_sidebar', { defaultValue: 'Expand sidebar' })}
+                            className={`mx-auto flex ${COMPACT_ICON_BUTTON_SIZE} items-center justify-center rounded-full border border-[var(--hi-border)] bg-white/50 text-[var(--hi-text-soft)] transition hover:text-[var(--hi-text)] dark:bg-white/5`}
+                        >
+                            <ChevronRight className="h-5 w-5" />
+                        </button>
+                    </div>
+                )}
 
-                    {/* Share House Button */}
-                    <NavLink id="intro-house-key" to="/settings#house-info" className={`
-            flex items-center gap-3 px-4 py-3 rounded-xl font-medium mt-2
-            bg-green-50 dark:bg-green-500/10 text-green-600 dark:text-green-400
-            border border-green-200 dark:border-green-500/30
-            hover:bg-green-100 dark:hover:bg-green-500/20 transition-all duration-200
-            ${!sidebarOpen && 'justify-center'}
-          `}>
-                        <Share2 className="w-5 h-5" />
-                        {sidebarOpen && <span>{t('navigation.share_house')}</span>}
-                    </NavLink>
+                <div ref={profileMenuRef} className={`relative ${sidebarOpen ? 'px-4 pb-[clamp(0.75rem,1.2vh,1rem)]' : 'flex justify-center px-0 pb-4'}`}>
+                    {sidebarOpen ? (
+                        <button
+                            type="button"
+                            onClick={() => setProfileMenuOpen((current) => !current)}
+                            aria-haspopup="dialog"
+                            aria-expanded={profileMenuOpen}
+                            aria-label={t('layout.account_menu_aria', {
+                                name: user?.username || t('settings.account_overview.title', { defaultValue: 'Account overview' }),
+                                defaultValue: 'Open account menu for {{name}}'
+                            })}
+                            className="group flex w-full items-center gap-3 rounded-[1.15rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] px-3 py-2.5 text-left transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-bg-elevated)]"
+                        >
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--hi-accent),var(--hi-secondary))] text-sm font-extrabold text-white shadow-[var(--hi-shadow-soft)]">
+                                {userInitial}
+                            </div>
+                            <div className="min-w-0 flex-1">
+                                <p className="truncate text-sm font-semibold leading-5 text-[var(--hi-text)]">{user?.username}</p>
+                            </div>
+                            <ChevronDown className={`h-4 w-4 shrink-0 text-[var(--hi-text-muted)] transition ${profileMenuOpen ? 'rotate-180 text-[var(--hi-accent)]' : 'group-hover:text-[var(--hi-accent)]'}`} />
+                        </button>
+                    ) : (
+                        <Tooltip
+                            label={t('layout.account_menu_tooltip', {
+                                name: user?.username || t('settings.account_overview.title', { defaultValue: 'Account overview' }),
+                                defaultValue: '{{name}} account menu'
+                            })}
+                            side="right"
+                        >
+                            <button
+                                type="button"
+                                onClick={() => setProfileMenuOpen((current) => !current)}
+                                aria-haspopup="dialog"
+                                aria-expanded={profileMenuOpen}
+                                aria-label={t('layout.account_menu_aria', {
+                                    name: user?.username || t('settings.account_overview.title', { defaultValue: 'Account overview' }),
+                                    defaultValue: 'Open account menu for {{name}}'
+                                })}
+                                className={`flex ${COMPACT_ICON_BUTTON_SIZE} items-center justify-center rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text)] transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-bg-elevated)]`}
+                            >
+                                <span className={`flex ${COMPACT_ICON_INNER_SIZE} items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--hi-accent),var(--hi-secondary))] text-[1.125rem] font-extrabold text-white shadow-[var(--hi-shadow-soft)]`}>
+                                    {userInitial}
+                                </span>
+                            </button>
+                        </Tooltip>
+                    )}
 
-                    <NavLink to="/items/new" className={`
-            flex items-center gap-3 px-4 py-3 rounded-xl font-medium mt-2
-            bg-gradient-to-r from-primary-500 to-blue-500 text-white shadow-lg shadow-primary-500/25
-            hover:shadow-xl hover:shadow-primary-500/30 transition-all duration-200
-            ${!sidebarOpen && 'justify-center'}
-          `}>
-                        <Plus className="w-5 h-5" />
-                        {sidebarOpen && <span>{t('navigation.new_item')}</span>}
-                    </NavLink>
+                    {profileMenuOpen && (
+                        <div
+                            role="dialog"
+                            aria-modal="false"
+                            aria-label={t('layout.account_menu_title', { defaultValue: 'Account menu' })}
+                            className={`absolute z-50 overflow-hidden rounded-[1.2rem] border border-[var(--hi-border)] bg-[var(--hi-bg-elevated)] p-3 shadow-[var(--hi-shadow)] backdrop-blur-2xl ${sidebarOpen ? 'left-0 right-0 top-full mt-3' : 'left-full top-0 ml-3 w-[18rem]'}`}
+                        >
+                            <div className="space-y-2">
+                                <Link
+                                    to="/settings#settings-account"
+                                    onClick={() => setProfileMenuOpen(false)}
+                                    aria-label={t('settings.account_overview.title', { defaultValue: 'Account overview' })}
+                                    className="flex w-full items-center gap-3 rounded-[0.95rem] border border-transparent px-3 py-2.5 text-left text-sm font-medium text-[var(--hi-text)] transition hover:border-[var(--hi-border)] hover:bg-[var(--hi-panel-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-bg-elevated)]"
+                                >
+                                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--hi-panel-muted)] text-[var(--hi-text-muted)]">
+                                        <User className="h-4 w-4" />
+                                    </span>
+                                    <span>{t('settings.account_overview.title', { defaultValue: 'Account overview' })}</span>
+                                </Link>
 
-                    {/* Admin Panel - Sadece Admin'e Görünür */}
+                                <div className="rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] p-3">
+                                    <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-soft)]">
+                                        {t('settings.language', { defaultValue: 'Language' })}
+                                    </p>
+                                    <LanguageSwitcher
+                                        showCodeBadge={false}
+                                        className="!h-11 !rounded-[0.95rem] !border-[var(--hi-border)] !bg-[var(--hi-panel-strong)] !px-3 !py-0 !text-[var(--hi-text)] hover:!bg-[var(--hi-panel-muted)]"
+                                    />
+                                </div>
+
+                                <div className="rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] p-3">
+                                    <div className="mb-3 flex items-center justify-between gap-3">
+                                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-soft)]">
+                                            {t('settings.theme.title')}
+                                        </p>
+                                        <Link
+                                            to="/settings#settings-preferences"
+                                            onClick={() => setProfileMenuOpen(false)}
+                                            aria-label={t('settings.theme.title')}
+                                            className="text-xs font-medium text-[var(--hi-accent)] transition hover:text-[var(--hi-accent-strong)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel)]"
+                                        >
+                                            {t('common.manage')}
+                                        </Link>
+                                    </div>
+                                    <SegmentedToggle
+                                        ariaLabel={t('settings.theme.title')}
+                                        value={theme}
+                                        onChange={setTheme}
+                                        fullWidth
+                                        buttonClassName="min-h-[40px] px-3 py-2 text-sm"
+                                        activeClassName="bg-[var(--hi-panel-strong)] text-[var(--hi-text)] shadow-[var(--hi-shadow-soft)]"
+                                        options={[
+                                            {
+                                                value: 'light',
+                                                label: t('settings.theme.light'),
+                                                icon: Sun,
+                                                tooltip: t('settings.theme.light'),
+                                                ariaLabel: t('settings.theme.light_aria', { defaultValue: 'Switch to light theme' })
+                                            },
+                                            {
+                                                value: 'dark',
+                                                label: t('settings.theme.dark'),
+                                                icon: Moon,
+                                                tooltip: t('settings.theme.dark'),
+                                                ariaLabel: t('settings.theme.dark_aria', { defaultValue: 'Switch to dark theme' })
+                                            }
+                                        ]}
+                                    />
+                                </div>
+
+                                <button
+                                    type="button"
+                                    onClick={openLogoutConfirm}
+                                    aria-label={t('navigation.logout_aria', { defaultValue: 'Log out of your account' })}
+                                    className="flex w-full items-center gap-3 rounded-[0.95rem] border border-red-500/18 bg-red-500/6 px-3 py-2.5 text-left text-sm font-medium text-red-400 transition hover:bg-red-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-bg-elevated)]"
+                                >
+                                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-red-500/12 text-current">
+                                        <LogOut className="h-4 w-4" />
+                                    </span>
+                                    <span>{t('navigation.logout')}</span>
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                <nav
+                    className={`overflow-y-auto ${sidebarOpen ? 'flex-1 space-y-[clamp(0.5rem,0.9vh,0.75rem)] px-4 pb-[clamp(0.75rem,1.3vh,1.1rem)] pt-[clamp(0.5rem,0.9vh,0.75rem)]' : 'flex flex-col items-center gap-2 px-0 pb-3 pt-2'}`}
+                    style={compactSidebar ? { scrollbarWidth: 'none' } : undefined}
+                >
+                    {navItems.map((item) => (
+                        <ShellLink key={item.to} item={item} compact={!sidebarOpen} spacious={sidebarOpen} />
+                    ))}
+
                     {isAdmin && (
-                        <NavLink to="/admin/mail-gonder" className={({ isActive }) => `
-                            flex items-center gap-3 px-4 py-3 rounded-xl font-medium mt-4
-                            ${isActive
-                                ? 'bg-red-500/20 text-red-600 dark:text-red-400 border border-red-300 dark:border-red-500/50'
-                                : 'bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-500/30 hover:bg-red-100 dark:hover:bg-red-500/20'
-                            }
-                            transition-all duration-200
-                            ${!sidebarOpen && 'justify-center'}
-                        `}>
-                            <Shield className="w-5 h-5" />
-                            {sidebarOpen && <span>{t('navigation.admin_panel')}</span>}
-                        </NavLink>
+                        <ShellLink
+                            item={{
+                                to: '/admin',
+                                label: t('navigation.admin_panel'),
+                                icon: Shield
+                            }}
+                            compact={!sidebarOpen}
+                            spacious={sidebarOpen}
+                            tone="admin"
+                            className="mt-4"
+                        />
                     )}
                 </nav>
 
-                {/* Bottom Section */}
-                <div className="p-3 border-t border-slate-200 dark:border-slate-800 space-y-2">
-                    {/* Language Switcher */}
-                    <div className={!sidebarOpen ? 'flex justify-center' : 'w-full'}>
-                        <LanguageSwitcher variant="minimal" showLabel={sidebarOpen} />
+                <div className={`border-t border-[var(--hi-border)] ${sidebarOpen ? 'space-y-[clamp(0.5rem,0.9vh,0.75rem)] px-4 py-[clamp(0.75rem,1.2vh,1rem)]' : 'flex flex-col items-center gap-3 px-0 py-4'}`}>
+                    <div className={`${sidebarOpen ? 'flex items-center justify-start px-1' : 'flex items-center justify-center'}`}>
+                        <BetaBadge t={betaT} compact={!sidebarOpen} />
                     </div>
 
-                    {/* Theme Toggle */}
-                    <button onClick={toggleTheme} className={`
-            flex items-center gap-3 px-4 py-3 rounded-xl w-full
-            text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800
-            transition-all duration-200 ${!sidebarOpen && 'justify-center'}
-          `}>
-                        {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-                        {sidebarOpen && <span>{isDark ? t('common.theme.light') : t('common.theme.dark')}</span>}
-                    </button>
-
-                    {/* Help & Support */}
-                    <a
-                        href={`mailto:${SUPPORT_EMAIL}`}
-                        className={`flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors ${!sidebarOpen && 'justify-center'}`}
-                    >
-                        <HelpCircle className="w-5 h-5" />
-                        {sidebarOpen && <span>{t('common.help_support')}</span>}
-                    </a>
-
-                    {/* User & Logout */}
-                    {sidebarOpen ? (
-                        <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800">
-                            <div className="w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center text-white text-sm font-medium">
-                                {user?.username?.charAt(0).toUpperCase()}
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-slate-900 dark:text-white truncate">{user?.username}</p>
-                            </div>
-                            <button onClick={handleLogout} className="p-1.5 text-slate-500 hover:text-red-500 transition-colors" title={t('navigation.logout')}>
-                                <LogOut className="w-4 h-4" />
-                            </button>
-                        </div>
-                    ) : (
-                        <button onClick={handleLogout} className="flex justify-center w-full px-4 py-3 text-slate-500 hover:text-red-500" title={t('navigation.logout')}>
-                            <LogOut className="w-5 h-5" />
-                        </button>
-                    )}
+                    <div className={`${sidebarOpen ? 'space-y-2' : 'flex flex-col items-center gap-2'}`}>
+                        {sidebarOpen ? (
+                            <a href={`mailto:${SUPPORT_EMAIL}`} aria-label={t('common.help_support')} className={bottomActionButtonClass}>
+                                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[0.85rem] bg-[var(--hi-panel-muted)] text-[var(--hi-text-muted)]">
+                                    <HelpCircle className="h-4 w-4" />
+                                </span>
+                                <span className="min-w-0 text-left text-sm font-semibold text-[var(--hi-text)]">{t('common.help_support')}</span>
+                            </a>
+                        ) : (
+                            <Tooltip label={t('common.help_support')} side="right">
+                                <a href={`mailto:${SUPPORT_EMAIL}`} aria-label={t('common.help_support')} className={`btn-secondary ${compactUtilityButtonClass}`}>
+                                    <HelpCircle className="h-4 w-4" />
+                                </a>
+                            </Tooltip>
+                        )}
+                    </div>
                 </div>
-
-                {/* Collapse Toggle */}
-                <button
-                    onClick={() => setSidebarOpen(!sidebarOpen)}
-                    className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-500 hover:text-primary-500 shadow-sm"
-                >
-                    {sidebarOpen ? <ChevronLeft className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
-                </button>
             </aside>
 
-            {/* Mobile Header */}
-            <header className="lg:hidden fixed top-0 left-0 right-0 z-40 h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
-                <div className="flex items-center justify-between h-full px-4">
-                    <div className="flex items-center gap-3">
-                        <Link to="/" onClick={() => setMobileMenuOpen(false)}>
-                            <BrandLogo variant="symbol" size="lg" className="shrink-0 w-auto max-h-[56px]" />
-                        </Link>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <button onClick={() => setShowQRScanner(true)} className="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg" title={t('scanner.qr_title')}>
-                            <ScanLine className="w-5 h-5" />
-                        </button>
-                        <button onClick={toggleTheme} className="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
-                            {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-                        </button>
-                        <button onClick={() => setMobileMenuOpen(true)} className="p-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
-                            <Menu className="w-5 h-5" />
-                        </button>
-                    </div>
+            <header className="glass lg:hidden sticky top-0 z-40 mx-3 mt-3 rounded-xl px-4 py-3">
+                <div className="flex items-center justify-between gap-3">
+                    <Link to="/" aria-label={BRAND_NAME} className="min-w-0">
+                        <BrandLogo variant="symbol" size="sm" className="max-h-[42px]" />
+                    </Link>
+
+                    <button type="button" onClick={() => setMobileMenuOpen(true)} aria-label={t('navigation.menu')} className="btn-secondary !px-3 !py-3">
+                        <Menu className="h-4 w-4" />
+                    </button>
                 </div>
             </header>
 
-            {/* Mobile Menu Overlay */}
             {mobileMenuOpen && (
-                <div className="lg:hidden fixed inset-0 z-50">
-                    <div className="absolute inset-0 bg-black/50" onClick={() => setMobileMenuOpen(false)} />
-                    <div className="absolute right-0 top-0 bottom-0 w-72 bg-white dark:bg-slate-900 animate-slide-in-right">
-                        <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-800">
-                            <span className="font-bold text-slate-900 dark:text-white">{t('navigation.menu')}</span>
-                            <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-slate-500">
-                                <X className="w-5 h-5" />
+                <div className="fixed inset-0 z-50 lg:hidden">
+                    <div className="absolute inset-0 bg-black/45 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
+                    <div className="absolute inset-y-3 right-3 flex w-[min(88vw,360px)] animate-slide-in-right flex-col overflow-hidden rounded-[1.6rem] border border-[var(--hi-border)] bg-[var(--hi-bg-elevated)] p-4 shadow-2xl backdrop-blur-2xl">
+                        <div className="mb-4 flex items-center justify-between">
+                            <Link to="/" aria-label={BRAND_NAME} onClick={() => setMobileMenuOpen(false)} className="min-w-0">
+                                <BrandLogo variant="symbol" size="sm" className="max-h-[42px]" />
+                            </Link>
+                            <button type="button" onClick={() => setMobileMenuOpen(false)} aria-label={t('common.close')} className="btn-secondary !px-3 !py-3">
+                                <X className="h-4 w-4" />
                             </button>
                         </div>
-                        <div className="px-4 pt-4">
-                            <LanguageSwitcher variant="minimal" showLabel={true} />
-                        </div>
-                        <nav className="p-4 space-y-2">
-                            {navItems.map(item => <NavItem key={item.to} item={item} mobile />)}
 
-                            {/* Admin Panel - Mobile */}
-                            {isAdmin && (
-                                <NavLink
-                                    to="/admin/mail-gonder"
+                        <button
+                            type="button"
+                            onClick={() => setMobileAccountMenuOpen((current) => !current)}
+                            aria-expanded={mobileAccountMenuOpen}
+                            aria-haspopup="true"
+                            aria-label={t('layout.account_menu_aria', {
+                                name: user?.username || t('settings.account_overview.title', { defaultValue: 'Account overview' }),
+                                defaultValue: 'Open account menu for {{name}}'
+                            })}
+                            className="card !mb-3 !flex !w-full !items-center !gap-3 !rounded-[1.1rem] !p-3 text-left"
+                        >
+                            <div className="flex h-10 w-10 items-center justify-center rounded-[0.9rem] bg-gradient-to-br from-[var(--hi-accent-strong)] to-[var(--hi-accent)] text-sm font-bold text-white">
+                                {userInitial}
+                            </div>
+                            <div className="min-w-0 flex-1">
+                                <p className="truncate text-sm font-semibold leading-5 text-[var(--hi-text)]">{user?.username}</p>
+                                <p className="truncate text-xs text-[var(--hi-text-muted)]">{t('settings.account_overview.title', { defaultValue: 'Account overview' })}</p>
+                            </div>
+                            <ChevronDown className={`h-4 w-4 text-[var(--hi-text-muted)] transition ${mobileAccountMenuOpen ? 'rotate-180 text-[var(--hi-accent)]' : ''}`} />
+                        </button>
+
+                        {mobileAccountMenuOpen && (
+                            <div className="mb-3 space-y-3 rounded-[1.1rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] p-3">
+                                <Link
+                                    to="/settings#settings-account"
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className={({ isActive }) => `
-                                        flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-base mt-2
-                                        ${isActive
-                                            ? 'bg-red-500/20 text-red-600 dark:text-red-400'
-                                            : 'bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-500/30'
-                                        }
-                                    `}
+                                    className="flex w-full items-center gap-3 rounded-[0.95rem] border border-transparent px-3 py-2.5 text-left text-sm font-medium text-[var(--hi-text)] transition hover:border-[var(--hi-border)] hover:bg-[var(--hi-panel-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel)]"
                                 >
-                                    <Shield className="w-5 h-5" />
-                                    <span>{t('navigation.admin_panel')}</span>
-                                </NavLink>
-                            )}
-                        </nav>
-                        <div className="p-4 border-t border-slate-200 dark:border-slate-800">
-                            <div className="flex items-center gap-3 mb-4">
-                                <div className="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center text-white font-medium">
-                                    {user?.username?.charAt(0).toUpperCase()}
+                                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--hi-panel-muted)] text-[var(--hi-text-muted)]">
+                                        <User className="h-4 w-4" />
+                                    </span>
+                                    <span>{t('settings.account_overview.title', { defaultValue: 'Account overview' })}</span>
+                                    <ChevronRight className="ml-auto h-4 w-4 text-[var(--hi-text-muted)]" />
+                                </Link>
+
+                                <div className="rounded-[0.95rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-3">
+                                    <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--hi-text-soft)]">
+                                        {t('settings.language', { defaultValue: 'Language' })}
+                                    </p>
+                                    <LanguageSwitcher
+                                        showCodeBadge={false}
+                                        className="!w-full !justify-between !rounded-[0.9rem] !border-[var(--hi-border)] !bg-[var(--hi-panel)] !px-3 !py-2 text-sm hover:!bg-[var(--hi-panel-strong)]"
+                                    />
                                 </div>
-                                <div>
-                                    <p className="font-medium text-slate-900 dark:text-white">{user?.username}</p>
-                                    <p className="text-sm text-slate-500">{user?.email}</p>
+
+                                <div className="rounded-[0.95rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-3">
+                                    <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--hi-text-soft)]">
+                                        {t('settings.theme.title')}
+                                    </p>
+                                    <SegmentedToggle
+                                        ariaLabel={t('settings.theme.title')}
+                                        value={theme}
+                                        onChange={setTheme}
+                                        fullWidth
+                                        buttonClassName="min-h-[40px] px-3 py-2 text-sm"
+                                        activeClassName="bg-[var(--hi-panel)] text-[var(--hi-text)] shadow-[var(--hi-shadow-soft)]"
+                                        options={[
+                                            {
+                                                value: 'light',
+                                                label: t('settings.theme.light'),
+                                                icon: Sun,
+                                                tooltip: t('settings.theme.light'),
+                                                ariaLabel: t('settings.theme.light_aria', { defaultValue: 'Switch to light theme' })
+                                            },
+                                            {
+                                                value: 'dark',
+                                                label: t('settings.theme.dark'),
+                                                icon: Moon,
+                                                tooltip: t('settings.theme.dark'),
+                                                ariaLabel: t('settings.theme.dark_aria', { defaultValue: 'Switch to dark theme' })
+                                            }
+                                        ]}
+                                    />
                                 </div>
                             </div>
-                            <button onClick={handleLogout} className="flex items-center gap-3 w-full px-4 py-3 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-xl">
-                                <LogOut className="w-5 h-5" /> {t('navigation.logout')}
+                        )}
+
+                        <nav className="min-h-0 flex-1 space-y-1.5 overflow-y-auto pb-3">
+                            {navItems.map((item) => (
+                                <ShellLink
+                                    key={item.to}
+                                    item={item}
+                                    className={MOBILE_DRAWER_NAV_ITEM_CLASS}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                />
+                            ))}
+                            {isAdmin && (
+                                <ShellLink
+                                    item={{
+                                        to: '/admin',
+                                        label: t('navigation.admin_panel'),
+                                        icon: Shield
+                                    }}
+                                    className={MOBILE_DRAWER_NAV_ITEM_CLASS}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    tone="admin"
+                                />
+                            )}
+                        </nav>
+
+                        <div className="mb-4 flex justify-start">
+                            <BetaBadge t={betaT} />
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-2">
+                            <Link to="/items/new" onClick={() => setMobileMenuOpen(false)} className="btn-primary !min-h-[56px] !py-2.5">
+                                <Plus className="h-4 w-4" />
+                                <span>{t('common.new')}</span>
+                            </Link>
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setMobileMenuOpen(false);
+                                    setShowQRScanner(true);
+                                }}
+                                aria-label={t('navigation.scan_item_qr', { defaultValue: 'Scan item QR' })}
+                                className="btn-secondary !min-h-[56px] !py-2.5"
+                            >
+                                <ScanLine className="h-4 w-4" />
+                                <span>{t('navigation.scan_item_qr', { defaultValue: 'Scan item QR' })}</span>
+                            </button>
+                        </div>
+
+                        <div className="mt-2 space-y-2">
+                            <a href={`mailto:${SUPPORT_EMAIL}`} className={mobileBottomActionButtonClass}>
+                                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[0.85rem] bg-[var(--hi-panel-muted)] text-[var(--hi-text-muted)]">
+                                    <HelpCircle className="h-4 w-4" />
+                                </span>
+                                <span className="min-w-0 text-left text-sm font-semibold text-[var(--hi-text)]">{t('common.help_support')}</span>
+                            </a>
+                            <button
+                                type="button"
+                                onClick={openLogoutConfirm}
+                                aria-label={t('navigation.logout_aria', { defaultValue: 'Log out of your account' })}
+                                className={mobileBottomActionButtonClass}
+                            >
+                                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[0.85rem] bg-[var(--hi-panel-muted)] text-[var(--hi-text-muted)]">
+                                    <LogOut className="h-4 w-4" />
+                                </span>
+                                <span className="min-w-0 text-left text-sm font-semibold text-[var(--hi-text)]">{t('navigation.logout')}</span>
                             </button>
                         </div>
                     </div>
                 </div>
             )}
 
-            {/* Mobile Bottom Navigation */}
-            <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 h-16 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 safe-area-pb">
-                <div className="flex items-center justify-around h-full">
-                    <NavLink to="/" end className={({ isActive }) => `flex flex-col items-center gap-1 px-4 py-2 ${isActive ? 'text-primary-500' : 'text-slate-500 dark:text-slate-400'}`}>
-                        <Home className="w-5 h-5" /><span className="text-xs">{t('navigation.home')}</span>
+            <main className={`transition-all duration-300 ${sidebarOpen ? 'lg:ml-[288px]' : 'lg:ml-[112px]'}`}>
+                <div className="px-3 pb-28 pt-4 lg:px-8 lg:pb-10 lg:pt-8">
+                    <div key={`${location.pathname}${location.search}`} className="animate-fade-in">
+                        <Outlet />
+                    </div>
+                </div>
+            </main>
+
+            <ConfirmDialog
+                isOpen={showLogoutConfirm}
+                title={t('navigation.logout_title', { defaultValue: 'Log out?' })}
+                description={t('navigation.logout_description', { defaultValue: 'You will be returned to the sign-in screen and need to log in again to manage your household inventory.' })}
+                confirmLabel={logoutSubmitting ? t('common.loading') : t('navigation.logout')}
+                cancelLabel={t('common.cancel')}
+                onClose={() => !logoutSubmitting && setShowLogoutConfirm(false)}
+                onConfirm={handleLogout}
+                confirming={logoutSubmitting}
+                tone="warning"
+            >
+                <p className="text-sm leading-6 text-[var(--hi-text-soft)]">
+                    {t('navigation.logout_warning', { defaultValue: 'Use this when you are done on a shared or personal device.' })}
+                </p>
+            </ConfirmDialog>
+
+            <nav className="glass safe-area-pb fixed bottom-3 left-3 right-3 z-40 rounded-full px-2 py-2 lg:hidden">
+                <div className="grid grid-cols-5 items-stretch gap-1">
+                    <MobileBottomNavLink to="/" end label={t('navigation.home')} Icon={Home} />
+                    <MobileBottomNavLink to="/items" label={t('navigation.inventory')} Icon={Package} />
+                    <NavLink to="/items/new" aria-label={t('navigation.new_item')} className={`${MOBILE_NAV_ITEM_CLASS} text-[var(--hi-text)]`}>
+                        <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-[var(--hi-accent-strong)] to-[var(--hi-accent)] text-white shadow-lg">
+                            <Plus className="h-5 w-5" />
+                        </span>
                     </NavLink>
-                    <NavLink to="/items" className={({ isActive }) => `flex flex-col items-center gap-1 px-4 py-2 ${isActive ? 'text-primary-500' : 'text-slate-500 dark:text-slate-400'}`}>
-                        <Package className="w-5 h-5" /><span className="text-xs">{t('navigation.inventory')}</span>
-                    </NavLink>
-                    <NavLink to="/items/new" className="flex flex-col items-center gap-1 -mt-4">
-                        <div className="w-12 h-12 rounded-full bg-gradient-to-r from-primary-500 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-primary-500/30">
-                            <Plus className="w-6 h-6" />
-                        </div>
-                    </NavLink>
-                    <NavLink to="/rooms" className={({ isActive }) => `flex flex-col items-center gap-1 px-4 py-2 ${isActive ? 'text-primary-500' : 'text-slate-500 dark:text-slate-400'}`}>
-                        <FolderOpen className="w-5 h-5" /><span className="text-xs">{t('navigation.rooms')}</span>
-                    </NavLink>
-                    <NavLink to="/settings" className={({ isActive }) => `flex flex-col items-center gap-1 px-4 py-2 ${isActive ? 'text-primary-500' : 'text-slate-500 dark:text-slate-400'}`}>
-                        <Settings className="w-5 h-5" /><span className="text-xs">{t('navigation.settings')}</span>
-                    </NavLink>
+                    <MobileBottomNavLink to="/vault" label={t('navigation.personal_vault')} Icon={KeyRound} />
+                    <MobileBottomNavLink to="/settings" label={t('navigation.settings')} Icon={Settings} />
                 </div>
             </nav>
 
-            {/* Main Content */}
-            <main className={`
-        transition-all duration-300 min-h-screen
-        pt-16 pb-20 lg:pt-0 lg:pb-0
-        ${sidebarOpen ? 'lg:ml-64' : 'lg:ml-20'}
-      `}>
-                <div key={`${location.pathname}${location.search}`} className="p-4 lg:p-8">
-                    <Outlet />
-                </div>
-
-                {/* BETA Disclaimer Banner */}
-                <div className="mx-4 lg:mx-8 mb-4 p-3 lg:p-4 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 border border-amber-200 dark:border-amber-700/50">
-                    <div className="flex items-start gap-3">
-                        <span className="text-xl flex-shrink-0">⚠️</span>
-                        <div className="text-xs lg:text-sm text-amber-800 dark:text-amber-200">
-                            <span className="font-bold text-amber-600 dark:text-amber-400">{t('beta_banner.title')} </span>
-                            {t('beta_banner.text')}
-                            <span className="hidden sm:inline"> {t('beta_banner.contact')} </span>
-                            <a href={`mailto:${SUPPORT_EMAIL}`} className="text-amber-600 dark:text-amber-400 hover:underline font-medium">
-                                {SUPPORT_EMAIL}
-                            </a>
+            {showQRScanner && (
+                <Suspense
+                    fallback={(
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
+                            <div className="spinner" />
                         </div>
-                    </div>
-                </div>
-
-                {/* Footer */}
-                <footer className="border-t border-slate-200 dark:border-slate-800 py-4 px-4 lg:px-8 text-center text-xs lg:text-sm text-slate-500 dark:text-slate-400 mb-16 lg:mb-0">
-                    <p>
-                        {t('footer.rights', { year: new Date().getFullYear() })}
-                        <span className="hidden sm:inline mx-2">•</span>
-                        <br className="sm:hidden" />
-                        {t('footer.contact')} <a href={`mailto:${SUPPORT_EMAIL}`} className="text-primary-500 hover:underline">{SUPPORT_EMAIL}</a>
-                    </p>
-                </footer>
-            </main>
-
-            {/* QR Scanner Modal */}
-            <QRScanner isOpen={showQRScanner} onClose={() => setShowQRScanner(false)} />
+                    )}
+                >
+                    <QRScanner isOpen={showQRScanner} onClose={() => setShowQRScanner(false)} />
+                </Suspense>
+            )}
         </div>
     );
 }

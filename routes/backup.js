@@ -1,7 +1,8 @@
 import express from 'express';
 import rateLimit from 'express-rate-limit';
 import db from '../database.js';
-import { authenticateToken } from '../middleware/auth.js';
+import { authenticateToken, requireActiveHouse } from '../middleware/auth.js';
+import { isHouseOwner } from '../utils/houseMembership.js';
 import { normalizeWarrantyDetails } from '../utils/warrantyValidation.js';
 import {
     buildBarcodeLookup,
@@ -42,6 +43,18 @@ const backupRateLimiter = rateLimit({
     message: { error: 'Çok fazla yedekleme isteği. Lütfen daha sonra tekrar deneyin.' }
 });
 
+function requireBackupOwner(req, res, next) {
+    if (!isHouseOwner(req.user.id, req.user.house_key)) {
+        return res.status(403).json({ error: 'Yedekleme işlemleri yalnızca ev sahibi tarafından yapılabilir' });
+    }
+
+    next();
+}
+
+router.use(authenticateToken);
+router.use(requireActiveHouse);
+router.use(requireBackupOwner);
+
 function buildNameMap(records) {
     const map = new Map();
 
@@ -54,11 +67,56 @@ function buildNameMap(records) {
     return map;
 }
 
+function pushUniquePreview(list, value, limit = 5) {
+    if (!value || list.length >= limit || list.includes(value)) {
+        return;
+    }
+
+    list.push(value);
+}
+
+function normalizeImportValue(value) {
+    return String(value ?? '').trim().toLocaleLowerCase('tr-TR');
+}
+
+function createItemFingerprint(item) {
+    return JSON.stringify([
+        normalizeImportValue(item.name),
+        normalizeImportValue(item.description),
+        Number(item.quantity || 1),
+        normalizeImportValue(item.barcode),
+        normalizeImportValue(item.category_name),
+        normalizeImportValue(item.room_name),
+        normalizeImportValue(item.location_name),
+        normalizeImportValue(item.invoice_price),
+        normalizeImportValue(item.invoice_currency),
+        normalizeImportValue(item.invoice_date),
+        normalizeImportValue(item.warranty_start_date),
+        normalizeImportValue(item.warranty_duration_value),
+        normalizeImportValue(item.warranty_duration_unit),
+        normalizeImportValue(item.warranty_expiry_date)
+    ]);
+}
+
+function createBorrowFingerprint(borrow, mappedItemId, fallbackBorrowerName = '') {
+    return JSON.stringify([
+        Number(mappedItemId || 0),
+        normalizeImportValue(borrow.borrower_type === 'member' ? 'member' : 'external'),
+        normalizeImportValue(borrow.borrower_username),
+        normalizeImportValue(borrow.borrower_name || fallbackBorrowerName),
+        normalizeImportValue(borrow.borrower_contact),
+        normalizeImportValue(borrow.note),
+        normalizeImportValue(borrow.borrowed_at),
+        normalizeImportValue(borrow.due_date),
+        normalizeImportValue(borrow.returned_at),
+        normalizeImportValue(borrow.return_note)
+    ]);
+}
+
 // GET /api/backup/export - Export all data for current house
-router.get('/export', authenticateToken, backupRateLimiter, (req, res) => {
+router.get('/export', backupRateLimiter, (req, res) => {
     try {
-        const user = db.prepare('SELECT active_house_key, house_key FROM users WHERE id = ?').get(req.user.id);
-        const houseKey = user.active_house_key || user.house_key;
+        const houseKey = req.user.house_key;
 
         if (!houseKey) {
             return res.status(400).json({ error: 'Aktif ev bulunamadı' });
@@ -142,10 +200,9 @@ router.get('/export', authenticateToken, backupRateLimiter, (req, res) => {
 });
 
 // POST /api/backup/import - Import data to current house
-router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
+router.post('/import', backupRateLimiter, (req, res) => {
     try {
-        const user = db.prepare('SELECT active_house_key, house_key FROM users WHERE id = ?').get(req.user.id);
-        const houseKey = user.active_house_key || user.house_key;
+        const houseKey = req.user.house_key;
 
         if (!houseKey) {
             return res.status(400).json({ error: 'Aktif ev bulunamadı' });
@@ -165,6 +222,19 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
         let importedLocations = 0;
         let importedItems = 0;
         let importedBorrows = 0;
+        let skippedCategories = 0;
+        let skippedRooms = 0;
+        let skippedLocations = 0;
+        let skippedItems = 0;
+        let skippedBorrows = 0;
+
+        const importPreview = {
+            items: [],
+            categories: [],
+            rooms: [],
+            locations: [],
+            borrows: []
+        };
 
         // Map to store old_id -> new_id for foreign key references
         const categoryMap = {};
@@ -192,6 +262,24 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
                     .map(decryptLocationRecord)
             );
 
+            const existingItemsByFingerprint = new Map(
+                db.prepare(`
+                    SELECT
+                        i.id, i.name, i.description, i.quantity, i.barcode,
+                        i.invoice_price, i.invoice_currency, i.invoice_date,
+                        i.warranty_start_date, i.warranty_duration_value, i.warranty_duration_unit, i.warranty_expiry_date,
+                        c.name as category_name, r.name as room_name, l.name as location_name
+                    FROM items i
+                    LEFT JOIN categories c ON i.category_id = c.id
+                    LEFT JOIN rooms r ON i.room_id = r.id
+                    LEFT JOIN locations l ON i.location_id = l.id
+                    WHERE i.house_key = ?
+                `).all(houseKey).map(decryptItemRecord).map((existingItem) => [
+                    createItemFingerprint(existingItem),
+                    existingItem
+                ])
+            );
+
             // Import categories
             if (categories && Array.isArray(categories)) {
                 const insertCategory = db.prepare('INSERT INTO categories (name, icon, color, house_key) VALUES (?, ?, ?, ?)');
@@ -200,6 +288,7 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
                     const existing = existingCategoriesByName.get(cat.name);
                     if (existing) {
                         categoryMap[cat.id] = existing.id;
+                        skippedCategories++;
                     } else {
                         const result = insertCategory.run(
                             encryptCategoryName(cat.name),
@@ -215,6 +304,7 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
                             color: cat.color || '#6366f1'
                         });
                         importedCategories++;
+                        pushUniquePreview(importPreview.categories, cat.name);
                     }
                 }
             }
@@ -226,6 +316,7 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
                     const existing = existingRoomsByName.get(room.name);
                     if (existing) {
                         roomMap[room.id] = existing.id;
+                        skippedRooms++;
                     } else {
                         const result = insertRoom.run(
                             encryptRoomName(room.name),
@@ -239,6 +330,7 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
                             description: room.description || ''
                         });
                         importedRooms++;
+                        pushUniquePreview(importPreview.rooms, room.name);
                     }
                 }
             }
@@ -250,6 +342,7 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
                     const existing = existingLocationsByName.get(loc.name);
                     if (existing) {
                         locationMap[loc.id] = existing.id;
+                        skippedLocations++;
                     } else {
                         // Find room_id from mapping or by name
                         let roomId = null;
@@ -267,6 +360,7 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
                             room_id: roomId
                         });
                         importedLocations++;
+                        pushUniquePreview(importPreview.locations, loc.name);
                     }
                 }
             }
@@ -282,6 +376,14 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
             `);
 
             for (const item of items) {
+                const itemFingerprint = createItemFingerprint(item);
+                const existingItem = existingItemsByFingerprint.get(itemFingerprint);
+                if (existingItem) {
+                    itemMap[item.id] = existingItem.id;
+                    skippedItems++;
+                    continue;
+                }
+
                 // Find category_id
                 let categoryId = null;
                 if (item.category_id && categoryMap[item.category_id]) {
@@ -341,10 +443,36 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
                     })()
                 );
                 itemMap[item.id] = result.lastInsertRowid;
+                existingItemsByFingerprint.set(itemFingerprint, {
+                    id: result.lastInsertRowid,
+                    ...item
+                });
                 importedItems++;
+                pushUniquePreview(importPreview.items, item.name);
             }
 
             if (borrows && Array.isArray(borrows)) {
+                const existingBorrowFingerprints = new Set(
+                    db.prepare(`
+                        SELECT
+                            ib.item_id,
+                            ib.borrower_type,
+                            ib.borrower_user_id,
+                            ib.borrower_name,
+                            ib.borrower_contact,
+                            ib.note,
+                            ib.borrowed_at,
+                            ib.due_date,
+                            ib.returned_at,
+                            ib.return_note,
+                            borrower.username as borrower_username
+                        FROM item_borrows ib
+                        LEFT JOIN users borrower ON borrower.id = ib.borrower_user_id
+                        WHERE ib.house_key = ?
+                    `).all(houseKey).map(decryptBorrowRecord).map((existingBorrow) =>
+                        createBorrowFingerprint(existingBorrow, existingBorrow.item_id)
+                    )
+                );
                 const insertBorrow = db.prepare(`
                     INSERT INTO item_borrows (
                         item_id, house_key, borrower_type, borrower_user_id, borrower_name,
@@ -386,6 +514,12 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
                         borrowerName = 'Bilinmeyen kişi';
                     }
 
+                    const borrowFingerprint = createBorrowFingerprint(borrow, mappedItemId, borrowerName);
+                    if (existingBorrowFingerprints.has(borrowFingerprint)) {
+                        skippedBorrows++;
+                        continue;
+                    }
+
                     insertBorrow.run(
                         mappedItemId,
                         houseKey,
@@ -403,7 +537,12 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
                         borrow.borrowed_at || new Date().toISOString(),
                         borrow.returned_at || borrow.borrowed_at || new Date().toISOString()
                     );
+                    existingBorrowFingerprints.add(borrowFingerprint);
                     importedBorrows++;
+                    pushUniquePreview(
+                        importPreview.borrows,
+                        borrow.borrower_username || borrowerName || `item:${mappedItemId}`
+                    );
                 }
             }
         });
@@ -418,11 +557,35 @@ router.post('/import', authenticateToken, backupRateLimiter, (req, res) => {
                 rooms: importedRooms,
                 locations: importedLocations,
                 borrows: importedBorrows
+            },
+            skipped: {
+                items: skippedItems,
+                categories: skippedCategories,
+                rooms: skippedRooms,
+                locations: skippedLocations,
+                borrows: skippedBorrows
+            },
+            source: {
+                items: Array.isArray(items) ? items.length : 0,
+                categories: Array.isArray(categories) ? categories.length : 0,
+                rooms: Array.isArray(rooms) ? rooms.length : 0,
+                locations: Array.isArray(locations) ? locations.length : 0,
+                borrows: Array.isArray(borrows) ? borrows.length : 0
+            },
+            preview: {
+                ...importPreview,
+                omitted: {
+                    items: Math.max(importedItems - importPreview.items.length, 0),
+                    categories: Math.max(importedCategories - importPreview.categories.length, 0),
+                    rooms: Math.max(importedRooms - importPreview.rooms.length, 0),
+                    locations: Math.max(importedLocations - importPreview.locations.length, 0),
+                    borrows: Math.max(importedBorrows - importPreview.borrows.length, 0)
+                }
             }
         });
     } catch (err) {
         console.error('Import error:', err);
-        res.status(500).json({ error: 'Yedek içe aktarılırken hata oluştu: ' + err.message });
+        res.status(500).json({ error: 'Yedek içe aktarılırken hata oluştu' });
     }
 });
 
