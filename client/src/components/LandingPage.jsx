@@ -22,6 +22,7 @@ import LanguageSwitcher from './LanguageSwitcher';
 import { useTheme } from '../context/ThemeContext';
 
 const GITHUB_REPOSITORY_URL = 'https://github.com/asdteke/HomeInventory';
+const DOCKER_DOCUMENTATION_URL = `${GITHUB_REPOSITORY_URL}/blob/main/DOCKER.md`;
 
 function translateCopyTree(value, t, keyPath) {
     if (keyPath.endsWith('.accent')) {
@@ -147,13 +148,13 @@ export default function LandingPage() {
     const copy = translateCopyTree(isTurkish
         ? {
             hero: {
-    statement: 'Evinizdeki her şeyi bilin. Aradığınızı hemen bulun.',
-    statementAccent: 'Eşyalarınız, belgeleriniz ve garanti bilgileriniz tek yerde.',
-    description: 'Neyin nerede olduğunu, garanti süresini ve kimde kaldığını kolayca takip edin. Evde aradığınız bilgiye hızlıca ulaşın.',
-    primaryCta: 'Ücretsiz Başlayın',
-    secondaryCta: 'Ürünü İnceleyin',
-    trustSignal: 'Şu an tüm özellikler ücretsiz • Ev halkıyla birlikte kullanılabilir • Özel bilgiler ayrı saklanır',
-    searchPlaceholder: 'Eşya, oda veya barkodla arayın',
+                statement: 'HomeInventory çalışıyor. Ev envanterinizi kurun.',
+                statementAccent: 'Önce evi, odaları ve kategorileri oluşturun; sonra eşya, belge, garanti ve ödünç kayıtlarını ekleyin.',
+                description: 'Bu ekran kurulumdan sonra başlangıç rehberi gibi çalışmalı. Hesap oluşturun, ev yapısını kurun, önemli eşyaları ekleyin ve özel kayıtları Kişisel Kasa’da ayrı tutun.',
+                primaryCta: 'Kuruluma başla',
+                secondaryCta: 'Giriş yap',
+                trustSignal: 'Önerilen akış: hesap • ev • oda ve kategori • eşya • yedekleme',
+                searchPlaceholder: 'Eşya, oda veya barkodla arayın',
             },
             heroInventoryRows: [
                 { name: 'Airfryer', meta: 'Mutfak tezgahı • Garanti 08/2028', state: null, icon: Package, accent: false ? 'text-[var(--hi-accent)]' : 'text-[#5d8b6a]' },
@@ -164,98 +165,98 @@ export default function LandingPage() {
                 { name: 'HEPA filtre', meta: 'Çocuk odası • Değişim 11/2026', state: null, icon: Package, accent: false ? 'text-[var(--hi-accent)]' : 'text-[#6f9978]' }
             ],
             features: {
-                eyebrow: 'NEDEN ENVANTERİM',
-  heading: 'Evinizdeki eşyaları ve önemli bilgileri kolayca takip edin.',
-  description: 'Eşya, belge, garanti ve ödünç bilgileri düzenli kalır; aradığınız şeye ulaşmak için zaman kaybetmezsiniz.'
+                eyebrow: 'BAŞLANGIÇ',
+                heading: 'Önce evin yapısını kurun, sonra aramak isteyeceğiniz şeyleri ekleyin.',
+                description: 'HomeInventory en iyi; oda ve kategoriler önce oluşturulduğunda, ardından eşya, belge, garanti ve ödünç kayıtları bu yapıya bağlandığında çalışır.'
             },
             productLanes: [
                 {
-                    eyebrow: 'Ev envanteri',
-                    title: 'Sahip olduklarınızı tek yerde görün.',
-                    description: 'Eşyalarınızı odalara göre düzenleyin, garanti ve not ekleyin, ihtiyacınız olanı saniyeler içinde bulun.',
+                    eyebrow: 'Adım 1',
+                    title: 'Bir ev oluşturun veya mevcut eve katılın.',
+                    description: 'Bu kurulumdaki ilk hesabı oluşturun, bir ev başlatın ya da davet/ev anahtarıyla mevcut haneye katılın.',
+                    signal: 'Hesap kurulumu',
+                    metric: 'Önce ev',
+                    note: 'Hesap • ev anahtarı • ev halkı'
+                },
+                {
+                    eyebrow: 'Adım 2',
+                    title: 'Oda, kategori ve günlük eşyaları ekleyin.',
+                    description: 'Eşyaları eklemeden önce evin haritasını kurun. Bu; arama, filtreleme, QR etiketleri ve garanti takibini daha anlaşılır hale getirir.',
+                    signal: 'Envanter kurulumu',
+                    metric: 'Düzenli arama',
+                    note: 'Odalar • kategoriler • eşya detayları'
+                },
+                {
+                    eyebrow: 'Adım 3',
+                    title: 'Gerektiğinde ödünç takibi ve Kişisel Kasa kullanın.',
+                    description: 'Evden çıkan eşyaları takip edin; pasaport, şifre, tapu ve benzeri hassas kayıtları ortak listeden ayrı tutun.',
                     signal: 'Günlük kullanım',
-                    metric: 'Hızlı arama',
-                    note: 'Odalar • Kategoriler • Garanti notları'
-                },
-                {
-                    eyebrow: 'Ödünç takibi',
-                    title: 'Ödünç verilen eşyalar gözden kaçmasın.',
-      description: 'Bir eşya kimde, ne zaman verildi ve geri alındı mı; hepsini net şekilde takip edin.',
-      signal: 'Ortak kullanım',
-      metric: 'Net geçmiş',
-      note: 'Ev halkı • Ödünç geçmişi • Net takip'
-                },
-                {
-                    eyebrow: 'Kişisel Kasa',
-      title: 'Hassas bilgileri ortak envantere karıştırmayın.',
-      description: 'Pasaport, tapu, şifre ve benzeri özel kayıtları yalnızca sizin görebileceğiniz ayrı alanda saklayın.',
-      signal: 'Özel kayıtlar',
-      metric: 'Size özel',
-      note: 'Belgeler • Şifreler • Özel notlar'
+                    metric: 'Ortak ve özel',
+                    note: 'Ödünç • yedekleme • Kişisel Kasa'
                 }
             ],
             security: {
-                eyebrow: 'GÜVENLE KULLAN',
-    heading: 'Ortak ev kayıtları ile özel bilgiler birbirine karışmaz.',
-    description: 'Ev halkıyla paylaştığınız envanter ayrı, yalnızca size ait hassas bilgiler ayrı tutulur.',
-    bullets: [
-      'Hassas bilgiler ortak ev envanterinde görünmez.',
-      'İki adımlı doğrulama ve yedek kodlarla hesabınızı koruyun.'
-    ]
+                eyebrow: 'GÜVENEREK KULLANMADAN ÖNCE',
+                heading: 'Önemli kayıtları eklemeden önce güvenlik temelini tamamlayın.',
+                description: 'İlk eşyaları ekledikten sonra hesap korumasını, yedekleme davranışını ve Kişisel Kasa kurulumunu kontrol edin.',
+                bullets: [
+                    'Hesap ayarlarından iki adımlı doğrulama, yedek kodlar ve kurtarma materyallerini hazırlayın.',
+                    'Vazgeçilmez belgeleri saklamadan önce yedekleme ve geri yüklemeyi test edin.'
+                ]
             },
             about: {
-                eyebrow: 'KONTROL SENDE',
-    heading: 'HomeInventory, ev düzenini karmaşıklaştırmadan kontrol sağlar.',
-    description: 'Öncelik, evde neye sahip olduğunuzu bilmek ve aradığınız bilgiye hızlıca ulaşmak. Teknik ayrıntılar isteyenler için durur; günlük kullanımın önüne geçmez.',
+                eyebrow: 'NASIL KULLANILIR',
+                heading: 'Yeni bir HomeInventory kurulumu için pratik başlangıç yolu.',
+                description: 'Bu sayfa, uygulamayı yeni açan kişiye sıradaki adımı göstermeli. Teknik proje bilgileri erişilebilir kalır; ama ilk iş ev envanterini kullanılır hale getirmektir.',
                 pills: [
-                    'Tamamen ücretsiz',
-                    'Ev halkıyla ortak kullanım',
-                    'Hızlı arama',
-                    'Kişisel Kasa'
+                    'Hesap oluştur',
+                    'Oda ekle',
+                    'Eşya ekle',
+                    'Yedeklemeyi kontrol et'
                 ],
                 strips: [
                     {
                         number: '01',
-        title: 'Tamamen ücretsiz',
-        description: 'Şu an tüm özellikler ücretsiz; ödeme yapmadan tüm HomeInventory özelliklerini kullanabilirsiniz.'
-      },
-      {
-        number: '02',
-        title: 'Ev halkıyla ortak kullanım',
-        description: 'Ev halkınız aynı ev envanterini birlikte görebilir, birlikte güncelleyebilir.'
-      },
-      {
-        number: '03',
-        title: 'Belgeler ve garantiler',
-        description: 'Fiş, garanti ve servis notlarını ilgili eşyayla birlikte saklayın.'
-      },
-      {
-        number: '04',
-        title: 'Özel kayıtlar ayrı tutulur',
-        description: 'Pasaport, tapu, şifre ve benzeri özel bilgiler ortak envanterden ayrı kalır.'
+                        title: 'İlk hesabı oluşturun',
+                        description: 'Bu kurulum için yerel bir hesapla başlayın. Zaten bir ev varsa ikinci bir ev oluşturmak yerine mevcut eve katılın.'
+                    },
+                    {
+                        number: '02',
+                        title: 'Evi modelleyin',
+                        description: 'Gerçekten kullandığınız oda ve kategorileri ekleyin. Yapıyı evdeki herkesin anlayacağı kadar sade tutun.'
+                    },
+                    {
+                        number: '03',
+                        title: 'Önemli eşyaları kaydedin',
+                        description: 'Daha sonra bulmanız gerekebilecek eşyalar için ad, konum, fiş, garanti tarihi, not ve QR etiketi ekleyin.'
+                    },
+                    {
+                        number: '04',
+                        title: 'Özel ve geri kazanılabilir veriyi koruyun',
+                        description: 'Hassas kayıtlar için Kişisel Kasa kullanın, hesap korumasını açın ve uygulamaya güvenmeden önce yedeklerin çalıştığını doğrulayın.'
                     }
                 ],
                 advanced: {
-                    eyebrow: 'Teknik detaylar',
-                    title: 'Merak edenler için teknik detaylar her zaman erişilebilir.',
-                    description: 'HomeInventory, açık kaynak kodunu ve kendi sunucunuzda çalıştırma esnekliğini korur. MIT lisansı gibi ayrıntılar merak edenler için görünür; ama ürün deneyiminin önüne geçmez.',
-      link: 'Teknik detayları GitHub’da inceleyin'
+                    eyebrow: 'Teknik notlar',
+                    title: 'Dağıtım detayları mı gerekiyor?',
+                    description: 'Bu kurulumu siz yönetiyorsanız Docker rehberini, ortam ayarlarını, yedekleme konumunu ve kaynak depoyu el altında tutun.',
+                    link: 'Proje dokümantasyonunu GitHub’da açın'
                 }
             },
             cta: {
-                eyebrow: 'BUGÜN BAŞLAYIN',
-    heading: 'İlk odanızı oluşturun. İlk eşyanızı ekleyin.',
-    description: 'Başlamak ücretsiz. Birkaç dakikada eviniz için daha düzenli bir sistem kurabilirsiniz.'
+                eyebrow: 'BURADAN BAŞLA',
+                heading: 'Hesabınızı oluşturun ve ilk evi kurun.',
+                description: 'Sonra oda ve kategorileri ekleyin, ilk eşyaları kaydedin; önemli kayıtları saklamadan önce yedekleme ve güvenlik ayarlarını kontrol edin.'
             }
         }
         : (false ? {
             hero: {
-                statement: 'Know what you own. Find it without the friction.',
-                statementAccent: 'Shared inventory for the household. Personal Vault just for you.',
-                description: 'Keep items, warranties, important documents, and borrow tracking in one calm place. See what your home contains at a glance.',
-                primaryCta: 'Start Free',
-                secondaryCta: 'See the Product',
-                trustSignal: 'Completely free • Made for shared household use • Sensitive records stay separate in Personal Vault',
+                statement: 'HomeInventory is running. Set up your home inventory.',
+                statementAccent: 'Create a home, add rooms and categories, then start recording items, documents, warranties, and borrowing.',
+                description: 'Use this screen as your starting point after installation. Begin with an account, build the household structure, add important items, and keep private records in Personal Vault.',
+                primaryCta: 'Start setup',
+                secondaryCta: 'Sign in',
+                trustSignal: 'Suggested flow: account • home • rooms and categories • items • backup',
                 searchPlaceholder: 'Search an item, room, or barcode',
             },
             heroInventoryRows: [
@@ -267,97 +268,97 @@ export default function LandingPage() {
                 { name: 'HEPA filter', meta: 'Kids room • Replace 11/2026', state: null, icon: Package, accent: 'text-[var(--hi-accent)]' }
             ],
             features: {
-                eyebrow: 'WHY HOMEINVENTORY',
-                heading: 'Knowing what you own makes home life easier to manage.',
-                description: 'The shared list keeps everyday inventory clear, while Personal Vault keeps sensitive records out of sight.'
+                eyebrow: 'GET STARTED',
+                heading: 'Start with the structure of your home, then add the things you need to find later.',
+                description: 'HomeInventory works best when you create rooms and categories first, then attach items, documents, warranties, and borrow history to that structure.'
             },
             productLanes: [
                 {
-                    eyebrow: 'Shared inventory',
-                    title: 'See what your home contains in one clear place.',
-                    description: 'Organize items by room, attach warranties and notes, and find what you need in seconds.',
-                    signal: 'Everyday use',
-                    metric: 'Quick search',
-                    note: 'Rooms • categories • warranty notes'
+                    eyebrow: 'Step 1',
+                    title: 'Create or join a home.',
+                    description: 'Register the first account for this installation, create a home, or join an existing household with an invite or house key.',
+                    signal: 'Account setup',
+                    metric: 'Home first',
+                    note: 'Account • home key • household members'
                 },
                 {
-                    eyebrow: 'Borrow tracking',
-                    title: 'Always know who has what around the house.',
-                    description: 'Borrowed items stay on the record, so nothing gets lost in the shuffle.',
-                    signal: 'Shared use',
-                    metric: 'Clear history',
-                    note: 'Household members • borrow history • cleaner follow-up'
+                    eyebrow: 'Step 2',
+                    title: 'Add rooms, categories, and everyday items.',
+                    description: 'Build the map of your home before adding items. It makes search, filtering, QR labels, and warranty tracking much easier later.',
+                    signal: 'Inventory setup',
+                    metric: 'Organized search',
+                    note: 'Rooms • categories • item details'
                 },
                 {
-                    eyebrow: 'Personal Vault',
-                    title: 'Passports, deeds, and codes stay out of shared search.',
-                    description: 'Sensitive records remain visible only to you and stay separate from the everyday list.',
-                    signal: 'Private records',
-                    metric: 'Only you can see them',
-                    note: 'Documents • access codes • personal notes'
+                    eyebrow: 'Step 3',
+                    title: 'Use borrow tracking and Personal Vault when needed.',
+                    description: 'Track items that leave the house, and keep passports, codes, deeds, and other sensitive records away from the shared list.',
+                    signal: 'Daily use',
+                    metric: 'Shared plus private',
+                    note: 'Borrowing • backups • Personal Vault'
                 }
             ],
             security: {
-                eyebrow: 'USE WITH CONFIDENCE',
-                heading: 'Shared search never reaches private records.',
-                description: 'Personal Vault stays separate from the shared inventory and is protected with layered account security.',
+                eyebrow: 'BEFORE YOU RELY ON IT',
+                heading: 'Finish the security basics before adding important records.',
+                description: 'Once your first items are in place, review account protection, backup behavior, and Personal Vault setup so the installation is ready for real household use.',
                 bullets: [
-                    'Sensitive fields are handled separately and stored securely.',
-                    'Protect access with 2FA, backup codes, and trusted devices.'
+                    'Set up 2FA, backup codes, and recovery materials from account settings.',
+                    'Test backup and restore before storing irreplaceable documents.'
                 ]
             },
             about: {
-                eyebrow: 'YOU STAY IN CONTROL',
-                heading: 'HomeInventory is designed to feel calm, useful, and trustworthy in daily life.',
-                description: 'The priority is helping you know what you own and reach the right information quickly. Technical transparency stays available, but it does not need to lead the story.',
+                eyebrow: 'HOW TO USE IT',
+                heading: 'A practical setup path for a new HomeInventory installation.',
+                description: 'This page should help the person who just opened the app understand what to do next. Technical project details stay available, but the first job is getting the household inventory usable.',
                 pills: [
-                    'Completely free',
-                    'Shared household use',
-                    'Fast search',
-                    'Personal Vault'
+                    'Create account',
+                    'Add rooms',
+                    'Add items',
+                    'Review backup'
                 ],
                 strips: [
                     {
                         number: '01',
-                        title: 'Completely free',
-                        description: 'Everything is currently free; you can use all HomeInventory features without paying.'
+                        title: 'Create the first account',
+                        description: 'Start with a local account for this installation. If a home already exists, join it instead of creating a second one.'
                     },
                     {
                         number: '02',
-                        title: 'Shared household flow',
-                        description: 'Family members can view and maintain the same household inventory together.'
+                        title: 'Model the home',
+                        description: 'Add the rooms and categories you actually use. Keep the structure simple enough that everyone in the house understands it.'
                     },
                     {
                         number: '03',
-                        title: 'Documents and warranties',
-                        description: 'Keep receipts, warranty details, and service notes close to each item.'
+                        title: 'Record important items',
+                        description: 'Add item names, locations, receipts, warranty dates, notes, and QR labels for the things you may need to find later.'
                     },
                     {
                         number: '04',
-                        title: 'Private records stay separate',
-                        description: 'Sensitive information stays out of the shared list and remains visible only to you.'
+                        title: 'Protect private and recoverable data',
+                        description: 'Use Personal Vault for sensitive records, enable account protection, and confirm that backups are working before you depend on the app.'
                     }
                 ],
                 advanced: {
-                    eyebrow: 'Technical details',
-                    title: 'Transparent by design, quietly in the background.',
-                    description: 'For anyone who cares about the underlying setup, HomeInventory still keeps its open-source core, MIT license, and self-hosting flexibility available as supporting details.',
-                    link: 'View the technical details on GitHub'
+                    eyebrow: 'Technical notes',
+                    title: 'Need deployment details?',
+                    description: 'If you are maintaining this installation, keep the Docker guide, environment settings, backup location, and source repository handy.',
+                    link: 'Open project documentation on GitHub'
                 }
             },
             cta: {
-                eyebrow: 'START TODAY',
-                heading: 'Create your first room. Add your first item.',
-                description: 'Starting is free, and it only takes a few calm minutes to build a clearer home system.'
+                eyebrow: 'START HERE',
+                heading: 'Create your account and set up the first home.',
+                description: 'After that, add rooms and categories, record your first items, then review backup and security settings before storing important records.'
             }
         } : {
             hero: {
-                statement: 'Know what you own. Find it without the friction.',
-                statementAccent: 'Shared inventory for the household. Personal Vault just for you.',
-                description: 'Track items, warranties, documents, and borrowing across shared homes. Keep everything organized in one calm place.',
-                primaryCta: 'Create Account',
-                secondaryCta: 'See the Product',
-                trustSignal: 'Open source • MIT licensed • Self-hosted • Your data stays on your server',
+                statement: 'HomeInventory is running. Set up your home inventory.',
+                statementAccent: 'Create a home, add rooms and categories, then start recording items, documents, warranties, and borrowing.',
+                description: 'Use this screen as your starting point after installation. Begin with an account, build the household structure, add important items, and keep private records in Personal Vault.',
+                primaryCta: 'Start setup',
+                secondaryCta: 'Sign in',
+                trustSignal: 'Suggested flow: account • home • rooms and categories • items • backup',
                 searchPlaceholder: 'Search an item, room, or barcode',
             },
             heroInventoryRows: [
@@ -369,88 +370,88 @@ export default function LandingPage() {
                 { name: 'HEPA filter', meta: 'Kids room • Replace 11/2026', state: null, icon: Package, accent: 'text-[#6f9978]' }
             ],
             features: {
-                eyebrow: 'WHY HOMEINVENTORY',
-                heading: 'Knowing what you own makes home life easier to manage.',
-                description: 'The shared list keeps everyday inventory clear, while Personal Vault keeps sensitive records out of sight.'
+                eyebrow: 'GET STARTED',
+                heading: 'Start with the structure of your home, then add the things you need to find later.',
+                description: 'HomeInventory works best when you create rooms and categories first, then attach items, documents, warranties, and borrow history to that structure.'
             },
             productLanes: [
                 {
-                    eyebrow: 'Shared inventory',
-                    title: 'See what your home contains in one clear place.',
-                    description: 'Organize items by room, attach warranties and notes, and find what you need in seconds.',
-                    signal: 'Everyday use',
-                    metric: 'Quick search',
-                    note: 'Rooms • categories • warranty notes'
+                    eyebrow: 'Step 1',
+                    title: 'Create or join a home.',
+                    description: 'Register the first account for this installation, create a home, or join an existing household with an invite or house key.',
+                    signal: 'Account setup',
+                    metric: 'Home first',
+                    note: 'Account • home key • household members'
                 },
                 {
-                    eyebrow: 'Borrow tracking',
-                    title: 'Always know who has what around the house.',
-                    description: 'Borrowed items stay on the record, so nothing gets lost in the shuffle.',
-                    signal: 'Shared use',
-                    metric: 'Clear history',
-                    note: 'Household members • borrow history • cleaner follow-up'
+                    eyebrow: 'Step 2',
+                    title: 'Add rooms, categories, and everyday items.',
+                    description: 'Build the map of your home before adding items. It makes search, filtering, QR labels, and warranty tracking much easier later.',
+                    signal: 'Inventory setup',
+                    metric: 'Organized search',
+                    note: 'Rooms • categories • item details'
                 },
                 {
-                    eyebrow: 'Personal Vault',
-                    title: 'Passports, deeds, and codes stay out of shared search.',
-                    description: 'Sensitive records remain visible only to you and stay separate from the everyday list.',
-                    signal: 'Private records',
-                    metric: 'Only you can see them',
-                    note: 'Documents • access codes • personal notes'
+                    eyebrow: 'Step 3',
+                    title: 'Use borrow tracking and Personal Vault when needed.',
+                    description: 'Track items that leave the house, and keep passports, codes, deeds, and other sensitive records away from the shared list.',
+                    signal: 'Daily use',
+                    metric: 'Shared plus private',
+                    note: 'Borrowing • backups • Personal Vault'
                 }
             ],
             security: {
-                eyebrow: 'USE WITH CONFIDENCE',
-                heading: 'Shared search never reaches private records.',
-                description: 'Personal Vault stays separate from the shared inventory and is protected with layered account security.',
+                eyebrow: 'BEFORE YOU RELY ON IT',
+                heading: 'Finish the security basics before adding important records.',
+                description: 'Once your first items are in place, review account protection, backup behavior, and Personal Vault setup so the installation is ready for real household use.',
                 bullets: [
-                    'Sensitive fields are handled separately and stored securely.',
-                    'Protect access with 2FA, backup codes, and trusted devices.'
+                    'Set up 2FA, backup codes, and recovery materials from account settings.',
+                    'Test backup and restore before storing irreplaceable documents.'
                 ]
             },
             about: {
-                eyebrow: 'YOU STAY IN CONTROL',
-                heading: 'HomeInventory is built to be self-hosted, private, and fully yours.',
-                description: 'Run it on your own server, a Raspberry Pi, or any Docker host. No accounts, no subscriptions, no data leaving your network.',
+                eyebrow: 'HOW TO USE IT',
+                heading: 'A practical setup path for a new HomeInventory installation.',
+                description: 'This page should help the person who just opened the app understand what to do next. Technical project details stay available, but the first job is getting the household inventory usable.',
                 pills: [
-                    'Self-hosted',
-                    'Open source',
-                    'Docker ready',
-                    'Personal Vault'
+                    'Create account',
+                    'Add rooms',
+                    'Add items',
+                    'Review backup'
                 ],
                 strips: [
                     {
                         number: '01',
-                        title: 'Self-hosted by design',
-                        description: 'Deploy on your own hardware. Your data never touches a third-party server.'
+                        title: 'Create the first account',
+                        description: 'Start with a local account for this installation. If a home already exists, join it instead of creating a second one.'
                     },
                     {
                         number: '02',
-                        title: 'Shared household flow',
-                        description: 'Family members can view and maintain the same household inventory together.'
+                        title: 'Model the home',
+                        description: 'Add the rooms and categories you actually use. Keep the structure simple enough that everyone in the house understands it.'
                     },
                     {
                         number: '03',
-                        title: 'Documents and warranties',
-                        description: 'Keep receipts, warranty details, and service notes close to each item.'
+                        title: 'Record important items',
+                        description: 'Add item names, locations, receipts, warranty dates, notes, and QR labels for the things you may need to find later.'
                     },
                     {
                         number: '04',
-                        title: 'Private records stay separate',
-                        description: 'Sensitive information stays out of the shared list and remains visible only to you.'
+                        title: 'Protect private and recoverable data',
+                        description: 'Use Personal Vault for sensitive records, enable account protection, and confirm that backups are working before you depend on the app.'
                     }
                 ],
                 advanced: {
-                    eyebrow: 'Technical details',
-                    title: 'Transparent by design, open by default.',
-                    description: 'HomeInventory ships under the MIT license with full source access. Fork it, extend it, or run it exactly as-is.',
-                    link: 'View the source on GitHub'
+                    eyebrow: 'Technical notes',
+                    title: 'Need deployment details?',
+                    description: 'If you are maintaining this installation, keep the Docker guide, environment settings, backup location, and source repository handy.',
+                    link: 'Open project documentation on GitHub'
                 }
             },
             cta: {
-                eyebrow: 'GET STARTED',
-                heading: 'Create your first room. Add your first item.',
-                description: 'Set up takes a few calm minutes. Start organizing what your household owns.'
+                eyebrow: 'START HERE',
+                heading: 'Create your account and set up the first home.',
+                description: 'After that, add rooms and categories, record your first items, then review backup and security settings before storing important records.'
             }
         }), t, false ? 'landing.homeinventory' : 'landing.homeinventory');
 
@@ -503,7 +504,7 @@ export default function LandingPage() {
                             to="/register"
                             className={`inline-flex h-12 items-center rounded-full px-6 text-sm font-semibold text-white transition ${false ? 'btn-primary !h-12 !rounded-full !px-6' : 'bg-[#6f9978] hover:bg-[#7aa484]'}`}
                         >
-                            {false ? t('landing.hero.cta_start') : t('landing.hero.cta_get_started', { defaultValue: 'Get Started' })}
+                            {copy.hero.primaryCta}
                         </Link>
                     </div>
 
@@ -561,7 +562,7 @@ export default function LandingPage() {
                                 onClick={() => setMobileNavOpen(false)}
                                 className={`inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-semibold text-white transition ${false ? 'btn-primary !h-11 !rounded-full !px-5' : 'bg-[#6f9978] hover:bg-[#7aa484]'}`}
                             >
-                                {false ? t('landing.hero.cta_start') : t('landing.hero.cta_get_started', { defaultValue: 'Get Started' })}
+                                {copy.hero.primaryCta}
                             </Link>
                         </div>
                     </div>
@@ -600,14 +601,14 @@ export default function LandingPage() {
                                     {copy.hero.primaryCta}
                                     <ArrowRight className="ml-2 h-4 w-4" />
                                 </Link>
-                                <a
-                                    href="#features"
+                                <Link
+                                    to="/login"
                                     className={`inline-flex h-14 items-center justify-center rounded-full border px-8 text-base font-semibold transition ${isDark ? (false ? 'border-[var(--hi-border-strong)] bg-[rgba(26,36,51,0.9)] text-white shadow-[0_16px_30px_rgba(0,0,0,0.18)] hover:border-[var(--hi-secondary)] hover:bg-[rgba(33,45,63,0.98)]' : 'border-white/12 bg-white/[0.05] text-white/82 hover:border-white/20 hover:text-white') : (false ? 'border-[rgba(176,193,216,0.62)] bg-[rgba(255,255,255,0.98)] text-[var(--hi-text)] shadow-[0_14px_28px_rgba(19,35,61,0.12)] hover:border-[rgba(139,180,255,0.68)] hover:bg-[rgba(246,250,255,1)] hover:text-[var(--hi-text)]' : 'border-[rgba(18,32,22,0.12)] text-[#556453] hover:bg-white/60 hover:text-[var(--hi-text)]')}`}
                                     aria-label={copy.hero.secondaryCta}
                                 >
                                     {copy.hero.secondaryCta}
                                     <ArrowRight className="ml-2 h-4 w-4 opacity-80" />
-                                </a>
+                                </Link>
                             </div>
 
                             <p className={`mt-9 max-w-[26rem] text-[13px] font-normal ${isDark ? 'text-white/42' : 'text-[var(--hi-text-muted)]'}`}>
@@ -932,7 +933,7 @@ export default function LandingPage() {
                                         to="/login"
                                         className={`inline-flex h-14 items-center justify-center rounded-full px-8 text-base font-semibold transition ${isDark ? 'border border-white/10 text-white/84 hover:bg-white/6 hover:text-white' : 'border border-[var(--hi-border)] text-[var(--hi-text)] hover:bg-[var(--hi-panel)]'}`}
                                     >
-                                        {t('landing.nav.login')}
+                                        {copy.hero.secondaryCta}
                                     </Link>
                                 </div>
                             </div>
