@@ -45,6 +45,8 @@ const ITEM_INVOICE_THUMBNAIL_MEDIA_PURPOSE = 'inventory.media.invoice_thumbnail'
 const SHOULD_LOG_DATABASE_EVENTS = process.env.NODE_ENV !== 'production'
   || String(process.env.LOG_DATABASE_EVENTS || '').trim() === 'true';
 
+// Public v2 release line database bootstrap and migration helpers.
+
 function emitDatabaseLog(...args) {
   if (SHOULD_LOG_DATABASE_EVENTS) {
     const [message, ...rest] = args;

@@ -7,6 +7,8 @@
 
 <h1 align="center">HomeInventory</h1>
 
+<!-- Estado de la versión: v2.0.0 ya está publicada. -->
+
 <p align="center">
   <strong>Inventario privado y autoalojable para hogares compartidos.</strong><br/>
   Gestiona objetos, garantías, documentos, préstamos y registros personales sensibles desde una app React tranquila.

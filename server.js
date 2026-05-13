@@ -3,6 +3,8 @@ import { loadRuntimeSecrets } from './utils/runtimeSecrets.js';
 
 await loadRuntimeSecrets();
 
+// Public v2 release line startup guard.
+
 // --- Production startup guard ---
 // Kritik secret'lar eksikse uygulamayı başlatma.
 // Bu kontrol, sessiz güvenlik hatalarını (zayıf fallback key kullanımı vb.) önler.

@@ -4,6 +4,7 @@ const SITE_URL = String(
     ''
 ).trim();
 
+// Runtime branding is intentionally deployment-driven in the v2 release line.
 function deriveBrandName() {
     try {
         const host = new URL(SITE_URL).hostname.replace(/^www\./, '');

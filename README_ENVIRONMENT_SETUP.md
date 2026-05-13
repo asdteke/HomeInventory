@@ -2,6 +2,8 @@
 
 This repository contains a rebuilt frontend, encrypted storage flows, and optional secret-loading paths for Docker and OCI. Keep local and production secrets out of git.
 
+These settings match the public v2.0.0 release line.
+
 ### Safe workflow
 
 1. Treat `.env` as local-only.

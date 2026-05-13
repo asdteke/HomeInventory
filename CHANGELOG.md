@@ -6,6 +6,8 @@ All notable changes to HomeInventory are documented here.
 
 HomeInventory v2.0.0 is a major product refresh of the open-source household inventory app. It keeps the same privacy-first, self-hostable direction while rebuilding large parts of the user experience and hardening critical flows.
 
+This is the current public major release of HomeInventory.
+
 ### Highlights
 
 - Redesigned the main React experience across the landing page, app shell, dashboard, inventory, settings, auth, admin, legal, QR, and Personal Vault surfaces.

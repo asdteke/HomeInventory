@@ -7,6 +7,8 @@
 
 <h1 align="center">HomeInventory</h1>
 
+<!-- Release status: v2.0.0 is live. -->
+
 <p align="center">
   <strong>Private, selbst hostbare Haushaltsinventur für gemeinsam genutzte Zuhause.</strong><br/>
   Verwalte Gegenstände, Garantien, Dokumente, Ausleihen und sensible persönliche Datensätze in einer ruhigen React-App.

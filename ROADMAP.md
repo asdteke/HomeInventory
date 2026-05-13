@@ -2,6 +2,8 @@
 
 HomeInventory was recently redesigned for v2.0.0, so this roadmap is intentionally short and practical. It focuses on polish and reliability before larger feature promises.
 
+The v2.0.0 release is now public; this roadmap tracks post-release polish.
+
 ## Near-Term Focus
 
 - **Self-hosting reliability:** keep Docker, environment setup, backup/restore, and upgrade notes easy to follow.

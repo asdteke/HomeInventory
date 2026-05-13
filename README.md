@@ -7,6 +7,8 @@
 
 <h1 align="center">HomeInventory</h1>
 
+<!-- Release status: v2.0.0 is live. -->
+
 <p align="center">
   <strong>Private, self-hostable household inventory for shared homes.</strong><br/>
   Track items, warranties, documents, borrowing, and sensitive personal records from one calm React app.

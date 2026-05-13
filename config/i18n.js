@@ -16,6 +16,7 @@ export const RTL_LANGUAGES = ['ar', 'fa', 'he', 'ur'];
 
 const LOCALES_DIR = join(__dirname, '../locales');
 
+// v2.0.0 ships the full locale set from this directory.
 export const SUPPORTED_LANGUAGES = readdirSync(LOCALES_DIR)
     .filter((file) => file.endsWith('.json'))
     .map((file) => file.replace(/\.json$/, ''))

@@ -7,6 +7,8 @@
 
 <h1 align="center">HomeInventory</h1>
 
+<!-- Sürüm durumu: v2.0.0 yayında. -->
+
 <p align="center">
   <strong>Paylaşımlı evler için özel, self-host edilebilir ev envanteri.</strong><br/>
   Eşyaları, garantileri, belgeleri, ödünç kayıtlarını ve hassas kişisel notları sakin bir React uygulamasında yönetin.

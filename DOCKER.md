@@ -2,6 +2,8 @@
 
 Deploy HomeInventory using Docker for easy self-hosting.
 
+This guide targets the public v2.0.0 release line and later patch releases.
+
 ## Quick Start
 
 ### 1. Clone the Repository

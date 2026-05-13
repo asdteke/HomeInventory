@@ -7,6 +7,7 @@ const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, '..');
 const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm';
 
+// Developer entrypoint for the public v2 release line.
 const children = [
     spawn(npmCommand, ['--silent', 'run', 'server'], {
         cwd: projectRoot,

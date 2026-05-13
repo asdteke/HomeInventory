@@ -27,6 +27,8 @@ import passport from 'passport';
 import { BRAND_NAME } from './utils/branding.js';
 import { renderStartupSummary } from './utils/devConsole.js';
 
+// Public v2 release line: Express app shell, security middleware, and API routing.
+
 // Import KVKK-compliant logger
 import { errorMiddleware, notFoundHandler } from './utils/logger.js';
 

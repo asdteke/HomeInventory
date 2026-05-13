@@ -9,6 +9,8 @@
 
 <h1 align="center">HomeInventory</h1>
 
+<!-- Release status: v2.0.0 is live. -->
+
 <p align="center">
   <strong>جرد منزلي خاص وقابل للاستضافة الذاتية للمنازل المشتركة.</strong><br/>
   إدارة العناصر والضمانات والمستندات والإعارات والسجلات الشخصية الحساسة من تطبيق React هادئ.
