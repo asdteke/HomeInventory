@@ -1907,6 +1907,8 @@
       "empty": "ਹੁਣ ਕੋਈ ਸਰਗਰਮ ਕਰਜ਼ੇ ਨਹੀਂ ਹਨ।",
       "borrowed_from": "{{name}} ਤੋਂ ਲਿਆ",
       "lent_to": "ਇਸ ਵੇਲੇ {{name}} ਦੇ ਨਾਲ",
+      "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
+      "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
       "empty_title": "ਹੁਣ ਕੋਈ ਸਰਗਰਮ ਕਰਜ਼ ਨਹੀਂ",
       "empty_description": "ਸਵੀਕਾਰ ਕੀਤੀਆਂ ਬੇਨਤੀਆਂ ਇੱਥੇ ਵਿਖਾਈ ਦੇਂਦੀਆਂ ਹਨ ਜਦੋਂ ਕੋਈ ਆਈਟਮ ਕਿਰਾਏ 'ਤੇ ਜਾਂ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ, ਨਾਲ ਹੀ ਨਿਰਧਾਰਿਤ ਮਿਤੀਆਂ ਅਤੇ ਵਾਪਸੀ ਸਥਿਤੀ."
     },
@@ -1916,7 +1918,8 @@
       "rejected": "ਰੱਦ ਕੀਤਾ ਗਿਆ",
       "cancelled": "ਰੱਦ ਕੀਤਾ",
       "expired": "ਮਿਆਦ ਖ਼ਤਮ ਹੋ ਗਈ",
-      "returned": "ਵਾਪਸ ਕੀਤਾ"
+      "returned": "ਵਾਪਸ ਕੀਤਾ",
+      "return_pending": "Return pending"
     },
     "actions": {
       "send_request": "ਬੇਨਤੀ ਆਈਟਮ",
@@ -1925,6 +1928,8 @@
       "reject": "ਅਸਵੀਕਾਰ ਕਰੋ",
       "cancel": "ਰੱਦ ਕਰੋ",
       "fulfill_request": "ਬੇਨਤੀ ਪੂਰੀ ਕਰੋ",
+      "mark_delivered": "Mark delivered",
+      "mark_received": "Mark received",
       "open_inventory": "ਇਨਵੈਂਟਰੀ ਖੋਲ੍ਹੋ"
     },
     "labels": {
@@ -1962,7 +1967,18 @@
       "fulfill_submitting": "ਬਚਾਇਆ ਜਾ ਰਿਹਾ ਹੈ...",
       "return_title": "ਵાપਸ ਕੀਤਾ ਚਿੰਨ੍ਹਿਤ ਕਰੋ",
       "return_subtitle": "'{{item}}' ਲਈ ਐਕਟਿਵ ਬੋਰੋਅ ਨੂੰ ਬੰਦ ਕਰੋ",
-      "return_target": "ਇਹ ਇਸ ਵੇਲੇ {{name}} ਕੋਲ ਦਿਖਾਇਆ ਜਾ ਰਿਹਾ ਹੈ।"
+      "return_target": "ਇਹ ਇਸ ਵੇਲੇ {{name}} ਕੋਲ ਦਿਖਾਇਆ ਜਾ ਰਿਹਾ ਹੈ।",
+      "return_title_borrower": "Deliver item",
+      "return_title_lender": "Receive item",
+      "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
+      "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
+      "return_target_borrower": "Lender: {{name}}",
+      "return_target_lender": "Currently with: {{name}}",
+      "return_note_borrower": "Delivery note",
+      "return_note_lender": "Receive note",
+      "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
+      "return_note_placeholder_lender": "e.g. Received back in good condition",
+      "return_submitting": "Closing..."
     },
     "messages": {
       "load_error": "ਬੋਰੋ ਸੈਂਟਰ ਲੋਡ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ",

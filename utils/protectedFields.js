@@ -379,6 +379,7 @@ export function decryptBorrowRecord(record) {
     const borrowerContact = decryptBorrowerContact(record.borrower_contact);
     const note = decryptBorrowNote(record.note);
     const returnNote = decryptBorrowReturnNote(record.return_note);
+    const returnRequestNote = decryptBorrowReturnNote(record.return_request_note);
     const borrowerUsername = decryptUsername(record.borrower_username);
 
     return {
@@ -387,6 +388,7 @@ export function decryptBorrowRecord(record) {
         borrower_contact: borrowerContact,
         note,
         return_note: returnNote,
+        return_request_note: returnRequestNote,
         borrower_username: borrowerUsername,
         borrower_display_name: borrowerUsername || borrowerName,
         lent_by_username: decryptUsername(record.lent_by_username),
@@ -436,6 +438,7 @@ export function redactBorrowRecordForViewer(record, { viewerUserId = null, itemO
             ...record,
             borrower_contact: null,
             note: null,
+            return_request_note: null,
             return_note: null
         };
     }
@@ -449,6 +452,7 @@ export function redactBorrowRecordForViewer(record, { viewerUserId = null, itemO
         ...record,
         borrower_contact: null,
         note: null,
+        return_request_note: null,
         return_note: null
     };
 }

@@ -1907,6 +1907,8 @@
             "empty": "လတ်တလောအတွက် မည်သည့်အလုပ်ဆက်စပ်ချေးငွေမရှိပါ။",
             "borrowed_from": "{{name}} မှ ချေးထားသော",
             "lent_to": "လတ်တလောမှာ {{name}} ထံတွင်",
+            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
+            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
             "empty_title": "ယခုအချိန်တွင်အကျိုးခံစားမှုမရှိပါ",
             "empty_description": "ပစ္စည်းကို ချေးထားခြင်းသို့မဟုတ် ချေးပေးခြင်းပြီးပါက လက်ခံရရှိသောတောင်းဆိုချက်များကို ဤနေရာတွင် ဖော်ပြပါမည်၊ သတ်မှတ်ထားသည့်ရက်များနှင့် ပြန်အမ်းခြင်းအခြေအနေတို့နှင့်အတူ။"
         },
@@ -1916,7 +1918,8 @@
             "rejected": "ငြင်းပယ်ထားသော",
             "cancelled": "ပယ်ဖျက်ထားသော",
             "expired": "နောက်ဆုံးသတ်မှတ်ချိန်ကုန်ဆုံးခဲ့သော",
-            "returned": "ပြန်ပေးပို့ပြီး"
+            "returned": "ပြန်ပေးပို့ပြီး",
+            "return_pending": "Return pending"
         },
         "actions": {
             "send_request": "အဆိုပြုထားသော ပစ္စည်း",
@@ -1925,6 +1928,8 @@
             "reject": "ငြင်းဆိုရန်",
             "cancel": "ဖျက်သိမ်းရန်",
             "fulfill_request": "အဆိုပြုချက် ပြည့်မှီစေမည်",
+            "mark_delivered": "Mark delivered",
+            "mark_received": "Mark received",
             "open_inventory": "အသုံးစာရင်းဖွင့်ပါ"
         },
         "labels": {
@@ -1962,7 +1967,18 @@
             "fulfill_submitting": "သိမ်းဆည်းနေသည်...",
             "return_title": "ပြန်သွင်းပြီးအမှတ်အသားပြုမည်",
             "return_subtitle": "'{{item}}' အတွက် လက်ရှိချေးထားမှုကို ပိတ်မည်",
-            "return_target": "လက်ရှိတွင် {{name}} ထံရှိနေသည်ဟု ပြထားသည်။"
+            "return_target": "လက်ရှိတွင် {{name}} ထံရှိနေသည်ဟု ပြထားသည်။",
+            "return_title_borrower": "Deliver item",
+            "return_title_lender": "Receive item",
+            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
+            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
+            "return_target_borrower": "Lender: {{name}}",
+            "return_target_lender": "Currently with: {{name}}",
+            "return_note_borrower": "Delivery note",
+            "return_note_lender": "Receive note",
+            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
+            "return_note_placeholder_lender": "e.g. Received back in good condition",
+            "return_submitting": "Closing..."
         },
         "messages": {
             "load_error": "ချေးယူစင်တာကို ဖွင့်နိုင်ခြင်းမရှိပါ",

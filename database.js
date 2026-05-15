@@ -575,6 +575,9 @@ db.exec(`
     note TEXT,
     borrowed_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     due_date TEXT,
+    return_requested_at DATETIME,
+    return_requested_by_user_id INTEGER,
+    return_request_note TEXT,
     returned_at DATETIME,
     return_note TEXT,
     lent_by_user_id INTEGER NOT NULL,
@@ -584,6 +587,7 @@ db.exec(`
     FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE,
     FOREIGN KEY (borrower_user_id) REFERENCES users(id) ON DELETE SET NULL,
     FOREIGN KEY (lent_by_user_id) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (return_requested_by_user_id) REFERENCES users(id) ON DELETE SET NULL,
     FOREIGN KEY (returned_by_user_id) REFERENCES users(id) ON DELETE SET NULL,
     CHECK (borrower_type IN ('member', 'external'))
   );
@@ -595,6 +599,21 @@ db.exec(`
     ON item_borrows(item_id)
     WHERE returned_at IS NULL;
 `);
+
+try {
+  db.exec(`ALTER TABLE item_borrows ADD COLUMN return_requested_at DATETIME`);
+  emitDatabaseLog('[Database] return_requested_at column added to item_borrows table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE item_borrows ADD COLUMN return_requested_by_user_id INTEGER`);
+  emitDatabaseLog('[Database] return_requested_by_user_id column added to item_borrows table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE item_borrows ADD COLUMN return_request_note TEXT`);
+  emitDatabaseLog('[Database] return_request_note column added to item_borrows table');
+} catch (e) { /* Column exists */ }
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS borrow_requests (

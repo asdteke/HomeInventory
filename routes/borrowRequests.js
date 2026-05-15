@@ -47,6 +47,9 @@ const REQUEST_SELECT = `
     linked_borrow.note AS linked_borrow_note,
     linked_borrow.borrowed_at AS linked_borrow_borrowed_at,
     linked_borrow.due_date AS linked_borrow_due_date,
+    linked_borrow.return_requested_at AS linked_borrow_return_requested_at,
+    linked_borrow.return_requested_by_user_id AS linked_borrow_return_requested_by_user_id,
+    linked_borrow.return_request_note AS linked_borrow_return_request_note,
     linked_borrow.returned_at AS linked_borrow_returned_at,
     linked_borrow.return_note AS linked_borrow_return_note,
     linked_borrow.lent_by_user_id AS linked_borrow_lent_by_user_id,
@@ -203,6 +206,9 @@ function buildLinkedBorrowSnapshot(record) {
         note: record.linked_borrow_note,
         borrowed_at: record.linked_borrow_borrowed_at,
         due_date: record.linked_borrow_due_date,
+        return_requested_at: record.linked_borrow_return_requested_at,
+        return_requested_by_user_id: record.linked_borrow_return_requested_by_user_id,
+        return_request_note: record.linked_borrow_return_request_note,
         returned_at: record.linked_borrow_returned_at,
         return_note: record.linked_borrow_return_note,
         lent_by_user_id: record.linked_borrow_lent_by_user_id,
@@ -269,6 +275,10 @@ function serializeActiveBorrow(record, viewerUserId) {
         borrowed_at: borrow.borrowed_at,
         due_date: borrow.due_date,
         note: borrow.note,
+        return_requested_at: borrow.return_requested_at,
+        return_request_note: borrow.return_request_note,
+        returned_at: borrow.returned_at,
+        return_note: borrow.return_note,
         role,
         item: itemName ? {
             id: record.item_id,
@@ -280,7 +290,7 @@ function serializeActiveBorrow(record, viewerUserId) {
             : (borrow.borrower_display_name || 'Bilinmeyen kullanıcı'),
         borrower_display_name: borrow.borrower_display_name,
         lender_display_name: borrow.lent_by_username,
-        can_mark_returned: role === 'lender' || role === 'owner',
+        can_mark_returned: (role === 'borrower' && !borrow.return_requested_at) || role === 'lender' || role === 'owner',
         request_direction: record.request_direction || null
     };
 }
@@ -747,7 +757,7 @@ router.post('/active-borrows/:id/return', (req, res) => {
             LEFT JOIN borrow_requests br ON br.borrow_id = ib.id
             WHERE ib.id = ?
               AND ib.returned_at IS NULL
-              AND (ib.lent_by_user_id = ? OR items.user_id = ?)
+              AND (ib.borrower_user_id = ? OR ib.lent_by_user_id = ? OR items.user_id = ?)
               AND EXISTS(
                   SELECT 1
                   FROM user_houses viewer_house
@@ -755,13 +765,56 @@ router.post('/active-borrows/:id/return', (req, res) => {
                     AND viewer_house.house_key = items.house_key
               )
             LIMIT 1
-        `).get(borrowId, req.user.id, req.user.id, req.user.id);
+        `).get(borrowId, req.user.id, req.user.id, req.user.id, req.user.id);
 
         if (!activeBorrow) {
             return res.status(404).json({ error: 'Aktif ödünç kaydı bulunamadı' });
         }
 
         const returnNote = normalizeOptionalText(req.body.return_note, 'Teslim notu', 1000);
+        const isBorrowerReturn = activeBorrow.borrower_user_id === req.user.id;
+        const canConfirmReturn = activeBorrow.lent_by_user_id === req.user.id || activeBorrow.item_owner_user_id === req.user.id;
+
+        if (isBorrowerReturn && !canConfirmReturn) {
+            db.prepare(`
+                UPDATE item_borrows
+                SET return_requested_at = CURRENT_TIMESTAMP,
+                    return_requested_by_user_id = ?,
+                    return_request_note = ?,
+                    updated_at = CURRENT_TIMESTAMP
+                WHERE id = ?
+            `).run(
+                req.user.id,
+                returnNote ? encryptBorrowReturnNote(returnNote) : null,
+                borrowId
+            );
+
+            const pendingBorrow = db.prepare(`
+                SELECT
+                    ib.*,
+                    items.user_id AS item_owner_user_id,
+                    items.name AS item_name,
+                    categories.icon AS item_category_icon,
+                    borrower.username AS borrower_username,
+                    lender.username AS lent_by_username,
+                    returner.username AS returned_by_username,
+                    br.direction AS request_direction
+                FROM item_borrows ib
+                JOIN items ON items.id = ib.item_id
+                LEFT JOIN categories ON categories.id = items.category_id
+                LEFT JOIN users borrower ON borrower.id = ib.borrower_user_id
+                LEFT JOIN users lender ON lender.id = ib.lent_by_user_id
+                LEFT JOIN users returner ON returner.id = ib.returned_by_user_id
+                LEFT JOIN borrow_requests br ON br.borrow_id = ib.id
+                WHERE ib.id = ?
+                LIMIT 1
+            `).get(borrowId);
+
+            return res.json({
+                message: 'Teslim bildirimi gönderildi',
+                borrow: serializeActiveBorrow(pendingBorrow, req.user.id)
+            });
+        }
 
         db.prepare(`
             UPDATE item_borrows
@@ -771,7 +824,7 @@ router.post('/active-borrows/:id/return', (req, res) => {
                 updated_at = CURRENT_TIMESTAMP
             WHERE id = ?
         `).run(
-            returnNote ? encryptBorrowReturnNote(returnNote) : null,
+            returnNote ? encryptBorrowReturnNote(returnNote) : (activeBorrow.return_request_note || null),
             req.user.id,
             borrowId
         );
@@ -798,7 +851,7 @@ router.post('/active-borrows/:id/return', (req, res) => {
         `).get(borrowId);
 
         res.json({
-            message: 'Eşya teslim alındı',
+            message: isBorrowerReturn ? 'Eşya teslim edildi' : 'Eşya teslim alındı',
             borrow: serializeActiveBorrow(updatedBorrow, req.user.id)
         });
     } catch (error) {

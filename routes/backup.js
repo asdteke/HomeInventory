@@ -108,6 +108,8 @@ function createBorrowFingerprint(borrow, mappedItemId, fallbackBorrowerName = ''
         normalizeImportValue(borrow.note),
         normalizeImportValue(borrow.borrowed_at),
         normalizeImportValue(borrow.due_date),
+        normalizeImportValue(borrow.return_requested_at),
+        normalizeImportValue(borrow.return_request_note),
         normalizeImportValue(borrow.returned_at),
         normalizeImportValue(borrow.return_note)
     ]);
@@ -169,6 +171,8 @@ router.get('/export', backupRateLimiter, (req, res) => {
                 ib.note,
                 ib.borrowed_at,
                 ib.due_date,
+                ib.return_requested_at,
+                ib.return_request_note,
                 ib.returned_at,
                 ib.return_note,
                 borrower.username as borrower_username
@@ -463,6 +467,8 @@ router.post('/import', backupRateLimiter, (req, res) => {
                             ib.note,
                             ib.borrowed_at,
                             ib.due_date,
+                            ib.return_requested_at,
+                            ib.return_request_note,
                             ib.returned_at,
                             ib.return_note,
                             borrower.username as borrower_username
@@ -476,10 +482,11 @@ router.post('/import', backupRateLimiter, (req, res) => {
                 const insertBorrow = db.prepare(`
                     INSERT INTO item_borrows (
                         item_id, house_key, borrower_type, borrower_user_id, borrower_name,
-                        borrower_contact, note, borrowed_at, due_date, returned_at, return_note,
+                        borrower_contact, note, borrowed_at, due_date, return_requested_at,
+                        return_requested_by_user_id, return_request_note, returned_at, return_note,
                         lent_by_user_id, returned_by_user_id, created_at, updated_at
                     )
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 `);
 
                 for (const borrow of borrows) {
@@ -530,6 +537,9 @@ router.post('/import', backupRateLimiter, (req, res) => {
                         borrow.note ? encryptBorrowNote(borrow.note) : null,
                         borrow.borrowed_at || new Date().toISOString(),
                         borrow.due_date || null,
+                        borrow.return_requested_at || null,
+                        borrow.return_requested_at ? req.user.id : null,
+                        borrow.return_request_note ? encryptBorrowReturnNote(borrow.return_request_note) : null,
                         borrow.returned_at || null,
                         borrow.return_note ? encryptBorrowReturnNote(borrow.return_note) : null,
                         req.user.id,

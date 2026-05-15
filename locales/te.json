@@ -1907,6 +1907,8 @@
             "empty": "ప్రస్తుతానికి ఎలాంటి సక్రియమైన రుణాలు లేవు.",
             "borrowed_from": "{{name}} నుండి రుణం తీసుకోబడింది",
             "lent_to": "ప్రస్తుతంగా {{name}} వద్ద",
+            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
+            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
             "empty_title": "ప్రస్తుతం ఏ actieve రుణాలు లేవు",
             "empty_description": "ఒక అంశం అప్పులు లేదా అప్పుగా ఇచ్చిన తర్వాత ఆమోదించిన అభ్యర్థనలు ఇక్కడ కనిపిస్తాయి, డ్యూ తేదీలు మరియు రిటర్న్ స్థితి తో పాటు."
         },
@@ -1916,7 +1918,8 @@
             "rejected": "నిరాకరించబడింది",
             "cancelled": "రద్దు చేయబడింది",
             "expired": "కాలపరిమితి ముగిసింది",
-            "returned": "తిరిగి ఇచ్చారు"
+            "returned": "తిరిగి ఇచ్చారు",
+            "return_pending": "Return pending"
         },
         "actions": {
             "send_request": "అభ్యర్థన అంశం",
@@ -1925,6 +1928,8 @@
             "reject": "తిరస్కరించండి",
             "cancel": "రద్దు చేయండి",
             "fulfill_request": "అభ్యర్థనను పూర్తిచేయండి",
+            "mark_delivered": "Mark delivered",
+            "mark_received": "Mark received",
             "open_inventory": "ఇన్వెంటరీను తెరవండి"
         },
         "labels": {
@@ -1962,7 +1967,18 @@
             "fulfill_submitting": "సేవ్ చేస్తున్నారు...",
             "return_title": "తిరిగి ఇచ్చారని గుర్తించండి",
             "return_subtitle": "\"{{item}}\" కోసం క్రియాశీల లోన్‌ను మూసివేయండి",
-            "return_target": "ఇది ప్రస్తుతానికి {{name}} దగ్గర ఉన్నట్లుగా చూపబడుతోంది."
+            "return_target": "ఇది ప్రస్తుతానికి {{name}} దగ్గర ఉన్నట్లుగా చూపబడుతోంది.",
+            "return_title_borrower": "Deliver item",
+            "return_title_lender": "Receive item",
+            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
+            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
+            "return_target_borrower": "Lender: {{name}}",
+            "return_target_lender": "Currently with: {{name}}",
+            "return_note_borrower": "Delivery note",
+            "return_note_lender": "Receive note",
+            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
+            "return_note_placeholder_lender": "e.g. Received back in good condition",
+            "return_submitting": "Closing..."
         },
         "messages": {
             "load_error": "బారో సెంటర్ లోడ్ చేయలేకపోయింది",

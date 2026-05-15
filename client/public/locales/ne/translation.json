@@ -1907,6 +1907,8 @@
             "empty": "अहिले कुनै सक्रिय ऋणहरू छैनन्।",
             "borrowed_from": "{{name}} बाट ऋण लिएको",
             "lent_to": "वर्तमानमा {{name}} सँग",
+            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
+            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
             "empty_title": "अहिलेलाई कुनै सक्रिय ऋण छैन",
             "empty_description": "स्वीकार गरिएका अनुरोधहरू यहाँ देखिनेछन् जब कुनै वस्तु ऋणमा दिइन्छ वा लिइन्छ, भुक्तानी मिति र फिर्ता स्थिति सहित।"
         },
@@ -1916,7 +1918,8 @@
             "rejected": "अस्वीकृत",
             "cancelled": "रद्द गरिएको",
             "expired": "म्याद सकिएको",
-            "returned": "फिर्ता गरियो"
+            "returned": "फिर्ता गरियो",
+            "return_pending": "Return pending"
         },
         "actions": {
             "send_request": "अनुरोध वस्तु",
@@ -1925,6 +1928,8 @@
             "reject": "अस्वीकृत गर्नुहोस्",
             "cancel": "रद्द गर्नुहोस्",
             "fulfill_request": "अनुरोध पूरा गर्नुहोस्",
+            "mark_delivered": "Mark delivered",
+            "mark_received": "Mark received",
             "open_inventory": "सूची खोल्नुहोस्"
         },
         "labels": {
@@ -1962,7 +1967,18 @@
             "fulfill_submitting": "बचत भइरहेको छ...",
             "return_title": "फिर्ता चिह्न लगाउनुहोस्",
             "return_subtitle": "\"{{item}}\" को लागि सक्रिय सापट बन्द गर्नुहोस्",
-            "return_target": "यसलाई हाल {{name}} सँग देखाइएको छ।"
+            "return_target": "यसलाई हाल {{name}} सँग देखाइएको छ।",
+            "return_title_borrower": "Deliver item",
+            "return_title_lender": "Receive item",
+            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
+            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
+            "return_target_borrower": "Lender: {{name}}",
+            "return_target_lender": "Currently with: {{name}}",
+            "return_note_borrower": "Delivery note",
+            "return_note_lender": "Receive note",
+            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
+            "return_note_placeholder_lender": "e.g. Received back in good condition",
+            "return_submitting": "Closing..."
         },
         "messages": {
             "load_error": "बोरो केन्द्र लोड हुन सकेन",

@@ -1907,6 +1907,8 @@
             "empty": "ಪ್ರಸ್ತುತ ಯಾವುದೇ ಸಕ್ರಿಯ ಸಾಲದು ಇಲ್ಲ.",
             "borrowed_from": "{{name}}ರಿಂದ ಸಾಲ ಪಡೆದಿದೆ",
             "lent_to": "ಪ್ರಸ್ತುತ {{name}}ಇದಲ್ಲಿದೆ",
+            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
+            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
             "empty_title": "ಈಗ ಯಾವುದೇ ಸಕ್ರಿಯ ಸಾಲಗಳು ಇಲ್ಲ",
             "empty_description": "ಸ್ವೀಕರಿಸಿದ ವಿನಂತಿಗಳು ಐಟಂ ಸಾಲಕ್ಕೆ ಹೊರಗೊಮ್ಮಿ ಮಾಡಿದಾಗ ಇಲ್ಲಿ ತೋರುತ್ತವೆ, ಜೊತೆಗೆ ನಿಯೋಜಿತ ದಿನಾಂಕಗಳು ಮತ್ತು ಹಿಂತಿರುಗುವ ಸ್ಥಿತಿ."
         },
@@ -1916,7 +1918,8 @@
             "rejected": "ತಿರಸ್ಕೃತವಾಗಿದೆ",
             "cancelled": "ರದ್ದುಮಾಡಿಸಲಾಗಿದೆ",
             "expired": "ಅವಧಿ ಮುಗಿದಿದೆ",
-            "returned": "ಹಿಂತಿರುಗಿಸಲಾಗಿದೆ"
+            "returned": "ಹಿಂತಿರುಗಿಸಲಾಗಿದೆ",
+            "return_pending": "Return pending"
         },
         "actions": {
             "send_request": "ವಿನಂತಿ ವಸ್ತು",
@@ -1925,6 +1928,8 @@
             "reject": "ನಿರಾಕರಿಸಿ",
             "cancel": "ರದ್ದುಮಾಡಿ",
             "fulfill_request": "ವಿನಂತಿಯನ್ನು ಪೂರೈಸಿ",
+            "mark_delivered": "Mark delivered",
+            "mark_received": "Mark received",
             "open_inventory": "ಸ್ಪರ್ಧೆ ತೆರೆಯಿರಿ"
         },
         "labels": {
@@ -1962,7 +1967,18 @@
             "fulfill_submitting": "ಉಳಿಸಲಾಯಿತು...",
             "return_title": "ಹಿಂತಿರುಗಿಸಲಾಗಿದೆ ಎಂದು ಗುರುತಿಸಿ",
             "return_subtitle": "\"{{item}}\"ಗಾಗಿ ಸಕ್ರಿಯ ಸಾಲವನ್ನು ಮುಚ್ಚಿ",
-            "return_target": "ಇದನ್ನು ಪ್ರಸ್ತುತ {{name}} ಜೊತೆಗೆ ತೋರಿಸಲಾಗುತ್ತಿದೆ."
+            "return_target": "ಇದನ್ನು ಪ್ರಸ್ತುತ {{name}} ಜೊತೆಗೆ ತೋರಿಸಲಾಗುತ್ತಿದೆ.",
+            "return_title_borrower": "Deliver item",
+            "return_title_lender": "Receive item",
+            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
+            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
+            "return_target_borrower": "Lender: {{name}}",
+            "return_target_lender": "Currently with: {{name}}",
+            "return_note_borrower": "Delivery note",
+            "return_note_lender": "Receive note",
+            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
+            "return_note_placeholder_lender": "e.g. Received back in good condition",
+            "return_submitting": "Closing..."
         },
         "messages": {
             "load_error": "ಕಳೆದಿಕೆ ಕೇಂದ್ರವನ್ನು ಲೋಡ್ ಮಾಡಲಾಗಲಿಲ್ಲ",

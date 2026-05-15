@@ -545,6 +545,66 @@ test('same-house member loans require borrower acceptance before becoming active
     assert.equal(activeAfterApproval.borrower_type, 'member');
     assert.equal(activeAfterApproval.borrower_user_id, borrowerId);
     assert.equal(activeAfterApproval.lent_by_user_id, ownerId);
+
+    const borrowerOverview = await requestJson(port, '/api/borrow-requests', {
+        method: 'GET'
+    }, borrowerJar);
+    assert.equal(borrowerOverview.status, 200);
+    assert.equal(borrowerOverview.data.activeBorrows.length, 1);
+    assert.equal(borrowerOverview.data.activeBorrows[0].role, 'borrower');
+    assert.equal(borrowerOverview.data.activeBorrows[0].can_mark_returned, true);
+
+    const borrowerReturn = await requestJson(port, `/api/borrow-requests/active-borrows/${borrowerOverview.data.activeBorrows[0].id}/return`, {
+        method: 'POST',
+        body: {
+            return_note: 'Teslim ettim'
+        }
+    }, borrowerJar);
+    assert.equal(borrowerReturn.status, 200);
+    assert.match(borrowerReturn.data.message, /teslim bildirimi/i);
+    assert.equal(borrowerReturn.data.borrow.returned_at, null);
+    assert.ok(borrowerReturn.data.borrow.return_requested_at);
+    assert.equal(borrowerReturn.data.borrow.can_mark_returned, false);
+
+    const pendingAfterBorrowerAction = directDb.prepare(`
+        SELECT returned_at, returned_by_user_id, return_requested_at, return_requested_by_user_id
+        FROM item_borrows
+        WHERE item_id = ?
+        LIMIT 1
+    `).get(createItem.data.item.id);
+    assert.equal(pendingAfterBorrowerAction.returned_at, null);
+    assert.equal(pendingAfterBorrowerAction.returned_by_user_id, null);
+    assert.ok(pendingAfterBorrowerAction.return_requested_at);
+    assert.equal(pendingAfterBorrowerAction.return_requested_by_user_id, borrowerId);
+
+    const ownerOverviewAfterDelivery = await requestJson(port, '/api/borrow-requests', {
+        method: 'GET'
+    }, ownerJar);
+    assert.equal(ownerOverviewAfterDelivery.status, 200);
+    assert.equal(ownerOverviewAfterDelivery.data.activeBorrows.length, 1);
+    assert.ok(ownerOverviewAfterDelivery.data.activeBorrows[0].return_requested_at);
+    assert.equal(ownerOverviewAfterDelivery.data.activeBorrows[0].can_mark_returned, true);
+
+    const ownerConfirmReturn = await requestJson(port, `/api/borrow-requests/active-borrows/${borrowerOverview.data.activeBorrows[0].id}/return`, {
+        method: 'POST',
+        body: {
+            return_note: 'Teslim aldım'
+        }
+    }, ownerJar);
+    assert.equal(ownerConfirmReturn.status, 200);
+    assert.match(ownerConfirmReturn.data.message, /teslim alındı/i);
+    assert.ok(ownerConfirmReturn.data.borrow.returned_at);
+
+    const returnedAfterOwnerConfirmation = directDb.prepare(`
+        SELECT returned_at, returned_by_user_id, return_requested_at, return_requested_by_user_id
+        FROM item_borrows
+        WHERE item_id = ?
+        LIMIT 1
+    `).get(createItem.data.item.id);
+    assert.ok(returnedAfterOwnerConfirmation.returned_at);
+    assert.equal(returnedAfterOwnerConfirmation.returned_by_user_id, ownerId);
+    assert.ok(returnedAfterOwnerConfirmation.return_requested_at);
+    assert.equal(returnedAfterOwnerConfirmation.return_requested_by_user_id, borrowerId);
 });
 
 test('private items are owner-only and visibility changes are owner-only', async (t) => {

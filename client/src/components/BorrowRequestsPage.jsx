@@ -74,7 +74,8 @@ function StatusBadge({ status, t }) {
         rejected: 'bg-rose-50 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300',
         cancelled: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300',
         expired: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300',
-        returned: 'bg-sky-50 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300'
+        returned: 'bg-sky-50 text-sky-700 dark:bg-sky-500/10 dark:text-sky-300',
+        return_pending: 'bg-amber-50 text-amber-700 dark:bg-amber-500/10 dark:text-amber-300'
     };
 
     return (
@@ -176,6 +177,10 @@ function RequestCard({ request, t, i18n, onAccept, onReject, onCancel }) {
 
 function ActiveBorrowCard({ borrow, t, i18n, onReturn }) {
     const overdue = isBorrowOverdue(borrow);
+    const isReturnPending = Boolean(borrow.return_requested_at);
+    const returnActionLabel = borrow.role === 'borrower'
+        ? t('borrow_requests.actions.mark_delivered')
+        : t('borrow_requests.actions.mark_received');
 
     return (
         <div className="card p-4 space-y-3.5">
@@ -193,9 +198,7 @@ function ActiveBorrowCard({ borrow, t, i18n, onReturn }) {
                             : t('borrow_requests.active.lent_to', { name: borrow.counterpart_display_name })}
                     </p>
                 </div>
-                {borrow.due_date && (
-                    <StatusBadge status={overdue ? 'expired' : 'accepted'} t={t} />
-                )}
+                <StatusBadge status={isReturnPending ? 'return_pending' : (overdue ? 'expired' : 'accepted')} t={t} />
             </div>
 
             <div className="flex flex-wrap gap-3 text-sm text-[var(--hi-text-soft)]">
@@ -217,6 +220,14 @@ function ActiveBorrowCard({ borrow, t, i18n, onReturn }) {
                 </div>
             )}
 
+            {isReturnPending && (
+                <div className="rounded-xl border border-amber-500/20 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:bg-amber-500/10 dark:text-amber-200">
+                    {borrow.role === 'borrower'
+                        ? t('borrow_requests.active.return_pending_borrower')
+                        : t('borrow_requests.active.return_pending_lender', { name: borrow.borrower_display_name || borrow.counterpart_display_name })}
+                </div>
+            )}
+
             {borrow.can_mark_returned && (
                 <div className="pt-1">
                     <button
@@ -224,7 +235,7 @@ function ActiveBorrowCard({ borrow, t, i18n, onReturn }) {
                         onClick={() => onReturn(borrow)}
                         className={POSITIVE_ACTION_BUTTON_CLASS}
                     >
-                        {t('inventory.borrow.mark_returned')}
+                        {returnActionLabel}
                     </button>
                 </div>
             )}
@@ -450,18 +461,25 @@ export default function BorrowRequestsPage() {
         const returnedBorrowId = returnBorrow.id;
         try {
             await runAction(async () => {
-                await axios.post(
+                const response = await axios.post(
                     `/api/borrow-requests/active-borrows/${returnBorrow.id}/return`,
                     payload,
                     createRequestConfig({ timeout: ACTION_REQUEST_TIMEOUT_MS })
                 );
                 if (isMountedRef.current) {
-                    setActiveBorrows((currentBorrows) => currentBorrows.filter((borrow) => borrow.id !== returnedBorrowId));
-                    setRequests((currentRequests) => currentRequests.map((request) => (
-                        request.borrow?.id === returnedBorrowId
-                            ? { ...request, borrow: { ...request.borrow, returned_at: new Date().toISOString() } }
-                            : request
-                    )));
+                    const updatedBorrow = response.data?.borrow;
+                    if (updatedBorrow?.returned_at) {
+                        setActiveBorrows((currentBorrows) => currentBorrows.filter((borrow) => borrow.id !== returnedBorrowId));
+                        setRequests((currentRequests) => currentRequests.map((request) => (
+                            request.borrow?.id === returnedBorrowId
+                                ? { ...request, borrow: { ...request.borrow, returned_at: updatedBorrow.returned_at } }
+                                : request
+                        )));
+                    } else if (updatedBorrow) {
+                        setActiveBorrows((currentBorrows) => currentBorrows.map((borrow) => (
+                            borrow.id === returnedBorrowId ? updatedBorrow : borrow
+                        )));
+                    }
                 }
             });
             if (isMountedRef.current) {

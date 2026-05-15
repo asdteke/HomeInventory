@@ -402,6 +402,13 @@ function runDeleteAccountTransaction({
             WHERE returned_by_user_id = ?
         `).run(deletingUserId);
 
+        db.prepare(`
+            UPDATE item_borrows
+            SET return_requested_by_user_id = NULL,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE return_requested_by_user_id = ?
+        `).run(deletingUserId);
+
         db.prepare('DELETE FROM personal_vault_items WHERE user_id = ?').run(deletingUserId);
         db.prepare('DELETE FROM personal_vaults WHERE user_id = ?').run(deletingUserId);
         db.prepare('DELETE FROM password_reset_requests WHERE user_id = ?').run(deletingUserId);
