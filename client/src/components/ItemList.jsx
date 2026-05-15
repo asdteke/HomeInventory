@@ -445,6 +445,7 @@ export default function ItemList() {
                             const itemTitle = resolveVisibleItemTitle(item, t('inventory.untitled_item'));
                             const activeBorrow = item.active_borrow;
                             const overdue = isBorrowOverdue(activeBorrow);
+                            const returnPending = Boolean(activeBorrow?.return_requested_at);
                             const canLendItem = !activeBorrow && item.user_id === user.id;
                             const visibleCategoryName = item.category_name
                                 ? getVisibleCategoryName({ id: item.category_id, name: item.category_name })
@@ -514,12 +515,20 @@ export default function ItemList() {
                                             )}
 
                                             {activeBorrow && (
-                                                <div className={`mb-3 rounded-2xl border px-3 py-2 ${overdue
+                                                <div className={`mb-3 rounded-2xl border px-3 py-2 ${returnPending
+                                                    ? 'border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-200'
+                                                    : overdue
                                                     ? 'border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-300'
                                                     : 'border-[var(--hi-border-strong)] bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]'
                                                     }`}>
                                                     <p className="text-sm font-medium">
-                                                        {t('inventory.borrow.borrowed_to', { name: activeBorrow.borrower_display_name || t('inventory.borrow.unknown') })}
+                                                        {returnPending
+                                                            ? (
+                                                                activeBorrow.role === 'borrower'
+                                                                    ? t('borrow_requests.active.return_pending_borrower')
+                                                                    : t('borrow_requests.active.return_pending_lender', { name: activeBorrow.borrower_display_name || activeBorrow.counterpart_display_name || t('inventory.borrow.unknown') })
+                                                            )
+                                                            : t('inventory.borrow.borrowed_to', { name: activeBorrow.borrower_display_name || t('inventory.borrow.unknown') })}
                                                     </p>
                                                     {activeBorrow.due_date && (
                                                         <p className="mt-1 inline-flex items-center gap-1 text-xs">
