@@ -376,10 +376,29 @@ function buildActiveBorrowSnapshot(record, viewerUserId, itemOwnerUserId = null)
         returned_by_username: record.active_borrow_returned_by_username
     });
 
-    return redactBorrowRecordForViewer(borrow, {
+    const redactedBorrow = redactBorrowRecordForViewer(borrow, {
         viewerUserId,
         itemOwnerUserId
     });
+
+    let role = 'watcher';
+    if (borrow.borrower_user_id === viewerUserId) {
+        role = 'borrower';
+    } else if (borrow.lent_by_user_id === viewerUserId) {
+        role = 'lender';
+    } else if (itemOwnerUserId === viewerUserId) {
+        role = 'owner';
+    }
+
+    return {
+        ...redactedBorrow,
+        role,
+        counterpart_display_name: role === 'borrower'
+            ? (borrow.lent_by_username || 'Bilinmeyen kullanıcı')
+            : (borrow.borrower_display_name || 'Bilinmeyen kullanıcı'),
+        lender_display_name: borrow.lent_by_username,
+        can_mark_returned: (role === 'borrower' && !borrow.return_requested_at) || role === 'lender' || role === 'owner'
+    };
 }
 
 function serializeBorrowRecord(record, viewerUserId, itemOwnerUserId = null) {
@@ -569,6 +588,9 @@ function serializeItem(item, viewerUserId = null) {
         active_borrow_note,
         active_borrow_borrowed_at,
         active_borrow_due_date,
+        active_borrow_return_requested_at,
+        active_borrow_return_requested_by_user_id,
+        active_borrow_return_request_note,
         active_borrow_returned_at,
         active_borrow_return_note,
         active_borrow_borrower_username,
@@ -1047,11 +1069,46 @@ router.post('/:id/return', (req, res) => {
             return res.status(409).json({ error: 'Bu eşya için aktif ödünç kaydı yok' });
         }
 
-        if (item.user_id !== req.user.id && activeBorrow.lent_by_user_id !== req.user.id) {
-            return res.status(403).json({ error: 'Bu ödünç kaydını yalnızca eşyayı veren kişi veya sahibi kapatabilir' });
+        const returnNote = normalizeOptionalText(req.body.return_note, 'Teslim notu', 1000);
+        const isBorrowerReturn = activeBorrow.borrower_user_id === req.user.id;
+        const canConfirmReturn = item.user_id === req.user.id || activeBorrow.lent_by_user_id === req.user.id;
+
+        if (isBorrowerReturn && !canConfirmReturn) {
+            db.prepare(`
+                UPDATE item_borrows
+                SET return_requested_at = CURRENT_TIMESTAMP,
+                    return_requested_by_user_id = ?,
+                    return_request_note = ?,
+                    updated_at = CURRENT_TIMESTAMP
+                WHERE id = ?
+            `).run(
+                req.user.id,
+                returnNote ? encryptBorrowReturnNote(returnNote) : null,
+                activeBorrow.id
+            );
+
+            const updatedItem = db.prepare(`
+                SELECT items.*, categories.name as category_name, categories.icon as category_icon,
+                       rooms.name as room_name, locations.name as location_name, users.username,
+                       ${ACTIVE_BORROW_SELECT}
+                FROM items
+                LEFT JOIN categories ON items.category_id = categories.id AND categories.house_key = items.house_key
+                LEFT JOIN rooms ON items.room_id = rooms.id AND rooms.house_key = items.house_key
+                LEFT JOIN locations ON items.location_id = locations.id AND locations.house_key = items.house_key
+                LEFT JOIN users ON items.user_id = users.id
+                ${ACTIVE_BORROW_JOINS}
+                WHERE items.id = ? AND items.house_key = ? AND ${visibleItemCondition('items')}
+            `).get(item.id, req.user.house_key, req.user.id);
+
+            return res.json({
+                message: 'Teslim bildirimi gönderildi',
+                item: serializeItem(updatedItem, req.user.id)
+            });
         }
 
-        const returnNote = normalizeOptionalText(req.body.return_note, 'Teslim notu', 1000);
+        if (!canConfirmReturn) {
+            return res.status(403).json({ error: 'Bu ödünç kaydını yalnızca eşyayı veren kişi veya sahibi kapatabilir' });
+        }
 
         db.prepare(`
             UPDATE item_borrows

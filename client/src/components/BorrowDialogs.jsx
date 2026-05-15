@@ -222,28 +222,41 @@ export function ReturnItemDialog({ item, submitting = false, onClose, onSubmit }
         }
     };
 
+    const activeBorrow = item.active_borrow || {};
+    const isBorrowerReturn = activeBorrow.role === 'borrower';
+
     return (
         <DialogShell
-            title={t('inventory.borrow.dialog_return_title')}
-            subtitle={t('inventory.borrow.dialog_return_subtitle', { item: item.name })}
+            title={isBorrowerReturn
+                ? t('borrow_requests.dialogs.return_title_borrower')
+                : t('borrow_requests.dialogs.return_title_lender')}
+            subtitle={isBorrowerReturn
+                ? t('borrow_requests.dialogs.return_subtitle_borrower', { item: item.name })
+                : t('borrow_requests.dialogs.return_subtitle_lender', { item: item.name })}
             onClose={onClose}
         >
             <form onSubmit={handleSubmit} noValidate className="space-y-4">
                 <div className="rounded-[20px] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
                     <p className="text-sm text-[var(--hi-text-soft)]">
-                        {t('inventory.borrow.current_borrower_label')} <span className="font-medium text-slate-900 dark:text-white">{item.active_borrow?.borrower_display_name || t('inventory.borrow.unknown')}</span>
+                        {isBorrowerReturn
+                            ? t('borrow_requests.dialogs.return_target_borrower', { name: activeBorrow.counterpart_display_name || activeBorrow.lender_display_name || t('inventory.borrow.unknown') })
+                            : t('borrow_requests.dialogs.return_target_lender', { name: activeBorrow.borrower_display_name || activeBorrow.counterpart_display_name || t('inventory.borrow.unknown') })}
                     </p>
                 </div>
 
                 <div>
                     <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                        {t('inventory.borrow.return_note')}
+                        {isBorrowerReturn
+                            ? t('borrow_requests.dialogs.return_note_borrower')
+                            : t('borrow_requests.dialogs.return_note_lender')}
                     </label>
                     <textarea
                         value={returnNote}
                         onChange={(event) => setReturnNote(event.target.value)}
                         className="input-field min-h-[110px] resize-none"
-                        placeholder={t('inventory.borrow.return_note_placeholder')}
+                        placeholder={isBorrowerReturn
+                            ? t('borrow_requests.dialogs.return_note_placeholder_borrower')
+                            : t('borrow_requests.dialogs.return_note_placeholder_lender')}
                     />
                 </div>
 
@@ -252,7 +265,13 @@ export function ReturnItemDialog({ item, submitting = false, onClose, onSubmit }
                         {t('common.cancel')}
                     </button>
                     <button type="submit" className="btn-primary px-5 py-3 disabled:opacity-60" disabled={submitting}>
-                        {submitting ? t('inventory.borrow.submitting_return') : t('inventory.borrow.mark_returned')}
+                        {submitting
+                            ? t('borrow_requests.dialogs.return_submitting')
+                            : (
+                                isBorrowerReturn
+                                    ? t('borrow_requests.actions.mark_delivered')
+                                    : t('borrow_requests.actions.mark_received')
+                            )}
                     </button>
                 </div>
             </form>

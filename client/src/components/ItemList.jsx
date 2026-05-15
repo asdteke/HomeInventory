@@ -289,8 +289,11 @@ export default function ItemList() {
 
         setReturnSubmitting(true);
         try {
+            const activeBorrowId = returnDialogItem.active_borrow?.id;
             const response = await axios.post(
-                `/api/items/${returnDialogItem.id}/return`,
+                activeBorrowId
+                    ? `/api/borrow-requests/active-borrows/${activeBorrowId}/return`
+                    : `/api/items/${returnDialogItem.id}/return`,
                 payload,
                 createRequestConfig({ timeout: ACTION_REQUEST_TIMEOUT_MS })
             );
@@ -541,15 +544,17 @@ export default function ItemList() {
 
                                         {/* Actions */}
                                         <div className={`flex gap-2 flex-wrap ${viewMode === 'list' ? 'lg:flex-shrink-0 lg:flex-nowrap' : ''}`}>
-                                            {activeBorrow ? (
+                                            {activeBorrow && activeBorrow.can_mark_returned !== false ? (
                                                 <button
                                                     type="button"
                                                     onClick={() => setReturnDialogItem({ ...item, name: itemTitle })}
                                                     className="flex-1 lg:flex-none rounded-xl border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] px-4 py-2 text-sm font-medium text-[var(--hi-accent)] transition hover:bg-[var(--hi-panel-strong)]"
                                                 >
-                                                    {t('inventory.borrow.mark_returned')}
+                                                    {activeBorrow.role === 'borrower'
+                                                        ? t('borrow_requests.actions.mark_delivered')
+                                                        : t('borrow_requests.actions.mark_received')}
                                                 </button>
-                                            ) : canLendItem ? (
+                                            ) : !activeBorrow && canLendItem ? (
                                                 <button
                                                     type="button"
                                                     onClick={() => setLendDialogItem({ ...item, name: itemTitle })}

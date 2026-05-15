@@ -537,7 +537,7 @@ test('same-house member loans require borrower acceptance before becoming active
     assert.equal(acceptOffer.data.request.status, 'accepted');
 
     const activeAfterApproval = directDb.prepare(`
-        SELECT borrower_type, borrower_user_id, lent_by_user_id
+        SELECT id, borrower_type, borrower_user_id, lent_by_user_id
         FROM item_borrows
         WHERE item_id = ? AND returned_at IS NULL
         LIMIT 1
@@ -554,7 +554,7 @@ test('same-house member loans require borrower acceptance before becoming active
     assert.equal(borrowerOverview.data.activeBorrows[0].role, 'borrower');
     assert.equal(borrowerOverview.data.activeBorrows[0].can_mark_returned, true);
 
-    const borrowerReturn = await requestJson(port, `/api/borrow-requests/active-borrows/${borrowerOverview.data.activeBorrows[0].id}/return`, {
+    const borrowerReturn = await requestJson(port, `/api/items/${createItem.data.item.id}/return`, {
         method: 'POST',
         body: {
             return_note: 'Teslim ettim'
@@ -562,9 +562,9 @@ test('same-house member loans require borrower acceptance before becoming active
     }, borrowerJar);
     assert.equal(borrowerReturn.status, 200);
     assert.match(borrowerReturn.data.message, /teslim bildirimi/i);
-    assert.equal(borrowerReturn.data.borrow.returned_at, null);
-    assert.ok(borrowerReturn.data.borrow.return_requested_at);
-    assert.equal(borrowerReturn.data.borrow.can_mark_returned, false);
+    assert.equal(borrowerReturn.data.item.active_borrow.returned_at, null);
+    assert.ok(borrowerReturn.data.item.active_borrow.return_requested_at);
+    assert.equal(borrowerReturn.data.item.active_borrow.can_mark_returned, false);
 
     const pendingAfterBorrowerAction = directDb.prepare(`
         SELECT returned_at, returned_by_user_id, return_requested_at, return_requested_by_user_id
@@ -585,7 +585,7 @@ test('same-house member loans require borrower acceptance before becoming active
     assert.ok(ownerOverviewAfterDelivery.data.activeBorrows[0].return_requested_at);
     assert.equal(ownerOverviewAfterDelivery.data.activeBorrows[0].can_mark_returned, true);
 
-    const ownerConfirmReturn = await requestJson(port, `/api/borrow-requests/active-borrows/${borrowerOverview.data.activeBorrows[0].id}/return`, {
+    const ownerConfirmReturn = await requestJson(port, `/api/borrow-requests/active-borrows/${activeAfterApproval.id}/return`, {
         method: 'POST',
         body: {
             return_note: 'Teslim aldım'
