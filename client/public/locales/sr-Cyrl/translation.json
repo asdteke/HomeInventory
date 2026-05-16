@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Ако оставите датум почетка јамства празан, користи се датум рачуна. Када унесете трајање, датум завршетка јамства се аутоматски израчунава.",
             "vault_hint_title": "Треба ти додатна приватност?",
             "vault_hint_description": "За путовнице, исправе, податке о идентитету, приступне кодове и друге записе који требају остати изван ваше заједничке инвентуре, похраните их умјесто тога у Особни сеф.",
-            "vault_hint_action": "Отвори Особни сеф"
+            "vault_hint_action": "Отвори Особни сеф",
+            "location": "Локације",
+            "remove_photo": "Remove photo",
+            "visibility_owner_only": "Only the person who added the item can change visibility."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" quick added - you can edit later",
@@ -115,7 +118,8 @@
         "delete_error": "Грешка при брисању ставке",
         "no_permission": "Но пермиссион",
         "barcode_search_error": "Претрага баркодом није успјела",
-        "stats_error": "Статс еррор"
+        "stats_error": "Статс еррор",
+        "detail_subtitle": "Item details"
     },
     "common": {
         "save": "Спреми",
@@ -162,7 +166,11 @@
         "unauthorized": "Неовлаштени приступ",
         "forbidden": "Пермиссион дениед",
         "validation_error": "Погрешка валидације",
-        "server_error": "Грешка послужитеља"
+        "server_error": "Грешка послужитеља",
+        "details": "Детаљи",
+        "hide": "Hide password",
+        "logging_out": "Logging out...",
+        "show": "Show password"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Провјери",
                 "back": "Натраг",
                 "use_backup": "Користи резервни код",
-                "use_totp": "Користи аутентификатор"
+                "use_totp": "Користи аутентификатор",
+                "code_required": "Verification code is required"
             },
             "welcome_title": "Добродошли натраг",
             "welcome_subtitle": "Пријавите се да бисте приступили свом инвентару",
@@ -632,7 +641,10 @@
             "info": "Можете бити члан више кућа и пребацивати се између њих. Свако кућанство води властити инвентар.",
             "accordion_description": "Пребаци се између кућанстава, створи ново или се придружи постојећем с поузданим кључем.",
             "empty_description": "Направите нови дом како бисте почели дијелити, или се придружите постојећем уз поуздани кључ дома.",
-            "leave_success_body": "Ви више немате приступ овом кућанству, а ваша активна кућа је освјежена."
+            "leave_success_body": "Ви више немате приступ овом кућанству, а ваша активна кућа је освјежена.",
+            "leave_title": "Leave this house?",
+            "leave_warning": "You will lose access to this household workspace until another member invites or approves you again.",
+            "leaving": "Leaving..."
         },
         "house_info": {
             "title": "Активни кључ куће",
@@ -674,7 +686,11 @@
             "copy_error": "Кључ од куће није се могао копирати.",
             "modal_title": "Приступ кључу куће",
             "modal_subtitle": "Користите овај кључ само за поуздане чланове кућанства који би требали затражити приступ овом заједничком инвентару.",
-            "loading_members": "Учитавање чланова..."
+            "loading_members": "Учитавање чланова...",
+            "kick_success_body": "{{name}} no longer has access to this household.",
+            "kick_title": "Remove this member?",
+            "kick_warning": "Their household access will end immediately and they will need a new invitation or approval to return.",
+            "kicking": "Removing..."
         },
         "theme": {
             "title": "Тема",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Обични __КЕЕП_2__ извози су лакши за провјеру, али сватко тко отвори датотеку може одмах прочитати податке о вашем кућанству.",
             "import_encrypted_title": "Откључај шифрирану сигурносну копију",
             "import_encrypted_body": "Унесите сигурносну лозинку кориштену тијеком преузимања како бисте вратили ову шифрирану датотеку.",
-            "unlock_and_import": "Откључај и увези"
+            "unlock_and_import": "Откључај и увези",
+            "export_encrypted_notice": "The backup is prepared from live household data and then wrapped with the passphrase you choose. Keep that passphrase somewhere safe because it is required to restore the file later.",
+            "export_encrypted_title": "Encryption will be applied before download",
+            "import_summary_body": "{{items}} items, {{categories}} categories, {{rooms}} rooms, {{locations}} locations, {{borrows}} borrow records restored.",
+            "import_summary_title": "Backup restored",
+            "preview_categories": "Категорије",
+            "preview_items": "Инвентар",
+            "preview_locations": "Локације",
+            "preview_rooms": "Собе",
+            "skipped_borrows": "{{count}} existing borrow records skipped.",
+            "skipped_categories": "{{count}} existing categories skipped.",
+            "skipped_items": "{{count}} existing items skipped.",
+            "skipped_locations": "{{count}} existing locations skipped.",
+            "skipped_rooms": "{{count}} existing rooms skipped."
         },
         "about": {
             "title": "О апликацији",
@@ -733,7 +762,10 @@
             "privacy_link": "Правила приватности",
             "beta_title": "Статус Бета",
             "beta_body": "{{brandName}} is still in beta. Features can change, workflows may evolve, and important household data should always be backed up.",
-            "feedback_subject": "Feedback - {{brandName}}"
+            "feedback_subject": "Feedback - {{brandName}}",
+            "logout_body": "Any unsaved changes in open forms may be lost after you leave this session.",
+            "logout_description": "You will return to the home page and can sign back in anytime.",
+            "logout_title": "Log out now?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Ставка посуђена",
             "lend_success_body": "{{item}} is now marked as borrowed.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "With you",
+            "return_pending_hint": "The record will close after the lender confirms they received the item back.",
+            "return_pending_lender_title": "{{name}} marked this item as delivered back",
+            "return_pending_self_title": "With you, waiting for receipt confirmation"
         },
         "untitled_item": "Ставка без наслова",
         "delete_action": "Избриши ставку",
@@ -1023,7 +1059,10 @@
         "name_required": "Наме реqуиред",
         "load_error": "Еррор лоадинг",
         "add_error": "Еррор аддинг",
-        "update_error": "Еррор упдатинг"
+        "update_error": "Еррор упдатинг",
+        "color_required": "Боја мора бити у формату #RRGGBB",
+        "empty_description": "Create a few categories so new items follow the same structure and are easier to scan later.",
+        "empty_title": "No categories yet"
     },
     "rooms": {
         "title": "Собе",
@@ -1097,7 +1136,9 @@
         "name_required": "Наме реqуиред",
         "load_error": "Еррор лоадинг",
         "add_error": "Еррор аддинг",
-        "update_error": "Еррор упдатинг"
+        "update_error": "Еррор упдатинг",
+        "empty_description": "Create rooms like kitchen, storage, or garage so item locations stay consistent and easier to search.",
+        "empty_title": "No rooms yet"
     },
     "admin": {
         "title": "Администраторска плоча",
@@ -1176,7 +1217,12 @@
             "households_label": "Кућанства",
             "items_label": "Власништво над предметима",
             "last_seen_short": "Виђено",
-            "last_seen_short_never": "Ново"
+            "last_seen_short_never": "Ново",
+            "failed_logins": "{{count}} failed sign-ins",
+            "load_failed_title": "Users could not load",
+            "pending_requests": "{{count}} pending house requests",
+            "role_admin": "Администратори",
+            "role_user": "User"
         },
         "logs": {
             "title": "Дневници администратора",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Ревизијски траг",
             "errors_eyebrow": "Дијагностика",
             "section_body": "Свака модерациона или оперативна промена белези се у администраторском слоју.",
-            "errors_body": "Најновији парсирани редови гресака из серверских лог фајлова."
+            "errors_body": "Најновији парсирани редови гресака из серверских лог фајлова.",
+            "load_failed_title": "Activity could not load",
+            "no_logs_title": "No admin actions yet"
         },
         "email": {
             "title": "Пошаљи е-пошту",
@@ -1242,7 +1290,14 @@
             "status_body": "Брза провјера поузданости прије слања оперативне комуникације.",
             "unconfigured_title": "Достава е-поште није конфигурирана",
             "unconfigured_body": "Образац за слање остаје видљив за преглед поставки, али достава ће неуспјети док даватељ поште није конфигуриран.",
-            "status_eyebrow": "Достава"
+            "status_eyebrow": "Достава",
+            "configured_body": "Resend is available for admin-triggered outbound messages.",
+            "configured_title": "Email delivery is configured",
+            "error_title": "Email failed",
+            "format_hint": "HTML is supported. For example: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
+            "from_label": "Sender",
+            "load_failed_title": "Email tools could not load",
+            "success_title": "Email sent"
         },
         "overview": {
             "email_warning_title": "Слање е-поште није конфигурирано",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Статс лоадед",
         "logs_loaded": "Логови учитани",
         "load_error": "Еррор лоадинг",
-        "action_error": "Ацтион еррор"
+        "action_error": "Ацтион еррор",
+        "load_failed_body": "The admin route is open, but the overview data did not arrive. You can retry without leaving the page.",
+        "load_failed_title": "Admin overview could not load"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Мрежна адреса остаје овдје скривена. Скенирајте код или копирајте везу само када намјерно желите подијелити израван приступ ставци на својој локалној конфигурацији.",
         "helper": "Скенирајте за тренутно отварање овог предмета или копирајте изравну повезницу када је потребно.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Preparing QR tools..."
     },
     "house_access_pending": {
         "eyebrow": "Приступ кући",
@@ -1859,7 +1917,11 @@
             "name_required": "Назив ставке је обавезан за запис у трезору.",
             "options_failed": "Опције категорије и собе нису се могле учитати.",
             "delete_success_title": "Запис у трезору обрисан",
-            "delete_success_body": "Приватни запис је трајно уклоњен из вашег трезора."
+            "delete_success_body": "Приватни запис је трајно уклоњен из вашег трезора.",
+            "passphrase_lowercase": "Include at least one lowercase letter.",
+            "passphrase_min_length": "Vault passphrase must be at least 12 characters.",
+            "passphrase_number": "Include at least one number.",
+            "passphrase_uppercase": "Include at least one uppercase letter."
         },
         "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
         "recovery_file_created_label": "Направљено",

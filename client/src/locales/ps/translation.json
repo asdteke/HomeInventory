@@ -66,7 +66,10 @@
             "warranty_calculation_help": "که تاسو د تضمین د پیل نیټه خالي پریږدئ، د رسید نېټه کارول کیږي. کله چې تاسو موده داخل کړئ، د تضمین پای نیټه په اوتومات ډول محاسبه کیږي.",
             "vault_hint_title": "ډیر حساس ریکارډ؟",
             "vault_hint_description": "د پاسپورټونو، اسنادو، پیژندنې جزئیاتو، لاسرسي کودونو، او نورو ریکارډونو لپاره چې باید د عادي موجودي جریان څخه ونه تیریږي، دوی په پرسنل والټ کې ذخیره کړئ.",
-            "vault_hint_action": "پرسنل والټ پرانیزئ"
+            "vault_hint_action": "پرسنل والټ پرانیزئ",
+            "location": "ځای",
+            "remove_photo": "عکس لرې کړئ",
+            "visibility_owner_only": "یوازې هغه شخص چې توکی اضافه کړی کولی شي لید بدل کړي."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" په چټکۍ سره اضافه شو - تاسو وروسته ایډیټ کولی شئ",
@@ -115,7 +118,8 @@
         "delete_error": "د توکی د حذف تېروتنه",
         "no_permission": "ته اجازه نه لرې چې دا توکی بدل کړې",
         "barcode_search_error": "د بارکوډ لټون ناکام شو",
-        "stats_error": "د تېروتنې بارولو احصایې"
+        "stats_error": "د تېروتنې بارولو احصایې",
+        "detail_subtitle": "د توکي جزییات"
     },
     "common": {
         "save": "ژغورل",
@@ -162,7 +166,11 @@
         "unauthorized": "غیر مجاز لاسرسی",
         "forbidden": "ته د دې عمل اجازه نه لرې",
         "validation_error": "د اعتبار تېروتنه",
-        "server_error": "سرور تېروتنه"
+        "server_error": "سرور تېروتنه",
+        "details": "جزيیات",
+        "hide": "پټنوم پټ کړئ",
+        "logging_out": "وتل...",
+        "show": "پټنوم ښکاره کړئ"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "تصدیق کړئ",
                 "back": "بیرته",
                 "use_backup": "د بیک اپ کود وکاروئ",
-                "use_totp": "تحمیل کونکی وکاروئ"
+                "use_totp": "تحمیل کونکی وکاروئ",
+                "code_required": "د تایید کوډ اړین دی"
             },
             "welcome_title": "واپس ښه راغلاست",
             "welcome_subtitle": "د خپل موجودی لاسرسی لپاره ننوتل",
@@ -632,7 +641,10 @@
             "info": "💡 تاسو کولی شئ د څو کورونو غړي واوسئ او د هغو ترمنځ بدلیدلی شئ. هر کور جلا زیرمه ساتي.",
             "accordion_description": "د کورونو ترمنځ بدل کړئ، نوی یو جوړ کړئ، یا د باور وړ کیلي سره موجود یو کې ګډون وکړئ.",
             "empty_description": "د شریکولو پیل کولو لپاره نوی کور جوړ کړئ، یا د باور وړ کوري کیلي سره یو کې ګډون وکړئ.",
-            "leave_success_body": "تاسو نور د دې کور لاسرسی نه لرئ او ستاسو فعال کور تازه شو."
+            "leave_success_body": "تاسو نور د دې کور لاسرسی نه لرئ او ستاسو فعال کور تازه شو.",
+            "leave_title": "دا کور پریږدو؟",
+            "leave_warning": "تاسو به د دې کور د کاري ځای لاسرسي له لاسه ورکړئ تر څو بل غړی تاسو بیا بلنه یا منظور وکړي.",
+            "leaving": "د وتلو پروسه روانه ده..."
         },
         "house_info": {
             "title": "فعال د کور کیلي",
@@ -674,7 +686,11 @@
             "copy_error": "د کور کلی کاپي نشو کولی.",
             "modal_title": "د کور کلی ته لاسرسی",
             "modal_subtitle": "دا کلی یوازې د هغو باوري کورني غړو لپاره وکاروئ چې باید دې شریک شوي زیرمه ته لاسرسی وغواړي.",
-            "loading_members": "غړي بارول..."
+            "loading_members": "غړي بارول...",
+            "kick_success_body": "{{name}} اوس د دې کورنۍ لاسرسی نلري.",
+            "kick_title": "دا غړی لیرې کړو؟",
+            "kick_warning": "د دوی د کورنۍ لاسرسی به سمدستي پای ته ورسیږي او دوی به د بیرته راستنیدو لپاره نوې بلنه یا منظور ته اړتیا ولري.",
+            "kicking": "د لیرې کولو پروسه روانه ده..."
         },
         "theme": {
             "title": "موضوع",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "ساده JSON صادرول اسانه دي ترڅو وکتل شي، خو هر څوک چې فایل پرانیزي کولی شي ستاسو د کورنۍ ډیټا سمدستي ولولي.",
             "import_encrypted_title": "کوډ شوی بیک اپ خلاص کړئ",
             "import_encrypted_body": "د دې کوډ شوي فایل د بیا رغونې لپاره هغه بیک اپ پاسفریز داخل کړئ چې د ډاونلوډ په وخت کې کارول شوی و.",
-            "unlock_and_import": "خلاص کړئ او وارد کړئ"
+            "unlock_and_import": "خلاص کړئ او وارد کړئ",
+            "export_encrypted_notice": "بیک اپ د ژوندیو کورنیو معلوماتو څخه چمتو شوی او بیا د هغه پاسفریز سره پوښل شوی چې تاسو یې ټاکئ. دا پاسفریز په خوندي ځای کې وساتئ ځکه چې وروسته د فایل د بیرته ترلاسه کولو لپاره اړتیا ورته ده.",
+            "export_encrypted_title": "مخکې له ډاونلوډ کولو څخه کوډګزاري به پلي شي",
+            "import_summary_body": "{{items}} توکي، {{categories}} کټګورۍ، {{rooms}} خونې، {{locations}} ځایونه، {{borrows}} د پور اخیستلو ریکارډونه بیرته ترلاسه شول.",
+            "import_summary_title": "بیک اپ بیرته ترلاسه شو",
+            "preview_categories": "کټګورۍ",
+            "preview_items": "توکي",
+            "preview_locations": "ځایونه",
+            "preview_rooms": "خونې",
+            "skipped_borrows": "{{count}} موجود پور ریکارډونه پریښودل شول.",
+            "skipped_categories": "{{count}} موجود کټګورۍ پریښوول شوې.",
+            "skipped_items": "{{count}} موجود توکي پریښودل شوي.",
+            "skipped_locations": "{{count}} موجود ځایونه پریښودل شوي.",
+            "skipped_rooms": "{{count}} موجود خونې پریښودل شوي."
         },
         "about": {
             "title": "📱 د غوښتنلیک په اړه",
@@ -733,7 +762,10 @@
             "privacy_link": "د محرمیت پالیسي",
             "beta_title": "د بیټا حالت",
             "beta_body": "{{brandName}} لا هم په بیټا کې دی. ځانګړتیاوې بدلیدلی شي، کاري جریان کولی شي پرمختګ وکړي، او مهم کورني معلومات باید تل خوندي شي.",
-            "feedback_subject": "فیډبیک - {{brandName}}"
+            "feedback_subject": "فیډبیک - {{brandName}}",
+            "logout_body": "په پرانستې بڼو کې کوم غیر خوندي شوي بدلونونه ممکن له دې غونډې څخه د وتلو وروسته له لاسه ولاړ شي.",
+            "logout_description": "تاسو به د کور پاڼې ته ستون شئ او هر وخت بیرته ننوتلی شئ.",
+            "logout_title": "اوس وتل؟"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "توکي پور ورکړل شول",
             "lend_success_body": "{{item}} اوس د پور په توګه نښه شوی دی.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "له تاسو سره",
+            "return_pending_hint": "دا ریکارډ به وروسته وتړل شي کله چې پور ورکوونکی تایید کړي چې توکي بیرته ترلاسه کړي.",
+            "return_pending_lender_title": "{{name}} دا توکی د بیرته رسولو په توګه نښه کړ",
+            "return_pending_self_title": "له تاسو سره، د رسید تایید ته په انتظار کې"
         },
         "untitled_item": "بې نومه توکی",
         "delete_action": "توکي ړنګول",
@@ -1023,7 +1059,10 @@
         "name_required": "د کټګورۍ نوم اړین دی",
         "load_error": "د تېروتنې بارولو کټګورۍ",
         "add_error": "د کټګورۍ د زیاتولو تېروتنه",
-        "update_error": "د تېروتنې تازه کولو کټګوری"
+        "update_error": "د تېروتنې تازه کولو کټګوری",
+        "color_required": "رنګ باید د #RRGGBB په بڼه وي",
+        "empty_description": "څو کټګورۍ جوړې کړئ څو نوې توکي د هماغه جوړښت تعقیب کړي او وروسته یې کتنه اسانه وي.",
+        "empty_title": "لا هم کټګورۍ نشته"
     },
     "rooms": {
         "title": "خونې",
@@ -1097,7 +1136,9 @@
         "name_required": "د خونې نوم اړین دی",
         "load_error": "د بارولو خونې تېروتنه",
         "add_error": "د ځای زیاتولو تېروتنه",
-        "update_error": "د خونې تازه کولو تېروتنه"
+        "update_error": "د خونې تازه کولو تېروتنه",
+        "empty_description": "داسې خونې جوړې کړئ لکه پخلنځی، ذخیره، یا ګراج، څو د توکي ځایونه ثابت پاتې شي او موندل یې اسانه شي.",
+        "empty_title": "لا هم خونې نشته"
     },
     "admin": {
         "title": "د مدیر پینل",
@@ -1176,7 +1217,12 @@
             "households_label": "کورنۍ",
             "items_label": "خاوند توکي",
             "last_seen_short": "لیدل شوی",
-            "last_seen_short_never": "نوې"
+            "last_seen_short_never": "نوې",
+            "failed_logins": "{{count}} ناکام ننوتنې",
+            "load_failed_title": "کاروونکي پورته نشو کړای",
+            "pending_requests": "{{count}} د کور غوښتنې په تمه",
+            "role_admin": "ادمن",
+            "role_user": "کاروونکی"
         },
         "logs": {
             "title": "د اډمین ریکارډونه",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "د تفتیش مسیر",
             "errors_eyebrow": "تشخیصات",
             "section_body": "هره منځګړیتوب یا عملیاتي بدلون چې د اډمین طبقه لخوا ثبت شوی.",
-            "errors_body": "د سرور لاګ فایلونو څخه وروستي پارس شوي خطا کرښې."
+            "errors_body": "د سرور لاګ فایلونو څخه وروستي پارس شوي خطا کرښې.",
+            "load_failed_title": "فعالیت پورته نشو کړای",
+            "no_logs_title": "لاهم کوم ادمن کړنې نشته"
         },
         "email": {
             "title": "بریښنالیک واستوئ",
@@ -1242,7 +1290,14 @@
             "status_body": "د عملیاتو اړیکو لیږلو دمخه یوه چټکه باور ازموینه.",
             "unconfigured_title": "د بریښنالیک لیږد تنظیم شوی نه دی",
             "unconfigured_body": "د لیږلو فورمه د ترتیب بیاکتنې لپاره څرګنده پاتې کیږي، مګر تر هغه وخته پورې به لیږد ناکام شي چې د بریښنالیک چمتو کوونکی تنظیم نه وي شوی.",
-            "status_eyebrow": "سپارل"
+            "status_eyebrow": "سپارل",
+            "configured_body": "د ادمن لخوا شروع شوي وتونکي پیغامونو لپاره بیا لیږل شتون لري.",
+            "configured_title": "د بریښنالیک تحویلي تنظیم شوې ده",
+            "error_title": "بریښنالیک ناکام شو",
+            "format_hint": "HTML ملاتړ کیږي. د بیلګې په توګه: <b>بولډ</b>, <i>ایتالیک</i>, <a href=\"...\">لینک</a>",
+            "from_label": "لیږونکی",
+            "load_failed_title": "د بریښنالیک وسیلې پورته نشوې کړای",
+            "success_title": "بریښنالیک واستول شو"
         },
         "overview": {
             "email_warning_title": "د بریښنالیک لیږد ترتیب شوی نه دی",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "احصایې بار شوې",
         "logs_loaded": "لاګونه بار شول",
         "load_error": "د معلوماتو د بارولو تېروتنه",
-        "action_error": "د عمل ترسره کولو تېروتنه"
+        "action_error": "د عمل ترسره کولو تېروتنه",
+        "load_failed_body": "د ادمن لاره پرانستې ده، مګر د عمومي معلوماتو معلومات نه دي رسېدلي. تاسو کولی شئ پرته له دې چې پاڼه پرېږدئ بیا هڅه وکړئ.",
+        "load_failed_title": "د ادمن عمومي کتنه پورته نشوې کړای"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "د شبکې پتہ دلته پټ پاتې کیږي. کود سکین کړئ یا لینک یوازې هغه وخت کاپي کړئ کله چې تاسو په قصدي ډول په خپل محلي سیټ اپ کې مستقیم توکي ته لاسرسی شریکول غواړئ.",
         "helper": "سکین کړئ ترڅو دا توکي سمدستي خلاص کړئ، یا مستقیم لینک کاپي کړئ کله چې اړتیا وي.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "د QR وسایل چمتو کول..."
     },
     "house_access_pending": {
         "eyebrow": "د کور لاسرسی",
@@ -1859,7 +1917,11 @@
             "name_required": "د خزانې ریکارډ لپاره د توکي نوم اړین دی.",
             "options_failed": "د کټګورۍ او خونې اختیارونه نشوای پورته کیدی.",
             "delete_success_title": "د خزانې ریکارډ حذف شو",
-            "delete_success_body": "شخصي ریکارډ له خپلې خزانې څخه تلپاتې سره لرې کړل شو."
+            "delete_success_body": "شخصي ریکارډ له خپلې خزانې څخه تلپاتې سره لرې کړل شو.",
+            "passphrase_lowercase": "لږ تر لږه یو کوچنی توري شامل کړئ.",
+            "passphrase_min_length": "د والټ پاسفریز باید لږ تر لږه ۱۲ توري ولري.",
+            "passphrase_number": "لږ تر لږه یو عدد شامل کړئ.",
+            "passphrase_uppercase": "لږ تر لږه یو لوی توري شامل کړئ."
         },
         "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
         "recovery_file_created_label": "جوړه شوې",

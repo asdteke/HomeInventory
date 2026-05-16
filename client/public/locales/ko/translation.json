@@ -66,7 +66,10 @@
             "warranty_calculation_help": "보증 시작일을 비워 두면 청구서 날짜가 사용됩니다. 기간을 입력하면 보증 종료일이 자동으로 계산됩니다.",
             "vault_hint_title": "매우 민감한 기록인가요?",
             "vault_hint_description": "여권, 소유권 증서, 신원 정보, 접근 코드 및 표준 인벤토리 흐름에서 제외되어야 하는 기타 기록은 개인 금고에 보관하세요.",
-            "vault_hint_action": "개인 금고 열기"
+            "vault_hint_action": "개인 금고 열기",
+            "location": "위치",
+            "remove_photo": "사진 제거",
+            "visibility_owner_only": "항목을 추가한 사람만 가시성을 변경할 수 있습니다."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" 빠른 추가 - 나중에 편집할 수 있습니다",
@@ -115,7 +118,8 @@
         "delete_error": "항목 삭제 오류",
         "no_permission": "이 항목을 수정할 권한이 없습니다",
         "barcode_search_error": "바코드 검색 실패",
-        "stats_error": "통계 로드 오류"
+        "stats_error": "통계 로드 오류",
+        "detail_subtitle": "항목 세부 정보"
     },
     "common": {
         "save": "저장",
@@ -162,7 +166,11 @@
         "unauthorized": "무단 접근",
         "forbidden": "이 작업을 수행할 권한이 없습니다",
         "validation_error": "유효성 검사 오류",
-        "server_error": "서버 오류"
+        "server_error": "서버 오류",
+        "details": "세부 정보",
+        "hide": "비밀번호 숨기기",
+        "logging_out": "로그아웃 중...",
+        "show": "비밀번호 표시"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "검증",
                 "back": "다시 확인",
                 "use_backup": "백업 코드 사용",
-                "use_totp": "인증기"
+                "use_totp": "인증기",
+                "code_required": "인증 코드가 필요합니다"
             },
             "welcome_title": "다시 오신 걸 환영합니다",
             "welcome_subtitle": "재고에 접근하려면 로그인하세요",
@@ -632,7 +641,10 @@
             "info": "💡 여러 집의 회원이 될 수 있으며, 집 간에 전환할 수 있습니다. 각 집은 별도의 인벤토리를 유지합니다.",
             "accordion_description": "가정 간 전환, 새 가정 생성 또는 신뢰할 수 있는 키로 기존 가정에 참여하세요.",
             "empty_description": "공유를 시작하려면 새 가정을 만들거나 신뢰할 수 있는 가정 키로 참여하세요.",
-            "leave_success_body": "이 가구에 대한 접근 권한이 더 이상 없으며, 활성 가구가 새로 고쳐졌습니다."
+            "leave_success_body": "이 가구에 대한 접근 권한이 더 이상 없으며, 활성 가구가 새로 고쳐졌습니다.",
+            "leave_title": "이 집을 떠나시겠습니까?",
+            "leave_warning": "다른 구성원이 다시 초대하거나 승인할 때까지 이 가정 작업 공간에 접근할 수 없습니다.",
+            "leaving": "떠나는 중..."
         },
         "house_info": {
             "title": "활성 집 키",
@@ -674,7 +686,11 @@
             "copy_error": "집 열쇠를 복사할 수 없습니다.",
             "modal_title": "집 열쇠 접근",
             "modal_subtitle": "이 키는 공유된 인벤토리에 접근해야 하는 신뢰할 수 있는 가정 구성원만 사용하세요.",
-            "loading_members": "구성원 불러오는 중..."
+            "loading_members": "구성원 불러오는 중...",
+            "kick_success_body": "{{name}}님은 더 이상 이 가정에 접근할 수 없습니다.",
+            "kick_title": "이 구성원을 제거하시겠습니까?",
+            "kick_warning": "해당 구성원의 가정 접근 권한이 즉시 종료되며, 다시 돌아오려면 새로운 초대나 승인이 필요합니다.",
+            "kicking": "제거 중..."
         },
         "theme": {
             "title": "테마",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "일반 JSON 내보내기는 검사가 더 쉽지만, 파일을 여는 누구나 바로 가정 데이터를 읽을 수 있습니다.",
             "import_encrypted_title": "암호화된 백업 잠금 해제",
             "import_encrypted_body": "다운로드 중 사용한 백업 암호를 입력하여 이 암호화된 파일을 복원하십시오.",
-            "unlock_and_import": "잠금 해제 및 가져오기"
+            "unlock_and_import": "잠금 해제 및 가져오기",
+            "export_encrypted_notice": "백업은 실시간 가정 데이터를 기반으로 준비되며 선택한 암호로 보호됩니다. 이 암호는 나중에 파일을 복원할 때 필요하므로 안전한 곳에 보관하십시오.",
+            "export_encrypted_title": "다운로드 전에 암호화가 적용됩니다",
+            "import_summary_body": "{{items}}개의 항목, {{categories}}개의 카테고리, {{rooms}}개의 방, {{locations}}개의 위치, {{borrows}}개의 대출 기록이 복원되었습니다.",
+            "import_summary_title": "백업이 복원되었습니다",
+            "preview_categories": "카테고리",
+            "preview_items": "항목",
+            "preview_locations": "위치",
+            "preview_rooms": "방",
+            "skipped_borrows": "{{count}}개의 기존 대출 기록은 건너뛰었습니다.",
+            "skipped_categories": "{{count}}개의 기존 카테고리는 건너뛰었습니다.",
+            "skipped_items": "{{count}}개의 기존 항목 건너뜀.",
+            "skipped_locations": "{{count}}개의 기존 위치 건너뜀.",
+            "skipped_rooms": "{{count}}개의 기존 방 건너뜀."
         },
         "about": {
             "title": "📱 애플리케이션 정보",
@@ -733,7 +762,10 @@
             "privacy_link": "개인정보 보호정책",
             "beta_title": "베타 상태",
             "beta_body": "{{brandName}}은 여전히 베타 버전입니다. 기능이 변경될 수 있으며, 작업 흐름이 변할 수 있고, 중요한 가정 데이터를 항상 백업해야 합니다.",
-            "feedback_subject": "피드백 - {{brandName}}"
+            "feedback_subject": "피드백 - {{brandName}}",
+            "logout_body": "열린 양식에서 저장되지 않은 변경 사항은 이 세션을 떠난 후 손실될 수 있습니다.",
+            "logout_description": "홈 페이지로 돌아가며 언제든지 다시 로그인할 수 있습니다.",
+            "logout_title": "지금 로그아웃하시겠습니까?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "항목 대여됨",
             "lend_success_body": "{{item}}이(가) 이제 대여된 것으로 표시되었습니다.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "당신과 함께 있음",
+            "return_pending_hint": "대출자가 항목을 반환받았음을 확인하면 기록이 종료됩니다.",
+            "return_pending_lender_title": "{{name}} 이 항목을 반환 완료로 표시함",
+            "return_pending_self_title": "당신과 함께 있으며, 수령 확인 대기 중"
         },
         "untitled_item": "제목 없는 항목",
         "delete_action": "항목 삭제",
@@ -1023,7 +1059,10 @@
         "name_required": "카테고리 이름이 필요합니다",
         "load_error": "카테고리 로드 오류",
         "add_error": "카테고리 추가 오류",
-        "update_error": "카테고리 업데이트 오류"
+        "update_error": "카테고리 업데이트 오류",
+        "color_required": "색상은 #RRGGBB 형식이어야 합니다",
+        "empty_description": "새 항목이 동일한 구조를 따르고 나중에 스캔하기 쉽도록 몇 가지 카테고리를 만드세요.",
+        "empty_title": "아직 카테고리가 없습니다"
     },
     "rooms": {
         "title": "방",
@@ -1097,7 +1136,9 @@
         "name_required": "방 이름이 필요합니다",
         "load_error": "방 로드 오류",
         "add_error": "방 추가 오류",
-        "update_error": "방 업데이트 오류"
+        "update_error": "방 업데이트 오류",
+        "empty_description": "주방, 창고 또는 차고와 같은 방을 만들어 항목 위치를 일관되게 유지하고 검색하기 쉽게 만드세요.",
+        "empty_title": "아직 방이 없습니다"
     },
     "admin": {
         "title": "관리 패널",
@@ -1176,7 +1217,12 @@
             "households_label": "가구",
             "items_label": "소유 품목",
             "last_seen_short": "본 것",
-            "last_seen_short_never": "새 것"
+            "last_seen_short_never": "새 것",
+            "failed_logins": "{{count}}개의 로그인 실패",
+            "load_failed_title": "사용자를 불러올 수 없습니다",
+            "pending_requests": "{{count}}개의 보류 중인 하우스 요청",
+            "role_admin": "관리자",
+            "role_user": "사용자"
         },
         "logs": {
             "title": "관리자 기록",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "감사 기록",
             "errors_eyebrow": "진단",
             "section_body": "관리자 계층에서 기록된 모든 조정 또는 운영 변경 사항.",
-            "errors_body": "서버 로그 파일에서 최근에 파싱된 오류 라인."
+            "errors_body": "서버 로그 파일에서 최근에 파싱된 오류 라인.",
+            "load_failed_title": "활동을 불러올 수 없습니다",
+            "no_logs_title": "아직 관리 작업이 없습니다"
         },
         "email": {
             "title": "이메일 보내기",
@@ -1242,7 +1290,14 @@
             "status_body": "운영 안내를 보내기 전 간단한 신뢰성 확인입니다.",
             "unconfigured_title": "이메일 전송이 설정되지 않았습니다",
             "unconfigured_body": "전송 양식은 설정 검토를 위해 계속 표시되지만, 메일 제공자가 설정될 때까지 전송은 실패합니다.",
-            "status_eyebrow": "전송"
+            "status_eyebrow": "전송",
+            "configured_body": "재전송은 관리자가 시작한 발신 메시지에서 사용할 수 있습니다.",
+            "configured_title": "이메일 배달이 설정되었습니다",
+            "error_title": "이메일 전송 실패",
+            "format_hint": "HTML이 지원됩니다. 예: <b>굵게</b>, <i>기울임</i>, <a href=\"...\">링크</a>",
+            "from_label": "발신자",
+            "load_failed_title": "이메일 도구를 불러올 수 없습니다",
+            "success_title": "이메일 전송 완료"
         },
         "overview": {
             "email_warning_title": "이메일 전송이 구성되지 않았습니다",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "통계가 로드되었습니다",
         "logs_loaded": "로그가 로드되었습니다",
         "load_error": "데이터 로드 오류",
-        "action_error": "작업 수행 오류"
+        "action_error": "작업 수행 오류",
+        "load_failed_body": "관리자 경로는 열려 있지만, 개요 데이터가 도착하지 않았습니다. 페이지를 벗어나지 않고 다시 시도할 수 있습니다.",
+        "load_failed_title": "관리자 개요를 불러올 수 없습니다"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "네트워크 주소는 여기에 숨겨져 있습니다. 로컬 설정에서 항목에 직접 액세스하려는 경우에만 코드를 스캔하거나 링크를 복사하십시오.",
         "helper": "이 항목을 즉시 열려면 스캔하거나 필요할 때 직접 링크를 복사하십시오.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "QR 도구 준비 중..."
     },
     "house_access_pending": {
         "eyebrow": "집 접근",
@@ -1859,7 +1917,11 @@
             "name_required": "금고 기록에는 항목 이름이 필요합니다.",
             "options_failed": "카테고리 및 객실 옵션을 불러올 수 없습니다.",
             "delete_success_title": "금고 기록이 삭제되었습니다",
-            "delete_success_body": "개인 기록이 귀하의 금고에서 영구적으로 삭제되었습니다."
+            "delete_success_body": "개인 기록이 귀하의 금고에서 영구적으로 삭제되었습니다.",
+            "passphrase_lowercase": "최소 하나 이상의 소문자를 포함하세요.",
+            "passphrase_min_length": "금고 암호문은 최소 12자 이상이어야 합니다.",
+            "passphrase_number": "최소 하나 이상의 숫자를 포함하세요.",
+            "passphrase_uppercase": "최소 하나 이상의 대문자를 포함하세요."
         },
         "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
         "recovery_file_created_label": "생성됨",

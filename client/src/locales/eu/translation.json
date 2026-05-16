@@ -66,7 +66,10 @@
       "warranty_calculation_help": "Berme hasiera data hutsa uzten baduzu, faktura data erabiltzen da. Iraupena sartzen duzunean, berme amaiera data automatikoki kalkulatzen da.",
       "vault_hint_title": "Pribatutasun gehigarria behar duzu?",
       "vault_hint_description": "Pasaporteak, akta-akatsak, nortasun-datuak, sarrera-kodeak eta zure partekatutako inbentariotik kanpo gelditu beharko liratekeen bestelako erregistroak, Gorde Haien Bileran ordez.",
-      "vault_hint_action": "Ireki Bilera Pertsonala"
+      "vault_hint_action": "Ireki Bilera Pertsonala",
+      "location": "Kokalekua",
+      "remove_photo": "Argazkia kendu",
+      "visibility_owner_only": "Elementua gehitu duen pertsonak bakarrik aldatu dezake ikusgarritasuna."
     },
     "messages": {
       "quick_add_success": "✓ \"{{barcode}}\" azkar gehitu da - gero edita dezakezu",
@@ -115,7 +118,8 @@
     "delete_error": "Errorea elementua ezabatzean",
     "no_permission": "Ez duzu elementu hau aldatzeko baimenik",
     "barcode_search_error": "Huts egin du barra-kodeen bilaketak",
-    "stats_error": "Errorea estatistikak kargatzean"
+    "stats_error": "Errorea estatistikak kargatzean",
+    "detail_subtitle": "Elementuaren xehetasunak"
   },
   "common": {
     "save": "Gorde",
@@ -162,7 +166,11 @@
     "unauthorized": "Baimenik gabeko sarbidea",
     "forbidden": "Ez daukazu baimenik ekintza honetarako",
     "validation_error": "Baliozkotze-errorea",
-    "server_error": "Zerbitzariaren errorea"
+    "server_error": "Zerbitzariaren errorea",
+    "details": "Xehetasunak",
+    "hide": "Pasahitza ezkutatu",
+    "logging_out": "Saioa amaitzen...",
+    "show": "Pasahitza erakutsi"
   },
   "auth": {
     "login": {
@@ -194,7 +202,8 @@
         "verify": "Berretsi",
         "back": "Atzera",
         "use_backup": "Erabili babeskopiako kodea",
-        "use_totp": "Erabili autentikatzailea"
+        "use_totp": "Erabili autentikatzailea",
+        "code_required": "Egiaztapen kodea beharrezkoa da"
       },
       "welcome_title": "Ongi etorri berriro",
       "welcome_subtitle": "Saioa hasi zure inbentarioa atzitzeko",
@@ -632,7 +641,10 @@
       "info": "Etxe anitzetako kide izan zaitezke eta horien artean alda zaitezke. Etxe bakoitzak bere inventarioa gordetzen du.",
       "accordion_description": "Etxe artean aldatu, berri bat sortu, edo dagoeneko dagoen batera sartu giltza fidagarri batekin.",
       "empty_description": "Sortu etxe berri bat partekatzeko, edo sartu fidagarria den etxeko gako batekin.",
-      "leave_success_body": "Ez duzu berriro bidezko sarbidea etxebizitza honetara eta zure etxe aktiboa berritutako da."
+      "leave_success_body": "Ez duzu berriro bidezko sarbidea etxebizitza honetara eta zure etxe aktiboa berritutako da.",
+      "leave_title": "Utzi etxe hau?",
+      "leave_warning": "Etxeko lan-ingurune honetara sartzeko eskubidea galduko duzu beste kide batek berriro gonbidatu edo onartu arte.",
+      "leaving": "Utziz..."
     },
     "house_info": {
       "title": "Etxe Aktiboaren Gakoa",
@@ -674,7 +686,11 @@
       "copy_error": "Etxeko gakoa ezin izan da kopiatu.",
       "modal_title": "Etxeko gakoaren sarrera",
       "modal_subtitle": "Erabili gako hau etxeko kide fidagarrietarako bakarrik, eta hauek erakusketarako sarbidea eskatzea komeni da.",
-      "loading_members": "Kideak kargatzen..."
+      "loading_members": "Kideak kargatzen...",
+      "kick_success_body": "{{name}}k ez du sartzerik etxe honetara.",
+      "kick_title": "Kendu kide hau?",
+      "kick_warning": "Haien etxeko sarbidea berehala amaituko da eta berriro itzultzeko gonbidapen edo onarpen berria beharko dute.",
+      "kicking": "Kendu egiten..."
     },
     "theme": {
       "title": "Gaia",
@@ -720,7 +736,20 @@
       "unencrypted_warning": "JSON esportazio garbiak errazago azter daitezke, baina fitxategia zabaltzen duen edonork berehala irakur dezake zure etxeko datuak.",
       "import_encrypted_title": "Babes-kopia enkriptatua desblokeatu",
       "import_encrypted_body": "Deskargatzen ari zenean erabili zen segurtasun pasahitza sartu fitxategi enkriptatua berreskuratzeko.",
-      "unlock_and_import": "Desblokeatu eta inportatu"
+      "unlock_and_import": "Desblokeatu eta inportatu",
+      "export_encrypted_notice": "Babeskopia etxeko datu bizietatik prestatzen da eta zure aukeratutako pasahitzarekin estaltzen da. Gorde pasahitz hori leku seguruan, gero fitxategia berreskuratzeko beharrezkoa delako.",
+      "export_encrypted_title": "Deskargatu baino lehen enkriptatzea aplikatuko da",
+      "import_summary_body": "{{items}} artikulu, {{categories}} kategoria, {{rooms}} gelak, {{locations}} kokapen, {{borrows}} zorpetze erregistro berreskuratuta.",
+      "import_summary_title": "Babeskopia berreskuratu da",
+      "preview_categories": "Kategoriak",
+      "preview_items": "Artikuluak",
+      "preview_locations": "Kokapenak",
+      "preview_rooms": "Gelak",
+      "skipped_borrows": "{{count}} zorpetze erregistro daudenak aurretik saltatu dira.",
+      "skipped_categories": "{{count}} dauden kategoriak aurretik saltatu dira.",
+      "skipped_items": "{{count}} elementu existitzen dira eta saltatuta.",
+      "skipped_locations": "{{count}} kokaleku existitzen dira eta saltatuta.",
+      "skipped_rooms": "{{count}} gela existitzen dira eta saltatuta."
     },
     "about": {
       "title": "Aplikazioari buruz",
@@ -733,7 +762,10 @@
       "privacy_link": "Pribatutasun Politika",
       "beta_title": "Beta egoera",
       "beta_body": "{{brandName}} oraindik betan dago. Ezaugarriek aldatu daitezke, lan-prozesuek eboluzionatu dezakete, eta etxeko datu garrantzitsuenak beti babestu behar dira.",
-      "feedback_subject": "Feedback - {{brandName}}"
+      "feedback_subject": "Feedback - {{brandName}}",
+      "logout_body": "Irekitako formetan gordetako aldaketarik ez badago, saioa utzi ondoren gal daitezke.",
+      "logout_description": "Hasierako orrialdera itzuliko zara eta edozein unetan berriro saioa hasi dezakezu.",
+      "logout_title": "Orain saioa amaitu?"
     },
     "modals": {
       "password": {
@@ -960,7 +992,11 @@
       "lend_success_title": "Mailegatutako objektua",
       "lend_success_body": "{{item}} orain mailegatu bezala markatuta dago.",
       "offer_sent_title": "Borrow offer sent",
-      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+      "borrowed_by_you": "Zurekin",
+      "return_pending_hint": "Erregistroa itxi egingo da mailegu-emariak elementua itzulita jaso duela baieztatzen duenean.",
+      "return_pending_lender_title": "{{name}} elementu hau berreskuratu dela markatu du",
+      "return_pending_self_title": "Zurekin, jaso dela baieztatzeko zain"
     },
     "untitled_item": "Izengabea den elementua",
     "delete_action": "Elementua ezabatu",
@@ -1023,7 +1059,10 @@
     "name_required": "Kategoriaren izena beharrezkoa da",
     "load_error": "Errorea kategoriak kargatzean",
     "add_error": "Errorea kategoria gehitzean",
-    "update_error": "Errorea kategoria eguneratzean"
+    "update_error": "Errorea kategoria eguneratzean",
+    "color_required": "Koloreak #RRGGBB formatuan egon behar du",
+    "empty_description": "Sortu kategoria batzuk, hala nola elementu berriek egitura bera jarraituko dute eta gero errazago irakur daitezke.",
+    "empty_title": "Oraindik ez dira kategoriaak"
   },
   "rooms": {
     "title": "Gelaak",
@@ -1097,7 +1136,9 @@
     "name_required": "Gelaren izena beharrezkoa da",
     "load_error": "Errorea gelak kargatzean",
     "add_error": "Errorea gela gela gehitzean",
-    "update_error": "Errorea gela eguneratzean"
+    "update_error": "Errorea gela eguneratzean",
+    "empty_description": "Sukaldea, biltegia edo garajea bezalako gelaak sortu, horrela elementuen kokalekuek etengabe jarraituko dute eta bilatu errazago izango da.",
+    "empty_title": "Oraindik ez dira gelak"
   },
   "admin": {
     "title": "Administrazio Panelea",
@@ -1176,7 +1217,12 @@
       "households_label": "Etxeak",
       "items_label": "Jabetza objektuak",
       "last_seen_short": "Ikusiak",
-      "last_seen_short_never": "Berria"
+      "last_seen_short_never": "Berria",
+      "failed_logins": "{{count}} saio-hasierak huts egin dira",
+      "load_failed_title": "Erabiltzaileak ezin izan dira kargatu",
+      "pending_requests": "{{count}} etxebizitza eskaera zain daude",
+      "role_admin": "Administratzailea",
+      "role_user": "Erabiltzailea"
     },
     "logs": {
       "title": "Kudeatzaileko Erregistroak",
@@ -1208,7 +1254,9 @@
       "section_eyebrow": "Audit arrastoa",
       "errors_eyebrow": "Diagnostikoak",
       "section_body": "Administrazio-geruzak erregistratutako moderazio edo eragiketa aldaketa guztiak.",
-      "errors_body": "Zerbitzariaren log fitxategietatik azken parseatutako errore lerroak."
+      "errors_body": "Zerbitzariaren log fitxategietatik azken parseatutako errore lerroak.",
+      "load_failed_title": "Jarduera ezin izan da kargatu",
+      "no_logs_title": "Oraindik ez dago administratzailearen ekintzarik"
     },
     "email": {
       "title": "Bidali Posta",
@@ -1242,7 +1290,14 @@
       "status_body": "Konfiantza egiaztapen azkarra komunikazio operatiboa bidali aurretik.",
       "unconfigured_title": "Posta elettronikoaren entrega ez dago konfiguraturik",
       "unconfigured_body": "Bidaltzeko inprimakia ikusten jarraitzen du ezarpenen berrikuspena egiteko, baina entrega huts egingo du posta hornitzailea konfiguratu arte.",
-      "status_eyebrow": "Bidalketa"
+      "status_eyebrow": "Bidalketa",
+      "configured_body": "Berbidaltzea eskuragarri dago administratzaileak abiarazitako irteerako mezuetarako.",
+      "configured_title": "Posta elektronikoaren entrega konfiguratu da",
+      "error_title": "Posta elektronikoa huts egin du",
+      "format_hint": "HTMLa onartzen da. Adibidez: <b>lodiz</b>, <i>kurtsibaz</i>, <a href=\"...\">esteka</a>",
+      "from_label": "Bidaltzailea",
+      "load_failed_title": "Posta elektronikoko tresnak ezin izan dira kargatu",
+      "success_title": "Posta elektronikoa bidalia"
     },
     "overview": {
       "email_warning_title": "Posta elektronikoaren bidalketa ez dago konfiguraturik",
@@ -1327,7 +1382,9 @@
     "stats_loaded": "Estatistikak kargatuta",
     "logs_loaded": "Egunkariak kargatuta",
     "load_error": "Errorea datuak kargatzean",
-    "action_error": "Errorea ekintza egitean"
+    "action_error": "Errorea ekintza egitean",
+    "load_failed_body": "Administratzailearen ibilbidea zabalik dago, baina ikuspegiaren datuak ez dira iritsi. Orriari utzi gabe berriro saiatu zaitezke.",
+    "load_failed_title": "Administratzailearen ikuspegiak ezin izan du kargatu"
   },
   "landing": {
     "nav": {
@@ -1672,7 +1729,8 @@
     "link_privacy_note": "Sareko helbidea ezkutuan geratzen da. Eskaneatu kodea edo kopiatu esteka zure konfigurazio lokalean elementuen sarbide zuzena partekatu nahi duzunean soilik.",
     "helper": "Eskaneatu elementu hau berehala irekitzeko, edo kopiatu zuzeneko esteka behar izanez gero.",
     "copy_error_title": "Link could not be copied automatically",
-    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+    "loading": "QR tresnak prestatzen..."
   },
   "house_access_pending": {
     "eyebrow": "Etxerako sarbidea",
@@ -1859,7 +1917,11 @@
       "name_required": "Biltegiaren erregistro baterako elementu-izena behar da.",
       "options_failed": "Kategoria eta gela aukerak ezin izan dira kargatu.",
       "delete_success_title": "Biltegiaren erregistroa ezabatu da",
-      "delete_success_body": "Erregistro pribatua betiko ezabatu da zure biltegitik."
+      "delete_success_body": "Erregistro pribatua betiko ezabatu da zure biltegitik.",
+      "passphrase_lowercase": "Gutxienez letra minuskula bat sartu.",
+      "passphrase_min_length": "Armairuaren pasahitzak gutxienez 12 karaktere izan behar ditu.",
+      "passphrase_number": "Gutxienez zenbaki bat sartu.",
+      "passphrase_uppercase": "Gutxienez letra maiuskula bat sartu."
     },
     "recovery_file_title": "{{brandName}} Gordailu Pertsonaleko Berreskuratzeko Gakoa",
     "recovery_file_created_label": "Sortua",

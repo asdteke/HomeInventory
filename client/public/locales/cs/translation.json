@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Pokud necháte pole s datem zahájení záruky prázdné, použije se datum faktury. Když zadáte délku, datum konce záruky se vypočítá automaticky.",
             "vault_hint_title": "Potřebujete větší soukromí?",
             "vault_hint_description": "Pro pasy, listiny, identifikační údaje, přístupové kódy a jiné záznamy, které by měly zůstat mimo váš sdílený inventář, je uložte raději do Osobní trezoru.",
-            "vault_hint_action": "Otevřít Osobní trezor"
+            "vault_hint_action": "Otevřít Osobní trezor",
+            "location": "Umístění",
+            "remove_photo": "Odebrat foto",
+            "visibility_owner_only": "Viditelnost může změnit pouze osoba, která položku přidala."
         },
         "messages": {
             "quick_add_success": "✓ „{{barcode}}“ rychle přidáno - můžete upravit později",
@@ -115,7 +118,8 @@
         "delete_error": "Chyba při mazání položky",
         "no_permission": "No permission",
         "barcode_search_error": "Vyhledávání čárového kódu neúspěšné",
-        "stats_error": "Stats error"
+        "stats_error": "Stats error",
+        "detail_subtitle": "Podrobnosti o položce"
     },
     "common": {
         "save": "Uložit",
@@ -162,7 +166,11 @@
         "unauthorized": "Neoprávněný přístup",
         "forbidden": "Permission denied",
         "validation_error": "Validační chyba",
-        "server_error": "Chyba serveru"
+        "server_error": "Chyba serveru",
+        "details": "Podrobnosti",
+        "hide": "Skrýt heslo",
+        "logging_out": "Odhlášení...",
+        "show": "Zobrazit heslo"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Ověřit",
                 "back": "Zpět",
                 "use_backup": "Použít záložní kód",
-                "use_totp": "Použít ověřovač"
+                "use_totp": "Použít ověřovač",
+                "code_required": "Je vyžadován ověřovací kód"
             },
             "welcome_title": "Vítejte zpět",
             "welcome_subtitle": "Přihlaste se pro přístup k vašemu inventáři",
@@ -632,7 +641,10 @@
             "info": "Můžete být členem více domů a mezi nimi přepínat. Každá domácnost si uchovává svůj vlastní inventář.",
             "accordion_description": "Přepínejte mezi domácnostmi, vytvořte novou nebo se připojte k existující pomocí důvěryhodného klíče.",
             "empty_description": "Vytvořte novou domácnost pro sdílení, nebo se připojte k existující s důvěryhodným klíčem domácnosti.",
-            "leave_success_body": "Už nemáte přístup k této domácnosti a váš aktivní dům byl obnoven."
+            "leave_success_body": "Už nemáte přístup k této domácnosti a váš aktivní dům byl obnoven.",
+            "leave_title": "Opustit tento dům?",
+            "leave_warning": "Ztratíte přístup k pracovnímu prostoru této domácnosti, dokud vás jiný člen znovu nepozve nebo neschválí.",
+            "leaving": "Odcházíte..."
         },
         "house_info": {
             "title": "Klíč k aktivnímu domu",
@@ -674,7 +686,11 @@
             "copy_error": "Klíč od domu nelze zkopírovat.",
             "modal_title": "Přístup ke klíči od domu",
             "modal_subtitle": "Tento klíč používejte pouze pro důvěryhodné členy domácnosti, kteří by měli požadovat přístup k tomuto sdílenému inventáři.",
-            "loading_members": "Načítání členů..."
+            "loading_members": "Načítání členů...",
+            "kick_success_body": "{{name}} již nemá přístup k této domácnosti.",
+            "kick_title": "Odstranit tohoto člena?",
+            "kick_warning": "Jejich přístup k domácnosti skončí okamžitě a budou potřebovat nové pozvání nebo schválení, aby se mohli vrátit.",
+            "kicking": "Odstraňování..."
         },
         "theme": {
             "title": "Téma",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Nešifrované JSON exporty jsou jednodušší ke kontrole, ale kdokoli, kdo soubor otevře, může okamžitě číst vaše domácí údaje.",
             "import_encrypted_title": "Odemknout šifrovanou zálohu",
             "import_encrypted_body": "Zadejte záložní heslovou frázi použité při stahování pro obnovení tohoto šifrovaného souboru.",
-            "unlock_and_import": "Odemknout a importovat"
+            "unlock_and_import": "Odemknout a importovat",
+            "export_encrypted_notice": "Záloha je připravena z aktuálních dat domácnosti a poté zašifrována heslem, které si zvolíte. Uchovejte toto heslo na bezpečném místě, protože je vyžadováno pro obnovení souboru později.",
+            "export_encrypted_title": "Šifrování bude použito před stažením",
+            "import_summary_body": "Obnoveny {{items}} položky, {{categories}} kategorie, {{rooms}} místnosti, {{locations}} lokace, {{borrows}} záznamy o půjčkách.",
+            "import_summary_title": "Záloha obnovena",
+            "preview_categories": "Kategorie",
+            "preview_items": "Položky",
+            "preview_locations": "Lokace",
+            "preview_rooms": "Místnosti",
+            "skipped_borrows": "{{count}} existujících záznamů o půjčkách přeskočeno.",
+            "skipped_categories": "{{count}} existujících kategorií přeskočeno.",
+            "skipped_items": "{{count}} existujících položek přeskočeno.",
+            "skipped_locations": "{{count}} existujících míst přeskočeno.",
+            "skipped_rooms": "{{count}} existujících pokojů přeskočeno."
         },
         "about": {
             "title": "O aplikaci",
@@ -733,7 +762,10 @@
             "privacy_link": "Zásady ochrany soukromí",
             "beta_title": "Beta stav",
             "beta_body": "{{brandName}} je stále v betaverzi. Funkce se mohou měnit, pracovní postupy se mohou vyvíjet a důležitá domácí data by měla být vždy zálohována.",
-            "feedback_subject": "Zpětná vazba - {{brandName}}"
+            "feedback_subject": "Zpětná vazba - {{brandName}}",
+            "logout_body": "Jakékoli neuložené změny v otevřených formulářích mohou být po opuštění této relace ztraceny.",
+            "logout_description": "Vrátíte se na domovskou stránku a můžete se kdykoli znovu přihlásit.",
+            "logout_title": "Odhlásit se nyní?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Předmět půjčen",
             "lend_success_body": "{{item}} je nyní označen jako půjčen.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "U vás",
+            "return_pending_hint": "Záznam se uzavře, až věřitel potvrdí, že položku obdržel zpět.",
+            "return_pending_lender_title": "{{name}} označil tuto položku jako doručenou zpět",
+            "return_pending_self_title": "U vás, čeká na potvrzení přijetí"
         },
         "untitled_item": "Nepojmenovaná položka",
         "delete_action": "Odstranit položku",
@@ -1023,7 +1059,10 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "color_required": "Barva musí být ve formátu #RRGGBB",
+        "empty_description": "Vytvořte několik kategorií, aby nové položky měly stejnou strukturu a bylo je později snazší procházet.",
+        "empty_title": "Žádné kategorie zatím"
     },
     "rooms": {
         "title": "Místnosti",
@@ -1097,7 +1136,9 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "empty_description": "Vytvořte místnosti jako kuchyň, sklad nebo garáž, aby umístění položek zůstalo konzistentní a snazší k vyhledání.",
+        "empty_title": "Žádné místnosti zatím"
     },
     "admin": {
         "title": "Administrátorský panel",
@@ -1176,7 +1217,12 @@
             "households_label": "Domácnosti",
             "items_label": "Vlastněné předměty",
             "last_seen_short": "Viděno",
-            "last_seen_short_never": "Nové"
+            "last_seen_short_never": "Nové",
+            "failed_logins": "{{count}} neúspěšných přihlášení",
+            "load_failed_title": "Uživatelé se nepodařilo načíst",
+            "pending_requests": "{{count}} čekajících žádostí o dům",
+            "role_admin": "Administrátor",
+            "role_user": "Uživatel"
         },
         "logs": {
             "title": "Administrátorské záznamy",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Auditní stopa",
             "errors_eyebrow": "Diagnostika",
             "section_body": "Každá moderace nebo provozní změna zaznamenaná administrační vrstvou.",
-            "errors_body": "Poslední analyzované řádky chyb z logovacích souborů serveru."
+            "errors_body": "Poslední analyzované řádky chyb z logovacích souborů serveru.",
+            "load_failed_title": "Aktivita se nepodařilo načíst",
+            "no_logs_title": "Žádné administrátorské akce zatím"
         },
         "email": {
             "title": "Odeslat e-mail",
@@ -1242,7 +1290,14 @@
             "status_body": "Rychlá kontrola důvěryhodnosti před odesláním provozní komunikace.",
             "unconfigured_title": "Doručování e-mailů není nastaveno",
             "unconfigured_body": "Formulář pro odeslání zůstává viditelný pro kontrolu nastavení, ale doručení selže, dokud nebude poskytovatel e-mailu nakonfigurován.",
-            "status_eyebrow": "Dodání"
+            "status_eyebrow": "Dodání",
+            "configured_body": "Opětovné odeslání je k dispozici pro odchozí zprávy spuštěné administrátorem.",
+            "configured_title": "Odesílání e-mailů je nakonfigurováno",
+            "error_title": "E-mail se nezdařil",
+            "format_hint": "HTML je podporováno. Například: <b>tučný</b>, <i>kurzíva</i>, <a href=\"...\">odkaz</a>",
+            "from_label": "Odesílatel",
+            "load_failed_title": "Nástroje pro e-maily se nepodařilo načíst",
+            "success_title": "E-mail odeslán"
         },
         "overview": {
             "email_warning_title": "Doručování e-mailů není nastaveno",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Stats loaded",
         "logs_loaded": "Záznamy načteny",
         "load_error": "Error loading",
-        "action_error": "Action error"
+        "action_error": "Action error",
+        "load_failed_body": "Administrátorská cesta je otevřená, ale souhrnná data nedorazila. Můžete zkusit znovu bez opuštění stránky.",
+        "load_failed_title": "Souhrn administrátora se nepodařilo načíst"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Adresa sítě zůstává zde skrytá. Naskenujte kód nebo zkopírujte odkaz pouze tehdy, když úmyslně chcete sdílet přímý přístup k položce na vašem lokálním nastavení.",
         "helper": "Naskenujte pro okamžité otevření této položky, nebo zkopírujte přímý odkaz, když je potřeba.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Příprava QR nástrojů..."
     },
     "house_access_pending": {
         "eyebrow": "Přístup k domu",
@@ -1859,7 +1917,11 @@
             "name_required": "Pro záznam ve trezoru je nutný název položky.",
             "options_failed": "Možnosti kategorie a místnosti nelze načíst.",
             "delete_success_title": "Záznam ve trezoru odstraněn",
-            "delete_success_body": "Soukromý záznam byl trvale odstraněn z vašeho trezoru."
+            "delete_success_body": "Soukromý záznam byl trvale odstraněn z vašeho trezoru.",
+            "passphrase_lowercase": "Zahrňte alespoň jedno malé písmeno.",
+            "passphrase_min_length": "Heslo trezoru musí mít alespoň 12 znaků.",
+            "passphrase_number": "Zahrňte alespoň jedno číslo.",
+            "passphrase_uppercase": "Zahrňte alespoň jedno velké písmeno."
         },
         "recovery_file_title": "Obnovovací klíč osobního úložiště {{brandName}}",
         "recovery_file_created_label": "Vytvořeno",

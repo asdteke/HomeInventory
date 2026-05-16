@@ -44,7 +44,11 @@
         "unauthorized": "Зөвшөөрөлгүй хандалт",
         "forbidden": "Чи энэ үйлдэлд зөвшөөрөлгүй",
         "validation_error": "Баталгаажуулалтын алдаа",
-        "server_error": "Серверийн алдаа"
+        "server_error": "Серверийн алдаа",
+        "details": "Дэлгэрэнгүй",
+        "hide": "Hide password",
+        "logging_out": "Logging out...",
+        "show": "Show password"
     },
     "auth": {
         "login": {
@@ -76,7 +80,8 @@
                 "verify": "Баталгаажуулна",
                 "back": "Буцах",
                 "use_backup": "Нөөц код ашигла",
-                "use_totp": "Authenticator ашиглах"
+                "use_totp": "Authenticator ашиглах",
+                "code_required": "Verification code is required"
             },
             "welcome_title": "Эргээд тавтай морил",
             "welcome_subtitle": "Өөрийн нөөцөө нэвэхийн тулд нэвтрэх",
@@ -515,7 +520,10 @@
             "warranty_calculation_help": "Хэрэв та баталгааны эхлэх огноог хоосон орхивол нэхэмжлэлийн огноог ашиглана. Хугацааг оруулмагц баталгааны дуусах огноо автоматаар тооцоологдоно.",
             "vault_hint_title": "Very sensitive record?",
             "vault_hint_description": "For passports, deeds, identity details, access codes, and other records that should stay out of the standard inventory flow, keep them in Personal Vault instead.",
-            "vault_hint_action": "Хувийн Нээлттэй Тайзан"
+            "vault_hint_action": "Хувийн Нээлттэй Тайзан",
+            "location": "байршил",
+            "remove_photo": "Remove photo",
+            "visibility_owner_only": "Only the person who added the item can change visibility."
         },
         "qrcode": {
             "title": "QR-код",
@@ -568,7 +576,8 @@
         "delete_error": "Алдаа устгах зүйл",
         "no_permission": "Чи энэ зүйлийг өөрчлөх зөвшөөрөлгүй",
         "barcode_search_error": "Баркод хайлт бүтэлгүйтсэн",
-        "stats_error": "Алдааны ачааллын статистик"
+        "stats_error": "Алдааны ачааллын статистик",
+        "detail_subtitle": "Item details"
     },
     "settings": {
         "title": "Орчин",
@@ -632,7 +641,10 @@
             "info": "💡 Та хэд хэдэн гэр бүлийн гишүүн байж, тэдгээрийн хооронд шилжиж болно. Гэр бүр тусдаа бүрэлдэхүүн ажиллуулдаг.",
             "accordion_description": "Итгэмжлэгдсэн түлхүүрээр өрх хооронд сэлгэх, шинээр үүсгэх эсвэл байгаа гэр бүлд нэгдэх.",
             "empty_description": "Хуваалцаж эхлэхийн тулд шинэ өрх үүсгэж эсвэл итгэмжлэгдсэн байшингийн түлхүүрээр нэгдээрэй.",
-            "leave_success_body": "Та цаашид энэ өрхөд хандах эрхгүй болсон бөгөөд таны идэвхтэй байшин шинэчлэгдсэн."
+            "leave_success_body": "Та цаашид энэ өрхөд хандах эрхгүй болсон бөгөөд таны идэвхтэй байшин шинэчлэгдсэн.",
+            "leave_title": "Leave this house?",
+            "leave_warning": "You will lose access to this household workspace until another member invites or approves you again.",
+            "leaving": "Leaving..."
         },
         "house_info": {
             "title": "Идэвхтэй байшингийн түлхүүр",
@@ -674,7 +686,11 @@
             "copy_error": "Не удалось скопировать ключ дома.",
             "modal_title": "Энэ түлхүүрийг зөвхөн энэ хуваалцсан бараа материалд хандах хүсэлт гаргах итгэмжлэгдсэн гэр бүлийн гишүүдэд ашиглаарай.",
             "modal_subtitle": "Используйте этот ключ только для доверенных членов дома, которым нужно запрашивать доступ к этому общему инвентарю.",
-            "loading_members": "Загрузка участников..."
+            "loading_members": "Загрузка участников...",
+            "kick_success_body": "{{name}} no longer has access to this household.",
+            "kick_title": "Remove this member?",
+            "kick_warning": "Their household access will end immediately and they will need a new invitation or approval to return.",
+            "kicking": "Removing..."
         },
         "theme": {
             "title": "Сэдэв",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Энгийн JSON экспортыг шалгахад хялбар байдаг ч файлыг нээсэн хүн бүр таны гэр бүлийн мэдээллийг шууд унших боломжтой.",
             "import_encrypted_title": "Шифрлэгдсэн нөөцлөлтийн түгжээг тайлах",
             "import_encrypted_body": "Энэ шифрлэгдсэн файлыг сэргээхийн тулд татаж авах явцад ашигласан нөөц нууц үгийг оруулна уу.",
-            "unlock_and_import": "Разблокировать и импортировать"
+            "unlock_and_import": "Разблокировать и импортировать",
+            "export_encrypted_notice": "The backup is prepared from live household data and then wrapped with the passphrase you choose. Keep that passphrase somewhere safe because it is required to restore the file later.",
+            "export_encrypted_title": "Encryption will be applied before download",
+            "import_summary_body": "{{items}} items, {{categories}} categories, {{rooms}} rooms, {{locations}} locations, {{borrows}} borrow records restored.",
+            "import_summary_title": "Backup restored",
+            "preview_categories": "Ангилалууд",
+            "preview_items": "<g id=\"1\">Бараа материал.</g>",
+            "preview_locations": "байршил",
+            "preview_rooms": "Өрөөнүүд",
+            "skipped_borrows": "{{count}} existing borrow records skipped.",
+            "skipped_categories": "{{count}} existing categories skipped.",
+            "skipped_items": "{{count}} existing items skipped.",
+            "skipped_locations": "{{count}} existing locations skipped.",
+            "skipped_rooms": "{{count}} existing rooms skipped."
         },
         "about": {
             "title": "📱 About Application",
@@ -733,7 +762,10 @@
             "privacy_link": "Нууцлалын бодлого",
             "beta_title": "Beta status",
             "beta_body": "{{brandName}} is still in beta. Features can change, workflows may evolve, and important household data should always be backed up.",
-            "feedback_subject": "Санал хүсэлт - {{brandName}}"
+            "feedback_subject": "Санал хүсэлт - {{brandName}}",
+            "logout_body": "Any unsaved changes in open forms may be lost after you leave this session.",
+            "logout_description": "You will return to the home page and can sign back in anytime.",
+            "logout_title": "Log out now?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Предмет выдан",
             "lend_success_body": "{{item}} is now marked as borrowed.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "With you",
+            "return_pending_hint": "The record will close after the lender confirms they received the item back.",
+            "return_pending_lender_title": "{{name}} marked this item as delivered back",
+            "return_pending_self_title": "With you, waiting for receipt confirmation"
         },
         "untitled_item": "Гарчиггүй зүйл",
         "delete_action": "Зүйлийг устгах",
@@ -1023,7 +1059,10 @@
         "name_required": "Ангиллын нэр шаардлагатай",
         "load_error": "Алдааны ачааллын ангилал",
         "add_error": "Алдаа нэмэх ангилал",
-        "update_error": "Алдааны шинэчлэлийн ангилал"
+        "update_error": "Алдааны шинэчлэлийн ангилал",
+        "color_required": "Өнгө #RRGGBB форматтай байх ёстой",
+        "empty_description": "Create a few categories so new items follow the same structure and are easier to scan later.",
+        "empty_title": "No categories yet"
     },
     "rooms": {
         "title": "Өрөөнүүд",
@@ -1097,7 +1136,9 @@
         "name_required": "Өрөөний нэр шаардлагатай",
         "load_error": "Алдаа ачаалах өрөөнүүд",
         "add_error": "Алдаа нэмэх зай",
-        "update_error": "Алдааны шинэчлэлтийн өрөө"
+        "update_error": "Алдааны шинэчлэлтийн өрөө",
+        "empty_description": "Create rooms like kitchen, storage, or garage so item locations stay consistent and easier to search.",
+        "empty_title": "No rooms yet"
     },
     "admin": {
         "title": "Админ Панел",
@@ -1178,7 +1219,12 @@
             "households_label": "Домохозяйства",
             "items_label": "Собственные предметы",
             "last_seen_short": "Видимые",
-            "last_seen_short_never": "Новые"
+            "last_seen_short_never": "Новые",
+            "failed_logins": "{{count}} failed sign-ins",
+            "load_failed_title": "Users could not load",
+            "pending_requests": "{{count}} pending house requests",
+            "role_admin": "админ",
+            "role_user": "User"
         },
         "logs": {
             "title": "Админ бүртгэлүүд",
@@ -1210,7 +1256,9 @@
             "section_body": "Модерац эсвэл ажиллагааны өөрчлөлт бүрийг админы давхаргад бүртгэнэ.",
             "errors_body": "Серверийн бүртгэлийн файлуудаас задлан уншсан хамгийн сүүлийн алдааны мөрүүд.",
             "section_eyebrow": "Аудитын мөр",
-            "errors_eyebrow": "Оношилгоо"
+            "errors_eyebrow": "Оношилгоо",
+            "load_failed_title": "Activity could not load",
+            "no_logs_title": "No admin actions yet"
         },
         "email": {
             "status_title": "Гарцын имэйлийн статус",
@@ -1244,7 +1292,14 @@
             "info_bullet_1": "{{supportEmail}} -с имэйл илгээдэг",
             "info_bullet_2": "Спамаас урьдчилан сэргийлэхийн тулд та минутанд хамгийн их 3 имэйл илгээж болно",
             "info_bullet_3": "Бүх илгээх нь аюулгүй байдалд нэвтэрсэн, агуулаагүй байна",
-            "status_eyebrow": "Хүргэх"
+            "status_eyebrow": "Хүргэх",
+            "configured_body": "Resend is available for admin-triggered outbound messages.",
+            "configured_title": "Email delivery is configured",
+            "error_title": "Email failed",
+            "format_hint": "HTML is supported. For example: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
+            "from_label": "Sender",
+            "load_failed_title": "Email tools could not load",
+            "success_title": "Email sent"
         },
         "overview": {
             "email_warning_title": "Түгжигдсэн бүртгэлүүдийг шалгах шаардлагатай",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Статистик ачаалсан",
         "logs_loaded": "Лог ачаалсан",
         "load_error": "Алдаа ачаалах өгөгдөл",
-        "action_error": "Алдаа гүйцэтгэх үйлдэл"
+        "action_error": "Алдаа гүйцэтгэх үйлдэл",
+        "load_failed_body": "The admin route is open, but the overview data did not arrive. You can retry without leaving the page.",
+        "load_failed_title": "Admin overview could not load"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Сетевой адрес остается скрытым здесь. Сканируйте код или копируйте ссылку только тогда, когда вы намеренно хотите поделиться прямым доступом к элементу в вашей локальной установке.",
         "helper": "Сканируйте, чтобы мгновенно открыть этот элемент, или копируйте прямую ссылку при необходимости.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Preparing QR tools..."
     },
     "house_access_pending": {
         "eyebrow": "Байшингийн хандалт",
@@ -1859,7 +1917,11 @@
             "name_required": "Сейфийн бичлэгт барааны нэр шаардлагатай.",
             "options_failed": "Ангилал болон өрөөний сонголтуудыг ачаалж чадсангүй.",
             "delete_success_title": "Хадгалах сангийн бүртгэлийг устгасан",
-            "delete_success_body": "Хувийн бүртгэлийг таны сангаас бүрмөсөн устгасан."
+            "delete_success_body": "Хувийн бүртгэлийг таны сангаас бүрмөсөн устгасан.",
+            "passphrase_lowercase": "Include at least one lowercase letter.",
+            "passphrase_min_length": "Vault passphrase must be at least 12 characters.",
+            "passphrase_number": "Include at least one number.",
+            "passphrase_uppercase": "Include at least one uppercase letter."
         },
         "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
         "recovery_file_created_label": "Үүсгэсэн",

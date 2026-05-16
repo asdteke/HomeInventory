@@ -66,7 +66,10 @@
       "warranty_calculation_help": "Haeba u tlohela letsatsi la ho qala la tiisetso le se nang letho, letsatsi la invoice le tla sebelisoa. Ha u kenya nako ea khatiso, letsatsi la ho fela la tiisetso le baloa ka bo eona.",
       "vault_hint_title": "Rekoto e utloang bohloko haholo?",
       "vault_hint_description": "Bakeng sa pasipoto, litokomane, lintlha tsa boitsebahatso, likhoutu tsa phihlello, le litokomane tse ling tse lokelang ho lula li tsoa tseleng ea thepa e tloaelehileng, li boloke ho Personal Vault ho e-na le hoo.",
-      "vault_hint_action": "Bula Personal Vault"
+      "vault_hint_action": "Bula Personal Vault",
+      "location": "Sebaka",
+      "remove_photo": "Tlosa foto",
+      "visibility_owner_only": "Motho feela ea ekelitseng ntho a ka fetola ponahalo."
     },
     "messages": {
       "quick_add_success": "✓ \"{{barcode}}\" e ekelletsehang kapele - o ka e hlophisa hamorao",
@@ -115,7 +118,8 @@
     "delete_error": "Phoso ha ho hlakoloa ntho",
     "no_permission": "Ha u na tumello ea ho fetola ntho ena",
     "barcode_search_error": "Patlo ea barcode e hlolehile",
-    "stats_error": "Phoso ha ho palloa lipalo-palo"
+    "stats_error": "Phoso ha ho palloa lipalo-palo",
+    "detail_subtitle": "Lintlha tsa ntho"
   },
   "common": {
     "save": "Boloka",
@@ -162,7 +166,11 @@
     "unauthorized": "Phihlello e sa dumelelwang",
     "forbidden": "Ha u na tumello ea khato ena",
     "validation_error": "Phoso ea netefatso",
-    "server_error": "Phoso ea seva"
+    "server_error": "Phoso ea seva",
+    "details": "Lintlha",
+    "hide": "Fihla phasewete",
+    "logging_out": "Ho tsoa ka hare...",
+    "show": "Bontša phasewete"
   },
   "auth": {
     "login": {
@@ -194,7 +202,8 @@
         "verify": "Tlhatlhoba",
         "back": "Khutla",
         "use_backup": "Sebelisa khoutu ea backup",
-        "use_totp": "Sebelisa authenticator"
+        "use_totp": "Sebelisa authenticator",
+        "code_required": "Khoutu ea netefatso e hlokahala"
       },
       "welcome_title": "O amogetswe gape",
       "welcome_subtitle": "Kena ho fumana lenane la lintho tsa hau",
@@ -632,7 +641,10 @@
       "info": "💡 U ka ba le ntlo e 'meli kapa tse fetang 'me ua fetola lipakeng tsa tsona. Ntlo e 'ngoe le e 'ngoe e boloka lethathamo le arohaneng.",
       "accordion_description": "Fetohela lipakeng tsa malapa, theha e ncha, kapa u ikopanye le e teng ka senotlolo se tšepahalang.",
       "empty_description": "Theha lelapa le lecha ho qala ho arolelana, kapa u ikopanye le le teng ka senotlolo sa lelapa se tšepahalang.",
-      "leave_success_body": "Ha o sa na phihlello ea lelapa lena 'me ntlo ea hau e sebetsang e nchafatsoe."
+      "leave_success_body": "Ha o sa na phihlello ea lelapa lena 'me ntlo ea hau e sebetsang e nchafatsoe.",
+      "leave_title": "Tlohela ntlo ena?",
+      "leave_warning": "U tla lahleheloa ke phihlello ea sebaka sena sa lelapa ho fihlela setho se seng se u memela kapa se u amohela hape.",
+      "leaving": "Ho tloha..."
     },
     "house_info": {
       "title": "Senotlolo sa Ntlo se Sebetsang",
@@ -674,7 +686,11 @@
       "copy_error": "Senotlolo sa ntlo ha se a ka sa kopisoa.",
       "modal_title": "Phihlello ea senotlolo sa ntlo",
       "modal_subtitle": "Sebelisa senotlolo sena feela bakeng sa malapa a tšepahalang a hlokang ho kopa phihlello ea lenane le arolelanoeng.",
-      "loading_members": "Ho laela litho..."
+      "loading_members": "Ho laela litho...",
+      "kick_success_body": "{{name}} ha a sa na phihlello ea lelapa lena.",
+      "kick_title": "Tlosa setho sena?",
+      "kick_warning": "Phihlello ea bona ea lelapa e tla fela hang-hang 'me ba tla hloka memelo e ncha kapa tumello ho khutlela.",
+      "kicking": "Ho tlosoa..."
     },
     "theme": {
       "title": "Sehlooho",
@@ -720,7 +736,20 @@
       "unencrypted_warning": "Lipehelo tse hloekileng tsa JSON li bonolo ho li hlahloba, empa mang kapa mang ea bulang faele a ka bala data ea lelapa la hau hang-hang.",
       "import_encrypted_title": "Bula backup e entsoeng ka encryption",
       "import_encrypted_body": "Kenya phapanyetsano ea backup e sebelisitsoeng nakong ea ho jarolla ho khutlisa faele e patiloeng ena.",
-      "unlock_and_import": "Bula le ho kenya ak'haonte"
+      "unlock_and_import": "Bula le ho kenya ak'haonte",
+      "export_encrypted_notice": "Backup e lokiselitsoe ho tsoa ho data ea lelapa e phelang ebe e koahetsoe ka phasewete eo u e khethang. Boloka phasewete eo sebakeng se sireletsehileng kaha e hlokahala ho khutlisetsa faele hamorao.",
+      "export_encrypted_title": "Ho tla sebelisoa encryption pele ho jarolla",
+      "import_summary_body": "{{items}} lintho, {{categories}} lihlopha, {{rooms}} likamore, {{locations}} libaka, {{borrows}} direkoto tsa boraro li khutlisitsoe.",
+      "import_summary_title": "Backup e khutlisitsoe",
+      "preview_categories": "Lihlopha",
+      "preview_items": "Lintho",
+      "preview_locations": "Libaka",
+      "preview_rooms": "Likamore",
+      "skipped_borrows": "{{count}} direkoto tsa boraro tse seng li ntse li e teng li ile tsa hlakoloa.",
+      "skipped_categories": "{{count}} lihlopha tse seng li ntse li e teng li ile tsa hlakoloa.",
+      "skipped_items": "{{count}} lintho tse teng li lehlile.",
+      "skipped_locations": "{{count}} libaka tse teng li lehlile.",
+      "skipped_rooms": "{{count}} likarolo tse teng li lehlile."
     },
     "about": {
       "title": "📱 Mabapi le Kopo",
@@ -733,7 +762,10 @@
       "privacy_link": "Pholisi ea Boinotši",
       "beta_title": "Beta status",
       "beta_body": "{{brandName}} e ntse e le beta. Likarolo li ka fetoha, mekhoa ea mosebetsi e ka tsamaea, 'me lintlha tsa bohlokoa tsa lapeng li lokela ho bolokeha kamehla.",
-      "feedback_subject": "Litlhahiso - {{brandName}}"
+      "feedback_subject": "Litlhahiso - {{brandName}}",
+      "logout_body": "Liphetoho leha e le life tse sa bolokang tse ka har'a liforomo tse bulehileng li ka lahleha kamora ha u tloha sehlopheng sena.",
+      "logout_description": "U tla khutlela leqepheng la lapeng 'me u ka kena hape neng kapa neng.",
+      "logout_title": "Na u batla ho tswa hona joale?"
     },
     "modals": {
       "password": {
@@ -960,7 +992,11 @@
       "lend_success_title": "Ntho e lefelloa",
       "lend_success_body": "{{item}} e tšoauoa e le e alimiloeng.",
       "offer_sent_title": "Borrow offer sent",
-      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+      "borrowed_by_you": "Le wena",
+      "return_pending_hint": "Rekoto e tla koaloa kamora ha mokoloto a tiisa hore o fumane ntho e khutletsoeng.",
+      "return_pending_lender_title": "{{name}} o hlalositse ntho ena e le e khutletsoeng",
+      "return_pending_self_title": "Le wena, o emetse tiiso ea ho amohela"
     },
     "untitled_item": "Ntho e sa hatisoang",
     "delete_action": "Hlakola ntho",
@@ -1023,7 +1059,10 @@
     "name_required": "Lebitso la sehlopha lea hlokahala",
     "load_error": "Phoso ha ho palloa lihlopha",
     "add_error": "Phoso ha ho eketsoa sehlopha",
-    "update_error": "Phoso ha ho nchafatsoa sehlopha"
+    "update_error": "Phoso ha ho nchafatsoa sehlopha",
+    "color_required": "Mmala o tlameha ho ba ka fomate ya #RRGGBB",
+    "empty_description": "Etsa mekhahlelo e meng ho etsa hore lintho tse ncha li latele sebopeho se tšoanang 'me li be bonolo ho se hlahloba hamorao.",
+    "empty_title": "Ha ho mekhahlelo eo e ntse e le teng"
   },
   "rooms": {
     "title": "Liphaposi",
@@ -1097,7 +1136,9 @@
     "name_required": "Lebitso la kamore lea hlokahala",
     "load_error": "Phoso ha ho palloa likamore",
     "add_error": "Phoso ha ho eketsoa kamore",
-    "update_error": "Phoso ha ho nchafatsoa kamore"
+    "update_error": "Phoso ha ho nchafatsoa kamore",
+    "empty_description": "Etsa matlo a kang kichineng, polokelong, kapa garaji e le hore libaka tsa lintho li lule li tsitsitse 'me ho be bonolo ho li batla.",
+    "empty_title": "Ha ho matlo a ntse a le teng"
   },
   "admin": {
     "title": "Panele ea Botsamaisi",
@@ -1176,7 +1217,12 @@
       "households_label": "Likhale",
       "items_label": "Lihlahisoa tse tobileng",
       "last_seen_short": "Abonwe",
-      "last_seen_short_never": "E Ncha"
+      "last_seen_short_never": "E Ncha",
+      "failed_logins": "{{count}} likatleho tsa ho kena tse hlolehileng",
+      "load_failed_title": "Basebelisi ba ne ba sitoa ho kenya",
+      "pending_requests": "{{count}} likopo tse emeng tsa matlo",
+      "role_admin": "Motsamaisi",
+      "role_user": "Moaeti"
     },
     "logs": {
       "title": "Liofisi tsa Admin",
@@ -1208,7 +1254,9 @@
       "section_eyebrow": "Tlaleho ea tlhahlobo",
       "errors_eyebrow": "Tlhatlhobo",
       "section_body": "Phetoho efe kapa efe ea taolo kapa ea ts'ebetso e ngotsoe ke sehlopha sa admin.",
-      "errors_body": "Mela e mecha ea liphoso e hlahletsoeng ho tsoa lifaele tsa logi tsa seva."
+      "errors_body": "Mela e mecha ea liphoso e hlahletsoeng ho tsoa lifaele tsa logi tsa seva.",
+      "load_failed_title": "Ketso e ne e sitoa ho kenya",
+      "no_logs_title": "Ha ho liketso tsa motsamaisi tse teng hajoale"
     },
     "email": {
       "title": "Romella Email",
@@ -1242,7 +1290,14 @@
       "status_body": "Tekolo e potlakileng ea ts'epo pele ho romello ea puisano ea ts'ebetso.",
       "unconfigured_title": "Romello ea imeile ha e hlophisoe",
       "unconfigured_body": "Fomo ea ho romella e lula e bonahala bakeng sa tlhahlobo ea set-up, empa romello e tla hloleha ho fihlela mofani oa imeile a hlophisitsoe.",
-      "status_eyebrow": "Phepelo"
+      "status_eyebrow": "Phepelo",
+      "configured_body": "Ho romella hape ho fumaneha bakeng sa melaetsa e romelloang ke motsamaisi.",
+      "configured_title": "Tlhahiso ea imeile e hlophisitsoe",
+      "error_title": "Imeile e hlolehileng",
+      "format_hint": "HTML e tšehetsoa. Mohlala: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
+      "from_label": "Moemeli",
+      "load_failed_title": "Lisebelisoa tsa imeile li ne li sitoa ho kenya",
+      "success_title": "Imeile e rometsoe"
     },
     "overview": {
       "email_warning_title": "Poso ea imeile ha e so hlophiswe",
@@ -1327,7 +1382,9 @@
     "stats_loaded": "Lipalo-palo li pautsoe",
     "logs_loaded": "Litho li pautsoe",
     "load_error": "Phoso ha ho palloa lintlha",
-    "action_error": "Phoso ha ho etsoa khato"
+    "action_error": "Phoso ha ho etsoa khato",
+    "load_failed_body": "Tsela ea motsamaisi e bulehile, empa data e akaretsang ha ea fihla. U ka leka hape ntle le ho tloha leqepheng.",
+    "load_failed_title": "Kakaretso ea motsamaisi e ne e sitoa ho kenya"
   },
   "landing": {
     "nav": {
@@ -1672,7 +1729,8 @@
     "link_privacy_note": "Aterese ea marang-rang e lula e patiloe mona. Scan khoutu kapa u kopishe sehokelo feela ha u le bohlale ho batla ho arolelana phihlello e tobileng ea ntho setulong sa heno sa lehae.",
     "helper": "Scan ho bula ntho ena hanghang, kapa u kopishe sehokelo se tobileng ha ho hlokahala.",
     "copy_error_title": "Link could not be copied automatically",
-    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+    "loading": "Ho lokisa lisebelisoa tsa QR..."
   },
   "house_access_pending": {
     "eyebrow": "Phihlello ea Ntlo",
@@ -1859,7 +1917,11 @@
       "name_required": "Lebitso la ntho le hlokahala bakeng sa rekoto ea vault.",
       "options_failed": "Likhetho tsa sehlopha le phaposi li sitoa ho laeloa.",
       "delete_success_title": "Rekoto ea vault e hlakotsoe",
-      "delete_success_body": "Rekoto ea lekunutu e ile ea tlosa ka ho sa feleng bukeng ea hau."
+      "delete_success_body": "Rekoto ea lekunutu e ile ea tlosa ka ho sa feleng bukeng ea hau.",
+      "passphrase_lowercase": "Kenyeletsa bonyane lengolo le letona le le tlase.",
+      "passphrase_min_length": "Phasephrase ea vault e tlameha ho ba bonyane litlhaku tse 12.",
+      "passphrase_number": "Kenyeletsa bonyane palo e le 'ngoe.",
+      "passphrase_uppercase": "Kenyeletsa bonyane lengolo le letona."
     },
     "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
     "recovery_file_created_label": "E entsoe",

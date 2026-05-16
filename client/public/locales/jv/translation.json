@@ -66,7 +66,10 @@
       "warranty_calculation_help": "Yen tanggal wiwitan garansi dikosongi, tanggal invoice bakal digunakake. Yen sampeyan ngisi suwene, tanggal pungkasan garansi bakal diitung kanthi otomatis.",
       "vault_hint_title": "Very sensitive record?",
       "vault_hint_description": "For passports, deeds, identity details, access codes, and other records that should stay out of the standard inventory flow, keep them in Personal Vault instead.",
-      "vault_hint_action": "Mbukak Personal Vault"
+      "vault_hint_action": "Mbukak Personal Vault",
+      "location": "Locations",
+      "remove_photo": "Remove photo",
+      "visibility_owner_only": "Only the person who added the item can change visibility."
     },
     "messages": {
       "quick_add_success": "✓ \"{{barcode}}\" ditambahake kanthi cepet - sampeyan bisa ngowahi mengko",
@@ -115,7 +118,8 @@
     "delete_error": "Kesalahan nalika mbusak barang",
     "no_permission": "Sampeyan ora duwe ijin kanggo ngganti barang iki",
     "barcode_search_error": "Panelusuran barcode gagal",
-    "stats_error": "Kesalahan nalika ngemot statistik"
+    "stats_error": "Kesalahan nalika ngemot statistik",
+    "detail_subtitle": "Item details"
   },
   "common": {
     "save": "Save",
@@ -162,7 +166,11 @@
     "unauthorized": "Akses ora sah",
     "forbidden": "Sampeyan ora duwe ijin kanggo tumindak iki",
     "validation_error": "Kesalahan validasi",
-    "server_error": "Kesalahan server"
+    "server_error": "Kesalahan server",
+    "details": "Rincian",
+    "hide": "Hide password",
+    "logging_out": "Logging out...",
+    "show": "Show password"
   },
   "auth": {
     "login": {
@@ -194,7 +202,8 @@
         "verify": "Verify",
         "back": "Back",
         "use_backup": "Use backup code",
-        "use_totp": "Use authenticator"
+        "use_totp": "Use authenticator",
+        "code_required": "Verification code is required"
       },
       "welcome_title": "Welcome back",
       "welcome_subtitle": "Sign in to access your inventory",
@@ -632,7 +641,10 @@
       "info": "💡 You can be a member of multiple houses and switch between them. Each house maintains a separate inventory.",
       "accordion_description": "Switch between households, create a new one, or join an existing one with a trusted key.",
       "empty_description": "Create a new household to start sharing, or join one with a trusted house key.",
-      "leave_success_body": "You no longer have access to this household and your active house was refreshed."
+      "leave_success_body": "You no longer have access to this household and your active house was refreshed.",
+      "leave_title": "Leave this house?",
+      "leave_warning": "You will lose access to this household workspace until another member invites or approves you again.",
+      "leaving": "Leaving..."
     },
     "house_info": {
       "title": "Active House Key",
@@ -674,7 +686,11 @@
       "copy_error": "The house key could not be copied.",
       "modal_title": "House key access",
       "modal_subtitle": "Use this key only for trusted household members who should request access to this shared inventory.",
-      "loading_members": "Loading members..."
+      "loading_members": "Loading members...",
+      "kick_success_body": "{{name}} no longer has access to this household.",
+      "kick_title": "Remove this member?",
+      "kick_warning": "Their household access will end immediately and they will need a new invitation or approval to return.",
+      "kicking": "Removing..."
     },
     "theme": {
       "title": "Theme",
@@ -720,7 +736,20 @@
       "unencrypted_warning": "Ekspor JSON biasa lebih mudah untuk diperiksa, tetapi siapa pun yang membuka file dapat langsung membaca data rumah tangga Anda.",
       "import_encrypted_title": "Buka cadangan terenkripsi",
       "import_encrypted_body": "Masukkan frasa sandi cadangan yang digunakan saat mengunduh untuk memulihkan file terenkripsi ini.",
-      "unlock_and_import": "Buka kunci dan impor"
+      "unlock_and_import": "Buka kunci dan impor",
+      "export_encrypted_notice": "The backup is prepared from live household data and then wrapped with the passphrase you choose. Keep that passphrase somewhere safe because it is required to restore the file later.",
+      "export_encrypted_title": "Encryption will be applied before download",
+      "import_summary_body": "{{items}} items, {{categories}} categories, {{rooms}} rooms, {{locations}} locations, {{borrows}} borrow records restored.",
+      "import_summary_title": "Backup restored",
+      "preview_categories": "Kategori",
+      "preview_items": "Inventory",
+      "preview_locations": "Locations",
+      "preview_rooms": "Ruangan",
+      "skipped_borrows": "{{count}} existing borrow records skipped.",
+      "skipped_categories": "{{count}} existing categories skipped.",
+      "skipped_items": "{{count}} existing items skipped.",
+      "skipped_locations": "{{count}} existing locations skipped.",
+      "skipped_rooms": "{{count}} existing rooms skipped."
     },
     "about": {
       "title": "📱 About Application",
@@ -733,7 +762,10 @@
       "privacy_link": "Kebijakan Privasi",
       "beta_title": "Status Beta",
       "beta_body": "{{brandName}} masih dalam versi beta. Fitur bisa berubah, alur kerja dapat berkembang, dan data rumah tangga penting harus selalu dicadangkan.",
-      "feedback_subject": "Umpan balik - {{brandName}}"
+      "feedback_subject": "Umpan balik - {{brandName}}",
+      "logout_body": "Any unsaved changes in open forms may be lost after you leave this session.",
+      "logout_description": "You will return to the home page and can sign back in anytime.",
+      "logout_title": "Log out now?"
     },
     "modals": {
       "password": {
@@ -960,7 +992,11 @@
       "lend_success_title": "Barang yang dipinjam",
       "lend_success_body": "{{item}} sekarang ditandai sebagai dipinjam.",
       "offer_sent_title": "Borrow offer sent",
-      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+      "borrowed_by_you": "With you",
+      "return_pending_hint": "The record will close after the lender confirms they received the item back.",
+      "return_pending_lender_title": "{{name}} marked this item as delivered back",
+      "return_pending_self_title": "With you, waiting for receipt confirmation"
     },
     "untitled_item": "Item tanpa judul",
     "delete_action": "Hapus item",
@@ -1023,7 +1059,10 @@
     "name_required": "Jeneng kategori dibutuhake",
     "load_error": "Kesalahan nalika ngemot kategori",
     "add_error": "Kesalahan nalika nambah kategori",
-    "update_error": "Kesalahan nalika nganyari kategori"
+    "update_error": "Kesalahan nalika nganyari kategori",
+    "color_required": "Werna kudu nganggo format #RRGGBB",
+    "empty_description": "Create a few categories so new items follow the same structure and are easier to scan later.",
+    "empty_title": "No categories yet"
   },
   "rooms": {
     "title": "Ruangan",
@@ -1097,7 +1136,9 @@
     "name_required": "Jeneng kamar dibutuhake",
     "load_error": "Kesalahan nalika ngemot kamar",
     "add_error": "Kesalahan nalika nambah kamar",
-    "update_error": "Kesalahan nalika nganyari kamar"
+    "update_error": "Kesalahan nalika nganyari kamar",
+    "empty_description": "Create rooms like kitchen, storage, or garage so item locations stay consistent and easier to search.",
+    "empty_title": "No rooms yet"
   },
   "admin": {
     "title": "Panel Admin",
@@ -1176,7 +1217,12 @@
       "households_label": "Rumah tangga",
       "items_label": "Barang milik",
       "last_seen_short": "Terlihat",
-      "last_seen_short_never": "Baru"
+      "last_seen_short_never": "Baru",
+      "failed_logins": "{{count}} failed sign-ins",
+      "load_failed_title": "Users could not load",
+      "pending_requests": "{{count}} pending house requests",
+      "role_admin": "Admin",
+      "role_user": "User"
     },
     "logs": {
       "title": "Log Admin",
@@ -1208,7 +1254,9 @@
       "section_eyebrow": "Jejak audit",
       "errors_eyebrow": "Diagnostik",
       "section_body": "Saben owah-owahan moderasi utawa operasional kacathet ing lapisan admin.",
-      "errors_body": "Baris kesalahan paling anyar sing diwaca saka berkas log server."
+      "errors_body": "Baris kesalahan paling anyar sing diwaca saka berkas log server.",
+      "load_failed_title": "Activity could not load",
+      "no_logs_title": "No admin actions yet"
     },
     "email": {
       "title": "Kirim Email",
@@ -1242,7 +1290,14 @@
       "status_body": "Pemeriksaan cepat kepercayaan sebelum mengirim komunikasi operasional.",
       "unconfigured_title": "Pengiriman email belum dikonfigurasi",
       "unconfigured_body": "Formulir pengiriman tetap terlihat untuk peninjauan pengaturan, tetapi pengiriman akan gagal sampai penyedia email dikonfigurasi.",
-      "status_eyebrow": "Delivery"
+      "status_eyebrow": "Delivery",
+      "configured_body": "Resend is available for admin-triggered outbound messages.",
+      "configured_title": "Email delivery is configured",
+      "error_title": "Email failed",
+      "format_hint": "HTML is supported. For example: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
+      "from_label": "Sender",
+      "load_failed_title": "Email tools could not load",
+      "success_title": "Email sent"
     },
     "overview": {
       "email_warning_title": "Pengiriman email belum dikonfigurasi",
@@ -1327,7 +1382,9 @@
     "stats_loaded": "Statistik dimuat",
     "logs_loaded": "Log dimuat",
     "load_error": "Kesalahan nalika ngemot data",
-    "action_error": "Kesalahan nalika nindakake tumindak"
+    "action_error": "Kesalahan nalika nindakake tumindak",
+    "load_failed_body": "The admin route is open, but the overview data did not arrive. You can retry without leaving the page.",
+    "load_failed_title": "Admin overview could not load"
   },
   "landing": {
     "nav": {
@@ -1672,7 +1729,8 @@
     "link_privacy_note": "Alamat jaringan tetap disembunyikan di sini. Pindai kode atau salin tautan hanya ketika Anda sengaja ingin membagikan akses langsung ke item di pengaturan lokal Anda.",
     "helper": "Pindai untuk membuka item ini secara instan, atau salin tautan langsung saat diperlukan.",
     "copy_error_title": "Link could not be copied automatically",
-    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+    "loading": "Preparing QR tools..."
   },
   "house_access_pending": {
     "eyebrow": "Akses Rumah",
@@ -1859,7 +1917,11 @@
       "name_required": "Jeneng barang dibutuhake kanggo cathetan brankas.",
       "options_failed": "Opsi kategori lan kamar ora bisa dimuat.",
       "delete_success_title": "Rekaman Vault dibusak",
-      "delete_success_body": "Rekaman pribadi dibusak kanthi permanen saka brankas sampeyan."
+      "delete_success_body": "Rekaman pribadi dibusak kanthi permanen saka brankas sampeyan.",
+      "passphrase_lowercase": "Include at least one lowercase letter.",
+      "passphrase_min_length": "Vault passphrase must be at least 12 characters.",
+      "passphrase_number": "Include at least one number.",
+      "passphrase_uppercase": "Include at least one uppercase letter."
     },
     "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
     "recovery_file_created_label": "Digawe",

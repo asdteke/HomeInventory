@@ -66,7 +66,10 @@
       "warranty_calculation_help": "Mēnā ka waiho koe te rā tīmata raihana kia kī kore, ka whakamahia te rā nama. I te wā ka tāpirihia e koe te roa, ka tatau aunoa te rā mutunga o te raihana.",
       "vault_hint_title": "He tuhinga tino pāwera?",
       "vault_hint_description": "Mō ngā uruwhenua, tuhinga, taipitopito tuakiri, waehere uru, me ērā atu tuhinga me noho ki waho i te rerenga tauwhāinga paerewa, puritia ngā mea nei i roto i te Wharepouaka Motuhake.",
-      "vault_hint_action": "Whakatuwheratia te Wharepouaka Motuhake"
+      "vault_hint_action": "Whakatuwheratia te Wharepouaka Motuhake",
+      "location": "Wāhi",
+      "remove_photo": "Tangohia te whakaahua",
+      "visibility_owner_only": "Ko te tangata anake i tāpiri i te taonga ka taea te whakarerekē te kite."
     },
     "messages": {
       "quick_add_success": "✓ Kua tāpirihia tere te \"{{barcode}}\" - ka taea e koe te whakatika ā muri ake",
@@ -115,7 +118,8 @@
     "delete_error": "Kua hapa te muku tūemi",
     "no_permission": "Kāore i a koe te whakaaetanga hei whakakē i tēnei tūemi",
     "barcode_search_error": "I rahua te rapu waehere pae",
-    "stats_error": "Kua hapa te utanga o ngā tatauranga"
+    "stats_error": "Kua hapa te utanga o ngā tatauranga",
+    "detail_subtitle": "Taipitopito taonga"
   },
   "common": {
     "save": "Tiaki",
@@ -162,7 +166,11 @@
     "unauthorized": "Āheitanga manakore",
     "forbidden": "Kāore i a koe te whakaaetanga mō tēnei hohenga",
     "validation_error": "Hapa whakamanatanga",
-    "server_error": "Hapa tūmau"
+    "server_error": "Hapa tūmau",
+    "details": "Taipitopito",
+    "hide": "Huna kupuhipa",
+    "logging_out": "E taki ana...",
+    "show": "Whakaatu kupuhipa"
   },
   "auth": {
     "login": {
@@ -194,7 +202,8 @@
         "verify": "Whakauiuia",
         "back": "Hoki",
         "use_backup": "Whakamahia waehere pūrua",
-        "use_totp": "Whakamahia te kaiwhakarite pupuri tuakiri"
+        "use_totp": "Whakamahia te kaiwhakarite pupuri tuakiri",
+        "code_required": "Me whiwhi waehere whakamana"
       },
       "welcome_title": "Nau mai hoki mai",
       "welcome_subtitle": "Takiuru kia uru ki tō rarangi",
@@ -632,7 +641,10 @@
       "info": "💡 Ka taea e koe te noho hei mema o ngā whare maha me te whakawhiti i waenga i a rātou. Ka pupuri ia whare i tētahi rarangi motuhake.",
       "accordion_description": "Whakawhiti i waenga i ngā whare, waihangahia tētahi hōu, rānei hono ki tētahi kē kei te whakamahia me tētahi kī whakawhirinaki.",
       "empty_description": "Waihangahia tētahi whare hōu hei tīmata i te tiritiri, rānei hono ki tētahi me tētahi kī whare whakawhirinaki.",
-      "leave_success_body": "Kua ngaro tō urunga ki tēnei whare ā, kua whakahouhia tō whare mahi."
+      "leave_success_body": "Kua ngaro tō urunga ki tēnei whare ā, kua whakahouhia tō whare mahi.",
+      "leave_title": "Waiho tēnei whare?",
+      "leave_warning": "Ka ngaro āu urunga ki tēnei wāhi mahi kāinga kia kore rānei e tono, e whakaaetia anō hoki e tētahi mema.",
+      "leaving": "E wehe ana..."
     },
     "house_info": {
       "title": "Pātuhi Whare Hohe",
@@ -674,7 +686,11 @@
       "copy_error": "Kāore i taea te tārua i te kī whare.",
       "modal_title": "Urunga kī whare",
       "modal_subtitle": "Whakamahia tēnei kī mō ngā mema whare e whakawhirinaki ana anake, ā, ko rātou anake e tono ai ki te uru ki tēnei kohinga tūmatanui.",
-      "loading_members": "Kei te utaina ngā mema..."
+      "loading_members": "Kei te utaina ngā mema...",
+      "kick_success_body": "Kua kore āhei a {{name}} ki tēnei kāinga.",
+      "kick_title": "Tangohia tēnei mema?",
+      "kick_warning": "Ka mutu tonu ā rātou uru ki te kāinga, ā me tono, ā me whakaaetia anō rānei kia hoki mai.",
+      "kicking": "E tangohia ana..."
     },
     "theme": {
       "title": "Kaupapa",
@@ -720,7 +736,20 @@
       "unencrypted_warning": "He māmā ake te tirotiro i ngā kaweake JSON marama, engari ka taea e te tangata katoa e whakatuwhera ana i te kōnae te pānui i ō raraunga kāinga i te wā kotahi.",
       "import_encrypted_title": "Whakatuwheratia te tārua whakamunatia",
       "import_encrypted_body": "Tuhia te kupuhipa tārua i whakamahia i te wā tikiake hei whakahoki i tēnei kōnae whakamunatia.",
-      "unlock_and_import": "Whakatuwhera me te kawemai"
+      "unlock_and_import": "Whakatuwhera me te kawemai",
+      "export_encrypted_notice": "Kua whakaritea te tārua pūrua mai i ngā raraunga kāinga ora ā ka kapi ki te kupuhipa ka tīpako koe. Puritia taua kupuhipa ki tētahi wāhi haumaru nā te mea ka hiahiatia hei whakahoki mai i te kōnae ā muri ake.",
+      "export_encrypted_title": "Ka tukuna te whakamunatanga i mua i te tango",
+      "import_summary_body": "{{items}} mea, {{categories}} kāwai, {{rooms}} rūma, {{locations}} wāhi, {{borrows}} tuhinga nama i whakahokia mai.",
+      "import_summary_title": "Kua whakahokia te tārua pūrua",
+      "preview_categories": "Ngā kāwai",
+      "preview_items": "Ngā mea",
+      "preview_locations": "Ngā wāhi",
+      "preview_rooms": "Ngā rūma",
+      "skipped_borrows": "Kua ānauhia {{count}} tuhinga nama o nāianei.",
+      "skipped_categories": "Kua ānauhia {{count}} kāwai o nāianei.",
+      "skipped_items": "{{count}} ngā wāhanga e noho ana kua whakakorea.",
+      "skipped_locations": "{{count}} ngā waahi e noho ana kua whakakorea.",
+      "skipped_rooms": "{{count}} ngā rūma e noho ana kua whakakorea."
     },
     "about": {
       "title": "📱 Mō te Taupānga",
@@ -733,7 +762,10 @@
       "privacy_link": "Kaupapa Here Matatapu",
       "beta_title": "Tūnga beta",
       "beta_body": "Kei te beta tonu a {{brandName}}. Ka taea te huri o ngā āhuatanga, ka tipu pea ngā rerenga mahi, ā, me whakahou tonu ngā raraunga whare nui.",
-      "feedback_subject": "Urupare - {{brandName}}"
+      "feedback_subject": "Urupare - {{brandName}}",
+      "logout_body": "Ka ngaro pea ngā panoni kāore i tiakina i ngā puka tuwhera i muri i tō wehe i tēnei wātaka.",
+      "logout_description": "Ka hoki koe ki te whārangi kāinga ā ka taea e koe te uru anō i ngā wā katoa.",
+      "logout_title": "Me rēhita inaianei?"
     },
     "modals": {
       "password": {
@@ -960,7 +992,11 @@
       "lend_success_title": "Tūemi i tukuna",
       "lend_success_body": "Kua tohua te {{item}} hei mea i namaa.",
       "offer_sent_title": "Borrow offer sent",
-      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+      "borrowed_by_you": "Kei a koe",
+      "return_pending_hint": "Ka kati te rekoata ā muri i te whakatuturutanga a te kaituku utu i te whiwhinga o te taonga.",
+      "return_pending_lender_title": "I tohu a {{name}} i tēnei taonga hei whakahokia mai",
+      "return_pending_self_title": "Kei a koe, e tatari ana mō te whakatuturutanga whiwhinga"
     },
     "untitled_item": "Tūemi kāore he taitara",
     "delete_action": "Muku taonga",
@@ -1023,7 +1059,10 @@
     "name_required": "E hiahiatia ana te ingoa kāwai",
     "load_error": "Kua hapa te utanga o ngā kāwai",
     "add_error": "I hapa te tāpiri kāwai",
-    "update_error": "Kua hapa te whakahōu i te kāwai"
+    "update_error": "Kua hapa te whakahōu i te kāwai",
+    "color_required": "Me noho te tae ki te hōputu #RRGGBB",
+    "empty_description": "Waihangahia ētahi kāwai kia whai te rārangi hou i taua hanganga ano, he māmā hoki te tirotiro ā muri ake.",
+    "empty_title": "Kāore he kāwai ana"
   },
   "rooms": {
     "title": "Rūma",
@@ -1097,7 +1136,9 @@
     "name_required": "E hiahiatia ana te ingoa rūma",
     "load_error": "I hapa te utanga o ngā rūma",
     "add_error": "I hapa i te tāpiritanga o te rūma",
-    "update_error": "I hapa te whakahōutanga o te rūma"
+    "update_error": "I hapa te whakahōutanga o te rūma",
+    "empty_description": "Waihangahia ngā rūma pērā i te kīhini, te penapena, te garaki kia mau tonu ngā wāhi taonga, ā, he māmā ake te rapu.",
+    "empty_title": "Kāore he rūma ana"
   },
   "admin": {
     "title": "Paewhiri Kaiwhakahaere",
@@ -1176,7 +1217,12 @@
       "households_label": "Whānau",
       "items_label": "Taonga whai",
       "last_seen_short": "Kitea",
-      "last_seen_short_never": "Hou"
+      "last_seen_short_never": "Hou",
+      "failed_logins": "{{count}} ngā takiuru i hapa",
+      "load_failed_title": "Kāore i taea te uta i ngā kaiwhakamahi",
+      "pending_requests": "{{count}} ngā tono whare e tūmanakotia ana",
+      "role_admin": "Kaiwhakahaere",
+      "role_user": "Kaiwhakamahi"
     },
     "logs": {
       "title": "Rārangi Pūkenga Kaiwhakahaere",
@@ -1208,7 +1254,9 @@
       "section_eyebrow": "Ara arotake",
       "errors_eyebrow": "Tātari mate",
       "section_body": "Ia whakaiti, panoni whakahaere ranei i tuhia e te papanga kaiwhakahaere.",
-      "errors_body": "Ngā rārangi hapa whai whakamāramatanga hou i ngā kōnae log o te tūmau."
+      "errors_body": "Ngā rārangi hapa whai whakamāramatanga hou i ngā kōnae log o te tūmau.",
+      "load_failed_title": "Kāore i taea te uta i te mahi",
+      "no_logs_title": "Kāore anō he mahi a te kaiwhakahaere"
     },
     "email": {
       "title": "Tuku I-mēra",
@@ -1242,7 +1290,14 @@
       "status_body": "He tirohanga tere i te whakapono i mua i te tuku i ngā whakawhitiwhiti whakahaere.",
       "unconfigured_title": "Kāore te tuku īmēra i whakaritea",
       "unconfigured_body": "Kei te kitea tonu te puka tuku mō te arotake whirihora, engari ka hapa te tuku ā te wa ka whakaritea te kaiwhakarato īmēra.",
-      "status_eyebrow": "Tukunga"
+      "status_eyebrow": "Tukunga",
+      "configured_body": "Ka wātea te whakahoki anō mō ngā karere heke i tīmatahia e te kaiwhakahaere.",
+      "configured_title": "Kua whakaritea te tuku īmēra",
+      "error_title": "Kua hapa te īmēra",
+      "format_hint": "Ka tautokohia te HTML. Hei tauira: <b>matotoru</b>, <i>kakahu</i>, <a href=\"...\">hononga</a>",
+      "from_label": "Kaituku",
+      "load_failed_title": "Kāore i taea te uta i ngā taputapu īmēra",
+      "success_title": "Kua tukuna te īmēra"
     },
     "overview": {
       "email_warning_title": "Kāore i te whirihorahia te tuku īmēra",
@@ -1327,7 +1382,9 @@
     "stats_loaded": "Kua utaina ngā tatauranga",
     "logs_loaded": "Kua utaina ngā rangitaki",
     "load_error": "I hapa te utanga raraunga",
-    "action_error": "Kua hapa te mahi i te hohenga"
+    "action_error": "Kua hapa te mahi i te hohenga",
+    "load_failed_body": "Kua tuwheratia te huarahi a te kaiwhakahaere, engari kāore i tae mai ngā raraunga tirohanga whānui. Ka taea e koe te ngana anō me te kore e wehe i te whārangi.",
+    "load_failed_title": "Kāore i taea te uta i te tirohanga whānui a te kaiwhakahaere"
   },
   "landing": {
     "nav": {
@@ -1672,7 +1729,8 @@
     "link_privacy_note": "Ka noho huna te wāhitau whatunga i konei. Tāutuhia te waehere, kape rānei i te hono i te wā e hiahia ana koe ki te tiri whakahaere tika i runga i tō pūnaha ā-rohe.",
     "helper": "Tāutuhia kia whakatuwhera i tēnei tūemi ināianei, kape rānei i te hono tika i te wā e hiahiatia ana.",
     "copy_error_title": "Link could not be copied automatically",
-    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+    "loading": "E whakarite ana taputapu QR..."
   },
   "house_access_pending": {
     "eyebrow": "Uru Whare",
@@ -1859,7 +1917,11 @@
       "name_required": "Me whai ingoa tūemi mō te rekord pātū.",
       "options_failed": "Kāore i taea te uta i ngā kāwai me ngā kōwhiringa ruma.",
       "delete_success_title": "Kua mukua te tuhinga o te pātengi",
-      "delete_success_body": "Kua mukua mō ake tonu atu te tuhinga tūmataiti i tō pātengi."
+      "delete_success_body": "Kua mukua mō ake tonu atu te tuhinga tūmataiti i tō pātengi.",
+      "passphrase_lowercase": "Whakauruhia kotahi reta iti.",
+      "passphrase_min_length": "Me noho kia iti rawa te kupuhipa o te pūkahukaha ki te 12 pūāhua.",
+      "passphrase_number": "Whakauruhia kotahi tau anake.",
+      "passphrase_uppercase": "Whakauruhia kotahi reta nui."
     },
     "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
     "recovery_file_created_label": "I Hanga",

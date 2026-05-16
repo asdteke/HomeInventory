@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Agar kafolat boshlanish sanasini bo'sh qolsangiz, kvitansiya sanasi ishlatiladi. Vaqt davomiyligini kiritganingizda, kafolat tugash sanasi avtomatik hisoblanadi.",
             "vault_hint_title": "Juda sezgir yozuv?",
             "vault_hint_description": "Pasportlar, hujjatlar, shaxsiy ma’lumotlar, kirish kodlari va standart inventarizatsiya oqimidan tashqarida saqlanishi kerak bo‘lgan boshqa yozuvlar uchun ularni Personal Vault’da saqlang.",
-            "vault_hint_action": "Personal Vault’ni ochish"
+            "vault_hint_action": "Personal Vault’ni ochish",
+            "location": "Joylashuv",
+            "remove_photo": "Fotoni o‘chirish",
+            "visibility_owner_only": "Faqat narsani qo‘shgan shaxs ko‘rinishini o‘zgartira oladi."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" tez qo‘shildi - keyin tahrir qilishingiz mumkin",
@@ -115,7 +118,8 @@
         "delete_error": "Elementni o'chirishda xato",
         "no_permission": "Bu elementni o'zgartirishga ruxsatingiz yo'q",
         "barcode_search_error": "Shtrix-kod qidiruvi muvaffaqiyatsiz bo'ldi",
-        "stats_error": "Xatolik yuklash statistikasi"
+        "stats_error": "Xatolik yuklash statistikasi",
+        "detail_subtitle": "Narsa tafsilotlari"
     },
     "common": {
         "save": "Saqlash",
@@ -162,7 +166,11 @@
         "unauthorized": "Ruxsatsiz kirish",
         "forbidden": "Sizda bu harakat uchun ruxsat yo'q",
         "validation_error": "Tasdiqlash xatosi",
-        "server_error": "Server xatosi"
+        "server_error": "Server xatosi",
+        "details": "Tafsilotlar",
+        "hide": "Parolni yashirish",
+        "logging_out": "Chiqilmoqda...",
+        "show": "Parolni ko‘rsatish"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Tekshirish",
                 "back": "Orqaga",
                 "use_backup": "Zaxira kodidan foydalaning",
-                "use_totp": "Avtentifikatoridan foydalaning"
+                "use_totp": "Avtentifikatoridan foydalaning",
+                "code_required": "Tekshirish kodi talab qilinadi"
             },
             "welcome_title": "Qaytganingiz bilan",
             "welcome_subtitle": "Inventaringizga kirish uchun tizimga kiring",
@@ -632,7 +641,10 @@
             "info": "💡 Siz bir nechta uy a'zosi bo'lishingiz va ular orasida almashtirishingiz mumkin. Har bir uy alohida inventarizatsiyani saqlaydi.",
             "accordion_description": "Uylar orasida o'ting, yangi uy yarating yoki ishonchli kalit bilan mavjud uyga qo'shiling.",
             "empty_description": "Yangi uy yarating va ulashishni boshlang yoki ishonchli uy kaliti bilan mavjud uyga qo'shiling.",
-            "leave_success_body": "Sizda endi ushbu uyga kirish imkoniyati yo'q va faol uyingiz yangilandi."
+            "leave_success_body": "Sizda endi ushbu uyga kirish imkoniyati yo'q va faol uyingiz yangilandi.",
+            "leave_title": "Ushbu uydan chiqmoqchimisiz?",
+            "leave_warning": "Siz ushbu uy ish joyiga kirish huquqini yo'qotasiz, yana bir a'zo sizni taklif qilmaguncha yoki tasdiqlamaguncha.",
+            "leaving": "Chiqilmoqda..."
         },
         "house_info": {
             "title": "Faol Uy Kaliti",
@@ -674,7 +686,11 @@
             "copy_error": "Uy kaliti nusxalanmadi.",
             "modal_title": "Uy kalitiga kirish",
             "modal_subtitle": "Ushbu kalitni faqat ushbu umumiy inventarizatsiyaga kirishni so'rashi kerak bo'lgan ishonchli uy a'zolari uchun ishlating.",
-            "loading_members": "A'zolar yuklanmoqda..."
+            "loading_members": "A'zolar yuklanmoqda...",
+            "kick_success_body": "{{name}} endi ushbu uyga kirish huquqiga ega emas.",
+            "kick_title": "Ushbu a'zoni olib tashlashni xohlaysizmi?",
+            "kick_warning": "Ularning uyga kirish huquqi darhol tugaydi va qaytish uchun yangi taklifnoma yoki tasdiq kerak bo'ladi.",
+            "kicking": "Olib tashlanmoqda..."
         },
         "theme": {
             "title": "Mavzu",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Oddiy JSON eksportlarini tekshirish osonroq, ammo faylni ochgan har kim sizning uy ma'lumotlaringizni darhol o'qiy oladi.",
             "import_encrypted_title": "Shifrlangan zaxirani qulfdan chiqarish",
             "import_encrypted_body": "Shifrlangan ushbu faylni tiklash uchun yuklab olish paytida ishlatilgan zaxira parolini kiriting.",
-            "unlock_and_import": "Ochiq va import qil"
+            "unlock_and_import": "Ochiq va import qil",
+            "export_encrypted_notice": "Zaxira nusxa jonli uy xo'jaligi ma’lumotlaridan tayyorlanadi va keyin siz tanlagan parol bilan himoyalanadi. Keyinchalik faylni tiklash uchun zarur bo‘lgan shu parolni xavfsiz joyda saqlang.",
+            "export_encrypted_title": "Yuklashdan oldin shifrlash qo'llanadi",
+            "import_summary_body": "{{items}} ta mahsulot, {{categories}} ta kategoriya, {{rooms}} ta xona, {{locations}} ta joy, {{borrows}} ta qarz yozuvi tiklandi.",
+            "import_summary_title": "Zaxira nusxa tiklandi",
+            "preview_categories": "Kategoriyalar",
+            "preview_items": "Mahsulotlar",
+            "preview_locations": "Joylar",
+            "preview_rooms": "Xonalar",
+            "skipped_borrows": "{{count}} mavjud bo‘lgan qarz yozuvlari o'tkazib yuborildi.",
+            "skipped_categories": "{{count}} mavjud bo‘lgan kategoriyalar o'tkazib yuborildi.",
+            "skipped_items": "{{count}} mavjud elementlar o'tkazib yuborildi.",
+            "skipped_locations": "{{count}} mavjud joylar o'tkazib yuborildi.",
+            "skipped_rooms": "{{count}} mavjud xonalar o'tkazib yuborildi."
         },
         "about": {
             "title": "📱 Ilova haqida",
@@ -733,7 +762,10 @@
             "privacy_link": "Maxfiylik siyosati",
             "beta_title": "Beta holati",
             "beta_body": "{{brandName}} hanuz beta bosqichida. Xususiyatlar o'zgarishi mumkin, ish jarayonlari rivojlanishi mumkin va muhim uy ma'lumotlari har doim zaxira qilinishi kerak.",
-            "feedback_subject": "Fikr-mulohaza - {{brandName}}"
+            "feedback_subject": "Fikr-mulohaza - {{brandName}}",
+            "logout_body": "Ochiq formalardagi saqlanmagan o'zgarishlar siz ushbu sessiyadan chiqqaningizdan keyin yo'qolishi mumkin.",
+            "logout_description": "Siz bosh sahifaga qaytasiz va istalgan vaqtda qayta kirishingiz mumkin.",
+            "logout_title": "Hozir chiqmoqchimisiz?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Element berildi",
             "lend_success_body": "{{item}} endi ijaraga olingan deb belgilandi.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Sizda",
+            "return_pending_hint": "Qarz beruvchi narsani qaytarib olganini tasdiqlagandan keyin rekord yopiladi.",
+            "return_pending_lender_title": "{{name}} bu narsani qaytarilgan deb belgiladi",
+            "return_pending_self_title": "Sizda, qabul qilinganini tasdiqlashni kutmoqda"
         },
         "untitled_item": "Nomsiz element",
         "delete_action": "Elementni o'chirish",
@@ -1023,7 +1059,10 @@
         "name_required": "Kategoriya nomi talab qilinadi",
         "load_error": "Xatolik yuklash kategoriyalari",
         "add_error": "Kategoriya qo'shishda xato",
-        "update_error": "Kategoriyani yangilash xatosi"
+        "update_error": "Kategoriyani yangilash xatosi",
+        "color_required": "Rang #RRGGBB formatida bo‘lishi kerak",
+        "empty_description": "Yangi narsalar bir xil tuzilishga amal qilishi va keyinchalik osonroq ko‘rilishi uchun bir necha kategoriya yarating.",
+        "empty_title": "Hali kategoriya yo‘q"
     },
     "rooms": {
         "title": "Xonalar",
@@ -1097,7 +1136,9 @@
         "name_required": "Xona nomi talab qilinadi",
         "load_error": "Xatolik yuklash xonalari",
         "add_error": "Xona qo'shishda xato",
-        "update_error": "Xonani yangilash xatosi"
+        "update_error": "Xonani yangilash xatosi",
+        "empty_description": "Oshxona, ombor yoki garaj kabi xonalar yarating, shunda narsalarning joylashuvi barqaror bo‘ladi va qidirish osonroq bo‘ladi.",
+        "empty_title": "Hali xonalar yo‘q"
     },
     "admin": {
         "title": "Admin Paneli",
@@ -1176,7 +1217,12 @@
             "households_label": "Uy xo‘jaliklari",
             "items_label": "Ega bo‘lgan buyumlar",
             "last_seen_short": "Ko‘rilgan",
-            "last_seen_short_never": "Yangi"
+            "last_seen_short_never": "Yangi",
+            "failed_logins": "{{count}} muvaffaqiyatsiz sign-in",
+            "load_failed_title": "Foydalanuvchilar yuklab bo'lmadi",
+            "pending_requests": "{{count}} kutayotgan uy so'rovlari",
+            "role_admin": "Administratorlar",
+            "role_user": "Foydalanuvchi"
         },
         "logs": {
             "title": "Admin Jurnallari",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Audit izlari",
             "errors_eyebrow": "Diagnostika",
             "section_body": "Har bir moderatsiya yoki operatsion o'zgarish admin qatlami tomonidan qayd etiladi.",
-            "errors_body": "Server log fayllaridan olingan eng so'nggi tahlil qilingan xato satrlari."
+            "errors_body": "Server log fayllaridan olingan eng so'nggi tahlil qilingan xato satrlari.",
+            "load_failed_title": "Faoliyat yuklab bo'lmadi",
+            "no_logs_title": "Hozircha admin harakatlari yo'q"
         },
         "email": {
             "title": "E-mail yuborish",
@@ -1242,7 +1290,14 @@
             "status_body": "Operatsion xabar yuborishdan oldin tezkor ishonch tekshiruvi.",
             "unconfigured_title": "Elektron pochta yetkazilishi sozlanmagan",
             "unconfigured_body": "Yuborish formasi sozlamalarni ko‘rib chiqish uchun ko‘rinishda qoladi, ammo pochta provayderi sozlanmaguncha yetkazib berish muvaffaqiyatsiz bo‘ladi.",
-            "status_eyebrow": "Yetkazib berish"
+            "status_eyebrow": "Yetkazib berish",
+            "configured_body": "Qayta yuborish admin tomonidan boshlangan chiqish xabarlari uchun mavjud.",
+            "configured_title": "Elektron pochta yetkazib berish sozlangan",
+            "error_title": "Elektron pochta jo'natilmadi",
+            "format_hint": "HTML qo'llab-quvvatlanadi. Masalan: <b>qalin</b>, <i>kursiv</i>, <a href=\"...\">havola</a>",
+            "from_label": "Yuboruvchi",
+            "load_failed_title": "Elektron pochta vositalari yuklab bo'lmadi",
+            "success_title": "Elektron pochta yuborildi"
         },
         "overview": {
             "email_warning_title": "Elektron pochta yetkazib berish sozlanmagan",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Statistika yuklandi",
         "logs_loaded": "Jurnallar yuklandi",
         "load_error": "Ma'lumotlarni yuklash xatosi",
-        "action_error": "Xatolik harakatni bajarish"
+        "action_error": "Xatolik harakatni bajarish",
+        "load_failed_body": "Admin yo'nalishi ochiq, lekin umumiy ma'lumot kelmadi. Siz sahifadan chiqmasdan qayta urinib ko'rishingiz mumkin.",
+        "load_failed_title": "Admin umumiy ko'rinish yuklab bo'lmadi"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Tarmoq manzili bu erda yashirin qoladi. Kodni skanerlash yoki havolani nusxalash faqat siz mahalliy sozlamangizda elementga bevosita kirishni ulashmoqchi bo‘lsangiz qilinadi.",
         "helper": "Bu elementni darhol ochish uchun skanerlash, yoki kerak bo‘lganda bevosita havolani nusxalash.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "QR vositalarini tayyorlash..."
     },
     "house_access_pending": {
         "eyebrow": "Uyga Kirish",
@@ -1859,7 +1917,11 @@
             "name_required": "Ombor yozuvi uchun element nomi talab qilinadi.",
             "options_failed": "Kategoriya va xona variantlarini yuklab bo'lmadi.",
             "delete_success_title": "Trezor yozuvi o‘chirildi",
-            "delete_success_body": "Shaxsiy yozuv trezoringizdan doimiy ravishda o‘chirildi."
+            "delete_success_body": "Shaxsiy yozuv trezoringizdan doimiy ravishda o‘chirildi.",
+            "passphrase_lowercase": "Kamida bitta kichik harfni kiriting.",
+            "passphrase_min_length": "Xavfsiz xotira paroli kamida 12 ta belgidan iborat bo'lishi kerak.",
+            "passphrase_number": "Kamida bitta raqam kiriting.",
+            "passphrase_uppercase": "Kamida bitta katta harfni kiriting."
         },
         "recovery_file_title": "{{brandName}} Shaxsiy Shkafni Tiklash Kaliti",
         "recovery_file_created_label": "Yaratildi",

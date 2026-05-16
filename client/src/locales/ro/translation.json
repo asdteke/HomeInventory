@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Dacă lăsați data de început a garanției necompletată, se folosește data facturii. Când introduceți durata, data de finalizare a garanției se calculează automat.",
             "vault_hint_title": "Înregistrare foarte sensibilă?",
             "vault_hint_description": "Pentru pașapoarte, acte, detalii de identitate, coduri de acces și alte înregistrări care ar trebui să rămână în afara fluxului standard de inventar, păstrați-le în Seiful Personal în schimb.",
-            "vault_hint_action": "Deschide Seiful Personal"
+            "vault_hint_action": "Deschide Seiful Personal",
+            "location": "Locație",
+            "remove_photo": "Elimină fotografia",
+            "visibility_owner_only": "Numai persoana care a adăugat articolul poate schimba vizibilitatea."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" adăugat rapid - poți edita mai târziu",
@@ -115,7 +118,8 @@
         "delete_error": "Eroare la ștergerea elementului",
         "no_permission": "No permission",
         "barcode_search_error": "Căutarea codurilor de bare a eșuat",
-        "stats_error": "Stats error"
+        "stats_error": "Stats error",
+        "detail_subtitle": "Detalii articol"
     },
     "common": {
         "save": "Salvează",
@@ -162,7 +166,11 @@
         "unauthorized": "Acces neautorizat",
         "forbidden": "Permission denied",
         "validation_error": "Eroare de validare",
-        "server_error": "Eroare de server"
+        "server_error": "Eroare de server",
+        "details": "Detalii",
+        "hide": "Ascunde parola",
+        "logging_out": "Deconectare în curs...",
+        "show": "Arată parola"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Verifică",
                 "back": "Înapoi",
                 "use_backup": "Folosește codul de rezervă",
-                "use_totp": "Folosește autentificatorul"
+                "use_totp": "Folosește autentificatorul",
+                "code_required": "Codul de verificare este necesar"
             },
             "welcome_title": "Bine ai revenit",
             "welcome_subtitle": "Autentifică-te pentru a accesa inventarul tău",
@@ -632,7 +641,10 @@
             "info": "💡 Poți fi membru al mai multor case și să faci schimb între ele. Fiecare casă păstrează un inventar separat.",
             "accordion_description": "Comutați între gospodării, creați una nouă sau alăturați-vă uneia existente cu o cheie de încredere.",
             "empty_description": "Creați o gospodărie nouă pentru a începe partajarea sau alăturați-vă uneia cu o cheie de casă de încredere.",
-            "leave_success_body": "Nu mai aveți acces la acest gospodărie și casa dvs. activă a fost reîmprospătată."
+            "leave_success_body": "Nu mai aveți acces la acest gospodărie și casa dvs. activă a fost reîmprospătată.",
+            "leave_title": "Să părăsească această casă?",
+            "leave_warning": "Vei pierde accesul la acest spațiu de lucru al gospodăriei până când un alt membru te va invita sau aproba din nou.",
+            "leaving": "Se părăsește..."
         },
         "house_info": {
             "title": "Cheie Activă a Casei",
@@ -674,7 +686,11 @@
             "copy_error": "Nu s-a putut copia cheia casei.",
             "modal_title": "Acces la cheia casei",
             "modal_subtitle": "Folosiți această cheie doar pentru membrii de încredere ai gospodăriei care ar trebui să solicite acces la acest inventar partajat.",
-            "loading_members": "Se încarcă membrii..."
+            "loading_members": "Se încarcă membrii...",
+            "kick_success_body": "{{name}} nu mai are acces la acest gospodărie.",
+            "kick_title": "Să se elimine acest membru?",
+            "kick_warning": "Accesul lor la gospodărie se va încheia imediat și vor avea nevoie de o nouă invitație sau aprobare pentru a reveni.",
+            "kicking": "Se elimină..."
         },
         "theme": {
             "title": "Temă",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Exporturile JSON necriptate sunt mai ușor de inspectat, dar oricine deschide fișierul vă poate citi imediat datele gospodăriei.",
             "import_encrypted_title": "Deblocați backup-ul criptat",
             "import_encrypted_body": "Introduceți fraza de acces a backup-ului utilizată în timpul descărcării pentru a restaura acest fișier criptat.",
-            "unlock_and_import": "Deblocați și importați"
+            "unlock_and_import": "Deblocați și importați",
+            "export_encrypted_notice": "Backupul este pregătit din datele reale ale gospodăriei și apoi protejat cu parola pe care o alegeți. Păstrați acea parolă într-un loc sigur, deoarece este necesară pentru restaurarea fișierului mai târziu.",
+            "export_encrypted_title": "Criptarea va fi aplicată înainte de descărcare",
+            "import_summary_body": "{{items}} articole, {{categories}} categorii, {{rooms}} camere, {{locations}} locații, {{borrows}} înregistrări de împrumut restaurate.",
+            "import_summary_title": "Backup restaurat",
+            "preview_categories": "Categorii",
+            "preview_items": "Articole",
+            "preview_locations": "Locații",
+            "preview_rooms": "Camere",
+            "skipped_borrows": "{{count}} înregistrări de împrumut existente au fost sărite.",
+            "skipped_categories": "{{count}} categorii existente au fost sărite.",
+            "skipped_items": "{{count}} articole existente au fost sărite.",
+            "skipped_locations": "{{count}} locații existente au fost sărite.",
+            "skipped_rooms": "{{count}} camere existente au fost sărite."
         },
         "about": {
             "title": "📱 Despre aplicație",
@@ -733,7 +762,10 @@
             "privacy_link": "Politica de confidențialitate",
             "beta_title": "Stare beta",
             "beta_body": "{{brandName}} este încă în versiune beta. Funcțiile se pot schimba, fluxurile de lucru se pot dezvolta, iar datele importante din gospodărie ar trebui întotdeauna să fie salvate.",
-            "feedback_subject": "Feedback - {{brandName}}"
+            "feedback_subject": "Feedback - {{brandName}}",
+            "logout_body": "Orice modificare nesalvată în formularele deschise poate fi pierdută după ce părăsiți această sesiune.",
+            "logout_description": "Veți reveni la pagina principală și vă puteți conecta din nou în orice moment.",
+            "logout_title": "Vreți să vă deconectați acum?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Articol împrumutat",
             "lend_success_body": "{{item}} este acum marcat ca împrumutat.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Cu tine",
+            "return_pending_hint": "Înregistrarea se va închide după ce creditorul confirmă că a primit articolul înapoi.",
+            "return_pending_lender_title": "{{name}} a marcat acest articol ca fiind livrat înapoi",
+            "return_pending_self_title": "La tine, așteptând confirmarea primirii"
         },
         "untitled_item": "Obiect fără titlu",
         "delete_action": "Șterge obiectul",
@@ -1023,7 +1059,10 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "color_required": "Culoarea trebuie să fie în formatul #RRGGBB",
+        "empty_description": "Creează câteva categorii pentru ca noile articole să urmeze aceeași structură și să fie mai ușor de scanat mai târziu.",
+        "empty_title": "Nicio categorie încă"
     },
     "rooms": {
         "title": "Camere",
@@ -1097,7 +1136,9 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "empty_description": "Creează camere precum bucătărie, depozit sau garaj pentru ca locațiile articolelor să rămână consistente și mai ușor de căutat.",
+        "empty_title": "Nicio cameră încă"
     },
     "admin": {
         "title": "Panoul de administrare",
@@ -1176,7 +1217,12 @@
             "households_label": "Gospodării",
             "items_label": "Obiecte deținute",
             "last_seen_short": "Văzut",
-            "last_seen_short_never": "Nou"
+            "last_seen_short_never": "Nou",
+            "failed_logins": "{{count}} autentificări eșuate",
+            "load_failed_title": "Utilizatorii nu au putut fi încărcați",
+            "pending_requests": "{{count}} cereri de casă în așteptare",
+            "role_admin": "Administrator",
+            "role_user": "Utilizator"
         },
         "logs": {
             "title": "Jurnale Admin",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Urmărire audit",
             "errors_eyebrow": "Diagnostic",
             "section_body": "Fiecare modificare de moderare sau operațională înregistrată de stratul de admin.",
-            "errors_body": "Ultimele linii de eroare analizate din fișierele jurnal de pe server."
+            "errors_body": "Ultimele linii de eroare analizate din fișierele jurnal de pe server.",
+            "load_failed_title": "Activitatea nu a putut fi încărcată",
+            "no_logs_title": "Nu există acțiuni de administrator până acum"
         },
         "email": {
             "title": "Trimite Email",
@@ -1242,7 +1290,14 @@
             "status_body": "Un control rapid al încrederii înainte de a trimite comunicarea operațională.",
             "unconfigured_title": "Livrarea e-mailului nu este configurată",
             "unconfigured_body": "Formularul de trimitere rămâne vizibil pentru revizuirea configurării, dar livrarea va eșua până când furnizorul de e-mail este configurat.",
-            "status_eyebrow": "Livrare"
+            "status_eyebrow": "Livrare",
+            "configured_body": "Retrimiterea este disponibilă pentru mesajele trimise de administrator.",
+            "configured_title": "Livrarea e-mailului este configurată",
+            "error_title": "E-mailul a eșuat",
+            "format_hint": "HTML este acceptat. De exemplu: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
+            "from_label": "Expeditor",
+            "load_failed_title": "Uneltele de e-mail nu au putut fi încărcate",
+            "success_title": "E-mail trimis"
         },
         "overview": {
             "email_warning_title": "Livrarea e-mailurilor nu este configurată",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Stats loaded",
         "logs_loaded": "Bușteni încărcați",
         "load_error": "Error loading",
-        "action_error": "Action error"
+        "action_error": "Action error",
+        "load_failed_body": "Ruta de administrator este deschisă, dar datele de sumară nu au sosit. Puteți încerca din nou fără a părăsi pagina.",
+        "load_failed_title": "Previzualizarea administratorului nu a putut fi încărcată"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Adresa rețelei rămâne ascunsă aici. Scanează codul sau copiază linkul doar când vrei intenționat să partajezi accesul direct la elementul tău în configurația locală.",
         "helper": "Scanează pentru a deschide acest element instantaneu sau copiază linkul direct când este nevoie.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Pregătirea instrumentelor QR..."
     },
     "house_access_pending": {
         "eyebrow": "Acces la casă",
@@ -1859,7 +1917,11 @@
             "name_required": "Este necesar un nume de articol pentru o înregistrare din seif.",
             "options_failed": "Opțiunile de categorie și cameră nu au putut fi încărcate.",
             "delete_success_title": "Înregistrare din seif ștearsă",
-            "delete_success_body": "Înregistrarea privată a fost eliminată permanent din seiful tău."
+            "delete_success_body": "Înregistrarea privată a fost eliminată permanent din seiful tău.",
+            "passphrase_lowercase": "Include cel puțin o literă mică.",
+            "passphrase_min_length": "Parola seifului trebuie să aibă cel puțin 12 caractere.",
+            "passphrase_number": "Include cel puțin un număr.",
+            "passphrase_uppercase": "Include cel puțin o literă mare."
         },
         "recovery_file_title": "Cheia de Recuperare a Seifului Personal {{brandName}}",
         "recovery_file_created_label": "Creat",

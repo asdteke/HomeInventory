@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Má fágann tú dáta tosaigh an bharánta folamh, úsáidtear dáta an bhileogáin. Nuair a iontrálann tú an fhad, ríomhtar dáta deiridh an bharánta go huathoibríoch.",
             "vault_hint_title": "An bhfuil príobháideachas breise uait?",
             "vault_hint_description": "Maidir le pasanna, díritheanna, sonraí aitheantais, códanna rochtana, agus taifid eile a chóir a choinneáil amach ó do mhórliosta roinnte, stóráil iad i Vault Phearsanta ina ionad sin.",
-            "vault_hint_action": "Oscail Vault Phearsanta"
+            "vault_hint_action": "Oscail Vault Phearsanta",
+            "location": "Suíomh",
+            "remove_photo": "Bain grianghraf",
+            "visibility_owner_only": "Níl ach an duine a chuir an mhír leis in ann inathrú infheictheachta a dhéanamh."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" curtha leis go tapa - is féidir leat eagarthóireacht a dhéanamh níos déanaí",
@@ -115,7 +118,8 @@
         "delete_error": "Earráid agus mír á scriosadh",
         "no_permission": "No permission",
         "barcode_search_error": "Theip ar chuardach barrachód",
-        "stats_error": "Stats error"
+        "stats_error": "Stats error",
+        "detail_subtitle": "Sonraí an mhíre"
     },
     "common": {
         "save": "Sábháil",
@@ -162,7 +166,11 @@
         "unauthorized": "Rochtain neamhúdaraithe",
         "forbidden": "Permission denied",
         "validation_error": "Earráid bhailíochtaithe",
-        "server_error": "Earráid freastalaí"
+        "server_error": "Earráid freastalaí",
+        "details": "Sonraí",
+        "hide": "Folaigh pasfhocal",
+        "logging_out": "Ag logáil amach...",
+        "show": "Taispeáin pasfhocal"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Fíoraigh",
                 "back": "Ar ais",
                 "use_backup": "Bain úsáid as cód cúltaca",
-                "use_totp": "Bain úsáid as uathfhíordheimhniú"
+                "use_totp": "Bain úsáid as uathfhíordheimhniú",
+                "code_required": "Teastaíonn cód fíoraithe"
             },
             "welcome_title": "Fáilte ar ais",
             "welcome_subtitle": "Sín isteach le rochtain a fháil ar d'inventaire",
@@ -632,7 +641,10 @@
             "info": "Is féidir leat bheith i do bhall de roinnt tithe agus aistriú eatarthu. Coinníonn gach teach a stocaireacht féin.",
             "accordion_description": "Aistrigh idir tithe, cruthaigh ceann nua, nó bábhlaigh le ceann atá ann cheana le eochair iontaofa.",
             "empty_description": "Cruthaigh teaghlach nua chun tosú ag roinnt, nó bí páirteach in ceann le eochair teaghlaigh iontaofa.",
-            "leave_success_body": "Ní gá duit rochtain ar an teach seo a thuilleadh agus tá do theach gníomhach athnuachan."
+            "leave_success_body": "Ní gá duit rochtain ar an teach seo a thuilleadh agus tá do theach gníomhach athnuachan.",
+            "leave_title": "Fág an teach seo?",
+            "leave_warning": "Caillfidh tú rochtain ar an spás oibre teaghlaigh seo go dtí go gcuireann ball eile cuireadh nó cead duit arís.",
+            "leaving": "Ag fágáil..."
         },
         "house_info": {
             "title": "Eochair an Tí Gníomhach",
@@ -674,7 +686,11 @@
             "copy_error": "Ní raibh sé indéanta eochair an tí a chóipeáil.",
             "modal_title": "Rochtain eochair tí",
             "modal_subtitle": "Úsáid an eochair seo amháin le baill bhaile iontaofa a dteastaíonn rochtain uathu ar an mionlach seo a roinntear.",
-            "loading_members": "Ag luchtú baill..."
+            "loading_members": "Ag luchtú baill...",
+            "kick_success_body": "Níl rochtain ag {{name}} ar an gcéad teaghlach seo a thuilleadh.",
+            "kick_title": "Bain an ball seo?",
+            "kick_warning": "Críochnóidh a rochtain ar an gcéad teaghlach láithreach agus beidh cuireadh nua nó cead ag teastáil uathu chun filleadh.",
+            "kicking": "Ag baint..."
         },
         "theme": {
             "title": "Téama",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Tá easpa JSON simplí níos éasca le scrúdú, ach is féidir le duine ar bith a dhéanann an comhad a oscailt sonraí do theaghlaigh a léamh láithreach.",
             "import_encrypted_title": "Díchlibeáil cúltaca cripteáilte",
             "import_encrypted_body": "Cuir isteach an pasfhocal cúltaca a úsáideadh le linn an íoslódála chun an comhad éncryptáilte seo a athshlánú.",
-            "unlock_and_import": "Díchúplaigh agus allmhairigh"
+            "unlock_and_import": "Díchúplaigh agus allmhairigh",
+            "export_encrypted_notice": "Ullmhaítear an cúltaca ó shonraí baile beo agus ansin fillte le pasfhocail a roghnaíonn tú. Coinnigh an pasfhocal sin áit shábháilte toisc go mbeidh gá leis an gcomhad a athshlánú níos déanaí.",
+            "export_encrypted_title": "Cuirfear criptú i bhfeidhm sula ndéantar íoslódáil",
+            "import_summary_body": "{{items}} earraí, {{categories}} catagóirí, {{rooms}} seomraí, {{locations}} suíomhanna, {{borrows}} taifid iasachta athshlánaithe.",
+            "import_summary_title": "Cúltaca athshlánaithe",
+            "preview_categories": "Catagóirí",
+            "preview_items": "Earraí",
+            "preview_locations": "Suíomhanna",
+            "preview_rooms": "Seomraí",
+            "skipped_borrows": "Rinneadh scipeáil ar {{count}} taifid iasachta atá ann cheana.",
+            "skipped_categories": "Rinneadh scipeáil ar {{count}} catagóirí atá ann cheana.",
+            "skipped_items": "{{count}} míreanna atá ann cheana scipeáilte.",
+            "skipped_locations": "{{count}} suíomhanna atá ann cheana scipeáilte.",
+            "skipped_rooms": "{{count}} seomraí atá ann cheana scipeáilte."
         },
         "about": {
             "title": "Maidir leis an Iarratas",
@@ -733,7 +762,10 @@
             "privacy_link": "Polasaí Príobháideachta",
             "beta_title": "Stádas Beta",
             "beta_body": "Tá {{brandName}} fós i mBeta. Is féidir gnéithe a bheith athraithe, d’fhéadfadh sreafaí oibre forbairt, agus ba chóir sonraí tábhachtacha baile a bheith i gcónaí cúltaca.",
-            "feedback_subject": "Aiseolas - {{brandName}}"
+            "feedback_subject": "Aiseolas - {{brandName}}",
+            "logout_body": "D’fhéadfadh aon athruithe nach bhfuil sábháilte i bhfoirmeacha oscailte a bheith caillte tar éis duit an seisiún seo a fhágáil.",
+            "logout_description": "Beidh tú ag filleadh ar an leathanach baile agus is féidir leat síniú isteach arís ag am ar bith.",
+            "logout_title": "Logáil amach anois?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Mír iasachta",
             "lend_success_body": "Tá {{item}} marcáilte anois mar iasachtaithe.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Leatsa",
+            "return_pending_hint": "Dúnfaidh an taifead tar éis don iasachtóir a dheimhniú gur fhuair siad an mhír ar ais.",
+            "return_pending_lender_title": "Mharcáil {{name}} an mhír seo mar hathsheachadta ar ais",
+            "return_pending_self_title": "Leatsa, ag fanacht le deimhniú ar an admháil"
         },
         "untitled_item": "Earra gan teideal",
         "delete_action": "Scrios earra",
@@ -1023,7 +1059,10 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "color_required": "Caithfidh an dath a bheith i bhformáid #RRGGBB",
+        "empty_description": "Cruthaigh roinnt catagóirí ionas go leanfaidh míreanna nua an struchtúr céanna agus go mbeidh siad níos éasca le scagadh níos déanaí.",
+        "empty_title": "Níl aon chatagóirí fós"
     },
     "rooms": {
         "title": "Seomraí",
@@ -1097,7 +1136,9 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "empty_description": "Cruthaigh seomraí cosúil le cistin, stóras, nó garáiste ionas go bhfanfaidh suíomhanna na míre comhsheasmhach agus níos éasca le cuardach.",
+        "empty_title": "Níl aon seomraí fós"
     },
     "admin": {
         "title": "Painéal Riaracháin",
@@ -1176,7 +1217,12 @@
             "households_label": "Ceantair tí",
             "items_label": "Earraí a bhain le húinéireacht",
             "last_seen_short": "Feicthe",
-            "last_seen_short_never": "Nua"
+            "last_seen_short_never": "Nua",
+            "failed_logins": "{{count}} logáil isteach teipthe",
+            "load_failed_title": "Níorbh fhéidir úsáideoirí a luchtú",
+            "pending_requests": "{{count}} iarratais tí ar feitheamh",
+            "role_admin": "Riarachán",
+            "role_user": "Úsáideoir"
         },
         "logs": {
             "title": "Logálacha Riarthóra",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Traicliosta iniúchta",
             "errors_eyebrow": "Diagnóisí",
             "section_body": "Gach maoirseacht nó athrú oibríochtaí a taifeadadh ag an sraith riaracháin.",
-            "errors_body": "Na línte earráide is déanaí a pharsáiltear ó na comhaid log an freastalaí."
+            "errors_body": "Na línte earráide is déanaí a pharsáiltear ó na comhaid log an freastalaí.",
+            "load_failed_title": "Níorbh fhéidir gníomhachtaí a luchtú",
+            "no_logs_title": "Níl aon ghníomhartha riarthóra go fóill"
         },
         "email": {
             "title": "Seol Ríomhphost",
@@ -1242,7 +1290,14 @@
             "status_body": "Seiceáil muiníne tapa sula seoltar cumarsáid oibriúcháin.",
             "unconfigured_title": "Níl seachadadh ríomhphoist cumraithe",
             "unconfigured_body": "Fanfaidh an fhoirm seolta le feiceáil le haghaidh athbhreithnithe socraithe, ach teipfidh ar an seachadadh go dtí go gcumrítear an soláthraí ríomhphoist.",
-            "status_eyebrow": "Seachadadh"
+            "status_eyebrow": "Seachadadh",
+            "configured_body": "Tá athsheoladh ar fáil do theachtaireachtaí amach-bhunaithe a spreag an riarthóir.",
+            "configured_title": "Tá seachadadh ríomhphoist cumraithe",
+            "error_title": "Theip ar an r-phost",
+            "format_hint": "Tacaítear le HTML. Mar shampla: <b>láidir</b>, <i>cúngaithe</i>, <a href=\"...\">nasc</a>",
+            "from_label": "Seoltóir",
+            "load_failed_title": "Níorbh fhéidir uirlisí ríomhphoist a luchtú",
+            "success_title": "R-phost seolta"
         },
         "overview": {
             "email_warning_title": "Níl seachadadh ríomhphoist cumraithe",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Stats loaded",
         "logs_loaded": "Logaí luchtaithe",
         "load_error": "Error loading",
-        "action_error": "Action error"
+        "action_error": "Action error",
+        "load_failed_body": "Tá bealach an riaracháin oscailte, ach níor shroich an t-ábhar forléargais. Is féidir leat iarracht a dhéanamh arís gan an leathanach a fhágáil.",
+        "load_failed_title": "Níorbh fhéidir forléargas an riaracháin a luchtú"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Fanann seoladh an líonra i bhfolach anseo. Scanáil an cód nó cóipeáil an nasc ach amháin nuair atá tú i gceist rochtain dhíreach ar an mír a roinnt ar do shocraíocht áitiúil.",
         "helper": "Scanáil chun an mír seo a oscailt láithreach, nó cóipeáil an nasc díreach nuair a bheidh gá leis.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Ag ullmhú uirlisí QR..."
     },
     "house_access_pending": {
         "eyebrow": "Rochtain ar an Teach",
@@ -1859,7 +1917,11 @@
             "name_required": "Teastaíonn ainm míre do thaifead aistir.",
             "options_failed": "Níorbh fhéidir le roghanna catagóire agus seomra a luchtú.",
             "delete_success_title": "Taifead aistir scriosta",
-            "delete_success_body": "Baintear an taifead príobháideach go buan as d’aistrigh."
+            "delete_success_body": "Baintear an taifead príobháideach go buan as d’aistrigh.",
+            "passphrase_lowercase": "Cuir ar a laghad litir bheag amháin san áireamh.",
+            "passphrase_min_length": "Ní mór don phasfhocal taisce a bheith ar a laghad 12 gcarachtar.",
+            "passphrase_number": "Cuir ar a laghad uimhir amháin san áireamh.",
+            "passphrase_uppercase": "Cuir ar a laghad litir mhór amháin san áireamh."
         },
         "recovery_file_title": "Eochair Aisghabhála Vault Pearsanta {{brandName}}",
         "recovery_file_created_label": "Cruthaithe",

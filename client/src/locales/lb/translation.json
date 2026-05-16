@@ -66,7 +66,10 @@
       "warranty_calculation_help": "Wann Dir den Ufanksdatum vun der Garantie eidel loosst, gëtt den Fakturdatum benotzt. Wann Dir d'Dauer agitt, gëtt den Enn datum vun der Garantie automatesch berechent.",
       "vault_hint_title": "Ganz sensibel Opzeechnung?",
       "vault_hint_description": "Fir Päss, Akten, Identitéit, Zougangscoden an aner Dokumenter, déi aus der Standardinventarfloss bleiwen sollten, späichert se am Perséinlechen Tresor.",
-      "vault_hint_action": "Perséinlechen Tresor opmaachen"
+      "vault_hint_action": "Perséinlechen Tresor opmaachen",
+      "location": "Plaz",
+      "remove_photo": "Foto ewechhuelen",
+      "visibility_owner_only": "Nëmmen d'Persoun, déi d'Objet dobäigefüügt huet, kann d'Visibilitéit änneren."
     },
     "messages": {
       "quick_add_success": "✓ \"{{barcode}}\" séier derbäigesat - Dir kënnt spéider änneren",
@@ -115,7 +118,8 @@
     "delete_error": "Feeler läscht Element",
     "no_permission": "Dir hutt keng Erlaabnis, dëst Element z'änneren",
     "barcode_search_error": "Barcode-Sich ass net gelongen",
-    "stats_error": "Feeler-Luedstatistiken"
+    "stats_error": "Feeler-Luedstatistiken",
+    "detail_subtitle": "Ojetdetails"
   },
   "common": {
     "save": "Späicheren",
@@ -162,7 +166,11 @@
     "unauthorized": "Onerlaabten Zougang",
     "forbidden": "Dir hutt keng Erlaabnis fir dës Aktioun",
     "validation_error": "Validatiounsfeeler",
-    "server_error": "Serverfeeler"
+    "server_error": "Serverfeeler",
+    "details": "Detailer",
+    "hide": "Passwuert verstoppen",
+    "logging_out": "Ausloggen...",
+    "show": "Passwuert weisen"
   },
   "auth": {
     "login": {
@@ -194,7 +202,8 @@
         "verify": "Gitt no",
         "back": "Zeréck",
         "use_backup": "Benotzt Backup-Code",
-        "use_totp": "Benotzt Authenticator"
+        "use_totp": "Benotzt Authenticator",
+        "code_required": "Verifikatiounscode ass erfuerderlech"
       },
       "welcome_title": "Wëllkomm zeréck",
       "welcome_subtitle": "Mellt Iech un fir Äre Inventaire ze kréien",
@@ -632,7 +641,10 @@
       "info": "💡 Dir kënnt Member vu mehre Haiser sinn an tëscht hinnen wiesselen. All Haus hält en getrennte Bestänn.",
       "accordion_description": "Wiesselt tëscht Haushaltn, erstellt een neit, oder tritt engem bestehende bei mat engem vertraute Schlëssel.",
       "empty_description": "Erstellt een neit Haushalt fir matzedeelen oder tritt engem mat engem vertraute Haussschlëssel bei.",
-      "leave_success_body": "Dir hutt keng Zougang méi zu dësem Haushalt an Äert aktive Haus gouf aktualiséiert."
+      "leave_success_body": "Dir hutt keng Zougang méi zu dësem Haushalt an Äert aktive Haus gouf aktualiséiert.",
+      "leave_title": "Dëst Haus verloossen?",
+      "leave_warning": "Dir verléiert de Zougang zu dësem Hausarbechtsraum bis en aneren Member Iech erëm invitéiert oder genehmegt.",
+      "leaving": "Verloscht..."
     },
     "house_info": {
       "title": "Aktive Hausschlëssel",
@@ -674,7 +686,11 @@
       "copy_error": "De Hauseschlëssel konnt net kopéiert ginn.",
       "modal_title": "Haus Schlësselo Zougang",
       "modal_subtitle": "Benotzt dëse Schlëssel nëmmen fir vertraute Familljememberen, déi Zougang zu dësem gedeelt Inventaire sollt ufroen.",
-      "loading_members": "Lueden Memberen..."
+      "loading_members": "Lueden Memberen...",
+      "kick_success_body": "{{name}} huet kee Zougang méi zu dësem Haus.",
+      "kick_title": "Dësen Member ewechhuelen?",
+      "kick_warning": "Hir Zougang zum Haus endet direkt a si brauchen eng nei Invitatioun oder Genehmegung fir zréckzekommen.",
+      "kicking": "Ewechhuelen..."
     },
     "theme": {
       "title": "Thema",
@@ -720,7 +736,20 @@
       "unencrypted_warning": "Eifach JSON-Exporte sinn méi einfach z'iwwerpréiwen, awer jiddereen deen d'Datei opmaacht, kann direkt Är Haushaltsdaten liesen.",
       "import_encrypted_title": "Verschlësselte Backup entspaare",
       "import_encrypted_body": "Gitt d'Download-Passwuert vun der Backup-Datei an fir dës verschlësselt Datei z'erhuelen.",
-      "unlock_and_import": "Opmaachen a importéieren"
+      "unlock_and_import": "Opmaachen a importéieren",
+      "export_encrypted_notice": "D'Backup gëtt aus liewegen Haushaltsdaten virbereet an dann mat dem Codepassaged verpakkt, deen Dir wielt. Bewaart dës Codepassaged an enger sécherer Plaz, well se noutwendeg ass fir d'Datei spéider erëmherzestellen.",
+      "export_encrypted_title": "Verschlësselung gëtt virum Download ugewannt",
+      "import_summary_body": "{{items}} Objeten, {{categories}} Kategorien, {{rooms}} Zëmmer, {{locations}} Plazen, {{borrows}} Ausleihregistréierunge restauréiert.",
+      "import_summary_title": "Backup erëmgestallt",
+      "preview_categories": "Kategorien",
+      "preview_items": "Objeten",
+      "preview_locations": "Plazen",
+      "preview_rooms": "Zëmmer",
+      "skipped_borrows": "{{count}} existent Ausleihregistréierunge gouf iwwersprongen.",
+      "skipped_categories": "{{count}} existent Kategorien gouf iwwersprongen.",
+      "skipped_items": "{{count}} existant Objekter gesprong.",
+      "skipped_locations": "{{count}} existent Standuerter gesprong.",
+      "skipped_rooms": "{{count}} existent Zëmmeren gesprong."
     },
     "about": {
       "title": "📱 Iwwer d'Applikatioun",
@@ -733,7 +762,10 @@
       "privacy_link": "Datenschutzrichtlinnen",
       "beta_title": "Beta-Status",
       "beta_body": "{{brandName}} ass nach am Beta. Funktiounen kënnen sech änneren, Aarbechtsprozesser kënnen evoluéieren, an wichteg Haushaltsdaten sollten ëmmer geséchert ginn.",
-      "feedback_subject": "Feedback - {{brandName}}"
+      "feedback_subject": "Feedback - {{brandName}}",
+      "logout_body": "All Ongeännert Ännerungen an oppene Formulairen kënne verluer goen nodeems Dir dës Sitzung verléisst.",
+      "logout_description": "Dir gitt op d'Haaptsäit zréck a kënnt Iech all Kéier erëm aschreiwen.",
+      "logout_title": "Elo ausloggen?"
     },
     "modals": {
       "password": {
@@ -960,7 +992,11 @@
       "lend_success_title": "Verlieft Artikel",
       "lend_success_body": "{{item}} ass elo als ausgeléint markéiert.",
       "offer_sent_title": "Borrow offer sent",
-      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+      "borrowed_by_you": "Bei dir",
+      "return_pending_hint": "De Rekord wäert zoumaachen nodeems de Verleener bestätegt, datt se d'Objet zréck kritt hunn.",
+      "return_pending_lender_title": "{{name}} huet dëst Objet als zréckgelieft markéiert",
+      "return_pending_self_title": "Bei dir, waart op Empfangsbestätegung"
     },
     "untitled_item": "Onbenannt Artikel",
     "delete_action": "Artikel läschen",
@@ -1023,7 +1059,10 @@
     "name_required": "Kategorie-Numm ass erfuerderlech",
     "load_error": "Feeler-Lueden Kategorien",
     "add_error": "Feeler-Addiéierungskategorie",
-    "update_error": "Feeler-Aktualiséierungskategorie"
+    "update_error": "Feeler-Aktualiséierungskategorie",
+    "color_required": "D'Faarf muss am Format #RRGGBB sinn",
+    "empty_description": "Erstellt e puer Kategorie sou datt nei Objeten der selwechter Struktur folgen an spéider méi einfach ze iwwerpréiwen sinn.",
+    "empty_title": "Nach keng Kategorie"
   },
   "rooms": {
     "title": "Raim",
@@ -1097,7 +1136,9 @@
     "name_required": "Zëmmernumm ass erfuerderlech",
     "load_error": "Feeler-Luedraim",
     "add_error": "Feeler Plaz derbäisetzen",
-    "update_error": "Feeler-Aktualiséierungsraum"
+    "update_error": "Feeler-Aktualiséierungsraum",
+    "empty_description": "Erstellt Raim wéi Kichen, Lager oder Garage sou datt d'Plazen vun Objeten konsequent bleiwen a méi einfach ze sichen sinn.",
+    "empty_title": "Nach keng Raim"
   },
   "admin": {
     "title": "Administratiounspanel",
@@ -1176,7 +1217,12 @@
       "households_label": "Haushaltestaken",
       "items_label": "Besëtzt Saache",
       "last_seen_short": "Gekuckt",
-      "last_seen_short_never": "Neit"
+      "last_seen_short_never": "Neit",
+      "failed_logins": "{{count}} gescheitert Umeldungen",
+      "load_failed_title": "Benotzer konnt net gelueden ginn",
+      "pending_requests": "{{count}} aussteehend Wunnungsufroen",
+      "role_admin": "Administrateur",
+      "role_user": "Benotzer"
     },
     "logs": {
       "title": "Admin Logbicher",
@@ -1208,7 +1254,9 @@
       "section_eyebrow": "Audit Spuer",
       "errors_eyebrow": "Diagnostik",
       "section_body": "All Mëttelung oder operativ Ännerung, déi vun der Adminschicht opgeholl gouf.",
-      "errors_body": "Déi lescht analyséiert Feelerzeilen aus den Server-Logdateien."
+      "errors_body": "Déi lescht analyséiert Feelerzeilen aus den Server-Logdateien.",
+      "load_failed_title": "Aktivitéit konnt net gelueden ginn",
+      "no_logs_title": "Nach keng administrativ Aktiounen"
     },
     "email": {
       "title": "E-Mail schécken",
@@ -1242,7 +1290,14 @@
       "status_body": "A quick confidence check before sending operational communication.",
       "unconfigured_title": "E-Mail Liwwerung ass net konfiguréiert",
       "unconfigured_body": "De Sendformular bleift sichtbar fir d'Iwwerpréiwung vun der Setup, mee d'Liwwerung wäert fehllen bis de Mailprovider konfiguréiert ass.",
-      "status_eyebrow": "Liwwerung"
+      "status_eyebrow": "Liwwerung",
+      "configured_body": "Nei schécken ass verfügbar fir administrativ ausgeléist erausgoend Noriichten.",
+      "configured_title": "E-Mail Liwwerung ass konfiguréiert",
+      "error_title": "E-Mail ass gescheitert",
+      "format_hint": "HTML gëtt ënnerstëtzt. Zum Beispill: <b>fett</b>, <i>kursiv</i>, <a href=\"...\">Link</a>",
+      "from_label": "Sender",
+      "load_failed_title": "E-Mail-Wierkzeeger konnt net gelueden ginn",
+      "success_title": "E-Mail geschéckt"
     },
     "overview": {
       "email_warning_title": "E-Mail Liwwerung ass net konfiguréiert",
@@ -1327,7 +1382,9 @@
     "stats_loaded": "Statistiken gelueden",
     "logs_loaded": "Logs gelueden",
     "load_error": "Feelerlueden Donnéeën",
-    "action_error": "Feeler-Ausféierungsaktioun"
+    "action_error": "Feeler-Ausféierungsaktioun",
+    "load_failed_body": "D'Administrateurstreck ass oppen, mee d'Iwwersiichtsdaten sinn net ukomm. Dir kënnt nei probéieren ouni d'Säit ze verloossen.",
+    "load_failed_title": "Administrateur Iwwersiicht konnt net gelueden ginn"
   },
   "landing": {
     "nav": {
@@ -1672,7 +1729,8 @@
     "link_privacy_note": "D'Netzwierkadress bleift hei verstoppt. Scannt de Code oder kopéiert de Link nëmmen wann Dir bewosst direkten Zougang zu Itemen op Ärem lokale Setup deele wëllt.",
     "helper": "Scan to open this item instantly, or copy the direct link when needed.",
     "copy_error_title": "Link could not be copied automatically",
-    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+    "loading": "QR-Wierkzege virbereeden..."
   },
   "house_access_pending": {
     "eyebrow": "Zougang zum Haus",
@@ -1859,7 +1917,11 @@
       "name_required": "Eng Artikel-Iddi gëtt fir e Schaf-Record verlaangt.",
       "options_failed": "Kategorie- a Raumoptiounen konnt net geluede ginn.",
       "delete_success_title": "Tresor-Eintrag geläscht",
-      "delete_success_body": "De private Eintrag gouf dauerhaft aus Ärem Tresor ewechgeholl."
+      "delete_success_body": "De private Eintrag gouf dauerhaft aus Ärem Tresor ewechgeholl.",
+      "passphrase_lowercase": "Enthält op d'mannst eng kleng Buschtaw.",
+      "passphrase_min_length": "Vault-Passwuert muss op d'mannst 12 Zeechen laang sinn.",
+      "passphrase_number": "Enthält op d'mannst eng Zuel.",
+      "passphrase_uppercase": "Enthält op d'mannst eng grouss Buschtaw."
     },
     "recovery_file_title": "{{brandName}} Perséinleche Tresor Erhuelungsschlëssel",
     "recovery_file_created_label": "Ugeleeë",

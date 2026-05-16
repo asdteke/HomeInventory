@@ -3,7 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
-import { Search, Grid3X3, List, Plus, Trash2, Edit3, Lock, Globe, MapPin, Package, Clock3, ArrowRightLeft } from 'lucide-react';
+import { Search, Grid3X3, List, Plus, Trash2, Eye, Lock, Globe, MapPin, Package, Clock3, ArrowRightLeft } from 'lucide-react';
 import SecureImage from './SecureImage';
 import { BorrowItemDialog, ReturnItemDialog } from './BorrowDialogs';
 import { ConfirmDialog } from './ModalDialog';
@@ -456,7 +456,7 @@ export default function ItemList() {
 
                             return (
                                 <div key={item.id} className={`
-                card p-0 overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--hi-shadow)]
+                card flex h-full flex-col p-0 overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--hi-shadow)]
                 ${viewMode === 'list' ? 'lg:flex lg:items-center' : ''}
               `}>
                                     {/* Image */}
@@ -501,8 +501,8 @@ export default function ItemList() {
                                     </div>
 
                                     {/* Content */}
-                                    <div className={`p-4 ${viewMode === 'list' ? 'lg:flex-1 lg:flex lg:items-center lg:justify-between lg:gap-4' : ''}`}>
-                                        <div className={viewMode === 'list' ? 'lg:flex-1' : ''}>
+                                    <div className={`flex flex-1 flex-col p-4 ${viewMode === 'list' ? 'lg:flex-1 lg:flex-row lg:items-center lg:justify-between lg:gap-4' : ''}`}>
+                                        <div className={`${viewMode === 'list' ? 'lg:flex-1' : 'flex-1'}`}>
                                             <div className="mb-2 flex items-start justify-between gap-3">
                                                 <h3 className="min-w-0 flex-1 font-semibold leading-tight text-[var(--hi-text)] [overflow-wrap:anywhere]">
                                                     {itemTitle}
@@ -552,36 +552,40 @@ export default function ItemList() {
                                         </div>
 
                                         {/* Actions */}
-                                        <div className={`flex gap-2 flex-wrap ${viewMode === 'list' ? 'lg:flex-shrink-0 lg:flex-nowrap' : ''}`}>
-                                            {activeBorrow && activeBorrow.can_mark_returned !== false ? (
+                                        <div className={`mt-auto grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_2.75rem] items-center gap-2 ${viewMode === 'list' ? 'lg:mt-0 lg:w-[28rem] lg:flex-shrink-0' : ''}`}>
+                                            <div className="min-w-0">
+                                                {activeBorrow && activeBorrow.can_mark_returned !== false ? (
                                                 <button
                                                     type="button"
                                                     onClick={() => setReturnDialogItem({ ...item, name: itemTitle })}
-                                                    className="flex-1 lg:flex-none rounded-xl border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] px-4 py-2 text-sm font-medium text-[var(--hi-accent)] transition hover:bg-[var(--hi-panel-strong)]"
+                                                    className="inline-flex h-11 w-full items-center justify-center rounded-xl border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] px-3 text-sm font-medium text-[var(--hi-accent)] transition hover:bg-[var(--hi-panel-strong)]"
                                                 >
                                                     {activeBorrow.role === 'borrower'
                                                         ? t('borrow_requests.actions.mark_delivered')
                                                         : t('borrow_requests.actions.mark_received')}
                                                 </button>
-                                            ) : !activeBorrow && canLendItem ? (
+                                                ) : !activeBorrow && canLendItem ? (
                                                 <button
                                                     type="button"
                                                     onClick={() => setLendDialogItem({ ...item, name: itemTitle })}
-                                                    className={secondaryActionButtonClass}
+                                                    className={`${secondaryActionButtonClass} h-11 w-full justify-center px-3`}
                                                 >
                                                     <ArrowRightLeft className="w-4 h-4 text-[var(--hi-accent)]" />
                                                     <span>{t('inventory.borrow.lend')}</span>
                                                 </button>
-                                            ) : null}
-                                            <Link to={`/items/${item.id}/edit`} className={secondaryActionButtonClass}>
-                                                <Edit3 className="w-4 h-4 text-[var(--hi-text-muted)]" /> <span className={viewMode === 'list' ? 'lg:hidden xl:inline' : ''}>{t('common.edit')}</span>
+                                                ) : (
+                                                    <span aria-hidden="true" className="block h-11" />
+                                                )}
+                                            </div>
+                                            <Link to={`/items/${item.id}/edit`} className={`${secondaryActionButtonClass} h-11 w-full justify-center px-3`}>
+                                                <Eye className="w-4 h-4 text-[var(--hi-text-muted)]" /> <span className={viewMode === 'list' ? 'lg:hidden xl:inline' : ''}>{t('common.details', { defaultValue: 'Details' })}</span>
                                             </Link>
                                             <IconActionButton
                                                 label={t('inventory.delete_action', { defaultValue: 'Delete item' })}
                                                 icon={Trash2}
                                                 tone="danger"
                                                 onClick={() => setPendingDeleteItem(item)}
-                                                className="shrink-0 border border-transparent"
+                                                className="h-11 w-11 shrink-0 border border-transparent"
                                             />
                                         </div>
                                     </div>

@@ -5,6 +5,7 @@ import { translate } from 'bing-translate-api';
 const LOCALES_DIR = path.join(process.cwd(), 'client', 'public', 'locales');
 const BASE_LANG = 'en';
 const BATCH_SEPARATOR = '<<<__HI_KEY_SEP__>>>';
+const MAX_BATCH_LENGTH = 900;
 const RETRYABLE_ERROR_PATTERN = /Too Many Requests|429/i;
 
 const TRANSLATION_LANGS = {
@@ -43,7 +44,38 @@ async function translateTexts(texts, targetLang) {
     }
 
     const mappedTargetLang = TRANSLATION_LANGS[targetLang] || targetLang;
-    const payload = texts.join(` ${BATCH_SEPARATOR} `);
+    const batches = [];
+    let currentBatch = [];
+    let currentLength = 0;
+
+    for (const text of texts) {
+        const nextLength = currentLength + text.length + (currentBatch.length > 0 ? BATCH_SEPARATOR.length + 2 : 0);
+        if (currentBatch.length > 0 && nextLength > MAX_BATCH_LENGTH) {
+            batches.push(currentBatch);
+            currentBatch = [];
+            currentLength = 0;
+        }
+        currentBatch.push(text);
+        currentLength += text.length + (currentBatch.length > 1 ? BATCH_SEPARATOR.length + 2 : 0);
+    }
+
+    if (currentBatch.length > 0) {
+        batches.push(currentBatch);
+    }
+
+    const translatedTexts = [];
+
+    for (const batch of batches) {
+        const payload = batch.join(` ${BATCH_SEPARATOR} `);
+        const translatedBatch = await translatePayload(payload, mappedTargetLang);
+        translatedTexts.push(...translatedBatch);
+        await delay(250);
+    }
+
+    return translatedTexts;
+}
+
+async function translatePayload(payload, mappedTargetLang) {
     let lastError;
 
     for (let attempt = 0; attempt < 4; attempt += 1) {

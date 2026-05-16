@@ -1,6 +1,6 @@
 {
   "name": "home-inventory",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Private, self-hostable household inventory for shared homes",
   "main": "server.js",
   "type": "module",
@@ -9,12 +9,14 @@
     "server": "node server.js",
     "client": "npm run dev --prefix client",
     "build": "npm run build --prefix client",
+    "build:envanterim": "node scripts/build-envanterim.mjs",
     "start": "NODE_ENV=production node server.js",
     "install-all": "npm install && cd client && npm install",
     "security:backfill-encryption": "node scripts/run-with-runtime-secrets.mjs scripts/backfill-field-encryption.mjs",
     "test:encryption": "node --test tests/encryption.test.mjs",
     "test:runtime-secrets": "node --test tests/runtimeSecrets.test.mjs",
     "indexnow:submit": "node scripts/run-with-runtime-secrets.mjs scripts/indexnow-submit.mjs",
+    "i18n:check": "node scripts/check-i18n-completeness.mjs",
     "translate": "node scripts/api-translate.mjs",
     "translate:dry": "node scripts/api-translate.mjs --dry-run"
   },

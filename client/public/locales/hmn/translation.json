@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Yog tias koj cia hnub pib warranty nyob khoob, hnub invoice yuav raug siv. Thaum koj sau lub sijhawm warranty, hnub warranty tas yuav raug xam tau cia li.",
             "vault_hint_title": "Very sensitive record?",
             "vault_hint_description": "For passports, deeds, identity details, access codes, and other records that should stay out of the standard inventory flow, keep them in Personal Vault instead.",
-            "vault_hint_action": "Qhib Lub Tsev Khaws Nyiaj Tus Kheej"
+            "vault_hint_action": "Qhib Lub Tsev Khaws Nyiaj Tus Kheej",
+            "location": "Cov Chaw Nyob",
+            "remove_photo": "Remove photo",
+            "visibility_owner_only": "Only the person who added the item can change visibility."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" ceev ntxiv - koj tuaj yeem hloov kho tom qab",
@@ -115,7 +118,8 @@
         "delete_error": "ลบ khoom tsis raug",
         "no_permission": "Koj tsis muaj cai hloov qhov no",
         "barcode_search_error": "Nrhiav barcode tsis raug",
-        "stats_error": "Muab tshuaj ntsuam tsis raug"
+        "stats_error": "Muab tshuaj ntsuam tsis raug",
+        "detail_subtitle": "Item details"
     },
     "common": {
         "save": "khaws tseg",
@@ -162,7 +166,11 @@
         "unauthorized": "Tsis muaj cai nkag",
         "forbidden": "Koj tsis muaj cai ua qhov no",
         "validation_error": "Kev ntsuam xyuas tsis raug",
-        "server_error": "Server tsis raug"
+        "server_error": "Server tsis raug",
+        "details": "Cov Ntsiab Lus",
+        "hide": "Hide password",
+        "logging_out": "Logging out...",
+        "show": "Show password"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Xyuas kom tseeb",
                 "back": "Rov Qab",
                 "use_backup": "Siv tus lej thaub qab",
-                "use_totp": "Siv tus neeg lees paub"
+                "use_totp": "Siv tus neeg lees paub",
+                "code_required": "Verification code is required"
             },
             "welcome_title": "Rov Tos Txais Dua",
             "welcome_subtitle": "Nkag mus rau hauv kom nkag mus rau koj cov khoom muag",
@@ -632,7 +641,10 @@
             "info": "💡 You can be a member of multiple houses and switch between them. Each house maintains a separate inventory.",
             "accordion_description": "Hloov ntawm cov tsev neeg, tsim ib lub tsev tshiab, lossis koom nrog ib lub tsev uas twb muaj lawm nrog tus yuam sij ntseeg siab.",
             "empty_description": "Tsim ib tsev neeg tshiab kom pib sib koom, lossis koom nrog ib lub nrog tus yuam sij tsev uas ntseeg siab tau.",
-            "leave_success_body": "Koj tsis muaj cai nkag mus rau hauv tsev neeg no lawm thiab koj lub tsev uas siv tau raug hloov kho dua tshiab."
+            "leave_success_body": "Koj tsis muaj cai nkag mus rau hauv tsev neeg no lawm thiab koj lub tsev uas siv tau raug hloov kho dua tshiab.",
+            "leave_title": "Leave this house?",
+            "leave_warning": "You will lose access to this household workspace until another member invites or approves you again.",
+            "leaving": "Leaving..."
         },
         "house_info": {
             "title": "Tus yuam sij tsev uas siv tau",
@@ -674,7 +686,11 @@
             "copy_error": "Tus yuam sij tsev tsis tuaj yeem theej tau.",
             "modal_title": "Kev nkag mus rau hauv tsev yuam sij",
             "modal_subtitle": "Siv tus yuam sij no tsuas yog rau cov tswv cuab hauv tsev neeg uas ntseeg siab thiab yuav tsum thov nkag mus rau cov khoom muag sib koom no.",
-            "loading_members": "Tab tom thauj cov tswv cuab..."
+            "loading_members": "Tab tom thauj cov tswv cuab...",
+            "kick_success_body": "{{name}} no longer has access to this household.",
+            "kick_title": "Remove this member?",
+            "kick_warning": "Their household access will end immediately and they will need a new invitation or approval to return.",
+            "kicking": "Removing..."
         },
         "theme": {
             "title": "Chủ đề",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Xuất một tệp JSON thuần dễ kiểm tra hơn, nhưng bất kỳ ai mở tệp cũng có thể đọc dữ liệu hộ gia đình của bạn ngay lập tức.",
             "import_encrypted_title": "Mở khóa bản sao lưu được mã hóa",
             "import_encrypted_body": "Nhập cụm mật khẩu dự phòng đã sử dụng trong quá trình tải xuống để khôi phục tệp được mã hóa này.",
-            "unlock_and_import": "Mở khóa và nhập"
+            "unlock_and_import": "Mở khóa và nhập",
+            "export_encrypted_notice": "The backup is prepared from live household data and then wrapped with the passphrase you choose. Keep that passphrase somewhere safe because it is required to restore the file later.",
+            "export_encrypted_title": "Encryption will be applied before download",
+            "import_summary_body": "{{items}} items, {{categories}} categories, {{rooms}} rooms, {{locations}} locations, {{borrows}} borrow records restored.",
+            "import_summary_title": "Backup restored",
+            "preview_categories": "Danh Mục",
+            "preview_items": "Cov Khoom Muag",
+            "preview_locations": "Cov Chaw Nyob",
+            "preview_rooms": "Phòng",
+            "skipped_borrows": "{{count}} existing borrow records skipped.",
+            "skipped_categories": "{{count}} existing categories skipped.",
+            "skipped_items": "{{count}} existing items skipped.",
+            "skipped_locations": "{{count}} existing locations skipped.",
+            "skipped_rooms": "{{count}} existing rooms skipped."
         },
         "about": {
             "title": "📱 About Application",
@@ -733,7 +762,10 @@
             "privacy_link": "Chính Sách Quyền Riêng Tư",
             "beta_title": "Trạng thái beta",
             "beta_body": "{{brandName}} vẫn đang trong giai đoạn beta. Các tính năng có thể thay đổi, quy trình làm việc có thể phát triển, và dữ liệu quan trọng trong gia đình nên luôn được sao lưu.",
-            "feedback_subject": "Lus teb - {{brandName}}"
+            "feedback_subject": "Lus teb - {{brandName}}",
+            "logout_body": "Any unsaved changes in open forms may be lost after you leave this session.",
+            "logout_description": "You will return to the home page and can sign back in anytime.",
+            "logout_title": "Log out now?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Mục đã cho mượn",
             "lend_success_body": "{{item}} hiện đã được đánh dấu là đã cho mượn.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "With you",
+            "return_pending_hint": "The record will close after the lender confirms they received the item back.",
+            "return_pending_lender_title": "{{name}} marked this item as delivered back",
+            "return_pending_self_title": "With you, waiting for receipt confirmation"
         },
         "untitled_item": "Mục không có tiêu đề",
         "delete_action": "Xóa mục",
@@ -1023,7 +1059,10 @@
         "name_required": "Yuav tsum muaj npe pab pawg",
         "load_error": "Muab pab pawg nkag tsis raug",
         "add_error": "Ntxiv pab pawg tsis raug",
-        "update_error": "Hloov pab pawg tsis raug"
+        "update_error": "Hloov pab pawg tsis raug",
+        "color_required": "Xim yuav tsum yog hom #RRGGBB",
+        "empty_description": "Create a few categories so new items follow the same structure and are easier to scan later.",
+        "empty_title": "No categories yet"
     },
     "rooms": {
         "title": "Phòng",
@@ -1097,7 +1136,9 @@
         "name_required": "Yuav tsum muaj npe chav",
         "load_error": "Muab chav nkag tsis raug",
         "add_error": "Ntxiv chav tsis raug",
-        "update_error": "Hloov chav tsis raug"
+        "update_error": "Hloov chav tsis raug",
+        "empty_description": "Create rooms like kitchen, storage, or garage so item locations stay consistent and easier to search.",
+        "empty_title": "No rooms yet"
     },
     "admin": {
         "title": "Bảng điều khiển quản trị",
@@ -1176,7 +1217,12 @@
             "households_label": "Hộ gia đình",
             "items_label": "Vật phẩm sở hữu",
             "last_seen_short": "Đã xem",
-            "last_seen_short_never": "Mới"
+            "last_seen_short_never": "Mới",
+            "failed_logins": "{{count}} failed sign-ins",
+            "load_failed_title": "Users could not load",
+            "pending_requests": "{{count}} pending house requests",
+            "role_admin": "Quản trị viên",
+            "role_user": "User"
         },
         "logs": {
             "title": "Nhật ký quản trị",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Keeb kwm tshuaj xyuas",
             "errors_eyebrow": "Kev kuaj teeb meem",
             "section_body": "Txhua qhov kev hloov saib xyuas lossis kev ua haujlwm raug sau cia hauv txheej tswj hwm.",
-            "errors_body": "Cov kab yuam kev tshiab tshaj uas tau nyeem los ntawm cov ntaub ntawv log ntawm server."
+            "errors_body": "Cov kab yuam kev tshiab tshaj uas tau nyeem los ntawm cov ntaub ntawv log ntawm server.",
+            "load_failed_title": "Activity could not load",
+            "no_logs_title": "No admin actions yet"
         },
         "email": {
             "title": "Gửi Email",
@@ -1242,7 +1290,14 @@
             "status_body": "Một kiểm tra nhanh sự tự tin trước khi gửi thông tin vận hành.",
             "unconfigured_title": "Việc gửi email chưa được cấu hình",
             "unconfigured_body": "Mẫu gửi vẫn hiển thị để xem lại thiết lập, nhưng việc gửi sẽ thất bại cho đến khi nhà cung cấp thư được cấu hình.",
-            "status_eyebrow": "Kev xa khoom"
+            "status_eyebrow": "Kev xa khoom",
+            "configured_body": "Resend is available for admin-triggered outbound messages.",
+            "configured_title": "Email delivery is configured",
+            "error_title": "Email failed",
+            "format_hint": "HTML is supported. For example: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
+            "from_label": "Sender",
+            "load_failed_title": "Email tools could not load",
+            "success_title": "Email sent"
         },
         "overview": {
             "email_warning_title": "Giao email chưa được cấu hình",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Muab tshuaj ntsuam nkag tiav lawm",
         "logs_loaded": "Muab logs nkag tiav lawm",
         "load_error": "Muab ntaub ntawv nkag tsis raug",
-        "action_error": "Ua tsis tiav"
+        "action_error": "Ua tsis tiav",
+        "load_failed_body": "The admin route is open, but the overview data did not arrive. You can retry without leaving the page.",
+        "load_failed_title": "Admin overview could not load"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Địa chỉ mạng được giữ ẩn tại đây. Quét mã hoặc sao chép liên kết chỉ khi bạn thực sự muốn chia sẻ quyền truy cập trực tiếp vào mục trên thiết lập cục bộ của mình.",
         "helper": "Quét để mở mục này ngay lập tức, hoặc sao chép liên kết trực tiếp khi cần.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Preparing QR tools..."
     },
     "house_access_pending": {
         "eyebrow": "Truy Cập Nhà",
@@ -1859,7 +1917,11 @@
             "name_required": "Yuav tsum muaj npe khoom rau ib daim ntaub ntawv vault.",
             "options_failed": "Tsis tau thauj cov kev xaiv pawg thiab chav.",
             "delete_success_title": "Cov ntaub ntawv Vault raug tshem tawm",
-            "delete_success_body": "Cov ntaub ntawv ntiag tug raug tshem tawm mus tas li ntawm koj lub chaw khaws ntaub ntawv."
+            "delete_success_body": "Cov ntaub ntawv ntiag tug raug tshem tawm mus tas li ntawm koj lub chaw khaws ntaub ntawv.",
+            "passphrase_lowercase": "Include at least one lowercase letter.",
+            "passphrase_min_length": "Vault passphrase must be at least 12 characters.",
+            "passphrase_number": "Include at least one number.",
+            "passphrase_uppercase": "Include at least one uppercase letter."
         },
         "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
         "recovery_file_created_label": "Tsim thaum",

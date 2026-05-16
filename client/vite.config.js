@@ -32,6 +32,15 @@ function deriveBrandName(siteHost) {
     return normalized.charAt(0).toUpperCase() + normalized.slice(1);
 }
 
+function deriveBrandKey({ brandName, siteHost }) {
+    const normalizedBrandName = String(brandName || '').trim().toLocaleLowerCase('tr-TR');
+    const normalizedHost = String(siteHost || '').trim().replace(/^www\./, '');
+
+    return normalizedBrandName === 'envanterim' || normalizedHost === 'envanterim.net.tr'
+        ? 'envanterim'
+        : 'homeinventory';
+}
+
 function createMinimalDevLogger() {
     const logger = createLogger();
     const originalInfo = logger.info.bind(logger);
@@ -352,9 +361,14 @@ export default defineConfig(({ command, mode }) => {
         env.SUPPORT_EMAIL ||
         (derivedHost && !/(^|\.)localhost$/.test(derivedHost) ? `support@${derivedHost}` : 'support@example.com')
     ).trim();
+    const brandKey = deriveBrandKey({ brandName, siteHost: derivedHost });
     const metaDescription = `${brandName} - Evinizin tum esyalarini akillica yonetin`;
-    const faviconLightPath = `/brand/logo-symbol-light.png?v=${LOGO_VERSION}`;
-    const faviconDarkPath = `/brand/logo-symbol-dark.png?v=${LOGO_VERSION}`;
+    const faviconLightPath = brandKey === 'envanterim'
+        ? `/brand/envanterim-logo-symbol.svg?v=${LOGO_VERSION}`
+        : `/brand/logo-symbol-light.svg?v=${LOGO_VERSION}`;
+    const faviconDarkPath = brandKey === 'envanterim'
+        ? `/brand/envanterim-logo-symbol-dark.svg?v=${LOGO_VERSION}`
+        : `/brand/logo-symbol-dark.svg?v=${LOGO_VERSION}`;
     const faviconPath = faviconLightPath;
     const appleTouchIconLightPath = `/pwa/apple-touch-icon-light.png?v=${LOGO_VERSION}`;
     const appleTouchIconDarkPath = `/pwa/apple-touch-icon-dark.png?v=${LOGO_VERSION}`;
@@ -364,12 +378,19 @@ export default defineConfig(({ command, mode }) => {
     const pwaIcon512DarkPath = `/pwa/icon-dark-512.png?v=${LOGO_VERSION}`;
     const manifestLightPath = `/manifest-light.webmanifest?v=${LOGO_VERSION}`;
     const manifestDarkPath = `/manifest-dark.webmanifest?v=${LOGO_VERSION}`;
-    const brandAssetUrls = [
-        `/brand/logo-full-dark.png?v=${LOGO_VERSION}`,
-        `/brand/logo-full-light.png?v=${LOGO_VERSION}`,
-        `/brand/logo-symbol-dark.png?v=${LOGO_VERSION}`,
-        `/brand/logo-symbol-light.png?v=${LOGO_VERSION}`
-    ];
+    const brandAssetUrls = brandKey === 'envanterim'
+        ? [
+            `/brand/envanterim-logo-full-dark.svg?v=${LOGO_VERSION}`,
+            `/brand/envanterim-logo-full.svg?v=${LOGO_VERSION}`,
+            `/brand/envanterim-logo-symbol-dark.svg?v=${LOGO_VERSION}`,
+            `/brand/envanterim-logo-symbol.svg?v=${LOGO_VERSION}`
+        ]
+        : [
+            `/brand/logo-full-dark.svg?v=${LOGO_VERSION}`,
+            `/brand/logo-full-light.svg?v=${LOGO_VERSION}`,
+            `/brand/logo-symbol-dark.svg?v=${LOGO_VERSION}`,
+            `/brand/logo-symbol-light.svg?v=${LOGO_VERSION}`
+        ];
 
     return {
         clearScreen: false,

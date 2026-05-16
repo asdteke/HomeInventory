@@ -44,7 +44,11 @@
         "unauthorized": "Yetkisiz erişim",
         "forbidden": "Bu işlem için yetkiniz yok",
         "validation_error": "Doğrulama hatası",
-        "server_error": "Sunucu hatası"
+        "server_error": "Sunucu hatası",
+        "details": "Detay",
+        "hide": "Şifreyi gizle",
+        "logging_out": "Çıkış yapılıyor...",
+        "show": "Şifreyi göster"
     },
     "meta": {
         "page_title_sign_in": "Giriş yap",
@@ -97,7 +101,8 @@
                 "verify": "Doğrula",
                 "back": "Geri",
                 "use_backup": "Yedek kod kullan",
-                "use_totp": "Doğrulama uygulaması kullan"
+                "use_totp": "Doğrulama uygulaması kullan",
+                "code_required": "Doğrulama kodu gerekli"
             }
         },
         "register": {
@@ -535,7 +540,10 @@
             "visibility_private": "Sadece siz görebilirsiniz",
             "submit_add": "Eşyayı Ekle",
             "submit_save": "Değişiklikleri Kaydet",
-            "submitting": "Kaydediliyor..."
+            "submitting": "Kaydediliyor...",
+            "location": "Konum",
+            "remove_photo": "Fotoğrafı kaldır",
+            "visibility_owner_only": "Görünürlüğü yalnızca eşyayı ekleyen kişi değiştirebilir."
         },
         "qrcode": {
             "title": "QR Kod",
@@ -588,7 +596,8 @@
         "delete_error": "Eşya silinirken hata oluştu",
         "no_permission": "Bu eşya üzerinde işlem yapma yetkiniz yok",
         "barcode_search_error": "Barkod araması başarısız",
-        "stats_error": "İstatistikler yüklenemedi"
+        "stats_error": "İstatistikler yüklenemedi",
+        "detail_subtitle": "Eşya detayları"
     },
     "vault": {
         "title": "Kişisel Kasa",
@@ -673,7 +682,11 @@
             "delete_success_body": "Özel kayıt kasanızdan kalıcı olarak kaldırıldı.",
             "decrypt_failed": "Kasa içeriği çözülemedi.",
             "name_required": "Kasa kaydı için eşya adı gerekli.",
-            "options_failed": "Kategori ve oda seçenekleri yüklenemedi."
+            "options_failed": "Kategori ve oda seçenekleri yüklenemedi.",
+            "passphrase_lowercase": "En az bir küçük harf ekleyin.",
+            "passphrase_min_length": "Kasa parolası en az 12 karakter olmalıdır.",
+            "passphrase_number": "En az bir rakam ekleyin.",
+            "passphrase_uppercase": "En az bir büyük harf ekleyin."
         }
     },
     "settings": {
@@ -820,7 +833,10 @@
             "switch": "Aktif Yap",
             "leave": "Evden Ayrıl",
             "info": "Birden fazla eve üye olabilir ve aralarında geçiş yapabilirsiniz. Her ev kendi envanterini ayrı tutar.",
-            "leave_success_body": "Bu eve erişiminiz kaldırıldı. Gerekirse aktif eviniz otomatik olarak güncellendi."
+            "leave_success_body": "Bu eve erişiminiz kaldırıldı. Gerekirse aktif eviniz otomatik olarak güncellendi.",
+            "leave_title": "Bu evden ayrılınsın mı?",
+            "leave_warning": "Başka bir üye sizi tekrar davet edene veya onaylayana kadar bu ev çalışma alanına erişiminizi kaybedersiniz.",
+            "leaving": "Ayrılınıyor..."
         },
         "house_info": {
             "title": "Aktif Ev Anahtarı",
@@ -862,7 +878,11 @@
             "reject": "Reddet",
             "kick": "Evden Çıkar",
             "invite_title": "Aile Üyelerini Davet Et",
-            "invite_desc": "Ev anahtarınızı paylaşarak aile üyelerinizin aynı envantere erişmesini sağlayın. Her üye kendi hesabıyla giriş yapar, ancak aynı verilere erişir."
+            "invite_desc": "Ev anahtarınızı paylaşarak aile üyelerinizin aynı envantere erişmesini sağlayın. Her üye kendi hesabıyla giriş yapar, ancak aynı verilere erişir.",
+            "kick_success_body": "{{name}} artık bu eve erişemiyor.",
+            "kick_title": "Bu üye kaldırılsın mı?",
+            "kick_warning": "Ev erişimi hemen sona erecek ve geri dönmek için yeni bir davet veya onay gerekecek.",
+            "kicking": "Kaldırılıyor..."
         },
         "pending_requests": {
             "title": "Bekleyen Katılım İsteklerim",
@@ -921,7 +941,20 @@
             "unlock_and_import": "Kilidi aç ve içe aktar",
             "upload_backup": "Yedeği Yükle",
             "uploading": "Yükleniyor...",
-            "import_json": "JSON'dan içe aktar"
+            "import_json": "JSON'dan içe aktar",
+            "export_encrypted_notice": "Yedek, canlı ev verilerinden hazırlanır ve seçtiğiniz parola ile şifrelenir. Dosyayı daha sonra geri yüklemek için bu parola gerektiğinden güvenli bir yerde saklayın.",
+            "export_encrypted_title": "İndirmeden önce şifreleme uygulanacak",
+            "import_summary_body": "{{items}} eşya, {{categories}} kategori, {{rooms}} oda, {{locations}} konum, {{borrows}} ödünç kaydı geri yüklendi.",
+            "import_summary_title": "Yedek geri yüklendi",
+            "preview_categories": "Kategoriler",
+            "preview_items": "Eşyalar",
+            "preview_locations": "Konumlar",
+            "preview_rooms": "Odalar",
+            "skipped_borrows": "{{count}} mevcut ödünç kaydı atlandı.",
+            "skipped_categories": "{{count}} mevcut kategori atlandı.",
+            "skipped_items": "{{count}} mevcut eşya atlandı.",
+            "skipped_locations": "{{count}} mevcut konum atlandı.",
+            "skipped_rooms": "{{count}} mevcut oda atlandı."
         },
         "danger_zone": {
             "title": "Hesap",
@@ -947,7 +980,10 @@
             "legal_description": "Kabul ettikten sonra da kullanım koşulları ve gizlilik metinlerini buradan tekrar açabilirsiniz.",
             "terms_link": "Kullanım Koşulları",
             "privacy_link": "Gizlilik Politikası",
-            "feedback_subject": "Geri Bildirim - {{brandName}}"
+            "feedback_subject": "Geri Bildirim - {{brandName}}",
+            "logout_body": "Bu oturumdan ayrıldıktan sonra açık formlardaki kaydedilmemiş değişiklikler kaybolabilir.",
+            "logout_description": "Ana sayfaya döneceksiniz ve istediğiniz zaman tekrar giriş yapabilirsiniz.",
+            "logout_title": "Şimdi çıkış yapılsın mı?"
         },
         "modals": {
             "password": {
@@ -1081,7 +1117,11 @@
             "history_active": "{{name}} için açık kayıt",
             "history_returned": "{{name}} kaydı kapatıldı",
             "returned_at": "Teslim alındı: {{date}}",
-            "no_history": "Bu eşya için henüz ödünç geçmişi yok."
+            "no_history": "Bu eşya için henüz ödünç geçmişi yok.",
+            "borrowed_by_you": "Sende",
+            "return_pending_hint": "Kayıt, eşyayı veren kişi geri teslim aldığını onaylayınca kapanacak.",
+            "return_pending_lender_title": "{{name}} bu eşyayı geri teslim ettiğini bildirdi",
+            "return_pending_self_title": "Sende, teslim alma onayı bekleniyor"
         }
     },
     "borrow_requests": {
@@ -1234,9 +1274,12 @@
         "deleted": "Kategori silindi",
         "not_found": "Kategori bulunamadı",
         "name_required": "Kategori adı gerekli",
+        "color_required": "Renk #RRGGBB formatında olmalı",
         "load_error": "Kategoriler yüklenirken hata oluştu",
         "add_error": "Kategori eklenirken hata oluştu",
-        "update_error": "Kategori güncellenirken hata oluştu"
+        "update_error": "Kategori güncellenirken hata oluştu",
+        "empty_description": "Yeni eşyalar aynı yapıyı izlesin ve daha kolay taransın diye birkaç kategori oluşturun.",
+        "empty_title": "Henüz kategori yok"
     },
     "rooms": {
         "title": "Odalar",
@@ -1310,7 +1353,9 @@
         "name_required": "Oda adı gerekli",
         "load_error": "Odalar yüklenirken hata oluştu",
         "add_error": "Oda eklenirken hata oluştu",
-        "update_error": "Oda güncellenirken hata oluştu"
+        "update_error": "Oda güncellenirken hata oluştu",
+        "empty_description": "Eşya konumları tutarlı ve daha kolay aranabilir olsun diye mutfak, depo veya garaj gibi odalar oluşturun.",
+        "empty_title": "Henüz oda yok"
     },
     "admin": {
         "title": "Yönetim Paneli",
@@ -1397,7 +1442,12 @@
             "households_label": "Hanehalkları",
             "items_label": "Sahip olunan eşyalar",
             "last_seen_short": "Görüldü",
-            "last_seen_short_never": "Yeni"
+            "last_seen_short_never": "Yeni",
+            "failed_logins": "{{count}} başarısız giriş",
+            "load_failed_title": "Kullanıcılar yüklenemedi",
+            "pending_requests": "{{count}} bekleyen ev isteği",
+            "role_admin": "Yönetici",
+            "role_user": "Kullanıcı"
         },
         "logs": {
             "title": "Yönetici Kayıtları",
@@ -1429,7 +1479,9 @@
             "section_body": "Her moderasyon veya operasyon değişikliği yönetici katmanına kaydedilir.",
             "errors_body": "Sunucu günlük dosyalarından ayrıştırılan en son hata satırları.",
             "section_eyebrow": "Denetim izi",
-            "errors_eyebrow": "Tanılama"
+            "errors_eyebrow": "Tanılama",
+            "load_failed_title": "Etkinlikler yüklenemedi",
+            "no_logs_title": "Henüz yönetici işlemi yok"
         },
         "email": {
             "status_title": "Giden e-posta durumu",
@@ -1463,7 +1515,14 @@
             "info_bullet_1": "E-postalar {{supportEmail}} adresinden gönderilir",
             "info_bullet_2": "Spam önlemek için dakikada en fazla 3 e-posta gönderilebilir",
             "info_bullet_3": "İçerik hariç tüm gönderimler güvenlik için loglanır",
-            "status_eyebrow": "Teslimat"
+            "status_eyebrow": "Teslimat",
+            "configured_body": "Resend, yönetici tarafından tetiklenen dışa giden mesajlar için kullanılabilir.",
+            "configured_title": "E-posta gönderimi yapılandırıldı",
+            "error_title": "E-posta gönderilemedi",
+            "format_hint": "HTML desteklenir. Örneğin: <b>kalın</b>, <i>italik</i>, <a href=\"...\">bağlantı</a>",
+            "from_label": "Gönderen",
+            "load_failed_title": "E-posta araçları yüklenemedi",
+            "success_title": "E-posta gönderildi"
         },
         "overview": {
             "email_warning_title": "E-posta teslimi yapılandırılmadı",
@@ -1540,7 +1599,9 @@
         "stats_loaded": "İstatistikler yüklendi",
         "logs_loaded": "Loglar yüklendi",
         "load_error": "Veriler yüklenirken hata oluştu",
-        "action_error": "İşlem sırasında hata oluştu"
+        "action_error": "İşlem sırasında hata oluştu",
+        "load_failed_body": "Yönetici alanı açık, ancak genel bakış verileri gelmedi. Sayfadan çıkmadan yeniden deneyebilirsiniz.",
+        "load_failed_title": "Yönetici özeti yüklenemedi"
     },
     "legal": {
         "privacy_policy_title": "Gizlilik Politikası",
@@ -1996,7 +2057,8 @@
         "link_privacy_note": "Ağ adresi burada görünmez. Yerel kurulumunuzda doğrudan eşya erişimini bilinçli olarak paylaşmak istediğinizde QR kodu okutun veya bağlantıyı kopyalayın.",
         "helper": "Okutunca anında açılır; gerekirse doğrudan bağlantıyı kopyalayın.",
         "usage_title": "Kullanım",
-        "usage_desc": "QR kodu yazdırıp eşyanın üzerine yapıştırın. Telefonunuzla okutarak anında bu sayfaya ulaşın!"
+        "usage_desc": "QR kodu yazdırıp eşyanın üzerine yapıştırın. Telefonunuzla okutarak anında bu sayfaya ulaşın!",
+        "loading": "QR araçları hazırlanıyor..."
     },
     "emails": {
         "verification": {

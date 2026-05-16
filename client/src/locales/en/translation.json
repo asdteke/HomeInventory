@@ -44,7 +44,11 @@
         "unauthorized": "Unauthorized access",
         "forbidden": "You don't have permission for this action",
         "validation_error": "Validation error",
-        "server_error": "Server error"
+        "server_error": "Server error",
+        "details": "Details",
+        "hide": "Hide password",
+        "logging_out": "Logging out...",
+        "show": "Show password"
     },
     "auth": {
         "password_requirements": "Use at least {{min}} characters with uppercase, lowercase, number, and symbol.",
@@ -86,7 +90,8 @@
                 "verify": "Verify",
                 "back": "Back",
                 "use_backup": "Use backup code",
-                "use_totp": "Use authenticator"
+                "use_totp": "Use authenticator",
+                "code_required": "Verification code is required"
             }
         },
         "register": {
@@ -524,7 +529,10 @@
             "visibility_private": "Only visible to you",
             "submit_add": "Add Item",
             "submit_save": "Save Changes",
-            "submitting": "Saving..."
+            "submitting": "Saving...",
+            "location": "Location",
+            "remove_photo": "Remove photo",
+            "visibility_owner_only": "Only the person who added the item can change visibility."
         },
         "qrcode": {
             "title": "QR Code",
@@ -577,7 +585,8 @@
         "delete_error": "Error deleting item",
         "no_permission": "You don't have permission to modify this item",
         "barcode_search_error": "Barcode search failed",
-        "stats_error": "Error loading statistics"
+        "stats_error": "Error loading statistics",
+        "detail_subtitle": "Item details"
     },
     "vault": {
         "title": "Personal Vault",
@@ -662,7 +671,11 @@
             "delete_success_body": "The private record was permanently removed from your vault.",
             "decrypt_failed": "The vault content could not be decrypted.",
             "name_required": "An item name is required for a vault record.",
-            "options_failed": "Category and room options could not be loaded."
+            "options_failed": "Category and room options could not be loaded.",
+            "passphrase_lowercase": "Include at least one lowercase letter.",
+            "passphrase_min_length": "Vault passphrase must be at least 12 characters.",
+            "passphrase_number": "Include at least one number.",
+            "passphrase_uppercase": "Include at least one uppercase letter."
         }
     },
     "settings": {
@@ -809,7 +822,10 @@
             "switch": "Make Active",
             "leave": "Leave House",
             "info": "You can be a member of multiple houses and switch between them. Each household keeps its own inventory.",
-            "leave_success_body": "You no longer have access to this household and your active house was refreshed."
+            "leave_success_body": "You no longer have access to this household and your active house was refreshed.",
+            "leave_title": "Leave this house?",
+            "leave_warning": "You will lose access to this household workspace until another member invites or approves you again.",
+            "leaving": "Leaving..."
         },
         "house_info": {
             "title": "Active House Key",
@@ -851,7 +867,11 @@
             "reject": "Reject",
             "kick": "Remove",
             "invite_title": "Invite Family Members",
-            "invite_desc": "Share your house key to let family members access the same inventory. Each member logs in with their own account but accesses the same data."
+            "invite_desc": "Share your house key to let family members access the same inventory. Each member logs in with their own account but accesses the same data.",
+            "kick_success_body": "{{name}} no longer has access to this household.",
+            "kick_title": "Remove this member?",
+            "kick_warning": "Their household access will end immediately and they will need a new invitation or approval to return.",
+            "kicking": "Removing..."
         },
         "pending_requests": {
             "title": "My Pending Join Requests",
@@ -910,7 +930,20 @@
             "unlock_and_import": "Unlock and import",
             "upload_backup": "Upload Backup",
             "uploading": "Uploading...",
-            "import_json": "Import from JSON"
+            "import_json": "Import from JSON",
+            "export_encrypted_notice": "The backup is prepared from live household data and then wrapped with the passphrase you choose. Keep that passphrase somewhere safe because it is required to restore the file later.",
+            "export_encrypted_title": "Encryption will be applied before download",
+            "import_summary_body": "{{items}} items, {{categories}} categories, {{rooms}} rooms, {{locations}} locations, {{borrows}} borrow records restored.",
+            "import_summary_title": "Backup restored",
+            "preview_categories": "Categories",
+            "preview_items": "Items",
+            "preview_locations": "Locations",
+            "preview_rooms": "Rooms",
+            "skipped_borrows": "{{count}} existing borrow records skipped.",
+            "skipped_categories": "{{count}} existing categories skipped.",
+            "skipped_items": "{{count}} existing items skipped.",
+            "skipped_locations": "{{count}} existing locations skipped.",
+            "skipped_rooms": "{{count}} existing rooms skipped."
         },
         "danger_zone": {
             "title": "Account",
@@ -936,7 +969,10 @@
             "legal_title": "Legal Documents",
             "legal_description": "You can reopen the terms and privacy texts from here even after accepting them.",
             "terms_link": "Terms of Service",
-            "privacy_link": "Privacy Policy"
+            "privacy_link": "Privacy Policy",
+            "logout_body": "Any unsaved changes in open forms may be lost after you leave this session.",
+            "logout_description": "You will return to the home page and can sign back in anytime.",
+            "logout_title": "Log out now?"
         },
         "modals": {
             "password": {
@@ -1070,7 +1106,11 @@
             "history_active": "Open record for {{name}}",
             "history_returned": "Closed record for {{name}}",
             "returned_at": "Returned on: {{date}}",
-            "no_history": "There is no borrow history for this item yet."
+            "no_history": "There is no borrow history for this item yet.",
+            "borrowed_by_you": "With you",
+            "return_pending_hint": "The record will close after the lender confirms they received the item back.",
+            "return_pending_lender_title": "{{name}} marked this item as delivered back",
+            "return_pending_self_title": "With you, waiting for receipt confirmation"
         }
     },
     "borrow_requests": {
@@ -1225,7 +1265,9 @@
         "name_required": "Category name is required",
         "load_error": "Error loading categories",
         "add_error": "Error adding category",
-        "update_error": "Error updating category"
+        "update_error": "Error updating category",
+        "empty_description": "Create a few categories so new items follow the same structure and are easier to scan later.",
+        "empty_title": "No categories yet"
     },
     "rooms": {
         "title": "Rooms",
@@ -1299,7 +1341,9 @@
         "name_required": "Room name is required",
         "load_error": "Error loading rooms",
         "add_error": "Error adding room",
-        "update_error": "Error updating room"
+        "update_error": "Error updating room",
+        "empty_description": "Create rooms like kitchen, storage, or garage so item locations stay consistent and easier to search.",
+        "empty_title": "No rooms yet"
     },
     "admin": {
         "title": "Admin Panel",
@@ -1445,7 +1489,12 @@
                 "active": "Active",
                 "banned": "Banned",
                 "admin": "Admins"
-            }
+            },
+            "failed_logins": "{{count}} failed sign-ins",
+            "load_failed_title": "Users could not load",
+            "pending_requests": "{{count}} pending house requests",
+            "role_admin": "Admin",
+            "role_user": "User"
         },
         "logs": {
             "section_eyebrow": "Audit trail",
@@ -1477,7 +1526,9 @@
                 "user_target": "User: {{username}}",
                 "email_sent": "Recipient: {{recipient}} | Subject: {{subject}}",
                 "indexnow_submitted": "IndexNow submission successful. URL count: {{count}}"
-            }
+            },
+            "load_failed_title": "Activity could not load",
+            "no_logs_title": "No admin actions yet"
         },
         "email": {
             "status_eyebrow": "Delivery",
@@ -1511,7 +1562,14 @@
             "info_title": "Information",
             "info_bullet_1": "Emails are sent from {{supportEmail}}",
             "info_bullet_2": "You can send at most 3 emails per minute to prevent spam",
-            "info_bullet_3": "All sends are logged for security, excluding content"
+            "info_bullet_3": "All sends are logged for security, excluding content",
+            "configured_body": "Resend is available for admin-triggered outbound messages.",
+            "configured_title": "Email delivery is configured",
+            "error_title": "Email failed",
+            "format_hint": "HTML is supported. For example: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
+            "from_label": "Sender",
+            "load_failed_title": "Email tools could not load",
+            "success_title": "Email sent"
         },
         "ban_user": "Ban",
         "unban_user": "Unban",
@@ -1529,7 +1587,9 @@
         "stats_loaded": "Statistics loaded",
         "logs_loaded": "Logs loaded",
         "load_error": "Error loading data",
-        "action_error": "Error performing action"
+        "action_error": "Error performing action",
+        "load_failed_body": "The admin route is open, but the overview data did not arrive. You can retry without leaving the page.",
+        "load_failed_title": "Admin overview could not load"
     },
     "legal": {
         "privacy_policy_title": "Privacy Policy",
@@ -1985,7 +2045,8 @@
         "usage_title": "Usage",
         "usage_desc": "Print the QR code and stick it on the item. Scan with your phone to access this page instantly!",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Preparing QR tools..."
     },
     "emails": {
         "verification": {

@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Sì lasciate a data di iniziamentu di a garanzia vacante, a data di a fattura hè aduprata. Quandu inserite a durata, a data di fine di a garanzia hè calculata automaticamente.",
             "vault_hint_title": "Hai bisognu di più privacy?",
             "vault_hint_description": "Per passaporti, atti, dettagli di identità, codici d'accessu, è altri registri chì duverebbe stà fora di u vostru inventariu spartutu, trasferiteli in Vault Personale invece.",
-            "vault_hint_action": "Aprite Vault Personale"
+            "vault_hint_action": "Aprite Vault Personale",
+            "location": "Locazione",
+            "remove_photo": "Rimove foto",
+            "visibility_owner_only": "Solu a persona chì hà aghjuntu l'articulu pò cambià a visibilità."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" aghjuntu rapidamente - pudete edità dopu",
@@ -115,7 +118,8 @@
         "all_categories": "Tutte e Categorie",
         "all_rooms": "Tutte e Camere",
         "confirm_delete": "Site sicuru chì vulete sguassà questu articulu?",
-        "items_deleted": "{{count}} articuli sguassati"
+        "items_deleted": "{{count}} articuli sguassati",
+        "detail_subtitle": "Dettagli di l'articulu"
     },
     "common": {
         "save": "Salvà",
@@ -162,7 +166,11 @@
         "created_at": "Creatu U",
         "updated_at": "Aghjurnatu U",
         "none": "Nisunu",
-        "total": "Totale"
+        "total": "Totale",
+        "details": "Dettagli",
+        "hide": "Scunghje password",
+        "logging_out": "Scuncessione in corso...",
+        "show": "Mustra password"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Verificate",
                 "back": "Indietro",
                 "use_backup": "Aduprate u codice di backup",
-                "use_totp": "Aduprate l'autenticatore"
+                "use_totp": "Aduprate l'autenticatore",
+                "code_required": "U codice di verificazione hè richiesto"
             },
             "welcome_title": "Bentornatu",
             "welcome_subtitle": "Accede per fà vede u vostru inventariu",
@@ -632,7 +641,10 @@
             "info": "You can be a member of multiple houses and switch between them. Each household keeps its own inventory.",
             "accordion_description": "Cambia trà e famiglie, crea una nova, o unisci à una esistente cù una chjave fidata.",
             "empty_description": "Create una nova casa per cumincià à sparte, o unisce à una cù una chjave di casa fidata.",
-            "leave_success_body": "Ùn avete più accessu à sta famiglia è a vostra casa attiva hè stata aghjurnata."
+            "leave_success_body": "Ùn avete più accessu à sta famiglia è a vostra casa attiva hè stata aghjurnata.",
+            "leave_title": "Lascialu sta casa?",
+            "leave_warning": "Perderete l'accessu à stu spaziu di travagliu di a casa finu à chì un altru membru vi invita o vi appruva di novu.",
+            "leaving": "Quitandu..."
         },
         "house_info": {
             "title": "Chjave di Casa Attiva",
@@ -674,7 +686,11 @@
             "copy_error": "The house key could not be copied.",
             "modal_title": "Accessu chjave di casa",
             "modal_subtitle": "Aduprate sta chjave solu per i membri di a casa affidabili chì devenu dumandà l'accessu à stu inventariu spartutu.",
-            "loading_members": "Caricamentu di i membri..."
+            "loading_members": "Caricamentu di i membri...",
+            "kick_success_body": "{{name}} ùn hà più accessu à sta casa.",
+            "kick_title": "Remove stu membru?",
+            "kick_warning": "U so accessu à a casa finirà subitu è averà bisognu di una nova invitu o appruvazioni per vultà.",
+            "kicking": "Rimuovendu..."
         },
         "theme": {
             "title": "Tema",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "L'esportazioni JSON simplici sò più faciule da inspeccionà, ma quellu chì apre u fugliale pò leghje subitu i vostri dati domestichi.",
             "import_encrypted_title": "Sblocca u backup crittografatu",
             "import_encrypted_body": "Inserite a frasa di passu di riserva utilizata durante u scaricamentu per risturà stu fugliale criptatu.",
-            "unlock_and_import": "Sblocca è importa"
+            "unlock_and_import": "Sblocca è importa",
+            "export_encrypted_notice": "U backup hè preparatu da dati di casa vivi è poi imburratu cù a frase di passu chì sceglite. Tenite quella frase di passu in un locu sicuru perchè hè necessariu per risturà u fugliale più tardi.",
+            "export_encrypted_title": "A criptaghju serà applicatu prima di scaricamentu",
+            "import_summary_body": "{{items}} articuli, {{categories}} categurie, {{rooms}} camere, {{locations}} lochi, {{borrows}} registri di prestiti risturati.",
+            "import_summary_title": "Backup risturatu",
+            "preview_categories": "Categurie",
+            "preview_items": "Articuli",
+            "preview_locations": "Loci",
+            "preview_rooms": "Camere",
+            "skipped_borrows": "{{count}} registri di prestiti esistenti saltati.",
+            "skipped_categories": "{{count}} categurie esistenti saltate.",
+            "skipped_items": "{{count}} oggetti esistenti saltati.",
+            "skipped_locations": "{{count}} lochi esistenti saltati.",
+            "skipped_rooms": "{{count}} stanze esistenti saltate."
         },
         "about": {
             "title": "À propositu di l'Applicazione",
@@ -733,7 +762,10 @@
             "privacy_link": "Pulitica di privacy",
             "beta_title": "Statu Beta",
             "beta_body": "{{brandName}} hè sempre in beta. E funzioni ponu cambià, i flussi di travagliu ponu evoluzione, è i dati impurtanti di a casa devenu sempre esse salvati.",
-            "feedback_subject": "Feedback - {{brandName}}"
+            "feedback_subject": "Feedback - {{brandName}}",
+            "logout_body": "Qualsiasi cambiamenti ùn salvati in i formi aperti ponu esse persu dopu chì lasciate sta sessione.",
+            "logout_description": "Riturnerete à a pagina principale è pudete accede torna in ogni mumentu.",
+            "logout_title": "Esce avà?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Articulu prestatu",
             "lend_success_body": "{{item}} hè avà marcatu cum'è pigliatu in prestitu.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Cù tè",
+            "return_pending_hint": "U registru si chjuderà dopu chì u prestatore confermi chì hà ricivutu l'articulu torna.",
+            "return_pending_lender_title": "{{name}} hà marcatu questu articulu cum'è consegnatu torna",
+            "return_pending_self_title": "Cù tè, aspettendu a cunferma di ricevuta"
         },
         "untitled_item": "Articulu senza titulu",
         "delete_action": "Sguassate l'articulu",
@@ -1023,7 +1059,10 @@
         "color": "Colore",
         "item_count": "Conte di Articuli",
         "no_categories": "Nisuna categoria aghjunta sempre",
-        "confirm_delete": "Site sicuru chì vulete sguassà sta categoria?"
+        "confirm_delete": "Site sicuru chì vulete sguassà sta categoria?",
+        "color_required": "U culore deve esse in furmatu #RRGGBB",
+        "empty_description": "Crea qualchì categurie cusì novi articuli seguitanu a stessa struttura è sò più facili da scansà dopu.",
+        "empty_title": "Ancune categurie ancu"
     },
     "rooms": {
         "title": "Camere",
@@ -1097,7 +1136,9 @@
         "icon": "Icona",
         "item_count": "Conte di Articuli",
         "no_rooms": "Nisuna stanza aghjunta sempre",
-        "confirm_delete": "Site sicuru chì vulete sguassà sta stanza?"
+        "confirm_delete": "Site sicuru chì vulete sguassà sta stanza?",
+        "empty_description": "Crea stanze cum'è cucina, magazinu, o garage cusì e lochi di l'articuli restanu cunsistenti è più facili da circà.",
+        "empty_title": "Ancune stanze ancu"
     },
     "admin": {
         "title": "Pannellu d'Amministrazione",
@@ -1176,7 +1217,12 @@
             "households_label": "Famiglie",
             "items_label": "Oggetti prupitati",
             "last_seen_short": "Visti",
-            "last_seen_short_never": "Novu"
+            "last_seen_short_never": "Novu",
+            "failed_logins": "{{count}} login falliti",
+            "load_failed_title": "L'utilizatori ùn ponu micca carricà",
+            "pending_requests": "{{count}} richieste di casa in attesa",
+            "role_admin": "Amministratore",
+            "role_user": "Utilizatore"
         },
         "logs": {
             "title": "Log di l'amministratore",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Traccia di audit",
             "errors_eyebrow": "Diagnostiche",
             "section_body": "Ogni middizione o cambiamentu operativu registratu da u stratu amministratore.",
-            "errors_body": "L&#39;ultime linee d&#39;errore parse da i fugliali di registru di u servitore."
+            "errors_body": "L&#39;ultime linee d&#39;errore parse da i fugliali di registru di u servitore.",
+            "load_failed_title": "L'attività ùn pò micca carricà",
+            "no_logs_title": "Nisuna azzione di amministratore finu à avà"
         },
         "email": {
             "title": "Mandà Email",
@@ -1242,7 +1290,14 @@
             "status_body": "Una cunfirma rapida di a fiducia prima di mandà a cumunicazione operativa",
             "unconfigured_title": "A consegna di e-mail ùn hè micca cunfigurata",
             "unconfigured_body": "U furmulariu di inviu resta visibile per a revisione di a configurazione, ma a consegna fallerà finu à chì u fornitore di mail sia cunfiguratu.",
-            "status_eyebrow": "Consegna"
+            "status_eyebrow": "Consegna",
+            "configured_body": "A rimanda hè dispunibule per i messaghji in uscita attivati da l'amministratore.",
+            "configured_title": "A consegna di email hè cunfigurata",
+            "error_title": "Email fallita",
+            "format_hint": "HTML hè supportatu. Per esempiu: <b>grassetto</b>, <i>corsivu</i>, <a href=\"...\">ligame</a>",
+            "from_label": "Mittente",
+            "load_failed_title": "L'uttelli di email ùn ponu micca carricà",
+            "success_title": "Email mandata"
         },
         "overview": {
             "email_warning_title": "A cunsegna di e-mail ùn hè micca cunfigurata",
@@ -1327,7 +1382,9 @@
         "total_users": "Utilizatori Totali",
         "total_items": "Articuli Totali",
         "server_uptime": "Uptime di u Servitore",
-        "memory_usage": "Usu di Memoria"
+        "memory_usage": "Usu di Memoria",
+        "load_failed_body": "A strada di l'amministratore hè aperta, ma i dati di panoramica ùn sò micca ghjunghji. Pudete pruvà di novu senza lascià a pagina.",
+        "load_failed_title": "A panoramica di l'amministratore ùn pò micca carricà"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "L'indirizzu di a reta resta quì scunnisciutu. Scannate u codice o copiate u ligame solu quandu vulete sparte intenzionalmente l'accessu direttu à l'articulu in a vostra cunfigurazione lucale.",
         "helper": "Scannate per apre subitu questu articulu, o copiate u ligame direttu quandu necessariu.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Preparendu strumenti QR..."
     },
     "house_access_pending": {
         "eyebrow": "Accessu à a Casa",
@@ -1859,7 +1917,11 @@
             "name_required": "Un nome di l'elementu hè necessariu per un registru di l'archiviu.",
             "options_failed": "E opzioni di categuria è stanza ùn puderanu esse carricati.",
             "delete_success_title": "Archiviu sguassatu",
-            "delete_success_body": "L'archiviu privatu hè statu sguassatu permanentemente da u vostru archiviu."
+            "delete_success_body": "L'archiviu privatu hè statu sguassatu permanentemente da u vostru archiviu.",
+            "passphrase_lowercase": "Includi almenu una lettera minuscula.",
+            "passphrase_min_length": "A frase segreta deve avè almenu 12 caratteri.",
+            "passphrase_number": "Includi almenu un numeru.",
+            "passphrase_uppercase": "Includi almenu una lettera maiuscula."
         },
         "recovery_file_title": "{{brandName}} Chjave di Recuperu di u Vault Personale",
         "recovery_file_created_label": "Creatu",

@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Se deixa baleira a data de inicio da garantía, usarase a data da factura. Cando introduce a duración, a data de fin da garantía calcúlase automaticamente.",
             "vault_hint_title": "Necesitas máis privacidade?",
             "vault_hint_description": "Para pasaportes, escrituras, detalles de identidade, códigos de acceso e outros rexistros que deberían permanecer fóra do teu inventario compartido, gárdaos no Cofre Persoal en vez diso.",
-            "vault_hint_action": "Abrir Cofre Persoal"
+            "vault_hint_action": "Abrir Cofre Persoal",
+            "location": "Localización",
+            "remove_photo": "Eliminar foto",
+            "visibility_owner_only": "Só a persoa que engadiu o elemento pode cambiar a visibilidade."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" engadido rapidamente - podes editar máis tarde",
@@ -115,7 +118,8 @@
         "delete_error": "Erro ao eliminar un elemento",
         "no_permission": "Non tes permiso para modificar este artigo",
         "barcode_search_error": "Fallo na busca de códigos de barras",
-        "stats_error": "Estatísticas de carga de erros"
+        "stats_error": "Estatísticas de carga de erros",
+        "detail_subtitle": "Detalles do elemento"
     },
     "common": {
         "save": "Gardar",
@@ -162,7 +166,11 @@
         "unauthorized": "Acceso non autorizado",
         "forbidden": "Non tes permiso para esta acción",
         "validation_error": "Erro de validación",
-        "server_error": "Erro do servidor"
+        "server_error": "Erro do servidor",
+        "details": "Detalles",
+        "hide": "Ocultar contrasinal",
+        "logging_out": "Pechando sesión...",
+        "show": "Mostrar contrasinal"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Verificar",
                 "back": "Voltar",
                 "use_backup": "Usar código de reserva",
-                "use_totp": "Usar autenticador"
+                "use_totp": "Usar autenticador",
+                "code_required": "É necesario o código de verificación"
             },
             "welcome_title": "Benvido de novo",
             "welcome_subtitle": "Inicia sesión para acceder ao teu inventario",
@@ -632,7 +641,10 @@
             "info": "Podes ser membro de varias casas e cambiar entre elas. Cada fogar mantén o seu propio inventario.",
             "accordion_description": "Cambiar entre fogares, crear un novo ou unirse a un existente cunha clave de confianza.",
             "empty_description": "Crea un novo fogar para comezar a compartir, ou úneste a un coas claves do fogar de confianza.",
-            "leave_success_body": "Xa non tes acceso a este fogar e a túa casa activa foi actualizada."
+            "leave_success_body": "Xa non tes acceso a este fogar e a túa casa activa foi actualizada.",
+            "leave_title": "¿Sair desta casa?",
+            "leave_warning": "Perderás o acceso a este espazo de traballo do fogar ata que outro membro te invite ou te aprobe de novo.",
+            "leaving": "Saíndo..."
         },
         "house_info": {
             "title": "Chave da Casa Activa",
@@ -674,7 +686,11 @@
             "copy_error": "Non se puido copiar a chave da casa.",
             "modal_title": "Acceso á chave da casa",
             "modal_subtitle": "Usa esta chave só para membros da familia de confianza que deben solicitar acceso a este inventario compartido.",
-            "loading_members": "Cargando membros..."
+            "loading_members": "Cargando membros...",
+            "kick_success_body": "{{name}} xa non ten acceso a este fogar.",
+            "kick_title": "¿Eliminar este membro?",
+            "kick_warning": "O seu acceso ao fogar rematará de inmediato e necesitará unha nova invitación ou aprobación para volver.",
+            "kicking": "Eliminando..."
         },
         "theme": {
             "title": "Tema",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "As exportacións plain JSON son máis fáciles de inspeccionar, pero calquera que abra o arquivo pode ler os datos da túa casa inmediatamente.",
             "import_encrypted_title": "Desbloquear copia de seguridade cifrada",
             "import_encrypted_body": "Introduce a frase de paso de copia de seguridade utilizada durante a descarga para restaurar este arquivo cifrado.",
-            "unlock_and_import": "Desbloquear e importar"
+            "unlock_and_import": "Desbloquear e importar",
+            "export_encrypted_notice": "A copia de seguridade prepárase a partir dos datos en vivo do fogar e despois fórmase co contrasinal que elixas. Garda ese contrasinal nalgún lugar seguro porque é necesario para restaurar o ficheiro máis tarde.",
+            "export_encrypted_title": "A encriptación aplicarase antes da descarga",
+            "import_summary_body": "{{items}} elementos, {{categories}} categorías, {{rooms}} habitacións, {{locations}} localizacións, {{borrows}} rexistros de préstamo restaurados.",
+            "import_summary_title": "Copia de seguridade restaurada",
+            "preview_categories": "Categorías",
+            "preview_items": "Elementos",
+            "preview_locations": "Localizacións",
+            "preview_rooms": "Habitacións",
+            "skipped_borrows": "{{count}} rexistros de préstamo existentes ignorados.",
+            "skipped_categories": "{{count}} categorías existentes ignoradas.",
+            "skipped_items": "{{count}} elementos existentes omitidos.",
+            "skipped_locations": "{{count}} localizacións existentes omitidas.",
+            "skipped_rooms": "{{count}} salas existentes omitidas."
         },
         "about": {
             "title": "Sobre a aplicación",
@@ -733,7 +762,10 @@
             "privacy_link": "Política de privacidade",
             "beta_title": "Estado beta",
             "beta_body": "{{brandName}} aínda está en beta. As funcións poden cambiar, os fluxos de traballo poden evolucionar, e sempre se deben facer copias de seguridade dos datos importantes do fogar.",
-            "feedback_subject": "Comentarios - {{brandName}}"
+            "feedback_subject": "Comentarios - {{brandName}}",
+            "logout_body": "Calquera cambio non gardado en formularios abertos pode perderse despois de saír desta sesión.",
+            "logout_description": "Volverás á páxina de inicio e poderás iniciar sesión novamente en calquera momento.",
+            "logout_title": "Queres pechar sesión agora?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Obxecto deixado",
             "lend_success_body": "{{item}} agora está marcado como prestado.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Contigo",
+            "return_pending_hint": "O rexistro pecharase despois de que o prestamista confirme que recibiu o elemento de volta.",
+            "return_pending_lender_title": "{{name}} marcou este elemento como devolto",
+            "return_pending_self_title": "Contigo, agardando confirmación de recibo"
         },
         "untitled_item": "Elemento sen título",
         "delete_action": "Eliminar elemento",
@@ -1023,7 +1059,10 @@
         "name_required": "Requírese o nome da categoría",
         "load_error": "Categorías de carga de erros",
         "add_error": "Engadir unha categoría de erro",
-        "update_error": "Categoría de actualización de erros"
+        "update_error": "Categoría de actualización de erros",
+        "color_required": "A cor debe estar no formato #RRGGBB",
+        "empty_description": "Crea algunas categorías para que os novos elementos sigan a mesma estrutura e sexan máis fáciles de escanear despois.",
+        "empty_title": "Aínda non hai categorías"
     },
     "rooms": {
         "title": "Salas",
@@ -1097,7 +1136,9 @@
         "name_required": "Requírese o nome da sala",
         "load_error": "Salas de carga de erros",
         "add_error": "Erro engadindo espazo",
-        "update_error": "Sala de actualización de erros"
+        "update_error": "Sala de actualización de erros",
+        "empty_description": "Crea habitacións como cociña, despensa ou garaxe para que a localización dos elementos siga sendo consistente e máis fácil de buscar.",
+        "empty_title": "Aínda non hai habitacións"
     },
     "admin": {
         "title": "Panel de Administración",
@@ -1176,7 +1217,12 @@
             "households_label": "Fogares",
             "items_label": "Obxectos posuídos",
             "last_seen_short": "Visto",
-            "last_seen_short_never": "Novo"
+            "last_seen_short_never": "Novo",
+            "failed_logins": "{{count}} intentos de inicio de sesión fallidos",
+            "load_failed_title": "Non se puideron cargar os usuarios",
+            "pending_requests": "{{count}} solicitudes de casa pendentes",
+            "role_admin": "Administrador",
+            "role_user": "Usuario"
         },
         "logs": {
             "title": "Rexistros de administrador",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Rexistro de auditoría",
             "errors_eyebrow": "Diagnósticos",
             "section_body": "Cada moderación ou cambio operativo rexistrado pola capa de administrador.",
-            "errors_body": "As últimas liñas de erros analizadas dos arquivos de rexistro do servidor."
+            "errors_body": "As últimas liñas de erros analizadas dos arquivos de rexistro do servidor.",
+            "load_failed_title": "Non se puido cargar a actividade",
+            "no_logs_title": "Non hai accións de administrador aínda"
         },
         "email": {
             "title": "Enviar correo electrónico",
@@ -1242,7 +1290,14 @@
             "status_body": "Unha comprobación rápida de confianza antes de enviar comunicación operativa.",
             "unconfigured_title": "A entrega de correo electrónico non está configurada",
             "unconfigured_body": "O formulario de envío permanece visible para a revisión da configuración, pero a entrega fallará ata que o provedor de correo estea configurado.",
-            "status_eyebrow": "Entrega"
+            "status_eyebrow": "Entrega",
+            "configured_body": "O reenvío está dispoñible para mensaxes de saída activadas polo administrador.",
+            "configured_title": "A entrega de correo electrónico está configurada",
+            "error_title": "Fallou o correo electrónico",
+            "format_hint": "O HTML está soportado. Por exemplo: <b>negrita</b>, <i>cursiva</i>, <a href=\"...\">enlace</a>",
+            "from_label": "Remitente",
+            "load_failed_title": "As ferramentas de correo electrónico non puideron cargarse",
+            "success_title": "Correo electrónico enviado"
         },
         "overview": {
             "email_warning_title": "A entrega de correos electrónicos non está configurada",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Estatísticas cargadas",
         "logs_loaded": "Rexistros cargados",
         "load_error": "Datos de carga de erros",
-        "action_error": "Erro ao realizar acción"
+        "action_error": "Erro ao realizar acción",
+        "load_failed_body": "A ruta do administrador está aberta, pero os datos de visión xeral non chegaron. Podes intentar de novo sen saír da páxina.",
+        "load_failed_title": "Non se puido cargar a visión xeral do administrador"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "A dirección da rede permanece oculta aquí. Escanea o código ou copia o enlace só cando queiras intencionadamente compartir o acceso directo ao elemento na túa configuración local.",
         "helper": "Escanea para abrir este elemento ao instante, ou copia o enlace directo cando sexa necesario.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Preparando ferramentas QR..."
     },
     "house_access_pending": {
         "eyebrow": "Acceso á casa",
@@ -1859,7 +1917,11 @@
             "name_required": "É necesario un nome de elemento para un rexistro do cofre.",
             "options_failed": "Non se puideron cargar as opcións de categoría e habitación.",
             "delete_success_title": "Rexistro do vale eliminado",
-            "delete_success_body": "O rexistro privado foi eliminado permanentemente do seu cofre."
+            "delete_success_body": "O rexistro privado foi eliminado permanentemente do seu cofre.",
+            "passphrase_lowercase": "Inclúe polo menos unha letra minúscula.",
+            "passphrase_min_length": "A frase de paso do caixón debe ter polo menos 12 caracteres.",
+            "passphrase_number": "Inclúe polo menos un número.",
+            "passphrase_uppercase": "Inclúe polo menos unha letra maiúscula."
         },
         "recovery_file_title": "Chave de recuperación do Cadeado Persoal de {{brandName}}",
         "recovery_file_created_label": "Creada",

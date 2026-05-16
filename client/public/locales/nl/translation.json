@@ -66,7 +66,10 @@
       "warranty_calculation_help": "Als u de startdatum van de garantie leeg laat, wordt de factuurdatum gebruikt. Wanneer u de duur invoert, wordt de einddatum van de garantie automatisch berekend.",
       "vault_hint_title": "Zeer gevoelige registratie?",
       "vault_hint_description": "Voor paspoorten, akten, identiteitsgegevens, toegangscodes en andere gegevens die buiten de standaard inventarisstroom moeten blijven, bewaar ze in Persoonlijke Kluis.",
-      "vault_hint_action": "Open Persoonlijke Kluis"
+      "vault_hint_action": "Open Persoonlijke Kluis",
+      "location": "Locatie",
+      "remove_photo": "Foto verwijderen",
+      "visibility_owner_only": "Alleen de persoon die het item heeft toegevoegd kan de zichtbaarheid wijzigen."
     },
     "messages": {
       "quick_add_success": "✓ \"{{barcode}}\" snel toegevoegd - je kunt later bewerken",
@@ -115,7 +118,8 @@
     "delete_error": "Fout bij verwijderen item",
     "no_permission": "U heeft geen toestemming om dit item te wijzigen",
     "barcode_search_error": "Barcode zoeken mislukt",
-    "stats_error": "Fout bij laden statistieken"
+    "stats_error": "Fout bij laden statistieken",
+    "detail_subtitle": "Itemdetails"
   },
   "common": {
     "save": "Opslaan",
@@ -162,7 +166,11 @@
     "unauthorized": "Ongeautoriseerde toegang",
     "forbidden": "U heeft geen toestemming voor deze actie",
     "validation_error": "Validatiefout",
-    "server_error": "Serverfout"
+    "server_error": "Serverfout",
+    "details": "Details",
+    "hide": "Wachtwoord verbergen",
+    "logging_out": "Uitloggen...",
+    "show": "Wachtwoord tonen"
   },
   "auth": {
     "login": {
@@ -194,7 +202,8 @@
         "verify": "Verifiëren",
         "back": "Terug",
         "use_backup": "Gebruik back-upcode",
-        "use_totp": "Gebruik authenticator"
+        "use_totp": "Gebruik authenticator",
+        "code_required": "Verificatiecode is vereist"
       },
       "welcome_title": "Welkom terug",
       "welcome_subtitle": "Log in om toegang te krijgen tot je inventaris",
@@ -632,7 +641,10 @@
       "info": "💡 Je kunt lid zijn van meerdere huizen en tussen hen schakelen. Elk huis heeft een aparte inventaris.",
       "accordion_description": "Wissel tussen huishoudens, maak een nieuw huishouden aan of doe mee aan een bestaand huishouden met een vertrouwde sleutel.",
       "empty_description": "Maak een nieuw huishouden aan om te beginnen met delen, of doe mee aan een bestaand huishouden met een vertrouwde huissleutel.",
-      "leave_success_body": "Je hebt geen toegang meer tot dit huishouden en je actieve huishouden is vernieuwd."
+      "leave_success_body": "Je hebt geen toegang meer tot dit huishouden en je actieve huishouden is vernieuwd.",
+      "leave_title": "Dit huis verlaten?",
+      "leave_warning": "Je verliest toegang tot deze huishoudwerkruimte totdat een ander lid je opnieuw uitnodigt of goedkeurt.",
+      "leaving": "Verlaten..."
     },
     "house_info": {
       "title": "Actieve Huissleutel",
@@ -674,7 +686,11 @@
       "copy_error": "De huissleutel kon niet worden gekopieerd.",
       "modal_title": "Toegang tot huissleutel",
       "modal_subtitle": "Gebruik deze sleutel alleen voor vertrouwde gezinsleden die toegang tot deze gedeelde inventaris willen aanvragen.",
-      "loading_members": "Leden worden geladen..."
+      "loading_members": "Leden worden geladen...",
+      "kick_success_body": "{{name}} heeft geen toegang meer tot dit huishouden.",
+      "kick_title": "Dit lid verwijderen?",
+      "kick_warning": "Hun toegang tot het huishouden eindigt onmiddellijk en ze hebben een nieuwe uitnodiging of goedkeuring nodig om terug te keren.",
+      "kicking": "Verwijderen..."
     },
     "theme": {
       "title": "Thema",
@@ -720,7 +736,20 @@
       "unencrypted_warning": "Eenvoudige JSON-exports zijn makkelijker te inspecteren, maar iedereen die het bestand opent, kan direct uw huishoudgegevens lezen.",
       "import_encrypted_title": "Ontsleutel gecodeerde backup",
       "import_encrypted_body": "Voer de tijdens het downloaden gebruikte backup-wachtwoordzin in om dit gecodeerde bestand te herstellen.",
-      "unlock_and_import": "Ontgrendel en importeer"
+      "unlock_and_import": "Ontgrendel en importeer",
+      "export_encrypted_notice": "De back-up wordt voorbereid met live huishoudgegevens en vervolgens beveiligd met de door u gekozen wachtzin. Bewaar die wachtzin op een veilige plaats, want deze is nodig om het bestand later te herstellen.",
+      "export_encrypted_title": "Versleuteling wordt toegepast voor download",
+      "import_summary_body": "{{items}} items, {{categories}} categorieën, {{rooms}} kamers, {{locations}} locaties, {{borrows}} uitleenrecords hersteld.",
+      "import_summary_title": "Back-up hersteld",
+      "preview_categories": "Categorieën",
+      "preview_items": "Items",
+      "preview_locations": "Locaties",
+      "preview_rooms": "Kamers",
+      "skipped_borrows": "{{count}} bestaande uitleenrecords overgeslagen.",
+      "skipped_categories": "{{count}} bestaande categorieën overgeslagen.",
+      "skipped_items": "{{count}} bestaande items overgeslagen.",
+      "skipped_locations": "{{count}} bestaande locaties overgeslagen.",
+      "skipped_rooms": "{{count}} bestaande kamers overgeslagen."
     },
     "about": {
       "title": "📱 Over de applicatie",
@@ -733,7 +762,10 @@
       "privacy_link": "Privacybeleid",
       "beta_title": "Bètastatus",
       "beta_body": "{{brandName}} is nog steeds in bèta. Functies kunnen veranderen, workflows kunnen evolueren en belangrijke huishoudgegevens moeten altijd worden geback-upt.",
-      "feedback_subject": "Feedback - {{brandName}}"
+      "feedback_subject": "Feedback - {{brandName}}",
+      "logout_body": "Eventuele niet-opgeslagen wijzigingen in open formulieren kunnen verloren gaan nadat u deze sessie verlaat.",
+      "logout_description": "U keert terug naar de startpagina en kunt zich op elk moment opnieuw aanmelden.",
+      "logout_title": "Nu uitloggen?"
     },
     "modals": {
       "password": {
@@ -960,7 +992,11 @@
       "lend_success_title": "Item uitgeleend",
       "lend_success_body": "{{item}} is nu gemarkeerd als uitgeleend.",
       "offer_sent_title": "Borrow offer sent",
-      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+      "borrowed_by_you": "Bij jou",
+      "return_pending_hint": "Het record wordt gesloten nadat de lener heeft bevestigd dat ze het item hebben terugontvangen.",
+      "return_pending_lender_title": "{{name}} heeft dit item als teruggeleverd gemarkeerd",
+      "return_pending_self_title": "Bij jou, wachtend op ontvangstbevestiging"
     },
     "untitled_item": "Ongetiteld item",
     "delete_action": "Item verwijderen",
@@ -1023,7 +1059,10 @@
     "name_required": "Categorienaam is vereist",
     "load_error": "Fout bij laden categorieën",
     "add_error": "Fout bij toevoegen categorie",
-    "update_error": "Fout bij bijwerken categorie"
+    "update_error": "Fout bij bijwerken categorie",
+    "color_required": "De kleur moet de indeling #RRGGBB hebben",
+    "empty_description": "Maak een paar categorieën zodat nieuwe items dezelfde structuur volgen en later gemakkelijker te scannen zijn.",
+    "empty_title": "Nog geen categorieën"
   },
   "rooms": {
     "title": "Kamers",
@@ -1097,7 +1136,9 @@
     "name_required": "Kamernaam is vereist",
     "load_error": "Fout bij laden kamers",
     "add_error": "Fout bij toevoegen kamer",
-    "update_error": "Fout bij bijwerken kamer"
+    "update_error": "Fout bij bijwerken kamer",
+    "empty_description": "Maak kamers zoals keuken, opslag of garage zodat de locaties van items consistent blijven en makkelijker te zoeken zijn.",
+    "empty_title": "Nog geen kamers"
   },
   "admin": {
     "title": "Beheerderspaneel",
@@ -1176,7 +1217,12 @@
       "households_label": "Huishoudens",
       "items_label": "Bezittingen",
       "last_seen_short": "Gezien",
-      "last_seen_short_never": "Nieuw"
+      "last_seen_short_never": "Nieuw",
+      "failed_logins": "{{count}} mislukte aanmeldingen",
+      "load_failed_title": "Gebruikers konden niet laden",
+      "pending_requests": "{{count}} lopende woningverzoeken",
+      "role_admin": "Admin",
+      "role_user": "Gebruiker"
     },
     "logs": {
       "title": "Beheerderslogboeken",
@@ -1208,7 +1254,9 @@
       "section_eyebrow": "Auditspoor",
       "errors_eyebrow": "Diagnostiek",
       "section_body": "Elke moderatie- of operationele wijziging vastgelegd door de adminlaag.",
-      "errors_body": "De laatst geanalyseerde foutregels uit de serverlogbestanden."
+      "errors_body": "De laatst geanalyseerde foutregels uit de serverlogbestanden.",
+      "load_failed_title": "Activiteit kon niet laden",
+      "no_logs_title": "Nog geen admin-acties"
     },
     "email": {
       "title": "E-mail verzenden",
@@ -1242,7 +1290,14 @@
       "status_body": "Een snelle betrouwbaarheidscontrole voordat operationele communicatie wordt verzonden.",
       "unconfigured_title": "E-mailbezorging is niet geconfigureerd",
       "unconfigured_body": "Het verzendformulier blijft zichtbaar voor het instellen en controleren, maar de levering zal mislukken totdat de e-mailprovider is geconfigureerd.",
-      "status_eyebrow": "Levering"
+      "status_eyebrow": "Levering",
+      "configured_body": "Opnieuw verzenden is beschikbaar voor door admin-geactiveerde uitgaande berichten.",
+      "configured_title": "E-mailbezorging is geconfigureerd",
+      "error_title": "E-mail mislukt",
+      "format_hint": "HTML wordt ondersteund. Bijvoorbeeld: <b>vet</b>, <i>cursief</i>, <a href=\"...\">link</a>",
+      "from_label": "Afzender",
+      "load_failed_title": "E-mailtools konden niet laden",
+      "success_title": "E-mail verzonden"
     },
     "overview": {
       "email_warning_title": "E-mailbezorging is niet geconfigureerd",
@@ -1327,7 +1382,9 @@
     "stats_loaded": "Statistieken geladen",
     "logs_loaded": "Logs geladen",
     "load_error": "Fout bij laden gegevens",
-    "action_error": "Fout bij uitvoeren actie"
+    "action_error": "Fout bij uitvoeren actie",
+    "load_failed_body": "De admin-route is open, maar de overzichtsgegevens zijn niet aangekomen. Je kunt het opnieuw proberen zonder de pagina te verlaten.",
+    "load_failed_title": "Admin-overzicht kon niet laden"
   },
   "landing": {
     "nav": {
@@ -1672,7 +1729,8 @@
     "link_privacy_note": "Het netwerkadres blijft hier verborgen. Scan de code of kopieer de link alleen wanneer je bewust directe toegang tot een item op je lokale setup wilt delen.",
     "helper": "Scan om dit item direct te openen, of kopieer de directe link wanneer nodig.",
     "copy_error_title": "Link could not be copied automatically",
-    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+    "loading": "QR-tools voorbereiden..."
   },
   "house_access_pending": {
     "eyebrow": "Toegang tot huis",
@@ -1859,7 +1917,11 @@
       "name_required": "Een itemnaam is vereist voor een kluisrecord.",
       "options_failed": "Categorie- en kameropties konden niet worden geladen.",
       "delete_success_title": "Kluisrecord verwijderd",
-      "delete_success_body": "Het privérecord is permanent uit uw kluis verwijderd."
+      "delete_success_body": "Het privérecord is permanent uit uw kluis verwijderd.",
+      "passphrase_lowercase": "Voeg minstens één kleine letter toe.",
+      "passphrase_min_length": "De kluiswachtzin moet minstens 12 tekens lang zijn.",
+      "passphrase_number": "Voeg minstens één cijfer toe.",
+      "passphrase_uppercase": "Voeg minstens één hoofdletter toe."
     },
     "recovery_file_title": "{{brandName}} Persoonlijke Kluis Herstel Sleutel",
     "recovery_file_created_label": "Gemaakt",

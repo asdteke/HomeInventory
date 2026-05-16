@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Nếu bạn để trống ngày bắt đầu bảo hành, ngày trên hóa đơn sẽ được sử dụng. Khi bạn nhập thời gian bảo hành, ngày kết thúc bảo hành sẽ được tính tự động.",
             "vault_hint_title": "Hồ sơ rất nhạy cảm?",
             "vault_hint_description": "Đối với hộ chiếu, giấy tờ, thông tin cá nhân, mã truy cập và các hồ sơ khác nên tránh luồng kiểm kê tiêu chuẩn, hãy giữ chúng trong Kho Riêng thay vào đó.",
-            "vault_hint_action": "Mở Kho Cá Nhân"
+            "vault_hint_action": "Mở Kho Cá Nhân",
+            "location": "Vị trí",
+            "remove_photo": "Xóa ảnh",
+            "visibility_owner_only": "Chỉ người đã thêm vật phẩm mới có thể thay đổi chế độ hiển thị."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" đã được thêm nhanh - bạn có thể chỉnh sửa sau",
@@ -115,7 +118,8 @@
         "delete_error": "Lỗi xóa vật phẩm",
         "no_permission": "Bạn không có quyền sửa vật phẩm này",
         "barcode_search_error": "Tìm kiếm mã vạch thất bại",
-        "stats_error": "Lỗi tải thống kê"
+        "stats_error": "Lỗi tải thống kê",
+        "detail_subtitle": "Chi tiết vật phẩm"
     },
     "common": {
         "save": "Lưu",
@@ -162,7 +166,11 @@
         "unauthorized": "Truy cập trái phép",
         "forbidden": "Bạn không có quyền cho hành động này",
         "validation_error": "Lỗi xác thực",
-        "server_error": "Lỗi máy chủ"
+        "server_error": "Lỗi máy chủ",
+        "details": "Chi tiết",
+        "hide": "Ẩn mật khẩu",
+        "logging_out": "Đang đăng xuất...",
+        "show": "Hiện mật khẩu"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Xác minh",
                 "back": "Quay lại",
                 "use_backup": "Sử dụng mã dự phòng",
-                "use_totp": "Sử dụng trình xác thực"
+                "use_totp": "Sử dụng trình xác thực",
+                "code_required": "Mã xác minh là bắt buộc"
             },
             "welcome_title": "Chào mừng trở lại",
             "welcome_subtitle": "Đăng nhập để truy cập kho hàng của bạn",
@@ -632,7 +641,10 @@
             "info": "💡 Bạn có thể trở thành thành viên của nhiều ngôi nhà và chuyển đổi giữa chúng. Mỗi ngôi nhà sẽ có kho riêng.",
             "accordion_description": "Chuyển đổi giữa các hộ gia đình, tạo mới một hộ, hoặc tham gia một hộ hiện có bằng chìa khóa đáng tin cậy.",
             "empty_description": "Tạo một hộ gia đình mới để bắt đầu chia sẻ, hoặc tham gia một hộ bằng chìa khóa một ngôi nhà đáng tin cậy.",
-            "leave_success_body": "Bạn không còn quyền truy cập vào hộ gia đình này và nhà đang hoạt động của bạn đã được làm mới."
+            "leave_success_body": "Bạn không còn quyền truy cập vào hộ gia đình này và nhà đang hoạt động của bạn đã được làm mới.",
+            "leave_title": "Rời khỏi ngôi nhà này?",
+            "leave_warning": "Bạn sẽ mất quyền truy cập vào không gian làm việc của hộ gia đình này cho đến khi một thành viên khác mời hoặc phê duyệt lại bạn.",
+            "leaving": "Đang rời đi..."
         },
         "house_info": {
             "title": "Khóa Nhà Hiện Tại",
@@ -674,7 +686,11 @@
             "copy_error": "Không thể sao chép chìa khóa nhà.",
             "modal_title": "Truy cập chìa khóa nhà",
             "modal_subtitle": "Chỉ sử dụng chìa khóa này cho các thành viên trong hộ gia đình tin cậy, những người nên yêu cầu truy cập vào kho chung này.",
-            "loading_members": "Đang tải thành viên..."
+            "loading_members": "Đang tải thành viên...",
+            "kick_success_body": "{{name}} không còn quyền truy cập vào hộ gia đình này.",
+            "kick_title": "Xóa thành viên này?",
+            "kick_warning": "Quyền truy cập hộ gia đình của họ sẽ chấm dứt ngay lập tức và họ sẽ cần lời mời mới hoặc sự chấp thuận để quay lại.",
+            "kicking": "Đang xóa..."
         },
         "theme": {
             "title": "Chủ đề",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Xuất một tệp JSON thuần dễ kiểm tra hơn, nhưng bất kỳ ai mở tệp cũng có thể đọc dữ liệu hộ gia đình của bạn ngay lập tức.",
             "import_encrypted_title": "Mở khóa bản sao lưu được mã hóa",
             "import_encrypted_body": "Nhập cụm mật khẩu dự phòng đã sử dụng trong quá trình tải xuống để khôi phục tệp được mã hóa này.",
-            "unlock_and_import": "Mở khóa và nhập"
+            "unlock_and_import": "Mở khóa và nhập",
+            "export_encrypted_notice": "Bản sao lưu được chuẩn bị từ dữ liệu hộ gia đình trực tiếp và sau đó được mã hóa bằng mật khẩu bạn chọn. Hãy giữ mật khẩu đó ở nơi an toàn vì nó sẽ cần thiết để khôi phục tập tin sau này.",
+            "export_encrypted_title": "Mã hóa sẽ được áp dụng trước khi tải xuống",
+            "import_summary_body": "{{items}} mục, {{categories}} danh mục, {{rooms}} phòng, {{locations}} vị trí, {{borrows}} bản ghi mượn đã được khôi phục.",
+            "import_summary_title": "Bản sao lưu đã được khôi phục",
+            "preview_categories": "Danh mục",
+            "preview_items": "Mục",
+            "preview_locations": "Vị trí",
+            "preview_rooms": "Phòng",
+            "skipped_borrows": "{{count}} bản ghi mượn hiện có đã bỏ qua.",
+            "skipped_categories": "{{count}} danh mục hiện có đã bỏ qua.",
+            "skipped_items": "{{count}} mục hiện tại bị bỏ qua.",
+            "skipped_locations": "{{count}} địa điểm hiện tại bị bỏ qua.",
+            "skipped_rooms": "{{count}} phòng hiện tại bị bỏ qua."
         },
         "about": {
             "title": "📱 Về ứng dụng",
@@ -733,7 +762,10 @@
             "privacy_link": "Chính Sách Quyền Riêng Tư",
             "beta_title": "Trạng thái beta",
             "beta_body": "{{brandName}} vẫn đang trong giai đoạn beta. Các tính năng có thể thay đổi, quy trình làm việc có thể phát triển, và dữ liệu quan trọng trong gia đình nên luôn được sao lưu.",
-            "feedback_subject": "Phản hồi - {{brandName}}"
+            "feedback_subject": "Phản hồi - {{brandName}}",
+            "logout_body": "Bất kỳ thay đổi chưa được lưu trong các biểu mẫu đang mở có thể bị mất sau khi bạn rời khỏi phiên này.",
+            "logout_description": "Bạn sẽ trở về trang chủ và có thể đăng nhập lại bất cứ lúc nào.",
+            "logout_title": "Đăng xuất ngay bây giờ?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Mục đã cho mượn",
             "lend_success_body": "{{item}} hiện đã được đánh dấu là đã cho mượn.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Ở với bạn",
+            "return_pending_hint": "Hồ sơ sẽ đóng sau khi người cho vay xác nhận họ đã nhận lại vật phẩm.",
+            "return_pending_lender_title": "{{name}} đã đánh dấu vật phẩm này là đã trả lại",
+            "return_pending_self_title": "Ở với bạn, chờ xác nhận biên nhận"
         },
         "untitled_item": "Mục không có tiêu đề",
         "delete_action": "Xóa mục",
@@ -1023,7 +1059,10 @@
         "name_required": "Cần tên danh mục",
         "load_error": "Lỗi tải danh mục",
         "add_error": "Lỗi thêm danh mục",
-        "update_error": "Lỗi cập nhật danh mục"
+        "update_error": "Lỗi cập nhật danh mục",
+        "color_required": "Màu phải ở định dạng #RRGGBB",
+        "empty_description": "Tạo một vài danh mục để các mục mới theo cùng một cấu trúc và dễ dàng xem lại sau.",
+        "empty_title": "Chưa có danh mục nào"
     },
     "rooms": {
         "title": "Phòng",
@@ -1097,7 +1136,9 @@
         "name_required": "Cần tên phòng",
         "load_error": "Lỗi tải phòng",
         "add_error": "Lỗi thêm phòng",
-        "update_error": "Lỗi cập nhật phòng"
+        "update_error": "Lỗi cập nhật phòng",
+        "empty_description": "Tạo các phòng như bếp, kho, hoặc gara để vị trí vật phẩm luôn nhất quán và dễ tìm kiếm hơn.",
+        "empty_title": "Chưa có phòng nào"
     },
     "admin": {
         "title": "Bảng điều khiển quản trị",
@@ -1176,7 +1217,12 @@
             "households_label": "Hộ gia đình",
             "items_label": "Vật phẩm sở hữu",
             "last_seen_short": "Đã xem",
-            "last_seen_short_never": "Mới"
+            "last_seen_short_never": "Mới",
+            "failed_logins": "{{count}} lần đăng nhập thất bại",
+            "load_failed_title": "Người dùng không thể tải",
+            "pending_requests": "{{count}} yêu cầu nhà đang chờ",
+            "role_admin": "Quản trị viên",
+            "role_user": "Người dùng"
         },
         "logs": {
             "title": "Nhật ký quản trị",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Dấu vết kiểm toán",
             "errors_eyebrow": "Chẩn đoán",
             "section_body": "Mọi thay đổi về kiểm duyệt hoặc vận hành được ghi lại bởi lớp quản trị.",
-            "errors_body": "Các dòng lỗi mới nhất đã được phân tích từ các tệp nhật ký máy chủ."
+            "errors_body": "Các dòng lỗi mới nhất đã được phân tích từ các tệp nhật ký máy chủ.",
+            "load_failed_title": "Hoạt động không thể tải",
+            "no_logs_title": "Chưa có hành động quản trị viên nào"
         },
         "email": {
             "title": "Gửi Email",
@@ -1242,7 +1290,14 @@
             "status_body": "Một kiểm tra nhanh sự tự tin trước khi gửi thông tin vận hành.",
             "unconfigured_title": "Việc gửi email chưa được cấu hình",
             "unconfigured_body": "Mẫu gửi vẫn hiển thị để xem lại thiết lập, nhưng việc gửi sẽ thất bại cho đến khi nhà cung cấp thư được cấu hình.",
-            "status_eyebrow": "Giao hàng"
+            "status_eyebrow": "Giao hàng",
+            "configured_body": "Gửi lại khả dụng cho các tin nhắn đi được quản trị viên kích hoạt.",
+            "configured_title": "Gửi email đã được cấu hình",
+            "error_title": "Gửi email thất bại",
+            "format_hint": "HTML được hỗ trợ. Ví dụ: <b>in đậm</b>, <i>nghiêng</i>, <a href=\"...\">liên kết</a>",
+            "from_label": "Người gửi",
+            "load_failed_title": "Công cụ email không thể tải",
+            "success_title": "Email đã được gửi"
         },
         "overview": {
             "email_warning_title": "Giao email chưa được cấu hình",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Đã tải thống kê",
         "logs_loaded": "Đã tải nhật ký",
         "load_error": "Lỗi tải dữ liệu",
-        "action_error": "Lỗi thực hiện hành động"
+        "action_error": "Lỗi thực hiện hành động",
+        "load_failed_body": "Đường dẫn quản trị viên mở, nhưng dữ liệu tổng quan chưa đến. Bạn có thể thử lại mà không rời khỏi trang.",
+        "load_failed_title": "Tổng quan quản trị viên không thể tải"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Địa chỉ mạng được giữ ẩn tại đây. Quét mã hoặc sao chép liên kết chỉ khi bạn thực sự muốn chia sẻ quyền truy cập trực tiếp vào mục trên thiết lập cục bộ của mình.",
         "helper": "Quét để mở mục này ngay lập tức, hoặc sao chép liên kết trực tiếp khi cần.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Chuẩn bị các công cụ QR..."
     },
     "house_access_pending": {
         "eyebrow": "Truy Cập Nhà",
@@ -1859,7 +1917,11 @@
             "name_required": "Tên mục là bắt buộc cho một bản ghi kho.",
             "options_failed": "Không thể tải các tùy chọn danh mục và phòng.",
             "delete_success_title": "Bản ghi kho đã bị xóa",
-            "delete_success_body": "Bản ghi riêng tư đã được loại bỏ vĩnh viễn khỏi kho của bạn."
+            "delete_success_body": "Bản ghi riêng tư đã được loại bỏ vĩnh viễn khỏi kho của bạn.",
+            "passphrase_lowercase": "Bao gồm ít nhất một chữ cái viết thường.",
+            "passphrase_min_length": "Mật khẩu kho bảo mật phải đủ ít nhất 12 ký tự.",
+            "passphrase_number": "Bao gồm ít nhất một số.",
+            "passphrase_uppercase": "Bao gồm ít nhất một chữ cái viết hoa."
         },
         "recovery_file_title": "Khóa Phục Hồi Kho Riêng Tư {{brandName}}",
         "recovery_file_created_label": "Đã Tạo",

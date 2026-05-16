@@ -66,7 +66,10 @@
       "warranty_calculation_help": "Ak necháte dátum začiatku záruky prázdny, použije sa dátum faktúry. Keď zadáte trvanie, dátum konca záruky sa automaticky vypočíta.",
       "vault_hint_title": "Veľmi citlivý záznam?",
       "vault_hint_description": "Pre pasy, listiny, identifikačné údaje, prístupové kódy a ďalšie záznamy, ktoré by mali zostať mimo štandardného toku inventára, ich uchovávajte v Osobnom trezore.",
-      "vault_hint_action": "Otvoriť osobnú trezor"
+      "vault_hint_action": "Otvoriť osobnú trezor",
+      "location": "Umiestnenie",
+      "remove_photo": "Odstrániť fotografiu",
+      "visibility_owner_only": "Viditeľnosť môže zmeniť iba osoba, ktorá položku pridala."
     },
     "messages": {
       "quick_add_success": "✓ „{{barcode}}“ rýchlo pridané - môžete neskôr upraviť",
@@ -115,7 +118,8 @@
     "delete_error": "Chyba pri mazaní položky",
     "no_permission": "No permission",
     "barcode_search_error": "Vyhľadávanie čiarovým kódom zlyhalo",
-    "stats_error": "Stats error"
+    "stats_error": "Stats error",
+    "detail_subtitle": "Detaily položky"
   },
   "common": {
     "save": "Uložiť",
@@ -162,7 +166,11 @@
     "unauthorized": "Neoprávnený prístup",
     "forbidden": "Permission denied",
     "validation_error": "Validačná chyba",
-    "server_error": "Chyba servera"
+    "server_error": "Chyba servera",
+    "details": "Detaily",
+    "hide": "Skryť heslo",
+    "logging_out": "Odhlasovanie...",
+    "show": "Zobraziť heslo"
   },
   "auth": {
     "login": {
@@ -194,7 +202,8 @@
         "verify": "Overiť",
         "back": "Späť",
         "use_backup": "Použiť záložný kód",
-        "use_totp": "Použiť autentifikátor"
+        "use_totp": "Použiť autentifikátor",
+        "code_required": "Je potrebný overovací kód"
       },
       "welcome_title": "Vitajte späť",
       "welcome_subtitle": "Prihláste sa, aby ste získali prístup k svojmu inventáru",
@@ -632,7 +641,10 @@
       "info": "💡 Môžete byť členom viacerých domov a prepínať medzi nimi. Každý dom si udržiava samostatný inventár.",
       "accordion_description": "Prepnite medzi domácnosťami, vytvorte novú alebo sa pripojte k existujúcej pomocou dôveryhodného kľúča.",
       "empty_description": "Vytvorte novú domácnosť, aby ste mohli začať zdieľať, alebo sa pripojte k jednej pomocou dôveryhodného kľúča domácnosti.",
-      "leave_success_body": "Už nemáte prístup k tejto domácnosti a vaša aktívna domácnosť bola obnovená."
+      "leave_success_body": "Už nemáte prístup k tejto domácnosti a vaša aktívna domácnosť bola obnovená.",
+      "leave_title": "Opustiť tento dom?",
+      "leave_warning": "Stratíte prístup k pracovisku tejto domácnosti, kým vás iný člen znova nepozve alebo neschváli.",
+      "leaving": "Odchádza sa..."
     },
     "house_info": {
       "title": "Aktívny kľúč domu",
@@ -674,7 +686,11 @@
       "copy_error": "Kľúč od domu sa nepodarilo skopírovať.",
       "modal_title": "Prístup k domácemu kľúču",
       "modal_subtitle": "Používajte tento kľúč iba pre dôveryhodných členov domácnosti, ktorí by mali žiadať prístup k tomuto zdieľanému inventáru.",
-      "loading_members": "Načítavam členov..."
+      "loading_members": "Načítavam členov...",
+      "kick_success_body": "{{name}} už nemá prístup k tomuto domácnosti.",
+      "kick_title": "Odstrániť tohto člena?",
+      "kick_warning": "Ich prístup do domácnosti sa okamžite skončí a budú potrebovať nové pozvanie alebo schválenie, aby sa mohli vrátiť.",
+      "kicking": "Odstraňuje sa..."
     },
     "theme": {
       "title": "Téma",
@@ -720,7 +736,20 @@
       "unencrypted_warning": "Niešifrovaný export JSON sa ľahšie kontroluje, ale každý, kto otvorí súbor, môže okamžite prečítať vaše údaje o domácnosti.",
       "import_encrypted_title": "Odblokovať šifrovanú zálohu",
       "import_encrypted_body": "Zadajte zálohové heslo použité pri sťahovaní na obnovenie tohto šifrovaného súboru.",
-      "unlock_and_import": "Odomknúť a importovať"
+      "unlock_and_import": "Odomknúť a importovať",
+      "export_encrypted_notice": "Záloha je pripravená z aktuálnych údajov domácnosti a následne zabalená s heslom, ktoré si vyberiete. Uchovajte toto heslo na bezpečnom mieste, pretože je potrebné na obnovenie súboru neskôr.",
+      "export_encrypted_title": "Šifrovanie bude aplikované pred stiahnutím",
+      "import_summary_body": "{{items}} položiek, {{categories}} kategórií, {{rooms}} izieb, {{locations}} umiestnení, {{borrows}} záznamov o pôžičkách obnovených.",
+      "import_summary_title": "Záloha obnovená",
+      "preview_categories": "Kategórie",
+      "preview_items": "Položky",
+      "preview_locations": "Umiestnenia",
+      "preview_rooms": "Izby",
+      "skipped_borrows": "{{count}} existujúcich záznamov o pôžičkách vynechaných.",
+      "skipped_categories": "{{count}} existujúcich kategórií vynechaných.",
+      "skipped_items": "{{count}} existujúcich položiek preskočených.",
+      "skipped_locations": "{{count}} existujúcich miest preskočených.",
+      "skipped_rooms": "{{count}} existujúcich izieb preskočených."
     },
     "about": {
       "title": "📱 O aplikácii",
@@ -733,7 +762,10 @@
       "privacy_link": "Zásady ochrany osobných údajov",
       "beta_title": "Beta stav",
       "beta_body": "{{brandName}} je stále v beta verzii. Funkcie sa môžu meniť, pracovné postupy sa môžu vyvíjať a dôležité údaje domácnosti by mali byť vždy zálohované.",
-      "feedback_subject": "Spätná väzba - {{brandName}}"
+      "feedback_subject": "Spätná väzba - {{brandName}}",
+      "logout_body": "Akékoľvek neuložené zmeny v otvorených formulároch môžu byť po opustení tejto relácie stratené.",
+      "logout_description": "Vrátite sa na domovskú stránku a môžete sa kedykoľvek znova prihlásiť.",
+      "logout_title": "Odhlásiť sa teraz?"
     },
     "modals": {
       "password": {
@@ -960,7 +992,11 @@
       "lend_success_title": "Položka požičaná",
       "lend_success_body": "{{item}} je teraz označená ako požičaná.",
       "offer_sent_title": "Borrow offer sent",
-      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+      "borrowed_by_you": "U vás",
+      "return_pending_hint": "Záznam sa uzavrie po potvrdení, že veriteľ dostal položku späť.",
+      "return_pending_lender_title": "{{name}} označil túto položku ako vrátenú",
+      "return_pending_self_title": "U vás, čakanie na potvrdenie prijatia"
     },
     "untitled_item": "Nepomenovaná položka",
     "delete_action": "Odstrániť položku",
@@ -1023,7 +1059,10 @@
     "name_required": "Name required",
     "load_error": "Error loading",
     "add_error": "Error adding",
-    "update_error": "Error updating"
+    "update_error": "Error updating",
+    "color_required": "Farba musí byť vo formáte #RRGGBB",
+    "empty_description": "Vytvorte niekoľko kategórií, aby nové položky dodržiavali rovnakú štruktúru a boli neskôr ľahšie prehľadateľné.",
+    "empty_title": "Zatiaľ žiadne kategórie"
   },
   "rooms": {
     "title": "Izby",
@@ -1097,7 +1136,9 @@
     "name_required": "Name required",
     "load_error": "Error loading",
     "add_error": "Error adding",
-    "update_error": "Error updating"
+    "update_error": "Error updating",
+    "empty_description": "Vytvorte miestnosti ako kuchyňa, sklad alebo garáž, aby miesta položiek zostali konzistentné a ľahšie vyhľadateľné.",
+    "empty_title": "Zatiaľ žiadne miestnosti"
   },
   "admin": {
     "title": "Administrátorský panel",
@@ -1176,7 +1217,12 @@
       "households_label": "Domácnosti",
       "items_label": "Vlastnené položky",
       "last_seen_short": "Videné",
-      "last_seen_short_never": "Nové"
+      "last_seen_short_never": "Nové",
+      "failed_logins": "{{count}} neúspešných prihlásení",
+      "load_failed_title": "Používatelia sa nepodarilo načítať",
+      "pending_requests": "{{count}} čakajúcich žiadostí o dom",
+      "role_admin": "Administrátor",
+      "role_user": "Používateľ"
     },
     "logs": {
       "title": "Administrátorské záznamy",
@@ -1208,7 +1254,9 @@
       "section_eyebrow": "Auditná stopa",
       "errors_eyebrow": "Diagnostika",
       "section_body": "Každá úprava alebo operačná zmena zaznamenaná administrátorskou vrstvou.",
-      "errors_body": "Najnovšie spracované chybové riadky zo súborov denníka servera."
+      "errors_body": "Najnovšie spracované chybové riadky zo súborov denníka servera.",
+      "load_failed_title": "Aktivita sa nepodarilo načítať",
+      "no_logs_title": "Zatiaľ žiadne administrátorské akcie"
     },
     "email": {
       "title": "Odoslať e-mail",
@@ -1242,7 +1290,14 @@
       "status_body": "Rýchla kontrola dôveryhodnosti pred odoslaním prevádzkovej komunikácie.",
       "unconfigured_title": "Odosielanie e-mailov nie je nakonfigurované",
       "unconfigured_body": "Formulár na odoslanie zostáva viditeľný na preskúmanie nastavení, ale odoslanie zlyhá, kým nebude nakonfigurovaný poskytovateľ pošty.",
-      "status_eyebrow": "Doručenie"
+      "status_eyebrow": "Doručenie",
+      "configured_body": "Znovu odoslať je dostupné pre odchádzajúce správy spustené administrátorom.",
+      "configured_title": "Odosielanie e-mailov je nakonfigurované",
+      "error_title": "E-mail sa nepodarilo odoslať",
+      "format_hint": "HTML je podporované. Napríklad: <b>tučné</b>, <i>kurzíva</i>, <a href=\"...\">odkaz</a>",
+      "from_label": "Odosielateľ",
+      "load_failed_title": "Nástroje e-mailu sa nepodarilo načítať",
+      "success_title": "E-mail odoslaný"
     },
     "overview": {
       "email_warning_title": "Doručovanie e-mailov nie je nastavené",
@@ -1327,7 +1382,9 @@
     "stats_loaded": "Stats loaded",
     "logs_loaded": "Záznamy načítané",
     "load_error": "Error loading",
-    "action_error": "Action error"
+    "action_error": "Action error",
+    "load_failed_body": "Administrátorská cesta je otvorená, ale prehľadové údaje nedorazili. Môžete to skúsiť znova bez opustenia stránky.",
+    "load_failed_title": "Administrátorský prehľad sa nepodarilo načítať"
   },
   "landing": {
     "nav": {
@@ -1672,7 +1729,8 @@
     "link_privacy_note": "Sieťová adresa zostáva skrytá tu. Skenuj kód alebo skopíruj odkaz len vtedy, keď chceš zámerne zdieľať priamy prístup k predmetom na svojom lokálnom nastavení.",
     "helper": "Naskenujte pre okamžité otvorenie tejto položky alebo skopírujte priamy odkaz, keď to bude potrebné.",
     "copy_error_title": "Link could not be copied automatically",
-    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+    "loading": "Príprava QR nástrojov..."
   },
   "house_access_pending": {
     "eyebrow": "Prístup do domu",
@@ -1859,7 +1917,11 @@
       "name_required": "Pre záznam trezora je potrebné meno položky.",
       "options_failed": "Možnosti kategórie a miestnosti sa nedali načítať.",
       "delete_success_title": "Záznam vo vault odstránený",
-      "delete_success_body": "Súkromný záznam bol trvalo odstránený z vášho vault."
+      "delete_success_body": "Súkromný záznam bol trvalo odstránený z vášho vault.",
+      "passphrase_lowercase": "Zahrňte aspoň jedno malé písmeno.",
+      "passphrase_min_length": "Heslo trezora musí mať aspoň 12 znakov.",
+      "passphrase_number": "Zahrňte aspoň jedno číslo.",
+      "passphrase_uppercase": "Zahrňte aspoň jedno veľké písmeno."
     },
     "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
     "recovery_file_created_label": "Vytvorené",

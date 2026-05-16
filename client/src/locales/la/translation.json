@@ -44,7 +44,11 @@
         "unauthorized": "Aditus non auctorizatus",
         "forbidden": "Permissio tibi deest ad hanc actionem",
         "validation_error": "Error probationis",
-        "server_error": "Error servitoris"
+        "server_error": "Error servitoris",
+        "details": "Singula",
+        "hide": "Abscondere tessera",
+        "logging_out": "Exeuntes...",
+        "show": "Ostende tessera"
     },
     "auth": {
         "login": {
@@ -76,7 +80,8 @@
                 "verify": "Verifica",
                 "back": "Redi",
                 "use_backup": "Utere codice subsidiario",
-                "use_totp": "Utere authenticator"
+                "use_totp": "Utere authenticator",
+                "code_required": "Verification codex requiritur"
             },
             "welcome_title": "Salve redux",
             "welcome_subtitle": "Inito ad indicem tuum accedere",
@@ -515,7 +520,10 @@
             "warranty_calculation_help": "Si reliqueris warantiam initium diem vacuum, facturae diem adhibetur. Cum inseris durationem, warantiam finem diem automatice computatur.",
             "vault_hint_title": "Recordum valde sensibile?",
             "vault_hint_description": "Pro specibus civilium, litteris, identitatis notis, codicibus accessus, et aliis rebus quae extra normam inventarii fluxum manere debent, eas in Thesauro Personali conserva",
-            "vault_hint_action": "Open Personal Vault"
+            "vault_hint_action": "Open Personal Vault",
+            "location": "Locus",
+            "remove_photo": "Remove imaginem",
+            "visibility_owner_only": "Solum persona quae rem addidit potest visibilitatem mutare."
         },
         "qrcode": {
             "title": "Codex QR",
@@ -568,7 +576,8 @@
         "delete_error": "Error in re delenda",
         "no_permission": "Permissio tibi deest ad hanc rem mutandam",
         "barcode_search_error": "Investigatio codicis linearis fefellit",
-        "stats_error": "Error in onerandis rationariis"
+        "stats_error": "Error in onerandis rationariis",
+        "detail_subtitle": "Singula rei"
     },
     "settings": {
         "title": "Praeferentiae",
@@ -632,7 +641,10 @@
             "info": "💡 Potes esse membrum plurium domorum et inter eas commutare. Unaquaeque domus servat separatum inventarium.",
             "accordion_description": "Inter familias transire, novam creare, aut iungere exsistentem cum fideli clave.",
             "empty_description": "Novam familiam creare ad communicandum incipere, aut iungere cum fideli domi clave.",
-            "leave_success_body": "Iam non habes ingressum ad hanc domum et tua activa domus refecta est. Ingressus domus et membra. Revisa clavis activa domus, administra membra, et tene ingressum limitatum ad fideles personas. Occultum donec id secure revisas. Revisa secure. Copia secure. Communica caute. Quisquis hanc clavem habet potest petere ingressum ad inventarium domus. Solum cum fidelibus membris communica et utere canale privato."
+            "leave_success_body": "Iam non habes ingressum ad hanc domum et tua activa domus refecta est. Ingressus domus et membra. Revisa clavis activa domus, administra membra, et tene ingressum limitatum ad fideles personas. Occultum donec id secure revisas. Revisa secure. Copia secure. Communica caute. Quisquis hanc clavem habet potest petere ingressum ad inventarium domus. Solum cum fidelibus membris communica et utere canale privato.",
+            "leave_title": "Hanc domum relinquere?",
+            "leave_warning": "Accessum ad hunc laboratorium domestica amittes donec alius membrum te iterum invitet vel approbet.",
+            "leaving": "Requiescens..."
         },
         "house_info": {
             "title": "Clavis Domus Activa",
@@ -674,7 +686,11 @@
             "copy_error": "Domus clavis non potuit copiari.",
             "modal_title": "Domus clavis aditus",
             "modal_subtitle": "Hoc clavem utere solum pro fidis familiaribus qui debent rogare aditum ad hunc communem inventarium.",
-            "loading_members": "Membra onerans..."
+            "loading_members": "Membra onerans...",
+            "kick_success_body": "{{name}} amplius accessum ad hanc domum non habet.",
+            "kick_title": "Hunc membrum removere?",
+            "kick_warning": "Eorum accessus domus statim finietur et novam invitationem vel approbationem ad rediendum requirebunt.",
+            "kicking": "Removendo..."
         },
         "theme": {
             "title": "Thema",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Le esportazioni JSON semplici sono più facili da ispezionare, ma chiunque apra il file può leggere immediatamente i dati della tua famiglia.",
             "import_encrypted_title": "Sblocca il backup criptato",
             "import_encrypted_body": "Intrate tesaurum verba rara durante download usus ad restituendum hunc files encryptos. Aperi et importare Rationem Delere rationem Haec actio non potest retractari Nullo modo activa mutuari nunc Color Culina",
-            "unlock_and_import": "Sblocca e importa"
+            "unlock_and_import": "Sblocca e importa",
+            "export_encrypted_notice": "Subsidium paratur ex viva domesticis notitia et tunc involvitur cum tessera quam eligis. Hanc tessera retine loco tuto quia requiritur ad file restituendum postea.",
+            "export_encrypted_title": "Encryptio applicabitur ante descensum",
+            "import_summary_body": "{{items}} res, {{categories}} categoriae, {{rooms}} conclavia, {{locations}} voces, {{borrows}} annotationes mutui restitutae.",
+            "import_summary_title": "Subsidium restitutum",
+            "preview_categories": "Categoriae",
+            "preview_items": "Res",
+            "preview_locations": "Loca",
+            "preview_rooms": "Conclavia",
+            "skipped_borrows": "{{count}} praesentes annotationes mutui praeteritae.",
+            "skipped_categories": "{{count}} praesentes categoriae praeteritae.",
+            "skipped_items": "{{count}} res existentes praeteritae.",
+            "skipped_locations": "{{count}} loca existentes praeterita.",
+            "skipped_rooms": "{{count}} cubicula existentes praeterita."
         },
         "about": {
             "title": "📱 De Applicatione",
@@ -733,7 +762,10 @@
             "privacy_link": "Ratio de secreto",
             "beta_title": "Status beta",
             "beta_body": "{{brandName}} adhuc in beta est. Functiones mutari possunt, processus evolvere, et magni momenti notitia domestica semper referenda est.",
-            "feedback_subject": "Responsum - {{brandName}}"
+            "feedback_subject": "Responsum - {{brandName}}",
+            "logout_body": "Quaecumque mutationes in aperta formis servatae non sint, amitti possunt postquam hanc sessionem relinques.",
+            "logout_description": "Redibis ad paginam domum et poteris iterum signare aliquando.",
+            "logout_title": "Nunc exire?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Res concessa",
             "lend_success_body": "{{item}} nunc notata est ut concessa.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Tecum",
+            "return_pending_hint": "Relatio claudetur postquam mutuator confirmaverit recipisse rem.",
+            "return_pending_lender_title": "{{name}} hanc rem ut redditam recitavit",
+            "return_pending_self_title": "Tecum, exspectans confirmationem recepti"
         },
         "untitled_item": "Res sine titulo",
         "delete_action": "Delere rem",
@@ -1023,7 +1059,10 @@
         "name_required": "Nomen categoriae requiritur",
         "load_error": "Error in onerandis categoriis",
         "add_error": "Error in categoria addenda",
-        "update_error": "Error in categoria renovanda"
+        "update_error": "Error in categoria renovanda",
+        "color_required": "Color forma #RRGGBB esse debet",
+        "empty_description": "Crea paucas categorias ut nova elementa sequantur eundem structuram et facilius inspiciantur postea.",
+        "empty_title": "Nulla categoria adhuc"
     },
     "rooms": {
         "title": "Cubicula",
@@ -1097,7 +1136,9 @@
         "name_required": "Nomen conclavis requiritur",
         "load_error": "Error in onerandis conclavibus",
         "add_error": "Error in conclavi addendo",
-        "update_error": "Error in conclavi renovando"
+        "update_error": "Error in conclavi renovando",
+        "empty_description": "Crea cubicula sicut culina, armarium, vel horreum ut loci rerum constantes maneant et facilius quaerantur.",
+        "empty_title": "Nullae cubicula adhuc"
     },
     "admin": {
         "title": "Praefectus Tabula",
@@ -1176,7 +1217,12 @@
             "households_label": "Domus",
             "items_label": "Res possessae",
             "last_seen_short": "Visae",
-            "last_seen_short_never": "Novae"
+            "last_seen_short_never": "Novae",
+            "failed_logins": "{{count}} defectum sign-ins",
+            "load_failed_title": "Usores non potuerunt onerari",
+            "pending_requests": "{{count}} pending domus petitiones",
+            "role_admin": "Amministratori",
+            "role_user": "Usor"
         },
         "logs": {
             "title": "Log Administratori",
@@ -1208,7 +1254,9 @@
             "section_body": "Ogni modifica di moderazione o operativa viene registrata dal livello amministrativo.",
             "errors_body": "Le ultime righe di errore elaborate dai file di log del server.",
             "section_eyebrow": "Semita Audit",
-            "errors_eyebrow": "Diagnostica"
+            "errors_eyebrow": "Diagnostica",
+            "load_failed_title": "Activitas non potuit onerari",
+            "no_logs_title": "Nulla actiones admin adhuc"
         },
         "email": {
             "title": "Mitte Epistulam",
@@ -1242,7 +1290,14 @@
             "status_body": "Velox fiduciae reprehendo antequam mittas communicationem operationalem.",
             "unconfigured_title": "Epistula traditio non configurata est",
             "unconfigured_body": "Forma mittendi manet visibilis ad recognitionem configurationis, sed traditio deficit donec epistula praebitor configuratus sit.",
-            "status_eyebrow": "Traditio"
+            "status_eyebrow": "Traditio",
+            "configured_body": "Resend praesto est pro admin-acta exire nuntiorum.",
+            "configured_title": "Electronica traditio configurata est",
+            "error_title": "Electronica defecit",
+            "format_hint": "HTML sustinetur. Exempli gratia: <b>crassa</b>, <i>italicus</i>, <a href=\"...\">nexus</a>",
+            "from_label": "Mittens",
+            "load_failed_title": "Electronica instrumenta non potuerunt onerari",
+            "success_title": "Electronica missa est"
         },
         "overview": {
             "email_warning_title": "Editorialis missa non configurata est",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Rationaria onerata",
         "logs_loaded": "Protokolla onerata",
         "load_error": "Error in onerandis datis",
-        "action_error": "Error in agendo"
+        "action_error": "Error in agendo",
+        "load_failed_body": "Admin via aperta est, sed data overview non advenit. Potes iterum conari sine relinquendo paginam.",
+        "load_failed_title": "Admin overview non potuit onerari"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Oratio retis hic absconditur. Codicem scana vel nexum copia tantum cum conscie vis communicare accessum directum ad res tuae loci configurationem.",
         "helper": "Scan to open this item instantly, or copy the direct link when needed.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Parans instrumenta QR..."
     },
     "house_access_pending": {
         "eyebrow": "Accessus Domus",
@@ -1859,7 +1917,11 @@
             "name_required": "Nomen rei necessarium est pro recordo thesauri.",
             "options_failed": "Categoria et cella optiones non potuerunt onerari.",
             "delete_success_title": "Fasciculum thesauri deletum",
-            "delete_success_body": "Fasciculum privatum permanenter removetur ex tuo thesauro."
+            "delete_success_body": "Fasciculum privatum permanenter removetur ex tuo thesauro.",
+            "passphrase_lowercase": "Comprehendat saltem unam litteram minutam.",
+            "passphrase_min_length": "Tessera arcis saltem duodecim characteres habere debet.",
+            "passphrase_number": "Comprehendat saltem unum numerum.",
+            "passphrase_uppercase": "Comprehendat saltem unam litteram maiusculam."
         },
         "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
         "recovery_file_created_label": "Creata Clavis Recuperationis Si amittas et hanc clavem et tessera arcis, arca recuperari non potest. Novum Arca Recordum Edita Arca Recordum Hoc sequitur ordinarium fluxum rerum propius, sed textus simplex numquam relinquit pasco. Adde Arca Recordum Serva Mutationes",

@@ -66,7 +66,10 @@
       "warranty_calculation_help": "Raha avela ho banga ny datin'ny fanombohan'ny antoka, ny datin'ny faktiora no ampiasaina. Rehefa miditra ny faharetan'ny antoka ianao, dia ho kajiana ho azy ny datin'ny fiafaran'ny antoka.",
       "vault_hint_title": "Rakitra tena saro-pady?",
       "vault_hint_description": "Ho an'ny pasipaoro, taratasy fananana, antsipiriham-pahafantarana, kaody fidirana, ary rakitra hafa tokony hotehirizina tsy hidiran'ny lisitry ny tahiry mahazatra, tazomy ao amin'ny Tahirin'ny Manokana izy ireo fa tsy any.",
-      "vault_hint_action": "Manokatra Tavoahangy Manokana"
+      "vault_hint_action": "Manokatra Tavoahangy Manokana",
+      "location": "Toerana",
+      "remove_photo": "Esory ny sary",
+      "visibility_owner_only": "Ny olona ihany no nampiditra ny entana no afaka manova ny fahitana azy."
     },
     "messages": {
       "quick_add_success": "✓ \"{{barcode}}\" nampiana haingana - afaka manova aoriana ianao",
@@ -115,7 +118,8 @@
     "delete_error": "Nisy olana tamin'ny famafana ny zavatra",
     "no_permission": "Tsy manana fahazoan-dàlana hanova ity lahatsoratra ity ianao",
     "barcode_search_error": "Tsy nahomby ny fikarohana ny kaody bara",
-    "stats_error": "Antontan'isa momba ny fandefasana diso"
+    "stats_error": "Antontan'isa momba ny fandefasana diso",
+    "detail_subtitle": "Antsipirian'ny entana"
   },
   "common": {
     "save": "Tehirizo",
@@ -162,7 +166,11 @@
     "unauthorized": "Fidirana tsy nahazoana alalana",
     "forbidden": "Tsy manana fahazoan-dàlana amin'ity hetsika ity ianao",
     "validation_error": "Fahadisoana fanamarinana",
-    "server_error": "Hadisoana amin'ny mpizara"
+    "server_error": "Hadisoana amin'ny mpizara",
+    "details": "Antsipiriany",
+    "hide": "Afeno ny tenimiafina",
+    "logging_out": "Mivoaka...",
+    "show": "Asehoy ny tenimiafina"
   },
   "auth": {
     "login": {
@@ -194,7 +202,8 @@
         "verify": "Manamarina",
         "back": "Miverina",
         "use_backup": "Mampiasà kaody backup",
-        "use_totp": "Ampiasao ny authenticator"
+        "use_totp": "Ampiasao ny authenticator",
+        "code_required": "Ilaina ny kaody fanamarinana"
       },
       "welcome_title": "Tongasoa eto indray",
       "welcome_subtitle": "Midira hiditra amin'ny lisitrao",
@@ -632,7 +641,10 @@
       "info": "💡 Afaka ho mpikambana amin'ny trano maro ianao ary mifamadika eo amin'izy ireo. Ny trano tsirairay dia mitazona lisitra samihafa.",
       "accordion_description": "Mifamadika eo amin'ny tokantrano, mamorona vaovao, na midira amin'ny efa misy miaraka amin'ny fanalahidy azo itokisana.",
       "empty_description": "Mamorona tokantrano vaovao hanombohana mizara, na midira amin'ny iray miaraka amin'ny fanalahidin'ny tokantrano azo itokisana.",
-      "leave_success_body": "Tsy manana fidirana amin'ity tokantrano ity intsony ianao ary nohavaozina ny tokantranonao miasa."
+      "leave_success_body": "Tsy manana fidirana amin'ity tokantrano ity intsony ianao ary nohavaozina ny tokantranonao miasa.",
+      "leave_title": "Hiala amin'ity trano ity ve ianao?",
+      "leave_warning": "Ho very ny fidiranao amin'ny toeram-piasan'ity tokantrano ity mandra-pahavitan'ny hafa manasa na mankafy anao indray.",
+      "leaving": "Miala..."
     },
     "house_info": {
       "title": "Fanalahidin'ny Trano Mavitrika",
@@ -674,7 +686,11 @@
       "copy_error": "Tsy afaka nakopy ny lakile trano.",
       "modal_title": "Fidirana amin'ny lakilen'ny trano",
       "modal_subtitle": "Ampiasao ity lakile ity ho an'ny mpikambana ao amin'ny tokantrano atokisana izay tokony hangataka fidirana amin'ity lisitra iombonana ity.",
-      "loading_members": "Mameno mpikambana..."
+      "loading_members": "Mameno mpikambana...",
+      "kick_success_body": "Tsy manana fidirana amin'ity tokantrano ity intsony i {{name}}.",
+      "kick_title": "Esorina ve ity mpikambana ity?",
+      "kick_warning": "Hifarana avy hatrany ny fidirany amin'ny tokantrano ary mila fanasana na faneken'ny hafa izy mba hiverina.",
+      "kicking": "Esorina..."
     },
     "theme": {
       "title": "Lohahevitra",
@@ -720,7 +736,20 @@
       "unencrypted_warning": "Mora jerena kokoa ny fanondranana JSON tsotra, fa izay rehetra manokatra ny rakitra dia afaka mamaky avy hatrany ny angona momba ny fianakavianao.",
       "import_encrypted_title": "Sokafy ny backup voarakitra",
       "import_encrypted_body": "Ampidiro ny teny miafina backup nampiasaina nandritra ny fisintomana mba hamerenana ity rakitra voarakitra ity.",
-      "unlock_and_import": "Manokatra sy mampiditra"
+      "unlock_and_import": "Manokatra sy mampiditra",
+      "export_encrypted_notice": "Ny backup dia voaomana avy amin'ny angon-drakitra fianakaviana mivantana ary avy eo dia ahodina amin'ny tenimiafinao voafidy. Tehirizo amin'ny toerana azo antoka io tenimiafina io satria ilaina izy mba hanarenana ny rakitra amin'ny ho avy.",
+      "export_encrypted_title": "Hampiharina ny fanontaniana alohan'ny fisintomana",
+      "import_summary_body": "{{items}} entana, {{categories}} sokajy, {{rooms}} efitrano, {{locations}} toerana, {{borrows}} rakitsoratra trosa nohavaozina.",
+      "import_summary_title": "Vonjeo ny backup",
+      "preview_categories": "Sokajy",
+      "preview_items": "Entana",
+      "preview_locations": "Toerana",
+      "preview_rooms": "Efitrano",
+      "skipped_borrows": "Nofafàna ny {{count}} rakitsoratra trosa efa misy.",
+      "skipped_categories": "Nofafàna ny {{count}} sokajy efa misy.",
+      "skipped_items": "{{count}} entana efa misy no tsy voahaja.",
+      "skipped_locations": "{{count}} toerana efa misy no tsy voahaja.",
+      "skipped_rooms": "{{count}} efitra efa misy no tsy voahaja."
     },
     "about": {
       "title": "📱 Momba ny Fampiharana",
@@ -733,7 +762,10 @@
       "privacy_link": "Politikan'ny Fiainana Manokana",
       "beta_title": "Toe-javatra Beta",
       "beta_body": "{{brandName}} mbola ao anatin'ny beta. Mety hiova ny endri-javatra, mety hivoatra ny fomba fiasan'ny asa, ary tokony hafindra foana ny tahirin-kevitra lehibe ao an-tokantrano.",
-      "feedback_subject": "Hevitra - {{brandName}}"
+      "feedback_subject": "Hevitra - {{brandName}}",
+      "logout_body": "Mety ho very ny fanovana tsy voatahiry amin'ny endrika misokatra aorian'ny fialanao amin'ity fivoriana ity.",
+      "logout_description": "Hiverina amin'ny pejy fandraisana ianao ary afaka miditra indray amin'ny fotoana rehetra.",
+      "logout_title": "Hiala ankehitriny ve ianao?"
     },
     "modals": {
       "password": {
@@ -960,7 +992,11 @@
       "lend_success_title": "Entana nalaina",
       "lend_success_body": "{{item}} dia voamarika ho nalaina izao.",
       "offer_sent_title": "Borrow offer sent",
-      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+      "borrowed_by_you": "Aminao",
+      "return_pending_hint": "Hikatona ny rakitra aorian'ny fanamafisan'ny mpampindram-bola fa azony ny entana indray.",
+      "return_pending_lender_title": "{{name}} nanamarika ity entana ity ho naverina",
+      "return_pending_self_title": "Aminao, miandry fanamafisana ny fandraisana"
     },
     "untitled_item": "Entana tsy misy lohateny",
     "delete_action": "Fafao ny entana",
@@ -1023,7 +1059,10 @@
     "name_required": "Ilaina ny anaran'ny sokajy",
     "load_error": "Olana amin'ny fampidirana sokajy",
     "add_error": "Nisy olana tamin'ny fampidirana sokajy",
-    "update_error": "Nisy olana tamin'ny fanavaozana ny sokajy"
+    "update_error": "Nisy olana tamin'ny fanavaozana ny sokajy",
+    "color_required": "Ny loko dia tsy maintsy amin'ny endrika #RRGGBB",
+    "empty_description": "Mametraha sokajy vitsivitsy mba hanaraka ny firafitra mitovy ny entana vaovao ary ho mora jerena any aoriana.",
+    "empty_title": "Tsy misy sokajy mbola"
   },
   "rooms": {
     "title": "Efitrano",
@@ -1097,7 +1136,9 @@
     "name_required": "Ilaina ny anaran'ny efitrano",
     "load_error": "Hadisoana amin'ny fampidirana efitrano",
     "add_error": "Nisy olana tamin'ny fampidirana efitrano",
-    "update_error": "Nisy olana teo am-pamakiana ny efitrano"
+    "update_error": "Nisy olana teo am-pamakiana ny efitrano",
+    "empty_description": "Mamorona efitra toy ny lakozia, trano fitehirizana, na garazy mba hitoetra ho mitovy ny toerana misy ny entana ary ho mora tadiavina.",
+    "empty_title": "Tsy misy efitra mbola"
   },
   "admin": {
     "title": "Tabilao Admin",
@@ -1176,7 +1217,12 @@
       "households_label": "Trano fonenana",
       "items_label": "Entana ananan'ny tompony",
       "last_seen_short": "Hita",
-      "last_seen_short_never": "Vaovao"
+      "last_seen_short_never": "Vaovao",
+      "failed_logins": "{{count}} tsy nahomby ny fidirana",
+      "load_failed_title": "Tsy afaka nalaina ny mpampiasa",
+      "pending_requests": "{{count}} fangatahana trano miandry",
+      "role_admin": "Admin",
+      "role_user": "Mpampiasa"
     },
     "logs": {
       "title": "Tantaram-pitantanana Admin",
@@ -1208,7 +1254,9 @@
       "section_eyebrow": "Lalan'ny fitiliana",
       "errors_eyebrow": "Fikarohana ara-pitsaboana",
       "section_body": "Ny fanitsiana na fanovana ara-piasana rehetra voarakitra amin'ny sosona admin.",
-      "errors_body": "Ny tsipika fahadisoana farany voadinika avy amin'ny rakitra log server."
+      "errors_body": "Ny tsipika fahadisoana farany voadinika avy amin'ny rakitra log server.",
+      "load_failed_title": "Tsy afaka nalaina ny hetsika",
+      "no_logs_title": "Tsy mbola misy hetsika admin"
     },
     "email": {
       "title": "Mandefa Email",
@@ -1242,7 +1290,14 @@
       "status_body": "Fanamarinana haingana ny fahatokisana alohan'ny fandefasana fifandraisana miasa.",
       "unconfigured_title": "Tsy voalamina ny fandefasana mailaka",
       "unconfigured_body": "Mipetraka ho hita ny endrika fandefasana ho an'ny fanamarinana fametrahana, fa tsy ho tafavoaka ny mailaka raha tsy voalamina ny mpamatsy mailaka.",
-      "status_eyebrow": "Fandefasana"
+      "status_eyebrow": "Fandefasana",
+      "configured_body": "Ny fandefasana indray dia misy amin'ny hafatra mivoaka atolotry ny admin.",
+      "configured_title": "Voarafitra ny fandefasana mailaka",
+      "error_title": "Tsy nahomby ny mailaka",
+      "format_hint": "Tena tohanana ny HTML. Ohatra: <b>matevina</b>, <i>miendrika italic</i>, <a href=\"...\">rohy</a>",
+      "from_label": "Mpandefa",
+      "load_failed_title": "Tsy afaka nalaina ny fitaovana mailaka",
+      "success_title": "Nalefa ny mailaka"
     },
     "overview": {
       "email_warning_title": "Tsy voaomana ny fandefasana mailaka",
@@ -1327,7 +1382,9 @@
     "stats_loaded": "Antontan'isa feno",
     "logs_loaded": "Hazo feno",
     "load_error": "Hadisoana amin'ny fampidirana ny angon-drakitra",
-    "action_error": "Hadisoana amin'ny fanatanterahana ny asa"
+    "action_error": "Hadisoana amin'ny fanatanterahana ny asa",
+    "load_failed_body": "Misokatra ny lalana admin, fa tsy tonga ny angon-drakitra fijerena ankapobeny. Afaka manandrana indray ianao nefa tsy miala amin'ny pejy.",
+    "load_failed_title": "Tsy afaka nalaina ny fijerena ankapoben'ny admin"
   },
   "landing": {
     "nav": {
@@ -1672,7 +1729,8 @@
     "link_privacy_note": "Tazana miafina ato ny adiresin'ny tambajotra. Scan-ny ny kaody na dikao ny rohy raha te hizara fidirana mivantana amin'ny zavatra ao amin'ny rafitrao eo an-toerana ianao.",
     "helper": "Scan-ny mba hanokatra ity zavatra ity avy hatrany, na dikao ny rohy mivantana rehefa ilaina.",
     "copy_error_title": "Link could not be copied automatically",
-    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+    "loading": "Manomana fitaovana QR..."
   },
   "house_access_pending": {
     "eyebrow": "Fidirana an-trano",
@@ -1859,7 +1917,11 @@
       "name_required": "Ilaina ny anaran'ny entana ho an'ny firaketana fitaovam-piadiana.",
       "options_failed": "Tsy afaka natao ny entana sy safidin'ny efitra.",
       "delete_success_title": "Firaketana ao anaty vualty voafafa",
-      "delete_success_body": "Ny firaketana manokana dia nesorina tanteraka tao anaty vualty-nao."
+      "delete_success_body": "Ny firaketana manokana dia nesorina tanteraka tao anaty vualty-nao.",
+      "passphrase_lowercase": "Ampidiro farafahakeliny taratasy kely iray.",
+      "passphrase_min_length": "Ny teny miafina amin'ny vata manokana dia tsy maintsy manana litera 12 farafahakeliny.",
+      "passphrase_number": "Ampidiro farafahakeliny isa iray.",
+      "passphrase_uppercase": "Ampidiro farafahakeliny taratasy lehibe iray."
     },
     "recovery_file_title": "Fanalahidin'ny Fanarenana Vault Manokana {{brandName}}",
     "recovery_file_created_label": "Noforonina",

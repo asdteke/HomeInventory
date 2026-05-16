@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Hvis du lar garantistartdatoen stå tom, brukes fakturadatoen. Når du skriver inn varigheten, beregnes garantisluttdatoen automatisk.",
             "vault_hint_title": "Svært sensitiv opptegnelse?",
             "vault_hint_description": "For pass, skjøter, identitetsdetaljer, tilgangskoder og andre opptegnelser som bør holdes utenfor standard lagerflyt, oppbevar dem i Personlig Safe i stedet.",
-            "vault_hint_action": "Åpne Personlig Safe"
+            "vault_hint_action": "Åpne Personlig Safe",
+            "location": "Lokasjon",
+            "remove_photo": "Fjern bilde",
+            "visibility_owner_only": "Bare personen som la til elementet kan endre synlighet."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" raskt lagt til - du kan redigere senere",
@@ -115,7 +118,8 @@
         "delete_error": "Feil som sletter gjenstand",
         "no_permission": "No permission",
         "barcode_search_error": "Strekkodesøk mislyktes",
-        "stats_error": "Stats error"
+        "stats_error": "Stats error",
+        "detail_subtitle": "Varedetaljer"
     },
     "common": {
         "save": "Lagre",
@@ -162,7 +166,11 @@
         "unauthorized": "Uautorisert tilgang",
         "forbidden": "Permission denied",
         "validation_error": "Valideringsfeil",
-        "server_error": "Serverfeil"
+        "server_error": "Serverfeil",
+        "details": "Detaljer",
+        "hide": "Skjul passord",
+        "logging_out": "Logger ut...",
+        "show": "Vis passord"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Bekreft",
                 "back": "Tilbake",
                 "use_backup": "Bruk reservekode",
-                "use_totp": "Bruk autentiseringsapp"
+                "use_totp": "Bruk autentiseringsapp",
+                "code_required": "Verifiseringskode kreves"
             },
             "welcome_title": "Velkommen tilbake",
             "welcome_subtitle": "Logg inn for å få tilgang til inventaret ditt",
@@ -632,7 +641,10 @@
             "info": "💡 Du kan være medlem av flere hus og bytte mellom dem. Hvert hus har eget inventar.",
             "accordion_description": "Bytt mellom husholdninger, opprett en ny, eller bli med i en eksisterende med en pålitelig nøkkel.",
             "empty_description": "Opprett en ny husholdning for å begynne å dele, eller bli med i en med en pålitelig husnøkkel.",
-            "leave_success_body": "Du har ikke lenger tilgang til denne husholdningen, og ditt aktive hus ble oppdatert."
+            "leave_success_body": "Du har ikke lenger tilgang til denne husholdningen, og ditt aktive hus ble oppdatert.",
+            "leave_title": "Forlat dette huset?",
+            "leave_warning": "Du vil miste tilgang til dette husholdets arbeidsområde inntil et annet medlem inviterer eller godkjenner deg igjen.",
+            "leaving": "Forlater..."
         },
         "house_info": {
             "title": "Aktiv Husnøkkel",
@@ -674,7 +686,11 @@
             "copy_error": "Husnøkkelen kunne ikke kopieres.",
             "modal_title": "Tilgang til husnøkkel",
             "modal_subtitle": "Bruk denne nøkkelen kun for betrodde husholdningsmedlemmer som skal be om tilgang til dette delte inventaret.",
-            "loading_members": "Laster medlemmer..."
+            "loading_members": "Laster medlemmer...",
+            "kick_success_body": "{{name}} har ikke lenger tilgang til dette husholdet.",
+            "kick_title": "Fjern dette medlemmet?",
+            "kick_warning": "Deres tilgang til husholdet vil avsluttes umiddelbart, og de vil trenge en ny invitasjon eller godkjenning for å komme tilbake.",
+            "kicking": "Fjerner..."
         },
         "theme": {
             "title": "Tema",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Vanlige JSON-eksporter er lettere å inspisere, men hvem som helst som åpner filen kan umiddelbart lese husholdningsdataene dine.",
             "import_encrypted_title": "Lås opp kryptert sikkerhetskopi",
             "import_encrypted_body": "Skriv inn sikkerhetskopi-passordet som ble brukt under nedlastingen for å gjenopprette denne krypterte filen.",
-            "unlock_and_import": "Lås opp og importer"
+            "unlock_and_import": "Lås opp og importer",
+            "export_encrypted_notice": "Sikkerhetskopien er laget fra levende husholdningsdata og deretter kryptert med passordfrasen du velger. Oppbevar den passordfrasen på et trygt sted, fordi den kreves for å gjenopprette filen senere.",
+            "export_encrypted_title": "Kryptering vil bli brukt før nedlasting",
+            "import_summary_body": "{{items}} elementer, {{categories}} kategorier, {{rooms}} rom, {{locations}} steder, {{borrows}} utlånsregistre gjenopprettet.",
+            "import_summary_title": "Sikkerhetskopi gjenopprettet",
+            "preview_categories": "Kategorier",
+            "preview_items": "Elementer",
+            "preview_locations": "Steder",
+            "preview_rooms": "Rom",
+            "skipped_borrows": "{{count}} eksisterende utlånsregistre hoppet over.",
+            "skipped_categories": "{{count}} eksisterende kategorier hoppet over.",
+            "skipped_items": "{{count}} eksisterende elementer hoppet over.",
+            "skipped_locations": "{{count}} eksisterende steder hoppet over.",
+            "skipped_rooms": "{{count}} eksisterende rom hoppet over."
         },
         "about": {
             "title": "📱 Om applikasjonen",
@@ -733,7 +762,10 @@
             "privacy_link": "Personvernregler",
             "beta_title": "Betastatus",
             "beta_body": "{{brandName}} er fortsatt i beta. Funksjoner kan endres, arbeidsflyter kan utvikle seg, og viktige husholdningsdata bør alltid sikkerhetskopieres.",
-            "feedback_subject": "Tilbakemelding - {{brandName}}"
+            "feedback_subject": "Tilbakemelding - {{brandName}}",
+            "logout_body": "Eventuelle usparrede endringer i åpne skjemaer kan gå tapt etter at du forlater denne økten.",
+            "logout_description": "Du vil komme tilbake til hjemmesiden og kan logge inn igjen når som helst.",
+            "logout_title": "Logg ut nå?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Element utlånt",
             "lend_success_body": "{{item}} er nå merket som utlånt.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Hos deg",
+            "return_pending_hint": "Oppføringen lukkes etter at långiveren bekrefter at de har mottatt varen tilbake.",
+            "return_pending_lender_title": "{{name}} markerte dette elementet som levert tilbake",
+            "return_pending_self_title": "Hos deg, venter på kvitteringsbekreftelse"
         },
         "untitled_item": "Uten tittel",
         "delete_action": "Slett vare",
@@ -1023,7 +1059,10 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "color_required": "Fargen må være i formatet #RRGGBB",
+        "empty_description": "Lag noen kategorier slik at nye elementer følger samme struktur og blir lettere å skanne senere.",
+        "empty_title": "Ingen kategorier ennå"
     },
     "rooms": {
         "title": "Rom",
@@ -1097,7 +1136,9 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "empty_description": "Lag rom som kjøkken, lagring eller garasje slik at vareplasseringer forblir konsistente og lettere å søke.",
+        "empty_title": "Ingen rom ennå"
     },
     "admin": {
         "title": "Adminpanel",
@@ -1176,7 +1217,12 @@
             "households_label": "husholdninger",
             "items_label": "Eide gjenstander",
             "last_seen_short": "Sett",
-            "last_seen_short_never": "Nye"
+            "last_seen_short_never": "Nye",
+            "failed_logins": "{{count}} mislykkede pålogginger",
+            "load_failed_title": "Brukere kunne ikke lastes",
+            "pending_requests": "{{count}} ventende husforespørsler",
+            "role_admin": "Administratorer",
+            "role_user": "Bruker"
         },
         "logs": {
             "title": "Adminlogger",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Revideringsspor",
             "errors_eyebrow": "Diagnostikk",
             "section_body": "Hver moderasjon eller operasjonell endring registrert av administrasjonslaget.",
-            "errors_body": "De nyeste analyserte feil linjene fra serverloggfilene."
+            "errors_body": "De nyeste analyserte feil linjene fra serverloggfilene.",
+            "load_failed_title": "Aktivitet kunne ikke lastes",
+            "no_logs_title": "Ingen adminhandlinger ennå"
         },
         "email": {
             "title": "Send e-post",
@@ -1242,7 +1290,14 @@
             "status_body": "En rask sjekk av selvtillit før sending av operasjonell kommunikasjon.",
             "unconfigured_title": "E-postlevering er ikke konfigurert",
             "unconfigured_body": "Sendeskjemaet forblir synlig for gjennomgang av oppsett, men levering vil mislykkes til e-postleverandøren er konfigurert.",
-            "status_eyebrow": "Levering"
+            "status_eyebrow": "Levering",
+            "configured_body": "Gjenutsendelse er tilgjengelig for admin-utløste utgående meldinger.",
+            "configured_title": "E-postlevering er konfigurert",
+            "error_title": "E-post mislyktes",
+            "format_hint": "HTML støttes. For eksempel: <b>fet</b>, <i>kursiv</i>, <a href=\"...\">lenke</a>",
+            "from_label": "Avsender",
+            "load_failed_title": "E-postverktøy kunne ikke lastes",
+            "success_title": "E-post sendt"
         },
         "overview": {
             "email_warning_title": "E-postlevering er ikke konfigurert",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Stats loaded",
         "logs_loaded": "Logger lastet inn",
         "load_error": "Error loading",
-        "action_error": "Action error"
+        "action_error": "Action error",
+        "load_failed_body": "Admin-ruten er åpen, men oversiktsdataene kom ikke frem. Du kan prøve igjen uten å forlate siden.",
+        "load_failed_title": "Adminoversikt kunne ikke lastes"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Nettverksadressen forblir skjult her. Skann koden eller kopier lenken kun når du med vilje ønsker å dele direkte tilgang til elementet på ditt lokale oppsett.",
         "helper": "Skann for å åpne dette elementet umiddelbart, eller kopier den direkte lenken når det trengs.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Forbereder QR-verktøy..."
     },
     "house_access_pending": {
         "eyebrow": "Husadgang",
@@ -1859,7 +1917,11 @@
             "name_required": "Et varenavn er påkrevd for en hvelvregistrering.",
             "options_failed": "Kategori- og romalternativer kunne ikke lastes.",
             "delete_success_title": "Hvelvoppføring slettet",
-            "delete_success_body": "Den private oppføringen ble permanent fjernet fra hvelvet ditt."
+            "delete_success_body": "Den private oppføringen ble permanent fjernet fra hvelvet ditt.",
+            "passphrase_lowercase": "Inkluder minst én liten bokstav.",
+            "passphrase_min_length": "Hvelvets passordfrase må være minst 12 tegn.",
+            "passphrase_number": "Inkluder minst ett tall.",
+            "passphrase_uppercase": "Inkluder minst én stor bokstav."
         },
         "recovery_file_title": "{{brandName}} Personlig Hvelv Gjenopprettingsnøkkel",
         "recovery_file_created_label": "Opprettet",

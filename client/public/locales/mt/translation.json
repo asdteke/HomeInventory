@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Jekk tħalli vojta data tal-bidu tal-garanzija, tidħol id-data tal-fattura. Meta tidħol id-durata, id-data ta' tmiem il-garanzija tiġi kkalkolata awtomatikament.",
             "vault_hint_title": "Rekord ħafna sensittiv?",
             "vault_hint_description": "Għall-passaporti, deed, dettalji tal-identità, kodiċijiet ta’ aċċess, u rekord ieħor li għandu jibqa’ barra mill-fluss tal-inventarju standard, żommhom fil-Kaxxa Personali minflok.",
-            "vault_hint_action": "Iftaħ il-Kaxxa Personali"
+            "vault_hint_action": "Iftaħ il-Kaxxa Personali",
+            "location": "Post",
+            "remove_photo": "Neħħi r-ritratt",
+            "visibility_owner_only": "Biss il-persuna li żiedet l-oġġett tista 'tbiddel il-viżibilità."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" ġie miżjud malajr - tista' teditja aktar tard",
@@ -115,7 +118,8 @@
         "delete_error": "Żball waqt it-tneħħija ta' oġġett",
         "no_permission": "No permission",
         "barcode_search_error": "It-tfittxija tal-barcode falliet",
-        "stats_error": "Stats error"
+        "stats_error": "Stats error",
+        "detail_subtitle": "Dettalji tal-oġġett"
     },
     "common": {
         "save": "Issejvja",
@@ -162,7 +166,11 @@
         "unauthorized": "Aċċess mhux awtorizzat",
         "forbidden": "Permission denied",
         "validation_error": "Żball ta' validazzjoni",
-        "server_error": "Żball tas-server"
+        "server_error": "Żball tas-server",
+        "details": "Dettalji",
+        "hide": "Aħbi l-password",
+        "logging_out": "Qed tiħdem minn log out...",
+        "show": "Uri l-password"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Ivverifika",
                 "back": "lura",
                 "use_backup": "Uża kodiċi ta' backup",
-                "use_totp": "Uża authenticator"
+                "use_totp": "Uża authenticator",
+                "code_required": "Kodiċi ta' verifika huwa meħtieġ"
             },
             "welcome_title": "Merħba",
             "welcome_subtitle": "Idħol biex taċċessa l-inventarju tiegħek",
@@ -632,7 +641,10 @@
             "info": "💡 Tista' tkun membru ta' bosta djar u tibdel bejn dawn. Kull dar iżżomm inventarju separat.",
             "accordion_description": "Ibdel bejn darbiet, oħloq waħda ġdida, jew ingħaqad ma’ waħda eżistenti b’ċavetta fidata.",
             "empty_description": "Oħloq dar ġdida biex tibda taqsam, jew ingħaqad ma’ waħda b’ċavetta tad-dar fidata.",
-            "leave_success_body": "Inti ma għandekx aktar aċċess għal din id-dar u d-dar attiva tiegħek ġiet aġġornata."
+            "leave_success_body": "Inti ma għandekx aktar aċċess għal din id-dar u d-dar attiva tiegħek ġiet aġġornata.",
+            "leave_title": "Tiġi ħalli din id-dar?",
+            "leave_warning": "Int se titlef aċċess għal dan l-ispazju tax-xogħol tad-dar sakemm membru ieħor jistedink jew japprovaklek mill-ġdid.",
+            "leaving": "Qed tħalli..."
         },
         "house_info": {
             "title": "Ċavetta Aktiva tad-Dar",
@@ -674,7 +686,11 @@
             "copy_error": "Ma setgħetx tiġi kkopjata ċ-ċavetta tad-dar.",
             "modal_title": "Aċċess għall- ċavetta tad-dar",
             "modal_subtitle": "Uża din iċ-ċavetta biss għall-membri fidati tad-dar li għandhom jitolbu aċċess għal din l-inventarju kondiviża.",
-            "loading_members": "Lest għan-members..."
+            "loading_members": "Lest għan-members...",
+            "kick_success_body": "{{name}} mhux se jkollu aċċess għal dan id-dar.",
+            "kick_title": "Neħħi dan il-membru?",
+            "kick_warning": "L-aċċess tagħhom fid-dar se jintemm immedjatament u jkollhom bżonn ta' stedina ġdida jew approvazzjoni biex jirritornaw.",
+            "kicking": "Qed tneħħi..."
         },
         "theme": {
             "title": "Suġġett",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "L-esportazzjonijiet plain JSON huma aktar faċli biex jiġu eżaminati, iżda kull min jiftaħ il-fajl jista’ jaqra d-dejta tad-dar tiegħek immedjatament.",
             "import_encrypted_title": "Iftaħ il-backup encrypted",
             "import_encrypted_body": "Daħħal il-password tal-backup użata waqt in-niżżil biex tirrestawra dan il-fajl encrypted.",
-            "unlock_and_import": "Iftaħ u importah"
+            "unlock_and_import": "Iftaħ u importah",
+            "export_encrypted_notice": "Il-backup huwa ppjanat mid-data reali tad-djar u mbagħad imsikket bil-kliem-pass li tagħżel. Żomm dak il-kliem-pass xi mkien sigur għax huwa meħtieġ biex tirrestawra l-fajl aktar tard.",
+            "export_encrypted_title": "L-encryption se tintuża qabel it-tniżżil",
+            "import_summary_body": "{{items}} oġġetti, {{categories}} kategoriji, {{rooms}} kmamar, {{locations}} lokazzjonijiet, {{borrows}} rekord tal-indħil imrestawrat.",
+            "import_summary_title": "Backup irrestawrat",
+            "preview_categories": "Kategoriji",
+            "preview_items": "Oġġetti",
+            "preview_locations": "Lokazzjonijiet",
+            "preview_rooms": "Kmamar",
+            "skipped_borrows": "{{count}} rekord ta' indħil eżistenti aġġornat.",
+            "skipped_categories": "{{count}} kategoriji eżistenti skippjat.",
+            "skipped_items": "{{count}} oġġetti eżistenti skippjati.",
+            "skipped_locations": "{{count}} postijiet eżistenti skippjati.",
+            "skipped_rooms": "{{count}} kmamar eżistenti skippjati."
         },
         "about": {
             "title": "📱 Dwar l-Applikazzjoni",
@@ -733,7 +762,10 @@
             "privacy_link": "Politika tal-Privatezza",
             "beta_title": "Stat Beta",
             "beta_body": "{{brandName}} għadu fil-beta. Il-karatteristiċi jistgħu jinbidlu, il-flussi tax-xogħol jistgħu jevolvu, u dejta importanti tad-dar għandha dejjem tiġi mfaxxex.",
-            "feedback_subject": "Feedback - {{brandName}}"
+            "feedback_subject": "Feedback - {{brandName}}",
+            "logout_body": "Xi tibdiliet mhux issalvati f'formoli miftuħa jistgħu jintilfu wara li tibqa' f'din is-sessjoni.",
+            "logout_description": "Tmur lura għal-paġna ewlenija u tista' tidħol lura kull ħin.",
+            "logout_title": "Tiħroġ minn issa?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Oġġett mikri",
             "lend_success_body": "{{item}} issa mfakkar bħala mikri.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Miegħek",
+            "return_pending_hint": "Ir-rekord jingħalaq wara li l-konċedut jikkonferma li rċieva l-oġġett lura.",
+            "return_pending_lender_title": "{{name}} immarka dan l-oġġett bħala rilaxxat lura",
+            "return_pending_self_title": "Miegħek, qed tistenna l-konferma tar-riċevuta"
         },
         "untitled_item": "Oġġett bla titlu",
         "delete_action": "Ħassar oġġett",
@@ -1023,7 +1059,10 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "color_required": "Il-kulur irid ikun fil-format #RRGGBB",
+        "empty_description": "Oħloq ftit kategoriji biex oġġetti ġodda jsegwu l-istess struktura u jkunu aktar faċli biex jiġu skanati aktar tard.",
+        "empty_title": "L-ebda kategoriji għadhom"
     },
     "rooms": {
         "title": "Kmamar",
@@ -1097,7 +1136,9 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "empty_description": "Oħloq kmamar bħal kċina, post ta 'ħażna, jew garaxx sabiex il-postijiet tal-oġġetti jibqgħu konsistenti u faċli biex tfittex.",
+        "empty_title": "L-ebda kmamar għadhom"
     },
     "admin": {
         "title": "Pannell ta' Amministratur",
@@ -1176,7 +1217,12 @@
             "households_label": "Djar",
             "items_label": "Oġġetti mibgħuta",
             "last_seen_short": "Rwieta",
-            "last_seen_short_never": "Ġodda"
+            "last_seen_short_never": "Ġodda",
+            "failed_logins": "{{count}} tentattivi ta' login falluti",
+            "load_failed_title": "L-utenti ma setgħux jitħaddmu",
+            "pending_requests": "{{count}} talbiet għall-posta pendenti",
+            "role_admin": "Amministratur",
+            "role_user": "Utent"
         },
         "logs": {
             "title": "Logs tal-Admin",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Trakk tal-awditjar",
             "errors_eyebrow": "Dijanjostiċi",
             "section_body": "Kull moderazzjoni jew bidla operattiva rreġistrata mill-livell ta' amministratur.",
-            "errors_body": "L-aħħar linji ta' żball mfassla mill-fajls tal-log tas-server."
+            "errors_body": "L-aħħar linji ta' żball mfassla mill-fajls tal-log tas-server.",
+            "load_failed_title": "Attività ma setgħetx titħaddem",
+            "no_logs_title": "L-ebda azzjonijiet tal-amministratur għadhom"
         },
         "email": {
             "title": "Ibgħat Email",
@@ -1242,7 +1290,14 @@
             "status_body": "Kontroll rapidu tal-kunfidenza qabel tibgħat komunikazzjoni operattiva.",
             "unconfigured_title": "Il-kunsinna tal-imejl mhix kkonfigurata",
             "unconfigured_body": "Il-formola tat-tbaħħir tibqa' viżibbli għar-reviżjoni tas-settup, iżda t-tbaħħir jintilef sakemm il-fornitur tal-email ikun ikkkonfigurat.",
-            "status_eyebrow": "Kunsinna"
+            "status_eyebrow": "Kunsinna",
+            "configured_body": "Ittrasmissjoni mill-ġdid hija disponibbli għal messaġġi outbound imħabbta mill-amministratur.",
+            "configured_title": "Il-ħruġ tal-email huwa kkonfigurat",
+            "error_title": "L-email iffaċċjat falliment",
+            "format_hint": "HTML huwa appoġġjat. Per eżempju: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
+            "from_label": "Mittenti",
+            "load_failed_title": "Il-għodod tal-email ma setgħux jitħaddmu",
+            "success_title": "L-email tħadala"
         },
         "overview": {
             "email_warning_title": "Il-konsenja tal-email mhix konfigurata",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Stats loaded",
         "logs_loaded": "Logs imtellgħin",
         "load_error": "Error loading",
-        "action_error": "Action error"
+        "action_error": "Action error",
+        "load_failed_body": "Ir-rotta tal-amministratur hija miftuħa, iżda l-informazzjoni ta' veduta ġenerali ma waslitx. Tista' tipprova mill-ġdid mingħajr ma titlaq mill-paġna.",
+        "load_failed_title": "Veduta ġenerali tal-amministratur ma setgħetx titħaddem"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "L-indirizz tan-netwerk jibqa' moħbi hawn. Ittajjeb il-kodiċi jew ikkopja l-link biss meta tixtieq taħdem biex taqsam aċċess dirett għall-oġġett fuq is-settings lokali tiegħek.",
         "helper": "Ittajjel biex tiftaħ dan l-oġġett immedjatament, jew ikkopja l-link dirett meta tkun meħtieġ.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Qed tipprepara l-għodod QR..."
     },
     "house_access_pending": {
         "eyebrow": "Aċċess għall-binja",
@@ -1859,7 +1917,11 @@
             "name_required": "Hemm bżonn nome ta' oġġett għal rekord tal-vault.",
             "options_failed": "Ma setgħux jitħaddmu l-għażliet tal-kategorija u tal-kamra.",
             "delete_success_title": "Rekord tal-vault imħassar",
-            "delete_success_body": "Ir-rekord privat ġie msaħħaħ b'mod permanenti mill-vault tiegħek."
+            "delete_success_body": "Ir-rekord privat ġie msaħħaħ b'mod permanenti mill-vault tiegħek.",
+            "passphrase_lowercase": "Inkludi mill-inqas ittra waħda bl-ittra żgħira.",
+            "passphrase_min_length": "Il-password tal-bank għandu jkun ta' mill-inqas 12-il karattru.",
+            "passphrase_number": "Inkludi mill-inqas numru wieħed.",
+            "passphrase_uppercase": "Inkludi mill-inqas ittra waħda bl-ittra kbira."
         },
         "recovery_file_title": "{{brandName}} Ċavetta ta' Rkupru tal-Fajja Personali",
         "recovery_file_created_label": "Maħluq",

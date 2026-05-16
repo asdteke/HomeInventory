@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Zəmanət başlanğıc tarixini boş buraxsanız, faktura tarixi istifadə olunur. Müddəti daxil etdiyiniz zaman, zəmanət bitiş tarixi avtomatik hesablanır.",
             "vault_hint_title": "Əlavə məxfilik lazım?",
             "vault_hint_description": "Pasportlar, sənədlər, şəxsiyyət məlumatları, giriş kodları və ortaq inventarınızda saxlanmamalı olan digər qeydiyyatlar üçün onları əvəzinə Şəxsi Qəfəsdə saxlayın.",
-            "vault_hint_action": "Şəxsi Qəfəsi aç"
+            "vault_hint_action": "Şəxsi Qəfəsi aç",
+            "location": "Yer",
+            "remove_photo": "Şəkli sil",
+            "visibility_owner_only": "Yalnız əşyanı əlavə edən şəxs görünürlüğü dəyişə bilər."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" sürətli əlavə edildi - sonra redaktə edə bilərsiniz",
@@ -115,7 +118,8 @@
         "delete_error": "Əşyanın silinməsində xəta",
         "no_permission": "No permission",
         "barcode_search_error": "Barkod axtarışı uğursuz oldu",
-        "stats_error": "Stats error"
+        "stats_error": "Stats error",
+        "detail_subtitle": "Əşyanın təfərrüatları"
     },
     "common": {
         "save": "Yadda saxla",
@@ -162,7 +166,11 @@
         "unauthorized": "İcazəsiz giriş",
         "forbidden": "Permission denied",
         "validation_error": "Yoxlama səhvi",
-        "server_error": "Server xətası"
+        "server_error": "Server xətası",
+        "details": "Təfərrüatlar",
+        "hide": "Parolu gizlət",
+        "logging_out": "Çıxış edilir...",
+        "show": "Parolu göstər"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Təsdiqlə",
                 "back": "Geri",
                 "use_backup": "Ehtiyat kodundan istifadə et",
-                "use_totp": "Avtentiqator istifadə et"
+                "use_totp": "Avtentiqator istifadə et",
+                "code_required": "Təsdiq kodu tələb olunur"
             },
             "welcome_title": "Yenidən xoş gəlmisiniz",
             "welcome_subtitle": "Inventarınıza daxil olmaq üçün giriş edin",
@@ -632,7 +641,10 @@
             "info": "Bir neçə evin üzvü ola bilərsiniz və onların arasında keçid edə bilərsiniz. Hər bir ev öz inventarını saxlayır.",
             "accordion_description": "Evler arasında keçid et, yeni bir ev yarat və ya mövcud evə etibarlı açar ilə qoşul.",
             "empty_description": "Paylaşmağa başlamaq üçün yeni bir ev yaradın və ya etibarlı ev açarı ilə mövcud evə qoşulun.",
-            "leave_success_body": "Siz artıq bu evə giriş əldə edə bilmirsiniz və aktiv eviniz yeniləndi."
+            "leave_success_body": "Siz artıq bu evə giriş əldə edə bilmirsiniz və aktiv eviniz yeniləndi.",
+            "leave_title": "Bu evi tərk etmək?",
+            "leave_warning": "Başqa bir üzv yenidən dəvət edənə və ya təsdiqləyənə qədər bu ev iş sahəsinə giriş icazənizi itirəcəksiniz.",
+            "leaving": "Tərk olunur..."
         },
         "house_info": {
             "title": "Aktiv Ev Açarı",
@@ -674,7 +686,11 @@
             "copy_error": "Ev açarı kopyalana bilmədi.",
             "modal_title": "Ev açarına giriş",
             "modal_subtitle": "Bu açarı yalnız ev paylaşılan inventarına giriş tələb etməli olan etibarlı ailə üzvləri üçün istifadə edin.",
-            "loading_members": "Üzvlər yüklənir..."
+            "loading_members": "Üzvlər yüklənir...",
+            "kick_success_body": "{{name}} artıq bu evə girişə malik deyil.",
+            "kick_title": "Bu üzvü silmək?",
+            "kick_warning": "Onların evə giriş imkanı dərhal bitəcək və geri qayıtmaq üçün yeni dəvət və ya təsdiq lazım olacaq.",
+            "kicking": "Silinir..."
         },
         "theme": {
             "title": "Mövzu",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Sadə JSON ixracları yoxlamaq üçün daha asandır, amma faylı açan hər kəs dərhal ailə məlumatlarınızı oxuya bilər.",
             "import_encrypted_title": "Şifrələnmiş ehtiyat nüsxənin kilidini açın",
             "import_encrypted_body": "Bu şifrəli faylı bərpa etmək üçün yükləmə zamanı istifadə olunan ehtiyat parolunu daxil edin.",
-            "unlock_and_import": "Kilidi aç və idxal et"
+            "unlock_and_import": "Kilidi aç və idxal et",
+            "export_encrypted_notice": "Ehtiyat nüsxə canlı ev məlumatlarından hazırlanır və sonra seçdiyiniz şifrələmə ifadəsi ilə qorunur. Bu şifrələmə ifadəsini təhlükəsiz bir yerdə saxlayın, çünki faylı bərpa etmək üçün sonradan tələb olunacaq.",
+            "export_encrypted_title": "Yükləmədən əvvəl şifrələmə tətbiq olunacaq",
+            "import_summary_body": "{{items}} maddə, {{categories}} kateqoriya, {{rooms}} otaq, {{locations}} yer, {{borrows}} borc qeydi bərpa edildi.",
+            "import_summary_title": "Ehtiyat nüsxə bərpa edildi",
+            "preview_categories": "Kateqoriyalar",
+            "preview_items": "Maddələr",
+            "preview_locations": "Məkanlar",
+            "preview_rooms": "Otaqlar",
+            "skipped_borrows": "{{count}} mövcud borc qeydi keçildi.",
+            "skipped_categories": "{{count}} mövcud kateqoriya keçildi.",
+            "skipped_items": "{{count}} mövcud element atlandı.",
+            "skipped_locations": "{{count}} mövcud yerlər atlandı.",
+            "skipped_rooms": "{{count}} mövcud otaqlar atlandı."
         },
         "about": {
             "title": "Tətbiq haqqında",
@@ -733,7 +762,10 @@
             "privacy_link": "Məxfilik Siyasəti",
             "beta_title": "Beta vəziyyəti",
             "beta_body": "{{brandName}} hələ də beta mərhələsindədir. Xüsusiyyətlər dəyişə bilər, iş axınları inkişaf edə bilər və vacib ev məlumatları həmişə ehtiyat nüsxə ilə saxlanılmalıdır.",
-            "feedback_subject": "Əlaqə - {{brandName}}"
+            "feedback_subject": "Əlaqə - {{brandName}}",
+            "logout_body": "Açıq formanıza etdiyiniz qeydə alınmamış dəyişikliklər bu sessiyadan çıxdıqdan sonra itə bilər.",
+            "logout_description": "Siz ana səhifəyə qayıdacaqsınız və istədiyiniz zaman yenidən daxil ola bilərsiniz.",
+            "logout_title": "İndi çıxmaq istəyirsiniz?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Verilmiş əşya",
             "lend_success_body": "{{item}} indi icarəyə verilmiş kimi işarələndi.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Səninlə",
+            "return_pending_hint": "Qeyd, əşyayı geri aldığını təsdiqləyənə qədər bağlanacaq.",
+            "return_pending_lender_title": "{{name}} bu əşyayı geri çatdırılmış kimi işarələyib",
+            "return_pending_self_title": "Səninlə, qəbz təsdiqini gözləyir"
         },
         "untitled_item": "Başlıqsız maddə",
         "delete_action": "Maddəni sil",
@@ -1023,7 +1059,10 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "color_required": "Rəng #RRGGBB formatında olmalıdır",
+        "empty_description": "Bir neçə kateqoriya yaradın ki, yeni əşyalar eyni strukturu izləsin və sonradan görmək daha asan olsun.",
+        "empty_title": "Hələ kateqoriyalar yoxdur"
     },
     "rooms": {
         "title": "Otaqlar",
@@ -1097,7 +1136,9 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "empty_description": "Mətbəx, anbar və ya qaraj kimi otaqlar yaradın ki, əşya yerləri sabit qalsın və tapmaq asan olsun.",
+        "empty_title": "Hələ otaqlar yoxdur"
     },
     "admin": {
         "title": "İdarə Paneli",
@@ -1176,7 +1217,12 @@
             "households_label": "Ev təsərrüfatları",
             "items_label": "Sahib olduğu əşyalar",
             "last_seen_short": "Görülüb",
-            "last_seen_short_never": "Yeni"
+            "last_seen_short_never": "Yeni",
+            "failed_logins": "{{count}} uğursuz giriş",
+            "load_failed_title": "İstifadəçilər yüklənə bilmədi",
+            "pending_requests": "{{count}} gözləyən ev tələbi",
+            "role_admin": "Administratorlar",
+            "role_user": "İstifadəçi"
         },
         "logs": {
             "title": "Admin Jurnalları",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Audit izləri",
             "errors_eyebrow": "Diaqnostika",
             "section_body": "Admin təbəqəsi tərəfindən qeydə alınan hər bir modifikasiya və ya əməliyyat dəyişiklikləri.",
-            "errors_body": "Server loq fayllarından çıxarılan son analiz edilmiş səhv sətirləri."
+            "errors_body": "Server loq fayllarından çıxarılan son analiz edilmiş səhv sətirləri.",
+            "load_failed_title": "Fəaliyyət yüklənə bilmədi",
+            "no_logs_title": "Hələ admin əməliyyatları yoxdur"
         },
         "email": {
             "title": "E-poçt Göndər",
@@ -1242,7 +1290,14 @@
             "status_body": "Əməliyyat ünsiyyətini göndərmədən əvvəl sürətli etibar yoxlaması.",
             "unconfigured_title": "E-poçt çatdırılması konfiqurasiya olunmayıb",
             "unconfigured_body": "Göndərmə forması quraşdırma yoxlaması üçün görünür qalır, amma poçt provayderi konfiqurasiya olunana qədər çatdırılma uğursuz olacaq.",
-            "status_eyebrow": "Çatdırılma"
+            "status_eyebrow": "Çatdırılma",
+            "configured_body": "Yenidən göndərmə, admin tərəfindən başlanan çıxış mesajları üçün mövcuddur.",
+            "configured_title": "E-poçt göndərişi konfiqurasiya edilib",
+            "error_title": "E-poçt uğursuz oldu",
+            "format_hint": "HTML dəstəklənir. Məsələn: <b>qalın</b>, <i>kursiv</i>, <a href=\"...\">link</a>",
+            "from_label": "Göndərən",
+            "load_failed_title": "E-poçt vasitələri yüklənə bilmədi",
+            "success_title": "E-poçt göndərildi"
         },
         "overview": {
             "email_warning_title": "Email göndərilməsi konfiqurasiya olunmayıb",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Stats loaded",
         "logs_loaded": "Qeydlər yükləndi",
         "load_error": "Error loading",
-        "action_error": "Action error"
+        "action_error": "Action error",
+        "load_failed_body": "Admin marşrutu açıqdır, lakin ümumi məlumat gəlmədi. Səhifəni tərk etmədən yenidən cəhd edə bilərsiniz.",
+        "load_failed_title": "Admin ümumi baxışı yüklənə bilmədi"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Şəbəkə ünvanı burada gizli qalır. Kodunu skan edin və ya linki yalnız lokal quruluşunuzda birbaşa obyektə giriş paylaşmaq istədiyiniz zaman kopyalayın.",
         "helper": "Bu obyekti dərhal açmaq üçün skan edin, və ya lazım olduqda birbaşa linki kopyalayın.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "QR alətləri hazırlanır..."
     },
     "house_access_pending": {
         "eyebrow": "Evə Giriş",
@@ -1859,7 +1917,11 @@
             "name_required": "Dəhliz qeydiyyatı üçün maddə adı tələb olunur.",
             "options_failed": "Kateqoriya və otaq seçimləri yüklənə bilmədi.",
             "delete_success_title": "Dəhliz qeydiyyatı silindi",
-            "delete_success_body": "Şəxsi qeydiyyat dağınızdan daimi olaraq silindi."
+            "delete_success_body": "Şəxsi qeydiyyat dağınızdan daimi olaraq silindi.",
+            "passphrase_lowercase": "Ən azı bir kiçik hərf daxil edin.",
+            "passphrase_min_length": "Vault şifrəsi ən azı 12 simvol olmalıdır.",
+            "passphrase_number": "Ən azı bir rəqəm daxil edin.",
+            "passphrase_uppercase": "Ən azı bir böyük hərf daxil edin."
         },
         "recovery_file_title": "{{brandName}} Şəxsi Seyf Bərpa Açarı",
         "recovery_file_created_label": "Yaradılıb",

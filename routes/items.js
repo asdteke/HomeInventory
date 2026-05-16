@@ -30,6 +30,7 @@ import {
     decryptBorrowRecord,
     decryptItemInvoiceDate,
     decryptItemRecord,
+    decryptUsername,
     redactBorrowRecordForViewer,
     decryptRoomName,
     encryptBorrowerContact,
@@ -471,7 +472,8 @@ function buildBorrowRequestExpiresAt(days = 14) {
 
 function createMemberBorrowOffer({ item, houseKey, lenderUserId, borrowerUserId, dueDate, note }) {
     const borrower = validateBorrowerMember(houseKey, borrowerUserId, lenderUserId);
-    const recipientLookupHash = buildUsernameLookup(borrower.username);
+    const borrowerUsername = decryptUsername(borrower.username);
+    const recipientLookupHash = buildUsernameLookup(borrowerUsername);
 
     if (!recipientLookupHash) {
         throw new Error('Seçilen kullanıcı için ödünç teklifi oluşturulamadı');
@@ -516,7 +518,7 @@ function createMemberBorrowOffer({ item, houseKey, lenderUserId, borrowerUserId,
         lenderUserId,
         borrower.id,
         recipientLookupHash,
-        encryptBorrowRequestTarget(borrower.username),
+        encryptBorrowRequestTarget(borrowerUsername),
         item.id,
         note ? encryptBorrowRequestNote(note) : null,
         dueDate,
@@ -528,7 +530,7 @@ function createMemberBorrowOffer({ item, houseKey, lenderUserId, borrowerUserId,
         direction: BORROW_REQUEST_DIRECTION.OFFER,
         status: BORROW_REQUEST_STATUS.PENDING,
         recipient_user_id: borrower.id,
-        recipient_username: borrower.username,
+        recipient_username: borrowerUsername,
         item_id: item.id,
         due_date: dueDate
     };

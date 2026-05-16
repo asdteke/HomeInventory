@@ -66,7 +66,10 @@
             "warranty_calculation_help": "אם תשאיר את תאריך התחלת האחריות ריק, יתורגם תאריך החשבונית. כאשר אתה מזין את משך הזמן, תאריך סיום האחריות מחושב אוטומטית.",
             "vault_hint_title": "צריך פרטיות נוספת?",
             "vault_hint_description": "לדרכונים, תעודות, פרטי זהות, קודי גישה ורשומות אחרות שצריכות להישאר מחוץ למלאי המשותף שלך, שמור אותן בכספת אישית במקום זאת.",
-            "vault_hint_action": "פתח כספת אישית"
+            "vault_hint_action": "פתח כספת אישית",
+            "location": "מיקום",
+            "remove_photo": "הסר תמונה",
+            "visibility_owner_only": "רק האדם שהוסיף את הפריט יכול לשנות את הנראות."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" נוסף במהירות - ניתן לערוך מאוחר יותר",
@@ -115,7 +118,8 @@
         "delete_error": "שגיאה במחיקת פריט",
         "no_permission": "אין לך הרשאה לשנות את הפריט הזה",
         "barcode_search_error": "חיפוש ברקוד נכשל",
-        "stats_error": "סטטיסטיקות טעינת שגיאות"
+        "stats_error": "סטטיסטיקות טעינת שגיאות",
+        "detail_subtitle": "פרטי פריט"
     },
     "common": {
         "save": "שמור",
@@ -162,7 +166,11 @@
         "unauthorized": "גישה לא מורשית",
         "forbidden": "אין לך רשות לפעולה הזו",
         "validation_error": "שגיאת אימות",
-        "server_error": "שגיאת שרת"
+        "server_error": "שגיאת שרת",
+        "details": "פרטים",
+        "hide": "הסתר סיסמה",
+        "logging_out": "מתנתק...",
+        "show": "הצג סיסמה"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "אמת",
                 "back": "חזור",
                 "use_backup": "השתמש בקוד גיבוי",
-                "use_totp": "השתמש במאמת"
+                "use_totp": "השתמש במאמת",
+                "code_required": "דרוש קוד אימות"
             },
             "welcome_title": "ברוך שובך",
             "welcome_subtitle": "היכנס כדי לגשת למלאי שלך",
@@ -632,7 +641,10 @@
             "info": "אתה יכול להיות חבר במספר בתים ולהחליף ביניהם. לכל בית יש מלאי משלו.",
             "accordion_description": "החלף בין משקי בית, צור אחד חדש, או הצטרף לאחד קיים עם מפתח מהימן.",
             "empty_description": "צור משק בית חדש כדי להתחיל לשתף, או הצטרף לאחד עם מפתח בית אמין.",
-            "leave_success_body": "אין לך יותר גישה לבית זה והבית הפעיל שלך עודכן."
+            "leave_success_body": "אין לך יותר גישה לבית זה והבית הפעיל שלך עודכן.",
+            "leave_title": "לעזוב את הבית הזה?",
+            "leave_warning": "תאבד גישה למרחב העבודה של הבית הזה עד שחבר אחר יזמין או יאשר אותך שוב.",
+            "leaving": "עוזב..."
         },
         "house_info": {
             "title": "מפתח הבית הפעיל",
@@ -674,7 +686,11 @@
             "copy_error": "לא ניתן להעתיק את מפתח הבית.",
             "modal_title": "גישה למפתח הבית",
             "modal_subtitle": "השתמש במפתח זה רק עם חברי בית מהימנים שעליהם לבקש גישה למלאי המשותף הזה.",
-            "loading_members": "טוען חברים..."
+            "loading_members": "טוען חברים...",
+            "kick_success_body": "ל-{{name}} אין יותר גישה לבית הזה.",
+            "kick_title": "להסיר את החבר הזה?",
+            "kick_warning": "הגישה שלו לבית תסתיים מיד והוא יצטרך הזמנה או אישור חדשים כדי לחזור.",
+            "kicking": "מסיר..."
         },
         "theme": {
             "title": "נושא",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "יצוא JSON פשוטים קל יותר לבדיקה, אך כל מי שיפתח את הקובץ יכול לקרוא את נתוני הבית שלך מיד.",
             "import_encrypted_title": "פתח את הגיבוי המוצפן",
             "import_encrypted_body": "הזן את ביטוי הגיבוי שהשתמשת בו במהלך ההורדה כדי לשחזר את הקובץ הזה המוצפן.",
-            "unlock_and_import": "פתח וייבא"
+            "unlock_and_import": "פתח וייבא",
+            "export_encrypted_notice": "הגיבוי מוכן מנתוני משקי הבית החיים ואז מוצפן עם הסיסמה שתבחר. שמור את הסיסמה הזו במקום בטוח מכיוון שהיא נדרשת לשחזור הקובץ מאוחר יותר.",
+            "export_encrypted_title": "ההצפנה תתבצע לפני ההורדה",
+            "import_summary_body": "{{items}} פריטים, {{categories}} קטגוריות, {{rooms}} חדרים, {{locations}} מיקומים, {{borrows}} רשומות השאלה שוחזרו.",
+            "import_summary_title": "הגיבוי שוחזר",
+            "preview_categories": "קטגוריות",
+            "preview_items": "פריטים",
+            "preview_locations": "מיקומים",
+            "preview_rooms": "חדרים",
+            "skipped_borrows": "{{count}} רשומות השאלה קיימות הושמטו.",
+            "skipped_categories": "{{count}} קטגוריות קיימות הושמטו.",
+            "skipped_items": "{{count}} פריטים קיימים דולגו.",
+            "skipped_locations": "{{count}} מיקומים קיימים דולגו.",
+            "skipped_rooms": "{{count}} חדרים קיימים דולגו."
         },
         "about": {
             "title": "על האפליקציה",
@@ -733,7 +762,10 @@
             "privacy_link": "מדיניות פרטיות",
             "beta_title": "מצב בטא",
             "beta_body": "{{brandName}} עדיין בבטא. התכונות יכולות להשתנות, תהליכי העבודה עשויים להתפתח, ויש תמיד לגבות נתונים חשובים מהבית.",
-            "feedback_subject": "משוב - {{brandName}}"
+            "feedback_subject": "משוב - {{brandName}}",
+            "logout_body": "כל השינויים שלא נשמרו בטפסים פתוחים עשויים להיאבד לאחר שתצא מהפגישה הזו.",
+            "logout_description": "תחזור לדף הבית ותוכל להיכנס שוב בכל פעם שתרצה.",
+            "logout_title": "להתנתק עכשיו?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "פריט שהושאל",
             "lend_success_body": "{{item}} מסומן כעת כהושאל.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "אצלך",
+            "return_pending_hint": "הרשומה תסגר לאחר שהלווה יאשר שהוא קיבל את הפריט חזרה.",
+            "return_pending_lender_title": "{{name}} סמן פריט זה כהוחזר",
+            "return_pending_self_title": "אצלך, מחכה לאישור קבלה"
         },
         "untitled_item": "פריט ללא כותרת",
         "delete_action": "מחק פריט",
@@ -1023,7 +1059,10 @@
         "name_required": "נדרש שם קטגוריה",
         "load_error": "קטגוריות טעינת שגיאות",
         "add_error": "קטגוריית הוספת שגיאה",
-        "update_error": "קטגוריית עדכון שגיאות"
+        "update_error": "קטגוריית עדכון שגיאות",
+        "color_required": "הצבע חייב להיות בתבנית #RRGGBB",
+        "empty_description": "צור כמה קטגוריות כך שהפריטים החדשים יעקבו אחר המבנה הזה ויהיה קל יותר לסרוק אותם מאוחר יותר.",
+        "empty_title": "עדיין אין קטגוריות"
     },
     "rooms": {
         "title": "חדרים",
@@ -1097,7 +1136,9 @@
         "name_required": "שם החדר נדרש",
         "load_error": "חדרי טעינה שגיאה",
         "add_error": "שגיאה בהוספת מקום",
-        "update_error": "עדכון שגיאה בחדר"
+        "update_error": "עדכון שגיאה בחדר",
+        "empty_description": "צור חדרים כמו מטבח, אחסון או מוסך כדי שמיקומי הפריטים יישארו עקביים ויהיה קל יותר לחפש.",
+        "empty_title": "עדיין אין חדרים"
     },
     "admin": {
         "title": "לוח ניהול",
@@ -1176,7 +1217,12 @@
             "households_label": "משקי בית",
             "items_label": "פריטים בבעלות",
             "last_seen_short": "נצפה",
-            "last_seen_short_never": "חדש"
+            "last_seen_short_never": "חדש",
+            "failed_logins": "{{count}} ניסיונות כניסה שנכשלו",
+            "load_failed_title": "המשתמשים לא יכלו להיטען",
+            "pending_requests": "{{count}} בקשות לבית ממתינות",
+            "role_admin": "מנהל",
+            "role_user": "משתמש"
         },
         "logs": {
             "title": "יומני מנהל",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "מעקב ביקורת",
             "errors_eyebrow": "אבחון",
             "section_body": "כל שינוי מתון או תפעולי שנרשם על ידי שכבת המנהל.",
-            "errors_body": "שורות השגיאה האחרונות שנפרסו מתוך קבצי יומן השרת."
+            "errors_body": "שורות השגיאה האחרונות שנפרסו מתוך קבצי יומן השרת.",
+            "load_failed_title": "הפעילות לא יכלה להיטען",
+            "no_logs_title": "אין פעולות מנהל עדיין"
         },
         "email": {
             "title": "שלח דוא\"ל",
@@ -1242,7 +1290,14 @@
             "status_body": "בדיקה מהירה של הביטחון לפני שליחת תקשורת תפעולית.",
             "unconfigured_title": "שליחת דואר אלקטרוני אינה מוגדרת",
             "unconfigured_body": "טופס השליחה נשאר גלוי לסקירת ההגדרות, אך השליחה תיכשל עד שספק הדואר יוגדר.",
-            "status_eyebrow": "משלוח"
+            "status_eyebrow": "משלוח",
+            "configured_body": "המחזור מחדש זמין להודעות יוצאות שמופעלות על ידי מנהל.",
+            "configured_title": "משלוח הדוא\"ל מוגדר",
+            "error_title": "הדוא\"ל נכשל",
+            "format_hint": "HTML נתמך. לדוגמה: <b>מודגש</b>, <i>מוטה</i>, <a href=\"...\">קישור</a>",
+            "from_label": "שולח",
+            "load_failed_title": "כלי הדוא\"ל לא יכלו לטעון",
+            "success_title": "הדוא\"ל נשלח"
         },
         "overview": {
             "email_warning_title": "משלוח הדואר האלקטרוני אינו מוגדר",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "סטטיסטיקות טעונות",
         "logs_loaded": "יומנים טעונים",
         "load_error": "נתוני טעינת שגיאות",
-        "action_error": "ביצוע פעולה בטעות"
+        "action_error": "ביצוע פעולה בטעות",
+        "load_failed_body": "הנתיב למנהל פתוח, אך נתוני התצוגה הכוללת לא הגיעו. ניתן לנסות שוב מבלי לעזוב את העמוד.",
+        "load_failed_title": "תצוגת המנהל לא יכלה להיטען"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "כתובת הרשת נשארת מוסתרת כאן. סרקו את הקוד או העתיקו את הקישור רק כאשר אתם רוצים בכוונה לשתף גישה ישירה לפריט במערכת המקומית שלכם.",
         "helper": "סרקו לפתיחת הפריט מיד או העתיקו את הקישור הישיר בעת הצורך.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "מכין כלי QR..."
     },
     "house_access_pending": {
         "eyebrow": "גישה לבית",
@@ -1859,7 +1917,11 @@
             "name_required": "שם פריט נדרש לרשומת כספת.",
             "options_failed": "לא ניתן היה לטעון אפשרויות קטגוריה וחדר.",
             "delete_success_title": "רשומת הכספת נמחקה",
-            "delete_success_body": "הרשומה הפרטית הוסרה לצמיתות מהכספת שלך."
+            "delete_success_body": "הרשומה הפרטית הוסרה לצמיתות מהכספת שלך.",
+            "passphrase_lowercase": "לכלול לפחות אות קטנה אחת.",
+            "passphrase_min_length": "סיסמת הכספת חייבת להיות לפחות 12 תווים.",
+            "passphrase_number": "לכלול לפחות מספר אחד.",
+            "passphrase_uppercase": "לכלול לפחות אות גדולה אחת."
         },
         "recovery_file_title": "מפתח השחזור של הכספת האישית של {{brandName}}",
         "recovery_file_created_label": "נוצר",

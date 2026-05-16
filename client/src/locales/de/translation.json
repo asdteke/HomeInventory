@@ -44,7 +44,11 @@
         "unauthorized": "Unbefugter Zugriff",
         "forbidden": "Sie haben keine Berechtigung für diese Aktion",
         "validation_error": "Validierungsfehler",
-        "server_error": "Serverfehler"
+        "server_error": "Serverfehler",
+        "details": "Einzelheiten",
+        "hide": "Passwort ausblenden",
+        "logging_out": "Abmelden...",
+        "show": "Passwort anzeigen"
     },
     "auth": {
         "login": {
@@ -76,7 +80,8 @@
                 "verify": "Überprüfen",
                 "back": "Zurück",
                 "use_backup": "Backup-Code verwenden",
-                "use_totp": "Authentifikator verwenden"
+                "use_totp": "Authentifikator verwenden",
+                "code_required": "Bestätigungscode ist erforderlich"
             },
             "welcome_title": "Willkommen zurück",
             "welcome_subtitle": "Melden Sie sich an, um auf Ihr Inventar zuzugreifen",
@@ -515,7 +520,10 @@
             "warranty_calculation_help": "Wenn Sie das Startdatum der Garantie leer lassen, wird das Rechnungsdatum verwendet. Wenn Sie die Dauer eingeben, wird das Enddatum der Garantie automatisch berechnet.",
             "vault_hint_title": "Brauchst du zusätzliche Privatsphäre?",
             "vault_hint_description": "Für Pässe, Urkunden, Identitätsdetails, Zugangscodes und andere Aufzeichnungen, die nicht in Ihrem gemeinsamen Inventar gespeichert werden sollen, bewahren Sie sie stattdessen im Persönlichen Tresor auf.",
-            "vault_hint_action": "Persönlichen Tresor öffnen"
+            "vault_hint_action": "Persönlichen Tresor öffnen",
+            "location": "Standort",
+            "remove_photo": "Foto entfernen",
+            "visibility_owner_only": "Nur die Person, die den Artikel hinzugefügt hat, kann die Sichtbarkeit ändern."
         },
         "qrcode": {
             "title": "QR-Code",
@@ -568,7 +576,8 @@
         "delete_error": "Fehler beim Löschen des Artikels",
         "no_permission": "Sie haben keine Berechtigung, diesen Artikel zu ändern",
         "barcode_search_error": "Barcode-Suche fehlgeschlagen",
-        "stats_error": "Fehler beim Laden der Statistiken"
+        "stats_error": "Fehler beim Laden der Statistiken",
+        "detail_subtitle": "Artikeldetails"
     },
     "settings": {
         "title": "Einstellungen",
@@ -632,7 +641,10 @@
             "info": "Du kannst Mitglied mehrerer Häuser sein und zwischen ihnen wechseln. Jeder Haushalt führt sein eigenes Inventar.",
             "accordion_description": "Zwischen Haushalten wechseln, einen neuen erstellen oder einem bestehenden mit einem vertrauenswürdigen Schlüssel beitreten.",
             "empty_description": "Erstelle einen neuen Haushalt, um mit dem Teilen zu beginnen, oder trete einem mit einem vertrauenswürdigen Hausschlüssel bei.",
-            "leave_success_body": "Du hast keinen Zugang mehr zu diesem Haushalt und dein aktives Haus wurde aktualisiert."
+            "leave_success_body": "Du hast keinen Zugang mehr zu diesem Haushalt und dein aktives Haus wurde aktualisiert.",
+            "leave_title": "Dieses Haus verlassen?",
+            "leave_warning": "Sie verlieren den Zugriff auf diesen Haushaltsarbeitsbereich, bis ein anderes Mitglied Sie erneut einlädt oder genehmigt.",
+            "leaving": "Verlassen..."
         },
         "house_info": {
             "title": "Aktiver Haus-Schlüssel",
@@ -674,7 +686,11 @@
             "copy_error": "Der Hausschlüssel konnte nicht kopiert werden.",
             "modal_title": "Zugang zum Hausschlüssel",
             "modal_subtitle": "Verwenden Sie diesen Schlüssel nur für vertrauenswürdige Haushaltsmitglieder, die Zugang zu diesem gemeinsamen Inventar anfordern sollten.",
-            "loading_members": "Mitglieder werden geladen..."
+            "loading_members": "Mitglieder werden geladen...",
+            "kick_success_body": "{{name}} hat keinen Zugriff mehr auf diesen Haushalt.",
+            "kick_title": "Dieses Mitglied entfernen?",
+            "kick_warning": "Ihr Zugriff auf den Haushalt endet sofort und sie benötigen eine neue Einladung oder Genehmigung, um zurückzukehren.",
+            "kicking": "Entfernen..."
         },
         "theme": {
             "title": "Thema",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "einfache JSON-Exporte sind leichter zu überprüfen, aber jeder, der die Datei öffnet, kann sofort Ihre Haushaltsdaten lesen.",
             "import_encrypted_title": "Entsperre verschlüsseltes Backup",
             "import_encrypted_body": "Geben Sie die während des Downloads verwendete Sicherungspassphrase ein, um diese verschlüsselte Datei wiederherzustellen.",
-            "unlock_and_import": "Entsperren und importieren"
+            "unlock_and_import": "Entsperren und importieren",
+            "export_encrypted_notice": "Die Sicherung wird aus den aktuellen Haushaltsdaten erstellt und anschließend mit dem von Ihnen gewählten Passwort geschützt. Bewahren Sie dieses Passwort an einem sicheren Ort auf, da es erforderlich ist, um die Datei später wiederherzustellen.",
+            "export_encrypted_title": "Die Verschlüsselung wird vor dem Herunterladen angewendet",
+            "import_summary_body": "{{items}} Artikel, {{categories}} Kategorien, {{rooms}} Räume, {{locations}} Standorte, {{borrows}} Ausleihvorgänge wiederhergestellt.",
+            "import_summary_title": "Sicherung wiederhergestellt",
+            "preview_categories": "Kategorien",
+            "preview_items": "Artikel",
+            "preview_locations": "Standorte",
+            "preview_rooms": "Räume",
+            "skipped_borrows": "{{count}} vorhandene Ausleihvorgänge übersprungen.",
+            "skipped_categories": "{{count}} vorhandene Kategorien übersprungen.",
+            "skipped_items": "{{count}} vorhandene Elemente übersprungen.",
+            "skipped_locations": "{{count}} vorhandene Standorte übersprungen.",
+            "skipped_rooms": "{{count}} vorhandene Räume übersprungen."
         },
         "about": {
             "title": "Über die Anwendung",
@@ -733,7 +762,10 @@
             "privacy_link": "Datenschutzrichtlinie",
             "beta_title": "Beta-Status",
             "beta_body": "{{brandName}} befindet sich noch in der Beta-Phase. Funktionen können sich ändern, Arbeitsabläufe können sich entwickeln, und wichtige Haushaltsdaten sollten immer gesichert werden.",
-            "feedback_subject": "Feedback - {{brandName}}"
+            "feedback_subject": "Feedback - {{brandName}}",
+            "logout_body": "Alle nicht gespeicherten Änderungen in offenen Formularen können verloren gehen, nachdem Sie diese Sitzung verlassen.",
+            "logout_description": "Sie werden zur Startseite zurückkehren und können sich jederzeit erneut anmelden.",
+            "logout_title": "Jetzt abmelden?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Ausgeliehener Gegenstand",
             "lend_success_body": "{{item}} ist jetzt als ausgeliehen markiert.",
             "offer_sent_title": "Leihangebot gesendet",
-            "offer_sent_body": "{{item}} wird als ausgeliehen markiert, nachdem das andere Mitglied akzeptiert hat."
+            "offer_sent_body": "{{item}} wird als ausgeliehen markiert, nachdem das andere Mitglied akzeptiert hat.",
+            "borrowed_by_you": "Bei Ihnen",
+            "return_pending_hint": "Der Eintrag wird geschlossen, nachdem der Verleiher bestätigt hat, dass er den Artikel zurückerhalten hat.",
+            "return_pending_lender_title": "{{name}} hat diesen Artikel als zurückgeliefert markiert",
+            "return_pending_self_title": "Bei Ihnen, wartet auf Empfangsbestätigung"
         },
         "untitled_item": "Unbenannter Artikel",
         "delete_action": "Artikel löschen",
@@ -1023,7 +1059,10 @@
         "name_required": "Kategoriename ist erforderlich",
         "load_error": "Fehler beim Laden der Kategorien",
         "add_error": "Fehler beim Hinzufügen der Kategorie",
-        "update_error": "Fehler beim Aktualisieren der Kategorie"
+        "update_error": "Fehler beim Aktualisieren der Kategorie",
+        "color_required": "Die Farbe muss im Format #RRGGBB sein",
+        "empty_description": "Erstellen Sie einige Kategorien, damit neue Artikel derselben Struktur folgen und später leichter durchsucht werden können.",
+        "empty_title": "Noch keine Kategorien"
     },
     "rooms": {
         "title": "Räume",
@@ -1097,7 +1136,9 @@
         "name_required": "Raumname ist erforderlich",
         "load_error": "Fehler beim Laden der Räume",
         "add_error": "Fehler beim Hinzufügen des Raums",
-        "update_error": "Fehler beim Aktualisieren des Raums"
+        "update_error": "Fehler beim Aktualisieren des Raums",
+        "empty_description": "Erstellen Sie Räume wie Küche, Lager oder Garage, damit die Standorte der Artikel konsistent bleiben und leichter zu durchsuchen sind.",
+        "empty_title": "Noch keine Räume"
     },
     "admin": {
         "title": "Admin-Bereich",
@@ -1176,7 +1217,12 @@
             "households_label": "Haushalte",
             "items_label": "Besessene Gegenstände",
             "last_seen_short": "Gesehen",
-            "last_seen_short_never": "Neu"
+            "last_seen_short_never": "Neu",
+            "failed_logins": "{{count}} fehlgeschlagene Anmeldungen",
+            "load_failed_title": "Benutzer konnten nicht geladen werden",
+            "pending_requests": "{{count}} ausstehende Hausanfragen",
+            "role_admin": "Administratoren",
+            "role_user": "Benutzer"
         },
         "logs": {
             "title": "Admin-Protokolle",
@@ -1208,7 +1254,9 @@
             "section_body": "Jede Moderations- oder Betriebsänderung wird von der Admin-Ebene erfasst.",
             "errors_body": "Die zuletzt aus den Serverprotokollen geparsten Fehlerzeilen.",
             "section_eyebrow": "Prüfpfad",
-            "errors_eyebrow": "Diagnostik"
+            "errors_eyebrow": "Diagnostik",
+            "load_failed_title": "Aktivität konnte nicht geladen werden",
+            "no_logs_title": "Noch keine Admin-Aktionen"
         },
         "email": {
             "title": "E-Mail senden",
@@ -1242,7 +1290,14 @@
             "status_body": "Ein kurzer Vertrauenscheck vor dem Versand operativer Nachrichten.",
             "unconfigured_title": "E-Mail-Versand ist nicht konfiguriert",
             "unconfigured_body": "Das Sendeformular bleibt zur Einrichtungsprüfung sichtbar, aber der Versand schlägt fehl, bis der E-Mail-Anbieter konfiguriert ist.",
-            "status_eyebrow": "Zustellung"
+            "status_eyebrow": "Zustellung",
+            "configured_body": "Erneutes Senden ist für vom Admin ausgelöste ausgehende Nachrichten verfügbar.",
+            "configured_title": "E-Mail-Zustellung ist konfiguriert",
+            "error_title": "E-Mail fehlgeschlagen",
+            "format_hint": "HTML wird unterstützt. Zum Beispiel: <b>fett</b>, <i>kursiv</i>, <a href=\"...\">Link</a>",
+            "from_label": "Absender",
+            "load_failed_title": "E-Mail-Tools konnten nicht geladen werden",
+            "success_title": "E-Mail gesendet"
         },
         "overview": {
             "email_warning_title": "E-Mail-Versand ist nicht konfiguriert",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Statistiken geladen",
         "logs_loaded": "Protokolle geladen",
         "load_error": "Fehler beim Laden der Daten",
-        "action_error": "Fehler beim Ausführen der Aktion"
+        "action_error": "Fehler beim Ausführen der Aktion",
+        "load_failed_body": "Die Admin-Route ist offen, aber die Übersichtsdatendaten sind nicht angekommen. Sie können es erneut versuchen, ohne die Seite zu verlassen.",
+        "load_failed_title": "Admin-Übersicht konnte nicht geladen werden"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Die Netzwerkadresse bleibt hier verborgen. Scannen Sie den Code oder kopieren Sie den Link nur, wenn Sie direktes Teilen des Elements in Ihrer lokalen Einrichtung beabsichtigen.",
         "helper": "Scannen, um dieses Element sofort zu öffnen, oder kopieren Sie den direkten Link bei Bedarf.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "QR-Tools werden vorbereitet..."
     },
     "house_access_pending": {
         "eyebrow": "Hauszugang",
@@ -1859,7 +1917,11 @@
             "name_required": "Ein Artikelname ist für einen Tresoreintrag erforderlich.",
             "options_failed": "Kategorie- und Raumauswahl konnten nicht geladen werden.",
             "delete_success_title": "Tresoreintrag gelöscht",
-            "delete_success_body": "Der private Eintrag wurde dauerhaft aus Ihrem Tresor entfernt."
+            "delete_success_body": "Der private Eintrag wurde dauerhaft aus Ihrem Tresor entfernt.",
+            "passphrase_lowercase": "Mindestens einen Kleinbuchstaben einschließen.",
+            "passphrase_min_length": "Das Tresorkennwort muss mindestens 12 Zeichen lang sein.",
+            "passphrase_number": "Mindestens eine Zahl einschließen.",
+            "passphrase_uppercase": "Mindestens einen Großbuchstaben einschließen."
         },
         "recovery_file_title": "{{brandName}} Persönlicher Tresor Wiederherstellungsschlüssel",
         "recovery_file_created_label": "Erstellt",

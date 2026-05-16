@@ -1,15 +1,21 @@
 import { useEffect } from 'react';
 import { matchPath, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { BRAND_NAME } from '../constants/branding';
+import { BRAND_KEY, BRAND_NAME } from '../constants/branding';
 import { useTheme } from '../context/ThemeContext';
 import { resolveVerifiedLegalTranslationLanguage } from '../utils/legalTranslations';
 
 const LOGO_VERSION = '20260503-hi-pwa';
 
 const FAVICON_PATHS = {
-    light: `/brand/logo-symbol-light.png?v=${LOGO_VERSION}`,
-    dark: `/brand/logo-symbol-dark.png?v=${LOGO_VERSION}`
+    homeinventory: {
+        light: `/brand/logo-symbol-light.svg?v=${LOGO_VERSION}`,
+        dark: `/brand/logo-symbol-dark.svg?v=${LOGO_VERSION}`
+    },
+    envanterim: {
+        light: `/brand/envanterim-logo-symbol.svg?v=${LOGO_VERSION}`,
+        dark: `/brand/envanterim-logo-symbol-dark.svg?v=${LOGO_VERSION}`
+    }
 };
 
 const MANIFEST_PATHS = {
@@ -104,11 +110,12 @@ export default function BrowserBranding() {
 
     useEffect(() => {
         const root = document.documentElement;
-        root.setAttribute('data-brand', 'default');
+        root.setAttribute('data-brand', BRAND_KEY);
     }, []);
 
     useEffect(() => {
-        updateFaviconLinks(theme === 'dark' ? FAVICON_PATHS.dark : FAVICON_PATHS.light);
+        const faviconPaths = FAVICON_PATHS[BRAND_KEY] || FAVICON_PATHS.homeinventory;
+        updateFaviconLinks(theme === 'dark' ? faviconPaths.dark : faviconPaths.light);
         updateHeadLink('link[data-app-manifest]', theme === 'dark' ? MANIFEST_PATHS.dark : MANIFEST_PATHS.light);
         updateHeadLink(
             'link[data-app-apple-touch-icon]',

@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Nëse lini bosh datën e fillimit të garancisë, përdoret data e faturës. Kur shkruani kohëzgjatjen, data e përfundimit të garancisë llogaritet automatikisht.",
             "vault_hint_title": "Regjistër shumë i ndjeshëm?",
             "vault_hint_description": "Për pasaportat, dokumentet, detajet e identitetit, kodet e aksesit dhe të tjera të dhëna që duhen mbajtur jashtë rrjedhës standarde të inventarit, mbajini në Kasafortën Personale në vend të kësaj.",
-            "vault_hint_action": "Hapur Kasafortën Personale"
+            "vault_hint_action": "Hapur Kasafortën Personale",
+            "location": "Vendndodhja",
+            "remove_photo": "Hiq fotografinë",
+            "visibility_owner_only": "Vetëm personi që ka shtuar artikullin mund të ndryshojë dukshmërinë."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" u shtua shpejt - mund ta redaktoni më vonë",
@@ -115,7 +118,8 @@
         "delete_error": "Gabim në fshirjen e artikullit",
         "no_permission": "No permission",
         "barcode_search_error": "Kërkimi i barkodit dështoi",
-        "stats_error": "Stats error"
+        "stats_error": "Stats error",
+        "detail_subtitle": "Detajet e artikullit"
     },
     "common": {
         "save": "Ruaj",
@@ -162,7 +166,11 @@
         "unauthorized": "Qasje e paautorizuar",
         "forbidden": "Permission denied",
         "validation_error": "Gabimi i vlefshmërisë",
-        "server_error": "Gabim i serverit"
+        "server_error": "Gabim i serverit",
+        "details": "Detaje",
+        "hide": "Fshi fjalëkalimin",
+        "logging_out": "Po dalim...",
+        "show": "Trego fjalëkalimin"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Verifiko",
                 "back": "Kthehu",
                 "use_backup": "Përdor kodin rezervë",
-                "use_totp": "Përdor autenthikuesin"
+                "use_totp": "Përdor autenthikuesin",
+                "code_required": "Kodi i verifikimit është i nevojshëm"
             },
             "welcome_title": "Mirë se u ktheve",
             "welcome_subtitle": "Hyni për të hyrë në inventarin tuaj",
@@ -632,7 +641,10 @@
             "info": "💡 Ju mund të jeni anëtar i disa shtëpive dhe të ndërroni midis tyre. Çdo shtëpi ruan një inventar të veçantë.",
             "accordion_description": "Ndryshoni mes familjeve, krijoni një të re, ose bashkohuni me një ekzistuese me një çelës të besuar.",
             "empty_description": "Krijoni një familje të re për të filluar ndarjen, ose bashkohuni me një të tillë duke përdorur një çelës të besuar shtëpie.",
-            "leave_success_body": "Ju nuk keni më akses në këtë familje dhe shtëpia juaj aktive u rifreskua."
+            "leave_success_body": "Ju nuk keni më akses në këtë familje dhe shtëpia juaj aktive u rifreskua.",
+            "leave_title": "Të largohesh nga kjo shtëpi?",
+            "leave_warning": "Do të humbisni qasjen në hapësirën e punës së kësaj familjeje deri sa një anëtar tjetër t’ju ftojë ose aprovojë përsëri.",
+            "leaving": "Po largohem..."
         },
         "house_info": {
             "title": "Çelësi Aktiv i Shtëpisë",
@@ -674,7 +686,11 @@
             "copy_error": "Nuk ishte e mundur të kopjohej çelësi i shtëpisë.",
             "modal_title": "Qasja me çelësin e shtëpisë",
             "modal_subtitle": "Përdorni këtë çelës vetëm për anëtarët e shtëpisë që i besoni dhe që duhet të kërkojnë akses në këtë inventar të përbashkët.",
-            "loading_members": "Duke ngarkuar anëtarët..."
+            "loading_members": "Duke ngarkuar anëtarët...",
+            "kick_success_body": "{{name}} nuk ka më qasje në këtë familje.",
+            "kick_title": "Të hiqet ky anëtar?",
+            "kick_warning": "Qasja e tyre në familje do të përfundojë menjëherë dhe ata do të kenë nevojë për një ftesë ose aprovim të ri për t’u kthyer.",
+            "kicking": "Po hiqet..."
         },
         "theme": {
             "title": "Temë",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Eksportimet e thjeshta JSON janë më të lehta për t'u inspektuar, por kushdo që hap skedarin mund të lexojë menjëherë të dhënat tuaja familjare.",
             "import_encrypted_title": "Zhblloko kopjen rezervë të enkriptuar",
             "import_encrypted_body": "Futni fjalën e rezervës që përdorët gjatë shkarkimit për të rikuperuar këtë skedar të koduar.",
-            "unlock_and_import": "Zhblloko dhe importo"
+            "unlock_and_import": "Zhblloko dhe importo",
+            "export_encrypted_notice": "Kopja rezervë është përgatitur nga të dhënat e drejtpërdrejta të familjeve dhe më pas është mbështjellë me fjalëkalimin që zgjidhni. Mbani atë fjalëkalim diku të sigurt sepse kërkohet për të rikuperuar skedarin më vonë.",
+            "export_encrypted_title": "Enkriptimi do të aplikohet para shkarkimit",
+            "import_summary_body": "{{items}} artikuj, {{categories}} kategori, {{rooms}} dhoma, {{locations}} vende, {{borrows}} regjistrime huazimi të rikuperuara.",
+            "import_summary_title": "Kopja rezervë u rikuperua",
+            "preview_categories": "Kategoritë",
+            "preview_items": "Artikujt",
+            "preview_locations": "Vendet",
+            "preview_rooms": "Dhomat",
+            "skipped_borrows": "{{count}} regjistrime ekzistuese të huazimit u anashkaluan.",
+            "skipped_categories": "{{count}} kategori ekzistuese u anashkalan.",
+            "skipped_items": "{{count}} artikuj ekzistues u anashkaluan.",
+            "skipped_locations": "{{count}} vende ekzistuese u anashkaluan.",
+            "skipped_rooms": "{{count}} dhoma ekzistuese u anashkaluan."
         },
         "about": {
             "title": "📱 Rreth Aplikacionit",
@@ -733,7 +762,10 @@
             "privacy_link": "Politika e Privatësisë",
             "beta_title": "Statusi Beta",
             "beta_body": "{{brandName}} është ende në beta. Karakteristikat mund të ndryshojnë, rrjedhat e punës mund të evoluojnë, dhe të dhënat e rëndësishme të shtëpisë duhet të ruhen gjithmonë.",
-            "feedback_subject": "Komente - {{brandName}}"
+            "feedback_subject": "Komente - {{brandName}}",
+            "logout_body": "Çdo ndryshim i pa ruajtur në formularët e hapur mund të humbasë pasi të largoheni nga kjo seancë.",
+            "logout_description": "Do të ktheheni në faqen fillestare dhe mund të hyni përsëri në çdo kohë.",
+            "logout_title": "Dëshironi të dilni tani?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Artikulli huazuar",
             "lend_success_body": "{{item}} tani është shënuar si e huazuar.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Me ju",
+            "return_pending_hint": "Rekordi do të mbyllet pasi huadhënësi të konfirmojë se ka marrë artikullin prapa.",
+            "return_pending_lender_title": "{{name}} e shënoi këtë artikull si të dorëzuar prapa",
+            "return_pending_self_title": "Me ju, duke pritur konfirmimin e pranimit"
         },
         "untitled_item": "Artikull pa titull",
         "delete_action": "Fshi artikullin",
@@ -1023,7 +1059,10 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "color_required": "Ngjyra duhet të jetë në formatin #RRGGBB",
+        "empty_description": "Krijoni disa kategori në mënyrë që artikujt e rinj të ndjekin të njëjtën strukturë dhe të jenë më të lehtë për t'u skanuar më vonë.",
+        "empty_title": "Asnjë kategori ende"
     },
     "rooms": {
         "title": "Dhomat",
@@ -1097,7 +1136,9 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "empty_description": "Krijoni dhoma si kuzhinë, depo ose garazh që vendndodhja e artikujve të mbetet e qëndrueshme dhe më e lehtë për t'u kërkuar.",
+        "empty_title": "Asnjë dhomë ende"
     },
     "admin": {
         "title": "Paneli i Administrimit",
@@ -1176,7 +1217,12 @@
             "households_label": "Familjet",
             "items_label": "Sendet e zotëruara",
             "last_seen_short": "E parë",
-            "last_seen_short_never": "E re"
+            "last_seen_short_never": "E re",
+            "failed_logins": "{{count}} hyrje të dështuara",
+            "load_failed_title": "Përdoruesit nuk mund të ngarkohen",
+            "pending_requests": "{{count}} kërkesa të shtëpisë në pritje",
+            "role_admin": "Administrator",
+            "role_user": "Përdorues"
         },
         "logs": {
             "title": "Regjistrimet e Adminit",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Gjurmë auditimi",
             "errors_eyebrow": "Diagnostikë",
             "section_body": "Çdo moderim ose ndryshim operacional i regjistruar nga shtresa e administratës.",
-            "errors_body": "Linjat e fundit të gabimeve të analizuar nga skedarët e regjistrimit të serverit."
+            "errors_body": "Linjat e fundit të gabimeve të analizuar nga skedarët e regjistrimit të serverit.",
+            "load_failed_title": "Aktiviteti nuk mund të ngarkohet",
+            "no_logs_title": "Nuk ka veprime të administratorit deri tani"
         },
         "email": {
             "title": "Dërgo Email",
@@ -1242,7 +1290,14 @@
             "status_body": "Një kontroll i shpejtë i besueshmërisë para se të dërgoni komunikimin operativ.",
             "unconfigured_title": "Dërgimi i emaileve nuk është konfiguruar",
             "unconfigured_body": "Formulari i dërgimit mbetet i dukshëm për rishikimin e konfigurimit, por dorëzimi do të dështojë derisa ofruesi i postës të konfigurohet.",
-            "status_eyebrow": "Dorëzimi"
+            "status_eyebrow": "Dorëzimi",
+            "configured_body": "Ridisponimi është i disponueshëm për mesazhet e dërguara nga administratori.",
+            "configured_title": "Dorëzimi i email-it është konfiguruar",
+            "error_title": "Dështoi dërgimi i email-it",
+            "format_hint": "HTML mbështetet. Për shembull: <b>bold</b>, <i>italic</i>, <a href=\"...\">lidhje</a>",
+            "from_label": "Dërguesi",
+            "load_failed_title": "Mjete email-i nuk mund të ngarkohen",
+            "success_title": "Email-i është dërguar"
         },
         "overview": {
             "email_warning_title": "Dërgimi i postës elektronike nuk është konfiguruar",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Stats loaded",
         "logs_loaded": "Regjistrat e ngarkuar",
         "load_error": "Error loading",
-        "action_error": "Action error"
+        "action_error": "Action error",
+        "load_failed_body": "Rruga e administratorit është hapur, por të dhënat e përmbledhjes nuk mbërritën. Mund të provoni përsëri pa u larguar nga faqja.",
+        "load_failed_title": "Përmbledhja e administratorit nuk mund të ngarkohet"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Adresa e rrjetit mbetet e fshehur këtu. Skano kodin ose kopjo lidhjen vetëm kur dëshiron që me qëllim të ndajë qasje të drejtpërdrejtë në artikullin në konfigurimin tënd lokal.",
         "helper": "Skano për të hapur këtë artikull menjëherë, ose kopjo lidhjen direkte kur është e nevojshme.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Duke përgatitur mjetet QR..."
     },
     "house_access_pending": {
         "eyebrow": "Akses në shtëpi",
@@ -1859,7 +1917,11 @@
             "name_required": "Një emër artikulli është i nevojshëm për një regjistër të arkivit.",
             "options_failed": "Opsionet e kategorisë dhe dhomës nuk mund të ngarkoheshin.",
             "delete_success_title": "Regjistri i kasafortës u fshi",
-            "delete_success_body": "Regjistri privat u hoq përgjithmonë nga kasaforta juaj."
+            "delete_success_body": "Regjistri privat u hoq përgjithmonë nga kasaforta juaj.",
+            "passphrase_lowercase": "Përfshini të paktën një shkronjë të vogël.",
+            "passphrase_min_length": "Fjalia e fjalëkalimit të arkivit duhet të ketë të paktën 12 karaktere.",
+            "passphrase_number": "Përfshini të paktën një numër.",
+            "passphrase_uppercase": "Përfshini të paktën një shkronjë të madhe."
         },
         "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
         "recovery_file_created_label": "Krijuar",

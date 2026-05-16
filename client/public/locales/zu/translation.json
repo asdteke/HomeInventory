@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Uma ushiya usuku lokuqala lwesiqinisekiso lingenalutho, usuku lwe-invoyisi luyasetshenziswa. Uma ufaka isikhathi, usuku lokuphela kwesiqinisekiso lubalwa ngokuzenzakalelayo.",
             "vault_hint_title": "Irekhodi elibucayi kakhulu?",
             "vault_hint_description": "Ngamapasipoti, amadokhumenti, imininingwane yobuwena, amakhodi okufinyelela, nezinye izinqolobane okumele zihlale zingekho ohlelweni olujwayelekile lokugeleza kwezinqolobane, zigcine ku-Personal Vault esikhundleni salokho.",
-            "vault_hint_action": "Vula i-Personal Vault"
+            "vault_hint_action": "Vula i-Personal Vault",
+            "location": "Indawo",
+            "remove_photo": "Susa isithombe",
+            "visibility_owner_only": "Umuntu kuphela owengeze into ongashintsha ukubonakala kwayo."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" engezwe ngokushesha - ungahlela kamuva",
@@ -115,7 +118,8 @@
         "delete_error": "Iphutha ekucimeni uhlamvu",
         "no_permission": "Awunayo imvume yokuguqula lolu hlamvu",
         "barcode_search_error": "Ukusesha kwebhakhodi kwehlulekile",
-        "stats_error": "Iphutha ekulayisheni izibalo"
+        "stats_error": "Iphutha ekulayisheni izibalo",
+        "detail_subtitle": "Imininingwane yento"
     },
     "common": {
         "save": "Londoloza",
@@ -162,7 +166,11 @@
         "unauthorized": "Ukufinyelela okungagunyaziwe",
         "forbidden": "Awunayo imvume yalesi senzo",
         "validation_error": "Iphutha lokuqinisekiswa",
-        "server_error": "Iphutha lomnikezeli"
+        "server_error": "Iphutha lomnikezeli",
+        "details": "Imininingwane",
+        "hide": "Fihla iphasiwedi",
+        "logging_out": "Ukuphuma...",
+        "show": "Khombisa iphasiwedi"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Qinisekisa",
                 "back": "Buyela",
                 "use_backup": "Sebenzisa ikhodi yokusekela",
-                "use_totp": "Sebenzisa i-authenticator"
+                "use_totp": "Sebenzisa i-authenticator",
+                "code_required": "Ikhodi yokuqinisekisa iyadingeka"
             },
             "welcome_title": "Siyakwamukela emuva",
             "welcome_subtitle": "Ngena ngemvume ukuze ufinyelele ku-inventory yakho",
@@ -632,7 +641,10 @@
             "info": "💡 Ungaba yilungu lezindlu eziningi futhi ushintshe phakathi kwazo. Indlu ngayinye igcina impahla yayo ngendlela ehlukile.",
             "accordion_description": "Shintsha phakathi kwemindeni, dala entsha, noma joyina ekhona usebenzisa ukhiye othembekile.",
             "empty_description": "Dala umndeni omusha ukuze uqale ukwabelana, noma joyina owodwa usebenzisa ukhiye wokhiye wekhaya othembekile.",
-            "leave_success_body": "Awusekho nokufinyelela kulo mndeni futhi ikhaya lakho elisebenzayo libuyekezwe."
+            "leave_success_body": "Awusekho nokufinyelela kulo mndeni futhi ikhaya lakho elisebenzayo libuyekezwe.",
+            "leave_title": "Ushiye le ndlu?",
+            "leave_warning": "Uzolahlekelwa ukufinyelela kule ndawo yomsebenzi yendlu kuze kube yilapho elinye ilungu likumema noma likuvumela futhi.",
+            "leaving": "Ukushiya..."
         },
         "house_info": {
             "title": "Ukhiye Wasekhaya Osebenzayo",
@@ -674,7 +686,11 @@
             "copy_error": "Ukhiye wendlu awukwazanga ukukopishwa.",
             "modal_title": "Ukufinyelela kokhiye wendlu",
             "modal_subtitle": "Sebenzisa lesi sihluthulelo kuphela kumalungu omndeni athembekile okufanele acele ukufinyelela kulolu sungu.",
-            "loading_members": "Ukufakwa kwamalungu..."
+            "loading_members": "Ukufakwa kwamalungu...",
+            "kick_success_body": "{{name}} akasakwazi ukufinyelela kule ndlu.",
+            "kick_title": "Susa leli ilungu?",
+            "kick_warning": "Ukufinyelela kwabo kule ndlu kuzophela ngokushesha futhi bazodinga isimemo esisha noma ukuvunywa ukuze babuye.",
+            "kicking": "Kususiwe..."
         },
         "theme": {
             "title": "Isihloko",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Ukuthekelisa kwe-JSON okulula ukuhlola, kodwa noma ubani ovula ifayela angafunda idatha yakho yasekhaya ngokushesha.",
             "import_encrypted_title": "Vula isipele esifihliwe",
             "import_encrypted_body": "Faka igama lokudlulisa eliyisiqinisekiso oselisebenzise ngesikhathi sokulanda ukuze ubuyisele leli fayela elifihlakele.",
-            "unlock_and_import": "Vula bese ulethela"
+            "unlock_and_import": "Vula bese ulethela",
+            "export_encrypted_notice": "Ukugcinwa kwebhathi kulungiselelwe kusukela kudatha yangempela yasekhaya bese kufakwa iphasiwedi oyikhethayo. Gcina lelo phasiwedi endaweni ephephile ngoba liyadingeka ukuze ubuyisele ifayela kamuva.",
+            "export_encrypted_title": "Ukuqinisekisa kuzofakwa ngaphambi kokulanda",
+            "import_summary_body": "{{items}} izinto, {{categories}} izigaba, {{rooms}} amagumbi, {{locations}} izindawo, {{borrows}} amarekhodi okubolekwa abuyiselwe.",
+            "import_summary_title": "Ukugcinwa kwebhathi kubuyiselwe",
+            "preview_categories": "Izigaba",
+            "preview_items": "Izinto",
+            "preview_locations": "Izindawo",
+            "preview_rooms": "Amagumbi",
+            "skipped_borrows": "{{count}} amarekhodi okubolekwa akhona ashelele.",
+            "skipped_categories": "{{count}} izigaba ezikhona ashelele.",
+            "skipped_items": "{{count}} izinto ezikhona zidlulwe.",
+            "skipped_locations": "{{count}} izindawo ezikhona zidlulwe.",
+            "skipped_rooms": "{{count}} amagumbi akhona adlulwe."
         },
         "about": {
             "title": "📱 Mayelana nohlelo lokusebenza",
@@ -733,7 +762,10 @@
             "privacy_link": "Inqubomgomo Yobumfihlo",
             "beta_title": "Isimo seBeta",
             "beta_body": "{{brandName}} isasesimweni se-beta. Izici zingashintsha, izinqubo zingathuthukiswa, futhi idatha ebalulekile yasekhaya kufanele ihlale igcinwa.",
-            "feedback_subject": "Impendulo - {{brandName}}"
+            "feedback_subject": "Impendulo - {{brandName}}",
+            "logout_body": "Noma yiziphi izinguquko ezingagcinwanga kumafomu avulekile zingalahleka emva kokuba ushiye lesi sesi.",
+            "logout_description": "Uzobuya ekhasini lasekhaya futhi ungaphinda ungene noma nini.",
+            "logout_title": "Uyafuna ukuphuma manje?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Into ebolekisiwe",
             "lend_success_body": "{{item}} manje isibhalwe njengento ebolekiwe.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Nani",
+            "return_pending_hint": "Irekhodi lizovalwa ngemuva kokuba umbolekisi eqinisekisile ukuthi bakwamukele into emuva.",
+            "return_pending_lender_title": "{{name}} uphawule le nto njengokuthi ibuyiselwe",
+            "return_pending_self_title": "Nani, kulindwe ukuqinisekiswa kokwamukelwa"
         },
         "untitled_item": "Into engenayo isihloko",
         "delete_action": "Susa into",
@@ -1023,7 +1059,10 @@
         "name_required": "Igama lesigaba liyadingeka",
         "load_error": "Iphutha ekufakeni izigaba",
         "add_error": "Iphutha ukwengeza isigaba",
-        "update_error": "Iphutha ekubuyekezeni isigaba"
+        "update_error": "Iphutha ekubuyekezeni isigaba",
+        "color_required": "Umbala kufanele ube ngefomethi ethi #RRGGBB",
+        "empty_description": "Dala izigaba ezimbalwa ukuze izinto ezintsha zilandele uhlaka olufanayo futhi kube lula ukuzihluza kamuva.",
+        "empty_title": "Azikho izigaba okwamanje"
     },
     "rooms": {
         "title": "Amakamelo",
@@ -1097,7 +1136,9 @@
         "name_required": "Igama legumbi liyadingeka",
         "load_error": "Iphutha ekufakeni amakamelo",
         "add_error": "Iphutha ukwengeza igumbi",
-        "update_error": "Iphutha ekubuyekezeni igumbi"
+        "update_error": "Iphutha ekubuyekezeni igumbi",
+        "empty_description": "Dala amakamelo njengawokupheka, okugcina, noma igaraji ukuze izindawo zezinto zihlale zihlelekile futhi kube lula ukuzisesha.",
+        "empty_title": "Azikho izindawo okwamanje"
     },
     "admin": {
         "title": "Iphaneli yama-Admin",
@@ -1176,7 +1217,12 @@
             "households_label": "Izindlu",
             "items_label": "Izinto eziphethwe",
             "last_seen_short": "Ezibonwe",
-            "last_seen_short_never": "Entsha"
+            "last_seen_short_never": "Entsha",
+            "failed_logins": "{{count}} zokungena zehlulekile",
+            "load_failed_title": "Abasebenzisi abakwazanga ukulayishwa",
+            "pending_requests": "{{count}} izicelo zasendlini ezisalindile",
+            "role_admin": "Umphathi",
+            "role_user": "Umsebenzisi"
         },
         "logs": {
             "title": "Ilogi ZabaPhathi",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Umlando wokuHlolwa",
             "errors_eyebrow": "Ukuhlolwa kwezinkinga",
             "section_body": "Yonke imfanelo noma ushintsho lokusebenza olurekhodiwe ungqimba lwe-admin.",
-            "errors_body": "Imigqa yamaphutha yakamuva ephathekile kumafayela ezilogi zeseva."
+            "errors_body": "Imigqa yamaphutha yakamuva ephathekile kumafayela ezilogi zeseva.",
+            "load_failed_title": "Umsebenzi awunakukwazi ukulayisha",
+            "no_logs_title": "Azikho izenzo zomphathi okwamanje"
         },
         "email": {
             "title": "Thumela I-imeyili",
@@ -1242,7 +1290,14 @@
             "status_body": "Ukuhlola okweshesha kokuzethemba ngaphambi kokuthumela ukuxhumana kokusebenza.",
             "unconfigured_title": "Ukulethwa kwe-imeyili akukaphethwanga",
             "unconfigured_body": "Ifomu lokuthumela lisalokhu libonakala ukuze kubuyekezwe ukusethwa, kodwa ukuthunyelwa kuzohluleka kuze kube yilapho umhlinzeki we-imeyili esethwe.",
-            "status_eyebrow": "Ukulethwa"
+            "status_eyebrow": "Ukulethwa",
+            "configured_body": "Ukuphinda kuthunyelwe kuyatholakala kwimiyalezo ephumayo eqhutshelwa ngumphathi.",
+            "configured_title": "Ukulethwa kwe-imeyili kumi",
+            "error_title": "I-imeyili yehlulekile",
+            "format_hint": "I-HTML iyayisekelwa. Ngokwesibonelo: <b>qina</b>, <i>ihlokwana</i>, <a href=\"...\">isixhumanisi</a>",
+            "from_label": "Umthumeli",
+            "load_failed_title": "Amathuluzi e-imeyili awakwazanga ukulayisha",
+            "success_title": "I-imeyili ithunyelwe"
         },
         "overview": {
             "email_warning_title": "Ukulethwa kwe-imeyili akukacwaliswanga",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Izibalo zilayishiwe",
         "logs_loaded": "Izingodo ezilayishiwe",
         "load_error": "Iphutha ekufakeni imininingwane",
-        "action_error": "Iphutha ekwenzeni isenzo"
+        "action_error": "Iphutha ekwenzeni isenzo",
+        "load_failed_body": "Indlela yomphathi ivuliwe, kodwa idatha yokubuka konke ayifikanga. Ungazama futhi ngaphandle kokushiya ikhasi.",
+        "load_failed_title": "Ukubuka konke komphathi akukwazi ukulayisha"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Ikheli lenethiwekhi lihlala lifihlekile lapha. Skena ikhodi noma ukopishe isixhumanisi kuphela uma ngenhloso ufuna ukwabelana ngokufinyelela ngqo entsomini yakho yendawo.",
         "helper": "Skena ukuze uvule le nto ngokushesha, noma ukopishe isixhumanisi esiqondile lapho kudingeka.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Ukulungiselela amathuluzi e-QR..."
     },
     "house_access_pending": {
         "eyebrow": "Ukufinyelela Endlini",
@@ -1859,7 +1917,11 @@
             "name_required": "Igama lento liyadingeka kirekhodi le-vault.",
             "options_failed": "Izinketho zesigaba nezingxenye zegumbi azikwazanga ukulayishwa.",
             "delete_success_title": "Irekhodi le-vault lisuswe",
-            "delete_success_body": "Irekhodi yangasese lisuswe unomphelo kwi-vault yakho."
+            "delete_success_body": "Irekhodi yangasese lisuswe unomphelo kwi-vault yakho.",
+            "passphrase_lowercase": "Faka okungenani uhlamvu olulodwa oluncane.",
+            "passphrase_min_length": "Igama lokusebenzisa iVault kufanele libe nezincwadi okungenani eziyi-12.",
+            "passphrase_number": "Faka okungenani inombolo eyodwa.",
+            "passphrase_uppercase": "Faka okungenani uhlamvu olulodwa olukhulu."
         },
         "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
         "recovery_file_created_label": "Kudaliwe",

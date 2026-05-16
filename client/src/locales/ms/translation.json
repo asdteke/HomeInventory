@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Jika anda meninggalkan tarikh mula waranti kosong, tarikh invois akan digunakan. Apabila anda memasukkan tempoh, tarikh tamat waranti akan dikira secara automatik.",
             "vault_hint_title": "Rekod yang sangat sensitif?",
             "vault_hint_description": "Untuk pasport, dokumen hak milik, butiran identiti, kod akses, dan rekod lain yang sepatutnya kekal di luar aliran inventori standard, simpan mereka di Peti Peribadi sebaliknya.",
-            "vault_hint_action": "Buka Peti Peribadi"
+            "vault_hint_action": "Buka Peti Peribadi",
+            "location": "Lokasi",
+            "remove_photo": "Buang gambar",
+            "visibility_owner_only": "Hanya orang yang menambah item boleh menukar keterlihatan."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" ditambah dengan cepat - anda boleh edit kemudian",
@@ -115,7 +118,8 @@
         "delete_error": "Ralat memadamkan item",
         "no_permission": "No permission",
         "barcode_search_error": "Carian kod bar gagal",
-        "stats_error": "Stats error"
+        "stats_error": "Stats error",
+        "detail_subtitle": "Butiran item"
     },
     "common": {
         "save": "Simpan",
@@ -162,7 +166,11 @@
         "unauthorized": "Akses tanpa kebenaran",
         "forbidden": "Permission denied",
         "validation_error": "Ralat pengesahan",
-        "server_error": "Ralat pelayan"
+        "server_error": "Ralat pelayan",
+        "details": "Butiran",
+        "hide": "Sembunyikan kata laluan",
+        "logging_out": "Keluar...",
+        "show": "Paparkan kata laluan"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Sahkan",
                 "back": "Kembali",
                 "use_backup": "Gunakan kod sandaran",
-                "use_totp": "Gunakan pengesah"
+                "use_totp": "Gunakan pengesah",
+                "code_required": "Kod pengesahan diperlukan"
             },
             "welcome_title": "Selamat pulang",
             "welcome_subtitle": "Log masuk untuk mengakses inventori anda",
@@ -632,7 +641,10 @@
             "info": "💡 Anda boleh menjadi ahli beberapa rumah dan bertukar antara mereka. Setiap rumah menyimpan inventori berasingan.",
             "accordion_description": "Tukar antara isi rumah, buat yang baru, atau sertai yang sedia ada dengan kunci dipercayai.",
             "empty_description": "Buat isi rumah baru untuk mula berkongsi, atau sertai satu dengan kunci rumah dipercayai.",
-            "leave_success_body": "Anda tidak lagi mempunyai akses ke isi rumah ini dan rumah aktif anda telah disegarkan semula."
+            "leave_success_body": "Anda tidak lagi mempunyai akses ke isi rumah ini dan rumah aktif anda telah disegarkan semula.",
+            "leave_title": "Tinggalkan rumah ini?",
+            "leave_warning": "Anda akan kehilangan akses ke ruang kerja rumah ini sehingga ahli lain menjemput atau meluluskan anda semula.",
+            "leaving": "Meninggalkan..."
         },
         "house_info": {
             "title": "Kekunci Rumah Aktif",
@@ -674,7 +686,11 @@
             "copy_error": "Kunci rumah tidak dapat disalin.",
             "modal_title": "Akses kunci rumah",
             "modal_subtitle": "Gunakan kunci ini hanya untuk ahli rumah tangga yang dipercayai yang harus meminta akses ke inventori kongsi ini.",
-            "loading_members": "Memuatkan ahli..."
+            "loading_members": "Memuatkan ahli...",
+            "kick_success_body": "{{name}} tidak lagi mempunyai akses ke rumah ini.",
+            "kick_title": "Buang ahli ini?",
+            "kick_warning": "Akses rumah mereka akan tamat serta-merta dan mereka perlu jemputan atau kelulusan baru untuk kembali.",
+            "kicking": "Mengeluarkan..."
         },
         "theme": {
             "title": "Tema",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Eksport JSON biasa lebih mudah untuk diperiksa, tetapi sesiapa yang membuka fail boleh membaca data isi rumah anda dengan segera.",
             "import_encrypted_title": "Buka sandaran yang disulitkan",
             "import_encrypted_body": "Masukkan kata laluan sandaran yang digunakan semasa muat turun untuk memulihkan fail yang disulitkan ini.",
-            "unlock_and_import": "Buka kunci dan import"
+            "unlock_and_import": "Buka kunci dan import",
+            "export_encrypted_notice": "Salinan sandaran disediakan daripada data isi rumah secara langsung dan kemudian dibungkus dengan kata laluan yang anda pilih. Simpan kata laluan itu di tempat selamat kerana ia diperlukan untuk memulihkan fail kemudian.",
+            "export_encrypted_title": "Penyulitan akan digunakan sebelum muat turun",
+            "import_summary_body": "{{items}} item, {{categories}} kategori, {{rooms}} bilik, {{locations}} lokasi, {{borrows}} rekod pinjaman dipulihkan.",
+            "import_summary_title": "Sandaran dipulihkan",
+            "preview_categories": "Kategori",
+            "preview_items": "Item",
+            "preview_locations": "Lokasi",
+            "preview_rooms": "Bilik",
+            "skipped_borrows": "{{count}} rekod pinjaman sedia ada diabaikan.",
+            "skipped_categories": "{{count}} kategori sedia ada diabaikan.",
+            "skipped_items": "{{count}} item sedia ada diabaikan.",
+            "skipped_locations": "{{count}} lokasi sedia ada diabaikan.",
+            "skipped_rooms": "{{count}} bilik sedia ada diabaikan."
         },
         "about": {
             "title": "📱 Mengenai Aplikasi",
@@ -733,7 +762,10 @@
             "privacy_link": "Dasar Privasi",
             "beta_title": "Status beta",
             "beta_body": "{{brandName}} masih dalam versi beta. Ciri-ciri boleh berubah, aliran kerja mungkin berkembang, dan data rumah yang penting harus sentiasa disandarkan.",
-            "feedback_subject": "Maklum balas - {{brandName}}"
+            "feedback_subject": "Maklum balas - {{brandName}}",
+            "logout_body": "Sebarang perubahan yang tidak disimpan dalam borang terbuka mungkin hilang selepas anda meninggalkan sesi ini.",
+            "logout_description": "Anda akan kembali ke halaman utama dan boleh log masuk semula bila-bila masa.",
+            "logout_title": "Log keluar sekarang?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Item dipinjam",
             "lend_success_body": "{{item}} kini ditandakan sebagai dipinjam.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Bersama anda",
+            "return_pending_hint": "Rekod akan ditutup selepas pemberi pinjaman mengesahkan mereka menerima item kembali.",
+            "return_pending_lender_title": "{{name}} menandakan item ini telah dihantar kembali",
+            "return_pending_self_title": "Bersama anda, menunggu pengesahan penerimaan"
         },
         "untitled_item": "Item tanpa tajuk",
         "delete_action": "Padam item",
@@ -1023,7 +1059,10 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "color_required": "Warna mesti dalam format #RRGGBB",
+        "empty_description": "Buat beberapa kategori supaya item baru mengikuti struktur yang sama dan lebih mudah untuk diperiksa kemudian.",
+        "empty_title": "Tiada kategori lagi"
     },
     "rooms": {
         "title": "Bilik",
@@ -1097,7 +1136,9 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "empty_description": "Buat bilik seperti dapur, storan, atau garaj supaya lokasi item tetap konsisten dan lebih mudah dicari.",
+        "empty_title": "Tiada bilik lagi"
     },
     "admin": {
         "title": "Panel Pentadbir",
@@ -1176,7 +1217,12 @@
             "households_label": "Isi rumah",
             "items_label": "Barang milik",
             "last_seen_short": "Dilihat",
-            "last_seen_short_never": "Baru"
+            "last_seen_short_never": "Baru",
+            "failed_logins": "{{count}} log masuk gagal",
+            "load_failed_title": "Pengguna tidak dapat dimuat",
+            "pending_requests": "{{count}} permintaan rumah tertunda",
+            "role_admin": "Pentadbir",
+            "role_user": "Pengguna"
         },
         "logs": {
             "title": "Log Admin",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Jejak audit",
             "errors_eyebrow": "Diagnostik",
             "section_body": "Setiap pengubahsuaian atau perubahan operasi direkodkan oleh lapisan pentadbir.",
-            "errors_body": "Baris ralat yang telah diurai terkini daripada fail log pelayan."
+            "errors_body": "Baris ralat yang telah diurai terkini daripada fail log pelayan.",
+            "load_failed_title": "Aktiviti tidak dapat dimuat",
+            "no_logs_title": "Tiada tindakan admin setakat ini"
         },
         "email": {
             "title": "Hantar Emel",
@@ -1242,7 +1290,14 @@
             "status_body": "Pemeriksaan keyakinan pantas sebelum menghantar komunikasi operasi.",
             "unconfigured_title": "Penghantaran e-mel tidak dikonfigurasi",
             "unconfigured_body": "Borang penghantaran tetap kelihatan untuk semakan konfigurasi, tetapi penghantaran akan gagal sehingga penyedia e-mel dikonfigurasi.",
-            "status_eyebrow": "Penghantaran"
+            "status_eyebrow": "Penghantaran",
+            "configured_body": "Hantar semula tersedia untuk mesej keluar yang dicetuskan oleh admin.",
+            "configured_title": "Penghantaran e-mel dikonfigurasi",
+            "error_title": "E-mel gagal",
+            "format_hint": "HTML disokong. Contohnya: <b>tebal</b>, <i>condong</i>, <a href=\"...\">pautan</a>",
+            "from_label": "Pengirim",
+            "load_failed_title": "Alat e-mel tidak dapat dimuat",
+            "success_title": "E-mel dihantar"
         },
         "overview": {
             "email_warning_title": "Penghantaran emel belum dikonfigurasikan",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Stats loaded",
         "logs_loaded": "Log dimuatkan",
         "load_error": "Error loading",
-        "action_error": "Action error"
+        "action_error": "Action error",
+        "load_failed_body": "Laluan admin terbuka, tetapi data tinjauan tidak tiba. Anda boleh mencuba semula tanpa meninggalkan halaman.",
+        "load_failed_title": "Tinjauan admin tidak dapat dimuat"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Alamat rangkaian kekal tersembunyi di sini. Imbas kod atau salin pautan hanya apabila anda dengan sengaja ingin berkongsi akses item secara langsung pada tetapan tempatan anda.",
         "helper": "Imbas untuk membuka item ini serta-merta, atau salin pautan terus apabila diperlukan.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Menyediakan alat QR..."
     },
     "house_access_pending": {
         "eyebrow": "Akses Rumah",
@@ -1859,7 +1917,11 @@
             "name_required": "Nama item diperlukan untuk rekod peti besi.",
             "options_failed": "Kategori dan pilihan bilik tidak dapat dimuatkan.",
             "delete_success_title": "Rekod peti besi dipadam",
-            "delete_success_body": "Rekod peribadi telah dipadamkan secara kekal daripada peti besi anda."
+            "delete_success_body": "Rekod peribadi telah dipadamkan secara kekal daripada peti besi anda.",
+            "passphrase_lowercase": "Sertakan sekurang-kurangnya satu huruf kecil.",
+            "passphrase_min_length": "Kata laluan peti besi mesti sekurang-kurangnya 12 aksara.",
+            "passphrase_number": "Sertakan sekurang-kurangnya satu nombor.",
+            "passphrase_uppercase": "Sertakan sekurang-kurangnya satu huruf besar."
         },
         "recovery_file_title": "Kunci Pemulihan Peti Besi Peribadi {{brandName}}",
         "recovery_file_created_label": "Dicipta",

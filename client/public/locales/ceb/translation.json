@@ -66,7 +66,10 @@
       "warranty_calculation_help": "Kung biyaan nimo nga walay sulod ang pagsugod nga petsa sa warranty, ang petsa sa resibo ang gamiton. Kung imo isulod ang gitas-on sa panahon, awtomatiko nga makwenta ang katapusan nga petsa sa warranty.",
       "vault_hint_title": "Nanginahanglan ba og dugang nga pribasya?",
       "vault_hint_description": "Para sa mga pasaporte, sinulat nga ebidensya, detalye sa identidad, access code, ug uban pang rekord nga kinahanglan nga magpabilin gawas sa inyong gipaambit nga imbentaryo, ibutang kini sa Personal Vault imbes.",
-      "vault_hint_action": "Ablihi ang Personal Vault"
+      "vault_hint_action": "Ablihi ang Personal Vault",
+      "location": "Lokasyon",
+      "remove_photo": "Tangtanga ang litrato",
+      "visibility_owner_only": "Ang tawo ra nga nagdugang sa butang ang makausab sa pagkakita niini."
     },
     "messages": {
       "quick_add_success": "✓ \"{{barcode}}\" dali nga naidugang - mahimo nimo usbon unya",
@@ -115,7 +118,8 @@
     "all_categories": "Tanang Kategorya",
     "all_rooms": "Tanang Lawak",
     "confirm_delete": "Sigurado ka ba nga gusto nimo tangtangon kini nga butang?",
-    "items_deleted": "{{count}} ka butang ang natangtang"
+    "items_deleted": "{{count}} ka butang ang natangtang",
+    "detail_subtitle": "Detalye sa butang"
   },
   "common": {
     "save": "Luwasa",
@@ -162,7 +166,11 @@
     "created_at": "Gibuhat Niadtong",
     "updated_at": "Gi-update Niadtong",
     "none": "Wala",
-    "total": "Kinatibuk-an"
+    "total": "Kinatibuk-an",
+    "details": "Detalye",
+    "hide": "Tagoa ang password",
+    "logging_out": "Nag-log out...",
+    "show": "Ipakita ang password"
   },
   "auth": {
     "login": {
@@ -194,7 +202,8 @@
         "verify": "Beripikar",
         "back": "Balik",
         "use_backup": "Gamita ang kodigo sa backup",
-        "use_totp": "Gamita ang authenticator"
+        "use_totp": "Gamita ang authenticator",
+        "code_required": "Kinahanglan ang verification code"
       },
       "welcome_title": "Welcome balik",
       "welcome_subtitle": "Sulod aron ma-access ang imong imbentaryo",
@@ -632,7 +641,10 @@
       "info": "You can be a member of multiple houses and switch between them. Each household keeps its own inventory.",
       "accordion_description": "Balhin tali sa mga panimalay, paghimo og bag-o, o pagsalmot sa usa ka existing gamit ang kasaligan nga yawe.",
       "empty_description": "Paghimo og bag-ong panimalay aron magsugod sa pagpaambit, o mosulod sa usa gamit ang kasaligan nga yawi sa balay.",
-      "leave_success_body": "Wala na nimo access kini nga panimalay ug ang imong aktibong balay gi-refresh."
+      "leave_success_body": "Wala na nimo access kini nga panimalay ug ang imong aktibong balay gi-refresh.",
+      "leave_title": "Molakaw ba sa kini nga balay?",
+      "leave_warning": "Mawad-an ka og access sa workspace sa panimalay hangtod sa usa pang miyembro mo-imbita o mo-aproba pag-usab nimo.",
+      "leaving": "Nagabiya..."
     },
     "house_info": {
       "title": "Yawe sa Aktibong Balay",
@@ -674,7 +686,11 @@
       "copy_error": "Dili makopya ang yawe sa balay.",
       "modal_title": "Access sa yawe sa balay",
       "modal_subtitle": "Gamita kini nga yawe alang lamang sa mga miembro sa panimalay nga kasaligan nga nagpangayo ug access sa kini nga gipaambit nga imbentaryo.",
-      "loading_members": "Nagload sa mga myembro..."
+      "loading_members": "Nagload sa mga myembro...",
+      "kick_success_body": "Wala na si {{name}}'y access sa kini nga panimalay.",
+      "kick_title": "Tangtanga ba kini nga miyembro?",
+      "kick_warning": "Mo-undang dayon ang ilang access sa panimalay ug kinahanglan nila og bag-ong imbitasyon o aprobasyon aron makabalik.",
+      "kicking": "Ginatangtang..."
     },
     "theme": {
       "title": "Tema",
@@ -720,7 +736,20 @@
       "unencrypted_warning": "Mas sayon susihon ang plain JSON exports, apan bisan kinsa nga mobukas sa file makabasa dayon sa imong datos sa panimalay.",
       "import_encrypted_title": "I-unlock ang encrypted nga backup",
       "import_encrypted_body": "Isulod ang backup passphrase nga gigamit sa pag-download aron maibalik kini nga encrypted nga file.",
-      "unlock_and_import": "I-unlock ug i-import"
+      "unlock_and_import": "I-unlock ug i-import",
+      "export_encrypted_notice": "Ang backup giandam gikan sa buhi nga datos sa panimalay ug dayon gibalotan gamit ang passphrase nga imong pilion. Ibutang ang passphrase sa luwas nga lugar kay kinahanglan kini aron ma-restore ang file sa ulahi.",
+      "export_encrypted_title": "Ang encryption ipatuman sa wala pa ang pag-download",
+      "import_summary_body": "{{items}} ka butang, {{categories}} ka kategorya, {{rooms}} ka kwarto, {{locations}} ka lugar, {{borrows}} ka rekord sa pagpahulam ang na-restore.",
+      "import_summary_title": "Ang backup na-restore na",
+      "preview_categories": "Mga Kategorya",
+      "preview_items": "Mga Butang",
+      "preview_locations": "Mga Lugar",
+      "preview_rooms": "Mga Kwarto",
+      "skipped_borrows": "{{count}} ka naa daan nga rekord sa pagpahulam ang gi-skip.",
+      "skipped_categories": "{{count}} ka naa daan nga mga kategorya ang gi-skip.",
+      "skipped_items": "{{count}} nga naglungtad nga mga butang gi-laktawan.",
+      "skipped_locations": "{{count}} nga naglungtad nga mga lokasyon gi-laktawan.",
+      "skipped_rooms": "{{count}} nga naglungtad nga mga kwarto gi-laktawan."
     },
     "about": {
       "title": "Mahitungod sa Aplikasyon",
@@ -733,7 +762,10 @@
       "privacy_link": "Palisiya sa Privacy",
       "beta_title": "Beta nga kahimtang",
       "beta_body": "Ang {{brandName}} anaa pa sa beta. Ang mga bahin mahimo’g mausab, ang mga workflow mahimo’g molambo, ug ang importante nga datos sa panimalay angay kanunay nga i-backup.",
-      "feedback_subject": "Feedback - {{brandName}}"
+      "feedback_subject": "Feedback - {{brandName}}",
+      "logout_body": "Bisan unsang mga kausaban nga wala masave sa abli nga porma mahimong mawala human nimo biyaan ang sesyon.",
+      "logout_description": "Mobalik ka sa home page ug mahimo ka mosulod pag-usab bisan kanus-a.",
+      "logout_title": "Mag-log out karon?"
     },
     "modals": {
       "password": {
@@ -960,7 +992,11 @@
       "lend_success_title": "Gitampo nga butang",
       "lend_success_body": "Ang {{item}} karon gihulagway nga napahulam.",
       "offer_sent_title": "Borrow offer sent",
-      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+      "borrowed_by_you": "Uban nimo",
+      "return_pending_hint": "Magsira ang rekord pagkahuman makumpirma sa nagpahulam nga nadawat nila ang butang pag-usab.",
+      "return_pending_lender_title": "{{name}} gimarkahan kini nga butang nga naidala na",
+      "return_pending_self_title": "Uban nimo, naghulat sa kumpirmasyon sa resibo"
     },
     "untitled_item": "Walay titulo nga butang",
     "delete_action": "Pangtangtanga ang butang",
@@ -1023,7 +1059,10 @@
     "color": "Kolor",
     "item_count": "Ihap sa mga Butang",
     "no_categories": "Wala pay nadugang nga kategorya",
-    "confirm_delete": "Sigurado ka ba nga gusto nimong tangtangon kini nga kategorya?"
+    "confirm_delete": "Sigurado ka ba nga gusto nimong tangtangon kini nga kategorya?",
+    "color_required": "Ang kolor kinahanglan naa sa #RRGGBB nga pormat",
+    "empty_description": "Paghimo og pipila ka kategorya aron ang bag-ong mga butang mosunod sa parehas nga estruktura ug mas sayon sila tan-awon unya.",
+    "empty_title": "Wala pay mga kategorya"
   },
   "rooms": {
     "title": "Mga kwarto",
@@ -1097,7 +1136,9 @@
     "icon": "Icon",
     "item_count": "Ihap sa mga Butang",
     "no_rooms": "Wala pay nadugang nga mga lawak",
-    "confirm_delete": "Sigurado ka ba nga gusto nimong tangtangon kini nga lawak?"
+    "confirm_delete": "Sigurado ka ba nga gusto nimong tangtangon kini nga lawak?",
+    "empty_description": "Paghimo og mga kwarto sama sa kusina, storage, o garahe aron ang lokasyon sa mga butang magpabilin konsistente ug mas sayon pangitaon.",
+    "empty_title": "Wala pay mga kwarto"
   },
   "admin": {
     "title": "Admin Panel",
@@ -1176,7 +1217,12 @@
       "households_label": "Panimalay",
       "items_label": "Gipanag-iya nga butang",
       "last_seen_short": "Nakita",
-      "last_seen_short_never": "Bag-o"
+      "last_seen_short_never": "Bag-o",
+      "failed_logins": "{{count}} napakyas nga sign-ins",
+      "load_failed_title": "Dili maload ang mga tiggamit",
+      "pending_requests": "{{count}} naghulat nga hangyo sa balay",
+      "role_admin": "Admin",
+      "role_user": "Tiggamit"
     },
     "logs": {
       "title": "Mga Talaan sa Admin",
@@ -1208,7 +1254,9 @@
       "section_eyebrow": "Talaan sa audit",
       "errors_eyebrow": "Pagsusi",
       "section_body": "Ang matag moderasyon o pag-usab sa operasyon nga nalista sa admin nga lebel.",
-      "errors_body": "Ang pinakabag-ong gisusi nga mga linya sa sayop gikan sa log files sa server."
+      "errors_body": "Ang pinakabag-ong gisusi nga mga linya sa sayop gikan sa log files sa server.",
+      "load_failed_title": "Dili maload ang kalihokan",
+      "no_logs_title": "Wala pay aksyon sa admin"
     },
     "email": {
       "title": "Pagpadala og Email",
@@ -1242,7 +1290,14 @@
       "status_body": "Usa ka dali nga pagsusi sa kasaligan sa wala pa magsugo sa operational nga komunikasyon.",
       "unconfigured_title": "Wala pa na-configure ang pagpadala sa email",
       "unconfigured_body": "Ang porma sa pagsugo magpabilin nga makita alang sa pagrepaso sa setup, apan mapakyas ang pagpadala hangtud nga ma-configure ang provider sa mail.",
-      "status_eyebrow": "Paghatud"
+      "status_eyebrow": "Paghatud",
+      "configured_body": "Ang pag-resend magamit alang sa mga mensahe nga gipadagan sa admin.",
+      "configured_title": "Nakahan-ay ang pagpadala sa email",
+      "error_title": "Napakyas ang email",
+      "format_hint": "Gisugtan ang HTML. Pananglitan: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
+      "from_label": "Nagpadala",
+      "load_failed_title": "Dili maload ang mga himan sa email",
+      "success_title": "Naipadala ang email"
     },
     "overview": {
       "email_warning_title": "Wala pa na-configure ang pagpadala sa email",
@@ -1327,7 +1382,9 @@
     "total_users": "Kinabuhi nga Users",
     "total_items": "Kinabuhi nga Butang",
     "server_uptime": "Panahon sa Pagdagan sa Server",
-    "memory_usage": "Paggamit sa Memorya"
+    "memory_usage": "Paggamit sa Memorya",
+    "load_failed_body": "Bukas ang ruta sa admin, apan wala maabot ang datos sa overview. Mahimo nimo sulayan pag-usab nga wala biyai ang panid.",
+    "load_failed_title": "Dili maload ang admin overview"
   },
   "landing": {
     "nav": {
@@ -1672,7 +1729,8 @@
     "link_privacy_note": "Ang address sa network nagpabilin nga tinago dinhi. I-scan ang code o kopyaha ang link kung gusto gyud nimo ipaambit ang direkta nga access sa item sa imong lokal nga setup.",
     "helper": "I-scan aron dayon ablihan ang item, o kopyaha ang direkta nga link kung kinahanglan.",
     "copy_error_title": "Link could not be copied automatically",
-    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+    "loading": "Nag-andam og QR nga mga gamit..."
   },
   "house_access_pending": {
     "eyebrow": "Pag-access sa Balay",
@@ -1859,7 +1917,11 @@
       "name_required": "Kinahanglan ang ngalan sa butang para sa rekord sa vault.",
       "options_failed": "Dili ma-load ang mga option sa kategorya ug kwarto.",
       "delete_success_title": "Natangtang ang rekord sa vault",
-      "delete_success_body": "Ang pribadong rekord permanente nga natangtang gikan sa imong vault."
+      "delete_success_body": "Ang pribadong rekord permanente nga natangtang gikan sa imong vault.",
+      "passphrase_lowercase": "Apil ang labing menos usa ka gamay nga letra.",
+      "passphrase_min_length": "Ang vault passphrase kinahanglan labing menos 12 ka karakter.",
+      "passphrase_number": "Apil ang labing menos usa ka numero.",
+      "passphrase_uppercase": "Apil ang labing menos usa ka dakong letra."
     },
     "recovery_file_title": "{{brandName}} Personal nga Vault Recovery Key",
     "recovery_file_created_label": "Gihimo",

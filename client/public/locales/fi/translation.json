@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Jos jätät takuun aloituspäivämäärän tyhjäksi, käytetään laskun päivämäärää. Kun syötät keston, takuun päättymispäivämäärä lasketaan automaattisesti.",
             "vault_hint_title": "Tarvitsetko lisäsuojaa?",
             "vault_hint_description": "Passien, asiakirjojen, henkilötietojen, pääsukoodien ja muiden tietojen, jotka tulisi pitää jakamattomassa varastossasi, säilytä ne sen sijaan Henkilökohtaisessa Holvissa.",
-            "vault_hint_action": "Avaa Henkilökohtainen Holvi"
+            "vault_hint_action": "Avaa Henkilökohtainen Holvi",
+            "location": "Sijainti",
+            "remove_photo": "Poista valokuva",
+            "visibility_owner_only": "Vain henkilö, joka lisäsi kohteen, voi muuttaa näkyvyyttä."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" nopea lisäys - voit muokata myöhemmin",
@@ -115,7 +118,8 @@
         "delete_error": "Virhe kohteen poistamisessa",
         "no_permission": "No permission",
         "barcode_search_error": "Viivakoodihaku epäonnistui",
-        "stats_error": "Stats error"
+        "stats_error": "Stats error",
+        "detail_subtitle": "Kohteen tiedot"
     },
     "common": {
         "save": "Tallenna",
@@ -162,7 +166,11 @@
         "unauthorized": "Luvaton pääsy",
         "forbidden": "Permission denied",
         "validation_error": "Validointivirhe",
-        "server_error": "Palvelinvirhe"
+        "server_error": "Palvelinvirhe",
+        "details": "Tiedot",
+        "hide": "Piilota salasana",
+        "logging_out": "Kirjaudutaan ulos...",
+        "show": "Näytä salasana"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Vahvista",
                 "back": "Takaisin",
                 "use_backup": "Käytä varmuuskoodia",
-                "use_totp": "Käytä todenninta"
+                "use_totp": "Käytä todenninta",
+                "code_required": "Vahvistuskoodi vaaditaan"
             },
             "welcome_title": "Tervetuloa takaisin",
             "welcome_subtitle": "Kirjaudu sisään päästäksesi varastollesi",
@@ -632,7 +641,10 @@
             "info": "Voit olla jäsenenä useissa taloissa ja vaihtaa niiden välillä. Jokaisella kotitaloudella on oma varastonsa.",
             "accordion_description": "Vaihda kotitalouksien välillä, luo uusi tai liity olemassa olevaan luotetulla avaimella.",
             "empty_description": "Luo uusi talous aloittaaksesi jakamisen, tai liity yhteen luotettavalla talonavaimella.",
-            "leave_success_body": "Sinulla ei enää ole pääsyä tähän kotitalouteen ja aktiivinen talosi päivitettiin."
+            "leave_success_body": "Sinulla ei enää ole pääsyä tähän kotitalouteen ja aktiivinen talosi päivitettiin.",
+            "leave_title": "Poistua tästä talosta?",
+            "leave_warning": "Menetät pääsyn tähän kotitalouden työtilaan, kunnes toinen jäsen kutsuu tai hyväksyy sinut uudelleen.",
+            "leaving": "Poistutaan..."
         },
         "house_info": {
             "title": "Aktiivisen talon avain",
@@ -674,7 +686,11 @@
             "copy_error": "Talon avainta ei voitu kopioida.",
             "modal_title": "Talon avain pääsy",
             "modal_subtitle": "Käytä tätä avainta vain luotettaville perheenjäsenille, jotka haluavat pyytää pääsyä tähän jaettuun inventaariin.",
-            "loading_members": "Ladataan jäseniä..."
+            "loading_members": "Ladataan jäseniä...",
+            "kick_success_body": "{{name}} ei enää pääse tähän kotitalouteen.",
+            "kick_title": "Poistetaanko tämä jäsen?",
+            "kick_warning": "Heidän pääsynsä kotitalouteen päättyy välittömästi, ja he tarvitsevat uuden kutsun tai hyväksynnän palatakseen.",
+            "kicking": "Poistetaan..."
         },
         "theme": {
             "title": "Teema",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Tavalliset JSON-viennit on helpompi tarkistaa, mutta kuka tahansa, joka avaa tiedoston, voi lukea kotitaloustietosi välittömästi.",
             "import_encrypted_title": "Avaa salattu varmuuskopio",
             "import_encrypted_body": "Syötä latauksen aikana käytetty varmuuskopiointisalasana tämän salatun tiedoston palauttamiseksi.",
-            "unlock_and_import": "Avaa ja tuo"
+            "unlock_and_import": "Avaa ja tuo",
+            "export_encrypted_notice": "Varmuuskopio valmistetaan reaaliaikaisista kotitaloustiedoista ja suojataan sitten valitsemallasi salasanalla. Säilytä tämä salasana turvallisessa paikassa, koska se tarvitaan tiedoston palauttamiseen myöhemmin.",
+            "export_encrypted_title": "Salaus otetaan käyttöön ennen latausta",
+            "import_summary_body": "{{items}} kohdetta, {{categories}} kategoriaa, {{rooms}} huonetta, {{locations}} sijaintia, {{borrows}} lainatietuetta palautettu.",
+            "import_summary_title": "Varmuuskopio palautettu",
+            "preview_categories": "Kategoriat",
+            "preview_items": "Kohteet",
+            "preview_locations": "Sijainnit",
+            "preview_rooms": "Huoneet",
+            "skipped_borrows": "{{count}} olemassa olevaa lainatietuetta ohitettu.",
+            "skipped_categories": "{{count}} olemassa olevaa kategoriaa ohitettu.",
+            "skipped_items": "{{count}} olemassa olevaa kohdetta ohitettu.",
+            "skipped_locations": "{{count}} olemassa olevaa sijaintia ohitettu.",
+            "skipped_rooms": "{{count}} olemassa olevaa huonetta ohitettu."
         },
         "about": {
             "title": "Tietoja sovelluksesta",
@@ -733,7 +762,10 @@
             "privacy_link": "Tietosuojakäytäntö",
             "beta_title": "Beta-tila",
             "beta_body": "{{brandName}} on edelleen beta-vaiheessa. Ominaisuudet voivat muuttua, työnkulut voivat kehittyä, ja tärkeät kotitaloustiedot tulisi aina varmuuskopioida.",
-            "feedback_subject": "Palaute - {{brandName}}"
+            "feedback_subject": "Palaute - {{brandName}}",
+            "logout_body": "Kaikki tallentamattomat muutokset avoimissa lomakkeissa voivat kadota, kun poistut tästä istunnosta.",
+            "logout_description": "Palaat kotisivulle ja voit kirjautua takaisin sisään milloin tahansa.",
+            "logout_title": "Kirjauduta ulos nyt?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Kohde lainattu",
             "lend_success_body": "{{item}} on nyt merkitty lainatuksi.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Sinulla",
+            "return_pending_hint": "Tietue sulkeutuu, kun lainanantaja vahvistaa saaneensa kohteen takaisin.",
+            "return_pending_lender_title": "{{name}} merkitsi tämän kohteen palautetuksi",
+            "return_pending_self_title": "Sinulla, odottaa kuittivahvistusta"
         },
         "untitled_item": "Otsikon puuttuva kohde",
         "delete_action": "Poista kohde",
@@ -1023,7 +1059,10 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "color_required": "Värin on oltava muodossa #RRGGBB",
+        "empty_description": "Luo muutama kategoria, jotta uudet kohteet noudattavat samaa rakennetta ja niitä on helpompi tarkastella myöhemmin.",
+        "empty_title": "Ei vielä kategorioita"
     },
     "rooms": {
         "title": "Huoneet",
@@ -1097,7 +1136,9 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "empty_description": "Luo huoneita, kuten keittiö, varasto tai autotalli, jotta kohteiden sijainnit pysyvät yhdenmukaisina ja niitä on helpompi etsiä.",
+        "empty_title": "Ei vielä huoneita"
     },
     "admin": {
         "title": "Hallintapaneeli",
@@ -1176,7 +1217,12 @@
             "households_label": "Kotitaloudet",
             "items_label": "Omistetut esineet",
             "last_seen_short": "Nähty",
-            "last_seen_short_never": "Uusi"
+            "last_seen_short_never": "Uusi",
+            "failed_logins": "{{count}} epäonnistunutta kirjautumista",
+            "load_failed_title": "Käyttäjiä ei voitu ladata",
+            "pending_requests": "{{count}} odottavaa talopyyntöä",
+            "role_admin": "Ylläpitäjä",
+            "role_user": "Käyttäjä"
         },
         "logs": {
             "title": "Ylläpitäjän lokit",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Tarkastuspöytäkirja",
             "errors_eyebrow": "Diagnostiikka",
             "section_body": "Jokainen hallinnollisen kerroksen kirjaama moderointi- tai operatiivinen muutos.",
-            "errors_body": "Viimeisimmät jäsennellyt virherivit palvelinlokeista."
+            "errors_body": "Viimeisimmät jäsennellyt virherivit palvelinlokeista.",
+            "load_failed_title": "Aktiviteettia ei voitu ladata",
+            "no_logs_title": "Ei vielä ylläpitäjän toimia"
         },
         "email": {
             "title": "Lähetä sähköposti",
@@ -1242,7 +1290,14 @@
             "status_body": "Nopean varmuustarkistuksen tekeminen ennen operatiivisen viestinnän lähettämistä.",
             "unconfigured_title": "Sähköpostin toimitusta ei ole määritetty",
             "unconfigured_body": "Lähetyslomake pysyy näkyvissä asetusarviointia varten, mutta toimitus epäonnistuu, kunnes sähköpostipalveluntarjoaja on määritetty.",
-            "status_eyebrow": "Toimitus"
+            "status_eyebrow": "Toimitus",
+            "configured_body": "Uudelleenlähetys on saatavilla ylläpitäjän käynnistämille lähtevälle viesteille.",
+            "configured_title": "Sähköpostin toimitus on määritetty",
+            "error_title": "Sähköposti epäonnistui",
+            "format_hint": "HTML tuetaan. Esimerkiksi: <b>lihavoitu</b>, <i>kursivoitu</i>, <a href=\"...\">linkki</a>",
+            "from_label": "Lähettäjä",
+            "load_failed_title": "Sähköpostityökaluja ei voitu ladata",
+            "success_title": "Sähköposti lähetetty"
         },
         "overview": {
             "email_warning_title": "Sähköpostin lähetys ei ole määritetty",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Stats loaded",
         "logs_loaded": "Lokit ladattu",
         "load_error": "Error loading",
-        "action_error": "Action error"
+        "action_error": "Action error",
+        "load_failed_body": "Ylläpitäjän reitti on avoinna, mutta yleiskatsausdataa ei saapunut. Voit yrittää uudelleen poistumatta sivulta.",
+        "load_failed_title": "Ylläpitäjän yleiskatsausta ei voitu ladata"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Verkkosoite pysyy täällä piilossa. Skannaa koodi tai kopioi linkki vain, kun tarkoituksellisesti haluat jakaa suoran pääsyn kohteeseen paikallisessa järjestelmässäsi.",
         "helper": "Skannaa avataksesi tämän kohteen heti, tai kopioi suora linkki tarvittaessa.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Valmistelemassa QR-työkaluja..."
     },
     "house_access_pending": {
         "eyebrow": "Pääsy taloon",
@@ -1859,7 +1917,11 @@
             "name_required": "Holvitietueelle tarvitaan kohteen nimi.",
             "options_failed": "Kategoria- ja huonevaihtoehtoja ei voitu ladata.",
             "delete_success_title": "Holvitieto poistettu",
-            "delete_success_body": "Yksityinen tietue poistettiin pysyvästi holvistasi."
+            "delete_success_body": "Yksityinen tietue poistettiin pysyvästi holvistasi.",
+            "passphrase_lowercase": "Sisällytä vähintään yksi pieni kirjain.",
+            "passphrase_min_length": "Varmuuslauseen salasana on oltava vähintään 12 merkkiä pitkä.",
+            "passphrase_number": "Sisällytä vähintään yksi numero.",
+            "passphrase_uppercase": "Sisällytä vähintään yksi iso kirjain."
         },
         "recovery_file_title": "{{brandName}} Henkilökohtaisen holvin palautusavain",
         "recovery_file_created_label": "Luotu",

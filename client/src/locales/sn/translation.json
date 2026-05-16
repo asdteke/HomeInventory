@@ -66,7 +66,10 @@
       "warranty_calculation_help": "Kana ukasiya zuva rekutanga rewaranti risina chinhu, zuva re invoice rinoshandiswa. Paunopinda nguva, zuva rekupedzisira rewaranti rinoverengwa otomatiki.",
       "vault_hint_title": "Rekodha inokosha zvikuru?",
       "vault_hint_description": "Kune mapasipoti, zvitupa, ruzivo rwechitupa, makodhi ekuwana, uye zvimwe zvikamu zvinofanira kugara zvakachengetedzwa kubva pakuyerera kwehuwandu hwakajairika, zviise muPersonal Vault panzvimbo yacho.",
-      "vault_hint_action": "Vhura Personal Vault"
+      "vault_hint_action": "Vhura Personal Vault",
+      "location": "Nzvimbo",
+      "remove_photo": "Bvisa mufananidzo",
+      "visibility_owner_only": "Munhu chete akawedzera chinhu anogona kuchinja zvinooneka."
     },
     "messages": {
       "quick_add_success": "✓ \"{{barcode}}\" yakawedzerwa nekukurumidza - unogona kugadzirisa gare gare",
@@ -115,7 +118,8 @@
     "delete_error": "Pane chakanganisika pakumisa chinhu",
     "no_permission": "Hauna mvumo yekugadzirisa chinhu ichi",
     "barcode_search_error": "Kutsvaga barcode kwakanganisika",
-    "stats_error": "Pane chakanganisika pakuzarura matanho"
+    "stats_error": "Pane chakanganisika pakuzarura matanho",
+    "detail_subtitle": "Zvimwe zvechinhu"
   },
   "common": {
     "save": "Chengetedza",
@@ -162,7 +166,11 @@
     "unauthorized": "Kupinda kusina kuitwa nemuridzi",
     "forbidden": "Hauna mvumo yekuita chimwe cheizvi",
     "validation_error": "Mhosva yekuongorora",
-    "server_error": "Mhosva yeserver"
+    "server_error": "Mhosva yeserver",
+    "details": "Zvimwe ruzivo",
+    "hide": "Viga password",
+    "logging_out": "Kubuda...",
+    "show": "Ratidza password"
   },
   "auth": {
     "login": {
@@ -194,7 +202,8 @@
         "verify": "Simbisa",
         "back": "Dzokera",
         "use_backup": "Shandisa kodhi yekuchengetedza",
-        "use_totp": "Shandisa authenticator"
+        "use_totp": "Shandisa authenticator",
+        "code_required": "Kodhi yekusimbisa inodiwa"
       },
       "welcome_title": "Mauya zvinofadza",
       "welcome_subtitle": "Pinda kuti uwane zvinyorwa zvako",
@@ -632,7 +641,10 @@
       "info": "💡 Unogona kuve nhengo dzemba dzakawanda uye kuchinja pakati padzo. Imba imwe neimwe ine zvayo zvakasiyana.",
       "accordion_description": "Shandura pakati pemisha, gadzira itsva, kana kupinda mune iripo uchishandisa kiyi yakavimbika.",
       "empty_description": "Gadzira imba itsva kuti utange kugovera, kana kupinda mune iripo uchishandisa kiyi yemba yakavimbika.",
-      "leave_success_body": "Iwe hauna mukana weimba iyi uye imba yako iri kushanda yakagadziridzwa."
+      "leave_success_body": "Iwe hauna mukana weimba iyi uye imba yako iri kushanda yakagadziridzwa.",
+      "leave_title": "Kubva pamba pano?",
+      "leave_warning": "Ucharasikirwa nekupinda muhofisi yepamba pano kusvikira imwe nhengo ikukokawo kana kukubvumidza zvakare.",
+      "leaving": "Kubuda..."
     },
     "house_info": {
       "title": "Kiyi Yemba Inoshanda",
@@ -674,7 +686,11 @@
       "copy_error": "Kiyi yeimba haigone kukopwa.",
       "modal_title": "Ki yemba yekuwana",
       "modal_subtitle": "Shandisa kiyi iyi chete kune nhengo dzemba dzakavimbika dzinofanirwa kukumbira mukana wechinhu chakagovaniswa ichi.",
-      "loading_members": "Kuendesa nhengo..."
+      "loading_members": "Kuendesa nhengo...",
+      "kick_success_body": "{{name}} haachakwanisi kuwana imba ino.",
+      "kick_title": "Bvisa nhengo iyi?",
+      "kick_warning": "Kuwana kwavo pamba kunopera ipapo ipapo uye vachada kukokwa kana kubvumidzwa patsva kuti vadzoke.",
+      "kicking": "Kubvisa..."
     },
     "theme": {
       "title": "Musoro",
@@ -720,7 +736,20 @@
       "unencrypted_warning": "Kunze kweJSON kusina kuvharwa kuri nyore kuongorora, asi chero ani zvake anovhura faira anogona kuverenga dhata remumba yako pakarepo.",
       "import_encrypted_title": "Vhura imwe backup yakavharwa",
       "import_encrypted_body": "Pinda password ye backup yakashandiswa panguva yekurodha kuti udzorere iyi faira yakavharwa.",
-      "unlock_and_import": "Vhura uye indexa"
+      "unlock_and_import": "Vhura uye indexa",
+      "export_encrypted_notice": "Backup yakagadzirwa kubva pane data repamba riri mupenyu uye yobva yaiswa nepassphrase yaunosarudza. Chengetedza passphrase iyoyo pane imwe nzvimbo yakachengeteka nekuti inodiwa kudzoreredza faira gare gare.",
+      "export_encrypted_title": "Kucribhiyiwa kuchaitwa usati wadhawunirodha",
+      "import_summary_body": "{{items}} zvinhu, {{categories}} zvikamu, {{rooms}} makamuri, {{locations}} nzvimbo, {{borrows}} marekodi ekukwereta akadzorerwa.",
+      "import_summary_title": "Backup yadzororwa",
+      "preview_categories": "Zvikamu",
+      "preview_items": "Zvinhu",
+      "preview_locations": "Nzvimbo",
+      "preview_rooms": "Makamuri",
+      "skipped_borrows": "{{count}} marekodi aripo ekukwereta akasiyiwa.",
+      "skipped_categories": "{{count}} zvikamu zviripo zvakapfuura.",
+      "skipped_items": "{{count}} zvinhu zviripo zvapfuura.",
+      "skipped_locations": "{{count}} nzvimbo dziripo dzapfuura.",
+      "skipped_rooms": "{{count}} makamuri aripo mapfuura."
     },
     "about": {
       "title": "📱 Nezve Chikumbiro",
@@ -733,7 +762,10 @@
       "privacy_link": "Mutemo weKuchengetedza Chirongwa",
       "beta_title": "Mamiriro eBeta",
       "beta_body": "{{brandName}} ichiri mubeta. Zvinyorwa zvinogona kuchinja, maitiro anogona kuchinja, uye data rakakosha remumba rinofanira kugara rakachengetedzwa.",
-      "feedback_subject": "Mhindo - {{brandName}}"
+      "feedback_subject": "Mhindo - {{brandName}}",
+      "logout_body": "Shanduko dzese dzisina kuchengetedzwa mumafomu akavhurika dzinogona kurasika mushure mekubuda musession ino.",
+      "logout_description": "Uchadzokera papeji rekuumba uye unogona kusaina zvakare chero nguva.",
+      "logout_title": "Kubuda izvozvi?"
     },
     "modals": {
       "password": {
@@ -960,7 +992,11 @@
       "lend_success_title": "Chinhu chakakweretwa",
       "lend_success_body": "{{item}} yave kuratidzwa sekukweretwa.",
       "offer_sent_title": "Borrow offer sent",
-      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+      "borrowed_by_you": "Nemi",
+      "return_pending_hint": "Rekodhiyo ichavharwa mushure mekunge mupi wemari asimbisa kugamuchira chinhu chadzoka.",
+      "return_pending_lender_title": "{{name}} akamaka chinhu ichi sekudzorerwa",
+      "return_pending_self_title": "Nemi, kumirira kusimbiswa kwekugamuchira"
     },
     "untitled_item": "Chinyorwa chisina musoro",
     "delete_action": "Bvisa chinhu",
@@ -1023,7 +1059,10 @@
     "name_required": "Zita rechikamu rinodiwa",
     "load_error": "Pane chakanganisika pakuzarura zvikamu",
     "add_error": "Pane chakanganisika pakubura chikamu",
-    "update_error": "Pane chakanganisika pakuvandudza chikamu"
+    "update_error": "Pane chakanganisika pakuvandudza chikamu",
+    "color_required": "Ruvara runofanira kuva mufomati ye #RRGGBB",
+    "empty_description": "Gadzira zvimwe zvikamu kuti zvinhu zvitsva zvitevedzere chimiro chimwe uye zvive nyore kuongorora gare gare.",
+    "empty_title": "Hapana zvikamu parizvino"
   },
   "rooms": {
     "title": "Imba",
@@ -1097,7 +1136,9 @@
     "name_required": "Zita reroom rinodiwa",
     "load_error": "Pane chakanganisika pakuzarura rooms",
     "add_error": "Pane chakanganisika pakubura room",
-    "update_error": "Pane chakanganisika pakuvandudza room"
+    "update_error": "Pane chakanganisika pakuvandudza room",
+    "empty_description": "Gadzira makamuri akadai sekicheni, chitoro, kana garaji kuti nzvimbo dzezvinhu dzirambe dzakafanana uye zvive nyore kutsvaga.",
+    "empty_title": "Hapana makamuri parizvino"
   },
   "admin": {
     "title": "Bhodhi reManeja",
@@ -1176,7 +1217,12 @@
       "households_label": "Dzimba",
       "items_label": "Zvinhu zvine muridzi",
       "last_seen_short": "Zvakaitwa kuona",
-      "last_seen_short_never": "Zvitsva"
+      "last_seen_short_never": "Zvitsva",
+      "failed_logins": "{{count}} kupinda kwakundikana",
+      "load_failed_title": "Vashandisi havana kukwanisa kurodha",
+      "pending_requests": "{{count}} zvikumbiro zvemba zvakamirira",
+      "role_admin": "Vakuru",
+      "role_user": "Mushandisi"
     },
     "logs": {
       "title": "Mabhuku eAdmin",
@@ -1208,7 +1254,9 @@
       "section_eyebrow": "Nhoroondo yekuongorora",
       "errors_eyebrow": "Kuongorora kwehutano",
       "section_body": "Kugadzirisa kwese kana kuchinja kwekushanda kunyoreswa neadmin layer.",
-      "errors_body": "Mutsara mitsva yekukanganisa yakadzidzwa kubva kumafaira elog server."
+      "errors_body": "Mutsara mitsva yekukanganisa yakadzidzwa kubva kumafaira elog server.",
+      "load_failed_title": "Chiitiko hachina kukwanisa kurodha",
+      "no_logs_title": "Hakuchina chiito cheadmin parizvino"
     },
     "email": {
       "title": "Tumira Imeyili",
@@ -1242,7 +1290,14 @@
       "status_body": "Kuongorora kwekukurumidza kwekuvimba usati watumira kutaurirana kwekushanda.",
       "unconfigured_title": "Kutumirwa kweemail hakusi kwakagadzirirwa",
       "unconfigured_body": "Fomu rekuendesa rinoonekwa kuti riitwe ongororo yekumisikidzwa, asi kuendesa kuchatadza kusvikira mutapi wemashoko agadziriswa.",
-      "status_eyebrow": "Kuendesa"
+      "status_eyebrow": "Kuendesa",
+      "configured_body": "Kutumirazve kunowanikwa kumashoko ekubuda akonzera admin.",
+      "configured_title": "Kutumirwa kweemail kwakarongwa",
+      "error_title": "Email yakundikana",
+      "format_hint": "HTML inotsigirwa. Semuenzaniso: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
+      "from_label": "Anotumira",
+      "load_failed_title": "Zvishandiso zveemail hazvina kukwanisa kurodha",
+      "success_title": "Email yatumwa"
     },
     "overview": {
       "email_warning_title": "Kuendesa maemail hakugadziriswe",
@@ -1327,7 +1382,9 @@
     "stats_loaded": "Matanho azarurwa",
     "logs_loaded": "Logs dzaungwa",
     "load_error": "Pane chakanganisika pakuzarura data",
-    "action_error": "Pane chakanganisika pakuita chimwe"
+    "action_error": "Pane chakanganisika pakuita chimwe",
+    "load_failed_body": "Nzira yeadmin yakavhurika, asi data rekuongorora harina kusvika. Unogona kuyedza zvakare usingabudi papeji.",
+    "load_failed_title": "Kuongorora kweadmin hakuna kukwanisa kurodha"
   },
   "landing": {
     "nav": {
@@ -1672,7 +1729,8 @@
     "link_privacy_note": "Kero yenetiweki inoramba yakavanzwa pano. Skani kodhi kana kopa chinongedzo chete paunenge uchida kupa mukana wekuwana chinhu chakananga munzvimbo yako.",
     "helper": "Skani kuti uvhure chinhu ichi pakarepo, kana kopa chinongedzo chakananga paunenge uchichida.",
     "copy_error_title": "Link could not be copied automatically",
-    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+    "loading": "Kugadzirira maturusi eQR..."
   },
   "house_access_pending": {
     "eyebrow": "Kuwana Imba",
@@ -1859,7 +1917,11 @@
       "name_required": "Zita rechinhu rinodiwa kune rekodhi yevault.",
       "options_failed": "Sarudzo dzemhando uye dzemakamuri hadzina kukwanisa kurodhwa.",
       "delete_success_title": "Rekodhi yeVault yadzimwa",
-      "delete_success_body": "Rekodhi yega yega yakabviswa zvachose muvault yako."
+      "delete_success_body": "Rekodhi yega yega yakabviswa zvachose muvault yako.",
+      "passphrase_lowercase": "Sanganisira tsamba imwe chete iri mudiki.",
+      "passphrase_min_length": "Vault passphrase inofanira kuva nemavara anosvika 12.",
+      "passphrase_number": "Sanganisira nhamba imwe chete.",
+      "passphrase_uppercase": "Sanganisira tsamba imwe chete huru."
     },
     "recovery_file_title": "Kiyi Yekudzorera Ye{{brandName}} Personal Vault",
     "recovery_file_created_label": "Yakagadzirwa",

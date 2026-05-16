@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Ikiwa utaacha tarehe ya kuanza udhamini tupu, tarehe ya ankara itatumika. Unapoingiza muda, tarehe ya kumalizika kwa udhamini huhesabiwa kiotomatiki.",
             "vault_hint_title": "Rekodi tete sana?",
             "vault_hint_description": "Kwa pasipoti, hati, maelezo ya utambulisho, nambari za ufikiaji, na rekodi nyingine ambazo zinapaswa kubaki nje ya mtiririko wa hesabu za kawaida, zingatie kuweka kwenye Hazina Binafsi badala yake.",
-            "vault_hint_action": "Fungua Hazina Binafsi"
+            "vault_hint_action": "Fungua Hazina Binafsi",
+            "location": "Mahali",
+            "remove_photo": "Ondoa picha",
+            "visibility_owner_only": "Ni mtu pekee aliyeongeza kipengele ndiye anaweza kubadilisha uonekano."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" imeongezwa haraka - unaweza kuhariri baadaye",
@@ -115,7 +118,8 @@
         "delete_error": "Hitilafu ya kufuta kipengee",
         "no_permission": "No permission",
         "barcode_search_error": "Utafutaji wa barcode umeshindwa",
-        "stats_error": "Stats error"
+        "stats_error": "Stats error",
+        "detail_subtitle": "Maelezo ya kipengele"
     },
     "common": {
         "save": "Hifadhi",
@@ -162,7 +166,11 @@
         "unauthorized": "Ufikiaji usioidhinishwa",
         "forbidden": "Permission denied",
         "validation_error": "Hitilafu ya uthibitishaji",
-        "server_error": "Hitilafu ya seva"
+        "server_error": "Hitilafu ya seva",
+        "details": "Maelezo",
+        "hide": "Ficha nenosiri",
+        "logging_out": "Kuondoka...",
+        "show": "Onyesha nenosiri"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Thibitisha",
                 "back": "Nyuma",
                 "use_backup": "Tumia nambari ya akiba",
-                "use_totp": "Tumia kimsingi ya uthibitishaji"
+                "use_totp": "Tumia kimsingi ya uthibitishaji",
+                "code_required": "Nambari ya uthibitisho inahitajika"
             },
             "welcome_title": "Karibu tena",
             "welcome_subtitle": "Ingia ili kufikia orodha yako",
@@ -632,7 +641,10 @@
             "info": "💡 Unaweza kuwa mwanachama wa nyumba nyingi na kubadilisha kati ya hizo. Kila nyumba inaendelea na hesabu tofauti.",
             "accordion_description": "Badilisha kati ya kaya, unda mpya, au jiunge na iliyo tayari kwa ufunguo unaoaminika.",
             "empty_description": "Unda kaya mpya ili kuanza kushiriki, au jiunge na moja kwa ufunguo wa nyumba unaoaminika.",
-            "leave_success_body": "Haujapewa tena ruhusa ya kaya hii na nyumba yako hai ilisasishwa."
+            "leave_success_body": "Haujapewa tena ruhusa ya kaya hii na nyumba yako hai ilisasishwa.",
+            "leave_title": "Kuacha nyumba hii?",
+            "leave_warning": "Utapoteza upatikanaji wa eneo hili la kazi la kaya hadi mshiriki mwingine akualike au akuidhinishe tena.",
+            "leaving": "Kuondoka..."
         },
         "house_info": {
             "title": "Funguo ya Nyumba Inayotumika",
@@ -674,7 +686,11 @@
             "copy_error": "Ufunguzi wa nyumba haukuweza kukopiwa.",
             "modal_title": "Ufikiaji wa ufunguo wa nyumba",
             "modal_subtitle": "Tumia ufunguo huu kwa wanachama wa nyumba unaowaamini ambao wanapaswa kuomba kupata ufikiaji wa hesabu hii ya pamoja.",
-            "loading_members": "Inapakia wanachama..."
+            "loading_members": "Inapakia wanachama...",
+            "kick_success_body": "{{name}} hakuwa na upatikanaji wa kaya hii tena.",
+            "kick_title": "Ondoa mshiriki huyu?",
+            "kick_warning": "Upatikanaji wao wa kaya utaisha mara moja na watahitaji mwaliko mpya au idhini kurudi.",
+            "kicking": "Kuondoa..."
         },
         "theme": {
             "title": "Mandhari",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Usambazaji wa JSON plain ni rahisi kuziziangalia, lakini yeyote afungue faili anaweza kusoma data ya kaya yako mara moja.",
             "import_encrypted_title": "Fungua chelezo iliyofichwa",
             "import_encrypted_body": "Weka nenosiri la chelezo lililotumika wakati wa kupakua ili kurejesha faili hii iliyofichwa.",
-            "unlock_and_import": "Fungua na ingiza"
+            "unlock_and_import": "Fungua na ingiza",
+            "export_encrypted_notice": "Nakala rudufu imeandaliwa kutoka kwa data za kaya za moja kwa moja kisha imefunikwa kwa nenosiri unalolichagua. Hifadhi nenosiri hilo mahali salama kwa sababu linahitajika kurejesha faili baadaye.",
+            "export_encrypted_title": "Uthibitisho wa usiri utawekwa kabla ya kupakua",
+            "import_summary_body": "{{items}} vitu, {{categories}} makundi, {{rooms}} vyumba, {{locations}} maeneo, {{borrows}} rekodi za kukopa zimerudishwa.",
+            "import_summary_title": "Nakala rudufu imerejeshwa",
+            "preview_categories": "Makundi",
+            "preview_items": "Vitu",
+            "preview_locations": "Maeneo",
+            "preview_rooms": "Vyumba",
+            "skipped_borrows": "{{count}} rekodi zilizopo za kukopa zimekwepa.",
+            "skipped_categories": "{{count}} makundi yaliyopo yamekwepa.",
+            "skipped_items": "{{count}} bidhaa zilizopo zimeachwa.",
+            "skipped_locations": "{{count}} maeneo yaliyopo wameachwa.",
+            "skipped_rooms": "{{count}} vyumba vilivyopo vimeachwa."
         },
         "about": {
             "title": "📱 Kuhusu Programu",
@@ -733,7 +762,10 @@
             "privacy_link": "Sera ya Faragha",
             "beta_title": "Hali ya Beta",
             "beta_body": "{{brandName}} bado ipo katika beta. Vipengele vinaweza kubadilika, mtiririko wa kazi unaweza kuendelea, na data muhimu za nyumbani daima zinapaswa kuhifadhiwa.",
-            "feedback_subject": "Maoni - {{brandName}}"
+            "feedback_subject": "Maoni - {{brandName}}",
+            "logout_body": "Mabadiliko yoyote yasiyohifadhiwa kwenye fomu zilizofunguliwa yanaweza kupotea baada ya kuondoka kutoka katika kikao hiki.",
+            "logout_description": "Utarejea kwenye ukurasa wa nyumbani na unaweza kuingia tena wakati wowote.",
+            "logout_title": "Kutoka sasa?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Kipengele kimekopwa",
             "lend_success_body": "{{item}} sasa kimewekwa kama kilichokopwa.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Na wewe",
+            "return_pending_hint": "Rekodi itafungwa baada ya mkopaji kuthibitisha walipokea kipengele hicho nyuma.",
+            "return_pending_lender_title": "{{name}} alitakaswa kipengele hiki kilirudishwa",
+            "return_pending_self_title": "Na wewe, ukisubiri uthibitisho wa risiti"
         },
         "untitled_item": "Kipengele kisicho na kichwa",
         "delete_action": "Futa kipengele",
@@ -1023,7 +1059,10 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "color_required": "Rangi lazima iwe katika muundo wa #RRGGBB",
+        "empty_description": "Unda makundi machache ili vitu vipya vijafuate muundo ule ule na iwe rahisi kuvitazama baadaye.",
+        "empty_title": "Hakuna makundi bado"
     },
     "rooms": {
         "title": "Vyumba",
@@ -1097,7 +1136,9 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "empty_description": "Unda vyumba kama jikoni, ghala, au gereji ili maeneo ya vipengele yafuate utaratibu na iwe rahisi kutafuta.",
+        "empty_title": "Hakuna vyumba bado"
     },
     "admin": {
         "title": "Paneli ya Msimamizi",
@@ -1176,7 +1217,12 @@
             "households_label": "Nyumba",
             "items_label": "Vitu vinavyomilikiwa",
             "last_seen_short": "Kuonekana",
-            "last_seen_short_never": "Vipya"
+            "last_seen_short_never": "Vipya",
+            "failed_logins": "{{count}} kujaribu kuingia kufeli",
+            "load_failed_title": "Watumiaji hawawezi kupakia",
+            "pending_requests": "{{count}} ombi la nyumba linalosubiri",
+            "role_admin": "Msimamizi",
+            "role_user": "Mtumiaji"
         },
         "logs": {
             "title": "Rekodi za Admin",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Njia ya ukaguzi",
             "errors_eyebrow": "Uchunguzi",
             "section_body": "Kila marekebisho au mabadiliko ya uendeshaji yaliyoandikwa na tabaka la msimamizi.",
-            "errors_body": "Mistari ya makosa ya hivi karibuni iliyochambuliwa kutoka kwa faili za kumbukumbu za seva."
+            "errors_body": "Mistari ya makosa ya hivi karibuni iliyochambuliwa kutoka kwa faili za kumbukumbu za seva.",
+            "load_failed_title": "Shughuli haiwezi kupakia",
+            "no_logs_title": "Hakuna vitendo vya msimamizi bado"
         },
         "email": {
             "title": "Tuma Barua Pepe",
@@ -1242,7 +1290,14 @@
             "status_body": "Ukaguzi wa haraka wa kuwahi kabla ya kutuma mawasiliano ya operesheni.",
             "unconfigured_title": "Utoaji wa barua pepe haujapangwa",
             "unconfigured_body": "Fomu ya kutuma inabaki kuonekana kwa ukaguzi wa mipangilio, lakini utoaji utashindikana hadi mtoa huduma wa barua pepe atakapowekwa.",
-            "status_eyebrow": "Utoaji"
+            "status_eyebrow": "Utoaji",
+            "configured_body": "Kutuma tena kunapatikana kwa ujumbe wa kutoka nje ulioanzishwa na msimamizi.",
+            "configured_title": "Utoaji wa barua pepe umewekwa",
+            "error_title": "Barua pepe imeshindwa",
+            "format_hint": "HTML inasaidiwa. Kwa mfano: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
+            "from_label": "Mmtumaji",
+            "load_failed_title": "Vyombo vya barua pepe haviwezi kupakia",
+            "success_title": "Barua pepe imetumwa"
         },
         "overview": {
             "email_warning_title": "Utoaji wa barua pepe haujapangwa",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Stats loaded",
         "logs_loaded": "Magogo yaliyopakiwa",
         "load_error": "Error loading",
-        "action_error": "Action error"
+        "action_error": "Action error",
+        "load_failed_body": "Njia ya msimamizi imefunguliwa, lakini data ya muhtasari haijawasili. Unaweza kujaribu tena bila kuondoka kwenye ukurasa.",
+        "load_failed_title": "Muhtasari wa msimamizi haujapakuliwa"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Anwani ya mtandao inabaki fiche hapa. Skana msimbo au nakili kiungo tu unapokusudia kushiriki upatikanaji wa moja kwa moja wa kipengee kwenye mpangilio wako wa ndani.",
         "helper": "Skana kufungua kipengee hiki mara moja, au nakili kiungo cha moja kwa moja unapotohitaji.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Kuandaa zana za QR..."
     },
     "house_access_pending": {
         "eyebrow": "Ufikiaji wa Nyumba",
@@ -1859,7 +1917,11 @@
             "name_required": "Jina la kipengee linahitajika kwa rekodi ya hazina.",
             "options_failed": "Chaguzi za kategoria na chumba hazikuweza kupakuliwa.",
             "delete_success_title": "Rekodi ya hazina imefutwa",
-            "delete_success_body": "Rekodi binafsi imefutwa kabisa kutoka kwenye hazina yako."
+            "delete_success_body": "Rekodi binafsi imefutwa kabisa kutoka kwenye hazina yako.",
+            "passphrase_lowercase": "Jumuisha angalau herufi moja ndogo.",
+            "passphrase_min_length": "Neno la siri la hazina lazima liwe na angalau vipengele 12.",
+            "passphrase_number": "Jumuisha angalau namba moja.",
+            "passphrase_uppercase": "Jumuisha angalau herufi moja kubwa."
         },
         "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
         "recovery_file_created_label": "Imeundwa",

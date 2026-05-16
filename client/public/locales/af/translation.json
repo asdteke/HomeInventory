@@ -66,7 +66,10 @@
             "warranty_calculation_help": "As u die waarborgbegindatum leeg laat, word die faktuurdatum gebruik. Wanneer u die duur invoer, word die waarborg-einddatum outomaties bereken.",
             "vault_hint_title": "Het jy ekstra privaatheid nodig?",
             "vault_hint_description": "Vir paspoorte, aktes, identiteitsbesonderhede, toegangskodes, en ander rekords wat uit jou gedeelde voorraad moet bly, bêre dit eerder in Persoonlike Kluis.",
-            "vault_hint_action": "Maak Persoonlike Kluis oop"
+            "vault_hint_action": "Maak Persoonlike Kluis oop",
+            "location": "Ligging",
+            "remove_photo": "Verwyder foto",
+            "visibility_owner_only": "Net die persoon wat die item bygevoeg het kan sigbaarheid verander."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" vinnig bygevoeg - jy kan later wysig",
@@ -115,7 +118,8 @@
         "delete_error": "Fout om item uit te vee",
         "no_permission": "Jy het nie toestemming om hierdie item te wysig nie",
         "barcode_search_error": "Strepieskode-soektog het misluk",
-        "stats_error": "Foutlaaistatistieke"
+        "stats_error": "Foutlaaistatistieke",
+        "detail_subtitle": "Itembesonderhede"
     },
     "common": {
         "save": "Stoor",
@@ -162,7 +166,11 @@
         "unauthorized": "Ongemagtigde toegang",
         "forbidden": "Jy het nie toestemming vir hierdie aksie nie",
         "validation_error": "Valideringsfout",
-        "server_error": "Bedienerfout"
+        "server_error": "Bedienerfout",
+        "details": "Besonderhede",
+        "hide": "Versteek wagwoord",
+        "logging_out": "Teken uit...",
+        "show": "Wys wagwoord"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Verifieer",
                 "back": "Terug",
                 "use_backup": "Gebruik rugsteunkode",
-                "use_totp": "Gebruik autentiseerder"
+                "use_totp": "Gebruik autentiseerder",
+                "code_required": "Verifikasiekode is vereis"
             },
             "welcome_title": "Welkom terug",
             "welcome_subtitle": "Teken in om toegang tot jou voorraad te kry",
@@ -632,7 +641,10 @@
             "info": "Jy kan lid wees van verskeie huise en tussen hulle wissel. Elke huishouding hou sy eie voorraad.",
             "accordion_description": "Skakel tussen huishoudings, skep 'n nuwe een, of sluit aan by 'n bestaande met 'n betroubare sleutel.",
             "empty_description": "Skep 'n nuwe huishouding om te begin deel, of sluit aan by een met 'n betroubare huis sleutel.",
-            "leave_success_body": "Jy het nie meer toegang tot hierdie huishouding nie en jou aktiewe huis is ververs."
+            "leave_success_body": "Jy het nie meer toegang tot hierdie huishouding nie en jou aktiewe huis is ververs.",
+            "leave_title": "Verlaat hierdie huis?",
+            "leave_warning": "Jy sal jou toegang tot hierdie huishouding se werksruimte verloor totdat 'n ander lid jou weer nooi of goedkeur.",
+            "leaving": "Verlaat..."
         },
         "house_info": {
             "title": "Aktiewe Huissleutel",
@@ -674,7 +686,11 @@
             "copy_error": "Die huis sleutel kon nie gekopieer word nie.",
             "modal_title": "Toegang tot huissleutel",
             "modal_subtitle": "Gebruik hierdie sleutel slegs vir vertroude huishoudelike lede wat toegang tot hierdie gedeelde voorraad moet versoek.",
-            "loading_members": "Laai lede..."
+            "loading_members": "Laai lede...",
+            "kick_success_body": "{{name}} het nie meer toegang tot hierdie huishouding nie.",
+            "kick_title": "Verwyder hierdie lid?",
+            "kick_warning": "Hul toegang tot die huishouding sal onmiddellik eindig en hulle sal 'n nuwe uitnodiging of goedkeuring nodig hê om terug te keer.",
+            "kicking": "Verwydering..."
         },
         "theme": {
             "title": "Tema",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Eenvoudige JSON-uitvoere is makliker om te ondersoek, maar enigiemand wat die lêer oopmaak, kan jou huishoudelike data onmiddellik lees.",
             "import_encrypted_title": "Ontsluit enkripteerde rugsteun",
             "import_encrypted_body": "Voer die rugsteunwagwoord in wat tydens aflaai gebruik is om hierdie geïnkripteer lêer te herstel.",
-            "unlock_and_import": "Ontsluit en voer in"
+            "unlock_and_import": "Ontsluit en voer in",
+            "export_encrypted_notice": "Die rugsteun word voorberei vanaf lewendige huishoudelike data en dan met die wagwoord wat u kies toegedraai. Hou daardie wagwoord op 'n veilige plek omdat dit benodig word om die lêer later te herstel.",
+            "export_encrypted_title": "Enkripsie sal voor aflaai toegepas word",
+            "import_summary_body": "{{items}} items, {{categories}} kategorieë, {{rooms}} kamers, {{locations}} plekke, {{borrows}} uitleenrekords herstel.",
+            "import_summary_title": "Rugsteun herstel",
+            "preview_categories": "Kategorieë",
+            "preview_items": "Items",
+            "preview_locations": "Plekke",
+            "preview_rooms": "Kamers",
+            "skipped_borrows": "{{count}} bestaande uitleenrekords oorgeslaan.",
+            "skipped_categories": "{{count}} bestaande kategorieë oorgeslaan.",
+            "skipped_items": "{{count}} bestaande items oorgeslaan.",
+            "skipped_locations": "{{count}} bestaande plekke oorgeslaan.",
+            "skipped_rooms": "{{count}} bestaande kamers oorgeslaan."
         },
         "about": {
             "title": "Oor Aansoek",
@@ -733,7 +762,10 @@
             "privacy_link": "Privaatheidsbeleid",
             "beta_title": "Beta-status",
             "beta_body": "{{brandName}} is nog in beta. Kenmerke kan verander, werkvloei kan ontwikkel, en belangrike huishoudelike data moet altyd gerugsteun word.",
-            "feedback_subject": "Terugvoer - {{brandName}}"
+            "feedback_subject": "Terugvoer - {{brandName}}",
+            "logout_body": "Enige ongemakigde veranderingen in oop vorms kan verlore gaan nadat u hierdie sessie verlaat.",
+            "logout_description": "U sal terug keer na die tuisblad en kan enige tyd weer aanmeld.",
+            "logout_title": "Wil u nou uitteken?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Item geleen",
             "lend_success_body": "{{item}} is nou as geleen gemerk.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "By jou",
+            "return_pending_hint": "Die rekord sal sluit nadat die lener bevestig het dat hulle die item terug ontvang het.",
+            "return_pending_lender_title": "{{name}} het hierdie item as teruggelewer gemerk",
+            "return_pending_self_title": "By jou, wag vir ontvangsbevestiging"
         },
         "untitled_item": "Ongetitelde item",
         "delete_action": "Verwyder item",
@@ -1023,7 +1059,10 @@
         "name_required": "Kategorienaam is nodig",
         "load_error": "Foutlaaikategorieë",
         "add_error": "Foutbyvoegingskategorie",
-        "update_error": "Foutopdateringskategorie"
+        "update_error": "Foutopdateringskategorie",
+        "color_required": "Kleur moet in #RRGGBB-formaat wees",
+        "empty_description": "Skep 'n paar kategorieë sodat nuwe items dieselfde struktuur volg en later makliker deurgesoek kan word.",
+        "empty_title": "Nog geen kategorieë nie"
     },
     "rooms": {
         "title": "Kamers",
@@ -1097,7 +1136,9 @@
         "name_required": "Kamernaam word vereis",
         "load_error": "Foutlaaikamers",
         "add_error": "Fout wat ruimte byvoeg",
-        "update_error": "Foutopdateringskamer"
+        "update_error": "Foutopdateringskamer",
+        "empty_description": "Skep kamers soos kombuis, stoorplek of motorhuis sodat itemliggings konsekwent bly en makliker gesoek kan word.",
+        "empty_title": "Nog geen kamers nie"
     },
     "admin": {
         "title": "Beheerpaneel",
@@ -1176,7 +1217,12 @@
             "households_label": "Huishoudings",
             "items_label": "Besit items",
             "last_seen_short": "Gesien",
-            "last_seen_short_never": "Nuut"
+            "last_seen_short_never": "Nuut",
+            "failed_logins": "{{count}} mislukte aanmeldings",
+            "load_failed_title": "Gebruikers kon nie gelaai word nie",
+            "pending_requests": "{{count}} hangende huisversoeke",
+            "role_admin": "Admin",
+            "role_user": "Gebruiker"
         },
         "logs": {
             "title": "Admin Logboeke",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Ouditspoor",
             "errors_eyebrow": "Diagnostiek",
             "section_body": "Elke moderasie- of bedryfsverandering wat deur die administrasielaag opgeteken is.",
-            "errors_body": "Die nuutste geparsde foutlyne van die bediener-loglêers."
+            "errors_body": "Die nuutste geparsde foutlyne van die bediener-loglêers.",
+            "load_failed_title": "Aktiwiteit kon nie gelaai word nie",
+            "no_logs_title": "Nog geen admin-aksies nie"
         },
         "email": {
             "title": "Stuur E-pos",
@@ -1242,7 +1290,14 @@
             "status_body": "'n Vinnige vertrouenskontrole voor die stuur van operasionele kommunikasie.",
             "unconfigured_title": "E-posaflewering is nie gekonfigureer nie",
             "unconfigured_body": "Die stuurvorm bly sigbaar vir instellingshersiening, maar aflewering sal misluk totdat die e-posverskaffer gekonfigureer is.",
-            "status_eyebrow": "Aflewering"
+            "status_eyebrow": "Aflewering",
+            "configured_body": "Herstuur is beskikbaar vir admin-geaktiveerde uitgaande boodskappe.",
+            "configured_title": "E-pos aflewering is geconfigureer",
+            "error_title": "E-pos het misluk",
+            "format_hint": "HTML word ondersteun. Byvoorbeeld: <b>vet</b>, <i>skuins</i>, <a href=\"...\">skakel</a>",
+            "from_label": "Sender",
+            "load_failed_title": "E-posgereedskap kon nie gelaai word nie",
+            "success_title": "E-pos gestuur"
         },
         "overview": {
             "email_warning_title": "E-pos aflewering is nie opgestel nie",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Statistieke gelaai",
         "logs_loaded": "Logs gelaai",
         "load_error": "Foutlaaidata",
-        "action_error": "Foutuitvoering van aksie"
+        "action_error": "Foutuitvoering van aksie",
+        "load_failed_body": "Die admin-roete is oop, maar die oorsigdata het nie aangekom nie. Jy kan probeer weer sonder om die bladsy te verlaat.",
+        "load_failed_title": "Admin-oorsig kon nie gelaai word nie"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Die netwerkadres bly hier versteek. Skandeer die kode of kopieer die skakel eers wanneer jy op 'n doelbewuste manier direkte toegang tot die item op jou plaaslike opstelling wil deel.",
         "helper": "Skandeer om hierdie item onmiddellik oop te maak, of kopieer die direkte skakel wanneer nodig.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Berei QR-gereedskap voor..."
     },
     "house_access_pending": {
         "eyebrow": "Huistoegang",
@@ -1859,7 +1917,11 @@
             "name_required": "'n Itemnaam is nodig vir 'n geldrekord.",
             "options_failed": "Kategorie- en kameropsies kon nie gelaai word nie.",
             "delete_success_title": "Gegeldrekord verwyder",
-            "delete_success_body": "Die privaat rekord is permanent van jou geldkiste verwyder."
+            "delete_success_body": "Die privaat rekord is permanent van jou geldkiste verwyder.",
+            "passphrase_lowercase": "Sluit ten minste een kleinletter in.",
+            "passphrase_min_length": "Kluiswagwoord moet ten minste 12 karakters wees.",
+            "passphrase_number": "Sluit ten minste een syfer in.",
+            "passphrase_uppercase": "Sluit ten minste een hoofletter in."
         },
         "recovery_file_title": "{{brandName}} Persoonlike Kluis Herstel Sleutel",
         "recovery_file_created_label": "Geskep",

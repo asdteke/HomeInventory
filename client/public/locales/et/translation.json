@@ -66,7 +66,10 @@
       "warranty_calculation_help": "Kui jätta garantii alguskuupäev tühi, kasutatakse arve kuupäeva. Kui sisestate kestuse, arvutatakse garantiiaja lõppkuupäev automaatselt.",
       "vault_hint_title": "Vajad lisaprivaatsust?",
       "vault_hint_description": "Passide, dokumentide, isikuandmete, juurdepääsukoodide ja teiste andmete jaoks, mis peaksid jääma sinu jagatud inventarist välja, hoia neid selle asemel Isiklikus Kambrites.",
-      "vault_hint_action": "Ava Isiklik Kamber"
+      "vault_hint_action": "Ava Isiklik Kamber",
+      "location": "Asukoht",
+      "remove_photo": "Eemalda foto",
+      "visibility_owner_only": "Ainult isik, kes lisas eseme, saab muuta nähtavust."
     },
     "messages": {
       "quick_add_success": "✓ \"{{barcode}}\" lisatud kiiresti - saad hiljem redigeerida",
@@ -115,7 +118,8 @@
     "delete_error": "Viga eseme kustutamisel",
     "no_permission": "No permission",
     "barcode_search_error": "Vöötkoodi otsing ebaõnnestus",
-    "stats_error": "Stats error"
+    "stats_error": "Stats error",
+    "detail_subtitle": "Eseme üksikasjad"
   },
   "common": {
     "save": "Salvesta",
@@ -162,7 +166,11 @@
     "unauthorized": "Volitamata ligipääs",
     "forbidden": "Permission denied",
     "validation_error": "Valideerimisviga",
-    "server_error": "Serveri viga"
+    "server_error": "Serveri viga",
+    "details": "Üksikasjad",
+    "hide": "Peida parool",
+    "logging_out": "Logi välja...",
+    "show": "Näita parooli"
   },
   "auth": {
     "login": {
@@ -194,7 +202,8 @@
         "verify": "Kinnita",
         "back": "Tagasi",
         "use_backup": "Kasuta varukoopia koodi",
-        "use_totp": "Kasuta autentija"
+        "use_totp": "Kasuta autentija",
+        "code_required": "Kinnituskood on nõutav"
       },
       "welcome_title": "Tere tulemast tagasi",
       "welcome_subtitle": "Logi sisse oma inventari juurde pääsemiseks",
@@ -632,7 +641,10 @@
       "info": "Sa saad olla mitme maja liige ja nende vahel vahet teha. Igal majapidamisel on oma inventar.",
       "accordion_description": "Vaheta kodude vahel, loo uus või liitu olemasolevaga turvalise võtmega.",
       "empty_description": "Loo uus majapidamine, et hakata jagama, või liitu ühega usaldusväärse majavõtmega.",
-      "leave_success_body": "Sul ei ole enam juurdepääsu sellele majapidamisele ja sinu aktiivne maja värskendati."
+      "leave_success_body": "Sul ei ole enam juurdepääsu sellele majapidamisele ja sinu aktiivne maja värskendati.",
+      "leave_title": "Lahkuda sellest majast?",
+      "leave_warning": "Kaotate juurdepääsu sellele majapidamise tööruumile, kuni mõni teine liige kutsub või kinnitab teid uuesti.",
+      "leaving": "Lahkumine..."
     },
     "house_info": {
       "title": "Aktiivse maja võti",
@@ -674,7 +686,11 @@
       "copy_error": "Maja võtit ei saanud kopeerida.",
       "modal_title": "Maja võtme juurdepääs",
       "modal_subtitle": "Kasuta seda võtme ainult usaldusväärsete koduste liikmete puhul, kes peaksid taotlema juurdepääsu sellele jagatud inventarile.",
-      "loading_members": "Laaditakse liikmeid..."
+      "loading_members": "Laaditakse liikmeid...",
+      "kick_success_body": "{{name}} ei oma enam juurdepääsu sellele majapidamisele.",
+      "kick_title": "Eemaldada see liige?",
+      "kick_warning": "Nende juurdepääs majapidamisele lõpeb koheselt ja nad vajavad uut kutset või kinnitust, et tagasi tulla.",
+      "kicking": "Eemaldamine..."
     },
     "theme": {
       "title": "Teema",
@@ -720,7 +736,20 @@
       "unencrypted_warning": "Lihtsad JSON-eksportfailid on kergemini kontrollitavad, kuid igaüks, kes faili avab, saab kohe lugeda teie kodumajapidamise andmeid.",
       "import_encrypted_title": "Ava krüpteeritud varukoopia",
       "import_encrypted_body": "Sisesta varundamise salasõna, mida kasutati allalaadimisel, et see krüpteeritud fail taastada.",
-      "unlock_and_import": "Ava ja impordi"
+      "unlock_and_import": "Ava ja impordi",
+      "export_encrypted_notice": "Varukoopia valmistatakse elavate majapidamise andmete põhjal ja seejärel mähitakse teie valitud parooliga. Hoidke see parool turvalises kohas, kuna failide taastamiseks on see hiljem vajalik.",
+      "export_encrypted_title": "Krüptimine rakendatakse enne allalaadimist",
+      "import_summary_body": "{{items}} eset, {{categories}} kategooriat, {{rooms}} ruumi, {{locations}} asukohta, {{borrows}} laenutuste kirjet taastatud.",
+      "import_summary_title": "Varukoopia on taastatud",
+      "preview_categories": "Kategooriad",
+      "preview_items": "Esmed",
+      "preview_locations": "Asukohad",
+      "preview_rooms": "Ruumi",
+      "skipped_borrows": "{{count}} olemasolevat laenutuste kirjet on vahele jäetud.",
+      "skipped_categories": "{{count}} olemasolevat kategooriat on vahele jäetud.",
+      "skipped_items": "{{count}} olemasolevat eset jäeti vahele.",
+      "skipped_locations": "{{count}} olemasolevat asukohta jäeti vahele.",
+      "skipped_rooms": "{{count}} olemasolevat tuba jäeti vahele."
     },
     "about": {
       "title": "Rakenduse kohta",
@@ -733,7 +762,10 @@
       "privacy_link": "Privaatsuspoliitika",
       "beta_title": "Beeta staatus",
       "beta_body": "{{brandName}} on veel beetaversioonis. Funktsioonid võivad muutuda, töösuundumused võivad areneda ja olulised majapidamise andmed tuleks alati varundada.",
-      "feedback_subject": "Tagasiside - {{brandName}}"
+      "feedback_subject": "Tagasiside - {{brandName}}",
+      "logout_body": "Kõik salvestamata muudatused avatud vormides võivad selle seansi lahkumise järel kaduda.",
+      "logout_description": "Sa naased avalehele ja võid igal ajal uuesti sisse logida.",
+      "logout_title": "Logida välja nüüd?"
     },
     "modals": {
       "password": {
@@ -960,7 +992,11 @@
       "lend_success_title": "Ese on laenutatud",
       "lend_success_body": "{{item}} on nüüd märgitud laenatuna.",
       "offer_sent_title": "Borrow offer sent",
-      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+      "borrowed_by_you": "Sinuga",
+      "return_pending_hint": "Kannet suletakse pärast seda, kui laenuandja kinnitab, et nad on objekti tagasi saanud.",
+      "return_pending_lender_title": "{{name}} märgitud see ese kui tagastatud",
+      "return_pending_self_title": "Sinuga, oodates kviitungi kinnitust"
     },
     "untitled_item": "Pealkirjata ese",
     "delete_action": "Kustuta ese",
@@ -1023,7 +1059,10 @@
     "name_required": "Name required",
     "load_error": "Error loading",
     "add_error": "Error adding",
-    "update_error": "Error updating"
+    "update_error": "Error updating",
+    "color_required": "Värv peab olema vormingus #RRGGBB",
+    "empty_description": "Loo mõned kategooriad, et uued esemed järgiksid sama struktuuri ja oleks neid hiljem lihtsam sirvida.",
+    "empty_title": "Kategooriaid pole veel"
   },
   "rooms": {
     "title": "Ruumi",
@@ -1097,7 +1136,9 @@
     "name_required": "Name required",
     "load_error": "Error loading",
     "add_error": "Error adding",
-    "update_error": "Error updating"
+    "update_error": "Error updating",
+    "empty_description": "Loo ruume nagu köök, ladu või garaaž, et esemete asukohad oleksid järjepidevad ja neid oleks lihtsam otsida.",
+    "empty_title": "Ruume pole veel"
   },
   "admin": {
     "title": "Admin Paneel",
@@ -1176,7 +1217,12 @@
       "households_label": "Majapidamised",
       "items_label": "Omad esemed",
       "last_seen_short": "Nähtud",
-      "last_seen_short_never": "Uus"
+      "last_seen_short_never": "Uus",
+      "failed_logins": "{{count}} ebaõnnestunud sisselogimist",
+      "load_failed_title": "Kasutajaid ei saanud laadida",
+      "pending_requests": "{{count}} ootel maja taotlust",
+      "role_admin": "Administraator",
+      "role_user": "Kasutaja"
     },
     "logs": {
       "title": "Admini logid",
@@ -1208,7 +1254,9 @@
       "section_eyebrow": "Auditijälg",
       "errors_eyebrow": "Diagnostika",
       "section_body": "Iga modereerimine või operatiivne muutus, mis on salvestatud administraatori kihis.",
-      "errors_body": "Viimased serverilogifailidest parsitud vearead."
+      "errors_body": "Viimased serverilogifailidest parsitud vearead.",
+      "load_failed_title": "Tegevust ei saanud laadida",
+      "no_logs_title": "Ükski admin-tegevus puudub veel"
     },
     "email": {
       "title": "Saada e-kiri",
@@ -1242,7 +1290,14 @@
       "status_body": "Kiire enesekindluse kontroll enne operatiivse teate saatmist.",
       "unconfigured_title": "E-posti kohaletoimetamine ei ole seadistatud",
       "unconfigured_body": "Saatmis vorm jääb nähtavaks seadistuse ülevaatamiseks, kuid kohaletoimetamine ebaõnnestub, kuni e-posti teenuse pakkuja on seadistatud.",
-      "status_eyebrow": "Kohaletoimetamine"
+      "status_eyebrow": "Kohaletoimetamine",
+      "configured_body": "Uuesti saatmine on saadaval administreerija initsieeritud väljaminevatele sõnumitele.",
+      "configured_title": "E-posti kohaletoimetamine on konfigureeritud",
+      "error_title": "E-posti saatmine ebaõnnestus",
+      "format_hint": "HTML on toetatud. Näiteks: <b>paks</b>, <i>kursiiv</i>, <a href=\"...\">link</a>",
+      "from_label": "Saatja",
+      "load_failed_title": "E-posti tööriistad ei saanud laadida",
+      "success_title": "E-post saadetud"
     },
     "overview": {
       "email_warning_title": "E-posti kohaletoomine ei ole seadistatud",
@@ -1327,7 +1382,9 @@
     "stats_loaded": "Stats loaded",
     "logs_loaded": "Logid laaditud",
     "load_error": "Error loading",
-    "action_error": "Action error"
+    "action_error": "Action error",
+    "load_failed_body": "Administraatori marsruut on avatud, kuid ülevaate andmed ei tulnud kohale. Saate uuesti proovida ilma lehelt lahkumata.",
+    "load_failed_title": "Administraatori ülevaadet ei saanud laadida"
   },
   "landing": {
     "nav": {
@@ -1672,7 +1729,8 @@
     "link_privacy_note": "Võrgu aadress jääb siin peidetuks. Skannige kood või kopeerige link ainult siis, kui soovite teadlikult jagada otsest juurdepääsu oma kohalikus seadistuses.",
     "helper": "Skannige, et avada see üksus kohe, või kopeerige otselingi vajadusel.",
     "copy_error_title": "Link could not be copied automatically",
-    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+    "loading": "Valmistatakse ette QR-tööriistad..."
   },
   "house_access_pending": {
     "eyebrow": "Juurdepääs majale",
@@ -1859,7 +1917,11 @@
       "name_required": "Kaevekirje puhul on vajalik üksuse nimi.",
       "options_failed": "Kategooria ja ruumi valikuid ei saanud laadida.",
       "delete_success_title": "Kaevekirje kustutatud",
-      "delete_success_body": "Privaatne kirje eemaldati teie kaevandusest jäädavalt."
+      "delete_success_body": "Privaatne kirje eemaldati teie kaevandusest jäädavalt.",
+      "passphrase_lowercase": "Lisage vähemalt üks väiketäht.",
+      "passphrase_min_length": "Keldri parooliväljend peab olema vähemalt 12 tähemärki pikk.",
+      "passphrase_number": "Lisage vähemalt üks number.",
+      "passphrase_uppercase": "Lisage vähemalt üks suurtäht."
     },
     "recovery_file_title": "{{brandName}} Isikliku Keldri Taastamisvõti",
     "recovery_file_created_label": "Loodud",

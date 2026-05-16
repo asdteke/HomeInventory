@@ -66,7 +66,10 @@
       "warranty_calculation_help": "Ako ostavite prazno polje za datum početka garancije, koristi se datum fakture. Kada unesete trajanje, datum završetka garancije se automatski izračunava.",
       "vault_hint_title": "Treba vam dodatna privatnost?",
       "vault_hint_description": "Za pasoše, akte, podatke o identitetu, pristupne kodove i druge zapise koji bi trebali ostati van vaše zajedničke kolekcije, umjesto toga ih spremite u Lični sef.",
-      "vault_hint_action": "Otvorite Lični sef"
+      "vault_hint_action": "Otvorite Lični sef",
+      "location": "Lokacija",
+      "remove_photo": "Ukloni fotografiju",
+      "visibility_owner_only": "Samo osoba koja je dodala predmet može promijeniti vidljivost."
     },
     "messages": {
       "quick_add_success": "✓ „{{barcode}}“ brzo dodano - kasnije možete urediti",
@@ -115,7 +118,8 @@
     "delete_error": "Greška pri brisanju stavke",
     "no_permission": "Nemate dozvolu da mijenjate ovu stavku",
     "barcode_search_error": "Pretraga barkoda nije uspjela",
-    "stats_error": "Statistika učitavanja grešaka"
+    "stats_error": "Statistika učitavanja grešaka",
+    "detail_subtitle": "Detalji predmeta"
   },
   "common": {
     "save": "Spremi",
@@ -162,7 +166,11 @@
     "unauthorized": "Neovlašteni pristup",
     "forbidden": "Nemaš dozvolu za ovu radnju",
     "validation_error": "Greška validacije",
-    "server_error": "Greška servera"
+    "server_error": "Greška servera",
+    "details": "Detalji",
+    "hide": "Sakrij lozinku",
+    "logging_out": "Odjava...",
+    "show": "Prikaži lozinku"
   },
   "auth": {
     "login": {
@@ -194,7 +202,8 @@
         "verify": "Verifikuj",
         "back": "Nazad",
         "use_backup": "Koristi backup kod",
-        "use_totp": "Koristi autentifikator"
+        "use_totp": "Koristi autentifikator",
+        "code_required": "Potreban je verifikacijski kod"
       },
       "welcome_title": "Dobrodošli nazad",
       "welcome_subtitle": "Prijavite se da pristupite svom inventaru",
@@ -632,7 +641,10 @@
       "info": "Možete biti član više kuća i prebacivati se između njih. Svaka kućanstvo vodi svoj inventar.",
       "accordion_description": "Prebaci se između domaćinstava, kreiraj novo ili se pridruži postojećem sa pouzdanim ključem.",
       "empty_description": "Napravite novu kućanstvo da počnete dijeliti, ili se pridružite onom sa pouzdanim ključem kuće.",
-      "leave_success_body": "Vi više nemate pristup ovom kućanstvu, a vaša aktivna kuća je osvježena."
+      "leave_success_body": "Vi više nemate pristup ovom kućanstvu, a vaša aktivna kuća je osvježena.",
+      "leave_title": "Napustiti ovu kuću?",
+      "leave_warning": "Izgubit ćete pristup ovom radnom prostoru domaćinstva dok vas drugi član ne pozove ili odobri ponovo.",
+      "leaving": "Napustanje..."
     },
     "house_info": {
       "title": "Ključ aktivne kuće",
@@ -674,7 +686,11 @@
       "copy_error": "Ključ kuće nije mogao biti kopiran.",
       "modal_title": "Pristup ključu kuće",
       "modal_subtitle": "Koristite ovaj ključ samo za pouzdane članove domaćinstva koji trebaju zatražiti pristup ovom zajedničkom inventaru.",
-      "loading_members": "Učitavanje članova..."
+      "loading_members": "Učitavanje članova...",
+      "kick_success_body": "{{name}} više nema pristup ovom domaćinstvu.",
+      "kick_title": "Ukloniti ovog člana?",
+      "kick_warning": "Njihov pristup domaćinstvu će odmah završiti i trebat će im nova pozivnica ili odobrenje da se vrate.",
+      "kicking": "Uklanjanje..."
     },
     "theme": {
       "title": "Tema",
@@ -720,7 +736,20 @@
       "unencrypted_warning": "Obični JSON izvoz je lakše provjeriti, ali svako ko otvori datoteku može odmah pročitati podatke o vašem domaćinstvu.",
       "import_encrypted_title": "Otključajte šifrovanu sigurnosnu kopiju",
       "import_encrypted_body": "Unesite sigurnosnu frazu korištenu tokom preuzimanja da biste vratili ovu šifrovanu datoteku.",
-      "unlock_and_import": "Otključaj i uvezi"
+      "unlock_and_import": "Otključaj i uvezi",
+      "export_encrypted_notice": "Backup je pripremljen iz podataka stvarnog domaćinstva i zatim zaštićen lozinkom koju odaberete. Čuvajte tu lozinku na sigurnom mjestu jer je potrebna za obnavljanje datoteke kasnije.",
+      "export_encrypted_title": "Enkripcija će biti primijenjena prije preuzimanja",
+      "import_summary_body": "{{items}} stavki, {{categories}} kategorija, {{rooms}} soba, {{locations}} lokacija, {{borrows}} zapisa posudbi obnovljeno.",
+      "import_summary_title": "Backup obnovljen",
+      "preview_categories": "Kategorije",
+      "preview_items": "Stavke",
+      "preview_locations": "Lokacije",
+      "preview_rooms": "Sobe",
+      "skipped_borrows": "{{count}} postojećih zapisa posudbi preskočeno.",
+      "skipped_categories": "{{count}} postojećih kategorija preskočeno.",
+      "skipped_items": "{{count}} postojeći elementi preskočeni.",
+      "skipped_locations": "{{count}} postojeće lokacije preskočene.",
+      "skipped_rooms": "{{count}} postojeće sobe preskočene."
     },
     "about": {
       "title": "O aplikaciji",
@@ -733,7 +762,10 @@
       "privacy_link": "Pravila privatnosti",
       "beta_title": "Beta status",
       "beta_body": "{{brandName}} je još uvijek u beta fazi. Funkcionalnosti se mogu mijenjati, radni procesi mogu evoluirati, i važne kućne podatke uvijek treba praviti rezervne kopije.",
-      "feedback_subject": "Povratne informacije - {{brandName}}"
+      "feedback_subject": "Povratne informacije - {{brandName}}",
+      "logout_body": "Sve nespremljene promjene u otvorenim formularima mogu biti izgubljene nakon što napustite ovu sesiju.",
+      "logout_description": "Vratit ćete se na početnu stranicu i možete se ponovo prijaviti u bilo kojem trenutku.",
+      "logout_title": "Odjaviti se sada?"
     },
     "modals": {
       "password": {
@@ -960,7 +992,11 @@
       "lend_success_title": "Predmet posuđen",
       "lend_success_body": "{{item}} je sada označen kao posuđen.",
       "offer_sent_title": "Borrow offer sent",
-      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+      "borrowed_by_you": "Sa vama",
+      "return_pending_hint": "Zapis će se zatvoriti nakon što zajmodavac potvrdi da je predmet primljen nazad.",
+      "return_pending_lender_title": "{{name}} je označio ovaj predmet kao vraćen",
+      "return_pending_self_title": "Sa vama, čekajući potvrdu primitka"
     },
     "untitled_item": "Stavka bez naslova",
     "delete_action": "Izbriši stavku",
@@ -1023,7 +1059,10 @@
     "name_required": "Naziv kategorije je obavezan",
     "load_error": "Kategorije učitavanja grešaka",
     "add_error": "Kategorija sabiranja grešaka",
-    "update_error": "Kategorija ažuriranja grešaka"
+    "update_error": "Kategorija ažuriranja grešaka",
+    "color_required": "Boja mora biti u formatu #RRGGBB",
+    "empty_description": "Napravite nekoliko kategorija kako bi novi predmeti pratili istu strukturu i kako bi ih bilo lakše pregledati kasnije.",
+    "empty_title": "Još nema kategorija"
   },
   "rooms": {
     "title": "Sobe",
@@ -1097,7 +1136,9 @@
     "name_required": "Ime sobe je obavezno",
     "load_error": "Sobe za učitavanje grešaka",
     "add_error": "Prostor za dodavanje greške",
-    "update_error": "Soba za ažuriranje grešaka"
+    "update_error": "Soba za ažuriranje grešaka",
+    "empty_description": "Napravite sobe poput kuhinje, ostave ili garaže kako bi lokacije predmeta ostale dosljedne i lakše za pretragu.",
+    "empty_title": "Još nema soba"
   },
   "admin": {
     "title": "Administratorski Panel",
@@ -1176,7 +1217,12 @@
       "households_label": "Domaćinstva",
       "items_label": "Vlasništvo nad predmetima",
       "last_seen_short": "Viđeno",
-      "last_seen_short_never": "Novo"
+      "last_seen_short_never": "Novo",
+      "failed_logins": "{{count}} neuspjelih prijava",
+      "load_failed_title": "Korisnici se nisu mogli učitati",
+      "pending_requests": "{{count}} zahtjeva za prijem u kuću na čekanju",
+      "role_admin": "Administrator",
+      "role_user": "Korisnik"
     },
     "logs": {
       "title": "Administratorski zapisi",
@@ -1208,7 +1254,9 @@
       "section_eyebrow": "Trag audita",
       "errors_eyebrow": "Dijagnostika",
       "section_body": "Svaka modifikacija ili operativna promjena zabilježena od strane administratorskog sloja.",
-      "errors_body": "Najnovije analizirane linije grešaka iz log fajlova servera."
+      "errors_body": "Najnovije analizirane linije grešaka iz log fajlova servera.",
+      "load_failed_title": "Aktivnost se nije mogla učitati",
+      "no_logs_title": "Još nema administrativnih akcija"
     },
     "email": {
       "title": "Pošalji e-mail",
@@ -1242,7 +1290,14 @@
       "status_body": "Brza provjera povjerenja prije slanja operativne komunikacije.",
       "unconfigured_title": "Slanje emaila nije konfigurirano",
       "unconfigured_body": "Forma za slanje ostaje vidljiva za pregled postavki, ali dostava će ne uspjeti dok ne bude konfiguriran provajder maila.",
-      "status_eyebrow": "Dostava"
+      "status_eyebrow": "Dostava",
+      "configured_body": "Ponovno slanje je dostupno za poruke koje je pokrenuo administrator.",
+      "configured_title": "Dostava e-pošte je konfigurirana",
+      "error_title": "Slanje e-pošte nije uspjelo",
+      "format_hint": "HTML je podržan. Na primjer: <b>podebljano</b>, <i>kurziv</i>, <a href=\"...\">link</a>",
+      "from_label": "Pošiljalac",
+      "load_failed_title": "Alati za e-poštu se nisu mogli učitati",
+      "success_title": "E-poruka poslana"
     },
     "overview": {
       "email_warning_title": "Dostava e-pošte nije konfigurirana",
@@ -1327,7 +1382,9 @@
     "stats_loaded": "Statistika učitana",
     "logs_loaded": "Logovi učitani",
     "load_error": "Greška pri učitavanju podataka",
-    "action_error": "Greška u izvršavanju radnje"
+    "action_error": "Greška u izvršavanju radnje",
+    "load_failed_body": "Administratorski put je otvoren, ali pregledni podaci nisu stigli. Možete pokušati ponovo bez napuštanja stranice.",
+    "load_failed_title": "Administratorski pregled se nije mogao učitati"
   },
   "landing": {
     "nav": {
@@ -1672,7 +1729,8 @@
     "link_privacy_note": "Mrežna adresa ostaje skrivena ovdje. Skenirajte kod ili kopirajte link samo kada namjerno želite dijeliti direktan pristup stavci na vašoj lokalnoj postavci.",
     "helper": "Skenirajte da odmah otvorite ovu stavku, ili kopirajte direktni link kada je potrebno.",
     "copy_error_title": "Link could not be copied automatically",
-    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+    "loading": "Priprema QR alata..."
   },
   "house_access_pending": {
     "eyebrow": "Pristup kući",
@@ -1859,7 +1917,11 @@
       "name_required": "Naziv stavke je obavezan za zapis u trezoru.",
       "options_failed": "Opcije kategorije i sobe se nisu mogle učitati.",
       "delete_success_title": "Zapis u trezoru obrisan",
-      "delete_success_body": "Privatni zapis je trajno uklonjen iz vašeg trezora."
+      "delete_success_body": "Privatni zapis je trajno uklonjen iz vašeg trezora.",
+      "passphrase_lowercase": "Uključite najmanje jedno malo slovo.",
+      "passphrase_min_length": "Lozinka trezora mora imati najmanje 12 karaktera.",
+      "passphrase_number": "Uključite najmanje jedan broj.",
+      "passphrase_uppercase": "Uključite najmanje jedno veliko slovo."
     },
     "recovery_file_title": "{{brandName}} Lični sef - ključ za oporavak",
     "recovery_file_created_label": "Kreirano",

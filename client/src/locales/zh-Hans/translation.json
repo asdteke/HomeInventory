@@ -66,7 +66,10 @@
             "warranty_calculation_help": "如果您将保修开始日期留空，则使用发票日期。当您输入期限时，保修结束日期会自动计算。",
             "vault_hint_title": "非常敏感的记录？",
             "vault_hint_description": "对于护照、契约、身份信息、访问代码以及其他应避免进入标准库存流程的记录，请将它们保存在个人保险库中。",
-            "vault_hint_action": "打开个人保险库"
+            "vault_hint_action": "打开个人保险库",
+            "location": "位置",
+            "remove_photo": "移除照片",
+            "visibility_owner_only": "只有添加此物品的人可以更改可见性。"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" 快速添加 - 你以后可以编辑",
@@ -115,7 +118,8 @@
         "delete_error": "错误删除项目",
         "no_permission": "你没有权限修改这个项目",
         "barcode_search_error": "条码搜索失败",
-        "stats_error": "错误加载统计"
+        "stats_error": "错误加载统计",
+        "detail_subtitle": "物品详情"
     },
     "common": {
         "save": "保存",
@@ -162,7 +166,11 @@
         "unauthorized": "未经授权的访问",
         "forbidden": "你没有这个行为的许可",
         "validation_error": "验证误差",
-        "server_error": "服务器错误"
+        "server_error": "服务器错误",
+        "details": "详情",
+        "hide": "隐藏密码",
+        "logging_out": "正在注销...",
+        "show": "显示密码"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "验证",
                 "back": "返回",
                 "use_backup": "使用备用代码",
-                "use_totp": "使用身份验证器"
+                "use_totp": "使用身份验证器",
+                "code_required": "需要验证码"
             },
             "welcome_title": "欢迎回来",
             "welcome_subtitle": "登录以访问您的库存",
@@ -632,7 +641,10 @@
             "info": "💡 您可以成为多个房屋的成员并在它们之间切换。每个房屋都有独立的库存。",
             "accordion_description": "在家庭之间切换，创建新家庭或使用受信钥匙加入现有家庭。",
             "empty_description": "创建新家庭以开始共享，或者使用受信家庭钥匙加入已有家庭。",
-            "leave_success_body": "您不再可以访问此家庭，并且您的活跃房屋已刷新。"
+            "leave_success_body": "您不再可以访问此家庭，并且您的活跃房屋已刷新。",
+            "leave_title": "离开此房子？",
+            "leave_warning": "您将失去对该家庭工作区的访问权限，直到其他成员再次邀请或批准您。",
+            "leaving": "正在离开..."
         },
         "house_info": {
             "title": "活动房屋钥匙",
@@ -674,7 +686,11 @@
             "copy_error": "房门钥匙无法复制。",
             "modal_title": "房门钥匙访问",
             "modal_subtitle": "仅将此钥匙用于需要访问此共享物品的可信家庭成员。",
-            "loading_members": "正在加载成员..."
+            "loading_members": "正在加载成员...",
+            "kick_success_body": "{{name}} 不再有权限访问此家庭。",
+            "kick_title": "移除此成员？",
+            "kick_warning": "他们的家庭访问权限将立即终止，需要新的邀请或批准才能返回。",
+            "kicking": "正在移除..."
         },
         "theme": {
             "title": "主题",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "纯JSON导出更容易检查，但任何打开文件的人都可以立即读取您的家庭数据。",
             "import_encrypted_title": "解锁加密备份",
             "import_encrypted_body": "输入下载时使用的备份密码以恢复此加密文件。",
-            "unlock_and_import": "解锁并导入"
+            "unlock_and_import": "解锁并导入",
+            "export_encrypted_notice": "备份是从实时家庭数据准备的，然后使用您选择的密码短语进行加密。请将该密码短语妥善保管，因为恢复文件时需要它。",
+            "export_encrypted_title": "下载前将应用加密",
+            "import_summary_body": "已恢复 {{items}} 个物品、{{categories}} 个类别、{{rooms}} 个房间、{{locations}} 个位置、{{borrows}} 条借用记录。",
+            "import_summary_title": "备份已恢复",
+            "preview_categories": "类别",
+            "preview_items": "物品",
+            "preview_locations": "位置",
+            "preview_rooms": "房间",
+            "skipped_borrows": "已跳过 {{count}} 条现有借用记录。",
+            "skipped_categories": "已跳过 {{count}} 个现有类别。",
+            "skipped_items": "{{count}} 个现有项目已跳过。",
+            "skipped_locations": "{{count}} 个现有位置已跳过。",
+            "skipped_rooms": "{{count}} 个现有房间已跳过。"
         },
         "about": {
             "title": "📱 关于应用程序",
@@ -733,7 +762,10 @@
             "privacy_link": "隐私政策",
             "beta_title": "测试版状态",
             "beta_body": "{{brandName}} 仍处于测试版阶段。功能可能会更改，工作流程可能会发展，重要的家庭数据应始终备份。",
-            "feedback_subject": "反馈 - {{brandName}}"
+            "feedback_subject": "反馈 - {{brandName}}",
+            "logout_body": "在您离开此会话后，任何未保存的表单更改可能会丢失。",
+            "logout_description": "您将返回主页，并且可以随时重新登录。",
+            "logout_title": "现在注销吗？"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "物品已借出",
             "lend_success_body": "{{item}} 现在已标记为已借出。",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "在你这里",
+            "return_pending_hint": "当借出者确认已收到归还物品后，记录将关闭。",
+            "return_pending_lender_title": "{{name}} 将此物品标记为归还",
+            "return_pending_self_title": "在你这里，等待收据确认"
         },
         "untitled_item": "未命名物品",
         "delete_action": "删除物品",
@@ -1023,7 +1059,10 @@
         "name_required": "需要类别名称",
         "load_error": "错误加载类别",
         "add_error": "错误加法类别",
-        "update_error": "错误更新类别"
+        "update_error": "错误更新类别",
+        "color_required": "颜色必须采用 #RRGGBB 格式",
+        "empty_description": "创建几个类别，以便新物品遵循相同的结构，并且以后更容易扫描。",
+        "empty_title": "还没有类别"
     },
     "rooms": {
         "title": "房间",
@@ -1097,7 +1136,9 @@
         "name_required": "需要房间名称",
         "load_error": "错误加载室",
         "add_error": "错误加房",
-        "update_error": "错误更新室"
+        "update_error": "错误更新室",
+        "empty_description": "创建像厨房、储藏室或车库这样的房间，以便物品位置保持一致，更容易搜索。",
+        "empty_title": "还没有房间"
     },
     "admin": {
         "title": "管理面板",
@@ -1178,7 +1219,12 @@
             "households_label": "家庭",
             "items_label": "拥有的物品",
             "last_seen_short": "已看",
-            "last_seen_short_never": "新"
+            "last_seen_short_never": "新",
+            "failed_logins": "{{count}} 次登录失败",
+            "load_failed_title": "无法加载用户",
+            "pending_requests": "{{count}} 个待处理房屋请求",
+            "role_admin": "管理员",
+            "role_user": "用户"
         },
         "logs": {
             "title": "管理员日志",
@@ -1210,7 +1256,9 @@
             "section_body": "每一次审核或运营变更都会记录在管理层。",
             "errors_body": "从服务器日志文件中解析出的最新错误行。",
             "section_eyebrow": "审计记录",
-            "errors_eyebrow": "诊断"
+            "errors_eyebrow": "诊断",
+            "load_failed_title": "无法加载活动",
+            "no_logs_title": "暂无管理员操作"
         },
         "email": {
             "status_title": "外发邮件状态",
@@ -1244,7 +1292,14 @@
             "info_bullet_1": "电子邮件由 {{supportEmail}} 发送",
             "info_bullet_2": "您每分钟最多可以发送3封电子邮件以防止垃圾邮件",
             "info_bullet_3": "所有发送内容都会被记录以确保安全，但不包括内容",
-            "status_eyebrow": "投递"
+            "status_eyebrow": "投递",
+            "configured_body": "管理员触发的发件消息可以重新发送。",
+            "configured_title": "电子邮件投递已配置",
+            "error_title": "电子邮件发送失败",
+            "format_hint": "支持 HTML。例如：<b>加粗</b>，<i>斜体</i>，<a href=\"...\">链接</a>",
+            "from_label": "发件人",
+            "load_failed_title": "无法加载电子邮件工具",
+            "success_title": "电子邮件已发送"
         },
         "overview": {
             "email_warning_title": "电子邮件投递尚未配置",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "统计数据加载",
         "logs_loaded": "日志已加载",
         "load_error": "错误加载数据",
-        "action_error": "错误执行动作"
+        "action_error": "错误执行动作",
+        "load_failed_body": "管理路由已开启，但概览数据未到达。您可以在不离开页面的情况下重试。",
+        "load_failed_title": "无法加载管理员概览"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "网络地址在此保持隐藏。仅在你有意分享本地设置中的直接项目访问时，扫描二维码或复制链接。",
         "helper": "扫描以立即打开此项目，或在需要时复制直接链接。",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "正在准备二维码工具..."
     },
     "house_access_pending": {
         "eyebrow": "房屋访问",
@@ -1859,7 +1917,11 @@
             "name_required": "保险库记录必须有项目名称。",
             "options_failed": "类别和房间选项无法加载。",
             "delete_success_title": "保险库记录已删除",
-            "delete_success_body": "私人记录已从您的保险库中永久移除。"
+            "delete_success_body": "私人记录已从您的保险库中永久移除。",
+            "passphrase_lowercase": "至少包含一个小写字母。",
+            "passphrase_min_length": "金库密码至少需要12个字符。",
+            "passphrase_number": "至少包含一个数字。",
+            "passphrase_uppercase": "至少包含一个大写字母。"
         },
         "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
         "recovery_file_created_label": "已创建",

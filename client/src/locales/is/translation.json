@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Ef þú skilur eftir upphafsdagsetningu ábyrgðarinnar auða er reikningsdagsetningin notuð. Þegar þú slærð inn lengdina er lokadagsetning ábyrgðar reiknuð sjálfkrafa.",
             "vault_hint_title": "Vantar aukna næði?",
             "vault_hint_description": "Fyrir vegabréf, skjöl, auðkennisupplýsingar, aðgangskóða og önnur gögn sem ætti að halda utan sameiginlegs birgðageymslu þíns, geymið þau í Persónulegri Geymslu í staðinn.",
-            "vault_hint_action": "Opna Persónulega Geymslu"
+            "vault_hint_action": "Opna Persónulega Geymslu",
+            "location": "Staðsetning",
+            "remove_photo": "Fjarlægja mynd",
+            "visibility_owner_only": "Aðeins manneskjan sem bætti við hlutnum getur breytt sýnileika."
         },
         "messages": {
             "quick_add_success": "✓ „{{barcode}}“ fljótt bætt við - þú getur breytt síðar",
@@ -115,7 +118,8 @@
         "delete_error": "Villa sem eyðir hlut",
         "no_permission": "No permission",
         "barcode_search_error": "Strikamerkjaleit mistókst",
-        "stats_error": "Stats error"
+        "stats_error": "Stats error",
+        "detail_subtitle": "Upplýsingar um hlut"
     },
     "common": {
         "save": "Vista",
@@ -162,7 +166,11 @@
         "unauthorized": "Óheimil aðgangur",
         "forbidden": "Permission denied",
         "validation_error": "Staðfestingarvilla",
-        "server_error": "Netþjónsvilla"
+        "server_error": "Netþjónsvilla",
+        "details": "Upplýsingar",
+        "hide": "Fela lykilorð",
+        "logging_out": "Skráning út...",
+        "show": "Sýna lykilorð"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Staðfesta",
                 "back": "Til baka",
                 "use_backup": "Nota afritakóða",
-                "use_totp": "Nota auðkenningarforrit"
+                "use_totp": "Nota auðkenningarforrit",
+                "code_required": "Staðfestingarkóði er krafinn"
             },
             "welcome_title": "Velkomin(n) aftur",
             "welcome_subtitle": "Skráðu þig inn til að fá aðgang að birgðum þínum",
@@ -632,7 +641,10 @@
             "info": "Þú getur verið meðlimur í mörgum húsum og skipt á milli þeirra. Hvert heimili heldur eigin birgðaskrá.",
             "accordion_description": "Skipta á milli heimila, búa til nýtt, eða ganga í núverandi með traustum lykli.",
             "empty_description": "Búðu til nýtt heimili til að byrja að deila, eða taktu þátt í einu með traustum húsalykli.",
-            "leave_success_body": "Þú hefur ekki lengur aðgang að þessu heimili og virka húsið þitt var endurnýjað."
+            "leave_success_body": "Þú hefur ekki lengur aðgang að þessu heimili og virka húsið þitt var endurnýjað.",
+            "leave_title": "yfirgefa þetta hús?",
+            "leave_warning": "Þú munt missa aðgang að vinnusvæði þessa heimilis þar til annar meðlimur boðar eða samþykkir þig aftur.",
+            "leaving": "Að yfirgefa..."
         },
         "house_info": {
             "title": "Virkur húss lykill",
@@ -674,7 +686,11 @@
             "copy_error": "Lykillinn að húsinu gat ekki verið afritaður.",
             "modal_title": "Aðgangur með húslyklinum",
             "modal_subtitle": "Notaðu þennan lykil aðeins fyrir trausta fjölskyldumeðlimi sem ættu að óska eftir aðgangi að þessu sameiginlega birgðageymslu.",
-            "loading_members": "Hleður meðlimi..."
+            "loading_members": "Hleður meðlimi...",
+            "kick_success_body": "{{name}} hefur ekki lengur aðgang að þessu heimili.",
+            "kick_title": "Fjarlægja þennan meðlim?",
+            "kick_warning": "Aðgangur þeirra að heimilinu mun stöðvast strax og þeir munu þurfa nýja boðun eða samþykki til að snúa aftur.",
+            "kicking": "Að fjarlægja..."
         },
         "theme": {
             "title": "Þema",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Hrein JSON útflutningur er auðveldari að skoða, en hver sem opnar skrána getur strax lesið heimilisgögnin þín.",
             "import_encrypted_title": "Opna dulkóðað afrit",
             "import_encrypted_body": "Sláðu inn afritunarlykilorðið sem notað var við niðurhal til að endurheimta þessa dulkóðuðu skrá.",
-            "unlock_and_import": "Lás og flytja inn"
+            "unlock_and_import": "Lás og flytja inn",
+            "export_encrypted_notice": "Afritið er útbúið úr lifandi heimilisgögnum og síðan dulkóðað með lykilorðinu sem þú velur. Gakktu úr skugga um að geyma það lykilorð á öruggum stað því það þarf til að endurheimta skrána síðar.",
+            "export_encrypted_title": "Dulkóðun verður beitt áður en niðurhal á sér stað",
+            "import_summary_body": "{{items}} atriði, {{categories}} flokka, {{rooms}} herbergi, {{locations}} staðsetningar, {{borrows}} lánskrár endurheimtar.",
+            "import_summary_title": "Afrit endurheimt",
+            "preview_categories": "Flokkar",
+            "preview_items": "Atriði",
+            "preview_locations": "Staðsetningar",
+            "preview_rooms": "Herbergi",
+            "skipped_borrows": "{{count}} núverandi lánskrár sleppt.",
+            "skipped_categories": "{{count}} núverandi flokka sleppt.",
+            "skipped_items": "{{count}} núverandi hlutur sleppt.",
+            "skipped_locations": "{{count}} núverandi staðsetningar sleppt.",
+            "skipped_rooms": "{{count}} núverandi herbergi sleppt."
         },
         "about": {
             "title": "Um forritið",
@@ -733,7 +762,10 @@
             "privacy_link": "Persónuverndarstefna",
             "beta_title": "Beta-staða",
             "beta_body": "{{brandName}} er enn í beta. Aðgerðir geta breyst, vinnuflæði getur þróast, og mikilvæg heimilisgögn ættu alltaf að vera varabún.",
-            "feedback_subject": "Endurgjöf - {{brandName}}"
+            "feedback_subject": "Endurgjöf - {{brandName}}",
+            "logout_body": "Öll óvistaðar breytingar í opnum formum kunna að tapast eftir að þú yfirgefur þessa lotu.",
+            "logout_description": "Þú munt snúa aftur á heimasíðuna og getur skráð þig aftur inn hvenær sem er.",
+            "logout_title": "Skrá út núna?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Lánt hlutur",
             "lend_success_body": "{{item}} er nú merkt sem lánaður.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Með þér",
+            "return_pending_hint": "Skráin verður lokuð eftir að lánveitandi staðfestir að hann hafi fengið hlutinn til baka.",
+            "return_pending_lender_title": "{{name}} merkti þennan hlut sem skilað",
+            "return_pending_self_title": "Með þér, bíður staðfestingar á kvittun"
         },
         "untitled_item": "Ónefndur hlutur",
         "delete_action": "Eyða hlut",
@@ -1023,7 +1059,10 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "color_required": "Liturinn verður að vera á sniðinu #RRGGBB",
+        "empty_description": "Búðu til nokkrar flokka svo nýir hlutir fylgi sömu uppbyggingu og séu auðveldari að skoða síðar.",
+        "empty_title": "Engir flokkar enn"
     },
     "rooms": {
         "title": "Herbergi",
@@ -1097,7 +1136,9 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "empty_description": "Búðu til herbergi eins og eldhús, geymslu eða bílskúr svo staðsetning hluta verði samkvæm og auðveldari að leita.",
+        "empty_title": "Engin herbergi enn"
     },
     "admin": {
         "title": "Stjórnborð stjórnanda",
@@ -1176,7 +1217,12 @@
             "households_label": "Heimili",
             "items_label": "Eignir í eigu",
             "last_seen_short": "Sjón",
-            "last_seen_short_never": "Nýtt"
+            "last_seen_short_never": "Nýtt",
+            "failed_logins": "{{count}} misheppnaðar innskráningar",
+            "load_failed_title": "Notendur gátu ekki hlaðist",
+            "pending_requests": "{{count}} beiðnir um hús eru í bið",
+            "role_admin": "Stjórnandi",
+            "role_user": "Notandi"
         },
         "logs": {
             "title": "Stjórnanda skráningar",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Endurskoðslóg",
             "errors_eyebrow": "Greining",
             "section_body": "Allar breytingar á miðlun eða rekstri skráðar af stjórnendahlutanum.",
-            "errors_body": "Nýjustu greindu villulínurnar úr skráningarskrám þjónsins."
+            "errors_body": "Nýjustu greindu villulínurnar úr skráningarskrám þjónsins.",
+            "load_failed_title": "Virkni gat ekki hlaðist",
+            "no_logs_title": "Engin aðgerðir stjórnanda enn"
         },
         "email": {
             "title": "Senda tölvupóst",
@@ -1242,7 +1290,14 @@
             "status_body": "Fljótleg sjálfstraustskoðun áður en rekstrartilkynning er send.",
             "unconfigured_title": "Tölvupóstsending er ekki stillt",
             "unconfigured_body": "Sendaformið sýnir áfram til endurskoðunar uppsetningar, en sending mistakast þar til póstveitan er stillt.",
-            "status_eyebrow": "Afhending"
+            "status_eyebrow": "Afhending",
+            "configured_body": "Endursenda er í boði fyrir útboðsskilaboð sem stjórnandi hefur komið af stað.",
+            "configured_title": "Póstsending er stillt",
+            "error_title": "Póstur mistókst",
+            "format_hint": "HTML er stutt. Til dæmis: <b>feitletrað</b>, <i>skáletrað</i>, <a href=\"...\">tengill</a>",
+            "from_label": "Sendandi",
+            "load_failed_title": "Póstverkfæri gátu ekki hlaðist",
+            "success_title": "Póstur sendur"
         },
         "overview": {
             "email_warning_title": "Póstsending er ekki stillt",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Stats loaded",
         "logs_loaded": "Loggar hlaðnir",
         "load_error": "Error loading",
-        "action_error": "Action error"
+        "action_error": "Action error",
+        "load_failed_body": "Stjórnandi leiðin er opin, en yfirferðargögnin komu ekki. Þú getur reynt aftur án þess að yfirgefa síðuna.",
+        "load_failed_title": "Yfirlit stjórnanda gat ekki hlaðist"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Netfangið haldast hér falin. Skannaðu kóðann eða afritaðu tengilinn aðeins þegar þú vilt meðvitað deila beinum aðgangi að hlut við staðbundna uppsetningu þína.",
         "helper": "Skannaðu til að opna þennan hlut strax, eða afritaðu beinan tengil þegar þörf er á.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Undirbý QR verkfæri..."
     },
     "house_access_pending": {
         "eyebrow": "Aðgangur að húsi",
@@ -1859,7 +1917,11 @@
             "name_required": "Nafn hlutar er nauðsynlegt fyrir geymslulista.",
             "options_failed": "Flokkar og herbergjasýnilegir valkostir gátu ekki verið hlaðnir.",
             "delete_success_title": "Geymslulista eytt",
-            "delete_success_body": "Einkaskrá var varanlega fjarlægt úr geymslu þinni."
+            "delete_success_body": "Einkaskrá var varanlega fjarlægt úr geymslu þinni.",
+            "passphrase_lowercase": "Innihalda að minnsta kosti eina lágstafaletra.",
+            "passphrase_min_length": "Lykilorð fyrir skápinn verður að vera að minnsta kosti 12 stafir.",
+            "passphrase_number": "Innihalda að minnsta kosti eitt númer.",
+            "passphrase_uppercase": "Innihalda að minnsta kosti eitt hástafaletra."
         },
         "recovery_file_title": "{{brandName}} Persónulegur öryggiskista viðgerðarlykill",
         "recovery_file_created_label": "Búið til",

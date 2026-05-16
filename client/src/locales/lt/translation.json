@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Jei paliksite garantijos pradžios datą tuščią, bus naudojama sąskaitos faktūros data. Įvedus trukmę, garantijos pabaigos data apskaičiuojama automatiškai.",
             "vault_hint_title": "Labai jautri byla?",
             "vault_hint_description": "Pasus, nuosavybės dokumentus, tapatybės duomenis, prieigos kodus ir kitas bylas, kurios neturėtų patekti į įprastą inventoriaus srautą, laikykite Asmeniniame seife.",
-            "vault_hint_action": "Atidaryti Asmeninį seifą"
+            "vault_hint_action": "Atidaryti Asmeninį seifą",
+            "location": "Vieta",
+            "remove_photo": "Pašalinti nuotrauką",
+            "visibility_owner_only": "Tik asmuo, pridėjęs daiktą, gali keisti jo matomumą."
         },
         "messages": {
             "quick_add_success": "✓ „{{barcode}}“ greitai pridėta - vėliau galite redaguoti",
@@ -115,7 +118,8 @@
         "delete_error": "Klaida naikinant elementą",
         "no_permission": "No permission",
         "barcode_search_error": "Brūkšninio kodo paieška nepavyko",
-        "stats_error": "Stats error"
+        "stats_error": "Stats error",
+        "detail_subtitle": "Daikto informacija"
     },
     "common": {
         "save": "Išsaugoti",
@@ -162,7 +166,11 @@
         "unauthorized": "Neteisėta prieiga",
         "forbidden": "Permission denied",
         "validation_error": "Tikrinimo klaida",
-        "server_error": "Serverio klaida"
+        "server_error": "Serverio klaida",
+        "details": "Išsamiau",
+        "hide": "Slaptažodį paslėpti",
+        "logging_out": "Atsijungiama...",
+        "show": "Rodyti slaptažodį"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Patvirtinkite",
                 "back": "Atgal",
                 "use_backup": "Naudokite atsarginį kodą",
-                "use_totp": "Naudokite autentifikavimo priemonę"
+                "use_totp": "Naudokite autentifikavimo priemonę",
+                "code_required": "Reikalingas patvirtinimo kodas"
             },
             "welcome_title": "Sveikas sugrįžęs",
             "welcome_subtitle": "Prisijunkite, kad pasiektumėte skelbimų vietas",
@@ -632,7 +641,10 @@
             "info": "💡 Galite būti kelių namų nariu ir perjungti tarp jų. Kiekvienas namas turi atskirą inventorių.",
             "accordion_description": "Perjunkite namų ūkius, sukurkite naują arba prisijunkite prie esamo su patikimu raktu.",
             "empty_description": "Sukurkite naują namų ūkį, norėdami pradėti dalytis, arba prisijunkite prie namų ūkio su patikimu namo raktu.",
-            "leave_success_body": "Jūs nebeturite prieigos prie šio namų ūkio, o jūsų aktyvus namas buvo atnaujintas."
+            "leave_success_body": "Jūs nebeturite prieigos prie šio namų ūkio, o jūsų aktyvus namas buvo atnaujintas.",
+            "leave_title": "Palikti šiuos namus?",
+            "leave_warning": "Jūs prarasite priėjimą prie šio namų ūkio darbo vietos, kol kitas narys vėl nepakvies arba nepatvirtins jūsų.",
+            "leaving": "Išeinama..."
         },
         "house_info": {
             "title": "Aktyvus namo raktas",
@@ -674,7 +686,11 @@
             "copy_error": "Nepavyko nukopijuoti namų rakto.",
             "modal_title": "Prieiga su namų raktu",
             "modal_subtitle": "Naudokite šį raktą tik patikimiems namų nariams, kurie turėtų prašyti prieigos prie šio bendro inventoriaus.",
-            "loading_members": "Kraunami nariai..."
+            "loading_members": "Kraunami nariai...",
+            "kick_success_body": "{{name}} nebeturi priėjimo prie šio namų ūkio.",
+            "kick_title": "Pašalinti šį narį?",
+            "kick_warning": "Jų priėjimas prie namų ūkio bus nutrauktas iš karto ir jiems reikės naujo kvietimo ar patvirtinimo, kad galėtų grįžti.",
+            "kicking": "Pašalinama..."
         },
         "theme": {
             "title": "Tema",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Paprasti JSON eksportai yra lengviau tikrinami, tačiau bet kas, atidaręs failą, iš karto gali matyti jūsų namų ūkio duomenis.",
             "import_encrypted_title": "Atrakinti užšifruotą atsarginę kopiją",
             "import_encrypted_body": "Įveskite atsarginę slaptažodžio frazę, naudotą atsisiųsdami, kad atkurtumėte šį užšifruotą failą.",
-            "unlock_and_import": "Atrakinti ir importuoti"
+            "unlock_and_import": "Atrakinti ir importuoti",
+            "export_encrypted_notice": "Atsarginė kopija paruošiama iš gyvų namų ūkių duomenų ir tuomet užšifruojama jūsų pasirinktu slaptafrazė. Laikykite tą slaptafrazę saugioje vietoje, nes ji reikalinga failui atkurti vėliau.",
+            "export_encrypted_title": "Šifravimas bus taikomas prieš atsisiuntimą",
+            "import_summary_body": "Atstatyta {{items}} vienetai, {{categories}} kategorijos, {{rooms}} kambariai, {{locations}} vietos, atkurta {{borrows}} skolintų įrašų.",
+            "import_summary_title": "Atsarginė kopija atkurta",
+            "preview_categories": "Kategorijos",
+            "preview_items": "Vienetai",
+            "preview_locations": "Vietos",
+            "preview_rooms": "Kambariai",
+            "skipped_borrows": "Praleista {{count}} esamų skolinimų įrašų.",
+            "skipped_categories": "Praleista {{count}} esamų kategorijų.",
+            "skipped_items": "{{count}} esami elementai praleisti.",
+            "skipped_locations": "{{count}} esamos vietos praleistos.",
+            "skipped_rooms": "{{count}} esami kambariai praleisti."
         },
         "about": {
             "title": "📱 Apie programą",
@@ -733,7 +762,10 @@
             "privacy_link": "Privatumo politika",
             "beta_title": "Beta būsena",
             "beta_body": "{{brandName}} vis dar yra beta versijoje. Funkcijos gali keistis, darbo eiga gali vystytis, o svarbiuose namų duomenyse visada reikėtų turėti atsarginę kopiją.",
-            "feedback_subject": "Atsiliepimai - {{brandName}}"
+            "feedback_subject": "Atsiliepimai - {{brandName}}",
+            "logout_body": "Bet kokie neišsaugoti pakeitimai atidarytose formose gali būti prarasti, kai išeisite iš šios sesijos.",
+            "logout_description": "Grįšite į pagrindinį puslapį ir galite bet kada prisijungti iš naujo.",
+            "logout_title": "Atsijungti dabar?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Elementas lent",
             "lend_success_body": "{{item}} dabar pažymėtas kaip pasiskolintas.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Pas jus",
+            "return_pending_hint": "Įrašas bus uždarytas po to, kai skolintojas patvirtins, kad gavo daiktą atgal.",
+            "return_pending_lender_title": "{{name}} pažymėjo šį daiktą kaip grąžintą",
+            "return_pending_self_title": "Pas jus, laukiama gavimo patvirtinimo"
         },
         "untitled_item": "Be pavadinimo daiktas",
         "delete_action": "Ištrinti prekę",
@@ -1023,7 +1059,10 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "color_required": "Spalva turi būti #RRGGBB formato",
+        "empty_description": "Sukurkite kelias kategorijas, kad nauji elementai turėtų tą pačią struktūrą ir vėliau juos būtų lengviau peržiūrėti.",
+        "empty_title": "Dar nėra kategorijų"
     },
     "rooms": {
         "title": "Kambariai",
@@ -1097,7 +1136,9 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "empty_description": "Sukurkite kambarius, tokius kaip virtuvė, sandėlis ar garažas, kad daiktų vietos būtų nuoseklios ir juos būtų lengviau rasti.",
+        "empty_title": "Dar nėra kambarių"
     },
     "admin": {
         "title": "Administratoriaus skydelis",
@@ -1176,7 +1217,12 @@
             "households_label": "Ūkiai",
             "items_label": "Turimi daiktai",
             "last_seen_short": "Matyti",
-            "last_seen_short_never": "Nauja"
+            "last_seen_short_never": "Nauja",
+            "failed_logins": "{{count}} nepavykę prisijungimai",
+            "load_failed_title": "Nepavyko įkelti naudotojų",
+            "pending_requests": "{{count}} laukiančių būsto prašymų",
+            "role_admin": "Administratorius",
+            "role_user": "Vartotojas"
         },
         "logs": {
             "title": "Administratoriaus žurnalai",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Auditavimo įrašai",
             "errors_eyebrow": "Diagnostika",
             "section_body": "Kiekvienas administratoriaus sluoksnio įrašytas moderavimas arba operacinis pakeitimas.",
-            "errors_body": "Naujausios išskaidytos klaidų eilutės iš serverio žurnalo failų."
+            "errors_body": "Naujausios išskaidytos klaidų eilutės iš serverio žurnalo failų.",
+            "load_failed_title": "Nepavyko įkelti veiklos",
+            "no_logs_title": "Kol kas nėra administratoriaus veiksmų"
         },
         "email": {
             "title": "Siųsti el. laišką",
@@ -1242,7 +1290,14 @@
             "status_body": "Greitas pasitikrinimas prieš siunčiant operacinę komunikaciją.",
             "unconfigured_title": "El. pašto pristatymas nesukonfigūruotas",
             "unconfigured_body": "Siuntimo forma lieka matoma peržiūrai, tačiau pristatymas nepavyks, kol pašto tiekėjas nebus sukonfigūruotas.",
-            "status_eyebrow": "Pristatymas"
+            "status_eyebrow": "Pristatymas",
+            "configured_body": "Pakartotinis siuntimas galimas administratoriaus inicijuotiems išeinantiems pranešimams.",
+            "configured_title": "El. pašto pristatymas sukonfigūruotas",
+            "error_title": "El. pašto siuntimas nepavyko",
+            "format_hint": "Palaikomas HTML. Pavyzdžiui: <b>paryškintas</b>, <i>kursyvas</i>, <a href=\"...\">nuoroda</a>",
+            "from_label": "Siuntėjas",
+            "load_failed_title": "El. pašto įrankių nepavyko įkelti",
+            "success_title": "El. paštas išsiųstas"
         },
         "overview": {
             "email_warning_title": "El. pašto pristatymas nėra sukonfigūruotas",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Stats loaded",
         "logs_loaded": "Pakrauti rąstai",
         "load_error": "Error loading",
-        "action_error": "Action error"
+        "action_error": "Action error",
+        "load_failed_body": "Administratoriaus maršrutas atidarytas, tačiau apžvalgos duomenys nepasiekė. Galite pabandyti dar kartą neišeidami iš puslapio.",
+        "load_failed_title": "Nepavyko įkelti administratoriaus apžvalgos"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Tinklo adresas čia lieka paslėptas. Nuskaitykite kodą arba nukopijuokite nuorodą tik tada, kai ketinate tiesiogiai pasidalinti prieiga prie elemento savo vietiniame nustatyme.",
         "helper": "Nuskaitykite, kad akimirksniu atidarytumėte šį elementą, arba nukopijuokite tiesioginę nuorodą, kai reikia.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Ruošiami QR įrankiai..."
     },
     "house_access_pending": {
         "eyebrow": "Prieiga į namus",
@@ -1859,7 +1917,11 @@
             "name_required": "Seifo įrašui būtina elemento pavadinimas.",
             "options_failed": "Kategorijos ir kambario parinktys negalėjo būti įkeltos.",
             "delete_success_title": "Saugumo įrašas ištrintas",
-            "delete_success_body": "Privatus įrašas buvo galutinai pašalintas iš jūsų saugyklos."
+            "delete_success_body": "Privatus įrašas buvo galutinai pašalintas iš jūsų saugyklos.",
+            "passphrase_lowercase": "Įtraukite bent vieną mažąją raidę.",
+            "passphrase_min_length": "Slaptažodžio frazė privalo būti bent 12 simbolių ilgio.",
+            "passphrase_number": "Įtraukite bent vieną skaičių.",
+            "passphrase_uppercase": "Įtraukite bent vieną didžiąją raidę."
         },
         "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
         "recovery_file_created_label": "Sukurtas",

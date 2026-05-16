@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Om du lämnar startdatumet för garantin tomt används fakturadatumet. När du anger tiden beräknas garantins slutdatum automatiskt.",
             "vault_hint_title": "Mycket känslig post?",
             "vault_hint_description": "För pass, handlingar, identitetsuppgifter, åtkomstkoder och andra poster som bör hållas utanför standardflödet, förvara dem istället i Personligt Valv.",
-            "vault_hint_action": "Öppna Personligt Valv"
+            "vault_hint_action": "Öppna Personligt Valv",
+            "location": "Plats",
+            "remove_photo": "Ta bort foto",
+            "visibility_owner_only": "Endast personen som lade till objektet kan ändra synlighet."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" snabb tillagd - du kan ändra senare",
@@ -115,7 +118,8 @@
         "delete_error": "Fel vid radering av objekt",
         "no_permission": "Du har inte behörighet att ändra detta objekt",
         "barcode_search_error": "Streckkodssökning misslyckades",
-        "stats_error": "Fel vid laddning av statistik"
+        "stats_error": "Fel vid laddning av statistik",
+        "detail_subtitle": "Objektdetaljer"
     },
     "common": {
         "save": "Spara",
@@ -162,7 +166,11 @@
         "unauthorized": "Obehörig åtkomst",
         "forbidden": "Du har inte behörighet för denna åtgärd",
         "validation_error": "Valideringsfel",
-        "server_error": "Serverfel"
+        "server_error": "Serverfel",
+        "details": "Detaljer",
+        "hide": "Dölj lösenord",
+        "logging_out": "Loggar ut...",
+        "show": "Visa lösenord"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Verifiera",
                 "back": "Tillbaka",
                 "use_backup": "Använd reservkod",
-                "use_totp": "Använd autentiserare"
+                "use_totp": "Använd autentiserare",
+                "code_required": "Verifieringskod krävs"
             },
             "welcome_title": "Välkommen tillbaka",
             "welcome_subtitle": "Logga in för att komma åt ditt inventarium",
@@ -632,7 +641,10 @@
             "info": "💡 Du kan vara medlem i flera hus och växla mellan dem. Varje hus har ett separat förråd.",
             "accordion_description": "Växla mellan hushåll, skapa ett nytt eller gå med i ett befintligt med en betrodd nyckel.",
             "empty_description": "Skapa ett nytt hushåll för att börja dela, eller gå med i ett med en betrodd husnyckel.",
-            "leave_success_body": "Du har inte längre tillgång till detta hushåll och ditt aktiva hus har uppdaterats."
+            "leave_success_body": "Du har inte längre tillgång till detta hushåll och ditt aktiva hus har uppdaterats.",
+            "leave_title": "Lämna detta hus?",
+            "leave_warning": "Du kommer att förlora tillgången till detta hushållsarbetsrum tills en annan medlem bjuder in dig eller godkänner dig igen.",
+            "leaving": "Lämnar..."
         },
         "house_info": {
             "title": "Aktivt husnyckel",
@@ -674,7 +686,11 @@
             "copy_error": "Husnyckeln kunde inte kopieras.",
             "modal_title": "Åtkomst till husnyckel",
             "modal_subtitle": "Använd denna nyckel endast för betrodda hushållsmedlemmar som bör begära åtkomst till detta delade förråd.",
-            "loading_members": "Laddar medlemmar..."
+            "loading_members": "Laddar medlemmar...",
+            "kick_success_body": "{{name}} har inte längre tillgång till detta hushåll.",
+            "kick_title": "Ta bort denna medlem?",
+            "kick_warning": "Deras tillgång till hushållet upphör omedelbart och de behöver en ny inbjudan eller godkännande för att återvända.",
+            "kicking": "Tar bort..."
         },
         "theme": {
             "title": "Tema",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Vanliga JSON-exporter är lättare att granska, men vem som helst som öppnar filen kan omedelbart läsa dina hushållsdata.",
             "import_encrypted_title": "Lås upp krypterad säkerhetskopia",
             "import_encrypted_body": "Ange säkerhetskopia-lösenfrasen som användes vid nedladdning för att återställa denna krypterade fil.",
-            "unlock_and_import": "Lås upp och importera"
+            "unlock_and_import": "Lås upp och importera",
+            "export_encrypted_notice": "Säkerhetskopian är förberedd från aktuella hushållsdata och sedan omsluten med det lösenord du väljer. Förvara det lösenordet på en säker plats eftersom det krävs för att återställa filen senare.",
+            "export_encrypted_title": "Kryptering kommer att tillämpas före nedladdning",
+            "import_summary_body": "{{items}} artiklar, {{categories}} kategorier, {{rooms}} rum, {{locations}} platser, {{borrows}} låneposter återställda.",
+            "import_summary_title": "Säkerhetskopian återställd",
+            "preview_categories": "Kategorier",
+            "preview_items": "Artiklar",
+            "preview_locations": "Platser",
+            "preview_rooms": "Rum",
+            "skipped_borrows": "{{count}} befintliga låneposter hoppades över.",
+            "skipped_categories": "{{count}} befintliga kategorier hoppades över.",
+            "skipped_items": "{{count}} befintliga objekt hoppades över.",
+            "skipped_locations": "{{count}} befintliga platser hoppades över.",
+            "skipped_rooms": "{{count}} befintliga rum hoppades över."
         },
         "about": {
             "title": "📱 Om applikationen",
@@ -733,7 +762,10 @@
             "privacy_link": "Sekretesspolicy",
             "beta_title": "Betastatus",
             "beta_body": "{{brandName}} är fortfarande i beta. Funktioner kan ändras, arbetsflöden kan utvecklas, och viktiga hushållsdata bör alltid säkerhetskopieras.",
-            "feedback_subject": "Feedback - {{brandName}}"
+            "feedback_subject": "Feedback - {{brandName}}",
+            "logout_body": "Eventuella osparade ändringar i öppna formulär kan gå förlorade efter att du lämnar denna session.",
+            "logout_description": "Du kommer tillbaka till startsidan och kan logga in igen när som helst.",
+            "logout_title": "Logga ut nu?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Objekt utlånat",
             "lend_success_body": "{{item}} är nu markerat som utlånat.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Hos dig",
+            "return_pending_hint": "Registreringen kommer att stängas efter att långivaren bekräftar att de fått tillbaka objektet.",
+            "return_pending_lender_title": "{{name}} markerade detta objekt som levererat tillbaka",
+            "return_pending_self_title": "Hos dig, väntar på kvittensbekräftelse"
         },
         "untitled_item": "Objekt utan titel",
         "delete_action": "Ta bort objekt",
@@ -1023,7 +1059,10 @@
         "name_required": "Kategorinamn krävs",
         "load_error": "Fel vid laddning av kategorier",
         "add_error": "Fel vid tillägg av kategori",
-        "update_error": "Fel vid uppdatering av kategori"
+        "update_error": "Fel vid uppdatering av kategori",
+        "color_required": "Färgen måste vara i formatet #RRGGBB",
+        "empty_description": "Skapa några kategorier så att nya objekt följer samma struktur och blir lättare att skanna senare.",
+        "empty_title": "Inga kategorier än"
     },
     "rooms": {
         "title": "Rum",
@@ -1097,7 +1136,9 @@
         "name_required": "Rumsnamn krävs",
         "load_error": "Fel vid laddning av rum",
         "add_error": "Fel vid tillägg av rum",
-        "update_error": "Fel vid uppdatering av rum"
+        "update_error": "Fel vid uppdatering av rum",
+        "empty_description": "Skapa rum som kök, förråd eller garage så att objektsplaceringar förblir konsekventa och lättare att söka i.",
+        "empty_title": "Inga rum än"
     },
     "admin": {
         "title": "Administrationspanel",
@@ -1176,7 +1217,12 @@
             "households_label": "Hushåll",
             "items_label": "Ägda föremål",
             "last_seen_short": "Sedda",
-            "last_seen_short_never": "Nya"
+            "last_seen_short_never": "Nya",
+            "failed_logins": "{{count}} misslyckade inloggningar",
+            "load_failed_title": "Användare kunde inte laddas",
+            "pending_requests": "{{count}} väntande husförfrågningar",
+            "role_admin": "Admin",
+            "role_user": "Användare"
         },
         "logs": {
             "title": "Adminloggar",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Revisionsspår",
             "errors_eyebrow": "Diagnostik",
             "section_body": "Varje moderation eller operativ förändring som registrerats av administratörslagret.",
-            "errors_body": "De senaste analyserade felraderna från serverloggfilerna."
+            "errors_body": "De senaste analyserade felraderna från serverloggfilerna.",
+            "load_failed_title": "Aktivitet kunde inte laddas",
+            "no_logs_title": "Inga adminåtgärder än"
         },
         "email": {
             "title": "Skicka E-post",
@@ -1242,7 +1290,14 @@
             "status_body": "En snabb kontroll av självförtroendet innan sändning av operativ kommunikation.",
             "unconfigured_title": "E-postleverans är inte konfigurerad",
             "unconfigured_body": "Skickformuläret förblir synligt för genomgång av inställningar, men leveransen kommer att misslyckas tills e-postleverantören är konfigurerad.",
-            "status_eyebrow": "Leverans"
+            "status_eyebrow": "Leverans",
+            "configured_body": "Återutsändning är tillgänglig för admininitierade utgående meddelanden.",
+            "configured_title": "E-postleverans är konfigurerad",
+            "error_title": "E-post misslyckades",
+            "format_hint": "HTML stöds. Till exempel: <b>fet</b>, <i>kursiv</i>, <a href=\"...\">länk</a>",
+            "from_label": "Avsändare",
+            "load_failed_title": "E-postverktyg kunde inte laddas",
+            "success_title": "E-post skickad"
         },
         "overview": {
             "email_warning_title": "E-postleverans är inte konfigurerad",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Statistik laddad",
         "logs_loaded": "Loggar laddade",
         "load_error": "Fel vid laddning av data",
-        "action_error": "Fel vid utförande av åtgärd"
+        "action_error": "Fel vid utförande av åtgärd",
+        "load_failed_body": "Adminvägen är öppen, men översiktsdata anlände inte. Du kan försöka igen utan att lämna sidan.",
+        "load_failed_title": "Adminöversikt kunde inte laddas"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Nätverksadressen hålls dold här. Skanna koden eller kopiera länken först när du medvetet vill dela direkt åtkomst till objektet i din lokala miljö.",
         "helper": "Skanna för att öppna detta objekt direkt, eller kopiera den direkta länken vid behov.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Förbereder QR-verktyg..."
     },
     "house_access_pending": {
         "eyebrow": "Husåtkomst",
@@ -1859,7 +1917,11 @@
             "name_required": "Ett objektnamn krävs för en valvpost.",
             "options_failed": "Kategori- och rumsalternativ kunde inte laddas.",
             "delete_success_title": "Valvpost borttagen",
-            "delete_success_body": "Den privata posten raderades permanent från ditt valv."
+            "delete_success_body": "Den privata posten raderades permanent från ditt valv.",
+            "passphrase_lowercase": "Inkludera minst en gemen bokstav.",
+            "passphrase_min_length": "Lösenfrasen för valvet måste vara minst 12 tecken lång.",
+            "passphrase_number": "Inkludera minst ett nummer.",
+            "passphrase_uppercase": "Inkludera minst en versal."
         },
         "recovery_file_title": "{{brandName}} Personlig Valv Återställningsnyckel",
         "recovery_file_created_label": "Skapad",

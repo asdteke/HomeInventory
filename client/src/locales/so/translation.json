@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Haddii aad ka tagto taariikhda bilowga dammaanadda mid faaruq ah, taariikhda biilka ayaa la isticmaalaa. Marka aad geliso muddada, taariikhda dhamaadka dammaanadda si otomaatig ah ayaa loo xisaabiyaa.",
             "vault_hint_title": "Diiwaan aad u xasaasi ah?",
             "vault_hint_description": "Buugga safarka, dukumentiyada, faahfaahinta aqoonsiga, koodhka gelitaanka, iyo diiwaannada kale ee aan la rabin in lagu daro socodka kaydka caadiga ah, ku hay Bakhaarka Shakhsiga ah halkii.",
-            "vault_hint_action": "Fur Qolka Shaqsiga"
+            "vault_hint_action": "Fur Qolka Shaqsiga",
+            "location": "Goobta",
+            "remove_photo": "Ka saar sawirka",
+            "visibility_owner_only": "Kaliya qofka walxaha ku daray ayaa bedeli kara muuqaalka."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" si degdeg ah ayaa loo daray - waad wax ka beddeli kartaa markii dambe",
@@ -115,7 +118,8 @@
         "delete_error": "Khalad ku saabsan tirtirka walxaha",
         "no_permission": "Ma haysatid ogolaansho aad wax ka beddesho shaygan.",
         "barcode_search_error": "Raadinta barcode-ka ayaa fashilantay",
-        "stats_error": "Tirakoobka khaladaadka ee loading"
+        "stats_error": "Tirakoobka khaladaadka ee loading",
+        "detail_subtitle": "Faahfaahinta walaxda"
     },
     "common": {
         "save": "Kaydi",
@@ -162,7 +166,11 @@
         "unauthorized": "Gelitaan aan la oggolayn",
         "forbidden": "Ma haysatid ogolaansho ficilkan",
         "validation_error": "Khalad xaqiijin",
-        "server_error": "Khalad server-ka"
+        "server_error": "Khalad server-ka",
+        "details": "Faahfaahin",
+        "hide": "Qari erayga sirta ah",
+        "logging_out": "Ka baxay...",
+        "show": "Muuji erayga sirta ah"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Xaqiiji",
                 "back": "Dib",
                 "use_backup": "Isticmaal koodhka kaydka",
-                "use_totp": "Isticmaal xaqiijiyaha"
+                "use_totp": "Isticmaal xaqiijiyaha",
+                "code_required": "Lambar xaqiijin ayaa loo baahan yahay"
             },
             "welcome_title": "Guriga ku soo dhawow",
             "welcome_subtitle": "Gali si aad u gasho alaabtaada",
@@ -632,7 +641,10 @@
             "info": "💡 Waxaad noqon kartaa xubin ka tirsan dhowr guri oo aad dhex bedeli kartaa. Guriga kasta wuxuu leeyahay keyd gaar ah.",
             "accordion_description": "U beddel guryaha, samee mid cusub, ama ku biir mid hore oo leh furaha lagu kalsoon yahay.",
             "empty_description": "Samee guri cusub si aad u bilowdo wadaagista, ama ku biir mid leh furaha guriga lagu kalsoon yahay.",
-            "leave_success_body": "Waxaad hadda lumisay gelitaanka gurigan waxaana la cusbooneysiiyey gurigaaga firfircoon."
+            "leave_success_body": "Waxaad hadda lumisay gelitaanka gurigan waxaana la cusbooneysiiyey gurigaaga firfircoon.",
+            "leave_title": "Ma ka tagaysaa gurigan?",
+            "leave_warning": "Waxaad lumin doontaa helitaanka shaqada gurigan ilaa xubin kale kaaga casuumo ama oggolaado mar kale.",
+            "leaving": "Ka tagaya..."
         },
         "house_info": {
             "title": "Furaha Guriga Firfircoon",
@@ -674,7 +686,11 @@
             "copy_error": "Furaha guriga lama koobiyin karo.",
             "modal_title": "Gelitaanka furaha guriga",
             "modal_subtitle": "Ku isticmaal furahan kaliya xubnaha guriga ee lagu kalsoon yahay kuwaas oo codsanaya gelitaanka kaydkan la wadaago.",
-            "loading_members": "Xubin la rarayo..."
+            "loading_members": "Xubin la rarayo...",
+            "kick_success_body": "{{name}} mar dambe ma heli karo gacan-ku-samaynta gurigan.",
+            "kick_title": "Ma ka saari kartaa xubin kan?",
+            "kick_warning": "Helitaanka gurigooda ayaa si degdeg ah u dhammaan doona waxayna u baahan doonaan casuumaad ama oggolaansho cusub si ay ugu soo laabtaan.",
+            "kicking": "La saarayo..."
         },
         "theme": {
             "title": "Mowduuc",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Dhoofinta JSON ee furan waa sahlan tahay in la baadho, laakiin qof kasta oo fura faylka wuxuu si degdeg ah u akhriyi karaa xogta gurigaaga.",
             "import_encrypted_title": "Furi kayd sir ah",
             "import_encrypted_body": "Gali erayga sirta ah ee kaydinta ee la isticmaalay inta lagu jiray soo dejinta si dib loogu soo celiyo faylkan sirta ah.",
-            "unlock_and_import": "Fur oo soo dejiso"
+            "unlock_and_import": "Fur oo soo dejiso",
+            "export_encrypted_notice": "Keydku waxa uu ka diyaar yahay xogta qoysaska ee nool ka dibna waxaa lagu duubay ereyga sirta ah ee aad doorato. Ku hay ereyga sirta ah meel ammaan ah maxaa yeelay waxa loo baahan yahay si loogu soo celiyo faylka dambe.",
+            "export_encrypted_title": "Sirta ayaa la adeegsan doonaa ka hor soo dejinta",
+            "import_summary_body": "{{items}} alaab, {{categories}} qeyb, {{rooms}} qolal, {{locations}} meelaha, {{borrows}} diiwaanada amaahda la soo celiyey.",
+            "import_summary_title": "Keydkii waa la soo celiyey",
+            "preview_categories": "Qeybaha",
+            "preview_items": "Alaabaha",
+            "preview_locations": "Meelaha",
+            "preview_rooms": "Qolalka",
+            "skipped_borrows": "{{count}} diiwaanka amaahda ee jira waa la booday.",
+            "skipped_categories": "{{count}} qaybaha jira waa la booday.",
+            "skipped_items": "{{count}} shay oo hore loo jiray ayaa la iska dhaafay.",
+            "skipped_locations": "{{count}} goobo hore loo jiray ayaa la iska dhaafay.",
+            "skipped_rooms": "{{count}} qolal hore loo jiray ayaa la iska dhaafay."
         },
         "about": {
             "title": "📱 Ku saabsan Codsiga",
@@ -733,7 +762,10 @@
             "privacy_link": "Siyaasadda Asturnaanta",
             "beta_title": "Xaaladda Beta",
             "beta_body": "{{brandName}} wali waa beta. Astaamaha way is beddeli karaan, hab-socodku wuu is beddeli karaa, xogta muhiimka ah ee guryaha waa in mar walba la kaydiyaa.",
-            "feedback_subject": "Jawaabcelin - {{brandName}}"
+            "feedback_subject": "Jawaabcelin - {{brandName}}",
+            "logout_body": "Wax kasta oo isbeddel ah oo aan la keydin ee foomamka furan ayaa la lumin karaa marka aad ka baxdo kalfadhigan.",
+            "logout_description": "Waxaad ku noqon doontaa bogga hore waxaana markasta dib kuu gali kartaa.",
+            "logout_title": "Hadda ma ka baxaysaa?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Shay la amaahday",
             "lend_success_body": "{{item}} hadda waxaa lagu calaamadeeyay inuu la amaahday.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Adiga ayaa wata",
+            "return_pending_hint": "Diiwaanka wuu xirmi doonaa ka dib marka amaahiyaha uu xaqiijiyo in uu walxaha soo celiyey.",
+            "return_pending_lender_title": "{{name}} wuxuu calaamadeeyay walxahan in dib loo soo celiyey",
+            "return_pending_self_title": "Adiga ayaa wata, sugaya xaqiijinta rasiidka"
         },
         "untitled_item": "Shayga aan cinwaan lahayn",
         "delete_action": "Tirtir shayga",
@@ -1023,7 +1059,10 @@
         "name_required": "Magaca qaybta ayaa loo baahan yahay",
         "load_error": "Khaladaadka lagu soo rarayo qaybaha",
         "add_error": "Khalad ku darista qaybta",
-        "update_error": "Khalad cusbooneysiinta qaybta"
+        "update_error": "Khalad cusbooneysiinta qaybta",
+        "color_required": "Midabku waa inuu ahaadaa qaabka #RRGGBB",
+        "empty_description": "Abuur dhowr qaybood si walxaha cusub ay u raacaan qaab isku mid ah oo ay u fududaato in dib loo eego.",
+        "empty_title": "Walxo ma jiraan weli"
     },
     "rooms": {
         "title": "Qolalka",
@@ -1097,7 +1136,9 @@
         "name_required": "Magaca qolka ayaa loo baahan yahay",
         "load_error": "Qolalka rarista khaladaadka",
         "add_error": "Khalad ku saabsan ku darista qolka",
-        "update_error": "Qolka cusboonaysiinta qaladka"
+        "update_error": "Qolka cusboonaysiinta qaladka",
+        "empty_description": "Abuur qolal sida jikada, kaydka, ama garaash si goobaha walxaha ay u noqdaan kuwo isku mid ah oo sahlan in la raadiyo.",
+        "empty_title": "Qolal ma jiraan weli"
     },
     "admin": {
         "title": "Guddi Maamul",
@@ -1176,7 +1217,12 @@
             "households_label": "Qoysaska",
             "items_label": "Alaabta Lahayd",
             "last_seen_short": "La Arkay",
-            "last_seen_short_never": "Cusub"
+            "last_seen_short_never": "Cusub",
+            "failed_logins": "{{count}} isku dayo-gal oo fashilmay",
+            "load_failed_title": "Isticmaalayaasha lama soo dejin karin",
+            "pending_requests": "{{count}} codsi guri oo sugaya",
+            "role_admin": "Maamule",
+            "role_user": "Isticmaalaha"
         },
         "logs": {
             "title": "Diiwaanka Maamulaha",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Raad-raac kormeer",
             "errors_eyebrow": "Baaritaanno",
             "section_body": "Kormeer kasta ama isbeddel hawleed oo ay duubtay lakabka maamulka.",
-            "errors_body": "Khadadka qaladka ugu dambeeyay ee laga parse gareeyay faylasha log-ka serverka."
+            "errors_body": "Khadadka qaladka ugu dambeeyay ee laga parse gareeyay faylasha log-ka serverka.",
+            "load_failed_title": "Hawlgelin lama soo dejin karin",
+            "no_logs_title": "Ficillada maamul weli ma jiraan"
         },
         "email": {
             "title": "Dir E-mail",
@@ -1242,7 +1290,14 @@
             "status_body": "Hubin kalsooni degdeg ah ka hor inta aan la dirin isgaarsiinta hawlgalka.",
             "unconfigured_title": "Gaarsiinta iimaylka lama habeeyey",
             "unconfigured_body": "Foomka dirista wuxuu sii muuqanayaa si loo eego dejinta, laakiin gaarsiintu way guuldareysan doontaa ilaa bixiyaha iimaylka la habeeyo.",
-            "status_eyebrow": "Gaarsiinta"
+            "status_eyebrow": "Gaarsiinta",
+            "configured_body": "Dib-u-dirid waa la heli karaa fariimaha ka-baxsan ee uu maamule kiciyo.",
+            "configured_title": "Gaarsiinta iimaylka waa la habeeyay",
+            "error_title": "Iimaylku wuu fashilmay",
+            "format_hint": "HTML waa la taageeray. Tusaale ahaan: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
+            "from_label": "Diraha",
+            "load_failed_title": "Qalabka iimaylka lama soo dejin karin",
+            "success_title": "Iimayl waa la diray"
         },
         "overview": {
             "email_warning_title": "Dirista iimaylka lama habeeynin",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Tirakoobka la shubay",
         "logs_loaded": "Diiwaanka la shubay",
         "load_error": "Khalad ku saabsan xogta soo rarista",
-        "action_error": "Khalad sameynta ficil"
+        "action_error": "Khalad sameynta ficil",
+        "load_failed_body": "Waddada maamuluhu waa furan tahay, laakiin xogta dulmar ma aysan imaan. Waxaad isku dayi kartaa mar kale adigoon ka bixin bogga.",
+        "load_failed_title": "Dulmar maamul lama soo dejin karin"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Cinwaanka shabakadda waxaa halkan lagu qarshaa. Ka baadh koodhka ama nuqul ka samee xiriirka kaliya markaad si ula kac ah u rabto inaad si toos ah u wadaagto helitaanka shaygaaga gudaha deegaankaaga.",
         "helper": "Ka baadh si aad si degdeg ah u furto shaygan, ama nuqul ka samee xiriirka tooska ah marka loo baahdo.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Diyaarinaya qalabka QR..."
     },
     "house_access_pending": {
         "eyebrow": "Helitaanka Guriga",
@@ -1859,7 +1917,11 @@
             "name_required": "Magaca shay ayaa looga baahan yahay rikoodhka vault.",
             "options_failed": "Qaybta iyo xulashooyinka qolku lama soo dejin karin.",
             "delete_success_title": "Rikoodhka keydka waa la tirtiray",
-            "delete_success_body": "Rikoodhka gaarka ah si joogto ah ayaa looga saaray keydkaaga."
+            "delete_success_body": "Rikoodhka gaarka ah si joogto ah ayaa looga saaray keydkaaga.",
+            "passphrase_lowercase": "Ka mid noqo ugu yaraan hal xaraf yar.",
+            "passphrase_min_length": "Furaha keydku waa inuu ahaadaa ugu yaraan 12 xaraf.",
+            "passphrase_number": "Ka mid noqo ugu yaraan hal lambar.",
+            "passphrase_uppercase": "Ka mid noqo ugu yaraan hal xaraf weyn."
         },
         "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
         "recovery_file_created_label": "La Abuuray",

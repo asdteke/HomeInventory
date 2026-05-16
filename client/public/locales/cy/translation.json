@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Os ydych yn gadael y dyddiad dechrau gwarant yn wag, defnyddir dyddiad y ddyfarniad. Pan fyddwch yn nodi'r hyd, caiff dyddiad diwedd gwarant ei gyfrifo'n awtomatig.",
             "vault_hint_title": "Angen preifatrwydd ychwanegol?",
             "vault_hint_description": "Ar gyfer pasbortiau, dogfennau, manylion hunaniaeth, codau mynediad, a chofnodion eraill y dylid eu cadw allan o'ch rhestr rennir, storio nhw yn Vault Personol yn lle hynny.",
-            "vault_hint_action": "Agor Vault Personol"
+            "vault_hint_action": "Agor Vault Personol",
+            "location": "Lleoliad",
+            "remove_photo": "Tynnu llun",
+            "visibility_owner_only": "Dim ond y person a ychwanegodd yr eitem all newid gwelededd."
         },
         "messages": {
             "quick_add_success": "✓ '{{barcode}}' wedi'i ychwanegu'n gyflym - gallwch olygu'n ddiweddarach",
@@ -115,7 +118,8 @@
         "delete_error": "Gwall wrth ddileu eitem",
         "no_permission": "No permission",
         "barcode_search_error": "Chwiliad cod bar wedi methu",
-        "stats_error": "Stats error"
+        "stats_error": "Stats error",
+        "detail_subtitle": "Manylion eitem"
     },
     "common": {
         "save": "Cadw",
@@ -162,7 +166,11 @@
         "unauthorized": "Mynediad heb awdurdod",
         "forbidden": "Permission denied",
         "validation_error": "Gwall dilysu",
-        "server_error": "Gwall gwesteiwr"
+        "server_error": "Gwall gwesteiwr",
+        "details": "Manylion",
+        "hide": "Cuddio cyfrinair",
+        "logging_out": "Allgofnodi...",
+        "show": "Dangos cyfrinair"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Gwirio",
                 "back": "Yn ôl",
                 "use_backup": "Defnyddiwch god cefn",
-                "use_totp": "Defnyddiwch awdurdodiwr"
+                "use_totp": "Defnyddiwch awdurdodiwr",
+                "code_required": "Mae cod dilysu yn ofynnol"
             },
             "welcome_title": "Croeso nôl",
             "welcome_subtitle": "Mewngofnodwch i gael mynediad at eich stoc",
@@ -632,7 +641,10 @@
             "info": "Gallwch fod yn aelod o sawl tŷ ac yn newid rhyngddynt. Mae pob cartref yn cadw ei stoc ei hun.",
             "accordion_description": "Newid rhwng tai, creu un newydd, neu ymuno ag un sydd eisoes yn bodoli gyda allwedd dibynadwy.",
             "empty_description": "Creu tŷ newydd i ddechrau rhannu, neu ymuno ag un gyda allwedd tŷ y gallwch ymddiried ynddi.",
-            "leave_success_body": "Nid oes gennych fwy o fynediad i’r cartref hwn ac fe ail-laddwyd eich tŷ gweithredol."
+            "leave_success_body": "Nid oes gennych fwy o fynediad i’r cartref hwn ac fe ail-laddwyd eich tŷ gweithredol.",
+            "leave_title": "Gadael y tŷ hwn?",
+            "leave_warning": "Fe gewch golli mynediad i'r gweithle tŷ hwn tan y bydd aelod arall yn eich gwahodd neu'n eich cymeradwyo eto.",
+            "leaving": "Yn gadael..."
         },
         "house_info": {
             "title": "Allwedd y Tŷ Gweithredol",
@@ -674,7 +686,11 @@
             "copy_error": "Ni ellid copïo allweddol y tŷ.",
             "modal_title": "Mynediad allweddol tŷ",
             "modal_subtitle": "Defnyddiwch yr allwedd hon yn unig ar gyfer aelodau dibynadwy o'r cartref sy'n dylid gofyn am fynediad i'r rhestr rhannu hon.",
-            "loading_members": "Llwytho aelodau..."
+            "loading_members": "Llwytho aelodau...",
+            "kick_success_body": "Nid yw {{name}} bellach yn cael mynediad i'r tŷ hwn.",
+            "kick_title": "Dileu'r aelod hwn?",
+            "kick_warning": "Bydd eu mynediad i'r tŷ hwn yn dod i ben ar unwaith ac fe fydd angen gwahoddiad newydd neu gymeradwyaeth arnynt i ddychwelyd.",
+            "kicking": "Yn dileu..."
         },
         "theme": {
             "title": "Thema",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Mae allforion JSON syml yn haws eu harchwilio, ond gall unrhyw un sy'n agor y ffeil ddarllen eich data cymunedol ar unwaith.",
             "import_encrypted_title": "Datgloi copi wrth gefn wedi'i amgryptio",
             "import_encrypted_body": "Rhowch y cyfrinair wrth gefn a ddefnyddiwyd wrth lawrlwytho i adfer y ffeil gyffredodedig hon.",
-            "unlock_and_import": "Datgloi ac mewnforio"
+            "unlock_and_import": "Datgloi ac mewnforio",
+            "export_encrypted_notice": "Mae'r copi wrth gefn wedi'i baratoi o ddata cartref byw ac yna wedi'i amgáu gyda'r cyfrinair a ddewiswch. Cadwch y cyfrinair hwnnw mewn man diogel oherwydd ei fod ei angen i adfer y ffeil yn ddiweddarach.",
+            "export_encrypted_title": "Bydd amgryptio yn cael ei gymhwyso cyn lawrlwytho",
+            "import_summary_body": "{{items}} eitemau, {{categories}} categorïau, {{rooms}} ystafelloedd, {{locations}} lleoliadau, {{borrows}} cofnodion benthyciadau wedi'u hadfer.",
+            "import_summary_title": "Copi wrth gefn wedi'i adfer",
+            "preview_categories": "Categorïau",
+            "preview_items": "Eitemau",
+            "preview_locations": "Lleoliadau",
+            "preview_rooms": "Ystafelloedd",
+            "skipped_borrows": "Wedi hepgor {{count}} cofnod benthyciadau presennol.",
+            "skipped_categories": "Wedi hepgor {{count}} categorïau presennol.",
+            "skipped_items": "{{count}} eitemau presennol wedi'u sgipio.",
+            "skipped_locations": "{{count}} lleoliadau presennol wedi'u sgipio.",
+            "skipped_rooms": "{{count}} ystafelloedd presennol wedi'u sgipio."
         },
         "about": {
             "title": "Ynghylch yr Ap",
@@ -733,7 +762,10 @@
             "privacy_link": "Polisi Preifatrwydd",
             "beta_title": "Statws Beta",
             "beta_body": "Mae {{brandName}} yn dal yn beta. Gall nodweddion newid, gall llif gwaith esblygu, a dylid bob amser gwneud copi wrth gefn o ddata pwysig cartref.",
-            "feedback_subject": "Adborth - {{brandName}}"
+            "feedback_subject": "Adborth - {{brandName}}",
+            "logout_body": "Gellir colli unrhyw newidiadau heb eu cadw mewn ffurflenni agored ar ôl i chi adael y sesiwn hon.",
+            "logout_description": "Byddwch yn dychwelyd i'r dudalen gartref ac yn gallu mewngofnodi unrhyw bryd.",
+            "logout_title": "Logi allan nawr?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Eitem a benthycwyd",
             "lend_success_body": "Mae {{item}} bellach wedi'i farcio fel benthyciwyd.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Gyda chi",
+            "return_pending_hint": "Bydd y cofnod yn cau ar ôl i'r benthycwr gadarnhau eu bod wedi derbyn yr eitem yn ôl.",
+            "return_pending_lender_title": "Nododd {{name}} yr eitem hon fel wedi'i chyflwyno'n ôl",
+            "return_pending_self_title": "Gyda chi, yn aros am gadarnhad derbyniad"
         },
         "untitled_item": "Eitem heb deitl",
         "delete_action": "Dileu eitem",
@@ -1023,7 +1059,10 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "color_required": "Rhaid i'r lliw fod yn y fformat #RRGGBB",
+        "empty_description": "Creu ychydig o gategorïau fel bod eitemau newydd yn dilyn yr un strwythur ac yn haws eu sganio yn ddiweddarach.",
+        "empty_title": "Dim categorïau eto"
     },
     "rooms": {
         "title": "Ystafelloedd",
@@ -1097,7 +1136,9 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "empty_description": "Creu ystafelloedd fel cegin, stôr, neu garej fel bod lleoliadau eitemau yn aros yn gyson ac yn haws eu chwilio.",
+        "empty_title": "Dim ystafelloedd eto"
     },
     "admin": {
         "title": "Panel Gweinyddol",
@@ -1176,7 +1217,12 @@
             "households_label": "Cartrefi",
             "items_label": "Eitemau a berir",
             "last_seen_short": "Wedi'u gweld",
-            "last_seen_short_never": "Newydd"
+            "last_seen_short_never": "Newydd",
+            "failed_logins": "{{count}} mewngofnitiau methus",
+            "load_failed_title": "Ni allai defnyddwyr lwytho",
+            "pending_requests": "{{count}} ceisiadau tŷ sy'n aros",
+            "role_admin": "Gweinyddwr",
+            "role_user": "Defnyddiwr"
         },
         "logs": {
             "title": "Logiau Gweinyddol",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Llwybr archwilio",
             "errors_eyebrow": "Diagnosis",
             "section_body": "Pob cymedroli neu newid gweithredol wedi'i gofnodi gan haen gweinyddol.",
-            "errors_body": "Y llinellau camgymeriad diweddaraf a gafodd eu dad-ddadansoddi o ffeiliau log y gweinydd."
+            "errors_body": "Y llinellau camgymeriad diweddaraf a gafodd eu dad-ddadansoddi o ffeiliau log y gweinydd.",
+            "load_failed_title": "Ni allai gweithgaredd lwytho",
+            "no_logs_title": "Dim gweithredoedd gweinyddwr hyd yn hyn"
         },
         "email": {
             "title": "Anfon E-bost",
@@ -1242,7 +1290,14 @@
             "status_body": "Gwiriad hyder cyflym cyn anfon cyfathrebu gweithredol.",
             "unconfigured_title": "Nid yw dosbarthu e-bost wedi’i ffurfweddu",
             "unconfigured_body": "Mae'r ffurflen anfon yn aros i'w gweld ar gyfer adolygiad gosodiad, ond bydd y dosbarthiad yn methu nes i'r ddarparwr post gael ei ffurfweddu.",
-            "status_eyebrow": "Cyflwyno"
+            "status_eyebrow": "Cyflwyno",
+            "configured_body": "Mae ail-anfon ar gael ar gyfer negeseuon sydd wedi'u hachosi gan y gweinyddwr.",
+            "configured_title": "Mae dosbarthiad e-bost wedi'i ffurfweddu",
+            "error_title": "Methwyd ag e-bost",
+            "format_hint": "Mae HTML yn cael ei gefnogi. Er enghraifft: <b>bold</b>, <i>italic</i>, <a href=\"...\">dolen</a>",
+            "from_label": "Anfonwr",
+            "load_failed_title": "Ni all offer e-bost lwytho",
+            "success_title": "E-bost wedi'i anfon"
         },
         "overview": {
             "email_warning_title": "Nid yw dosbarthu e-bost wedi’i ffurfweddu",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Stats loaded",
         "logs_loaded": "Cofnodion wedi'u llwytho",
         "load_error": "Error loading",
-        "action_error": "Action error"
+        "action_error": "Action error",
+        "load_failed_body": "Mae'r llwybr gweinyddwr ar agor, ond ni gyrhaeddodd y data trosolwg. Gallwch geisio eto heb adael y dudalen.",
+        "load_failed_title": "Ni allai trosolwg gweinyddwr lwytho"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Mae cyfeiriad y rhwydwaith yn aros wedi'i guddio yma. Sganio'r cod neu gopïo'r ddolen dim ond pan fyddwch chi'n anelu i rannu mynediad uniongyrchol at eitem ar eich gosodiad lleol.",
         "helper": "Sganiwch i agor yr eitem hon ar unwaith, neu gopïwch y ddolen uniongyrchol pan fo angen.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Paratoi offer QR..."
     },
     "house_access_pending": {
         "eyebrow": "Mynediad Ty",
@@ -1859,7 +1917,11 @@
             "name_required": "Mae angen enw eitem ar gyfer cofnod y gacen.",
             "options_failed": "Ni ellid llwytho'r opsiynau categori a'r ystafell.",
             "delete_success_title": "Cofnod y gacen wedi'i ddileu",
-            "delete_success_body": "Tynnwyd y cofnod preifat yn barhaol o'ch gacen."
+            "delete_success_body": "Tynnwyd y cofnod preifat yn barhaol o'ch gacen.",
+            "passphrase_lowercase": "Cynhwyswch o leiaf un llythyren fach.",
+            "passphrase_min_length": "Rhaid i'r cyfrinair Vault fod o leiaf 12 nod.",
+            "passphrase_number": "Cynhwyswch o leiaf un rhif.",
+            "passphrase_uppercase": "Cynhwyswch o leiaf un llythyren fawr."
         },
         "recovery_file_title": "Allwedd Adfer Banc Personol {{brandName}}",
         "recovery_file_created_label": "Wedi'i Greu",

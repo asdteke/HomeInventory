@@ -123,7 +123,7 @@ export default function Login() {
         }
 
         if (requires2FA && !totpCode.trim()) {
-            setError(t('auth.login.two_factor.code_required', { defaultValue: 'Doğrulama kodu gerekli' }));
+            setError(t('auth.login.two_factor.code_required', { defaultValue: 'Verification code is required' }));
             return;
         }
 
@@ -269,7 +269,7 @@ export default function Login() {
                                                         type="button"
                                                         onClick={() => setShowPassword((prev) => !prev)}
                                                         className={`absolute right-4 top-1/2 -translate-y-1/2 transition ${iconButtonClass}`}
-                                                        aria-label={showPassword ? t('common.hide', { defaultValue: isTurkish ? 'Şifreyi gizle' : 'Hide password' }) : t('common.show', { defaultValue: isTurkish ? 'Şifreyi göster' : 'Show password' })}
+                                                        aria-label={showPassword ? t('common.hide', { defaultValue: 'Hide password' }) : t('common.show', { defaultValue: 'Show password' })}
                                                     >
                                                         {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                                                     </button>

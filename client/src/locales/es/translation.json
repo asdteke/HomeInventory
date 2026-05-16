@@ -44,7 +44,11 @@
         "unauthorized": "Acceso no autorizado",
         "forbidden": "No tiene permiso para esta acción",
         "validation_error": "Error de validación",
-        "server_error": "Error del servidor"
+        "server_error": "Error del servidor",
+        "details": "Detalles",
+        "hide": "Ocultar contraseña",
+        "logging_out": "Cerrando sesión...",
+        "show": "Mostrar contraseña"
     },
     "auth": {
         "login": {
@@ -76,7 +80,8 @@
                 "verify": "Verificar",
                 "back": "Volver",
                 "use_backup": "Usar código de respaldo",
-                "use_totp": "Usar autenticador"
+                "use_totp": "Usar autenticador",
+                "code_required": "Se requiere código de verificación"
             },
             "welcome_title": "Bienvenido de nuevo",
             "welcome_subtitle": "Inicia sesión para acceder a tu inventario",
@@ -515,7 +520,10 @@
             "warranty_calculation_help": "Si deja vacía la fecha de inicio de la garantía, se utiliza la fecha de la factura. Cuando ingrese la duración, la fecha de finalización de la garantía se calcula automáticamente.",
             "vault_hint_title": "¿Necesitas privacidad extra?",
             "vault_hint_description": "Para pasaportes, escrituras, detalles de identidad, códigos de acceso y otros registros que deben mantenerse fuera de tu inventario compartido, guárdalos en la Bóveda Personal en su lugar.",
-            "vault_hint_action": "Abrir Bóveda Personal"
+            "vault_hint_action": "Abrir Bóveda Personal",
+            "location": "Ubicación",
+            "remove_photo": "Eliminar foto",
+            "visibility_owner_only": "Solo la persona que agregó el artículo puede cambiar la visibilidad."
         },
         "qrcode": {
             "title": "Código QR",
@@ -568,7 +576,8 @@
         "delete_error": "Error al eliminar artículo",
         "no_permission": "No tiene permiso para modificar este artículo",
         "barcode_search_error": "Error en la búsqueda de código de barras",
-        "stats_error": "Error al cargar estadísticas"
+        "stats_error": "Error al cargar estadísticas",
+        "detail_subtitle": "Detalles del artículo"
     },
     "settings": {
         "title": "Configuración",
@@ -632,7 +641,10 @@
             "info": "Puedes ser miembro de varias casas y cambiar entre ellas. Cada hogar mantiene su propio inventario.",
             "accordion_description": "Cambiar entre hogares, crear uno nuevo o unirse a uno existente con una clave de confianza.",
             "empty_description": "Crea un nuevo hogar para empezar a compartir, o únete a uno con una llave de casa confiable.",
-            "leave_success_body": "Ya no tienes acceso a este hogar y tu casa activa fue actualizada."
+            "leave_success_body": "Ya no tienes acceso a este hogar y tu casa activa fue actualizada.",
+            "leave_title": "¿Abandonar esta casa?",
+            "leave_warning": "Perderás el acceso a este espacio de trabajo del hogar hasta que otro miembro te invite o apruebe nuevamente.",
+            "leaving": "Saliendo..."
         },
         "house_info": {
             "title": "Llave de la casa activa",
@@ -674,7 +686,11 @@
             "copy_error": "La llave de la casa no se pudo copiar.",
             "modal_title": "Acceso a la llave de la casa",
             "modal_subtitle": "Usa esta llave solo para miembros confiables del hogar que deban solicitar acceso a este inventario compartido.",
-            "loading_members": "Cargando miembros..."
+            "loading_members": "Cargando miembros...",
+            "kick_success_body": "{{name}} ya no tiene acceso a este hogar.",
+            "kick_title": "¿Eliminar a este miembro?",
+            "kick_warning": "Su acceso al hogar terminará de inmediato y necesitará una nueva invitación o aprobación para regresar.",
+            "kicking": "Eliminando..."
         },
         "theme": {
             "title": "Tema",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Las exportaciones JSON sin cifrar son más fáciles de inspeccionar, pero cualquiera que abra el archivo puede leer inmediatamente los datos de tu hogar.",
             "import_encrypted_title": "Desbloquear copia de seguridad cifrada",
             "import_encrypted_body": "Ingrese la frase de contraseña de respaldo utilizada durante la descarga para restaurar este archivo encriptado.",
-            "unlock_and_import": "Desbloquear e importar"
+            "unlock_and_import": "Desbloquear e importar",
+            "export_encrypted_notice": "La copia de seguridad se prepara a partir de datos actuales del hogar y luego se protege con la contraseña que elija. Guarde esa contraseña en un lugar seguro porque se requiere para restaurar el archivo más tarde.",
+            "export_encrypted_title": "La encriptación se aplicará antes de la descarga",
+            "import_summary_body": "{{items}} artículos, {{categories}} categorías, {{rooms}} habitaciones, {{locations}} ubicaciones, {{borrows}} registros de préstamo restaurados.",
+            "import_summary_title": "Copia de seguridad restaurada",
+            "preview_categories": "Categorías",
+            "preview_items": "Artículos",
+            "preview_locations": "Ubicaciones",
+            "preview_rooms": "Habitaciones",
+            "skipped_borrows": "{{count}} registros de préstamo existentes omitidos.",
+            "skipped_categories": "{{count}} categorías existentes omitidas.",
+            "skipped_items": "{{count}} elementos existentes omitidos.",
+            "skipped_locations": "{{count}} ubicaciones existentes omitidas.",
+            "skipped_rooms": "{{count}} habitaciones existentes omitidas."
         },
         "about": {
             "title": "Acerca de la aplicación",
@@ -733,7 +762,10 @@
             "privacy_link": "Política de Privacidad",
             "beta_title": "Estado beta",
             "beta_body": "{{brandName}} aún está en beta. Las funciones pueden cambiar, los flujos de trabajo pueden evolucionar y los datos importantes del hogar siempre deben respaldarse.",
-            "feedback_subject": "Comentarios - {{brandName}}"
+            "feedback_subject": "Comentarios - {{brandName}}",
+            "logout_body": "Cualquier cambio no guardado en los formularios abiertos puede perderse después de que abandone esta sesión.",
+            "logout_description": "Volverá a la página de inicio y podrá iniciar sesión nuevamente en cualquier momento.",
+            "logout_title": "¿Cerrar sesión ahora?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Artículo prestado",
             "lend_success_body": "{{item}} ahora está marcado como prestado.",
             "offer_sent_title": "Oferta de préstamo enviada",
-            "offer_sent_body": "{{item}} se marcará como prestado cuando el otro miembro acepte."
+            "offer_sent_body": "{{item}} se marcará como prestado cuando el otro miembro acepte.",
+            "borrowed_by_you": "Contigo",
+            "return_pending_hint": "El registro se cerrará después de que el prestamista confirme que recibió el artículo de vuelta.",
+            "return_pending_lender_title": "{{name}} marcó este artículo como entregado de vuelta",
+            "return_pending_self_title": "Contigo, esperando confirmación de recibo"
         },
         "untitled_item": "Artículo sin título",
         "delete_action": "Eliminar artículo",
@@ -1023,7 +1059,10 @@
         "name_required": "Se requiere nombre de categoría",
         "load_error": "Error al cargar categorías",
         "add_error": "Error al agregar categoría",
-        "update_error": "Error al actualizar categoría"
+        "update_error": "Error al actualizar categoría",
+        "color_required": "El color debe estar en formato #RRGGBB",
+        "empty_description": "Crea algunas categorías para que los nuevos artículos sigan la misma estructura y sean más fáciles de escanear después.",
+        "empty_title": "Aún no hay categorías"
     },
     "rooms": {
         "title": "Habitaciones",
@@ -1097,7 +1136,9 @@
         "name_required": "Se requiere nombre de habitación",
         "load_error": "Error al cargar habitaciones",
         "add_error": "Error al agregar habitación",
-        "update_error": "Error al actualizar habitación"
+        "update_error": "Error al actualizar habitación",
+        "empty_description": "Crea habitaciones como cocina, almacén o garaje para que la ubicación de los artículos sea consistente y más fácil de buscar.",
+        "empty_title": "Aún no hay habitaciones"
     },
     "admin": {
         "title": "Panel de administración",
@@ -1176,7 +1217,12 @@
             "households_label": "Hogares",
             "items_label": "Artículos propios",
             "last_seen_short": "Visto",
-            "last_seen_short_never": "Nuevo"
+            "last_seen_short_never": "Nuevo",
+            "failed_logins": "{{count}} intentos de inicio de sesión fallidos",
+            "load_failed_title": "No se pudieron cargar los usuarios",
+            "pending_requests": "{{count}} solicitudes de vivienda pendientes",
+            "role_admin": "Administrador",
+            "role_user": "Usuario"
         },
         "logs": {
             "title": "Registros de administración",
@@ -1208,7 +1254,9 @@
             "section_body": "Cada cambio de moderación u operativo queda registrado en la capa de administración.",
             "errors_body": "Las últimas líneas de error analizadas de los registros del servidor.",
             "section_eyebrow": "Registro de auditoría",
-            "errors_eyebrow": "Diagnósticos"
+            "errors_eyebrow": "Diagnósticos",
+            "load_failed_title": "No se pudo cargar la actividad",
+            "no_logs_title": "Aún no hay acciones de administrador"
         },
         "email": {
             "title": "Enviar correo",
@@ -1242,7 +1290,14 @@
             "status_body": "Una comprobación rápida antes de enviar comunicación operativa.",
             "unconfigured_title": "El envío de correos no está configurado",
             "unconfigured_body": "El formulario de envío sigue visible para revisar la configuración, pero el envío fallará hasta que se configure el proveedor de correo.",
-            "status_eyebrow": "Entrega"
+            "status_eyebrow": "Entrega",
+            "configured_body": "Reenvío disponible para mensajes salientes activados por el administrador.",
+            "configured_title": "La entrega de correo electrónico está configurada",
+            "error_title": "Falló el correo electrónico",
+            "format_hint": "Se admite HTML. Por ejemplo: <b>negrita</b>, <i>cursiva</i>, <a href=\"...\">enlace</a>",
+            "from_label": "Remitente",
+            "load_failed_title": "No se pudieron cargar las herramientas de correo electrónico",
+            "success_title": "Correo electrónico enviado"
         },
         "overview": {
             "email_warning_title": "El envío de correos no está configurado",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Estadísticas cargadas",
         "logs_loaded": "Registros cargados",
         "load_error": "Error al cargar datos",
-        "action_error": "Error al realizar la acción"
+        "action_error": "Error al realizar la acción",
+        "load_failed_body": "La ruta del administrador está abierta, pero los datos de resumen no llegaron. Puede reintentar sin salir de la página.",
+        "load_failed_title": "No se pudo cargar la vista general del administrador"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "La dirección de la red permanece oculta aquí. Escanea el código o copia el enlace solo cuando quieras compartir intencionalmente el acceso directo al elemento en tu configuración local.",
         "helper": "Escanea para abrir este elemento al instante, o copia el enlace directo cuando lo necesites.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Preparando herramientas QR..."
     },
     "house_access_pending": {
         "eyebrow": "Acceso a la casa",
@@ -1859,7 +1917,11 @@
             "name_required": "Se requiere un nombre de elemento para un registro de la bóveda.",
             "options_failed": "No se pudieron cargar las opciones de categoría y sala.",
             "delete_success_title": "Registro de la bóveda eliminado",
-            "delete_success_body": "El registro privado fue eliminado permanentemente de su bóveda."
+            "delete_success_body": "El registro privado fue eliminado permanentemente de su bóveda.",
+            "passphrase_lowercase": "Incluye al menos una letra minúscula.",
+            "passphrase_min_length": "La frase de contraseña de la bóveda debe tener al menos 12 caracteres.",
+            "passphrase_number": "Incluye al menos un número.",
+            "passphrase_uppercase": "Incluye al menos una letra mayúscula."
         },
         "recovery_file_title": "Clave de Recuperación de Bóveda Personal de {{brandName}}",
         "recovery_file_created_label": "Creada",

@@ -44,7 +44,11 @@
         "unauthorized": "不正アクセス",
         "forbidden": "この操作の権限がありません",
         "validation_error": "検証エラー",
-        "server_error": "サーバーエラー"
+        "server_error": "サーバーエラー",
+        "details": "詳細",
+        "hide": "パスワードを隠す",
+        "logging_out": "ログアウト中...",
+        "show": "パスワードを表示"
     },
     "auth": {
         "login": {
@@ -76,7 +80,8 @@
                 "verify": "確認",
                 "back": "戻る",
                 "use_backup": "バックアップコードを使用",
-                "use_totp": "認証アプリを使用"
+                "use_totp": "認証アプリを使用",
+                "code_required": "認証コードが必要です"
             },
             "welcome_title": "お帰りなさい",
             "welcome_subtitle": "在庫にアクセスするにはサインインしてください",
@@ -515,7 +520,10 @@
             "warranty_calculation_help": "保証開始日を空欄のままにすると、請求書の日付が使用されます。期間を入力すると、保証終了日が自動的に計算されます。",
             "vault_hint_title": "追加のプライバシーが必要ですか？",
             "vault_hint_description": "パスポート、権利書、身分情報、アクセスコード、および共有インベントリに入れないほうがよいその他の記録は、代わりにパーソナルボールトに保管してください。",
-            "vault_hint_action": "パーソナルボールトを開く"
+            "vault_hint_action": "パーソナルボールトを開く",
+            "location": "場所",
+            "remove_photo": "写真を削除",
+            "visibility_owner_only": "アイテムを追加した人のみが表示設定を変更できます。"
         },
         "qrcode": {
             "title": "QRコード",
@@ -568,7 +576,8 @@
         "delete_error": "アイテムの削除エラー",
         "no_permission": "このアイテムを変更する権限がありません",
         "barcode_search_error": "バーコード検索失敗",
-        "stats_error": "統計の読み込みエラー"
+        "stats_error": "統計の読み込みエラー",
+        "detail_subtitle": "アイテムの詳細"
     },
     "settings": {
         "title": "設定",
@@ -632,7 +641,10 @@
             "info": "💡 複数のハウスに所属し、切り替えることができます。各ハウスごとに別々のインベントリが管理されます。",
             "accordion_description": "世帯を切り替える、新しい世帯を作成する、または信頼できるキーで既存の世帯に参加する。",
             "empty_description": "共有を開始するために新しい世帯を作成するか、信頼できるハウスキーで既存の世帯に参加する。",
-            "leave_success_body": "あなたはこの世帯にアクセスできなくなり、アクティブな家が更新されました。"
+            "leave_success_body": "あなたはこの世帯にアクセスできなくなり、アクティブな家が更新されました。",
+            "leave_title": "この家を離れますか？",
+            "leave_warning": "他のメンバーが再び招待または承認するまで、この世帯のワークスペースへのアクセスは失われます。",
+            "leaving": "離脱中..."
         },
         "house_info": {
             "title": "アクティブハウスキー",
@@ -674,7 +686,11 @@
             "copy_error": "ハウスキーをコピーできませんでした。",
             "modal_title": "ハウスキーのアクセス",
             "modal_subtitle": "この共有インベントリへのアクセス申請が必要な、信頼できる世帯メンバーだけに使ってください。",
-            "loading_members": "メンバーを読み込み中..."
+            "loading_members": "メンバーを読み込み中...",
+            "kick_success_body": "{{name}} はこの世帯へのアクセス権を失いました。",
+            "kick_title": "このメンバーを削除しますか？",
+            "kick_warning": "このメンバーの世帯へのアクセスは直ちに終了し、再度参加するには新しい招待または承認が必要になります。",
+            "kicking": "削除中..."
         },
         "theme": {
             "title": "テーマ",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "平文のJSONエクスポートは確認しやすいですが、ファイルを開いた人ならすぐに世帯データを読めてしまいます。",
             "import_encrypted_title": "暗号化されたバックアップを解除",
             "import_encrypted_body": "この暗号化ファイルを復元するには、ダウンロード時に使ったバックアップのパスフレーズを入力してください。",
-            "unlock_and_import": "解除してインポート"
+            "unlock_and_import": "解除してインポート",
+            "export_encrypted_notice": "バックアップは、ライブの家庭データから作成され、その後、選択したパスフレーズで保護されます。そのパスフレーズは、後でファイルを復元する際に必要になるため、安全な場所に保管してください。",
+            "export_encrypted_title": "ダウンロード前に暗号化が適用されます",
+            "import_summary_body": "{{items}} 件のアイテム、{{categories}} 件のカテゴリ、{{rooms}} 件の部屋、{{locations}} 件の場所、{{borrows}} 件の借用記録が復元されました。",
+            "import_summary_title": "バックアップが復元されました",
+            "preview_categories": "カテゴリ",
+            "preview_items": "アイテム",
+            "preview_locations": "場所",
+            "preview_rooms": "部屋",
+            "skipped_borrows": "{{count}} 件の既存の借用記録はスキップされました。",
+            "skipped_categories": "{{count}} 件の既存のカテゴリはスキップされました。",
+            "skipped_items": "{{count}} 件の既存アイテムはスキップされました。",
+            "skipped_locations": "{{count}} 件の既存のロケーションはスキップされました。",
+            "skipped_rooms": "{{count}} 件の既存の部屋はスキップされました。"
         },
         "about": {
             "title": "📱 アプリケーションについて",
@@ -733,7 +762,10 @@
             "privacy_link": "プライバシーポリシー",
             "beta_title": "ベータ版の状態",
             "beta_body": "{{brandName}} はまだベータ版です。機能は変更されることがあり、作業フローも変わる可能性があります。大切な世帯データは必ずバックアップしてください。",
-            "feedback_subject": "フィードバック - {{brandName}}"
+            "feedback_subject": "フィードバック - {{brandName}}",
+            "logout_body": "開いているフォームで保存されていない変更は、このセッションを終了すると失われる可能性があります。",
+            "logout_description": "ホームページに戻り、いつでも再ログインできます。",
+            "logout_title": "今すぐログアウトしますか？"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "アイテム貸出済み",
             "lend_success_body": "{{item}} は現在借用中としてマークされています。",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "あなたと一緒です",
+            "return_pending_hint": "貸主がアイテムを受け取ったことを確認した後、記録は閉じられます。",
+            "return_pending_lender_title": "{{name}} がこのアイテムを返送済みとしてマークしました",
+            "return_pending_self_title": "あなたと一緒です。受領確認待ち"
         },
         "untitled_item": "無題のアイテム",
         "delete_action": "アイテムを削除",
@@ -1023,7 +1059,10 @@
         "name_required": "カテゴリ名が必要です",
         "load_error": "カテゴリの読み込みエラー",
         "add_error": "カテゴリの追加エラー",
-        "update_error": "カテゴリの更新エラー"
+        "update_error": "カテゴリの更新エラー",
+        "color_required": "色は #RRGGBB 形式である必要があります",
+        "empty_description": "いくつかのカテゴリを作成して、新しいアイテムが同じ構造に従い、後でスキャンしやすくします。",
+        "empty_title": "まだカテゴリはありません"
     },
     "rooms": {
         "title": "部屋",
@@ -1097,7 +1136,9 @@
         "name_required": "部屋名が必要です",
         "load_error": "部屋の読み込みエラー",
         "add_error": "部屋の追加エラー",
-        "update_error": "部屋の更新エラー"
+        "update_error": "部屋の更新エラー",
+        "empty_description": "キッチン、収納、ガレージのような部屋を作成すると、アイテムの場所が一貫性を保ち、検索しやすくなります。",
+        "empty_title": "まだ部屋はありません"
     },
     "admin": {
         "title": "管理パネル",
@@ -1178,7 +1219,12 @@
             "households_label": "世帯",
             "items_label": "所有物",
             "last_seen_short": "見た",
-            "last_seen_short_never": "新しい"
+            "last_seen_short_never": "新しい",
+            "failed_logins": "{{count}} 件のサインインに失敗しました",
+            "load_failed_title": "ユーザーを読み込めませんでした",
+            "pending_requests": "{{count}} 件の保留中のハウスリクエスト",
+            "role_admin": "管理者",
+            "role_user": "ユーザー"
         },
         "logs": {
             "title": "管理ログ",
@@ -1210,7 +1256,9 @@
             "section_body": "管理レイヤーに記録されたすべてのモデレーションまたは運用変更。",
             "errors_body": "サーバーログファイルから解析された最新のエラー行。",
             "section_eyebrow": "監査記録",
-            "errors_eyebrow": "診断"
+            "errors_eyebrow": "診断",
+            "load_failed_title": "アクティビティを読み込めませんでした",
+            "no_logs_title": "管理者の操作はまだありません"
         },
         "email": {
             "status_title": "送信メールの状態",
@@ -1244,7 +1292,14 @@
             "info_bullet_1": "メールは {{supportEmail}} から送信されます",
             "info_bullet_2": "スパムを防ぐため、1分間に送信できるメールは最大3通です",
             "info_bullet_3": "すべての送信はセキュリティのために記録されますが、内容は除きます",
-            "status_eyebrow": "配信"
+            "status_eyebrow": "配信",
+            "configured_body": "管理者がトリガーした送信メッセージに対して再送信が可能です。",
+            "configured_title": "メール配信が設定されています",
+            "error_title": "メール送信に失敗しました",
+            "format_hint": "HTMLがサポートされています。例えば: <b>太字</b>, <i>斜体</i>, <a href=\"...\">リンク</a>",
+            "from_label": "送信者",
+            "load_failed_title": "メールツールを読み込めませんでした",
+            "success_title": "メールが送信されました"
         },
         "overview": {
             "email_warning_title": "メール配信は設定されていません",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "統計が読み込まれました",
         "logs_loaded": "ログが読み込まれました",
         "load_error": "データの読み込みエラー",
-        "action_error": "アクションの実行エラー"
+        "action_error": "アクションの実行エラー",
+        "load_failed_body": "管理者ルートは開いていますが、概要データが届きませんでした。ページを離れずに再試行できます。",
+        "load_failed_title": "管理者の概要を読み込めませんでした"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "ネットワークアドレスはここでは非表示のままです。ローカル環境で直接アイテムにアクセスを共有したい場合にのみ、コードをスキャンするかリンクをコピーしてください。",
         "helper": "このアイテムをすぐに開くにはスキャンするか、必要に応じて直接リンクをコピーしてください。",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "QRツールを準備中..."
     },
     "house_access_pending": {
         "eyebrow": "ハウスアクセス",
@@ -1859,7 +1917,11 @@
             "name_required": "ボールト記録にはアイテム名が必要です。",
             "options_failed": "カテゴリと部屋のオプションを読み込めませんでした。",
             "delete_success_title": "ボールトの記録が削除されました",
-            "delete_success_body": "プライベート記録はボールトから完全に削除されました。"
+            "delete_success_body": "プライベート記録はボールトから完全に削除されました。",
+            "passphrase_lowercase": "少なくとも1つの小文字を含めてください。",
+            "passphrase_min_length": "ボールトのパスフレーズは少なくとも12文字である必要があります。",
+            "passphrase_number": "少なくとも1つの数字を含めてください。",
+            "passphrase_uppercase": "少なくとも1つの大文字を含めてください。"
         },
         "recovery_file_title": "{{brandName}} パーソナルボールト リカバリキー",
         "recovery_file_created_label": "作成済み",

@@ -1,4 +1,4 @@
-import { decryptFromStorage, encryptForStorage, hashLookupToken } from './encryption.js';
+import { decryptFromStorage, encryptForStorage, hashLookupToken, isEncryptedPayload } from './encryption.js';
 
 export const ITEM_NAME_PURPOSE = 'inventory.item.name';
 export const ITEM_DESCRIPTION_PURPOSE = 'inventory.item.description';
@@ -179,7 +179,16 @@ export function encryptBorrowRequestTarget(value) {
 }
 
 export function decryptBorrowRequestTarget(value) {
-    return decryptFromStorage(value, { purpose: BORROW_REQUEST_TARGET_PURPOSE });
+    const decrypted = decryptFromStorage(value, { purpose: BORROW_REQUEST_TARGET_PURPOSE });
+    if (isEncryptedPayload(decrypted)) {
+        try {
+            return decryptFromStorage(decrypted, { purpose: BORROW_REQUEST_TARGET_PURPOSE });
+        } catch {
+            return decrypted;
+        }
+    }
+
+    return decrypted;
 }
 
 export function encryptBorrowRequestItemLabel(value) {

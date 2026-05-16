@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Ha üresen hagyja a garancia kezdési dátumát, a számla dátuma kerül felhasználásra. Amikor megadja a időtartamot, a garancia lejárati dátuma automatikusan kiszámításra kerül.",
             "vault_hint_title": "Szükséged van extra privátszférára?",
             "vault_hint_description": "Útlevelek, tulajdoni lapok, személyazonosító adatok, hozzáférési kódok és más, a megosztott készletbe nem tartozó nyilvántartások esetén inkább a Személyes Tárolót használd.",
-            "vault_hint_action": "Személyes Tároló megnyitása"
+            "vault_hint_action": "Személyes Tároló megnyitása",
+            "location": "Helyszín",
+            "remove_photo": "Fotó eltávolítása",
+            "visibility_owner_only": "Csak az a személy tudja megváltoztatni a láthatóságot, aki hozzáadta a tételt."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" gyors hozzáadva - később szerkesztheted",
@@ -115,7 +118,8 @@
         "delete_error": "Hiba elem törlésén",
         "no_permission": "No permission",
         "barcode_search_error": "Vonalkód-keresés sikertelen",
-        "stats_error": "Stats error"
+        "stats_error": "Stats error",
+        "detail_subtitle": "Tétel részletei"
     },
     "common": {
         "save": "Mentés",
@@ -162,7 +166,11 @@
         "unauthorized": "Engedély nélküli hozzáférés",
         "forbidden": "Permission denied",
         "validation_error": "Validációs hiba",
-        "server_error": "Szerverhiba"
+        "server_error": "Szerverhiba",
+        "details": "Részletek",
+        "hide": "Jelszó elrejtése",
+        "logging_out": "Kijelentkezés...",
+        "show": "Jelszó megjelenítése"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Ellenőrzés",
                 "back": "Vissza",
                 "use_backup": "Használja a biztonsági mentési kódot",
-                "use_totp": "Használja az azonosítót"
+                "use_totp": "Használja az azonosítót",
+                "code_required": "Szükséges az ellenőrző kód"
             },
             "welcome_title": "Üdv újra",
             "welcome_subtitle": "Jelentkezzen be, hogy hozzáférjen a készletéhez",
@@ -632,7 +641,10 @@
             "info": "Több ház tagja is lehet, és válthat közöttük. Minden háztartás saját készletet tart fenn.",
             "accordion_description": "Váltás a háztartások között, új létrehozása, vagy csatlakozás a meglévőhöz egy megbízható kulccsal.",
             "empty_description": "Hozzon létre új háztartást a megosztás megkezdéséhez, vagy csatlakozzon egyhez megbízható házkulccsal.",
-            "leave_success_body": "Már nincs hozzáférésed ehhez a háztartáshoz, és az aktív házad frissítve lett."
+            "leave_success_body": "Már nincs hozzáférésed ehhez a háztartáshoz, és az aktív házad frissítve lett.",
+            "leave_title": "Elhagyja ezt a házat?",
+            "leave_warning": "Elveszíti a hozzáférést ehhez a háztartási munkaterülethez, amíg egy másik tag újra meg nem hívja vagy jóvá nem hagyja.",
+            "leaving": "Elhagyás..."
         },
         "house_info": {
             "title": "Aktív ház kulcs",
@@ -674,7 +686,11 @@
             "copy_error": "A ház kulcsát nem lehetett lemásolni.",
             "modal_title": "Ház kulcs hozzáférés",
             "modal_subtitle": "Ezt a kulcsot csak a megbízható háztartási tagok használhatják, akik hozzáférést kérnek ehhez a megosztott készlethez.",
-            "loading_members": "Tagok betöltése..."
+            "loading_members": "Tagok betöltése...",
+            "kick_success_body": "{{name}} már nem fér hozzá ehhez a háztartáshoz.",
+            "kick_title": "Eltávolítja ezt a tagot?",
+            "kick_warning": "Hozzáférésük a háztartáshoz azonnal megszűnik, és új meghívóra vagy jóváhagyásra lesz szükségük a visszatéréshez.",
+            "kicking": "Eltávolítás..."
         },
         "theme": {
             "title": "Téma",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "A normál JSON exportok könnyebben áttekinthetők, de bárki, aki megnyitja a fájlt, azonnal olvashatja a háztartási adatait.",
             "import_encrypted_title": "Titkosított biztonsági mentés feloldása",
             "import_encrypted_body": "Adja meg a letöltéskor használt biztonsági jelszót ennek a titkosított fájlnak a visszaállításához.",
-            "unlock_and_import": "Feloldás és importálás"
+            "unlock_and_import": "Feloldás és importálás",
+            "export_encrypted_notice": "A biztonsági mentés az élő háztartási adatokból készül, majd a választott jelszóval lesz titkosítva. Tartsa ezt a jelszót biztonságos helyen, mert szükséges lesz a fájl későbbi visszaállításához.",
+            "export_encrypted_title": "A letöltés előtt titkosításra kerül",
+            "import_summary_body": "{{items}} tétel, {{categories}} kategória, {{rooms}} szoba, {{locations}} helyszín, {{borrows}} kölcsönzési rekord állítva vissza.",
+            "import_summary_title": "Biztonsági mentés visszaállítva",
+            "preview_categories": "Kategóriák",
+            "preview_items": "Tételek",
+            "preview_locations": "Helyszínek",
+            "preview_rooms": "Szobák",
+            "skipped_borrows": "{{count}} meglévő kölcsönzési rekord kihagyva.",
+            "skipped_categories": "{{count}} meglévő kategória kihagyva.",
+            "skipped_items": "{{count}} meglévő elem kihagyva.",
+            "skipped_locations": "{{count}} meglévő hely kihagyva.",
+            "skipped_rooms": "{{count}} meglévő szoba kihagyva."
         },
         "about": {
             "title": "Az alkalmazásról",
@@ -733,7 +762,10 @@
             "privacy_link": "Adatvédelmi irányelvek",
             "beta_title": "Béta státusz",
             "beta_body": "A(z) {{brandName}} még béta verzióban van. A funkciók változhatnak, a munkafolyamatok alakulhatnak, és a fontos otthoni adatokat mindig biztonsági másolatban kell tárolni.",
-            "feedback_subject": "Visszajelzés - {{brandName}}"
+            "feedback_subject": "Visszajelzés - {{brandName}}",
+            "logout_body": "Bármely mentetlen módosítás az open formokban elveszhet, ha elhagyja ezt a munkamenetet.",
+            "logout_description": "Visszatér az kezdőlapra, és bármikor újra bejelentkezhet.",
+            "logout_title": "Kijelentkezés most?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Kölcsönadott tárgy",
             "lend_success_body": "{{item}} mostantól kölcsönzöttnek van jelölve.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Önnél",
+            "return_pending_hint": "A rekord lezárul, miután a kölcsönadó megerősítette, hogy visszakapta a tárgyat.",
+            "return_pending_lender_title": "{{name}} ezt a tételt visszaszállítva jelölte",
+            "return_pending_self_title": "Önnél, a visszaigazolásra vár"
         },
         "untitled_item": "Cím nélküli elem",
         "delete_action": "Elem törlése",
@@ -1023,7 +1059,10 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "color_required": "A színnek #RRGGBB formátumúnak kell lennie",
+        "empty_description": "Hozzon létre néhány kategóriát, hogy az új tételek ugyanazt a struktúrát kövessék, és később könnyebb legyen átnézni őket.",
+        "empty_title": "Még nincsenek kategóriák"
     },
     "rooms": {
         "title": "Szobák",
@@ -1097,7 +1136,9 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "empty_description": "Hozzon létre helyiségeket, mint konyha, raktár vagy garázs, hogy a tételek helyei következetesek legyenek és könnyebben kereshetők.",
+        "empty_title": "Még nincsenek helyiségek"
     },
     "admin": {
         "title": "Admin Felület",
@@ -1176,7 +1217,12 @@
             "households_label": "Háztartások",
             "items_label": "Tulajdonolt tárgyak",
             "last_seen_short": "Látott",
-            "last_seen_short_never": "Új"
+            "last_seen_short_never": "Új",
+            "failed_logins": "{{count}} sikertelen bejelentkezés",
+            "load_failed_title": "A felhasználók nem tölthetők be",
+            "pending_requests": "{{count}} függő házigénylés",
+            "role_admin": "Admin",
+            "role_user": "Felhasználó"
         },
         "logs": {
             "title": "Adminisztrátori naplók",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Ellenőrzési nyom",
             "errors_eyebrow": "Diagnosztika",
             "section_body": "Minden módosítást vagy működési változást az admin réteg rögzített.",
-            "errors_body": "A szerver naplófájljaiból a legutóbb elemzett hiba sorok."
+            "errors_body": "A szerver naplófájljaiból a legutóbb elemzett hiba sorok.",
+            "load_failed_title": "Az aktivitás nem tölthető be",
+            "no_logs_title": "Még nincsenek adminisztrátori műveletek"
         },
         "email": {
             "title": "E-mail küldése",
@@ -1242,7 +1290,14 @@
             "status_body": "Egy gyors bizalmi ellenőrzés az operatív kommunikáció elküldése előtt.",
             "unconfigured_title": "Az e-mail küldés nincs beállítva",
             "unconfigured_body": "A küldő űrlap látható marad a beállítások áttekintéséhez, de a kézbesítés sikertelen lesz, amíg a levelező szolgáltató nincs konfigurálva.",
-            "status_eyebrow": "Szállítás"
+            "status_eyebrow": "Szállítás",
+            "configured_body": "Az újraküldés elérhető admin által indított kimenő üzenetekhez.",
+            "configured_title": "Az e-mail kézbesítés be van állítva",
+            "error_title": "Az e-mail sikertelen",
+            "format_hint": "A HTML támogatott. Például: <b>félkövér</b>, <i>dőlt</i>, <a href=\"...\">link</a>",
+            "from_label": "Feladó",
+            "load_failed_title": "Az e-mail eszközök nem tudták betölteni",
+            "success_title": "E-mail elküldve"
         },
         "overview": {
             "email_warning_title": "Az e-mail küldés nincs konfigurálva",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Stats loaded",
         "logs_loaded": "Naplók betöltve",
         "load_error": "Error loading",
-        "action_error": "Action error"
+        "action_error": "Action error",
+        "load_failed_body": "Az admin útvonal nyitva van, de az áttekintő adatok nem érkeztek meg. Megpróbálhatja újra anélkül, hogy elhagyná az oldalt.",
+        "load_failed_title": "Az admin áttekintés nem tölthető be"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "A hálózati cím itt rejtve marad. A kódot csak akkor szkennelje, vagy a linket csak akkor másolja, ha szándékosan szeretné megosztani a közvetlen hozzáférést az eszközéhez.",
         "helper": "A gyors megnyitáshoz olvasd be a kódot, vagy szükség esetén másold a közvetlen linket.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "QR-eszközök előkészítése..."
     },
     "house_access_pending": {
         "eyebrow": "Házhoz való hozzáférés",
@@ -1859,7 +1917,11 @@
             "name_required": "Egy tétel név szükséges a pince bejegyzéséhez.",
             "options_failed": "A kategória és szoba beállítások betöltése nem sikerült.",
             "delete_success_title": "Pince bejegyzés törölve",
-            "delete_success_body": "A privát bejegyzés véglegesen eltávolításra került a pincédből."
+            "delete_success_body": "A privát bejegyzés véglegesen eltávolításra került a pincédből.",
+            "passphrase_lowercase": "Tartalmazzon legalább egy kisbetűt.",
+            "passphrase_min_length": "A tároló jelszónak legalább 12 karakter hosszúnak kell lennie.",
+            "passphrase_number": "Tartalmazzon legalább egy számot.",
+            "passphrase_uppercase": "Tartalmazzon legalább egy nagybetűt."
         },
         "recovery_file_title": "{{brandName}} Személyes Széf Helyreállítási Kulcs",
         "recovery_file_created_label": "Létrehozva",

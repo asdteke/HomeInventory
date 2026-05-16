@@ -66,7 +66,10 @@
       "warranty_calculation_help": "Inā waiho hakahaka ʻoe i ka lā hoʻomaka hōʻoia, e hoʻohana ʻia ka lā pila. Ke hoʻokomo ʻoe i ka lōʻihi, e helu ʻakomi ʻia ka lā pau o ka hōʻoia.",
       "vault_hint_title": "Very sensitive record?",
       "vault_hint_description": "For passports, deeds, identity details, access codes, and other records that should stay out of the standard inventory flow, keep them in Personal Vault instead.",
-      "vault_hint_action": "E wehe i ka waihona pilikino"
+      "vault_hint_action": "E wehe i ka waihona pilikino",
+      "location": "Ngā Tauwāhi",
+      "remove_photo": "Remove photo",
+      "visibility_owner_only": "Only the person who added the item can change visibility."
     },
     "messages": {
       "quick_add_success": "✓ \"{{barcode}}\" hoʻohui wikiwiki - hiki iā ʻoe ke hoʻoponopono ma hope",
@@ -115,7 +118,8 @@
     "delete_error": "Hewa i ka holoi ʻana i kahi mea",
     "no_permission": "ʻAʻohe āu ʻae e hoʻololi i kēia mea",
     "barcode_search_error": "Ua kuna ka ʻimi pākuʻi",
-    "stats_error": "Hewa i ka hoʻouka ʻana i ka helu helu"
+    "stats_error": "Hewa i ka hoʻouka ʻana i ka helu helu",
+    "detail_subtitle": "Item details"
   },
   "common": {
     "save": "Mālama",
@@ -162,7 +166,11 @@
     "unauthorized": "Komo ʻae ʻole ʻia",
     "forbidden": "ʻAʻohe āu ʻae no kēia hana",
     "validation_error": "Hewa hōʻoia",
-    "server_error": "Hewa kikowaena"
+    "server_error": "Hewa kikowaena",
+    "details": "Nā kikoʻī",
+    "hide": "Hide password",
+    "logging_out": "Logging out...",
+    "show": "Show password"
   },
   "auth": {
     "login": {
@@ -194,7 +202,8 @@
         "verify": "E hōʻoia",
         "back": "Hoʻi",
         "use_backup": "E hoʻohana i ke code kākoʻo",
-        "use_totp": "E hoʻohana i ka mea hōʻoia"
+        "use_totp": "E hoʻohana i ka mea hōʻoia",
+        "code_required": "Verification code is required"
       },
       "welcome_title": "Welina hou.",
       "welcome_subtitle": "E komo e komo i kāu waihona",
@@ -632,7 +641,10 @@
       "info": "💡 You can be a member of multiple houses and switch between them. Each house maintains a separate inventory.",
       "accordion_description": "E hoʻololi ma waena o nā ʻohana, e hana i kahi ʻohana hou, a i ʻole e hui pū me kahi ʻohana e kū nei me kahi kī hilinaʻi.",
       "empty_description": "E hana i hale hou e hoʻomaka ai e kaʻana like, a i ʻole e hui pū me kekahi me kahi kī hale hilinaʻi.",
-      "leave_success_body": "ʻAʻohe ou wahi e komo ai i kēia hale a ua hoʻomaha hou ʻia kou hale hana."
+      "leave_success_body": "ʻAʻohe ou wahi e komo ai i kēia hale a ua hoʻomaha hou ʻia kou hale hana.",
+      "leave_title": "Leave this house?",
+      "leave_warning": "You will lose access to this household workspace until another member invites or approves you again.",
+      "leaving": "Leaving..."
     },
     "house_info": {
       "title": "Kī Hale Hana",
@@ -674,7 +686,11 @@
       "copy_error": "ʻAʻole hiki ke kope ʻia ke kī o ka hale.",
       "modal_title": "Ke komo ʻana i ke kī o ka hale",
       "modal_subtitle": "E hoʻohana i kēia kī no nā lālā hilinaʻi o ka ʻohana wale nō e noi ana i ke komo ʻana i kēia waihona i kaʻana like ʻia.",
-      "loading_members": "Ke hoʻouka nei i nā lālā..."
+      "loading_members": "Ke hoʻouka nei i nā lālā...",
+      "kick_success_body": "{{name}} no longer has access to this household.",
+      "kick_title": "Remove this member?",
+      "kick_warning": "Their household access will end immediately and they will need a new invitation or approval to return.",
+      "kicking": "Removing..."
     },
     "theme": {
       "title": "Kumuhana",
@@ -720,7 +736,20 @@
       "unencrypted_warning": "ʻOi aku ka maʻalahi o ka nānā ʻana i nā JSON maʻamau, akā hiki i ka mea nāna e wehe i ka faila ke heluhelu koke i kāu ʻikepili home.",
       "import_encrypted_title": "Wehe i ka waihona i hoʻopili ʻia",
       "import_encrypted_body": "E hoʻokomo i ka ʻōlelo huna i hoʻohana ʻia i ka hoʻoiho ʻana e hoʻihoʻi i kēia faila i hoʻopili ʻia.",
-      "unlock_and_import": "Wehe a hoʻokomo mai"
+      "unlock_and_import": "Wehe a hoʻokomo mai",
+      "export_encrypted_notice": "The backup is prepared from live household data and then wrapped with the passphrase you choose. Keep that passphrase somewhere safe because it is required to restore the file later.",
+      "export_encrypted_title": "Encryption will be applied before download",
+      "import_summary_body": "{{items}} items, {{categories}} categories, {{rooms}} rooms, {{locations}} locations, {{borrows}} borrow records restored.",
+      "import_summary_title": "Backup restored",
+      "preview_categories": "Māhele",
+      "preview_items": "Rārangi Taputapu",
+      "preview_locations": "Ngā Tauwāhi",
+      "preview_rooms": "Nā lumi",
+      "skipped_borrows": "{{count}} existing borrow records skipped.",
+      "skipped_categories": "{{count}} existing categories skipped.",
+      "skipped_items": "{{count}} existing items skipped.",
+      "skipped_locations": "{{count}} existing locations skipped.",
+      "skipped_rooms": "{{count}} existing rooms skipped."
     },
     "about": {
       "title": "📱 About Application",
@@ -733,7 +762,10 @@
       "privacy_link": "Kulekele pilikino",
       "beta_title": "Kūlana Beta",
       "beta_body": "{{brandName}} is still in beta. Features can change, workflows may evolve, and important household data should always be backed up.",
-      "feedback_subject": "Manaʻo pane - {{brandName}}"
+      "feedback_subject": "Manaʻo pane - {{brandName}}",
+      "logout_body": "Any unsaved changes in open forms may be lost after you leave this session.",
+      "logout_description": "You will return to the home page and can sign back in anytime.",
+      "logout_title": "Log out now?"
     },
     "modals": {
       "password": {
@@ -960,7 +992,11 @@
       "lend_success_title": "Mea i hōʻaiʻē ʻia",
       "lend_success_body": "{{item}} ua hōʻailona ʻia he ʻaiʻē.",
       "offer_sent_title": "Borrow offer sent",
-      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+      "borrowed_by_you": "With you",
+      "return_pending_hint": "The record will close after the lender confirms they received the item back.",
+      "return_pending_lender_title": "{{name}} marked this item as delivered back",
+      "return_pending_self_title": "With you, waiting for receipt confirmation"
     },
     "untitled_item": "Mea i kapa ʻole ʻia",
     "delete_action": "Holoi 'ikamu",
@@ -1023,7 +1059,10 @@
     "name_required": "Pono ka inoa mahele",
     "load_error": "Hewa i ka hoʻouka ʻana i nā mahele",
     "add_error": "Hewa i ka hoʻohui ʻana i ka mahele",
-    "update_error": "Hewa i ka hōʻano hou ʻana i ka mahele"
+    "update_error": "Hewa i ka hōʻano hou ʻana i ka mahele",
+    "color_required": "Pono ke kala ma ke ʻano #RRGGBB",
+    "empty_description": "Create a few categories so new items follow the same structure and are easier to scan later.",
+    "empty_title": "No categories yet"
   },
   "rooms": {
     "title": "Nā lumi",
@@ -1097,7 +1136,9 @@
     "name_required": "Pono ka inoa keʻena",
     "load_error": "Hewa i ka hoʻouka ʻana i nā keʻena",
     "add_error": "Hewa i ka hoʻohui ʻana i ke keʻena",
-    "update_error": "Hewa i ka hōʻano hou ʻana i ke keʻena"
+    "update_error": "Hewa i ka hōʻano hou ʻana i ke keʻena",
+    "empty_description": "Create rooms like kitchen, storage, or garage so item locations stay consistent and easier to search.",
+    "empty_title": "No rooms yet"
   },
   "admin": {
     "title": "Papa Hoʻokele",
@@ -1176,7 +1217,12 @@
       "households_label": "Whānau",
       "items_label": "Taonga whai",
       "last_seen_short": "Kitea",
-      "last_seen_short_never": "Hou"
+      "last_seen_short_never": "Hou",
+      "failed_logins": "{{count}} failed sign-ins",
+      "load_failed_title": "Users could not load",
+      "pending_requests": "{{count}} pending house requests",
+      "role_admin": "Nā Luna Hoʻomalu",
+      "role_user": "User"
     },
     "logs": {
       "title": "Nā Moʻolelo Hoʻomalu",
@@ -1208,7 +1254,9 @@
       "section_eyebrow": "Ala hōʻoia",
       "errors_eyebrow": "ʻIke pilikia",
       "section_body": "Hoʻopaʻa ʻia kēlā me kēia hoʻololi hoʻomalu a hana paha e ka papa luna.",
-      "errors_body": "Nā lālani hewa hou loa i unuhi ʻia mai nā waihona moʻokāki kikowaena."
+      "errors_body": "Nā lālani hewa hou loa i unuhi ʻia mai nā waihona moʻokāki kikowaena.",
+      "load_failed_title": "Activity could not load",
+      "no_logs_title": "No admin actions yet"
     },
     "email": {
       "title": "Hoʻouna leka uila",
@@ -1242,7 +1290,14 @@
       "status_body": "He nānā hilinaʻi wikiwiki ma mua o ka hoʻouna ʻana i ka leka uila hana.",
       "unconfigured_title": "ʻAʻole i hoʻonohonoho ʻia ka hoʻouna ʻana i ka leka uila",
       "unconfigured_body": "E ʻike mau ʻia ka palapala hoʻouna no ka loiloi hoʻonohonoho ʻana, akā e holomua ʻole ka hoʻouna ʻana a hiki i ka hoʻonohonoho ʻia ʻana o ka mea hoʻolako leka uila.",
-      "status_eyebrow": "Hoʻouna ʻana"
+      "status_eyebrow": "Hoʻouna ʻana",
+      "configured_body": "Resend is available for admin-triggered outbound messages.",
+      "configured_title": "Email delivery is configured",
+      "error_title": "Email failed",
+      "format_hint": "HTML is supported. For example: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
+      "from_label": "Sender",
+      "load_failed_title": "Email tools could not load",
+      "success_title": "Email sent"
     },
     "overview": {
       "email_warning_title": "Pono nā moʻokāki i laka ʻia",
@@ -1327,7 +1382,9 @@
     "stats_loaded": "Ua hoʻouka ʻia ka helu helu",
     "logs_loaded": "Ua hoʻouka ʻia nā moʻolelo",
     "load_error": "Hewa i ka hoʻouka ʻana i ka ʻikepili",
-    "action_error": "Hewa i ka hoʻokō ʻana i ka hana"
+    "action_error": "Hewa i ka hoʻokō ʻana i ka hana",
+    "load_failed_body": "The admin route is open, but the overview data did not arrive. You can retry without leaving the page.",
+    "load_failed_title": "Admin overview could not load"
   },
   "landing": {
     "nav": {
@@ -1672,7 +1729,8 @@
     "link_privacy_note": "E hūnā ʻia ka helu wahi pūnaewele ma ʻaneʻi. E scan i ke code a kope paha i ka loulou ke makemake ʻoe e kaʻana like i ke komo pololei ʻana i nā mea ma kāu hoʻonohonoho kūloko.",
     "helper": "E scan e wehe koke i kēia mea, a i ʻole e kope i ka loulou pololei i ka wā e pono ai.",
     "copy_error_title": "Link could not be copied automatically",
-    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+    "loading": "Preparing QR tools..."
   },
   "house_access_pending": {
     "eyebrow": "Ke komo ʻana i ka hale",
@@ -1859,7 +1917,11 @@
       "name_required": "Pono ka inoa mea no kahi moʻolelo waihona.",
       "options_failed": "ʻAʻole i hiki ke hoʻouka ʻia nā koho māhele a lumi.",
       "delete_success_title": "Ua holoi ʻia ka moʻolelo waihona",
-      "delete_success_body": "Ua wehe mau ʻia ka moʻolelo pilikino mai kou waihona."
+      "delete_success_body": "Ua wehe mau ʻia ka moʻolelo pilikino mai kou waihona.",
+      "passphrase_lowercase": "Include at least one lowercase letter.",
+      "passphrase_min_length": "Vault passphrase must be at least 12 characters.",
+      "passphrase_number": "Include at least one number.",
+      "passphrase_uppercase": "Include at least one uppercase letter."
     },
     "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
     "recovery_file_created_label": "Hana ʻia",

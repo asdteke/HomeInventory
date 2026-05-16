@@ -6,7 +6,7 @@ import FloatingToast from './FloatingToast';
 import { copyTextToClipboard } from '../utils/clipboard';
 import { SITE_URL } from '../constants/branding';
 
-const QR_LOGO_ASSET = '/brand/logo-symbol-light.png';
+const QR_LOGO_ASSET = '/brand/logo-symbol-light.svg?v=qr-dark-on-light-20260516';
 
 function slugifyFilePart(value) {
     return String(value || '')
@@ -51,19 +51,6 @@ function getPreferredPublicOrigin() {
     return SITE_URL;
 }
 
-function formatItemLinkPreview(value) {
-    if (!value) {
-        return '';
-    }
-
-    try {
-        const url = new URL(value);
-        return `${url.pathname}${url.search}${url.hash}` || '/';
-    } catch {
-        return value;
-    }
-}
-
 export default function ItemQRCode({ itemId, size = 280 }) {
     const { t } = useTranslation();
     const qrRuntimePromiseRef = useRef(null);
@@ -85,7 +72,6 @@ export default function ItemQRCode({ itemId, size = 280 }) {
 
         return new URL(`/items/${itemId}/edit`, publicOrigin).toString();
     }, [itemId, publicOrigin]);
-    const itemUrlPreview = useMemo(() => formatItemLinkPreview(itemUrl), [itemUrl]);
 
     useEffect(() => {
         let cancelled = false;
@@ -261,8 +247,8 @@ export default function ItemQRCode({ itemId, size = 280 }) {
     if (!itemId) return null;
 
     return (
-        <div className="border-t border-[var(--hi-border)] pt-4">
-            <div className="grid gap-4 md:grid-cols-[minmax(180px,228px)_minmax(0,1fr)] md:items-center">
+        <div className="pt-4">
+            <div className="grid gap-5 xl:grid-cols-[minmax(180px,228px)_minmax(0,1fr)] xl:items-center">
                 <div className="mx-auto w-full max-w-[228px]">
                     <div className="rounded-[1.2rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-3 shadow-[var(--hi-shadow-soft)]">
                         <div
@@ -296,8 +282,8 @@ export default function ItemQRCode({ itemId, size = 280 }) {
                     </div>
                 </div>
 
-                <div className="min-w-0 space-y-2.5">
-                    <div className="grid gap-2 sm:max-w-[216px]">
+                <div className="min-w-0 space-y-3">
+                    <div className="grid gap-2 sm:grid-cols-2 xl:max-w-[22rem]">
                         <Tooltip label={t('item_qr.copy_url_safe', { defaultValue: 'Copy link' })} className="w-full">
                             <button
                                 type="button"
@@ -325,7 +311,7 @@ export default function ItemQRCode({ itemId, size = 280 }) {
                         </Tooltip>
                     </div>
 
-                    <div className="max-w-[24rem] rounded-[0.9rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] px-3 py-2">
+                    <div className="max-w-full rounded-[0.9rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] px-3 py-2">
                         <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-muted)]">
                             {t('item_qr.link_preview_label', { defaultValue: 'Direct item link' })}
                         </p>
@@ -336,9 +322,9 @@ export default function ItemQRCode({ itemId, size = 280 }) {
                             aria-readonly="true"
                             aria-label={t('item_qr.link_preview_aria', { defaultValue: 'Preview of the direct item link' })}
                             title={itemUrl}
-                            className="mt-1 truncate rounded-[0.72rem] bg-[var(--hi-bg-strong)] px-2.5 py-1.5 font-mono text-[11px] leading-5 text-[var(--hi-text-soft)] outline-none focus-visible:ring-2 focus-visible:ring-[rgba(45,82,65,0.18)]"
+                            className="mt-1 break-all rounded-[0.72rem] bg-[var(--hi-bg-strong)] px-2.5 py-1.5 font-mono text-[11px] leading-5 text-[var(--hi-text-soft)] outline-none focus-visible:ring-2 focus-visible:ring-[rgba(45,82,65,0.18)]"
                         >
-                            {(copyFallbackVisible ? itemUrl : itemUrlPreview) || t('item_qr.url_loading', { defaultValue: 'Loading URL...' })}
+                            {itemUrl || t('item_qr.url_loading', { defaultValue: 'Loading URL...' })}
                         </div>
                     </div>
 
@@ -348,7 +334,7 @@ export default function ItemQRCode({ itemId, size = 280 }) {
                         </p>
                     )}
 
-                    <p className="max-w-[28rem] text-sm leading-6 text-[var(--hi-text-soft)]">
+                    <p className="max-w-[42rem] text-sm leading-6 text-[var(--hi-text-soft)]">
                         {t('item_qr.helper', { defaultValue: 'Scan to open this item instantly, or copy the direct link when needed.' })}
                     </p>
                 </div>

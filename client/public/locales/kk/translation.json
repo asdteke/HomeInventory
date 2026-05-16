@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Егер сіз кепілдік басталу күнін бос қалдырсаңыз, шот-фактураның күні пайдаланылады. Ұзақтығын енгізген кезде кепілдік аяқталу күні автоматты түрде есептеледі.",
             "vault_hint_title": "Өте сезімтал жазба ма?",
             "vault_hint_description": "Паспорттар, құжаттар, жеке мәліметтер, кіру кодтары және стандартты инвентаризация ағынынан шықпайтын басқа жазбалар үшін оларды орнына Жеке Сейфте сақтаңыз.",
-            "vault_hint_action": "Жеке Сейфті ашу"
+            "vault_hint_action": "Жеке Сейфті ашу",
+            "location": "Орналасқан жері",
+            "remove_photo": "Суретті жою",
+            "visibility_owner_only": "Затты қосқан адам ғана көрінуін өзгерте алады."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" жедел қосылды - кейін өңдей аласыз",
@@ -115,7 +118,8 @@
         "delete_error": "Элементті өшіру қатесі",
         "no_permission": "No permission",
         "barcode_search_error": "Штрих-код іздеу сәтсіз аяқталды",
-        "stats_error": "Stats error"
+        "stats_error": "Stats error",
+        "detail_subtitle": "Зат туралы мәлімет"
     },
     "common": {
         "save": "Сақтау",
@@ -162,7 +166,11 @@
         "unauthorized": "Рұқсатсыз кіру",
         "forbidden": "Permission denied",
         "validation_error": "Тексеру қатесі",
-        "server_error": "Сервер қатесі"
+        "server_error": "Сервер қатесі",
+        "details": "Толығырақ",
+        "hide": "Құпия сөзді жасыру",
+        "logging_out": "Шығып жатыр...",
+        "show": "Құпия сөзді көрсету"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Тексеру",
                 "back": "Қайта",
                 "use_backup": "Сақтық көшірме кодын пайдаланыңыз",
-                "use_totp": "Аутентификатор"
+                "use_totp": "Аутентификатор",
+                "code_required": "Растау коды қажет"
             },
             "welcome_title": "Хош келдің",
             "welcome_subtitle": "Инвентарьға кіру үшін кіріңіз",
@@ -632,7 +641,10 @@
             "info": "💡 Сіз бірнеше үйдің мүшесі бола аласыз және олар арасында ауыса аласыз. Әр үйдің жеке инвентаризациясы бар.",
             "accordion_description": "Үйлер арасында ауысу, жаңа үй жасау немесе сенімді кілтпен бар үйге қосылу.",
             "empty_description": "Жаңа үй жасап, бөлісуді бастаңыз немесе сенімді үй кілтімен бар үйге қосылыңыз.",
-            "leave_success_body": "Сізде бұл үйге енді қолжетімділік жоқ және сіздің белсенді үйіңіз жаңартылды."
+            "leave_success_body": "Сізде бұл үйге енді қолжетімділік жоқ және сіздің белсенді үйіңіз жаңартылды.",
+            "leave_title": "Осы үйден шығу ма?",
+            "leave_warning": "Сізге басқа мүше қайта шақырған немесе мақұлдағанға дейін осы үйдің жұмыс кеңістігіне кіру мүмкіндігі жоқ болады.",
+            "leaving": "Шығу..."
         },
         "house_info": {
             "title": "Қолданыстағы Үй Кілті",
@@ -674,7 +686,11 @@
             "copy_error": "Үй кілтін көшіру мүмкін болмады.",
             "modal_title": "Үй кілтіне қол жеткізу",
             "modal_subtitle": "Бұл кілтті тек сенімді үй мүшелері үшін пайдаланыңыз, олар осы ортақ инвентарьға кіруді сұрауы керек.",
-            "loading_members": "Мүшелерді жүктеу..."
+            "loading_members": "Мүшелерді жүктеу...",
+            "kick_success_body": "{{name}} енді осы үйге кіру мүмкіндігі жоқ.",
+            "kick_title": "Осы мүшені өшіру ме?",
+            "kick_warning": "Олардың үйге кіру мүмкіндігі дереу аяқталады және қайта кіру үшін жаңа шақыру немесе мақұлдау қажет болады.",
+            "kicking": "Өшіру..."
         },
         "theme": {
             "title": "Тақырып",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Ашық JSON экспорттарын тексеру оңай, бірақ файлды ашқан кез келген адам сіздің үй деректеріңізді дереу көре алады.",
             "import_encrypted_title": "Шифрланған сақтық көшірмені ашу",
             "import_encrypted_body": "Бұл шифрланған файлды қалпына келтіру үшін жүктеу кезінде пайдаланылған сақтық көшірме құпиясөзін енгізіңіз.",
-            "unlock_and_import": "Ашу және импорттау"
+            "unlock_and_import": "Ашу және импорттау",
+            "export_encrypted_notice": "Резервтік көшіру тірі үй шаруашылығы деректерінен дайындалады, содан кейін сіз таңдаған құпия сөзбен оралады. Сол құпия сөзді қауіпсіз жерде сақтаңыз, себебі файлды кейін қалпына келтіру үшін қажет болады.",
+            "export_encrypted_title": "Жүктемеден бұрын шифрлау қолданылатын болады",
+            "import_summary_body": "{{items}} заттар, {{categories}} санаттар, {{rooms}} бөлмелер, {{locations}} орындар, {{borrows}} қарыз жазбалары қалпына келтірілді.",
+            "import_summary_title": "Резервтік көшіру қалпына келтірілді",
+            "preview_categories": "Санаттар",
+            "preview_items": "Заттар",
+            "preview_locations": "Орындар",
+            "preview_rooms": "Бөлмелер",
+            "skipped_borrows": "{{count}} бұрыннан бар қарыз жазбалары өткізіп жіберілді.",
+            "skipped_categories": "{{count}} бұрыннан бар санаттар өткізіп жіберілді.",
+            "skipped_items": "{{count}} бар элемент өткізіліп жіберілді.",
+            "skipped_locations": "{{count}} бар орындар өткізіліп жіберілді.",
+            "skipped_rooms": "{{count}} бар бөлмелер өткізіліп жіберілді."
         },
         "about": {
             "title": "📱 Қосымша туралы",
@@ -733,7 +762,10 @@
             "privacy_link": "Құпиялық туралы саясат",
             "beta_title": "Бета мәртебесі",
             "beta_body": "{{brandName}} әлі бета кезеңінде. Функциялар өзгеруі мүмкін, жұмыс ағындары дамуы мүмкін, және маңызды үй деректерін әрдайым сақтап қою керек.",
-            "feedback_subject": "Пікірлер - {{brandName}}"
+            "feedback_subject": "Пікірлер - {{brandName}}",
+            "logout_body": "Ашық формалардағы сақталмаған өзгерістер осы сессиядан шыққаннан кейін жоғалуы мүмкін.",
+            "logout_description": "Сіз басты бетке оралып, кез келген уақытта қайта кіре аласыз.",
+            "logout_title": "Қазір шығасыз ба?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Зат берілді",
             "lend_success_body": "{{item}} қазір қарызға берілген ретінде белгіленген.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Сізде",
+            "return_pending_hint": "Зат қарыз беруші оны алғанын растағаннан кейін жазба жабылады.",
+            "return_pending_lender_title": "{{name}} бұл затты қайтарылған деп белгіледі",
+            "return_pending_self_title": "Сізде, түбіртек растауын күтіп отыр"
         },
         "untitled_item": "Атаусыз зат",
         "delete_action": "Элементті жою",
@@ -1023,7 +1059,10 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "color_required": "Түс #RRGGBB форматында болуы керек",
+        "empty_description": "Жаңа заттар сол құрылымды сақтап, кейін оңай қарау үшін бірнеше категория жасаңыз.",
+        "empty_title": "Әлі категория жоқ"
     },
     "rooms": {
         "title": "Бөлмелер",
@@ -1097,7 +1136,9 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "empty_description": "Заттардың орналасуы біркелкі болып, іздеу оңай болу үшін асхана, сақтау бөлмесі немесе гараж сияқты бөлмелер жасаңыз.",
+        "empty_title": "Әлі бөлмелер жоқ"
     },
     "admin": {
         "title": "Әкімші панелі",
@@ -1176,7 +1217,12 @@
             "households_label": "Тұрмыстар",
             "items_label": "Меншіктелген заттар",
             "last_seen_short": "Көрген",
-            "last_seen_short_never": "Жаңа"
+            "last_seen_short_never": "Жаңа",
+            "failed_logins": "{{count}} сәтсіз кіру",
+            "load_failed_title": "Пайдаланушылар жүктеле алмады",
+            "pending_requests": "{{count}} күтіп тұрған үй сұранысы",
+            "role_admin": "Әкімшілік",
+            "role_user": "Пайдаланушы"
         },
         "logs": {
             "title": "Админнің журналы",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Аудит жолы",
             "errors_eyebrow": "Диагностика",
             "section_body": "Әрбір әкімдік қабаты арқылы тіркелген түзету немесе операциялық өзгеріс.",
-            "errors_body": "Сервер лог файлдарынан соңғы талданған қате жолдары."
+            "errors_body": "Сервер лог файлдарынан соңғы талданған қате жолдары.",
+            "load_failed_title": "Белсенділік жүктеле алмады",
+            "no_logs_title": "Әлі әкімшілік іс-әрекеттер жоқ"
         },
         "email": {
             "title": "Электрондық хат жіберу",
@@ -1242,7 +1290,14 @@
             "status_body": "Операциялық хабарламаны жібермес бұрын жылдам сенімділік тексеруі.",
             "unconfigured_title": "Электрондық поштаны жеткізу бапталмаған",
             "unconfigured_body": "Жөнелту формасы баптауды қарау үшін көрінетін қалуда, бірақ поштаны жеткізу пошта провайдері бапталғанға дейін сәтсіз болады.",
-            "status_eyebrow": "Жеткізу"
+            "status_eyebrow": "Жеткізу",
+            "configured_body": "Қайта жіберу әкімшілік бастамасымен шығыс хабарламалар үшін қолжетімді.",
+            "configured_title": "Электрондық пошта жеткізілуі конфигурацияланды",
+            "error_title": "Электрондық пошта жіберілмеді",
+            "format_hint": "HTML қолдау табады. Мысалы: <b>қалың</b>, <i>итальдық</i>, <a href=\"...\">сілтеме</a>",
+            "from_label": "Жіберуші",
+            "load_failed_title": "Электрондық пошта құралдарын жүктеу мүмкін болмады",
+            "success_title": "Электрондық пошта жіберілді"
         },
         "overview": {
             "email_warning_title": "Электрондық поштаны жеткізу бапталмаған",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Stats loaded",
         "logs_loaded": "Журналдар жүктелді",
         "load_error": "Error loading",
-        "action_error": "Action error"
+        "action_error": "Action error",
+        "load_failed_body": "Әкімшілік маршруты ашық, бірақ шолу деректері келмеді. Сіз беттен шықпай қайта көріңіз аласыз.",
+        "load_failed_title": "Әкімшілік шолу жүктеле алмады"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Желі мекенжайы мұнда жасырын болады. Санды сканерлеу немесе сілтемені көшіру тек сіз жергілікті орнатылымда элементке тікелей қол жеткісуді бөлісуді мақсат еткенде жасалуы керек.",
         "helper": "Осы элементті дереу ашу үшін сканерлеңіз немесе қажет болғанда тікелей сілтемені көшіріңіз.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "QR құралдарын дайындау..."
     },
     "house_access_pending": {
         "eyebrow": "Үйге кіру",
@@ -1859,7 +1917,11 @@
             "name_required": "Қойма жазбасы үшін элемент аты қажет.",
             "options_failed": "Санат және бөлме параметрлерін жүктеу мүмкін болмады.",
             "delete_success_title": "Қоржын жазбасы өшірілді",
-            "delete_success_body": "Жеке жазба сіздің қоржыныңыздан тұрақты түрде жойылды."
+            "delete_success_body": "Жеке жазба сіздің қоржыныңыздан тұрақты түрде жойылды.",
+            "passphrase_lowercase": "Ең кемі бір кіші әріп қосыңыз.",
+            "passphrase_min_length": "Сақтау құпия сөзінің ұзындығы кемінде 12 таңба болуы керек.",
+            "passphrase_number": "Ең кемі бір сан қосыңыз.",
+            "passphrase_uppercase": "Ең кемі бір бас әріп қосыңыз."
         },
         "recovery_file_title": "{{brandName}} Жеке Сақтау Қалқанының Қалпына Келтіру Кілті",
         "recovery_file_created_label": "Жасалды",

@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Агар санаи оғози кафолатро холӣ гузоред, санаи ҳисобнома истифода мешавад. Вақте ки мӯҳлатро ворид мекунед, санаи анҷоми кафолат худкор ҳисоб мешавад.",
             "vault_hint_title": "Very sensitive record?",
             "vault_hint_description": "For passports, deeds, identity details, access codes, and other records that should stay out of the standard inventory flow, keep them in Personal Vault instead.",
-            "vault_hint_action": "باز کردن صندوق شخصی"
+            "vault_hint_action": "باز کردن صندوق شخصی",
+            "location": "مکان‌ها",
+            "remove_photo": "Remove photo",
+            "visibility_owner_only": "Only the person who added the item can change visibility."
         },
         "messages": {
             "quick_add_success": "✓ «{{barcode}}» به سرعت اضافه شد - می‌توانید بعداً ویرایش کنید",
@@ -115,7 +118,8 @@
         "delete_error": "Хатогӣ ҳангоми нест кардани ашё",
         "no_permission": "Шумо барои тағир додани ин ашё иҷозат надоред",
         "barcode_search_error": "جستجوی بارکد ناموفق",
-        "stats_error": "خطا در بارگذاری آمار"
+        "stats_error": "خطا در بارگذاری آمار",
+        "detail_subtitle": "Item details"
     },
     "common": {
         "save": "ذخیره",
@@ -162,7 +166,11 @@
         "unauthorized": "Дастрасии беиҷозат",
         "forbidden": "Шумо барои ин амал иҷозат надоред",
         "validation_error": "Хатои санҷиш",
-        "server_error": "Хатои сервер"
+        "server_error": "Хатои сервер",
+        "details": "جزئیات",
+        "hide": "Hide password",
+        "logging_out": "Logging out...",
+        "show": "Show password"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "تأیید",
                 "back": "بازگشت",
                 "use_backup": "استفاده از کد پشتیبان",
-                "use_totp": "استفاده از احراز هویت"
+                "use_totp": "استفاده از احراز هویت",
+                "code_required": "Verification code is required"
             },
             "welcome_title": "خوش آمدید",
             "welcome_subtitle": "برای دسترسی به موجودی خود وارد شوید",
@@ -632,7 +641,10 @@
             "info": "💡 You can be a member of multiple houses and switch between them. Each house maintains a separate inventory.",
             "accordion_description": "بین خانوارها جابجا شوید، یک خانه جدید بسازید یا با یک کلید معتبر به خانه‌ای موجود بپیوندید.",
             "empty_description": "یک خونه جدید بسازید تا شروع به اشتراک‌گذاری کنید، یا با یک کلید خونه معتبر به یکی ملحق شوید.",
-            "leave_success_body": "شما دیگر به این خانه دسترسی ندارید و خانه فعال شما تازه‌سازی شد."
+            "leave_success_body": "شما دیگر به این خانه دسترسی ندارید و خانه فعال شما تازه‌سازی شد.",
+            "leave_title": "Leave this house?",
+            "leave_warning": "You will lose access to this household workspace until another member invites or approves you again.",
+            "leaving": "Leaving..."
         },
         "house_info": {
             "title": "کلید خانه فعال",
@@ -674,7 +686,11 @@
             "copy_error": "کلید خانه قابل کپی کردن نیست.",
             "modal_title": "دسترسی به کلید خانه",
             "modal_subtitle": "این کلید را فقط برای اعضای مورد اعتماد خانه استفاده کنید که باید دسترسی به این موجودی مشترک را درخواست کنند.",
-            "loading_members": "در حال بارگذاری اعضا..."
+            "loading_members": "در حال بارگذاری اعضا...",
+            "kick_success_body": "{{name}} no longer has access to this household.",
+            "kick_title": "Remove this member?",
+            "kick_warning": "Their household access will end immediately and they will need a new invitation or approval to return.",
+            "kicking": "Removing..."
         },
         "theme": {
             "title": "تم",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "خروجی‌های JSON ساده آسان‌تر برای بررسی هستند، اما هر کسی که فایل را باز کند می‌تواند فوراً داده‌های خانوار شما را بخواند.",
             "import_encrypted_title": "باز کردن پشتیبان رمزگذاری‌شده",
             "import_encrypted_body": "عبارت عبور پشتیبان استفاده شده هنگام دانلود را وارد کنید تا این فایل رمزگذاری‌شده بازیابی شود.",
-            "unlock_and_import": "باز کردن قفل و وارد کردن"
+            "unlock_and_import": "باز کردن قفل و وارد کردن",
+            "export_encrypted_notice": "The backup is prepared from live household data and then wrapped with the passphrase you choose. Keep that passphrase somewhere safe because it is required to restore the file later.",
+            "export_encrypted_title": "Encryption will be applied before download",
+            "import_summary_body": "{{items}} items, {{categories}} categories, {{rooms}} rooms, {{locations}} locations, {{borrows}} borrow records restored.",
+            "import_summary_title": "Backup restored",
+            "preview_categories": "دسته‌بندی‌ها",
+            "preview_items": "موجودی",
+            "preview_locations": "مکان‌ها",
+            "preview_rooms": "اتاق‌ها",
+            "skipped_borrows": "{{count}} existing borrow records skipped.",
+            "skipped_categories": "{{count}} existing categories skipped.",
+            "skipped_items": "{{count}} existing items skipped.",
+            "skipped_locations": "{{count}} existing locations skipped.",
+            "skipped_rooms": "{{count}} existing rooms skipped."
         },
         "about": {
             "title": "📱 About Application",
@@ -733,7 +762,10 @@
             "privacy_link": "سیاست حفظ حریم خصوصی",
             "beta_title": "وضعیت بتا",
             "beta_body": "{{brandName}} هنوز در حالت بتا است. ویژگی‌ها می‌توانند تغییر کنند، جریان‌های کاری ممکن است توسعه یابند و داده‌های مهم خانگی همیشه باید پشتیبان‌گیری شوند.",
-            "feedback_subject": "Фикру мулоҳиза - {{brandName}}"
+            "feedback_subject": "Фикру мулоҳиза - {{brandName}}",
+            "logout_body": "Any unsaved changes in open forms may be lost after you leave this session.",
+            "logout_description": "You will return to the home page and can sign back in anytime.",
+            "logout_title": "Log out now?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "مورد قرض داده شده",
             "lend_success_body": "{{item}} اکنون به عنوان قرض گرفته شده علامت‌گذاری شده است.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "With you",
+            "return_pending_hint": "The record will close after the lender confirms they received the item back.",
+            "return_pending_lender_title": "{{name}} marked this item as delivered back",
+            "return_pending_self_title": "With you, waiting for receipt confirmation"
         },
         "untitled_item": "آیتم بدون عنوان",
         "delete_action": "حذف آیتم",
@@ -1023,7 +1059,10 @@
         "name_required": "نام دسته‌بندی لازم است",
         "load_error": "خطا در بارگذاری دسته‌بندی‌ها",
         "add_error": "خطا در افزودن دسته‌بندی",
-        "update_error": "خطا در به‌روزرسانی دسته‌بندی"
+        "update_error": "خطا در به‌روزرسانی دسته‌بندی",
+        "color_required": "Ранг бояд дар формати #RRGGBB бошад",
+        "empty_description": "Create a few categories so new items follow the same structure and are easier to scan later.",
+        "empty_title": "No categories yet"
     },
     "rooms": {
         "title": "اتاق‌ها",
@@ -1097,7 +1136,9 @@
         "name_required": "نام اتاق لازم است",
         "load_error": "خطا در بارگذاری اتاق‌ها",
         "add_error": "خطا در افزودن اتاق",
-        "update_error": "خطا در به‌روزرسانی اتاق"
+        "update_error": "خطا در به‌روزرسانی اتاق",
+        "empty_description": "Create rooms like kitchen, storage, or garage so item locations stay consistent and easier to search.",
+        "empty_title": "No rooms yet"
     },
     "admin": {
         "title": "پنل مدیریت",
@@ -1176,7 +1217,12 @@
             "households_label": "خانوارها",
             "items_label": "اقلام مالکیت",
             "last_seen_short": "مشاهده شده",
-            "last_seen_short_never": "جدید"
+            "last_seen_short_never": "جدید",
+            "failed_logins": "{{count}} failed sign-ins",
+            "load_failed_title": "Users could not load",
+            "pending_requests": "{{count}} pending house requests",
+            "role_admin": "مدیران",
+            "role_user": "User"
         },
         "logs": {
             "title": "گزارش‌های مدیر",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Изи аудит",
             "errors_eyebrow": "Ташхис",
             "section_body": "Ҳар тағйири модератсия ё амалиётӣ дар қабати маъмурӣ сабт мешавад.",
-            "errors_body": "Сатрҳои охирини хатои таҳлилшуда аз файлҳои сабти сервер."
+            "errors_body": "Сатрҳои охирини хатои таҳлилшуда аз файлҳои сабти сервер.",
+            "load_failed_title": "Activity could not load",
+            "no_logs_title": "No admin actions yet"
         },
         "email": {
             "title": "ارسال ایمیل",
@@ -1242,7 +1290,14 @@
             "status_body": "یک بررسی سریع اطمینان قبل از ارسال ارتباطات عملیاتی.",
             "unconfigured_title": "ارسال ایمیل پیکربندی نشده است",
             "unconfigured_body": "فرم ارسال برای بررسی تنظیمات همچنان قابل مشاهده است، اما تا زمانی که ارائه‌دهنده ایمیل پیکربندی نشود، ارسال با شکست مواجه خواهد شد.",
-            "status_eyebrow": "تحویل"
+            "status_eyebrow": "تحویل",
+            "configured_body": "Resend is available for admin-triggered outbound messages.",
+            "configured_title": "Email delivery is configured",
+            "error_title": "Email failed",
+            "format_hint": "HTML is supported. For example: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
+            "from_label": "Sender",
+            "load_failed_title": "Email tools could not load",
+            "success_title": "Email sent"
         },
         "overview": {
             "email_warning_title": "پیکربندی ارسال ایمیل انجام نشده است",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Омори бор карда шуд",
         "logs_loaded": "گزارش‌ها بارگذاری شدند",
         "load_error": "خطا در بارگذاری داده‌ها",
-        "action_error": "خطا در انجام عملیات"
+        "action_error": "خطا در انجام عملیات",
+        "load_failed_body": "The admin route is open, but the overview data did not arrive. You can retry without leaving the page.",
+        "load_failed_title": "Admin overview could not load"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "آدرس شبکه در اینجا مخفی می‌ماند. کد را اسکن کنید یا لینک را تنها زمانی کپی کنید که به طور عمدی می‌خواهید دسترسی مستقیم به آیتم در محیط محلی خود را به اشتراک بگذارید.",
         "helper": "برای باز کردن فوری این آیتم اسکن کنید، یا در صورت نیاز لینک مستقیم را کپی کنید.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Preparing QR tools..."
     },
     "house_access_pending": {
         "eyebrow": "دسترسی به خانه",
@@ -1859,7 +1917,11 @@
             "name_required": "Барои сабти сейф номи ашё лозим аст.",
             "options_failed": "Имконоти категория ва утоқ бор нашуданд.",
             "delete_success_title": "رکورد صندوق حذف شد",
-            "delete_success_body": "رکورد خصوصی به طور دائم از صندوق شما حذف شد."
+            "delete_success_body": "رکورد خصوصی به طور دائم از صندوق شما حذف شد.",
+            "passphrase_lowercase": "Include at least one lowercase letter.",
+            "passphrase_min_length": "Vault passphrase must be at least 12 characters.",
+            "passphrase_number": "Include at least one number.",
+            "passphrase_uppercase": "Include at least one uppercase letter."
         },
         "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
         "recovery_file_created_label": "Сохта шуд",

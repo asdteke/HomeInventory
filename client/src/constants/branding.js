@@ -34,7 +34,7 @@ function deriveBrandName(siteHost) {
 
 export const SITE_URL = resolveSiteUrl();
 const SITE_HOST = resolveSiteHost(SITE_URL);
-const FALLBACK_APP_VERSION = '1.1.0';
+const FALLBACK_APP_VERSION = '2.0.1';
 
 export const BRAND_NAME = (
     typeof __APP_BRAND_NAME__ === 'string' && __APP_BRAND_NAME__.trim()
@@ -43,6 +43,11 @@ export const BRAND_NAME = (
 );
 
 export const BRAND_HOST = SITE_HOST;
+export const BRAND_KEY = (
+    BRAND_HOST === 'envanterim.net.tr' ||
+    BRAND_HOST === 'www.envanterim.net.tr' ||
+    BRAND_NAME.toLocaleLowerCase('tr-TR') === 'envanterim'
+) ? 'envanterim' : 'homeinventory';
 
 export const DATA_CONTROLLER_NAME = (
     typeof __APP_DATA_CONTROLLER_NAME__ === 'string' && __APP_DATA_CONTROLLER_NAME__.trim()

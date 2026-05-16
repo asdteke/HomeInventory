@@ -44,7 +44,11 @@
         "unauthorized": "Acesso não autorizado",
         "forbidden": "Você não tem permissão para esta ação",
         "validation_error": "Erro de validação",
-        "server_error": "Erro do servidor"
+        "server_error": "Erro do servidor",
+        "details": "Detalhes",
+        "hide": "Ocultar senha",
+        "logging_out": "Saindo...",
+        "show": "Mostrar senha"
     },
     "auth": {
         "login": {
@@ -76,7 +80,8 @@
                 "verify": "Verificar",
                 "back": "Voltar",
                 "use_backup": "Usar código de backup",
-                "use_totp": "Usar autenticador"
+                "use_totp": "Usar autenticador",
+                "code_required": "Código de verificação é obrigatório"
             },
             "welcome_title": "Bem-vindo de volta",
             "welcome_subtitle": "Faça login para acessar seu inventário",
@@ -515,7 +520,10 @@
             "warranty_calculation_help": "Se você deixar a data de início da garantia vazia, a data da fatura será usada. Quando você inserir a duração, a data de término da garantia será calculada automaticamente.",
             "vault_hint_title": "Registro muito sensível?",
             "vault_hint_description": "Para passaportes, escrituras, detalhes de identidade, códigos de acesso e outros registros que devem ficar fora do fluxo padrão de inventário, mantenha-os no Cofre Pessoal em vez disso.",
-            "vault_hint_action": "Abrir Cofre Pessoal"
+            "vault_hint_action": "Abrir Cofre Pessoal",
+            "location": "Localização",
+            "remove_photo": "Remover foto",
+            "visibility_owner_only": "Apenas a pessoa que adicionou o item pode alterar a visibilidade."
         },
         "qrcode": {
             "title": "Código QR",
@@ -568,7 +576,8 @@
         "delete_error": "Erro ao excluir item",
         "no_permission": "Você não tem permissão para modificar este item",
         "barcode_search_error": "Falha na pesquisa de código de barras",
-        "stats_error": "Erro ao carregar estatísticas"
+        "stats_error": "Erro ao carregar estatísticas",
+        "detail_subtitle": "Detalhes do item"
     },
     "settings": {
         "title": "Configurações",
@@ -632,7 +641,10 @@
             "info": "💡 Você pode ser membro de várias casas e alternar entre elas. Cada casa mantém um inventário separado.",
             "accordion_description": "Alterne entre residências, crie uma nova ou entre em uma existente com uma chave confiável.",
             "empty_description": "Crie uma nova residência para começar a compartilhar ou entre em uma com uma chave de casa confiável.",
-            "leave_success_body": "Você não tem mais acesso a esta residência e sua casa ativa foi atualizada."
+            "leave_success_body": "Você não tem mais acesso a esta residência e sua casa ativa foi atualizada.",
+            "leave_title": "Sair desta casa?",
+            "leave_warning": "Você perderá o acesso a este espaço de trabalho da residência até que outro membro o convide ou aprove novamente.",
+            "leaving": "Saindo..."
         },
         "house_info": {
             "title": "Chave da Casa Ativa",
@@ -674,7 +686,11 @@
             "copy_error": "Não foi possível copiar a chave da casa.",
             "modal_title": "Acesso pela chave da casa",
             "modal_subtitle": "Use esta chave apenas para membros confiáveis da casa que devem solicitar acesso a este inventário compartilhado.",
-            "loading_members": "Carregando membros..."
+            "loading_members": "Carregando membros...",
+            "kick_success_body": "{{name}} não tem mais acesso a esta residência.",
+            "kick_title": "Remover este membro?",
+            "kick_warning": "O acesso deles à residência terminará imediatamente e será necessário um novo convite ou aprovação para retornar.",
+            "kicking": "Removendo..."
         },
         "theme": {
             "title": "Tema",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Exportações JSON simples são mais fáceis de inspecionar, mas qualquer pessoa que abrir o arquivo poderá ler seus dados da casa imediatamente.",
             "import_encrypted_title": "Desbloquear backup criptografado",
             "import_encrypted_body": "Digite a senha usada no download para restaurar este arquivo criptografado.",
-            "unlock_and_import": "Desbloquear e importar"
+            "unlock_and_import": "Desbloquear e importar",
+            "export_encrypted_notice": "O backup é preparado a partir dos dados da casa ao vivo e depois criptografado com a senha que você escolher. Guarde essa senha em um lugar seguro, pois ela será necessária para restaurar o arquivo mais tarde.",
+            "export_encrypted_title": "A criptografia será aplicada antes do download",
+            "import_summary_body": "{{items}} itens, {{categories}} categorias, {{rooms}} quartos, {{locations}} locais, {{borrows}} registros de empréstimo restaurados.",
+            "import_summary_title": "Backup restaurado",
+            "preview_categories": "Categorias",
+            "preview_items": "Itens",
+            "preview_locations": "Locais",
+            "preview_rooms": "Quartos",
+            "skipped_borrows": "{{count}} registros de empréstimo existentes foram ignorados.",
+            "skipped_categories": "{{count}} categorias existentes foram ignoradas.",
+            "skipped_items": "{{count}} itens existentes ignorados.",
+            "skipped_locations": "{{count}} locais existentes ignorados.",
+            "skipped_rooms": "{{count}} salas existentes ignoradas."
         },
         "about": {
             "title": "📱 Sobre o aplicativo",
@@ -733,7 +762,10 @@
             "privacy_link": "Política de Privacidade",
             "beta_title": "Status beta",
             "beta_body": "{{brandName}} ainda está em beta. Os recursos podem mudar, os fluxos de trabalho podem evoluir e os dados importantes da casa sempre devem ser copiados.",
-            "feedback_subject": "Feedback - {{brandName}}"
+            "feedback_subject": "Feedback - {{brandName}}",
+            "logout_body": "Quaisquer alterações não salvas em formulários abertos podem ser perdidas após você sair desta sessão.",
+            "logout_description": "Você retornará à página inicial e poderá entrar novamente a qualquer momento.",
+            "logout_title": "Sair agora?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Item emprestado",
             "lend_success_body": "{{item}} agora está marcado como emprestado.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Com você",
+            "return_pending_hint": "O registro será fechado após o credor confirmar que recebeu o item de volta.",
+            "return_pending_lender_title": "{{name}} marcou este item como entregue de volta",
+            "return_pending_self_title": "Com você, aguardando confirmação de recebimento"
         },
         "untitled_item": "Item sem título",
         "delete_action": "Excluir item",
@@ -1023,7 +1059,10 @@
         "name_required": "Nome da categoria é necessário",
         "load_error": "Erro ao carregar categorias",
         "add_error": "Erro ao adicionar categoria",
-        "update_error": "Erro ao atualizar categoria"
+        "update_error": "Erro ao atualizar categoria",
+        "color_required": "A cor deve estar no formato #RRGGBB",
+        "empty_description": "Crie algumas categorias para que novos itens sigam a mesma estrutura e sejam mais fáceis de consultar depois.",
+        "empty_title": "Ainda não há categorias"
     },
     "rooms": {
         "title": "Quartos",
@@ -1097,7 +1136,9 @@
         "name_required": "Nome do cômodo é necessário",
         "load_error": "Erro ao carregar cômodos",
         "add_error": "Erro ao adicionar cômodo",
-        "update_error": "Erro ao atualizar cômodo"
+        "update_error": "Erro ao atualizar cômodo",
+        "empty_description": "Crie cômodos como cozinha, depósito ou garagem para que as localizações dos itens permaneçam consistentes e mais fáceis de procurar.",
+        "empty_title": "Ainda não há cômodos"
     },
     "admin": {
         "title": "Painel de administração",
@@ -1178,7 +1219,12 @@
             "households_label": "Famílias",
             "items_label": "Itens possuídos",
             "last_seen_short": "Visto",
-            "last_seen_short_never": "Novo"
+            "last_seen_short_never": "Novo",
+            "failed_logins": "{{count}} tentativas de login falhadas",
+            "load_failed_title": "Usuários não puderam ser carregados",
+            "pending_requests": "{{count}} solicitações de casa pendentes",
+            "role_admin": "Administrador",
+            "role_user": "Usuário"
         },
         "logs": {
             "title": "Registros administrativos",
@@ -1210,7 +1256,9 @@
             "section_body": "Cada alteração de moderação ou operação registrada pela camada de administração.",
             "errors_body": "As linhas de erro mais recentes analisadas dos arquivos de log do servidor.",
             "section_eyebrow": "Registro de auditoria",
-            "errors_eyebrow": "Diagnósticos"
+            "errors_eyebrow": "Diagnósticos",
+            "load_failed_title": "Atividade não pôde ser carregada",
+            "no_logs_title": "Nenhuma ação de administrador ainda"
         },
         "email": {
             "status_title": "Status do e-mail de saída",
@@ -1244,7 +1292,14 @@
             "info_bullet_1": "Os emails são enviados de {{supportEmail}}",
             "info_bullet_2": "Você pode enviar no máximo 3 emails por minuto para evitar spam",
             "info_bullet_3": "Todos os envios são registrados por segurança, excluindo o conteúdo",
-            "status_eyebrow": "Entrega"
+            "status_eyebrow": "Entrega",
+            "configured_body": "Reenviar está disponível para mensagens de saída acionadas pelo administrador.",
+            "configured_title": "Entrega de e-mail está configurada",
+            "error_title": "Falha no envio do e-mail",
+            "format_hint": "HTML é suportado. Por exemplo: <b>negrito</b>, <i>itálico</i>, <a href=\"...\">link</a>",
+            "from_label": "Remetente",
+            "load_failed_title": "As ferramentas de e-mail não puderam ser carregadas",
+            "success_title": "E-mail enviado"
         },
         "overview": {
             "email_warning_title": "O envio de e-mails não está configurado",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Estatísticas carregadas",
         "logs_loaded": "Logs carregados",
         "load_error": "Erro ao carregar dados",
-        "action_error": "Erro ao executar ação"
+        "action_error": "Erro ao executar ação",
+        "load_failed_body": "A rota do administrador está aberta, mas os dados de visão geral não chegaram. Você pode tentar novamente sem sair da página.",
+        "load_failed_title": "Visão geral do administrador não pôde ser carregada"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "O endereço da rede permanece oculto aqui. Digitalize o código ou copie o link apenas quando quiser compartilhar o acesso direto ao item na sua configuração local.",
         "helper": "Digitalize para abrir este item instantaneamente, ou copie o link direto quando necessário.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Preparando ferramentas de QR..."
     },
     "house_access_pending": {
         "eyebrow": "Acesso à Casa",
@@ -1859,7 +1917,11 @@
             "name_required": "É necessário um nome de item para um registro do cofre.",
             "options_failed": "As opções de categoria e de quarto não puderam ser carregadas.",
             "delete_success_title": "Registro do cofre excluído",
-            "delete_success_body": "O registro privado foi removido permanentemente do seu cofre."
+            "delete_success_body": "O registro privado foi removido permanentemente do seu cofre.",
+            "passphrase_lowercase": "Inclua pelo menos uma letra minúscula.",
+            "passphrase_min_length": "A senha do cofre deve ter pelo menos 12 caracteres.",
+            "passphrase_number": "Inclua pelo menos um número.",
+            "passphrase_uppercase": "Inclua pelo menos uma letra maiúscula."
         },
         "recovery_file_title": "Chave de Recuperação do Cofre Pessoal do {{brandName}}",
         "recovery_file_created_label": "Criado",

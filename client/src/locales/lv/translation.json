@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Ja atstājat garantijas sākuma datumu tukšu, tiek izmantots rēķina datums. Kad ievadāt ilgumu, garantijas beigu datums tiek aprēķināts automātiski.",
             "vault_hint_title": "Ļoti sensitīvs ieraksts?",
             "vault_hint_description": "Pasei, nolīgumiem, identitātes datiem, piekļuves kodiem un citiem ierakstiem, kas jāuzglabā ārpus standarta inventāra plūsmas, glabājiet tos Personīgajā seifā.",
-            "vault_hint_action": "Atvērt Personīgo seifu"
+            "vault_hint_action": "Atvērt Personīgo seifu",
+            "location": "Atrašanās vieta",
+            "remove_photo": "Noņemt foto",
+            "visibility_owner_only": "Tikai persona, kas pievienoja priekšmetu, var mainīt redzamību."
         },
         "messages": {
             "quick_add_success": "✓ „{{barcode}}” ātra pievienošana - vēlāk var rediģēt",
@@ -115,7 +118,8 @@
         "delete_error": "Kļūda, dzēšot vienumu",
         "no_permission": "No permission",
         "barcode_search_error": "Svītrkoda meklēšana neizdevās",
-        "stats_error": "Stats error"
+        "stats_error": "Stats error",
+        "detail_subtitle": "Priekšmeta detaļas"
     },
     "common": {
         "save": "Saglabāt",
@@ -162,7 +166,11 @@
         "unauthorized": "Nesankcionēta piekļuve",
         "forbidden": "Permission denied",
         "validation_error": "Validācijas kļūda",
-        "server_error": "Servera kļūda"
+        "server_error": "Servera kļūda",
+        "details": "Detaļas",
+        "hide": "Paslēpt paroli",
+        "logging_out": "Atteikšanās no konta...",
+        "show": "Rādīt paroli"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Verificējiet",
                 "back": "atpakaļ",
                 "use_backup": "Izmantojiet rezerves kodu",
-                "use_totp": "Izmantojiet autentifikatoru"
+                "use_totp": "Izmantojiet autentifikatoru",
+                "code_required": "Nepieciešams verifikācijas kods"
             },
             "welcome_title": "Laipni lūdzam atpakaļ",
             "welcome_subtitle": "Pierakstieties, lai piekļūtu saviem krājumiem",
@@ -632,7 +641,10 @@
             "info": "💡 Jūs varat būt vairāku māju biedrs un pārslēgties starp tām. Katrai mājai ir atsevišķs inventārs.",
             "accordion_description": "Pārslēdzieties starp mājsaimniecībām, izveidojiet jaunu vai pievienojieties esošai ar uzticamu atslēgu.",
             "empty_description": "Izveidojiet jaunu mājsaimniecību, lai sāktu dalīšanos, vai pievienojieties jau esošai ar uzticamu mājas atslēgu.",
-            "leave_success_body": "Jums vairs nav piekļuves šai mājsaimniecībai, un jūsu aktīvā māja tika atjaunināta."
+            "leave_success_body": "Jums vairs nav piekļuves šai mājsaimniecībai, un jūsu aktīvā māja tika atjaunināta.",
+            "leave_title": "Atstāt šo māju?",
+            "leave_warning": "Jūs zaudēsiet piekļuvi šim mājsaimniecības darba vietas saturam, līdz kāds cits dalībnieks atkal jūs ielūgs vai apstiprinās.",
+            "leaving": "Notiek došanās prom..."
         },
         "house_info": {
             "title": "Aktīvās mājas atslēga",
@@ -674,7 +686,11 @@
             "copy_error": "Mājas atslēgu nevarēja kopēt.",
             "modal_title": "Piekļuve mājas atslēgai",
             "modal_subtitle": "Izmantojiet šo atslēgu tikai uzticamiem mājsaimniecības locekļiem, kuriem jāpieprasa piekļuve šim koplietotajam inventāram.",
-            "loading_members": "Tiek ielādēti locekļi..."
+            "loading_members": "Tiek ielādēti locekļi...",
+            "kick_success_body": "{{name}} vairs nevar piekļūt šai mājsaimniecībai.",
+            "kick_title": "Noņemt šo dalībnieku?",
+            "kick_warning": "Viņu piekļuve mājsaimniecībai tiks nekavējoties pārtraukta, un viņiem būs nepieciešama jauna ielūguma vai apstiprinājuma, lai atgrieztos.",
+            "kicking": "Notiek noņemšana..."
         },
         "theme": {
             "title": "Temats",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Pārlūkotie JSON faili ir vieglāk pārbaudāmi, bet ikviens, kurš atver failu, var uzreiz lasīt jūsu mājsaimniecības datus.",
             "import_encrypted_title": "Atslēgt šifrēto rezerves kopiju",
             "import_encrypted_body": "Ievadiet rezerves paroli, kas tika izmantota lejupielādes laikā, lai atjaunotu šo šifrēto failu.",
-            "unlock_and_import": "Atslēgt un importēt"
+            "unlock_and_import": "Atslēgt un importēt",
+            "export_encrypted_notice": "Rezerves kopija ir sagatavota no tiešajiem mājsaimniecības datiem un pēc tam sagatavota ar jūsu izvēlēto paroli. Glabājiet šo paroli drošā vietā, jo tā būs nepieciešama, lai vēlāk atjaunotu failu.",
+            "export_encrypted_title": "Šifrēšana tiks piemērota pirms lejupielādes",
+            "import_summary_body": "Atjaunoti {{items}} priekšmeti, {{categories}} kategorijas, {{rooms}} istabas, {{locations}} atrašanās vietas, {{borrows}} aizņemšanās ieraksti.",
+            "import_summary_title": "Rezerves kopija atjaunota",
+            "preview_categories": "Kategorijas",
+            "preview_items": "Preces",
+            "preview_locations": "Atrašanās vietas",
+            "preview_rooms": "Istabas",
+            "skipped_borrows": "{{count}} esošie aizņemšanās ieraksti izlaisti.",
+            "skipped_categories": "{{count}} esošās kategorijas izlaistas.",
+            "skipped_items": "{{count}} esošie vienumi tika pārlēkti.",
+            "skipped_locations": "{{count}} esošās atrašanās vietas tika pārlēktas.",
+            "skipped_rooms": "{{count}} esošās telpas tika pārlēktas."
         },
         "about": {
             "title": "📱 Par lietotni",
@@ -733,7 +762,10 @@
             "privacy_link": "Privātuma politika",
             "beta_title": "Beta statuss",
             "beta_body": "{{brandName}} joprojām ir beta versijā. Funkcijas var mainīties, darbplūsmas var attīstīties, un svarīgi mājsaimniecības dati vienmēr jārezervē.",
-            "feedback_subject": "Atsauksmes - {{brandName}}"
+            "feedback_subject": "Atsauksmes - {{brandName}}",
+            "logout_body": "Jebkuras nesaglabātās izmaiņas atvērtajos formās var tikt zaudētas pēc tam, kad jūs pametat šo sesiju.",
+            "logout_description": "Jūs atgriezīsities sākumlapā un varat pieslēgties jebkurā laikā.",
+            "logout_title": "Izrakstīties tagad?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Vienība izsniegta",
             "lend_success_body": "{{item}} tagad ir atzīmēts kā aizņemts.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Pie jums",
+            "return_pending_hint": "Ieraksts tiks aizvērts, pēc tam kad aizdevējs apstiprinās, ka objekts ir saņemts atpakaļ.",
+            "return_pending_lender_title": "{{name}} atzīmēja šo priekšmetu kā atpakaļ piegādātu",
+            "return_pending_self_title": "Pie jums, gaidot saņemšanas apstiprinājumu"
         },
         "untitled_item": "Nesaukts priekšmets",
         "delete_action": "Dzēst vienumu",
@@ -1023,7 +1059,10 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "color_required": "Krāsai jābūt #RRGGBB formātā",
+        "empty_description": "Izveidojiet dažas kategorijas, lai jauni priekšmeti sekotu tai pašai struktūrai un tos vēlāk būtu vieglāk pārskatīt.",
+        "empty_title": "Vēl nav kategoriju"
     },
     "rooms": {
         "title": "Istabas",
@@ -1097,7 +1136,9 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "empty_description": "Izveidojiet telpas, piemēram, virtuvi, noliktavu vai garāžu, lai priekšmetu atrašanās vietas būtu konsekventas un vieglāk meklējamas.",
+        "empty_title": "Vēl nav telpu"
     },
     "admin": {
         "title": "Administrācijas panelis",
@@ -1176,7 +1217,12 @@
             "households_label": "Mājsaimniecības",
             "items_label": "Piederumi",
             "last_seen_short": "Redzēts",
-            "last_seen_short_never": "Jauns"
+            "last_seen_short_never": "Jauns",
+            "failed_logins": "{{count}} neveiksmīgas pieteikšanās",
+            "load_failed_title": "Lietotāji nevarēja ielādēt",
+            "pending_requests": "{{count}} gaidoši mājas pieprasījumi",
+            "role_admin": "Admins",
+            "role_user": "Lietotājs"
         },
         "logs": {
             "title": "Administratora žurnāli",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Audita pēdas",
             "errors_eyebrow": "Diagnostika",
             "section_body": "Katrā administrācijas slāņa fiksētajā moderācijā vai darbības izmaiņā.",
-            "errors_body": "Jaunākās analizētās kļūdu rindas no servera žurnāla failiem."
+            "errors_body": "Jaunākās analizētās kļūdu rindas no servera žurnāla failiem.",
+            "load_failed_title": "Aktivitāte nevarēja ielādēt",
+            "no_logs_title": "Vēl nav admina darbību"
         },
         "email": {
             "title": "Sūtīt e-pastu",
@@ -1242,7 +1290,14 @@
             "status_body": "Ātra pārliecības pārbaude pirms operacionālās saziņas nosūtīšanas.",
             "unconfigured_title": "E-pasta piegāde nav konfigurēta",
             "unconfigured_body": "Sūtīšanas forma paliek redzama pārskatīšanai, taču piegāde neizdosies, līdz e-pasta sniedzējs netiks konfigurēts.",
-            "status_eyebrow": "Piegāde"
+            "status_eyebrow": "Piegāde",
+            "configured_body": "Atkārtota nosūtīšana ir pieejama admina aktivizētiem izejošajiem ziņojumiem.",
+            "configured_title": "E-pasta piegāde ir konfigurēta",
+            "error_title": "E-pasts neizdevās",
+            "format_hint": "HTML tiek atbalstīts. Piemēram: <b>treknraksts</b>, <i>kursīvs</i>, <a href=\"...\">saite</a>",
+            "from_label": "Sūtītājs",
+            "load_failed_title": "E-pasta rīki nevarēja ielādēt",
+            "success_title": "E-pasts nosūtīts"
         },
         "overview": {
             "email_warning_title": "E-pasta piegāde nav konfigurēta",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Stats loaded",
         "logs_loaded": "Ielādēti baļķi",
         "load_error": "Error loading",
-        "action_error": "Action error"
+        "action_error": "Action error",
+        "load_failed_body": "Admina maršruts ir atvērts, bet pārskata dati nav saņemti. Jūs varat mēģināt vēlreiz, neizejot no lapas.",
+        "load_failed_title": "Admina pārskats nevarēja ielādēt"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Tīkla adrese šeit paliek slēpta. Skatiet kodu vai kopējiet saiti tikai tad, ja jums apzināti vajadzīgs dalīties ar tiešu piekļuvi vienumam savā lokālajā vidē.",
         "helper": "Skatiet, lai uzreiz atvērtu šo vienumu, vai kopējiet tiešo saiti pēc nepieciešamības.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Sagatavo QR rīkus..."
     },
     "house_access_pending": {
         "eyebrow": "Pieeja mājai",
@@ -1859,7 +1917,11 @@
             "name_required": "Seifa ierakstam jānorāda vienuma nosaukums.",
             "options_failed": "Kategorijas un istabas iespējas nevarēja ielādēt.",
             "delete_success_title": "Glabātuves ieraksts dzēsts",
-            "delete_success_body": "Privātais ieraksts tika pastāvīgi noņemts no jūsu glabātuves."
+            "delete_success_body": "Privātais ieraksts tika pastāvīgi noņemts no jūsu glabātuves.",
+            "passphrase_lowercase": "Iekļaujiet vismaz vienu mazburtu burtu.",
+            "passphrase_min_length": "Vault parolei jābūt vismaz 12 rakstzīmju garai.",
+            "passphrase_number": "Iekļaujiet vismaz vienu ciparu.",
+            "passphrase_uppercase": "Iekļaujiet vismaz vienu lielo burtu."
         },
         "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
         "recovery_file_created_label": "Izveidots",

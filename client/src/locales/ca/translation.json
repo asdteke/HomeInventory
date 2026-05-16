@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Si deixeu buit la data d'inici de la garantia, s'utilitza la data de la factura. Quan introduïu la durada, la data de finalització de la garantia es calcula automàticament.",
             "vault_hint_title": "Necessites més privadesa?",
             "vault_hint_description": "Per a passaports, escriptures, detalls d'identitat, codis d'accés i altres registres que haurien de romandre fora del vostre inventari compartit, emmagatzemeu-los a la Bóveda Personal en canvi.",
-            "vault_hint_action": "Obre la Bóveda Personal"
+            "vault_hint_action": "Obre la Bóveda Personal",
+            "location": "Ubicació",
+            "remove_photo": "Elimina la foto",
+            "visibility_owner_only": "Només la persona que va afegir l'element pot canviar la visibilitat."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" afegit ràpidament - pots editar-lo més tard",
@@ -115,7 +118,8 @@
         "delete_error": "Error en eliminar l'element",
         "no_permission": "No tens permís per modificar aquest objecte",
         "barcode_search_error": "Fallida la cerca de codis de barres",
-        "stats_error": "Estadístiques de càrrega d'errors"
+        "stats_error": "Estadístiques de càrrega d'errors",
+        "detail_subtitle": "Detalls de l'element"
     },
     "common": {
         "save": "Desa",
@@ -162,7 +166,11 @@
         "unauthorized": "Accés no autoritzat",
         "forbidden": "No tens permís per a aquesta acció",
         "validation_error": "Error de validació",
-        "server_error": "Error del servidor"
+        "server_error": "Error del servidor",
+        "details": "Detalls",
+        "hide": "Amaga la contrasenya",
+        "logging_out": "Tancant sessió...",
+        "show": "Mostra la contrasenya"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Verifica",
                 "back": "Enrere",
                 "use_backup": "Utilitza el codi de còpia de seguretat",
-                "use_totp": "Utilitza l'autenticador"
+                "use_totp": "Utilitza l'autenticador",
+                "code_required": "Es requereix un codi de verificació"
             },
             "welcome_title": "Ben tornat",
             "welcome_subtitle": "Inicia sessió per accedir al teu inventari",
@@ -632,7 +641,10 @@
             "info": "Pots ser membre de diverses cases i canviar entre elles. Cada llar manté el seu propi inventari.",
             "accordion_description": "Canvia entre llars, crea'n una de nova o uneix-te a una existent amb una clau de confiança.",
             "empty_description": "Crea un nou habitatge per començar a compartir, o uneix-te a una amb una clau de casa de confiança.",
-            "leave_success_body": "Ja no tens accés a aquesta llar i la teva casa activa ha estat actualitzada."
+            "leave_success_body": "Ja no tens accés a aquesta llar i la teva casa activa ha estat actualitzada.",
+            "leave_title": "Vols sortir d'aquesta casa?",
+            "leave_warning": "Perdràs l'accés a l'espai de treball d'aquesta llar fins que un altre membre t'inviti o t'aprovi de nou.",
+            "leaving": "Sortint..."
         },
         "house_info": {
             "title": "Clau de la Casa Activa",
@@ -674,7 +686,11 @@
             "copy_error": "No s'ha pogut copiar la clau de la casa.",
             "modal_title": "Accés amb la clau de la casa",
             "modal_subtitle": "Utilitzeu aquesta clau només per a membres de la llar de confiança que hagin de sol·licitar accés a aquest inventari compartit.",
-            "loading_members": "Carregant membres..."
+            "loading_members": "Carregant membres...",
+            "kick_success_body": "{{name}} ja no té accés a aquesta llar.",
+            "kick_title": "Vols eliminar aquest membre?",
+            "kick_warning": "El seu accés a la llar acabarà immediatament i necessitarà una nova invitació o aprovació per tornar.",
+            "kicking": "Eliminant..."
         },
         "theme": {
             "title": "Tema",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Les exportacions en JSON pla són més fàcils d'inspeccionar, però qualsevol persona que obri el fitxer pot llegir immediatament les dades de la teva llar.",
             "import_encrypted_title": "Desbloqueja la còpia de seguretat xifrada",
             "import_encrypted_body": "Introduïu la frase de pas de còpia de seguretat utilitzada durant la descàrrega per restaurar aquest fitxer xifrat.",
-            "unlock_and_import": "Desbloqueja i importa"
+            "unlock_and_import": "Desbloqueja i importa",
+            "export_encrypted_notice": "La còpia de seguretat es prepara amb les dades domèstiques en viu i després s'envolta amb la contrasenya que triïs. Guarda aquesta contrasenya en un lloc segur perquè serà necessària per restaurar l'arxiu més endavant.",
+            "export_encrypted_title": "L'encriptació s'aplicarà abans de la descàrrega",
+            "import_summary_body": "{{items}} articles, {{categories}} categories, {{rooms}} habitacions, {{locations}} ubicacions, {{borrows}} registres de préstec restaurats.",
+            "import_summary_title": "Còpia de seguretat restaurada",
+            "preview_categories": "Categories",
+            "preview_items": "Articles",
+            "preview_locations": "Ubicacions",
+            "preview_rooms": "Habitacions",
+            "skipped_borrows": "S'han ignorat {{count}} registres de préstec existents.",
+            "skipped_categories": "S'han ignorat {{count}} categories existents.",
+            "skipped_items": "{{count}} elements existents s'han saltat.",
+            "skipped_locations": "{{count}} ubicacions existents s'han saltat.",
+            "skipped_rooms": "{{count}} habitacions existents s'han saltat."
         },
         "about": {
             "title": "Sobre l'aplicació",
@@ -733,7 +762,10 @@
             "privacy_link": "Polítiques de Privacitat",
             "beta_title": "Estat beta",
             "beta_body": "{{brandName}} encara està en beta. Les funcions poden canviar, els fluxos de treball poden evolucionar i sempre s'haurien de fer còpies de seguretat de les dades domèstiques importants.",
-            "feedback_subject": "Comentaris - {{brandName}}"
+            "feedback_subject": "Comentaris - {{brandName}}",
+            "logout_body": "Qualsevol canvi no desat en els formularis oberts es pot perdre després de sortir d'aquesta sessió.",
+            "logout_description": "Tornaràs a la pàgina principal i podràs tornar a iniciar sessió en qualsevol moment.",
+            "logout_title": "Tancar sessió ara?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Article prestat",
             "lend_success_body": "{{item}} ara està marcat com prestat.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "Amb tu",
+            "return_pending_hint": "El registre es tancarà després que el prestador confirmi que ha rebut l'element de tornada.",
+            "return_pending_lender_title": "{{name}} ha marcat aquest element com a tornat lliurat",
+            "return_pending_self_title": "Amb tu, esperant confirmació de recepció"
         },
         "untitled_item": "Article sense títol",
         "delete_action": "Suprimeix l'article",
@@ -1023,7 +1059,10 @@
         "name_required": "Cal el nom de la categoria",
         "load_error": "Categories de càrrega d'errors",
         "add_error": "Categoria d'afegit d'errors",
-        "update_error": "Categoria d'actualització d'errors"
+        "update_error": "Categoria d'actualització d'errors",
+        "color_required": "El color ha de tenir el format #RRGGBB",
+        "empty_description": "Crea algunes categories perquè els nous elements segueixin la mateixa estructura i siguin més fàcils de consultar més endavant.",
+        "empty_title": "Encara no hi ha categories"
     },
     "rooms": {
         "title": "Habitacions",
@@ -1097,7 +1136,9 @@
         "name_required": "Cal el nom de l'habitació",
         "load_error": "Sales de càrrega d'errors",
         "add_error": "Error afegint espai",
-        "update_error": "Sala d'actualització d'errors"
+        "update_error": "Sala d'actualització d'errors",
+        "empty_description": "Crea habitacions com cuina, traster o garatge perquè les ubicacions dels elements es mantinguin coherents i siguin més fàcils de cercar.",
+        "empty_title": "Encara no hi ha habitacions"
     },
     "admin": {
         "title": "Panell d'Administració",
@@ -1176,7 +1217,12 @@
             "households_label": "Llar",
             "items_label": "Articles posseïts",
             "last_seen_short": "Vist",
-            "last_seen_short_never": "Nou"
+            "last_seen_short_never": "Nou",
+            "failed_logins": "{{count}} intents d'inici de sessió fallits",
+            "load_failed_title": "No s'han pogut carregar els usuaris",
+            "pending_requests": "{{count}} sol·licituds de cases pendents",
+            "role_admin": "Administrador",
+            "role_user": "Usuari"
         },
         "logs": {
             "title": "Registres d'Administrador",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Traça d'auditoria",
             "errors_eyebrow": "Diagnòstics",
             "section_body": "Cada moderació o canvi operatiu registrat per la capa d'administració.",
-            "errors_body": "Les últimes línies d'error analitzades dels fitxers de registre del servidor."
+            "errors_body": "Les últimes línies d'error analitzades dels fitxers de registre del servidor.",
+            "load_failed_title": "No s'ha pogut carregar l'activitat",
+            "no_logs_title": "Encara no hi ha accions d'administrador"
         },
         "email": {
             "title": "Enviar correu electrònic",
@@ -1242,7 +1290,14 @@
             "status_body": "Una ràpida comprovació de confiança abans d'enviar comunicació operativa.",
             "unconfigured_title": "L'entrega de correu no està configurada",
             "unconfigured_body": "El formulari d'enviament roman visible per a la revisió de la configuració, però l'entrega fallarà fins que el proveïdor de correu estigui configurat.",
-            "status_eyebrow": "Lliurament"
+            "status_eyebrow": "Lliurament",
+            "configured_body": "El reenviament està disponible per a missatges sortints activats per l'administrador.",
+            "configured_title": "La entrega de correu electrònic està configurada",
+            "error_title": "El correu electrònic ha fallat",
+            "format_hint": "Es compatible amb HTML. Per exemple: <b>negreta</b>, <i>cursiva</i>, <a href=\"...\">enllaç</a>",
+            "from_label": "Remitent",
+            "load_failed_title": "No s'han pogut carregar les eines de correu electrònic",
+            "success_title": "Correu electrònic enviat"
         },
         "overview": {
             "email_warning_title": "L'enviament de correu electrònic no està configurat",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Estadístiques carregades",
         "logs_loaded": "Registres carregats",
         "load_error": "Dades de càrrega d'errors",
-        "action_error": "Error realitzant acció"
+        "action_error": "Error realitzant acció",
+        "load_failed_body": "La ruta d'administrador està oberta, però les dades generals no han arribat. Pots tornar-ho a provar sense sortir de la pàgina.",
+        "load_failed_title": "No s'ha pogut carregar la visió general de l'administrador"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "L'adreça de la xarxa es manté oculta aquí. Escaneja el codi o copia l'enllaç només quan vulguis compartir intencionadament l'accés directe a l'element a la teva configuració local.",
         "helper": "Escaneja per obrir aquest element immediatament, o copia l'enllaç directe quan calgui.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Preparant eines QR..."
     },
     "house_access_pending": {
         "eyebrow": "Accés a la casa",
@@ -1859,7 +1917,11 @@
             "name_required": "Es necessita un nom d'element per a un registre de la bústia.",
             "options_failed": "No s'han pogut carregar les opcions de categoria i d'habitació.",
             "delete_success_title": "Registre de la bústia eliminat",
-            "delete_success_body": "El registre privat s'ha eliminat permanentment de la teva bústia."
+            "delete_success_body": "El registre privat s'ha eliminat permanentment de la teva bústia.",
+            "passphrase_lowercase": "Inclou almenys una lletra minúscula.",
+            "passphrase_min_length": "La frase de pas de la caixa forta ha de tenir almenys 12 caràcters.",
+            "passphrase_number": "Inclou almenys un número.",
+            "passphrase_uppercase": "Inclou almenys una lletra majúscula."
         },
         "recovery_file_title": "Clau de recuperació de la Bóveda Personal de {{brandName}}",
         "recovery_file_created_label": "Creat",

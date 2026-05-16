@@ -7,9 +7,7 @@ const LOGO_RESERVE_SIZE = 11.4;
 const LOGO_RESERVE_RADIUS = 2.3;
 const LOGO_BADGE_SIZE = 9.6;
 const LOGO_BADGE_RADIUS = 2.15;
-const LOGO_INNER_PLATE_SIZE = 7.4;
-const LOGO_INNER_PLATE_RADIUS = 1.75;
-const LOGO_IMAGE_SIZE = 6.2;
+const LOGO_IMAGE_SIZE = 6.8;
 
 function rectToSvg(x, y, width, height, radius, fill, extra = '') {
     return `<rect x="${x}" y="${y}" width="${width}" height="${height}" rx="${radius}" ry="${radius}" fill="${fill}"${extra ? ` ${extra}` : ''}/>`;
@@ -91,30 +89,13 @@ function renderStyledQrSvg(qrData, { width, logoDataUrl }) {
     const logoBadge = hasLogo
         ? [
             rectToSvg(
-                center - (LOGO_BADGE_SIZE / 2) - 0.2,
-                center - (LOGO_BADGE_SIZE / 2) + 0.22,
-                LOGO_BADGE_SIZE + 0.4,
-                LOGO_BADGE_SIZE + 0.4,
-                LOGO_BADGE_RADIUS + 0.16,
-                '#dfe6ec',
-                'opacity="0.34"'
-            ),
-            rectToSvg(
                 center - (LOGO_BADGE_SIZE / 2),
                 center - (LOGO_BADGE_SIZE / 2),
                 LOGO_BADGE_SIZE,
                 LOGO_BADGE_SIZE,
                 LOGO_BADGE_RADIUS,
                 QR_LIGHT_COLOR,
-                'stroke="#d7dfd8" stroke-width="0.24"'
-            ),
-            rectToSvg(
-                center - (LOGO_INNER_PLATE_SIZE / 2),
-                center - (LOGO_INNER_PLATE_SIZE / 2),
-                LOGO_INNER_PLATE_SIZE,
-                LOGO_INNER_PLATE_SIZE,
-                LOGO_INNER_PLATE_RADIUS,
-                '#edf3f7'
+                'stroke="#d7dfd8" stroke-width="0.18"'
             ),
             `<image href="${logoDataUrl}" x="${center - (LOGO_IMAGE_SIZE / 2)}" y="${center - (LOGO_IMAGE_SIZE / 2)}" width="${LOGO_IMAGE_SIZE}" height="${LOGO_IMAGE_SIZE}" preserveAspectRatio="xMidYMid meet" opacity="0.99"/>`
         ].join('')

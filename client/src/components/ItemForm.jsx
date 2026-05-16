@@ -2,7 +2,7 @@ import { Suspense, lazy, useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, Camera, X, Lock, Globe, MapPin, Plus, Loader2, ChevronDown, Check, QrCode, ScanBarcode, Search, ExternalLink, CalendarDays } from 'lucide-react';
+import { ArrowLeft, Camera, X, Lock, Globe, MapPin, Plus, Loader2, ChevronDown, Check, QrCode, ScanBarcode, Search, ExternalLink, CalendarDays, Edit3 } from 'lucide-react';
 import SecureImage from './SecureImage';
 import { MAX_PHOTO_UPLOAD_MB, isPhotoUploadTooLarge } from '../utils/mediaLimits';
 import { formatBorrowDate, formatBorrowDateTime, isBorrowOverdue } from '../utils/borrowFormatting';
@@ -59,6 +59,21 @@ const WARRANTY_DURATION_OPTIONS = [
 ];
 
 const DATE_INPUT_PLACEHOLDER = 'DD.MM.YYYY';
+
+function DetailField({ label, value, mono = false }) {
+    if (value === null || value === undefined || value === '') {
+        return null;
+    }
+
+    return (
+        <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
+            <p className="text-xs text-[var(--hi-text-muted)]">{label}</p>
+            <p className={`mt-1 font-medium text-[var(--hi-text)] [overflow-wrap:anywhere] ${mono ? 'font-mono text-sm' : ''}`}>
+                {value}
+            </p>
+        </div>
+    );
+}
 
 function isPresetCurrency(code) {
     return CURRENCY_OPTIONS.some((currency) => currency.code === code);
@@ -236,6 +251,7 @@ export default function ItemForm() {
     const [borrowHistory, setBorrowHistory] = useState([]);
     const [borrowHistoryLoading, setBorrowHistoryLoading] = useState(isEditing);
     const [canManageVisibility, setCanManageVisibility] = useState(!isEditing);
+    const [isDetailEditMode, setIsDetailEditMode] = useState(!isEditing);
     const currentLanguage = i18n.resolvedLanguage || i18n.language;
 
     const getVisibleCategoryName = (category) => getCategoryPresentation(category, currentLanguage).name;
@@ -818,6 +834,16 @@ export default function ItemForm() {
         formData.warranty_duration_unit
     );
     const displayedWarrantyExpiryDate = calculatedWarrantyExpiryDate || formData.warranty_expiry_date;
+    const selectedCategory = categories.find((category) => String(category.id) === String(formData.category_id));
+    const selectedRoom = rooms.find((room) => String(room.id) === String(formData.room_id));
+    const visibleCategoryName = selectedCategory ? getVisibleCategoryName(selectedCategory) : '';
+    const visibleRoomName = selectedRoom ? getVisibleRoomName(selectedRoom) : '';
+    const displayInvoiceCurrency = formData.invoice_currency === CUSTOM_CURRENCY_OPTION
+        ? formData.invoice_currency_custom
+        : formData.invoice_currency;
+    const displayWarrantyDuration = formData.warranty_duration_value && formData.warranty_duration_unit
+        ? `${formData.warranty_duration_value} ${t(WARRANTY_DURATION_OPTIONS.find((option) => option.code === formData.warranty_duration_unit)?.labelKey || 'items.form.warranty_duration_months')}`
+        : '';
 
     const hasInvoiceContent = Boolean(
         invoicePhotoPreview ||
@@ -831,8 +857,221 @@ export default function ItemForm() {
         formData.warranty_expiry_date
     );
     const activeBorrowOverdue = isBorrowOverdue(activeBorrow);
+    const activeBorrowReturnPending = Boolean(activeBorrow?.return_requested_at);
+    const getActiveBorrowTitle = (borrow) => {
+        if (!borrow) {
+            return '';
+        }
+
+        const borrowerName = borrow.borrower_display_name || t('inventory.borrow.unknown');
+        if (borrow.return_requested_at) {
+            if (borrow.role === 'borrower') {
+                return t('inventory.borrow.return_pending_self_title', { defaultValue: 'With you, waiting for receipt confirmation' });
+            }
+
+            return t('inventory.borrow.return_pending_lender_title', {
+                name: borrowerName,
+                defaultValue: '{{name}} marked this item as delivered back'
+            });
+        }
+
+        if (borrow.role === 'borrower') {
+            return t('inventory.borrow.borrowed_by_you', { defaultValue: 'With you' });
+        }
+
+        return t('inventory.borrow.borrowed_to', { name: borrowerName });
+    };
+    const getHistoryTitle = (entry) => {
+        if (entry.returned_at) {
+            return t('inventory.borrow.history_returned', { name: entry.borrower_display_name || t('inventory.borrow.unknown') });
+        }
+
+        if (activeBorrow && entry.id === activeBorrow.id) {
+            return getActiveBorrowTitle(activeBorrow);
+        }
+
+        return t('inventory.borrow.history_active', { name: entry.borrower_display_name || t('inventory.borrow.unknown') });
+    };
 
     if (fetching) return <div className="flex justify-center py-20"><div className="spinner"></div></div>;
+
+    if (isEditing && !isDetailEditMode) {
+        return (
+            <div className="mx-auto max-w-2xl animate-fade-in">
+                <div className="mb-6 flex items-center justify-between gap-4">
+                    <div className="flex min-w-0 items-center gap-4">
+                        <button
+                            onClick={() => navigate(-1)}
+                            className="inline-flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)] transition-colors hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)]"
+                        >
+                            <ArrowLeft className="w-6 h-6" />
+                        </button>
+                        <div className="min-w-0">
+                            <h1 className="section-title truncate text-3xl text-[var(--hi-text)]">{formData.name || t('inventory.untitled_item')}</h1>
+                            <p className="text-sm text-[var(--hi-text-soft)]">{t('items.detail_subtitle', { defaultValue: 'Item details' })}</p>
+                        </div>
+                    </div>
+                    <button
+                        type="button"
+                        onClick={() => setIsDetailEditMode(true)}
+                        className="inline-flex items-center gap-2 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-2 text-sm font-medium text-[var(--hi-text)] transition hover:bg-[var(--hi-panel-strong)]"
+                    >
+                        <Edit3 className="h-4 w-4" />
+                        {t('common.edit')}
+                    </button>
+                </div>
+
+                <div className="space-y-5">
+                    <div className="card overflow-hidden p-0">
+                        {existingPhoto && !removePhoto && (
+                            <SecureImage src={existingPhoto} alt={formData.name} className="h-64 w-full object-cover" />
+                        )}
+                        <div className="space-y-4 p-5">
+                            {formData.description && (
+                                <p className="text-sm leading-6 text-[var(--hi-text-soft)]">{formData.description}</p>
+                            )}
+                            <div className="grid gap-3 sm:grid-cols-2">
+                                <DetailField label={t('items.form.quantity')} value={formData.quantity} />
+                                <DetailField label={t('items.form.visibility')} value={formData.is_public ? t('items.form.visibility_public') : t('items.form.visibility_private')} />
+                                <DetailField label={t('items.form.category')} value={visibleCategoryName ? `${selectedCategory?.icon || ''} ${visibleCategoryName}`.trim() : ''} />
+                                <DetailField label={t('items.form.room')} value={visibleRoomName} />
+                                <DetailField label={t('items.form.location')} value={locationSearch} />
+                                <DetailField label={t('items.form.barcode')} value={formData.barcode} mono />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="space-y-5">
+                        <div className="card space-y-4 p-5">
+                            <div>
+                                <h2 className="font-semibold text-[var(--hi-text)]">{t('items.form.invoice_section')}</h2>
+                                <p className="text-sm text-[var(--hi-text-soft)]">{t('items.form.invoice_security')}</p>
+                            </div>
+                            {hasInvoiceContent ? (
+                                <div className="space-y-4">
+                                    {existingInvoicePhoto && !removeInvoicePhoto && (
+                                        <SecureImage src={existingInvoicePhoto} alt={t('items.form.invoice_photo')} className="max-h-64 w-full rounded-xl object-cover" />
+                                    )}
+                                    <div className="grid gap-3 sm:grid-cols-2">
+                                        <DetailField label={t('items.form.invoice_price')} value={formData.invoice_price} />
+                                        <DetailField label={t('items.form.invoice_currency')} value={displayInvoiceCurrency} />
+                                        <DetailField label={t('items.form.invoice_date')} value={formData.invoice_date} />
+                                        <DetailField label={t('items.form.warranty_start_date')} value={formData.warranty_start_date || formData.invoice_date} />
+                                        <DetailField label={t('items.form.warranty_duration_value')} value={displayWarrantyDuration} />
+                                        <DetailField label={t('items.form.warranty_expiry_date')} value={displayedWarrantyExpiryDate} />
+                                    </div>
+                                </div>
+                            ) : (
+                                <p className="rounded-xl border border-dashed border-[var(--hi-border-strong)] px-4 py-3 text-sm text-[var(--hi-text-soft)]">
+                                    {t('items.form.invoice_section_collapsed')}
+                                </p>
+                            )}
+                        </div>
+
+                        <div className="card p-5">
+                            <h2 className="font-semibold text-[var(--hi-text)]">{t('items.qrcode.title')}</h2>
+                            <p className="mb-4 text-sm text-[var(--hi-text-soft)]">{t('items.qrcode.desc')}</p>
+                            <Suspense fallback={
+                                <div className="flex items-center justify-center gap-2 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-8 text-sm text-[var(--hi-text-soft)]">
+                                    <Loader2 className="h-4 w-4 animate-spin" />
+                                    <span>{t('item_qr.loading', { defaultValue: 'Preparing QR tools...' })}</span>
+                                </div>
+                            }>
+                                <ItemQRCode itemId={id} />
+                            </Suspense>
+                        </div>
+                    </div>
+
+                    <div className="card overflow-hidden p-0">
+                        <div className="border-b border-[var(--hi-border)] bg-[var(--hi-panel-strong)] px-4 py-4">
+                            <h2 className="font-semibold text-[var(--hi-text)]">{t('inventory.borrow.section_title')}</h2>
+                            <p className="text-sm text-[var(--hi-text-soft)]">{t('inventory.borrow.section_subtitle')}</p>
+                        </div>
+
+                        <div className="space-y-4 bg-[var(--hi-panel)] p-4">
+                            {activeBorrow ? (
+                                <div className={`rounded-2xl border px-4 py-3 ${activeBorrowReturnPending
+                                    ? 'border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-200'
+                                    : activeBorrowOverdue
+                                    ? 'border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-300'
+                                    : 'border-sky-200 bg-sky-50 text-sky-700 dark:border-sky-500/30 dark:bg-sky-500/10 dark:text-sky-300'
+                                    }`}>
+                                    <div className="flex flex-col gap-1">
+                                        <p className="font-medium">{getActiveBorrowTitle(activeBorrow)}</p>
+                                        {activeBorrowReturnPending && (
+                                            <p className="text-sm">{t('inventory.borrow.return_pending_hint', { defaultValue: 'The record will close after the lender confirms they received the item back.' })}</p>
+                                        )}
+                                        <p className="text-sm">{t('inventory.borrow.borrowed_at', { date: formatBorrowDateTime(activeBorrow.borrowed_at, i18n.language) })}</p>
+                                        {activeBorrow.due_date && (
+                                            <p className="text-sm">{t('inventory.borrow.due_date_label', { date: formatBorrowDate(activeBorrow.due_date, i18n.language) })}</p>
+                                        )}
+                                        {activeBorrow.note && (
+                                            <p className="text-sm">{t('inventory.borrow.note_label', { note: activeBorrow.note })}</p>
+                                        )}
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="rounded-xl border border-dashed border-[var(--hi-border-strong)] bg-[var(--hi-panel-muted)] px-4 py-3">
+                                    <p className="text-sm text-[var(--hi-text-soft)]">{t('inventory.borrow.no_active')}</p>
+                                </div>
+                            )}
+
+                            <div>
+                                <div className="mb-3 flex items-center justify-between">
+                                    <h3 className="text-sm font-semibold text-[var(--hi-text)]">{t('inventory.borrow.history_title')}</h3>
+                                    <span className="text-xs text-[var(--hi-text-muted)]">{borrowHistory.length}</span>
+                                </div>
+
+                                {borrowHistoryLoading ? (
+                                    <div className="flex justify-center py-6"><div className="spinner"></div></div>
+                                ) : borrowHistory.length > 0 ? (
+                                    <div className="space-y-3">
+                                        {borrowHistory.map((entry) => (
+                                            <div key={entry.id} className="rounded-xl border border-[var(--hi-border)] px-4 py-3">
+                                                <div className="flex flex-col gap-1">
+                                                    <p className="font-medium text-[var(--hi-text)]">{getHistoryTitle(entry)}</p>
+                                                    {!entry.returned_at && activeBorrow && entry.id === activeBorrow.id && activeBorrow.return_requested_at && (
+                                                        <p className="text-sm text-[var(--hi-text-soft)]">
+                                                            {t('inventory.borrow.return_pending_hint', { defaultValue: 'The record will close after the lender confirms they received the item back.' })}
+                                                        </p>
+                                                    )}
+                                                    <p className="text-sm text-[var(--hi-text-soft)]">
+                                                        {t('inventory.borrow.borrowed_at', { date: formatBorrowDateTime(entry.borrowed_at, i18n.language) })}
+                                                    </p>
+                                                    {entry.returned_at && (
+                                                        <p className="text-sm text-[var(--hi-text-soft)]">
+                                                            {t('inventory.borrow.returned_at', { date: formatBorrowDateTime(entry.returned_at, i18n.language) })}
+                                                        </p>
+                                                    )}
+                                                    {entry.due_date && (
+                                                        <p className="text-sm text-[var(--hi-text-soft)]">
+                                                            {t('inventory.borrow.due_date_label', { date: formatBorrowDate(entry.due_date, i18n.language) })}
+                                                        </p>
+                                                    )}
+                                                    {entry.note && (
+                                                        <p className="text-sm text-[var(--hi-text-soft)]">
+                                                            {t('inventory.borrow.note_label', { note: entry.note })}
+                                                        </p>
+                                                    )}
+                                                    {entry.return_note && (
+                                                        <p className="text-sm text-[var(--hi-text-soft)]">
+                                                            {t('inventory.borrow.return_note_label', { note: entry.return_note })}
+                                                        </p>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <p className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-sm text-[var(--hi-text-soft)]">{t('inventory.borrow.no_history')}</p>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="mx-auto max-w-2xl animate-fade-in">
@@ -868,14 +1107,14 @@ export default function ItemForm() {
                         <button type="button" onClick={() => canManageVisibility && setFormData({ ...formData, is_public: !formData.is_public })}
                             disabled={!canManageVisibility}
                             aria-disabled={!canManageVisibility}
-                            title={!canManageVisibility ? t('items.form.visibility_owner_only', { defaultValue: 'Görünürlüğü yalnızca eşyayı ekleyen kişi değiştirebilir' }) : undefined}
+                            title={!canManageVisibility ? t('items.form.visibility_owner_only', { defaultValue: 'Only the person who added the item can change visibility' }) : undefined}
                             className={`relative h-8 w-14 rounded-full border transition-colors duration-200 ${formData.is_public ? 'border-[var(--hi-border-strong)] bg-[var(--hi-accent)]' : 'border-[var(--hi-border)] bg-[var(--hi-panel-muted)]'} ${!canManageVisibility ? 'cursor-not-allowed opacity-55' : ''}`}>
                             <span className={`absolute top-1 w-6 h-6 bg-white rounded-full shadow transition-transform duration-200 ${formData.is_public ? 'left-7' : 'left-1'}`} />
                         </button>
                     </div>
                     {isEditing && !canManageVisibility && (
                         <p className="-mt-4 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-sm text-[var(--hi-text-soft)]">
-                            {t('items.form.visibility_owner_only', { defaultValue: 'Görünürlüğü yalnızca eşyayı ekleyen kişi değiştirebilir.' })}
+                            {t('items.form.visibility_owner_only', { defaultValue: 'Only the person who added the item can change visibility.' })}
                         </p>
                     )}
 
@@ -888,14 +1127,21 @@ export default function ItemForm() {
 
                             <div className="p-4 space-y-4">
                                 {activeBorrow ? (
-                                    <div className={`rounded-2xl border px-4 py-3 ${activeBorrowOverdue
+                                    <div className={`rounded-2xl border px-4 py-3 ${activeBorrowReturnPending
+                                        ? 'border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-200'
+                                        : activeBorrowOverdue
                                         ? 'border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-300'
                                         : 'border-sky-200 bg-sky-50 text-sky-700 dark:border-sky-500/30 dark:bg-sky-500/10 dark:text-sky-300'
                                         }`}>
                                         <div className="flex flex-col gap-1">
                                             <p className="font-medium">
-                                                {t('inventory.borrow.borrowed_to', { name: activeBorrow.borrower_display_name || t('inventory.borrow.unknown') })}
+                                                {getActiveBorrowTitle(activeBorrow)}
                                             </p>
+                                            {activeBorrowReturnPending && (
+                                                <p className="text-sm">
+                                                    {t('inventory.borrow.return_pending_hint', { defaultValue: 'The record will close after the lender confirms they received the item back.' })}
+                                                </p>
+                                            )}
                                             <p className="text-sm">
                                                 {t('inventory.borrow.borrowed_at', { date: formatBorrowDateTime(activeBorrow.borrowed_at, i18n.language) })}
                                             </p>
@@ -931,10 +1177,13 @@ export default function ItemForm() {
                                                 <div key={entry.id} className="rounded-xl border border-[var(--hi-border)] px-4 py-3">
                                                     <div className="flex flex-col gap-1">
                                                         <p className="font-medium text-[var(--hi-text)]">
-                                                            {entry.returned_at
-                                                                ? t('inventory.borrow.history_returned', { name: entry.borrower_display_name || t('inventory.borrow.unknown') })
-                                                                : t('inventory.borrow.history_active', { name: entry.borrower_display_name || t('inventory.borrow.unknown') })}
+                                                            {getHistoryTitle(entry)}
                                                         </p>
+                                                        {!entry.returned_at && activeBorrow && entry.id === activeBorrow.id && activeBorrow.return_requested_at && (
+                                                            <p className="text-sm text-[var(--hi-text-soft)]">
+                                                                {t('inventory.borrow.return_pending_hint', { defaultValue: 'The record will close after the lender confirms they received the item back.' })}
+                                                            </p>
+                                                        )}
                                                         <p className="text-sm text-[var(--hi-text-soft)]">
                                                             {t('inventory.borrow.borrowed_at', { date: formatBorrowDateTime(entry.borrowed_at, i18n.language) })}
                                                         </p>

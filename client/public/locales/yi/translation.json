@@ -66,7 +66,10 @@
             "warranty_calculation_help": "אויב איר לאָזט די אָנהייב־דאַטע פֿון וואָראַנטי ליידיק, וועט מען ניצן די דאַטע פֿון דער אינווויס. ווען איר גיט אַרײַן די לענג, וועט די סוף־דאַטע פֿון וואָראַנטי אויסגערעכנט ווערן אויטאָמאַטיש.",
             "vault_hint_title": "Very sensitive record?",
             "vault_hint_description": "For passports, deeds, identity details, access codes, and other records that should stay out of the standard inventory flow, keep them in Personal Vault instead.",
-            "vault_hint_action": "פתח כספת אישית"
+            "vault_hint_action": "פתח כספת אישית",
+            "location": "מיקומים",
+            "remove_photo": "Remove photo",
+            "visibility_owner_only": "Only the person who added the item can change visibility."
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" נוסף במהירות - ניתן לערוך מאוחר יותר",
@@ -115,7 +118,8 @@
         "delete_error": "טעות בשעת מעקן זאכן",
         "no_permission": "איר האָט נישט קיין רשות צו ענדערן דעם דאָזיקן נומער",
         "barcode_search_error": "באַרקאָד זוכן דורכפאַל",
-        "stats_error": "טעות בשעת לאָודינג סטאַטיסטיק"
+        "stats_error": "טעות בשעת לאָודינג סטאַטיסטיק",
+        "detail_subtitle": "Item details"
     },
     "common": {
         "save": "שמור",
@@ -162,7 +166,11 @@
         "unauthorized": "נישט אָטאָריזירט דורכגאַנג",
         "forbidden": "איר האָט נישט קיין רשות פֿאַר דער דאָזיקער אַקציע",
         "validation_error": "וואַלידאַציע טעות",
-        "server_error": "סערווער טעות"
+        "server_error": "סערווער טעות",
+        "details": "פרטים",
+        "hide": "Hide password",
+        "logging_out": "Logging out...",
+        "show": "Show password"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "אמת",
                 "back": "חזור",
                 "use_backup": "השתמש בקוד גיבוי",
-                "use_totp": "השתמש במאמת"
+                "use_totp": "השתמש במאמת",
+                "code_required": "Verification code is required"
             },
             "welcome_title": "ברוך שובך",
             "welcome_subtitle": "היכנס כדי לגשת למלאי שלך",
@@ -632,7 +641,10 @@
             "info": "💡 You can be a member of multiple houses and switch between them. Each house maintains a separate inventory.",
             "accordion_description": "החלף בין משקי בית, צור אחד חדש, או הצטרף לאחד קיים עם מפתח מהימן.",
             "empty_description": "צור משק בית חדש כדי להתחיל לשתף, או הצטרף לאחד עם מפתח בית אמין.",
-            "leave_success_body": "אין לך יותר גישה לבית זה והבית הפעיל שלך עודכן."
+            "leave_success_body": "אין לך יותר גישה לבית זה והבית הפעיל שלך עודכן.",
+            "leave_title": "Leave this house?",
+            "leave_warning": "You will lose access to this household workspace until another member invites or approves you again.",
+            "leaving": "Leaving..."
         },
         "house_info": {
             "title": "מפתח הבית הפעיל",
@@ -674,7 +686,11 @@
             "copy_error": "לא ניתן להעתיק את מפתח הבית.",
             "modal_title": "גישה למפתח הבית",
             "modal_subtitle": "השתמש במפתח זה רק עם חברי בית מהימנים שעליהם לבקש גישה למלאי המשותף הזה.",
-            "loading_members": "טוען חברים..."
+            "loading_members": "טוען חברים...",
+            "kick_success_body": "{{name}} no longer has access to this household.",
+            "kick_title": "Remove this member?",
+            "kick_warning": "Their household access will end immediately and they will need a new invitation or approval to return.",
+            "kicking": "Removing..."
         },
         "theme": {
             "title": "נושא",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "יצוא JSON פשוטים קל יותר לבדיקה, אך כל מי שיפתח את הקובץ יכול לקרוא את נתוני הבית שלך מיד.",
             "import_encrypted_title": "פתח את הגיבוי המוצפן",
             "import_encrypted_body": "הזן את ביטוי הגיבוי שהשתמשת בו במהלך ההורדה כדי לשחזר את הקובץ הזה המוצפן.",
-            "unlock_and_import": "פתח וייבא"
+            "unlock_and_import": "פתח וייבא",
+            "export_encrypted_notice": "The backup is prepared from live household data and then wrapped with the passphrase you choose. Keep that passphrase somewhere safe because it is required to restore the file later.",
+            "export_encrypted_title": "Encryption will be applied before download",
+            "import_summary_body": "{{items}} items, {{categories}} categories, {{rooms}} rooms, {{locations}} locations, {{borrows}} borrow records restored.",
+            "import_summary_title": "Backup restored",
+            "preview_categories": "קטגוריות",
+            "preview_items": "מלאי",
+            "preview_locations": "מיקומים",
+            "preview_rooms": "חדרים",
+            "skipped_borrows": "{{count}} existing borrow records skipped.",
+            "skipped_categories": "{{count}} existing categories skipped.",
+            "skipped_items": "{{count}} existing items skipped.",
+            "skipped_locations": "{{count}} existing locations skipped.",
+            "skipped_rooms": "{{count}} existing rooms skipped."
         },
         "about": {
             "title": "📱 About Application",
@@ -733,7 +762,10 @@
             "privacy_link": "מדיניות פרטיות",
             "beta_title": "מצב בטא",
             "beta_body": "{{brandName}} עדיין בבטא. התכונות יכולות להשתנות, תהליכי העבודה עשויים להתפתח, ויש תמיד לגבות נתונים חשובים מהבית.",
-            "feedback_subject": "באַמערקונגען - {{brandName}}"
+            "feedback_subject": "באַמערקונגען - {{brandName}}",
+            "logout_body": "Any unsaved changes in open forms may be lost after you leave this session.",
+            "logout_description": "You will return to the home page and can sign back in anytime.",
+            "logout_title": "Log out now?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "פריט שהושאל",
             "lend_success_body": "{{item}} מסומן כעת כהושאל.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "With you",
+            "return_pending_hint": "The record will close after the lender confirms they received the item back.",
+            "return_pending_lender_title": "{{name}} marked this item as delivered back",
+            "return_pending_self_title": "With you, waiting for receipt confirmation"
         },
         "untitled_item": "פריט ללא כותרת",
         "delete_action": "מחק פריט",
@@ -1023,7 +1059,10 @@
         "name_required": "קאַטעגאָריע נאָמען איז פארלאנגט",
         "load_error": "טעות בשעת לאָודינג קאַטעגאָריעס",
         "add_error": "טעות בשעת אַדינג קאַטעגאָריע",
-        "update_error": "טעות בשעת דערהייַנטיקן קאַטעגאָריע"
+        "update_error": "טעות בשעת דערהייַנטיקן קאַטעגאָריע",
+        "color_required": "די קאָליר מוז זײַן אין #RRGGBB פֿאָרמאַט",
+        "empty_description": "Create a few categories so new items follow the same structure and are easier to scan later.",
+        "empty_title": "No categories yet"
     },
     "rooms": {
         "title": "חדרים",
@@ -1097,7 +1136,9 @@
         "name_required": "צימער נאָמען איז פארלאנגט",
         "load_error": "טעות בשעת לאָודינג רומז",
         "add_error": "טעות בשעת אַדינג צימער",
-        "update_error": "טעות בשעת דערהייַנטיקן צימער"
+        "update_error": "טעות בשעת דערהייַנטיקן צימער",
+        "empty_description": "Create rooms like kitchen, storage, or garage so item locations stay consistent and easier to search.",
+        "empty_title": "No rooms yet"
     },
     "admin": {
         "title": "לוח ניהול",
@@ -1176,7 +1217,12 @@
             "households_label": "משקי בית",
             "items_label": "פריטים בבעלות",
             "last_seen_short": "נצפה",
-            "last_seen_short_never": "חדש"
+            "last_seen_short_never": "חדש",
+            "failed_logins": "{{count}} failed sign-ins",
+            "load_failed_title": "Users could not load",
+            "pending_requests": "{{count}} pending house requests",
+            "role_admin": "מנהלים",
+            "role_user": "User"
         },
         "logs": {
             "title": "יומני מנהל",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "אַודיט־שפּור",
             "errors_eyebrow": "דיאַגנאָסטיק",
             "section_body": "יעדע מאָדעראַציע־אָדער אָפּעראַציע־ענדערונג ווערט רעקאָרדירט אין דער אַדמין־שיכטע.",
-            "errors_body": "די לעצטע אויסגעלייענטע טעות־שורות פֿון די סערווער־לאָג טעקעס."
+            "errors_body": "די לעצטע אויסגעלייענטע טעות־שורות פֿון די סערווער־לאָג טעקעס.",
+            "load_failed_title": "Activity could not load",
+            "no_logs_title": "No admin actions yet"
         },
         "email": {
             "title": "שלח דוא\"ל",
@@ -1242,7 +1290,14 @@
             "status_body": "בדיקה מהירה של הביטחון לפני שליחת תקשורת תפעולית.",
             "unconfigured_title": "שליחת דואר אלקטרוני אינה מוגדרת",
             "unconfigured_body": "טופס השליחה נשאר גלוי לסקירת ההגדרות, אך השליחה תיכשל עד שספק הדואר יוגדר.",
-            "status_eyebrow": "משלוח"
+            "status_eyebrow": "משלוח",
+            "configured_body": "Resend is available for admin-triggered outbound messages.",
+            "configured_title": "Email delivery is configured",
+            "error_title": "Email failed",
+            "format_hint": "HTML is supported. For example: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
+            "from_label": "Sender",
+            "load_failed_title": "Email tools could not load",
+            "success_title": "Email sent"
         },
         "overview": {
             "email_warning_title": "משלוח הדואר האלקטרוני אינו מוגדר",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "סטאַטיסטיק לאָודיד",
         "logs_loaded": "לאָגס לאָודיד",
         "load_error": "טעות בשעת לאָודינג דאַטן",
-        "action_error": "טעות בשעת פּערפאָרמינג אַקציע"
+        "action_error": "טעות בשעת פּערפאָרמינג אַקציע",
+        "load_failed_body": "The admin route is open, but the overview data did not arrive. You can retry without leaving the page.",
+        "load_failed_title": "Admin overview could not load"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "כתובת הרשת נשארת מוסתרת כאן. סרקו את הקוד או העתיקו את הקישור רק כאשר אתם רוצים בכוונה לשתף גישה ישירה לפריט במערכת המקומית שלכם.",
         "helper": "סרקו לפתיחת הפריט מיד או העתיקו את הקישור הישיר בעת הצורך.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Preparing QR tools..."
     },
     "house_access_pending": {
         "eyebrow": "גישה לבית",
@@ -1859,7 +1917,11 @@
             "name_required": "פֿאַר אַ וואָלט־רעקאָרד דאַרף מען אַ נאָמען פֿון אַ זאַך.",
             "options_failed": "מען האָט נישט געקענט לאָדן קאַטעגאָריע־ און צימער־אָפּציעס.",
             "delete_success_title": "רשומת הכספת נמחקה",
-            "delete_success_body": "הרשומה הפרטית הוסרה לצמיתות מהכספת שלך."
+            "delete_success_body": "הרשומה הפרטית הוסרה לצמיתות מהכספת שלך.",
+            "passphrase_lowercase": "Include at least one lowercase letter.",
+            "passphrase_min_length": "Vault passphrase must be at least 12 characters.",
+            "passphrase_number": "Include at least one number.",
+            "passphrase_uppercase": "Include at least one uppercase letter."
         },
         "recovery_file_title": "{{brandName}} פערזענלעכער וואָלט־רעקאָווערי־שליסל",
         "recovery_file_created_label": "געשאַפֿן",

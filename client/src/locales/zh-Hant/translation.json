@@ -66,7 +66,10 @@
             "warranty_calculation_help": "如果您將保固開始日期留空，將使用發票日期。當您輸入期限時，保固結束日期會自動計算。",
             "vault_hint_title": "非常敏感的記錄？",
             "vault_hint_description": "對於護照、契約、身份資料、訪問代碼及其他應該避免進入標準庫存流程的記錄，請將它們保存在個人保險庫中。",
-            "vault_hint_action": "打開個人保險庫"
+            "vault_hint_action": "打開個人保險庫",
+            "location": "位置",
+            "remove_photo": "移除照片",
+            "visibility_owner_only": "只有新增該項目的人才能更改可見性。"
         },
         "messages": {
             "quick_add_success": "✓ “{{barcode}}” 已快速新增 - 你可以稍後編輯",
@@ -115,7 +118,8 @@
         "delete_error": "錯誤刪除項目",
         "no_permission": "你沒有權限修改這個項目",
         "barcode_search_error": "條碼搜尋失敗",
-        "stats_error": "錯誤載入統計"
+        "stats_error": "錯誤載入統計",
+        "detail_subtitle": "物品詳情"
     },
     "common": {
         "save": "保存",
@@ -162,7 +166,11 @@
         "unauthorized": "未經授權的存取",
         "forbidden": "你沒有這個行動的許可",
         "validation_error": "驗證錯誤",
-        "server_error": "伺服器錯誤"
+        "server_error": "伺服器錯誤",
+        "details": "詳情",
+        "hide": "隱藏密碼",
+        "logging_out": "登出中...",
+        "show": "顯示密碼"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "驗證",
                 "back": "返回",
                 "use_backup": "使用備份代碼",
-                "use_totp": "使用身份驗證器"
+                "use_totp": "使用身份驗證器",
+                "code_required": "需要驗證碼"
             },
             "welcome_title": "歡迎回來",
             "welcome_subtitle": "登入以存取您的物品欄",
@@ -632,7 +641,10 @@
             "info": "💡 你可以成為多個房子的成員並在它們之間切換。每個房子都有獨立的庫存。",
             "accordion_description": "在不同家庭間切換、創建新家庭，或使用受信任的金鑰加入現有家庭。",
             "empty_description": "創建新家庭以開始共享，或使用受信任的家庭金鑰加入已有家庭。",
-            "leave_success_body": "您不再可以訪問此家庭，且您的活動住宅已被刷新。"
+            "leave_success_body": "您不再可以訪問此家庭，且您的活動住宅已被刷新。",
+            "leave_title": "離開此房子？",
+            "leave_warning": "你將失去對此家庭工作區的訪問權限，直到另一位成員再次邀請或批准你。",
+            "leaving": "正在離開…"
         },
         "house_info": {
             "title": "活躍房子金鑰",
@@ -674,7 +686,11 @@
             "copy_error": "無法複製房屋鑰匙。",
             "modal_title": "房屋鑰匙訪問權限",
             "modal_subtitle": "僅將此鑰匙提供給應該請求訪問此共享庫存的可信家庭成員。",
-            "loading_members": "正在載入成員..."
+            "loading_members": "正在載入成員...",
+            "kick_success_body": "{{name}} 已不再能夠訪問此家庭。",
+            "kick_title": "移除此成員？",
+            "kick_warning": "他們的家庭訪問權限將立即結束，需要新的邀請或批准才能返回。",
+            "kicking": "正在移除…"
         },
         "theme": {
             "title": "主題",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "純 JSON 匯出檔案較易檢視，但任何人打開檔案都能立即閱讀您的家庭資料。",
             "import_encrypted_title": "解鎖加密備份",
             "import_encrypted_body": "輸入下載時使用的備份密碼以還原此加密檔案。",
-            "unlock_and_import": "解鎖並匯入"
+            "unlock_and_import": "解鎖並匯入",
+            "export_encrypted_notice": "備份是從實時家庭數據準備的，然後使用您選擇的密碼進行加密。請將該密碼妥善保存，因為稍後恢復文件時需要用到它。",
+            "export_encrypted_title": "下載前將應用加密",
+            "import_summary_body": "已恢復 {{items}} 件物品，{{categories}} 個分類，{{rooms}} 個房間，{{locations}} 個位置，{{borrows}} 筆借用記錄。",
+            "import_summary_title": "備份已恢復",
+            "preview_categories": "分類",
+            "preview_items": "物品",
+            "preview_locations": "位置",
+            "preview_rooms": "房間",
+            "skipped_borrows": "已跳過 {{count}} 筆現有借用記錄。",
+            "skipped_categories": "已跳過 {{count}} 個現有分類。",
+            "skipped_items": "{{count}} 個現有項目已跳過。",
+            "skipped_locations": "{{count}} 個現有位置已跳過。",
+            "skipped_rooms": "{{count}} 個現有房間已跳過。"
         },
         "about": {
             "title": "📱 關於應用程式",
@@ -733,7 +762,10 @@
             "privacy_link": "隱私政策",
             "beta_title": "測試版狀態",
             "beta_body": "{{brandName}} 仍處於測試版。功能可能會改變，工作流程可能會演變，重要的家庭資料應隨時備份。",
-            "feedback_subject": "意見回饋 - {{brandName}}"
+            "feedback_subject": "意見回饋 - {{brandName}}",
+            "logout_body": "離開此會話後，任何在開啟的表單中未保存的變更可能會丟失。",
+            "logout_description": "您將返回主頁，並且可以隨時重新登入。",
+            "logout_title": "現在要登出嗎？"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "項目已借出",
             "lend_success_body": "{{item}} 現在已標記為已借出。",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "與你同在",
+            "return_pending_hint": "當貸方確認已收到物品後，紀錄將關閉。",
+            "return_pending_lender_title": "{{name}} 已將此項目標記為已歸還",
+            "return_pending_self_title": "與你同在，等待收據確認"
         },
         "untitled_item": "未命名項目",
         "delete_action": "刪除項目",
@@ -1023,7 +1059,10 @@
         "name_required": "需要類別名稱",
         "load_error": "錯誤載入類別",
         "add_error": "錯誤加法類別",
-        "update_error": "錯誤更新類別"
+        "update_error": "錯誤更新類別",
+        "color_required": "顏色必須採用 #RRGGBB 格式",
+        "empty_description": "建立一些類別，讓新項目遵循相同的結構，之後也更容易瀏覽。",
+        "empty_title": "尚無任何類別"
     },
     "rooms": {
         "title": "房間",
@@ -1097,7 +1136,9 @@
         "name_required": "需要房間名稱",
         "load_error": "錯誤載入室",
         "add_error": "錯誤加房間",
-        "update_error": "錯誤更新室"
+        "update_error": "錯誤更新室",
+        "empty_description": "建立廚房、儲藏室或車庫等房間，讓物品位置保持一致，更容易搜尋。",
+        "empty_title": "尚無任何房間"
     },
     "admin": {
         "title": "管理面板",
@@ -1178,7 +1219,12 @@
             "households_label": "家庭",
             "items_label": "擁有的物品",
             "last_seen_short": "已讀",
-            "last_seen_short_never": "新的"
+            "last_seen_short_never": "新的",
+            "failed_logins": "{{count}} 次登入失敗",
+            "load_failed_title": "用戶無法加載",
+            "pending_requests": "{{count}} 個待處理房屋請求",
+            "role_admin": "管理員",
+            "role_user": "用戶"
         },
         "logs": {
             "title": "管理員日誌",
@@ -1210,7 +1256,9 @@
             "section_body": "每一次審核或營運變更都會記錄在管理層。",
             "errors_body": "從伺服器日誌檔中解析出的最新錯誤行。",
             "section_eyebrow": "稽核記錄",
-            "errors_eyebrow": "診斷"
+            "errors_eyebrow": "診斷",
+            "load_failed_title": "活動無法加載",
+            "no_logs_title": "尚無管理員操作"
         },
         "email": {
             "status_title": "外寄郵件狀態",
@@ -1244,7 +1292,14 @@
             "info_bullet_1": "郵件由 {{supportEmail}} 發送",
             "info_bullet_2": "為防止垃圾郵件，您每分鐘最多可發送 3 封郵件",
             "info_bullet_3": "所有發送操作都會被記錄以保障安全，但不包括內容",
-            "status_eyebrow": "傳送"
+            "status_eyebrow": "傳送",
+            "configured_body": "重新發送適用於管理員觸發的外發訊息。",
+            "configured_title": "電子郵件傳送已設定",
+            "error_title": "電子郵件傳送失敗",
+            "format_hint": "支援 HTML。例如：<b>粗體</b>、<i>斜體</i>、<a href=\"...\">連結</a>",
+            "from_label": "寄件人",
+            "load_failed_title": "電子郵件工具無法加載",
+            "success_title": "電子郵件已發送"
         },
         "overview": {
             "email_warning_title": "電子郵件傳送尚未設定",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "統計數據已載入",
         "logs_loaded": "日誌已載入",
         "load_error": "錯誤載入資料",
-        "action_error": "錯誤執行動作"
+        "action_error": "錯誤執行動作",
+        "load_failed_body": "管理員路徑已開啟，但總覽資料未到達。您可以在不離開頁面的情況下重試。",
+        "load_failed_title": "管理員總覽無法加載"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "網路地址會保持隱藏。僅在您有意分享本地設置上的直接項目存取時，掃描 QR 碼或複製連結。",
         "helper": "掃描以立即打開此項目，或在需要時複製直接連結。",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "正在準備 QR 工具..."
     },
     "house_access_pending": {
         "eyebrow": "房屋訪問",
@@ -1859,7 +1917,11 @@
             "name_required": "保險庫記錄需要一個項目名稱。",
             "options_failed": "無法加載類別和房間選項。",
             "delete_success_title": "保險庫紀錄已刪除",
-            "delete_success_body": "私人紀錄已從您的保險庫中永久刪除。"
+            "delete_success_body": "私人紀錄已從您的保險庫中永久刪除。",
+            "passphrase_lowercase": "至少包含一個小寫字母。",
+            "passphrase_min_length": "保險庫密碼短語必須至少12個字符。",
+            "passphrase_number": "至少包含一個數字。",
+            "passphrase_uppercase": "至少包含一個大寫字母。"
         },
         "recovery_file_title": "{{brandName}} 個人保險庫恢復金鑰",
         "recovery_file_created_label": "已建立",

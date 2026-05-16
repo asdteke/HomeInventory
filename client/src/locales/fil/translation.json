@@ -66,7 +66,10 @@
       "warranty_calculation_help": "Kung iiwan mo ang petsa ng pagsisimula ng warranty na walang laman, ang petsa ng invoice ang gagamitin. Kapag inilagay mo ang tagal, awtomatikong kalkulahin ang petsa ng pagtatapos ng warranty.",
       "vault_hint_title": "Kailangan ng karagdagang privacy?",
       "vault_hint_description": "Para sa mga pasaporte, titulo, detalye ng pagkakakilanlan, mga access code, at iba pang rekord na dapat manatiling hiwalay sa iyong ibinahaging imbentaryo, itago sila sa Personal Vault sa halip.",
-      "vault_hint_action": "Buksan ang Personal Vault"
+      "vault_hint_action": "Buksan ang Personal Vault",
+      "location": "Lokasyon",
+      "remove_photo": "Alisin ang litrato",
+      "visibility_owner_only": "Tanging ang taong nagdagdag ng item ang pwedeng baguhin ang visibility."
     },
     "messages": {
       "quick_add_success": "✓ \"{{barcode}}\" mabilis na idinagdag - maaari mong i-edit mamaya",
@@ -115,7 +118,8 @@
     "delete_error": "Error sa pagtanggal ng item",
     "no_permission": "Wala kang pahintulot na baguhin ang item na ito",
     "barcode_search_error": "Nabigo ang paghahanap ng barcode",
-    "stats_error": "Error sa paglo-load ng mga istatistika"
+    "stats_error": "Error sa paglo-load ng mga istatistika",
+    "detail_subtitle": "Mga detalye ng item"
   },
   "common": {
     "save": "I-save",
@@ -162,7 +166,11 @@
     "unauthorized": "Hindi awtorisadong pag-access",
     "forbidden": "Wala kang pahintulot para sa pagkilos na ito",
     "validation_error": "Error sa pagpapatunay",
-    "server_error": "Error sa server"
+    "server_error": "Error sa server",
+    "details": "Mga detalye",
+    "hide": "Itago ang password",
+    "logging_out": "Naglo-log out...",
+    "show": "Ipakita ang password"
   },
   "auth": {
     "login": {
@@ -194,7 +202,8 @@
         "verify": "I-verify",
         "back": "Bago",
         "use_backup": "Gamitin ang backup code",
-        "use_totp": "Gamitin ang authenticator"
+        "use_totp": "Gamitin ang authenticator",
+        "code_required": "Kinakailangan ang verification code"
       },
       "welcome_title": "Maligayang pagbabalik",
       "welcome_subtitle": "Mag-sign in upang ma-access ang iyong imbentaryo",
@@ -632,7 +641,10 @@
       "info": "Maaari kang maging miyembro ng maraming bahay at magpalipat-lipat sa pagitan nila. Ang bawat sambahayan ay may sariling imbentaryo.",
       "accordion_description": "Lumipat sa pagitan ng mga sambahayan, gumawa ng bago, o sumali sa umiiral gamit ang pinagkakatiwalaang susi.",
       "empty_description": "Gumawa ng bagong sambahayan upang magsimulang magbahagi, o sumali sa isa gamit ang pinagkakatiwalaang susi ng bahay.",
-      "leave_success_body": "Wala ka nang access sa sambahayang ito at ang iyong aktibong bahay ay na-refresh."
+      "leave_success_body": "Wala ka nang access sa sambahayang ito at ang iyong aktibong bahay ay na-refresh.",
+      "leave_title": "Umalis ba sa bahay na ito?",
+      "leave_warning": "Mawawala ang iyong access sa workspace ng sambahayan na ito hanggang sa muling imbitahan o aprubahan ka ng isa pang miyembro.",
+      "leaving": "Umaalis..."
     },
     "house_info": {
       "title": "Susi ng Aktibong Bahay",
@@ -674,7 +686,11 @@
       "copy_error": "Hindi maaaring kopyahin ang susi ng bahay.",
       "modal_title": "Access sa susi ng bahay",
       "modal_subtitle": "Gamitin ang susi na ito lamang para sa mga pinagkakatiwalaang kasapi ng sambahayan na dapat humiling ng access sa ibinahaging imbentaryo.",
-      "loading_members": "Naglo-load ng mga miyembro..."
+      "loading_members": "Naglo-load ng mga miyembro...",
+      "kick_success_body": "Wala nang access si {{name}} sa sambahayan na ito.",
+      "kick_title": "Alisin ba ang kasaping ito?",
+      "kick_warning": "Agad na matatapos ang kanilang access sa sambahayan at kakailanganin nila ng bagong paanyaya o pahintulot upang makabalik.",
+      "kicking": "Inaalis..."
     },
     "theme": {
       "title": "Tema",
@@ -720,7 +736,20 @@
       "unencrypted_warning": "Mas madaling suriin ang mga plain JSON export, ngunit sinumang magbubukas ng file ay maaaring agad basahin ang iyong datos ng sambahayan.",
       "import_encrypted_title": "I-unlock ang na-encrypt na backup",
       "import_encrypted_body": "Ilagay ang backup passphrase na ginamit noong pagda-download upang maibalik ang naka-encrypt na file na ito.",
-      "unlock_and_import": "I-unlock at i-import"
+      "unlock_and_import": "I-unlock at i-import",
+      "export_encrypted_notice": "Ang backup ay inihanda mula sa live na datos ng sambahayan at pagkatapos ay binabalot gamit ang passphrase na iyong pinili. Itago ang passphrase na iyon sa isang ligtas na lugar dahil ito ay kinakailangan upang maibalik ang file sa hinaharap.",
+      "export_encrypted_title": "Ang encryption ay ilalapat bago i-download",
+      "import_summary_body": "Naibalik ang {{items}} item, {{categories}} kategorya, {{rooms}} silid, {{locations}} lokasyon, {{borrows}} tala ng pagpapahiram.",
+      "import_summary_title": "Naibalik ang backup",
+      "preview_categories": "Mga Kategorya",
+      "preview_items": "Mga Item",
+      "preview_locations": "Mga Lokasyon",
+      "preview_rooms": "Mga Silid",
+      "skipped_borrows": "{{count}} umiiral na tala ng pagpapahiram ay nilaktawan.",
+      "skipped_categories": "{{count}} umiiral na kategorya ay nilaktawan.",
+      "skipped_items": "{{count}} umiiral na item ang nilaktawan.",
+      "skipped_locations": "{{count}} umiiral na lokasyon ang nilaktawan.",
+      "skipped_rooms": "{{count}} umiiral na kuwarto ang nilaktawan."
     },
     "about": {
       "title": "Tungkol sa Aplikasyon",
@@ -733,7 +762,10 @@
       "privacy_link": "Patakaran sa Privacy",
       "beta_title": "Katayuan ng Beta",
       "beta_body": "Ang {{brandName}} ay nasa beta pa rin. Maaaring magbago ang mga tampok, maaaring umunlad ang mga daloy ng trabaho, at ang mahahalagang datos sa bahay ay dapat palaging i-backup.",
-      "feedback_subject": "Feedback - {{brandName}}"
+      "feedback_subject": "Feedback - {{brandName}}",
+      "logout_body": "Maaaring mawala ang anumang hindi naisave na pagbabago sa mga bukas na form pagkatapos mong iwan ang session na ito.",
+      "logout_description": "Babalik ka sa home page at maaari kang mag-sign in muli anumang oras.",
+      "logout_title": "Mag-log out ngayon?"
     },
     "modals": {
       "password": {
@@ -960,7 +992,11 @@
       "lend_success_title": "Pinahiram na item",
       "lend_success_body": "Ang {{item}} ay ngayon minarkang hiniram.",
       "offer_sent_title": "Borrow offer sent",
-      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+      "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+      "borrowed_by_you": "Sa iyo",
+      "return_pending_hint": "Magsasara ang rekord matapos kumpirmahin ng nagpapahiram na natanggap nila pabalik ang item.",
+      "return_pending_lender_title": "Minarkahan ni {{name}} ang item na ito bilang naibalik",
+      "return_pending_self_title": "Nasa iyo, naghihintay ng kumpirmasyon ng resibo"
     },
     "untitled_item": "Walang pamagat na item",
     "delete_action": "Tanggalin ang item",
@@ -1023,7 +1059,10 @@
     "name_required": "Kinakailangan ang pangalan ng kategorya",
     "load_error": "Error sa paglo-load ng mga kategorya",
     "add_error": "Error sa pagdaragdag ng kategorya",
-    "update_error": "Error sa pag-update ng kategorya"
+    "update_error": "Error sa pag-update ng kategorya",
+    "color_required": "Dapat nasa format na #RRGGBB ang kulay",
+    "empty_description": "Gumawa ng ilang kategorya upang ang mga bagong item ay sundin ang parehong istruktura at mas madaling masuri sa hinaharap.",
+    "empty_title": "Wala pang kategorya"
   },
   "rooms": {
     "title": "Mga silid",
@@ -1097,7 +1136,9 @@
     "name_required": "Kinakailangan ang pangalan ng kuwarto",
     "load_error": "Error sa paglo-load ng mga silid",
     "add_error": "Error sa pagdaragdag ng silid",
-    "update_error": "Error sa pag-update ng silid"
+    "update_error": "Error sa pag-update ng silid",
+    "empty_description": "Gumawa ng mga kuwarto tulad ng kusina, imbakan, o garahe upang manatiling pare-pareho ang lokasyon ng item at mas madaling hanapin.",
+    "empty_title": "Wala pang kuwarto"
   },
   "admin": {
     "title": "Panel ng Admin",
@@ -1176,7 +1217,12 @@
       "households_label": "Mga sambahayan",
       "items_label": "Mga pag-aari",
       "last_seen_short": "Nakita",
-      "last_seen_short_never": "Bago"
+      "last_seen_short_never": "Bago",
+      "failed_logins": "{{count}} nabigong pag-sign in",
+      "load_failed_title": "Hindi ma-load ang mga gumagamit",
+      "pending_requests": "{{count}} pending na house requests",
+      "role_admin": "Mga Admin",
+      "role_user": "Gumagamit"
     },
     "logs": {
       "title": "Mga Log ng Admin",
@@ -1208,7 +1254,9 @@
       "section_eyebrow": "Pagsusuri ng talaan",
       "errors_eyebrow": "Diyagnostiko",
       "section_body": "Bawat pagbawas o pagbabago sa operasyon na naitala ng admin layer.",
-      "errors_body": "Ang pinakabagong na-parse na mga linya ng error mula sa mga log file ng server."
+      "errors_body": "Ang pinakabagong na-parse na mga linya ng error mula sa mga log file ng server.",
+      "load_failed_title": "Hindi ma-load ang aktibidad",
+      "no_logs_title": "Wala pang admin actions"
     },
     "email": {
       "title": "Magpadala ng Email",
@@ -1242,7 +1290,14 @@
       "status_body": "Isang mabilis na tseke ng kumpiyansa bago magpadala ng operasyonal na komunikasyon.",
       "unconfigured_title": "Hindi pa naka-configure ang pagpapadala ng email",
       "unconfigured_body": "Mananatiling nakikita ang form ng pagpapadala para sa pagsusuri ng setup, ngunit mabibigo ang pagpapadala hanggang sa ma-configure ang mail provider.",
-      "status_eyebrow": "Paghahatid"
+      "status_eyebrow": "Paghahatid",
+      "configured_body": "Ang muling pagpapadala ay available para sa admin-triggered na outbound messages.",
+      "configured_title": "Nakakonpigura ang pagpapadala ng email",
+      "error_title": "Nabigo ang email",
+      "format_hint": "Sinusuportahan ang HTML. Halimbawa: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
+      "from_label": "Nagpadala",
+      "load_failed_title": "Hindi ma-load ang mga tool sa email",
+      "success_title": "Naipadala ang email"
     },
     "overview": {
       "email_warning_title": "Hindi naka-configure ang pagpapadala ng email",
@@ -1327,7 +1382,9 @@
     "stats_loaded": "Mga istatistika na na-load",
     "logs_loaded": "Mga log na na-load",
     "load_error": "Error sa paglo-load ng data",
-    "action_error": "Error sa pagganap ng pagkilos"
+    "action_error": "Error sa pagganap ng pagkilos",
+    "load_failed_body": "Bukas ang admin route, pero hindi dumating ang overview na data. Maaari kang mag-retry nang hindi umaalis sa pahina.",
+    "load_failed_title": "Hindi ma-load ang admin overview"
   },
   "landing": {
     "nav": {
@@ -1672,7 +1729,8 @@
     "link_privacy_note": "Ang address ng network ay nakatago dito. I-scan ang code o kopyahin ang link kapag intensyon mong ibahagi ang direktang access sa item sa iyong lokal na setup.",
     "helper": "I-scan upang agad buksan ang item na ito, o kopyahin ang direktang link kapag kinakailangan.",
     "copy_error_title": "Link could not be copied automatically",
-    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+    "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+    "loading": "Inihahanda ang mga QR tool..."
   },
   "house_access_pending": {
     "eyebrow": "Access sa Bahay",
@@ -1859,7 +1917,11 @@
       "name_required": "Kinakailangan ang isang pangalan ng item para sa tala ng vault.",
       "options_failed": "Hindi mai-load ang mga opsyon para sa kategorya at silid.",
       "delete_success_title": "Natanggal ang tala sa vault",
-      "delete_success_body": "Ang pribadong tala ay permanenteng tinanggal mula sa iyong vault."
+      "delete_success_body": "Ang pribadong tala ay permanenteng tinanggal mula sa iyong vault.",
+      "passphrase_lowercase": "Isama ang hindi bababa sa isang maliit na titik.",
+      "passphrase_min_length": "Ang passphrase ng vault ay dapat hindi bababa sa 12 karakter.",
+      "passphrase_number": "Isama ang hindi bababa sa isang numero.",
+      "passphrase_uppercase": "Isama ang hindi bababa sa isang malaking titik."
     },
     "recovery_file_title": "Personal na Vault Recovery Key ng {{brandName}}",
     "recovery_file_created_label": "Nilikha",

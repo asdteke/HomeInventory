@@ -1,7 +1,30 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import { Plus, Edit3, Trash2, X } from 'lucide-react';
+import {
+    BookOpen,
+    Brush,
+    CookingPot,
+    Dumbbell,
+    Edit3,
+    Gamepad2,
+    Gift,
+    Guitar,
+    Laptop,
+    Lightbulb,
+    Package,
+    Palette,
+    Pill,
+    Plug,
+    Plus,
+    Shirt,
+    Sofa,
+    Sprout,
+    ToyBrick,
+    Trash2,
+    Wrench,
+    X
+} from 'lucide-react';
 import { EmptyState, NoticeBanner, PageHeader } from './ProductUI';
 import FloatingToast from './FloatingToast';
 import IconActionButton from './IconActionButton';
@@ -10,6 +33,57 @@ import { getCategoryPresentation } from '../utils/categoryDisplay';
 import { BRAND_NAME } from '../constants/branding';
 
 const DEFAULT_CATEGORY_COLOR = BRAND_NAME === 'HomeInventory' ? '#129e9a' : '#6f9978';
+
+const CATEGORY_ICON_OPTIONS = [
+    { value: '📦', icon: Package, label: 'General' },
+    { value: '🍳', icon: CookingPot, label: 'Kitchen' },
+    { value: '💻', icon: Laptop, label: 'Electronics' },
+    { value: '🎨', icon: Palette, label: 'Hobbies' },
+    { value: '🛋️', icon: Sofa, label: 'Furniture' },
+    { value: '👕', icon: Shirt, label: 'Clothing' },
+    { value: '📚', icon: BookOpen, label: 'Books' },
+    { value: '🔧', icon: Wrench, label: 'Tools' },
+    { value: '⚽', icon: Dumbbell, label: 'Sports' },
+    { value: '🎮', icon: Gamepad2, label: 'Games' },
+    { value: '🎸', icon: Guitar, label: 'Music' },
+    { value: '🌱', icon: Sprout, label: 'Garden' },
+    { value: '💡', icon: Lightbulb, label: 'Lighting' },
+    { value: '🔌', icon: Plug, label: 'Appliances' },
+    { value: '🧹', icon: Brush, label: 'Cleaning' },
+    { value: '🛠️', icon: Wrench, label: 'Repair' },
+    { value: '🎒', icon: Package, label: 'Bags' },
+    { value: '💊', icon: Pill, label: 'Health' },
+    { value: '🧸', icon: ToyBrick, label: 'Kids' },
+    { value: '🎁', icon: Gift, label: 'Gifts' }
+];
+
+const CATEGORY_ICON_BY_VALUE = new Map(CATEGORY_ICON_OPTIONS.map((option) => [option.value, option]));
+
+function isValidHexColor(value) {
+    return /^#[0-9a-fA-F]{6}$/.test(String(value || '').trim());
+}
+
+function getCategoryIconOption(category, visibleName = '') {
+    const iconValue = String(category?.icon || '').trim();
+    const directMatch = CATEGORY_ICON_BY_VALUE.get(iconValue);
+
+    if (directMatch) {
+        return directMatch;
+    }
+
+    const searchableName = `${category?.name || ''} ${visibleName}`.toLowerCase();
+
+    if (searchableName.includes('mutfak') || searchableName.includes('kitchen')) return CATEGORY_ICON_BY_VALUE.get('🍳');
+    if (searchableName.includes('elektronik') || searchableName.includes('electronic')) return CATEGORY_ICON_BY_VALUE.get('💻');
+    if (searchableName.includes('hobi') || searchableName.includes('hobb')) return CATEGORY_ICON_BY_VALUE.get('🎨');
+    if (searchableName.includes('mobilya') || searchableName.includes('furniture')) return CATEGORY_ICON_BY_VALUE.get('🛋️');
+    if (searchableName.includes('giyim') || searchableName.includes('cloth')) return CATEGORY_ICON_BY_VALUE.get('👕');
+    if (searchableName.includes('kitap') || searchableName.includes('book')) return CATEGORY_ICON_BY_VALUE.get('📚');
+    if (searchableName.includes('alet') || searchableName.includes('tool')) return CATEGORY_ICON_BY_VALUE.get('🔧');
+    if (searchableName.includes('spor') || searchableName.includes('sport')) return CATEGORY_ICON_BY_VALUE.get('⚽');
+
+    return CATEGORY_ICON_BY_VALUE.get('📦');
+}
 
 export default function CategoryManager() {
     const { t, i18n } = useTranslation();
@@ -36,6 +110,10 @@ export default function CategoryManager() {
         try {
             if (!formData.name.trim()) {
                 setError(t('categories.name_required', { defaultValue: 'Kategori adı gerekli' }));
+                return;
+            }
+            if (!isValidHexColor(formData.color)) {
+                setError(t('categories.color_required', { defaultValue: 'Color must be in #RRGGBB format' }));
                 return;
             }
             if (editingId) await axios.put(`/api/categories/${editingId}`, formData);
@@ -78,8 +156,6 @@ export default function CategoryManager() {
         setError('');
     };
 
-    const emojis = ['📦', '🍳', '💻', '🎨', '🛋️', '👕', '📚', '🔧', '⚽', '🎮', '🎸', '🌱', '💡', '🔌', '🧹', '🛠️', '🎒', '💊', '🧸', '🎁'];
-
     if (loading) return <div className="flex justify-center py-20"><div className="spinner"></div></div>;
 
     return (
@@ -117,19 +193,46 @@ export default function CategoryManager() {
                         <div>
                             <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('categories.icon_label')}</label>
                             <div className="flex flex-wrap gap-2">
-                                {emojis.map(e => (
-                                    <button key={e} type="button" onClick={() => setFormData({ ...formData, icon: e })}
-                                    className={`flex h-11 w-11 items-center justify-center rounded-lg text-[1.35rem] leading-none text-[var(--hi-text)] transition-all [font-family:"Apple_Color_Emoji","Segoe_UI_Emoji","Noto_Color_Emoji",sans-serif] ${formData.icon === e ? 'border border-[var(--hi-border-strong)] bg-[var(--hi-accent-soft)] shadow-[var(--hi-shadow-soft)]' : 'border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] hover:bg-[var(--hi-panel-strong)]'}`}>
-                                        {e}
+                                {CATEGORY_ICON_OPTIONS.map(({ value, icon: Icon, label }) => (
+                                    <button
+                                        key={value}
+                                        type="button"
+                                        onClick={() => setFormData({ ...formData, icon: value })}
+                                        aria-label={label}
+                                        title={label}
+                                        className={`flex h-11 w-11 items-center justify-center rounded-lg transition-all ${formData.icon === value ? 'border border-[var(--hi-border-strong)] bg-[var(--hi-accent-soft)] text-[var(--hi-accent)] shadow-[var(--hi-shadow-soft)]' : 'border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)] hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)]'}`}
+                                    >
+                                        <Icon className="h-5 w-5" strokeWidth={1.9} />
                                     </button>
                                 ))}
                             </div>
                         </div>
                         <div>
                             <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('categories.color_label')}</label>
-                            <div className="flex items-center gap-3">
-                                <input type="color" value={formData.color} onChange={(e) => setFormData({ ...formData, color: e.target.value })} className="h-12 w-12 cursor-pointer rounded-lg border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-1" />
-                                <span className="text-sm text-[var(--hi-text-soft)]">{formData.color}</span>
+                            <div className="inline-flex max-w-full items-center gap-3 rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-2 pr-3">
+                                <label className="relative h-12 w-12 shrink-0 cursor-pointer overflow-hidden rounded-[0.85rem] border border-[var(--hi-border)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                                    <span
+                                        className="block h-full w-full"
+                                        style={{ backgroundColor: isValidHexColor(formData.color) ? formData.color : DEFAULT_CATEGORY_COLOR }}
+                                        aria-hidden="true"
+                                    ></span>
+                                    <input
+                                        type="color"
+                                        value={isValidHexColor(formData.color) ? formData.color : DEFAULT_CATEGORY_COLOR}
+                                        onChange={(e) => setFormData({ ...formData, color: e.target.value })}
+                                        aria-label={t('categories.color_label')}
+                                        className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+                                    />
+                                </label>
+                                <input
+                                    type="text"
+                                    value={formData.color}
+                                    onChange={(e) => setFormData({ ...formData, color: e.target.value.trim() })}
+                                    inputMode="text"
+                                    pattern="#[0-9a-fA-F]{6}"
+                                    aria-label={t('categories.color_label')}
+                                    className="h-10 w-[8.5rem] rounded-[0.8rem] border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] px-3 font-mono text-sm font-semibold text-[var(--hi-text)] outline-none transition focus:border-[var(--hi-accent)] focus:ring-2 focus:ring-[rgba(45,82,65,0.18)]"
+                                />
                             </div>
                         </div>
                         <div className="flex gap-3 pt-2">
@@ -153,27 +256,26 @@ export default function CategoryManager() {
                     )}
                 />
             ) : (
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
                     {categories.map((cat) => {
                         const categoryPresentation = getCategoryPresentation(cat, i18n.resolvedLanguage || i18n.language);
+                        const iconOption = getCategoryIconOption(cat, categoryPresentation.name);
+                        const CategoryIcon = iconOption.icon;
 
                         return (
                         <div key={cat.id} className="card flex items-center gap-4 p-4 hover:shadow-md transition-shadow">
                             <div
-                                className="flex h-12 w-12 items-center justify-center rounded-[0.95rem] border text-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
+                                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[0.95rem] border shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
                                 style={{
                                     background: `linear-gradient(180deg, color-mix(in srgb, ${cat.color} 14%, var(--hi-panel-strong)) 0%, color-mix(in srgb, ${cat.color} 10%, var(--hi-panel-muted)) 100%)`,
-                                    borderColor: `color-mix(in srgb, ${cat.color} 22%, var(--hi-border))`
+                                    borderColor: `color-mix(in srgb, ${cat.color} 28%, var(--hi-border))`,
+                                    color: cat.color
                                 }}
                             >
-                                {cat.icon}
+                                <CategoryIcon className="h-6 w-6" strokeWidth={1.9} />
                             </div>
                             <div className="flex-1 min-w-0">
                                 <h3 className="truncate font-medium text-[var(--hi-text)]">{categoryPresentation.name}</h3>
-                                <div className="flex items-center gap-2 mt-1">
-                                    <div className="w-4 h-4 rounded-full" style={{ backgroundColor: cat.color }}></div>
-                                    <span className="text-xs text-[var(--hi-text-soft)]">{cat.color}</span>
-                                </div>
                             </div>
                             <div className="flex gap-1">
                                 <IconActionButton

@@ -66,7 +66,10 @@
             "warranty_calculation_help": "Jeśli pozostawisz pustą datę rozpoczęcia gwarancji, używana jest data faktury. Po wprowadzeniu okresu, data zakończenia gwarancji jest obliczana automatycznie.",
             "vault_hint_title": "Bardzo wrażliwy zapis?",
             "vault_hint_description": "W przypadku paszportów, aktów, danych tożsamości, kodów dostępu i innych zapisów, które powinny pozostać poza standardowym obiegiem inwentarza, przechowuj je w Skarbcu Osobistym.",
-            "vault_hint_action": "Otwórz Prywatną Skrytkę"
+            "vault_hint_action": "Otwórz Prywatną Skrytkę",
+            "location": "Lokalizacja",
+            "remove_photo": "Usuń zdjęcie",
+            "visibility_owner_only": "Tylko osoba, która dodała przedmiot, może zmienić jego widoczność."
         },
         "messages": {
             "quick_add_success": "✓ „{{barcode}}” dodano szybko - możesz edytować później",
@@ -115,7 +118,8 @@
         "delete_error": "Błąd usuwania przedmiotu",
         "no_permission": "Nie masz uprawnień do modyfikacji tego przedmiotu",
         "barcode_search_error": "Wyszukiwanie kodu kreskowego nie powiodło się",
-        "stats_error": "Błąd ładowania statystyk"
+        "stats_error": "Błąd ładowania statystyk",
+        "detail_subtitle": "Szczegóły przedmiotu"
     },
     "common": {
         "save": "Zapisz",
@@ -162,7 +166,11 @@
         "unauthorized": "Nieautoryzowany dostęp",
         "forbidden": "Nie masz uprawnień do tej akcji",
         "validation_error": "Błąd walidacji",
-        "server_error": "Błąd serwera"
+        "server_error": "Błąd serwera",
+        "details": "Szczegóły",
+        "hide": "Ukryj hasło",
+        "logging_out": "Wylogowywanie...",
+        "show": "Pokaż hasło"
     },
     "auth": {
         "login": {
@@ -194,7 +202,8 @@
                 "verify": "Zweryfikuj",
                 "back": "Wróć",
                 "use_backup": "Użyj kodu zapasowego",
-                "use_totp": "Użyj uwierzytelniania"
+                "use_totp": "Użyj uwierzytelniania",
+                "code_required": "Kod weryfikacyjny jest wymagany"
             },
             "welcome_title": "Witamy ponownie",
             "welcome_subtitle": "Zaloguj się, aby uzyskać dostęp do swojego ekwipunku",
@@ -632,7 +641,10 @@
             "info": "💡 Możesz być członkiem wielu domów i przełączać się między nimi. Każdy dom posiada oddzielny inwentarz.",
             "accordion_description": "Przełączaj się między gospodarstwami domowymi, stwórz nowe lub dołącz do istniejącego za pomocą zaufanego klucza.",
             "empty_description": "Stwórz nowe gospodarstwo domowe, aby rozpocząć udostępnianie, lub dołącz do istniejącego za pomocą zaufanego klucza domu.",
-            "leave_success_body": "Nie masz już dostępu do tego gospodarstwa domowego, a Twój aktywny dom został odświeżony."
+            "leave_success_body": "Nie masz już dostępu do tego gospodarstwa domowego, a Twój aktywny dom został odświeżony.",
+            "leave_title": "Opuszczać ten dom?",
+            "leave_warning": "Stracisz dostęp do tego gospodarstwa domowego do momentu, gdy inny członek ponownie Cię zaprosi lub zatwierdzi.",
+            "leaving": "Opuść..."
         },
         "house_info": {
             "title": "Aktywny klucz domu",
@@ -674,7 +686,11 @@
             "copy_error": "Nie udało się skopiować klucza do domu.",
             "modal_title": "Dostęp do klucza domowego",
             "modal_subtitle": "Używaj tego klucza tylko dla zaufanych członków gospodarstwa domowego, którzy powinni prosić o dostęp do tego wspólnego zasobu.",
-            "loading_members": "Ładowanie członków..."
+            "loading_members": "Ładowanie członków...",
+            "kick_success_body": "{{name}} nie ma już dostępu do tego domu.",
+            "kick_title": "Usunąć tego członka?",
+            "kick_warning": "Ich dostęp do domu zakończy się natychmiast i będą potrzebować nowego zaproszenia lub zatwierdzenia, aby powrócić.",
+            "kicking": "Usuwanie..."
         },
         "theme": {
             "title": "Motyw",
@@ -720,7 +736,20 @@
             "unencrypted_warning": "Proste eksporterowanie JSON jest łatwiejsze do sprawdzenia, ale każdy, kto otworzy plik, może od razu przeczytać dane dotyczące gospodarstwa domowego.",
             "import_encrypted_title": "Odblokuj zaszyfrowaną kopię zapasową",
             "import_encrypted_body": "Wprowadź hasło kopii zapasowej użyte podczas pobierania, aby przywrócić ten zaszyfrowany plik.",
-            "unlock_and_import": "Odblokuj i zaimportuj"
+            "unlock_and_import": "Odblokuj i zaimportuj",
+            "export_encrypted_notice": "Kopia zapasowa jest przygotowywana na podstawie danych bieżącego gospodarstwa domowego, a następnie zabezpieczana wybraną przez ciebie frazą hasłową. Przechowuj tę frazę w bezpiecznym miejscu, ponieważ będzie wymagana do późniejszego przywrócenia pliku.",
+            "export_encrypted_title": "Szyfrowanie zostanie zastosowane przed pobraniem",
+            "import_summary_body": "Przywrócono {{items}} przedmiotów, {{categories}} kategorii, {{rooms}} pokoi, {{locations}} lokalizacji, {{borrows}} rekordów wypożyczeń.",
+            "import_summary_title": "Kopia zapasowa przywrócona",
+            "preview_categories": "Kategorie",
+            "preview_items": "Przedmioty",
+            "preview_locations": "Lokalizacje",
+            "preview_rooms": "Pokoje",
+            "skipped_borrows": "Pomiń {{count}} istniejących rekordów wypożyczeń.",
+            "skipped_categories": "Pomiń {{count}} istniejących kategorii.",
+            "skipped_items": "{{count}} istniejące elementy pominięto.",
+            "skipped_locations": "{{count}} istniejące lokalizacje pominięto.",
+            "skipped_rooms": "{{count}} istniejące pokoje pominięto."
         },
         "about": {
             "title": "📱 O aplikacji",
@@ -733,7 +762,10 @@
             "privacy_link": "Polityka prywatności",
             "beta_title": "Status beta",
             "beta_body": "{{brandName}} jest nadal w wersji beta. Funkcje mogą się zmieniać, przepływy pracy mogą ewoluować, a ważne dane gospodarstwa domowego powinny być zawsze backupowane.",
-            "feedback_subject": "Opinie - {{brandName}}"
+            "feedback_subject": "Opinie - {{brandName}}",
+            "logout_body": "Wszelkie niezapisane zmiany w otwartych formularzach mogą zostać utracone po opuszczeniu tej sesji.",
+            "logout_description": "Powrócisz do strony głównej i możesz zalogować się ponownie w dowolnym momencie.",
+            "logout_title": "Wylogować się teraz?"
         },
         "modals": {
             "password": {
@@ -960,7 +992,11 @@
             "lend_success_title": "Przedmiot wypożyczony",
             "lend_success_body": "{{item}} został teraz oznaczony jako wypożyczony.",
             "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "borrowed_by_you": "U Ciebie",
+            "return_pending_hint": "Rekord zostanie zamknięty po potwierdzeniu przez pożyczającego, że otrzymał przedmiot z powrotem.",
+            "return_pending_lender_title": "{{name}} oznaczył ten przedmiot jako zwrócony",
+            "return_pending_self_title": "U Ciebie, czekając na potwierdzenie odbioru"
         },
         "untitled_item": "Przedmiot bez tytułu",
         "delete_action": "Usuń przedmiot",
@@ -1023,7 +1059,10 @@
         "name_required": "Nazwa kategorii jest wymagana",
         "load_error": "Błąd ładowania kategorii",
         "add_error": "Błąd dodawania kategorii",
-        "update_error": "Błąd aktualizacji kategorii"
+        "update_error": "Błąd aktualizacji kategorii",
+        "color_required": "Kolor musi być w formacie #RRGGBB",
+        "empty_description": "Utwórz kilka kategorii, aby nowe przedmioty miały tę samą strukturę i łatwiej je było przeglądać później.",
+        "empty_title": "Jeszcze brak kategorii"
     },
     "rooms": {
         "title": "Pokoje",
@@ -1097,7 +1136,9 @@
         "name_required": "Nazwa pokoju jest wymagana",
         "load_error": "Błąd ładowania pokoi",
         "add_error": "Błąd dodawania pokoju",
-        "update_error": "Błąd aktualizacji pokoju"
+        "update_error": "Błąd aktualizacji pokoju",
+        "empty_description": "Utwórz pokoje takie jak kuchnia, magazyn lub garaż, aby lokalizacja przedmiotów była spójna i łatwiejsza do wyszukania.",
+        "empty_title": "Jeszcze brak pokoi"
     },
     "admin": {
         "title": "Panel Administratora",
@@ -1176,7 +1217,12 @@
             "households_label": "Gospodarstwa domowe",
             "items_label": "Posiadane przedmioty",
             "last_seen_short": "Wyświetlono",
-            "last_seen_short_never": "Nowe"
+            "last_seen_short_never": "Nowe",
+            "failed_logins": "{{count}} nieudanych logowań",
+            "load_failed_title": "Użytkownicy nie mogli się załadować",
+            "pending_requests": "{{count}} oczekujących wniosków domowych",
+            "role_admin": "Administrator",
+            "role_user": "Użytkownik"
         },
         "logs": {
             "title": "Dzienniki administratora",
@@ -1208,7 +1254,9 @@
             "section_eyebrow": "Ścieżka audytu",
             "errors_eyebrow": "Diagnostyka",
             "section_body": "Każda moderacja lub zmiana operacyjna zarejestrowana przez warstwę administracyjną.",
-            "errors_body": "Najnowsze przetworzone linie błędów z plików dziennika serwera."
+            "errors_body": "Najnowsze przetworzone linie błędów z plików dziennika serwera.",
+            "load_failed_title": "Aktywność nie mogła się załadować",
+            "no_logs_title": "Brak dotychczasowych działań administratora"
         },
         "email": {
             "title": "Wyślij e-mail",
@@ -1242,7 +1290,14 @@
             "status_body": "Szybkie sprawdzenie pewności przed wysłaniem komunikacji operacyjnej.",
             "unconfigured_title": "Dostarczanie e-maili nie jest skonfigurowane",
             "unconfigured_body": "Formularz wysyłki pozostaje widoczny do przeglądu ustawień, ale dostawa nie powiedzie się, dopóki dostawca poczty nie zostanie skonfigurowany.",
-            "status_eyebrow": "Dostawa"
+            "status_eyebrow": "Dostawa",
+            "configured_body": "Ponowne wysłanie jest dostępne dla wiadomości wychodzących wywołanych przez administratora.",
+            "configured_title": "Konfiguracja dostarczania e-maili została wykonana",
+            "error_title": "Wysyłka e-maila nie powiodła się",
+            "format_hint": "HTML jest obsługiwany. Na przykład: <b>pogrubienie</b>, <i>kursywa</i>, <a href=\"...\">link</a>",
+            "from_label": "Nadawca",
+            "load_failed_title": "Narzędzia e-mail nie mogły się załadować",
+            "success_title": "E-mail został wysłany"
         },
         "overview": {
             "email_warning_title": "Dostarczanie poczty e-mail nie jest skonfigurowane",
@@ -1327,7 +1382,9 @@
         "stats_loaded": "Statystyki załadowane",
         "logs_loaded": "Logi załadowane",
         "load_error": "Błąd ładowania danych",
-        "action_error": "Błąd wykonywania akcji"
+        "action_error": "Błąd wykonywania akcji",
+        "load_failed_body": "Trasa administratora jest otwarta, ale dane w przeglądzie nie dotarły. Możesz spróbować ponownie bez opuszczania strony.",
+        "load_failed_title": "Przegląd administratora nie mógł się załadować"
     },
     "landing": {
         "nav": {
@@ -1672,7 +1729,8 @@
         "link_privacy_note": "Adres sieci pozostaje tutaj ukryty. Skanuj kod lub kopiuj link tylko wtedy, gdy zamierzasz świadomie udostępnić bezpośredni dostęp do elementu w swoim lokalnym ustawieniu.",
         "helper": "Skanuj, aby natychmiast otworzyć ten element, lub kopiuj bezpośredni link w razie potrzeby.",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Przygotowywanie narzędzi QR..."
     },
     "house_access_pending": {
         "eyebrow": "Dostęp do domu",
@@ -1859,7 +1917,11 @@
             "name_required": "Nazwa elementu jest wymagana dla rekordu sejfu.",
             "options_failed": "Nie można było załadować opcji kategorii i pokoju.",
             "delete_success_title": "Rekord w skrytce został usunięty",
-            "delete_success_body": "Prywatny rekord został trwale usunięty z Twojej skrytki."
+            "delete_success_body": "Prywatny rekord został trwale usunięty z Twojej skrytki.",
+            "passphrase_lowercase": "Zawierać co najmniej jedną małą literę.",
+            "passphrase_min_length": "Hasło skarbca musi mieć co najmniej 12 znaków.",
+            "passphrase_number": "Zawierać co najmniej jedną cyfrę.",
+            "passphrase_uppercase": "Zawierać co najmniej jedną wielką literę."
         },
         "recovery_file_title": "{{brandName}} Osobisty Skarbiec Klucz Odzyskiwania",
         "recovery_file_created_label": "Utworzono",

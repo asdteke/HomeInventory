@@ -15,6 +15,7 @@ import {
     encryptBorrowRequestTarget,
     encryptBorrowReturnNote
 } from '../utils/protectedFields.js';
+import { isEncryptedPayload } from '../utils/encryption.js';
 
 const router = express.Router();
 
@@ -95,6 +96,10 @@ function normalizeRequiredText(value, fieldLabel, maxLength = 160) {
 
 function buildRecipientLookup(identifier) {
     const normalized = normalizeRequiredText(identifier, 'Alıcı bilgisi', 160);
+    if (isEncryptedPayload(normalized)) {
+        throw new Error('Alıcı bilgisi kullanıcı adı veya e-posta olarak girilmeli');
+    }
+
     const lookupType = normalized.includes('@') ? 'email' : 'username';
     const lookupHash = lookupType === 'email'
         ? buildEmailLookup(normalized)
@@ -113,6 +118,15 @@ function buildRecipientLookup(identifier) {
 
 function buildExpiresAt(days = 14) {
     return new Date(Date.now() + (days * 24 * 60 * 60 * 1000)).toISOString();
+}
+
+function isUnsafeDisplayName(value) {
+    const normalized = String(value || '').trim();
+    return !normalized || isEncryptedPayload(normalized);
+}
+
+function safeDisplayName(value, fallback = 'Eşleşme bekleniyor') {
+    return isUnsafeDisplayName(value) ? fallback : value;
 }
 
 function getRequestErrorStatus(error) {
@@ -238,10 +252,10 @@ function serializeBorrowRequest(record, viewerUserId) {
         note: decrypted.note,
         requested_item_label: decrypted.requested_item_label,
         viewer_role: viewerRole,
-        recipient_hint: viewerRole === 'initiator' ? decrypted.recipient_identifier : null,
+        recipient_hint: viewerRole === 'initiator' ? safeDisplayName(decrypted.recipient_identifier) : null,
         counterparty_display_name: viewerRole === 'recipient'
-            ? decrypted.initiator_username
-            : (pending ? decrypted.recipient_identifier : (decrypted.recipient_username || decrypted.recipient_identifier)),
+            ? safeDisplayName(decrypted.initiator_username)
+            : safeDisplayName(pending ? decrypted.recipient_identifier : (decrypted.recipient_username || decrypted.recipient_identifier)),
         item: itemName ? {
             id: decrypted.item_id,
             name: itemName,
