@@ -4,9 +4,15 @@ import { useTranslation } from 'react-i18next';
 import Tooltip from './Tooltip';
 import FloatingToast from './FloatingToast';
 import { copyTextToClipboard } from '../utils/clipboard';
-import { SITE_URL } from '../constants/branding';
+import { BRAND_KEY, SITE_URL } from '../constants/branding';
 
-const QR_LOGO_ASSET = '/brand/logo-symbol-light.svg?v=qr-dark-on-light-20260516';
+const QR_LOGO_VERSION = 'qr-brand-20260517';
+const QR_LOGO_ASSETS = {
+    homeinventory: '/brand/logo-symbol-light.svg',
+    envanterim: '/brand/envanterim-logo-symbol-dark.svg'
+};
+
+const QR_LOGO_ASSET = `${QR_LOGO_ASSETS[BRAND_KEY] || QR_LOGO_ASSETS.homeinventory}?v=${QR_LOGO_VERSION}`;
 
 function slugifyFilePart(value) {
     return String(value || '')

@@ -94,8 +94,7 @@ function renderStyledQrSvg(qrData, { width, logoDataUrl }) {
                 LOGO_BADGE_SIZE,
                 LOGO_BADGE_SIZE,
                 LOGO_BADGE_RADIUS,
-                QR_LIGHT_COLOR,
-                'stroke="#d7dfd8" stroke-width="0.18"'
+                QR_LIGHT_COLOR
             ),
             `<image href="${logoDataUrl}" x="${center - (LOGO_IMAGE_SIZE / 2)}" y="${center - (LOGO_IMAGE_SIZE / 2)}" width="${LOGO_IMAGE_SIZE}" height="${LOGO_IMAGE_SIZE}" preserveAspectRatio="xMidYMid meet" opacity="0.99"/>`
         ].join('')
