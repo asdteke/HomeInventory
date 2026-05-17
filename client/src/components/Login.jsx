@@ -6,7 +6,7 @@ import { ArrowRight, Eye, EyeOff, KeyRound, Lock, Moon, ShieldCheck, Sun, User }
 import BrandLogo from './BrandLogo';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTheme } from '../context/ThemeContext';
-import { BRAND_NAME, SUPPORT_EMAIL } from '../constants/branding';
+import { BRAND_KEY, BRAND_NAME, SUPPORT_EMAIL } from '../constants/branding';
 import { resolveVerifiedLegalTranslationLanguage } from '../utils/legalTranslations';
 
 const LEGAL_LINK_KEYS = [
@@ -29,65 +29,65 @@ export default function Login() {
     const { login } = useAuth();
     const { isDark, toggleTheme } = useTheme();
     const { t, i18n } = useTranslation();
-    const isEnvanterimBrand = BRAND_NAME === 'Envanterim';
+    const isCustomBrand = BRAND_KEY !== 'homeinventory';
     const isTurkish = (i18n.resolvedLanguage || i18n.language || 'tr').toLowerCase().startsWith('tr');
     const legalLanguage = resolveVerifiedLegalTranslationLanguage(i18n, LEGAL_LINK_KEYS);
     const legalT = i18n.getFixedT(legalLanguage);
     const pageClass = isDark
-        ? (isEnvanterimBrand ? 'bg-[var(--hi-bg-strong)] text-white' : 'bg-[#1a1f1c] text-white')
+        ? (isCustomBrand ? 'bg-[var(--hi-bg-strong)] text-white' : 'bg-[#1a1f1c] text-white')
         : 'bg-[var(--hi-bg)] text-[var(--hi-text)]';
     const pageGlow = isDark
-        ? (isEnvanterimBrand
+        ? (isCustomBrand
             ? 'radial-gradient(circle_at_18%_16%,rgba(103,227,242,0.08),transparent_26%),radial-gradient(circle_at_82%_18%,rgba(139,180,255,0.09),transparent_30%),linear-gradient(180deg,#101620_0%,#161c27_52%,#111722_100%)'
             : 'radial-gradient(circle_at_20%_18%,rgba(205,176,136,0.08),transparent_26%),radial-gradient(circle_at_78%_22%,rgba(74,125,100,0.12),transparent_30%),linear-gradient(180deg,#151a17_0%,#1a201d_52%,#151917_100%)')
-        : (isEnvanterimBrand
+        : (isCustomBrand
             ? 'radial-gradient(circle_at_18%_18%,rgba(139,180,255,0.13),transparent_24%),radial-gradient(circle_at_82%_20%,rgba(18,158,154,0.10),transparent_28%),linear-gradient(180deg,#f4f8fd_0%,#eff5fc_48%,#eaf1fa_100%)'
             : 'radial-gradient(circle_at_18%_18%,rgba(184,153,104,0.12),transparent_24%),radial-gradient(circle_at_82%_20%,rgba(45,82,65,0.10),transparent_28%),linear-gradient(180deg,#f7f2e8_0%,#f4ede2_48%,#efe6d9_100%)');
     const topChromeClass = isDark
-        ? (isEnvanterimBrand
+        ? (isCustomBrand
             ? 'border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text-soft)] hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] hover:text-white'
             : 'border-white/10 bg-white/4 text-white/84 hover:bg-white/8 hover:text-white')
         : 'border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text-soft)] hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)]';
     const cardClass = isDark
-        ? (isEnvanterimBrand
+        ? (isCustomBrand
             ? 'landing-surface border-[var(--hi-border)] bg-[linear-gradient(180deg,rgba(23,30,42,0.96),rgba(17,23,33,0.92))] shadow-[0_28px_72px_rgba(0,0,0,0.34)]'
             : 'landing-surface border-white/8 bg-[rgba(16,21,18,0.86)] shadow-[0_28px_72px_rgba(0,0,0,0.30)]')
-        : (isEnvanterimBrand
+        : (isCustomBrand
             ? 'landing-surface border-[rgba(176,193,216,0.28)] bg-[rgba(255,255,255,0.9)] shadow-[0_24px_60px_rgba(19,35,61,0.10)]'
             : 'landing-surface border-[rgba(18,32,22,0.06)] bg-[rgba(255,251,245,0.84)] shadow-[0_24px_60px_rgba(28,41,32,0.12)]');
     const labelClass = isDark ? 'text-white/78' : 'text-[var(--hi-text-soft)]';
     const subtleTextClass = isDark
-        ? (isEnvanterimBrand ? 'text-[var(--hi-text-muted)]' : 'text-white/55')
+        ? (isCustomBrand ? 'text-[var(--hi-text-muted)]' : 'text-white/55')
         : 'text-[var(--hi-text-soft)]';
     const iconMutedClass = isDark
-        ? (isEnvanterimBrand ? 'text-[var(--hi-text-muted)]' : 'text-white/28')
+        ? (isCustomBrand ? 'text-[var(--hi-text-muted)]' : 'text-white/28')
         : 'text-[var(--hi-text-muted)]';
     const iconButtonClass = isDark
-        ? (isEnvanterimBrand ? 'text-[var(--hi-text-muted)] hover:text-white' : 'text-white/32 hover:text-white/68')
+        ? (isCustomBrand ? 'text-[var(--hi-text-muted)] hover:text-white' : 'text-white/32 hover:text-white/68')
         : 'text-[var(--hi-text-muted)] hover:text-[var(--hi-text)]';
     const inputClass = isDark
-        ? (isEnvanterimBrand
+        ? (isCustomBrand
             ? 'input-field h-14 border-[var(--hi-border)] bg-[rgba(22,30,43,0.92)] text-white placeholder:text-[var(--hi-text-muted)]'
             : 'input-field h-14 border-white/8 bg-[rgba(10,14,12,0.62)] text-white placeholder:text-white/28')
         : 'input-field h-14 border-[rgba(18,32,22,0.08)] bg-[rgba(255,255,255,0.82)] text-[var(--hi-text)] placeholder:text-[var(--hi-text-muted)]';
     const panelMutedClass = isDark ? 'text-white/46' : 'text-[var(--hi-text-soft)]';
     const dividerClass = isDark
-        ? (isEnvanterimBrand ? 'bg-[var(--hi-border)]' : 'bg-white/8')
+        ? (isCustomBrand ? 'bg-[var(--hi-border)]' : 'bg-white/8')
         : 'bg-[rgba(18,32,22,0.08)]';
     const trustSurfaceClass = isDark
-        ? (isEnvanterimBrand
+        ? (isCustomBrand
             ? 'border-[var(--hi-border-strong)] bg-[rgba(26,34,46,0.72)] text-[var(--hi-text-soft)]'
             : 'border-white/8 bg-white/[0.045] text-white/62')
-        : (isEnvanterimBrand
+        : (isCustomBrand
             ? 'border-[rgba(176,193,216,0.32)] bg-[rgba(248,251,255,0.88)] text-[var(--hi-text-soft)]'
             : 'border-[rgba(18,32,22,0.08)] bg-[rgba(255,255,255,0.66)] text-[var(--hi-text-soft)]');
     const secondaryButtonClass = isDark
-        ? (isEnvanterimBrand
+        ? (isCustomBrand
             ? 'border border-[var(--hi-border-strong)] bg-[rgba(22,30,43,0.7)] text-white hover:bg-[rgba(29,38,52,0.92)]'
             : 'border border-white/8 bg-white/[0.02] text-white/82 hover:bg-white/[0.05]')
         : 'border border-[rgba(18,32,22,0.08)] bg-[rgba(255,255,255,0.78)] text-[var(--hi-text)] hover:bg-white';
     const footerLinkClass = isDark ? 'text-white/50 hover:text-white/82' : 'text-[var(--hi-text-soft)] hover:text-[var(--hi-text)]';
-    const actionLinkClass = isEnvanterimBrand
+    const actionLinkClass = isCustomBrand
         ? 'text-sm font-medium text-[var(--hi-accent)] transition hover:text-[var(--hi-secondary-strong)]'
         : 'text-sm font-medium text-[#6f9978] transition hover:text-[#8bb395]';
     const loginHeaderKicker = t('auth.login.header_kicker', {
@@ -167,8 +167,8 @@ export default function Login() {
             <div className={`absolute inset-0 ${isDark ? 'opacity-[0.14]' : 'opacity-[0.22]'}`}>
                 <div className="landing-grid absolute inset-0" />
             </div>
-            <div className={`absolute left-[-7rem] top-16 h-56 w-56 rounded-full blur-3xl ${isDark ? (isEnvanterimBrand ? 'bg-[rgba(139,180,255,0.10)]' : 'bg-[rgba(205,176,136,0.10)]') : (isEnvanterimBrand ? 'bg-[rgba(139,180,255,0.16)]' : 'bg-[rgba(205,176,136,0.16)]')}`} />
-            <div className={`absolute bottom-8 right-[-5rem] h-64 w-64 rounded-full blur-3xl ${isDark ? (isEnvanterimBrand ? 'bg-[rgba(103,227,242,0.12)]' : 'bg-[rgba(74,125,100,0.14)]') : (isEnvanterimBrand ? 'bg-[rgba(18,158,154,0.10)]' : 'bg-[rgba(45,82,65,0.10)]')}`} />
+            <div className={`absolute left-[-7rem] top-16 h-56 w-56 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(139,180,255,0.10)]' : 'bg-[rgba(205,176,136,0.10)]') : (isCustomBrand ? 'bg-[rgba(139,180,255,0.16)]' : 'bg-[rgba(205,176,136,0.16)]')}`} />
+            <div className={`absolute bottom-8 right-[-5rem] h-64 w-64 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(103,227,242,0.12)]' : 'bg-[rgba(74,125,100,0.14)]') : (isCustomBrand ? 'bg-[rgba(18,158,154,0.10)]' : 'bg-[rgba(45,82,65,0.10)]')}`} />
 
             <div className="relative z-10 flex min-h-screen items-center justify-center px-5 py-8 sm:px-6 sm:py-12">
                 <div className="w-full max-w-[31rem]">
@@ -191,16 +191,16 @@ export default function Login() {
                                 <LanguageSwitcher
                                     showTooltip={false}
                                     showCodeBadge={false}
-                                    className={`!h-10 !rounded-full !px-3 !py-0 sm:!h-11 sm:!px-4 ${isDark ? (isEnvanterimBrand ? '!border-[var(--hi-border)] !bg-[var(--hi-panel)] !text-white hover:!bg-[var(--hi-panel-muted)]' : '!border-white/10 !bg-white/4 !text-white/88 hover:!bg-white/8') : '!border-[var(--hi-border)] !bg-[var(--hi-panel)] !text-[var(--hi-text)] hover:!bg-[var(--hi-panel-strong)]'}`}
+                                    className={`!h-10 !rounded-full !px-3 !py-0 sm:!h-11 sm:!px-4 ${isDark ? (isCustomBrand ? '!border-[var(--hi-border)] !bg-[var(--hi-panel)] !text-white hover:!bg-[var(--hi-panel-muted)]' : '!border-white/10 !bg-white/4 !text-white/88 hover:!bg-white/8') : '!border-[var(--hi-border)] !bg-[var(--hi-panel)] !text-[var(--hi-text)] hover:!bg-[var(--hi-panel-strong)]'}`}
                                 />
                             </div>
                         </div>
                     </div>
 
                     <div className={`relative overflow-hidden rounded-[var(--hi-radius-md)] ${cardClass}`}>
-                        <div className={`landing-panel-glow absolute inset-0 ${isEnvanterimBrand && isDark ? 'opacity-30' : 'opacity-50'}`} />
+                        <div className={`landing-panel-glow absolute inset-0 ${isCustomBrand && isDark ? 'opacity-30' : 'opacity-50'}`} />
 
-                        <div className={`relative p-6 sm:p-8 ${isEnvanterimBrand && isDark ? 'bg-[linear-gradient(180deg,rgba(17,24,35,0.24),rgba(17,24,35,0.08))]' : ''}`}>
+                        <div className={`relative p-6 sm:p-8 ${isCustomBrand && isDark ? 'bg-[linear-gradient(180deg,rgba(17,24,35,0.24),rgba(17,24,35,0.08))]' : ''}`}>
                             <Link to="/" className="inline-flex rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-secondary)]">
                                 <BrandLogo variant="full" size="md" className="h-auto max-h-10 w-auto sm:max-h-11" />
                             </Link>
@@ -238,7 +238,7 @@ export default function Login() {
                                                     {t('auth.login.username_or_email')}
                                                 </label>
                                                 <div className="group relative">
-                                                    <User className={`absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition ${isEnvanterimBrand ? 'group-focus-within:text-[var(--hi-accent)]' : 'group-focus-within:text-[#6f9978]'} ${iconMutedClass}`} />
+                                                    <User className={`absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition ${isCustomBrand ? 'group-focus-within:text-[var(--hi-accent)]' : 'group-focus-within:text-[#6f9978]'} ${iconMutedClass}`} />
                                                     <input
                                                         type="text"
                                                         value={username}
@@ -256,7 +256,7 @@ export default function Login() {
                                                     {t('auth.login.password')}
                                                 </label>
                                                 <div className="group relative">
-                                                    <Lock className={`absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition ${isEnvanterimBrand ? 'group-focus-within:text-[var(--hi-accent)]' : 'group-focus-within:text-[#6f9978]'} ${iconMutedClass}`} />
+                                                    <Lock className={`absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition ${isCustomBrand ? 'group-focus-within:text-[var(--hi-accent)]' : 'group-focus-within:text-[#6f9978]'} ${iconMutedClass}`} />
                                                     <input
                                                         type={showPassword ? 'text' : 'password'}
                                                         value={password}
@@ -286,7 +286,7 @@ export default function Login() {
                                             <button
                                                 type="submit"
                                                 disabled={loading}
-                                                className={`btn-primary !h-14 !w-full !rounded-[var(--hi-radius-md)] !px-5 text-base ${isEnvanterimBrand ? '!shadow-[0_18px_36px_rgba(8,44,110,0.24)]' : '!shadow-[0_18px_36px_rgba(111,153,120,0.24)]'} disabled:opacity-60`}
+                                                className={`btn-primary !h-14 !w-full !rounded-[var(--hi-radius-md)] !px-5 text-base ${isCustomBrand ? '!shadow-[0_18px_36px_rgba(8,44,110,0.24)]' : '!shadow-[0_18px_36px_rgba(111,153,120,0.24)]'} disabled:opacity-60`}
                                             >
                                                 {loading ? t('auth.login.submitting') : t('auth.login.submit')}
                                                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -312,7 +312,7 @@ export default function Login() {
                                             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                                                 <p className={`text-sm ${panelMutedClass}`}>
                                                     {t('auth.login.no_account')}{' '}
-                                                    <Link to="/register" className={`font-semibold transition ${isEnvanterimBrand ? 'text-[var(--hi-accent)] hover:text-[var(--hi-secondary-strong)]' : 'text-[#6f9978] hover:text-[#8bb395]'}`}>
+                                                    <Link to="/register" className={`font-semibold transition ${isCustomBrand ? 'text-[var(--hi-accent)] hover:text-[var(--hi-secondary-strong)]' : 'text-[#6f9978] hover:text-[#8bb395]'}`}>
                                                         {t('auth.login.register_link')}
                                                     </Link>
                                                 </p>
@@ -352,12 +352,12 @@ export default function Login() {
                                             />
                                         </div>
 
-                                        <label className={`flex items-start gap-3 rounded-[var(--hi-radius-md)] border px-4 py-3 text-sm ${panelMutedClass} ${isDark ? (isEnvanterimBrand ? 'border-[var(--hi-border)] bg-[rgba(24,31,44,0.72)]' : 'border-white/8 bg-white/[0.02]') : 'border-[rgba(18,32,22,0.08)] bg-[rgba(255,255,255,0.52)]'}`}>
+                                        <label className={`flex items-start gap-3 rounded-[var(--hi-radius-md)] border px-4 py-3 text-sm ${panelMutedClass} ${isDark ? (isCustomBrand ? 'border-[var(--hi-border)] bg-[rgba(24,31,44,0.72)]' : 'border-white/8 bg-white/[0.02]') : 'border-[rgba(18,32,22,0.08)] bg-[rgba(255,255,255,0.52)]'}`}>
                                             <input
                                                 type="checkbox"
                                                 checked={rememberDevice}
                                                 onChange={(e) => setRememberDevice(e.target.checked)}
-                                                className={`mt-0.5 h-4 w-4 rounded border ${isDark ? (isEnvanterimBrand ? 'border-[var(--hi-border-strong)] bg-transparent' : 'border-white/16 bg-transparent') : 'border-[rgba(18,32,22,0.18)] bg-transparent'} ${isEnvanterimBrand ? 'text-[var(--hi-accent)] focus:ring-[var(--hi-accent)]' : 'text-[#6f9978] focus:ring-[#6f9978]'} focus:ring-offset-0`}
+                                                className={`mt-0.5 h-4 w-4 rounded border ${isDark ? (isCustomBrand ? 'border-[var(--hi-border-strong)] bg-transparent' : 'border-white/16 bg-transparent') : 'border-[rgba(18,32,22,0.18)] bg-transparent'} ${isCustomBrand ? 'text-[var(--hi-accent)] focus:ring-[var(--hi-accent)]' : 'text-[#6f9978] focus:ring-[#6f9978]'} focus:ring-offset-0`}
                                             />
                                             <span>{rememberDeviceLabel}</span>
                                         </label>
@@ -365,7 +365,7 @@ export default function Login() {
                                         <button
                                             type="submit"
                                             disabled={loading}
-                                            className={`btn-primary !h-14 !w-full !rounded-[var(--hi-radius-md)] !px-5 text-base ${isEnvanterimBrand ? '!shadow-[0_18px_36px_rgba(8,44,110,0.24)]' : '!shadow-[0_18px_36px_rgba(111,153,120,0.24)]'} disabled:opacity-60`}
+                                            className={`btn-primary !h-14 !w-full !rounded-[var(--hi-radius-md)] !px-5 text-base ${isCustomBrand ? '!shadow-[0_18px_36px_rgba(8,44,110,0.24)]' : '!shadow-[0_18px_36px_rgba(111,153,120,0.24)]'} disabled:opacity-60`}
                                         >
                                             {loading ? t('auth.login.submitting') : t('auth.login.two_factor.verify')}
                                             <ArrowRight className="ml-2 h-4 w-4" />

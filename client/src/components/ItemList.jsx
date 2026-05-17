@@ -446,7 +446,10 @@ export default function ItemList() {
                             const activeBorrow = item.active_borrow;
                             const overdue = isBorrowOverdue(activeBorrow);
                             const returnPending = Boolean(activeBorrow?.return_requested_at);
-                            const canLendItem = !activeBorrow && item.user_id === user.id;
+                            const canManageItem = item.can_edit !== undefined
+                                ? Boolean(item.can_edit)
+                                : item.user_id === user?.id;
+                            const canLendItem = !activeBorrow && canManageItem;
                             const visibleCategoryName = item.category_name
                                 ? getVisibleCategoryName({ id: item.category_id, name: item.category_name })
                                 : '';
@@ -580,13 +583,17 @@ export default function ItemList() {
                                             <Link to={`/items/${item.id}/edit`} className={`${secondaryActionButtonClass} h-11 w-full justify-center px-3`}>
                                                 <Eye className="w-4 h-4 text-[var(--hi-text-muted)]" /> <span className={viewMode === 'list' ? 'lg:hidden xl:inline' : ''}>{t('common.details', { defaultValue: 'Details' })}</span>
                                             </Link>
-                                            <IconActionButton
-                                                label={t('inventory.delete_action', { defaultValue: 'Delete item' })}
-                                                icon={Trash2}
-                                                tone="danger"
-                                                onClick={() => setPendingDeleteItem(item)}
-                                                className="h-11 w-11 shrink-0 border border-transparent"
-                                            />
+                                            {canManageItem ? (
+                                                <IconActionButton
+                                                    label={t('inventory.delete_action', { defaultValue: 'Delete item' })}
+                                                    icon={Trash2}
+                                                    tone="danger"
+                                                    onClick={() => setPendingDeleteItem(item)}
+                                                    className="h-11 w-11 shrink-0 border border-transparent"
+                                                />
+                                            ) : (
+                                                <span aria-hidden="true" className="block h-11 w-11 shrink-0" />
+                                            )}
                                         </div>
                                     </div>
                                 </div>

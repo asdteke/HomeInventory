@@ -23,10 +23,6 @@ function deriveBrandName(siteHost) {
         return 'Inventory';
     }
 
-    if (siteHost === 'envanterim.net.tr') {
-        return 'Envanterim';
-    }
-
     const [label] = siteHost.split('.');
     const normalized = label.replace(/[-_]+/g, ' ').trim();
     if (!normalized) {
@@ -36,9 +32,23 @@ function deriveBrandName(siteHost) {
     return normalized.charAt(0).toUpperCase() + normalized.slice(1);
 }
 
+function normalizeBrandKey(value) {
+    const normalized = String(value || '')
+        .trim()
+        .toLocaleLowerCase('en-US')
+        .replace(/[^a-z0-9]+/g, '');
+
+    return normalized || 'homeinventory';
+}
+
 export const SITE_URL = resolveSiteUrl();
 const SITE_HOST = resolveSiteHost(SITE_URL);
 const FALLBACK_APP_VERSION = '2.0.1';
+const CONFIGURED_BRAND_KEY = (
+    typeof __APP_BRAND_KEY__ === 'string' && __APP_BRAND_KEY__.trim()
+        ? normalizeBrandKey(__APP_BRAND_KEY__)
+        : ''
+);
 
 export const BRAND_NAME = (
     typeof __APP_BRAND_NAME__ === 'string' && __APP_BRAND_NAME__.trim()
@@ -47,11 +57,7 @@ export const BRAND_NAME = (
 );
 
 export const BRAND_HOST = SITE_HOST;
-export const BRAND_KEY = (
-    BRAND_HOST === 'envanterim.net.tr' ||
-    BRAND_HOST === 'www.envanterim.net.tr' ||
-    BRAND_NAME.toLocaleLowerCase('tr-TR') === 'envanterim'
-) ? 'envanterim' : 'homeinventory';
+export const BRAND_KEY = CONFIGURED_BRAND_KEY || 'homeinventory';
 
 export const DATA_CONTROLLER_NAME = (
     typeof __APP_DATA_CONTROLLER_NAME__ === 'string' && __APP_DATA_CONTROLLER_NAME__.trim()
@@ -84,10 +90,8 @@ export const PRIVACY_COMPLAINT_AUTHORITY = (
 );
 
 export const SUPPORT_EMAIL = (
-    BRAND_KEY === 'envanterim'
-        ? 'destek@envanterim.net.tr'
-        : typeof __APP_SUPPORT_EMAIL__ === 'string' && __APP_SUPPORT_EMAIL__.trim()
-            ? __APP_SUPPORT_EMAIL__.trim()
+    typeof __APP_SUPPORT_EMAIL__ === 'string' && __APP_SUPPORT_EMAIL__.trim()
+        ? __APP_SUPPORT_EMAIL__.trim()
         : (BRAND_HOST && !/(^|\.)localhost$/.test(BRAND_HOST) ? `support@${BRAND_HOST}` : 'support@example.com')
 );
 

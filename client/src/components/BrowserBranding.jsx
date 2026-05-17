@@ -11,11 +11,21 @@ const FAVICON_PATHS = {
     homeinventory: {
         light: `/brand/logo-symbol-light.svg?v=${LOGO_VERSION}`,
         dark: `/brand/logo-symbol-dark.svg?v=${LOGO_VERSION}`
-    },
-    envanterim: {
-        light: `/brand/envanterim-logo-symbol.svg?v=${LOGO_VERSION}`,
-        dark: `/brand/envanterim-logo-symbol-dark.svg?v=${LOGO_VERSION}`
     }
+};
+
+const CUSTOM_FAVICON_PATHS = {
+    light: typeof __APP_FAVICON_LIGHT__ === 'string' ? __APP_FAVICON_LIGHT__.trim() : '',
+    dark: typeof __APP_FAVICON_DARK__ === 'string' ? __APP_FAVICON_DARK__.trim() : ''
+};
+
+const THEME_COLORS = {
+    light: typeof __APP_THEME_COLOR_LIGHT__ === 'string' && __APP_THEME_COLOR_LIGHT__.trim()
+        ? __APP_THEME_COLOR_LIGHT__.trim()
+        : '#f6f2e9',
+    dark: typeof __APP_THEME_COLOR_DARK__ === 'string' && __APP_THEME_COLOR_DARK__.trim()
+        ? __APP_THEME_COLOR_DARK__.trim()
+        : '#1a1f1c'
 };
 
 const MANIFEST_PATHS = {
@@ -81,7 +91,7 @@ function updateHeadLink(selector, href) {
 function updateThemeColor(theme) {
     if (typeof document === 'undefined') return;
 
-    const themeColor = theme === 'dark' ? '#1a1f1c' : '#f6f2e9';
+    const themeColor = theme === 'dark' ? THEME_COLORS.dark : THEME_COLORS.light;
     const themeMeta = document.querySelector('meta[name="theme-color"]');
 
     if (themeMeta && themeMeta.getAttribute('content') !== themeColor) {
@@ -115,7 +125,11 @@ export default function BrowserBranding() {
 
     useEffect(() => {
         const faviconPaths = FAVICON_PATHS[BRAND_KEY] || FAVICON_PATHS.homeinventory;
-        updateFaviconLinks(theme === 'dark' ? faviconPaths.dark : faviconPaths.light);
+        const faviconHref = theme === 'dark'
+            ? (CUSTOM_FAVICON_PATHS.dark || faviconPaths.dark)
+            : (CUSTOM_FAVICON_PATHS.light || faviconPaths.light);
+
+        updateFaviconLinks(faviconHref);
         updateHeadLink('link[data-app-manifest]', theme === 'dark' ? MANIFEST_PATHS.dark : MANIFEST_PATHS.light);
         updateHeadLink(
             'link[data-app-apple-touch-icon]',

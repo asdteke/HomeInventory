@@ -608,6 +608,8 @@ function serializeItem(item, viewerUserId = null) {
         invoice_photo_path: buildMediaUrl(decryptedItem.invoice_photo_path),
         invoice_thumbnail_path: buildMediaUrl(decryptedItem.invoice_thumbnail_path),
         can_manage_visibility: viewerUserId !== null && decryptedItem.user_id === viewerUserId,
+        can_edit: viewerUserId !== null && decryptedItem.user_id === viewerUserId,
+        can_delete: viewerUserId !== null && decryptedItem.user_id === viewerUserId,
         active_borrow: activeBorrow,
         is_borrowed: Boolean(activeBorrow)
     };
@@ -1268,7 +1270,7 @@ router.post('/', uploadFields, async (req, res) => {
     }
 });
 
-// Update item (any house member can update)
+// Update item (owner only)
 router.put('/:id', uploadFields, async (req, res) => {
     try {
         const {
@@ -1316,6 +1318,10 @@ router.put('/:id', uploadFields, async (req, res) => {
 
         if (!existing.is_public && existing.user_id !== req.user.id) {
             return res.status(404).json({ error: 'Eşya bulunamadı veya yetkiniz yok' });
+        }
+
+        if (existing.user_id !== req.user.id) {
+            return res.status(403).json({ error: 'Bu eşyayı yalnızca sahibi düzenleyebilir' });
         }
 
         const requestedVisibility = is_public !== undefined
@@ -1441,7 +1447,7 @@ router.put('/:id', uploadFields, async (req, res) => {
     }
 });
 
-// Delete item (any house member can delete)
+// Delete item (owner only)
 router.delete('/:id', (req, res) => {
     try {
         // Check if item belongs to same house and is visible to the viewer.
@@ -1454,6 +1460,10 @@ router.delete('/:id', (req, res) => {
 
         if (!item.is_public && item.user_id !== req.user.id) {
             return res.status(404).json({ error: 'Eşya bulunamadı veya yetkiniz yok' });
+        }
+
+        if (item.user_id !== req.user.id) {
+            return res.status(403).json({ error: 'Bu eşyayı yalnızca sahibi silebilir' });
         }
 
         // Delete photo if exists

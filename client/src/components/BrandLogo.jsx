@@ -20,18 +20,24 @@ const LOGO_PATHS = {
             dark: '/brand/logo-symbol-dark.svg',
             light: '/brand/logo-symbol-light.svg'
         }
-    },
-    envanterim: {
-        full: {
-            dark: '/brand/envanterim-logo-full-dark.svg',
-            light: '/brand/envanterim-logo-full.svg'
-        },
-        symbol: {
-            dark: '/brand/envanterim-logo-symbol-dark.svg',
-            light: '/brand/envanterim-logo-symbol.svg'
-        }
     }
 };
+
+const CUSTOM_LOGO_PATHS = {
+    full: {
+        dark: typeof __APP_BRAND_LOGO_FULL_DARK__ === 'string' ? __APP_BRAND_LOGO_FULL_DARK__.trim() : '',
+        light: typeof __APP_BRAND_LOGO_FULL_LIGHT__ === 'string' ? __APP_BRAND_LOGO_FULL_LIGHT__.trim() : ''
+    },
+    symbol: {
+        dark: typeof __APP_BRAND_LOGO_SYMBOL_DARK__ === 'string' ? __APP_BRAND_LOGO_SYMBOL_DARK__.trim() : '',
+        light: typeof __APP_BRAND_LOGO_SYMBOL_LIGHT__ === 'string' ? __APP_BRAND_LOGO_SYMBOL_LIGHT__.trim() : ''
+    }
+};
+
+function resolveCustomLogoPath(variant, themeKey) {
+    const variantPaths = CUSTOM_LOGO_PATHS[variant] || CUSTOM_LOGO_PATHS.symbol;
+    return variantPaths?.[themeKey] || '';
+}
 
 export default function BrandLogo({
     variant = 'symbol',
@@ -43,7 +49,7 @@ export default function BrandLogo({
     const height = SIZE_MAP[size] || SIZE_MAP.md;
     const themeKey = isDark ? 'dark' : 'light';
     const brandLogos = LOGO_PATHS[BRAND_KEY] || LOGO_PATHS.homeinventory;
-    const sourcePath = (brandLogos[variant] || brandLogos.symbol)[themeKey];
+    const sourcePath = resolveCustomLogoPath(variant, themeKey) || (brandLogos[variant] || brandLogos.symbol)[themeKey];
     const src = `${sourcePath}?v=${LOGO_VERSION}`;
     const style = { height: `${height}px`, width: 'auto' };
 

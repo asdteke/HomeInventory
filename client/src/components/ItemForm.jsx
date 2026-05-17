@@ -251,6 +251,7 @@ export default function ItemForm() {
     const [borrowHistory, setBorrowHistory] = useState([]);
     const [borrowHistoryLoading, setBorrowHistoryLoading] = useState(isEditing);
     const [canManageVisibility, setCanManageVisibility] = useState(!isEditing);
+    const [canEditItem, setCanEditItem] = useState(!isEditing);
     const [isDetailEditMode, setIsDetailEditMode] = useState(!isEditing);
     const currentLanguage = i18n.resolvedLanguage || i18n.language;
 
@@ -306,6 +307,9 @@ export default function ItemForm() {
         setActiveBorrow(null);
         setBorrowHistory([]);
         setBorrowHistoryLoading(false);
+        setCanManageVisibility(true);
+        setCanEditItem(true);
+        setIsDetailEditMode(true);
         setLocationSearch('');
         setLocations([]);
 
@@ -446,6 +450,13 @@ export default function ItemForm() {
             setLocationSearch(item.location_name || '');
             setActiveBorrow(item.active_borrow || null);
             setCanManageVisibility(Boolean(item.can_manage_visibility));
+            const itemCanEdit = item.can_edit !== undefined
+                ? Boolean(item.can_edit)
+                : Boolean(item.can_manage_visibility);
+            setCanEditItem(itemCanEdit);
+            if (!itemCanEdit) {
+                setIsDetailEditMode(false);
+            }
             setBorrowHistory(historyRes.data.history || []);
         } catch (error) {
             if (!isRequestCanceled(error) && isMountedRef.current) {
@@ -733,6 +744,11 @@ export default function ItemForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (isEditing && !canEditItem) {
+            setIsDetailEditMode(false);
+            return;
+        }
+
         // Prevent double submission
         if (loading) return;
 
@@ -911,14 +927,16 @@ export default function ItemForm() {
                             <p className="text-sm text-[var(--hi-text-soft)]">{t('items.detail_subtitle', { defaultValue: 'Item details' })}</p>
                         </div>
                     </div>
-                    <button
-                        type="button"
-                        onClick={() => setIsDetailEditMode(true)}
-                        className="inline-flex items-center gap-2 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-2 text-sm font-medium text-[var(--hi-text)] transition hover:bg-[var(--hi-panel-strong)]"
-                    >
-                        <Edit3 className="h-4 w-4" />
-                        {t('common.edit')}
-                    </button>
+                    {canEditItem && (
+                        <button
+                            type="button"
+                            onClick={() => setIsDetailEditMode(true)}
+                            className="inline-flex items-center gap-2 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-2 text-sm font-medium text-[var(--hi-text)] transition hover:bg-[var(--hi-panel-strong)]"
+                        >
+                            <Edit3 className="h-4 w-4" />
+                            {t('common.edit')}
+                        </button>
+                    )}
                 </div>
 
                 <div className="space-y-5">

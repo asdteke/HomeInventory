@@ -4,15 +4,14 @@ import { useTranslation } from 'react-i18next';
 import Tooltip from './Tooltip';
 import FloatingToast from './FloatingToast';
 import { copyTextToClipboard } from '../utils/clipboard';
-import { BRAND_KEY, SITE_URL } from '../constants/branding';
+import { SITE_URL } from '../constants/branding';
 
 const QR_LOGO_VERSION = 'qr-brand-20260517';
-const QR_LOGO_ASSETS = {
-    homeinventory: '/brand/logo-symbol-light.svg',
-    envanterim: '/brand/envanterim-logo-symbol-dark.svg'
-};
-
-const QR_LOGO_ASSET = `${QR_LOGO_ASSETS[BRAND_KEY] || QR_LOGO_ASSETS.homeinventory}?v=${QR_LOGO_VERSION}`;
+const CONFIGURED_QR_LOGO_PATH = typeof __APP_QR_LOGO_PATH__ === 'string' ? __APP_QR_LOGO_PATH__.trim() : '';
+const CONFIGURED_BRAND_SYMBOL_PATH = typeof __APP_BRAND_LOGO_SYMBOL_LIGHT__ === 'string'
+    ? __APP_BRAND_LOGO_SYMBOL_LIGHT__.trim()
+    : '';
+const QR_LOGO_ASSET = `${CONFIGURED_QR_LOGO_PATH || CONFIGURED_BRAND_SYMBOL_PATH || '/brand/logo-symbol-light.svg'}?v=${QR_LOGO_VERSION}`;
 
 function slugifyFilePart(value) {
     return String(value || '')

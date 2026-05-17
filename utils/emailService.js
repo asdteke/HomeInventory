@@ -3,7 +3,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { logError } from './logger.js';
-import { BRAND_HOST, BRAND_NAME, DEFAULT_FROM, SUPPORT_EMAIL } from './branding.js';
+import { BRAND_KEY, BRAND_NAME, DEFAULT_FROM, SUPPORT_EMAIL } from './branding.js';
 
 // Resend API istemcisi - lazy initialization (dotenv yüklendikten sonra çalışır)
 let resend = null;
@@ -19,13 +19,9 @@ const PUBLIC_BASE_URL = String(
     process.env.INDEXNOW_BASE_URL ||
     'http://localhost:3001'
 ).trim().replace(/\/+$/, '');
-const IS_ENVANTERIM_EMAIL_BRAND = (
-    BRAND_HOST === 'envanterim.net.tr' ||
-    BRAND_NAME.trim().toLocaleLowerCase('tr-TR') === 'envanterim'
-);
 const EMAIL_LANGUAGE_ENV = process.env.APP_EMAIL_LANGUAGE ||
     process.env.EMAIL_LANGUAGE ||
-    (IS_ENVANTERIM_EMAIL_BRAND ? 'tr' : 'en');
+    'en';
 const EMAIL_FALLBACK_LANGUAGE = 'en';
 const EMAIL_LANG_PATTERN = /^[A-Za-z0-9-]{2,20}$/;
 const TEMPLATE_TOKEN_PATTERN = /\{\{([A-Za-z0-9_]+)\}\}/g;
@@ -214,13 +210,17 @@ function getSiteHost() {
     }
 }
 
-const EMAIL_BRAND_KEY = IS_ENVANTERIM_EMAIL_BRAND ? 'envanterim' : 'homeinventory';
+const EMAIL_BRAND_KEY = BRAND_KEY === 'homeinventory' ? 'homeinventory' : 'custom';
 
 const EMAIL_BRAND_THEMES = {
-    envanterim: {
-        key: 'envanterim',
-        name: 'Envanterim',
-        logoPath: '/brand/envanterim-logo-full-dark.svg',
+    custom: {
+        key: 'custom',
+        name: BRAND_NAME,
+        logoPath: String(
+            process.env.APP_EMAIL_LOGO_PATH ||
+            process.env.APP_BRAND_LOGO_FULL_DARK ||
+            '/brand/logo-full-dark.png'
+        ).trim(),
         logoWidth: 168,
         logoMobileWidth: 148,
         background: '#eef3fb',

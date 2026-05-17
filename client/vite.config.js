@@ -10,8 +10,6 @@ const CLIENT_PACKAGE_VERSION = JSON.parse(
     readFileSync(new URL('./package.json', import.meta.url), 'utf8')
 ).version;
 const LOGO_VERSION = '20260422-homeinventory-pwa-balanced';
-const PWA_THEME_COLOR = '#1a1f1c';
-const PWA_BACKGROUND_COLOR = '#1a1f1c';
 const PWA_CACHE_PREFIX = 'home-inventory-static';
 
 function deriveBrandName(siteHost) {
@@ -23,10 +21,6 @@ function deriveBrandName(siteHost) {
         return 'HomeInventory';
     }
 
-    if (siteHost === 'envanterim.net.tr') {
-        return 'Envanterim';
-    }
-
     const [label] = siteHost.split('.');
     const normalized = label.replace(/[-_]+/g, ' ').trim();
     if (!normalized) {
@@ -36,13 +30,20 @@ function deriveBrandName(siteHost) {
     return normalized.charAt(0).toUpperCase() + normalized.slice(1);
 }
 
-function deriveBrandKey({ brandName, siteHost }) {
-    const normalizedBrandName = String(brandName || '').trim().toLocaleLowerCase('tr-TR');
-    const normalizedHost = String(siteHost || '').trim().replace(/^www\./, '');
+function normalizeBrandKey(value) {
+    return String(value || '')
+        .trim()
+        .toLocaleLowerCase('en-US')
+        .replace(/[^a-z0-9]+/g, '');
+}
 
-    return normalizedBrandName === 'envanterim' || normalizedHost === 'envanterim.net.tr'
-        ? 'envanterim'
-        : 'homeinventory';
+function withAssetVersion(assetPath) {
+    const normalized = String(assetPath || '').trim();
+    if (!normalized) {
+        return '';
+    }
+
+    return normalized.includes('?') ? normalized : `${normalized}?v=${LOGO_VERSION}`;
 }
 
 function createMinimalDevLogger() {
@@ -228,7 +229,8 @@ function createPwaPlugin({
     brandAssetUrls,
     faviconPaths,
     manifestPaths,
-    pwaIconPaths
+    pwaIconPaths,
+    themeColors
 }) {
     const encodedBuildId = encodeURIComponent(buildId);
     const manifestId = `/app/default/${LOGO_VERSION}`;
@@ -237,8 +239,8 @@ function createPwaPlugin({
             id: manifestId,
             brandName,
             description,
-            themeColor: '#f6f2e9',
-            backgroundColor: '#f6f2e9',
+            themeColor: themeColors.light.themeColor,
+            backgroundColor: themeColors.light.backgroundColor,
             icon192Path: pwaIconPaths.light.icon192,
             icon512Path: pwaIconPaths.light.icon512
         }),
@@ -246,8 +248,8 @@ function createPwaPlugin({
             id: manifestId,
             brandName,
             description,
-            themeColor: PWA_THEME_COLOR,
-            backgroundColor: PWA_BACKGROUND_COLOR,
+            themeColor: themeColors.dark.themeColor,
+            backgroundColor: themeColors.dark.backgroundColor,
             icon192Path: pwaIconPaths.dark.icon192,
             icon512Path: pwaIconPaths.dark.icon512
         })
@@ -339,6 +341,7 @@ export default defineConfig(({ command, mode }) => {
     const customLogger = command === 'serve' ? createMinimalDevLogger() : undefined;
     const siteUrl = String(env.SITE_URL || '').trim();
     const rawBrandName = String(env.APP_BRAND_NAME || '').trim();
+    const rawBrandKey = String(env.APP_BRAND_KEY || '').trim();
     const rawDataControllerName = String(env.APP_DATA_CONTROLLER_NAME || '').trim();
     const rawDataControllerAddress = String(env.APP_DATA_CONTROLLER_ADDRESS || '').trim();
     const rawDpoEmail = String(env.APP_DPO_EMAIL || '').trim();
@@ -361,21 +364,30 @@ export default defineConfig(({ command, mode }) => {
     const brandName = rawBrandName || deriveBrandName(derivedHost);
     const appVersion = String(env.APP_VERSION || CLIENT_PACKAGE_VERSION || '1.1.0').trim();
 
-    const brandKey = deriveBrandKey({ brandName, siteHost: derivedHost });
+    const brandKey = normalizeBrandKey(rawBrandKey) || 'homeinventory';
     const supportEmail = String(
         env.SUPPORT_EMAIL ||
-        (brandKey === 'envanterim'
-            ? 'destek@envanterim.net.tr'
-            : (derivedHost && !/(^|\.)localhost$/.test(derivedHost) ? `support@${derivedHost}` : 'support@example.com'))
+        (derivedHost && !/(^|\.)localhost$/.test(derivedHost) ? `support@${derivedHost}` : 'support@example.com')
     ).trim();
     const metaDescription = `${brandName} - Evinizin tum esyalarini akillica yonetin`;
-    const faviconLightPath = brandKey === 'envanterim'
-        ? `/brand/envanterim-logo-symbol.svg?v=${LOGO_VERSION}`
-        : `/brand/logo-symbol-light.svg?v=${LOGO_VERSION}`;
-    const faviconDarkPath = brandKey === 'envanterim'
-        ? `/brand/envanterim-logo-symbol-dark.svg?v=${LOGO_VERSION}`
-        : `/brand/logo-symbol-dark.svg?v=${LOGO_VERSION}`;
+    const logoFullDarkPath = String(env.APP_BRAND_LOGO_FULL_DARK || '/brand/logo-full-dark.svg').trim();
+    const logoFullLightPath = String(env.APP_BRAND_LOGO_FULL_LIGHT || '/brand/logo-full-light.svg').trim();
+    const logoSymbolDarkPath = String(env.APP_BRAND_LOGO_SYMBOL_DARK || '/brand/logo-symbol-dark.svg').trim();
+    const logoSymbolLightPath = String(env.APP_BRAND_LOGO_SYMBOL_LIGHT || '/brand/logo-symbol-light.svg').trim();
+    const qrLogoPath = String(env.APP_QR_LOGO_PATH || logoSymbolLightPath).trim();
+    const faviconLightPath = withAssetVersion(env.APP_FAVICON_LIGHT || logoSymbolLightPath);
+    const faviconDarkPath = withAssetVersion(env.APP_FAVICON_DARK || logoSymbolDarkPath);
     const faviconPath = faviconLightPath;
+    const themeColors = {
+        light: {
+            themeColor: String(env.APP_PWA_THEME_COLOR_LIGHT || '#f6f2e9').trim(),
+            backgroundColor: String(env.APP_PWA_BACKGROUND_COLOR_LIGHT || '#f6f2e9').trim()
+        },
+        dark: {
+            themeColor: String(env.APP_PWA_THEME_COLOR_DARK || '#1a1f1c').trim(),
+            backgroundColor: String(env.APP_PWA_BACKGROUND_COLOR_DARK || '#1a1f1c').trim()
+        }
+    };
     const appleTouchIconLightPath = `/pwa/apple-touch-icon-light.png?v=${LOGO_VERSION}`;
     const appleTouchIconDarkPath = `/pwa/apple-touch-icon-dark.png?v=${LOGO_VERSION}`;
     const pwaIcon192LightPath = `/pwa/icon-light-192.png?v=${LOGO_VERSION}`;
@@ -384,19 +396,12 @@ export default defineConfig(({ command, mode }) => {
     const pwaIcon512DarkPath = `/pwa/icon-dark-512.png?v=${LOGO_VERSION}`;
     const manifestLightPath = `/manifest-light.webmanifest?v=${LOGO_VERSION}`;
     const manifestDarkPath = `/manifest-dark.webmanifest?v=${LOGO_VERSION}`;
-    const brandAssetUrls = brandKey === 'envanterim'
-        ? [
-            `/brand/envanterim-logo-full-dark.svg?v=${LOGO_VERSION}`,
-            `/brand/envanterim-logo-full.svg?v=${LOGO_VERSION}`,
-            `/brand/envanterim-logo-symbol-dark.svg?v=${LOGO_VERSION}`,
-            `/brand/envanterim-logo-symbol.svg?v=${LOGO_VERSION}`
-        ]
-        : [
-            `/brand/logo-full-dark.svg?v=${LOGO_VERSION}`,
-            `/brand/logo-full-light.svg?v=${LOGO_VERSION}`,
-            `/brand/logo-symbol-dark.svg?v=${LOGO_VERSION}`,
-            `/brand/logo-symbol-light.svg?v=${LOGO_VERSION}`
-        ];
+    const brandAssetUrls = [
+        logoFullDarkPath,
+        logoFullLightPath,
+        logoSymbolDarkPath,
+        logoSymbolLightPath
+    ].filter(Boolean).map(withAssetVersion);
 
     return {
         clearScreen: false,
@@ -460,8 +465,8 @@ export default defineConfig(({ command, mode }) => {
                         .replaceAll('__APP_FAVICON_DARK__', faviconDarkPath)
                         .replaceAll('__APP_MANIFEST_LIGHT__', manifestLightPath)
                         .replaceAll('__APP_MANIFEST_DARK__', manifestDarkPath)
-                        .replaceAll('__APP_THEME_COLOR_LIGHT__', '#f6f2e9')
-                        .replaceAll('__APP_THEME_COLOR_DARK__', '#1a1f1c')
+                        .replaceAll('__APP_THEME_COLOR_LIGHT__', themeColors.light.themeColor)
+                        .replaceAll('__APP_THEME_COLOR_DARK__', themeColors.dark.themeColor)
                         .replaceAll('__APP_APPLE_TOUCH_ICON__', appleTouchIconLightPath)
                         .replaceAll('__APP_APPLE_TOUCH_ICON_LIGHT__', appleTouchIconLightPath)
                         .replaceAll('__APP_APPLE_TOUCH_ICON_DARK__', appleTouchIconDarkPath);
@@ -493,11 +498,22 @@ export default defineConfig(({ command, mode }) => {
                         icon192: pwaIcon192DarkPath,
                         icon512: pwaIcon512DarkPath
                     }
-                }
+                },
+                themeColors
             })
         ],
         define: {
             __APP_BRAND_NAME__: JSON.stringify(brandName),
+            __APP_BRAND_KEY__: JSON.stringify(brandKey),
+            __APP_BRAND_LOGO_FULL_DARK__: JSON.stringify(logoFullDarkPath),
+            __APP_BRAND_LOGO_FULL_LIGHT__: JSON.stringify(logoFullLightPath),
+            __APP_BRAND_LOGO_SYMBOL_DARK__: JSON.stringify(logoSymbolDarkPath),
+            __APP_BRAND_LOGO_SYMBOL_LIGHT__: JSON.stringify(logoSymbolLightPath),
+            __APP_QR_LOGO_PATH__: JSON.stringify(qrLogoPath),
+            __APP_FAVICON_LIGHT__: JSON.stringify(faviconLightPath),
+            __APP_FAVICON_DARK__: JSON.stringify(faviconDarkPath),
+            __APP_THEME_COLOR_LIGHT__: JSON.stringify(themeColors.light.themeColor),
+            __APP_THEME_COLOR_DARK__: JSON.stringify(themeColors.dark.themeColor),
             __APP_SITE_URL__: JSON.stringify(siteUrl),
             __APP_DATA_CONTROLLER_NAME__: JSON.stringify(rawDataControllerName),
             __APP_DATA_CONTROLLER_ADDRESS__: JSON.stringify(rawDataControllerAddress),

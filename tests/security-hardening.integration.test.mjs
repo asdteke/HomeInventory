@@ -668,6 +668,8 @@ test('private items are owner-only and visibility changes are owner-only', async
     assert.equal(privateItem.status, 201);
     assert.equal(privateItem.data.item.is_public, 0);
     assert.equal(privateItem.data.item.can_manage_visibility, true);
+    assert.equal(privateItem.data.item.can_edit, true);
+    assert.equal(privateItem.data.item.can_delete, true);
 
     const memberList = await requestJson(port, '/api/items', {}, memberJar);
     assert.equal(memberList.status, 200);
@@ -689,6 +691,8 @@ test('private items are owner-only and visibility changes are owner-only', async
     const memberReadShared = await requestJson(port, `/api/items/${sharedItem.data.item.id}`, {}, memberJar);
     assert.equal(memberReadShared.status, 200);
     assert.equal(memberReadShared.data.item.can_manage_visibility, false);
+    assert.equal(memberReadShared.data.item.can_edit, false);
+    assert.equal(memberReadShared.data.item.can_delete, false);
 
     const memberRenameShared = await requestJson(port, `/api/items/${sharedItem.data.item.id}`, {
         method: 'PUT',
@@ -696,8 +700,8 @@ test('private items are owner-only and visibility changes are owner-only', async
             name: 'Member edited shared item'
         }
     }, memberJar);
-    assert.equal(memberRenameShared.status, 200);
-    assert.equal(memberRenameShared.data.item.is_public, 1);
+    assert.equal(memberRenameShared.status, 403);
+    assert.match(memberRenameShared.data.error, /yalnızca sahibi düzenleyebilir/i);
 
     const memberHideShared = await requestJson(port, `/api/items/${sharedItem.data.item.id}`, {
         method: 'PUT',
@@ -707,7 +711,13 @@ test('private items are owner-only and visibility changes are owner-only', async
         }
     }, memberJar);
     assert.equal(memberHideShared.status, 403);
-    assert.match(memberHideShared.data.error, /yalnızca eşyayı ekleyen kişi/i);
+    assert.match(memberHideShared.data.error, /yalnızca sahibi düzenleyebilir/i);
+
+    const memberDeleteShared = await requestJson(port, `/api/items/${sharedItem.data.item.id}`, {
+        method: 'DELETE'
+    }, memberJar);
+    assert.equal(memberDeleteShared.status, 403);
+    assert.match(memberDeleteShared.data.error, /yalnızca sahibi silebilir/i);
 
     const ownerHideShared = await requestJson(port, `/api/items/${sharedItem.data.item.id}`, {
         method: 'PUT',
