@@ -19,7 +19,9 @@ const replacements = [
     [/HomeInventory/g, 'Envanterim'],
     [/Home Inventory/g, 'Envanterim'],
     [/homeinventory\.net\.tr/g, 'envanterim.net.tr'],
-    [/homeinventory/g, 'envanterim']
+    [/homeinventory/g, 'envanterim'],
+    [/github\.com\/asdteke\/Envanterim/g, 'github.com/asdteke/HomeInventory'],
+    [/github\.com\/asdteke\/envanterim/g, 'github.com/asdteke/HomeInventory']
 ];
 
 function runBuild() {

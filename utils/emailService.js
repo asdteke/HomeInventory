@@ -3,7 +3,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { logError } from './logger.js';
-import { BRAND_NAME, DEFAULT_FROM, SUPPORT_EMAIL } from './branding.js';
+import { BRAND_HOST, BRAND_NAME, DEFAULT_FROM, SUPPORT_EMAIL } from './branding.js';
 
 // Resend API istemcisi - lazy initialization (dotenv yüklendikten sonra çalışır)
 let resend = null;
@@ -19,9 +19,13 @@ const PUBLIC_BASE_URL = String(
     process.env.INDEXNOW_BASE_URL ||
     'http://localhost:3001'
 ).trim().replace(/\/+$/, '');
+const IS_ENVANTERIM_EMAIL_BRAND = (
+    BRAND_HOST === 'envanterim.net.tr' ||
+    BRAND_NAME.trim().toLocaleLowerCase('tr-TR') === 'envanterim'
+);
 const EMAIL_LANGUAGE_ENV = process.env.APP_EMAIL_LANGUAGE ||
     process.env.EMAIL_LANGUAGE ||
-    'en';
+    (IS_ENVANTERIM_EMAIL_BRAND ? 'tr' : 'en');
 const EMAIL_FALLBACK_LANGUAGE = 'en';
 const EMAIL_LANG_PATTERN = /^[A-Za-z0-9-]{2,20}$/;
 const TEMPLATE_TOKEN_PATTERN = /\{\{([A-Za-z0-9_]+)\}\}/g;
@@ -210,9 +214,31 @@ function getSiteHost() {
     }
 }
 
-const EMAIL_BRAND_KEY = 'homeinventory';
+const EMAIL_BRAND_KEY = IS_ENVANTERIM_EMAIL_BRAND ? 'envanterim' : 'homeinventory';
 
 const EMAIL_BRAND_THEMES = {
+    envanterim: {
+        key: 'envanterim',
+        name: 'Envanterim',
+        logoPath: '/brand/envanterim-logo-full-dark.svg',
+        logoWidth: 168,
+        logoMobileWidth: 148,
+        background: '#eef3fb',
+        panel: '#ffffff',
+        panelMuted: '#f5f8fd',
+        border: '#cad6e7',
+        borderStrong: '#b0c1d8',
+        text: '#13233d',
+        textSoft: '#50627f',
+        textMuted: '#70809a',
+        accent: '#0f4f99',
+        accentStrong: '#0b3d79',
+        secondary: '#129e9a',
+        secondarySoft: '#e2f6f5',
+        heroFrom: '#0b3d79',
+        heroTo: '#129e9a',
+        shadow: 'rgba(19, 35, 61, 0.14)'
+    },
     homeinventory: {
         key: 'homeinventory',
         name: 'HomeInventory',

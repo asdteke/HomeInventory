@@ -23,6 +23,10 @@ function deriveBrandName(siteHost) {
         return 'HomeInventory';
     }
 
+    if (siteHost === 'envanterim.net.tr') {
+        return 'Envanterim';
+    }
+
     const [label] = siteHost.split('.');
     const normalized = label.replace(/[-_]+/g, ' ').trim();
     if (!normalized) {
@@ -357,11 +361,13 @@ export default defineConfig(({ command, mode }) => {
     const brandName = rawBrandName || deriveBrandName(derivedHost);
     const appVersion = String(env.APP_VERSION || CLIENT_PACKAGE_VERSION || '1.1.0').trim();
 
+    const brandKey = deriveBrandKey({ brandName, siteHost: derivedHost });
     const supportEmail = String(
         env.SUPPORT_EMAIL ||
-        (derivedHost && !/(^|\.)localhost$/.test(derivedHost) ? `support@${derivedHost}` : 'support@example.com')
+        (brandKey === 'envanterim'
+            ? 'destek@envanterim.net.tr'
+            : (derivedHost && !/(^|\.)localhost$/.test(derivedHost) ? `support@${derivedHost}` : 'support@example.com'))
     ).trim();
-    const brandKey = deriveBrandKey({ brandName, siteHost: derivedHost });
     const metaDescription = `${brandName} - Evinizin tum esyalarini akillica yonetin`;
     const faviconLightPath = brandKey === 'envanterim'
         ? `/brand/envanterim-logo-symbol.svg?v=${LOGO_VERSION}`

@@ -66,19 +66,20 @@ export function ShellLink({ item, compact = false, onClick, tone = 'default', cl
     const Icon = item.icon;
     const resolvedPath = useResolvedPath(item.to);
     const isActive = Boolean(useMatch({ path: resolvedPath.pathname, end: item.end }));
+    const isEnvanterimBrand = BRAND_NAME === 'Envanterim';
     const activeClasses = compact
         ? tone === 'danger'
             ? 'border border-red-300/40 bg-red-500/10 text-red-500'
             : tone === 'admin'
                 ? 'border border-[rgba(184,153,104,0.26)] bg-[var(--hi-secondary-soft)] text-[var(--hi-secondary-strong)]'
-            : false
+            : isEnvanterimBrand
                 ? 'border border-[color:var(--hi-border-strong)] bg-[linear-gradient(135deg,var(--hi-accent-soft),rgba(255,255,255,0.03))] text-[var(--hi-accent)] shadow-[var(--hi-shadow-soft)]'
                 : 'border border-[color:var(--hi-accent-soft)] bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]'
         : tone === 'danger'
             ? 'border border-red-300/40 bg-red-500/10 text-red-500'
             : tone === 'admin'
                 ? 'border border-[rgba(184,153,104,0.24)] bg-[linear-gradient(135deg,rgba(184,153,104,0.12),rgba(184,153,104,0.04))] text-[var(--hi-text)]'
-            : false
+            : isEnvanterimBrand
                 ? 'border border-[color:var(--hi-border-strong)] bg-[linear-gradient(135deg,var(--hi-accent-soft),rgba(255,255,255,0.03))] text-[var(--hi-text)] shadow-[var(--hi-shadow-soft)]'
                 : 'border border-[color:var(--hi-accent-soft)] bg-[var(--hi-accent-soft)] text-[var(--hi-text)]';
     const inactiveClasses = compact
@@ -91,7 +92,7 @@ export function ShellLink({ item, compact = false, onClick, tone = 'default', cl
             ? 'border border-red-300/20 bg-red-500/5 text-red-500 hover:bg-red-500/10'
             : tone === 'admin'
                 ? 'border border-[rgba(184,153,104,0.12)] bg-[rgba(184,153,104,0.05)] text-[var(--hi-text-soft)] hover:border-[rgba(184,153,104,0.22)] hover:bg-[rgba(184,153,104,0.1)] hover:text-[var(--hi-text)]'
-            : false
+            : isEnvanterimBrand
                 ? 'border border-transparent text-[var(--hi-text-soft)] hover:border-[var(--hi-border)] hover:bg-[var(--hi-panel)] hover:text-[var(--hi-text)]'
                 : 'border border-transparent text-[var(--hi-text-soft)] hover:bg-white/45 hover:text-[var(--hi-text)] dark:hover:bg-white/5';
     const activeIconClasses = compact
@@ -188,6 +189,7 @@ export default function Layout() {
     const bottomActionButtonClass = 'btn-secondary !w-full !min-h-[58px] !justify-start !gap-3 !rounded-[1rem] !border-[var(--hi-border)] !bg-[var(--hi-panel)] !px-3.5 !py-3 text-sm hover:!bg-[var(--hi-panel-muted)]';
     const mobileBottomActionButtonClass = `${bottomActionButtonClass} !min-h-[54px] !py-2.5`;
     const compactSidebar = !sidebarOpen;
+    const isEnvanterimBrand = BRAND_NAME === 'Envanterim';
     const userInitial = user?.username?.charAt(0)?.toUpperCase() || 'H';
     const betaT = (key, options) => t(key, { brandName: BRAND_NAME, ...options });
     const [shouldMountIntroTour] = useState(() => {
@@ -309,12 +311,12 @@ export default function Layout() {
                         {sidebarOpen ? (
                             <BrandLogo
                                 variant="full"
-                                size={false ? 'xl' : 'md'}
-                                className={false ? 'w-[258px] max-w-full' : 'max-h-[62px]'}
+                                size={isEnvanterimBrand ? 'xl' : 'md'}
+                                className={isEnvanterimBrand ? 'w-[258px] max-w-full' : 'max-h-[62px]'}
                             />
                         ) : (
                             <span className={`mx-auto flex ${COMPACT_ICON_BUTTON_SIZE} items-center justify-center overflow-hidden rounded-[1.35rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] shadow-[var(--hi-shadow-soft)]`}>
-                                <BrandLogo variant="symbol" size={false ? 'sm' : 'sm'} className={false ? 'max-h-[50px]' : 'max-h-[42px]'} />
+                                <BrandLogo variant="symbol" size={isEnvanterimBrand ? 'sm' : 'sm'} className={isEnvanterimBrand ? 'max-h-[50px]' : 'max-h-[42px]'} />
                             </span>
                         )}
                     </Link>

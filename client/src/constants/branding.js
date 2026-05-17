@@ -23,6 +23,10 @@ function deriveBrandName(siteHost) {
         return 'Inventory';
     }
 
+    if (siteHost === 'envanterim.net.tr') {
+        return 'Envanterim';
+    }
+
     const [label] = siteHost.split('.');
     const normalized = label.replace(/[-_]+/g, ' ').trim();
     if (!normalized) {
@@ -80,8 +84,10 @@ export const PRIVACY_COMPLAINT_AUTHORITY = (
 );
 
 export const SUPPORT_EMAIL = (
-    typeof __APP_SUPPORT_EMAIL__ === 'string' && __APP_SUPPORT_EMAIL__.trim()
-        ? __APP_SUPPORT_EMAIL__.trim()
+    BRAND_KEY === 'envanterim'
+        ? 'destek@envanterim.net.tr'
+        : typeof __APP_SUPPORT_EMAIL__ === 'string' && __APP_SUPPORT_EMAIL__.trim()
+            ? __APP_SUPPORT_EMAIL__.trim()
         : (BRAND_HOST && !/(^|\.)localhost$/.test(BRAND_HOST) ? `support@${BRAND_HOST}` : 'support@example.com')
 );
 
