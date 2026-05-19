@@ -311,8 +311,8 @@ export default function Layout() {
                         {sidebarOpen ? (
                             <BrandLogo
                                 variant="full"
-                                size={isCustomBrand ? 'xl' : 'md'}
-                                className={isCustomBrand ? 'w-[258px] max-w-full' : 'max-h-[62px]'}
+                                size={isCustomBrand ? 'sm' : 'md'}
+                                className={isCustomBrand ? 'max-h-[44px] max-w-[190px] object-contain' : 'max-h-[62px]'}
                             />
                         ) : (
                             <span className={`mx-auto flex ${COMPACT_ICON_BUTTON_SIZE} items-center justify-center overflow-hidden rounded-[1.35rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] shadow-[var(--hi-shadow-soft)]`}>
