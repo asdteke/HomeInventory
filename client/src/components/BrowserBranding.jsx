@@ -5,12 +5,16 @@ import { BRAND_KEY, BRAND_NAME } from '../constants/branding';
 import { useTheme } from '../context/ThemeContext';
 import { resolveVerifiedLegalTranslationLanguage } from '../utils/legalTranslations';
 
-const LOGO_VERSION = '20260503-hi-pwa';
+const ASSET_VERSION = (
+    typeof __APP_ASSET_VERSION__ === 'string' && __APP_ASSET_VERSION__.trim()
+        ? __APP_ASSET_VERSION__.trim()
+        : '20260519-pwa-assets'
+);
 
 const FAVICON_PATHS = {
     homeinventory: {
-        light: `/brand/logo-symbol-light.svg?v=${LOGO_VERSION}`,
-        dark: `/brand/logo-symbol-dark.svg?v=${LOGO_VERSION}`
+        light: `/brand/logo-symbol-light.svg?v=${ASSET_VERSION}`,
+        dark: `/brand/logo-symbol-dark.svg?v=${ASSET_VERSION}`
     }
 };
 
@@ -29,13 +33,13 @@ const THEME_COLORS = {
 };
 
 const MANIFEST_PATHS = {
-    light: `/manifest-light.webmanifest?v=${LOGO_VERSION}`,
-    dark: `/manifest-dark.webmanifest?v=${LOGO_VERSION}`
+    light: `/manifest-light.webmanifest?v=${ASSET_VERSION}`,
+    dark: `/manifest-dark.webmanifest?v=${ASSET_VERSION}`
 };
 
 const APPLE_TOUCH_ICON_PATHS = {
-    light: `/pwa/apple-touch-icon-light.png?v=${LOGO_VERSION}`,
-    dark: `/pwa/apple-touch-icon-dark.png?v=${LOGO_VERSION}`
+    light: `/pwa/apple-touch-icon-light.png?v=${ASSET_VERSION}`,
+    dark: `/pwa/apple-touch-icon-dark.png?v=${ASSET_VERSION}`
 };
 
 const PAGE_TITLES = [

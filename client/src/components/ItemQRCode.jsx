@@ -6,7 +6,11 @@ import FloatingToast from './FloatingToast';
 import { copyTextToClipboard } from '../utils/clipboard';
 import { SITE_URL } from '../constants/branding';
 
-const QR_LOGO_VERSION = 'qr-brand-20260517';
+const QR_LOGO_VERSION = (
+    typeof __APP_ASSET_VERSION__ === 'string' && __APP_ASSET_VERSION__.trim()
+        ? __APP_ASSET_VERSION__.trim()
+        : '20260519-pwa-assets'
+);
 const CONFIGURED_QR_LOGO_PATH = typeof __APP_QR_LOGO_PATH__ === 'string' ? __APP_QR_LOGO_PATH__.trim() : '';
 const CONFIGURED_BRAND_SYMBOL_PATH = typeof __APP_BRAND_LOGO_SYMBOL_LIGHT__ === 'string'
     ? __APP_BRAND_LOGO_SYMBOL_LIGHT__.trim()

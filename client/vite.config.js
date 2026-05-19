@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 const CLIENT_PACKAGE_VERSION = JSON.parse(
     readFileSync(new URL('./package.json', import.meta.url), 'utf8')
 ).version;
-const LOGO_VERSION = '20260422-homeinventory-pwa-balanced';
+const DEFAULT_ASSET_VERSION = '20260519-pwa-assets';
 const PWA_CACHE_PREFIX = 'home-inventory-static';
 
 function deriveBrandName(siteHost) {
@@ -37,13 +37,13 @@ function normalizeBrandKey(value) {
         .replace(/[^a-z0-9]+/g, '');
 }
 
-function withAssetVersion(assetPath) {
+function withAssetVersion(assetPath, assetVersion = DEFAULT_ASSET_VERSION) {
     const normalized = String(assetPath || '').trim();
     if (!normalized) {
         return '';
     }
 
-    return normalized.includes('?') ? normalized : `${normalized}?v=${LOGO_VERSION}`;
+    return normalized.includes('?') ? normalized : `${normalized}?v=${assetVersion}`;
 }
 
 function createMinimalDevLogger() {
@@ -228,12 +228,12 @@ function createPwaPlugin({
     appleTouchIconPaths,
     brandAssetUrls,
     faviconPaths,
+    manifestId,
     manifestPaths,
     pwaIconPaths,
     themeColors
 }) {
     const encodedBuildId = encodeURIComponent(buildId);
-    const manifestId = `/app/default/${LOGO_VERSION}`;
     const manifestSources = {
         light: createPwaManifest({
             id: manifestId,
@@ -365,6 +365,15 @@ export default defineConfig(({ command, mode }) => {
     const appVersion = String(env.APP_VERSION || CLIENT_PACKAGE_VERSION || '1.1.0').trim();
 
     const brandKey = normalizeBrandKey(rawBrandKey) || 'homeinventory';
+    const assetVersion = String(
+        env.APP_PWA_ASSET_VERSION ||
+        env.APP_ASSET_VERSION ||
+        DEFAULT_ASSET_VERSION
+    ).trim();
+    const manifestId = String(
+        env.APP_PWA_MANIFEST_ID ||
+        `/app/${brandKey}/${assetVersion}`
+    ).trim();
     const supportEmail = String(
         env.SUPPORT_EMAIL ||
         (derivedHost && !/(^|\.)localhost$/.test(derivedHost) ? `support@${derivedHost}` : 'support@example.com')
@@ -375,8 +384,8 @@ export default defineConfig(({ command, mode }) => {
     const logoSymbolDarkPath = String(env.APP_BRAND_LOGO_SYMBOL_DARK || '/brand/logo-symbol-dark.svg').trim();
     const logoSymbolLightPath = String(env.APP_BRAND_LOGO_SYMBOL_LIGHT || '/brand/logo-symbol-light.svg').trim();
     const qrLogoPath = String(env.APP_QR_LOGO_PATH || logoSymbolLightPath).trim();
-    const faviconLightPath = withAssetVersion(env.APP_FAVICON_LIGHT || logoSymbolLightPath);
-    const faviconDarkPath = withAssetVersion(env.APP_FAVICON_DARK || logoSymbolDarkPath);
+    const faviconLightPath = withAssetVersion(env.APP_FAVICON_LIGHT || logoSymbolLightPath, assetVersion);
+    const faviconDarkPath = withAssetVersion(env.APP_FAVICON_DARK || logoSymbolDarkPath, assetVersion);
     const faviconPath = faviconLightPath;
     const themeColors = {
         light: {
@@ -388,20 +397,20 @@ export default defineConfig(({ command, mode }) => {
             backgroundColor: String(env.APP_PWA_BACKGROUND_COLOR_DARK || '#1a1f1c').trim()
         }
     };
-    const appleTouchIconLightPath = `/pwa/apple-touch-icon-light.png?v=${LOGO_VERSION}`;
-    const appleTouchIconDarkPath = `/pwa/apple-touch-icon-dark.png?v=${LOGO_VERSION}`;
-    const pwaIcon192LightPath = `/pwa/icon-light-192.png?v=${LOGO_VERSION}`;
-    const pwaIcon192DarkPath = `/pwa/icon-dark-192.png?v=${LOGO_VERSION}`;
-    const pwaIcon512LightPath = `/pwa/icon-light-512.png?v=${LOGO_VERSION}`;
-    const pwaIcon512DarkPath = `/pwa/icon-dark-512.png?v=${LOGO_VERSION}`;
-    const manifestLightPath = `/manifest-light.webmanifest?v=${LOGO_VERSION}`;
-    const manifestDarkPath = `/manifest-dark.webmanifest?v=${LOGO_VERSION}`;
+    const appleTouchIconLightPath = `/pwa/apple-touch-icon-light.png?v=${assetVersion}`;
+    const appleTouchIconDarkPath = `/pwa/apple-touch-icon-dark.png?v=${assetVersion}`;
+    const pwaIcon192LightPath = `/pwa/icon-light-192.png?v=${assetVersion}`;
+    const pwaIcon192DarkPath = `/pwa/icon-dark-192.png?v=${assetVersion}`;
+    const pwaIcon512LightPath = `/pwa/icon-light-512.png?v=${assetVersion}`;
+    const pwaIcon512DarkPath = `/pwa/icon-dark-512.png?v=${assetVersion}`;
+    const manifestLightPath = `/manifest-light.webmanifest?v=${assetVersion}`;
+    const manifestDarkPath = `/manifest-dark.webmanifest?v=${assetVersion}`;
     const brandAssetUrls = [
         logoFullDarkPath,
         logoFullLightPath,
         logoSymbolDarkPath,
         logoSymbolLightPath
-    ].filter(Boolean).map(withAssetVersion);
+    ].filter(Boolean).map((assetPath) => withAssetVersion(assetPath, assetVersion));
 
     return {
         clearScreen: false,
@@ -485,6 +494,7 @@ export default defineConfig(({ command, mode }) => {
                     light: faviconLightPath,
                     dark: faviconDarkPath
                 },
+                manifestId,
                 manifestPaths: {
                     light: manifestLightPath,
                     dark: manifestDarkPath
@@ -510,6 +520,7 @@ export default defineConfig(({ command, mode }) => {
             __APP_BRAND_LOGO_SYMBOL_DARK__: JSON.stringify(logoSymbolDarkPath),
             __APP_BRAND_LOGO_SYMBOL_LIGHT__: JSON.stringify(logoSymbolLightPath),
             __APP_QR_LOGO_PATH__: JSON.stringify(qrLogoPath),
+            __APP_ASSET_VERSION__: JSON.stringify(assetVersion),
             __APP_FAVICON_LIGHT__: JSON.stringify(faviconLightPath),
             __APP_FAVICON_DARK__: JSON.stringify(faviconDarkPath),
             __APP_THEME_COLOR_LIGHT__: JSON.stringify(themeColors.light.themeColor),

@@ -8,7 +8,11 @@ const SIZE_MAP = {
     lg: 128,
     xl: 168
 };
-const LOGO_VERSION = '20260503-hi-svg-logo';
+const LOGO_VERSION = (
+    typeof __APP_ASSET_VERSION__ === 'string' && __APP_ASSET_VERSION__.trim()
+        ? __APP_ASSET_VERSION__.trim()
+        : '20260519-pwa-assets'
+);
 
 const LOGO_PATHS = {
     homeinventory: {

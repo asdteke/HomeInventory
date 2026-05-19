@@ -2,6 +2,7 @@ import QRCode from 'qrcode';
 
 const QR_DARK_COLOR = '#1c2920';
 const QR_LIGHT_COLOR = '#ffffff';
+const QR_LOGO_FRAME_COLOR = '#d8e2dc';
 const QR_MARGIN = 5;
 const LOGO_RESERVE_SIZE = 11.4;
 const LOGO_RESERVE_RADIUS = 2.3;
@@ -94,7 +95,8 @@ function renderStyledQrSvg(qrData, { width, logoDataUrl }) {
                 LOGO_BADGE_SIZE,
                 LOGO_BADGE_SIZE,
                 LOGO_BADGE_RADIUS,
-                QR_LIGHT_COLOR
+                QR_LIGHT_COLOR,
+                `stroke="${QR_LOGO_FRAME_COLOR}" stroke-width="0.34"`
             ),
             `<image href="${logoDataUrl}" x="${center - (LOGO_IMAGE_SIZE / 2)}" y="${center - (LOGO_IMAGE_SIZE / 2)}" width="${LOGO_IMAGE_SIZE}" height="${LOGO_IMAGE_SIZE}" preserveAspectRatio="xMidYMid meet" opacity="0.99"/>`
         ].join('')
