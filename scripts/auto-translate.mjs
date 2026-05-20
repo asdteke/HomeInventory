@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { translate } from '@vitalets/google-translate-api';
+import { isProtectedTranslationKey } from './i18n-helpers.mjs';
 
 const LOCALES_DIR = path.join(process.cwd(), 'client', 'public', 'locales');
 const BASE_LANG = 'en';
@@ -44,6 +45,7 @@ async function translateBatched(baseObj, targetObj, targetLang) {
     
     // Find missing or English-matching keys
     traverse(baseObj, (pathStr, val) => {
+        if (isProtectedTranslationKey(pathStr)) return;
         const targetVal = pathStr.split('.').reduce((o, i) => o ? o[i] : undefined, targetObj);
         if (!targetVal || (targetVal === val && val.length > 2)) {
             if (['HomeInventory', 'Google', 'JSON', 'QR Code'].includes(val)) {

@@ -6,8 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 const localeRoots = [
-    'client/public/locales',
-    'client/src/locales'
+    'client/public/locales'
 ];
 const sourceRoot = path.join(rootDir, 'client/src');
 const baseLanguage = 'en';

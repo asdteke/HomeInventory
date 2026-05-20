@@ -50,8 +50,13 @@ export default function LandingPage() {
     const { t, i18n } = useTranslation();
     const { isDark, toggleTheme } = useTheme();
     const isCustomBrand = BRAND_KEY !== 'homeinventory';
+    const brandTranslationNamespace = isCustomBrand ? `landing.${BRAND_KEY}` : 'landing.homeinventory';
+    const brandDisplayName = BRAND_NAME || (isCustomBrand ? 'Inventory' : 'HomeInventory');
     const [mobileNavOpen, setMobileNavOpen] = useState(false);
     const isTurkish = (i18n.resolvedLanguage || i18n.language || 'tr').toLowerCase().startsWith('tr');
+    const brandUpperLabel = isTurkish
+        ? brandDisplayName.toLocaleUpperCase('tr-TR')
+        : brandDisplayName.toUpperCase();
     const aboutLabel = t('landing.nav.details', { defaultValue: isTurkish ? 'Detaylar' : 'Details' });
     const featuresLabel = t('landing.nav.features');
     const securityLabel = t('landing.nav.security');
@@ -102,9 +107,9 @@ export default function LandingPage() {
     const securityMutedClass = isDark ? (isCustomBrand ? 'text-[var(--hi-text-soft)]' : 'text-white/62') : (isCustomBrand ? 'text-[var(--hi-text-soft)]' : 'text-[#627060]');
     const securityStrongClass = isDark ? 'text-white' : 'text-[var(--hi-text)]';
     const securityIconSurfaceClass = isDark ? (isCustomBrand ? 'bg-[rgba(103,227,242,0.12)]' : 'bg-[rgba(205,176,136,0.16)]') : (isCustomBrand ? 'bg-[rgba(139,180,255,0.14)]' : 'bg-[rgba(184,153,104,0.14)]');
-    const securityPanelEyebrow = t('landing.homeinventory.security_panel.eyebrow', { defaultValue: isTurkish ? 'Özel bilgiler için' : 'Scoped access' });
-    const securityPanelTitle = t('landing.homeinventory.security_panel.title', { defaultValue: isTurkish ? 'Hassas kayıtlar ortak envanterden ayrı kalır' : 'Private records never appear in the shared list' });
-    const securityPanelDescription = t('landing.homeinventory.security_panel.description', {
+    const securityPanelEyebrow = t(`${brandTranslationNamespace}.security_panel.eyebrow`, { defaultValue: isTurkish ? 'Özel bilgiler için' : 'Scoped access' });
+    const securityPanelTitle = t(`${brandTranslationNamespace}.security_panel.title`, { defaultValue: isTurkish ? 'Hassas kayıtlar ortak envanterden ayrı kalır' : 'Private records never appear in the shared list' });
+    const securityPanelDescription = t(`${brandTranslationNamespace}.security_panel.description`, {
         defaultValue: isTurkish
             ? 'Pasaport, tapu, şifre ve benzeri bilgileri ortak ev listesinden ayrı saklayın. Bu alan yalnızca size ait kayıtlar için tasarlanmıştır.'
             : 'Passports, deeds, and access codes stay separate from the shared inventory. Vault data is stored encrypted.'
@@ -116,13 +121,13 @@ export default function LandingPage() {
     const securityCoreClass = isDark
         ? (isCustomBrand ? 'border border-[var(--hi-border)] bg-[linear-gradient(180deg,rgba(39,52,72,0.92),rgba(26,35,50,0.96))] shadow-[0_28px_44px_rgba(0,0,0,0.22)]' : 'border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] shadow-[0_28px_44px_rgba(0,0,0,0.22)]')
         : (isCustomBrand ? 'border border-[rgba(176,193,216,0.24)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(240,246,253,0.9))] shadow-[0_24px_36px_rgba(19,35,61,0.10)]' : 'border border-[rgba(45,82,65,0.1)] bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(246,241,232,0.88))] shadow-[0_24px_36px_rgba(38,48,38,0.10)]');
-    const vaultCoreLabel = t('landing.homeinventory.security_panel.vault_scope', { defaultValue: isTurkish ? 'Özel alan' : 'Vault scope' });
-    const vaultPassportsLabel = t('landing.homeinventory.security_panel.identity_docs', { defaultValue: isTurkish ? 'Kimlik belgeleri' : 'Identity docs' });
-    const vaultPassportsMeta = t('landing.homeinventory.security_panel.identity_docs_meta', { defaultValue: isTurkish ? 'Pasaport, kimlik kartı' : 'Passports, IDs' });
-    const vaultDeedsLabel = t('landing.homeinventory.security_panel.property_records', { defaultValue: isTurkish ? 'Tapu ve mülkiyet' : 'Property records' });
-    const vaultDeedsMeta = t('landing.homeinventory.security_panel.property_records_meta', { defaultValue: isTurkish ? 'Tapu, kira sözleşmesi' : 'Deeds, leases' });
-    const vaultCodesLabel = t('landing.homeinventory.security_panel.access_codes', { defaultValue: isTurkish ? 'Şifreler ve PIN\u2019ler' : 'Access codes' });
-    const vaultCodesMeta = t('landing.homeinventory.security_panel.access_codes_meta', { defaultValue: isTurkish ? 'Şifre, PIN, anahtar' : 'Passwords, PINs' });
+    const vaultCoreLabel = t(`${brandTranslationNamespace}.security_panel.vault_scope`, { defaultValue: isTurkish ? 'Özel alan' : 'Vault scope' });
+    const vaultPassportsLabel = t(`${brandTranslationNamespace}.security_panel.identity_docs`, { defaultValue: isTurkish ? 'Kimlik belgeleri' : 'Identity docs' });
+    const vaultPassportsMeta = t(`${brandTranslationNamespace}.security_panel.identity_docs_meta`, { defaultValue: isTurkish ? 'Pasaport, kimlik kartı' : 'Passports, IDs' });
+    const vaultDeedsLabel = t(`${brandTranslationNamespace}.security_panel.property_records`, { defaultValue: isTurkish ? 'Tapu ve mülkiyet' : 'Property records' });
+    const vaultDeedsMeta = t(`${brandTranslationNamespace}.security_panel.property_records_meta`, { defaultValue: isTurkish ? 'Tapu, kira sözleşmesi' : 'Deeds, leases' });
+    const vaultCodesLabel = t(`${brandTranslationNamespace}.security_panel.access_codes`, { defaultValue: isTurkish ? 'Şifreler ve PIN\u2019ler' : 'Access codes' });
+    const vaultCodesMeta = t(`${brandTranslationNamespace}.security_panel.access_codes_meta`, { defaultValue: isTurkish ? 'Şifre, PIN, anahtar' : 'Passwords, PINs' });
 
     useEffect(() => {
         if (!mobileNavOpen) {
@@ -166,7 +171,7 @@ export default function LandingPage() {
                 { name: 'HEPA filtre', meta: 'Çocuk odası • Değişim 11/2026', state: null, icon: Package, accent: isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#6f9978]' }
             ],
             features: {
-                eyebrow: 'NEDEN ENVANTERİM',
+                eyebrow: `NEDEN ${brandUpperLabel}`,
   heading: 'Evinizdeki eşyaları ve önemli bilgileri kolayca takip edin.',
   description: 'Eşya, belge, garanti ve ödünç bilgileri düzenli kalır; aradığınız şeye ulaşmak için zaman kaybetmezsiniz.'
             },
@@ -207,7 +212,7 @@ export default function LandingPage() {
             },
             about: {
                 eyebrow: 'KONTROL SENDE',
-    heading: 'HomeInventory, ev düzenini karmaşıklaştırmadan kontrol sağlar.',
+    heading: `${brandDisplayName}, ev düzenini karmaşıklaştırmadan kontrol sağlar.`,
     description: 'Öncelik, evde neye sahip olduğunuzu bilmek ve aradığınız bilgiye hızlıca ulaşmak. Teknik ayrıntılar isteyenler için durur; günlük kullanımın önüne geçmez.',
                 pills: [
                     'Tamamen ücretsiz',
@@ -219,7 +224,7 @@ export default function LandingPage() {
                     {
                         number: '01',
         title: 'Tamamen ücretsiz',
-        description: 'Şu an tüm özellikler ücretsiz; ödeme yapmadan tüm HomeInventory özelliklerini kullanabilirsiniz.'
+        description: `Şu an tüm özellikler ücretsiz; ödeme yapmadan tüm ${brandDisplayName} özelliklerini kullanabilirsiniz.`
       },
       {
         number: '02',
@@ -240,7 +245,7 @@ export default function LandingPage() {
                 advanced: {
                     eyebrow: 'Teknik detaylar',
                     title: 'Merak edenler için teknik detaylar her zaman erişilebilir.',
-                    description: 'HomeInventory, açık kaynak kodunu ve kendi sunucunuzda çalıştırma esnekliğini korur. MIT lisansı gibi ayrıntılar merak edenler için görünür; ama ürün deneyiminin önüne geçmez.',
+                    description: `${brandDisplayName}, açık kaynak kodunu ve kendi sunucunuzda çalıştırma esnekliğini korur. MIT lisansı gibi ayrıntılar merak edenler için görünür; ama ürün deneyiminin önüne geçmez.`,
       link: 'Teknik detayları GitHub’da inceleyin'
                 }
             },
@@ -269,7 +274,7 @@ export default function LandingPage() {
                 { name: 'HEPA filter', meta: 'Kids room • Replace 11/2026', state: null, icon: Package, accent: isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#6f9978]' }
             ],
             features: {
-                eyebrow: 'WHY HOMEINVENTORY',
+                eyebrow: `WHY ${brandUpperLabel}`,
                 heading: 'Knowing what you own makes home life easier to manage.',
                 description: 'The shared list keeps everyday inventory clear, while Personal Vault keeps sensitive records out of sight.'
             },
@@ -310,7 +315,7 @@ export default function LandingPage() {
             },
             about: {
                 eyebrow: 'YOU STAY IN CONTROL',
-                heading: 'HomeInventory is designed to feel calm, useful, and trustworthy in daily life.',
+                heading: `${brandDisplayName} is designed to feel calm, useful, and trustworthy in daily life.`,
                 description: 'The priority is helping you know what you own and reach the right information quickly. Technical transparency stays available, but it does not need to lead the story.',
                 pills: [
                     'Completely free',
@@ -322,7 +327,7 @@ export default function LandingPage() {
                     {
                         number: '01',
                         title: 'Completely free',
-                        description: 'Everything is currently free; you can use all HomeInventory features without paying.'
+                        description: `Everything is currently free; you can use all ${brandDisplayName} features without paying.`
                     },
                     {
                         number: '02',
@@ -343,7 +348,7 @@ export default function LandingPage() {
                 advanced: {
                     eyebrow: 'Technical details',
                     title: 'Transparent by design, quietly in the background.',
-                    description: 'For anyone who cares about the underlying setup, HomeInventory still keeps its open-source core, MIT license, and self-hosting flexibility available as supporting details.',
+                    description: `For anyone who cares about the underlying setup, ${brandDisplayName} still keeps its open-source core, MIT license, and self-hosting flexibility available as supporting details.`,
                     link: 'View the technical details on GitHub'
                 }
             },
@@ -352,7 +357,7 @@ export default function LandingPage() {
                 heading: 'Create your first room. Add your first item.',
                 description: 'Starting is free, and it only takes a few calm minutes to build a clearer home system.'
             }
-        }, t, 'landing.homeinventory');
+        }, t, brandTranslationNamespace);
 
     return (
         <div className="landing-page-shell min-h-screen overflow-hidden bg-[var(--hi-bg)] text-[var(--hi-text)] selection:bg-[var(--hi-secondary-soft)]">
@@ -360,8 +365,8 @@ export default function LandingPage() {
                 <div className="mx-auto flex h-24 max-w-7xl items-center justify-between px-6 lg:px-8">
                     <Link
                         to="/"
-                        aria-label="HomeInventory"
-                        title="HomeInventory"
+                        aria-label={brandDisplayName}
+                        title={brandDisplayName}
                         className="rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-secondary)]"
                     >
                         <BrandLogo variant="full" size="md" className="max-h-10 w-auto" />
@@ -403,7 +408,7 @@ export default function LandingPage() {
                             to="/register"
                             className={`inline-flex h-12 items-center rounded-full px-6 text-sm font-semibold text-white transition ${isCustomBrand ? 'btn-primary !h-12 !rounded-full !px-6' : 'bg-[#6f9978] hover:bg-[#7aa484]'}`}
                         >
-                            {t('landing.hero.cta_start')}
+                            {copy.hero.primaryCta}
                         </Link>
                     </div>
 
@@ -461,7 +466,7 @@ export default function LandingPage() {
                                 onClick={() => setMobileNavOpen(false)}
                                 className={`inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-semibold text-white transition ${isCustomBrand ? 'btn-primary !h-11 !rounded-full !px-5' : 'bg-[#6f9978] hover:bg-[#7aa484]'}`}
                             >
-                                {t('landing.hero.cta_start')}
+                                {copy.hero.primaryCta}
                             </Link>
                         </div>
                     </div>

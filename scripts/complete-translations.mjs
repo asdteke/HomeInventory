@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { translateWithAzure } from './azure-translator.mjs';
 import { translate as googleTranslate } from '@vitalets/google-translate-api';
+import { isProtectedTranslationKey } from './i18n-helpers.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -223,6 +224,8 @@ async function processTranslations(sourceFile, targetFile, targetLang) {
 
     const allKeys = collectStringKeyPaths(sourceContent);
     const missingKeys = allKeys.filter(key => {
+        if (isProtectedTranslationKey(key)) return false;
+
         const sourceVal = getDeepValue(sourceContent, key);
         const targetVal = getDeepValue(targetContent, key);
         

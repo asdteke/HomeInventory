@@ -38,8 +38,12 @@ const MANIFEST_PATHS = {
 };
 
 const APPLE_TOUCH_ICON_PATHS = {
-    light: `/pwa/apple-touch-icon-light.png?v=${ASSET_VERSION}`,
-    dark: `/pwa/apple-touch-icon-dark.png?v=${ASSET_VERSION}`
+    light: typeof __APP_APPLE_TOUCH_ICON_LIGHT__ === 'string' && __APP_APPLE_TOUCH_ICON_LIGHT__.trim()
+        ? __APP_APPLE_TOUCH_ICON_LIGHT__.trim()
+        : `/pwa/apple-touch-icon-light.png?v=${ASSET_VERSION}`,
+    dark: typeof __APP_APPLE_TOUCH_ICON_DARK__ === 'string' && __APP_APPLE_TOUCH_ICON_DARK__.trim()
+        ? __APP_APPLE_TOUCH_ICON_DARK__.trim()
+        : `/pwa/apple-touch-icon-dark.png?v=${ASSET_VERSION}`
 };
 
 const PAGE_TITLES = [

@@ -3,7 +3,7 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import Backend from 'i18next-http-backend';
 import axios from 'axios';
-import { BRAND_HOST, BRAND_NAME, SUPPORT_EMAIL } from './constants/branding';
+import { BRAND_HOST, BRAND_NAME, BRAND_KEY, SUPPORT_EMAIL } from './constants/branding';
 import { formatDateForLanguage, formatNumberForLanguage } from './utils/appFormatting';
 import { resolveSupportedLanguageCode, SUPPORTED_PRODUCT_LANGUAGE_CODES } from './utils/languageSupport';
 
@@ -165,7 +165,39 @@ i18n
             loadPath: (languages) => {
                 const requested = Array.isArray(languages) ? languages[0] : languages;
                 const normalized = normalizeLanguageCode(requested);
+                if (BRAND_KEY !== 'homeinventory') {
+                    return `/brand-local/${encodeURIComponent(BRAND_KEY)}/locales/${encodeURIComponent(normalized)}/translation.json?v=${encodeURIComponent(LOCALE_ASSET_VERSION)}`;
+                }
                 return `/locales/${encodeURIComponent(normalized)}/translation.json?v=${encodeURIComponent(LOCALE_ASSET_VERSION)}`;
+            },
+            request: async (options, url, payload, callback) => {
+                // If it is a custom brand request, try loading from brand-local first.
+                // If that fails (e.g. 404 or network error), safely fall back to the baseline locales path.
+                if (url.includes('/brand-local/')) {
+                    try {
+                        const res = await axios.get(url, { validateStatus: (status) => status === 200 });
+                        callback(null, { status: 200, data: res.data });
+                        return;
+                    } catch (err) {
+                        console.warn(`[i18n] Brand-local assets failed to load from ${url}. Falling back to baseline locale.`, err.message);
+                        const fallbackUrl = url.replace(/\/brand-local\/[^/]+/, '');
+                        try {
+                            const res = await axios.get(fallbackUrl);
+                            callback(null, { status: 200, data: res.data });
+                            return;
+                        } catch (fallbackErr) {
+                            callback(fallbackErr, null);
+                            return;
+                        }
+                    }
+                }
+                // Standard baseline loading
+                try {
+                    const res = await axios.get(url);
+                    callback(null, { status: 200, data: res.data });
+                } catch (err) {
+                    callback(err, null);
+                }
             }
         }
     });

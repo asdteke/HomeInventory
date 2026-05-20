@@ -397,12 +397,12 @@ export default defineConfig(({ command, mode }) => {
             backgroundColor: String(env.APP_PWA_BACKGROUND_COLOR_DARK || '#1a1f1c').trim()
         }
     };
-    const appleTouchIconLightPath = `/pwa/apple-touch-icon-light.png?v=${assetVersion}`;
-    const appleTouchIconDarkPath = `/pwa/apple-touch-icon-dark.png?v=${assetVersion}`;
-    const pwaIcon192LightPath = `/pwa/icon-light-192.png?v=${assetVersion}`;
-    const pwaIcon192DarkPath = `/pwa/icon-dark-192.png?v=${assetVersion}`;
-    const pwaIcon512LightPath = `/pwa/icon-light-512.png?v=${assetVersion}`;
-    const pwaIcon512DarkPath = `/pwa/icon-dark-512.png?v=${assetVersion}`;
+    const appleTouchIconLightPath = withAssetVersion(env.APP_PWA_APPLE_TOUCH_ICON_LIGHT || '/pwa/apple-touch-icon-light.png', assetVersion);
+    const appleTouchIconDarkPath = withAssetVersion(env.APP_PWA_APPLE_TOUCH_ICON_DARK || '/pwa/apple-touch-icon-dark.png', assetVersion);
+    const pwaIcon192LightPath = withAssetVersion(env.APP_PWA_ICON_192_LIGHT || '/pwa/icon-light-192.png', assetVersion);
+    const pwaIcon192DarkPath = withAssetVersion(env.APP_PWA_ICON_192_DARK || '/pwa/icon-dark-192.png', assetVersion);
+    const pwaIcon512LightPath = withAssetVersion(env.APP_PWA_ICON_512_LIGHT || '/pwa/icon-light-512.png', assetVersion);
+    const pwaIcon512DarkPath = withAssetVersion(env.APP_PWA_ICON_512_DARK || '/pwa/icon-dark-512.png', assetVersion);
     const manifestLightPath = `/manifest-light.webmanifest?v=${assetVersion}`;
     const manifestDarkPath = `/manifest-dark.webmanifest?v=${assetVersion}`;
     const brandAssetUrls = [
@@ -523,6 +523,8 @@ export default defineConfig(({ command, mode }) => {
             __APP_ASSET_VERSION__: JSON.stringify(assetVersion),
             __APP_FAVICON_LIGHT__: JSON.stringify(faviconLightPath),
             __APP_FAVICON_DARK__: JSON.stringify(faviconDarkPath),
+            __APP_APPLE_TOUCH_ICON_LIGHT__: JSON.stringify(appleTouchIconLightPath),
+            __APP_APPLE_TOUCH_ICON_DARK__: JSON.stringify(appleTouchIconDarkPath),
             __APP_THEME_COLOR_LIGHT__: JSON.stringify(themeColors.light.themeColor),
             __APP_THEME_COLOR_DARK__: JSON.stringify(themeColors.dark.themeColor),
             __APP_SITE_URL__: JSON.stringify(siteUrl),

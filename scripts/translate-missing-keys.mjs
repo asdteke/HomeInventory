@@ -3,6 +3,7 @@ import path from 'path';
 import { translate } from 'bing-translate-api';
 import { translate as googleTranslate } from '@vitalets/google-translate-api';
 import { translateWithAzure } from './azure-translator.mjs';
+import { isProtectedTranslationKey } from './i18n-helpers.mjs';
 
 const LOCALES_DIR = path.join(process.cwd(), 'client', 'public', 'locales');
 const BASE_LANG = 'en';
@@ -302,6 +303,9 @@ async function processLanguage(baseTranslation, lang, keyPaths, { force = false 
             text: getDeepValue(baseTranslation, keyPath)
         }))
         .filter(({ keyPath, text }) => {
+            if (isProtectedTranslationKey(keyPath)) {
+                return false;
+            }
             const localeValue = getDeepValue(currentTranslation, keyPath);
             // Skip "HomeInventory", "Google", "JSON", "QR Code"
             if (['HomeInventory', 'Google', 'JSON', 'QR Code'].includes(text)) {
