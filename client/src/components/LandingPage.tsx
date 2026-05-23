@@ -780,30 +780,28 @@ export default function LandingPage() {
                                     </article>
                                 ))}
 
-                                {!isCustomBrand && copy.about?.advanced && (
-                                    <article
-                                        className={`rounded-[1rem] border p-6 md:p-7 ${isDark ? (isCustomBrand ? 'border-[var(--hi-border)] bg-[rgba(22,30,42,0.72)]' : 'border-white/8 bg-white/5') : (isCustomBrand ? 'border-[rgba(176,193,216,0.26)] bg-[rgba(255,255,255,0.84)]' : 'border-[rgba(45,82,65,0.1)] bg-white/75')}`}
+                                <article
+                                    className={`rounded-[1rem] border p-6 md:p-7 ${isDark ? (isCustomBrand ? 'border-[var(--hi-border)] bg-[rgba(22,30,42,0.72)]' : 'border-white/8 bg-white/5') : (isCustomBrand ? 'border-[rgba(176,193,216,0.26)] bg-[rgba(255,255,255,0.84)]' : 'border-[rgba(45,82,65,0.1)] bg-white/75')}`}
+                                >
+                                    <p className="landing-kicker text-[var(--hi-secondary)]">
+                                        {copy.about.advanced.eyebrow}
+                                    </p>
+                                    <h3 className={`mt-3 text-2xl font-semibold tracking-[-0.03em] ${shellTextClass}`}>
+                                        {copy.about.advanced.title}
+                                    </h3>
+                                    <p className={`mt-3 max-w-xl font-normal leading-7 ${mutedTextClass}`}>
+                                        {copy.about.advanced.description}
+                                    </p>
+                                    <a
+                                        href={GITHUB_REPOSITORY_URL}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className={`mt-5 inline-flex items-center gap-2 text-sm font-medium transition ${isDark ? (isCustomBrand ? 'text-[var(--hi-secondary)] hover:text-[var(--hi-accent)]' : 'text-white/72 hover:text-white') : (isCustomBrand ? 'text-[var(--hi-secondary-strong)] hover:text-[var(--hi-accent)]' : 'text-[var(--hi-text-soft)] hover:text-[var(--hi-text)]')}`}
                                     >
-                                        <p className="landing-kicker text-[var(--hi-secondary)]">
-                                            {copy.about.advanced.eyebrow}
-                                        </p>
-                                        <h3 className={`mt-3 text-2xl font-semibold tracking-[-0.03em] ${shellTextClass}`}>
-                                            {copy.about.advanced.title}
-                                        </h3>
-                                        <p className={`mt-3 max-w-xl font-normal leading-7 ${mutedTextClass}`}>
-                                            {copy.about.advanced.description}
-                                        </p>
-                                        <a
-                                            href={GITHUB_REPOSITORY_URL}
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            className={`mt-5 inline-flex items-center gap-2 text-sm font-medium transition ${isDark ? (isCustomBrand ? 'text-[var(--hi-secondary)] hover:text-[var(--hi-accent)]' : 'text-white/72 hover:text-white') : (isCustomBrand ? 'text-[var(--hi-secondary-strong)] hover:text-[var(--hi-accent)]' : 'text-[var(--hi-text-soft)] hover:text-[var(--hi-text)]')}`}
-                                        >
-                                            <Github className="h-4 w-4" />
-                                            <span>{copy.about.advanced.link}</span>
-                                        </a>
-                                    </article>
-                                )}
+                                        <Github className="h-4 w-4" />
+                                        <span>{copy.about.advanced.link}</span>
+                                    </a>
+                                </article>
                             </div>
                         </div>
                     </div>

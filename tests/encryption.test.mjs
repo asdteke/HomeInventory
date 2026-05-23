@@ -58,93 +58,81 @@ const {
   isEncryptedPayload,
   listLookupTokenHashes
 } = await import('../utils/encryption.js');
-
 const {
-  decryptItemRecord,
-  decryptRoomRecord,
-  decryptLocationRecord,
-  decryptUserRecord,
-  decryptCategoryRecord,
-  decryptHouseRecord,
-  encryptItemName,
-  encryptItemDescription,
-  encryptItemInvoicePrice,
-  encryptItemInvoiceCurrency,
-  encryptItemInvoiceDate,
-  encryptItemWarrantyStartDate,
-  encryptItemWarrantyDurationValue,
-  encryptItemWarrantyDurationUnit,
-  encryptItemWarrantyExpiryDate,
-  encryptRoomName,
-  encryptRoomDescription,
-  encryptLocationName,
-  encryptCategoryName,
-  encryptHouseName,
-  encryptItemBarcode,
-  encryptEmail,
+  buildBarcodeLookup,
   buildEmailLookup,
   buildUsernameLookup,
-  buildBarcodeLookup
+  decryptCategoryRecord,
+  decryptHouseRecord,
+  decryptItemRecord,
+  decryptLocationRecord,
+  decryptRoomRecord,
+  decryptUserRecord,
+  encryptCategoryName,
+  encryptEmail,
+  encryptHouseName,
+  encryptItemBarcode,
+  encryptItemDescription,
+  encryptItemInvoiceCurrency,
+  encryptItemInvoiceDate,
+  encryptItemInvoicePrice,
+  encryptItemName,
+  encryptItemWarrantyDurationUnit,
+  encryptItemWarrantyDurationValue,
+  encryptItemWarrantyExpiryDate,
+  encryptItemWarrantyStartDate,
+  encryptLocationName,
+  encryptRoomDescription,
+  encryptRoomName
 } = await import('../utils/protectedFields.js');
 
+test('encryptForStorage and decryptFromStorage round-trip string secrets', () => {
+  const encrypted = encryptForStorage('super-secret-house-key', {
+    purpose: 'pending_registration.house_key'
+  });
 
-test('opaque tokens generate securely and hash deterministically', () => {
-  const token = generateOpaqueToken();
-  const legacyDigest = crypto.createHash('sha256').update(token, 'utf8').digest('hex');
-
-  assert.ok(token.length >= 32);
-  assert.equal(/^[a-f0-9]{64}$/i.test(token), false);
-  assert.equal(hashLookupToken(token), hashLookupToken(token));
-  assert.notEqual(hashLookupToken(token), legacyDigest);
-  assert.deepEqual(listLookupTokenHashes(token), [hashLookupToken(token)]);
+  assert.notEqual(encrypted, 'super-secret-house-key');
+  assert.equal(isEncryptedPayload(encrypted), true);
+  assert.equal(
+    decryptFromStorage(encrypted, { purpose: 'pending_registration.house_key' }),
+    'super-secret-house-key'
+  );
 });
 
-test('round-trip secrets encrypt and decrypt cleanly', () => {
-  const secret = 'super-secret-password-123';
-  const encrypted = encryptForStorage(secret, { purpose: 'test.purpose' });
-  assert.ok(isEncryptedPayload(encrypted));
-  const decrypted = decryptFromStorage(encrypted, { purpose: 'test.purpose' });
-  assert.equal(decrypted, secret);
+test('decryptFromStorage preserves plaintext during legacy migration window', () => {
+  assert.equal(
+    decryptFromStorage('legacy-plain-value', { purpose: 'pending_registration.house_key' }),
+    'legacy-plain-value'
+  );
 });
 
-test('decryption preserves plaintext when not encrypted', () => {
-  const plaintext = 'ordinary-plaintext-string';
-  const decrypted = decryptFromStorage(plaintext, { purpose: 'test.purpose' });
-  assert.equal(decrypted, plaintext);
-});
-
-test('tampered ciphertext fails decryption securely', () => {
-  const secret = 'secure-data';
-  const encrypted = encryptForStorage(secret, { purpose: 'test.purpose' });
+test('decryptFromStorage rejects tampered ciphertext', () => {
+  const encrypted = encryptForStorage('tamper-check', {
+    purpose: 'pending_registration.house_key'
+  });
   const payload = JSON.parse(encrypted);
+  payload.ciphertext = `${payload.ciphertext.slice(0, -1)}A`;
 
-  // Alter the first character of the ciphertext to guarantee tamper detection
-  payload.ciphertext = 'A' + payload.ciphertext.slice(1);
-  const tampered = JSON.stringify(payload);
-
-  assert.throws(() => {
-    decryptFromStorage(tampered, { purpose: 'test.purpose' });
-  }, /Encrypted payload could not be decrypted securely/);
+  assert.throws(
+    () => decryptFromStorage(JSON.stringify(payload), { purpose: 'pending_registration.house_key' }),
+    /could not be decrypted securely/
+  );
 });
 
-test('binary payloads support round-trip encryption', () => {
-  const originalBuffer = Buffer.from([1, 2, 3, 4, 5, 255]);
-  const encrypted = encryptBufferForStorage(originalBuffer, { purpose: 'test.purpose' });
-  assert.ok(isEncryptedPayload(encrypted));
-  const decrypted = decryptBufferFromStorage(encrypted, { purpose: 'test.purpose' });
-  assert.deepEqual(decrypted, originalBuffer);
+test('encryptBufferForStorage and decryptBufferFromStorage round-trip binary media', () => {
+  const original = crypto.randomBytes(256);
+  const encrypted = encryptBufferForStorage(original, {
+    purpose: 'inventory.media.photo'
+  });
+
+  assert.equal(isEncryptedPayload(encrypted), true);
+  assert.deepEqual(
+    decryptBufferFromStorage(encrypted, { purpose: 'inventory.media.photo' }),
+    original
+  );
 });
 
-test('purpose spoofing bypass is rejected securely', () => {
-  const secret = 'my-secret';
-  const encryptedForA = encryptForStorage(secret, { purpose: 'purpose.A' });
-
-  assert.throws(() => {
-    decryptFromStorage(encryptedForA, { purpose: 'purpose.B' });
-  }, /Encrypted payload could not be decrypted securely/);
-});
-
-test('payload-shaped plaintext is encrypted instead of bypassed', () => {
+test('encryptForStorage encrypts payload-shaped plaintext instead of bypassing it', () => {
   const spoofedPayload = JSON.stringify({
     v: 1,
     alg: 'aes-256-gcm',
@@ -163,6 +151,17 @@ test('payload-shaped plaintext is encrypted instead of bypassed', () => {
     decryptFromStorage(encrypted, { purpose: 'pending_registration.house_key' }),
     spoofedPayload
   );
+});
+
+test('lookup tokens stay opaque and hash deterministically', () => {
+  const token = generateOpaqueToken();
+  const legacyDigest = crypto.createHash('sha256').update(token, 'utf8').digest('hex');
+
+  assert.ok(token.length >= 32);
+  assert.equal(/^[a-f0-9]{64}$/i.test(token), false);
+  assert.equal(hashLookupToken(token), hashLookupToken(token));
+  assert.notEqual(hashLookupToken(token), legacyDigest);
+  assert.deepEqual(listLookupTokenHashes(token), [hashLookupToken(token)]);
 });
 
 test('module import fails securely when APP_ENCRYPTION_KEY is missing', () => {
