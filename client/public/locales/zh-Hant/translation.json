@@ -69,7 +69,9 @@
             "vault_hint_action": "打開個人保險庫",
             "location": "位置",
             "remove_photo": "移除照片",
-            "visibility_owner_only": "只有新增該項目的人才能更改可見性。"
+            "visibility_owner_only": "只有新增該項目的人才能更改可見性。",
+            "expiry_date": "到期日",
+            "min_quantity": "最小數量"
         },
         "messages": {
             "quick_add_success": "✓ “{{barcode}}” 已快速新增 - 你可以稍後編輯",
@@ -119,7 +121,12 @@
         "no_permission": "你沒有權限修改這個項目",
         "barcode_search_error": "條碼搜尋失敗",
         "stats_error": "錯誤載入統計",
-        "detail_subtitle": "物品詳情"
+        "detail_subtitle": "物品詳情",
+        "status": {
+            "close_to_expiry": "即將到期",
+            "expired": "已過期",
+            "low_stock": "庫存不足"
+        }
     },
     "common": {
         "save": "保存",
@@ -170,7 +177,8 @@
         "details": "詳情",
         "hide": "隱藏密碼",
         "logging_out": "登出中...",
-        "show": "顯示密碼"
+        "show": "顯示密碼",
+        "saving": "儲存中..."
     },
     "auth": {
         "login": {
@@ -216,7 +224,7 @@
             "support_link": "聯絡支援"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "設置您的家庭",
             "subtitle": "建立新帳號或加入現有的家庭",
             "create_house": "建立新家庭",
             "join_house": "加入家庭",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "重新輸入您的密碼",
             "reset_submit": "重設密碼",
             "resetting": "正在重設...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "輸入您的用戶名或電子郵件"
         },
         "reset_password": {
             "title": "重設密碼",
@@ -438,7 +446,9 @@
         "logout_aria": "登出您的帳戶",
         "logout_title": "登出？",
         "logout_description": "您將被返回登入畫面，並需要再次登入以管理您的家庭物品庫存。",
-        "logout_warning": "當您在共用或個人裝置上使用完畢時請使用此功能。"
+        "logout_warning": "當您在共用或個人裝置上使用完畢時請使用此功能。",
+        "maintenance": "維護計劃",
+        "shopping": "購物清單"
     },
     "dashboard": {
         "welcome": "歡迎，<1>{{name}}</1>！👋",
@@ -565,7 +575,20 @@
         "no_items_filter": "沒有任何物品符合這個篩選條件",
         "manage": "管理",
         "add_item": "新增項目",
-        "search_item": "搜尋項目"
+        "search_item": "搜尋項目",
+        "alerts": {
+            "expired_title": "物品已過期！",
+            "expired_desc": "您的庫存中有 {{count}} 件已過期的物品。請檢查它們以確保您的安全。",
+            "view_items": "查看物品",
+            "maintenance_title": "過期的維護任務！",
+            "maintenance_desc": "有 {{count}} 項維護任務已逾期。請執行維護以延長家電的使用壽命。",
+            "go_to_maintenance": "前往維護",
+            "low_stock_title": "庫存不足警報",
+            "low_stock_desc": "{{count}} 項物品已低於您的最低庫存限制。",
+            "go_to_shopping": "購物清單",
+            "close_expiry_title": "即將到期日期",
+            "close_expiry_desc": "{{count}} 件產品將在30天內過期。"
+        }
     },
     "beta_banner": {
         "title": "測試版：",
@@ -619,7 +642,7 @@
             "member_kick_error": "無法從房子中移除成員",
             "recovery_key_regenerated": "恢復金鑰已重新生成",
             "recovery_key_error": "無法重新生成恢復金鑰",
-            "account_delete_error": "The account could not be deleted",
+            "account_delete_error": "帳戶無法被刪除",
             "backup_downloaded_encrypted": "加密備份下載成功！({{count}} 項目)"
         },
         "user_profile": {
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "活躍房子金鑰",
             "key_label": "房子金鑰",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{後綴}}",
             "hide": "隱藏",
             "show": "顯示",
             "copy": "複製",
@@ -991,8 +1014,8 @@
             "no_history": "此物品尚無借閱記錄。",
             "lend_success_title": "項目已借出",
             "lend_success_body": "{{item}} 現在已標記為已借出。",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "借用提議已發送",
+            "offer_sent_body": "{{item}} 在其他成員接受後將被標記為已借出。",
             "borrowed_by_you": "與你同在",
             "return_pending_hint": "當貸方確認已收到物品後，紀錄將關閉。",
             "return_pending_lender_title": "{{name}} 已將此項目標記為已歸還",
@@ -1231,7 +1254,7 @@
             "no_logs": "尚無日誌",
             "errors_title": "系統錯誤（最近 10 條）",
             "no_errors": "// 系統健康，沒有錯誤日誌。",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{日期，日期時間}}",
             "type": {
                 "email": "電子郵件",
                 "user": "使用者",
@@ -1283,7 +1306,7 @@
             "notes_body": "用於操作支援或帳戶相關聯絡。敏感內容應盡可能保留在應用程式內。",
             "notes_body_with_rate_limit": "用於操作支援或帳戶相關聯絡。敏感內容應盡可能保留在應用程式內。當前發送保護: {{rateLimit}}。",
             "rate_limit_fallback": "每分鐘 3 封郵件",
-            "placeholder_to": "name@example.com",
+            "placeholder_to": "姓名@example.com",
             "placeholder_subject": "訊息主題",
             "send_success_with_id": "✅ 郵件發送成功！ID: {{emailId}}",
             "send_error": "郵件無法發送",
@@ -1401,12 +1424,12 @@
             "cta_register": "建立帳號",
             "stat_free": "免費",
             "stat_access": "存取",
-            "free_badge": "Open Source",
+            "free_badge": "開源",
             "badge": "HomeInventory v2.0 已經推出",
             "cta_explore": "探索功能",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "登入",
+            "stat_members": "共用住宅",
+            "stat_vault": "私人保險箱"
         },
         "features": {
             "title": "為什麼選擇 <1>HomeInventory</1>？",
@@ -1477,7 +1500,7 @@
                 "description": "將物品、保固、重要文件及借用追蹤集中在一個平靜的地方。一目了然看見家裡的物品。",
                 "primaryCta": "免費開始",
                 "secondaryCta": "查看產品",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "建議流程：帳戶 • 住宅 • 房間與類別 • 物品 • 備份",
                 "searchPlaceholder": "搜尋物品、房間或條碼"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "網路詳情會保持隱藏，直到您需要指引。",
         "link_privacy_note": "網路地址會保持隱藏。僅在您有意分享本地設置上的直接項目存取時，掃描 QR 碼或複製連結。",
         "helper": "掃描以立即打開此項目，或在需要時複製直接連結。",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "無法自動複製連結",
+        "copy_manual_help": "您的瀏覽器不允許自動複製。已選取該連結，您可以手動複製。",
         "loading": "正在準備 QR 工具..."
     },
     "house_access_pending": {
@@ -1790,7 +1813,7 @@
             ],
             "fallback": "密碼重設連結似乎不完整或已損壞。",
             "support": "註冊問題：",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{品牌}}"
         },
         "welcome": {
             "subject": "歡迎使用 {{brandName}}",
@@ -1808,7 +1831,7 @@
                 "💡 你可以成為多個房子的成員並在它們之間切換。每個房子都有獨立的庫存。"
             ],
             "support": "註冊問題：",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{品牌}}"
         },
         "houseJoinRequest": {
             "subject": "加入房子",
@@ -1817,7 +1840,7 @@
             "bodyLine2": "等待房屋擁有者審核"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{狀態}}",
             "greeting": "房屋訪問",
             "bodyLine1Template": "當前待處理的請求：{{house}} ({{status}})",
             "bodyLine2": "你對「{{house}}」的請求仍在等待決定。",
@@ -1842,7 +1865,7 @@
             "warningTitle": "⚠️",
             "warningBody": "如果帳戶存在，已發送一個有效期為 15 分鐘的密碼重設連結。",
             "fallback": "密碼重設連結似乎不完整或已損壞。",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{品牌}}"
         },
         "adminEmail": {
             "sentBy": "此電子郵件由 {{brandName}} 發送。",
@@ -1856,7 +1879,7 @@
             "sentAtLabel": "發送時間",
             "senderLabel": "發件人",
             "serviceLabel": "服務",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{品牌}}"
         }
     },
     "vault": {
@@ -1969,8 +1992,8 @@
             "empty": "目前沒有正在進行的借用。",
             "borrowed_from": "從 {{name}} 借出",
             "lent_to": "目前在 {{name}} 手中",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "正在等待出借人確認已收到歸還。",
+            "return_pending_lender": "{{name}} 將此項目標記為已退回。確認收貨以關閉記錄。",
             "empty_title": "目前沒有正在外借的物品",
             "empty_description": "已接受的請求會在項目被借出或借入後顯示於此，包括到期日和歸還狀態。"
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "已取消",
             "expired": "已過期",
             "returned": "已退回",
-            "return_pending": "Return pending"
+            "return_pending": "退回待處理"
         },
         "actions": {
             "send_request": "請求項目",
@@ -1990,8 +2013,8 @@
             "reject": "拒絕",
             "cancel": "取消",
             "fulfill_request": "完成請求",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "標記已送達",
+            "mark_received": "標記已接收",
             "open_inventory": "開啟庫存"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "標記為已歸還",
             "return_subtitle": "關閉「{{item}}」的活動借出",
             "return_target": "目前顯示此物品在 {{name}} 手上。",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "送出物品",
+            "return_title_lender": "接收物品",
+            "return_subtitle_borrower": "在你歸還後關閉「{{item}}」的現有借用。",
+            "return_subtitle_lender": "在你收到後關閉「{{item}}」的現有借用。",
+            "return_target_borrower": "放款人：{{name}}",
+            "return_target_lender": "目前與：{{name}}",
+            "return_note_borrower": "送貨單",
+            "return_note_lender": "收貨單",
+            "return_note_placeholder_borrower": "例如，我毫無問題地歸還了它",
+            "return_note_placeholder_lender": "例如，收到時狀況良好",
+            "return_submitting": "關閉中..."
         },
         "messages": {
             "load_error": "借閱中心無法加載",
@@ -2103,7 +2126,7 @@
                 "rights": "有關適用於此安裝的條款的問題："
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "此 {{brandName}} 安裝的條款說明了可接受的使用方式、您的安全責任，以及帳戶刪除的後果，格式更清晰、易於瀏覽。",
         "terms_support_label": "有關適用於此安裝的條款的問題：",
         "terms_summary": {
             "eyebrow": "快速摘要",
@@ -2141,7 +2164,7 @@
         "account_menu_tooltip": "{{name}} 的帳戶選單"
     },
     "app": {
-        "name": "{{brandName}}",
+        "name": "{{品牌名稱}}",
         "tagline": "聰明地管理你所有的家用品"
     },
     "nav": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "登入次數太多了。請15分鐘後再試一次。"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "登入",
+        "page_title_register": "建立帳號",
+        "page_title_choose_house": "選擇房屋",
+        "page_title_recovery_key": "恢復金鑰",
+        "page_title_house_access": "房屋進出",
+        "page_title_legal_review": "法律審查",
+        "page_title_new_item": "新增項目",
+        "page_title_edit_item": "編輯項目",
+        "page_title_items": "庫存"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "加載購物清單時出錯。",
+            "select_item_error": "請從庫存中選擇一個項目。",
+            "empty_name": "請輸入一個項目名稱。",
+            "added": "項目已加入購物清單。",
+            "add_error": "新增項目時發生錯誤。",
+            "added_suggestion": "「{{name}}」已加入購物清單。",
+            "bulk_added": "{{count}} 個庫存不足的項目已加入清單。",
+            "bulk_error": "添加低庫存項目時出錯。",
+            "completed": "「{{name}}」已標記為完成。",
+            "reactivated": "「{{name}}」已移回活躍列表。",
+            "update_error": "更新時發生錯誤。",
+            "deleted": "項目已從清單中刪除。",
+            "delete_error": "刪除時發生錯誤。",
+            "cleared_completed": "已清除完成的項目。",
+            "clear_error": "清除時發生錯誤。"
+        },
+        "loading_desc": "準備購物清單...",
+        "page": {
+            "title": "購物清單",
+            "description": "查看家中庫存低的物品，輕鬆管理您的購物清單。"
+        },
+        "suggestions": {
+            "title": "智能庫存建議",
+            "desc": "庫存物品已低於最小限額。",
+            "add_all": "全部補充",
+            "stock_status": "目前：{{current}} / 目標：{{min}}",
+            "add_qty": "補充 {{qty}}"
+        },
+        "sections": {
+            "active_list": "待購買項目",
+            "active_desc": "當前購物清單，添加到您的購物車。",
+            "active_count": "{{count}} 項目",
+            "completed_list": "已購買項目 ({{count}})",
+            "add_item": "手動添加項目",
+            "add_desc": "手動將自訂項目添加到清單中。"
+        },
+        "empty": {
+            "title": "您的購物清單是空的",
+            "desc": "您可以從上方的建議中添加缺少的庫存，或使用右側的表單手動添加項目。"
+        },
+        "card": {
+            "linked_inventory": "已儲存於庫存"
+        },
+        "actions": {
+            "clear_completed": "清除歷史",
+            "add_item": "加入購物清單"
+        },
+        "form": {
+            "add_type": "新增方法",
+            "add_type_inventory": "庫存項目",
+            "add_type_custom": "自訂項目",
+            "select_inventory_item": "從庫存中選擇項目",
+            "no_inventory_items": "您的庫存中尚無任何項目。",
+            "select_item_placeholder": "選擇一個項目",
+            "current_stock": "目前",
+            "item_name": "項目名稱",
+            "item_name_placeholder": "例如 牛奶、洗衣粉、咖啡豆...",
+            "quantity": "數量"
+        },
+        "modal": {
+            "delete_title": "從清單中刪除項目？",
+            "delete_desc": "您確定要從購物清單中移除「{{name}}」嗎？"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "載入資訊時發生錯誤",
+            "select_item_error": "請選擇一個項目。",
+            "task_name_error": "任務名稱為必填。",
+            "date_error": "計畫日期為必填。",
+            "updated": "維護任務已更新",
+            "created": "已新增新的維護任務",
+            "save_error": "儲存時發生錯誤",
+            "deleted": "維護任務已成功刪除",
+            "delete_error": "刪除過程中發生錯誤。",
+            "performed": "維護已記錄為完成。下次日期已安排。",
+            "perform_error": "儲存時發生錯誤。"
+        },
+        "freq": {
+            "one_time": "一次性",
+            "unit": {
+                "days": "天",
+                "weeks": "週",
+                "months": "月",
+                "years": "年"
+            },
+            "format": "每 {{val}} {{unit}}"
+        },
+        "loading_desc": "正在載入維護計劃...",
+        "page": {
+            "title": "維護與定期追蹤",
+            "description": "管理家中物品、濾網或安全設備的定期維護計劃。"
+        },
+        "actions": {
+            "add_task": "新增任務",
+            "manage": "管理",
+            "perform": "標記為完成",
+            "edit_task": "編輯任務"
+        },
+        "alerts": {
+            "overdue_title": "您有逾期任務！",
+            "overdue_desc": "有 {{count}} 項逾期維護任務。延遲可能會縮短設備壽命。"
+        },
+        "empty": {
+            "title": "沒有安排維護任務",
+            "desc": "開始時可以添加定期任務，例如空調濾網清潔、鍋爐維護或火災探測器電池檢查。"
+        },
+        "sections": {
+            "overdue": "已逾期任務",
+            "overdue_desc": "需要立即完成的緊急維護。",
+            "upcoming": "預定 / 即將到來的任務",
+            "upcoming_desc": "未來幾天將進行維護。",
+            "no_upcoming": "未來沒有已排定的活動任務。"
+        },
+        "modal": {
+            "edit_title": "編輯任務",
+            "create_title": "排程新的維護任務",
+            "perform_title": "完成維護",
+            "perform_desc": "您想將「{{name}}」記錄為今天已完成嗎？",
+            "perform_confirm": "是，已完成",
+            "perform_recurrence_info": "這是一個定期任務。當您保存時，系統將自動計算下一次維護日期。",
+            "delete_title": "刪除維護任務？",
+            "delete_desc": "您確定要刪除定期維護計畫「{{name}}」嗎？此操作無法撤銷。"
+        },
+        "form": {
+            "item": "相關項目",
+            "no_items": "您必須先將物品添加到庫存中，然後才能安排維護。",
+            "select_item_placeholder": "選擇物品",
+            "task_name": "任務/操作名稱",
+            "task_name_placeholder": "例如：更換濾網、定期檢查...",
+            "description": "詳細 / 描述",
+            "description_placeholder": "工作細節、使用的材料等...",
+            "frequency_value": "重複頻率",
+            "frequency_placeholder": "例如 6（一次性請留空）",
+            "frequency_unit": "頻率單位",
+            "next_due_date": "下次預定日期",
+            "section_help": "從這裡管理維護計劃",
+            "section_collapsed": "點擊以添加定期控制和任務",
+            "has_tasks": "{{count}} 個任務",
+            "new_item_warning_title": "項目保存中",
+            "new_item_warning_desc": "您必須先保存此項目才能新增維護計劃。",
+            "manage_desc": "管理此設備或項目的維護計劃。"
+        },
+        "fields": {
+            "task_name": "任務名稱",
+            "task_name_placeholder": "例如 空調濾網清潔",
+            "description": "描述",
+            "description_placeholder": "任務細節、使用的材料等...",
+            "frequency_value": "重複頻率",
+            "frequency_value_placeholder": "留空表示一次性",
+            "frequency_unit": "頻率單位",
+            "next_due_date": "預定日期"
+        },
+        "card": {
+            "untitled_item": "未命名項目",
+            "last_performed": "上次完成:",
+            "next_due_label": "預定日期",
+            "complete_tooltip": "將維護標記為今日完成"
+        },
+        "detail_card_desc": "此項目安排了定期或一次性的維護追蹤。",
+        "no_tasks": "此項目未分配任何維護任務。",
+        "confirm_delete": "此任務將被刪除。您確定嗎？"
     }
 }

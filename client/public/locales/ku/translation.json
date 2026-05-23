@@ -69,7 +69,9 @@
             "vault_hint_action": "کردنەوەی خەزێنەی کەسی",
             "location": "شوێن",
             "remove_photo": "لابردنی وێنە",
-            "visibility_owner_only": "تەنها ئەو کەسەی بەندەکەی زیاد کردووە دەتوانێت بینین بگۆڕێت."
+            "visibility_owner_only": "تەنها ئەو کەسەی بەندەکەی زیاد کردووە دەتوانێت بینین بگۆڕێت.",
+            "expiry_date": "تایبەت",
+            "min_quantity": "کەمترین بڕی"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" خێرا زیادکرا - دواتر دەتوانیت دەستکاری بکەیت",
@@ -119,7 +121,12 @@
         "no_permission": "Destûra we tune ku hûn vê hêmanê biguherînin",
         "barcode_search_error": "Lêgerîna barkodê têk çû",
         "stats_error": "Îstatîstîkên barkirina xeletiyê",
-        "detail_subtitle": "وردەکاری بەند"
+        "detail_subtitle": "وردەکاری بەند",
+        "status": {
+            "close_to_expiry": "نزیک لە بەسەرچوون",
+            "expired": "بەسەرچوو",
+            "low_stock": "نزمی سەرمایە"
+        }
     },
     "common": {
         "save": "پاشەکەوت کردن",
@@ -170,7 +177,8 @@
         "details": "وردەکاریەکان",
         "hide": "شاردنەوەی ووشەی نهێنی",
         "logging_out": "چوونە دەرەوە...",
-        "show": "وشەی نهێنی نیشان بدە"
+        "show": "وشەی نهێنی نیشان بدە",
+        "saving": "پاشەکەوت کردن..."
     },
     "auth": {
         "login": {
@@ -216,7 +224,7 @@
             "support_link": "پەیوەندی بکە بە پشتیوانی"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "ئامادەکردنی ماڵەکەت",
             "subtitle": "ئەکاونتێکی نوێ دروست بکە یان بەشداری بکە لە خانووی بەردەست",
             "create_house": "خانووی نوێ پێکبهێنە",
             "join_house": "بەشداری کردن لە ماڵ",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "دووبارە نهێنوشەکەت تێبنووسە",
             "reset_submit": "دووبارە ڕێکخستنەوەی ووشەی نهێنی",
             "resetting": "ریسێتکردنەوە...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "ناوی بەکارهێنەر یان ئیمەیڵەکەت تێبنووسە"
         },
         "reset_password": {
             "title": "دووبارە ڕێکخستنەوەی ووشەی نهێنی",
@@ -438,7 +446,9 @@
         "logout_aria": "چوونە دەرەوە لە ئەژمێرەکەت",
         "logout_title": "چوونە دەرەوە؟",
         "logout_description": "تۆ دەگەڕێیتەوە بۆ شاشەی چوونە ژوورەوە و پێویستە دووبارە بچیتە ژوورەوە بۆ بەڕێوەبردنی ئاماری ماڵەوە.",
-        "logout_warning": "ئەمە بەکاربێنە کاتێک لەسەر ئامێرێکی هاوبەشکراو یان کەسی تەواو دەبیت."
+        "logout_warning": "ئەمە بەکاربێنە کاتێک لەسەر ئامێرێکی هاوبەشکراو یان کەسی تەواو دەبیت.",
+        "maintenance": "خشتەی چاودێری",
+        "shopping": "لیستی کڕین"
     },
     "dashboard": {
         "welcome": "بەخێربێیت، <1>{{name}}</1>! 👋",
@@ -533,7 +543,7 @@
         },
         "visibility": {
             "public": "هاوبەشکراو",
-            "private": "Private"
+            "private": "بەرواری بەسەرچوونی"
         },
         "empty_state": {
             "title": "تایبەت یەکەم کەلوپەلی ماڵ زیاد بکە",
@@ -565,7 +575,20 @@
         "no_items_filter": "هیچ بڕگەیەک ناگونجێت لەگەڵ ئەم پاڵێوگەیە",
         "manage": "بەڕێوەبردن",
         "add_item": "بڕگە زیاد بکە",
-        "search_item": "گەڕان لە بەند"
+        "search_item": "گەڕان لە بەند",
+        "alerts": {
+            "expired_title": "کەلوپەلەکان بەسەرچوون!",
+            "expired_desc": "{{count}} بەندی بەسەرچوو هەیە لە کۆگاکەتدا. تکایە بۆ سەلامەتی خۆت بیانپشکنە.",
+            "view_items": "پێشاندانی بڕگەکان",
+            "maintenance_title": "ئەرکەکانی چاکسازی دواکەوتوو!",
+            "maintenance_desc": "{{count}} ئەرکی چاککردنەوەی دواکەوتوو هەیە. چاکسازی ئەنجام بدە بۆ درێژکردنەوەی تەمەنی ئامێرەکانت.",
+            "go_to_maintenance": "بڕۆ بۆ چاودێری",
+            "low_stock_title": "ئاگاداری کەمی کۆگاکان",
+            "low_stock_desc": "{{count}} کەلوپەلەکان لە کەمترین سنووری کۆگاکەت دابەزیوە.",
+            "go_to_shopping": "لیستی بازاڕکردن",
+            "close_expiry_title": "بەرواری بەسەرچوونی داهاتوو",
+            "close_expiry_desc": "بەرهەمەکانی {{count}} لە ماوەی 30 ڕۆژدا بەسەردەچن."
+        }
     },
     "beta_banner": {
         "title": "بێتا:",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "کلیلی خانووی چالاک",
             "key_label": "کلیلی ماڵ",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{پاشگر}}",
             "hide": "شاردنەوە",
             "show": "نیشان بدە",
             "copy": "کۆپی",
@@ -970,7 +993,7 @@
             "lend": "قەرز",
             "return_note": "تێبینی گەڕانەوە",
             "return_note_placeholder": "بۆ نموونە گەڕاوەتەوە بە بارێکی باش",
-            "submitting_return": "Closing...",
+            "submitting_return": "دادەخرێت...",
             "mark_returned": "مارک گەڕایەوە",
             "current_borrower_label": "ئێستا لەگەڵ:",
             "unknown": "نەزانراوە",
@@ -991,8 +1014,8 @@
             "no_history": "هێشتا هیچ مێژوویەکی قەرزکردن نیە بۆ ئەم بەندە.",
             "lend_success_title": "بڕگەی قەرزدراو",
             "lend_success_body": "{{item}} ئێستا نیشانکراوە وەک وەرگیراو.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "ئۆفەری قەرزکردن نێردراوە",
+            "offer_sent_body": "{{item}} وەک قەرزکراو دیاری دەکرێت پاش ئەوەی ئەندامەکەی تر قبوڵی دەکات.",
             "borrowed_by_you": "لەگەڵ تۆ",
             "return_pending_hint": "تۆمارەکە دادەخرێت دوای ئەوەی خاوەن قەرز دڵنیا دەبێتەوە کە بڕگەکەی وەرگرتووە.",
             "return_pending_lender_title": "{{name}} نیشانەی ئەم بڕگەیەی کرد وەک گەڕاوەی",
@@ -1007,7 +1030,7 @@
         "delete_success_body": "بڕگەکە لابرا لە ئاماری خێزانی چالاک.",
         "view_mode": "پلانی بەند",
         "grid_view": "تۆڕی",
-        "list_view": "List",
+        "list_view": "لیستی",
         "loading_description": "ئامادەکردنی کەلوپەلەکان، ژوورەکان و فلتەرەکان.",
         "category_filter_label": "فلتەرکردن بەپێی جۆر",
         "room_filter_label": "پاڵێوکردن بەپێی ژوور",
@@ -1246,7 +1269,7 @@
             },
             "audit": {
                 "email_sent": "وەرگر: {{recipient}} | بابەت: {{subject}}",
-                "user_deleted": "User deleted: {{username}} | Deleted households: {{deletedHouses}} | Transferred ownerships: {{transferredOwnerships}}",
+                "user_deleted": "بەکارهێنەر سڕایەوە: {{username}} | خانووە سڕاوەکان: {{سڕینەوەی خانووەکان}} | خاوەندارێتی گواستراوەکان: {{transferredOwnerships}}",
                 "user_target": "بەکارهێنەر: {{username}}",
                 "indexnow_submitted": "ناردنی IndexNow سەرکەوتوو بوو. ژمارەی URL: {{count}}"
             },
@@ -1271,13 +1294,13 @@
             "compose_eyebrow": "پەیام",
             "compose_body": "نووسینی تاکە ئیمەیڵێکی دەرچوو لەگەڵ فۆرماتی HTML سەلامەت و براندی پلاتفۆرم.",
             "security_title": "ناردنی پارێزراو",
-            "security_body": "Admin: {{username}} • Limit: {{remaining}}/3 emails per minute",
+            "security_body": "بەڕێوەبەر: {{username}} • سنووردار: {{ماوە}}/3 ئیمەیڵ لە خولەکێکدا",
             "from_unconfigured": "بەردەستە پاش ئامادەکردنی پۆست",
             "notes_label": "تێبینی بەکارهێنان",
             "notes_body": "ئەمە بەکاربێنە بۆ پشتیوانی خستنە گەڕ یان پەیوەندیدار بە ئەژمێر. ناوەڕۆکی هەستیار دەبێت لە ناو کاربەرنامەکە بمێنێتەوە هەرکاتێک گونجاو بێت.",
             "notes_body_with_rate_limit": "ئەمە بەکاربێنە بۆ پاڵپشتی کرداری یان گەیاندنی پەیوەست بە ئەژمێر. ناوەڕۆکی هەستیار دەبێت لە ناو کاربەرنامەکە بمێنێتەوە هەرکاتێک گونجاو بێت. پاسەوانی ناردنی ئێستا: {{rateLimit}}.",
             "rate_limit_fallback": "3 ئیمەیڵ لە خولەکێکدا",
-            "placeholder_to": "name@example.com",
+            "placeholder_to": "name@example.com >>> سەرچاوەی کراوە >>> چوونە ژوورەوە >>> ماڵە هاوبەشەکان",
             "placeholder_subject": "بابەتی پەیام",
             "send_success_with_id": "✅ ئیمەیڵ بە سەرکەوتوویی نێردرا! ناسنامە: {{emailId}}",
             "send_error": "ئیمەیڵ نەتوانرا بنێردرێت",
@@ -1401,12 +1424,12 @@
             "cta_register": "دروستکردنی هەژمار",
             "stat_free": "بەخۆڕایی",
             "stat_access": "چوونە ژورەوە",
-            "free_badge": "Open Source",
+            "free_badge": "سەرچاوەی کراوە",
             "badge": "HomeInventory v2.0 لێرەیە",
             "cta_explore": "دۆزینەوەی تایبەتمەندیەکان",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "چوونە ژوورەوە",
+            "stat_members": "ماڵە هاوبەشەکان",
+            "stat_vault": "گەنجینەی تایبەت"
         },
         "features": {
             "title": "Çima <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "کەلوپەلەکان، گەرەنتی، بەڵگەنامە گرنگەکان و تۆمارەکانی قەرزکردن لە یەک شوێندا بپارێزە. بزانە ماڵەکەت چی تێدایە.",
                 "primaryCta": "بە خۆڕایی دەست پێبکە",
                 "secondaryCta": "بەرهەمەکە ببینە",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "لێشاوی پێشنیارکراو: ئەژمێر • ماڵ • ژوورەکان و هاوپۆلەکان • ئایتمەکان • پاڵپشت",
                 "searchPlaceholder": "گەڕان بەدوای کەلوپەل، ژوور یان بارکۆد"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "وردەکارییەکانی تۆڕ بە نهێنی دەمێننەوە تا ئەو کاتەی پێویستت بە ڕێنمایی هەیە.",
         "link_privacy_note": "ناونیشانی تۆڕەکە لێرە بە شاراوەیی دەمێنێتەوە. کۆدەکە سکان بکە یان لینکەکە کۆپی بکە تەنها کاتێک کە بە ئەنقەست دەتەوێت دەستگەیشتنی ڕاستەوخۆی بەندەکان هاوبەش بکەیت لەسەر ئامادەکردنی ناوخۆیی.",
         "helper": "سکان بکە بۆ کردنەوەی ئەم بەندە دەستبەجێ، یان کۆپی کردنی لینکی راستەوخۆ لەکاتی پێویست.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "لینکەکە نەتوانرا بە شێوەیەکی ئۆتۆماتیکی کۆپی بکرێت",
+        "copy_manual_help": "وێبگەڕەکەت ڕێی بە کۆپیکردنی ئۆتۆماتیکی نەدا. لینکەکە دەسنیشانکراوە بۆیە دەتوانیت کۆپی بکەیت بە دەستی.",
         "loading": "ئامادەکردنی ئامرازەکانی QR..."
     },
     "house_access_pending": {
@@ -1817,7 +1840,7 @@
             "bodyLine2": "چاوەڕێی ڕەزامەندی خاوەن خانووبەرە"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{rewş}}",
             "greeting": "چوونە ژورەوەی ماڵ",
             "bodyLine1Template": "داواکاری هەڵواسراوی ئێستا: {{house}} ({{status}})",
             "bodyLine2": "داواکاریەکەت بۆ \"{{house}}\" هێشتا چاوەڕێی بڕیارە.",
@@ -1842,7 +1865,7 @@
             "warningTitle": "⚠️",
             "warningBody": "ئەگەر ئەژمێرێک هەبوو، لینکی دووبارە ڕێکخستنەوەی ووشەی نهێنی بۆ ماوەی 15 خولەک نێردراوە.",
             "fallback": "بەستەری ڕیسێتکردنی ووشەی نهێنی ناتەواو یان شکاوە.",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{brandName}} © 2026 {{brandName}} - {{supportEmail}} {{brandName}} هەفتە"
         },
         "adminEmail": {
             "sentBy": "ئەم ئیمەیڵە لەلایەن {{brandName}} نێردراوە.",
@@ -1923,7 +1946,7 @@
             "passphrase_number": "بەلایەنی کەمەوە یەک ژمارە لەخۆ بگرێت.",
             "passphrase_uppercase": "بەلایەنی کەمەوە یەک پیتی گەورەی تێدابێت."
         },
-        "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
+        "recovery_file_title": "تایبەتی {{brandName}} کلیلی گەڕاندنەوەی خەزێنەی کەسی",
         "recovery_file_created_label": "دروستکراوە",
         "recovery_file_key_label": "کلیلی گەڕاندنەوە دروستکراوە",
         "recovery_file_warning": "ئەگەر هەردوو ئەم کلیلە و دەستەواژەی تێپەڕبوونی گەنجینەکەت لەدەست دا، ناتوانرێت گەنجینەکە بگەڕێندرێتەوە.",
@@ -1951,7 +1974,7 @@
     },
     "borrow_requests": {
         "title": "سەنتەری قەرز",
-        "subtitle": "Manage requests and offers with other {{brandName}} users.",
+        "subtitle": "بەڕێوەبردنی داواکاری و ئۆفەرەکان لەگەڵ بەکارهێنەرانی تری {{brandName}}.",
         "incoming_title": "داواکاری هاتوو",
         "incoming_subtitle": "داواکاری و ئۆفەرەکان کە بۆت نێردراوە",
         "outgoing_title": "لەلایەن منەوە نێردراوە",
@@ -1969,8 +1992,8 @@
             "empty": "لە ئێستادا هیچ قەرزێکی چالاک نیە.",
             "borrowed_from": "وەرگیراوە لە {{name}}",
             "lent_to": "ئێستا لەگەڵ {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "چاوەڕێی قەرزدەر دەکەم تا دڵنیا ببێتەوە کە وەریگرتووە.",
+            "return_pending_lender": "{{name}} نیشانەی کرد ئەم بڕگەیە وەک گەڕێنراوەتەوە. دڵنیابوون لە وەسڵ بۆ داخستنی تۆمارەکە.",
             "empty_title": "لە ئێستادا هیچ قەرزێکی چالاک نیە",
             "empty_description": "داواکارییە قبوڵکراوەکان لێرە دەردەکەون کاتێک بڕگەیەک قەرز دەکرێت یان قەرز دەکرێت، لەگەڵ بەرواری دیاریکراو و دۆخی گەڕاندنەوە."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "هەڵوەشێنراوەتەوە",
             "expired": "بەسەرچووە",
             "returned": "گەڕایەوە",
-            "return_pending": "Return pending"
+            "return_pending": "گەڕاندنەوەی هەڵواسراوی"
         },
         "actions": {
             "send_request": "داواکاری بڕگە",
@@ -1990,8 +2013,8 @@
             "reject": "ڕەتکردنەوە",
             "cancel": "هەڵوەشاندنەوە",
             "fulfill_request": "جێبەجێکردنی داواکاری",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "نیشانە گەیەنراوە",
+            "mark_received": "نیشانە وەرگیراوە",
             "open_inventory": "ئاماری کراوە"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "نیشانە گەڕایەوە",
             "return_subtitle": "قەرزی چالاک دابخە بۆ \"{{item}}\"",
             "return_target": "ئێستا نیشان دراوە لەگەڵ {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "گەیاندنی بڕگە",
+            "return_title_lender": "وەرگرتنی بەند",
+            "return_subtitle_borrower": "داخستنی قەرزی چالاک بۆ \"{{item}}\" پاش گەڕانەوەی.",
+            "return_subtitle_lender": "قەرزە چالاکەکە دابخە بۆ \"{{item}}\" پاش ئەوەی وەرت گرت.",
+            "return_target_borrower": "قەرزدەر: {{name}}",
+            "return_target_lender": "لە ئێستادا لەگەڵ: {{name}}",
+            "return_note_borrower": "تێبینی گەیاندن",
+            "return_note_lender": "تێبینی وەرگرتن",
+            "return_note_placeholder_borrower": "بۆ نموونە بەبێ هیچ کێشەیەک گەڕامەوە",
+            "return_note_placeholder_lender": "بۆ نموونە لە بارێکی باشدا وەرگیراوە",
+            "return_submitting": "داخستن..."
         },
         "messages": {
             "load_error": "سەنتەری قەرز بارنەکرا",
@@ -2141,7 +2164,7 @@
         "account_menu_tooltip": "{{name}} پێرستی ئەژمێر"
     },
     "app": {
-        "name": "{{brandName}}",
+        "name": "{{navê marka}}",
         "tagline": "زیرەکانە بەڕێوەبردنی هەموو کەلوپەلەکانی ناوماڵ"
     },
     "nav": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Gelek hewldanên têketinê. Ji kerema xwe di nav 15 hûrdeman de dîsa biceribînin."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "چوونە ژوورەوە",
+        "page_title_register": "دروستکردنی ئەژمێر",
+        "page_title_choose_house": "هەڵبژاردنی خانوو",
+        "page_title_recovery_key": "کلیلی چاکبوونەوە",
+        "page_title_house_access": "گەیشتن بە ماڵ",
+        "page_title_legal_review": "پێداچوونەوەی یاسایی",
+        "page_title_new_item": "بابەتی نوێ",
+        "page_title_edit_item": "گۆڕانکاری بابەت",
+        "page_title_items": "لیستی"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "هەڵە لە بارکردنی لیستی کڕین.",
+            "select_item_error": "تکایە بڕگەیەک لە کۆگاکە هەڵبژێرە.",
+            "empty_name": "تکایە ناوی بڕگەیەک بنووسە.",
+            "added": "بڕگە زیادکرا بۆ لیستی بازاڕکردن.",
+            "add_error": "هەڵەیەک ڕوویدا لە کاتی زیادکردنی بەندەکە.",
+            "added_suggestion": "\"{{name}}\" زیادکرا بۆ لیستی کڕین.",
+            "bulk_added": "{{count}} بڕگە نزمەکان زیادکران بۆ لیستەکە.",
+            "bulk_error": "هەڵە لە زیادکردنی بڕگەکانی کەمی کۆگا.",
+            "completed": "\"{{name}}\" وەک تەواوکراو دیاری کراوە.",
+            "reactivated": "\"{{name}}\" گەڕایەوە بۆ لیستی چالاک.",
+            "update_error": "هەڵە ڕوویدا لەکاتی نوێکردنەوەدا.",
+            "deleted": "بابەت سڕاوەتەوە لە لیست.",
+            "delete_error": "هەڵەیەک ڕوویدا لە کاتی سڕینەوەدا.",
+            "cleared_completed": "ئایتمە تەواوکراوەکانی سڕینەوە.",
+            "clear_error": "هەڵە ڕوویدا لە کاتی پاککردنەوەدا."
+        },
+        "loading_desc": "ئامادەکردنی لیستی کڕین",
+        "page": {
+            "title": "لیستی کڕین",
+            "description": "سەیرکردنی کەلوپەلی کەم لە کۆگای ماڵەوە و بە ئاسانی لیستی کڕینەکەت بەڕێوە ببە."
+        },
+        "suggestions": {
+            "title": "پێشنیارەکانی ئاماری زیرەک",
+            "desc": "ئەو بڕگانەی کە لە خوار کەمترین سنوورەوە دابەزیوە.",
+            "add_all": "زیادکردنی هەموو وونبووەکان",
+            "stock_status": "ئێستا: {{current}} / ئامانج: {{min}}",
+            "add_qty": "زیادکردنی {{qty}}"
+        },
+        "sections": {
+            "active_list": "ئایتمەکان بۆ کڕین",
+            "active_desc": "کەلوپەلی بازاڕکردنی هەنووکەیی بۆ زیادکردنی بۆ عەرەبانەکەت.",
+            "active_count": "{{count}} ئایتمەکان",
+            "completed_list": "ئایتمە کڕدراوەکان ({{count}})",
+            "add_item": "زیادکردنی بەند بە دەستی",
+            "add_desc": "بە دەستی بڕگەیەکی تایبەت زیاد بکە سەر لیستەکە."
+        },
+        "empty": {
+            "title": "لیستی کڕینەکەت بەتاڵە",
+            "desc": "دەتوانیت کۆگای بزر لە پێشنیارەکانی سەرەوە زیاد بکەیت یان بە دەستی بڕگەکان زیاد بکەیت بە بەکارهێنانی فۆرمی لای ڕاست."
+        },
+        "card": {
+            "linked_inventory": "پارێزراوە لە لیستی"
+        },
+        "actions": {
+            "clear_completed": "خاوێنکردنەوەی مێژوو",
+            "add_item": "زیادکردن بۆ لیستی بازاڕکردن"
+        },
+        "form": {
+            "add_type": "زیادکردنی شێواز",
+            "add_type_inventory": "بڕگەی ئامار",
+            "add_type_custom": "بڕگەی تایبەتمەند",
+            "select_inventory_item": "دیاریکردنی بەند لە ئاماری",
+            "no_inventory_items": "هێشتا هیچ بڕگەیەک لە کۆگاکەت نیە.",
+            "select_item_placeholder": "ئایتمێک دەسنیشان بکە",
+            "current_stock": "ناوی بابەتی",
+            "item_name": "ناوی بڕگە",
+            "item_name_placeholder": "بۆ نموونە شیر، پاککەرەوە، پاقلەی قاوە...",
+            "quantity": "بڕی"
+        },
+        "modal": {
+            "delete_title": "سڕینەوەی بەند لە لیستەکە؟",
+            "delete_desc": "ئایا دڵنیایت کە دەتەوێت \"{{name}}\" لە لیستی کڕینەکەت بسڕیتەوە؟"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "هەڵە لە بارکردنی زانیاری",
+            "select_item_error": "تکایە بەندێک دەسنیشان بکە.",
+            "task_name_error": "ناوی ئەرک پێویستە.",
+            "date_error": "بەرواری پلان بۆ دانراو پێویستە.",
+            "updated": "ئەرکی چاکسازی نوێکرایەوە",
+            "created": "ئەرکی نوێی چاکسازی زیادکرا",
+            "save_error": "هەڵەیەک ڕوویدا لە کاتی پاراستنی",
+            "deleted": "ئەرکی چاکسازی بە سەرکەوتوویی سڕایەوە.",
+            "delete_error": "هەڵەیەک ڕوویدا لە کاتی پرۆسەی سڕینەوە.",
+            "performed": "چاکسازی تۆمار کراوە وەک تەواوبوو. بەرواری داهاتوو خشتەی بۆ دانراوە.",
+            "perform_error": "هەڵەیەک ڕوویدا لە کاتی خەزنکردن. هەفتەی رۆژی یەک-جاری"
+        },
+        "freq": {
+            "one_time": "یەکجار",
+            "unit": {
+                "days": "ڕۆژ >>> هەفتە >>> ئیدت کردنی ئەرک >>> ئەم ئەرکە دەسڕێتەوە. ئایا دڵنیایت?",
+                "weeks": "Hefte",
+                "months": "مانگ",
+                "years": "ساڵ"
+            },
+            "format": "هەموو {{val}} {{unit}}"
+        },
+        "loading_desc": "بارکردنی خشتەی چاودێریکردن...",
+        "page": {
+            "title": "چاودێری و بەدواداچوونی خولی",
+            "description": "بەڕێوەبردنی خشتەی چاودێری خولی بۆ ئامێرەکان، فلتەرەکان، یان کەلوپەلی سەلامەتی لە کۆگای ماڵەوە."
+        },
+        "actions": {
+            "add_task": "زیادکردنی ئەرکی نوێ",
+            "manage": "بەڕێوەبردن",
+            "perform": "دیاری بکە وەک تەواو",
+            "edit_task": "ئامادەکردنی ئەرک"
+        },
+        "alerts": {
+            "overdue_title": "ئەرکی دواکەوتووت هەیە!",
+            "overdue_desc": "{{count}} ئەرکی چاککردنەوەی دواکەوتوو هەیە. دواکەوتن دەتوانێت تەمەنی ئامێرەکان کەم بکاتەوە."
+        },
+        "empty": {
+            "title": "هیچ ئەرکێکی چاکسازی خشتەکاری نیە",
+            "desc": "بە زیادکردنی ئەرکەکانی دووبارە وەک پاککردنەوەی فلتەری AC، چاککردنەوەی بۆیلەر، یان پشکنینی پاتری دۆزەرەوەی ئاگر دەست پێبکە."
+        },
+        "sections": {
+            "overdue": "ئەرکی دواکەوتوو",
+            "overdue_desc": "چاکسازی بەپەلە کە پێویستە دەستبەجێ ئەنجام بدرێت.",
+            "upcoming": "خشتەکراو/ ئەرکەکانی داهاتوو",
+            "upcoming_desc": "نزیک دەبێتەوە لە چاکسازی لە ڕۆژانی داهاتوودا.",
+            "no_upcoming": "هیچ ئەرکێکی چالاک خشتەی بۆ داننراوە لە داهاتوودا."
+        },
+        "modal": {
+            "edit_title": "ئیدت کردنی ئەرک",
+            "create_title": "خشتەی ئەرکی نوێی چاکسازی",
+            "perform_title": "تەواوکردنی چاودێری",
+            "perform_desc": "ئایا دەتەوێت \"{{name}}\" تۆمار بکەیت وەک ئەوەی ئەمڕۆ تەواو بوو؟",
+            "perform_confirm": "بەڵێ، تەواو",
+            "perform_recurrence_info": "ئەمە ئەرکێکی خولی یە. کاتێک پاشەکەوت دەکەیت، سیستەمەکە بە شێوەیەکی ئۆتۆماتیکی بەرواری چاودێری داهاتوو ئەژمار دەکات.",
+            "delete_title": "ئەرکی چاکسازی بسڕیتەوە؟",
+            "delete_desc": "دڵنیای لەوەی ئەتەوێت خشتەی چاکسازی خولی \"{{name}}\" بسڕیتەوە؟ ئەم چالاکیە ناتوانرێت پاشگەز ببێتەوە."
+        },
+        "form": {
+            "item": "پەیوەست بە بڕگەی",
+            "no_items": "پێویستە بڕگەیەک زیاد بکەیت بۆ لیستی یەکەم جار پێش خشتەکردنی چاکسازی.",
+            "select_item_placeholder": "دیاریکردنی بڕگەیەک",
+            "task_name": "ئەرک / ناوی ئۆپەراسیۆن",
+            "task_name_placeholder": "نمونە گۆڕینەوەی فلتەر، پشکنینی خولی ...",
+            "description": "وردەکاری / وەسف",
+            "description_placeholder": "وردەکارییەکانی ئەرک، ئەو ماددانەی کە بەکاردەهێنرێن، هتد...",
+            "frequency_value": "دووبارەبوونەوە",
+            "frequency_placeholder": "بۆ نمونە 6 (بەتاڵ بەجێبهێڵە بۆ یەکجار)",
+            "frequency_unit": "یەکەی فریکانسی",
+            "next_due_date": "بەرواری خشتەکراوی داهاتوو",
+            "section_help": "بەڕێوەبردنی خشتەکانی چاکسازی لێرەوە",
+            "section_collapsed": "کرتە بکە بۆ زیادکردنی کۆنتڕۆڵەکانی خولی و ئەرکەکان",
+            "has_tasks": "{{count}} ئەرکەکان",
+            "new_item_warning_title": "بەند هەڵپەسێردراو",
+            "new_item_warning_desc": "پێویستە یەکەم جار ئەم بەندە تۆمار بکەیت بۆ زیادکردنی خشتەی سەخپێرکردن.",
+            "manage_desc": "بەڕێوەبردنی خشتەی چاکسازی بۆ ئەم ئامێرە یان بڕگە."
+        },
+        "fields": {
+            "task_name": "ناوی ئەرک",
+            "task_name_placeholder": "بۆ نموونە پاککردنەوەی فلتەری AC",
+            "description": "وەسف",
+            "description_placeholder": "وردەکارییەکانی ئەرک، ماددەکان بۆ بەکارهێنان، هتد...",
+            "frequency_value": "دووبارەبوونەوە",
+            "frequency_value_placeholder": "بە بەتاڵی بەجێبهێڵە بۆ یەکجار",
+            "frequency_unit": "یەکەی فریکانسی",
+            "next_due_date": "بەرواری خشتەکراو"
+        },
+        "card": {
+            "untitled_item": "بابەتی بێ ناونیشان",
+            "last_performed": "دوایین ئەنجام:",
+            "next_due_label": "بەرواری خشتەکراو",
+            "complete_tooltip": "چاودێری دیاری بکە وەک ئەمڕۆ ئەنجامدراوە"
+        },
+        "detail_card_desc": "بەدواداچوونی خولی یان یەک جار چاودێری خشتەکراو بۆ ئەم بڕگەیە.",
+        "no_tasks": "هیچ ئەرکێکی چاکسازی دانەنرێت بۆ ئەم بەندە. ئەم ئەرکە دەسڕێتەوە. ئایا دڵنیایت?",
+        "confirm_delete": "ئەم ئەرکە دەسڕێتەوە. ئایا دڵنیایت?"
     }
 }

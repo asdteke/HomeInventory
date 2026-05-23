@@ -69,7 +69,9 @@
             "vault_hint_action": "Жеке Шафаны ачуу",
             "location": "Жайгашкан жери",
             "remove_photo": "Сүрөттү алып сал",
-            "visibility_owner_only": "Нерсени кошкондун өзү гана көрүнүү режимин өзгөртө алат."
+            "visibility_owner_only": "Нерсени кошкондун өзү гана көрүнүү режимин өзгөртө алат.",
+            "expiry_date": "Мөөнөтү",
+            "min_quantity": "Минималдуу Саны"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" ыкчам кошулду - кийин өзгөртө аласыз",
@@ -119,7 +121,12 @@
         "no_permission": "Бул буюмду өзгөртүүгө уруксат жок",
         "barcode_search_error": "Штрих-код издөө ийгиликсиз",
         "stats_error": "Ката жүктөө статистикасы",
-        "detail_subtitle": "Нерсенин деталдары"
+        "detail_subtitle": "Нерсенин деталдары",
+        "status": {
+            "close_to_expiry": "Жакында Мөөнөтү Стандартка Жетуучу",
+            "expired": "Мөөнөтү Өтүп Кеткен",
+            "low_stock": "Товар Төмөн"
+        }
     },
     "common": {
         "save": "Сактоо",
@@ -170,7 +177,8 @@
         "details": "Маалыматтар",
         "hide": "Сырсөздү жашыр",
         "logging_out": "Чыгып кетүү...",
-        "show": "Сырсөздү көрсөт"
+        "show": "Сырсөздү көрсөт",
+        "saving": "Сакталууда... •••••••• Техникалык тейлөө графиги Сатып алуу тизмеси"
     },
     "auth": {
         "login": {
@@ -216,7 +224,7 @@
             "support_link": "Колдоо кызматы менен байланышуу"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "Үй-бүлөңүздү түзүңүз",
             "subtitle": "Жаңы эсеп түзүңүз же бар үйгө кошулуңуз",
             "create_house": "Жаңы Үй Түзүү",
             "join_house": "Үйгө Кошулуу",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "Сырсөздү кайра киргизиңиз",
             "reset_submit": "Паролду калыбына келтирүү",
             "resetting": "Калыбына келтирилүүдө...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Колдонуучу атыңызды же электрондук почтаңызды киргизиңиз"
         },
         "reset_password": {
             "title": "Паролду калыбына келтирүү",
@@ -438,7 +446,9 @@
         "logout_aria": "Аккаунттан чыгуңуз",
         "logout_title": "Чыгасызбы?",
         "logout_description": "Сиз кирүү экранына кайтып барасыз жана үйдөгү инвентаризацияңызды башкаруу үчүн кайра киришиңиз керек болот.",
-        "logout_warning": "Бул функцияны бөлүшүлгөн же жеке түзмөктө ишиңиз бүткөндө колдонуңуз."
+        "logout_warning": "Бул функцияны бөлүшүлгөн же жеке түзмөктө ишиңиз бүткөндө колдонуңуз.",
+        "maintenance": "Техникалык тейлөө графиги",
+        "shopping": "Сатып алуу тизмеси"
     },
     "dashboard": {
         "welcome": "Кош келиңиз, <1>{{name}}</1>! 👋",
@@ -565,7 +575,20 @@
         "no_items_filter": "Бул фильтрге эч кандай элемент дал келбейт",
         "manage": "Башкаруу",
         "add_item": "Товар кошуу",
-        "search_item": "Издөө буюму"
+        "search_item": "Издөө буюму",
+        "alerts": {
+            "expired_title": "Элементтер мөөнөтү өтүп кеткен!",
+            "expired_desc": "Сиздин инвентарда {{count}} мөөнөтү өткөн элементтер бар. Сак болуу үчүн аларды текшериңиз.",
+            "view_items": "Элементтерди караңыз",
+            "maintenance_title": "Мөөнөтү өткөн техникалык тейлөө тапшырмалары!",
+            "maintenance_desc": "Талашынча {{count}} тейлөө тапшырмалары кечикти. Тейлөө жүргүзүп, жабдууларыңыздын иштөө мөөнөтүн узартыңыз.",
+            "go_to_maintenance": "Тейлөө бөлүмүнө өтүңүз",
+            "low_stock_title": "Аз запастагы эскертүү",
+            "low_stock_desc": "{{count}} буюм сиздин минималдык запас чегиңизден төмөндөдө.",
+            "go_to_shopping": "Сатып алуу тизмеси",
+            "close_expiry_title": "Жакынкы мөөнөтү бүткөн даталар",
+            "close_expiry_desc": "{{count}} товар 30 күндүн ичинде мөөнөтү бүтөт."
+        }
     },
     "beta_banner": {
         "title": "БЕТА:",
@@ -991,8 +1014,8 @@
             "no_history": "Бул нерсе үчүн али алган тарых жок.",
             "lend_success_title": "Элемент берилди",
             "lend_success_body": "{{item}} азыр берилген деп белгиленди.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "Башка өзгөгө карыз сунуш жөнөтүлдү",
+            "offer_sent_body": "{{item}} башка мүчө кабыл алгандан кийин карызга алынган деп белгиленет.",
             "borrowed_by_you": "Сиз менен",
             "return_pending_hint": "Нуска жазуу, кредитчилер затты кайтарганын тастыктагандан кийин жабылат.",
             "return_pending_lender_title": "{{name}} бул нерсени кайтарылган деп белгиледи",
@@ -1229,7 +1252,7 @@
             "no_logs": "Журналдар азырынча жок",
             "errors_title": "Система каталары (Акыркы 10)",
             "no_errors": "// Система саламат, эч кандай ката журналдары жок.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{дата, дата, убакыт}}",
             "type": {
                 "email": "Электрондук почта",
                 "user": "Колдонуучу",
@@ -1401,12 +1424,12 @@
             "cta_register": "Аккаунт түзүү",
             "stat_free": "Акысыз",
             "stat_access": "Кирүү мүмкүнчүлүгү",
-            "free_badge": "Open Source",
+            "free_badge": "Ачык булак",
             "badge": "HomeInventory v2.0 бул жерде",
             "cta_explore": "Өзгөчөлүктөрдү изилдөө",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Кирүү",
+            "stat_members": "Бөлүшүлгөн үйлөр",
+            "stat_vault": "Жеке сейф"
         },
         "features": {
             "title": "Эмне үчүн <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Элементтерди, кепилдиктерди, маанилүү документтерди жана карыздык каттоолорду бир тынч жерде сактаңыз. Үйүңүздө эмне бар экенин бир карап билсеңиз болот.",
                 "primaryCta": "Акысыз баштаңыз",
                 "secondaryCta": "Продуктуну көрүңүз",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "сунушталган агым: эсеп • башкы бет • бөлмөлөр жана категориялар • элементтер • камдык көчүрмө",
                 "searchPlaceholder": "Элементти, бөлмөнү же штрих-кодду издөө"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "Тармактык маалыматтар сизге нускама керек болгондо гана жашырылган бойдон калат.",
         "link_privacy_note": "Тармактык дарек бул жерде жашырылган бойдон калат. Кодду сканерлеп же шилтемени көчүрүү керек болгондо гана түздөн-түз элементке местный орнотууда бөлүшүүнү каалаганда жасаңыз.",
         "helper": "Бул элементти дароо ачуу үчүн сканердеңиз же керек болгондо түз шилтемени көчүрүңүз.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Сылтама автоматтык түрдө көчүрүлө алган жок",
+        "copy_manual_help": "Сиздин браузериңизге автоматтык көчүрүүгө уруксат берилген жок. Сылтама тандалып алынган, ошондуктан аны колдөөнү кол менен көчүрүп алсаңыз болот.",
         "loading": "QR куралдарын даярдоо..."
     },
     "house_access_pending": {
@@ -1923,7 +1946,7 @@
             "passphrase_number": "Аз эмес бир сан киргизиңиз.",
             "passphrase_uppercase": "Аз дегенде бир чоң тамга киргизиңиз."
         },
-        "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
+        "recovery_file_title": "{{brandName}} Жеке Сейфти Калыбына келтирүү ачкычы",
         "recovery_file_created_label": "Жаратылган",
         "recovery_file_key_label": "Калыбына келтирүү ачкычы",
         "recovery_file_warning": "Эгер сиз ушул ачкычты жана сактагыч сыр сөзүн жоготсоңуз, сактагычты калыбына келтирүү мүмкүн эмес.",
@@ -1969,8 +1992,8 @@
             "empty": "Азырынча активдүү карыздар жок.",
             "borrowed_from": "{{name}} дан алынган",
             "lent_to": "Азыр {{name}} менен",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Кайтарылып алынганын күбөлөндүрүшү үчүн карыз берүүчүнү күтүп жатабыз.",
+            "return_pending_lender": "{{name}} бул буюмду кайтарылып берилген катары белгиледи. Жазууну жабуу үчүн кабыл алынганын тастыктаңыз.",
             "empty_title": "Азыр активдүү карыздар жок",
             "empty_description": "Элемент берилген же берилгенден кийин кабыл алынган сурамдар ушул жерде көрсөтүлөт, чогуу мөөнөттөрү жана кайтаруу абалы менен."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Жок кылынган",
             "expired": "Мөөнөтү бүткөн",
             "returned": "Кайтарылган",
-            "return_pending": "Return pending"
+            "return_pending": "Кайтаруу күтүлүүдө"
         },
         "actions": {
             "send_request": "Сураныч Элемент",
@@ -1990,8 +2013,8 @@
             "reject": "Баш тартуу",
             "cancel": "Жокко чыгаруу",
             "fulfill_request": "Суранычты Аткаруу",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Бериилген катары белгилөө",
+            "mark_received": "Алынган катары белгилөө",
             "open_inventory": "Каталогду ачуу"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "Кайтарылган деп белгилөө",
             "return_subtitle": "\"{{item}}\" үчүн активдүү карызды жабуу",
             "return_target": "Ал учурда {{name}} менен экенин көрсөтүп турат.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Буюмду жеткирүү",
+            "return_title_lender": "Буюмду кабыл алуу",
+            "return_subtitle_borrower": "\"{{item}}\" үчүн активдүү карызды аны өткөрүп бергенден кийин жабуу.",
+            "return_subtitle_lender": "\"{{item}}\" үчүн активдүү карызды аны кайра алган соң жабуу.",
+            "return_target_borrower": "Берүүчү: {{name}}",
+            "return_target_lender": "Учурда менен: {{name}}",
+            "return_note_borrower": "Жеткирүү бланкы",
+            "return_note_lender": "Кабыл алуу бланкы",
+            "return_note_placeholder_borrower": "мисалы, мен аны эч кандай проблемасыз кайтарды",
+            "return_note_placeholder_lender": "мисалы, жакшы абалда кайтарылып келди",
+            "return_submitting": "Жабылууда..."
         },
         "messages": {
             "load_error": "Карыз борборун жүктөй албай жатабыз",
@@ -2069,37 +2092,37 @@
         "consent_submit": "Улантуу",
         "consent_submitting": "Сакталууда...",
         "consent_required": "Улантуудан мурун Кызмет көрсөтүү шарттарын жана Купуялык билдирүүнү тастыктоо керек.",
-        "document_badge": "Legal document",
+        "document_badge": "Юридикалык документ",
         "data_privacy_badge": "Үйгө кайтуу",
         "back_to_home": "Ыкчам жетүү",
         "quick_access": "Бул бетте",
         "on_this_page": "Мазмуну",
         "contents": "Бет",
         "page_label": "Обзор",
-        "overview": "Overview",
+        "overview": "Кыскача баяндамасы",
         "contact": "Байланыш",
         "jump_to": "Көчүү",
         "privacy_description": "Бул {{brandName}} орнотуу үчүн купуялык эскертмесинде кандай маалыматтар иштетилет, алар кантип чогултулат, кантип бөлүшүлөт же өткөрүлүп берилет жана кандай укуктар жана даттануу жолдору колдонулушу мүмкүн экенин түшүндүрөт.",
-        "privacy_support_label": "For privacy requests, rights applications, and complaint-related inquiries about this installation:",
+        "privacy_support_label": "Бул орнотуунун купуялык боюнча суроо-талаптары, укук арыздары жана даттана байланыштуу суроолор үчүн:",
         "privacy_summary": {
             "title": "Бул кыска кыскача корутундуну биринчи кезекте бул жерден көрө аласыз.",
             "description": "**Биз эмнени иштетебиз:** Биз каттоо эсебиңизди, кызматты, техникалык коопсуздукту жана каттоо эсебиңизди жана колдонмоңузду иштетүү үчүн зарыл болгон кошумча камсыздоочу дайындарын иштетебиз.",
             "items": {
                 "what": "**Эмне үчүн:** Берилиштер аутентификация, сеанс коопсуздугу, инвентаризациянын иштөө процесстери, камдык көчүрмөлөр жана Жеке сактагычтын функциялары үчүн колдонулат.",
-                "why": "**Why:** Data is used for authentication, session security, inventory workflows, backups, and Personal Vault features.",
+                "why": "**Эмне үчүн:** Маалыматтарды аутентификациялоо, сессиянын коопсуздугу, инвентардык иш агымдары, резервдик көчүрмөлөр жана Жеке Сейф функциялары үчүн колдонулат.",
                 "sharing": "Биз эмнени иштетебиз",
                 "control": "Эмне үчүн"
             },
             "shortcuts": {
                 "what": "Биз иштеткен нерсе",
                 "why": "Эмне үчүн",
-                "sharing": "Sharing",
+                "sharing": "Бөлүшүү",
                 "rights": "Биз кандай маалыматтарды чогултабыз жана иштетебиз"
             },
             "section_titles": {
                 "what": "Биз чогулткан жана иштеткен маалыматтар",
                 "why": "Эмне үчүн биз аны иштетебиз",
-                "sharing": "Storage and transfer",
+                "sharing": "Сактоо жана өткөрүү",
                 "rights": "Бул иш жүзүндө эмнени билдирет"
             }
         },
@@ -2109,8 +2132,8 @@
             "eyebrow": "Кыскача маалымат",
             "title": "Практикада эмне дегенди билдирет",
             "items": {
-                "use": "Use the service only for data you are authorized to upload, store, or share.",
-                "responsibility": "You remain responsible for the legality, accuracy, and ownership of what you upload or share.",
+                "use": "Кызматты болгону сизге жүктөөгө, сактоого же бөлүшүүгө уруксат берилген маалыматтар үчүн колдонуу керек.",
+                "responsibility": "Жүктөгөнүңүз же бөлүшкөнүңүздүн мыйзамдуулугу, тактыгы жана менчиги үчүн сиз жооптуусуз.",
                 "security": "Жеткиликтүүлүк, колдоо жана интеграция бул орнотуунун операторунан көз каранды; кызмат мыйзам тарабынан уруксат берилген көлөмдө \"кандай болсо, ошондой\" жана \"болсо\" негизинде көрсөтүлөт.",
                 "backups": "Аккаунтту өчүрүү туруктуу, андыктан маанилүү маалыматтардын өз көчүрмөлөрүн сактоону сунуштайбыз.",
                 "disclaimer": "Тууралуулук, колдоо жана интеграциялар орнотуунун операторуна көз каранды; кызмат мыйзам тарабынан уруксат берилген чектөөгө чейин \"как есть\" жана \"колдонууга жарактуу\" негизде берилет."
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Өтө көп кирүү аракеттери болду. 15 мүнөттөн кийин кайра аракет кылыңыз."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Кирүү",
+        "page_title_register": "Аккаунт түзүңүз",
+        "page_title_choose_house": "Үй тандаңыз",
+        "page_title_recovery_key": "Калыбына келтирүү ачкычы",
+        "page_title_house_access": "Үйгө кирүү",
+        "page_title_legal_review": "Юридикалык кароо",
+        "page_title_new_item": "Жаңы элемент",
+        "page_title_edit_item": "Элементти түзөтүү",
+        "page_title_items": "Каттоо"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Сатып алуу тизмесин жүктөөдө ката кетти.",
+            "select_item_error": "Сураныч, инвентардан бир нерсени тандаңыз.",
+            "empty_name": "Сураныч, нерсенин атын киргизиңиз.",
+            "added": "Нерсе сатып алуу тизмесине кошулду.",
+            "add_error": "Элементти кошууда ката кетти.",
+            "added_suggestion": "\"{{name}}\" сатып алуу тизмесине кошулду.",
+            "bulk_added": "{{count}} аз кампадагы буюмдар тизмеге кошулду.",
+            "bulk_error": "Аз кампадагы буюмдарды кошууда ката кетти.",
+            "completed": "«{{name}}» аткарылган деп белгиленди.",
+            "reactivated": "«{{name}}» кайра активдүү тизмеге кошулду.",
+            "update_error": "Жаңыртуу учурунда ката болду.",
+            "deleted": "Элемент тизмеден өчүрүлдү.",
+            "delete_error": "Жою учурунда ката кетти.",
+            "cleared_completed": "Аяктады деп эсептелген элементтер тазаланды.",
+            "clear_error": "Тазалоо учурунда ката кетти."
+        },
+        "loading_desc": "Сатып алуу тизмеси даярдалып жатат...",
+        "page": {
+            "title": "Сатып алуу тизмеси",
+            "description": "Үйдөгү запастардын аз калган буюмдарын карап чыгып, сатып алуу тизмеңизди оңой башкарсаңыз болот."
+        },
+        "suggestions": {
+            "title": "Акылдуу запастар боюнча сунуштар",
+            "desc": "Минималдуу чектен төмөн калган запастар.",
+            "add_all": "Бардык жетишпегендерди кошуу",
+            "stock_status": "Учурда: {{current}} / Максат: {{min}}",
+            "add_qty": "{{qty}} кошуу"
+        },
+        "sections": {
+            "active_list": "Сатып алуу керек болгон товарлар",
+            "active_desc": "Азыркы сатып алууларды себетке кошуу.",
+            "active_count": "{{count}} буюмдар",
+            "completed_list": "Сатып алынган буюмдар ({{count}})",
+            "add_item": "Буюмду кол менен кошуу",
+            "add_desc": "Тизмеӊизге кол менен өзгөчө буюм кошуңуз."
+        },
+        "empty": {
+            "title": "Сиздин сатып алуу тизмеңиз бош",
+            "desc": "Сиз жогорудагы сунуштардан жетишпеген товарларды кошо аласыз же оң жактагы форма аркылуу буюмдарды кол менен кошо аласыз."
+        },
+        "card": {
+            "linked_inventory": "Камакка сакталды"
+        },
+        "actions": {
+            "clear_completed": "Тарыхты тазалоо",
+            "add_item": "Сатып алуу тизмесине кошуу"
+        },
+        "form": {
+            "add_type": "ыкманы кошуу",
+            "add_type_inventory": "Запастагы буюм",
+            "add_type_custom": "Ыңгайлаштырылган буйрутма",
+            "select_inventory_item": "Инвентардан буюмду тандаңыз",
+            "no_inventory_items": "Инвентарлда азырынча эч кандай буюм жок.",
+            "select_item_placeholder": "Буюмду тандаңыз",
+            "current_stock": "Учурдагы",
+            "item_name": "Буюмдун аталышы",
+            "item_name_placeholder": "мисалы: Сүт, Жуугуч порошок, Кофе буурчактары...",
+            "quantity": "Саны"
+        },
+        "modal": {
+            "delete_title": "Тизмеден буюмду өчүрүү керекпи?",
+            "delete_desc": "Сиз чындап эле \"{{name}}\" дегенди сатып алуу тизмесинен алып салгыңыз келеби?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Ката жүктөө тууралуу маалымат",
+            "select_item_error": "Сураныч, бир нерсени тандаңыз.",
+            "task_name_error": "Тапшырманын аталышы талап кылынат.",
+            "date_error": "Пландалган дата талап кылынат.",
+            "updated": "Техникалык тейлөө тапшырмасы жаңыртылды",
+            "created": "Жаңы техникалык тейлөө тапшырмасы кошулду",
+            "save_error": "Сактоо учурунда ката кетти",
+            "deleted": "Техникалык тейлөө тапшырмасы ийгиликтүү өчүрүлдү.",
+            "delete_error": "Өчүрүү учурунда ката кетти.",
+            "performed": "Техникалык тейлөө бүткөн деп катталды. Кийинки дата пландалды.",
+            "perform_error": "Сактоо учурунда ката кетти."
+        },
+        "freq": {
+            "one_time": "Бир жолу",
+            "unit": {
+                "days": "Күн",
+                "weeks": "Апта",
+                "months": "Ай",
+                "years": "Жыл"
+            },
+            "format": "Ар бир {{val}} {{unit}}"
+        },
+        "loading_desc": "Кызматты пландоо жүктөлүүдө...",
+        "page": {
+            "title": "Техникалык тейлөө жана мезгилдик көзөмөл",
+            "description": "Үйүңүздөгү приборлоруңузга, фильтрлериңизге же коопсуздук жабдууларыңызга мезгилдик тейлөө графиктерин башкаруу."
+        },
+        "actions": {
+            "add_task": "Жаңы тапшырма кошуу",
+            "manage": "Башкаруу",
+            "perform": "Аткарылды деп белгилеңиз",
+            "edit_task": "Тапшырманы түзөтүү"
+        },
+        "alerts": {
+            "overdue_title": "Сизде өз убагында аткарылбаган тапшырмалар бар!",
+            "overdue_desc": "{{count}} өз убагында аткарылбаган тейлөө тапшырмалары бар. Кечигүүлөр түзмөктүн иштөө мөөнөтүн кыскартышы мүмкүн."
+        },
+        "empty": {
+            "title": "Тейлөө тапшырмалары пландалган жок",
+            "desc": "AC фильтрин тазалоо, казан техникалык тейлөө же өрт сенсорунун батарейкасын текшерүү сыяктуу кайталануучу тапшырмаларды кошуу менен баштаңыз."
+        },
+        "sections": {
+            "overdue": "Мөөнөтү өткөн тапшырмалар",
+            "overdue_desc": "Дароо жасалышы керек болгон шашылыш техникалык тейлөө.",
+            "upcoming": "Жоспарланган / Келе жаткан тапшырмалар",
+            "upcoming_desc": "Жакынкы күндөрдө тейлөөгө жакындап келет.",
+            "no_upcoming": "Бүтүндүк тейлөө тапшырмалары келечекте пландалган эмес."
+        },
+        "modal": {
+            "edit_title": "Тапшырманы Өңдөө",
+            "create_title": "Жаңы Тейлөө Тапшырмасын Пландоо",
+            "perform_title": "Толук тейлөө",
+            "perform_desc": "Сиз бүгүн \"{{name}}\" аталышын аяктагандары катары каттайсызбы?",
+            "perform_confirm": "Ооба, аяктады",
+            "perform_recurrence_info": "Бул периоддук тапшырма. Сиз сактасаңыз, система кийинки тейлөө күнүн автоматтык түрдө эсептейт.",
+            "delete_title": "Техникалык тейлөө тапшырмасын өчүрүүбү?",
+            "delete_desc": "Сиз чын эле мезгилдик техникалык тейлөө графиги \"{{name}}\" өчүргүңүз келеби? Бул аракетти кайтарууга болбойт."
+        },
+        "form": {
+            "item": "Тийиштүү объект",
+            "no_items": "Техникалык тейлөөнү пландашка киргизүүдөн мурун биринчи инвентаризацияга объект кошушуңуз керек.",
+            "select_item_placeholder": "Бир нерсени тандаңыз",
+            "task_name": "Тапшырма / Операциянын аты",
+            "task_name_placeholder": "мисалы, Фильтрди алмаштыруу, Тейлөө текшерүүсү...",
+            "description": "Толугураак маалымат / Сүрөттөмө",
+            "description_placeholder": "Тапшырманын деталдары, колдонулуучу материалдар ж.б...",
+            "frequency_value": "Кайталануу жыштыгы",
+            "frequency_placeholder": "мис. 6 (бир жолу болсо бош калтырыңыз)",
+            "frequency_unit": "Жыштык бирдиги",
+            "next_due_date": "Кийинки пландалган дата",
+            "section_help": "Бул жерден техникалык тейлөөнү башкаруу",
+            "section_collapsed": "Мурунку көзөмөлдөрдү жана милдеттерди кошуу үчүн чыкылдатыңыз",
+            "has_tasks": "{{count}} милдеттер",
+            "new_item_warning_title": "Буюмду сактоо күтүлүүдө",
+            "new_item_warning_desc": "Техникалык тейлөө графигин кошуу үчүн бул буюмду биринчи сактооңуз керек.",
+            "manage_desc": "Бул шайман же буюм үчүн техникалык тейлөө графиктерин башкаруу."
+        },
+        "fields": {
+            "task_name": "Тапшырманын Аты",
+            "task_name_placeholder": "мисалы, аба кондиционери фильтрүн тазалоо",
+            "description": "Сүрөттөмө",
+            "description_placeholder": "Иштөлүшү керек болгон тапшырмалары, колдонулчу материалдар ж.б.",
+            "frequency_value": "Кайталануу ышкырыгы",
+            "frequency_value_placeholder": "Бир жолку үчүн бош калтырыңыз",
+            "frequency_unit": "Жыштык Бирдиги",
+            "next_due_date": "Жоспарланган Күн"
+        },
+        "card": {
+            "untitled_item": "Атайын аталбаган Элемент",
+            "last_performed": "Акыркы жүргүзүлгөн:",
+            "next_due_label": "Жоспорлонгон дата",
+            "complete_tooltip": "Мындан бүгүн тейлөө жүргүзүлгөн деп белгилөө"
+        },
+        "detail_card_desc": "Бул нерсе үчүн мезгилдик же бир жолу жасалуучу тейлөөнү көзөмөлдөө жоспарланган.",
+        "no_tasks": "Бул элементке эч кандай техникалык тейлөө тапшырмалары бериле элек.",
+        "confirm_delete": "Бул тапшырма өчүрүлөт. Сиз ишенесизби?"
     }
 }

@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, '..');
-const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+const npmCommand = process.env.HOMEINVENTORY_NPM_EXEC || (process.platform === 'win32' ? 'npm.cmd' : 'npm');
 
 // Developer entrypoint for the public v2 release line.
 const children = [

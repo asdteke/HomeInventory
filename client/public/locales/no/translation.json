@@ -69,7 +69,9 @@
             "vault_hint_action": "Åpne Personlig Safe",
             "location": "Lokasjon",
             "remove_photo": "Fjern bilde",
-            "visibility_owner_only": "Bare personen som la til elementet kan endre synlighet."
+            "visibility_owner_only": "Bare personen som la til elementet kan endre synlighet.",
+            "expiry_date": "Utløpsdato",
+            "min_quantity": "Minimum mengde"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" raskt lagt til - du kan redigere senere",
@@ -119,7 +121,12 @@
         "no_permission": "No permission",
         "barcode_search_error": "Strekkodesøk mislyktes",
         "stats_error": "Stats error",
-        "detail_subtitle": "Varedetaljer"
+        "detail_subtitle": "Varedetaljer",
+        "status": {
+            "close_to_expiry": "Nær utløpsdato",
+            "expired": "Utløpt",
+            "low_stock": "Lavt lager"
+        }
     },
     "common": {
         "save": "Lagre",
@@ -149,7 +156,7 @@
         "download": "Last ned",
         "clear": "Tøm",
         "deleting": "Sletter...",
-        "filter": "Filter",
+        "filter": "Filtrer",
         "sort": "Sorter",
         "yes": "Ja",
         "no": "No",
@@ -170,7 +177,8 @@
         "details": "Detaljer",
         "hide": "Skjul passord",
         "logging_out": "Logger ut...",
-        "show": "Vis passord"
+        "show": "Vis passord",
+        "saving": "Lagrer..."
     },
     "auth": {
         "login": {
@@ -216,7 +224,7 @@
             "support_link": "Kontakt kundestøtte"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "Sett opp husholdningen din",
             "subtitle": "Opprett en ny konto eller bli med i et eksisterende hus",
             "create_house": "Opprett nytt hus",
             "join_house": "Bli med hus",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "Skriv inn passordet på nytt",
             "reset_submit": "Tilbakestill passord",
             "resetting": "Tilbakestiller...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Skriv inn brukernavnet ditt eller e-posten"
         },
         "reset_password": {
             "title": "Tilbakestill passord",
@@ -353,7 +361,7 @@
         "password_requirements": "Bruk minst {{min}} tegn med stor bokstav, liten bokstav, tall og symbol.",
         "logout": "Logg ut",
         "logging_in": "Logger inn...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "Velkommen til {{brandName}}",
         "username_email": "Brukernavn eller e-post",
         "username": "Brukernavn",
         "email": "E-post",
@@ -438,7 +446,9 @@
         "logout_aria": "Logg ut av kontoen din",
         "logout_title": "Logg ut?",
         "logout_description": "Du vil bli returnert til påloggingsskjermen og må logge inn igjen for å administrere husholdningsbeholdningen din.",
-        "logout_warning": "Bruk dette når du er ferdig på en delt eller personlig enhet."
+        "logout_warning": "Bruk dette når du er ferdig på en delt eller personlig enhet.",
+        "maintenance": "Vedlikeholdsplan",
+        "shopping": "Handleliste"
     },
     "dashboard": {
         "welcome": "Velkommen, <1>{{name}}</1>! 👋",
@@ -565,7 +575,20 @@
         "no_items_filter": "Ingen gjenstander samsvarer med dette filteret",
         "manage": "Administrer",
         "add_item": "Legg til gjenstand",
-        "search_item": "Søk etter gjenstand"
+        "search_item": "Søk etter gjenstand",
+        "alerts": {
+            "expired_title": "Varer har utløpt!",
+            "expired_desc": "Det er {{count}} utløpte varer i lageret ditt. Vennligst sjekk dem for din sikkerhet.",
+            "view_items": "Se varer",
+            "maintenance_title": "Forfalte vedlikeholdsoppgaver!",
+            "maintenance_desc": "Det er {{count}} forfalte vedlikeholdsoppgaver. Utfør vedlikehold for å forlenge levetiden til apparatene dine.",
+            "go_to_maintenance": "Gå til Vedlikehold",
+            "low_stock_title": "Lavt lagerbeholdningsvarsel",
+            "low_stock_desc": "{{count}} varer har falt under din minimale lagergrense.",
+            "go_to_shopping": "Handleliste",
+            "close_expiry_title": "Kommende utløpsdatoer",
+            "close_expiry_desc": "{{count}} produkter vil utløpe innen 30 dager."
+        }
     },
     "beta_banner": {
         "title": "BETA:",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "Aktiv Husnøkkel",
             "key_label": "Husnøkkel",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{suffiks}}",
             "hide": "Skjul",
             "show": "Vis",
             "copy": "Kopier",
@@ -991,8 +1014,8 @@
             "no_history": "Det finnes ingen lånehistorikk for dette elementet ennå.",
             "lend_success_title": "Element utlånt",
             "lend_success_body": "{{item}} er nå merket som utlånt.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "Lånetilbud sendt",
+            "offer_sent_body": "{{item}} vil bli merket som lånt etter at det andre medlemmet godtar.",
             "borrowed_by_you": "Hos deg",
             "return_pending_hint": "Oppføringen lukkes etter at långiveren bekrefter at de har mottatt varen tilbake.",
             "return_pending_lender_title": "{{name}} markerte dette elementet som levert tilbake",
@@ -1229,7 +1252,7 @@
             "no_logs": "ingen logger ennå",
             "errors_title": "Systemfeil (Siste 10)",
             "no_errors": "// Systemet er sunt, ingen feillogger.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{dato, datetime}}",
             "type": {
                 "email": "E-post",
                 "user": "Bruker",
@@ -1237,7 +1260,7 @@
                 "event": "Hendelse"
             },
             "action": {
-                "send": "Send",
+                "send": "Sende",
                 "delete": "Slett",
                 "update": "Oppdater",
                 "create": "Opprett",
@@ -1264,7 +1287,7 @@
             "subject": "Emne",
             "message": "Melding (HTML støttes)",
             "placeholder_message": "Skriv meldingen din her...",
-            "send": "Send",
+            "send": "Sende",
             "sending": "Sender...",
             "success": "E-posten ble sendt!",
             "error": "Sending mislyktes",
@@ -1401,12 +1424,12 @@
             "cta_register": "Opprett konto",
             "stat_free": "Gratis",
             "stat_access": "Tilgang",
-            "free_badge": "Open Source",
+            "free_badge": "Åpen kildekode",
             "badge": "HomeInventory v2.0 er her",
             "cta_explore": "Utforsk funksjoner",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Logg inn",
+            "stat_members": "Delte hjem",
+            "stat_vault": "Privat hvelv"
         },
         "features": {
             "title": "Hvorfor <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Oppbevar gjenstander, garantier, viktige dokumenter og lån overvåking på ett rolig sted. Se hva hjemmet ditt inneholder med et blikk.",
                 "primaryCta": "Start gratis",
                 "secondaryCta": "Se produktet",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Foreslått flyt: konto • hjem • rom og kategorier • gjenstander • sikkerhetskopi",
                 "searchPlaceholder": "Søk etter en gjenstand, rom eller strekkode"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "Nettverksdetaljer holdes skjult til du trenger veiledningen.",
         "link_privacy_note": "Nettverksadressen forblir skjult her. Skann koden eller kopier lenken kun når du med vilje ønsker å dele direkte tilgang til elementet på ditt lokale oppsett.",
         "helper": "Skann for å åpne dette elementet umiddelbart, eller kopier den direkte lenken når det trengs.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Lenken kunne ikke kopieres automatisk",
+        "copy_manual_help": "Nettleseren din tillot ikke automatisk kopiering. Lenken er valgt slik at du kan kopiere den manuelt.",
         "loading": "Forbereder QR-verktøy..."
     },
     "house_access_pending": {
@@ -1817,7 +1840,7 @@
             "bodyLine2": "Venter på godkjenning fra huseier"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} – {{status}}",
             "greeting": "Husadgang",
             "bodyLine1Template": "Nåværende ventende forespørsel: {{house}} ({{status}})",
             "bodyLine2": "Din forespørsel om \"{{house}}\" venter fortsatt på avgjørelse.",
@@ -1846,7 +1869,7 @@
         },
         "adminEmail": {
             "sentBy": "Denne e-posten ble sendt av {{brandName}}.",
-            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
+            "footer": "© 2026 {{brandName}} – {{supportEmail}}"
         },
         "testEmail": {
             "subject": "🧪 {{brandName}} test-e-post",
@@ -1969,8 +1992,8 @@
             "empty": "Det er ingen aktive lån akkurat nå.",
             "borrowed_from": "Lånt fra {{name}}",
             "lent_to": "For øyeblikket hos {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Venter på at långiveren bekrefter at de har mottatt det tilbake.",
+            "return_pending_lender": "{{name}} har merket denne varen som levert tilbake. Bekreft mottak for å lukke posten.",
             "empty_title": "Ingen aktive lån akkurat nå",
             "empty_description": "Aksepterte forespørsler vises her når en gjenstand er lånt ut eller lånt, sammen med forfallsdatoer og returstatus."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Avlyst",
             "expired": "Utløpt",
             "returned": "Returnert",
-            "return_pending": "Return pending"
+            "return_pending": "Retur på vent"
         },
         "actions": {
             "send_request": "Be om vare",
@@ -1990,8 +2013,8 @@
             "reject": "Avslå",
             "cancel": "Avbryt",
             "fulfill_request": "Oppfyll forespørsel",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Merk som levert",
+            "mark_received": "Mark mottok",
             "open_inventory": "Åpne inventar"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "Merk som returnert",
             "return_subtitle": "Lukk det aktive lånet for \"{{item}}\"",
             "return_target": "Det vises for øyeblikket som værende hos {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Lever varen",
+            "return_title_lender": "Motta varen",
+            "return_subtitle_borrower": "Lukk det aktive lånet for \"{{item}}\" etter at du har levert det tilbake.",
+            "return_subtitle_lender": "Lukk det aktive lånet for \"{{item}}\" etter at du har mottatt det tilbake.",
+            "return_target_borrower": "Långiver: {{name}}",
+            "return_target_lender": "For øyeblikket hos: {{name}}",
+            "return_note_borrower": "Leveringskvittering",
+            "return_note_lender": "Motta notat",
+            "return_note_placeholder_borrower": "f.eks. Jeg leverte det tilbake uten problemer",
+            "return_note_placeholder_lender": "f.eks. Mottatt tilbake i god stand",
+            "return_submitting": "Avslutter..."
         },
         "messages": {
             "load_error": "Lånesenteret kunne ikke lastes",
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "Vilkår for bruk og ansvarsfraskrivelse",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "BETA-versjon: {{brandName}} er for øyeblikket i testfasen. Ingen garantier gis angående datavarighet eller sikkerhet.",
         "disclaimer": "Ansvarsfraskrivelse: Ved å bruke denne applikasjonen, samtykker du i at du ikke kan kreve kompensasjon for eventuell datatap, tilgangsproblemer eller andre tekniske problemer.",
         "backup_warning": "Sikkerhetskopiering av data: Vi anbefaler sterkt at du regelmessig sikkerhetskopierer viktig informasjon.",
         "accept": "Ved å logge inn, godtar du disse vilkårene.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} er for øyeblikket i test- og hobbyfase. Ingen garantier gis angående datavarighet eller sikkerhet. Vennligst sørg for å ha sikkerhetskopi av viktig informasjon.",
         "contact": "Kontakt"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Too many login attempts"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Logg inn",
+        "page_title_register": "Opprett konto",
+        "page_title_choose_house": "Velg hus",
+        "page_title_recovery_key": "Gjenopprettingsnøkkel",
+        "page_title_house_access": "Hus-tilgang",
+        "page_title_legal_review": "Juridisk gjennomgang",
+        "page_title_new_item": "Nytt element",
+        "page_title_edit_item": "Rediger element",
+        "page_title_items": "Inventar"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Feil ved lasting av handleliste.",
+            "select_item_error": "Vennligst velg et element fra beholdningen.",
+            "empty_name": "Vennligst skriv inn et elementnavn.",
+            "added": "Element lagt til på handlelisten.",
+            "add_error": "En feil oppsto mens elementet ble lagt til.",
+            "added_suggestion": "\"{{name}}\" ble lagt til handlelisten.",
+            "bulk_added": "{{count}} varer med lav lagerbeholdning ble lagt til listen.",
+            "bulk_error": "Feil ved legging av varer med lav lagerbeholdning.",
+            "completed": "\"{{name}}\" ble merket som fullført.",
+            "reactivated": "\"{{name}}\" ble flyttet tilbake til aktiv liste.",
+            "update_error": "Det oppstod en feil under oppdatering.",
+            "deleted": "Element slettet fra liste.",
+            "delete_error": "Det oppstod en feil under sletting.",
+            "cleared_completed": "Ryddet fullførte elementer.",
+            "clear_error": "En feil oppstod under rydding."
+        },
+        "loading_desc": "Forbereder handleliste...",
+        "page": {
+            "title": "Handleliste",
+            "description": "Se varer med lav beholdning i hjemmebeholdningen og håndter handlelisten din enkelt."
+        },
+        "suggestions": {
+            "title": "Smarte lagerforslag",
+            "desc": "Lagervarer som har falt under minimumsgrensen.",
+            "add_all": "Legg til alle manglende",
+            "stock_status": "Nåværende: {{current}} / Mål: {{min}}",
+            "add_qty": "Legg til {{qty}}"
+        },
+        "sections": {
+            "active_list": "Varer å kjøpe",
+            "active_desc": "Nåværende handlevarer å legge til i handlekurven din.",
+            "active_count": "{{count}} Elementer",
+            "completed_list": "Kjøpte elementer ({{count}})",
+            "add_item": "Legg til element manuelt",
+            "add_desc": "Legg manuelt til et tilpasset element i listen."
+        },
+        "empty": {
+            "title": "Handlelisten din er tom",
+            "desc": "Du kan legge til manglende varer fra forslagene ovenfor eller legge til varer manuelt ved å bruke skjemaet til høyre."
+        },
+        "card": {
+            "linked_inventory": "Lagret i lager"
+        },
+        "actions": {
+            "clear_completed": "Tøm historikk",
+            "add_item": "Legg til i handleliste"
+        },
+        "form": {
+            "add_type": "Legg til metode",
+            "add_type_inventory": "Vare på lager",
+            "add_type_custom": "Tilpasset vare",
+            "select_inventory_item": "Velg element fra inventar",
+            "no_inventory_items": "Ingen elementer i inventaret ditt ennå.",
+            "select_item_placeholder": "Velg et element",
+            "current_stock": "Nåværende",
+            "item_name": "Varenavn",
+            "item_name_placeholder": "f.eks. Melk, Vaskemiddel, Kaffebønner...",
+            "quantity": "Mengde"
+        },
+        "modal": {
+            "delete_title": "Slett vare fra listen?",
+            "delete_desc": "Er du sikker på at du vil fjerne \"{{name}}\" fra handlelisten din?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Feil ved lasting av informasjon",
+            "select_item_error": "Vennligst velg en vare.",
+            "task_name_error": "Oppgavenavn er påkrevd.",
+            "date_error": "Planlagt dato er påkrevd.",
+            "updated": "Vedlikeholdsoppgave oppdatert",
+            "created": "Ny vedlikeholdsoppgave lagt til",
+            "save_error": "Det oppsto en feil under lagring",
+            "deleted": "Vedlikeholdsoppgave slettet.",
+            "delete_error": "En feil oppstod under sletteprosessen.",
+            "performed": "Vedlikehold logget som fullført. Neste dato planlagt.",
+            "perform_error": "En feil oppstod under lagring."
+        },
+        "freq": {
+            "one_time": "Én-gang",
+            "unit": {
+                "days": "Dag",
+                "weeks": "Uke",
+                "months": "Måned",
+                "years": "År"
+            },
+            "format": "Hver {{val}} {{unit}}"
+        },
+        "loading_desc": "Laster vedlikeholdsplan...",
+        "page": {
+            "title": "Vedlikehold og periodisk sporing",
+            "description": "Administrer periodiske vedlikeholdsplaner for apparater, filtre eller sikkerhetsutstyr i hjemmets inventarliste."
+        },
+        "actions": {
+            "add_task": "Legg til ny oppgave",
+            "manage": "Administrer",
+            "perform": "Merk som utført",
+            "edit_task": "Rediger oppgave"
+        },
+        "alerts": {
+            "overdue_title": "Du har forsinkede oppgaver!",
+            "overdue_desc": "Det er {{count}} forsinkede vedlikeholdsoppgaver. Forsinkelser kan redusere apparatets levetid."
+        },
+        "empty": {
+            "title": "Ingen vedlikeholdsoppgaver planlagt",
+            "desc": "Kom i gang ved å legge til gjentakende oppgaver som rengjøring av AC-filter, vedlikehold av kjele eller sjekk av batterier i brannvarsler."
+        },
+        "sections": {
+            "overdue": "Forsinkede oppgaver",
+            "overdue_desc": "Haster vedlikehold som må gjøres umiddelbart.",
+            "upcoming": "Planlagte / Kommende oppgaver",
+            "upcoming_desc": "Nærmer seg vedlikehold i de kommende dagene.",
+            "no_upcoming": "Ingen aktive oppgaver planlagt i fremtiden."
+        },
+        "modal": {
+            "edit_title": "Rediger oppgave",
+            "create_title": "Planlegg ny vedlikeholdsoppgave",
+            "perform_title": "Fullfør vedlikehold",
+            "perform_desc": "Vil du logge \"{{name}}\" som fullført i dag?",
+            "perform_confirm": "Ja, fullført",
+            "perform_recurrence_info": "Dette er en periodisk oppgave. Når du lagrer, vil systemet automatisk beregne neste vedlikeholdsdatum.",
+            "delete_title": "Slette vedlikeholdsoppgave?",
+            "delete_desc": "Er du sikker på at du vil slette den periodiske vedlikeholdsplanen \"{{name}}\"? Denne handlingen kan ikke angres."
+        },
+        "form": {
+            "item": "Relatert element",
+            "no_items": "Du må legge til et element i inventaret først før du planlegger vedlikehold.",
+            "select_item_placeholder": "Velg et element",
+            "task_name": "Oppgave / Operasjonsnavn",
+            "task_name_placeholder": "f.eks. Filterbytte, Periodisk kontroll...",
+            "description": "Detalj / Beskrivelse",
+            "description_placeholder": "Oppgavedetaljer, materialer som skal brukes, osv...",
+            "frequency_value": "Gjentakelsesfrekvens",
+            "frequency_placeholder": "f.eks. 6 (la stå tomt for én gang)",
+            "frequency_unit": "Frekvensenhet",
+            "next_due_date": "Neste planlagte dato",
+            "section_help": "Administrer vedlikeholdsplaner her",
+            "section_collapsed": "Klikk for å legge til periodiske kontroller og oppgaver",
+            "has_tasks": "{{count}} oppgaver",
+            "new_item_warning_title": "Element lagring pågår",
+            "new_item_warning_desc": "Du må lagre dette elementet først for å legge til en vedlikeholdsplan.",
+            "manage_desc": "Administrer vedlikeholdsplaner for dette apparatet eller elementet."
+        },
+        "fields": {
+            "task_name": "Oppgavenavn",
+            "task_name_placeholder": "f.eks. Rengjøring av AC-filter",
+            "description": "Beskrivelse",
+            "description_placeholder": "Oppgavedetaljer, materialer som skal brukes, osv...",
+            "frequency_value": "Gjentakelsesfrekvens",
+            "frequency_value_placeholder": "La stå tomt for engangs",
+            "frequency_unit": "Frekvensenhet",
+            "next_due_date": "Planlagt dato"
+        },
+        "card": {
+            "untitled_item": "Uten tittel element",
+            "last_performed": "Sist utført:",
+            "next_due_label": "Planlagt dato",
+            "complete_tooltip": "Merk vedlikehold som fullført i dag"
+        },
+        "detail_card_desc": "Periodisk eller engangs vedlikeholdsoppfølging planlagt for denne varen.",
+        "no_tasks": "Ingen vedlikeholdsoppgaver er tildelt denne varen.",
+        "confirm_delete": "Denne oppgaven vil bli slettet. Er du sikker?"
     }
 }

@@ -69,7 +69,9 @@
             "vault_hint_action": "پرسنل والټ پرانیزئ",
             "location": "ځای",
             "remove_photo": "عکس لرې کړئ",
-            "visibility_owner_only": "یوازې هغه شخص چې توکی اضافه کړی کولی شي لید بدل کړي."
+            "visibility_owner_only": "یوازې هغه شخص چې توکی اضافه کړی کولی شي لید بدل کړي.",
+            "expiry_date": "د پای نیټه",
+            "min_quantity": "لږ تر لږه مقدار"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" په چټکۍ سره اضافه شو - تاسو وروسته ایډیټ کولی شئ",
@@ -119,7 +121,12 @@
         "no_permission": "ته اجازه نه لرې چې دا توکی بدل کړې",
         "barcode_search_error": "د بارکوډ لټون ناکام شو",
         "stats_error": "د تېروتنې بارولو احصایې",
-        "detail_subtitle": "د توکي جزییات"
+        "detail_subtitle": "د توکي جزییات",
+        "status": {
+            "close_to_expiry": "د ختمیدو نېږدې",
+            "expired": "ختم شوی",
+            "low_stock": "ټیټ ذخیره"
+        }
     },
     "common": {
         "save": "ژغورل",
@@ -170,7 +177,8 @@
         "details": "جزيیات",
         "hide": "پټنوم پټ کړئ",
         "logging_out": "وتل...",
-        "show": "پټنوم ښکاره کړئ"
+        "show": "پټنوم ښکاره کړئ",
+        "saving": "په خوندي کولو..."
     },
     "auth": {
         "login": {
@@ -216,7 +224,7 @@
             "support_link": "د ملاتړ سره اړیکه ونیسئ"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "خپل کورنی تنظیم کړئ",
             "subtitle": "نوی حساب جوړ کړئ یا د موجوده کور برخه شئ",
             "create_house": "نوی کور جوړ کړئ",
             "join_house": "د کور سره ګډون وکړئ",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "خپل پاسورډ بیا دننه کړئ",
             "reset_submit": "پټنوم بیا تنظیم کړئ",
             "resetting": "بیا تنظیمول...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "خپل کارن نوم یا بریښنالیک داخل کړئ"
         },
         "reset_password": {
             "title": "پټنوم بیا تنظیم کړئ",
@@ -438,7 +446,9 @@
         "logout_aria": "له خپل حساب څخه وتل",
         "logout_title": "وتل؟",
         "logout_description": "تاسو به د ننوتلو سکرین ته بیرته راستون شئ او اړتیا لرئ چې بیا ننوتل ترڅو د خپل کور د زیرمو مدیریت وکړئ.",
-        "logout_warning": "دا د هغه وخت لپاره وکاروئ کله چې تاسو په شریک یا شخصي وسیله کې کار پای ته ورسوئ."
+        "logout_warning": "دا د هغه وخت لپاره وکاروئ کله چې تاسو په شریک یا شخصي وسیله کې کار پای ته ورسوئ.",
+        "maintenance": "د ساتنې مهالویش",
+        "shopping": "د خریداری لیست"
     },
     "dashboard": {
         "welcome": "ښه راغلاست، <1>{{name}}</1>! 👋",
@@ -565,7 +575,20 @@
         "no_items_filter": "هیڅ توکی د دې فلټر سره سمون نه خوری",
         "manage": "مدیریت",
         "add_item": "د توکی اضافه کول",
-        "search_item": "د لټون توکی"
+        "search_item": "د لټون توکی",
+        "alerts": {
+            "expired_title": "توکي پاخه شوي دي!",
+            "expired_desc": "ستاسو په زیرمه کې {{count}} پاخه شوي توکي شته. مهرباني وکړئ د خپلې خوندي لارې لپاره یې وګورئ.",
+            "view_items": "توکي وګورئ",
+            "maintenance_title": "د تیر شوي ساتنې دندې!",
+            "maintenance_desc": "د {{count}} ناوخته ساتنې دندې شته. د خپلو وسایلو د عمر د اوږدولو لپاره ساتنه ترسره کړئ.",
+            "go_to_maintenance": "ساتنې ته لاړ شئ",
+            "low_stock_title": "د ټیټو زېرمو خبرتیا",
+            "low_stock_desc": "{{count}} توکي ستاسو د لږ تر لږه زېرمو حد څخه ښکته شوي دي.",
+            "go_to_shopping": "د خرید لیست",
+            "close_expiry_title": "راتلونکي د پای نیټې",
+            "close_expiry_desc": "{{count}} محصولات به د ۳۰ ورځو دننه پای ته ورسیږي."
+        }
     },
     "beta_banner": {
         "title": "بیټا:",
@@ -619,7 +642,7 @@
             "member_kick_error": "غړی له کور څخه نه شو لرې کولی",
             "recovery_key_regenerated": "د بیا رغونې کیلي بیا تولید شوه",
             "recovery_key_error": "د بیا رغونې کیلي نه شو تولیدولی",
-            "account_delete_error": "The account could not be deleted",
+            "account_delete_error": "حساب نشو حذف کیدی",
             "backup_downloaded_encrypted": "کوډ شوي بیک اپ په بریالیتوب سره ښکته کړل شو! ({{count}} توکي)"
         },
         "user_profile": {
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "فعال د کور کیلي",
             "key_label": "د کور کیلي",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "•••••••{{لاحقه}}",
             "hide": "پټول",
             "show": "ښودل",
             "copy": "کاپي کول",
@@ -991,8 +1014,8 @@
             "no_history": "د دې توکي لپاره تراوسه پور اخیستلو تاریخ نشته.",
             "lend_success_title": "توکي پور ورکړل شول",
             "lend_success_body": "{{item}} اوس د پور په توګه نښه شوی دی.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "د پور وړاندیز واستول شو",
+            "offer_sent_body": "{{item}} به د بل غړي د منلو وروسته د پور په توګه نښه شي.",
             "borrowed_by_you": "له تاسو سره",
             "return_pending_hint": "دا ریکارډ به وروسته وتړل شي کله چې پور ورکوونکی تایید کړي چې توکي بیرته ترلاسه کړي.",
             "return_pending_lender_title": "{{name}} دا توکی د بیرته رسولو په توګه نښه کړ",
@@ -1229,7 +1252,7 @@
             "no_logs": "تر اوسه کوم ریکارډ نشته",
             "errors_title": "د سیسټم تېروتنې (وروستۍ ۱۰)",
             "no_errors": "// سیسټم روغ دی، هېڅ تېروتنې ثبت شوي نه دي.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{تاریخ، نیټه وخت}}",
             "type": {
                 "email": "برېښنالیک",
                 "user": "کاروونکی",
@@ -1352,7 +1375,7 @@
                 "inventory": "پورې تړلی دی. د موجودی ریکارډونه",
                 "inventory_body": "{{count}} فعال پورونه",
                 "public_items_chip": "{{count}}",
-                "private_items_chip": "{{count}} private",
+                "private_items_chip": "{{count}} شخصي",
                 "system": "د سیسټم روغتیا",
                 "system_body": "{{count}} ساعتونه فعاله وخت",
                 "storage_chip": "{{count}} MB پورته کول"
@@ -1401,12 +1424,12 @@
             "cta_register": "حساب جوړ کړئ",
             "stat_free": "وړیا",
             "stat_access": "لاسرسی",
-            "free_badge": "Open Source",
+            "free_badge": "خلاص سرچینه",
             "badge": "HomeInventory v2.0 دلته دی",
             "cta_explore": "ځانګړتیاوې وپلټئ",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "ننوتل",
+            "stat_members": "شریک کورونه",
+            "stat_vault": "شخصي ذخیره"
         },
         "features": {
             "title": "ولې <1>HomeInventory</1>؟",
@@ -1477,7 +1500,7 @@
                 "description": "توکي، تضمینونه، مهم اسناد، او د پور څارنه په یوه ارامه ځای کې وساتئ. وګورئ چې ستاسو کور څه لري په یوه نظر کې.",
                 "primaryCta": "وړیا پیل کړئ",
                 "secondaryCta": "محصول وګورئ",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "وړاندیز شوی جریان: حساب • کور • خونې او کټګورۍ • توکي • بیک اپ",
                 "searchPlaceholder": "د توکي، خونې، یا بارکوډ لټون وکړئ"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "د شبکې توضیحات پټ پاتې کیږي تر څو چې تاسو لارښوونې ته اړتیا ولرئ.",
         "link_privacy_note": "د شبکې پتہ دلته پټ پاتې کیږي. کود سکین کړئ یا لینک یوازې هغه وخت کاپي کړئ کله چې تاسو په قصدي ډول په خپل محلي سیټ اپ کې مستقیم توکي ته لاسرسی شریکول غواړئ.",
         "helper": "سکین کړئ ترڅو دا توکي سمدستي خلاص کړئ، یا مستقیم لینک کاپي کړئ کله چې اړتیا وي.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "لینک په اوتومات ډول نشو کیدای کاپي شي",
+        "copy_manual_help": "ستاسو براوزر د اتوماتیک کاپي کولو اجازه ورنکړه. لینک ټاکل شوی دی تر څو تاسو یې په لاسي ډول کاپي کړئ.",
         "loading": "د QR وسایل چمتو کول..."
     },
     "house_access_pending": {
@@ -1808,7 +1831,7 @@
                 "💡 تاسو کولی شئ د څو کورونو غړي واوسئ او د هغو ترمنځ بدلیدلی شئ. هر کور جلا زیرمه ساتي."
             ],
             "support": "د راجسټریشن ستونزې:",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© ۲۰۲۶ {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "کور ته ګډون وکړئ",
@@ -1817,7 +1840,7 @@
             "bodyLine2": "د کور د مالک د تایید انتظار"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{د برانډ نوم}} - {{حالت}}",
             "greeting": "د کور لاسرسی",
             "bodyLine1Template": "اوسنی انتظار کې غوښتنه: {{house}} ({{status}})",
             "bodyLine2": "ستاسو غوښتنه د \"{{house}}\" لپاره لاهم د پریکړې په انتظار کې ده.",
@@ -1842,7 +1865,7 @@
             "warningTitle": "⚠️",
             "warningBody": "که حساب موجود وي، د پاسورډ بیا تنظیمولو لینک چې ۱۵ دقیقو پورې اعتبار لري، استول شوی دی.",
             "fallback": "د پټنوم د بیا تنظیمولو لینک ناتمام یا خراب ښکاري.",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© ۲۰۲۶ {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "دا بریښنالیک د {{brandName}} لخوا استول شوی و.",
@@ -1923,7 +1946,7 @@
             "passphrase_number": "لږ تر لږه یو عدد شامل کړئ.",
             "passphrase_uppercase": "لږ تر لږه یو لوی توري شامل کړئ."
         },
-        "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
+        "recovery_file_title": "د {{brandName}} شخصي صندوق د بیا ترلاسه کولو کیلي",
         "recovery_file_created_label": "جوړه شوې",
         "recovery_file_key_label": "د بیا رغونې کیلي",
         "recovery_file_warning": "که تاسو دا کیلي او د خپل زیرمې تېرنوم دواړه له لاسه ورکړئ، زیرمه نه شي بیا ترلاسه کېدای.",
@@ -1969,8 +1992,8 @@
             "empty": "په اوس وخت کې هیڅ فعال پورونه نشته.",
             "borrowed_from": "له {{name}} څخه پور اخیستل شوی",
             "lent_to": "اوس مهال سره {{name}} ده",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "د پور ورکوونکي انتظار دی چې تایید کړي چې دوی دا بیرته ترلاسه کړی دی.",
+            "return_pending_lender": "{{name}} دا توکي د بیرته تسلیم شوي په توګه نښه کړل. د ریکارډ د بندولو لپاره ترلاسه کول تایید کړئ.",
             "empty_title": "اوس مهال هيڅ فعال پور نشته",
             "empty_description": "منل شوې غوښتنې دلته ښکاري کله چې یو توکی پور ورکړل یا غوښتل شوی وي، د نیټې او د واپسۍ وضعیت سره."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "لغوه شوی",
             "expired": "وخت پای ته رسیدلی",
             "returned": "راګرځول شوي",
-            "return_pending": "Return pending"
+            "return_pending": "بیرته استول په انتظار دی"
         },
         "actions": {
             "send_request": "د غوښتنې توکي",
@@ -1990,8 +2013,8 @@
             "reject": "رد کړئ",
             "cancel": "لغوه کړئ",
             "fulfill_request": "د غوښتنې پوره کول",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "د تحویل نښه کول",
+            "mark_received": "د توکی ترلاسه",
             "open_inventory": "انځور پرانیزئ"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "راستول شوی ونښه کړئ",
             "return_subtitle": "د \"{{item}}\" لپاره فعال پور وتړئ",
             "return_target": "دا اوس مهال د {{name}} سره ښودل شوی دی.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "نښه کړئ",
+            "return_title_lender": "توکی ترلاسه کړئ",
+            "return_subtitle_borrower": "فعال پور د \"{{item}}\" لپاره وتړئ وروسته له دې چې بیرته یې وسپارئ.",
+            "return_subtitle_lender": "د \"{{item}}\" لپاره فعال پور وتړئ کله چې تاسو دا بیرته ترلاسه کړئ.",
+            "return_target_borrower": "پور ورکوونکی: {{name}}",
+            "return_target_lender": "اوس سره دی: {{name}}",
+            "return_note_borrower": "د سپارنې یادداشت",
+            "return_note_lender": "یادښت ترلاسه کړئ",
+            "return_note_placeholder_borrower": "د بېلګې په توګه ما دا پرته له کومې ستونزې واپس ورکړه",
+            "return_note_placeholder_lender": "د بېلګې په توګه په ښه حالت کې واپس ترلاسه شو",
+            "return_submitting": "بندول..."
         },
         "messages": {
             "load_error": "د پور مرکز نشو بارېدلی",
@@ -2069,9 +2092,9 @@
         "consent_submit": "دوام ورکړئ",
         "consent_submitting": "خوندي کول...",
         "consent_required": "تاسو اړتیا لرئ د خدماتو شرایط او د محرمیت خبرتیا تایید کړئ مخکې له دې چې دوام ورکړئ.",
-        "document_badge": "Legal document",
-        "data_privacy_badge": "Data and privacy",
-        "back_to_home": "Back to Home",
+        "document_badge": "قانوني سند",
+        "data_privacy_badge": "ډاټا او محرمیت",
+        "back_to_home": "بیرته کور ته",
         "quick_access": "اړیکه",
         "on_this_page": "په دې پاڼه",
         "contents": "مینځپانګه",
@@ -2082,7 +2105,7 @@
         "privacy_description": "د دې {{brandName}} نصبولو لپاره د محرمیت خبرتیا تشریح کوي چې کوم معلومات پروسس کیږي، دا څنګه راټولیږي، دا څنګه شریک یا لیږدول کیږي، او کوم حقونه او شکایتونه پلي کیدی شي.",
         "privacy_support_label": "د دې نصبولو په اړه د محرمیت غوښتنو، حقونو غوښتنلیکونو، او د شکایت پورې اړوند پوښتنو لپاره:",
         "privacy_summary": {
-            "title": "In practice",
+            "title": "په عمل کې",
             "description": "**هغه څه چې موږ پروسس کوو:** موږ حساب، خدمت، تخنیکي امنیت، او اختیاري چمتو کونکي ډیټا پروسس کوو چې ستاسو د حساب او غوښتنلیک چلولو لپاره اړین دي.",
             "items": {
                 "what": "**ولې:** ډیټا د تصدیق کولو ، سیشن امنیت ، د لیست کاري جریانونو ، بیک اپونو ، او شخصي والټ ځانګړتیاو لپاره کارول کیږي.",
@@ -2093,17 +2116,17 @@
             "shortcuts": {
                 "what": "ولې",
                 "why": "ولې",
-                "sharing": "Sharing",
+                "sharing": "شریکول",
                 "rights": "کوم معلومات چې موږ راټول او پروسس کوو"
             },
             "section_titles": {
-                "what": "What data we collect and process",
+                "what": "موږ کوم معلومات راټولوو او پروسس کوو",
                 "why": "ستاسو حقونه",
                 "sharing": "ذخیره او لیږد",
                 "rights": "د هغو شرایطو په اړه پوښتنو لپاره چې په دې نصب کې پلي کیږي:"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "د دې {{brandName}} نصب لارې شرایط د منل شوي کارونې، ستاسو د امنیت مسؤلیتونو، او د حساب حذفولو پایلو په واضحه، اسانه لوستونکي بڼه تشریح کوي.",
         "terms_support_label": "د دې نصبولو سره د تطبیق وړ شرایطو په اړه پوښتنو لپاره:",
         "terms_summary": {
             "eyebrow": "چټک لنډیز",
@@ -2141,7 +2164,7 @@
         "account_menu_tooltip": "د {{name}} د حساب مینو"
     },
     "app": {
-        "name": "{{brandName}}",
+        "name": "{{د برانډ نوم}}",
         "tagline": "خپل ټول کورنی توکی په هوښیارۍ سره مدیریت کړئ"
     },
     "nav": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "ډېر زیات ننوتل هڅه شوې. مهربانی وکړئ په ۱۵ دقیقو کې بیا هڅه وکړئ."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "ننوتل",
+        "page_title_register": "حساب جوړول",
+        "page_title_choose_house": "کور انتخاب کړئ",
+        "page_title_recovery_key": "د بیا ترلاسه کولو کیلي",
+        "page_title_house_access": "د کور لاسرسی",
+        "page_title_legal_review": "قانوني بیاکتنه",
+        "page_title_new_item": "نوی توکی",
+        "page_title_edit_item": "توکي سمول",
+        "page_title_items": "ذخیره"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "د پیرود لیست د پورته کولو کې تېروتنه.",
+            "select_item_error": "مهرباني وکړئ د ذخیرې څخه یو توکی وټاکئ.",
+            "empty_name": "مهرباني وکړئ د توکي نوم داخل کړئ.",
+            "added": "توکی د خرید لیست ته اضافه شو.",
+            "add_error": "د توکي د اضافه کولو پر مهال یوه تېروتنه رامنځته شوه.",
+            "added_suggestion": "\"{{name}}\" د خرید لیست ته اضافه شو.",
+            "bulk_added": "{{count}} د لږ ذخیره توکي لیست ته اضافه شول.",
+            "bulk_error": "د لږ ذخیره توکي اضافه کولو کې تېروتنه.",
+            "completed": "\"{{name}}\" د بشپړ شوي په توګه نښه شو.",
+            "reactivated": "\"{{name}}\" بیرته فعال لیست ته ولېږدول شو.",
+            "update_error": "د تازه کولو پر مهال تېروتنه رامنځته شوه.",
+            "deleted": "توکی له لېست څخه حذف شو.",
+            "delete_error": "د حذف کولو پر مهال تېروتنه رامنځته شوه.",
+            "cleared_completed": "بشپړ شوي توکي پاک شول.",
+            "clear_error": "د پاکولو پر مهال تېروتنه رامنځته شوه."
+        },
+        "loading_desc": "د سودا اخیستلو لست چمتو کول...",
+        "page": {
+            "title": "د سودا اخیستلو لست",
+            "description": "په کورني زیرمه کې د لږ ذخیره لرونکو توکو کتنه وکړئ او په آسانۍ سره خپل د سودا اخیستلو لست مدیریت کړئ."
+        },
+        "suggestions": {
+            "title": "هوښیار د موجودي وړاندیزونه",
+            "desc": "د هغه موجودي توکي چې د لږ تر لږه حد څخه لاندې شوي دي.",
+            "add_all": "ټول نشت توکي اضافه کړئ",
+            "stock_status": "اوسنی: {{current}} / هدف: {{min}}",
+            "add_qty": "د خریدلو لپاره {{qty}} توکي اضافه کړئ"
+        },
+        "sections": {
+            "active_list": "د شاملولو لپاره اوسني د خریدلو توکي ستاسو په کارت کې.",
+            "active_desc": "{{count}} توکي",
+            "active_count": "{{count}} توکي",
+            "completed_list": "اخستل شوي توکي ({{count}})",
+            "add_item": "توکي په لاسي توګه اضافه کړئ",
+            "add_desc": "په لاسي توګه خپله ځانګړې توکي لیست ته اضافه کړئ."
+        },
+        "empty": {
+            "title": "ستاسو د خریدنې لیست خالي دی",
+            "desc": "تاسې کولی شئ له پورته وړاندیزونو څخه کمبودي توکي اضافه کړئ یا توکي په لاسي ډول د ښي اړخ په فورمه کې اضافه کړئ."
+        },
+        "card": {
+            "linked_inventory": "په زیرمه کې خوندي شو"
+        },
+        "actions": {
+            "clear_completed": "تاریخ پاک کړئ",
+            "add_item": "د خرید لیست ته اضافه کړئ"
+        },
+        "form": {
+            "add_type": "طریقه اضافه کړئ",
+            "add_type_inventory": "د توکو فهرست توکی",
+            "add_type_custom": "دودیز توکی",
+            "select_inventory_item": "د توکو له فهرسته توکی وټاکئ",
+            "no_inventory_items": "ستاسو په توکو کې تر اوسه هیڅ شی نشته.",
+            "select_item_placeholder": "یو توکی غوره کړئ",
+            "current_stock": "اوسنی",
+            "item_name": "د توکي نوم",
+            "item_name_placeholder": "لکه شیدې، ډیټرجنټ، د کافي دانې...",
+            "quantity": "مقدار"
+        },
+        "modal": {
+            "delete_title": "توکي له لیست څخه حذف کول؟",
+            "delete_desc": "آیا تاسو ډاډه یاست چې غواړئ \"{{name}}\" له خپل د پیرود لیست څخه لرې کړئ؟"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "د معلوماتو په بارولو کې تېروتنه",
+            "select_item_error": "مهرباني وکړئ یو توکی وټاکئ.",
+            "task_name_error": "د دندې نوم اړین دی.",
+            "date_error": "ټاکل شوې نېټه اړینه ده.",
+            "updated": "د ساتنې دنده تازه شوه",
+            "created": "نوې د ساتنې دنده اضافه شوه",
+            "save_error": "د خوندي کولو پر مهال تېروتنه پېښه شوه",
+            "deleted": "د ساتنې دنده په بریالیتوب سره ړنګ شوه.",
+            "delete_error": "د حذف پروسې پر مهال یوه تېروتنه رامنځته شوه.",
+            "performed": "ساتنه د بشپړې په توګه ثبت شوه. راتلونکی نېټه ټاکل شوې.",
+            "perform_error": "د خوندي کولو پر مهال یوه تېروتنه رامنځته شوه."
+        },
+        "freq": {
+            "one_time": "یو ځل",
+            "unit": {
+                "days": "ورځ",
+                "weeks": "اونۍ",
+                "months": "میاشت",
+                "years": "کال"
+            },
+            "format": "هر {{val}} {{unit}}"
+        },
+        "loading_desc": "د ساتنې مهالویش بارول...",
+        "page": {
+            "title": "ساتنه او دوراني تعقیب",
+            "description": "د خپل کور په ذخیره کې د وسایلو، فلټرونو، یا د خونديتوب تجهیزاتو د دوراني ساتنې مهالویشونه اداره کړئ."
+        },
+        "actions": {
+            "add_task": "نوې دنده اضافه کړئ",
+            "manage": "مدیریت وکړئ",
+            "perform": "د ترسره شوي په توګه نښه کړئ",
+            "edit_task": "د دندې سمول"
+        },
+        "alerts": {
+            "overdue_title": "ستاسو ځینې دندې نیټې تېری شوي دي!",
+            "overdue_desc": "دلته {{count}} ځنډېدلې ساتنې دندې شته. ځنډ کول د وسایلو عمر کمولی شي."
+        },
+        "empty": {
+            "title": "هیڅ ساتنې دنده مهالویش شوې نه ده",
+            "desc": "د تودوخې د فلټر پاکولو، بخارۍ ساتنې، یا د اور کشف کونکو بیټرۍ چک کولو په شان تکراري دندې په اضافه کولو پیل وکړئ."
+        },
+        "sections": {
+            "overdue": "ځنډېدلې دندې",
+            "overdue_desc": "بیړنی ساتنه چې باید سمدستي ترسره شي.",
+            "upcoming": "مهالویش شوي / راتلونکي دندې",
+            "upcoming_desc": "په راتلونکو ورځو کې د ساتنې نږدې کیدل.",
+            "no_upcoming": "په راتلونکي کې کوم فعالې دندې مهالویش شوي نه دي."
+        },
+        "modal": {
+            "edit_title": "دنده ایډیټ کړئ",
+            "create_title": "د نوي ساتنې دندې مهالویش",
+            "perform_title": "ساتنه بشپړه کړئ",
+            "perform_desc": "ایا غواړئ چې \"{{name}}\" د نن ورځې لپاره بشپړ شوی ثبت کړئ؟",
+            "perform_confirm": "هو، بشپړ شو",
+            "perform_recurrence_info": "دا یو دوراني دنده ده. کله چې تاسو یې خوندي کړئ، سیسټم به په اوتومات ډول د راتلونکي ساتنې نیټه حساب کړي.",
+            "delete_title": "د ساتنې دنده حذف کړئ؟",
+            "delete_desc": "ایا تاسو ډاډه یاست چې غواړئ دوراني ساتنې مهالویش \"{{name}}\" حذف کړئ؟ دا عمل بیرته نه شي کیدی."
+        },
+        "form": {
+            "item": "اړوند توکی",
+            "no_items": "تاسو باید د ساتنې مهالویش کولو څخه مخکې لومړی یو توکی په موجودۍ کې اضافه کړئ.",
+            "select_item_placeholder": "یو توکی وټاکئ",
+            "task_name": "دنده / د عملیاتو نوم",
+            "task_name_placeholder": "مثلاً د فلټر بدلول، دوري چک...",
+            "description": "جزئيات / تشريح",
+            "description_placeholder": "دندې جزييات، د کارولو وړ مواد، او نور...",
+            "frequency_value": "د تکرار فريکوينسي",
+            "frequency_placeholder": "مثلاً ۶ (د یو ځل لپاره تش پریږدئ)",
+            "frequency_unit": "د تکرار واحد",
+            "next_due_date": "راتلونکی ټاکل شوی نېټه",
+            "section_help": "دلته د ساتنې مهالویشونه مدیریت کړئ",
+            "section_collapsed": "د وخت په وخت کنټرولونه او دندې اضافه کولو لپاره کلیک وکړئ",
+            "has_tasks": "{{count}} دندې",
+            "new_item_warning_title": "د توکي خوندي کول روان دي",
+            "new_item_warning_desc": "تاسو باید لومړی دا توکی خوندي کړئ ترڅو د ساتنې مهال ویش اضافه کړئ.",
+            "manage_desc": "د دې وسیلې یا توکي د ساتنې مهالویشونه اداره کړئ."
+        },
+        "fields": {
+            "task_name": "د کار نوم",
+            "task_name_placeholder": "د بیلګې په توګه، د AC فلټر پاکول",
+            "description": "توضیحات",
+            "description_placeholder": "دنده تفصیل، د کارونې توکي، او نور...",
+            "frequency_value": "د تکرار فریکونسي",
+            "frequency_value_placeholder": "د یو ځل لپاره تشې پرېږدئ",
+            "frequency_unit": "د فریکونسي واحد",
+            "next_due_date": "ټاکل شوې نېټه"
+        },
+        "card": {
+            "untitled_item": "بې سرليک توکی",
+            "last_performed": "وروستی ترسره شوی:",
+            "next_due_label": "ټاکل شوې نېټه",
+            "complete_tooltip": "د ساتنې نښه نن د ترسره شوې په توګه"
+        },
+        "detail_card_desc": "د دې توکي لپاره ټاکلې یا یو ځلنې ساتنې څارنه.",
+        "no_tasks": "دې توکي ته کومې ساتنې دندې نه دي ټاکل شوې.",
+        "confirm_delete": "دا دنده به حذف شي. آیا تاسو ډاډه یاست؟"
     }
 }

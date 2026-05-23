@@ -551,6 +551,21 @@ export default function ItemList() {
                                                 )}
                                                 {visibleRoomName && <span className="badge max-w-full text-xs py-0.5"><span className="truncate">🚪 {visibleRoomName}</span></span>}
                                                 {item.location_name && <span className="badge max-w-full text-xs py-0.5"><MapPin className="w-3 h-3" /> <span className="truncate">{item.location_name}</span></span>}
+                                                {item.is_expired && (
+                                                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold border border-red-200 bg-red-100/60 text-red-600 dark:border-red-500/20 dark:bg-red-500/10 dark:text-red-400">
+                                                        ⚠️ {t('items.status.expired', { defaultValue: 'Son Kullanma Geçti' })}
+                                                    </span>
+                                                )}
+                                                {!item.is_expired && item.is_close_to_expiry && (
+                                                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold border border-amber-200 bg-amber-100/60 text-amber-600 dark:border-amber-500/20 dark:bg-amber-500/10 dark:text-amber-400">
+                                                        ⏳ {t('items.status.close_to_expiry', { defaultValue: 'Yakında Sona Erecek' })}
+                                                    </span>
+                                                )}
+                                                {item.is_low_stock && (
+                                                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold border border-orange-200 bg-orange-100/60 text-orange-600 dark:border-orange-500/20 dark:bg-orange-500/10 dark:text-orange-400">
+                                                        📉 {t('items.status.low_stock', { defaultValue: 'Azalan Stok' })}
+                                                    </span>
+                                                )}
                                             </div>
                                         </div>
 

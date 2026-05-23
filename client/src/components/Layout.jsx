@@ -23,7 +23,9 @@ import {
     Shield,
     Sun,
     User,
-    X
+    X,
+    Wrench,
+    ShoppingCart
 } from 'lucide-react';
 import BrandLogo from './BrandLogo';
 import { BRAND_KEY, BRAND_NAME, SUPPORT_EMAIL } from '../constants/branding';
@@ -263,6 +265,16 @@ export default function Layout() {
             to: '/items',
             label: t('navigation.inventory'),
             icon: Package
+        },
+        {
+            to: '/maintenance',
+            label: t('navigation.maintenance', { defaultValue: 'Bakım Takvimi' }),
+            icon: Wrench
+        },
+        {
+            to: '/shopping',
+            label: t('navigation.shopping', { defaultValue: 'Alışveriş Listesi' }),
+            icon: ShoppingCart
         },
         {
             to: '/borrow-requests',

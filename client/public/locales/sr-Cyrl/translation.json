@@ -23,13 +23,13 @@
             "location_optional": "(Опционално)",
             "location_placeholder": "Претражи или додај нову локацију...",
             "location_help": "Гдје у соби? (нпр. 'Горња полица плавог ормарића')",
-            "location_create": "Create location \"{{name}}\"",
+            "location_create": "Направите локацију „{{наме}}“",
             "location_privacy": "Приватност локације",
             "location_public": "Сви могу видјети ову локацију",
             "location_private": "Само ти можеш видјети ово",
             "location_save": "Спреми локацију",
             "location_saving": "Додавање...",
-            "location_selected": "Location selected: {{name}}",
+            "location_selected": "Изабрана локација: {{наме}}",
             "location_empty": "Још није дефинирана ниједна локација у овој соби. Почни типкати да би створио/ла једну.",
             "photo": "Фотографија",
             "add_photo": "Додај",
@@ -68,20 +68,22 @@
             "vault_hint_description": "За путовнице, исправе, податке о идентитету, приступне кодове и друге записе који требају остати изван ваше заједничке инвентуре, похраните их умјесто тога у Особни сеф.",
             "vault_hint_action": "Отвори Особни сеф",
             "location": "Локације",
-            "remove_photo": "Remove photo",
-            "visibility_owner_only": "Only the person who added the item can change visibility."
+            "remove_photo": "Уклоните фотографију",
+            "visibility_owner_only": "Само особа која је додала ставку може да промени видљивост.",
+            "expiry_date": "Datum isteka",
+            "min_quantity": "Minimalna količina"
         },
         "messages": {
-            "quick_add_success": "✓ \"{{barcode}}\" quick added - you can edit later",
+            "quick_add_success": "✓ „{{барцоде}}“ је брзо додат – можете да измените касније",
             "quick_add_fail": "⚠ Брзо додавање није успјело",
             "searching": "Претраживање...",
-            "found_local": "✓ Local: registered as \"{{name}}\"",
-            "found_remote": "✓ Found in {{source}} {{note}}: \"{{name}}\"",
+            "found_local": "✓ Локално: регистровано као „{{наме}}“",
+            "found_remote": "✓ Пронађено у {{соурце}} {{ноте}}: „{{наме}}“",
             "not_found": "⚠ Производ није пронађен у базама података. Можете претражити на __КЕЕП_1__у.",
             "search_fail": "⚠ Претрага није успјела",
             "name_required": "Назив ставке је обавезан",
             "location_add_error": "Додавање локације није успјело",
-            "photo_too_large": "Photos can be at most {{maxSizeMb}} MB."
+            "photo_too_large": "Фотографије могу да имају највише {{макСизеМб}} МБ."
         },
         "title": "Инвентар",
         "add": "Додај ставку",
@@ -108,7 +110,7 @@
         "all_categories": "Све категорије",
         "all_rooms": "Све собе",
         "confirm_delete": "Јесте ли сигурни да желите избрисати овај предмет?",
-        "items_deleted": "{{count}} item(s) deleted",
+        "items_deleted": "Број избрисаних ставки: {{цоунт}}",
         "added": "Ставка додата",
         "updated": "Ставка ажурирана",
         "deleted": "Ставка обрисана",
@@ -119,7 +121,12 @@
         "no_permission": "Но пермиссион",
         "barcode_search_error": "Претрага баркодом није успјела",
         "stats_error": "Статс еррор",
-        "detail_subtitle": "Item details"
+        "detail_subtitle": "Детаљи предмета",
+        "status": {
+            "close_to_expiry": "Blizu isteka",
+            "expired": "Istečeno",
+            "low_stock": "Mala zaliha"
+        }
     },
     "common": {
         "save": "Спреми",
@@ -143,7 +150,7 @@
         "refresh": "Освјежи",
         "close": "Затвори",
         "logout": "Одјава",
-        "copyright": "© {{year}} {{brandName}} - All rights reserved",
+        "copyright": "© {{иеар}} {{брандНаме}} - Сва права задржана",
         "other": "Остало",
         "copy": "Копирај",
         "download": "Преузми",
@@ -168,15 +175,16 @@
         "validation_error": "Погрешка валидације",
         "server_error": "Грешка послужитеља",
         "details": "Детаљи",
-        "hide": "Hide password",
-        "logging_out": "Logging out...",
-        "show": "Show password"
+        "hide": "Сакриј лозинку",
+        "logging_out": "Одјава...",
+        "show": "Прикажи лозинку",
+        "saving": "Spremanje..."
     },
     "auth": {
         "login": {
             "title": "Пријава",
             "subtitle": "Паметно управљајте цијелим својим кућним инвентаром",
-            "welcome": "Welcome to {{brandName}}",
+            "welcome": "Добро дошли у {{брандНаме}}",
             "username_or_email": "Корисничко име или Емаил",
             "password": "Лозинка",
             "forgot_password": "Заборављена лозинка?",
@@ -188,7 +196,7 @@
             "register_link": "Регистрирајте се",
             "support_contact": "За проблеме с пријавом:",
             "terms_title": "📋 Увјети кориштења и одрицање",
-            "terms_beta": "BETA Version: {{brandName}} is currently in testing phase. No guarantee is given regarding the persistence or security of your data.",
+            "terms_beta": "БЕТА верзија: {{брандНаме}} је тренутно у фази тестирања.",
             "terms_disclaimer": "Одрицање: Кориштењем ове апликације пристајете на то да не можете тражити накнаду за могући губитак података, проблеме с приступом или друге техничке кварове.",
             "terms_backup": "Сигурносне копије података: Препоручујемо редовито израђивање сигурносних копија важних информација.",
             "terms_accept": "Може се тражити да прегледате и потврдите тренутно важеће правне текстове након пријаве.",
@@ -203,7 +211,7 @@
                 "back": "Натраг",
                 "use_backup": "Користи резервни код",
                 "use_totp": "Користи аутентификатор",
-                "code_required": "Verification code is required"
+                "code_required": "Потребан је верификациони код"
             },
             "welcome_title": "Добродошли натраг",
             "welcome_subtitle": "Пријавите се да бисте приступили свом инвентару",
@@ -259,7 +267,7 @@
                 "email_verification": {
                     "title": "📧 Потребна верификација е-поште",
                     "message": "Рачун је креиран! Молимо вас да потврдите своју адресу е-поште за пријаву.",
-                    "step_1": "We sent a verification email to <1>{{email}}</1>.",
+                    "step_1": "Послали смо верификациони имејл на <1>{{емаил}}</1>.",
                     "step_2": "Кликните на <1>\"Потврди мој рачун\"</1> гумб у е-маилу.",
                     "step_3": "Након верификације, <1>можете се пријавити</1>.",
                     "spam_note": "Провјерите мапу спам/безвриједне поште ако е-маил не стигне.",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "Поновно унесите лозинку",
             "reset_submit": "Поништи лозинку",
             "resetting": "Поништавање...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Унесите своје корисничко име или емаил"
         },
         "reset_password": {
             "title": "Поништи лозинку",
@@ -330,7 +338,7 @@
             "title": "Створи кључ за опоравак",
             "subtitle": "Док се ово не доврши, ваш рачун се не сматра сигурним за локални опоравак лозинке.",
             "warning": "Овај ће кључ бити приказан само једном. Спремите га у управитеља лозинки или друго сигурно оффлине мјесто.",
-            "account": "A recovery key will be created for account {{username}}.",
+            "account": "Кључ за опоравак ће бити креиран за налог {{корисничко име}}.",
             "description": "Будући да је е-пошта онемогућена, убудуће ћете моћи ресетирати лозинку само помоћу овог кључа.",
             "submit": "Створи кључ за опоравак",
             "generating": "Стварање..."
@@ -350,10 +358,10 @@
             "storage_hint": "Спремите ово у ваш управитељ лозинки или неку другу сигурну оффлине локацију.",
             "copied": "Копирано"
         },
-        "password_requirements": "Use at least {{min}} characters with uppercase, lowercase, number, and symbol.",
+        "password_requirements": "Користите најмање {{мин}} знакова са великим, малим словима, бројем и симболом.",
         "logout": "Одјава",
         "logging_in": "Пријава...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "Добро дошли у {{брандНаме}}",
         "username_email": "Корисничко име или е-пошта",
         "username": "Корисничко име",
         "email": "Е-пошта",
@@ -438,10 +446,12 @@
         "logout_aria": "Одјавите се са свог рачуна",
         "logout_title": "Одјавити се?",
         "logout_description": "Бит ћете враћени на екран за пријаву и морат ћете се поновно пријавити како бисте управљали залихама у кућанству.",
-        "logout_warning": "Користите ово када завршите на заједничком или особном уређају."
+        "logout_warning": "Користите ово када завршите на заједничком или особном уређају.",
+        "maintenance": "Raspored održavanja",
+        "shopping": "Popis za kupnju"
     },
     "dashboard": {
-        "welcome": "Welcome back, <1>{{name}}</1>",
+        "welcome": "Добро дошли назад, <1>{{наме}}</1>",
         "subtitle": "Преглед твог инвентара",
         "quick_search": "Qуицк Сеарцх",
         "filters": {
@@ -486,18 +496,18 @@
         },
         "top_bar": {
             "beta": "Бета",
-            "items_tracked": "Tracked items: {{count}}",
-            "total_quantity": "Total quantity: {{count}}",
-            "shared_items": "Shared items: {{count}}",
-            "borrowed_now": "On loan now: {{count}}",
+            "items_tracked": "Праћене ставке: {{цоунт}}",
+            "total_quantity": "Укупна количина: {{цоунт}}",
+            "shared_items": "Дељене ставке: {{цоунт}}",
+            "borrowed_now": "Сада на позајмици: {{цоунт}}",
             "status_empty": "Спремно за ваш први предмет"
         },
         "header": {
             "eyebrow": "Подијељени инвентар",
-            "title_ready": "Household inventory for {{name}}",
+            "title_ready": "Инвентар домаћинства за {{наме}}",
             "title_empty": "Започните инвентар свог домаћинства",
-            "summary_ready": "{{count}} items are already tracked across {{rooms}} rooms. Search the list, add the next item, or keep private records separate.",
-            "summary_ready_no_rooms": "{{count}} items are already tracked. Add rooms to keep locations and search clearer.",
+            "summary_ready": "Ставке ({{цоунт}}) се већ прате у {{роомс}} собама.",
+            "summary_ready_no_rooms": "{{цоунт}} ставки је већ праћено.",
             "summary_empty": "Додајте први предмет како бисте откључали претрагу, повијест просторије и јасније праћење кућанства."
         },
         "search_panel": {
@@ -528,8 +538,8 @@
             "see_all": "Отвори инвентар",
             "untitled_item": "Непознати предмет",
             "location_fallback": "Додајте собу или локацију како би овај предмет било лакше пронаћи",
-            "quantity": "Qty {{count}}",
-            "added_on": "Added {{date}}"
+            "quantity": "Количина {{цоунт}}",
+            "added_on": "Додато {{датум}}"
         },
         "visibility": {
             "public": "Подијељено",
@@ -565,38 +575,51 @@
         "no_items_filter": "Нема предмета који одговарају овом филтеру",
         "manage": "Управљај",
         "add_item": "Додај предмет",
-        "search_item": "Тражи предмет"
+        "search_item": "Тражи предмет",
+        "alerts": {
+            "expired_title": "Predmeti su istekli!",
+            "expired_desc": "U vašem inventaru nalazi se {{count}} istekaoih predmeta. Provjerite ih radi svoje sigurnosti.",
+            "view_items": "Pogledajte predmete",
+            "maintenance_title": "Zakašnjeli zadaci održavanja!",
+            "maintenance_desc": "Postoji {{count}} zakašnjelih zadataka održavanja. Izvršite održavanje kako biste produžili vijek trajanja svojih uređaja.",
+            "go_to_maintenance": "Idite na Održavanje",
+            "low_stock_title": "Upozorenje na nizak inventar",
+            "low_stock_desc": "{{count}} stavki je palo ispod vašeg minimalnog limita zaliha.",
+            "go_to_shopping": "Popis za kupovinu",
+            "close_expiry_title": "Nadolazeći datumi isteka",
+            "close_expiry_desc": "{{count}} proizvoda će isteći u roku od 30 dana."
+        }
     },
     "beta_banner": {
         "title": "БЕТА:",
-        "text": "{{brandName}} is currently in testing and hobby phase. No guarantee is given for data persistence or security. Please keep backups of important information.",
+        "text": "{{брандНаме}} је тренутно у фази тестирања и хобија.",
         "contact": "Контакт:",
         "badge": "Бета",
         "aria_label": "Бета обавијест",
         "tooltip": "Значајке раног приступа још се могу мијењати."
     },
     "footer": {
-        "rights": "© {{year}} {{brandName}} - All rights reserved",
+        "rights": "© {{иеар}} {{брандНаме}} - Сва права задржана",
         "contact": "Контакт:"
     },
     "settings": {
         "title": "Поставке",
         "subtitle": "Управљај поставкама апликације",
         "messages": {
-            "house_switched": "{{name}} activated!",
+            "house_switched": "{{наме}} је активирано!",
             "house_switch_error": "Неуспјело пребацивање куће",
             "house_joined_success": "Успјешно сте се придружили кући!",
             "house_join_error": "Неуспјело придруживање кући",
-            "house_created_success": "\"{{name}}\" created!",
+            "house_created_success": "„{{наме}}“ је направљено!",
             "house_create_error": "Неуспјело стварање куће",
             "house_left_success": "Успјешно напуштена кућа",
             "house_left_error": "Неуспјело напуштање куће",
-            "house_leave_confirm": "Are you sure you want to leave \"{{name}}\"?",
-            "backup_downloaded": "Backup downloaded successfully! ({{count}} items)",
+            "house_leave_confirm": "Да ли сте сигурни да желите да напустите „{{наме}}“?",
+            "backup_downloaded": "Резервна копија је успешно преузета!",
             "export_error": "Дошло је до погрешке тијеком извоза",
             "import_invalid_format": "Неисправан формат сигурносне копије",
-            "import_success": "{{items}} items, {{categories}} categories, {{rooms}} rooms, {{locations}} locations added.",
-            "import_error": "Import error: {{error}}",
+            "import_success": "{{итемс}} ставки, {{цатегориес}} категорије, {{роомс}} собе, {{лоцатионс}} локације су додате.",
+            "import_error": "Грешка при увозу: {{еррор}}",
             "password_changed": "Лозинка је успјешно промијењена!",
             "password_error_current": "Тренутна лозинка није исправна",
             "password_error_invalid": "Послани неисправни подаци",
@@ -614,13 +637,13 @@
             "request_approved": "Захјев за придруживање одобрен",
             "request_rejected": "Захјев за придруживање одбијен",
             "request_action_error": "Није могуће ажурирати захтјев",
-            "member_kick_confirm": "Are you sure you want to remove \"{{name}}\" from the house?",
+            "member_kick_confirm": "Да ли сте сигурни да желите да уклоните „{{наме}}“ из куће?",
             "member_kicked": "Члан је уклоњен из куће",
             "member_kick_error": "Није могуће уклонити члана из куће",
             "recovery_key_regenerated": "Кључ за опоравак је поновно генериран",
             "recovery_key_error": "Није могуће поновно генерирати кључ за опоравак",
             "account_delete_error": "Рачун није могао бити избрисан",
-            "backup_downloaded_encrypted": "Encrypted backup downloaded successfully! ({{count}} items)"
+            "backup_downloaded_encrypted": "Шифрована резервна копија је успешно преузета!"
         },
         "user_profile": {
             "edit_username": "Промијени корисничко име"
@@ -634,27 +657,27 @@
             "no_house": "Још нисте члан ниједног дома",
             "owner": "Власник",
             "active": "Активно",
-            "member_count": "{{count}} members",
-            "item_count": "{{count}} items",
+            "member_count": "{{цоунт}} чланова",
+            "item_count": "{{цоунт}} ставки",
             "switch": "Постави као активно",
             "leave": "Напусти дом",
             "info": "Можете бити члан више кућа и пребацивати се између њих. Свако кућанство води властити инвентар.",
             "accordion_description": "Пребаци се између кућанстава, створи ново или се придружи постојећем с поузданим кључем.",
             "empty_description": "Направите нови дом како бисте почели дијелити, или се придружите постојећем уз поуздани кључ дома.",
             "leave_success_body": "Ви више немате приступ овом кућанству, а ваша активна кућа је освјежена.",
-            "leave_title": "Leave this house?",
-            "leave_warning": "You will lose access to this household workspace until another member invites or approves you again.",
-            "leaving": "Leaving..."
+            "leave_title": "Напустити ову кућу?",
+            "leave_warning": "Изгубићете приступ овом радном простору домаћинства док вас други члан поново не позове или одобри.",
+            "leaving": "Одлазак..."
         },
         "house_info": {
             "title": "Активни кључ куће",
             "key_label": "Кључ куће",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{суфикс}}",
             "hide": "Сакриј",
             "show": "Прикажи",
             "copy": "Копирај",
             "share_info": "💡 Корисници с којима дијелите овај кључ могу приступити вашем инвентару користећи опцију \"Придружи се кући\" тијеком регистрације.",
-            "members_title": "House Members ({{count}})",
+            "members_title": "Чланови Дома ({{цоунт}})",
             "you": "(Ви)",
             "joined_at": "Придружио се: __ВАР_6__",
             "no_members": "Још нема других чланова",
@@ -687,10 +710,10 @@
             "modal_title": "Приступ кључу куће",
             "modal_subtitle": "Користите овај кључ само за поуздане чланове кућанства који би требали затражити приступ овом заједничком инвентару.",
             "loading_members": "Учитавање чланова...",
-            "kick_success_body": "{{name}} no longer has access to this household.",
-            "kick_title": "Remove this member?",
-            "kick_warning": "Their household access will end immediately and they will need a new invitation or approval to return.",
-            "kicking": "Removing..."
+            "kick_success_body": "{{наме}} више нема приступ овом домаћинству.",
+            "kick_title": "Уклонити овог члана?",
+            "kick_warning": "Приступ њиховом домаћинству ће одмах престати и биће им потребан нови позив или одобрење за повратак.",
+            "kicking": "Уклањање..."
         },
         "theme": {
             "title": "Тема",
@@ -737,19 +760,19 @@
             "import_encrypted_title": "Откључај шифрирану сигурносну копију",
             "import_encrypted_body": "Унесите сигурносну лозинку кориштену тијеком преузимања како бисте вратили ову шифрирану датотеку.",
             "unlock_and_import": "Откључај и увези",
-            "export_encrypted_notice": "The backup is prepared from live household data and then wrapped with the passphrase you choose. Keep that passphrase somewhere safe because it is required to restore the file later.",
-            "export_encrypted_title": "Encryption will be applied before download",
-            "import_summary_body": "{{items}} items, {{categories}} categories, {{rooms}} rooms, {{locations}} locations, {{borrows}} borrow records restored.",
-            "import_summary_title": "Backup restored",
+            "export_encrypted_notice": "Резервна копија се припрема од живих података о домаћинству, а затим се умотава у приступну фразу коју одаберете.",
+            "export_encrypted_title": "Шифровање ће бити примењено пре преузимања",
+            "import_summary_body": "{{итемс}} ставки, {{цатегориес}} категорије, {{роомс}} собе, {{локације}} локације, {{посуђује}} записи о позајмљивању су враћени.",
+            "import_summary_title": "Резервна копија је враћена",
             "preview_categories": "Категорије",
             "preview_items": "Инвентар",
             "preview_locations": "Локације",
             "preview_rooms": "Собе",
-            "skipped_borrows": "{{count}} existing borrow records skipped.",
-            "skipped_categories": "{{count}} existing categories skipped.",
-            "skipped_items": "{{count}} existing items skipped.",
-            "skipped_locations": "{{count}} existing locations skipped.",
-            "skipped_rooms": "{{count}} existing rooms skipped."
+            "skipped_borrows": "Прескочено је {{цоунт}} постојећих записа о позајмљивању.",
+            "skipped_categories": "Прескочено је {{цоунт}} постојећих категорија.",
+            "skipped_items": "Прескочених постојећих ставки: {{цоунт}}.",
+            "skipped_locations": "Прескочено је {{цоунт}} постојећих локација.",
+            "skipped_rooms": "Прескочено је {{цоунт}} постојећих соба."
         },
         "about": {
             "title": "О апликацији",
@@ -761,11 +784,11 @@
             "terms_link": "Увјети кориштења",
             "privacy_link": "Правила приватности",
             "beta_title": "Статус Бета",
-            "beta_body": "{{brandName}} is still in beta. Features can change, workflows may evolve, and important household data should always be backed up.",
-            "feedback_subject": "Feedback - {{brandName}}",
-            "logout_body": "Any unsaved changes in open forms may be lost after you leave this session.",
-            "logout_description": "You will return to the home page and can sign back in anytime.",
-            "logout_title": "Log out now?"
+            "beta_body": "{{брандНаме}} је још увек у бета верзији.",
+            "feedback_subject": "Повратне информације – {{брандНаме}}",
+            "logout_body": "Све несачуване промене у отвореним обрасцима могу бити изгубљене након што напустите ову сесију.",
+            "logout_description": "Вратићете се на почетну страницу и можете се поново пријавити у било које време.",
+            "logout_title": "Одјавити се сада?"
         },
         "modals": {
             "password": {
@@ -856,7 +879,7 @@
             "close_codes": "Догађаји",
             "revoke_devices": "Опозив поузданих уређаја",
             "revoke_devices_desc": "Уклоните све запамћене уређаје, захтева 2ФА на следећем пријављивања",
-            "devices_revoked": "{{count}} trusted device(s) removed",
+            "devices_revoked": "Уклоњених поузданих уређаја: {{цоунт}}",
             "devices_error": "Фаилед то опозвати уређаје"
         },
         "danger_zone": {
@@ -906,9 +929,9 @@
         },
         "language_description": "Примените један језик преко навигације, ознака и правног текста.",
         "language_updated_title": "Језик је ажуриран",
-        "language_updated_body": "{{language}} is now active. Reload is only needed if another open tab still shows older text.",
-        "select_language_tooltip": "Change language. Current: {{language}}",
-        "select_language_aria": "Select language. Current: {{language}}",
+        "language_updated_body": "{{лангуаге}} је сада активан.",
+        "select_language_tooltip": "Промени језик.",
+        "select_language_aria": "Изаберите језик.",
         "frequently_used": "Често кориштено",
         "other_languages": "Отхер Лангуагес",
         "no_language_found": "Лангуаге нот фоунд",
@@ -933,7 +956,7 @@
     },
     "inventory": {
         "title": "Инвентар",
-        "subtitle": "{{count}} items found",
+        "subtitle": "Пронађено је {{цоунт}} ставки",
         "new_item": "Нови предмет",
         "add_first": "Додај први предмет",
         "search_placeholder": "Претражи предмете...",
@@ -952,9 +975,9 @@
             "section_title": "Праћење посудбе",
             "section_subtitle": "Тренутни статус зајма и повијест",
             "dialog_lend_title": "Посуди ставку",
-            "dialog_lend_subtitle": "Create a new borrow record for \"{{item}}\"",
+            "dialog_lend_subtitle": "Направите нови запис о позајмљивању за „{{итем}}“",
             "dialog_return_title": "Означи као враћено",
-            "dialog_return_subtitle": "Close the active borrow record for \"{{item}}\"",
+            "dialog_return_subtitle": "Затворите активну евиденцију позајмљивања за „{{итем}}“",
             "member": "Члан куће",
             "external": "Вањска особа",
             "borrower_member": "Тко је то примио?",
@@ -976,27 +999,27 @@
             "unknown": "Непознато",
             "overdue_badge": "Кашњење",
             "borrowed_badge": "Посуђено",
-            "borrowed_to": "With {{name}}",
-            "due_date_short": "Due: {{date}}",
+            "borrowed_to": "Са {{наме}}",
+            "due_date_short": "Рок: {{дате}}",
             "actions_error": "Посудба није могла бити довршена",
-            "borrowed_at": "Lent on: {{date}}",
-            "due_date_label": "Expected return: {{date}}",
-            "note_label": "Note: {{note}}",
-            "return_note_label": "Return note: {{note}}",
+            "borrowed_at": "Позај на: {{дате}}",
+            "due_date_label": "Очекивани повратак: {{дате}}",
+            "note_label": "Напомена: {{напомена}}",
+            "return_note_label": "Врати белешку: {{ноте}}",
             "no_active": "Овај предмет тренутно није посуђен.",
             "history_title": "Повијест",
-            "history_active": "Open record for {{name}}",
-            "history_returned": "Closed record for {{name}}",
-            "returned_at": "Returned on: {{date}}",
+            "history_active": "Отвори запис за {{наме}}",
+            "history_returned": "Затворен рекорд за {{наме}}",
+            "returned_at": "Враћено: {{дате}}",
             "no_history": "За овај предмет још нема повијести посудбе.",
             "lend_success_title": "Ставка посуђена",
-            "lend_success_body": "{{item}} is now marked as borrowed.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
-            "borrowed_by_you": "With you",
-            "return_pending_hint": "The record will close after the lender confirms they received the item back.",
-            "return_pending_lender_title": "{{name}} marked this item as delivered back",
-            "return_pending_self_title": "With you, waiting for receipt confirmation"
+            "lend_success_body": "{{итем}} је сада означен као позајмљен.",
+            "offer_sent_title": "Понуда за позајмицу је послата",
+            "offer_sent_body": "{{итем}} ће бити означено као позајмљено након што други члан прихвати.",
+            "borrowed_by_you": "Са тобом",
+            "return_pending_hint": "Запис ће се затворити након што зајмодавац потврди да је вратио предмет.",
+            "return_pending_lender_title": "{{наме}} је означио ову ставку као враћену",
+            "return_pending_self_title": "Са вама, чекамо потврду пријема"
         },
         "untitled_item": "Ставка без наслова",
         "delete_action": "Избриши ставку",
@@ -1016,7 +1039,7 @@
     },
     "categories": {
         "title": "Категорије",
-        "subtitle": "{{count}} categories",
+        "subtitle": "{{цоунт}} категорија",
         "new_category": "Нова категорија",
         "edit_title": "Уреди категорију",
         "new_title": "Нова категорија",
@@ -1061,12 +1084,12 @@
         "add_error": "Еррор аддинг",
         "update_error": "Еррор упдатинг",
         "color_required": "Боја мора бити у формату #RRGGBB",
-        "empty_description": "Create a few categories so new items follow the same structure and are easier to scan later.",
-        "empty_title": "No categories yet"
+        "empty_description": "Направите неколико категорија тако да нове ставке прате исту структуру и да их је касније лакше скенирати.",
+        "empty_title": "Још нема категорија"
     },
     "rooms": {
         "title": "Собе",
-        "subtitle": "{{count}} rooms",
+        "subtitle": "{{цоунт}} соба",
         "new_room": "Нова соба",
         "edit_title": "Уреди собу",
         "new_title": "Нова соба",
@@ -1137,8 +1160,8 @@
         "load_error": "Еррор лоадинг",
         "add_error": "Еррор аддинг",
         "update_error": "Еррор упдатинг",
-        "empty_description": "Create rooms like kitchen, storage, or garage so item locations stay consistent and easier to search.",
-        "empty_title": "No rooms yet"
+        "empty_description": "Направите просторије као што су кухиња, остава или гаража како би локације предмета остале доследне и лакше за претраживање.",
+        "empty_title": "Још нема соба"
     },
     "admin": {
         "title": "Администраторска плоча",
@@ -1152,13 +1175,13 @@
         },
         "stats": {
             "total_users": "Укупно корисника",
-            "new_today": "Today: +{{count}} new",
+            "new_today": "Данас: +{{цоунт}} нових",
             "total_inventory": "Укупни инвентар",
-            "inventory_details": "{{rooms}} rooms, {{categories}} categories",
+            "inventory_details": "{{роомс}} собе, {{цатегориес}} категорије",
             "banned_users": "Забрањени корисници",
             "access_blocked": "Приступ блокиран",
             "server_memory": "Меморија сервера",
-            "uptime": "Uptime: {{hours}} hours"
+            "uptime": "Време рада: {{хоурс}} сати"
         },
         "users": {
             "user": "Корисник",
@@ -1170,12 +1193,12 @@
             "unban": "Уклони забрану",
             "ban": "Забрани",
             "delete": "Избриши рачун",
-            "confirm_ban": "Are you sure you want to {{status}} this user?",
+            "confirm_ban": "Да ли сте сигурни да желите да {{статус}} овог корисника?",
             "ban_lift": "одблокирај",
             "ban_apply": "блокирај",
-            "confirm_delete_1": "Are you sure you want to delete user \"{{username}}\"?",
-            "confirm_delete_2": "⚠️ WARNING: This will PERMANENTLY delete ALL data (inventories, rooms, categories) for user \"{{username}}\"!",
-            "confirm_delete_3": "🚨 FINAL WARNING: Account \"{{username}}\" and all data will be IRREVERSIBLY deleted. Do you want to continue?",
+            "confirm_delete_1": "Да ли сте сигурни да желите да избришете корисника „{{усернаме}}“?",
+            "confirm_delete_2": "⚠ УПОЗОРЕЊЕ: Ово ће ТРАЈНО избрисати СВЕ податке (инвентаре, собе, категорије) за корисника „{{усернаме}}“!",
+            "confirm_delete_3": "🚨 КОНАЧНО УПОЗОРЕЊЕ: Налог „{{усернаме}}“ и сви подаци биће неповратно избрисани.",
             "ban_action": "Забрани корисника",
             "unban_action": "Врати приступ кориснику",
             "ban_title": "Забрани овог корисника?",
@@ -1185,19 +1208,19 @@
             "unban_description": "Обнављање приступа омогућава овом кориснику поновно пријављивање.",
             "unban_warning": "Корисник поновно добива приступ при сљедећој успјешној пријави.",
             "delete_title": "Избрисати овај рачун?",
-            "delete_description": "Deleting {{username}} permanently removes the account and its owned inventory data.",
+            "delete_description": "Брисањем {{усернаме}} трајно се уклањају налог и подаци о инвентару у његовом власништву.",
             "delete_warning": "Ова радња је неповратна и уклања собе, категорије, ставке и повезану повијест власништва везану уз овај рачун.",
             "ban_success_title": "Корисник забрањен",
-            "ban_success_body": "{{username}} has been blocked from signing in.",
+            "ban_success_body": "{{усернаме}} је блокирано да се пријави.",
             "unban_success_title": "Приступ враћен",
-            "unban_success_body": "{{username}} can sign in again.",
+            "unban_success_body": "{{корисничко име}} може поново да се пријави.",
             "delete_success_title": "Рачун избрисан",
-            "delete_success_body": "{{username}} and the related owned data were permanently removed.",
+            "delete_success_body": "{{усернаме}} и повезани подаци у власништву су трајно уклоњени.",
             "section_title": "Контрола приступа корисника",
             "search_label": "Претражи кориснике",
             "search_placeholder": "Претражи по корисничком имену",
-            "filtered_total": "{{count}} visible accounts",
-            "total_platform": "{{count}} total accounts",
+            "filtered_total": "Видљивих налога: {{цоунт}}",
+            "total_platform": "Укупно налога: {{цоунт}}",
             "empty_title": "Нема подударних рачуна",
             "empty_body": "Покушајте с другачијом претрагом или филтром да бисте кориснике поновно приказали.",
             "filters": {
@@ -1218,11 +1241,11 @@
             "items_label": "Власништво над предметима",
             "last_seen_short": "Виђено",
             "last_seen_short_never": "Ново",
-            "failed_logins": "{{count}} failed sign-ins",
-            "load_failed_title": "Users could not load",
-            "pending_requests": "{{count}} pending house requests",
+            "failed_logins": "{{цоунт}} неуспешних пријављивања",
+            "load_failed_title": "Корисници нису могли да учитају",
+            "pending_requests": "{{цоунт}} стамбених захтева на чекању",
             "role_admin": "Администратори",
-            "role_user": "User"
+            "role_user": "Корисник"
         },
         "logs": {
             "title": "Дневници администратора",
@@ -1245,18 +1268,18 @@
                 "disable": "Онемогући"
             },
             "audit": {
-                "email_sent": "Recipient: {{recipient}} | Subject: {{subject}}",
-                "user_deleted": "User deleted: {{username}} | Deleted households: {{deletedHouses}} | Transferred ownerships: {{transferredOwnerships}}",
-                "user_target": "User: {{username}}",
-                "indexnow_submitted": "IndexNow submission successful. URL count: {{count}}"
+                "email_sent": "Прималац: {{прималац}} |",
+                "user_deleted": "Корисник је обрисан: {{корисничко име}} |",
+                "user_target": "Корисник: {{корисничко име}}",
+                "indexnow_submitted": "ИндекНов подношење је успешно."
             },
             "no_errors_title": "Нема недавних суставних погрешака",
             "section_eyebrow": "Ревизијски траг",
             "errors_eyebrow": "Дијагностика",
             "section_body": "Свака модерациона или оперативна промена белези се у администраторском слоју.",
             "errors_body": "Најновији парсирани редови гресака из серверских лог фајлова.",
-            "load_failed_title": "Activity could not load",
-            "no_logs_title": "No admin actions yet"
+            "load_failed_title": "Учитавање активности није успело",
+            "no_logs_title": "Још нема радњи администратора"
         },
         "email": {
             "title": "Пошаљи е-пошту",
@@ -1271,19 +1294,19 @@
             "compose_eyebrow": "Порука",
             "compose_body": "Саставите један одлазни е-маил с сигурним ХТМЛ форматирањем и брендирањем платформе.",
             "security_title": "Сигурно слање",
-            "security_body": "Admin: {{username}} • Limit: {{remaining}}/3 emails per minute",
+            "security_body": "Администратор: {{корисничко име}} • Ограничење: {{преостало}}/3 е-порука у минути",
             "from_unconfigured": "Доступно након постављања поште",
             "notes_label": "Напомена о упораби",
             "notes_body": "Користите ово за оперативну подршку или контакт у вези рачуна. Осјетљив садржај треба остати унутар апликације кад год је то могуће.",
-            "notes_body_with_rate_limit": "Use this for operational support or account-related outreach. Sensitive content should stay inside the app whenever possible. Current sending safeguard: {{rateLimit}}.",
+            "notes_body_with_rate_limit": "Користите ово за оперативну подршку или контакт у вези са налогом.",
             "rate_limit_fallback": "3 е-маила по минути",
             "placeholder_to": "име@примјер.цом",
             "placeholder_subject": "Предмет поруке",
-            "send_success_with_id": "✅ Email sent successfully! ID: {{emailId}}",
+            "send_success_with_id": "✅ Е-пошта је успешно послата!",
             "send_error": "Е-маил није могуће послати",
             "rate_limit_reached": "⏳ Досегнут је ограничење брзине. Молимо причекајте 1 минуту.",
             "info_title": "Информације",
-            "info_bullet_1": "Emails are sent from {{supportEmail}}",
+            "info_bullet_1": "Имејлови се шаљу са {{суппортЕмаил}}",
             "info_bullet_2": "Можете послати највише 3 е-маила по минути како бисте спријечили спам",
             "info_bullet_3": "Сви се слања биљеже ради сигурности, осим садржаја",
             "status_title": "Статус одлазне е-поште",
@@ -1291,13 +1314,13 @@
             "unconfigured_title": "Достава е-поште није конфигурирана",
             "unconfigured_body": "Образац за слање остаје видљив за преглед поставки, али достава ће неуспјети док даватељ поште није конфигуриран.",
             "status_eyebrow": "Достава",
-            "configured_body": "Resend is available for admin-triggered outbound messages.",
-            "configured_title": "Email delivery is configured",
-            "error_title": "Email failed",
-            "format_hint": "HTML is supported. For example: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
-            "from_label": "Sender",
-            "load_failed_title": "Email tools could not load",
-            "success_title": "Email sent"
+            "configured_body": "Поновно слање је доступно за одлазне поруке које покреће администратор.",
+            "configured_title": "Испорука е-поште је конфигурисана",
+            "error_title": "Е-пошта није успела",
+            "format_hint": "ХТМЛ је подржан.",
+            "from_label": "Сендер",
+            "load_failed_title": "Алати за е-пошту нису могли да се учитају",
+            "success_title": "Е-пошта је послата"
         },
         "overview": {
             "email_warning_title": "Слање е-поште није конфигурирано",
@@ -1338,30 +1361,30 @@
             },
             "email_warning_body": "Администратори и даље могу прегледавати платформу, али радње слања е-поште тренутно нису доступне док се __КЕЕП_5__ не конфигурира.",
             "locked_users_title": "Закључани рачуни требају преглед",
-            "locked_users_body": "{{count}} account(s) are currently blocked from signing in.",
+            "locked_users_body": "{{цоунт}} налога(а) је тренутно блокирано за пријављивање.",
             "pending_requests_title": "Одобрења кућанстава су на чекању",
-            "pending_requests_body": "{{count}} join request(s) are waiting for an owner decision.",
+            "pending_requests_body": "Захтеви за придруживање ({{цоунт}}) чекају на одлуку власника.",
             "cards": {
                 "accounts": "Рачуни",
-                "accounts_body": "{{count}} new signups in the last 7 days",
-                "admins_chip": "{{count}} admins",
-                "banned_chip": "{{count}} banned",
+                "accounts_body": "{{цоунт}} нових регистрација у последњих 7 дана",
+                "admins_chip": "{{цоунт}} администратора",
+                "banned_chip": "{{цоунт}} је забрањено",
                 "households": "Кућанства",
-                "households_body": "{{count}} active memberships across the platform",
-                "pending_chip": "{{count}} pending",
+                "households_body": "{{цоунт}} активних чланстава широм платформе",
+                "pending_chip": "{{цоунт}} на чекању",
                 "inventory": "Евиденције инвентара",
-                "inventory_body": "{{count}} active borrows currently open",
-                "public_items_chip": "{{count}} shared",
-                "private_items_chip": "{{count}} private",
+                "inventory_body": "Тренутно отворено {{цоунт}} активних позајмица",
+                "public_items_chip": "{{цоунт}} дели",
+                "private_items_chip": "{{цоунт}} приватно",
                 "system": "Стање сустава",
-                "system_body": "{{count}} hours uptime",
-                "storage_chip": "{{count}} MB uploads"
+                "system_body": "{{цоунт}} сати непрекидног рада",
+                "storage_chip": "{{цоунт}} МБ отпремања"
             }
         },
         "meta": {
-            "users_total": "{{count}} accounts",
-            "households_total": "{{count}} households",
-            "pending_requests": "{{count}} pending approvals",
+            "users_total": "{{цоунт}} налога",
+            "households_total": "{{цоунт}} домаћинстава",
+            "pending_requests": "{{цоунт}} одобрења на чекању",
             "pending_requests_clear": "Нема одобрења на чекању"
         },
         "refresh_complete_title": "Административни подаци су освјежени",
@@ -1383,8 +1406,8 @@
         "logs_loaded": "Логови учитани",
         "load_error": "Еррор лоадинг",
         "action_error": "Ацтион еррор",
-        "load_failed_body": "The admin route is open, but the overview data did not arrive. You can retry without leaving the page.",
-        "load_failed_title": "Admin overview could not load"
+        "load_failed_body": "Администраторска рута је отворена, али подаци прегледа нису стигли.",
+        "load_failed_title": "Учитавање администраторског прегледа није успело"
     },
     "landing": {
         "nav": {
@@ -1401,12 +1424,12 @@
             "cta_register": "Креирај рачун",
             "stat_free": "Бесплатно",
             "stat_access": "Приступ",
-            "free_badge": "Open Source",
+            "free_badge": "Опен Соурце",
             "badge": "__КЕЕП_0__ в2.0 је стигао",
             "cta_explore": "Истражи значајке",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Пријавите се",
+            "stat_members": "Заједничке куће",
+            "stat_vault": "Привате Ваулт"
         },
         "features": {
             "title": "Зашто <1>__ВАР_6__</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Чувајте предмете, јамства, важне документе и праћење посуђивања на једном мирном мјесту. Погледајте што ваш дом садржи на први поглед.",
                 "primaryCta": "Започни бесплатно",
                 "secondaryCta": "Погледајте производ",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Предложени ток: налог • дом • собе и категорије • ставке • резервна копија",
                 "searchPlaceholder": "Претражи предмет, собу или баркод"
             },
             "heroInventoryRows": [
@@ -1683,7 +1706,7 @@
         "found_local_msg": "Овај баркод је већ у вашем инвентару.",
         "found_online": "Производ пронађен!",
         "google_result": "⚡ Резултат претраживања на __КЕЕП_1__у - молимо провјерите",
-        "barcode": "Barcode: {{code}}",
+        "barcode": "Бар код: {{цоде}}",
         "new_product": "Нови производ",
         "not_found_db": "Овај баркод није пронађен у базама података.",
         "google_search": "Претражи на __КЕЕП_1__у",
@@ -1728,14 +1751,14 @@
         "privacy_summary": "Детаљи мреже остају скривени док не затребате упуте.",
         "link_privacy_note": "Мрежна адреса остаје овдје скривена. Скенирајте код или копирајте везу само када намјерно желите подијелити израван приступ ставци на својој локалној конфигурацији.",
         "helper": "Скенирајте за тренутно отварање овог предмета или копирајте изравну повезницу када је потребно.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
-        "loading": "Preparing QR tools..."
+        "copy_error_title": "Веза није могла бити аутоматски копирана",
+        "copy_manual_help": "Ваш претраживач није дозволио аутоматско копирање.",
+        "loading": "Припрема КР алата..."
     },
     "house_access_pending": {
         "eyebrow": "Приступ кући",
         "fallback_house": "Одабрана кућа",
-        "signed_in_as": "Signed in as {{username}}",
+        "signed_in_as": "Пријављен као {{корисничко име}}",
         "logout": "Одјава",
         "messages": {
             "create_error": "Није могуће створити кућу",
@@ -1744,8 +1767,8 @@
         },
         "pending": {
             "title": "Чекање на одобрење власника куће",
-            "description": "Your request for \"{{house}}\" is still waiting for a decision.",
-            "current_request": "Current pending request: {{house}}"
+            "description": "Ваш захтев за „{{хоусе}}“ још увек чека одлуку.",
+            "current_request": "Тренутни захтев на чекању: {{хоусе}}"
         },
         "no_house": {
             "title": "Тренутно нисте повезани с ниједном кућом",
@@ -1770,10 +1793,10 @@
     },
     "emails": {
         "verification": {
-            "subject": "🏠 {{brandName}} - 📧 Email Verification Required",
-            "headerTitle": "Welcome to {{brandName}}",
+            "subject": "🏠 {{брандНаме}} – 📧 Потребна је верификација е-поште",
+            "headerTitle": "Добро дошли у {{брандНаме}}",
             "headerSubtitle": "Израдите нови рачун или се придружите постојећем дому",
-            "greeting": "Welcome to {{brandName}}",
+            "greeting": "Добро дошли у {{брандНаме}}",
             "intro": "Рачун је створен! Молимо потврдите своју адресу е-поште како бисте се могли пријавити.",
             "verifyPrompt": "📧 Потврда е-поште је потребна",
             "verifyButton": "✓ Потврди мој рачун",
@@ -1790,13 +1813,13 @@
             ],
             "fallback": "Повезница за поништавање лозинке изгледа непотпуно или је оштећена.",
             "support": "Проблеми с регистрацијом:",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{брандНаме}}"
         },
         "welcome": {
-            "subject": "Welcome to {{brandName}}",
-            "headerTitle": "Welcome to {{brandName}}",
+            "subject": "Добро дошли у {{брандНаме}}",
+            "headerTitle": "Добро дошли у {{брандНаме}}",
             "headerSubtitle": "Израдите нови рачун или се придружите постојећем дому",
-            "greeting": "Welcome to {{brandName}}",
+            "greeting": "Добро дошли у {{брандНаме}}",
             "intro": "Добродошли, ! 👋",
             "houseKeyLabel": "Кућни кључ",
             "houseKeyNote": "Ово је ваш кључ од куће, користите га за позивање других. Додајте чланове обитељи у свој дом!",
@@ -1808,19 +1831,19 @@
                 "💡 Можете бити члан више кућа и пребацивати се између њих. Свака кућа има свој одвојени инвентар."
             ],
             "support": "Проблеми с регистрацијом:",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{брандНаме}}"
         },
         "houseJoinRequest": {
             "subject": "Придружи се кући",
             "greeting": "Приступ кући",
-            "bodyLine1Template": "{{username}} Send Request {{house}}",
+            "bodyLine1Template": "{{усернаме}} Пошаљи захтев {{хоусе}}",
             "bodyLine2": "Чекање на одобрење власника куће"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{брандНаме}} - {{статус}}",
             "greeting": "Приступ кући",
-            "bodyLine1Template": "Current pending request: {{house}} ({{status}})",
-            "bodyLine2": "Your request for \"{{house}}\" is still waiting for a decision.",
+            "bodyLine1Template": "Тренутни захтев на чекању: {{хоусе}} ({{статус}})",
+            "bodyLine2": "Ваш захтев за „{{хоусе}}“ још увек чека одлуку.",
             "statusLabels": {
                 "approved": "одобрено",
                 "rejected": "одбијено",
@@ -1830,7 +1853,7 @@
         "houseKick": {
             "subject": "Члан уклоњен из куће",
             "greeting": "Приступ кући",
-            "bodyLine1Template": "Are you sure you want to remove \"{{name}}\" from the house?",
+            "bodyLine1Template": "Да ли сте сигурни да желите да уклоните „{{наме}}“ из куће?",
             "bodyLine2": "Креирајте нову кућу или пошаљите захтјев за придруживање постојећој."
         },
         "passwordReset": {
@@ -1842,21 +1865,21 @@
             "warningTitle": "⚠️",
             "warningBody": "Ако рачун постоји, веза за ресетирање лозинке која вриједи 15 минута је послана.",
             "fallback": "Повезница за поништавање лозинке изгледа непотпуно или је оштећена.",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{брандНаме}}"
         },
         "adminEmail": {
-            "sentBy": "This email was sent by {{brandName}}.",
-            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
+            "sentBy": "Ову е-пошту је послао {{брандНаме}}.",
+            "footer": "© 2026. {{брандНаме}} - {{суппортЕмаил}}"
         },
         "testEmail": {
-            "subject": "🧪 {{brandName}} Test Email",
+            "subject": "🧪 {{брандНаме}} Тест е-поште",
             "headerTitle": "🧪 Тестни Емаил",
             "successTitle": "Сустав е-поште ради",
-            "successBody": "If you received this email, {{brandName}} email delivery is configured correctly.",
+            "successBody": "Ако сте примили ову е-пошту, испорука е-поште {{брандНаме}} је исправно конфигурисана.",
             "sentAtLabel": "Послано у",
             "senderLabel": "Пошиљатељ",
             "serviceLabel": "Услуга",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{брандНаме}}"
         }
     },
     "vault": {
@@ -1918,12 +1941,12 @@
             "options_failed": "Опције категорије и собе нису се могле учитати.",
             "delete_success_title": "Запис у трезору обрисан",
             "delete_success_body": "Приватни запис је трајно уклоњен из вашег трезора.",
-            "passphrase_lowercase": "Include at least one lowercase letter.",
-            "passphrase_min_length": "Vault passphrase must be at least 12 characters.",
-            "passphrase_number": "Include at least one number.",
-            "passphrase_uppercase": "Include at least one uppercase letter."
+            "passphrase_lowercase": "Укључите најмање једно мало слово.",
+            "passphrase_min_length": "Приступна фраза трезора мора да има најмање 12 знакова.",
+            "passphrase_number": "Укључите бар један број.",
+            "passphrase_uppercase": "Укључите најмање једно велико слово."
         },
-        "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
+        "recovery_file_title": "{{брандНаме}} Лични кључ за опоравак трезора",
         "recovery_file_created_label": "Направљено",
         "recovery_file_key_label": "Кључ за опоравак",
         "recovery_file_warning": "Ако изгубите и овај кључ и лозинку вашег трезора, трезор се не може опоравити.",
@@ -1944,14 +1967,14 @@
             "viewer_failed": "Фотографија пуног формата није се могла отворити.",
             "open_full_action": "Отвори пуну величину",
             "unsupported": "Молимо одаберите подржану сликовну датотеку.",
-            "source_too_large": "Source photos can be up to {{maxSizeMb}} MB.",
+            "source_too_large": "Изворне фотографије могу да имају до {{макСизеМб}} МБ.",
             "prepare_failed": "Фотографија није могла бити сигурно припремљена.",
             "too_large": "Фотографија се није уклопила унутар сигурног ограничења величине. Покушајте с мањом или једноставнијом сликом."
         }
     },
     "borrow_requests": {
         "title": "Центар посудбе",
-        "subtitle": "Manage requests and offers with other {{brandName}} users.",
+        "subtitle": "Управљајте захтевима и понудама са другим корисницима {{брандНаме}}.",
         "incoming_title": "Долазно",
         "incoming_subtitle": "Захтјеви и понуде послане вама",
         "outgoing_title": "Послао/ла ја",
@@ -1967,10 +1990,10 @@
             "title": "Активно",
             "subtitle": "Предмети који су тренутачно код вас или које сте посудили",
             "empty": "Тренутно нема активних посудби.",
-            "borrowed_from": "Borrowed from {{name}}",
-            "lent_to": "Currently with {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "borrowed_from": "Позајмљено од {{наме}}",
+            "lent_to": "Тренутно са {{наме}}",
+            "return_pending_borrower": "Чека се да зајмодавац потврди да су га вратили.",
+            "return_pending_lender": "{{наме}} је означио ову ставку као враћену.",
             "empty_title": "Тренутно нема активних посудби",
             "empty_description": "Прихваћени захтјеви појављују се овдје након што је предмет посуђен или посуђен, заједно с роковима и статусом поврата."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Отказано",
             "expired": "Истекло",
             "returned": "Враћено",
-            "return_pending": "Return pending"
+            "return_pending": "Повратак на чекању"
         },
         "actions": {
             "send_request": "Затражи ставку",
@@ -1990,24 +2013,24 @@
             "reject": "Одбиј",
             "cancel": "Откажи",
             "fulfill_request": "Испуни захтјев",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Марк испоручен",
+            "mark_received": "Марк је примио",
             "open_inventory": "Отвори инвентар"
         },
         "labels": {
             "offer": "Понуда",
             "request": "Захтјев",
             "unspecified_item": "Неспецифицирани предмет",
-            "counterparty": "Counterparty: {{name}}",
-            "created_at": "Created: {{date}}",
-            "due_date": "Expected return: {{date}}",
+            "counterparty": "Друга страна: {{наме}}",
+            "created_at": "Направљено: {{дате}}",
+            "due_date": "Очекивани повратак: {{дате}}",
             "waiting_delivery": "Захтјев можда још увијек чека одговарајући рачун прије него што се прикаже.",
-            "returned_on": "Returned on: {{date}}",
-            "borrow_started": "Started: {{date}}"
+            "returned_on": "Враћено: {{дате}}",
+            "borrow_started": "Почело: {{датум}}"
         },
         "dialogs": {
             "offer_title": "Пошаљи понуду",
-            "offer_subtitle_item": "Send a secure offer for \"{{item}}\".",
+            "offer_subtitle_item": "Пошаљите сигурну понуду за „{{итем}}“.",
             "offer_subtitle_general": "Одабери један од својих предмета и пошаљи сигурну понуду.",
             "item_label": "Предмет",
             "item_placeholder": "Одаберите предмет",
@@ -2023,24 +2046,24 @@
             "request_note_placeholder": "нпр. Требам га само два дана",
             "request_submitting": "Слање...",
             "fulfill_title": "Испуните захтјев",
-            "fulfill_subtitle": "Pick an item from your inventory for \"{{item}}\"",
-            "fulfill_target": "This item will be lent to {{name}}.",
+            "fulfill_subtitle": "Изаберите ставку из свог инвентара за „{{итем}}“",
+            "fulfill_target": "Ова ставка ће бити позајмљена {{наме}}.",
             "no_available_items": "Тренутно немате прикладан предмет за понудити из ове куће.",
             "fulfill_submitting": "Спремање...",
             "return_title": "Означи као враћено",
-            "return_subtitle": "Close the active borrow for \"{{item}}\"",
-            "return_target": "It is currently shown as being with {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_subtitle": "Затворите активну позајмицу за „{{итем}}“",
+            "return_target": "Тренутно је приказано као са {{наме}}.",
+            "return_title_borrower": "Испоручити предмет",
+            "return_title_lender": "Примите ставку",
+            "return_subtitle_borrower": "Затворите активну позајмицу за „{{итем}}“ након што је вратите.",
+            "return_subtitle_lender": "Затворите активну позајмицу за „{{итем}}“ након што је добијете назад.",
+            "return_target_borrower": "Зајмодавац: {{наме}}",
+            "return_target_lender": "Тренутно са: {{наме}}",
+            "return_note_borrower": "Доставница",
+            "return_note_lender": "Примите белешку",
+            "return_note_placeholder_borrower": "нпр.",
+            "return_note_placeholder_lender": "нпр.",
+            "return_submitting": "Затварање..."
         },
         "messages": {
             "load_error": "Центар за посудбу није се могао учитати",
@@ -2059,8 +2082,8 @@
     "legal": {
         "privacy_policy_title": "Правила приватности",
         "terms_of_service_title": "Увјети кориштења",
-        "privacy_policy_content": "## Overview\n**{{brandName}}** is open-source software and may be provided through an official or self-hosted installation. For this installation, the data controller or service operator is **{{controllerName}}**.\n- **Controller address:** {{controllerAddress}}\n- **Privacy contact:** {{privacyEmail}}\n- **General support contact:** {{supportEmail}}\n\nThis notice explains **what personal data is processed**, **how it is obtained**, **why it is processed**, **who may receive it**, **how long it is kept**, and **what rights you may have**.\n\nIf this installation is operated by a third party, that operator is responsible for any deployment-specific controller identity, support commitments, transfer details, retention settings, and local legal notices that apply.\n\n## What data we collect and process\n- **Account data:** username, email address, password hash, session cookies, trusted-device data, and security logs.\n- **Service data:** houses, rooms, categories, items, uploaded media, borrow requests, and personal vault records that you create.\n- **Technical data:** IP address, browser/session identifiers, and language preference data needed for localization and account security.\n- **Optional identity-provider data:** if you choose Google Sign-In, Google shares your email address, Google account identifier, and profile display name with us so we can authenticate you or create your account.\n- **Optional lookup-request data:** if you use barcode or product lookup, the barcode value you submit may be sent by our server to Open Food Facts, Open Products Facts, Open Beauty Facts, or Google so the requested result can be returned.\n\n## How we obtain data\n- **Directly from you:** when you register, sign in, create or edit records, upload media, configure security settings, or contact support.\n- **Automatically from your browser or device:** through required session cookies, trusted-device mechanisms, IP handling, language preference, and security logs needed to operate and protect the application.\n- **From Google:** only if you choose Google Sign-In, limited to the identity data required to authenticate you or create your account.\n- **From external product data sources:** only if you trigger barcode or product lookup, limited to the lookup request and returned product metadata.\n\n## Why we process it\n- **Account operation:** to create and operate your account.\n- **Authentication and security:** to authenticate you and secure sessions and two-factor authentication.\n- **Core features:** to provide inventory, backup, and Personal Vault features.\n- **Support:** to respond to support requests.\n- **Optional sign-in and lookup features:** to complete Google Sign-In and external barcode/product lookup only when you choose those features.\n- **Legal and security obligations:** to satisfy legal or security obligations.\n\n## Legal basis and collection method\n- **Under GDPR, where applicable:** processing is based on contract performance, legal obligations, consent for any consent-based feature, and the operator's legitimate interest in service and account security.\n- **Under KVKK, where applicable:** processing is based on the legal grounds in Articles 5 and 6, including where necessary for the establishment or performance of a contract, compliance with legal obligations, exercise or protection of rights, or the controller's legitimate interests provided your fundamental rights and freedoms are not harmed.\n- **Collection method:** data is collected by electronic means through forms, authenticated sessions, required cookies, optional OAuth flows, application logs, uploads, and API requests.\n\n## Storage and transfer\n- **We do not sell personal data.**\n- Personal data may be received by the hosting, database, storage, email, authentication, and infrastructure providers used to operate this installation.\n- If you choose Google Sign-In or barcode/product lookup, the relevant authentication or lookup data is shared with the selected provider only to complete the feature you triggered.\n- Data may be disclosed to courts, regulators, or public authorities when legally required.\n- **Transfer disclosure for this installation:** {{transferDisclosure}}\n- Account data is retained while your account is active.\n- When you delete your account from Settings, your account data, personal vault content, uploaded media, and application records owned by your account are deleted from the application without undue delay, except information that must be retained for legal claims, statutory duties, or security obligations.\n\n## Your rights\n- Depending on the applicable law, you may request confirmation whether your personal data is processed, access to it, and information about purposes, categories, recipients, and transfers.\n- You may request rectification, erasure, destruction, restriction, or objection, and where applicable data portability.\n- Where processing is based on consent, you may withdraw consent at any time without affecting prior lawful processing.\n- You may request that correction, deletion, or destruction outcomes be communicated to recipients where the law requires this.\n- You may object to results produced exclusively by automated means if the law gives you that right.\n- Where permitted by law, you may seek compensation for damage caused by unlawful processing.\n- You may lodge a complaint with **{{complaintAuthority}}**\n\n## How to exercise rights\n- Use the in-app account deletion flow or contact **{{privacyEmail}}** for privacy requests.\n- Where GDPR applies, requests should be answered without undue delay and in principle within 1 month after identity verification.\n\n## Automated decision-making\n- This application does not use solely automated decision-making or profiling that produces legal or similarly significant effects on you.\n\n## Important note\nThis notice is provided for transparency. **It is separate from any optional marketing, analytics, or non-essential cookie consent**, which must be requested separately when required.\n\nThe upstream open-source project maintainers are not automatically the data controller or processor for third-party self-hosted deployments.",
-        "terms_of_service_content": "Terms of Service\n\n1. Overview\n{{brandName}} is open-source software and can be used through official or self-hosted installations. These terms apply to the specific installation you are using.\n- If this installation is operated by a third party, that operator may supplement these terms with deployment-specific rules, support commitments, or local legal notices.\n\n2. Usage Rules\n- You are responsible for the legality, accuracy, and ownership of the content you place in the service.\n- Open-source availability of the software does not grant you rights to upload, store, or share data that you are not authorized to use.\n- We may suspend or remove accounts that abuse the service, violate these terms, or create a security or legal risk.\n\n3. Account Security\n- Keep your password, recovery materials, and backups secure.\n\n4. Data Lifecycle\n- Keep your own backups of important information.\n- Deleting your account from Settings permanently removes application data and uploaded media owned by your account and cannot be undone.\n\n5. Limitations and Disclaimer\n- Availability, support, integrations, and response times depend on the operator of this installation.\n- The service is provided on an \"as is\" and \"as available\" basis to the extent permitted by law.",
+        "privacy_policy_content": "## Преглед",
+        "terms_of_service_content": "Услови коришћења услуге",
         "register_consent": "Прочитао/ла сам, разумио/ла и слажем се с <1>Увјетима пружања услуге</1> и <2>Политиком приватности</2>.",
         "consent_title": "Преглед правних докумената",
         "consent_subtitle": "Молимо потврдите важеће увјете прије наставка.",
@@ -2079,7 +2102,7 @@
         "overview": "Претрага",
         "contact": "Напомена:",
         "jump_to": "Иди на",
-        "privacy_description": "The privacy notice for this {{brandName}} installation explains what data is processed, how it is collected, how it is shared or transferred, and what rights and complaint paths may apply.",
+        "privacy_description": "Обавештење о приватности за ову инсталацију {{брандНаме}} објашњава који се подаци обрађују, како се прикупљају, како се деле или преносе и која права и путеви за жалбе могу да важе.",
         "privacy_support_label": "За захтеве за приватност и питања о правима на податке:",
         "privacy_summary": {
             "title": "У пракси",
@@ -2103,7 +2126,7 @@
                 "rights": "Ваша права"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "Услови за ову инсталацију {{брандНаме}} објашњавају прихватљиву употребу, ваше безбедносне одговорности и последице брисања налога у јаснијем формату који је лакши за скенирање.",
         "terms_support_label": "За питања о условима рачуна или законским условима:",
         "terms_summary": {
             "eyebrow": "Брзи резиме",
@@ -2117,7 +2140,7 @@
             }
         },
         "controller_name_generic": "оператор ове инсталације",
-        "controller_name_public_host": "the operator of {{brandHost}}",
+        "controller_name_public_host": "оператер {{брандХост}}",
         "controller_address_unconfigured": "Није конфигурирано од стране оператора ове инсталације",
         "transfer_disclosure_default": "Пријеноси се могу догодити пружатељима хостинга, е-поште и опционалним __КЕЕП_1__/Опен*Фацтс/__КЕЕП_1__ Сеарцх услугама које користи ова инсталација. Оператор ове инсталације мора навести релевантне земље одредишта и мјере заштите гдје је то примјењиво.",
         "complaint_authority": "Надлежно тијело за заштиту података у вашој земљи; за Турску, Агенција за заштиту особних података (КВКК).",
@@ -2137,11 +2160,11 @@
         "collapse_sidebar": "Сакриј бочну траку",
         "expand_sidebar": "Прикажи бочну траку",
         "account_menu_title": "Изборник рачуна",
-        "account_menu_aria": "Open account menu for {{name}}",
-        "account_menu_tooltip": "{{name}} account menu"
+        "account_menu_aria": "Отвори мени налога за {{наме}}",
+        "account_menu_tooltip": "{{наме}} мени налога"
     },
     "app": {
-        "name": "{{brandName}}",
+        "name": "{{брандНаме}}",
         "tagline": "Паметно управљајте свим својим кућним предметима"
     },
     "nav": {
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "Увјети кориштења и одрицање",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "БЕТА верзија: {{брандНаме}} је тренутно у фази тестирања.",
         "disclaimer": "Одрицање: Кориштењем ове апликације прихваћате да не можете тражити никакву накнаду за потенцијални губитак података, проблеме с приступом или друге техничке проблеме.",
         "backup_warning": "Сигурносна копија података: Топло препоручујемо да редовито правите сигурносне копије својих важних података.",
         "accept": "Пријавом се слажете с овим увјетима.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{брандНаме}} је тренутно у фази тестирања и хобија.",
         "contact": "Контакт"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Тоо манy логин аттемптс"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Пријавите се",
+        "page_title_register": "Креирајте налог",
+        "page_title_choose_house": "Изабери кућу",
+        "page_title_recovery_key": "Кључ за опоравак",
+        "page_title_house_access": "Приступ кући",
+        "page_title_legal_review": "Правни преглед",
+        "page_title_new_item": "Нова ставка",
+        "page_title_edit_item": "Уреди ставку",
+        "page_title_items": "Инвентар"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Pogreška pri učitavanju liste za kupovinu.",
+            "select_item_error": "Molimo odaberite stavku iz inventara.",
+            "empty_name": "Molimo unesite naziv stavke.",
+            "added": "Stavka dodana na popis za kupnju.",
+            "add_error": "Došlo je do pogreške prilikom dodavanja stavke.",
+            "added_suggestion": "\"{{name}}\" dodano na popis za kupnju.",
+            "bulk_added": "{{count}} stavki s niskim zalihama dodano na popis.",
+            "bulk_error": "Pogreška pri dodavanju artikala s niskim stanjem.",
+            "completed": "\"{{name}}\" označeno kao dovršeno.",
+            "reactivated": "\"{{name}}\" vraćeno na aktivnu listu.",
+            "update_error": "Došlo je do pogreške tijekom ažuriranja.",
+            "deleted": "Stavka je izbrisana s popisa.",
+            "delete_error": "Došlo je do pogreške tijekom brisanja.",
+            "cleared_completed": "Obrisane su dovršene stavke.",
+            "clear_error": "Došlo je do pogreške tijekom brisanja."
+        },
+        "loading_desc": "Priprema popisa za kupovinu...",
+        "page": {
+            "title": "Popis za kupovinu",
+            "description": "Pregledajte artikle s niskim zalihama u kućnom inventaru i jednostavno upravljajte svojim popisom za kupovinu."
+        },
+        "suggestions": {
+            "title": "Pametni prijedlozi za inventar",
+            "desc": "Zalihe koje su pale ispod minimalne granice.",
+            "add_all": "Dodaj sve nedostajuće",
+            "stock_status": "Trenutno: {{current}} / Cilj: {{min}}",
+            "add_qty": "Dodaj {{qty}}"
+        },
+        "sections": {
+            "active_list": "Predmeti za kupnju",
+            "active_desc": "Trenutni predmeti za kupnju koje možete dodati u svoju košaricu.",
+            "active_count": "{{count}} Predmeta",
+            "completed_list": "Kupljeni predmeti ({{count}})",
+            "add_item": "Dodaj stavku ručno",
+            "add_desc": "Ručno dodajte prilagođenu stavku na popis."
+        },
+        "empty": {
+            "title": "Vaš popis za kupovinu je prazan",
+            "desc": "Možete dodati nedostajuće zalihe iz gornjih prijedloga ili dodati stavke ručno koristeći obrazac s desne strane."
+        },
+        "card": {
+            "linked_inventory": "Spremljeno u inventar"
+        },
+        "actions": {
+            "clear_completed": "Očisti povijest",
+            "add_item": "Dodaj na popis za kupnju"
+        },
+        "form": {
+            "add_type": "Dodaj metodu",
+            "add_type_inventory": "Inventarna stavka",
+            "add_type_custom": "Prilagođena stavka",
+            "select_inventory_item": "Odaberite stavku iz zaliha",
+            "no_inventory_items": "Još nemate stavki u svojoj zalihi.",
+            "select_item_placeholder": "Odaberite stavku",
+            "current_stock": "Trenutno",
+            "item_name": "Naziv stavke",
+            "item_name_placeholder": "npr. Mlijeko, Deterdžent, Zrna kave...",
+            "quantity": "Količina"
+        },
+        "modal": {
+            "delete_title": "Izbriši stavku s popisa?",
+            "delete_desc": "Jeste li sigurni da želite ukloniti \"{{name}}\" s vašeg popisa za kupovinu?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Pogreška pri učitavanju informacija",
+            "select_item_error": "Molimo odaberite stavku.",
+            "task_name_error": "Naziv zadatka je obavezan.",
+            "date_error": "Planirani datum je obavezan.",
+            "updated": "Zadatak održavanja ažuriran",
+            "created": "Novi zadatak održavanja dodan",
+            "save_error": "Došlo je do pogreške prilikom spremanja",
+            "deleted": "Zadatak održavanja uspješno obrisan.",
+            "delete_error": "Došlo je do pogreške tijekom procesa brisanja.",
+            "performed": "Održavanje zabilježeno kao dovršeno. Sljedeći datum zakazan.",
+            "perform_error": "Došlo je do pogreške prilikom spremanja."
+        },
+        "freq": {
+            "one_time": "Jednokratno",
+            "unit": {
+                "days": "Dan",
+                "weeks": "Tjedan",
+                "months": "Mjesec",
+                "years": "Godina"
+            },
+            "format": "Svaki {{val}} {{unit}}"
+        },
+        "loading_desc": "Učitavanje rasporeda održavanja...",
+        "page": {
+            "title": "Održavanje i periodično praćenje",
+            "description": "Upravljajte periodičnim rasporedima održavanja za uređaje, filtre ili sigurnosnu opremu u vašoj kućnoj inventuri."
+        },
+        "actions": {
+            "add_task": "Dodaj novi zadatak",
+            "manage": "Upravljaj",
+            "perform": "Označi kao završeno",
+            "edit_task": "Uredi zadatak"
+        },
+        "alerts": {
+            "overdue_title": "Imate zadužene zadatke!",
+            "overdue_desc": "Postoji {{count}} zaduženih zadataka održavanja. Kašnjenja mogu smanjiti vijek trajanja uređaja."
+        },
+        "empty": {
+            "title": "Nema zakazanih zadataka održavanja",
+            "desc": "Počnite dodavanjem ponavljajućih zadataka poput čišćenja AC filtera, održavanja kotla ili provjere baterija detektora dima."
+        },
+        "sections": {
+            "overdue": "Zakašnjeli zadaci",
+            "overdue_desc": "Hitno održavanje koje treba obaviti odmah.",
+            "upcoming": "Planirani / Nadolazeći zadaci",
+            "upcoming_desc": "Približavanje održavanja u narednim danima.",
+            "no_upcoming": "Nema aktivnih zadataka zakazanih u budućnosti."
+        },
+        "modal": {
+            "edit_title": "Uredi zadatak",
+            "create_title": "Rasporedite novi zadatak održavanja",
+            "perform_title": "Završite održavanje",
+            "perform_desc": "Želite li zabilježiti \"{{name}}\" kao obavljeno danas?",
+            "perform_confirm": "Da, završeno",
+            "perform_recurrence_info": "Ovo je periodični zadatak. Kada spremite, sustav će automatski izračunati sljedeći datum održavanja.",
+            "delete_title": "Izbrisati zadatak održavanja?",
+            "delete_desc": "Jeste li sigurni da želite izbrisati raspored periodičnog održavanja \"{{name}}\"? Ova akcija se ne može poništiti."
+        },
+        "form": {
+            "item": "Povezana stavka",
+            "no_items": "Prvo morate dodati stavku u inventar prije nego što zakažete održavanje.",
+            "select_item_placeholder": "Odaberite stavku",
+            "task_name": "Naziv zadatka / operacije",
+            "task_name_placeholder": "npr. Zamjena filtra, Periodična provjera...",
+            "description": "Detalji / Opis",
+            "description_placeholder": "Detalji zadatka, materijali koji će se koristiti itd...",
+            "frequency_value": "Učestalost ponavljanja",
+            "frequency_placeholder": "npr. 6 (ostavite prazno za jednokratno)",
+            "frequency_unit": "Jedinica učestalosti",
+            "next_due_date": "Sljedeći zakazani datum",
+            "section_help": "Upravljajte rasporedima održavanja odavde",
+            "section_collapsed": "Kliknite za dodavanje periodičnih kontrola i zadataka",
+            "has_tasks": "{{count}} zadataka",
+            "new_item_warning_title": "Stavka spremanja na čekanju",
+            "new_item_warning_desc": "Prvo morate spremiti ovu stavku kako biste dodali raspored održavanja.",
+            "manage_desc": "Upravljajte rasporedima održavanja za ovaj uređaj ili stavku."
+        },
+        "fields": {
+            "task_name": "Naziv zadatka",
+            "task_name_placeholder": "npr. čišćenje AC filtera",
+            "description": "Opis",
+            "description_placeholder": "Detalji zadatka, materijali koji će se koristiti, itd...",
+            "frequency_value": "Učestalost ponavljanja",
+            "frequency_value_placeholder": "Ostavite prazno za jednokratno",
+            "frequency_unit": "Jedinica učestalosti",
+            "next_due_date": "Zakazani datum"
+        },
+        "card": {
+            "untitled_item": "Neimenovani predmet",
+            "last_performed": "Zadnji put izvršeno:",
+            "next_due_label": "Zakazani datum",
+            "complete_tooltip": "Označi održavanje kao obavljeno danas"
+        },
+        "detail_card_desc": "Praćenje periodičnog ili jednokratnog održavanja zakazanog za ovaj predmet.",
+        "no_tasks": "Nijedan zadatak održavanja nije dodijeljen ovom predmetu.",
+        "confirm_delete": "Ovaj zadatak će biti izbrisan. Jeste li sigurni?"
     }
 }

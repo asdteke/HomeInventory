@@ -69,7 +69,9 @@
             "vault_hint_action": "Mở Kho Cá Nhân",
             "location": "Vị trí",
             "remove_photo": "Xóa ảnh",
-            "visibility_owner_only": "Chỉ người đã thêm vật phẩm mới có thể thay đổi chế độ hiển thị."
+            "visibility_owner_only": "Chỉ người đã thêm vật phẩm mới có thể thay đổi chế độ hiển thị.",
+            "expiry_date": "Ngày hết hạn",
+            "min_quantity": "Số lượng tối thiểu"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" đã được thêm nhanh - bạn có thể chỉnh sửa sau",
@@ -119,7 +121,12 @@
         "no_permission": "Bạn không có quyền sửa vật phẩm này",
         "barcode_search_error": "Tìm kiếm mã vạch thất bại",
         "stats_error": "Lỗi tải thống kê",
-        "detail_subtitle": "Chi tiết vật phẩm"
+        "detail_subtitle": "Chi tiết vật phẩm",
+        "status": {
+            "close_to_expiry": "Gần hết hạn",
+            "expired": "Hết hạn",
+            "low_stock": "Hàng tồn kho thấp"
+        }
     },
     "common": {
         "save": "Lưu",
@@ -170,7 +177,8 @@
         "details": "Chi tiết",
         "hide": "Ẩn mật khẩu",
         "logging_out": "Đang đăng xuất...",
-        "show": "Hiện mật khẩu"
+        "show": "Hiện mật khẩu",
+        "saving": "Đang lưu..."
     },
     "auth": {
         "login": {
@@ -216,7 +224,7 @@
             "support_link": "Liên hệ hỗ trợ"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "Thiết lập hộ gia đình của bạn",
             "subtitle": "Tạo tài khoản mới hoặc tham gia một ngôi nhà hiện có",
             "create_house": "Tạo Ngôi Nhà Mới",
             "join_house": "Tham Gia Ngôi Nhà",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "Nhập lại mật khẩu của bạn",
             "reset_submit": "Đặt lại mật khẩu",
             "resetting": "Đang đặt lại...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Nhập tên người dùng hoặc email của bạn"
         },
         "reset_password": {
             "title": "Đặt lại mật khẩu",
@@ -353,10 +361,10 @@
         "password_requirements": "Sử dụng ít nhất {{min}} ký tự bao gồm chữ hoa, chữ thường, số và ký hiệu.",
         "logout": "Đăng xuất",
         "logging_in": "Đang đăng nhập...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "Chào mừng đến với {{brandName}}",
         "username_email": "Tên người dùng hoặc Email",
         "username": "Tên người dùng",
-        "email": "Email",
+        "email": "E-mail",
         "password": "Mật khẩu",
         "confirm_password": "Xác nhận mật khẩu",
         "new_password": "Mật khẩu mới",
@@ -367,7 +375,7 @@
         "google_login": "Tiếp tục với Google",
         "login_issues": "Vấn đề đăng nhập",
         "placeholder_username": "ví dụ: john",
-        "placeholder_password": "••••••••",
+        "placeholder_password": "•···········",
         "login_two_factor": {
             "title": "Xác thực hai yếu tố",
             "subtitle": "Nhập mã gồm 6 chữ số từ ứng dụng xác thực của bạn",
@@ -438,7 +446,9 @@
         "logout_aria": "Đăng xuất khỏi tài khoản của bạn",
         "logout_title": "Đăng xuất?",
         "logout_description": "Bạn sẽ được đưa trở lại màn hình đăng nhập và cần đăng nhập lại để quản lý kho hàng gia đình của mình.",
-        "logout_warning": "Sử dụng điều này khi bạn đã xong trên thiết bị dùng chung hoặc cá nhân."
+        "logout_warning": "Sử dụng điều này khi bạn đã xong trên thiết bị dùng chung hoặc cá nhân.",
+        "maintenance": "Lịch bảo trì",
+        "shopping": "Danh sách mua sắm"
     },
     "dashboard": {
         "welcome": "Chào mừng, <1>{{name}}</1>! 👋",
@@ -565,13 +575,26 @@
         "no_items_filter": "Không có mục nào phù hợp với bộ lọc này",
         "manage": "Quản Lý",
         "add_item": "Thêm Mục",
-        "search_item": "Tìm Kiếm Mục"
+        "search_item": "Tìm Kiếm Mục",
+        "alerts": {
+            "expired_title": "Các mặt hàng đã hết hạn!",
+            "expired_desc": "Có {{count}} mặt hàng đã hết hạn trong kho của bạn. Vui lòng kiểm tra chúng để đảm bảo an toàn.",
+            "view_items": "Xem mặt hàng",
+            "maintenance_title": "Các nhiệm vụ bảo trì quá hạn!",
+            "maintenance_desc": "Có {{count}} nhiệm vụ bảo trì quá hạn. Thực hiện bảo trì để kéo dài tuổi thọ của thiết bị.",
+            "go_to_maintenance": "Đi đến Bảo trì",
+            "low_stock_title": "Cảnh báo hàng tồn kho thấp",
+            "low_stock_desc": "{{count}} mặt hàng đã giảm xuống dưới hạn mức tồn kho tối thiểu của bạn.",
+            "go_to_shopping": "Danh sách mua sắm",
+            "close_expiry_title": "Ngày hết hạn sắp tới",
+            "close_expiry_desc": "{{count}} sản phẩm sẽ hết hạn trong vòng 30 ngày."
+        }
     },
     "beta_banner": {
         "title": "BẢN THỬ NGHIỆM:",
         "text": "{{brandName}} hiện đang trong giai đoạn thử nghiệm và sở thích. Không có đảm bảo về việc duy trì dữ liệu hay bảo mật. Vui lòng giữ bản sao lưu thông tin quan trọng.",
         "contact": "Liên hệ:",
-        "badge": "Beta",
+        "badge": "bản thử nghiệm",
         "aria_label": "Thông báo Beta",
         "tooltip": "Các tính năng truy cập sớm vẫn có thể thay đổi."
     },
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "Khóa Nhà Hiện Tại",
             "key_label": "Khóa Nhà",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "•···········{{suffix}}",
             "hide": "Ẩn",
             "show": "Hiện",
             "copy": "Sao chép",
@@ -991,8 +1014,8 @@
             "no_history": "Chưa có lịch sử mượn cho mục này.",
             "lend_success_title": "Mục đã cho mượn",
             "lend_success_body": "{{item}} hiện đã được đánh dấu là đã cho mượn.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "Đã gửi đề nghị vay",
+            "offer_sent_body": "{{item}} sẽ được đánh dấu là đã mượn sau khi thành viên khác chấp nhận.",
             "borrowed_by_you": "Ở với bạn",
             "return_pending_hint": "Hồ sơ sẽ đóng sau khi người cho vay xác nhận họ đã nhận lại vật phẩm.",
             "return_pending_lender_title": "{{name}} đã đánh dấu vật phẩm này là đã trả lại",
@@ -1229,9 +1252,9 @@
             "no_logs": "chưa có nhật ký",
             "errors_title": "Lỗi hệ thống (10 lần gần nhất)",
             "no_errors": "// Hệ thống hoạt động bình thường, không có nhật ký lỗi.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{ngày, giờ}}",
             "type": {
-                "email": "Email",
+                "email": "E-mail",
                 "user": "Người dùng",
                 "system": "Hệ thống",
                 "event": "Sự kiện"
@@ -1277,7 +1300,7 @@
             "notes_body": "Sử dụng điều này cho hỗ trợ vận hành hoặc liên hệ liên quan đến tài khoản. Nội dung nhạy cảm nên được giữ bên trong ứng dụng khi có thể.",
             "notes_body_with_rate_limit": "Sử dụng điều này cho hỗ trợ hoạt động hoặc liên hệ liên quan đến tài khoản. Nội dung nhạy cảm nên được giữ trong ứng dụng bất cứ khi nào có thể. Biện pháp bảo vệ gửi hiện tại: {{rateLimit}}.",
             "rate_limit_fallback": "3 email mỗi phút",
-            "placeholder_to": "name@example.com",
+            "placeholder_to": "tên@example.com",
             "placeholder_subject": "Tiêu đề tin nhắn",
             "send_success_with_id": "✅ Email đã được gửi thành công! ID: {{emailId}}",
             "send_error": "Không thể gửi email",
@@ -1366,7 +1389,7 @@
         },
         "refresh_complete_title": "Dữ liệu quản trị đã được làm mới",
         "refresh_complete_body": "Dữ liệu quản trị mới nhất hiện đang hiển thị trên màn hình.",
-        "ban_user": "Ban",
+        "ban_user": "Cấm",
         "unban_user": "Mở khóa",
         "delete_user": "Xóa Người dùng",
         "reset_attempts": "Thử đặt lại",
@@ -1401,12 +1424,12 @@
             "cta_register": "Tạo tài khoản",
             "stat_free": "Miễn phí",
             "stat_access": "Truy cập",
-            "free_badge": "Open Source",
+            "free_badge": "Mã nguồn mở",
             "badge": "HomeInventory v2.0 đã có mặt",
             "cta_explore": "Khám phá các tính năng",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Đăng nhập",
+            "stat_members": "Nhà chia sẻ",
+            "stat_vault": "Kho Riêng"
         },
         "features": {
             "title": "Tại sao <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Giữ đồ vật, bảo hành, tài liệu quan trọng và theo dõi việc mượn trong một nơi yên tĩnh. Nhìn thấy những gì trong nhà bạn chỉ với cái liếc mắt.",
                 "primaryCta": "Bắt đầu miễn phí",
                 "secondaryCta": "Xem sản phẩm",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Luồng đề xuất: tài khoản • trang chủ • phòng và danh mục • mục • sao lưu",
                 "searchPlaceholder": "Tìm kiếm một món đồ, phòng, hoặc mã vạch"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "Chi tiết mạng được giữ kín cho đến khi bạn cần hướng dẫn.",
         "link_privacy_note": "Địa chỉ mạng được giữ ẩn tại đây. Quét mã hoặc sao chép liên kết chỉ khi bạn thực sự muốn chia sẻ quyền truy cập trực tiếp vào mục trên thiết lập cục bộ của mình.",
         "helper": "Quét để mở mục này ngay lập tức, hoặc sao chép liên kết trực tiếp khi cần.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Không thể sao chép liên kết tự động",
+        "copy_manual_help": "Trình duyệt của bạn không cho phép sao chép tự động. Liên kết đã được chọn để bạn có thể sao chép thủ công.",
         "loading": "Chuẩn bị các công cụ QR..."
     },
     "house_access_pending": {
@@ -1969,8 +1992,8 @@
             "empty": "Hiện không có khoản vay nào đang hoạt động.",
             "borrowed_from": "Đã vay từ {{name}}",
             "lent_to": "Hiện đang với {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Đang chờ người cho vay xác nhận họ đã nhận lại.",
+            "return_pending_lender": "{{name}} đã đánh dấu món này là đã trả lại. Xác nhận đã nhận để đóng hồ sơ.",
             "empty_title": "Hiện không có khoản vay nào đang hoạt động",
             "empty_description": "Các yêu cầu đã được chấp nhận sẽ xuất hiện ở đây khi một mục được mượn hoặc cho mượn, cùng với ngày đến hạn và trạng thái trả."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Đã hủy",
             "expired": "Hết hạn",
             "returned": "Đã trả lại",
-            "return_pending": "Return pending"
+            "return_pending": "Trả lại đang chờ"
         },
         "actions": {
             "send_request": "Yêu cầu mục",
@@ -1990,8 +2013,8 @@
             "reject": "Từ chối",
             "cancel": "Hủy",
             "fulfill_request": "Thực hiện yêu cầu",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Mark đã giao",
+            "mark_received": "Mark đã nhận",
             "open_inventory": "Mở kho hàng"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "Đánh dấu Đã Trả",
             "return_subtitle": "Đóng việc mượn đang hoạt động cho \"{{item}}\"",
             "return_target": "Hiện đang được hiển thị là đang ở với {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Giao hàng",
+            "return_title_lender": "Nhận hàng",
+            "return_subtitle_borrower": "Đóng khoản mượn đang hoạt động cho \"{{item}}\" sau khi bạn trả lại nó.",
+            "return_subtitle_lender": "Đóng khoản mượn đang hoạt động cho \"{{item}}\" sau khi bạn nhận lại nó.",
+            "return_target_borrower": "Người cho mượn: {{name}}",
+            "return_target_lender": "Hiện đang với: {{name}}",
+            "return_note_borrower": "Phiếu giao hàng",
+            "return_note_lender": "Phiếu nhận",
+            "return_note_placeholder_borrower": "ví dụ: Tôi đã trả lại mà không gặp vấn đề gì",
+            "return_note_placeholder_lender": "ví dụ: Nhận lại trong tình trạng tốt",
+            "return_submitting": "Đang đóng..."
         },
         "messages": {
             "load_error": "Trung tâm vay không thể tải được",
@@ -2141,7 +2164,7 @@
         "account_menu_tooltip": "Menu tài khoản của {{name}}"
     },
     "app": {
-        "name": "{{brandName}}",
+        "name": "{{brandName}} Bản Beta: {{brandName}} hiện đang trong giai đoạn thử nghiệm. Không có đảm bảo nào về tính vĩnh viễn hay bảo mật dữ liệu. {{brandName}} hiện đang trong giai đoạn thử nghiệm và giải trí. Không có đảm bảo nào về tính vĩnh viễn hay bảo mật dữ liệu. Vui lòng sao lưu thông tin quan trọng của bạn. Đăng nhập",
         "tagline": "Quản lý thông minh tất cả các món đồ trong gia đình của bạn"
     },
     "nav": {
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "Điều Khoản Sử Dụng và Từ Chối Trách Nhiệm",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "Phiên bản BETA: {{brandName}} hiện đang trong giai đoạn thử nghiệm. Không có đảm bảo nào được đưa ra về tính bền vững hoặc bảo mật của dữ liệu.",
         "disclaimer": "Từ Chối Trách Nhiệm: Bằng việc sử dụng ứng dụng này, bạn đồng ý rằng bạn không thể yêu cầu bất kỳ khoản bồi thường nào cho việc mất dữ liệu tiềm ẩn, sự cố truy cập, hoặc các vấn đề kỹ thuật khác.",
         "backup_warning": "Sao Lưu Dữ Liệu: Chúng tôi khuyên bạn nên thường xuyên sao lưu thông tin quan trọng của mình.",
         "accept": "Bằng cách đăng nhập, bạn đồng ý với các điều khoản này.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} hiện đang trong giai đoạn thử nghiệm và sở thích. Không có đảm bảo nào về tính lâu dài hoặc bảo mật dữ liệu. Vui lòng sao lưu thông tin quan trọng của bạn.",
         "contact": "Liên Hệ"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Quá nhiều lần đăng nhập. Vui lòng thử lại sau 15 phút."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Đăng nhập",
+        "page_title_register": "Tạo tài khoản",
+        "page_title_choose_house": "Chọn nhà",
+        "page_title_recovery_key": "Khóa khôi phục",
+        "page_title_house_access": "Truy cập nhà",
+        "page_title_legal_review": "Xem xét pháp lý",
+        "page_title_new_item": "Mục mới",
+        "page_title_edit_item": "Chỉnh sửa mục",
+        "page_title_items": "Kiểm kê"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Lỗi khi tải danh sách mua sắm.",
+            "select_item_error": "Vui lòng chọn một mục từ kho.",
+            "empty_name": "Vui lòng nhập tên mặt hàng.",
+            "added": "Mặt hàng đã được thêm vào danh sách mua sắm.",
+            "add_error": "Đã xảy ra lỗi khi thêm mục.",
+            "added_suggestion": "\"{{name}}\" đã được thêm vào danh sách mua sắm.",
+            "bulk_added": "{{count}} mục hàng tồn kho thấp đã được thêm vào danh sách.",
+            "bulk_error": "Lỗi khi thêm các mục hàng tồn kho thấp.",
+            "completed": "\"{{name}}\" đã được đánh dấu là hoàn thành.",
+            "reactivated": "\"{{name}}\" đã được chuyển trở lại danh sách đang hoạt động.",
+            "update_error": "Đã xảy ra lỗi trong quá trình cập nhật.",
+            "deleted": "Mục đã bị xóa khỏi danh sách.",
+            "delete_error": "Đã xảy ra lỗi trong khi xóa.",
+            "cleared_completed": "Đã xóa các mục hoàn thành.",
+            "clear_error": "Đã xảy ra lỗi khi xóa."
+        },
+        "loading_desc": "Đang chuẩn bị danh sách mua sắm...",
+        "page": {
+            "title": "Danh sách mua sắm",
+            "description": "Xem các mặt hàng sắp hết trong kho nhà và dễ dàng quản lý danh sách mua sắm của bạn."
+        },
+        "suggestions": {
+            "title": "Gợi ý kho thông minh",
+            "desc": "Các mặt hàng trong kho đã giảm xuống dưới mức tối thiểu.",
+            "add_all": "Thêm Tất Cả Thiếu",
+            "stock_status": "Hiện tại: {{current}} / Mục tiêu: {{min}}",
+            "add_qty": "Thêm {{qty}}"
+        },
+        "sections": {
+            "active_list": "Sản phẩm cần mua",
+            "active_desc": "Các mặt hàng hiện tại để thêm vào giỏ hàng của bạn.",
+            "active_count": "{{count}} Mặt hàng",
+            "completed_list": "Mặt hàng đã mua ({{count}})",
+            "add_item": "Thêm mặt hàng thủ công",
+            "add_desc": "Thêm thủ công một mục tùy chỉnh vào danh sách."
+        },
+        "empty": {
+            "title": "Danh sách mua sắm của bạn đang trống",
+            "desc": "Bạn có thể thêm các mặt hàng còn thiếu từ các gợi ý ở trên hoặc thêm các mục thủ công bằng cách sử dụng biểu mẫu bên phải."
+        },
+        "card": {
+            "linked_inventory": "Đã lưu trong Kho"
+        },
+        "actions": {
+            "clear_completed": "Xóa Lịch Sử",
+            "add_item": "Thêm vào Danh Sách Mua Sắm"
+        },
+        "form": {
+            "add_type": "Thêm Phương Thức",
+            "add_type_inventory": "Mục Hàng Tồn Kho",
+            "add_type_custom": "Mục Tùy Chỉnh",
+            "select_inventory_item": "Chọn Mục từ Kho",
+            "no_inventory_items": "Chưa có mục nào trong kho của bạn.",
+            "select_item_placeholder": "Chọn một mục",
+            "current_stock": "Hiện tại",
+            "item_name": "Tên Mặt Hàng",
+            "item_name_placeholder": "ví dụ: Sữa, Bột Giặt, Hạt Cà Phê...",
+            "quantity": "Số Lượng"
+        },
+        "modal": {
+            "delete_title": "Xóa mục khỏi danh sách?",
+            "delete_desc": "Bạn có chắc chắn muốn xóa \"{{name}}\" khỏi danh sách mua sắm của mình không?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Lỗi khi tải thông tin",
+            "select_item_error": "Vui lòng chọn một mục.",
+            "task_name_error": "Tên nhiệm vụ là bắt buộc.",
+            "date_error": "Ngày dự kiến là bắt buộc.",
+            "updated": "Nhiệm vụ bảo trì đã được cập nhật",
+            "created": "Nhiệm vụ bảo trì mới đã được thêm",
+            "save_error": "Đã xảy ra lỗi khi lưu",
+            "deleted": "Nhiệm vụ bảo trì đã được xóa thành công.",
+            "delete_error": "Đã xảy ra lỗi trong quá trình xóa.",
+            "performed": "Bảo trì đã được ghi nhận là hoàn thành. Ngày tiếp theo đã được lên lịch.",
+            "perform_error": "Đã xảy ra lỗi khi lưu."
+        },
+        "freq": {
+            "one_time": "Một lần",
+            "unit": {
+                "days": "Ngày",
+                "weeks": "Tuần",
+                "months": "Tháng",
+                "years": "Năm"
+            },
+            "format": "Mỗi {{val}} {{unit}}"
+        },
+        "loading_desc": "Đang tải lịch bảo trì...",
+        "page": {
+            "title": "Bảo trì & Theo dõi Định kỳ",
+            "description": "Quản lý lịch bảo trì định kỳ cho các thiết bị, bộ lọc hoặc thiết bị an toàn trong kho nhà của bạn."
+        },
+        "actions": {
+            "add_task": "Thêm Nhiệm vụ Mới",
+            "manage": "Quản lý",
+            "perform": "Đánh dấu là Đã xong",
+            "edit_task": "Chỉnh sửa Nhiệm vụ"
+        },
+        "alerts": {
+            "overdue_title": "Bạn có các nhiệm vụ quá hạn!",
+            "overdue_desc": "Có {{count}} nhiệm vụ bảo trì quá hạn. Trễ hạn có thể làm giảm tuổi thọ thiết bị."
+        },
+        "empty": {
+            "title": "Không có nhiệm vụ bảo trì nào được lên lịch",
+            "desc": "Bắt đầu bằng cách thêm các nhiệm vụ định kỳ như vệ sinh bộ lọc điều hòa, bảo dưỡng nồi hơi, hoặc kiểm tra pin của thiết bị báo cháy."
+        },
+        "sections": {
+            "overdue": "Nhiệm vụ quá hạn",
+            "overdue_desc": "Bảo trì khẩn cấp cần thực hiện ngay lập tức.",
+            "upcoming": "Nhiệm vụ đã lên lịch / Sắp tới",
+            "upcoming_desc": "Đang tiến gần đến bảo trì trong những ngày tới.",
+            "no_upcoming": "Không có nhiệm vụ nào đang hoạt động được lên lịch trong tương lai."
+        },
+        "modal": {
+            "edit_title": "Chỉnh sửa nhiệm vụ",
+            "create_title": "Lên lịch nhiệm vụ bảo trì mới",
+            "perform_title": "Bảo trì hoàn tất",
+            "perform_desc": "Bạn có muốn ghi nhật ký \"{{name}}\" là đã hoàn tất hôm nay không?",
+            "perform_confirm": "Có, Đã hoàn tất",
+            "perform_recurrence_info": "Đây là một nhiệm vụ định kỳ. Khi bạn lưu, hệ thống sẽ tự động tính ngày bảo trì tiếp theo.",
+            "delete_title": "Xóa nhiệm vụ bảo trì?",
+            "delete_desc": "Bạn có chắc chắn muốn xóa lịch bảo trì định kỳ \"{{name}}\" không? Hành động này không thể hoàn tác."
+        },
+        "form": {
+            "item": "Mục liên quan",
+            "no_items": "Bạn phải thêm một mục vào kho trước khi lập lịch bảo trì.",
+            "select_item_placeholder": "Chọn một mục",
+            "task_name": "Tên nhiệm vụ / hoạt động",
+            "task_name_placeholder": "ví dụ: Thay bộ lọc, Kiểm tra định kỳ...",
+            "description": "Chi tiết / Mô tả",
+            "description_placeholder": "Chi tiết công việc, vật liệu sẽ sử dụng, v.v...",
+            "frequency_value": "Tần suất lặp lại",
+            "frequency_placeholder": "ví dụ: 6 (để trống nếu chỉ thực hiện một lần)",
+            "frequency_unit": "Đơn vị tần suất",
+            "next_due_date": "Ngày Lên Lịch Tiếp Theo",
+            "section_help": "Quản lý lịch bảo trì từ đây",
+            "section_collapsed": "Nhấp để thêm các kiểm soát và nhiệm vụ định kỳ",
+            "has_tasks": "{{count}} Nhiệm vụ",
+            "new_item_warning_title": "Lưu mục đang chờ",
+            "new_item_warning_desc": "Bạn phải lưu mục này trước để thêm lịch bảo trì.",
+            "manage_desc": "Quản lý lịch bảo trì cho thiết bị hoặc mục này."
+        },
+        "fields": {
+            "task_name": "Tên nhiệm vụ",
+            "task_name_placeholder": "ví dụ: vệ sinh bộ lọc điều hòa",
+            "description": "Mô tả",
+            "description_placeholder": "Chi tiết công việc, vật liệu sẽ sử dụng, v.v...",
+            "frequency_value": "Tần suất lặp lại",
+            "frequency_value_placeholder": "Để trống cho lần duy nhất",
+            "frequency_unit": "Đơn vị tần suất",
+            "next_due_date": "Ngày lên lịch"
+        },
+        "card": {
+            "untitled_item": "Mục chưa có tiêu đề",
+            "last_performed": "Hoàn thành lần cuối:",
+            "next_due_label": "Ngày dự kiến",
+            "complete_tooltip": "Đánh dấu bảo trì là đã thực hiện hôm nay"
+        },
+        "detail_card_desc": "Theo dõi bảo trì định kỳ hoặc một lần được lên lịch cho mục này.",
+        "no_tasks": "Không có nhiệm vụ bảo trì nào được gán cho mục này.",
+        "confirm_delete": "Nhiệm vụ này sẽ bị xóa. Bạn có chắc không?"
     }
 }

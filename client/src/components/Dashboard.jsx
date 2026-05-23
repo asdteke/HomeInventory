@@ -9,10 +9,14 @@ import {
     Lock,
     Package,
     Plus,
-    Search
+    Search,
+    AlertTriangle,
+    Wrench,
+    ShoppingCart,
+    Calendar
 } from 'lucide-react';
 import SecureImage from './SecureImage';
-import { EmptyState, LoadingState, PageHeader, SectionHeader } from './ProductUI';
+import { EmptyState, LoadingState, PageHeader, SectionHeader, NoticeBanner } from './ProductUI';
 import { formatDateForLanguage, formatNumberForLanguage } from '../utils/appFormatting';
 import { resolveVisibleItemTitle } from '../utils/itemDisplay';
 import { getRoomPresentation } from '../utils/roomDisplay';
@@ -39,20 +43,23 @@ export default function Dashboard() {
     const [stats, setStats] = useState(null);
     const [allItems, setAllItems] = useState([]);
     const [rooms, setRooms] = useState([]);
+    const [maintenanceTasks, setMaintenanceTasks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [statsRes, itemsRes, roomsRes] = await Promise.all([
+                const [statsRes, itemsRes, roomsRes, maintenanceRes] = await Promise.all([
                     axios.get('/api/items/stats/summary'),
                     axios.get('/api/items'),
-                    axios.get('/api/rooms')
+                    axios.get('/api/rooms'),
+                    axios.get('/api/maintenance').catch(() => ({ data: { tasks: [] } }))
                 ]);
                 setStats(statsRes.data);
                 setAllItems(itemsRes.data.items || []);
                 setRooms(roomsRes.data.rooms || []);
+                setMaintenanceTasks(maintenanceRes.data.tasks || []);
             } catch (error) {
                 console.error(error);
             } finally {
@@ -97,6 +104,11 @@ export default function Dashboard() {
     const formattedTotalQuantity = formatNumberForLanguage(totalQuantity, locale);
     const formattedSharedItems = formatNumberForLanguage(sharedItemsCount, locale);
     const formattedBorrowedItems = formatNumberForLanguage(borrowedItemsCount, locale);
+
+    const expiredItems = useMemo(() => allItems.filter(item => item.is_expired), [allItems]);
+    const closeToExpiryItems = useMemo(() => allItems.filter(item => !item.is_expired && item.is_close_to_expiry), [allItems]);
+    const lowStockItems = useMemo(() => allItems.filter(item => item.is_low_stock), [allItems]);
+    const overdueTasks = useMemo(() => maintenanceTasks.filter(task => task.is_overdue), [maintenanceTasks]);
 
     const handleSearch = (event) => {
         event.preventDefault();
@@ -177,6 +189,79 @@ export default function Dashboard() {
                     </div>
                 </section>
             </PageHeader>
+
+            {/* Warning and Notification Banners */}
+            {(expiredItems.length > 0 || closeToExpiryItems.length > 0 || lowStockItems.length > 0 || overdueTasks.length > 0) && (
+                <div className="space-y-3">
+                    {expiredItems.length > 0 && (
+                        <NoticeBanner
+                            tone="danger"
+                            icon={AlertTriangle}
+                            title={t('dashboard.alerts.expired_title', { defaultValue: 'Son Kullanma Tarihi Geçmiş Eşyalar Var!' })}
+                            description={t('dashboard.alerts.expired_desc', {
+                                count: expiredItems.length,
+                                defaultValue: 'Envanterinizde son kullanma tarihi geçmiş {{count}} eşya bulunuyor. Güvenliğiniz için bunları kontrol edin.'
+                            })}
+                            action={
+                                <Link to="/items" className="btn-secondary !rounded-[12px] !px-4 !py-2 text-sm text-red-500 border-red-200 bg-red-100/50 dark:bg-red-500/10 hover:bg-red-100">
+                                    {t('dashboard.alerts.view_items', { defaultValue: 'Eşyaları Gör' })}
+                                </Link>
+                            }
+                        />
+                    )}
+
+                    {overdueTasks.length > 0 && (
+                        <NoticeBanner
+                            tone="warning"
+                            icon={Wrench}
+                            title={t('dashboard.alerts.maintenance_title', { defaultValue: 'Gecikmiş Bakım Görevleri Var!' })}
+                            description={t('dashboard.alerts.maintenance_desc', {
+                                count: overdueTasks.length,
+                                defaultValue: 'Zamanı geçmiş {{count}} bakım görevi bulunuyor. Cihazlarınızın ömrünü uzatmak için bakımlarını yapın.'
+                            })}
+                            action={
+                                <Link to="/maintenance" className="btn-secondary !rounded-[12px] !px-4 !py-2 text-sm">
+                                    {t('dashboard.alerts.go_to_maintenance', { defaultValue: 'Bakıma Git' })}
+                                </Link>
+                            }
+                        />
+                    )}
+
+                    {lowStockItems.length > 0 && (
+                        <NoticeBanner
+                            tone="info"
+                            icon={ShoppingCart}
+                            title={t('dashboard.alerts.low_stock_title', { defaultValue: 'Azalan Stok Uyarısı' })}
+                            description={t('dashboard.alerts.low_stock_desc', {
+                                count: lowStockItems.length,
+                                defaultValue: '{{count}} ürün belirlediğiniz asgari stok limitinin altına düştü.'
+                            })}
+                            action={
+                                <Link to="/shopping" className="btn-secondary !rounded-[12px] !px-4 !py-2 text-sm text-[var(--hi-accent)] border-[var(--hi-accent-soft)]">
+                                    {t('dashboard.alerts.go_to_shopping', { defaultValue: 'Alışveriş Listesi' })}
+                                </Link>
+                            }
+                        />
+                    )}
+
+                    {closeToExpiryItems.length > 0 && expiredItems.length === 0 && (
+                        <NoticeBanner
+                            tone="info"
+                            icon={Calendar}
+                            title={t('dashboard.alerts.close_expiry_title', { defaultValue: 'Yaklaşan Son Kullanma Tarihleri' })}
+                            description={t('dashboard.alerts.close_expiry_desc', {
+                                count: closeToExpiryItems.length,
+                                defaultValue: '{{count}} ürünün son kullanma tarihi 30 gün içinde dolacak.'
+                            })}
+                            action={
+                                <Link to="/items" className="btn-secondary !rounded-[12px] !px-4 !py-2 text-sm">
+                                    {t('dashboard.alerts.view_items', { defaultValue: 'Eşyaları Gör' })}
+                                </Link>
+                            }
+                        />
+                    )}
+                </div>
+            )}
 
             <section className="card !p-4 lg:!p-5">
                 <SectionHeader

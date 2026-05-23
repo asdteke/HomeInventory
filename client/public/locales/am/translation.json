@@ -69,7 +69,9 @@
             "vault_hint_action": "የክፍያ መጠየቂያ ዝርዝሮችን",
             "location": "አካባቢ",
             "remove_photo": "ፎቶን ያስወግዱ",
-            "visibility_owner_only": "ታይነትን መቀየር የሚችለው እቃውን ያከለው ሰው ብቻ ነው።"
+            "visibility_owner_only": "ታይነትን መቀየር የሚችለው እቃውን ያከለው ሰው ብቻ ነው።",
+            "expiry_date": "የሚያበቃበት ቀን",
+            "min_quantity": "ዝቅተኛው ብዛት"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" በፍጥነት ታክሏል - በኋላ ማርትዕ ይችላሉ",
@@ -119,7 +121,12 @@
         "no_permission": "ይህን ንጥል ለመቀየር ፈቃድ የለዎትም",
         "barcode_search_error": "የባርኮድ ፍለጋ አልተሳካም",
         "stats_error": "ስታቲስቲክስን በመጫን ላይ ስህተት",
-        "detail_subtitle": "የንጥል ዝርዝሮች"
+        "detail_subtitle": "የንጥል ዝርዝሮች",
+        "status": {
+            "close_to_expiry": "ጊዜው የሚያበቃበት ቀን",
+            "expired": "ጊዜው አልፎበታል",
+            "low_stock": "ዝቅተኛ የአክሲዮን"
+        }
     },
     "common": {
         "save": "አስቀምጥ",
@@ -170,7 +177,8 @@
         "details": "ዝርዝሮች",
         "hide": "የይለፍ ቃል ደብቅ",
         "logging_out": "መውጣት ...",
-        "show": "የይለፍ ቃል አሳይ"
+        "show": "የይለፍ ቃል አሳይ",
+        "saving": "በማስቀመጥ ላይ ..."
     },
     "auth": {
         "login": {
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "የይለፍ ቃልዎን እንደገና ያስገቡ",
             "reset_submit": "የይለፍ ቃል",
             "resetting": "ዳግም ማስጀመር...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "የተጠቃሚ ስምዎን ወይም ኢሜልዎን ያስገቡ"
         },
         "reset_password": {
             "title": "ዳግም አስጀምር የይለፍ ቃል",
@@ -438,7 +446,9 @@
         "logout_aria": "ከመለያዎ ይውጡ",
         "logout_title": "ይውጡ?",
         "logout_description": "ወደ መግቢያ ማያ ገጹ ይመለሳሉ እና የቤተሰብዎን ክምችት ለማስተዳደር እንደገና መግባት ያስፈልግዎታል።",
-        "logout_warning": "በጋራ ወይም በግል መሳሪያ ላይ ሲጨርሱ ይህንን ይጠቀሙ።"
+        "logout_warning": "በጋራ ወይም በግል መሳሪያ ላይ ሲጨርሱ ይህንን ይጠቀሙ።",
+        "maintenance": "የጥገና መርሃ ግብር",
+        "shopping": "የግዢ ዝርዝር"
     },
     "dashboard": {
         "welcome": "እንኳን በደህና መጣህ፣ <1>{{name}}</1>",
@@ -525,7 +535,7 @@
             "empty_tip_two_body": "ክፍል ይመድቡ እና የምድብ ቆጠራዎች ትክክለኛ ሆነው የሚቆዩት አዳዲስ እቃዎች ሲፈጠሩ ሲመደቡ ብቻ ነው።",
             "empty_tip_three_title": "ሚስጥሮችን ከተጋራው ምግብ ውስጥ ያስቀምጡ",
             "empty_tip_three_body": "በቤተሰብ ክምችት ታሪክ ውስጥ መታየት ለሌለባቸው ቁልፎች፣ ኮዶች፣ ድርጊቶች ወይም ማንኛውም ነገር የግል ቮልት ይጠቀሙ።",
-            "see_all": "Open inventory",
+            "see_all": "ክፈት ዝርዝር",
             "untitled_item": "ርዕስ አልባ ንጥል",
             "location_fallback": "ይህን ንጥል",
             "quantity": "Qty {{count}} ለማግኘት ቀላል ለማድረግ ክፍል ወይም ቦታ ያክሉ",
@@ -565,7 +575,20 @@
         "no_items_filter": "ከዚህ ማጣሪያ ጋር የሚዛመዱ እቃዎች የሉም",
         "manage": "አስተዳድር",
         "add_item": "ንጥል ጨምር",
-        "search_item": "የፍለጋ ንጥል"
+        "search_item": "የፍለጋ ንጥል",
+        "alerts": {
+            "expired_title": "እቃዎች ጊዜው አልፎባቸዋል!",
+            "expired_desc": "በእርስዎ ክምችት ውስጥ {{count}} ጊዜ ያለፈባቸው እቃዎች አሉ። እባክዎን ለደህንነትዎ ያረጋግጡ።",
+            "view_items": "ንጥሎችን ይመልከቱ",
+            "maintenance_title": "ጊዜ ያለፈባቸው የጥገና ስራዎች!",
+            "maintenance_desc": "{{count}} ጊዜ ያለፈባቸው የጥገና ስራዎች አሉ። የመሳሪያዎን ዕድሜ ለማራዘም ጥገናን ያከናውኑ።",
+            "go_to_maintenance": "ወደ ጥገና",
+            "low_stock_title": "ዝቅተኛ የአክሲዮን ማንቂያ ይሂዱ",
+            "low_stock_desc": "{{count}} እቃዎች ከዝቅተኛው የአክሲዮን ገደብዎ በታች ወድቀዋል።",
+            "go_to_shopping": "የግዢ ዝርዝር",
+            "close_expiry_title": "መጪ የማለቂያ ቀናት",
+            "close_expiry_desc": "{{count}} ምርቶች በ30 ቀናት ውስጥ የአገልግሎት ጊዜው ያበቃል።"
+        }
     },
     "beta_banner": {
         "title": "ቤታ",
@@ -583,7 +606,7 @@
         "title": "ቅንብሮች",
         "subtitle": "የመተግበሪያ ምርጫዎችን ያቀናብሩ",
         "messages": {
-            "house_switched": "{{name}} activated!",
+            "house_switched": "መሣሪያዎችን መሻር አልተሳካም!",
             "house_switch_error": "ቤት መቀየር አልተሳካም",
             "house_joined_success": "በተሳካ ሁኔታ ቤቱን ተቀላቅለዋል!",
             "house_join_error": "ቤት መቀላቀል አልተሳካም",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "ንቁ የቤት ቁልፍ",
             "key_label": "የቤት ቁልፍ",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{ቅጥያ}}",
             "hide": "ደብቅ",
             "show": "አሳይ",
             "copy": "ይቅዱ",
@@ -797,7 +820,7 @@
             "username": {
                 "title": "የተጠቃሚ ስም",
                 "new_label": "አዲስ የተጠቃሚ ስም ይቀይሩ",
-                "placeholder": "Your new username",
+                "placeholder": "አዲሱ የተጠቃሚ ስምህ",
                 "help": "3-30 ቁምፊዎች፣ ፊደሎች፣ ቁጥሮች፣ አስመዝግበው እና ሰረዝ",
                 "saving": "በማስቀመጥ ብቻ...",
                 "submit": "ለውጥ"
@@ -857,7 +880,7 @@
             "revoke_devices": "መሻር",
             "revoke_devices_desc": "በሚቀጥለው መግቢያ ላይ 2FA የሚያስፈልጋቸው ሁሉንም የሚታወሱ መሳሪያዎችን ያስወግዱ",
             "devices_revoked": "{{count}} የታመነ መሳሪያ(ዎች) ተወግዷል",
-            "devices_error": "Failed to revoke devices"
+            "devices_error": "{{name}} ገቢር"
         },
         "danger_zone": {
             "title": "መለያ",
@@ -932,8 +955,8 @@
         "languages_available": "የሚገኙ ቋንቋዎች"
     },
     "inventory": {
-        "title": "Inventory",
-        "subtitle": "{{count}} items found",
+        "title": "የአንተ ቆጠራ",
+        "subtitle": "{{count}} ንጥሎች ተገኝቷል",
         "new_item": "አዲስ ንጥል",
         "add_first": "የመጀመሪያውን ንጥል",
         "search_placeholder": "ንጥሎችን ይፈልጉ ያክሉ...",
@@ -991,8 +1014,8 @@
             "no_history": "ለዚህ ንጥል ነገር እስካሁን ምንም የብድር ታሪክ የለም።",
             "lend_success_title": "ንጥል ብድር",
             "lend_success_body": "{{item}} አሁን እንደተበደረ ምልክት ተደርጎበታል።",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "የተላከው ቅናሽ ብድር",
+            "offer_sent_body": "{{ንጥል}} የተላከ የብድር አቅርቦት ሌላኛው አባል ከተቀበለ በኋላ እንደተበደረ ምልክት ይደረግበታል።",
             "borrowed_by_you": "ከእርስዎ ጋር",
             "return_pending_hint": "አበዳሪው እቃውን መልሰው መቀበሉን ካረጋገጠ በኋላ መዝገቡ ይዘጋል።",
             "return_pending_lender_title": "{{name}} ይህን ንጥል ተመልሶ እንደደረሰ ምልክት አድርጎታል",
@@ -1152,7 +1175,7 @@
         },
         "stats": {
             "total_users": "ጠቅላላ ተጠቃሚዎች",
-            "new_today": "Today: +{{count}} new",
+            "new_today": "ዛሬ +{{count}} አዲስ",
             "total_inventory": "ጠቅላላ ክምችት",
             "inventory_details": "{{rooms}} ክፍሎች፣ {{categories}} ምድቦች",
             "banned_users": "የታገዱ ተጠቃሚዎች",
@@ -1246,8 +1269,8 @@
             },
             "audit": {
                 "email_sent": "ተቀባይ {{recipient}} | ርዕሰ ጉዳይ {{subject}}",
-                "user_deleted": "User deleted: {{username}} | Deleted households: {{deletedHouses}} | Transferred ownerships: {{transferredOwnerships}}",
-                "user_target": "User: {{username}}",
+                "user_deleted": "ተጠቃሚ ተሰርዟል {{የተጠቃሚ ስም}} | የተሰረዙ ቤተሰቦች {{የተሰረዙ ቤቶች}} | የተላለፉ ባለቤትነቶች {{transferredOwnerships}}",
+                "user_target": "ተጠቃሚ {{የተጠቃሚ ስም}}",
                 "indexnow_submitted": "IndexNow ማስገባት ተሳክቷል። የዩአርኤል ብዛት {{count}}"
             },
             "no_errors_title": "ምንም የቅርብ ጊዜ የስርዓት ስህተቶች የሉም",
@@ -1271,7 +1294,7 @@
             "compose_eyebrow": "መልእክት",
             "compose_body": "ደህንነቱ የተጠበቀ የኤችቲኤምኤል ቅርጸት እና የመድረክ ብራንዲንግ ያለው አንድ የወጪ ኢሜይል ይፃፉ።",
             "security_title": "አስተዳዳሪ ደህንነቱ የተጠበቀ",
-            "security_body": "Admin: {{username}} • Limit: {{remaining}}/3 emails per minute",
+            "security_body": "አስተዳዳሪ {{የተጠቃሚ ስም}} • ገደብ {{ቀሪ}}/3 ኢሜይሎች በደቂቃ",
             "from_unconfigured": "ከደብዳቤ ማዋቀር",
             "notes_label": "የአጠቃቀም ማስታወሻ",
             "notes_body": "ይህንን ለተግባራዊ ድጋፍ ወይም ከመለያ ጋር ለተያያዘ ተደራሽነት ይጠቀሙ። ሚስጥራዊነት ያለው ይዘት በተቻለ መጠን በመተግበሪያው ውስጥ መቆየት አለበት።",
@@ -1280,7 +1303,7 @@
             "placeholder_to": "name@example.com",
             "placeholder_subject": "የመልእክት ርዕሰ ጉዳይ",
             "send_success_with_id": "✅ ኢሜል በተሳካ ሁኔታ ተልኳል! መታወቂያ {{emailId}}",
-            "send_error": "Email could not be sent",
+            "send_error": "ኢሜል መላክ አልተቻለም",
             "rate_limit_reached": "⏳ ተመን ገደብ ላይ ደርሷል። እባክህ 1 ደቂቃ ጠብቅ።",
             "info_title": "መረጃ",
             "info_bullet_1": "ኢሜይሎች ከ{{supportEmail}} ይላካሉ",
@@ -1401,12 +1424,12 @@
             "cta_register": "ነፃ",
             "stat_free": "መዳረሻ",
             "stat_access": "ቋንቋዎች",
-            "free_badge": "Open Source",
+            "free_badge": "ክፍት ምንጭ",
             "badge": "መግቢያ ገፅኢንቬንቶሪ v2.0 እዚህ አለ",
             "cta_explore": "ባህሪያትን ያስሱ",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "በመለያ ይግቡ >>> የተጋሩ ቤቶች >>> የግል ቮልት >>> የተጠቆመ ፍሰት መለያ • ቤት • ክፍሎች እና ምድቦች • እቃዎች • ምትኬ",
+            "stat_members": "የተጋሩ ቤቶች",
+            "stat_vault": "የግል ቮልት"
         },
         "features": {
             "title": "ለምን <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "እቃዎችን፣ ዋስትናዎችን፣ አስፈላጊ ሰነዶችን እና የመበደር መዝገቦችን በአንድ የተረጋጋ ቦታ ያስቀምጡ። ቤትዎ ምን እንደያዘ በጨረፍታ ይመልከቱ።",
                 "primaryCta": "በነጻ ይጀምሩ",
                 "secondaryCta": "ምርቱን",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "የተጠቆመ ፍሰት መለያ • ቤት • ክፍሎች እና ምድቦች • እቃዎች • ምትኬ",
                 "searchPlaceholder": "እቃ፣ ክፍል ወይም ባርኮድ ይፈልጉ"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "የአውታረ መረብ ዝርዝሮች መመሪያውን እስኪፈልጉ ድረስ ተደብቀው ይቆያሉ።",
         "link_privacy_note": "የአውታረ መረብ አድራሻው እዚህ ተደብቆ ይቆያል። ኮዱን ይቃኙ ወይም አገናኙን ይቅዱ ሆን ብለው በአከባቢዎ ማዋቀር ላይ ቀጥተኛ የንጥል መዳረሻን ማጋራት ሲፈልጉ ብቻ ነው።",
         "helper": "Scan ይህን ንጥል ወዲያውኑ ለመክፈት ወይም አስፈላጊ ሆኖ ሲገኝ ቀጥተኛውን አገናኝ ይቅዱ።",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "አገናኝ በራስ-ሰር ሊገለበጥ አልተቻለም። አሳሽዎ ራስ-ሰር መቅዳት አልፈቀደም። አገናኙ ተመርጧል ስለዚህ እራስዎ መቅዳት ይችላሉ. © 2026 {{የምርት ስም}} © 2026 {{የምርት ስም}}",
+        "copy_manual_help": "አሳሽዎ አውቶማቲክ መቅዳት አልፈቀደም። አገናኙ ተመርጧል ስለዚህ እራስዎ መቅዳት ይችላሉ.",
         "loading": "የQR መሳሪያዎችን በማዘጋጀት ላይ..."
     },
     "house_access_pending": {
@@ -1790,7 +1813,7 @@
             ],
             "fallback": "የይለፍ ቃል ዳግም ማስጀመሪያ አገናኝ ያልተሟላ ወይም የተሰበረ ይመስላል።",
             "support": "የምዝገባ ጉዳዮች",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{brandName}} © 2026 {{brandName}} የተግባር ስም ያስፈልጋል። የታቀደበት ቀን ያስፈልጋል።"
         },
         "welcome": {
             "subject": "ወደ {{brandName}} እንኳን በደህና መጡ",
@@ -1808,7 +1831,7 @@
                 "💡 የበርካታ ቤቶች አባል መሆን እና በመካከላቸው መቀያየር ይችላሉ። እያንዳንዱ ቤት የተለየ ክምችት ይይዛል."
             ],
             "support": "የምዝገባ ጉዳዮች",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{የምርት ስም}}"
         },
         "houseJoinRequest": {
             "subject": "ቤት ይቀላቀሉ",
@@ -1817,7 +1840,7 @@
             "bodyLine2": "የቤት ባለቤት ይሁንታን በመጠበቅ ላይ"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{የምርት ስም}} - {{ሁኔታ}}",
             "greeting": "የቤት መዳረሻ",
             "bodyLine1Template": "አሁን በመጠባበቅ ላይ ያለ ጥያቄ፡- {{house}} ({{status}})",
             "bodyLine2": "የ«{{house}}» ጥያቄዎ አሁንም ውሳኔ እየጠበቀ ነው።",
@@ -1842,11 +1865,11 @@
             "warningTitle": "⚠️",
             "warningBody": "መለያ ካለ ለ15 ደቂቃ የሚሰራ የይለፍ ቃል ዳግም ማስጀመሪያ አገናኝ ተልኳል።",
             "fallback": "የይለፍ ቃል ዳግም ማስጀመሪያ አገናኝ ያልተሟላ ወይም የተሰበረ ይመስላል።",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{የምርት ስም}}"
         },
         "adminEmail": {
             "sentBy": "ይህ ኢሜይል የተላከው በ{{brandName}} ነው።",
-            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
+            "footer": "© 2026 {{የምርት ስም}} - {{የድጋፍ ኢሜይል}}"
         },
         "testEmail": {
             "subject": "🧪 {{brandName}} የሙከራ ኢሜይል",
@@ -1967,10 +1990,10 @@
             "title": "ንቁ",
             "subtitle": "ዕቃዎች በአሁኑ ጊዜ ከእርስዎ ጋር ወይም በእርስዎ የተበደሩ ዕቃዎች",
             "empty": "በአሁኑ ጊዜ ምንም ንቁ ብድሮች የሉም።",
-            "borrowed_from": "Borrowed from {{name}}",
+            "borrowed_from": "ከ{{name}} ተበድሯል",
             "lent_to": "በአሁኑ ጊዜ ከ{{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "አበዳሪው መልሰው መቀበሉን እስኪያረጋግጥ ድረስ በመጠባበቅ ላይ።",
+            "return_pending_lender": "{{name}} ይህን ንጥል ተመልሶ እንደደረሰ ምልክት አድርጎታል። መዝገቡን ለመዝጋት ደረሰኝ ያረጋግጡ።",
             "empty_title": "በአሁኑ ጊዜ ምንም ንቁ ብድር የለም",
             "empty_description": "ተቀባይነት ያላቸው ጥያቄዎች አንድ እቃ ከተበደረ ወይም ከተበደረ በኋላ፣ ከማለቂያ ቀናት እና የመመለሻ ሁኔታ ጋር እዚህ ይታያሉ።"
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "ተሰርዟል",
             "expired": "ጊዜው ያለፈበት",
             "returned": "ተመልሷል",
-            "return_pending": "Return pending"
+            "return_pending": "መመለስ በመጠባበቅ ላይ"
         },
         "actions": {
             "send_request": "ንጥል ይጠይቁ",
@@ -1990,8 +2013,8 @@
             "reject": "ላለመቀበል",
             "cancel": "መሰረዝ",
             "fulfill_request": "ጥያቄን",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "ማርክ ደረሰ",
+            "mark_received": "ማርክ ተቀበለ",
             "open_inventory": "ክፈት ዕቃ ይክፈቱ"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "ምልክት ተመልሷል",
             "return_subtitle": "የነቃውን ብድር ለ\"{{item}}\" ዝጋ",
             "return_target": "በአሁኑ ጊዜ ከ{{name}} ጋር ሆኖ ይታያል።",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "እቃውን ያቅርቡ",
+            "return_title_lender": "ንጥል ይቀበሉ",
+            "return_subtitle_borrower": "መልሰው ካስረከቡ በኋላ ንቁውን ብድር ለ\"{{item}}\" ይዝጉ።",
+            "return_subtitle_lender": "መልሰው ከተቀበሉ በኋላ የነቃውን ብድር ለ\"{{item}}\" ዝጋ።",
+            "return_target_borrower": "አበዳሪ {{name}}",
+            "return_target_lender": "በአሁኑ ጊዜ ከ {{name}}",
+            "return_note_borrower": "የመላኪያ ማስታወሻ",
+            "return_note_lender": "ማስታወሻ ይቀበሉ",
+            "return_note_placeholder_borrower": "ለምሳሌ ያለ ምንም ችግር መልሼ ሰጠሁት",
+            "return_note_placeholder_lender": "ለምሳሌ በጥሩ ሁኔታ ተመልሶ ተቀብሏል",
+            "return_submitting": "መዝጊያ..."
         },
         "messages": {
             "load_error": "የብድር ማእከል መጫን አልተቻለም",
@@ -2059,8 +2082,8 @@
     "legal": {
         "privacy_policy_title": "የ ግል የሆነ",
         "terms_of_service_title": "የአገልግሎት ውል",
-        "privacy_policy_content": "## Overview\n**{{brandName}}** is open-source software and may be provided through an official or self-hosted installation. For this installation, the data controller or service operator is **{{controllerName}}**.\n- **Controller address:** {{controllerAddress}}\n- **Privacy contact:** {{privacyEmail}}\n- **General support contact:** {{supportEmail}}\n\nThis notice explains **what personal data is processed**, **how it is obtained**, **why it is processed**, **who may receive it**, **how long it is kept**, and **what rights you may have**.\n\nIf this installation is operated by a third party, that operator is responsible for any deployment-specific controller identity, support commitments, transfer details, retention settings, and local legal notices that apply.\n\n## What data we collect and process\n- **Account data:** username, email address, password hash, session cookies, trusted-device data, and security logs.\n- **Service data:** houses, rooms, categories, items, uploaded media, borrow requests, and personal vault records that you create.\n- **Technical data:** IP address, browser/session identifiers, and language preference data needed for localization and account security.\n- **Optional identity-provider data:** if you choose Google Sign-In, Google shares your email address, Google account identifier, and profile display name with us so we can authenticate you or create your account.\n- **Optional lookup-request data:** if you use barcode or product lookup, the barcode value you submit may be sent by our server to Open Food Facts, Open Products Facts, Open Beauty Facts, or Google so the requested result can be returned.\n\n## How we obtain data\n- **Directly from you:** when you register, sign in, create or edit records, upload media, configure security settings, or contact support.\n- **Automatically from your browser or device:** through required session cookies, trusted-device mechanisms, IP handling, language preference, and security logs needed to operate and protect the application.\n- **From Google:** only if you choose Google Sign-In, limited to the identity data required to authenticate you or create your account.\n- **From external product data sources:** only if you trigger barcode or product lookup, limited to the lookup request and returned product metadata.\n\n## Why we process it\n- **Account operation:** to create and operate your account.\n- **Authentication and security:** to authenticate you and secure sessions and two-factor authentication.\n- **Core features:** to provide inventory, backup, and Personal Vault features.\n- **Support:** to respond to support requests.\n- **Optional sign-in and lookup features:** to complete Google Sign-In and external barcode/product lookup only when you choose those features.\n- **Legal and security obligations:** to satisfy legal or security obligations.\n\n## Legal basis and collection method\n- **Under GDPR, where applicable:** processing is based on contract performance, legal obligations, consent for any consent-based feature, and the operator's legitimate interest in service and account security.\n- **Under KVKK, where applicable:** processing is based on the legal grounds in Articles 5 and 6, including where necessary for the establishment or performance of a contract, compliance with legal obligations, exercise or protection of rights, or the controller's legitimate interests provided your fundamental rights and freedoms are not harmed.\n- **Collection method:** data is collected by electronic means through forms, authenticated sessions, required cookies, optional OAuth flows, application logs, uploads, and API requests.\n\n## Storage and transfer\n- **We do not sell personal data.**\n- Personal data may be received by the hosting, database, storage, email, authentication, and infrastructure providers used to operate this installation.\n- If you choose Google Sign-In or barcode/product lookup, the relevant authentication or lookup data is shared with the selected provider only to complete the feature you triggered.\n- Data may be disclosed to courts, regulators, or public authorities when legally required.\n- **Transfer disclosure for this installation:** {{transferDisclosure}}\n- Account data is retained while your account is active.\n- When you delete your account from Settings, your account data, personal vault content, uploaded media, and application records owned by your account are deleted from the application without undue delay, except information that must be retained for legal claims, statutory duties, or security obligations.\n\n## Your rights\n- Depending on the applicable law, you may request confirmation whether your personal data is processed, access to it, and information about purposes, categories, recipients, and transfers.\n- You may request rectification, erasure, destruction, restriction, or objection, and where applicable data portability.\n- Where processing is based on consent, you may withdraw consent at any time without affecting prior lawful processing.\n- You may request that correction, deletion, or destruction outcomes be communicated to recipients where the law requires this.\n- You may object to results produced exclusively by automated means if the law gives you that right.\n- Where permitted by law, you may seek compensation for damage caused by unlawful processing.\n- You may lodge a complaint with **{{complaintAuthority}}**\n\n## How to exercise rights\n- Use the in-app account deletion flow or contact **{{privacyEmail}}** for privacy requests.\n- Where GDPR applies, requests should be answered without undue delay and in principle within 1 month after identity verification.\n\n## Automated decision-making\n- This application does not use solely automated decision-making or profiling that produces legal or similarly significant effects on you.\n\n## Important note\nThis notice is provided for transparency. **It is separate from any optional marketing, analytics, or non-essential cookie consent**, which must be requested separately when required.\n\nThe upstream open-source project maintainers are not automatically the data controller or processor for third-party self-hosted deployments.",
-        "terms_of_service_content": "Terms of Service\n\n1. Overview\n{{brandName}} is open-source software and can be used through official or self-hosted installations. These terms apply to the specific installation you are using.\n- If this installation is operated by a third party, that operator may supplement these terms with deployment-specific rules, support commitments, or local legal notices.\n\n2. Usage Rules\n- You are responsible for the legality, accuracy, and ownership of the content you place in the service.\n- Open-source availability of the software does not grant you rights to upload, store, or share data that you are not authorized to use.\n- We may suspend or remove accounts that abuse the service, violate these terms, or create a security or legal risk.\n\n3. Account Security\n- Keep your password, recovery materials, and backups secure.\n\n4. Data Lifecycle\n- Keep your own backups of important information.\n- Deleting your account from Settings permanently removes application data and uploaded media owned by your account and cannot be undone.\n\n5. Limitations and Disclaimer\n- Availability, support, integrations, and response times depend on the operator of this installation.\n- The service is provided on an \"as is\" and \"as available\" basis to the extent permitted by law.",
+        "privacy_policy_content": "## አጠቃላይ እይታ\n**{{brandName}}** ክፍት ምንጭ ሶፍትዌር ነው እና በኦፊሴላዊ ወይም በራስ-አስተናጋጅ ጭነት ሊቀርብ ይችላል። ለዚህ ጭነት፣ የውሂብ ተቆጣጣሪው ወይም የአገልግሎት ኦፕሬተር **{{controllerName}}** ነው።\n- ** የመቆጣጠሪያ አድራሻ: ** {{controllerAddress}}\n- **የግላዊነት እውቂያ፡** {{privacyEmail}}\n- ** አጠቃላይ የድጋፍ አድራሻ፡** {{supportEmail}}\n\nይህ ማስታወቂያ **የግል ዳታ ምን እንደሚካሄድ**፣ **እንዴት እንደሚገኝ**፣ **ለምን እንደሚሰራ**፣ **ማን ሊቀበለው እንደሚችል*****ለምን ያህል ጊዜ እንደሚቀመጥ እና **ምን አይነት መብቶች ሊኖሩዎት እንደሚችሉ ያብራራል*።\n\nይህ ጭነት በሶስተኛ ወገን የሚሰራ ከሆነ ያ ኦፕሬተር ለማንኛውም ማሰማራት-ተኮር ተቆጣጣሪ ማንነት፣ የድጋፍ ቃል ኪዳኖች፣ የዝውውር ዝርዝሮች፣ የማቆያ መቼቶች እና ለሚተገበሩ የአካባቢ ህጋዊ ማሳሰቢያዎች ኃላፊነቱን ይወስዳል።\n\n## የምንሰበስበውን መረጃ የምንሰበስበው እና የምናስኬደው\n- ** የመለያ ውሂብ፡ *** የተጠቃሚ ስም፣ የኢሜይል አድራሻ፣ የይለፍ ቃል ሃሽ፣ የክፍለ ጊዜ ኩኪዎች፣ የታመነ የመሣሪያ ውሂብ እና የደህንነት ምዝግብ ማስታወሻዎች።\n- **የአገልግሎት ውሂብ፡** ቤቶች፣ ክፍሎች፣ ምድቦች፣ እቃዎች፣ የተሰቀሉ ሚዲያዎች፣ የመበደር ጥያቄዎች እና የፈጠሯቸው የግል ቮልት መዝገቦች።\n- **የቴክኒካል መረጃ፡** የአይ ፒ አድራሻ፣ አሳሽ/የክፍለ ጊዜ ለዪዎች፣ እና ለአካባቢያዊነት እና ለመለያ ደህንነት የሚያስፈልጉ የቋንቋ ምርጫዎች ውሂብ።\n- **የአማራጭ መታወቂያ-አቅራቢ ውሂብ፡** ጎግል መግቢያን ከመረጡ ጎግል የኢሜል አድራሻዎን፣ የጎግል መለያ መለያዎን እና የመገለጫውን ስም ያጋራል ስለዚህም እኛ እናረጋግጥዎታለን ወይም መለያዎን መፍጠር እንችላለን።\n- **የአማራጭ ፍለጋ-ጥያቄ ዳታ፡** ባርኮድ ወይም የምርት ፍለጋን ከተጠቀሙ፣ ያስገቡት የባርኮድ ዋጋ በአገልጋያችን ወደ ክፍት የምግብ እውነታዎች፣ የምርቶች እውነታዎች፣ የክፍት የውበት እውነታዎች ወይም ጎግል ሊላክ ይችላል ስለዚህ የተጠየቀው ውጤት እንዲመለስ።\n\n## ዳታ እንዴት እንደምናገኝ\n- ** በቀጥታ ከእርስዎ: *** ሲመዘገቡ ፣ ሲገቡ ፣ መዝገቦችን ሲፈጥሩ ወይም ሲያርትዑ ፣ ሚዲያ ሲጭኑ ፣ የደህንነት ቅንብሮችን ሲያዋቅሩ ወይም ድጋፍን ሲያነጋግሩ።\n- **በራስ-ሰር ከአሳሽህ ወይም ከመሳሪያህ:** በሚፈለጉ የክፍለ ጊዜ ኩኪዎች፣ የታመኑ መሳሪያዎች ስልቶች፣ የአይፒ አያያዝ፣ የቋንቋ ምርጫ እና አፕሊኬሽኑን ለመጠበቅ የሚያስፈልጉ የደህንነት ምዝግብ ማስታወሻዎች።\n- **ከጉግል፡** አንተን ለማረጋገጥ ወይም መለያህን ለመፍጠር በሚያስፈልገው የማንነት መረጃ የተገደበ የGoogle መግቢያን ከመረጥክ ብቻ።\n- **ከውጫዊ የምርት መረጃ ምንጮች:** የባርኮድ ወይም የምርት ፍለጋን ከቀሰቀሱ ብቻ፣ በፍለጋ ጥያቄው የተገደበ እና የምርት ሜታዳታ ከመለሱ።\n\n## ለምን እናሰራዋለን\n- ** የመለያ ክወና:** መለያዎን ለመፍጠር እና ለመስራት።\n- ** ማረጋገጫ እና ደህንነት: ** እርስዎን ለማረጋገጥ እና ክፍለ-ጊዜዎችን እና ባለ ሁለት ደረጃ ማረጋገጫን ለማረጋገጥ።\n- ** ዋና ባህሪያት፡** ክምችት፣ ምትኬ እና የግል ቮልት ባህሪያትን ለማቅረብ።\n- ** ድጋፍ: ** ለድጋፍ ጥያቄዎች ምላሽ ለመስጠት ።\n- **የአማራጭ የመግባት እና የመፈለጊያ ባህሪያት፡** እነዚህን ባህሪያት ሲመርጡ ብቻ የጎግል መግቢያ እና የውጭ ባርኮድ/ምርት ፍለጋን ለማጠናቀቅ።\n- ** የህግ እና የደህንነት ግዴታዎች:** የህግ ወይም የደህንነት ግዴታዎችን ለማሟላት.\n\n## ህጋዊ መሰረት እና የመሰብሰቢያ ዘዴ\n- **በGDPR ስር፣ በሚተገበርበት ጊዜ፡** ሂደት በውል አፈጻጸም፣ ህጋዊ ግዴታዎች፣ ለማንኛውም ፈቃድ ላይ የተመሰረተ ባህሪ ፈቃድ እና ኦፕሬተሩ ለአገልግሎት እና ለመለያ ደህንነት ባለው ህጋዊ ፍላጎት ላይ የተመሰረተ ነው።\n- **በKVKK ስር፣ የሚመለከተው ከሆነ፡** ሂደት በአንቀጽ 5 እና 6 ላይ በህጋዊ መሰረት ላይ የተመሰረተ ሲሆን ውል ለመመስረት ወይም ለመፈጸም አስፈላጊ ሆኖ ሲገኝ፣ ህጋዊ ግዴታዎችን ማክበርን፣ የመብቶችን አጠቃቀምን ወይም የተቆጣጣሪውን ህጋዊ ፍላጎቶችን ጨምሮ መሰረታዊ መብቶችዎ እና ነጻነቶችዎ ካልተጎዱ።\n- ** የስብስብ ዘዴ፡** መረጃ በኤሌክትሮኒክ መንገድ የሚሰበሰበው በቅጾች፣ በተረጋገጡ ክፍለ-ጊዜዎች፣ በሚፈለጉ ኩኪዎች፣ በአማራጭ የOAuth ፍሰቶች፣ የመተግበሪያ ምዝግብ ማስታወሻዎች፣ ሰቀላዎች እና የኤፒአይ ጥያቄዎች ነው።\n\n## ማከማቻ እና ማስተላለፍ\n- **የግል መረጃ አንሸጥም።**\n- ይህን ጭነት ለማንቀሳቀስ ጥቅም ላይ በሚውሉት ማስተናገጃ፣ የውሂብ ጎታ፣ ማከማቻ፣ ኢሜል፣ ማረጋገጫ እና መሠረተ ልማት አቅራቢዎች የግል መረጃ ሊደርስ ይችላል።\n- ጎግል መግቢያ ወይም ባርኮድ/ምርት ፍለጋን ከመረጡ አግባብነት ያለው የማረጋገጫ ወይም የመፈለጊያ ዳታ ከተመረጠው አቅራቢ ጋር የሚጋራው የቀሰቀሱትን ባህሪ ለማጠናቀቅ ብቻ ነው።\n- በህጋዊ መንገድ አስፈላጊ ሆኖ ሲገኝ መረጃው ለፍርድ ቤቶች፣ ተቆጣጣሪዎች ወይም የህዝብ ባለስልጣናት ሊገለጽ ይችላል።\n- **ለዚህ ጭነት ይፋ ማድረግን ያስተላልፉ፡** {{transferDisclosure}}\n- መለያዎ ንቁ ሲሆን የመለያ ውሂብ ተጠብቆ ይቆያል።\n- መለያዎን ከሴቲንግ ሲሰርዙ፣ ለህጋዊ የይገባኛል ጥያቄዎች፣ ህጋዊ ግዴታዎች ወይም የደህንነት ግዴታዎች መቀመጥ ካለበት መረጃ በስተቀር የመለያዎ ዳታ፣ የግል ቮልት ይዘት፣ የተሰቀሉ ሚዲያዎች እና የመለያዎ ባለቤት የሆኑ የመተግበሪያ መዝገቦች ያለ አግባብ ከመተግበሪያው ይሰረዛሉ።\n\n#መብትህ\n- በሚመለከተው ህግ ላይ በመመስረት፣ የግል ውሂብዎ መሰራቱን፣ እሱን ማግኘት እና ስለ አላማዎች፣ ምድቦች፣ ተቀባዮች እና ማስተላለፎች መረጃ ስለመሆኑ ማረጋገጫ መጠየቅ ይችላሉ።\n- ማረም፣ መደምሰስ፣ ማጥፋት፣ መገደብ ወይም መቃወሚያ እና የውሂብ ተንቀሳቃሽነት በሚኖርበት ጊዜ ሊጠይቁ ይችላሉ።\n- ሂደቱ በስምምነት ላይ የተመሰረተ ከሆነ በማንኛውም ጊዜ ቀድሞ ህጋዊ ሂደትን ሳይነኩ ፈቃዱን ማንሳት ይችላሉ።\n- እርማት፣ ስረዛ ወይም የጥፋት ውጤቶች ህጉ ይህን በሚያስገድድበት ጊዜ ለተቀባዮች እንዲነገር መጠየቅ ይችላሉ።\n- ህጉ ያንን መብት ከሰጠዎት በራስ-ሰር ብቻ የተሰሩ ውጤቶችን መቃወም ይችላሉ።\n- በህግ በሚፈቀድበት ጊዜ፣ በህገ-ወጥ አሰራር ምክንያት ለሚደርስ ጉዳት ካሳ መጠየቅ ይችላሉ።\n- በ **{{complaintAuthority}}** ቅሬታ ማቅረብ ይችላሉ።\n\n## መብቶችን እንዴት መጠቀም እንደሚቻል\n- ለግላዊነት ጥያቄዎች የውስጠ-መተግበሪያ መለያ ስረዛ ፍሰትን ይጠቀሙ ወይም **{{privacyEmail}}** ያግኙ።\n-GDPR በሚያመለክትበት ጊዜ፣ጥያቄዎች ያለአንዳች መዘግየት እና በመርህ ደረጃ የማንነት ማረጋገጫው በ1 ወር ጊዜ ውስጥ መመለስ አለበት።\n\n# ራስ-ሰር ውሳኔ አሰጣጥ\n- ይህ መተግበሪያ በአንተ ላይ ህጋዊ ወይም ተመሳሳይ ጉልህ ተፅእኖዎችን የሚያመጣ በራስ ሰር ውሳኔ አሰጣጥ ወይም መገለጫ አይጠቀምም።\n\n## ጠቃሚ ማስታወሻ\nይህ ማስታወቂያ ለግልጽነት የቀረበ ነው። **ከማንኛውም አማራጭ ግብይት፣ ትንታኔ ወይም አስፈላጊ ካልሆነ የኩኪ ስምምነት የተለየ ነው**፣ ሲያስፈልግ ለብቻው መጠየቅ አለበት።\n\nየላይኛው ክፍት ምንጭ የፕሮጀክት ጠባቂዎች የሶስተኛ ወገን በራስ የሚስተናገዱ ማሰማራቶች በራስ ሰር የውሂብ ተቆጣጣሪ ወይም ፕሮሰሰር አይደሉም።",
+        "terms_of_service_content": "የአገልግሎት ውል\n\n1. አጠቃላይ እይታ\n{{brandName}} ክፍት ምንጭ ሶፍትዌር ነው እና በይፋዊ ወይም በራስ በሚስተናገዱ ጭነቶች መጠቀም ይቻላል። እነዚህ ውሎች በሚጠቀሙበት ልዩ ጭነት ላይ ተፈጻሚ ይሆናሉ።\n- ይህ ጭነት የሚሰራው በሶስተኛ ወገን ከሆነ፣ ያ ኦፕሬተር እነዚህን ውሎች በማሰማራት-ተኮር ህጎች፣ የድጋፍ ቃል ኪዳኖች ወይም የአካባቢ ህጋዊ ማሳወቂያዎች ሊያሟላ ይችላል።\n\n2. የአጠቃቀም ደንቦች\n- በአገልግሎቱ ውስጥ ለሚያስቀምጡት ይዘት ህጋዊነት፣ ትክክለኛነት እና ባለቤትነት ሃላፊነት አለብዎት።\n- የሶፍትዌሩ ክፍት ምንጭ መገኘት ለመጠቀም ያልተፈቀደልዎትን ውሂብ የመስቀል፣ የማከማቸት ወይም የማጋራት መብት አይሰጥዎትም።\n- አገልግሎቱን አላግባብ የሚጠቀሙ፣ እነዚህን ደንቦች የሚጥሱ ወይም የደህንነት ወይም ህጋዊ አደጋ የሚፈጥሩ መለያዎችን ልናግድ ወይም ልናስወግድ እንችላለን።\n\n3. የመለያ ደህንነት\n- የይለፍ ቃልዎን፣ የመልሶ ማግኛ ቁሳቁሶችዎን እና ምትኬዎችዎን ደህንነቱ የተጠበቀ ያድርጉት።\n\n4. የውሂብ የሕይወት ዑደት\n- አስፈላጊ መረጃዎችን የራስዎን ምትኬዎች ያስቀምጡ።\n- መለያዎን ከቅንብሮች መሰረዝ የመተግበሪያ ውሂብ እና በመለያዎ ባለቤትነት የተያዙ ሚዲያዎችን በቋሚነት ያስወግዳል እና ሊቀለበስ አይችልም።\n\n5. ገደቦች እና ማስተባበያ\n- ተገኝነት ፣ ድጋፍ ፣ ውህደቶች እና የምላሽ ጊዜዎች በዚህ መጫኛ ኦፕሬተር ላይ ይወሰናሉ።\n- አገልግሎቱ የሚቀርበው በሕግ በሚፈቅደው መጠን \"እንደሆነ\" እና \"እንዳለ\" ነው።",
         "register_consent": "እኔ አንብቤያለሁ ፣ ተረድቻለሁ እና <1>የአገልግሎት ውል</1> እና <2>ግላዊነት የሆነ</2> ተስማምቻለሁ። እርስዎን በመለያ እንዲገቡ እና የክፍለ ጊዜዎን ለመጠበቅ አስፈላጊ ኩኪዎችን እንጠቀማለን። ይህንን ጣቢያ መጠቀምዎን በመቀጠል በመመሪያዎቻችን ተስማምተዋል። ተቀብያለሁ ተጨማሪ ይወቁ",
         "consent_title": "ህጋዊ ሰነዶችን ይገምግሙ",
         "consent_subtitle": "እባክዎ ከመቀጠልዎ በፊት የአሁኑን ውሎች ያረጋግጡ።",
@@ -2079,7 +2102,7 @@
         "overview": "አጠቃላይ እይታ",
         "contact": "ተገናኝ",
         "jump_to": "ይዝለሉ",
-        "privacy_description": "The privacy notice for this {{brandName}} installation explains what data is processed, how it is collected, how it is shared or transferred, and what rights and complaint paths may apply.",
+        "privacy_description": "የዚህ {{brandName}} ጭነት የግላዊነት ማስታወቂያ ምን አይነት ውሂብ እንደተሰራ፣ እንዴት እንደሚሰበሰብ፣ እንዴት እንደሚጋራ ወይም እንደሚተላለፍ እና ምን አይነት መብቶች እና የቅሬታ መንገዶች ሊተገበሩ እንደሚችሉ ያብራራል። የዚህ መጫኛ ኦፕሬተር. የዚህ {{brandName}} መጫኛ ውሎች ተቀባይነት ያለው አጠቃቀምን፣ የደህንነት ኃላፊነቶችዎን እና መለያ መሰረዝ የሚያስከትለውን መዘዝ ይበልጥ ግልጽ በሆነ ለመቃኘት ቀላል በሆነ ቅርጸት ያብራራሉ። ክፍት ምንጭ",
         "privacy_support_label": "ለግላዊነት ጥያቄዎች፣ የመብቶች ማመልከቻዎች እና ስለዚህ ጭነት ከቅሬታ ጋር ለተያያዙ ጥያቄዎች፡-",
         "privacy_summary": {
             "title": "በተግባር",
@@ -2103,7 +2126,7 @@
                 "rights": "መብቶችህ"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "የዚህ {{brandName}} ጭነት ውሎች ተቀባይነት ያለው አጠቃቀምን፣ የደህንነት ኃላፊነቶችዎን እና የመለያ መሰረዝ የሚያስከትለውን መዘዝ ይበልጥ ግልጽ በሆነ ለመቃኘት ቀላል በሆነ ቅርጸት ያብራራሉ።",
         "terms_support_label": "በዚህ ጭነት ላይ ስለሚተገበሩ ውሎች ጥያቄዎች፡-",
         "terms_summary": {
             "eyebrow": "ፈጣን ማጠቃለያ",
@@ -2116,7 +2139,7 @@
                 "disclaimer": "ተገኝነት, ድጋፍ እና ውህደት በዚህ መጫኛ ኦፕሬተር ላይ የተመሰረተ ነው; አገልግሎቱ የሚሰጠው ህግ በሚፈቅደው መጠን \"እንደሆነ\" እና \"በሚገኘው\" መሰረት ነው።"
             }
         },
-        "controller_name_generic": "the operator of this installation",
+        "controller_name_generic": "የዚህ መጫኛ ኦፕሬተር",
         "controller_name_public_host": "የ{{brandHost}} ኦፕሬተር",
         "controller_address_unconfigured": "በዚህ መጫኛ ኦፕሬተር ያልተዋቀረ",
         "transfer_disclosure_default": "ዝውውሮች በዚህ ጭነት ጥቅም ላይ በሚውሉ ማስተናገጃ፣ ኢሜል እና አማራጭ ጎግል/ክፍት*እውነታዎች/ጎግል ፍለጋ አቅራቢዎች ላይ ሊከሰቱ ይችላሉ። የዚህ መጫኛ ኦፕሬተር አስፈላጊ ሆኖ ሲገኝ አግባብነት ያላቸውን መድረሻ አገሮች እና ጥበቃዎች መግለጽ አለበት።",
@@ -2141,7 +2164,7 @@
         "account_menu_tooltip": "{{name}} የመለያ ሜኑ ክፈት"
     },
     "app": {
-        "name": "{{brandName}}",
+        "name": "{{የምርት ስም}}",
         "tagline": "ሁሉንም የቤት እቃዎችዎን በጥበብ ያስተዳድሩ"
     },
     "nav": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "በጣም ብዙ የመግቢያ ሙከራዎች። እባክዎ በ 15 ደቂቃዎች ውስጥ እንደገና ይሞክሩ።"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "በመለያ ይግቡ",
+        "page_title_register": "መለያ ይፍጠሩ",
+        "page_title_choose_house": "ቤት ይምረጡ",
+        "page_title_recovery_key": "የመልሶ ማግኛ ቁልፍ",
+        "page_title_house_access": "የቤት መዳረሻ",
+        "page_title_legal_review": "የህግ ግምገማ",
+        "page_title_new_item": "አዲስ ንጥል",
+        "page_title_edit_item": "ንጥል አርትዕ",
+        "page_title_items": "የእቃ ዝርዝር"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "የግዢ ዝርዝርን በመጫን ላይ ስህተት",
+            "select_item_error": "እባክዎ ከዕቃው ውስጥ አንድ ንጥል ይምረጡ።",
+            "empty_name": "እባክዎ የንጥል ስም ያስገቡ።",
+            "added": "ንጥል ወደ ግዢ ዝርዝር ታክሏል።",
+            "add_error": "እቃውን ሲጨምሩ ስህተት ተከስቷል።",
+            "added_suggestion": "\"{{name}}\" ወደ ግዢ ዝርዝር ታክሏል።",
+            "bulk_added": "{{count}} ዝቅተኛ የአክሲዮን እቃዎች ወደ ዝርዝሩ ተጨምረዋል።",
+            "bulk_error": "ዝቅተኛ የአክሲዮን ዕቃዎችን በማከል ላይ ስህተት አለ።",
+            "completed": "\"{{name}}\" እንደተጠናቀቀ ምልክት ተደርጎበታል።",
+            "reactivated": "\"{{name}}\" ወደ ንቁ ዝርዝር ተመልሷል። በዝማኔ ጊዜ",
+            "update_error": "ስህተት ተከስቷል።",
+            "deleted": "ንጥል ከዝርዝሩ ተሰርዟል።",
+            "delete_error": "በተሰረዘበት ጊዜ ስህተት ተከስቷል።",
+            "cleared_completed": "የተጠናቀቁ ዕቃዎችን አጽድተዋል።",
+            "clear_error": "በማጽዳት ጊዜ ስህተት ተከስቷል።"
+        },
+        "loading_desc": "የግዢ ዝርዝርን በማዘጋጀት ላይ...",
+        "page": {
+            "title": "የግዢ ዝርዝር",
+            "description": "በቤት ውስጥ ክምችት ውስጥ ዝቅተኛ የአክሲዮን ዕቃዎችን ይመልከቱ እና የግዢ ዝርዝርዎን በቀላሉ ያስተዳድሩ።"
+        },
+        "suggestions": {
+            "title": "ብልጥ የእቃ ዝርዝር ጥቆማዎች",
+            "desc": "ከዝቅተኛው ገደብ በታች የወደቁ የእቃ ዝርዝር ዕቃዎች።",
+            "add_all": "ሁሉንም የጎደሉ",
+            "stock_status": "የአሁኑን ያክሉ {{current}} / ዒላማ {{min}}",
+            "add_qty": "{{qty}} አክል"
+        },
+        "sections": {
+            "active_list": "የሚገዙ ዕቃዎች",
+            "active_desc": "ወደ ጋሪዎ የሚጨምሩ ወቅታዊ የግዢ ዕቃዎች።",
+            "active_count": "{{count}} እቃዎች",
+            "completed_list": "የተገዙ እቃዎች ({{count}})",
+            "add_item": "ንጥል በእጅ ያክሉ",
+            "add_desc": "ብጁ ንጥል በእጅ ወደ ዝርዝሩ ያክሉ።"
+        },
+        "empty": {
+            "title": "የግዢ ዝርዝርዎ ባዶ ነው",
+            "desc": "ከላይ ከተጠቀሱት ጥቆማዎች የጎደለውን አክሲዮን ማከል ወይም በቀኝ በኩል ያለውን ቅጽ በመጠቀም እቃዎችን እራስዎ ማከል ይችላሉ።"
+        },
+        "card": {
+            "linked_inventory": "በቆጠራ ውስጥ ተቀምጧል"
+        },
+        "actions": {
+            "clear_completed": "ታሪክን አጽዳ",
+            "add_item": "ወደ ግዢ ዝርዝር ያክሉ"
+        },
+        "form": {
+            "add_type": "ዘዴን ያክሉ",
+            "add_type_inventory": "የእቃ ዝርዝር ንጥል",
+            "add_type_custom": "ብጁ ንጥል",
+            "select_inventory_item": "ከዕቃ ዝርዝር ውስጥ ንጥል ይምረጡ",
+            "no_inventory_items": "በዕቃዎ ውስጥ እስካሁን ምንም እቃዎች የሉም።",
+            "select_item_placeholder": "የአሁኑን",
+            "current_stock": "ንጥል ስም",
+            "item_name": "አንድ ንጥል ይምረጡ",
+            "item_name_placeholder": "ለምሳሌ ወተት፣ ሳሙና፣ የቡና ፍሬ...",
+            "quantity": "ብዛት"
+        },
+        "modal": {
+            "delete_title": "ንጥሉን ከዝርዝር ውስጥ መሰረዝ?",
+            "delete_desc": "እርግጠኛ ነህ ከግዢ ዝርዝርዎ ውስጥ \"{{name}}\"ን ማስወገድ ይፈልጋሉ?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "መረጃ በመጫን ላይ ስህተት አለ",
+            "select_item_error": "እባክዎ አንድ ንጥል ይምረጡ። የተግባር ስም ያስፈልጋል። የታቀደበት ቀን ያስፈልጋል። የጥገና ተግባር ተዘምኗል",
+            "task_name_error": "የተግባር ስም ያስፈልጋል።",
+            "date_error": "የታቀደበት ቀን ያስፈልጋል።",
+            "updated": "የጥገና ተግባር ተዘምኗል >>> አስተዳድር >>> እንደ AC ማጣሪያ ማጽዳት፣ የቦይለር ጥገና ወይም የእሳት አደጋ መከላከያ ባትሪ ፍተሻዎች ያሉ ተደጋጋሚ ስራዎችን በማከል ይጀምሩ። >>> ጊዜ ያለፈባቸው ተግባራት",
+            "created": "አዲስ የጥገና ተግባር ታክሏል",
+            "save_error": "በማስቀመጥ ላይ ስህተት ተከስቷል",
+            "deleted": "የጥገና ተግባር በተሳካ ሁኔታ ተሰርዟል።",
+            "delete_error": "በመሰረዝ ሂደት ውስጥ ስህተት ተከስቷል።",
+            "performed": "ጥገና እንደተጠናቀቀ ተመዝግቧል። የሚቀጥለው ቀን ተይዞለታል።",
+            "perform_error": "በማስቀመጥ ላይ ስህተት ተከስቷል።"
+        },
+        "freq": {
+            "one_time": "የአንድ ጊዜ",
+            "unit": {
+                "days": "ቀን",
+                "weeks": "ሳምንት",
+                "months": "ወር",
+                "years": "ዓመት"
+            },
+            "format": "እያንዳንዱ {{val}} {{unit}}"
+        },
+        "loading_desc": "የጥገና መርሃ ግብር በመጫን ላይ...",
+        "page": {
+            "title": "ጥገና እና ወቅታዊ ክትትል",
+            "description": "በቤትዎ ክምችት ውስጥ ላሉ መገልገያዎች፣ ማጣሪያዎች ወይም የደህንነት መሳሪያዎች ወቅታዊ የጥገና መርሃ ግብሮችን ያስተዳድሩ።"
+        },
+        "actions": {
+            "add_task": "አዲስ ተግባር ያክሉ",
+            "manage": "አስተዳድር",
+            "perform": "እንደተሰራ ያስተዳድሩ",
+            "edit_task": "የአርትዕ ተግባር"
+        },
+        "alerts": {
+            "overdue_title": "ጊዜ ያለፈባቸው ተግባራት አሉዎት!",
+            "overdue_desc": "{{count}} ጊዜ ያለፈባቸው የጥገና ስራዎች አሉ። መዘግየቶች የመሳሪያውን ዕድሜ ሊቀንስ ይችላል."
+        },
+        "empty": {
+            "title": "ምንም የጥገና ስራዎች የታቀዱ የሉም። እንደ የኤሲ ማጣሪያ ማጽዳት፣ የቦይለር ጥገና ወይም የእሳት አደጋ መከላከያ ባትሪ ፍተሻዎች ያሉ ተደጋጋሚ ተግባራትን በማከል ይጀምሩ። ጊዜ ያለፈባቸው ተግባራት. አስቸኳይ መደረግ ያለበት አስቸኳይ ጥገና።",
+            "desc": "እንደ AC ማጣሪያ ማጽዳት፣ የቦይለር ጥገና ወይም የእሳት አደጋ መፈለጊያ ባትሪ ፍተሻዎች ያሉ ተደጋጋሚ ስራዎችን በማከል ይጀምሩ።"
+        },
+        "sections": {
+            "overdue": "ጊዜ ያለፈባቸው ተግባራት",
+            "overdue_desc": "አስቸኳይ መደረግ ያለበት አስቸኳይ ጥገና። የጥገና ሥራን",
+            "upcoming": "የታቀዱ / መጪ ተግባራት",
+            "upcoming_desc": "በሚቀጥሉት ቀናት ወደ ጥገና መቃረብ።",
+            "no_upcoming": "ለወደፊቱ ምንም ንቁ ተግባራት የታቀዱ የሉም።"
+        },
+        "modal": {
+            "edit_title": "ተግባርን ያርትዑ",
+            "create_title": "አዲስ የጥገና ተግባር",
+            "perform_title": "የተሟላ ጥገና",
+            "perform_desc": "መርሐግብር ያስይዙ ዛሬ እንደተጠናቀቀ \"{{name}}\" መመዝገብ ይፈልጋሉ?",
+            "perform_confirm": "አዎ ተጠናቅቋል",
+            "perform_recurrence_info": "ይህ ወቅታዊ ተግባር ነው. ሲያስቀምጡ ስርዓቱ የሚቀጥለውን የጥገና ቀን በራስ-ሰር ያሰላል። የጥገና ስራን ሰርዝ? እርግጠኛ ነዎት ወቅታዊ የጥገና መርሃ ግብር \"{{name}}\" መሰረዝ ይፈልጋሉ? ይህ እርምጃ ሊቀለበስ አይችልም። ተዛማጅ ንጥል",
+            "delete_title": "ይሰርዙ?",
+            "delete_desc": "በየጊዜው የጥገና መርሃ ግብር \"{{name}}\" መሰረዝ እንደሚፈልጉ እርግጠኛ ነዎት? ይህ እርምጃ ሊቀለበስ አይችልም።"
+        },
+        "form": {
+            "item": "ተዛማጅ ንጥል",
+            "no_items": "ጥገናን ከማቀድዎ በፊት መጀመሪያ አንድ ንጥል ወደ ዕቃው ማከል አለብዎት።",
+            "select_item_placeholder": "ንጥል ይምረጡ",
+            "task_name": "የተግባር / የኦፕሬሽን ስም ንጥል ይምረጡ",
+            "task_name_placeholder": "ለምሳሌ የማጣሪያ መተካት፣ ወቅታዊ ፍተሻ...",
+            "description": "ዝርዝር / መግለጫ",
+            "description_placeholder": "የተግባር ዝርዝሮች፣ ጥቅም ላይ የሚውሉ ቁሳቁሶች፣ ወዘተ...",
+            "frequency_value": "ተደጋጋሚነት ድግግሞሽ",
+            "frequency_placeholder": "ለምሳሌ 6 (ለአንድ ጊዜ ባዶ ይተዉት)",
+            "frequency_unit": "የድግግሞሽ ክፍል",
+            "next_due_date": "በሚቀጥለው የታቀደበት ቀን",
+            "section_help": "የጥገና መርሃ ግብሮችን ከዚህ ያስተዳድሩ",
+            "section_collapsed": "ወቅታዊ መቆጣጠሪያዎችን እና ተግባራትን ለመጨመር ጠቅ ያድርጉ",
+            "has_tasks": "{{ቆጠራ}} ተግባራት",
+            "new_item_warning_title": "የንጥል ቁጠባ በመጠባበቅ ላይ",
+            "new_item_warning_desc": "የጥገና መርሃ ግብር ለመጨመር መጀመሪያ ይህን ንጥል ማስቀመጥ አለቦት።",
+            "manage_desc": "ለዚህ መሳሪያ ወይም ንጥል የጥገና መርሃ ግብሮችን ያስተዳድሩ።"
+        },
+        "fields": {
+            "task_name": "የተግባር ስም",
+            "task_name_placeholder": "ለምሳሌ የኤሲ ማጣሪያ ማጽጃ",
+            "description": "መግለጫ",
+            "description_placeholder": "የተግባር ዝርዝሮች፣ ጥቅም ላይ የሚውሉ ቁሳቁሶች፣ ወዘተ...",
+            "frequency_value": "የድግግሞሽ ድግግሞሽ",
+            "frequency_value_placeholder": "ለአንድ ጊዜ",
+            "frequency_unit": "ድግግሞሽ ክፍል",
+            "next_due_date": "ለታቀደለት ቀን ባዶ ይተዉት"
+        },
+        "card": {
+            "untitled_item": "ርዕስ አልባ ንጥል",
+            "last_performed": "ለመጨረሻ ጊዜ ተከናውኗል",
+            "next_due_label": "የታቀደበት ቀን",
+            "complete_tooltip": "ዛሬ እንደተደረገው ጥገና ምልክት ያድርጉ"
+        },
+        "detail_card_desc": "ለዚህ ንጥል ወቅታዊ ወይም የአንድ ጊዜ የጥገና ክትትል የታቀደ። ለዚህ ንጥል ምንም የጥገና ስራዎች አልተመደቡም. ይህ ተግባር ይሰረዛል. እርግጠኛ ነህ?",
+        "no_tasks": "ለዚህ ንጥል ነገር ምንም የጥገና ስራዎች አልተመደቡም።",
+        "confirm_delete": "ይህ ተግባር ይሰረዛል. እርግጠኛ ነህ?"
     }
 }

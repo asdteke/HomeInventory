@@ -69,7 +69,9 @@
             "vault_hint_action": "Відкрити Особистий сейф",
             "location": "Місцезнаходження",
             "remove_photo": "Видалити фото",
-            "visibility_owner_only": "Лише особа, яка додала предмет, може змінювати його видимість."
+            "visibility_owner_only": "Лише особа, яка додала предмет, може змінювати його видимість.",
+            "expiry_date": "Дата закінчення терміну придатності",
+            "min_quantity": "Мінімальна кількість"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" швидко додано - ви можете редагувати пізніше",
@@ -119,7 +121,12 @@
         "no_permission": "У вас немає дозволу змінювати цей предмет",
         "barcode_search_error": "Пошук штрих-коду не вдався",
         "stats_error": "Помилка завантаження статистики",
-        "detail_subtitle": "Деталі предмета"
+        "detail_subtitle": "Деталі предмета",
+        "status": {
+            "close_to_expiry": "Близько до закінчення терміну",
+            "expired": "Прострочено",
+            "low_stock": "Низький запас"
+        }
     },
     "common": {
         "save": "Зберегти",
@@ -170,7 +177,8 @@
         "details": "Деталі",
         "hide": "Сховати пароль",
         "logging_out": "Вихід...",
-        "show": "Показати пароль"
+        "show": "Показати пароль",
+        "saving": "Збереження..."
     },
     "auth": {
         "login": {
@@ -216,7 +224,7 @@
             "support_link": "Звернутися до служби підтримки"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "Налаштуйте свій будинок",
             "subtitle": "Створіть новий обліковий запис або приєднайтеся до існуючого будинку",
             "create_house": "Створити новий будинок",
             "join_house": "Приєднатися до будинку",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "Введіть пароль ще раз",
             "reset_submit": "Скинути пароль",
             "resetting": "Скидання...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Введіть ваш ім’я користувача або електронну пошту"
         },
         "reset_password": {
             "title": "Скинути пароль",
@@ -353,7 +361,7 @@
         "password_requirements": "Використовуйте принаймні {{min}} символів із великими та малими літерами, цифрами та символами.",
         "logout": "Вийти",
         "logging_in": "Увійти...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "Ласкаво просимо до {{brandName}}",
         "username_email": "Ім'я користувача або електронна пошта",
         "username": "Ім'я користувача",
         "email": "Електронна пошта",
@@ -438,7 +446,9 @@
         "logout_aria": "Вийти з вашого облікового запису",
         "logout_title": "Вийти?",
         "logout_description": "Ви будете повернені до екрана входу і вам потрібно буде знову увійти, щоб керувати інвентарем вашої оселі.",
-        "logout_warning": "Використовуйте це, коли закінчили роботу на спільному або особистому пристрої."
+        "logout_warning": "Використовуйте це, коли закінчили роботу на спільному або особистому пристрої.",
+        "maintenance": "Графік обслуговування",
+        "shopping": "Список покупок"
     },
     "dashboard": {
         "welcome": "Ласкаво просимо, <1>{{name}}</1>! 👋",
@@ -565,7 +575,20 @@
         "no_items_filter": "Жоден елемент не відповідає цьому фільтру",
         "manage": "Керувати",
         "add_item": "Додати елемент",
-        "search_item": "Пошук елемента"
+        "search_item": "Пошук елемента",
+        "alerts": {
+            "expired_title": "Термін дії предметів минув!",
+            "expired_desc": "У вашому інвентарі {{count}} прострочених предметів. Будь ласка, перевірте їх для вашої безпеки.",
+            "view_items": "Переглянути предмети",
+            "maintenance_title": "Протерміновані завдання з обслуговування!",
+            "maintenance_desc": "Є {{count}} прострочені завдання з обслуговування. Виконайте обслуговування, щоб продовжити термін служби ваших приладів.",
+            "go_to_maintenance": "Перейти до обслуговування",
+            "low_stock_title": "Сповіщення про низький запас",
+            "low_stock_desc": "{{count}} товарів впали нижче вашого мінімального запасу.",
+            "go_to_shopping": "Список покупок",
+            "close_expiry_title": "Майбутні дати закінчення терміну придатності",
+            "close_expiry_desc": "{{count}} продуктів закінчать термін придатності протягом 30 днів."
+        }
     },
     "beta_banner": {
         "title": "БЕТА:",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "Активний ключ дому",
             "key_label": "Ключ дому",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{суфікс}}",
             "hide": "Сховати",
             "show": "Показати",
             "copy": "Копіювати",
@@ -991,8 +1014,8 @@
             "no_history": "Історії позик для цього предмета ще немає.",
             "lend_success_title": "Предмет позичено",
             "lend_success_body": "{{item}} тепер позначено як позичений.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "Запит на позичання надіслано",
+            "offer_sent_body": "{{item}} буде позначено як запозичене після того, як інший учасник прийме.",
             "borrowed_by_you": "У вас",
             "return_pending_hint": "Запис буде закрито після того, як позичальник підтвердить отримання предмета назад.",
             "return_pending_lender_title": "{{name}} позначив цей предмет як повернений",
@@ -1229,7 +1252,7 @@
             "no_logs": "журналів ще немає",
             "errors_title": "Системні помилки (Останні 10)",
             "no_errors": "// Система працює, помилок немає.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{дата, датачас}}",
             "type": {
                 "email": "Електронна пошта",
                 "user": "Користувач",
@@ -1401,12 +1424,12 @@
             "cta_register": "Створити обліковий запис",
             "stat_free": "Безкоштовно",
             "stat_access": "Доступ",
-            "free_badge": "Open Source",
+            "free_badge": "Відкрите програмне забезпечення",
             "badge": "HomeInventory v2.0 вже тут",
             "cta_explore": "Дослідити функції",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Увійти",
+            "stat_members": "Спільні будинки",
+            "stat_vault": "Приватний сейф"
         },
         "features": {
             "title": "Чому <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Зберігайте предмети, гарантії, важливі документи та відстеження позик в одному спокійному місці. Бачте, що міститься у вашому домі одним поглядом.",
                 "primaryCta": "Почати безкоштовно",
                 "secondaryCta": "Переглянути продукт",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Запропонований порядок: обліковий запис • головна • кімнати та категорії • предмети • резервне копіювання",
                 "searchPlaceholder": "Пошук предмета, кімнати чи штрихкоду"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "Деталі мережі залишаються прихованими, доки вам не знадобиться керівництво.",
         "link_privacy_note": "Адреса мережі залишається схованою тут. Скануйте код або копіюйте посилання тільки тоді, коли свідомо хочете поділитися прямим доступом до елемента у вашій локальній системі.",
         "helper": "Скануйте, щоб миттєво відкрити цей елемент, або копіюйте пряме посилання за потреби.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Посилання не вдалося скопіювати автоматично",
+        "copy_manual_help": "Ваш браузер не дозволив автоматичне копіювання. Посилання виділено, щоб ви могли скопіювати його вручну.",
         "loading": "Підготовка інструментів QR..."
     },
     "house_access_pending": {
@@ -1969,8 +1992,8 @@
             "empty": "Зараз немає активних позик.",
             "borrowed_from": "Позичено у {{name}}",
             "lent_to": "Наразі у {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Очікування підтвердження від позичальника, що він отримав його назад.",
+            "return_pending_lender": "{{name}} позначив цей предмет як повернений. Підтвердьте отримання, щоб закрити запис.",
             "empty_title": "Немає активних позик зараз",
             "empty_description": "Прийняті запити з’являються тут, коли предмет позичено або видано, разом з датами повернення та статусом повернення."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Скасовано",
             "expired": "Прострочено",
             "returned": "Повернено",
-            "return_pending": "Return pending"
+            "return_pending": "Повернення очікує"
         },
         "actions": {
             "send_request": "Запитати предмет",
@@ -1990,8 +2013,8 @@
             "reject": "Відхилити",
             "cancel": "Скасувати",
             "fulfill_request": "Виконати запит",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Позначити як доставлений",
+            "mark_received": "Позначити як отриманий",
             "open_inventory": "Відкрити інвентар"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "Позначити як повернено",
             "return_subtitle": "Закрити активне позичання для \"{{item}}\"",
             "return_target": "Наразі показано, що він у {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Доставити предмет",
+            "return_title_lender": "Отримати предмет",
+            "return_subtitle_borrower": "Закрити активне запозичення для \"{{item}}\" після того, як ви його повернете.",
+            "return_subtitle_lender": "Закрити активне запозичення для \"{{item}}\" після того, як ви отримаєте його назад.",
+            "return_target_borrower": "Позикодавець: {{name}}",
+            "return_target_lender": "Наразі з: {{name}}",
+            "return_note_borrower": "Накладна",
+            "return_note_lender": "Квитанція про отримання",
+            "return_note_placeholder_borrower": "наприклад, я повернув це без жодних проблем",
+            "return_note_placeholder_lender": "наприклад, отримано назад у гарному стані",
+            "return_submitting": "Закриття..."
         },
         "messages": {
             "load_error": "Центр позик не вдалося завантажити",
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "Умови використання та відмова від відповідальності",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "БЕТА Версія: {{brandName}} наразі знаходиться на етапі тестування. Жодних гарантій щодо збереження даних або безпеки не надається.",
         "disclaimer": "Відмова від відповідальності: Використовуючи цей додаток, ви погоджуєтесь з тим, що не можете вимагати відшкодування за можливу втрату даних, проблеми з доступом або інші технічні проблеми.",
         "backup_warning": "Резервне копіювання даних: Ми настійно рекомендуємо регулярно створювати резервні копії важливої інформації.",
         "accept": "Увійшовши в систему, ви погоджуєтесь з цими умовами.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} наразі перебуває на стадії тестування та хобі. Жодних гарантій щодо збереження чи безпеки даних не надається. Будь ласка, зберігайте резервні копії важливої інформації.",
         "contact": "Контакт"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Забагато спроб входу. Спробуйте через 15 хвилин."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Увійти",
+        "page_title_register": "Створити обліковий запис",
+        "page_title_choose_house": "Оберіть будинок",
+        "page_title_recovery_key": "Ключ відновлення",
+        "page_title_house_access": "Доступ до будинку",
+        "page_title_legal_review": "Юридичний огляд",
+        "page_title_new_item": "Новий елемент",
+        "page_title_edit_item": "Редагувати елемент",
+        "page_title_items": "Інвентар"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Помилка завантаження списку покупок.",
+            "select_item_error": "Будь ласка, виберіть елемент з інвентарю.",
+            "empty_name": "Будь ласка, введіть назву товару.",
+            "added": "Товар додано до списку покупок.",
+            "add_error": "Сталася помилка під час додавання товару.",
+            "added_suggestion": "\"{{name}}\" додано до списку покупок.",
+            "bulk_added": "{{count}} товар(ів) із низьким запасом додано до списку.",
+            "bulk_error": "Помилка при додаванні товарів із низьким запасом.",
+            "completed": "«{{name}}» позначено як виконане.",
+            "reactivated": "«{{name}}» повернуто до активного списку.",
+            "update_error": "Сталася помилка під час оновлення.",
+            "deleted": "Елемент видалено зі списку.",
+            "delete_error": "Сталася помилка під час видалення.",
+            "cleared_completed": "Завершені елементи очищено.",
+            "clear_error": "Виникла помилка під час очищення."
+        },
+        "loading_desc": "Підготовка списку покупок...",
+        "page": {
+            "title": "Список покупок",
+            "description": "Переглядайте товари з низьким запасом у домашньому інвентарі та легко керуйте своїм списком покупок."
+        },
+        "suggestions": {
+            "title": "Розумні пропозиції щодо інвентарю",
+            "desc": "Позиції інвентарю, що впали нижче мінімального рівня.",
+            "add_all": "Додати всі відсутні",
+            "stock_status": "Поточний: {{current}} / Цільовий: {{min}}",
+            "add_qty": "Додати {{qty}}"
+        },
+        "sections": {
+            "active_list": "Продукти до покупки",
+            "active_desc": "Поточні продукти для додавання до кошика.",
+            "active_count": "{{count}} Продукти",
+            "completed_list": "Придбані товари ({{count}})",
+            "add_item": "Додати товар вручну",
+            "add_desc": "Додайте власний товар до списку вручну."
+        },
+        "empty": {
+            "title": "Ваш список покупок порожній",
+            "desc": "Ви можете додати відсутні товари зі списку вище або додати товари вручну за допомогою форми праворуч."
+        },
+        "card": {
+            "linked_inventory": "Збережено в інвентарі"
+        },
+        "actions": {
+            "clear_completed": "Очистити історію",
+            "add_item": "Додати до списку покупок"
+        },
+        "form": {
+            "add_type": "Додати метод",
+            "add_type_inventory": "Товар зі складу",
+            "add_type_custom": "Користувацький товар",
+            "select_inventory_item": "Вибрати товар зі складу",
+            "no_inventory_items": "У вашому інвентарі ще немає предметів.",
+            "select_item_placeholder": "Виберіть предмет",
+            "current_stock": "Поточний",
+            "item_name": "Назва предмета",
+            "item_name_placeholder": "наприклад: Молоко, Мийний засіб, Кавові зерна...",
+            "quantity": "Кількість"
+        },
+        "modal": {
+            "delete_title": "Видалити елемент зі списку?",
+            "delete_desc": "Ви впевнені, що хочете видалити \"{{name}}\" зі свого списку покупок?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Помилка під час завантаження інформації",
+            "select_item_error": "Будь ласка, оберіть елемент.",
+            "task_name_error": "Необхідно вказати назву завдання.",
+            "date_error": "Необхідно вказати заплановану дату.",
+            "updated": "Завдання з обслуговування оновлено",
+            "created": "Додано нове завдання з обслуговування",
+            "save_error": "Виникла помилка під час збереження",
+            "deleted": "Завдання з обслуговування успішно видалено.",
+            "delete_error": "Під час процесу видалення сталася помилка.",
+            "performed": "Обслуговування зареєстровано як завершене. Наступна дата запланована.",
+            "perform_error": "Під час збереження сталася помилка."
+        },
+        "freq": {
+            "one_time": "Одноразово",
+            "unit": {
+                "days": "День",
+                "weeks": "Тиждень",
+                "months": "Місяць",
+                "years": "Рік"
+            },
+            "format": "Кожні {{val}} {{unit}}"
+        },
+        "loading_desc": "Завантаження графіка обслуговування...",
+        "page": {
+            "title": "Обслуговування та періодичне відстеження",
+            "description": "Керуйте графіками періодичного обслуговування для приладів, фільтрів або засобів безпеки у вашому домашньому інвентарі."
+        },
+        "actions": {
+            "add_task": "Додати нове завдання",
+            "manage": "Керувати",
+            "perform": "Позначити як виконане",
+            "edit_task": "Редагувати завдання"
+        },
+        "alerts": {
+            "overdue_title": "У вас є прострочені завдання!",
+            "overdue_desc": "Є {{count}} прострочених завдань з обслуговування. Затримки можуть скоротити термін служби приладу."
+        },
+        "empty": {
+            "title": "Завдань з обслуговування не заплановано",
+            "desc": "Почніть, додавши повторювані завдання, такі як очищення фільтрів кондиціонера, обслуговування котла або перевірка батарейок детектора диму."
+        },
+        "sections": {
+            "overdue": "Прострочені завдання",
+            "overdue_desc": "Термінове обслуговування, яке потрібно виконати негайно.",
+            "upcoming": "Заплановані / Майбутні завдання",
+            "upcoming_desc": "Приближення обслуговування в найближчі дні.",
+            "no_upcoming": "Активних завдань, запланованих на майбутнє, немає."
+        },
+        "modal": {
+            "edit_title": "Редагувати завдання",
+            "create_title": "Запланувати нове обслуговування",
+            "perform_title": "Завершити обслуговування",
+            "perform_desc": "Ви хочете зафіксувати \"{{name}}\" як виконане сьогодні?",
+            "perform_confirm": "Так, виконано",
+            "perform_recurrence_info": "Це періодичне завдання. Коли ви збережете, система автоматично розрахує наступну дату обслуговування.",
+            "delete_title": "Видалити завдання з обслуговування?",
+            "delete_desc": "Ви впевнені, що хочете видалити періодичний графік обслуговування \"{{name}}\"? Цю дію неможливо скасувати."
+        },
+        "form": {
+            "item": "Пов'язаний елемент",
+            "no_items": "Спочатку потрібно додати елемент до інвентарю, перш ніж планувати обслуговування.",
+            "select_item_placeholder": "Виберіть елемент",
+            "task_name": "Назва завдання / операції",
+            "task_name_placeholder": "наприклад, Заміну фільтра, Періодичну перевірку...",
+            "description": "Деталі / Опис",
+            "description_placeholder": "Деталі завдання, матеріали, що будуть використовуватись, тощо...",
+            "frequency_value": "Частота повторення",
+            "frequency_placeholder": "наприклад, 6 (залиште порожнім для одноразового)",
+            "frequency_unit": "Одиниця частоти",
+            "next_due_date": "Наступна запланована дата",
+            "section_help": "Керуйте графіками обслуговування звідси",
+            "section_collapsed": "Натисніть, щоб додати періодичні контролі та завдання",
+            "has_tasks": "{{count}} Завдань",
+            "new_item_warning_title": "Збереження елемента очікує",
+            "new_item_warning_desc": "Ви повинні спершу зберегти цей елемент, щоб додати графік обслуговування.",
+            "manage_desc": "Керуйте графіками обслуговування цього приладу або предмета."
+        },
+        "fields": {
+            "task_name": "Назва завдання",
+            "task_name_placeholder": "Наприклад, очищення фільтра кондиціонера",
+            "description": "Опис",
+            "description_placeholder": "Деталі завдання, матеріали, що будуть використані, тощо...",
+            "frequency_value": "Частота повторення",
+            "frequency_value_placeholder": "Залиште порожнім для одноразового",
+            "frequency_unit": "Одиниця частоти",
+            "next_due_date": "Запланована дата"
+        },
+        "card": {
+            "untitled_item": "Назва елемента відсутня",
+            "last_performed": "Останнє виконання:",
+            "next_due_label": "Запланована дата",
+            "complete_tooltip": "Позначити обслуговування як виконане сьогодні"
+        },
+        "detail_card_desc": "Періодичне або одноразове обслуговування заплановано для цього елементу.",
+        "no_tasks": "Для цього елементу не призначено завдань з обслуговування.",
+        "confirm_delete": "Це завдання буде видалено. Ви впевнені?"
     }
 }

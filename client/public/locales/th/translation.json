@@ -69,7 +69,9 @@
             "vault_hint_action": "เปิดแฟ้มส่วนตัว",
             "location": "สถานที่",
             "remove_photo": "ลบภาพถ่าย",
-            "visibility_owner_only": "มีเพียงคนที่เพิ่มรายการเท่านั้นที่สามารถเปลี่ยนการมองเห็นได้"
+            "visibility_owner_only": "มีเพียงคนที่เพิ่มรายการเท่านั้นที่สามารถเปลี่ยนการมองเห็นได้",
+            "expiry_date": "วันหมดอายุ",
+            "min_quantity": "ปริมาณขั้นต่ำ"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" เพิ่มด่วน - คุณสามารถแก้ไขภายหลังได้",
@@ -119,7 +121,12 @@
         "no_permission": "คุณไม่มีสิทธิ์แก้ไขรายการนี้",
         "barcode_search_error": "การค้นหาบาร์โค้ดล้มเหลว",
         "stats_error": "ข้อผิดพลาดในการโหลดสถิติ",
-        "detail_subtitle": "รายละเอียดรายการ"
+        "detail_subtitle": "รายละเอียดรายการ",
+        "status": {
+            "close_to_expiry": "ใกล้หมดอายุ",
+            "expired": "หมดอายุ",
+            "low_stock": "สต็อกต่ำ"
+        }
     },
     "common": {
         "save": "บันทึก",
@@ -170,7 +177,8 @@
         "details": "รายละเอียด",
         "hide": "ซ่อนรหัสผ่าน",
         "logging_out": "กำลังออกจากระบบ...",
-        "show": "แสดงรหัสผ่าน"
+        "show": "แสดงรหัสผ่าน",
+        "saving": "กำลังบันทึก..."
     },
     "auth": {
         "login": {
@@ -216,7 +224,7 @@
             "support_link": "ติดต่อฝ่ายสนับสนุน"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "ตั้งค่าครัวเรือนของคุณ",
             "subtitle": "สร้างบัญชีใหม่หรือเข้าร่วมบ้านที่มีอยู่",
             "create_house": "สร้างบ้านใหม่",
             "join_house": "เข้าร่วมบ้าน",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "กรอกรหัสผ่านของคุณอีกครั้ง",
             "reset_submit": "รีเซ็ตรหัสผ่าน",
             "resetting": "กำลังรีเซ็ต...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "ป้อนชื่อผู้ใช้หรืออีเมลของคุณ"
         },
         "reset_password": {
             "title": "รีเซ็ตรหัสผ่าน",
@@ -353,7 +361,7 @@
         "password_requirements": "ใช้ตัวอักษรอย่างน้อย {{min}} ตัว โดยมีตัวพิมพ์ใหญ่ ตัวพิมพ์เล็ก ตัวเลข และสัญลักษณ์",
         "logout": "ออกจากระบบ",
         "logging_in": "กำลังเข้าสู่ระบบ...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "ยินดีต้อนรับสู่ {{brandName}}",
         "username_email": "ชื่อผู้ใช้หรืออีเมล",
         "username": "ชื่อผู้ใช้",
         "email": "อีเมล",
@@ -438,7 +446,9 @@
         "logout_aria": "ออกจากบัญชีของคุณ",
         "logout_title": "ออกจากระบบ?",
         "logout_description": "คุณจะถูกส่งกลับไปยังหน้าจอลงชื่อเข้าใช้และจำเป็นต้องลงชื่อเข้าใช้ใหม่เพื่อจัดการสินค้าคงคลังในบ้านของคุณ",
-        "logout_warning": "ใช้นี้เมื่อคุณเสร็จสิ้นบนอุปกรณ์ที่ใช้ร่วมกันหรืออุปกรณ์ส่วนตัว"
+        "logout_warning": "ใช้นี้เมื่อคุณเสร็จสิ้นบนอุปกรณ์ที่ใช้ร่วมกันหรืออุปกรณ์ส่วนตัว",
+        "maintenance": "ตารางบำรุงรักษา",
+        "shopping": "รายการซื้อของ"
     },
     "dashboard": {
         "welcome": "ยินดีต้อนรับ, <1>{{name}}</1>! 👋",
@@ -565,7 +575,20 @@
         "no_items_filter": "ไม่มีรายการใดตรงกับตัวกรองนี้",
         "manage": "จัดการ",
         "add_item": "เพิ่มรายการ",
-        "search_item": "ค้นหารายการ"
+        "search_item": "ค้นหารายการ",
+        "alerts": {
+            "expired_title": "สินค้าหมดอายุแล้ว!",
+            "expired_desc": "มีสินค้าหมดอายุ {{count}} ชิ้นในคลังของคุณ กรุณาตรวจสอบเพื่อความปลอดภัยของคุณ",
+            "view_items": "ดูสินค้า",
+            "maintenance_title": "งานบำรุงรักษาที่ล่าช้า!",
+            "maintenance_desc": "มีงานบำรุงรักษาที่ค้างชำระ {{count}} งาน ดำเนินการบำรุงรักษาเพื่อยืดอายุการใช้งานของอุปกรณ์ของคุณ",
+            "go_to_maintenance": "ไปที่ การบำรุงรักษา",
+            "low_stock_title": "แจ้งเตือนสินค้าคงเหลือต่ำ",
+            "low_stock_desc": "มี {{count}} รายการที่ต่ำกว่าจำนวนสินค้าคงเหล่าขั้นต่ำของคุณ",
+            "go_to_shopping": "รายการช้อปปิ้ง",
+            "close_expiry_title": "วันหมดอายุที่ใกล้จะถึง",
+            "close_expiry_desc": "สินค้า {{count}} ชิ้นจะหมดอายุภายใน 30 วัน"
+        }
     },
     "beta_banner": {
         "title": "เบต้า:",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "กุญแจบ้านปัจจุบัน",
             "key_label": "กุญแจบ้าน",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{คำต่อท้าย}}",
             "hide": "ซ่อน",
             "show": "แสดง",
             "copy": "คัดลอก",
@@ -991,8 +1014,8 @@
             "no_history": "ยังไม่มีประวัติการยืมสำหรับรายการนี้",
             "lend_success_title": "รายการที่ให้ยืม",
             "lend_success_body": "{{item}} ถูกทำเครื่องหมายว่าเป็นรายการที่ถูกยืมแล้ว",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "ข้อเสนอการยืมถูกส่งแล้ว",
+            "offer_sent_body": "{{item}} จะถูกทำเครื่องหมายว่าได้ถูกยืมแล้วหลังจากสมาชิกอีกคนยอมรับ",
             "borrowed_by_you": "กับคุณ",
             "return_pending_hint": "บันทึกจะปิดหลังจากผู้ให้กู้ยืนยันว่าพวกเขาได้รับรายการคืนแล้ว",
             "return_pending_lender_title": "{{name}} ทำเครื่องหมายว่าส่งรายการนี้กลับแล้ว",
@@ -1229,7 +1252,7 @@
             "no_logs": "ยังไม่มีบันทึก",
             "errors_title": "ข้อผิดพลาดของระบบ (ล่าสุด 10 รายการ)",
             "no_errors": "// ระบบปกติ ไม่มีบันทึกข้อผิดพลาด",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{วันที่, วันที่และเวลา}}",
             "type": {
                 "email": "อีเมล",
                 "user": "ผู้ใช้",
@@ -1401,12 +1424,12 @@
             "cta_register": "สร้างบัญชี",
             "stat_free": "ฟรี",
             "stat_access": "เข้าถึง",
-            "free_badge": "Open Source",
+            "free_badge": "โอเพ่นซอร์ส",
             "badge": "หน้าแรกสินค้าคงคลัง v2.0 อยู่ที่นี่แล้ว",
             "cta_explore": "สํารวจคุณสมบัติ",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "เข้าสู่ระบบ",
+            "stat_members": "บ้านที่ใช้ร่วมกัน",
+            "stat_vault": "ตู้เซฟส่วนตัว"
         },
         "features": {
             "title": "ทำไมต้อง <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "เก็บสิ่งของ รับประกัน เอกสารสำคัญ และการติดตามการยืมไว้ในที่เดียวอย่างสงบ ดูว่าในบ้านคุณมีอะไรบ้างได้ในพริบตา",
                 "primaryCta": "เริ่มใช้ฟรี",
                 "secondaryCta": "ดูสินค้า",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "กระบวนการที่แนะนำ: บัญชี • หน้าแรก • ห้องและหมวดหมู่ • รายการ • สำรองข้อมูล",
                 "searchPlaceholder": "ค้นหาสินค้า ห้อง หรือบาร์โค้ด"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "รายละเอียดเครือข่ายจะเก็บไว้จนกว่าคุณจะต้องการคำแนะนำ",
         "link_privacy_note": "ที่อยู่เครือข่ายจะถูกซ่อนอยู่ที่นี่ สแกนรหัสหรือคัดลอกลิงก์เมื่อคุณต้องการแชร์การเข้าถึงไอเท็มโดยตรงบนการตั้งค่าในเครื่องของคุณ",
         "helper": "สแกนเพื่อเปิดไอเท็มนี้ทันที หรือคัดลอกลิงก์ตรงเมื่อจำเป็น",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "ไม่สามารถคัดลอกลิงก์โดยอัตโนมัติ",
+        "copy_manual_help": "เบราว์เซอร์ของคุณไม่อนุญาตให้คัดลอกโดยอัตโนมัติ ลิงก์ถูกเลือกเพื่อให้คุณสามารถคัดลอกด้วยตนเอง",
         "loading": "กำลังเตรียมเครื่องมือ QR..."
     },
     "house_access_pending": {
@@ -1817,7 +1840,7 @@
             "bodyLine2": "รอการอนุมัติจากเจ้าของบ้าน"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{ชื่อแบรนด์}} - {{สถานะ}}",
             "greeting": "การเข้าบ้าน",
             "bodyLine1Template": "คำขอที่รอดำเนินการปัจจุบัน: {{house}} ({{status}})",
             "bodyLine2": "คำขอของคุณสำหรับ \"{{house}}\" ยังคงรอการตัดสินใจ",
@@ -1856,7 +1879,7 @@
             "sentAtLabel": "ส่งเมื่อ",
             "senderLabel": "ผู้ส่ง",
             "serviceLabel": "บริการ",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{ชื่อแบรนด์}}"
         }
     },
     "vault": {
@@ -1969,8 +1992,8 @@
             "empty": "ตอนนี้ไม่มีการยืมที่ใช้งานอยู่",
             "borrowed_from": "ยืมจาก {{name}}",
             "lent_to": "อยู่กับ {{name}} ในขณะนี้",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "กำลังรอผู้ให้ยืมยืนยันว่าพวกเขาได้รับมันคืนแล้ว",
+            "return_pending_lender": "{{name}} ทำเครื่องหมายว่าสินค้านี้ส่งคืนแล้ว โปรดยืนยันการรับเพื่อปิดบันทึก",
             "empty_title": "ไม่มีการยืมใช้งานอยู่ในขณะนี้",
             "empty_description": "คำขอที่ได้รับการยอมรับจะแสดงที่นี่เมื่อมีการยืมหรือให้ยืมรายการ พร้อมกับวันที่ครบกำหนดและสถานะการคืน"
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "ถูกยกเลิก",
             "expired": "หมดอายุ",
             "returned": "ส่งคืน",
-            "return_pending": "Return pending"
+            "return_pending": "การคืนสินค้ายังรอดำเนินการ"
         },
         "actions": {
             "send_request": "ขอรายการ",
@@ -1990,8 +2013,8 @@
             "reject": "ปฏิเสธ",
             "cancel": "ยกเลิก",
             "fulfill_request": "ดำเนินการตามคำขอ",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "ทำเครื่องหมายว่าส่งแล้ว",
+            "mark_received": "ทำเครื่องหมายว่ารับแล้ว",
             "open_inventory": "เปิดคลังสินค้า"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "ทำเครื่องหมายว่าย้อนกลับแล้ว",
             "return_subtitle": "ปิดการยืมใช้งานสำหรับ \"{{item}}\"",
             "return_target": "ตอนนี้แสดงว่าอยู่กับ {{name}}",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "ส่งรายการ",
+            "return_title_lender": "รับรายการ",
+            "return_subtitle_borrower": "ปิดการยืมที่ใช้งานอยู่สำหรับ \"{{item}}\" หลังจากที่คุณส่งคืนมัน",
+            "return_subtitle_lender": "ปิดการยืมที่ใช้งานอยู่สำหรับ \"{{item}}\" หลังจากที่คุณได้รับคืน",
+            "return_target_borrower": "ผู้ให้กู้: {{name}}",
+            "return_target_lender": "ปัจจุบันกับ: {{name}}",
+            "return_note_borrower": "ใบส่งของ",
+            "return_note_lender": "ใบรับของ",
+            "return_note_placeholder_borrower": "เช่น ฉันส่งคืนโดยไม่มีปัญหา",
+            "return_note_placeholder_lender": "เช่น ได้รับคืนในสภาพดี",
+            "return_submitting": "กำลังปิด..."
         },
         "messages": {
             "load_error": "ไม่สามารถโหลดศูนย์ยืมได้",
@@ -2141,7 +2164,7 @@
         "account_menu_tooltip": "เมนูบัญชีของ {{name}}"
     },
     "app": {
-        "name": "{{brandName}}",
+        "name": "{{ชื่อแบรนด์}}",
         "tagline": "จัดการสิ่งของในบ้านของคุณอย่างชาญฉลาด"
     },
     "nav": {
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "ข้อกำหนดการใช้งานและข้อจำกัดความรับผิด",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "รุ่น BETA: {{brandName}} กำลังอยู่ในขั้นตอนการทดสอบ ไม่มีการรับประกันใดๆ เกี่ยวกับความคงทนหรือความปลอดภัยของข้อมูล",
         "disclaimer": "ข้อจำกัดความรับผิด: การใช้แอปพลิเคชันนี้ถือว่าคุณยอมรับว่าคุณไม่สามารถเรียกร้องค่าชดเชยใด ๆ สำหรับการสูญหายของข้อมูล ปัญหาการเข้าถึง หรือปัญหาทางเทคนิคอื่น ๆ",
         "backup_warning": "การสำรองข้อมูล: เราแนะนำอย่างยิ่งให้คุณสำรองข้อมูลสำคัญของคุณอย่างสม่ำเสมอ",
         "accept": "การเข้าสู่ระบบถือว่าคุณยอมรับข้อตกลงเหล่านี้",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} กำลังอยู่ในช่วงทดสอบและเป็นงานอดิเรก ไม่มีการรับประกันใด ๆ เกี่ยวกับความถาวรหรือความปลอดภัยของข้อมูล โปรดสำรองข้อมูลสำคัญของคุณไว้",
         "contact": "ติดต่อ"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "ความพยายามเข้าสู่ระบบมากเกินไป กรุณาลองใหม่ใน 15 นาที"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "ลงชื่อเข้าใช้",
+        "page_title_register": "สร้างบัญชี",
+        "page_title_choose_house": "เลือกบ้าน",
+        "page_title_recovery_key": "รหัสกู้คืน",
+        "page_title_house_access": "การเข้าถึงบ้าน",
+        "page_title_legal_review": "การตรวจสอบทางกฎหมาย",
+        "page_title_new_item": "รายการใหม่",
+        "page_title_edit_item": "แก้ไขรายการ",
+        "page_title_items": "สินค้าในคลัง"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "เกิดข้อผิดพลาดในการโหลดรายการช็อปปิ้ง",
+            "select_item_error": "โปรดเลือกสินค้าจากคลังสินค้า",
+            "empty_name": "กรุณากรอกชื่อสินค้า",
+            "added": "เพิ่มสินค้าลงในรายการซื้อเรียบร้อยแล้ว",
+            "add_error": "เกิดข้อผิดพลาดขณะเพิ่มสินค้า",
+            "added_suggestion": "\"{{name}}\" ถูกเพิ่มลงในรายการซื้อเรียบร้อยแล้ว",
+            "bulk_added": "{{count}} รายการสินค้าคงเหลือต่ำถูกเพิ่มไปยังรายการแล้ว.",
+            "bulk_error": "เกิดข้อผิดพลาดในการเพิ่มรายการสินค้าคงเหลือต่ำ.",
+            "completed": "\"{{name}}\" ถูกทำเครื่องหมายว่าสำเร็จแล้ว.",
+            "reactivated": "\"{{name}}\" ถูกย้ายกลับไปยังรายการที่ใช้งานอยู่.",
+            "update_error": "เกิดข้อผิดพลาดระหว่างการอัปเดต.",
+            "deleted": "ลบรายการออกจากรายการแล้ว.",
+            "delete_error": "เกิดข้อผิดพลาดระหว่างการลบ.",
+            "cleared_completed": "ล้างรายการที่เสร็จสมบูรณ์แล้ว.",
+            "clear_error": "เกิดข้อผิดพลาดระหว่างการล้างข้อมูล... กำลังเตรียมรายการช็อปปิ้ง... รายการช็อปปิ้ง ดูสินค้าที่มีสต็อกต่ำในคลังสินค้าของบ้านและจัดการรายการช็อปปิ้งของคุณได้อย่างง่ายดาย"
+        },
+        "loading_desc": "กำลังเตรียมรายการช็อปปิ้ง...",
+        "page": {
+            "title": "รายการช็อปปิ้ง",
+            "description": "ดูรายการสินค้าที่มีสต็อกต่ำในสินค้าคงคลังบ้านและจัดการรายการช็อปปิ้งของคุณได้อย่างง่ายดาย"
+        },
+        "suggestions": {
+            "title": "คำแนะนำสต็อกอัจฉริยะ",
+            "desc": "รายการสินค้าที่มีจำนวนต่ำกว่าขีดจำกัดต่ำสุด",
+            "add_all": "เพิ่มทั้งหมดที่ขาดหาย",
+            "stock_status": "ปัจจุบัน: {{current}} / เป้าหมาย: {{min}}",
+            "add_qty": "เพิ่ม {{qty}}"
+        },
+        "sections": {
+            "active_list": "รายการเพื่อซื้อ",
+            "active_desc": "รายการสินค้าที่กำลังช็อปปิ้งปัจจุบันเพื่อเพิ่มลงในตะกร้าของคุณ",
+            "active_count": "{{count}} รายการ",
+            "completed_list": "รายการสินค้าที่ซื้อ ({{count}})",
+            "add_item": "เพิ่มสินค้าด้วยตนเอง",
+            "add_desc": "เพิ่มสินค้ากำหนดเองลงในรายการด้วยตนเอง"
+        },
+        "empty": {
+            "title": "รายการช้อปปิ้งของคุณว่างเปล่า",
+            "desc": "คุณสามารถเพิ่มสินค้าที่ขาดจากคำแนะนำด้านบนหรือต้องการเพิ่มสินค้าด้วยตนเองโดยใช้แบบฟอร์มทางด้านขวา"
+        },
+        "card": {
+            "linked_inventory": "บันทึกในสต็อก"
+        },
+        "actions": {
+            "clear_completed": "ล้างประวัติ",
+            "add_item": "เพิ่มในรายการช็อปปิ้ง"
+        },
+        "form": {
+            "add_type": "เพิ่มวิธี",
+            "add_type_inventory": "รายการคลังสินค้า",
+            "add_type_custom": "รายการกำหนดเอง",
+            "select_inventory_item": "เลือกรายการจากคลังสินค้า",
+            "no_inventory_items": "ยังไม่มีไอเท็มในคลังของคุณ",
+            "select_item_placeholder": "เลือกไอเท็ม",
+            "current_stock": "ปัจจุบัน",
+            "item_name": "ชื่อไอเท็ม",
+            "item_name_placeholder": "เช่น นม, ผงซักฟอก, เมล็ดกาแฟ...",
+            "quantity": "ปริมาณ"
+        },
+        "modal": {
+            "delete_title": "ลบรายการออกจากรายการหรือไม่?",
+            "delete_desc": "คุณแน่ใจหรือว่าต้องการลบ \"{{name}}\" ออกจากรายการช็อปปิ้งของคุณ?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "เกิดข้อผิดพลาดในการโหลดข้อมูล",
+            "select_item_error": "โปรดเลือกไอเทม",
+            "task_name_error": "ต้องระบุชื่อภารกิจ",
+            "date_error": "ต้องระบุวันที่ที่วางแผนไว้",
+            "updated": "งานบำรุงรักษาได้รับการอัปเดต",
+            "created": "งานบำรุงรักษาใหม่ถูกเพิ่ม",
+            "save_error": "เกิดข้อผิดพลาดขณะบันทึก",
+            "deleted": "งานบำรุงรักษาถูกลบเรียบร้อยแล้ว",
+            "delete_error": "เกิดข้อผิดพลาดระหว่างกระบวนการลบ",
+            "performed": "การบำรุงรักษาบันทึกเป็นเสร็จสิ้น กำหนดวันที่ถัดไป",
+            "perform_error": "เกิดข้อผิดพลาดขณะบันทึก"
+        },
+        "freq": {
+            "one_time": "ครั้งเดียว",
+            "unit": {
+                "days": "วัน",
+                "weeks": "สัปดาห์",
+                "months": "เดือน",
+                "years": "ปี"
+            },
+            "format": "ทุก {{val}} {{unit}}"
+        },
+        "loading_desc": "กำลังโหลดตารางการบำรุงรักษา...",
+        "page": {
+            "title": "การบำรุงรักษา & การติดตามเป็นระยะ",
+            "description": "จัดการตารางการบำรุงรักษาเป็นระยะสำหรับเครื่องใช้ ไส้กรอง หรืออุปกรณ์ความปลอดภัยในรายการสินทรัพย์ในบ้านของคุณ"
+        },
+        "actions": {
+            "add_task": "เพิ่มงานใหม่",
+            "manage": "จัดการ",
+            "perform": "ทำเครื่องหมายว่าเสร็จ",
+            "edit_task": "แก้ไขงาน"
+        },
+        "alerts": {
+            "overdue_title": "คุณมีงานที่ค้างอยู่!",
+            "overdue_desc": "มีงานบำรุงรักษาล่าช้า {{count}} งาน ความล่าช้าอาจลดอายุการใช้งานของเครื่องใช้"
+        },
+        "empty": {
+            "title": "ไม่มีงานบำรุงรักษาที่กำหนดไว้",
+            "desc": "เริ่มต้นโดยการเพิ่มงานที่ทำซ้ำเช่น การทำความสะอาดแผ่นกรองเครื่องปรับอากาศ การบำรุงรักษาเครื่องต้มน้ำ หรือการตรวจสอบแบตเตอรี่เครื่องตรวจจับไฟ"
+        },
+        "sections": {
+            "overdue": "งานที่ล่าช้า",
+            "overdue_desc": "การบำรุงรักษาเร่งด่วนที่ต้องทำทันที",
+            "upcoming": "งานที่กำหนดไว้ / งานที่กำลังจะเกิดขึ้น",
+            "upcoming_desc": "การบำรุงรักษาที่ใกล้เข้ามาในวันข้างหน้า",
+            "no_upcoming": "ไม่มีงานที่กำหนดไว้ในอนาคต"
+        },
+        "modal": {
+            "edit_title": "แก้ไขงาน",
+            "create_title": "กำหนดงานบำรุงรักษาใหม่",
+            "perform_title": "ทำการบำรุงรักษาเสร็จสิ้น",
+            "perform_desc": "คุณต้องการบันทึก \"{{name}}\" ว่าเสร็จสิ้นวันนี้หรือไม่?",
+            "perform_confirm": "ใช่ เสร็จสิ้น",
+            "perform_recurrence_info": "นี่คืองานที่เกิดขึ้นเป็นระยะ เมื่อคุณบันทึก ระบบจะคำนวณวันที่บำรุงรักษาครั้งถัดไปโดยอัตโนมัติ",
+            "delete_title": "ลบงานบำรุงรักษาหรือไม่?",
+            "delete_desc": "คุณแน่ใจหรือไม่ว่าต้องการลบตารางบำรุงรักษาเป็นระยะ \"{{name}}\" การกระทำนี้ไม่สามารถย้อนกลับได้"
+        },
+        "form": {
+            "item": "รายการที่เกี่ยวข้อง",
+            "no_items": "คุณต้องเพิ่มรายการลงในคลังสินค้าก่อนที่จะกำหนดตารางการบำรุงรักษา",
+            "select_item_placeholder": "เลือกรายการ",
+            "task_name": "ชื่อภารกิจ / การดำเนินงาน",
+            "task_name_placeholder": "เช่น การเปลี่ยนตัวกรอง การตรวจสอบเป็นระยะ...",
+            "description": "รายละเอียด / คำอธิบาย",
+            "description_placeholder": "รายละเอียดงาน วัสดุที่จะใช้ ฯลฯ...",
+            "frequency_value": "ความถี่ในการทำซ้ำ",
+            "frequency_placeholder": "เช่น 6 (เว้นว่างสำหรับครั้งเดียว)",
+            "frequency_unit": "หน่วยความถี่",
+            "next_due_date": "วันที่กำหนดถัดไป",
+            "section_help": "จัดการตารางการบำรุงรักษาจากที่นี่",
+            "section_collapsed": "คลิกเพื่อเพิ่มการควบคุมและงานตามระยะ",
+            "has_tasks": "{{count}} งาน",
+            "new_item_warning_title": "รายการรอดำเนินการบันทึก",
+            "new_item_warning_desc": "คุณต้องบันทึกรายการนี้ก่อนเพื่อเพิ่มตารางการบำรุงรักษา",
+            "manage_desc": "จัดการตารางการบำรุงรักษาสำหรับเครื่องใช้หรือสิ่งของนี้"
+        },
+        "fields": {
+            "task_name": "ชื่องาน",
+            "task_name_placeholder": "เช่น การทำความสะอาดไส้กรองเครื่องปรับอากาศ",
+            "description": "รายละเอียด",
+            "description_placeholder": "รายละเอียดงาน, วัสดุที่จะใช้, ฯลฯ...",
+            "frequency_value": "ความถี่ในการเกิดซ้ำ",
+            "frequency_value_placeholder": "เว้นว่างหากทำครั้งเดียว",
+            "frequency_unit": "หน่วยความถี่",
+            "next_due_date": "วันที่กำหนด"
+        },
+        "card": {
+            "untitled_item": "รายการไม่มีชื่อ",
+            "last_performed": "ทำครั้งล่าสุด:",
+            "next_due_label": "วันที่กำหนด",
+            "complete_tooltip": "ทำเครื่องหมายการบำรุงรักษาเป็นเสร็จสิ้นวันนี้"
+        },
+        "detail_card_desc": "การติดตามการบำรุงรักษารายงวดหรือครั้งเดียวที่กำหนดไว้สำหรับรายการนี้",
+        "no_tasks": "ไม่มีงานบำรุงรักษาที่กำหนดให้กับรายการนี้",
+        "confirm_delete": "งานนี้จะถูกลบ คุณแน่ใจหรือ?"
     }
 }

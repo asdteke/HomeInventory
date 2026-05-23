@@ -1,6 +1,6 @@
 import express from 'express';
 import { sendTestEmail } from '../utils/emailService.js';
-import { DEFAULT_FROM } from '../utils/branding.js';
+import { getEmailDeliveryStatus } from '../utils/branding.js';
 import { logError } from '../utils/logger.js';
 import { authenticateToken, requireAdmin } from '../middleware/auth.js';
 
@@ -63,15 +63,16 @@ router.post('/test', authenticateToken, requireAdmin, async (req, res) => {
  * E-posta servis durumunu kontrol et
  */
 router.get('/status', authenticateToken, requireAdmin, (req, res) => {
-    const apiKeyExists = !!process.env.RESEND_API_KEY;
+    const deliveryStatus = getEmailDeliveryStatus();
 
     res.json({
-        configured: apiKeyExists,
-        from: DEFAULT_FROM,
-        service: 'Resend API',
-        message: apiKeyExists
-            ? '✅ E-posta servisi yapılandırılmış'
-            : '❌ RESEND_API_KEY ortam değişkeni tanımlı değil'
+        configured: deliveryStatus.configured,
+        deliveryReady: deliveryStatus.configured,
+        apiKeyConfigured: deliveryStatus.apiKeyConfigured,
+        senderConfigured: deliveryStatus.senderConfigured,
+        from: deliveryStatus.from,
+        service: deliveryStatus.service,
+        message: deliveryStatus.message
     });
 });
 

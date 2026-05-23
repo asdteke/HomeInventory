@@ -2,7 +2,7 @@ import express from 'express';
 import rateLimit from 'express-rate-limit';
 import validator from 'validator';
 import { buildAdminEmailHtml, getAdminEmailCopy, sendEmail } from '../utils/emailService.js';
-import { DEFAULT_FROM } from '../utils/branding.js';
+import { getEmailDeliveryStatus } from '../utils/branding.js';
 import { authenticateToken, requireAdmin } from '../middleware/auth.js';
 import { logError } from '../utils/logger.js';
 
@@ -138,12 +138,16 @@ router.post('/send', authenticateToken, requireAdmin, emailRateLimiter, async (r
  * Admin e-posta durumu
  */
 router.get('/status', authenticateToken, requireAdmin, (req, res) => {
-    const apiKeyExists = !!process.env.RESEND_API_KEY;
+    const deliveryStatus = getEmailDeliveryStatus();
 
     res.json({
-        configured: apiKeyExists,
-        from: DEFAULT_FROM,
-        service: 'Resend API',
+        configured: deliveryStatus.configured,
+        deliveryReady: deliveryStatus.configured,
+        apiKeyConfigured: deliveryStatus.apiKeyConfigured,
+        senderConfigured: deliveryStatus.senderConfigured,
+        from: deliveryStatus.from,
+        service: deliveryStatus.service,
+        message: deliveryStatus.message,
         rateLimit: '3 e-posta / dakika',
         user: {
             id: req.user.id,

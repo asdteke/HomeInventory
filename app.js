@@ -23,9 +23,12 @@ import housesRoutes from './routes/houses.js';
 import backupRoutes from './routes/backup.js';
 import vaultRoutes from './routes/vault.js';
 import borrowRequestsRoutes from './routes/borrowRequests.js';
+import maintenanceRoutes from './routes/maintenance.js';
+import shoppingRoutes from './routes/shopping.js';
 import passport from 'passport';
 import { BRAND_NAME } from './utils/branding.js';
 import { renderStartupSummary } from './utils/devConsole.js';
+import { getUploadsRoot } from './utils/runtimePaths.js';
 
 // Public v2 release line: Express app shell, security middleware, and API routing.
 
@@ -172,7 +175,7 @@ function getLocalIP() {
 }
 
 // Ensure uploads directory exists
-const uploadsDir = join(__dirname, 'uploads');
+const uploadsDir = getUploadsRoot(__dirname);
 if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir, { recursive: true });
 }
@@ -269,6 +272,8 @@ app.use('/api/houses', interactiveApiLimiter);
 app.use('/api/barcode', interactiveApiLimiter);
 app.use('/api/vault', interactiveApiLimiter);
 app.use('/api/borrow-requests', interactiveApiLimiter);
+app.use('/api/maintenance', interactiveApiLimiter);
+app.use('/api/shopping', interactiveApiLimiter);
 
 // API Routes
 app.use('/api/auth', authRoutes);
@@ -283,6 +288,8 @@ app.use('/api/houses', housesRoutes);
 app.use('/api/backup', backupRoutes);
 app.use('/api/vault', vaultRoutes);
 app.use('/api/borrow-requests', borrowRequestsRoutes);
+app.use('/api/maintenance', maintenanceRoutes);
+app.use('/api/shopping', shoppingRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

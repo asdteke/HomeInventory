@@ -33,6 +33,7 @@ import {
     getDefaultRoomSeeds,
     resolveSeedLanguage
 } from '../utils/houseDefaults.js';
+import { getEmailDeliveryStatus } from '../utils/branding.js';
 
 const router = express.Router();
 
@@ -73,7 +74,7 @@ function fireAndForget(task, label) {
 }
 
 function notifyOwnersAboutJoinRequest(houseKey, requesterUsername, requestedHouseName) {
-    if (!process.env.RESEND_API_KEY) {
+    if (!getEmailDeliveryStatus().configured) {
         return;
     }
 
@@ -96,7 +97,7 @@ function notifyOwnersAboutJoinRequest(houseKey, requesterUsername, requestedHous
 }
 
 function notifyRequesterAboutDecision(email, status, requestedHouseName) {
-    if (!process.env.RESEND_API_KEY || !email) {
+    if (!getEmailDeliveryStatus().configured || !email) {
         return;
     }
 
@@ -111,7 +112,7 @@ function notifyRequesterAboutDecision(email, status, requestedHouseName) {
 }
 
 function notifyMemberAboutKick(email, houseName) {
-    if (!process.env.RESEND_API_KEY || !email) {
+    if (!getEmailDeliveryStatus().configured || !email) {
         return;
     }
 

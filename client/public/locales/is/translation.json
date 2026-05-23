@@ -69,7 +69,9 @@
             "vault_hint_action": "Opna Persónulega Geymslu",
             "location": "Staðsetning",
             "remove_photo": "Fjarlægja mynd",
-            "visibility_owner_only": "Aðeins manneskjan sem bætti við hlutnum getur breytt sýnileika."
+            "visibility_owner_only": "Aðeins manneskjan sem bætti við hlutnum getur breytt sýnileika.",
+            "expiry_date": "Gildistími",
+            "min_quantity": "Lágmarks magn"
         },
         "messages": {
             "quick_add_success": "✓ „{{barcode}}“ fljótt bætt við - þú getur breytt síðar",
@@ -119,7 +121,12 @@
         "no_permission": "No permission",
         "barcode_search_error": "Strikamerkjaleit mistókst",
         "stats_error": "Stats error",
-        "detail_subtitle": "Upplýsingar um hlut"
+        "detail_subtitle": "Upplýsingar um hlut",
+        "status": {
+            "close_to_expiry": "Nálægt útrunninum",
+            "expired": "Útrunnið",
+            "low_stock": "Lítið birgðir"
+        }
     },
     "common": {
         "save": "Vista",
@@ -170,7 +177,8 @@
         "details": "Upplýsingar",
         "hide": "Fela lykilorð",
         "logging_out": "Skráning út...",
-        "show": "Sýna lykilorð"
+        "show": "Sýna lykilorð",
+        "saving": "Vistar..."
     },
     "auth": {
         "login": {
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "Sláðu lykilorðið þitt aftur",
             "reset_submit": "Endurstilla lykilorð",
             "resetting": "Endurstillist...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Sláðu inn notendanafn eða netfang þitt"
         },
         "reset_password": {
             "title": "Endurstilla lykilorð",
@@ -353,7 +361,7 @@
         "password_requirements": "Notaðu að minnsta kosti {{min}} stafi með stórum stöfum, lágstöfum, tölu og tákni.",
         "logout": "Skrá út",
         "logging_in": "Skrá inn...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "Velkomin(n) á {{brandName}}",
         "username_email": "Notandanafn eða netfang",
         "username": "Notandanafn",
         "email": "Netfang",
@@ -438,7 +446,9 @@
         "logout_aria": "Skráðu þig út af reikningnum þínum",
         "logout_title": "Skrá út?",
         "logout_description": "Þú verður sendur aftur á innskráningarskjáinn og þarft að skrá þig inn aftur til að stjórna heimilishaldsinventar.",
-        "logout_warning": "Notaðu þetta þegar þú hefur lokið á sameiginlegri eða persónulegri tæki."
+        "logout_warning": "Notaðu þetta þegar þú hefur lokið á sameiginlegri eða persónulegri tæki.",
+        "maintenance": "Viðhaldsskrá",
+        "shopping": "Innkaupaskrá"
     },
     "dashboard": {
         "welcome": "Velkomin/n aftur, <1>{{name}}</1>",
@@ -565,7 +575,20 @@
         "no_items_filter": "Engir hlutar passa við þessa síu",
         "manage": "Stýra",
         "add_item": "Bæta við hlut",
-        "search_item": "Leita að hlut"
+        "search_item": "Leita að hlut",
+        "alerts": {
+            "expired_title": "Vörur eru útrunnar!",
+            "expired_desc": "Það eru {{count}} útrunnar vörur í birgðunum þínum. Vinsamlegast athugaðu þær til öryggis.",
+            "view_items": "Skoða vörur",
+            "maintenance_title": "Áskotnar viðhaldsskyldur!",
+            "maintenance_desc": "Það eru {{count}} töf á viðhaldsverkefnum. Framkvæmdu viðhald til að lengja endingartíma heimilistækjanna þinna.",
+            "go_to_maintenance": "Farðu í viðhald",
+            "low_stock_title": "Viðvörun um lítinn birgðastöðu",
+            "low_stock_desc": "{{count}} hlutir hafa fallið undir lágmarkslager þinn.",
+            "go_to_shopping": "Innkaupalisti",
+            "close_expiry_title": "Væntanlegir gjalddagar",
+            "close_expiry_desc": "{{count}} vörur renna út innan 30 daga."
+        }
     },
     "beta_banner": {
         "title": "BETA:",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "Virkur húss lykill",
             "key_label": "Húss lykill",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{viðskeyti}}",
             "hide": "Fela",
             "show": "Sýna",
             "copy": "Afrita",
@@ -991,8 +1014,8 @@
             "no_history": "Engin lánssaga er til fyrir þennan hlut ennþá.",
             "lend_success_title": "Lánt hlutur",
             "lend_success_body": "{{item}} er nú merkt sem lánaður.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "Lánstilboð sent",
+            "offer_sent_body": "{{item}} verður merkt sem lánað þegar hinn meðlimurinn samþykkir.",
             "borrowed_by_you": "Með þér",
             "return_pending_hint": "Skráin verður lokuð eftir að lánveitandi staðfestir að hann hafi fengið hlutinn til baka.",
             "return_pending_lender_title": "{{name}} merkti þennan hlut sem skilað",
@@ -1401,12 +1424,12 @@
             "cta_register": "Búa til aðgang",
             "stat_free": "Ókeypis",
             "stat_access": "Aðgangur",
-            "free_badge": "Open Source",
+            "free_badge": "Opinn hugbúnaður",
             "badge": "HomeInventory v2.0 er hér",
             "cta_explore": "Kannaðu eiginleika",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Skrá inn",
+            "stat_members": "Sameiginleg heimili",
+            "stat_vault": "EinkaGeymsla"
         },
         "features": {
             "title": "Af hverju <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Haltu hlutum, ábyrgðum, mikilvægum skjölum og lántökuskrá á einum rólegum stað. Sjáðu hvað heimilið þitt inniheldur í sneiðsjá.",
                 "primaryCta": "Byrjaðu frítt",
                 "secondaryCta": "Skoða vöruna",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Tillaga að flæði: reikningur • heim • herbergi og flokka • hluti • afrit",
                 "searchPlaceholder": "Leita að hlut, herbergi eða strikamerki"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "Upplýsingar um netið haldast falin þar til þú þarft leiðbeiningar.",
         "link_privacy_note": "Netfangið haldast hér falin. Skannaðu kóðann eða afritaðu tengilinn aðeins þegar þú vilt meðvitað deila beinum aðgangi að hlut við staðbundna uppsetningu þína.",
         "helper": "Skannaðu til að opna þennan hlut strax, eða afritaðu beinan tengil þegar þörf er á.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Ekki tókst að afrita hlekkinn sjálfkrafa",
+        "copy_manual_help": "Vafrinn þinn leyfði ekki sjálfvirka afritun. Hlekkurinn er valinn svo þú getir afritað hann handvirkt.",
         "loading": "Undirbý QR verkfæri..."
     },
     "house_access_pending": {
@@ -1969,8 +1992,8 @@
             "empty": "Engar virkar lántökur eru núna.",
             "borrowed_from": "Lánuð frá {{name}}",
             "lent_to": "Núna með {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Bíð eftir að lánveitandi staðfestir að þeir hafi fengið það til baka.",
+            "return_pending_lender": "{{name}} merkti þennan hlut sem skilað. Staðfestu móttöku til að loka skráningunni.",
             "empty_title": "Engar virkar lántökur núna",
             "empty_description": "Samþykktar beiðnir birtast hér þegar hlutur er lánar eða leigður, ásamt skiladagsetningum og ástandi skila."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Hætt við",
             "expired": "Útrunnin",
             "returned": "Skilað",
-            "return_pending": "Return pending"
+            "return_pending": "Skil í bið"
         },
         "actions": {
             "send_request": "Biðja um atriði",
@@ -1990,8 +2013,8 @@
             "reject": "Hafna",
             "cancel": "Hætta við",
             "fulfill_request": "Uppfylla beiðni",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Merktu sem skilað",
+            "mark_received": "Mark fékk",
             "open_inventory": "Opna birgðir"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "Merkja sem skilað",
             "return_subtitle": "Loka virka láni fyrir \"{{item}}\"",
             "return_target": "Það er nú sýnt sem hjá {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Skila hlut",
+            "return_title_lender": "Móttaka hlutar",
+            "return_subtitle_borrower": "Loka virku láni fyrir \"{{item}}\" eftir að þú skilar því.",
+            "return_subtitle_lender": "Lokaðu virka láni fyrir „{{item}}“ eftir að þú hefur fengið það aftur.",
+            "return_target_borrower": "Lánveitandi: {{name}}",
+            "return_target_lender": "Núna hjá: {{name}}",
+            "return_note_borrower": "Sendingarstaðfesting",
+            "return_note_lender": "Mottaftaka",
+            "return_note_placeholder_borrower": "t.d. Ég skilaði henni tilbaka án nokkurra vandamála",
+            "return_note_placeholder_lender": "t.d. Mótt í góðu ástandi",
+            "return_submitting": "Loka..."
         },
         "messages": {
             "load_error": "Lántökumiðstöð gat ekki verið hlaðin",
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "Notkunarskilmálar og Viðvörun",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "BETA útgáfa: {{brandName}} er nú í prófunarfasa. Engin loforð eru gefin um varðveislu gagna eða öryggi.",
         "disclaimer": "Viðvörun: Með því að nota þessa forritun samþykkir þú að þú getir ekki krafist neinnar bætur vegna hugsanlegrar tapi á gögnum, aðgangsvandamála eða annarra tæknilegra vandamála.",
         "backup_warning": "Afritun gagna: Við mælum eindregið með því að þú taki reglulega afrit af mikilvægum upplýsingum þínum.",
         "accept": "Með því að skrá þig inn samþykkir þú þessa skilmála.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} er nú í prófunar- og tómstundastigi. Engar tryggingar eru veittar varðandi varðveislu eða öryggi gagna. Vinsamlegast hafðu mikilvægum upplýsingum þínum afritaðar.",
         "contact": "Hafðu samband"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Too many login attempts"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Skrá inn",
+        "page_title_register": "Búa til reikning",
+        "page_title_choose_house": "Veldu hús",
+        "page_title_recovery_key": "Afbótarlykill",
+        "page_title_house_access": "Aðgangur að húsi",
+        "page_title_legal_review": "Lögfræðilegt yfirlit",
+        "page_title_new_item": "Nýtt atriði",
+        "page_title_edit_item": "Breyta hlut",
+        "page_title_items": "Birgðir"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Villa við að hlaða inn innkaupalista.",
+            "select_item_error": "Vinsamlegast veldu hlut úr birgðunum.",
+            "empty_name": "Vinsamlegast sláðu inn nafn atriðis.",
+            "added": "Atriði bætt við innkaupalistann.",
+            "add_error": "Villa kom upp við að bæta atriðinu við.",
+            "added_suggestion": "\"{{name}}\" bætt við innkaupalistann.",
+            "bulk_added": "{{count}} vörur með lágt birgðastig bætt við listann.",
+            "bulk_error": "Villa kom upp við að bæta við vörum með lágt birgðastig.",
+            "completed": "„{{name}}“ merkt sem lokið.",
+            "reactivated": "„{{name}}“ fluttur aftur á virka listann.",
+            "update_error": "Villa kom upp við uppfærslu.",
+            "deleted": "Hlutur var fjarlægður af listanum.",
+            "delete_error": "Villa kom upp við eyðingu.",
+            "cleared_completed": "Kláraðir hlutir voru hreinsaðir.",
+            "clear_error": "Villa kom upp við hreinsun."
+        },
+        "loading_desc": "Undirbúa innkaupalista...",
+        "page": {
+            "title": "Innkaupalisti",
+            "description": "Skoðaðu vörur með lágt birgðastöðu í heimilisbirgðunum og stýrðu innkaupalistanum þínum auðveldlega."
+        },
+        "suggestions": {
+            "title": "Snjall birgðatilboð",
+            "desc": "Birgðarvörur sem hafa fallið undir lágmarksgrend.",
+            "add_all": "Bæta við öllum sem vantar",
+            "stock_status": "Núverandi: {{current}} / Markmið: {{min}}",
+            "add_qty": "Bæta við {{qty}} hlutum til kaupa. Núverandi innkaupalisti til að bæta í körfuna þína. {{count}} hlutur"
+        },
+        "sections": {
+            "active_list": "Vörur til að kaupa",
+            "active_desc": "Núverandi innkaupahlutir til að bæta við körfuna þína.",
+            "active_count": "{{count}} hlutir",
+            "completed_list": "Keyptir hlutir ({{count}})",
+            "add_item": "Bæta við hlut handvirkt",
+            "add_desc": "Bættu handvirkt við sérsniðinn hlut á listann."
+        },
+        "empty": {
+            "title": "Innkaupalistinn þinn er tómur",
+            "desc": "Þú getur bætt vantaða birgðum úr tillögunum hér að ofan eða bætt vörum handvirkt með formi hægra megin."
+        },
+        "card": {
+            "linked_inventory": "Vistað í birgðum"
+        },
+        "actions": {
+            "clear_completed": "Hreinsa sögu",
+            "add_item": "Bæta við innkaupalista"
+        },
+        "form": {
+            "add_type": "Bæta aðferð",
+            "add_type_inventory": "Birgðavöru",
+            "add_type_custom": "Sérsniðna vöru",
+            "select_inventory_item": "Velja vöru úr birgðum",
+            "no_inventory_items": "Engir hlutir í birgðunum þínum ennþá.",
+            "select_item_placeholder": "Veldu hlut",
+            "current_stock": "Núverandi",
+            "item_name": "Nafn hlutar",
+            "item_name_placeholder": "td. Mjólk, Þvottaefni, Kaffibaunir...",
+            "quantity": "Magn"
+        },
+        "modal": {
+            "delete_title": "Eyða vörunni af listanum?",
+            "delete_desc": "Ertu viss um að þú viljir fjarlægja „{{name}}“ af innkaupalistanum þínum?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Villa við að hlaða upplýsingum",
+            "select_item_error": "Vinsamlegast veldu atriði.",
+            "task_name_error": "Verkefnanafn er skylt.",
+            "date_error": "Áætlaður dagsetning er skylt.",
+            "updated": "Viðhaldsskylda uppfærð",
+            "created": "Ný viðhaldsskylda bætt við",
+            "save_error": "Villa kom upp við vistun",
+            "deleted": "Viðhaldsskylda eytt með góðum árangri.",
+            "delete_error": "Villa átti sér stað við eyðingarferlið.",
+            "performed": "Viðhald skráð sem lokið. Næsti dagsetning áætluð.",
+            "perform_error": "Villa átti sér stað við vistun."
+        },
+        "freq": {
+            "one_time": "Eitt sinn",
+            "unit": {
+                "days": "Dagur",
+                "weeks": "Vika",
+                "months": "Mánuður",
+                "years": "Ár"
+            },
+            "format": "Á hverjum {{val}} {{unit}}"
+        },
+        "loading_desc": "Hlaða viðhaldsáætlun...",
+        "page": {
+            "title": "Viðhald og tímabundin eftirlit",
+            "description": "Stjórnaðu tímabundnum viðhaldsáætlunum fyrir tæki, síur eða öryggisbúnað í heimilisbirgðum þínum."
+        },
+        "actions": {
+            "add_task": "Bæta við nýju verkefni",
+            "manage": "Stjórna",
+            "perform": "Merkja sem lokið",
+            "edit_task": "Breyta verkefni"
+        },
+        "alerts": {
+            "overdue_title": "Þú átt eftir að klára verkefni!",
+            "overdue_desc": "Það eru {{count}} of seinar viðhaldsverkefni. Töf á þeim geta stytt endingartíma tækja."
+        },
+        "empty": {
+            "title": "Engin viðhaldsverkefni eru áætluð",
+            "desc": "Byrjaðu á því að bæta við reglubundnum verkefnum svo sem hreinsun á loftkælistrykkulsíum, viðhald á ketli eða athugun á rafhlöðum í reykskynjurum."
+        },
+        "sections": {
+            "overdue": "Of seint verkefni",
+            "overdue_desc": "Brýn viðhald sem þarf að framkvæma samstundis.",
+            "upcoming": "Skipulögð / Komandi verkefni",
+            "upcoming_desc": "Viðhald sem nálgast á næstu dögum.",
+            "no_upcoming": "Engin virk verkefni eru skipulögð fyrir framtíðina."
+        },
+        "modal": {
+            "edit_title": "Breyta Verkefni",
+            "create_title": "Skipuleggja Nýtt Viðhaldsverkefni",
+            "perform_title": "Klára Viðhald",
+            "perform_desc": "Viltu skrá \"{{name}}\" sem lokið í dag?",
+            "perform_confirm": "Já, Lokið",
+            "perform_recurrence_info": "Þetta er regluleg verkefni. Þegar þú vistir mun kerfið sjálfkrafa reikna næsta viðhaldardag.",
+            "delete_title": "Eyða viðhaldverkefni?",
+            "delete_desc": "Ertu viss um að þú viljir eyða reglulega viðhaldsskránni „{{name}}“? Þessi aðgerð getur ekki verið afturkallað."
+        },
+        "form": {
+            "item": "Tengt atriði",
+            "no_items": "Þú verður að bæta við atriði á lagerinn fyrst áður en þú skipuleggur viðhald.",
+            "select_item_placeholder": "Veldu atriði",
+            "task_name": "Verkefni / Nafn aðgerðar",
+            "task_name_placeholder": "td. Síuskipti, Regluleg skoðun...",
+            "description": "Smáatriði / Lýsing",
+            "description_placeholder": "Verkefnisskýringar, efni sem á að nota, o.s.frv...",
+            "frequency_value": "Endurtekningartíðni",
+            "frequency_placeholder": "td. 6 (skildu auðið fyrir einnar skipta)",
+            "frequency_unit": "Tíðni eininga",
+            "next_due_date": "Næsta áætlaða dagsetning",
+            "section_help": "Stjórna viðhaldsskrám héðan",
+            "section_collapsed": "Smelltu til að bæta við tímabundnum stjórnum og verkefnum",
+            "has_tasks": "{{count}} Verkefni",
+            "new_item_warning_title": "Varan er óvistuð",
+            "new_item_warning_desc": "Þú verður að vista þessa vöru fyrst til að bæta við viðhaldsskjali.",
+            "manage_desc": "Stjórnaðu viðhaldsskráningum fyrir þennan búnað eða hlut."
+        },
+        "fields": {
+            "task_name": "Verkefnisnafn",
+            "task_name_placeholder": "t.d. hreinsun loftkælistumms Síu",
+            "description": "Lýsing",
+            "description_placeholder": "Verkefnisupplýsingar, efni sem á að nota, o.s.frv...",
+            "frequency_value": "Endurtekningar tíðni",
+            "frequency_value_placeholder": "Látið autt fyrir einu sinni",
+            "frequency_unit": "Tíðnieining",
+            "next_due_date": "Áætlaður dagsetning"
+        },
+        "card": {
+            "untitled_item": "Hauslaus atriði",
+            "last_performed": "Síðast gert:",
+            "next_due_label": "Áætlaður dagsetning",
+            "complete_tooltip": "Merkja viðhald sem lokið í dag"
+        },
+        "detail_card_desc": "Tímabundin eða einbúin viðhaldsskráning áætluð fyrir þennan hlut.",
+        "no_tasks": "Engar viðhaldsskyldur hafa verið úthlutaðar fyrir þennan hlut.",
+        "confirm_delete": "Þessi verkefni verður eytt. Ertu viss?"
     }
 }

@@ -3,7 +3,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { logError } from './logger.js';
-import { BRAND_KEY, BRAND_NAME, DEFAULT_FROM, SUPPORT_EMAIL } from './branding.js';
+import { BRAND_KEY, BRAND_NAME, DEFAULT_FROM, SUPPORT_EMAIL, getEmailDeliveryStatus } from './branding.js';
 
 // Resend API istemcisi - lazy initialization (dotenv yüklendikten sonra çalışır)
 let resend = null;
@@ -751,9 +751,9 @@ function resolveBrandPlaceholders(value) {
  */
 export async function sendEmail({ to, subject, html, text, from = DEFAULT_FROM }) {
     try {
-        // API anahtarı kontrolü
-        if (!process.env.RESEND_API_KEY) {
-            const errorMsg = 'RESEND_API_KEY ortam değişkeni tanımlı değil!';
+        const deliveryStatus = getEmailDeliveryStatus();
+        if (!deliveryStatus.configured) {
+            const errorMsg = deliveryStatus.message;
             logError(new Error(errorMsg), { context: 'emailService.sendEmail' });
             return {
                 success: false,
@@ -889,7 +889,7 @@ export async function sendWelcomeEmail(email, houseKey) {
 }
 
 export async function sendHouseJoinRequestNotification({ to, requesterUsername, requestedHouseName }) {
-    if (!process.env.RESEND_API_KEY) {
+    if (!getEmailDeliveryStatus().configured) {
         return { success: false, skipped: true };
     }
 
@@ -918,7 +918,7 @@ export async function sendHouseJoinRequestNotification({ to, requesterUsername, 
 }
 
 export async function sendHouseJoinRequestDecisionNotification({ to, status, requestedHouseName }) {
-    if (!process.env.RESEND_API_KEY) {
+    if (!getEmailDeliveryStatus().configured) {
         return { success: false, skipped: true };
     }
 
@@ -954,7 +954,7 @@ export async function sendHouseJoinRequestDecisionNotification({ to, status, req
 }
 
 export async function sendHouseKickNotification({ to, houseName }) {
-    if (!process.env.RESEND_API_KEY) {
+    if (!getEmailDeliveryStatus().configured) {
         return { success: false, skipped: true };
     }
 

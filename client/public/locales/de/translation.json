@@ -48,7 +48,8 @@
         "details": "Einzelheiten",
         "hide": "Passwort ausblenden",
         "logging_out": "Abmelden...",
-        "show": "Passwort anzeigen"
+        "show": "Passwort anzeigen",
+        "saving": "Speichern..."
     },
     "auth": {
         "login": {
@@ -190,7 +191,7 @@
             "confirm_password_placeholder": "Geben Sie Ihr Passwort erneut ein",
             "reset_submit": "Passwort zurücksetzen",
             "resetting": "Zurücksetzen...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Geben Sie Ihren Benutzernamen oder Ihre E-Mail ein"
         },
         "reset_password": {
             "title": "Passwort zurücksetzen",
@@ -231,7 +232,7 @@
         "password_requirements": "Verwenden Sie mindestens {{min}} Zeichen mit Großbuchstaben, Kleinbuchstaben, Zahl und Symbol.",
         "logout": "Abmelden",
         "logging_in": "Anmeldung läuft...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "Willkommen bei {{brandName}}",
         "username_email": "Benutzername oder E-Mail",
         "username": "Benutzername",
         "email": "E-Mail",
@@ -316,7 +317,9 @@
         "logout_aria": "Melden Sie sich von Ihrem Konto ab",
         "logout_title": "Abmelden?",
         "logout_description": "Sie werden zum Anmeldebildschirm zurückgeführt und müssen sich erneut anmelden, um Ihren Haushaltsbestand zu verwalten.",
-        "logout_warning": "Verwenden Sie dies, wenn Sie auf einem gemeinsam genutzten oder persönlichen Gerät fertig sind."
+        "logout_warning": "Verwenden Sie dies, wenn Sie auf einem gemeinsam genutzten oder persönlichen Gerät fertig sind.",
+        "maintenance": "Wartungsplan",
+        "shopping": "Einkaufsliste"
     },
     "dashboard": {
         "welcome": "Willkommen zurück, <1>{{name}}</1>",
@@ -443,7 +446,20 @@
         "no_items_filter": "Keine Artikel entsprechen diesem Filter",
         "manage": "Verwalten",
         "add_item": "Artikel hinzufügen",
-        "search_item": "Artikel suchen"
+        "search_item": "Artikel suchen",
+        "alerts": {
+            "expired_title": "Gegenstände sind abgelaufen!",
+            "expired_desc": "Es gibt {{count}} abgelaufene Gegenstände in deinem Inventar. Bitte überprüfe sie zu deiner Sicherheit.",
+            "view_items": "Artikel anzeigen",
+            "maintenance_title": "Überfällige Wartungsaufgaben!",
+            "maintenance_desc": "Es gibt {{count}} überfällige Wartungsaufgaben. Führen Sie Wartungsarbeiten durch, um die Lebensdauer Ihrer Geräte zu verlängern.",
+            "go_to_maintenance": "Zur Wartung",
+            "low_stock_title": "Wenig Bestand Alarm",
+            "low_stock_desc": "{{count}} Artikel sind unter Ihre Mindestbestandsgrenze gefallen.",
+            "go_to_shopping": "Einkaufsliste",
+            "close_expiry_title": "Bevorstehende Ablaufdaten",
+            "close_expiry_desc": "{{count}} Produkte werden innerhalb von 30 Tagen ablaufen."
+        }
     },
     "beta_banner": {
         "title": "Beta-Status:",
@@ -523,7 +539,9 @@
             "vault_hint_action": "Persönlichen Tresor öffnen",
             "location": "Standort",
             "remove_photo": "Foto entfernen",
-            "visibility_owner_only": "Nur die Person, die den Artikel hinzugefügt hat, kann die Sichtbarkeit ändern."
+            "visibility_owner_only": "Nur die Person, die den Artikel hinzugefügt hat, kann die Sichtbarkeit ändern.",
+            "expiry_date": "Ablaufdatum",
+            "min_quantity": "Mindestmenge"
         },
         "qrcode": {
             "title": "QR-Code",
@@ -577,7 +595,12 @@
         "no_permission": "Sie haben keine Berechtigung, diesen Artikel zu ändern",
         "barcode_search_error": "Barcode-Suche fehlgeschlagen",
         "stats_error": "Fehler beim Laden der Statistiken",
-        "detail_subtitle": "Artikeldetails"
+        "detail_subtitle": "Artikeldetails",
+        "status": {
+            "close_to_expiry": "Kurz vor dem Ablauf",
+            "expired": "Abgelaufen",
+            "low_stock": "Niedriger Bestand"
+        }
     },
     "settings": {
         "title": "Einstellungen",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "Aktiver Haus-Schlüssel",
             "key_label": "Hausschlüssel",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{Suffix}}",
             "hide": "Verbergen",
             "show": "Anzeigen",
             "copy": "Kopieren",
@@ -762,7 +785,7 @@
             "privacy_link": "Datenschutzrichtlinie",
             "beta_title": "Beta-Status",
             "beta_body": "{{brandName}} befindet sich noch in der Beta-Phase. Funktionen können sich ändern, Arbeitsabläufe können sich entwickeln, und wichtige Haushaltsdaten sollten immer gesichert werden.",
-            "feedback_subject": "Feedback - {{brandName}}",
+            "feedback_subject": "Rückmeldung - {{brandName}}",
             "logout_body": "Alle nicht gespeicherten Änderungen in offenen Formularen können verloren gehen, nachdem Sie diese Sitzung verlassen.",
             "logout_description": "Sie werden zur Startseite zurückkehren und können sich jederzeit erneut anmelden.",
             "logout_title": "Jetzt abmelden?"
@@ -1229,7 +1252,7 @@
             "no_logs": "noch keine Protokolle",
             "errors_title": "Systemfehler (Letzte 10)",
             "no_errors": "// System gesund, keine Fehlerprotokolle.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{Datum, Datum/Uhrzeit}}",
             "type": {
                 "email": "E-Mail",
                 "user": "Benutzer",
@@ -1728,8 +1751,8 @@
         "privacy_summary": "Netzwerkdetails bleiben verborgen, bis Sie eine Anleitung benötigen.",
         "link_privacy_note": "Die Netzwerkadresse bleibt hier verborgen. Scannen Sie den Code oder kopieren Sie den Link nur, wenn Sie direktes Teilen des Elements in Ihrer lokalen Einrichtung beabsichtigen.",
         "helper": "Scannen, um dieses Element sofort zu öffnen, oder kopieren Sie den direkten Link bei Bedarf.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Link konnte nicht automatisch kopiert werden",
+        "copy_manual_help": "Ihr Browser hat das automatische Kopieren nicht erlaubt. Der Link ist ausgewählt, damit Sie ihn manuell kopieren können.",
         "loading": "QR-Tools werden vorbereitet..."
     },
     "house_access_pending": {
@@ -1817,7 +1840,7 @@
             "bodyLine2": "Warten auf die Genehmigung des Hausbesitzers"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} – {{status}}",
             "greeting": "Hauszugang",
             "bodyLine1Template": "Aktuell ausstehende Anfrage: {{house}} ({{status}})",
             "bodyLine2": "Ihre Anfrage für „{{house}}“ wartet noch auf eine Entscheidung.",
@@ -1846,7 +1869,7 @@
         },
         "adminEmail": {
             "sentBy": "Diese E-Mail wurde von {{brandName}} gesendet.",
-            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
+            "footer": "© 2026 {{brandName}} – {{supportEmail}}"
         },
         "testEmail": {
             "subject": "🧪 {{brandName}} Test-E-Mail",
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "Nutzungsbedingungen und Haftungsausschluss",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "BETA-Version: {{brandName}} befindet sich derzeit in der Testphase. Es werden keine Garantien in Bezug auf Datenbeständigkeit oder Sicherheit gegeben.",
         "disclaimer": "Haftungsausschluss: Durch die Nutzung dieser Anwendung erklären Sie sich damit einverstanden, dass Sie keine Entschädigung für möglichen Datenverlust, Zugriffsprobleme oder andere technische Probleme verlangen können.",
         "backup_warning": "Datensicherung: Wir empfehlen dringend, Ihre wichtigen Informationen regelmäßig zu sichern.",
         "accept": "Durch die Anmeldung stimmen Sie diesen Bedingungen zu.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} befindet sich derzeit in der Test- und Hobbyphase. Es werden keine Garantien in Bezug auf Datenbeständigkeit oder Sicherheit gegeben. Bitte sichern Sie Ihre wichtigen Informationen.",
         "contact": "Kontakt"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Zu viele Anmeldeversuche. Bitte versuchen Sie es in 15 Minuten erneut."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Anmelden",
+        "page_title_register": "Konto erstellen",
+        "page_title_choose_house": "Haus auswählen",
+        "page_title_recovery_key": "Wiederherstellungsschlüssel",
+        "page_title_house_access": "Hauszugang",
+        "page_title_legal_review": "Rechtliche Überprüfung",
+        "page_title_new_item": "Neuer Artikel",
+        "page_title_edit_item": "Artikel bearbeiten",
+        "page_title_items": "Inventar"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Fehler beim Laden der Einkaufsliste.",
+            "select_item_error": "Bitte wählen Sie einen Artikel aus dem Inventar aus.",
+            "empty_name": "Bitte geben Sie einen Artikelnamen ein.",
+            "added": "Artikel zur Einkaufsliste hinzugefügt.",
+            "add_error": "Beim Hinzufügen des Artikels ist ein Fehler aufgetreten.",
+            "added_suggestion": "\"{{name}}\" wurde zur Einkaufsliste hinzugefügt.",
+            "bulk_added": "{{count}} Artikel mit niedrigem Lagerbestand zur Liste hinzugefügt.",
+            "bulk_error": "Fehler beim Hinzufügen von Artikeln mit niedrigem Lagerbestand.",
+            "completed": "\"{{name}}\" als erledigt markiert.",
+            "reactivated": "\"{{name}}\" wurde wieder in die aktive Liste verschoben.",
+            "update_error": "Während des Updates ist ein Fehler aufgetreten.",
+            "deleted": "Element aus der Liste gelöscht.",
+            "delete_error": "Während der Löschung ist ein Fehler aufgetreten.",
+            "cleared_completed": "Abgeschlossene Elemente gelöscht.",
+            "clear_error": "Fehler beim Löschen aufgetreten."
+        },
+        "loading_desc": "Einkaufsliste wird vorbereitet...",
+        "page": {
+            "title": "Einkaufsliste",
+            "description": "Sehen Sie sich Artikel mit niedrigem Lagerbestand im Haushaltsinventar an und verwalten Sie Ihre Einkaufsliste einfach."
+        },
+        "suggestions": {
+            "title": "Intelligente Inventarvorschläge",
+            "desc": "Inventarartikel, die unter das Mindestlimit gefallen sind.",
+            "add_all": "Alle fehlenden hinzufügen",
+            "stock_status": "Aktuell: {{current}} / Ziel: {{min}}",
+            "add_qty": "Fügen Sie {{qty}} hinzu"
+        },
+        "sections": {
+            "active_list": "Zu kaufende Artikel",
+            "active_desc": "Aktuelle Einkaufsartikel, die Sie Ihrem Warenkorb hinzufügen können.",
+            "active_count": "{{count}} Artikel",
+            "completed_list": "Gekaufte Artikel ({{count}})",
+            "add_item": "Artikel manuell hinzufügen",
+            "add_desc": "Einen benutzerdefinierten Artikel manuell zur Liste hinzufügen."
+        },
+        "empty": {
+            "title": "Ihre Einkaufsliste ist leer",
+            "desc": "Sie können fehlende Vorräte aus den obigen Vorschlägen hinzufügen oder Artikel manuell über das Formular auf der rechten Seite hinzufügen."
+        },
+        "card": {
+            "linked_inventory": "Im Inventar gespeichert"
+        },
+        "actions": {
+            "clear_completed": "Verlauf löschen",
+            "add_item": "Zur Einkaufsliste hinzufügen"
+        },
+        "form": {
+            "add_type": "Methode hinzufügen",
+            "add_type_inventory": "Inventarartikel",
+            "add_type_custom": "Benutzerdefinierter Artikel",
+            "select_inventory_item": "Element aus dem Inventar wählen",
+            "no_inventory_items": "Noch keine Elemente in deinem Inventar.",
+            "select_item_placeholder": "Wähle ein Element",
+            "current_stock": "Aktuell",
+            "item_name": "Artikelname",
+            "item_name_placeholder": "z.B. Milch, Waschmittel, Kaffeebohnen...",
+            "quantity": "Menge"
+        },
+        "modal": {
+            "delete_title": "Artikel aus der Liste löschen?",
+            "delete_desc": "Sind Sie sicher, dass Sie \"{{name}}\" von Ihrer Einkaufsliste entfernen möchten?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Fehler beim Laden der Informationen",
+            "select_item_error": "Bitte wählen Sie einen Artikel aus.",
+            "task_name_error": "Aufgabenname ist erforderlich.",
+            "date_error": "Geplantes Datum ist erforderlich.",
+            "updated": "Wartungsaufgabe aktualisiert",
+            "created": "Neue Wartungsaufgabe hinzugefügt",
+            "save_error": "Fehler beim Speichern aufgetreten",
+            "deleted": "Wartungsaufgabe erfolgreich gelöscht.",
+            "delete_error": "Beim Löschvorgang ist ein Fehler aufgetreten.",
+            "performed": "Wartung als abgeschlossen protokolliert. Nächstes Datum geplant.",
+            "perform_error": "Beim Speichern ist ein Fehler aufgetreten."
+        },
+        "freq": {
+            "one_time": "Einmal",
+            "unit": {
+                "days": "Tag",
+                "weeks": "Woche",
+                "months": "Monat",
+                "years": "Jahr"
+            },
+            "format": "Alle {{val}} {{unit}}"
+        },
+        "loading_desc": "Wartungsplan wird geladen...",
+        "page": {
+            "title": "Wartung & periodische Nachverfolgung",
+            "description": "Verwalten Sie regelmäßige Wartungspläne für Geräte, Filter oder Sicherheitsausrüstung in Ihrem Haushaltsinventar."
+        },
+        "actions": {
+            "add_task": "Neue Aufgabe hinzufügen",
+            "manage": "Verwalten",
+            "perform": "Als erledigt markieren",
+            "edit_task": "Aufgabe bearbeiten"
+        },
+        "alerts": {
+            "overdue_title": "Sie haben überfällige Aufgaben!",
+            "overdue_desc": "Es gibt {{count}} überfällige Wartungsaufgaben. Verzögerungen können die Lebensdauer von Geräten verkürzen."
+        },
+        "empty": {
+            "title": "Keine Wartungsaufgaben geplant",
+            "desc": "Beginnen Sie, indem Sie wiederkehrende Aufgaben hinzufügen, wie z. B. das Reinigen des Klimaanlagenfilters, Wartung des Boilers oder das Überprüfen der Batterien von Rauchmeldern."
+        },
+        "sections": {
+            "overdue": "Überfällige Aufgaben",
+            "overdue_desc": "Dringende Wartung, die sofort durchgeführt werden muss.",
+            "upcoming": "Geplante / Bevorstehende Aufgaben",
+            "upcoming_desc": "Anstehende Wartung in den kommenden Tagen.",
+            "no_upcoming": "Keine aktiven Aufgaben für die Zukunft geplant."
+        },
+        "modal": {
+            "edit_title": "Aufgabe bearbeiten",
+            "create_title": "Neue Wartungsaufgabe planen",
+            "perform_title": "Wartung abschließen",
+            "perform_desc": "Möchten Sie \"{{name}}\" heute als erledigt protokollieren?",
+            "perform_confirm": "Ja, erledigt",
+            "perform_recurrence_info": "Dies ist eine wiederkehrende Aufgabe. Wenn Sie speichern, berechnet das System automatisch das nächste Wartungsdatum.",
+            "delete_title": "Wartungsaufgabe löschen?",
+            "delete_desc": "Sind Sie sicher, dass Sie den periodischen Wartungsplan \"{{name}}\" löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden."
+        },
+        "form": {
+            "item": "Zugehöriger Artikel",
+            "no_items": "Sie müssen zuerst einen Artikel zum Inventar hinzufügen, bevor Sie die Wartung planen.",
+            "select_item_placeholder": "Wählen Sie einen Artikel aus",
+            "task_name": "Aufgaben- / Operationsname",
+            "task_name_placeholder": "z.B. Filterwechsel, Periodische Kontrolle...",
+            "description": "Details / Beschreibung",
+            "description_placeholder": "Aufgabendetails, zu verwendende Materialien, etc...",
+            "frequency_value": "Wiederholungshäufigkeit",
+            "frequency_placeholder": "z.B. 6 (leer lassen für einmalig)",
+            "frequency_unit": "Zeiteinheit",
+            "next_due_date": "Nächstes geplantes Datum",
+            "section_help": "Verwalten Sie hier Wartungspläne",
+            "section_collapsed": "Klicken Sie, um periodische Kontrollen und Aufgaben hinzuzufügen",
+            "has_tasks": "{{count}} Aufgaben",
+            "new_item_warning_title": "Elementspeicherung ausstehend",
+            "new_item_warning_desc": "Sie müssen diesen Artikel zuerst speichern, um einen Wartungsplan hinzuzufügen.",
+            "manage_desc": "Verwalten Sie Wartungspläne für dieses Gerät oder diesen Artikel."
+        },
+        "fields": {
+            "task_name": "Aufgabenname",
+            "task_name_placeholder": "z.B. Reinigung des AC-Filters",
+            "description": "Beschreibung",
+            "description_placeholder": "Aufgaben Details, zu verwendende Materialien, etc...",
+            "frequency_value": "Wiederholungsfrequenz",
+            "frequency_value_placeholder": "Leer lassen für einmalig",
+            "frequency_unit": "Häufigkeitseinheit",
+            "next_due_date": "Geplantes Datum"
+        },
+        "card": {
+            "untitled_item": "Unbenannter Artikel",
+            "last_performed": "Zuletzt erledigt:",
+            "next_due_label": "Geplantes Datum",
+            "complete_tooltip": "Wartung heute als erledigt markieren"
+        },
+        "detail_card_desc": "Periodische oder einmalige Wartungsverfolgung für diesen Artikel geplant.",
+        "no_tasks": "Keine Wartungsaufgaben diesem Artikel zugewiesen.",
+        "confirm_delete": "Diese Aufgabe wird gelöscht. Bist du sicher?"
     }
 }

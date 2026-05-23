@@ -67,6 +67,7 @@ import {
     hashDeviceToken
 } from '../utils/totp.js';
 import { resolveStoredMediaPath } from '../utils/mediaStorage.js';
+import { getUploadsRoot } from '../utils/runtimePaths.js';
 import {
     getDefaultCategorySeeds,
     getDefaultNewHouseName,
@@ -75,6 +76,7 @@ import {
     resolveSeedLanguage
 } from '../utils/houseDefaults.js';
 import { parseSqliteUtcTimestamp, toSqliteUtcTimestamp } from '../utils/sqliteDate.js';
+import { getEmailDeliveryStatus } from '../utils/branding.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -105,7 +107,7 @@ const RESET_PASSWORD_FAILURE_MESSAGE = 'İşlem gerçekleştirilemedi. Bilgileri
 const RESET_PASSWORD_LOCKED_MESSAGE = 'İşlem gerçekleştirilemedi. Lütfen daha sonra tekrar deneyin.';
 const FORGOT_PASSWORD_GENERIC_MESSAGE = 'Hesap mevcutsa gerekli yönlendirme gönderildi.';
 const repoRoot = join(__dirname, '..');
-const uploadsRoot = join(repoRoot, 'uploads');
+const uploadsRoot = getUploadsRoot(repoRoot);
 const ACCOUNT_MEDIA_ALLOWED_PREFIXES = [
     'uploads',
     'uploads/thumbnails',
@@ -812,7 +814,7 @@ function fireAndForget(task, label) {
 }
 
 function notifyOwnersAboutJoinRequest(houseKey, requesterUsername, requestedHouseName) {
-    if (!process.env.RESEND_API_KEY) {
+    if (!getEmailDeliveryStatus().configured) {
         return;
     }
 
@@ -943,8 +945,8 @@ router.post('/register', async (req, res) => {
         const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
         const legalAcceptedAt = toSqliteUtcTimestamp(Date.now());
 
-        // If email verification is disabled (no API key), register directly
-        if (!process.env.RESEND_API_KEY) {
+        // If email verification is disabled or incomplete, register directly.
+        if (!getEmailDeliveryStatus().configured) {
             const seedLanguage = resolveSeedLanguage(req);
             const passwordRecoveryMode = getPasswordRecoveryMode();
             const initialRole = resolveRoleForEmail(safeEmail);

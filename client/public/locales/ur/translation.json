@@ -69,7 +69,9 @@
             "vault_hint_action": "ذاتی والٹ کھولیں",
             "location": "مقام",
             "remove_photo": "تصویر ہٹائیں",
-            "visibility_owner_only": "صرف وہ شخص جس نے آئٹم شامل کیا ہے ظاہر ہونے کی حیثیت بدل سکتا ہے۔"
+            "visibility_owner_only": "صرف وہ شخص جس نے آئٹم شامل کیا ہے ظاہر ہونے کی حیثیت بدل سکتا ہے۔",
+            "expiry_date": "اختتامی تاریخ",
+            "min_quantity": "کم از کم مقدار"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" جلدی شامل کیا گیا - آپ بعد میں ترمیم کر سکتے ہیں",
@@ -119,7 +121,12 @@
         "no_permission": "آپ کو یہ آئٹم تبدیل کرنے کی اجازت نہیں",
         "barcode_search_error": "بارکوڈ تلاش ناکام",
         "stats_error": "اعداد و شمار لوڈ کرنے میں خرابی",
-        "detail_subtitle": "آئٹم کی تفصیلات"
+        "detail_subtitle": "آئٹم کی تفصیلات",
+        "status": {
+            "close_to_expiry": "میعاد ختم ہونے کے قریب",
+            "expired": "ختم شدہ",
+            "low_stock": "کم اسٹاک"
+        }
     },
     "common": {
         "save": "محفوظ کریں",
@@ -143,7 +150,7 @@
         "refresh": "تازہ کریں",
         "close": "بند کریں",
         "logout": "لاگ آؤٹ",
-        "copyright": "© {{year}} {{brandName}} - All rights reserved",
+        "copyright": "© {{year}} {{brandName}} - جملہ حقوق محفوظ ہیں",
         "other": "دوسرا",
         "copy": "کاپی",
         "download": "ڈاؤن لوڈ",
@@ -170,13 +177,14 @@
         "details": "تفصیلات",
         "hide": "پاس ورڈ چھپائیں",
         "logging_out": "لاگ آؤٹ ہو رہا ہے...",
-        "show": "پاس ورڈ دکھائیں"
+        "show": "پاس ورڈ دکھائیں",
+        "saving": "محفوظ کیا جا رہا ہے..."
     },
     "auth": {
         "login": {
             "title": "لاگ ان",
             "subtitle": "اپنے تمام ہوم انوینٹری کا انتظام ہوشیاری سے کریں",
-            "welcome": "Welcome to {{brandName}}",
+            "welcome": "{{brandName}} میں خوش آمدید",
             "username_or_email": "صارف نام یا ای میل",
             "password": "پاس ورڈ",
             "forgot_password": "پاس ورڈ بھول گئے؟",
@@ -188,7 +196,7 @@
             "register_link": "رجسٹر کریں",
             "support_contact": "لاگ ان کے مسائل کے لیے:",
             "terms_title": "📋 استعمال کی شرائط اور دستبرداری",
-            "terms_beta": "BETA Version: {{brandName}} is currently in testing phase. No guarantee is given regarding the persistence or security of your data.",
+            "terms_beta": "بیٹا ورژن: {{brandName}} اس وقت ٹیسٹنگ مرحلے میں ہے۔ آپ کے ڈیٹا کی پائیداری یا حفاظتی ضمانت نہیں دی جاتی۔",
             "terms_disclaimer": "دستبرداری: اس ایپلیکیشن کے استعمال سے، آپ اتفاق کرتے ہیں کہ آپ ممکنہ ڈیٹا نقصان، رسائی کے مسائل، یا دیگر تکنیکی خرابیوں کے لیے کوئی معاوضہ کا دعویٰ نہیں کر سکتے۔",
             "terms_backup": "ڈیٹا بیک اپ: ہم مضبوطی سے مشورہ دیتے ہیں کہ آپ اپنی اہم معلومات کا باقاعدگی سے بیک اپ لیں۔",
             "terms_accept": "لاگ ان کرکے، آپ ان شرائط کو قبول کرنے کے لیے فرض کیے جاتے ہیں۔",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "اپنا پاس ورڈ دوبارہ درج کریں",
             "reset_submit": "پاس ورڈ ری سیٹ کریں",
             "resetting": "ری سیٹ ہو رہا ہے...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "اپنا صارف نام یا ای میل درج کریں"
         },
         "reset_password": {
             "title": "پاس ورڈ ری سیٹ کریں",
@@ -353,7 +361,7 @@
         "password_requirements": "کم از کم {{min}} حروف استعمال کریں جن میں بڑے، چھوٹے حروف، نمبر، اور علامت شامل ہوں۔",
         "logout": "لاگ آؤٹ",
         "logging_in": "لاگ ان ہو رہا ہے...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "خوش آمدید {{brandName}} •••••••• {{brandName}} پرسنل والٹ ریکوری کی کلید اکاؤنٹ کو حذف نہیں کیا جا سکا",
         "username_email": "یوزر نیم یا ای میل",
         "username": "یوزر نیم",
         "email": "ای میل",
@@ -438,7 +446,9 @@
         "logout_aria": "اپنے اکاؤنٹ سے لاگ آؤٹ کریں",
         "logout_title": "لاگ آؤٹ کریں؟",
         "logout_description": "آپ کو سائن ان اسکرین پر واپس بھیج دیا جائے گا اور گھرانے کے انوینٹری کو منظم کرنے کے لیے دوبارہ لاگ ان کرنا ہوگا۔",
-        "logout_warning": "جب آپ کسی شیئرڈ یا ذاتی ڈیوائس پر مکمل ہو جائیں تو اسے استعمال کریں۔"
+        "logout_warning": "جب آپ کسی شیئرڈ یا ذاتی ڈیوائس پر مکمل ہو جائیں تو اسے استعمال کریں۔",
+        "maintenance": "دیکھ بھال کا شیڈول",
+        "shopping": "خریداری کی فہرست"
     },
     "dashboard": {
         "welcome": "خوش آمدید، <1>{{name}}</1>! 👋",
@@ -565,7 +575,20 @@
         "no_items_filter": "اس فلٹر سے ملتی کوئی شے نہیں",
         "manage": "انتظام",
         "add_item": "شے شامل کریں",
-        "search_item": "شے تلاش کریں"
+        "search_item": "شے تلاش کریں",
+        "alerts": {
+            "expired_title": "اشیاء کی میعاد ختم ہو گئی ہے!",
+            "expired_desc": "آپ کے انوینٹری میں {{count}} اشیاء کی میعاد ختم ہو گئی ہے۔ براہ کرم اپنی حفاظت کے لیے انہیں چیک کریں۔",
+            "view_items": "اشیاء دیکھیں",
+            "maintenance_title": "واجب الادا مرمت کے کام!",
+            "maintenance_desc": "آپ کے پاس {{count}} زیر التواء مینٹیننس کے کام ہیں۔ اپنے آلات کی عمر بڑھانے کے لیے مینٹیننس کریں۔",
+            "go_to_maintenance": "مینٹیننس پر جائیں",
+            "low_stock_title": "کم اسٹاک الرٹ",
+            "low_stock_desc": "{{count}} آئٹمز آپ کی کم از کم اسٹاک حد سے نیچے چلے گئے ہیں۔",
+            "go_to_shopping": "خریداری کی فہرست",
+            "close_expiry_title": "آنے والی اختتامی تاریخیں",
+            "close_expiry_desc": "{{count}} مصنوعات 30 دن کے اندر ختم ہو جائیں گی۔"
+        }
     },
     "beta_banner": {
         "title": "بیٹا:",
@@ -619,7 +642,7 @@
             "member_kick_error": "رکن کو گھر سے ہٹایا نہیں جا سکا",
             "recovery_key_regenerated": "بحالی کی چابی دوبارہ تیار کر دی گئی",
             "recovery_key_error": "بحالی کی چابی دوبارہ تیار نہیں کی جا سکی",
-            "account_delete_error": "The account could not be deleted",
+            "account_delete_error": "اکاؤنٹ کو حذف نہیں کیا جا سکا",
             "backup_downloaded_encrypted": "مرموز بیک اپ کامیابی کے ساتھ ڈاؤن لوڈ ہو گیا! ({{count}} آئٹمز)"
         },
         "user_profile": {
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "فعال گھر کی چابی",
             "key_label": "گھر کی چابی",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{لاحقہ}}",
             "hide": "چھپائیں",
             "show": "دکھائیں",
             "copy": "کاپی کریں",
@@ -991,8 +1014,8 @@
             "no_history": "اس آئٹم کے لیے ابھی تک کوئی قرض لینے کی تاریخ موجود نہیں ہے۔",
             "lend_success_title": "چیز دی گئی",
             "lend_success_body": "{{item}} اب بطور قرض لی گئی نشان زد ہے۔",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "ادھار کی پیشکش بھیج دی گئی",
+            "offer_sent_body": "{{item}} کو اس وقت ادھار لیا ہوا نشان زد کیا جائے گا جب دوسرے رکن نے قبول کر لیا۔",
             "borrowed_by_you": "آپ کے پاس",
             "return_pending_hint": "ریکارڈ اس وقت بند ہو جائے گا جب قرض دہندہ تصدیق کرے گا کہ انہوں نے آئٹم واپس وصول کر لیا۔",
             "return_pending_lender_title": "{{name}} نے اس آئٹم کو واپس ڈیلیور شدہ کے طور پر نشان زد کیا",
@@ -1401,12 +1424,12 @@
             "cta_register": "اکاؤنٹ بنائیں",
             "stat_free": "مفت",
             "stat_access": "رسائی",
-            "free_badge": "Open Source",
+            "free_badge": "اوپن سورس",
             "badge": "ہوم انوینٹری v2.0 یہاں ہے",
             "cta_explore": "خصوصیات کو دریافت کریں",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "سائن ان کریں",
+            "stat_members": "مشترکہ گھر",
+            "stat_vault": "نجی محفوظ خانہ"
         },
         "features": {
             "title": "<1>HomeInventory</1> کیوں؟",
@@ -1477,7 +1500,7 @@
                 "description": "ایک پرسکون جگہ پر آئٹمز، وارنٹیز، اہم دستاویزات، اور ادھار کا ریکارڈ رکھیں۔ ایک نظر میں دیکھیں کہ آپ کے گھر میں کیا ہے۔",
                 "primaryCta": "مفت شروع کریں",
                 "secondaryCta": "پروڈکٹ دیکھیں",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "تجویز کردہ سلسلہ: اکاؤنٹ • گھر • کمرے اور زمروں • اشیاء • پشت پناہ",
                 "searchPlaceholder": "کسی آئٹم، کمرے، یا بار کوڈ کی تلاش کریں"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "نیٹ ورک کی تفصیلات چھپی رہتی ہیں جب تک کہ آپ کو رہنمائی کی ضرورت نہ ہو۔",
         "link_privacy_note": "نیٹ ورک پتہ یہاں چھپا رہتا ہے۔ صرف اس وقت کوڈ اسکین کریں یا لنک کاپی کریں جب آپ جان بوجھ کر اپنے مقامی سیٹ اپ پر آئیٹم تک براہ راست رسائی شیئر کرنا چاہتے ہوں۔",
         "helper": "اس آئٹم کو فوری طور پر کھولنے کے لیے اسکین کریں، یا ضرورت پڑنے پر براہِ راست لنک کاپی کریں۔",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "لنک خودکار طور پر کاپی نہیں کیا جا سکا",
+        "copy_manual_help": "آپ کے براؤزر نے خودکار کاپی کی اجازت نہیں دی۔ لنک منتخب ہے تاکہ آپ اسے دستی طور پر کاپی کر سکیں۔",
         "loading": "QR ٹولز کی تیاری ہو رہی ہے..."
     },
     "house_access_pending": {
@@ -1771,9 +1794,9 @@
     "emails": {
         "verification": {
             "subject": "🏠 {{brandName}} - 📧 ای میل کی تصدیق ضروری ہے",
-            "headerTitle": "Welcome to {{brandName}}",
+            "headerTitle": "{{brandName}} میں خوش آمدید",
             "headerSubtitle": "نیا اکاؤنٹ بنائیں یا موجودہ گھر میں شامل ہوں",
-            "greeting": "Welcome to {{brandName}}",
+            "greeting": "{{brandName}} میں خوش آمدید",
             "intro": "اکاؤنٹ تخلیق ہو گیا! براہ کرم لاگ ان کے لیے اپنے ای میل ایڈریس کی تصدیق کریں۔",
             "verifyPrompt": "📧 ای میل کی تصدیق ضروری ہے",
             "verifyButton": "✓ میرا اکاؤنٹ تصدیق کریں",
@@ -1793,10 +1816,10 @@
             "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
-            "subject": "Welcome to {{brandName}}",
-            "headerTitle": "Welcome to {{brandName}}",
+            "subject": "{{brandName}} میں خوش آمدید",
+            "headerTitle": "{{brandName}} میں خوش آمدید",
             "headerSubtitle": "نیا اکاؤنٹ بنائیں یا موجودہ گھر میں شامل ہوں",
-            "greeting": "Welcome to {{brandName}}",
+            "greeting": "{{brandName}} میں خوش آمدید",
             "intro": "خوش آمدید، ! 👋",
             "houseKeyLabel": "ہاؤس کی کلید",
             "houseKeyNote": "یہ آپ کی گھر کی چابی ہے، اسے دوسروں کو مدعو کرنے کے لیے استعمال کریں۔ اپنے گھر میں خاندانی افراد کو شامل کریں!",
@@ -1923,7 +1946,7 @@
             "passphrase_number": "کم از کم ایک عدد شامل کریں۔",
             "passphrase_uppercase": "کم از کم ایک بڑا حرف شامل کریں۔"
         },
-        "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
+        "recovery_file_title": "{{brandName}} پرسنل والٹ ریکوری کی",
         "recovery_file_created_label": "تخلیق کیا گیا",
         "recovery_file_key_label": "ریکوری کی",
         "recovery_file_warning": "اگر آپ یہ کی اور اپنے والٹ پاس فریز دونوں کھو دیتے ہیں، تو والٹ کو بحال نہیں کیا جا سکتا۔",
@@ -1969,8 +1992,8 @@
             "empty": "اس وقت کوئی فعال ادھار نہیں ہیں۔",
             "borrowed_from": "{{name}} سے ادھار لیا گیا",
             "lent_to": "اس وقت {{name}} کے پاس",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "قرض دہندہ کے یہ تصدیق کرنے کا انتظار ہے کہ انہوں نے اسے واپس وصول کر لیا۔",
+            "return_pending_lender": "{{name}} نے اس آئٹم کو واپس ڈیلیورڈ کے طور پر نشان زد کیا۔ ریکارڈ بند کرنے کے لیے رسید کی تصدیق کریں۔",
             "empty_title": "ابھی کوئی فعال قرض نہیں",
             "empty_description": "قبول شدہ درخواستیں یہاں ظاہر ہوں گی جب کوئی چیز قرض دی جاتی یا لی جاتی ہے، ساتھ میں مقررہ تاریخیں اور واپسی کی حالت کے ساتھ۔"
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "منسوخ شدہ",
             "expired": "ختم شدہ",
             "returned": "واپس کیا گیا",
-            "return_pending": "Return pending"
+            "return_pending": "واپسی زیر التواء"
         },
         "actions": {
             "send_request": "درخواست آئٹم",
@@ -1990,8 +2013,8 @@
             "reject": "مسترد کریں",
             "cancel": "منسوخ کریں",
             "fulfill_request": "درخواست پوری کریں",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "ڈیلیورڈ کے طور پر نشان زد کریں",
+            "mark_received": "وصول شدہ کے طور پر نشان زد کریں",
             "open_inventory": "انونٹری کھولیں"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "واپس مارک کریں",
             "return_subtitle": "'{{item}}' کے لیے فعال قرض کو بند کریں",
             "return_target": "یہ اس وقت {{name}} کے پاس دکھایا جا رہا ہے۔",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "آئٹم فراہم کریں",
+            "return_title_lender": "آئٹم وصول کریں",
+            "return_subtitle_borrower": "جب آپ اسے واپس کریں تو \"{{item}}\" کے لیے فعال قرض بند کریں۔",
+            "return_subtitle_lender": "جب آپ اسے واپس وصول کریں تو \"{{item}}\" کے لیے فعال قرض بند کریں۔",
+            "return_target_borrower": "قرض دہندہ: {{name}}",
+            "return_target_lender": "اس وقت ساتھ: {{name}}",
+            "return_note_borrower": "ترسیل کا نوٹ",
+            "return_note_lender": "وصولی کا نوٹ",
+            "return_note_placeholder_borrower": "مثال کے طور پر میں نے اسے بغیر کسی مسئلے کے واپس کردیا",
+            "return_note_placeholder_lender": "مثال کے طور پر واپس اچھی حالت میں موصول ہوا",
+            "return_submitting": "بند کرنا..."
         },
         "messages": {
             "load_error": "ادھار مرکز کو لوڈ نہیں کیا جا سکا",
@@ -2075,7 +2098,7 @@
         "quick_access": "فوری رسائی",
         "on_this_page": "اس صفحہ پر",
         "contents": "مشمولات",
-        "page_label": "Page",
+        "page_label": "صفحہ",
         "overview": "رابطہ",
         "contact": "رابطہ کریں",
         "jump_to": "پر جائیں",
@@ -2093,7 +2116,7 @@
             "shortcuts": {
                 "what": "ہم جس پر کارروائی کرتے ہیں",
                 "why": "کیوں",
-                "sharing": "Sharing",
+                "sharing": "شیئر کرنا",
                 "rights": "ہم کون سا ڈیٹا اکٹھا کرتے ہیں اور اس پر کارروائی کرتے ہیں"
             },
             "section_titles": {
@@ -2103,7 +2126,7 @@
                 "rights": "اس تنصیب پر لاگو ہونے والی شرائط کے بارے میں سوالات کے لیے:"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "اس {{brandName}} انسٹالیشن کے شرائط قابل قبول استعمال، آپ کی سیکیورٹی کی ذمہ داریوں، اور اکاؤنٹ حذف کرنے کے نتائج کو ایک واضح، آسانی سے اسکین کیے جانے والے فارمیٹ میں بیان کرتی ہیں۔",
         "terms_support_label": "عملی طور پر اس کا کیا مطلب ہے",
         "terms_summary": {
             "eyebrow": "فوری خلاصہ",
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "استعمال کی شرائط اور دستبرداری",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "بیٹا ورژن: {{brandName}} اس وقت ٹیسٹنگ مرحلے میں ہے۔ ڈیٹا کی پائیداری یا سیکیورٹی کے حوالے سے کوئی ضمانت نہیں دی جاتی۔",
         "disclaimer": "دستبرداری: اس ایپلیکیشن کو استعمال کرتے ہوئے، آپ اس بات سے متفق ہیں کہ آپ ممکنہ ڈیٹا کے نقصان، رسائی کے مسائل، یا دیگر تکنیکی مسائل کے لیے کوئی معاوضہ کا دعویٰ نہیں کرسکتے۔",
         "backup_warning": "ڈیٹا بیک اپ: ہم سختی سے تجویز کرتے ہیں کہ آپ اپنی اہم معلومات کا باقاعدگی سے بیک اپ بنائیں۔",
         "accept": "لاگ ان کرکے، آپ ان شرائط سے متفق ہیں۔",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} اس وقت ٹیسٹنگ اور شوقیہ مرحلے میں ہے۔ ڈیٹا کی پائیداری یا سیکیورٹی کے حوالے سے کوئی ضمانت نہیں دی جاتی۔ براہ کرم اپنی اہم معلومات کا بیک اپ رکھیں۔",
         "contact": "رابطہ"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "بہت زیادہ لاگ ان کوششیں۔ براہ کرم 15 منٹ بعد کوشش کریں۔"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "سائن ان کریں",
+        "page_title_register": "اکاؤنٹ بنائیں",
+        "page_title_choose_house": "گھر منتخب کریں",
+        "page_title_recovery_key": "بحالی کی کلید",
+        "page_title_house_access": "گھر تک رسائی",
+        "page_title_legal_review": "قانونی جائزہ",
+        "page_title_new_item": "نیا آئٹم",
+        "page_title_edit_item": "آئٹم میں ترمیم",
+        "page_title_items": "اشیاء کا ذخیرہ"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "خریداری کی فہرست لوڈ کرنے میں خرابی۔",
+            "select_item_error": "براہ کرم ذخیرہ سے ایک آئٹم منتخب کریں۔",
+            "empty_name": "براہ کرم آئٹم کا نام درج کریں۔",
+            "added": "آئٹم خریداری کی فہرست میں شامل کر دیا گیا۔",
+            "add_error": "آئٹم شامل کرتے ہوئے ایک خرابی پیش آئی۔",
+            "added_suggestion": "\"{{name}}\" خریداری کی فہرست میں شامل کر دیا گیا۔",
+            "bulk_added": "{{count}} کم مقدار والے آئٹمز فہرست میں شامل کر دیے گئے۔",
+            "bulk_error": "کم اسٹاک آئٹمز شامل کرنے میں خرابی۔",
+            "completed": "\"{{name}}\" مکمل کے طور پر نشان زد کیا گیا۔",
+            "reactivated": "\"{{name}}\" کو دوبارہ فعال فہرست میں منتقل کر دیا گیا۔",
+            "update_error": "اپ ڈیٹ کے دوران خرابی پیش آئی۔",
+            "deleted": "آئٹم فہرست سے حذف کر دیا گیا۔",
+            "delete_error": "حذف کرنے کے دوران خرابی پیش آئی۔",
+            "cleared_completed": "مکمل شدہ آئٹمز صاف کر دیے گئے۔",
+            "clear_error": "صاف کرنے کے دوران خرابی پیش آئی۔"
+        },
+        "loading_desc": "خریداری کی فہرست تیار کر رہے ہیں...",
+        "page": {
+            "title": "خریداری کی فہرست",
+            "description": "گھر کے انوینٹری میں کم اسٹاک آئٹمز دیکھیں اور اپنی خریداری کی فہرست کو آسانی سے منظم کریں۔"
+        },
+        "suggestions": {
+            "title": "سمارٹ انوینٹری تجاویز",
+            "desc": "وہ اسٹاک آئٹمز جو کم از کم حد سے نیچے گر چکے ہیں۔",
+            "add_all": "تمام غائب شامل کریں",
+            "stock_status": "موجودہ: {{current}} / ہدف: {{min}}",
+            "add_qty": "{{qty}} شامل کریں"
+        },
+        "sections": {
+            "active_list": "خریدنے کی اشیاء",
+            "active_desc": "اپنے کارٹ میں شامل کرنے کے لیے موجودہ خریداری کی اشیاء۔",
+            "active_count": "{{count}} اشیاء",
+            "completed_list": "خریدی گئی اشیاء ({{count}})",
+            "add_item": "آئٹم دستی طور پر شامل کریں",
+            "add_desc": "فہرست میں ایک حسبِ ضرورت آئٹم دستی طور پر شامل کریں۔"
+        },
+        "empty": {
+            "title": "آپ کی خریداری کی فہرست خالی ہے",
+            "desc": "آپ اوپر دی گئی تجاویز سے غائب اسٹاک شامل کر سکتے ہیں یا دائیں طرف کے فارم کا استعمال کرتے ہوئے آئٹمز دستی طور پر شامل کر سکتے ہیں۔"
+        },
+        "card": {
+            "linked_inventory": "انویٹری میں محفوظ"
+        },
+        "actions": {
+            "clear_completed": "ہسٹری صاف کریں",
+            "add_item": "خریداری کی فہرست میں شامل کریں"
+        },
+        "form": {
+            "add_type": "طریقہ شامل کریں",
+            "add_type_inventory": "اشیاء کی فہرست",
+            "add_type_custom": "حسب ضرورت اشیاء",
+            "select_inventory_item": "فہرست اشیاء میں سے اشیاء منتخب کریں",
+            "no_inventory_items": "ابھی تک آپ کی فہرست میں کوئی اشیاء نہیں ہیں۔",
+            "select_item_placeholder": "ایک آئٹم منتخب کریں",
+            "current_stock": "موجودہ",
+            "item_name": "آئٹم کا نام",
+            "item_name_placeholder": "مثال کے طور پر دودھ، ڈٹرجنٹ، کافی بینز...",
+            "quantity": "مقدار"
+        },
+        "modal": {
+            "delete_title": "فہرست سے آئٹم حذف کریں؟",
+            "delete_desc": "کیا آپ واقعی '{{name}}' کو اپنی خریداری کی فہرست سے ہٹانا چاہتے ہیں؟"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "معلومات لوڈ کرتے وقت خرابی",
+            "select_item_error": "براہ کرم ایک آئٹم منتخب کریں۔",
+            "task_name_error": "کام کا نام ضروری ہے۔",
+            "date_error": "منصوبہ بند تاریخ ضروری ہے۔",
+            "updated": "دیکھ بھال کا کام اپ ڈیٹ کر دیا گیا",
+            "created": "نیا دیکھ بھال کا کام شامل کیا گیا",
+            "save_error": "محفوظ کرتے وقت خرابی پیش آئی",
+            "deleted": "دیکھ بھال کا کام کامیابی سے حذف کر دیا گیا۔",
+            "delete_error": "حذف کرنے کے عمل کے دوران خرابی پیش آئی۔",
+            "performed": "مینٹیننس مکمل کے طور پر درج کر دی گئی۔ اگلی تاریخ طے شدہ۔",
+            "perform_error": "محفوظ کرتے وقت ایک خرابی ہوئی۔"
+        },
+        "freq": {
+            "one_time": "ایک بار",
+            "unit": {
+                "days": "دن",
+                "weeks": "ہفتہ",
+                "months": "مہینہ",
+                "years": "سال"
+            },
+            "format": "ہر {{val}} {{unit}}"
+        },
+        "loading_desc": "مینٹیننس کا شیڈول لوڈ ہو رہا ہے...",
+        "page": {
+            "title": "مینٹیننس اور دورانیہ ٹریکنگ",
+            "description": "اپنے گھر کے انوینٹری میں آلات، فلٹرز، یا حفاظتی سامان کے لیے دورانیہ مینٹیننس کے شیڈولز کا انتظام کریں۔"
+        },
+        "actions": {
+            "add_task": "نیا کام شامل کریں",
+            "manage": "انتظام کریں",
+            "perform": "مکمل کے طور پر نشان زد کریں",
+            "edit_task": "کام میں ترمیم کریں"
+        },
+        "alerts": {
+            "overdue_title": "آپ کے پاس واجب الادا کام ہیں!",
+            "overdue_desc": "{{count}} واجب الادا دیکھ بھال کے کام ہیں۔ تاخیر آلات کی عمر کو کم کر سکتی ہے۔"
+        },
+        "empty": {
+            "title": "کوئی دیکھ بھال کے کام شیڈول نہیں",
+            "desc": "شروع کرنے کے لیے بار بار ہونے والے کام شامل کریں جیسے اے سی فلٹر کی صفائی، بوائلر کی دیکھ بھال، یا فائر ڈیٹیکٹر کی بیٹری کی جانچ۔"
+        },
+        "sections": {
+            "overdue": "بقایا کام",
+            "overdue_desc": "فوری دیکھ بھال جو فوراً کرنی ضروری ہے۔",
+            "upcoming": "شیڈول شدہ / آنے والے کام",
+            "upcoming_desc": "آئندہ دنوں میں مینٹیننس قریب ہے۔",
+            "no_upcoming": "مستقبل میں کوئی فعال کام شیڈول نہیں ہے۔"
+        },
+        "modal": {
+            "edit_title": "کام میں ترمیم کریں",
+            "create_title": "نیا مرمت کا کام شیڈول کریں",
+            "perform_title": "مرمت مکمل کریں",
+            "perform_desc": "کیا آپ '{{name}}' کو آج مکمل شدہ کے طور پر لاگ کرنا چاہتے ہیں؟",
+            "perform_confirm": "ہاں، مکمل ہو گیا",
+            "perform_recurrence_info": "یہ ایک باقاعدہ کام ہے۔ جب آپ محفوظ کریں گے، سسٹم خود بخود اگلی دیکھ بھال کی تاریخ کا حساب لگائے گا۔",
+            "delete_title": "دیکھ بھال کا کام حذف کریں؟",
+            "delete_desc": "کیا آپ واقعی باقاعدہ دیکھ بھال کے شیڈول \"{{name}}\" کو حذف کرنا چاہتے ہیں؟ یہ کارروائی واپس نہیں کی جا سکتی۔"
+        },
+        "form": {
+            "item": "متعلقہ آئٹم",
+            "no_items": "آپ کو پہلے فہرست میں ایک آئٹم شامل کرنا ضروری ہے اس سے پہلے کہ دیکھ بھال شیڈول کریں۔",
+            "select_item_placeholder": "ایک آئٹم منتخب کریں",
+            "task_name": "کام / آپریشن کا نام",
+            "task_name_placeholder": "مثال کے طور پر فلٹر کی تبدیلی، وقفہ وار چیک...",
+            "description": "تفصیل / وضاحت",
+            "description_placeholder": "کام کی تفصیلات، استعمال ہونے والے مواد وغیرہ...",
+            "frequency_value": "تکرار کی فریکونسی",
+            "frequency_placeholder": "مثلاً 6 (ایک مرتبہ کے لیے خالی چھوڑ دیں)",
+            "frequency_unit": "فریکوئنسی یونٹ",
+            "next_due_date": "اگلی طے شدہ تاریخ",
+            "section_help": "یہاں سے مینٹیننس شیڈول کو منظم کریں",
+            "section_collapsed": "پیریڈک کنٹرولز اور کام شامل کرنے کے لیے کلک کریں",
+            "has_tasks": "{{count}} کام",
+            "new_item_warning_title": "آئٹم سیو زیر التواء",
+            "new_item_warning_desc": "کسی مرمت کا شیڈول شامل کرنے کے لیے آپ کو پہلے اس آئٹم کو محفوظ کرنا ہوگا۔",
+            "manage_desc": "اس آلہ یا آئٹم کے لیے مرمت کے شیڈولز کا انتظام کریں۔"
+        },
+        "fields": {
+            "task_name": "کام کا نام",
+            "task_name_placeholder": "جیسے کہ اے سی فلٹر کی صفائی",
+            "description": "تفصیل",
+            "description_placeholder": "کام کی تفصیلات، استعمال ہونے والے مواد، وغیرہ...",
+            "frequency_value": "دُہرانے کی تعدد",
+            "frequency_value_placeholder": "ایک بار کے لیے خالی چھوڑیں",
+            "frequency_unit": "تعدد کی اکائی",
+            "next_due_date": "شیڈول تاریخ"
+        },
+        "card": {
+            "untitled_item": "بلا عنوان آئٹم",
+            "last_performed": "آخری بار کیا گیا:",
+            "next_due_label": "مقررہ تاریخ",
+            "complete_tooltip": "دیکھ بھال کو آج مکمل کے طور پر نشان زد کریں"
+        },
+        "detail_card_desc": "اس آئٹم کے لیے وقفہ وار یا ایک مرتبہ کی دیکھ بھال کی نگرانی کا شیڈول بنایا گیا ہے۔",
+        "no_tasks": "اس آئٹم کے لیے کوئی دیکھ بھال کا کام تفویض نہیں کیا گیا ہے۔",
+        "confirm_delete": "یہ کام حذف کر دیا جائے گا۔ کیا آپ یقین ہے؟"
     }
 }

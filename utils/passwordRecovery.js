@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import { CompactEncrypt, compactDecrypt } from 'jose';
 import { hashLookupToken } from './encryption.js';
 import { getEnvOrSecret } from './secrets.js';
+import { getEmailDeliveryStatus } from './branding.js';
 
 export const PASSWORD_RESET_TOKEN_TTL_MINUTES = 15;
 export const PASSWORD_RESET_MAX_FAILURES = 5;
@@ -28,7 +29,7 @@ function getPasswordResetJweKey() {
 }
 
 export function getPasswordRecoveryMode() {
-    return process.env.RESEND_API_KEY ? 'email' : 'recovery_key';
+    return getEmailDeliveryStatus().configured ? 'email' : 'recovery_key';
 }
 
 export function normalizeRecoveryKey(value) {

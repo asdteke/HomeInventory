@@ -69,7 +69,9 @@
             "vault_hint_action": "Atvērt Personīgo seifu",
             "location": "Atrašanās vieta",
             "remove_photo": "Noņemt foto",
-            "visibility_owner_only": "Tikai persona, kas pievienoja priekšmetu, var mainīt redzamību."
+            "visibility_owner_only": "Tikai persona, kas pievienoja priekšmetu, var mainīt redzamību.",
+            "expiry_date": "Derīguma termiņš",
+            "min_quantity": "Minimālais daudzums"
         },
         "messages": {
             "quick_add_success": "✓ „{{barcode}}” ātra pievienošana - vēlāk var rediģēt",
@@ -119,7 +121,12 @@
         "no_permission": "No permission",
         "barcode_search_error": "Svītrkoda meklēšana neizdevās",
         "stats_error": "Stats error",
-        "detail_subtitle": "Priekšmeta detaļas"
+        "detail_subtitle": "Priekšmeta detaļas",
+        "status": {
+            "close_to_expiry": "Tuvojas derīguma termiņa beigām",
+            "expired": "Beidzies derīguma termiņš",
+            "low_stock": "Zems krājums"
+        }
     },
     "common": {
         "save": "Saglabāt",
@@ -170,7 +177,8 @@
         "details": "Detaļas",
         "hide": "Paslēpt paroli",
         "logging_out": "Atteikšanās no konta...",
-        "show": "Rādīt paroli"
+        "show": "Rādīt paroli",
+        "saving": "Saglabā..."
     },
     "auth": {
         "login": {
@@ -216,7 +224,7 @@
             "support_link": "Sazināties ar atbalstu"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "Iestatiet savu mājsaimniecību",
             "subtitle": "Izveidot jaunu kontu vai pievienoties esošai mājai",
             "create_house": "Izveidot jaunu māju",
             "join_house": "Pievienoties mājai",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "Ievadiet savu paroli vēlreiz",
             "reset_submit": "Atjaunot paroli",
             "resetting": "Notiek paroles atjaunošana...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Ievadiet savu lietotājvārdu vai e-pastu"
         },
         "reset_password": {
             "title": "Atjaunot paroli",
@@ -353,7 +361,7 @@
         "password_requirements": "Izmantojiet vismaz {{min}} rakstzīmes ar lielajiem un mazajiem burtiem, ciparu un simbolu.",
         "logout": "Izrakstīties",
         "logging_in": "Ienākšana...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "Laipni lūdzam vietnē {{brandName}}",
         "username_email": "Lietotājvārds vai e-pasts",
         "username": "Lietotājvārds",
         "email": "E-pasts",
@@ -367,7 +375,7 @@
         "google_login": "Turpināt ar Google",
         "login_issues": "Par pieteikšanās problēmām",
         "placeholder_username": "piemēram: john",
-        "placeholder_password": "••••••••",
+        "placeholder_password": "•••••••••",
         "login_two_factor": {
             "title": "Divu faktoru autentifikācija",
             "subtitle": "Ievadiet 6 ciparu kodu no autentifikācijas lietotnes",
@@ -438,7 +446,9 @@
         "logout_aria": "Izrakstīties no sava konta",
         "logout_title": "Izrakstīties?",
         "logout_description": "Jūs tiksiet pārvietots atpakaļ uz pierakstīšanās ekrānu un būs jāielogojas vēlreiz, lai pārvaldītu savu mājsaimniecības krājumu.",
-        "logout_warning": "Izmantojiet to, kad esat pabeidzis lietot koplietotu vai personīgu ierīci."
+        "logout_warning": "Izmantojiet to, kad esat pabeidzis lietot koplietotu vai personīgu ierīci.",
+        "maintenance": "Apkopes grafiks",
+        "shopping": "Iepirkumu saraksts"
     },
     "dashboard": {
         "welcome": "Laipni lūdzam, <1>{{name}}</1>! 👋",
@@ -565,7 +575,20 @@
         "no_items_filter": "Neviena prece neatbilst šim filtram",
         "manage": "Pārvaldīt",
         "add_item": "Pievienot preci",
-        "search_item": "Meklēt preci"
+        "search_item": "Meklēt preci",
+        "alerts": {
+            "expired_title": "Preces ir beigušas derīguma termiņu!",
+            "expired_desc": "Jūsu krājumā ir {{count}} beigušās derīguma termiņa preces. Lūdzu, pārbaudiet tās savas drošības labad.",
+            "view_items": "Skatīt preces",
+            "maintenance_title": "Nokavētie apkopes uzdevumi!",
+            "maintenance_desc": "Ir {{count}} nokavētas apkopes darbības. Veiciet apkopi, lai pagarinātu savas ierīces kalpošanas laiku.",
+            "go_to_maintenance": "Dodieties uz Apkopes",
+            "low_stock_title": "Zema krājumu brīdinājums",
+            "low_stock_desc": "{{count}} preces ir nokritušas zem jūsu minimālā krājumu limita.",
+            "go_to_shopping": "Iešanas saraksts",
+            "close_expiry_title": "Drīzumā beigsies derīguma termiņš",
+            "close_expiry_desc": "{{count}} produkti beigsies derīguma termiņš tuvāko 30 dienu laikā."
+        }
     },
     "beta_banner": {
         "title": "BĒTA:",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "Aktīvās mājas atslēga",
             "key_label": "Mājas atslēga",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{sufikss}}",
             "hide": "Paslēpt",
             "show": "Rādīt",
             "copy": "Kopēt",
@@ -991,8 +1014,8 @@
             "no_history": "Šim priekšmetam vēl nav aizņemšanās vēstures.",
             "lend_success_title": "Vienība izsniegta",
             "lend_success_body": "{{item}} tagad ir atzīmēts kā aizņemts.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "Aizņēmuma piedāvājums nosūtīts",
+            "offer_sent_body": "{{item}} tiks atzīmēts kā aizdots pēc tam, kad cits dalībnieks to pieņems.",
             "borrowed_by_you": "Pie jums",
             "return_pending_hint": "Ieraksts tiks aizvērts, pēc tam kad aizdevējs apstiprinās, ka objekts ir saņemts atpakaļ.",
             "return_pending_lender_title": "{{name}} atzīmēja šo priekšmetu kā atpakaļ piegādātu",
@@ -1401,12 +1424,12 @@
             "cta_register": "Izveidot kontu",
             "stat_free": "Bezmaksas",
             "stat_access": "Piekļuve",
-            "free_badge": "Open Source",
+            "free_badge": "Atvērtā koda",
             "badge": "SākumsInventārs v2.0 ir šeit",
             "cta_explore": "Izpētīt funkcijas",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Pierakstīties",
+            "stat_members": "Koplietojamas mājas",
+            "stat_vault": "Privātā glabātuve"
         },
         "features": {
             "title": "Kāpēc <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Saglabājiet priekšmetus, garantijas, svarīgus dokumentus un aizņemto lietu uzskaiti vienā mierīgā vietā. Uzreiz redziet, kas atrodas jūsu mājās.",
                 "primaryCta": "Sāciet bez maksas",
                 "secondaryCta": "Skatīt produktu",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Ieteicamā plūsma: konts • māja • istabas un kategorijas • priekšmeti • rezerves kopija",
                 "searchPlaceholder": "Meklēt priekšmetu, istabu vai svītrkodu"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "Tīkla informācija paliek paslēpta, līdz jums būs nepieciešama vadība.",
         "link_privacy_note": "Tīkla adrese šeit paliek slēpta. Skatiet kodu vai kopējiet saiti tikai tad, ja jums apzināti vajadzīgs dalīties ar tiešu piekļuvi vienumam savā lokālajā vidē.",
         "helper": "Skatiet, lai uzreiz atvērtu šo vienumu, vai kopējiet tiešo saiti pēc nepieciešamības.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Saite nevarēja tikt automātiski kopēta",
+        "copy_manual_help": "Jūsu pārlūkprogramma neļāva automātiski kopēt. Saite ir atlasīta, lai jūs to varētu kopēt manuāli.",
         "loading": "Sagatavo QR rīkus..."
     },
     "house_access_pending": {
@@ -1817,7 +1840,7 @@
             "bodyLine2": "Gaida mājas īpašnieka apstiprinājumu"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} — {{status}}",
             "greeting": "Pieeja mājai",
             "bodyLine1Template": "Pašreizējais gaidošais pieprasījums: {{house}} ({{status}})",
             "bodyLine2": "Jūsu pieprasījums par \"{{house}}\" joprojām gaida lēmumu.",
@@ -1842,11 +1865,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Ja konts pastāv, paroles atiestatīšanas saite, derīga 15 minūtes, ir nosūtīta.",
             "fallback": "Paroles atjaunošanas saite izskatās nepilnīga vai bojāta.",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "Šo e-pastu nosūtīja {{brandName}}.",
-            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
+            "footer": "© 2026 {{brandName}} — {{supportEmail}}"
         },
         "testEmail": {
             "subject": "🧪 {{brandName}} testa e-pasts",
@@ -1856,7 +1879,7 @@
             "sentAtLabel": "Nosūtīts",
             "senderLabel": "Sūtītājs",
             "serviceLabel": "Pakalpojums",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{brandName}}"
         }
     },
     "vault": {
@@ -1923,7 +1946,7 @@
             "passphrase_number": "Iekļaujiet vismaz vienu ciparu.",
             "passphrase_uppercase": "Iekļaujiet vismaz vienu lielo burtu."
         },
-        "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
+        "recovery_file_title": "{{brandName}} personīgā seifa atkopšanas atslēga",
         "recovery_file_created_label": "Izveidots",
         "recovery_file_key_label": "Atkopšanas Atslēga",
         "recovery_file_warning": "Ja pazaudējat gan šo atslēgu, gan glabātuves paroli, glabātuvi nevar atgūt.",
@@ -1969,8 +1992,8 @@
             "empty": "Pašlaik nav aktīvu aizdevumu.",
             "borrowed_from": "Aizņemts no {{name}}",
             "lent_to": "Pašlaik pie {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Gaidām, lai aizdevējs apstiprinātu, ka to saņēma atpakaļ.",
+            "return_pending_lender": "{{name}} atzīmēja šo preci kā atgrieztu. Apstipriniet saņemšanu, lai slēgtu ierakstu.",
             "empty_title": "Pašlaik nav aktīvu aizdevumu",
             "empty_description": "Apstiprinātie pieprasījumi parādīsies šeit, kad vienība ir aizdota vai izsniegta, kopā ar atdošanas termiņiem un atgriešanas statusu."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Atcelts",
             "expired": "Beidzies",
             "returned": "Atgriezts",
-            "return_pending": "Return pending"
+            "return_pending": "Atgriezt gaidīšanā"
         },
         "actions": {
             "send_request": "Pieprasīt preci",
@@ -1990,8 +2013,8 @@
             "reject": "Noraidīt",
             "cancel": "Atcelt",
             "fulfill_request": "Izpildīt pieprasījumu",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Atzīmēt kā piegādātu",
+            "mark_received": "Atzīmēt kā saņemtu",
             "open_inventory": "Atvērt inventāru"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "Atzīmēt kā atgriezto",
             "return_subtitle": "Aizvērt aktīvo aizņēmumu priekš \"{{item}}\"",
             "return_target": "Pašlaik tas tiek parādīts pie {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Piegādāt preci",
+            "return_title_lender": "Saņemt priekšmetu",
+            "return_subtitle_borrower": "Aizveriet aktīvo aizdevumu priekšmetam \"{{item}}\", pēc tam, kad to atgriežat.",
+            "return_subtitle_lender": "Aizveriet aktīvo aizdevumu priekšmetam \"{{item}}\" pēc tam, kad to saņemat atpakaļ.",
+            "return_target_borrower": "Aizdevējs: {{name}}",
+            "return_target_lender": "Pašreiz pie: {{name}}",
+            "return_note_borrower": "Piegādes lapa",
+            "return_note_lender": "Saņemšanas lapa",
+            "return_note_placeholder_borrower": "piemēram, es to atdevu bez jebkādām problēmām",
+            "return_note_placeholder_lender": "piem., Saņemts atpakaļ labā stāvoklī",
+            "return_submitting": "Aizvēršana..."
         },
         "messages": {
             "load_error": "Aizņemšanās centrs nevarēja tikt ielādēts",
@@ -2103,7 +2126,7 @@
                 "rights": "Jūsu tiesības"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "Šie {{brandName}} instalēšanas noteikumi paskaidro pieņemamu lietošanu, jūsu drošības pienākumus un konta dzēšanas sekas skaidrākā, vieglāk pārskatāmā formātā.",
         "terms_support_label": "Īss kopsavilkums",
         "terms_summary": {
             "eyebrow": "Ko tas nozīmē praksē",
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "Lietošanas Noteikumi un Atruna",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "BETA versija: {{brandName}} pašlaik ir testēšanas fāzē. Nav sniegtas nekādas garantijas attiecībā uz datu nemainīgumu vai drošību.",
         "disclaimer": "Atruna: Izmantojot šo lietotni, jūs piekrītat, ka nevarat prasīt nekādu kompensāciju par iespējamu datu zudumu, piekļuves problēmām vai citiem tehniskiem traucējumiem.",
         "backup_warning": "Datu dublēšana: Mēs stingri iesakām regulāri veikt svarīgās informācijas dublēšanu.",
         "accept": "Piesakoties, jūs piekrītat šiem noteikumiem.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} pašlaik atrodas testēšanas un hobija fāzē. Nav sniegtas nekādas garantijas attiecībā uz datu nemainīgumu vai drošību. Lūdzu, saglabājiet svarīgo informāciju dublētā.",
         "contact": "Kontakts"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Too many login attempts"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Pierakstīties",
+        "page_title_register": "Izveidot kontu",
+        "page_title_choose_house": "Izvēlēties māju",
+        "page_title_recovery_key": "Atgūšanas atslēga",
+        "page_title_house_access": "Mājas piekļuve",
+        "page_title_legal_review": "Juridiskā pārbaude",
+        "page_title_new_item": "Jauns vienums",
+        "page_title_edit_item": "Rediģēt vienumu",
+        "page_title_items": "Inventārs"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Kļūda ielādējot iepirkumu sarakstu.",
+            "select_item_error": "Lūdzu, izvēlieties preci no inventāra.",
+            "empty_name": "Lūdzu, ievadiet preces nosaukumu.",
+            "added": "Vienums pievienots iepirkumu sarakstam.",
+            "add_error": "Radās kļūda, pievienojot vienumu.",
+            "added_suggestion": "\"{{name}}\" pievienots iepirkumu sarakstam.",
+            "bulk_added": "{{count}} preces ar zemu krājumu skaitu pievienotas sarakstam.",
+            "bulk_error": "Kļūda pievienojot zema krājuma preces.",
+            "completed": "\"{{name}}\" atzīmēts kā pabeigts.",
+            "reactivated": "\"{{name}}\" pārvietots atpakaļ uz aktīvo sarakstu.",
+            "update_error": "Atjaunināšanas laikā radās kļūda.",
+            "deleted": "Vienums izdzēsts no saraksta.",
+            "delete_error": "Radās kļūda dzēšanas laikā.",
+            "cleared_completed": "Notīrīti pabeigtie vienumi.",
+            "clear_error": "Radās kļūda tīrīšanas laikā."
+        },
+        "loading_desc": "Veidojam iepirkumu sarakstu...",
+        "page": {
+            "title": "Iepirkumu saraksts",
+            "description": "Skatiet mājas krājumu preces ar zemu krājumu līmeni un viegli pārvaldiet savu iepirkumu sarakstu."
+        },
+        "suggestions": {
+            "title": "Gudri krājumu ieteikumi",
+            "desc": "Inventāra vienības, kas ir nokritušas zem minimālās robežas.",
+            "add_all": "Pievienot visu trūkstošo",
+            "stock_status": "Pašreizējais: {{current}} / Mērķis: {{min}}",
+            "add_qty": "Pievienot {{qty}}"
+        },
+        "sections": {
+            "active_list": "Preces pirkšanai",
+            "active_desc": "Pašreizējās iepirkumu preces, kuras pievienot grozam.",
+            "active_count": "{{count}} preces",
+            "completed_list": "Nopirktās preces ({{count}})",
+            "add_item": "Pievienot vienumu manuāli",
+            "add_desc": "Manuāli pievienojiet pielāgotu vienumu sarakstam."
+        },
+        "empty": {
+            "title": "Jūsu iepirkumu saraksts ir tukšs",
+            "desc": "Jūs varat pievienot trūkstošo krājumu no iepriekš minētajiem ieteikumiem vai pievienot vienumus manuāli, izmantojot formu labajā pusē."
+        },
+        "card": {
+            "linked_inventory": "Saglabāts krājumā"
+        },
+        "actions": {
+            "clear_completed": "Notīrīt vēsturi",
+            "add_item": "Pievienot iepirkumu sarakstam"
+        },
+        "form": {
+            "add_type": "Pievienot metodi",
+            "add_type_inventory": "Krājumu vienība",
+            "add_type_custom": "Pielāgota vienība",
+            "select_inventory_item": "Izvēlēties vienību no krājuma",
+            "no_inventory_items": "Jūsu krājumā vēl nav nevienas vienības.",
+            "select_item_placeholder": "Izvēlieties vienumu",
+            "current_stock": "Pašreizējais",
+            "item_name": "Vienuma nosaukums",
+            "item_name_placeholder": "piem. Piens, Mazgāšanas līdzeklis, Kafijas pupiņas...",
+            "quantity": "Daudzums"
+        },
+        "modal": {
+            "delete_title": "Dzēst vienumu no saraksta?",
+            "delete_desc": "Vai tiešām vēlaties noņemt \"{{name}}\" no sava iepirkumu saraksta?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Kļūda, ielādējot informāciju",
+            "select_item_error": "Lūdzu, izvēlieties vienumu.",
+            "task_name_error": "Ir jānorāda uzdevuma nosaukums.",
+            "date_error": "Ir jānorāda plānotais datums.",
+            "updated": "Apkopes uzdevums atjaunināts",
+            "created": "Jauns apkopes uzdevums pievienots",
+            "save_error": "Radās kļūda saglabājot",
+            "deleted": "Apkopes uzdevums veiksmīgi dzēsts.",
+            "delete_error": "Kļūda dzēšanas procesā.",
+            "performed": "Apkope reģistrēta kā pabeigta. Nākamais datums ieplānots.",
+            "perform_error": "Radās kļūda saglabājot."
+        },
+        "freq": {
+            "one_time": "Vienreizēja",
+            "unit": {
+                "days": "Diena",
+                "weeks": "Nedēļa",
+                "months": "Mēnesis",
+                "years": "Gads"
+            },
+            "format": "Katru {{val}} {{unit}}"
+        },
+        "loading_desc": "Ielādē apkopes grafiku...",
+        "page": {
+            "title": "Apkopes un periodiskās uzraudzības",
+            "description": "Pārvaldiet periodiskās apkopes grafikus mājas inventarizācijas ierīcēm, filtriem vai drošības aprīkojumam."
+        },
+        "actions": {
+            "add_task": "Pievienot jaunu uzdevumu",
+            "manage": "Pārvaldīt",
+            "perform": "Atzīmēt kā paveiktu",
+            "edit_task": "Rediģēt uzdevumu"
+        },
+        "alerts": {
+            "overdue_title": "Jums ir nokavēti uzdevumi!",
+            "overdue_desc": "Ir {{count}} nokavēti uzturēšanas uzdevumi. Kavēšanās var samazināt ierīces darbības ilgumu."
+        },
+        "empty": {
+            "title": "Nav plānoto apkopes darbu",
+            "desc": "Sāciet, pievienojot regulāros darbus, piemēram, AC filtra tīrīšanu, katla apkopi vai ugunsdetektora bateriju pārbaudi."
+        },
+        "sections": {
+            "overdue": "Nokavētie darbi",
+            "overdue_desc": "Steidzama apkope, kas jāveic nekavējoties.",
+            "upcoming": "Ieplānotie / Nākamie uzdevumi",
+            "upcoming_desc": "Nākamās apkopes tuvākajās dienās.",
+            "no_upcoming": "Nākotnē nav aktīvu uzdevumu."
+        },
+        "modal": {
+            "edit_title": "Rediģēt uzdevumu",
+            "create_title": "Ieplānot jaunu apkopes uzdevumu",
+            "perform_title": "Pabeigt apkopes darbu",
+            "perform_desc": "Vai vēlaties reģistrēt “{{name}}” kā šodien pabeigtu?",
+            "perform_confirm": "Jā, pabeigts",
+            "perform_recurrence_info": "Šis ir periodisks uzdevums. Saglabājot, sistēma automātiski aprēķinās nākamo apkopes datumu.",
+            "delete_title": "Dzēst apkopes uzdevumu?",
+            "delete_desc": "Vai tiešām vēlaties dzēst periodisko apkopes grafiku \"{{name}}\"? Šo darbību nevar atsaukt."
+        },
+        "form": {
+            "item": "Saistītā prece",
+            "no_items": "Vispirms jums jāpiešķir vienums inventārā, pirms plānojat apkopi.",
+            "select_item_placeholder": "Izvēlieties vienumu",
+            "task_name": "Uzdevuma / darbības nosaukums",
+            "task_name_placeholder": "piemēram, Filtra nomaiņa, periodiska pārbaude...",
+            "description": "Sīkāk / Apraksts",
+            "description_placeholder": "Uzdevuma detaļas, izmantotie materiāli utt...",
+            "frequency_value": "Atkārtošanās biežums",
+            "frequency_placeholder": "piemēram, 6 (atstājiet tukšu, ja vienreizējs)",
+            "frequency_unit": "Frekvences vienība",
+            "next_due_date": "Nākamais plānotais datums",
+            "section_help": "Pārvaldiet apkopes grafikus šeit",
+            "section_collapsed": "Noklikšķiniet, lai pievienotu periodiskos kontroļu un uzdevumu ierakstus",
+            "has_tasks": "{{count}} uzdevumi",
+            "new_item_warning_title": "Vienuma saglabāšana gaida",
+            "new_item_warning_desc": "Lai pievienotu apkopes grafiku, vispirms jāielādē šis vienums.",
+            "manage_desc": "Pārvaldīt apkopes grafikus šim ierīcei vai vienumam."
+        },
+        "fields": {
+            "task_name": "Uzdevuma nosaukums",
+            "task_name_placeholder": "piem. AC filtra tīrīšana",
+            "description": "Apraksts",
+            "description_placeholder": "Uzdevuma detaļas, izmantotie materiāli utt...",
+            "frequency_value": "Atkārtošanās biežums",
+            "frequency_value_placeholder": "Atstājiet tukšu vienreizējam",
+            "frequency_unit": "Biežuma vienība",
+            "next_due_date": "Plānotais datums"
+        },
+        "card": {
+            "untitled_item": "Neapzīmēts vienums",
+            "last_performed": "Pēdējoreiz veikts:",
+            "next_due_label": "Plānotais datums",
+            "complete_tooltip": "Atzīmēt apkopi kā veikto šodien"
+        },
+        "detail_card_desc": "Šī vienuma plānotā periodiskā vai vienreizējā apkope.",
+        "no_tasks": "Šim vienumam nav piešķirtu apkopes uzdevumu.",
+        "confirm_delete": "Šis uzdevums tiks dzēsts. Vai esat pārliecināts?"
     }
 }

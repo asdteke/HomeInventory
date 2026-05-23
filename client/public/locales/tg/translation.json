@@ -68,8 +68,10 @@
             "vault_hint_description": "For passports, deeds, identity details, access codes, and other records that should stay out of the standard inventory flow, keep them in Personal Vault instead.",
             "vault_hint_action": "باز کردن صندوق شخصی",
             "location": "مکان‌ها",
-            "remove_photo": "Remove photo",
-            "visibility_owner_only": "Only the person who added the item can change visibility."
+            "remove_photo": "Аксро нест кунед",
+            "visibility_owner_only": "Танҳо шахсе, ки ашёро илова кардааст, метавонад намуди намоёнро тағир диҳад.",
+            "expiry_date": "Таърихи анҷоми мӯҳлат",
+            "min_quantity": "Миқдори ақал"
         },
         "messages": {
             "quick_add_success": "✓ «{{barcode}}» به سرعت اضافه شد - می‌توانید بعداً ویرایش کنید",
@@ -119,7 +121,12 @@
         "no_permission": "Шумо барои тағир додани ин ашё иҷозат надоред",
         "barcode_search_error": "جستجوی بارکد ناموفق",
         "stats_error": "خطا در بارگذاری آمار",
-        "detail_subtitle": "Item details"
+        "detail_subtitle": "Тафсилоти ашё",
+        "status": {
+            "close_to_expiry": "Наздик ба анҷом",
+            "expired": "Гузаштааст",
+            "low_stock": "Захираи кам"
+        }
     },
     "common": {
         "save": "ذخیره",
@@ -168,9 +175,10 @@
         "validation_error": "Хатои санҷиш",
         "server_error": "Хатои сервер",
         "details": "جزئیات",
-        "hide": "Hide password",
-        "logging_out": "Logging out...",
-        "show": "Show password"
+        "hide": "Паролро пинҳон кунед",
+        "logging_out": "Баромадан...",
+        "show": "Нишон додани парол",
+        "saving": "Дар ҳоли ҳифз..."
     },
     "auth": {
         "login": {
@@ -203,7 +211,7 @@
                 "back": "بازگشت",
                 "use_backup": "استفاده از کد پشتیبان",
                 "use_totp": "استفاده از احراز هویت",
-                "code_required": "Verification code is required"
+                "code_required": "Рамзи тасдиқ талаб карда мешавад"
             },
             "welcome_title": "خوش آمدید",
             "welcome_subtitle": "برای دسترسی به موجودی خود وارد شوید",
@@ -216,7 +224,7 @@
             "support_link": "تماس با پشتیبانی"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "Хонаатонро созед",
             "subtitle": "Create a new account or join an existing house",
             "create_house": "Create New House",
             "join_house": "پیوستن به خانه",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "دوباره رمز عبور خود را وارد کنید",
             "reset_submit": "بازنشانی رمز عبور",
             "resetting": "در حال بازنشانی...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Номи корбар ё почтаи электронии худро ворид кунед"
         },
         "reset_password": {
             "title": "بازنشانی رمز عبور",
@@ -353,7 +361,7 @@
         "password_requirements": "از حداقل {{min}} کاراکتر شامل حروف بزرگ، حروف کوچک، عدد و نماد استفاده کنید.",
         "logout": "خروج",
         "logging_in": "در حال ورود...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "Хуш омадед ба {{brandName}}",
         "username_email": "نام کاربری یا ایمیل",
         "username": "نام کاربری",
         "email": "ایمیل",
@@ -438,7 +446,9 @@
         "logout_aria": "از حساب کاربری خود خارج شوید",
         "logout_title": "خارج شدن؟",
         "logout_description": "شما به صفحه ورود بازگردانده خواهید شد و برای مدیریت موجودی خانه باید دوباره وارد شوید.",
-        "logout_warning": "این را زمانی استفاده کنید که کارتان با یک دستگاه مشترک یا شخصی تمام شده است."
+        "logout_warning": "این را زمانی استفاده کنید که کارتان با یک دستگاه مشترک یا شخصی تمام شده است.",
+        "maintenance": "Нақшаи хидматрасонӣ",
+        "shopping": "Рӯйхати харид"
     },
     "dashboard": {
         "welcome": "Welcome, <1>{{name}}</1>! 👋",
@@ -565,7 +575,20 @@
         "no_items_filter": "هیچ موردی با این فیلتر مطابقت ندارد",
         "manage": "مدیریت",
         "add_item": "افزودن مورد",
-        "search_item": "جستجوی مورد"
+        "search_item": "جستجوی مورد",
+        "alerts": {
+            "expired_title": "Мӯҳлати истифодаи ашё гузаштааст!",
+            "expired_desc": "Дар инвентари шумо {{count}} ашё бо мӯҳлати истифодаи гузашта мавҷуд аст. Барои амнияти худ онҳоро тафтиш кунед.",
+            "view_items": "Намоиши ашё",
+            "maintenance_title": "Вазифаҳои хидматрасонии ба таъхир афтода!",
+            "maintenance_desc": "Шумо {{count}} вазифаи хидматрасонии ба таъхир афтода доред. Хидматрасониро анҷом диҳед, то мӯҳлати кори таҷҳизотатонро дароз кунед.",
+            "go_to_maintenance": "Гузаштан ба хидматрасонӣ",
+            "low_stock_title": "Огоҳӣ дар бораи камии захира",
+            "low_stock_desc": "Захираи {{count}} ашё аз ҳадди ақали муайяншуда камтар шудааст.",
+            "go_to_shopping": "Рӯйхати харид",
+            "close_expiry_title": "Мӯҳлати истифодаи наздикшаванда",
+            "close_expiry_desc": "Мӯҳлати истифодаи {{count}} маҳсулот дар давоми 30 рӯз ба охир мерасад."
+        }
     },
     "beta_banner": {
         "title": "نسخه آزمایشی:",
@@ -642,14 +665,14 @@
             "accordion_description": "بین خانوارها جابجا شوید، یک خانه جدید بسازید یا با یک کلید معتبر به خانه‌ای موجود بپیوندید.",
             "empty_description": "یک خونه جدید بسازید تا شروع به اشتراک‌گذاری کنید، یا با یک کلید خونه معتبر به یکی ملحق شوید.",
             "leave_success_body": "شما دیگر به این خانه دسترسی ندارید و خانه فعال شما تازه‌سازی شد.",
-            "leave_title": "Leave this house?",
-            "leave_warning": "You will lose access to this household workspace until another member invites or approves you again.",
-            "leaving": "Leaving..."
+            "leave_title": "Ин хонаро тарк кунед?",
+            "leave_warning": "То он даме, ки узви дигар шуморо дубора даъват кунад ё тасдиқ накунад, шумо дастрасӣ ба ин фазои кории хонаводаро аз даст медиҳед.",
+            "leaving": "Рафтан..."
         },
         "house_info": {
             "title": "کلید خانه فعال",
             "key_label": "کلید خانه",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{суффикс}}",
             "hide": "مخفی کردن",
             "show": "نمایش",
             "copy": "کپی",
@@ -687,10 +710,10 @@
             "modal_title": "دسترسی به کلید خانه",
             "modal_subtitle": "این کلید را فقط برای اعضای مورد اعتماد خانه استفاده کنید که باید دسترسی به این موجودی مشترک را درخواست کنند.",
             "loading_members": "در حال بارگذاری اعضا...",
-            "kick_success_body": "{{name}} no longer has access to this household.",
-            "kick_title": "Remove this member?",
-            "kick_warning": "Their household access will end immediately and they will need a new invitation or approval to return.",
-            "kicking": "Removing..."
+            "kick_success_body": "{{name}} дигар ба ин хонавода дастрасӣ надорад.",
+            "kick_title": "Ин аъзо хориҷ карда шавад?",
+            "kick_warning": "Дастрасии хонаводаи онҳо фавран хотима меёбад ва барои бозгашт ба онҳо даъвати нав ё тасдиқи нав лозим мешавад.",
+            "kicking": "Хориҷ кардан..."
         },
         "theme": {
             "title": "تم",
@@ -737,19 +760,19 @@
             "import_encrypted_title": "باز کردن پشتیبان رمزگذاری‌شده",
             "import_encrypted_body": "عبارت عبور پشتیبان استفاده شده هنگام دانلود را وارد کنید تا این فایل رمزگذاری‌شده بازیابی شود.",
             "unlock_and_import": "باز کردن قفل و وارد کردن",
-            "export_encrypted_notice": "The backup is prepared from live household data and then wrapped with the passphrase you choose. Keep that passphrase somewhere safe because it is required to restore the file later.",
-            "export_encrypted_title": "Encryption will be applied before download",
-            "import_summary_body": "{{items}} items, {{categories}} categories, {{rooms}} rooms, {{locations}} locations, {{borrows}} borrow records restored.",
-            "import_summary_title": "Backup restored",
+            "export_encrypted_notice": "Нусхаи эҳтиётӣ аз маълумоти зиндаи хонавода омода карда мешавад ва сипас бо гузарвожаи интихобкардаи шумо печонида мешавад.",
+            "export_encrypted_title": "Рамзгузорӣ пеш аз зеркашӣ татбиқ карда мешавад",
+            "import_summary_body": "{{items}} ашё, {{categories}} категорияҳо, {{rooms}} ҳуҷраҳо, {{locations}} маконҳо, {{қарзҳо}} сабтҳои қарз барқарор карда шуданд.",
+            "import_summary_title": "Нусхаи эҳтиётӣ барқарор карда шуд",
             "preview_categories": "دسته‌بندی‌ها",
             "preview_items": "موجودی",
             "preview_locations": "مکان‌ها",
             "preview_rooms": "اتاق‌ها",
-            "skipped_borrows": "{{count}} existing borrow records skipped.",
-            "skipped_categories": "{{count}} existing categories skipped.",
-            "skipped_items": "{{count}} existing items skipped.",
-            "skipped_locations": "{{count}} existing locations skipped.",
-            "skipped_rooms": "{{count}} existing rooms skipped."
+            "skipped_borrows": "{{count}} сабти қарзи мавҷуда гузаронида шуд.",
+            "skipped_categories": "{{count}} категорияҳои мавҷуда партофта шуданд.",
+            "skipped_items": "{{count}} ҷузъҳои мавҷуда партофта шуданд.",
+            "skipped_locations": "{{count}} макони мавҷуда гузаронида шуд.",
+            "skipped_rooms": "{{count}} утоқҳои мавҷуда гузаронида шуданд."
         },
         "about": {
             "title": "📱 About Application",
@@ -763,9 +786,9 @@
             "beta_title": "وضعیت بتا",
             "beta_body": "{{brandName}} هنوز در حالت بتا است. ویژگی‌ها می‌توانند تغییر کنند، جریان‌های کاری ممکن است توسعه یابند و داده‌های مهم خانگی همیشه باید پشتیبان‌گیری شوند.",
             "feedback_subject": "Фикру мулоҳиза - {{brandName}}",
-            "logout_body": "Any unsaved changes in open forms may be lost after you leave this session.",
-            "logout_description": "You will return to the home page and can sign back in anytime.",
-            "logout_title": "Log out now?"
+            "logout_body": "Ҳама тағиротҳои захиранашуда дар шаклҳои кушода метавонанд пас аз тарк кардани ин ҷаласа гум шаванд.",
+            "logout_description": "Шумо ба саҳифаи асосӣ бармегардед ва метавонед ҳар вақт ворид шавед.",
+            "logout_title": "Ҳоло хориҷ шавед?"
         },
         "modals": {
             "password": {
@@ -991,12 +1014,12 @@
             "no_history": "هنوز هیچ سابقه قرضی برای این مورد وجود ندارد.",
             "lend_success_title": "مورد قرض داده شده",
             "lend_success_body": "{{item}} اکنون به عنوان قرض گرفته شده علامت‌گذاری شده است.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
-            "borrowed_by_you": "With you",
-            "return_pending_hint": "The record will close after the lender confirms they received the item back.",
-            "return_pending_lender_title": "{{name}} marked this item as delivered back",
-            "return_pending_self_title": "With you, waiting for receipt confirmation"
+            "offer_sent_title": "Пешниҳоди қарз фиристода шуд",
+            "offer_sent_body": "{{item}} пас аз қабули аъзои дигар ҳамчун қарз қайд карда мешавад.",
+            "borrowed_by_you": "Бо Шумо",
+            "return_pending_hint": "Сабт пас аз он ки қарздиҳанда тасдиқ кунад, ки ашёро баргардонад, баста мешавад.",
+            "return_pending_lender_title": "{{name}} ин ашёро ҳамчун баргардонидашуда қайд кард",
+            "return_pending_self_title": "Бо шумо, интизори тасдиқи квитансия"
         },
         "untitled_item": "آیتم بدون عنوان",
         "delete_action": "حذف آیتم",
@@ -1061,8 +1084,8 @@
         "add_error": "خطا در افزودن دسته‌بندی",
         "update_error": "خطا در به‌روزرسانی دسته‌بندی",
         "color_required": "Ранг бояд дар формати #RRGGBB бошад",
-        "empty_description": "Create a few categories so new items follow the same structure and are easier to scan later.",
-        "empty_title": "No categories yet"
+        "empty_description": "Якчанд категория эҷод кунед, то ҷузъҳои нав ба ҳамон сохтор пайравӣ кунанд ва баъдтар скан кардан осонтар шаванд.",
+        "empty_title": "Ҳанӯз категорияҳо нест"
     },
     "rooms": {
         "title": "اتاق‌ها",
@@ -1137,8 +1160,8 @@
         "load_error": "خطا در بارگذاری اتاق‌ها",
         "add_error": "خطا در افزودن اتاق",
         "update_error": "خطا در به‌روزرسانی اتاق",
-        "empty_description": "Create rooms like kitchen, storage, or garage so item locations stay consistent and easier to search.",
-        "empty_title": "No rooms yet"
+        "empty_description": "Утоқҳо ба монанди ошхона, анбор ё гараж эҷод кунед, то ҷойгиршавии ашё пайваста ва осонтар ҷустуҷӯ шавад.",
+        "empty_title": "Ҳанӯз ҳуҷра нест"
     },
     "admin": {
         "title": "پنل مدیریت",
@@ -1218,18 +1241,18 @@
             "items_label": "اقلام مالکیت",
             "last_seen_short": "مشاهده شده",
             "last_seen_short_never": "جدید",
-            "failed_logins": "{{count}} failed sign-ins",
-            "load_failed_title": "Users could not load",
-            "pending_requests": "{{count}} pending house requests",
+            "failed_logins": "{{count}} вориди систем нашуд",
+            "load_failed_title": "Истифодабарандагон натавонистанд бор кунанд",
+            "pending_requests": "{{count}} дархост дар интизори хона",
             "role_admin": "مدیران",
-            "role_user": "User"
+            "role_user": "Истифодабаранда"
         },
         "logs": {
             "title": "گزارش‌های مدیر",
             "no_logs": "هنوز هیچ گزارشی ثبت نشده",
             "errors_title": "خطاهای سیستم (10 مورد آخر)",
             "no_errors": "// سیستم سالم است، هیچ گزارش خطایی وجود ندارد.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{сана, санаи вақт}}",
             "type": {
                 "email": "ایمیل",
                 "user": "کاربر",
@@ -1255,8 +1278,8 @@
             "errors_eyebrow": "Ташхис",
             "section_body": "Ҳар тағйири модератсия ё амалиётӣ дар қабати маъмурӣ сабт мешавад.",
             "errors_body": "Сатрҳои охирини хатои таҳлилшуда аз файлҳои сабти сервер.",
-            "load_failed_title": "Activity could not load",
-            "no_logs_title": "No admin actions yet"
+            "load_failed_title": "Фаъолият бор карда нашуд",
+            "no_logs_title": "Ҳанӯз ягон амали администратор вуҷуд надорад"
         },
         "email": {
             "title": "ارسال ایمیل",
@@ -1291,13 +1314,13 @@
             "unconfigured_title": "ارسال ایمیل پیکربندی نشده است",
             "unconfigured_body": "فرم ارسال برای بررسی تنظیمات همچنان قابل مشاهده است، اما تا زمانی که ارائه‌دهنده ایمیل پیکربندی نشود، ارسال با شکست مواجه خواهد شد.",
             "status_eyebrow": "تحویل",
-            "configured_body": "Resend is available for admin-triggered outbound messages.",
-            "configured_title": "Email delivery is configured",
-            "error_title": "Email failed",
-            "format_hint": "HTML is supported. For example: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
-            "from_label": "Sender",
-            "load_failed_title": "Email tools could not load",
-            "success_title": "Email sent"
+            "configured_body": "Аз нав ирсол кардан барои паёмҳои содиротии аз ҷониби администратор ба кор андохташуда дастрас аст.",
+            "configured_title": "Интиқоли почтаи электронӣ танзим карда шудааст",
+            "error_title": "Почтаи электронӣ ноком шуд",
+            "format_hint": "HTML дастгирӣ карда мешавад.",
+            "from_label": "Ирсолкунанда",
+            "load_failed_title": "Воситаҳои почтаи электронӣ бор карда натавонистанд",
+            "success_title": "Почтаи электронӣ фиристода шуд"
         },
         "overview": {
             "email_warning_title": "پیکربندی ارسال ایمیل انجام نشده است",
@@ -1383,8 +1406,8 @@
         "logs_loaded": "گزارش‌ها بارگذاری شدند",
         "load_error": "خطا در بارگذاری داده‌ها",
         "action_error": "خطا در انجام عملیات",
-        "load_failed_body": "The admin route is open, but the overview data did not arrive. You can retry without leaving the page.",
-        "load_failed_title": "Admin overview could not load"
+        "load_failed_body": "Масири администратор кушода аст, аммо маълумоти умумӣ нарасидааст.",
+        "load_failed_title": "Шарҳи администратор бор карда натавонист"
     },
     "landing": {
         "nav": {
@@ -1401,12 +1424,12 @@
             "cta_register": "ایجاد حساب کاربری",
             "stat_free": "رایگان",
             "stat_access": "Access",
-            "free_badge": "Open Source",
+            "free_badge": "Манбаи кушода",
             "badge": "نسخه ۲.۰ HomeInventory اینجاست",
             "cta_explore": "کاوش ویژگی ها",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "даромад",
+            "stat_members": "Хонаҳои муштарак",
+            "stat_vault": "Анбори хусусӣ"
         },
         "features": {
             "title": "Чаро <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "نگه داشتن وسایل، گارانتی‌ها، اسناد مهم و پیگیری قرض‌ها در یک مکان آرام. با یک نگاه ببینید خانه شما چه چیزی دارد.",
                 "primaryCta": "شروع رایگان",
                 "secondaryCta": "مشاهده محصول",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Ҷараёни пешниҳодшуда: ҳисоб • хона • ҳуҷраҳо ва категорияҳо • ашё • нусхабардорӣ",
                 "searchPlaceholder": "جستجوی یک آیتم، اتاق یا بارکد"
             },
             "heroInventoryRows": [
@@ -1728,9 +1751,9 @@
         "privacy_summary": "جزئیات شبکه تا زمانی که به راهنمایی نیاز دارید، محفوظ باقی می‌مانند.",
         "link_privacy_note": "آدرس شبکه در اینجا مخفی می‌ماند. کد را اسکن کنید یا لینک را تنها زمانی کپی کنید که به طور عمدی می‌خواهید دسترسی مستقیم به آیتم در محیط محلی خود را به اشتراک بگذارید.",
         "helper": "برای باز کردن فوری این آیتم اسکن کنید، یا در صورت نیاز لینک مستقیم را کپی کنید.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
-        "loading": "Preparing QR tools..."
+        "copy_error_title": "Истинод ба таври худкор нусхабардорӣ карда нашуд",
+        "copy_manual_help": "Браузери шумо нусхабардории автоматиро иҷозат надод.",
+        "loading": "Омода кардани асбобҳои QR..."
     },
     "house_access_pending": {
         "eyebrow": "دسترسی به خانه",
@@ -1918,12 +1941,12 @@
             "options_failed": "Имконоти категория ва утоқ бор нашуданд.",
             "delete_success_title": "رکورد صندوق حذف شد",
             "delete_success_body": "رکورد خصوصی به طور دائم از صندوق شما حذف شد.",
-            "passphrase_lowercase": "Include at least one lowercase letter.",
-            "passphrase_min_length": "Vault passphrase must be at least 12 characters.",
-            "passphrase_number": "Include at least one number.",
-            "passphrase_uppercase": "Include at least one uppercase letter."
+            "passphrase_lowercase": "Ақаллан як ҳарфи хурдро дохил кунед.",
+            "passphrase_min_length": "Ибораи гузарвожаи Vault бояд на камтар аз 12 аломат бошад.",
+            "passphrase_number": "Ақаллан як рақамро дохил кунед.",
+            "passphrase_uppercase": "Ақаллан як ҳарфи калонро дохил кунед."
         },
-        "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
+        "recovery_file_title": "{{brandName}} Калиди барқарорсозии махзани шахсӣ",
         "recovery_file_created_label": "Сохта шуд",
         "recovery_file_key_label": "Калиди барқарорсозӣ",
         "recovery_file_warning": "Агар шумо ҳам ин калид ва ҳам гузарвожаи сейфи худро гум кунед, сейф барқарор карда намешавад.",
@@ -1969,8 +1992,8 @@
             "empty": "در حال حاضر قرض فعالی وجود ندارد.",
             "borrowed_from": "قرض گرفته شده از {{name}}",
             "lent_to": "در حال حاضر با {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Мунтазири он аст, ки қарздиҳанда тасдиқ кунад, ки онҳо онро баргардонанд.",
+            "return_pending_lender": "{{name}} ин ашёро ҳамчун баргардонидашуда қайд кард.",
             "empty_title": "در حال حاضر قرض فعالی وجود ندارد",
             "empty_description": "درخواست‌های پذیرفته شده در اینجا ظاهر می‌شوند وقتی که یک مورد قرض گرفته یا داده شود، همراه با تاریخ‌های سررسید و وضعیت بازگشت."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "لغو شده",
             "expired": "منقضی شده",
             "returned": "بازگردانده شده",
-            "return_pending": "Return pending"
+            "return_pending": "Бозгашт интизор аст"
         },
         "actions": {
             "send_request": "درخواست آیتم",
@@ -1990,8 +2013,8 @@
             "reject": "رد کردن",
             "cancel": "لغو",
             "fulfill_request": "انجام درخواست",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Марк расонида шуд",
+            "mark_received": "Марк қабул кард",
             "open_inventory": "باز کردن موجودی"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "علامت‌گذاری به عنوان بازگردانده شده",
             "return_subtitle": "بستن قرض فعال برای \"{{item}}\"",
             "return_target": "در حال حاضر نشان داده می‌شود که با {{name}} است.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Интиқоли ашё",
+            "return_title_lender": "Гирифтани ашё",
+            "return_subtitle_borrower": "Қарзи фаъол барои \"{{item}}\" пас аз баргардонидани он пӯшед.",
+            "return_subtitle_lender": "Қарзи фаъолро барои \"{{item}}\" пас аз баргардонидани он пӯшед.",
+            "return_target_borrower": "Қарздиҳанда: {{name}}",
+            "return_target_lender": "Айни замон бо: {{name}}",
+            "return_note_borrower": "Қайд дар бораи таҳвил",
+            "return_note_lender": "Қайд қабул кунед",
+            "return_note_placeholder_borrower": "масалан.",
+            "return_note_placeholder_lender": "масалан.",
+            "return_submitting": "Бастан..."
         },
         "messages": {
             "load_error": "مرکز قرض‌گیری قابل بارگذاری نیست",
@@ -2063,13 +2086,13 @@
         "terms_of_service_content": "Шартҳои хизматрасонӣ\n\n1. Барраси\n{{brandName}} нармафзори кушодаасос буда, онро тавассути насбҳои расмӣ ё худсоз истифода бурдан мумкин аст. Ин шартҳо ба насби мушаххасе, ки шумо истифода мебаред, татбиқ мешаванд.\n- Агар ин насб аз ҷониби шахси сеюм идора карда шавад, он оператор метавонад ин шартҳоро бо қоидаҳои мушаххас оид ба ҷойгиркунӣ, ӯҳдадориҳои дастгирӣ ё огоҳиҳои ҳуқуқии маҳаллӣ пурра кунад.\n\n2. Қоидаҳои истифода\n- Шумо барои қонунӣ, саҳеҳӣ ва моликияти мундариҷаи дар хидмат ҷойгиркардаатон масъул ҳастед.\n- Мавҷудияти манбаи кушодаи нармафзор ба шумо ҳуқуқи бор кардан, нигоҳ доштан ё мубодилаи маълумотеро, ки шумо барои истифода иҷозат надоред, намедиҳад.\n- Мо метавонем ҳисобҳоеро, ки аз хидмат сӯиистифода мекунанд, ин шартҳоро вайрон мекунанд ё хатари амниятӣ ё ҳуқуқӣ эҷод мекунанд, боздошта ё нест кунем.\n\n3. Амнияти ҳисоб\n- Парол, маводи барқарорсозӣ ва нусхаҳои эҳтиётии худро эмин нигоҳ доред.\n\n4. Давраи ҳаёти маълумот\n- Нусхаи эҳтиётии шахсии маълумоти муҳимро нигоҳ доред.\n- Нест кардани ҳисоби шумо аз Танзимот ба таври доимӣ маълумоти барнома ва медиаи боркардаи ба ҳисоби шумо тааллуқдоштаро нест мекунад ва онро баргардонидан ғайриимкон аст.\n\n5. Маҳдудиятҳо ва Радди масъулият\n- Дастрасӣ, дастгирӣ, ҳамгироӣ ва вақти посух аз оператори ин насб вобаста аст.\n- Хизматрасонӣ дар асоси \"ҳар ки ҳаст\" ва \"ба андозаи мавҷуда\" ба андозаи иҷозатдодаи қонун пешниҳод карда мешавад.",
         "register_consent": "من شرایط <1>استفاده از سرویس</1> و <2>سیاست حفظ حریم خصوصی</2> را خوانده، درک کرده و با آن‌ها موافقم.",
         "consent_title": "Ҳуҷҷатҳои ҳуқуқиро баррасӣ кунед",
-        "consent_subtitle": "Please confirm the current terms before continuing.",
+        "consent_subtitle": "Лутфан пеш аз идома додан шартҳои ҷорӣро тасдиқ кунед.",
         "consent_notice": "Идома кунед",
         "consent_checkbox": "Захира...",
         "consent_submit": "Пеш аз идома додан ба шумо лозим аст, ки Шартҳои хидмат ва Огоҳиномаи махфиятро тасдиқ кунед.",
         "consent_submitting": "در حال ذخیره...",
         "consent_required": "شما باید شرایط خدمات و اطلاعیه حریم خصوصی را قبل از ادامه تأیید کنید.",
-        "document_badge": "Legal document",
+        "document_badge": "Ҳуҷҷати ҳуқуқӣ",
         "data_privacy_badge": "Бозгашт ба хона",
         "back_to_home": "بازگشت به صفحه اصلی",
         "quick_access": "Мундариҷа",
@@ -2093,24 +2116,24 @@
             "shortcuts": {
                 "what": "Он чизе ки мо коркард мекунем",
                 "why": "Чаро",
-                "sharing": "Sharing",
+                "sharing": "Мубодила",
                 "rights": "Кадом маълумотро мо ҷамъ мекунем ва коркард мекунем"
             },
             "section_titles": {
                 "what": "چه داده‌هایی را جمع‌آوری و پردازش می‌کنیم",
                 "why": "چرا ما آن را پردازش می‌کنیم",
-                "sharing": "Storage and transfer",
+                "sharing": "Нигоҳдорӣ ва интиқол",
                 "rights": "Ин дар амал чӣ маъно дорад"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "Шартҳои ин насби {{brandName}} истифодаи қобили қабул, масъулиятҳои амниятии шумо ва оқибатҳои ҳазфи ҳисобро дар формати равшантар ва осонтар барои скан шарҳ медиҳанд.",
         "terms_support_label": "خلاصه سریع",
         "terms_summary": {
             "eyebrow": "این در عمل به چه معناست",
             "title": "این در عمل چه معنی دارد",
             "items": {
-                "use": "Use the service only for data you are authorized to upload, store, or share.",
-                "responsibility": "You remain responsible for the legality, accuracy, and ownership of what you upload or share.",
+                "use": "Хидматро танҳо барои маълумоте, ки ба шумо иҷозати бор кардан, захира кардан ё мубодила кардан доред, истифода баред.",
+                "responsibility": "Шумо барои қонунӣ, саҳеҳӣ ва моликияти он чизе, ки шумо бор мекунед ё мубодила мекунед, масъул ҳастед.",
                 "security": "رمز عبور، مواد بازیابی و نسخه های پشتیبان خود را ایمن نگه دارید.",
                 "backups": "حذف حساب دائمی است، بنابراین باید از اطلاعات مهم خود نسخه پشتیبان تهیه کنید.",
                 "disclaimer": "در دسترس بودن، پشتیبانی و ادغام به اپراتور این نصب بستگی دارد. خدمات بر اساس \"همانطور که هست\" و \"در صورت موجود بودن\" تا حد مجاز ارائه می شود."
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "شرایط استفاده و سلب مسئولیت",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "Версияи BETA: {{brandName}} айни замон дар марҳилаи озмоиш аст.",
         "disclaimer": "سلب مسئولیت: با استفاده از این برنامه، شما موافقت می‌کنید که نمی‌توانید برای از دست رفتن احتمالی داده‌ها، مشکلات دسترسی یا سایر مشکلات فنی درخواست غرامت کنید.",
         "backup_warning": "پشتیبان‌گیری از داده‌ها: ما قویاً توصیه می‌کنیم که اطلاعات مهم خود را به‌طور منظم پشتیبان‌گیری کنید.",
         "accept": "با ورود، شما با این شرایط موافقت می‌کنید.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} ҳоло дар марҳилаи озмоиш ва маҳфилӣ қарор дорад.",
         "contact": "تماس"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "تلاش‌های ورود زیادی انجام شده. لطفا 15 دقیقه بعد امتحان کنید."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "даромад",
+        "page_title_register": "Ҳисоб кушоед",
+        "page_title_choose_house": "Хона интихоб кунед",
+        "page_title_recovery_key": "Калиди барқарорсозӣ",
+        "page_title_house_access": "Дастрасӣ ба хона",
+        "page_title_legal_review": "Баррасии ҳуқуқӣ",
+        "page_title_new_item": "Объекти нав",
+        "page_title_edit_item": "Таҳрири ашё",
+        "page_title_items": "Инвентаризатсия"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Хатогӣ ҳангоми боркунии рӯйхати харид.",
+            "select_item_error": "Лутфан ашёро аз инвентар интихоб кунед.",
+            "empty_name": "Лутфан номи ашёро ворид кунед.",
+            "added": "Ашё ба рӯйхати харид илова карда шуд.",
+            "add_error": "Ҳангоми илова кардани ашё хатогӣ рӯй дод.",
+            "added_suggestion": "\"{{name}}\" ба рӯйхати харид илова шуд.",
+            "bulk_added": "{{count}} ашё бо захираи кам ба рӯйхат илова карда шуд.",
+            "bulk_error": "Хатогии илова кардани ашё бо захираи кам.",
+            "completed": "\"{{name}}\" ҳамчун харидашуда қайд карда шуд.",
+            "reactivated": "\"{{name}}\" ба рӯйхати фаъол баргардонида шуд.",
+            "update_error": "Хатогӣ ҳангоми навсозӣ.",
+            "deleted": "Ашё аз рӯйхат ҳазф карда шуд.",
+            "delete_error": "Хатогӣ ҳангоми ҳазф кардан.",
+            "cleared_completed": "Рӯйхати харидҳои анҷомёфта тоза карда шуд.",
+            "clear_error": "Хатогӣ ҳангоми тоза кардани таърих."
+        },
+        "loading_desc": "Омодасозии рӯйхати харид...",
+        "page": {
+            "title": "Рӯйхати харид",
+            "description": "Ашёи дорои захираи камро дар инвентари хона дида бароед ва рӯйхати хариди худро ба осонӣ идора кунед."
+        },
+        "suggestions": {
+            "title": "Пешниҳодҳои зеҳнии инвентар",
+            "desc": "Ашёи инвентар, ки аз ҳадди ақал камтар шудаанд.",
+            "add_all": "Иловаи ҳамаи ашёи намерасида",
+            "stock_status": "Ҷорӣ: {{current}} / Ҳадаф: {{min}}",
+            "add_qty": "Илова кардани {{qty}}"
+        },
+        "sections": {
+            "active_list": "Ашё барои харидан",
+            "active_desc": "Ашёи ҷории харид барои илова ба сабад.",
+            "active_count": "{{count}} ашё",
+            "completed_list": "Ашёи харидашуда ({{count}})",
+            "add_item": "Иловаи дастӣ",
+            "add_desc": "Дастӣ илова кардани ашёи фармоишӣ ба рӯйхат."
+        },
+        "empty": {
+            "title": "Рӯйхати хариди шумо холӣ аст",
+            "desc": "Шумо метавонед ашёи намерасидаро аз пешниҳодҳои боло илова кунед ё тавассути варақаи тарафи рост онро дастӣ ворид кунед."
+        },
+        "card": {
+            "linked_inventory": "Дар инвентар ҳифз шудааст"
+        },
+        "actions": {
+            "clear_completed": "Тоза кардани таърих",
+            "add_item": "Илова ба рӯйхати харид"
+        },
+        "form": {
+            "add_type": "Усули иловакунӣ",
+            "add_type_inventory": "Ашё аз инвентар",
+            "add_type_custom": "Ашёи фармоишӣ",
+            "select_inventory_item": "Интихоби ашё аз инвентар",
+            "no_inventory_items": "Дар инвентари шумо то ҳол ашёе нест.",
+            "select_item_placeholder": "Интихоби ашё",
+            "current_stock": "Ҷорӣ",
+            "item_name": "Номи ашё",
+            "item_name_placeholder": "масалан: Шир, Моддаи шустушӯӣ, Қаҳва...",
+            "quantity": "Миқдор"
+        },
+        "modal": {
+            "delete_title": "Ашё аз рӯйхат ҳазф карда шавад?",
+            "delete_desc": "Оё мутмаин ҳастед, ки мехоҳед \"{{name}}\"-ро аз рӯйхати харид ҳазф кунед?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Хатогӣ ҳангоми боркунии маълумот",
+            "select_item_error": "Лутфан ашёро интихоб кунед.",
+            "task_name_error": "Номи вазифа ҳатмист.",
+            "date_error": "Таърихи банақшагирифташуда ҳатмист.",
+            "updated": "Вазифаи хидматрасонӣ навсозӣ шуд",
+            "created": "Вазифаи нави хидматрасонӣ илова карда шуд",
+            "save_error": "Хатогӣ ҳангоми ҳифз кардан",
+            "deleted": "Вазифаи хидматрасонӣ бомуваффақият ҳазф шуд.",
+            "delete_error": "Ҳангоми ҳазф кардан хатогӣ рӯй дод.",
+            "performed": "Хидматрасонӣ ҳамчун иҷрошуда сабт шуд. Таърихи навбатӣ муайян гардид.",
+            "perform_error": "Ҳангоми ҳифз кардан хатогӣ рӯй дод."
+        },
+        "freq": {
+            "one_time": "Яккарата",
+            "unit": {
+                "days": "Рӯз",
+                "weeks": "Ҳафта",
+                "months": "Моҳ",
+                "years": "Сол"
+            },
+            "format": "Ҳар {{val}} {{unit}}"
+        },
+        "loading_desc": "Боркунии нақшаи хидматрасонӣ...",
+        "page": {
+            "title": "Хидматрасонӣ ва Назорати даврӣ",
+            "description": "Идораи нақшаҳои хидматрасонии даврӣ барои таҷҳизот, филтрҳо ё васоили амниятӣ дар инвентари хона."
+        },
+        "actions": {
+            "add_task": "Иловаи вазифаи нав",
+            "manage": "Идора кардан",
+            "perform": "Қайд кардан ҳамчун иҷрошуда",
+            "edit_task": "Таҳрири вазифа"
+        },
+        "alerts": {
+            "overdue_title": "Шумо вазифаҳои ба таъхир афтода доред!",
+            "overdue_desc": "Шумо {{count}} вазифаи хидматрасонии ба таъхир афтода доред. Таъхир метавонад мӯҳлати кори таҷҳизотро кам кунад."
+        },
+        "empty": {
+            "title": "Ягон вазифаи хидматрасонӣ ба нақша гирифта нашудааст",
+            "desc": "Бо илова кардани вазифаҳои даврӣ ба монанди тоза кардани филтри кондитсионер, хидматрасонии дегхона ё санҷиши батареяи детектори дуд оғоз кунед."
+        },
+        "sections": {
+            "overdue": "Вазифаҳои ба таъхир афтода",
+            "overdue_desc": "Хидматрасонии таъҷилӣ, ки бояд фавран иҷро карда шавад.",
+            "upcoming": "Вазифаҳои ба нақша гирифташуда / Оянда",
+            "upcoming_desc": "Хидматрасоние, ки дар рӯзҳои наздик пешбинӣ шудааст.",
+            "no_upcoming": "Ягон вазифаи фаъол барои оянда ба нақша гирифта нашудааст."
+        },
+        "modal": {
+            "edit_title": "Таҳрири вазифа",
+            "create_title": "Ба нақша гирифтани вазифаи нави хидматрасонӣ",
+            "perform_title": "Иҷрои хидматрасонӣ",
+            "perform_desc": "Оё мехоҳед вазифаи \"{{name}}\"-ро ҳамчун иҷрошудаи имрӯз сабт кунед?",
+            "perform_confirm": "Бале, иҷро шуд",
+            "perform_recurrence_info": "Ин вазифаи даврӣ аст. Ҳангоми ҳифз кардан, система таърихи навбатии хидматрасониро ба таври худкор ҳисоб мекунад.",
+            "delete_title": "Вазифаи хидматрасонӣ ҳазф карда шавад?",
+            "delete_desc": "Оё мутмаин ҳастед, ки мехоҳед нақшаи хидматрасонии даврии \"{{name}}\"-ро ҳазф кунед? Ин амалро бекор карда намешавад."
+        },
+        "form": {
+            "item": "Ашёи алоқаманд",
+            "no_items": "Пеш аз ба нақша гирифтани хидматрасонӣ шумо бояд аввал ашёро ба инвентар илова кунед.",
+            "select_item_placeholder": "Интихоби ашё",
+            "task_name": "Номи вазифа / амалиёт",
+            "task_name_placeholder": "масалан: Иваз кардани филтр, Санҷиши даврӣ...",
+            "description": "Тафсилот / Тавсиф",
+            "description_placeholder": "Тафсилоти вазифа, маводҳои истифодашаванда ва ғайра...",
+            "frequency_value": "Давраи такроршавӣ",
+            "frequency_placeholder": "масалан: 6 (барои яккарата холӣ гузоред)",
+            "frequency_unit": "Воҳиди давра",
+            "next_due_date": "Таърихи навбатии ба нақша гирифташуда",
+            "section_help": "Нақшаҳои хидматрасониро аз ин ҷо идора кунед",
+            "section_collapsed": "Барои илова кардани назорат ва вазифаҳои даврӣ клик кунед",
+            "has_tasks": "{{count}} вазифа",
+            "new_item_warning_title": "Ҳифзи ашё дар интизорӣ",
+            "new_item_warning_desc": "Барои илова кардани нақшаи хидматрасонӣ шумо бояд аввал ин ашёро ҳифз кунед.",
+            "manage_desc": "Идораи нақшаҳои хидматрасонӣ барои ин таҷҳизот ё ашё."
+        },
+        "fields": {
+            "task_name": "Номи вазифа",
+            "task_name_placeholder": "масалан: Тоза кардани филтри кондитсионер",
+            "description": "Тавсиф",
+            "description_placeholder": "Тафсилоти вазифа, маводҳои истифодашаванда ва ғайра...",
+            "frequency_value": "Давраи такроршавӣ",
+            "frequency_value_placeholder": "Барои яккарата холӣ гузоред",
+            "frequency_unit": "Воҳиди давра",
+            "next_due_date": "Таърихи ба нақша гирифташуда"
+        },
+        "card": {
+            "untitled_item": "Ашёи беном",
+            "last_performed": "Охирин бор иҷрошуда:",
+            "next_due_label": "Таърихи ба нақша гирифташуда",
+            "complete_tooltip": "Қайд кардани хидматрасонӣ ҳамчун иҷрошудаи имрӯз"
+        },
+        "detail_card_desc": "Назорати хидматрасонии даврӣ ё яккаратаи ба нақша гирифташуда барои ин ашё.",
+        "no_tasks": "Ба ин ашё ягон вазифаи хидматрасонӣ вобаста карда нашудааст.",
+        "confirm_delete": "Ин вазифа ҳазф хоҳад шуд. Оё мутмаин ҳастед?"
     }
 }

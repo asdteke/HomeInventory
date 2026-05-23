@@ -69,7 +69,9 @@
             "vault_hint_action": "打开个人保险库",
             "location": "位置",
             "remove_photo": "移除照片",
-            "visibility_owner_only": "只有添加此物品的人可以更改可见性。"
+            "visibility_owner_only": "只有添加此物品的人可以更改可见性。",
+            "expiry_date": "到期日期",
+            "min_quantity": "最小数量"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" 快速添加 - 你以后可以编辑",
@@ -119,7 +121,12 @@
         "no_permission": "你没有权限修改这个项目",
         "barcode_search_error": "条码搜索失败",
         "stats_error": "错误加载统计",
-        "detail_subtitle": "物品详情"
+        "detail_subtitle": "物品详情",
+        "status": {
+            "close_to_expiry": "接近过期",
+            "expired": "已过期",
+            "low_stock": "库存不足"
+        }
     },
     "common": {
         "save": "保存",
@@ -143,7 +150,7 @@
         "refresh": "刷新",
         "close": "关闭",
         "logout": "登出",
-        "copyright": "© {{year}} {{brandName}} - All rights reserved",
+        "copyright": "© {{year}} {{brandName}} - 保留所有权利",
         "other": "其他",
         "copy": "复制",
         "download": "下载",
@@ -170,13 +177,14 @@
         "details": "详情",
         "hide": "隐藏密码",
         "logging_out": "正在注销...",
-        "show": "显示密码"
+        "show": "显示密码",
+        "saving": "保存中..."
     },
     "auth": {
         "login": {
             "title": "登录",
             "subtitle": "智能管理您的所有家居库存",
-            "welcome": "Welcome to {{brandName}}",
+            "welcome": "欢迎来到 {{brandName}}",
             "username_or_email": "用户名或邮箱",
             "password": "密码",
             "forgot_password": "忘记密码？",
@@ -216,7 +224,7 @@
             "support_link": "联系支持"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "设置您的家庭",
             "subtitle": "创建新账户或加入现有家庭",
             "create_house": "创建新家庭",
             "join_house": "加入家庭",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "重新输入您的密码",
             "reset_submit": "重置密码",
             "resetting": "重置中...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "输入您的用户名或邮箱"
         },
         "reset_password": {
             "title": "重置密码",
@@ -438,7 +446,9 @@
         "logout_aria": "退出您的账户",
         "logout_title": "退出？",
         "logout_description": "您将返回登录界面，并需要再次登录以管理您的家庭库存。",
-        "logout_warning": "当您在共享设备或个人设备上完成操作时使用此选项。"
+        "logout_warning": "当您在共享设备或个人设备上完成操作时使用此选项。",
+        "maintenance": "维护计划",
+        "shopping": "购物清单"
     },
     "dashboard": {
         "welcome": "欢迎，<1>{{name}}</1>! 👋",
@@ -565,7 +575,20 @@
         "no_items_filter": "没有任何物品符合这个过滤器",
         "manage": "管理",
         "add_item": "添加物品",
-        "search_item": "检索项目"
+        "search_item": "检索项目",
+        "alerts": {
+            "expired_title": "物品已过期！",
+            "expired_desc": "您的库存中有{{count}}件过期物品。请检查它们以确保安全。",
+            "view_items": "查看物品",
+            "maintenance_title": "逾期维护任务！",
+            "maintenance_desc": "有 {{count}} 项维护任务逾期。请进行维护以延长您的电器使用寿命。",
+            "go_to_maintenance": "前往维护",
+            "low_stock_title": "库存不足提醒",
+            "low_stock_desc": "{{count}} 件物品已低于您的最低库存限制。",
+            "go_to_shopping": "购物清单",
+            "close_expiry_title": "即将到期日期",
+            "close_expiry_desc": "{{count}} 件产品将在30天内过期。"
+        }
     },
     "beta_banner": {
         "title": "测试版:",
@@ -619,7 +642,7 @@
             "member_kick_error": "无法将成员从房子中移除",
             "recovery_key_regenerated": "恢复密钥已重新生成",
             "recovery_key_error": "无法重新生成恢复密钥",
-            "account_delete_error": "The account could not be deleted",
+            "account_delete_error": "无法删除账户",
             "backup_downloaded_encrypted": "加密备份下载成功！({{count}} 项)"
         },
         "user_profile": {
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "活动房屋钥匙",
             "key_label": "房屋钥匙",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{后缀}}",
             "hide": "隐藏",
             "show": "显示",
             "copy": "复制",
@@ -991,8 +1014,8 @@
             "no_history": "该物品尚无借阅历史。",
             "lend_success_title": "物品已借出",
             "lend_success_body": "{{item}} 现在已标记为已借出。",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "借用请求已发送",
+            "offer_sent_body": "{{item}} 在另一成员接受后将被标记为已借出。",
             "borrowed_by_you": "在你这里",
             "return_pending_hint": "当借出者确认已收到归还物品后，记录将关闭。",
             "return_pending_lender_title": "{{name}} 将此物品标记为归还",
@@ -1231,7 +1254,7 @@
             "no_logs": "暂无日志",
             "errors_title": "系统错误（最近 10 条）",
             "no_errors": "// 系统正常，无错误日志。",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{日期，日期时间}}",
             "type": {
                 "email": "电子邮件",
                 "user": "用户",
@@ -1283,7 +1306,7 @@
             "notes_body": "将此用于操作支持或账户相关的联系。敏感内容应尽可能保留在应用内。",
             "notes_body_with_rate_limit": "将此用于操作支持或账户相关的联系。敏感内容应尽可能保留在应用内。当前发送保护措施: {{rateLimit}}.",
             "rate_limit_fallback": "每分钟 3 封邮件",
-            "placeholder_to": "name@example.com",
+            "placeholder_to": "姓名@example.com",
             "placeholder_subject": "消息主题",
             "send_success_with_id": "✅ 电子邮件发送成功！ID: {{emailId}}",
             "send_error": "电子邮件发送失败",
@@ -1401,12 +1424,12 @@
             "cta_register": "创建账户",
             "stat_free": "免费",
             "stat_access": "访问",
-            "free_badge": "Open Source",
+            "free_badge": "开源",
             "badge": "HomeInventory v2.0 来了",
             "cta_explore": "探索功能",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "登录",
+            "stat_members": "共享家庭",
+            "stat_vault": "私人保险库"
         },
         "features": {
             "title": "为什么选择<1>家居库存</1>？",
@@ -1477,7 +1500,7 @@
                 "description": "将物品、保修、重要文件和借用记录集中在一个安静的地方。一眼就能看到你家里有什么。",
                 "primaryCta": "免费开始",
                 "secondaryCta": "查看产品",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "建议的流程：账户 • 首页 • 房间和分类 • 物品 • 备份",
                 "searchPlaceholder": "搜索物品、房间或条形码"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "网络详情将保持隐藏，直到你需要指导时才会显示。",
         "link_privacy_note": "网络地址在此保持隐藏。仅在你有意分享本地设置中的直接项目访问时，扫描二维码或复制链接。",
         "helper": "扫描以立即打开此项目，或在需要时复制直接链接。",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "链接无法自动复制",
+        "copy_manual_help": "您的浏览器不允许自动复制。链接已被选中，您可以手动复制。",
         "loading": "正在准备二维码工具..."
     },
     "house_access_pending": {
@@ -1773,7 +1796,7 @@
             "subject": "🏠 {{brandName}} - 📧 需要邮箱验证",
             "headerTitle": "欢迎使用 {{brandName}}",
             "headerSubtitle": "创建新账户或加入现有家庭",
-            "greeting": "Welcome to {{brandName}}",
+            "greeting": "欢迎使用 {{brandName}}",
             "intro": "账户已创建！请验证您的邮箱以登录。",
             "verifyPrompt": "📧 需要邮箱验证",
             "verifyButton": "✓ 验证我的账户",
@@ -1790,13 +1813,13 @@
             ],
             "fallback": "密码重置链接看起来不完整或损坏。",
             "support": "注册问题：",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{品牌}}"
         },
         "welcome": {
             "subject": "欢迎使用 {{brandName}}",
             "headerTitle": "欢迎使用 {{brandName}}",
             "headerSubtitle": "创建新账户或加入现有家庭",
-            "greeting": "Welcome to {{brandName}}",
+            "greeting": "欢迎来到 {{brandName}}",
             "intro": "欢迎，! 👋",
             "houseKeyLabel": "房屋钥匙",
             "houseKeyNote": "这是您的房屋钥匙，用于邀请他人。将家庭成员添加到您的房屋！",
@@ -1808,7 +1831,7 @@
                 "💡 您可以成为多个房屋的成员并在它们之间切换。每个房屋都有独立的库存。"
             ],
             "support": "注册问题：",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{品牌}}"
         },
         "houseJoinRequest": {
             "subject": "加入房屋",
@@ -1817,7 +1840,7 @@
             "bodyLine2": "等待房主批准"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{状态}}",
             "greeting": "房屋访问",
             "bodyLine1Template": "当前待处理请求：{{house}} ({{status}})",
             "bodyLine2": "你对“{{house}}”的请求仍在等待决定。",
@@ -1842,7 +1865,7 @@
             "warningTitle": "⚠️",
             "warningBody": "如果账户存在，密码重置链接（有效期15分钟）已发送。",
             "fallback": "密码重置链接看起来不完整或损坏。",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{品牌}}"
         },
         "adminEmail": {
             "sentBy": "本电子邮件由 {{brandName}} 发送。",
@@ -1856,7 +1879,7 @@
             "sentAtLabel": "发送时间",
             "senderLabel": "发件人",
             "serviceLabel": "服务",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{品牌}}"
         }
     },
     "vault": {
@@ -1923,7 +1946,7 @@
             "passphrase_number": "至少包含一个数字。",
             "passphrase_uppercase": "至少包含一个大写字母。"
         },
-        "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
+        "recovery_file_title": "{{brandName}} 个人保险箱恢复密钥",
         "recovery_file_created_label": "已创建",
         "recovery_file_key_label": "恢复密钥",
         "recovery_file_warning": "如果您同时丢失此密钥和保险库密码，则无法恢复保险库。",
@@ -1969,8 +1992,8 @@
             "empty": "当前没有活跃的借出。",
             "borrowed_from": "借自 {{name}}",
             "lent_to": "当前借给 {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "等待出借方确认已收到归还。",
+            "return_pending_lender": "{{name}} 已将该物品标记为已归还。确认收货以关闭记录。",
             "empty_title": "目前没有正在外借的物品",
             "empty_description": "一旦物品被借出或借入，已接受的请求将在此显示，包括到期日期和归还状态。"
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "已取消",
             "expired": "已过期",
             "returned": "已退回",
-            "return_pending": "Return pending"
+            "return_pending": "退货待处理"
         },
         "actions": {
             "send_request": "请求项目",
@@ -1990,8 +2013,8 @@
             "reject": "拒绝",
             "cancel": "取消",
             "fulfill_request": "完成请求",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "标记为已送达",
+            "mark_received": "标记为已收到",
             "open_inventory": "打开库存"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "标记为已归还",
             "return_subtitle": "关闭“{{item}}”的活跃借出",
             "return_target": "目前显示它在 {{name}} 手中。",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "交付物品",
+            "return_title_lender": "接收物品",
+            "return_subtitle_borrower": "在归还“{{item}}”后关闭当前借出。",
+            "return_subtitle_lender": "在收到“{{item}}”归还后关闭当前借出。",
+            "return_target_borrower": "出借人：{{name}}",
+            "return_target_lender": "当前与：{{name}}",
+            "return_note_borrower": "发货单",
+            "return_note_lender": "收货单",
+            "return_note_placeholder_borrower": "例如，我顺利地归还了它",
+            "return_note_placeholder_lender": "例如。已收到，状态良好",
+            "return_submitting": "关闭中..."
         },
         "messages": {
             "load_error": "借阅中心无法加载",
@@ -2141,7 +2164,7 @@
         "account_menu_tooltip": "{{name}} 账户菜单"
     },
     "app": {
-        "name": "{{brandName}}",
+        "name": "{{品牌名称}}",
         "tagline": "聪明地管理你所有的家居物品"
     },
     "nav": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "登录尝试太多了。请15分钟后再试。"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "登录",
+        "page_title_register": "创建账户",
+        "page_title_choose_house": "选择房子",
+        "page_title_recovery_key": "恢复密钥",
+        "page_title_house_access": "房屋访问",
+        "page_title_legal_review": "法律审查",
+        "page_title_new_item": "新项目",
+        "page_title_edit_item": "编辑项目",
+        "page_title_items": "库存"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "加载购物清单时出错。",
+            "select_item_error": "请从库存中选择一个物品。",
+            "empty_name": "请输入物品名称。",
+            "added": "商品已添加到购物清单。",
+            "add_error": "添加商品时发生错误。",
+            "added_suggestion": "\"{{name}}\" 已添加到购物清单。",
+            "bulk_added": "{{count}} 个库存不足的商品已添加到清单。",
+            "bulk_error": "添加低库存项目时出错。",
+            "completed": "“{{name}}” 已标记为完成。",
+            "reactivated": "“{{name}}” 已移回活动列表。",
+            "update_error": "更新过程中发生错误。",
+            "deleted": "项目已从列表中删除。",
+            "delete_error": "删除时发生错误。",
+            "cleared_completed": "已清除完成的项目。",
+            "clear_error": "清除时发生错误。"
+        },
+        "loading_desc": "正在准备购物清单...",
+        "page": {
+            "title": "购物清单",
+            "description": "查看家庭库存中低库存的物品，并轻松管理您的购物清单。"
+        },
+        "suggestions": {
+            "title": "智能库存建议",
+            "desc": "库存物品已低于最低限额。",
+            "add_all": "添加所有缺少项",
+            "stock_status": "当前：{{current}} / 目标：{{min}}",
+            "add_qty": "添加 {{qty}}"
+        },
+        "sections": {
+            "active_list": "待购买的商品",
+            "active_desc": "当前购物商品，添加到您的购物车。",
+            "active_count": "{{count}} 件商品",
+            "completed_list": "已购商品 ({{count}})",
+            "add_item": "手动添加物品",
+            "add_desc": "手动将自定义物品添加到列表中。"
+        },
+        "empty": {
+            "title": "您的购物清单是空的",
+            "desc": "您可以从上方的建议中添加缺少的库存，或使用右侧的表单手动添加物品。"
+        },
+        "card": {
+            "linked_inventory": "已保存到库存"
+        },
+        "actions": {
+            "clear_completed": "清除历史记录",
+            "add_item": "添加到购物清单"
+        },
+        "form": {
+            "add_type": "添加方法",
+            "add_type_inventory": "库存物品",
+            "add_type_custom": "自定义物品",
+            "select_inventory_item": "从库存中选择物品",
+            "no_inventory_items": "您的库存中还没有物品。",
+            "select_item_placeholder": "选择一个项目",
+            "current_stock": "当前",
+            "item_name": "项目名称",
+            "item_name_placeholder": "例如 牛奶、洗涤剂、咖啡豆...",
+            "quantity": "数量"
+        },
+        "modal": {
+            "delete_title": "从列表中删除项目？",
+            "delete_desc": "您确定要从购物清单中删除“{{name}}”吗？"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "加载信息时出错",
+            "select_item_error": "请选择一个项目。",
+            "task_name_error": "任务名称为必填项。",
+            "date_error": "计划日期为必填项。",
+            "updated": "维护任务已更新",
+            "created": "新增了维护任务",
+            "save_error": "保存时发生错误",
+            "deleted": "维护任务已成功删除",
+            "delete_error": "删除过程中发生错误。",
+            "performed": "维护已记录为完成。下次日期已安排。",
+            "perform_error": "保存时发生错误。"
+        },
+        "freq": {
+            "one_time": "一次性",
+            "unit": {
+                "days": "天",
+                "weeks": "周",
+                "months": "月",
+                "years": "年"
+            },
+            "format": "每 {{val}} {{unit}}"
+        },
+        "loading_desc": "正在加载维护计划...",
+        "page": {
+            "title": "维护与定期跟踪",
+            "description": "管理家庭库存中的电器、过滤器或安全设备的定期维护计划。"
+        },
+        "actions": {
+            "add_task": "添加新任务",
+            "manage": "管理",
+            "perform": "标记为完成",
+            "edit_task": "编辑任务"
+        },
+        "alerts": {
+            "overdue_title": "您有逾期任务！",
+            "overdue_desc": "有 {{count}} 个逾期维护任务。延误可能会缩短电器使用寿命。"
+        },
+        "empty": {
+            "title": "没有安排的维护任务",
+            "desc": "通过添加定期任务开始，例如空调滤网清洁、锅炉维护或火灾探测器电池检查。"
+        },
+        "sections": {
+            "overdue": "逾期任务",
+            "overdue_desc": "需要立即完成的紧急维护。",
+            "upcoming": "计划/即将进行的任务",
+            "upcoming_desc": "未来几天即将进行维护。",
+            "no_upcoming": "未来没有安排的活动任务。"
+        },
+        "modal": {
+            "edit_title": "编辑任务",
+            "create_title": "安排新维护任务",
+            "perform_title": "完成维护",
+            "perform_desc": "您想将“{{name}}”记录为今天完成吗？",
+            "perform_confirm": "是的，已完成",
+            "perform_recurrence_info": "这是一个定期任务。保存时，系统会自动计算下一次维护日期。",
+            "delete_title": "删除维护任务？",
+            "delete_desc": "您确定要删除定期维护计划“{{name}}”吗？此操作无法撤销。"
+        },
+        "form": {
+            "item": "相关项目",
+            "no_items": "您必须先向库存中添加一个项目，然后才能安排维护。",
+            "select_item_placeholder": "选择一个项目",
+            "task_name": "任务/操作名称",
+            "task_name_placeholder": "例如：更换过滤器、定期检查...",
+            "description": "详细信息 / 描述",
+            "description_placeholder": "任务详情、使用的材料等……",
+            "frequency_value": "重复频率",
+            "frequency_placeholder": "例如 6（一次性任务留空）",
+            "frequency_unit": "频率单位",
+            "next_due_date": "下次预定日期",
+            "section_help": "从这里管理维护计划",
+            "section_collapsed": "点击添加定期控制和任务",
+            "has_tasks": "{{count}} 个任务",
+            "new_item_warning_title": "项目保存待处理",
+            "new_item_warning_desc": "您必须先保存此项目，才能添加维护计划。",
+            "manage_desc": "管理此设备或项目的维护计划。"
+        },
+        "fields": {
+            "task_name": "任务名称",
+            "task_name_placeholder": "例如 空调滤网清洁",
+            "description": "描述",
+            "description_placeholder": "任务详情、使用的材料等...",
+            "frequency_value": "重复频率",
+            "frequency_value_placeholder": "留空为一次性",
+            "frequency_unit": "频率单位",
+            "next_due_date": "计划日期"
+        },
+        "card": {
+            "untitled_item": "未命名项目",
+            "last_performed": "上次完成：",
+            "next_due_label": "计划日期",
+            "complete_tooltip": "将维护标记为今天已完成"
+        },
+        "detail_card_desc": "此项目计划进行定期或一次性维护跟踪。",
+        "no_tasks": "未分配此项目的维护任务。",
+        "confirm_delete": "此任务将被删除。您确定吗？"
     }
 }

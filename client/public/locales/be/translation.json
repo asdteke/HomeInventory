@@ -45,7 +45,7 @@
             "visibility_private": "Бачна толькі вам",
             "submit_add": "Дадаць элемент",
             "submit_save": "Захаваць змены",
-            "submitting": "Saving...",
+            "submitting": "Захоўванне...",
             "invoice_section": "Дэталі рахунку",
             "invoice_section_help": "Захоўвайце тут малюнак рахунку, цану і адсочванне гарантыі бяспечна.",
             "invoice_section_collapsed": "Адкрыйце гэты раздзел, каб дадаць фота рахунку, цану і даты гарантыі.",
@@ -69,7 +69,9 @@
             "vault_hint_action": "Адкрыць асабісты сейф",
             "location": "Месцазнаходжанне",
             "remove_photo": "Выдаліць фота",
-            "visibility_owner_only": "Толькі асоба, якая дадае прадмет, можа змяняць яго бачнасць."
+            "visibility_owner_only": "Толькі асоба, якая дадае прадмет, можа змяняць яго бачнасць.",
+            "expiry_date": "Тэрмін прыдатнасці",
+            "min_quantity": "Мінімальная колькасць"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" хутка дададзены - вы можаце рэдагаваць пазней",
@@ -119,7 +121,12 @@
         "no_permission": "Вы не маеце дазволу змяняць гэты прадмет",
         "barcode_search_error": "Пошук штрыхкода не ўдалося",
         "stats_error": "Статыстыка загрузкі памылак",
-        "detail_subtitle": "Падрабязнасці пра прадмет"
+        "detail_subtitle": "Падрабязнасці пра прадмет",
+        "status": {
+            "close_to_expiry": "Блізка да заканчэння",
+            "expired": "Сперавышаны тэрмін",
+            "low_stock": "Нізкі запас"
+        }
     },
     "common": {
         "save": "Захаваць",
@@ -170,7 +177,8 @@
         "details": "Падрабязнасці",
         "hide": "Схаваць пароль",
         "logging_out": "Выхад...",
-        "show": "Паказаць пароль"
+        "show": "Паказаць пароль",
+        "saving": "Захоўванне..."
     },
     "auth": {
         "login": {
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "Увядзіце пароль яшчэ раз",
             "reset_submit": "Скінуць пароль",
             "resetting": "Скідванне...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Увядзіце сваё імя карыстальніка або электронную пошту"
         },
         "reset_password": {
             "title": "Скінуць пароль",
@@ -438,7 +446,9 @@
         "logout_aria": "Выйсці з вашага акаўнта",
         "logout_title": "Выйсці?",
         "logout_description": "Вы вернецеся на экран уваходу ў сістэму і вам трэба будзе зноў увайсці, каб кіраваць запасамі вашай сям'і.",
-        "logout_warning": "Выкарыстоўвайце гэта, калі скончылі працу на агульным або асабістым прыладзе."
+        "logout_warning": "Выкарыстоўвайце гэта, калі скончылі працу на агульным або асабістым прыладзе.",
+        "maintenance": "Графік тэхнічнага абслугоўвання",
+        "shopping": "Спіс пакупак"
     },
     "dashboard": {
         "welcome": "Сардэчна запрашаем назад, <1>{{name}}</1>",
@@ -473,7 +483,7 @@
         "quick_actions": {
             "title": "⚡ Хуткія дзеянні",
             "add_item": "Дадаць элемент",
-            "search_item": "Search Item",
+            "search_item": "Пошук прадмета",
             "categories": "Катэгорыі",
             "settings": "Налады"
         },
@@ -524,7 +534,7 @@
             "empty_tip_two_title": "Прызначце рэальны пакой",
             "empty_tip_two_body": "Лічбы пакояў і катэгорый застаюцца дакладнымі толькі тады, калі новыя элементы прызначаюцца па меры іх стварэння.",
             "empty_tip_three_title": "Трымайце сакрэты па-за агульным фідам. Выкарыстоўвайце Асабісты сейф для ключоў, кодаў, дакументаў або чаго-небудзь, што не павінна з'яўляцца ў гісторыі інвентарызацыі дома. Дадаць пункт. Адкрыць Асабісты сейф. Пачніце з аднаго выразнага элемента. Дадайце пазнавальнае імя элемента, каб у інвентары было моцнае першае запіс. Размясціце яго ў пакоі. Усталюйце пакой і колькасць, каб пошук і метрыка адразу сталі карыснымі.",
-            "empty_tip_three_body": "Use Personal Vault for keys, codes, deeds, or anything that should not appear in household inventory history.",
+            "empty_tip_three_body": "Выкарыстоўвайце Асабісты склеп для ключоў, кодаў, дакументаў або ўсяго таго, што не павінна з'яўляцца ў гісторыі хатняга інвентара.",
             "see_all": "Адчыніць інвентар",
             "untitled_item": "Без назвы",
             "location_fallback": "Дадайце пакой або месца, каб прасцей было знайсці гэты прадмет",
@@ -565,12 +575,25 @@
         "no_items_filter": "Ніводзін элемент не адпавядае гэтаму фільтру",
         "manage": "Кіраванне",
         "add_item": "Дадаць элемент",
-        "search_item": "Пошук"
+        "search_item": "Пошук",
+        "alerts": {
+            "expired_title": "Тэрмін дзеяння прадметаў скончыўся!",
+            "expired_desc": "У вашым інвентары {{count}} пратэрмінаваных прадметаў. Калі ласка, праверце іх для вашай бяспекі.",
+            "view_items": "Праглядзець прадметы",
+            "maintenance_title": "Заслоўленыя заданні па тэхнічным абслугоўванні!",
+            "maintenance_desc": "Ёсць {{count}} засвоўленых задач па абслугоўванні. Выканайце абслугоўванне, каб падоўжыць тэрмін службы вашых прыбораў.",
+            "go_to_maintenance": "Перайсці да абслугоўвання",
+            "low_stock_title": "Павышанае папярэджанне пра нізкі запас",
+            "low_stock_desc": "{{count}} пазіцый апынуліся ніжэй вашага мінімальнага запасу.",
+            "go_to_shopping": "Спіс пакупак",
+            "close_expiry_title": "Наяўныя тэрміны прыдатнасці",
+            "close_expiry_desc": "{{count}} прадуктаў скончаць тэрмін прыдатнасці на працягу 30 дзён."
+        }
     },
     "beta_banner": {
         "title": "БЭТА:",
         "text": "{{brandName}} зараз знаходзіцца ў фазе тэставання і хобі. Ніякіх гарантый адносна захавання дадзеных або бяспекі не даецца. Калі ласка, захоўвайце рэзервовыя копіі важнай інфармацыі.",
-        "contact": "Contact:",
+        "contact": "Кантакт:",
         "badge": "Бэта",
         "aria_label": "Паведамленне Бэта",
         "tooltip": "Функцыі ранняга доступу могуць яшчэ змяніцца."
@@ -638,7 +661,7 @@
             "item_count": "{{count}} прадметаў",
             "switch": "Зрабіць актыўным",
             "leave": "Пакінуць хату",
-            "info": "You can be a member of multiple houses and switch between them. Each household keeps its own inventory.",
+            "info": "Вы можаце быць удзельнікам некалькіх дамоў і пераключацца паміж імі. Кожная домагаспадарка вядзе ўласны інвентар.",
             "accordion_description": "Пераключыцца паміж дамамі, стварыць новы ці далучыцца да існуючага з давераным ключом.",
             "empty_description": "Стварыце новую гаспадарку, каб пачаць абагульванне, або далучайцеся да ўжо існуючай з давераным ключом",
             "leave_success_body": "У вас больш няма доступу да гэтай хатняй гаспадаркі, і ваш актыўны дом быў абноўлены.",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "Актыўны ключ дома",
             "key_label": "Ключ дома",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{суфікс}}",
             "hide": "Схаваць",
             "show": "Паказаць",
             "copy": "Скапіяваць",
@@ -797,7 +820,7 @@
             "username": {
                 "title": "Змяніць імя карыстальніка",
                 "new_label": "Новае імя карыстальніка",
-                "placeholder": "Your new username",
+                "placeholder": "Ваш новы лагін",
                 "help": "3-30 сімвалаў, толькі літары, лічбы, падкрэсліванне і дэфіс",
                 "saving": "Захаванне...",
                 "submit": "Змяніць"
@@ -991,8 +1014,8 @@
             "no_history": "Па гэтым прадмеце яшчэ няма гісторыі пазычак.",
             "lend_success_title": "Прадмет пазычаны",
             "lend_success_body": "{{item}} цяпер адзначаны як пазычаны.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "Запыт на пазыку адпраўлены",
+            "offer_sent_body": "{{item}} будзе пазначаны як пазычаны пасля таго, як іншы ўдзельнік прыме.",
             "borrowed_by_you": "У вас",
             "return_pending_hint": "Запіс будзе закрыты пасля таго, як крэдытор пацвердзіць атрыманне прадмета назад.",
             "return_pending_lender_title": "{{name}} адзначыў гэты прадмет як дастаўлены назад",
@@ -1401,12 +1424,12 @@
             "cta_register": "Стварыць уліковы запіс",
             "stat_free": "Бясплатна",
             "stat_access": "Доступ",
-            "free_badge": "Open Source",
+            "free_badge": "Адкрыты код",
             "badge": "HomeInventory версіі 2.0 ужо тут.",
             "cta_explore": "Даследаваць функцыі",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Увайсці",
+            "stat_members": "Агульныя дамы",
+            "stat_vault": "Прыватны сховішча"
         },
         "features": {
             "title": "Чаму <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Захоўвайце рэчы, гарантыі, важныя дакументы і адсочванне пазычанага ў адным спакойным месцы. Бачце змесціва вашага дома адным поглядам.",
                 "primaryCta": "Пачніце бясплатна",
                 "secondaryCta": "Глядзець прадукт",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Рэкамендаваны маршрут: рахунак • галоўная • пакоі і катэгорыі • прадметы • рэзервовае капіраванне",
                 "searchPlaceholder": "Шукайце рэч, пакой або штрыхкод"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "Дэталі сеткі захоўваюцца схаванымі да таго часу, пакуль вам не спатрэбіцца кіраўніцтва.",
         "link_privacy_note": "Адрас сеткі застаецца схаваным тут. Скануйце код або скапіруйце спасылку толькі тады, калі вы наўмысна хочаце падзяліцца прамым доступам да элемента на вашай лакальнай сістэме.",
         "helper": "Скануйце, каб адразу адкрыць гэты элемент, або скапіруйце прамую спасылку па меры неабходнасці.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Спасылку немагчыма скапіяваць аўтаматычна",
+        "copy_manual_help": "Ваш браўзер не дазволіў аўтаматычнае капіраванне. Спасылка выдзеленая, каб вы маглі скапіяваць яе ўручную.",
         "loading": "Падрыхтоўка QR-інструментаў..."
     },
     "house_access_pending": {
@@ -1790,7 +1813,7 @@
             ],
             "fallback": "Спасылка для скіду пароля выглядае няпоўнай або зламанай.",
             "support": "Праблемы з рэгістрацыяй:",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         },
         "welcome": {
             "subject": "Сардэчна запрашаем у {{brandName}}",
@@ -1817,7 +1840,7 @@
             "bodyLine2": "Чаканне адабрэння ўладальніка дома"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}} © 2026 {{brandName}} © 2026 {{brandName}} - {{supportEmail}} {{brandName}}",
             "greeting": "Доступ да дома",
             "bodyLine1Template": "Бягучы запыт у чаканні: {{house}} ({{status}})",
             "bodyLine2": "Ваш запыт на \"{{house}}\" усё яшчэ чакае рашэння.",
@@ -1842,7 +1865,7 @@
             "warningTitle": "⚠️",
             "warningBody": "Калі ўліковы запіс існуе, была адпраўлена спасылка для скіду пароля, якая дзейнічае 15 хвілін.",
             "fallback": "Спасылка для скіду пароля выглядае няпоўнай або зламанай.",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{brandName}} © 2026 {{brandName}} - {{supportEmail}} {{brandName}} Рэдагаваць заданне"
         },
         "adminEmail": {
             "sentBy": "Гэты электронны ліст быў адпраўлены {{brandName}}.",
@@ -1855,8 +1878,8 @@
             "successBody": "Калі вы атрымалі гэты ліст, дастаўка электроннай пошты {{brandName}} наладжана правільна.",
             "sentAtLabel": "Адпраўлена ў",
             "senderLabel": "Адпраўнік",
-            "serviceLabel": "Service",
-            "footer": "© 2026 {{brandName}}"
+            "serviceLabel": "Сэрвіс",
+            "footer": "© 2026 {{brandName}} © 2026 {{brandName}} © 2026 {{brandName}} - {{supportEmail}} {{brandName}}"
         }
     },
     "vault": {
@@ -1888,7 +1911,7 @@
         "unlocking": "Адкрыццё сейфа...",
         "security_note_title": "Заўвага бяспекі",
         "security_note_1": "Ключ ад сейфа захоўваецца толькі ў памяці браўзера. Ён ачышчаецца, калі вы пакідаеце старонку або блокуеце сейф.",
-        "security_note_2": "If you forget the passphrase, you can use the recovery key. If both are lost, the content becomes permanently inaccessible.",
+        "security_note_2": "Калі вы забудзеце пароль, вы можаце выкарыстоўваць ключ аднаўлення. Калі страчаны абодва, змесціва становіцца пастаянна недаступным.",
         "recovery_ready_title": "Ключ аднаўлення гатовы",
         "recovery_ready_description": "Мы паказваем гэты ключ толькі адзін раз. Захавайце яго ў бяспечным месцы.",
         "recovery_visible_once": "Гэты ключ больш не будзе паказаны.",
@@ -1969,8 +1992,8 @@
             "empty": "Зараз няма актыўных пазыкаў.",
             "borrowed_from": "Пазычана ў {{name}}",
             "lent_to": "Цяпер у {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Чакаем пацверджання ад крэдытора, што ён вярнуў прадмет.",
+            "return_pending_lender": "{{name}} адзначыў гэты тавар як вернуты. Пацвердзіце атрыманне, каб зачыніць запіс.",
             "empty_title": "Зараз няма актыўных пазыкаў",
             "empty_description": "Прынятыя запыты з'явяцца тут, як толькі рэч будзе пазычана або аддадзена, разам з датамі вяртання і станам вяртання."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Скасавана",
             "expired": "Скончылася",
             "returned": "Вярнута",
-            "return_pending": "Return pending"
+            "return_pending": "Вяртанне ў чаканні"
         },
         "actions": {
             "send_request": "Запытаць прадмет",
@@ -1990,8 +2013,8 @@
             "reject": "Адхіліць",
             "cancel": "Скасаваць",
             "fulfill_request": "Выканаць запыт",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Адзначыць як дастаўлены",
+            "mark_received": "Адзначыць як атрыманы",
             "open_inventory": "Адчыніць інвентар"
         },
         "labels": {
@@ -2030,20 +2053,20 @@
             "return_title": "Адзначыць як вернуты",
             "return_subtitle": "Закрыць актыўнае пазычанне для \"{{item}}\"",
             "return_target": "Цяпер паказваецца, што ён знаходзіцца ў {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Даставіць прадмет",
+            "return_title_lender": "Атрымаць прадмет",
+            "return_subtitle_borrower": "Закрыць актыўную пазыку для \"{{item}}\" пасля вяртання яе.",
+            "return_subtitle_lender": "Закрыць актыўную пазыку для \"{{item}}\" пасля таго, як вы яе атрымаеце назад.",
+            "return_target_borrower": "Крэдытор: {{name}}",
+            "return_target_lender": "Цяпер з: {{name}}",
+            "return_note_borrower": "Пастаўны ліст",
+            "return_note_lender": "Акт прыёмкі",
+            "return_note_placeholder_borrower": "напрыклад, я вярнуў гэта без праблем",
+            "return_note_placeholder_lender": "прыклад, атрымана назад у добрым стане",
+            "return_submitting": "Закрыццё..."
         },
         "messages": {
-            "load_error": "Borrow center could not be loaded",
+            "load_error": "Цэнтр пазычак не змог быць загружаны",
             "action_error": "Дзеянне не можа быць завершана"
         },
         "preview": {
@@ -2141,7 +2164,7 @@
         "account_menu_tooltip": "Меню ўліковага запісу {{name}}"
     },
     "app": {
-        "name": "{{brandName}}",
+        "name": "{{brandName}} Рэдагаваць задачу",
         "tagline": "Разумна кіруйце ўсімі хатнімі рэчамі"
     },
     "nav": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Занадта шмат спробаў уваходу. Калі ласка, паспрабуйце праз 15 хвілін."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Увайсці",
+        "page_title_register": "Стварыць уліковы запіс",
+        "page_title_choose_house": "Абярыце дом",
+        "page_title_recovery_key": "Ключ аднаўлення",
+        "page_title_house_access": "Доступ да дома",
+        "page_title_legal_review": "Юрыдычны агляд",
+        "page_title_new_item": "Новы элемент",
+        "page_title_edit_item": "Рэдагаваць элемент",
+        "page_title_items": "Інвентар"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Памылка загрузкі спісу пакупак.",
+            "select_item_error": "Калі ласка, абярыце прадмет з інвентара.",
+            "empty_name": "Калі ласка, увядзіце назву прадмета.",
+            "added": "Пункт дададзены ў спіс пакупак.",
+            "add_error": "Падчас дадавання пункта ўзнікла памылка.",
+            "added_suggestion": "\"{{name}}\" дададзены ў спіс пакупак.",
+            "bulk_added": "{{count}} пунктаў з нізкім запасам дададзены ў спіс.",
+            "bulk_error": "Памылка пры дадаванні тавараў з нізкім запасам.",
+            "completed": "\"{{name}}\" адзначана як завершаная.",
+            "reactivated": "\"{{name}}\" перамешчана назад у актыўны спіс.",
+            "update_error": "Падчас абнаўлення адбылася памылка.",
+            "deleted": "Пункт выдалены са спісу.",
+            "delete_error": "Падчас выдалення адбылася памылка.",
+            "cleared_completed": "Завершаныя пункты ачышчаны.",
+            "clear_error": "Падчас ачысткі адбылася памылка."
+        },
+        "loading_desc": "Падрыхтоўка спісу пакупак...",
+        "page": {
+            "title": "Спіс пакупак",
+            "description": "Праглядзіце прадукты з нізкім запасам у хатняй кнізе і лёгка кіруйце сваім спісам пакупак."
+        },
+        "suggestions": {
+            "title": "Разумныя прапановы па інвентарызацыі",
+            "desc": "Тавары на складзе, колькасць якіх апусцілася ніжэй за мінімальны ўзровень. Дадаць усе недахопы Бягучая колькасць: {{current}} / Мэта: {{min}} Дадаць {{qty}}",
+            "add_all": "Дадаць усе адсутныя",
+            "stock_status": "Бягучыя: {{current}} / Мэта: {{min}}",
+            "add_qty": "Дадаць {{qty}}"
+        },
+        "sections": {
+            "active_list": "Тавары для пакупкі",
+            "active_desc": "Бягучыя тавары для дадавання ў кошык",
+            "active_count": "{{count}} тавароў",
+            "completed_list": "Купленыя тавары ({{count}})",
+            "add_item": "Дадаць прадмет уручную",
+            "add_desc": "Уручную дадайце ў спіс карыстацкі прадмет."
+        },
+        "empty": {
+            "title": "Ваш спіс пакупак пусты",
+            "desc": "Вы можаце дадаць адсутні тавар з прапанаваных вышэй варыянтаў або дадаць прадметы ўручную, выкарыстоўваючы форму справа."
+        },
+        "card": {
+            "linked_inventory": "Захавана ў інвентары"
+        },
+        "actions": {
+            "clear_completed": "Ачысціць гісторыю",
+            "add_item": "Дадаць у спіс пакупак"
+        },
+        "form": {
+            "add_type": "Дадаць метад",
+            "add_type_inventory": "Прадмет інвентарызацыі",
+            "add_type_custom": "Карыстальніцкі прадмет",
+            "select_inventory_item": "Выбраць прадмет з інвентарызацыі",
+            "no_inventory_items": "У вашай інвентарызацыі пакуль няма прадметаў.",
+            "select_item_placeholder": "Выберыце элемент",
+            "current_stock": "Бягучы",
+            "item_name": "Назва элемента",
+            "item_name_placeholder": "напрыклад, Малако, Парашок, Кававыя зерні...",
+            "quantity": "Колькасць"
+        },
+        "modal": {
+            "delete_title": "Выдаліць элемент са спісу?",
+            "delete_desc": "Вы ўпэўненыя, што жадаеце выдаліць \"{{name}}\" са свайго спісу пакупак?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Памылка пры загрузцы інфармацыі",
+            "select_item_error": "Калі ласка, выберыце элемент. Назва задачы абавязковая. Планаваная дата абавязковая. Задача па тэхнічным абслугоўванні абноўлена.",
+            "task_name_error": "Трэба ўказаць назву задачі.",
+            "date_error": "Планаваная дата абавязковая.",
+            "updated": "Задача абслугоўвання абноўлена",
+            "created": "Дададзена новая задача абслугоўвання",
+            "save_error": "Падчас захавання адбылася памылка",
+            "deleted": "Задача абслугоўвання паспяхова выдалена.",
+            "delete_error": "Адбылася памылка падчас працэсу выдалення.",
+            "performed": "Тэхнічнае абслугоўванне адзначана як завершанае. Наступная дата запланавана.",
+            "perform_error": "Падчас захавання ўзнікла памылка."
+        },
+        "freq": {
+            "one_time": "Аднаразова",
+            "unit": {
+                "days": "Дзень",
+                "weeks": "Тыдзень",
+                "months": "Месяц",
+                "years": "Год"
+            },
+            "format": "Кожны {{val}} {{unit}}"
+        },
+        "loading_desc": "Загрузка графіка тэхнічнага абслугоўвання...",
+        "page": {
+            "title": "Тэхнічнае абслугоўванне і перыядычны кантроль",
+            "description": "Кіруйце графікамі перыядычнага абслугоўвання для прыбораў, фільтраў або ахоўнага абсталявання ў вашым хатнім інвентары."
+        },
+        "actions": {
+            "add_task": "Дадаць новую задачу",
+            "manage": "Кіраванне",
+            "perform": "Абазначыць як выканана",
+            "edit_task": "Рэдагаваць задачу"
+        },
+        "alerts": {
+            "overdue_title": "У вас ёсць спазнелыя заданні!",
+            "overdue_desc": "Ёсць {{count}} спазнелых задач па тэхнічным абслугоўванні. Задержкі могуць скараціць тэрмін службы прылады."
+        },
+        "empty": {
+            "title": "Не запланавана ніякіх задач па абслугоўванні. Пачніце з дадання паўтаральных задач, такіх як ачыстка фільтраў кандыцыянера, тэхнічнае абслугоўванне катла або праверка батарэек пажарных датчыкаў. Пратэрмінаваныя задачы. Тэрміновае абслугоўванне, якое трэба выканаць неадкладна.",
+            "desc": "Пачніце з дадання рэгулярных задач, такіх як чыстка фільтраў кандыцыянера, абслугоўванне кацла або праверка батарэй пажарных датчыкаў."
+        },
+        "sections": {
+            "overdue": "Пратэрмінаваныя задачы",
+            "overdue_desc": "Тэрміновае абслугоўванне, якое трэба выканаць неадкладна.",
+            "upcoming": "Планаваныя / Будучыя задачы",
+            "upcoming_desc": "Набліжаецца тэхнічнае абслугоўванне ў найбліжэйшыя дні.",
+            "no_upcoming": "Актыўных задач на будучыню не запланавана."
+        },
+        "modal": {
+            "edit_title": "Рэдагаваць задачу",
+            "create_title": "Запланаваць новую задачу абслугоўвання",
+            "perform_title": "Завяршыць абслугоўванне",
+            "perform_desc": "Ці жадаеце адзначыць \"{{name}}\" як завершаную сёння?",
+            "perform_confirm": "Так, завершана",
+            "perform_recurrence_info": "Гэта перыядычнае заданне. Пры захаванні сістэма аўтаматычна вылічыць наступную дату тэхнічнага абслугоўвання. Выдаліць заданне на тэхнічнае абслугоўванне? Вы ўпэўнены, што хочаце выдаліць графік перыядычнага тэхнічнага абслугоўвання \"{{name}}\"? Гэта дзеянне нельга адмяніць. Звязаны элемент",
+            "delete_title": "Выдаліць задання па абслугоўванні?",
+            "delete_desc": "Вы ўпэўненыя, што хочаце выдаліць перыядычны графік абслугоўвання \"{{name}}\"? Гэта дзеянне нельга адмяніць."
+        },
+        "form": {
+            "item": "Падвязаны аб'ект",
+            "no_items": "Спачатку трэба дадаць прадмет у інвентар, перад тым як запланаваць тэхнічнае абслугоўванне.",
+            "select_item_placeholder": "Выбраць прадмет",
+            "task_name": "Назва задачы / аперацыі",
+            "task_name_placeholder": "напрыклад, Замена фільтра, Перыядычная праверка...",
+            "description": "Дэталі / Апісанне",
+            "description_placeholder": "Падрабязнасці задачы, матэрыялы, якія будуць выкарыстоўвацца і г.д.",
+            "frequency_value": "Частата паўтарэння",
+            "frequency_placeholder": "напрыклад, 6 (пакіньце пустым для адзінкавага выканання)",
+            "frequency_unit": "Адзінка частаты",
+            "next_due_date": "Наступная запланаваная дата",
+            "section_help": "Кіруйце графікамі тэхнічнага абслугоўвання адсюль",
+            "section_collapsed": "Націсніце, каб дадаць перыядычныя кантролі і задачы",
+            "has_tasks": "{{count}} Задачы",
+            "new_item_warning_title": "Захаванне элемента ў чаканні",
+            "new_item_warning_desc": "Каб дадаць графік тэхнічнага абслугоўвання, спачатку трэба захаваць гэты элемент.",
+            "manage_desc": "Кіраванне графікамі тэхнічнага абслугоўвання для гэтага прыбора або элемента."
+        },
+        "fields": {
+            "task_name": "Назва задачы",
+            "task_name_placeholder": "напрыклад, чыстка фільтра кандыцыянера",
+            "description": "Апісанне",
+            "description_placeholder": "Дэталі задачы, выкарыстоўваныя матэрыялы і г.д.",
+            "frequency_value": "Частата паўтарэння",
+            "frequency_value_placeholder": "Пакінуць пустым для аднаразовага",
+            "frequency_unit": "Адзінка частаты",
+            "next_due_date": "Запланаваная дата"
+        },
+        "card": {
+            "untitled_item": "Незагалоўлены пункт",
+            "last_performed": "Апошняе выкананне:",
+            "next_due_label": "Запланаваная дата",
+            "complete_tooltip": "Адзначыць тэхнічнае абслугоўванне як выкананае сёння"
+        },
+        "detail_card_desc": "Запланаваны перыядычны або аднаровы кантроль тэхнічнага абслугоўвання гэтага элемента.",
+        "no_tasks": "Для гэтага элемента не прызначана ніякіх задач па абслугоўванні.",
+        "confirm_delete": "Гэта задача будзе выдалена. Вы ўпэўнены?"
     }
 }

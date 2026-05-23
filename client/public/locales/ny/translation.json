@@ -68,8 +68,10 @@
             "vault_hint_description": "For passports, deeds, identity details, access codes, and other records that should stay out of the standard inventory flow, keep them in Personal Vault instead.",
             "vault_hint_action": "Fungua Hazina Binafsi",
             "location": "Maeneo",
-            "remove_photo": "Remove photo",
-            "visibility_owner_only": "Only the person who added the item can change visibility."
+            "remove_photo": "Chotsani chithunzi",
+            "visibility_owner_only": "Ndi munthu yekhayo amene wawonjezera chinthucho ndi yemwe angasinthe mawonekedwe.",
+            "expiry_date": "Tsiku Lotha Nthawi",
+            "min_quantity": "Chiyembekezo Chochepa"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" imeongezwa haraka - unaweza kuhariri baadaye",
@@ -119,7 +121,12 @@
         "no_permission": "Mulibe chilolezo chosintha chinthu ichi",
         "barcode_search_error": "Kufufuza barcode kwalephera",
         "stats_error": "Cholakwika pakutula ziwerengero",
-        "detail_subtitle": "Item details"
+        "detail_subtitle": "Tsatanetsatane wa chinthu",
+        "status": {
+            "close_to_expiry": "Kuyandikira Tsiku Lotha",
+            "expired": "Zatha Tsiku",
+            "low_stock": "Katundu Wotsika"
+        }
     },
     "common": {
         "save": "Hifadhi",
@@ -168,9 +175,10 @@
         "validation_error": "Cholakwika pakuwunika",
         "server_error": "Cholakwika cha seva",
         "details": "Maelezo",
-        "hide": "Hide password",
-        "logging_out": "Logging out...",
-        "show": "Show password"
+        "hide": "Bisani mawu achinsinsi",
+        "logging_out": "Kutuluka...",
+        "show": "Onetsani mawu achinsinsi",
+        "saving": "Kusunga..."
     },
     "auth": {
         "login": {
@@ -203,7 +211,7 @@
                 "back": "Nyuma",
                 "use_backup": "Tumia nambari ya akiba",
                 "use_totp": "Tumia kimsingi ya uthibitishaji",
-                "code_required": "Verification code is required"
+                "code_required": "Khodi yotsimikizira ndiyofunikira"
             },
             "welcome_title": "Karibu tena",
             "welcome_subtitle": "Ingia ili kufikia orodha yako",
@@ -216,7 +224,7 @@
             "support_link": "Wasiliana na msaada"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "Konzani banja lanu",
             "subtitle": "Create a new account or join an existing house",
             "create_house": "Create New House",
             "join_house": "Jiunge na Nyumba",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "Weka tena neno lako la siri",
             "reset_submit": "Weka Upya Nywila",
             "resetting": "Inasasisha...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Lowetsani dzina lanu lolowera kapena imelo"
         },
         "reset_password": {
             "title": "Weka Upya Nywila",
@@ -353,7 +361,7 @@
         "password_requirements": "Tumia angalau herufi {{min}} zenye herufi kubwa, herufi ndogo, nambari, na alama.",
         "logout": "Tulukani",
         "logging_in": "Kulowa mu...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "Takulandilani ku {{brandName}}",
         "username_email": "Dzina la wogwiritsa ntchito kapena Imelo",
         "username": "Lumikizanani nafe",
         "email": "Imelo",
@@ -438,7 +446,9 @@
         "logout_aria": "Toka kwenye akaunti yako",
         "logout_title": "Toka?",
         "logout_description": "Utarudishwa kwenye skrini ya kuingia na utahitaji kuingia tena ili kusimamia hesabu ya kaya yako.",
-        "logout_warning": "Tumia hii unapomaliza kwenye kifaa cha pamoja au binafsi."
+        "logout_warning": "Tumia hii unapomaliza kwenye kifaa cha pamoja au binafsi.",
+        "maintenance": "Nthawi Yokonza",
+        "shopping": "Mndandanda wa Zogula"
     },
     "dashboard": {
         "welcome": "Welcome, <1>{{name}}</1>! 👋",
@@ -565,7 +575,20 @@
         "no_items_filter": "Hakuna vipengele vinavyolingana na kichujio hiki",
         "manage": "Dhibiti",
         "add_item": "Ongeza Kipengele",
-        "search_item": "Tafuta Kipengele"
+        "search_item": "Tafuta Kipengele",
+        "alerts": {
+            "expired_title": "Zinthu Zatha Nthawi Yake!",
+            "expired_desc": "Muli ndi zinthu {{count}} zomwe zatha nthawi yake mukatoni yanu. Chonde zowonetseni kuti mukhale otetezeka.",
+            "view_items": "Onani Zinthu",
+            "maintenance_title": "Ntchito Zokonza Zochedwa!",
+            "maintenance_desc": "Muli ndi ntchito zokonza {{count}} zomwe zachedwa. Konzani zinthu kuti zida zanu zizikhala ndi nthawi yayitali yogwiritsira ntchito.",
+            "go_to_maintenance": "Pitani ku Zokonza",
+            "low_stock_title": "Chidziwitso cha Katundu Wotsika",
+            "low_stock_desc": "Zinthu {{count}} zatsika pansi pa malire a katundu wanu wocheperako.",
+            "go_to_shopping": "Mndandanda wa Zogula",
+            "close_expiry_title": "Masiku Otha Nthawi Yake Omwe Akubwera",
+            "close_expiry_desc": "Zinthu {{count}} zitha nthawi yake mkati mwa masiku 30."
+        }
     },
     "beta_banner": {
         "title": "BETA:",
@@ -642,14 +665,14 @@
             "accordion_description": "Badilisha kati ya kaya, unda mpya, au jiunge na iliyo tayari kwa ufunguo unaoaminika.",
             "empty_description": "Unda kaya mpya ili kuanza kushiriki, au jiunge na moja kwa ufunguo wa nyumba unaoaminika.",
             "leave_success_body": "Haujapewa tena ruhusa ya kaya hii na nyumba yako hai ilisasishwa.",
-            "leave_title": "Leave this house?",
-            "leave_warning": "You will lose access to this household workspace until another member invites or approves you again.",
-            "leaving": "Leaving..."
+            "leave_title": "Kuchoka mnyumba muno?",
+            "leave_warning": "Muluza mwayi wogwiritsa ntchito kunyumbayi mpaka munthu wina atakuitanani kapena kuvomerezanso.",
+            "leaving": "Kunyamuka..."
         },
         "house_info": {
             "title": "Funguo ya Nyumba Inayotumika",
             "key_label": "Funguo ya Nyumba",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "•••••••{{suffix}}",
             "hide": "Ficha",
             "show": "Onyesha",
             "copy": "Nakili",
@@ -687,10 +710,10 @@
             "modal_title": "Ufikiaji wa ufunguo wa nyumba",
             "modal_subtitle": "Tumia ufunguo huu kwa wanachama wa nyumba unaowaamini ambao wanapaswa kuomba kupata ufikiaji wa hesabu hii ya pamoja.",
             "loading_members": "Inapakia wanachama...",
-            "kick_success_body": "{{name}} no longer has access to this household.",
-            "kick_title": "Remove this member?",
-            "kick_warning": "Their household access will end immediately and they will need a new invitation or approval to return.",
-            "kicking": "Removing..."
+            "kick_success_body": "{{name}} alibenso mwayi wofikira kunyumbayi.",
+            "kick_title": "Chotsani membalayu?",
+            "kick_warning": "Kufikira kwawo kwapakhomo kutha nthawi yomweyo ndipo adzafunika kuyitanidwa kwatsopano kapena chivomerezo kuti abwerere.",
+            "kicking": "Kuchotsa..."
         },
         "theme": {
             "title": "Mandhari",
@@ -737,19 +760,19 @@
             "import_encrypted_title": "Fungua chelezo iliyofichwa",
             "import_encrypted_body": "Weka nenosiri la chelezo lililotumika wakati wa kupakua ili kurejesha faili hii iliyofichwa.",
             "unlock_and_import": "Fungua na ingiza",
-            "export_encrypted_notice": "The backup is prepared from live household data and then wrapped with the passphrase you choose. Keep that passphrase somewhere safe because it is required to restore the file later.",
-            "export_encrypted_title": "Encryption will be applied before download",
-            "import_summary_body": "{{items}} items, {{categories}} categories, {{rooms}} rooms, {{locations}} locations, {{borrows}} borrow records restored.",
-            "import_summary_title": "Backup restored",
+            "export_encrypted_notice": "Zosunga zobwezeretsera zimakonzedwa kuchokera pazidziwitso zapanyumba ndipo zimakutidwa ndi mawu achinsinsi omwe mwasankha.",
+            "export_encrypted_title": "Kubisa kudzagwiritsidwa ntchito musanatsitse",
+            "import_summary_body": "{{items}} zinthu, magulu a {{categories}}, {{rooms}} zipinda, {{locations}} malo, {{borrows}} zobwereka zobwezeredwa.",
+            "import_summary_title": "Zosunga zobwezeretsera zabwezeretsedwa",
             "preview_categories": "Makundi",
             "preview_items": "Hesabu ya Bidhaa",
             "preview_locations": "Maeneo",
             "preview_rooms": "Vyumba",
-            "skipped_borrows": "{{count}} existing borrow records skipped.",
-            "skipped_categories": "{{count}} existing categories skipped.",
-            "skipped_items": "{{count}} existing items skipped.",
-            "skipped_locations": "{{count}} existing locations skipped.",
-            "skipped_rooms": "{{count}} existing rooms skipped."
+            "skipped_borrows": "{{count}} zolemba zakale zidalumphidwa.",
+            "skipped_categories": "{{count}} magulu omwe alipo adalumphidwa.",
+            "skipped_items": "{{count}} zinthu zomwe zilipo zidalumphidwa.",
+            "skipped_locations": "{{count}} malo omwe alipo adalumphidwa.",
+            "skipped_rooms": "{{count}} zipinda zomwe zilipo zidalumphidwa."
         },
         "about": {
             "title": "📱 About Application",
@@ -763,9 +786,9 @@
             "beta_title": "Hali ya Beta",
             "beta_body": "{{brandName}} bado ipo katika beta. Vipengele vinaweza kubadilika, mtiririko wa kazi unaweza kuendelea, na data muhimu za nyumbani daima zinapaswa kuhifadhiwa.",
             "feedback_subject": "Ndemanga - {{brandName}}",
-            "logout_body": "Any unsaved changes in open forms may be lost after you leave this session.",
-            "logout_description": "You will return to the home page and can sign back in anytime.",
-            "logout_title": "Log out now?"
+            "logout_body": "Zosintha zilizonse zomwe sizinasungidwe pama fomu otseguka zitha kutayika mukachoka pagawoli.",
+            "logout_description": "Mubwereranso patsamba loyambira ndipo mutha kulowanso nthawi iliyonse.",
+            "logout_title": "Tulukani tsopano?"
         },
         "modals": {
             "password": {
@@ -991,12 +1014,12 @@
             "no_history": "Hakuna historia ya kukopa kwa kipengele hiki bado.",
             "lend_success_title": "Kipengele kimekopwa",
             "lend_success_body": "{{item}} sasa kimewekwa kama kilichokopwa.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
-            "borrowed_by_you": "With you",
-            "return_pending_hint": "The record will close after the lender confirms they received the item back.",
-            "return_pending_lender_title": "{{name}} marked this item as delivered back",
-            "return_pending_self_title": "With you, waiting for receipt confirmation"
+            "offer_sent_title": "Kubwereketsa kwatumizidwa",
+            "offer_sent_body": "{{item}} idzalembedwa ngati yobwerekedwa membala winayo atavomera.",
+            "borrowed_by_you": "Ndi inu",
+            "return_pending_hint": "Mbiriyo idzatsekedwa pambuyo poti wobwereketsa atsimikizira kuti adalandiranso chinthucho.",
+            "return_pending_lender_title": "{{name}} adatsimikizira kuti chinthuchi chabwezedwa",
+            "return_pending_self_title": "Ndi inu, kuyembekezera chitsimikiziro cha risiti"
         },
         "untitled_item": "Kipengele kisicho na kichwa",
         "delete_action": "Futa kipengele",
@@ -1061,8 +1084,8 @@
         "add_error": "Cholakwika powonjezera gulu",
         "update_error": "Cholakwika posintha gulu",
         "color_required": "Mtundu uyenera kukhala mu fomati ya #RRGGBB",
-        "empty_description": "Create a few categories so new items follow the same structure and are easier to scan later.",
-        "empty_title": "No categories yet"
+        "empty_description": "Pangani magulu angapo kuti zinthu zatsopano zitsatire momwe zimakhalira komanso kuti zikhale zosavuta kuzijambula pambuyo pake.",
+        "empty_title": "Palibe magulu panobe"
     },
     "rooms": {
         "title": "Vyumba",
@@ -1137,8 +1160,8 @@
         "load_error": "Cholakwika pakutula zipinda",
         "add_error": "Cholakwika powonjezera chipinda",
         "update_error": "Cholakwika posintha chipinda",
-        "empty_description": "Create rooms like kitchen, storage, or garage so item locations stay consistent and easier to search.",
-        "empty_title": "No rooms yet"
+        "empty_description": "Pangani zipinda monga khitchini, malo osungiramo zinthu, kapena garaja kuti zinthuzo zizikhala zogwirizana komanso zosavuta kusaka.",
+        "empty_title": "Palibe zipinda pano"
     },
     "admin": {
         "title": "Paneli ya Msimamizi",
@@ -1218,11 +1241,11 @@
             "items_label": "Vitu vinavyomilikiwa",
             "last_seen_short": "Kuonekana",
             "last_seen_short_never": "Vipya",
-            "failed_logins": "{{count}} failed sign-ins",
-            "load_failed_title": "Users could not load",
-            "pending_requests": "{{count}} pending house requests",
+            "failed_logins": "{{count}} kulowana kwakanika",
+            "load_failed_title": "Ogwiritsa sanathe kutsegula",
+            "pending_requests": "{{count}} zopempha zoyembekezera zanyumba",
             "role_admin": "Wasimamizi",
-            "role_user": "User"
+            "role_user": "Wogwiritsa"
         },
         "logs": {
             "title": "Rekodi za Admin",
@@ -1255,8 +1278,8 @@
             "errors_eyebrow": "Kuzindikira",
             "section_body": "Kusintha kulikonse kwa kuwunika kapena ntchito kumalembedwa mu gawo la admin.",
             "errors_body": "Mizere yaposachedwa ya zolakwa yomwe yachotsedwa muma fayilo a log a seva.",
-            "load_failed_title": "Activity could not load",
-            "no_logs_title": "No admin actions yet"
+            "load_failed_title": "Ntchito sinathe kutsegulidwa",
+            "no_logs_title": "Palibe zochita za admin pakadali pano"
         },
         "email": {
             "title": "Tuma Barua Pepe",
@@ -1291,13 +1314,13 @@
             "unconfigured_title": "Utoaji wa barua pepe haujapangwa",
             "unconfigured_body": "Fomu ya kutuma inabaki kuonekana kwa ukaguzi wa mipangilio, lakini utoaji utashindikana hadi mtoa huduma wa barua pepe atakapowekwa.",
             "status_eyebrow": "Utoaji",
-            "configured_body": "Resend is available for admin-triggered outbound messages.",
-            "configured_title": "Email delivery is configured",
-            "error_title": "Email failed",
-            "format_hint": "HTML is supported. For example: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
-            "from_label": "Sender",
-            "load_failed_title": "Email tools could not load",
-            "success_title": "Email sent"
+            "configured_body": "Kutumizanso kulipo pamawu otuluka oyambitsidwa ndi admin.",
+            "configured_title": "Kutumiza maimelo kwakonzedwa",
+            "error_title": "Imelo yalephera",
+            "format_hint": "HTML imathandizidwa.",
+            "from_label": "Wotumiza",
+            "load_failed_title": "Zida zamaimelo sizinatheke",
+            "success_title": "Imelo yatumizidwa"
         },
         "overview": {
             "email_warning_title": "Utoaji wa barua pepe haujapangwa",
@@ -1383,8 +1406,8 @@
         "logs_loaded": "Malogi atulidwa",
         "load_error": "Cholakwika pakutula deta",
         "action_error": "Cholakwika pakuchita izi",
-        "load_failed_body": "The admin route is open, but the overview data did not arrive. You can retry without leaving the page.",
-        "load_failed_title": "Admin overview could not load"
+        "load_failed_body": "Njira ya admin ndi yotseguka, koma chidziwitso chachidule sichinafike.",
+        "load_failed_title": "Ndemanga za abwanamkubwa sizinathe"
     },
     "landing": {
         "nav": {
@@ -1404,8 +1427,8 @@
             "free_badge": "Open Source",
             "badge": "HomeInventory v2.0 iko hapa",
             "cta_explore": "Chunguza vipengele",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
+            "cta_login": "Lowani muakaunti",
+            "stat_members": "Nyumba zogawana",
             "stat_vault": "Private Vault"
         },
         "features": {
@@ -1477,7 +1500,7 @@
                 "description": "Hifadhi vitu, dhamana, nyaraka muhimu, na ufuatiliaji wa ukopaji mahali pamoja tulivu. Angalia kile kilicho ndani ya nyumba yako kwa mtazamo mmoja.",
                 "primaryCta": "Anza Bure",
                 "secondaryCta": "Angalia Bidhaa",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Mayendedwe oyenera: akaunti • kunyumba • zipinda ndi magulu • zinthu • kusunga",
                 "searchPlaceholder": "Tafuta bidhaa, chumba, au msimbo wa bar"
             },
             "heroInventoryRows": [
@@ -1728,9 +1751,9 @@
         "privacy_summary": "Maelezo ya mtandao yanabaki wazi hadi utakapohitaji mwongozo.",
         "link_privacy_note": "Anwani ya mtandao inabaki fiche hapa. Skana msimbo au nakili kiungo tu unapokusudia kushiriki upatikanaji wa moja kwa moja wa kipengee kwenye mpangilio wako wa ndani.",
         "helper": "Skana kufungua kipengee hiki mara moja, au nakili kiungo cha moja kwa moja unapotohitaji.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
-        "loading": "Preparing QR tools..."
+        "copy_error_title": "Ulalo sungathe kukopera zokha",
+        "copy_manual_help": "Msakatuli wanu sanalole kukopera basi.",
+        "loading": "Kukonzekera zida za QR..."
     },
     "house_access_pending": {
         "eyebrow": "Ufikiaji wa Nyumba",
@@ -1918,10 +1941,10 @@
             "options_failed": "Zosankha za gulu ndi chipinda sizinatha kutsegulidwa.",
             "delete_success_title": "Rekodi ya hazina imefutwa",
             "delete_success_body": "Rekodi binafsi imefutwa kabisa kutoka kwenye hazina yako.",
-            "passphrase_lowercase": "Include at least one lowercase letter.",
-            "passphrase_min_length": "Vault passphrase must be at least 12 characters.",
-            "passphrase_number": "Include at least one number.",
-            "passphrase_uppercase": "Include at least one uppercase letter."
+            "passphrase_lowercase": "Phatikizani zilembo zochepa zazing'ono.",
+            "passphrase_min_length": "Mawu achinsinsi a Vault akuyenera kukhala osachepera zilembo 12.",
+            "passphrase_number": "Phatikizanipo nambala imodzi.",
+            "passphrase_uppercase": "Phatikizani zilembo zazikulu imodzi."
         },
         "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
         "recovery_file_created_label": "Yapangidwa",
@@ -1969,8 +1992,8 @@
             "empty": "Hapana madeni yanayofanya kazi kwa sasa.",
             "borrowed_from": "Imeokolewa kutoka kwa {{name}}",
             "lent_to": "Kwa sasa iko na {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Kudikirira wobwereketsa kuti atsimikizire kuti adalandiranso.",
+            "return_pending_lender": "{{name}} adatsimikizira kuti chinthuchi chabwezedwa.",
             "empty_title": "Hakuna mikopo haiyo kwa sasa",
             "empty_description": "Maombi yaliyokubaliwa yanaonekana hapa mara baada ya kipengee kukopwa au kukopeshwa, pamoja na tarehe za mwisho na hali ya kurudishwa."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Imefutwa",
             "expired": "Imeisha",
             "returned": "Imerudishwa",
-            "return_pending": "Return pending"
+            "return_pending": "Kubwerera kukuyembekezera"
         },
         "actions": {
             "send_request": "Ombi la Kitu",
@@ -1990,8 +2013,8 @@
             "reject": "Kataa",
             "cancel": "Ghairi",
             "fulfill_request": "Timiza Ombi",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Mark waperekedwa",
+            "mark_received": "Mark analandira",
             "open_inventory": "Fungua hesabu ya mali"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "Weka Kama Imerudishwa",
             "return_subtitle": "Funga uroja unaoendelea kwa \"{{item}}\"",
             "return_target": "Hali yake sasa inaonyeshwa kuwa ipo kwa {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Perekani chinthu",
+            "return_title_lender": "Landirani chinthu",
+            "return_subtitle_borrower": "Tsekani kubwereketsa kwa \"{{item}}\" mutabweza.",
+            "return_subtitle_lender": "Tsekani kubwereketsa kwa \"{{item}}\" mukalandiranso.",
+            "return_target_borrower": "Wobwereketsa: {{name}}",
+            "return_target_lender": "Pano ndi: {{name}}",
+            "return_note_borrower": "Chidziwitso chotumizira",
+            "return_note_lender": "Landirani chidziwitso",
+            "return_note_placeholder_borrower": "mwachitsanzo",
+            "return_note_placeholder_lender": "mwachitsanzo",
+            "return_submitting": "Kutseka..."
         },
         "messages": {
             "load_error": "Kituo cha kukopa hakiwezi kupakiwa",
@@ -2082,7 +2105,7 @@
         "privacy_description": "Chidziwitso chazinsinsi pakukhazikitsa {{brandName}} chimafotokoza zomwe data imakonzedwa, momwe imasonkhanitsidwa, momwe imagawidwa kapena kusamutsidwa, komanso maufulu ndi njira zodandaulira zomwe zingagwire ntchito.",
         "privacy_support_label": "Pazopempha zachinsinsi, maufulu, ndi madandaulo okhudza kukhazikitsa uku:",
         "privacy_summary": {
-            "title": "In practice",
+            "title": "Mwakuchita",
             "description": "**Zomwe timakonza:** Timakonza akaunti, sevisi, chitetezo chaukadaulo, ndi data yomwe ingakuthandizireni kuti mugwiritse ntchito akaunti yanu ndi pulogalamuyo.",
             "items": {
                 "what": "**Tunachosindika:** Tunasindika akaunti, huduma, usalama wa kiufundi, na data za hiari za mtoa huduma zinazohitajika kuendesha akaunti yako na programu.",
@@ -2103,7 +2126,7 @@
                 "rights": "Pamafunso okhudza mfundo zomwe zikugwira ntchito pakukhazikitsa uku:"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "Mfundo za kukhazikitsa uku kwa {{brandName}} akufotokoza kagwiritsidwe ntchito kovomerezeka, udindo wanu wachitetezo, ndi zotsatirapo za kuchotsa akaunti m'njira yomveka bwino, yosavuta kuyimbanso.",
         "terms_support_label": "Kodi izi zikutanthauza chiyani pochita",
         "terms_summary": {
             "eyebrow": "Muhtasari mfupi",
@@ -2141,7 +2164,7 @@
         "account_menu_tooltip": "Menyu ya akaunti ya {{name}}"
     },
     "app": {
-        "name": "{{brandName}}",
+        "name": "{{dzina lamtundu}}",
         "tagline": "Simamia kwa akili bidhaa zote za nyumbani kwako"
     },
     "nav": {
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "Masharti ya Matumizi na Pangilio la Hati Miliki",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "Mtundu wa BETA: {{brandName}} uli pagawo loyesa.",
         "disclaimer": "Pangilio la Hati Miliki: Kwa kutumia programu hii, unakubali kwamba huwezi kudai fidia yoyote kwa kupoteza data inayoweza kutokea, matatizo ya upatikanaji, au matatizo mengine ya kiteknolojia.",
         "backup_warning": "Hifadhi Data: Tunapendekeza sana kwamba uhifadhi mara kwa mara taarifa zako muhimu.",
         "accept": "Kwa kuingia, unakubaliana na masharti haya.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} ili pagawo loyesa komanso lokonda.",
         "contact": "Wasiliana"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Kuyesa kulowa kwachuluka. Chonde yesaninso pakapita mphindi 15."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
+        "page_title_sign_in": "Lowani muakaunti",
+        "page_title_register": "Pangani akaunti",
+        "page_title_choose_house": "Sankhani nyumba",
+        "page_title_recovery_key": "Kiyi yobwezeretsa",
+        "page_title_house_access": "Kufikira kunyumba",
+        "page_title_legal_review": "Ndemanga zamalamulo",
+        "page_title_new_item": "Chinthu chatsopano",
+        "page_title_edit_item": "Sinthani chinthu",
         "page_title_items": "Inventory"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Cholakwika pakutsegula mndandanda wa zogula.",
+            "select_item_error": "Chonde sankhani chinthu chotengera mukatoni yanu.",
+            "empty_name": "Chonde lowetsani dzina la chinthucho.",
+            "added": "Chinthu chawonjezedwa pamndandanda zogula.",
+            "add_error": "Cholakwika chinachitika powonjezera chinthucho.",
+            "added_suggestion": "\"{{name}}\" wawonjezedwa pamndandanda zogula.",
+            "bulk_added": "Zinthu {{count}} za katundu wotsika zawonjezedwa pamndandanda.",
+            "bulk_error": "Cholakwika pakuwonjezera zinthu za katundu wotsika.",
+            "completed": "\"{{name}}\" walembedwa kuti wagulidwa.",
+            "reactivated": "\"{{name}}\" wabwezeretsedwanso pamndandanda wogwira ntchito.",
+            "update_error": "Cholakwika chinachitika pakusintha.",
+            "deleted": "Chinthu chafufutidwa pamndandanda.",
+            "delete_error": "Cholakwika chinachitika pofufuta.",
+            "cleared_completed": "Zinthu zogulidwa kale zafufutidwa.",
+            "clear_error": "Cholakwika chinachitika pakufufuta mbiri."
+        },
+        "loading_desc": "Kukonzekera mndandanda wa zogula...",
+        "page": {
+            "title": "Mndandanda wa Zogula",
+            "description": "Onani zinthu zomwe zatsika nazo katundu mukatoni yanyumba kwinaku mukusamalira mndandanda wanu wa zogula mosavuta."
+        },
+        "suggestions": {
+            "title": "Zolingalira Zapamwamba za Katoni",
+            "desc": "Zinthu zakutoni zomwe zatsika pansi pa malire ocheperako.",
+            "add_all": "Onjezani Zonse Zosoweka",
+            "stock_status": "Panopo: {{current}} / Cholinga: {{min}}",
+            "add_qty": "Onjezani {{qty}}"
+        },
+        "sections": {
+            "active_list": "Zinthu Zogula",
+            "active_desc": "Zinthu zapano zogula kuti muziwonjezera mungolo yanu.",
+            "active_count": "Zinthu {{count}}",
+            "completed_list": "Zinthu Zogulidwa ({{count}})",
+            "add_item": "Onjezani Chinthu Pamanja",
+            "add_desc": "Onjezani chinthu pamanja pamndandanda zogula."
+        },
+        "empty": {
+            "title": "Mndandanda wanu wa zogula uli wopanda kanthu",
+            "desc": "Mutha kuwonjezera katundu wosowa muzolingalira pamwambapa kapena kuwonjezera zinthu pamanja pogwiritsa ntchito fomu yomwe ili kumanja."
+        },
+        "card": {
+            "linked_inventory": "Zosungidwa mukatoni"
+        },
+        "actions": {
+            "clear_completed": "Chotsani Mbiri",
+            "add_item": "Onjezani ku Mndandanda wa Zogula"
+        },
+        "form": {
+            "add_type": "Njira yowonjezerera",
+            "add_type_inventory": "Chinthu Chakutoni",
+            "add_type_custom": "Chinthu Chachilendo",
+            "select_inventory_item": "Sankhani Chinthu Chakutoni",
+            "no_inventory_items": "Katoni yanu ilibe zinthu zilizonse.",
+            "select_item_placeholder": "Sankhani chinthu",
+            "current_stock": "Panopo",
+            "item_name": "Dzina la Chinthu",
+            "item_name_placeholder": "Mwachitsanzo: Mkaka, Sopolo, Khofi...",
+            "quantity": "Kuchuluka"
+        },
+        "modal": {
+            "delete_title": "Chotsani Chinthu Pamndandanda?",
+            "delete_desc": "Kodi mukutsimikiza kuti mukufuna kuchotsa \"{{name}}\" pamndandanda zogula?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Cholakwika pakutsegula zambiri",
+            "select_item_error": "Chonde sankhani chinthu.",
+            "task_name_error": "Dzina la ntchito ndilofunika.",
+            "date_error": "Tsiku lokonzekera ndilofunika.",
+            "updated": "Ntchito yokonza yasinthidwa",
+            "created": "Ntchito yokonza yatsopano yawonjezedwa",
+            "save_error": "Cholakwika powasunga",
+            "deleted": "Ntchito yokonza yafufutidwa bwino.",
+            "delete_error": "Cholakwika chinachitika pofufuta.",
+            "performed": "Ntchito yokonza yalembedwa ngati yomalizidwa. Tsiku lotsatira lakonzedwa.",
+            "perform_error": "Cholakwika chinachitika posunga."
+        },
+        "freq": {
+            "one_time": "Nthawi Imodzi",
+            "unit": {
+                "days": "Tsiku",
+                "weeks": "Sabata",
+                "months": "Mwezi",
+                "years": "Chaka"
+            },
+            "format": "Chilichonse {{val}} {{unit}}"
+        },
+        "loading_desc": "Kutsegula dongosolo la nthawi yokonza...",
+        "page": {
+            "title": "Zokonza ndi Kutsata Nthawi ndi Nthawi",
+            "description": "Samalirani dongosolo la nthawi ndi nthawi lokonzera zida, zosefera, kapena zida zopewera ngozi mukatoni yanu yanyumba."
+        },
+        "actions": {
+            "add_task": "Onjezani Ntchito Yatsopano",
+            "manage": "Samalirani",
+            "perform": "Lembani kuti Kwatha",
+            "edit_task": "Sinthani Ntchito"
+        },
+        "alerts": {
+            "overdue_title": "Muli ndi Ntchito Zochedwa!",
+            "overdue_desc": "Muli ndi ntchito zokonza {{count}} zomwe zachedwa. Kuchedwaku kungachepetse moyo wa zida zanu."
+        },
+        "empty": {
+            "title": "Palibe ntchito zokonza zomwe zakonzedwa",
+            "desc": "Yambani ndikuwonjezera ntchito zobwerezedwa monga kuyeretsa zosefera za AC, kukonza ma boiler, kapena kuyang'ana mabatire oyesera utsi."
+        },
+        "sections": {
+            "overdue": "Ntchito Zochedwa",
+            "overdue_desc": "Zokonza zadzidzidzi zomwe zikuyenera kuchitika nthawi yomweyo.",
+            "upcoming": "Zokonzedwa / Ntchito Zomwe Zikubwera",
+            "upcoming_desc": "Zokonza zomwe zikubwera m'masiku angapo otsatira.",
+            "no_upcoming": "Palibe ntchito zodetsa nkhawa zam'tsogolo zomwe zakonzedwa panopa."
+        },
+        "modal": {
+            "edit_title": "Sinthani Ntchito",
+            "create_title": "Konzerani Ntchito Yatsopano Yokonza",
+            "perform_title": "Malizitsani Ntchito Yokonza",
+            "perform_desc": "Kodi mukufuna kulemba ntchito ya \"{{name}}\" kuti yamalizidwa lero?",
+            "perform_confirm": "Inde, Yamalizidwa",
+            "perform_recurrence_info": "Izi ndi ntchito yobwerezabwereza. Mukasunga, dongosolo lidzawerengera zokha tsiku lotsatira loyenera kukonzanso.",
+            "delete_title": "Fufutani Ntchito Yokonza?",
+            "delete_desc": "Kodi mukutsimikiza kuti mukufuna kufufuta dongosolo lokonzekera nthawi zonse la \"{{name}}\"? Izi sizingasinthidwe."
+        },
+        "form": {
+            "item": "Chinthu Chogwirizana Naye",
+            "no_items": "Muyenera kuwonjezera kaye chinthu mukatoni musanakonzekere nthawi yokonza.",
+            "select_item_placeholder": "Sankhani Chinthu",
+            "task_name": "Dzina la Ntchito",
+            "task_name_placeholder": "Mwachitsanzo: Kusintha Zosefera, Kufufuza...",
+            "description": "Zambiri / Kufotokozera",
+            "description_placeholder": "Zambiri za ntchito, zida zogwiritsira ntchito, ndi zina zotero...",
+            "frequency_value": "Kubwerezabwereza",
+            "frequency_placeholder": "Mwachitsanzo: 6 (siyani wopanda kanthu ngati ndi kamodzi okha)",
+            "frequency_unit": "Chiyembekezo cha Nthawi",
+            "next_due_date": "Tsiku Lotsatira Lokonzedwa",
+            "section_help": "Samalirani dongosolo lokonzekera kuchokera pano",
+            "section_collapsed": "Dinani kuti muwonjezere njira zowongolera ndi ntchito",
+            "has_tasks": "Ntchito {{count}}",
+            "new_item_warning_title": "Kusunga Chinthu Kukudikira",
+            "new_item_warning_desc": "Muyenera kusunga chinthuchi kaye musanawonjezere dongosolo lokonza.",
+            "manage_desc": "Samalirani dongosolo lokonzekera zida izi."
+        },
+        "fields": {
+            "task_name": "Dzina la Ntchito",
+            "task_name_placeholder": "Mwachitsanzo: Kuyeretsa zosefera za AC",
+            "description": "Kufotokozera",
+            "description_placeholder": "Zambiri za ntchito, zida zogwiritsira ntchito, ndi zina zotero...",
+            "frequency_value": "Kubwerezabwereza",
+            "frequency_value_placeholder": "Siyani wopanda kanthu ngati ndi kamodzi okha",
+            "frequency_unit": "Chiyembekezo cha Nthawi",
+            "next_due_date": "Tsiku Lokonzedwa"
+        },
+        "card": {
+            "untitled_item": "Chinthu Chopanda Dzina",
+            "last_performed": "Kumaliza Kwatha:",
+            "next_due_label": "Tsiku Lokonzedwa",
+            "complete_tooltip": "Lembani Ntchito Yokonza ngati Yomalizidwa Lero"
+        },
+        "detail_card_desc": "Kutsata ntchito yokonza nthawi zonse kapena nthawi imodzi yomwe yakonzedwa pachinthuchi.",
+        "no_tasks": "Palibe ntchito zokonza zomwe zaperekedwa pachinthuchi.",
+        "confirm_delete": "Ntchitoyi ifufutidwa. Mukutsimikiza?"
     }
 }

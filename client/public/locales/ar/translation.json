@@ -48,7 +48,8 @@
         "details": "التفاصيل",
         "hide": "إخفاء كلمة المرور",
         "logging_out": "تسجيل الخروج...",
-        "show": "إظهار كلمة المرور"
+        "show": "إظهار كلمة المرور",
+        "saving": "جارٍ الحفظ..."
     },
     "auth": {
         "login": {
@@ -190,7 +191,7 @@
             "confirm_password_placeholder": "أعد إدخال كلمة المرور الخاصة بك",
             "reset_submit": "إعادة تعيين كلمة المرور",
             "resetting": "جاري إعادة التعيين...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "أدخل اسم المستخدم أو البريد الإلكتروني"
         },
         "reset_password": {
             "title": "إعادة تعيين كلمة المرور",
@@ -231,7 +232,7 @@
         "password_requirements": "استخدم على الأقل {{min}} أحرف مع كبيرة، وصغيرة، ورقم، ورمز.",
         "logout": "تسجيل الخروج",
         "logging_in": "تسجيل الدخول...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "مرحبًا بك في {{brandName}}",
         "username_email": "اسم المستخدم أو البريد الإلكتروني",
         "username": "اسم المستخدم",
         "email": "البريد الإلكتروني",
@@ -316,7 +317,9 @@
         "logout_aria": "تسجيل الخروج من حسابك",
         "logout_title": "هل تريد تسجيل الخروج؟",
         "logout_description": "سيتم إرجاعك إلى شاشة تسجيل الدخول وستحتاج إلى تسجيل الدخول مرة أخرى لإدارة مخزون منزلك.",
-        "logout_warning": "استخدم هذا عند الانتهاء على جهاز مشترك أو شخصي."
+        "logout_warning": "استخدم هذا عند الانتهاء على جهاز مشترك أو شخصي.",
+        "maintenance": "جدول الصيانة",
+        "shopping": "قائمة التسوق"
     },
     "dashboard": {
         "welcome": "مرحبًا بعودتك، <1>{{name}}</1>",
@@ -443,7 +446,20 @@
         "no_items_filter": "لا توجد عناصر تطابق هذا الفلتر",
         "manage": "إدارة",
         "add_item": "إضافة عنصر",
-        "search_item": "بحث عن عنصر"
+        "search_item": "بحث عن عنصر",
+        "alerts": {
+            "expired_title": "العناصر منتهية الصلاحية!",
+            "expired_desc": "هناك {{count}} عنصر منتهي الصلاحية في مخزونك. يرجى التحقق منها من أجل سلامتك.",
+            "view_items": "عرض العناصر",
+            "maintenance_title": "مهام الصيانة المتأخرة!",
+            "maintenance_desc": "هناك {{count}} من مهام الصيانة المتأخرة. قم بأداء الصيانة لتمديد عمر أجهزتك.",
+            "go_to_maintenance": "انتقل إلى الصيانة",
+            "low_stock_title": "تنبيه انخفاض المخزون",
+            "low_stock_desc": "{{count}} عناصر قد انخفضت عن الحد الأدنى للمخزون لديك.",
+            "go_to_shopping": "قائمة التسوق",
+            "close_expiry_title": "تواريخ انتهاء الصلاحية القادمة",
+            "close_expiry_desc": "{{count}} منتجات ستنتهي صلاحيتها خلال 30 يومًا."
+        }
     },
     "beta_banner": {
         "title": "بيتا:",
@@ -523,7 +539,9 @@
             "vault_hint_action": "فتح الخزنة الشخصية",
             "location": "الموقع",
             "remove_photo": "إزالة الصورة",
-            "visibility_owner_only": "فقط الشخص الذي أضاف العنصر يمكنه تغيير الرؤية."
+            "visibility_owner_only": "فقط الشخص الذي أضاف العنصر يمكنه تغيير الرؤية.",
+            "expiry_date": "تاريخ الانتهاء",
+            "min_quantity": "الحد الأدنى للكمية"
         },
         "qrcode": {
             "title": "رمز الاستجابة السريعة",
@@ -577,7 +595,12 @@
         "no_permission": "ليس لديك إذن لتعديل هذا العنصر",
         "barcode_search_error": "فشل البحث عن الباركود",
         "stats_error": "خطأ في تحميل الإحصائيات",
-        "detail_subtitle": "تفاصيل العنصر"
+        "detail_subtitle": "تفاصيل العنصر",
+        "status": {
+            "close_to_expiry": "قريب من انتهاء الصلاحية",
+            "expired": "منتهي الصلاحية",
+            "low_stock": "نفد المخزون"
+        }
     },
     "settings": {
         "title": "الإعدادات",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "مفتاح المنزل النشط",
             "key_label": "مفتاح المنزل",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{اللاحقة}}",
             "hide": "إخفاء",
             "show": "عرض",
             "copy": "نسخ",
@@ -1229,7 +1252,7 @@
             "no_logs": "لا توجد سجلات بعد",
             "errors_title": "أخطاء النظام (آخر 10)",
             "no_errors": "// النظام سليم، لا توجد سجلات أخطاء.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{التاريخ، التاريخ والوقت}}",
             "type": {
                 "email": "البريد الإلكتروني",
                 "user": "المستخدم",
@@ -1728,8 +1751,8 @@
         "privacy_summary": "تبقى تفاصيل الشبكة مخفية حتى تحتاج إلى التوجيه.",
         "link_privacy_note": "يبقى عنوان الشبكة مخفيًا هنا. امسح الرمز أو انسخ الرابط فقط عندما ترغب عمدًا في مشاركة الوصول المباشر للعناصر على إعدادك المحلي.",
         "helper": "امسح لفتح هذا العنصر فورًا، أو انسخ الرابط المباشر عند الحاجة.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "تعذر نسخ الرابط تلقائيًا",
+        "copy_manual_help": "متصفحك لم يسمح بالنسخ التلقائي. الرابط محدد بحيث يمكنك نسخه يدويًا.",
         "loading": "جارٍ تحضير أدوات QR..."
     },
     "house_access_pending": {
@@ -1771,7 +1794,7 @@
     "emails": {
         "verification": {
             "subject": "🏠 {{brandName}} - 📧 التحقق من البريد الإلكتروني مطلوب",
-            "headerTitle": "Welcome to {{brandName}}",
+            "headerTitle": "مرحباً بكم في {{brandName}}",
             "headerSubtitle": "قم بإنشاء حساب جديد أو انضم إلى منزل موجود",
             "greeting": "مرحبًا بك في {{brandName}}",
             "intro": "تم إنشاء الحساب! يرجى التحقق من عنوان بريدك الإلكتروني لتسجيل الدخول.",
@@ -1790,11 +1813,11 @@
             ],
             "fallback": "يبدو رابط إعادة تعيين كلمة المرور غير مكتمل أو معطل.",
             "support": "قضايا التسجيل:",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{اسم العلامة التجارية}}"
         },
         "welcome": {
-            "subject": "Welcome to {{brandName}}",
-            "headerTitle": "Welcome to {{brandName}}",
+            "subject": "مرحباً بكم في {{brandName}}",
+            "headerTitle": "مرحباً بكم في {{brandName}}",
             "headerSubtitle": "قم بإنشاء حساب جديد أو انضم إلى منزل موجود",
             "greeting": "مرحبًا بك في {{brandName}}",
             "intro": "مرحبًا، ! 👋",
@@ -1808,7 +1831,7 @@
                 "💡يمكنك أن تكون عضوا في بيوت متعددة والتبديل بينها. يحتفظ كل منزل بمخزون منفصل."
             ],
             "support": "قضايا التسجيل:",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{اسم العلامة التجارية}}"
         },
         "houseJoinRequest": {
             "subject": "انضم إلى البيت",
@@ -1817,7 +1840,7 @@
             "bodyLine2": "في انتظار موافقة صاحب المنزل"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{الحالة}}",
             "greeting": "الوصول إلى المنزل",
             "bodyLine1Template": "الطلب الحالي المعلق: {{house}} ({{status}})",
             "bodyLine2": "طلبك الخاص بـ \"{{house}}\" لا يزال في انتظار القرار.",
@@ -1842,7 +1865,7 @@
             "warningTitle": "⚠️",
             "warningBody": "في حالة وجود حساب، تم إرسال رابط إعادة تعيين كلمة المرور صالح لمدة 15 دقيقة.",
             "fallback": "يبدو رابط إعادة تعيين كلمة المرور غير مكتمل أو معطل.",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{اسم العلامة التجارية}}"
         },
         "adminEmail": {
             "sentBy": "تم إرسال هذا البريد الإلكتروني بواسطة {{brandName}}.",
@@ -1856,7 +1879,7 @@
             "sentAtLabel": "أُرسل في",
             "senderLabel": "المرسل",
             "serviceLabel": "الخدمة",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{اسم العلامة التجارية}}"
         }
     },
     "vault": {
@@ -2141,7 +2164,7 @@
         "account_menu_tooltip": "قائمة حساب {{name}}"
     },
     "app": {
-        "name": "{{brandName}}",
+        "name": "{{اسم العلامة التجارية}}",
         "tagline": "إدارة كل عناصر منزلك بذكاء"
     },
     "nav": {
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "شروط الاستخدام وإخلاء المسؤولية",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "النسخة التجريبية: {{brandName}} حالياً في مرحلة الاختبار. لا توجد أي ضمانات بشأن ديمومة البيانات أو أمانها.",
         "disclaimer": "إخلاء المسؤولية: باستخدام هذا التطبيق، فإنك توافق على أنه لا يمكنك المطالبة بأي تعويض عن فقدان محتمل للبيانات، أو مشكلات في الوصول، أو غيرها من المشاكل التقنية.",
         "backup_warning": "نسخ البيانات احتياطيًا: نوصي بشدة بأن تقوم بعمل نسخ احتياطية منتظمة لمعلوماتك المهمة.",
         "accept": "بتسجيل الدخول، فإنك توافق على هذه الشروط.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} حالياً في مرحلة الاختبار والهواية. لا توجد أي ضمانات بشأن ديمومة البيانات أو أمانها. يرجى الاحتفاظ بنسخ احتياطية لمعلوماتك المهمة.",
         "contact": "اتصل"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "محاولات تسجيل دخول كثيرة جداً. يرجى المحاولة بعد 15 دقيقة."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "تسجيل الدخول",
+        "page_title_register": "إنشاء حساب",
+        "page_title_choose_house": "اختيار المنزل",
+        "page_title_recovery_key": "مفتاح الاسترداد",
+        "page_title_house_access": "الوصول إلى المنزل",
+        "page_title_legal_review": "المراجعة القانونية",
+        "page_title_new_item": "عنصر جديد",
+        "page_title_edit_item": "تعديل العنصر",
+        "page_title_items": "المخزون"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "خطأ في تحميل قائمة التسوق.",
+            "select_item_error": "يرجى اختيار عنصر من المخزون.",
+            "empty_name": "يرجى إدخال اسم العنصر.",
+            "added": "تمت إضافة العنصر إلى قائمة التسوق.",
+            "add_error": "حدث خطأ أثناء إضافة العنصر.",
+            "added_suggestion": "\"{{name}}\" تمت إضافته إلى قائمة التسوق.",
+            "bulk_added": "{{count}} عناصر منخفضة المخزون تمت إضافتها إلى القائمة.",
+            "bulk_error": "خطأ في إضافة العناصر منخفضة المخزون.",
+            "completed": "\"{{name}}\" تم وضع علامة على الاكتمال.",
+            "reactivated": "\"{{name}}\" تم نقله مرة أخرى إلى القائمة النشطة.",
+            "update_error": "حدث خطأ أثناء التحديث.",
+            "deleted": "تم حذف العنصر من القائمة.",
+            "delete_error": "وقع خطأ أثناء الحذف.",
+            "cleared_completed": "تم مسح العناصر المكتملة.",
+            "clear_error": "وقع خطأ أثناء المسح."
+        },
+        "loading_desc": "تحضير قائمة التسوق...",
+        "page": {
+            "title": "قائمة التسوق",
+            "description": "عرض العناصر منخفضة المخزون في جرد المنزل وإدارة قائمة التسوق بسهولة."
+        },
+        "suggestions": {
+            "title": "اقتراحات المخزون الذكية",
+            "desc": "عناصر المخزون التي انخفضت عن الحد الأدنى.",
+            "add_all": "أضف جميع العناصر المفقودة",
+            "stock_status": "الحالي: {{current}} / الهدف: {{min}}",
+            "add_qty": "أضف {{qty}}"
+        },
+        "sections": {
+            "active_list": "العناصر للشراء",
+            "active_desc": "العناصر الحالية للتسوق لإضافتها إلى سلة التسوق الخاصة بك.",
+            "active_count": "{{count}} عناصر",
+            "completed_list": "العناصر المشتراة ({{count}})",
+            "add_item": "أضف عنصرًا يدويًا",
+            "add_desc": "أضف عنصرًا مخصصًا يدويًا إلى القائمة."
+        },
+        "empty": {
+            "title": "قائمة التسوق الخاصة بك فارغة",
+            "desc": "يمكنك إضافة المخزون المفقود من الاقتراحات أعلاه أو إضافة العناصر يدويًا باستخدام النموذج على اليمين."
+        },
+        "card": {
+            "linked_inventory": "تم الحفظ في المخزون"
+        },
+        "actions": {
+            "clear_completed": "مسح السجل",
+            "add_item": "إضافة إلى قائمة التسوق"
+        },
+        "form": {
+            "add_type": "إضافة طريقة",
+            "add_type_inventory": "عنصر المخزون",
+            "add_type_custom": "عنصر مخصص",
+            "select_inventory_item": "اختر عنصرًا من المخزون",
+            "no_inventory_items": "لا توجد عناصر في مخزونك بعد.",
+            "select_item_placeholder": "اختر عنصرًا",
+            "current_stock": "الحالي",
+            "item_name": "اسم العنصر",
+            "item_name_placeholder": "مثال: الحليب، المنظف، حبوب القهوة...",
+            "quantity": "الكمية"
+        },
+        "modal": {
+            "delete_title": "حذف العنصر من القائمة؟",
+            "delete_desc": "هل أنت متأكد أنك تريد إزالة \"{{name}}\" من قائمة التسوق الخاصة بك؟"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "خطأ في تحميل المعلومات",
+            "select_item_error": "يرجى تحديد عنصر.",
+            "task_name_error": "اسم المهمة مطلوب.",
+            "date_error": "التاريخ المخطط مطلوب.",
+            "updated": "تم تحديث مهمة الصيانة",
+            "created": "تمت إضافة مهمة صيانة جديدة",
+            "save_error": "حدث خطأ أثناء الحفظ",
+            "deleted": "تم حذف مهمة الصيانة بنجاح",
+            "delete_error": "حدث خطأ أثناء عملية الحذف.",
+            "performed": "تم تسجيل الصيانة كمكتملة. تم جدولة التاريخ التالي.",
+            "perform_error": "حدث خطأ أثناء الحفظ."
+        },
+        "freq": {
+            "one_time": "لمرة واحدة",
+            "unit": {
+                "days": "يوم",
+                "weeks": "أسبوع",
+                "months": "شهر",
+                "years": "سنة"
+            },
+            "format": "كل {{val}} {{unit}}"
+        },
+        "loading_desc": "جارٍ تحميل جدول الصيانة...",
+        "page": {
+            "title": "الصيانة والمتابعة الدورية",
+            "description": "إدارة جداول الصيانة الدورية للأجهزة أو الفلاتر أو معدات السلامة في مخزون منزلك."
+        },
+        "actions": {
+            "add_task": "إضافة مهمة جديدة",
+            "manage": "إدارة",
+            "perform": "تعليم كمكتمل",
+            "edit_task": "تحرير المهمة"
+        },
+        "alerts": {
+            "overdue_title": "لديك مهام متأخرة!",
+            "overdue_desc": "هناك {{count}} من مهام الصيانة المتأخرة. التأخير يمكن أن يقلل من عمر الأجهزة."
+        },
+        "empty": {
+            "title": "لا توجد مهام صيانة مجدولة",
+            "desc": "ابدأ بإضافة مهام متكررة مثل تنظيف فلتر التكييف، صيانة الغلاية، أو فحص بطاريات كاشف الحريق."
+        },
+        "sections": {
+            "overdue": "المهام المتأخرة",
+            "overdue_desc": "صيانة عاجلة تحتاج إلى القيام بها فورًا.",
+            "upcoming": "المهام المجدولة / القادمة",
+            "upcoming_desc": "صيانة قادمة في الأيام القادمة.",
+            "no_upcoming": "لا توجد مهام نشطة مجدولة في المستقبل."
+        },
+        "modal": {
+            "edit_title": "تعديل المهمة",
+            "create_title": "جدولة مهمة صيانة جديدة",
+            "perform_title": "إكمال الصيانة",
+            "perform_desc": "هل تريد تسجيل \"{{name}}\" كمكتمل اليوم؟",
+            "perform_confirm": "نعم، مكتمل",
+            "perform_recurrence_info": "هذه مهمة دورية. عند الحفظ، سيقوم النظام تلقائيًا بحساب تاريخ الصيانة التالي.",
+            "delete_title": "هل تريد حذف مهمة الصيانة؟",
+            "delete_desc": "هل أنت متأكد من أنك تريد حذف جدول الصيانة الدورية \"{{name}}\"؟ لا يمكن التراجع عن هذا الإجراء."
+        },
+        "form": {
+            "item": "العنصر ذو الصلة",
+            "no_items": "يجب عليك إضافة عنصر إلى المخزون أولاً قبل جدولة الصيانة.",
+            "select_item_placeholder": "اختر عنصراً",
+            "task_name": "اسم المهمة / العملية",
+            "task_name_placeholder": "على سبيل المثال: استبدال الفلتر، فحص دوري...",
+            "description": "التفصيل / الوصف",
+            "description_placeholder": "تفاصيل المهمة، المواد التي ستُستخدم، إلخ...",
+            "frequency_value": "تكرار الحدوث",
+            "frequency_placeholder": "على سبيل المثال 6 (اتركه فارغًا لمرة واحدة)",
+            "frequency_unit": "وحدة التردد",
+            "next_due_date": "التاريخ المجدول التالي",
+            "section_help": "إدارة جداول الصيانة من هنا",
+            "section_collapsed": "انقر لإضافة الضوابط والمهام الدورية",
+            "has_tasks": "{{count}} مهام",
+            "new_item_warning_title": "حفظ العنصر قيد الانتظار",
+            "new_item_warning_desc": "يجب عليك حفظ هذا العنصر أولاً لإضافة جدول صيانة.",
+            "manage_desc": "إدارة جداول الصيانة لهذا الجهاز أو العنصر."
+        },
+        "fields": {
+            "task_name": "اسم المهمة",
+            "task_name_placeholder": "على سبيل المثال تنظيف فلتر التكييف",
+            "description": "الوصف",
+            "description_placeholder": "تفاصيل المهمة، المواد التي ستُستخدم، إلخ...",
+            "frequency_value": "تكرار الحدوث",
+            "frequency_value_placeholder": "اتركه فارغًا لمرة واحدة",
+            "frequency_unit": "وحدة التكرار",
+            "next_due_date": "التاريخ المجدول"
+        },
+        "card": {
+            "untitled_item": "عنصر بلا عنوان",
+            "last_performed": "آخر مرة تم الإنجاز:",
+            "next_due_label": "التاريخ المجدول",
+            "complete_tooltip": "تعليم الصيانة كمُنجزة اليوم"
+        },
+        "detail_card_desc": "متابعة الصيانة الدورية أو مرة واحدة المجدولة لهذا العنصر.",
+        "no_tasks": "لم يتم تعيين أي مهام صيانة لهذا العنصر.",
+        "confirm_delete": "سيتم حذف هذه المهمة. هل أنت متأكد؟"
     }
 }

@@ -69,7 +69,9 @@
             "vault_hint_action": "باز کردن صندوق شخصی",
             "location": "مکان",
             "remove_photo": "حذف عکس",
-            "visibility_owner_only": "تنها شخصی که آیتم را اضافه کرده می‌تواند دید را تغییر دهد."
+            "visibility_owner_only": "تنها شخصی که آیتم را اضافه کرده می‌تواند دید را تغییر دهد.",
+            "expiry_date": "تاریخ انقضا",
+            "min_quantity": "حداقل مقدار"
         },
         "messages": {
             "quick_add_success": "✓ «{{barcode}}» به سرعت اضافه شد - می‌توانید بعداً ویرایش کنید",
@@ -119,7 +121,12 @@
         "no_permission": "شما اجازه تغییر این مورد را ندارید",
         "barcode_search_error": "جستجوی بارکد ناموفق",
         "stats_error": "خطا در بارگذاری آمار",
-        "detail_subtitle": "جزئیات آیتم"
+        "detail_subtitle": "جزئیات آیتم",
+        "status": {
+            "close_to_expiry": "نزدیک به انقضا",
+            "expired": "منقضی شده",
+            "low_stock": "موجودی کم"
+        }
     },
     "common": {
         "save": "ذخیره",
@@ -170,7 +177,8 @@
         "details": "جزئیات",
         "hide": "مخفی کردن رمز عبور",
         "logging_out": "خارج شدن از حساب...",
-        "show": "نمایش رمز عبور"
+        "show": "نمایش رمز عبور",
+        "saving": "در حال ذخیره‌سازی..."
     },
     "auth": {
         "login": {
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "دوباره رمز عبور خود را وارد کنید",
             "reset_submit": "بازنشانی رمز عبور",
             "resetting": "در حال بازنشانی...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "نام کاربری یا ایمیل خود را وارد کنید"
         },
         "reset_password": {
             "title": "بازنشانی رمز عبور",
@@ -353,7 +361,7 @@
         "password_requirements": "از حداقل {{min}} کاراکتر شامل حروف بزرگ، حروف کوچک، عدد و نماد استفاده کنید.",
         "logout": "خروج",
         "logging_in": "در حال ورود...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "به {{brandName}} خوش آمدید",
         "username_email": "نام کاربری یا ایمیل",
         "username": "نام کاربری",
         "email": "ایمیل",
@@ -438,7 +446,9 @@
         "logout_aria": "از حساب کاربری خود خارج شوید",
         "logout_title": "خارج شدن؟",
         "logout_description": "شما به صفحه ورود بازگردانده خواهید شد و برای مدیریت موجودی خانه باید دوباره وارد شوید.",
-        "logout_warning": "این را زمانی استفاده کنید که کارتان با یک دستگاه مشترک یا شخصی تمام شده است."
+        "logout_warning": "این را زمانی استفاده کنید که کارتان با یک دستگاه مشترک یا شخصی تمام شده است.",
+        "maintenance": "برنامه زمان‌بندی نگهداری",
+        "shopping": "لیست خرید"
     },
     "dashboard": {
         "welcome": "خوش برگشتید، <1>{{name}}</1>",
@@ -565,7 +575,20 @@
         "no_items_filter": "هیچ موردی با این فیلتر مطابقت ندارد",
         "manage": "مدیریت",
         "add_item": "افزودن مورد",
-        "search_item": "جستجوی مورد"
+        "search_item": "جستجوی مورد",
+        "alerts": {
+            "expired_title": "اقلام منقضی شده‌اند!",
+            "expired_desc": "در موجودی شما {{count}} قلم منقضی شده وجود دارد. لطفاً برای ایمنی خود آنها را بررسی کنید.",
+            "view_items": "مشاهده موارد",
+            "maintenance_title": "وظایف نگهداری معوق!",
+            "maintenance_desc": "{{count}} وظیفه نگهداری معوق وجود دارد. برای افزایش طول عمر دستگاه‌های خود، نگهداری را انجام دهید.",
+            "go_to_maintenance": "به بخش نگهداری بروید",
+            "low_stock_title": "هشدار کاهش موجودی",
+            "low_stock_desc": "{{count}} کالاها به زیر حداقل موجودی شما رسیده‌اند.",
+            "go_to_shopping": "فهرست خرید",
+            "close_expiry_title": "تاریخ‌های انقضای پیش رو",
+            "close_expiry_desc": "{{count}} محصول ظرف ۳۰ روز منقضی خواهند شد."
+        }
     },
     "beta_banner": {
         "title": "نسخه آزمایشی:",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "کلید خانه فعال",
             "key_label": "کلید خانه",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{پسوند}}",
             "hide": "مخفی کردن",
             "show": "نمایش",
             "copy": "کپی",
@@ -991,8 +1014,8 @@
             "no_history": "هنوز هیچ سابقه قرضی برای این مورد وجود ندارد.",
             "lend_success_title": "مورد قرض داده شده",
             "lend_success_body": "{{item}} اکنون به عنوان قرض گرفته شده علامت‌گذاری شده است.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "پیشنهاد وام ارسال شد",
+            "offer_sent_body": "{{item}} پس از قبول توسط عضو دیگر به عنوان وام گرفته شده علامت‌گذاری خواهد شد.",
             "borrowed_by_you": "همراه شما",
             "return_pending_hint": "رکورد پس از تأیید بازگشت آیتم توسط وام‌دهنده بسته خواهد شد.",
             "return_pending_lender_title": "{{name}} این آیتم را به عنوان بازگردانده شده علامت‌گذاری کرد",
@@ -1229,7 +1252,7 @@
             "no_logs": "هنوز هیچ گزارشی ثبت نشده",
             "errors_title": "خطاهای سیستم (10 مورد آخر)",
             "no_errors": "// سیستم سالم است، هیچ گزارش خطایی وجود ندارد.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{تاریخ، زمان}}",
             "type": {
                 "email": "ایمیل",
                 "user": "کاربر",
@@ -1401,12 +1424,12 @@
             "cta_register": "ایجاد حساب کاربری",
             "stat_free": "رایگان",
             "stat_access": "دسترسی",
-            "free_badge": "Open Source",
+            "free_badge": "متن باز",
             "badge": "نسخه ۲.۰ HomeInventory اینجاست",
             "cta_explore": "کاوش ویژگی ها",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "ورود به سیستم",
+            "stat_members": "خانه‌های مشترک",
+            "stat_vault": "گنجینه خصوصی"
         },
         "features": {
             "title": "چرا <1>HomeInventory</1>؟",
@@ -1477,7 +1500,7 @@
                 "description": "نگه داشتن وسایل، گارانتی‌ها، اسناد مهم و پیگیری قرض‌ها در یک مکان آرام. با یک نگاه ببینید خانه شما چه چیزی دارد.",
                 "primaryCta": "شروع رایگان",
                 "secondaryCta": "مشاهده محصول",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "جریان پیشنهادی: حساب • خانه • اتاق‌ها و دسته‌ها • اقلام • پشتیبان‌گیری",
                 "searchPlaceholder": "جستجوی یک آیتم، اتاق یا بارکد"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "جزئیات شبکه تا زمانی که به راهنمایی نیاز دارید، محفوظ باقی می‌مانند.",
         "link_privacy_note": "آدرس شبکه در اینجا مخفی می‌ماند. کد را اسکن کنید یا لینک را تنها زمانی کپی کنید که به طور عمدی می‌خواهید دسترسی مستقیم به آیتم در محیط محلی خود را به اشتراک بگذارید.",
         "helper": "برای باز کردن فوری این آیتم اسکن کنید، یا در صورت نیاز لینک مستقیم را کپی کنید.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "لینک نمی‌توانست به طور خودکار کپی شود",
+        "copy_manual_help": "مرورگر شما اجازه کپی خودکار را نداد. لینک انتخاب شده است تا بتوانید آن را به صورت دستی کپی کنید.",
         "loading": "آماده‌سازی ابزارهای QR..."
     },
     "house_access_pending": {
@@ -1817,7 +1840,7 @@
             "bodyLine2": "در انتظار تایید مالک خانه"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{وضعیت}}",
             "greeting": "دسترسی به خانه",
             "bodyLine1Template": "درخواست فعلی در انتظار: {{house}} ({{status}})",
             "bodyLine2": "درخواست شما برای \"{{house}}\" هنوز منتظر تصمیم است.",
@@ -1842,7 +1865,7 @@
             "warningTitle": "⚠️",
             "warningBody": "اگر حسابی وجود داشته باشد، پیوند بازنشانی رمز عبور با اعتبار 15 دقیقه ارسال شده است.",
             "fallback": "پیوند بازنشانی رمز عبور ناقص یا شکسته به نظر می رسد.",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© ۲۰۲۶ {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "این ایمیل توسط {{brandName}} ارسال شده است.",
@@ -1969,8 +1992,8 @@
             "empty": "در حال حاضر قرض فعالی وجود ندارد.",
             "borrowed_from": "قرض گرفته شده از {{name}}",
             "lent_to": "در حال حاضر با {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "در انتظار تأیید بازگرداندن آن توسط وام‌دهنده هستیم.",
+            "return_pending_lender": "{{name}} این مورد را به عنوان بازگردانده شده علامت‌گذاری کرد. تحویل را تأیید کنید تا رکورد بسته شود.",
             "empty_title": "در حال حاضر قرض فعالی وجود ندارد",
             "empty_description": "درخواست‌های پذیرفته شده در اینجا ظاهر می‌شوند وقتی که یک مورد قرض گرفته یا داده شود، همراه با تاریخ‌های سررسید و وضعیت بازگشت."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "لغو شده",
             "expired": "منقضی شده",
             "returned": "بازگردانده شده",
-            "return_pending": "Return pending"
+            "return_pending": "بازگشت در انتظار"
         },
         "actions": {
             "send_request": "درخواست آیتم",
@@ -1990,8 +2013,8 @@
             "reject": "رد کردن",
             "cancel": "لغو",
             "fulfill_request": "انجام درخواست",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "علامت گذاری به عنوان تحویل داده شده",
+            "mark_received": "علامت گذاری به عنوان دریافت شده",
             "open_inventory": "باز کردن موجودی"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "علامت‌گذاری به عنوان بازگردانده شده",
             "return_subtitle": "بستن قرض فعال برای \"{{item}}\"",
             "return_target": "در حال حاضر نشان داده می‌شود که با {{name}} است.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "تحویل مورد",
+            "return_title_lender": "دریافت آیتم",
+            "return_subtitle_borrower": "پس از بازگرداندن «{{item}}» قرض فعال را ببندید.",
+            "return_subtitle_lender": "پس از دریافت «{{item}}» قرض فعال را ببندید.",
+            "return_target_borrower": "قرض‌دهنده: {{name}}",
+            "return_target_lender": "در حال حاضر با: {{name}}",
+            "return_note_borrower": "حواله تحویل",
+            "return_note_lender": "یادداشت دریافت",
+            "return_note_placeholder_borrower": "به عنوان مثال، من آن را بدون هیچ مشکلی بازگرداندم",
+            "return_note_placeholder_lender": "مثلاً. سالم دریافت شد",
+            "return_submitting": "در حال بستن..."
         },
         "messages": {
             "load_error": "مرکز قرض‌گیری قابل بارگذاری نیست",
@@ -2103,7 +2126,7 @@
                 "rights": "حقوق شما"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "شرایط نصب این {{brandName}} استفاده قابل قبول، مسئولیت‌های امنیتی شما و پیامدهای حذف حساب را به شکلی واضح‌تر و آسان‌تر برای مرور توضیح می‌دهد.",
         "terms_support_label": "خلاصه سریع",
         "terms_summary": {
             "eyebrow": "این در عمل به چه معناست",
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "شرایط استفاده و سلب مسئولیت",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "نسخه BETA: {{brandName}} در حال حاضر در مرحله آزمایشی است. هیچ تضمینی درباره پایداری داده‌ها یا امنیت آن ارائه نمی‌شود.",
         "disclaimer": "سلب مسئولیت: با استفاده از این برنامه، شما موافقت می‌کنید که نمی‌توانید برای از دست رفتن احتمالی داده‌ها، مشکلات دسترسی یا سایر مشکلات فنی درخواست غرامت کنید.",
         "backup_warning": "پشتیبان‌گیری از داده‌ها: ما قویاً توصیه می‌کنیم که اطلاعات مهم خود را به‌طور منظم پشتیبان‌گیری کنید.",
         "accept": "با ورود، شما با این شرایط موافقت می‌کنید.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "در حال حاضر {{brandName}} در مرحله تست و سرگرمی است. هیچ تضمینی در مورد پایداری یا امنیت داده‌ها ارائه نمی‌شود. لطفاً اطلاعات مهم خود را پشتیبان‌گیری کنید.",
         "contact": "تماس"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "تلاش‌های ورود زیادی انجام شده. لطفا 15 دقیقه بعد امتحان کنید."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "وارد شوید",
+        "page_title_register": "ایجاد حساب کاربری",
+        "page_title_choose_house": "انتخاب خانه",
+        "page_title_recovery_key": "کلید بازیابی",
+        "page_title_house_access": "دسترسی به خانه",
+        "page_title_legal_review": "بررسی قانونی",
+        "page_title_new_item": "مورد جدید",
+        "page_title_edit_item": "ویرایش مورد",
+        "page_title_items": "موجودی"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "خطا در بارگذاری فهرست خرید.",
+            "select_item_error": "لطفاً یک مورد را از موجودی انتخاب کنید.",
+            "empty_name": "لطفاً نام کالا را وارد کنید.",
+            "added": "کالا به لیست خرید اضافه شد.",
+            "add_error": "هنگام افزودن کالا خطایی رخ داد.",
+            "added_suggestion": "\"{{name}}\" به لیست خرید اضافه شد.",
+            "bulk_added": "{{count}} قلم کالای با موجودی کم به فهرست اضافه شد.",
+            "bulk_error": "خطا در افزودن اقلام با موجودی کم.",
+            "completed": "«{{name}}» به عنوان تکمیل شده علامت‌گذاری شد.",
+            "reactivated": "«{{name}}» به فهرست فعال بازگردانده شد.",
+            "update_error": "خطا در هنگام به‌روزرسانی رخ داد.",
+            "deleted": "آیتم از لیست حذف شد.",
+            "delete_error": "خطا در هنگام حذف رخ داد.",
+            "cleared_completed": "آیتم‌های تکمیل‌شده پاک شدند.",
+            "clear_error": "خطا هنگام پاک‌سازی رخ داد."
+        },
+        "loading_desc": "در حال آماده‌سازی لیست خرید...",
+        "page": {
+            "title": "لیست خرید",
+            "description": "اقلام کم‌موجود در موجودی خانه را مشاهده کنید و به‌راحتی لیست خرید خود را مدیریت کنید."
+        },
+        "suggestions": {
+            "title": "پیشنهادات هوشمند موجودی",
+            "desc": "آیتم‌های موجودی که به زیر حداقل رسیده‌اند.",
+            "add_all": "افزودن همه موارد گمشده",
+            "stock_status": "فعلی: {{current}} / هدف: {{min}}",
+            "add_qty": "افزودن {{qty}} مورد برای خرید >>> اقلام فعلی برای افزودن به سبد خرید شما >>> {{count}} مورد"
+        },
+        "sections": {
+            "active_list": "اقلامی برای خرید",
+            "active_desc": "اقلام خرید فعلی برای افزودن به سبد خرید شما. {{count}} مورد",
+            "active_count": "{{count}} آیتم",
+            "completed_list": "اقلام خریداری شده ({{count}})",
+            "add_item": "افزودن آیتم به صورت دستی",
+            "add_desc": "افزودن یک آیتم سفارشی به صورت دستی به لیست."
+        },
+        "empty": {
+            "title": "لیست خرید شما خالی است",
+            "desc": "می‌توانید موجودی‌های گم‌شده را از پیشنهادهای بالا اضافه کنید یا آیتم‌ها را به‌صورت دستی با استفاده از فرم در سمت راست اضافه کنید."
+        },
+        "card": {
+            "linked_inventory": "در موجودی ذخیره شد"
+        },
+        "actions": {
+            "clear_completed": "پاک کردن تاریخچه",
+            "add_item": "افزودن به لیست خرید"
+        },
+        "form": {
+            "add_type": "اضافه کردن روش",
+            "add_type_inventory": "مورد موجودی",
+            "add_type_custom": "مورد سفارشی",
+            "select_inventory_item": "انتخاب مورد از موجودی",
+            "no_inventory_items": "هنوز آیتمی در موجودی شما نیست.",
+            "select_item_placeholder": "یک آیتم را انتخاب کنید",
+            "current_stock": "کنونی",
+            "item_name": "نام آیتم",
+            "item_name_placeholder": "مثلاً شیر، مواد شوینده، دانه‌های قهوه...",
+            "quantity": "مقدار"
+        },
+        "modal": {
+            "delete_title": "حذف آیتم از لیست؟",
+            "delete_desc": "آیا مطمئن هستید که می‌خواهید «{{name}}» را از لیست خرید خود حذف کنید؟"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "خطا در بارگذاری اطلاعات",
+            "select_item_error": "لطفاً یک مورد را انتخاب کنید.",
+            "task_name_error": "نام کار مورد نیاز است.",
+            "date_error": "تاریخ برنامه‌ریزی شده مورد نیاز است.",
+            "updated": "وظیفه نگهداری به‌روزرسانی شد",
+            "created": "وظیفه نگهداری جدید اضافه شد",
+            "save_error": "خطا در ذخیره‌سازی رخ داد",
+            "deleted": "وظیفه نگهداری با موفقیت حذف شد.",
+            "delete_error": "در حین فرآیند حذف خطایی رخ داد.",
+            "performed": "نگهداری به عنوان کامل ثبت شد. تاریخ بعدی برنامه‌ریزی شد.",
+            "perform_error": "در حین ذخیره‌سازی خطایی رخ داد."
+        },
+        "freq": {
+            "one_time": "یک‌باره",
+            "unit": {
+                "days": "روز",
+                "weeks": "هفته",
+                "months": "ماه",
+                "years": "سال"
+            },
+            "format": "هر {{val}} {{unit}}"
+        },
+        "loading_desc": "بارگذاری برنامه زمان‌بندی نگهداری...",
+        "page": {
+            "title": "نگهداری و پیگیری دوره‌ای",
+            "description": "مدیریت برنامه‌های زمان‌بندی نگهداری دوره‌ای برای لوازم، فیلترها، یا تجهیزات ایمنی در موجودی خانه شما."
+        },
+        "actions": {
+            "add_task": "افزودن کار جدید",
+            "manage": "مدیریت",
+            "perform": "علامت‌گذاری به عنوان انجام شده",
+            "edit_task": "ویرایش وظیفه"
+        },
+        "alerts": {
+            "overdue_title": "شما وظایف معوق دارید!",
+            "overdue_desc": "تعداد {{count}} کار نگهداری عقب افتاده وجود دارد. تاخیرها می‌توانند عمر دستگاه‌ها را کاهش دهند."
+        },
+        "empty": {
+            "title": "هیچ کار نگهداری برنامه‌ریزی نشده است",
+            "desc": "با افزودن کارهای مکرر مانند تمیز کردن فیلتر کولر، نگهداری دیگ بخار، یا بررسی باتری‌های دتکتور آتش شروع کنید."
+        },
+        "sections": {
+            "overdue": "کارهای عقب افتاده",
+            "overdue_desc": "نگهداری فوری که باید فوراً انجام شود.",
+            "upcoming": "وظایف برنامه‌ریزی شده / آینده",
+            "upcoming_desc": "نگهداری نزدیک در روزهای آینده.",
+            "no_upcoming": "هیچ وظیفه فعالی برنامه‌ریزی شده در آینده وجود ندارد."
+        },
+        "modal": {
+            "edit_title": "ویرایش وظیفه",
+            "create_title": "برنامه‌ریزی وظیفه نگهداری جدید",
+            "perform_title": "تکمیل نگهداری",
+            "perform_desc": "آیا می‌خواهید \"{{name}}\" را امروز به‌عنوان تکمیل‌شده ثبت کنید؟",
+            "perform_confirm": "بله، تکمیل شد",
+            "perform_recurrence_info": "این یک کار دوره‌ای است. وقتی ذخیره کنید، سیستم به‌طور خودکار تاریخ نگهداری بعدی را محاسبه می‌کند.",
+            "delete_title": "آیا می‌خواهید کار نگهداری را حذف کنید؟",
+            "delete_desc": "آیا مطمئن هستید که می‌خواهید برنامه نگهداری دوره‌ای \"{{name}}\" را حذف کنید؟ این عمل قابل بازگشت نیست."
+        },
+        "form": {
+            "item": "مورد مرتبط",
+            "no_items": "شما باید ابتدا یک مورد به موجودی اضافه کنید قبل از برنامه‌ریزی نگهداری.",
+            "select_item_placeholder": "انتخاب یک مورد",
+            "task_name": "نام کار / عملیات",
+            "task_name_placeholder": "مثلاً تعویض فیلتر، بررسی دوره‌ای...",
+            "description": "جزئیات / توضیحات",
+            "description_placeholder": "جزئیات کار، مواد مورد استفاده و غیره...",
+            "frequency_value": "دفعات تکرار",
+            "frequency_placeholder": "مثال: ۶ (برای یک بار خالی بگذارید)",
+            "frequency_unit": "واحد تکرار",
+            "next_due_date": "تاریخ برنامه‌ریزی بعدی",
+            "section_help": "از اینجا برنامه‌های تعمیر و نگهداری را مدیریت کنید",
+            "section_collapsed": "برای افزودن کنترل‌ها و وظایف دوره‌ای کلیک کنید",
+            "has_tasks": "{{count}} وظایف",
+            "new_item_warning_title": "ذخیره مورد در انتظار",
+            "new_item_warning_desc": "ابتدا باید این مورد را ذخیره کنید تا بتوانید برنامه نگهداری را اضافه کنید.",
+            "manage_desc": "مدیریت برنامه‌های نگهداری برای این دستگاه یا مورد."
+        },
+        "fields": {
+            "task_name": "نام وظیفه",
+            "task_name_placeholder": "برای مثال تمیز کردن فیلتر کولر",
+            "description": "توضیحات",
+            "description_placeholder": "جزئیات وظیفه، مواد مورد استفاده و غیره...",
+            "frequency_value": "دفعات تکرار",
+            "frequency_value_placeholder": "برای یک‌بار خالی بگذارید",
+            "frequency_unit": "واحد فرکانس",
+            "next_due_date": "تاریخ برنامه‌ریزی شده"
+        },
+        "card": {
+            "untitled_item": "مورد بدون عنوان",
+            "last_performed": "آخرین انجام:",
+            "next_due_label": "تاریخ برنامه‌ریزی شده",
+            "complete_tooltip": "علامت‌گذاری نگهداری به‌عنوان انجام شده امروز"
+        },
+        "detail_card_desc": "پیگیری نگهداری دوره‌ای یا یک‌باره برنامه‌ریزی شده برای این مورد.",
+        "no_tasks": "هیچ وظیفه نگهداری به این مورد اختصاص داده نشده است.",
+        "confirm_delete": "این وظیفه حذف خواهد شد. آیا مطمئن هستید؟"
     }
 }

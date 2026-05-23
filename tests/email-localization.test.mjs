@@ -35,6 +35,7 @@ function installEmailStub() {
 
 async function loadEmailService(language) {
     process.env.RESEND_API_KEY = 'dummy';
+    process.env.EMAIL_FROM = 'HomeInventory <onboarding@resend.dev>';
     process.env.SUPPORT_EMAIL = 'support@example.com';
     process.env.SITE_URL = 'http://localhost:4010';
     process.env.APP_EMAIL_LANGUAGE = language;
@@ -54,6 +55,7 @@ test('email templates render across all locales without unresolved placeholders'
         globalThis.setInterval = originalSetInterval;
         restore();
         delete process.env.RESEND_API_KEY;
+        delete process.env.EMAIL_FROM;
         delete process.env.SUPPORT_EMAIL;
         delete process.env.SITE_URL;
         delete process.env.APP_EMAIL_LANGUAGE;

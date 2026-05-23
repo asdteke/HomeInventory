@@ -45,7 +45,7 @@
             "visibility_private": "Visibile solu à tè",
             "submit_add": "Aghjunghje Articulu",
             "submit_save": "Salvà i Cambiamenti",
-            "submitting": "Saving...",
+            "submitting": "Salvà...",
             "invoice_section": "Dettagli di a Fattura",
             "invoice_section_help": "Salvate quì in modu sicuru l'immagine di a fattura, u prezzu, è u tracciamentu di a garanzia.",
             "invoice_section_collapsed": "Aprite sta sezione per aghjunghje una foto di a fattura, u prezzu, è e date di a garanzia.",
@@ -69,7 +69,9 @@
             "vault_hint_action": "Aprite Vault Personale",
             "location": "Locazione",
             "remove_photo": "Rimove foto",
-            "visibility_owner_only": "Solu a persona chì hà aghjuntu l'articulu pò cambià a visibilità."
+            "visibility_owner_only": "Solu a persona chì hà aghjuntu l'articulu pò cambià a visibilità.",
+            "expiry_date": "Data di scadenza",
+            "min_quantity": "Quantità minima"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" aghjuntu rapidamente - pudete edità dopu",
@@ -113,13 +115,18 @@
         "saving": "Salvendu...",
         "no_items_found": "Nisuna voce truvata",
         "search_placeholder": "Circà voci...",
-        "filter_by_category": "Filter by Category",
-        "filter_by_room": "Filter by Room",
+        "filter_by_category": "Filtra per Categoria",
+        "filter_by_room": "Filtra per Stanza",
         "all_categories": "Tutte e Categorie",
         "all_rooms": "Tutte e Camere",
         "confirm_delete": "Site sicuru chì vulete sguassà questu articulu?",
         "items_deleted": "{{count}} articuli sguassati",
-        "detail_subtitle": "Dettagli di l'articulu"
+        "detail_subtitle": "Dettagli di l'articulu",
+        "status": {
+            "close_to_expiry": "Vicinu à a scadenza",
+            "expired": "Scadutu",
+            "low_stock": "Scorte Basse"
+        }
     },
     "common": {
         "save": "Salvà",
@@ -156,11 +163,11 @@
         "server_error": "Errore di u servitore",
         "filter": "Filtru",
         "sort": "Urdinà",
-        "yes": "Yes",
+        "yes": "Iè Prossimu Email Inserisci u vostru nome d'utilizatore o email",
         "no": "No",
         "confirm": "Cunfirmà",
         "back": "Indietro",
-        "next": "Next",
+        "next": "Next Email Inserisce u to nome d'utilizatore o email Email",
         "retry": "Ritentà",
         "actions": "Azioni",
         "created_at": "Creatu U",
@@ -170,7 +177,8 @@
         "details": "Dettagli",
         "hide": "Scunghje password",
         "logging_out": "Scuncessione in corso...",
-        "show": "Mustra password"
+        "show": "Mustra password",
+        "saving": "Salvà... Inserite u vostru nome d'utilizatore o email Email Autenticazione à Dui Fattori"
     },
     "auth": {
         "login": {
@@ -225,7 +233,7 @@
             "form_title": "Crea contu",
             "username": "Nome d'utilizatore e.g. john Email e.g. john@example.com Password Crea una password Puntate à 10+ caratteri cù maiuscole/minuscole, un numeru, è un simbulu. Cunferma Password",
             "username_placeholder": "p.es. John",
-            "email": "Email",
+            "email": "Email Inserite u vostru nome d'utilizatore o email Email Autenticazione à dui fattori",
             "email_placeholder": "p.es. john@example.com",
             "password": "Parola d'accessu",
             "password_placeholder": "Crea una parola d'accessu",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "Reinserisci a to password",
             "reset_submit": "Resettare Password",
             "resetting": "Resettendu...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Inserite u vostru nome d'utilizatore o email"
         },
         "reset_password": {
             "title": "Resettare Password",
@@ -391,12 +399,12 @@
         "house_key_not_found": "Chjave di a Casa micca valida. Per piacè inserite a chjave curretta.",
         "email_not_verified": "U vostru indirizzu email ùn hè ancu statu verificatu. Per piacè verificate a vostra casella di posta.",
         "two_factor_invalid": "U codice di verificazione hè sbagliatu",
-        "logout": "Logout",
+        "logout": "Disconnette",
         "logging_in": "Accessu...",
         "welcome": "Benvinutu à {{brandName}} >>> Nome d'utilizatore o Email >>> Nome d'utilizatore >>> Email",
-        "username_email": "Username or Email",
-        "username": "Username",
-        "email": "Email",
+        "username_email": "Nome d'utilizatore o Email",
+        "username": "Nome d'utilizatore",
+        "email": "E-mail",
         "password": "Parolla d'ordine e.g.: john •••••••• Autenticazione à dui fattori",
         "confirm_password": "Cunfirma Password",
         "new_password": "Nova Password",
@@ -406,10 +414,10 @@
         "or": "or",
         "google_login": "Continua cù Google",
         "login_issues": "Per i prublemi di login, p. es.: john •••••••• Autenticazione à Dui Fattori Inserite u codice à 6 cifre da a vostra app di autenticazione Inserite unu di i vostri codici di riserva Codice di Verificazione Codice di Riserva",
-        "placeholder_username": "e.g.: john",
-        "placeholder_password": "••••••••",
+        "placeholder_username": "per esempiu: john •••••••• Autenticazione dui-fattore Collassa barra laterale",
+        "placeholder_password": "Autenticazione à Dui Fattori Collapsà a barra laterale BETA",
         "login_two_factor": {
-            "title": "Two-Factor Authentication",
+            "title": "Autentificazione à dui fattori",
             "subtitle": "Inserite u codicu à 6 cifre da a vostra app di autentificazione",
             "backup_subtitle": "Inserite unu di i vostri codici di riserva",
             "code_label": "Codice di verificazione",
@@ -438,7 +446,9 @@
         "logout_aria": "Esci da u vostru contu",
         "logout_title": "Vulite esce?",
         "logout_description": "Sarete rimandatu à a schermu di login è duverete accede di novu per gestisce l'inventariu di a vostra casa.",
-        "logout_warning": "Aduprate questu quandu avete finitu nantu à un dispositivu spartutu o persunale."
+        "logout_warning": "Aduprate questu quandu avete finitu nantu à un dispositivu spartutu o persunale.",
+        "maintenance": "Calendariu di Manutenzione",
+        "shopping": "Lista di Shopping"
     },
     "dashboard": {
         "welcome": "Bentornatu, <1>{{name}}</1>",
@@ -485,7 +495,7 @@
             "loading_description": "Preparendu a vista di a casa. L'aggiunte recenti è a ricerca rapida appareranu subitu."
         },
         "top_bar": {
-            "beta": "Beta",
+            "beta": "Beta BETA Beta Cuntattu:",
             "items_tracked": "Articuli tracciati: {{count}}",
             "total_quantity": "Quantità totale: {{count}}",
             "shared_items": "Oggetti spartuti: {{count}}",
@@ -565,13 +575,26 @@
         "no_items_filter": "Nisun articulu currisponde à stu filtru",
         "manage": "Gestisce",
         "add_item": "Aghjunghjite Elementu",
-        "search_item": "Circa Elementu"
+        "search_item": "Circa Elementu",
+        "alerts": {
+            "expired_title": "L'articuli sò scaduti!",
+            "expired_desc": "Ci sò {{count}} articuli scaduti in u vostru inventariu. Per piacè verificate li per a vostra sicurezza.",
+            "view_items": "Vede Articuli",
+            "maintenance_title": "Compiti di Manutenzione Scaduti!",
+            "maintenance_desc": "Ci sò {{count}} compiti di manutenzione scaduti. Eseguite a manutenzione per allungà a vita di i vostri apparecchi.",
+            "go_to_maintenance": "Andà à Mantinimentu",
+            "low_stock_title": "Avvisu di Stock Basso",
+            "low_stock_desc": "{{count}} articuli sò cascati sottu à u vostru limitu minimu di stock.",
+            "go_to_shopping": "Lista di Spesa",
+            "close_expiry_title": "Date di scadenza imminente",
+            "close_expiry_desc": "{{count}} prudutti scaderanu in 30 ghjorni."
+        }
     },
     "beta_banner": {
         "title": "BETA:",
         "text": "{{brandName}} hè attualmente in fase di test è di hobby. Nisuna garanzia hè data per a persistenza di i dati o a sicurità. Per piacè mantenite copie di salvezza di l'infurmazioni impurtanti.",
-        "contact": "Contact:",
-        "badge": "Beta",
+        "contact": "Cuntattu:",
+        "badge": "Beta ••••••••{{suffix}} Backup Garage",
         "aria_label": "Avvisu Beta",
         "tooltip": "E funzioni d'accessu anticipatu ponu sempre cambià."
     },
@@ -638,7 +661,7 @@
             "item_count": "{{count}} articuli",
             "switch": "Fà Attivu",
             "leave": "Lascialu a Casa",
-            "info": "You can be a member of multiple houses and switch between them. Each household keeps its own inventory.",
+            "info": "Pudete esse membru di parechje case è cambià trà elli. Ogni casa mantene u so inventariu.",
             "accordion_description": "Cambia trà e famiglie, crea una nova, o unisci à una esistente cù una chjave fidata.",
             "empty_description": "Create una nova casa per cumincià à sparte, o unisce à una cù una chjave di casa fidata.",
             "leave_success_body": "Ùn avete più accessu à sta famiglia è a vostra casa attiva hè stata aghjurnata.",
@@ -648,8 +671,8 @@
         },
         "house_info": {
             "title": "Chjave di Casa Attiva",
-            "key_label": "House Key",
-            "mask_key": "••••••••{{suffix}}",
+            "key_label": "Chjave di a casa",
+            "mask_key": "••••••••{{suffissu}}",
             "hide": "Ammuccià",
             "show": "Mostra Copia Nascosta finu à quandu a rivisati in modu sicuru Rivisà in modu sicuru Copia in modu sicuru Sparte cun cura Qualchissia cù questu chjave pò dumandà accessu à l&#39;inventariu di a casa. Sparte solu cù membri fidati è aduprà un canale privatu. Revele u chjave di a casa?",
             "copy": "Copia",
@@ -683,7 +706,7 @@
             "copy_confirm_acknowledge": "Capiscu chì sta chjave deve esse incollata solu in un canale privatu fidatu o in un gestore di password.",
             "copy_success_title": "Chjave di a casa copiatu",
             "copy_success_body": "Trattatelu cum'è una password di casa è spartitelu solu per mezu di un canale affidabile.",
-            "copy_error": "The house key could not be copied.",
+            "copy_error": "A chjave di a casa ùn pudia esse copiatu.",
             "modal_title": "Accessu chjave di casa",
             "modal_subtitle": "Aduprate sta chjave solu per i membri di a casa affidabili chì devenu dumandà l'accessu à stu inventariu spartutu.",
             "loading_members": "Caricamentu di i membri...",
@@ -762,7 +785,7 @@
             "privacy_link": "Pulitica di privacy",
             "beta_title": "Statu Beta",
             "beta_body": "{{brandName}} hè sempre in beta. E funzioni ponu cambià, i flussi di travagliu ponu evoluzione, è i dati impurtanti di a casa devenu sempre esse salvati.",
-            "feedback_subject": "Feedback - {{brandName}}",
+            "feedback_subject": "Feedback - {{brandName}} Backup per esempiu L'aghju datu senza nisun prublema per esempiu Ricevutu indietro in bona cundizione",
             "logout_body": "Qualsiasi cambiamenti ùn salvati in i formi aperti ponu esse persu dopu chì lasciate sta sessione.",
             "logout_description": "Riturnerete à a pagina principale è pudete accede torna in ogni mumentu.",
             "logout_title": "Esce avà?"
@@ -797,10 +820,10 @@
             "username": {
                 "title": "Cambia Nome d'Usuariu",
                 "new_label": "Novu Nome d'Usuariu",
-                "placeholder": "Your new username",
+                "placeholder": "U vostru novu nome d'utilizatore",
                 "help": "3-30 caratteri, lettere, numeri, sottolineatura è trattino solu",
-                "saving": "Saving...",
-                "submit": "Change"
+                "saving": "Salvendu...",
+                "submit": "Cambià"
             }
         },
         "select_language": "Selezziunate a lingua",
@@ -820,7 +843,7 @@
             "disable_confirm": "Disattiva 2FA",
             "disable_error": "Fallimentu à disattivà 2FA",
             "disabled_success": "L'autenticazione à dui fattori hè stata disattivata",
-            "password_label": "Password",
+            "password_label": "Parolla d'Ordine",
             "password_placeholder": "Inserite a vostra password",
             "method_totp": "Autenticatore",
             "method_backup": "Codice di Backup",
@@ -977,7 +1000,7 @@
             "overdue_badge": "In ritardu",
             "borrowed_badge": "Presu in prestito",
             "borrowed_to": "Cù {{name}}",
-            "due_date_short": "Due: {{date}}",
+            "due_date_short": "Scadenza: {{date}}",
             "actions_error": "L'azzione di prestatoghji ùn pò esse cumpleta",
             "borrowed_at": "Lendatu u: {{date}}",
             "due_date_label": "Ritornu previstu: {{date}}",
@@ -991,8 +1014,8 @@
             "no_history": "Ùn ci hè ancu storia di prestito per questu articulu.",
             "lend_success_title": "Articulu prestatu",
             "lend_success_body": "{{item}} hè avà marcatu cum'è pigliatu in prestitu.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "Offerta di prestitu inviata",
+            "offer_sent_body": "{{item}} serà marcatu cum'è prestat dopu chì l'altru membru accetta.",
             "borrowed_by_you": "Cù tè",
             "return_pending_hint": "U registru si chjuderà dopu chì u prestatore confermi chì hà ricivutu l'articulu torna.",
             "return_pending_lender_title": "{{name}} hà marcatu questu articulu cum'è consegnatu torna",
@@ -1028,10 +1051,10 @@
         "edit_action": "Edità categoria",
         "delete_action": "Sguassà categoria",
         "delete_title": "Sguassà sta categoria?",
-        "delete_description": "Deleting a category can affect how items are grouped and found later.",
+        "delete_description": "Sguassà una categuria pò influenzà cumu l'oggetti sò agrupati è truvati dopu. A categuria hè stata rimossa da a vostra struttura d'inventariu. Garage Audit",
         "delete_warning": "L'articuli chì utilizanu digià sta categuria ponu avè bisognu di esse rassignati per mantene chiari i filtri è i cuntadori.",
         "delete_success_title": "Categuria cancellata",
-        "delete_success_body": "The category was removed from your inventory structure.",
+        "delete_success_body": "A categuria hè stata rimossa da a vostra struttura di inventariu.",
         "defaults": {
             "kitchen": "Cucina",
             "electronics": "Elettronica",
@@ -1229,7 +1252,7 @@
             "no_logs": "ancun registru finu à avà",
             "errors_title": "Errori di u Sistema (Ultimi 10)",
             "no_errors": "// Sistema in bona salute, nisun registru di errori.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "I termini per sta stallazione {{brandName}} spieganu l'usu accettabile, e vostre rispunsevulità di sicurità, è e cunsequenze di a cancellazione di l'account in un furmatu più chjaru è faciule da leghje. Open Source",
             "type": {
                 "email": "E-mail",
                 "user": "Utente",
@@ -1248,7 +1271,7 @@
                 "email_sent": "Destinatariu: {{recipient}} | Sughjettu: {{subject}}",
                 "user_deleted": "Utente sguassatu: {{username}} | Case sguassate: {{deletedHouses}} | Proprietà trasferite: {{transferredOwnerships}}",
                 "user_target": "Utente: {{username}}",
-                "indexnow_submitted": "IndexNow submission successful. URL count: {{count}}"
+                "indexnow_submitted": "Sottomissione IndexNow riesciuta. Numeru di URL: {{count}}"
             },
             "no_errors_title": "Nisun errori di sistema recenti",
             "section_eyebrow": "Traccia di audit",
@@ -1277,7 +1300,7 @@
             "notes_body": "Aduprate quessa per u supportu operativu o per cuntattu ligatu à u contu. U cuntenutu sensibile deve restà dentru l'app quandu pussibule.",
             "notes_body_with_rate_limit": "Aduprate quessa per u supportu operativu o per cuntattu ligatu à u contu. U cuntenutu sensibile deve restà dentru l'app quandu pussibule. Safeguard attuale d'inviu: {{rateLimit}}.",
             "rate_limit_fallback": "3 email per minutu",
-            "placeholder_to": "name@example.com",
+            "placeholder_to": "name@example.com I termini per sta stallazione di {{brandName}} spieganu l'utilizazione accettabile, e vostre rispunsevule di sicurità, è e cunsequenze di a cancellazione di contu in un furmatu più chjaru è faciule da leghje. Open Source © 2026 {{brandName}}",
             "placeholder_subject": "Oggettu di u messagiu",
             "send_success_with_id": "✅ Email mandata cù successu! ID: {{emailId}}",
             "send_error": "L'email ùn hà pussutu esse mandata",
@@ -1309,7 +1332,7 @@
                 "footprint_eyebrow": "Inventariu",
                 "footprint_title": "Inventariu impronta",
                 "footprint_body": "Una vista globale di quantu struttura è cuntenutu esiste attualmente attraversu u pruduttu.",
-                "activity_eyebrow": "Audit",
+                "activity_eyebrow": "Audit © 2026 {{brandName}} © 2026 {{brandName}} - {{supportEmail}} Menu",
                 "activity_body": "L'ultime azzioni di muderazione è operative registrate da a piattaforma.",
                 "recent_users_eyebrow": "Novi conti",
                 "recent_users_title": "Ultimi registri",
@@ -1401,12 +1424,12 @@
             "cta_register": "Crea Account",
             "stat_free": "Libru",
             "stat_access": "Accessu",
-            "free_badge": "Open Source",
+            "free_badge": "Code Source Apertu",
             "badge": "HomeInventory v2.0 hè quì",
             "cta_explore": "Esplora e Caratteristiche",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Accede",
+            "stat_members": "Case spartute",
+            "stat_vault": "Cassaforte Privata"
         },
         "features": {
             "title": "Perchè <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Mantene elementi, garanzie, documenti impurtanti, è traccia di l'impiegu in un locu calmu. Vede ciò chì a to casa cuntene in un colpu d'ochju.",
                 "primaryCta": "Cumencia Gratu",
                 "secondaryCta": "Vede u Pruduttu",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Flussu suggeritu: contu • casa • stanze è categurie • articuli • backup",
                 "searchPlaceholder": "Circate un articulu, stanza, o codice barre"
             },
             "heroInventoryRows": [
@@ -1641,7 +1664,7 @@
         "close": "Chjude",
         "last": "Finisce",
         "next": "Avanti",
-        "open": "Open",
+        "open": "Avertu",
         "skip": "Salta"
     },
     "google_house_select": {
@@ -1728,15 +1751,15 @@
         "privacy_summary": "I dettagli di a reta restanu nascosti finu à chì avete bisognu di guida.",
         "link_privacy_note": "L'indirizzu di a reta resta quì scunnisciutu. Scannate u codice o copiate u ligame solu quandu vulete sparte intenzionalmente l'accessu direttu à l'articulu in a vostra cunfigurazione lucale.",
         "helper": "Scannate per apre subitu questu articulu, o copiate u ligame direttu quandu necessariu.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "U ligame ùn pudia micca esse copiatu automaticamente",
+        "copy_manual_help": "U vostru navigatore ùn hà micca permessu a copia automatica. U ligame hè selezziunatu per pudè copià manualmente.",
         "loading": "Preparendu strumenti QR..."
     },
     "house_access_pending": {
         "eyebrow": "Accessu à a Casa",
         "fallback_house": "Casa selezziunata",
         "signed_in_as": "Firmatu cum'è {{username}}",
-        "logout": "Logout",
+        "logout": "Logout >>> U ligame ùn pò micca esse copiatu automaticamente >>> U vostru navigatore ùn hà micca permessu a copia automatica. U ligame hè selezziunatu cusì pudete copià manualmente >>> © 2026 {{brandName}}",
         "messages": {
             "create_error": "Ùn pudia micca creà una casa",
             "join_success": "A vostra dumanda di unione hè stata mandata",
@@ -1790,7 +1813,7 @@
             ],
             "fallback": "U ligame di resettore di password pare incompletu o rottu.",
             "support": "Prublemi di registrazione:",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{brandName}} © 2026 {{brandName}} © 2026 {{brandName}} - {{supportEmail}} Menu"
         },
         "welcome": {
             "subject": "Benvenutu à {{brandName}}",
@@ -1808,7 +1831,7 @@
                 "💡 Pudete esse membru di parechje case è cambià trà elli. Ogni casa mantene un inventariu separatu."
             ],
             "support": "Prublemi di registrazione:",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{brandName}} {{brandName}} - {{status}} aghjurnatu © 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Unisci à una Casa",
@@ -1817,14 +1840,14 @@
             "bodyLine2": "Aspittendu l'appruvazioni di u pruprietariu di a casa"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}} aghjurnatu © 2026 {{brandName}} © 2026 {{brandName}} - {{supportEmail}}",
             "greeting": "Accessu à a Casa",
             "bodyLine1Template": "A dumanda attuale pendente: {{house}} ({{status}})",
             "bodyLine2": "A vostra dumanda per \"{{house}}\" hè sempre in attesa di una decisione.",
             "statusLabels": {
                 "approved": "appruvatu",
                 "rejected": "ricusatu",
-                "updated": "updated"
+                "updated": "aghjurnatu © 2026 {{brandName}} © 2026 {{brandName}} - {{supportEmail}} Menu"
             }
         },
         "houseKick": {
@@ -1969,8 +1992,8 @@
             "empty": "Ùn ci sò prestiti attivi avà.",
             "borrowed_from": "Presu in prestu da {{name}}",
             "lent_to": "Attualmente cun {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Aspittendu chì u prestatore cunfirmi ch'ellu l'avia ricevutu torna.",
+            "return_pending_lender": "{{name}} hà marcatu questu articulu cum'è tornatu cunsegnatu. Cunfirmà a ricezione per chjude u repertoriu.",
             "empty_title": "Nisun prestito attivu avà",
             "empty_description": "E richieste accettate appareranu quì una volta chì un articulu hè prestatu o ricevutu, inseme cù e date scadenza è u statutu di ritornu."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Annullatu",
             "expired": "Scadutu",
             "returned": "Riturnatu",
-            "return_pending": "Return pending"
+            "return_pending": "Ritornu in suspesu"
         },
         "actions": {
             "send_request": "Richiesta Articulu",
@@ -1990,8 +2013,8 @@
             "reject": "Rifiutà",
             "cancel": "Annullà",
             "fulfill_request": "Pienghje a Richiesta",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Marcà cunsegnatu",
+            "mark_received": "Mark hà ricevu",
             "open_inventory": "Avertu inventariu"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "Marcà Riturnatu",
             "return_subtitle": "Chjudite u prestitu attivu per \"{{item}}\"",
             "return_target": "Attualmente hè mustratu cum'è esse cù {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Consegnà l'oggettu",
+            "return_title_lender": "Riceve l'oggettu",
+            "return_subtitle_borrower": "Chjude u prestitu attivu per \"{{item}}\" dopu chì u rendi.",
+            "return_subtitle_lender": "Chjude u prestitu attivu per \"{{item}}\" dopu avèllu ricevutu.",
+            "return_target_borrower": "Prestatore: {{name}}",
+            "return_target_lender": "Attualmente cun: {{name}}",
+            "return_note_borrower": "Nota di consegna",
+            "return_note_lender": "Riceve nota per esempiu L&#39;aghju rimborsatu senza nisun prublema per esempiu Ricivutu torna in bona cundizione Chiudendu...",
+            "return_note_placeholder_borrower": "per esempiu L&#39;aghju resu senza nisun prublema",
+            "return_note_placeholder_lender": "per esempiu Ricevutu in bona cundizione",
+            "return_submitting": "Chjudendu..."
         },
         "messages": {
             "load_error": "U centru di prestitu ùn pò esse caricatu",
@@ -2061,7 +2084,7 @@
         "terms_of_service_title": "Termini di Sulu",
         "privacy_policy_content": "## Panoramica\n**{{brandName}}** hè un software open-source è pò esse furnitu da una installazione ufficiale o self-hosted. Per sta stallazione, u cuntrollu di dati o l'operatore di serviziu hè **{{controllerName}}**.\n- ** Indirizzu di u cuntrollu:** {{controllerAddress}}\n- **Contattu di privacy:** {{privacyEmail}}\n- **Contattu di supportu generale:** {{supportEmail}}\n\nQuestu avvisu spiega **chì dati persunali sò trattati**, **cumu sò ottenuti**, **perchè sò trattati**, **chì pò riceveli**, **quantu tempu sò conservati**, è **chì diritti pudete avè**.\n\nSe sta installazione hè operata da un terzu, quellu operatore hè rispunsevule per qualsiasi identità di cuntrollu specificu di implementazione, impegni di supportu, dettagli di trasferimentu, paràmetri di conservazione è avvisi legali lucali chì si applicanu.\n\n## Chì dati raccogliemu è tratemu\n- **Dati di u contu:** nome d'utilizatore, indirizzu email, password hash, cookies di sessione, dati di i dispositi di fiducia è logs di sicurezza.\n- **Dati di serviziu:** case, stanze, categurie, articuli, media caricati, richieste di prestitu, è registri persunali chì create.\n- **Dati tecnichi:** Indirizzu IP, identificatori di navigatore / sessione, è dati di preferenza di lingua necessarii per a localizazione è a sicurità di u contu.\n- **Dati facultativi di u fornitore di identità:** se sceglite Google Sign-In, Google sparte u vostru indirizzu email, l'identificatore di u contu Google è u nome di visualizazione di u prufilu cun noi per pudè autentificà o creà u vostru contu.\n- **Dati di dumanda di ricerca opzionale:** se utilizate un codice à barre o una ricerca di produttu, u valore di codice à barre chì inviate pò esse mandatu da u nostru servitore à Open Food Facts, Open Products Facts, Open Beauty Facts, o Google per chì u risultatu dumandatu pò esse restituitu.\n\n## Cumu ottenemu dati\n- ** Direttamente da voi:** quandu vi registrate, accede, crea o edità dischi, carica media, cunfigurà i paràmetri di sicurezza, o cuntattate l'assistenza.\n- **In autumàticu da u vostru navigatore o u vostru dispositivu:** attraversu i cookies di sessione richiesti, i meccanismi di i dispositi di fiducia, a gestione di l'IP, a preferenza di lingua è i logs di sicurezza necessarii per operà è prutegge l'applicazione.\n- **Da Google:** solu se sceglite Google Sign-In, limitatu à i dati d'identità necessarii per autentificà o creà u vostru contu.\n- **Da fonti di dati esterni di u produttu:** solu se attivate a ricerca di codice à barre o di produttu, limitata à a dumanda di ricerca è metadati di u produttu restituiti.\n\n## Perchè u processemu\n- **Uperazione di u contu:** per creà è operà u vostru contu.\n- **Autenticazione è sicurità:** per autentificà ti è assicurate sessioni è autentificazione à dui fattori.\n- **Funzioni principali:** per furnisce l'inventariu, a copia di salvezza è e funzioni di Vault Personale.\n- **Supportu:** per risponde à e dumande di supportu.\n- **Funzioni facoltative d'accessu è di ricerca:** per compie u login di Google è a ricerca di codici à barre / prudutti esterni solu quandu sceglite queste funzioni.\n- **Obligazioni legali è di sicurità:** per suddisfà obbligazioni legali o di sicurità.\n\n## Basa legale è metudu di cullizzioni\n- **Sutta GDPR, induve applicabile:** u trattamentu hè basatu annantu à l'esecuzione di u cuntrattu, l'obligazioni legali, l'accunsentu per qualsiasi funzione basata nantu à u cunsensu, è l'interessu legittimu di l'operatore in u serviziu è a sicurità di u contu.\n- **Sutta KVKK, induve applicabile:** u trattamentu hè basatu annantu à i motivi legali in l'Articuli 5 è 6, cumpresu induve hè necessariu per a creazione o l'esecuzione di un cuntrattu, u rispettu di l'obblighi legali, l'esercitu o a prutezzione di i diritti, o l'interessi legittimi di u controller, sempre chì i vostri diritti è libertà fundamentali ùn sò micca danati.\n- **Metudu di cullizzioni:** i dati sò raccolti per via elettronica attraversu forme, sessioni autentificate, cookies necessarii, flussi OAuth opzionali, logs di applicazioni, caricamenti è richieste API.\n\n## Storage è trasferimentu\n- **Ùn vendemu micca dati persunali.**\n- I dati persunali ponu esse ricevuti da l'ospiti, a basa di dati, u almacenamentu, l'email, l'autentificazione è i fornitori di l'infrastruttura utilizati per operà sta installazione.\n- Se sceglite Google Sign-In o ricerca di codice à barre / produttu, l'autentificazione pertinente o i dati di ricerca sò spartuti cù u fornitore sceltu solu per compie a funzione attivata.\n- I dati ponu esse divulgati à i tribunali, i regulatori, o l'autorità pubbliche quandu hè legalmente necessariu.\n- ** Trasferisce a divulgazione per questa installazione:** {{transferDisclosure}}\n- I dati di u contu sò conservati mentre u vostru contu hè attivu.\n- Quandu sguassate u vostru contu da i paràmetri, i dati di u vostru contu, u cuntenutu di u vault persunale, i media caricati è i registri di l'applicazioni di u vostru contu sò sguassati da l'applicazione senza ritardu indebitu, eccettu l'infurmazioni chì devenu esse ritenute per rivendicazioni legali, obbligazioni statutarie o obbligazioni di sicurità.\n\n## I vostri diritti\n- Sicondu a lege applicabile, pudete dumandà a cunferma se i vostri dati persunali sò trattati, l'accessu à questu, è l'infurmazioni nantu à scopi, categurie, destinatari è trasferimenti.\n- Pudete dumandà a rettificazione, a cancellazione, a distruzzione, a restrizione, o l'obiezione, è induve applica a portabilità di dati.\n- Induve u trattamentu hè basatu annantu à l'accunsentu, pudete ritirà u cunsensu in ogni mumentu senza affettà u prucessu legale precedente.\n- Pudete dumandà chì i risultati di correzione, eliminazione o distruzzione sò cumunicati à i destinatari induve a lege l'esige.\n- Pudete oppone à i risultati pruduciuti solu per mezu automatizatu, se a lege vi dà stu dirittu.\n- Induve permessu da a lege, pudete cercà una compensazione per i danni causati da u trattamentu illegale.\n- Pudete presentà una lagnanza cù **{{complaintAuthority}}**\n\n## Cumu esercite i diritti\n- Aduprate u flussu di eliminazione di u contu in-app o cuntattate **{{privacyEmail}}** per e dumande di privacy.\n- Quandu s'applica u GDPR, e dumande deve esse rispostu senza ritardu indebitu è ​​in principiu in 1 mese dopu a verificazione di l'identità.\n\n## Decisione automatizata\n- Questa applicazione ùn usa micca solu decisioni automatizati o profilazione chì produce effetti legali o simili significativi per voi.\n\n## Nota impurtante\nStu avvisu hè furnitu per a trasparenza. **Hè separatu da qualsiasi marketing facultativu, analisi, o cunsensu di cookie non essenziale**, chì deve esse dumandatu separatamente quandu hè necessariu.\n\nI manutentori di prughjetti open-source upstream ùn sò micca automaticamente u controller di dati o u processatore per implementazioni self-hosted di terzu.",
         "terms_of_service_content": "Termini di serviziu\n\n1. Panoramica\n{{brandName}} hè un software open-source è pò esse usatu per mezu di installazioni ufficiali o self-hosted. Questi termini s'applicanu à l'installazione specifica chì site aduprate.\n- Se sta stallazione hè operata da un terzu, quellu operatore pò cumplementà questi termini cù regule specifiche di implementazione, impegni di supportu o avvisi legali lucali.\n\n2. Reguli di usu\n- Sò rispunsevuli di a legalità, a precisione è a pruprietà di u cuntenutu chì site in u serviziu.\n- A dispunibilità open-source di u software ùn vi cuncede micca i diritti di carica, almacenà o sparte dati chì ùn site micca autorizatu à aduprà.\n- Pudemu suspende o sguassate i cunti chì abusanu di u serviziu, violanu sti termini, o creanu un risicu di sicurezza o legale.\n\n3. Sicurezza di u contu\n- Mantene a vostra password, i materiali di ricuperazione è e copie di salvezza sicure.\n\n4. Ciclu di vita di dati\n- Mantene a vostra propria copia di salvezza di l'infurmazioni impurtanti.\n- L'eliminazione di u vostru contu da i paràmetri elimina permanentemente i dati di l'applicazione è i media caricati chì appartene à u vostru contu è ùn pò micca esse annullatu.\n\n5. Limitazioni è Disclaimer\n- A dispunibilità, u supportu, l'integrazioni è i tempi di risposta dipendenu da l'operatore di sta stallazione.\n- U serviziu hè furnitu nantu à una basa \"cum'è hè\" è \"cum'è dispunibile\" in a misura permessa da a lege.",
-        "register_consent": "I accept the <1>Terms of Service</1> and acknowledge that I have read the <2>Privacy Notice</2>.",
+        "register_consent": "Accettu i <1>Termini di Serviziu</1> è ricunnoscu chì aghju lettu u <2>Avvisu di Privacy</2>.",
         "consent_title": "Rivedi i ducumenti legali",
         "consent_subtitle": "Per piacè cunfirma i termini attuali prima di cuntinuà.",
         "consent_notice": "Avemu bisognu di un ricunniscenza registrata per i Termini di Serviziu è a Notifica di Privacy attuali prima chì pudete cuntinuà à usà l'applicazione.",
@@ -2073,7 +2096,7 @@
         "data_privacy_badge": "Dati è privacy",
         "back_to_home": "Torna à Home",
         "quick_access": "Accessu rapidu",
-        "on_this_page": "On this page",
+        "on_this_page": "In questa pagina I termini per sta installazione {{brandName}} spieganu l'usu accettabile, e vostre responsabilità di sicurità, è e cunsequenze di a cancellazione di contu in un furmatu più chjaru è faciule da leghje. Open Source Accede",
         "contents": "Pagina",
         "page_label": "Panoramica",
         "overview": "Cuntattu",
@@ -2103,7 +2126,7 @@
                 "rights": "Per dumande nantu à i termini chì s'applicanu à sta installazione:"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "I termini per questa installazione di {{brandName}} spieganu l'usu accettabile, e vostre responsabilità di sicurità, è e cunsequenze di a cancellazione di l'account in un furmatu più chjaru è faciule da scanà.",
         "terms_support_label": "Ciò chì questu significa in pratica",
         "terms_summary": {
             "eyebrow": "Riassuntu rapidu",
@@ -2134,7 +2157,7 @@
     "layout": {
         "secondary_controls_title": "Utilità",
         "secondary_controls_hint": "A lingua, u tema, è i detagli di rilascio restanu gruppati quì.",
-        "collapse_sidebar": "Collapse sidebar",
+        "collapse_sidebar": "Collapsa a barra laterale",
         "expand_sidebar": "Espandi a barra laterale",
         "account_menu_title": "Menu di contu",
         "account_menu_aria": "Apri u menu di contu per {{name}}",
@@ -2194,7 +2217,7 @@
         "select_option": "Sceglite una opzione"
     },
     "app": {
-        "name": "{{brandName}}",
+        "name": "{{brandName}} Menu Accede '{{name}}' aghjuntu à a lista di cumprà.",
         "tagline": "Gestisce in modu intelligenti tutti i vostri articuli di casa"
     },
     "nav": {
@@ -2236,14 +2259,179 @@
         "validation": "Errore di validazione"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Accede",
+        "page_title_register": "Crea contu",
+        "page_title_choose_house": "Sceglie casa",
+        "page_title_recovery_key": "Chjave di ricuperazione",
+        "page_title_house_access": "Accessu à a casa",
+        "page_title_legal_review": "Revisione legale",
+        "page_title_new_item": "Nuvellu articulu",
+        "page_title_edit_item": "Edità l'articulu",
+        "page_title_items": "Inventariu"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Errore durantu u carricu di a lista di spesa.",
+            "select_item_error": "Per piacè selezziunate un articulu da l'inventariu.",
+            "empty_name": "Per piacè inserite un nome di l'articulu.",
+            "added": "Articulu aghjuntu à a lista di spesa.",
+            "add_error": "Si hè verificatu un errore durante l'aggiunta di l'articulu. \"{{name}}\" aghjuntu à a lista di shopping. {{count}} articuli à bassu stock aghjunti à a lista. Errore à aghjunghje articuli à bassu stock.",
+            "added_suggestion": "\"{{name}}\" aghjuntu à a lista di compra.",
+            "bulk_added": "{{count}} articuli à bassu scorte aghjuntu à a lista. Errore aghjunghjendu articuli à bassu scorte. \"{{name}}\" spustatu torna à a lista attiva. Si hè verificatu un errore durante l'aghjurnamentu.",
+            "bulk_error": "Errore à aghjunghje articuli in pocu stock.",
+            "completed": "\"{{name}}\" marcatu cum'è cumpiutu. \"{{name}}\" spostatu torna à a lista attiva. Si hè verificatu un errore durant a aghjurnamentu. Elementu sguassatu da a lista.",
+            "reactivated": "\"{{name}}\" ricusatu torna à a lista attiva.",
+            "update_error": "Si hè verificatu un errore durante l'aghjurnamentu. Sì sicuru chì vulete sguassà u calendaru di mantenimentu periodicu \"{{name}}\"? Questa azzione ùn pò esse annullata. Articulu Relativu Devi aghjunghje prima un articulu à l'inventariu prima di pianificà u mantenimentu.",
+            "deleted": "Articulu eliminatu da a lista. Sì sicuru chì voi vulete eliminà u calendariu di mantenimentu periodicu \"{{name}}\"? Questa azzione ùn pò esse annullata. Articulu Relatu Devi aghjunghje un articulu à l'inventariu prima di pianificà u mantenimentu.",
+            "delete_error": "Errore accadutu durante a cancellazione.",
+            "cleared_completed": "Articuli compiuti puliti.",
+            "clear_error": "Errore accadutu durante a pulizia."
+        },
+        "loading_desc": "Preparendu a lista di shopping...",
+        "page": {
+            "title": "Lista di Spese",
+            "description": "Vede l'artiiculette cun pocu stock in l'inventariu di a casa è gestisce facilmente a vostra lista di spese."
+        },
+        "suggestions": {
+            "title": "Suggerimenti intelligenti di Inventariu",
+            "desc": "Artiiculette di l'inventariu chì sò calate sottu à u limitu minimu.",
+            "add_all": "Aghjunghje Tutti i Mancanti",
+            "stock_status": "Attuale: {{current}} / Obbiettivu: {{min}}",
+            "add_qty": "Aghjunghje {{qty}}"
+        },
+        "sections": {
+            "active_list": "Articuli da cumprà",
+            "active_desc": "Articuli di shopping attuali da aghjunghje à u to carrettu.",
+            "active_count": "{{count}} Articuli",
+            "completed_list": "Articuli cumprati ({{count}})",
+            "add_item": "Aghjunghje Articulu Manualmente",
+            "add_desc": "Aghjunghje manualmente un articulu persunalizatu à a lista."
+        },
+        "empty": {
+            "title": "A to lista di compra hè vacante",
+            "desc": "Pudete aghjunghje scorte mancanti da e suggerenze sopra o aghjunghje articuli manualmente aduprendu u furmulariu à diritta."
+        },
+        "card": {
+            "linked_inventory": "Salvatu in Inventariu"
+        },
+        "actions": {
+            "clear_completed": "Chjara Storia",
+            "add_item": "Aghjunghje à a Lista di Spesa"
+        },
+        "form": {
+            "add_type": "Aghjunghje Metudu",
+            "add_type_inventory": "Articulu d'Inventariu",
+            "add_type_custom": "Articulu Persunalizatu",
+            "select_inventory_item": "Sceglite Un Articulu da l'Inventariu",
+            "no_inventory_items": "Nisun articulu in u vostru inventariu finu à avà",
+            "select_item_placeholder": "Sceglite un articulu",
+            "current_stock": "Corrente",
+            "item_name": "Nome di l&#39;Articulu",
+            "item_name_placeholder": "es. Latte, Detersivu, Fagioli di Caffè...",
+            "quantity": "Quantità"
+        },
+        "modal": {
+            "delete_title": "Sguassà l'Articulu da a Lista?",
+            "delete_desc": "Site sicuru chì vulete caccià \"{{name}}\" da a vostra lista di compra?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Errore à carica l'infurmazione",
+            "select_item_error": "Per piacè selezziunate un articulu.",
+            "task_name_error": "U nome di u compitu hè necessariu.",
+            "date_error": "A data prevista hè necessaria.",
+            "updated": "Compitu di mantenimentu aghjurnatu",
+            "created": "Novu compitu di mantenimentu aghjuntu",
+            "save_error": "Errore accadutu mentre si salvava",
+            "deleted": "Task di mantenimentu sguassatu cun successu.",
+            "delete_error": "Un errore hè accadutu durante u prucessu di sguassamentu.",
+            "performed": "Mantenimentu registratu cum'è cumpletu. A prossima data hè prugrammata.",
+            "perform_error": "Si hè accadutu un errore mentre salvava."
+        },
+        "freq": {
+            "one_time": "Una volta",
+            "unit": {
+                "days": "Ghjornu",
+                "weeks": "Settimana",
+                "months": "Mese",
+                "years": "Annu"
+            },
+            "format": "Ogni {{val}} {{unit}}"
+        },
+        "loading_desc": "Caricendu u calendariu di mantinimentu...",
+        "page": {
+            "title": "Mantinimentu è Tracciatura Piritica",
+            "description": "Gestisce i scheduli di mantinimentu piriticu per apparecchi, filtri, o equipaggiu di sicurità in u vostru inventariu di casa."
+        },
+        "actions": {
+            "add_task": "Aghjunghje Nova Attività",
+            "manage": "Gestisce",
+            "perform": "Marca cum&#39;è Fattu",
+            "edit_task": "Edità Task"
+        },
+        "alerts": {
+            "overdue_title": "Avete Compiti Scaduti!",
+            "overdue_desc": "Ci sò {{count}} compiti di mantenimentu scaduti. I ritardi ponu riduce a vita di l&#39;apparecchiu."
+        },
+        "empty": {
+            "title": "Nisunu compitu di mantenimentu priscrittu",
+            "desc": "Cumencia per aghjunghje compiti ricorrenti cum'è a pulizia di u filtru AC, a manutenzione di a caldaia, o i cuntrolli di batteria di i rilevatori di focu."
+        },
+        "sections": {
+            "overdue": "Compiti in ritardu",
+            "overdue_desc": "Manutenzione urgente chì deve esse fatta subitu.",
+            "upcoming": "Compiti pianificati / Sucenti",
+            "upcoming_desc": "Aproximendu a manutenzione in i ghjorni à vene.",
+            "no_upcoming": "Nisun compitu attivu pianificatu in u futuru."
+        },
+        "modal": {
+            "edit_title": "Edità u Compitu",
+            "create_title": "Pianificà un novu compitu di manutenzione",
+            "perform_title": "Manutenzione Cumpleta",
+            "perform_desc": "Vulete registrà \"{{name}}\" cum'è cumpleta oghje?",
+            "perform_confirm": "Iè, Cumpletu",
+            "perform_recurrence_info": "Questu hè un compitu periodicu. Quandu salvate, u sistema calcolerà automaticamente a prossima data di manutenzione.",
+            "delete_title": "Sguassà u compitu di mantenimentu?Sì sicuru chì vulete sguassà u schedariu di mantenimentu periodicu \"{{name}}\"? Questa azzione ùn pò esse annullata.Elementu ligatuDuverete aghjunghje un elementu à l'inventariu prima di prugrammà u mantenimentu.",
+            "delete_desc": "Site sicuru chì vulete sguassà u calendariu di mantenimentu periodicu \"{{name}}\"? Questa azzione ùn pò esse annullata."
+        },
+        "form": {
+            "item": "Articulu Relativu",
+            "no_items": "Duvete aghjunghje prima un articulu à l'inventariu prima di pianificà u mantenimentu.",
+            "select_item_placeholder": "Selezziunà un Articulu",
+            "task_name": "Nome di u Task / Operazione",
+            "task_name_placeholder": "per esempiu. Rimpiazzamentu di Filtru, Verifica Periodica...",
+            "description": "Dettagliu / Discrizzione",
+            "description_placeholder": "Dettagli di u compitu, materiali da aduprà, ecc...",
+            "frequency_value": "Frequenza di ricurrenza",
+            "frequency_placeholder": "p.es. 6 (lassate biancu per una volta)",
+            "frequency_unit": "Unità di frequenza",
+            "next_due_date": "Prossima Data Prugrammata",
+            "section_help": "Gestisce i calendarii di mantenimentu da quì",
+            "section_collapsed": "Cliccate per aghjunghje cuntrolli è compiti periodichi",
+            "has_tasks": "{{count}} Compiti",
+            "new_item_warning_title": "Articulu Salvu in Attesa Deve prima salvà questu articulu per aghjunghje un calendariu di manutenzione Gestisce i calendarii di manutenzione per stu apparechju o articulu Nome di u compitu",
+            "new_item_warning_desc": "Devi salvà questu articulu prima di aghjunghje un calendariu di mantenimentu.",
+            "manage_desc": "Gestisce i calendarii di mantenimentu per stu apparechju o articulu."
+        },
+        "fields": {
+            "task_name": "Nome di u compitu",
+            "task_name_placeholder": "per esempiu pulizia di u filtru AC",
+            "description": "Discrizzione",
+            "description_placeholder": "Dettagli di u compitu, materiali da aduprà, ecc...",
+            "frequency_value": "Frequenza di ricorrenza",
+            "frequency_value_placeholder": "Lasciate vacante per una volta >>> Frequenza Unità >>> Data Pruvata >>> Articulu senza titulu",
+            "frequency_unit": "Unità di frequenza",
+            "next_due_date": "Data prugrammata"
+        },
+        "card": {
+            "untitled_item": "Articulu senza titulu",
+            "last_performed": "Ultimu Fattu:",
+            "next_due_label": "Data Prugrammata",
+            "complete_tooltip": "Marcate a Manutenzione Cum'è Fatta Oghje"
+        },
+        "detail_card_desc": "Tracciamentu di manutenzione periodica o unica prugrammata per stu articulu.",
+        "no_tasks": "Nisuna attività di mantenimentu assignata à questu elementu. Questa attività serà sguassata. Site sicuru?",
+        "confirm_delete": "Questa attività serà cancellata. Sì tu sicuru?"
     }
 }

@@ -24,6 +24,7 @@ import { normalizeOptionalCurrency } from '../utils/currencyValidation.js';
 import { normalizeOptionalDate } from '../utils/dateValidation.js';
 import { validateUploadedImageBuffer } from '../utils/imageValidation.js';
 import { normalizeWarrantyDetails } from '../utils/warrantyValidation.js';
+import { getUploadsRoot } from '../utils/runtimePaths.js';
 import {
     buildUsernameLookup,
     buildBarcodeLookup,
@@ -64,10 +65,10 @@ const router = express.Router();
 const MEDIA_FILE_REGEX = /^[A-Za-z0-9._-]+\.webp$/;
 
 // Ensure uploads directories exist
-const uploadsDir = join(repoRoot, 'uploads');
-const thumbnailsDir = join(repoRoot, 'uploads', 'thumbnails');
-const invoiceUploadsDir = join(repoRoot, 'uploads', 'invoices');
-const invoiceThumbnailsDir = join(repoRoot, 'uploads', 'invoices', 'thumbnails');
+const uploadsDir = getUploadsRoot(repoRoot);
+const thumbnailsDir = join(uploadsDir, 'thumbnails');
+const invoiceUploadsDir = join(uploadsDir, 'invoices');
+const invoiceThumbnailsDir = join(uploadsDir, 'invoices', 'thumbnails');
 
 for (const directory of [uploadsDir, thumbnailsDir, invoiceUploadsDir, invoiceThumbnailsDir]) {
     ensurePrivateDirectory(directory);
@@ -601,6 +602,27 @@ function serializeItem(item, viewerUserId = null) {
         ...publicItem
     } = decryptedItem;
 
+    const expiryDateStr = decryptedItem.expiry_date || null;
+    let isExpired = false;
+    let isCloseToExpiry = false;
+    if (expiryDateStr) {
+        const todayStr = new Date().toISOString().split('T')[0];
+        if (expiryDateStr < todayStr) {
+            isExpired = true;
+        } else {
+            const expiryTime = new Date(expiryDateStr + 'T00:00:00Z').getTime();
+            const todayTime = new Date(todayStr + 'T00:00:00Z').getTime();
+            const diffDays = Math.round((expiryTime - todayTime) / (1000 * 60 * 60 * 24));
+            if (diffDays <= 30) {
+                isCloseToExpiry = true;
+            }
+        }
+    }
+
+    const quantityVal = parseInt(decryptedItem.quantity, 10) || 0;
+    const minQtyVal = parseInt(decryptedItem.min_quantity, 10) || 0;
+    const isLowStock = minQtyVal > 0 && quantityVal <= minQtyVal;
+
     return {
         ...publicItem,
         photo_path: buildMediaUrl(decryptedItem.photo_path),
@@ -611,7 +633,10 @@ function serializeItem(item, viewerUserId = null) {
         can_edit: viewerUserId !== null && decryptedItem.user_id === viewerUserId,
         can_delete: viewerUserId !== null && decryptedItem.user_id === viewerUserId,
         active_borrow: activeBorrow,
-        is_borrowed: Boolean(activeBorrow)
+        is_borrowed: Boolean(activeBorrow),
+        is_expired: isExpired,
+        is_close_to_expiry: isCloseToExpiry,
+        is_low_stock: isLowStock
     };
 }
 
@@ -1182,7 +1207,9 @@ router.post('/', uploadFields, async (req, res) => {
             warranty_start_date,
             warranty_duration_value,
             warranty_duration_unit,
-            warranty_expiry_date
+            warranty_expiry_date,
+            expiry_date,
+            min_quantity
         } = req.body;
         const houseKey = req.user.house_key;
         if (!String(name || '').trim()) {
@@ -1201,6 +1228,8 @@ router.post('/', uploadFields, async (req, res) => {
             warranty_expiry_date
         });
         const normalizedQuantity = Math.max(1, parseInt(quantity, 10) || 1);
+        const normalizedMinQuantity = Math.max(0, parseInt(min_quantity, 10) || 0);
+        const normalizedExpiryDate = expiry_date ? normalizeOptionalDate(expiry_date, 'Son kullanma tarihi') : null;
         const { categoryId, roomId, locationId } = resolveItemReferenceIds(req.body, houseKey);
 
         // Görsel işleme
@@ -1226,9 +1255,9 @@ router.post('/', uploadFields, async (req, res) => {
                 name, description, quantity, photo_path, thumbnail_path, invoice_photo_path, invoice_thumbnail_path,
                 barcode, invoice_price, invoice_currency, invoice_date, warranty_start_date, warranty_duration_value,
                 warranty_duration_unit, warranty_expiry_date, barcode_lookup, category_id, room_id, location_id,
-                is_public, user_id, house_key
+                is_public, user_id, house_key, expiry_date, min_quantity
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `).run(
             encryptItemName(name),
             description ? encryptItemDescription(description) : null,
@@ -1248,7 +1277,9 @@ router.post('/', uploadFields, async (req, res) => {
             buildBarcodeLookup(barcode),
             categoryId, roomId, locationId,
             is_public !== undefined ? (parseBoolean(is_public) ? 1 : 0) : 1,
-            req.user.id, houseKey
+            req.user.id, houseKey,
+            normalizedExpiryDate,
+            normalizedMinQuantity
         );
 
         const item = db.prepare(`
@@ -1290,7 +1321,9 @@ router.put('/:id', uploadFields, async (req, res) => {
             warranty_duration_unit,
             warranty_expiry_date,
             remove_photo,
-            remove_invoice_photo
+            remove_invoice_photo,
+            expiry_date,
+            min_quantity
         } = req.body;
         const itemId = req.params.id;
         if (name !== undefined && !String(name || '').trim()) {
@@ -1352,6 +1385,12 @@ router.put('/:id', uploadFields, async (req, res) => {
         const normalizedQuantity = quantity !== undefined
             ? Math.max(1, parseInt(quantity, 10) || 1)
             : existing.quantity;
+        const normalizedMinQuantity = min_quantity !== undefined
+            ? Math.max(0, parseInt(min_quantity, 10) || 0)
+            : existing.min_quantity;
+        const normalizedExpiryDate = expiry_date !== undefined
+            ? (expiry_date ? normalizeOptionalDate(expiry_date, 'Son kullanma tarihi') : null)
+            : existing.expiry_date;
         const { categoryId, roomId, locationId } = resolveItemReferenceIds(req.body, req.user.house_key, existing);
 
         // Görsel işleme
@@ -1394,7 +1433,7 @@ router.put('/:id', uploadFields, async (req, res) => {
             SET name = ?, description = ?, quantity = ?, photo_path = ?, thumbnail_path = ?, invoice_photo_path = ?, invoice_thumbnail_path = ?,
                 barcode = ?, invoice_price = ?, invoice_currency = ?, invoice_date = ?, warranty_start_date = ?,
                 warranty_duration_value = ?, warranty_duration_unit = ?, warranty_expiry_date = ?, barcode_lookup = ?,
-                category_id = ?, room_id = ?, location_id = ?, is_public = ?, updated_at = CURRENT_TIMESTAMP
+                category_id = ?, room_id = ?, location_id = ?, is_public = ?, expiry_date = ?, min_quantity = ?, updated_at = CURRENT_TIMESTAMP
             WHERE id = ?
         `).run(
             name ? encryptItemName(name) : existing.name,
@@ -1425,6 +1464,8 @@ router.put('/:id', uploadFields, async (req, res) => {
             roomId,
             locationId,
             requestedVisibility,
+            normalizedExpiryDate,
+            normalizedMinQuantity,
             itemId
         );
 

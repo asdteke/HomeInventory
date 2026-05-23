@@ -48,7 +48,8 @@
         "details": "Детали",
         "hide": "Скрыть пароль",
         "logging_out": "Выход...",
-        "show": "Показать пароль"
+        "show": "Показать пароль",
+        "saving": "Сохранение..."
     },
     "auth": {
         "login": {
@@ -94,7 +95,7 @@
             "support_link": "Связаться с поддержкой"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "Настройте свой дом",
             "subtitle": "Создать новый аккаунт или присоединиться к существующему дому",
             "create_house": "Создать новый дом",
             "join_house": "Присоединиться к дому",
@@ -190,7 +191,7 @@
             "confirm_password_placeholder": "Введите пароль еще раз",
             "reset_submit": "Сброс пароля",
             "resetting": "Сброс...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Введите ваше имя пользователя или электронную почту"
         },
         "reset_password": {
             "title": "Сброс пароля",
@@ -231,7 +232,7 @@
         "password_requirements": "Используйте не менее {{min}} символов с заглавными и строчными буквами, цифрой и символом.",
         "logout": "Выйти",
         "logging_in": "Вход в систему...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "Добро пожаловать в {{brandName}}",
         "username_email": "Имя пользователя или электронная почта",
         "username": "Имя пользователя",
         "email": "Электронная почта",
@@ -316,7 +317,9 @@
         "logout_aria": "Выйти из аккаунта",
         "logout_title": "Выйти?",
         "logout_description": "Вы будете возвращены на экран входа в систему и вам потребуется войти снова, чтобы управлять запасами вашей семьи.",
-        "logout_warning": "Используйте это, когда закончили работу на общем или личном устройстве."
+        "logout_warning": "Используйте это, когда закончили работу на общем или личном устройстве.",
+        "maintenance": "График технического обслуживания",
+        "shopping": "Список покупок"
     },
     "dashboard": {
         "welcome": "Добро пожаловать, <1>{{name}}</1>! 👋",
@@ -443,7 +446,20 @@
         "no_items_filter": "Нет предметов, соответствующих этому фильтру",
         "manage": "Управление",
         "add_item": "Добавить предмет",
-        "search_item": "Найти предмет"
+        "search_item": "Найти предмет",
+        "alerts": {
+            "expired_title": "Товары просрочены!",
+            "expired_desc": "В вашем инвентаре {{count}} просроченных товаров. Пожалуйста, проверьте их для вашей безопасности.",
+            "view_items": "Просмотреть товары",
+            "maintenance_title": "Просроченные задачи по обслуживанию!",
+            "maintenance_desc": "Существует {{count}} просроченных задач по техническому обслуживанию. Выполните обслуживание, чтобы продлить срок службы ваших приборов.",
+            "go_to_maintenance": "Перейти к обслуживанию",
+            "low_stock_title": "Предупреждение о низком запасе",
+            "low_stock_desc": "{{count}} товаров опустились ниже вашего минимального уровня запасов.",
+            "go_to_shopping": "Список покупок",
+            "close_expiry_title": "Предстоящие даты истечения срока",
+            "close_expiry_desc": "{{count}} продуктов истекут в течение 30 дней."
+        }
     },
     "beta_banner": {
         "title": "БЕТА:",
@@ -523,7 +539,9 @@
             "vault_hint_action": "Открыть Личный сейф",
             "location": "Местоположение",
             "remove_photo": "Удалить фото",
-            "visibility_owner_only": "Только человек, добавивший предмет, может изменять его видимость."
+            "visibility_owner_only": "Только человек, добавивший предмет, может изменять его видимость.",
+            "expiry_date": "Дата истечения срока",
+            "min_quantity": "Минимальное количество"
         },
         "qrcode": {
             "title": "QR-код",
@@ -577,7 +595,12 @@
         "no_permission": "У вас нет разрешения изменять этот предмет",
         "barcode_search_error": "Ошибка поиска штрих-кода",
         "stats_error": "Ошибка загрузки статистики",
-        "detail_subtitle": "Детали предмета"
+        "detail_subtitle": "Детали предмета",
+        "status": {
+            "close_to_expiry": "Ближе к истечению срока",
+            "expired": "Просрочено",
+            "low_stock": "Низкий запас"
+        }
     },
     "settings": {
         "title": "Настройки",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "Активный ключ дома",
             "key_label": "Ключ дома",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{суффикс}}",
             "hide": "Скрыть",
             "show": "Показать",
             "copy": "Копировать",
@@ -991,8 +1014,8 @@
             "no_history": "История заимствований для этого предмета пока отсутствует.",
             "lend_success_title": "Предмет выдан",
             "lend_success_body": "Предмет {{item}} теперь отмечен как выданный.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "Предложение займа отправлено",
+            "offer_sent_body": "{{item}} будет отмечен как занятый после того, как другой участник примет его.",
             "borrowed_by_you": "У вас",
             "return_pending_hint": "Запись будет закрыта после того, как кредитор подтвердит получение предмета обратно.",
             "return_pending_lender_title": "{{name}} отметил этот предмет как возвращённый",
@@ -1231,7 +1254,7 @@
             "no_logs": "журналы пока отсутствуют",
             "errors_title": "Системные ошибки (Последние 10)",
             "no_errors": "// Система работает нормально, ошибок нет.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{дата, дата и время}}",
             "type": {
                 "email": "Электронная почта",
                 "user": "Пользователь",
@@ -1283,7 +1306,7 @@
             "notes_body": "Используйте это для оперативной поддержки или связи по вопросам аккаунта. Конфиденциальный контент следует по возможности оставлять внутри приложения.",
             "notes_body_with_rate_limit": "Используйте это для оперативной поддержки или связи по вопросам аккаунта. Конфиденциальный контент следует по возможности оставлять внутри приложения. Текущая защита отправки: {{rateLimit}}.",
             "rate_limit_fallback": "3 письма в минуту",
-            "placeholder_to": "name@example.com",
+            "placeholder_to": "имя@example.com",
             "placeholder_subject": "Тема сообщения",
             "send_success_with_id": "✅ Электронное письмо успешно отправлено! ID: {{emailId}}",
             "send_error": "Не удалось отправить электронное письмо",
@@ -1401,12 +1424,12 @@
             "cta_register": "Создать аккаунт",
             "stat_free": "Бесплатно",
             "stat_access": "Доступ",
-            "free_badge": "Open Source",
+            "free_badge": "Открытый исходный код",
             "badge": "HomeInventory v2.0 уже здесь.",
             "cta_explore": "Изучить особенности",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Войти",
+            "stat_members": "Общие дома",
+            "stat_vault": "Личный сейф"
         },
         "features": {
             "title": "Почему <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Храните вещи, гарантии, важные документы и отслеживание заимствований в одном спокойном месте. Смотрите, что содержится в вашем доме, одним взглядом.",
                 "primaryCta": "Начать бесплатно",
                 "secondaryCta": "Смотреть продукт",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Предложенный порядок: аккаунт • главная • комнаты и категории • предметы • резервное копирование",
                 "searchPlaceholder": "Искать предмет, комнату или штрихкод"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "Сетевые данные остаются скрытыми до тех пор, пока вам не понадобится руководство.",
         "link_privacy_note": "Сетевой адрес остается скрытым здесь. Сканируйте код или копируйте ссылку только тогда, когда вы намеренно хотите поделиться прямым доступом к элементу в вашей локальной установке.",
         "helper": "Сканируйте, чтобы мгновенно открыть этот элемент, или копируйте прямую ссылку при необходимости.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Ссылка не может быть скопирована автоматически",
+        "copy_manual_help": "Ваш браузер не разрешил автоматическое копирование. Ссылка выделена, чтобы вы могли скопировать её вручную.",
         "loading": "Подготовка инструментов QR..."
     },
     "house_access_pending": {
@@ -1817,7 +1840,7 @@
             "bodyLine2": "Ожидание одобрения владельцем дома"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} – {{status}}",
             "greeting": "Доступ к дому",
             "bodyLine1Template": "Текущий ожидающий запрос: {{house}} ({{status}})",
             "bodyLine2": "Ваш запрос на \"{{house}}\" все еще ожидает решения.",
@@ -1846,7 +1869,7 @@
         },
         "adminEmail": {
             "sentBy": "Это письмо было отправлено {{brandName}}.",
-            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
+            "footer": "© 2026 {{brandName}} – {{supportEmail}}"
         },
         "testEmail": {
             "subject": "🧪 {{brandName}} Тестовое письмо",
@@ -1969,8 +1992,8 @@
             "empty": "В данный момент активных заимствований нет.",
             "borrowed_from": "Заимствовано у {{name}}",
             "lent_to": "В настоящее время у {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Ожидание подтверждения от кредитора о том, что он его получил обратно.",
+            "return_pending_lender": "{{name}} отметил этот предмет как возвращенный. Подтвердите получение, чтобы закрыть запись.",
             "empty_title": "Сейчас нет активных заимствований",
             "empty_description": "Принятые запросы отображаются здесь после того, как элемент будет заимствован или выдан, вместе с датами возврата и статусом возврата."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Отменено",
             "expired": "Истекло",
             "returned": "Возвращено",
-            "return_pending": "Return pending"
+            "return_pending": "Возврат в ожидании"
         },
         "actions": {
             "send_request": "Запросить товар",
@@ -1990,8 +2013,8 @@
             "reject": "Отклонить",
             "cancel": "Отменить",
             "fulfill_request": "Выполнить запрос",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Отметить как доставленный",
+            "mark_received": "Отметить как полученный",
             "open_inventory": "Открыть инвентарь"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "Отметить как возвращённое",
             "return_subtitle": "Закрыть активное заимствование для \"{{item}}\"",
             "return_target": "В настоящее время он указан как находящийся у {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Доставить предмет",
+            "return_title_lender": "Получить предмет",
+            "return_subtitle_borrower": "Закройте активное заимствование для \"{{item}}\" после того, как вернете его.",
+            "return_subtitle_lender": "Закройте активное заимствование для \"{{item}}\" после того, как получите его обратно.",
+            "return_target_borrower": "Кредитор: {{name}}",
+            "return_target_lender": "В настоящее время с: {{name}}",
+            "return_note_borrower": "Накладная",
+            "return_note_lender": "Приемная накладная",
+            "return_note_placeholder_borrower": "например, я вернул это без каких-либо проблем",
+            "return_note_placeholder_lender": "например, получил обратно в хорошем состоянии",
+            "return_submitting": "Закрытие..."
         },
         "messages": {
             "load_error": "Центр заимствований не может быть загружен",
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "Условия использования и отказ от ответственности",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "Бетаверсия: {{brandName}} в настоящее время находится на стадии тестирования. Никаких гарантий относительно сохранности данных или безопасности не предоставляется.",
         "disclaimer": "Отказ от ответственности: Используя это приложение, вы соглашаетесь с тем, что не можете требовать компенсацию за возможную потерю данных, проблемы с доступом или другие технические неполадки.",
         "backup_warning": "Резервное копирование данных: Мы настоятельно рекомендуем регулярно создавать резервные копии вашей важной информации.",
         "accept": "Войдя в систему, вы соглашаетесь с этими условиями.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} в настоящее время находится на стадии тестирования и хобби. Никаких гарантий относительно сохранности или безопасности данных не предоставляется. Пожалуйста, сохраняйте резервные копии вашей важной информации.",
         "contact": "Контакт"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Слишком много попыток входа. Попробуйте через 15 минут."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Войти",
+        "page_title_register": "Создать аккаунт",
+        "page_title_choose_house": "Выбрать дом",
+        "page_title_recovery_key": "Ключ восстановления",
+        "page_title_house_access": "Доступ в дом",
+        "page_title_legal_review": "Юридическая проверка",
+        "page_title_new_item": "Новый элемент",
+        "page_title_edit_item": "Редактировать элемент",
+        "page_title_items": "Инвентарь"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Ошибка при загрузке списка покупок.",
+            "select_item_error": "Пожалуйста, выберите элемент из инвентаря.",
+            "empty_name": "Пожалуйста, введите название товара.",
+            "added": "Товар добавлен в список покупок.",
+            "add_error": "Произошла ошибка при добавлении товара.",
+            "added_suggestion": "\"{{name}}\" добавлено в список покупок.",
+            "bulk_added": "{{count}} товар(ов) с низким запасом добавлен(о) в список.",
+            "bulk_error": "Ошибка при добавлении товаров с низким запасом.",
+            "completed": "\"{{name}}\" помечен как выполненный.",
+            "reactivated": "\"{{name}}\" перемещен обратно в активный список.",
+            "update_error": "Произошла ошибка во время обновления.",
+            "deleted": "Элемент удалён из списка.",
+            "delete_error": "Произошла ошибка при удалении.",
+            "cleared_completed": "Завершённые элементы очищены.",
+            "clear_error": "Произошла ошибка при очистке."
+        },
+        "loading_desc": "Подготовка списка покупок...",
+        "page": {
+            "title": "Список покупок",
+            "description": "Просматривайте товары с низким запасом в домашнем инвентаре и легко управляйте своим списком покупок."
+        },
+        "suggestions": {
+            "title": "Умные предложения по пополнению запасов",
+            "desc": "Позиции на складе, количество которых упало ниже минимального предела.",
+            "add_all": "Добавить все отсутствующие",
+            "stock_status": "Текущее: {{current}} / Цель: {{min}}",
+            "add_qty": "Добавить {{qty}}"
+        },
+        "sections": {
+            "active_list": "товаров в корзину",
+            "active_desc": "Текущие товары для покупки, чтобы добавить в вашу корзину.",
+            "active_count": "{{count}} товаров",
+            "completed_list": "Купленные товары ({{count}})",
+            "add_item": "Добавить товар вручную",
+            "add_desc": "Вручную добавьте пользовательский товар в список."
+        },
+        "empty": {
+            "title": "Ваш список покупок пуст",
+            "desc": "Вы можете добавить недостающий товар из приведенных выше предложений или добавить товары вручную, используя форму справа."
+        },
+        "card": {
+            "linked_inventory": "Сохранено в инвентаре"
+        },
+        "actions": {
+            "clear_completed": "Очистить историю",
+            "add_item": "Добавить в список покупок"
+        },
+        "form": {
+            "add_type": "Добавить метод",
+            "add_type_inventory": "Элемент инвентаря",
+            "add_type_custom": "Пользовательский элемент",
+            "select_inventory_item": "Выбрать элемент из инвентаря",
+            "no_inventory_items": "В вашем инвентаре пока нет предметов.",
+            "select_item_placeholder": "Выберите предмет",
+            "current_stock": "Текущий",
+            "item_name": "Название предмета",
+            "item_name_placeholder": "например, Молоко, Моющие средства, Кофейные зерна...",
+            "quantity": "Количество"
+        },
+        "modal": {
+            "delete_title": "Удалить товар из списка?",
+            "delete_desc": "Вы уверены, что хотите удалить \"{{name}}\" из вашего списка покупок?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Ошибка при загрузке информации",
+            "select_item_error": "Пожалуйста, выберите элемент.",
+            "task_name_error": "Необходимо указать имя задачи.",
+            "date_error": "Необходима запланированная дата.",
+            "updated": "Задание по техническому обслуживанию обновлено",
+            "created": "Новое задание по техническому обслуживанию добавлено",
+            "save_error": "Произошла ошибка при сохранении",
+            "deleted": "Задание по техническому обслуживанию успешно удалено.",
+            "delete_error": "Произошла ошибка во время процесса удаления.",
+            "performed": "Техническое обслуживание зарегистрировано как завершенное. Следующая дата запланирована.",
+            "perform_error": "Произошла ошибка при сохранении."
+        },
+        "freq": {
+            "one_time": "Одноразовое",
+            "unit": {
+                "days": "День",
+                "weeks": "Неделя",
+                "months": "Месяц",
+                "years": "Год"
+            },
+            "format": "Каждые {{val}} {{unit}}"
+        },
+        "loading_desc": "Загрузка графика обслуживания...",
+        "page": {
+            "title": "Обслуживание и периодический контроль",
+            "description": "Управляйте периодическими графиками обслуживания для приборов, фильтров или защитного оборудования в вашем домашнем инвентаре."
+        },
+        "actions": {
+            "add_task": "Добавить новую задачу",
+            "manage": "Управлять",
+            "perform": "Отметить как выполненное",
+            "edit_task": "Редактировать задачу"
+        },
+        "alerts": {
+            "overdue_title": "У вас есть просроченные задачи!",
+            "overdue_desc": "Есть {{count}} просроченных задач по обслуживанию. Задержки могут сократить срок службы прибора."
+        },
+        "empty": {
+            "title": "Нет запланированных задач по обслуживанию",
+            "desc": "Начните с добавления повторяющихся задач, таких как чистка фильтра кондиционера, обслуживание котла или проверка батарей пожарного датчика."
+        },
+        "sections": {
+            "overdue": "Просроченные задачи",
+            "overdue_desc": "Срочное обслуживание, которое нужно выполнить немедленно.",
+            "upcoming": "Запланированные / предстоящие задачи",
+            "upcoming_desc": "Ближающееся обслуживание в ближайшие дни.",
+            "no_upcoming": "В будущем активные задачи не запланированы."
+        },
+        "modal": {
+            "edit_title": "Редактировать задачу",
+            "create_title": "Запланировать новую задачу по техническому обслуживанию",
+            "perform_title": "Выполнить техническое обслуживание",
+            "perform_desc": "Вы хотите отметить «{{name}}» как выполненную сегодня?",
+            "perform_confirm": "Да, выполнено",
+            "perform_recurrence_info": "Это периодическая задача. При сохранении система автоматически рассчитает следующую дату обслуживания.",
+            "delete_title": "Удалить задачу обслуживания?",
+            "delete_desc": "Вы уверены, что хотите удалить расписание периодического обслуживания «{{name}}»? Это действие нельзя отменить."
+        },
+        "form": {
+            "item": "Связанный элемент",
+            "no_items": "Сначала необходимо добавить элемент в инвентарь перед планированием обслуживания.",
+            "select_item_placeholder": "Выберите элемент",
+            "task_name": "Название задачи / операции",
+            "task_name_placeholder": "например, Замена фильтра, Периодическая проверка...",
+            "description": "Детали / Описание",
+            "description_placeholder": "Детали задания, используемые материалы и т.д...",
+            "frequency_value": "Частота повторения",
+            "frequency_placeholder": "например, 6 (оставьте пустым для одноразового)",
+            "frequency_unit": "Единица частоты",
+            "next_due_date": "Дата следующего запланированного обслуживания",
+            "section_help": "Управляйте графиками обслуживания отсюда",
+            "section_collapsed": "Нажмите, чтобы добавить периодические элементы управления и задачи",
+            "has_tasks": "{{count}} Задач",
+            "new_item_warning_title": "Элемент сохранения в ожидании",
+            "new_item_warning_desc": "Сначала необходимо сохранить этот элемент, чтобы добавить график обслуживания.",
+            "manage_desc": "Управляйте графиками обслуживания этого прибора или предмета."
+        },
+        "fields": {
+            "task_name": "Название задачи",
+            "task_name_placeholder": "например, чистка фильтра кондиционера",
+            "description": "Описание",
+            "description_placeholder": "Детали задачи, используемые материалы и т.д...",
+            "frequency_value": "Частота повторения",
+            "frequency_value_placeholder": "Оставьте пустым для одноразового",
+            "frequency_unit": "Единица частоты",
+            "next_due_date": "Запланированная дата"
+        },
+        "card": {
+            "untitled_item": "Без названия",
+            "last_performed": "Последнее выполнение:",
+            "next_due_label": "Запланированная дата",
+            "complete_tooltip": "Отметить обслуживание как выполненное сегодня"
+        },
+        "detail_card_desc": "Плановое или разовое отслеживание обслуживания для этого элемента.",
+        "no_tasks": "Нет назначенных задач по обслуживанию для этого элемента.",
+        "confirm_delete": "Эта задача будет удалена. Вы уверены?"
     }
 }

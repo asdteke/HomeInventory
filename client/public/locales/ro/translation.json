@@ -69,7 +69,9 @@
             "vault_hint_action": "Deschide Seiful Personal",
             "location": "Locație",
             "remove_photo": "Elimină fotografia",
-            "visibility_owner_only": "Numai persoana care a adăugat articolul poate schimba vizibilitatea."
+            "visibility_owner_only": "Numai persoana care a adăugat articolul poate schimba vizibilitatea.",
+            "expiry_date": "Data expirării",
+            "min_quantity": "Cantitate minimă"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" adăugat rapid - poți edita mai târziu",
@@ -119,7 +121,12 @@
         "no_permission": "No permission",
         "barcode_search_error": "Căutarea codurilor de bare a eșuat",
         "stats_error": "Stats error",
-        "detail_subtitle": "Detalii articol"
+        "detail_subtitle": "Detalii articol",
+        "status": {
+            "close_to_expiry": "Aproape de expirare",
+            "expired": "Expirat",
+            "low_stock": "Stoc scăzut"
+        }
     },
     "common": {
         "save": "Salvează",
@@ -170,7 +177,8 @@
         "details": "Detalii",
         "hide": "Ascunde parola",
         "logging_out": "Deconectare în curs...",
-        "show": "Arată parola"
+        "show": "Arată parola",
+        "saving": "Salvare..."
     },
     "auth": {
         "login": {
@@ -216,7 +224,7 @@
             "support_link": "Contactați suportul"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "Configurați gospodăria dvs.",
             "subtitle": "Creează un cont nou sau alătură-te unei case existente",
             "create_house": "Creează casă nouă",
             "join_house": "Alătură-te unei case",
@@ -225,7 +233,7 @@
             "form_title": "Înregistrează-te",
             "username": "Nume de utilizator",
             "username_placeholder": "ex. john",
-            "email": "Email",
+            "email": "E-mail",
             "email_placeholder": "ex. john@example.com",
             "password": "Parolă",
             "password_placeholder": "Cel puțin 6 caractere",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "Reintrodu parola",
             "reset_submit": "Resetează parola",
             "resetting": "Se resetează...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Introduceți numele de utilizator sau emailul dvs."
         },
         "reset_password": {
             "title": "Resetează parola",
@@ -353,10 +361,10 @@
         "password_requirements": "Folosește cel puțin {{min}} caractere cu majuscule, minuscule, cifre și simboluri.",
         "logout": "Deconectare",
         "logging_in": "Se conectează...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "Bun venit la {{brandName}}",
         "username_email": "Nume de utilizator sau Email",
         "username": "Nume de utilizator",
-        "email": "Email",
+        "email": "E-mail",
         "password": "Parolă",
         "confirm_password": "Confirmă parola",
         "new_password": "Parolă nouă",
@@ -367,7 +375,7 @@
         "google_login": "Continuă cu Google",
         "login_issues": "Pentru probleme de autentificare",
         "placeholder_username": "de ex.: john",
-        "placeholder_password": "••••••••",
+        "placeholder_password": "•••••••••",
         "login_two_factor": {
             "title": "Autentificare în doi pași",
             "subtitle": "Introdu codul de 6 cifre din aplicația ta de autentificare",
@@ -438,7 +446,9 @@
         "logout_aria": "Deconectează-te din contul tău",
         "logout_title": "Deconectare?",
         "logout_description": "Vei fi întors la ecranul de autentificare și va trebui să te conectezi din nou pentru a gestiona inventarul casei tale.",
-        "logout_warning": "Folosește acest lucru când ai terminat pe un dispozitiv partajat sau personal."
+        "logout_warning": "Folosește acest lucru când ai terminat pe un dispozitiv partajat sau personal.",
+        "maintenance": "Program de întreținere",
+        "shopping": "Lista de cumpărături"
     },
     "dashboard": {
         "welcome": "Bun venit, <1>{{name}}</1>! 👋",
@@ -565,7 +575,20 @@
         "no_items_filter": "Nicio articole nu corespund acestui filtru",
         "manage": "Gestionare",
         "add_item": "Adaugă articol",
-        "search_item": "Caută articol"
+        "search_item": "Caută articol",
+        "alerts": {
+            "expired_title": "Produsele au expirat!",
+            "expired_desc": "Există {{count}} produse expirate în inventarul tău. Te rugăm să le verifici pentru siguranța ta.",
+            "view_items": "Vezi produsele",
+            "maintenance_title": "Sarcini de întreținere restante!",
+            "maintenance_desc": "Există {{count}} sarcini de întreținere restante. Efectuați întreținerea pentru a prelungi durata de viață a aparatelor dvs.",
+            "go_to_maintenance": "Mergi la Întreținere",
+            "low_stock_title": "Alertă de stoc scăzut",
+            "low_stock_desc": "{{count}} articole au scăzut sub limita minimă de stoc.",
+            "go_to_shopping": "Lista de cumpărături",
+            "close_expiry_title": "Date de expirare apropiate",
+            "close_expiry_desc": "{{count}} produse vor expira în decurs de 30 de zile."
+        }
     },
     "beta_banner": {
         "title": "BETA:",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "Cheie Activă a Casei",
             "key_label": "Cheie Casă",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{sufix}}",
             "hide": "Ascunde",
             "show": "Afișează",
             "copy": "Copiază",
@@ -919,7 +942,7 @@
         "share_key": "Partajează cheia",
         "house_members": "Membrii casei",
         "change_password": "Schimbă parola",
-        "backup": "Backup",
+        "backup": "Copie de rezervă",
         "export_data": "Exportă Date",
         "import_data": "Importă Date",
         "notifications": "Notificări",
@@ -991,8 +1014,8 @@
             "no_history": "Nu există istoricul de împrumut pentru acest articol încă.",
             "lend_success_title": "Articol împrumutat",
             "lend_success_body": "{{item}} este acum marcat ca împrumutat.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "Oferta de împrumut trimisă",
+            "offer_sent_body": "{{item}} va fi marcat ca împrumutat după ce celălalt membru acceptă.",
             "borrowed_by_you": "Cu tine",
             "return_pending_hint": "Înregistrarea se va închide după ce creditorul confirmă că a primit articolul înapoi.",
             "return_pending_lender_title": "{{name}} a marcat acest articol ca fiind livrat înapoi",
@@ -1229,7 +1252,7 @@
             "no_logs": "încă nu există jurnale",
             "errors_title": "Erori de sistem (Ultimele 10)",
             "no_errors": "// Sistem sănătos, fără jurnale de erori.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{data, datatime}}",
             "type": {
                 "email": "E-mail",
                 "user": "Utilizator",
@@ -1277,7 +1300,7 @@
             "notes_body": "Folosește asta pentru suport operațional sau contact legat de cont. Conținutul sensibil ar trebui să rămână în aplicație ori de câte ori este posibil.",
             "notes_body_with_rate_limit": "Folosește asta pentru suport operațional sau contact legat de cont. Conținutul sensibil ar trebui să rămână în aplicație ori de câte ori este posibil. Protecția curentă la trimitere: {{rateLimit}}.",
             "rate_limit_fallback": "3 emailuri pe minut",
-            "placeholder_to": "name@example.com",
+            "placeholder_to": "nume@example.com",
             "placeholder_subject": "Subiect mesaj",
             "send_success_with_id": "✅ Email trimis cu succes! ID: {{emailId}}",
             "send_error": "Emailul nu a putut fi trimis",
@@ -1401,12 +1424,12 @@
             "cta_register": "Creează Cont",
             "stat_free": "Gratuit",
             "stat_access": "Acces",
-            "free_badge": "Open Source",
+            "free_badge": "Sursă Deschisă",
             "badge": "HomeInventory v2.0 este aici",
             "cta_explore": "Explorează funcționalități",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Conectare",
+            "stat_members": "Locuințe partajate",
+            "stat_vault": "Seif Privat"
         },
         "features": {
             "title": "De ce <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Păstrați obiecte, garanții, documente importante și urmărirea împrumuturilor într-un singur loc liniștit. Vedeți ce conține casa dvs. dintr-o privire.",
                 "primaryCta": "Începeți Gratuit",
                 "secondaryCta": "Vedeți Produsul",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Flux sugerat: cont • acasă • camere și categorii • articole • backup",
                 "searchPlaceholder": "Căutați un obiect, o cameră sau un cod de bare"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "Detaliile rețelei rămân ascunse până când ai nevoie de ghidare.",
         "link_privacy_note": "Adresa rețelei rămâne ascunsă aici. Scanează codul sau copiază linkul doar când vrei intenționat să partajezi accesul direct la elementul tău în configurația locală.",
         "helper": "Scanează pentru a deschide acest element instantaneu sau copiază linkul direct când este nevoie.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Linkul nu a putut fi copiat automat",
+        "copy_manual_help": "Browserul tău nu a permis copierea automată. Linkul este selectat pentru a-l putea copia manual.",
         "loading": "Pregătirea instrumentelor QR..."
     },
     "house_access_pending": {
@@ -1969,8 +1992,8 @@
             "empty": "Nu există împrumuturi active în acest moment.",
             "borrowed_from": "Împrumutat de la {{name}}",
             "lent_to": "În prezent la {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Se așteaptă ca împrumutătorul să confirme că l-a primit înapoi.",
+            "return_pending_lender": "{{name}} a marcat acest articol ca fiind returnat. Confirmați primirea pentru a închide înregistrarea.",
             "empty_title": "Nu există împrumuturi active în acest moment",
             "empty_description": "Cererile acceptate apar aici odată ce un articol este împrumutat sau dat, împreună cu datele de scadență și starea returului."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Anulat",
             "expired": "Expirat",
             "returned": "Întors",
-            "return_pending": "Return pending"
+            "return_pending": "Returnare în așteptare"
         },
         "actions": {
             "send_request": "Articol cerere",
@@ -1990,8 +2013,8 @@
             "reject": "Respinge",
             "cancel": "Anulează",
             "fulfill_request": "Îndeplinește cererea",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Marchează livrat",
+            "mark_received": "Marchează primit",
             "open_inventory": "Deschide inventarul"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "Marchează ca returnat",
             "return_subtitle": "Închide împrumutul activ pentru „{{item}}”",
             "return_target": "În prezent este afișat că se află la {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Livrare articol",
+            "return_title_lender": "Primește articolul",
+            "return_subtitle_borrower": "Închide împrumutul activ pentru \"{{item}}\" după ce îl returnezi.",
+            "return_subtitle_lender": "Închide împrumutul activ pentru \"{{item}}\" după ce îl primești înapoi.",
+            "return_target_borrower": "Împrumutător: {{name}}",
+            "return_target_lender": "În prezent cu: {{name}}",
+            "return_note_borrower": "Aviz de livrare",
+            "return_note_lender": "Notă de primire",
+            "return_note_placeholder_borrower": "de exemplu, l-am returnat fără probleme",
+            "return_note_placeholder_lender": "de exemplu, Primit înapoi în stare bună",
+            "return_submitting": "Închidere..."
         },
         "messages": {
             "load_error": "Centrul de împrumut nu a putut fi încărcat",
@@ -2103,7 +2126,7 @@
                 "rights": "Drepturile tale"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "Termenii pentru această instalare {{brandName}} explică utilizarea acceptabilă, responsabilitățile tale de securitate și consecințele ștergerii contului într-un format mai clar și mai ușor de parcurs.",
         "terms_support_label": "Rezumat rapid",
         "terms_summary": {
             "eyebrow": "Ce înseamnă acest lucru în practică",
@@ -2121,9 +2144,9 @@
         "controller_address_unconfigured": "Nu este configurat de operatorul acestei instalații",
         "transfer_disclosure_default": "Transferurile pot avea loc către furnizorii de hosting, email și Google/Open*Facts/Google Search opționali folosiți de această instalație. Operatorul acestei instalații trebuie să specifice țările de destinație relevante și măsurile de protecție aplicabile, acolo unde este cazul.",
         "complaint_authority": "Autoritatea competentă pentru protecția datelor din țara dumneavoastră; pentru Turcia, Autoritatea pentru Protecția Datelor Personale (KVKK).",
-        "consent_doc01_label": "Document 01",
+        "consent_doc01_label": "Documentul 01",
         "consent_doc01_desc": "Revizuiește termenii actuali de serviciu pe o pagină dedicată.",
-        "consent_doc02_label": "Document 02",
+        "consent_doc02_label": "Documentul 02",
         "consent_doc02_desc": "Revizuiește modul în care sunt prelucrate datele și ce drepturi se aplică ție."
     },
     "cookies": {
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "Termeni de Utilizare și Declarație de Exonerare",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "Versiunea BETA: {{brandName}} se află în prezent în faza de testare. Nu se oferă garanții privind permanența sau securitatea datelor.",
         "disclaimer": "Declarație de Exonerare: Prin utilizarea acestei aplicații, sunteți de acord că nu puteți revendica nicio compensație pentru eventuale pierderi de date, probleme de acces sau alte probleme tehnice.",
         "backup_warning": "Backup de Date: Recomandăm insistent să faceți în mod regulat backup pentru informațiile importante.",
         "accept": "Prin conectare, sunteți de acord cu acești termeni.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} se află în prezent în faza de testare și hobby. Nu se oferă garanții referitoare la permanența sau securitatea datelor. Vă rugăm să păstrați copiile de rezervă ale informațiilor importante.",
         "contact": "Contact"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Too many login attempts"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Autentificare",
+        "page_title_register": "Creare cont",
+        "page_title_choose_house": "Alegeți casă",
+        "page_title_recovery_key": "Cheie de recuperare",
+        "page_title_house_access": "Acces la casă",
+        "page_title_legal_review": "Revizuire legală",
+        "page_title_new_item": "Articol nou",
+        "page_title_edit_item": "Editează articol",
+        "page_title_items": "Inventar"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Eroare la încărcarea listei de cumpărături.",
+            "select_item_error": "Vă rugăm să selectați un articol din inventar.",
+            "empty_name": "Vă rugăm să introduceți un nume de articol.",
+            "added": "Articol adăugat în lista de cumpărături.",
+            "add_error": "A apărut o eroare la adăugarea articolului.",
+            "added_suggestion": "\"{{name}}\" a fost adăugat pe lista de cumpărături.",
+            "bulk_added": "{{count}} articole cu stoc redus au fost adăugate pe listă.",
+            "bulk_error": "Eroare la adăugarea articolelor cu stoc redus.",
+            "completed": "\"{{name}}\" marcat ca finalizat.",
+            "reactivated": "\"{{name}}\" a fost mutat înapoi pe lista activă.",
+            "update_error": "A apărut o eroare în timpul actualizării.",
+            "deleted": "Obiectul a fost șters din listă.",
+            "delete_error": "A apărut o eroare în timpul ștergerii.",
+            "cleared_completed": "Elementele completate au fost șterse.",
+            "clear_error": "A apărut o eroare în timpul ștergerii."
+        },
+        "loading_desc": "Se pregătește lista de cumpărături...",
+        "page": {
+            "title": "Lista de cumpărături",
+            "description": "Vizualizați articolele cu stoc redus din inventarul de acasă și gestionați cu ușurință lista de cumpărături."
+        },
+        "suggestions": {
+            "title": "Sugestii inteligente de inventar",
+            "desc": "Articole din inventar care au scăzut sub limita minimă.",
+            "add_all": "Adaugă tot ce lipsește",
+            "stock_status": "Curent: {{current}} / Țintă: {{min}}",
+            "add_qty": "Adaugă {{qty}}"
+        },
+        "sections": {
+            "active_list": "Articole de cumpărat",
+            "active_desc": "Articolele actuale de cumpărături pentru a fi adăugate în coșul tău.",
+            "active_count": "{{count}} Articole",
+            "completed_list": "Articole Achiziționate ({{count}})",
+            "add_item": "Adaugă Articol Manual",
+            "add_desc": "Adaugă manual un articol personalizat pe listă."
+        },
+        "empty": {
+            "title": "Lista ta de cumpărături este goală",
+            "desc": "Poți adăuga stocul lipsă din sugestiile de mai sus sau poți adăuga articole manual folosind formularul din dreapta."
+        },
+        "card": {
+            "linked_inventory": "Salvat în Inventar"
+        },
+        "actions": {
+            "clear_completed": "Șterge Istoricul",
+            "add_item": "Adaugă la lista de cumpărături"
+        },
+        "form": {
+            "add_type": "Adaugă metodă",
+            "add_type_inventory": "Articol din inventar",
+            "add_type_custom": "Articol personalizat",
+            "select_inventory_item": "Selectează obiect din inventar",
+            "no_inventory_items": "Nu ai încă obiecte în inventar.",
+            "select_item_placeholder": "Selectează un obiect",
+            "current_stock": "Curent",
+            "item_name": "Numele articolului",
+            "item_name_placeholder": "de ex. Lapte, Detergent, Boabe de cafea...",
+            "quantity": "Cantitate"
+        },
+        "modal": {
+            "delete_title": "Ștergeți articolul din listă?",
+            "delete_desc": "Sunteți sigur că doriți să eliminați „{{name}}” din lista de cumpărături?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Eroare la încărcarea informațiilor",
+            "select_item_error": "Vă rugăm să selectați un articol.",
+            "task_name_error": "Numele sarcinii este obligatoriu.",
+            "date_error": "Data planificată este obligatorie.",
+            "updated": "Sarcina de întreținere a fost actualizată",
+            "created": "Nouă sarcină de întreținere adăugată",
+            "save_error": "A apărut o eroare la salvare",
+            "deleted": "Sarcina de întreținere a fost ștearsă cu succes.",
+            "delete_error": "A apărut o eroare în timpul procesului de ștergere.",
+            "performed": "Întreținerea a fost înregistrată ca finalizată. Următoarea dată este programată.",
+            "perform_error": "A apărut o eroare în timpul salvării."
+        },
+        "freq": {
+            "one_time": "O singură dată",
+            "unit": {
+                "days": "Zi",
+                "weeks": "Săptămână",
+                "months": "Lună",
+                "years": "An"
+            },
+            "format": "Fiecare {{val}} {{unit}}"
+        },
+        "loading_desc": "Încarcare program de întreținere...",
+        "page": {
+            "title": "Întreținere și urmărire periodică",
+            "description": "Gestionează programele de întreținere periodică pentru aparate, filtre sau echipamente de siguranță din inventarul casei tale."
+        },
+        "actions": {
+            "add_task": "Adaugă Sarcină Nouă",
+            "manage": "Gestionează",
+            "perform": "Marchează ca Finalizat",
+            "edit_task": "Editează Sarcina"
+        },
+        "alerts": {
+            "overdue_title": "Ai sarcini restante!",
+            "overdue_desc": "Există {{count}} sarcini de întreținere restante. Întârzierile pot reduce durata de viață a aparatelor."
+        },
+        "empty": {
+            "title": "Nu există sarcini de întreținere programate",
+            "desc": "Începe adăugând sarcini recurente, cum ar fi curățarea filtrelor de aer condiționat, întreținerea cazanelor sau verificarea bateriilor detectoarelor de fum."
+        },
+        "sections": {
+            "overdue": "Sarcini restante",
+            "overdue_desc": "Mentenanță urgentă care trebuie efectuată imediat.",
+            "upcoming": "Sarcini programate / Viitoare",
+            "upcoming_desc": "Mentenanță care se apropie în zilele următoare.",
+            "no_upcoming": "Nu există sarcini active programate în viitor."
+        },
+        "modal": {
+            "edit_title": "Editează sarcina",
+            "create_title": "Programează o nouă sarcină de întreținere",
+            "perform_title": "Finalizează întreținerea",
+            "perform_desc": "Doriți să înregistrați „{{name}}” ca finalizat astăzi?",
+            "perform_confirm": "Da, Finalizat",
+            "perform_recurrence_info": "Aceasta este o sarcină periodică. Când salvați, sistemul va calcula automat data următoarei întrețineri.",
+            "delete_title": "Ștergeți sarcina de întreținere?",
+            "delete_desc": "Ești sigur că vrei să ștergi programul de întreținere periodică „{{name}}”? Această acțiune nu poate fi anulată."
+        },
+        "form": {
+            "item": "Articol asociat",
+            "no_items": "Trebuie să adaugi mai întâi un articol în inventar înainte de a programa întreținerea.",
+            "select_item_placeholder": "Selectează un articol",
+            "task_name": "Nume sarcină / operațiune",
+            "task_name_placeholder": "de ex. Înlocuire filtru, Verificare periodică...",
+            "description": "Detalii / Descriere",
+            "description_placeholder": "Detalii despre sarcină, materiale ce urmează a fi folosite, etc...",
+            "frequency_value": "Frecvența Recurenței",
+            "frequency_placeholder": "de ex. 6 (lăsați gol pentru o singură dată)",
+            "frequency_unit": "Unitatea de Frecvență",
+            "next_due_date": "Următoarea Dată Programată",
+            "section_help": "Gestionează programele de întreținere de aici",
+            "section_collapsed": "Fă clic pentru a adăuga controale și sarcini periodice",
+            "has_tasks": "{{count}} Sarcini",
+            "new_item_warning_title": "Element Salvare În așteptare",
+            "new_item_warning_desc": "Trebuie să salvați mai întâi acest element pentru a adăuga un program de întreținere.",
+            "manage_desc": "Gestionați programele de întreținere pentru acest aparat sau element."
+        },
+        "fields": {
+            "task_name": "Nume sarcină",
+            "task_name_placeholder": "de ex. Curățarea filtrului AC",
+            "description": "Descriere",
+            "description_placeholder": "Detalii ale sarcinii, materiale ce urmează a fi folosite, etc...",
+            "frequency_value": "Frecvență de repetare",
+            "frequency_value_placeholder": "Lăsați necompletat pentru o singură dată",
+            "frequency_unit": "Unitate de frecvență",
+            "next_due_date": "Data programată"
+        },
+        "card": {
+            "untitled_item": "Element fără titlu",
+            "last_performed": "Ultima dată executat:",
+            "next_due_label": "Data programată",
+            "complete_tooltip": "Marchează întreținerea ca finalizată azi"
+        },
+        "detail_card_desc": "Urmărirea întreținerii periodice sau unice programate pentru acest articol.",
+        "no_tasks": "Nu există sarcini de întreținere atribuite acestui articol.",
+        "confirm_delete": "Această sarcină va fi ștearsă. Ești sigur?"
     }
 }

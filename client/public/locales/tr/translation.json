@@ -1,6 +1,7 @@
 {
     "common": {
         "save": "Kaydet",
+        "saving": "Kaydediliyor...",
         "cancel": "İptal",
         "loading": "Yükleniyor...",
         "error": "Hata oluştu",
@@ -327,7 +328,9 @@
         "logout_title": "Çıkış yapılsın mı?",
         "logout_description": "Giriş ekranına döneceksiniz ve ev envanterinizi yönetmek için yeniden oturum açmanız gerekecek.",
         "logout_warning": "Ortak veya kişisel bir cihazda işiniz bittiğinde bunu kullanın.",
-        "menu": "Menü"
+        "menu": "Menü",
+        "maintenance": "Bakım Takvimi",
+        "shopping": "Alışveriş Listesi"
     },
     "layout": {
         "secondary_controls_title": "Araçlar",
@@ -340,6 +343,19 @@
     },
     "dashboard": {
         "welcome": "Tekrar hoş geldin, <1>{{name}}</1>",
+        "alerts": {
+            "expired_title": "Son Kullanma Tarihi Geçmiş Eşyalar Var!",
+            "expired_desc": "Envanterinizde son kullanma tarihi geçmiş {{count}} eşya bulunuyor. Güvenliğiniz için bunları kontrol edin.",
+            "view_items": "Eşyaları Gör",
+            "maintenance_title": "Gecikmiş Bakım Görevleri Var!",
+            "maintenance_desc": "Zamanı geçmiş {{count}} bakım görevi bulunuyor. Cihazlarınızın ömrünü uzatmak için bakımlarını yapın.",
+            "go_to_maintenance": "Bakıma Git",
+            "low_stock_title": "Azalan Stok Uyarısı",
+            "low_stock_desc": "{{count}} ürün belirlediğiniz asgari stok limitinin altına düştü.",
+            "go_to_shopping": "Alışveriş Listesi",
+            "close_expiry_title": "Yaklaşan Son Kullanma Tarihleri",
+            "close_expiry_desc": "{{count}} ürünün son kullanma tarihi 30 gün içinde dolacak."
+        },
         "subtitle": "Envanterinizin genel durumu",
         "quick_search": "Hızlı ara...",
         "page": {
@@ -485,6 +501,8 @@
         "form": {
             "name": "Eşya Adı",
             "name_placeholder": "örn: Samsung TV 55 inç",
+            "expiry_date": "Son Kullanma Tarihi",
+            "min_quantity": "Minimum Miktar",
             "required": "*",
             "description": "Açıklama",
             "description_placeholder": "Eşya hakkında notlar...",
@@ -597,7 +615,12 @@
         "no_permission": "Bu eşya üzerinde işlem yapma yetkiniz yok",
         "barcode_search_error": "Barkod araması başarısız",
         "stats_error": "İstatistikler yüklenemedi",
-        "detail_subtitle": "Eşya detayları"
+        "detail_subtitle": "Eşya detayları",
+        "status": {
+            "close_to_expiry": "Son Kullanma Yakın",
+            "expired": "Süresi Geçmiş",
+            "low_stock": "Azalan Stok"
+        }
     },
     "vault": {
         "title": "Kişisel Kasa",
@@ -843,7 +866,7 @@
             "access_section_title": "Ev erişimi ve üyeler",
             "access_section_body": "Aktif ev anahtarını gözden geçirin, üyeleri yönetin ve erişimi sadece güvendiğiniz kişilerle sınırlayın.",
             "key_label": "Ev Anahtarı",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{sonek}}",
             "hide": "Gizle",
             "show": "Göster",
             "copy": "Kopyala",
@@ -1454,7 +1477,7 @@
             "no_logs": "henüz kayıt yok",
             "errors_title": "Sistem Hataları (Son 10)",
             "no_errors": "// Sistem sağlıklı, hata kaydı yok.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{tarih, tarihsaat}}",
             "type": {
                 "email": "E-posta",
                 "user": "Kullanıcı",
@@ -1500,7 +1523,7 @@
             "rate_limit_fallback": "dakikada 3 e-posta",
             "to": "Alıcı (To)",
             "subject": "Konu",
-            "placeholder_to": "name@example.com",
+            "placeholder_to": "isim@example.com",
             "placeholder_subject": "Mesaj konusu",
             "message": "Mesaj (HTML destekli)",
             "placeholder_message": "Mesajınızı buraya yazın...",
@@ -2245,5 +2268,170 @@
     "rate_limit": {
         "too_many_requests": "Çok fazla istek gönderdiniz. Lütfen 15 dakika sonra tekrar deneyin.",
         "too_many_login_attempts": "Çok fazla giriş denemesi. Lütfen 15 dakika sonra tekrar deneyin."
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Alışveriş listesi yüklenirken hata oluştu.",
+            "select_item_error": "Lütfen envanterden bir ürün seçin.",
+            "empty_name": "Lütfen ürün adı girin.",
+            "added": "Ürün alışveriş listesine eklendi.",
+            "add_error": "Ürün eklenirken bir hata oluştu.",
+            "added_suggestion": "\"{{name}}\" alışveriş listesine eklendi.",
+            "bulk_added": "{{count}} adet eksik stoklu ürün listeye eklendi.",
+            "bulk_error": "Eksik stoklu ürünler eklenirken hata oluştu.",
+            "completed": "\"{{name}}\" alındı olarak işaretlendi.",
+            "reactivated": "\"{{name}}\" aktif listeye geri taşındı.",
+            "update_error": "Güncelleme sırasında hata oluştu.",
+            "deleted": "Ürün listeden silindi.",
+            "delete_error": "Silme işlemi sırasında hata oluştu.",
+            "cleared_completed": "Alınan ürünler temizlendi.",
+            "clear_error": "Temizleme sırasında hata oluştu."
+        },
+        "loading_desc": "Alışveriş listesi hazırlanıyor...",
+        "page": {
+            "title": "Alışveriş Listesi",
+            "description": "Ev envanterinde azalan stoklu ürünleri görün ve kolayca alışveriş listenizi yönetin."
+        },
+        "suggestions": {
+            "title": "Akıllı Envanter Önerileri",
+            "desc": "Stoku asgari sınırın altına düşen envanter öğeleri.",
+            "add_all": "Tüm Eksikleri Ekle",
+            "stock_status": "Mevcut: {{current}} / Hedef: {{min}}",
+            "add_qty": "{{qty}} Ekle"
+        },
+        "sections": {
+            "active_list": "Alınacak Ürünler",
+            "active_desc": "Sepetinize ekleyeceğiniz güncel alışveriş öğeleri.",
+            "active_count": "{{count}} Ürün",
+            "completed_list": "Alınan Ürünler ({{count}})",
+            "add_item": "Manuel Ürün Ekle",
+            "add_desc": "Listeye el ile özel bir ürün ekleyin."
+        },
+        "empty": {
+            "title": "Alışveriş listeniz boş",
+            "desc": "Yukarıdaki önerilerden eksik stokları ekleyebilir veya sağdaki form ile manuel ürün ekleyebilirsiniz."
+        },
+        "card": {
+            "linked_inventory": "Envanterde Kayıtlı"
+        },
+        "actions": {
+            "clear_completed": "Geçmişi Temizle",
+            "add_item": "Alışveriş Listesine Ekle"
+        },
+        "form": {
+            "add_type": "Ekleme Yöntemi",
+            "add_type_inventory": "Envanter Eşyası",
+            "add_type_custom": "Özel Ürün",
+            "select_inventory_item": "Envanterden Eşya Seç",
+            "no_inventory_items": "Envanterinizde henüz eşya yok.",
+            "select_item_placeholder": "Bir eşya seçin",
+            "current_stock": "Mevcut",
+            "item_name": "Ürün Adı",
+            "item_name_placeholder": "Örn: Süt, Deterjan, Filtre Kahve...",
+            "quantity": "Adet / Miktar"
+        },
+        "modal": {
+            "delete_title": "Ürünü Listeden Sil?",
+            "delete_desc": "\"{{name}}\" ürününü alışveriş listenizden kaldırmak istediğinizden emin misiniz?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Bilgiler yüklenirken hata oluştu",
+            "select_item_error": "Lütfen bir eşya seçin.",
+            "task_name_error": "Görev adı gereklidir.",
+            "date_error": "Planlanan tarih gereklidir.",
+            "updated": "Bakım görevi güncellendi",
+            "created": "Yeni bakım görevi eklendi",
+            "save_error": "Kaydederken hata oluştu",
+            "deleted": "Bakım görevi başarıyla silindi.",
+            "delete_error": "Silme işlemi sırasında bir hata oluştu.",
+            "performed": "Bakım tamamlandı olarak kaydedildi. Bir sonraki tarih planlandı.",
+            "perform_error": "Kaydedilirken bir hata oluştu."
+        },
+        "freq": {
+            "one_time": "Tek Seferlik",
+            "unit": {
+                "days": "Gün",
+                "weeks": "Hafta",
+                "months": "Ay",
+                "years": "Yıl"
+            },
+            "format": "Her {{val}} {{unit}}"
+        },
+        "loading_desc": "Bakım takvimi yükleniyor...",
+        "page": {
+            "title": "Bakım & Periyodik Takip",
+            "description": "Ev envanterinizdeki cihazların, filtrelerin veya güvenlik ekipmanlarının periyodik bakım takvimlerini yönetin."
+        },
+        "actions": {
+            "add_task": "Yeni Görev Ekle",
+            "manage": "Yönet",
+            "perform": "Yapıldı Olarak İşaretle",
+            "edit_task": "Görevi Düzenle"
+        },
+        "alerts": {
+            "overdue_title": "Süresi Geçmiş Görevleriniz Var!",
+            "overdue_desc": "Zamanı geçmiş {{count}} bakım görevi bulunuyor. Gecikmeler cihaz ömrünü azaltabilir."
+        },
+        "empty": {
+            "title": "Planlanmış bakım görevi bulunmuyor",
+            "desc": "Klima filtresi temizliği, kombi bakımı veya yangın dedektörü pil kontrolü gibi tekrarlayan görevleri ekleyerek başlayın."
+        },
+        "sections": {
+            "overdue": "Zamanı Geçen Görevler",
+            "overdue_desc": "Hemen yapılması gereken acil bakımlar.",
+            "upcoming": "Planlı / Gelecek Görevler",
+            "upcoming_desc": "Önümüzdeki günlerde yaklaşan bakımlar.",
+            "no_upcoming": "Gelecekte planlanmış aktif görev yok."
+        },
+        "modal": {
+            "edit_title": "Görevi Düzenle",
+            "create_title": "Yeni Bakım Görevi Planla",
+            "perform_title": "Bakımı Tamamla",
+            "perform_desc": "\"{{name}}\" görevini bugün yapılmış olarak kaydetmek istiyor musunuz?",
+            "perform_confirm": "Evet, Tamamlandı",
+            "perform_recurrence_info": "Bu periyodik bir görevdir. Kaydettiğinizde sistem otomatik olarak bir sonraki bakım tarihini hesaplayacaktır.",
+            "delete_title": "Bakım Görevini Sil?",
+            "delete_desc": "\"{{name}}\" periyodik bakım programını silmek istediğinizden emin misiniz? Bu işlem geri alınamaz."
+        },
+        "form": {
+            "item": "İlgili Eşya",
+            "no_items": "Bakım planlamak için önce envantere bir eşya eklemelisiniz.",
+            "select_item_placeholder": "Bir Eşya Seçin",
+            "task_name": "Görev / İşlem Adı",
+            "task_name_placeholder": "Örn: Filtre Değişimi, Periyodik Kontrol...",
+            "description": "Detay / Açıklama",
+            "description_placeholder": "Görevin detayları, kullanılacak malzemeler vb...",
+            "frequency_value": "Tekrar Sıklığı",
+            "frequency_placeholder": "Örn: 6 (Boş bırakılırsa tek seferlik)",
+            "frequency_unit": "Sıklık Birimi",
+            "next_due_date": "Sıradaki Planlanan Tarih",
+            "section_help": "Bakım takvimlerini buradan yönetin",
+            "section_collapsed": "Periyodik kontrol ve görevleri eklemek için tıklayın",
+            "has_tasks": "{{count}} Görev",
+            "new_item_warning_title": "Eşya Kaydı Bekleniyor",
+            "new_item_warning_desc": "Bakım takvimi eklemek için önce bu eşyayı kaydetmeniz gerekmektedir.",
+            "manage_desc": "Bu cihaza veya eşyaya ait bakımları düzenleyin."
+        },
+        "fields": {
+            "task_name": "Görev Adı",
+            "task_name_placeholder": "örn. Klima filtresi temizliği",
+            "description": "Açıklama",
+            "description_placeholder": "Görev detayları veya yapılması gerekenler...",
+            "frequency_value": "Tekrarlama Sıklığı",
+            "frequency_value_placeholder": "Tek seferlik için boş bırakın",
+            "frequency_unit": "Zaman Birimi",
+            "next_due_date": "Planlanan Tarih"
+        },
+        "card": {
+            "untitled_item": "İsimsiz Eşya",
+            "last_performed": "Son Yapılma:",
+            "next_due_label": "Planlanan Tarih",
+            "complete_tooltip": "Bakımı Bugün Yapıldı Olarak İşaretle"
+        },
+        "detail_card_desc": "Bu eşya için planlanmış periyodik veya tek seferlik bakım takipleri.",
+        "no_tasks": "Bu eşyaya atanmış herhangi bir bakım görevi bulunmuyor.",
+        "confirm_delete": "Bu görev silinecek. Emin misiniz?"
     }
 }

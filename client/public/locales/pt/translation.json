@@ -48,7 +48,8 @@
         "details": "Detalhes",
         "hide": "Ocultar senha",
         "logging_out": "Saindo...",
-        "show": "Mostrar senha"
+        "show": "Mostrar senha",
+        "saving": "Salvando..."
     },
     "auth": {
         "login": {
@@ -94,7 +95,7 @@
             "support_link": "Contatar suporte"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "Configure sua residência",
             "subtitle": "Crie uma nova conta ou participe de uma casa existente",
             "create_house": "Criar Nova Casa",
             "join_house": "Entrar na Casa",
@@ -190,7 +191,7 @@
             "confirm_password_placeholder": "Digite sua senha novamente",
             "reset_submit": "Redefinir Senha",
             "resetting": "Redefinindo...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Insira seu nome de usuário ou e-mail"
         },
         "reset_password": {
             "title": "Redefinir Senha",
@@ -231,7 +232,7 @@
         "password_requirements": "Use pelo menos {{min}} caracteres com maiúsculas, minúsculas, número e símbolo.",
         "logout": "Sair",
         "logging_in": "Entrando...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "Bem-vindo ao {{brandName}}",
         "username_email": "Nome de usuário ou e-mail",
         "username": "Nome de usuário",
         "email": "E-mail",
@@ -316,7 +317,9 @@
         "logout_aria": "Sair da sua conta",
         "logout_title": "Sair?",
         "logout_description": "Você será retornado à tela de login e precisará entrar novamente para gerenciar o inventário da sua residência.",
-        "logout_warning": "Use isto quando terminar em um dispositivo compartilhado ou pessoal."
+        "logout_warning": "Use isto quando terminar em um dispositivo compartilhado ou pessoal.",
+        "maintenance": "Cronograma de Manutenção",
+        "shopping": "Lista de Compras"
     },
     "dashboard": {
         "welcome": "Bem-vindo, <1>{{name}}</1>! 👋",
@@ -443,7 +446,20 @@
         "no_items_filter": "Nenhum item corresponde a este filtro",
         "manage": "Gerenciar",
         "add_item": "Adicionar Item",
-        "search_item": "Pesquisar Item"
+        "search_item": "Pesquisar Item",
+        "alerts": {
+            "expired_title": "Itens Expiraram!",
+            "expired_desc": "Existem {{count}} itens expirados em seu inventário. Por favor, verifique-os para sua segurança.",
+            "view_items": "Visualizar Itens",
+            "maintenance_title": "Tarefas de Manutenção Atrasadas!",
+            "maintenance_desc": "Há {{count}} tarefas de manutenção atrasadas. Realize a manutenção para prolongar a vida útil de seus aparelhos.",
+            "go_to_maintenance": "Ir para Manutenção",
+            "low_stock_title": "Alerta de Estoque Baixo",
+            "low_stock_desc": "{{count}} itens caíram abaixo do seu limite mínimo de estoque.",
+            "go_to_shopping": "Lista de Compras",
+            "close_expiry_title": "Datas de Validade Próximas",
+            "close_expiry_desc": "{{count}} produtos expirarão dentro de 30 dias."
+        }
     },
     "beta_banner": {
         "title": "BETA:",
@@ -523,7 +539,9 @@
             "vault_hint_action": "Abrir Cofre Pessoal",
             "location": "Localização",
             "remove_photo": "Remover foto",
-            "visibility_owner_only": "Apenas a pessoa que adicionou o item pode alterar a visibilidade."
+            "visibility_owner_only": "Apenas a pessoa que adicionou o item pode alterar a visibilidade.",
+            "expiry_date": "Data de Validade",
+            "min_quantity": "Quantidade Mínima"
         },
         "qrcode": {
             "title": "Código QR",
@@ -577,7 +595,12 @@
         "no_permission": "Você não tem permissão para modificar este item",
         "barcode_search_error": "Falha na pesquisa de código de barras",
         "stats_error": "Erro ao carregar estatísticas",
-        "detail_subtitle": "Detalhes do item"
+        "detail_subtitle": "Detalhes do item",
+        "status": {
+            "close_to_expiry": "Próximo da Validade",
+            "expired": "Vencido",
+            "low_stock": "Estoque Baixo"
+        }
     },
     "settings": {
         "title": "Configurações",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "Chave da Casa Ativa",
             "key_label": "Chave da Casa",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{sufixo}}",
             "hide": "Ocultar",
             "show": "Mostrar",
             "copy": "Copiar",
@@ -991,8 +1014,8 @@
             "no_history": "Ainda não há histórico de empréstimos para este item.",
             "lend_success_title": "Item emprestado",
             "lend_success_body": "{{item}} agora está marcado como emprestado.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "Oferta de empréstimo enviada",
+            "offer_sent_body": "{{item}} será marcado como emprestado após o outro membro aceitar.",
             "borrowed_by_you": "Com você",
             "return_pending_hint": "O registro será fechado após o credor confirmar que recebeu o item de volta.",
             "return_pending_lender_title": "{{name}} marcou este item como entregue de volta",
@@ -1035,7 +1058,7 @@
         "defaults": {
             "kitchen": "Cozinha",
             "electronics": "Eletrônicos",
-            "hobbies": "Hobbies",
+            "hobbies": "Passatempos",
             "furniture": "Móveis",
             "clothing": "Roupas",
             "books": "Livros",
@@ -1231,9 +1254,9 @@
             "no_logs": "ainda sem registros",
             "errors_title": "Erros do sistema (Últimos 10)",
             "no_errors": "// Sistema saudável, sem registros de erro.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{data, data e hora}}",
             "type": {
-                "email": "Email",
+                "email": "E-mail",
                 "user": "Usuário",
                 "system": "Sistema",
                 "event": "Evento"
@@ -1366,7 +1389,7 @@
             "pending_requests": "{{count}} aprovações pendentes",
             "pending_requests_clear": "Nenhuma aprovação pendente"
         },
-        "ban_user": "Ban",
+        "ban_user": "Proibir",
         "unban_user": "Desbanir",
         "delete_user": "Excluir Usuário",
         "reset_attempts": "Tentativas de Reinício",
@@ -1401,12 +1424,12 @@
             "cta_register": "Criar Conta",
             "stat_free": "Grátis",
             "stat_access": "Acessar",
-            "free_badge": "Open Source",
+            "free_badge": "Código Aberto",
             "badge": "HomeInventory v2.0 está aqui",
             "cta_explore": "Explore Recursos",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Entrar",
+            "stat_members": "Casas compartilhadas",
+            "stat_vault": "Cofre Privado"
         },
         "features": {
             "title": "Por que <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Mantenha itens, garantias, documentos importantes e controle de empréstimos em um só lugar tranquilo. Veja o que sua casa contém de relance.",
                 "primaryCta": "Comece Gratuitamente",
                 "secondaryCta": "Veja o Produto",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Fluxo sugerido: conta • início • quartos e categorias • itens • backup",
                 "searchPlaceholder": "Pesquise um item, cômodo ou código de barras"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "Detalhes da rede ficam guardados até que você precise das instruções.",
         "link_privacy_note": "O endereço da rede permanece oculto aqui. Digitalize o código ou copie o link apenas quando quiser compartilhar o acesso direto ao item na sua configuração local.",
         "helper": "Digitalize para abrir este item instantaneamente, ou copie o link direto quando necessário.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Não foi possível copiar o link automaticamente",
+        "copy_manual_help": "Seu navegador não permitiu a cópia automática. O link está selecionado para que você possa copiá-lo manualmente.",
         "loading": "Preparando ferramentas de QR..."
     },
     "house_access_pending": {
@@ -1790,7 +1813,7 @@
             ],
             "fallback": "O link de redefinição de senha parece incompleto ou quebrado.",
             "support": "Problemas de registro:",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{nomedamarca}}"
         },
         "welcome": {
             "subject": "Bem-vindo ao {{brandName}}",
@@ -1808,7 +1831,7 @@
                 "💡 Você pode ser membro de várias casas e alternar entre elas. Cada casa mantém um inventário separado."
             ],
             "support": "Problemas de registro:",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{nomedamarca}}"
         },
         "houseJoinRequest": {
             "subject": "Entrar em Casa",
@@ -1842,7 +1865,7 @@
             "warningTitle": "⚠️",
             "warningBody": "Se uma conta existir, um link de redefinição de senha válido por 15 minutos foi enviado.",
             "fallback": "O link de redefinição de senha parece incompleto ou quebrado.",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{nomedamarca}}"
         },
         "adminEmail": {
             "sentBy": "Este e-mail foi enviado por {{brandName}}.",
@@ -1856,7 +1879,7 @@
             "sentAtLabel": "Enviado em",
             "senderLabel": "Remetente",
             "serviceLabel": "Serviço",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{nomedamarca}}"
         }
     },
     "vault": {
@@ -1969,8 +1992,8 @@
             "empty": "Não há empréstimos ativos no momento.",
             "borrowed_from": "Emprestado de {{name}}",
             "lent_to": "Atualmente com {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Aguardando o credor confirmar que recebeu de volta.",
+            "return_pending_lender": "{{name}} marcou este item como entregue de volta. Confirme o recebimento para fechar o registro.",
             "empty_title": "Nenhum empréstimo ativo no momento",
             "empty_description": "Solicitações aceitas aparecem aqui uma vez que um item é emprestado ou tomado emprestado, juntamente com datas de vencimento e status de devolução."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Cancelado",
             "expired": "Expirado",
             "returned": "Devolvido",
-            "return_pending": "Return pending"
+            "return_pending": "Devolução pendente"
         },
         "actions": {
             "send_request": "Solicitar Item",
@@ -1990,8 +2013,8 @@
             "reject": "Rejeitar",
             "cancel": "Cancelar",
             "fulfill_request": "Atender Solicitação",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Marcar como entregue",
+            "mark_received": "Marcar como recebido",
             "open_inventory": "Abrir inventário"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "Marcar como Devolvido",
             "return_subtitle": "Fechar o empréstimo ativo de \"{{item}}\"",
             "return_target": "Atualmente está mostrado como estando com {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Entregar item",
+            "return_title_lender": "Receber item",
+            "return_subtitle_borrower": "Feche o empréstimo ativo de \"{{item}}\" após devolvê-lo.",
+            "return_subtitle_lender": "Feche o empréstimo ativo de \"{{item}}\" após recebê-lo de volta.",
+            "return_target_borrower": "Credor: {{name}}",
+            "return_target_lender": "Atualmente com: {{name}}",
+            "return_note_borrower": "Nota de entrega",
+            "return_note_lender": "Nota de recebimento",
+            "return_note_placeholder_borrower": "por exemplo, eu devolvi sem nenhum problema",
+            "return_note_placeholder_lender": "por exemplo, Recebido de volta em boas condições",
+            "return_submitting": "Fechando..."
         },
         "messages": {
             "load_error": "O centro de empréstimos não pôde ser carregado",
@@ -2141,7 +2164,7 @@
         "account_menu_tooltip": "Menu da conta de {{name}}"
     },
     "app": {
-        "name": "{{brandName}}",
+        "name": "{{nomedamarca}}",
         "tagline": "Gerencie inteligentemente todos os itens da sua casa"
     },
     "nav": {
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "Termos de Uso e Aviso Legal",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "Versão BETA: {{brandName}} está atualmente em fase de teste. Nenhuma garantia é feita em relação à permanência ou segurança dos dados.",
         "disclaimer": "Aviso: Ao usar este aplicativo, você concorda que não pode reivindicar qualquer compensação por possível perda de dados, problemas de acesso ou outros problemas técnicos.",
         "backup_warning": "Backup de Dados: Recomendamos fortemente que você faça backup regularmente das suas informações importantes.",
         "accept": "Ao fazer login, você concorda com estes termos.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} está atualmente na fase de testes e hobby. Nenhuma garantia é feita em relação à permanência ou segurança dos dados. Por favor, mantenha suas informações importantes com backup.",
         "contact": "Contato"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Muitas tentativas de login. Tente novamente em 15 minutos."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Entrar",
+        "page_title_register": "Criar conta",
+        "page_title_choose_house": "Escolher casa",
+        "page_title_recovery_key": "Chave de recuperação",
+        "page_title_house_access": "Acesso à casa",
+        "page_title_legal_review": "Revisão legal",
+        "page_title_new_item": "Novo item",
+        "page_title_edit_item": "Editar item",
+        "page_title_items": "Inventário"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Erro ao carregar a lista de compras.",
+            "select_item_error": "Por favor, selecione um item do inventário.",
+            "empty_name": "Por favor, insira o nome de um item.",
+            "added": "Item adicionado à lista de compras.",
+            "add_error": "Ocorreu um erro ao adicionar o item.",
+            "added_suggestion": "\"{{name}}\" adicionado à lista de compras.",
+            "bulk_added": "{{count}} itens com estoque baixo adicionados à lista.",
+            "bulk_error": "Erro ao adicionar itens com estoque baixo.",
+            "completed": "\"{{name}}\" marcado como concluído.",
+            "reactivated": "\"{{name}}\" movido de volta para a lista ativa.",
+            "update_error": "Ocorreu um erro durante a atualização.",
+            "deleted": "Item excluído da lista.",
+            "delete_error": "Ocorreu um erro durante a exclusão.",
+            "cleared_completed": "Itens concluídos limpos.",
+            "clear_error": "Ocorreu um erro durante a limpeza."
+        },
+        "loading_desc": "Preparando a lista de compras...",
+        "page": {
+            "title": "Lista de Compras",
+            "description": "Veja os itens com estoque baixo no inventário doméstico e gerencie sua lista de compras facilmente."
+        },
+        "suggestions": {
+            "title": "Sugestões Inteligentes de Inventário",
+            "desc": "Itens de inventário que caíram abaixo do limite mínimo.",
+            "add_all": "Adicionar Todos os Faltantes",
+            "stock_status": "Atual: {{current}} / Alvo: {{min}}",
+            "add_qty": "Adicionar {{qty}}"
+        },
+        "sections": {
+            "active_list": "Itens para Comprar",
+            "active_desc": "Itens atuais de compras para adicionar ao seu carrinho.",
+            "active_count": "{{count}} Itens",
+            "completed_list": "Itens Comprados ({{count}})",
+            "add_item": "Adicionar Item Manualmente",
+            "add_desc": "Adicione manualmente um item personalizado à lista."
+        },
+        "empty": {
+            "title": "Sua lista de compras está vazia",
+            "desc": "Você pode adicionar o estoque que está faltando a partir das sugestões acima ou adicionar itens manualmente usando o formulário à direita."
+        },
+        "card": {
+            "linked_inventory": "Salvo no Inventário"
+        },
+        "actions": {
+            "clear_completed": "Limpar Histórico",
+            "add_item": "Adicionar à Lista de Compras"
+        },
+        "form": {
+            "add_type": "Adicionar Método",
+            "add_type_inventory": "Item de Inventário",
+            "add_type_custom": "Item Personalizado",
+            "select_inventory_item": "Selecionar Item do Inventário",
+            "no_inventory_items": "Ainda não há itens no seu inventário.",
+            "select_item_placeholder": "Selecione um item",
+            "current_stock": "Atual",
+            "item_name": "Nome do Item",
+            "item_name_placeholder": "ex. Leite, Detergente, Grãos de Café...",
+            "quantity": "Quantidade"
+        },
+        "modal": {
+            "delete_title": "Excluir item da lista?",
+            "delete_desc": "Tem certeza de que deseja remover \"{{name}}\" da sua lista de compras?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Erro ao carregar informações",
+            "select_item_error": "Por favor, selecione um item.",
+            "task_name_error": "O nome da tarefa é obrigatório.",
+            "date_error": "A data planejada é obrigatória.",
+            "updated": "Tarefa de manutenção atualizada",
+            "created": "Nova tarefa de manutenção adicionada",
+            "save_error": "Ocorreu um erro ao salvar",
+            "deleted": "Tarefa de manutenção excluída com sucesso.",
+            "delete_error": "Ocorreu um erro durante o processo de exclusão.",
+            "performed": "Manutenção registrada como concluída. Próxima data agendada.",
+            "perform_error": "Ocorreu um erro ao salvar."
+        },
+        "freq": {
+            "one_time": "Única vez",
+            "unit": {
+                "days": "Dia",
+                "weeks": "Semana",
+                "months": "Mês",
+                "years": "Ano"
+            },
+            "format": "A cada {{val}} {{unit}}"
+        },
+        "loading_desc": "Carregando cronograma de manutenção...",
+        "page": {
+            "title": "Manutenção & Rastreamento Periódico",
+            "description": "Gerencie cronogramas de manutenção periódica para aparelhos, filtros ou equipamentos de segurança no seu inventário doméstico."
+        },
+        "actions": {
+            "add_task": "Adicionar Nova Tarefa",
+            "manage": "Gerenciar",
+            "perform": "Marcar como Concluída",
+            "edit_task": "Editar Tarefa"
+        },
+        "alerts": {
+            "overdue_title": "Você Tem Tarefas Atrasadas!",
+            "overdue_desc": "Há {{count}} tarefas de manutenção atrasadas. Atrasos podem reduzir a vida útil dos aparelhos."
+        },
+        "empty": {
+            "title": "Nenhuma tarefa de manutenção agendada",
+            "desc": "Comece adicionando tarefas recorrentes, como limpeza do filtro do ar-condicionado, manutenção da caldeira ou verificação das baterias dos detectores de incêndio."
+        },
+        "sections": {
+            "overdue": "Tarefas Atrasadas",
+            "overdue_desc": "Manutenção urgente que precisa ser realizada imediatamente.",
+            "upcoming": "Tarefas Programadas / Futuras",
+            "upcoming_desc": "Manutenção aproximando-se nos próximos dias.",
+            "no_upcoming": "Nenhuma tarefa ativa programada para o futuro."
+        },
+        "modal": {
+            "edit_title": "Editar Tarefa",
+            "create_title": "Agendar Nova Tarefa de Manutenção",
+            "perform_title": "Concluir Manutenção",
+            "perform_desc": "Você quer registrar \"{{name}}\" como concluída hoje?",
+            "perform_confirm": "Sim, Concluído",
+            "perform_recurrence_info": "Esta é uma tarefa periódica. Quando você salvar, o sistema calculará automaticamente a próxima data de manutenção.",
+            "delete_title": "Excluir Tarefa de Manutenção?",
+            "delete_desc": "Você tem certeza de que deseja excluir o cronograma de manutenção periódica \"{{name}}\"? Esta ação não pode ser desfeita."
+        },
+        "form": {
+            "item": "Item Relacionado",
+            "no_items": "Você deve adicionar um item ao inventário primeiro antes de agendar a manutenção.",
+            "select_item_placeholder": "Selecionar um Item",
+            "task_name": "Nome da Tarefa / Operação",
+            "task_name_placeholder": "por exemplo, Substituição de Filtro, Verificação Periódica...",
+            "description": "Detalhe / Descrição",
+            "description_placeholder": "Detalhes da tarefa, materiais a serem utilizados, etc...",
+            "frequency_value": "Frequência de Recorrência",
+            "frequency_placeholder": "por exemplo 6 (deixe em branco para uma vez)",
+            "frequency_unit": "Unidade de Frequência",
+            "next_due_date": "Próxima Data Agendada",
+            "section_help": "Gerencie os cronogramas de manutenção a partir daqui",
+            "section_collapsed": "Clique para adicionar controles e tarefas periódicas",
+            "has_tasks": "{{count}} Tarefas",
+            "new_item_warning_title": "Item com salvamento pendente",
+            "new_item_warning_desc": "Você deve salvar este item primeiro para adicionar um cronograma de manutenção.",
+            "manage_desc": "Gerencie os cronogramas de manutenção deste aparelho ou item."
+        },
+        "fields": {
+            "task_name": "Nome da Tarefa",
+            "task_name_placeholder": "ex.: limpeza do filtro de ar-condicionado",
+            "description": "Descrição",
+            "description_placeholder": "Detalhes da tarefa, materiais a serem usados, etc...",
+            "frequency_value": "Frequência de recorrência",
+            "frequency_value_placeholder": "Deixe em branco para uma única vez",
+            "frequency_unit": "Unidade de frequência",
+            "next_due_date": "Data Agendada"
+        },
+        "card": {
+            "untitled_item": "Item Sem Título",
+            "last_performed": "Última Execução:",
+            "next_due_label": "Data Agendada",
+            "complete_tooltip": "Marcar Manutenção como Concluída Hoje"
+        },
+        "detail_card_desc": "Acompanhamento de manutenção periódica ou única programada para este item.",
+        "no_tasks": "Nenhuma tarefa de manutenção atribuída a este item.",
+        "confirm_delete": "Esta tarefa será excluída. Você tem certeza?"
     }
 }

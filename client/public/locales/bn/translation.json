@@ -69,7 +69,9 @@
             "vault_hint_action": "পার্সোনাল ভল্ট খুলুন",
             "location": "অবস্থান",
             "remove_photo": "ছবি সরান",
-            "visibility_owner_only": "কেবল সেই ব্যক্তি যে আইটেমটি যোগ করেছেন,_visibility পরিবর্তন করতে পারেন।"
+            "visibility_owner_only": "কেবল সেই ব্যক্তি যে আইটেমটি যোগ করেছেন,_visibility পরিবর্তন করতে পারেন।",
+            "expiry_date": "মেয়াদ উত্তীর্ণের তারিখ",
+            "min_quantity": "সর্বনিম্ন পরিমাণ"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" দ্রুত যোগ করা হয়েছে - আপনি পরে এটি সম্পাদনা করতে পারেন",
@@ -119,7 +121,12 @@
         "no_permission": "No permission",
         "barcode_search_error": "বারকোড অনুসন্ধান ব্যর্থ হয়েছে",
         "stats_error": "Stats error",
-        "detail_subtitle": "আইটেমের বিবরণ"
+        "detail_subtitle": "আইটেমের বিবরণ",
+        "status": {
+            "close_to_expiry": "মেয়াদোত্তীর্ণের কাছে",
+            "expired": "মেয়াদোত্তীর্ণ",
+            "low_stock": "স্টক কম"
+        }
     },
     "common": {
         "save": "সেভ করুন",
@@ -170,7 +177,8 @@
         "details": "বিবরণ",
         "hide": "পাসওয়ার্ড লুকান",
         "logging_out": "লগ আউট হচ্ছে...",
-        "show": "পাসওয়ার্ড দেখান"
+        "show": "পাসওয়ার্ড দেখান",
+        "saving": "সংরক্ষণ হচ্ছে... •••••••• আইটেমের মেয়াদ শেষ হয়েছে! আপনার ইনভেন্টরিতে {{count}}টি মেয়াদোত্তীর্ণ আইটেম রয়েছে। অনুগ্রহ করে আপনার সুরক্ষা নিশ্চিত করার জন্য এগুলো পরীক্ষা করুন।"
     },
     "auth": {
         "login": {
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "আপনার পাসওয়ার্ড পুনরায় লিখুন",
             "reset_submit": "পাসওয়ার্ড রিসেট করুন",
             "resetting": "রিসেট হচ্ছে...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "আপনার ইউজারনেম বা ইমেইল লিখুন"
         },
         "reset_password": {
             "title": "পাসওয়ার্ড রিসেট করুন",
@@ -353,7 +361,7 @@
         "password_requirements": "কমপক্ষে {{min}} অক্ষর ব্যবহার করুন যাতে বড় হাতের, ছোট হাতের, সংখ্যা এবং চিহ্ন অন্তর্ভুক্ত থাকে।",
         "logout": "লগআউট",
         "logging_in": "লগইন করা হচ্ছে...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "{{brandName}} এ স্বাগতম",
         "username_email": "ব্যবহারকারীর নাম বা ইমেইল",
         "username": "ব্যবহারকারীর নাম",
         "email": "ইমেইল",
@@ -438,7 +446,9 @@
         "logout_aria": "আপনার অ্যাকাউন্ট থেকে লগ আউট করুন",
         "logout_title": "লগ আউট করবেন?",
         "logout_description": "আপনাকে সাইন-ইন স্ক্রিনে ফেরত নিয়ে যাবে এবং আপনার বাড়ির ইনভেন্টরি পরিচালনা করতে আবার লগ ইন করতে হবে।",
-        "logout_warning": "এটি ব্যবহার করুন যখন আপনি একটি শেয়ার করা বা ব্যক্তিগত ডিভাইসে শেষ করেছেন।"
+        "logout_warning": "এটি ব্যবহার করুন যখন আপনি একটি শেয়ার করা বা ব্যক্তিগত ডিভাইসে শেষ করেছেন।",
+        "maintenance": "রক্ষণাবেক্ষণের সময়সূচী",
+        "shopping": "কেনাকাটার তালিকা"
     },
     "dashboard": {
         "welcome": "স্বাগতম, <1>{{name}}</1>",
@@ -565,7 +575,20 @@
         "no_items_filter": "এই ফিল্টারের সাথে কোনো আইটেম মেলেনি",
         "manage": "পরিচালনা করুন",
         "add_item": "আইটেম যোগ করুন",
-        "search_item": "আইটেম অনুসন্ধান"
+        "search_item": "আইটেম অনুসন্ধান",
+        "alerts": {
+            "expired_title": "আইটেমগুলির মেয়াদ শেষ হয়েছে!",
+            "expired_desc": "আপনার সংগ্রহস্থলে {{count}}টি মেয়াদ শেষ হওয়া আইটেম রয়েছে। দয়া করে আপনার সুরক্ষার জন্য এগুলো পরীক্ষা করুন।",
+            "view_items": "আইটেম দেখুন",
+            "maintenance_title": "মেয়াদোত্তীর্ণ রক্ষণাবেক্ষণ কাজ!",
+            "maintenance_desc": "{{count}}টি মেয়াদোত্তীর্ণ রক্ষণাবেক্ষণ কাজ আছে। আপনার যন্ত্রপাতির আয়ু বাড়াতে রক্ষণাবেক্ষণ সম্পাদন করুন।",
+            "go_to_maintenance": "রক্ষণাবেক্ষণে যান",
+            "low_stock_title": "কম স্টক সতর্কতা",
+            "low_stock_desc": "{{count}} টি আইটেম আপনার ন্যূনতম স্টক সীমার নিচে নেমে গেছে।",
+            "go_to_shopping": "শপিং তালিকা",
+            "close_expiry_title": "আসন্ন মেয়াদ শেষের তারিখ",
+            "close_expiry_desc": "{{count}} টি পণ্য ৩০ দিনের মধ্যে মেয়াদোত্তীর্ণ হবে।"
+        }
     },
     "beta_banner": {
         "title": "বেটা:",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "সক্রিয় ঘরের চাবি",
             "key_label": "ঘরের চাবি",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{প্রত্যয়}}",
             "hide": "লুকান",
             "show": "দেখান",
             "copy": "কপি করুন",
@@ -991,8 +1014,8 @@
             "no_history": "এই আইটেমের জন্য এখনো কোনো ধার গ্রহণের ইতিহাস নেই।",
             "lend_success_title": "ধারের আইটেম",
             "lend_success_body": "{{item}} এখন ধার নেওয়া হিসেবে চিহ্নিত হয়েছে।",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "ঋণ প্রস্তাব পাঠানো হয়েছে",
+            "offer_sent_body": "{{item}} অন্যান্য সদস্য গ্রহণ করার পর ঋণ হিসাবে চিহ্নিত হবে।",
             "borrowed_by_you": "আপনার সাথে",
             "return_pending_hint": "ঋণদাতা আইটেমটি ফেরত পেয়েছে নিশ্চিত করার পরে রেকর্ডটি বন্ধ হবে।",
             "return_pending_lender_title": "{{name}} এই আইটেমটি ফেরত দেওয়া হিসেবে চিহ্নিত করেছেন",
@@ -1191,8 +1214,8 @@
             "ban_success_body": "{{username}} সাইন ইন করা থেকে অবরুদ্ধ করা হয়েছে।",
             "unban_success_title": "অ্যাক্সেস পুনরুদ্ধার করা হয়েছে",
             "unban_success_body": "{{username}} আবার সাইন ইন করতে পারে।",
-            "delete_success_title": "Account deleted",
-            "delete_success_body": "{{username}} and the related owned data were permanently removed.",
+            "delete_success_title": "অ্যাকাউন্ট মুছে ফেলা হয়েছে",
+            "delete_success_body": "{{username}} এবং সম্পর্কিত মালিকানাধীন ডেটা স্থায়ীভাবে মুছে ফেলা হয়েছে।",
             "section_title": "ব্যবহারকারী অ্যাক্সেস নিয়ন্ত্রণ",
             "search_label": "ব্যবহারকারীদের অনুসন্ধান করুন",
             "search_placeholder": "ব্যবহারকারীর নাম অনুযায়ী অনুসন্ধান করুন",
@@ -1229,7 +1252,7 @@
             "no_logs": "এখনও কোনো লগ নেই",
             "errors_title": "সিস্টেম ত্রুটি (শেষ ১০)",
             "no_errors": "// সিস্টেম সুস্থ, কোনো ত্রুটি লগ নেই।",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{তারিখ, তারিখের সময়}}",
             "type": {
                 "email": "ইমেল",
                 "user": "ব্যবহারকারী",
@@ -1401,12 +1424,12 @@
             "cta_register": "অ্যাকাউন্ট তৈরি করুন",
             "stat_free": "বিনামূল্যে",
             "stat_access": "অ্যাক্সেস",
-            "free_badge": "Open Source",
+            "free_badge": "উন্মুক্ত সোর্স",
             "badge": "হোমইনভেন্টরি v2.0 এখানে",
             "cta_explore": "বৈশিষ্ট্যগুলি অন্বেষণ করুন",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "সাইন ইন",
+            "stat_members": "শেয়ারড হোমস",
+            "stat_vault": "প্রাইভেট ভল্ট"
         },
         "features": {
             "title": "কেন <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "আইটেম, ওয়ারেন্টি, গুরুত্বপূর্ণ নথি এবং ঋণ নেওয়ার ট্র্যাক এক শান্ত স্থানেই রাখুন। এক নজরে দেখুন আপনার বাড়িতে কী আছে।",
                 "primaryCta": "বিনামূল্যে শুরু করুন",
                 "secondaryCta": "পণ্যটি দেখুন",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "প্রস্তাবিত প্রবাহ: অ্যাকাউন্ট • হোম • রুম এবং ক্যাটেগরি • আইটেম • ব্যাকআপ",
                 "searchPlaceholder": "একটি আইটেম, ঘর বা বারকোড খুঁজুন"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "নেটওয়ার্কের বিবরণ যখন পর্যন্ত আপনার নির্দেশনা প্রয়োজন তা লুকিয়ে থাকে।",
         "link_privacy_note": "নেটওয়ার্ক ঠিকানাটি এখানে লুকিয়ে থাকে। কোড স্ক্যান করুন বা লিঙ্ক কপি করুন শুধুমাত্র তখনই যখন আপনি সচেতনভাবে আপনার স্থানীয় সেটআপে সরাসরি আইটেম অ্যাক্সেস শেয়ার করতে চান।",
         "helper": "এই আইটেমটি তাৎক্ষণিকভাবে খোলার জন্য স্ক্যান করুন, বা প্রয়োজন হলে সরাসরি লিঙ্ক কপি করুন।",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "লিঙ্ক স্বয়ংক্রিয়ভাবে কপি করা যায়নি",
+        "copy_manual_help": "আপনার ব্রাউজার স্বয়ংক্রিয় কপি করার অনুমতি দেয়নি। লিঙ্কটি নির্বাচন করা হয়েছে যাতে আপনি এটি ম্যানুয়ালভাবে কপি করতে পারেন।",
         "loading": "কিউআর সরঞ্জাম প্রস্তুত করা হচ্ছে..."
     },
     "house_access_pending": {
@@ -1773,7 +1796,7 @@
             "subject": "🏠 {{brandName}} - 📧 ইমেল যাচাই প্রয়োজন",
             "headerTitle": "{{brandName}}-তে স্বাগতম",
             "headerSubtitle": "একটি নতুন অ্যাকাউন্ট তৈরি করুন বা একটি বিদ্যমান ঘরে যোগ দিন",
-            "greeting": "Welcome to {{brandName}}",
+            "greeting": "{{brandName}}-এ স্বাগতম",
             "intro": "অ্যাকাউন্ট তৈরি হয়েছে! লগইন করতে আপনার ইমেল ঠিকানা যাচাই করুন।",
             "verifyPrompt": "📧 ইমেল যাচাই প্রয়োজন",
             "verifyButton": "✓ আমার অ্যাকাউন্ট যাচাই করুন",
@@ -1790,13 +1813,13 @@
             ],
             "fallback": "পাসওয়ার্ড রিসেট লিঙ্কটি অসম্পূর্ণ বা ভাঙা দেখায়।",
             "support": "নিবন্ধন সমস্যা:",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© ২০২৬ {{brandName}}"
         },
         "welcome": {
             "subject": "{{brandName}}-তে স্বাগতম",
             "headerTitle": "{{brandName}}-তে স্বাগতম",
             "headerSubtitle": "একটি নতুন অ্যাকাউন্ট তৈরি করুন বা একটি বিদ্যমান ঘরে যোগ দিন",
-            "greeting": "Welcome to {{brandName}}",
+            "greeting": "{{brandName}}-এ স্বাগতম",
             "intro": "স্বাগতম, ! 👋",
             "houseKeyLabel": "হাউস কী",
             "houseKeyNote": "এটি আপনার বাড়ির চাবি, এটি ব্যবহার করে অন্যদের আমন্ত্রণ করুন। আপনার বাড়িতে পরিবারের সদস্যদের যোগ করুন!",
@@ -1842,7 +1865,7 @@
             "warningTitle": "⚠️",
             "warningBody": "যদি একটি অ্যাকাউন্ট বিদ্যমান থাকে, 15 মিনিটের জন্য বৈধ একটি পাসওয়ার্ড রিসেট লিঙ্ক পাঠানো হয়েছে৷",
             "fallback": "পাসওয়ার্ড রিসেট লিঙ্কটি অসম্পূর্ণ বা ভাঙা দেখায়।",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© ২০২৬ {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "এই ইমেলটি {{brandName}} দ্বারা পাঠানো হয়েছে।",
@@ -1969,8 +1992,8 @@
             "empty": "বর্তমানে কোনো সক্রিয় ধার নেই।",
             "borrowed_from": "{{name}} থেকে ধারকৃত",
             "lent_to": "বর্তমানে {{name}} এর সাথে",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "ঋণদাতা এটি ফেরত পেয়েছেন কিনা নিশ্চিত করার জন্য অপেক্ষা করছে।",
+            "return_pending_lender": "{{name}} এই আইটেমটি ফেরৎ দেওয়া হিসেবে চিহ্নিত করেছেন। রেকর্ড বন্ধ করতে গ্রহণ স্বীকার করুন।",
             "empty_title": "এখন কোনো সক্রিয় ধার নেই",
             "empty_description": "একটি আইটেম ধার নেওয়া বা দেওয়ার পরে গৃহীত অনুরোধগুলো এখানে প্রদর্শিত হবে, সাথে দেওয়া তারিখ এবং ফেরতের অবস্থা সহ।"
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "বাতিল",
             "expired": "মেয়াদ উত্তীর্ণ",
             "returned": "ফেরত দেওয়া হয়েছে",
-            "return_pending": "Return pending"
+            "return_pending": "ফেরত প্রক্রিয়াধীন"
         },
         "actions": {
             "send_request": "আইটেম অনুরোধ করুন",
@@ -1990,8 +2013,8 @@
             "reject": "প্রত্যাখ্যান করুন",
             "cancel": "বাতিল করুন",
             "fulfill_request": "অনুরোধ পূরণ করুন",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "প্রেরণ চিহ্নিত করুন",
+            "mark_received": "গ্রহণ চিহ্নিত করুন",
             "open_inventory": "ইনভেন্টরি খুলুন"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "ফেরত চিহ্নিত করুন",
             "return_subtitle": "'{{item}}' এর জন্য সক্রিয় ধার বন্ধ করুন",
             "return_target": "এটি বর্তমানে {{name}} এর কাছে দেখানো হচ্ছে।",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "আইটেম সরবরাহ করুন",
+            "return_title_lender": "আইটেমটি গ্রহণ করুন",
+            "return_subtitle_borrower": "আপনি এটি ফেরত দেওয়ার পরে \"{{আইটেম}}\" এর জন্য সক্রিয় ঋণটি বন্ধ করুন।",
+            "return_subtitle_lender": "আপনি এটি ফেরত পাওয়ার পরে \"{{আইটেম}}\" এর জন্য সক্রিয় ঋণটি বন্ধ করুন।",
+            "return_target_borrower": "ঋণদাতা: {{নাম}}",
+            "return_target_lender": "বর্তমানে সঙ্গে: {{name}}",
+            "return_note_borrower": "ডেলিভারি নোট",
+            "return_note_lender": "গ্রহণ নোট",
+            "return_note_placeholder_borrower": "উদাহরণস্বরূপ আমি এটি কোনো সমস্যা ছাড়াই ফেরত দিয়েছি",
+            "return_note_placeholder_lender": "যেমন: ভালো অবস্থায় ফেরত পাওয়া গেছে",
+            "return_submitting": "বন্ধ করা হচ্ছে..."
         },
         "messages": {
             "load_error": "ধার কেন্দ্র লোড করা যায়নি",
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "ব্যবহারের শর্তাবলী এবং অসম্মতি",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "বেটা ভার্শন: {{brandName}} বর্তমানে পরীক্ষা পর্যায়ে রয়েছে। ডেটার স্থায়িত্ব বা নিরাপত্তা সম্পর্কে কোনো গ্যারান্টি দেওয়া হয় না।",
         "disclaimer": "অস্বীকার: এই অ্যাপ্লিকেশনটি ব্যবহার করে, আপনি স্বীকার করেন যে আপনি সম্ভাব্য ডেটা ক্ষতি, অ্যাক্সেস সমস্যা, বা অন্যান্য প্রযুক্তিগত সমস্যার জন্য কোনো ক্ষতিপূরণের দাবি করতে পারবেন না।",
         "backup_warning": "ডেটা ব্যাকআপ: আমরা দৃঢ়ভাবে পরামর্শ দিচ্ছি যে আপনি নিয়মিত আপনার গুরুত্বপূর্ণ তথ্য ব্যাকআপ করুন।",
         "accept": "লগইন করে, আপনি এই শর্তগুলির সাথে একমত হন।",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} বর্তমানে পরীক্ষা এবং শখ পর্যায়ে রয়েছে। ডেটার স্থায়িত্ব বা নিরাপত্তা সম্পর্কে কোনো গ্যারান্টি দেওয়া হয় না। অনুগ্রহ করে আপনার গুরুত্বপূর্ণ তথ্য ব্যাকআপ রাখুন।",
         "contact": "যোগাযোগ"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Too many login attempts"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "সাইন ইন",
+        "page_title_register": "অ্যাকাউন্ট তৈরি করুন",
+        "page_title_choose_house": "বাড়ি নির্বাচন করুন",
+        "page_title_recovery_key": "রিকভারি কী",
+        "page_title_house_access": "বাড়ির প্রবেশাধিকার",
+        "page_title_legal_review": "আইনি পর্যালোচনা",
+        "page_title_new_item": "নতুন আইটেম",
+        "page_title_edit_item": "আইটেম সম্পাদনা করুন",
+        "page_title_items": "ইনভেন্টরি"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "শপিং লিস্ট লোড করতে ত্রুটি।",
+            "select_item_error": "অনুগ্রহ করে ইনভেন্টরি থেকে একটি আইটেম নির্বাচন করুন।",
+            "empty_name": "অনুগ্রহ করে একটি আইটেমের নাম প্রবেশ করুন।",
+            "added": "আইটেমটি কেনার তালিকায় যোগ করা হয়েছে।",
+            "add_error": "আইটেম যোগ করার সময় একটি ত্রুটি ঘটেছে।",
+            "added_suggestion": "\"{{name}}\" কেনাকাটার তালিকায় যোগ করা হয়েছে।",
+            "bulk_added": "{{count}} কম স্টক আইটেম তালিকায় যোগ করা হয়েছে।",
+            "bulk_error": "কম স্টক আইটেম যোগ করতে ত্রুটি হয়েছে।",
+            "completed": "\"{{name}}\" সম্পন্ন হিসাবে চিহ্নিত করা হয়েছে।",
+            "reactivated": "\"{{name}}\" সক্রিয় তালিকায় ফিরে এসেছে।",
+            "update_error": "আপডেট করার সময় ত্রুটি ঘটেছে।",
+            "deleted": "আইটেমটি তালিকা থেকে মুছে ফেলা হয়েছে।",
+            "delete_error": "মুছে ফেলার সময় ত্রুটি ঘটেছে।",
+            "cleared_completed": "সম্পন্ন আইটেমগুলি মুছে ফেলা হয়েছে।",
+            "clear_error": "মুছে ফেলার সময় ত্রুটি ঘটেছে।"
+        },
+        "loading_desc": "শপিং লিস্ট প্রস্তুত করা হচ্ছে...",
+        "page": {
+            "title": "শপিং লিস্ট",
+            "description": "বাড়ির ইনভেন্টরিতে কম স্টক থাকা আইটেমগুলি দেখুন এবং আপনার কেনার তালিকা সহজেই পরিচালনা করুন।"
+        },
+        "suggestions": {
+            "title": "স্মার্ট ইনভেন্টরি পরামর্শ",
+            "desc": "ইনভেন্টরি আইটেমগুলি যা ন্যূনতম সীমার নিচে পড়েছে।",
+            "add_all": "সব অনুপস্থিত যোগ করুন",
+            "stock_status": "বর্তমান: {{current}} / লক্ষ্য: {{min}}",
+            "add_qty": "{{qty}} যোগ করুন"
+        },
+        "sections": {
+            "active_list": "কেনার জন্য আইটেমসমূহ",
+            "active_desc": "আপনার কার্টে যোগ করার জন্য বর্তমান শপিং আইটেমসমূহ।",
+            "active_count": "{{count}}টি আইটেম",
+            "completed_list": "ক্রয়কৃত আইটেম ({{count}})",
+            "add_item": "আইটেম ম্যানুয়ালি যোগ করুন",
+            "add_desc": "তালিকায় একটি কাস্টম আইটেম ম্যানুয়ালি যোগ করুন।"
+        },
+        "empty": {
+            "title": "আপনার শপিং তালিকা খালি",
+            "desc": "আপনি উপরের প্রস্তাবনাগুলি থেকে অনুপস্থিত স্টক যোগ করতে পারেন বা ডান দিকের ফর্ম ব্যবহার করে আইটেমগুলি হাতে হাতে যোগ করতে পারেন।"
+        },
+        "card": {
+            "linked_inventory": "ইনভেন্টরিতে সংরক্ষণ করা হয়েছে"
+        },
+        "actions": {
+            "clear_completed": "ইতিহাস মুছুন",
+            "add_item": "শপিং লিস্টে যোগ করুন"
+        },
+        "form": {
+            "add_type": "যোগ করার পদ্ধতি",
+            "add_type_inventory": "ইনভেন্টরি আইটেম",
+            "add_type_custom": "কাস্টম আইটেম",
+            "select_inventory_item": "ইনভেন্টরির item নির্বাচন করুন",
+            "no_inventory_items": "আপনার ইনভেন্টরিতে এখনও কোনো item নেই।",
+            "select_item_placeholder": "একটি item নির্বাচন করুন",
+            "current_stock": "বর্তমান",
+            "item_name": "আইটেমের নাম",
+            "item_name_placeholder": "উদাহরণ: দুধ, ডিটারজেন্ট, কফি বিনস...",
+            "quantity": "পরিমাণ"
+        },
+        "modal": {
+            "delete_title": "তালিকা থেকে আইটেমটি মুছে ফেলবেন?",
+            "delete_desc": "\"আপনি কি নিশ্চিত যে আপনি \"{{name}}\" আপনার শপিং লিস্ট থেকে সরাতে চান?\""
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "তথ্য লোড করতে ত্রুটি",
+            "select_item_error": "দয়া করে একটি আইটেম নির্বাচন করুন।",
+            "task_name_error": "টাস্কের নাম প্রয়োজন।",
+            "date_error": "পরিকল্পিত তারিখ প্রয়োজন।",
+            "updated": "রক্ষণাবেক্ষণ কাজ আপডেট হয়েছে",
+            "created": "নতুন রক্ষণাবেক্ষণ কাজ যোগ করা হয়েছে",
+            "save_error": "সংরক্ষণের সময় ত্রুটি ঘটেছে",
+            "deleted": "রক্ষণাবেক্ষণের কাজ সফলভাবে মুছে ফেলা হয়েছে।",
+            "delete_error": "মুছে ফেলার প্রক্রিয়ার সময় একটি ত্রুটি ঘটেছে।",
+            "performed": "রক্ষণাবেক্ষণ সম্পন্ন হিসাবে লগ করা হয়েছে। পরের তারিখ নির্ধারিত হয়েছে।",
+            "perform_error": "সংরক্ষণ করার সময় একটি ত্রুটি ঘটেছে।"
+        },
+        "freq": {
+            "one_time": "একবার",
+            "unit": {
+                "days": "দিন",
+                "weeks": "সপ্তাহ",
+                "months": "মাস",
+                "years": "বছর"
+            },
+            "format": "প্রতি {{val}} {{unit}}"
+        },
+        "loading_desc": "রক্ষণাবেক্ষণের সময়সূচি লোড হচ্ছে...",
+        "page": {
+            "title": "রক্ষণাবেক্ষণ ও সময়কালীন ট্র্যাকিং",
+            "description": "আপনার বাড়ির ইনভেন্টরিতে যন্ত্রপাতি, ফিল্টার বা নিরাপত্তা সরঞ্জামের সময়সাপেক্ষ রক্ষণাবেক্ষণের সময়সূচি পরিচালনা করুন।"
+        },
+        "actions": {
+            "add_task": "নতুন কাজ যোগ করুন",
+            "manage": "পরিচালনা করুন",
+            "perform": "সম্পন্ন হিসাবে মার্ক করুন",
+            "edit_task": "টাস্ক সম্পাদনা করুন"
+        },
+        "alerts": {
+            "overdue_title": "আপনার সময়সীমা অতিক্রান্ত কাজগুলি আছে!",
+            "overdue_desc": "{{count}} টি সময়সীমা অতিক্রান্ত রক্ষণাবেক্ষণ কাজ রয়েছে। দেরি করলে যন্ত্রপাতির আয়ু কমতে পারে।"
+        },
+        "empty": {
+            "title": "কোনো রক্ষণাবেক্ষণ কাজ নির্ধারিত নেই",
+            "desc": "শুরু করতে পুনরাবৃত্ত কাজ যোগ করুন যেমন এসি ফিল্টার পরিষ্কার করা, বয়লার রক্ষণাবেক্ষণ, বা অগ্নি শনাক্তকরণ ব্যাটারি পরীক্ষাগুলি।"
+        },
+        "sections": {
+            "overdue": "বিলম্বিত কাজগুলি",
+            "overdue_desc": "জরুরি রক্ষণাবেক্ষণ যা অবিলম্বে করা প্রয়োজন।",
+            "upcoming": "নির্ধারিত / আগামি কাজগুলি",
+            "upcoming_desc": "আসন্ন দিনের মধ্যে হওয়া রক্ষণাবেক্ষণ।",
+            "no_upcoming": "ভবিষ্যতে কোনো সক্রিয় কাজ নির্ধারিত নেই।"
+        },
+        "modal": {
+            "edit_title": "কাজ সম্পাদনা করুন",
+            "create_title": "নতুন রক্ষণাবেক্ষণ কাজ নির্ধারণ করুন",
+            "perform_title": "রক্ষণাবেক্ষণ সম্পূর্ণ করুন",
+            "perform_desc": "আপনি কি আজ '{{name}}' সম্পন্ন হিসেবে লগ করতে চান?",
+            "perform_confirm": "হ্যাঁ, সম্পন্ন হয়েছে",
+            "perform_recurrence_info": "এটি একটি পর্যায়ক্রমিক কাজ। আপনি যখন সংরক্ষণ করবেন, সিস্টেম স্বয়ংক্রিয়ভাবে পরবর্তী রক্ষণাবেক্ষণের তারিখ গণনা করবে।",
+            "delete_title": "রক্ষণাবেক্ষণের কাজ মুছে ফেলবেন?",
+            "delete_desc": "আপনি কি নিশ্চিত যে আপনি সময়নিয়মিত রক্ষণাবেক্ষণ সময়সূচি \"{{name}}\" মুছে ফেলতে চান? এই ক্রিয়াটি পূর্বাবস্থায় ফেরানো যাবে না."
+        },
+        "form": {
+            "item": "সম্পর্কিত আইটেম",
+            "no_items": "রক্ষণাবেক্ষণের সময়সূচি নির্ধারণ করার আগে আপনাকে প্রথমে ইনভেন্টরিতে একটি আইটেম যোগ করতে হবে.",
+            "select_item_placeholder": "একটি আইটেম নির্বাচন করুন",
+            "task_name": "কাজ / অপারেশন নাম",
+            "task_name_placeholder": "যেমন ফিল্টার প্রতিস্থাপন, সময়ান্তরাল চেক...",
+            "description": "বিশদ / বর্ণনা",
+            "description_placeholder": "কাজের বিবরণ, ব্যবহৃত উপকরণ, ইত্যাদি...",
+            "frequency_value": "পুনরাবৃত্তির ঘনত্ব",
+            "frequency_placeholder": "যেমন ৬ (একবারের জন্য ফাঁকা রাখুন)",
+            "frequency_unit": "ঘনত্বের একক",
+            "next_due_date": "পরবর্তী নির্ধারিত তারিখ",
+            "section_help": "এখান থেকে রক্ষণাবেক্ষণ সময়সূচি পরিচালনা করুন",
+            "section_collapsed": "নিয়মিত নিয়ন্ত্রণ এবং কাজ যোগ করতে ক্লিক করুন",
+            "has_tasks": "{{count}}টি কাজ",
+            "new_item_warning_title": "আইটেম সংরক্ষণ মুলতুবি",
+            "new_item_warning_desc": "আপনাকে প্রথমে এই আইটেমটি সংরক্ষণ করতে হবে একটি রক্ষণাবেক্ষণ সময়সূচি যোগ করার জন্য।",
+            "manage_desc": "এই যন্ত্রপাতি বা আইটেমের রক্ষণাবেক্ষণ সময়সূচি পরিচালনা করুন।"
+        },
+        "fields": {
+            "task_name": "কাজের নাম",
+            "task_name_placeholder": "যেমন: এয়ার কন্ডিশনার ফিল্টার পরিষ্কার করা",
+            "description": "বর্ণনা",
+            "description_placeholder": "কাজের বিবরণ, ব্যবহারের উপকরণ ইত্যাদি...",
+            "frequency_value": "পুনরাবৃত্তির ফ্রিকোয়েন্সি",
+            "frequency_value_placeholder": "একবারের জন্য খালি রাখুন",
+            "frequency_unit": "ফ্রিকোয়েন্সি ইউনিট",
+            "next_due_date": "নির্ধারিত তারিখ"
+        },
+        "card": {
+            "untitled_item": "শিরোনামহীন আইটেম",
+            "last_performed": "সর্বশেষ সম্পন্ন:",
+            "next_due_label": "নির্ধারিত তারিখ",
+            "complete_tooltip": "আজ রক্ষণাবেক্ষণ সম্পন্ন হিসেবে চিহ্নিত করুন"
+        },
+        "detail_card_desc": "এই আইটেমের জন্য নির্ধারিত পর্যায়ক্রমিক বা এক-মাত্রার রক্ষণাবেক্ষণ ট্র্যাকিং।",
+        "no_tasks": "এই আইটেমের জন্য কোনো রক্ষণাবেক্ষণ কাজ ভাগ করা হয়নি।",
+        "confirm_delete": "এই কাজটি মুছে ফেলা হবে। আপনি কি নিশ্চিত?"
     }
 }

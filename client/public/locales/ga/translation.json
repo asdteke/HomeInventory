@@ -69,7 +69,9 @@
             "vault_hint_action": "Oscail Vault Phearsanta",
             "location": "Suíomh",
             "remove_photo": "Bain grianghraf",
-            "visibility_owner_only": "Níl ach an duine a chuir an mhír leis in ann inathrú infheictheachta a dhéanamh."
+            "visibility_owner_only": "Níl ach an duine a chuir an mhír leis in ann inathrú infheictheachta a dhéanamh.",
+            "expiry_date": "Dáta Éaga",
+            "min_quantity": "Cainníocht Íosta"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" curtha leis go tapa - is féidir leat eagarthóireacht a dhéanamh níos déanaí",
@@ -119,7 +121,12 @@
         "no_permission": "No permission",
         "barcode_search_error": "Theip ar chuardach barrachód",
         "stats_error": "Stats error",
-        "detail_subtitle": "Sonraí an mhíre"
+        "detail_subtitle": "Sonraí an mhíre",
+        "status": {
+            "close_to_expiry": "Gar don Éagtha",
+            "expired": "Ascalaithe",
+            "low_stock": "Stoc Íseal"
+        }
     },
     "common": {
         "save": "Sábháil",
@@ -170,7 +177,8 @@
         "details": "Sonraí",
         "hide": "Folaigh pasfhocal",
         "logging_out": "Ag logáil amach...",
-        "show": "Taispeáin pasfhocal"
+        "show": "Taispeáin pasfhocal",
+        "saving": "Ag sábháil..."
     },
     "auth": {
         "login": {
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "Cuir do phasfhocal isteach arís",
             "reset_submit": "Athshocraigh an Pasfhocal",
             "resetting": "Ag athshocrú...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Cuir isteach d’ainm úsáideora nó ríomhphost"
         },
         "reset_password": {
             "title": "Athshocraigh an Pasfhocal",
@@ -353,7 +361,7 @@
         "password_requirements": "Úsáid ar a laghad {{min}} carachtar le hordlitir, litir bheag, uimhir, agus siombail.",
         "logout": "Logáil Amach",
         "logging_in": "Ag logáil isteach...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "Fáilte chuig {{brandName}}",
         "username_email": "Ainm Úsáideora nó Ríomhphost",
         "username": "Ainm Úsáideora",
         "email": "Ríomhphost",
@@ -367,7 +375,7 @@
         "google_login": "Leanúint le Google",
         "login_issues": "Maidir le fadhbanna logála isteach",
         "placeholder_username": "m.sh.: john",
-        "placeholder_password": "••••••••",
+        "placeholder_password": "•••••••",
         "login_two_factor": {
             "title": "Fíordheimhniú Dhá Fhachtóir",
             "subtitle": "Cuir isteach an cód 6-dhigit ó d'aip fíordheimhnithe",
@@ -438,7 +446,9 @@
         "logout_aria": "Logáil amach as do chuntas",
         "logout_title": "Logáil amach?",
         "logout_description": "Beidh tú ar ais ar an scáileán sínte agus beidh ort logáil isteach arís chun do stoc teach a bhainistiú.",
-        "logout_warning": "Úsáid seo nuair atá tú críochnaithe ar ghléas roinnte nó pearsanta."
+        "logout_warning": "Úsáid seo nuair atá tú críochnaithe ar ghléas roinnte nó pearsanta.",
+        "maintenance": "Sceideal Cothabhála",
+        "shopping": "Liosta Siopadóireachta"
     },
     "dashboard": {
         "welcome": "Fáilte ar ais, <1>{{name}}</1>",
@@ -565,7 +575,20 @@
         "no_items_filter": "Níl aon earraí ag teacht leis an scagaire seo",
         "manage": "Bainistigh",
         "add_item": "Cuir Mír Leis",
-        "search_item": "Cuardaigh Mír"
+        "search_item": "Cuardaigh Mír",
+        "alerts": {
+            "expired_title": "Tá míreanna imithe in éag!",
+            "expired_desc": "Tá {{count}} mír imithe in éag i do stoc. Seiceáil iad le do shábháilteacht, le do thoil.",
+            "view_items": "Amharc Ar Earraí",
+            "maintenance_title": "Tascanna Cothabhála Ar Dúl",
+            "maintenance_desc": "Tá {{count}} tasc cothabhála ar dhul thar am. Déan cothabháil chun saolré do ghiuirléidí a leathnú.",
+            "go_to_maintenance": "Téigh go Cothabháil",
+            "low_stock_title": "Rabhadh Stoc Íseal",
+            "low_stock_desc": "Tá {{count}} míreanna tar éis titim faoi do theorainn stoc íosta.",
+            "go_to_shopping": "Liosta Siopadóireachta",
+            "close_expiry_title": "Dáta Éaga atá Le teacht",
+            "close_expiry_desc": "Réidhfidh {{count}} táirgí laistigh de 30 lá."
+        }
     },
     "beta_banner": {
         "title": "BÉITE:",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "Eochair an Tí Gníomhach",
             "key_label": "Eochair an Tí",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "•••••••{{iarmhír}}",
             "hide": "Folaigh",
             "show": "Taispeáin",
             "copy": "Cóipeáil",
@@ -991,8 +1014,8 @@
             "no_history": "Níl aon stair fiachta don mhír seo go fóill.",
             "lend_success_title": "Mír iasachta",
             "lend_success_body": "Tá {{item}} marcáilte anois mar iasachtaithe.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "Tairisc ar iasacht seolta",
+            "offer_sent_body": "Beidh {{item}} marcáilte mar iasachtaithe tar éis don bhall eile glacadh leis.",
             "borrowed_by_you": "Leatsa",
             "return_pending_hint": "Dúnfaidh an taifead tar éis don iasachtóir a dheimhniú gur fhuair siad an mhír ar ais.",
             "return_pending_lender_title": "Mharcáil {{name}} an mhír seo mar hathsheachadta ar ais",
@@ -1229,7 +1252,7 @@
             "no_logs": "níl aon loganna go fóill",
             "errors_title": "Earráidí Córais (10 Deiridh)",
             "no_errors": "// Córais sláintiúil, níl aon loganna earráide.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{dáta, am dáta}}",
             "type": {
                 "email": "Ríomhphost",
                 "user": "Úsáideoir",
@@ -1277,7 +1300,7 @@
             "notes_body": "Bain úsáid as seo le haghaidh tacaíochta oibríochtaí nó teagmháil a bhaineann le cuntas. Ba chóir go mairfeadh ábhar íogair laistigh den aip chomh fada agus is féidir.",
             "notes_body_with_rate_limit": "Bain úsáid as seo le haghaidh tacaíochta oibríochtaí nó teagmháil a bhaineann le cuntas. Ba chóir go mairfeadh ábhar íogair laistigh den aip chomh fada agus is féidir. Cosaint seolta reatha: {{rateLimit}}.",
             "rate_limit_fallback": "3 ríomhphoist sa nóiméad",
-            "placeholder_to": "name@example.com",
+            "placeholder_to": "ainm@sampla.com",
             "placeholder_subject": "Ábhar an téacs",
             "send_success_with_id": "✅ R-phost seolta go rathúil! ID: {{emailId}}",
             "send_error": "Níorbh fhéidir an ríomhphost a sheoladh",
@@ -1285,7 +1308,7 @@
             "info_title": "Faisnéis",
             "info_bullet_1": "Seoltar ríomhphoist ó {{supportEmail}}",
             "info_bullet_2": "Is féidir leat suas le 3 ríomhphost a sheoladh in aghaidh an mhionaid chun spam a chosc",
-            "info_bullet_3": "All sends are logged for security, excluding content",
+            "info_bullet_3": "Tá gach seoladh logáilte ar mhaithe le slándáil, ach eisceacht a dhéanamh ar ábhar",
             "status_title": "Stádas ríomhphoist amach le haghaidh seolta",
             "status_body": "Seiceáil muiníne tapa sula seoltar cumarsáid oibriúcháin.",
             "unconfigured_title": "Níl seachadadh ríomhphoist cumraithe",
@@ -1401,12 +1424,12 @@
             "cta_register": "Cruthaigh Cuntas",
             "stat_free": "Saor",
             "stat_access": "Rochtain",
-            "free_badge": "Open Source",
+            "free_badge": "Foinse Oscailte",
             "badge": "Tá HomeInventory v2.0 anseo",
             "cta_explore": "Déan iniúchadh ar Ghnéithe",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Sínigh isteach",
+            "stat_members": "Tithe roinnte",
+            "stat_vault": "Fálas Príobháideach"
         },
         "features": {
             "title": "Cén fáth <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Coinnigh earraí, ráthaíochtaí, doiciméid thábhachtacha, agus rianú iasachta i gceann áit chiúin amháin. Féach ar mhéid atá i do theach ag léim amháin.",
                 "primaryCta": "Tosaigh Saor",
                 "secondaryCta": "Féach ar an Táirge",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Sreabhadh molta: cuntas • baile • seomraí agus catagóirí • earraí • cúltaca",
                 "searchPlaceholder": "Cuardaigh earra, seomra, nó cód barra"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "Fanann sonraí an líonra i bhfolach go dtí go mbeidh tú ag teastáil ó threoir.",
         "link_privacy_note": "Fanann seoladh an líonra i bhfolach anseo. Scanáil an cód nó cóipeáil an nasc ach amháin nuair atá tú i gceist rochtain dhíreach ar an mír a roinnt ar do shocraíocht áitiúil.",
         "helper": "Scanáil chun an mír seo a oscailt láithreach, nó cóipeáil an nasc díreach nuair a bheidh gá leis.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Níorbh fhéidir an nasc a chóipeáil go huathoibríoch",
+        "copy_manual_help": "Níor cheadaigh do bhrabhsálaí an cóip chuí uathoibríoch. Tá an nasc roghnaithe ionas gur féidir leat é a chóipeáil de láimh.",
         "loading": "Ag ullmhú uirlisí QR..."
     },
     "house_access_pending": {
@@ -1969,8 +1992,8 @@
             "empty": "Níl aon iasachtaí gníomhacha faoi láthair.",
             "borrowed_from": "Arna fháil iasachta ó {{name}}",
             "lent_to": "Faoi láthair le {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Ag fanacht leis an iasachtóir a dheimhniú go bhfuair siad é ar ais.",
+            "return_pending_lender": "D’fhág {{name}} an mír seo mar sheachadta ar ais. Deimhnigh an faighte chun an taifead a dhúnadh.",
             "empty_title": "Níl aon iasachtaí gníomhacha faoi láthair",
             "empty_description": "Taispeántar iarratais glactha anseo một uair a bhíonn mír iasachta nó iasachta leat, le dátaí dlite agus stádas aiseachana."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Cealaithe",
             "expired": "Imthe",
             "returned": "Ar ais",
-            "return_pending": "Return pending"
+            "return_pending": "Fill ar ais atá ag fanacht"
         },
         "actions": {
             "send_request": "Iarr Earrach",
@@ -1990,8 +2013,8 @@
             "reject": "Diúltú",
             "cancel": "Cealaigh",
             "fulfill_request": "Líon Iarratas",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Marc seolta",
+            "mark_received": "Marc faighte",
             "open_inventory": "Oscail fardal"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "Marcáil ar Ais",
             "return_subtitle": "Dún an iasacht ghníomhach do \"{{item}}\"",
             "return_target": "Taispeántar é faoi láthair le {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Seachad an mír",
+            "return_title_lender": "Faigh an mír",
+            "return_subtitle_borrower": "Dún an iasacht ghníomhach do \"{{item}}\" tar éis duit é a thabhairt ar ais.",
+            "return_subtitle_lender": "Dún an iasacht ghníomhach do \"{{item}}\" tar éis duit é a fháil ar ais.",
+            "return_target_borrower": "Iasachtóir: {{name}}",
+            "return_target_lender": "Faoi láthair le: {{name}}",
+            "return_note_borrower": "Nóta seachadta",
+            "return_note_lender": "Nóta faighte",
+            "return_note_placeholder_borrower": "mar shampla, thug mé ar ais é gan aon fhadhbanna",
+            "return_note_placeholder_lender": "m.sh. Faighte ar ais i gcuma mhaith",
+            "return_submitting": "Ag dúnadh..."
         },
         "messages": {
             "load_error": "Níorbh fhéidir lárionad iasachta a luchtú",
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "Téarmaí Úsáide agus Fréamhshlabhra",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "Leagan BETA: Tá {{brandName}} i láthair na huaire i gcéim tástála. Níl aon bharántais ar fáil maidir le buanábhacht nó slándáil sonraí.",
         "disclaimer": "Fréamhshlabhra: Trí úsáid a bhaint as an iarratas seo, aontaíonn tú nach féidir aighneacht ar aon chúiteamh a dhéanamh as caillteanas sonraí féideartha, saincheisteanna rochtana, nó fadhbanna teicniúla eile.",
         "backup_warning": "Cúltaca Sonraí: Molaimid go láidir duit do chuid eolais thábhachtacha a chúltaca go rialta.",
         "accept": "Trí logáil isteach, aontaíonn tú leis na téarmaí seo.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} tá i bhfás tástála agus ceirdeais faoi láthair. Ní thairgtear aon ráthaí maidir le buanacht sonraí nó slándáil. Coinnigh do shonraí tábhachtacha ar cúltaca.",
         "contact": "Teagmháil"
     },
     "locations": {
@@ -2200,7 +2223,7 @@
         "invalid_code": "Invalid code"
     },
     "qr": {
-        "scan": "Scan QR",
+        "scan": "Scanáil QR",
         "generate": "Gineadh QR",
         "share": "Comhroinn QR"
     },
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Too many login attempts"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Sín isteach",
+        "page_title_register": "Cruthaigh cuntas",
+        "page_title_choose_house": "Roghnaigh teach",
+        "page_title_recovery_key": "Eochair téarnaimh",
+        "page_title_house_access": "Rochtain teach",
+        "page_title_legal_review": "Athbhreithniú dlí",
+        "page_title_new_item": "Mír nua",
+        "page_title_edit_item": "Cuir mír in eagar",
+        "page_title_items": "Stoc"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Earráid ag luchtú an liosta siopadóireachta.",
+            "select_item_error": "Roghnaigh mír ón stoc le do thoil.",
+            "empty_name": "Cuir ainm míre isteach le do thoil.",
+            "added": "Mír curtha le liosta siopadóireachta.",
+            "add_error": "Tharla earráid agus an mhír á cur.",
+            "added_suggestion": "Cuireadh \"{{name}}\" leis an liosta siopadóireachta.",
+            "bulk_added": "Cuireadh {{count}} earraí stoc íseal leis an liosta.",
+            "bulk_error": "Earráid ag cur earraí stoc íseal leis.",
+            "completed": "Marcáilte mar críochnaithe: \"{{name}}\".",
+            "reactivated": "\"{{name}}\" aistríodh ar ais go liosta gníomhach.",
+            "update_error": "Tharla earráid le linn an nuashonraithe.",
+            "deleted": "Mír scriosta ón liosta.",
+            "delete_error": "Tharla earráid le linn an scriosta.",
+            "cleared_completed": "Aigheann míreanna críochnaithe.",
+            "clear_error": "Tharla earráid le linn na haitheantais."
+        },
+        "loading_desc": "Ag ullmhú liosta siopadóireachta...",
+        "page": {
+            "title": "Liosta Siopadóireachta",
+            "description": "Féach earraí stoc íseal sa stoc baile agus bainistiú go héasca ar do liosta siopadóireachta."
+        },
+        "suggestions": {
+            "title": "Moltaí Stoc Cliste",
+            "desc": "Earraí stoc atá tar éis titim faoi an teorainn íosta.",
+            "add_all": "Cuir Gach Cailleadh",
+            "stock_status": "Reatha: {{current}} / Sprioc: {{min}}",
+            "add_qty": "Cuir {{qty}}"
+        },
+        "sections": {
+            "active_list": "Míreanna le Ceannaigh",
+            "active_desc": "Míreanna siopadóireachta reatha le cur le do chairt.",
+            "active_count": "{{count}} Míreanna",
+            "completed_list": "Míreanna Ceannaighte ({{count}})",
+            "add_item": "Cuir Mír de láimh",
+            "add_desc": "Cuir mír shaincheaptha leis an liosta de láimh."
+        },
+        "empty": {
+            "title": "Tá do liosta siopadóireachta folamh",
+            "desc": "Is féidir leat stoc atá ar iarraidh a chur leis ón mbréagán thuas nó míreanna a chur leis de láimh ag úsáid an fhoirm ar an taobh deas."
+        },
+        "card": {
+            "linked_inventory": "Sábháilte sa Stoc"
+        },
+        "actions": {
+            "clear_completed": "Glan an Staire",
+            "add_item": "Cuir le Liosta Siopadóireachta"
+        },
+        "form": {
+            "add_type": "Cuir Modh",
+            "add_type_inventory": "Mír Stocaireachta",
+            "add_type_custom": "Mír Shaincheaptha",
+            "select_inventory_item": "Roghnaigh Mír ón Stóras",
+            "no_inventory_items": "Níl aon mhíreanna i do stóras fós.",
+            "select_item_placeholder": "Roghnaigh mír",
+            "current_stock": "Reatha",
+            "item_name": "Ainm Míre",
+            "item_name_placeholder": "m.sh. Bainne, Déirgeán, Pónairí Caife...",
+            "quantity": "Cainníocht"
+        },
+        "modal": {
+            "delete_title": "An Mír a Scriosadh ón Liosta?",
+            "delete_desc": "An bhfuil tú cinnte go dteastaíonn uait \"{{name}}\" a bhaint de do liosta siopadóireachta?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Earráid ag lódáil eolais",
+            "select_item_error": "Roghnú mír le do thoil.",
+            "task_name_error": "Tá ainm an tasc éigeantach.",
+            "date_error": "Teastaíonn dáta pleanáilte.",
+            "updated": "Nuashonraíodh tasc cothabhála",
+            "created": "Tasc cothabhála nua curtha leis",
+            "save_error": "Tharla earráid agus á sábháil",
+            "deleted": "Tasc cothabhála scriosta go rathúil.",
+            "delete_error": "Tharla earráid le linn an phróisis scriosta.",
+            "performed": "Cothabháil logáilte mar chríochnaithe. Dáta eile sceidealta.",
+            "perform_error": "Tharla earráid agus é á shábháil."
+        },
+        "freq": {
+            "one_time": "Aon Uair",
+            "unit": {
+                "days": "Lá",
+                "weeks": "Seachtain",
+                "months": "Mí",
+                "years": "Bliain"
+            },
+            "format": "Gach {{val}} {{unit}}"
+        },
+        "loading_desc": "Ag luchtú sceideal cothabhála...",
+        "page": {
+            "title": "Cothabháil & Rianú Tréimhsiúil",
+            "description": "Bainistigh sceidil cothabhála tréimhsiúla do ghiuirléidí, scagairí, nó trealamh sábháilteachta i do liosta bainistíochta tí."
+        },
+        "actions": {
+            "add_task": "Cuir Tasc Nua Leis",
+            "manage": "Bainistigh",
+            "perform": "Marcáil Mar Dhéanta",
+            "edit_task": "Eagar Tasc"
+        },
+        "alerts": {
+            "overdue_title": "Tá tascanna rómhéadaithe agat!",
+            "overdue_desc": "Tá {{count}} tasc cothabhála rómhéadaithe ann. Is féidir le moilleanna saolré an trealaimh a laghdú."
+        },
+        "empty": {
+            "title": "Níl aon tasc cothabhála sceidealta",
+            "desc": "Tosaigh trí thascanna athfhillteacha a chur leis amhail glanadh scagaire AC, cothabháil bruiche, nó seiceáil ceallraí braiteoir tine."
+        },
+        "sections": {
+            "overdue": "Tascanna atá thar am",
+            "overdue_desc": "Cothabháil práinneach a bhfuil gá le déanamh láithreach.",
+            "upcoming": "Tascanna sceidealaithe / atá le teacht",
+            "upcoming_desc": "Cothabháil ag druidim sna laethanta atá le teacht.",
+            "no_upcoming": "Níl aon tascanna gníomhacha sceidealta sa todhchaí."
+        },
+        "modal": {
+            "edit_title": "Cuir Tasc in Eagar",
+            "create_title": "Sceideal Tasc Nua Cothabhála",
+            "perform_title": "Críochnaigh Cothabháil",
+            "perform_desc": "Ar mhaith leat \"{{name}}\" a mharcáil mar chríochnaithe inniu?",
+            "perform_confirm": "Sea, Críochnaithe",
+            "perform_recurrence_info": "Is tasc tréimhsiúil é seo. Nuair a shábhálann tú, ríomfaidh an córas an chéad dáta cothabhála eile go huathoibríoch.",
+            "delete_title": "Scrios Tasc Cothabhála?",
+            "delete_desc": "An bhfuil tú cinnte gur mhaith leat an clár cothabhála tréimhsiúil \"{{name}}\" a scriosadh? Ní féidir an ghníomh seo a aisiompú."
+        },
+        "form": {
+            "item": "Mír A bhaineann",
+            "no_items": "Ní mór duit mír a chur leis an tionscadal ar dtús sula ndéanann tú cothabháil a sceidealú.",
+            "select_item_placeholder": "Roghnaigh Mír",
+            "task_name": "Ainm Tasc / Oibríochta",
+            "task_name_placeholder": "m.sh. Athsholáthar Scagaire, Seiceáil Théarmaic...",
+            "description": "Sonraí / Cur Síos",
+            "description_placeholder": "Sonraí faoin tasc, ábhair le húsáid, srl...",
+            "frequency_value": "Minicíocht Athrá",
+            "frequency_placeholder": "m.sh. 6 (fág folamh le haghaidh uair amháin)",
+            "frequency_unit": "Aonad Miniceachta",
+            "next_due_date": "Dáta Beartaithe Eile",
+            "section_help": "Bainistigh sceidil cothabhála ón áit seo",
+            "section_collapsed": "Cliceáil chun rialacha agus tascanna tréimhsiúla a chur leis",
+            "has_tasks": "{{count}} Tasc",
+            "new_item_warning_title": "Míre a shábháil ar feitheamh",
+            "new_item_warning_desc": "Caithfidh tú an mír seo a shábháil ar dtús chun clár cothabhála a chur leis.",
+            "manage_desc": "Bainistigh cláir chothabhála don trealamh nó don mhír seo."
+        },
+        "fields": {
+            "task_name": "Ainm an Tasc",
+            "task_name_placeholder": "m.sh. glanadh scagaire AC",
+            "description": "Cur síos",
+            "description_placeholder": "Sonraí an tasc, ábhair le húsáid, srl...",
+            "frequency_value": "Minicíocht Athdhéanta",
+            "frequency_value_placeholder": "Fág folamh le haghaidh uair amháin",
+            "frequency_unit": "Aonad Minicíochta",
+            "next_due_date": "Dáta Sceidealta"
+        },
+        "card": {
+            "untitled_item": "Mír Gan Teideal",
+            "last_performed": "Déanta Deireanach:",
+            "next_due_label": "Dáta Sceidealta",
+            "complete_tooltip": "Marcáil Cothabhála Mar Déanta Inniu"
+        },
+        "detail_card_desc": "Rianú cothabhála tréimhsiúil nó aon-uaire atá sceidealta don mhír seo.",
+        "no_tasks": "Níl aon tascanna cothabhála sainmhínithe don mhír seo.",
+        "confirm_delete": "Scriosfar an tasc seo. An bhfuil tú cinnte?"
     }
 }

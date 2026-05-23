@@ -69,7 +69,9 @@
             "vault_hint_action": "פתח כספת אישית",
             "location": "מיקום",
             "remove_photo": "הסר תמונה",
-            "visibility_owner_only": "רק האדם שהוסיף את הפריט יכול לשנות את הנראות."
+            "visibility_owner_only": "רק האדם שהוסיף את הפריט יכול לשנות את הנראות.",
+            "expiry_date": "תאריך תפוגה",
+            "min_quantity": "כמות מינימלית"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" נוסף במהירות - ניתן לערוך מאוחר יותר",
@@ -119,7 +121,12 @@
         "no_permission": "אין לך הרשאה לשנות את הפריט הזה",
         "barcode_search_error": "חיפוש ברקוד נכשל",
         "stats_error": "סטטיסטיקות טעינת שגיאות",
-        "detail_subtitle": "פרטי פריט"
+        "detail_subtitle": "פרטי פריט",
+        "status": {
+            "close_to_expiry": "קרוב לתפוגה",
+            "expired": "פג תוקף",
+            "low_stock": "מלאי נמוך"
+        }
     },
     "common": {
         "save": "שמור",
@@ -170,7 +177,8 @@
         "details": "פרטים",
         "hide": "הסתר סיסמה",
         "logging_out": "מתנתק...",
-        "show": "הצג סיסמה"
+        "show": "הצג סיסמה",
+        "saving": "שומר..."
     },
     "auth": {
         "login": {
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "הזן שוב את הסיסמה שלך",
             "reset_submit": "איפוס סיסמה",
             "resetting": "מתבצע איפוס...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "הכנס את שם המשתמש או הדוא״ל שלך"
         },
         "reset_password": {
             "title": "איפוס סיסמה",
@@ -353,7 +361,7 @@
         "password_requirements": "השתמש לפחות ב-{{min}} תווים עם אותיות רישיות, אותיות קטנות, מספר וסימן.",
         "logout": "התנתק",
         "logging_in": "מתחבר...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "ברוכים הבאים ל-{{brandName}}",
         "username_email": "שם משתמש או אימייל",
         "username": "שם משתמש",
         "email": "אימייל",
@@ -438,7 +446,9 @@
         "logout_aria": "התנתק מהחשבון שלך",
         "logout_title": "להתנתק?",
         "logout_description": "תחזור למסך הכניסה ותצטרך להיכנס שוב כדי לנהל את המלאי של הבית שלך.",
-        "logout_warning": "השתמש בזה כשסיימת במכשיר משותף או אישי."
+        "logout_warning": "השתמש בזה כשסיימת במכשיר משותף או אישי.",
+        "maintenance": "לוח תחזוקה",
+        "shopping": "רשימת קניות"
     },
     "dashboard": {
         "welcome": "ברוך שובך, <1>{{name}}</1>",
@@ -565,7 +575,20 @@
         "no_items_filter": "אין פריטים התואמים לפילטר זה",
         "manage": "נהל",
         "add_item": "הוסף פריט",
-        "search_item": "חפש פריט"
+        "search_item": "חפש פריט",
+        "alerts": {
+            "expired_title": "פריטים פגו!",
+            "expired_desc": "יש {{count}} פריטים שפג תוקפם במלאי שלך. אנא בדוק אותם למען בטיחותך.",
+            "view_items": "צפה בפריטים",
+            "maintenance_title": "משימות תחזוקה שהחלו לפגר!",
+            "maintenance_desc": "יש {{count}} משימות תחזוקה שהחלו לפגר. בצע תחזוקה כדי להאריך את חיי המכשירים שלך.",
+            "go_to_maintenance": "עבור לתחזוקה",
+            "low_stock_title": "אזהרת מלאי נמוך",
+            "low_stock_desc": "{{count}} פריטים ירדו מתחת למגבלת המלאי המינימלית שלך.",
+            "go_to_shopping": "רשימת קניות",
+            "close_expiry_title": "תאריכי תפוגה קרובים",
+            "close_expiry_desc": "{{count}} מוצרים יפוגו תוך 30 ימים."
+        }
     },
     "beta_banner": {
         "title": "בטא:",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "מפתח הבית הפעיל",
             "key_label": "מפתח הבית",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{סִיוֹמֶת}}",
             "hide": "הסתר",
             "show": "הצג",
             "copy": "העתק",
@@ -991,8 +1014,8 @@
             "no_history": "אין היסטוריית השאלות עבור פריט זה עדיין.",
             "lend_success_title": "פריט שהושאל",
             "lend_success_body": "{{item}} מסומן כעת כהושאל.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "הצעת הלוואה נשלחה",
+            "offer_sent_body": "{{item}} יסומן כהושאל לאחר שהחבר האחר יאשר.",
             "borrowed_by_you": "אצלך",
             "return_pending_hint": "הרשומה תסגר לאחר שהלווה יאשר שהוא קיבל את הפריט חזרה.",
             "return_pending_lender_title": "{{name}} סמן פריט זה כהוחזר",
@@ -1229,7 +1252,7 @@
             "no_logs": "עדיין אין יומנים",
             "errors_title": "שגיאות מערכת (10 האחרונות)",
             "no_errors": "// המערכת בריאה, אין יומני שגיאות.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{תאריך, תאריך ושעה}}",
             "type": {
                 "email": "דוא\"ל",
                 "user": "משתמש",
@@ -1401,12 +1424,12 @@
             "cta_register": "צור חשבון",
             "stat_free": "חינם",
             "stat_access": "גישה",
-            "free_badge": "Open Source",
+            "free_badge": "קוד פתוח",
             "badge": "HomeInventory v2.0 כאן",
             "cta_explore": "חקור תכונות",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "התחבר",
+            "stat_members": "בתים משותפים",
+            "stat_vault": "כספת פרטית"
         },
         "features": {
             "title": "למה <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "שמור פריטים, אחריות, מסמכים חשובים ומעקב הלוואות במקום אחד ושקט. ראה במה הבית שלך מכיל במבט חטוף.",
                 "primaryCta": "התחל בחינם",
                 "secondaryCta": "צפה במוצר",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "זרימה מוצעת: חשבון • בית • חדרים וקטגוריות • פריטים • גיבוי",
                 "searchPlaceholder": "חפש פריט, חדר או ברקוד"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "פרטי הרשת נשארים מוסתרים עד שתזדקקו להנחיה.",
         "link_privacy_note": "כתובת הרשת נשארת מוסתרת כאן. סרקו את הקוד או העתיקו את הקישור רק כאשר אתם רוצים בכוונה לשתף גישה ישירה לפריט במערכת המקומית שלכם.",
         "helper": "סרקו לפתיחת הפריט מיד או העתיקו את הקישור הישיר בעת הצורך.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "לא ניתן להעתיק את הקישור באופן אוטומטי",
+        "copy_manual_help": "הדפדפן שלך לא אפשר העתקה אוטומטית. הקישור נבחר כדי שתוכל להעתיק אותו ידנית.",
         "loading": "מכין כלי QR..."
     },
     "house_access_pending": {
@@ -1969,8 +1992,8 @@
             "empty": "אין השאלות פעילות כרגע.",
             "borrowed_from": "נקלט מ-{{name}}",
             "lent_to": "כרגע עם {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "ממתינים לאישור מהמלווה שהוא קיבל זאת בחזרה.",
+            "return_pending_lender": "{{name}} סימן פריט זה כהוחזר. אשר קבלה כדי לסגור את הרישום.",
             "empty_title": "אין השאלות פעילות כרגע",
             "empty_description": "בקשות מאומתות יופיעו כאן ברגע שפריט מושאל או שהושאל, יחד עם תאריכי החזר ומצב ההחזרה."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "בוטל",
             "expired": "פג תוקף",
             "returned": "הוחזר",
-            "return_pending": "Return pending"
+            "return_pending": "החזר בהמתנה"
         },
         "actions": {
             "send_request": "בקש פריט",
@@ -1990,8 +2013,8 @@
             "reject": "דחה",
             "cancel": "בטל",
             "fulfill_request": "מימש בקשה",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "סמן כ-delivered",
+            "mark_received": "סמן כ-received",
             "open_inventory": "פתח מלאי"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "סמן שהוחזר",
             "return_subtitle": "סגור את ההשאלה הפעילה עבור \"{{item}}\"",
             "return_target": "הוא מוצג ככרגע אצל {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "מסור פריט",
+            "return_title_lender": "קבל פריט",
+            "return_subtitle_borrower": "סגור את ההשאלה הפעילה עבור \"{{item}}\" לאחר שתסגור אותו חזרה.",
+            "return_subtitle_lender": "סגור את ההשאלה הפעילה עבור \"{{item}}\" לאחר שתקבל אותו בחזרה.",
+            "return_target_borrower": "משאיל: {{name}}",
+            "return_target_lender": "נוכחי עם: {{name}}",
+            "return_note_borrower": "תעודת משלוח",
+            "return_note_lender": "תעודת קבלה",
+            "return_note_placeholder_borrower": "לדוגמה מסרתי חזרה ללא בעיות",
+            "return_note_placeholder_lender": "למשל, התקבל חזרה במצב טוב",
+            "return_submitting": "סוגר..."
         },
         "messages": {
             "load_error": "מרכז ההשאלה לא נטען",
@@ -2141,7 +2164,7 @@
         "account_menu_tooltip": "תפריט חשבון של {{name}}"
     },
     "app": {
-        "name": "{{brandName}}",
+        "name": "{{brandName}} >>> פריט נמחק מהרשימה. >>> אירעה שגיאה במהלך המחיקה. >>> פריטים שהושלמו נמחקו.",
         "tagline": "ניהול חכם של כל פריטי הבית שלך"
     },
     "nav": {
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "תנאי שימוש והצווי התרה",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "גרסת בטא: {{brandName}} כרגע בשלב הבדיקה. אין הבטחות לגבי קיום הנתונים או הבטיחות.",
         "disclaimer": "הצהרת אחריות: בשימוש באפליקציה זו, אתה מסכים שאינך יכול לדרוש כל פיצוי על אובדן נתונים פוטנציאלי, בעיות גישה או בעיות טכניות אחרות.",
         "backup_warning": "גיבוי נתונים: אנו ממליצים בחום לגבות באופן קבוע את המידע החשוב שלך.",
         "accept": "על ידי התחברות, אתה מסכים לתנאים אלה.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} נמצא כרגע בשלב בדיקה ותחביב. אין התחייבויות בנוגע לקביעות או אבטחת הנתונים. אנא שמרו על גיבוי למידע החשוב שלכם.",
         "contact": "צור קשר"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "יותר מדי ניסיונות התחברות. אנא נסה שוב בעוד 15 דקות."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "התחבר",
+        "page_title_register": "צור חשבון",
+        "page_title_choose_house": "בחר בית",
+        "page_title_recovery_key": "מפתח שיקום",
+        "page_title_house_access": "גישת בית",
+        "page_title_legal_review": "סקירה משפטית",
+        "page_title_new_item": "פריט חדש",
+        "page_title_edit_item": "ערוך פריט",
+        "page_title_items": "מלאי"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "תקלה בטעינת רשימת הקניות.",
+            "select_item_error": "אנא בחר פריט מהמלאי.",
+            "empty_name": "אנא הזן שם פריט.",
+            "added": "הפריט נוסף לרשימת הקניות.",
+            "add_error": "אירעה שגיאה בעת הוספת הפריט.",
+            "added_suggestion": "\"{{name}}\" נוסף לרשימת הקניות.",
+            "bulk_added": "{{count}} פריטים במלאי נמוך נוספו לרשימה.",
+            "bulk_error": "שגיאה בהוספת פריטים במלאי נמוך.",
+            "completed": "\"{{name}}\" סומן כהושלם.",
+            "reactivated": "\"{{name}}\" הועבר חזרה לרשימה הפעילה.",
+            "update_error": "אירעה שגיאה במהלך העדכון. פריט נמחק מהרשימה. אירעה שגיאה במהלך המחיקה. נמחקו הפריטים שהושלמו.",
+            "deleted": "הפריט נמחק מהרשימה.",
+            "delete_error": "אירעה שגיאה במהלך המחיקה.",
+            "cleared_completed": "הפריטים שהושלמו נוקו.",
+            "clear_error": "אירעה שגיאה במהלך הניקוי."
+        },
+        "loading_desc": "מכינים רשימת קניות...",
+        "page": {
+            "title": "רשימת קניות",
+            "description": "צפו בפריטים במלאי הבית המועטים במלאי ונהל את רשימת הקניות שלכם בקלות."
+        },
+        "suggestions": {
+            "title": "הצעות מלאי חכמות",
+            "desc": "פריטי מלאי שירדו מתחת למגבלה המינימלית.",
+            "add_all": "הוסף את הכל החסרים",
+            "stock_status": "נוכחי: {{current}} / יעד: {{min}}",
+            "add_qty": "הוסף {{qty}}"
+        },
+        "sections": {
+            "active_list": "פריטים לרכישה",
+            "active_desc": "פריטי קנייה נוכחיים להוספה לעגלת הקניות שלך.",
+            "active_count": "{{count}} פריטים",
+            "completed_list": "פריטים שנרכשו ({{count}})",
+            "add_item": "הוסף פריט ידנית",
+            "add_desc": "הוסף פריט מותאם אישית לרשימה באופן ידני."
+        },
+        "empty": {
+            "title": "רשימת הקניות שלך ריקה",
+            "desc": "אתה יכול להוסיף את המלאי החסר מההצעות למעלה או להוסיף פריטים ידנית באמצעות הטופס בצד ימין."
+        },
+        "card": {
+            "linked_inventory": "נשמר במלאי"
+        },
+        "actions": {
+            "clear_completed": "נקה היסטוריה",
+            "add_item": "הוסף לרשימת קניות"
+        },
+        "form": {
+            "add_type": "הוסף שיטה",
+            "add_type_inventory": "פריט מלאי",
+            "add_type_custom": "פריט מותאם אישית",
+            "select_inventory_item": "בחר פריט מהמלאי",
+            "no_inventory_items": "עדיין אין פריטים במלאי שלך.",
+            "select_item_placeholder": "בחר פריט",
+            "current_stock": "נוכחי",
+            "item_name": "שם פריט",
+            "item_name_placeholder": "למשל חלב, דטרגנט, פולי קפה...",
+            "quantity": "כמות"
+        },
+        "modal": {
+            "delete_title": "למחוק פריט מהרשימה?",
+            "delete_desc": "האם אתה בטוח שברצונך להסיר את \"{{name}}\" מרשימת הקניות שלך?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "שגיאה בטעינת המידע",
+            "select_item_error": "אנא בחר פריט.",
+            "task_name_error": "נדרש שם המשימה.",
+            "date_error": "נדרשת תאריך מתוכנן.",
+            "updated": "משימת תחזוקה עודכנה",
+            "created": "משימת תחזוקה חדשה נוספה",
+            "save_error": "התרחשה שגיאה בעת השמירה",
+            "deleted": "משימת תחזוקה נמחקה בהצלחה.",
+            "delete_error": "אירעה שגיאה במהלך תהליך המחיקה.",
+            "performed": "תחזוקה נרשמה כהושלמה. התאריך הבא נקבע.",
+            "perform_error": "אירעה שגיאה במהלך השמירה."
+        },
+        "freq": {
+            "one_time": "חד-פעמי",
+            "unit": {
+                "days": "יום",
+                "weeks": "שבוע",
+                "months": "חודש",
+                "years": "שנה"
+            },
+            "format": "כל {{val}} {{unit}}"
+        },
+        "loading_desc": "טוען לוח זמנים של תחזוקה...",
+        "page": {
+            "title": "תחזוקה ומעקב תקופתי",
+            "description": "נהל לוחות זמנים של תחזוקה תקופתית למכשירים, פילטרים או ציוד בטיחות במלאי הבית שלך."
+        },
+        "actions": {
+            "add_task": "הוסף משימה חדשה",
+            "manage": "נהל",
+            "perform": "סמן כבוצע",
+            "edit_task": "ערוך משימה"
+        },
+        "alerts": {
+            "overdue_title": "יש לך משימות שלא בוצעו בזמן!",
+            "overdue_desc": "יש {{count}} משימות תחזוקה שהתעכבו. עיכובים עלולים לקצר את משך חיי המכשיר."
+        },
+        "empty": {
+            "title": "אין משימות תחזוקה מתוזמנות",
+            "desc": "התחל על ידי הוספת משימות חוזרות כגון ניקוי מסנן מזגן, תחזוקת דוד או בדיקות סוללה בגלאי אש."
+        },
+        "sections": {
+            "overdue": "משימות שהתעכבו",
+            "overdue_desc": "תחזוקה דחופה שצריכה להיעשות מיד.",
+            "upcoming": "משימות מתוזמנות / מתקרבות",
+            "upcoming_desc": "תחזוקה קרובה בימים הקרובים.",
+            "no_upcoming": "אין משימות פעילות מתוזמנות לעתיד."
+        },
+        "modal": {
+            "edit_title": "ערוך משימה",
+            "create_title": "תכנן משימת תחזוקה חדשה",
+            "perform_title": "סיים תחזוקה",
+            "perform_desc": "האם ברצונך לרשום את \"{{name}}\" כהושלם היום?",
+            "perform_confirm": "כן, הושלם",
+            "perform_recurrence_info": "זו משימה תקופתית. כאשר תשמור, המערכת תחושב אוטומטית את תאריך התחזוקה הבא.",
+            "delete_title": "למחוק את משימת התחזוקה?",
+            "delete_desc": "האם אתה בטוח שברצונך למחוק את לוח התחזוקה התקופתי \"{{name}}\"? פעולה זו לא ניתנת לביטול."
+        },
+        "form": {
+            "item": "פריט קשור",
+            "no_items": "עליך להוסיף פריט למלאי קודם לפני קביעת תחזוקה.",
+            "select_item_placeholder": "בחר פריט",
+            "task_name": "שם משימה / פעולה",
+            "task_name_placeholder": "למשל החלפת פילטר, בדיקה תקופתית...",
+            "description": "פרטים / תיאור",
+            "description_placeholder": "פרטי המשימה, חומרים שישתמשו בהם, וכו'...",
+            "frequency_value": "תדירות חזרה",
+            "frequency_placeholder": "למשל 6 (השאר ריק עבור חד-פעמי)",
+            "frequency_unit": "יחידת תדירות",
+            "next_due_date": "התאריך הבא המתוכנן",
+            "section_help": "נהל לוחות זמנים לתחזוקה מכאן",
+            "section_collapsed": "לחץ להוספת בקרות ומשימות תקופתיות",
+            "has_tasks": "{{count}} משימות",
+            "new_item_warning_title": "פריט שמירה בהמתנה",
+            "new_item_warning_desc": "עליך לשמור את הפריט הזה תחילה כדי להוסיף לוח תחזוקה.",
+            "manage_desc": "נהל לוחות זמנים של תחזוקה עבור מכשיר או פריט זה."
+        },
+        "fields": {
+            "task_name": "שם המשימה",
+            "task_name_placeholder": "לדוגמה: ניקוי מסנן מזגן",
+            "description": "תיאור",
+            "description_placeholder": "פרטי המשימה, חומרים לשימוש, וכו'...",
+            "frequency_value": "תדירות חזרה",
+            "frequency_value_placeholder": "השאר ריק עבור חד-פעמי",
+            "frequency_unit": "יחידת תדירות",
+            "next_due_date": "תאריך מתוזמן"
+        },
+        "card": {
+            "untitled_item": "פריט ללא כותרת",
+            "last_performed": "בוצע לאחרונה:",
+            "next_due_label": "תאריך מתוזמן",
+            "complete_tooltip": "סמן תחזוקה כבוצעה היום"
+        },
+        "detail_card_desc": "מעקב תחזוקה תקופתי או חד-פעמי שנקבע עבור פריט זה.",
+        "no_tasks": "אין משימות תחזוקה שהוקצו לפריט זה.",
+        "confirm_delete": "משימה זו תימחק. האם אתה בטוח?"
     }
 }

@@ -1,6 +1,7 @@
 {
     "common": {
         "save": "Save",
+        "saving": "Saving...",
         "cancel": "Cancel",
         "loading": "Loading...",
         "error": "An error occurred",
@@ -316,7 +317,9 @@
         "logout_title": "Log out?",
         "logout_description": "You will be returned to the sign-in screen and need to log in again to manage your household inventory.",
         "logout_warning": "Use this when you are done on a shared or personal device.",
-        "menu": "Menu"
+        "menu": "Menu",
+        "maintenance": "Maintenance Schedule",
+        "shopping": "Shopping List"
     },
     "layout": {
         "secondary_controls_title": "Utilities",
@@ -329,6 +332,19 @@
     },
     "dashboard": {
         "welcome": "Welcome back, <1>{{name}}</1>",
+        "alerts": {
+            "expired_title": "Items Have Expired!",
+            "expired_desc": "There are {{count}} expired items in your inventory. Please check them for your safety.",
+            "view_items": "View Items",
+            "maintenance_title": "Overdue Maintenance Tasks!",
+            "maintenance_desc": "There are {{count}} overdue maintenance tasks. Perform maintenance to extend the lifespan of your appliances.",
+            "go_to_maintenance": "Go to Maintenance",
+            "low_stock_title": "Low Stock Alert",
+            "low_stock_desc": "{{count}} items have fallen below your minimum stock limit.",
+            "go_to_shopping": "Shopping List",
+            "close_expiry_title": "Upcoming Expiration Dates",
+            "close_expiry_desc": "{{count}} products will expire within 30 days."
+        },
         "subtitle": "Overview of your inventory",
         "quick_search": "Quick search...",
         "page": {
@@ -474,6 +490,8 @@
         "form": {
             "name": "Item Name",
             "name_placeholder": "e.g. Samsung TV 55 inch",
+            "expiry_date": "Expiration Date",
+            "min_quantity": "Minimum Quantity",
             "required": "*",
             "description": "Description",
             "description_placeholder": "Notes about the item...",
@@ -586,7 +604,12 @@
         "no_permission": "You don't have permission to modify this item",
         "barcode_search_error": "Barcode search failed",
         "stats_error": "Error loading statistics",
-        "detail_subtitle": "Item details"
+        "detail_subtitle": "Item details",
+        "status": {
+            "close_to_expiry": "Close to Expiration",
+            "expired": "Expired",
+            "low_stock": "Low Stock"
+        }
     },
     "vault": {
         "title": "Personal Vault",
@@ -2245,5 +2268,170 @@
         "page_title_new_item": "New item",
         "page_title_edit_item": "Edit item",
         "page_title_items": "Inventory"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Error loading shopping list.",
+            "select_item_error": "Please select an item from the inventory.",
+            "empty_name": "Please enter an item name.",
+            "added": "Item added to shopping list.",
+            "add_error": "An error occurred while adding the item.",
+            "added_suggestion": "\"{{name}}\" added to shopping list.",
+            "bulk_added": "{{count}} low stock items added to the list.",
+            "bulk_error": "Error adding low stock items.",
+            "completed": "\"{{name}}\" marked as completed.",
+            "reactivated": "\"{{name}}\" moved back to active list.",
+            "update_error": "Error occurred during update.",
+            "deleted": "Item deleted from list.",
+            "delete_error": "Error occurred during deletion.",
+            "cleared_completed": "Cleared completed items.",
+            "clear_error": "Error occurred during clearing."
+        },
+        "loading_desc": "Preparing shopping list...",
+        "page": {
+            "title": "Shopping List",
+            "description": "View low stock items in the home inventory and easily manage your shopping list."
+        },
+        "suggestions": {
+            "title": "Smart Inventory Suggestions",
+            "desc": "Inventory items that have fallen below the minimum limit.",
+            "add_all": "Add All Missing",
+            "stock_status": "Current: {{current}} / Target: {{min}}",
+            "add_qty": "Add {{qty}}"
+        },
+        "sections": {
+            "active_list": "Items to Buy",
+            "active_desc": "Current shopping items to add to your cart.",
+            "active_count": "{{count}} Items",
+            "completed_list": "Purchased Items ({{count}})",
+            "add_item": "Add Item Manually",
+            "add_desc": "Manually add a custom item to the list."
+        },
+        "empty": {
+            "title": "Your shopping list is empty",
+            "desc": "You can add missing stock from the suggestions above or add items manually using the form on the right."
+        },
+        "card": {
+            "linked_inventory": "Saved in Inventory"
+        },
+        "actions": {
+            "clear_completed": "Clear History",
+            "add_item": "Add to Shopping List"
+        },
+        "form": {
+            "add_type": "Add Method",
+            "add_type_inventory": "Inventory Item",
+            "add_type_custom": "Custom Item",
+            "select_inventory_item": "Select Item from Inventory",
+            "no_inventory_items": "No items in your inventory yet.",
+            "select_item_placeholder": "Select an item",
+            "current_stock": "Current",
+            "item_name": "Item Name",
+            "item_name_placeholder": "e.g. Milk, Detergent, Coffee Beans...",
+            "quantity": "Quantity"
+        },
+        "modal": {
+            "delete_title": "Delete Item from List?",
+            "delete_desc": "Are you sure you want to remove \"{{name}}\" from your shopping list?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Error loading information",
+            "select_item_error": "Please select an item.",
+            "task_name_error": "Task name is required.",
+            "date_error": "Planned date is required.",
+            "updated": "Maintenance task updated",
+            "created": "New maintenance task added",
+            "save_error": "Error occurred while saving",
+            "deleted": "Maintenance task successfully deleted.",
+            "delete_error": "An error occurred during the deletion process.",
+            "performed": "Maintenance logged as completed. Next date scheduled.",
+            "perform_error": "An error occurred while saving."
+        },
+        "freq": {
+            "one_time": "One-Time",
+            "unit": {
+                "days": "Day",
+                "weeks": "Week",
+                "months": "Month",
+                "years": "Year"
+            },
+            "format": "Every {{val}} {{unit}}"
+        },
+        "loading_desc": "Loading maintenance schedule...",
+        "page": {
+            "title": "Maintenance & Periodic Tracking",
+            "description": "Manage periodic maintenance schedules for appliances, filters, or safety equipment in your home inventory."
+        },
+        "actions": {
+            "add_task": "Add New Task",
+            "manage": "Manage",
+            "perform": "Mark as Done",
+            "edit_task": "Edit Task"
+        },
+        "alerts": {
+            "overdue_title": "You Have Overdue Tasks!",
+            "overdue_desc": "There are {{count}} overdue maintenance tasks. Delays can reduce appliance lifespan."
+        },
+        "empty": {
+            "title": "No maintenance tasks scheduled",
+            "desc": "Get started by adding recurring tasks such as AC filter cleaning, boiler maintenance, or fire detector battery checks."
+        },
+        "sections": {
+            "overdue": "Overdue Tasks",
+            "overdue_desc": "Urgent maintenance that needs to be done immediately.",
+            "upcoming": "Scheduled / Upcoming Tasks",
+            "upcoming_desc": "Approaching maintenance in the coming days.",
+            "no_upcoming": "No active tasks scheduled in the future."
+        },
+        "modal": {
+            "edit_title": "Edit Task",
+            "create_title": "Schedule New Maintenance Task",
+            "perform_title": "Complete Maintenance",
+            "perform_desc": "Do you want to log \"{{name}}\" as completed today?",
+            "perform_confirm": "Yes, Completed",
+            "perform_recurrence_info": "This is a periodic task. When you save, the system will automatically calculate the next maintenance date.",
+            "delete_title": "Delete Maintenance Task?",
+            "delete_desc": "Are you sure you want to delete the periodic maintenance schedule \"{{name}}\"? This action cannot be undone."
+        },
+        "form": {
+            "item": "Related Item",
+            "no_items": "You must add an item to the inventory first before scheduling maintenance.",
+            "select_item_placeholder": "Select an Item",
+            "task_name": "Task / Operation Name",
+            "task_name_placeholder": "e.g. Filter Replacement, Periodic Check...",
+            "description": "Detail / Description",
+            "description_placeholder": "Task details, materials to be used, etc...",
+            "frequency_value": "Recurrence Frequency",
+            "frequency_placeholder": "e.g. 6 (leave blank for one-time)",
+            "frequency_unit": "Frequency Unit",
+            "next_due_date": "Next Scheduled Date",
+            "section_help": "Manage maintenance schedules from here",
+            "section_collapsed": "Click to add periodic controls and tasks",
+            "has_tasks": "{{count}} Tasks",
+            "new_item_warning_title": "Item Save Pending",
+            "new_item_warning_desc": "You must save this item first to add a maintenance schedule.",
+            "manage_desc": "Manage maintenance schedules for this appliance or item."
+        },
+        "fields": {
+            "task_name": "Task Name",
+            "task_name_placeholder": "e.g. AC filter cleaning",
+            "description": "Description",
+            "description_placeholder": "Task details, materials to be used, etc...",
+            "frequency_value": "Recurrence Frequency",
+            "frequency_value_placeholder": "Leave blank for one-time",
+            "frequency_unit": "Frequency Unit",
+            "next_due_date": "Scheduled Date"
+        },
+        "card": {
+            "untitled_item": "Untitled Item",
+            "last_performed": "Last Done:",
+            "next_due_label": "Scheduled Date",
+            "complete_tooltip": "Mark Maintenance as Done Today"
+        },
+        "detail_card_desc": "Periodic or one-time maintenance tracking scheduled for this item.",
+        "no_tasks": "No maintenance tasks assigned to this item.",
+        "confirm_delete": "This task will be deleted. Are you sure?"
     }
 }

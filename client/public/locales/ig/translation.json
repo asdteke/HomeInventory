@@ -69,7 +69,9 @@
             "vault_hint_action": "Meghee Personal Vault",
             "location": "Ebe",
             "remove_photo": "Wepu foto",
-            "visibility_owner_only": "Naanị onye tinyeere ihe nwere ike gbanwee izi oyi."
+            "visibility_owner_only": "Naanị onye tinyeere ihe nwere ike gbanwee izi oyi.",
+            "expiry_date": "Ụbọchị ngwụcha",
+            "min_quantity": "Obosara kacha nta"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" etinyela ngwa ngwa - ị nwere ike ịgbanwe ya mgbe e mesịrị",
@@ -119,7 +121,12 @@
         "no_permission": "I nweghi ikike igbanwe isiokwu a.",
         "barcode_search_error": "Nyocha barcode dara ada ada",
         "stats_error": "Ndehie mbubata ọnụ ọgụgụụ",
-        "detail_subtitle": "Nkọwa ihe"
+        "detail_subtitle": "Nkọwa ihe",
+        "status": {
+            "close_to_expiry": "N nso na ngwụcha",
+            "expired": "Agwụla",
+            "low_stock": "Ọnọdụ Stock Dị Ala"
+        }
     },
     "common": {
         "save": "Chekwa",
@@ -170,7 +177,8 @@
         "details": "Nkọwa",
         "hide": "Zoo okwuntughe",
         "logging_out": "Na-apụpụ...",
-        "show": "Gosi okwuntughe"
+        "show": "Gosi okwuntughe",
+        "saving": "Na-echekwa..."
     },
     "auth": {
         "login": {
@@ -225,7 +233,7 @@
             "form_title": "Mepụta akaụntụ",
             "username": "Aha njirimara",
             "username_placeholder": "dịka ọmụmaatụ john",
-            "email": "Email",
+            "email": "Ozi-e",
             "email_placeholder": "dịka ọmụmaatụ john@example.com",
             "password": "Okwuntughe",
             "password_placeholder": "Mepụta okwuntughe",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "Tinye okwuntughe gị ọzọ",
             "reset_submit": "Tọgharịa Okwuntughe",
             "resetting": "Na-eweghachi...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Tinye aha njirimara gị ma ọ bụ email"
         },
         "reset_password": {
             "title": "Tọgharịa Okwuntughe",
@@ -356,7 +364,7 @@
         "welcome": "Nnọọ na {{brandName}}",
         "username_email": "Aha njirimara ma ọ bụ email",
         "username": "Aha njirima",
-        "email": "Email",
+        "email": "Ozi-e",
         "password": "Okwuntughe",
         "confirm_password": "Gosi okwumbanye",
         "new_password": "Okwuntughe ọhụrụ",
@@ -367,7 +375,7 @@
         "google_login": "Gaa n'ihu na Google",
         "login_issues": "Maka nsogbu nbanye",
         "placeholder_username": "Nkwusa: John",
-        "placeholder_password": "••••••••",
+        "placeholder_password": "•••••••••",
         "login_two_factor": {
             "title": "Nyocha Abụọ",
             "subtitle": "Tinye koodu ọnụọgụ 6 site na ngwa nyocha gị",
@@ -438,7 +446,9 @@
         "logout_aria": "Pụọ na akaụntụ gị",
         "logout_title": "Ị chọrọ ịpụ?",
         "logout_description": "A ga-ewepụ gị na ihuenyo nbanye ma ị ga-achọ ịbanye ọzọ iji jikwaa ihe nchekwa ụlọ gị.",
-        "logout_warning": "Jiri nke a mgbe ị kwụsịrị na ngwaọrụ e jikọrọ ọnụ ma ọ bụ nkeonwe."
+        "logout_warning": "Jiri nke a mgbe ị kwụsịrị na ngwaọrụ e jikọrọ ọnụ ma ọ bụ nkeonwe.",
+        "maintenance": "Ụdị Nlekọta",
+        "shopping": "Ndepụta Ịzụ Ahịa"
     },
     "dashboard": {
         "welcome": "Nnọọ azụ, <1>{{name}}</1>",
@@ -565,7 +575,20 @@
         "no_items_filter": "Ihenhọrọ ọ bụla kwekọrọ na nzacha a",
         "manage": "Jikwaa",
         "add_item": "Tinye ihe",
-        "search_item": "Chọọ ihenhọrọ"
+        "search_item": "Chọọ ihenhọrọ",
+        "alerts": {
+            "expired_title": "Ihe Agwụla Oge Ha!",
+            "expired_desc": "Enwere {{count}} ihe agwụla oge na ihe ndị ị nwere. Biko lelee ha maka nchedo gị.",
+            "view_items": "Lee Ihe",
+            "maintenance_title": "Ọrụ Nlekọta Gọrọ Ọgwụ!",
+            "maintenance_desc": "Enwere {{count}} ọrụ nlekọta gọrọ ọgwụ. Mee nlekọta iji gbasaa ndụ ngwaọrụ gị.",
+            "go_to_maintenance": "Gaa na Nlekọta",
+            "low_stock_title": "Ncheta Ngwongwo Dị Ntakịrị",
+            "low_stock_desc": "Ihe {{count}} adọrọ n'okpuru oke ngwongwo gị kacha nta.",
+            "go_to_shopping": "Ndepụta Ịzụ Ahịa",
+            "close_expiry_title": "Ụbọchị Njedebe Na-abịa",
+            "close_expiry_desc": "{{count}} ngwaahịa gaala n'oge ọ bụla n'ime ụbọchị 30."
+        }
     },
     "beta_banner": {
         "title": "BETA:",
@@ -991,8 +1014,8 @@
             "no_history": "Enweghị akụkọ ịrụ ọrụ n'ụgwọ n'elu ihe a.",
             "lend_success_title": "Ihe e nyere",
             "lend_success_body": "{{item}} bụ ugbu a akara dị ka e nyere ya.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "E zigara onyinye ịzụ ahịa",
+            "offer_sent_body": "{{item}} ga-egosipụta dị ka e ji were ya mgbe onye ọzọ nabatara.",
             "borrowed_by_you": "Dị na gị",
             "return_pending_hint": "Ndekọ ahụ ga-emechi mgbe onye na-enye ego kwadoro na ha natara ihe ahụ azụ.",
             "return_pending_lender_title": "{{name}} mere akara na ihe a dị ka ebufere azụ",
@@ -1221,7 +1244,7 @@
             "failed_logins": "{{count}} nbanye mebiri",
             "load_failed_title": "Onye ọrụ enweghị ike ibudata",
             "pending_requests": "{{count}} arịrịọ ụlọ na-eche",
-            "role_admin": "Admin",
+            "role_admin": "Onye nchịkwa",
             "role_user": "Onye ọrụ"
         },
         "logs": {
@@ -1229,7 +1252,7 @@
             "no_logs": "enweghi ndekọ ọ bụla ugbu a",
             "errors_title": "Nsogbu Sistemụ (Nke 10 ikpeazụ)",
             "no_errors": "// Sistemụ dị mma, enweghi ndekọ njehie.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{ụbọchị, ụbọchị na oge}}",
             "type": {
                 "email": "Ọrụ Email",
                 "user": "Onye ọrụ",
@@ -1277,7 +1300,7 @@
             "notes_body": "Jiri nke a maka nkwado ọrụ ma ọ bụ kọntaktị metụtara akaụntụ. Ihe dị nro kwesịrị ịnọ n’ime ngwa mgbe niile ma ọ bụrụ na o kwere omume.",
             "notes_body_with_rate_limit": "Jiri nke a maka nkwado ọrụ ma ọ bụ kọntaktị metụtara akaụntụ. Ihe dị nro kwesịrị ịnọ n’ime ngwa mgbe niile ma ọ bụrụ na o kwere omume. Nchekwa izipu ugbu a: {{rateLimit}}.",
             "rate_limit_fallback": "Ozi-e 3 kwa nkeji",
-            "placeholder_to": "name@example.com",
+            "placeholder_to": "aha@ atụpụtara.com",
             "placeholder_subject": "Isiokwu ozi",
             "send_success_with_id": "✅ Ezigara email nke ọma! ID: {{emailId}}",
             "send_error": "E nweghị ike izipụ email",
@@ -1401,12 +1424,12 @@
             "cta_register": "Mee Akaụntụ",
             "stat_free": "N'efu",
             "stat_access": "Nweta",
-            "free_badge": "Open Source",
+            "free_badge": "Isi mmalite mepere emepe",
             "badge": "HomeInventory v2.0 bụ ebe a",
             "cta_explore": "Nyochaa atụmatụ",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "banye",
+            "stat_members": "Ụlọ ndị nkekọrịtara",
+            "stat_vault": "Vault nkeonwe"
         },
         "features": {
             "title": "Gịnị mere <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Chekwaa ihe, nkwenye, akwụkwọ dị mkpa, na ịtọ ntị na ị were ya n'otu ebe dị jụụ. Lee ihe ụlọ gị nwere n'ihu anya.",
                 "primaryCta": "Malite n'efu",
                 "secondaryCta": "Lee Ngwaahịa",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Atụ aro eruba: akaụntụ • ụlọ • ụlọ na otu • ihe • ndabere",
                 "searchPlaceholder": "Chọọ ihe, ụlọ, ma ọ bụ koodu akara"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "Nkọwa netwọkụ na-anọgide na nzuzo ruo mgbe ịchọrọ nduzi.",
         "link_privacy_note": "Adreesị netwọkụ na-anọgide ezo ebe a. Nyocha koodu ahụ ma ọ bụ detuo njikọ ahụ naanị mgbe ịchọrọ ịkekọrịta nnweta ihe ozugbo na ntọala gị.",
         "helper": "Nyocha iji mepee ihe a ozugbo, ma ọ bụ detuo njikọ ozugbo mgbe achọrọ.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Enweghị ike iṅomi njikọ na-akpaghị aka",
+        "copy_manual_help": "Ihe nchọgharị gị anabataghị nṅomi akpaka.",
         "loading": "Na-emezigharị ngwaọrụ QR..."
     },
     "house_access_pending": {
@@ -1773,7 +1796,7 @@
             "subject": "🏠 {{brandName}} - 📧 A choro Nkọwa Email",
             "headerTitle": "Nnọọ na {{brandName}}",
             "headerSubtitle": "Mepụta akaụntụ ọhụrụ ma ọ bụ sonyere n'ụlọ dị adị",
-            "greeting": "Welcome to {{brandName}}",
+            "greeting": "Nnọọ na {{brandName}}",
             "intro": "E mepụtara akaụntụ! Biko nyochaa adreesị email gị iji banye.",
             "verifyPrompt": "📧 A choro Nkọwa Email",
             "verifyButton": "✓ Lelee Akaụntụ M",
@@ -1790,13 +1813,13 @@
             ],
             "fallback": "Njikọ nke tọgharịa paswọọdụ yiri ka ọ zuru oke ma ọ bụ mebiri.",
             "support": "Nsogbu ndebanye aha:",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{brandAha}}"
         },
         "welcome": {
             "subject": "Nnọọ na {{brandName}}",
             "headerTitle": "Nnọọ na {{brandName}}",
             "headerSubtitle": "Mepụta akaụntụ ọhụrụ ma ọ bụ sonyere n'ụlọ dị adị",
-            "greeting": "Welcome to {{brandName}}",
+            "greeting": "Nnọọ na {{brandName}}",
             "intro": "Nnọọ, ! 👋",
             "houseKeyLabel": "Igodo Ụlọ",
             "houseKeyNote": "Nke a bụ igodo ụlọ gị, jiri ya mee ka ndị ọzọ bịanye. Tinye ndị òtù ezinụlọ na ụlọ gị!",
@@ -1808,7 +1831,7 @@
                 "💡 Ị nwere ike ịbụ onye otu ụlọ dị iche iche ma gbanwee n'etiti ha. Ụlọ ọ bụla na-edobe ihe dị iche iche n'otu n'ọdụ."
             ],
             "support": "Nsogbu ndebanye aha:",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{brandAha}}"
         },
         "houseJoinRequest": {
             "subject": "Jikọọ na Ụlọ",
@@ -1817,7 +1840,7 @@
             "bodyLine2": "Na-echere nkwenye onye nwe ụlọ"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandAha}} - {{status}}",
             "greeting": "Ịbanye n'ụlọ",
             "bodyLine1Template": "Arịrịọ na-echere ugbu a: {{house}} ({{status}})",
             "bodyLine2": "Arịrịọ gị maka \"{{house}}\" ka na-echere mkpebi.",
@@ -1842,7 +1865,7 @@
             "warningTitle": "⚠️",
             "warningBody": "Ọ bụrụ na akaụntụ dị, nke njikọ ịtọgharịa okwuntughe nke dị irè maka nkeji 15 ezitere.",
             "fallback": "Njikọ nke tọgharịa paswọọdụ yiri ka ọ zuru oke ma ọ bụ mebiri.",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{brandAha}}"
         },
         "adminEmail": {
             "sentBy": "E-mail a sitere na {{brandName}}.",
@@ -1856,7 +1879,7 @@
             "sentAtLabel": "E zigara na",
             "senderLabel": "Onye zitere",
             "serviceLabel": "Ọrụ",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{brandAha}}"
         }
     },
     "vault": {
@@ -1969,8 +1992,8 @@
             "empty": "Enweghị mmefu akwụ ugbu a.",
             "borrowed_from": "Ejiri n'aka {{name}}",
             "lent_to": "Ugbu a dị na {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Na-echere onye na-azụ ego ka ọ kwado na ọ nwetara ya azụ.",
+            "return_pending_lender": "{{name}} kọọrọ ihe a dị ka ezipụrụ azụ. Kwapụ nkwenye iji mechie ndekọ ahụ.",
             "empty_title": "Enweghị ịkwụ ụgwọ ọ bụla dị ugbu a",
             "empty_description": "Arịrịọ e kenyere na-apụta ebe a otu ihe e nyere ma ọ bụ e were, ọnụ na ụbọchị akwụmụgwọ na ọnọdụ nloghachi."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Kagburu",
             "expired": "Agwụla oge",
             "returned": "Laghachiri",
-            "return_pending": "Return pending"
+            "return_pending": "Nloghachi ka na-echere"
         },
         "actions": {
             "send_request": "Arịrịọ Ihe",
@@ -1990,8 +2013,8 @@
             "reject": "Jụ",
             "cancel": "Kagbuo",
             "fulfill_request": "Mezue Arịrịọ",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Kọọrọ ezipụ",
+            "mark_received": "Mark natara",
             "open_inventory": "Mepee nchekwa"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "Kpọpụta Ka Eweghachiri",
             "return_subtitle": "Mechie ịgbazite nke \"{{item}}\" nke dị ugbu a",
             "return_target": "A na-egosi ya ugbu a na onye dị na ya bụ {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Nyefee ihe",
+            "return_title_lender": "Nata ihe",
+            "return_subtitle_borrower": "Mechie ụgwọ na-arụ ọrụ maka \"{{item}}\" mgbe ị weghachiri ya.",
+            "return_subtitle_lender": "Mechie ịrịọ ịkpọrọ ihe nke na-arụ ọrụ maka \"{{item}}\" mgbe ị natara ya azụ.",
+            "return_target_borrower": "Onye na-enye: {{name}}",
+            "return_target_lender": "Ugbu a onye nwere: {{name}}",
+            "return_note_borrower": "Akwụkwọ nnyefe",
+            "return_note_lender": "Nata akwụkwọ",
+            "return_note_placeholder_borrower": "atụ. E nyere m ya azụ na-enweghị nsogbu ọ bụla",
+            "return_note_placeholder_lender": "atụ. Enwetara azụ n'ọnọdụ ọma",
+            "return_submitting": "Na-emechi..."
         },
         "messages": {
             "load_error": "Enweghị ike ibubata etiti ịkwụ ụgwọ",
@@ -2059,8 +2082,8 @@
     "legal": {
         "privacy_policy_title": "Iwu Nzuzo",
         "terms_of_service_title": "Okwu Ọrụ",
-        "privacy_policy_content": "## Overview\n**{{brandName}}** is open-source software and may be provided through an official or self-hosted installation. For this installation, the data controller or service operator is **{{controllerName}}**.\n- **Controller address:** {{controllerAddress}}\n- **Privacy contact:** {{privacyEmail}}\n- **General support contact:** {{supportEmail}}\n\nThis notice explains **what personal data is processed**, **how it is obtained**, **why it is processed**, **who may receive it**, **how long it is kept**, and **what rights you may have**.\n\nIf this installation is operated by a third party, that operator is responsible for any deployment-specific controller identity, support commitments, transfer details, retention settings, and local legal notices that apply.\n\n## What data we collect and process\n- **Account data:** username, email address, password hash, session cookies, trusted-device data, and security logs.\n- **Service data:** houses, rooms, categories, items, uploaded media, borrow requests, and personal vault records that you create.\n- **Technical data:** IP address, browser/session identifiers, and language preference data needed for localization and account security.\n- **Optional identity-provider data:** if you choose Google Sign-In, Google shares your email address, Google account identifier, and profile display name with us so we can authenticate you or create your account.\n- **Optional lookup-request data:** if you use barcode or product lookup, the barcode value you submit may be sent by our server to Open Food Facts, Open Products Facts, Open Beauty Facts, or Google so the requested result can be returned.\n\n## How we obtain data\n- **Directly from you:** when you register, sign in, create or edit records, upload media, configure security settings, or contact support.\n- **Automatically from your browser or device:** through required session cookies, trusted-device mechanisms, IP handling, language preference, and security logs needed to operate and protect the application.\n- **From Google:** only if you choose Google Sign-In, limited to the identity data required to authenticate you or create your account.\n- **From external product data sources:** only if you trigger barcode or product lookup, limited to the lookup request and returned product metadata.\n\n## Why we process it\n- **Account operation:** to create and operate your account.\n- **Authentication and security:** to authenticate you and secure sessions and two-factor authentication.\n- **Core features:** to provide inventory, backup, and Personal Vault features.\n- **Support:** to respond to support requests.\n- **Optional sign-in and lookup features:** to complete Google Sign-In and external barcode/product lookup only when you choose those features.\n- **Legal and security obligations:** to satisfy legal or security obligations.\n\n## Legal basis and collection method\n- **Under GDPR, where applicable:** processing is based on contract performance, legal obligations, consent for any consent-based feature, and the operator's legitimate interest in service and account security.\n- **Under KVKK, where applicable:** processing is based on the legal grounds in Articles 5 and 6, including where necessary for the establishment or performance of a contract, compliance with legal obligations, exercise or protection of rights, or the controller's legitimate interests provided your fundamental rights and freedoms are not harmed.\n- **Collection method:** data is collected by electronic means through forms, authenticated sessions, required cookies, optional OAuth flows, application logs, uploads, and API requests.\n\n## Storage and transfer\n- **We do not sell personal data.**\n- Personal data may be received by the hosting, database, storage, email, authentication, and infrastructure providers used to operate this installation.\n- If you choose Google Sign-In or barcode/product lookup, the relevant authentication or lookup data is shared with the selected provider only to complete the feature you triggered.\n- Data may be disclosed to courts, regulators, or public authorities when legally required.\n- **Transfer disclosure for this installation:** {{transferDisclosure}}\n- Account data is retained while your account is active.\n- When you delete your account from Settings, your account data, personal vault content, uploaded media, and application records owned by your account are deleted from the application without undue delay, except information that must be retained for legal claims, statutory duties, or security obligations.\n\n## Your rights\n- Depending on the applicable law, you may request confirmation whether your personal data is processed, access to it, and information about purposes, categories, recipients, and transfers.\n- You may request rectification, erasure, destruction, restriction, or objection, and where applicable data portability.\n- Where processing is based on consent, you may withdraw consent at any time without affecting prior lawful processing.\n- You may request that correction, deletion, or destruction outcomes be communicated to recipients where the law requires this.\n- You may object to results produced exclusively by automated means if the law gives you that right.\n- Where permitted by law, you may seek compensation for damage caused by unlawful processing.\n- You may lodge a complaint with **{{complaintAuthority}}**\n\n## How to exercise rights\n- Use the in-app account deletion flow or contact **{{privacyEmail}}** for privacy requests.\n- Where GDPR applies, requests should be answered without undue delay and in principle within 1 month after identity verification.\n\n## Automated decision-making\n- This application does not use solely automated decision-making or profiling that produces legal or similarly significant effects on you.\n\n## Important note\nThis notice is provided for transparency. **It is separate from any optional marketing, analytics, or non-essential cookie consent**, which must be requested separately when required.\n\nThe upstream open-source project maintainers are not automatically the data controller or processor for third-party self-hosted deployments.",
-        "terms_of_service_content": "Terms of Service\n\n1. Overview\n{{brandName}} is open-source software and can be used through official or self-hosted installations. These terms apply to the specific installation you are using.\n- If this installation is operated by a third party, that operator may supplement these terms with deployment-specific rules, support commitments, or local legal notices.\n\n2. Usage Rules\n- You are responsible for the legality, accuracy, and ownership of the content you place in the service.\n- Open-source availability of the software does not grant you rights to upload, store, or share data that you are not authorized to use.\n- We may suspend or remove accounts that abuse the service, violate these terms, or create a security or legal risk.\n\n3. Account Security\n- Keep your password, recovery materials, and backups secure.\n\n4. Data Lifecycle\n- Keep your own backups of important information.\n- Deleting your account from Settings permanently removes application data and uploaded media owned by your account and cannot be undone.\n\n5. Limitations and Disclaimer\n- Availability, support, integrations, and response times depend on the operator of this installation.\n- The service is provided on an \"as is\" and \"as available\" basis to the extent permitted by law.",
+        "privacy_policy_content": "## Nchịkọta",
+        "terms_of_service_content": "Usoro ọrụ",
         "register_consent": "Agụwo m, aghọtakwara m, ma kwekọrọ na <1>Okwu Ọrụ</1> na <2>Atụmatụ Nzuzo</2>.",
         "consent_title": "Nyochaa akwụkwọ iwu",
         "consent_subtitle": "Biko kwado okwu ndị dị ugbu a tupu ịga n’ihu.",
@@ -2141,7 +2164,7 @@
         "account_menu_tooltip": "Menu akaụntụ {{name}}"
     },
     "app": {
-        "name": "{{brandName}}",
+        "name": "{{brandAha}}",
         "tagline": "Jiri amamihe jikwaa ihe niile dị n'ụlọ gị."
     },
     "nav": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Ọtụtụ mgbalị nbanye. Biko gbalịa ọzọ na minit 15."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "banye",
+        "page_title_register": "Mebe akaụntụ",
+        "page_title_choose_house": "Họrọ ụlọ",
+        "page_title_recovery_key": "Igodo mgbake",
+        "page_title_house_access": "Ịnweta ụlọ",
+        "page_title_legal_review": "Nyocha gbasara iwu",
+        "page_title_new_item": "Ihe ọhụrụ",
+        "page_title_edit_item": "Dezie ihe",
+        "page_title_items": "Akụrụngwa"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Kosa katika kupakia orodha ya ununuzi.",
+            "select_item_error": "Tafadhali chagua kipengele kutoka kwenye ombi.",
+            "empty_name": "Tafadhali ingiza jina la kipengele.",
+            "added": "Kipengele kimeongezwa kwenye orodha ya ununuzi.",
+            "add_error": "Tatizo limetokea wakati wa kuongeza kipengele.",
+            "added_suggestion": "\"{{name}}\" imeongezwa kwenye orodha ya ununuzi.",
+            "bulk_added": "{{count}} vipengele vyenye hisa chache vimeongezwa kwenye orodha.",
+            "bulk_error": "Hitilafu ilitokea wakati wa kuongeza bidhaa zenye hisa chache.",
+            "completed": "\"{{name}}\" imeonekana kama imemalizika.",
+            "reactivated": "\"{{name}}\" imesogezwa tena kwenye orodha hai.",
+            "update_error": "Hitilafu ilitokea wakati wa sasisho.",
+            "deleted": "Kipengee kimefutwa kutoka kwenye orodha.",
+            "delete_error": "Hitilafu ilitokea wakati wa kufuta.",
+            "cleared_completed": "Vipengele vilivyokamilika vimefuta.",
+            "clear_error": "Hitilafu ilitokea wakati wa kufuta."
+        },
+        "loading_desc": "Kuandaa orodha ya manunuzi...",
+        "page": {
+            "title": "Orodha ya Manunuzi",
+            "description": "Angalia bidhaa chache katika hesabu ya nyumbani na kudhibiti orodha yako ya manunuzi kwa urahisi."
+        },
+        "suggestions": {
+            "title": "Mapendekezo Mahiri ya Hesabu",
+            "desc": "Vitu vya hesabu ambavyo vimepungua chini ya kikomo cha chini.",
+            "add_all": "Ongeza Yote Yanayokosekana",
+            "stock_status": "Sasa: {{current}} / Lengo: {{min}}",
+            "add_qty": "Ongeza {{qty}}"
+        },
+        "sections": {
+            "active_list": "Vitu vya Kununua",
+            "active_desc": "Vitu vya sasa vya ununuzi vya kuongeza kwenye kikapu chako.",
+            "active_count": "{{count}} Vitu",
+            "completed_list": "Vitu Vilivyonunuliwa ({{count}})",
+            "add_item": "Ongeza Kipengee Kwa Mikono",
+            "add_desc": "Ongeza kipengee maalum kwenye orodha kwa mikono."
+        },
+        "empty": {
+            "title": "Orodha yako ya manunuzi iko tupu",
+            "desc": "Unaweza kuongeza hisa zilizokosekana kutoka mapendekezo hapo juu au ongeza vipengee kwa mikono kwa kutumia fomu upande wa kulia."
+        },
+        "card": {
+            "linked_inventory": "Imehifadhiwa kwenye Hesabu ya Bidhaa"
+        },
+        "actions": {
+            "clear_completed": "Futa Historia",
+            "add_item": "Ongeza kwenye Orodha ya Ununuzi"
+        },
+        "form": {
+            "add_type": "Ongeza Mbinu",
+            "add_type_inventory": "Kipengee cha Orodha",
+            "add_type_custom": "Kipengee Maalum",
+            "select_inventory_item": "Chagua Kipengee kutoka Orodhani",
+            "no_inventory_items": "Hakuna vipengee kwenye orodha yako bado.",
+            "select_item_placeholder": "Chagua kipengee",
+            "current_stock": "Sasa",
+            "item_name": "Jina la Kipengee",
+            "item_name_placeholder": "mfano. Maziwa, Sabuni, Maharagwe ya Kahawa...",
+            "quantity": "Kiasi"
+        },
+        "modal": {
+            "delete_title": "Futa Kipengee kutoka Orodha?",
+            "delete_desc": "Una uhakika unataka kuondoa \"{{name}}\" kutoka kwenye orodha yako ya ununuzi?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Hitilafu katika kupakia taarifa",
+            "select_item_error": "Tafadhali chagua kipengee.",
+            "task_name_error": "Jina la kazi linahitajika.",
+            "date_error": "Tarehe iliyopangwa inahitajika.",
+            "updated": "Kazi ya matengenezo imesasishwa",
+            "created": "Kazi mpya ya matengenezo imeongezwa",
+            "save_error": "Hitilafu ilitokea wakati wa kuhifadhi",
+            "deleted": "Kazi ya matengenezo imefutwa kwa ufanisi.",
+            "delete_error": "Hitilafu ilitokea wakati wa mchakato wa kufuta.",
+            "performed": "Matengenezo yameandikwa kama yamemalizika. Tarehe inayofuata imepangwa.",
+            "perform_error": "Kosa lilitokea wakati wa kuhifadhi."
+        },
+        "freq": {
+            "one_time": "Mara Moja",
+            "unit": {
+                "days": "Siku",
+                "weeks": "Wiki",
+                "months": "Mwezi",
+                "years": "Mwaka"
+            },
+            "format": "Kila {{val}} {{unit}}"
+        },
+        "loading_desc": "Inapakia ratiba ya matengenezo...",
+        "page": {
+            "title": "Matengenezo & Ufuatiliaji wa Kipindi",
+            "description": "Simamia ratiba za matengenezo ya kipindi kwa vifaa, vichujio, au vifaa vya usalama katika hesabu yako ya nyumbani."
+        },
+        "actions": {
+            "add_task": "Ongeza Kazi Mpya",
+            "manage": "Simamia",
+            "perform": "Weka Kama Imefanyika",
+            "edit_task": "Hariri Kazi"
+        },
+        "alerts": {
+            "overdue_title": "Una Kazi Zilizochelewa!",
+            "overdue_desc": "Kuna kazi {{count}} za matengenezo zilizochelewa. kuchelewa kunaweza kupunguza muda wa matumizi ya vifaa."
+        },
+        "empty": {
+            "title": "Hakuna kazi za matengenezo zilizopangwa",
+            "desc": "Anza kwa kuongeza kazi za kurudiwa kama vile kusafisha chujio la AC, matengenezo ya boiler, au ukaguzi wa betri ya kigunduzi cha moto."
+        },
+        "sections": {
+            "overdue": "Kazi Zilizochelewa",
+            "overdue_desc": "Matengenezo ya dharura yanayohitaji kufanywa mara moja.",
+            "upcoming": "Kazi Zilizopangwa / Zinazokuja",
+            "upcoming_desc": "Matengenezo yanayokaribia katika siku zijazo.",
+            "no_upcoming": "Hakuna kazi zilizo hai zilizopangwa kwa siku zijazo."
+        },
+        "modal": {
+            "edit_title": "Hariri Kazi",
+            "create_title": "Panga Kazi Mpya ya Matengenezo",
+            "perform_title": "Kamilisha Matengenezo",
+            "perform_desc": "Je, unataka kurekodi \"{{name}}\" kama iliyokamilika leo?",
+            "perform_confirm": "Ndiyo, Imekamilika",
+            "perform_recurrence_info": "Hii ni kazi ya kawaida. Unapohifadhi, mfumo utaweka moja kwa moja tarehe inayofuata ya matengenezo.",
+            "delete_title": "Futa Kazi ya Matengenezo?",
+            "delete_desc": "Una uhakika unataka kufuta ratiba ya matengenezo ya kawaida \"{{name}}\"? Kitendo hiki hakiwezi kufutika."
+        },
+        "form": {
+            "item": "Kitu Kinachohusiana",
+            "no_items": "Lazima uongeze kirudisho kwenye hesabu ya bidhaa kwanza kabla ya kupanga matengenezo.",
+            "select_item_placeholder": "Chagua Kipengele",
+            "task_name": "Jina la Kazi / Operesheni",
+            "task_name_placeholder": "mfano Badilisho la Kichujio, Ukaguzi wa Kipindi...",
+            "description": "Maelezo / Maelezo ya Kina",
+            "description_placeholder": "Maelezo ya kazi, vifaa vitakavyotumika, n.k...",
+            "frequency_value": "Mara ya Kurudiwa",
+            "frequency_placeholder": "kwa mfano 6 (acha tupu ikiwa ni mara moja)",
+            "frequency_unit": "Chombo cha Mara kwa Mara",
+            "next_due_date": "Tarehe Ifuatayo Iliyo Wekwa",
+            "section_help": "Dhibiti ratiba za matengenezo kutoka hapa",
+            "section_collapsed": "Bonyeza kuongeza udhibiti na kazi za mara kwa mara",
+            "has_tasks": "{{count}} Kazi",
+            "new_item_warning_title": "Kitu Hifadhi Kinangoja",
+            "new_item_warning_desc": "Lazima uweke kitu hiki kwanza ili kuongeza ratiba ya matengenezo.",
+            "manage_desc": "Simamia ratiba za matengenezo kwa kifaa au kitu hiki."
+        },
+        "fields": {
+            "task_name": "Jina la Kazi",
+            "task_name_placeholder": "mfano Usafishaji wa kichujio cha AC",
+            "description": "Maelezo",
+            "description_placeholder": "Maelezo ya kazi, vifaa vitakavyotumika, n.k...",
+            "frequency_value": "Mara za Kurudia",
+            "frequency_value_placeholder": "Acha tupu kwa mara moja",
+            "frequency_unit": "Kitengo cha Mara",
+            "next_due_date": "Tarehe Iliyopangwa"
+        },
+        "card": {
+            "untitled_item": "Kipengele Kisicho na Kichwa",
+            "last_performed": "Kilifanywa Mwisho:",
+            "next_due_label": "Tarehe Iliyopangwa",
+            "complete_tooltip": "Weka Matengenezo Kama Yamekamilika Leo"
+        },
+        "detail_card_desc": "Ufuatiliaji wa matengenezo ya mara kwa mara au ya mara moja uliopangwa kwa kipengele hiki.",
+        "no_tasks": "Hakuna kazi za matengenezo zilizopangwa kwa kipengele hiki.",
+        "confirm_delete": "Kazi hii itafutwa. Una uhakika?"
     }
 }

@@ -69,7 +69,9 @@
             "vault_hint_action": "Obre la Bóveda Personal",
             "location": "Ubicació",
             "remove_photo": "Elimina la foto",
-            "visibility_owner_only": "Només la persona que va afegir l'element pot canviar la visibilitat."
+            "visibility_owner_only": "Només la persona que va afegir l'element pot canviar la visibilitat.",
+            "expiry_date": "Data de caducitat",
+            "min_quantity": "Quantitat mínima"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" afegit ràpidament - pots editar-lo més tard",
@@ -119,7 +121,12 @@
         "no_permission": "No tens permís per modificar aquest objecte",
         "barcode_search_error": "Fallida la cerca de codis de barres",
         "stats_error": "Estadístiques de càrrega d'errors",
-        "detail_subtitle": "Detalls de l'element"
+        "detail_subtitle": "Detalls de l'element",
+        "status": {
+            "close_to_expiry": "Proper a caducar",
+            "expired": "Caducat",
+            "low_stock": "Poc estoc"
+        }
     },
     "common": {
         "save": "Desa",
@@ -170,7 +177,8 @@
         "details": "Detalls",
         "hide": "Amaga la contrasenya",
         "logging_out": "Tancant sessió...",
-        "show": "Mostra la contrasenya"
+        "show": "Mostra la contrasenya",
+        "saving": "Desant..."
     },
     "auth": {
         "login": {
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "Torna a introduir la teva contrasenya",
             "reset_submit": "Restableix la contrasenya",
             "resetting": "Restablint...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Introdueix el teu nom d'usuari o correu electrònic"
         },
         "reset_password": {
             "title": "Restableix la contrasenya",
@@ -367,7 +375,7 @@
         "google_login": "Continua amb Google",
         "login_issues": "Per a qüestions d'inici de sessió",
         "placeholder_username": "Per exemple: John",
-        "placeholder_password": "••••••••",
+        "placeholder_password": "•••••••••",
         "login_two_factor": {
             "title": "Autenticació de dos factors",
             "subtitle": "Introdueix el codi de 6 dígits des de l'aplicació d'autenticació",
@@ -438,7 +446,9 @@
         "logout_aria": "Tanca la sessió del teu compte",
         "logout_title": "Vols tancar la sessió?",
         "logout_description": "Se't retornarà a la pantalla d'inici de sessió i hauràs d'iniciar sessió de nou per gestionar l'inventari del teu llar.",
-        "logout_warning": "Utilitza això quan hagis acabat en un dispositiu compartit o personal."
+        "logout_warning": "Utilitza això quan hagis acabat en un dispositiu compartit o personal.",
+        "maintenance": "Horari de manteniment",
+        "shopping": "Llista de compres"
     },
     "dashboard": {
         "welcome": "Benvingut de nou, <1>{{name}}</1>",
@@ -565,7 +575,20 @@
         "no_items_filter": "Cap element coincideix amb aquest filtre",
         "manage": "Gestionar",
         "add_item": "Afegeix element",
-        "search_item": "Cerca d'element"
+        "search_item": "Cerca d'element",
+        "alerts": {
+            "expired_title": "Els articles han caducat!",
+            "expired_desc": "Hi ha {{count}} articles caducats al teu inventari. Si us plau, comprova'ls per a la teva seguretat.",
+            "view_items": "Veure articles",
+            "maintenance_title": "Tasques de manteniment endarrerides!",
+            "maintenance_desc": "Hi ha {{count}} tasques de manteniment endarrerides. Realitzeu el manteniment per allargar la vida útil dels vostres aparells.",
+            "go_to_maintenance": "Anar a Manteniment",
+            "low_stock_title": "Alerta de baix estoc",
+            "low_stock_desc": "{{count}} articles han caigut per sota del vostre límit mínim d'estoc.",
+            "go_to_shopping": "Llista de compres",
+            "close_expiry_title": "Dates de caducitat properes",
+            "close_expiry_desc": "{{count}} productes caducaran dins de 30 dies."
+        }
     },
     "beta_banner": {
         "title": "BETA:",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "Clau de la Casa Activa",
             "key_label": "Clau de la Casa",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "•••••••••{{sufix}}",
             "hide": "Amaga",
             "show": "Mostra",
             "copy": "Copia",
@@ -991,8 +1014,8 @@
             "no_history": "Encara no hi ha historial de préstecs d’aquest article.",
             "lend_success_title": "Article prestat",
             "lend_success_body": "{{item}} ara està marcat com prestat.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "Oferta de préstec enviada",
+            "offer_sent_body": "{{item}} es marcarà com a prestat després que l'altre membre ho accepti.",
             "borrowed_by_you": "Amb tu",
             "return_pending_hint": "El registre es tancarà després que el prestador confirmi que ha rebut l'element de tornada.",
             "return_pending_lender_title": "{{name}} ha marcat aquest element com a tornat lliurat",
@@ -1401,12 +1424,12 @@
             "cta_register": "Crea un compte",
             "stat_free": "Gratis",
             "stat_access": "Accedeix",
-            "free_badge": "Open Source",
+            "free_badge": "Codi Obert",
             "badge": "HomeInventory v2.0 ja és aquí",
             "cta_explore": "Explora les funcions",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Inicia la sessió",
+            "stat_members": "Cases compartides",
+            "stat_vault": "Caixa privada"
         },
         "features": {
             "title": "Per què <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Mantén objectes, garanties, documents importants i seguiment de préstecs en un lloc tranquil. Ves què conté la teva llar d’un cop d’ull.",
                 "primaryCta": "Comença gratis",
                 "secondaryCta": "Veure el producte",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Flux suggerit: compte • casa • habitacions i categories • articles • còpia de seguretat",
                 "searchPlaceholder": "Cerqueu un article, habitació o codi de barres"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "Els detalls de la xarxa es mantenen amagats fins que necessitis la guia.",
         "link_privacy_note": "L'adreça de la xarxa es manté oculta aquí. Escaneja el codi o copia l'enllaç només quan vulguis compartir intencionadament l'accés directe a l'element a la teva configuració local.",
         "helper": "Escaneja per obrir aquest element immediatament, o copia l'enllaç directe quan calgui.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Enllaç no es va poder copiar automàticament",
+        "copy_manual_help": "El vostre navegador no va permetre la còpia automàtica. L'enllaç està seleccionat perquè el pugueu copiar manualment.",
         "loading": "Preparant eines QR..."
     },
     "house_access_pending": {
@@ -1817,7 +1840,7 @@
             "bodyLine2": "S'està esperant l'aprovació del propietari"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{estat}}",
             "greeting": "Accés a la casa",
             "bodyLine1Template": "Sol·licitud pendent actual: {{house}} ({{status}})",
             "bodyLine2": "La vostra sol·licitud de \"{{house}}\" encara està esperant una decisió.",
@@ -1969,8 +1992,8 @@
             "empty": "No hi ha préstecs actius ara mateix.",
             "borrowed_from": "Pres d'{{name}}",
             "lent_to": "Actualment amb {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Esperant que el prestador confirmi que l'ha rebut de tornada.",
+            "return_pending_lender": "{{name}} ha marcat aquest article com a retornat. Confirma la recepció per tancar el registre.",
             "empty_title": "No hi ha préstecs actius ara mateix",
             "empty_description": "Les sol·licituds acceptades apareixen aquí un cop un article és prestat o llogat, juntament amb les dates de devolució i l'estat de retorn."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Cancel·lat",
             "expired": "Caducat",
             "returned": "Retornat",
-            "return_pending": "Return pending"
+            "return_pending": "Devolució pendent"
         },
         "actions": {
             "send_request": "Sol·licitar article",
@@ -1990,8 +2013,8 @@
             "reject": "Rebutjar",
             "cancel": "Cancel·lar",
             "fulfill_request": "Complir sol·licitud",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Marca com a lliurat",
+            "mark_received": "Mark va rebre",
             "open_inventory": "Obre inventari"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "Marcar com retornat",
             "return_subtitle": "Tancar el préstec actiu de \"{{item}}\"",
             "return_target": "Actualment es mostra que està amb {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Entregar l'element",
+            "return_title_lender": "Rebre l'element",
+            "return_subtitle_borrower": "Tanca el préstec actiu de \"{{item}}\" després de retornar-lo.",
+            "return_subtitle_lender": "Tanca el préstec actiu de \"{{item}}\" després de rebre'l de tornada.",
+            "return_target_borrower": "Prestador: {{name}}",
+            "return_target_lender": "Actualment amb: {{name}}",
+            "return_note_borrower": "Nota de lliurament",
+            "return_note_lender": "Rebre nota",
+            "return_note_placeholder_borrower": "per exemple, la vaig tornar sense cap problema",
+            "return_note_placeholder_lender": "per exemple, rebuda de nou en bon estat",
+            "return_submitting": "Tancant..."
         },
         "messages": {
             "load_error": "No s'ha pogut carregar el centre de préstecs",
@@ -2103,7 +2126,7 @@
                 "rights": "Els teus drets"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "Els termes per a aquesta instal·lació de {{brandName}} expliquen l'ús acceptable, les vostres responsabilitats de seguretat i les conseqüències de l'eliminació del compte en un format més clar i fàcil de llegir.",
         "terms_support_label": "Resum ràpid",
         "terms_summary": {
             "eyebrow": "Què significa això a la pràctica",
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Massa intents d'inici de sessió. Si us plau, torna-ho a intentar d'aquí a 15 minuts."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Inicia sessió",
+        "page_title_register": "Crea un compte",
+        "page_title_choose_house": "Tria casa",
+        "page_title_recovery_key": "Clau de recuperació",
+        "page_title_house_access": "Accés a la casa",
+        "page_title_legal_review": "Revisió legal",
+        "page_title_new_item": "Nou element",
+        "page_title_edit_item": "Edita element",
+        "page_title_items": "Inventari"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Error al carregar la llista de la compra.",
+            "select_item_error": "Si us plau, seleccioneu un article de l'inventari.",
+            "empty_name": "Si us plau, introduïu un nom d'article.",
+            "added": "Article afegit a la llista de la compra.",
+            "add_error": "S'ha produït un error en afegir l'article.",
+            "added_suggestion": "\"{{name}}\" afegit a la llista de la compra.",
+            "bulk_added": "S'han afegit {{count}} articles amb estoc baix a la llista.",
+            "bulk_error": "Error en afegir articles amb estoc baix.",
+            "completed": "\"{{name}}\" marcat com a completat.",
+            "reactivated": "\"{{name}}\" tornat a moure a la llista activa.",
+            "update_error": "S'ha produït un error durant l'actualització.",
+            "deleted": "Element eliminat de la llista.",
+            "delete_error": "S'ha produït un error durant l'eliminació.",
+            "cleared_completed": "Elements completats esborrats.",
+            "clear_error": "S'ha produït un error durant l'esborrat."
+        },
+        "loading_desc": "Preparant la llista de la compra...",
+        "page": {
+            "title": "Llista de la Compra",
+            "description": "Veure els articles amb poca existència a l'inventari domèstic i gestionar fàcilment la vostra llista de la compra."
+        },
+        "suggestions": {
+            "title": "Suggeriments intel·ligents d'inventari",
+            "desc": "Articles d'inventari que han caigut per sota del límit mínim.",
+            "add_all": "Afegir tots els que falten",
+            "stock_status": "Actual: {{current}} / Objectiu: {{min}}",
+            "add_qty": "Afegir {{qty}}"
+        },
+        "sections": {
+            "active_list": "Articles per Comprar",
+            "active_desc": "Articles de la compra actuals per afegir al vostre carret.",
+            "active_count": "{{count}} Articles",
+            "completed_list": "Articles Comprats ({{count}})",
+            "add_item": "Afegeix l'article manualment",
+            "add_desc": "Afegeix manualment un article personalitzat a la llista."
+        },
+        "empty": {
+            "title": "La teva llista de la compra està buida",
+            "desc": "Pots afegir les existències que falten a partir de les suggerències anteriors o afegir articles manualment utilitzant el formulari de la dreta."
+        },
+        "card": {
+            "linked_inventory": "Desat a l'inventari"
+        },
+        "actions": {
+            "clear_completed": "Esborra l'historial",
+            "add_item": "Afegeix a la llista de compres"
+        },
+        "form": {
+            "add_type": "Afegeix mètode",
+            "add_type_inventory": "Article d'inventari",
+            "add_type_custom": "Article personalitzat",
+            "select_inventory_item": "Selecciona un article de l'inventari",
+            "no_inventory_items": "Encara no hi ha articles al teu inventari.",
+            "select_item_placeholder": "Seleccioneu un item",
+            "current_stock": "Actual",
+            "item_name": "Nom de l'item",
+            "item_name_placeholder": "per exemple, Llet, Detergent, Grans de cafè...",
+            "quantity": "Quantitat"
+        },
+        "modal": {
+            "delete_title": "Esborrar l'article de la llista?",
+            "delete_desc": "Estàs segur que vols eliminar \"{{name}}\" de la teva llista de compres?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "S'ha produït un error en carregar la informació",
+            "select_item_error": "Si us plau, seleccioneu un article.",
+            "task_name_error": "És necessari el nom de la tasca.",
+            "date_error": "És necessària la data prevista.",
+            "updated": "Tasca de manteniment actualitzada",
+            "created": "Nova tasca de manteniment afegida",
+            "save_error": "S'ha produït un error en desar",
+            "deleted": "Tasca de manteniment eliminada amb èxit.",
+            "delete_error": "S'ha produït un error durant el procés d'eliminació.",
+            "performed": "Manteniment registrat com a completat. Data següent programada.",
+            "perform_error": "S'ha produït un error en desar."
+        },
+        "freq": {
+            "one_time": "Una vegada",
+            "unit": {
+                "days": "Dia",
+                "weeks": "Setmana",
+                "months": "Mes",
+                "years": "Any"
+            },
+            "format": "Cada {{val}} {{unit}}"
+        },
+        "loading_desc": "Carregant el programa de manteniment...",
+        "page": {
+            "title": "Manteniment i seguiment periòdic",
+            "description": "Gestiona els programes de manteniment periòdic per a aparells, filtres o equips de seguretat al teu inventari domèstic."
+        },
+        "actions": {
+            "add_task": "Afegeix una nova tasca",
+            "manage": "Gestiona",
+            "perform": "Marca com Fet",
+            "edit_task": "Edita Tasca"
+        },
+        "alerts": {
+            "overdue_title": "Tens Tasques Pendents!",
+            "overdue_desc": "Hi ha {{count}} tasques de manteniment pendents. Els retards poden reduir la vida útil dels aparells."
+        },
+        "empty": {
+            "title": "Cap tasca de manteniment programada",
+            "desc": "Comenceu afegint tasques recurrents com la neteja del filtre de l'aire condicionat, el manteniment de la caldera o la comprovació de les bateries del detector d'incendis."
+        },
+        "sections": {
+            "overdue": "Tasques vençudes",
+            "overdue_desc": "Manteniment urgent que cal fer immediatament.",
+            "upcoming": "Tasques programades / properes",
+            "upcoming_desc": "Manteniment pròxim en els propers dies.",
+            "no_upcoming": "No hi ha tasques actives programades en el futur."
+        },
+        "modal": {
+            "edit_title": "Edita la tasca",
+            "create_title": "Programar nova tasca de manteniment",
+            "perform_title": "Completar el manteniment",
+            "perform_desc": "Vols registrar \"{{name}}\" com a completada avui?",
+            "perform_confirm": "Sí, completat",
+            "perform_recurrence_info": "Aquesta és una tasca periòdica. Quan deseu, el sistema calcularà automàticament la propera data de manteniment.",
+            "delete_title": "Esborrar la Tasca de Manteniment?",
+            "delete_desc": "Esteu segur que voleu esborrar el programa de manteniment periòdic \"{{name}}\"? Aquesta acció no es pot desfer."
+        },
+        "form": {
+            "item": "Element Relacionat",
+            "no_items": "Primer heu d'afegir un article a l'inventari abans de programar el manteniment.",
+            "select_item_placeholder": "Seleccioneu un article",
+            "task_name": "Nom de la tasca / operació",
+            "task_name_placeholder": "p. ex., Canvi de filtre, Revisió periòdica...",
+            "description": "Detall / Descripció",
+            "description_placeholder": "Detalls de la tasca, materials a utilitzar, etc...",
+            "frequency_value": "Freqüència de recurrència",
+            "frequency_placeholder": "p.ex. 6 (deixar en blanc per a única vegada)",
+            "frequency_unit": "Unitat de freqüència",
+            "next_due_date": "Proper data programada",
+            "section_help": "Gestiona els horaris de manteniment des d'aquí",
+            "section_collapsed": "Fes clic per afegir controls i tasques periòdiques",
+            "has_tasks": "{{count}} Tasques",
+            "new_item_warning_title": "Element Desar pendent",
+            "new_item_warning_desc": "Primer heu de desar aquest element per afegir un calendari de manteniment.",
+            "manage_desc": "Gestiona els calendaris de manteniment d'aquest aparell o element."
+        },
+        "fields": {
+            "task_name": "Nom de la tasca",
+            "task_name_placeholder": "per exemple, neteja del filtre de l'aire condicionat",
+            "description": "Descripció",
+            "description_placeholder": "Detalls de la tasca, materials a utilitzar, etc...",
+            "frequency_value": "Freqüència de recurrència",
+            "frequency_value_placeholder": "Deixa en blanc per a una sola vegada",
+            "frequency_unit": "Unitat de freqüència",
+            "next_due_date": "Data programada"
+        },
+        "card": {
+            "untitled_item": "Element sense títol",
+            "last_performed": "Última realització:",
+            "next_due_label": "Data programada",
+            "complete_tooltip": "Marca el manteniment com a realitzat avui"
+        },
+        "detail_card_desc": "Seguiment de manteniment periòdic o puntual programat per a aquest element.",
+        "no_tasks": "Cap tasca de manteniment assignada a aquest element.",
+        "confirm_delete": "Aquesta tasca serà eliminada. Esteu segur?"
     }
 }

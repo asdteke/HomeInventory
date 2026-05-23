@@ -6,12 +6,13 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { buildAdminEmailHtml, getAdminEmailCopy, sendEmail } from '../utils/emailService.js';
-import { DEFAULT_FROM } from '../utils/branding.js';
+import { getEmailDeliveryStatus } from '../utils/branding.js';
 import { authenticateToken, requireAdmin } from '../middleware/auth.js';
 import { logError } from '../utils/logger.js';
 import { buildDefaultIndexNowUrls, getIndexNowConfig, submitIndexNowUrls } from '../utils/indexNow.js';
 import db from '../database.js';
 import { buildEmailLookup, decryptUserRecord, decryptUsername } from '../utils/protectedFields.js';
+import { getUploadsRoot } from '../utils/runtimePaths.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -73,7 +74,7 @@ function saveAdminLog(type, action, details, adminId, targetId = null) {
 
 function getUploadsSizeMb() {
     let uploadsSize = 0;
-    const uploadsDir = join(__dirname, '..', 'uploads');
+    const uploadsDir = getUploadsRoot(join(__dirname, '..'));
 
     if (!fs.existsSync(uploadsDir)) {
         return 0;
@@ -206,7 +207,7 @@ router.get('/stats', authenticateToken, requireAdmin, (req, res) => {
                     uptime_hours: uptime,
                     uploads_mb: getUploadsSizeMb(),
                     node_version: process.version,
-                    email_configured: Boolean(process.env.RESEND_API_KEY),
+                    email_configured: getEmailDeliveryStatus().configured,
                     error_log_count: errorLogs.length
                 },
                 recent_activity: recentActivity,
@@ -530,9 +531,16 @@ router.post('/email/send', authenticateToken, requireAdmin, emailRateLimiter, as
 });
 
 router.get('/email/status', authenticateToken, requireAdmin, (req, res) => {
+    const deliveryStatus = getEmailDeliveryStatus();
+
     res.json({
-        configured: !!process.env.RESEND_API_KEY,
-        from: DEFAULT_FROM,
+        configured: deliveryStatus.configured,
+        deliveryReady: deliveryStatus.configured,
+        apiKeyConfigured: deliveryStatus.apiKeyConfigured,
+        senderConfigured: deliveryStatus.senderConfigured,
+        from: deliveryStatus.from,
+        service: deliveryStatus.service,
+        message: deliveryStatus.message,
         rateLimit: '3/dakika',
         user: { id: req.user.id, username: req.user.username, role: req.user.role }
     });

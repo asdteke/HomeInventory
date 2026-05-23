@@ -272,6 +272,17 @@ try {
   emitDatabaseLog('[Database] warranty_duration_unit column added to items table');
 } catch (e) { /* Column exists */ }
 
+try {
+  db.exec(`ALTER TABLE items ADD COLUMN expiry_date TEXT`);
+  emitDatabaseLog('[Database] expiry_date column added to items table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE items ADD COLUMN min_quantity INTEGER DEFAULT 0`);
+  emitDatabaseLog('[Database] min_quantity column added to items table');
+} catch (e) { /* Column exists */ }
+
+
 // Migration: Add role column to users table (for admin panel)
 try {
   db.exec(`ALTER TABLE users ADD COLUMN role TEXT DEFAULT 'user'`);
@@ -760,6 +771,47 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_trusted_devices_token ON trusted_devices(token_hash);
   CREATE INDEX IF NOT EXISTS idx_trusted_devices_expires ON trusted_devices(expires_at);
 `);
+
+// Create item_maintenance table for periyodik maintenance schedules
+db.exec(`
+  CREATE TABLE IF NOT EXISTS item_maintenance (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    item_id INTEGER NOT NULL,
+    task_name TEXT NOT NULL,
+    description TEXT,
+    frequency_value INTEGER,
+    frequency_unit TEXT, -- 'days', 'weeks', 'months', 'years'
+    last_performed_at TEXT, -- YYYY-MM-DD
+    next_due_date TEXT NOT NULL, -- YYYY-MM-DD
+    house_key TEXT NOT NULL,
+    created_by INTEGER NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE,
+    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE
+  );
+  CREATE INDEX IF NOT EXISTS idx_item_maintenance_due ON item_maintenance(next_due_date);
+  CREATE INDEX IF NOT EXISTS idx_item_maintenance_house ON item_maintenance(house_key);
+`);
+
+// Create shopping_list table for inventory replenishment & custom shopping items
+db.exec(`
+  CREATE TABLE IF NOT EXISTS shopping_list (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    item_id INTEGER,
+    item_name TEXT NOT NULL,
+    quantity INTEGER DEFAULT 1,
+    is_completed INTEGER DEFAULT 0,
+    house_key TEXT NOT NULL,
+    created_by INTEGER NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE SET NULL,
+    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE
+  );
+  CREATE INDEX IF NOT EXISTS idx_shopping_list_house ON shopping_list(house_key);
+`);
+
 
 // Migrate existing users to user_houses table
 try {

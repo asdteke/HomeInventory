@@ -69,7 +69,9 @@
             "vault_hint_action": "Отвори Личен сеф",
             "location": "Локација",
             "remove_photo": "Отстрани фотографија",
-            "visibility_owner_only": "Само личноста која го додаде предметот може да ја промени видливоста."
+            "visibility_owner_only": "Само личноста која го додаде предметот може да ја промени видливоста.",
+            "expiry_date": "Датум на истек",
+            "min_quantity": "Минимална количина"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" брзо додадено - можете да уредувате подоцна",
@@ -119,7 +121,12 @@
         "no_permission": "No permission",
         "barcode_search_error": "Пребарувањето со баркод не успеа",
         "stats_error": "Stats error",
-        "detail_subtitle": "Детали за предмет"
+        "detail_subtitle": "Детали за предмет",
+        "status": {
+            "close_to_expiry": "Блиску до истекување",
+            "expired": "Истечено",
+            "low_stock": "Малку залихи"
+        }
     },
     "common": {
         "save": "Зачувај",
@@ -170,7 +177,8 @@
         "details": "Детали",
         "hide": "Сокриј лозинка",
         "logging_out": "Одјавување...",
-        "show": "Покажи лозинка"
+        "show": "Покажи лозинка",
+        "saving": "Сочувување..."
     },
     "auth": {
         "login": {
@@ -216,7 +224,7 @@
             "support_link": "Контактирај ја поддршката"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "Поставете го вашиот дом",
             "subtitle": "Креирајте нова сметка или приклучете се на постоечка куќа",
             "create_house": "Креирај нова куќа",
             "join_house": "Приклучи се на куќа",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "Повторно внесете ја вашата лозинка",
             "reset_submit": "Ресетирајте ја Лозинката",
             "resetting": "Ресетирање...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Внесете го вашето корисничко име или е-пошта"
         },
         "reset_password": {
             "title": "Ресетирајте ја Лозинката",
@@ -353,7 +361,7 @@
         "password_requirements": "Користете најмалку {{min}} знаци со големи букви, мали букви, број и симбол.",
         "logout": "Одјава",
         "logging_in": "На најавување...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "Добредојдовте во {{brandName}}",
         "username_email": "Корисничко име или Е-пошта",
         "username": "Корисничко име",
         "email": "Е-пошта",
@@ -438,7 +446,9 @@
         "logout_aria": "Одјавете се од вашиот профил",
         "logout_title": "Одјави се?",
         "logout_description": "Ќе бидете вратени на екранот за најавување и ќе треба повторно да се најавите за да го управувате инвентарот на вашето домаќинство.",
-        "logout_warning": "Користете го ова кога сте завршиле на споделен или личен уред."
+        "logout_warning": "Користете го ова кога сте завршиле на споделен или личен уред.",
+        "maintenance": "Распоред за одржување",
+        "shopping": "Список за пазарување"
     },
     "dashboard": {
         "welcome": "Добредојдовте, <1>{{name}}</1>! 👋",
@@ -565,7 +575,20 @@
         "no_items_filter": "Нема артикли кои одговараат на овој филтер",
         "manage": "Управувај",
         "add_item": "Додај артикл",
-        "search_item": "Пребарај артикл"
+        "search_item": "Пребарај артикл",
+        "alerts": {
+            "expired_title": "Предметите истекоа!",
+            "expired_desc": "Има {{count}} истечени предмети во вашиот инвентар. Ве молиме проверете ги за ваша безбедност.",
+            "view_items": "Прегледај предмети",
+            "maintenance_title": "Задачи за одржување кои се поминати рокот!",
+            "maintenance_desc": "Постојат {{count}} задоцнети задачи за одржување. Извршете одржување за да го продолжите животниот век на вашите апарати.",
+            "go_to_maintenance": "Одете на Одржување",
+            "low_stock_title": "Пријава за низок залих",
+            "low_stock_desc": "{{count}} артикли паднаа под вашата минимална ограничување на залихи.",
+            "go_to_shopping": "Список за купување",
+            "close_expiry_title": "Наближувачки датуми на истек",
+            "close_expiry_desc": "{{count}} производи ќе истечат во рок од 30 дена."
+        }
     },
     "beta_banner": {
         "title": "БЕТА:",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "Активен Клуч за Куќа",
             "key_label": "Клуч за Куќа",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{наставка}}",
             "hide": "Скриј",
             "show": "Погледај",
             "copy": "Копирај",
@@ -991,8 +1014,8 @@
             "no_history": "Сè уште нема историја на позајмувања за овој предмет.",
             "lend_success_title": "Предметот е позајмен",
             "lend_success_body": "{{item}} сега е означен како позајмен.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "Понудата за позајмување е испратена",
+            "offer_sent_body": "{{item}} ќе биде означен како позајмен откако другиот член ќе прифати.",
             "borrowed_by_you": "Кај вас",
             "return_pending_hint": "Записот ќе се затвори откако давателот ќе потврди дека го примил предметот назад.",
             "return_pending_lender_title": "{{name}} го означи овој предмет како вратен",
@@ -1229,7 +1252,7 @@
             "no_logs": "сè уште нема логови",
             "errors_title": "Системски Грешки (Последни 10)",
             "no_errors": "// Системот е здрав, нема евиденција за грешки.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{датум, датум време}}",
             "type": {
                 "email": "Е-пошта",
                 "user": "Корисник",
@@ -1401,12 +1424,12 @@
             "cta_register": "Креирај сметка",
             "stat_free": "Бесплатно",
             "stat_access": "Пристап",
-            "free_badge": "Open Source",
+            "free_badge": "Отворен софтвер",
             "badge": "HomeInventory v2.0 е тука",
             "cta_explore": "Истражи ги карактеристиките",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Најави се",
+            "stat_members": "Споделени домови",
+            "stat_vault": "Приватен Склadi"
         },
         "features": {
             "title": "Зошто <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Чувај предмети, гаранции, важни документи и следење на позајмици на едно мирно место. Види што содржи твојот дом со еден поглед.",
                 "primaryCta": "Започни бесплатно",
                 "secondaryCta": "Види го производот",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Предложен тек: сметка • дом • соби и категории • предмети • резервна копија",
                 "searchPlaceholder": "Пребарај предмет, соба или баркод"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "Деталите за мрежата остануваат скриени додека не ви треба водство.",
         "link_privacy_note": "Адресата на мрежата останува скриена овде. Скенирајте го кодот или копирајте го линкот само кога намерно сакате да споделите директен пристап до артиклот во вашата локална поставка.",
         "helper": "Скенирајте за да го отворите овој предмет веднаш, или копирајте ја директната врска кога е потребно.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Линкот не можеше да се копира автоматски",
+        "copy_manual_help": "Вашиот прелистувач не дозволи автоматско копирање. Линкот е избран за да можете да го копирате рачно.",
         "loading": "Подготовка на QR алатки..."
     },
     "house_access_pending": {
@@ -1969,8 +1992,8 @@
             "empty": "Во моментов нема активни позајмици.",
             "borrowed_from": "Позајмено од {{name}}",
             "lent_to": "Тренутно со {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Чекање на потврда од давачот дека го примил назад.",
+            "return_pending_lender": "{{name}} го означи овој предмет како вратен. Потврдете го приемот за да ја затворите евиденцијата.",
             "empty_title": "Нема активни позајмици во моментов",
             "empty_description": "Прифатените барања ќе се појават тука откако еден предмет ќе биде позајмен или даден на позајмување, заедно со рокови за враќање и статус на враќање."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Откажано",
             "expired": "Истечено",
             "returned": "Вратено",
-            "return_pending": "Return pending"
+            "return_pending": "Враќање во тек"
         },
         "actions": {
             "send_request": "Побарај ставка",
@@ -1990,8 +2013,8 @@
             "reject": "Одбие",
             "cancel": "Откажи",
             "fulfill_request": "Исполни барање",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Означи како доставено",
+            "mark_received": "Означи како примено",
             "open_inventory": "Отвори инвентар"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "Означи како вратено",
             "return_subtitle": "Затвори ја активната позајмица за „{{item}}“",
             "return_target": "Во моментов се прикажува дека е кај {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Испорачај предмет",
+            "return_title_lender": "Прими предмет",
+            "return_subtitle_borrower": "Затвори ја активната позајмица за „{{item}}“ откако ќе го вратите.",
+            "return_subtitle_lender": "Затвори ја активната позајмица за „{{item}}“ откако ќе го примите назад.",
+            "return_target_borrower": "Заемодавец: {{name}}",
+            "return_target_lender": "Во моментот со: {{name}}",
+            "return_note_borrower": "Испратница",
+            "return_note_lender": "Приемница",
+            "return_note_placeholder_borrower": "на пр. Ја вратив без никакви проблеми",
+            "return_note_placeholder_lender": "на пр. Примено назад во добра состојба",
+            "return_submitting": "Затворање..."
         },
         "messages": {
             "load_error": "Центарот за заем не може да се вчита",
@@ -2077,7 +2100,7 @@
         "contents": "Содржини",
         "page_label": "> Страна",
         "overview": "> Преглед",
-        "contact": "Contact",
+        "contact": "Контакт",
         "jump_to": "Прелистај до",
         "privacy_description": "Известувањето за приватност за оваа инсталација {{brandName}} објаснува кои податоци се обработуваат, како се собираат, како се споделуваат или пренесуваат и кои права и патеки за жалби може да се применуваат.",
         "privacy_support_label": "За барања за приватност, апликации за права и прашања поврзани со поплаки за оваа инсталација:",
@@ -2103,7 +2126,7 @@
                 "rights": "Вашите права"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "Условите за оваа инсталација на {{brandName}} објаснуваат прифатлива употреба, вашите безбедносни обврски и последиците од бришењето на сметката во појасен, полесен за скенирање формат.",
         "terms_support_label": "Брзо резиме",
         "terms_summary": {
             "eyebrow": "Што значи ова во пракса",
@@ -2141,7 +2164,7 @@
         "account_menu_tooltip": "Мени на сметка на {{name}}"
     },
     "app": {
-        "name": "{{brandName}}",
+        "name": "{{brandName}} БЕТА Верзија: {{brandName}} моментално е во тест фаза. Не се даваат никакви гаранции во врска со трајноста или безбедноста на податоците.",
         "tagline": "Паметно управувајте со сите ваши домашни предмети"
     },
     "nav": {
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "Услови на користење и одговорност",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "{{brandName}} моментално е во тест и хоби фаза. Не се даваат никакви гаранции во врска со трајноста или безбедноста на податоците. Ве молиме чувајте ја вашата важна информација како резервна копија.",
         "disclaimer": "Одговорност: Со употреба на оваа апликација, се согласувате дека не можете да барате никаква компензација за потенцијален губиток на податоци, проблеми со пристапот или други технички проблеми.",
         "backup_warning": "Бек ап на податоци: Силно препорачуваме редовно да правите резервни копии на вашите важни информации.",
         "accept": "Со најавување, се согласувате со овие услови.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "Најави се",
         "contact": "Контакт"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Too many login attempts"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Најави се",
+        "page_title_register": "Креирај сметка",
+        "page_title_choose_house": "Избери куќа",
+        "page_title_recovery_key": "Клуч за опоравување",
+        "page_title_house_access": "Пристап до куќата",
+        "page_title_legal_review": "Правна проверка",
+        "page_title_new_item": "Нов артикл",
+        "page_title_edit_item": "Уреди артикл",
+        "page_title_items": "Инвентар"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Грешка при вчитување на списокот за пазарување.",
+            "select_item_error": "Ве молиме изберете артикл од инвентарот.",
+            "empty_name": "Ве молиме внесете име на артикл.",
+            "added": "Артиклот е додаден на списокот за пазарување.",
+            "add_error": "Се појави грешка при додавањето на артиклот.",
+            "added_suggestion": "„{{name}}“ е додаден во списокот за купување.",
+            "bulk_added": "{{count}} артикли со малку залиха се додадени во списокот.",
+            "bulk_error": "Грешка при додавањето на артикли со малку залиха.",
+            "completed": "\"{{name}}\" означен како завршен.",
+            "reactivated": "\"{{name}}\" преместен назад на активната листа.",
+            "update_error": "Се појави грешка при ажурирањето.",
+            "deleted": "Предметот е избришан од листата.",
+            "delete_error": "Се појави грешка при бришење.",
+            "cleared_completed": "Испразнети завршените елементи.",
+            "clear_error": "Се појави грешка при празнење."
+        },
+        "loading_desc": "Подготвувам список за шопинг...",
+        "page": {
+            "title": "Список за пазар",
+            "description": "Прегледајте артикли со низок број во домашниот инвентар и лесно управувајте со вашиот список за пазар."
+        },
+        "suggestions": {
+            "title": "Паметни предлози за инвентар",
+            "desc": "Артикли во инвентарот кои паднале под минималната граница.",
+            "add_all": "Додај ги сите недостасувања",
+            "stock_status": "Тековно: {{current}} / Цел: {{min}}",
+            "add_qty": "Додај {{qty}}"
+        },
+        "sections": {
+            "active_list": "Производи за купување",
+            "active_desc": "Тековни артикли за купување за додавање во вашата кошничка.",
+            "active_count": "{{count}} артикли",
+            "completed_list": "Купени артикли ({{count}})",
+            "add_item": "Додадете артикл рачно",
+            "add_desc": "Рачно додајте прилагоден предмет во листата."
+        },
+        "empty": {
+            "title": "Вашата листа за купување е празна",
+            "desc": "Можете да додадете недостасувачиот артикал од предложените горе или да додадете артикли рачно користејќи ја формата од десната страна."
+        },
+        "card": {
+            "linked_inventory": "Зачувано во Инвентар"
+        },
+        "actions": {
+            "clear_completed": "Исчисти историја",
+            "add_item": "Додај во листа за купување"
+        },
+        "form": {
+            "add_type": "Додај метод",
+            "add_type_inventory": "Ставка од инвентар",
+            "add_type_custom": "Прилагоден предмет",
+            "select_inventory_item": "Изберете предмет од инвентарот",
+            "no_inventory_items": "Сè уште немате предмети во вашиот инвентар.",
+            "select_item_placeholder": "Изберете предмет",
+            "current_stock": "Тековен",
+            "item_name": "Име на Стока",
+            "item_name_placeholder": "н.п. Млеко, Детергент, Зрна Кафе...",
+            "quantity": "Количина"
+        },
+        "modal": {
+            "delete_title": "Да го избришам ли предметот од листата?",
+            "delete_desc": "Дали сте сигурни дека сакате да го отстраните „{{name}}“ од вашата листа за купување?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Грешка при вчитување на информациите",
+            "select_item_error": "Ве молиме изберете предмет.",
+            "task_name_error": "Потребно е име на задачата.",
+            "date_error": "Потребна е планирана дата.",
+            "updated": "Задачата за одржување е ажурирана",
+            "created": "Додадена е нова задача за одржување",
+            "save_error": "Се појави грешка при зачувување",
+            "deleted": "Задолжението за одржување е успешно избришано.",
+            "delete_error": "Се појави грешка за време на процесот на бришење.",
+            "performed": "Одржувањето е евидентирано како завршено. Следниот датум е закажан.",
+            "perform_error": "Се појави грешка при зачувувањето."
+        },
+        "freq": {
+            "one_time": "Еднократно",
+            "unit": {
+                "days": "Ден",
+                "weeks": "Недела",
+                "months": "Месец",
+                "years": "Година"
+            },
+            "format": "Секој {{val}} {{unit}}"
+        },
+        "loading_desc": "Се вчитува распоредот за одржување...",
+        "page": {
+            "title": "Одржување и периодично следење",
+            "description": "Управувајте со периодични распореди за одржување на апарати, филтри или безбедносна опрема во вашиот домашен инвентар."
+        },
+        "actions": {
+            "add_task": "Додај нова задача",
+            "manage": "Управувај",
+            "perform": "Означи како завршено",
+            "edit_task": "Уреди задача"
+        },
+        "alerts": {
+            "overdue_title": "Имате задоцнети задачи!",
+            "overdue_desc": "Постојат {{count}} задоцнети задачи за одржување. Заостанувањата можат да го намалат векот на апаратот."
+        },
+        "empty": {
+            "title": "Нема закажани задачи за одржување",
+            "desc": "Започнете со додавање на повторувачки задачи како чистење на филтри за клима уред, одржување на котел или проверка на батериите на детекторите за пожар."
+        },
+        "sections": {
+            "overdue": "Пречекорени задачи",
+            "overdue_desc": "Итно одржување што треба да се изврши веднаш.",
+            "upcoming": "Закажани / Идни задачи",
+            "upcoming_desc": "Приближување на одржување во следните денови.",
+            "no_upcoming": "Нема активни задачи закажани во иднина."
+        },
+        "modal": {
+            "edit_title": "Уреди задача",
+            "create_title": "Закажи нова задача за одржување",
+            "perform_title": "Целосно одржување",
+            "perform_desc": "Дали сакате да го запишете „{{name}}“ како завршен денес?",
+            "perform_confirm": "Да, завршено",
+            "perform_recurrence_info": "Ова е периодична задача. Кога ќе зачувате, системот автоматски ќе ја пресмета следната дата за одржување.",
+            "delete_title": "Дали сакате да го избришете задачата за одржување?",
+            "delete_desc": "Дали сте сигурни дека сакате да го избришете периодичното одржување „{{name}}“? Оваа акција не може да се поништи."
+        },
+        "form": {
+            "item": "Поврзана ставка",
+            "no_items": "Прво мора да додадете ставка во инвентарот пред да закажете одржување.",
+            "select_item_placeholder": "Изберете ставка",
+            "task_name": "Име на задача / операција",
+            "task_name_placeholder": "н.е. Замена на филтер, Периодична проверка...",
+            "description": "Детали / опис",
+            "description_placeholder": "Детали за задачата, материјали што ќе се користат, итн...",
+            "frequency_value": "Честота на повторување",
+            "frequency_placeholder": "на пр. 6 (оставете празно за еднократно)",
+            "frequency_unit": "Единица на честота",
+            "next_due_date": "Следен закажан датум",
+            "section_help": "Управувајте со распореди за одржување од тука",
+            "section_collapsed": "Кликнете за да додадете периодични контроли и задачи",
+            "has_tasks": "{{count}} Задачи",
+            "new_item_warning_title": "Чување на предмет во тек",
+            "new_item_warning_desc": "Прво мора да го зачувате овој предмет за да додадете распоред за одржување.",
+            "manage_desc": "Управувајте со распоредите за одржување за овој апарат или предмет."
+        },
+        "fields": {
+            "task_name": "Име на задача",
+            "task_name_placeholder": "на пр. чистење на AC филтер",
+            "description": "Опис",
+            "description_placeholder": "Детали за задачата, материјали што ќе се користат итн...",
+            "frequency_value": "Почестеност на повторување",
+            "frequency_value_placeholder": "Оставете празно за еднократно",
+            "frequency_unit": "Единица за фреквенција",
+            "next_due_date": "Закажан датум"
+        },
+        "card": {
+            "untitled_item": "Безименски елемент",
+            "last_performed": "Последно извршено:",
+            "next_due_label": "Закажан датум",
+            "complete_tooltip": "Означи го одржувањето како извршено денес"
+        },
+        "detail_card_desc": "Следење на периодично или еднократно одржување за овој предмет.",
+        "no_tasks": "Нема доделени задачи за одржување за овој предмет.",
+        "confirm_delete": "Оваа задача ќе биде избришана. Дали сте сигурни?"
     }
 }

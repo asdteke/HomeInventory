@@ -69,7 +69,9 @@
             "vault_hint_action": "පුද්ගලික ගබඩාව විවෘත කරන්න",
             "location": "පිහිටුම",
             "remove_photo": "ඡායාරූපය ඉවත් කරන්න",
-            "visibility_owner_only": "අයිතමය එක් කළ පුද්ගලයාට පමණක් දෘශ්‍යතාවය වෙනස් කිරීම කළ හැක."
+            "visibility_owner_only": "අයිතමය එක් කළ පුද්ගලයාට පමණක් දෘශ්‍යතාවය වෙනස් කිරීම කළ හැක.",
+            "expiry_date": "කල් ඉකුත් වීමේ දිනය",
+            "min_quantity": "අවම ප්‍රමාණය"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" වේගයෙන් එක් කරන ලදි - ඔබට පසුව සංස්කරණය කළ හැකිය",
@@ -119,7 +121,12 @@
         "no_permission": "මෙම අයිතමය වෙනස් කිරීමට ඔබට අවසරයක් නැත",
         "barcode_search_error": "තීරු කේත සෙවීම අසාර්ථක විය",
         "stats_error": "සංඛ් යාලේඛන පූරණය කිරීමේ දෝෂය",
-        "detail_subtitle": "අයිතම විස්තර"
+        "detail_subtitle": "අයිතම විස්තර",
+        "status": {
+            "close_to_expiry": "කල් ඉකුත් වීමට ආසන්න",
+            "expired": "කල් ඉකුත් වූ",
+            "low_stock": "අඩු තොග"
+        }
     },
     "common": {
         "save": "සුරක්ෂිත කරන්න",
@@ -170,7 +177,8 @@
         "details": "විස්තර",
         "hide": "මුරපදය මැච් කරන්න",
         "logging_out": "පිටවෙමින් සිටී...",
-        "show": "මුරපදය පෙන්වන්න"
+        "show": "මුරපදය පෙන්වන්න",
+        "saving": "සුරැකීම..."
     },
     "auth": {
         "login": {
@@ -216,7 +224,7 @@
             "support_link": "සහාය අමතා සම්බන්ධ වන්න"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "ඔබේ ගෘහය සැකසීම",
             "subtitle": "නව ගිණුමක් සෑදීම හෝ දැනට පවතින ගෘහයකට එකතු වීම",
             "create_house": "නව ගෘහයක් සෑදන්න",
             "join_house": "ගෘහයකට එකතු වන්න",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "ඔබගේ මුරපදය නැවත ඇතුළත් කරන්න",
             "reset_submit": "මුරපදය නැවත සකසන්න",
             "resetting": "නැවත සකසමින්...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "ඔබගේ පරිශීලක නාමය හෝ විද්‍යුත් තැපැල් ලිපිනය ඇතුළත් කරන්න"
         },
         "reset_password": {
             "title": "මුරපදය නැවත සකසන්න",
@@ -367,7 +375,7 @@
         "google_login": "ගූගල් සමඟ දිගටම කරගෙන යන්න",
         "login_issues": "පිවිසුම් ගැටළු සඳහා",
         "placeholder_username": "උදා: ජෝන්",
-        "placeholder_password": "••••••••",
+        "placeholder_password": "••••••••••",
         "login_two_factor": {
             "title": "ද්වි-සාධක සත්යාපනය",
             "subtitle": "ඔබගේ සත්යාපනය යෙදුමෙන් ඉලක්කම් 6 ක කේතය ඇතුලත් කරන්න",
@@ -438,7 +446,9 @@
         "logout_aria": "ඔබගේ ගිණුමෙන් පිටවුම",
         "logout_title": "පිටවන්නද?",
         "logout_description": "ඔබ සයින්-ඉන් තිරයට ආපසු යවනු ලබන අතර, ඔබේ ගෘහභාර සම්පත් කළමනාකරණය කිරීමට නැවත ලොග් විය යුතුය.",
-        "logout_warning": "ඔබ බෙදාගත් හෝ පුද්ගලික උපාංගයකදී අවසන් වූ විට මෙය භාවිතා කරන්න."
+        "logout_warning": "ඔබ බෙදාගත් හෝ පුද්ගලික උපාංගයකදී අවසන් වූ විට මෙය භාවිතා කරන්න.",
+        "maintenance": "නඩත්තු කාලසටහන",
+        "shopping": "සාප්පු ලැයිස්තුව"
     },
     "dashboard": {
         "welcome": "සුබ ආගමනය, <1>{{name}}</1>! 👋",
@@ -565,7 +575,20 @@
         "no_items_filter": "මෙම පෙරහනට කිසිදු අයිතමයක් නොගැලපේ",
         "manage": "කළමනාකරණය කරන්න",
         "add_item": "අයිතමය එකතු කරන්න",
-        "search_item": "අයිතමය සොයන්න"
+        "search_item": "අයිතමය සොයන්න",
+        "alerts": {
+            "expired_title": "අයිතම වල කල් ඉකුත් වී ඇත!",
+            "expired_desc": "ඔබගේ ගබඩා තුළ කල් ඉකුත් වූ අයිතම {{count}}ක් ඇත. කරුණාකර ඔබේ ආරක්ෂාව සඳහා ඒවා පරීක්ෂා කරන්න.",
+            "view_items": "අයිතම බලන්න",
+            "maintenance_title": "කල් ඉකුත් කළ නඩත්තු කාර්යයන්!",
+            "maintenance_desc": "දීර්ඝකාලීන නඩත්තු කාර්ය {{count}} ක් ඇත. ඔබේ උපකරණවල ආයු කාලය දිගුවට ගන්න නඩත්තු ක්‍රියාත්මක කරන්න.",
+            "go_to_maintenance": "නඩත්තු වෙත යන්න",
+            "low_stock_title": "අඩු තොග අනතුරු ඇඟවීම",
+            "low_stock_desc": "ඔබේ අවම තොග සීමාවට වඩා {{count}} බඩු අඩුවී ඇත.",
+            "go_to_shopping": "වෙළැඳුම් ලැයිස්තුව",
+            "close_expiry_title": "ආසන්න කල් ඉකුත් වන දිනයන්",
+            "close_expiry_desc": "දින 30ක් ඇතුළත {{count}} නිෂ්පාදන කල් ඉකුත් වේ."
+        }
     },
     "beta_banner": {
         "title": "බීටා:",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "සක්‍රිය ගෘහ යතුර",
             "key_label": "ගෘහ යතුර",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{ උපසර්ගය}}",
             "hide": "අසිරවන්න",
             "show": "පෙන්වන්න",
             "copy": "පිටපත් කරන්න",
@@ -991,8 +1014,8 @@
             "no_history": "මෙම අයිතමයට තවම ණය ඉතිහාසයක් නැත.",
             "lend_success_title": "අයිතම ණයට දී ඇත",
             "lend_success_body": "{{item}} දැන් ණයට ගෙනයාමට ලකුණු කොට ඇත.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "ණය ලබා දීමේ යෝජනාව යැවිය",
+            "offer_sent_body": "අනෙක් සාමාජිකයා එකඟ වූ පසු {{item}} ණය ගෙන ඇතැයි සලකනු ලැබේ.",
             "borrowed_by_you": "ඔබ සමඟ",
             "return_pending_hint": "ණය අරගන්නා වක්‍රයා අයිතමය යළි ලබා ගත් බව තහවුරු කළ පසු වාර්තාව වසා දැමෙනවා.",
             "return_pending_lender_title": "{{name}} මෙම අයිතමය යළි ලබා දුන් ලෙස සලකුණ තබා ඇත",
@@ -1229,7 +1252,7 @@
             "no_logs": "තවම ලොග් නොමැත",
             "errors_title": "පද්ධති දෝෂ (අන්තිම 10)",
             "no_errors": "// පද්ධතිය සුවසැම, දෝෂ ලොග නොමැත.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{දිනය, දිනය වේලාව}}",
             "type": {
                 "email": "විද්යුත් තැපැල්",
                 "user": "පරිශීලක",
@@ -1401,12 +1424,12 @@
             "cta_register": "ගිණුමක් නිර්මාණය කරන්න",
             "stat_free": "නිදහස්",
             "stat_access": "ප්‍රවේශ වන්න",
-            "free_badge": "Open Source",
+            "free_badge": "විවෘත මූලාශ්‍ර",
             "badge": "ගෙදරඉන්වෙන්ටරි v2.0 මෙහි ඇත",
             "cta_explore": "විශේෂාංග ගවේෂණය කරන්න",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "පිවිසෙන්න",
+            "stat_members": "බෙදාගත් නිවාස",
+            "stat_vault": "පෞද්ගලික ගබඩාව"
         },
         "features": {
             "title": "<1>HomeInventory</1> ඇයි?",
@@ -1477,7 +1500,7 @@
                 "description": "අයිතම, වාරප්‍රමාණ, වැදගත් ලේඛන, හා ණය පියවර තනි නිශ්ශබ්ද තැනක තබා ගන්න. ඔබේ නිවසේ ඇති දේ එකම නෙත්නීරයකින් බලන්න.",
                 "primaryCta": "இலவசව ආරම්භ කරන්න",
                 "secondaryCta": "නිෂ්පාදනය බලන්න",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "යෝජිත ප්‍රවාහය: ගිණුම • නිවස • කාමර සහ කාණ්ඩ • භාණ්ඩ • පිටපත්",
                 "searchPlaceholder": "අයිතමයක්, කාමරයක්, හෝ බාකෝඩ් සෙවන්න"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "ජාල විස්තර ඔබට මඟපෙන්වීම අවශ්‍ය වන තුරු සඟවා තබා ඇත.",
         "link_privacy_note": "ජාල ලිපිනය මෙහි සැඟවී ඇත. ඔබේ දේශීය සැකසුම මත සෘජු අයිතම ප්‍රවේශය හුවමාරු කිරීමට උදෙසා QR කේතය ස්කෑන් කර හෝ සබැඳිය පිටපත් කර බලන්න.",
         "helper": "මෙම අයිතමය වහාම විවෘත කිරීමට ස්කෑන් කරන්න, හෝ අවශ්‍ය විට සෘජු සබැඳිය පිටපත් කරගන්න.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "සබැඳිය ස්වයංක්‍රීය ලෙස පිටපත් කළ නොහැක",
+        "copy_manual_help": "ඔබේ බ්‍රවුසරය ස්වයංක්‍රීය පිටපත් කිරීම සක්‍රීය කළ නොහැකි විය. ඔබට එය අත්හදා පිටපත් කළ හැකි පරිදි ලින්ක් එක තෝරා ඇත.",
         "loading": "QR උපකරණ සකස් කරමින් සිටී..."
     },
     "house_access_pending": {
@@ -1817,7 +1840,7 @@
             "bodyLine2": "නිවසේ හිමිකරුගේ අනුමතී යාමට රැඳී සිටී"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{තත්වය}}",
             "greeting": "නිවසට ප්‍රවේශය",
             "bodyLine1Template": "වර්තමාන නිරීක්ෂණය කළ ඉල්ලීම: {{house}} ({{status}})",
             "bodyLine2": "\"{{house}}\" සඳහා ඔබේ ඉල්ලීම තවම තීරණයකට බලා සිටී.",
@@ -1923,7 +1946,7 @@
             "passphrase_number": "අවම වශයෙන් එක් අංකයක් ඇතුළත් කරන්න.",
             "passphrase_uppercase": "අවම වශයෙන් එක් තැටි අකුරක් ඇතුළත් කරන්න."
         },
-        "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
+        "recovery_file_title": "{{brandName}} පෞද්ගලික ගබඩා නැවත ලබා ගැනීමේ යතුර",
         "recovery_file_created_label": "නිර්මාණය කරන ලදි",
         "recovery_file_key_label": "ප්‍රතිසාධන යතුර",
         "recovery_file_warning": "ඔබ මෙම යතුර සහ ඔබේ ගබඩා මුරපදය දෙකම අහිමි කරගනොහොත්, ගබඩාව ප්‍රතිසාධනය කළ නොහැක.",
@@ -1969,8 +1992,8 @@
             "empty": "දැනට කිසිදු ක්‍රියාත්මක ණය නොමැත.",
             "borrowed_from": "{{name}} වෙතින් ණය ගත්තා",
             "lent_to": "දැනට {{name}} සමඟ ඇත",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "එය ආපසු ලැබුණු බව ඔත්තේ යන්න තහවුරු කිරීම සඳහා ණය දායකයාගේ පිළිතුර බලා සිටී.",
+            "return_pending_lender": "{{name}} මෙම අයිතමය ආපසු ලබාදී තිබේ ලෙස සලකුණු කළා. වාර්තාව වසා දැමීමට ලැබීම තහවුරු කරන්න.",
             "empty_title": "දැනට කිසිදු ක්‍රියාශීලී കടමුදල් නැත",
             "empty_description": "අනුමත කරන ලද ඉල්ලීම්, අයිතමයක් ණයට ගැනීම හෝ උගත් පසු මෙහි පෙනෙන අතර, එය දිනයන් සහ ආපසු ලබාදීමේ තත්ත්වයත් සමඟ වේ."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "අවලංගු කරන ලදී",
             "expired": "කල් ඉකුත් වූ",
             "returned": "ආපසු ලැබුණු",
-            "return_pending": "Return pending"
+            "return_pending": "ආපසු යෑම බලා ඉන්නා"
         },
         "actions": {
             "send_request": "ඉල්ලුම් වස්තුව",
@@ -1990,8 +2013,8 @@
             "reject": "ප්‍රතික්ෂේප කරන්න",
             "cancel": "අවලෝකනය කරන්න",
             "fulfill_request": "ඉල්ලුම තෘප්ත කරවන්න",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "ලබාදී ඇති ලෙස සලකුණු කරන්න",
+            "mark_received": "ලැබී ඇත ලෙස සලකුණු කරන්න",
             "open_inventory": "ඉන්වෙන්ටරි විවෘත කරන්න"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "ආපසු ලබා දුන් ලෙස සලකන්න",
             "return_subtitle": "\"{{item}}\" සඳහා සක්‍රිය ණය වසා දමන්න",
             "return_target": "එය වර්තමානයේ {{name}} සමඟ පෙන්වා ඇත.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "පැමිණවීමේ අයිතමය",
+            "return_title_lender": "ලැබීමේ අයිතමය",
+            "return_subtitle_borrower": "ඔබ ආපසු ලබා දුන් පසු \"{{item}}\" සඳහා සක්‍රීය ණය අවසන් කරන්න.",
+            "return_subtitle_lender": "ඔබ ආපසු ලැබූ පසු \"{{item}}\" සඳහා සක්‍රීය ණය අවසන් කරන්න.",
+            "return_target_borrower": "උද්ධමකරු: {{name}}",
+            "return_target_lender": "වර්තමානයේ ඇත: {{name}}",
+            "return_note_borrower": "බෙදාහැරීමේ සටහන",
+            "return_note_lender": "පිළිගත් සටහන",
+            "return_note_placeholder_borrower": "උදාහරණයක් සඳහා, මම එය කිසිදු ගැටළුවක් නැතුව ආපසු ලබා දුන්නා",
+            "return_note_placeholder_lender": "උදාහරණයක් සඳහා, හොඳ තත්වයෙන් ආපසු ලැබුණා",
+            "return_submitting": "අවසන් කිරීම..."
         },
         "messages": {
             "load_error": "ණය මධ්‍යස්ථානය පුරනය කළ නොහැක",
@@ -2103,7 +2126,7 @@
                 "rights": "ඔබගේ අයිතිවාසිකම්"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "මෙම {{brandName}} ස්ථාපනය සඳහා නියමයන් සුදුසු භාවිතය, ඔබේ ආරක්ෂක වගකීම්, ගිණුම ඉවත් කිරීමේප්‍රතිඵල වඩා පැහැදිලි, පහසුවෙන් සොයා බැලිය හැකි ආකාරයෙන් විස්තර කරයි.",
         "terms_support_label": "ඉක්මන් සාරාංශය",
         "terms_summary": {
             "eyebrow": "ප්‍රායෝගිකව මෙයින් අදහස් කරන්නේ කුමක්ද?",
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "පිවිසුම් උත්සාහයන් වැඩියි. කරුණාකර මිනිත්තු 15 කින් නැවත උත්සාහ කරන්න."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "පිවිසෙන්න",
+        "page_title_register": "ගිණුමක් තනන්න",
+        "page_title_choose_house": "ගෘහය තෝරන්න",
+        "page_title_recovery_key": "ප්‍රතිසාධන යතුර",
+        "page_title_house_access": "ගෘහ ප්‍රවේශය",
+        "page_title_legal_review": "නීතිමය විශ්ලේෂණය",
+        "page_title_new_item": "නව වස්තුව",
+        "page_title_edit_item": "වස්තුව සංස්කරණය කරන්න",
+        "page_title_items": "වෙළඳසැල් ලැයිස්තුව"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "සාප්පු ලැයිස්තුව උඩුගත කිරීමේදී දෝෂයක් සිදුවිණි.",
+            "select_item_error": "කරුණාකර තොගයෙන් අයිතමයක් තෝරන්න.",
+            "empty_name": "කරුණාකර අයිතමයේ නම ඇතුළත් කරන්න.",
+            "added": "අයිතමය මිලදි ගැනීමේ ලැයිස්තුවට එකතු කරන ලදී.",
+            "add_error": "අයිතමය එකතු කිරීමේදී දෝෂයක් සිදු විය.",
+            "added_suggestion": "\"{{name}}\" මිලදි ගැනීමේ ලැයිස්තුවට එකතු කරන ලදී.",
+            "bulk_added": "{{count}} අඩු තොග අයිතම ලැයිස්තුවට එකතු කරන ලදී.",
+            "bulk_error": "අඩු තොග වස්තු එකතු කිරීමට දෝෂයක් සිදු විය.",
+            "completed": "\"{{name}}\" නිම කරන ලද ලෙස සලකන ලදි.",
+            "reactivated": "\"{{name}}\" නැවත ක්‍රියාශීලී ලැයිස්තුවට ගෙන ගිය හැක.",
+            "update_error": "යාවත්කාලීන කිරීමේදී දෝෂයක් සිදු විය.",
+            "deleted": "අයිතමය ලැයිස්තුගත කිරීමෙන් මකව සිදු විය.",
+            "delete_error": "මකීමේදී දෝෂයක් සිදු විය.",
+            "cleared_completed": "සම්පූර්ණ කළ අයිතම මකන්නා ලදී.",
+            "clear_error": "සෙරී කිරීමේදී දෝෂයක් සිදු විය."
+        },
+        "loading_desc": "සැළසුම් කරන ලද මිලදී ගැනීමේ ලැයිස්තුව...",
+        "page": {
+            "title": "මිලදී ගැනීමේ ලැයිස්තුව",
+            "description": "ගෘහ භාණ්ඩ තොගයේ අඩු තොග ඇති අයිතම බලන්න සහ ඔබේ මිලදී ගැනීමේ ලැයිස්තුව පහසුවෙන් කළමනාකරණය කරන්න."
+        },
+        "suggestions": {
+            "title": "බුද්ධිමත් තොග යෝජනා",
+            "desc": "අවම සීමාවට පහළ වී ඇති තොග අයිතම.",
+            "add_all": "සියල්ල නොපවතිනවා එකතු කරන්න",
+            "stock_status": "වර්තමාන: {{current}} / ඉලක්කය: {{min}}",
+            "add_qty": "{{qty}} එකතු කරන්න"
+        },
+        "sections": {
+            "active_list": "ැවිමට යුතු දේවල්",
+            "active_desc": "ඔබගේ වෙළඳපොළ සඳහා එකතු කිරීමට වත්මන් සාප්පු දේවල්.",
+            "active_count": "{{count}} දේවල්",
+            "completed_list": "මිලදීගත් දේවල් ({{count}})",
+            "add_item": "අයිතමය අතින් එක් කරන්න",
+            "add_desc": "ලැයිස්තුවට අතින් පුද්ගලික අයිතමයක් එක් කරන්න."
+        },
+        "empty": {
+            "title": "ඔබේ සාප්පු ලැයිස්තුව හිස්ව ඇත",
+            "desc": "ඔබ ඉහතින් සඳහන් කළ යෝජනා වලින් අහිමි තොග එක් කරන්න හෝ දකුණු පසෙහි ඇති ආකරය භාවිතයෙන් අයිතම අතින් එක් කළ හැකිය."
+        },
+        "card": {
+            "linked_inventory": "ඉන්වෙන්ටරිහි සුරක්ෂිත කරන ලදි"
+        },
+        "actions": {
+            "clear_completed": "ඉතිහාසය ඉවත් කරන්න",
+            "add_item": "මිලදී ගැනීම් ලැයිස්තුවට එක් කරන්න"
+        },
+        "form": {
+            "add_type": "ක්‍රමය එක් කරන්න",
+            "add_type_inventory": "ගබඩා අයිතමය",
+            "add_type_custom": "සෑදූ අයිතමය",
+            "select_inventory_item": "ගබඩා අයිතමයෙන් අයිතමය තෝරන්න",
+            "no_inventory_items": "ඔබේ ගබඩාවේ තවමත් අයිතම නොමැත.",
+            "select_item_placeholder": "අයිතමයක් තෝරන්න",
+            "current_stock": "වර්තමාන",
+            "item_name": "අයිතම නාමය",
+            "item_name_placeholder": "උදා. කිරි, ඩීටර්ජන්ට්, කෝපි බීන්ස්...",
+            "quantity": "ප්‍රමාණය"
+        },
+        "modal": {
+            "delete_title": "ලැයිස්තුවෙන් අයිතමය මකාදැමුවාද?",
+            "delete_desc": "ඔබ වසරකට '{{name}}' ඔබේ මිලදී ගැනීමේ ලැයිස්තුවෙන් ඉවත් කිරීමට අවශ්‍ය බවට සැක සිදු වන්නේද?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "තොරතුරු භාරගැනීමේ දෝශය",
+            "select_item_error": "කරුණාකර අයිතමයක් තෝරන්න.",
+            "task_name_error": "කාර්ය නාමය අවශ්‍ය වේ.",
+            "date_error": "සැලසුම් දිනය අවශ්‍ය වේ.",
+            "updated": "නඩත්තු කාර්යය යාවත්කාලීන කරන ලදි",
+            "created": "නව නඩත්තු කාර්යයක් එකතු කරන ලදි",
+            "save_error": "සුරක්ෂිත කිරීමේදී දෝෂයක් ඇති විය",
+            "deleted": "නඩත්තු කාර්යය සාර්ථකව මකන ලදි.",
+            "delete_error": "මකා දැමීමේ ප්‍රකෘතියේදී දෝෂයක් ඇති විය.",
+            "performed": "සැමරීම සම්පූර්ණ ලෙස ලියාපදිංචි කරන ලදී. ඊළඟ දිනය නියමිතය.",
+            "perform_error": "ගබඩා කරන අතර දෝෂයක් සිදු විය."
+        },
+        "freq": {
+            "one_time": "එක් වතාවක්",
+            "unit": {
+                "days": "දිනය",
+                "weeks": "සතිය",
+                "months": "මාසය",
+                "years": "වර්ෂය"
+            },
+            "format": "සෑම {{val}} {{unit}}"
+        },
+        "loading_desc": "නඩත්තු කාලසටහන පූරණය වෙමින් ඇත...",
+        "page": {
+            "title": "නඩත්තු & කාලසීමා අනුව අනුගමනය",
+            "description": "ඔබේ ගෘහ උපකරණ, පෙරහන්, හෝ ආරක්ෂක උපකරණ සඳහා කාලානුකූල නඩත්තු කාලසටහන් කළමනාකරණය කරන්න."
+        },
+        "actions": {
+            "add_task": "නව කාර්ය එකතු කරන්න",
+            "manage": "මෙනේජ් කරන්න",
+            "perform": "කර ඇතැයි සලකන්න",
+            "edit_task": "වැඩය සංස්කරණය කරන්න"
+        },
+        "alerts": {
+            "overdue_title": "ඔබට කාලය ඉක්මවාගිය කාර්යයන් ඇත!",
+            "overdue_desc": "කාලය ඉක්මවාගිය නඩත්තු කාර්ය {{count}}ක් ඇත. ප්‍රමාදයන් උපකරණ ජීවිත කාලය කාම් වනු ඇත."
+        },
+        "empty": {
+            "title": "රැකවරණ කාර්යයන් කිසිවක් සැලසුම් කර ඇතැයි නැත",
+            "desc": "AC පෙරහන් පිසි කිරීම, බොයිලර් රැකවරණය, හෝ ගිනි අනතුරු සංකේතක බැටරි පරික්ෂාවන් වැනි නැවත නැවත සිදුකරන කාර්යයන් එක් කිරීමෙන් ආරම්භ කරන්න."
+        },
+        "sections": {
+            "overdue": "කල්ගිය කාර්යයන්",
+            "overdue_desc": "විශේෂ අවශ්‍යතාව ඇති වහාම සිදු කළ යුතු කෂණ රැකවරණය.",
+            "upcoming": "සිැලසුම්ගත / ඉදිරි කාර්ය",
+            "upcoming_desc": "ආසන්න දිනවල නඩත්තු කිරීම.",
+            "no_upcoming": "භවිෂ්‍යයේ සක්‍රීය කාර්ය කිසිවක් සීලගත කර නැත."
+        },
+        "modal": {
+            "edit_title": "කාර්ය සංස්කරණය කරන්න",
+            "create_title": "නව නඩත්තු කාර්යයක් සැලැස්වීම",
+            "perform_title": "නඩත්තු නිමා කරන්න",
+            "perform_desc": "ඔබ අද \"{{name}}\" නිම වූ ලෙස ලොග් කිරීමට අවශ්‍යද?",
+            "perform_confirm": "ඔව්, නිම කරන ලදී",
+            "perform_recurrence_info": "මෙය කාලික කාර්යයකි. ඔබ සුරක්ෂිත කළ විට, පද්ධතිය ස්වයංක්‍රීයව ඉදිරි නඩත්තු දිනය ගණනය කරයි.",
+            "delete_title": "නඩත්තු කාර්යය මකනවාද?",
+            "delete_desc": "ඔබට නියමයෙන්ම කාලික නඩත්තු කාලසටහන \"{{name}}\" මකා දැමීමට අවශ්‍යද? මෙම ක්‍රියාව ආපසු හැරිය නොහැක."
+        },
+        "form": {
+            "item": "සම්බන්ධිත අයිතමය",
+            "no_items": "නිවැරදි පදිංචියකට ඉන්වෙන්ටරි එකට වස්තුවක් මුලින්ම එක් කළ යුතුය, නමුත් නඩත්තු කාලසටහන සකස් කිරීමට පෙර.",
+            "select_item_placeholder": "වස්තුවක් තෝරන්න",
+            "task_name": "කාර්යය / මෙහෙයුම් නාමය",
+            "task_name_placeholder": "උදා. ෆිල්ටර් වෙනුවට තැබීම, කාලීන පරීක්ෂණය...",
+            "description": "විස්තර / විස්තර",
+            "description_placeholder": "කාර්ය විස්තර, භාවිතා කළ යුතු ද්‍රව්‍ය, ආදී...",
+            "frequency_value": "නැවත සිදුවන ආවර්ජනිකතාව",
+            "frequency_placeholder": "උදාහරණයක් ලෙස 6 (එකවර සඳහා හිස් bırak කරන්න)",
+            "frequency_unit": "සංඛ්‍යාත්මක ඒකකය",
+            "next_due_date": "ඊළඟ නියමිත දිනය",
+            "section_help": "මෙවන් සිට නඩත්තු කාලසටහන් කළමනාකරණය කරන්න",
+            "section_collapsed": "සම්ප්‍රේෂණාත්මක පාලන සහ කාර්ය එකතු කිරීමට ක්ලික් කරන්න",
+            "has_tasks": "{{count}} ක්‍රියා",
+            "new_item_warning_title": "අයිතමය සුරක්ෂිත කිරීම බලා සිටිමින්",
+            "new_item_warning_desc": "නඩත්තු කාලසටහනක් එකතු කිරීමට පෙර ඔබ මෙම අයිතමය සුරක්ෂිත කළ යුතුය.",
+            "manage_desc": "මෙම උපකරණය හෝ අයිතමය සඳහා නඩත්තු කාලසටහන් කළමනාකරණය කරන්න."
+        },
+        "fields": {
+            "task_name": "කාර්ය නාමය",
+            "task_name_placeholder": "උදාහරණයක් ලෙස AC පෙරහුරු පිරිසිදු කිරීම",
+            "description": "විස්තරය",
+            "description_placeholder": "කාර්ය විස්තර, භාවිතා කරන ද්‍රව්‍ය ආදිය...",
+            "frequency_value": "ප්‍රතිඵල සංඛ්‍යාව",
+            "frequency_value_placeholder": "එක් වරක් සිදු කිරීම සඳහා හිස්ව තබන්න",
+            "frequency_unit": "සංඛ්‍යාව ඒකකය",
+            "next_due_date": "කාලසටහනගත දිනය"
+        },
+        "card": {
+            "untitled_item": "ශීර්ෂ රහිත අයිතම",
+            "last_performed": "අවසන්ව සිදු කළ දිනය:",
+            "next_due_label": "නියමිත දිනය",
+            "complete_tooltip": "නඩත්තු කටයුත්ත අද නිමැවූ ලෙස සලකන්න"
+        },
+        "detail_card_desc": "මෙම අයිතමය සඳහා කල්කාලීන හෝ එක් සිදුවීමක නඩත්තු නිරීක්ෂණය කාලසටහන කර ඇත.",
+        "no_tasks": "මෙම අයිතමයට කිසිදු නඩත්තු කාර්යයන් පැවරී නැත.",
+        "confirm_delete": "මෙම කාර්යය මකනු ලැබේ. ඔබට වගකිවයුතු බවට විශ්වාසද?"
     }
 }

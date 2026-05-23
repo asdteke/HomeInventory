@@ -48,7 +48,8 @@
         "details": "詳細",
         "hide": "パスワードを隠す",
         "logging_out": "ログアウト中...",
-        "show": "パスワードを表示"
+        "show": "パスワードを表示",
+        "saving": "保存中…"
     },
     "auth": {
         "login": {
@@ -190,7 +191,7 @@
             "confirm_password_placeholder": "パスワードを再入力してください",
             "reset_submit": "パスワードをリセット",
             "resetting": "リセット中...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "ユーザー名またはメールアドレスを入力"
         },
         "reset_password": {
             "title": "パスワードをリセット",
@@ -231,7 +232,7 @@
         "password_requirements": "大文字、小文字、数字、記号を含む {{min}} 文字以上を使用してください。",
         "logout": "ログアウト",
         "logging_in": "ログイン中...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "{{brandName}} へようこそ",
         "username_email": "ユーザー名またはメール",
         "username": "ユーザー名",
         "email": "メール",
@@ -316,7 +317,9 @@
         "logout_aria": "アカウントからログアウト",
         "logout_title": "ログアウトしますか？",
         "logout_description": "サインイン画面に戻り、家庭の在庫を管理するには再度ログインが必要です。",
-        "logout_warning": "共有デバイスや個人デバイスで作業が終わったときに使用してください。"
+        "logout_warning": "共有デバイスや個人デバイスで作業が終わったときに使用してください。",
+        "maintenance": "メンテナンススケジュール",
+        "shopping": "買い物リスト"
     },
     "dashboard": {
         "welcome": "お帰りなさい、<1>{{name}}</1>",
@@ -443,7 +446,20 @@
         "no_items_filter": "このフィルターに一致するアイテムはありません",
         "manage": "管理",
         "add_item": "アイテム追加",
-        "search_item": "アイテム検索"
+        "search_item": "アイテム検索",
+        "alerts": {
+            "expired_title": "アイテムが期限切れです！",
+            "expired_desc": "あなたのインベントリには{{count}}件の期限切れアイテムがあります。安全のために確認してください。",
+            "view_items": "アイテムを表示",
+            "maintenance_title": "期限切れのメンテナンス作業！",
+            "maintenance_desc": "{{count}} 件の保守作業が期限を過ぎています。家電の寿命を延ばすために保守作業を行ってください。",
+            "go_to_maintenance": "保守作業に移動",
+            "low_stock_title": "在庫不足アラート",
+            "low_stock_desc": "{{count}} 件の商品が最低在庫制限を下回っています。",
+            "go_to_shopping": "買い物リスト",
+            "close_expiry_title": "近日の有効期限",
+            "close_expiry_desc": "{{count}} 件の商品が30日以内に期限切れになります。"
+        }
     },
     "beta_banner": {
         "title": "ベータ:",
@@ -523,7 +539,9 @@
             "vault_hint_action": "パーソナルボールトを開く",
             "location": "場所",
             "remove_photo": "写真を削除",
-            "visibility_owner_only": "アイテムを追加した人のみが表示設定を変更できます。"
+            "visibility_owner_only": "アイテムを追加した人のみが表示設定を変更できます。",
+            "expiry_date": "有効期限",
+            "min_quantity": "最低数量"
         },
         "qrcode": {
             "title": "QRコード",
@@ -577,7 +595,12 @@
         "no_permission": "このアイテムを変更する権限がありません",
         "barcode_search_error": "バーコード検索失敗",
         "stats_error": "統計の読み込みエラー",
-        "detail_subtitle": "アイテムの詳細"
+        "detail_subtitle": "アイテムの詳細",
+        "status": {
+            "close_to_expiry": "期限切れ間近",
+            "expired": "期限切れ",
+            "low_stock": "在庫不足"
+        }
     },
     "settings": {
         "title": "設定",
@@ -619,7 +642,7 @@
             "member_kick_error": "メンバーを家から削除できませんでした",
             "recovery_key_regenerated": "回復キーが再生成されました",
             "recovery_key_error": "回復キーを再生成できませんでした",
-            "account_delete_error": "The account could not be deleted",
+            "account_delete_error": "アカウントを削除できませんでした",
             "backup_downloaded_encrypted": "暗号化されたバックアップが正常にダウンロードされました！ ({{count}} 件)"
         },
         "user_profile": {
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "アクティブハウスキー",
             "key_label": "ハウスキー",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{サフィックス}}",
             "hide": "非表示",
             "show": "表示",
             "copy": "コピー",
@@ -991,8 +1014,8 @@
             "no_history": "このアイテムの貸出履歴はまだありません。",
             "lend_success_title": "アイテム貸出済み",
             "lend_success_body": "{{item}} は現在借用中としてマークされています。",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "借用の申し出が送信されました",
+            "offer_sent_body": "他のメンバーが承認すると、{{item}} は借用されたものとしてマークされます。",
             "borrowed_by_you": "あなたと一緒です",
             "return_pending_hint": "貸主がアイテムを受け取ったことを確認した後、記録は閉じられます。",
             "return_pending_lender_title": "{{name}} がこのアイテムを返送済みとしてマークしました",
@@ -1231,7 +1254,7 @@
             "no_logs": "まだログはありません",
             "errors_title": "システムエラー（直近 10 件）",
             "no_errors": "// システムは正常、エラーログはありません。",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{日付、日時}}",
             "type": {
                 "email": "メール",
                 "user": "ユーザー",
@@ -1283,7 +1306,7 @@
             "notes_body": "これは運用サポートやアカウント関連の連絡に使用してください。機密性の高い内容は、可能な限りアプリ内に留めてください。",
             "notes_body_with_rate_limit": "これは運用サポートやアカウント関連の連絡に使用してください。機密性の高い内容は、可能な限りアプリ内に留めてください。現在の送信保護: {{rateLimit}}。",
             "rate_limit_fallback": "1分あたり3通のメール",
-            "placeholder_to": "name@example.com",
+            "placeholder_to": "名前@example.com",
             "placeholder_subject": "メール件名",
             "send_success_with_id": "✅ メールが正常に送信されました！ID: {{emailId}}",
             "send_error": "メールを送信できませんでした",
@@ -1401,12 +1424,12 @@
             "cta_register": "アカウント作成",
             "stat_free": "無料",
             "stat_access": "アクセス",
-            "free_badge": "Open Source",
+            "free_badge": "オープンソース",
             "badge": "HomeInventory v2.0が登場しました",
             "cta_explore": "機能の探索",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "サインイン",
+            "stat_members": "共有ホーム",
+            "stat_vault": "プライベートボールト"
         },
         "features": {
             "title": "なぜ <1>HomeInventory</1> なのか？",
@@ -1477,7 +1500,7 @@
                 "description": "アイテム、保証書、重要書類、借用記録を一つの落ち着いた場所に保管。家にあるものを一目で確認。",
                 "primaryCta": "無料で始める",
                 "secondaryCta": "製品を見る",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "推奨フロー: アカウント・ホーム・部屋とカテゴリー・アイテム・バックアップ",
                 "searchPlaceholder": "アイテム、部屋、バーコードを検索"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "ネットワークの詳細は、ガイダンスが必要になるまで隠されたままです。",
         "link_privacy_note": "ネットワークアドレスはここでは非表示のままです。ローカル環境で直接アイテムにアクセスを共有したい場合にのみ、コードをスキャンするかリンクをコピーしてください。",
         "helper": "このアイテムをすぐに開くにはスキャンするか、必要に応じて直接リンクをコピーしてください。",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "リンクを自動でコピーできませんでした",
+        "copy_manual_help": "ブラウザが自動コピーを許可しませんでした。リンクは選択されているので、手動でコピーできます。",
         "loading": "QRツールを準備中..."
     },
     "house_access_pending": {
@@ -1790,7 +1813,7 @@
             ],
             "fallback": "パスワードリセットリンクが不完全または壊れているようです。",
             "support": "登録の問題:",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{ブランド名}}"
         },
         "welcome": {
             "subject": "{{brandName}}へようこそ",
@@ -1808,7 +1831,7 @@
                 "💡 複数のハウスに所属し、切り替えることができます。各ハウスごとに別々のインベントリが管理されます。"
             ],
             "support": "登録の問題:",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{ブランド名}}"
         },
         "houseJoinRequest": {
             "subject": "ハウスに参加",
@@ -1817,7 +1840,7 @@
             "bodyLine2": "ハウスオーナーの承認を待っています"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{ブランド名}} - {{ステータス}}",
             "greeting": "ハウスアクセス",
             "bodyLine1Template": "現在の保留中のリクエスト: {{house}} ({{status}})",
             "bodyLine2": "「{{house}}」へのリクエストはまだ決定待ちです",
@@ -1842,11 +1865,11 @@
             "warningTitle": "⚠️",
             "warningBody": "アカウントが存在する場合、15分間有効なパスワードリセットリンクが送信されました。",
             "fallback": "パスワードリセットリンクが不完全または壊れているようです。",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{ブランド名}}"
         },
         "adminEmail": {
             "sentBy": "このメールは{{brandName}}から送信されました。",
-            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
+            "footer": "© 2026 {{ブランド名}} - {{サポートメール}}"
         },
         "testEmail": {
             "subject": "🧪 {{brandName}} テストメール",
@@ -1856,7 +1879,7 @@
             "sentAtLabel": "送信日時",
             "senderLabel": "送信者",
             "serviceLabel": "サービス",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{ブランド名}}"
         }
     },
     "vault": {
@@ -1969,8 +1992,8 @@
             "empty": "現在、アクティブな借用はありません。",
             "borrowed_from": "{{name}} から借りました",
             "lent_to": "現在 {{name}} が持っています",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "貸し手が返却を受け取ったことを確認するのを待っています。",
+            "return_pending_lender": "{{name}} がこのアイテムを返送済みとしてマークしました。記録を終了するには受領を確認してください。",
             "empty_title": "現在、貸出中のアイテムはありません",
             "empty_description": "アイテムが借用または貸出された後、承認されたリクエストはここに表示され、期日および返却状況も確認できます。"
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "キャンセルされました",
             "expired": "期限切れ",
             "returned": "返品",
-            "return_pending": "Return pending"
+            "return_pending": "返送保留"
         },
         "actions": {
             "send_request": "リクエストアイテム",
@@ -1990,8 +2013,8 @@
             "reject": "拒否",
             "cancel": "キャンセル",
             "fulfill_request": "リクエストを完了",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "配達済みとしてマーク",
+            "mark_received": "受領済みとしてマーク",
             "open_inventory": "在庫を開く"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "返却済みにする",
             "return_subtitle": "\"{{item}}\" のアクティブな借用を終了する",
             "return_target": "現在、{{name}} が所持していると表示されています。",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "アイテムを渡す",
+            "return_title_lender": "アイテムを受け取る",
+            "return_subtitle_borrower": "『{{item}}』を返却した後、アクティブな借用を閉じます。",
+            "return_subtitle_lender": "『{{item}}』を受け取った後、アクティブな借用を閉じます。",
+            "return_target_borrower": "貸し手: {{name}}",
+            "return_target_lender": "現在の相手: {{name}}",
+            "return_note_borrower": "納品書",
+            "return_note_lender": "受領書",
+            "return_note_placeholder_borrower": "例：問題なく返却しました",
+            "return_note_placeholder_lender": "例：良好な状態で受け取りました",
+            "return_submitting": "閉じる..."
         },
         "messages": {
             "load_error": "借用センターを読み込むことができませんでした",
@@ -2141,7 +2164,7 @@
         "account_menu_tooltip": "{{name}} のアカウントメニュー"
     },
     "app": {
-        "name": "{{brandName}}",
+        "name": "{{ブランド名}}",
         "tagline": "すべての家庭用品をスマートに管理する"
     },
     "nav": {
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "利用規約と免責事項",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "ベータ版: {{brandName}} は現在テスト段階にあります。データの永続性やセキュリティに関して保証はされません。",
         "disclaimer": "免責事項: 本アプリケーションを使用することにより、データ損失、アクセス問題、その他の技術的な問題に関して補償を請求できないことに同意したものとみなされます。",
         "backup_warning": "データバックアップ: 大切な情報は定期的にバックアップすることを強く推奨します。",
         "accept": "ログインすることで、これらの条件に同意したものとみなされます。",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}}は現在テストおよび趣味段階にあります。データの永続性やセキュリティについて保証はありません。重要な情報は必ずバックアップしてください。",
         "contact": "お問い合わせ"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "ログイン試行が多すぎます。15分後に再試行してください。"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "サインイン",
+        "page_title_register": "アカウント作成",
+        "page_title_choose_house": "家を選択",
+        "page_title_recovery_key": "リカバリーキー",
+        "page_title_house_access": "家へのアクセス",
+        "page_title_legal_review": "法的レビュー",
+        "page_title_new_item": "新しいアイテム",
+        "page_title_edit_item": "アイテムを編集",
+        "page_title_items": "在庫"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "ショッピングリストの読み込み中にエラーが発生しました。",
+            "select_item_error": "在庫からアイテムを選択してください。",
+            "empty_name": "アイテム名を入力してください。",
+            "added": "アイテムが買い物リストに追加されました。",
+            "add_error": "アイテムの追加中にエラーが発生しました。",
+            "added_suggestion": "\"{{name}}\" が買い物リストに追加されました。",
+            "bulk_added": "{{count}}個の在庫不足アイテムがリストに追加されました。",
+            "bulk_error": "在庫不足アイテムの追加中にエラーが発生しました。",
+            "completed": "「{{name}}」が完了としてマークされました。",
+            "reactivated": "「{{name}}」がアクティブなリストに戻されました。",
+            "update_error": "更新中にエラーが発生しました。",
+            "deleted": "リストからアイテムが削除されました。",
+            "delete_error": "削除中にエラーが発生しました。",
+            "cleared_completed": "完了したアイテムをクリアしました。",
+            "clear_error": "クリア中にエラーが発生しました。"
+        },
+        "loading_desc": "買い物リストを準備しています...",
+        "page": {
+            "title": "買い物リスト",
+            "description": "家の在庫で在庫が少ないアイテムを確認し、買い物リストを簡単に管理しましょう。"
+        },
+        "suggestions": {
+            "title": "スマート在庫の提案",
+            "desc": "最小限度を下回った在庫アイテム。",
+            "add_all": "すべての不足を追加",
+            "stock_status": "現在: {{current}} / 目標: {{min}}",
+            "add_qty": "購入するアイテムに{{qty}}個を追加"
+        },
+        "sections": {
+            "active_list": "カートに追加する現在のショッピングアイテム",
+            "active_desc": "{{count}}個のアイテム",
+            "active_count": "{{count}} アイテム",
+            "completed_list": "購入済みアイテム ({{count}})",
+            "add_item": "アイテムを手動で追加",
+            "add_desc": "リストにカスタムアイテムを手動で追加します。"
+        },
+        "empty": {
+            "title": "あなたの買い物リストは空です",
+            "desc": "上記の提案から不足している在庫を追加するか、右側のフォームを使用して手動でアイテムを追加できます。"
+        },
+        "card": {
+            "linked_inventory": "在庫に保存"
+        },
+        "actions": {
+            "clear_completed": "履歴をクリア",
+            "add_item": "買い物リストに追加"
+        },
+        "form": {
+            "add_type": "メソッドを追加",
+            "add_type_inventory": "在庫アイテム",
+            "add_type_custom": "カスタムアイテム",
+            "select_inventory_item": "在庫からアイテムを選択",
+            "no_inventory_items": "まだインベントリにアイテムはありません。",
+            "select_item_placeholder": "アイテムを選択",
+            "current_stock": "現在",
+            "item_name": "アイテム名",
+            "item_name_placeholder": "例：牛乳、洗剤、コーヒー豆…",
+            "quantity": "数量"
+        },
+        "modal": {
+            "delete_title": "リストからアイテムを削除しますか？",
+            "delete_desc": "本当に「{{name}}」を買い物リストから削除しますか？"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "情報の読み込み中にエラーが発生しました",
+            "select_item_error": "アイテムを選択してください。",
+            "task_name_error": "タスク名は必須です。",
+            "date_error": "計画日が必要です。",
+            "updated": "メンテナンスタスクが更新されました",
+            "created": "新しいメンテナンスタスクが追加されました",
+            "save_error": "保存中にエラーが発生しました",
+            "deleted": "メンテナンスタスクが正常に削除されました。",
+            "delete_error": "削除プロセス中にエラーが発生しました。",
+            "performed": "メンテナンスは完了として記録されました。次回の予定日が設定されました。",
+            "perform_error": "保存中にエラーが発生しました。"
+        },
+        "freq": {
+            "one_time": "一回限り",
+            "unit": {
+                "days": "日",
+                "weeks": "週",
+                "months": "月",
+                "years": "年"
+            },
+            "format": "毎{{val}}{{unit}}"
+        },
+        "loading_desc": "メンテナンススケジュールを読み込み中...",
+        "page": {
+            "title": "メンテナンス＆定期追跡",
+            "description": "家庭の在庫にある家電、フィルター、または安全装置の定期メンテナンススケジュールを管理します。"
+        },
+        "actions": {
+            "add_task": "新しいタスクを追加",
+            "manage": "管理",
+            "perform": "完了としてマーク",
+            "edit_task": "タスクを編集"
+        },
+        "alerts": {
+            "overdue_title": "期限を過ぎたタスクがあります！",
+            "overdue_desc": "保守作業が{{count}}件遅れています。遅延は家電の寿命を短くする可能性があります。"
+        },
+        "empty": {
+            "title": "保守作業は予定されていません",
+            "desc": "エアコンフィルターの清掃、ボイラーの保守、火災警報器の電池チェックなどの定期作業を追加して始めましょう。"
+        },
+        "sections": {
+            "overdue": "遅延作業",
+            "overdue_desc": "直ちに行う必要がある緊急メンテナンス。",
+            "upcoming": "予定されているタスク / 今後のタスク",
+            "upcoming_desc": "今後数日で行われるメンテナンス。",
+            "no_upcoming": "将来予定されているアクティブなタスクはありません。"
+        },
+        "modal": {
+            "edit_title": "タスクを編集",
+            "create_title": "新しい保守タスクをスケジュール",
+            "perform_title": "保守を完了",
+            "perform_desc": "今日、「{{name}}」を完了として記録しますか？",
+            "perform_confirm": "はい、完了しました",
+            "perform_recurrence_info": "これは定期的なタスクです。保存すると、システムは自動的に次のメンテナンス日を計算します。",
+            "delete_title": "メンテナンスタスクを削除しますか？",
+            "delete_desc": "定期メンテナンススケジュール「{{name}}」を削除してもよろしいですか？この操作は元に戻せません。"
+        },
+        "form": {
+            "item": "関連項目",
+            "no_items": "メンテナンスをスケジュールする前に、まず在庫に項目を追加する必要があります。",
+            "select_item_placeholder": "項目を選択",
+            "task_name": "タスク / 操作名",
+            "task_name_placeholder": "例：フィルター交換、定期点検...",
+            "description": "詳細 / 説明",
+            "description_placeholder": "作業の詳細、使用する材料など...",
+            "frequency_value": "繰り返し頻度",
+            "frequency_placeholder": "例: 6（単発の場合は空白にしてください）",
+            "frequency_unit": "頻度単位",
+            "next_due_date": "次回予定日",
+            "section_help": "ここからメンテナンススケジュールを管理します",
+            "section_collapsed": "定期的なコントロールとタスクを追加するにはクリックしてください",
+            "has_tasks": "{{count}} 件のタスク",
+            "new_item_warning_title": "アイテムの保存が保留中です",
+            "new_item_warning_desc": "メンテナンススケジュールを追加するには、まずこのアイテムを保存する必要があります。",
+            "manage_desc": "この家電またはアイテムのメンテナンススケジュールを管理します。"
+        },
+        "fields": {
+            "task_name": "タスク名",
+            "task_name_placeholder": "例：エアコンのフィルター清掃",
+            "description": "説明",
+            "description_placeholder": "タスクの詳細、使用する材料など...",
+            "frequency_value": "繰り返しの頻度",
+            "frequency_value_placeholder": "一度きりの場合は空白のまま",
+            "frequency_unit": "頻度の単位",
+            "next_due_date": "予定日"
+        },
+        "card": {
+            "untitled_item": "無題の項目",
+            "last_performed": "最後に実施:",
+            "next_due_label": "予定日",
+            "complete_tooltip": "本日のメンテナンスを完了としてマーク"
+        },
+        "detail_card_desc": "この項目の定期的または一回限りのメンテナンスの追跡",
+        "no_tasks": "この項目には割り当てられたメンテナンス作業はありません",
+        "confirm_delete": "この作業は削除されます。本当によろしいですか？"
     }
 }

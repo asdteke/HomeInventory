@@ -69,7 +69,9 @@
             "vault_hint_action": "បើក Personal Vault",
             "location": "ទីតាំង",
             "remove_photo": "ដករូបភាព",
-            "visibility_owner_only": "មានតែបុគ្គលដែលបានបន្ថែមវត្ថុគិតតែគាត់អាចផ្លាស់ប្តូរមើលឃើញបាន។"
+            "visibility_owner_only": "មានតែបុគ្គលដែលបានបន្ថែមវត្ថុគិតតែគាត់អាចផ្លាស់ប្តូរមើលឃើញបាន។",
+            "expiry_date": "ថ្ងៃផុតកំណត់",
+            "min_quantity": "បរិមាណអប្បបរមា"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" ត្រូវបានបន្ថែមយ៉ាងលឿន - អ្នកអាចកែប្រែបន្ទាប់",
@@ -119,7 +121,12 @@
         "no_permission": "អ្នកមិនមានការអនុញ្ញាតឱ្យកែប្រែធាតុនេះទេ",
         "barcode_search_error": "ការស្វែងរកបាកូដបានបរាជ័យ",
         "stats_error": "កំហុសក្នុងការផ្ទុកស្ថិតិ",
-        "detail_subtitle": "ព័ត៌មានលម្អិតអំពីវត្ថុ"
+        "detail_subtitle": "ព័ត៌មានលម្អិតអំពីវត្ថុ",
+        "status": {
+            "close_to_expiry": "អាចនឹងផុតកំណត់",
+            "expired": "ផុតកំណត់ហើយ",
+            "low_stock": "ស្តុកទាប"
+        }
     },
     "common": {
         "save": "រក្សាទុក",
@@ -170,7 +177,8 @@
         "details": "ព័ត៌មានលម្អិត",
         "hide": "លាក់ពាក្យសម្ងាត់",
         "logging_out": "កំពុងចាកចេញ...",
-        "show": "បង្ហាញពាក្យសម្ងាត់"
+        "show": "បង្ហាញពាក្យសម្ងាត់",
+        "saving": "កំពុងរក្សាទុក..."
     },
     "auth": {
         "login": {
@@ -216,7 +224,7 @@
             "support_link": "ទំនាក់ទំនងផ្នែកគាំទ្រ"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "តំឡើងគ្រួសាររបស់អ្នក",
             "subtitle": "បង្កើតគណនីថ្មី ឬចូលរួមផ្ទះដែលមានរួចហើយ",
             "create_house": "បង្កើតផ្ទះថ្មី",
             "join_house": "ចូលរួមផ្ទះ",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "វាយពាក្យសម្ងាត់របស់អ្នកម្ដងទៀត",
             "reset_submit": "កំណត់ពាក្យសម្ងាត់ឡើងវិញ",
             "resetting": "កំពុងកំណត់ឡើងវិញ...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "បញ្ចូលឈ្មោះអ្នកប្រើរឺអ៊ីមែល"
         },
         "reset_password": {
             "title": "កំណត់ពាក្យសម្ងាត់ឡើងវិញ",
@@ -367,7 +375,7 @@
         "google_login": "បន្តជាមួយ Google",
         "login_issues": "សម្រាប់បញ្ហាការចូល",
         "placeholder_username": "ឧទាហរណ៍៖ John",
-        "placeholder_password": "••••••••",
+        "placeholder_password": "•••••••••",
         "login_two_factor": {
             "title": "ការផ្ទៀងផ្ទាត់ពីរកត្តា",
             "subtitle": "បញ្ចូលលេខកូដ 6 ខ្ទង់ពីកម្មវិធីផ្ទៀងផ្ទាត់របស់អ្នក។",
@@ -438,7 +446,9 @@
         "logout_aria": "ចេញពីគណនីរបស់អ្នក",
         "logout_title": "ចេញ?",
         "logout_description": "អ្នកនឹងត្រូវត្រឡប់ទៅអេក្រង់ចូលហើយត្រូវចូលឡើងវិញដើម្បីគ្រប់គ្រងសារពើភ័ណ្ឌគ្រួសាររបស់អ្នក។",
-        "logout_warning": "ប្រើនេះនៅពេលអ្នកបញ្ចប់លើឧបករណ៍ដែលចែកចាយឬផ្ទាល់ខ្លួន។"
+        "logout_warning": "ប្រើនេះនៅពេលអ្នកបញ្ចប់លើឧបករណ៍ដែលចែកចាយឬផ្ទាល់ខ្លួន។",
+        "maintenance": "កាលវិភាគថែទាំ",
+        "shopping": "បញ្ជីទំនិញ"
     },
     "dashboard": {
         "welcome": "សូមស្វាគមន៍, <1>{{name}}</1>! 👋",
@@ -497,7 +507,7 @@
             "title_ready": "ឃ្លាំងទំនិញក្នុងផ្ទះសម្រាប់ {{name}}",
             "title_empty": "ចាប់ផ្តើមតារាងឃ្លាំងទំនិញក្នុងផ្ទះរបស់អ្នក",
             "summary_ready": "{{count}} ធាតុបានត្រូវបានតាមដានរួចមកហើយនៅក្នុង {{rooms}} បន្ទប់។ ស្វែងរកក្នុងបញ្ជី បន្ថែមធាតុបន្ទាប់ ឬរក្សាទិន្នន័យឯកជនឡើងជាសៀវភៅផ្សេង។",
-            "summary_ready_no_rooms": "{{count}} items are already tracked. Add rooms to keep locations and search clearer.",
+            "summary_ready_no_rooms": "{{count}} អ្វីៗត្រូវបានតាមរករួចរាល់។ បន្ថែមបន្ទប់ដើម្បីរក្សាទីតាំង និងស្វែងរកឱ្យច្បាស់។",
             "summary_empty": "ស្វែងរកឃ្លាំងទំនិញ"
         },
         "search_panel": {
@@ -565,7 +575,20 @@
         "no_items_filter": "គ្មានធាតុណាមួយដែលត្រូវនឹងតម្រងនេះទេ។",
         "manage": "គ្រប់គ្រង",
         "add_item": "បន្ថែមធាតុ",
-        "search_item": "ស្វែងរកធាតុ"
+        "search_item": "ស្វែងរកធាតុ",
+        "alerts": {
+            "expired_title": "មុខធាតុបានផុតកំណត់!",
+            "expired_desc": "មានមុខធាតុ {{count}} ដែលផុតកំណត់នៅក្នុងសម្បត្តិរបស់អ្នក។ សូមពិនិត្យពួកវាសម្រាប់សុវត្ថិភាពរបស់អ្នក។",
+            "view_items": "មើលមុខធាតុ",
+            "maintenance_title": "បុគ្គលិកថែទាំដែលហួសថ្ងៃ!",
+            "maintenance_desc": "មានការងារជួសជុលខូចខាត {{count}} ការងារ។ អនុវត្តការថែទាំដើម្បីពង្រីកអាយុកាណនៃឧបករណ៍របស់អ្នក។",
+            "go_to_maintenance": "ទៅកាន់ការថែទាំ",
+            "low_stock_title": "ការជូនដំណឹងឃ្លាំមើលសារទំនិញទាប",
+            "low_stock_desc": "មានទំនិញ {{count}} ដែលទាបជាងកម្រិតសារទំនិញតិចតួចរបស់អ្នក។",
+            "go_to_shopping": "បញ្ជីសម្រាប់ចិញ្ចឹមទំនិញ",
+            "close_expiry_title": "ថ្ងៃផុតកំណត់ដែលជិតមក",
+            "close_expiry_desc": "មានផលិតផល {{count}} ដែលនឹងផុតកំណត់ក្នុងរយៈពេល ៣០ ថ្ងៃ។"
+        }
     },
     "beta_banner": {
         "title": "បេតា៖",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "សោផ្ទះសកម្ម",
             "key_label": "សោផ្ទះ",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "•••••••••{{បច្ច័យ}}",
             "hide": "លាក់",
             "show": "បង្ហាញ",
             "copy": "ចម្លង",
@@ -991,8 +1014,8 @@
             "no_history": "មិនមានប្រវត្តិការខ្ចីសម្រាប់ទំនិញនេះនៅឡើយទេ។",
             "lend_success_title": "ធាតុដែលបានផ្តល់ជាឥណទាន",
             "lend_success_body": "{{item}} ត្រូវបានសម្គាល់ថា​បានខ្ចីរួចហើយ។",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "លើកជួលបានបញ្ជូនរួចហើយ",
+            "offer_sent_body": "{{item}} នឹងត្រូវបានសម្គាល់ថាត្រូវបានជួលបន្ទាប់ពីសមាជិកផ្សេងទទួលយក។",
             "borrowed_by_you": "ជាមួយអ្នក",
             "return_pending_hint": "កំណត់ត្រានឹងបិទបន្ទាប់ពីអ្នកឥណទានបញ្ជាក់ថាពួកគេបានទទួលវត្ថុវិញ។",
             "return_pending_lender_title": "{{name}} បានសម្គាល់វត្ថុនេះថាបានដឹកជញ្ជូនវិញ",
@@ -1229,7 +1252,7 @@
             "no_logs": "មិនមានកំណត់ត្រា​នៅឡើយ",
             "errors_title": "បញ្ហារបស់ប្រព័ន្ធ (ចុងក្រោយ 10)",
             "no_errors": "// ប្រព័ន្ធមានសុខភាពល្អ មិនមានកំណត់ត្រាបញ្ហា",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{កាលបរិច្ឆេទ កាលបរិច្ឆេទ}}",
             "type": {
                 "email": "អ៊ីមែល",
                 "user": "អ្នកប្រើ",
@@ -1401,12 +1424,12 @@
             "cta_register": "បង្កើត​គណនី",
             "stat_free": "ឥតគិតថ្លៃ",
             "stat_access": "ចូលប្រើ",
-            "free_badge": "Open Source",
+            "free_badge": "កូដមូលដ្ឋានចំហ",
             "badge": "HomeInventory v2.0 គឺនៅទីនេះ",
             "cta_explore": "រុករកលក្ខណៈពិសេស",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "ចូល",
+            "stat_members": "ផ្ទះចែករំលែក",
+            "stat_vault": "គណនីផ្ទាល់ខ្លួន"
         },
         "features": {
             "title": "ហេតុអ្វី <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "រក្សារថែទំនិញ, ការធានា, ឯកសារសំខាន់ៗ, និងការតាមដានការខ្ចីក្នុងកន្លែងតែមួយដែលស្ងប់ស្ងាត់។ មើលថាតើផ្ទះរបស់អ្នកមានអ្វីនៅក្នុងមួយមើល។",
                 "primaryCta": "ចាប់ផ្តើមដោយឥតគិតថ្លៃ",
                 "secondaryCta": "មើលផលិតផល",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "សំរាប់លំនាំនៃចរន្ត៖ គណនី • ផ្ទះ • បន្ទប់ និងប្រភេទ • ធាតុ • ការបើកបញ្ចូលបំភ្ជាប់",
                 "searchPlaceholder": "ស្វែងរកទំនិញ, បន្ទប់, ឬលេខកូដទំនិញ"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "ព័ត៌មានបណ្តាញនឹងនៅតែសំឡេងរហូតដល់អ្នកចាំបាច់ប្រើការណែនាំ។",
         "link_privacy_note": "អាសយដ្ឋានបណ្តាញនឹងនៅខាងលាក់។ ស្កេនកូដ ឬចម្លងតំណពេលដែលអ្នកចង់ចែកចូលប្រើប្រាស់ផ្ទាល់លើប្រើប្រាស់ក្នុងតំបន់របស់អ្នក។",
         "helper": "ស្កេនដើម្បីបើកធាតុនេះភ្លាមៗ ឬចំលងតំណភ្ជាប់ផ្ទាល់ពេលចាំបាច់។",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "តំណអាចមិនអាចចម្លងដោយស្វ័យប្រវត្តិ",
+        "copy_manual_help": "កម្មវិធីរកមើលរបស់អ្នកមិនអនុញ្ញាតឱ្យចម្លងបានដោយស្វ័យប្រវត្តិទេ។ តំណនេះត្រូវបានជ្រើសរើស ដើម្បីឱ្យអ្នកអាចចម្លងដោយដៃ។",
         "loading": "កំពុងត្រៀមឧបករណ៍ QR..."
     },
     "house_access_pending": {
@@ -1817,7 +1840,7 @@
             "bodyLine2": "កំពុងរង់ចាំការអនុម័តពីម្ចាស់ផ្ទះ"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{ស្ថានភាព}}",
             "greeting": "សិទ្ធិចូលផ្ទះ",
             "bodyLine1Template": "សំណើររង់ចាំបច្ចុប្បន្ន: {{house}} ({{status}})",
             "bodyLine2": "សំណើររបស់អ្នកសម្រាប់ \"{{house}}\" ផ្ទុកនៅស្ថានភាពរង់ចាំសម្រាប់ការសម្រេចចិត្ត",
@@ -1969,8 +1992,8 @@
             "empty": "ពេលនេះមិនមានការខ្ចីសកម្មទេ។",
             "borrowed_from": "ខ្ចីពី {{name}}",
             "lent_to": "មាននៅជាមួយ {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "កំពុងរង់ចាំឱ្យអ្នកឱ្យខ្ចីបញ្ជាក់ថាពួកគេបានទទួលវាវិញ។",
+            "return_pending_lender": "{{name}} សម្គាល់ធាតុនេះថា បានថយត្រឡប់វិញ។ សូមបញ្ជាក់ការទទួលដើម្បីបិទកំណត់ត្រា។",
             "empty_title": "មិនមានការខ្ចីសកម្មនៅពេលនេះ",
             "empty_description": "សំណើដែលទទួលបាននឹងបង្ហាញនៅទីនេះពេលធាតុត្រូវបានខ្ចី ឬផ្តល់ជាឥណទាន ព្រមទាំងថ្ងៃកំណត់ករណីប្រើប្រាស់ និងស្ថានភាពការត្រឡប់។"
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "បានបោះបង់",
             "expired": "បានផុតកំណត់",
             "returned": "ត្រឡប់មកវិញ",
-            "return_pending": "Return pending"
+            "return_pending": "ការត្រឡប់កាន់តែរង់ចាំ"
         },
         "actions": {
             "send_request": "សំណើសុំធាតុ",
@@ -1990,8 +2013,8 @@
             "reject": "បដិសេធ",
             "cancel": "លុបចោល",
             "fulfill_request": "បំពេញសំណើ",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "សម្គាល់ថាបានដឹកជញ្ជូន",
+            "mark_received": "សម្គាល់ថាបានទទួល",
             "open_inventory": "បើកសារពើភ័ណ្ឌ"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "ទំនងថាត្រូវបានដាក់ត្រឡប់",
             "return_subtitle": "បិទការខ្ចីសកម្មសម្រាប់ \"{{item}}\"",
             "return_target": "វាត្រូវបានបង្ហាញថា មាននៅជាមួយ {{name}}។",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "ផ្ញើធាតុ",
+            "return_title_lender": "ទទួលធាតុ",
+            "return_subtitle_borrower": "បិទការខ្ចីសកម្មសម្រាប់ \"{{item}}\" បន្ទាប់ពីអ្នកដឹកជញ្ជូនវាត្រឡប់។",
+            "return_subtitle_lender": "បិទការខ្ចីសកម្មសម្រាប់ \"{{item}}\" បន្ទាប់ពីអ្នកទទួលវាត្រឡប់។",
+            "return_target_borrower": "អ្នក​ឥណទាន៖ {{name}}",
+            "return_target_lender": "បច្ចុប្បន្ន​ជាមួយ៖ {{name}}",
+            "return_note_borrower": "ច្រក​ដឹកជញ្ជូន",
+            "return_note_lender": "ច្រកទទួល",
+            "return_note_placeholder_borrower": "ឧ. ខ្ញុំបានប្រគល់វាត្រឡប់វិញដោយគ្មានបញ្ហាណា",
+            "return_note_placeholder_lender": "ឧ. បានទទួលត្រឡប់វិញក្នុងសភាពល្អ",
+            "return_submitting": "កំពុងបិទ..."
         },
         "messages": {
             "load_error": "មជ្ឈមណ្ឌলខ្ចីមិនអាចផ្ទុកបាន",
@@ -2103,7 +2126,7 @@
                 "rights": "សិទ្ធិរបស់អ្នក"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "លក្ខខណ្ឌសម្រាប់ការដំឡើង {{brandName}} នេះពន្យល់ពីការប្រើប្រាស់ដែលអាចទទួលយកបាន, ភារកិច្ចសុវត្ថិភាពរបស់អ្នក, និងលទ្ធផលនៃការលុបគណនីក្នុងទ្រង់ទ្រាយដែលច្បាស់ និងងាយស្រួលក្នុងការស្គេន.",
         "terms_support_label": "សម្រាប់សំណួរអំពីលក្ខខណ្ឌដែលអាចអនុវត្តបានចំពោះការដំឡើងនេះ:",
         "terms_summary": {
             "eyebrow": "សេចក្តីសង្ខេបរហ័ស",
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "ការប៉ុនប៉ងចូលច្រើនពេក។ សូមព្យាយាមម្តងទៀតក្នុងរយៈពេល 15 នាទី។"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "ចូល",
+        "page_title_register": "បង្កើតគណនី",
+        "page_title_choose_house": "ជ្រើសផ្ទះ",
+        "page_title_recovery_key": "កូនសោការស្តារឡើងវិញ",
+        "page_title_house_access": "접근ផ្ទះ",
+        "page_title_legal_review": "ការពិនិត្យផ្នែកច្បាប់",
+        "page_title_new_item": "ធាតុថ្មី",
+        "page_title_edit_item": "ពិបាកធាតុ",
+        "page_title_items": "សារពើភ័ណ្ឌ"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "មានបញ្ហាក្នុងការផ្ទុកបញ្ជីទិញ.",
+            "select_item_error": "សូមជ្រើសរើសមុខទំនិញពីសារពើភ័ណ្ឌ.",
+            "empty_name": "សូមបញ្ចូលឈ្មោះមុខទំនិញ.",
+            "added": "មុខទំនិញបានបន្ថែមទៅបញ្ជីទិញ។",
+            "add_error": "មានកំហុសកើតឡើងនៅពេលបន្ថែមទំនិញ។",
+            "added_suggestion": "\"{{name}}\" ត្រូវបានបន្ថែមទៅបញ្ជីទិញ។",
+            "bulk_added": "{{count}} ទំនិញស្តុកទាបត្រូវបានបន្ថែមទៅបញ្ជី។",
+            "bulk_error": "មានកំហុសក្នុងការបន្ថែមទំនិញស្តុកទាប។",
+            "completed": "\"{{name}}\" ត្រូវបានសម្គាល់ថាកាន់តែបញ្ចប់។",
+            "reactivated": "\"{{name}}\" ត្រូវបានផ្លាស់ប្តូរទៅបញ្ជីសកម្មវិញ។",
+            "update_error": "មានកំហុសកើតឡើងក្នុងអំឡុងពេលធ្វើអាប់ដេត។",
+            "deleted": "ធាតុត្រូវបានលុបចេញពីបញ្ជី។",
+            "delete_error": "មានកំហុសកើតឡើងក្នុងអំឡុងពេលលុប។",
+            "cleared_completed": "បានសម្អាតធាតុដែលបានបញ្ចប់រួច។",
+            "clear_error": "មានកំហុសកើតឡើងនៅពេលសម្អាត។"
+        },
+        "loading_desc": "កំពុងត្រៀមបញ្ជីទិញ...",
+        "page": {
+            "title": "បញ្ជីទិញ",
+            "description": "មើលទំនិញដែលស្ទុកបានតិចនៅក្នុងសារពើភ័ណ្ឌផ្ទះ និងគ្រប់គ្រងបញ្ជីទិញរបស់អ្នកបានយ៉ាងងាយស្រួល។"
+        },
+        "suggestions": {
+            "title": "សំណើសារពើភ័ណ្ឌឆ្លាត",
+            "desc": "ទំនិញសារពើភ័ណ្ឌដែលបានធ្លាក់ក្រោមលំនាំអប្បបរមា។",
+            "add_all": "បន្ថែម​ទាំងអស់ដែលខាត",
+            "stock_status": "ចរន្ត: {{current}} / គោលដៅ: {{min}}",
+            "add_qty": "បន្ថែម {{qty}}"
+        },
+        "sections": {
+            "active_list": "ធាតុក្នុងការទិញ",
+            "active_desc": "ទំនិញដែលកំពុងធ្វើការជ្រើសរើសដើម្បីបន្ថែមទៅក្នុងរទេះរបស់អ្នក។",
+            "active_count": "{{count}} ធាតុ",
+            "completed_list": "ទំនិញដែលបានទិញ ({{count}})",
+            "add_item": "បន្ថែមធាតុដោយដៃ",
+            "add_desc": "បន្ថែមធាតុផ្ទាល់ខ្លួនទៅបញ្ជីដោយដៃ។"
+        },
+        "empty": {
+            "title": "បញ្ជីទិញសំភារៈរបស់អ្នកទទេ",
+            "desc": "អ្នកអាចបន្ថែមស្តុកខ្វះពីការផ្តល់អនុសាសន៍ខាងលើ ឬបន្ថែមធាតុដោយដៃប្រើសំណុំបែបបទនៅខាងស្ដាំ។"
+        },
+        "card": {
+            "linked_inventory": "បានរក្សាទុកនៅក្នុងសារពើភេទ"
+        },
+        "actions": {
+            "clear_completed": "សម្អាតប្រវត្តិសាស្ត្រ",
+            "add_item": "បន្ថែមទៅបញ្ជីទិញ"
+        },
+        "form": {
+            "add_type": "បន្ថែមវិធី",
+            "add_type_inventory": "ធាតុសារពើភ័ណ្ឌ",
+            "add_type_custom": "ធាតុប្ដូរតាមបំណង",
+            "select_inventory_item": "ជ្រើសរើសធាតុពីសារពើភ័ណ្ឌ",
+            "no_inventory_items": "គ្មានធាតុណាក្នុងសារពើភ័ណ្ឌរបស់អ្នកនៅឡើយទេ។",
+            "select_item_placeholder": "ជ្រើសរើសធាតុមួយ",
+            "current_stock": "បច្ចុប្បន្ន",
+            "item_name": "ឈ្មោះទំនិញ",
+            "item_name_placeholder": "ឧទាហរណ៍ ដូងទឹក, ម្សៅលាងចាន, ម្សៅកាហ្វេ...",
+            "quantity": "បរិមាណ"
+        },
+        "modal": {
+            "delete_title": "លុបធាតុពីបញ្ជី?",
+            "delete_desc": "តើអ្នកប្រាកដជាចង់យក \"{{name}}\" ចេញពីបញ្ជីទិញរបស់អ្នកមែនទេ?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "មានកំហុសពេលទើបផ្ទុកព័ត៌មាន",
+            "select_item_error": "សូមជ្រើសរើសធាតុនៅក្នុងបញ្ជី។",
+            "task_name_error": "ត្រូវការ​ឈ្មោះ​អង្គភាព។",
+            "date_error": "ត្រូវការកាលបរិច្ឆេទដែលបានរៀបចំ។",
+            "updated": "ការងារថែទាំត្រូវបានធ្វើបច្ចុប្បន្នភាព",
+            "created": "ការងារថែទាំថ្មីត្រូវបានបន្ថែម",
+            "save_error": "កំហុសបានកើតឡើងខណៈការរក្សាទុក",
+            "deleted": "ពាក្យបិទថែទាំត្រូវបានលុបដោយជោគជ័យ។",
+            "delete_error": "កំហុសបានកើតឡើងនៅពេលដំណើរការលុប។",
+            "performed": "ការថែទាំបានកត់ត្រាថាជាបញ្ចប់។ កាលបរិច្ឆេទបន្ទាប់បានកំណត់។",
+            "perform_error": "បានកើតមានកំហុសនៅពេលរក្សាទុក។"
+        },
+        "freq": {
+            "one_time": "មួយលើក",
+            "unit": {
+                "days": "មួយថ្ងៃ",
+                "weeks": "មួយសប្តាហ៍",
+                "months": "ខែ",
+                "years": "ឆ្នាំ"
+            },
+            "format": "រៀងរាល់ {{val}} {{unit}}"
+        },
+        "loading_desc": "កំពុងបង្ហាញកាលវិភាគថែទាំ...",
+        "page": {
+            "title": "ការថែទាំ និងការតាមដាន périodic",
+            "description": "គ្រប់គ្រងកាលវិភាគថែទាំ périodic សម្រាប់ឧបករណ៍, តម្រង, ឬឧបករណ៍សុវត្ថិភាពក្នុងបញ្ជីសម្ភារៈក្នុងផ្ទះរបស់អ្នក។"
+        },
+        "actions": {
+            "add_task": "បន្ថែមមុខងារថ្មី",
+            "manage": "គ្រប់គ្រង",
+            "perform": "សម្គាល់ថា បានបញ្ចប់",
+            "edit_task": "កែសម្រួលភារកិច្ច"
+        },
+        "alerts": {
+            "overdue_title": "អ្នកមានភារកិច្ចដែលហាក់នៅពេលចាស់!",
+            "overdue_desc": "មាន {{count}} ភារកិច្ចថែទាំដែលហាក់នៅពេលចាស់។ ការពន្យារអាចបន្ថយអាយុកាលឧបករណ៍។"
+        },
+        "empty": {
+            "title": "គ្មានភារកិច្ចថែទាំណាមួយបានកំណត់",
+            "desc": "ចាប់ផ្តើមដោយបន្ថែមបេសកកម្មដែលធ្លាប់កើតឡើងជាបន្តបន្ទាប់ ដូចជា ការរត់សម្អាតម៉ាស៊ីនត្រជាក់ AC, ថែទាំម៉ាស៊ីនរាវក្តៅ, ឬ ពិនិត្យថ្មឧបករណ៍សារព្រិលភ្លើង។"
+        },
+        "sections": {
+            "overdue": "បេសកកម្មដែលហួសកំណត់",
+            "overdue_desc": "ការថែទាំបន្ទាន់ដែលត្រូវបានធ្វើភ្លាមៗ។",
+            "upcoming": "បេសកកម្មដែលបានកំណត់កាលវិភាគ / កំពុងមកដល់",
+            "upcoming_desc": "ការជិតមកដល់ការថែទាំនៅថ្ងៃខាងមុខ។",
+            "no_upcoming": "មិនមានភារកិច្ចសកម្មណាទាំងអស់បានកំណត់នៅអនាគត។"
+        },
+        "modal": {
+            "edit_title": "កែប្រែភារកិច្ច",
+            "create_title": "កំណត់កាលវិភាគភារកិច្ចថែទាំថ្មី",
+            "perform_title": "ការអនុវត្តន៍ថែទាំបូករួម",
+            "perform_desc": "តើអ្នកចង់កត់ត្រា \"{{name}}\" ជាសកម្មភាពបានបញ្ចប់នៅថ្ងៃនេះទេ?",
+            "perform_confirm": "មែន, បានបញ្ចប់",
+            "perform_recurrence_info": "នេះគឺជាកិច្ចការតាមរយៈពេល។ ពេលអ្នកសន្សំ, ប្រព័ន្ធនឹងគណនាថ្ងៃធ្វើថែទាំបន្ទាប់ដោយស្វ័យប្រវត្តិ។",
+            "delete_title": "លុបកិច្ចការថែទាំ?",
+            "delete_desc": "តើអ្នកប្រាកដថាចង់លុបកាលវិភាគថែទាំតាមកាលកំណត់ \"{{name}}\" ដែរឬទេ? សកម្មភាពនេះមិនអាចដោះស្រាយបានទេ។"
+        },
+        "form": {
+            "item": "ធាតុពាក់ព័ន្ធ",
+            "no_items": "អ្នកត្រូវតែបន្ថែមធាតុមួយទៅក្នុងសារពើភ័ណ្ឌជាមុនសិនមុនពេលកំណត់ពេលថែទាំ។",
+            "select_item_placeholder": "ជ្រើសរើសធាតុ",
+            "task_name": "ឈ្មោះភារកិច្ច / ប្រតិបត្តិការ",
+            "task_name_placeholder": "ឧ. ការផ្លាស់ប្តូរត្រង់, ការត្រួតពិនិត្យរៀងរាល់ពេល...",
+            "description": "ព័ត៌មានលម្អិត / ការពិពណ៌នា",
+            "description_placeholder": "ព័ត៌មានលម្អិតពីភារកិច្ច, សម្ភារដែលត្រូវប្រើ, ល.v…",
+            "frequency_value": "ប្រេកង់នៃការធ្វើឡើងវិញ",
+            "frequency_placeholder": "ឧទាហរណ៍ 6 (ទទេសម្រាប់មួយដង)",
+            "frequency_unit": "ឯកតាប្រេកង់",
+            "next_due_date": "កាលបរិច្ឆេទដែលបានកំណត់បន្ទាប់",
+            "section_help": "គ្រប់គ្រងកាលវិភាការថែទាំពីទីនេះ",
+            "section_collapsed": "ចុចដើម្បីបន្ថែមការត្រួតពិនិត្យ និងភារកិច្ចប្រចាំ",
+            "has_tasks": "{{count}} ភារកិច្ច",
+            "new_item_warning_title": "ការរក្សាទុកធាតុកំពុងរង់ចាំ",
+            "new_item_warning_desc": "អ្នកត្រូវបានរក្សាទុកធាតុនេះជាមុនសិន ដើម្បីបន្ថែមកាលវិភាគថែទាំ។",
+            "manage_desc": "គ្រប់គ្រងកាលវិភាគថែទាំសម្រាប់ឧបករណ៍ ឬធាតុនេះ។"
+        },
+        "fields": {
+            "task_name": "ឈ្មោះសកម្មភាព",
+            "task_name_placeholder": "ឧ. ការសម្អាតតម្រង AC",
+            "description": "សេចក្ដីពិពណ៌នា",
+            "description_placeholder": "ព័ត៌មានលម្អិតអំពីភារកិច្ច, សម្ភារៈដែលត្រូវប្រើ, ល។អស់...",
+            "frequency_value": "ម្ដងប្រេីប្រាស់ឡើងវិញ",
+            "frequency_value_placeholder": "ទុកទទេសម្រាប់មួយដង",
+            "frequency_unit": "ឯកតាគ្រឿងកំណត់កំហែង",
+            "next_due_date": "ថ្ងៃកំណត់"
+        },
+        "card": {
+            "untitled_item": "ធាតុមិនមានចំណងជើង",
+            "last_performed": "បានបញ្ចប់ចុងក្រោយ:",
+            "next_due_label": "ពីការកំណត់កាលបរិច្ឆេទ",
+            "complete_tooltip": "សម្គាល់ការថែទាំជាថ្ងៃនេះ"
+        },
+        "detail_card_desc": "ការតាមដានការថែទាំប្រចាំកាល ឬមួយដងបានកំណត់សម្រាប់ធាតុនេះ។",
+        "no_tasks": "គ្មាន​កិច្ចការ​មេនទាំង​អង្រួន​ណាមួយ​ដែលបានចាត់ទុកសម្រាប់​អត្ថបទ​នេះ។",
+        "confirm_delete": "កិច្ចការនេះ​នឹងត្រូវលុប។ តើអ្នកប្រាកដទេ?"
     }
 }

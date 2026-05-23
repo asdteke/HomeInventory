@@ -69,7 +69,9 @@
             "vault_hint_action": "Hapur Kasafortën Personale",
             "location": "Vendndodhja",
             "remove_photo": "Hiq fotografinë",
-            "visibility_owner_only": "Vetëm personi që ka shtuar artikullin mund të ndryshojë dukshmërinë."
+            "visibility_owner_only": "Vetëm personi që ka shtuar artikullin mund të ndryshojë dukshmërinë.",
+            "expiry_date": "Data e Skadencës",
+            "min_quantity": "Sasia Minimum"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" u shtua shpejt - mund ta redaktoni më vonë",
@@ -119,7 +121,12 @@
         "no_permission": "No permission",
         "barcode_search_error": "Kërkimi i barkodit dështoi",
         "stats_error": "Stats error",
-        "detail_subtitle": "Detajet e artikullit"
+        "detail_subtitle": "Detajet e artikullit",
+        "status": {
+            "close_to_expiry": "Afër Skadencës",
+            "expired": "i Skaduar",
+            "low_stock": "Stock i Ulët"
+        }
     },
     "common": {
         "save": "Ruaj",
@@ -170,7 +177,8 @@
         "details": "Detaje",
         "hide": "Fshi fjalëkalimin",
         "logging_out": "Po dalim...",
-        "show": "Trego fjalëkalimin"
+        "show": "Trego fjalëkalimin",
+        "saving": "Duke kursyer..."
     },
     "auth": {
         "login": {
@@ -216,7 +224,7 @@
             "support_link": "Kontakto mbështetjen"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "Vendosni shtëpinë tuaj",
             "subtitle": "Krijoni një llogari të re ose bashkohuni me një shtëpi ekzistuese",
             "create_house": "Krijo Shtëpi të Re",
             "join_house": "Bashkohuni me Shtëpi",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "Futni përsëri fjalëkalimin tuaj",
             "reset_submit": "Rikthe Fjalëkalimin",
             "resetting": "Po rikthehet...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Shkruani emrin tuaj të përdoruesit ose email-in"
         },
         "reset_password": {
             "title": "Rikthe Fjalëkalimin",
@@ -353,7 +361,7 @@
         "password_requirements": "Përdorni të paktën {{min}} karaktere me shkronja të mëdha, shkronja të vogla, numër dhe simbol.",
         "logout": "Shkycu",
         "logging_in": "Duke u kyçur...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "Mirësevini në {{brandName}}",
         "username_email": "Emri i përdoruesit ose Email",
         "username": "Emri i përdoruesit",
         "email": "Email",
@@ -438,7 +446,9 @@
         "logout_aria": "Dil nga llogaria juaj",
         "logout_title": "Dil?",
         "logout_description": "Do të ktheheni në ekranin e hyrjes dhe do t'ju duhet të identifikoheni përsëri për të menaxhuar inventarin e shtëpisë tuaj.",
-        "logout_warning": "Përdorni këtë kur të keni mbaruar në një pajisje të përbashkët ose personale."
+        "logout_warning": "Përdorni këtë kur të keni mbaruar në një pajisje të përbashkët ose personale.",
+        "maintenance": "Orari i Mirëmbajtjes",
+        "shopping": "Lista e Blerjeve"
     },
     "dashboard": {
         "welcome": "Mirësevini, <1>{{name}}</1>! 👋",
@@ -565,7 +575,20 @@
         "no_items_filter": "Asnjë artikull nuk përputhet me këtë filtër",
         "manage": "Menaxho",
         "add_item": "Shto Artikull",
-        "search_item": "Kërko Artikull"
+        "search_item": "Kërko Artikull",
+        "alerts": {
+            "expired_title": "Artikujt kanë skaduar!",
+            "expired_desc": "Ka {{count}} artikuj të skaduar në inventarin tuaj. Ju lutemi kontrollojini për sigurinë tuaj.",
+            "view_items": "Shiko Artikujt",
+            "maintenance_title": "Detyrat e Mirëmbajtjes së Mbetura Pas Afatit!",
+            "maintenance_desc": "Ka {{count}} detyra mirëmbajtjeje të mbetura pas afatit. Kryeni mirëmbajtje për të zgjatur jetën e pajisjeve tuaja.",
+            "go_to_maintenance": "Shko te Mirëmbajtja",
+            "low_stock_title": "Alarm për Stok të Ulët",
+            "low_stock_desc": "{{count}} artikuj kanë rënë nën kufirin tuaj minimal të stokut.",
+            "go_to_shopping": "Lista e Blerjeve",
+            "close_expiry_title": "Datat e Afërta të Skadimit",
+            "close_expiry_desc": "{{count}} produkte do të skadojnë brenda 30 ditëve."
+        }
     },
     "beta_banner": {
         "title": "BETA:",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "Çelësi Aktiv i Shtëpisë",
             "key_label": "Çelësi i Shtëpisë",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{prapashtesë}}",
             "hide": "Fshi",
             "show": "Shfaq",
             "copy": "Kopjo",
@@ -991,8 +1014,8 @@
             "no_history": "Nuk ka histori huazimi për këtë artikull ende.",
             "lend_success_title": "Artikulli huazuar",
             "lend_success_body": "{{item}} tani është shënuar si e huazuar.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "Oferta e huazimit dërguar",
+            "offer_sent_body": "{{item}} do të shënohet si i huazuar pasi anëtari tjetër ta pranojë.",
             "borrowed_by_you": "Me ju",
             "return_pending_hint": "Rekordi do të mbyllet pasi huadhënësi të konfirmojë se ka marrë artikullin prapa.",
             "return_pending_lender_title": "{{name}} e shënoi këtë artikull si të dorëzuar prapa",
@@ -1229,7 +1252,7 @@
             "no_logs": "ende asnjë regjistrim",
             "errors_title": "Gabimet e Sistemit (10 të fundit)",
             "no_errors": "// Sistemi është i shëndetshëm, nuk ka regjistrime gabimesh.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{data, ora e datës}}",
             "type": {
                 "email": "Email",
                 "user": "Përdoruesi",
@@ -1277,7 +1300,7 @@
             "notes_body": "Përdoreni këtë për mbështetje operative ose kontakt lidhur me llogarinë. Përmbajtja e ndjeshme duhet të qëndrojë brenda aplikacionit sa herë që është e mundur.",
             "notes_body_with_rate_limit": "Përdoreni këtë për mbështetje operative ose kontakt lidhur me llogarinë. Përmbajtja e ndjeshme duhet të qëndrojë brenda aplikacionit sa herë që është e mundur. Mbrojtja aktuale për dërgim: {{rateLimit}}.",
             "rate_limit_fallback": "3 emaile për minutë",
-            "placeholder_to": "name@example.com",
+            "placeholder_to": "emri@shembull.com",
             "placeholder_subject": "Subjekti i mesazhit",
             "send_success_with_id": "✅ Email i dërguar me sukses! ID: {{emailId}}",
             "send_error": "Email nuk mund të dërgohej",
@@ -1366,7 +1389,7 @@
         },
         "refresh_complete_title": "Të dhënat e administratës të rifreskuara",
         "refresh_complete_body": "Të dhënat më të fundit të administratës janë tani në ekran.",
-        "ban_user": "Ban",
+        "ban_user": "Ndalimi",
         "unban_user": "Zhblloko",
         "delete_user": "Fshi Përdoruesin",
         "reset_attempts": "Përpjekjet për Rivendosje",
@@ -1401,12 +1424,12 @@
             "cta_register": "Krijo Llogari",
             "stat_free": "Falas",
             "stat_access": "Qasje",
-            "free_badge": "Open Source",
+            "free_badge": "Burim i Hapur",
             "badge": "HomeInventory v2.0 është këtu",
             "cta_explore": "Eksploroni veçoritë",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Hyr",
+            "stat_members": "Shtëpi të përbashkëta",
+            "stat_vault": "Kasafortë private"
         },
         "features": {
             "title": "Pse <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Mbaj artikuj, garanci, dokumente të rëndësishme dhe ndjek borxhet në një vend të qetë. Shiko çfarë përmban shtëpia jote me një sy.",
                 "primaryCta": "Filloni Falas",
                 "secondaryCta": "Shiko Produktin",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Rrjedha e sugjeruar: llogari • shtëpi • dhoma dhe kategori • sende • rezervë",
                 "searchPlaceholder": "Kërko një artikull, dhomë, ose kod-bar"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "Detajet e rrjetit mbeten të fshehura deri sa të keni nevojë për udhëzimin.",
         "link_privacy_note": "Adresa e rrjetit mbetet e fshehur këtu. Skano kodin ose kopjo lidhjen vetëm kur dëshiron që me qëllim të ndajë qasje të drejtpërdrejtë në artikullin në konfigurimin tënd lokal.",
         "helper": "Skano për të hapur këtë artikull menjëherë, ose kopjo lidhjen direkte kur është e nevojshme.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Lidhja nuk mund të kopjohej automatikisht",
+        "copy_manual_help": "Shfletuesi juaj nuk lejoi kopjimin automatik. Lidhja është zgjedhur që ta kopjoni manualisht.",
         "loading": "Duke përgatitur mjetet QR..."
     },
     "house_access_pending": {
@@ -1923,7 +1946,7 @@
             "passphrase_number": "Përfshini të paktën një numër.",
             "passphrase_uppercase": "Përfshini të paktën një shkronjë të madhe."
         },
-        "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
+        "recovery_file_title": "Çelësi i Rimëkëmbjes së Kasafortës Personale {{brandName}}",
         "recovery_file_created_label": "Krijuar",
         "recovery_file_key_label": "Çelësi i Rimëkëmbjes",
         "recovery_file_warning": "Nëse humbni si këtë çelës ashtu edhe fjalëkalimin e thesarit, thesari nuk mund të rikuperohet.",
@@ -1969,8 +1992,8 @@
             "empty": "Aktualisht nuk ka huazime aktive.",
             "borrowed_from": "Huazuar nga {{name}}",
             "lent_to": "Aktualisht me {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Pritet që huazuesi të konfirmojë se e ka marrë përsëri.",
+            "return_pending_lender": "{{name}} ka shënuar këtë artikull si i kthyer. Konfirmoni marrjen për të mbyllur regjistrin.",
             "empty_title": "Asnjë huazim aktiv tani për tani",
             "empty_description": "Kërkesat e pranuara shfaqen këtu sapo një send të huazohet ose japet hua, së bashku me datat e afatit dhe statusin e kthimit."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Anuluar",
             "expired": "Skaduar",
             "returned": "Kthyer",
-            "return_pending": "Return pending"
+            "return_pending": "Kthimi në pritje"
         },
         "actions": {
             "send_request": "Kërkesa për Artikull",
@@ -1990,8 +2013,8 @@
             "reject": "Refuzo",
             "cancel": "Anulo",
             "fulfill_request": "Përmbush Kërkesën",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Mark dorëzoi",
+            "mark_received": "Mark mori",
             "open_inventory": "Inventar i hapur"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "Shëno si Kthyer",
             "return_subtitle": "Mbyll huazimin aktiv për \"{{item}}\"",
             "return_target": "Aktualisht shfaqet si duke qenë me {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Dorëzo artikullin",
+            "return_title_lender": "Merr artikullin",
+            "return_subtitle_borrower": "Mbyll huazimin aktiv për \"{{item}}\" pasi ta kthehesh.",
+            "return_subtitle_lender": "Mbyll huazimin aktiv për \"{{item}}\" pasi ta marrësh mbrapsht.",
+            "return_target_borrower": "Huadhënës: {{name}}",
+            "return_target_lender": "Aktualisht me: {{name}}",
+            "return_note_borrower": "Nota e dorëzimit",
+            "return_note_lender": "Nota e pranimit",
+            "return_note_placeholder_borrower": "p.sh. E kam dorëzuar përsëri pa asnjë problem",
+            "return_note_placeholder_lender": "p.sh. Kthyer mbrapsht në gjendje të mirë",
+            "return_submitting": "Duke u mbyllur..."
         },
         "messages": {
             "load_error": "Qendra e huazimit nuk mund të ngarkohej",
@@ -2103,7 +2126,7 @@
                 "rights": "Të drejtat tuaja"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "Kushtet për këtë instalim {{brandName}} shpjegojnë përdorimin e pranueshëm, përgjegjësitë tuaja për sigurinë dhe pasojat e fshirjes së llogarisë në një format më të qartë dhe më të lehtë për t'u skanuar.",
         "terms_support_label": "Përmbledhje e shpejtë",
         "terms_summary": {
             "eyebrow": "Çfarë do të thotë kjo në praktikë",
@@ -2153,7 +2176,7 @@
         "admin_panel": "Paneli i Administrimit",
         "share_house": "Ndani Shtëpinë",
         "new_item": "Send i Ri",
-        "menu": "Menu",
+        "menu": "Menyja",
         "help": "Ndihmë & Mbështetje"
     },
     "theme": {
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "Kushtet e Përdorimit dhe Përgjegjësia",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "Versioni BETA: {{brandName}} është aktualisht në fazën e testimit. Nuk jepen garanci për qëndrueshmërinë ose sigurinë e të dhënave.",
         "disclaimer": "Përgjegjësia: Duke përdorur këtë aplikacion, ju pranoni që nuk mund të pretendoni asnjë kompensim për humbje të mundshme të të dhënave, probleme aksesimi, ose probleme të tjera teknike.",
         "backup_warning": "Rezervimi i të Dhënave: Ne rekomandojmë fuqimisht që të bëni rregullisht kopje rezervë të informacionit tuaj të rëndësishëm.",
         "accept": "Duke u kyçur, ju pranoni këto kushte.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} është aktualisht në fazën e testimit dhe në fazën e hobi-t. Nuk jepen garanci për qëndrueshmërinë ose sigurinë e të dhënave. Ju lutemi mbani informacionin tuaj të rëndësishëm të kopjuar.",
         "contact": "Kontakt"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Too many login attempts"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Hyni",
+        "page_title_register": "Krijo llogari",
+        "page_title_choose_house": "Zgjidh shtëpi",
+        "page_title_recovery_key": "Çelësi i rikuperimit",
+        "page_title_house_access": "Hyrja në shtëpi",
+        "page_title_legal_review": "Rishikim ligjor",
+        "page_title_new_item": "Artikull i ri",
+        "page_title_edit_item": "Ndrysho artikullin",
+        "page_title_items": "Inventari"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Gabim gjatë ngarkimit të listës së blerjeve.",
+            "select_item_error": "Ju lutemi zgjidhni një artikull nga inventari.",
+            "empty_name": "Ju lutemi shkruani një emër artikulli.",
+            "added": "Artikulli u shtua në listën e blerjeve.",
+            "add_error": "Ndodhi një gabim gjatë shtimit të artikullit.",
+            "added_suggestion": "\"{{name}}\" u shtua në listën e blerjeve.",
+            "bulk_added": "{{count}} artikuj me stok të ulët u shtuan në listë.",
+            "bulk_error": "Gabim gjatë shtimit të artikujve me stok të ulët.",
+            "completed": "\"{{name}}\" shënuar si i përfunduar.",
+            "reactivated": "\"{{name}}\" u zhvendos përsëri në listën aktive.",
+            "update_error": "Ndodhi një gabim gjatë përditësimit.",
+            "deleted": "Artikulli u fshi nga lista.",
+            "delete_error": "Ndodhi një gabim gjatë fshirjes.",
+            "cleared_completed": "Artikujt e përfunduar u pastruan.",
+            "clear_error": "Ndodhi një gabim gjatë pastrimit."
+        },
+        "loading_desc": "Përgatit lista e blerjeve...",
+        "page": {
+            "title": "Lista e Blerjeve",
+            "description": "Shiko artikujt me stok të ulët në inventarin e shtëpisë dhe menaxho lehtësisht listën tënde të blerjeve."
+        },
+        "suggestions": {
+            "title": "Sugjerime të Zgjuara të Inventarit",
+            "desc": "Artikujt e inventarit që kanë rënë nën kufirin minimal.",
+            "add_all": "Shto të gjitha të munguarat",
+            "stock_status": "Aktual: {{current}} / Objektivi: {{min}}",
+            "add_qty": "Shto {{qty}}"
+        },
+        "sections": {
+            "active_list": "Artikuj për të blerë",
+            "active_desc": "Artikuj aktualë për blerje për t'i shtuar në karrocën tuaj.",
+            "active_count": "{{count}} Artikuj",
+            "completed_list": "Artikuj të Blerë ({{count}})",
+            "add_item": "Shto Artikull Manualisht",
+            "add_desc": "Shto manualisht një artikull të personalizuar në listë."
+        },
+        "empty": {
+            "title": "Lista juaj e blerjeve është bosh",
+            "desc": "Mund të shtoni stoqet e munguar nga sugjerimet më sipër ose mund të shtoni artikuj manualisht duke përdorur formularin në të djathtë."
+        },
+        "card": {
+            "linked_inventory": "E ruajtur në Inventar"
+        },
+        "actions": {
+            "clear_completed": "Pastro Historikun",
+            "add_item": "Shto në Listën e Blerjeve"
+        },
+        "form": {
+            "add_type": "Shto Metodë",
+            "add_type_inventory": "Artikull i Inventarit",
+            "add_type_custom": "Artikull i personalizuar",
+            "select_inventory_item": "Zgjidh artikull nga inventari",
+            "no_inventory_items": "Ende nuk ka artikuj në inventarin tuaj.",
+            "select_item_placeholder": "Zgjidh një artikull",
+            "current_stock": "Aktuale",
+            "item_name": "Emri i Artikullit",
+            "item_name_placeholder": "p.sh. Qumësht, Detergjent, Fasulet e Kafesë...",
+            "quantity": "Sasia"
+        },
+        "modal": {
+            "delete_title": "Fshini Artikullin nga Lista?",
+            "delete_desc": "A jeni i sigurt që dëshironi të hiqni \"{{name}}\" nga lista juaj e blerjeve?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Gabim gjatë ngarkimit të informacionit",
+            "select_item_error": "Ju lutemi zgjidhni një artikull.",
+            "task_name_error": "Emri i detyrës është i nevojshëm.",
+            "date_error": "Data e planifikuar është e nevojshme.",
+            "updated": "Detyra e mirëmbajtjes u përditësua",
+            "created": "Detyrë e re mirëmbajtjeje u shtua",
+            "save_error": "Ndodhi një gabim gjatë ruajtjes",
+            "deleted": "Detyra e mirëmbajtjes u fshi me sukses.",
+            "delete_error": "Ndodhi një gabim gjatë procesit të fshirjes.",
+            "performed": "Mirëmbajtja është regjistruar si përfunduar. Data e ardhshme është planifikuar.",
+            "perform_error": "Ndodhi një gabim gjatë ruajtjes."
+        },
+        "freq": {
+            "one_time": "Një herë",
+            "unit": {
+                "days": "Ditë",
+                "weeks": "Javë",
+                "months": "Muaj",
+                "years": "Vit"
+            },
+            "format": "Çdo {{val}} {{unit}}"
+        },
+        "loading_desc": "Po ngarkohet orari i mirëmbajtjes...",
+        "page": {
+            "title": "Mirëmbajtja & Ndjekja Periodike",
+            "description": "Menaxhoni oraret e mirëmbajtjes periodike për pajisjet, filtrat ose pajisjet e sigurisë në inventarin tuaj të shtëpisë."
+        },
+        "actions": {
+            "add_task": "Shto Detyrën e Re",
+            "manage": "Menaxho",
+            "perform": "Shëno si E përfunduar",
+            "edit_task": "Ndrysho Detyrën"
+        },
+        "alerts": {
+            "overdue_title": "Ju keni detyra të vonuara!",
+            "overdue_desc": "Ka {{count}} detyra të shërbimit të vonuara. Vonesat mund të ulin jetën e pajisjes."
+        },
+        "empty": {
+            "title": "Nuk ka detyra të planifikuara për mirëmbajtje",
+            "desc": "Fillo duke shtuar detyra periodike si pastrimi i filtrit të ajrit, mirëmbajtja e bojlerit, ose kontrollimi i baterive të detektorëve të zjarrit."
+        },
+        "sections": {
+            "overdue": "Detyra të vonuara",
+            "overdue_desc": "Mirëmbajtje urgjente që duhet të bëhet menjëherë.",
+            "upcoming": "Detyra të planifikuara / të ardhshme",
+            "upcoming_desc": "Afrohet mirëmbajtja në ditët në vijim.",
+            "no_upcoming": "Nuk ka detyra aktive të planifikuara në të ardhmen."
+        },
+        "modal": {
+            "edit_title": "Ndrysho Detyrën",
+            "create_title": "Planifiko Detyrë të Re të Mirëmbajtjes",
+            "perform_title": "Mirëmbajtje e Plotë",
+            "perform_desc": "Dëshironi të regjistroni \"{{name}}\" si të përfunduar sot?",
+            "perform_confirm": "Po, E Përfunduar",
+            "perform_recurrence_info": "Kjo është një detyrë periodike. Kur të ruani, sistemi automatikisht do të llogarisë datën e ardhshme të mirëmbajtjes.",
+            "delete_title": "Fshini Detyrën e Mirëmbajtjes?",
+            "delete_desc": "A jeni i sigurt që doni të fshini programin periodik të mirëmbajtjes \"{{name}}\"? Kjo veprim nuk mund të zhbëhet."
+        },
+        "form": {
+            "item": "Artikulli i Lidhur",
+            "no_items": "Duhet të shtoni një artikull në inventar më parë para se të planifikoni mirëmbajtjen.",
+            "select_item_placeholder": "Zgjidhni një Artikull",
+            "task_name": "Emri i Detyrës / Operacionit",
+            "task_name_placeholder": "p.sh. Ndërrimi i Filtrit, Kontrolli Periodik...",
+            "description": "Detaj / Përshkrim",
+            "description_placeholder": "Detajet e detyrës, materialet që do të përdoren, etj...",
+            "frequency_value": "Shpeshtësia e përsëritjes",
+            "frequency_placeholder": "p.sh. 6 (lëre bosh për një herë)",
+            "frequency_unit": "Njësia e shpeshtësisë",
+            "next_due_date": "Data e Radhës e Planifikuar",
+            "section_help": "Menaxho oraret e mirëmbajtjes nga këtu",
+            "section_collapsed": "Kliko për të shtuar kontrolle dhe detyra periodike",
+            "has_tasks": "{{count}} Detyra",
+            "new_item_warning_title": "Ruajtja e Artikullit në Pritje",
+            "new_item_warning_desc": "Ju duhet ta ruani këtë artikull më parë për të shtuar një orar mirëmbajtjeje.",
+            "manage_desc": "Menaxhoni oraret e mirëmbajtjes për këtë pajisje ose artikull."
+        },
+        "fields": {
+            "task_name": "Emri i Detyrës",
+            "task_name_placeholder": "p.sh. Pastrimi i filtër AC",
+            "description": "Përshkrimi",
+            "description_placeholder": "Detajet e detyrës, materialet që do të përdoren, etj...",
+            "frequency_value": "Frekuenca e përsëritjes",
+            "frequency_value_placeholder": "Lini bosh për një herë",
+            "frequency_unit": "Njësi Frekuence",
+            "next_due_date": "Data e Planifikuar"
+        },
+        "card": {
+            "untitled_item": "Artikull pa titull",
+            "last_performed": "Së Fundmi Bërë:",
+            "next_due_label": "Data e Planifikuar",
+            "complete_tooltip": "Shëno Mirëmbajtjen si Të Përfunduar Sot"
+        },
+        "detail_card_desc": "Gjurmimi i mirëmbajtjes periodike ose një herë e caktuar për këtë artikull.",
+        "no_tasks": "Nuk ka detyra mirëmbajtjeje të caktuara për këtë artikull.",
+        "confirm_delete": "Kjo detyrë do të fshihet. A jeni të sigurt?"
     }
 }

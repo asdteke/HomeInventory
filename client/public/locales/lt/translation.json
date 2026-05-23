@@ -69,7 +69,9 @@
             "vault_hint_action": "Atidaryti Asmeninį seifą",
             "location": "Vieta",
             "remove_photo": "Pašalinti nuotrauką",
-            "visibility_owner_only": "Tik asmuo, pridėjęs daiktą, gali keisti jo matomumą."
+            "visibility_owner_only": "Tik asmuo, pridėjęs daiktą, gali keisti jo matomumą.",
+            "expiry_date": "Galiojimo pabaigos data",
+            "min_quantity": "Minimalus kiekis"
         },
         "messages": {
             "quick_add_success": "✓ „{{barcode}}“ greitai pridėta - vėliau galite redaguoti",
@@ -119,7 +121,12 @@
         "no_permission": "No permission",
         "barcode_search_error": "Brūkšninio kodo paieška nepavyko",
         "stats_error": "Stats error",
-        "detail_subtitle": "Daikto informacija"
+        "detail_subtitle": "Daikto informacija",
+        "status": {
+            "close_to_expiry": "Artėja galiojimo pabaiga",
+            "expired": "Pasibaigęs galiojimas",
+            "low_stock": "Mažas likutis"
+        }
     },
     "common": {
         "save": "Išsaugoti",
@@ -170,7 +177,8 @@
         "details": "Išsamiau",
         "hide": "Slaptažodį paslėpti",
         "logging_out": "Atsijungiama...",
-        "show": "Rodyti slaptažodį"
+        "show": "Rodyti slaptažodį",
+        "saving": "Įrašoma..."
     },
     "auth": {
         "login": {
@@ -216,7 +224,7 @@
             "support_link": "Susisiekti su palaikymu"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "Nustatykite savo namų ūkį",
             "subtitle": "Sukurkite naują paskyrą arba prisijunkite prie esamos namų grupės",
             "create_house": "Sukurti Naują Namas",
             "join_house": "Prisijungti prie Namų",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "Įveskite slaptažodį dar kartą",
             "reset_submit": "Atstatyti slaptažodį",
             "resetting": "Vykdoma atstatymas...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Įveskite savo vartotojo vardą arba el. paštą"
         },
         "reset_password": {
             "title": "Atstatyti slaptažodį",
@@ -353,7 +361,7 @@
         "password_requirements": "Naudokite bent {{min}} simbolius su didžiosiomis, mažosiomis raidėmis, skaičiais ir simboliais.",
         "logout": "Atsijungti",
         "logging_in": "Vyksta prisijungimas...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "Sveiki atvykę į {{brandName}}",
         "username_email": "Vartotojo vardas arba el. paštas",
         "username": "Vartotojo vardas",
         "email": "El. paštas",
@@ -367,7 +375,7 @@
         "google_login": "Tęsti su Google",
         "login_issues": "Dėl prisijungimo problemų",
         "placeholder_username": "pvz.: john",
-        "placeholder_password": "••••••••",
+        "placeholder_password": "•••••••••",
         "login_two_factor": {
             "title": "Dviejų veiksnių autentifikavimas",
             "subtitle": "Įveskite 6 skaitmenų kodą iš autentifikavimo programos",
@@ -438,7 +446,9 @@
         "logout_aria": "Atsijungti iš savo paskyros",
         "logout_title": "Atsijungti?",
         "logout_description": "Būsite grąžinti į prisijungimo ekraną ir turėsite vėl prisijungti, kad galėtumėte tvarkyti savo namų ūkio inventorių.",
-        "logout_warning": "Naudokite tai, kai baigėte naudotis bendrą arba asmeninį įrenginį."
+        "logout_warning": "Naudokite tai, kai baigėte naudotis bendrą arba asmeninį įrenginį.",
+        "maintenance": "Priežiūros tvarkaraštis",
+        "shopping": "Pirkinių sąrašas"
     },
     "dashboard": {
         "welcome": "Sveiki, <1>{{name}}</1>! 👋",
@@ -565,7 +575,20 @@
         "no_items_filter": "Elementai neatitinka šio filtro",
         "manage": "Tvarkyti",
         "add_item": "Pridėti elementą",
-        "search_item": "Ieškoti elemento"
+        "search_item": "Ieškoti elemento",
+        "alerts": {
+            "expired_title": "Prekės pasibaigė!",
+            "expired_desc": "Jūsų inventoriuje yra {{count}} pasibaigusių prekių. Prašome jas patikrinti dėl jūsų saugumo.",
+            "view_items": "Peržiūrėti prekes",
+            "maintenance_title": "Praėjusios priežiūros užduotys!",
+            "maintenance_desc": "Yra {{count}} vėluojančių priežiūros užduočių. Atlikite priežiūrą, kad pailgintumėte savo įrenginių tarnavimo laiką.",
+            "go_to_maintenance": "Eiti į Priežiūrą",
+            "low_stock_title": "Mažo atsargų įspėjimas",
+            "low_stock_desc": "{{count}} prekių kiekis nukrito žemiau jūsų minimalaus atsargų limito.",
+            "go_to_shopping": "Pirkinių sąrašas",
+            "close_expiry_title": "Artėjantys galiojimo laikai",
+            "close_expiry_desc": "{{count}} produktai pasibaigs per 30 dienų."
+        }
     },
     "beta_banner": {
         "title": "BETA VERSIJA:",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "Aktyvus namo raktas",
             "key_label": "Namo raktas",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{priesaga}}",
             "hide": "Slėpti",
             "show": "Rodyti",
             "copy": "Kopijuoti",
@@ -991,8 +1014,8 @@
             "no_history": "Šio daikto paskolos istorija dar nėra.",
             "lend_success_title": "Elementas lent",
             "lend_success_body": "{{item}} dabar pažymėtas kaip pasiskolintas.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "Paskolos pasiūlymas išsiųstas",
+            "offer_sent_body": "{{item}} bus pažymėtas kaip pasiskolintas, kai kitas narys priims.",
             "borrowed_by_you": "Pas jus",
             "return_pending_hint": "Įrašas bus uždarytas po to, kai skolintojas patvirtins, kad gavo daiktą atgal.",
             "return_pending_lender_title": "{{name}} pažymėjo šį daiktą kaip grąžintą",
@@ -1229,7 +1252,7 @@
             "no_logs": "dar nėra žurnalų",
             "errors_title": "Sistemos klaidos (Paskutinės 10)",
             "no_errors": "// Sistema veikia gerai, klaidų žurnalų nėra.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{data, datatime}}",
             "type": {
                 "email": "El. paštas",
                 "user": "Vartotojas",
@@ -1277,7 +1300,7 @@
             "notes_body": "Naudokite tai operacinei pagalbai arba su paskyra susijusiai komunikacijai. Jautrus turinys turėtų likti programoje, kai tai įmanoma.",
             "notes_body_with_rate_limit": "Naudokite tai operacinei pagalbai arba su paskyra susijusiai komunikacijai. Jautrus turinys turėtų likti programoje, kai tai įmanoma. Dabartinė siuntimo apsauga: {{rateLimit}}.",
             "rate_limit_fallback": "3 el. laiškai per minutę",
-            "placeholder_to": "name@example.com",
+            "placeholder_to": "vardas@pavyzdys.com",
             "placeholder_subject": "Žinutės tema",
             "send_success_with_id": "✅ El. laiškas sėkmingai išsiųstas! ID: {{emailId}}",
             "send_error": "El. laiško siųsti nepavyko",
@@ -1401,12 +1424,12 @@
             "cta_register": "Sukurti paskyrą",
             "stat_free": "Nemokamai",
             "stat_access": "Prisijungti",
-            "free_badge": "Open Source",
+            "free_badge": "Atviras šaltinis",
             "badge": "PradžiaInventorius v2.0 yra čia",
             "cta_explore": "Susipažinkite su funkcijomis",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Prisijungti",
+            "stat_members": "Bendri namai",
+            "stat_vault": "Privati saugykla"
         },
         "features": {
             "title": "Kodėl <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Laikykite daiktus, garantijas, svarbius dokumentus ir skolinimosi sekimą vienoje rami vietoje. Peržvelkite, ką turi jūsų namai.",
                 "primaryCta": "Pradėti nemokamai",
                 "secondaryCta": "Peržiūrėti produktą",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Siūlomas srautas: paskyra • pradžia • kambariai ir kategorijos • daiktai • atsarginė kopija",
                 "searchPlaceholder": "Ieškoti daikto, kambario ar brūkšninio kodo"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "Tinklo informacija lieka paslėpta, kol jums neprireiks nurodymų.",
         "link_privacy_note": "Tinklo adresas čia lieka paslėptas. Nuskaitykite kodą arba nukopijuokite nuorodą tik tada, kai ketinate tiesiogiai pasidalinti prieiga prie elemento savo vietiniame nustatyme.",
         "helper": "Nuskaitykite, kad akimirksniu atidarytumėte šį elementą, arba nukopijuokite tiesioginę nuorodą, kai reikia.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Nuorodos automatiškai kopijuoti nepavyko",
+        "copy_manual_help": "Jūsų naršyklė neleido automatiškai kopijuoti. Nuoroda pažymėta, kad galėtumėte ją nukopijuoti rankiniu būdu.",
         "loading": "Ruošiami QR įrankiai..."
     },
     "house_access_pending": {
@@ -1790,7 +1813,7 @@
             ],
             "fallback": "Slaptažodžio atstatymo nuoroda atrodo nebaigta arba sugadinta.",
             "support": "Registracijos problemos:",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 m. {{brandName}}"
         },
         "welcome": {
             "subject": "Sveiki atvykę į {{brandName}}",
@@ -1808,7 +1831,7 @@
                 "💡 Galite būti kelių namų nariu ir perjungti tarp jų. Kiekvienas namas turi atskirą inventorių."
             ],
             "support": "Registracijos problemos:",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 m. {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Prisijungti prie namo",
@@ -1817,7 +1840,7 @@
             "bodyLine2": "Laukiama namų savininko patvirtinimo"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} – {{status}}",
             "greeting": "Prieiga į namus",
             "bodyLine1Template": "Dabartinis laukiantis prašymas: {{house}} ({{status}})",
             "bodyLine2": "Jūsų prašymas dėl „{{house}}“ vis dar laukia sprendimo.",
@@ -1842,11 +1865,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Jei paskyra egzistuoja, slaptažodžio atstatymo nuoroda, galiojanti 15 minučių, buvo išsiųsta.",
             "fallback": "Slaptažodžio atstatymo nuoroda atrodo nebaigta arba sugadinta.",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 m. {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "Šis el. laiškas buvo išsiųstas {{brandName}}.",
-            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
+            "footer": "© 2026 m. {{brandName}} – {{supportEmail}}"
         },
         "testEmail": {
             "subject": "🧪 {{brandName}} Bandomasis el. laiškas",
@@ -1856,7 +1879,7 @@
             "sentAtLabel": "Išsiųsta",
             "senderLabel": "Siuntėjas",
             "serviceLabel": "Paslauga",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 m. {{brandName}}"
         }
     },
     "vault": {
@@ -1923,7 +1946,7 @@
             "passphrase_number": "Įtraukite bent vieną skaičių.",
             "passphrase_uppercase": "Įtraukite bent vieną didžiąją raidę."
         },
-        "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
+        "recovery_file_title": "{{brandName}} Asmeninis seifo atkūrimo raktas",
         "recovery_file_created_label": "Sukurtas",
         "recovery_file_key_label": "Atsigavimo Raktas",
         "recovery_file_warning": "Jei prarasite tiek šį raktą, tiek savo saugyklos slaptafrazę, saugyklos atkurti nebus galima.",
@@ -1969,8 +1992,8 @@
             "empty": "Šiuo metu nėra aktyvių paskolų.",
             "borrowed_from": "Paskolinta iš {{name}}",
             "lent_to": "Šiuo metu pas {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Laukiama, kol skolintojas patvirtins, kad gavo jį atgal.",
+            "return_pending_lender": "{{name}} pažymėjo šį daiktą kaip grąžintą. Patvirtinkite gavimą, kad uždarytumėte įrašą.",
             "empty_title": "Šiuo metu nėra aktyvių paskolų",
             "empty_description": "Priimti prašymai rodys čia, kai elementas bus pasiskolintas arba paskolintas, kartu su grąžinimo terminais ir grąžinimo statusu."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Atšaukta",
             "expired": "Pasibaigusi",
             "returned": "Grąžinta",
-            "return_pending": "Return pending"
+            "return_pending": "Grąžinti laukiama"
         },
         "actions": {
             "send_request": "Prašymo elementas",
@@ -1990,8 +2013,8 @@
             "reject": "Atmesti",
             "cancel": "Atšaukti",
             "fulfill_request": "Įvykdyti prašymą",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Pažymėti pristatytą",
+            "mark_received": "Pažymėti gautą",
             "open_inventory": "Atidaryti inventorių"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "Pažymėti kaip grąžintą",
             "return_subtitle": "Uždaryti aktyvų paskolą '{{item}}'",
             "return_target": "Šiuo metu jis rodomas pas {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Pristatyti daiktą",
+            "return_title_lender": "Gauti daiktą",
+            "return_subtitle_borrower": "Užbaikite aktyvų skolinimąsi '{{item}}' po to, kai jį grąžinsite.",
+            "return_subtitle_lender": "Užbaikite aktyvų skolinimąsi '{{item}}' po to, kai jį gausite atgal.",
+            "return_target_borrower": "Skolinantis: {{name}}",
+            "return_target_lender": "Šiuo metu su: {{name}}",
+            "return_note_borrower": "Pristatymo lapas",
+            "return_note_lender": "Gautos prekės lapas",
+            "return_note_placeholder_borrower": "pvz., Aš jį grąžinau be jokių problemų",
+            "return_note_placeholder_lender": "pvz., Gauta atgal gera būklė",
+            "return_submitting": "Uždaroma..."
         },
         "messages": {
             "load_error": "Paskolų centras negalėjo būti įkeltas",
@@ -2103,7 +2126,7 @@
                 "rights": "Jūsų teisės"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "Šios {{brandName}} diegimo sąlygos aiškiai ir lengviau peržiūrimoje formoje paaiškina priimtiną naudojimą, jūsų saugumo atsakomybę ir paskyros ištrynimo pasekmes.",
         "terms_support_label": "Trumpa santrauka",
         "terms_summary": {
             "eyebrow": "Ką tai reiškia praktiškai",
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "Naudojimosi sąlygos ir atsakomybės atsisakymas",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "BETA Versija: {{brandName}} šiuo metu yra testavimo etape. Nevykdomi jokie garantijos dėl duomenų išsaugojimo ar saugumo.",
         "disclaimer": "Atsakomybės atsisakymas: Naudodamiesi šia programa sutinkate, kad negalite reikalauti jokio atlyginimo už galimus duomenų praradimus, prieigos problemas ar kitas technines problemas.",
         "backup_warning": "Duomenų atsarginė kopija: Rekomenduojame reguliariai kurti svarbios informacijos atsargines kopijas.",
         "accept": "Prisijungdami sutinkate su šiomis sąlygomis.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} šiuo metu yra testavimo ir hobio fazėje. Nėra jokių garantijų dėl duomenų išlikimo ar saugumo. Prašome laikyti savo svarbią informaciją atsarginėje kopijoje.",
         "contact": "Kontaktai"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Too many login attempts"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Prisijungti",
+        "page_title_register": "Sukurti paskyrą",
+        "page_title_choose_house": "Pasirinkti namą",
+        "page_title_recovery_key": "Atsigavimo raktas",
+        "page_title_house_access": "Namo prieiga",
+        "page_title_legal_review": "Teisinė peržiūra",
+        "page_title_new_item": "Naujas elementas",
+        "page_title_edit_item": "Redaguoti prekę",
+        "page_title_items": "Inventorius"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Klaida įkeliant pirkinių sąrašą.",
+            "select_item_error": "Prašome pasirinkti prekę iš inventoriaus.",
+            "empty_name": "Prašome įvesti prekės pavadinimą.",
+            "added": "Prekė pridėta prie pirkinių sąrašo.",
+            "add_error": "Įvyko klaida pridedant prekę.",
+            "added_suggestion": "„{{name}}“ pridėta prie pirkinių sąrašo.",
+            "bulk_added": "{{count}} elementai su mažu atsargų kiekiu pridėti prie sąrašo.",
+            "bulk_error": "Kilo klaida pridedant elementus su mažu atsargų kiekiu.",
+            "completed": "„{{name}}“ pažymėtas kaip baigtas.",
+            "reactivated": "„{{name}}“ perkelta atgal į aktyvų sąrašą.",
+            "update_error": "Įvyko klaida atnaujinimo metu.",
+            "deleted": "Elementas ištrintas iš sąrašo.",
+            "delete_error": "Įvyko klaida trinant.",
+            "cleared_completed": "Išvalyti baigtus elementus.",
+            "clear_error": "Įvyko klaida valant."
+        },
+        "loading_desc": "Ruošiama pirkinių sąrašas...",
+        "page": {
+            "title": "Pirkinių sąrašas",
+            "description": "Peržiūrėkite mažo likučio prekes namų inventoriaus sąraše ir lengvai valdykite savo pirkinių sąrašą."
+        },
+        "suggestions": {
+            "title": "Išmaniosios atsargų rekomendacijos",
+            "desc": "Atsargų prekės, kurių kiekis nukrito žemiau minimalios ribos.",
+            "add_all": "Pridėti visas trūkstamas",
+            "stock_status": "Dabartinis: {{current}} / Tikslas: {{min}}",
+            "add_qty": "Įdėti {{qty}} Prekės į pirkinių krepšelį Dabartinės prekės, kurias reikia pridėti prie jūsų krepšelio. {{count}} Prekės"
+        },
+        "sections": {
+            "active_list": "Prekės pirkti",
+            "active_desc": "Dabartinės prekių, kurias reikia pridėti į krepšelį, sąrašas.",
+            "active_count": "{{count}} Prekės",
+            "completed_list": "Įsigyti daiktai ({{count}})",
+            "add_item": "Pridėti daiktą rankiniu būdu",
+            "add_desc": "Rankiniu būdu pridėkite pasirinktą daiktą į sąrašą."
+        },
+        "empty": {
+            "title": "Jūsų pirkinių sąrašas tuščias",
+            "desc": "Galite pridėti trūkstamų atsargų iš aukščiau pateiktų pasiūlymų arba pridėti prekes rankiniu būdu naudodami formą dešinėje."
+        },
+        "card": {
+            "linked_inventory": "Išsaugota atsargose"
+        },
+        "actions": {
+            "clear_completed": "Išvalyti istoriją",
+            "add_item": "Pridėti prie pirkinių sąrašo"
+        },
+        "form": {
+            "add_type": "Pridėti metodą",
+            "add_type_inventory": "Inventoriaus elementas",
+            "add_type_custom": "Pasirinktinis elementas",
+            "select_inventory_item": "Pasirinkite elementą iš inventoriaus",
+            "no_inventory_items": "Jūsų inventoriuje dar nėra itemų.",
+            "select_item_placeholder": "Pasirinkite itemą",
+            "current_stock": "Dabartinis",
+            "item_name": "Itemo pavadinimas",
+            "item_name_placeholder": "pvz. Pienas, Skalbiklis, Kavos Pupelės...",
+            "quantity": "Kiekis"
+        },
+        "modal": {
+            "delete_title": "Ištrinti prekę iš sąrašo?",
+            "delete_desc": "Ar tikrai norite pašalinti „{{name}}“ iš jūsų pirkinių sąrašo?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Klaida įkeliant informaciją",
+            "select_item_error": "Pasirinkite elementą.",
+            "task_name_error": "Būtina nurodyti užduoties pavadinimą.",
+            "date_error": "Būtina nurodyti planuojamą datą.",
+            "updated": "Priežiūros užduotis atnaujinta",
+            "created": "Pridėta nauja priežiūros užduotis",
+            "save_error": "Įvyko klaida įrašant",
+            "deleted": "Priežiūros užduotis sėkmingai ištrinta.",
+            "delete_error": "Įvyko klaida trinant.",
+            "performed": "Priežiūra užfiksuota kaip baigta. Nustatyta kita data.",
+            "perform_error": "Įvyko klaida išsaugant."
+        },
+        "freq": {
+            "one_time": "Vienkartinis",
+            "unit": {
+                "days": "Diena",
+                "weeks": "Savaitė",
+                "months": "Mėnuo",
+                "years": "Metai"
+            },
+            "format": "Kiekvienas {{val}} {{unit}}"
+        },
+        "loading_desc": "Keliama priežiūros tvarkaraštis...",
+        "page": {
+            "title": "Priežiūra ir periodinė stebėsena",
+            "description": "Tvarkykite periodinius buities prietaisų, filtrų ar saugos įrangos priežiūros tvarkaraščius savo namų inventoriuje."
+        },
+        "actions": {
+            "add_task": "Pridėti naują užduotį",
+            "manage": "Valdyti",
+            "perform": "Pažymėti kaip atliktą",
+            "edit_task": "Redaguoti užduotį"
+        },
+        "alerts": {
+            "overdue_title": "Jūs turite nebaigtų užduočių!",
+            "overdue_desc": "Yra {{count}} vėluojančių priežiūros užduočių. Vėlavimai gali sutrumpinti prietaisų tarnavimo laiką."
+        },
+        "empty": {
+            "title": "Nėra suplanuotų priežiūros užduočių",
+            "desc": "Pradėkite pridėdami pasikartojančias užduotis, tokias kaip oro kondicionieriaus filtro valymas, katilo priežiūra arba gaisro detektoriaus baterijos tikrinimas."
+        },
+        "sections": {
+            "overdue": "Vėluojančios užduotys",
+            "overdue_desc": "Skubi priežiūra, kuri turi būti atlikta nedelsiant.",
+            "upcoming": "Suplanuoti / artėjantys darbai",
+            "upcoming_desc": "Artėjanti priežiūra per ateinančias dienas.",
+            "no_upcoming": "Ateityje nėra suplanuotų aktyvių užduočių."
+        },
+        "modal": {
+            "edit_title": "Redaguoti užduotį",
+            "create_title": "Suplanuoti naują priežiūros užduotį",
+            "perform_title": "Baigti priežiūrą",
+            "perform_desc": "Ar norite užfiksuoti \"{{name}}\" kaip šiandien atliktą?",
+            "perform_confirm": "Taip, užbaigta",
+            "perform_recurrence_info": "Tai periodinis uždavinys. Išsaugojus, sistema automatiškai apskaičiuos kitą priežiūros datą.",
+            "delete_title": "Ištrinti priežiūros užduotį?",
+            "delete_desc": "Ar tikrai norite ištrinti periodinę priežiūros grafiką „{{name}}“? Šio veiksmo nebus galima atšaukti."
+        },
+        "form": {
+            "item": "Susijęs elementas",
+            "no_items": "Prieš planuodami priežiūrą, pirmiausia turite pridėti elementą į inventorių.",
+            "select_item_placeholder": "Pasirinkite elementą",
+            "task_name": "Užduoties / operacijos pavadinimas",
+            "task_name_placeholder": "pvz., Filtro keitimas, Periodinė patikra...",
+            "description": "Išsamiai / Aprašymas",
+            "description_placeholder": "Užduoties detalės, naudojamos medžiagos ir pan...",
+            "frequency_value": "Pasikartojimo dažnumas",
+            "frequency_placeholder": "pvz., 6 (palikite tuščią vienkartiniam)",
+            "frequency_unit": "Dažnio vienetas",
+            "next_due_date": "Kitas suplanuotas terminas",
+            "section_help": "Valdykite priežiūros grafikus iš čia",
+            "section_collapsed": "Spustelėkite, kad pridėtumėte periodinius valdiklius ir užduotis",
+            "has_tasks": "{{count}} Užduotys",
+            "new_item_warning_title": "Prekė laukia išsaugojimo",
+            "new_item_warning_desc": "Pirmiausia turite išsaugoti šią prekę, kad galėtumėte pridėti priežiūros tvarkaraštį.",
+            "manage_desc": "Tvarkykite šio prietaiso ar daikto priežiūros tvarkaraščius."
+        },
+        "fields": {
+            "task_name": "Užduoties pavadinimas",
+            "task_name_placeholder": "pvz., oro kondicionieriaus filtro valymas",
+            "description": "Aprašymas",
+            "description_placeholder": "Užduoties detalės, naudojamos medžiagos ir kt...",
+            "frequency_value": "Pasikartojimo dažnis",
+            "frequency_value_placeholder": "Palikite tuščią, jei vienkartinė",
+            "frequency_unit": "Dažnio vienetas",
+            "next_due_date": "Numatyta data"
+        },
+        "card": {
+            "untitled_item": "Be pavadinimo elementas",
+            "last_performed": "Paskutinį kartą atlikta:",
+            "next_due_label": "Numatyta data",
+            "complete_tooltip": "Pažymėti priežiūrą kaip atliktą šiandien"
+        },
+        "detail_card_desc": "Periodinė arba vienkartinė priežiūros stebėsena planuota šiam elementui.",
+        "no_tasks": "Šiam elementui nėra priskirtų priežiūros užduočių.",
+        "confirm_delete": "Ši užduotis bus ištrinta. Ar esate tikri?"
     }
 }

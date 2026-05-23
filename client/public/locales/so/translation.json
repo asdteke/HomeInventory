@@ -69,7 +69,9 @@
             "vault_hint_action": "Fur Qolka Shaqsiga",
             "location": "Goobta",
             "remove_photo": "Ka saar sawirka",
-            "visibility_owner_only": "Kaliya qofka walxaha ku daray ayaa bedeli kara muuqaalka."
+            "visibility_owner_only": "Kaliya qofka walxaha ku daray ayaa bedeli kara muuqaalka.",
+            "expiry_date": "Taariikhda Dhicitaanka",
+            "min_quantity": "Tirada Ugu Yar"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" si degdeg ah ayaa loo daray - waad wax ka beddeli kartaa markii dambe",
@@ -93,7 +95,7 @@
         "category": "Qaybta",
         "room": "Qolka",
         "location": "Goobta",
-        "barcode": "Barcode",
+        "barcode": "Koodhka Baakadka",
         "photo": "Sawir",
         "add_photo": "Ku dar sawir",
         "change_photo": "Beddel Sawirka",
@@ -119,7 +121,12 @@
         "no_permission": "Ma haysatid ogolaansho aad wax ka beddesho shaygan.",
         "barcode_search_error": "Raadinta barcode-ka ayaa fashilantay",
         "stats_error": "Tirakoobka khaladaadka ee loading",
-        "detail_subtitle": "Faahfaahinta walaxda"
+        "detail_subtitle": "Faahfaahinta walaxda",
+        "status": {
+            "close_to_expiry": "Ku dhowaad dhacaya",
+            "expired": "Dhacay",
+            "low_stock": "Alaab yar"
+        }
     },
     "common": {
         "save": "Kaydi",
@@ -170,7 +177,8 @@
         "details": "Faahfaahin",
         "hide": "Qari erayga sirta ah",
         "logging_out": "Ka baxay...",
-        "show": "Muuji erayga sirta ah"
+        "show": "Muuji erayga sirta ah",
+        "saving": "Badbaadinaya..."
     },
     "auth": {
         "login": {
@@ -216,7 +224,7 @@
             "support_link": "La xidhiidh taageerada"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "Deji gurigaaga",
             "subtitle": "Abuur akoon cusub ama ku biir guri horey u jiray",
             "create_house": "Abuur Guri Cusub",
             "join_house": "Ku Biir Guri",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "Dib u geli eraygaaga sirta ah",
             "reset_submit": "Dib u Deji Erayga Sirta ah",
             "resetting": "Dib-u-dejinayaa...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Geli magacaaga isticmaalaha ama iimaylka"
         },
         "reset_password": {
             "title": "Dib u Deji Erayga Sirta ah",
@@ -356,7 +364,7 @@
         "welcome": "Ku soo dhawoow {{brandName}}",
         "username_email": "Magaca Isticmaale ama Email",
         "username": "Magaca Isticmaalaha",
-        "email": "Email",
+        "email": "Iimayl",
         "password": "Erayga sirta ah",
         "confirm_password": "Xaqiiji erayga sirta ah",
         "new_password": "Erayga Sirta ah ee Cusub",
@@ -438,7 +446,9 @@
         "logout_aria": "Ka bax akoonkaaga",
         "logout_title": "Ma ka baxaysaa?",
         "logout_description": "Waxaad dib loogu celin doonaa shaashada gelitaanka oo waxaad u baahan doontaa inaad mar kale gasho si aad u maamusho kaydka gurigaaga.",
-        "logout_warning": "Tan isticmaal marka aad dhameyso ku shaqeynta qalab wadaag ama mid shaqsi ah."
+        "logout_warning": "Tan isticmaal marka aad dhameyso ku shaqeynta qalab wadaag ama mid shaqsi ah.",
+        "maintenance": "Jadwalka Dayactirka",
+        "shopping": "Liiska Waxyaabaha La Soo Iibsado"
     },
     "dashboard": {
         "welcome": "Soo dhawoow, <1>{{name}}</1>! 👋",
@@ -565,7 +575,20 @@
         "no_items_filter": "Ma jiraan wax la mid ah filter-kan",
         "manage": "Maamul",
         "add_item": "Ku dar shay",
-        "search_item": "Shayga Raadinta"
+        "search_item": "Shayga Raadinta",
+        "alerts": {
+            "expired_title": "Shayaduway dhamaaday!",
+            "expired_desc": "Waxaa jira {{count}} shay oo dhacay ee alaabtaada. Fadlan ka hubi amnigaaga.",
+            "view_items": "Fiiri Shayada",
+            "maintenance_title": "Hawlaha Dayactirka ee Laga Baahan Yahay!",
+            "maintenance_desc": "Waxaa jira {{count}} hawlo dayactir oo dib u dhacay. Samee dayactir si aad u kordhiso cimriga aaladahaaga.",
+            "go_to_maintenance": "Tag Dayactirka",
+            "low_stock_title": "Digniin Kayd Yaraan",
+            "low_stock_desc": "{{count}} shay ayaa hoos uga dhacay xadkaaga ugu yar ee kaydka.",
+            "go_to_shopping": "Liiska Wax iibsiga",
+            "close_expiry_title": "Taariikhaha dhacaya ee soo socda",
+            "close_expiry_desc": "{{count}} badeecooyin ayaa dhacaya 30 maalmood gudahood."
+        }
     },
     "beta_banner": {
         "title": "BETA:",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "Furaha Guriga Firfircoon",
             "key_label": "Furaha Guriga",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{kuxig}}",
             "hide": "Qari",
             "show": "Muuji",
             "copy": "Nuqul",
@@ -991,8 +1014,8 @@
             "no_history": "Waligaa ma jiro taariikh amaah oo sheygan ah",
             "lend_success_title": "Shay la amaahday",
             "lend_success_body": "{{item}} hadda waxaa lagu calaamadeeyay inuu la amaahday.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "Dalabka amaahda ayaa la diray",
+            "offer_sent_body": "{{item}} waxaa lagu calaamayn doonaa sidii la amaahday ka dib marka xubin kale aqbasho.",
             "borrowed_by_you": "Adiga ayaa wata",
             "return_pending_hint": "Diiwaanka wuu xirmi doonaa ka dib marka amaahiyaha uu xaqiijiyo in uu walxaha soo celiyey.",
             "return_pending_lender_title": "{{name}} wuxuu calaamadeeyay walxahan in dib loo soo celiyey",
@@ -1401,12 +1424,12 @@
             "cta_register": "Abuur Akoon",
             "stat_free": "Bilaash",
             "stat_access": "Gal",
-            "free_badge": "Open Source",
+            "free_badge": "Il Furan",
             "badge": "HomeInventory v2.0 waa halkan",
             "cta_explore": "Sahminta Astaamaha",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Gal",
+            "stat_members": "Guryaha La Wadaago",
+            "stat_vault": "Qolka Gaarka ah"
         },
         "features": {
             "title": "Maxay tahay sababta <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Kaydi alaabada, damaanadaha, dukumentiyada muhiimka ah, iyo raadraaca amaahda meel deggan keliya. Arag waxa gurigaaga ku jira hal eegis.",
                 "primaryCta": "Bilaab Bilaash",
                 "secondaryCta": "Eeg Alaabta",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Socodka la soo jeediyay: akoon • bogga hore • qolalka iyo qaybaha • alaabta • kayd",
                 "searchPlaceholder": "Baadh shay, qol, ama koodhka barcode"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "Faahfaahinta shabakadda waxay ku sii jirtaa meel qarsoon ilaa aad u baahato tilmaamaha.",
         "link_privacy_note": "Cinwaanka shabakadda waxaa halkan lagu qarshaa. Ka baadh koodhka ama nuqul ka samee xiriirka kaliya markaad si ula kac ah u rabto inaad si toos ah u wadaagto helitaanka shaygaaga gudaha deegaankaaga.",
         "helper": "Ka baadh si aad si degdeg ah u furto shaygan, ama nuqul ka samee xiriirka tooska ah marka loo baahdo.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Lixirku si toos ah looma nuqulan karin",
+        "copy_manual_help": "Buraawsarkaagu ma oggolaan in si toos ah loo nuqulo. Lixirka waa la xushay si aad gacanta ugu nuqulan karto.",
         "loading": "Diyaarinaya qalabka QR..."
     },
     "house_access_pending": {
@@ -1923,7 +1946,7 @@
             "passphrase_number": "Ka mid noqo ugu yaraan hal lambar.",
             "passphrase_uppercase": "Ka mid noqo ugu yaraan hal xaraf weyn."
         },
-        "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
+        "recovery_file_title": "Furaha Soo Celinta Sanduuqa Shakhsiyeed ee {{brandName}} ••••••••{{suffix}} Dalabka amaahda waa la diray {{item}} waxaa loo calaamadin doonaa in la amaahday ka dib markii xubin kale ay aqbasho.",
         "recovery_file_created_label": "La Abuuray",
         "recovery_file_key_label": "Furaha Soo-kabashada",
         "recovery_file_warning": "Haddii aad lumiso furahan iyo ereyga sirta ah ee qalabkaaga labadaba, qalabka lama soo celin karo.",
@@ -1969,8 +1992,8 @@
             "empty": "Ma jiraan amaahyo firfircoon hadda.",
             "borrowed_from": "Amaah laga qaaday {{name}}",
             "lent_to": "Hadda {{name}} ayaa haysta",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Sugaya amaahiyaha inuu xaqiijiyo inuu dib u helay.",
+            "return_pending_lender": "{{name}} wuxuu sheega in shaygan dib loo keenay. Xaqiiji helitaanka si loo xiro rikoodhka.",
             "empty_title": "Ma jiraan amaah firfircoon hadda",
             "empty_description": "Codsiyada la aqbalay waxay halkan ku muuqan doonaan marka shay la amaahdo ama la amaahiyo, iyadoo la socda taariikhaha kama dambaysta ah iyo xaaladda soo celinta."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "La joojiyey",
             "expired": "Dhacay",
             "returned": "Loo Celiyey",
-            "return_pending": "Return pending"
+            "return_pending": "Dib u celin sugaysa"
         },
         "actions": {
             "send_request": "Soo Codso Shay",
@@ -1990,8 +2013,8 @@
             "reject": "Diid",
             "cancel": "Jooji",
             "fulfill_request": "Buuxi Codsiga",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Calaamadi in la keenay",
+            "mark_received": "Mark wuu helay",
             "open_inventory": "Furitaanka kaydka"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "Mark Returns",
             "return_subtitle": "Xir amaahda firfircoon ee \"{{item}}\"",
             "return_target": "Hadda waxaa lagu muujiyay inay la socoto {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Gudbi shayga",
+            "return_title_lender": "Hel shayga",
+            "return_subtitle_borrower": "Xir ama xidh amaahda firfircoon ee \"{{item}}\" ka dib markaad dib u soo celiso.",
+            "return_subtitle_lender": "Xir amaahda firfircoon ee \"{{item}}\" ka dib markaad dib u hesho.",
+            "return_target_borrower": "Amaah-bixiye: {{name}}",
+            "return_target_lender": "Hadda lala joogo: {{name}}",
+            "return_note_borrower": "Ogeysiiska gaarsiinta",
+            "return_note_lender": "Hel qoraal",
+            "return_note_placeholder_borrower": "tusaale ahaan waan ku celiyey anigoo aan wax dhibaato ah la kulmin",
+            "return_note_placeholder_lender": "tusaale ahaan waxa si wanaagsan loo soo celiyey",
+            "return_submitting": "Xirid..."
         },
         "messages": {
             "load_error": "Xarunta amaahda lama soo rarri karin",
@@ -2071,8 +2094,8 @@
         "consent_required": "Waxaad u baahan tahay inaad xaqiijiso Shuruudaha Adeegga iyo Ogeysiiska Asturnaanta ka hor intaadan sii wadin.",
         "document_badge": "Dukumeenti sharci ah",
         "data_privacy_badge": "Xogta iyo sirnimada",
-        "back_to_home": "Back to Home",
-        "quick_access": "Quick access",
+        "back_to_home": "Ku laabo Bogga Hore",
+        "quick_access": "Gelitaan Degdeg ah",
         "on_this_page": "Boggan",
         "contents": "Mawduucyada",
         "page_label": "Bogga",
@@ -2080,13 +2103,13 @@
         "contact": "La Xiriir",
         "jump_to": "U bood",
         "privacy_description": "Ogeysiiska qarsoodiga ah ee rakiban {{brandName}} wuxuu sharxayaa xogta la farsameeyay, sida loo ururiyo, sida loo wadaago ama loo wareejiyo, iyo waxa xuquuqaha iyo dariiqooyinka cabashada lagu dabaqi karo.",
-        "privacy_support_label": "For privacy requests, rights applications, and complaint-related inquiries about this installation:",
+        "privacy_support_label": "Codsiyada asturnaanta, dalabyada xuquuqda, iyo weydiimaha la xiriira cabashada ku saabsan rakibiddan:",
         "privacy_summary": {
             "title": "**Waxa aanu farsamaynno:** Waxaanu farsamaynnaa akoonnada, adeegga, ammaanka farsamada, iyo xogta bixiyaha ikhtiyaarka ah ee loo baahan yahay si loo socodsiiyo akoonkaaga iyo codsiga.",
             "description": "**Sababta:** Xogta waxaa loo isticmaalaa xaqiijinta, amniga fadhiga, socodka shaqada, kaydinta, iyo astaamaha Vault Personal.",
             "items": {
                 "what": "** Wadaagista iyo kaydinta:** Ma iibino xogta shakhsi ahaaneed. Waxaa lagu hayaa kaabayaasha loo doortay rakibaaddan; Haddii aad doorato Saxiix-gelinta Google ama raadinta barcode, xog xaddidan ayaa lala wadaagayaa bixiyaha la doortay si loo dhamaystiro sifadaas, hawl-wadeennadu waa inuu daaha ka qaadaa dalalka iyo ilaalinta halka loo baahdo.",
-                "why": "**Why:** Data is used for authentication, session security, inventory workflows, backups, and Personal Vault features.",
+                "why": "**Sababta:** Xogta waxaa loo isticmaalaa xaqiijinta aqoonsiga, ammaanka kal-fadhiga, hab-socodka alaabta, kaydinta, iyo astaamaha Sanduuqa Shakhsiyeed.",
                 "sharing": "**Wadaag iyo kaydin:** Ma iibinno xogta shakhsiga ah. Waxaa lagu hayaa kaabayaasha loo doortay rakibiddaan; haddii aad doorato Gelitaanka Google ama raadi barcode, xog xaddidan ayaa lala wadaagaa bixiyaha la soo xulay si loo dhameystiro astaantaas, waxaana hawl wadeenka laga rabaa inuu shaaciyo dalalka iyo tallaabooyinka ilaalinta marka loo baahdo.",
                 "control": "**Xakamayntaada:** Waxaad codsan kartaa gelitaan, saxid, tirtirid, xadid, diidmo, u rarid meel kale halka ay khusayo, ama ka cabasho hay’adda xilka leh adigoo la xiriiraya cinwaanka asturnaanta ee rakibiddaan."
             },
@@ -2103,7 +2126,7 @@
                 "rights": "Su'aalaha ku saabsan shuruudaha lagu dabaqi karo rakibaaddan:"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "Shuruudaha rakibiddan {{brandName}} waxay sharxayaan isticmaalka la oggol yahay, mas'uuliyadahaaga amniga, iyo cawaaqibta ka dhalan karta tirtirida akoonka si cad, oo si fudud loo akhriyi karo.",
         "terms_support_label": "Waa maxay tani macnaheedu",
         "terms_summary": {
             "eyebrow": "Dulmar degdeg ah",
@@ -2111,7 +2134,7 @@
             "items": {
                 "use": "Adeegga u isticmaal oo keliya xogta laguu oggolaaday inaad soo rogto, kaydiso, ama wadaagto.",
                 "responsibility": "Adiga ayaa masuul ka ah sharcinimada, saxnaanta, iyo lahaanshaha waxa aad soo geliyaan ama la wadaagto.",
-                "security": "Keep your password, recovery materials, and backups secure.",
+                "security": "Xafid lambarka sirta ah, agabka soo kabashada, iyo kaydinta si ammaan ah.",
                 "backups": "Helitaanka, taageerada, iyo isku xidhka waxay ku xidhan tahay hawlwadeenka rakibaaddan; adeegga waxa lagu bixiyaa \"sida\" iyo \"sida la heli karo\" ku salaysan ilaa xadka sharcigu ogol yahay.",
                 "disclaimer": "Helitaanka, taageerada, iyo isdhexgalka waxay ku xiran yihiin hawlwadeenka rakibiddan; adeegga waxaa lagu bixiyaa qaabka 'sida uu yahay' iyo 'sida la heli karo' inta sharcigu oggol yahay."
             }
@@ -2153,7 +2176,7 @@
         "admin_panel": "Guddiga Maamulka",
         "share_house": "Guriga Wadaagga",
         "new_item": "Shayga Cusub",
-        "menu": "Menu",
+        "menu": "Liiska",
         "help": "Caawimaad & Taageero"
     },
     "theme": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Isku dayo badan oo gelitaan ah. Fadlan isku day mar kale 15 daqiiqo gudahood."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Gal",
+        "page_title_register": "Abuuri akoon",
+        "page_title_choose_house": "Dooro guri",
+        "page_title_recovery_key": "Furaha soo kabashada",
+        "page_title_house_access": "Gelitaanka guriga",
+        "page_title_legal_review": "Dib u eegis sharci",
+        "page_title_new_item": "Alaab cusub",
+        "page_title_edit_item": "Tafatir alaab",
+        "page_title_items": "Kayd"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Khalad ayaa ka dhacay soo dejinta liiska wax iibsiga.",
+            "select_item_error": "Fadlan ka dooro shay liiska kaydka.",
+            "empty_name": "Fadlan geli magaca shayga.",
+            "added": "Shayga waxa lagu daray liiska wax iibsiga.",
+            "add_error": "Waxaa dhacay qalad intii lagu darayay shayga.",
+            "added_suggestion": "\"{{name}}\" ayaa lagu daray liiska wax iibsiga.",
+            "bulk_added": "{{count}} shay oo keydka hoose ku jira ayaa lagu daray liiska.",
+            "bulk_error": "Khalad ayaa ka dhacay markii la darayay shayada keydka hoose.",
+            "completed": "\"{{name}}\" ayaa lagu calaamadeeyay in la dhammeeyey.",
+            "reactivated": "\"{{name}}\" waxaa dib looga wareejiyey liiska firfircoon.",
+            "update_error": "Khalad ayaa ka dhacay inta lagu guda jiro cusbooneysiinta.",
+            "deleted": "Shayga waxaa laga tirtiray liiska.",
+            "delete_error": "Khalad ayaa ka dhacay inta lagu guda jiray tirtiridda.",
+            "cleared_completed": "Waxyaabihii la dhammeeyey waa la tirtiray.",
+            "clear_error": "Khalad ayaa ka dhacay intii la tirtirayay."
+        },
+        "loading_desc": "Liiska wax iibsiga ayaa la diyaarinayaa...",
+        "page": {
+            "title": "Liiska Wax Iibsiga",
+            "description": "Daawo alaabta kaydka guriga ee yaraanaysa oo si fudud u maamul liiskaaga iibsiga."
+        },
+        "suggestions": {
+            "title": "Soo jeedinno Kayd Caqli leh",
+            "desc": "Alaabta kaydka ee hoos u dhacday xadka ugu yar.",
+            "add_all": "Ku dar Dhamaan Cusbada Maqan",
+            "stock_status": "Hadda: {{current}} / Ujeeddo: {{min}}",
+            "add_qty": "Ku dar {{qty}}"
+        },
+        "sections": {
+            "active_list": "Alaabooyin la iibiyo",
+            "active_desc": "Alaabooyinka hadda jira ee la gelinayo gaadhigaaga.",
+            "active_count": "{{count}} Shay",
+            "completed_list": "Shayada la Iibsaday ({{count}})",
+            "add_item": "Ku dar Shay Gacanta",
+            "add_desc": "Gacanta ku dar shay gaar ah liiska."
+        },
+        "empty": {
+            "title": "Liiskaaga wax iibsiga waa madhan yahay",
+            "desc": "Waxaad ku dari kartaa alaabta ka maqan talooyinka kor ku xusan ama si gacanta ah ugu dar walxaha adigoo adeegsanaya foomka ku yaal dhinaca midig."
+        },
+        "card": {
+            "linked_inventory": "Waxaa lagu keydiyay Kaydka"
+        },
+        "actions": {
+            "clear_completed": "Taariikhda Nadiifi",
+            "add_item": "Kudar Liiska Wax-iibsiga"
+        },
+        "form": {
+            "add_type": "Kudar Hab",
+            "add_type_inventory": "Shayga Kaydka",
+            "add_type_custom": "Shayga Gaarka ah",
+            "select_inventory_item": "Xulo Shay ka mid ah Kaydka",
+            "no_inventory_items": "Wax shay ah kuma jiro kaydkaaga weli.",
+            "select_item_placeholder": "Xulo shay",
+            "current_stock": "Hadda",
+            "item_name": "Magaca Shayga",
+            "item_name_placeholder": "tusaale. Caano, Saabuun, Digir Qaxwo...",
+            "quantity": "Tirada"
+        },
+        "modal": {
+            "delete_title": "Miyay tahay in Shayga laga tirtiro Liiska?",
+            "delete_desc": "Ma hubtaa inaad ka saarto \"{{name}}\" liiskaaga wax iibsiga?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Khalad ayaa ka dhacay xogta",
+            "select_item_error": "Fadlan xulo shay.",
+            "task_name_error": "Magaca hawshu waa lama huraan.",
+            "date_error": "Taariikh qorshaysan waa loo baahan yahay.",
+            "updated": "Hawsha dayactirka waa la cusbooneysiiyay",
+            "created": "Hawsha dayactirka cusub waa la daray",
+            "save_error": "Khalad ayaa dhacay intii lagu keydinayay",
+            "deleted": "Hawl-qaadista dayactirka si guul leh ayaa loo tirtiray.",
+            "delete_error": "Khalad ayaa ka dhacay intii lagu jiray habka tirtirka.",
+            "performed": "Dayactirka waa la diiwaangeliyey sida la dhameystiray. Taariikhda xigta waa la qorsheeyay.",
+            "perform_error": "Khalad ayaa ka dhacay intii la keydinayay."
+        },
+        "freq": {
+            "one_time": "Hal mar",
+            "unit": {
+                "days": "Maalin",
+                "weeks": "Toddobaad",
+                "months": "Bil",
+                "years": "Sannad"
+            },
+            "format": "Kasta {{val}} {{unit}}"
+        },
+        "loading_desc": "Waxaa la rarayaa jadwalka dayactirka...",
+        "page": {
+            "title": "Dayactirka & Raad-raaca Joogtada ah",
+            "description": "Maamul jadwalka dayactirka joogtada ah ee qalabka, shaandhada, ama qalabka badbaadada ee gurigaaga."
+        },
+        "actions": {
+            "add_task": "Ku dar Hawl Cusub",
+            "manage": "Maamul",
+            "perform": "Calaamadee sida La Dhameystiray",
+            "edit_task": "Tafatir Hawsha"
+        },
+        "alerts": {
+            "overdue_title": "Waxaad leedahay Hawlo Dib-u-dhac ah!",
+            "overdue_desc": "Waxaa jira {{count}} hawlo dayactir oo dib u dhacay. Dib-u-dhacyadu waxay yareyn karaan cimriga qalabka."
+        },
+        "empty": {
+            "title": "Ma jiraan hawlo dayactir oo jadwaleysan",
+            "desc": "Bilow adigoo ku daraya hawlo joogto ah sida nadiifinta shaandhada AC, dayactirka boiler-ka, ama hubinta batteriga qalabka digniinta dabka."
+        },
+        "sections": {
+            "overdue": "Hawlaha Ka Dib-Dhacay",
+            "overdue_desc": "Dayactir degdeg ah oo u baahan in isla markiiba la qabto.",
+            "upcoming": "Hawlaha La Jadwaleeyey / Soo Socda",
+            "upcoming_desc": "Dayactirka soo socda maalmaha soo socda.",
+            "no_upcoming": "Hawl shaqo oo firfircoon lama qorsheyn mustaqbalka."
+        },
+        "modal": {
+            "edit_title": "Tafatir Hawsha",
+            "create_title": "Jadwal Cusub oo Hawlday Maintenance",
+            "perform_title": "Dhameystir Maintenance",
+            "perform_desc": "Ma doonaysaa inaad qorato \"{{name}}\" maanta sidii dhameystiran?",
+            "perform_confirm": "Haa, Dhameystiran",
+            "perform_recurrence_info": "Tani waa hawl joogto ah. Marka aad kaydiso, nidaamku si otomaatig ah ayuu u xisaabin doonaa taariikhda dayactirka xiga.",
+            "delete_title": "Ma tirtiri doonaa Hawsha Dayactirka?",
+            "delete_desc": "Ma hubtaa inaad rabto inaad tirtirto jadwalka dayactirka joogtada ah \"{{name}}\"? Ficilkan lama soo celin karo."
+        },
+        "form": {
+            "item": "Shayga La Xiriira",
+            "no_items": "Waa inaad marka hore shay ku dartaa kaydka ka hor intaadan jadwalin dayactirka.",
+            "select_item_placeholder": "Dooro Shay",
+            "task_name": "Magaca Hawsha / Howlgalka",
+            "task_name_placeholder": "tusaale Filter Beddel, Hubin Joogto ah...",
+            "description": "Faahfaahin / Sharaxaad",
+            "description_placeholder": "Faahfaahinta hawsha, agabka la isticmaali doono, iwm...",
+            "frequency_value": "Inta jeer ee soo noqnoqda",
+            "frequency_placeholder": "tusaale 6 (ka tag banaan hal mar)",
+            "frequency_unit": "Cutubka Joogtaynta",
+            "next_due_date": "Taariikhda Xigta ee Jadwalka",
+            "section_help": "Maamul jadwalka dayactirka halkan",
+            "section_collapsed": "Guji si aad u darto kontoroolada iyo shaqooyinka joogtada ah",
+            "has_tasks": "{{count}} Shaqo",
+            "new_item_warning_title": "Shayga Keydinta Sugaysa",
+            "new_item_warning_desc": "Waa inaad marka hore kaydisaa shaygan si aad jadwal dayactir ugu darto.",
+            "manage_desc": "Maamul jadwalka dayactirka qalabkan ama shaygan."
+        },
+        "fields": {
+            "task_name": "Magaca Hawsha",
+            "task_name_placeholder": "tusaale ahaan nadiifinta shaandhada AC",
+            "description": "Sharaxaad",
+            "description_placeholder": "Faahfaahinta shaqada, agabka la isticmaali doono, iwm...",
+            "frequency_value": "Joogtaynta Soo noqnoqda",
+            "frequency_value_placeholder": "Ka tag faaruq hal mar",
+            "frequency_unit": "Unugga Joogtada",
+            "next_due_date": "Taariikhda Jadwalaysan"
+        },
+        "card": {
+            "untitled_item": "Shay Aan Cinwaan Laheyn",
+            "last_performed": "Kan Ugu Dambeeyay:",
+            "next_due_label": "Taariikhda la qorsheeyay",
+            "complete_tooltip": "Calaamadee Dayactirka Maanta"
+        },
+        "detail_card_desc": "Raad-raaca dayactirka joogtada ah ama hal mar ah ee shaygan loogu talagalay.",
+        "no_tasks": "Ma jiraan hawlo dayactir ah oo shaygan loo qoondeeyay.",
+        "confirm_delete": "Hawlgan waa la tirtiri doonaa. Ma hubtaa?"
     }
 }

@@ -69,7 +69,9 @@
             "vault_hint_action": "પર્સનલ વૉલ્ટ ખોલો",
             "location": "સ્થાન",
             "remove_photo": "ફોટો દૂર કરો",
-            "visibility_owner_only": "ફક્ત જે વ્યક્તિ આ આઇટમ ઉમેર્યું છે તે જ દ્રશ્યતામાં ફેરફાર કરી શકે છે."
+            "visibility_owner_only": "ફક્ત જે વ્યક્તિ આ આઇટમ ઉમેર્યું છે તે જ દ્રશ્યતામાં ફેરફાર કરી શકે છે.",
+            "expiry_date": "સમાપ્તિ તારીખ",
+            "min_quantity": "ન્યૂનતમ مقدار"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" ઝડપી ઉમેરાયું - તમે પછી ફેરફાર કરી શકો છો",
@@ -119,7 +121,12 @@
         "no_permission": "તમારી પાસે આ વસ્તુને બદલવા માટે પરવાનગી નથી",
         "barcode_search_error": "બારકોડ શોધ નિષ્ફળ",
         "stats_error": "પરિસ્થિતિઓ લાવી રહ્યા હોય ત્યારે ભૂલ",
-        "detail_subtitle": "આઇટમની વિગતો"
+        "detail_subtitle": "આઇટમની વિગતો",
+        "status": {
+            "close_to_expiry": "સમાપ્તિ નિકટ છે",
+            "expired": "મ્યાદ પુરી થાઈ ગઈ",
+            "low_stock": "ઓછી સ્ટૉક"
+        }
     },
     "common": {
         "save": "સેવ કરો",
@@ -170,7 +177,8 @@
         "details": "વિગતવાર",
         "hide": "પાસવર્ડ છુપાવો",
         "logging_out": "લૉગઆઉટ થઇ રહ્યું છે...",
-        "show": "પાસવર્ડ બતાવો"
+        "show": "પાસવર્ડ બતાવો",
+        "saving": "સાચવાઈ રહ્યું છે... •••••••• વસ્તુઓ સમય સીમા પૂરી થઈ ગઈ છે! તમારા ઇન્વેન્ટરીમાં {{count}} સામગ્રીની વપરાશમર્યાદા પૂરી થઈ ગઈ છે. કૃપા કરીને તમારા સુરક્ષાનિ ખાતરી માટે તેમને તપાસો."
     },
     "auth": {
         "login": {
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "તમારો પાસવર્ડ ફરી દાખલ કરો",
             "reset_submit": "પાસવર્ડ રીસેટ કરો",
             "resetting": "રીસેટ થઈ રહ્યું છે...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "તમારું યુઝરનેમ અથવા ઇમેલ દાખલ કરો"
         },
         "reset_password": {
             "title": "પાસવર્ડ રીસેટ કરો",
@@ -367,7 +375,7 @@
         "google_login": "ગૂગલ સાથે ચાલુ રાખો",
         "login_issues": "પ્રવેશ સમસ્યાઓ માટે",
         "placeholder_username": "દા.ત.: જ્હોન",
-        "placeholder_password": "••••••••",
+        "placeholder_password": "•••••••• ઇટમ્સ સમાપ્ત થઈ ગઈ છે! તમારા ઇન્વેન્ટરીમાં {{count}} સમાપ્ત થયેલી વસ્તુઓ છે. કૃપા કરીને તમારી સુરક્ષા માટે તેમને તપાસો. ••••••••{{suffix}}",
         "login_two_factor": {
             "title": "બે-પરિબળ સત્તાધિકરણ",
             "subtitle": "તમારી ઑથેન્ટિકેશન ઍપમાંથી 6-અંકનો કોડ દાખલ કરો",
@@ -438,7 +446,9 @@
         "logout_aria": "તમારા એકાઉન્ટમાંથી લૉગ આઉટ કરો",
         "logout_title": "લૉગ આઉટ કરવું છે?",
         "logout_description": "તમને સાઇન-ઇન સ્ક્રીન પર પાછું મોકલવામાં આવશે અને તમારે ફરીથી તમારા ઘરનાં ઇન્વેન્ટરી મેનેજ કરવા માટે લૉગ ઇન કરવું પડશે.",
-        "logout_warning": "જ્યારે તમે કોઈ શેર કરેલી અથવા વ્યક્તિગત ડિવાઈસ પર કામ પૂરૂં કરશો ત્યારે આનો ઉપયોગ કરો."
+        "logout_warning": "જ્યારે તમે કોઈ શેર કરેલી અથવા વ્યક્તિગત ડિવાઈસ પર કામ પૂરૂં કરશો ત્યારે આનો ઉપયોગ કરો.",
+        "maintenance": "જાળવણી સમયસૂચી",
+        "shopping": "ખરીદી સૂચિ"
     },
     "dashboard": {
         "welcome": "તમને પાછું સ્વાગત છે, <1>{{name}}</1>",
@@ -565,7 +575,20 @@
         "no_items_filter": "વસ્તુઓ આ ગાળક સાથે બંધબેસતી નથી",
         "manage": "વ્યવસ્થા કરો",
         "add_item": "વસ્તુ ઉમેરો",
-        "search_item": "વસ્તુ શોધો"
+        "search_item": "વસ્તુ શોધો",
+        "alerts": {
+            "expired_title": "આઇટમ્સ સમાપ્ત થઈ ગઈ છે!",
+            "expired_desc": "તમારી ઇન્વેન્ટરીમાં {{count}} સમયસીમા સમાપ્ત થયેલી આઇટમ છે.",
+            "view_items": "આઇટમ્સ જુઓ",
+            "maintenance_title": "વચગાળાનો મેન્ટેનન્સ કાર્ય સમયસીમા લાંઘી ગયેલ છે!",
+            "maintenance_desc": "{{count}} વચગાળાના મેન્ટેનન્સ કાર્ય સમયસીમા લાંઘી ગયેલ છે. તમારા ઉપકરણોની આયુષ્ય લંબાવા માટે મેન્ટેનન્સ કરો.",
+            "go_to_maintenance": "મેન્ટેનન્સ પર જાઓ",
+            "low_stock_title": "લૉ સ્ટોક એલર્ટ",
+            "low_stock_desc": "{{count}} ઇટમ્સ તમારા લઘુત્તમ સ્ટોક મર્યાદા નીચે આવી ગયા છે.",
+            "go_to_shopping": "શોપિંગ લિસ્ટ",
+            "close_expiry_title": "આવનારા સમાપ્તિ તારીખો",
+            "close_expiry_desc": "{{count}} ઉત્પાદન 30 દિવસની અંદર સમાપ્ત થઈ જશે."
+        }
     },
     "beta_banner": {
         "title": "બીટા:",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "સક્રિય ઘર કી",
             "key_label": "ઘર કી",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{પ્રત્યય}}",
             "hide": "છુપાવો",
             "show": "પ્રદર્શિત કરો",
             "copy": "નકલ કરો",
@@ -797,7 +820,7 @@
             "username": {
                 "title": "વાપરકર્તા નામ બદલો",
                 "new_label": "નવું વાપરકર્તા નામ",
-                "placeholder": "Your new username",
+                "placeholder": "તમારું નવું યુઝરનેમ",
                 "help": "3-30 અક્ષરો, અક્ષર, 숫ર, અન્ડરસ્કોર અને ડેશ જ",
                 "saving": "સંગ્રહિત કરવામાં આવી રહ્યું છે...",
                 "submit": "બદલાઓ"
@@ -991,8 +1014,8 @@
             "no_history": "આ વસ્તુ માટે હજુ કોઈ ઉધાર ઇતિહાસ નથી.",
             "lend_success_title": "સામાન ઉધાર આપ્યો",
             "lend_success_body": "{{item}} હવે ઉધાર તરીકે ચિહ્નિત છે.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "કરજે માટેનું ઑફર મોકલાયું",
+            "offer_sent_body": "{{item}} બીજા સભ્યે સ્વીકાર્યા બાદ આ વસ્તુને લોન તરીકે ચિહ્નિત કરવામાં આવે છે.",
             "borrowed_by_you": "તમારી સાથે",
             "return_pending_hint": "રેકોર્ડ લેનાર પુનઃપ્રાપ્ત કરી લીધા પછી બંધ થશે.",
             "return_pending_lender_title": "{{name}} આ આઇટમને પાછું પહોંચાડવામાંDelivered તરીકે ચિહ્નિત કર્યું",
@@ -1229,7 +1252,7 @@
             "no_logs": "અજી સુધી લોગ્સ નથી",
             "errors_title": "સિસ્ટમ ત્રુટિઓ (છેલ્લા ૧૦)",
             "no_errors": "// સિસ્ટમ સ્વસ્થ છે, કોઈ ત્રુટી લોગ્સ નથી.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{તારીખ, તારીખનો સમય}}",
             "type": {
                 "email": "ઇમેઇલ",
                 "user": "વપરાશકર્તા",
@@ -1401,12 +1424,12 @@
             "cta_register": "ખાતું બનાવો",
             "stat_free": "મફત",
             "stat_access": "ઍક્સેસ",
-            "free_badge": "Open Source",
+            "free_badge": "ઓપન સોર્સ",
             "badge": "હોમઇન્વેન્ટરી v2.0 અહીં છે",
             "cta_explore": "લક્ષણોનું અન્વેષણ કરો",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "સાઇન ઇન",
+            "stat_members": "શેર કરેલા ઘર",
+            "stat_vault": "પ્રાઇવેટ વોલ્ટ"
         },
         "features": {
             "title": "<1>HomeInventory</1> શા માટે?",
@@ -1477,7 +1500,7 @@
                 "description": "વસ્તુઓ, વોરંટી, મહત્વપૂર્ણ દસ્તાવેજો અને ઉધાર ટ્રેકિંગ એક શાંત જગ્યાએ રાખો. એક નજરમાં તમારા ઘરમાં શું છે તે જુઓ.",
                 "primaryCta": "મફત પ્રારંભ કરો",
                 "secondaryCta": "ઉત્પાદન સંપૂર્ણપણે મફત જુઓ",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "સૂચવાયેલ પ્રવાહ: એકાઉન્ટ • ઘર • રૂમ અને કેટેગરીઝ • વસ્તુઓ • બેકઅપ",
                 "searchPlaceholder": "કોઈ આઇટમ, રૂમ અથવા બારકોડ શોધો"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "નેટવર્ક વિગતો અહીં રાખવામાં આવે છે જ્યાં સુધી તમને માર્ગદર્શનની જરૂર ન હોય.",
         "link_privacy_note": "નેટવર્ક એડ્રેસ અહીં છુપાયેલું રહે છે. કોડ સ્કેન કરો અથવા લિંક નકલ કરો માત્ર ત્યારે જ જ્યારે તમે સ્થાનિક સેટઅપ પર સીધી વસ્તુ સુધી પહોંચ વહેંચવાનું ઈચ્છો.",
         "helper": "આ વસ્તુ તરત ખોલવા માટે સ્કેન કરો અથવા જરૂર જણાય ત્યારે સીધી લિંક નકલ કરો.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "લિંક આપમેળે નકલ કરી શકાઈ ન હતી",
+        "copy_manual_help": "તમારા બ્રાઉઝરે સ્વયંક્રિય નકલને અનુમતિ નથી આપી. લિંંક પસંદ કરાઇ છે જેથી તમે તેને મેન્યુઅલી નકલ કરી શકો.",
         "loading": "QR સાધનો તૈયાર કરી રહ્યા છીએ..."
     },
     "house_access_pending": {
@@ -1773,7 +1796,7 @@
             "subject": "🏠 {{brandName}} - 📧 ઇમેલ ચકાસણી જરૂરી",
             "headerTitle": "{{brandName}}માં આપનું સ્વાગત છે",
             "headerSubtitle": "નવો અકાઉન્ટ બનાવો અથવા અસ્તિત્વમાં રહેલા ઘરમાં જોડાઓ",
-            "greeting": "Welcome to {{brandName}}",
+            "greeting": "{{brandName}} માં આપનું સ્વાગત છે",
             "intro": "ખાતું બનાવવામાં આવ્યું! લૉગિન કરવા માટે કૃપા કરીને તમારું ઇમેલ સરનામું ચકાસો.",
             "verifyPrompt": "📧 ઇમેલ ચકાસણી જરૂરી",
             "verifyButton": "✓ મારું અકાઉન્ટ ચકાસો",
@@ -1796,7 +1819,7 @@
             "subject": "{{brandName}}માં આપનું સ્વાગત છે",
             "headerTitle": "{{brandName}}માં આપનું સ્વાગત છે",
             "headerSubtitle": "નવો અકાઉન્ટ બનાવો અથવા અસ્તિત્વમાં રહેલા ઘરમાં જોડાઓ",
-            "greeting": "Welcome to {{brandName}}",
+            "greeting": "{{brandName}} માં આપનું સ્વાગત છે",
             "intro": "સ્વાગત છે, ! 👋",
             "houseKeyLabel": "હાઉસ કી",
             "houseKeyNote": "આ તમારી ઘરની ચાવી છે, તેનો ઉપયોગ બીજાઓને આમંત્રિત કરવા માટે કરો. તમારા ઘરમાં પરિવારના સભ્યો ઉમેરો!",
@@ -1969,8 +1992,8 @@
             "empty": "હાલમાં કોઈ સક્રિય ઉધાર નથી.",
             "borrowed_from": "{{name}} પાસેથી ઉધાર લીધું",
             "lent_to": "હાલમાં {{name}} સાથે",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "દેતા દ્વારા તે પાછું મળી ગયું છે કે નહીં તેની પુષ્ટિ માટે રાહ જોઈ રહ્યા છે.",
+            "return_pending_lender": "{{name}}એ આ વસ્તુને પાછી પહોંચાડવામાં આવી તરીકે ચિહ્નિત કર્યું. રેકોર્ડ બંધ કરવા માટે પ્રાપ્ત થવાની પુષ્ટિ કરો.",
             "empty_title": "હાલ કોઈ સક્રિય ઉધાર નથી",
             "empty_description": "એક વસ્તુ ઉધાર લેવામાં કે આપવામાં આવ્યા પછી સ્વીકારેલી વિનંતીઓ અહીં દેખાશે, સાથે સાથે તારીખો અને પરતાવાની સ્થિતિ પણ."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "રદ્દ થયેલું",
             "expired": "મেয়ાદ પૂરી",
             "returned": "છૂટક રીટર્ન થયું",
-            "return_pending": "Return pending"
+            "return_pending": "પરત ફરત મૂકો"
         },
         "actions": {
             "send_request": "આઇટમ માંગવા",
@@ -1990,8 +2013,8 @@
             "reject": "નકારી દો",
             "cancel": "રદ્દ કરો",
             "fulfill_request": "વિનંતી પુરા કરો",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "પહોંચાડ્યુ ચિહ્નિત કરો",
+            "mark_received": "પ્રાપ્ત કર્યું ચિહ્નિત કરો",
             "open_inventory": "ઇન્વેન્ટરી ખોલો"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "પરત જાહેર કરો",
             "return_subtitle": "\"{{item}}\" માટે સક્રિય ઉધાર બંધ કરો",
             "return_target": "હાલ આ દર્શાવવામાં આવી રહ્યું છે કે {{name}} પાસે છે.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "વસ્તુ પહોંચાડો",
+            "return_title_lender": "આઇટમ",
+            "return_subtitle_borrower": "પ્રાપ્ત કરો તમે તેને પાછું સોંપ્યા પછી \"{{item}}\" માટે સક્રિય ઉધાર બંધ કરો.",
+            "return_subtitle_lender": "તમે તેને પાછું પ્રાપ્ત કર્યા પછી \"{{item}}\" માટે સક્રિય ઉધાર બંધ કરો.",
+            "return_target_borrower": "ધિરાણકર્તા: {{નામ}}",
+            "return_target_lender": "પ્રત્યક્ષમાં: {{name}}",
+            "return_note_borrower": "વિતરણ નોટ",
+            "return_note_lender": "ગ્રહણ નોટ",
+            "return_note_placeholder_borrower": "ઉદાહરણ તરીકે, મેં તેને કોઈ સમસ્યા વિના પાછું આપી દીધું",
+            "return_note_placeholder_lender": "જેમ કે, સારી સ્થિતિમાં પરત પ્રાપ્ત",
+            "return_submitting": "બંધ થઈ રહ્યું છે..."
         },
         "messages": {
             "load_error": "બોરો 센ટર લોડ કરી શકાયું નથી",
@@ -2074,7 +2097,7 @@
         "back_to_home": "ઘર પર પાછા",
         "quick_access": "ઝડપી ઍક્સેસ",
         "on_this_page": "આ પૃષ્ઠ પર",
-        "contents": "Contents",
+        "contents": "સામગ્રી",
         "page_label": "પાનું",
         "overview": "જઠ્થાકીય દૃષ્ટિ",
         "contact": "સંપર્ક",
@@ -2103,7 +2126,7 @@
                 "rights": "તમારા અધિકારો"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "આ {{brandName}} ઇન્સ્ટોલેશન માટેના શરતો સ્વીકાર્ય ઉપયોગ, તમારી સુરક્ષા જવાબદારીઓ, અને ખાતું કાઢી નાખવાના પરિણામોને વધુ સ્પષ્ટ, સરળતાથી સ્કેન કરી શકાય તેવા ફોર્મેટમાં સમજાવે છે.",
         "terms_support_label": "ઝડપી સારાંશ",
         "terms_summary": {
             "eyebrow": "આનો વ્યવહારમાં શું અર્થ થાય છે",
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "ઘણા બધા પ્રવેશ પ્રયત્નો છે. કૃપા કરીને 15 મિનિટમાં ફરીથી પ્રયાસ કરો."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "સાઇન ઇન",
+        "page_title_register": "એકાઉન્ટ બનાવો",
+        "page_title_choose_house": "ઘર પસંદ કરો",
+        "page_title_recovery_key": "પુનઃપ્રાપ્તી કી",
+        "page_title_house_access": "ઘરની પ્રવેશ પહોંચ",
+        "page_title_legal_review": "કાનૂની સમીક્ષા",
+        "page_title_new_item": "નવું વસ્તુ",
+        "page_title_edit_item": "વસ્તુ સંપાદિત કરો",
+        "page_title_items": "ઇન્વેન્ટરી"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "શોપિંગ સૂચિ લોડ કરવામાં ખામી.",
+            "select_item_error": "કૃપા કરીને ઇન્વેન્ટરીમાંથી એક વસ્તુ પસંદ કરો.",
+            "empty_name": "કૃપા કરીને એક વસ્તુનું નામ દાખલ કરો.",
+            "added": "શોપિંગ સૂચિમાં ઇટમ ઉમેરાઈ ગયું.",
+            "add_error": "ઇટમ ઉમેરતી વખતે એક ત્રુટિ આવી.",
+            "added_suggestion": "\"{{name}}\" શોપિંગ સૂચિમાં ઉમેરાયું.",
+            "bulk_added": "{{count}} ઓછા સ્ટોકવાળા आइટમ સૂચિમાં ઉમેરાયા.",
+            "bulk_error": "ઓછી સ્ટોક આઇટમ્સ ઉમેરવામાં ખામી.",
+            "completed": "\"{{name}}\" પૂર્ણ તરીકે ચિહ્નિત કરાયું.",
+            "reactivated": "\"{{name}}\" ફરી સક્રિય યાદીમાં મૂકી દીધું.",
+            "update_error": "અપડેટ દરમિયાન ખામી આવી.",
+            "deleted": "સૂચિમાંથી વસ્તુ કાઢી કાઢી.",
+            "delete_error": "કાઢતી વખતે ત્રુટિ આવી.",
+            "cleared_completed": "પૂર્ણ થયેલી વસ્તુઓ સાફ કરી.",
+            "clear_error": "સાફ કરતી વખતે ત્રુટિ આવી."
+        },
+        "loading_desc": "શોપિંગ સૂચિ તૈયાર કરી રહ્યાં છે...",
+        "page": {
+            "title": "શોપિંગ સૂચિ",
+            "description": "હોમ ઈન્વેન્ટરીમાં ઓછા સ્ટોકવાળા વસ્તુઓ જુઓ અને તમારી શોપિંગ સૂચિને સરળતાથી મેનેજ કરો."
+        },
+        "suggestions": {
+            "title": "સ્માર્ટ ઈન્વેન્ટરી સૂચનો",
+            "desc": "કમાત્રી મર્યાદાની નીચે આવેલા ઇન્વેન્ટરી આઇટમ્સ.",
+            "add_all": "બધા ગુમ થયા ઉમેરો",
+            "stock_status": "વર્તમાન: {{current}} / લક્ષ્ય: {{min}}",
+            "add_qty": "{{qty}} ઉમેરો"
+        },
+        "sections": {
+            "active_list": "ખરીદી માટેની વસ્તુઓ",
+            "active_desc": "આપના કાર્ટમાં ઉમેરવા માટેની વર્તમાન ખરીદીની વસ્તુઓ.",
+            "active_count": "{{count}} વસ્તુઓ",
+            "completed_list": "ખરીદેલી વસ્તુઓ ({{count}})",
+            "add_item": "વસ્તુને મેન્યુઅલી ઉમેરો",
+            "add_desc": "યાદી માં કસ્ટમ વસ્તુ મેન્યુઅલી ઉમેરો."
+        },
+        "empty": {
+            "title": "તમારી ખરીદીની યાદી ખાલી છે",
+            "desc": "તમે ઉપરના સૂચનોમાંથી ખૂટતી વસ્તુ ઉમેરાવી શકો અથવા જમણબાજુના ફોર્મનો ઉપયોગ કરીને વસ્તુઓ મેન્યુઅલી ઉમેરો."
+        },
+        "card": {
+            "linked_inventory": "ઇન્વેન્ટરીમાં સાચવેલું"
+        },
+        "actions": {
+            "clear_completed": "ઇતિહાસ સાફ કરો",
+            "add_item": "શોપિંગ લિસ્ટમાં ઉમેરો"
+        },
+        "form": {
+            "add_type": "રીત ઉમેરો",
+            "add_type_inventory": "કાળજીવાળી વસ્તુ",
+            "add_type_custom": "કસ્ટમ વસ્તુ",
+            "select_inventory_item": "કાળજીવાળી વસ્તુમાંથી વસ્તુ પસંદ કરો",
+            "no_inventory_items": "تنهنજી કાળજીમાં હજી કોઈ વસ્તુ નથી.",
+            "select_item_placeholder": "એક વસ્તુ પસંદ કરો",
+            "current_stock": "વર્તમાન",
+            "item_name": "વસ્તુનું નામ",
+            "item_name_placeholder": "ઉદાહરણ તરીકે દૂધ, ડિટર્જન્ટ, કૉફી બીન...",
+            "quantity": "માત્રા"
+        },
+        "modal": {
+            "delete_title": "યાદીમાંથી ઇટમ કાઢવા માંગો છો?",
+            "delete_desc": "શું તમે ખાતરી છે કે તમે તમારી શોપિંગ લિસ્ટમાંથી \"{{name}}\" દૂર કરવા માંગો છો?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "માહિતી લોડ કરતી વખતે ખોટ",
+            "select_item_error": "કૃપા કરીને કોઈ આઇટમ પસંદ કરો.",
+            "task_name_error": "કાર્યનું નામ જરૂરી છે.",
+            "date_error": "યોજિત તારીખ જરૂરી છે.",
+            "updated": "જાળવણી કાર્ય અપડેટ થયું",
+            "created": "નવું જાળવણી કાર્ય ઉમેરાયું",
+            "save_error": "સાચવવામાં ત્રુટિ આવી",
+            "deleted": "જાળવણી કાર્ય સફળતાપૂર્વક કાઢી નાખ્યું.",
+            "delete_error": "કાઢી નાખવાની પ્રક્રિયામાં ત્રુટિ આવી.",
+            "performed": "જાળવણી પૂર્ણ તરીકે નોંધાઈ. આગળની તારીખ નિર્ધારિત કરી છે.",
+            "perform_error": "સંગ્રહ કરતી વખતે ભૂલ થઈ."
+        },
+        "freq": {
+            "one_time": "એકવારનો",
+            "unit": {
+                "days": "દિવસ",
+                "weeks": "અઠવાડિયું",
+                "months": "મહિનો",
+                "years": "વર્ષ"
+            },
+            "format": "દરેક {{val}} {{unit}}"
+        },
+        "loading_desc": "મેનટેનન્સ શેડ્યૂલ લોડ થઈ રહ્યું છે...",
+        "page": {
+            "title": "મેનટેનેન્સ અને périodિક ટ્રેકિંગ",
+            "description": "તમારા ઘરના ઇન્વેન્ટરીમાં ઉપકરણો, ફિલ્ટર્સ, અથવા સલામતી સાધનો માટે périodિક મેન્ટેનેન્સ શેડ્યૂલ મેનેજ કરો."
+        },
+        "actions": {
+            "add_task": "નવું કાર્ય ઉમેરો",
+            "manage": "વ્યવસ્થાપન કરો",
+            "perform": "પૂરા થયાના રૂપમાં માર્ક કરો",
+            "edit_task": "કાર્ય સંપાદિત કરો"
+        },
+        "alerts": {
+            "overdue_title": "તમારી પાસે મિતીથી મોસ્ટ કામ છે!",
+            "overdue_desc": "ત્યાં {{count}} મિતીથી મોસ્ટ જાળવણી કાર્યો છે. વિલંબ ઉપકરણની આયુષ્યકાળ ઘટાડે શકે છે."
+        },
+        "empty": {
+            "title": "કોઈ જાળવણી કાર્ય શેડ્યૂલ કરવામાં આવ્યું નથી",
+            "desc": "એસી ફિલ્ટર સફાઈ, બોઇલર જાળવણી, અથવા આગ ડિટેક્ટર બેટરી તપાસ જેવા પુનરાવર્તિત કાર્યો ઉમેરતા શરૂ કરો."
+        },
+        "sections": {
+            "overdue": "વિલંબિત કાર્યો",
+            "overdue_desc": "તાત્કાલિક કરવામાં આવનારuls જરૂરી તાત્કાલિક જાળવણી.",
+            "upcoming": "નિયમિત / આવનારા કાર્યો",
+            "upcoming_desc": "આવનારા દિવસોમાં રક્ષણ કામગીરી નજીક આવી રહી છે.",
+            "no_upcoming": "ભવિષ્યમાં કોઈ સક્રિય કાર્ય શેડ્યૂલ થયું નથી."
+        },
+        "modal": {
+            "edit_title": "કાર્ય સંપાદિત કરો",
+            "create_title": "નવું મેન્ટેનેન્સ કાર્ય શેડ્યૂલ કરો",
+            "perform_title": "મેન્ટેનેન્સ પૂર્ણ કરો",
+            "perform_desc": "શું તમે \"{{name}}\"ને આજે પૂર્ણ થયેલ તરીકે લોગ કરવા માંગો છો?",
+            "perform_confirm": "હા, પૂર્ણ થયું",
+            "perform_recurrence_info": "આ是一 નિયમિત કામ છે. જ્યારે તમે સેફ કરો છો, ત્યારે સિસ્ટમ સ્વચાલિત રીતે આગલી જાળવણી તારીખ ગણતરી કરશે.",
+            "delete_title": "જાળવણી કાર્ય કાઢી નાંખવું?",
+            "delete_desc": "તમે ખરેખર નિયમિત જાળવણી કાર્યક્રમ \"{{name}}\" કાઢી નાંખવા માંગો છો? આ ક્રિયા પાછી લઈ શકાતી નથી."
+        },
+        "form": {
+            "item": "સંબંધિત વસ્તુ",
+            "no_items": "મેંટેનન્સનું શેડ્યૂલ બનાવવાનો પ્રયાસ કરતા પહેલા તમે સગવડ યાદીમાં પહેલું ચીજ ઉમેરવી જ જોઈએ.",
+            "select_item_placeholder": "વસ્તુ પસંદ કરો",
+            "task_name": "કાર્ય / કામગીરીનું નામ",
+            "task_name_placeholder": "ઉદાહરણ તરીકે, ફિલ્ટર બદલાવ, નિત્યાન્તરની તપાસ...",
+            "description": "વિગતવાર / વર્ણન",
+            "description_placeholder": "કાર્યની વિગતો, વપરાશ માટે સામગ્રી, વગેરે...",
+            "frequency_value": "પુનરાવૃત્તિ ફ્રીક્વન્સી",
+            "frequency_placeholder": "ઉદાહરણ તરીકે 6 (એકવાર માટે ખાલી રાખો)",
+            "frequency_unit": "આવર્તન એકમ",
+            "next_due_date": "આગામી નિર્ધારિત તારીખ",
+            "section_help": "અહીંથી મેન્ટેનન્સ શેડ્યુલ મેનેજ કરો",
+            "section_collapsed": "પાલનાત્મક નિયંત્રણો અને કાર્ય ઉમેરવા માટે ક્લિક કરો",
+            "has_tasks": "{{count}} કાર્યો",
+            "new_item_warning_title": "વસ્તુ સાચવો બાકી",
+            "new_item_warning_desc": "મેન્ટેનેન્સ શેડ્યૂલ ઉમેરવા માટે પહેલા તમને આ વસ્તુ સાચવવી પડશે.",
+            "manage_desc": "આ ઉપકરણ અથવા વસ્તુ માટે મેન્ટેનેન્સ શેડ્યુલ્સનું મેનેજમેન્ટ કરો."
+        },
+        "fields": {
+            "task_name": "કાર્યનું નામ",
+            "task_name_placeholder": "ઉદાહરણ તરીકે AC ફિલ્ટર સાફસફાઈ",
+            "description": "વર્ણન",
+            "description_placeholder": "કાર્યના વિગતવાર માહિતી, ઉપયોગમાં લાવવાના સામગ્રી, વગેરે...",
+            "frequency_value": "ફેરફાર આવૃત્તિ",
+            "frequency_value_placeholder": "એકમ માટે ખાલી છોડી દો",
+            "frequency_unit": "આવૃત્તિ એકમ",
+            "next_due_date": "નિર્ધારિત તારીખ"
+        },
+        "card": {
+            "untitled_item": "શીર્ષકવાળો વસ્તુ",
+            "last_performed": "છેલ્લો બજાવેલો:",
+            "next_due_label": "નિર્ધારિત તારીખ",
+            "complete_tooltip": "આજે સંભાળને પૂર્ણ તરીકે ચિહ્નિત કરો"
+        },
+        "detail_card_desc": "આ આઇટમ માટે નિર્ધારિત პერიოდિક અથવા એકવારની જાળવણી ટ્રેકિંગ.",
+        "no_tasks": "આ આઇટમ માટે કોઈ જાળવણી કાર્ય ફાળવાયું નથી.",
+        "confirm_delete": "આ કાર્ય દૂર કરવામાં આવશે. શું તમે ખાતરી કરો છો?"
     }
 }

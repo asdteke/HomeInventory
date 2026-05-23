@@ -33,9 +33,20 @@ export function resolveStoredMediaPath(storedPath, {
         return null;
     }
 
-    const resolvedRepoRoot = path.resolve(String(repoRoot || '.'));
     const resolvedMediaRoot = path.resolve(String(mediaRoot || '.'));
-    const resolvedPath = path.resolve(resolvedRepoRoot, normalized);
+    const primaryPrefix = allowedPrefixes
+        .slice()
+        .sort((a, b) => a.length - b.length)[0];
+    const normalizedPrimaryPrefix = String(primaryPrefix || '').replace(/\\/g, '/');
+    const relativeToPrimaryPrefix = normalizedPrimaryPrefix && (
+        normalized === normalizedPrimaryPrefix ||
+        normalized.startsWith(`${normalizedPrimaryPrefix}/`)
+    )
+        ? normalized.slice(normalizedPrimaryPrefix.length).replace(/^\/+/, '')
+        : normalized;
+    const resolvedPath = normalizedPrimaryPrefix
+        ? path.resolve(resolvedMediaRoot, relativeToPrimaryPrefix)
+        : path.resolve(String(repoRoot || '.'), normalized);
     const relativeToMediaRoot = path.relative(resolvedMediaRoot, resolvedPath);
 
     if (

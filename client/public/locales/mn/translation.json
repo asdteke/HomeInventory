@@ -46,9 +46,10 @@
         "validation_error": "Баталгаажуулалтын алдаа",
         "server_error": "Серверийн алдаа",
         "details": "Дэлгэрэнгүй",
-        "hide": "Hide password",
-        "logging_out": "Logging out...",
-        "show": "Show password"
+        "hide": "Нууц үгээ нуу",
+        "logging_out": "Гарч байна...",
+        "show": "Нууц үгийг харуулах",
+        "saving": "Хадгалж байна..."
     },
     "auth": {
         "login": {
@@ -81,7 +82,7 @@
                 "back": "Буцах",
                 "use_backup": "Нөөц код ашигла",
                 "use_totp": "Authenticator ашиглах",
-                "code_required": "Verification code is required"
+                "code_required": "Баталгаажуулах код шаардлагатай"
             },
             "welcome_title": "Эргээд тавтай морил",
             "welcome_subtitle": "Өөрийн нөөцөө нэвэхийн тулд нэвтрэх",
@@ -94,7 +95,7 @@
             "support_link": "Тусламжийн үйлчилгээтэй холбоо барих"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "Өрхөө тохируул",
             "subtitle": "Шинэ данс үүсгэх эсвэл одоо байгаа байранд нэгдээрэй",
             "create_house": "Шинэ байшин бүтээх",
             "join_house": "Нэгд Хаус",
@@ -190,7 +191,7 @@
             "confirm_password_placeholder": "Нууц үгээ дахин оруулна",
             "reset_submit": "Нууц үгийг дахин тохируулах",
             "resetting": "Дахин тохируулж байна...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Хэрэглэгчийн нэр эсвэл имэйлээ оруулна уу"
         },
         "reset_password": {
             "title": "Нууц үгийг дахин тохируулах",
@@ -231,7 +232,7 @@
         "password_requirements": "Дор хаяж {{min}} тэмдэгтийг том, жижиг үсэг, тоо, тэмдэгтээр ашиглана.",
         "logout": "Выйти",
         "logging_in": "Нэвтрэх...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "{{brandName}}-д тавтай морил",
         "username_email": "Хэрэглэгчийн нэр ба Имэйл хаяг",
         "username": "Хэрэглэгчийн нэр",
         "email": "иМэйл",
@@ -316,7 +317,9 @@
         "logout_aria": "Бүртгэлээсээ гарах",
         "logout_title": "Гарах",
         "logout_description": "Та нэвтрэх дэлгэц рүү буцаж очоод гэрийн бараа материалыг удирдахын тулд дахин нэвтрэх шаардлагатай болно.",
-        "logout_warning": "Үүнийг хуваалцсан эсвэл хувийн төхөөрөмж дээр хийж байх үед ашиглана уу."
+        "logout_warning": "Үүнийг хуваалцсан эсвэл хувийн төхөөрөмж дээр хийж байх үед ашиглана уу.",
+        "maintenance": "Засвар үйлчилгээний хуваарь",
+        "shopping": "Худалдан авах жагсаалт"
     },
     "dashboard": {
         "welcome": "Welcome, <1>{{name}}</1>! 👋",
@@ -443,7 +446,20 @@
         "no_items_filter": "Нет предметов, соответствующих этому фильтру",
         "manage": "Управление",
         "add_item": "Добавить предмет",
-        "search_item": "Найти предмет"
+        "search_item": "Найти предмет",
+        "alerts": {
+            "expired_title": "Барааны хугацаа дууссан байна!",
+            "expired_desc": "Таны бүртгэлд хугацаа нь дууссан {{count}} бараа байна. Аюулгүй байдлын үүднээс тэдгээрийг шалгана уу.",
+            "view_items": "Бараануудыг харах",
+            "maintenance_title": "Хугацаа хэтэрсэн засвар үйлчилгээний даалгаврууд!",
+            "maintenance_desc": "Хугацаа хэтэрсэн {{count}} засвар үйлчилгээний даалгавар байна. Төхөөрөмжүүдийнхээ ашиглалтын хугацааг уртасгахын тулд засвар үйлчилгээ хийнэ үү.",
+            "go_to_maintenance": "Засвар үйлчилгээ рүү очих",
+            "low_stock_title": "Бага нөөцийн анхааруулга",
+            "low_stock_desc": "{{count}} барааны хэмжээ хамгийн бага нөөцийн хязгаараас доошилсон байна.",
+            "go_to_shopping": "Худалдан авах жагсаалт",
+            "close_expiry_title": "Хугацаа дуусах дөхсөн бараанууд",
+            "close_expiry_desc": "{{count}} барааны хугацаа 30 хоногийн дотор дуусна."
+        }
     },
     "beta_banner": {
         "title": "БЕТА:",
@@ -522,8 +538,10 @@
             "vault_hint_description": "For passports, deeds, identity details, access codes, and other records that should stay out of the standard inventory flow, keep them in Personal Vault instead.",
             "vault_hint_action": "Хувийн Нээлттэй Тайзан",
             "location": "байршил",
-            "remove_photo": "Remove photo",
-            "visibility_owner_only": "Only the person who added the item can change visibility."
+            "remove_photo": "Зургийг устгах",
+            "visibility_owner_only": "Зөвхөн тухайн зүйлийг нэмсэн хүн харагдацыг өөрчлөх боломжтой.",
+            "expiry_date": "Хугацаа дуусах огноо",
+            "min_quantity": "Хамгийн бага тоо хэмжээ"
         },
         "qrcode": {
             "title": "QR-код",
@@ -577,7 +595,12 @@
         "no_permission": "Чи энэ зүйлийг өөрчлөх зөвшөөрөлгүй",
         "barcode_search_error": "Баркод хайлт бүтэлгүйтсэн",
         "stats_error": "Алдааны ачааллын статистик",
-        "detail_subtitle": "Item details"
+        "detail_subtitle": "Зүйлийн дэлгэрэнгүй",
+        "status": {
+            "close_to_expiry": "Хугацаа дуусах дөхсөн",
+            "expired": "Хугацаа дууссан",
+            "low_stock": "Бага нөөцтэй"
+        }
     },
     "settings": {
         "title": "Орчин",
@@ -642,9 +665,9 @@
             "accordion_description": "Итгэмжлэгдсэн түлхүүрээр өрх хооронд сэлгэх, шинээр үүсгэх эсвэл байгаа гэр бүлд нэгдэх.",
             "empty_description": "Хуваалцаж эхлэхийн тулд шинэ өрх үүсгэж эсвэл итгэмжлэгдсэн байшингийн түлхүүрээр нэгдээрэй.",
             "leave_success_body": "Та цаашид энэ өрхөд хандах эрхгүй болсон бөгөөд таны идэвхтэй байшин шинэчлэгдсэн.",
-            "leave_title": "Leave this house?",
-            "leave_warning": "You will lose access to this household workspace until another member invites or approves you again.",
-            "leaving": "Leaving..."
+            "leave_title": "Энэ гэрээс гарах уу?",
+            "leave_warning": "Өөр гишүүн таныг дахин урих эсвэл зөвшөөрөх хүртэл та энэ өрхийн ажлын талбарт хандах эрхээ алдах болно.",
+            "leaving": "Орж байна..."
         },
         "house_info": {
             "title": "Идэвхтэй байшингийн түлхүүр",
@@ -687,10 +710,10 @@
             "modal_title": "Энэ түлхүүрийг зөвхөн энэ хуваалцсан бараа материалд хандах хүсэлт гаргах итгэмжлэгдсэн гэр бүлийн гишүүдэд ашиглаарай.",
             "modal_subtitle": "Используйте этот ключ только для доверенных членов дома, которым нужно запрашивать доступ к этому общему инвентарю.",
             "loading_members": "Загрузка участников...",
-            "kick_success_body": "{{name}} no longer has access to this household.",
-            "kick_title": "Remove this member?",
-            "kick_warning": "Their household access will end immediately and they will need a new invitation or approval to return.",
-            "kicking": "Removing..."
+            "kick_success_body": "{{name}} цаашид энэ өрхөд хандах эрхгүй болсон.",
+            "kick_title": "Энэ гишүүнийг хасах уу?",
+            "kick_warning": "Тэдний өрхийн нэвтрэх эрх нэн даруй дуусгавар болох бөгөөд буцаж ирэхийн тулд шинэ урилга эсвэл зөвшөөрөл авах шаардлагатай болно.",
+            "kicking": "Устгаж байна..."
         },
         "theme": {
             "title": "Сэдэв",
@@ -737,19 +760,19 @@
             "import_encrypted_title": "Шифрлэгдсэн нөөцлөлтийн түгжээг тайлах",
             "import_encrypted_body": "Энэ шифрлэгдсэн файлыг сэргээхийн тулд татаж авах явцад ашигласан нөөц нууц үгийг оруулна уу.",
             "unlock_and_import": "Разблокировать и импортировать",
-            "export_encrypted_notice": "The backup is prepared from live household data and then wrapped with the passphrase you choose. Keep that passphrase somewhere safe because it is required to restore the file later.",
-            "export_encrypted_title": "Encryption will be applied before download",
-            "import_summary_body": "{{items}} items, {{categories}} categories, {{rooms}} rooms, {{locations}} locations, {{borrows}} borrow records restored.",
-            "import_summary_title": "Backup restored",
+            "export_encrypted_notice": "Нөөцлөлтийг өрхийн бодит мэдээллээс бэлтгэж, дараа нь таны сонгосон нууц үгээр боосон болно.",
+            "export_encrypted_title": "Татаж авахаас өмнө шифрлэлтийг хийнэ",
+            "import_summary_body": "{{зүйл}} зүйл, {{ангилал}} ангилал, {{өрөө}} өрөө, {{байршил}} байршил, {{зээлдэг}} зээлийн бүртгэл сэргээгдсэн.",
+            "import_summary_title": "Нөөцлөлтийг сэргээсэн",
             "preview_categories": "Ангилалууд",
             "preview_items": "<g id=\"1\">Бараа материал.</g>",
             "preview_locations": "байршил",
             "preview_rooms": "Өрөөнүүд",
-            "skipped_borrows": "{{count}} existing borrow records skipped.",
-            "skipped_categories": "{{count}} existing categories skipped.",
-            "skipped_items": "{{count}} existing items skipped.",
-            "skipped_locations": "{{count}} existing locations skipped.",
-            "skipped_rooms": "{{count}} existing rooms skipped."
+            "skipped_borrows": "{{count}} одоо байгаа зээлийн бүртгэлийг алгассан.",
+            "skipped_categories": "{{count}} одоо байгаа ангиллыг алгассан.",
+            "skipped_items": "{{count}} одоо байгаа зүйлийг алгассан.",
+            "skipped_locations": "{{count}} одоо байгаа байршлыг алгассан.",
+            "skipped_rooms": "{{count}} одоо байгаа өрөөг алгассан."
         },
         "about": {
             "title": "📱 About Application",
@@ -760,12 +783,12 @@
             "legal_description": "Та нөхцөл болон нууцлалын текстүүдийг хүлээн авсны дараа ч эндээс дахин нээж болно.",
             "terms_link": "Үйлчилгээний хугацаа",
             "privacy_link": "Нууцлалын бодлого",
-            "beta_title": "Beta status",
-            "beta_body": "{{brandName}} is still in beta. Features can change, workflows may evolve, and important household data should always be backed up.",
+            "beta_title": "Бета статус",
+            "beta_body": "{{brandName}} нь бета хувилбарт хэвээр байна.",
             "feedback_subject": "Санал хүсэлт - {{brandName}}",
-            "logout_body": "Any unsaved changes in open forms may be lost after you leave this session.",
-            "logout_description": "You will return to the home page and can sign back in anytime.",
-            "logout_title": "Log out now?"
+            "logout_body": "Нээлттэй маягт дахь хадгалагдаагүй өөрчлөлтүүд таныг энэ сешнээс гарсны дараа алга болно.",
+            "logout_description": "Та нүүр хуудас руу буцах бөгөөд хүссэн үедээ нэвтэрч болно.",
+            "logout_title": "Одоо гарах уу?"
         },
         "modals": {
             "password": {
@@ -905,7 +928,7 @@
             "description": "Держите экспорт, сведения о продукте и необратимые действия с аккаунтом чётко разделёнными."
         },
         "language_description": "Хэл шинэчлэгдсэн",
-        "language_updated_title": "Language updated",
+        "language_updated_title": "Хэл шинэчлэгдсэн",
         "language_updated_body": "Хэлийг өөрчлөх. Одоогийн: {{language}}",
         "select_language_tooltip": "Изменить язык. Текущий: {{language}}",
         "select_language_aria": "Хэл сонгоно уу. Одоогийн: {{language}}",
@@ -952,9 +975,9 @@
             "section_title": "Мөнгө олох",
             "section_subtitle": "Зээлийн одоогийн байдал, түүх",
             "dialog_lend_title": "Өргөх зүйл",
-            "dialog_lend_subtitle": "Create a new borrow record for \"{{item}}\"",
+            "dialog_lend_subtitle": "\"{{item}}\"-н шинэ зээлийн бүртгэл үүсгэх",
             "dialog_return_title": "Буцаагдсан Тэмдэг",
-            "dialog_return_subtitle": "Close the active borrow record for \"{{item}}\"",
+            "dialog_return_subtitle": "\"{{item}}\"-н идэвхтэй зээлийн бүртгэлийг хаах",
             "member": "Байшингийн гишүүн",
             "external": "Гадны хүн",
             "borrower_member": "Хэн үүнийг авсан бэ?",
@@ -977,7 +1000,7 @@
             "overdue_badge": "Хэтэрсэн",
             "borrowed_badge": "Зээл авсан",
             "borrowed_to": "{{name}} -тэй хамт",
-            "due_date_short": "Due: {{date}}",
+            "due_date_short": "Хугацаа: {{огноо}}",
             "actions_error": "Мөнгө зээл авах арга хэмжээг бөглөж чадсангүй",
             "borrowed_at": "Өвчтөн: {{date}}",
             "due_date_label": "Хүлээгдэж буй өгөөж: {{date}}",
@@ -990,13 +1013,13 @@
             "returned_at": "Буцаагдсан: {{date}}",
             "no_history": "Энэ зүйлийн хувьд зээл олгох түүх одоогоор байхгүй байна.",
             "lend_success_title": "Предмет выдан",
-            "lend_success_body": "{{item}} is now marked as borrowed.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
-            "borrowed_by_you": "With you",
-            "return_pending_hint": "The record will close after the lender confirms they received the item back.",
-            "return_pending_lender_title": "{{name}} marked this item as delivered back",
-            "return_pending_self_title": "With you, waiting for receipt confirmation"
+            "lend_success_body": "{{зүйл}} одоо зээлсэн гэж тэмдэглэгдсэн.",
+            "offer_sent_title": "Зээлийн саналыг илгээсэн",
+            "offer_sent_body": "Бусад гишүүн зөвшөөрсний дараа {{зүйл}}-г зээлсэн гэж тэмдэглэнэ.",
+            "borrowed_by_you": "Чамтай хамт",
+            "return_pending_hint": "Зээлдүүлэгч нь бараагаа буцааж авснаа баталгаажуулсны дараа бүртгэл хаагдана.",
+            "return_pending_lender_title": "{{name}} энэ зүйлийг буцааж хүргэсэн гэж тэмдэглэв",
+            "return_pending_self_title": "Та бүхэнтэй хамт, төлбөрийн баримтаа баталгаажуулахыг хүлээж байна"
         },
         "untitled_item": "Гарчиггүй зүйл",
         "delete_action": "Зүйлийг устгах",
@@ -1061,8 +1084,8 @@
         "add_error": "Алдаа нэмэх ангилал",
         "update_error": "Алдааны шинэчлэлийн ангилал",
         "color_required": "Өнгө #RRGGBB форматтай байх ёстой",
-        "empty_description": "Create a few categories so new items follow the same structure and are easier to scan later.",
-        "empty_title": "No categories yet"
+        "empty_description": "Хэд хэдэн категори үүсгэснээр шинэ зүйлүүд ижил бүтцийг дагаж, дараа нь скан хийхэд хялбар болно.",
+        "empty_title": "Одоогоор ангилал алга"
     },
     "rooms": {
         "title": "Өрөөнүүд",
@@ -1137,8 +1160,8 @@
         "load_error": "Алдаа ачаалах өрөөнүүд",
         "add_error": "Алдаа нэмэх зай",
         "update_error": "Алдааны шинэчлэлтийн өрөө",
-        "empty_description": "Create rooms like kitchen, storage, or garage so item locations stay consistent and easier to search.",
-        "empty_title": "No rooms yet"
+        "empty_description": "Гал тогоо, агуулах, гараж гэх мэт өрөөг бий болгосноор эд зүйлсийн байршил тогтвортой, хайхад хялбар байх болно.",
+        "empty_title": "Одоогоор өрөө алга"
     },
     "admin": {
         "title": "Админ Панел",
@@ -1205,9 +1228,9 @@
             "ban_success_title": "Хэрэглэгчийг хориглосон",
             "ban_success_body": "{{username}}-г нэвтрэхийг хориглосон.",
             "unban_success_title": "Хандалтыг сэргээсэн",
-            "unban_success_body": "{{username}} can sign in again.",
+            "unban_success_body": "{{username}} дахин нэвтэрч болно.",
             "delete_success_title": "Бүртгэлийг устгасан",
-            "delete_success_body": "{{username}} and the related owned data were permanently removed.",
+            "delete_success_body": "{{хэрэглэгчийн нэр}} болон холбогдох эзэмшдэг өгөгдлийг бүрмөсөн устгасан.",
             "protected_admin": "Хамгаалагдсан админын данс",
             "private_contact_hidden": "Хувийн холбоо барих дэлгэрэнгүй мэдээлэл нь админын тоймоос далд хэвээр байна.",
             "no_last_login": "Хараахан нэвтрээгүй байна",
@@ -1220,18 +1243,18 @@
             "items_label": "Собственные предметы",
             "last_seen_short": "Видимые",
             "last_seen_short_never": "Новые",
-            "failed_logins": "{{count}} failed sign-ins",
-            "load_failed_title": "Users could not load",
-            "pending_requests": "{{count}} pending house requests",
+            "failed_logins": "{{count}} нэвтэрч чадсангүй",
+            "load_failed_title": "Хэрэглэгч ачаалж чадсангүй",
+            "pending_requests": "Хүлээгдэж буй байрны хүсэлт {{count}} байна",
             "role_admin": "админ",
-            "role_user": "User"
+            "role_user": "Хэрэглэгч"
         },
         "logs": {
             "title": "Админ бүртгэлүүд",
             "no_logs": "Одоогоор мод алга.",
             "errors_title": "Системийн алдаанууд (Сүүлийн 10)",
             "no_errors": "Систем эрүүл байна, алдааны бүртгэлгүй.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{огноо, огноо}}",
             "type": {
                 "email": "иМэйл",
                 "user": "Хэрэглэгч",
@@ -1248,7 +1271,7 @@
             },
             "audit": {
                 "email_sent": "Хүлээн авагч: {{recipient}} | Сэдэв: {{subject}}",
-                "user_deleted": "User deleted: {{username}} | Deleted households: {{deletedHouses}} | Transferred ownerships: {{transferredOwnerships}}",
+                "user_deleted": "Хэрэглэгч устгасан: {{хэрэглэгчийн нэр}} |",
                 "user_target": "Хэрэглэгч: {{username}}",
                 "indexnow_submitted": "ИндексҮйлчилгээний ажил амжилттай байна. URL-ийн тоо: {{count}}}"
             },
@@ -1257,8 +1280,8 @@
             "errors_body": "Серверийн бүртгэлийн файлуудаас задлан уншсан хамгийн сүүлийн алдааны мөрүүд.",
             "section_eyebrow": "Аудитын мөр",
             "errors_eyebrow": "Оношилгоо",
-            "load_failed_title": "Activity could not load",
-            "no_logs_title": "No admin actions yet"
+            "load_failed_title": "Үйл ажиллагааг ачаалж чадсангүй",
+            "no_logs_title": "Одоогоор админ үйлдэл хийгдээгүй байна"
         },
         "email": {
             "status_title": "Гарцын имэйлийн статус",
@@ -1293,13 +1316,13 @@
             "info_bullet_2": "Спамаас урьдчилан сэргийлэхийн тулд та минутанд хамгийн их 3 имэйл илгээж болно",
             "info_bullet_3": "Бүх илгээх нь аюулгүй байдалд нэвтэрсэн, агуулаагүй байна",
             "status_eyebrow": "Хүргэх",
-            "configured_body": "Resend is available for admin-triggered outbound messages.",
-            "configured_title": "Email delivery is configured",
-            "error_title": "Email failed",
-            "format_hint": "HTML is supported. For example: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
-            "from_label": "Sender",
-            "load_failed_title": "Email tools could not load",
-            "success_title": "Email sent"
+            "configured_body": "Дахин илгээх нь админаас өдөөгдсөн гадагш илгээх мессежүүдэд боломжтой.",
+            "configured_title": "Имэйл хүргэлтийг тохируулсан",
+            "error_title": "Имэйл амжилтгүй боллоо",
+            "format_hint": "HTML дэмждэг.",
+            "from_label": "Илгээгч",
+            "load_failed_title": "Имэйлийн хэрэгслүүдийг ачаалж чадсангүй",
+            "success_title": "Имэйл илгээсэн"
         },
         "overview": {
             "email_warning_title": "Түгжигдсэн бүртгэлүүдийг шалгах шаардлагатай",
@@ -1341,21 +1364,21 @@
             "email_warning_body": "Администраторы по-прежнему могут просматривать платформу, но отправка почты недоступна, пока не настроен Resend.",
             "locked_users_title": "Заблокированные аккаунты требуют проверки",
             "locked_users_body": "{{count}} аккаунт(ы) в настоящее время заблокирован(ы) для входа.",
-            "pending_requests_title": "Household approvals are pending",
-            "pending_requests_body": "{{count}} join request(s) are waiting for an owner decision.",
+            "pending_requests_title": "Өрхийн зөвшөөрөл хүлээгдэж байна",
+            "pending_requests_body": "{{count}} нэгдэх хүсэлт(үүд) эзэмшигчийн шийдвэрийг хүлээж байна.",
             "cards": {
-                "accounts": "Accounts",
+                "accounts": "Дансууд",
                 "accounts_body": "{{count}} новых регистраций за последние 7 дней",
-                "admins_chip": "{{count}} admins",
+                "admins_chip": "{{count}} админ",
                 "banned_chip": "{{count}} заблокированных",
                 "households": "Домохозяйства",
                 "households_body": "{{count}} активных членств на платформе",
-                "pending_chip": "{{count}} pending",
-                "inventory": "Inventory records",
+                "pending_chip": "{{count}} хүлээгдэж байна",
+                "inventory": "Бараа материалын бүртгэл",
                 "inventory_body": "{{count}} идэвхтэй зээлсэн байна.",
                 "public_items_chip": "{{count}} хувийн",
-                "private_items_chip": "{{count}} private",
-                "system": "System health",
+                "private_items_chip": "{{count}} хувийн",
+                "system": "Системийн эрүүл мэнд",
                 "system_body": "{{count}} часов безотказной работы",
                 "storage_chip": "{{count}} MB байршуулалт"
             }
@@ -1383,8 +1406,8 @@
         "logs_loaded": "Лог ачаалсан",
         "load_error": "Алдаа ачаалах өгөгдөл",
         "action_error": "Алдаа гүйцэтгэх үйлдэл",
-        "load_failed_body": "The admin route is open, but the overview data did not arrive. You can retry without leaving the page.",
-        "load_failed_title": "Admin overview could not load"
+        "load_failed_body": "Админы маршрут нээлттэй байгаа боловч тойм мэдээлэл ирээгүй байна.",
+        "load_failed_title": "Админы тоймыг ачаалж чадсангүй"
     },
     "landing": {
         "nav": {
@@ -1401,12 +1424,12 @@
             "cta_register": "Данс үүсгэх",
             "stat_free": "Үнэгүй",
             "stat_access": "Access",
-            "free_badge": "Open Source",
+            "free_badge": "Нээлттэй эх сурвалж",
             "badge": "HomeInventory v2.0 энд байна",
             "cta_explore": "Онцлогуудыг судлах",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Нэвтрэх",
+            "stat_members": "Хамтарсан гэрүүд",
+            "stat_vault": "Хувийн хадгалах сан"
         },
         "features": {
             "title": "Яагаад <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Бараа, баталгаа, чухал баримт бичиг, зээлийг нэг тайван газар хадгална уу. Харцаар гэр чинь юу байгааг хараарай.",
                 "primaryCta": "Үнэгүй эхлэх",
                 "secondaryCta": "Бүтээгдэхүүнийг харах",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Санал болгож буй урсгал: данс • гэр • өрөө болон ангилал • зүйлс • нөөц",
                 "searchPlaceholder": "Зүйл, өрөө эсвэл баркод хайх"
             },
             "heroInventoryRows": [
@@ -1728,9 +1751,9 @@
         "privacy_summary": "Сетевые данные остаются скрытыми до тех пор, пока вам не понадобится руководство.",
         "link_privacy_note": "Сетевой адрес остается скрытым здесь. Сканируйте код или копируйте ссылку только тогда, когда вы намеренно хотите поделиться прямым доступом к элементу в вашей локальной установке.",
         "helper": "Сканируйте, чтобы мгновенно открыть этот элемент, или копируйте прямую ссылку при необходимости.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
-        "loading": "Preparing QR tools..."
+        "copy_error_title": "Холбоосыг автоматаар хуулж чадсангүй",
+        "copy_manual_help": "Таны хөтөч автоматаар хуулахыг зөвшөөрөөгүй.",
+        "loading": "QR хэрэгслийг бэлтгэж байна..."
     },
     "house_access_pending": {
         "eyebrow": "Байшингийн хандалт",
@@ -1918,12 +1941,12 @@
             "options_failed": "Ангилал болон өрөөний сонголтуудыг ачаалж чадсангүй.",
             "delete_success_title": "Хадгалах сангийн бүртгэлийг устгасан",
             "delete_success_body": "Хувийн бүртгэлийг таны сангаас бүрмөсөн устгасан.",
-            "passphrase_lowercase": "Include at least one lowercase letter.",
-            "passphrase_min_length": "Vault passphrase must be at least 12 characters.",
-            "passphrase_number": "Include at least one number.",
-            "passphrase_uppercase": "Include at least one uppercase letter."
+            "passphrase_lowercase": "Дор хаяж нэг жижиг үсэг оруулна уу.",
+            "passphrase_min_length": "Vault нууц үг хамгийн багадаа 12 тэмдэгттэй байх ёстой.",
+            "passphrase_number": "Дор хаяж нэг дугаар оруулна уу.",
+            "passphrase_uppercase": "Дор хаяж нэг том үсгийг оруулна уу."
         },
-        "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
+        "recovery_file_title": "{{brandName}} Хувийн санг сэргээх түлхүүр",
         "recovery_file_created_label": "Үүсгэсэн",
         "recovery_file_key_label": "Сэргээх түлхүүр",
         "recovery_file_warning": "Хэрэв энэ түлхүүр болон таны сейфийн нууц хэллэг хоёулаа алдагдвал сейфийг сэргээх боломжгүй.",
@@ -1951,7 +1974,7 @@
     },
     "borrow_requests": {
         "title": "Зээлийн төв",
-        "subtitle": "Manage requests and offers with other {{brandName}} users.",
+        "subtitle": "Бусад {{brandName}} хэрэглэгчидтэй хүсэлт, саналыг удирдах.",
         "incoming_title": "Ирж буй Шаардах Хуудас",
         "incoming_subtitle": "Танд илгээсэн хүсэлт, санал",
         "outgoing_title": "Намайг илгээсэн",
@@ -1969,8 +1992,8 @@
             "empty": "Одоогоор ямар ч идэвхтэй түрээс байхгүй.",
             "borrowed_from": "Зээлж авсан {{name}}",
             "lent_to": "Одоогоор {{name}} -ээр",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Зээлдүүлэгчийг буцааж авсан гэдгээ батлахыг хүлээж байна.",
+            "return_pending_lender": "{{name}} энэ зүйлийг буцааж хүргэсэн гэж тэмдэглэв.",
             "empty_title": "Одоогоор идэвхтэй зээл байхгүй байна",
             "empty_description": "Зээл авсан эсвэл зээлдүүлсэн тохиолдолд хүлээн зөвшөөрөгдсөн хүсэлтүүд энд дуусах хугацаа, буцаах байдлын хамт харагдана."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Цуцлагдсан",
             "expired": "Хугацаа дууссан",
             "returned": "Буцаагдсан",
-            "return_pending": "Return pending"
+            "return_pending": "Буцах хүлээгдэж байна"
         },
         "actions": {
             "send_request": "Хүсэлтийн зүйл",
@@ -1990,8 +2013,8 @@
             "reject": "Татгалзах",
             "cancel": "Цуцлах",
             "fulfill_request": "Хүсэлтийг биелүүлэх",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Марк хүргэсэн",
+            "mark_received": "Марк хүлээн авлаа",
             "open_inventory": "Бараа материалыг нээх"
         },
         "labels": {
@@ -2028,19 +2051,19 @@
             "no_available_items": "Таны идэвхтэй байшинд яг одоо санал болгох тохирох зүйл одоогоор байхгүй.",
             "fulfill_submitting": "Хадгалж байна...",
             "return_title": "Буцаагдсан Тэмдэг",
-            "return_subtitle": "Close the active borrow for \"{{item}}\"",
+            "return_subtitle": "\"{{item}}\"-н идэвхтэй зээлийг хаах",
             "return_target": "Энэ нь одоогоор {{name}} -тэй хамт байгаатай адил харагдаж байна.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Зүйлийг хүргэх",
+            "return_title_lender": "Зүйлийг хүлээн авах",
+            "return_subtitle_borrower": "\"{{item}}\"-н идэвхтэй зээлийг буцааж өгсний дараа хаа.",
+            "return_subtitle_lender": "\"{{item}}\"-н идэвхтэй зээлийг буцааж авсны дараа хаа.",
+            "return_target_borrower": "Зээлдүүлэгч: {{name}}",
+            "return_target_lender": "Одоогоор: {{name}}",
+            "return_note_borrower": "Хүргэлтийн тэмдэглэл",
+            "return_note_lender": "Тэмдэглэл хүлээн авах",
+            "return_note_placeholder_borrower": "жишээ нь",
+            "return_note_placeholder_lender": "жишээ нь",
+            "return_submitting": "Хааж байна..."
         },
         "messages": {
             "load_error": "Зээлийн төвийг дуудаж болохгүй",
@@ -2069,47 +2092,47 @@
         "consent_submit": "Үргэлжлүүл",
         "consent_submitting": "Аврах...",
         "consent_required": "Үргэлжлүүлэхээсээ өмнө Үйлчилгээний Нөхцөл болон Нууцлалын мэдэгдлийг баталгаажуулах шаардлагатай.",
-        "document_badge": "Legal document",
+        "document_badge": "Хууль эрх зүйн баримт бичиг",
         "data_privacy_badge": "Нүүр хуудас руу буцах",
         "back_to_home": "Шуурхай хандах",
         "quick_access": "Энэ хуудсанд",
         "on_this_page": "Агуулга",
         "contents": "Хуудас",
         "page_label": "Тойм",
-        "overview": "Overview",
+        "overview": "Тойм",
         "contact": "Контакт",
         "jump_to": "Руу очно уу",
         "privacy_description": "Энэхүү {{brandName}} суулгацын нууцлалын мэдэгдэлд ямар өгөгдөл боловсруулагдаж, түүнийг хэрхэн цуглуулж, хэрхэн хуваалцаж, шилжүүлж, ямар эрх, гомдлын арга хэрэглэж болохыг тайлбарласан болно.",
-        "privacy_support_label": "For privacy requests, rights applications, and complaint-related inquiries about this installation:",
+        "privacy_support_label": "Энэхүү суулгацтай холбоотой нууцлалын хүсэлт, эрхийн өргөдөл, гомдолтой холбоотой лавлагааны хувьд:",
         "privacy_summary": {
             "title": "Энэ товч тоймыг эхлээд эндээс харж болно.",
             "description": "**Бидний боловсруулдаг зүйл:** Бид таны бүртгэл болон програмыг ажиллуулахад шаардлагатай бүртгэл, үйлчилгээ, техникийн хамгаалалт болон нэмэлт үйлчилгээ үзүүлэгчийн өгөгдлийг боловсруулдаг.",
             "items": {
                 "what": "**Яагаад:** Өгөгдлийг баталгаажуулалт, сессийн аюулгүй байдал, бараа материалын ажлын урсгал, нөөцлөлт болон Хувийн хадгалах сангийн функцэд ашигладаг.",
-                "why": "**Why:** Data is used for authentication, session security, inventory workflows, backups, and Personal Vault features.",
+                "why": "**Яагаад:** Өгөгдлийг баталгаажуулалт, сессийн аюулгүй байдал, бараа материалын ажлын урсгал, нөөцлөлт болон Хувийн хадгалах сангийн функцэд ашигладаг.",
                 "sharing": "Бид юу боловсруулдаг",
                 "control": "Яагаад"
             },
             "shortcuts": {
                 "what": "Бид юу хийдэг вэ?",
                 "why": "Яагаад?",
-                "sharing": "Sharing",
+                "sharing": "Хуваалцах",
                 "rights": "Бид ямар өгөгдлийг цуглуулж, боловсруулдаг"
             },
             "section_titles": {
                 "what": "Бидний цуглуулж боловсруулдаг мэдээлэл",
                 "why": "Таны эрх",
                 "sharing": "Хадгалах, шилжүүлэх",
-                "rights": "Your rights"
+                "rights": "Таны эрх"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "Энэхүү {{brandName}} суулгацын нөхцөл нь зөвшөөрөгдөх хэрэглээ, таны аюулгүй байдлын үүрэг хариуцлага, бүртгэл устгасны үр дагаврыг илүү ойлгомжтой, сканнер хийхэд хялбар хэлбэрээр тайлбарладаг.",
         "terms_support_label": "Энэ суулгалтад хамаарах нөхцлийн талаархи асуултуудад:",
         "terms_summary": {
             "eyebrow": "Шуурхай хураангуй",
             "title": "Практик дээр энэ нь юу гэсэн үг вэ",
             "items": {
-                "use": "Use the service only for data you are authorized to upload, store, or share.",
+                "use": "Үйлчилгээг зөвхөн байршуулах, хадгалах, хуваалцах эрхтэй өгөгдөлд ашиглаарай.",
                 "responsibility": "Нууц үг, сэргээх материал болон нөөцлөлтөө аюулгүй байлгаарай.",
                 "security": "Бүртгэлийг бүрмөсөн устгах тул та чухал мэдээллээ нөөцөлж хадгалах хэрэгтэй.",
                 "backups": "Бэлэн байдал, дэмжлэг, нэгдлүүд нь энэ суулгацын оператороос хамаарна; үйлчилгээг хуулиар зөвшөөрөгдсөн хэмжээнд \"байгаагаар нь\" болон \"боломжтой\" үндсэн дээр үзүүлнэ.",
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "Хэрэглэх нөхцөл ба татгалзах",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "BETA хувилбар: {{brandName}} одоогоор туршилтын шатандаа байна.",
         "disclaimer": "ТАЙЛБАР: Энэхүү програмыг ашигласнаар та өгөгдлийн алдагдал, хандалтын асуудал эсвэл бусад техникийн асуудлаар нөхөн олговор олгохыг зөвшөөрч байна.",
         "backup_warning": "Өгөгдлийн нөөцлөлт: Чухал мэдээллийг байнга нөөцлөхийг зөвлөж байна.",
         "accept": "Нэвтрэн орсноор та эдгээр нөхцлийг хүлээн зөвшөөрч байна.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} одоогоор туршилтын болон хоббигийн шатандаа байна.",
         "contact": "Контакт"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Хэт олон нэвтрэх оролдлого байна. 15 минутын дараа дахин оролдоорой."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Нэвтрэх",
+        "page_title_register": "Бүртгэл үүсгэх",
+        "page_title_choose_house": "Байшин сонго",
+        "page_title_recovery_key": "Сэргээх түлхүүр",
+        "page_title_house_access": "Байшинд нэвтрэх",
+        "page_title_legal_review": "Хуулийн хяналт",
+        "page_title_new_item": "Шинэ зүйл",
+        "page_title_edit_item": "Зүйлийг засах",
+        "page_title_items": "Бараа материал"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Худалдан авах жагсаалтыг ачаалахад алдаа гарлаа.",
+            "select_item_error": "Бүртгэлээс бараа сонгоно уу.",
+            "empty_name": "Барааны нэрийг оруулна уу.",
+            "added": "Барааг худалдан авах жагсаалтад нэмлээ.",
+            "add_error": "Барааг нэмэх явцад алдаа гарлаа.",
+            "added_suggestion": "\"{{name}}\"-г худалдан авах жагсаалтад нэмлээ.",
+            "bulk_added": "Нөөц багатай {{count}} барааг жагсаалтад нэмлээ.",
+            "bulk_error": "Нөөц багатай барааг нэмэхэд алдаа гарлаа.",
+            "completed": "\"{{name}}\"-г худалдан авснаар тэмдэглэлээ.",
+            "reactivated": "\"{{name}}\"-г идэвхтэй жагсаалт руу буцааж зөөлөө.",
+            "update_error": "Шинэчлэх явцад алдаа гарлаа.",
+            "deleted": "Барааг жагсаалтаас устгалаа.",
+            "delete_error": "Устгах явцад алдаа гарлаа.",
+            "cleared_completed": "Худалдан авсан бараануудын түүхийг цэвэрлэлээ.",
+            "clear_error": "Түүхийг цэвэрлэх явцад алдаа гарлаа."
+        },
+        "loading_desc": "Худалдан авах жагсаалтыг бэлдэж байна...",
+        "page": {
+            "title": "Худалдан авах жагсаалт",
+            "description": "Гэрийн бүртгэл дэх бага нөөцтэй барааг харж, худалдан авах жагсаалтаа хялбархан удирдаарай."
+        },
+        "suggestions": {
+            "title": "Ухаалаг бүртгэлийн зөвлөмжүүд",
+            "desc": "Бүртгэлийн бараанууд, тэдгээр нь доод хязгаараас доош орсон байна.",
+            "add_all": "Бүх дутуу барааг нэмэх",
+            "stock_status": "Одоогийн: {{current}} / Зорилтот: {{min}}",
+            "add_qty": "{{qty}} ширхэгийг нэмэх"
+        },
+        "sections": {
+            "active_list": "Худалдан авах бараанууд",
+            "active_desc": "Сагсанд нэмэх одоогийн худалдан авалтын бараанууд.",
+            "active_count": "{{count}} Бараа",
+            "completed_list": "Худалдан авсан бараанууд ({{count}})",
+            "add_item": "Барааг гараар нэмэх",
+            "add_desc": "Жагсаалтад өөр барааг гараар нэмэх."
+        },
+        "empty": {
+            "title": "Таны худалдан авах жагсаалт хоосон байна",
+            "desc": "Та дээрх зөвлөмжөөс дутуу нөөцийг нэмэх эсвэл баруун талын маягтыг ашиглан барааг гараар нэмж болно."
+        },
+        "card": {
+            "linked_inventory": "Бүртгэлд хадгалагдсан"
+        },
+        "actions": {
+            "clear_completed": "Түүхийг цэвэрлэх",
+            "add_item": "Худалдан авах жагсаалтад нэмэх"
+        },
+        "form": {
+            "add_type": "Нэмэх арга",
+            "add_type_inventory": "Бүртгэлийн бараа",
+            "add_type_custom": "Өөр бараа",
+            "select_inventory_item": "Бүртгэлээс бараа сонгох",
+            "no_inventory_items": "Таны бүртгэлд бараа хараахан байхгүй байна.",
+            "select_item_placeholder": "Бараа сонгох",
+            "current_stock": "Одоогийн",
+            "item_name": "Барааны нэр",
+            "item_name_placeholder": "ж.нь: Сүү, Угаалгын нунтаг, Кофены шош...",
+            "quantity": "Тоо хэмжээ"
+        },
+        "modal": {
+            "delete_title": "Жагсаалтаас барааг устгах уу?",
+            "delete_desc": "Та \"{{name}}\"-г худалдан авах жагсаалтаас хасахдаа итгэлтэй байна уу?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Мэдээллийг ачаалахад алдаа гарлаа",
+            "select_item_error": "Бараа сонгоно уу.",
+            "task_name_error": "Даалгаврын нэр шаардлагатай.",
+            "date_error": "Төлөвлөсөн огноо шаардлагатай.",
+            "updated": "Засвар үйлчилгээний даалгавар шинэчлэгдсэн",
+            "created": "Шинэ засвар үйлчилгээний даалгавар нэмэгдлээ",
+            "save_error": "Хадгалах явцад алдаа гарлаа",
+            "deleted": "Засвар үйлчилгээний даалгаврыг амжилттай устгалаа.",
+            "delete_error": "Устгах явцад алдаа гарлаа.",
+            "performed": "Засвар үйлчилгээг хийж гүйцэтгэснээр бүртгэлээ. Дараагийн огноог товлолоо.",
+            "perform_error": "Хадгалах явцад алдаа гарлаа."
+        },
+        "freq": {
+            "one_time": "Нэг удаагийн",
+            "unit": {
+                "days": "Өдөр",
+                "weeks": "Долоо хоног",
+                "months": "Сар",
+                "years": "Жил"
+            },
+            "format": "{{val}} {{unit}} тутамд"
+        },
+        "loading_desc": "Засвар үйлчилгээний хуваарийг ачаалж байна...",
+        "page": {
+            "title": "Засвар үйлчилгээ ба Үечилсэн хяналт",
+            "description": "Гэрийн бүртгэл дэх цахилгаан хэрэгсэл, шүүлтүүр эсвэл аюулгүй байдлын тоног төхөөрөмжийн үечилсэн засвар үйлчилгээний хуваарийг удирдана уу."
+        },
+        "actions": {
+            "add_task": "Шинэ даалгавар нэмэх",
+            "manage": "Удирдах",
+            "perform": "Хийж гүйцэтгэсэн",
+            "edit_task": "Даалгаврыг засах"
+        },
+        "alerts": {
+            "overdue_title": "Танд хугацаа хэтэрсэн даалгавар байна!",
+            "overdue_desc": "Хугацаа хэтэрсэн {{count}} засвар үйлчилгээний даалгавар байна. Хугацаа хойшлуулах нь төхөөрөмжийн ашиглалтын хугацаг богиносгож болзошгүй."
+        },
+        "empty": {
+            "title": "Төлөвлөсөн засвар үйлчилгээний даалгавар байхгүй",
+            "desc": "Агааржуулагчийн шүүлтүүр цэвэрлэх, бойлерийн засвар үйлчилгээ эсвэл утаа мэдрэгчийн батерейг шалгах зэрэг давтагдах даалгавруудыг нэмж эхэлнэ үү."
+        },
+        "sections": {
+            "overdue": "Хугацаа хэтэрсэн даалгаврууд",
+            "overdue_desc": "Яаралтай хийх шаардлагатай засвар үйлчилгээнүүд.",
+            "upcoming": "Төлөвлөсөн / Ирэх даалгаврууд",
+            "upcoming_desc": "Ойрын өдрүүдэд хийгдэх засвар үйлчилгээнүүд.",
+            "no_upcoming": "Ирээдүйд төлөвлөсөн идэвхтэй даалгавар байхгүй."
+        },
+        "modal": {
+            "edit_title": "Даалгаврыг засах",
+            "create_title": "Шинэ засвар үйлчилгээний даалгавар товлох",
+            "perform_title": "Засвар үйлчилгээг дуусгах",
+            "perform_desc": "Та \"{{name}}\" даалгаврыг өнөөдөр хийж гүйцэтгэснээр бүртгэх үү?",
+            "perform_confirm": "Тийм, дууссан",
+            "perform_recurrence_info": "Энэ бол үечилсэн даалгавар юм. Хадгалах үед систем дараагийн засвар үйлчилгээний огноог автоматаар тооцоолно.",
+            "delete_title": "Засвар үйлчилгээний даалгаврыг устгах уу?",
+            "delete_desc": "\"{{name}}\" үечилсэн засвар үйлчилгээний хуваарийг устгахдаа итгэлтэй байна уу? Энэ үйлдлийг буцаах боломжгүй."
+        },
+        "form": {
+            "item": "Холбоотой бараа",
+            "no_items": "Засвар үйлчилгээ товлохын өмнө та бүртгэлд бараагаа нэмсэн байх шаардлагатай.",
+            "select_item_placeholder": "Бараа сонгох",
+            "task_name": "Даалгавар / Үйл ажиллагааны нэр",
+            "task_name_placeholder": "ж.нь: Шүүлтүүр солих, Үечилсэн шалгалт...",
+            "description": "Дэлгэрэнгүй / Тайлбар",
+            "description_placeholder": "Даалгаврын дэлгэрэнгүй, ашиглах материал г.м...",
+            "frequency_value": "Давтамж",
+            "frequency_placeholder": "ж.нь: 6 (нэг удаагийнх бол хоосон орхино)",
+            "frequency_unit": "Давтамжийн нэгж",
+            "next_due_date": "Дараагийн товлосон огноо",
+            "section_help": "Засвар үйлчилгээний хуваарийг эндээс удирдана уу",
+            "section_collapsed": "Үечилсэн хяналт болон даалгавар нэмэхийн тулд дарна уу",
+            "has_tasks": "{{count}} даалгавар",
+            "new_item_warning_title": "Барааг хадгалахыг хүлээж байна",
+            "new_item_warning_desc": "Засвар үйлчилгээний хуваарь нэмэхийн тулд та эхлээд энэ барааг хадгалах ёстой.",
+            "manage_desc": "Энэ төхөөрөмж эсвэл барааны засвар үйлчилгээний хуваарийг удирдах."
+        },
+        "fields": {
+            "task_name": "Даалгаврын нэр",
+            "task_name_placeholder": "ж.нь: АС шүүлтүүр цэвэрлэх",
+            "description": "Тайлбар",
+            "description_placeholder": "Даалгаврын дэлгэрэнгүй, ашиглах материал г.м...",
+            "frequency_value": "Давтамж",
+            "frequency_value_placeholder": "Нэг удаагийнх бол хоосон орхино",
+            "frequency_unit": "Давтамжийн нэгж",
+            "next_due_date": "Товлосон огноо"
+        },
+        "card": {
+            "untitled_item": "Нэргүй бараа",
+            "last_performed": "Хамгийн сүүлд хийсэн огноо:",
+            "next_due_label": "Товлосон огноо",
+            "complete_tooltip": "Засвар үйлчилгээг өнөөдөр хийж гүйцэтгэснээр тэмдэглэх"
+        },
+        "detail_card_desc": "Энэ бараанд зориулан товлосон үечилсэн эсвэл нэг удаагийн засвар үйлчилгээний хянал.",
+        "no_tasks": "Энэ бараанд засвар үйлчилгээний даалгавар оноогоогүй байна.",
+        "confirm_delete": "Энэ даалгавар устах болно. Та итгэлтэй байна уу?"
     }
 }

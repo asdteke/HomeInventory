@@ -69,7 +69,9 @@
             "vault_hint_action": "ເປີດ Personal Vault",
             "location": "ສະຖານ ທີ່",
             "remove_photo": "ລຶບ ຮູບ",
-            "visibility_owner_only": "ພຽງ ແຕ່ ຜູ້ ທີ່ ໄດ້ ເພີ່ມ ລາຍການ ເທົ່າ ນັ້ນ ທີ່ ສາມາດ ປ່ຽນ ແປງ ການ ຫລຽວ ເຫັນ ໄດ້."
+            "visibility_owner_only": "ພຽງ ແຕ່ ຜູ້ ທີ່ ໄດ້ ເພີ່ມ ລາຍການ ເທົ່າ ນັ້ນ ທີ່ ສາມາດ ປ່ຽນ ແປງ ການ ຫລຽວ ເຫັນ ໄດ້.",
+            "expiry_date": "ວັນໝົດອາຍຸ",
+            "min_quantity": "ປະລິມານ ຕ່ໍາ ທີ່ ສຸດ"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" ເພີ່ມໄວໆ - ທ່ານສາມາດແກ້ໄຂໄດ້ພາຍຫຼັງ",
@@ -119,7 +121,12 @@
         "no_permission": "ທ່ານບໍ່ໄດ້ຮັບອະນຸຍາດໃຫ້ດັດແປງລາຍການນີ້",
         "barcode_search_error": "ການຄົ້ນຄວ້າ barcode ບໍ່ສໍາເລັດ",
         "stats_error": "ສະຖິຕິການບັນຈຸຂໍ້ຜິດພາດ",
-        "detail_subtitle": "ລາຍ ລະອຽດ ຂອງ ລາຍການ"
+        "detail_subtitle": "ລາຍ ລະອຽດ ຂອງ ລາຍການ",
+        "status": {
+            "close_to_expiry": "ໃກ້ ຈະ ຫມົດ",
+            "expired": "ຫມົດ",
+            "low_stock": "ມີ ຈໍານວນ ຫນ້ອຍ"
+        }
     },
     "common": {
         "save": "บันทึก",
@@ -151,17 +158,17 @@
         "deleting": "กำลังลบ...",
         "filter": "Filter Sort Yes Confirm Back Next Actions None Total Log in...",
         "sort": "Sort >>> Yes >>> Confirm >>> Back",
-        "yes": "Yes",
+        "yes": "ແມ່ນ ແລ້ວ",
         "no": "No",
-        "confirm": "Confirm",
-        "back": "Back",
+        "confirm": "ຢືນຢັນ ການ",
+        "back": "ກັບຄືນ",
         "next": "ການກະທໍາຕໍ່ໄປ ບໍ່ມີ ລວມທັງຫມົດ",
         "retry": "ລອງ ເຮັດ",
-        "actions": "Actions",
+        "actions": "ກັບ ຄືນ ມາ",
         "created_at": "Created at",
         "updated_at": "Updated at",
-        "none": "None",
-        "total": "Total",
+        "none": "ບໍ່ມີ",
+        "total": "ທັງໝົດ",
         "not_found": "ບໍ່ພົບ",
         "unauthorized": "ການເຂົ້າເຖິງໂດຍບໍ່ໄດ້ຮັບອະນຸຍາດ",
         "forbidden": "ທ່ານບໍ່ໄດ້ຮັບອະນຸຍາດສໍາລັບການກະທໍານີ້",
@@ -170,7 +177,8 @@
         "details": "ລາຍລະອຽດ",
         "hide": "ເຊື່ອງລະຫັດ",
         "logging_out": "Log out...",
-        "show": "ສະແດງລະຫັດຜ່ານ"
+        "show": "ສະແດງລະຫັດຜ່ານ",
+        "saving": "ການ ທ້ອນ ເງິນ..."
     },
     "auth": {
         "login": {
@@ -216,7 +224,7 @@
             "support_link": "ຕິດ ຕໍ່ ຫາ"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "ຕັ້ງຄ່າໃຊ້ຈ່າຍໃນຄອບຄົວຂອງເຈົ້າ",
             "subtitle": "ສ້າງບັນຊີໃຫມ່ ຫຼື ເຂົ້າຮ່ວມກັບເຮືອນທີ່ມີຢູ່",
             "create_house": "ສ້າງເຮືອນໃຫມ່",
             "join_house": "ເຂົ້າຮ່ວມເຮືອນ",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "ໃສ່ລະຫັດຜ່ານຂອງເຈົ້າຄືນ",
             "reset_submit": "Reset password",
             "resetting": "ການຕັ້ງຄືນໃຫມ່...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "ໃສ່ຊື່ຜູ້ໃຊ້ຫຼືອີເມວຂອງເຈົ້າ"
         },
         "reset_password": {
             "title": "Reset password",
@@ -353,11 +361,11 @@
         "password_requirements": "ໃຫ້ໃຊ້ອັກຂະລະ {{min}} ຢ່າງຫນ້ອຍທີ່ມີຕົວອັກສອນໃຫຍ່, ຕົວອັກສອນນ້ອຍ, ຕົວເລກ ແລະ ເຄື່ອງຫມາຍ.",
         "logout": "ออกจากระบบ",
         "logging_in": "ກໍາລັງເຂົ້າ...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "ຍິນ ດີ ຕ້ອນຮັບ ສູ່ {{brandName}}",
         "username_email": "Username ຫຼື Email",
-        "username": "Username",
-        "email": "Email",
-        "password": "Password",
+        "username": "ຊື່ຜູ້ໃຊ້",
+        "email": "ອີ ເມວ",
+        "password": "ລະຫັດຜ່ານ",
         "confirm_password": "ຢືນຢັນ password",
         "new_password": "password ໃຫມ່",
         "current_password": "password",
@@ -366,7 +374,7 @@
         "or": "or",
         "google_login": "ດໍາ ເນີນ ຕໍ່ ໄປ ກັບ Google",
         "login_issues": "ສໍາລັບບັນຫາການເຂົ້າລະບົບເຊັ່ນ: john •••••••• Dashboard Total Items Total Rooms Total Categories Quick search... ຍັງ ບໍ່ ມີ ລາຍ ການ ເພີ່ມ ເຕີມ ຫຍັງ ເລີຍ ເພີ່ມ ສິ່ງ ຂອງ ທໍາ ອິດ ຂອງ ທ່ານ",
-        "placeholder_username": "e.g.: john",
+        "placeholder_username": "ຕົວຢ່າງ: john >>> Dashboard >>> Total Items >>> Total Rooms",
         "placeholder_password": "•••••••• Dashboard ລາຍການທັງຫມົດ ຫ້ອງທັງຫມົດ",
         "login_two_factor": {
             "title": "การยืนยันตัวตนแบบสองปัจจัย",
@@ -438,7 +446,9 @@
         "logout_aria": "ออกจากบัญชีของคุณ",
         "logout_title": "ออกจากระบบ?",
         "logout_description": "ທ່ານຈະຖືກກັບຄືນໄປສູ່ຫນ້າຈໍການເຊັນຊື່ແລະຈໍາເປັນຕ້ອງເຂົ້າໄປອີກເພື່ອຈັດການກັບບັນຊີໃນຄອບຄົວຂອງທ່ານ.",
-        "logout_warning": "ໃຊ້ສິ່ງນີ້ເມື່ອທ່ານສໍາເລັດໃນອຸປະກອນທີ່ແບ່ງປັນຫຼືເປັນສ່ວນຕົວ."
+        "logout_warning": "ໃຊ້ສິ່ງນີ້ເມື່ອທ່ານສໍາເລັດໃນອຸປະກອນທີ່ແບ່ງປັນຫຼືເປັນສ່ວນຕົວ.",
+        "maintenance": "ຕາຕະລາງການບໍາລຸງຮັກສາ",
+        "shopping": "ລາຍການຊື້ເຄື່ອງ"
     },
     "dashboard": {
         "welcome": "ຍິນດີຕ້ອນຮັບ, <1>{{name}}</1>! 👋",
@@ -547,32 +557,45 @@
             "step_three_title": "ແຍກບັນທຶກສ່ວນຕົວ",
             "step_three_body": "ໃຊ້ Personal Vault ສໍາລັບຫນັງສືຜ່ານແດນ, ເອກະສານ ແລະ ລະຫັດເຂົ້າ."
         },
-        "title": "Dashboard",
-        "total_items": "Total Items",
-        "total_rooms": "Total Rooms",
+        "title": "ແຜງໜ້າປັດ",
+        "total_items": "ລາຍການທັງຫມົດ",
+        "total_rooms": "ຫ້ອງທັງຫມົດ",
         "total_categories": "ປະເພດທັງຫມົດ",
         "search_placeholder": "ຄົ້ນຫາໄວໆ...",
         "no_items": "ຍັງ ບໍ່ ມີ ລາຍ ການ ເພີ່ມ ເຕີມ",
         "add_first_item": "ເພີ່ມ ສິ່ງ ຂອງ ທໍາ ອິດ ຂອງ ທ່ານ",
-        "view_all": "View All",
-        "total_quantity": "Total Quantity",
-        "top_room": "Fullest Room",
-        "category_count": "Category",
+        "view_all": "ເບິ່ງທັງໝົດ",
+        "total_quantity": "ຈໍານວນທັງຫມົດ",
+        "top_room": "ຫ້ອງເຕັມທີ່ສຸດ",
+        "category_count": "ປະເພດ",
         "items_count": "Items",
-        "private_items": "My Private Items",
-        "public_items": "Public",
-        "remove_filter": "Remove Filter",
+        "private_items": "ສິ່ງ ຂອງ ສ່ວນ ຕົວ ຂອງ ຂ້າ ພະ ເຈົ້າ",
+        "public_items": "ສາ ທາ ລະ",
+        "remove_filter": "ລຶບ ເຄື່ອງ ຕອງ",
         "no_items_filter": "ບໍ່ມີລາຍການໃດທີ່ກົງກັບເຄື່ອງຕອງນີ້",
-        "manage": "Manage",
+        "manage": "ຈັດ ການ",
         "add_item": "ເພີ່ມລາຍການ",
-        "search_item": "ຄົ້ນຫາ ລາຍການ"
+        "search_item": "ຄົ້ນຫາ ລາຍການ",
+        "alerts": {
+            "expired_title": "ລາຍການຫມົດອາຍຸແລ້ວ!",
+            "expired_desc": "ມີວັດຖຸທີ່ຫມົດອາຍຸແລ້ວ {{count}} ໃນວັດຖຸຂອງເຈົ້າ. ກະລຸນາກວດເບິ່ງເພື່ອຄວາມປອດໄພຂອງທ່ານ.",
+            "view_items": "ເບິ່ງ ລາຍການ",
+            "maintenance_title": "ການ ບໍາລຸງ ຮັກສາ ທີ່ ເກີນ ກໍານົດ!",
+            "maintenance_desc": "ມີວຽກບໍາລຸງຮັກສາທີ່ເກີນກໍານົດ. ດໍາເນີນການບໍາລຸງຮັກສາເພື່ອຍືດອາຍຸຂອງເຄື່ອງໃຊ້ຂອງເຈົ້າ.",
+            "go_to_maintenance": "ໄປທີ່ການບໍາລຸງຮັກສາ",
+            "low_stock_title": "ແຈ້ງເຕືອນຫຼັກຊັບຕໍ່າ",
+            "low_stock_desc": "{{count}} ລາຍການໄດ້ຫລຸດລົງຕ່ໍາກວ່າຈໍາກັດຂອງສິນຄ້າຕ່ໍາທີ່ສຸດຂອງທ່ານ.",
+            "go_to_shopping": "ລາຍການຊື້ເຄື່ອງ",
+            "close_expiry_title": "ວັນສິ້ນສຸດທີ່ກໍາລັງຈະມາເຖິງ",
+            "close_expiry_desc": "ຜະລິດຕະພັນ {{count}} ຈະຫມົດອາຍຸພາຍໃນ 30 ມື້."
+        }
     },
     "beta_banner": {
         "title": "ເບັດຕາ:",
         "text": "{{brandName}} ກໍາລັງ ຢູ່ ໃນ ຂັ້ນ ຕອນ ການ ທົດ ສອບ ແລະ ວຽກ ງານ ຫລິ້ນ. ບໍ່ມີການຮັບປະກັນສໍາລັບຄວາມຫມັ້ນຄົງຫຼືຄວາມປອດໄພຂອງຂໍ້ມູນ. ກະລຸນາສໍາຮອງຂໍ້ມູນທີ່ສໍາຄັນ.",
         "contact": "ຕິດຕໍ່:",
         "badge": "เบต้า",
-        "aria_label": "Beta notice",
+        "aria_label": "ແຈ້ງການເບຕ້າ",
         "tooltip": "Early access features ອາດ ຍັງ ປ່ຽນ ແປງ."
     },
     "footer": {
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "ກະແຈເຮືອນທີ່ເຂັ້ມແຂງ",
             "key_label": "ກະແຈເຮືອນ",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "•••••••••{{suffix}}",
             "hide": "ເຊື່ອງ",
             "show": "ສະແດງ",
             "copy": "ສໍາເນົາ",
@@ -741,10 +764,10 @@
             "export_encrypted_title": "ການເຂົ້າລະຫັດຈະຖືກນໍາໃຊ້ກ່ອນການດາວໂຫຼດ",
             "import_summary_body": "{{items}} ລາຍການ, {{categories}} ປະເພດ, {{rooms}} ຫ້ອງ, {{locations}} ສະຖານທີ່, {{borrows}} ບັນທຶກຢືມ.",
             "import_summary_title": "ການສໍາຮອງ",
-            "preview_categories": "Categories",
-            "preview_items": "Items",
-            "preview_locations": "Locations",
-            "preview_rooms": "Rooms",
+            "preview_categories": "ໝວດໝູ່",
+            "preview_items": "ສິ່ງ ຂອງ ທີ່ >>> >>> ຂໍ້ ມູນ ໃນ ບ້ານ ເຮືອນ >>> ກະ ແຈ ບ້ານ",
+            "preview_locations": "ສະຖານ ທີ່",
+            "preview_rooms": "ຫ້ອງ ແຖວ",
             "skipped_borrows": "{{count}} ບັນທຶກການຢືມທີ່ມີຢູ່ຖືກຂ້າມໄປ.",
             "skipped_categories": "{{count}} ປະເພດທີ່ມີຢູ່ຖືກຂ້າມໄປ.",
             "skipped_items": "{{count}} ລາຍການທີ່ມີຢູ່ຖືກຂ້າມໄປ.",
@@ -912,11 +935,11 @@
         "frequently_used": "ໃຊ້ເລື້ອຍໆ",
         "other_languages": "ທຸກພາສາ",
         "no_language_found": "ບໍ່ມີພາສາໃດທີ່ກົງກັບການຄົ້ນຄວ້ານັ້ນ.",
-        "account": "Account",
-        "house": "House Info",
-        "house_key": "House Key",
-        "copy_key": "Copy Key",
-        "share_key": "Share Key",
+        "account": "ບັນຊີ",
+        "house": "ຂໍ້ມູນເຮືອນ",
+        "house_key": "ເຮືອນກະແຈ",
+        "copy_key": "ສຳເນົາລະຫັດ",
+        "share_key": "ແບ່ງປັນລະຫັດ",
         "house_members": "ສະມາຊິກ ໃນ House",
         "change_password": "ປ່ຽນ ລະຫັດ",
         "backup": "ສໍາຮອງ",
@@ -970,7 +993,7 @@
             "lend": "ໃຫ້ ຢືມ",
             "return_note": "ຈົດຫມາຍ ກັບ ຄືນ",
             "return_note_placeholder": "e.g. Rereturns in good condition",
-            "submitting_return": "Closing...",
+            "submitting_return": "ປິດ...",
             "mark_returned": "ມາຣະ ໂກ ໄດ້ ກັບ ຄືນ ມາ",
             "current_borrower_label": "ປະຈຸ ບັນ ນີ້:",
             "unknown": "ບໍ່ຮູ້ຈັກ",
@@ -991,8 +1014,8 @@
             "no_history": "ຍັງບໍ່ທັນມີປະຫວັດການຢືມສໍາລັບລາຍການນີ້.",
             "lend_success_title": "รายการที่ให้ยืม",
             "lend_success_body": "ປັດຈຸບັນ {{item}} ຖືກຫມາຍວ່າຢືມແລ້ວ.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "Borrow ສະເຫນີ",
+            "offer_sent_body": "{{item}} ຈະຖືກຫມາຍວ່າຢືມຫຼັງຈາກທີ່ສະມາຊິກອີກຄົນຫນຶ່ງຍອມຮັບ.",
             "borrowed_by_you": "ກັບທ່ານ",
             "return_pending_hint": "ບັນທຶກຈະປິດຫຼັງຈາກທີ່ຜູ້ໃຫ້ກູ້ຢືມຢືນຢັນວ່າເຂົາເຈົ້າໄດ້ຮັບເຄື່ອງນັ້ນຄືນ.",
             "return_pending_lender_title": "{{name}} ໄດ້ຫມາຍເຄື່ອງນີ້ວ່າຖືກສົ່ງຄືນແລ້ວ",
@@ -1047,8 +1070,8 @@
         "edit": "ແກ້ໄຂປະເພດ",
         "delete": "ລຶບປະເພດ",
         "name": "ຊື່ປະເພດ",
-        "icon": "Icon",
-        "color": "Color",
+        "icon": "Icon Icon Admin User",
+        "color": "ສີ",
         "item_count": "ຈໍານວນລາຍການ",
         "no_categories": "ຍັງບໍ່ທັນມີການເພີ່ມປະເພດ",
         "confirm_delete": "ທ່ານແນ່ໃຈບໍວ່າທ່ານຕ້ອງການລຶບປະເພດນີ້?",
@@ -1125,7 +1148,7 @@
         "edit": "ແກ້ ໄຂ ຫ້ອງ",
         "delete": "ລຶບ ຫ້ອງ",
         "name": "ຊື່ ຫ້ອງ",
-        "icon": "Icon",
+        "icon": "ໄອຄອນ",
         "item_count": "ຈໍານວນ",
         "no_rooms": "ຍັງ ບໍ່ ມີ ຫ້ອງ ເພີ່ມ ເຕີມ",
         "confirm_delete": "ທ່ານແນ່ໃຈບໍວ່າຢາກລຶບຫ້ອງນີ້?",
@@ -1221,8 +1244,8 @@
             "failed_logins": "{{count}} sign-in ບໍ່ສໍາເລັດ",
             "load_failed_title": "ຜູ້ໃຊ້ບໍ່ສາມາດโหลด",
             "pending_requests": "{{count}} ທີ່ລໍຖ້າຄໍາຮ້ອງຂໍເຮືອນ",
-            "role_admin": "Admin",
-            "role_user": "User"
+            "role_admin": "ບໍລິຫານ",
+            "role_user": "ຜູ້ໃຊ້"
         },
         "logs": {
             "title": "ບັນທຶກຜູ້ບໍລິຫານ",
@@ -1280,7 +1303,7 @@
             "placeholder_to": "name@example.com >>> ສັ່ງ ຫ້າມ ການ ໃຊ້ ຄວາມ ຊົງ ຈໍາ >>> ລາຍ ລະ ອຽດ >>> >>> ເລີ່ມ ຕົ້ນ ຟຣີ >>> ເບິ່ງ ຜະລິດຕະພັນ >>> ການ ເຂົ້າ ເຖິງ ຂອບ ເຂດ >>> ບັນທຶກ ສ່ວນ ຕົວ ຈະ ບໍ່ ມີ ຢູ່ ໃນ ລາຍ ຊື່ ທີ່ ແບ່ງປັນ >>> ຫນັງສືຜ່ານແດນ, ຫນັງສືຜ່ານແດນ ແລະ ລະຫັດ ເຂົ້າ ໄປ ຈະ ແຍກ ອອກ ຈາກ ບັນຊີ ທີ່ ແບ່ງປັນ. ຂໍ້ ມູນ Vault ຖືກ ເກັບ ໄວ້ ໃນ ລະຫັດ. >>> ຂອບເຂດ Vault",
             "placeholder_subject": "ຫົວຂໍ້ຂ່າວສານ",
             "send_success_with_id": "✅ ສົ່ງອີເມວໄດ້ສໍາເລັດແລ້ວ! ID: {{emailId}}",
-            "send_error": "Email could not be sent",
+            "send_error": "Email ບໍ່ສາມາດສົ່ງໄດ້",
             "rate_limit_reached": "⏳ Rate limited. ກະລຸນາລໍຖ້າ 1 ນາທີ.",
             "info_title": "ຂໍ້ມູນ",
             "info_bullet_1": "ອີເມວຖືກສົ່ງຈາກ {{supportEmail}}",
@@ -1295,7 +1318,7 @@
             "configured_title": "ການສົ່ງອີເມວຖືກຕັ້ງຄ່າ",
             "error_title": "ອີເມວລົ້ມເຫລວ",
             "format_hint": "HTML ໄດ້ຮັບການສະຫນັບສະຫນູນ. ຕົວຢ່າງ: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
-            "from_label": "Sender",
+            "from_label": "ຜູ້ສົ່ງ",
             "load_failed_title": "ເຄື່ອງມືອີເມວບໍ່ສາມາດ load",
             "success_title": "ອີເມວທີ່ສົ່ງ"
         },
@@ -1366,14 +1389,14 @@
         },
         "refresh_complete_title": "ຂໍ້ມູນຜູ້ບໍລິຫານຖືກຟື້ນຟູ",
         "refresh_complete_body": "ຂໍ້ມູນຜູ້ບໍລິຫານຫຼ້າສຸດແມ່ນຢູ່ເທິງຫນ້າຈໍ.",
-        "ban_user": "Ban",
+        "ban_user": "ຫ້າມ",
         "unban_user": "unban",
         "delete_user": "ລຶບການໃຊ້ຄວາມຊົງຈໍາຂອງຜູ້ໃຊ້",
         "reset_attempts": "ການຕັ້ງຄືນຄວາມພະຍາຍາມ",
         "total_users": "ຜູ້ໃຊ້ທັງຫມົດ",
         "total_items": "ລາຍການທັງຫມົດ",
         "server_uptime": "ເວລາເຮັດວຽກຂອງລະບົບແມ່ແຈກ",
-        "memory_usage": "Memory Usage",
+        "memory_usage": "ການ ໃຊ້ ຄວາມ ຊົງ ຈໍາ",
         "users_loaded": "ຜູ້ໃຊ້ຖືກโหลด",
         "user_banned": "ຜູ້ໃຊ້ຖືກສັ່ງຫ້າມ",
         "user_unbanned": "ຜູ້ໃຊ້ຖືກປົດປ່ອຍການສັ່ງຫ້າມ",
@@ -1401,12 +1424,12 @@
             "cta_register": "ສ້າງບັນຊີ",
             "stat_free": "ຟຣີ",
             "stat_access": "ເຂົ້າເຖິງ",
-            "free_badge": "Open Source",
+            "free_badge": "ແຫຼ່ງເປີດ",
             "badge": "HomeInventory v2.0 ມາ ແລ້ວ",
             "cta_explore": "ຄົ້ນຄວ້າລັກສະນະເດັ່ນ",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "ເຂົ້າສູ່ລະບົບ",
+            "stat_members": "ເຮືອນທີ່ແບ່ງປັນ",
+            "stat_vault": "Private Vault >>> Next >>> Open >>> Skip"
         },
         "features": {
             "title": "ເປັນຫຍັງ <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "ເກັບສິ່ງຂອງ, ການຮັບປະກັນ, ເອກະສານສໍາຄັນ ແລະ ບັນທຶກການຢືມໄວ້ໃນບ່ອນທີ່ສະຫງົບ.ໃຫ້ເບິ່ງວ່າເຮືອນຂອງເຈົ້າມີຫຍັງແດ່.",
                 "primaryCta": "ເລີ່ ມຕົ້ນ ຟຣີ",
                 "secondaryCta": "ເບິ່ງ ຜະລິດຕະພັນ",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "flowທີ່ແນະນໍາ: ບັນຊີ • ບ້ານ • ຫ້ອງ ແລະ ປະເພດ • ວັດຖຸ • ສໍາຮອງ",
                 "searchPlaceholder": "ຊອກຫາວັດຖຸ, ຫ້ອງ ຫຼື barcode"
             },
             "heroInventoryRows": [
@@ -1639,10 +1662,10 @@
         "categories_desc": "ຈັດລາຍການຂອງເຈົ້າອອກເປັນປະເພດ. ເຄື່ອງເອເລັກໂຕຣນິກ, ເຄື່ອງເຮືອນ, ເຮືອນຄົວ ແລະ ອື່ນໆ!",
         "back": "ກັບ ຄືນ ມາ",
         "close": "ປິດ ເສັ້ນ ໄຊ ເປີດ ຕໍ່ ໄປ",
-        "last": "Finish",
-        "next": "Next",
-        "open": "Open",
-        "skip": "Skip"
+        "last": "ສໍາເລັດ",
+        "next": "ຕໍ່ໄປ",
+        "open": "ເປີດ",
+        "skip": "ຂ້າມ"
     },
     "google_house_select": {
         "title": "ຍິນດີຕ້ອນຮັບ!",
@@ -1728,8 +1751,8 @@
         "privacy_summary": "ລາຍ ລະອຽດ ຂອງ Network ຈະ ຖືກ ເຊື່ອງ ໄວ້ ຈົນ ກວ່າ ທ່ານ ຕ້ອງການ ຄໍາ ແນະນໍາ.",
         "link_privacy_note": "ທີ່ຢູ່ເຄືອຂ່າຍຍັງຖືກປິດບັງໄວ້ຢູ່ທີ່ນີ້. ໃຫ້ scan ລະຫັດ ຫລື ສໍາເນົາ link ເມື່ອ ທ່ານ ຕັ້ງ ໃຈ ຢາກ ແບ່ງປັນ ການ ເຂົ້າ ເຖິງ ສິ່ງ ຂອງ ໂດຍ ກົງ ໃນ ການ ຈັດ ຕັ້ງ ໃນ ທ້ອງ ຖິ່ນ ຂອງ ທ່ານ.",
         "helper": "Scan ເພື່ອເປີດລາຍການນີ້ທັນທີ ຫຼືສໍາເນົາລິ້ງໂດຍກົງເມື່ອຈໍາເປັນ.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Link ບໍ່ສາມາດສໍາເນົາໂດຍອັດຕະໂນມັດ",
+        "copy_manual_help": "browser ຂອງທ່ານບໍ່ອະນຸຍາດໃຫ້ສໍາເນົາໂດຍອັດຕະໂນມັດ. ການເຊື່ອມຕໍ່ຖືກເລືອກເພື່ອທ່ານຈະສາມາດສໍາເນົາໄດ້ດ້ວຍຕົວເອງ.",
         "loading": "ການກະກຽມເຄື່ອງມື QR..."
     },
     "house_access_pending": {
@@ -1817,7 +1840,7 @@
             "bodyLine2": "ກໍາລັງລໍຖ້າການອະນຸຍາດຈາກເຈົ້າຂອງເຮືອນ"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{ສະຖານະ}}",
             "greeting": "ການເຂົ້າເຮືອນ",
             "bodyLine1Template": "ຄໍາຮ້ອງຂໍທີ່ລໍຖ້າໃນປັດຈຸບັນ: {{house}} ({{status}})",
             "bodyLine2": "ຄໍາຮ້ອງຂໍຂອງທ່ານສໍາລັບ \"{{house}}\" ຍັງລໍຖ້າການຕັດສິນໃຈຢູ່.",
@@ -1856,7 +1879,7 @@
             "sentAtLabel": "ສົ່ງ ທີ່",
             "senderLabel": "ผู้ส่ง",
             "serviceLabel": "บริการ",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{brandName}} © 2026 {{brandName}} {{brandName}} Admin Panel"
         }
     },
     "vault": {
@@ -1969,8 +1992,8 @@
             "empty": "ບໍ່ ມີ ການ ຢືມ ທີ່ ເຂັ້ມ ແຂງ ໃນ ເວລາ ນີ້.",
             "borrowed_from": "ຢືມຈາກ {{name}}",
             "lent_to": "ປັດຈຸບັນມີ {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "ລໍຖ້າໃຫ້ຜູ້ໃຫ້ກູ້ຢືມຢືນຢັນວ່າເຂົາເຈົ້າໄດ້ຮັບຄືນ.",
+            "return_pending_lender": "{{name}} ໄດ້ຫມາຍລາຍການນີ້ວ່າຖືກສົ່ງຄືນ. ຢືນຢັນການຮັບເພື່ອປິດບັນທຶກ.",
             "empty_title": "ไม่มีการยืมใช้งานอยู่ในขณะนี้",
             "empty_description": "ຄໍາຮ້ອງທີ່ໄດ້ຮັບການຍອມຮັບຈະປາກົດຢູ່ທີ່ນີ້ເມື່ອມີການຢືມຫຼືຢືມ, ພ້ອມກັບວັນກໍານົດ ແລະ ສະຖານະການກັບຄືນ."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "ຍົກເລີກ",
             "expired": "ຫມົດອາຍຸ",
             "returned": "ກັບ ຄືນ",
-            "return_pending": "Return pending"
+            "return_pending": "ລໍຖ້າ ການ ສົ່ງ ຄືນ"
         },
         "actions": {
             "send_request": "ຂໍ",
@@ -1990,8 +2013,8 @@
             "reject": "ປະຕິ ເສດ",
             "cancel": "ຍົກ ເລີກ",
             "fulfill_request": "ບັນ ລຸ ຄໍາ ຂໍ ຮ້ອງ",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Mark ໄດ້ ສົ່ງ",
+            "mark_received": "Mark ໄດ້ ຮັບ",
             "open_inventory": "ເປີດບັນຊີ"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "ມາຣະ ໂກ ໄດ້ ກັບ ຄືນ ມາ",
             "return_subtitle": "ປິດການຢືມທີ່ດໍາເນີນຢູ່ສໍາລັບ \"{{item}}\"",
             "return_target": "ປັດຈຸບັນສະແດງວ່າມີຊື່ວ່າ {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "ສົ່ງ ເຄື່ອງ ຂອງ",
+            "return_title_lender": "ຮັບສິນຄ້າ",
+            "return_subtitle_borrower": "ປິດການຢືມທີ່ດໍາເນີນຢູ່ສໍາລັບ \"{{item}}\" ຫຼັງຈາກທີ່ທ່ານສົ່ງຄືນ.",
+            "return_subtitle_lender": "ປິດການຢືມສໍາລັບ \"{{item}}\" ຫຼັງຈາກທີ່ໄດ້ຄືນມາ.",
+            "return_target_borrower": "ຜູ້ໃຫ້ກູ້ຢືມ: {{name}}",
+            "return_target_lender": "ປັດຈຸບັນມີ: {{name}}",
+            "return_note_borrower": "ບັນທຶກການຈັດສົ່ງ",
+            "return_note_lender": "ຮັບບັນທຶກ",
+            "return_note_placeholder_borrower": "e.g. I handed it back without any problem",
+            "return_note_placeholder_lender": "ຕົວຢ່າງ: ໄດ້ຮັບຄືນໃນສະພາບທີ່ດີ",
+            "return_submitting": "ປິດ..."
         },
         "messages": {
             "load_error": "ບໍ່ສາມາດ loaded ສູນຢືມ",
@@ -2072,7 +2095,7 @@
         "document_badge": "ເອກະສານທາງກົດໝາຍ",
         "data_privacy_badge": "ຂໍ້ມູນ ແລະຄວາມເປັນສ່ວນຕົວ",
         "back_to_home": "ກັບໄປທີ່ໜ້າຫຼັກ",
-        "quick_access": "Quick access",
+        "quick_access": "ການ ເຂົ້າ ເຖິງ ຢ່າງ ວ່ອງ ໄວ",
         "on_this_page": "ເນື້ອໃນ",
         "contents": "ໜ້າ",
         "page_label": "ພາບລວມ",
@@ -2103,7 +2126,7 @@
                 "rights": "สิทธิ์ของคุณ"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "ເງື່ອນໄຂສໍາລັບການຕິດຕັ້ງ {{brandName}} ອະທິບາຍກ່ຽວກັບການນໍາໃຊ້ທີ່ຍອມຮັບໄດ້, ຫນ້າທີ່ຮັບຜິດຊອບຄວາມປອດໄພຂອງທ່ານ ແລະ ຜົນສະທ້ອນຂອງການລຶບບັນຊີໃນຮູບແບບທີ່ແຈ່ມແຈ້ງແລະງ່າຍຂຶ້ນ.",
         "terms_support_label": "ສະຫຼຸບດ່ວນ",
         "terms_summary": {
             "eyebrow": "ນີ້ຫມາຍຄວາມວ່າແນວໃດໃນການປະຕິບັດ",
@@ -2149,24 +2172,24 @@
         "inventory": "สินค้าคงคลัง",
         "rooms": "ห้อง",
         "categories": "หมวดหมู่",
-        "settings": "Settings",
-        "admin_panel": "Admin Panel",
-        "share_house": "Share House",
+        "settings": "ການຕັ້ງຄ່າ >>> Admin Panel >>> Share House >>> Menu",
+        "admin_panel": "ກະດານຜູ້ເບິ່ງແຍງ",
+        "share_house": "Share House >>> Menu >>> Help & Support >>> Light Mode",
         "new_item": "ລາຍການ ໃຫມ່",
-        "menu": "Menu",
-        "help": "Help & Support"
+        "menu": "ເມນູ",
+        "help": "ຊ່ວຍເຫຼືອ & ສະຫນັບສະຫນູນ"
     },
     "theme": {
-        "light": "Light Mode",
-        "dark": "Dark Mode"
+        "light": "ໂໝດແສງ",
+        "dark": "ໂໝດມືດ"
     },
     "terms": {
-        "title": "Terms of Use and Disclaimer",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "title": "ເງື່ອນໄຂການນໍາໃຊ້ ແລະ ການປະຕິເສດ",
+        "beta_notice": "ລຸ້ນ BETA: {{brandName}} ກໍາລັງຢູ່ໃນຂັ້ນຕອນການທົດສອບ. ບໍ່ມີການຮັບປະກັນກ່ຽວກັບຄວາມຖາວອນຫຼືຄວາມປອດໄພຂອງຂໍ້ມູນ.",
         "disclaimer": "ການປະຕິເສດ: ໂດຍການໃຊ້ໂປຣເເກຣມນີ້, ທ່ານເຫັນດີວ່າທ່ານບໍ່ສາມາດຮຽກຮ້ອງຄ່າຊົດເຊີຍໃດໆສໍາລັບການສູນເສຍຂໍ້ມູນ, ບັນຫາການເຂົ້າເຖິງ ຫຼືບັນຫາເຕັກນິກອື່ນໆ.",
         "backup_warning": "ການສໍາຮອງຂໍ້ມູນ: ພວກເຮົາຂໍແນະນໍາຢ່າງແຮງກ້າໃຫ້ທ່ານສໍາຮອງຂໍ້ມູນສໍາຄັນຂອງທ່ານເປັນປະຈໍາ.",
         "accept": "ໂດຍການເຂົ້າສູ່ລະບົບ, ທ່ານເຫັນດີກັບເງື່ອນໄຂເຫຼົ່ານີ້.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} ກໍາລັງຢູ່ໃນຂັ້ນຕອນການທົດສອບແລະວຽກອາຊີບ. ບໍ່ມີການຮັບປະກັນກ່ຽວກັບຄວາມຖາວອນຫຼືຄວາມປອດໄພຂອງຂໍ້ມູນ. ຂໍ ໃຫ້ ຮັກສາ ຂໍ້ ມູນ ສໍາຄັນ ຂອງ ທ່ານ ໄວ້.",
         "contact": "ຕິດ ຕໍ່ ກັບ ສະຖານ ທີ່"
     },
     "locations": {
@@ -2189,8 +2212,8 @@
         "delete_error": "ເກີດຂໍ້ຜິດພາດຂະນະລຶບສະຖານທີ່"
     },
     "barcode": {
-        "scan": "Scan Barcode",
-        "scanning": "Scanning...",
+        "scan": "ສະແກນບາໂຄດ",
+        "scanning": "ກຳລັງສະແກນ...",
         "enter_manually": "ເຂົ້າດ້ວຍຕົວເອງ",
         "search_database": "ຄົ້ນຫາ ຖານ ຂໍ້ ມູນ",
         "not_found": "Barcode ບໍ່ ພົບ",
@@ -2200,7 +2223,7 @@
         "invalid_code": "barcode ໃຊ້ບໍ່ໄດ້"
     },
     "qr": {
-        "scan": "Scan QR",
+        "scan": "ສະແກນ QR",
         "generate": "ສ້າງ QR",
         "share": "ແບ່ງປັນ QR"
     },
@@ -2208,8 +2231,8 @@
         "create_new": "ສ້າງ ເຮືອນ ໃຫມ່",
         "join_existing": "ເຂົ້າຮ່ວມ ເຮືອນ ທີ່ ມີ ຢູ່",
         "enter_key": "ໃສ່ກະແຈເຮືອນ ຕົວຢ່າງ: ABC123XYZ ເລືອກທາງເລືອກ ເກີດຄວາມຜິດພາດ",
-        "key_placeholder": "e.g.: ABC123XYZ",
-        "select_option": "Select an option",
+        "key_placeholder": "ຕົວຢ່າງ: ABC123XYZ",
+        "select_option": "ເລືອກທາງເລືອກ",
         "created": "ເຮືອນ ຖືກ ສ້າງ ຂຶ້ນ",
         "joined": "ເຈົ້າ ໄດ້ ເຂົ້າ ຮ່ວມ ໃນ ບ້ານ ເຮືອນ ແລ້ວ",
         "invalid_key": "ກະແຈເຮືອນໃຊ້ບໍ່ໄດ້",
@@ -2217,11 +2240,11 @@
         "key_copied": "ກະແຈເຮືອນສໍາເນົາ"
     },
     "errors": {
-        "generic": "An error occurred",
-        "network": "Connection error",
-        "not_found": "Not found",
-        "unauthorized": "Unauthorized access",
-        "server": "Server error",
+        "generic": "ເກີດຄວາມຜິດພາດ",
+        "network": "ການເຊື່ອມຕໍ່ຜິດພາດ",
+        "not_found": "ບໍ່ພົບ",
+        "unauthorized": "ການເຂົ້າເຖິງໂດຍບໍ່ໄດ້ຮັບອະນຸຍາດ",
+        "server": "ເຊີບເວີຜິດພາດ",
         "validation": "ຄວາມຜິດພາດໃນການກວດສອບ"
     },
     "email": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "ມີ ຄວາມ ພະ ຍາ ຍາມ ເຂົ້າ ໂທ ລະ ສັບ ຫລາຍ ເກີນ ໄປ. ກະລຸນາລອງອີກພາຍໃນ 15 ນາທີ."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "ເຂົ້າສູ່ລະບົບ",
+        "page_title_register": "ສ້າງ account",
+        "page_title_choose_house": "ເລືອກເຮືອນ",
+        "page_title_recovery_key": "ກະແຈການຟື້ນຟູ",
+        "page_title_house_access": "ການ ເຂົ້າ ໄປ ໃນ ບ້ານ ເຮືອນ",
+        "page_title_legal_review": "ການ ທົບ ທວນ ກົດຫມາຍ",
+        "page_title_new_item": "ລາຍການ ໃຫມ່",
+        "page_title_edit_item": "ການ ແກ້ ໄຂ ລາຍການ",
+        "page_title_items": "ສິນຄ້າຄົງຄັງ"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "ເກີດຄວາມຜິດພາດໃນການໂຫຼດລາຍການຊື້ເຄື່ອງ.",
+            "select_item_error": "ກະລຸນາເລືອກລາຍການຈາກບັນຊີ.",
+            "empty_name": "ກະລຸນາໃສ່ຊື່ລາຍການ.",
+            "added": "ລາຍການເພີ່ມເຕີມໃນລາຍການຊື້ເຄື່ອງ.",
+            "add_error": "ເກີດຂໍ້ຜິດພາດໃນຂະນະທີ່ເພີ່ມລາຍການ.",
+            "added_suggestion": "\"{{name}}\" ເພີ່ມໃສ່ໃນລາຍການຊື້ເຄື່ອງ.",
+            "bulk_added": "{{count}} ລາຍການທີ່ມີລາຄາຕໍ່າລົງໃນລາຍການ.",
+            "bulk_error": "ຄວາມຜິດພາດໃນການເພີ່ມສິນຄ້າຕໍ່າ.",
+            "completed": "\"{{name}}\" ຫມາຍວ່າສໍາເລັດແລ້ວ.",
+            "reactivated": "\"{{name}}\" ໄດ້ຍ້າຍກັບຄືນໄປເປັນລາຍການທີ່ເຂັ້ມແຂງ.",
+            "update_error": "ເກີດຄວາມຜິດພາດໃນລະຫວ່າງການປັບປຸງ.",
+            "deleted": "ລາຍການຖືກລຶບອອກຈາກລາຍການ.",
+            "delete_error": "ເກີດຂໍ້ຜິດພາດໃນລະຫວ່າງການລຶບ.",
+            "cleared_completed": "ລາຍການທີ່ສໍາເລັດແລ້ວ.",
+            "clear_error": "ເກີດຄວາມຜິດພາດໃນລະຫວ່າງການຊໍາລະ."
+        },
+        "loading_desc": "ກໍາລັງກຽມລາຍການຊື້ເຄື່ອງ...",
+        "page": {
+            "title": "ລາຍການຊື້ເຄື່ອງ",
+            "description": "ເບິ່ງສິນຄ້າທີ່ມີລາຄາຫນ້ອຍໃນບັນຊີຂອງເຮືອນ ແລະ ຈັດການລາຍການຊື້ເຄື່ອງຂອງເຈົ້າໄດ້ງ່າຍ."
+        },
+        "suggestions": {
+            "title": "ຄໍາແນະນໍາກ່ຽວກັບບັນຊີທີ່ສະຫລາດ",
+            "desc": "ສິນຄ້າທີ່ຫລຸດລົງຕ່ໍາກວ່າຈໍາກັດຕ່ໍາທີ່ສຸດ.",
+            "add_all": "ເພີ່ມຂໍ້ມູນທີ່ຂາດໄປທັງຫມົດ",
+            "stock_status": "current: {{current}} / target: {{min}}",
+            "add_qty": "add {{qty}}"
+        },
+        "sections": {
+            "active_list": "ລາຍການທີ່ຈະຊື້",
+            "active_desc": "ເຄື່ອງຊື້ເຄື່ອງໃນປະຈຸບັນທີ່ຈະຕື່ມໃສ່ໃນກະຕ່າຂອງເຈົ້າ.",
+            "active_count": "{{count}} ລາຍການ",
+            "completed_list": "ວັດຖຸທີ່ຊື້ ({{count}})",
+            "add_item": "ເພີ່ມລາຍການດ້ວຍຕົວເອງ",
+            "add_desc": "ເພີ່ມລາຍການດ້ວຍຕົວເອງໃນລາຍການ."
+        },
+        "empty": {
+            "title": "ລາຍການຊື້ເຄື່ອງຂອງເຈົ້າວ່າງເປົ່າ",
+            "desc": "ເຈົ້າສາມາດຕື່ມສິນຄ້າທີ່ຂາດໄປຈາກຄໍາແນະນໍາຂ້າງເທິງ ຫຼືເພີ່ມລາຍການດ້ວຍຕົວເອງໂດຍໃຊ້ແບບຟອມທາງຂວາ."
+        },
+        "card": {
+            "linked_inventory": "ຖືກ ເກັບ ໄວ້ ໃນ ບັນຊີ"
+        },
+        "actions": {
+            "clear_completed": "ປະຫວັດສາດ ທີ່ ແຈ່ມ ແຈ້ງ",
+            "add_item": "ເພີ່ມ ໃສ່ ໃນ ລາຍການ ຊື້"
+        },
+        "form": {
+            "add_type": "ເພີ່ມ ວິທີ",
+            "add_type_inventory": "ລາຍການສິນຄ້າຄົງຄັງ",
+            "add_type_custom": "ລາຍການແບບກຳນົດເອງ",
+            "select_inventory_item": "ເລືອກ Item ຈາກ Inventory",
+            "no_inventory_items": "ຍັງ ບໍ່ ມີ ສິ່ງ ຂອງ ໃນ Inventory ຂອງ ທ່ານ.",
+            "select_item_placeholder": "ເລືອກ ສິ່ງ ຂອງ",
+            "current_stock": "ຊື່",
+            "item_name": "ໃນ ປະຈຸ ບັນ",
+            "item_name_placeholder": "ເຊັ່ນ: ນົມ, ນ້ໍາ ລ້າງ, ຫມາກຖົ່ວ...",
+            "quantity": "ປະລິມານ"
+        },
+        "modal": {
+            "delete_title": "ລຶບລາຍການອອກຈາກລາຍການ?",
+            "delete_desc": "ທ່ານແນ່ໃຈບໍວ່າຢາກລຶບ \"{{name}}\" ອອກຈາກລາຍການຊື້ເຄື່ອງຂອງທ່ານ?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "ເກີດຂໍ້ຜິດພາດໃນການບັນຈຸຂໍ້ມູນ",
+            "select_item_error": "ກະລຸນາເລືອກລາຍການ. ຕ້ອງມີຊື່ວຽກ. ຈໍາເປັນຕ້ອງມີວັນທີທີ່ວາງແຜນໄວ້. ປັບປຸງວຽກງານການບໍາລຸງຮັກສາ",
+            "task_name_error": "ຕ້ອງລະບຸຊື່ໜ້າວຽກ.",
+            "date_error": "ຕ້ອງມີວັນທີທີ່ວາງແຜນໄວ້.",
+            "updated": "ວຽກ ງານ ການ ບໍາລຸງ ຮັກສາ ໄດ້ ຖືກ ປັບປຸງ",
+            "created": "ເພີ່ມວຽກການບໍາລຸງຮັກສາໃຫມ່",
+            "save_error": "ເກີດຄວາມຜິດພາດໃນຂະນະທີ່ບັນທຶກ",
+            "deleted": "ການບໍາລຸງຮັກສາຖືກລຶບຢ່າງສໍາເລັດ.",
+            "delete_error": "ເກີດຂໍ້ຜິດພາດໃນລະຫວ່າງຂັ້ນຕອນການລຶບ.",
+            "performed": "ການບໍາລຸງຮັກສາຖືກບັນທຶກໄວ້ວ່າສໍາເລັດແລ້ວ. ວັນທີ ຕໍ່ ໄປ ໄດ້ ຖືກ ກໍານົດ ໄວ້.",
+            "perform_error": "ເກີດຂໍ້ຜິດພາດໃນຂະນະທີ່ບັນທຶກ."
+        },
+        "freq": {
+            "one_time": "ມື້",
+            "unit": {
+                "days": "ເທື່ອ ດຽວ",
+                "weeks": "ອາທິດ",
+                "months": "ເດືອນ",
+                "years": "ປີ"
+            },
+            "format": "ທຸກໆ {{val}} {{unit}}"
+        },
+        "loading_desc": "ຕາຕະລາງການບໍາລຸງຮັກສາການບັນຈຸ...",
+        "page": {
+            "title": "ການບໍາລຸງຮັກສາ ແລະ ການຕິດຕາມເປັນໄລຍະເວລາ",
+            "description": "ຈັດການຕາຕະລາງການບໍາລຸງຮັກສາເປັນໄລຍະສໍາລັບເຄື່ອງໃຊ້, ເຄື່ອງຕອງ ຫຼື ອຸປະກອນຄວາມປອດໄພໃນບັນຊີເຮືອນຂອງທ່ານ."
+        },
+        "actions": {
+            "add_task": "ເພີ່ມວຽກໃຫມ່",
+            "manage": "ຈັດການ",
+            "perform": "ຫມາຍ ວ່າ ສໍາ ເລັດ",
+            "edit_task": "ແກ້ໄຂວຽກ"
+        },
+        "alerts": {
+            "overdue_title": "ທ່ານ ມີ ວຽກ ງານ ທີ່ ເກີນ ກໍານົດ!",
+            "overdue_desc": "ມີວຽກບໍາລຸງຮັກສາທີ່ເກີນກໍານົດ. ການຊັກຊ້າສາມາດຫລຸດຜ່ອນອາຍຸຂອງເຄື່ອງໃຊ້ໄດ້."
+        },
+        "empty": {
+            "title": "ບໍ່ ມີ ວຽກ ງານ ບໍາລຸງ ຮັກສາ ທີ່ ກໍານົດ ໄວ້. ເລີ່ມຕົ້ນໂດຍການເພີ່ມວຽກທີ່ເກີດຂຶ້ນເລື້ອຍໆເຊັ່ນ ການທໍາຄວາມສະອາດເຄື່ອງຕອງ AC, ການບໍາລຸງຮັກສາຫມໍ້ ຫຼືການກວດສອບຫມໍ້ໄຟໄຫມ້. ວຽກ ງານ ທີ່ ເກີນ ກໍານົດ. ການບໍາລຸງຮັກສາຢ່າງຮີບດ່ວນທີ່ຕ້ອງເຮັດທັນທີ.",
+            "desc": "ເລີ່ມຕົ້ນ ໂດຍ ການ ເພີ່ມ ວຽກ ງານ ທີ່ ເກີດ ຂຶ້ນ ເລື້ອຍໆ ດັ່ງ ເຊັ່ນ ການ ທໍາ ຄວາມ ສະອາດ ເຄື່ອງ ຕອງ AC, ການ ບໍາລຸງ ຮັກສາ ຫມໍ້ ນ້ໍາ ຫລື ການ ກວດ ສອບ ຫມໍ້ ໄຟ."
+        },
+        "sections": {
+            "overdue": "ວຽກທີ່ເກີນກໍານົດ",
+            "overdue_desc": "ການບໍາລຸງຮັກສາຢ່າງຮີບດ່ວນທີ່ຕ້ອງເຮັດທັນທີ.",
+            "upcoming": "ວຽກ ງານ ທີ່ ກໍານົດ ໄວ້ / ຈະ ມາ ເຖິງ",
+            "upcoming_desc": "ໃກ້ ການ ບໍາລຸງ ຮັກສາ ໃນ ມື້ ຕໍ່ ມາ.",
+            "no_upcoming": "ບໍ່ມີວຽກທີ່ກໍານົດໄວ້ໃນອະນາຄົດ."
+        },
+        "modal": {
+            "edit_title": "ແກ້ໄຂວຽກ",
+            "create_title": "ກໍານົດເວລາການບໍາລຸງຮັກສາໃຫມ່",
+            "perform_title": "ການບໍາລຸງຮັກສາໃຫ້ສໍາເລັດ",
+            "perform_desc": "ທ່ານຕ້ອງການບັນທຶກ \"{{name}}\" ວ່າສໍາເລັດໃນມື້ນີ້ບໍ?",
+            "perform_confirm": "ແມ່ນແລ້ວ, ສໍາເລັດແລ້ວ",
+            "perform_recurrence_info": "ນີ້ ເປັນ ວຽກ ງານ ເປັນ ບາງ ຄັ້ງ. ເມື່ອທ່ານເກັບໄວ້, ລະບົບຈະຄິດໄລ່ວັນທີການບໍາລຸງຮັກສາຕໍ່ໄປໂດຍອັດຕະໂນມັດ. ລຶບວຽກບໍາລຸງຮັກສາ? ທ່ານແນ່ໃຈບໍວ່າຢາກລຶບຕາຕະລາງການບໍາລຸງຮັກສາເປັນໄລຍະ \"{{name}}\"? ການກະທໍານີ້ບໍ່ສາມາດແກ້ໄຂໄດ້. ລາຍການທີ່ກ່ຽວຂ້ອງ",
+            "delete_title": "ລຶບວຽກບໍາລຸງຮັກສາໄດ້ບໍ?",
+            "delete_desc": "ທ່ານແນ່ໃຈບໍວ່າຢາກລຶບຕາຕະລາງການບໍາລຸງຮັກສາເປັນໄລຍະ \"{{name}}\"? ການກະທໍານີ້ບໍ່ສາມາດແກ້ໄຂໄດ້."
+        },
+        "form": {
+            "item": "ລາຍການທີ່ກ່ຽວຂ້ອງ",
+            "no_items": "ເຈົ້າຕ້ອງຕື່ມເຄື່ອງໃສ່ໃນບັນຊີກ່ອນທີ່ຈະກໍານົດເວລາການບໍາລຸງຮັກສາ.",
+            "select_item_placeholder": "ເລືອກລາຍການ",
+            "task_name": "ຊື່ວຽກງານ / ການດໍາເນີນງານ",
+            "task_name_placeholder": "Task / Operation ເຊັ່ນ: Filter Replacement, Periodic Check...",
+            "description": "ລາຍ ລະ ອຽດ / ຄໍາ ອະ ທິ ບາຍ",
+            "description_placeholder": "ລາຍ ລະ ອຽດ ຂອງ ວຽກ ງານ, ວັດ ຖຸ ປະ ສົງ ທີ່ ຈະ ໃຊ້, ແລະ ອື່ນໆ ...",
+            "frequency_value": "frequency",
+            "frequency_placeholder": "ຕົວຢ່າງ 6 (ປ່ອຍໃຫ້ຫວ່າງເປົ່າພຽງຄັ້ງດຽວ)",
+            "frequency_unit": "frequency unit",
+            "next_due_date": "ວັນທີທີ່ກໍານົດໄວ້ຕໍ່ໄປ",
+            "section_help": "ຈັດການຕາຕະລາງການບໍາລຸງຮັກສາຈາກທີ່ນີ້",
+            "section_collapsed": "ຄລິກເພື່ອເພີ່ມການຄວບຄຸມແລະວຽກເປັນປະຈໍາ",
+            "has_tasks": "{{count}} ວຽກງານ",
+            "new_item_warning_title": "ບັນທຶກລາຍການ ລໍຖ້າຄວາມເລື້ອຍໆ",
+            "new_item_warning_desc": "ເຈົ້າຕ້ອງເກັບລາຍການນີ້ໄວ້ກ່ອນເພື່ອເພີ່ມຕາຕະລາງການບໍາລຸງຮັກສາ.",
+            "manage_desc": "ຈັດຕາຕະລາງການບໍາລຸງຮັກສາສໍາລັບອຸປະກອນຫຼືວັດຖຸນີ້."
+        },
+        "fields": {
+            "task_name": "ຊື່ວຽກ",
+            "task_name_placeholder": "ຕົວຢ່າງ: ການທໍາຄວາມສະອາດເຄື່ອງຕອງ AC",
+            "description": "ຄໍາອະທິບາຍ",
+            "description_placeholder": "ລາຍລະອຽດຂອງວຽກ, ວັດສະດຸທີ່ຈະໃຊ້, ແລະ ອື່ນໆ...",
+            "frequency_value": "ຄວາມຖີ່ຂອງການເກີດຂຶ້ນຊ້ຳ",
+            "frequency_value_placeholder": "ປ່ອຍໃຫ້ຫວ່າງເປົ່າຄັ້ງດຽວ",
+            "frequency_unit": "ໜ່ວຍຄວາມຖີ່",
+            "next_due_date": "ວັນທີທີ່ກໍານົດໄວ້"
+        },
+        "card": {
+            "untitled_item": "ລາຍການ ທີ່ ບໍ່ ມີ ຊື່",
+            "last_performed": "ເຮັດ ເທື່ອ ສຸດ ທ້າຍ:",
+            "next_due_label": "ວັນ ທີ ທີ່ ກໍານົດ ໄວ້",
+            "complete_tooltip": "ຫມາຍ ການ ບໍາລຸງ ຮັກສາ ວ່າ ສໍາເລັດ ແລ້ວ ໃນ ມື້ ນີ້"
+        },
+        "detail_card_desc": "ການຕິດຕາມການບໍາລຸງຮັກສາເປັນໄລຍະຫຼືຄັ້ງດຽວທີ່ກໍານົດໄວ້ສໍາລັບລາຍການນີ້. ບໍ່ ມີ ວຽກ ງານ ບໍາລຸງ ຮັກສາ ທີ່ ມອບ ຫມາຍ ໃຫ້ ແກ່ ລາຍການ ນີ້. ວຽກ ງານ ນີ້ ຈະ ຖືກ ລຶບ. ເຈົ້າແນ່ໃຈຫວາ?",
+        "no_tasks": "ບໍ່ມີວຽກບໍາລຸງຮັກສາທີ່ມອບຫມາຍໃຫ້ລາຍການນີ້.",
+        "confirm_delete": "ວຽກນີ້ຈະຖືກລຶບ. ເຈົ້າແນ່ໃຈຫວາ?"
     }
 }

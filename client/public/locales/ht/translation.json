@@ -69,7 +69,9 @@
             "vault_hint_action": "Louvri Kès Pèsonèl",
             "location": "Kote",
             "remove_photo": "Retire foto",
-            "visibility_owner_only": "Se sèlman moun ki te ajoute atik la ki ka chanje vizibilite."
+            "visibility_owner_only": "Se sèlman moun ki te ajoute atik la ki ka chanje vizibilite.",
+            "expiry_date": "Dat Ekspirasyon",
+            "min_quantity": "Kantite Minimòm"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" te ajoute rapid - ou ka modifye pita",
@@ -119,7 +121,12 @@
         "no_permission": "Ou pa gen pèmisyon pou modifye atik sa a",
         "barcode_search_error": "Barcode rechèch echwe",
         "stats_error": "Erè loading estatistik",
-        "detail_subtitle": "Detay sou atik"
+        "detail_subtitle": "Detay sou atik",
+        "status": {
+            "close_to_expiry": "Prèske Pouse",
+            "expired": "Pase Dat",
+            "low_stock": "Stock Ki Ba"
+        }
     },
     "common": {
         "save": "Sove",
@@ -170,7 +177,8 @@
         "details": "Detay",
         "hide": "Kache modpas",
         "logging_out": "Deconnecte...",
-        "show": "Montre modpas"
+        "show": "Montre modpas",
+        "saving": "Ap sove..."
     },
     "auth": {
         "login": {
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "Rekòmanse modpas ou",
             "reset_submit": "Reyajiste Modpas",
             "resetting": "Ap Reyajiste...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Antre non itilizatè ou oswa imèl"
         },
         "reset_password": {
             "title": "Reyajiste Modpas",
@@ -438,7 +446,9 @@
         "logout_aria": "Dekonekte kont ou",
         "logout_title": "Dekonekte?",
         "logout_description": "Ou pral retounen nan ekran koneksyon an epi ou bezwen konekte ankò pou jere envantè kay ou.",
-        "logout_warning": "Sèvi ak sa lè ou fin itilize yon aparèy pataje oswa pèsonèl."
+        "logout_warning": "Sèvi ak sa lè ou fin itilize yon aparèy pataje oswa pèsonèl.",
+        "maintenance": "Orè Antretyen",
+        "shopping": "Lis Komès"
     },
     "dashboard": {
         "welcome": "Byenveni tounen, <1>{{name}}</1>",
@@ -565,13 +575,26 @@
         "no_items_filter": "Pa gen atik matche ak filtre sa a",
         "manage": "Jere",
         "add_item": "Add Atik",
-        "search_item": "Atik rechèch"
+        "search_item": "Atik rechèch",
+        "alerts": {
+            "expired_title": "Atik yo ekspire!",
+            "expired_desc": "Gen {{count}} atik ki ekspire nan envantè ou. Tanpri tcheke yo pou sekirite ou.",
+            "view_items": "Wè Atik yo",
+            "maintenance_title": "Tach Antretyen Ki Anreta!",
+            "maintenance_desc": "Gen {{count}} tach antretyen ki anreta. Fè antretyen pou pwolonje lavi aparèy ou yo.",
+            "go_to_maintenance": "Ale nan Antretyen",
+            "low_stock_title": "Alèt Stock Ba",
+            "low_stock_desc": "{{count}} atik tonbe anba limit estòk minimòm ou.",
+            "go_to_shopping": "Lis Acha",
+            "close_expiry_title": "Dat Ekspirasyon Kap Vini yo",
+            "close_expiry_desc": "{{count}} pwodwi ap ekspire nan 30 jou."
+        }
     },
     "beta_banner": {
         "title": "BETA:",
         "text": "{{brandName}} kounye a nan faz tès ak lwazi. Pa gen okenn garanti ki bay pou pèmanans oswa sekirite done. Tanpri kenbe sovgad enfòmasyon ki enpòtan yo.",
         "contact": "Kontakte:",
-        "badge": "Beta",
+        "badge": "Beta ••••••••{{suffix}} Feedback - {{brandName}} {{date, datetime}}",
         "aria_label": "Avi Beta",
         "tooltip": "Karakteristik aksè bonè yo ka toujou chanje."
     },
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "Kle Kay Aktif",
             "key_label": "Kle Kay",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{sfiks}}",
             "hide": "Kache",
             "show": "Montre",
             "copy": "Kopye",
@@ -991,8 +1014,8 @@
             "no_history": "Pa gen okenn istwa prete pou atik sa a ankò.",
             "lend_success_title": "Atik prè",
             "lend_success_body": "{{item}} make kounye a kòm prete.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "Ofri prete voye",
+            "offer_sent_body": "{{item}} ap make kòm prete apre lòt manm nan aksepte.",
             "borrowed_by_you": "Avèk ou",
             "return_pending_hint": "Dosye a pral fèmen apre preteur a konfime li resevwa atik la tounen.",
             "return_pending_lender_title": "{{name}} make atik sa a kòm retounen delivre",
@@ -1221,7 +1244,7 @@
             "failed_logins": "{{count}} koneksyon echwe",
             "load_failed_title": "Itilizatè yo pa t ka chaje",
             "pending_requests": "{{count}} demann kay an atant",
-            "role_admin": "Admin",
+            "role_admin": "Administratè",
             "role_user": "Itilizatè"
         },
         "logs": {
@@ -1229,7 +1252,7 @@
             "no_logs": "pa gen okenn journaux ankò",
             "errors_title": "Erè Sistèm (10 dènye)",
             "no_errors": "// Sistèm an sante, pa gen okenn journaux erè.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{dat, dat lè}}",
             "type": {
                 "email": "Imèl",
                 "user": "Itilizatè",
@@ -1401,12 +1424,12 @@
             "cta_register": "Kreye Kont",
             "stat_free": "Gratis",
             "stat_access": "Aksè",
-            "free_badge": "Open Source",
+            "free_badge": "Kòd Open Source",
             "badge": "HomeInventory v2.0 se isit la",
             "cta_explore": "Eksplore Karakteristik",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Siyen nan",
+            "stat_members": "Kay pataje",
+            "stat_vault": "Trezò Prive"
         },
         "features": {
             "title": "Poukisa <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Kenbe atik, garanti, dokiman enpòtan, ak suivi prè nan yon sèl kote trankil. Gade sa kay ou genyen nan yon kout je.",
                 "primaryCta": "Kòmanse gratis",
                 "secondaryCta": "Gade Pwodwi a",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Ou ka swiv kou a: kont • kay • chanm ak kategori • atik • backup",
                 "searchPlaceholder": "Rechèch yon atik, chanm, oswa kòd bar"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "Detay rezo yo rete kache jiskaske ou bezwen gid la.",
         "link_privacy_note": "Adrès rezo a rete kache isit la. Eskane kòd la oswa kopye lyen an sèlman lè ou anvi pataje aksè dirèk nan atik la lokal ou.",
         "helper": "Eskane pou louvri atik sa a imedyatman, oswa kopye lyen dirèk la lè ou bezwen li.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Lyann pa t ka kopye otomatikman",
+        "copy_manual_help": "Navigatè ou a pa t pèmèt kopi otomatik. Lyen an make pou ou ka kopye li manyèlman.",
         "loading": "Ap prepare zouti QR..."
     },
     "house_access_pending": {
@@ -1969,8 +1992,8 @@
             "empty": "Pa gen okenn prete aktif kounye a.",
             "borrowed_from": "Prete nan men {{name}}",
             "lent_to": "Kounye a avèk {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Ap tann pou pwopriyetè a konfime li resevwa li tounen.",
+            "return_pending_lender": "{{name}} make atik sa a kòm delivre tounen. Konfime resepsyon pou fèmen dosye a.",
             "empty_title": "Pa gen okenn prete aktif kounye a",
             "empty_description": "Rekèt aksepte yo ap parèt isit la yon fwa yon atik prete oswa prete, ansanm ak dat limit ak estati retou."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Anile",
             "expired": "Ekspire",
             "returned": "Retounen",
-            "return_pending": "Return pending"
+            "return_pending": "Retounen ap tann"
         },
         "actions": {
             "send_request": "Mande Atik",
@@ -1990,8 +2013,8 @@
             "reject": "Refize",
             "cancel": "Anile",
             "fulfill_request": "Reponn Mande",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Make delivre",
+            "mark_received": "Make resevwa",
             "open_inventory": "Louvri envantè"
         },
         "labels": {
@@ -2006,7 +2029,7 @@
             "borrow_started": "Kòmanse: {{date}}"
         },
         "dialogs": {
-            "offer_title": "Send Offer",
+            "offer_title": "Voye Òf",
             "offer_subtitle_item": "Voye yon ofri ki an sekirite pou \"{{item}}\".",
             "offer_subtitle_general": "Chwazi youn nan atik ou yo epi voye yon ofri ki an sekirite.",
             "item_label": "Atik",
@@ -2030,17 +2053,17 @@
             "return_title": "Make Retounen",
             "return_subtitle": "Fèmen prè aktif pou \"{{item}}\"",
             "return_target": "Li parèt kounye a tankou li avèk {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Livrez atik",
+            "return_title_lender": "Resevwa atik",
+            "return_subtitle_borrower": "Fèmen prete aktif la pou \"{{item}}\" apre ou remèt li.",
+            "return_subtitle_lender": "Fèmen prete aktif la pou \"{{item}}\" apre ou resevwa li tounen.",
+            "return_target_borrower": "Pretè: {{name}}",
+            "return_target_lender": "Kounye a avèk: {{name}}",
+            "return_note_borrower": "Nòt livrezon",
+            "return_note_lender": "Nòt resevwa",
+            "return_note_placeholder_borrower": "egzanp: Mwen remèt li tounen san okenn pwoblèm",
+            "return_note_placeholder_lender": "egzanp: Resi tounen nan bon eta",
+            "return_submitting": "Fèmen..."
         },
         "messages": {
             "load_error": "Sant prete pa t ka chaje",
@@ -2103,7 +2126,7 @@
                 "rights": "Pou kesyon sou kondisyon ki aplike pou enstalasyon sa a:"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "Tèm yo pou enstalasyon {{brandName}} sa a eksplike itilizasyon akseptab, responsablite sekirite ou, ak konsekans efase kont lan nan yon fòma ki pi klè, pi fasil pou li.",
         "terms_support_label": "Ki sa sa vle di nan pratik",
         "terms_summary": {
             "eyebrow": "Rezime rapid",
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Twòp tantativ login Tanpri eseye ankò nan 15 minit."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Antre",
+        "page_title_register": "Kreye kont",
+        "page_title_choose_house": "Chwazi kay",
+        "page_title_recovery_key": "Kle rekiperasyon",
+        "page_title_house_access": "Aksè kay",
+        "page_title_legal_review": "Revizyon legal",
+        "page_title_new_item": "Nouvo atik",
+        "page_title_edit_item": "Edite atik",
+        "page_title_items": "Envantè"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Erè pandan chaje lis acha a.",
+            "select_item_error": "Tanpri chwazi yon atik nan envantè a.",
+            "empty_name": "Tanpri antre yon non atik.",
+            "added": "Atik la te ajoute nan lis makèt la.",
+            "add_error": "Te gen yon erè pandan y ap ajoute atik la.",
+            "added_suggestion": "\"{{name}}\" te ajoute nan lis makèt la.",
+            "bulk_added": "{{count}} atik ki gen ti stock ajoute nan lis la.",
+            "bulk_error": "Erè pandan w tap ajoute atik ki gen ti stock.",
+            "completed": "\"{{name}}\" make kòm fini.",
+            "reactivated": "\"{{name}}\" deplase tounen nan lis aktif la.",
+            "update_error": "Yon erè rive pandan mete ajou.",
+            "deleted": "Atik retire nan lis la.",
+            "delete_error": "Yon erè rive pandan efase a.",
+            "cleared_completed": "Atik ki fini yo efase.",
+            "clear_error": "Te gen yon erè pandan efase a."
+        },
+        "loading_desc": "Ap prepare lis makèt la...",
+        "page": {
+            "title": "Lis Makèt",
+            "description": "Wè atik ki ba nan envantè kay la epi jere lis makèt ou fasilman."
+        },
+        "suggestions": {
+            "title": "Sijesyon Entelijan pou Envantè",
+            "desc": "Atik envantè ki tonbe anba limit minimòm nan.",
+            "add_all": "Ajoute Tout Ki Manke",
+            "stock_status": "Kouran: {{current}} / Sib: {{min}}",
+            "add_qty": "Ajoute {{qty}} >>> Atik pou Achte >>> Atik aktyèl pou fè makèt pou ajoute nan kabwa ou. >>> {{count}} Atik"
+        },
+        "sections": {
+            "active_list": "Atik pou Achte",
+            "active_desc": "Atik aktyèl pou fè makèt pou ajoute nan kabwa ou.",
+            "active_count": "{{count}} Atik",
+            "completed_list": "Atik Acha ({{count}})",
+            "add_item": "Ajoute Atik Manyèlman",
+            "add_desc": "Ajoute yon atik pèsonalize manyèlman nan lis la."
+        },
+        "empty": {
+            "title": "Lis acha ou a vid",
+            "desc": "Ou ka ajoute stock ki manke soti nan sijesyon ki anlè a oswa ajoute atik manyèlman lè w itilize fòm nan adwat."
+        },
+        "card": {
+            "linked_inventory": "Sere nan Envantè"
+        },
+        "actions": {
+            "clear_completed": "Efase Istwa",
+            "add_item": "Ajoute nan Lis Acha"
+        },
+        "form": {
+            "add_type": "Ajoute Metòd",
+            "add_type_inventory": "Atik Envantè",
+            "add_type_custom": "Atik Pèsonalize",
+            "select_inventory_item": "Chwazi Atik nan Envantè",
+            "no_inventory_items": "Pa gen okenn atik nan envantè ou ankò.",
+            "select_item_placeholder": "Chwazi yon atik",
+            "current_stock": "Kouran",
+            "item_name": "Non Atik",
+            "item_name_placeholder": "pa egzanp. Lèt, Detèjan, Pwa Kafe...",
+            "quantity": "Kantite"
+        },
+        "modal": {
+            "delete_title": "Efase Atik nan Lis la?",
+            "delete_desc": "Èske ou sèten ou vle retire \"{{name}}\" nan lis makèt ou a?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Erè nan chaje enfòmasyon",
+            "select_item_error": "Tanpri chwazi yon atik.",
+            "task_name_error": "Non travay la obligatwa.",
+            "date_error": "Dat ki planifye a obligatwa.",
+            "updated": "Tach antretyen mete ajou",
+            "created": "Nouvo tach antretyen ajoute",
+            "save_error": "Te gen yon erè pandan y ap sove",
+            "deleted": "Tach antretyen efase avèk siksè.",
+            "delete_error": "Te gen yon erè pandan pwosesis efase a.",
+            "performed": "Antre nan antretyen kòm konplè. Pwochen dat pwograme.",
+            "perform_error": "Te gen yon erè pandan sove a."
+        },
+        "freq": {
+            "one_time": "Yon sèl fwa",
+            "unit": {
+                "days": "Jou",
+                "weeks": "Semèn",
+                "months": "Mwa",
+                "years": "Ane"
+            },
+            "format": "Chak {{val}} {{unit}}"
+        },
+        "loading_desc": "Chaje orè antretyen...",
+        "page": {
+            "title": "Antretyen ak Swivi Peryodik",
+            "description": "Jere orè antretyen peryodik pou aparèy, filtè, oswa ekipman sekirite nan envantè kay ou."
+        },
+        "actions": {
+            "add_task": "Ajoute Nouvo Travay",
+            "manage": "Jere",
+            "perform": "Make kòm Fini",
+            "edit_task": "Modifye Travay"
+        },
+        "alerts": {
+            "overdue_title": "Ou Gen Travay Ki Anreta!",
+            "overdue_desc": "Gen {{count}} travay antretyen an reta. Reta ka diminye lavi aparèy yo."
+        },
+        "empty": {
+            "title": "Pa gen okenn travay antretyen ki pwograme",
+            "desc": "Kòmanse pa ajoute travay repete tankou netwayaj filtre AC, antretyen chodyè, oswa tcheke pil detektè dife."
+        },
+        "sections": {
+            "overdue": "Travay Anreta",
+            "overdue_desc": "Antretyen ijans ki bezwen fè imedyatman.",
+            "upcoming": "Travay Pwograme / K ap vini",
+            "upcoming_desc": "Antretyen k ap vini nan kèk jou kap vini yo.",
+            "no_upcoming": "Pa gen okenn travay aktif ki pwograme nan lavni."
+        },
+        "modal": {
+            "edit_title": "Modify Tâch",
+            "create_title": "Pwograme Nouvo Tâch Antretyen",
+            "perform_title": "Konplete Antretyen",
+            "perform_desc": "Èske ou vle anrejistre \"{{name}}\" kòm konplete jodi a?",
+            "perform_confirm": "Wi, Konplete",
+            "perform_recurrence_info": "Sa a se yon travay peryodik. Lè ou sove, sistèm lan ap otomatikman kalkile pwochen dat antretyen an.",
+            "delete_title": "Efase Travay Antretyen?",
+            "delete_desc": "Èske ou sèten ou vle efase orè antretyen peryodik \"{{name}}\"? Aksyon sa a pa ka anvwaye."
+        },
+        "form": {
+            "item": "Atik ki gen rapò",
+            "no_items": "Ou dwe ajoute yon atik nan envantè a anvan ou pwograme antretyen.",
+            "select_item_placeholder": "Chwazi yon Atik",
+            "task_name": "Non Tâch / Operasyon",
+            "task_name_placeholder": "eg. Ranplasman Filtre, Tcheke Peryodik...",
+            "description": "Detay / Deskripsyon",
+            "description_placeholder": "Detay travay, materyèl pou itilize, elatriye...",
+            "frequency_value": "Frekans Repete",
+            "frequency_placeholder": "egzanp 6 (kite vid pou yon sèl fwa)",
+            "frequency_unit": "Inite Frekans",
+            "next_due_date": "Pwochen Dat Pwograme",
+            "section_help": "Jere orè antretyen soti isit la",
+            "section_collapsed": "Klike pou ajoute kontwòl ak travay peryodik",
+            "has_tasks": "{{count}} Travay",
+            "new_item_warning_title": "Atik la anreta pou sove",
+            "new_item_warning_desc": "Ou dwe sove atik sa a anvan pou ajoute yon orè antretyen.",
+            "manage_desc": "Jere orè antretyen pou aparèy oswa atik sa a."
+        },
+        "fields": {
+            "task_name": "Non Tâche",
+            "task_name_placeholder": "egzanp: Netwayaj filtè AC",
+            "description": "Deskripsyon",
+            "description_placeholder": "Detay travay, materyèl pou itilize, elatriye...",
+            "frequency_value": "Frekans Repete",
+            "frequency_value_placeholder": "Kite vid pou yon sèl fwa",
+            "frequency_unit": "Inite Frekans",
+            "next_due_date": "Dat Planifye"
+        },
+        "card": {
+            "untitled_item": "Atik San Tit",
+            "last_performed": "Dènye Fè:",
+            "next_due_label": "Dat Planifye",
+            "complete_tooltip": "Make Antre Antre Antre Jodi a"
+        },
+        "detail_card_desc": "Swivi antre oswa antre yon sèl fwa pwograme pou atik sa a.",
+        "no_tasks": "Pa gen okenn travay antre ki asiyen pou atik sa a.",
+        "confirm_delete": "Travay sa a ap efase. Èske ou sèten?"
     }
 }

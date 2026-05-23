@@ -337,6 +337,7 @@ export default defineConfig(({ command, mode }) => {
     const env = { ...fileEnv, ...process.env };
     const backendPort = String(env.PORT || '3001').trim() || '3001';
     const frontendPort = Number.parseInt(String(env.FRONTEND_PORT || env.VITE_PORT || '5173'), 10) || 5173;
+    const frontendHost = String(env.FRONTEND_HOST || env.VITE_HOST || '127.0.0.1').trim() || '127.0.0.1';
     const apiProxyTarget = env.VITE_API_PROXY_TARGET || `http://localhost:${backendPort}`;
     const customLogger = command === 'serve' ? createMinimalDevLogger() : undefined;
     const siteUrl = String(env.SITE_URL || '').trim();
@@ -540,7 +541,7 @@ export default defineConfig(({ command, mode }) => {
         server: {
             port: frontendPort,
             strictPort: true, // Fail if port is in use
-            host: '127.0.0.1', // Bind locally to avoid sandbox permission issues
+            host: frontendHost,
             proxy: {
                 '/api': {
                     target: apiProxyTarget,

@@ -69,7 +69,9 @@
             "vault_hint_action": "Բացել անձնական պահարան",
             "location": "Սենյակ",
             "remove_photo": "Հեռացնել լուսանկարը",
-            "visibility_owner_only": "Միայն այն մարդը, ով ավելացրել է իրերը, կարող է փոխել տեսանելիությունը:"
+            "visibility_owner_only": "Միայն այն մարդը, ով ավելացրել է իրերը, կարող է փոխել տեսանելիությունը:",
+            "expiry_date": "Վերջնաժամկետ",
+            "min_quantity": "Նվազագույն քանակ"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" արագ ավելացվել է - կարող եք փոփոխել հետագայում",
@@ -119,7 +121,12 @@
         "no_permission": "Դուք չունեք այս միույթը ձեւափոխելու արտոնություն",
         "barcode_search_error": "Շտրիխ կոդի որոնումը ձախողվեց",
         "stats_error": "Վիճակագրության բեռնման սխալ",
-        "detail_subtitle": "Ապրանքի մանրամասներ"
+        "detail_subtitle": "Ապրանքի մանրամասներ",
+        "status": {
+            "close_to_expiry": "Մոտ մարող ին",
+            "expired": "Տարաձայն",
+            "low_stock": "Ստոկը փոքր է"
+        }
     },
     "common": {
         "save": "Պահպանել",
@@ -170,7 +177,8 @@
         "details": "Մանրամասներ",
         "hide": "ԷջՄուտքանունը թաքցնել",
         "logging_out": "Դուրս գալը...",
-        "show": "Ցույց տալ էջՄուտքանունը"
+        "show": "Ցույց տալ էջՄուտքանունը",
+        "saving": "Պահպանվում է..."
     },
     "auth": {
         "login": {
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "Մուտքագրեք ձեր գաղտնաբառը կրկին",
             "reset_submit": "Վերականգնել Գաղտնաբառը",
             "resetting": "Վերականգնումը ընթացքի մեջ է...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Մուտքագրեք ձեր օգտանունը կամ էլ. հասցեն"
         },
         "reset_password": {
             "title": "Վերականգնել Գաղտնաբառը",
@@ -438,7 +446,9 @@
         "logout_aria": "Գնահատեք ձեր հաշիվից դուրս",
         "logout_title": "Ելք կարող՞ եք",
         "logout_description": "Ձեզ կվերադարձնեն մուտքի էկրանին, և անհրաժեշտ կլինի կրկին մուտք գործել, որպեսզի կառավարեք ձեր տան պահեստը.",
-        "logout_warning": "Օգտագործեք սա, երբ ավարտել եք օգտագործումը ընդհանուր կամ անձնական սարքի վրա."
+        "logout_warning": "Օգտագործեք սա, երբ ավարտել եք օգտագործումը ընդհանուր կամ անձնական սարքի վրա.",
+        "maintenance": "Տեխնիկական սպասարկման օրացույց",
+        "shopping": "Գնելու ցանկ"
     },
     "dashboard": {
         "welcome": "Սիրով բարի վերադարձ, <1>{{name}}</1>",
@@ -565,7 +575,20 @@
         "no_items_filter": "Այս ֆիլտրին համապատասխանող տարրեր չեն համապատասխանում",
         "manage": "Կառավարել",
         "add_item": "Ավելացնել Ներդնում",
-        "search_item": "Որոնել Ներդնում"
+        "search_item": "Որոնել Ներդնում",
+        "alerts": {
+            "expired_title": "Իրերը ժամկետանց են դարձել!",
+            "expired_desc": "Ձեր պահեստում կա {{count}} ժամկետանց իրեր: Խնդրում ենք ստուգել դրանք ձեր անվտանգության համար:",
+            "view_items": "Տեսնել իրերը",
+            "maintenance_title": "Վերջացված սպասարկման առաջադրանքներ!",
+            "maintenance_desc": "Կան {{count}} ուշացած սպասարկման աշխատանքներ: Կատարեք սպասարկում՝ երկարացնելու ձեր սարքերի ծառայողական տևողությունը։",
+            "go_to_maintenance": "Գնալ սպասարկման",
+            "low_stock_title": "Ցածր Մատակարարման Տեղեկացում",
+            "low_stock_desc": "{{count}} ապրանքներ ընկել են ձեր նվազագույն մատակարարման սահմանից եւ հանդերձ",
+            "go_to_shopping": "Գնման ցանկ",
+            "close_expiry_title": "Հաջորդ սպառման ժամկետները",
+            "close_expiry_desc": "{{count}} արտադրանք կավարտվի 30 օրվա ընթացքում։"
+        }
     },
     "beta_banner": {
         "title": "ԲԵՏԱ:",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "Ակտիվ տան բանալին",
             "key_label": "Տան բանալին",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{ածանց}}",
             "hide": "Թաքցնել",
             "show": "Ցուցադրել",
             "copy": "Կեղծել",
@@ -991,8 +1014,8 @@
             "no_history": "Այս ապրանքի համար դեռ պարտք գործողությունների պատմություն չկա:",
             "lend_success_title": "Քցված իր",
             "lend_success_body": "{{item}} այժմ նշված է որպես քցված:",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "Վարկի առաջարկը ուղարկվել է",
+            "offer_sent_body": "{{item}} կնշվի որպես վարկառված, երբ մյուս անդամը ընդունի։",
             "borrowed_by_you": "Քեզ հետ",
             "return_pending_hint": "Գրանցումը կնքվելու է այն բանից հետո, երբ վարկատուն հաստատի, որ իրերը վերադարձվել են:",
             "return_pending_lender_title": "{{name}} նշեց, որ այս առաքումը վերադարձվել է",
@@ -1229,7 +1252,7 @@
             "no_logs": "լոգեր դեռ չկա",
             "errors_title": "Համակարգի սխալներ (Վերջին 10)",
             "no_errors": "// Համակարգը լավ է, սխալի լոգեր չկան։",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{ամսաթիվ, ամսաթիվ}}",
             "type": {
                 "email": "Էլ. փոստ",
                 "user": "Օգտվող",
@@ -1401,12 +1424,12 @@
             "cta_register": "Ստեղծել հաշիվ",
             "stat_free": "Անվճար",
             "stat_access": "Մուտք",
-            "free_badge": "Open Source",
+            "free_badge": "Բաց Կոդ",
             "badge": "HomeInventory v2.0-ը այստեղ է",
             "cta_explore": "Ուսումնասիրել առանձնահատկությունները",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Մուտք գործել",
+            "stat_members": "Համատեղ տներ",
+            "stat_vault": "Առանձին պահարան"
         },
         "features": {
             "title": "Ինչու <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Պահեք առարկաները, երաշխիքները, կարևոր փաստաթղթերը և փոխառության հաշվառումը մեկ հանգիստ վայրում: Ատամացնելու մի հայացքով տեսեք, թե ինչ պարունակում է ձեր տունը:",
                 "primaryCta": "Սկսեք անվճար",
                 "secondaryCta": "Տեսնել արտադրանքը",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Խորհուրդ տրվող հոսք՝ հաշիվ • տուն • սենյակներ և կատեգորիաներ • իրեր • կրկնօրինակում",
                 "searchPlaceholder": "Հայտնաբերեք առարկան, սենյակը կամ շտրիխկոդը"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "Ցանցի տվյալները պահվում են հեռու մինչև անհրաժեշտ լինի ուղեցույցը։",
         "link_privacy_note": "Ցանցի հասցեն այստեղ թաքնված է։ Սքան արեք կոդը կամ պատճենեք հղումը միայն այն ժամանակ, երբ ցանկանում եք ուղղակի մուտք ապահովել ձեր տեղական կազմաձևում։",
         "helper": "Սքան արեք, որպեսզի այս տարրը անմիջապես բացվի, կամ պատճենեք ուղղակի հղումը, երբ անհրաժեշտ է։",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Հղումը ավտոմատ կերպով պատճենվել չի կարողացել",
+        "copy_manual_help": "Ձեր браузերը թույլ չի տվել ավտոմատ պատճենումը։ Հղումը ընտրված է, որպեսզի դուք կարողանաք այն պատճենել ձեռքով։",
         "loading": "Պատրաստվում են QR գործիքները..."
     },
     "house_access_pending": {
@@ -1817,7 +1840,7 @@
             "bodyLine2": "Սպասում է տան սեփականատիրոջ հավանությանը"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{կարգավիճակ}}",
             "greeting": "Տան մուտք",
             "bodyLine1Template": "Ընթացիկ սպասվող հարցում՝ {{house}} ({{status}})",
             "bodyLine2": "«{{house}}»-ի ձեր խնդրանքը դեռ սպասում է որոշման։",
@@ -1969,8 +1992,8 @@
             "empty": "Հիմա ոչ մի ակտիվ պարտք չկա:",
             "borrowed_from": "Կառավարված է {{name}}-ից",
             "lent_to": "Ներկայիս գտնվում է {{name}}-ի մոտ",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Բեռնատարը դեռ պետք է հաստատի, որ այն վերադարձվել է։",
+            "return_pending_lender": "{{name}} նշեց, որ այս տարրը վերադարձվել է։ Անհրաժեշտ է հաստատել ստացումը` գրառումը փակելու համար։",
             "empty_title": "Հիմա ոչ մի ակտիվ պարտք չկա",
             "empty_description": "Ձեռնարկված հարցումները կհայտնվեն այստեղ, երբ ինչ-որ մի բան վարկով կամ վարկառած է, այնուհետև պայմանավորված վ даты ու վերադարձի կարգավիճակով:"
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Չեղարկված",
             "expired": "Ժամկետանց",
             "returned": "Վերադարձված",
-            "return_pending": "Return pending"
+            "return_pending": "Վերադարձը սպասման մեջ է"
         },
         "actions": {
             "send_request": "Խնդրել իր",
@@ -1990,8 +2013,8 @@
             "reject": "Անհավատարելյալ",
             "cancel": "Չեղարկել",
             "fulfill_request": "Կատարել պահանջը",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Մարքը հանձնեց",
+            "mark_received": "Մարքը ստացավ",
             "open_inventory": "Բացել պահեստը"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "Նշել որպես վերադարձված",
             "return_subtitle": "Փակել '{{item}}' -ի ակտիվ վարկը",
             "return_target": "Այն ներկայումս ցույց է տրվում {{name}} -ի մոտ:",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Հանձնել առարկան",
+            "return_title_lender": "Ստանալ առարկան",
+            "return_subtitle_borrower": "Փակել ակտիվ վարկը '{{item}}'-ի համար այն վերադարձնելուց հետո։",
+            "return_subtitle_lender": "Փակել ակտիվ վարկը '{{item}}'-ի համար այն ստանալուց հետո։",
+            "return_target_borrower": "Վարկ տվողը՝ {{name}}",
+            "return_target_lender": "Ընթացիկ գտնվելու վայր՝ {{name}}",
+            "return_note_borrower": "Առաքման նոտա",
+            "return_note_lender": "Հաղորդման նոտա",
+            "return_note_placeholder_borrower": "օրինակ՝ Ես այն վերադարձրեցի առանց որևէ խնդիրների",
+            "return_note_placeholder_lender": "օրինակ՝ Վերադարձվել է լավ վիճակում",
+            "return_submitting": "Փակվում է..."
         },
         "messages": {
             "load_error": "Վարկ վերցնելու կենտրոնը հնարավոր չէր վերբեռնել",
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Չափազանց շատ մուտքի փորձեր։ Խնդրում ենք կրկին փորձել 15 րոպեից"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Մուտք գործել",
+        "page_title_register": "Ստեղծել հաշիվ",
+        "page_title_choose_house": "Ընտրել տուն",
+        "page_title_recovery_key": "Վերականգնման کلید",
+        "page_title_house_access": "Տան մուտք",
+        "page_title_legal_review": "Օրավտանգագիտական ​​հետազոտություն",
+        "page_title_new_item": "Նոր ապրանք",
+        "page_title_edit_item": "Խմբագրել ապրանքը",
+        "page_title_items": "Պահեստ"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Խնդիր՝ գնվածների ցանկի բեռնումի ժամանակ։",
+            "select_item_error": "Խնդրում ենք ընտրել ապրանքը պահեստից։",
+            "empty_name": "Խնդրում ենք մուտքագրել ապրանքի անուն։",
+            "added": "Ապրանքը ավելացվել է գնումների ցուցակում։",
+            "add_error": "Սխալ տեղի ունեցավ ապրանքը ավելացնելիս։",
+            "added_suggestion": "\"{{name}}\" ավելացվել է գնումների ցուցակում։",
+            "bulk_added": "{{count}} ապրանքներ, որոնք քիչ են մնացել, ավելացվել են ցուցակին.",
+            "bulk_error": "Պայմ չավելացվեց, քանի որ ապրանքները քիչ են մնացել.",
+            "completed": "„{{name}}“ նշվել է որպես ավարտված.",
+            "reactivated": "„{{name}}“ տեղափոխվել է ակտիվ ցուցակ.",
+            "update_error": "Թարմացումի ընթացքում տեղի ունեցավ սխալ:",
+            "deleted": "Տարրը հեռացվել է ցուցակից:",
+            "delete_error": "Հեռացման ընթացքում տեղի ունեցավ սխալ:",
+            "cleared_completed": "Մաքրվել են ավարտված տարրերը:",
+            "clear_error": "Սխալ առաջացավ մաքրման ժամանակ։"
+        },
+        "loading_desc": "Արդյունքում պատրաստվում է գնումների ցուցակը...",
+        "page": {
+            "title": "Գնելուների ցուցակ",
+            "description": "Նայեք տնային պաշարների ցածր մակարդակի ապրանքներին և հեշտորեն կառավարեք ձեր գնումների ցուցակը։"
+        },
+        "suggestions": {
+            "title": "խելացի ինվենտարի առաջարկներ",
+            "desc": "Նյութերը, որոնց առաքումը նվազեցացված է նվազագույն սահմանից:",
+            "add_all": "Ավելացնել բոլոր բացակայողները",
+            "stock_status": "Ընթացիկ: {{current}} / Նպատակ: {{min}}",
+            "add_qty": "Ավելացնել {{qty}}"
+        },
+        "sections": {
+            "active_list": "Ապրանք(ներ) գնելու",
+            "active_desc": "Ներկա գնումների ապրանքները ավելացնել ձեր զամբյուղին:",
+            "active_count": "{{count}} Ապրանք(ներ)",
+            "completed_list": "Գնված ապրանքներ ({{count}})",
+            "add_item": "Ավելացնել ապրանք ձեռքով",
+            "add_desc": "Ավելացրեք ձեռքով հարմարեցված ապրանք ցուցակին։"
+        },
+        "empty": {
+            "title": "Ձեր գնումների ցուցակը դատարկ է",
+            "desc": "Դուք կարող եք ավելացնել բացակա պահեստը վերևի առաջարկներից կամ ձեռքով ավելացնել ապրանքներ աջի ձևաչափով։"
+        },
+        "card": {
+            "linked_inventory": "Պահպանված է Պահեստում"
+        },
+        "actions": {
+            "clear_completed": "Очистить историю",
+            "add_item": "Ավելացնել Գնումների ցանկ"
+        },
+        "form": {
+            "add_type": "Ավելացնել Մեթոդ",
+            "add_type_inventory": "Մատակարարման Նյութ",
+            "add_type_custom": "Տեսականին Առանձնահատուկ Առարկա",
+            "select_inventory_item": "Ընտրել Նյութ Մատակարարումից",
+            "no_inventory_items": "Ձեր պարագաների մեջ դեռ ոչ մի իր չկա։",
+            "select_item_placeholder": "Ընտրեք մեկ իր",
+            "current_stock": "Ընթացիկ",
+            "item_name": "Իրի անվանում",
+            "item_name_placeholder": "օր. Կաթ, Լվացքի փոշի, Ասեղնիկի սուրճի հատիկներ...",
+            "quantity": "Քանակ"
+        },
+        "modal": {
+            "delete_title": "Ջնջել տարրը ցուցակից?",
+            "delete_desc": "Համոզված եք, որ ուզում եք հեռացնել \"{{name}}\" ձեր գների ցուցակից?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Տվյալները բեռնելու սխալ",
+            "select_item_error": "Խնդրում ենք ընտրել մի అంశ:",
+            "task_name_error": "Պարտադիր է նշել աշխատանքի անվանումը:",
+            "date_error": "Պարտադիր է նշել պլանավորված օրը:",
+            "updated": "Սրահի աշխատանքը թարմացվել է",
+            "created": "Նոր սրահի աշխատանք ավելացված",
+            "save_error": "Պատահեց սխալ պահպանելիս",
+            "deleted": "Սրահի աշխատանքը հաջողությամբ ջնջվել է։",
+            "delete_error": "Ձախողություն տեղի ունեցավ ջնջման գործընթացի ընթացքում։",
+            "performed": "Ապահովումը նշվել է որպես 완료։ Ապագա ամսաթիվը որոշված է։",
+            "perform_error": "Ձախողություն տեղի ունեցավ պահպանման ընթացքում։"
+        },
+        "freq": {
+            "one_time": "Մեկանգամյա",
+            "unit": {
+                "days": "Օր",
+                "weeks": "Շաբաթ",
+                "months": "Մաս",
+                "years": "Տարի"
+            },
+            "format": "Յուրաքանչյուր {{val}} {{unit}}"
+        },
+        "loading_desc": "Լիցքավորումը պահպանման կարգացուցակը...",
+        "page": {
+            "title": "Պահպանում և Պարբերական Հետեւում",
+            "description": "Վերահսկեք ձեր տան պահպանման ցուցակում գտնվող հանդերձանքի, ֆիլտրերի կամ անվտանգության սարքավորումների պարբերական պահպանման կարգացուցակները:"
+        },
+        "actions": {
+            "add_task": "Ավելացնել Նոր Առաջադրանք",
+            "manage": "Կառավարել",
+            "perform": "Մակարդակ Առաջադրանքը Ավարտված",
+            "edit_task": "Ամբողջագրել Աշխատանքը"
+        },
+        "alerts": {
+            "overdue_title": "Դու Ունես Վտանգված Առաջադրանքներ!",
+            "overdue_desc": "Գոյություն ունեն {{count}} ուշացած տեխնիկական սպասարկման աշխատանքներ։ Ժամանակի հետ ձգձգումները կարող են կրճատել սարքի ծառայության ժամկետը։"
+        },
+        "empty": {
+            "title": "Սպասարկման հանձնարարություններ չեն նախատեսված",
+            "desc": "Սկսեք recurring աշխատանքներ ավելացնելով, օրինակ՝ օդափոխիչի ֆիլտրի մաքրում, վառարանների սպասարկում կամ հրդեհային детեկտորի մարտկոցների ստուգում։"
+        },
+        "sections": {
+            "overdue": "Ուշացած աշխատանքներ",
+            "overdue_desc": "Արագ կարգաբերում, որը պետք է կատարվի անմիջապես։",
+            "upcoming": "Նշված / Ապագա առաջադրանքներ",
+            "upcoming_desc": "Հաջողվող սպասվող սպասարկումն առաջիկա օրերին։",
+            "no_upcoming": "Ապագայում ակտիվ առաջադրանքներ չեն նշված։"
+        },
+        "modal": {
+            "edit_title": "Խմբագրել Փաստաթուղթ",
+            "create_title": "Օրավարձ նոր սպասարկման գործ",
+            "perform_title": "Завершить սպասարկումը",
+            "perform_desc": "Ցանկանո՞ւմ եք գրանցել \"{{name}}\" որպես ավարտված այսօր?",
+            "perform_confirm": "Այո, ավարտվեց",
+            "perform_recurrence_info": "Սա պարբերական առաջադրանք է: Երբ պահպանեք, համակարգը ավտոմատ կվ حسابարկի հաջորդ պահպանման ամսաթիվը:",
+            "delete_title": "Ջնջել պահպանման առաջադրանքը?",
+            "delete_desc": "Հարավարե՞ց եք, որ ցանկանում եք ջնջել պարբերական պահպանման վահանակը \"{{name}}\": Այս գործողությունը հնարավոր չէ հետ վերադարձնել:"
+        },
+        "form": {
+            "item": "Հարաբերական Տեղեկություն",
+            "no_items": "Նախ ձեզ անհրաժեշտ է ավելացնել մի տարր ինվենտարիում՝ սպասարկում պլանավորելուց առաջ։",
+            "select_item_placeholder": "Ընտրեք Տարիրը",
+            "task_name": "Խնդիրը / Գործողության Անունը",
+            "task_name_placeholder": "օրինակ՝ ֆիլտրի կարգաբերում, պարբերական ստուգում...",
+            "description": "Նույնականացված / Նկարագրություն",
+            "description_placeholder": "Առաջադրանքի մանրամասներ, օգտագործվող նյութեր և այլն...",
+            "frequency_value": "Կրկնության հաճախականություն",
+            "frequency_placeholder": "օր. 6 (մնացեք դատարկ մեկանգամյա համար)",
+            "frequency_unit": "Առահասարակության միավոր",
+            "next_due_date": "Հաջորդ նախանշված ամսաթիվ",
+            "section_help": "Վարեք սպասարկման գրաֆիկները այստեղից",
+            "section_collapsed": "Սեղմեք, чтобы ավելացնել պարբերական վերահսկողություններ և ֆունկցիաներ",
+            "has_tasks": "{{count}} Աշխատանքներ",
+            "new_item_warning_title": "Ապրանքը պահման մեջ է",
+            "new_item_warning_desc": "Ձեզ անհրաժեշտ է նախ պահպանել այս ապրանքը, որպեսզի ավելացնեք սպասարկման ժամանակացույցը:",
+            "manage_desc": "Կառավարեք այս սարքի կամ իրի սպասարկման գրաֆիկները։"
+        },
+        "fields": {
+            "task_name": "Աշխատանքի անունը",
+            "task_name_placeholder": "օրինակ՝ օդորակիչի ֆիլտրի մաքրում",
+            "description": "Նկարագրություն",
+            "description_placeholder": "Առաջադրանքի մանրամասներ, օգտագործվող նյութերը և այլն...",
+            "frequency_value": "Կրկնության հաճախականություն",
+            "frequency_value_placeholder": "Արձակել դատարկ մեկանգամյա օրվա համար",
+            "frequency_unit": "Հաճախականության միավոր",
+            "next_due_date": "Նախագծված Ամսաթիվ"
+        },
+        "card": {
+            "untitled_item": "Անվերնագրած Տեսականին",
+            "last_performed": "Անդադար Առաջին անգամ կատարված է",
+            "next_due_label": "Նախագծված Ամսաթիվ",
+            "complete_tooltip": "Մարգ գրանցել պահպանությունը որպես ավարտված այսօր"
+        },
+        "detail_card_desc": "Այս տարրի համար նախատեսված է պարբերական կամ մեկանգամյա պահպանության վերահսկում:",
+        "no_tasks": "Այս տարրի համար պահպանության որևէ առաջադրանք չի նշանակվել:",
+        "confirm_delete": "Այս առաջադրանքը կջնջվի: Հապա՞շտ եք:"
     }
 }

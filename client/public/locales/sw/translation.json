@@ -69,7 +69,9 @@
             "vault_hint_action": "Fungua Hazina Binafsi",
             "location": "Mahali",
             "remove_photo": "Ondoa picha",
-            "visibility_owner_only": "Ni mtu pekee aliyeongeza kipengele ndiye anaweza kubadilisha uonekano."
+            "visibility_owner_only": "Ni mtu pekee aliyeongeza kipengele ndiye anaweza kubadilisha uonekano.",
+            "expiry_date": "Tarehe ya Kumalizika",
+            "min_quantity": "Kiasi Kidogo"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" imeongezwa haraka - unaweza kuhariri baadaye",
@@ -119,7 +121,12 @@
         "no_permission": "No permission",
         "barcode_search_error": "Utafutaji wa barcode umeshindwa",
         "stats_error": "Stats error",
-        "detail_subtitle": "Maelezo ya kipengele"
+        "detail_subtitle": "Maelezo ya kipengele",
+        "status": {
+            "close_to_expiry": "Karibu Kumalizika",
+            "expired": "Kumalizika",
+            "low_stock": "Hali ya Chini ya Hisa"
+        }
     },
     "common": {
         "save": "Hifadhi",
@@ -170,7 +177,8 @@
         "details": "Maelezo",
         "hide": "Ficha nenosiri",
         "logging_out": "Kuondoka...",
-        "show": "Onyesha nenosiri"
+        "show": "Onyesha nenosiri",
+        "saving": "Kuweka Akiba..."
     },
     "auth": {
         "login": {
@@ -216,7 +224,7 @@
             "support_link": "Wasiliana na msaada"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "Weka nyumba yako",
             "subtitle": "Tengeneza akaunti mpya au ujiunge na nyumba iliyopo",
             "create_house": "Tengeneza Nyumba Mpya",
             "join_house": "Jiunge na Nyumba",
@@ -312,7 +320,7 @@
             "confirm_password_placeholder": "Weka tena neno lako la siri",
             "reset_submit": "Weka Upya Nywila",
             "resetting": "Inasasisha...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Weka jina lako la mtumiaji au barua pepe"
         },
         "reset_password": {
             "title": "Weka Upya Nywila",
@@ -353,7 +361,7 @@
         "password_requirements": "Tumia angalau herufi {{min}} zenye herufi kubwa, herufi ndogo, nambari, na alama.",
         "logout": "Toka",
         "logging_in": "Kuingia...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "Karibu kwenye {{brandName}}",
         "username_email": "Jina la Mtumiaji au Barua Pepe",
         "username": "Jina la Mtumiaji",
         "email": "Barua Pepe",
@@ -367,7 +375,7 @@
         "google_login": "Endelea na Google",
         "login_issues": "Kwa matatizo ya kuingia",
         "placeholder_username": "kwa mfano: john",
-        "placeholder_password": "••••••••",
+        "placeholder_password": "•••••••••",
         "login_two_factor": {
             "title": "Uthibitishaji wa Vipengele Viwili",
             "subtitle": "Ingiza msimbo wa tarakimu 6 kutoka kwa programu yako ya uthibitishaji",
@@ -438,7 +446,9 @@
         "logout_aria": "Toka kwenye akaunti yako",
         "logout_title": "Toka?",
         "logout_description": "Utarudishwa kwenye skrini ya kuingia na utahitaji kuingia tena ili kusimamia hesabu ya kaya yako.",
-        "logout_warning": "Tumia hii unapomaliza kwenye kifaa cha pamoja au binafsi."
+        "logout_warning": "Tumia hii unapomaliza kwenye kifaa cha pamoja au binafsi.",
+        "maintenance": "Ratiba ya Matengenezo",
+        "shopping": "Orodha ya Ununuzi"
     },
     "dashboard": {
         "welcome": "Karibu, <1>{{name}}</1>! 👋",
@@ -565,7 +575,20 @@
         "no_items_filter": "Hakuna vipengele vinavyolingana na kichujio hiki",
         "manage": "Dhibiti",
         "add_item": "Ongeza Kipengele",
-        "search_item": "Tafuta Kipengele"
+        "search_item": "Tafuta Kipengele",
+        "alerts": {
+            "expired_title": "Vitu Vimekoma!",
+            "expired_desc": "Kuna vitu {{count}} vilivyokoma kwenye hesabu yako. Tafadhali viangalie kwa usalama wako.",
+            "view_items": "Angalia Vitu",
+            "maintenance_title": "Kazi za Matengenezo Zilizopitwa na Wakati!",
+            "maintenance_desc": "Kuna kazi {{count}} za matengenezo zilizochelewa. Fanya matengenezo ili kuongeza muda wa maisha ya vifaa vyako.",
+            "go_to_maintenance": "Nenda kwenye Matengenezo",
+            "low_stock_title": "Onyo la Hali ya Hisa Chache",
+            "low_stock_desc": "{{count}} vipengele vimeangukia chini ya kikomo chako cha chini cha hisa.",
+            "go_to_shopping": "Orodha ya Ununuzi",
+            "close_expiry_title": "Tarehe Zinazokaribia Kuisha",
+            "close_expiry_desc": "bidhaa {{count}} zitaisha ndani ya siku 30."
+        }
     },
     "beta_banner": {
         "title": "BETA:",
@@ -649,7 +672,7 @@
         "house_info": {
             "title": "Funguo ya Nyumba Inayotumika",
             "key_label": "Funguo ya Nyumba",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{kiambishi tamati}}",
             "hide": "Ficha",
             "show": "Onyesha",
             "copy": "Nakili",
@@ -991,8 +1014,8 @@
             "no_history": "Hakuna historia ya kukopa kwa kipengele hiki bado.",
             "lend_success_title": "Kipengele kimekopwa",
             "lend_success_body": "{{item}} sasa kimewekwa kama kilichokopwa.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts.",
+            "offer_sent_title": "Kutoa mkopo umetumwa",
+            "offer_sent_body": "{{item}} itahesabiwa kama imekopesha baada ya mwanachama mwingine kukubali.",
             "borrowed_by_you": "Na wewe",
             "return_pending_hint": "Rekodi itafungwa baada ya mkopaji kuthibitisha walipokea kipengele hicho nyuma.",
             "return_pending_lender_title": "{{name}} alitakaswa kipengele hiki kilirudishwa",
@@ -1401,12 +1424,12 @@
             "cta_register": "Unda Akaunti",
             "stat_free": "Bure",
             "stat_access": "Pata",
-            "free_badge": "Open Source",
+            "free_badge": "Chanzo Wazi",
             "badge": "HomeInventory v2.0 iko hapa",
             "cta_explore": "Chunguza vipengele",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Ingia",
+            "stat_members": "Nyumba Zinashirikiwa",
+            "stat_vault": "Hifadhi Binafsi"
         },
         "features": {
             "title": "Kwa nini <1>HomeInventory</1>?",
@@ -1477,7 +1500,7 @@
                 "description": "Hifadhi vitu, dhamana, nyaraka muhimu, na ufuatiliaji wa ukopaji mahali pamoja tulivu. Angalia kile kilicho ndani ya nyumba yako kwa mtazamo mmoja.",
                 "primaryCta": "Anza Bure",
                 "secondaryCta": "Angalia Bidhaa",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Mtiririko unaopendekezwa: akaunti • nyumbani • vyumba na makundi • bidhaa • nakala rudufu",
                 "searchPlaceholder": "Tafuta bidhaa, chumba, au msimbo wa bar"
             },
             "heroInventoryRows": [
@@ -1728,8 +1751,8 @@
         "privacy_summary": "Maelezo ya mtandao yanabaki wazi hadi utakapohitaji mwongozo.",
         "link_privacy_note": "Anwani ya mtandao inabaki fiche hapa. Skana msimbo au nakili kiungo tu unapokusudia kushiriki upatikanaji wa moja kwa moja wa kipengee kwenye mpangilio wako wa ndani.",
         "helper": "Skana kufungua kipengee hiki mara moja, au nakili kiungo cha moja kwa moja unapotohitaji.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "copy_error_title": "Kiungo hakiwezi kunakiliwa moja kwa moja",
+        "copy_manual_help": "Kivinjari chako hakiruhusu kunakili moja kwa moja. Kiungo kimechaguliwa ili uweze kukinakili kwa mkono.",
         "loading": "Kuandaa zana za QR..."
     },
     "house_access_pending": {
@@ -1923,7 +1946,7 @@
             "passphrase_number": "Jumuisha angalau namba moja.",
             "passphrase_uppercase": "Jumuisha angalau herufi moja kubwa."
         },
-        "recovery_file_title": "{{brandName}} Personal Vault Recovery Key",
+        "recovery_file_title": "{{brandName}} Ufunguzi wa Nafasi Binafsi",
         "recovery_file_created_label": "Imeundwa",
         "recovery_file_key_label": "Kifaa cha Urejeshaji",
         "recovery_file_warning": "Ikiwa utapoteza kifaa hiki na nenosiri la kufungua kifaa, kifaa hakiwezi kurejeshwa.",
@@ -1969,8 +1992,8 @@
             "empty": "Hapana madeni yanayofanya kazi kwa sasa.",
             "borrowed_from": "Imeokolewa kutoka kwa {{name}}",
             "lent_to": "Kwa sasa iko na {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Inasubiri mkopeshaji kuthibitisha walipokaribisha.",
+            "return_pending_lender": "{{name}} alihakikisha kipengele hiki kimerudishwa. Thibitisha kupokea ili kufunga rekodi.",
             "empty_title": "Hakuna mikopo haiyo kwa sasa",
             "empty_description": "Maombi yaliyokubaliwa yanaonekana hapa mara baada ya kipengee kukopwa au kukopeshwa, pamoja na tarehe za mwisho na hali ya kurudishwa."
         },
@@ -1981,7 +2004,7 @@
             "cancelled": "Imefutwa",
             "expired": "Imeisha",
             "returned": "Imerudishwa",
-            "return_pending": "Return pending"
+            "return_pending": "Kurudi kunangoja"
         },
         "actions": {
             "send_request": "Ombi la Kitu",
@@ -1990,8 +2013,8 @@
             "reject": "Kataa",
             "cancel": "Ghairi",
             "fulfill_request": "Timiza Ombi",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Marka imefika",
+            "mark_received": "Marka kupokelewa",
             "open_inventory": "Fungua hesabu ya mali"
         },
         "labels": {
@@ -2030,17 +2053,17 @@
             "return_title": "Weka Kama Imerudishwa",
             "return_subtitle": "Funga uroja unaoendelea kwa \"{{item}}\"",
             "return_target": "Hali yake sasa inaonyeshwa kuwa ipo kwa {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Kabidhi kipengee",
+            "return_title_lender": "Pokea kipengee",
+            "return_subtitle_borrower": "Funga mkopo unaofanya kazi wa \"{{item}}\" baada ya kukirudisha.",
+            "return_subtitle_lender": "Funga mkopo unaofanya kazi wa \"{{item}}\" baada ya kukipokea tena.",
+            "return_target_borrower": "Mtoaji mkopo: {{name}}",
+            "return_target_lender": "Kwa sasa na: {{name}}",
+            "return_note_borrower": "Kumbuka ya utoaji",
+            "return_note_lender": "Kumbuka ya kupokea",
+            "return_note_placeholder_borrower": "mfano. Nilirudisha bila matatizo yoyote",
+            "return_note_placeholder_lender": "mfano. Ilipokelewa nyuma katika hali nzuri",
+            "return_submitting": "Kufunga..."
         },
         "messages": {
             "load_error": "Kituo cha kukopa hakiwezi kupakiwa",
@@ -2103,7 +2126,7 @@
                 "rights": "Kwa maswali kuhusu sheria na masharti yanayotumika kwa usakinishaji huu:"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "Masharti ya usakinishaji wa {{brandName}} hii yanaeleza matumizi yanayokubalika, wajibu wako wa usalama, na matokeo ya kufutwa kwa akaunti kwa muundo wazi zaidi, rahisi kusoma.",
         "terms_support_label": "Hii inamaanisha nini katika utendaji",
         "terms_summary": {
             "eyebrow": "Muhtasari mfupi",
@@ -2162,11 +2185,11 @@
     },
     "terms": {
         "title": "Masharti ya Matumizi na Pangilio la Hati Miliki",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "Toleo la BETA: {{brandName}} kwa sasa ipo katika awamu ya majaribio. Hakuna dhamana zinazotolewa kuhusu kudumu au usalama wa data.",
         "disclaimer": "Pangilio la Hati Miliki: Kwa kutumia programu hii, unakubali kwamba huwezi kudai fidia yoyote kwa kupoteza data inayoweza kutokea, matatizo ya upatikanaji, au matatizo mengine ya kiteknolojia.",
         "backup_warning": "Hifadhi Data: Tunapendekeza sana kwamba uhifadhi mara kwa mara taarifa zako muhimu.",
         "accept": "Kwa kuingia, unakubaliana na masharti haya.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} kwa sasa ipo katika awamu ya majaribio na burudani. Hakuna dhamana zinazotolewa kuhusu kudumu au usalama wa data. Tafadhali hakikisha una nakala rudufu ya taarifa zako muhimu.",
         "contact": "Wasiliana"
     },
     "locations": {
@@ -2236,14 +2259,179 @@
         "too_many_login_attempts": "Too many login attempts"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Ingia",
+        "page_title_register": "Unda akaunti",
+        "page_title_choose_house": "Chagua nyumba",
+        "page_title_recovery_key": "Ufufuzi wa ufunguo",
+        "page_title_house_access": "Ufikiaji wa nyumba",
+        "page_title_legal_review": "Ukaguzi wa kisheria",
+        "page_title_new_item": "Kipengele kipya",
+        "page_title_edit_item": "Hariri kipengele",
+        "page_title_items": "Ombi"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Kosa katika kupakia orodha ya ununuzi.",
+            "select_item_error": "Tafadhali chagua kipengele kutoka kwenye ombi.",
+            "empty_name": "Tafadhali ingiza jina la kipengele.",
+            "added": "Kipengele kimeongezwa kwenye orodha ya ununuzi.",
+            "add_error": "Tatizo limetokea wakati wa kuongeza kipengele.",
+            "added_suggestion": "\"{{name}}\" imeongezwa kwenye orodha ya ununuzi.",
+            "bulk_added": "{{count}} vipengele vyenye hisa chache vimeongezwa kwenye orodha.",
+            "bulk_error": "Hitilafu ilitokea wakati wa kuongeza bidhaa zenye hisa chache.",
+            "completed": "\"{{name}}\" imeonekana kama imemalizika.",
+            "reactivated": "\"{{name}}\" imesogezwa tena kwenye orodha hai.",
+            "update_error": "Hitilafu ilitokea wakati wa sasisho.",
+            "deleted": "Kipengee kimefutwa kutoka kwenye orodha.",
+            "delete_error": "Hitilafu ilitokea wakati wa kufuta.",
+            "cleared_completed": "Vipengele vilivyokamilika vimefuta.",
+            "clear_error": "Hitilafu ilitokea wakati wa kufuta."
+        },
+        "loading_desc": "Kuandaa orodha ya manunuzi...",
+        "page": {
+            "title": "Orodha ya Manunuzi",
+            "description": "Angalia bidhaa chache katika hesabu ya nyumbani na kudhibiti orodha yako ya manunuzi kwa urahisi."
+        },
+        "suggestions": {
+            "title": "Mapendekezo Mahiri ya Hesabu",
+            "desc": "Vitu vya hesabu ambavyo vimepungua chini ya kikomo cha chini.",
+            "add_all": "Ongeza Yote Yanayokosekana",
+            "stock_status": "Sasa: {{current}} / Lengo: {{min}}",
+            "add_qty": "Ongeza {{qty}}"
+        },
+        "sections": {
+            "active_list": "Vitu vya Kununua",
+            "active_desc": "Vitu vya sasa vya ununuzi vya kuongeza kwenye kikapu chako.",
+            "active_count": "{{count}} Vitu",
+            "completed_list": "Vitu Vilivyonunuliwa ({{count}})",
+            "add_item": "Ongeza Kipengee Kwa Mikono",
+            "add_desc": "Ongeza kipengee maalum kwenye orodha kwa mikono."
+        },
+        "empty": {
+            "title": "Orodha yako ya manunuzi iko tupu",
+            "desc": "Unaweza kuongeza hisa zilizokosekana kutoka mapendekezo hapo juu au ongeza vipengee kwa mikono kwa kutumia fomu upande wa kulia."
+        },
+        "card": {
+            "linked_inventory": "Imehifadhiwa kwenye Hesabu ya Bidhaa"
+        },
+        "actions": {
+            "clear_completed": "Futa Historia",
+            "add_item": "Ongeza kwenye Orodha ya Ununuzi"
+        },
+        "form": {
+            "add_type": "Ongeza Mbinu",
+            "add_type_inventory": "Kipengee cha Orodha",
+            "add_type_custom": "Kipengee Maalum",
+            "select_inventory_item": "Chagua Kipengee kutoka Orodhani",
+            "no_inventory_items": "Hakuna vipengee kwenye orodha yako bado.",
+            "select_item_placeholder": "Chagua kipengee",
+            "current_stock": "Sasa",
+            "item_name": "Jina la Kipengee",
+            "item_name_placeholder": "mfano. Maziwa, Sabuni, Maharagwe ya Kahawa...",
+            "quantity": "Kiasi"
+        },
+        "modal": {
+            "delete_title": "Futa Kipengee kutoka Orodha?",
+            "delete_desc": "Una uhakika unataka kuondoa \"{{name}}\" kutoka kwenye orodha yako ya ununuzi?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Hitilafu katika kupakia taarifa",
+            "select_item_error": "Tafadhali chagua kipengee.",
+            "task_name_error": "Jina la kazi linahitajika.",
+            "date_error": "Tarehe iliyopangwa inahitajika.",
+            "updated": "Kazi ya matengenezo imesasishwa",
+            "created": "Kazi mpya ya matengenezo imeongezwa",
+            "save_error": "Hitilafu ilitokea wakati wa kuhifadhi",
+            "deleted": "Kazi ya matengenezo imefutwa kwa ufanisi.",
+            "delete_error": "Hitilafu ilitokea wakati wa mchakato wa kufuta.",
+            "performed": "Matengenezo yameandikwa kama yamemalizika. Tarehe inayofuata imepangwa.",
+            "perform_error": "Kosa lilitokea wakati wa kuhifadhi."
+        },
+        "freq": {
+            "one_time": "Mara Moja",
+            "unit": {
+                "days": "Siku",
+                "weeks": "Wiki",
+                "months": "Mwezi",
+                "years": "Mwaka"
+            },
+            "format": "Kila {{val}} {{unit}}"
+        },
+        "loading_desc": "Inapakia ratiba ya matengenezo...",
+        "page": {
+            "title": "Matengenezo & Ufuatiliaji wa Kipindi",
+            "description": "Simamia ratiba za matengenezo ya kipindi kwa vifaa, vichujio, au vifaa vya usalama katika hesabu yako ya nyumbani."
+        },
+        "actions": {
+            "add_task": "Ongeza Kazi Mpya",
+            "manage": "Simamia",
+            "perform": "Weka Kama Imefanyika",
+            "edit_task": "Hariri Kazi"
+        },
+        "alerts": {
+            "overdue_title": "Una Kazi Zilizochelewa!",
+            "overdue_desc": "Kuna kazi {{count}} za matengenezo zilizochelewa. kuchelewa kunaweza kupunguza muda wa matumizi ya vifaa."
+        },
+        "empty": {
+            "title": "Hakuna kazi za matengenezo zilizopangwa",
+            "desc": "Anza kwa kuongeza kazi za kurudiwa kama vile kusafisha chujio la AC, matengenezo ya boiler, au ukaguzi wa betri ya kigunduzi cha moto."
+        },
+        "sections": {
+            "overdue": "Kazi Zilizochelewa",
+            "overdue_desc": "Matengenezo ya dharura yanayohitaji kufanywa mara moja.",
+            "upcoming": "Kazi Zilizopangwa / Zinazokuja",
+            "upcoming_desc": "Matengenezo yanayokaribia katika siku zijazo.",
+            "no_upcoming": "Hakuna kazi zilizo hai zilizopangwa kwa siku zijazo."
+        },
+        "modal": {
+            "edit_title": "Hariri Kazi",
+            "create_title": "Panga Kazi Mpya ya Matengenezo",
+            "perform_title": "Kamilisha Matengenezo",
+            "perform_desc": "Je, unataka kurekodi \"{{name}}\" kama iliyokamilika leo?",
+            "perform_confirm": "Ndiyo, Imekamilika",
+            "perform_recurrence_info": "Hii ni kazi ya kawaida. Unapohifadhi, mfumo utaweka moja kwa moja tarehe inayofuata ya matengenezo.",
+            "delete_title": "Futa Kazi ya Matengenezo?",
+            "delete_desc": "Una uhakika unataka kufuta ratiba ya matengenezo ya kawaida \"{{name}}\"? Kitendo hiki hakiwezi kufutika."
+        },
+        "form": {
+            "item": "Kitu Kinachohusiana",
+            "no_items": "Lazima uongeze kirudisho kwenye hesabu ya bidhaa kwanza kabla ya kupanga matengenezo.",
+            "select_item_placeholder": "Chagua Kipengele",
+            "task_name": "Jina la Kazi / Operesheni",
+            "task_name_placeholder": "mfano Badilisho la Kichujio, Ukaguzi wa Kipindi...",
+            "description": "Maelezo / Maelezo ya Kina",
+            "description_placeholder": "Maelezo ya kazi, vifaa vitakavyotumika, n.k...",
+            "frequency_value": "Mara ya Kurudiwa",
+            "frequency_placeholder": "kwa mfano 6 (acha tupu ikiwa ni mara moja)",
+            "frequency_unit": "Chombo cha Mara kwa Mara",
+            "next_due_date": "Tarehe Ifuatayo Iliyo Wekwa",
+            "section_help": "Dhibiti ratiba za matengenezo kutoka hapa",
+            "section_collapsed": "Bonyeza kuongeza udhibiti na kazi za mara kwa mara",
+            "has_tasks": "{{count}} Kazi",
+            "new_item_warning_title": "Kitu Hifadhi Kinangoja",
+            "new_item_warning_desc": "Lazima uweke kitu hiki kwanza ili kuongeza ratiba ya matengenezo.",
+            "manage_desc": "Simamia ratiba za matengenezo kwa kifaa au kitu hiki."
+        },
+        "fields": {
+            "task_name": "Jina la Kazi",
+            "task_name_placeholder": "mfano Usafishaji wa kichujio cha AC",
+            "description": "Maelezo",
+            "description_placeholder": "Maelezo ya kazi, vifaa vitakavyotumika, n.k...",
+            "frequency_value": "Mara za Kurudia",
+            "frequency_value_placeholder": "Acha tupu kwa mara moja",
+            "frequency_unit": "Kitengo cha Mara",
+            "next_due_date": "Tarehe Iliyopangwa"
+        },
+        "card": {
+            "untitled_item": "Kipengele Kisicho na Kichwa",
+            "last_performed": "Kilifanywa Mwisho:",
+            "next_due_label": "Tarehe Iliyopangwa",
+            "complete_tooltip": "Weka Matengenezo Kama Yamekamilika Leo"
+        },
+        "detail_card_desc": "Ufuatiliaji wa matengenezo ya mara kwa mara au ya mara moja uliopangwa kwa kipengele hiki.",
+        "no_tasks": "Hakuna kazi za matengenezo zilizopangwa kwa kipengele hiki.",
+        "confirm_delete": "Kazi hii itafutwa. Una uhakika?"
     }
 }
