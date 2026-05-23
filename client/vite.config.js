@@ -348,6 +348,7 @@ export default defineConfig(({ command, mode }) => {
     const rawDpoEmail = String(env.APP_DPO_EMAIL || '').trim();
     const rawPrivacyTransferDisclosure = String(env.APP_PRIVACY_TRANSFER_DISCLOSURE || '').trim();
     const rawPrivacyComplaintAuthority = String(env.APP_PRIVACY_COMPLAINT_AUTHORITY || '').trim();
+    const analyticsScripts = String(env.APP_ANALYTICS_SCRIPTS || '').trim();
     const buildId = String(
         env.APP_BUILD_ID ||
         env.VERCEL_GIT_COMMIT_SHA ||
@@ -479,7 +480,8 @@ export default defineConfig(({ command, mode }) => {
                         .replaceAll('__APP_THEME_COLOR_DARK__', themeColors.dark.themeColor)
                         .replaceAll('__APP_APPLE_TOUCH_ICON__', appleTouchIconLightPath)
                         .replaceAll('__APP_APPLE_TOUCH_ICON_LIGHT__', appleTouchIconLightPath)
-                        .replaceAll('__APP_APPLE_TOUCH_ICON_DARK__', appleTouchIconDarkPath);
+                        .replaceAll('__APP_APPLE_TOUCH_ICON_DARK__', appleTouchIconDarkPath)
+                        .replaceAll('<!-- __APP_ANALYTICS_SCRIPTS__ -->', analyticsScripts);
                 }
             },
             createPwaPlugin({
