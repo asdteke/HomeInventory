@@ -1,6 +1,6 @@
 {
   "name": "home-inventory",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Private, self-hostable household inventory for shared homes",
   "main": "server.js",
   "type": "module",
@@ -12,6 +12,9 @@
     "build": "npm run build --prefix client",
     "start": "NODE_ENV=production node server.js",
     "install-all": "npm install && cd client && npm install",
+    "launcher:install": "npm install --prefix apps/launcher",
+    "launcher:dev": "npm run tauri --prefix apps/launcher -- dev",
+    "launcher:build": "node scripts/build-launcher.mjs",
     "security:backfill-encryption": "node scripts/run-with-runtime-secrets.mjs scripts/backfill-field-encryption.mjs",
     "test:encryption": "node --test tests/encryption.test.mjs",
     "test:runtime-secrets": "node --test tests/runtimeSecrets.test.mjs",
