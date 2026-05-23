@@ -39,6 +39,9 @@ struct ManagedProcess {
 struct WindowsJob(windows_sys::Win32::Foundation::HANDLE);
 
 #[cfg(windows)]
+unsafe impl Send for WindowsJob {}
+
+#[cfg(windows)]
 impl Drop for WindowsJob {
     fn drop(&mut self) {
         unsafe {
@@ -676,7 +679,7 @@ pub fn run() {
                 tauri::WindowEvent::Destroyed | tauri::WindowEvent::CloseRequested { .. }
             ) {
                 let state = window.state::<LauncherState>();
-                let _ = stop_all_internal(&state);
+                let _ = stop_all_internal(state.inner());
             }
         })
         .run(tauri::generate_context!())
@@ -916,6 +919,7 @@ fn app_data_dir(app: &tauri::AppHandle) -> Result<PathBuf, String> {
 }
 
 fn resolved_command_env() -> HashMap<String, String> {
+    #[allow(unused_mut)]
     let mut values: HashMap<String, String> = env::vars().collect();
     #[cfg(unix)]
     {
@@ -1384,7 +1388,7 @@ fn create_windows_job(child: &Child) -> Option<WindowsJob> {
             return None;
         }
 
-        let assigned = AssignProcessToJobObject(job, child.as_raw_handle() as isize);
+        let assigned = AssignProcessToJobObject(job, child.as_raw_handle());
         if assigned == 0 {
             windows_sys::Win32::Foundation::CloseHandle(job);
             return None;
