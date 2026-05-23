@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Sürüm durumu: v2.0.0 yayında. -->
+<!-- Sürüm durumu: v2.1.0 release line. -->
 
 <p align="center">
   <strong>Paylaşımlı evler için özel, self-host edilebilir ev envanteri.</strong><br/>
@@ -72,12 +72,13 @@
 HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtları ortak bir tabloya dönüştürmeden pratik envanter yönetimi sağlar.
 
 > [!NOTE]
-> **v2.0.0 yeniden tasarlanmış sürümdür.** Bu sürüm ana uygulama deneyimini yeniler, güvenlik açısından hassas akışları güçlendirir, lokalizasyon kalite kontrollerini genişletir ve self-host yapısını korurken PWA/marka varlıklarını iyileştirir.
+> **v2.1.0 masaüstü ve iş akışı sürümüdür.** Bu sürüm opsiyonel GUI launcher'ı ekler, istemci kod tabanını TypeScript'e taşır, alışveriş listesi ve akıllı bakım akışlarını getirir; CLI, Docker ve self-host kullanım yollarını korur.
 
 ## Neden HomeInventory
 
 - **Tek ev, birden fazla kişi:** ev oluşturun veya eve katılın, aktif evi değiştirin ve ortak envanteri doğru üyelik kapsamında tutun.
 - **Gerçek eşya kayıtları:** fotoğraf, oda, konum, kategori, miktar, garanti tarihi, fatura bilgisi, not ve ek dosya saklayın.
+- **TypeScript destekli istemci:** React arayüzü TypeScript/Vite kod tabanına taşındı; editör geri bildirimi, refactor güveni ve build zamanı kontrolleri güçlendi.
 - **Hassas veriler için daha doğru alan:** Personal Vault, çok özel kayıtları normal ev araması ve ortak çalışma akışından ayrı tutar.
 - **Günlük kullanımda hızlı bulma:** rafın önündeyken arama, barkod tarama, QR etiketleri ve mobil uyumlu ekranlarla hızlı hareket edin.
 - **Self-host için hazır:** Express, SQLite, Docker desteği, ortam dokümantasyonu ve production secret yükleme akışları dahildir.
@@ -90,10 +91,13 @@ HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtl
 | Paylaşımlı evler | Ev oluşturma, ev erişim akışlarıyla katılma, aktif ev değiştirme ve üyeliğe göre veri kapsamı |
 | Borrow Center | Gelen, giden ve aktif ödünç kayıtları; net istek durumları |
 | Personal Vault | Kimlikler, mülk belgeleri, erişim kodları ve hassas notlar için istemci tarafında şifrelenen vault akışı |
+| Alışveriş Listesi | Manuel ve envantere bağlı alışveriş öğeleri, tamamlanan geçmişi ve düşük stok önerileri |
+| Akıllı Bakım | Tekrarlayan eşya bakım görevleri, gecikme göstergeleri ve otomatik sonraki bakım tarihi hesaplama |
 | Etiket ve tarama | Barkod tarama, eşya QR etiketleri ve mobil uyumlu hızlı erişim |
 | Yedekleme ve geri yükleme | Sadece ev sahibine açık dışa/içe aktarma ve korumalı onay akışları |
 | Kimlik doğrulama | JWT, Google OAuth, e-posta doğrulama, TOTP 2FA, güvenilen cihaz ve recovery key |
-| Çok dil | Anahtar bazlı fallback desteğiyle 100+ seçilebilir arayüz locale paketi |
+| Masaüstü Başlatıcı | Yerel kurulum, bağımlılık kontrolü, profil başlatma/durdurma, yedekleme, log ve QR/LAN erişimi için opsiyonel Tauri GUI |
+| Çok dil | Fallback davranışı ve otomatik doğrulama kontrolleriyle 100+ seçilebilir arayüz locale paketi |
 
 ## Güvenlik & Gizlilik
 
@@ -129,28 +133,39 @@ SQLite depolama + şifreli medya
 
 ## Hızlı Başlangıç
 
-### Gereksinimler
+Çalışma akışınıza en uygun kurulum yöntemini seçin:
 
+### Seçenek A: Masaüstü GUI Başlatıcı
+
+Yerel/self-host kullanım için masaüstü GUI başlatıcı; bağımlılıkları doğrulayabilir, yerel ortamı hazırlayabilir, veritabanı/yükleme klasörlerini profil bazında izole edebilir ve frontend ile backend servislerini tek pencereden çalıştırabilir.
+
+1. **İndir:** [GitHub Releases](https://github.com/asdteke/HomeInventory/releases) sayfasına gidin ve işletim sisteminize uygun launcher paketini indirin (`macOS` için `.dmg`, `Windows` için `.exe`/`.msi`, `Linux` için `.AppImage`/`.deb`/`.rpm`).
+2. **Kur ve Aç:** İndirdiğiniz uygulamayı kurup çalıştırın.
+3. **Başlat:** **Launch HomeInventory** butonuna tıklayın. Başlatıcı portları kontrol eder, API ve UI servislerini açar, ardından yerel URL ile aynı ağdaki cihazlar için QR kod gösterir.
+
+Yalıtım detayları ve gelişmiş ayarlar için [GUI_LAUNCHER.tr.md](GUI_LAUNCHER.tr.md) kılavuzuna bakın.
+
+---
+
+### Seçenek B: Terminal Kurulumu
+
+#### Gereksinimler
 - Node.js 18+
 - npm 9+
 - Git
 
-### 1. Bağımlılıkları kur
-
+#### 1. Bağımlılıkları kur
 ```bash
 git clone https://github.com/asdteke/HomeInventory.git
 cd HomeInventory
 npm run install-all
 ```
 
-### 2. Yerel ortam dosyasını oluştur
-
+#### 2. Yerel ortam dosyasını oluştur
 ```bash
 cp .env.example .env
 ```
-
-En az şu değerleri ayarla:
-
+`.env` dosyasının içine en az şu değerleri tanımlayın:
 ```env
 NODE_ENV=development
 PORT=3001
@@ -159,41 +174,37 @@ JWT_SECRET=uzun-ve-rastgele-bir-secret
 APP_ENCRYPTION_KEY=32-byte-base64-veya-64-char-hex-key
 APP_ENCRYPTION_KEY_ID=2026-03-local
 ```
-
 > [!TIP]
-> Yerel secret üretmek için `JWT_SECRET` tarafında `openssl rand -hex 32`, `APP_ENCRYPTION_KEY` tarafında `openssl rand -base64 32` kullanabilirsiniz.
+> Güvenli secret'lar oluşturmak için `JWT_SECRET` tarafında `openssl rand -hex 32`, `APP_ENCRYPTION_KEY` tarafında `openssl rand -base64 32` kullanabilirsiniz.
 
-Yerel geliştirmede opsiyonel: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` ve `RESEND_API_KEY`.
-
-### 3. Uygulamayı çalıştır
-
+#### 3. Uygulamayı çalıştır
 ```bash
 npm run dev
 ```
+- Frontend (Ön Yüz): `http://localhost:5173`
+- Backend API (Arka Yüz): `http://localhost:3001`
 
-Yerel adresler:
-
-- Frontend: `http://localhost:5173`
-- Backend API: `http://localhost:3001`
-
-### 4. Production build al
-
+#### 4. Production build al
 ```bash
 npm run build
 npm start
 ```
 
-### Docker alternatifi
+---
+
+### Seçenek C: Docker Kurulumu
+
+HomeInventory'yi önceden yapılandırılmış konteynerler ile hızlıca dağıtın:
 
 ```bash
 docker compose up -d
 ```
-
-Gelişmiş yapılandırma, reverse proxy ve production dağıtımı için [DOCKER.md](DOCKER.md) dosyasına bakın.
+Gelişmiş yapılandırma, reverse proxy kurulumu ve canlı ortam dağıtımları için [DOCKER.md](DOCKER.md) dosyasına bakın.
 
 ## Dokümantasyon
 
 - [DOCKER.md](DOCKER.md): Docker, reverse proxy ve self-hosting notları
+- [GUI_LAUNCHER.tr.md](GUI_LAUNCHER.tr.md): Masaüstü GUI başlatıcı kurulumu, yalıtım detayları ve geliştirici kılavuzu
 - [README_ENVIRONMENT_SETUP.md](README_ENVIRONMENT_SETUP.md): ortam değişkenleri ve secret yönetimi kurulumu
 - [CONTRIBUTING.md](CONTRIBUTING.md): katkı yönergeleri
 - [SECURITY.md](SECURITY.md): güvenlik açığı bildirim süreci

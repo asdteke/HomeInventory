@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.0.0 is live. -->
+<!-- Release status: v2.1.0 release line. -->
 
 <p align="center">
   <strong>Private, self-hostable household inventory for shared homes.</strong><br/>
@@ -72,12 +72,13 @@
 HomeInventory is built for families, roommates, and small households that need a practical inventory without turning private records into a shared spreadsheet.
 
 > [!NOTE]
-> **v2.0.0 is the redesigned release.** This version refreshes the main app experience, strengthens security-sensitive flows, expands localization quality checks, and improves PWA/brand assets while keeping the project self-hostable.
+> **v2.1.0 is the desktop and workflow release.** This version adds the optional GUI launcher, moves the client codebase to TypeScript, and introduces shopping-list plus smart-maintenance workflows while keeping the CLI, Docker, and self-hosting paths intact.
 
 ## Why HomeInventory
 
 - **One household, many people:** create or join homes, switch the active home, and keep shared inventory scoped to the right members.
 - **Real item records:** track photos, rooms, locations, categories, quantities, warranty dates, invoice data, notes, and attachments.
+- **TypeScript-powered client:** the React interface now runs on a TypeScript/Vite codebase, improving editor feedback, refactor confidence, and build-time checks.
 - **Sensitive data has a better place:** Personal Vault keeps highly private records away from regular household search and collaboration.
 - **Fast lookup in daily life:** use search, barcode scanning, QR labels, and mobile-friendly screens when you are standing in front of the shelf.
 - **Built to self-host:** Express, SQLite, Docker support, environment documentation, and production secret-loading flows are included.
@@ -90,10 +91,13 @@ HomeInventory is built for families, roommates, and small households that need a
 | Shared homes | Create homes, join with house access flows, switch active homes, and keep data scoped by membership |
 | Borrow Center | Incoming, outgoing, and active lending records with clear request states |
 | Personal Vault | Client-side encrypted vault flow for IDs, property documents, access codes, and sensitive notes |
+| Shopping List | Manual and inventory-linked shopping items, completed history, and low-stock suggestions |
+| Smart Maintenance | Recurring item-care tasks, overdue indicators, and automated next-due-date calculations |
 | Labels and scanning | Barcode scanning, item QR labels, and mobile-friendly lookup |
 | Backup and restore | Owner-only export/import flows with guarded confirmations |
 | Auth and recovery | JWT auth, Google OAuth, email verification, TOTP 2FA, trusted devices, and recovery keys |
-| Internationalization | 100+ selectable UI locale packs with key-level fallback support |
+| Desktop Launcher | Optional Tauri GUI for local setup, dependency checks, profile start/stop, backups, logs, and QR/LAN access |
+| Internationalization | 100+ selectable UI locale packs with fallback behavior and automated validation checks |
 
 ## Security & Privacy
 
@@ -129,28 +133,39 @@ SQLite storage + encrypted media
 
 ## Quick Start
 
-### Prerequisites
+Choose the setup method that best fits your workflow:
 
+### Option A: Desktop GUI Launcher
+
+For local/self-hosted use, the Desktop GUI Launcher can verify dependencies, configure a local environment, isolate database/uploads per profile, and run both frontend and backend services from one window.
+
+1. **Download:** Go to the [GitHub Releases](https://github.com/asdteke/HomeInventory/releases) page and download the launcher package for your OS (`.dmg` for macOS, `.exe`/`.msi` for Windows, `.AppImage`/`.deb`/`.rpm` for Linux).
+2. **Install & Open:** Install and launch the application.
+3. **Start:** Click **Launch HomeInventory**. The launcher checks ports, starts the API and UI, then shows the local URL and a QR code for devices on the same network.
+
+For isolation details and advanced settings, see [GUI_LAUNCHER.md](GUI_LAUNCHER.md).
+
+---
+
+### Option B: Terminal Setup
+
+#### Prerequisites
 - Node.js 18+
 - npm 9+
 - Git
 
-### 1. Install dependencies
-
+#### 1. Install dependencies
 ```bash
 git clone https://github.com/asdteke/HomeInventory.git
 cd HomeInventory
 npm run install-all
 ```
 
-### 2. Create a local environment file
-
+#### 2. Create a local environment file
 ```bash
 cp .env.example .env
 ```
-
-Set at least these values:
-
+Set at least these values inside `.env`:
 ```env
 NODE_ENV=development
 PORT=3001
@@ -159,41 +174,37 @@ JWT_SECRET=replace-with-a-long-random-secret
 APP_ENCRYPTION_KEY=replace-with-32-byte-base64-or-64-char-hex-key
 APP_ENCRYPTION_KEY_ID=2026-03-local
 ```
-
 > [!TIP]
-> Generate secure local secrets with `openssl rand -hex 32` for `JWT_SECRET` and `openssl rand -base64 32` for `APP_ENCRYPTION_KEY`.
+> Generate secure secrets using `openssl rand -hex 32` for `JWT_SECRET` and `openssl rand -base64 32` for `APP_ENCRYPTION_KEY`.
 
-Optional for local development: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, and `RESEND_API_KEY`.
-
-### 3. Run the app
-
+#### 3. Run the app
 ```bash
 npm run dev
 ```
-
-Local URLs:
-
 - Frontend: `http://localhost:5173`
 - Backend API: `http://localhost:3001`
 
-### 4. Build for production
-
+#### 4. Build for production
 ```bash
 npm run build
 npm start
 ```
 
-### Docker alternative
+---
+
+### Option C: Docker Setup
+
+Deploy HomeInventory quickly using pre-configured containers:
 
 ```bash
 docker compose up -d
 ```
-
 For advanced configuration, reverse proxy setup, and production deployment, see [DOCKER.md](DOCKER.md).
 
 ## Documentation
 
 - [DOCKER.md](DOCKER.md): Docker, reverse proxy, and self-hosting notes
+- [GUI_LAUNCHER.md](GUI_LAUNCHER.md): Desktop GUI Launcher setup, isolation details, and development guide
 - [README_ENVIRONMENT_SETUP.md](README_ENVIRONMENT_SETUP.md): environment variables and secret-management setup
 - [CONTRIBUTING.md](CONTRIBUTING.md): contribution guidelines
 - [SECURITY.md](SECURITY.md): vulnerability reporting process

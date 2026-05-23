@@ -29,9 +29,13 @@ dump.pm2
 # Dependencies and build artifacts
 node_modules/
 client/node_modules/
+apps/launcher/node_modules/
 dist/
 client/dist/
 client/build/
+apps/launcher/dist/
+apps/launcher/src-tauri/target/
+apps/launcher/src-tauri/gen/
 test-results/
 
 # Local/private deployment branding overlays
@@ -45,6 +49,7 @@ client/public/brand-local/
 
 # Local scratch/debug scripts
 .codex/
+.aider*
 scratch/
 query.mjs
 server.log
@@ -52,10 +57,15 @@ scripts/test-cookie.js
 scripts/test-cookie.mjs
 scripts/test-login.mjs
 scripts/test-trusted-device.mjs
+scripts/apply-cached-translations.mjs
+scripts/fast-translate.mjs
+
+# AI design/prompt scratch docs
+docs/v0-*.md
+docs/bolt-*.md
 
 # OS metadata
 .DS_Store
-.aider*
 
 # Local duplicate/conflict copies created by sync tools
 * 2.*

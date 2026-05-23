@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Estado de la versión: v2.0.0 ya está publicada. -->
+<!-- Estado de la versión: línea de lanzamiento v2.1.0. -->
 
 <p align="center">
   <strong>Inventario privado y autoalojable para hogares compartidos.</strong><br/>
@@ -25,6 +25,7 @@
 <p align="center">
   <img src="https://img.shields.io/github/stars/asdteke/HomeInventory?style=for-the-badge&logo=github&color=f4c542" alt="GitHub stars" />
   <img src="https://img.shields.io/github/last-commit/asdteke/HomeInventory?style=for-the-badge&color=2f6f55" alt="Last commit" />
+  <img src="https://github.com/asdteke/HomeInventory/actions/workflows/ci.yml/badge.svg" alt="CI status" />
   <img src="https://img.shields.io/badge/security-AES--256--GCM-2f6f55?style=for-the-badge" alt="AES-256-GCM encryption" />
   <img src="https://img.shields.io/badge/PWA-ready-334155?style=for-the-badge" alt="PWA ready" />
   <img src="https://img.shields.io/badge/Docker-supported-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker supported" />
@@ -37,7 +38,9 @@
   <a href="#funciones">Funciones</a> ·
   <a href="#seguridad--privacidad">Seguridad</a> ·
   <a href="#inicio-rápido">Inicio rápido</a> ·
-  <a href="#documentación">Docs</a>
+  <a href="#documentación">Docs</a> ·
+  <a href="CHANGELOG.md">Changelog</a> ·
+  <a href="ROADMAP.md">Roadmap</a>
 </p>
 
 ---
@@ -68,10 +71,14 @@
 
 HomeInventory está pensado para familias, compañeros de piso y hogares pequeños que necesitan un inventario práctico sin convertir registros privados en una hoja compartida.
 
+> [!NOTE]
+> **v2.1.0 es la versión de escritorio y flujos de trabajo.** Esta versión añade el GUI launcher opcional, migra el cliente a TypeScript e introduce lista de compras y mantenimiento inteligente, manteniendo intactas las rutas CLI, Docker y self-host.
+
 ## Por qué HomeInventory
 
 - **Un hogar, varias personas:** crea o únete a hogares, cambia el hogar activo y mantiene el inventario compartido limitado a los miembros correctos.
 - **Registros reales de objetos:** fotos, habitaciones, ubicaciones, categorías, cantidades, garantías, facturas, notas y adjuntos.
+- **Cliente con TypeScript:** la interfaz React ahora usa una base TypeScript/Vite, con mejor feedback del editor, refactors más seguros y comprobaciones en build.
 - **Mejor lugar para datos sensibles:** Personal Vault mantiene los registros muy privados fuera de la búsqueda y colaboración normal del hogar.
 - **Búsqueda rápida en la vida diaria:** búsqueda, escaneo de códigos de barras, etiquetas QR y pantallas móviles cuando estás delante del estante.
 - **Listo para autoalojar:** incluye Express, SQLite, soporte Docker, documentación de entorno y flujos de carga de secretos para producción.
@@ -84,10 +91,13 @@ HomeInventory está pensado para familias, compañeros de piso y hogares pequeñ
 | Hogares compartidos | Crear hogares, unirse mediante flujos de acceso, cambiar hogar activo y limitar datos por membresía |
 | Borrow Center | Préstamos entrantes, salientes y activos con estados de solicitud claros |
 | Personal Vault | Flujo de vault cifrado del lado del cliente para IDs, documentos de propiedad, códigos de acceso y notas sensibles |
+| Lista de compras | Items manuales y vinculados al inventario, historial completado y sugerencias por bajo stock |
+| Mantenimiento inteligente | Tareas recurrentes de cuidado, indicadores de vencimiento y cálculo automático de la próxima fecha |
 | Etiquetas y escaneo | Escaneo de códigos de barras, etiquetas QR de objetos y acceso rápido móvil |
 | Backup y restore | Exportación/importación solo para propietarios con confirmaciones protegidas |
 | Auth y recuperación | JWT, Google OAuth, verificación por correo, TOTP 2FA, dispositivos de confianza y recovery keys |
-| Internacionalización | 100+ paquetes de locale seleccionables con fallback por clave |
+| Desktop Launcher | GUI opcional con Tauri para setup local, chequeo de dependencias, inicio/parada de perfiles, backups, logs y acceso QR/LAN |
+| Internacionalización | 100+ paquetes de locale seleccionables con fallback y validaciones automatizadas |
 
 ## Seguridad & privacidad
 
@@ -123,13 +133,29 @@ SQLite + medios cifrados
 
 ## Inicio rápido
 
-### Requisitos
+Elige el método de instalación que mejor encaje con tu flujo:
+
+### Opción A: Desktop GUI Launcher
+
+Para uso local o self-host, el Desktop GUI Launcher puede verificar dependencias, configurar un entorno local, aislar base de datos/uploads por perfil y ejecutar frontend y backend desde una sola ventana.
+
+1. **Descargar:** Ve a [GitHub Releases](https://github.com/asdteke/HomeInventory/releases) y descarga el paquete del launcher para tu sistema operativo (`.dmg` para macOS, `.exe`/`.msi` para Windows, `.AppImage`/`.deb`/`.rpm` para Linux).
+2. **Instalar y abrir:** Instala y ejecuta la aplicación.
+3. **Iniciar:** Haz clic en **Launch HomeInventory**. El launcher revisa puertos, inicia API y UI, y muestra la URL local junto con un código QR para dispositivos en la misma red.
+
+Para detalles de aislamiento y configuración avanzada, consulta [GUI_LAUNCHER.md](GUI_LAUNCHER.md).
+
+---
+
+### Opción B: Instalación por terminal
+
+#### Requisitos
 
 - Node.js 18+
 - npm 9+
 - Git
 
-### 1. Instalar dependencias
+#### 1. Instalar dependencias
 
 ```bash
 git clone https://github.com/asdteke/HomeInventory.git
@@ -137,14 +163,13 @@ cd HomeInventory
 npm run install-all
 ```
 
-### 2. Crear el archivo de entorno local
+#### 2. Crear el archivo de entorno local
 
 ```bash
 cp .env.example .env
 ```
 
-Configura al menos estos valores:
-
+Configura al menos estos valores en `.env`:
 ```env
 NODE_ENV=development
 PORT=3001
@@ -153,44 +178,47 @@ JWT_SECRET=un-secret-largo-y-aleatorio
 APP_ENCRYPTION_KEY=32-byte-base64-o-64-char-hex-key
 APP_ENCRYPTION_KEY_ID=2026-03-local
 ```
-
 > [!TIP]
-> Genera secretos locales seguros con `openssl rand -hex 32` para `JWT_SECRET` y `openssl rand -base64 32` para `APP_ENCRYPTION_KEY`.
+> Genera secretos seguros con `openssl rand -hex 32` para `JWT_SECRET` y `openssl rand -base64 32` para `APP_ENCRYPTION_KEY`.
 
-Opcional en desarrollo local: `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` y `RESEND_API_KEY`.
-
-### 3. Ejecutar la app
+#### 3. Ejecutar la app
 
 ```bash
 npm run dev
 ```
 
-URLs locales:
-
 - Frontend: `http://localhost:5173`
 - Backend API: `http://localhost:3001`
 
-### 4. Build de producción
+#### 4. Build de producción
 
 ```bash
 npm run build
 npm start
 ```
 
-### Alternativa con Docker
+---
+
+### Opción C: Instalación con Docker
+
+Despliega HomeInventory rápidamente con contenedores preconfigurados:
 
 ```bash
 docker compose up -d
 ```
-
 Para configuración avanzada, reverse proxy y despliegue en producción, consulta [DOCKER.md](DOCKER.md).
 
 ## Documentación
 
 - [DOCKER.md](DOCKER.md): Docker, reverse proxy y autoalojamiento
+- [GUI_LAUNCHER.md](GUI_LAUNCHER.md): Desktop GUI Launcher, aislamiento y guía de desarrollo
 - [README_ENVIRONMENT_SETUP.md](README_ENVIRONMENT_SETUP.md): variables de entorno y gestión de secretos
 - [CONTRIBUTING.md](CONTRIBUTING.md): guía de contribución
 - [SECURITY.md](SECURITY.md): proceso para reportar vulnerabilidades
+- [CHANGELOG.md](CHANGELOG.md): historial de versiones y notas de actualización
+- [ROADMAP.md](ROADMAP.md): dirección del proyecto a corto plazo
+
+Topics recomendados de GitHub para maintainers: `home-inventory`, `self-hosted`, `inventory-management`, `household`, `pwa`, `sqlite`, `express`, `react`, `docker`, `privacy`, `qr-code`, `barcode`, `2fa`.
 
 ## Nota sobre idiomas
 

@@ -1,12 +1,14 @@
 # Roadmap
 
-HomeInventory was recently redesigned for v2.0.0, so this roadmap is intentionally short and practical. It focuses on polish and reliability before larger feature promises.
+HomeInventory was recently redesigned for v2.0.0 and is moving into the v2.1.0 line with TypeScript, shopping-list, smart-maintenance, and optional desktop-launcher work. This roadmap stays short and practical so the new surfaces can settle before larger feature promises.
 
-The v2.0.0 release is now public; this roadmap tracks post-release polish.
+The v2.1.0 release track focuses on release polish, packaging, and reliability.
 
 ## Near-Term Focus
 
 - **Self-hosting reliability:** keep Docker, environment setup, backup/restore, and upgrade notes easy to follow.
+- **Launcher release flow:** keep macOS, Windows, and Linux desktop packages reproducible through GitHub Releases.
+- **New workflow polish:** refine shopping-list, maintenance reminders, dashboard alerts, and mobile ergonomics after real use.
 - **Translation review:** prioritize English and Turkish quality, then improve high-usage community locales over time.
 - **Mobile and PWA polish:** refine install icons, offline behavior, QR scanning, and small-screen inventory workflows.
 - **Backup confidence:** continue testing owner-only export/import flows and document safe restore practices.

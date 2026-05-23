@@ -9,7 +9,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.0.0 is live. -->
+<!-- Release status: v2.1.0 release line. -->
 
 <p align="center">
   <strong>جرد منزلي خاص وقابل للاستضافة الذاتية للمنازل المشتركة.</strong><br/>
@@ -27,6 +27,7 @@
 <p align="center">
   <img src="https://img.shields.io/github/stars/asdteke/HomeInventory?style=for-the-badge&logo=github&color=f4c542" alt="GitHub stars" />
   <img src="https://img.shields.io/github/last-commit/asdteke/HomeInventory?style=for-the-badge&color=2f6f55" alt="Last commit" />
+  <img src="https://github.com/asdteke/HomeInventory/actions/workflows/ci.yml/badge.svg" alt="CI status" />
   <img src="https://img.shields.io/badge/security-AES--256--GCM-2f6f55?style=for-the-badge" alt="AES-256-GCM encryption" />
   <img src="https://img.shields.io/badge/PWA-ready-334155?style=for-the-badge" alt="PWA ready" />
   <img src="https://img.shields.io/badge/Docker-supported-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker supported" />
@@ -39,7 +40,9 @@
   <a href="#الميزات">الميزات</a> ·
   <a href="#الأمان--الخصوصية">الأمان</a> ·
   <a href="#البدء-السريع">البدء السريع</a> ·
-  <a href="#التوثيق">التوثيق</a>
+  <a href="#التوثيق">التوثيق</a> ·
+  <a href="CHANGELOG.md">Changelog</a> ·
+  <a href="ROADMAP.md">Roadmap</a>
 </p>
 
 ---
@@ -70,10 +73,14 @@
 
 HomeInventory صُمم للعائلات وزملاء السكن والمنازل الصغيرة التي تحتاج إلى جرد عملي من دون تحويل السجلات الخاصة إلى جدول مشترك.
 
+> [!NOTE]
+> **v2.1.0 هو إصدار سطح المكتب وتدفقات العمل.** يضيف هذا الإصدار GUI launcher اختيارياً، وينقل كود العميل إلى TypeScript، ويقدم قائمة التسوق وتدفقات الصيانة الذكية، مع الحفاظ على مسارات CLI وDocker والاستضافة الذاتية.
+
 ## لماذا HomeInventory
 
 - **منزل واحد وعدة أشخاص:** أنشئ منزلاً أو انضم إلى منزل، بدّل المنزل النشط، واجعل الجرد المشترك محصوراً بالأعضاء الصحيحين.
 - **سجلات عناصر حقيقية:** الصور، الغرف، المواقع، الفئات، الكميات، تواريخ الضمان، بيانات الفواتير، الملاحظات والمرفقات.
+- **عميل مدعوم بـ TypeScript:** تعمل واجهة React الآن على قاعدة TypeScript/Vite لتحسين ملاحظات المحرر، وثقة refactor، وفحوصات وقت البناء.
 - **مكان أفضل للبيانات الحساسة:** يحافظ Personal Vault على السجلات الخاصة جداً بعيداً عن البحث والتعاون العادي داخل المنزل.
 - **عثور سريع في الحياة اليومية:** البحث، مسح الباركود، ملصقات QR، وشاشات مناسبة للجوال عندما تكون أمام الرف مباشرة.
 - **جاهز للاستضافة الذاتية:** يتضمن Express وSQLite ودعم Docker وتوثيق البيئة وتدفقات تحميل الأسرار للإنتاج.
@@ -86,10 +93,13 @@ HomeInventory صُمم للعائلات وزملاء السكن والمنازل
 | المنازل المشتركة | إنشاء المنازل، الانضمام عبر تدفقات الوصول، تبديل المنزل النشط، وحصر البيانات حسب العضوية |
 | Borrow Center | سجلات الإعارة الواردة والصادرة والنشطة مع حالات طلب واضحة |
 | Personal Vault | تدفق vault مشفر من جهة العميل للهويات ومستندات الملكية ورموز الوصول والملاحظات الحساسة |
+| قائمة التسوق | عناصر يدوية ومرتبطة بالجرد، سجل للعناصر المكتملة، واقتراحات عند انخفاض المخزون |
+| الصيانة الذكية | مهام عناية متكررة، مؤشرات تأخر، وحساب تلقائي لتاريخ الاستحقاق التالي |
 | الملصقات والمسح | مسح الباركود، ملصقات QR للعناصر، والوصول السريع من الجوال |
 | النسخ الاحتياطي والاستعادة | تصدير/استيراد مخصص للمالك فقط مع تأكيدات محمية |
 | المصادقة والاسترداد | JWT وGoogle OAuth والتحقق بالبريد وTOTP 2FA والأجهزة الموثوقة ومفاتيح الاسترداد |
-| التدويل | أكثر من 100 حزمة لغة للواجهة مع fallback لكل مفتاح |
+| Desktop Launcher | واجهة Tauri اختيارية للإعداد المحلي، فحص الاعتماديات، تشغيل/إيقاف الملفات الشخصية، النسخ الاحتياطي، السجلات، والوصول عبر QR/LAN |
+| التدويل | أكثر من 100 حزمة لغة للواجهة مع fallback وفحوصات تحقق آلية |
 
 ## الأمان & الخصوصية
 
@@ -129,13 +139,29 @@ SQLite storage + encrypted media
 
 ## البدء السريع
 
-### المتطلبات
+اختر طريقة الإعداد الأنسب لتدفق عملك:
+
+### الخيار A: Desktop GUI Launcher
+
+للاستخدام المحلي أو الاستضافة الذاتية، يستطيع Desktop GUI Launcher التحقق من الاعتماديات، إعداد بيئة محلية، عزل قاعدة البيانات والرفعات لكل ملف شخصي، وتشغيل خدمات الواجهة والخلفية من نافذة واحدة.
+
+1. **تنزيل:** انتقل إلى [GitHub Releases](https://github.com/asdteke/HomeInventory/releases) ونزّل حزمة launcher المناسبة لنظامك (`.dmg` لـ macOS، و`.exe`/`.msi` لـ Windows، و`.AppImage`/`.deb`/`.rpm` لـ Linux).
+2. **تثبيت وفتح:** ثبّت التطبيق وشغّله.
+3. **تشغيل:** اضغط **Launch HomeInventory**. يتحقق launcher من المنافذ، ويشغّل API والواجهة، ثم يعرض الرابط المحلي ورمز QR للأجهزة على نفس الشبكة.
+
+لتفاصيل العزل والإعدادات المتقدمة، راجع [GUI_LAUNCHER.md](GUI_LAUNCHER.md).
+
+---
+
+### الخيار B: إعداد الطرفية
+
+#### المتطلبات
 
 - Node.js 18+
 - npm 9+
 - Git
 
-### 1. تثبيت الاعتماديات
+#### 1. تثبيت الاعتماديات
 
 <div dir="ltr">
 
@@ -147,7 +173,7 @@ npm run install-all
 
 </div>
 
-### 2. إنشاء ملف البيئة المحلي
+#### 2. إنشاء ملف البيئة المحلي
 
 <div dir="ltr">
 
@@ -157,7 +183,7 @@ cp .env.example .env
 
 </div>
 
-اضبط هذه القيم على الأقل:
+اضبط هذه القيم على الأقل داخل `.env`:
 
 <div dir="ltr">
 
@@ -173,11 +199,9 @@ APP_ENCRYPTION_KEY_ID=2026-03-local
 </div>
 
 > [!TIP]
-> أنشئ أسراراً محلية آمنة باستخدام `openssl rand -hex 32` لقيمة `JWT_SECRET` و`openssl rand -base64 32` لقيمة `APP_ENCRYPTION_KEY`.
+> أنشئ أسراراً آمنة باستخدام `openssl rand -hex 32` لقيمة `JWT_SECRET` و`openssl rand -base64 32` لقيمة `APP_ENCRYPTION_KEY`.
 
-اختياري للتطوير المحلي: `GOOGLE_CLIENT_ID` و`GOOGLE_CLIENT_SECRET` و`RESEND_API_KEY`.
-
-### 3. تشغيل التطبيق
+#### 3. تشغيل التطبيق
 
 <div dir="ltr">
 
@@ -187,12 +211,10 @@ npm run dev
 
 </div>
 
-العناوين المحلية:
-
 - Frontend: `http://localhost:5173`
 - Backend API: `http://localhost:3001`
 
-### 4. بناء الإنتاج
+#### 4. بناء الإنتاج
 
 <div dir="ltr">
 
@@ -203,7 +225,11 @@ npm start
 
 </div>
 
-### بديل Docker
+---
+
+### الخيار C: إعداد Docker
+
+انشر HomeInventory بسرعة باستخدام حاويات معدة مسبقاً:
 
 <div dir="ltr">
 
@@ -218,9 +244,14 @@ docker compose up -d
 ## التوثيق
 
 - [DOCKER.md](DOCKER.md): Docker وreverse proxy والاستضافة الذاتية
+- [GUI_LAUNCHER.md](GUI_LAUNCHER.md): إعداد Desktop GUI Launcher، تفاصيل العزل، ودليل التطوير
 - [README_ENVIRONMENT_SETUP.md](README_ENVIRONMENT_SETUP.md): متغيرات البيئة وإدارة الأسرار
 - [CONTRIBUTING.md](CONTRIBUTING.md): إرشادات المساهمة
 - [SECURITY.md](SECURITY.md): عملية الإبلاغ عن الثغرات
+- [CHANGELOG.md](CHANGELOG.md): تاريخ الإصدارات وملاحظات الترقية
+- [ROADMAP.md](ROADMAP.md): اتجاه المشروع قصير المدى
+
+Topics المقترحة على GitHub للمشرفين: `home-inventory`, `self-hosted`, `inventory-management`, `household`, `pwa`, `sqlite`, `express`, `react`, `docker`, `privacy`, `qr-code`, `barcode`, `2fa`.
 
 ## ملاحظة حول اللغات
 
