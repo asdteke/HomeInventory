@@ -1370,7 +1370,7 @@ fn create_windows_job(child: &Child) -> Option<WindowsJob> {
 
     unsafe {
         let job = CreateJobObjectW(std::ptr::null_mut(), std::ptr::null());
-        if job == 0 {
+        if job.is_null() {
             return None;
         }
 
@@ -1388,7 +1388,7 @@ fn create_windows_job(child: &Child) -> Option<WindowsJob> {
             return None;
         }
 
-        let assigned = AssignProcessToJobObject(job, child.as_raw_handle());
+        let assigned = AssignProcessToJobObject(job, child.as_raw_handle() as _);
         if assigned == 0 {
             windows_sys::Win32::Foundation::CloseHandle(job);
             return None;
