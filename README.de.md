@@ -48,7 +48,7 @@
 ## Vorschau
 
 <p align="center">
-  <img src="docs/assets/screenshot-landing.png" alt="HomeInventory Landingpage-Vorschau" width="96%" />
+  <img src="docs/assets/screenshot-landing.png" alt="HomeInventory Landingpage-Vorschau" width="82%" />
 </p>
 
 <details>
@@ -57,16 +57,16 @@
 <br/>
 
 <p align="center">
-  <img src="docs/assets/screenshot-inventory.png" alt="Inventaransicht" width="96%" />
+  <img src="docs/assets/screenshot-inventory.png" alt="Inventaransicht" width="82%" />
 </p>
 <p align="center">
-  <img src="docs/assets/screenshot-borrow.png" alt="Borrow Center Ansicht" width="96%" />
+  <img src="docs/assets/screenshot-borrow.png" alt="Borrow Center Ansicht" width="82%" />
 </p>
 <p align="center">
-  <img src="docs/assets/screenshot-vault.png" alt="Personal Vault Ansicht" width="96%" />
+  <img src="docs/assets/screenshot-vault.png" alt="Personal Vault Ansicht" width="82%" />
 </p>
 <p align="center">
-  <img src="docs/assets/screenshot-categories.png" alt="Kategorienansicht" width="96%" />
+  <img src="docs/assets/screenshot-categories.png" alt="Kategorienansicht" width="82%" />
 </p>
 
 </details>

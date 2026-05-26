@@ -48,7 +48,7 @@
 ## Preview
 
 <p align="center">
-  <img src="docs/assets/screenshot-landing.png" alt="HomeInventory landing page preview" width="96%" />
+  <img src="docs/assets/screenshot-landing.png" alt="HomeInventory landing page preview" width="82%" />
 </p>
 
 <details>
@@ -57,16 +57,16 @@
 <br/>
 
 <p align="center">
-  <img src="docs/assets/screenshot-inventory.png" alt="Inventory screen" width="96%" />
+  <img src="docs/assets/screenshot-inventory.png" alt="Inventory screen" width="82%" />
 </p>
 <p align="center">
-  <img src="docs/assets/screenshot-borrow.png" alt="Borrow Center screen" width="96%" />
+  <img src="docs/assets/screenshot-borrow.png" alt="Borrow Center screen" width="82%" />
 </p>
 <p align="center">
-  <img src="docs/assets/screenshot-vault.png" alt="Personal Vault screen" width="96%" />
+  <img src="docs/assets/screenshot-vault.png" alt="Personal Vault screen" width="82%" />
 </p>
 <p align="center">
-  <img src="docs/assets/screenshot-categories.png" alt="Categories screen" width="96%" />
+  <img src="docs/assets/screenshot-categories.png" alt="Categories screen" width="82%" />
 </p>
 
 </details>

@@ -48,7 +48,7 @@
 ## Önizleme
 
 <p align="center">
-  <img src="docs/assets/screenshot-landing.png" alt="HomeInventory açılış ekranı önizlemesi" width="96%" />
+  <img src="docs/assets/screenshot-landing.png" alt="HomeInventory açılış ekranı önizlemesi" width="82%" />
 </p>
 
 <details>
@@ -57,16 +57,16 @@
 <br/>
 
 <p align="center">
-  <img src="docs/assets/screenshot-inventory.png" alt="Envanter ekranı" width="96%" />
+  <img src="docs/assets/screenshot-inventory.png" alt="Envanter ekranı" width="82%" />
 </p>
 <p align="center">
-  <img src="docs/assets/screenshot-borrow.png" alt="Borrow Center ekranı" width="96%" />
+  <img src="docs/assets/screenshot-borrow.png" alt="Borrow Center ekranı" width="82%" />
 </p>
 <p align="center">
-  <img src="docs/assets/screenshot-vault.png" alt="Personal Vault ekranı" width="96%" />
+  <img src="docs/assets/screenshot-vault.png" alt="Personal Vault ekranı" width="82%" />
 </p>
 <p align="center">
-  <img src="docs/assets/screenshot-categories.png" alt="Kategoriler ekranı" width="96%" />
+  <img src="docs/assets/screenshot-categories.png" alt="Kategoriler ekranı" width="82%" />
 </p>
 
 </details>

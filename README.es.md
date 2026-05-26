@@ -48,7 +48,7 @@
 ## Vista previa
 
 <p align="center">
-  <img src="docs/assets/screenshot-landing.png" alt="Vista previa de la landing de HomeInventory" width="96%" />
+  <img src="docs/assets/screenshot-landing.png" alt="Vista previa de la landing de HomeInventory" width="82%" />
 </p>
 
 <details>
@@ -57,16 +57,16 @@
 <br/>
 
 <p align="center">
-  <img src="docs/assets/screenshot-inventory.png" alt="Pantalla de inventario" width="96%" />
+  <img src="docs/assets/screenshot-inventory.png" alt="Pantalla de inventario" width="82%" />
 </p>
 <p align="center">
-  <img src="docs/assets/screenshot-borrow.png" alt="Pantalla de Borrow Center" width="96%" />
+  <img src="docs/assets/screenshot-borrow.png" alt="Pantalla de Borrow Center" width="82%" />
 </p>
 <p align="center">
-  <img src="docs/assets/screenshot-vault.png" alt="Pantalla de Personal Vault" width="96%" />
+  <img src="docs/assets/screenshot-vault.png" alt="Pantalla de Personal Vault" width="82%" />
 </p>
 <p align="center">
-  <img src="docs/assets/screenshot-categories.png" alt="Pantalla de categorías" width="96%" />
+  <img src="docs/assets/screenshot-categories.png" alt="Pantalla de categorías" width="82%" />
 </p>
 
 </details>
