@@ -615,7 +615,7 @@ export default function BarcodeScanner({ isOpen, onClose, onProductFound, onBarc
             await stopScanner();
 
             if (productInfo.existingItem) {
-                window.location.href = `/items/${productInfo.existingItem.id}`;
+                window.location.href = `/items/${productInfo.existingItem.id}/edit`;
             } else if (productInfo.name) {
                 onProductFound({
                     name: productInfo.brand ? `${productInfo.brand} ${productInfo.name}` : productInfo.name,

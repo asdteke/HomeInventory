@@ -17,8 +17,9 @@ import {
 } from 'lucide-react';
 import { PageHeader, SectionHeader, LoadingState, EmptyState } from './ProductUI';
 import { ConfirmDialog } from './ModalDialog';
-import FloatingToast from './FloatingToast';
+import { FloatingToastStack, ToastTone } from './FloatingToast';
 import SegmentedToggle from './SegmentedToggle';
+import { useToastQueue } from '../hooks/useToastQueue';
 
 interface ShoppingItem {
     id: number;
@@ -46,12 +47,21 @@ interface InventoryItem {
     room_name?: string;
 }
 
+const SHOPPING_ITEM_EXIT_MS = 220;
+
+import { fetchWithCache, getCachedData, hasCache } from '../utils/apiCache';
+
 export default function ShoppingListPage() {
     const { t } = useTranslation();
-    const [items, setItems] = useState<ShoppingItem[]>([]);
-    const [suggestions, setSuggestions] = useState<SuggestionItem[]>([]);
-    const [inventoryItems, setInventoryItems] = useState<InventoryItem[]>([]);
-    const [loading, setLoading] = useState(true);
+
+    // Initialize states from SWR cache
+    const [items, setItems] = useState<ShoppingItem[]>(() => getCachedData('/api/shopping')?.items || []);
+    const [suggestions, setSuggestions] = useState<SuggestionItem[]>(() => getCachedData('/api/shopping')?.suggestions || []);
+    const [inventoryItems, setInventoryItems] = useState<InventoryItem[]>(() => getCachedData('/api/items')?.items || []);
+
+    const isInitiallyLoaded = hasCache('/api/shopping') && hasCache('/api/items');
+    const [loading, setLoading] = useState(!isInitiallyLoaded);
+    const [completingIds, setCompletingIds] = useState<Set<number>>(new Set());
 
     // Form inputs
     const [itemName, setItemName] = useState('');
@@ -63,24 +73,28 @@ export default function ShoppingListPage() {
     // Modal & Toast states
     const [deletingItem, setDeletingItem] = useState<ShoppingItem | null>(null);
     const [isCompletedOpen, setIsCompletedOpen] = useState(false);
-    const [toastMessage, setToastMessage] = useState('');
-    const [toastType, setToastType] = useState('success');
+    const { toasts, showToast: enqueueToast, closeToast } = useToastQueue();
     const [isBulkAdding, setIsBulkAdding] = useState(false);
 
-    const showToast = (msg: string, type = 'success') => {
-        setToastMessage(msg);
-        setToastType(type);
+    const showToast = (msg: string, type: ToastTone = 'success') => {
+        enqueueToast({
+            title: type === 'danger' ? t('common.error', { defaultValue: 'Something went wrong' }) : t('common.success', { defaultValue: 'Updated' }),
+            description: msg,
+            tone: type
+        });
     };
 
     const fetchShoppingData = async () => {
         try {
-            const [shoppingRes, itemsRes] = await Promise.all([
-                axios.get('/api/shopping'),
-                axios.get('/api/items')
+            await Promise.all([
+                fetchWithCache('/api/shopping', (data) => {
+                    setItems(data.items || []);
+                    setSuggestions(data.suggestions || []);
+                }),
+                fetchWithCache('/api/items', (data) => {
+                    setInventoryItems(data.items || []);
+                })
             ]);
-            setItems(shoppingRes.data.items || []);
-            setSuggestions(shoppingRes.data.suggestions || []);
-            setInventoryItems(itemsRes.data.items || []);
         } catch (error) {
             console.error('Fetch shopping list error:', error);
             showToast(t('shopping.toast.fetch_error', { defaultValue: 'Alışveriş listesi yüklenirken hata oluştu.' }), 'danger');
@@ -174,7 +188,32 @@ export default function ShoppingListPage() {
     };
 
     const handleToggleComplete = async (item: ShoppingItem) => {
+        if (completingIds.has(item.id)) return;
+
         const newStatus = item.is_completed === 1 ? 0 : 1;
+
+        setCompletingIds(prev => {
+            const next = new Set(prev);
+            next.add(item.id);
+            return next;
+        });
+
+        const transitionTimer = window.setTimeout(() => {
+            setItems(prevItems => prevItems.map(currentItem => (
+                currentItem.id === item.id
+                    ? { ...currentItem, is_completed: newStatus }
+                    : currentItem
+            )));
+        }, SHOPPING_ITEM_EXIT_MS);
+
+        const cleanupTimer = window.setTimeout(() => {
+            setCompletingIds(prev => {
+                const next = new Set(prev);
+                next.delete(item.id);
+                return next;
+            });
+        }, SHOPPING_ITEM_EXIT_MS + 90);
+
         try {
             await axios.put(`/api/shopping/${item.id}`, {
                 is_completed: newStatus
@@ -184,10 +223,21 @@ export default function ShoppingListPage() {
             } else {
                 showToast(t('shopping.toast.reactivated', { name: item.item_name, defaultValue: `"${item.item_name}" aktif listeye geri taşındı.` }));
             }
-            fetchShoppingData();
         } catch (error) {
             console.error('Toggle complete error:', error);
+            window.clearTimeout(transitionTimer);
+            window.clearTimeout(cleanupTimer);
+            setItems(prevItems => prevItems.map(currentItem => (
+                currentItem.id === item.id
+                    ? { ...currentItem, is_completed: item.is_completed }
+                    : currentItem
+            )));
             showToast(t('shopping.toast.update_error', { defaultValue: 'Güncelleme sırasında hata oluştu.' }), 'danger');
+            setCompletingIds(prev => {
+                const next = new Set(prev);
+                next.delete(item.id);
+                return next;
+            });
         }
     };
 
@@ -336,70 +386,71 @@ export default function ShoppingListPage() {
                                 })}
                             />
                         ) : (
-                            <div className="space-y-2.5 max-h-[600px] overflow-y-auto pr-1 custom-scrollbar">
-                                {activeItems.map((item) => (
-                                    <div
-                                        key={item.id}
-                                        className="group flex items-center justify-between gap-4 p-4 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] hover:border-[var(--hi-accent)]/30 hover:bg-[var(--hi-panel-strong)]/80 hover:shadow-md hover:scale-[1.008] transition-all duration-300"
-                                    >
-                                        <div className="flex items-center gap-3.5 min-w-0">
-                                            {/* Beautiful custom check circle */}
+                            <div className="shopping-list-scroll">
+                                {activeItems.map((item) => {
+                                    const isCompleting = completingIds.has(item.id);
+                                    return (
+                                        <div
+                                            key={item.id}
+                                            className={`shopping-item-card shopping-item-card-active ${isCompleting ? 'is-checking-off' : ''} group`}
+                                        >
+                                        <div className="shopping-item-main">
                                             <button
                                                 onClick={() => handleToggleComplete(item)}
-                                                className="relative flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded-full border-2 border-[var(--hi-accent)]/40 text-transparent hover:border-[var(--hi-accent)] hover:bg-[var(--hi-accent-soft)] transition-all duration-300"
+                                                disabled={isCompleting}
+                                                className="shopping-check-button"
                                                 aria-label="Tamamlandı olarak işaretle"
                                             >
-                                                <span className="absolute inset-0 flex items-center justify-center rounded-full scale-0 group-hover:scale-75 transition-all duration-300 bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
+                                                <span className="shopping-check-glyph">
                                                     <Check className="h-3.5 w-3.5 stroke-[3]" />
                                                 </span>
                                             </button>
                                             <div className="min-w-0">
-                                                <p className="text-sm font-semibold text-[var(--hi-text)] truncate group-hover:text-[var(--hi-accent)] transition-colors" title={item.item_name}>
+                                                <p className="shopping-item-title" title={item.item_name}>
                                                     {item.item_name}
                                                 </p>
                                                 {item.item_id && (
-                                                    <span className="inline-flex items-center gap-1.5 text-[10px] text-[var(--hi-secondary-strong)] font-semibold bg-[var(--hi-secondary-soft)] px-2 py-0.5 rounded-md border border-[var(--hi-secondary)]/20 mt-1">
-                                                        <Package className="h-3 w-3 animate-pulse" />
+                                                    <span className="shopping-inventory-badge">
+                                                        <Package className="h-3 w-3" />
                                                         {t('shopping.card.linked_inventory', { defaultValue: 'Envanterde Kayıtlı' })}
                                                     </span>
                                                 )}
                                             </div>
                                         </div>
 
-                                        <div className="flex items-center gap-4 shrink-0">
-                                            {/* Premium Quantity controls */}
-                                            <div className="flex items-center rounded-lg border border-[var(--hi-border)] bg-[var(--hi-bg)] overflow-hidden p-0.5 shadow-inner">
+                                        <div className="shopping-item-actions">
+                                            <div className="shopping-quantity-stepper">
                                                 <button
                                                     onClick={() => handleUpdateQuantity(item, -1)}
                                                     disabled={item.quantity <= 1}
-                                                    className="p-1 rounded-md hover:bg-[var(--hi-panel-strong)] text-[var(--hi-text-soft)] disabled:opacity-25 transition cursor-pointer"
+                                                    className="shopping-quantity-button"
                                                     aria-label="Azalt"
                                                 >
                                                     <Minus className="h-3.5 w-3.5" />
                                                 </button>
-                                                <span className="px-3 text-xs font-extrabold text-[var(--hi-text)] min-w-[28px] text-center tracking-wider">
+                                                <span className="shopping-quantity-value">
                                                     {item.quantity}
                                                 </span>
                                                 <button
                                                     onClick={() => handleUpdateQuantity(item, 1)}
-                                                    className="p-1 rounded-md hover:bg-[var(--hi-panel-strong)] text-[var(--hi-text-soft)] transition cursor-pointer"
+                                                    className="shopping-quantity-button"
                                                     aria-label="Arttır"
                                                 >
                                                     <Plus className="h-3.5 w-3.5" />
                                                 </button>
                                             </div>
 
-                                            {/* Delete Action */}
                                             <button
                                                 onClick={() => setDeletingItem(item)}
-                                                className="rounded-lg p-2 text-[var(--hi-text-muted)] hover:bg-red-500/10 hover:text-red-500 transition duration-300 opacity-0 group-hover:opacity-100 focus:opacity-100 cursor-pointer"
+                                                className="shopping-delete-button"
                                                 aria-label="Sil"
                                             >
                                                 <Trash2 className="h-4.5 w-4.5" />
                                             </button>
                                         </div>
                                     </div>
-                                ))}
+                                );
+                            })}
                             </div>
                         )}
                     </div>
@@ -449,38 +500,43 @@ export default function ShoppingListPage() {
 
                             {isCompletedOpen && (
                                 <div className="space-y-2 pt-3 border-t border-[var(--hi-border)]/60 transition-all duration-300">
-                                    {completedItems.map((item) => (
-                                        <div
-                                            key={item.id}
-                                            className="group flex items-center justify-between gap-4 p-3.5 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)]/50 opacity-80 hover:opacity-100 transition-all duration-200"
-                                        >
-                                            <div className="flex items-center gap-3.5 min-w-0">
-                                                {/* Glowing Emerald Check Ring */}
+                                    {completedItems.map((item) => {
+                                        const isCompleting = completingIds.has(item.id);
+                                        return (
+                                            <div
+                                                key={item.id}
+                                                className={`shopping-item-card shopping-item-card-completed ${isCompleting ? 'is-restoring' : ''} group`}
+                                            >
+                                            <div className="shopping-item-main">
                                                 <button
                                                     onClick={() => handleToggleComplete(item)}
-                                                    className="flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded-full bg-emerald-500 text-white shadow-[0_0_10px_rgba(16,185,129,0.3)] hover:scale-95 transition-all duration-200"
+                                                    disabled={isCompleting}
+                                                    className="shopping-check-button is-checked"
                                                     aria-label="Aktif listeye geri taşı"
                                                 >
-                                                    <Check className="h-3.5 w-3.5 stroke-[3.5]" />
+                                                    <span className="shopping-check-glyph">
+                                                        <Check className="h-3.5 w-3.5 stroke-[3.5]" />
+                                                    </span>
                                                 </button>
-                                                <p className="text-sm font-semibold line-through text-[var(--hi-text-muted)] decoration-[var(--hi-accent)] decoration-2 truncate" title={item.item_name}>
+                                                <p className="shopping-item-title shopping-item-title-completed" title={item.item_name}>
                                                     {item.item_name}
                                                 </p>
                                             </div>
-                                            <div className="flex items-center gap-3 shrink-0">
-                                                <span className="text-xs font-extrabold text-[var(--hi-text-muted)] bg-[var(--hi-bg)] px-2.5 py-1 rounded-md border border-[var(--hi-border)]">
+                                            <div className="shopping-item-actions">
+                                                <span className="shopping-completed-quantity">
                                                     x{item.quantity}
                                                 </span>
                                                 <button
                                                     onClick={() => setDeletingItem(item)}
-                                                    className="rounded-lg p-2 text-[var(--hi-text-muted)] hover:bg-red-500/10 hover:text-red-500 transition duration-200 cursor-pointer"
+                                                    className="shopping-delete-button is-visible"
                                                     aria-label="Sil"
                                                 >
                                                     <Trash2 className="h-4 w-4" />
                                                 </button>
                                             </div>
                                         </div>
-                                    ))}
+                                    );
+                                })}
                                 </div>
                             )}
                         </div>
@@ -619,13 +675,7 @@ export default function ShoppingListPage() {
                 icon={Trash2}
             />
 
-            {toastMessage && (
-                <FloatingToast
-                    message={toastMessage}
-                    type={toastType}
-                    onClose={() => setToastMessage('')}
-                />
-            )}
+            <FloatingToastStack toasts={toasts} onClose={closeToast} />
         </div>
     );
 }

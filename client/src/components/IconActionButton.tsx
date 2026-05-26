@@ -43,7 +43,7 @@ export default function IconActionButton({
                 type={type}
                 aria-label={label}
                 disabled={disabled}
-                className={`rounded-xl p-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-[var(--hi-text-soft)] ${toneStyle.button} ${toneStyle.focus} ${className}`.trim()}
+                className={`inline-flex items-center justify-center rounded-xl p-2 transition-all duration-200 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-[var(--hi-text-soft)] ${toneStyle.button} ${toneStyle.focus} ${className}`.trim()}
                 {...props}
             >
                 <Icon className="h-4 w-4" />

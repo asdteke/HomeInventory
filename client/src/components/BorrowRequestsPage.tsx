@@ -277,15 +277,21 @@ function ActiveBorrowCard({ borrow, t, i18n, onReturn }: ActiveBorrowCardProps) 
     );
 }
 
+import { fetchWithCache, getCachedData, hasCache } from '../utils/apiCache';
+
 export default function BorrowRequestsPage() {
     const { t, i18n } = useTranslation();
     const isMountedRef = useRef(true);
     const overviewAbortRef = useRef<AbortController | null>(null);
     const overviewRequestIdRef = useRef(0);
-    const [requests, setRequests] = useState<any[]>([]);
-    const [activeBorrows, setActiveBorrows] = useState<any[]>([]);
-    const [availableItems, setAvailableItems] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
+
+    // Initialize states from SWR cache
+    const [requests, setRequests] = useState<any[]>(() => getCachedData('/api/borrow-requests')?.requests || []);
+    const [activeBorrows, setActiveBorrows] = useState<any[]>(() => getCachedData('/api/borrow-requests')?.activeBorrows || []);
+    const [availableItems, setAvailableItems] = useState<any[]>(() => getCachedData('/api/borrow-requests')?.availableItems || []);
+
+    const isInitiallyLoaded = hasCache('/api/borrow-requests');
+    const [loading, setLoading] = useState(!isInitiallyLoaded);
     const [refreshing, setRefreshing] = useState(false);
     const [backendReady, setBackendReady] = useState(true);
     const [actionError, setActionError] = useState('');
@@ -336,23 +342,22 @@ export default function BorrowRequestsPage() {
         if (silent) {
             setRefreshing(true);
         } else {
-            setLoading(true);
+            if (!hasCache('/api/borrow-requests')) {
+                setLoading(true);
+            }
         }
 
         try {
-            const response = await axios.get(
-                '/api/borrow-requests',
-                createRequestConfig({ signal: controller.signal })
-            );
+            await fetchWithCache('/api/borrow-requests', (data) => {
+                if (!isMountedRef.current || overviewRequestIdRef.current !== requestId) {
+                    return;
+                }
 
-            if (!isMountedRef.current || overviewRequestIdRef.current !== requestId) {
-                return;
-            }
-
-            setRequests(response.data.requests || []);
-            setActiveBorrows(response.data.activeBorrows || []);
-            setAvailableItems(response.data.availableItems || []);
-            setBackendReady(true);
+                setRequests(data.requests || []);
+                setActiveBorrows(data.activeBorrows || []);
+                setAvailableItems(data.availableItems || []);
+                setBackendReady(true);
+            });
         } catch (error) {
             if (isRequestCanceled(error) || !isMountedRef.current || overviewRequestIdRef.current !== requestId) {
                 return;

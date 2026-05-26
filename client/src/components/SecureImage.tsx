@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { createRequestConfig, isRequestCanceled } from '../utils/httpRequests';
 
 export interface SecureImageProps {
     src?: string | null;
@@ -14,6 +15,7 @@ export default function SecureImage({ src, alt, className = '', fallback = null 
     const [failed, setFailed] = useState<boolean>(false);
 
     useEffect(() => {
+        const controller = new AbortController();
         let cancelled = false;
         let localObjectUrl: string | null = null;
 
@@ -26,7 +28,11 @@ export default function SecureImage({ src, alt, className = '', fallback = null 
 
             try {
                 setFailed(false);
-                const response = await axios.get(src, { responseType: 'blob' });
+                const response = await axios.get(src, createRequestConfig({
+                    signal: controller.signal,
+                    timeout: 10000,
+                    responseType: 'blob'
+                }));
                 if (cancelled) {
                     return;
                 }
@@ -34,6 +40,10 @@ export default function SecureImage({ src, alt, className = '', fallback = null 
                 localObjectUrl = URL.createObjectURL(response.data);
                 setObjectUrl(localObjectUrl);
             } catch (error) {
+                if (isRequestCanceled(error)) {
+                    return;
+                }
+
                 if (!cancelled) {
                     setFailed(true);
                     setObjectUrl(null);
@@ -45,6 +55,7 @@ export default function SecureImage({ src, alt, className = '', fallback = null 
 
         return () => {
             cancelled = true;
+            controller.abort();
             if (localObjectUrl) {
                 URL.revokeObjectURL(localObjectUrl);
             }
@@ -55,5 +66,5 @@ export default function SecureImage({ src, alt, className = '', fallback = null 
         return <>{fallback}</>;
     }
 
-    return <img src={objectUrl} alt={alt} className={className} />;
+    return <img src={objectUrl} alt={alt} className={className} loading="lazy" decoding="async" />;
 }

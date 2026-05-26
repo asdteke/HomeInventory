@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.1.0 release line. -->
+<!-- Release status: v2.1.1 release line. -->
 
 <p align="center">
   <strong>Private, self-hostable household inventory for shared homes.</strong><br/>
@@ -48,7 +48,7 @@
 ## Preview
 
 <p align="center">
-  <img src="docs/assets/screenshot-landing.png" alt="HomeInventory landing page preview" width="88%" />
+  <img src="docs/assets/screenshot-landing.png" alt="HomeInventory landing page preview" width="96%" />
 </p>
 
 <details>
@@ -57,14 +57,16 @@
 <br/>
 
 <p align="center">
-  <img src="docs/assets/screenshot-inventory.png" alt="Inventory screen" width="48%" />
-  &nbsp;
-  <img src="docs/assets/screenshot-borrow.png" alt="Borrow Center screen" width="48%" />
+  <img src="docs/assets/screenshot-inventory.png" alt="Inventory screen" width="96%" />
 </p>
 <p align="center">
-  <img src="docs/assets/screenshot-vault.png" alt="Personal Vault screen" width="48%" />
-  &nbsp;
-  <img src="docs/assets/screenshot-categories.png" alt="Categories screen" width="48%" />
+  <img src="docs/assets/screenshot-borrow.png" alt="Borrow Center screen" width="96%" />
+</p>
+<p align="center">
+  <img src="docs/assets/screenshot-vault.png" alt="Personal Vault screen" width="96%" />
+</p>
+<p align="center">
+  <img src="docs/assets/screenshot-categories.png" alt="Categories screen" width="96%" />
 </p>
 
 </details>
@@ -72,7 +74,7 @@
 HomeInventory is built for families, roommates, and small households that need a practical inventory without turning private records into a shared spreadsheet.
 
 > [!NOTE]
-> **v2.1.0 is the desktop and workflow release.** This version adds the optional GUI launcher, moves the client codebase to TypeScript, and introduces shopping-list plus smart-maintenance workflows while keeping the CLI, Docker, and self-hosting paths intact.
+> **v2.1.1 is the polish and release-readiness update.** This version refreshes the screenshots and docs, smooths Settings motion and accessibility, tightens async lifecycle guards, and keeps the v2.1 desktop launcher, TypeScript client, shopping-list, and smart-maintenance workflows intact.
 
 ## Why HomeInventory
 

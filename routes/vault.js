@@ -70,7 +70,7 @@ function getTrustedOrigins(req) {
         addLocalhostAliases(origins, host, requestProtocol);
 
         const hostnameOnly = host.replace(/:\d+$/, '');
-        const frontendPort = String(process.env.FRONTEND_PORT || '').trim();
+        const frontendPort = String(process.env.FRONTEND_PORT || '5173').trim();
         if (frontendPort && hostnameOnly) {
             addOriginVariants(origins, `${hostnameOnly}:${frontendPort}`, requestProtocol);
             addLocalhostAliases(origins, `${hostnameOnly}:${frontendPort}`, requestProtocol);

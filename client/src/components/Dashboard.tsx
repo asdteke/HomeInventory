@@ -75,37 +75,61 @@ function formatItemDate(value: string | undefined, locale: string): string | nul
     });
 }
 
+import { fetchWithCache, getCachedData, hasCache } from '../utils/apiCache';
+
 export default function Dashboard() {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation();
-    const [stats, setStats] = useState<DashboardStats | null>(null);
-    const [allItems, setAllItems] = useState<InventoryItem[]>([]);
-    const [rooms, setRooms] = useState<DashboardRoom[]>([]);
-    const [maintenanceTasks, setMaintenanceTasks] = useState<DashboardMaintenanceTask[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+
+    // Initialize state directly from the SWR cache if present
+    const [stats, setStats] = useState<DashboardStats | null>(() => getCachedData('/api/items/stats/summary'));
+    const [allItems, setAllItems] = useState<InventoryItem[]>(() => getCachedData('/api/items')?.items || []);
+    const [rooms, setRooms] = useState<DashboardRoom[]>(() => getCachedData('/api/rooms')?.rooms || []);
+    const [maintenanceTasks, setMaintenanceTasks] = useState<DashboardMaintenanceTask[]>(() => getCachedData('/api/maintenance')?.tasks || []);
+
+    // Check if everything is already cached to prevent showing the loading spinner
+    const isInitiallyLoaded = hasCache('/api/items/stats/summary') &&
+                               hasCache('/api/items') &&
+                               hasCache('/api/rooms') &&
+                               hasCache('/api/maintenance');
+    const [loading, setLoading] = useState<boolean>(!isInitiallyLoaded);
     const [searchQuery, setSearchQuery] = useState<string>('');
 
     useEffect(() => {
+        let isMounted = true;
+
         const fetchData = async () => {
             try {
-                const [statsRes, itemsRes, roomsRes, maintenanceRes] = await Promise.all([
-                    axios.get('/api/items/stats/summary'),
-                    axios.get('/api/items'),
-                    axios.get('/api/rooms'),
-                    axios.get('/api/maintenance').catch(() => ({ data: { tasks: [] } }))
+                await Promise.all([
+                    fetchWithCache('/api/items/stats/summary', (data) => {
+                        if (isMounted) setStats(data);
+                    }),
+                    fetchWithCache('/api/items', (data) => {
+                        if (isMounted) setAllItems(data.items || []);
+                    }),
+                    fetchWithCache('/api/rooms', (data) => {
+                        if (isMounted) setRooms(data.rooms || []);
+                    }),
+                    fetchWithCache('/api/maintenance', (data) => {
+                        if (isMounted) setMaintenanceTasks(data.tasks || []);
+                    }).catch(() => {
+                        if (isMounted) setMaintenanceTasks([]);
+                    })
                 ]);
-                setStats(statsRes.data);
-                setAllItems(itemsRes.data.items || []);
-                setRooms(roomsRes.data.rooms || []);
-                setMaintenanceTasks(maintenanceRes.data.tasks || []);
             } catch (error) {
-                console.error(error);
+                console.error('Error loading dashboard data:', error);
             } finally {
-                setLoading(false);
+                if (isMounted) {
+                    setLoading(false);
+                }
             }
         };
 
         fetchData();
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     const recentItems = useMemo(() => {
@@ -342,10 +366,24 @@ export default function Dashboard() {
                                                 src={item.photo_path}
                                                 alt={itemTitle}
                                                 className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                                                fallback={<div className="flex h-full items-center justify-center text-3xl opacity-40">{item.category_icon || '📦'}</div>}
+                                                fallback={
+                                                    <div className="flex h-full items-center justify-center">
+                                                        {item.category_icon ? (
+                                                            <span className="opacity-70 text-3xl">{item.category_icon}</span>
+                                                        ) : (
+                                                            <Package className="h-7 w-7 stroke-[1.5] text-[var(--hi-text-muted)] opacity-60" />
+                                                        )}
+                                                    </div>
+                                                }
                                             />
                                         ) : (
-                                            <div className="flex h-full items-center justify-center text-3xl opacity-40">{item.category_icon || '📦'}</div>
+                                            <div className="flex h-full items-center justify-center">
+                                                {item.category_icon ? (
+                                                    <span className="opacity-70 text-3xl">{item.category_icon}</span>
+                                                ) : (
+                                                    <Package className="h-7 w-7 stroke-[1.5] text-[var(--hi-text-muted)] opacity-60" />
+                                                )}
+                                            </div>
                                         )}
                                     </div>
 

@@ -1347,63 +1347,65 @@ export default function PersonalVault() {
             )}
 
             {vaultConfigured && !vaultUnlocked && (
-                <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr]">
-                    <form onSubmit={handleUnlock} className="card space-y-5 border-[var(--hi-border-strong)] bg-[linear-gradient(180deg,var(--hi-panel-strong),var(--hi-panel))] p-6">
-                        <div>
+                <div>
+                    <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr]">
+                        <form onSubmit={handleUnlock} className="card space-y-5 border-[var(--hi-border-strong)] bg-[linear-gradient(180deg,var(--hi-panel-strong),var(--hi-panel))] p-6">
                             <div>
-                                <h2 className="section-title text-2xl text-[var(--hi-text)]">{t('vault.unlock_title')}</h2>
-                                <p className="mt-2 text-sm text-[var(--hi-text-soft)]">{t('vault.unlock_description')}</p>
+                                <div>
+                                    <h2 className="section-title text-2xl text-[var(--hi-text)]">{t('vault.unlock_title')}</h2>
+                                    <p className="mt-2 text-sm text-[var(--hi-text-soft)]">{t('vault.unlock_description')}</p>
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="flex flex-wrap gap-2">
-                            <button
-                                type="button"
-                                onClick={() => setUnlockMode('passphrase')}
-                                className={`rounded-xl px-4 py-2 text-sm font-medium transition ${unlockMode === 'passphrase' ? 'bg-[var(--hi-accent)] text-white' : 'bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)]'}`}
-                            >
-                                {t('vault.unlock_with_passphrase')}
+                            <div className="flex flex-wrap gap-2">
+                                <button
+                                    type="button"
+                                    onClick={() => setUnlockMode('passphrase')}
+                                    className={`rounded-xl px-4 py-2 text-sm font-medium transition ${unlockMode === 'passphrase' ? 'bg-[var(--hi-accent)] text-white' : 'bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)]'}`}
+                                >
+                                    {t('vault.unlock_with_passphrase')}
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setUnlockMode('recovery')}
+                                    className={`rounded-xl px-4 py-2 text-sm font-medium transition ${unlockMode === 'recovery' ? 'bg-[var(--hi-accent)] text-white' : 'bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)]'}`}
+                                >
+                                    {t('vault.unlock_with_recovery')}
+                                </button>
+                            </div>
+
+                            <input
+                                type={unlockMode === 'recovery' ? 'text' : 'password'}
+                                value={unlockSecret}
+                                onChange={(event) => setUnlockSecret(event.target.value)}
+                                className="input-field"
+                                placeholder={unlockMode === 'recovery' ? t('vault.unlock_recovery_placeholder') : t('vault.unlock_passphrase_placeholder')}
+                                autoComplete={unlockMode === 'recovery' ? 'off' : 'current-password'}
+                            />
+
+                            {unlockError && (
+                                <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-300">
+                                    {unlockError}
+                                </div>
+                            )}
+
+                            <button type="submit" disabled={vaultActionLoading} className="btn-primary inline-flex items-center gap-2">
+                                <LockOpen className="h-4 w-4" />
+                                {vaultActionLoading ? t('vault.unlocking') : t('vault.unlock_action')}
                             </button>
-                            <button
-                                type="button"
-                                onClick={() => setUnlockMode('recovery')}
-                                className={`rounded-xl px-4 py-2 text-sm font-medium transition ${unlockMode === 'recovery' ? 'bg-[var(--hi-accent)] text-white' : 'bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)]'}`}
-                            >
-                                {t('vault.unlock_with_recovery')}
-                            </button>
-                        </div>
+                        </form>
 
-                        <input
-                            type={unlockMode === 'recovery' ? 'text' : 'password'}
-                            value={unlockSecret}
-                            onChange={(event) => setUnlockSecret(event.target.value)}
-                            className="input-field"
-                            placeholder={unlockMode === 'recovery' ? t('vault.unlock_recovery_placeholder') : t('vault.unlock_passphrase_placeholder')}
-                            autoComplete={unlockMode === 'recovery' ? 'off' : 'current-password'}
-                        />
-
-                        {unlockError && (
-                            <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-300">
-                                {unlockError}
+                        <div className="card space-y-5 border-[var(--hi-border-strong)] bg-[linear-gradient(180deg,var(--hi-panel-strong),var(--hi-panel))] p-6">
+                            <div className="flex items-center gap-4">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
+                                    <ShieldAlert className="h-5 w-5" />
+                                </div>
+                                <h2 className="section-title text-2xl text-[var(--hi-text)]">{t('vault.security_note_title')}</h2>
                             </div>
-                        )}
-
-                        <button type="submit" disabled={vaultActionLoading} className="btn-primary inline-flex items-center gap-2">
-                            <LockOpen className="h-4 w-4" />
-                            {vaultActionLoading ? t('vault.unlocking') : t('vault.unlock_action')}
-                        </button>
-                    </form>
-
-                    <div className="card space-y-5 border-[var(--hi-border-strong)] bg-[linear-gradient(180deg,var(--hi-panel-strong),var(--hi-panel))] p-6">
-                        <div className="flex items-center gap-4">
-                            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
-                                <ShieldAlert className="h-5 w-5" />
+                            <div className="space-y-3 text-sm leading-7 text-[var(--hi-text-soft)]">
+                                <p>{t('vault.security_note_1')}</p>
+                                <p>{t('vault.security_note_2')}</p>
                             </div>
-                            <h2 className="section-title text-2xl text-[var(--hi-text)]">{t('vault.security_note_title')}</h2>
-                        </div>
-                        <div className="space-y-3 text-sm leading-7 text-[var(--hi-text-soft)]">
-                            <p>{t('vault.security_note_1')}</p>
-                            <p>{t('vault.security_note_2')}</p>
                         </div>
                     </div>
                 </div>
@@ -1446,7 +1448,7 @@ export default function PersonalVault() {
             )}
 
             {vaultConfigured && vaultUnlocked && (
-                <div className="grid gap-6 xl:grid-cols-[1fr_1.05fr]">
+                <div className="vault-secure-reveal grid gap-6 xl:grid-cols-[1fr_1.05fr]">
                     <form onSubmit={handleSubmitItem} className="card space-y-6 p-6">
                         <div className="flex items-center justify-between gap-3">
                             <div>

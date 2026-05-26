@@ -23,6 +23,7 @@ import { validatePasswordStrengthClient } from '../utils/passwordValidation';
 import { resolveVerifiedLegalTranslationLanguage } from '../utils/legalTranslations';
 import BrandLogo from './BrandLogo';
 import HouseKeyModal from './HouseKeyModal';
+import { PremiumCheckbox } from './PremiumCheckbox';
 import LanguageSwitcher from './LanguageSwitcher';
 import RecoveryKeyModal from './RecoveryKeyModal';
 
@@ -527,16 +528,14 @@ export default function Register() {
                                         </div>
                                     </div>
 
-                                    <label className={`flex items-start gap-3 rounded-[var(--hi-radius-md)] border px-4 py-3 text-sm ${panelMutedClass} ${panelSurfaceClass}`}>
-                                        <input
-                                            type="checkbox"
+                                    <label className={`app-premium-checkbox-container flex items-start gap-3 rounded-[var(--hi-radius-md)] border px-4 py-3 text-sm ${panelMutedClass} ${panelSurfaceClass} hover:border-[var(--hi-border-strong)] transition-all`}>
+                                        <PremiumCheckbox
                                             checked={legalAccepted}
                                             onChange={(event) => {
                                                 setError('');
                                                 setLegalAccepted(event.target.checked);
                                             }}
                                             required
-                                            className={`mt-0.5 h-4 w-4 rounded border ${isDark ? (isCustomBrand ? 'border-[var(--hi-border-strong)] bg-transparent' : 'border-white/16 bg-transparent') : 'border-[rgba(18,32,22,0.18)] bg-transparent'} ${isCustomBrand ? 'text-[var(--hi-accent)] focus:ring-[var(--hi-accent)]' : 'text-[#6f9978] focus:ring-[#6f9978]'} focus:ring-offset-0`}
                                         />
                                         <span>
                                             <Trans

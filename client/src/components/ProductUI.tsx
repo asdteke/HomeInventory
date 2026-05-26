@@ -196,9 +196,9 @@ export function LoadingState({
         <div
             role="status"
             aria-live="polite"
-            className={`flex min-h-[16rem] flex-col items-center justify-center gap-3 rounded-[1.5rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] px-6 py-10 text-center shadow-[var(--hi-shadow-soft)] ${className}`.trim()}
+            className={`app-loading-state flex min-h-[16rem] flex-col items-center justify-center gap-3 rounded-[1.5rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] px-6 py-10 text-center shadow-[var(--hi-shadow-soft)] ${className}`.trim()}
         >
-            <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
+            <span className="app-loading-state-icon flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
                 <Loader2 className="h-5 w-5 animate-spin" />
             </span>
             <div className="max-w-md">
@@ -206,6 +206,11 @@ export function LoadingState({
                 {description && (
                     <p className="mt-2 text-sm leading-6 text-[var(--hi-text-soft)]">{description}</p>
                 )}
+            </div>
+            <div className="app-loading-state-bars" aria-hidden="true">
+                <span />
+                <span />
+                <span />
             </div>
         </div>
     );

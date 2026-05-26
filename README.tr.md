@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Sürüm durumu: v2.1.0 release line. -->
+<!-- Sürüm durumu: v2.1.1 release line. -->
 
 <p align="center">
   <strong>Paylaşımlı evler için özel, self-host edilebilir ev envanteri.</strong><br/>
@@ -48,7 +48,7 @@
 ## Önizleme
 
 <p align="center">
-  <img src="docs/assets/screenshot-landing.png" alt="HomeInventory açılış ekranı önizlemesi" width="88%" />
+  <img src="docs/assets/screenshot-landing.png" alt="HomeInventory açılış ekranı önizlemesi" width="96%" />
 </p>
 
 <details>
@@ -57,14 +57,16 @@
 <br/>
 
 <p align="center">
-  <img src="docs/assets/screenshot-inventory.png" alt="Envanter ekranı" width="48%" />
-  &nbsp;
-  <img src="docs/assets/screenshot-borrow.png" alt="Borrow Center ekranı" width="48%" />
+  <img src="docs/assets/screenshot-inventory.png" alt="Envanter ekranı" width="96%" />
 </p>
 <p align="center">
-  <img src="docs/assets/screenshot-vault.png" alt="Personal Vault ekranı" width="48%" />
-  &nbsp;
-  <img src="docs/assets/screenshot-categories.png" alt="Kategoriler ekranı" width="48%" />
+  <img src="docs/assets/screenshot-borrow.png" alt="Borrow Center ekranı" width="96%" />
+</p>
+<p align="center">
+  <img src="docs/assets/screenshot-vault.png" alt="Personal Vault ekranı" width="96%" />
+</p>
+<p align="center">
+  <img src="docs/assets/screenshot-categories.png" alt="Kategoriler ekranı" width="96%" />
 </p>
 
 </details>
@@ -72,7 +74,7 @@
 HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtları ortak bir tabloya dönüştürmeden pratik envanter yönetimi sağlar.
 
 > [!NOTE]
-> **v2.1.0 masaüstü ve iş akışı sürümüdür.** Bu sürüm opsiyonel GUI launcher'ı ekler, istemci kod tabanını TypeScript'e taşır, alışveriş listesi ve akıllı bakım akışlarını getirir; CLI, Docker ve self-host kullanım yollarını korur.
+> **v2.1.1 cilalama ve release hazırlığı güncellemesidir.** Bu sürüm ekran görüntülerini ve dokümanları yeniler, Settings hareketlerini ve erişilebilirliği iyileştirir, async lifecycle korumalarını sıkılaştırır; v2.1 masaüstü launcher, TypeScript istemci, alışveriş listesi ve akıllı bakım akışlarını korur.
 
 ## Neden HomeInventory
 

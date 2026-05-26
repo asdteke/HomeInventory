@@ -104,11 +104,22 @@ function installRequestLanguageInterceptor(): void {
     requestLanguageInterceptorInstalled = true;
 }
 
+const emojiCleaner = {
+    type: 'postProcessor' as const,
+    name: 'emojiCleaner',
+    process: (value: string) => {
+        if (typeof value !== 'string') return value;
+        return value.replace(/^[ℹ️ℹ🏠🔒🔑⚠️🔔🗑️✏️➕\s\uFE0F\u2139]+/g, '');
+    }
+};
+
 i18n
     .use(Backend)
     .use(LanguageDetector)
     .use(initReactI18next)
+    .use(emojiCleaner)
     .init({
+        postProcess: ['emojiCleaner'],
         lng: INITIAL_LANGUAGE,
         supportedLngs: SUPPORTED_PRODUCT_LANGUAGE_CODES,
         nonExplicitSupportedLngs: false,

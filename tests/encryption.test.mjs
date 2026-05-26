@@ -111,7 +111,8 @@ test('decryptFromStorage rejects tampered ciphertext', () => {
     purpose: 'pending_registration.house_key'
   });
   const payload = JSON.parse(encrypted);
-  payload.ciphertext = `${payload.ciphertext.slice(0, -1)}A`;
+  const replacement = payload.ciphertext.endsWith('A') ? 'B' : 'A';
+  payload.ciphertext = `${payload.ciphertext.slice(0, -1)}${replacement}`;
 
   assert.throws(
     () => decryptFromStorage(JSON.stringify(payload), { purpose: 'pending_registration.house_key' }),

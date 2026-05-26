@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import {
@@ -10,12 +10,15 @@ import {
     CheckCircle2,
     AlertTriangle,
     Clock,
-    Info
+    Info,
+    Package,
+    Loader2
 } from 'lucide-react';
 import { PageHeader, SectionHeader, LoadingState, EmptyState, NoticeBanner } from './ProductUI';
 import ModalDialog, { ConfirmDialog } from './ModalDialog';
-import FloatingToast from './FloatingToast';
+import { FloatingToastStack, ToastTone } from './FloatingToast';
 import { formatDateForLanguage } from '../utils/appFormatting';
+import { useToastQueue } from '../hooks/useToastQueue';
 
 interface MaintenanceTask {
     id: number;
@@ -41,6 +44,7 @@ interface InventoryItem {
 interface TaskCardProps {
     task: MaintenanceTask;
     isOverdue: boolean;
+    isPerforming: boolean;
     onEdit: (task: MaintenanceTask) => void;
     onPerform: (task: MaintenanceTask) => void;
     onDelete: (task: MaintenanceTask) => void;
@@ -49,19 +53,28 @@ interface TaskCardProps {
     locale: string;
 }
 
+import { fetchWithCache, getCachedData, hasCache } from '../utils/apiCache';
+
 export default function MaintenancePage() {
     const { t, i18n } = useTranslation();
-    const [tasks, setTasks] = useState<MaintenanceTask[]>([]);
-    const [inventoryItems, setInventoryItems] = useState<InventoryItem[]>([]);
-    const [loading, setLoading] = useState(true);
+
+    // Initialize states from SWR cache
+    const [tasks, setTasks] = useState<MaintenanceTask[]>(() => getCachedData('/api/maintenance')?.tasks || []);
+    const [inventoryItems, setInventoryItems] = useState<InventoryItem[]>(() => getCachedData('/api/items')?.items || []);
+
+    const isInitiallyLoaded = hasCache('/api/maintenance') && hasCache('/api/items');
+    const [loading, setLoading] = useState(!isInitiallyLoaded);
 
     // Modal & Action states
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [editingTask, setEditingTask] = useState<MaintenanceTask | null>(null);
     const [deletingTask, setDeletingTask] = useState<MaintenanceTask | null>(null);
     const [performingTask, setPerformingTask] = useState<MaintenanceTask | null>(null);
-    const [toastMessage, setToastMessage] = useState('');
-    const [toastType, setToastType] = useState('success');
+    const [performingIds, setPerformingIds] = useState<Set<number>>(new Set());
+    const { toasts, showToast: enqueueToast, closeToast } = useToastQueue();
+
+    const isActiveRef = useRef(true);
+    const performTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     // Form inputs
     const [itemId, setItemId] = useState('');
@@ -71,29 +84,45 @@ export default function MaintenancePage() {
     const [freqUnit, setFreqUnit] = useState('months');
     const [nextDueDate, setNextDueDate] = useState('');
 
-    const showToast = (msg: string, type = 'success') => {
-        setToastMessage(msg);
-        setToastType(type);
+    const showToast = (msg: string, type: ToastTone = 'success') => {
+        enqueueToast({
+            title: type === 'danger' ? t('common.error', { defaultValue: 'Something went wrong' }) : t('common.success', { defaultValue: 'Updated' }),
+            description: msg,
+            tone: type
+        });
     };
 
     const fetchTasksAndItems = async () => {
         try {
-            const [tasksRes, itemsRes] = await Promise.all([
-                axios.get('/api/maintenance'),
-                axios.get('/api/items')
+            await Promise.all([
+                fetchWithCache('/api/maintenance', (data) => {
+                    if (isActiveRef.current) setTasks(data.tasks || []);
+                }),
+                fetchWithCache('/api/items', (data) => {
+                    if (isActiveRef.current) setInventoryItems(data.items || []);
+                })
             ]);
-            setTasks(tasksRes.data.tasks || []);
-            setInventoryItems(itemsRes.data.items || []);
         } catch (error) {
+            if (!isActiveRef.current) return;
             console.error('Fetch maintenance data error:', error);
             showToast(t('maintenance.toast.fetch_error', { defaultValue: 'Bilgiler yüklenirken hata oluştu' }), 'danger');
         } finally {
-            setLoading(false);
+            if (isActiveRef.current) {
+                setLoading(false);
+            }
         }
     };
 
     useEffect(() => {
+        isActiveRef.current = true;
         fetchTasksAndItems();
+
+        return () => {
+            isActiveRef.current = false;
+            if (performTimeoutRef.current) {
+                clearTimeout(performTimeoutRef.current);
+            }
+        };
     }, []);
 
     const handleOpenCreateModal = () => {
@@ -146,14 +175,17 @@ export default function MaintenancePage() {
         try {
             if (editingTask) {
                 await axios.put(`/api/maintenance/${editingTask.id}`, payload);
+                if (!isActiveRef.current) return;
                 showToast(t('maintenance.toast.updated', { defaultValue: 'Bakım görevi güncellendi' }));
             } else {
                 await axios.post('/api/maintenance', payload);
+                if (!isActiveRef.current) return;
                 showToast(t('maintenance.toast.created', { defaultValue: 'Yeni bakım görevi eklendi' }));
             }
             setIsFormOpen(false);
             fetchTasksAndItems();
         } catch (error: any) {
+            if (!isActiveRef.current) return;
             const errorMsg = error.response?.data?.error || t('maintenance.toast.save_error', { defaultValue: 'Kaydederken hata oluştu' });
             showToast(errorMsg, 'danger');
         }
@@ -163,22 +195,61 @@ export default function MaintenancePage() {
         if (!deletingTask) return;
         try {
             await axios.delete(`/api/maintenance/${deletingTask.id}`);
+            if (!isActiveRef.current) return;
             showToast(t('maintenance.toast.deleted', { defaultValue: 'Bakım görevi başarıyla silindi.' }));
             setDeletingTask(null);
             fetchTasksAndItems();
         } catch (error) {
+            if (!isActiveRef.current) return;
             showToast(t('maintenance.toast.delete_error', { defaultValue: 'Silme işlemi sırasında bir hata oluştu.' }), 'danger');
         }
     };
 
     const handlePerformTask = async () => {
         if (!performingTask) return;
+        const taskId = performingTask.id;
+
+        // Add to performingIds immediately
+        setPerformingIds(prev => {
+            const next = new Set(prev);
+            next.add(taskId);
+            return next;
+        });
+
+        // Close the dialog immediately
+        setPerformingTask(null);
+
+        // Detect reduced motion for animation timing
+        const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+        const animDuration = prefersReducedMotion ? 0 : 400;
+        const startTime = Date.now();
+
         try {
-            await axios.post(`/api/maintenance/${performingTask.id}/perform`);
-            showToast(t('maintenance.toast.performed', { defaultValue: 'Bakım tamamlandı olarak kaydedildi. Bir sonraki tarih planlandı.' }));
-            setPerformingTask(null);
-            fetchTasksAndItems();
+            await axios.post(`/api/maintenance/${taskId}/perform`);
+
+            // Calculate remaining animation time to guarantee visual transition
+            const elapsedTime = Date.now() - startTime;
+            const remainingTime = Math.max(0, animDuration - elapsedTime);
+
+            performTimeoutRef.current = setTimeout(() => {
+                if (!isActiveRef.current) return;
+
+                showToast(t('maintenance.toast.performed', { defaultValue: 'Bakım tamamlandı olarak kaydedildi. Bir sonraki tarih planlandı.' }));
+                // Remove from performingIds and refresh data
+                setPerformingIds(prev => {
+                    const next = new Set(prev);
+                    next.delete(taskId);
+                    return next;
+                });
+                fetchTasksAndItems();
+            }, remainingTime);
         } catch (error) {
+            if (!isActiveRef.current) return;
+            setPerformingIds(prev => {
+                const next = new Set(prev);
+                next.delete(taskId);
+                return next;
+            });
             showToast(t('maintenance.toast.perform_error', { defaultValue: 'Kaydedilirken bir hata oluştu.' }), 'danger');
         }
     };
@@ -272,6 +343,7 @@ export default function MaintenancePage() {
                                         key={task.id}
                                         task={task}
                                         isOverdue={true}
+                                        isPerforming={performingIds.has(task.id)}
                                         onEdit={handleOpenEditModal}
                                         onPerform={setPerformingTask}
                                         onDelete={setDeletingTask}
@@ -301,6 +373,7 @@ export default function MaintenancePage() {
                                         key={task.id}
                                         task={task}
                                         isOverdue={false}
+                                        isPerforming={performingIds.has(task.id)}
                                         onEdit={handleOpenEditModal}
                                         onPerform={setPerformingTask}
                                         onDelete={setDeletingTask}
@@ -471,18 +544,12 @@ export default function MaintenancePage() {
                 icon={Trash2}
             />
 
-            {toastMessage && (
-                <FloatingToast
-                    message={toastMessage}
-                    type={toastType}
-                    onClose={() => setToastMessage('')}
-                />
-            )}
+            <FloatingToastStack toasts={toasts} onClose={closeToast} />
         </div>
     );
 }
 
-function TaskCard({ task, isOverdue, onEdit, onPerform, onDelete, formatFreqText, t, locale }: TaskCardProps) {
+function TaskCard({ task, isOverdue, isPerforming, onEdit, onPerform, onDelete, formatFreqText, t, locale }: TaskCardProps) {
     const nextDue = new Date(task.next_due_date);
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = !isNaN(nextDue.getTime())
@@ -493,8 +560,17 @@ function TaskCard({ task, isOverdue, onEdit, onPerform, onDelete, formatFreqText
         ? 'border-red-200 bg-red-50/50 dark:border-red-500/20 dark:bg-red-500/5'
         : 'border-[var(--hi-border)] bg-[var(--hi-panel-strong)]';
 
+    const borderLeftStyle = isOverdue
+        ? { borderLeft: '4px solid var(--hi-danger, #ef4444)' }
+        : { borderLeft: '4px solid var(--hi-border)' };
+
+    const completingClass = isPerforming ? 'is-completing' : '';
+
     return (
-        <div className={`group flex flex-col justify-between rounded-2xl border p-5 shadow-[var(--hi-shadow-soft)] transition hover:-translate-y-0.5 hover:shadow-[var(--hi-shadow)] ${performStyle}`}>
+        <div
+            style={borderLeftStyle}
+            className={`group maintenance-task-card flex flex-col justify-between rounded-2xl border p-5 shadow-[var(--hi-shadow-soft)] transition-all duration-200 hover:scale-[1.008] hover:shadow-[var(--hi-shadow)] active:scale-[0.99] ${performStyle} ${completingClass}`}
+        >
             <div className="space-y-3">
                 <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
@@ -505,23 +581,26 @@ function TaskCard({ task, isOverdue, onEdit, onPerform, onDelete, formatFreqText
                         <h3 className="mt-1 truncate text-base font-semibold leading-snug text-[var(--hi-text)]" title={task.task_name}>
                             {task.task_name}
                         </h3>
-                        <p className="mt-0.5 truncate text-xs text-[var(--hi-text-soft)]">
-                            📦 {task.item_name || t('maintenance.card.untitled_item', { defaultValue: 'İsimsiz Eşya' })}
+                        <p className="mt-0.5 truncate text-xs text-[var(--hi-text-soft)] flex items-center gap-1">
+                            <Package className="w-3.5 h-3.5 text-[var(--hi-text-muted)] shrink-0" />
+                            <span>{task.item_name || t('maintenance.card.untitled_item', { defaultValue: 'İsimsiz Eşya' })}</span>
                         </p>
                     </div>
 
-                    <div className="flex shrink-0 gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="flex shrink-0 gap-1 opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100">
                         <button
                             onClick={() => onEdit(task)}
-                            aria-label="Düzenle"
-                            className="rounded-lg p-1.5 text-[var(--hi-text-muted)] hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)] cursor-pointer"
+                            disabled={isPerforming}
+                            aria-label={t('common.edit', { defaultValue: 'Düzenle' })}
+                            className="rounded-lg p-1.5 text-[var(--hi-text-muted)] hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)] transition cursor-pointer active:scale-[0.98] disabled:opacity-50"
                         >
                             <Edit className="w-4 h-4" />
                         </button>
                         <button
                             onClick={() => onDelete(task)}
-                            aria-label="Sil"
-                            className="rounded-lg p-1.5 text-[var(--hi-text-muted)] hover:bg-red-500/10 hover:text-red-500 cursor-pointer"
+                            disabled={isPerforming}
+                            aria-label={t('common.delete', { defaultValue: 'Sil' })}
+                            className="rounded-lg p-1.5 text-[var(--hi-text-muted)] hover:bg-red-500/10 hover:text-red-500 transition cursor-pointer active:scale-[0.98] disabled:opacity-50"
                         >
                             <Trash2 className="w-4 h-4" />
                         </button>
@@ -552,18 +631,19 @@ function TaskCard({ task, isOverdue, onEdit, onPerform, onDelete, formatFreqText
                     <p className="text-[10px] uppercase tracking-wider text-[var(--hi-text-muted)] font-medium">
                         {t('maintenance.card.next_due_label', { defaultValue: 'Planlanan Tarih' })}
                     </p>
-                    <p className={`text-sm font-semibold truncate ${isOverdue ? 'text-red-500 dark:text-red-400' : 'text-[var(--hi-text)]'}`}>
-                        {isOverdue && '⚠️ '}
-                        {formattedDate}
+                    <p className={`text-sm font-semibold truncate flex items-center gap-1 ${isOverdue ? 'text-red-500 dark:text-red-400' : 'text-[var(--hi-text)]'}`}>
+                        {isOverdue && <AlertTriangle className="w-3.5 h-3.5 text-red-500 shrink-0" />}
+                        <span>{formattedDate}</span>
                     </p>
                 </div>
 
                 <button
                     onClick={() => onPerform(task)}
-                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[var(--hi-accent-soft)] text-[var(--hi-accent)] hover:bg-[var(--hi-accent)] hover:text-white transition shadow-[var(--hi-shadow-soft)] cursor-pointer"
+                    disabled={isPerforming}
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[var(--hi-accent-soft)] text-[var(--hi-accent)] hover:bg-[var(--hi-accent)] hover:text-white transition shadow-[var(--hi-shadow-soft)] cursor-pointer disabled:opacity-50 active:scale-[0.98]"
                     title={t('maintenance.card.complete_tooltip', { defaultValue: 'Bakımı Bugün Yapıldı Olarak İşaretle' })}
                 >
-                    <Wrench className="w-4 h-4" />
+                    {isPerforming ? <Loader2 className="w-4 h-4 animate-spin" /> : <Wrench className="w-4 h-4" />}
                 </button>
             </div>
         </div>

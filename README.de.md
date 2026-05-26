@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.1.0 release line. -->
+<!-- Release status: v2.1.1 release line. -->
 
 <p align="center">
   <strong>Private, selbst hostbare Haushaltsinventur für gemeinsam genutzte Zuhause.</strong><br/>
@@ -48,7 +48,7 @@
 ## Vorschau
 
 <p align="center">
-  <img src="docs/assets/screenshot-landing.png" alt="HomeInventory Landingpage-Vorschau" width="88%" />
+  <img src="docs/assets/screenshot-landing.png" alt="HomeInventory Landingpage-Vorschau" width="96%" />
 </p>
 
 <details>
@@ -57,14 +57,16 @@
 <br/>
 
 <p align="center">
-  <img src="docs/assets/screenshot-inventory.png" alt="Inventaransicht" width="48%" />
-  &nbsp;
-  <img src="docs/assets/screenshot-borrow.png" alt="Borrow Center Ansicht" width="48%" />
+  <img src="docs/assets/screenshot-inventory.png" alt="Inventaransicht" width="96%" />
 </p>
 <p align="center">
-  <img src="docs/assets/screenshot-vault.png" alt="Personal Vault Ansicht" width="48%" />
-  &nbsp;
-  <img src="docs/assets/screenshot-categories.png" alt="Kategorienansicht" width="48%" />
+  <img src="docs/assets/screenshot-borrow.png" alt="Borrow Center Ansicht" width="96%" />
+</p>
+<p align="center">
+  <img src="docs/assets/screenshot-vault.png" alt="Personal Vault Ansicht" width="96%" />
+</p>
+<p align="center">
+  <img src="docs/assets/screenshot-categories.png" alt="Kategorienansicht" width="96%" />
 </p>
 
 </details>
@@ -72,7 +74,7 @@
 HomeInventory ist für Familien, Wohngemeinschaften und kleine Haushalte gedacht, die ein praktisches Inventar brauchen, ohne private Datensätze in eine gemeinsame Tabelle zu verwandeln.
 
 > [!NOTE]
-> **v2.1.0 ist das Desktop- und Workflow-Release.** Diese Version ergänzt den optionalen GUI-Launcher, migriert den Client-Code nach TypeScript und bringt Einkaufslisten sowie intelligente Wartungsabläufe, während CLI-, Docker- und Self-Hosting-Pfade erhalten bleiben.
+> **v2.1.1 ist das Update für Feinschliff und Release-Bereitschaft.** Diese Version aktualisiert Screenshots und Dokumentation, verbessert Settings-Animationen und Barrierefreiheit, stärkt asynchrone Lifecycle-Guards und behält den v2.1 Desktop-Launcher, den TypeScript-Client, Einkaufsliste und intelligente Wartungsabläufe bei.
 
 ## Warum HomeInventory
 

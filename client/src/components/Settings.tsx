@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, FormEvent, ChangeEvent } from 'react';
+import { useState, useRef, useEffect, useCallback, FormEvent, ChangeEvent } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -7,22 +7,24 @@ import {
     User as UserIcon, LogOut, Moon, Sun, Shield, ShieldCheck,
     Key, Copy, Eye, Building, Plus, ArrowRightLeft,
     Database, Download, Upload, Loader2, AlertCircle, CheckCircle,
-    X, Home, Users, Edit3, UserX, Trash2
+    X, Home, Users, Edit3, UserX, Trash2, Info
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import RecoveryKeyModal from './RecoveryKeyModal';
 import TwoFactorSetup from './TwoFactorSetup';
 import { copyTextToClipboard } from '../utils/clipboard';
 import { validatePasswordStrengthClient } from '../utils/passwordValidation';
-import { EmptyState, LoadingState, NoticeBanner, PageHeader, SectionHeader } from './ProductUI';
+import { EmptyState, LoadingState, PageHeader, SectionHeader } from './ProductUI';
 import LanguageSwitcher from './LanguageSwitcher';
 import HouseKeyModal from './HouseKeyModal';
 import AccordionSection from './AccordionSection';
-import FloatingToast from './FloatingToast';
+import { FloatingToastStack } from './FloatingToast';
 import SegmentedToggle from './SegmentedToggle';
 import ModalDialog, { ConfirmDialog } from './ModalDialog';
 import SettingsAboutSection from './SettingsAboutSection';
 import { decryptBackupPayload, encryptBackupPayload, isEncryptedBackupPayload } from '../utils/backupEncryption';
+import { useToastQueue } from '../hooks/useToastQueue';
+import { PremiumCheckbox } from './PremiumCheckbox';
 
 const MODAL_CLOSE_BUTTON_CLASS = 'rounded-xl p-2 text-[var(--hi-text-soft)] transition hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]';
 
@@ -62,10 +64,8 @@ interface HouseholdPendingRequest {
     created_at: string;
 }
 
-interface ToastConfig {
-    title: string;
-    description: string;
-    tone?: 'success' | 'danger' | 'warning' | 'info';
+interface ToastOptions {
+    title?: string;
     duration?: number;
 }
 
@@ -87,8 +87,6 @@ export default function Settings() {
         confirmPassword: ''
     });
     const [houseKey, setHouseKey] = useState<string>('');
-    const [message, setMessage] = useState<string>('');
-    const [error, setError] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
     const [houseActionLoading, setHouseActionLoading] = useState<boolean>(false);
 
@@ -127,7 +125,7 @@ export default function Settings() {
     const [pendingKickMember, setPendingKickMember] = useState<HouseMember | null>(null);
     const [showLogoutConfirm, setShowLogoutConfirm] = useState<boolean>(false);
     const [logoutSubmitting, setLogoutSubmitting] = useState<boolean>(false);
-    const [toast, setToast] = useState<ToastConfig | null>(null);
+    const { toasts, showToast, closeToast } = useToastQueue();
 
     // Join/Create House form states
     const [joinHouseKey, setJoinHouseKey] = useState<string>('');
@@ -192,9 +190,23 @@ export default function Settings() {
         }
     }, [activeHouseId]);
 
-    const showToast = ({ title, description, tone = 'success', duration }: ToastConfig) => {
-        setToast({ title, description, tone, duration });
-    };
+    const showSuccessToast = useCallback((description: string, options: ToastOptions = {}) => {
+        showToast({
+            title: options.title || t('common.success', { defaultValue: 'Updated' }),
+            description,
+            tone: 'success',
+            duration: options.duration
+        });
+    }, [showToast, t]);
+
+    const showErrorToast = useCallback((description: string, options: ToastOptions = {}) => {
+        showToast({
+            title: options.title || t('common.error', { defaultValue: 'Something went wrong' }),
+            description,
+            tone: 'danger',
+            duration: options.duration
+        });
+    }, [showToast, t]);
 
     const formatPreviewLine = (label: string, values: string[] = [], omitted = 0): string => {
         if (!values.length) {
@@ -267,11 +279,9 @@ export default function Settings() {
             // Dispatch event to update other components
             window.dispatchEvent(new Event('houseChanged'));
 
-            setMessage(t('settings.messages.house_switched', { name: res.data.house.name }));
-            setTimeout(() => setMessage(''), 3000);
+            showSuccessToast(t('settings.messages.house_switched', { name: res.data.house.name }));
         } catch (err) {
-            setError(t('settings.messages.house_switch_error'));
-            setTimeout(() => setError(''), 3000);
+            showErrorToast(t('settings.messages.house_switch_error'));
         } finally {
             setHouseActionLoading(false);
         }
@@ -293,8 +303,7 @@ export default function Settings() {
             setShowJoinHouseModal(false);
             setJoinHouseKey('');
             setNewHouseName('');
-            setMessage(t('settings.messages.house_request_sent_success'));
-            setTimeout(() => setMessage(''), 3000);
+            showSuccessToast(t('settings.messages.house_request_sent_success'));
         } catch (err: any) {
             setHouseError(err.response?.data?.error || t('settings.messages.house_join_error'));
         } finally {
@@ -320,8 +329,7 @@ export default function Settings() {
 
             setShowCreateHouseModal(false);
             setNewHouseName('');
-            setMessage(t('settings.messages.house_created_success', { name: res.data.house.name }));
-            setTimeout(() => setMessage(''), 3000);
+            showSuccessToast(t('settings.messages.house_created_success', { name: res.data.house.name }));
         } catch (err: any) {
             setHouseError(err.response?.data?.error || t('settings.messages.house_create_error'));
         } finally {
@@ -354,8 +362,7 @@ export default function Settings() {
                 })
             });
         } catch (err: any) {
-            setError(err.response?.data?.error || t('settings.messages.house_left_error'));
-            setTimeout(() => setError(''), 3000);
+            showErrorToast(err.response?.data?.error || t('settings.messages.house_left_error'));
         } finally {
             setHouseActionLoading(false);
         }
@@ -367,11 +374,9 @@ export default function Settings() {
             await axios.post(`/api/houses/requests/${requestId}/approve`);
             await fetchMembers();
             await fetchHouses();
-            setMessage(t('settings.messages.request_approved'));
-            setTimeout(() => setMessage(''), 3000);
+            showSuccessToast(t('settings.messages.request_approved'));
         } catch (err: any) {
-            setError(err.response?.data?.error || t('settings.messages.request_action_error'));
-            setTimeout(() => setError(''), 3000);
+            showErrorToast(err.response?.data?.error || t('settings.messages.request_action_error'));
         } finally {
             setMemberActionLoading('');
         }
@@ -383,11 +388,9 @@ export default function Settings() {
             await axios.post(`/api/houses/requests/${requestId}/reject`);
             await fetchMembers();
             await fetchHouses();
-            setMessage(t('settings.messages.request_rejected'));
-            setTimeout(() => setMessage(''), 3000);
+            showSuccessToast(t('settings.messages.request_rejected'));
         } catch (err: any) {
-            setError(err.response?.data?.error || t('settings.messages.request_action_error'));
-            setTimeout(() => setError(''), 3000);
+            showErrorToast(err.response?.data?.error || t('settings.messages.request_action_error'));
         } finally {
             setMemberActionLoading('');
         }
@@ -410,8 +413,7 @@ export default function Settings() {
                 })
             });
         } catch (err: any) {
-            setError(err.response?.data?.error || t('settings.messages.member_kick_error'));
-            setTimeout(() => setError(''), 3000);
+            showErrorToast(err.response?.data?.error || t('settings.messages.member_kick_error'));
         } finally {
             setMemberActionLoading('');
         }
@@ -447,7 +449,7 @@ export default function Settings() {
             });
         } catch (copyError) {
             console.error('House key copy failed:', copyError);
-            setError(t('settings.house_info.copy_error', { defaultValue: 'The house key could not be copied.' }));
+            showErrorToast(t('settings.house_info.copy_error', { defaultValue: 'The house key could not be copied.' }));
         }
     };
 
@@ -510,7 +512,7 @@ export default function Settings() {
             window.URL.revokeObjectURL(url);
 
             closeBackupModal();
-            setMessage(t(
+            showSuccessToast(t(
                 backupEncryptEnabled ? 'settings.messages.backup_downloaded_encrypted' : 'settings.messages.backup_downloaded',
                 {
                     count: data.items.length,
@@ -519,9 +521,8 @@ export default function Settings() {
                         : `Backup downloaded successfully! (${data.items.length} items)`
                 }
             ));
-            setTimeout(() => setMessage(''), 3000);
         } catch (err) {
-            setError(t('settings.messages.export_error'));
+            showErrorToast(t('settings.messages.export_error'));
         } finally {
             setDownloading(false);
         }
@@ -566,15 +567,6 @@ export default function Settings() {
             skipped.borrows ? t('settings.data_management.skipped_borrows', { count: skipped.borrows, defaultValue: '{{count}} existing borrow records skipped.' }) : ''
         ].filter(Boolean);
 
-        setMessage(t('settings.messages.import_success', {
-            items: imported.items || 0,
-            categories: imported.categories || 0,
-            rooms: imported.rooms || 0,
-            locations: imported.locations || 0,
-            borrows: imported.borrows || 0
-        }));
-        setTimeout(() => setMessage(''), 5000);
-
         showToast({
             title: t('settings.data_management.import_summary_title', {
                 defaultValue: 'Backup restored'
@@ -616,7 +608,7 @@ export default function Settings() {
                 }
             } catch (err: any) {
                 console.error('Import error:', err);
-                setError(err.response?.data?.error || t('settings.messages.import_error', { error: err.message }));
+                showErrorToast(err.response?.data?.error || t('settings.messages.import_error', { error: err.message }));
             } finally {
                 setUploading(false);
                 if (fileInputRef.current) fileInputRef.current.value = '';
@@ -650,18 +642,16 @@ export default function Settings() {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         setLoading(true);
-        setError('');
-        setMessage('');
 
         if (formData.newPassword !== formData.confirmPassword) {
-            setError(t('settings.messages.passwords_mismatch'));
+            showErrorToast(t('settings.messages.passwords_mismatch'));
             setLoading(false);
             return;
         }
 
         const passwordValidation = validatePasswordStrengthClient(formData.newPassword, t);
         if (!passwordValidation.valid) {
-            setError(passwordValidation.error);
+            showErrorToast(passwordValidation.error);
             setLoading(false);
             return;
         }
@@ -672,14 +662,14 @@ export default function Settings() {
                 newPassword: formData.newPassword,
                 confirmPassword: formData.confirmPassword
             });
-            setMessage(t('settings.messages.password_changed'));
+            showSuccessToast(t('settings.messages.password_changed'));
             setFormData({ currentPassword: '', newPassword: '', confirmPassword: '' });
             setShowPasswordModal(false);
         } catch (err: any) {
             if (err.response) {
-                setError(err.response.data.error || t('settings.messages.server_error'));
+                showErrorToast(err.response.data.error || t('settings.messages.server_error'));
             } else {
-                setError(t('settings.messages.connection_error'));
+                showErrorToast(t('settings.messages.connection_error'));
             }
         } finally {
             setLoading(false);
@@ -799,8 +789,7 @@ export default function Settings() {
             setDisplayRecoveryKey(response.data.recoveryKey);
             await refreshUser();
             await fetchUserData();
-            setMessage(t('settings.messages.recovery_key_regenerated'));
-            setTimeout(() => setMessage(''), 3000);
+            showSuccessToast(t('settings.messages.recovery_key_regenerated'));
         } catch (requestError: any) {
             setHouseError(requestError.response?.data?.error || t('settings.messages.recovery_key_error'));
         } finally {
@@ -815,25 +804,7 @@ export default function Settings() {
                 description={t('settings.subtitle')}
             />
 
-            {message && (
-                <NoticeBanner
-                    icon={CheckCircle}
-                    tone="success"
-                    title={t('common.success', { defaultValue: 'Updated' })}
-                    description={message}
-                    className="mb-6"
-                />
-            )}
 
-            {error && (
-                <NoticeBanner
-                    icon={AlertCircle}
-                    tone="danger"
-                    title={t('common.error', { defaultValue: 'Something went wrong' })}
-                    description={error}
-                    className="mb-6"
-                />
-            )}
 
             <section id="settings-account" className="app-settings-section scroll-mt-24 space-y-5">
                 <SectionHeader
@@ -1054,13 +1025,13 @@ export default function Settings() {
                     >
                         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
                             {/* Key Card */}
-                            <div className="app-control-section">
+                            <div className="app-control-section-nested">
                                 <h2 className="mb-3 flex items-center gap-2 text-lg font-semibold text-[var(--hi-text)]">
                                     <Key className="h-5 w-5 text-[var(--hi-secondary)]" />
                                     {t('settings.house_info.title')}
                                 </h2>
 
-                                <div className="rounded-[1.25rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4">
+                                <div className="rounded-[1.25rem] border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-4">
                                     <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                                         <span className="text-sm font-medium text-[var(--hi-text-soft)]">{t('settings.house_info.key_label')}</span>
                                         <div className="flex flex-wrap gap-2">
@@ -1097,7 +1068,7 @@ export default function Settings() {
                             </div>
 
                             {/* Members Card */}
-                            <div className="app-control-section">
+                            <div className="app-control-section-nested">
                                 <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold text-[var(--hi-text)]">
                                     <Users className="h-5 w-5 text-[var(--hi-accent)]" />
                                     {t('settings.house_info.members_title', { count: members.length })}
@@ -1125,7 +1096,7 @@ export default function Settings() {
                                             )}
 
                                             {!loadingMembers && members.map((member) => (
-                                                <div key={member.id} className="flex items-center gap-3 rounded-[1rem] p-3 transition hover:bg-[var(--hi-panel-muted)]">
+                                                <div key={member.id} className="flex items-center gap-3 rounded-[1rem] p-3 transition hover:bg-[var(--hi-panel-strong)]">
                                                     <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--hi-accent),var(--hi-secondary))] text-xs font-bold text-white shadow-[var(--hi-shadow-soft)]">
                                                         {member.username?.[0]?.toUpperCase() || '?'}
                                                     </div>
@@ -1234,13 +1205,13 @@ export default function Settings() {
                     className="mb-5"
                 >
                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                        <div className="app-control-section flex h-full flex-col">
+                        <div className="app-control-section-nested flex h-full flex-col">
                             <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold text-[var(--hi-text)]">
                                 {theme === 'dark' ? <Moon className="h-5 w-5 text-[var(--hi-accent)]" /> : <Sun className="h-5 w-5 text-[var(--hi-secondary)]" />}
                                 {t('settings.theme.title')}
                             </h2>
                             <div className="mt-2 flex flex-1 flex-col justify-between gap-4">
-                                <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4">
+                                <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-4">
                                     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                                         <p className="font-medium text-[var(--hi-text)]">{t('settings.theme.title')}</p>
                                         <SegmentedToggle
@@ -1270,7 +1241,7 @@ export default function Settings() {
                                     </div>
                                 </div>
 
-                                <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4">
+                                <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-4">
                                     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                                         <div className="min-w-0">
                                             <p className="font-medium text-[var(--hi-text)]">
@@ -1289,7 +1260,7 @@ export default function Settings() {
                             </div>
                         </div>
 
-                        <div className="app-control-section flex h-full flex-col">
+                        <div className="app-control-section-nested flex h-full flex-col">
                             <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold text-[var(--hi-text)]">
                                 <Shield className="h-5 w-5 text-[var(--hi-accent)]" />
                                 {t('settings.security.title')}
@@ -1404,11 +1375,9 @@ export default function Settings() {
                                                     const res = await axios.post('/api/auth/2fa/backup-codes', { password: regeneratePassword });
                                                     setBackupCodesResult(res.data.backupCodes);
                                                     setRegeneratePassword('');
-                                                    setMessage(t('settings.two_factor.codes_regenerated'));
-                                                    setTimeout(() => setMessage(''), 3000);
+                                                    showSuccessToast(t('settings.two_factor.codes_regenerated'));
                                                 } catch (err: any) {
-                                                    setError(err.response?.data?.error || t('settings.two_factor.codes_error'));
-                                                    setTimeout(() => setError(''), 3000);
+                                                    showErrorToast(err.response?.data?.error || t('settings.two_factor.codes_error'));
                                                 } finally {
                                                     setRegenerateLoading(false);
                                                 }
@@ -1442,11 +1411,9 @@ export default function Settings() {
                                     setRevokeLoading(true);
                                     try {
                                         const res = await axios.delete('/api/auth/2fa/trusted-devices');
-                                        setMessage(t('settings.two_factor.devices_revoked', { count: res.data.devicesRevoked || 0 }));
-                                        setTimeout(() => setMessage(''), 3000);
+                                        showSuccessToast(t('settings.two_factor.devices_revoked', { count: res.data.devicesRevoked || 0 }));
                                     } catch (err: any) {
-                                        setError(err.response?.data?.error || t('settings.two_factor.devices_error'));
-                                        setTimeout(() => setError(''), 3000);
+                                        showErrorToast(err.response?.data?.error || t('settings.two_factor.devices_error'));
                                     } finally {
                                         setRevokeLoading(false);
                                     }
@@ -1471,44 +1438,56 @@ export default function Settings() {
                 />
 
                 {/* Data Management Section */}
-                {canManageBackups && (
-                    <AccordionSection
-                        title={t('settings.data_management.title')}
-                        description={t('settings.data_management.accordion_description', { defaultValue: 'Download encrypted backups, restore trusted files, and keep sensitive exports separate from everyday settings.' })}
-                        eyebrow={t('settings.control_sections.data', { defaultValue: 'Data' })}
-                        icon={Database}
-                        className="mb-5"
-                    >
-                        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                            <button onClick={openBackupModal} disabled={downloading} className="flex items-center gap-3 rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-left transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)]">
-                                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
-                                    {downloading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Download className="w-5 h-5" />}
-                                </div>
-                                <div className="min-w-0">
-                                    <p className="font-medium text-[var(--hi-text)]">{t('settings.data_management.download_backup')}</p>
-                                    <p className="text-xs text-[var(--hi-text-soft)]">{t('settings.data_management.export_json')}</p>
-                                </div>
-                            </button>
+                <AccordionSection
+                    title={t('settings.data_management.title')}
+                    description={t('settings.data_management.accordion_description', { defaultValue: 'Download encrypted backups, restore trusted files, and keep sensitive exports separate from everyday settings.' })}
+                    eyebrow={t('settings.control_sections.data', { defaultValue: 'Data' })}
+                    icon={Database}
+                    className="mb-5"
+                >
+                    {canManageBackups ? (
+                        <>
+                            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                                <button onClick={openBackupModal} disabled={downloading} className="flex items-center gap-3 rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-left transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)]">
+                                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
+                                        {downloading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Download className="w-5 h-5" />}
+                                    </div>
+                                    <div className="min-w-0">
+                                        <p className="font-medium text-[var(--hi-text)]">{t('settings.data_management.download_backup')}</p>
+                                        <p className="text-xs text-[var(--hi-text-soft)]">{t('settings.data_management.export_json')}</p>
+                                    </div>
+                                </button>
 
-                            <button onClick={() => fileInputRef.current?.click()} disabled={uploading} className="flex items-center gap-3 rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-left transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)]">
-                                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--hi-secondary-soft)] text-[var(--hi-secondary-strong)]">
-                                    {uploading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Upload className="w-5 h-5" />}
-                                </div>
-                                <div className="min-w-0">
-                                    <p className="font-medium text-[var(--hi-text)]">{t('settings.data_management.upload_backup')}</p>
-                                    <p className="text-xs text-[var(--hi-text-soft)]">{t('settings.data_management.import_json')}</p>
-                                </div>
-                            </button>
+                                <button onClick={() => fileInputRef.current?.click()} disabled={uploading} className="flex items-center gap-3 rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-left transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)]">
+                                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--hi-secondary-soft)] text-[var(--hi-secondary-strong)]">
+                                        {uploading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Upload className="w-5 h-5" />}
+                                    </div>
+                                    <div className="min-w-0">
+                                        <p className="font-medium text-[var(--hi-text)]">{t('settings.data_management.upload_backup')}</p>
+                                        <p className="text-xs text-[var(--hi-text-soft)]">{t('settings.data_management.import_json')}</p>
+                                    </div>
+                                </button>
+                            </div>
+                            <input type="file" ref={fileInputRef} onChange={handleRestoreBackup} accept=".json" className="hidden" />
+
+                            <p className="mt-3 text-xs leading-5 text-[var(--hi-text-soft)]">
+                                {t('settings.data_management.export_sensitive_notice', {
+                                    defaultValue: 'Backups are exported from live household data first. Keep encryption enabled so the downloaded file stays protected with your passphrase.'
+                                })}
+                            </p>
+                        </>
+                    ) : (
+                        <div className="rounded-[1rem] border border-[rgba(184,153,104,0.22)] bg-[var(--hi-secondary-soft)] p-4 text-sm text-[var(--hi-secondary-strong)] flex items-start gap-3">
+                            <Database className="w-5 h-5 shrink-0 mt-0.5" />
+                            <div>
+                                <p className="font-medium">{t('settings.data_management.owner_only_title', { defaultValue: 'Yedekleme ve Geri Yükleme Kısıtlı' })}</p>
+                                <p className="mt-1 text-xs leading-5 text-[var(--hi-text-soft)]">
+                                    {t('settings.data_management.owner_only_desc', { defaultValue: 'Veri yedekleme ve geri yükleme yalnızca ev sahibi tarafından yönetilebilir.' })}
+                                </p>
+                            </div>
                         </div>
-                        <input type="file" ref={fileInputRef} onChange={handleRestoreBackup} accept=".json" className="hidden" />
-
-                        <p className="mt-3 text-xs leading-5 text-[var(--hi-text-soft)]">
-                            {t('settings.data_management.export_sensitive_notice', {
-                                defaultValue: 'Backups are exported from live household data first. Keep encryption enabled so the downloaded file stays protected with your passphrase.'
-                            })}
-                        </p>
-                    </AccordionSection>
-                )}
+                    )}
+                </AccordionSection>
 
                 <AccordionSection
                     title={t('settings.danger_zone.title')}
@@ -1539,14 +1518,7 @@ export default function Settings() {
                     </div>
                 </AccordionSection>
 
-                <FloatingToast
-                    open={Boolean(toast)}
-                    title={toast?.title}
-                    description={toast?.description}
-                    tone={toast?.tone}
-                    duration={toast?.duration}
-                    onClose={() => setToast(null)}
-                />
+                <FloatingToastStack toasts={toasts} onClose={closeToast} />
 
                 <ConfirmDialog
                     isOpen={Boolean(pendingLeaveHouse)}
@@ -1626,12 +1598,10 @@ export default function Settings() {
                         <div className="rounded-[1rem] border border-[rgba(184,153,104,0.22)] bg-[var(--hi-secondary-soft)] px-4 py-3 text-sm leading-6 text-[var(--hi-text-soft)]">
                             {t('settings.house_info.share_warning_body', { defaultValue: 'Anyone with this key can request access to the household inventory. Only share it with trusted members and use a private channel.' })}
                         </div>
-                        <label className="flex items-start gap-3 rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-sm text-[var(--hi-text)] cursor-pointer">
-                            <input
-                                type="checkbox"
+                        <label className="app-premium-checkbox-container flex items-start gap-3 rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-sm text-[var(--hi-text)] cursor-pointer hover:border-[var(--hi-border-strong)] transition-all">
+                            <PremiumCheckbox
                                 checked={houseKeyRevealAcknowledged}
                                 onChange={(event) => setHouseKeyRevealAcknowledged(event.target.checked)}
-                                className="mt-1 h-4 w-4 rounded border-[var(--hi-border-strong)] text-[var(--hi-accent)] focus:ring-[var(--hi-accent)]"
                             />
                             <span>
                                 {t('settings.house_info.reveal_confirm_acknowledge', { defaultValue: 'I understand that anyone with this key can request access to this household.' })}
@@ -1655,12 +1625,10 @@ export default function Settings() {
                         <div className="rounded-[1rem] border border-[rgba(184,153,104,0.22)] bg-[var(--hi-secondary-soft)] px-4 py-3 text-sm leading-6 text-[var(--hi-text-soft)]">
                             {t('settings.house_info.copy_confirm_tip', { defaultValue: 'Do not paste this into group chats, screenshots, or any channel you would not trust with your front-door code.' })}
                         </div>
-                        <label className="flex items-start gap-3 rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-sm text-[var(--hi-text)] cursor-pointer">
-                            <input
-                                type="checkbox"
+                        <label className="app-premium-checkbox-container flex items-start gap-3 rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-sm text-[var(--hi-text)] cursor-pointer hover:border-[var(--hi-border-strong)] transition-all">
+                            <PremiumCheckbox
                                 checked={houseKeyCopyAcknowledged}
                                 onChange={(event) => setHouseKeyCopyAcknowledged(event.target.checked)}
-                                className="mt-1 h-4 w-4 rounded border-[var(--hi-border-strong)] text-[var(--hi-accent)] focus:ring-[var(--hi-accent)]"
                             />
                             <span>
                                 {t('settings.house_info.copy_confirm_acknowledge', { defaultValue: 'I understand this key should be pasted only into a trusted private channel or password manager.' })}
@@ -1702,12 +1670,10 @@ export default function Settings() {
                             </p>
                         </div>
 
-                        <label className="flex items-start gap-3 rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 cursor-pointer">
-                            <input
-                                type="checkbox"
+                        <label className="app-premium-checkbox-container flex items-start gap-3 rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 cursor-pointer hover:border-[var(--hi-border-strong)] transition-all">
+                            <PremiumCheckbox
                                 checked={backupEncryptEnabled}
                                 onChange={(event) => setBackupEncryptEnabled(event.target.checked)}
-                                className="mt-1 h-4 w-4 rounded border-[var(--hi-border-strong)] text-[var(--hi-accent)] focus:ring-[var(--hi-accent)]"
                             />
                             <div>
                                 <p className="font-medium text-[var(--hi-text)]">
@@ -2009,9 +1975,10 @@ export default function Settings() {
                                     <p className="mt-1 text-xs text-[var(--hi-text-soft)]">{t('settings.modals.create_house.name_help')}</p>
                                 </div>
 
-                                <div className="rounded-xl border border-[rgba(184,153,104,0.2)] bg-[var(--hi-secondary-soft)] p-3">
-                                    <p className="text-sm text-[var(--hi-secondary-strong)]">
-                                        {t('settings.modals.create_house.info')}
+                                <div className="rounded-xl border border-[rgba(184,153,104,0.2)] bg-[var(--hi-secondary-soft)] p-3 flex items-start gap-2.5">
+                                    <Info className="h-4.5 w-4.5 shrink-0 text-[var(--hi-secondary-strong)] mt-0.5" />
+                                    <p className="text-sm text-[var(--hi-secondary-strong)] leading-5">
+                                        {t('settings.modals.create_house.info').replace(/^[ℹ️ℹ\s\uFE0F\u2139]+/g, '')}
                                     </p>
                                 </div>
 
@@ -2216,8 +2183,7 @@ export default function Settings() {
                                     await axios.post('/api/auth/2fa/disable', payload);
                                     setShow2FADisableModal(false);
                                     fetchUserData();
-                                    setMessage(t('settings.two_factor.disabled_success'));
-                                    setTimeout(() => setMessage(''), 3000);
+                                    showSuccessToast(t('settings.two_factor.disabled_success'));
                                 } catch (err: any) {
                                     setDisableError(err.response?.data?.error || t('settings.two_factor.disable_error'));
                                 } finally {

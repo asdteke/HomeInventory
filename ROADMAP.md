@@ -1,8 +1,8 @@
 # Roadmap
 
-HomeInventory was recently redesigned for v2.0.0 and is moving into the v2.1.0 line with TypeScript, shopping-list, smart-maintenance, and optional desktop-launcher work. This roadmap stays short and practical so the new surfaces can settle before larger feature promises.
+HomeInventory was recently redesigned for v2.0.0 and is moving through the v2.1.1 line with TypeScript, shopping-list, smart-maintenance, optional desktop-launcher work, and release polish. This roadmap stays short and practical so the new surfaces can settle before larger feature promises.
 
-The v2.1.0 release track focuses on release polish, packaging, and reliability.
+The v2.1.1 release track focuses on release polish, packaging, and reliability.
 
 ## Near-Term Focus
 

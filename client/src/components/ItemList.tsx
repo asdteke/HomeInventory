@@ -3,7 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
-import { Search, Grid3X3, List, Plus, Trash2, Eye, Lock, Globe, MapPin, Package, Clock3, ArrowRightLeft } from 'lucide-react';
+import { Search, Grid3X3, List, Plus, Trash2, Eye, Lock, Globe, MapPin, Package, Clock3, ArrowRightLeft, AlertTriangle, TrendingDown, DoorOpen } from 'lucide-react';
 import SecureImage from './SecureImage';
 import { BorrowItemDialog, ReturnItemDialog } from './BorrowDialogs';
 import { ConfirmDialog } from './ModalDialog';
@@ -21,17 +21,41 @@ import SegmentedToggle from './SegmentedToggle';
 import { getRoomPresentation } from '../utils/roomDisplay';
 import { getCategoryPresentation } from '../utils/categoryDisplay';
 
+import { fetchWithCache, getCachedData, hasCache } from '../utils/apiCache';
+
 export default function ItemList() {
     const { t, i18n } = useTranslation();
     const { user } = useAuth();
     const [searchParams, setSearchParams] = useSearchParams();
     const isActiveRef = useRef(false);
     const didHydrateRef = useRef(false);
-    const [items, setItems] = useState<any[]>([]);
-    const [categories, setCategories] = useState<any[]>([]);
-    const [rooms, setRooms] = useState<any[]>([]);
-    const [houseMembers, setHouseMembers] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
+
+    // Determine initial query URL dynamically
+    const getInitialQueryUrl = () => {
+        const params = new URLSearchParams();
+        const search = searchParams.get('search') || '';
+        const cat = searchParams.get('category_id') || '';
+        const room = searchParams.get('room_id') || '';
+        if (search) params.append('search', search);
+        if (cat) params.append('category_id', cat);
+        if (room) params.append('room_id', room);
+        const queryStr = params.toString();
+        return queryStr ? `/api/items?${queryStr}` : '/api/items';
+    };
+
+    const initialQueryUrl = getInitialQueryUrl();
+
+    // Initialize states from SWR cache
+    const [items, setItems] = useState<any[]>(() => getCachedData(initialQueryUrl)?.items || []);
+    const [categories, setCategories] = useState<any[]>(() => getCachedData('/api/categories')?.categories || []);
+    const [rooms, setRooms] = useState<any[]>(() => getCachedData('/api/rooms')?.rooms || []);
+    const [houseMembers, setHouseMembers] = useState<any[]>(() => getCachedData('/api/auth/house-members')?.members || []);
+
+    const isInitiallyLoaded = hasCache(initialQueryUrl) &&
+                               hasCache('/api/categories') &&
+                               hasCache('/api/rooms') &&
+                               hasCache('/api/auth/house-members');
+    const [loading, setLoading] = useState(!isInitiallyLoaded);
     const [filtersLoading, setFiltersLoading] = useState(false);
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
     const [filters, setFilters] = useState({
@@ -44,10 +68,10 @@ export default function ItemList() {
     const [returnDialogItem, setReturnDialogItem] = useState<any | null>(null);
     const [returnSubmitting, setReturnSubmitting] = useState(false);
     const [pendingDeleteItem, setPendingDeleteItem] = useState<any | null>(null);
-    const [deleteSubmitting, setDeleteSubmitting] = useState(false);
+    const [deletingIds, setDeletingIds] = useState<Set<number>>(new Set());
     const [toast, setToast] = useState<{ title: string; description: string; tone?: any } | null>(null);
     const hasActiveFilters = Boolean(filters.search || filters.category_id || filters.room_id);
-    const secondaryActionButtonClass = 'flex-1 lg:flex-none inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel)] px-4 py-2 text-sm font-medium text-[var(--hi-text)] transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]';
+    const secondaryActionButtonClass = 'flex-1 lg:flex-none inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel)] px-4 py-2 text-sm font-medium text-[var(--hi-text)] transition-all duration-200 hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]';
     const currentLanguage = i18n.resolvedLanguage || i18n.language;
 
     const getVisibleRoomName = (roomLike: any) => {
@@ -87,41 +111,41 @@ export default function ItemList() {
 
         const fetchData = async () => {
             try {
-                setLoading(true);
                 const initialQuery = buildQueryString({
                     search: searchParams.get('search') || '',
                     category_id: searchParams.get('category_id') || '',
                     room_id: searchParams.get('room_id') || ''
                 });
+                const queryUrl = initialQuery ? `/api/items?${initialQuery}` : '/api/items';
 
-                const [itemsRes, catRes, roomRes, membersRes] = await Promise.all([
-                    axios.get(initialQuery ? `/api/items?${initialQuery}` : '/api/items'),
-                    axios.get('/api/categories'),
-                    axios.get('/api/rooms'),
-                    axios.get('/api/auth/house-members').catch(() => ({ data: { members: [] } }))
+                await Promise.all([
+                    fetchWithCache(queryUrl, (data) => {
+                        if (isActiveRef.current) setItems(data.items || []);
+                    }),
+                    fetchWithCache('/api/categories', (data) => {
+                        if (isActiveRef.current) setCategories(data.categories || []);
+                    }),
+                    fetchWithCache('/api/rooms', (data) => {
+                        if (isActiveRef.current) setRooms(data.rooms || []);
+                    }),
+                    fetchWithCache('/api/auth/house-members', (data) => {
+                        if (isActiveRef.current) setHouseMembers(data.members || []);
+                    }).catch(() => {
+                        if (isActiveRef.current) setHouseMembers([]);
+                    })
                 ]);
 
-                if (!isActiveRef.current) {
-                    return;
+                if (isActiveRef.current) {
+                    setFilters({
+                        search: searchParams.get('search') || '',
+                        category_id: searchParams.get('category_id') || '',
+                        room_id: searchParams.get('room_id') || ''
+                    });
+                    didHydrateRef.current = true;
                 }
-
-                setItems(itemsRes.data.items || []);
-                setCategories(catRes.data.categories || []);
-                setRooms(roomRes.data.rooms || []);
-                setHouseMembers(membersRes.data.members || []);
-                setFilters({
-                    search: searchParams.get('search') || '',
-                    category_id: searchParams.get('category_id') || '',
-                    room_id: searchParams.get('room_id') || ''
-                });
-                didHydrateRef.current = true;
             } catch (error) {
                 if (isActiveRef.current) {
                     console.error(error);
-                    setItems([]);
-                    setCategories([]);
-                    setRooms([]);
-                    setHouseMembers([]);
                 }
             } finally {
                 if (isActiveRef.current) {
@@ -184,13 +208,13 @@ export default function ItemList() {
         setFiltersLoading(true);
         try {
             const query = buildQueryString(activeFilters);
-            const res = await axios.get(query ? `/api/items?${query}` : '/api/items');
+            const queryUrl = query ? `/api/items?${query}` : '/api/items';
 
-            if (!isActiveRef.current) {
-                return;
-            }
-
-            setItems(res.data.items || []);
+            await fetchWithCache(queryUrl, (data) => {
+                if (isActiveRef.current) {
+                    setItems(data.items || []);
+                }
+            });
         } catch (error) {
             if (isActiveRef.current) {
                 console.error(error);
@@ -208,22 +232,74 @@ export default function ItemList() {
             return;
         }
 
-        setDeleteSubmitting(true);
-        try {
-            await axios.delete(
-                `/api/items/${pendingDeleteItem.id}`,
-                createRequestConfig({ timeout: ACTION_REQUEST_TIMEOUT_MS })
-            );
-            setItems((currentItems) => currentItems.filter((item) => item.id !== pendingDeleteItem.id));
-            setToast({
-                title: t('inventory.delete_success_title', { defaultValue: 'Item deleted' }),
-                description: t('inventory.delete_success_body', { defaultValue: 'The item was removed from the active household inventory.' })
+        const itemToDelete = pendingDeleteItem;
+        const itemIdToDelete = itemToDelete.id;
+
+        // Immediately close the confirmation modal
+        setPendingDeleteItem(null);
+
+        // 1. Mark item as deleting to trigger exit animation in CSS (.inventory-item-card.is-deleting)
+        if (isActiveRef.current) {
+            setDeletingIds((prev) => {
+                const next = new Set(prev);
+                next.add(itemIdToDelete);
+                return next;
             });
-            setPendingDeleteItem(null);
+        }
+
+        // 2. Determine exit delay based on reduced motion setting with safe window environment detection
+        const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+        const exitDelay = prefersReducedMotion ? 0 : 400;
+
+        // 3. Start API request immediately in background
+        const apiPromise = axios.delete(
+            `/api/items/${itemIdToDelete}`,
+            createRequestConfig({ timeout: ACTION_REQUEST_TIMEOUT_MS })
+        );
+
+        // Wait for the exit animation duration to complete before removing from local list
+        await new Promise((resolve) => setTimeout(resolve, exitDelay));
+
+        if (isActiveRef.current) {
+            // Optimistically remove the item from the local items list so user doesn't see a blank gap
+            setItems((currentItems) => currentItems.filter((item) => item.id !== itemIdToDelete));
+        }
+
+        try {
+            await apiPromise;
+
+            if (isActiveRef.current) {
+                setDeletingIds((prev) => {
+                    const next = new Set(prev);
+                    next.delete(itemIdToDelete);
+                    return next;
+                });
+                setToast({
+                    title: t('inventory.delete_success_title', { defaultValue: 'Item deleted' }),
+                    description: t('inventory.delete_success_body', { defaultValue: 'The item was removed from the active household inventory.' }),
+                    tone: 'success'
+                });
+            }
         } catch (error) {
-            alert(getRequestErrorMessage(error, t('inventory.delete_error')));
-        } finally {
-            setDeleteSubmitting(false);
+            console.error('Delete item failed:', error);
+
+            if (isActiveRef.current) {
+                // Remove deleting status so it is no longer marked in is-deleting
+                setDeletingIds((prev) => {
+                    const next = new Set(prev);
+                    next.delete(itemIdToDelete);
+                    return next;
+                });
+                // Re-fetch items from the server. This perfectly and safely restores the item (if deletion failed)
+                // in the correct order and respects all active search query or category filters.
+                await fetchItems();
+
+                setToast({
+                    title: t('inventory.delete_error_title', { defaultValue: 'Delete failed' }),
+                    description: getRequestErrorMessage(error, t('inventory.delete_error')),
+                    tone: 'danger'
+                });
+            }
         }
     };
 
@@ -272,8 +348,14 @@ export default function ItemList() {
             });
             setLendDialogItem(null);
         } catch (error: any) {
-            const message = getRequestErrorMessage(error, t('inventory.borrow.actions_error'));
-            alert(message);
+            if (isActiveRef.current) {
+                const message = getRequestErrorMessage(error, t('inventory.borrow.actions_error'));
+                setToast({
+                    title: t('common.error', { defaultValue: 'Error' }),
+                    description: message,
+                    tone: 'danger'
+                });
+            }
             throw error;
         } finally {
             if (isActiveRef.current) {
@@ -303,13 +385,23 @@ export default function ItemList() {
                 )));
             }
             await fetchItems();
-            setReturnDialogItem(null);
+            if (isActiveRef.current) {
+                setReturnDialogItem(null);
+            }
         } catch (error: any) {
-            const message = getRequestErrorMessage(error, t('inventory.borrow.actions_error'));
-            alert(message);
+            if (isActiveRef.current) {
+                const message = getRequestErrorMessage(error, t('inventory.borrow.actions_error'));
+                setToast({
+                    title: t('common.error', { defaultValue: 'Error' }),
+                    description: message,
+                    tone: 'danger'
+                });
+            }
             throw error;
         } finally {
-            setReturnSubmitting(false);
+            if (isActiveRef.current) {
+                setReturnSubmitting(false);
+            }
         }
     };
 
@@ -457,11 +549,20 @@ export default function ItemList() {
                                 ? getVisibleRoomName({ id: item.room_id, name: item.room_name })
                                 : '';
 
+                            const isDeleting = deletingIds.has(item.id);
+
                             return (
-                                <div key={item.id} className={`
-                card flex h-full flex-col p-0 overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--hi-shadow)]
-                ${viewMode === 'list' ? 'lg:flex lg:items-center' : ''}
-              `}>
+                                <div
+                                    key={item.id}
+                                    style={{
+                                        borderLeft: `4px solid ${item.category_color || 'var(--hi-border)'}`
+                                    }}
+                                    className={`
+                                        inventory-item-card card flex h-full flex-col p-0 overflow-hidden group hover:scale-[1.002] hover:-translate-y-[1.5px] hover:shadow-[var(--hi-shadow-soft)]
+                                        ${isDeleting ? 'is-deleting' : ''}
+                                        ${viewMode === 'list' ? 'lg:flex lg:items-center' : ''}
+                                    `.trim()}
+                                >
                                     {/* Image */}
                                     <div className={`
                   overflow-hidden relative bg-[var(--hi-panel-muted)]
@@ -549,21 +650,34 @@ export default function ItemList() {
                                                         <span className="truncate max-w-[11rem]">{item.category_icon} {visibleCategoryName}</span>
                                                     </span>
                                                 )}
-                                                {visibleRoomName && <span className="badge max-w-full text-xs py-0.5"><span className="truncate">🚪 {visibleRoomName}</span></span>}
-                                                {item.location_name && <span className="badge max-w-full text-xs py-0.5"><MapPin className="w-3 h-3" /> <span className="truncate">{item.location_name}</span></span>}
+                                                {visibleRoomName && (
+                                                    <span className="badge max-w-full text-xs py-0.5 inline-flex items-center gap-1">
+                                                        <DoorOpen className="w-3 h-3 text-[var(--hi-text-muted)] shrink-0" />
+                                                        <span className="truncate">{visibleRoomName}</span>
+                                                    </span>
+                                                )}
+                                                {item.location_name && (
+                                                    <span className="badge max-w-full text-xs py-0.5 inline-flex items-center gap-1">
+                                                        <MapPin className="w-3 h-3 text-[var(--hi-text-muted)] shrink-0" />
+                                                        <span className="truncate">{item.location_name}</span>
+                                                    </span>
+                                                )}
                                                 {item.is_expired && (
                                                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold border border-red-200 bg-red-100/60 text-red-600 dark:border-red-500/20 dark:bg-red-500/10 dark:text-red-400">
-                                                        ⚠️ {t('items.status.expired', { defaultValue: 'Son Kullanma Geçti' })}
+                                                        <AlertTriangle className="w-3 h-3 text-red-600 dark:text-red-400 shrink-0" />
+                                                        <span>{t('items.status.expired', { defaultValue: 'Son Kullanma Geçti' })}</span>
                                                     </span>
                                                 )}
                                                 {!item.is_expired && item.is_close_to_expiry && (
                                                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold border border-amber-200 bg-amber-100/60 text-amber-600 dark:border-amber-500/20 dark:bg-amber-500/10 dark:text-amber-400">
-                                                        ⏳ {t('items.status.close_to_expiry', { defaultValue: 'Yakında Sona Erecek' })}
+                                                        <Clock3 className="w-3 h-3 text-amber-600 dark:text-amber-400 shrink-0" />
+                                                        <span>{t('items.status.close_to_expiry', { defaultValue: 'Yakında Sona Erecek' })}</span>
                                                     </span>
                                                 )}
                                                 {item.is_low_stock && (
                                                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold border border-orange-200 bg-orange-100/60 text-orange-600 dark:border-orange-500/20 dark:bg-orange-500/10 dark:text-orange-400">
-                                                        📉 {t('items.status.low_stock', { defaultValue: 'Azalan Stok' })}
+                                                        <TrendingDown className="w-3 h-3 text-orange-600 dark:text-orange-400 shrink-0" />
+                                                        <span>{t('items.status.low_stock', { defaultValue: 'Azalan Stok' })}</span>
                                                     </span>
                                                 )}
                                             </div>
@@ -576,7 +690,7 @@ export default function ItemList() {
                                                 <button
                                                     type="button"
                                                     onClick={() => setReturnDialogItem({ ...item, name: itemTitle })}
-                                                    className="inline-flex h-11 w-full items-center justify-center rounded-xl border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] px-3 text-sm font-medium text-[var(--hi-accent)] transition hover:bg-[var(--hi-panel-strong)]"
+                                                    className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-[var(--hi-accent-border)] bg-[var(--hi-accent-soft)] px-3 text-sm font-medium text-[var(--hi-accent)] transition-all duration-200 hover:bg-[var(--hi-accent)] hover:text-white hover:border-transparent active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)]"
                                                 >
                                                     {activeBorrow.role === 'borrower'
                                                         ? t('borrow_requests.actions.mark_delivered')
@@ -586,7 +700,7 @@ export default function ItemList() {
                                                 <button
                                                     type="button"
                                                     onClick={() => setLendDialogItem({ ...item, name: itemTitle })}
-                                                    className={`${secondaryActionButtonClass} h-11 w-full justify-center px-3`}
+                                                    className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel)] px-3 text-sm font-medium text-[var(--hi-text)] transition-all duration-200 hover:border-[var(--hi-accent)] hover:text-[var(--hi-accent)] hover:bg-[var(--hi-accent-soft)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)]"
                                                 >
                                                     <ArrowRightLeft className="w-4 h-4 text-[var(--hi-accent)]" />
                                                     <span>{t('inventory.borrow.lend')}</span>
@@ -595,7 +709,7 @@ export default function ItemList() {
                                                     <span aria-hidden="true" className="block h-11" />
                                                 )}
                                             </div>
-                                            <Link to={`/items/${item.id}`} className={`${secondaryActionButtonClass} h-11 w-full justify-center px-3`}>
+                                            <Link to={`/items/${item.id}/edit`} className={`${secondaryActionButtonClass} h-11 w-full justify-center px-3`}>
                                                 <Eye className="w-4 h-4 text-[var(--hi-text-muted)]" /> <span className={viewMode === 'list' ? 'lg:hidden xl:inline' : ''}>{t('common.details', { defaultValue: 'Details' })}</span>
                                             </Link>
                                             {canManageItem ? (
@@ -604,7 +718,7 @@ export default function ItemList() {
                                                     icon={Trash2}
                                                     tone="danger"
                                                     onClick={() => setPendingDeleteItem(item)}
-                                                    className="h-11 w-11 shrink-0 border border-transparent"
+                                                    className="h-11 w-11 shrink-0 border border-[var(--hi-border)] bg-[var(--hi-panel)] active:scale-[0.98] transition-all duration-200 hover:border-red-500/20"
                                                 />
                                             ) : (
                                                 <span aria-hidden="true" className="block h-11 w-11 shrink-0" />
@@ -640,12 +754,12 @@ export default function ItemList() {
                 title={t('inventory.delete_title', { defaultValue: 'Delete this item?' })}
                 description={t('inventory.delete_description', { defaultValue: 'This removes the item from the household inventory. Use this only when you are sure it should not stay in history.' })}
                 tone="danger"
-                confirmLabel={deleteSubmitting ? t('common.deleting', { defaultValue: 'Deleting...' }) : t('common.delete', { defaultValue: 'Delete' })}
+                confirmLabel={t('common.delete', { defaultValue: 'Delete' })}
                 cancelLabel={t('common.cancel')}
                 confirmButtonClassName="btn-danger"
-                onClose={() => !deleteSubmitting && setPendingDeleteItem(null)}
+                onClose={() => setPendingDeleteItem(null)}
                 onConfirm={handleDelete}
-                confirming={deleteSubmitting}
+                confirming={false}
             >
                 <div className="rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
                     <p className="font-medium text-[var(--hi-text)]">{pendingDeleteItem?.name}</p>

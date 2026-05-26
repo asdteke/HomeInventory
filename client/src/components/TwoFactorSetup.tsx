@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { X, Copy, Download, ShieldCheck, Loader2, CheckCircle, AlertCircle, ChevronRight, KeyRound } from 'lucide-react';
 import { copyTextToClipboard } from '../utils/clipboard';
 import { BRAND_NAME } from '../constants/branding';
+import { PremiumCheckbox } from './PremiumCheckbox';
 
 export interface TwoFactorSetupProps {
     onClose: () => void;
@@ -317,12 +318,10 @@ export default function TwoFactorSetup({ onClose, onEnabled }: TwoFactorSetupPro
                                 {t('settings.two_factor.download_codes')}
                             </button>
 
-                            <label className="flex cursor-pointer items-start gap-3 rounded-[22px] border border-[var(--hi-border)] bg-[var(--hi-panel)] px-4 py-4">
-                                <input
-                                    type="checkbox"
+                            <label className="app-premium-checkbox-container flex cursor-pointer items-start gap-3 rounded-[22px] border border-[var(--hi-border)] bg-[var(--hi-panel)] px-4 py-4 hover:border-[var(--hi-border-strong)] transition-all">
+                                <PremiumCheckbox
                                     checked={acknowledgedBackup}
                                     onChange={(e) => setAcknowledgedBackup(e.target.checked)}
-                                    className="mt-0.5 h-4 w-4 rounded border-slate-300 dark:border-slate-600 text-primary-600 focus:ring-primary-500"
                                 />
                                 <span className="text-sm leading-6 text-[var(--hi-text-soft)]">
                                     {t('settings.two_factor.backup_acknowledge')}

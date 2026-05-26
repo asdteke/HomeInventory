@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
+import compression from 'compression';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
@@ -46,6 +47,7 @@ import './database.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const clientDist = join(__dirname, 'client', 'dist');
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const SITE_URL = String(
     process.env.SITE_URL ||
@@ -181,6 +183,8 @@ if (!fs.existsSync(uploadsDir)) {
 }
 
 // Middleware
+app.use(compression());
+
 // SECURITY: Restricted CORS - only allow specific origins
 const localIP = getLocalIP();
 const allowedOrigins = [
@@ -209,6 +213,27 @@ app.use(cors({
     },
     credentials: true
 }));
+
+app.use('/assets', express.static(join(clientDist, 'assets'), {
+    immutable: true,
+    maxAge: '1y',
+    setHeaders: (res) => {
+        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    }
+}));
+app.use('/brand-local', express.static(join(clientDist, 'brand-local'), {
+    maxAge: '30d',
+    setHeaders: (res) => {
+        res.setHeader('Cache-Control', 'public, max-age=2592000');
+    }
+}));
+app.use('/locales', express.static(join(clientDist, 'locales'), {
+    maxAge: '30d',
+    setHeaders: (res) => {
+        res.setHeader('Cache-Control', 'public, max-age=2592000');
+    }
+}));
+
 app.use(express.json({ limit: '5mb' }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true, limit: '5mb' }));
@@ -319,7 +344,6 @@ app.use('/api', notFoundHandler);
 
 // Serve frontend in production
 // Serve frontend static files
-const clientDist = join(__dirname, 'client', 'dist');
 app.use(express.static(clientDist));
 
 // IndexNow key verification file endpoint: https://<host>/<INDEXNOW_KEY>.txt

@@ -1,5 +1,6 @@
-import { Suspense, lazy } from 'react';
+import { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Loader2 } from 'lucide-react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { VaultProvider } from './context/VaultContext';
@@ -8,38 +9,42 @@ import Dashboard from './components/Dashboard';
 import Layout from './components/Layout';
 import CookieBanner from './components/CookieBanner';
 import BrowserBranding from './components/BrowserBranding';
-const LandingPage = lazy(() => import('./components/LandingPage'));
-const Login = lazy(() => import('./components/Login'));
-const Register = lazy(() => import('./components/Register'));
-const ForgotPassword = lazy(() => import('./components/ForgotPassword'));
-const ResetPassword = lazy(() => import('./components/ResetPassword'));
-const ItemList = lazy(() => import('./components/ItemList'));
-const GoogleHouseSelect = lazy(() => import('./components/GoogleHouseSelect'));
-const HouseAccessPending = lazy(() => import('./components/HouseAccessPending'));
-const PrivacyPolicy = lazy(() => import('./components/PrivacyPolicy'));
-const TermsOfService = lazy(() => import('./components/TermsOfService'));
-const ItemForm = lazy(() => import('./components/ItemForm'));
-const CategoryManager = lazy(() => import('./components/CategoryManager'));
-const RoomManager = lazy(() => import('./components/RoomManager'));
-const Settings = lazy(() => import('./components/Settings'));
-const AdminPanel = lazy(() => import('./components/AdminPanel'));
-const RecoveryKeySetup = lazy(() => import('./components/RecoveryKeySetup'));
-const PersonalVault = lazy(() => import('./components/PersonalVault'));
-const BorrowRequestsPage = lazy(() => import('./components/BorrowRequestsPage'));
-const LegalConsent = lazy(() => import('./components/LegalConsent'));
-const MaintenancePage = lazy(() => import('./components/MaintenancePage'));
-const ShoppingListPage = lazy(() => import('./components/ShoppingListPage'));
+import AppErrorBoundary from './components/AppErrorBoundary';
+import { BRAND_NAME } from './constants/branding';
+
+import LandingPage from './components/LandingPage';
+import Login from './components/Login';
+import Register from './components/Register';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
+import ItemList from './components/ItemList';
+import GoogleHouseSelect from './components/GoogleHouseSelect';
+import HouseAccessPending from './components/HouseAccessPending';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsOfService from './components/TermsOfService';
+import ItemForm from './components/ItemForm';
+import CategoryManager from './components/CategoryManager';
+import RoomManager from './components/RoomManager';
+import Settings from './components/Settings';
+import AdminPanel from './components/AdminPanel';
+import RecoveryKeySetup from './components/RecoveryKeySetup';
+import PersonalVault from './components/PersonalVault';
+import BorrowRequestsPage from './components/BorrowRequestsPage';
+import LegalConsent from './components/LegalConsent';
+import MaintenancePage from './components/MaintenancePage';
+import ShoppingListPage from './components/ShoppingListPage';
+
 
 const FullscreenSpinner = () => (
-    <div className="min-h-screen flex items-center justify-center bg-[var(--hi-bg)]">
-        <div className="spinner"></div>
+    <div className="flex min-h-screen items-center justify-center bg-[var(--hi-bg)] px-4 text-[var(--hi-text)]">
+        <div role="status" aria-live="polite" className="w-full max-w-sm rounded-[1.35rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] p-6 text-center shadow-[var(--hi-shadow-soft)]">
+            <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
+                <Loader2 className="h-5 w-5 animate-spin" />
+            </span>
+            <p className="mt-4 text-sm font-semibold text-[var(--hi-text)]">Loading {BRAND_NAME}</p>
+            <p className="mt-2 text-xs leading-5 text-[var(--hi-text-soft)]">Preparing your workspace...</p>
+        </div>
     </div>
-);
-
-const LazyRoute = ({ children }: { children: React.ReactNode }) => (
-    <Suspense fallback={<FullscreenSpinner />}>
-        {children}
-    </Suspense>
 );
 
 const HouseAccessRoute = () => {
@@ -49,11 +54,7 @@ const HouseAccessRoute = () => {
     if (mustAcceptLegal) return <Navigate to="/legal-consent" replace />;
     if (mustSetupRecoveryKey) return <Navigate to="/recovery-key-setup" replace />;
     if (membershipState === 'active') return <Navigate to="/" replace />;
-    return (
-        <LazyRoute>
-            <HouseAccessPending />
-        </LazyRoute>
-    );
+    return <HouseAccessPending />;
 };
 
 const AdminRoute = ({ children }: { children: React.ReactNode }) => {
@@ -81,11 +82,7 @@ const LandingRoute = () => {
     if (user && mustAcceptLegal) return <Navigate to="/legal-consent" replace />;
     if (user && mustSetupRecoveryKey) return <Navigate to="/recovery-key-setup" replace />;
     if (user) return <Navigate to="/" replace />;
-    return (
-        <LazyRoute>
-            <LandingPage />
-        </LazyRoute>
-    );
+    return <LandingPage />;
 };
 
 const HomeIndexRoute = () => {
@@ -93,11 +90,7 @@ const HomeIndexRoute = () => {
 
     if (loading) return <FullscreenSpinner />;
     if (!user) {
-        return (
-            <LazyRoute>
-                <LandingPage />
-            </LazyRoute>
-        );
+        return <LandingPage />;
     }
     if (mustAcceptLegal) return <Navigate to="/legal-consent" replace />;
     if (mustSetupRecoveryKey) return <Navigate to="/recovery-key-setup" replace />;
@@ -134,11 +127,7 @@ const RecoveryKeySetupRoute = () => {
     if (passwordRecoveryMode !== 'recovery_key' || !mustSetupRecoveryKey) {
         return <Navigate to={membershipState === 'active' ? '/' : '/house-access'} replace />;
     }
-    return (
-        <LazyRoute>
-            <RecoveryKeySetup />
-        </LazyRoute>
-    );
+    return <RecoveryKeySetup />;
 };
 
 const GoogleHouseSelectRoute = () => {
@@ -146,11 +135,7 @@ const GoogleHouseSelectRoute = () => {
     if (loading) return <FullscreenSpinner />;
     if (!user) return <Navigate to="/login" replace />;
     if (mustAcceptLegal) return <Navigate to="/legal-consent" replace />;
-    return (
-        <LazyRoute>
-            <GoogleHouseSelect />
-        </LazyRoute>
-    );
+    return <GoogleHouseSelect />;
 };
 
 const LegalConsentRoute = () => {
@@ -163,40 +148,36 @@ const LegalConsentRoute = () => {
         if (membershipState === 'pending_approval') return <Navigate to="/house-access" replace />;
         return <Navigate to="/google-house-select" replace />;
     }
-    return (
-        <LazyRoute>
-            <LegalConsent />
-        </LazyRoute>
-    );
+    return <LegalConsent />;
 };
 
 function AppRoutes() {
     return (
         <Routes>
             <Route path="/landing" element={<LandingRoute />} />
-            <Route path="/login" element={<PublicRoute><LazyRoute><Login /></LazyRoute></PublicRoute>} />
-            <Route path="/register" element={<PublicRoute><LazyRoute><Register /></LazyRoute></PublicRoute>} />
-            <Route path="/forgot-password" element={<PublicRoute><LazyRoute><ForgotPassword /></LazyRoute></PublicRoute>} />
-            <Route path="/reset-password" element={<PublicRoute><LazyRoute><ResetPassword /></LazyRoute></PublicRoute>} />
+            <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+            <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
+            <Route path="/forgot-password" element={<PublicRoute><ForgotPassword /></PublicRoute>} />
+            <Route path="/reset-password" element={<PublicRoute><ResetPassword /></PublicRoute>} />
             <Route path="/google-house-select" element={<GoogleHouseSelectRoute />} />
             <Route path="/recovery-key-setup" element={<RecoveryKeySetupRoute />} />
             <Route path="/house-access" element={<HouseAccessRoute />} />
             <Route path="/legal-consent" element={<LegalConsentRoute />} />
-            <Route path="/privacy-policy" element={<LazyRoute><PrivacyPolicy /></LazyRoute>} />
-            <Route path="/terms-of-service" element={<LazyRoute><TermsOfService /></LazyRoute>} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/" element={<RootRoute />}>
                 <Route index element={<HomeIndexRoute />} />
-                <Route path="items" element={<LazyRoute><ItemList /></LazyRoute>} />
-                <Route path="maintenance" element={<LazyRoute><MaintenancePage /></LazyRoute>} />
-                <Route path="shopping" element={<LazyRoute><ShoppingListPage /></LazyRoute>} />
-                <Route path="borrow-requests" element={<LazyRoute><BorrowRequestsPage /></LazyRoute>} />
-                <Route path="vault" element={<LazyRoute><PersonalVault /></LazyRoute>} />
-                <Route path="items/new" element={<LazyRoute><ItemForm /></LazyRoute>} />
-                <Route path="items/:id/edit" element={<LazyRoute><ItemForm /></LazyRoute>} />
-                <Route path="categories" element={<LazyRoute><CategoryManager /></LazyRoute>} />
-                <Route path="rooms" element={<LazyRoute><RoomManager /></LazyRoute>} />
-                <Route path="settings" element={<LazyRoute><Settings /></LazyRoute>} />
-                <Route path="admin" element={<AdminRoute><LazyRoute><AdminPanel /></LazyRoute></AdminRoute>} />
+                <Route path="items" element={<ItemList />} />
+                <Route path="maintenance" element={<MaintenancePage />} />
+                <Route path="shopping" element={<ShoppingListPage />} />
+                <Route path="borrow-requests" element={<BorrowRequestsPage />} />
+                <Route path="vault" element={<PersonalVault />} />
+                <Route path="items/new" element={<ItemForm />} />
+                <Route path="items/:id/edit" element={<ItemForm />} />
+                <Route path="categories" element={<CategoryManager />} />
+                <Route path="rooms" element={<RoomManager />} />
+                <Route path="settings" element={<Settings />} />
+                <Route path="admin" element={<AdminRoute><AdminPanel /></AdminRoute>} />
                 <Route path="admin/mail-gonder" element={<Navigate to="/admin" replace />} />
             </Route>
             <Route path="*" element={<Navigate to="/" replace />} />
@@ -212,7 +193,9 @@ function App() {
                     <Router>
                         <BrowserBranding />
                         <CookieBanner />
-                        <AppRoutes />
+                        <AppErrorBoundary>
+                            <AppRoutes />
+                        </AppErrorBoundary>
                     </Router>
                 </VaultProvider>
             </AuthProvider>

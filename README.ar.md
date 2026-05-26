@@ -9,7 +9,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.1.0 release line. -->
+<!-- Release status: v2.1.1 release line. -->
 
 <p align="center">
   <strong>جرد منزلي خاص وقابل للاستضافة الذاتية للمنازل المشتركة.</strong><br/>
@@ -50,7 +50,7 @@
 ## المعاينة
 
 <p align="center">
-  <img src="docs/assets/screenshot-landing.png" alt="معاينة صفحة HomeInventory الرئيسية" width="88%" />
+  <img src="docs/assets/screenshot-landing.png" alt="معاينة صفحة HomeInventory الرئيسية" width="96%" />
 </p>
 
 <details>
@@ -59,14 +59,16 @@
 <br/>
 
 <p align="center">
-  <img src="docs/assets/screenshot-inventory.png" alt="شاشة الجرد" width="48%" />
-  &nbsp;
-  <img src="docs/assets/screenshot-borrow.png" alt="شاشة Borrow Center" width="48%" />
+  <img src="docs/assets/screenshot-inventory.png" alt="شاشة الجرد" width="96%" />
 </p>
 <p align="center">
-  <img src="docs/assets/screenshot-vault.png" alt="شاشة Personal Vault" width="48%" />
-  &nbsp;
-  <img src="docs/assets/screenshot-categories.png" alt="شاشة الفئات" width="48%" />
+  <img src="docs/assets/screenshot-borrow.png" alt="شاشة Borrow Center" width="96%" />
+</p>
+<p align="center">
+  <img src="docs/assets/screenshot-vault.png" alt="شاشة Personal Vault" width="96%" />
+</p>
+<p align="center">
+  <img src="docs/assets/screenshot-categories.png" alt="شاشة الفئات" width="96%" />
 </p>
 
 </details>
@@ -74,7 +76,7 @@
 HomeInventory صُمم للعائلات وزملاء السكن والمنازل الصغيرة التي تحتاج إلى جرد عملي من دون تحويل السجلات الخاصة إلى جدول مشترك.
 
 > [!NOTE]
-> **v2.1.0 هو إصدار سطح المكتب وتدفقات العمل.** يضيف هذا الإصدار GUI launcher اختيارياً، وينقل كود العميل إلى TypeScript، ويقدم قائمة التسوق وتدفقات الصيانة الذكية، مع الحفاظ على مسارات CLI وDocker والاستضافة الذاتية.
+> **v2.1.1 هو تحديث الصقل والاستعداد للإصدار.** يجدد هذا الإصدار لقطات الشاشة والتوثيق، ويحسن حركة Settings وإمكانية الوصول، ويشدد حمايات دورة الحياة غير المتزامنة، مع الحفاظ على مشغل سطح المكتب v2.1 وعميل TypeScript وقائمة التسوق وتدفقات الصيانة الذكية.
 
 ## لماذا HomeInventory
 

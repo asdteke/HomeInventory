@@ -8,6 +8,7 @@ import LanguageSwitcher from './LanguageSwitcher';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { resolveVerifiedLegalTranslationLanguage } from '../utils/legalTranslations';
+import { PremiumCheckbox } from './PremiumCheckbox';
 
 const LEGAL_CONSENT_KEYS = [
     'legal.consent_title',
@@ -186,12 +187,10 @@ export default function LegalConsent() {
                                 </div>
                             )}
 
-                            <label className={`flex items-start gap-3 rounded-[1.35rem] px-5 py-4 transition ${softPanelClass} ${hoverPanelClass}`}>
-                                <input
-                                    type="checkbox"
+                            <label className={`app-premium-checkbox-container flex items-start gap-3 rounded-[1.35rem] px-5 py-4 transition ${softPanelClass} ${hoverPanelClass} hover:border-[var(--hi-border-strong)]`}>
+                                <PremiumCheckbox
                                     checked={accepted}
                                     onChange={(event) => setAccepted(event.target.checked)}
-                                    className="mt-1 h-4 w-4 rounded border-[var(--hi-border-strong)] bg-transparent text-[var(--hi-secondary)] focus:ring-[var(--hi-secondary)]"
                                 />
                                 <span className={`text-sm leading-7 ${isDark ? 'text-white/78' : 'text-[var(--hi-text-soft)]'}`}>
                                     {legalT('legal.consent_checkbox')}

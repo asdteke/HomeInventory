@@ -8,6 +8,7 @@ import LanguageSwitcher from './LanguageSwitcher';
 import { useTheme } from '../context/ThemeContext';
 import { BRAND_KEY, BRAND_NAME, SUPPORT_EMAIL } from '../constants/branding';
 import { resolveVerifiedLegalTranslationLanguage } from '../utils/legalTranslations';
+import { PremiumCheckbox } from './PremiumCheckbox';
 
 const LEGAL_LINK_KEYS = [
     'legal.terms_of_service_title',
@@ -353,12 +354,10 @@ export default function Login() {
                                             />
                                         </div>
 
-                                        <label className={`flex items-start gap-3 rounded-[var(--hi-radius-md)] border px-4 py-3 text-sm ${panelMutedClass} ${isDark ? (isCustomBrand ? 'border-[var(--hi-border)] bg-[rgba(24,31,44,0.72)]' : 'border-white/8 bg-white/[0.02]') : 'border-[rgba(18,32,22,0.08)] bg-[rgba(255,255,255,0.52)]'}`}>
-                                            <input
-                                                type="checkbox"
+                                        <label className={`app-premium-checkbox-container flex items-start gap-3 rounded-[var(--hi-radius-md)] border px-4 py-3 text-sm ${panelMutedClass} ${isDark ? (isCustomBrand ? 'border-[var(--hi-border)] bg-[rgba(24,31,44,0.72)]' : 'border-white/8 bg-white/[0.02]') : 'border-[rgba(18,32,22,0.08)] bg-[rgba(255,255,255,0.52)]'} hover:border-[var(--hi-border-strong)] transition-all`}>
+                                            <PremiumCheckbox
                                                 checked={rememberDevice}
                                                 onChange={(e) => setRememberDevice(e.target.checked)}
-                                                className={`mt-0.5 h-4 w-4 rounded border ${isDark ? (isCustomBrand ? 'border-[var(--hi-border-strong)] bg-transparent' : 'border-white/16 bg-transparent') : 'border-[rgba(18,32,22,0.18)] bg-transparent'} ${isCustomBrand ? 'text-[var(--hi-accent)] focus:ring-[var(--hi-accent)]' : 'text-[#6f9978] focus:ring-[#6f9978]'} focus:ring-offset-0`}
                                             />
                                             <span>{rememberDeviceLabel}</span>
                                         </label>
