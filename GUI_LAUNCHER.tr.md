@@ -92,7 +92,7 @@ Bu yapı, kullanıcı açıkça yolları değiştirmediği sürece launcher tara
 Launcher, kaynak kod arşivinden ayrı release artifact'ları olarak paylaşılır:
 
 ```text
-GitHub Release v2.1.1
+GitHub Release v2.1.2
 ├── HomeInventory Launcher-macos.dmg
 ├── HomeInventory Launcher-macos.app.zip
 ├── HomeInventory Launcher Setup.exe

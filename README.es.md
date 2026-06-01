@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Estado de la versión: línea de lanzamiento v2.1.1. -->
+<!-- Estado de la versión: línea de lanzamiento v2.1.2. -->
 
 <p align="center">
   <strong>Inventario privado y autoalojable para hogares compartidos.</strong><br/>
@@ -74,7 +74,7 @@
 HomeInventory está pensado para familias, compañeros de piso y hogares pequeños que necesitan un inventario práctico sin convertir registros privados en una hoja compartida.
 
 > [!NOTE]
-> **v2.1.1 es la actualización de pulido y preparación de release.** Esta versión renueva capturas y documentación, suaviza el movimiento y la accesibilidad de Settings, refuerza los guards del ciclo de vida asíncrono y conserva el launcher de escritorio v2.1, el cliente TypeScript, la lista de compras y los flujos de mantenimiento inteligente.
+> **v2.1.2 trae soporte nativo de fotos con cámara móvil.** Esta versión agrega integración directa de cámara de hardware (`capture="environment"`) para cargas de artículos y facturas, al tiempo que preserva las cargas personalizadas de galerías de archivos y mantiene el 100% de paridad de localización en todos los más de 100 idiomas compatibles.
 
 ## Por qué HomeInventory
 

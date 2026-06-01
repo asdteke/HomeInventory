@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.1.1 release line. -->
+<!-- Release status: v2.1.2 release line. -->
 
 <p align="center">
   <strong>Private, selbst hostbare Haushaltsinventur für gemeinsam genutzte Zuhause.</strong><br/>
@@ -74,7 +74,7 @@
 HomeInventory ist für Familien, Wohngemeinschaften und kleine Haushalte gedacht, die ein praktisches Inventar brauchen, ohne private Datensätze in eine gemeinsame Tabelle zu verwandeln.
 
 > [!NOTE]
-> **v2.1.1 ist das Update für Feinschliff und Release-Bereitschaft.** Diese Version aktualisiert Screenshots und Dokumentation, verbessert Settings-Animationen und Barrierefreiheit, stärkt asynchrone Lifecycle-Guards und behält den v2.1 Desktop-Launcher, den TypeScript-Client, Einkaufsliste und intelligente Wartungsabläufe bei.
+> **v2.1.2 bringt native mobile Kamera-Foto-Unterstützung.** Diese Version fügt eine direkte Hardware-Kamera-Integration (`capture="environment"`) für Artikel- und Rechnungsuploads hinzu, während benutzerdefinierte Dateigalerie-Uploads beibehalten werden und eine 100%ige Lokalisierungsparietät über alle 100+ unterstützten Sprachen hinweg gewahrt bleibt.
 
 ## Warum HomeInventory
 
