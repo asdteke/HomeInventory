@@ -61,7 +61,8 @@ jobs:
         run: npm --prefix apps/launcher run build
 
       - name: Build Tauri launcher
-        run: npm --prefix apps/launcher run tauri -- build --bundles ${{ matrix.bundles }}
+        working-directory: apps/launcher
+        run: node node_modules/@tauri-apps/cli/tauri.js build --bundles ${{ matrix.bundles }}
 
       - name: Package macOS artifacts
         if: matrix.name == 'macos'

@@ -4,9 +4,10 @@ import { resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 
 const repoRoot = resolve(new URL('..', import.meta.url).pathname);
+const launcherDir = resolve(repoRoot, 'apps/launcher');
 const tauriDir = resolve(repoRoot, 'apps/launcher/src-tauri');
 const bundleDir = resolve(tauriDir, 'target/release/bundle');
-const launcherPackage = JSON.parse(readFileSync(resolve(repoRoot, 'apps/launcher/package.json'), 'utf8'));
+const launcherPackage = JSON.parse(readFileSync(resolve(launcherDir, 'package.json'), 'utf8'));
 
 function run(command, args, options = {}) {
     const result = spawnSync(command, args, {
@@ -65,7 +66,13 @@ function createMacDmg() {
 }
 
 const bundles = defaultBundles();
-run('npm', ['--prefix', 'apps/launcher', 'run', 'tauri', '--', 'build', '--bundles', bundles]);
+run('node', ['node_modules/@tauri-apps/cli/tauri.js', 'build', '--bundles', bundles], {
+    cwd: launcherDir,
+    env: {
+        ...process.env,
+        CARGO_BUILD_JOBS: process.env.CARGO_BUILD_JOBS || '1'
+    }
+});
 
 if (platform() === 'darwin' && bundles.split(',').map((value) => value.trim()).includes('app')) {
     createMacDmg();
