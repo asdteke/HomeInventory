@@ -3,14 +3,12 @@ import { Link, NavLink, Outlet, useLocation, useMatch, useNavigate, useResolvedP
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 import {
-    AlertTriangle,
     ArrowRightLeft,
     ChevronLeft,
     ChevronDown,
     ChevronRight,
     FolderOpen,
     Grid2x2,
-    HelpCircle,
     Home,
     KeyRound,
     LogOut,
@@ -28,7 +26,7 @@ import {
     ShoppingCart
 } from 'lucide-react';
 import BrandLogo from './BrandLogo';
-import { BRAND_KEY, BRAND_NAME, SUPPORT_EMAIL } from '../constants/branding';
+import { BRAND_KEY, BRAND_NAME } from '../constants/branding';
 import { useTheme } from '../context/ThemeContext';
 import LanguageSwitcher from './LanguageSwitcher';
 import SegmentedToggle from './SegmentedToggle';
@@ -175,30 +173,6 @@ export function ShellLink({ item, compact = false, onClick, tone = 'default', cl
     return link;
 }
 
-interface BetaBadgeProps {
-    t: (key: string, options?: any) => any;
-    compact?: boolean;
-}
-
-function BetaBadge({ t, compact = false }: BetaBadgeProps) {
-    return (
-        <Tooltip
-            label={t('beta_banner.tooltip', { defaultValue: 'Early access features may still change.' })}
-            side={compact ? 'right' : 'top'}
-            panelClassName={compact ? '' : '!left-0 !translate-x-0 max-w-[14rem] text-left'}
-        >
-            <button
-                type="button"
-                aria-label={t('beta_banner.aria_label', { defaultValue: 'Beta notice' })}
-                className={`inline-flex items-center gap-2 rounded-full border border-[rgba(184,153,104,0.24)] bg-[var(--hi-secondary-soft)] text-[var(--hi-secondary-strong)] shadow-[var(--hi-shadow-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-secondary-strong)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-bg-elevated)] ${compact ? `${COMPACT_ICON_BUTTON_SIZE} justify-center px-0` : 'px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em]'}`}
-            >
-                <AlertTriangle className={compact ? 'h-[18px] w-[18px]' : 'h-3.5 w-3.5'} />
-                {!compact && <span>{t('beta_banner.badge', { defaultValue: 'Beta' })}</span>}
-            </button>
-        </Tooltip>
-    );
-}
-
 export default function Layout() {
     const { user, logout, isAdmin } = useAuth();
     const { t } = useTranslation();
@@ -213,13 +187,11 @@ export default function Layout() {
     const [logoutSubmitting, setLogoutSubmitting] = useState(false);
     const [profileMenuOpen, setProfileMenuOpen] = useState(false);
     const profileMenuRef = useRef<HTMLDivElement>(null);
-    const compactUtilityButtonClass = '!mx-auto !h-[64px] !w-[64px] !justify-center !rounded-full !px-0 !py-0';
     const bottomActionButtonClass = 'btn-secondary !w-full !min-h-[58px] !justify-start !gap-3 !rounded-[1rem] !border-[var(--hi-border)] !bg-[var(--hi-panel)] !px-3.5 !py-3 text-sm hover:!bg-[var(--hi-panel-muted)]';
     const mobileBottomActionButtonClass = `${bottomActionButtonClass} !min-h-[54px] !py-2.5`;
     const compactSidebar = !sidebarOpen;
     const isCustomBrand = BRAND_KEY !== 'homeinventory';
     const userInitial = user?.username?.charAt(0)?.toUpperCase() || 'H';
-    const betaT = (key: string, options?: any) => t(key, { brandName: BRAND_NAME, ...options });
     const [shouldMountIntroTour] = useState<boolean>(() => {
         if (typeof window === 'undefined') {
             return false;
@@ -538,28 +510,6 @@ export default function Layout() {
                     )}
                 </nav>
 
-                <div className={`border-t border-[var(--hi-border)] ${sidebarOpen ? 'space-y-[clamp(0.5rem,0.9vh,0.75rem)] px-4 py-[clamp(0.75rem,1.2vh,1rem)]' : 'flex flex-col items-center gap-3 px-0 py-4'}`}>
-                    <div className={`${sidebarOpen ? 'flex items-center justify-start px-1' : 'flex items-center justify-center'}`}>
-                        <BetaBadge t={betaT} compact={!sidebarOpen} />
-                    </div>
-
-                    <div className={`${sidebarOpen ? 'space-y-2' : 'flex flex-col items-center gap-2'}`}>
-                        {sidebarOpen ? (
-                            <a href={`mailto:${SUPPORT_EMAIL}`} aria-label={t('common.help_support') || undefined} className={bottomActionButtonClass}>
-                                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[0.85rem] bg-[var(--hi-panel-muted)] text-[var(--hi-text-muted)]">
-                                    <HelpCircle className="h-4 w-4" />
-                                </span>
-                                <span className="min-w-0 text-left text-sm font-semibold text-[var(--hi-text)]">{t('common.help_support')}</span>
-                            </a>
-                        ) : (
-                            <Tooltip label={t('common.help_support') || ''} side="right">
-                                <a href={`mailto:${SUPPORT_EMAIL}`} aria-label={t('common.help_support') || undefined} className={`btn-secondary ${compactUtilityButtonClass}`}>
-                                    <HelpCircle className="h-4 w-4" />
-                                </a>
-                            </Tooltip>
-                        )}
-                    </div>
-                </div>
             </aside>
 
             <header className="glass lg:hidden sticky top-0 z-40 mx-3 mt-3 rounded-xl px-4 py-3">
@@ -687,10 +637,6 @@ export default function Layout() {
                             )}
                         </nav>
 
-                        <div className="mb-4 flex justify-start">
-                            <BetaBadge t={betaT} />
-                        </div>
-
                         <div className="grid grid-cols-2 gap-2">
                             <Link to="/items/new" onClick={() => setMobileMenuOpen(false)} className="btn-primary !min-h-[56px] !py-2.5">
                                 <Plus className="h-4 w-4" />
@@ -711,12 +657,6 @@ export default function Layout() {
                         </div>
 
                         <div className="mt-2 space-y-2">
-                            <a href={`mailto:${SUPPORT_EMAIL}`} className={mobileBottomActionButtonClass}>
-                                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[0.85rem] bg-[var(--hi-panel-muted)] text-[var(--hi-text-muted)]">
-                                    <HelpCircle className="h-4 w-4" />
-                                </span>
-                                <span className="min-w-0 text-left text-sm font-semibold text-[var(--hi-text)]">{t('common.help_support')}</span>
-                            </a>
                             <button
                                 type="button"
                                 onClick={openLogoutConfirm}

@@ -1,4 +1,4 @@
-import { LogOut } from 'lucide-react';
+import { AlertTriangle, HelpCircle, LogOut } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { APP_VERSION, BRAND_NAME, SUPPORT_EMAIL } from '../constants/branding';
@@ -30,16 +30,26 @@ export default function SettingsAboutSection({ onLogout }: SettingsAboutSectionP
                         <span className="text-[var(--hi-text-soft)]">{t('settings.about.brand')}</span>
                         <span className="font-medium text-[var(--hi-text)]">{BRAND_NAME}</span>
                     </div>
-                    <div className="pt-2">
+                    <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4">
+                        <div className="mb-3 flex items-start gap-3">
+                            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--hi-panel)] text-[var(--hi-text-muted)]">
+                                <HelpCircle className="h-5 w-5" />
+                            </span>
+                            <div>
+                                <p className="text-sm font-semibold text-[var(--hi-text)]">
+                                    {t('common.help_support')}
+                                </p>
+                                <p className="mt-1 text-xs leading-5 text-[var(--hi-text-soft)] [overflow-wrap:anywhere]">
+                                    {SUPPORT_EMAIL}
+                                </p>
+                            </div>
+                        </div>
                         <a
                             href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(feedbackSubject)}`}
                             className="btn-secondary flex w-full items-center justify-center gap-2 py-3"
                         >
                             {t('settings.about.feedback')}
                         </a>
-                        <p className="mt-2 text-center text-xs text-[var(--hi-text-soft)]">
-                            {SUPPORT_EMAIL}
-                        </p>
                     </div>
                     <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4">
                         <div className="mb-3">
@@ -60,15 +70,22 @@ export default function SettingsAboutSection({ onLogout }: SettingsAboutSectionP
                         </div>
                     </div>
                     <div className="rounded-xl border border-[rgba(184,153,104,0.24)] bg-[var(--hi-secondary-soft)] p-4">
-                        <p className="text-sm font-semibold text-[var(--hi-text)]">
-                            {t('settings.about.beta_title', { defaultValue: 'Beta status' })}
-                        </p>
-                        <p className="mt-2 text-sm leading-6 text-[var(--hi-text-soft)]">
-                            {t('settings.about.beta_body', {
-                                brandName: BRAND_NAME,
-                                defaultValue: `${BRAND_NAME} is still in beta. Features can change, workflows may evolve, and important household data should always be backed up.`
-                            })}
-                        </p>
+                        <div className="flex items-start gap-3">
+                            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[rgba(184,153,104,0.12)] text-[var(--hi-secondary-strong)]">
+                                <AlertTriangle className="h-5 w-5" />
+                            </span>
+                            <div>
+                                <p className="text-sm font-semibold text-[var(--hi-text)]">
+                                    {t('settings.about.beta_title', { defaultValue: 'Beta status' })}
+                                </p>
+                                <p className="mt-2 text-sm leading-6 text-[var(--hi-text-soft)]">
+                                    {t('settings.about.beta_body', {
+                                        brandName: BRAND_NAME,
+                                        defaultValue: `${BRAND_NAME} is still in beta. Features can change, workflows may evolve, and important household data should always be backed up.`
+                                    })}
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
