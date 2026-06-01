@@ -2,7 +2,7 @@ import { Suspense, lazy, useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, Camera, X, Lock, Globe, MapPin, Plus, Loader2, ChevronDown, Check, QrCode, ScanBarcode, Search, ExternalLink, CalendarDays, Edit3 } from 'lucide-react';
+import { ArrowLeft, Camera, X, Lock, Globe, MapPin, Plus, Loader2, ChevronDown, Check, QrCode, ScanBarcode, Search, ExternalLink, CalendarDays, Edit3, ChevronRight } from 'lucide-react';
 import SecureImage from './SecureImage';
 import { MAX_PHOTO_UPLOAD_MB, isPhotoUploadTooLarge } from '../utils/mediaLimits';
 import { formatBorrowDate, formatBorrowDateTime, isBorrowOverdue } from '../utils/borrowFormatting';
@@ -248,7 +248,9 @@ export default function ItemForm() {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation();
     const fileInputRef = useRef(null);
+    const cameraInputRef = useRef(null);
     const invoiceFileInputRef = useRef(null);
+    const invoiceCameraInputRef = useRef(null);
     const invoiceDatePickerRef = useRef(null);
     const warrantyStartDatePickerRef = useRef(null);
     const warrantyDatePickerRef = useRef(null);
@@ -723,6 +725,7 @@ export default function ItemForm() {
         }
 
         if (fileInputRef.current) fileInputRef.current.value = '';
+        if (cameraInputRef.current) cameraInputRef.current.value = '';
     };
 
     const handleInvoicePhotoChange = (e) => {
@@ -752,6 +755,7 @@ export default function ItemForm() {
         }
 
         if (invoiceFileInputRef.current) invoiceFileInputRef.current.value = '';
+        if (invoiceCameraInputRef.current) invoiceCameraInputRef.current.value = '';
     };
 
     // Location selection
@@ -1457,49 +1461,120 @@ export default function ItemForm() {
                     )}
 
                     {/* Photo Upload */}
-                    <div>
-                        <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.photo')}</label>
-                        <div className="flex items-start gap-4">
-                            <button
-                                type="button"
-                                onClick={() => fileInputRef.current?.click()}
-                                aria-label={t('items.form.add_photo')}
-                                title={t('items.form.add_photo')}
-                                className="flex h-32 w-32 items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-[var(--hi-border-strong)] bg-[var(--hi-panel-muted)] transition-colors hover:border-[var(--hi-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]"
-                            >
+                    <div className="space-y-3">
+                        <label className="block text-sm font-semibold tracking-wide text-[var(--hi-text)]">
+                            {t('items.form.photo')}
+                        </label>
+                        <div className="flex flex-col md:flex-row gap-5 p-5 rounded-[24px] border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] shadow-[var(--hi-shadow-soft)] overflow-hidden relative group/widget transition-all duration-300 hover:border-[var(--hi-border-strong)]">
+
+                            {/* Left Side: Premium Preview Zone */}
+                            <div className="relative flex h-52 w-full md:w-52 flex-shrink-0 items-center justify-center overflow-hidden rounded-[20px] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] transition-all duration-300 shadow-[inset_0_2px_8px_rgba(0,0,0,0.04)] group/preview">
                                 {photoPreview ? (
-                                    <img src={photoPreview} alt="" className="w-full h-full object-cover" />
+                                    <>
+                                        <img src={photoPreview} alt="" className="w-full h-full object-cover transition-transform duration-500 group-hover/preview:scale-105" />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/preview:opacity-100 transition duration-300 flex items-end justify-center p-3">
+                                            <span className="text-[10px] font-bold text-white bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-full uppercase tracking-wider border border-white/20">
+                                                {t('items.form.photo_selected_badge', { defaultValue: 'Yeni Fotoğraf' })}
+                                            </span>
+                                        </div>
+                                    </>
                                 ) : existingPhoto ? (
-                                    <SecureImage
-                                        src={existingPhoto}
-                                        alt=""
-                                        className="w-full h-full object-cover"
-                                        fallback={
+                                    <>
+                                        <SecureImage
+                                            src={existingPhoto}
+                                            alt=""
+                                            className="w-full h-full object-cover transition-transform duration-500 group-hover/preview:scale-105"
+                                            fallback={
                                                 <div className="text-center">
-                                                <Camera className="mx-auto mb-1 h-8 w-8 text-[var(--hi-text-muted)]" />
-                                                <span className="text-xs text-[var(--hi-text-soft)]">{t('items.form.add_photo')}</span>
-                                            </div>
-                                        }
-                                    />
+                                                    <Camera className="mx-auto h-10 w-10 text-[var(--hi-text-muted)] animate-pulse" />
+                                                </div>
+                                            }
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/preview:opacity-100 transition duration-300 flex items-end justify-center p-3">
+                                            <span className="text-[10px] font-bold text-white bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-full uppercase tracking-wider border border-white/20">
+                                                {t('items.form.photo_existing_badge', { defaultValue: 'Mevcut Fotoğraf' })}
+                                            </span>
+                                        </div>
+                                    </>
                                 ) : (
-                                    <div className="text-center">
-                                        <Camera className="mx-auto mb-1 h-8 w-8 text-[var(--hi-text-muted)]" />
-                                        <span className="text-xs text-[var(--hi-text-soft)]">{t('items.form.add_photo')}</span>
+                                    <div className="relative flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-[var(--hi-panel-muted)] to-[var(--hi-bg)] gap-3 p-4">
+                                        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--hi-panel-strong)] shadow-[var(--hi-shadow-soft)] border border-[var(--hi-border)] text-[var(--hi-text-soft)] group-hover/preview:scale-110 group-hover/preview:border-[var(--hi-accent)] group-hover/preview:text-[var(--hi-accent)] transition duration-300">
+                                            <Camera className="w-6 h-6" />
+                                        </div>
+                                        <span className="text-[11px] font-medium text-[var(--hi-text-muted)] text-center max-w-[120px]">
+                                            {t('items.form.no_photo_yet', { defaultValue: 'Görsel Eklenmedi' })}
+                                        </span>
                                     </div>
                                 )}
-                            </button>
+                            </div>
+
+                            {/* Right Side: Sleek Option Rows */}
+                            <div className="flex flex-col justify-between flex-1 gap-3">
+                                <div className="space-y-2.5">
+                                    <div className="text-xs font-semibold uppercase tracking-wider text-[var(--hi-text-soft)] px-1">
+                                        {t('items.form.photo_options_title', { defaultValue: 'Görsel Kaynağı' })}
+                                    </div>
+
+                                    {/* Action Row 1: Camera */}
+                                    <button
+                                        type="button"
+                                        onClick={() => cameraInputRef.current?.click()}
+                                        className="group/btn flex items-center justify-between w-full p-3.5 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] hover:bg-[var(--hi-panel-strong)] hover:border-[var(--hi-accent)] hover:shadow-[0_4px_12px_rgba(var(--hi-accent-rgb),0.05)] transition-all duration-200 cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)]"
+                                    >
+                                        <div className="flex items-center gap-3.5 min-w-0">
+                                            <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-[var(--hi-accent-soft)] text-[var(--hi-accent)] group-hover/btn:scale-105 transition duration-200">
+                                                <Camera className="w-5 h-5" />
+                                            </div>
+                                            <div className="min-w-0">
+                                                <span className="block font-semibold text-sm text-[var(--hi-text)] leading-snug">
+                                                    {t('items.form.take_photo', { defaultValue: 'Kamerayla Çek' })}
+                                                </span>
+                                                <span className="block text-[11px] text-[var(--hi-text-soft)] leading-normal mt-0.5 truncate">
+                                                    {t('items.form.take_photo_sub', { defaultValue: 'Cihaz kamerasını aç' })}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <ChevronRight className="w-5 h-5 text-[var(--hi-text-muted)] group-hover/btn:text-[var(--hi-accent)] group-hover/btn:translate-x-0.5 transition-all duration-200 flex-shrink-0" />
+                                    </button>
+
+                                    {/* Action Row 2: Gallery */}
+                                    <button
+                                        type="button"
+                                        onClick={() => fileInputRef.current?.click()}
+                                        className="group/btn flex items-center justify-between w-full p-3.5 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] hover:bg-[var(--hi-panel-strong)] hover:border-[var(--hi-secondary-strong)] hover:shadow-[0_4px_12px_rgba(var(--hi-secondary-rgb),0.05)] transition-all duration-200 cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-secondary-strong)]"
+                                    >
+                                        <div className="flex items-center gap-3.5 min-w-0">
+                                            <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-[var(--hi-secondary-soft)] text-[var(--hi-secondary-strong)] group-hover/btn:scale-105 transition duration-200">
+                                                <Plus className="w-5 h-5" />
+                                            </div>
+                                            <div className="min-w-0">
+                                                <span className="block font-semibold text-sm text-[var(--hi-text)] leading-snug">
+                                                    {t('items.form.choose_from_gallery', { defaultValue: 'Galeriden Seç' })}
+                                                </span>
+                                                <span className="block text-[11px] text-[var(--hi-text-soft)] leading-normal mt-0.5 truncate">
+                                                    {t('items.form.choose_from_gallery_sub', { defaultValue: 'Albümden görsel seç' })}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <ChevronRight className="w-5 h-5 text-[var(--hi-text-muted)] group-hover/btn:text-[var(--hi-secondary-strong)] group-hover/btn:translate-x-0.5 transition-all duration-200 flex-shrink-0" />
+                                    </button>
+                                </div>
+
+                                {(photoPreview || existingPhoto) && (
+                                    <button
+                                        type="button"
+                                        onClick={handleRemovePhoto}
+                                        className="w-full mt-2 inline-flex items-center justify-center gap-2 rounded-xl border border-red-500/15 bg-red-500/5 hover:bg-red-500/10 hover:border-red-500/35 py-3 text-xs font-semibold text-red-500 dark:text-red-400 transition-all duration-200 active:scale-[0.98]"
+                                    >
+                                        <X className="w-4 h-4" />
+                                        {t('items.form.remove_photo', { defaultValue: 'Fotoğrafı Kaldır' })}
+                                    </button>
+                                )}
+                            </div>
+
+                            {/* Hidden inputs */}
+                            <input ref={cameraInputRef} type="file" accept="image/*" capture="environment" onChange={handlePhotoChange} className="hidden" />
                             <input ref={fileInputRef} type="file" accept="image/*" onChange={handlePhotoChange} className="hidden" />
-                            {(photoPreview || existingPhoto) && (
-                                <button
-                                    type="button"
-                                    onClick={handleRemovePhoto}
-                                    aria-label={t('items.form.remove_photo', { defaultValue: 'Remove photo' })}
-                                    title={t('items.form.remove_photo', { defaultValue: 'Remove photo' })}
-                                    className="rounded-2xl border border-red-500/18 bg-red-500/6 p-2 text-red-400 transition hover:bg-red-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]"
-                                >
-                                    <X className="w-5 h-5" />
-                                </button>
-                            )}
                         </div>
                     </div>
 
@@ -1619,33 +1694,125 @@ export default function ItemForm() {
                                 </p>
 
                                 <div>
-                                    <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.invoice_photo')}</label>
-                                    <div className="flex items-start gap-4">
-                                        <div
-                                            onClick={() => invoiceFileInputRef.current?.click()}
-                                            className="flex h-32 w-32 cursor-pointer items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-[var(--hi-border-strong)] bg-[var(--hi-bg-strong)] transition-colors hover:border-[var(--hi-accent)]"
-                                        >
+                                    <label className="block text-sm font-semibold tracking-wide text-[var(--hi-text)]">
+                                        {t('items.form.invoice_photo')}
+                                    </label>
+                                    <div className="flex flex-col md:flex-row gap-5 p-5 rounded-[24px] border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] shadow-[var(--hi-shadow-soft)] overflow-hidden relative group/widget transition-all duration-300 hover:border-[var(--hi-border-strong)]">
+
+                                        {/* Left Side: Premium Preview Zone */}
+                                        <div className="relative flex h-52 w-full md:w-52 flex-shrink-0 items-center justify-center overflow-hidden rounded-[20px] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] transition-all duration-300 shadow-[inset_0_2px_8px_rgba(0,0,0,0.04)] group/preview">
                                             {invoicePhotoPreview ? (
-                                                <img src={invoicePhotoPreview} alt="" className="w-full h-full object-cover" />
+                                                <>
+                                                    <img src={invoicePhotoPreview} alt="" className="w-full h-full object-cover transition-transform duration-500 group-hover/preview:scale-105" />
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/preview:opacity-100 transition duration-300 flex items-end justify-center p-3">
+                                                        <span className="text-[10px] font-bold text-white bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-full uppercase tracking-wider border border-white/20">
+                                                            {t('items.form.photo_selected_badge', { defaultValue: 'Yeni Fotoğraf' })}
+                                                        </span>
+                                                    </div>
+                                                </>
                                             ) : existingInvoicePhoto ? (
-                                                <SecureImage
-                                                    src={existingInvoicePhoto}
-                                                    alt=""
-                                                    className="w-full h-full object-cover"
-                                                    fallback={
-                                                        <div className="text-center">
-                                                            <Camera className="mx-auto mb-1 h-8 w-8 text-[var(--hi-text-muted)]" />
-                                                            <span className="text-xs text-[var(--hi-text-soft)]">{t('items.form.add_photo')}</span>
-                                                        </div>
-                                                    }
-                                                />
+                                                <>
+                                                    <SecureImage
+                                                        src={existingInvoicePhoto}
+                                                        alt=""
+                                                        className="w-full h-full object-cover transition-transform duration-500 group-hover/preview:scale-105"
+                                                        fallback={
+                                                            <div className="text-center">
+                                                                <Camera className="mx-auto h-10 w-10 text-[var(--hi-text-muted)] animate-pulse" />
+                                                            </div>
+                                                        }
+                                                    />
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/preview:opacity-100 transition duration-300 flex items-end justify-center p-3">
+                                                        <span className="text-[10px] font-bold text-white bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-full uppercase tracking-wider border border-white/20">
+                                                            {t('items.form.photo_existing_badge', { defaultValue: 'Mevcut Fotoğraf' })}
+                                                        </span>
+                                                    </div>
+                                                </>
                                             ) : (
-                                                <div className="text-center">
-                                                    <Camera className="mx-auto mb-1 h-8 w-8 text-[var(--hi-text-muted)]" />
-                                                    <span className="text-xs text-[var(--hi-text-soft)]">{t('items.form.add_photo')}</span>
+                                                <div className="relative flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-[var(--hi-panel-muted)] to-[var(--hi-bg)] gap-3 p-4">
+                                                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--hi-panel-strong)] shadow-[var(--hi-shadow-soft)] border border-[var(--hi-border)] text-[var(--hi-text-soft)] group-hover/preview:scale-110 group-hover/preview:border-[var(--hi-accent)] group-hover/preview:text-[var(--hi-accent)] transition duration-300">
+                                                        <Camera className="w-6 h-6" />
+                                                    </div>
+                                                    <span className="text-[11px] font-medium text-[var(--hi-text-muted)] text-center max-w-[120px]">
+                                                        {t('items.form.no_photo_yet', { defaultValue: 'Görsel Eklenmedi' })}
+                                                    </span>
                                                 </div>
                                             )}
                                         </div>
+
+                                        {/* Right Side: Sleek Option Rows */}
+                                        <div className="flex flex-col justify-between flex-1 gap-3">
+                                            <div className="space-y-2.5">
+                                                <div className="text-xs font-semibold uppercase tracking-wider text-[var(--hi-text-soft)] px-1">
+                                                    {t('items.form.photo_options_title', { defaultValue: 'Görsel Kaynağı' })}
+                                                </div>
+
+                                                {/* Action Row 1: Camera */}
+                                                <button
+                                                    type="button"
+                                                    onClick={() => invoiceCameraInputRef.current?.click()}
+                                                    className="group/btn flex items-center justify-between w-full p-3.5 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] hover:bg-[var(--hi-panel-strong)] hover:border-[var(--hi-accent)] hover:shadow-[0_4px_12px_rgba(var(--hi-accent-rgb),0.05)] transition-all duration-200 cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)]"
+                                                >
+                                                    <div className="flex items-center gap-3.5 min-w-0">
+                                                        <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-[var(--hi-accent-soft)] text-[var(--hi-accent)] group-hover/btn:scale-105 transition duration-200">
+                                                            <Camera className="w-5 h-5" />
+                                                        </div>
+                                                        <div className="min-w-0">
+                                                            <span className="block font-semibold text-sm text-[var(--hi-text)] leading-snug">
+                                                                {t('items.form.take_photo', { defaultValue: 'Kamerayla Çek' })}
+                                                            </span>
+                                                            <span className="block text-[11px] text-[var(--hi-text-soft)] leading-normal mt-0.5 truncate">
+                                                                {t('items.form.take_photo_sub', { defaultValue: 'Cihaz kamerasını aç' })}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <ChevronRight className="w-5 h-5 text-[var(--hi-text-muted)] group-hover/btn:text-[var(--hi-accent)] group-hover/btn:translate-x-0.5 transition-all duration-200 flex-shrink-0" />
+                                                </button>
+
+                                                {/* Action Row 2: Gallery */}
+                                                <button
+                                                    type="button"
+                                                    onClick={() => invoiceFileInputRef.current?.click()}
+                                                    className="group/btn flex items-center justify-between w-full p-3.5 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] hover:bg-[var(--hi-panel-strong)] hover:border-[var(--hi-secondary-strong)] hover:shadow-[0_4px_12px_rgba(var(--hi-secondary-rgb),0.05)] transition-all duration-200 cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-secondary-strong)]"
+                                                >
+                                                    <div className="flex items-center gap-3.5 min-w-0">
+                                                        <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-[var(--hi-secondary-soft)] text-[var(--hi-secondary-strong)] group-hover/btn:scale-105 transition duration-200">
+                                                            <Plus className="w-5 h-5" />
+                                                        </div>
+                                                        <div className="min-w-0">
+                                                            <span className="block font-semibold text-sm text-[var(--hi-text)] leading-snug">
+                                                                {t('items.form.choose_from_gallery', { defaultValue: 'Galeriden Seç' })}
+                                                            </span>
+                                                            <span className="block text-[11px] text-[var(--hi-text-soft)] leading-normal mt-0.5 truncate">
+                                                                {t('items.form.choose_from_gallery_sub', { defaultValue: 'Albümden görsel seç' })}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <ChevronRight className="w-5 h-5 text-[var(--hi-text-muted)] group-hover/btn:text-[var(--hi-secondary-strong)] group-hover/btn:translate-x-0.5 transition-all duration-200 flex-shrink-0" />
+                                                </button>
+                                            </div>
+
+                                            {(invoicePhotoPreview || existingInvoicePhoto) && (
+                                                <button
+                                                    type="button"
+                                                    onClick={handleRemoveInvoicePhoto}
+                                                    className="w-full mt-2 inline-flex items-center justify-center gap-2 rounded-xl border border-red-500/15 bg-red-500/5 hover:bg-red-500/10 hover:border-red-500/35 py-3 text-xs font-semibold text-red-500 dark:text-red-400 transition-all duration-200 active:scale-[0.98]"
+                                                >
+                                                    <X className="w-4 h-4" />
+                                                    {t('items.form.remove_photo', { defaultValue: 'Fotoğrafı Kaldır' })}
+                                                </button>
+                                            )}
+                                        </div>
+
+                                        {/* Hidden inputs */}
+                                        <input
+                                            ref={invoiceCameraInputRef}
+                                            type="file"
+                                            accept="image/*"
+                                            capture="environment"
+                                            onChange={handleInvoicePhotoChange}
+                                            className="hidden"
+                                        />
                                         <input
                                             ref={invoiceFileInputRef}
                                             type="file"
@@ -1653,11 +1820,6 @@ export default function ItemForm() {
                                             onChange={handleInvoicePhotoChange}
                                             className="hidden"
                                         />
-                                        {(invoicePhotoPreview || existingInvoicePhoto) && (
-                                            <button type="button" onClick={handleRemoveInvoicePhoto} className="rounded-2xl border border-red-500/18 bg-red-500/6 p-2 text-red-400 transition hover:bg-red-500/10">
-                                                <X className="w-5 h-5" />
-                                            </button>
-                                        )}
                                     </div>
                                 </div>
 

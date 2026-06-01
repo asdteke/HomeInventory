@@ -2,6 +2,16 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.1.2 - Mobil Kamera ile Doğrudan Fotoğraf Çekme Desteği
+
+Bu sürüm, eşya ve fatura fotoğrafları eklenirken doğrudan cihazın/tarayıcının kamera arayüzünün tetiklenmesini sağlayan `capture="environment"` desteğini getirir.
+
+### Highlights
+
+- **Kamera ile Fotoğraf Çekme Desteği:** Eşya fotoğrafı ve Fatura fotoğrafı alanlarına "Kamerayla Çek" butonu eklendi. Mobil cihazlarda doğrudan yerel kamera arayüzü açılır.
+- **Galeriden Seçim Modu:** Mevcut galeriden dosya/fotoğraf seçme özelliği "Galeriden Seç" butonu ile geriye dönük uyumlu olarak korundu.
+- **Çeviri ve Bütünlük:** 100+ desteklenen dilin tamamı için gerekli lokalizasyon bütünlüğü sağlandı.
+
 ## v2.1.1 - Smooth Motion, Accessibility & Global Visual Polish
 
 This release introduces UI/UX enhancements, robust unmount guards, smooth accordion transitions, and custom premium global control elements.
