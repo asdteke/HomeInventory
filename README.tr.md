@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Sürüm durumu: v2.1.2 release line. -->
+<!-- Sürüm durumu: v2.1.3 release line. -->
 
 <p align="center">
   <strong>Paylaşımlı evler için özel, self-host edilebilir ev envanteri.</strong><br/>
@@ -74,7 +74,7 @@
 HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtları ortak bir tabloya dönüştürmeden pratik envanter yönetimi sağlar.
 
 > [!NOTE]
-> **v2.1.2 mobil kamera ile doğrudan fotoğraf çekme desteğini getirir.** Bu sürüm, eşya ve fatura fotoğrafları eklenirken doğrudan cihazın/tarayıcının kamera arayüzünün tetiklenmesini (`capture="environment"`) sağlarken, galeriden seçim modunu korur ve 100+ desteklenen dilin tamamında dil bütünlüğünü sürdürür.
+> **v2.1.3 mobil kamera ile doğrudan fotoğraf çekme desteğini getirir.** Bu sürüm, eşya ve fatura fotoğrafları eklenirken doğrudan cihazın/tarayıcının kamera arayüzünün tetiklenmesini (`capture="environment"`) sağlarken, galeriden seçim modunu korur ve 100+ desteklenen dilin tamamında dil bütünlüğünü sürdürür.
 
 ## Neden HomeInventory
 

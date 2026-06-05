@@ -92,7 +92,7 @@ This keeps launcher-managed local runs separate from the normal repository `.env
 The launcher is shared as release artifacts, separate from the source archive:
 
 ```text
-GitHub Release v2.1.2
+GitHub Release v2.1.3
 ├── HomeInventory Launcher-macos.dmg
 ├── HomeInventory Launcher-macos.app.zip
 ├── HomeInventory Launcher Setup.exe

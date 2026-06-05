@@ -2,12 +2,13 @@
 
 All notable changes to HomeInventory are documented here.
 
-## v2.1.2 - Mobil Kamera ile Doğrudan Fotoğraf Çekme Desteği
+## v2.1.3 - React Router Güvenlik Yaması ve Mobil Kamera Desteği
 
-Bu sürüm, eşya ve fatura fotoğrafları eklenirken doğrudan cihazın/tarayıcının kamera arayüzünün tetiklenmesini sağlayan `capture="environment"` desteğini getirir.
+Bu patch sürümü, React Router same-origin redirect açık yönlendirme açığını patched React Router 6.30.4 sürümüne geçerek kapatır ve mobil kamera desteğini korur.
 
 ### Highlights
 
+- **Güvenlik Yaması:** React Router `6.30.3` -> `6.30.4` ve `@remix-run/router` `1.23.2` -> `1.23.3` güncellenerek protocol-relative URL reinterpretation kaynaklı open redirect riski kapatıldı.
 - **Kamera ile Fotoğraf Çekme Desteği:** Eşya fotoğrafı ve Fatura fotoğrafı alanlarına "Kamerayla Çek" butonu eklendi. Mobil cihazlarda doğrudan yerel kamera arayüzü açılır.
 - **Galeriden Seçim Modu:** Mevcut galeriden dosya/fotoğraf seçme özelliği "Galeriden Seç" butonu ile geriye dönük uyumlu olarak korundu.
 - **Çeviri ve Bütünlük:** 100+ desteklenen dilin tamamı için gerekli lokalizasyon bütünlüğü sağlandı.
