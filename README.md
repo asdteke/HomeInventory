@@ -74,12 +74,13 @@
 HomeInventory is built for families, roommates, and small households that need a practical inventory without turning private records into a shared spreadsheet.
 
 > [!NOTE]
-> **v2.2.0 is a security maintenance release.** It patches the open critical npm `shell-quote` advisory, keeps the mobile camera/photo work from v2.1.3, and documents the remaining upstream Tauri/GLib status for the optional Linux launcher.
+> **v2.2.0 is the current release line.** It includes mobile camera capture for item and invoice photos, TypeScript client cleanup, UI reliability and accessibility polish, production caching/compression, refreshed screenshots, cross-platform launcher packages, and security fixes for React Router and `shell-quote`.
 
 ## Why HomeInventory
 
 - **One household, many people:** create or join homes, switch the active home, and keep shared inventory scoped to the right members.
 - **Real item records:** track photos, rooms, locations, categories, quantities, warranty dates, invoice data, notes, and attachments.
+- **Camera-first mobile entry:** take item and invoice photos directly from supported mobile browsers, or keep using gallery/file uploads.
 - **TypeScript-powered client:** the React interface now runs on a TypeScript/Vite codebase, improving editor feedback, refactor confidence, and build-time checks.
 - **Sensitive data has a better place:** Personal Vault keeps highly private records away from regular household search and collaboration.
 - **Fast lookup in daily life:** use search, barcode scanning, QR labels, and mobile-friendly screens when you are standing in front of the shelf.
@@ -89,7 +90,7 @@ HomeInventory is built for families, roommates, and small households that need a
 
 | Area | What it covers |
 | --- | --- |
-| Inventory | Items, photos, rooms, categories, locations, quantities, warranty and invoice metadata |
+| Inventory | Items, camera/gallery photos, rooms, categories, locations, quantities, warranty and invoice metadata |
 | Shared homes | Create homes, join with house access flows, switch active homes, and keep data scoped by membership |
 | Borrow Center | Incoming, outgoing, and active lending records with clear request states |
 | Personal Vault | Client-side encrypted vault flow for IDs, property documents, access codes, and sensitive notes |
@@ -98,7 +99,7 @@ HomeInventory is built for families, roommates, and small households that need a
 | Labels and scanning | Barcode scanning, item QR labels, and mobile-friendly lookup |
 | Backup and restore | Owner-only export/import flows with guarded confirmations |
 | Auth and recovery | JWT auth, Google OAuth, email verification, TOTP 2FA, trusted devices, and recovery keys |
-| Desktop Launcher | Optional Tauri GUI for local setup, dependency checks, profile start/stop, backups, logs, and QR/LAN access |
+| Desktop Launcher | Optional Tauri GUI plus release packages for local setup, dependency checks, profile start/stop, backups, logs, and QR/LAN access |
 | Internationalization | 100+ selectable UI locale packs with fallback behavior and automated validation checks |
 
 ## Security & Privacy
@@ -108,6 +109,7 @@ HomeInventory is built for families, roommates, and small households that need a
 - **Household-scoped authorization** keeps rooms, categories, items, media, and backups limited to the active household membership.
 - **Personal Vault separation** keeps highly sensitive records out of normal shared inventory flows.
 - **Rate limiting and hardened auth routes** reduce brute-force and abuse risk around login, backup, and interactive endpoints.
+- **Dependency security maintenance** keeps high-severity npm advisories closed in CI; the remaining Tauri/GLib advisory is tracked as an upstream Linux launcher dependency issue.
 
 > [!IMPORTANT]
 > HomeInventory uses strong server-side encryption, but the main inventory encryption key is still managed by the server. An operator with database access and runtime secrets can decrypt protected inventory data. Use Personal Vault for records that need stronger separation from shared household workflows.

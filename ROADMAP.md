@@ -1,8 +1,8 @@
 # Roadmap
 
-HomeInventory was recently redesigned for v2.0.0 and is moving through the v2.1.3 line with TypeScript, shopping-list, smart-maintenance, optional desktop-launcher work, mobile camera support, and release polish. This roadmap stays short and practical so the new surfaces can settle before larger feature promises.
+HomeInventory was recently redesigned for v2.0.0 and is now on the v2.2 line with a TypeScript-first client, shopping-list and smart-maintenance workflows, optional desktop-launcher packages, mobile camera support, production delivery polish, and dependency security maintenance. This roadmap stays short and practical so the new surfaces can settle before larger feature promises.
 
-The v2.1.3 release track focuses on release polish, mobile ergonomics, packaging, and reliability.
+The v2.2 release track focuses on reliability, mobile ergonomics, release packaging, self-hosting clarity, and follow-through on the remaining upstream Tauri/GLib dependency issue.
 
 ## Near-Term Focus
 

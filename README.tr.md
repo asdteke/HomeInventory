@@ -74,12 +74,13 @@
 HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtları ortak bir tabloya dönüştürmeden pratik envanter yönetimi sağlar.
 
 > [!NOTE]
-> **v2.2.0 bir güvenlik bakım sürümüdür.** Açık kritik npm `shell-quote` uyarısını kapatır, v2.1.3'teki mobil kamera/fotoğraf desteğini korur ve opsiyonel Linux launcher için kalan upstream Tauri/GLib durumunu belgelendirir.
+> **v2.2.0 güncel release hattıdır.** Eşya ve fatura fotoğrafları için mobil kamera desteği, TypeScript istemci temizliği, UI güvenilirliği ve erişilebilirlik iyileştirmeleri, production cache/compression, yenilenmiş ekran görüntüleri, platformlar arası launcher paketleri ve React Router ile `shell-quote` güvenlik yamalarını içerir.
 
 ## Neden HomeInventory
 
 - **Tek ev, birden fazla kişi:** ev oluşturun veya eve katılın, aktif evi değiştirin ve ortak envanteri doğru üyelik kapsamında tutun.
 - **Gerçek eşya kayıtları:** fotoğraf, oda, konum, kategori, miktar, garanti tarihi, fatura bilgisi, not ve ek dosya saklayın.
+- **Mobilde kamera odaklı giriş:** desteklenen mobil tarayıcılarda eşya ve fatura fotoğrafını doğrudan çekin veya galeriden/dosyadan yüklemeye devam edin.
 - **TypeScript destekli istemci:** React arayüzü TypeScript/Vite kod tabanına taşındı; editör geri bildirimi, refactor güveni ve build zamanı kontrolleri güçlendi.
 - **Hassas veriler için daha doğru alan:** Personal Vault, çok özel kayıtları normal ev araması ve ortak çalışma akışından ayrı tutar.
 - **Günlük kullanımda hızlı bulma:** rafın önündeyken arama, barkod tarama, QR etiketleri ve mobil uyumlu ekranlarla hızlı hareket edin.
@@ -89,7 +90,7 @@ HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtl
 
 | Alan | Kapsam |
 | --- | --- |
-| Envanter | Eşyalar, fotoğraflar, odalar, kategoriler, konumlar, miktarlar, garanti ve fatura metadata alanları |
+| Envanter | Eşyalar, kamera/galeri fotoğrafları, odalar, kategoriler, konumlar, miktarlar, garanti ve fatura metadata alanları |
 | Paylaşımlı evler | Ev oluşturma, ev erişim akışlarıyla katılma, aktif ev değiştirme ve üyeliğe göre veri kapsamı |
 | Borrow Center | Gelen, giden ve aktif ödünç kayıtları; net istek durumları |
 | Personal Vault | Kimlikler, mülk belgeleri, erişim kodları ve hassas notlar için istemci tarafında şifrelenen vault akışı |
@@ -98,7 +99,7 @@ HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtl
 | Etiket ve tarama | Barkod tarama, eşya QR etiketleri ve mobil uyumlu hızlı erişim |
 | Yedekleme ve geri yükleme | Sadece ev sahibine açık dışa/içe aktarma ve korumalı onay akışları |
 | Kimlik doğrulama | JWT, Google OAuth, e-posta doğrulama, TOTP 2FA, güvenilen cihaz ve recovery key |
-| Masaüstü Başlatıcı | Yerel kurulum, bağımlılık kontrolü, profil başlatma/durdurma, yedekleme, log ve QR/LAN erişimi için opsiyonel Tauri GUI |
+| Masaüstü Başlatıcı | Yerel kurulum, bağımlılık kontrolü, profil başlatma/durdurma, yedekleme, log ve QR/LAN erişimi için opsiyonel Tauri GUI ve release paketleri |
 | Çok dil | Fallback davranışı ve otomatik doğrulama kontrolleriyle 100+ seçilebilir arayüz locale paketi |
 
 ## Güvenlik & Gizlilik
@@ -108,6 +109,7 @@ HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtl
 - **Ev kapsamlı yetkilendirme**, oda, kategori, eşya, medya ve yedek verilerini aktif ev üyeliğiyle sınırlar.
 - **Personal Vault ayrımı**, en hassas kayıtları normal ortak envanter akışlarının dışında tutar.
 - **Rate limit ve sertleştirilmiş auth rotaları**, giriş, yedekleme ve etkileşimli uçlarda brute-force ve kötüye kullanım riskini azaltır.
+- **Bağımlılık güvenliği bakımı**, yüksek seviye npm uyarılarını CI içinde kapalı tutar; kalan Tauri/GLib uyarısı upstream Linux launcher bağımlılığı olarak takip edilir.
 
 > [!IMPORTANT]
 > HomeInventory güçlü sunucu taraflı şifreleme kullanır; ancak ana envanter şifreleme anahtarı yine sunucu tarafından yönetilir. Veritabanına ve runtime secret'lara erişimi olan bir işletmeci korumalı envanter verilerini çözebilir. Ortak ev akışlarından daha güçlü ayrım gerektiren kayıtlar için Personal Vault kullanın.

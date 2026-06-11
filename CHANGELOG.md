@@ -2,21 +2,26 @@
 
 All notable changes to HomeInventory are documented here.
 
-## v2.2.0 - Security Maintenance and Release Readiness
-
-This release prepares the public v2.2 line with dependency security maintenance, synchronized package metadata, and release workflow verification.
+## v2.2.0 - Mobile Capture, UI Reliability, Packaging, and Security
 
 ### Highlights
 
-- **Critical npm advisory fixed:** Forced transitive `shell-quote` resolution to patched `1.8.4`, closing the open critical development-scope Dependabot alert from the root lockfile.
-- **Release metadata synchronized:** Updated root, client, launcher, Tauri, and workflow release markers to `2.2.0`.
+- **Mobile camera capture:** Added direct camera capture for item photos and invoice photos while preserving gallery/file selection. The item form now offers distinct "Take Photo" and "Choose from Gallery" flows for mobile browsers.
+- **TypeScript client completion:** Removed the remaining legacy JSX component implementations from the release surface and kept the React app on the TypeScript component path for inventory, settings, auth, admin, vault, borrowing, maintenance, shopping, QR, and scanner flows.
+- **UI reliability and accessibility:** Added a branded app-level error boundary, richer loading state, warning-capable floating toasts, a reusable toast queue hook, custom premium checkboxes, smoother settings accordion transitions, reduced-motion handling, and safer async unmount guards.
+- **Inventory and workflow polish:** Refined item cards, photo handling, maintenance alerts, shopping-list interactions, dashboard signals, settings/about content, secure media rendering, and barcode/QR scanner behavior.
+- **Production delivery polish:** Enabled response compression and long-lived static caching for hashed frontend assets, brand assets, and locale files in production builds.
+- **Launcher packaging hardening:** Stabilized the Tauri launcher build path by invoking the local CLI directly, pinning launcher TypeScript, limiting local build concurrency, and publishing native macOS, Windows, and Linux packages from the `Launcher Packages` workflow.
+- **Screenshots and docs refreshed:** Updated public screenshots and release-line documentation so the README, Docker, launcher, locale, client, roadmap, and environment guides describe the current v2.2 line.
+- **Security advisories closed:** Patched React Router to `6.30.4` for the same-origin redirect advisory and forced transitive `shell-quote` to patched `1.8.4`, closing the open critical npm Dependabot alert.
 - **Tauri/GLib status checked:** Tauri `2.11.2` is the latest observed Tauri release, but it still resolves the GTK3 stack through `glib 0.18.x`; the upstream `glib` advisory requires `glib 0.20.0`, so this cannot yet be truly fixed by a released Tauri update.
-- **Release checks refreshed:** CI and launcher packaging workflows remain in place for the v2.2 release path.
 
 ### Upgrade Notes
 
 - Run the normal production build after pulling this release: `npm run build`.
 - Back up SQLite data and uploads before upgrading a self-hosted production deployment.
+- Rebuild Docker deployments so the production server serves the new compressed and cacheable frontend assets.
+- Download fresh launcher packages from the v2.2.0 GitHub Release if you use the optional desktop launcher.
 - The optional Linux desktop launcher still inherits Tauri's current GTK3/GLib runtime dependency chain until Tauri publishes a compatible upstream fix.
 
 ## v2.1.3 - React Router Güvenlik Yaması ve Mobil Kamera Desteği
