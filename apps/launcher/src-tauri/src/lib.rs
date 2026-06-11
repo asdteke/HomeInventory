@@ -18,7 +18,6 @@ use std::{
     time::{Duration, SystemTime, UNIX_EPOCH},
 };
 use tauri::{Emitter, Manager, State};
-use tauri_plugin_updater::UpdaterExt;
 
 #[cfg(unix)]
 use std::os::unix::process::CommandExt;
@@ -739,7 +738,6 @@ fn read_logs(state: State<LauncherState>) -> Result<Vec<LogEntry>, String> {
 pub fn run() {
     tauri::Builder::default()
         .manage(LauncherState::default())
-        .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_process::init())
         .invoke_handler(tauri::generate_handler![
             detect_tools,
@@ -2242,15 +2240,9 @@ async fn check_updates(app: tauri::AppHandle) -> Result<UpdateCheckResult, Strin
         })
         .unwrap_or_else(|| "2.2.0".to_string());
 
-    let mut latest_launcher_version = launcher_version.clone();
-    let mut launcher_update_available = false;
-    let mut launcher_release_notes = None;
-
-    if let Ok(Some(update)) = app.updater().map_err(|e| e.to_string())?.check().await {
-        latest_launcher_version = update.version.clone();
-        launcher_update_available = true;
-        launcher_release_notes = update.body.clone();
-    }
+    let latest_launcher_version = launcher_version.clone();
+    let launcher_update_available = false;
+    let launcher_release_notes = None;
 
     let mut latest_app_version = current_app_version.clone();
     let mut app_update_available = false;
@@ -2569,6 +2561,8 @@ async fn run_update_flow(app: &tauri::AppHandle, state: &LauncherState) -> Resul
         0.95,
         None,
     );
+    // Skip self-updating of the launcher since auto-updates are disabled in the unsigned setup
+    /*
     if let Ok(Some(update)) = app.updater().map_err(|e| e.to_string())?.check().await {
         emit_progress(
             app,
@@ -2590,6 +2584,7 @@ async fn run_update_flow(app: &tauri::AppHandle, state: &LauncherState) -> Resul
             app.restart();
         }
     }
+    */
 
     Ok(())
 }
