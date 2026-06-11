@@ -280,9 +280,29 @@ async fn install_dependencies(
     }
     validate_project_root(&project_root)?;
     seed_env_file(&project_root)?;
-    let envs = resolved_command_env();
+    let mut envs = resolved_command_env();
     ensure_portable_node(&app, &state).await?;
     let tools = resolve_tools(&app, &envs, &overrides);
+    if let Some(node_path_str) = &tools.node_path {
+        if let Some(node_bin_dir) = Path::new(node_path_str).parent() {
+            let path_key = if cfg!(windows) {
+                envs.keys()
+                    .find(|k| k.eq_ignore_ascii_case("PATH"))
+                    .cloned()
+                    .unwrap_or_else(|| "PATH".to_string())
+            } else {
+                "PATH".to_string()
+            };
+            let current_path = envs.get(&path_key).cloned().unwrap_or_default();
+            let new_path = if current_path.is_empty() {
+                path_string(node_bin_dir)
+            } else {
+                let sep = if cfg!(windows) { ";" } else { ":" };
+                format!("{}{}{}", path_string(node_bin_dir), sep, current_path)
+            };
+            envs.insert(path_key, new_path);
+        }
+    }
     let npm = tools
         .npm_path
         .clone()
@@ -292,20 +312,44 @@ async fn install_dependencies(
         &state,
         "setup",
         "info",
-        "Installing root and client dependencies...",
+        "Installing root dependencies...",
     );
     let output = ProcessCommand::new(&npm)
-        .arg("run")
-        .arg("install-all")
+        .arg("install")
         .current_dir(&project_root)
         .envs(&envs)
         .output()
-        .map_err(|err| format!("Failed to run npm install-all: {err}"))?;
+        .map_err(|err| format!("Failed to run npm install at root: {err}"))?;
 
     append_process_output(&state, "setup", &output.stdout, "info");
     append_process_output(&state, "setup", &output.stderr, "error");
 
-    if output.status.success() {
+    if !output.status.success() {
+        return Err(format!(
+            "Root dependency install failed with exit code {:?}. Check Logs for details.",
+            output.status.code()
+        ));
+    }
+
+    append_log(
+        &state,
+        "setup",
+        "info",
+        "Installing client dependencies...",
+    );
+    let output2 = ProcessCommand::new(&npm)
+        .arg("install")
+        .arg("--prefix")
+        .arg("client")
+        .current_dir(&project_root)
+        .envs(&envs)
+        .output()
+        .map_err(|err| format!("Failed to run npm install in client: {err}"))?;
+
+    append_process_output(&state, "setup", &output2.stdout, "info");
+    append_process_output(&state, "setup", &output2.stderr, "error");
+
+    if output2.status.success() {
         let snapshot = build_snapshot(&app, &state, overrides)?;
         append_log(
             &state,
@@ -322,8 +366,8 @@ async fn install_dependencies(
         })
     } else {
         Err(format!(
-            "Dependency install failed with exit code {:?}. Check Logs for details.",
-            output.status.code()
+            "Client dependency install failed with exit code {:?}. Check Logs for details.",
+            output2.status.code()
         ))
     }
 }
@@ -383,8 +427,28 @@ fn start_profile_internal(
         }
     }
 
-    let envs = resolved_command_env();
+    let mut envs = resolved_command_env();
     let tools = resolve_tools(app, &envs, &overrides);
+    if let Some(node_path_str) = &tools.node_path {
+        if let Some(node_bin_dir) = Path::new(node_path_str).parent() {
+            let path_key = if cfg!(windows) {
+                envs.keys()
+                    .find(|k| k.eq_ignore_ascii_case("PATH"))
+                    .cloned()
+                    .unwrap_or_else(|| "PATH".to_string())
+            } else {
+                "PATH".to_string()
+            };
+            let current_path = envs.get(&path_key).cloned().unwrap_or_default();
+            let new_path = if current_path.is_empty() {
+                path_string(node_bin_dir)
+            } else {
+                let sep = if cfg!(windows) { ";" } else { ":" };
+                format!("{}{}{}", path_string(node_bin_dir), sep, current_path)
+            };
+            envs.insert(path_key, new_path);
+        }
+    }
     let node = tools
         .node_path
         .clone()
