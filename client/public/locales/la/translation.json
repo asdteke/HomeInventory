@@ -49,7 +49,8 @@
         "hide": "Abscondere tessera",
         "logging_out": "Exeuntes...",
         "show": "Ostende tessera",
-        "saving": "Servans...• • • • • • • • Rationem Conservationis Index Emptorum"
+        "saving": "Servans...• • • • • • • • Rationem Conservationis Index Emptorum",
+        "disabled": "Inhabilis"
     },
     "auth": {
         "login": {
@@ -298,7 +299,36 @@
         "join_house_key_required": "Clavis Domus requiritur ad domum exstantem accedendam",
         "house_key_not_found": "Clavis Domus irrita. Ita sis, clavem rectam enuntia.",
         "email_not_verified": "Inscriptio tua electronica nondum probata est. Ita sis, capsam nuntiorum inspice.",
-        "two_factor_invalid": "Codex probationis perperam est"
+        "two_factor_invalid": "Codex probationis perperam est",
+        "two_factor_invalid_try_again": "Codex verificationis invalidus. Quaeso iterum conare. Codex verificationis requiritur. Usor non inventus. Authentificatio bifactor iam activata est",
+        "two_factor_code_required": "Codex verificationis requiritur",
+        "two_factor_user_not_found": "Usor non inventus",
+        "two_factor_already_enabled": "Duo-factor authentication iam actum est",
+        "two_factor_setup_not_started": "Quaeso incipe setup duo-factor Authentication primo",
+        "two_factor_setup_error": "Error evenit durante duo-factor Authentication setup",
+        "two_factor_activation_error": "Error evenit durante duo-factor Authentication activation",
+        "two_factor_password_required": "Tessera necessaria est",
+        "two_factor_credentials_required": "TOTP codex, codex subsidiarius, vel clavem restitutionis requiritur",
+        "two_factor_already_disabled": "Duplex authenticas iam deactivata est",
+        "two_factor_password_incorrect": "Tessera incorrecta",
+        "two_factor_verification_failed": "Probatio defecit. Quaeso codicem reprehende et iterum conare.",
+        "two_factor_disable_error": "Error evenit dum duobus-factor authentication disable",
+        "two_factor_not_enabled": "Duo-factor authentication non est enable",
+        "two_factor_regenerate_codes_error": "Error evenit dum backup codices regenerare",
+        "two_factor_enabled_success": "Duo-factor authentication feliciter enable est",
+        "two_factor_disabled_success": "Bifactor Authentication feliciter deactivated est © 2026 {{brandName}} © 2026 {{brandName}} {{brandName}} - {{status}}",
+        "password_errors": {
+            "min_length": "Tessera debet esse saltem {{min}} characteres longum",
+            "lowercase_required": "Tessera debet includere saltem unam litteram minusculam",
+            "uppercase_required": "Tessera debet includere saltem unam litteram maiusculam",
+            "number_required": "Tessera debet includere saltem unum numerum",
+            "symbol_required": "Tessera debet includere saltem unum symbolum",
+            "repeated_chars": "Noli uti repetitis characteribus in tessera tua",
+            "predictable_sequence": "Noli uti facilis ad coniectandum series in tessera tua",
+            "common_password": "Hoc tessera nimis communis et insecurum est",
+            "contains_username": "Tessera non debet continere tuum nomen usoris",
+            "contains_email": "Tessera non debet continere tuas informationes electronicas"
+        }
     },
     "navigation": {
         "home": "Domus",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Clavis recuperationis regenerata est",
             "recovery_key_error": "Clavem recuperationis regenerare non potuit",
             "account_delete_error": "Rationem non potuit deleatur",
-            "backup_downloaded_encrypted": "Back-up cryptatum feliciter deiectum! ({{count}} res)"
+            "backup_downloaded_encrypted": "Back-up cryptatum feliciter deiectum! ({{count}} res)",
+            "policy_update_error": "Defecit ad renovandum petitionem occasus.",
+            "policy_updated": "Petitionis occasus feliciter renovati sunt.",
+            "unblock_error": "Defecit ad user expromendum.",
+            "unblocked_success": "Usor feliciter solutus. Reicere Petitio. Es paratus reicere petitionem pro \"{{item}}\". Es paratus reicere petitionem mutuandi a {{name}} missa.",
+            "house_owner_transferred": "Domus possessionem translata",
+            "house_owner_transfer_error": "Domus possessionem non potuit transferre"
         },
         "user_profile": {
             "edit_username": "Muta nomen usoris"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} amplius accessum ad hanc domum non habet.",
             "kick_title": "Hunc membrum removere?",
             "kick_warning": "Eorum accessus domus statim finietur et novam invitationem vel approbationem ad rediendum requirebunt.",
-            "kicking": "Removendo..."
+            "kicking": "Removendo...",
+            "access_section_eyebrow": "Domus accessum",
+            "transfer_owner": "Fac dominum",
+            "transferring_owner": "Transferens... Tradere domum possessionem? Tradere possessionem huius familiae ad {{name}}? Non iam es dominus huius familiae. Novus dominus administrabit approbationes membrorum, removales, et futura mutationes possessionis.",
+            "transfer_owner_title": "Transferre domus possessionem?",
+            "transfer_owner_confirm": "Transfere dominii huius familiae ad {{name}}? Non iam eris dominus huius familiae. Novus dominus curabit approbationes membrorum, removales, et futuras mutationes potestatis. Delere rationem tuam et permanentur omne documenta inventarii. © 2026 {{brandName}}",
+            "transfer_owner_warning": "You will no longer be the owner of this household. The new owner will manage member approvals, removals, and future ownership changes.",
+            "transfer_owner_success_body": "{{name}} nunc dominii huius familiae est."
         },
         "theme": {
             "title": "Thema",
@@ -729,7 +772,9 @@
             "light": "Lux modus",
             "description": "Elige quomodo laboratorium in hoc apparatu appareat. Simplex JSON exportata facilius inspiciuntur, sed quisquis file aperit potest statim legere tua domicilium data. Aperi clauditum tergum. Intrare tergum tessera quae usus est durante download ad restituendum hoc file criptatum. Aperi et importa. Rationem. Delere rationem. Haec actio non potest revocari.",
             "light_aria": "Transi ad lumen thematis",
-            "dark_aria": "Ad tenebrosam themam commuta"
+            "dark_aria": "Ad tenebrosam themam commuta",
+            "workspace_title": "Thema Operandi",
+            "workspace_desc": "Eligite vestrum visuum stilum pro hoc instrumento."
         },
         "security": {
             "title": "Securitas",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Nunc clavem recuperationis ostendi non potest. Regenerare illam si opus sit.",
             "recovery_key_action": "Regenerare",
             "recovery_key_modal_desc": "Confirma praesentem tesserae prosumere. Nova clavem ostendetur semel tantum.",
-            "recovery_key_loading": "Parans..."
+            "recovery_key_loading": "Parans...",
+            "accordion_title": "Securitas et privata",
+            "accordion_desc": "Administrare duo-factor authentication, fideles machinas, et regulas mutui ex aliis rationibus.",
+            "description": "Administrare password magistrum et configurationes salvationis arca.",
+            "change_password_detail": "Renova tessera tuam ad servandum rationem tuam securam",
+            "recovery_key_detail": "Usus ad recipiendum arcam tuam si oblitus es tesseram tuam"
         },
         "data_management": {
             "title": "Data Administratio",
@@ -785,10 +835,10 @@
             "owner_only_desc": "Data tergum et restituere tantum possunt administrari a domo domino."
         },
         "about": {
-            "title": "📱 De Applicatione",
+            "title": "De Applicatione",
             "version": "Versio",
             "brand": "Notam",
-            "feedback": "✉️ Mitte Feedback",
+            "feedback": "Mitte Feedback",
             "legal_title": "Documenta Legalia",
             "legal_description": "Potes reaperire terminos et privatum textus hinc etiam post acceptationem eorum.",
             "terms_link": "Termini Servitii",
@@ -890,7 +940,8 @@
             "revoke_devices": "Revoca Fida Machinas",
             "revoke_devices_desc": "Omnes memoratas machinas remove, require 2FA in proximo login",
             "devices_revoked": "{{count}} fiducialiter machina(e) removetur",
-            "devices_error": "Machinas revocare non potuit"
+            "devices_error": "Machinas revocare non potuit",
+            "preparing_setup": "Praeparans tuum authenticator configurationem... Non amplius eris dominus huius domus. Novus dominus administrabit approbationes membrorum, evictiones, et futura mutatio proprietatis. Opera Spatii Thema Selige visum tuum potestatem pro hoc instrumento."
         },
         "danger_zone": {
             "title": "Rationem",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Post confirmationem, statim amittes accessum ad rationem et data applicationis deletae ex app restituere non potest.",
             "password_label": "Confirma cum tua currentis tessera",
             "confirm_delete": "Confirma deletionem",
-            "deleting": "Deletio..."
+            "deleting": "Deletio...",
+            "description": "Delete rationem tuam et permanente remove omnes inventarium datasets."
         },
         "language": "Lingua",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Linguae populares",
         "search_results": "Eventus Quaerendi",
         "current_language": "Lingua currentis",
-        "languages_available": "Linguae praesto"
+        "languages_available": "Linguae praesto",
+        "borrow_requests": {
+            "accordion_eyebrow": "Cautela rogatio mutuandi",
+            "accordion_eyebrow_desc": "Configura regulas rogationis et administra usores obstructos.",
+            "title": "Rogationis mutuandi occasus",
+            "description": "Administra regulas ad recipiendas rogationes mutuandi ex aliis rationibus et elenchum usuariorum obstructorum.",
+            "policy_title": "Nova Petitions Mutui",
+            "policy_description": "Imperium, qui potes, mutuas tibi petitiones mittere. Inventarium tuum numquam monstratur in indice publico.",
+            "policy_none": "Noli accipere ab aliquo (Praedefinitum)",
+            "policy_house_only": "Solum membra familiae",
+            "policy_everyone": "Omnes usores",
+            "blocks_title": "Usores Obstructi",
+            "blocks_description": "Usores quos tu obstructi es ne mittere tibi novas petitiones mutuandi.",
+            "no_blocks": "Nulli usores obstructi inventi.",
+            "unblock_btn": "Expromere",
+            "policy_none_desc": "Omnia venientia petitiones automatici clausa sunt",
+            "policy_house_only_desc": "Tantum verificata membra domorum activarum tuarum petere possunt vasa quae intus sunt in communi domo iam conspicua.",
+            "policy_everyone_desc": "Aliae usores non possunt videre vel videre items. Solum possunt mittere petitionem per intrantes nomen usoris vel electronicae directe."
+        }
     },
     "inventory": {
         "title": "Inventarium",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Tecum",
             "return_pending_hint": "Relatio claudetur postquam mutuator confirmaverit recipisse rem.",
             "return_pending_lender_title": "{{name}} hanc rem ut redditam recitavit",
-            "return_pending_self_title": "Tecum, exspectans confirmationem recepti"
+            "return_pending_self_title": "Tecum, exspectans confirmationem recepti",
+            "site_member": "Socius Site",
+            "site_member_identifier": "Usoris nomen vel electronica",
+            "site_member_identifier_placeholder": "Exactus usoris nomen vel electronica",
+            "site_member_privacy_hint": "Offertum apparet in Centrum Mutuum solum si illud rationem existit et permittit incepta offerenda.",
+            "external_privacy_hint": "Hoc solum privatum localem recordum creat. Nulla app notificatio mittitur. Hoc activum siccio recordum inveni non potest. Renovare Centrum Siccio et iterum conare. Unum tantum primum contactum externum petitionem ad eundem hominem per diem mittere potes. Si accipiant petitionem, hic limitatio amplius ad illum non applicatur."
         },
         "untitled_item": "Res sine titulo",
         "delete_action": "Delere rem",
@@ -1143,7 +1218,7 @@
                 "description": "Cubiculum infantium"
             },
             "garage": {
-                "name": "Garage",
+                "name": "Garage © 2026 {{brandName}} © 2026 {{brandName}} {{brandName}} - {{status}}",
                 "description": "Vehiculi et repono area"
             },
             "balcony": {
@@ -1824,7 +1899,7 @@
             ],
             "fallback": "Tessera reset nexus videtur imperfectus vel fractus.",
             "support": "Quaestiones Registrationis:",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{brandName}} © 2026 {{brandName}} {{brandName}} - {{status}}"
         },
         "welcome": {
             "subject": "Gratus ad {{brandName}}",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Accipe notam exempli gratia reddidi sine ullis problematibus exempli gratia recepta bona condicione Claudens",
             "return_note_placeholder_borrower": "exempli gratia, reddidi sine ullis difficultatibus",
             "return_note_placeholder_lender": "exempli gratia, restitutum in bona condicione",
-            "return_submitting": "Claudens... Garage Rerum inventarium Hunc usorem vetare?"
+            "return_submitting": "Claudens... Garage Rerum inventarium Hunc usorem vetare?",
+            "reject_title": "Reice Petitio",
+            "reject_subtitle": "Es paratus reicere petitionem pro \"{{item}}\".",
+            "reject_target": "Es paratus reicere petitionem mutuandi a {{name}} missa.",
+            "reject_reason_label": "Causam Rejectionis",
+            "reject_submitting": "Reiciendo...",
+            "due_date_label": "Data reditus proposita"
         },
         "messages": {
             "load_error": "Centrum mutui oneri non potuit oneri recipi",
-            "action_error": "Actio perfici non potuit"
+            "action_error": "Actio perfici non potuit",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Unam tantum petitionem externam primo-contamenti ad eundem hominem per diem mittere potes. Si petitionem recipiunt, hic modus non amplius pro eo applicatur.",
+                "external_total_daily_limit": "Petitiones externas per diem ad primum contactum mittere potes.",
+                "external_request_requires_verified_email": "Cognoscere electronica inscriptio electronica ante mittens externum mutuo postulationibus.",
+                "external_offer_blocked": "Relinquere solum potes sodalibus domus vel usoribus descriptis qui directe invenire possunt.",
+                "target_blocked_by_you": "Rogationem mittere non potes ad usorem, quem obstupefecisti.",
+                "recent_rejection_lock": "Hic interretiarius repudiavit petitionem recentem. Aliam petitionem mittere potes post XXX dies."
+            }
         },
         "preview": {
             "title": "Modus praevisionis",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Nullae petitiones tua recensione indigent",
         "outgoing_empty_title": "Nulla petitiones exeuntes adhuc",
         "refreshing": "Renovans petitiones et activa mutua...",
-        "loading_description": "Parans petitiones et activa mutuandi activitas"
+        "loading_description": "Parans petitiones et activa mutuandi activitas",
+        "reasons": {
+            "rejected": "Reice (Reiectio Normali)",
+            "not_available": "Non praesto (Res desit / non praesto)",
+            "blocked": "Obstrue et reje (Hunc usorem obstruere)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Politia Secretorum",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}} Callide administrare omnia tua domestica items Menu BETA Versio: {{brandName}} nunc in probatione est. Nulla spondet de stabilitate data vel securitate.",
-        "tagline": "Acriter administrare omnia supellectile tua"
+        "tagline": "Acriter administrare omnia supellectile tua",
+        "loading": "Onusturika {{brandName}}",
+        "preparing_workspace": "Praeparans tuum locum laboris..."
     },
     "nav": {
         "home": "Domus",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Purga Historiam",
-            "add_item": "Adde ad Listam Emptuum"
+            "add_item": "Adde ad Listam Emptuum",
+            "mark_completed": "Signa ut completum",
+            "decrease_qty": "Minuere quantitatem Aumentare quantitatem Res delere Revertere ad activam indicem",
+            "increase_qty": "Auge quantitatis",
+            "delete_item": "Delere rem",
+            "reactivate_item": "Revertere ad index activum"
         },
         "form": {
             "add_type": "Addere Modum",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Periodica vel uno tempore conservatio monitoristica destinata pro hoc articulo.",
         "no_tasks": "Nullae conservatio munera huius articuli assignata sunt.",
         "confirm_delete": "Hoc opus delebitur. Certus es?"
+    },
+    "error_boundary": {
+        "title": "Aliquid opus est reficiendi",
+        "description": "Interfacies occurrit inopinatum problema redditionis. Tua servata inventarium data non mutatur a hoc screen.",
+        "refresh_btn": "Refice",
+        "home_btn": "Domus"
     }
 }

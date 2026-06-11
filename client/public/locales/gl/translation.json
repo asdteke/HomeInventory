@@ -186,7 +186,8 @@
         "hide": "Ocultar contrasinal",
         "logging_out": "Pechando sesión...",
         "show": "Mostrar contrasinal",
-        "saving": "Gardando..."
+        "saving": "Gardando...",
+        "disabled": "Discapacitado"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "É necesaria unha chave de casa para unir unha casa existente",
         "house_key_not_found": "Chave da casa inválida. Por favor, introduce a clave correcta.",
         "email_not_verified": "O teu enderezo de correo electrónico aínda non foi verificado. Por favor, revisa a túa caixa de entrada.",
-        "two_factor_invalid": "O código de verificación é incorrecto"
+        "two_factor_invalid": "O código de verificación é incorrecto",
+        "two_factor_invalid_try_again": "Código de verificación inválido. Por favor, inténtao de novo.",
+        "two_factor_code_required": "Requírese código de verificación",
+        "two_factor_user_not_found": "Usuario non atopado",
+        "two_factor_already_enabled": "A autenticación de dous factores xa está activada",
+        "two_factor_setup_not_started": "Por favor, inicia primeiro a configuración de autenticación en dous factores",
+        "two_factor_setup_error": "Produciuse un erro durante a configuración da autenticación en dous factores",
+        "two_factor_activation_error": "Produciuse un erro durante a activación da autenticación en dous factores",
+        "two_factor_password_required": "Requírese contrasinal",
+        "two_factor_credentials_required": "Requírese código TOTP, código de copia de seguridade ou clave de recuperación",
+        "two_factor_already_disabled": "A autenticación de dous factores xa está desactivada",
+        "two_factor_password_incorrect": "Contrasinal incorrecto",
+        "two_factor_verification_failed": "A verificación fallou. Por favor, comproba o código e inténtao de novo.",
+        "two_factor_disable_error": "Produciuse un erro ao desactivar a autenticación de dous factores",
+        "two_factor_not_enabled": "A autenticación de dous factores non está habilitada",
+        "two_factor_regenerate_codes_error": "Produciuse un erro ao rexenerar códigos de copia de seguridade",
+        "two_factor_enabled_success": "A autenticación de dous factores foi activada con éxito",
+        "two_factor_disabled_success": "A autenticación de dous factores foi desactivada con éxito",
+        "password_errors": {
+            "min_length": "O contrasinal debe ter polo menos {{min}} caracteres",
+            "lowercase_required": "O contrasinal debe incluír polo menos unha letra minúscula",
+            "uppercase_required": "O contrasinal debe incluír polo menos unha letra maiústra",
+            "number_required": "O contrasinal debe incluír polo menos un número",
+            "symbol_required": "O contrasinal debe incluír polo menos un símbolo",
+            "repeated_chars": "Non uses caracteres repetidos no teu contrasinal",
+            "predictable_sequence": "Non uses secuencias fáciles de adiviñar no teu contrasinal",
+            "common_password": "Esta contrasinal é demasiado común e insegura",
+            "contains_username": "O contrasinal non debe conter o teu nome de usuario",
+            "contains_email": "O contrasinal non debe conter a información do teu correo electrónico"
+        }
     },
     "navigation": {
         "home": "Inicio",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Chave de recuperación rexenerada",
             "recovery_key_error": "Non se puido rexenerar a chave de recuperación",
             "account_delete_error": "A conta non puido ser eliminada",
-            "backup_downloaded_encrypted": "Copia de seguridade cifrada descargada correctamente! ({{count}} elementos)"
+            "backup_downloaded_encrypted": "Copia de seguridade cifrada descargada correctamente! ({{count}} elementos)",
+            "policy_update_error": "Non se puido actualizar a configuración de solicitudes.",
+            "policy_updated": "Configuración de solicitudes actualizada con éxito.",
+            "unblock_error": "Non conseguiu desbloquear ao usuario.",
+            "unblocked_success": "Usuario desbloqueado con éxito.",
+            "house_owner_transferred": "Transferencia da propiedade da vivenda",
+            "house_owner_transfer_error": "A propiedade da vivenda non podía ser transferida."
         },
         "user_profile": {
             "edit_username": "Cambiar nome de usuario"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} xa non ten acceso a este fogar.",
             "kick_title": "¿Eliminar este membro?",
             "kick_warning": "O seu acceso ao fogar rematará de inmediato e necesitará unha nova invitación ou aprobación para volver.",
-            "kicking": "Eliminando..."
+            "kicking": "Eliminando...",
+            "access_section_eyebrow": "Acceso á vivenda",
+            "transfer_owner": "Fai propietario",
+            "transferring_owner": "Transferindo...",
+            "transfer_owner_title": "¿Transferir a propiedade da casa?",
+            "transfer_owner_confirm": "¿Transferir a propiedade deste fogar a {{name}}?",
+            "transfer_owner_warning": "Xa non serás o propietario desta casa. O novo propietario xestionará as aprobacións dos membros, as destitucións e os futuros cambios de propiedade.",
+            "transfer_owner_success_body": "{{name}} é agora o propietario desta casa."
         },
         "theme": {
             "title": "Tema",
@@ -729,7 +772,9 @@
             "light": "Modo claro",
             "description": "Elixe como se ve o espazo de traballo neste dispositivo.",
             "light_aria": "Cambiar a tema claro",
-            "dark_aria": "Cambiar a tema escuro"
+            "dark_aria": "Cambiar a tema escuro",
+            "workspace_title": "Tema do espazo de traballo",
+            "workspace_desc": "Selecciona o teu estilo visual preferido para este dispositivo."
         },
         "security": {
             "title": "Seguridade",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "A chave de recuperación actual non pode ser mostrada. Rexeitala se é necesario.",
             "recovery_key_action": "Rexeitar",
             "recovery_key_modal_desc": "Confirma a túa contrasinal actual para continuar. A nova chave amosarase só unha vez.",
-            "recovery_key_loading": "Preparando..."
+            "recovery_key_loading": "Preparando...",
+            "accordion_title": "Seguridade e privacidade",
+            "accordion_desc": "Xestiona a autenticación en dous factores, dispositivos de confianza e regras de solicitude de préstamo doutras contas.",
+            "description": "Xestiona a túa contrasinal mestra e as configuracións de recuperación da caixa forte.",
+            "change_password_detail": "Actualiza o teu contrasinal para manter a túa conta segura",
+            "recovery_key_detail": "Úsase para recuperar a túa caixa forte se esqueces o contrasinal"
         },
         "data_management": {
             "title": "Xestión de datos",
@@ -890,7 +940,8 @@
             "revoke_devices": "Revogar dispositivos de confianza",
             "revoke_devices_desc": "Eliminar todos os dispositivos recordados, requirindo 2FA no próximo inicio de sesión",
             "devices_revoked": "{{count}} dispositivo(s) de confianza eliminado(s)",
-            "devices_error": "Fallou revogar os dispositivos"
+            "devices_error": "Fallou revogar os dispositivos",
+            "preparing_setup": "Preparando a configuración do teu autenticador..."
         },
         "danger_zone": {
             "title": "Conta",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Despois da confirmación, perderás inmediatamente o acceso á conta e os datos da aplicación eliminados non se poderán restaurar desde a aplicación.",
             "password_label": "Confirma co teu contrasinal actual",
             "confirm_delete": "Confirmar eliminación",
-            "deleting": "Eliminando..."
+            "deleting": "Eliminando...",
+            "description": "Elimina a túa conta e elimina permanentemente todos os conxuntos de datos de inventario."
         },
         "language": "Idioma",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Linguas populares",
         "search_results": "Resultados da busca",
         "current_language": "Idioma actual",
-        "languages_available": "Idiomas dispoñibles"
+        "languages_available": "Idiomas dispoñibles",
+        "borrow_requests": {
+            "accordion_eyebrow": "Solicitude de préstamo garantía",
+            "accordion_eyebrow_desc": "Configura as regras de solicitude e xestiona os usuarios bloqueados.",
+            "title": "Configuración de solicitudes de préstamo",
+            "description": "Xestiona as regras para recibir solicitudes de préstamo doutras contas e lista os usuarios bloqueados.",
+            "policy_title": "Solicitudes de Novo Préstamo",
+            "policy_description": "Controla quen pode enviarche solicitudes de préstamo. O teu inventario nunca se mostra como unha lista pública.",
+            "policy_none": "Non recibir de ninguén (Predeterminado)",
+            "policy_house_only": "Só para membros do fogar",
+            "policy_everyone": "Todos os usuarios rexistrados",
+            "blocks_title": "Usuarios bloqueados",
+            "blocks_description": "Usuarios que bloqueaches para que non che envíen novas solicitudes de préstamo.",
+            "no_blocks": "Non se atoparon usuarios bloqueados.",
+            "unblock_btn": "Desbloquear",
+            "policy_none_desc": "Todas as solicitudes entrantes bloqueanse automaticamente.",
+            "policy_house_only_desc": "Só os membros verificados das túas casas activas poden solicitar elementos que xa son visibles dentro desa casa compartida.",
+            "policy_everyone_desc": "Outros usuarios non poden navegar nin ver os teus elementos. Só poden enviar unha solicitude introducindo directamente o teu nome de usuario ou correo electrónico."
+        }
     },
     "inventory": {
         "title": "Inventario",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Contigo",
             "return_pending_hint": "O rexistro pecharase despois de que o prestamista confirme que recibiu o elemento de volta.",
             "return_pending_lender_title": "{{name}} marcou este elemento como devolto",
-            "return_pending_self_title": "Contigo, agardando confirmación de recibo"
+            "return_pending_self_title": "Contigo, agardando confirmación de recibo",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Elemento sen título",
         "delete_action": "Eliminar elemento",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Nota de recepción",
             "return_note_placeholder_borrower": "por exemplo, devolveino sen ningún problema",
             "return_note_placeholder_lender": "por exemplo, recibido de volta en bo estado",
-            "return_submitting": "Pechando..."
+            "return_submitting": "Pechando...",
+            "reject_title": "Solicitude de rexeitamento",
+            "reject_subtitle": "Estás a piques de rexeitar a solicitude de \"{{item}}\".",
+            "reject_target": "Estás a piques de rexeitar a solicitude de préstamo enviada por {{name}}.",
+            "reject_reason_label": "Razón do rexeitamento",
+            "reject_submitting": "Rexeitando...",
+            "due_date_label": "Data prevista de retorno"
         },
         "messages": {
             "load_error": "Non se puido cargar o centro de préstamos",
-            "action_error": "Non se puido completar a acción"
+            "action_error": "Non se puido completar a acción",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Só podes enviar unha solicitude externa de primeiro contacto á mesma persoa por día. Se aceptan unha solicitude, este límite xa non se aplica a esa persoa.",
+                "external_total_daily_limit": "Podes enviar ata 5 solicitudes externas de primeiro contacto por día.",
+                "external_request_requires_verified_email": "Verifica a túa dirección de correo electrónico antes de enviar solicitudes externas de préstamo.",
+                "external_offer_blocked": "Só podes ofrecer un elemento aos membros da casa ou a usuarios rexistrados que se poidan identificar directamente.",
+                "target_blocked_by_you": "Non podes enviar unha solicitude a un usuario que bloqueaches.",
+                "recent_rejection_lock": "Este usuario rexeitou unha solicitude recente. Podes enviar outra solicitude despois de 30 días."
+            }
         },
         "preview": {
             "title": "Modo de previsualización",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Ningunha solicitude require a túa revisión",
         "outgoing_empty_title": "Sen solicitudes enviadas aínda",
         "refreshing": "Actualizando solicitudes e préstamos activos...",
-        "loading_description": "Preparando solicitudes e actividade de préstamos activa."
+        "loading_description": "Preparando solicitudes e actividade de préstamos activa.",
+        "reasons": {
+            "rejected": "Rexeitar (rexeitamento normal)",
+            "not_available": "Non dispoñible (Elemento faltante / non dispoñible)",
+            "blocked": "Bloquear e rexeitar (Bloquear a este usuario)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Política de Privacidade",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Xestiona intelixentemente todos os teus obxectos domésticos"
+        "tagline": "Xestiona intelixentemente todos os teus obxectos domésticos",
+        "loading": "Cargando {{brandName}}",
+        "preparing_workspace": "Preparar o teu espazo de traballo..."
     },
     "nav": {
         "home": "Fogar",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Limiar Historial",
-            "add_item": "Engadir á lista de compras"
+            "add_item": "Engadir á lista de compras",
+            "mark_completed": "Marca como completado",
+            "decrease_qty": "Diminuír a cantidade",
+            "increase_qty": "Aumentar a cantidade",
+            "delete_item": "Eliminar o elemento",
+            "reactivate_item": "Volver á lista activa"
         },
         "form": {
             "add_type": "Engadir método",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Seguimento de mantemento periódico ou único programado para este elemento.",
         "no_tasks": "Ningún tarefa de mantemento asignada a este elemento.",
         "confirm_delete": "Esta tarefa será eliminada. Está seguro?"
+    },
+    "error_boundary": {
+        "title": "Algo necesita un refresco",
+        "description": "A interface tivo un problema inesperado de renderizado. Os teus datos de inventario gardados non cambian nesta pantalla.",
+        "refresh_btn": "Actualizar",
+        "home_btn": "Fogar"
     }
 }

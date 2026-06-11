@@ -186,7 +186,8 @@
         "hide": "הסתר סיסמה",
         "logging_out": "מתנתק...",
         "show": "הצג סיסמה",
-        "saving": "שומר..."
+        "saving": "שומר...",
+        "disabled": "נכים"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "מפתח בית נדרש כדי להצטרף לבית קיים",
         "house_key_not_found": "מפתח בית לא תקין. אנא הזן את המפתח הנכון.",
         "email_not_verified": "כתובת האימייל שלך עדיין לא אומתה. אנא בדקו את תיבת הדואר שלכם.",
-        "two_factor_invalid": "קוד האימות שגוי"
+        "two_factor_invalid": "קוד האימות שגוי",
+        "two_factor_invalid_try_again": "קוד אימות שגוי. אנא נסה שוב.",
+        "two_factor_code_required": "נדרש קוד אימות",
+        "two_factor_user_not_found": "המשתמש לא נמצא",
+        "two_factor_already_enabled": "אימות דו-שלבי כבר מופעל",
+        "two_factor_setup_not_started": "אנא התחילו קודם את הגדרת אימות דו-שלבי",
+        "two_factor_setup_error": "אירעה שגיאה במהלך הגדרת אימות דו-שלבי",
+        "two_factor_activation_error": "אירעה שגיאה במהלך הפעלת אימות דו-שלבי",
+        "two_factor_password_required": "נדרש סיסמה",
+        "two_factor_credentials_required": "נדרש קוד TOTP, קוד גיבוי או מפתח שחזור",
+        "two_factor_already_disabled": "אימות דו-שלבי כבר מושבת",
+        "two_factor_password_incorrect": "סיסמה שגויה",
+        "two_factor_verification_failed": "האימות נכשל. אנא בדוק את הקוד ונסה שוב.",
+        "two_factor_disable_error": "אירעה שגיאה בעת השבתת אימות דו-שלבי",
+        "two_factor_not_enabled": "אימות דו-שלבי אינו מופעל",
+        "two_factor_regenerate_codes_error": "אירעה שגיאה בעת יצירת קודי גיבוי",
+        "two_factor_enabled_success": "אימות דו-שלבי הופעל בהצלחה",
+        "two_factor_disabled_success": "אימות דו-שלבי הושבת בהצלחה",
+        "password_errors": {
+            "min_length": "הסיסמה חייבת להיות לפחות {{min}} תווים",
+            "lowercase_required": "הסיסמה חייבת לכלול לפחות אות קטנה אחת",
+            "uppercase_required": "הסיסמה חייבת לכלול לפחות אות גדולה אחת",
+            "number_required": "הסיסמה חייבת לכלול לפחות מספר אחד",
+            "symbol_required": "הסיסמה חייבת לכלול לפחות סמל אחד",
+            "repeated_chars": "אל תשתמש בתווים החוזרים בסיסמה שלך",
+            "predictable_sequence": "אל תשתמש ברצפים שקל לנחש בסיסמה שלך",
+            "common_password": "סיסמה זו נפוצה מדי ולא בטוחה",
+            "contains_username": "הסיסמה לא אמורה להכיל את שם המשתמש שלך",
+            "contains_email": "הסיסמה לא צריכה להכיל את פרטי האימייל שלך"
+        }
     },
     "navigation": {
         "home": "בית",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "מפתח השחזור נוצר מחדש",
             "recovery_key_error": "לא ניתן ליצור מחדש את מפתח השחזור",
             "account_delete_error": "לא ניתן למחוק את החשבון",
-            "backup_downloaded_encrypted": "הגיבוי המוצפן הוקלט בהצלחה! ({{count}} פריטים)"
+            "backup_downloaded_encrypted": "הגיבוי המוצפן הוקלט בהצלחה! ({{count}} פריטים)",
+            "policy_update_error": "נכשל לעדכן את הגדרות הבקשה.",
+            "policy_updated": "בקשה לעדכן את ההגדרות בהצלחה.",
+            "unblock_error": "נכשל בהסרת החסימה של המשתמש.",
+            "unblocked_success": "המשתמש הוסר בהצלחה.",
+            "house_owner_transferred": "בעלות על הבית הועברה",
+            "house_owner_transfer_error": "הבעלות על הבית לא יכלה לעבור למקום."
         },
         "user_profile": {
             "edit_username": "שנה שם משתמש"
@@ -721,7 +757,14 @@
             "kick_success_body": "ל-{{name}} אין יותר גישה לבית הזה.",
             "kick_title": "להסיר את החבר הזה?",
             "kick_warning": "הגישה שלו לבית תסתיים מיד והוא יצטרך הזמנה או אישור חדשים כדי לחזור.",
-            "kicking": "מסיר..."
+            "kicking": "מסיר...",
+            "access_section_eyebrow": "גישה לבית",
+            "transfer_owner": "תעשה בעלים",
+            "transferring_owner": "העברה...",
+            "transfer_owner_title": "העברת בעלות על בית?",
+            "transfer_owner_confirm": "להעביר את הבעלות על משק הבית הזה ל-{{name}}?",
+            "transfer_owner_warning": "אתה כבר לא תהיה הבעלים של הבית הזה. הבעלים החדש ינהל את אישורי החברים, ההסרות ושינויים עתידיים בבעלות.",
+            "transfer_owner_success_body": "{{name}} הוא כעת הבעלים של הבית הזה."
         },
         "theme": {
             "title": "נושא",
@@ -729,7 +772,9 @@
             "light": "מצב בהיר",
             "description": "בחר כיצד המרחב העבודה ייראה במכשיר זה.",
             "light_aria": "החלף לנושא בהיר",
-            "dark_aria": "החלף לנושא כהה"
+            "dark_aria": "החלף לנושא כהה",
+            "workspace_title": "נושא מרחב העבודה",
+            "workspace_desc": "בחר את הסגנון הוויזואלי המועדף עליך עבור מכשיר זה."
         },
         "security": {
             "title": "אבטחה",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "מפתח השחזור הנוכחי אינו ניתן להצגה. יש ליצור אותו מחדש אם נדרש.",
             "recovery_key_action": "צור מחדש",
             "recovery_key_modal_desc": "אמת את הסיסמה הנוכחית שלך כדי להמשיך. המפתח החדש יופיע רק פעם אחת.",
-            "recovery_key_loading": "בהכנה..."
+            "recovery_key_loading": "בהכנה...",
+            "accordion_title": "אבטחה ופרטיות",
+            "accordion_desc": "נהל אימות דו-שלבי, מכשירים אמינים, וכללי בקשות לשאול מחשבונות אחרים.",
+            "description": "נהל את הסיסמה הראשית שלך ואת תצורות השחזור של הכספת.",
+            "change_password_detail": "עדכן את הסיסמה שלך כדי לשמור על החשבון שלך מאובטח",
+            "recovery_key_detail": "משמש לשחזור הכספת שלך אם שכחת את הסיסמה"
         },
         "data_management": {
             "title": "ניהול נתונים",
@@ -890,7 +940,8 @@
             "revoke_devices": "בטל סמכות של מכשירים מהימנים",
             "revoke_devices_desc": "הסר את כל המכשירים שנזכרו, נדרש אימות דו-שלבי בהתחברות הבאה",
             "devices_revoked": "{{count}} מכשיר(ים) מהימן(ים) הוסרו",
-            "devices_error": "נכשל בביטול המכשירים"
+            "devices_error": "נכשל בביטול המכשירים",
+            "preparing_setup": "הכנת מערכת האימות שלך..."
         },
         "danger_zone": {
             "title": "חשבון",
@@ -903,7 +954,8 @@
             "modal_warning_body": "לאחר האישור, תאבד מיד את הגישה לחשבון ונתוני האפליקציה שנמחקו לא ניתנים לשחזור מהאפליקציה.",
             "password_label": "אשר עם הסיסמה הנוכחית שלך",
             "confirm_delete": "אשר מחיקה",
-            "deleting": "במידה ומוחק..."
+            "deleting": "במידה ומוחק...",
+            "description": "מחק את החשבון שלך והסר לצמיתות את כל מאגרי הנתונים של המלאי."
         },
         "language": "שפה",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "שפות פופולריות",
         "search_results": "תוצאות חיפוש",
         "current_language": "השפה הנוכחית",
-        "languages_available": "שפות זמינות"
+        "languages_available": "שפות זמינות",
+        "borrow_requests": {
+            "accordion_eyebrow": "ביטוח בקשת הלוואה",
+            "accordion_eyebrow_desc": "הגדר כללי בקשות וניהול משתמשים חסומים.",
+            "title": "הגדרות בקשת השאלה",
+            "description": "נהל כללים לקבלת בקשות הלוואה מחשבונות אחרים ורשום משתמשים חסומים.",
+            "policy_title": "בקשות הלוואה חדשות",
+            "policy_description": "שלוט על מי יכול לשלוח בקשות הלוואה אליך. המלאי שלך לעולם לא מוצג כרשימה ציבורית.",
+            "policy_none": "אל תקבל מאף אחד (ברירת מחדל)",
+            "policy_house_only": "רק לחברי משק הבית",
+            "policy_everyone": "כל המשתמשים הרשומים",
+            "blocks_title": "משתמשים חסומים",
+            "blocks_description": "משתמשים שחסמתם מלשלוח לך בקשות הלוואה חדשות.",
+            "no_blocks": "לא נמצאו משתמשים חסומים.",
+            "unblock_btn": "שחרור חסימה",
+            "policy_none_desc": "כל הבקשות הנכנסות נחסמות אוטומטית.",
+            "policy_house_only_desc": "רק חברים מאומתים של הבתים הפעילים שלך יכולים לבקש פריטים שכבר נראים בתוך הבית המשותף הזה.",
+            "policy_everyone_desc": "משתמשים אחרים אינם יכולים לדפדף או לראות את הפריטים שלך. הם יכולים לשלוח בקשה רק על ידי הזנת שם המשתמש או כתובת האימייל שלך ישירות."
+        }
     },
     "inventory": {
         "title": "מלאי",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "אצלך",
             "return_pending_hint": "הרשומה תסגר לאחר שהלווה יאשר שהוא קיבל את הפריט חזרה.",
             "return_pending_lender_title": "{{name}} סמן פריט זה כהוחזר",
-            "return_pending_self_title": "אצלך, מחכה לאישור קבלה"
+            "return_pending_self_title": "אצלך, מחכה לאישור קבלה",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "פריט ללא כותרת",
         "delete_action": "מחק פריט",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "תעודת קבלה",
             "return_note_placeholder_borrower": "לדוגמה מסרתי חזרה ללא בעיות",
             "return_note_placeholder_lender": "למשל, התקבל חזרה במצב טוב",
-            "return_submitting": "סוגר..."
+            "return_submitting": "סוגר...",
+            "reject_title": "דחיית בקשת דחייה",
+            "reject_subtitle": "אתה עומד לדחות את הבקשה ל\"{{item}}\".",
+            "reject_target": "אתה עומד לדחות את בקשת ההלוואה שנשלחה על ידי {{name}}.",
+            "reject_reason_label": "סיבת דחייה",
+            "reject_submitting": "דוחה...",
+            "due_date_label": "תאריך חזרה מתוכנן"
         },
         "messages": {
             "load_error": "מרכז ההשאלה לא נטען",
-            "action_error": "לא ניתן היה להשלים את הפעולה"
+            "action_error": "לא ניתן היה להשלים את הפעולה",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "ניתן לשלוח רק בקשת קשר ראשונית אחת לאדם הנוסף ביום. אם הוא מקבל בקשה, מגבלה זו כבר לא חלה על אותו אדם.",
+                "external_total_daily_limit": "ניתן לשלוח עד 5 בקשות קשר ראשוניות ליום.",
+                "external_request_requires_verified_email": "אמת את כתובת האימייל שלך לפני שליחת בקשות הלוואה חיצוניות.",
+                "external_offer_blocked": "ניתן להציע פריט רק לחברי הבית או למשתמשים רשומים שניתן לזהותם ישירות.",
+                "target_blocked_by_you": "אתה לא יכול לשלוח בקשה למשתמש שחסמת.",
+                "recent_rejection_lock": "משתמש זה דחה בקשה אחרונה. אתה יכול לשלוח בקשה נוספת לאחר 30 יום."
+            }
         },
         "preview": {
             "title": "מצב תצוגה מקדימה",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "אין בקשות שדורשות את הסקירה שלך",
         "outgoing_empty_title": "עדיין אין בקשות יוצאות",
         "refreshing": "מרעננים בקשות והשאלות פעילות...",
-        "loading_description": "הכנת בקשות ופעילות השאלות פעילה."
+        "loading_description": "הכנת בקשות ופעילות השאלות פעילה.",
+        "reasons": {
+            "rejected": "דחייה (דחייה רגילה)",
+            "not_available": "לא זמין (פריט חסר / לא זמין)",
+            "blocked": "חסום ודחה (חוסם משתמש זה)"
+        }
     },
     "legal": {
         "privacy_policy_title": "מדיניות פרטיות",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}} >>> פריט נמחק מהרשימה. >>> אירעה שגיאה במהלך המחיקה. >>> פריטים שהושלמו נמחקו.",
-        "tagline": "ניהול חכם של כל פריטי הבית שלך"
+        "tagline": "ניהול חכם של כל פריטי הבית שלך",
+        "loading": "נטען {{brandName}}",
+        "preparing_workspace": "הכנת סביבת העבודה שלך..."
     },
     "nav": {
         "home": "בית",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "נקה היסטוריה",
-            "add_item": "הוסף לרשימת קניות"
+            "add_item": "הוסף לרשימת קניות",
+            "mark_completed": "סימן כגמור",
+            "decrease_qty": "הפחתת כמות",
+            "increase_qty": "הגדלת כמות",
+            "delete_item": "מחק פריט",
+            "reactivate_item": "חזרה לרשימה פעילה"
         },
         "form": {
             "add_type": "הוסף שיטה",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "מעקב תחזוקה תקופתי או חד-פעמי שנקבע עבור פריט זה.",
         "no_tasks": "אין משימות תחזוקה שהוקצו לפריט זה.",
         "confirm_delete": "משימה זו תימחק. האם אתה בטוח?"
+    },
+    "error_boundary": {
+        "title": "משהו צריך רענון",
+        "description": "הממשק נתקל בבעיית רינדור בלתי צפויה. נתוני המלאי השמורים שלך אינם משתנים על ידי מסך זה.",
+        "refresh_btn": "רענון",
+        "home_btn": "בית"
     }
 }

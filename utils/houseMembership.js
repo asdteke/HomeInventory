@@ -428,6 +428,68 @@ export function kickHouseMember({ actorUserId, houseKey, memberId }) {
     return runKick(actorUserId, houseKey, memberId);
 }
 
+export function transferHouseOwnership({ actorUserId, houseKey, memberId }) {
+    const runTransfer = db.transaction((ownerUserId, targetHouseKey, targetMemberId) => {
+        if (!isHouseOwner(ownerUserId, targetHouseKey)) {
+            throw createMembershipError(403, 'Bu evin sahipligini devretme yetkiniz yok');
+        }
+
+        if (ownerUserId === targetMemberId) {
+            throw createMembershipError(400, 'Ev sahipligini kendinize devredemezsiniz');
+        }
+
+        const targetMembership = db.prepare(`
+            SELECT
+                uh.id,
+                uh.user_id,
+                uh.house_key,
+                uh.is_owner,
+                u.username,
+                u.email
+            FROM user_houses uh
+            JOIN users u ON u.id = uh.user_id
+            WHERE uh.user_id = ? AND uh.house_key = ?
+            LIMIT 1
+        `).get(targetMemberId, targetHouseKey);
+
+        if (!targetMembership) {
+            throw createMembershipError(404, 'Yetki devredilecek uye bulunamadi');
+        }
+
+        if (targetMembership.is_owner === 1) {
+            throw createMembershipError(400, 'Bu uye zaten ev sahibi');
+        }
+
+        db.prepare(`
+            UPDATE user_houses
+            SET is_owner = CASE
+                WHEN user_id = ? AND house_key = ? THEN 1
+                WHEN user_id = ? AND house_key = ? THEN 0
+                ELSE is_owner
+            END
+            WHERE house_key = ? AND user_id IN (?, ?)
+        `).run(
+            targetMemberId,
+            targetHouseKey,
+            ownerUserId,
+            targetHouseKey,
+            targetHouseKey,
+            targetMemberId,
+            ownerUserId
+        );
+
+        syncUserHousePointers(ownerUserId);
+        syncUserHousePointers(targetMemberId);
+
+        return {
+            house: getHouseDisplayRecord(targetHouseKey),
+            member: decryptUserRecord(targetMembership)
+        };
+    });
+
+    return runTransfer(actorUserId, houseKey, memberId);
+}
+
 export function ensureHouseAccessForUser(userId, houseKey) {
     if (!houseKey) {
         throw createMembershipError(403, 'Aktif ev bulunamadi');

@@ -186,7 +186,8 @@
         "hide": "Sembunyikan kata laluan",
         "logging_out": "Keluar...",
         "show": "Paparkan kata laluan",
-        "saving": "Menyimpan..."
+        "saving": "Menyimpan...",
+        "disabled": "Kurang upaya"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Kunci Rumah diperlukan untuk menyertai rumah sedia ada",
         "house_key_not_found": "Kunci Rumah Tidak Sah. Sila masukkan kunci yang betul.",
         "email_not_verified": "Alamat e-mel anda belum disahkan lagi. Sila semak peti masuk anda.",
-        "two_factor_invalid": "Kod pengesahan tidak betul"
+        "two_factor_invalid": "Kod pengesahan tidak betul",
+        "two_factor_invalid_try_again": "Kod pengesahan tidak sah. Sila cuba lagi.",
+        "two_factor_code_required": "Kod pengesahan diperlukan",
+        "two_factor_user_not_found": "Pengguna tidak dijumpai",
+        "two_factor_already_enabled": "Pengesahan dua faktor sudah didayakan",
+        "two_factor_setup_not_started": "Sila mulakan persediaan pengesahan dua faktor terlebih dahulu",
+        "two_factor_setup_error": "Ralat berlaku semasa persediaan pengesahan dua faktor",
+        "two_factor_activation_error": "Ralat berlaku semasa pengaktifan pengesahan dua faktor",
+        "two_factor_password_required": "Kata laluan diperlukan",
+        "two_factor_credentials_required": "Kod TOTP, kod sandaran atau kunci pemulihan diperlukan",
+        "two_factor_already_disabled": "Pengesahan dua faktor sudah dilumpuhkan",
+        "two_factor_password_incorrect": "Kata laluan yang salah",
+        "two_factor_verification_failed": "Pengesahan gagal. Sila semak kod dan cuba lagi.",
+        "two_factor_disable_error": "Ralat berlaku semasa melumpuhkan pengesahan dua faktor",
+        "two_factor_not_enabled": "Pengesahan dua faktor tidak didayakan",
+        "two_factor_regenerate_codes_error": "Ralat berlaku semasa menjana semula kod sandaran",
+        "two_factor_enabled_success": "Pengesahan dua faktor telah berjaya didayakan",
+        "two_factor_disabled_success": "Pengesahan dua faktor telah berjaya dilumpuhkan",
+        "password_errors": {
+            "min_length": "Kata laluan mestilah sekurang-kurangnya {{min}} aksara",
+            "lowercase_required": "Kata laluan mesti mengandungi sekurang-kurangnya satu huruf kecil",
+            "uppercase_required": "Kata laluan mesti mengandungi sekurang-kurangnya satu huruf besar",
+            "number_required": "Kata laluan mesti mengandungi sekurang-kurangnya satu nombor",
+            "symbol_required": "Kata laluan mesti mengandungi sekurang-kurangnya satu simbol",
+            "repeated_chars": "Jangan gunakan aksara berulang dalam kata laluan anda",
+            "predictable_sequence": "Jangan gunakan urutan yang mudah diteka dalam kata laluan anda",
+            "common_password": "Kata laluan ini terlalu biasa dan tidak selamat",
+            "contains_username": "Kata laluan tidak boleh mengandungi nama pengguna anda",
+            "contains_email": "Kata laluan tidak boleh mengandungi maklumat e-mel anda"
+        }
     },
     "navigation": {
         "home": "Laman Utama",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Kunci pemulihan telah dijana semula",
             "recovery_key_error": "Tidak dapat menjana semula kunci pemulihan",
             "account_delete_error": "Akaun tidak dapat dipadam",
-            "backup_downloaded_encrypted": "Sandaran yang disulitkan berjaya dimuat turun! ({{count}} item)"
+            "backup_downloaded_encrypted": "Sandaran yang disulitkan berjaya dimuat turun! ({{count}} item)",
+            "policy_update_error": "Gagal mengemas kini tetapan permintaan.",
+            "policy_updated": "Tetapan permintaan berjaya dikemas kini.",
+            "unblock_error": "Gagal menyahsekat pengguna.",
+            "unblocked_success": "Pengguna berjaya dinyahsekat.",
+            "house_owner_transferred": "Pemilikan rumah dipindahkan",
+            "house_owner_transfer_error": "Pemilikan rumah tidak boleh dipindahkan."
         },
         "user_profile": {
             "edit_username": "Tukar nama pengguna"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} tidak lagi mempunyai akses ke rumah ini.",
             "kick_title": "Buang ahli ini?",
             "kick_warning": "Akses rumah mereka akan tamat serta-merta dan mereka perlu jemputan atau kelulusan baru untuk kembali.",
-            "kicking": "Mengeluarkan..."
+            "kicking": "Mengeluarkan...",
+            "access_section_eyebrow": "Akses rumah",
+            "transfer_owner": "Jadikan pemilik",
+            "transferring_owner": "Memindahkan...",
+            "transfer_owner_title": "Memindahkan pemilikan rumah?",
+            "transfer_owner_confirm": "Memindahkan pemilikan isi rumah ini kepada {{name}}?",
+            "transfer_owner_warning": "Anda tidak lagi menjadi pemilik isi rumah ini. Pemilik baharu akan menguruskan kelulusan ahli, penyingkiran dan perubahan pemilikan masa hadapan.",
+            "transfer_owner_success_body": "{{name}} kini merupakan pemilik isi rumah ini."
         },
         "theme": {
             "title": "Tema",
@@ -729,7 +772,9 @@
             "light": "Mod terang",
             "description": "Pilih bagaimana ruang kerja kelihatan pada peranti ini.",
             "light_aria": "Tukar ke tema cerah",
-            "dark_aria": "Tukar ke tema gelap"
+            "dark_aria": "Tukar ke tema gelap",
+            "workspace_title": "Tema Ruang Kerja",
+            "workspace_desc": "Pilih gaya visual pilihan anda untuk peranti ini."
         },
         "security": {
             "title": "Keselamatan",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Kunci pemulihan semasa tidak dapat dipaparkan. Jana semula jika perlu.",
             "recovery_key_action": "Jana Semula",
             "recovery_key_modal_desc": "Sahkan kata laluan semasa anda untuk meneruskan. Kunci baru hanya akan dipaparkan sekali sahaja.",
-            "recovery_key_loading": "Sedang Menyediakan..."
+            "recovery_key_loading": "Sedang Menyediakan...",
+            "accordion_title": "Keselamatan dan privasi",
+            "accordion_desc": "Urus pengesahan dua faktor, peranti yang dipercayai dan meminjam peraturan permintaan daripada akaun lain.",
+            "description": "Urus kata laluan induk dan konfigurasi pemulihan peti besi anda.",
+            "change_password_detail": "Kemas kini kata laluan anda untuk memastikan akaun anda selamat",
+            "recovery_key_detail": "Digunakan untuk memulihkan peti besi anda jika anda terlupa kata laluan anda"
         },
         "data_management": {
             "title": "Pengurusan Data",
@@ -785,10 +835,10 @@
             "owner_only_desc": "Sandaran dan pemulihan data hanya boleh diuruskan oleh pemilik rumah."
         },
         "about": {
-            "title": "📱 Mengenai Aplikasi",
+            "title": "Mengenai Aplikasi",
             "version": "Versi",
             "brand": "Jenama",
-            "feedback": "✉️ Hantar Maklum Balas",
+            "feedback": "Hantar Maklum Balas",
             "legal_title": "Dokumen Undang-undang",
             "legal_description": "Anda boleh membuka semula teks terma dan privasi dari sini walaupun selepas menerimanya.",
             "terms_link": "Terma Perkhidmatan",
@@ -890,7 +940,8 @@
             "revoke_devices": "Batalkan Peranti Dipercayai",
             "revoke_devices_desc": "Buang semua peranti yang diingati, memerlukan 2FA pada log masuk seterusnya",
             "devices_revoked": "{{count}} peranti dipercayai telah dibuang",
-            "devices_error": "Gagal membatalkan peranti"
+            "devices_error": "Gagal membatalkan peranti",
+            "preparing_setup": "Menyediakan persediaan pengesah anda..."
         },
         "danger_zone": {
             "title": "Akaun",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Selepas pengesahan, anda akan segera kehilangan akses ke akaun dan data aplikasi yang dipadam tidak boleh dipulihkan dari aplikasi.",
             "password_label": "Sahkan dengan kata laluan semasa anda",
             "confirm_delete": "Sahkan pemadaman",
-            "deleting": "Memadam..."
+            "deleting": "Memadam...",
+            "description": "Padamkan akaun anda dan alih keluar semua set data inventori secara kekal."
         },
         "language": "Bahasa",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Bahasa Popular",
         "search_results": "Keputusan Carian",
         "current_language": "Bahasa semasa",
-        "languages_available": "bahasa tersedia"
+        "languages_available": "bahasa tersedia",
+        "borrow_requests": {
+            "accordion_eyebrow": "Jaminan permintaan pinjaman",
+            "accordion_eyebrow_desc": "Konfigurasikan peraturan permintaan dan urus pengguna yang disekat.",
+            "title": "Tetapan permintaan pinjaman",
+            "description": "Urus peraturan untuk menerima permintaan pinjaman daripada akaun lain dan senaraikan pengguna yang disekat.",
+            "policy_title": "Permintaan Pinjaman Baharu",
+            "policy_description": "Kawal siapa yang boleh menghantar permintaan pinjaman kepada anda. Inventori anda tidak pernah dipaparkan sebagai senarai awam.",
+            "policy_none": "Jangan terima daripada sesiapa (Lalai)",
+            "policy_house_only": "Ahli isi rumah sahaja",
+            "policy_everyone": "Semua pengguna berdaftar",
+            "blocks_title": "Pengguna yang disekat",
+            "blocks_description": "Pengguna yang telah anda sekat daripada menghantar permintaan pinjaman baharu kepada anda.",
+            "no_blocks": "Tiada pengguna yang disekat ditemui.",
+            "unblock_btn": "Nyahsekat",
+            "policy_none_desc": "Semua permintaan masuk disekat secara automatik.",
+            "policy_house_only_desc": "Hanya ahli yang disahkan dari rumah aktif anda boleh meminta item yang sudah kelihatan di dalam rumah bersama itu.",
+            "policy_everyone_desc": "Pengguna lain tidak boleh melayari atau melihat item anda. Mereka hanya boleh menghantar permintaan dengan memasukkan nama pengguna atau e-mel anda secara langsung."
+        }
     },
     "inventory": {
         "title": "Inventori",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Bersama anda",
             "return_pending_hint": "Rekod akan ditutup selepas pemberi pinjaman mengesahkan mereka menerima item kembali.",
             "return_pending_lender_title": "{{name}} menandakan item ini telah dihantar kembali",
-            "return_pending_self_title": "Bersama anda, menunggu pengesahan penerimaan"
+            "return_pending_self_title": "Bersama anda, menunggu pengesahan penerimaan",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Item tanpa tajuk",
         "delete_action": "Padam item",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Nota terima",
             "return_note_placeholder_borrower": "contohnya saya menyerahkannya kembali tanpa sebarang masalah",
             "return_note_placeholder_lender": "contohnya Diterima kembali dalam keadaan baik",
-            "return_submitting": "Menutup..."
+            "return_submitting": "Menutup...",
+            "reject_title": "Tolak Permintaan",
+            "reject_subtitle": "Anda sedang bersedia untuk menolak permintaan untuk \"{{item}}\".",
+            "reject_target": "Anda sedang bersedia untuk menolak permintaan pinjaman yang dihantar oleh {{name}}.",
+            "reject_reason_label": "Sebab Penolakan",
+            "reject_submitting": "Menolak...",
+            "due_date_label": "Tarikh pulang yang dirancang"
         },
         "messages": {
             "load_error": "Pusat pinjaman tidak dapat dimuat",
-            "action_error": "Tindakan tidak dapat diselesaikan"
+            "action_error": "Tindakan tidak dapat diselesaikan",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Anda hanya boleh menghantar satu permintaan hubungan pertama kepada orang yang sama setiap hari. Jika mereka menerima permintaan, had ini tidak lagi terpakai kepada orang itu.",
+                "external_total_daily_limit": "Anda boleh menghantar sehingga 5 permintaan hubungan pertama setiap hari.",
+                "external_request_requires_verified_email": "Sahkan alamat e-mel anda sebelum menghantar permintaan pinjaman luaran.",
+                "external_offer_blocked": "Anda hanya boleh menawarkan item kepada ahli rumah atau pengguna berdaftar yang boleh dikenal pasti secara langsung.",
+                "target_blocked_by_you": "Anda tidak boleh menghantar permintaan kepada pengguna yang telah anda sekat.",
+                "recent_rejection_lock": "Pengguna ini menolak permintaan baru-baru ini. Anda boleh menghantar permintaan lain selepas 30 hari."
+            }
         },
         "preview": {
             "title": "Mod pratonton",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Tiada permintaan memerlukan semakan anda",
         "outgoing_empty_title": "Tiada permintaan keluar lagi",
         "refreshing": "Menyegarkan permintaan dan pinjaman aktif...",
-        "loading_description": "Menyediakan permintaan dan aktiviti pinjaman aktif."
+        "loading_description": "Menyediakan permintaan dan aktiviti pinjaman aktif.",
+        "reasons": {
+            "rejected": "Tolak (Penolakan biasa)",
+            "not_available": "Tidak tersedia (Barang hilang / tidak tersedia)",
+            "blocked": "Sekat dan tolak (Menyekat pengguna ini)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Dasar Privasi",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Urus semua barang rumah anda dengan bijak"
+        "tagline": "Urus semua barang rumah anda dengan bijak",
+        "loading": "Memuatkan {{brandName}}",
+        "preparing_workspace": "Menyediakan ruang kerja anda..."
     },
     "nav": {
         "home": "Laman Utama",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Kosongkan Sejarah",
-            "add_item": "Tambah ke Senarai Membeli-belah"
+            "add_item": "Tambah ke Senarai Membeli-belah",
+            "mark_completed": "Tandakan sebagai selesai",
+            "decrease_qty": "Kurangkan kuantiti",
+            "increase_qty": "Tingkatkan kuantiti",
+            "delete_item": "Padamkan item",
+            "reactivate_item": "Kembali ke senarai aktif"
         },
         "form": {
             "add_type": "Tambah Kaedah",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Penjejakan penyelenggaraan berkala atau sekali sahaja dijadualkan untuk item ini.",
         "no_tasks": "Tiada tugasan penyelenggaraan yang diperuntukkan untuk item ini.",
         "confirm_delete": "Tugasan ini akan dipadam. Adakah anda pasti?"
+    },
+    "error_boundary": {
+        "title": "Sesuatu memerlukan penyegaran semula",
+        "description": "Antara muka menghadapi masalah rendering yang tidak dijangka. Data inventori anda yang disimpan tidak diubah oleh skrin ini.",
+        "refresh_btn": "Muat semula",
+        "home_btn": "Laman Utama"
     }
 }

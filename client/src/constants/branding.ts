@@ -54,7 +54,7 @@ function normalizeBrandKey(value: any): string {
 
 export const SITE_URL = resolveSiteUrl();
 const SITE_HOST = resolveSiteHost(SITE_URL);
-const FALLBACK_APP_VERSION = '2.1.1';
+const FALLBACK_APP_VERSION = '2.2.1';
 const CONFIGURED_BRAND_KEY = (
     typeof __APP_BRAND_KEY__ === 'string' && __APP_BRAND_KEY__.trim()
         ? normalizeBrandKey(__APP_BRAND_KEY__)

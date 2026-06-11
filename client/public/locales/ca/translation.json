@@ -186,7 +186,8 @@
         "hide": "Amaga la contrasenya",
         "logging_out": "Tancant sessió...",
         "show": "Mostra la contrasenya",
-        "saving": "Desant..."
+        "saving": "Desant...",
+        "disabled": "Discapacitat"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Cal una Clau de Casa per unir-se a una casa existent",
         "house_key_not_found": "Clau de la casa invàlida. Si us plau, introdueix la clau correcta.",
         "email_not_verified": "La teva adreça de correu electrònic encara no ha estat verificada. Si us plau, revisa la teva safata d'entrada.",
-        "two_factor_invalid": "El codi de verificació és incorrecte"
+        "two_factor_invalid": "El codi de verificació és incorrecte",
+        "two_factor_invalid_try_again": "Codi de verificació invàlid. Si us plau, torna-ho a intentar.",
+        "two_factor_code_required": "Es requereix codi de verificació",
+        "two_factor_user_not_found": "Usuari no trobat",
+        "two_factor_already_enabled": "L'autenticació de dos factors ja està activada",
+        "two_factor_setup_not_started": "Si us plau, inicieu primer la configuració d'autenticació de dos factors",
+        "two_factor_setup_error": "Es va produir un error durant la configuració de l'autenticació de dos factors",
+        "two_factor_activation_error": "Es va produir un error durant l'activació de l'autenticació de dos factors",
+        "two_factor_password_required": "Cal contrasenya",
+        "two_factor_credentials_required": "Es requereix codi TOTP, codi de còpia de seguretat o clau de recuperació",
+        "two_factor_already_disabled": "L'autenticació de dos factors ja està desactivada",
+        "two_factor_password_incorrect": "Contrasenya incorrecta",
+        "two_factor_verification_failed": "La verificació ha fallat. Si us plau, comprova el codi i torna-ho a intentar.",
+        "two_factor_disable_error": "Es va produir un error en desactivar l'autenticació de dos factors",
+        "two_factor_not_enabled": "L'autenticació de dos factors no està habilitada",
+        "two_factor_regenerate_codes_error": "Es va produir un error mentre es regeneraven codis de còpia de seguretat",
+        "two_factor_enabled_success": "L'autenticació de dos factors s'ha activat amb èxit",
+        "two_factor_disabled_success": "L'autenticació de dos factors s'ha desactivat amb èxit",
+        "password_errors": {
+            "min_length": "La contrasenya ha de tenir almenys {{min}} caràcters",
+            "lowercase_required": "La contrasenya ha d'incloure almenys una lletra minúscula",
+            "uppercase_required": "La contrasenya ha d'incloure almenys una lletra majúscula",
+            "number_required": "La contrasenya ha d'incloure almenys un número",
+            "symbol_required": "La contrasenya ha d'incloure almenys un símbol",
+            "repeated_chars": "No utilitzeu caràcters repetits a la vostra contrasenya",
+            "predictable_sequence": "No utilitzis seqüències fàcils d'endevinar a la teva contrasenya",
+            "common_password": "Aquesta contrasenya és massa comuna i insegura",
+            "contains_username": "La contrasenya no ha de contenir el teu nom d'usuari",
+            "contains_email": "La contrasenya no ha de contenir la informació del teu correu electrònic"
+        }
     },
     "navigation": {
         "home": "Inici",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Clau de recuperació regenerada",
             "recovery_key_error": "No s'ha pogut regenerar la clau de recuperació",
             "account_delete_error": "No es va poder eliminar el compte",
-            "backup_downloaded_encrypted": "Còpia de seguretat xifrada descarregada amb èxit! ({{count}} elements)"
+            "backup_downloaded_encrypted": "Còpia de seguretat xifrada descarregada amb èxit! ({{count}} elements)",
+            "policy_update_error": "No s'ha pogut actualitzar la configuració de les sol·licituds.",
+            "policy_updated": "Configuració de sol·licituds actualitzada amb èxit.",
+            "unblock_error": "No s'ha pogut desbloquejar l'usuari.",
+            "unblocked_success": "Usuari desbloquejat amb èxit.",
+            "house_owner_transferred": "Propietat de la casa transferida",
+            "house_owner_transfer_error": "No s'ha pogut transferir la propietat de la casa."
         },
         "user_profile": {
             "edit_username": "Canviar nom d'usuari"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} ja no té accés a aquesta llar.",
             "kick_title": "Vols eliminar aquest membre?",
             "kick_warning": "El seu accés a la llar acabarà immediatament i necessitarà una nova invitació o aprovació per tornar.",
-            "kicking": "Eliminant..."
+            "kicking": "Eliminant...",
+            "access_section_eyebrow": "Accés a la casa",
+            "transfer_owner": "Fer propietari",
+            "transferring_owner": "Transferint...",
+            "transfer_owner_title": "Transferir la propietat de la casa?",
+            "transfer_owner_confirm": "Transferir la propietat d'aquest habitatge a {{name}}?",
+            "transfer_owner_warning": "Ja no seràs el propietari d'aquest habitatge. El nou propietari gestionarà les aprovacions de membres, les eliminacions i els futurs canvis de propietat.",
+            "transfer_owner_success_body": "{{name}} és ara el propietari d'aquest habitatge."
         },
         "theme": {
             "title": "Tema",
@@ -729,7 +772,9 @@
             "light": "Mode clar",
             "description": "Tria com es veu l'espai de treball en aquest dispositiu.",
             "light_aria": "Canvia al tema clar",
-            "dark_aria": "Canvia al tema fosc"
+            "dark_aria": "Canvia al tema fosc",
+            "workspace_title": "Tema de l'espai de treball",
+            "workspace_desc": "Selecciona el teu estil visual preferit per a aquest dispositiu."
         },
         "security": {
             "title": "Seguretat",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "La clau de recuperació actual no es pot mostrar. Torneu-la a generar si cal.",
             "recovery_key_action": "Torna a generar",
             "recovery_key_modal_desc": "Confirmeu la vostra contrasenya actual per continuar. La nova clau només es mostrarà una vegada.",
-            "recovery_key_loading": "Preparant..."
+            "recovery_key_loading": "Preparant...",
+            "accordion_title": "Seguretat i privacitat",
+            "accordion_desc": "Gestiona l'autenticació de dos factors, dispositius de confiança i regles de sol·licitud de préstec d'altres comptes.",
+            "description": "Gestiona la contrasenya mestra i les configuracions de recuperació de la caixa forta.",
+            "change_password_detail": "Actualitza la teva contrasenya per mantenir el teu compte segur",
+            "recovery_key_detail": "S'utilitza per recuperar la teva caixa forta si t'oblides la contrasenya"
         },
         "data_management": {
             "title": "Gestió de dades",
@@ -890,7 +940,8 @@
             "revoke_devices": "Revoca dispositius de confiança",
             "revoke_devices_desc": "Elimina tots els dispositius recordats, requerint 2FA al proper inici de sessió",
             "devices_revoked": "{{count}} dispositiu(s) de confiança eliminat(s)",
-            "devices_error": "Error en revocar els dispositius"
+            "devices_error": "Error en revocar els dispositius",
+            "preparing_setup": "Preparant la configuració de l'autenticador..."
         },
         "danger_zone": {
             "title": "Compte",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Després de la confirmació, perdreu l'accés al compte immediatament i les dades de l'aplicació eliminades no es podran recuperar des de l'aplicació.",
             "password_label": "Confirmeu amb la vostra contrasenya actual",
             "confirm_delete": "Confirmeu l'eliminació",
-            "deleting": "Eliminant..."
+            "deleting": "Eliminant...",
+            "description": "Elimina el teu compte i elimina definitivament tots els conjunts de dades d'inventari."
         },
         "language": "Idioma",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Llengües populars",
         "search_results": "Resultats de la cerca",
         "current_language": "Llengua actual",
-        "languages_available": "Idiomes disponibles"
+        "languages_available": "Idiomes disponibles",
+        "borrow_requests": {
+            "accordion_eyebrow": "Garantia de sol·licitud de préstec",
+            "accordion_eyebrow_desc": "Configura les regles de sol·licitud i gestiona els usuaris bloquejats.",
+            "title": "Configuració de sol·licituds de préstec",
+            "description": "Gestiona les regles per rebre sol·licituds de préstec d'altres comptes i llista els usuaris bloquejats.",
+            "policy_title": "Noves sol·licituds de préstec",
+            "policy_description": "Controla qui pot enviar-te sol·licituds de préstec. El teu inventari mai es mostra com una llista pública.",
+            "policy_none": "No rebre de ningú (per defecte)",
+            "policy_house_only": "Només membres de la llar",
+            "policy_everyone": "Tots els usuaris registrats",
+            "blocks_title": "Usuaris bloquejats",
+            "blocks_description": "Usuaris als quals heu bloquejat per enviar-vos noves sol·licituds de préstec.",
+            "no_blocks": "No s'han trobat usuaris bloquejats.",
+            "unblock_btn": "Desbloquejar",
+            "policy_none_desc": "Totes les peticions entrants es bloquegen automàticament.",
+            "policy_house_only_desc": "Només els membres verificats de les teves cases actives poden sol·licitar articles que ja són visibles dins d'aquesta casa compartida.",
+            "policy_everyone_desc": "Altres usuaris no poden navegar ni veure els teus articles. Només poden enviar una sol·licitud introduint directament el teu nom d'usuari o correu electrònic."
+        }
     },
     "inventory": {
         "title": "Inventari",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Amb tu",
             "return_pending_hint": "El registre es tancarà després que el prestador confirmi que ha rebut l'element de tornada.",
             "return_pending_lender_title": "{{name}} ha marcat aquest element com a tornat lliurat",
-            "return_pending_self_title": "Amb tu, esperant confirmació de recepció"
+            "return_pending_self_title": "Amb tu, esperant confirmació de recepció",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Article sense títol",
         "delete_action": "Suprimeix l'article",
@@ -1050,7 +1125,7 @@
     },
     "categories": {
         "title": "Categories",
-        "subtitle": "{{count}} categories",
+        "subtitle": "{{compte}} Categories",
         "new_category": "Nova Categoria",
         "edit_title": "Editar categoria",
         "new_title": "Nova categoria",
@@ -1880,7 +1955,7 @@
         },
         "adminEmail": {
             "sentBy": "Aquest correu electrònic ha estat enviat per {{brandName}}.",
-            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
+            "footer": "© 2026 {{NomMarca}} - {{supportEmail}}"
         },
         "testEmail": {
             "subject": "🧪 Correu electrònic de prova {{brandName}}",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Rebre nota",
             "return_note_placeholder_borrower": "per exemple, la vaig tornar sense cap problema",
             "return_note_placeholder_lender": "per exemple, rebuda de nou en bon estat",
-            "return_submitting": "Tancant..."
+            "return_submitting": "Tancant...",
+            "reject_title": "Rebutjar sol·licitud",
+            "reject_subtitle": "Estàs a punt de rebutjar la sol·licitud per a \"{{item}}\".",
+            "reject_target": "Estàs a punt de rebutjar la sol·licitud de préstec enviada per {{name}}.",
+            "reject_reason_label": "Raó del rebuig",
+            "reject_submitting": "Rebutjant...",
+            "due_date_label": "Data prevista de retorn"
         },
         "messages": {
             "load_error": "No s'ha pogut carregar el centre de préstecs",
-            "action_error": "No s'ha pogut completar l'acció"
+            "action_error": "No s'ha pogut completar l'acció",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Només pots enviar una primera sol·licitud externa de contacte a la mateixa persona per dia. Si accepten una sol·licitud, aquest límit ja no s'aplica a aquesta persona.",
+                "external_total_daily_limit": "Pots enviar fins a 5 primeres sol·licituds externes de contacte per dia.",
+                "external_request_requires_verified_email": "Verifica la teva adreça de correu electrònic abans d'enviar sol·licituds de préstec externes.",
+                "external_offer_blocked": "Només pots oferir un article als membres de la casa o a usuaris registrats que es puguin identificar directament.",
+                "target_blocked_by_you": "No podeu enviar una sol·licitud a un usuari que heu bloquejat.",
+                "recent_rejection_lock": "Aquest usuari ha rebutjat una sol·licitud recent. Podeu enviar una altra sol·licitud després de 30 dies."
+            }
         },
         "preview": {
             "title": "Mode de vista prèvia",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Cap sol·licitud necessita la seva revisió",
         "outgoing_empty_title": "Encara no hi ha sol·licituds enviades",
         "refreshing": "S'estan actualitzant les sol·licituds i els préstecs actius...",
-        "loading_description": "Preparant sol·licituds i activitat de préstec activa."
+        "loading_description": "Preparant sol·licituds i activitat de préstec activa.",
+        "reasons": {
+            "rejected": "Rebutjar (rebuig normal)",
+            "not_available": "No disponible (Element faltant / no disponible)",
+            "blocked": "Bloqueja i rebutja (Bloqueja aquest usuari)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Política de privacitat",
@@ -2175,8 +2270,10 @@
         "account_menu_tooltip": "Menú del compte de {{name}}"
     },
     "app": {
-        "name": "{{brandName}}",
-        "tagline": "Gestiona intel·ligentment tots els objectes de la llar"
+        "name": "{{NomMarca}}",
+        "tagline": "Gestiona intel·ligentment tots els objectes de la llar",
+        "loading": "Carregant {{brandName}}",
+        "preparing_workspace": "Preparant el teu espai de treball..."
     },
     "nav": {
         "home": "Llar",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Esborra l'historial",
-            "add_item": "Afegeix a la llista de compres"
+            "add_item": "Afegeix a la llista de compres",
+            "mark_completed": "Marca com a completada",
+            "decrease_qty": "Disminuir la quantitat",
+            "increase_qty": "Augmentar la quantitat",
+            "delete_item": "Elimina l'element",
+            "reactivate_item": "Tornar a la llista d'actius"
         },
         "form": {
             "add_type": "Afegeix mètode",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Seguiment de manteniment periòdic o puntual programat per a aquest element.",
         "no_tasks": "Cap tasca de manteniment assignada a aquest element.",
         "confirm_delete": "Aquesta tasca serà eliminada. Esteu segur?"
+    },
+    "error_boundary": {
+        "title": "Alguna cosa necessita un refresc",
+        "description": "La interfície va tenir un problema inesperat de renderització. Les dades de l'inventari desades no canvien en aquesta pantalla.",
+        "refresh_btn": "Refrescar",
+        "home_btn": "Llar"
     }
 }

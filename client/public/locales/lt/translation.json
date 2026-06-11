@@ -186,7 +186,8 @@
         "hide": "Slaptažodį paslėpti",
         "logging_out": "Atsijungiama...",
         "show": "Rodyti slaptažodį",
-        "saving": "Įrašoma..."
+        "saving": "Įrašoma...",
+        "disabled": "Išjungta"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Norint prisijungti prie esamo namo, reikalingas namo raktas",
         "house_key_not_found": "Neleistinas namo raktas. Įveskite teisingą raktą.",
         "email_not_verified": "Jūsų el. pašto adresas dar nepatvirtintas. Patikrinkite savo pašto dėžutę.",
-        "two_factor_invalid": "Patvirtinimo kodas neteisingas"
+        "two_factor_invalid": "Patvirtinimo kodas neteisingas",
+        "two_factor_invalid_try_again": "Neleistinas patvirtinimo kodas. Bandykite dar kartą.",
+        "two_factor_code_required": "Reikalingas patvirtinimo kodas",
+        "two_factor_user_not_found": "Vartotojas nerastas",
+        "two_factor_already_enabled": "Dviejų veiksnių autentifikavimas jau įjungtas",
+        "two_factor_setup_not_started": "Pirmiausia pradėkite dviejų veiksnių autentifikavimo sąranką",
+        "two_factor_setup_error": "Dviejų veiksnių autentifikavimo nustatymo metu įvyko klaida",
+        "two_factor_activation_error": "Aktyvinant dviejų veiksnių autentifikavimą įvyko klaida",
+        "two_factor_password_required": "Slaptažodis būtinas",
+        "two_factor_credentials_required": "Reikalingas TOTP kodas, atsarginis kodas arba atkūrimo raktas",
+        "two_factor_already_disabled": "Dviejų veiksnių autentifikavimas jau išjungtas",
+        "two_factor_password_incorrect": "Neteisingas slaptažodis",
+        "two_factor_verification_failed": "Patikrinti nepavyko. Patikrinkite kodą ir bandykite dar kartą.",
+        "two_factor_disable_error": "Išjungiant dviejų veiksnių autentifikavimą įvyko klaida",
+        "two_factor_not_enabled": "Dviejų veiksnių autentifikavimas neįjungtas",
+        "two_factor_regenerate_codes_error": "Iš naujo generuojant atsarginius kodus įvyko klaida",
+        "two_factor_enabled_success": "Dviejų veiksnių autentifikavimas sėkmingai įjungtas",
+        "two_factor_disabled_success": "Dviejų veiksnių autentifikavimas sėkmingai išjungtas",
+        "password_errors": {
+            "min_length": "Slaptažodis turi būti ne trumpesnis kaip {{min}} simbolių",
+            "lowercase_required": "Slaptažodyje turi būti bent viena mažoji raidė",
+            "uppercase_required": "Slaptažodyje turi būti bent viena didžioji raidė",
+            "number_required": "Slaptažodyje turi būti bent vienas skaičius",
+            "symbol_required": "Slaptažodyje turi būti bent vienas simbolis",
+            "repeated_chars": "Nenaudokite pasikartojančių simbolių slaptažodyje",
+            "predictable_sequence": "Slaptažodyje nenaudokite lengvai atspėjamų sekų",
+            "common_password": "Šis slaptažodis yra per dažnas ir nesaugus",
+            "contains_username": "Slaptažodyje neturi būti jūsų vartotojo vardo",
+            "contains_email": "Slaptažodyje neturi būti jūsų el. pašto informacijos"
+        }
     },
     "navigation": {
         "home": "Namai",
@@ -503,7 +533,7 @@
             "loading_description": "Ruošiame jūsų namų peržiūrą. Neseniai pridėti ir greita paieška pasirodys netrukus."
         },
         "top_bar": {
-            "beta": "Beta",
+            "beta": "Beta versija",
             "items_tracked": "Stebimi daiktai: {{count}}",
             "total_quantity": "Bendra kiekis: {{count}}",
             "shared_items": "Bendrinami daiktai: {{count}}",
@@ -602,7 +632,7 @@
         "title": "BETA VERSIJA:",
         "text": "{{brandName}} šiuo metu yra testavimo ir hobio fazėje. Nėra garantijos, kad duomenys išliks ar bus saugūs. Prašome laikyti svarbių duomenų atsargines kopijas.",
         "contact": "Kontaktai:",
-        "badge": "Beta",
+        "badge": "Beta versija",
         "aria_label": "Beta pranešimas",
         "tooltip": "Ankstyvosios prieigos funkcijos vis dar gali keistis."
     },
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Atkūrimo raktas regeneruotas",
             "recovery_key_error": "Nepavyko regeneruoti atkūrimo rakto",
             "account_delete_error": "Paskyros pašalinti nepavyko",
-            "backup_downloaded_encrypted": "Šifruota atsarginė kopija sėkmingai atsisiųsta! ({{count}} elementai)"
+            "backup_downloaded_encrypted": "Šifruota atsarginė kopija sėkmingai atsisiųsta! ({{count}} elementai)",
+            "policy_update_error": "Nepavyko atnaujinti užklausos parametrų.",
+            "policy_updated": "Prašyti sėkmingai atnaujinti parametrus.",
+            "unblock_error": "Nepavyko atblokuoti vartotojo.",
+            "unblocked_success": "Vartotojas sėkmingai atblokuotas.",
+            "house_owner_transferred": "Namo nuosavybė perduota",
+            "house_owner_transfer_error": "Namo nuosavybė negalėjo būti perduota."
         },
         "user_profile": {
             "edit_username": "Pakeisti vartotojo vardą"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} nebeturi priėjimo prie šio namų ūkio.",
             "kick_title": "Pašalinti šį narį?",
             "kick_warning": "Jų priėjimas prie namų ūkio bus nutrauktas iš karto ir jiems reikės naujo kvietimo ar patvirtinimo, kad galėtų grįžti.",
-            "kicking": "Pašalinama..."
+            "kicking": "Pašalinama...",
+            "access_section_eyebrow": "Įėjimas į namus",
+            "transfer_owner": "Padaryti savininku",
+            "transferring_owner": "Perkeliama...",
+            "transfer_owner_title": "Perduoti namo nuosavybę?",
+            "transfer_owner_confirm": "Perduoti šio namų ūkio nuosavybę {{name}}?",
+            "transfer_owner_warning": "Jūs nebebūsite šio namų ūkio savininkas. Naujasis savininkas tvarkys narių patvirtinimus, pašalinimus ir būsimus nuosavybės pakeitimus.",
+            "transfer_owner_success_body": "{{vardas}} dabar yra šio namų ūkio savininkas."
         },
         "theme": {
             "title": "Tema",
@@ -729,7 +772,9 @@
             "light": "Šviesus režimas",
             "description": "Pasirinkite, kaip darbo sritis atrodys šiame įrenginyje.",
             "light_aria": "Perjungti į šviesią temą",
-            "dark_aria": "Perjungti į tamsią temą"
+            "dark_aria": "Perjungti į tamsią temą",
+            "workspace_title": "Darbo srities tema",
+            "workspace_desc": "Pasirinkite pageidaujamą šio įrenginio vizualinį stilių."
         },
         "security": {
             "title": "Saugumas",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Dabartinis atkūrimo raktas negali būti rodomas. Jei reikia, sugeneruokite jį iš naujo.",
             "recovery_key_action": "Sugeneruoti iš naujo",
             "recovery_key_modal_desc": "Patvirtinkite dabartinį slaptažodį, kad galėtumėte tęsti. Naujas raktas bus parodytas tik vieną kartą.",
-            "recovery_key_loading": "Ruošiama..."
+            "recovery_key_loading": "Ruošiama...",
+            "accordion_title": "Saugumas ir privatumas",
+            "accordion_desc": "Tvarkykite dviejų veiksnių autentifikavimą, patikimus įrenginius ir skolinimosi užklausų taisykles iš kitų paskyrų.",
+            "description": "Tvarkykite pagrindinį slaptažodį ir saugyklos atkūrimo konfigūracijas.",
+            "change_password_detail": "Atnaujinkite slaptažodį, kad paskyra būtų saugi",
+            "recovery_key_detail": "Naudojamas saugyklai atkurti, jei pamiršote slaptažodį"
         },
         "data_management": {
             "title": "Duomenų valdymas",
@@ -785,10 +835,10 @@
             "owner_only_desc": "Duomenų atsarginių kopijų kūrimą ir atkūrimą gali valdyti tik namo savininkas."
         },
         "about": {
-            "title": "📱 Apie programą",
+            "title": "Apie programą",
             "version": "Versija",
             "brand": "Prekinis ženklas",
-            "feedback": "✉️ Siųsti atsiliepimą",
+            "feedback": "Siųsti atsiliepimą",
             "legal_title": "Teisiniai dokumentai",
             "legal_description": "Čia galite vėl atidaryti sąlygų ir privatumo tekstus net po jų patvirtinimo.",
             "terms_link": "Paslaugų teikimo sąlygos",
@@ -890,7 +940,8 @@
             "revoke_devices": "Atšaukti patikimus įrenginius",
             "revoke_devices_desc": "Pašalinti visi įsimenami įrenginiai, kuriems reikia 2FA kitą kartą prisijungiant",
             "devices_revoked": "{{count}} patikimas (-i) įrenginys (-ai) pašalintas",
-            "devices_error": "Nepavyko atšaukti įrenginių"
+            "devices_error": "Nepavyko atšaukti įrenginių",
+            "preparing_setup": "Ruošiama autentifikavimo priemonės sąranka..."
         },
         "danger_zone": {
             "title": "Paskyra",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Patvirtinus, iš karto prarasite prieigą prie paskyros, o ištrintų programos duomenų negalima atstatyti iš programos.",
             "password_label": "Patvirtinkite naudodami esamą slaptažodį",
             "confirm_delete": "Patvirtinti ištrynimą",
-            "deleting": "Trinama..."
+            "deleting": "Trinama...",
+            "description": "Ištrinkite paskyrą ir visam laikui pašalinkite visus skelbimų vietų duomenų rinkinius."
         },
         "language": "Kalba",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Populiarios kalbos",
         "search_results": "Paieškos rezultatai",
         "current_language": "Dabartinė kalba",
-        "languages_available": "prieinamos kalbos"
+        "languages_available": "prieinamos kalbos",
+        "borrow_requests": {
+            "accordion_eyebrow": "Skolintis prašyti užstato",
+            "accordion_eyebrow_desc": "Konfigūruokite užklausų taisykles ir valdykite užblokuotus vartotojus.",
+            "title": "Skolinimosi užklausos nustatymai",
+            "description": "Tvarkyti skolinimosi užklausų gavimo iš kitų paskyrų taisykles ir įtraukti užblokuotų naudotojų sąrašą.",
+            "policy_title": "Nauji skolinimosi prašymai",
+            "policy_description": "Valdykite, kas gali siųsti jums skolinimosi užklausas. Jūsų inventorius niekada nerodomas viešame sąraše.",
+            "policy_none": "Negauti iš nieko (numatytasis)",
+            "policy_house_only": "Tik namų ūkio nariai",
+            "policy_everyone": "Visi registruoti naudotojai",
+            "blocks_title": "Užblokuoti vartotojai",
+            "blocks_description": "Naudotojai, kuriuos užblokavote nuo naujų skolinimosi prašymų siuntimo.",
+            "no_blocks": "Užblokuotų vartotojų nerasta.",
+            "unblock_btn": "Atblokuoti",
+            "policy_none_desc": "Visos gaunamos užklausos blokuojamos automatiškai.",
+            "policy_house_only_desc": "Tik patvirtinti jūsų aktyvių namų nariai gali prašyti daiktų, kurie jau matomi tame bendrame name.",
+            "policy_everyone_desc": "Kiti naudotojai negali naršyti ar matyti jūsų daiktų. Jie gali tik siųsti užklausą įvesdami jūsų vartotojo vardą arba el. paštą tiesiogiai."
+        }
     },
     "inventory": {
         "title": "Inventorius",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Pas jus",
             "return_pending_hint": "Įrašas bus uždarytas po to, kai skolintojas patvirtins, kad gavo daiktą atgal.",
             "return_pending_lender_title": "{{name}} pažymėjo šį daiktą kaip grąžintą",
-            "return_pending_self_title": "Pas jus, laukiama gavimo patvirtinimo"
+            "return_pending_self_title": "Pas jus, laukiama gavimo patvirtinimo",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Be pavadinimo daiktas",
         "delete_action": "Ištrinti prekę",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Gautos prekės lapas",
             "return_note_placeholder_borrower": "pvz., Aš jį grąžinau be jokių problemų",
             "return_note_placeholder_lender": "pvz., Gauta atgal gera būklė",
-            "return_submitting": "Uždaroma..."
+            "return_submitting": "Uždaroma...",
+            "reject_title": "Atmesti užklausą",
+            "reject_subtitle": "Jūs ketinate atmesti \"{{item}}\" užklausą.",
+            "reject_target": "Jūs ketinate atmesti {{name}} atsiųstą skolinimosi prašymą.",
+            "reject_reason_label": "Atmetimo priežastis",
+            "reject_submitting": "Atmetama...",
+            "due_date_label": "Planuojama grąžinimo data"
         },
         "messages": {
             "load_error": "Paskolų centras negalėjo būti įkeltas",
-            "action_error": "Veiksmas negalėjo būti užbaigtas"
+            "action_error": "Veiksmas negalėjo būti užbaigtas",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Vienam asmeniui galite siųsti tik vieną pirmąją išorinę užklausą per dieną. Jei jie priima užklausą, ši riba daugiau nebegalioja tam asmeniui.",
+                "external_total_daily_limit": "Galite siųsti iki 5 pirmųjų išorinių užklausų per dieną.",
+                "external_request_requires_verified_email": "Patvirtinkite savo el. pašto adresą prieš siųsdami išorines skolinimosi užklausas.",
+                "external_offer_blocked": "Daiktą galite pasiūlyti tik namų nariams arba registruotiems naudotojams, kurie gali būti identifikuoti tiesiogiai.",
+                "target_blocked_by_you": "Jūs negalite siųsti užklausos vartotojui, kurį užblokavote.",
+                "recent_rejection_lock": "Šis vartotojas neseniai atmetė užklausą. Galite siųsti kitą užklausą po 30 dienų."
+            }
         },
         "preview": {
             "title": "Peržiūros režimas",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Jokie prašymai nereikalauja jūsų peržiūros",
         "outgoing_empty_title": "Dar nėra neišsiųstų prašymų",
         "refreshing": "Atnaujinami prašymai ir aktyvūs skolinimai...",
-        "loading_description": "Pasiruošimas prašymams ir aktyviam skolinimų veiklai."
+        "loading_description": "Pasiruošimas prašymams ir aktyviam skolinimų veiklai.",
+        "reasons": {
+            "rejected": "Atmesti (įprastas atmetimas)",
+            "not_available": "Nėra (Prekės trūksta / nėra)",
+            "blocked": "Blokuoti ir atmesti (blokuoja šį vartotoją)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Privatumo politika",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Išmaniai tvarkykite visus savo namų ūkių daiktus"
+        "tagline": "Išmaniai tvarkykite visus savo namų ūkių daiktus",
+        "loading": "Įkeliama {{brandName}}",
+        "preparing_workspace": "Ruošiama darbo sritis..."
     },
     "nav": {
         "home": "Namai",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Išvalyti istoriją",
-            "add_item": "Pridėti prie pirkinių sąrašo"
+            "add_item": "Pridėti prie pirkinių sąrašo",
+            "mark_completed": "Žymėti kaip baigtą",
+            "decrease_qty": "Sumažinti kiekį",
+            "increase_qty": "Padidinti kiekį",
+            "delete_item": "Naikinti elementą",
+            "reactivate_item": "Grįžti į aktyvų sąrašą"
         },
         "form": {
             "add_type": "Pridėti metodą",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Periodinė arba vienkartinė priežiūros stebėsena planuota šiam elementui.",
         "no_tasks": "Šiam elementui nėra priskirtų priežiūros užduočių.",
         "confirm_delete": "Ši užduotis bus ištrinta. Ar esate tikri?"
+    },
+    "error_boundary": {
+        "title": "Kažką reikia atnaujinti",
+        "description": "Sąsaja susidūrė su netikėta atvaizdavimo problema. Šiame ekrane išsaugoti atsargų duomenys nepakeičiami.",
+        "refresh_btn": "Atnaujinti",
+        "home_btn": "Pradžia"
     }
 }

@@ -20,7 +20,8 @@ import {
     listPendingJoinRequestsForHouse,
     listPendingJoinRequestsForUser,
     rejectJoinRequest,
-    syncUserHousePointers
+    syncUserHousePointers,
+    transferHouseOwnership
 } from '../utils/houseMembership.js';
 import {
     sendHouseJoinRequestDecisionNotification,
@@ -323,6 +324,35 @@ router.post('/members/:memberId/kick', authenticateToken, (req, res) => {
     } catch (error) {
         console.error('Kick member error:', error);
         res.status(error.statusCode || 500).json({ error: error.message || 'Uye evden cikarilamadi' });
+    }
+});
+
+router.post('/members/:memberId/transfer-owner', authenticateToken, (req, res) => {
+    try {
+        const memberId = Number.parseInt(req.params.memberId, 10);
+        if (!Number.isInteger(memberId)) {
+            return res.status(400).json({ error: 'Geçersiz üye kimliği' });
+        }
+
+        const user = syncUserHousePointers(req.user.id);
+        if (!user?.active_house_key) {
+            return res.status(404).json({ error: 'Aktif ev bulunamadı' });
+        }
+
+        const result = transferHouseOwnership({
+            actorUserId: req.user.id,
+            houseKey: user.active_house_key,
+            memberId
+        });
+
+        res.json({
+            message: 'Ev sahipligi devredildi',
+            house: result.house,
+            member: result.member
+        });
+    } catch (error) {
+        console.error('Transfer house owner error:', error);
+        res.status(error.statusCode || 500).json({ error: error.message || 'Ev sahipligi devredilemedi' });
     }
 });
 

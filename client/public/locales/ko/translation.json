@@ -186,7 +186,8 @@
         "hide": "비밀번호 숨기기",
         "logging_out": "로그아웃 중...",
         "show": "비밀번호 표시",
-        "saving": "저장 중..."
+        "saving": "저장 중...",
+        "disabled": "장애"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "기존 하우스에 입학하려면 하우스 키가 필요합니다",
         "house_key_not_found": "집 열쇠가 유효하지 않음. 정확한 키를 입력해 주세요.",
         "email_not_verified": "이메일 주소는 아직 인증되지 않았습니다. 이메일함을 확인해 주세요.",
-        "two_factor_invalid": "인증 코드가 잘못됐어요"
+        "two_factor_invalid": "인증 코드가 잘못됐어요",
+        "two_factor_invalid_try_again": "유효하지 않은 인증 코드입니다. 다시 시도해 주세요.",
+        "two_factor_code_required": "인증 코드가 필요합니다",
+        "two_factor_user_not_found": "사용자를 찾지 못했습니다",
+        "two_factor_already_enabled": "이미 2단계 인증이 활성화되어 있습니다",
+        "two_factor_setup_not_started": "먼저 2단계 인증 설정을 시작해 주세요",
+        "two_factor_setup_error": "이중 인증 설정 중에 오류가 발생했습니다",
+        "two_factor_activation_error": "이중 인증 활성화 중에 오류가 발생했습니다",
+        "two_factor_password_required": "비밀번호가 필요합니다",
+        "two_factor_credentials_required": "TOTP 코드, 백업 코드 또는 복구 키가 필요합니다",
+        "two_factor_already_disabled": "2단계 인증은 이미 비활성화되어 있습니다",
+        "two_factor_password_incorrect": "잘못된 비밀번호",
+        "two_factor_verification_failed": "검증 실패. 코드를 확인하고 다시 시도해 주세요.",
+        "two_factor_disable_error": "이중 인증을 비활성화하는 과정에서 오류가 발생했습니다",
+        "two_factor_not_enabled": "2단계 인증은 활성화되어 있지 않습니다",
+        "two_factor_regenerate_codes_error": "백업 코드를 생성하는 과정에서 오류가 발생했습니다",
+        "two_factor_enabled_success": "이중 인증이 성공적으로 활성화되었습니다",
+        "two_factor_disabled_success": "2단계 인증이 성공적으로 비활성화되었습니다",
+        "password_errors": {
+            "min_length": "비밀번호는 최소 {{min}} 자격이어야 합니다",
+            "lowercase_required": "비밀번호에는 최소 한 개의 소문자가 포함되어야 합니다",
+            "uppercase_required": "비밀번호에는 최소 한 개의 대문자가 포함되어야 합니다",
+            "number_required": "비밀번호에는 최소 한 개의 숫자가 포함되어야 합니다",
+            "symbol_required": "비밀번호에는 최소 하나의 기호가 포함되어야 합니다",
+            "repeated_chars": "비밀번호에 반복 문자를 사용하지 마세요",
+            "predictable_sequence": "비밀번호에 쉽게 추측할 수 있는 순서를 사용하지 마세요",
+            "common_password": "이 비밀번호는 너무 흔하고 위험합니다",
+            "contains_username": "비밀번호에는 사용자 이름이 포함되어서는 안 됩니다",
+            "contains_email": "비밀번호에는 이메일 정보가 포함되어 있어서는 안 됩니다"
+        }
     },
     "navigation": {
         "home": "홈",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "복구 키가 재생성되었습니다",
             "recovery_key_error": "복구 키를 재생성할 수 없습니다",
             "account_delete_error": "계정을 삭제할 수 없습니다",
-            "backup_downloaded_encrypted": "암호화된 백업이 성공적으로 다운로드되었습니다! ({{count}} 항목)"
+            "backup_downloaded_encrypted": "암호화된 백업이 성공적으로 다운로드되었습니다! ({{count}} 항목)",
+            "policy_update_error": "요청 설정 업데이트 실패.",
+            "policy_updated": "설정 업데이트 요청 성공.",
+            "unblock_error": "사용자 차단 해제에 실패했습니다.",
+            "unblocked_success": "사용자가 성공적으로 차단 해제되었습니다.",
+            "house_owner_transferred": "주택 소유권 이전",
+            "house_owner_transfer_error": "주택 소유권은 이전될 수 없었습니다."
         },
         "user_profile": {
             "edit_username": "사용자 이름 변경"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}}님은 더 이상 이 가정에 접근할 수 없습니다.",
             "kick_title": "이 구성원을 제거하시겠습니까?",
             "kick_warning": "해당 구성원의 가정 접근 권한이 즉시 종료되며, 다시 돌아오려면 새로운 초대나 승인이 필요합니다.",
-            "kicking": "제거 중..."
+            "kicking": "제거 중...",
+            "access_section_eyebrow": "주택 출입",
+            "transfer_owner": "소유자를 만드세요",
+            "transferring_owner": "전송 중...",
+            "transfer_owner_title": "집 소유권을 이전하는 건가요?",
+            "transfer_owner_confirm": "이 가구의 소유권을 {{name}}로 이전할 수 있나요?",
+            "transfer_owner_warning": "당신은 더 이상 이 집의 주인이 아닙니다. 새 소유주는 회원 승인, 해임, 향후 소유권 변경을 관리할 것입니다.",
+            "transfer_owner_success_body": "{{name}}이 이제 이 집의 주인입니다."
         },
         "theme": {
             "title": "테마",
@@ -729,7 +772,9 @@
             "light": "라이트 모드",
             "description": "이 장치에서 작업 공간이 어떻게 보이는지 선택하세요.",
             "light_aria": "라이트 테마로 전환",
-            "dark_aria": "다크 테마로 전환"
+            "dark_aria": "다크 테마로 전환",
+            "workspace_title": "작업 공간 테마",
+            "workspace_desc": "이 기기에 맞는 선호하는 시각적 스타일을 선택하세요."
         },
         "security": {
             "title": "보안",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "현재 복구 키를 표시할 수 없습니다. 필요하면 다시 생성하세요.",
             "recovery_key_action": "다시 생성",
             "recovery_key_modal_desc": "계속하려면 현재 비밀번호를 확인하세요. 새 키는 한 번만 표시됩니다.",
-            "recovery_key_loading": "준비 중..."
+            "recovery_key_loading": "준비 중...",
+            "accordion_title": "보안 및 개인정보 보호",
+            "accordion_desc": "이중 인증, 신뢰할 수 있는 기기, 그리고 다른 계정에서 요청 규칙을 빌려 관리하는 것.",
+            "description": "마스터 비밀번호와 금고 복구 설정을 관리하세요.",
+            "change_password_detail": "계정을 안전하게 지키기 위해 비밀번호를 업데이트하세요",
+            "recovery_key_detail": "비밀번호를 잊어버렸을 때 금고를 복구하는 데 사용했습니다"
         },
         "data_management": {
             "title": "데이터 관리",
@@ -785,10 +835,10 @@
             "owner_only_desc": "데이터 백업 및 복원은 집주인만 관리할 수 있습니다."
         },
         "about": {
-            "title": "📱 애플리케이션 정보",
+            "title": "애플리케이션 정보",
             "version": "버전",
             "brand": "브랜드",
-            "feedback": "✉️ 피드백 보내기",
+            "feedback": "피드백 보내기",
             "legal_title": "법적 문서",
             "legal_description": "약관과 개인정보 보호 내용을 승인한 후에도 여기에서 다시 열어볼 수 있습니다.",
             "terms_link": "서비스 약관",
@@ -890,7 +940,8 @@
             "revoke_devices": "제거",
             "revoke_devices_desc": "기억하는 모든 기기, 다음 로그인 시 2단계 인증(2FA)",
             "devices_revoked": "{{count}} 신뢰 장치 제거",
-            "devices_error": "장치 취소 실패"
+            "devices_error": "장치 취소 실패",
+            "preparing_setup": "인증 장치 설정 준비 중..."
         },
         "danger_zone": {
             "title": "계정",
@@ -903,7 +954,8 @@
             "modal_warning_body": "확인 후, 계정 접근 권한을 즉시 잃게 되며 삭제된 앱 데이터는 앱에서 복원할 수 없습니다.",
             "password_label": "현재 비밀번호로 확인",
             "confirm_delete": "삭제 확인",
-            "deleting": "삭제 중..."
+            "deleting": "삭제 중...",
+            "description": "계정을 삭제하고 모든 인벤토리 데이터셋을 영구적으로 삭제하세요."
         },
         "language": "언어",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "인기 있는 언어",
         "search_results": "검색 결과",
         "current_language": "현재 언어",
-        "languages_available": "사용 가능한 언어"
+        "languages_available": "사용 가능한 언어",
+        "borrow_requests": {
+            "accordion_eyebrow": "대출 요청 담보",
+            "accordion_eyebrow_desc": "요청 규칙을 설정하고 차단된 사용자를 관리하세요.",
+            "title": "빌린 요청 설정",
+            "description": "다른 계정으로부터 대출 요청을 받는 규칙을 관리하고 차단된 사용자를 목록화하세요.",
+            "policy_title": "새로운 대여 요청",
+            "policy_description": "누가 당신에게 대출 요청을 보낼 수 있는지 제어하세요. 당신의 재고는 절대 공개 목록으로 표시되지 않습니다.",
+            "policy_none": "누구에게서도 받지 마세요 (기본값)",
+            "policy_house_only": "가구 구성원만 참석",
+            "policy_everyone": "모든 등록 사용자",
+            "blocks_title": "차단된 사용자",
+            "blocks_description": "차단한 사용자들이 새 대출 요청을 보내지 못하게 합니다.",
+            "no_blocks": "차단된 사용자는 발견되지 않았습니다.",
+            "unblock_btn": "차단 해제",
+            "policy_none_desc": "모든 수신 요청은 자동으로 차단됩니다.",
+            "policy_house_only_desc": "활성 하우스의 인증된 멤버만 해당 공유 하우스 내에서 이미 보이는 아이템을 요청할 수 있습니다.",
+            "policy_everyone_desc": "다른 사용자는 당신의 아이템을 탐색하거나 볼 수 없습니다. 그들은 오직 사용자 이름이나 이메일을 직접 입력하여 요청을 보낼 수 있습니다."
+        }
     },
     "inventory": {
         "title": "인벤토리",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "당신과 함께 있음",
             "return_pending_hint": "대출자가 항목을 반환받았음을 확인하면 기록이 종료됩니다.",
             "return_pending_lender_title": "{{name}} 이 항목을 반환 완료로 표시함",
-            "return_pending_self_title": "당신과 함께 있으며, 수령 확인 대기 중"
+            "return_pending_self_title": "당신과 함께 있으며, 수령 확인 대기 중",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "제목 없는 항목",
         "delete_action": "항목 삭제",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "수령 메모",
             "return_note_placeholder_borrower": "예: 문제없이 반납했습니다",
             "return_note_placeholder_lender": "예: 양호한 상태로 받았습니다",
-            "return_submitting": "종료..."
+            "return_submitting": "종료...",
+            "reject_title": "거부 요청",
+            "reject_subtitle": "당신은 \"{{item}}\" 요청을 거부하려고 합니다.",
+            "reject_target": "{{name}}에서 보낸 대출 요청을 거절하려고 합니다.",
+            "reject_reason_label": "거절 사유",
+            "reject_submitting": "거절...",
+            "due_date_label": "예정된 귀환 날짜"
         },
         "messages": {
             "load_error": "대출 센터를 불러올 수 없습니다",
-            "action_error": "작업을 완료할 수 없습니다"
+            "action_error": "작업을 완료할 수 없습니다",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "동일한 사람에게 하루에 한 번만 첫 번째 외부 연락 요청을 보낼 수 있습니다. 그 사람이 요청을 수락하면 이 제한은 더 이상 그 사람에게 적용되지 않습니다.",
+                "external_total_daily_limit": "하루에 최대 5개의 첫 번째 외부 연락 요청을 보낼 수 있습니다.",
+                "external_request_requires_verified_email": "외부 대출 요청을 보내기 전에 이메일 주소를 인증하세요.",
+                "external_offer_blocked": "아이템은 하우스 멤버이거나 직접 식별할 수 있는 등록 사용자에게만 제공할 수 있습니다.",
+                "target_blocked_by_you": "차단한 사용자에게 요청을 보낼 수 없습니다.",
+                "recent_rejection_lock": "이 사용자가 최근 요청을 거부했습니다. 30일 후에 다시 요청을 보낼 수 있습니다."
+            }
         },
         "preview": {
             "title": "미리보기 모드",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "검토가 필요한 요청이 없습니다",
         "outgoing_empty_title": "아직 발송된 요청이 없습니다",
         "refreshing": "요청 및 활성 대출 새로 고침 중...",
-        "loading_description": "요청 준비 및 활성 대출 활동."
+        "loading_description": "요청 준비 및 활성 대출 활동.",
+        "reasons": {
+            "rejected": "거부(정상 거부)",
+            "not_available": "사용 불가 (아이템 누락 / 사용 불가)",
+            "blocked": "차단 및 거부 (이 사용자를 차단)"
+        }
     },
     "legal": {
         "privacy_policy_title": "개인정보 보호정책",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}} BETA 버전: {{brandName}}는 현재 테스트 단계에 있습니다. 데이터의 영구성이나 보안에 대해서는 어떠한 보장도 제공되지 않습니다.",
-        "tagline": "모든 가정용품을 스마트하게 관리하세요"
+        "tagline": "모든 가정용품을 스마트하게 관리하세요",
+        "loading": "{{brandName}} 로딩 중입니다",
+        "preparing_workspace": "작업 공간 준비 중..."
     },
     "nav": {
         "home": "홈",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "기록 삭제",
-            "add_item": "쇼핑 목록에 추가"
+            "add_item": "쇼핑 목록에 추가",
+            "mark_completed": "완료됨 표시",
+            "decrease_qty": "수량 감소",
+            "increase_qty": "양 증가",
+            "delete_item": "항목 삭제",
+            "reactivate_item": "활성 명단으로 복귀"
         },
         "form": {
             "add_type": "방법 추가",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "이 항목에 대해 정기적 또는 일회성 유지보수 추적이 예정되어 있습니다.",
         "no_tasks": "이 항목에 할당된 유지보수 작업이 없습니다.",
         "confirm_delete": "이 작업은 삭제됩니다. 정말 괜찮습니까?"
+    },
+    "error_boundary": {
+        "title": "뭔가 새롭게 할 필요가 있어",
+        "description": "인터페이스가 예상치 못한 렌더링 문제를 겪었습니다. 이 화면에서는 저장된 재고 데이터가 변경되지 않습니다.",
+        "refresh_btn": "새로고침",
+        "home_btn": "홈"
     }
 }

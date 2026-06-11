@@ -186,7 +186,8 @@
         "hide": "Itago ang password",
         "logging_out": "Naglo-log out...",
         "show": "Ipakita ang password",
-        "saving": "Nagsi-save..."
+        "saving": "Nagsi-save...",
+        "disabled": "Hindi pinagana"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Kinakailangan ang isang susi ng bahay upang sumali sa isang umiiral na bahay",
         "house_key_not_found": "Hindi wastong susi ng bahay. Mangyaring ipasok ang tamang susi.",
         "email_not_verified": "Hindi pa na-verify ang iyong email address. Mangyaring suriin ang iyong inbox.",
-        "two_factor_invalid": "Mali ang verification code"
+        "two_factor_invalid": "Mali ang verification code",
+        "two_factor_invalid_try_again": "Hindi wastong code ng pag-verify. Mangyaring subukang muli.",
+        "two_factor_code_required": "Kinakailangan ang code ng pag-verify",
+        "two_factor_user_not_found": "Hindi natagpuan ang tagagamit",
+        "two_factor_already_enabled": "Pinagana na ang dalawang-factor na pagpapatunay",
+        "two_factor_setup_not_started": "Mangyaring simulan muna ang pag-setup ng two-factor authentication",
+        "two_factor_setup_error": "Isang error ang naganap sa panahon ng pag-setup ng dalawang-factor na pagpapatunay",
+        "two_factor_activation_error": "Isang error ang naganap sa panahon ng pag-activate ng dalawang-factor na pagpapatunay",
+        "two_factor_password_required": "Password",
+        "two_factor_credentials_required": "Kinakailangan ang TOTP code, backup code, o recovery key",
+        "two_factor_already_disabled": "Hindi na pinagana ang two-factor authentication",
+        "two_factor_password_incorrect": "Username Password",
+        "two_factor_verification_failed": "Nabigo ang pag-verify. Mangyaring suriin ang code at subukang muli.",
+        "two_factor_disable_error": "Isang error ang naganap habang hindi pinagana ang dalawang-factor na pagpapatunay",
+        "two_factor_not_enabled": "Hindi pinapayagan ang dalawang-factor na pagpapatunay",
+        "two_factor_regenerate_codes_error": "Isang error ang naganap habang nagre-regenerate ng mga backup code",
+        "two_factor_enabled_success": "Matagumpay na pinagana ang dalawang-factor na pagpapatunay",
+        "two_factor_disabled_success": "Matagumpay na hindi pinagana ang dalawang-factor na pagpapatunay",
+        "password_errors": {
+            "min_length": "Ang password ay dapat na hindi bababa sa {{min}} character ang haba",
+            "lowercase_required": "Ang password ay dapat magsama ng hindi bababa sa isang maliit na titik",
+            "uppercase_required": "Ang password ay dapat magsama ng hindi bababa sa isang malalaking titik",
+            "number_required": "Ang password ay dapat magsama ng hindi bababa sa isang numero",
+            "symbol_required": "Ang password ay dapat magsama ng hindi bababa sa isang simbolo",
+            "repeated_chars": "Huwag gumamit ng paulit-ulit na mga character sa iyong password",
+            "predictable_sequence": "Huwag gumamit ng madaling hulaan na mga pagkakasunud-sunod sa iyong password",
+            "common_password": "Ang password na ito ay masyadong karaniwan at hindi ligtas",
+            "contains_username": "Ang password ay hindi dapat naglalaman ng iyong username",
+            "contains_email": "Ang password ay hindi dapat maglaman ng iyong impormasyon sa email"
+        }
     },
     "navigation": {
         "home": "Bahay",
@@ -447,7 +477,7 @@
         "share_house": "Ibahagi ang Bahay",
         "admin_panel": "Panel ng Admin",
         "logout": "Mag-log out",
-        "menu": "Menu",
+        "menu": "Email Address *",
         "personal_vault": "Personal na Vault",
         "borrow_requests": "Sentro ng Pahiram",
         "scan_item_qr": "QR ng Item",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Na-regenerate ang recovery key",
             "recovery_key_error": "Hindi ma-regenerate ang recovery key",
             "account_delete_error": "Hindi matanggal ang account",
-            "backup_downloaded_encrypted": "Matagumpay na na-download ang naka-encrypt na backup! ({{count}} item)"
+            "backup_downloaded_encrypted": "Matagumpay na na-download ang naka-encrypt na backup! ({{count}} item)",
+            "policy_update_error": "Nabigong i-update ang mga setting ng kahilingan.",
+            "policy_updated": "Matagumpay na na-update ang mga setting ng kahilingan.",
+            "unblock_error": "Nabigo na i-unblock ang gumagamit.",
+            "unblocked_success": "Matagumpay na na-unblock ang user.",
+            "house_owner_transferred": "Paglilipat ng pagmamay-ari ng bahay",
+            "house_owner_transfer_error": "Hindi mailipat ang pagmamay-ari ng bahay."
         },
         "user_profile": {
             "edit_username": "Palitan ang username"
@@ -721,7 +757,14 @@
             "kick_success_body": "Wala nang access si {{name}} sa sambahayan na ito.",
             "kick_title": "Alisin ba ang kasaping ito?",
             "kick_warning": "Agad na matatapos ang kanilang access sa sambahayan at kakailanganin nila ng bagong paanyaya o pahintulot upang makabalik.",
-            "kicking": "Inaalis..."
+            "kicking": "Inaalis...",
+            "access_section_eyebrow": "Email Address *",
+            "transfer_owner": "Gumawa ng may-ari",
+            "transferring_owner": "Paglipat ...",
+            "transfer_owner_title": "Ilipat ang pagmamay-ari ng bahay?",
+            "transfer_owner_confirm": "Ilipat ang pagmamay-ari ng sambahayang ito sa {{name}}?",
+            "transfer_owner_warning": "Hindi na ikaw ang may-ari ng bahay na ito. Ang bagong may-ari ang mamamahala sa mga pag-apruba ng miyembro, pag-alis, at mga pagbabago sa pagmamay-ari sa hinaharap.",
+            "transfer_owner_success_body": "Ngayon ay si {{name}} ang may-ari ng sambahayang ito."
         },
         "theme": {
             "title": "Tema",
@@ -729,7 +772,9 @@
             "light": "Maliwanag na Mode",
             "description": "Piliin kung paano ang hitsura ng workspace sa aparatong ito.",
             "light_aria": "Lumipat sa magaan na tema",
-            "dark_aria": "Lumipat sa madilim na tema"
+            "dark_aria": "Lumipat sa madilim na tema",
+            "workspace_title": "Tema ng Workspace",
+            "workspace_desc": "Piliin ang iyong ginustong istilo ng visual para sa aparatong ito."
         },
         "security": {
             "title": "Seguridad",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Hindi maipakita ang kasalukuyang recovery key. I-regenerate ito kung kinakailangan.",
             "recovery_key_action": "I-regenerate",
             "recovery_key_modal_desc": "Kumpirmahin ang iyong kasalukuyang password upang magpatuloy. Ang bagong key ay ipapakita lamang ng isang beses.",
-            "recovery_key_loading": "Naghahanda..."
+            "recovery_key_loading": "Naghahanda...",
+            "accordion_title": "Seguridad at privacy",
+            "accordion_desc": "Pamahalaan ang pagpapatunay ng dalawang-kadahilanan, pinagkakatiwalaang mga aparato, at paghiram ng mga patakaran sa kahilingan mula sa iba pang mga account.",
+            "description": "Pamahalaan ang iyong master password at mga pagsasaayos ng pagbawi ng vault.",
+            "change_password_detail": "I-update ang iyong password upang mapanatiling ligtas ang iyong account",
+            "recovery_key_detail": "Ginamit upang mabawi ang iyong vault kung nakalimutan mo ang iyong password"
         },
         "data_management": {
             "title": "Pamamahala ng Data",
@@ -890,7 +940,8 @@
             "revoke_devices": "Bawiin ang mga Trusted Devices",
             "revoke_devices_desc": "Alisin ang lahat ng naaalala na mga device, kailangan ang 2FA sa susunod na pag-login",
             "devices_revoked": "{{count}} pinagkakatiwalaang device ang tinanggal",
-            "devices_error": "Nabigong bawiin ang mga device"
+            "devices_error": "Nabigong bawiin ang mga device",
+            "preparing_setup": "Paghahanda ng iyong pag-setup ng authenticator ..."
         },
         "danger_zone": {
             "title": "Akawnt",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Pagkatapos ng kumpirmasyon, agad mong mawawala ang access sa account at ang tinanggal na datos ng aplikasyon ay hindi na maibabalik mula sa app.",
             "password_label": "Kumpirmahin gamit ang iyong kasalukuyang password",
             "confirm_delete": "Kumpirmahin ang pagtanggal",
-            "deleting": "Tinatanggal..."
+            "deleting": "Tinatanggal...",
+            "description": "Tanggalin ang iyong account at permanenteng alisin ang lahat ng mga dataset ng imbentaryo."
         },
         "language": "Wika",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Mga Popular na Wika",
         "search_results": "Mga Resulta ng Paghahanap",
         "current_language": "Kasalukuyang wika",
-        "languages_available": "Magagamit ang mga wika"
+        "languages_available": "Magagamit ang mga wika",
+        "borrow_requests": {
+            "accordion_eyebrow": "Seguridad ng kahilingan sa paghiram",
+            "accordion_eyebrow_desc": "I-configure ang mga patakaran sa kahilingan at pamahalaan ang mga naka-block na gumagamit.",
+            "title": "Mga setting ng kahilingan sa paghiram",
+            "description": "Pamahalaan ang mga patakaran para sa pagtanggap ng mga kahilingan sa paghiram mula sa iba pang mga account at ilista ang mga naka-block na gumagamit.",
+            "policy_title": "Mga Bagong Kahilingan sa Paghiram",
+            "policy_description": "Kontrolin kung sino ang maaaring magpadala ng mga kahilingan na umutang sa iyo. Ang iyong imbentaryo ay hindi kailanman ipinapakita bilang pampublikong listahan.",
+            "policy_none": "Huwag kang tumanggap mula sa sinuman (Default)",
+            "policy_house_only": "Mga miyembro lamang ng sambahayan",
+            "policy_everyone": "Lahat ng rehistradong gumagamit",
+            "blocks_title": "Mga Naka-block na Gumagamit",
+            "blocks_description": "Mga user na hinarang mo mula sa pagpapadala sa iyo ng mga bagong kahilingan sa paghiram.",
+            "no_blocks": "Walang natagpuang mga naka-block na gumagamit.",
+            "unblock_btn": "I-unblock",
+            "policy_none_desc": "Ang lahat ng mga papasok na kahilingan ay awtomatikong na-block.",
+            "policy_house_only_desc": "Tanging mga beripikadong miyembro ng iyong mga aktibong bahay lamang ang maaaring humiling ng mga item na nakikita na sa loob ng bahaging iyon.",
+            "policy_everyone_desc": "Ang ibang mga gumagamit ay hindi maaaring mag-browse o makita ang iyong mga item. Maaari lamang silang magpadala ng kahilingan sa pamamagitan ng direktang paglalagay ng iyong username o email."
+        }
     },
     "inventory": {
         "title": "Imbentaryo",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Sa iyo",
             "return_pending_hint": "Magsasara ang rekord matapos kumpirmahin ng nagpapahiram na natanggap nila pabalik ang item.",
             "return_pending_lender_title": "Minarkahan ni {{name}} ang item na ito bilang naibalik",
-            "return_pending_self_title": "Nasa iyo, naghihintay ng kumpirmasyon ng resibo"
+            "return_pending_self_title": "Nasa iyo, naghihintay ng kumpirmasyon ng resibo",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Walang pamagat na item",
         "delete_action": "Tanggalin ang item",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Tala ng pagtanggap",
             "return_note_placeholder_borrower": "hal. Ibinalik ko ito nang walang aberya",
             "return_note_placeholder_lender": "hal. Natanggap nang maayos pabalik",
-            "return_submitting": "Pagsasara..."
+            "return_submitting": "Pagsasara...",
+            "reject_title": "Tanggihan ang Kahilingan",
+            "reject_subtitle": "Tatanggihan mo na ang kahilingan para sa \"{{item}}\".",
+            "reject_target": "Tatanggihan mo na ang kahilingan sa paghiram na ipinadala ni {{name}}.",
+            "reject_reason_label": "Dahilan ng Pagtanggi",
+            "reject_submitting": "Pagtanggi ...",
+            "due_date_label": "Nakaplanong petsa ng pagbabalik"
         },
         "messages": {
             "load_error": "Hindi ma-load ang sentro ng pagpapahiram",
-            "action_error": "Hindi makumpleto ang aksyon"
+            "action_error": "Hindi makumpleto ang aksyon",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Maaari kang magpadala ng isang unang-kontak na panlabas na kahilingan sa parehong tao bawat araw. Kung tinanggap nila ang isang kahilingan, hindi na naaapektuhan ang limitasyong ito para sa taong iyon.",
+                "external_total_daily_limit": "Maaari kang magpadala ng hanggang 5 unang-kontak na panlabas na kahilingan bawat araw.",
+                "external_request_requires_verified_email": "Beripikahin ang iyong email bago magpadala ng panlabas na kahilingan na umutang.",
+                "external_offer_blocked": "Maaari mo lamang ialok ang isang item sa mga miyembro ng bahay o mga rehistradong gumagamit na maaaring direktang matukoy.",
+                "target_blocked_by_you": "Hindi ka maaaring magpadala ng kahilingan sa isang user na iyong na-block.",
+                "recent_rejection_lock": "Tinanggihan ng user na ito ang isang kamakailang kahilingan. Maaari kang magpadala ng isa pang kahilingan pagkatapos ng 30 araw."
+            }
         },
         "preview": {
             "title": "Mode ng Preview",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Walang kahilingang kailangan ng iyong pagsusuri",
         "outgoing_empty_title": "Walang paunang kahilingan na ipinapadala",
         "refreshing": "Nagre-refresh ng mga kahilingan at aktibong pagpapahiram...",
-        "loading_description": "Inihahanda ang mga kahilingan at aktibong aktibidad ng paghiram."
+        "loading_description": "Inihahanda ang mga kahilingan at aktibong aktibidad ng paghiram.",
+        "reasons": {
+            "rejected": "Tanggihan (Normal na pagtanggi)",
+            "not_available": "Hindi magagamit (Item na nawawala / hindi magagamit)",
+            "blocked": "I-block at tanggihan (Hinaharangan ang tagagamit na ito)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Patakaran sa Pagkapribado",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Pamahalaan nang matalino ang lahat ng iyong mga gamit sa bahay"
+        "tagline": "Pamahalaan nang matalino ang lahat ng iyong mga gamit sa bahay",
+        "loading": "Naglo-load ng {{brandName}}",
+        "preparing_workspace": "Paghahanda ng Iyong Workspace ..."
     },
     "nav": {
         "home": "Tahanan",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Linisin ang Kasaysayan",
-            "add_item": "Idagdag sa Listahan ng Pamimili"
+            "add_item": "Idagdag sa Listahan ng Pamimili",
+            "mark_completed": "Markahan bilang nakumpleto",
+            "decrease_qty": "Bawasan ang dami",
+            "increase_qty": "Dagdagan ang dami",
+            "delete_item": "Tanggalin ang item",
+            "reactivate_item": "Bumalik sa Aktibong Listahan"
         },
         "form": {
             "add_type": "Idagdag na Paraan",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Pagpapanatili na pana-panahon o isang beses na naka-iskedyul para sa item na ito.",
         "no_tasks": "Walang mga task sa pagpapanatili na itinalaga sa item na ito.",
         "confirm_delete": "Ang gawaing ito ay mabubura. Sigurado ka ba?"
+    },
+    "error_boundary": {
+        "title": "May isang bagay na nangangailangan ng pag-refresh",
+        "description": "Ang interface ay tumama sa isang hindi inaasahang problema sa pag-render. Ang iyong naka-save na data ng imbentaryo ay hindi binabago ng screen na ito.",
+        "refresh_btn": "I-refresh",
+        "home_btn": "Tahanan"
     }
 }

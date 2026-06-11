@@ -186,7 +186,8 @@
         "hide": "Fihla iphasiwedi",
         "logging_out": "Ukuphuma...",
         "show": "Khombisa iphasiwedi",
-        "saving": "Ukulondoloza..."
+        "saving": "Ukulondoloza...",
+        "disabled": "Ukukhubazeka"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Isihluthulelo sendlu siyadingeka ukuze ujoyine indlu ekhona",
         "house_key_not_found": "Ukhiye wendlu ongavumelekile. Sicela ufake ukhiye ofanele.",
         "email_not_verified": "Ikheli lakho le-imeyili alikaqinisekiswa okwamanje. Sicela uhlole ibhokisi lakho lokungenayo.",
-        "two_factor_invalid": "Ikhodi yokuqinisekisa ayilungile"
+        "two_factor_invalid": "Ikhodi yokuqinisekisa ayilungile",
+        "two_factor_invalid_try_again": "Ikhodi yokuqinisekisa engaqinisekisiwe. Sicela uzame futhi.",
+        "two_factor_code_required": "Ikhodi yokuqinisekisa iyadingeka",
+        "two_factor_user_not_found": "Umsebenzisi akatholakali",
+        "two_factor_already_enabled": "Ukuqinisekiswa kwezinto ezimbili sekuvunyelwe",
+        "two_factor_setup_not_started": "Uyacelwa ukuba uqale ukuhlela ukuqinisekiswa kwezici ezimbili kuqala",
+        "two_factor_setup_error": "Kwenzeke iphutha ngesikhathi sokumiswa kokuqinisekiswa kwezici ezimbili",
+        "two_factor_activation_error": "Kwenzeke iphutha ngesikhathi sokuqinisekiswa kwezici ezimbili kusebenze",
+        "two_factor_password_required": "Igama lokungena liyadingeka",
+        "two_factor_credentials_required": "Ikhodi ye-TOTP, ikhodi yokulondoloza, noma ukhiye wokutakula uyadingeka",
+        "two_factor_already_disabled": "Ukuqinisekiswa kwezici ezimbili sekuvele kunqatshelwe",
+        "two_factor_password_incorrect": "Igama lokungena elingalungile",
+        "two_factor_verification_failed": "Ukuqinisekiswa kwehlulekile. Sicela uhlole ikhodi bese uzama futhi.",
+        "two_factor_disable_error": "Kwenzeke iphutha uma kukhubaza ukuqinisekiswa kwezici ezimbili",
+        "two_factor_not_enabled": "Ukuqinisekiswa kwezici ezimbili akuvunyelwe",
+        "two_factor_regenerate_codes_error": "Kwenzeke iphutha uma kuvuselelwa kabusha amakhodi okusekela ngokulondoloza",
+        "two_factor_enabled_success": "Ukuqinisekiswa kwezici ezimbili kuvunyelwe ngempumelelo",
+        "two_factor_disabled_success": "Ukuqinisekiswa kwezici ezimbili kunqatshelwe ngempumelelo",
+        "password_errors": {
+            "min_length": "Igama lokungena kumele okungenani libe nezinhlamvu {{min}} ubude",
+            "lowercase_required": "Igama lokungena kufanele liqukethe okungenani uhlamvu olulodwa oluncane",
+            "uppercase_required": "Iphasiwedi kufanele iqukethe okungenani uhlamvu olulodwa olukhulu",
+            "number_required": "Igama lokungena kufanele liqukethe okungenani inombolo eyodwa",
+            "symbol_required": "Igama lokungena kufanele liqukethe okungenani uphawu olulodwa",
+            "repeated_chars": "Ungasebenzisi izinhlamvu eziphindaphindiwe kwigama lakho lokungena",
+            "predictable_sequence": "Ungasebenzisi ukulandelana okulula ukuqagela kuphasiwedi yakho",
+            "common_password": "Leli gama lokungena livame kakhulu futhi aliphephile",
+            "contains_username": "Igama lokungena akumele liqukethe igama lakho lomsebenzisi",
+            "contains_email": "Igama lokungena akumele liqukethe ulwazi lwakho lwe-imeyili"
+        }
     },
     "navigation": {
         "home": "Ikhaya",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Ukhiye wokubuyisela uphinde wenziwa",
             "recovery_key_error": "Akukwazanga ukuphinda wenze ukhiye wokubuyisela",
             "account_delete_error": "I-akhawunti ayikwazanga ukususwa",
-            "backup_downloaded_encrypted": "Ukulondolozwa kwemfihlo okucindezelwe kulandwe ngempumelelo! ({{count}} izinto)"
+            "backup_downloaded_encrypted": "Ukulondolozwa kwemfihlo okucindezelwe kulandwe ngempumelelo! ({{count}} izinto)",
+            "policy_update_error": "Yehlulekile ukubuyekeza izimiso zesicelo.",
+            "policy_updated": "Cela izimiso zibuyekeziwe ngempumelelo.",
+            "unblock_error": "Yehlulekile ukuvula umsebenzisi.",
+            "unblocked_success": "Umsebenzisi uvinjelwe ngempumelelo.",
+            "house_owner_transferred": "Ubunikazi bendlu budluliselwe",
+            "house_owner_transfer_error": "Ubunikazi bendlu abukwazanga ukudluliselwa."
         },
         "user_profile": {
             "edit_username": "Shintsha igama lomsebenzisi"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} akasakwazi ukufinyelela kule ndlu.",
             "kick_title": "Susa leli ilungu?",
             "kick_warning": "Ukufinyelela kwabo kule ndlu kuzophela ngokushesha futhi bazodinga isimemo esisha noma ukuvunywa ukuze babuye.",
-            "kicking": "Kususiwe..."
+            "kicking": "Kususiwe...",
+            "access_section_eyebrow": "Ukufinyelela endlini",
+            "transfer_owner": "Yenza umnikazi",
+            "transferring_owner": "Ukudlulisa ...",
+            "transfer_owner_title": "Ukudlulisa ubunikazi bezindlu?",
+            "transfer_owner_confirm": "Dlulisa ubunikazi bale ndlu ku-{{name}}?",
+            "transfer_owner_warning": "Ngeke usaba ngumnikazi wale ndlu. Umnikazi omusha uzophatha ukuvunywa kwamalungu, ukususwa, kanye nezinguquko zobunikazi besikhathi esizayo.",
+            "transfer_owner_success_body": "Manje ungumnikazi wale ndlu."
         },
         "theme": {
             "title": "Isihloko",
@@ -729,7 +772,9 @@
             "light": "Imodi ekukhanyeni",
             "description": "Khetha ukuthi indawo yokusebenza ibukeka kanjani kule divayisi.",
             "light_aria": "Shintshela kumtapo okhanyayo",
-            "dark_aria": "Shintshela kumtapo omnyama"
+            "dark_aria": "Shintshela kumtapo omnyama",
+            "workspace_title": "Indikimba Yendawo yokusebenzela",
+            "workspace_desc": "Khetha isitayela sakho esibonakalayo osithandayo salesi sisetshenziswa."
         },
         "security": {
             "title": "Ezokuphepha",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Ukhiye wamanje wokubuyisela awukwazi ukuboniswa. Wubuyisele uma kudingeka.",
             "recovery_key_action": "Buyisela Kabusha",
             "recovery_key_modal_desc": "Qinisekisa iphasiwedi yakho yamanje ukuze uqhubeke. Ukhiye omusha uzovezwa kanye kuphela.",
-            "recovery_key_loading": "Ukulungiselela..."
+            "recovery_key_loading": "Ukulungiselela...",
+            "accordion_title": "Ukuphepha nobumfihlo",
+            "accordion_desc": "Phatha ukuqinisekiswa kwezinto ezimbili, amadivayisi athembekile, futhi uboleke imithetho yesicelo kwamanye ama-akhawunti.",
+            "description": "Phatha iphasiwedi yakho enkulu kanye nokumiswa kokubuyiselwa kwe-vault.",
+            "change_password_detail": "Buyekeza igama lakho lokungena ukugcina i-akhawunti yakho iphephile",
+            "recovery_key_detail": "Isetshenziselwa ukubuyisa isilondolozi sakho uma ukhohlwe igama lakho lokungena"
         },
         "data_management": {
             "title": "Ukuphathwa Kwemininingwane",
@@ -785,10 +835,10 @@
             "owner_only_desc": "Ukugcinwa nokubuyiselwa kwedatha kungaphathwa kuphela ngumuntu onekhaya."
         },
         "about": {
-            "title": "📱 Mayelana nohlelo lokusebenza",
+            "title": "Mayelana nohlelo lokusebenza",
             "version": "inguqulo",
             "brand": "Uphawu",
-            "feedback": "✉️ Thumela Impendulo",
+            "feedback": "Thumela Impendulo",
             "legal_title": "Amadokhumenti Ezomthetho",
             "legal_description": "Ungavula kabusha imigomo nemibhalo yobumfihlo kusuka lapha ngisho nangemva kokuba uyamukele.",
             "terms_link": "Imigomo Yesevisi",
@@ -890,7 +940,8 @@
             "revoke_devices": "Khansela Amadivayisi Athembele",
             "revoke_devices_desc": "Susa wonke amadivayisi akhunjuliwe, kudingeka i-2FA ekungeni okulandelayo",
             "devices_revoked": "{{count}} idivayisi ethembekile isuswe",
-            "devices_error": "Akuzenzekanga ukukhipha amadivayisi"
+            "devices_error": "Akuzenzekanga ukukhipha amadivayisi",
+            "preparing_setup": "Ilungiselela ukumiswa kwesifanikazi sakho..."
         },
         "danger_zone": {
             "title": "I-akhawunti",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Ngemva kokuqinisekisa, uzolahlekelwa ngokushesha ukufinyelela kwi-akhawunti futhi idatha yesicelo esisusiwe ayinakubuyiselwa kusuka kuhlelo.",
             "password_label": "Qinisekisa ngephasiwedi yakho yamanje",
             "confirm_delete": "Qinisekisa ukususa",
-            "deleting": "Kususwa..."
+            "deleting": "Kususwa...",
+            "description": "Susa i-akhawunti yakho bese ususa unomphela yonke imininingwane yedatha."
         },
         "language": "Ulimi",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Izilimi Ezithandwayo",
         "search_results": "Imiphumela yokusesha",
         "current_language": "Ulimi lwamanje",
-        "languages_available": "Izilimi ezitholakalayo"
+        "languages_available": "Izilimi ezitholakalayo",
+        "borrow_requests": {
+            "accordion_eyebrow": "Ukuboleka isicelo sokuphepha",
+            "accordion_eyebrow_desc": "Misa imithetho yesicelo bese uphatha abasebenzisi abavinjiwe.",
+            "title": "Ukuboleka izimiso zesicelo",
+            "description": "Phatha imithetho yokwamukela izicelo zokuboleka kwamanye ama-akhawunti bese uhlukanisa abasebenzisi abavinjiwe.",
+            "policy_title": "Izicelo ezintsha zokuboleka",
+            "policy_description": "Lawula ukuthi ubani ongathumela izicelo zokubolekwa kuwe. Izimpahla zakho aziboniswa njengohlu oluvulekile.",
+            "policy_none": "Ungatholi kunoma ubani (Ngaphandle kokuphazamiseka)",
+            "policy_house_only": "Amalungu omndeni kuphela",
+            "policy_everyone": "Bonke abasebenzisi ababhalisiwe",
+            "blocks_title": "Abasebenzisi abavinjiwe",
+            "blocks_description": "Abasebenzisi obavimbele ekuthumeleleni izicelo ezintsha zokuboleka.",
+            "no_blocks": "Akukho abasebenzisi abavinjiwe abatholakele.",
+            "unblock_btn": "Vula",
+            "policy_none_desc": "Zonke izicelo ezingenayo zivinjelwe ngokuzenzakalelayo.",
+            "policy_house_only_desc": "Amalungu aqinisekisiwe kuphela ezindlu zakho ezisebenzayo angacela izinto ezivele zibonakala ngaphakathi kwaleyo ndlu ehlanganyelwe.",
+            "policy_everyone_desc": "Abanye abasebenzisi abakwazi ukuhlola noma ukubona izinto zakho. Bangathumela isicelo kuphela ngokufaka igama lakho lomsebenzisi noma i-imeyili yakho ngqo."
+        }
     },
     "inventory": {
         "title": "Impahla",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Nani",
             "return_pending_hint": "Irekhodi lizovalwa ngemuva kokuba umbolekisi eqinisekisile ukuthi bakwamukele into emuva.",
             "return_pending_lender_title": "{{name}} uphawule le nto njengokuthi ibuyiselwe",
-            "return_pending_self_title": "Nani, kulindwe ukuqinisekiswa kokwamukelwa"
+            "return_pending_self_title": "Nani, kulindwe ukuqinisekiswa kokwamukelwa",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Into engenayo isihloko",
         "delete_action": "Susa into",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Inothi lokamukeli",
             "return_note_placeholder_borrower": "isb. Ngilibuyisele ngaphandle kwezinkinga",
             "return_note_placeholder_lender": "isb. Lamukelelwa buphumelele kahle",
-            "return_submitting": "Ukuvala..."
+            "return_submitting": "Ukuvala...",
+            "reject_title": "Ukwenqaba Isicelo",
+            "reject_subtitle": "Usuzokwenqaba isicelo se- \"{{item}}\".",
+            "reject_target": "Uzokwenqaba isicelo sokuboleka esithunyelwe yi-{{name}}.",
+            "reject_reason_label": "Isizathu Sokwenqaba",
+            "reject_submitting": "Ukwenqaba ...",
+            "due_date_label": "Usuku lokubuya oluhleliwe"
         },
         "messages": {
             "load_error": "Isikhungo sokubolekwa asikwazanga ukulayishwa",
-            "action_error": "Isenzo asikwazanga ukuqedwa"
+            "action_error": "Isenzo asikwazanga ukuqedwa",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Ungathumela isicelo sokuqala sokuxhumana sangaphandle kumuntu oyedwa ngosuku kuphela. Uma bemukela isicelo, lo mkhawulo awusebenzi kulowo muntu.",
+                "external_total_daily_limit": "Ungathumela izicelo ezingama-5 zokuqala zokuxhumana zangaphandle ngosuku.",
+                "external_request_requires_verified_email": "Qinisekisa ikheli lakho le-imeyili ngaphambi kokuthumela izicelo zokubolekwa zangaphandle.",
+                "external_offer_blocked": "Unganikeza into kuphela kumalungu endlu noma kubasebenzisi ababhalisiwe abangakwazi ukubonwa ngqo.",
+                "target_blocked_by_you": "Awukwazi ukuthumela isicelo kumsebenzisi owvimbele.",
+                "recent_rejection_lock": "Lo msebenzisi wenqaba isicelo sakamuva. Ungathumela esinye isicelo ngemva kwezinsuku eziyi-30."
+            }
         },
         "preview": {
             "title": "Imodi yokubuka kuqala",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Azikho izicelo ezidinga ukubuyekezwa kwakho",
         "outgoing_empty_title": "Azikho izicelo eziphumayo okwamanje",
         "refreshing": "Ukuvuselela izicelo nezikweletu ezisebenzayo...",
-        "loading_description": "Ukulungiselela izicelo nemisebenzi yeboleko esebenzayo."
+        "loading_description": "Ukulungiselela izicelo nemisebenzi yeboleko esebenzayo.",
+        "reasons": {
+            "rejected": "Ukwenqaba (ukwenqaba okujwayelekile)",
+            "not_available": "Ayitholakali (Into elahlekile / ayitholakali)",
+            "blocked": "Vimba bese wenqaba (Ivimbela lo msebenzisi)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Inqubomgomo Yobumfihlo",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{I gama le-brand}}",
-        "tagline": "Phatha ngokuhlakanipha zonke izinto zakho zasendlini"
+        "tagline": "Phatha ngokuhlakanipha zonke izinto zakho zasendlini",
+        "loading": "Loading {{brandName}}",
+        "preparing_workspace": "Ilungiselela indawo yakho yokusebenzela..."
     },
     "nav": {
         "home": "Ikhaya",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Sula Umlando",
-            "add_item": "Engeza ohlwini Lokuthenga"
+            "add_item": "Engeza ohlwini Lokuthenga",
+            "mark_completed": "Phawula njengoba kuqediwe",
+            "decrease_qty": "Nciphisa ubuningi",
+            "increase_qty": "Ukwandisa ubuningi",
+            "delete_item": "Susa uhlamvu",
+            "reactivate_item": "Buyela emuva kuhlu olusebenzayo"
         },
         "form": {
             "add_type": "Engeza Indlela",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Ukulandela ukugcinwa okuvamile noma okwenzeka kanye kuphela okuhleliwe kule nto.",
         "no_tasks": "Azikho imisebenzi yokugcinwa enikeziwe kule nto.",
         "confirm_delete": "Lo msebenzi uzosuswa. Ungaqiniseka?"
+    },
+    "error_boundary": {
+        "title": "Okuthile okudinga ukuvuselelwa",
+        "description": "I-interface yashaya inkinga yokuhumusha engalindelekile. Imininingwane yakho yokusungula elondoloziwe ayiguqulwa yilesi sihenqo.",
+        "refresh_btn": "Vuselela",
+        "home_btn": "Ikhaya"
     }
 }

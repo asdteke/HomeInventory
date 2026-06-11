@@ -186,7 +186,8 @@
         "hide": "የይለፍ ቃል ደብቅ",
         "logging_out": "መውጣት ...",
         "show": "የይለፍ ቃል አሳይ",
-        "saving": "በማስቀመጥ ላይ ..."
+        "saving": "በማስቀመጥ ላይ ...",
+        "disabled": "ተሰናክሏል"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "አሁን ያለውን ቤት ለመቀላቀል የቤት ቁልፍ ያስፈልጋል",
         "house_key_not_found": "ልክ ያልሆነ የቤት ቁልፍ። እባክዎ ትክክለኛውን ቁልፍ ያስገቡ።",
         "email_not_verified": "የእርስዎ ኢሜይል አድራሻ ገና አልተረጋገጠም. እባክዎ የገቢ መልእክት ሳጥንዎን ያረጋግጡ።",
-        "two_factor_invalid": "የማረጋገጫ ኮዱ ትክክል አይደለም"
+        "two_factor_invalid": "የማረጋገጫ ኮዱ ትክክል አይደለም",
+        "two_factor_invalid_try_again": "ልክ ያልሆነ የማረጋገጫ ኮድ። እባክዎ ዳግም ይሞክሩ.",
+        "two_factor_code_required": "የማረጋገጫ ኮድ ያስፈልጋል",
+        "two_factor_user_not_found": "ተጠቃሚው አልተገኘም",
+        "two_factor_already_enabled": "ባለ ሁለት ደረጃ ማረጋገጫ አስቀድሞ ነቅቷል",
+        "two_factor_setup_not_started": "እባክዎ መጀመሪያ ባለ ሁለት ደረጃ ማረጋገጫ ማዋቀር ይጀምሩ",
+        "two_factor_setup_error": "ባለ ሁለት ደረጃ ማረጋገጫ ማዋቀር ወቅት ስህተት ተከስቷል",
+        "two_factor_activation_error": "ባለ ሁለት ደረጃ ማረጋገጫ ማግበር ወቅት ስህተት ተከስቷል",
+        "two_factor_password_required": "የይለፍ ቃል ያስፈልጋል",
+        "two_factor_credentials_required": "TOTP ኮድ፣ የመጠባበቂያ ኮድ ወይም የመልሶ ማግኛ ቁልፍ ያስፈልጋል",
+        "two_factor_already_disabled": "ባለ ሁለት ደረጃ ማረጋገጫ አስቀድሞ ተሰናክሏል",
+        "two_factor_password_incorrect": "የተሳሳተ የይለፍ ቃል",
+        "two_factor_verification_failed": "ማረጋገጫው አልተሳካም። እባክዎ ኮዱን ያረጋግጡ እና እንደገና ይሞክሩ።",
+        "two_factor_disable_error": "ባለ ሁለት ደረጃ ማረጋገጫን በማሰናከል ላይ ስህተት ተከስቷል",
+        "two_factor_not_enabled": "ባለ ሁለት ደረጃ ማረጋገጫ አልነቃም",
+        "two_factor_regenerate_codes_error": "የመጠባበቂያ ኮዶችን እንደገና በማደስ ላይ ስህተት ተከስቷል",
+        "two_factor_enabled_success": "ባለ ሁለት ደረጃ ማረጋገጫ በተሳካ ሁኔታ ነቅቷል",
+        "two_factor_disabled_success": "ባለ ሁለት ደረጃ ማረጋገጫ በተሳካ ሁኔታ ተሰናክሏል",
+        "password_errors": {
+            "min_length": "የይለፍ ቃል ቢያንስ {{min}} ቁምፊዎች መሆን አለበት",
+            "lowercase_required": "የይለፍ ቃል ቢያንስ አንድ ትንሽ ሆሄያት ማካተት አለበት",
+            "uppercase_required": "የይለፍ ቃል ቢያንስ አንድ አቢይ ሆሄያት ማካተት አለበት",
+            "number_required": "የይለፍ ቃል ቢያንስ አንድ ቁጥር ማካተት አለበት",
+            "symbol_required": "የይለፍ ቃል ቢያንስ አንድ ምልክት ማካተት አለበት",
+            "repeated_chars": "በይለፍ ቃልዎ ውስጥ ተደጋጋሚ ቁምፊዎችን አይጠቀሙ",
+            "predictable_sequence": "በይለፍ ቃልዎ ውስጥ ለመገመት ቀላል የሆኑ ቅደም ተከተሎችን አይጠቀሙ",
+            "common_password": "ይህ የይለፍ ቃል በጣም የተለመደ እና ደህንነቱ ያልተጠበቀ ነው። የይለፍ ቃል የተጠቃሚ ስምዎን መያዝ የለበትም። የይለፍ ቃል የኢሜይል መረጃዎን መያዝ የለበትም. ሁሉም ገቢ ጥያቄዎች በራስ-ሰር ታግደዋል።",
+            "contains_username": "የይለፍ ቃል የተጠቃሚ ስምዎን መያዝ የለበትም",
+            "contains_email": "የይለፍ ቃል የኢሜይል መረጃዎን መያዝ የለበትም"
+        }
     },
     "navigation": {
         "home": "የቤት",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "የመልሶ ማግኛ ቁልፍ እንደገና ታድሷል",
             "recovery_key_error": "የመልሶ ማግኛ ቁልፍን እንደገና ማደስ አልተቻለም",
             "account_delete_error": "መለያው ሊሰረዝ አልቻለም",
-            "backup_downloaded_encrypted": "የተመሰጠረ ምትኬ በተሳካ ሁኔታ ወርዷል! ({{count}} ንጥሎች)"
+            "backup_downloaded_encrypted": "የተመሰጠረ ምትኬ በተሳካ ሁኔታ ወርዷል! ({{count}} ንጥሎች)",
+            "policy_update_error": "የጥያቄ ቅንብሮችን ማዘመን አልተሳካም።",
+            "policy_updated": "የጥያቄ ቅንብሮች በተሳካ ሁኔታ ተዘምነዋል።",
+            "unblock_error": "የተጠቃሚውን እግድ ማንሳት አልተሳካም።",
+            "unblocked_success": "ተጠቃሚው በተሳካ ሁኔታ ታግዷል።",
+            "house_owner_transferred": "የቤቱ ባለቤትነት",
+            "house_owner_transfer_error": "የተላለፈው የቤት ባለቤትነት ሊተላለፍ አልቻለም።"
         },
         "user_profile": {
             "edit_username": "የተጠቃሚ ስም"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} ከአሁን በኋላ ወደዚህ ቤተሰብ መዳረሻ የለውም።",
             "kick_title": "ይህን አባል ያስወግዱት?",
             "kick_warning": "የቤተሰባቸው መዳረሻ ወዲያውኑ ያበቃል እና ለመመለስ አዲስ ግብዣ ወይም ፈቃድ ያስፈልጋቸዋል።",
-            "kicking": "በማስወገድ..."
+            "kicking": "በማስወገድ...",
+            "access_section_eyebrow": "የቤት መዳረሻ",
+            "transfer_owner": "ባለቤት ያድርጉ",
+            "transferring_owner": "ማስተላለፍ ...",
+            "transfer_owner_title": "የቤት ባለቤትነትን ያስተላልፉ?",
+            "transfer_owner_confirm": "የዚህን ቤተሰብ ባለቤትነት ወደ {{name}} ያስተላልፉ?",
+            "transfer_owner_warning": "ከእንግዲህ የዚህ ቤተሰብ ባለቤት አትሆንም። አዲሱ ባለቤት የአባላት ማጽደቆችን፣ ማስወገጃዎችን እና የወደፊት የባለቤትነት ለውጦችን ያስተዳድራል።",
+            "transfer_owner_success_body": "{{name}} አሁን የዚህ ቤተሰብ ባለቤት ነው።"
         },
         "theme": {
             "title": "ጭብጥ",
@@ -729,7 +772,9 @@
             "light": "የብርሃን ሁነታ",
             "description": "የስራ ቦታው በዚህ መሳሪያ ላይ እንዴት እንደሚመስል ይምረጡ።",
             "light_aria": "ወደ ብርሃን ገጽታ ቀይር",
-            "dark_aria": "ወደ ጨለማ ገጽታ ቀይር"
+            "dark_aria": "ወደ ጨለማ ገጽታ ቀይር",
+            "workspace_title": "የስራ ቦታ ጭብጥ",
+            "workspace_desc": "ለዚህ መሳሪያ የመረጡትን የእይታ ዘይቤ ይምረጡ።"
         },
         "security": {
             "title": "ደህንነት",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "የአሁኑ የመልሶ ማግኛ ቁልፍ ሊታይ አይችልም። አስፈላጊ ከሆነ እንደገና ያድሱት.",
             "recovery_key_action": "እንደገና ያድሱ",
             "recovery_key_modal_desc": "ለመቀጠል የአሁኑን የይለፍ ቃልዎን ያረጋግጡ። አዲሱ ቁልፍ የሚታየው አንድ ጊዜ ብቻ ነው።",
-            "recovery_key_loading": "በመዘጋጀት ላይ..."
+            "recovery_key_loading": "በመዘጋጀት ላይ...",
+            "accordion_title": "ደህንነት እና ግላዊነት",
+            "accordion_desc": "ባለ ሁለት ደረጃ ማረጋገጫን፣ የታመኑ መሳሪያዎችን ያስተዳድሩ እና የጥያቄ ህጎችን ከሌሎች መለያዎች ይበደራሉ።",
+            "description": "ዋና የይለፍ ቃልዎን እና የቮልት መልሶ ማግኛ ውቅሮችን ያስተዳድሩ።",
+            "change_password_detail": "የመለያዎን ደህንነት ለመጠበቅ የይለፍ ቃልዎን ያዘምኑ",
+            "recovery_key_detail": "የይለፍ ቃልዎን ከረሱ ካዝናዎን መልሶ ለማግኘት ጥቅም ላይ ይውላል"
         },
         "data_management": {
             "title": "የውሂብ አስተዳደር",
@@ -890,7 +940,8 @@
             "revoke_devices": "መሻር",
             "revoke_devices_desc": "በሚቀጥለው መግቢያ ላይ 2FA የሚያስፈልጋቸው ሁሉንም የሚታወሱ መሳሪያዎችን ያስወግዱ",
             "devices_revoked": "{{count}} የታመነ መሳሪያ(ዎች) ተወግዷል",
-            "devices_error": "{{name}} ገቢር"
+            "devices_error": "{{name}} ገቢር",
+            "preparing_setup": "የማረጋገጫ ማዋቀርዎን በማዘጋጀት ላይ..."
         },
         "danger_zone": {
             "title": "መለያ",
@@ -903,7 +954,8 @@
             "modal_warning_body": "ከተረጋገጠ በኋላ ወዲያውኑ የመለያውን መዳረሻ ያጣሉ እና የተሰረዘው የመተግበሪያ ውሂብ ከመተግበሪያው ወደነበረበት መመለስ አይቻልም።",
             "password_label": "አሁን ባለው የይለፍ ቃልዎ ያረጋግጡ",
             "confirm_delete": "መሰረዝን",
-            "deleting": "መሰረዝን ያረጋግጡ..."
+            "deleting": "መሰረዝን ያረጋግጡ...",
+            "description": "መለያዎን ይሰርዙ እና ሁሉንም የእቃ ዝርዝር የውሂብ ስብስቦችን በቋሚነት ያስወግዱ።"
         },
         "language": "ቋንቋ",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "ታዋቂ ቋንቋዎች",
         "search_results": "የፍለጋ ውጤቶች",
         "current_language": "የአሁኑ ቋንቋ",
-        "languages_available": "የሚገኙ ቋንቋዎች"
+        "languages_available": "የሚገኙ ቋንቋዎች",
+        "borrow_requests": {
+            "accordion_eyebrow": "የብድር ጥያቄ ደህንነት",
+            "accordion_eyebrow_desc": "የጥያቄ ደንቦችን ያዋቅሩ እና የታገዱ ተጠቃሚዎችን ያስተዳድሩ።",
+            "title": "የጥያቄ ቅንብሮችን ይበድሩ",
+            "description": "ከሌሎች መለያዎች የብድር ጥያቄዎችን ለመቀበል ደንቦችን ያስተዳድሩ እና የታገዱ ተጠቃሚዎችን ይዘርዝሩ።",
+            "policy_title": "አዲስ የብድር ጥያቄዎች",
+            "policy_description": "ማን የብድር ጥያቄዎችን ሊልክልዎ እንደሚችል ይቆጣጠሩ። የእርስዎ ክምችት እንደ ይፋዊ ዝርዝር በጭራሽ አይታይም።",
+            "policy_none": "ከማንም አትቀበል (ነባሪ)",
+            "policy_house_only": "የቤተሰብ አባላት ብቻ",
+            "policy_everyone": "ሁሉም የተመዘገቡ ተጠቃሚዎች",
+            "blocks_title": "የታገዱ ተጠቃሚዎች",
+            "blocks_description": "አዲስ የብድር ጥያቄዎችን እንዳይልኩልዎ ያገዷቸው ተጠቃሚዎች።",
+            "no_blocks": "የታገዱ ተጠቃሚዎች አልተገኙም።",
+            "unblock_btn": "አታግድ",
+            "policy_none_desc": "ሁሉም ገቢ ጥያቄዎች በራስ-ሰር ታግደዋል።",
+            "policy_house_only_desc": "የተረጋገጡ የንቁ ቤትዎ አባላት ብቻ በዚያ የጋራ ቤት ውስጥ የሚታዩ እቃዎችን መጠየቅ ይችላሉ።",
+            "policy_everyone_desc": "ሌሎች ተጠቃሚዎች ንጥሎችዎን ማሰስ ወይም ማየት አይችሉም። ጥያቄ መላክ የሚችሉት የተጠቃሚ ስምዎን ወይም ኢሜልዎን በቀጥታ በማስገባት ብቻ ነው።"
+        }
     },
     "inventory": {
         "title": "የአንተ ቆጠራ",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "ከእርስዎ ጋር",
             "return_pending_hint": "አበዳሪው እቃውን መልሰው መቀበሉን ካረጋገጠ በኋላ መዝገቡ ይዘጋል።",
             "return_pending_lender_title": "{{name}} ይህን ንጥል ተመልሶ እንደደረሰ ምልክት አድርጎታል",
-            "return_pending_self_title": "ከእርስዎ ጋር ደረሰኝ ማረጋገጫ በመጠባበቅ ላይ"
+            "return_pending_self_title": "ከእርስዎ ጋር ደረሰኝ ማረጋገጫ በመጠባበቅ ላይ",
+            "site_member": "የጣቢያ አባል",
+            "site_member_identifier": "የተጠቃሚ ስም ወይም በኢ-ሜይል",
+            "site_member_identifier_placeholder": "ትክክለኛ የተጠቃሚ ስም ወይም ኢሜል",
+            "site_member_privacy_hint": "ቅናሹ በብድር ማእከል ውስጥ የሚታየው መለያው ካለ እና ገቢ ቅናሾችን የሚፈቅድ ከሆነ ብቻ ነው። ይህ የግል አካባቢያዊ መዝገብ ብቻ ይፈጥራል። ምንም የመተግበሪያ ማሳወቂያ አልተላከም። ይህ ንቁ የብድር መዝገብ ሊገኝ አልቻለም። የብድር ማእከልን ያድሱ እና እንደገና ይሞክሩ።",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "ርዕስ የሌለው ንጥል",
         "delete_action": "ንጥል ሰርዝ",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "ማስታወሻ ይቀበሉ",
             "return_note_placeholder_borrower": "ለምሳሌ ያለ ምንም ችግር መልሼ ሰጠሁት",
             "return_note_placeholder_lender": "ለምሳሌ በጥሩ ሁኔታ ተመልሶ ተቀብሏል",
-            "return_submitting": "መዝጊያ..."
+            "return_submitting": "መዝጊያ...",
+            "reject_title": "ጥያቄን ውድቅ ያድርጉ",
+            "reject_subtitle": "የ\"{{ንጥል}}\" ጥያቄን ውድቅ ልትሆን ነው።",
+            "reject_target": "በ{{name}} የተላከውን የብድር ጥያቄ ውድቅ ልትል ነው።",
+            "reject_reason_label": "ውድቅ የተደረገበት ምክንያት",
+            "reject_submitting": "አለመቀበል...",
+            "due_date_label": "የታቀደ የመመለሻ ቀን"
         },
         "messages": {
             "load_error": "የብድር ማእከል መጫን አልተቻለም",
-            "action_error": "ድርጊቱ ሊጠናቀቅ አልቻለም"
+            "action_error": "ድርጊቱ ሊጠናቀቅ አልቻለም",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "በቀን አንድ የመጀመሪያ ግንኙነት ውጫዊ ጥያቄ ለተመሳሳይ ሰው መላክ ይችላሉ። ጥያቄን ከተቀበሉ፣ ይህ ገደብ ከአሁን በኋላ ለዚያ ሰው አይተገበርም።",
+                "external_total_daily_limit": "በቀን እስከ 5 የመጀመሪያ ግንኙነት ውጫዊ ጥያቄዎችን መላክ ይችላሉ።",
+                "external_request_requires_verified_email": "የውጭ የብድር ጥያቄዎችን ከመላክዎ በፊት የኢሜል አድራሻዎን ያረጋግጡ።",
+                "external_offer_blocked": "እቃውን በቀጥታ ሊታወቁ ለሚችሉ የቤት አባላት ወይም ለተመዘገቡ ተጠቃሚዎች ብቻ ማቅረብ ይችላሉ።",
+                "target_blocked_by_you": "ለከለከሉት ተጠቃሚ ጥያቄ መላክ አይችሉም። ይህ ተጠቃሚ የቅርብ ጊዜ ጥያቄን ውድቅ አድርጓል። ከ 30 ቀናት በኋላ ሌላ ጥያቄ መላክ ይችላሉ.",
+                "recent_rejection_lock": "ይህ ተጠቃሚ የቅርብ ጊዜ ጥያቄን ውድቅ አድርጓል። ከ 30 ቀናት በኋላ ሌላ ጥያቄ መላክ ይችላሉ."
+            }
         },
         "preview": {
             "title": "ቅድመ እይታ ሁነታ",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "ምንም ጥያቄዎች የእርስዎ ግምገማ አያስፈልጋቸውም",
         "outgoing_empty_title": "እስካሁን ምንም የወጪ ጥያቄዎች የሉም",
         "refreshing": "የሚያድስ ጥያቄዎች እና ንቁ ብድሮች...",
-        "loading_description": "ጥያቄዎችን እና ንቁ የብድር እንቅስቃሴን ማዘጋጀት."
+        "loading_description": "ጥያቄዎችን እና ንቁ የብድር እንቅስቃሴን ማዘጋጀት.",
+        "reasons": {
+            "rejected": "አለመቀበል (መደበኛ አለመቀበል)",
+            "not_available": "አይገኝም (እቃው ጠፍቷል / አይገኝም)",
+            "blocked": "አግድ እና አለመቀበል (ይህን ተጠቃሚ ያግዳል)"
+        }
     },
     "legal": {
         "privacy_policy_title": "የ ግል የሆነ",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{የምርት ስም}}",
-        "tagline": "ሁሉንም የቤት እቃዎችዎን በጥበብ ያስተዳድሩ"
+        "tagline": "ሁሉንም የቤት እቃዎችዎን በጥበብ ያስተዳድሩ",
+        "loading": "{{brandName}} ን በመጫን ላይ",
+        "preparing_workspace": "የስራ ቦታዎን በማዘጋጀት ላይ..."
     },
     "nav": {
         "home": "መግቢያ ገፅ",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "ታሪክን አጽዳ",
-            "add_item": "ወደ ግዢ ዝርዝር ያክሉ"
+            "add_item": "ወደ ግዢ ዝርዝር ያክሉ",
+            "mark_completed": "እንደተጠናቀቀ ምልክት ያድርጉ",
+            "decrease_qty": "ብዛቱን ቀንስ",
+            "increase_qty": "ብዛት ጨምር",
+            "delete_item": "ንጥል ሰርዝ",
+            "reactivate_item": "ወደ ንቁ ዝርዝር ተመለስ"
         },
         "form": {
             "add_type": "ዘዴን ያክሉ",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "ለዚህ ንጥል ወቅታዊ ወይም የአንድ ጊዜ የጥገና ክትትል የታቀደ። ለዚህ ንጥል ምንም የጥገና ስራዎች አልተመደቡም. ይህ ተግባር ይሰረዛል. እርግጠኛ ነህ?",
         "no_tasks": "ለዚህ ንጥል ነገር ምንም የጥገና ስራዎች አልተመደቡም።",
         "confirm_delete": "ይህ ተግባር ይሰረዛል. እርግጠኛ ነህ?"
+    },
+    "error_boundary": {
+        "title": "የሆነ ነገር ማደስ ያስፈልገዋል",
+        "description": "በይነገጹ ያልተጠበቀ የአተረጓጎም ችግር ገጥሞታል። የተቀመጠ የእቃ ዝርዝር ውሂብዎ በዚህ ማያ ገጽ አልተቀየረም።",
+        "refresh_btn": "አዝናና",
+        "home_btn": "መግቢያ ገፅ"
     }
 }

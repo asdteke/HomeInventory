@@ -9,6 +9,7 @@ import {
     decryptBorrowRecord,
     decryptBorrowRequestRecord,
     decryptItemName,
+    decryptUsername,
     encryptBorrowNote,
     encryptBorrowRequestItemLabel,
     encryptBorrowRequestNote,
@@ -31,6 +32,15 @@ const REQUEST_STATUS = {
     CANCELLED: 'cancelled',
     EXPIRED: 'expired'
 };
+
+const BORROW_REQUEST_POLICIES = new Set(['none', 'house_only', 'everyone']);
+
+function createRequestError(message, statusCode = 400, code = 'borrow_request_error') {
+    const error = new Error(message);
+    error.statusCode = statusCode;
+    error.code = code;
+    return error;
+}
 
 const REQUEST_SELECT = `
     br.*,
@@ -133,6 +143,44 @@ function getRequestErrorStatus(error) {
     return /ge(?:ç|c)ersiz|gerekli|uzun|bekleyen|bulunamadı|zaten|kendinize/i.test(String(error?.message || '')) ? 400 : 500;
 }
 
+function normalizeBorrowRequestPolicy(value) {
+    const policy = String(value || '').trim();
+    return BORROW_REQUEST_POLICIES.has(policy) ? policy : 'none';
+}
+
+function hasAcceptedBorrowRelationship(userIdA, userIdB) {
+    if (!userIdA || !userIdB) {
+        return false;
+    }
+
+    const acceptedRequest = db.prepare(`
+        SELECT 1
+        FROM borrow_requests
+        WHERE status = ?
+          AND (
+            (initiator_user_id = ? AND recipient_user_id = ?)
+            OR (initiator_user_id = ? AND recipient_user_id = ?)
+          )
+        LIMIT 1
+    `).get(REQUEST_STATUS.ACCEPTED, userIdA, userIdB, userIdB, userIdA);
+
+    if (acceptedRequest) {
+        return true;
+    }
+
+    const borrowRecord = db.prepare(`
+        SELECT 1
+        FROM item_borrows
+        WHERE (
+            (borrower_user_id = ? AND lent_by_user_id = ?)
+            OR (borrower_user_id = ? AND lent_by_user_id = ?)
+        )
+        LIMIT 1
+    `).get(userIdA, userIdB, userIdB, userIdA);
+
+    return Boolean(borrowRecord);
+}
+
 function expirePendingRequests() {
     db.prepare(`
         UPDATE borrow_requests
@@ -169,31 +217,96 @@ function reconcilePendingRequestsForUser(user) {
         return;
     }
 
+    const policyRow = db.prepare('SELECT borrow_request_policy FROM users WHERE id = ?').get(user.id);
+    const policy = normalizeBorrowRequestPolicy(policyRow?.borrow_request_policy);
+
+    if (policy === 'none') {
+        return;
+    }
+
     const emailLookup = buildEmailLookup(user.email);
     const usernameLookup = buildUsernameLookup(user.username);
 
-    if (emailLookup) {
-        db.prepare(`
-            UPDATE borrow_requests
-            SET recipient_user_id = ?, updated_at = CURRENT_TIMESTAMP
-            WHERE recipient_user_id IS NULL
-              AND status = ?
-              AND recipient_lookup_type = 'email'
-              AND recipient_lookup_hash = ?
-        `).run(user.id, REQUEST_STATUS.PENDING, emailLookup);
-    }
+    if (policy === 'house_only') {
+        if (emailLookup) {
+            const pending = db.prepare(`
+                SELECT id, initiator_user_id
+                FROM borrow_requests
+                WHERE recipient_user_id IS NULL
+                  AND status = ?
+                  AND recipient_lookup_type = 'email'
+                  AND recipient_lookup_hash = ?
+            `).all(REQUEST_STATUS.PENDING, emailLookup);
 
-    if (usernameLookup) {
-        db.prepare(`
-            UPDATE borrow_requests
-            SET recipient_user_id = ?, updated_at = CURRENT_TIMESTAMP
-            WHERE recipient_user_id IS NULL
-              AND status = ?
-              AND recipient_lookup_type = 'username'
-              AND recipient_lookup_hash = ?
-        `).run(user.id, REQUEST_STATUS.PENDING, usernameLookup);
+            for (const r of pending) {
+                const sharesHouse = db.prepare(`
+                    SELECT 1
+                    FROM user_houses uh1
+                    JOIN user_houses uh2 ON uh1.house_key = uh2.house_key
+                    WHERE uh1.user_id = ? AND uh2.user_id = ?
+                    LIMIT 1
+                `).get(user.id, r.initiator_user_id);
+                if (sharesHouse) {
+                    db.prepare(`
+                        UPDATE borrow_requests
+                        SET recipient_user_id = ?, updated_at = CURRENT_TIMESTAMP
+                        WHERE id = ?
+                    `).run(user.id, r.id);
+                }
+            }
+        }
+        if (usernameLookup) {
+            const pending = db.prepare(`
+                SELECT id, initiator_user_id
+                FROM borrow_requests
+                WHERE recipient_user_id IS NULL
+                  AND status = ?
+                  AND recipient_lookup_type = 'username'
+                  AND recipient_lookup_hash = ?
+            `).all(REQUEST_STATUS.PENDING, usernameLookup);
+
+            for (const r of pending) {
+                const sharesHouse = db.prepare(`
+                    SELECT 1
+                    FROM user_houses uh1
+                    JOIN user_houses uh2 ON uh1.house_key = uh2.house_key
+                    WHERE uh1.user_id = ? AND uh2.user_id = ?
+                    LIMIT 1
+                `).get(user.id, r.initiator_user_id);
+                if (sharesHouse) {
+                    db.prepare(`
+                        UPDATE borrow_requests
+                        SET recipient_user_id = ?, updated_at = CURRENT_TIMESTAMP
+                        WHERE id = ?
+                    `).run(user.id, r.id);
+                }
+            }
+        }
+    } else if (policy === 'everyone') {
+        if (emailLookup) {
+            db.prepare(`
+                UPDATE borrow_requests
+                SET recipient_user_id = ?, updated_at = CURRENT_TIMESTAMP
+                WHERE recipient_user_id IS NULL
+                  AND status = ?
+                  AND recipient_lookup_type = 'email'
+                  AND recipient_lookup_hash = ?
+            `).run(user.id, REQUEST_STATUS.PENDING, emailLookup);
+        }
+
+        if (usernameLookup) {
+            db.prepare(`
+                UPDATE borrow_requests
+                SET recipient_user_id = ?, updated_at = CURRENT_TIMESTAMP
+                WHERE recipient_user_id IS NULL
+                  AND status = ?
+                  AND recipient_lookup_type = 'username'
+                  AND recipient_lookup_hash = ?
+            `).run(user.id, REQUEST_STATUS.PENDING, usernameLookup);
+        }
     }
 }
+
 
 function getRequestById(requestId) {
     return db.prepare(`
@@ -430,6 +543,72 @@ function getOwnedAvailableItem(itemId, ownerUserId) {
 router.use(authenticateToken);
 router.use(requireActiveHouse);
 
+// Settings Policy Endpoints
+router.get('/policy', (req, res) => {
+    try {
+        const row = db.prepare('SELECT borrow_request_policy FROM users WHERE id = ?').get(req.user.id);
+        res.json({ policy: normalizeBorrowRequestPolicy(row?.borrow_request_policy) });
+    } catch (error) {
+        console.error('Get policy error:', error);
+        res.status(500).json({ error: 'Ayarlar yüklenemedi' });
+    }
+});
+
+router.post('/policy', (req, res) => {
+    try {
+        const { policy } = req.body;
+        if (!BORROW_REQUEST_POLICIES.has(policy)) {
+            return res.status(400).json({ error: 'Geçersiz ayar değeri' });
+        }
+        db.prepare('UPDATE users SET borrow_request_policy = ? WHERE id = ?').run(policy, req.user.id);
+
+        // Trigger reconcile for legacy/backward-compatible requests
+        reconcilePendingRequestsForUser(req.user);
+
+        res.json({ message: 'Ayarlar kaydedildi', policy });
+    } catch (error) {
+        console.error('Update policy error:', error);
+        res.status(500).json({ error: 'Ayarlar kaydedilemedi' });
+    }
+});
+
+// Settings Block Endpoints
+router.get('/blocks', (req, res) => {
+    try {
+        const blocks = db.prepare(`
+            SELECT b.blocked_user_id, u.username
+            FROM borrow_request_blocks b
+            JOIN users u ON u.id = b.blocked_user_id
+            WHERE b.blocker_user_id = ?
+            ORDER BY b.created_at DESC
+        `).all(req.user.id).map(r => ({
+            id: r.blocked_user_id,
+            username: decryptUsername(r.username)
+        }));
+        res.json({ blocks });
+    } catch (error) {
+        console.error('List blocks error:', error);
+        res.status(500).json({ error: 'Engellemeler listelenemedi' });
+    }
+});
+
+router.post('/blocks/:id/unblock', (req, res) => {
+    try {
+        const blockedUserId = Number.parseInt(req.params.id, 10);
+        if (!Number.isInteger(blockedUserId)) {
+            return res.status(400).json({ error: 'Geçersiz kullanıcı kimliği' });
+        }
+        db.prepare(`
+            DELETE FROM borrow_request_blocks
+            WHERE blocker_user_id = ? AND blocked_user_id = ?
+        `).run(req.user.id, blockedUserId);
+        res.json({ message: 'Engelleme kaldırıldı' });
+    } catch (error) {
+        console.error('Unblock error:', error);
+        res.status(500).json({ error: 'Engelleme kaldırılamadı' });
+    }
+});
+
 router.get('/', (req, res) => {
     try {
         expirePendingRequests();
@@ -460,6 +639,7 @@ router.post('/', (req, res) => {
         expirePendingRequests();
         reconcilePendingRequestsForUser(req.user);
 
+        // Step 1: Input Validation
         const direction = String(req.body.direction || '').trim() === REQUEST_DIRECTION.OFFER
             ? REQUEST_DIRECTION.OFFER
             : String(req.body.direction || '').trim() === REQUEST_DIRECTION.REQUEST
@@ -483,6 +663,7 @@ router.post('/', (req, res) => {
             throw new Error('Kendinize istek gönderemezsiniz');
         }
 
+        // Step 2: Recipient Resolution
         const recipientUserId = resolveRecipientUserId({ recipientLookupType, recipientLookupHash });
         if (recipientUserId && recipientUserId === req.user.id) {
             throw new Error('Kendinize istek gönderemezsiniz');
@@ -519,6 +700,174 @@ router.post('/', (req, res) => {
             }
         } else {
             requestedItemLabel = normalizeRequiredText(req.body.requested_item_label, 'İstenen eşya', 160);
+        }
+
+        // Step 3: External & Verification Check
+        let isExternal = true;
+        if (recipientUserId) {
+            const sharesHouse = db.prepare(`
+                SELECT 1
+                FROM user_houses uh1
+                JOIN user_houses uh2 ON uh1.house_key = uh2.house_key
+                WHERE uh1.user_id = ? AND uh2.user_id = ?
+                LIMIT 1
+            `).get(req.user.id, recipientUserId);
+            if (sharesHouse) {
+                isExternal = false;
+            }
+        }
+
+        if (isExternal) {
+            if (direction === REQUEST_DIRECTION.OFFER) {
+                throw createRequestError(
+                    'Dış kullanıcılara eşya teklif edilemez',
+                    403,
+                    'external_offer_blocked'
+                );
+            }
+
+            if (req.user.is_verified !== true && req.user.is_verified !== 1) {
+                throw createRequestError(
+                    'Dış ödünç talebi gönderebilmek için e-posta adresinizi doğrulamış olmalısınız.',
+                    403,
+                    'external_request_requires_verified_email'
+                );
+            }
+        }
+
+        // Step 4: Block & 30-Day Rejection Checks
+        if (recipientUserId) {
+            const hasBlockedTarget = db.prepare(`
+                SELECT 1
+                FROM borrow_request_blocks
+                WHERE blocker_user_id = ? AND blocked_user_id = ?
+                LIMIT 1
+            `).get(req.user.id, recipientUserId);
+            if (hasBlockedTarget) {
+                throw createRequestError(
+                    'Engellediğiniz bir kullanıcıya talep gönderemezsiniz.',
+                    400,
+                    'target_blocked_by_you'
+                );
+            }
+        }
+
+        const recentlyRejected = db.prepare(`
+            SELECT 1
+            FROM borrow_requests
+            WHERE initiator_user_id = ?
+              AND recipient_lookup_type = ?
+              AND recipient_lookup_hash = ?
+              AND status = 'rejected'
+              AND decision_reason IN ('rejected', 'not_available', 'blocked')
+              AND updated_at >= datetime('now', '-30 days')
+            LIMIT 1
+        `).get(req.user.id, recipientLookupType, recipientLookupHash);
+        if (recentlyRejected) {
+            throw createRequestError(
+                'Talebi reddeden bir kullanıcıya 30 gün boyunca yeni talep gönderilemez.',
+                400,
+                'recent_rejection_lock'
+            );
+        }
+
+        // Step 5: Rate Limit Checks (External Only)
+        const hasTrustedBorrowHistory = isExternal && recipientUserId
+            ? hasAcceptedBorrowRelationship(req.user.id, recipientUserId)
+            : false;
+
+        if (isExternal && !hasTrustedBorrowHistory) {
+            const rollingTargetAttempts = db.prepare(`
+                SELECT COUNT(*) AS count
+                FROM borrow_request_attempts
+                WHERE initiator_user_id = ?
+                  AND recipient_lookup_type = ?
+                  AND recipient_lookup_hash = ?
+                  AND created_at >= datetime('now', '-24 hours')
+            `).get(req.user.id, recipientLookupType, recipientLookupHash).count;
+            if (rollingTargetAttempts >= 1) {
+                throw createRequestError(
+                    'Aynı hedefe günde en fazla 1 dış talep gönderebilirsiniz.',
+                    400,
+                    'external_target_daily_limit'
+                );
+            }
+
+            const rollingTotalAttempts = db.prepare(`
+                SELECT COUNT(*) AS count
+                FROM borrow_request_attempts
+                WHERE initiator_user_id = ?
+                  AND created_at >= datetime('now', '-24 hours')
+            `).get(req.user.id).count;
+            if (rollingTotalAttempts >= 5) {
+                throw createRequestError(
+                    'Günde en fazla 5 dış talep gönderebilirsiniz.',
+                    400,
+                    'external_total_daily_limit'
+                );
+            }
+        }
+
+        // Step 6: Log the Attempt (External Only)
+        if (isExternal && !hasTrustedBorrowHistory) {
+            db.prepare(`
+                INSERT INTO borrow_request_attempts (initiator_user_id, recipient_lookup_type, recipient_lookup_hash)
+                VALUES (?, ?, ?)
+            `).run(req.user.id, recipientLookupType, recipientLookupHash);
+        }
+
+        // Step 7: Delivery Filter (External Only)
+        let shouldDeliver = true;
+        if (isExternal) {
+            if (recipientUserId) {
+                const isBlockedByTarget = db.prepare(`
+                    SELECT 1
+                    FROM borrow_request_blocks
+                    WHERE blocker_user_id = ? AND blocked_user_id = ?
+                    LIMIT 1
+                `).get(recipientUserId, req.user.id);
+                if (isBlockedByTarget) {
+                    shouldDeliver = false;
+                }
+
+                const targetUser = db.prepare(`SELECT borrow_request_policy FROM users WHERE id = ?`).get(recipientUserId);
+                const policy = normalizeBorrowRequestPolicy(targetUser?.borrow_request_policy);
+                if (policy === 'none') {
+                    shouldDeliver = false;
+                } else if (policy === 'house_only') {
+                    shouldDeliver = false;
+                }
+            } else {
+                shouldDeliver = false;
+            }
+        }
+
+        // Step 8: Save or Skip (Uniform Output)
+        if (!shouldDeliver) {
+            return res.status(201).json({
+                message: 'İstek oluşturuldu. Eşleşen kullanıcı varsa uygulama içinde görecek.',
+                request: {
+                    id: -1,
+                    direction: direction,
+                    status: REQUEST_STATUS.PENDING,
+                    created_at: new Date().toISOString(),
+                    updated_at: new Date().toISOString(),
+                    decided_at: null,
+                    expires_at: buildExpiresAt(),
+                    due_date: dueDate,
+                    note: note,
+                    requested_item_label: requestedItemLabel,
+                    viewer_role: 'initiator',
+                    recipient_hint: recipientIdentifier,
+                    counterparty_display_name: recipientIdentifier,
+                    item: null,
+                    borrow: null,
+                    can_accept: false,
+                    can_reject: false,
+                    can_cancel: false,
+                    needs_item_selection: false
+                }
+            });
         }
 
         const result = db.prepare(`
@@ -560,7 +909,10 @@ router.post('/', (req, res) => {
         });
     } catch (error) {
         console.error('Create borrow request error:', error);
-        res.status(error.statusCode || getRequestErrorStatus(error)).json({ error: error.message || 'İstek oluşturulamadı' });
+        res.status(error.statusCode || getRequestErrorStatus(error)).json({
+            error: error.message || 'İstek oluşturulamadı',
+            code: error.code || 'borrow_request_create_failed'
+        });
     }
 });
 
@@ -589,6 +941,7 @@ router.post('/:id/accept', (req, res) => {
             }
 
             const decryptedRequest = decryptBorrowRequestRecord(request);
+            const dueDate = normalizeOptionalDate(req.body?.due_date, 'Planlanan iade tarihi') || request.due_date || null;
 
             let selectedItem = null;
             if (request.direction === REQUEST_DIRECTION.OFFER) {
@@ -624,7 +977,7 @@ router.post('/:id/accept', (req, res) => {
                 selectedItem.house_key,
                 request.direction === REQUEST_DIRECTION.OFFER ? req.user.id : request.initiator_user_id,
                 decryptedRequest.note ? encryptBorrowNote(decryptedRequest.note) : null,
-                request.due_date || null,
+                dueDate,
                 request.direction === REQUEST_DIRECTION.OFFER ? request.initiator_user_id : req.user.id
             );
 
@@ -634,6 +987,7 @@ router.post('/:id/accept', (req, res) => {
                     recipient_user_id = ?,
                     item_id = ?,
                     borrow_id = ?,
+                    due_date = ?,
                     decided_at = CURRENT_TIMESTAMP,
                     decided_by_user_id = ?,
                     updated_at = CURRENT_TIMESTAMP
@@ -643,6 +997,7 @@ router.post('/:id/accept', (req, res) => {
                 req.user.id,
                 selectedItem.id,
                 borrowResult.lastInsertRowid,
+                dueDate,
                 req.user.id,
                 normalizedRequestId
             );
@@ -682,23 +1037,37 @@ router.post('/:id/reject', (req, res) => {
             return res.status(409).json({ error: 'Bu istek artık beklemiyor' });
         }
 
+        const reason = String(req.body.reason || 'rejected').trim();
+        if (!['rejected', 'not_available', 'blocked'].includes(reason)) {
+            return res.status(400).json({ error: 'Geçersiz reddetme nedeni' });
+        }
+
+        if (reason === 'blocked') {
+            db.prepare(`
+                INSERT OR IGNORE INTO borrow_request_blocks (blocker_user_id, blocked_user_id)
+                VALUES (?, ?)
+            `).run(req.user.id, request.initiator_user_id);
+        }
+
         db.prepare(`
             UPDATE borrow_requests
             SET status = ?,
                 recipient_user_id = ?,
                 decided_at = CURRENT_TIMESTAMP,
                 decided_by_user_id = ?,
+                decision_reason = ?,
                 updated_at = CURRENT_TIMESTAMP
             WHERE id = ?
         `).run(
             REQUEST_STATUS.REJECTED,
             req.user.id,
             req.user.id,
+            reason,
             requestId
         );
 
         res.json({
-            message: 'İstek reddedildi',
+            message: reason === 'blocked' ? 'Kullanıcı engellendi ve istek reddedildi' : 'İstek reddedildi',
             request: serializeBorrowRequest(getRequestById(requestId), req.user.id)
         });
     } catch (error) {
@@ -772,14 +1141,8 @@ router.post('/active-borrows/:id/return', (req, res) => {
             WHERE ib.id = ?
               AND ib.returned_at IS NULL
               AND (ib.borrower_user_id = ? OR ib.lent_by_user_id = ? OR items.user_id = ?)
-              AND EXISTS(
-                  SELECT 1
-                  FROM user_houses viewer_house
-                  WHERE viewer_house.user_id = ?
-                    AND viewer_house.house_key = items.house_key
-              )
             LIMIT 1
-        `).get(borrowId, req.user.id, req.user.id, req.user.id, req.user.id);
+        `).get(borrowId, req.user.id, req.user.id, req.user.id);
 
         if (!activeBorrow) {
             return res.status(404).json({ error: 'Aktif ödünç kaydı bulunamadı' });

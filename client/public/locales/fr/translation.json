@@ -49,7 +49,8 @@
         "hide": "Masquer le mot de passe",
         "logging_out": "Déconnexion en cours...",
         "show": "Montrer le mot de passe",
-        "saving": "Sauvegarde..."
+        "saving": "Sauvegarde...",
+        "disabled": "Handicapé"
     },
     "auth": {
         "login": {
@@ -298,7 +299,36 @@
         "join_house_key_required": "Une clé de maison est nécessaire pour rejoindre une maison existante",
         "house_key_not_found": "Clé de maison invalide. Veuillez entrer la bonne tonalité.",
         "email_not_verified": "Votre adresse e-mail n’a pas encore été vérifiée. Veuillez vérifier votre boîte de réception.",
-        "two_factor_invalid": "Le code de vérification est incorrect"
+        "two_factor_invalid": "Le code de vérification est incorrect",
+        "two_factor_invalid_try_again": "Code de vérification invalide. Veuillez réessayer.",
+        "two_factor_code_required": "Un code de vérification est requis",
+        "two_factor_user_not_found": "Utilisateur non trouvé",
+        "two_factor_already_enabled": "L’authentification à deux facteurs est déjà activée",
+        "two_factor_setup_not_started": "Veuillez commencer par la configuration d’authentification à deux facteurs",
+        "two_factor_setup_error": "Une erreur s’est produite lors de la configuration de l’authentification à deux facteurs",
+        "two_factor_activation_error": "Une erreur s’est produite lors de l’activation de l’authentification à deux facteurs",
+        "two_factor_password_required": "Un mot de passe est requis",
+        "two_factor_credentials_required": "Le code TOTP, le code de sauvegarde ou la clé de récupération sont requis",
+        "two_factor_already_disabled": "L’authentification à deux facteurs est déjà désactivée",
+        "two_factor_password_incorrect": "Mot de passe incorrect",
+        "two_factor_verification_failed": "La vérification a échoué. Veuillez vérifier le code et réessayer.",
+        "two_factor_disable_error": "Une erreur s’est produite lors de la désactivation de l’authentification à deux facteurs",
+        "two_factor_not_enabled": "L’authentification à deux facteurs n’est pas activée",
+        "two_factor_regenerate_codes_error": "Une erreur s’est produite lors de la régénération des codes de sauvegarde",
+        "two_factor_enabled_success": "L’authentification à deux facteurs a été activée avec succès",
+        "two_factor_disabled_success": "L’authentification à deux facteurs a été désactivée avec succès",
+        "password_errors": {
+            "min_length": "Le mot de passe doit avoir au moins {{min}} caractères",
+            "lowercase_required": "Le mot de passe doit comporter au moins une lettre minuscule",
+            "uppercase_required": "Le mot de passe doit comporter au moins une lettre majuscule",
+            "number_required": "Le mot de passe doit comporter au moins un chiffre",
+            "symbol_required": "Le mot de passe doit comporter au moins un symbole",
+            "repeated_chars": "N’utilisez pas de caractères répétés dans votre mot de passe",
+            "predictable_sequence": "N’utilisez pas de séquences faciles à deviner dans votre mot de passe",
+            "common_password": "Ce mot de passe est trop courant et dangereux",
+            "contains_username": "Le mot de passe ne doit pas contenir votre nom d’utilisateur",
+            "contains_email": "Le mot de passe ne doit pas contenir vos informations e-mail"
+        }
     },
     "navigation": {
         "home": "Accueil",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Clé de récupération régénérée",
             "recovery_key_error": "Impossible de régénérer la clé de récupération",
             "account_delete_error": "Le compte n'a pas pu être supprimé",
-            "backup_downloaded_encrypted": "Sauvegarde chiffrée téléchargée avec succès ! ({{count}} éléments)"
+            "backup_downloaded_encrypted": "Sauvegarde chiffrée téléchargée avec succès ! ({{count}} éléments)",
+            "policy_update_error": "Échec de mettre à jour les paramètres de requête.",
+            "policy_updated": "Les paramètres de requête ont été mis à jour avec succès.",
+            "unblock_error": "Échec à débloquer l’utilisateur.",
+            "unblocked_success": "L’utilisateur a été débloqué avec succès.",
+            "house_owner_transferred": "Transfert de propriété immobilière",
+            "house_owner_transfer_error": "La propriété immobilière ne pouvait pas être transférée."
         },
         "user_profile": {
             "edit_username": "Changer le nom d'utilisateur"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} n'a plus accès à ce foyer.",
             "kick_title": "Supprimer ce membre ?",
             "kick_warning": "Son accès au foyer prendra fin immédiatement et il aura besoin d'une nouvelle invitation ou approbation pour revenir.",
-            "kicking": "Suppression en cours..."
+            "kicking": "Suppression en cours...",
+            "access_section_eyebrow": "Accès à la maison",
+            "transfer_owner": "Faire propriétaire",
+            "transferring_owner": "Transfert...",
+            "transfer_owner_title": "Transférer la propriété ?",
+            "transfer_owner_confirm": "Transférer la propriété de ce foyer à {{name}} ?",
+            "transfer_owner_warning": "Tu ne seras plus le propriétaire de ce foyer. Le nouveau propriétaire gérera les approbations des membres, les départs et les futurs changements de propriétaires.",
+            "transfer_owner_success_body": "{{name}} est maintenant le propriétaire de ce foyer."
         },
         "theme": {
             "title": "Thème",
@@ -729,7 +772,9 @@
             "light": "Mode Clair",
             "description": "Choisissez l'apparence de l'espace de travail sur cet appareil.",
             "light_aria": "Passer au thème clair",
-            "dark_aria": "Passer au thème sombre"
+            "dark_aria": "Passer au thème sombre",
+            "workspace_title": "Thème de l’espace de travail",
+            "workspace_desc": "Sélectionnez le style visuel que vous souhaitez pour cet appareil."
         },
         "security": {
             "title": "Sécurité",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "La clé de récupération actuelle ne peut pas être affichée. Régénérez-la si nécessaire.",
             "recovery_key_action": "Régénérer",
             "recovery_key_modal_desc": "Confirmez votre mot de passe actuel pour continuer. La nouvelle clé ne sera affichée qu'une seule fois.",
-            "recovery_key_loading": "Préparation..."
+            "recovery_key_loading": "Préparation...",
+            "accordion_title": "Sécurité et confidentialité",
+            "accordion_desc": "Gérez l’authentification à deux facteurs, les appareils de confiance et les règles de demande d’emprunt auprès d’autres comptes.",
+            "description": "Gérez votre mot de passe maître et les configurations de récupération du coffre.",
+            "change_password_detail": "Mettez à jour votre mot de passe pour garder votre compte sécurisé",
+            "recovery_key_detail": "Utilisé pour récupérer votre coffre si vous oubliez votre mot de passe"
         },
         "data_management": {
             "title": "Gestion des données",
@@ -890,7 +940,8 @@
             "revoke_devices": "Révoquer les appareils de confiance",
             "revoke_devices_desc": "Supprimer tous les appareils mémorisés, nécessitant une authentification à deux facteurs lors de la prochaine connexion",
             "devices_revoked": "{{count}} appareil(s) de confiance supprimé(s)",
-            "devices_error": "Échec de la révocation des appareils"
+            "devices_error": "Échec de la révocation des appareils",
+            "preparing_setup": "Préparer votre installation d’authentificateur..."
         },
         "danger_zone": {
             "title": "Compte",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Après confirmation, vous perdrez immédiatement l'accès au compte et les données de l'application supprimées ne peuvent pas être restaurées depuis l'application.",
             "password_label": "Confirmer avec votre mot de passe actuel",
             "confirm_delete": "Confirmer la suppression",
-            "deleting": "Suppression en cours..."
+            "deleting": "Suppression en cours...",
+            "description": "Supprimez votre compte et supprimez définitivement tous les jeux de données d’inventaire."
         },
         "language": "Langue",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Langues populaires",
         "search_results": "Résultats de recherche",
         "current_language": "Langue actuelle",
-        "languages_available": "langues disponibles"
+        "languages_available": "langues disponibles",
+        "borrow_requests": {
+            "accordion_eyebrow": "Garantie de demande d’emprunt",
+            "accordion_eyebrow_desc": "Configurez les règles de requête et gérez les utilisateurs bloqués.",
+            "title": "Paramètres de la demande d’emprunt",
+            "description": "Gérez les règles pour recevoir les demandes d’emprunt d’autres comptes et listez les utilisateurs bloqués.",
+            "policy_title": "Demandes d’emprunt de nouveaux",
+            "policy_description": "Contrôlez qui peut vous envoyer des demandes d'emprunt. Votre inventaire n'est jamais affiché publiquement.",
+            "policy_none": "Ne recevoir de personne (Par défaut)",
+            "policy_house_only": "Réservé aux membres du foyer",
+            "policy_everyone": "Tous les utilisateurs enregistrés",
+            "blocks_title": "Utilisateurs bloqués",
+            "blocks_description": "Les utilisateurs que vous avez bloqués ne vous envoient pas de nouvelles demandes d’emprunt.",
+            "no_blocks": "Aucun utilisateur bloqué trouvé.",
+            "unblock_btn": "Déblocage",
+            "policy_none_desc": "Toutes les requêtes entrantes sont bloquées automatiquement.",
+            "policy_house_only_desc": "Seuls les membres vérifiés de vos maisons actives peuvent demander des objets déjà visibles à l'intérieur de cette maison partagée.",
+            "policy_everyone_desc": "Les autres utilisateurs ne peuvent pas parcourir ni voir vos objets. Ils peuvent seulement envoyer une demande en entrant directement votre nom d’utilisateur ou votre adresse e-mail."
+        }
     },
     "inventory": {
         "title": "Inventaire",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Avec vous",
             "return_pending_hint": "L'enregistrement sera clôturé après que le prêteur aura confirmé qu'il a reçu l'article.",
             "return_pending_lender_title": "{{name}} a marqué cet article comme rendu",
-            "return_pending_self_title": "Avec vous, en attente de la confirmation de réception"
+            "return_pending_self_title": "Avec vous, en attente de la confirmation de réception",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Article sans titre",
         "delete_action": "Supprimer l'article",
@@ -1880,7 +1955,7 @@
         },
         "adminEmail": {
             "sentBy": "Cet e-mail a été envoyé par {{brandName}}.",
-            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
+            "footer": "© 2026 {{nomMarque}} - {{supportEmail}}"
         },
         "testEmail": {
             "subject": "{{brandName}} E-mail test",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Bon de réception",
             "return_note_placeholder_borrower": "par exemple, je l'ai rendu sans aucun problème",
             "return_note_placeholder_lender": "par exemple, reçu en bon état",
-            "return_submitting": "Fermeture..."
+            "return_submitting": "Fermeture...",
+            "reject_title": "Demande de refus",
+            "reject_subtitle": "Vous êtes sur le point de refuser la demande de « {{item}} ».",
+            "reject_target": "Vous êtes sur le point de refuser la demande d’emprunt envoyée par {{name}}.",
+            "reject_reason_label": "Raison du rejet",
+            "reject_submitting": "Rejeter...",
+            "due_date_label": "Date de retour prévue"
         },
         "messages": {
             "load_error": "Le centre d'emprunt n'a pas pu être chargé",
-            "action_error": "L'action n'a pas pu être complétée"
+            "action_error": "L'action n'a pas pu être complétée",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Vous ne pouvez envoyer qu'une seule demande de premier contact externe à la même personne par jour. Si elle accepte une demande, cette limite ne s'applique plus à cette personne.",
+                "external_total_daily_limit": "Vous pouvez envoyer jusqu'à 5 demandes de premier contact externe par jour.",
+                "external_request_requires_verified_email": "Vérifiez votre adresse e-mail avant d'envoyer des demandes d'emprunt externes.",
+                "external_offer_blocked": "Vous ne pouvez proposer un objet qu'aux membres de la maison ou aux utilisateurs enregistrés pouvant être identifiés directement.",
+                "target_blocked_by_you": "Vous ne pouvez pas envoyer de demande à un utilisateur que vous avez bloqué.",
+                "recent_rejection_lock": "Cet utilisateur a rejeté une demande récente. Vous pouvez envoyer une autre demande après 30 jours."
+            }
         },
         "preview": {
             "title": "Mode aperçu",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Aucune demande ne nécessite votre examen",
         "outgoing_empty_title": "Aucune demande sortante pour le moment",
         "refreshing": "Actualisation des demandes et des emprunts actifs...",
-        "loading_description": "Préparation des demandes et activité de prêt active."
+        "loading_description": "Préparation des demandes et activité de prêt active.",
+        "reasons": {
+            "rejected": "Rejet (rejet normal)",
+            "not_available": "Non disponible (Objet manquant / non disponible)",
+            "blocked": "Bloquer et rejeter (Bloque cet utilisateur)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Politique de confidentialité",
@@ -2181,7 +2276,9 @@
     },
     "app": {
         "name": "{{nom de la marque}}",
-        "tagline": "Gérez intelligemment tous vos articles ménagers"
+        "tagline": "Gérez intelligemment tous vos articles ménagers",
+        "loading": "Chargement {{brandName}}",
+        "preparing_workspace": "Préparer ton espace de travail..."
     },
     "nav": {
         "home": "Accueil",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Effacer l'historique",
-            "add_item": "Ajouter à la liste de courses"
+            "add_item": "Ajouter à la liste de courses",
+            "mark_completed": "Marquez comme terminé",
+            "decrease_qty": "Diminution de la quantité",
+            "increase_qty": "Augmenter la quantité",
+            "delete_item": "Supprimer l’élément",
+            "reactivate_item": "Retour à la liste active"
         },
         "form": {
             "add_type": "Ajouter une méthode",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Suivi de l'entretien périodique ou ponctuel prévu pour cet article.",
         "no_tasks": "Aucune tâche d'entretien n'est assignée à cet article.",
         "confirm_delete": "Cette tâche sera supprimée. Êtes-vous sûr ?"
+    },
+    "error_boundary": {
+        "title": "Quelque chose a besoin d’un rafraîchissement",
+        "description": "L’interface a rencontré un problème de rendu inattendu. Vos données d’inventaire sauvegardées ne sont pas modifiées par cet écran.",
+        "refresh_btn": "Rafraîchissement",
+        "home_btn": "Accueil"
     }
 }

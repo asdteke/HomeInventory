@@ -186,7 +186,8 @@
         "hide": "Skjul adgangskode",
         "logging_out": "Logger ud...",
         "show": "Vis adgangskode",
-        "saving": "Gemmer..."
+        "saving": "Gemmer...",
+        "disabled": "Handicappet"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "En husnøgle kræves for at indgå i et eksisterende hus",
         "house_key_not_found": "Ugyldig husnøgle. Indtast venligst den korrekte nøgle.",
         "email_not_verified": "Din e-mailadresse er endnu ikke blevet verificeret. Tjek venligst din indbakke.",
-        "two_factor_invalid": "Verifikationskoden er forkert"
+        "two_factor_invalid": "Verifikationskoden er forkert",
+        "two_factor_invalid_try_again": "Ugyldig verifikationskode. Prøv venligst igen.",
+        "two_factor_code_required": "Verifikationskode er påkrævet",
+        "two_factor_user_not_found": "Bruger ikke fundet",
+        "two_factor_already_enabled": "Tofaktorautentificering er allerede aktiveret",
+        "two_factor_setup_not_started": "Start venligst opsætningen af tofaktorautentificering først",
+        "two_factor_setup_error": "En fejl opstod under opsætning af tofaktorautentificering",
+        "two_factor_activation_error": "En fejl opstod under aktivering af tofaktorautentificering",
+        "two_factor_password_required": "Adgangskode kræves",
+        "two_factor_credentials_required": "TOTP-kode, backupkode eller gendannelsesnøgle er påkrævet",
+        "two_factor_already_disabled": "Tofaktorautentificering er allerede deaktiveret",
+        "two_factor_password_incorrect": "Forkert adgangskode",
+        "two_factor_verification_failed": "Verifikationen mislykkedes. Tjek venligst koden og prøv igen.",
+        "two_factor_disable_error": "En fejl opstod, da tofaktorautentificering blev deaktiveret",
+        "two_factor_not_enabled": "Tofaktorautentificering er ikke aktiveret",
+        "two_factor_regenerate_codes_error": "En fejl opstod under regenerering af backup-koder",
+        "two_factor_enabled_success": "Tofaktorautentificering er blevet aktiveret med succes",
+        "two_factor_disabled_success": "To-faktor-autentificering er blevet deaktiveret med succes",
+        "password_errors": {
+            "min_length": "Adgangskoden skal være mindst {{min}} lang",
+            "lowercase_required": "Adgangskode skal inkludere mindst ét lille bogstav",
+            "uppercase_required": "Adgangskode skal inkludere mindst ét stort bogstav",
+            "number_required": "Adgangskode skal inkludere mindst ét tal",
+            "symbol_required": "Adgangskode skal inkludere mindst ét symbol",
+            "repeated_chars": "Brug ikke gentagne tegn i din adgangskode",
+            "predictable_sequence": "Brug ikke let-at-gætte sekvenser i din adgangskode",
+            "common_password": "Denne adgangskode er for almindelig og usikker",
+            "contains_username": "Adgangskoden må ikke indeholde dit brugernavn",
+            "contains_email": "Adgangskoden må ikke indeholde dine e-mailoplysninger"
+        }
     },
     "navigation": {
         "home": "Hjem",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Gendannelsesnøgle genereret på ny",
             "recovery_key_error": "Kunne ikke generere gendannelsesnøgle på ny",
             "account_delete_error": "Kontoen kunne ikke slettes",
-            "backup_downloaded_encrypted": "Krypteret backup downloadet succesfuldt! ({{count}} varer)"
+            "backup_downloaded_encrypted": "Krypteret backup downloadet succesfuldt! ({{count}} varer)",
+            "policy_update_error": "Fejlede i at opdatere forespørgselsindstillingerne.",
+            "policy_updated": "Anmodningsindstillinger opdateret korrekt.",
+            "unblock_error": "Mislykkedes med at fjerne blokeringen af brugeren.",
+            "unblocked_success": "Brugeren har ophævet blokeringen med succes.",
+            "house_owner_transferred": "Ejerskab af hus overført",
+            "house_owner_transfer_error": "Ejerskab af hus kunne ikke overføres."
         },
         "user_profile": {
             "edit_username": "Skift brugernavn"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} har ikke længere adgang til dette husstand.",
             "kick_title": "Fjern dette medlem?",
             "kick_warning": "Deres adgang til husstanden vil ophøre straks, og de skal have en ny invitation eller godkendelse for at vende tilbage.",
-            "kicking": "Fjernes..."
+            "kicking": "Fjernes...",
+            "access_section_eyebrow": "Adgang til huset",
+            "transfer_owner": "Gør ejer",
+            "transferring_owner": "Overførsler...",
+            "transfer_owner_title": "Overdragelse af ejerskabet af huset?",
+            "transfer_owner_confirm": "Overdrage ejerskabet af denne husstand til {{name}}?",
+            "transfer_owner_warning": "Du vil ikke længere være ejer af denne husstand. Den nye ejer vil håndtere medlemsgodkendelser, fjernelser og fremtidige ejerskift.",
+            "transfer_owner_success_body": "{{name}} er nu ejer af denne husstand."
         },
         "theme": {
             "title": "Tema",
@@ -729,7 +772,9 @@
             "light": "Lys tilstand",
             "description": "Vælg, hvordan arbejdsområdet ser ud på denne enhed.",
             "light_aria": "Skift til lyst tema",
-            "dark_aria": "Skift til mørkt tema"
+            "dark_aria": "Skift til mørkt tema",
+            "workspace_title": "Arbejdsområdetema",
+            "workspace_desc": "Vælg din foretrukne visuelle stil til denne enhed."
         },
         "security": {
             "title": "Sikkerhed",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Den nuværende gendannelsesnøgle kan ikke vises. Gendan den, hvis det er nødvendigt.",
             "recovery_key_action": "Gendan",
             "recovery_key_modal_desc": "Bekræft din nuværende adgangskode for at fortsætte. Den nye nøgle vil kun blive vist én gang.",
-            "recovery_key_loading": "Forbereder..."
+            "recovery_key_loading": "Forbereder...",
+            "accordion_title": "Sikkerhed og privatliv",
+            "accordion_desc": "Administrer tofaktorautentificering, betroede enheder og lån anmodningsregler fra andre konti.",
+            "description": "Administrer din hovedadgangskode og gendannelsesindstillinger for hvelv.",
+            "change_password_detail": "Opdater din adgangskode for at holde din konto sikker",
+            "recovery_key_detail": "Bruges til at gendanne din boks, hvis du glemmer din adgangskode"
         },
         "data_management": {
             "title": "Datastyring",
@@ -890,7 +940,8 @@
             "revoke_devices": "Tilbagekald betroede enheder",
             "revoke_devices_desc": "Fjern alle huskede enheder, kræver 2FA ved næste login",
             "devices_revoked": "{{count}} betroet(e) enhed(er) fjernet",
-            "devices_error": "Kunne ikke tilbagekalde enheder"
+            "devices_error": "Kunne ikke tilbagekalde enheder",
+            "preparing_setup": "Forbereder din autentificeringsopsætning..."
         },
         "danger_zone": {
             "title": "Konto",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Efter bekræftelse vil du straks miste adgangen til kontoen, og de slettede applikationsdata kan ikke gendannes fra appen.",
             "password_label": "Bekræft med din nuværende adgangskode",
             "confirm_delete": "Bekræft sletning",
-            "deleting": "Sletter..."
+            "deleting": "Sletter...",
+            "description": "Slet din konto og fjern permanent alle lagerdatasæt."
         },
         "language": "Sprog",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Populære sprog",
         "search_results": "Søgeresultater",
         "current_language": "Aktuelt sprog",
-        "languages_available": "tilgængelige sprog"
+        "languages_available": "tilgængelige sprog",
+        "borrow_requests": {
+            "accordion_eyebrow": "Låneanmodning sikkerhed",
+            "accordion_eyebrow_desc": "Konfigurer anmodningsregler og håndter blokerede brugere.",
+            "title": "Låneanmodningsindstillinger",
+            "description": "Administrer regler for modtagelse af låneanmodninger fra andre konti og list blokerede brugere.",
+            "policy_title": "Nye låneanmodninger",
+            "policy_description": "Kontroller, hvem der kan sende låneanmodninger til dig. Dit lager vises aldrig som en offentlig liste.",
+            "policy_none": "Modtag ikke fra nogen (Standard)",
+            "policy_house_only": "Kun husstandsmedlemmer",
+            "policy_everyone": "Alle registrerede brugere",
+            "blocks_title": "Blokerede brugere",
+            "blocks_description": "Brugere, du har blokeret for at sende dig nye låneanmodninger.",
+            "no_blocks": "Ingen blokerede brugere fundet.",
+            "unblock_btn": "Afblokering",
+            "policy_none_desc": "Alle indkommende forespørgsler bliver automatisk blokeret.",
+            "policy_house_only_desc": "Kun verificerede medlemmer af dine aktive husstande kan anmode om genstande, der allerede er synlige inde i det delte hus.",
+            "policy_everyone_desc": "Andre brugere kan ikke gennemse eller se dine genstande. De kan kun sende en anmodning ved direkte at indtaste dit brugernavn eller din e-mail."
+        }
     },
     "inventory": {
         "title": "Inventar",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Hos dig",
             "return_pending_hint": "Registreringen lukkes, når långiveren bekræfter, at de har modtaget varen tilbage.",
             "return_pending_lender_title": "{{name}} markerede denne vare som leveret tilbage",
-            "return_pending_self_title": "Hos dig, venter på kvitteringsbekræftelse"
+            "return_pending_self_title": "Hos dig, venter på kvitteringsbekræftelse",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Uden titel",
         "delete_action": "Slet vare",
@@ -1389,7 +1464,7 @@
                 "private_items_chip": "{{count}} privat",
                 "system": "Systemstatus",
                 "system_body": "{{count}} timers oppetid",
-                "storage_chip": "{{count}} MB uploads"
+                "storage_chip": "{{count}} MB-uploads"
             }
         },
         "meta": {
@@ -1889,7 +1964,7 @@
             "successBody": "Hvis du har modtaget denne e-mail, er {{brandName}} e-maillevering konfigureret korrekt.",
             "sentAtLabel": "Sendt den",
             "senderLabel": "Afsender",
-            "serviceLabel": "Service",
+            "serviceLabel": "Tjeneste",
             "footer": "© 2026 {{brandName}}"
         }
     },
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Modtagelsesseddel",
             "return_note_placeholder_borrower": "f.eks. Jeg afleverede det tilbage uden problemer",
             "return_note_placeholder_lender": "f.eks. Modtaget tilbage i god stand",
-            "return_submitting": "Lukker..."
+            "return_submitting": "Lukker...",
+            "reject_title": "Afvis anmodning",
+            "reject_subtitle": "Du er ved at afvise anmodningen om \"{{item}}\".",
+            "reject_target": "Du er ved at afvise låneanmodningen sendt af {{name}}.",
+            "reject_reason_label": "Afvisningsårsag",
+            "reject_submitting": "Afviser...",
+            "due_date_label": "Planlagt tilbagevendende dato"
         },
         "messages": {
             "load_error": "Lånecenter kunne ikke indlæses",
-            "action_error": "Handlingen kunne ikke fuldføres"
+            "action_error": "Handlingen kunne ikke fuldføres",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Du kan kun sende én første-kontakt ekstern anmodning til den samme person pr. dag. Hvis de accepterer en anmodning, gælder denne grænse ikke længere for den person.",
+                "external_total_daily_limit": "Du kan sende op til 5 første-kontakt eksterne anmodninger pr. dag.",
+                "external_request_requires_verified_email": "Verificer din e-mailadresse, før du sender eksterne låneanmodninger.",
+                "external_offer_blocked": "Du kan kun tilbyde en genstand til husmedlemmer eller registrerede brugere, der kan identificeres direkte.",
+                "target_blocked_by_you": "Du kan ikke sende en forespørgsel til en bruger, du har blokeret.",
+                "recent_rejection_lock": "Denne bruger afviste en nylig forespørgsel. Du kan sende en ny forespørgsel efter 30 dage."
+            }
         },
         "preview": {
             "title": "Forhåndsvisningstilstand",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Ingen forespørgsler kræver din gennemgang",
         "outgoing_empty_title": "Ingen udgående forespørgsler endnu",
         "refreshing": "Opdaterer forespørgsler og aktive lån...",
-        "loading_description": "Forbereder forespørgsler og aktiv låneaktivitet."
+        "loading_description": "Forbereder forespørgsler og aktiv låneaktivitet.",
+        "reasons": {
+            "rejected": "Afvisning (Normal afvisning)",
+            "not_available": "Ikke tilgængelig (Genstande mangler / ikke tilgængelig)",
+            "blocked": "Blokér og afvis (Blokerer denne bruger)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Privatlivspolitik",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Administrer alle dine husholdningsartikler smart"
+        "tagline": "Administrer alle dine husholdningsartikler smart",
+        "loading": "Indlæser {{brandName}}",
+        "preparing_workspace": "Forbereder dit arbejdsområde..."
     },
     "nav": {
         "home": "Hjem",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Ryd historik",
-            "add_item": "Tilføj til indkøbsliste"
+            "add_item": "Tilføj til indkøbsliste",
+            "mark_completed": "Marker som fuldført",
+            "decrease_qty": "Reducer mængde",
+            "increase_qty": "Øg mængden",
+            "delete_item": "Slet element",
+            "reactivate_item": "Flyt tilbage til aktiv liste"
         },
         "form": {
             "add_type": "Tilføj metode",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Periodisk eller engangs vedligeholdelsesovervågning planlagt for denne vare.",
         "no_tasks": "Ingen vedligeholdelsesopgaver tildelt denne vare.",
         "confirm_delete": "Denne opgave vil blive slettet. Er du sikker?"
+    },
+    "error_boundary": {
+        "title": "Noget trænger til en opdatering",
+        "description": "Brugerfladen stødte på et uventet renderingsproblem. Dine gemte lagerdata ændres ikke af denne skærm.",
+        "refresh_btn": "Opfrisk",
+        "home_btn": "Hjem"
     }
 }

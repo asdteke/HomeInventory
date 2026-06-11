@@ -186,7 +186,8 @@
         "hide": "Passwuert verstoppen",
         "logging_out": "Ausloggen...",
         "show": "Passwuert weisen",
-        "saving": "Spéieren..."
+        "saving": "Spéieren...",
+        "disabled": "Behënnert"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "E Hausschlëssel ass néideg, fir an e bestehende Haus anzegoen",
         "house_key_not_found": "Ongëltege Hausschlëssel. Gitt w.e.g. de richtege Schlëssel an.",
         "email_not_verified": "Är E-Mail-Adress ass nach net verifizéiert ginn. Kuckt w.e.g. an Ären Inbox.",
-        "two_factor_invalid": "De Verifikatiounscode ass falsch"
+        "two_factor_invalid": "De Verifikatiounscode ass falsch",
+        "two_factor_invalid_try_again": "Ongëltege Verifizéierungscode. Probéiert et nach eng Kéier.",
+        "two_factor_code_required": "E Verifikatiounscode ass erfuerderlech",
+        "two_factor_user_not_found": "Benotzer net fonnt",
+        "two_factor_already_enabled": "Zwee-Faktor-Authentifikatioun ass schonn aktivéiert",
+        "two_factor_setup_not_started": "Start w.e.g. als éischt mat der Zwee-Faktor-Authentifikatiounsinstallatioun",
+        "two_factor_setup_error": "E Feeler ass während der Zwee-Faktor-Authentifikatioun opgetrueden",
+        "two_factor_activation_error": "E Feeler ass während der Zwei-Faktor-Authentifikatiounsaktivéierung opgetrueden",
+        "two_factor_password_required": "Passwuert ass erfuerderlech",
+        "two_factor_credentials_required": "TOTP-Code, Backup-Code oder Erhuelungsschlëssel sinn néideg",
+        "two_factor_already_disabled": "Zwee-Faktor-Authentifikatioun ass schonn desaktivéiert",
+        "two_factor_password_incorrect": "Falscht Passwuert",
+        "two_factor_verification_failed": "Verifikatioun ass gescheitert. Kuckt w.e.g. de Code no a probéiert nach eng Kéier.",
+        "two_factor_disable_error": "E Feeler ass opgetrueden, wéi d'Zwee-Faktor-Authentifikatioun ausgeschalt gouf",
+        "two_factor_not_enabled": "Zwee-Faktor-Authentifikatioun ass net aktivéiert",
+        "two_factor_regenerate_codes_error": "E Feeler ass beim Regeneréieren vun de Backup-Coden opgetrueden",
+        "two_factor_enabled_success": "Zwee-Faktor-Authentifikatioun gouf erfollegräich aktivéiert",
+        "two_factor_disabled_success": "D'Zwee-Faktor-Authentifikatioun gouf erfollegräich desaktivéiert",
+        "password_errors": {
+            "min_length": "D'Passwuert muss op d'mannst {{min}} Zeechen laang sinn",
+            "lowercase_required": "D'Passwuert muss op d'mannst ee klengen Buschtaf enthalen",
+            "uppercase_required": "D'Passwuert muss op d'mannst ee groussen Buschtaf enthalen",
+            "number_required": "D'Passwuert muss op d'mannst eng Zuel enthalen",
+            "symbol_required": "D'Passwuert muss op d'mannst ee Symbol enthalen",
+            "repeated_chars": "Benotz keng widderholl Zeechen an dengem Passwuert",
+            "predictable_sequence": "Benotzt keng einfach ze roden Sequenzen an Ärem Passwuert",
+            "common_password": "Dëst Passwuert ass ze heefeg an onsécher",
+            "contains_username": "D'Passwuert däerf däi Benotzernumm net enthalen",
+            "contains_email": "D'Passwuert däerf Är E-Mail-Informatioun net enthalen"
+        }
     },
     "navigation": {
         "home": "Startsäit",
@@ -503,7 +533,7 @@
             "loading_description": "Äre Heembildschierm gëtt virbereet. Kürzlech Zousätz an séier Sich erschéngen an engem Moment."
         },
         "top_bar": {
-            "beta": "Beta",
+            "beta": "Beta Feedback - {{brandName}} Säit Member",
             "items_tracked": "Gekuckt Artikelen: {{count}}",
             "total_quantity": "Total Quantitéit: {{count}}",
             "shared_items": "Geteelt Artikelen: {{count}}",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Erhuelungsschlëssel nei generéiert",
             "recovery_key_error": "Konnt de Erhuelungsschlëssel net nei generéieren",
             "account_delete_error": "De Kont konnt net geläscht ginn",
-            "backup_downloaded_encrypted": "D'ënnerschriwwent Backup gouf erfollegräich erofgeluede! ({{count}} Elementer)"
+            "backup_downloaded_encrypted": "D'ënnerschriwwent Backup gouf erfollegräich erofgeluede! ({{count}} Elementer)",
+            "policy_update_error": "Et gouf net fäerdeg bruecht, d'Ufro-Astellungen z'aktualiséieren.",
+            "policy_updated": "Ufro-Astellungen goufen erfollegräich aktualiséiert.",
+            "unblock_error": "Et gouf net fäerdeg bruecht, de Benotzer ze deblockéieren.",
+            "unblocked_success": "Benotzer erfollegräich entblockéiert.",
+            "house_owner_transferred": "D'Hausbesëtz gouf iwwerdroen",
+            "house_owner_transfer_error": "D'Hausbesëtz konnt net iwwerdroe ginn."
         },
         "user_profile": {
             "edit_username": "Benotzernumm änneren"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} huet kee Zougang méi zu dësem Haus.",
             "kick_title": "Dësen Member ewechhuelen?",
             "kick_warning": "Hir Zougang zum Haus endet direkt a si brauchen eng nei Invitatioun oder Genehmegung fir zréckzekommen.",
-            "kicking": "Ewechhuelen..."
+            "kicking": "Ewechhuelen...",
+            "access_section_eyebrow": "Hauszougang",
+            "transfer_owner": "Maach de Besëtzer",
+            "transferring_owner": "Transfert...",
+            "transfer_owner_title": "Haus transferéieren?",
+            "transfer_owner_confirm": "D'Besëtzrecht vun dësem Haushalt op {{name}} transferéieren?",
+            "transfer_owner_warning": "Du bass net méi den Besëtzer vun dësem Haus. Den neien Besëtzer wäert d'Geneemegungen, d'Entféierung vun de Memberen an zukünfteg Besëtzerännerungen managen.",
+            "transfer_owner_success_body": "{{name}} ass elo de Besëtzer vun dësem Haus."
         },
         "theme": {
             "title": "Thema",
@@ -729,7 +772,9 @@
             "light": "Liichtmodus",
             "description": "Wielt wéi d'Aarbechtsfläch op dësem Apparat ausgesäit.",
             "light_aria": "Op liicht Thema wiesselen",
-            "dark_aria": "Op däischtert Thema wiesselen"
+            "dark_aria": "Op däischtert Thema wiesselen",
+            "workspace_title": "Workspace-Thema",
+            "workspace_desc": "Wielt Äre bevorzugte visuelle Stil fir dëst Apparat."
         },
         "security": {
             "title": "Sécherheet",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Den aktuellen Erhuelungsschlëssel kann net ugewisen ginn. Generéiert en nei wann néideg.",
             "recovery_key_action": "Nei generéieren",
             "recovery_key_modal_desc": "Bestätegt Äert aktuellt Passwuert fir weiderzemaachen. De neie Schlëssel gëtt nëmme eemol ugewisen.",
-            "recovery_key_loading": "Virbereeden..."
+            "recovery_key_loading": "Virbereeden...",
+            "accordion_title": "Sécherheet a Privatsphär",
+            "accordion_desc": "Verwalten zwee-Faktor-Authentifikatioun, vertraut Apparater a léinen Ufro-Regelen vun anere Konten.",
+            "description": "Verwalten Äre Masterpasswuert an d'Recuperatiounskonfiguratiounen vum Tresor.",
+            "change_password_detail": "Aktualiséier däi Passwuert fir däi Kont sécher ze halen",
+            "recovery_key_detail": "Benotzt fir däi Tresor zréckzekréien, wanns du däi Passwuert vergiess hues"
         },
         "data_management": {
             "title": "Donnéeënmanagement",
@@ -785,10 +835,10 @@
             "owner_only_desc": "D'Donnéeë Back-up an Restauratioun kënnen nëmmen vum Hausbesëtzer geréiert ginn."
         },
         "about": {
-            "title": "📱 Iwwer d'Applikatioun",
+            "title": "Iwwer d'Applikatioun",
             "version": "Versioun",
             "brand": "Mark",
-            "feedback": "✉️ Feedback schécken",
+            "feedback": "Feedback schécken",
             "legal_title": "Legale Dokumenter",
             "legal_description": "Dir kënnt d'Bedingunge an Datenschutzteschter vun hei erëm opmaachen, och no hirer Akzeptéierung.",
             "terms_link": "Servicebedingunge",
@@ -890,7 +940,8 @@
             "revoke_devices": "Vertrauend Apparater annuléieren",
             "revoke_devices_desc": "All gemierkt Apparater ewechhuele, 2FA beim nächsten Login erfuerderen",
             "devices_revoked": "{{count}} vertrauend Apparat(e) ewechgeholl",
-            "devices_error": "Et ass net gelongen d'Geräter nees zréckzezéien"
+            "devices_error": "Et ass net gelongen d'Geräter nees zréckzezéien",
+            "preparing_setup": "Bereet deng Authentifikatiounsinstallatioun vir..."
         },
         "danger_zone": {
             "title": "Kont",
@@ -903,7 +954,8 @@
             "modal_warning_body": "No der Bestätegung verléiert Dir direkt den Zougang zum Kont an d'geläscht Applikatiounsdaten kënnen net méi aus der App restauréiert ginn.",
             "password_label": "Bestätegt mat Ärem aktuelle Passwuert",
             "confirm_delete": "Bestätegt d'Läschung",
-            "deleting": "Läschen..."
+            "deleting": "Läschen...",
+            "description": "Läsch däi Kont a läsch permanent all Inventar-Datensätz."
         },
         "language": "Sprooch",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Populär Sproochen",
         "search_results": "Sichresultater",
         "current_language": "Aktuell Sprooch",
-        "languages_available": "Verfügbar Sproochen"
+        "languages_available": "Verfügbar Sproochen",
+        "borrow_requests": {
+            "accordion_eyebrow": "Ausléinungsufro-Sécherheet",
+            "accordion_eyebrow_desc": "Ufro-Regelen konfiguréieren an blockéiert Benotzer verwalten.",
+            "title": "Astellungen fir Ufroen ausléinen",
+            "description": "Regelen fir d'Empfang vu Borrow-Ufroen vun anere Konten ze verwalten an blockéiert Benotzer opzelëschten.",
+            "policy_title": "Nei Borrow-Ufroen",
+            "policy_description": "Kontrolléiert wien Iech Prêt Ufroe schécken kann. Ären Inventar gëtt ni als ëffentlech Oplëschtung gewisen.",
+            "policy_none": "Net vun iergendeen empfänken (Standard)",
+            "policy_house_only": "Nëmmen Haushaltsmemberen",
+            "policy_everyone": "All registréiert Benotzer",
+            "blocks_title": "Blockéiert Benotzer",
+            "blocks_description": "Benotzer, déi Dir blockéiert hutt, fir Iech nei Ausléinungsufroen ze schécken.",
+            "no_blocks": "Keng blockéiert Benotzer fonnt.",
+            "unblock_btn": "Blockéiere loossen",
+            "policy_none_desc": "All erakommend Ufroen ginn automatesch blockéiert.",
+            "policy_house_only_desc": "Nëmme verifizéiert Membere vun Ären aktiven Haiser kënnen Artikelen ufroen déi schonn an deem gemeinsame Haus sichtbar sinn.",
+            "policy_everyone_desc": "Aner Benotzer kënnen Är Artikelen net duerchsichen oder gesinn. Si kënnen nëmmen eng Ufro schécken andeems Dir Äre Benotzernumm oder E-Mail direkt aginn."
+        }
     },
     "inventory": {
         "title": "Inventar",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Bei dir",
             "return_pending_hint": "De Rekord wäert zoumaachen nodeems de Verleener bestätegt, datt se d'Objet zréck kritt hunn.",
             "return_pending_lender_title": "{{name}} huet dëst Objet als zréckgelieft markéiert",
-            "return_pending_self_title": "Bei dir, waart op Empfangsbestätegung"
+            "return_pending_self_title": "Bei dir, waart op Empfangsbestätegung",
+            "site_member": "Site member",
+            "site_member_identifier": "Benotzernumm oder E-Mail",
+            "site_member_identifier_placeholder": "Genee Benotzernumm oder E-Mail",
+            "site_member_privacy_hint": "D'Offer erschéngt am Borrow Center nëmme wann dat Konto existéiert an aginn Offeren erlaabt.",
+            "external_privacy_hint": "Dëst erstallt nëmmen e private lokale Rekord. Keng App-Benotzermeldung gëtt geschéckt. Dëse aktive Lounerecord konnt net fonnt ginn. Refresh den Borrow Center a probéiert et nach eng kéier. Dëse Benotzer huet eng rezent Ufro refuséiert. Dir kënnt eng aner Ufro nach 30 Deeg no derer schécken."
         },
         "untitled_item": "Onbenannt Artikel",
         "delete_action": "Artikel läschen",
@@ -1143,7 +1218,7 @@
                 "description": "Kanderschlofzëmmer"
             },
             "garage": {
-                "name": "Garage",
+                "name": "Garage>>>Status>>>©2026{{brandName}}",
                 "description": "Gefier- an Späicherberäich"
             },
             "balcony": {
@@ -1842,7 +1917,7 @@
                 "💡 Dir kënnt Member vu mehre Haiser sinn an tëscht hinnen wiesselen. All Haus hält en getrennte Bestänn."
             ],
             "support": "Aschreiwungsproblemer:",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         },
         "houseJoinRequest": {
             "subject": "Haus bäitrieden",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Empfangsnotiz",
             "return_note_placeholder_borrower": "z.B. Ech huet et ouni Problemer zréckginn",
             "return_note_placeholder_lender": "z.B. Zuréck kritt a guddem Zoustand",
-            "return_submitting": "Ofschléissend..."
+            "return_submitting": "Ofschléissend...",
+            "reject_title": "Refuséierungsufro",
+            "reject_subtitle": "Du bass amgaang d'Ufro fir \"{{item}}\" ze refuséieren.",
+            "reject_target": "Dir sidd amgaang d'Borrow-Ufro vum {{name}} ze refuséieren.",
+            "reject_reason_label": "Oflehnungsgrond",
+            "reject_submitting": "Ofleenen...",
+            "due_date_label": "Geplangte Retourdatum"
         },
         "messages": {
             "load_error": "Leihzenter konnt net geluede ginn",
-            "action_error": "D'Aktioun konnt net ofgeschloss ginn"
+            "action_error": "D'Aktioun konnt net ofgeschloss ginn",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Dir kënnt nëmmen eng éischt-Kontakt extern Ufro un déi selwecht Persoun pro Dag schécken. Wa se eng Demande akzeptéieren, gëllt dës Limit net méi fir dës Persoun.",
+                "external_total_daily_limit": "Dir kënnt bis zu 5 éischte-Kontakt extern Ufroe pro Dag schécken.",
+                "external_request_requires_verified_email": "Verifizéiert Är E-Mailadress ier Dir extern Ufroe schéckt.",
+                "external_offer_blocked": "Dir kënnt nëmmen en Element fir Hausmemberen oder registréiert Benotzer ubidden, déi direkt identifizéiert kënne ginn.",
+                "target_blocked_by_you": "Dir kënnt keng Ufro un e Benotzer schécken deen Dir gespaart hutt.",
+                "recent_rejection_lock": "Dëse Benotzer huet eng rezent Ufro refuséiert. Dir kënnt eng aner Ufro no 30 Deeg schécken."
+            }
         },
         "preview": {
             "title": "Virschau-Modus",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Keng Ufroën erfuerderen Är Iwwerpréiwung",
         "outgoing_empty_title": "Nach keng ausgoend Ufroën",
         "refreshing": "Ufroen an aktiv ausgeléint erfrëschen...",
-        "loading_description": "Preparéiert Ufroën an aktiv ausgeléint Aktivitéit."
+        "loading_description": "Preparéiert Ufroën an aktiv ausgeléint Aktivitéit.",
+        "reasons": {
+            "rejected": "Oflehnen (normal Oflehnung)",
+            "not_available": "Net verfügbar (Artikel feelt / net verfügbar)",
+            "blocked": "Blockéieren a refuséieren (Blockéiert dëse Benotzer)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Privatsphär Politik",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{Markennumm}}",
-        "tagline": "Verwalten all Är Haushaltsartikelen intelligent"
+        "tagline": "Verwalten all Är Haushaltsartikelen intelligent",
+        "loading": "Lued {{brandName}}",
+        "preparing_workspace": "Bereet deng Aarbechtsplaz vir..."
     },
     "nav": {
         "home": "Heem",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Geschicht kloermaachen",
-            "add_item": "Zur Akafslëscht derbäisetzen"
+            "add_item": "Zur Akafslëscht derbäisetzen",
+            "mark_completed": "Markéier als fäerdeg",
+            "decrease_qty": "Ofbau vun der Quantitéit",
+            "increase_qty": "Quantitéit erhéijen",
+            "delete_item": "Element läschen",
+            "reactivate_item": "Zréck op d'aktiv Lëscht ginn"
         },
         "form": {
             "add_type": "Method derbäisetzen",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Periodesch oder eemolgenëssen Ënnerhaltsverfolgung fir dëse Code geplangt.",
         "no_tasks": "Keng Ënnerhaltsaufgaben fir dëse Code zougewisen.",
         "confirm_delete": "Dës Aufgab gëtt geläscht. Sidd Dir sécher?"
+    },
+    "error_boundary": {
+        "title": "Eppes brauch eng Erneierung",
+        "description": "D'Interface huet e onerwaart Rendering-Problem erlieft. Är gespäichert Inventardaten ginn net vun dësem Bildschierm geännert.",
+        "refresh_btn": "Erfrëschen",
+        "home_btn": "Heem"
     }
 }

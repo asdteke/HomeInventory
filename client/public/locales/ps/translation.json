@@ -186,7 +186,8 @@
         "hide": "پټنوم پټ کړئ",
         "logging_out": "وتل...",
         "show": "پټنوم ښکاره کړئ",
-        "saving": "په خوندي کولو..."
+        "saving": "په خوندي کولو...",
+        "disabled": "معیوب"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "د موجوده کور سره د نښلول لپاره د کور کیلی اړین ده",
         "house_key_not_found": "د کور کیلی ناسم دی. مهربانی وکړئ سم کیلی داخل کړئ.",
         "email_not_verified": "ستاسو ایمیل پته لا نه ده تایید شوې. مهربانی وکړئ خپل انباکس وګورئ.",
-        "two_factor_invalid": "د تایید کوډ ناسم دی"
+        "two_factor_invalid": "د تایید کوډ ناسم دی",
+        "two_factor_invalid_try_again": "ناسم تصدیق کوډ. مهربانی وکړئ بیا هڅه وکړئ.",
+        "two_factor_code_required": "د تایید کوډ ته اړتیا ده",
+        "two_factor_user_not_found": "کارونکی ونه موندل شو",
+        "two_factor_already_enabled": "دوه-فکتوری تصدیق لا دمخه فعال شوی دی",
+        "two_factor_setup_not_started": "مهربانی وکړئ لومړی دوه فکتوری تصدیق پیل کړئ",
+        "two_factor_setup_error": "د دوه فکتوری تصدیق پر مهال یوه تېروتنه رامنځته شوه",
+        "two_factor_activation_error": "د دوه فکتوری تصدیق فعالولو پر مهال یوه تېروتنه رامنځته شوه",
+        "two_factor_password_required": "پاسورډ ته اړتیا ده",
+        "two_factor_credentials_required": "د TOTP کوډ، بیک اپ کوډ، یا د بیا رغونې کیلی ته اړتیا ده",
+        "two_factor_already_disabled": "دوه-فکتوری تصدیق لا دمخه غیر فعال شوی دی",
+        "two_factor_password_incorrect": "ناسم رمز",
+        "two_factor_verification_failed": "تایید ناکام شو. مهربانی وکړئ کوډ وګورئ او بیا هڅه وکړئ.",
+        "two_factor_disable_error": "د دوه فکتوری تصدیق غیر فعال کولو پر مهال یوه تېروتنه رامنځته شوه",
+        "two_factor_not_enabled": "دوه-فکتوری تصدیق فعال نه دی",
+        "two_factor_regenerate_codes_error": "د بیک اپ کوډونو د بیا رغونې پر مهال یوه تېروتنه رامنځته شوه",
+        "two_factor_enabled_success": "دوه-فکتوری تصدیق په بریالیتوب سره فعال شوی دی",
+        "two_factor_disabled_success": "دوه-فکتوری تصدیق په بریالیتوب سره غیر فعال شوی دی",
+        "password_errors": {
+            "min_length": "رمز باید لږ تر لږه {{min}} توری اوږد وی",
+            "lowercase_required": "پاسورډ باید لږ تر لږه یو کوچنی توری ولری",
+            "uppercase_required": "پاسورډ باید لږ تر لږه یو لوی توری ولری",
+            "number_required": "پاسورډ باید لږ تر لږه یو شمېره ولری",
+            "symbol_required": "رمز باید لږ تر لږه یو سمبول ولری",
+            "repeated_chars": "په خپل رمز کې تکراری کرکټرونه مه کاروه",
+            "predictable_sequence": "په خپل پاسورډ کې اسانه اټکل شوی ترتیبونه مه کاروه",
+            "common_password": "دا رمز ډېر عام او ناامنه دی",
+            "contains_username": "پاسورډ باید ستاسو کارن نوم ونه لری",
+            "contains_email": "پاسورډ باید ستاسو د ایمیل معلومات ونه لری"
+        }
     },
     "navigation": {
         "home": "کور",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "د بیا رغونې کیلي بیا تولید شوه",
             "recovery_key_error": "د بیا رغونې کیلي نه شو تولیدولی",
             "account_delete_error": "حساب نشو حذف کیدی",
-            "backup_downloaded_encrypted": "کوډ شوي بیک اپ په بریالیتوب سره ښکته کړل شو! ({{count}} توکي)"
+            "backup_downloaded_encrypted": "کوډ شوي بیک اپ په بریالیتوب سره ښکته کړل شو! ({{count}} توکي)",
+            "policy_update_error": "د غوښتنې تنظیمات تازه کول ناکام شول.",
+            "policy_updated": "د غوښتنې تنظیمات په بریالیتوب سره تازه شول.",
+            "unblock_error": "د کارونکی بندولو کې ناکام شو.",
+            "unblocked_success": "کارونکی په بریالیتوب سره بند شو خلاص شو.",
+            "house_owner_transferred": "د کور مالکیت انتقال شو",
+            "house_owner_transfer_error": "د کور مالکیت انتقال نشو."
         },
         "user_profile": {
             "edit_username": "د کارن نوم بدل کړئ"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} اوس د دې کورنۍ لاسرسی نلري.",
             "kick_title": "دا غړی لیرې کړو؟",
             "kick_warning": "د دوی د کورنۍ لاسرسی به سمدستي پای ته ورسیږي او دوی به د بیرته راستنیدو لپاره نوې بلنه یا منظور ته اړتیا ولري.",
-            "kicking": "د لیرې کولو پروسه روانه ده..."
+            "kicking": "د لیرې کولو پروسه روانه ده...",
+            "access_section_eyebrow": "د کور ته لاسرسی",
+            "transfer_owner": "مالک جوړ کړه",
+            "transferring_owner": "انتقالول...",
+            "transfer_owner_title": "د کور مالکیت انتقال؟",
+            "transfer_owner_confirm": "د دې کور مالکیت {{name}} ته انتقال کړه؟",
+            "transfer_owner_warning": "ته به نور د دې کور مالک نه یې. نوی مالک به د غړو تصویبونه، لرې کولو، او راتلونکی مالکیت بدلونونه مدیریت کړی.",
+            "transfer_owner_success_body": "{{name}} اوس د دې کور مالک دی."
         },
         "theme": {
             "title": "موضوع",
@@ -729,7 +772,9 @@
             "light": "روښانه حالت",
             "description": "ټاکل چې دې وسیله کې کاري ځای څنګه ښکاري.",
             "light_aria": "رڼا موضوع ته واړوئ",
-            "dark_aria": "توره موضوع ته واړوئ"
+            "dark_aria": "توره موضوع ته واړوئ",
+            "workspace_title": "د کاری ځای موضوع",
+            "workspace_desc": "د دې وسیلې لپاره خپل خوښ بصری سټایل وټاکئ."
         },
         "security": {
             "title": "امنیت",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "روانه بیا رغونې کیلي نه شي ښکاره کېدی. که اړتیا وي بیا جوړه یې کړئ.",
             "recovery_key_action": "بیا جوړول",
             "recovery_key_modal_desc": "د دوام لپاره خپل اوسنی پټنوم تایید کړئ. نوې کیلي یوازې یو ځل ښکاره شي.",
-            "recovery_key_loading": "تیاری روان دی..."
+            "recovery_key_loading": "تیاری روان دی...",
+            "accordion_title": "امنیت او محرمیت",
+            "accordion_desc": "د دوه فکتوری تصدیق، باور وړ وسایل، او د نورو حسابونو څخه د غوښتنې قواعد مدیریت کړئ.",
+            "description": "خپل اصلی رمز او د خزانه د بیا رغونې تنظیمونه مدیریت کړئ.",
+            "change_password_detail": "خپل پاسورډ تازه کړئ ترڅو خپل حساب خوندی وساتئ",
+            "recovery_key_detail": "که پاسورډ هېر کړې، د خزانه د بیرته ترلاسه کولو لپاره کارول شوی"
         },
         "data_management": {
             "title": "د معلوماتو مدیریت",
@@ -785,10 +835,10 @@
             "owner_only_desc": "د ډاټا بیک اپ او بیا رغونه یوازې د کور مالک لخوا اداره کیدی شي."
         },
         "about": {
-            "title": "📱 د غوښتنلیک په اړه",
+            "title": "د غوښتنلیک په اړه",
             "version": "نسخه",
             "brand": "برانډ",
-            "feedback": "✉️ فیډبیک واستوئ",
+            "feedback": "فیډبیک واستوئ",
             "legal_title": "قانوني اسناد",
             "legal_description": "تاسو کولای شئ د شرایطو او محرمیت متنونه بیا له دلته څخه پرانیزئ حتی وروسته له دې چې ومنئ.",
             "terms_link": "د خدمت شرایط",
@@ -890,7 +940,8 @@
             "revoke_devices": "باور لرونکي وسیلې لغوه کړئ",
             "revoke_devices_desc": "ټول یاد شوي وسیلې لرې کړئ، په راتلونکي ننوتلو کې د دوه فکتوري تصدیق ته اړتیا لري",
             "devices_revoked": "{{count}} باور لرونکې وسیله(وې) لرې شوې",
-            "devices_error": "د وسیلو د لغوه کولو هڅه ناکامه شوه"
+            "devices_error": "د وسیلو د لغوه کولو هڅه ناکامه شوه",
+            "preparing_setup": "ستاسو د تصدیق کوونکی سیټ چمتو کول..."
         },
         "danger_zone": {
             "title": "حساب",
@@ -903,7 +954,8 @@
             "modal_warning_body": "د تایید وروسته، تاسو به سمدستي د حساب لاسرسی له لاسه ورکړئ او د ایپ حذف شوي معلومات نه شي بیا ترلاسه کیدی.",
             "password_label": "د خپل اوسني پاسورډ سره تایید کړئ",
             "confirm_delete": "د حذف کولو تایید",
-            "deleting": "په حال کې دی حذف کول..."
+            "deleting": "په حال کې دی حذف کول...",
+            "description": "خپل حساب حذف کړئ او ټول inventory datasets دایمی حذف کړئ."
         },
         "language": "ژبه",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "مشهورې ژبې",
         "search_results": "د لټون پایلې",
         "current_language": "اوسنی ژبه",
-        "languages_available": "شتون لرونکی ژبې"
+        "languages_available": "شتون لرونکی ژبې",
+        "borrow_requests": {
+            "accordion_eyebrow": "د پور غوښتنې امنیت",
+            "accordion_eyebrow_desc": "د غوښتنو قواعد تنظیم کړئ او بند شوی کاروونکی مدیریت کړئ.",
+            "title": "د پور غوښتنې تنظیمات",
+            "description": "د نورو حسابونو څخه د پور غوښتنې ترلاسه کولو قواعد مدیریت کړئ او بند شوی کاروونکو لیست کړئ.",
+            "policy_title": "نوې پور غوښتنې",
+            "policy_description": "کنټرول وکړئ چې څوک کولی شي تاسو ته د پور غوښتنې واستوي. ستاسو ذخیره هیڅکله د عامه لیست په توګه نه ښودل کیږي.",
+            "policy_none": "له هیچا څخه مه ترلاسه کوئ (ډیفالټ)",
+            "policy_house_only": "یوازې د کور غړی",
+            "policy_everyone": "ټول راجستر شوي کارونکي",
+            "blocks_title": "بند شوی کاروونکی",
+            "blocks_description": "هغه کاروونکی چې تاسو یې د نوو پور غوښتنلیکونو څخه منع کړی دی.",
+            "no_blocks": "هیڅ بند شوی کاروونکی ونه موندل شول.",
+            "unblock_btn": "بند کول",
+            "policy_none_desc": "ټولې راتلونکې غوښتنې په اوتومات ډول بندېږی.",
+            "policy_house_only_desc": "یوازې ستاسو د فعالو کورونو تصدیق شوي غړي کولی شي هغه توکي غوښتنه وکړي چې دمخه په هغه شریک کور کې لیدل کیږي.",
+            "policy_everyone_desc": "نور کارونکي ستاسو توکي نه شي کتلی یا لیدلی. دوی یوازې د دې امکان لري چې د کارن نوم یا بریښنالیک په مستقیم ډول دننه کولو سره غوښتنه واستوي."
+        }
     },
     "inventory": {
         "title": "زیرمه",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "له تاسو سره",
             "return_pending_hint": "دا ریکارډ به وروسته وتړل شي کله چې پور ورکوونکی تایید کړي چې توکي بیرته ترلاسه کړي.",
             "return_pending_lender_title": "{{name}} دا توکی د بیرته رسولو په توګه نښه کړ",
-            "return_pending_self_title": "له تاسو سره، د رسید تایید ته په انتظار کې"
+            "return_pending_self_title": "له تاسو سره، د رسید تایید ته په انتظار کې",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "بې نومه توکی",
         "delete_action": "توکي ړنګول",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "یادښت ترلاسه کړئ",
             "return_note_placeholder_borrower": "د بېلګې په توګه ما دا پرته له کومې ستونزې واپس ورکړه",
             "return_note_placeholder_lender": "د بېلګې په توګه په ښه حالت کې واپس ترلاسه شو",
-            "return_submitting": "بندول..."
+            "return_submitting": "بندول...",
+            "reject_title": "د رد غوښتنه",
+            "reject_subtitle": "ته د \"{{item}}\" غوښتنه رد کوې.",
+            "reject_target": "ته د {{name}} لخوا استول شوی پور غوښتنه ردوی.",
+            "reject_reason_label": "د رد کولو دلیل",
+            "reject_submitting": "ردول...",
+            "due_date_label": "پلان شوې د بیرته راتګ نېټه"
         },
         "messages": {
             "load_error": "د پور مرکز نشو بارېدلی",
-            "action_error": "عملیه بشپړېدای نشوه"
+            "action_error": "عملیه بشپړېدای نشوه",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "تاسو کولی شئ په یوه ورځ کې یوازې یو لومړني اړیکې بهرنی غوښتنه ورته شخص ته واستوئ. که دوی غوښتنه ومني، نو دا محدودیت نور د دې شخص لپاره نه تطبیقیږي.",
+                "external_total_daily_limit": "تاسو کولی شئ د ورځې په جریان کې تر ۵ لومړنیو اړیکو بهرني غوښتنې واستوئ.",
+                "external_request_requires_verified_email": "د بهرنیو پور غوښتنو لیږلو دمخه خپل بریښنالیک پته تایید کړئ.",
+                "external_offer_blocked": "تاسو یوازې کولی شئ توکي د کور د غړو یا د راجستر شوي کارونکو ته وړاندې کړئ چې په مستقیم ډول پیژندل کیدی شي.",
+                "target_blocked_by_you": "تاسو نشئ کولی هغه کارونکي ته غوښتنه واستوئ چې تاسو یې بند کړی وي.",
+                "recent_rejection_lock": "دې کارونکي یو وروستی غوښتنه رد کړه. تاسو کولای شئ بل غوښتنه د ۳۰ ورځو وروسته واستوئ."
+            }
         },
         "preview": {
             "title": "د مخکتنې حالت",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "هیڅ غوښتنه ستاسو د بیاکتنې اړتیا نلري",
         "outgoing_empty_title": "تر اوسه هیڅ بهر تلونکې غوښتنه نشته",
         "refreshing": "غوښتنې او فعال پورونه تازه کول...",
-        "loading_description": "د غوښتنو او فعال پور فعالیت چمتو کول."
+        "loading_description": "د غوښتنو او فعال پور فعالیت چمتو کول.",
+        "reasons": {
+            "rejected": "رد کول (عادی رد)",
+            "not_available": "موجود نه دی (توکی نشته / نشته)",
+            "blocked": "بلاک او رد (دا کاروونکی بندوی)"
+        }
     },
     "legal": {
         "privacy_policy_title": "د محرمیت پالیسۍ",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{د برانډ نوم}}",
-        "tagline": "خپل ټول کورنی توکی په هوښیارۍ سره مدیریت کړئ"
+        "tagline": "خپل ټول کورنی توکی په هوښیارۍ سره مدیریت کړئ",
+        "loading": "{{brandName}} بارول کېږی",
+        "preparing_workspace": "ستاسو د کار ځای چمتو کول..."
     },
     "nav": {
         "home": "کور",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "تاریخ پاک کړئ",
-            "add_item": "د خرید لیست ته اضافه کړئ"
+            "add_item": "د خرید لیست ته اضافه کړئ",
+            "mark_completed": "د بشپړ شوی په توګه نښه",
+            "decrease_qty": "کمه اندازه",
+            "increase_qty": "مقدار زیات کړئ",
+            "delete_item": "توکی حذف کړئ",
+            "reactivate_item": "بېرته فعال لیست ته انتقال"
         },
         "form": {
             "add_type": "طریقه اضافه کړئ",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "د دې توکي لپاره ټاکلې یا یو ځلنې ساتنې څارنه.",
         "no_tasks": "دې توکي ته کومې ساتنې دندې نه دي ټاکل شوې.",
         "confirm_delete": "دا دنده به حذف شي. آیا تاسو ډاډه یاست؟"
+    },
+    "error_boundary": {
+        "title": "یو څه تازه کولو ته اړتیا لری",
+        "description": "انترفیس له یوه ناڅاپی رینډر ستونزه سره مخ شو. ستاسو ذخیره شوی ذخیره معلومات د دې سکرین له امله نه بدلیږی.",
+        "refresh_btn": "تازه کول",
+        "home_btn": "کور"
     }
 }

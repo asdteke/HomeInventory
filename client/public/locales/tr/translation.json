@@ -49,7 +49,8 @@
         "details": "Detay",
         "hide": "Şifreyi gizle",
         "logging_out": "Çıkış yapılıyor...",
-        "show": "Şifreyi göster"
+        "show": "Şifreyi göster",
+        "disabled": "Engelli"
     },
     "meta": {
         "page_title_sign_in": "Giriş yap",
@@ -64,6 +65,18 @@
     },
     "auth": {
         "password_requirements": "Şifre en az {{min}} karakter olmalı; büyük harf, küçük harf, rakam ve özel karakter içermeli.",
+        "password_errors": {
+            "min_length": "Şifre en az {{min}} karakter olmalı",
+            "lowercase_required": "Şifre en az bir küçük harf içermeli",
+            "uppercase_required": "Şifre en az bir büyük harf içermeli",
+            "number_required": "Şifre en az bir rakam içermeli",
+            "symbol_required": "Şifre en az bir özel karakter içermeli",
+            "repeated_chars": "Şifrede art arda tekrar eden karakterler kullanmayın",
+            "predictable_sequence": "Şifrede kolay tahmin edilen sıralar kullanmayın",
+            "common_password": "Bu şifre çok yaygın ve güvensiz",
+            "contains_username": "Şifre kullanıcı adı içermemeli",
+            "contains_email": "Şifre e-posta bilgisini içermemeli"
+        },
         "login": {
             "welcome_title": "Tekrar hoş geldiniz",
             "welcome_subtitle": "Envanterinize erişmek için giriş yapın",
@@ -298,6 +311,23 @@
         "user_not_found": "Kullanıcı bulunamadı",
         "email_not_verified": "E-posta adresiniz doğrulanmamış. Lütfen gelen kutunuzu kontrol edin.",
         "two_factor_invalid": "Doğrulama kodu hatalı",
+        "two_factor_invalid_try_again": "Doğrulama kodu hatalı. Lütfen tekrar deneyin.",
+        "two_factor_code_required": "Doğrulama kodu gerekli",
+        "two_factor_user_not_found": "Kullanıcı bulunamadı",
+        "two_factor_already_enabled": "2FA zaten etkin durumda",
+        "two_factor_setup_not_started": "Önce 2FA kurulumunu başlatın",
+        "two_factor_setup_error": "2FA kurulumu sırasında hata oluştu",
+        "two_factor_activation_error": "2FA etkinleştirme sırasında hata oluştu",
+        "two_factor_password_required": "Şifre gerekli",
+        "two_factor_credentials_required": "TOTP kodu, yedek kod veya kurtarma anahtarı gerekli",
+        "two_factor_already_disabled": "2FA zaten devre dışı",
+        "two_factor_password_incorrect": "Şifre hatalı",
+        "two_factor_verification_failed": "Doğrulama başarısız. Kodu kontrol edip tekrar deneyin.",
+        "two_factor_disable_error": "2FA devre dışı bırakılırken hata oluştu",
+        "two_factor_not_enabled": "2FA etkin değil",
+        "two_factor_regenerate_codes_error": "Yedek kodlar yenilenirken hata oluştu",
+        "two_factor_enabled_success": "2FA başarıyla etkinleştirildi",
+        "two_factor_disabled_success": "2FA başarıyla devre dışı bırakıldı",
         "current_password_wrong": "Mevcut şifre yanlış",
         "passwords_dont_match": "Yeni şifreler eşleşmiyor",
         "password_too_short": "Yeni şifre en az 6 karakter olmalı",
@@ -722,6 +752,24 @@
     },
     "settings": {
         "title": "Ayarlar",
+        "borrow_requests": {
+            "accordion_eyebrow": "Ödünç talebi güvenliği",
+            "accordion_eyebrow_desc": "Talep kurallarını yapılandırın ve kullanıcı engellerini yönetin.",
+            "title": "Ödünç talebi ayarları",
+            "description": "Hesaplar arası ödünç talebi alma kurallarını yönetin ve engellenen kullanıcıları listeleyin.",
+            "policy_title": "Yeni Ödünç Talepleri",
+            "policy_description": "Size kimlerin ödünç talebi gönderebileceğini belirleyin. Envanteriniz hiçbir zaman herkese açık bir liste olarak gösterilmez.",
+            "policy_none": "Hiç kimseden alma (Varsayılan)",
+            "policy_house_only": "Sadece ev üyeleri",
+            "policy_everyone": "Tüm kayıtlı kullanıcılardan al",
+            "blocks_title": "Engellenen Kullanıcılar",
+            "blocks_description": "Yeni ödünç talebi göndermesini engellediğiniz kullanıcılar.",
+            "no_blocks": "Engellenmiş kullanıcı bulunmuyor.",
+            "unblock_btn": "Engeli Kaldır",
+            "policy_none_desc": "Tüm gelen talepler otomatik olarak engelleniyor.",
+            "policy_house_only_desc": "Sadece aktif hanelerinizin doğrulanmış üyeleri, zaten o ortak hanede görünür olan eşyalar için talep gönderebilir.",
+            "policy_everyone_desc": "Diğer kullanıcılar eşyalarınızı gezemez veya göremez. Yalnızca kullanıcı adınızı ya da e-posta adresinizi doğrudan girerek size talep gönderebilirler."
+        },
         "language": "Dil",
         "subtitle": "Hesap, ev erişimi ve uygulama tercihlerini yönetin",
         "control_sections": {
@@ -739,7 +787,7 @@
         },
         "account_overview": {
             "title": "Hesap özeti",
-            "description": "Oturumu açık hesap için temel profil bilgileri."
+            "description": "Oturumu açık hesap için temel profil ve güvenlik ayarları."
         },
         "security_section": {
             "eyebrow": "Güvenlik ve tercihler",
@@ -803,9 +851,14 @@
             "revoke_devices": "Güvenilen Cihazları Kaldır",
             "revoke_devices_desc": "Tüm hatırlanan cihazları kaldır, sonraki girişte 2FA gerekli olur",
             "devices_revoked": "{{count}} güvenilen cihaz kaldırıldı",
-            "devices_error": "Cihazlar kaldırılamadı"
+            "devices_error": "Cihazlar kaldırılamadı",
+            "preparing_setup": "Kimlik doğrulama kurulumunuzu hazırlıyorum..."
         },
         "messages": {
+            "policy_update_error": "İstek ayarları güncellenemedi.",
+            "policy_updated": "İstek ayarları başarıyla güncellendi.",
+            "unblock_error": "Kullanıcı engeli kaldırılamadı.",
+            "unblocked_success": "Kullanıcı engeli kaldırıldı.",
             "house_switched": "{{name}} aktif edildi!",
             "house_switch_error": "Ev değiştirilemedi",
             "house_joined_success": "Eve başarıyla katıldınız!",
@@ -843,7 +896,9 @@
             "member_kick_error": "Üye evden çıkarılamadı",
             "recovery_key_regenerated": "Kurtarma anahtarı yenilendi",
             "recovery_key_error": "Kurtarma anahtarı yenilenemedi",
-            "account_delete_error": "Hesap silinemedi"
+            "account_delete_error": "Hesap silinemedi",
+            "house_owner_transferred": "Ev sahipliği devredildi",
+            "house_owner_transfer_error": "Ev mülkiyeti devredilemezdi."
         },
         "user_profile": {
             "edit_username": "Kullanıcı adını değiştir"
@@ -871,6 +926,7 @@
         },
         "house_info": {
             "title": "Aktif Ev Anahtarı",
+            "access_section_eyebrow": "Ev erişimi",
             "access_section_title": "Ev erişimi ve üyeler",
             "access_section_body": "Aktif ev anahtarını gözden geçirin, üyeleri yönetin ve erişimi sadece güvendiğiniz kişilerle sınırlayın.",
             "key_label": "Ev Anahtarı",
@@ -913,7 +969,13 @@
             "kick_success_body": "{{name}} artık bu eve erişemiyor.",
             "kick_title": "Bu üye kaldırılsın mı?",
             "kick_warning": "Ev erişimi hemen sona erecek ve geri dönmek için yeni bir davet veya onay gerekecek.",
-            "kicking": "Kaldırılıyor..."
+            "kicking": "Kaldırılıyor...",
+            "transfer_owner": "Sahibi Yap",
+            "transferring_owner": "Transfer...",
+            "transfer_owner_title": "Ev mülkiyetini devretmek mi?",
+            "transfer_owner_confirm": "Bu hane mülkiyetini {{name}}'e devretmek mi?",
+            "transfer_owner_warning": "Artık bu evin sahibi olmayacaksın. Yeni sahip, üye onaylarını, görevden alınmalarını ve gelecekteki sahiplik değişikliklerini yönetecektir.",
+            "transfer_owner_success_body": "{{name}} artık bu evin sahibi."
         },
         "pending_requests": {
             "title": "Bekleyen Katılım İsteklerim",
@@ -926,7 +988,9 @@
             "dark": "Karanlık Mod",
             "light": "Açık Mod",
             "light_aria": "Açık temaya geç",
-            "dark_aria": "Koyu temaya geç"
+            "dark_aria": "Koyu temaya geç",
+            "workspace_title": "Çalışma Alanı Teması",
+            "workspace_desc": "Bu cihaz için tercih ettiğiniz görsel tarzı seçin."
         },
         "language_description": "Gezinme, etiketler, yasal metinler ve tarih biçimleri için tek bir dil kullanın.",
         "language_updated_title": "Dil güncellendi",
@@ -947,7 +1011,12 @@
             "recovery_key_unavailable": "Mevcut kurtarma anahtarı görüntülenemiyor. Gerekirse yeniden üretin.",
             "recovery_key_action": "Yeniden Üret",
             "recovery_key_modal_desc": "Devam etmek için mevcut şifrenizi doğrulayın. Yeni anahtar size sadece bir kez gösterilecek.",
-            "recovery_key_loading": "Hazırlanıyor..."
+            "recovery_key_loading": "Hazırlanıyor...",
+            "accordion_title": "Güvenlik ve gizlilik",
+            "accordion_desc": "İki faktörlü kimlik doğrulamayı, güvenilir cihazları ve diğer hesaplardan ödünç alma talebi kurallarını yönetin.",
+            "description": "Ana şifrenizi ve kasa kurtarma yapılandırmalarınızı yönetin.",
+            "change_password_detail": "Hesabınızı güvende tutmak için şifrenizi güncelleyin",
+            "recovery_key_detail": "Şifrenizi unutursanız kasanızı kurtarmak için kullanılır"
         },
         "data_management": {
             "title": "Veri Yönetimi",
@@ -1000,7 +1069,8 @@
             "modal_warning_body": "Onaydan sonra hesaba erişiminizi hemen kaybedersiniz ve silinen uygulama verileri uygulama içinden geri getirilemez.",
             "password_label": "Mevcut şifrenizle doğrulayın",
             "confirm_delete": "Silmeyi onayla",
-            "deleting": "Siliniyor..."
+            "deleting": "Siliniyor...",
+            "description": "Hesabınızı silin ve tüm envanter veri setlerini kalıcı olarak kaldırın."
         },
         "about": {
             "title": "Uygulama Hakkında",
@@ -1155,7 +1225,12 @@
             "borrowed_by_you": "Sende",
             "return_pending_hint": "Kayıt, eşyayı veren kişi geri teslim aldığını onaylayınca kapanacak.",
             "return_pending_lender_title": "{{name}} bu eşyayı geri teslim ettiğini bildirdi",
-            "return_pending_self_title": "Sende, teslim alma onayı bekleniyor"
+            "return_pending_self_title": "Sende, teslim alma onayı bekleniyor",
+            "site_member": "Site üyesi",
+            "site_member_identifier": "Kullanıcı adı veya e-posta",
+            "site_member_identifier_placeholder": "Tam kullanıcı adı veya e-posta",
+            "site_member_privacy_hint": "Teklif, sadece hesap varsa ve gelen tekliflere izin veriyorsa Ödünç Merkezi’nde görünür.",
+            "external_privacy_hint": "Bu sadece özel bir yerel kayıt oluşturur. Uygulama bildirimi gönderilmez."
         }
     },
     "borrow_requests": {
@@ -1245,7 +1320,7 @@
             "return_target": "Şu anda {{name}} kullanıcısında görünüyor.",
             "return_title_borrower": "Teslim et",
             "return_title_lender": "Teslim al",
-            "return_subtitle_borrower": "\"{{item}}\" için aktif ödünç kaydını teslim ettikten sonra kapat.",
+            "return_subtitle_borrower": "\"{{item}}\" için teslim ettim bildirimi gönder.",
             "return_subtitle_lender": "\"{{item}}\" için aktif ödünç kaydını geri teslim aldıktan sonra kapat.",
             "return_target_borrower": "Ödünç veren: {{name}}",
             "return_target_lender": "Şu anda kimde: {{name}}",
@@ -1253,11 +1328,31 @@
             "return_note_lender": "Teslim alma notu",
             "return_note_placeholder_borrower": "Örn: Sorunsuz teslim ettim",
             "return_note_placeholder_lender": "Örn: Sorunsuz teslim alındı",
-            "return_submitting": "Kapatılıyor..."
+            "return_submitting": "Kaydediliyor...",
+            "reject_title": "İsteği Reddet",
+            "reject_subtitle": "\"{{item}}\" talebini reddetmek üzeresiniz.",
+            "reject_target": "{{name}} tarafından gönderilen ödünç talebini reddetmek üzeresiniz.",
+            "reject_reason_label": "Reddetme Nedeni",
+            "reject_submitting": "Reddediliyor...",
+            "due_date_label": "Planlanan iade tarihi"
+        },
+        "reasons": {
+            "rejected": "Reddet (Normal ret)",
+            "not_available": "Eşyam yok / uygun değil",
+            "blocked": "Engelle ve reddet (Kullanıcıyı engeller)"
         },
         "messages": {
             "load_error": "Ödünç merkezi yüklenemedi",
-            "action_error": "İşlem tamamlanamadı"
+            "action_error": "İşlem tamamlanamadı",
+            "active_borrow_not_found": "Bu aktif ödünç kaydı bulunamadı. Ödünç Merkezi’ni yenileyip tekrar deneyin.",
+            "errors": {
+                "external_target_daily_limit": "Aynı kişiye günde yalnızca 1 ilk temas dış talebi gönderebilirsiniz. Karşı taraf talebi kabul ederse bu sınır artık o kişi için uygulanmaz.",
+                "external_total_daily_limit": "Günde en fazla 5 ilk temas dış talebi gönderebilirsiniz.",
+                "external_request_requires_verified_email": "Dış ödünç talebi göndermeden önce e-posta adresinizi doğrulayın.",
+                "external_offer_blocked": "Bir eşyayı yalnızca ev üyelerine veya doğrudan tanımlanabilen kayıtlı kullanıcılara teklif edebilirsiniz.",
+                "target_blocked_by_you": "Engellediğiniz bir kullanıcıya talep gönderemezsiniz.",
+                "recent_rejection_lock": "Bu kullanıcı yakın zamanda bir talebi reddetti. 30 gün sonra tekrar talep gönderebilirsiniz."
+            }
         },
         "refreshing": "İstekler ve aktif ödünçler yenileniyor...",
         "preview": {
@@ -2187,7 +2282,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Evinizin tüm eşyalarını akıllıca yönetin"
+        "tagline": "Evinizin tüm eşyalarını akıllıca yönetin",
+        "loading": "{{brandName}} yükleniyor",
+        "preparing_workspace": "İş alanınızı hazırlamak..."
     },
     "nav": {
         "home": "Ana Sayfa",
@@ -2304,8 +2401,8 @@
             "description": "Ev envanterinde azalan stoklu ürünleri görün ve kolayca alışveriş listenizi yönetin."
         },
         "suggestions": {
-            "title": "Akıllı Envanter Önerileri",
-            "desc": "Stoku asgari sınırın altına düşen envanter öğeleri.",
+            "title": "Stok Önerileri",
+            "desc": "Asgari stok sınırının altındaki envanter öğeleri.",
             "add_all": "Tüm Eksikleri Ekle",
             "stock_status": "Mevcut: {{current}} / Hedef: {{min}}",
             "add_qty": "{{qty}} Ekle"
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Geçmişi Temizle",
-            "add_item": "Alışveriş Listesine Ekle"
+            "add_item": "Alışveriş Listesine Ekle",
+            "mark_completed": "Tamamlanmış olarak işaret",
+            "decrease_qty": "Miktarı azalt",
+            "increase_qty": "Miktarı artır",
+            "delete_item": "Sil öğesi",
+            "reactivate_item": "Aktif listeye geri dön"
         },
         "form": {
             "add_type": "Ekleme Yöntemi",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Bu eşya için planlanmış periyodik veya tek seferlik bakım takipleri.",
         "no_tasks": "Bu eşyaya atanmış herhangi bir bakım görevi bulunmuyor.",
         "confirm_delete": "Bu görev silinecek. Emin misiniz?"
+    },
+    "error_boundary": {
+        "title": "Bir şeyin yenilenmesi gerekiyor",
+        "description": "Arayüz beklenmedik bir render sorunu yaşadı. Kaydedilen envanter verileriniz bu ekranda değişmez.",
+        "refresh_btn": "Yenileme",
+        "home_btn": "Ana Sayfa"
     }
 }

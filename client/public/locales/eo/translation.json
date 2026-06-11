@@ -49,7 +49,8 @@
         "hide": "Kaŝi pasvorton",
         "logging_out": "Elsaluti...",
         "show": "Montri pasvorton",
-        "saving": "Konservas..."
+        "saving": "Konservas...",
+        "disabled": "Malŝaltita"
     },
     "auth": {
         "login": {
@@ -298,7 +299,36 @@
         "join_house_key_required": "Domo-ŝlosilo estas postulata por aliĝi al ekzistanta domo",
         "house_key_not_found": "Nevalida Domo-ŝlosilo. Bonvolu enigi la ĝustan ŝlosilon.",
         "email_not_verified": "Via retpoŝta adreso ankoraŭ ne estas verigita. Bonvolu kontroli vian enirkeston.",
-        "two_factor_invalid": "La veriga kodo estas malĝusta"
+        "two_factor_invalid": "La veriga kodo estas malĝusta",
+        "two_factor_invalid_try_again": "Nevalida kontrolkodo. Bonvolu reprovi.",
+        "two_factor_code_required": "Kontrola kodo estas bezonata",
+        "two_factor_user_not_found": "La uzanto ne estis trovita",
+        "two_factor_already_enabled": "Du-faktoro authentication estas jam ebligita",
+        "two_factor_setup_not_started": "Komencu unue du-faktoran aŭtentikigan agordon",
+        "two_factor_setup_error": "Eraro okazis dum dufaktora aŭtentikiga agordo",
+        "two_factor_activation_error": "Eraro okazis dum dufaktora aŭtentikiga aktivigo",
+        "two_factor_password_required": "Pasvorto estas bezonata",
+        "two_factor_credentials_required": "TOTP kodo, sekurkopio kodo, aŭ reakiro ŝlosilo estas postulita",
+        "two_factor_already_disabled": "Dufaktora aŭtentikigo jam estas malebligita",
+        "two_factor_password_incorrect": "Pasvorto nevalida",
+        "two_factor_verification_failed": "Kontrolo malsukcesis. Bonvolu kontroli la kodon kaj reprovi.",
+        "two_factor_disable_error": "Eraro okazis dum malŝaltado de dufaktora aŭtentikigo",
+        "two_factor_not_enabled": "Du-faktora aŭtentikigo ne estas ebligita",
+        "two_factor_regenerate_codes_error": "Eraro okazis dum regenerado de rezervaj kodoj",
+        "two_factor_enabled_success": "Dufaktora aŭtentokontrolo sukcese ebliĝis",
+        "two_factor_disabled_success": "Dufaktora aŭtentokontrolo sukcese malebliĝis",
+        "password_errors": {
+            "min_length": "Pasvorto devas havi almenaŭ {{min}} signojn longa",
+            "lowercase_required": "Pasvorto devas inkludi almenaŭ unu minusklan literon",
+            "uppercase_required": "Pasvorto devas inkluzivi almenaŭ unu majusklan literon",
+            "number_required": "Pasvorto devas inkludi almenaŭ unu numeron",
+            "symbol_required": "Pasvorto devas inkluzivi almenaŭ unu simbolon",
+            "repeated_chars": "Ne uzu ripetajn signojn en via pasvorto",
+            "predictable_sequence": "Ne uzu facile diveneblajn sekvencojn en via pasvorto.",
+            "common_password": "Ĉi tiu pasvorto estas tro ofta kaj nesekura",
+            "contains_username": "Pasvorto ne devas enhavi vian uzantnomon",
+            "contains_email": "Pasvorto ne devas enhavi viajn retpoŝtajn informojn"
+        }
     },
     "navigation": {
         "home": "Hejmo",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Reakiro Ŝlosilo Regenerita",
             "recovery_key_error": "Ne eblis regeneri reakiran ŝlosilon",
             "account_delete_error": "Ne eblis forigi la konton",
-            "backup_downloaded_encrypted": "Ĉifrita sekurkopio elŝutita sukcese! ({{count}} eroj)"
+            "backup_downloaded_encrypted": "Ĉifrita sekurkopio elŝutita sukcese! ({{count}} eroj)",
+            "policy_update_error": "Malsukcesis ĝisdatigi petajn agordojn.",
+            "policy_updated": "Peti agordojn sukcese ĝisdatigitajn.",
+            "unblock_error": "Malsukcesis malbloki uzanton.",
+            "unblocked_success": "Uzanto malblokis sukcese.",
+            "house_owner_transferred": "Domposedo transdonita",
+            "house_owner_transfer_error": "Domposedo ne povis esti transdonita."
         },
         "user_profile": {
             "edit_username": "Ŝanĝo Uzulnomo"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} ne plu havas aliron al ĉi tiu domanaro.",
             "kick_title": "Ĉu forigi ĉi tiun membron?",
             "kick_warning": "Ilia hejma aliro tuj finiĝos kaj ili bezonos novan inviton aŭ aprobon por reveni.",
-            "kicking": "Forigante..."
+            "kicking": "Forigante...",
+            "access_section_eyebrow": "Dom-aliro",
+            "transfer_owner": "Fari posedanton",
+            "transferring_owner": "Transloki...",
+            "transfer_owner_title": "Transdoni domposedon?",
+            "transfer_owner_confirm": "Ĉu transdoni proprieton de ĉi tiu domanaro al {{name}}?",
+            "transfer_owner_warning": "Vi ne plu estos la posedanto de ĉi tiu domanaro. La nova posedanto administros membroaprobojn, forigojn kaj estontajn proprietajn ŝanĝojn.",
+            "transfer_owner_success_body": "{{name}} nun estas la posedanto de ĉi tiu domanaro."
         },
         "theme": {
             "title": "Temo",
@@ -729,7 +772,9 @@
             "light": "Sekureco",
             "description": "Elektu kiel aspektas la laborspaco en ĉi tiu aparato.",
             "light_aria": "Ŝanĝu al malpeza temo",
-            "dark_aria": "Ŝanĝu al malhela temo"
+            "dark_aria": "Ŝanĝu al malhela temo",
+            "workspace_title": "Laborspaca etoso",
+            "workspace_desc": "Elektu vian preferatan vidan stilon por ĉi tiu aparato."
         },
         "security": {
             "title": "Ŝanĝi Pasvorton",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "La nuna Reakira Ŝlosilo ne povas esti montrata. Regeneri ĝin se necese.",
             "recovery_key_action": "Regeneri",
             "recovery_key_modal_desc": "Konfirmu vian nunan pasvorton por daŭrigi. La nova ŝlosilo montriĝos nur unufoje.",
-            "recovery_key_loading": "Preparante..."
+            "recovery_key_loading": "Preparante...",
+            "accordion_title": "Sekureco kaj privateco",
+            "accordion_desc": "Administru dufaktoran aŭtentikigon, fidindajn aparatojn kaj prunteprenu petajn regulojn de aliaj kontoj.",
+            "description": "Administri vian ĉefan pasvorton kaj agordojn pri reakiro de la trezorejo.",
+            "change_password_detail": "Ĝisdatigu vian pasvorton por konservi vian konton sekura",
+            "recovery_key_detail": "Uzita por rekuperi vian trezorejon se vi forgesas vian pasvorton"
         },
         "data_management": {
             "title": "Administrado de datumoj",
@@ -785,10 +835,10 @@
             "owner_only_desc": "Datensekurkopio kaj restarigo povas nur esti administritaj fare de la domposedanto."
         },
         "about": {
-            "title": "📱 Pri Apliko",
+            "title": "Pri Apliko",
             "version": "Versio",
             "brand": "Marko",
-            "feedback": "✉️ Sendu komenton",
+            "feedback": "Sendu komenton",
             "legal_title": "Laŭleĝaj dokumentoj",
             "legal_description": "Servokondiĉoj",
             "terms_link": "Privateca Politiko",
@@ -890,7 +940,8 @@
             "revoke_devices": "Forigi fidindajn aparatojn",
             "revoke_devices_desc": "Forigi ĉiujn memoritajn aparatojn, postulante 2FA sur sekva ensaluto",
             "devices_revoked": "{{count}} fidinda aparato(j) forigita",
-            "devices_error": "@ info: whatsthis"
+            "devices_error": "@ info: whatsthis",
+            "preparing_setup": "Preparante vian aŭtentikigan agordon..."
         },
         "danger_zone": {
             "title": "Konto",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Post konfirmo, vi tuj perdos aliron al la konto kaj la forigitaj aplikaĵaj datumoj ne povas esti restarigitaj de la app.",
             "password_label": "Konfirmu per via nuna pasvorto",
             "confirm_delete": "Konfirmu forigon",
-            "deleting": "Forigante..."
+            "deleting": "Forigante...",
+            "description": "Forigi vian konton kaj permanente forigi ĉiujn inventaro datumaroj."
         },
         "language": "Lingvo",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Langues populaires",
         "search_results": "Résultats de recherche",
         "current_language": "Langue actuelle",
-        "languages_available": "langues disponibles"
+        "languages_available": "langues disponibles",
+        "borrow_requests": {
+            "accordion_eyebrow": "Sekureco pri pruntepreno de peto",
+            "accordion_eyebrow_desc": "Agordu petajn regulojn kaj administru blokitajn uzantojn.",
+            "title": "Pruntpetoj agordoj",
+            "description": "Administri regulojn por ricevi pruntpetojn de aliaj kontoj kaj listigi blokitajn uzantojn.",
+            "policy_title": "Novaj Pruntpetoj",
+            "policy_description": "Kontrolu, kiu povas sendi pruntpetojn al vi. Via inventaro neniam estas montrata kiel publika listo.",
+            "policy_none": "Ne ricevas de iu ajn (Defaŭlte)",
+            "policy_house_only": "Nur domanaroj",
+            "policy_everyone": "Ĉiuj registritaj uzantoj",
+            "blocks_title": "Forbaritaj Uzantoj",
+            "blocks_description": "Uzantoj, kiujn vi blokis sendi al vi novajn pruntpetojn.",
+            "no_blocks": "Neniuj blokitaj uzantoj trovitaj.",
+            "unblock_btn": "Malbloki",
+            "policy_none_desc": "Ĉiuj envenantaj petoj estas aŭtomate blokitaj.",
+            "policy_house_only_desc": "Nur kontrolitaj membroj de viaj aktivaj domoj povas peti erojn kiuj jam estas videblaj ene de tiu komuna domo.",
+            "policy_everyone_desc": "Aliaj uzantoj ne povas foliumi aŭ vidi viajn erojn. Ili povas sendi peton nur enmetante vian uzantnomon aŭ retpoŝton rekte."
+        }
     },
     "inventory": {
         "title": "Stokregistro",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Kun vi",
             "return_pending_hint": "La rekordo fermiĝos post kiam la pruntedoninto konfirmas, ke ili ricevis la objekton reen.",
             "return_pending_lender_title": "{{name}} markis ĉi tiun objekton kiel resendita",
-            "return_pending_self_title": "Kun vi, atendante kvitanconfirmon"
+            "return_pending_self_title": "Kun vi, atendante kvitanconfirmon",
+            "site_member": "Reteja membro",
+            "site_member_identifier": "Uzantnomo aŭ retpoŝto",
+            "site_member_identifier_placeholder": "Ĝusta uzantnomo aŭ retpoŝto",
+            "site_member_privacy_hint": "La oferto aperas en Pruntcentro nur se tiu konto ekzistas kaj permesas alvenantajn ofertojn.",
+            "external_privacy_hint": "Ĉi tio kreas nur privatan lokan rekordon. Neniu aplikaĵa sciigo estas sendita."
         },
         "untitled_item": "Sentitola ero",
         "delete_action": "Forigi eron",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Ricevu noton",
             "return_note_placeholder_borrower": "ekz. Mi redonis ĝin sen problemoj",
             "return_note_placeholder_lender": "ekz. Rericevita en bona stato",
-            "return_submitting": "Fermante..."
+            "return_submitting": "Fermante...",
+            "reject_title": "Malakcepti Peton",
+            "reject_subtitle": "Vi estas malakceptonta la peton por \"{{item}}\".",
+            "reject_target": "Vi estas malakceptonta la pruntpeton senditan de {{name}}.",
+            "reject_reason_label": "Kialo de malakcepto",
+            "reject_submitting": "Malakcepto...",
+            "due_date_label": "Planita revendato"
         },
         "messages": {
             "load_error": "Pruntcentro ne povis esti ŝargita",
-            "action_error": "La ago ne eblis plenumi"
+            "action_error": "La ago ne eblis plenumi",
+            "active_borrow_not_found": "Ĉi tiu aktiva pruntrekordo ne estis trovita. Refreŝigu la Pruntcentron kaj provu denove.",
+            "errors": {
+                "external_target_daily_limit": "Vi povas sendi nur unu unuakontaktan eksteran peton al la sama persono ĉiutage. Se ili akceptas peton, ĉi tiu limo ne plu validas por tiu persono.",
+                "external_total_daily_limit": "Vi povas sendi ĝis 5 unuakontaktajn eksterajn petojn ĉiutage.",
+                "external_request_requires_verified_email": "Kontrolu vian retpoŝtadreson antaŭ sendi eksterajn pruntpetojn.",
+                "external_offer_blocked": "Vi povas nur proponi objekton al hejmaj membroj aŭ registritaj uzantoj, kiuj povas esti rekte identigitaj.",
+                "target_blocked_by_you": "Vi ne povas sendi peton al uzanto, kiun vi blokis.",
+                "recent_rejection_lock": "Ĉi tiu uzanto malakceptis lastatempan peton. Vi povas sendi alian peton post 30 tagoj."
+            }
         },
         "preview": {
             "title": "Antaŭrigarda reĝimo",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Neniuj petoj bezonas vian revizion",
         "outgoing_empty_title": "Ankoraŭ neniuj eksiĝintaj petoj",
         "refreshing": "Refreŝigante petojn kaj aktivajn prunteprenojn...",
-        "loading_description": "Preparante petojn kaj aktivan pruntan agadon."
+        "loading_description": "Preparante petojn kaj aktivan pruntan agadon.",
+        "reasons": {
+            "rejected": "Malakcepto (Normala malakcepto)",
+            "not_available": "Ne havebla (Ero mankas/ne havebla)",
+            "blocked": "Bloki kaj malakcepti (Blokas ĉi tiun uzanton)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Privateca Politiko",
@@ -2181,7 +2276,9 @@
     },
     "app": {
         "name": "{{marknomo}}",
-        "tagline": "Gérez intelligemment tous vos articles ménagers"
+        "tagline": "Gérez intelligemment tous vos articles ménagers",
+        "loading": "Ŝargas {{brandName}}",
+        "preparing_workspace": "Preparante vian laborspacon..."
     },
     "nav": {
         "home": "Accueil",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Malplenigi Historion",
-            "add_item": "Aldoni al aĉetlisto"
+            "add_item": "Aldoni al aĉetlisto",
+            "mark_completed": "Marki kiel finite",
+            "decrease_qty": "Malpliigi kvanton",
+            "increase_qty": "Pligrandigi kvanton",
+            "delete_item": "Forigi eron",
+            "reactivate_item": "Reiri al aktiva listo"
         },
         "form": {
             "add_type": "Aldoni Metodon",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Perioda aŭ unufoja prizorga spurado planita por ĉi tiu objekto.",
         "no_tasks": "Neniuj prizorgaj taskoj asignitaj al ĉi tiu ero.",
         "confirm_delete": "Ĉi tiu tasko estos forigita. Ĉu vi certas?"
+    },
+    "error_boundary": {
+        "title": "Io bezonas refreŝigon",
+        "description": "La interfaco trafis neatenditan igan problemon. Viaj konservitaj stokaj datumoj ne ŝanĝiĝas per ĉi tiu ekrano.",
+        "refresh_btn": "Aktualigi",
+        "home_btn": "Hejmo"
     }
 }

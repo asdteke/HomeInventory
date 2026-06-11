@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
         const lowStockItems = db.prepare(`
             SELECT id, name, quantity, min_quantity
             FROM items
-            WHERE house_key = ? AND min_quantity > 0 AND quantity <= min_quantity
+            WHERE house_key = ? AND min_quantity > 0 AND quantity < min_quantity
         `).all(houseKey);
 
         // Identify which item_ids are already in the active shopping list
@@ -125,7 +125,7 @@ router.post('/add-low-stock', (req, res) => {
         const lowStockItems = db.prepare(`
             SELECT id, name, quantity, min_quantity
             FROM items
-            WHERE house_key = ? AND min_quantity > 0 AND quantity <= min_quantity
+            WHERE house_key = ? AND min_quantity > 0 AND quantity < min_quantity
         `).all(houseKey);
 
         // Identify already active item IDs
@@ -191,11 +191,41 @@ router.put('/:id', (req, res) => {
             completedStatus = is_completed ? 1 : 0;
         }
 
-        db.prepare(`
-            UPDATE shopping_list
-            SET quantity = ?, is_completed = ?, updated_at = CURRENT_TIMESTAMP
-            WHERE id = ? AND house_key = ?
-        `).run(newQty, completedStatus, itemId, req.user.house_key);
+        const updateShoppingItem = db.transaction(() => {
+            db.prepare(`
+                UPDATE shopping_list
+                SET quantity = ?, is_completed = ?, updated_at = CURRENT_TIMESTAMP
+                WHERE id = ? AND house_key = ?
+            `).run(newQty, completedStatus, itemId, req.user.house_key);
+
+            if (existing.item_id) {
+                let inventoryDelta = 0;
+
+                if (existing.is_completed === 0 && completedStatus === 1) {
+                    inventoryDelta = newQty;
+                } else if (existing.is_completed === 1 && completedStatus === 0) {
+                    inventoryDelta = -existing.quantity;
+                } else if (existing.is_completed === 1 && completedStatus === 1 && newQty !== existing.quantity) {
+                    inventoryDelta = newQty - existing.quantity;
+                }
+
+                if (inventoryDelta > 0) {
+                    db.prepare(`
+                        UPDATE items
+                        SET quantity = quantity + ?, updated_at = CURRENT_TIMESTAMP
+                        WHERE id = ? AND house_key = ?
+                    `).run(inventoryDelta, existing.item_id, req.user.house_key);
+                } else if (inventoryDelta < 0) {
+                    db.prepare(`
+                        UPDATE items
+                        SET quantity = MAX(1, quantity + ?), updated_at = CURRENT_TIMESTAMP
+                        WHERE id = ? AND house_key = ?
+                    `).run(inventoryDelta, existing.item_id, req.user.house_key);
+                }
+            }
+        });
+
+        updateShoppingItem();
 
         const updated = db.prepare('SELECT * FROM shopping_list WHERE id = ?').get(itemId);
         res.json({ message: 'Alışveriş listesi güncellendi', item: updated });

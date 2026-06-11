@@ -186,7 +186,8 @@
         "hide": "Versteek wagwoord",
         "logging_out": "Teken uit...",
         "show": "Wys wagwoord",
-        "saving": "Besig om te stoor... •••••••• Item QR Items het verval!"
+        "saving": "Besig om te stoor... •••••••• Item QR Items het verval!",
+        "disabled": "Gestremd"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "'n Huissleutel is nodig om by 'n bestaande huis aan te sluit",
         "house_key_not_found": "Ongeldige huissleutel. Voer asseblief die korrekte sleutel in.",
         "email_not_verified": "Jou e-posadres is nog nie geverifieer nie. Kyk asseblief jou inkassie na.",
-        "two_factor_invalid": "Die verifikasiekode is verkeerd"
+        "two_factor_invalid": "Die verifikasiekode is verkeerd",
+        "two_factor_invalid_try_again": "Ongeldige verifikasiekode. Probeer asseblief weer.",
+        "two_factor_code_required": "Verifikasiekode is nodig",
+        "two_factor_user_not_found": "Gebruiker nie gevind nie",
+        "two_factor_already_enabled": "Tweefaktor-verifikasie is reeds geaktiveer",
+        "two_factor_setup_not_started": "Begin asseblief eers met die opstelling van tweefaktor-verifikasie",
+        "two_factor_setup_error": "'n Fout het voorgekom tydens die opstelling van tweefaktor-verifikasie",
+        "two_factor_activation_error": "'n Fout het voorgekom tydens tweefaktor-verifikasieaktivering",
+        "two_factor_password_required": "Wagwoord is nodig",
+        "two_factor_credentials_required": "TOTP-kode, rugsteunkode of herstelsleutel is nodig",
+        "two_factor_already_disabled": "Tweefaktor-verifikasie is reeds gedeaktiveer",
+        "two_factor_password_incorrect": "Verkeerde wagwoord",
+        "two_factor_verification_failed": "Verifikasie het misluk. Kontroleer asseblief die kode en probeer weer.",
+        "two_factor_disable_error": "'n Fout het voorgekom terwyl twee-faktor-verifikasie gedeaktiveer is",
+        "two_factor_not_enabled": "Tweefaktor-verifikasie is nie geaktiveer nie",
+        "two_factor_regenerate_codes_error": "'n Fout het voorgekom terwyl rugsteunkodes hergenereer is",
+        "two_factor_enabled_success": "Tweefaktor-verifikasie is suksesvol geaktiveer",
+        "two_factor_disabled_success": "Tweefaktor-verifikasie is suksesvol gedeaktiveer",
+        "password_errors": {
+            "min_length": "Die wagwoord moet minstens {{min}} karakters lank wees",
+            "lowercase_required": "Wagwoord moet ten minste een kleinletter insluit",
+            "uppercase_required": "Wagwoord moet ten minste een hoofletter insluit",
+            "number_required": "Wagwoord moet minstens een nommer insluit",
+            "symbol_required": "Wagwoord moet minstens een simbool insluit",
+            "repeated_chars": "Moet geen herhaalde karakters in jou wagwoord gebruik nie",
+            "predictable_sequence": "Moet geen maklik-om-te-raai reekse in jou wagwoord gebruik nie",
+            "common_password": "Hierdie wagwoord is te algemeen en onveilig",
+            "contains_username": "Wagwoord mag nie jou gebruikersnaam bevat nie",
+            "contains_email": "Wagwoord mag nie jou e-posinligting bevat nie"
+        }
     },
     "navigation": {
         "home": "Tuis",
@@ -473,7 +503,7 @@
             "total_quantity": "Totale Hoeveelheid",
             "fullest_room": "Volste Kamer",
             "category_count": "Kategorieë",
-            "items_suffix": "items"
+            "items_suffix": "Items"
         },
         "recent_items": {
             "title": "Onlangs bygevoeg",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Herstel sleutel hergegenereer",
             "recovery_key_error": "Kon nie herstel sleutel hergenereer nie",
             "account_delete_error": "Die rekening kon nie verwyder word nie",
-            "backup_downloaded_encrypted": "Gekodeerde rugsteun suksesvol afgelaai! ({{count}} items)"
+            "backup_downloaded_encrypted": "Gekodeerde rugsteun suksesvol afgelaai! ({{count}} items)",
+            "policy_update_error": "Het nie versoekinstellings opgedateer nie.",
+            "policy_updated": "Versoekinstellings suksesvol opgedateer.",
+            "unblock_error": "Kon nie gebruiker deblokkeer nie.",
+            "unblocked_success": "Gebruiker suksesvol gedeblokkeer.",
+            "house_owner_transferred": "Huiseienaarskap is oorgedra",
+            "house_owner_transfer_error": "Huiseienaarskap kon nie oorgedra word nie."
         },
         "user_profile": {
             "edit_username": "Verander gebruikersnaam"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} het nie meer toegang tot hierdie huishouding nie.",
             "kick_title": "Verwyder hierdie lid?",
             "kick_warning": "Hul toegang tot die huishouding sal onmiddellik eindig en hulle sal 'n nuwe uitnodiging of goedkeuring nodig hê om terug te keer.",
-            "kicking": "Verwydering..."
+            "kicking": "Verwydering...",
+            "access_section_eyebrow": "Toegang tot die huis",
+            "transfer_owner": "Maak eienaar",
+            "transferring_owner": "Oorplasing...",
+            "transfer_owner_title": "Oordrag van huiseienaarskap?",
+            "transfer_owner_confirm": "Oordra eienaarskap van hierdie huishouding na {{name}}?",
+            "transfer_owner_warning": "Jy sal nie meer die eienaar van hierdie huishouding wees nie. Die nuwe eienaar sal ledegoedkeurings, verwyderings en toekomstige eienaarskapsveranderings bestuur.",
+            "transfer_owner_success_body": "{{name}} is nou die eienaar van hierdie huishouding."
         },
         "theme": {
             "title": "Tema",
@@ -729,7 +772,9 @@
             "light": "Ligmodus",
             "description": "Kies hoe die werksruimte op hierdie toestel lyk.",
             "light_aria": "Skakel na ligtema",
-            "dark_aria": "Skakel na donker tema"
+            "dark_aria": "Skakel na donker tema",
+            "workspace_title": "Werksruimte-tema",
+            "workspace_desc": "Kies jou voorkeur visuele styl vir hierdie toestel."
         },
         "security": {
             "title": "Sekuriteit",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Die huidige herstelsleutel kan nie vertoon word nie. Genereer dit weer indien nodig.",
             "recovery_key_action": "Genereer weer",
             "recovery_key_modal_desc": "Bevestig jou huidige wagwoord om voort te gaan. Die nuwe sleutel sal slegs een keer vertoon word.",
-            "recovery_key_loading": "Besig om voor te berei..."
+            "recovery_key_loading": "Besig om voor te berei...",
+            "accordion_title": "Sekuriteit en privaatheid",
+            "accordion_desc": "Bestuur tweefaktor-verifikasie, betroubare toestelle, en leen versoekreëls van ander rekeninge.",
+            "description": "Bestuur jou hoofwagwoord en kluisherstelkonfigurasies.",
+            "change_password_detail": "Werk jou wagwoord op om jou rekening veilig te hou",
+            "recovery_key_detail": "Dit word gebruik om jou kluis te herstel as jy jou wagwoord vergeet"
         },
         "data_management": {
             "title": "Data Bestuur",
@@ -890,7 +940,8 @@
             "revoke_devices": "Trek Gestroopte Toestelle int",
             "revoke_devices_desc": "Verwyder alle onthoude toestelle, vereis 2FA by volgende aanmelding",
             "devices_revoked": "{{count}} betroubare toestel(e) verwyder",
-            "devices_error": "Kon nie toestelleherroep nie"
+            "devices_error": "Kon nie toestelleherroep nie",
+            "preparing_setup": "Berei jou verifikasie-opstelling voor..."
         },
         "danger_zone": {
             "title": "Rekening",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Na bevestiging, sal jy onmiddellik toegang tot die rekening verloor en die uitgeveë toepassingsdata kan nie van die app herstel word nie.",
             "password_label": "Bevestig met jou huidige wagwoord",
             "confirm_delete": "Bevestig verwydering",
-            "deleting": "Verwydering..."
+            "deleting": "Verwydering...",
+            "description": "Verwyder jou rekening en verwyder permanent alle inventarisdatastelle."
         },
         "language": "Taal",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Populêre tale",
         "search_results": "Soekresultate",
         "current_language": "Huidige taal",
-        "languages_available": "Tale beskikbaar"
+        "languages_available": "Tale beskikbaar",
+        "borrow_requests": {
+            "accordion_eyebrow": "Leningversoeksekuriteit",
+            "accordion_eyebrow_desc": "Stel versoekreëls op en bestuur geblokkeerde gebruikers.",
+            "title": "Stel uitleenversoekinstellings in",
+            "description": "Bestuur reëls vir die ontvang van uitleenversoeke van ander rekeninge en lys geblokkeerde gebruikers.",
+            "policy_title": "Nuwe Uitleenversoeke",
+            "policy_description": "Beheer wie kan leenversoeke aan jou stuur. Jou voorraad word nooit as 'n openbare lys vertoon nie.",
+            "policy_none": "Moet van niemand ontvang nie (Standaard)",
+            "policy_house_only": "Net huishoudelike lede",
+            "policy_everyone": "Alle geregistreerde gebruikers",
+            "blocks_title": "Geblokkeerde Gebruikers",
+            "blocks_description": "Gebruikers wat jy geblokkeer het om jou nuwe leenversoeke te stuur.",
+            "no_blocks": "Geen geblokkeerde gebruikers gevind nie.",
+            "unblock_btn": "Ontblokkeer",
+            "policy_none_desc": "Alle inkomende versoeke word outomaties geblokkeer.",
+            "policy_house_only_desc": "Slegs bevestigde lede van jou aktiewe huise kan items versoek wat reeds binne daardie gedeelde huis sigbaar is.",
+            "policy_everyone_desc": "Ander gebruikers kan nie jou items blaai of sien nie. Hulle kan slegs 'n versoek stuur deur jou gebruikersnaam of e-pos direk in te voer."
+        }
     },
     "inventory": {
         "title": "Inventaris",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "By jou",
             "return_pending_hint": "Die rekord sal sluit nadat die lener bevestig het dat hulle die item terug ontvang het.",
             "return_pending_lender_title": "{{name}} het hierdie item as teruggelewer gemerk",
-            "return_pending_self_title": "By jou, wag vir ontvangsbevestiging"
+            "return_pending_self_title": "By jou, wag vir ontvangsbevestiging",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Ongetitelde item",
         "delete_action": "Verwyder item",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Ontvang nota",
             "return_note_placeholder_borrower": "bv. Ek het dit teruggegee sonder enige probleme",
             "return_note_placeholder_lender": "bv. Terugontvang in goeie toestand",
-            "return_submitting": "Afsluiting..."
+            "return_submitting": "Afsluiting...",
+            "reject_title": "Verwerp Versoek",
+            "reject_subtitle": "Jy staan op die punt om die versoek vir \"{{item}}\" te weier.",
+            "reject_target": "Jy staan op die punt om die leenversoek wat deur {{name}} gestuur is, te weier.",
+            "reject_reason_label": "Verwerpingsrede",
+            "reject_submitting": "Verwerp...",
+            "due_date_label": "Beplande terugkeerdatum"
         },
         "messages": {
             "load_error": "Lening sentrum kon nie gelaai word nie",
-            "action_error": "Die aksie kon nie voltooi word nie"
+            "action_error": "Die aksie kon nie voltooi word nie",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Jy kan slegs een eerste-kontak eksterne versoek per dag aan dieselfde persoon stuur. As hulle 'n versoek aanvaar, geld hierdie limiet nie meer vir daardie persoon nie.",
+                "external_total_daily_limit": "Jy kan tot 5 eerste-kontak eksterne versoeke per dag stuur.",
+                "external_request_requires_verified_email": "Bevestig jou e-posadres voordat jy eksterne leenversoeke stuur.",
+                "external_offer_blocked": "Jy kan slegs 'n item aan huishoudelike lede of geregistreerde gebruikers wat direk geïdentifiseer kan word, aanbied.",
+                "target_blocked_by_you": "Jy kan nie 'n versoek aan 'n gebruiker stuur wat jy geblokkeer het nie.",
+                "recent_rejection_lock": "Hierdie gebruiker het onlangs 'n versoek van jou afgekeur. Jy kan 'n ander versoek stuur na 30 dae."
+            }
         },
         "preview": {
             "title": "Voorskou modus",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Geen versoeke benodig jou beoordeling nie",
         "outgoing_empty_title": "Nog geen uitgegane versoeke nie",
         "refreshing": "Herlaai versoeke en aktiewe lenings...",
-        "loading_description": "Versoeke voorberei en aktiewe leenaktiwiteit."
+        "loading_description": "Versoeke voorberei en aktiewe leenaktiwiteit.",
+        "reasons": {
+            "rejected": "Verwerp (Normale verwerping)",
+            "not_available": "Nie beskikbaar nie (Item ontbreek / nie beskikbaar nie)",
+            "blocked": "Blokkeer en verwerp (Blokkeer hierdie gebruiker)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Privaatheidsbeleid",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{handelsnaam}}",
-        "tagline": "Bestuur al jou huishoudelike items slim"
+        "tagline": "Bestuur al jou huishoudelike items slim",
+        "loading": "Laai {{brandName}}",
+        "preparing_workspace": "Berei jou werkspasie voor..."
     },
     "nav": {
         "home": "Tuis",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Maak Geskiedenis Skoon",
-            "add_item": "Voeg by Inkopiemandjie"
+            "add_item": "Voeg by Inkopiemandjie",
+            "mark_completed": "Merk as voltooi",
+            "decrease_qty": "Verminderde hoeveelheid",
+            "increase_qty": "Verhoog hoeveelheid",
+            "delete_item": "Verwyder item",
+            "reactivate_item": "Skuif terug na aktiewe lys"
         },
         "form": {
             "add_type": "Voeg Metode by",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Periodieke of eenmalige instandhoudingsopsporing vir hierdie item geskeduleer.",
         "no_tasks": "Geen instandhoudings take aan hierdie item toegeken nie.",
         "confirm_delete": "Hierdie taak sal verwyder word. Is jy seker?"
+    },
+    "error_boundary": {
+        "title": "Iets het 'n opknapping nodig",
+        "description": "Die koppelvlak het 'n onverwagte renderingsprobleem ondervind. Jou gestoor inventarisdata word nie deur hierdie skerm verander nie.",
+        "refresh_btn": "Verfris",
+        "home_btn": "Tuis"
     }
 }

@@ -186,7 +186,8 @@
         "hide": "Pasahitza ezkutatu",
         "logging_out": "Saioa amaitzen...",
         "show": "Pasahitza erakutsi",
-        "saving": "Gordetzen..."
+        "saving": "Gordetzen...",
+        "disabled": "Ezgaitua"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Etxeko giltza bat behar da lehendik dagoen etxe batera joateko",
         "house_key_not_found": "Etxeko gako baliogabea. Idatzi gako zuzena.",
         "email_not_verified": "Zure helbide elektronikoa oraindik ez da egiaztatu. Egiaztatu zure sarrera-ontzia.",
-        "two_factor_invalid": "Egiaztapen-kodea ez da zuzena"
+        "two_factor_invalid": "Egiaztapen-kodea ez da zuzena",
+        "two_factor_invalid_try_again": "Egiaztapen kode baliogabea. Mesedez, saiatu berriro.",
+        "two_factor_code_required": "Egiaztapen kodea beharrezkoa da",
+        "two_factor_user_not_found": "Erabiltzailea aurkitu gabe",
+        "two_factor_already_enabled": "Bi faktoreko autentifikazioa dagoeneko gaituta",
+        "two_factor_setup_not_started": "Mesedez, hasi lehenik bi faktoreko autentifikazio konfigurazioa",
+        "two_factor_setup_error": "Errore bat gertatu zen bi faktoreko autentifikazioaren konfigurazioan",
+        "two_factor_activation_error": "Bi faktoreko autentifikazioaren aktibazioan errore bat gertatu zen",
+        "two_factor_password_required": "Pasahitza beharrezkoa da",
+        "two_factor_credentials_required": "TOTP kodea, babeskopia kodea edo berreskurapen gakoa behar dira",
+        "two_factor_already_disabled": "Bi faktoreko autentifikazioa dagoeneko desgaituta",
+        "two_factor_password_incorrect": "Pasahitz okerra",
+        "two_factor_verification_failed": "Egiaztapena huts egin du. Mesedez, egiaztatu kodea eta saiatu berriro.",
+        "two_factor_disable_error": "Bi faktoreko autentifikazioa desgaitzean errore bat gertatu zen",
+        "two_factor_not_enabled": "Bi faktoreko autentifikazioa ez gaituta",
+        "two_factor_regenerate_codes_error": "Errore bat gertatu zen babeskopia kodeak berreskuratzean",
+        "two_factor_enabled_success": "Bi faktoreko autentifikazioa arrakastaz gaituta",
+        "two_factor_disabled_success": "Bi faktoreko autentifikazioa arrakastaz desgaitu da",
+        "password_errors": {
+            "min_length": "Pasahitzak gutxienez {{min}} karaktereak izan behar ditu",
+            "lowercase_required": "Pasahitzak gutxienez letra txiki bat izan behar du",
+            "uppercase_required": "Pasahitzak gutxienez letra maiuskulaz bat izan behar du",
+            "number_required": "Pasahitzak gutxienez zenbaki bat izan behar du",
+            "symbol_required": "Pasahitzak gutxienez sinbolo bat izan behar du",
+            "repeated_chars": "Ez erabili karaktere errepikaturik zure pasahitzean",
+            "predictable_sequence": "Ez erabili zure pasahitzan sekuentzia erraz asmatzen direnak",
+            "common_password": "Pasahitz hau oso ohikoa eta arriskutsua da",
+            "contains_username": "Pasahitzak ez du zure erabiltzaile izena izan behar",
+            "contains_email": "Pasahitzak ez du zure posta elektronikoa izan behar"
+        }
     },
     "navigation": {
         "home": "Hasiera",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Berreskuratze-gakoa birsortu",
             "recovery_key_error": "Ezin izan da berreskuratzeko gakoa birsortu",
             "account_delete_error": "Kontua ezin izan da ezabatu",
-            "backup_downloaded_encrypted": "Babeskopia enkriptatua ondo jaitsi da! ({{count}} elementu)"
+            "backup_downloaded_encrypted": "Babeskopia enkriptatua ondo jaitsi da! ({{count}} elementu)",
+            "policy_update_error": "Ez dut eskaera ezarpenak eguneratu.",
+            "policy_updated": "Eskaera ezarpenak arrakastaz eguneratu dira.",
+            "unblock_error": "Erabiltzailea blokeatzea huts egin du.",
+            "unblocked_success": "Erabiltzailea arrakastaz desblokeatu da.",
+            "house_owner_transferred": "Etxebizitza jabetza transferitu",
+            "house_owner_transfer_error": "Etxebizitza jabetza ezin zen transferitu."
         },
         "user_profile": {
             "edit_username": "Erabiltzaile-izena aldatu"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}}k ez du sartzerik etxe honetara.",
             "kick_title": "Kendu kide hau?",
             "kick_warning": "Haien etxeko sarbidea berehala amaituko da eta berriro itzultzeko gonbidapen edo onarpen berria beharko dute.",
-            "kicking": "Kendu egiten..."
+            "kicking": "Kendu egiten...",
+            "access_section_eyebrow": "Etxera sarbidea",
+            "transfer_owner": "Jabea egin",
+            "transferring_owner": "Transferitzen...",
+            "transfer_owner_title": "Etxebizitza transferitu?",
+            "transfer_owner_confirm": "Etxe honen jabetza {{name}}-era transferitu?",
+            "transfer_owner_warning": "Ez zara etxe honen jabea izango. Jabe berriak kideen onespenak, kentze eta etorkizuneko jabetza aldaketak kudeatuko ditu.",
+            "transfer_owner_success_body": "{{name}} da orain etxe honen jabea."
         },
         "theme": {
             "title": "Gaia",
@@ -729,7 +772,9 @@
             "light": "Argi Modua",
             "description": "Aukeratu nola ikusten den lan-eremua gailu honetan.",
             "light_aria": "Aldatu argi gaiarekin",
-            "dark_aria": "Aldatu ilun gaiarekin"
+            "dark_aria": "Aldatu ilun gaiarekin",
+            "workspace_title": "Lan-espazioaren gaia",
+            "workspace_desc": "Aukeratu gailu honetarako zure estilo bisual gustukoena."
         },
         "security": {
             "title": "Segurtasuna",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Eguneroko berreskurapen gakoa ezin da erakutsi. Berritu behar izanez gero, egin ezazu.",
             "recovery_key_action": "Berritu",
             "recovery_key_modal_desc": "Egin zure egungo pasahitza baieztatzeko jarraitzeko. Gakoa berria behin bakarrik erakutsiko da.",
-            "recovery_key_loading": "Prestaketa..."
+            "recovery_key_loading": "Prestaketa...",
+            "accordion_title": "Segurtasuna eta pribatutasuna",
+            "accordion_desc": "Kudeatu bi faktoreko autentifikazioa, gailu fidagarriak eta beste kontuetatik mailegu eskaera arauak.",
+            "description": "Kudeatu zure pasahitz nagusia eta kutxa berreskuratzeko konfigurazioak.",
+            "change_password_detail": "Eguneratu zure pasahitza zure kontua seguru mantentzeko",
+            "recovery_key_detail": "Zure kutxa berreskuratzeko erabiltzen da, pasahitza ahazten baduzu"
         },
         "data_management": {
             "title": "Datuen Kudeaketa",
@@ -890,7 +940,8 @@
             "revoke_devices": "Gailu Fidagarriak Ezeztatu",
             "revoke_devices_desc": "Gogoratutako gailu guztiak kendu, hurrengo saio-hasieran 2FA eskatuz",
             "devices_revoked": "{{count}} gailu fidagarri kendu dira",
-            "devices_error": "Gailuak bertan behera uztea huts egin du"
+            "devices_error": "Gailuak bertan behera uztea huts egin du",
+            "preparing_setup": "Autentifikatzailearen konfigurazioa prestatzen..."
         },
         "danger_zone": {
             "title": "Kontua",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Berretsi ondoren, berehala galduko duzu konturako sarbidea eta ezabatutako aplikazio datuak ezin dira aplikaziotik berreskuratu.",
             "password_label": "Eguneroko pasahitzarekin berretsi",
             "confirm_delete": "Ezabapena berretsi",
-            "deleting": "Ezabatzen..."
+            "deleting": "Ezabatzen...",
+            "description": "Ezabatu zure kontua eta kendu inbentario datu-multzo guztiak betiko."
         },
         "language": "Hizkuntza",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Hizkuntza ezagunak",
         "search_results": "Bilaketaren emaitzak",
         "current_language": "Uneko hizkuntza",
-        "languages_available": "hizkuntzak erabilgarri"
+        "languages_available": "hizkuntzak erabilgarri",
+        "borrow_requests": {
+            "accordion_eyebrow": "Mailegu eskaera segurtasuna",
+            "accordion_eyebrow_desc": "Eskaera arauak konfiguratu eta blokeatutako erabiltzaileak kudeatu.",
+            "title": "Mailegu eskaera ezarpenak",
+            "description": "Kudeatu beste kontuetatik mailegu eskaerak jasotzeko arauak eta zerrendatu blokeatutako erabiltzaileak.",
+            "policy_title": "Mailegu Eskaera Berriak",
+            "policy_description": "Kontrolatu norbidai eskatzen dizun zeinengandik. Zure inventarioa ez da inoiz zerrenda publiko gisa erakusten.",
+            "policy_none": "Ez jaso inorengandik (Lehenetsia)",
+            "policy_house_only": "Etxeko kideentzat bakarrik",
+            "policy_everyone": "Erregistratutako erabiltzaile guztiak",
+            "blocks_title": "Blokeatutako Erabiltzaileak",
+            "blocks_description": "Blokeatu dituzun erabiltzaileek mailegu eskaera berriak bidaltzea uzten dizute.",
+            "no_blocks": "Ez da blokeatutako erabiltzailerik aurkitu.",
+            "unblock_btn": "Desblokeatu",
+            "policy_none_desc": "Sarrera eskaera guztiak automatikoki blokeatzen dira.",
+            "policy_house_only_desc": "Zure etxe aktiboetako kide bakarrak eskatu dezakete dagoeneko etxe partekatuan ikusgai dauden elementuak.",
+            "policy_everyone_desc": "Beste erabiltzaileek ezin dute zure elementuak arakatu edo ikusi. Eskaria bidaltzeko, zure erabiltzaile-izena edo posta elektronikoa zuzenean sartu behar dute."
+        }
     },
     "inventory": {
         "title": "Inbentarioa",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Zurekin",
             "return_pending_hint": "Erregistroa itxi egingo da mailegu-emariak elementua itzulita jaso duela baieztatzen duenean.",
             "return_pending_lender_title": "{{name}} elementu hau berreskuratu dela markatu du",
-            "return_pending_self_title": "Zurekin, jaso dela baieztatzeko zain"
+            "return_pending_self_title": "Zurekin, jaso dela baieztatzeko zain",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Izengabea den elementua",
         "delete_action": "Elementua ezabatu",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Jasotze-oharra",
             "return_note_placeholder_borrower": "adibidez, itzuli nuen arazorik gabe",
             "return_note_placeholder_lender": "adibidez, egoera onean jaso zen itzuli",
-            "return_submitting": "Itxiera..."
+            "return_submitting": "Itxiera...",
+            "reject_title": "Bazterketa Eskaera",
+            "reject_subtitle": "\"{{item}}\" eskaera baztertzeko zorian zaude.",
+            "reject_target": "{{name}} bidalitako mailegu eskaera baztertzeko zorian zaude.",
+            "reject_reason_label": "Bazterketa Arrazoia",
+            "reject_submitting": "Baztertzen...",
+            "due_date_label": "Itzultzeko data aurreikusita"
         },
         "messages": {
             "load_error": "Mailegu zentroa ezin izan da kargatu",
-            "action_error": "Ekintza ezin izan da burutu"
+            "action_error": "Ekintza ezin izan da burutu",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Egunean pertsona berari bidal daitekeen lehen harremaneko eskaria bakarra izan daiteke. Pertsona hori eskaera bat onartzen badu, muga hori ez da pertsona horri aplikatzen jarraituko.",
+                "external_total_daily_limit": "Eguneko bost lehen harremaneko eskari external bidal daitezke gehienez.",
+                "external_request_requires_verified_email": "Bidali aurretik egiaztatu zure posta elektronikoa external mailegu eskaerak egiteko.",
+                "external_offer_blocked": "Elementu bat bakarrik eskaini diezaiokezu etxeko kideei edo zuzenean identifika daitezkeen erregistroko erabiltzaileei.",
+                "target_blocked_by_you": "Ez duzu mezu bat bidali ahal blokeatu duzun erabiltzaileari.",
+                "recent_rejection_lock": "Erabiltzaile honek eskaera berria baztertu du. Beste eskaera bat bidal dezakezu 30 egun igaro ondoren."
+            }
         },
         "preview": {
             "title": "Aurrebista modua",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Ez dago zure berrikuspena behar duten eskaerarik",
         "outgoing_empty_title": "Oraindik ez dago bidaltzeko eskaerarik",
         "refreshing": "Eskaerak eta mailegu aktiboak freskatzen...",
-        "loading_description": "Eskaerak prestatzen eta mailegu aktiboen jarduera."
+        "loading_description": "Eskaerak prestatzen eta mailegu aktiboen jarduera.",
+        "reasons": {
+            "rejected": "Baztertzea (Ukapen arrunta)",
+            "not_available": "Ez erabilgarri (Elementua falta / ez erabilgarri)",
+            "blocked": "Blokeatu eta baztertu (Erabiltzaile hau blokeatzen du)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Pribatutasun Politika",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Zure etxeko elementu guztiak modu adimentsuan kudeatu"
+        "tagline": "Zure etxeko elementu guztiak modu adimentsuan kudeatu",
+        "loading": "Kargatzen {{brandName}}",
+        "preparing_workspace": "Zure lan-ingurunea prestatzen..."
     },
     "nav": {
         "home": "Etxea",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Historia Garbitu",
-            "add_item": "Erosketa Zerrendara Gehitu"
+            "add_item": "Erosketa Zerrendara Gehitu",
+            "mark_completed": "Markatu amaitutzat",
+            "decrease_qty": "Kantitatea murriztu",
+            "increase_qty": "Kantitatea handitu",
+            "delete_item": "Elementua ezabatu",
+            "reactivate_item": "Itzuli aktibo zerrendara"
         },
         "form": {
             "add_type": "Metodoa Gehitu",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Elementu honen mantentze aldizkako edo behin-behineko jarraipena antolatu da.",
         "no_tasks": "Ez dago mantentze-lanak item honi esleituak.",
         "confirm_delete": "Lan hau ezabatu egingo da. Ziur zaude?"
+    },
+    "error_boundary": {
+        "title": "Zerbait berritu behar da",
+        "description": "Interfazeak ustekabeko errendaketa arazo bat izan zuen. Zure gordetako inbentarioaren datuak ez dira pantaila honek aldatzen.",
+        "refresh_btn": "Berritzea",
+        "home_btn": "Etxea"
     }
 }

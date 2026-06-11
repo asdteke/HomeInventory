@@ -186,7 +186,8 @@
         "hide": "Tagoa ang password",
         "logging_out": "Nag-log out...",
         "show": "Ipakita ang password",
-        "saving": "Nagluwas..."
+        "saving": "Nagluwas...",
+        "disabled": "Gipakataas"
     },
     "auth": {
         "login": {
@@ -435,6 +436,35 @@
             "back": "Balik",
             "use_backup": "Gamita ang backup code",
             "use_totp": "Gamita ang authenticator"
+        },
+        "two_factor_invalid_try_again": "Dili tinuod nga verification code. Palihug sulayi pag-usab.",
+        "two_factor_code_required": "Gikinahanglan ang verification code",
+        "two_factor_user_not_found": "Wala makita ang user",
+        "two_factor_already_enabled": "Na-enable na ang two-factor authentication",
+        "two_factor_setup_not_started": "Palihug sugdi ang pag-setup sa two-factor authentication una",
+        "two_factor_setup_error": "Nahitabo ang sayop atol sa pag-setup sa two-factor authentication",
+        "two_factor_activation_error": "Nahitabo ang sayop atol sa pag-activate sa two-factor authentication",
+        "two_factor_password_required": "Kinahanglan ang password",
+        "two_factor_credentials_required": "Kinahanglan ang TOTP code, backup code, o recovery key",
+        "two_factor_already_disabled": "Ang two-factor authentication gipasaylo na",
+        "two_factor_password_incorrect": "Sayop ang password",
+        "two_factor_verification_failed": "Napakyas ang beripikasyon. Palihug susiha ang code ug sulayi pag-usab",
+        "two_factor_disable_error": "Nahitabo ang usa ka sayop samtang gipapas ang two-factor authentication",
+        "two_factor_not_enabled": "Ang two-factor authentication wala pa ma-enable",
+        "two_factor_regenerate_codes_error": "Nahitabo ang sayop samtang nag-regenerate sa backup codes",
+        "two_factor_enabled_success": "Malampuson nga na-enable ang two-factor authentication",
+        "two_factor_disabled_success": "Malampuson nga na-disable ang two-factor authentication",
+        "password_errors": {
+            "min_length": "Ang password kinahanglan dili moubos sa {{min}} ka karakter",
+            "lowercase_required": "Ang password kinahanglan adunay labing menos usa ka gamay nga letra",
+            "uppercase_required": "Ang password kinahanglan adunay labing menos usa ka dagkong letra",
+            "number_required": "Kinahanglan ang password adunay labing menos usa ka numeroKinahanglan ang password adunay labing menos usa ka simboloAyaw gamita ang nag-usab nga mga karakter sa imong passwordAyaw gamita ang dali nga matagna nga mga sunodsunod sa imong password",
+            "symbol_required": "Kinahanglan ang password maglakip og usa ka simbolo",
+            "repeated_chars": "Ayaw paggamit og balik-balik nga mga karakter sa imong password",
+            "predictable_sequence": "Ayaw paggamit og sayon ra matag-an nga mga sunod-sunod nga karakter sa imong password",
+            "common_password": "Kini nga password kay kasagarang gigamit ug delikado",
+            "contains_username": "Ang password dili angay maglakip sa imong username",
+            "contains_email": "Ang password dili angay maglakip sa impormasyon sa imong email"
         }
     },
     "navigation": {
@@ -447,7 +477,7 @@
         "share_house": "Ipaambit ang Balay",
         "admin_panel": "Panel sa Admin",
         "logout": "Pag-gawas",
-        "menu": "Menu",
+        "menu": "Menu Beta Barcode Barcode",
         "personal_vault": "Personal nga Bangko",
         "borrow_requests": "Sentro sa Pagpahulam",
         "scan_item_qr": "QR sa Butang",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Na-regenerate ang recovery key",
             "recovery_key_error": "Dili ma-regenerate ang recovery key",
             "account_delete_error": "Dili matanggal ang account",
-            "backup_downloaded_encrypted": "Malampuson nga na-download ang encrypted nga backup! ({{count}} ka items)"
+            "backup_downloaded_encrypted": "Malampuson nga na-download ang encrypted nga backup! ({{count}} ka items)",
+            "policy_update_error": "Napakyas sa pag-update sa mga setting sa hangyo.",
+            "policy_updated": "Malampuson nga na-update ang mga setting sa hangyo.",
+            "unblock_error": "Napakyas sa pag-unblock sa tiggamit.",
+            "unblocked_success": "Malampuson nga na-unblock ang tiggamit. ••••••••{{suffix}} Grid Balibaran ang Hangyo",
+            "house_owner_transferred": "Napasa ang pagpanag-iya sa balay",
+            "house_owner_transfer_error": "Wala mapasa ang pagpanag-iya sa balay"
         },
         "user_profile": {
             "edit_username": "Usba ang ngalan sa tiggamit"
@@ -721,7 +757,14 @@
             "kick_success_body": "Wala na si {{name}}'y access sa kini nga panimalay.",
             "kick_title": "Tangtanga ba kini nga miyembro?",
             "kick_warning": "Mo-undang dayon ang ilang access sa panimalay ug kinahanglan nila og bag-ong imbitasyon o aprobasyon aron makabalik.",
-            "kicking": "Ginatangtang..."
+            "kicking": "Ginatangtang...",
+            "access_section_eyebrow": "Access sa Balay",
+            "transfer_owner": "Himoang tag-iya",
+            "transferring_owner": "Nagbalhin...",
+            "transfer_owner_title": "Balhinon ba ang panag-iya sa balay?",
+            "transfer_owner_confirm": "Ibalhin ba ang panag-iya ning panimalay ngadto kang {{name}}?",
+            "transfer_owner_warning": "Dili na ikaw ang tag-iya sa kini nga panimalay. Ang bag-ong tag-iya ang magdumala sa pag-apruba sa mga myembro, pagtangtang, ug umaabot nga mga kausaban sa pagpanag-iya. {{name}} mao na karon ang tag-iya sa kini nga panimalay. Seguridad ug pribasiya Pagdumala sa two-factor authentication, kasaligan nga mga device, ug mga lagda sa pag-ayo sa utang gikan sa lain nga mga account.",
+            "transfer_owner_success_body": "Karon si {{name}} mao na ang tag-iya niining panimalay."
         },
         "theme": {
             "title": "Tema",
@@ -729,7 +772,9 @@
             "light": "Hayag nga Mode",
             "description": "Pilia kung unsaon pagtan-aw sa workspace sa kini nga device.",
             "light_aria": "Ilisdi sa hayag nga tema",
-            "dark_aria": "Ilisdi sa ngitngit nga tema"
+            "dark_aria": "Ilisdi sa ngitngit nga tema",
+            "workspace_title": "Tema sa Trabaho",
+            "workspace_desc": "Pilia ang imong gusto nga estilo sa panan-aw alang niining device"
         },
         "security": {
             "title": "Seguridad",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Dili ipakita ang kasamtangang recovery key. Pag-usab niini kung kinahanglan.",
             "recovery_key_action": "Pag-usab",
             "recovery_key_modal_desc": "Kumpirmaha ang imong kasamtangang password aron magpadayon. Ang bag-ong key ipakita lamang kausa.",
-            "recovery_key_loading": "Nag-andam..."
+            "recovery_key_loading": "Nag-andam...",
+            "accordion_title": "Seguridad ug pribasiya",
+            "accordion_desc": "Pagdumala sa two-factor authentication, kasaligan nga mga device, ug mga lagda sa paghulam gikan sa ubang account.",
+            "description": "Pagdumala sa imong master password ug mga setting sa pag-ayo sa vault.",
+            "change_password_detail": "I-update ang imong password aron maprotektahan ang imong account",
+            "recovery_key_detail": "Gigamit aron mabalik ang imong vault kung makalimot ka sa imong password"
         },
         "data_management": {
             "title": "Pagdumala sa Datos",
@@ -853,7 +903,7 @@
             "disable_confirm": "Pahunong ang 2FA",
             "disable_error": "Napakyas sa pag-pahunong sa 2FA",
             "disabled_success": "Ang two-factor authentication napahunong na",
-            "password_label": "Password",
+            "password_label": "Napakyas sa pag-update sa mga setting sa hangyo ang Password. Malampusong na-update ang mga setting sa hangyo. Napakyas sa pag-unblock sa tiggamit.",
             "password_placeholder": "Isulod ang imong password",
             "method_totp": "Tagpamatud-an",
             "method_backup": "Kodigo sa Backup",
@@ -890,7 +940,8 @@
             "revoke_devices": "Bawi-a ang Mga Trusted Devices",
             "revoke_devices_desc": "Tangtanga ang tanan nga natala nga device, kinahanglan og 2FA sa sunod nga pag-login",
             "devices_revoked": "{{count}} kasaligan nga device ang natangtang",
-            "devices_error": "Napakyas sa pag-revoke sa mga device"
+            "devices_error": "Napakyas sa pag-revoke sa mga device",
+            "preparing_setup": "Giandam ang imong authenticator setup..."
         },
         "danger_zone": {
             "title": "Akawnt",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Pagkahuman sa kumpirmasyon, dali kang mawagtangan sa access sa account ug ang na-delete nga datos sa aplikasyon dili na mabalik gikan sa app.",
             "password_label": "Kumpirmaha gamit ang imong kasamtangang password",
             "confirm_delete": "Kumpirmaha ang pag-delete",
-            "deleting": "Nag-delete..."
+            "deleting": "Nag-delete...",
+            "description": "I-delete ang imong account ug permanente nga tangtangon ang tanang inventory datasets."
         },
         "language": "Pinulongan",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Sikat nga Mga Sinultian",
         "search_results": "Mga Resulta sa Pagpangita",
         "current_language": "Kasamtangang sinultian",
-        "languages_available": "magamit nga mga pinulongan"
+        "languages_available": "magamit nga mga pinulongan",
+        "borrow_requests": {
+            "accordion_eyebrow": "Seguridad sa hangyo sa pagpahulam",
+            "accordion_eyebrow_desc": "I-configure ang mga lagda sa hangyo ug pagdumala sa mga gibabagan nga tiggamit.",
+            "title": "Mga setting sa hangyo sa pautang",
+            "description": "Pagdumala sa mga lagda sa pagdawat sa mga hangyo sa pautang gikan sa ubang account ug lista sa gibabagan nga tiggamit.",
+            "policy_title": "Bag-ong mga Hangyo sa Pautang",
+            "policy_description": "Kontrolaha kinsa ang makapadala og hangyo sa pagpahulam kanimo. Ang imong imbentaryo dili ipakita isip pampublikong listahan.",
+            "policy_none": "Ayaw pagdawat gikan sa bisan kinsa (Default)",
+            "policy_house_only": "Mga miyembro sa panimalay ra",
+            "policy_everyone": "Tanang narehistro nga mga tiggamit",
+            "blocks_title": "Gibabagan nga Mga Tiggamit",
+            "blocks_description": "Mga tiggamit nga imong gibabagan sa pagpadala kanimo og bag-ong hangyo sa pagpahulam.",
+            "no_blocks": "Wala’y nakit-an nga gibabagang tiggamit.",
+            "unblock_btn": "I-unblock",
+            "policy_none_desc": "Tanang umaabot nga hangyo awtomatikong mapugngan.",
+            "policy_house_only_desc": "Ang mga beripikadong miyembro lang sa imong aktibong balay ang makapangayo og butang nga nakit-an na sulod sa maong shared nga balay.",
+            "policy_everyone_desc": "Ang ubang tiggamit dili makatan-aw o makakita sa imong mga butang. Makapadala ra sila og hangyo pinaagi sa pagsulod direkta sa imong username o email."
+        }
     },
     "inventory": {
         "title": "Imbentaryo",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Uban nimo",
             "return_pending_hint": "Magsira ang rekord pagkahuman makumpirma sa nagpahulam nga nadawat nila ang butang pag-usab.",
             "return_pending_lender_title": "{{name}} gimarkahan kini nga butang nga naidala na",
-            "return_pending_self_title": "Uban nimo, naghulat sa kumpirmasyon sa resibo"
+            "return_pending_self_title": "Uban nimo, naghulat sa kumpirmasyon sa resibo",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Walay titulo nga butang",
         "delete_action": "Pangtangtanga ang butang",
@@ -1717,7 +1792,7 @@
         "found_local_msg": "Ania ang barcode sa imong imbentaryo.",
         "found_online": "Nakaplagan ang produkto!",
         "google_result": "⚡ Resulta sa Google search - palihug susiha",
-        "barcode": "Barcode: {{code}}",
+        "barcode": "Barcode: {{code}} © 2026 {{brandName}} {{brandName}} - {{status}} Nag-load sa {{brandName}}",
         "new_product": "Bag-ong Produkto",
         "not_found_db": "Wala kini nga barcode makita sa database.",
         "google_search": "Pangitaa sa Google",
@@ -1880,7 +1955,7 @@
         },
         "adminEmail": {
             "sentBy": "Gisugo kini nga email sa {{brandName}}.",
-            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
+            "footer": "© 2026 {{brandName}} - {{supportEmail}} Menu"
         },
         "testEmail": {
             "subject": "🧪 {{brandName}} Sulay nga Email",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Nota sa pagdawat",
             "return_note_placeholder_borrower": "pananglitan Gihatud nako pabalik nga walay problema",
             "return_note_placeholder_lender": "pananglitan Nadawat nga balik sa maayong kahimtang",
-            "return_submitting": "Gisira..."
+            "return_submitting": "Gisira...",
+            "reject_title": "Ibalibad ang Hangyo",
+            "reject_subtitle": "Duol na nimo nga i-reject ang hangyo para sa \"{{item}}\". Duol na nimo nga i-reject ang hangyo sa pagpahulam nga gisend ni {{name}}. Rason sa Pagdumili Gidumili...",
+            "reject_target": "Hapiton nimo nga ibalibad ang hangyo sa pagpautang nga gipadala ni {{name}}.",
+            "reject_reason_label": "Rason sa Pagbalibad",
+            "reject_submitting": "Gibalibaran...",
+            "due_date_label": "Giplanong petsa sa pagbalik"
         },
         "messages": {
             "load_error": "Dili maload ang borrow center",
-            "action_error": "Dili mahuman ang aksyon"
+            "action_error": "Dili mahuman ang aksyon",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Makapadala ka lang og usa ka first-contact external nga hangyo sa mao gihapon nga tawo matag adlaw. Kung ilang dawaton ang hangyo, kini nga limitasyon wala nay bisa sa maong tawo.",
+                "external_total_daily_limit": "Makapadala ka og hangtod 5 ka first-contact external nga hangyo matag adlaw.",
+                "external_request_requires_verified_email": "Beripikaha ang imong email address sa wala pa magpadala og external nga hangyo sa pagpahulam.",
+                "external_offer_blocked": "Makahatag ka og butang lang sa mga miyembro sa balay o mga narehistro nga tiggamit nga mailhan direkta.",
+                "target_blocked_by_you": "Dili ka makapadala og hangyo sa usa ka tiggamit nga imong gibabagan.",
+                "recent_rejection_lock": "Gireject sa tiggamit ang usa ka bag-ong hangyo. Makapadala ka og lain nga hangyo human sa 30 ka adlaw."
+            }
         },
         "preview": {
             "title": "Paagi sa pagtan-aw",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Walay hangyo nga nanginahanglan sa imong pagrepaso",
         "outgoing_empty_title": "Wala pay gipagawas nga hangyo",
         "refreshing": "Girefresh ang mga hangyo ug aktibong paghulam...",
-        "loading_description": "Pag-andam sa mga hangyo ug aktibong kalihukan sa pautang."
+        "loading_description": "Pag-andam sa mga hangyo ug aktibong kalihukan sa pautang.",
+        "reasons": {
+            "rejected": "Dili dawaton (Normal nga pagdumili)",
+            "not_available": "Wala magamit (Item kulang / wala magamit)",
+            "blocked": "I-block ug idumili (I-block kini nga tiggamit)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Palisiya sa Pagkapribado",
@@ -2229,7 +2324,9 @@
     },
     "app": {
         "name": "Gibalhin balik sa aktibong lista ang \"{{name}}\".",
-        "tagline": "Maayong pagdumala sa tanan nimong gamit sa panimalay"
+        "tagline": "Maayong pagdumala sa tanan nimong gamit sa panimalay",
+        "loading": "Loading {{brandName}}",
+        "preparing_workspace": "Gipangandaman ang imong workspace..."
     },
     "nav": {
         "home": "Balay",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Limpyohi ang Kasaysayan",
-            "add_item": "Idugang sa Lista sa Pamalit"
+            "add_item": "Idugang sa Lista sa Pamalit",
+            "mark_completed": "Timan-i nga nahuman na",
+            "decrease_qty": "Paminusan ang gidaghanon",
+            "increase_qty": "Dugangi ang kantidad",
+            "delete_item": "Tangtanga ang item",
+            "reactivate_item": "Ibalik sa aktibong lista"
         },
         "form": {
             "add_type": "Idugang ang Pamaagi",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Giskedyul ang periodic o usa ka higayong pagsubay sa maintenance alang niini nga butang.",
         "no_tasks": "Wala’y gi-assign nga maintenance nga buluhaton alang niini nga butang.",
         "confirm_delete": "Kini nga buluhaton kay tangtangon. Sigurado ka ba?"
+    },
+    "error_boundary": {
+        "title": "Kinahanglan bag-uhon ang usa ka butang",
+        "description": "Ang interface nakasinati og dili gilauman nga problema sa pag-render. Ang imong nasave nga datos sa imbentaryo wala mausab tungod niini nga screen.",
+        "refresh_btn": "I-refresh",
+        "home_btn": "Panimalay"
     }
 }

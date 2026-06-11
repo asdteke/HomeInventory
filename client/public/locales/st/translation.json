@@ -186,7 +186,8 @@
         "hide": "Fihla phasewete",
         "logging_out": "Ho tsoa ka hare...",
         "show": "Bontša phasewete",
-        "saving": "Ho boloka..."
+        "saving": "Ho boloka...",
+        "disabled": "Ba holofetseng"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Senotlolo sa Ntlo sea hlokahala ho kena ntlong e teng",
         "house_key_not_found": "Senotlolo sa Ntlo se sa sebetseng. Ka kōpo kenya senotlolo se nepahetseng.",
         "email_not_verified": "Aterese ea hau ea i-imeile ha e so netefatsoe. Ka kōpo hlahloba inbox ea hau.",
-        "two_factor_invalid": "Khoutu ea netefatso e fosahetse"
+        "two_factor_invalid": "Khoutu ea netefatso e fosahetse",
+        "two_factor_invalid_try_again": "Khoutu ea netefatso e sa sebetseng. Ka kopo leka hape.",
+        "two_factor_code_required": "Khoutu ea netefatso ea hlokahala",
+        "two_factor_user_not_found": "Mosebelisi ha a fumanoe",
+        "two_factor_already_enabled": "Netefatso ea lintlha tse peli e se e ntse e lumelloa",
+        "two_factor_setup_not_started": "Ka kopo qala ho hlophisa netefatso ea lintlha tse peli pele",
+        "two_factor_setup_error": "Phoso e etsahetse nakong ea ts'ebetso ea netefatso ea lintlha tse peli",
+        "two_factor_activation_error": "Phoso e etsahetse nakong ea ts'ebetso ea netefatso ea lintlha tse peli",
+        "two_factor_password_required": "Phasewete e hlokahala",
+        "two_factor_credentials_required": "Khoutu ea TOTP, khoutu ea bekapo kapa senotlolo sa ho hlaphoheloa hoa hlokahala",
+        "two_factor_already_disabled": "Netefatso ea lintlha tse peli e se e holofetse",
+        "two_factor_password_incorrect": "Password e fosahetseng",
+        "two_factor_verification_failed": "Netefatso e hlolehile. Ka kopo sheba khoutu ebe o leka hape.",
+        "two_factor_disable_error": "Phoso e etsahetse ha ho hlakoloa netefatso ea lintlha tse peli",
+        "two_factor_not_enabled": "Netefatso ea lintlha tse peli ha e lumelloe",
+        "two_factor_regenerate_codes_error": "Phoso e etsahetse ha u ntse u nchafatsa likhoutu tsa bekapo",
+        "two_factor_enabled_success": "Ts'ebetso ea ts",
+        "two_factor_disabled_success": "Netefatso ea lintlha tse peli e holofalitsoe ka katleho",
+        "password_errors": {
+            "min_length": "Phasewete e tlameha ho ba bonyane litlhaku tse telele",
+            "lowercase_required": "Phasewete e tlameha ho ba le bonyane lengolo le le leng le lenyenyane",
+            "uppercase_required": "Phasewete e tlameha ho ba le bonyane lengolo le le leng le leholo",
+            "number_required": "Phasewete e tlameha ho ba le bonyane nomoro e le 'ngoe",
+            "symbol_required": "Phasewete e tlameha ho ba le bonyane letšoao le le leng",
+            "repeated_chars": "U se ke ua sebelisa litlhaku tse pheta-phetoang ho phasewete ea hau",
+            "predictable_sequence": "U se ke ua sebelisa li-hashtag tse bonolo ka har'a phasewete ea hau",
+            "common_password": "Phasewete ena e tloaelehile haholo ebile ha e bolokehe",
+            "contains_username": "Phasewete ha ea lokela ho ba le lebitso la hau la mosebelisi",
+            "contains_email": "Phasewete ha ea lokela ho ba le tlhaiso-leseling ea hau ea lengolo-tsoibila"
+        }
     },
     "navigation": {
         "home": "Lehae",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Senotlolo sa ho khutlisa se hlahisitsoe hape",
             "recovery_key_error": "Ha e ka hlahisa senotlolo sa ho khutlisa hape",
             "account_delete_error": "Akaunt ea ha e ka ea hlakoloa",
-            "backup_downloaded_encrypted": "Backup e entsoe ka fomate e patiloeng ka katleho! ({{count}} lintho)"
+            "backup_downloaded_encrypted": "Backup e entsoe ka fomate e patiloeng ka katleho! ({{count}} lintho)",
+            "policy_update_error": "E hlotsoe ho ntlafatsa litlhophiso tsa kopo.",
+            "policy_updated": "Litlhophiso tsa kopo li ntlafalitsoe ka katleho.",
+            "unblock_error": "E hlolehile ho notlolla mosebelisi.",
+            "unblocked_success": "Mosebelisi o ile a thibeloa ka katleho.",
+            "house_owner_transferred": "Thepa ea ntlo e fetiselitsoe",
+            "house_owner_transfer_error": "Thepa ea ntlo e ne e ke ke ea fetisoa."
         },
         "user_profile": {
             "edit_username": "Fetoha lebitso la mosebedisi"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} ha a sa na phihlello ea lelapa lena.",
             "kick_title": "Tlosa setho sena?",
             "kick_warning": "Phihlello ea bona ea lelapa e tla fela hang-hang 'me ba tla hloka memelo e ncha kapa tumello ho khutlela.",
-            "kicking": "Ho tlosoa..."
+            "kicking": "Ho tlosoa...",
+            "access_section_eyebrow": "Phihlello ea ntlo",
+            "transfer_owner": "Etsa mong'a eona",
+            "transferring_owner": "Ho fetisetsa ...",
+            "transfer_owner_title": "Ho fetisetsa thepa ea ntlo?",
+            "transfer_owner_confirm": "Ho fetisetsa beng ba ntlo ena ho {{lebitso}}?",
+            "transfer_owner_warning": "Ha u sa tla hlola u le mong'a ntlo ena. Mong'a eona e mocha o tla tsamaisa tumello ea litho, ho tlosoa le liphetoho tsa beng ba nako e tlang.",
+            "transfer_owner_success_body": "Hona joale ke mong'a ntlo ena."
         },
         "theme": {
             "title": "Sehlooho",
@@ -729,7 +772,9 @@
             "light": "Mokhoa o Mokhutšoanyane",
             "description": "Khetha kamoo sebaka sa mosebetsi se shebahalang ka sona sesebelisoa sena.",
             "light_aria": "Fetola sethala se bobebe",
-            "dark_aria": "Fetola sethala se lefifi"
+            "dark_aria": "Fetola sethala se lefifi",
+            "workspace_title": "Sehlooho sa sebaka sa mosebetsi",
+            "workspace_desc": "Khetha setaele seo u se ratang bakeng sa sesebelisoa sena."
         },
         "security": {
             "title": "Tshireletso",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Senotlolo sa hona joale sa pholoso se ke ke sa bontšoa. Se hlahisisetse bocha haeba ho hlokahala.",
             "recovery_key_action": "Hlahisa bocha",
             "recovery_key_modal_desc": "Netefatsa phasewete ea hau ea hona joale ho tsoela pele. Senotlolo se secha se tla bontšoa hang feela.",
-            "recovery_key_loading": "E lokisa..."
+            "recovery_key_loading": "E lokisa...",
+            "accordion_title": "Ts'ireletso le boinotšing",
+            "accordion_desc": "Laola netefatso ea lintlha tse peli, lisebelisoa tse tšepahalang, le ho alima melao ea kopo ho liakhaonto tse ling.",
+            "description": "Laola phasewete ea hau e kholo le litlhophiso tsa ho hlaphoheloa ha vault.",
+            "change_password_detail": "Ntlafatsa phasewete ea hau ho boloka ak'haonte ea hau e sireletsehile",
+            "recovery_key_detail": "E sebelisetsoa ho hlaphoheloa vault ea hau haeba u lebala phasewete ea hau"
         },
         "data_management": {
             "title": "Tsamaiso ea Lintlha",
@@ -785,10 +835,10 @@
             "owner_only_desc": "Ho boloka le ho khutlisa data ho ka tsamaisoa feela ke mong'a ntlo."
         },
         "about": {
-            "title": "📱 Mabapi le Kopo",
+            "title": "Mabapi le Kopo",
             "version": "Mofuta",
             "brand": "Brendha",
-            "feedback": "✉️ Romella Maikutlo",
+            "feedback": "Romella Maikutlo",
             "legal_title": "Litokomane tsa Molao",
             "legal_description": "U ka bula bocha melao le melao ea lekunutu mona esita le kamora ho li amohela.",
             "terms_link": "Melao ea Tšebeletso",
@@ -890,7 +940,8 @@
             "revoke_devices": "Hlakola Lihlahisoa Tse Tšepahalang",
             "revoke_devices_desc": "Tlosa lisebelisoa tsohle tse hopolitsoeng, ho hloka 2FA ha u kena lekhetlo la pele kamora tsena",
             "devices_revoked": "{{count}} sesebelisoa se tšepahalang se tlositsoeng",
-            "devices_error": "Ha e ka atleha ho hlakola lisebelisoa"
+            "devices_error": "Ha e ka atleha ho hlakola lisebelisoa",
+            "preparing_setup": "Ho lokisetsa sephutheloana sa hau sa Excel ..."
         },
         "danger_zone": {
             "title": "Hlakola ak'haonte",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Kamora netefatso, o tla lahla phihlello ea akhaonto hang-hang 'me lintlha tsa kopo tse hlakotsoeng li ke ke tsa khutlisetsoa ho tsoa kopong.",
             "password_label": "Netefatsa le phasewete ea hau ea hajoale",
             "confirm_delete": "Netefatsa ho hlakola",
-            "deleting": "Ho hlakola..."
+            "deleting": "Ho hlakola...",
+            "description": "Hlakola ak'haonte ea hau 'me u tlose ka ho sa feleng li-dataset tsohle tsa lethathamo."
         },
         "language": "Puo",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Lipuo tse tummeng",
         "search_results": "Liphetho tsa lipatlisiso",
         "current_language": "Puo ea hajoale",
-        "languages_available": "Lipuo tse fumanehang"
+        "languages_available": "Lipuo tse fumanehang",
+        "borrow_requests": {
+            "accordion_eyebrow": "Ts'ireletso ea kopo ea alima",
+            "accordion_eyebrow_desc": "Hlophisa melao ea kopo le ho laola basebelisi ba thibetsoeng.",
+            "title": "Litlhophiso tsa kopo ea alima",
+            "description": "Laola melao ea ho amohela likopo tsa kalimo ho tsoa litlalehong tse ling le ho thathamisa basebelisi ba thibetsoeng.",
+            "policy_title": "Likopo tse ncha tsa ho alima",
+            "policy_description": "Laola hore na ke mang ea ka romellang likopo tsa ho ngolisoa ho uena. Lisebelisoa tsa hau li ke ke tsa hlahisoa e le lethathamo la sechaba.",
+            "policy_none": "U se ke ua amohela ho mang kapa mang.",
+            "policy_house_only": "Litho tsa malapa feela",
+            "policy_everyone": "Basebelisi bohle ba ngolisitsoeng",
+            "blocks_title": "Basebelisi ba thibetsoeng",
+            "blocks_description": "Basebelisi bao u ba thibetseng ho u romella likopo tse ncha tsa ho alima.",
+            "no_blocks": "Ha ho basebelisi ba thibetsoeng ba fumanoeng.",
+            "unblock_btn": "Unblock",
+            "policy_none_desc": "Likopo tsohle tse kenang li thibetsoe ka boiketsetso.",
+            "policy_house_only_desc": "Ke litho tse netefalitsoeng tsa matlo a hau a sebetsang feela tse ka kopa lintho tse seng kae tse se li bonahala kahare ho ntlo eo e arolelanoang.",
+            "policy_everyone_desc": "Basebelisi ba bang ha ba khone ho sheba kapa ho bona lintho tsa hau. Ba ka romella kopo feela ka ho kenya lebitso la mosebelisi kapa imeile ea hau ka kotloloho."
+        }
     },
     "inventory": {
         "title": "Polokelo",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Le wena",
             "return_pending_hint": "Rekoto e tla koaloa kamora ha mokoloto a tiisa hore o fumane ntho e khutletsoeng.",
             "return_pending_lender_title": "{{name}} o hlalositse ntho ena e le e khutletsoeng",
-            "return_pending_self_title": "Le wena, o emetse tiiso ea ho amohela"
+            "return_pending_self_title": "Le wena, o emetse tiiso ea ho amohela",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Ntho e sa hatisoang",
         "delete_action": "Hlakola ntho",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Fumana nota",
             "return_note_placeholder_borrower": "mohlala. Ke e ile ka e khutlisa ho se na mathata",
             "return_note_placeholder_lender": "mohlala. E amohetsoe e khutlile ka boemo bo botle",
-            "return_submitting": "Ho koala..."
+            "return_submitting": "Ho koala...",
+            "reject_title": "Hana Kopo",
+            "reject_subtitle": "U mothating oa ho hana kopo ea \"{{item}}\".",
+            "reject_target": "U mothating oa ho hana kopo ea kalimo e rometsoeng ke {{name}}.",
+            "reject_reason_label": "Lebaka la ho hana",
+            "reject_submitting": "Ho hana ...",
+            "due_date_label": "Letsatsi le reriloeng la ho khutla"
         },
         "messages": {
             "load_error": "Setsi sa ho bokella chelete se sitoa ho jarisoa",
-            "action_error": "Ketso e sitsoe ho phethoa"
+            "action_error": "Ketso e sitsoe ho phethoa",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "U ka romella kopo e le 'ngoe feela ea pele ea kantle ho motho a le mong ka letsatsi. Haeba ba amohela kopo, moeli ona ha o sa sebetsa ho motho eo.",
+                "external_total_daily_limit": "U ka romella likopo tsa pele tsa kantle ho batho ba bangata ho fihlela ho 5 ka letsatsi.",
+                "external_request_requires_verified_email": "Netefatsa aterese ea hau ea imeile pele u romella likopo tsa borrowing tsa kantle.",
+                "external_offer_blocked": "U ka fa ntho feela litho tsa ntlo kapa basebelisi ba ngolisitsoeng bao u ka ba khethang ka kotloloho.",
+                "target_blocked_by_you": "Ha u khone ho romella kopo ho mosebelisi eo u mo thibetseng.",
+                "recent_rejection_lock": "Mosebelisi enoa o ile ho hlōleha ho amohela kopo ea morao-rao. U ka romella kopo e 'ngoe ka mor'a matsatsi a 30."
+            }
         },
         "preview": {
             "title": "Mokgwa oa tlhahlobo",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Ha ho na likopo tse hlokang tlhahlobo ea hau",
         "outgoing_empty_title": "Ha ho likopo tse tsoang leha ho le joalo",
         "refreshing": "Likopo tse khathollang le mekoloto e sebetsang ...",
-        "loading_description": "Ho lokisetsa likopo le ts'ebetso e sebetsang ea ho alima."
+        "loading_description": "Ho lokisetsa likopo le ts'ebetso e sebetsang ea ho alima.",
+        "reasons": {
+            "rejected": "Ho hana (ho hana ho tloaelehileng)",
+            "not_available": "Ha e fumanehe (Ntho e sieo / ha e fumanehe)",
+            "blocked": "Thibela le ho hana (Thibela mosebelisi enoa)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Leano la Bohlokoa",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Laola ka bohlale thepa eohle ea hau ea lapeng"
+        "tagline": "Laola ka bohlale thepa eohle ea hau ea lapeng",
+        "loading": "Loading {{brandName}}",
+        "preparing_workspace": "Ho lokisetsa sebaka sa hau sa marang-rang ..."
     },
     "nav": {
         "home": "Lehae",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Hlakola Histori",
-            "add_item": "Kenya ho Lenane la Ho Reka"
+            "add_item": "Kenya ho Lenane la Ho Reka",
+            "mark_completed": "Tšoaea joalo ka ha e phethiloe",
+            "decrease_qty": "Fokotsa palo",
+            "increase_qty": "Eketsa palo",
+            "delete_item": "Delete item",
+            "reactivate_item": "Khutlela lethathamong le sebetsang"
         },
         "form": {
             "add_type": "Kenya Mokhoa",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Tlhahlobo ea tlhokomelo ea nako le nako kapa e le ngoe e ralangeng ka thepa ena.",
         "no_tasks": "Ha ho mesebetsi ea tlhokomelo e abetsoeng thepa ena.",
         "confirm_delete": "Mosebetsi ona o tla hlakoloa. Na o na le bonnete?"
+    },
+    "error_boundary": {
+        "title": "Ho na le ho hong ho hlokang khatholoho",
+        "description": "Segokanyimmediamentsi sa sebolokigolo se ile sa kopana le bothata bo sa lebelloang. Lintlha tsa hau tse bolokiloeng ha li fetoloe ke skrine ena.",
+        "refresh_btn": "Khatholla",
+        "home_btn": "Lehae"
     }
 }

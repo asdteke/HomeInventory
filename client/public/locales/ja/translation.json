@@ -49,7 +49,8 @@
         "hide": "パスワードを隠す",
         "logging_out": "ログアウト中...",
         "show": "パスワードを表示",
-        "saving": "保存中…"
+        "saving": "保存中…",
+        "disabled": "障害者"
     },
     "auth": {
         "login": {
@@ -298,7 +299,36 @@
         "join_house_key_required": "既存のハウスに入会するにはハウスキーが必要です",
         "house_key_not_found": "家の鍵が無効です。正しい鍵を入力してください。",
         "email_not_verified": "あなたのメールアドレスはまだ認証されていません。受信箱をご確認ください。",
-        "two_factor_invalid": "検証コードが誤っています"
+        "two_factor_invalid": "検証コードが誤っています",
+        "two_factor_invalid_try_again": "無効な検証コード。もう一度お試しください。",
+        "two_factor_code_required": "認証コードが必要です",
+        "two_factor_user_not_found": "ユーザーが見つかりません",
+        "two_factor_already_enabled": "二要素認証はすでに有効になっています",
+        "two_factor_setup_not_started": "まずは二要素認証の設定を始めてください",
+        "two_factor_setup_error": "二要素認証の設定中にエラーが発生しました",
+        "two_factor_activation_error": "二要素認証の有効化中にエラーが発生しました",
+        "two_factor_password_required": "パスワードが必要です",
+        "two_factor_credentials_required": "TOTPコード、バックアップコード、またはリカバリーキーが必要です",
+        "two_factor_already_disabled": "二要素認証はすでに無効になっています",
+        "two_factor_password_incorrect": "誤ったパスワード",
+        "two_factor_verification_failed": "検証は失敗しました。コードを確認してからもう一度お試しください。",
+        "two_factor_disable_error": "二要素認証を無効にしている際にエラーが発生しました",
+        "two_factor_not_enabled": "二要素認証は有効になっていません",
+        "two_factor_regenerate_codes_error": "バックアップコードの再生成中にエラーが発生しました",
+        "two_factor_enabled_success": "二要素認証が成功裏に有効化されました",
+        "two_factor_disabled_success": "二要素認証は無効化に成功しました",
+        "password_errors": {
+            "min_length": "パスワードは少なくとも{{min}}文字でなければなりません",
+            "lowercase_required": "パスワードには少なくとも1つの小文字を含める必要があります",
+            "uppercase_required": "パスワードには少なくとも1つの大文字を含める必要があります",
+            "number_required": "パスワードには少なくとも1つの番号が含まれなければなりません",
+            "symbol_required": "パスワードには少なくとも1つの記号を含める必要があります",
+            "repeated_chars": "パスワードに繰り返し文字を使わないでください",
+            "predictable_sequence": "パスワードに簡単に推測できる順序は使わないでください",
+            "common_password": "このパスワードはあまりにも一般的で安全ではありません",
+            "contains_username": "パスワードにはユーザー名が含まれてはなりません",
+            "contains_email": "パスワードにはあなたのメールアドレスが含まれてはなりません"
+        }
     },
     "navigation": {
         "home": "ホーム",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "回復キーが再生成されました",
             "recovery_key_error": "回復キーを再生成できませんでした",
             "account_delete_error": "アカウントを削除できませんでした",
-            "backup_downloaded_encrypted": "暗号化されたバックアップが正常にダウンロードされました！ ({{count}} 件)"
+            "backup_downloaded_encrypted": "暗号化されたバックアップが正常にダウンロードされました！ ({{count}} 件)",
+            "policy_update_error": "リクエスト設定の更新に失敗しました。",
+            "policy_updated": "設定の更新を成功裏にリクエストしてください。",
+            "unblock_error": "ユーザーのブロック解除に失敗しました。",
+            "unblocked_success": "ユーザーがブロック解除に成功しました。",
+            "house_owner_transferred": "家の所有権は移転しました",
+            "house_owner_transfer_error": "家の所有権は譲渡できませんでした。"
         },
         "user_profile": {
             "edit_username": "ユーザー名を変更する"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} はこの世帯へのアクセス権を失いました。",
             "kick_title": "このメンバーを削除しますか？",
             "kick_warning": "このメンバーの世帯へのアクセスは直ちに終了し、再度参加するには新しい招待または承認が必要になります。",
-            "kicking": "削除中..."
+            "kicking": "削除中...",
+            "access_section_eyebrow": "住宅アクセス",
+            "transfer_owner": "オーナーにする",
+            "transferring_owner": "転送中...",
+            "transfer_owner_title": "家の所有権を譲渡する?",
+            "transfer_owner_confirm": "この世帯の所有権を{{name}}に移す?",
+            "transfer_owner_warning": "あなたはこの家の所有者ではなくなる。新しいオーナーは会員の承認、削除、将来の所有権変更を管理します。",
+            "transfer_owner_success_body": "{{name}}は今やこの家の所有者です。"
         },
         "theme": {
             "title": "テーマ",
@@ -729,7 +772,9 @@
             "light": "ライトモード",
             "description": "このデバイスでのワークスペースの見た目を選択してください。",
             "light_aria": "ライトテーマに切り替え",
-            "dark_aria": "ダークテーマに切り替え"
+            "dark_aria": "ダークテーマに切り替え",
+            "workspace_title": "ワークスペーステーマ",
+            "workspace_desc": "このデバイスでお好みのビジュアルスタイルを選択してください。"
         },
         "security": {
             "title": "セキュリティ",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "現在のリカバリーキーは表示できません。必要に応じて再生成してください。",
             "recovery_key_action": "再生成",
             "recovery_key_modal_desc": "続行するには現在のパスワードを確認してください。新しいキーは一度だけ表示されます。",
-            "recovery_key_loading": "準備中..."
+            "recovery_key_loading": "準備中...",
+            "accordion_title": "セキュリティとプライバシー",
+            "accordion_desc": "二要素認証、信頼されたデバイスの管理、他のアカウントからのリクエストルールの借りなどを行ってください。",
+            "description": "マスターパスワードとボールトの復旧設定を管理してください。",
+            "change_password_detail": "アカウントの安全を守るためにパスワードを更新してください",
+            "recovery_key_detail": "パスワードを忘れたときに金庫を復元するために使いました"
         },
         "data_management": {
             "title": "データ管理",
@@ -785,10 +835,10 @@
             "owner_only_desc": "データのバックアップと復元は住宅の所有者のみが管理できます。"
         },
         "about": {
-            "title": "📱 アプリケーションについて",
+            "title": "アプリケーションについて",
             "version": "バージョン",
             "brand": "ブランド",
-            "feedback": "✉️ フィードバックを送信",
+            "feedback": "フィードバックを送信",
             "legal_title": "法的文書",
             "legal_description": "一度同意した後でも、こちらから利用規約やプライバシー文書を再度開くことができます。",
             "terms_link": "サービス利用規約",
@@ -890,7 +940,8 @@
             "revoke_devices": "信頼されたデバイスを取り消す",
             "revoke_devices_desc": "削除すべての記憶されたデバイス、次回ログイン時に2段階認証が必要",
             "devices_revoked": "{{count}} 信頼されたデバイスが削除された",
-            "devices_error": "デバイスの取り消しに失敗"
+            "devices_error": "デバイスの取り消しに失敗",
+            "preparing_setup": "認証装置の設定準備中..."
         },
         "danger_zone": {
             "title": "アカウント",
@@ -903,7 +954,8 @@
             "modal_warning_body": "確認後、アカウントへのアクセスは直ちに失われ、削除されたアプリケーションデータはアプリから復元できません。",
             "password_label": "現在のパスワードで確認",
             "confirm_delete": "削除を確認",
-            "deleting": "削除中..."
+            "deleting": "削除中...",
+            "description": "アカウントを削除し、すべての在庫データセットを永久に削除してください。"
         },
         "language": "言語",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "人気の言語",
         "search_results": "検索結果",
         "current_language": "現在の言語",
-        "languages_available": "利用可能な言語"
+        "languages_available": "利用可能な言語",
+        "borrow_requests": {
+            "accordion_eyebrow": "借りて要求する担保",
+            "accordion_eyebrow_desc": "リクエストルールを設定し、ブロックされたユーザーを管理する。",
+            "title": "借りてリクエスト設定",
+            "description": "他のアカウントからの借り込みリクエストの受信ルールを管理し、ブロックされたユーザーのリストを挙げましょう。",
+            "policy_title": "新規借用リクエスト",
+            "policy_description": "誰があなたに借用リクエストを送信できるかを制御します。あなたの在庫は公開リストとして表示されることはありません。",
+            "policy_none": "誰からも受け取らない(デフォルト)",
+            "policy_house_only": "世帯のみ",
+            "policy_everyone": "登録済みユーザー全員",
+            "blocks_title": "ブロックされたユーザー",
+            "blocks_description": "新しい借り込みリクエストをブロックしたユーザー。",
+            "no_blocks": "ブロックされたユーザーは見つかりませんでした。",
+            "unblock_btn": "ブロック解除",
+            "policy_none_desc": "すべての受信リクエストは自動的にブロックされます。",
+            "policy_house_only_desc": "あなたのアクティブなハウスの確認済みメンバーのみが、すでにその共有ハウス内で表示されているアイテムをリクエストできます。",
+            "policy_everyone_desc": "他のユーザーはあなたのアイテムを閲覧したり見ることはできません。彼らはあなたのユーザー名またはメールアドレスを直接入力することでのみリクエストを送信できます。"
+        }
     },
     "inventory": {
         "title": "インベントリ",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "あなたと一緒です",
             "return_pending_hint": "貸主がアイテムを受け取ったことを確認した後、記録は閉じられます。",
             "return_pending_lender_title": "{{name}} がこのアイテムを返送済みとしてマークしました",
-            "return_pending_self_title": "あなたと一緒です。受領確認待ち"
+            "return_pending_self_title": "あなたと一緒です。受領確認待ち",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "無題のアイテム",
         "delete_action": "アイテムを削除",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "受領書",
             "return_note_placeholder_borrower": "例：問題なく返却しました",
             "return_note_placeholder_lender": "例：良好な状態で受け取りました",
-            "return_submitting": "閉じる..."
+            "return_submitting": "閉じる...",
+            "reject_title": "リクエストを却下する",
+            "reject_subtitle": "あなたは「{{item}}」のリクエストを拒否しようとしています。",
+            "reject_target": "あなたは{{name}}から送られた借りの申請を拒否しようとしています。",
+            "reject_reason_label": "拒否理由",
+            "reject_submitting": "拒否...",
+            "due_date_label": "予定帰還日"
         },
         "messages": {
             "load_error": "借用センターを読み込むことができませんでした",
-            "action_error": "操作を完了できませんでした"
+            "action_error": "操作を完了できませんでした",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "同じ人物に対しては1日1回までしか最初の外部連絡リクエストを送信できません。相手がリクエストを承認した場合、この制限はその人物には適用されなくなります。",
+                "external_total_daily_limit": "1日に最大5件の最初の外部連絡リクエストを送信できます。",
+                "external_request_requires_verified_email": "外部借用リクエストを送信する前に、メールアドレスを確認してください。",
+                "external_offer_blocked": "アイテムは、ハウスメンバーまたは直接識別できる登録ユーザーにのみ提供できます。",
+                "target_blocked_by_you": "ブロックしたユーザーにリクエストを送ることはできません。",
+                "recent_rejection_lock": "このユーザーは最近のリクエストを拒否しました。30日後にもう一度リクエストを送ることができます。"
+            }
         },
         "preview": {
             "title": "プレビューモード",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "レビューが必要なリクエストはありません",
         "outgoing_empty_title": "まだ送信中のリクエストはありません",
         "refreshing": "リクエストとアクティブな借用を更新しています…",
-        "loading_description": "リクエストとアクティブな借用の活動を準備しています。"
+        "loading_description": "リクエストとアクティブな借用の活動を準備しています。",
+        "reasons": {
+            "rejected": "拒否(通常の拒否)",
+            "not_available": "入手不可(アイテムが不足/入手不可)",
+            "blocked": "ブロックして拒否する(このユーザーをブロックする)"
+        }
     },
     "legal": {
         "privacy_policy_title": "プライバシーポリシー",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{ブランド名}}",
-        "tagline": "すべての家庭用品をスマートに管理する"
+        "tagline": "すべての家庭用品をスマートに管理する",
+        "loading": "{{brandName}}の読み込み中",
+        "preparing_workspace": "作業スペースの準備をしています..."
     },
     "nav": {
         "home": "ホーム",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "履歴をクリア",
-            "add_item": "買い物リストに追加"
+            "add_item": "買い物リストに追加",
+            "mark_completed": "完了したとマーク",
+            "decrease_qty": "減少量",
+            "increase_qty": "数量を増やす",
+            "delete_item": "アイテムを削除",
+            "reactivate_item": "現役リストへの復帰"
         },
         "form": {
             "add_type": "メソッドを追加",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "この項目の定期的または一回限りのメンテナンスの追跡",
         "no_tasks": "この項目には割り当てられたメンテナンス作業はありません",
         "confirm_delete": "この作業は削除されます。本当によろしいですか？"
+    },
+    "error_boundary": {
+        "title": "何かをリフレッシュする必要がある",
+        "description": "インターフェースは予期せぬレンダリングの問題に直面しました。この画面で保存された在庫データは変更されません。",
+        "refresh_btn": "リフレッシュ",
+        "home_btn": "ホーム"
     }
 }

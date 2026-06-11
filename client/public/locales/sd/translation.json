@@ -186,7 +186,8 @@
         "hide": "پاسورڊ لڪائڻ",
         "logging_out": "لاگ آئوٽ ٿي رهيو آهي...",
         "show": "پاسورڊ ڏيکاريو",
-        "saving": "محفوظ ڪري رهيو آهي..."
+        "saving": "محفوظ ڪري رهيو آهي...",
+        "disabled": "معذور"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "موجوده گھر ۾ شامل ٿيڻ لاءِ گھر جي ڪنجي جي ضرورت آهي",
         "house_key_not_found": "غلط گھر جي ڪنجي. مهرباني ڪري صحيح ڪنجي داخل ڪريو.",
         "email_not_verified": "توهان جي اي ميل پتي جي اڃا تائين تصديق نه ڪئي وئي آهي. مهرباني ڪري پنهنجو انباڪس چيڪ ڪريو.",
-        "two_factor_invalid": "تصديقي ڪوڊ غلط آهي"
+        "two_factor_invalid": "تصديقي ڪوڊ غلط آهي",
+        "two_factor_invalid_try_again": "غلط تصديق وارو ڪوڊ مهرباني ڪري ٻيهر ڪوشش ڪريو.",
+        "two_factor_code_required": "تصديق جو ڪوڊ گهربل آهي",
+        "two_factor_user_not_found": "واپرائيندڙ نه مليو",
+        "two_factor_already_enabled": "ٻه عنصر جي تصديق اڳ ۾ ئي فعال آهي",
+        "two_factor_setup_not_started": "مهرباني ڪري پهرين ٻه عنصر تصديق جو ٺاهه شروع ڪريو",
+        "two_factor_setup_error": "ٻن عنصرن جي تصديق دوران خرابي پيش آئي",
+        "two_factor_activation_error": "ٻن عنصرن جي تصديق کي فعال ڪرڻ دوران غلطي ٿي",
+        "two_factor_password_required": "پاسورڊ گهربل آهي",
+        "two_factor_credentials_required": "TOTP ڪوڊ، بيڪ اپ ڪوڊ يا وصولي چاٻي گهربل آهي",
+        "two_factor_already_disabled": "ٻه-عنصر جي تصديق اڳيئي غير فعال آهي",
+        "two_factor_password_incorrect": "غلط ڳجھو لفظ",
+        "two_factor_verification_failed": "تصديق ناڪام ٿي. مهرباني ڪري ڪوڊ چيڪ ڪريو ۽ ٻيهر ڪوشش ڪريو.",
+        "two_factor_disable_error": "ٻه-عنصر جي تصديق کي غير فعال ڪرڻ دوران غلطي ٿي پئي",
+        "two_factor_not_enabled": "ٻه-عنصر جي تصديق چالو نه آهي",
+        "two_factor_regenerate_codes_error": "بيڪ اپ ڪوڊ ٻيهر پيدا ڪرڻ دوران غلطي ٿي وئي",
+        "two_factor_enabled_success": "ٻه عنصر جي تصديق ڪاميابي سان چالو ڪئي وئي آهي",
+        "two_factor_disabled_success": "ٻه عنصر جي تصديق ڪاميابي سان غير فعال ٿي وئي آهي",
+        "password_errors": {
+            "min_length": "ڳجھو لفظ گهٽ ۾ گهٽ {{من}} اکر ڊگهو هجڻ گهرجي",
+            "lowercase_required": "پاسورڊ ۾ گهٽ ۾ گهٽ هڪ ننڍڙو اکر شامل هجڻ ضروري آهي",
+            "uppercase_required": "پاسورڊ ۾ گهٽ ۾ گهٽ هڪ وڏو اکر شامل هجڻ لازمي آهي",
+            "number_required": "پاسورڊ ۾ گهٽ ۾ گهٽ هڪ نمبر شامل هجڻ ضروري آهي",
+            "symbol_required": "پاسورڊ ۾ گهٽ ۾ گهٽ هڪ علامت شامل هجڻ ضروري آهي",
+            "repeated_chars": "پنھنجي پاسورڊ ۾ بار بار اکر استعمال نه ڪريو",
+            "predictable_sequence": "پنهنجي پاسورڊ ۾ آسان اندازو لڳائڻ وارا سلسلا استعمال نه ڪريو",
+            "common_password": "هي پاسورڊ تمام عام ۽ غير محفوظ آهي",
+            "contains_username": "پاسورڊ ۾ توهان جو يوزر نالو شامل نه هجڻ گهرجي",
+            "contains_email": "پاسورڊ ۾ توهان جي اي ميل معلومات نه هجڻ گهرجي"
+        }
     },
     "navigation": {
         "home": "گهر",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "بحالي جي ڪنجي ٻيهر پيدا ڪئي وئي",
             "recovery_key_error": "بحالي جي ڪنجي ٻيهر پيدا نه ڪري سگهيو",
             "account_delete_error": "حساب ڊليٽ نٿو ڪري سگهجي",
-            "backup_downloaded_encrypted": "انڪرپٽ ٿيل بيڪ اپ ڪاميابيءَ سان ڊائونلوڊ ٿي وئي! ({{count}} شيون)"
+            "backup_downloaded_encrypted": "انڪرپٽ ٿيل بيڪ اپ ڪاميابيءَ سان ڊائونلوڊ ٿي وئي! ({{count}} شيون)",
+            "policy_update_error": "درخواست ترتيبن کي تجديد ڪرڻ ۾ ناڪامي",
+            "policy_updated": "درخواست جون ترتيبون ڪاميابيءَ سان اپڊيٽ ٿيون.",
+            "unblock_error": "واپرائيندڙ جي بلاڪ کولڻ ۾ ناڪامي.",
+            "unblocked_success": "واپرائيندڙ ڪاميابي سان بلاڪ ڪيو ويو.",
+            "house_owner_transferred": "گهر جي ملڪيت منتقل ڪئي وئي",
+            "house_owner_transfer_error": "گهر جي ملڪيت منتقل نه ٿي سگهي."
         },
         "user_profile": {
             "edit_username": "يوزر نيم تبديل ڪريو"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} هاڻي هن گهر تائين رسائي نٿو رکي.",
             "kick_title": "ڇا هن ميمبر کي هٽايو وڃي؟",
             "kick_warning": "انهن جي گهر تائين رسائي فوراً ختم ٿي ويندي ۽ انهن کي واپس اچڻ لاءِ نئين دعوت يا منظوري گهرجي ٿيندي.",
-            "kicking": "هٽائي رهيو آهي..."
+            "kicking": "هٽائي رهيو آهي...",
+            "access_section_eyebrow": "گهر جي رسائي",
+            "transfer_owner": "مالڪ ڪريو",
+            "transferring_owner": "منتقلي ڪندي...",
+            "transfer_owner_title": "گهر جي ملڪيت جي منتقلي؟",
+            "transfer_owner_confirm": "هن گهر جي ملڪيت {{name}} ڏانهن منتقل ڪريو؟",
+            "transfer_owner_warning": "تون هاڻي هن گهر جو مالڪ نه هوندين. نئون مالڪ ميمبرن جي منظوري ، برطرفي ۽ مستقبل جي ملڪيت جي تبديلين جو انتظام ڪندو.",
+            "transfer_owner_success_body": "{{نالو}} هاڻي هن گهر جو مالڪ آهي."
         },
         "theme": {
             "title": "موضوع",
@@ -729,7 +772,9 @@
             "light": "هلڪو موڊ",
             "description": "فيصلا ڪريو ته هن ڊوائيس تي ڪم جو ميدان ڪيئن ڏيکاري ٿو.",
             "light_aria": "هلڪو موضوع استعمال ڪريو",
-            "dark_aria": "اوندهو موضوع استعمال ڪريو"
+            "dark_aria": "اوندهو موضوع استعمال ڪريو",
+            "workspace_title": "وهنوارخانو جو موضوع",
+            "workspace_desc": "هن ڊوائيس لاءِ پنهنجو پسنديده بصري انداز چونڊيو."
         },
         "security": {
             "title": "سيڪيورٽي",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "موجوده بحاليءَ واري ڪنجي ڏيکاري نٿي سگھي. جيڪڏهن ضرورت هجي ته ان کي ٻيهر پيدا ڪريو.",
             "recovery_key_action": "ٻيهر پيدا ڪريو",
             "recovery_key_modal_desc": "جاري رکڻ لاءِ پنهنجو موجوده پاسورڊ تصديق ڪريو. نئون ڪنجي صرف هڪ دفعو ڏيکاريو ويندو.",
-            "recovery_key_loading": "تيار ٿي رهيو آهي..."
+            "recovery_key_loading": "تيار ٿي رهيو آهي...",
+            "accordion_title": "حفاظت ۽ رازداري",
+            "accordion_desc": "ٻن عنصر جي تصديق ، قابل اعتماد ڊوائيس ، ۽ ٻين اڪائونٽن مان قرض جي درخواست جي قاعدن جو انتظام ڪريو.",
+            "description": "توهان جي ماسٽر پاسورڊ ۽ والٽ وصولي ترتيبن کي منظم ڪريو.",
+            "change_password_detail": "پنهنجو اڪائونٽ محفوظ رکڻ لاءِ پنهنجو پاسورڊ اپڊيٽ ڪريو",
+            "recovery_key_detail": "جيڪڏهن توهان پنهنجو پاسورڊ وساريو ته توهان جي والٽ کي بحال ڪرڻ لاءِ استعمال ڪيو ويو"
         },
         "data_management": {
             "title": "ڊيٽا مينيجمينٽ",
@@ -785,10 +835,10 @@
             "owner_only_desc": "ڊيٽا جو بيڪ اپ ۽ بحالي صرف گهر جو مالڪ ئي سنڀالي سگهي ٿو."
         },
         "about": {
-            "title": "📱 ايپليڪيشن بابت",
+            "title": "ايپليڪيشن بابت",
             "version": "نسخو",
             "brand": "برانڊ",
-            "feedback": "✉️ فيڊ بيڪ موڪليو",
+            "feedback": "فيڊ بيڪ موڪليو",
             "legal_title": "قانوني دستاويز",
             "legal_description": "اوھين هتي کان شرطون ۽ رازداري جا متن قبول ڪرڻ کان پوءِ به ٻيهر کولهي سگهو ٿا.",
             "terms_link": "خدمت جا شرط",
@@ -890,7 +940,8 @@
             "revoke_devices": "ڀروسي مند ڊوائيسز کي منسوخ ڪريو",
             "revoke_devices_desc": "سڀ ياد ڪيل ڊوائيسز هٽايو، ايندڙ لاگ ان تي 2FA گهربل هوندو",
             "devices_revoked": "{{count}} ڀروسي مند ڊوائيس(ز) هٽايو ويا",
-            "devices_error": "ڊيواس کي منسوخ ڪرڻ ۾ ناڪامي"
+            "devices_error": "ڊيواس کي منسوخ ڪرڻ ۾ ناڪامي",
+            "preparing_setup": "توهان جي تصديق ڪندڙ ترتيب تيار ڪندي..."
         },
         "danger_zone": {
             "title": "اڪائونٽ",
@@ -903,7 +954,8 @@
             "modal_warning_body": "تصديق کان پوءِ، اوھين فوري طور تي اڪائونٽ تائين رسائي وڃائي ڇڏيندئو ۽ حذف ٿيل ايپليڪيشن ڊيٽا ايپ مان ٻيهر حاصل نٿي ڪري سگهجي.",
             "password_label": "پنهنجو موجوده پاسورڊ سان تصديق ڪريو",
             "confirm_delete": "حذف ڪرڻ جي تصديق ڪريو",
-            "deleting": "حذف ٿيڻ پيو..."
+            "deleting": "حذف ٿيڻ پيو...",
+            "description": "پنهنجو اڪائونٽ ختم ڪريو ۽ مستقل طور تي سڀني انوینٽري ڊيٽاسيٽس کي ختم ڪريو."
         },
         "language": "ٻولي",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "مشهور ٻوليون",
         "search_results": "ڳولا جا نتيجا",
         "current_language": "هاڻوڪي ٻولي",
-        "languages_available": "ٻوليون موجود آهن"
+        "languages_available": "ٻوليون موجود آهن",
+        "borrow_requests": {
+            "accordion_eyebrow": "قرض جي درخواست سيڪيورٽي",
+            "accordion_eyebrow_desc": "درخواست جي قاعدن کي ترتيب ڏيو ۽ بلاڪ ٿيل استعمال ڪندڙن کي منظم ڪريو.",
+            "title": "قرض جي درخواست سيٽنگون",
+            "description": "ٻين اڪائونٽن کان قرض جي درخواستن کي وصول ڪرڻ لاءِ قاعدن جو انتظام ڪريو ۽ بلاڪ ٿيل استعمال ڪندڙن جي فهرست ڪريو.",
+            "policy_title": "نئين قرض جون درخواستون",
+            "policy_description": "ڪنٽرول ڪريو ته ڪير توهان کي قرض طلب ڪرڻ جا درخواستون موڪلي سگهي ٿو. توهانجو اسٽاڪ ڪڏهن به پبلڪ لسٽنگ طور ظاهر نه ٿيندو.",
+            "policy_none": "ڪنهن کان به وصول نه ڪريو (ڊفالٽ)",
+            "policy_house_only": "صرف گهر جا ميمبر",
+            "policy_everyone": "سڀ داخل ٿيل استعمال ڪندڙ",
+            "blocks_title": "بلاڪ ٿيل واپرائيندڙ",
+            "blocks_description": "استعمال ڪندڙ جيڪي توهان کي نئين قرض جي درخواستن موڪلڻ کان روڪي چڪا آهن.",
+            "no_blocks": "ڪو به بلاڪ ٿيل صارف نه مليو.",
+            "unblock_btn": "بند ڪريو",
+            "policy_none_desc": "سڀ ايندڙ درخواستون پاڻمرادو بلاڪ ٿي وينديون آهن.",
+            "policy_house_only_desc": "صرف توهانجي فعال گهرن جا تصديق ٿيل ميمبر ئي شيون درخواست ڪري سگهن ٿا جيڪي ان گڏيل گهر اندر اڳ ۾ ئي نظر اينديون آهن.",
+            "policy_everyone_desc": "ٻيا استعمال ڪندڙ توهانجي شيون نه ڏسي سگهن ٿا ۽ نه ئي برائوز ڪري سگهن ٿا. اهي صرف توهانجو يوزر نيم يا ايميل سڌو داخل ڪري درخواست موڪلي سگهن ٿا."
+        }
     },
     "inventory": {
         "title": "انوينٽري",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "توهان سان گڏ",
             "return_pending_hint": "ريڪارڊ ان وقت بند ٿيندو جڏهن قرض ڏيندڙ تصديق ڪري ته انهن شي واپس حاصل ڪئي آهي.",
             "return_pending_lender_title": "{{name}} هن شي کي واپس موڪلڻ طور نشان لڳايو",
-            "return_pending_self_title": "توهان سان گڏ، رسيد جي تصديق جو انتظار آهي"
+            "return_pending_self_title": "توهان سان گڏ، رسيد جي تصديق جو انتظار آهي",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "بغير عنوان جي شئي",
         "delete_action": "شئي ڊليٽ ڪريو",
@@ -1851,7 +1926,7 @@
             "bodyLine2": "گهر جي مالڪ جي منظوري جو انتظار"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{اسٽيٽس}}",
             "greeting": "گهر تائين رسائي",
             "bodyLine1Template": "موجوده pendent درخواست: {{house}} ({{status}})",
             "bodyLine2": "توهان جي درخواست '{{house}}' لاءِ اڃا فيصلي جو انتظار آهي.",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "نوٽ حاصل ڪريو",
             "return_note_placeholder_borrower": "مثال طور مون ان کي بغير ڪنهن مسئلي جي واپس ڏنو",
             "return_note_placeholder_lender": "مثال طور سٺي حالت ۾ واپس مليو",
-            "return_submitting": "بند ٿيڻ..."
+            "return_submitting": "بند ٿيڻ...",
+            "reject_title": "درخواست رد ڪريو",
+            "reject_subtitle": "توهان \"{{item}}\" جي درخواست رد ڪرڻ وارا آهيو.",
+            "reject_target": "توهان {{name}} طرفان موڪليل قرض جي درخواست کي رد ڪرڻ وارا آهيو.",
+            "reject_reason_label": "رد ڪرڻ جو سبب",
+            "reject_submitting": "رد ڪندي...",
+            "due_date_label": "رٿيل واپسي جي تاريخ"
         },
         "messages": {
             "load_error": "قرض وٺڻ جو سينٽر لوڊ نه ٿي سگهي",
-            "action_error": "ڪارروائي مڪمل نه ٿي سگهي"
+            "action_error": "ڪارروائي مڪمل نه ٿي سگهي",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "توهان هڪ ئي شخص کي روزانو پهرين رابطو خارجي درخواست موڪلي سگهو ٿا. جيڪڏهن اهي درخواست قبول ڪن ٿا، انهن لاءِ هي حد وڌيڪ لاڳو نه ٿيندي.",
+                "external_total_daily_limit": "توهان روزانو 5 پهرين رابطو خارجي درخواستون موڪلي سگهو ٿا.",
+                "external_request_requires_verified_email": "خارجي قرض درخواستون موڪلڻ کان اڳ پنهنجي ايميل ايڊريس جي تصديق ڪريو.",
+                "external_offer_blocked": "توهان صرف گهر جي ميمبرن يا اهڙن داخل ٿيل استعمال ڪندڙن کي شيون پيش ڪري سگهو ٿا جيڪي سڌو سڃاتل ٿي سگهن ٿا.",
+                "target_blocked_by_you": "توهان ان صارف کي درخواست نه موڪلي سگهو ٿا جنهن کي توهان بلاڪ ڪيو آهي.",
+                "recent_rejection_lock": "هن صارف تازو درخواست رد ڪئي آهي. توهان 30 ڏينهن کان پوء ٻي درخواست موڪلي سگهو ٿا."
+            }
         },
         "preview": {
             "title": "پيش منظر موڊ",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "ڪوبه جائزو وٺڻ لاءِ درخواستون نه آهن",
         "outgoing_empty_title": "اڃا تائين ڪوبه ٻاهر نڪرندڙ درخواست ناهي",
         "refreshing": "درخواستون ۽ فعال قرض تازه ڪاري ڪري رهيا آهيون...",
-        "loading_description": "درخواستون ۽ فعال قرض سرگرمي تيار ڪري رهيا آهيون."
+        "loading_description": "درخواستون ۽ فعال قرض سرگرمي تيار ڪري رهيا آهيون.",
+        "reasons": {
+            "rejected": "رد ڪريو (عام رد ڪرڻ)",
+            "not_available": "دستياب نه آهي (شيءِ غائب / دستياب ناهي)",
+            "blocked": "بلاڪ ۽ رد ڪريو (هن واپرائيندڙ کي بلاڪ ڪري ٿو)"
+        }
     },
     "legal": {
         "privacy_policy_title": "پرائيويسي پاليسي",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "هوشيار طريقي سان توهان جي سڀني گهريلو شين جو انتظام ڪريو"
+        "tagline": "هوشيار طريقي سان توهان جي سڀني گهريلو شين جو انتظام ڪريو",
+        "loading": "لوڊ ڪندي {{brandName}}",
+        "preparing_workspace": "توهان جي وهنوارخاني جي تياري ڪندي..."
     },
     "nav": {
         "home": "گھر",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "تاريخ صاف ڪريو",
-            "add_item": "خريداري فهرست ۾ شامل ڪريو"
+            "add_item": "خريداري فهرست ۾ شامل ڪريو",
+            "mark_completed": "مڪمل طور نشان لڳايو",
+            "decrease_qty": "مقدار گھٽايو",
+            "increase_qty": "مقدار وڌايو",
+            "delete_item": "شيءِ ڊاهيو",
+            "reactivate_item": "فعال لسٽ ڏانهن واپس وڃو"
         },
         "form": {
             "add_type": "طريقو شامل ڪريو",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "هن شيءِ لاءِ وقت بوقت يا هڪڙي دفعي جي سار سنڀال جي ٽريڪنگ شيڊول ٿيل آهي.",
         "no_tasks": "هن شيءَ لاءِ ڪو به سار سنڀال جو ڪم مقرر نه ڪيو ويو آهي.",
         "confirm_delete": "هي ڪم ختم ڪيو ويندو. ڇا توهان پڪ آهيو؟"
+    },
+    "error_boundary": {
+        "title": "ڪنهن شيءَ کي ريفريش ڪرڻ جي ضرورت آهي",
+        "description": "انٽرفيس هڪ غير متوقع رينڊنگ مسئلي کي ماريو. توهان جي محفوظ ڪيل انوینٽري ڊيٽا هن اسڪرين طرفان تبديل نه ڪئي وئي آهي.",
+        "refresh_btn": "ريتازو ڪريو",
+        "home_btn": "گھر"
     }
 }

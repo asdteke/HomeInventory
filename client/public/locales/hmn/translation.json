@@ -186,7 +186,8 @@
         "hide": "Nkaum lo lus zais",
         "logging_out": "Tawm mus...",
         "show": "Qhia lo lus zais",
-        "saving": "Nyiaj Txuag $"
+        "saving": "Nyiaj Txuag $",
+        "disabled": "Xiam oob qhab"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Yuav tsum muaj House Key txhawm rau nkag mus rau hauv lub tsev uas muaj lawm",
         "house_key_not_found": "House Key tsis raug. Thov sau qhov tseeb.",
         "email_not_verified": "Koj tus email tsis tau ntsuam xyuas. Thov mus xyuas koj lub inbox.",
-        "two_factor_invalid": "Code ntsuam xyuas tsis raug"
+        "two_factor_invalid": "Code ntsuam xyuas tsis raug",
+        "two_factor_invalid_try_again": "Tus lej pov thawj tsis raug. Thov sim dua.",
+        "two_factor_code_required": "Yuav tsum muaj tus lej pov thawj",
+        "two_factor_user_not_found": "Tsis pom tus neeg siv",
+        "two_factor_already_enabled": "Kev lees paub ob yam twb tau qhib lawm",
+        "two_factor_setup_not_started": "Thov pib teeb tsa kev lees paub ob yam ua ntej",
+        "two_factor_setup_error": "Muaj qhov yuam kev tshwm sim thaum lub sijhawm teeb tsa kev lees paub ob yam",
+        "two_factor_activation_error": "Muaj qhov yuam kev tshwm sim thaum lub sijhawm ua kom muaj kev lees paub ob yam",
+        "two_factor_password_required": "Password tsis raug",
+        "two_factor_credentials_required": "Yuav tsum muaj tus lej TOTP, tus lej thaub qab, lossis tus yuam sij rov qab los",
+        "two_factor_already_disabled": "Kev lees paub ob yam twb raug kaw lawm",
+        "two_factor_password_incorrect": "Tus phav xab vawj tsis raug.",
+        "two_factor_verification_failed": "Kev txheeb xyuas tsis ua tiav. Thov kuaj xyuas tus lej thiab sim dua.",
+        "two_factor_disable_error": "Muaj qhov yuam kev tshwm sim thaum kaw qhov kev lees paub ob yam",
+        "two_factor_not_enabled": "Tsis tau qhib ob-factor authentication",
+        "two_factor_regenerate_codes_error": "Muaj qhov yuam kev tshwm sim thaum rov tsim cov lej thaub qab",
+        "two_factor_enabled_success": "Kev lees paub ob yam tau ua tiav lawm",
+        "two_factor_disabled_success": "Kev lees paub ob yam tau raug kaw tiav lawm",
+        "password_errors": {
+            "min_length": "Password yuav tsum muaj tsawg kawg yog {{min}} cim ntev",
+            "lowercase_required": "Password yuav tsum muaj tsawg kawg yog ib tsab ntawv me",
+            "uppercase_required": "Password yuav tsum muaj tsawg kawg yog ib tsab ntawv loj",
+            "number_required": "Lo lus zais yuav tsum muaj tsawg kawg ib tus lej",
+            "symbol_required": "Tus password yuav tsum muaj tsawg kawg ib lub cim",
+            "repeated_chars": "Tsis txhob siv cov cim rov ua dua hauv koj tus password",
+            "predictable_sequence": "Tsis txhob siv qhov yooj yim-rau-xav ua ntu hauv koj tus password",
+            "common_password": "Lo lus zais no ntau dhau thiab tsis muaj kev nyab xeeb",
+            "contains_username": "Tus password yuav tsum tsis muaj koj lub npe siv",
+            "contains_email": "Tus password yuav tsum tsis muaj koj cov ntaub ntawv email"
+        }
     },
     "navigation": {
         "home": "Tsev",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Tus yuam sij rov qab tau tsim dua tshiab",
             "recovery_key_error": "Tsis tuaj yeem tsim tus yuam sij rov qab tau dua",
             "account_delete_error": "Tus account tsis tuaj yeem raug rho tawm",
-            "backup_downloaded_encrypted": "Tau rub tawm cov ntaub ntawv thaub qab uas tau encrypted tiav lawm! ({{count}} yam khoom)"
+            "backup_downloaded_encrypted": "Tau rub tawm cov ntaub ntawv thaub qab uas tau encrypted tiav lawm! ({{count}} yam khoom)",
+            "policy_update_error": "Hloov kho qhov chaw teeb tsa ntawm qhov kev thov tsis tau tiav.",
+            "policy_updated": "Hloov kho qhov chaw teeb tsa thov tiav lawm.",
+            "unblock_error": "Unblock tus neeg siv tsis tau.",
+            "unblocked_success": "Tus neeg siv tshem tawm tau tiav.",
+            "house_owner_transferred": "Kev muaj tsev tau hloov pauv lawm",
+            "house_owner_transfer_error": "Tsis tuaj yeem hloov pauv txoj kev muaj tsev."
         },
         "user_profile": {
             "edit_username": "Hloov lub npe neeg siv"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} tsis muaj cai nkag mus rau hauv tsev neeg no lawm.",
             "kick_title": "Tshem tus tswv cuab no?",
             "kick_warning": "Lawv txoj kev nkag mus rau hauv tsev neeg yuav xaus tam sim ntawd thiab lawv yuav xav tau daim ntawv caw tshiab lossis kev pom zoo kom rov qab los.",
-            "kicking": "Tshem tawm..."
+            "kicking": "Tshem tawm...",
+            "access_section_eyebrow": "Kev nkag mus rau hauv tsev",
+            "transfer_owner": "Hloov tsev tswv?",
+            "transferring_owner": "Kev Thauj Mus Los",
+            "transfer_owner_title": "Hloov chaw ua tus tswv tsev?",
+            "transfer_owner_confirm": "Hloov cov tswv cuab ntawm tsev neeg no mus rau {{name}}?",
+            "transfer_owner_warning": "Koj yuav tsis yog tus tswv ntawm tsev neeg no lawm. Tus tswv tshiab yuav tswj xyuas cov tswv cuab pom zoo, tshem tawm, thiab kev hloov tswv cuab yav tom ntej.",
+            "transfer_owner_success_body": "{{name}} yog tus tswv ntawm tsev neeg no tam sim no."
         },
         "theme": {
             "title": "Chủ đề",
@@ -729,7 +772,9 @@
             "light": "Light mode",
             "description": "Chọn cách không gian làm việc hiển thị trên thiết bị này.",
             "light_aria": "Chuyển sang chủ đề sáng",
-            "dark_aria": "Chuyển sang chủ đề tối"
+            "dark_aria": "Chuyển sang chủ đề tối",
+            "workspace_title": "Lub Ntsiab Lus Chaw Ua Haujlwm",
+            "workspace_desc": "Xaiv koj cov qauv pom uas koj nyiam rau lub cuab yeej no."
         },
         "security": {
             "title": "Bảo mật",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Khóa khôi phục hiện tại không thể hiển thị. Tạo lại nếu cần.",
             "recovery_key_action": "Tạo lại",
             "recovery_key_modal_desc": "Xác nhận mật khẩu hiện tại của bạn để tiếp tục. Khóa mới sẽ chỉ hiển thị một lần.",
-            "recovery_key_loading": "Đang chuẩn bị..."
+            "recovery_key_loading": "Đang chuẩn bị...",
+            "accordion_title": "Kev ruaj ntseg thiab kev ceev ntiag tug",
+            "accordion_desc": "Tswj ob qhov kev lees paub qhov tseeb, cov cuab yeej ntseeg siab, thiab qiv cov cai thov los ntawm lwm tus account.",
+            "description": "Tswj koj tus password tus tswv thiab kev teeb tsa rov qab lub tsev pheeb suab.",
+            "change_password_detail": "Hloov kho koj tus password kom koj tus account muaj kev nyab xeeb",
+            "recovery_key_detail": "Siv los rov qab tau koj lub vault yog tias koj tsis nco qab koj tus password"
         },
         "data_management": {
             "title": "Quản lý dữ liệu",
@@ -785,10 +835,10 @@
             "owner_only_desc": "Tsuas yog tus tswv tsev thiaj li tswj tau qhov kev thaub qab thiab kho cov ntaub ntawv xwb."
         },
         "about": {
-            "title": "📱 About Application",
+            "title": "About Application",
             "version": "Phiên bản",
             "brand": "Thương hiệu",
-            "feedback": "✉️ Send Feedback",
+            "feedback": "Xa lus tawm tswv yim",
             "legal_title": "Tài liệu pháp lý",
             "legal_description": "Bạn có thể mở lại các văn bản về điều khoản và quyền riêng tư từ đây ngay cả sau khi đã chấp nhận chúng.",
             "terms_link": "Điều Khoản Dịch Vụ",
@@ -890,7 +940,8 @@
             "revoke_devices": "Tshem Tawm Cov Khoom Siv Ntseeg Siab",
             "revoke_devices_desc": "Tshem tawm tag nrho cov khoom siv uas koj nco qab, xav tau 2FA thaum koj nkag mus rau hauv koj tus account tom ntej",
             "devices_revoked": "Cov khoom siv uas ntseeg siab tau raug tshem tawm {{count}}",
-            "devices_error": "Ua tsis tau rho tawm cov khoom siv"
+            "devices_error": "Ua tsis tau rho tawm cov khoom siv",
+            "preparing_setup": "Npaj koj qhov kev teeb tsa authenticator..."
         },
         "danger_zone": {
             "title": "Tài khoản",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Sau khi xác nhận, bạn sẽ ngay lập tức mất quyền truy cập vào tài khoản và dữ liệu ứng dụng đã xóa sẽ không thể khôi phục từ ứng dụng.",
             "password_label": "Xác nhận bằng mật khẩu hiện tại của bạn",
             "confirm_delete": "Xác nhận xóa",
-            "deleting": "Đang xóa..."
+            "deleting": "Đang xóa...",
+            "description": "Rho tawm koj tus account thiab tshem tawm tag nrho cov ntaub ntawv teev khoom mus tas li."
         },
         "language": "Hom Lus",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Cov Lus Nrov",
         "search_results": "Cov Txiaj Ntsig Tshawb Nrhiav",
         "current_language": "Hom lus tam sim no",
-        "languages_available": "cov lus muaj"
+        "languages_available": "cov lus muaj",
+        "borrow_requests": {
+            "accordion_eyebrow": "qiv thov kev ruaj ntseg",
+            "accordion_eyebrow_desc": "Kho cov cai thov thiab tswj cov neeg siv thaiv.",
+            "title": "Kev thov qiv nyiaj",
+            "description": "Tswj cov cai kom tau txais kev thov qiv nyiaj los ntawm lwm tus as-qhauj thiab sau npe cov neeg siv thaiv.",
+            "policy_title": "Kev Thov qiv tshiab",
+            "policy_description": "Tswj leej twg tuaj yeem xa cov lus thov qiv rau koj. Koj cov khoom lag luam yeej tsis pom zoo li cov npe pej xeem.",
+            "policy_none": "Tsis txhob txais los ntawm leej twg (Default)",
+            "policy_house_only": "Cov tswv cuab hauv tsev nkaus xwb",
+            "policy_everyone": "Txhua tus neeg siv sau npe",
+            "blocks_title": "Cov Neeg Siv Thaiv",
+            "blocks_description": "Cov neeg siv koj tau thaiv los ntawm xa koj cov ntawv thov qiv nyiaj tshiab.",
+            "no_blocks": "Tsis pom cov neeg siv blocked.",
+            "unblock_btn": "Qhib qhov thaiv",
+            "policy_none_desc": "Tag nrho cov lus thov tuaj raug kaw cia li.",
+            "policy_house_only_desc": "Tsuas yog cov tswvcuab uas tau lees paub ntawm koj lub tsev uas nquag tuaj yeem thov cov khoom uas twb pom nyob rau hauv lub tsev sib koom.",
+            "policy_everyone_desc": "Lwm tus neeg siv tsis tuaj yeem xauj lossis pom koj cov khoom. Lawv tsuas tuaj yeem xa daim ntawv thov los ntawm kev nkag mus rau koj lub npe siv lossis email ncaj qha."
+        }
     },
     "inventory": {
         "title": "Tồn Kho",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "nrog koj",
             "return_pending_hint": "Cov ntaub ntawv yuav kaw tom qab tus neeg qiv nyiaj lees paub tias lawv tau txais cov khoom rov qab.",
             "return_pending_lender_title": "{{name}} tau cim cov khoom no tias xa rov qab lawm",
-            "return_pending_self_title": "Nrog koj, tos kom tau txais daim ntawv lees paub"
+            "return_pending_self_title": "Nrog koj, tos kom tau txais daim ntawv lees paub",
+            "site_member": "Tus tswv cuab ntawm qhov chaw",
+            "site_member_identifier": "Tus neeg siv lub npe lossis email",
+            "site_member_identifier_placeholder": "Lub npe neeg siv tiag tiag lossis email",
+            "site_member_privacy_hint": "Qhov kev pom zoo tshwm sim hauv Lub Chaw qiv nyiaj tsuas yog tias muaj tus lej ntawd thiab tso cai rau cov khoom tuaj. <<<__HI_MISSING_SEP__>> Qhov no tsim cov ntaub ntawv ntiag tug hauv zos nkaus xwb. Tsis muaj app ceeb toom xa.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Mục không có tiêu đề",
         "delete_action": "Xóa mục",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Tau txais daim ntawv ceeb toom",
             "return_note_placeholder_borrower": "piv txwv li kuv tau muab nws rov qab yam tsis muaj teeb meem dab tsi",
             "return_note_placeholder_lender": "piv txwv li Tau txais rov qab rau hauv qhov zoo",
-            "return_submitting": "Kev Kaw"
+            "return_submitting": "Kev Kaw",
+            "reject_title": "Tsis lees txais Daim Ntawv Thov",
+            "reject_subtitle": "Koj tab tom yuav tsis lees txais qhov kev thov rau \"{{item}}\".",
+            "reject_target": "Koj tab tom yuav tsis lees txais qhov kev thov qiv nyiaj xa los ntawm {{name}}.",
+            "reject_reason_label": "Vim Li Cas Thiaj Tsis Kam Txais",
+            "reject_submitting": "Tsis lees txais...",
+            "due_date_label": "Hnub xa rov qab"
         },
         "messages": {
             "load_error": "Chaw qiv nyiaj tsis tuaj yeem thauj khoom tau",
-            "action_error": "Qhov kev nqis tes ua tsis tau tiav"
+            "action_error": "Qhov kev nqis tes ua tsis tau tiav",
+            "active_borrow_not_found": "Cov ntaub ntawv qiv nyiaj nquag no nrhiav tsis tau. Refresh lub Chaw qiv qiv thiab sim dua. <<<__HI_MISSING_SEP__>> Koj tuaj yeem xa ib qho kev thov sab nraud thawj zaug rau tib tus neeg hauv ib hnub. Yog tias lawv lees txais qhov kev thov, qhov kev txwv no tsis siv rau tus neeg ntawd lawm. <<<__HI_MISSING_SEP__>> Koj tuaj yeem xa mus txog 5 qhov kev thov sab nraud thawj zaug hauv ib hnub.",
+            "errors": {
+                "external_target_daily_limit": "Koj tuaj yeem xa ib qho kev thov sab nraud thawj zaug rau tib tus neeg hauv ib hnub. Yog tias lawv lees txais qhov kev thov, qhov kev txwv no tsis siv rau tus neeg ntawd lawm.",
+                "external_total_daily_limit": "Koj tuaj yeem xa mus txog 5 qhov kev thov sab nraud thawj zaug hauv ib hnub.",
+                "external_request_requires_verified_email": "Xyuas koj tus email chaw nyob ua ntej xa cov lus thov qiv nyiaj sab nraud.",
+                "external_offer_blocked": "Koj tsuas tuaj yeem muab ib yam khoom rau cov tswv cuab hauv tsev lossis cov neeg siv sau npe uas tuaj yeem txheeb xyuas ncaj qha.",
+                "target_blocked_by_you": "Koj tsis tuaj yeem xa daim ntawv thov mus rau tus neeg siv koj tau thaiv.",
+                "recent_rejection_lock": "Tus neeg siv no tsis kam lees qhov kev thov tsis ntev los no. Koj tuaj yeem xa lwm qhov kev thov tom qab 30 hnub."
+            }
         },
         "preview": {
             "title": "Hom saib ua ntej",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Không có yêu cầu nào cần bạn xem xét",
         "outgoing_empty_title": "Chưa có yêu cầu gửi đi nào",
         "refreshing": "Đang làm mới các yêu cầu và mượn đang hoạt động...",
-        "loading_description": "Chuẩn bị các yêu cầu và hoạt động mượn đang hoạt động."
+        "loading_description": "Chuẩn bị các yêu cầu và hoạt động mượn đang hoạt động.",
+        "reasons": {
+            "rejected": "Kev tsis lees paub (ib txwm tsis lees paub)",
+            "not_available": "Tsis muaj (Cov khoom ploj / tsis muaj)",
+            "blocked": "Thaiv thiab tsis lees txais (Blocks tus neeg siv no)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Txoj Cai Tswjfwm Ntiag Tug",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Tswj xyuas tag nrho koj cov khoom siv hauv tsev kom zoo"
+        "tagline": "Tswj xyuas tag nrho koj cov khoom siv hauv tsev kom zoo",
+        "loading": "Tab tom thauj khoom {{brandName}}",
+        "preparing_workspace": "Npaj koj qhov chaw ua haujlwm..."
     },
     "nav": {
         "home": "Trang chủ",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Tshem Tawm Keeb Kwm",
-            "add_item": "Ntxiv rau Daim Ntawv Teev Khoom"
+            "add_item": "Ntxiv rau Daim Ntawv Teev Khoom",
+            "mark_completed": "Cim ua tiav lawm",
+            "decrease_qty": "Txo qhov ntau",
+            "increase_qty": "Ua kom muaj ntau ntxiv",
+            "delete_item": "Rho tawm yam khoom",
+            "reactivate_item": "Rov qab mus rau daim ntawv teev npe uas nquag ua haujlwm"
         },
         "form": {
             "add_type": "Ntxiv Txoj Kev",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Kev saib xyuas txij nkawm ib zaug lossis ib zaug teem sijhawm rau cov khoom no.",
         "no_tasks": "Tsis muaj kev saib xyuas ua haujlwm rau yam khoom no.",
         "confirm_delete": "Txoj haujlwm no yuav raug rho tawm. Koj puas paub tseeb?"
+    },
+    "error_boundary": {
+        "title": "Ib yam dab tsi xav tau kev hloov tshiab",
+        "description": "Lub interface ntsib teeb meem rendering tsis tau xav txog. Koj cov ntaub ntawv khaws cia tsis tau hloov los ntawm lub vijtsam no.",
+        "refresh_btn": "Hloov tshiab",
+        "home_btn": "Tsev"
     }
 }

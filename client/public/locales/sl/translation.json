@@ -186,7 +186,8 @@
         "hide": "Skrij geslo",
         "logging_out": "Odjava...",
         "show": "Pokaži geslo",
-        "saving": "Shranjevanje..."
+        "saving": "Shranjevanje...",
+        "disabled": "Onemogočeni"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Za povezavo z obstoječo hišo je potreben ključ od hiše",
         "house_key_not_found": "Neveljaven ključ od hiše. Prosimo, vnesite pravilen tip.",
         "email_not_verified": "Vaš e-poštni naslov še ni preverjen. Prosimo, preverite svoj e-poštni nabiralnik.",
-        "two_factor_invalid": "Preverjanje kode je napačno"
+        "two_factor_invalid": "Preverjanje kode je napačno",
+        "two_factor_invalid_try_again": "Neveljavna verifikacijska koda. Prosim, poskusite znova.",
+        "two_factor_code_required": "Potrebna je verifikacijska koda",
+        "two_factor_user_not_found": "Uporabnik ni najden",
+        "two_factor_already_enabled": "Dvofaktorska avtentikacija je že omogočena",
+        "two_factor_setup_not_started": "Prosimo, začnite najprej z dvofaktorsko avtentikacijo",
+        "two_factor_setup_error": "Med nastavitvijo dvofaktorske avtentikacije je prišlo do napake",
+        "two_factor_activation_error": "Med aktivacijo dvofaktorske avtentikacije je prišlo do napake",
+        "two_factor_password_required": "Geslo je zahtevano",
+        "two_factor_credentials_required": "Potrebna je TOTP koda, varnostna koda ali obnovitveni ključ",
+        "two_factor_already_disabled": "Dvofaktorska avtentikacija je že onemogočena",
+        "two_factor_password_incorrect": "Napačno geslo",
+        "two_factor_verification_failed": "Preverjanje ni uspelo. Prosimo, preverite kodo in poskusite znova.",
+        "two_factor_disable_error": "Pri onemogočanju dvofaktorske avtentikacije je prišlo do napake",
+        "two_factor_not_enabled": "Dvofaktorska avtentikacija ni omogočena",
+        "two_factor_regenerate_codes_error": "Prišlo je do napake med generiranjem rezervnih kod",
+        "two_factor_enabled_success": "Dvofaktorska avtentikacija je bila uspešno omogočena",
+        "two_factor_disabled_success": "Dvofaktorska avtentikacija je bila uspešno onemogočena",
+        "password_errors": {
+            "min_length": "Geslo mora biti dolgo vsaj {{min}} znakov",
+            "lowercase_required": "Geslo mora vsebovati vsaj eno malo črko",
+            "uppercase_required": "Geslo mora vsebovati vsaj eno veliko črko",
+            "number_required": "Geslo mora vsebovati vsaj eno številko",
+            "symbol_required": "Geslo mora vsebovati vsaj en simbol",
+            "repeated_chars": "Ne uporabljajte ponavljajočih se znakov v geslu",
+            "predictable_sequence": "Ne uporabljajte enostavnih zaporedij v geslu",
+            "common_password": "To geslo je preveč pogosto in nevarno",
+            "contains_username": "Geslo ne sme vsebovati vašega uporabniškega imena",
+            "contains_email": "Geslo ne sme vsebovati vaših e-poštnih podatkov"
+        }
     },
     "navigation": {
         "home": "Domov",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Ključ za obnovitev je bil ponovno ustvarjen",
             "recovery_key_error": "Ključa za obnovitev ni bilo mogoče ponovno ustvariti",
             "account_delete_error": "Računa ni bilo mogoče izbrisati",
-            "backup_downloaded_encrypted": "Šifrirana varnostna kopija je bila uspešno prenesena! ({{count}} elementov)"
+            "backup_downloaded_encrypted": "Šifrirana varnostna kopija je bila uspešno prenesena! ({{count}} elementov)",
+            "policy_update_error": "Nastavitev zahtev ni uspelo posodobiti.",
+            "policy_updated": "Nastavitve zahteve so bile uspešno posodobljene.",
+            "unblock_error": "Ni uspelo odblokirati uporabnika.",
+            "unblocked_success": "Uporabnik uspešno odblokiran.",
+            "house_owner_transferred": "Lastništvo hiše preneseno",
+            "house_owner_transfer_error": "Lastništvo hiše ni bilo mogoče prenesti."
         },
         "user_profile": {
             "edit_username": "Spremeni uporabniško ime"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} nima več dostopa do tega gospodinjstva.",
             "kick_title": "Odstraniti tega člana?",
             "kick_warning": "Njihov dostop do gospodinjstva bo takoj prekinjen in za vrnitev bodo potrebovali novo vabilo ali odobritev.",
-            "kicking": "Odstranjevanje..."
+            "kicking": "Odstranjevanje...",
+            "access_section_eyebrow": "Dostop do hiše",
+            "transfer_owner": "Naredite lastnika",
+            "transferring_owner": "Prenos...",
+            "transfer_owner_title": "Prenos lastništva hiše?",
+            "transfer_owner_confirm": "Prenesti lastništvo tega gospodinjstva na {{name}}?",
+            "transfer_owner_warning": "Ne boš več lastnik tega gospodinjstva. Novi lastnik bo upravljal odobritve članov, odstranitve in prihodnje spremembe lastništva.",
+            "transfer_owner_success_body": "{{name}} je zdaj lastnik tega gospodinjstva."
         },
         "theme": {
             "title": "Tema",
@@ -729,7 +772,9 @@
             "light": "Svetli način",
             "description": "Izberite, kako naj delovno okolje izgleda na tej napravi.",
             "light_aria": "Preklopi na svetlo temo",
-            "dark_aria": "Preklopi na temno temo"
+            "dark_aria": "Preklopi na temno temo",
+            "workspace_title": "Tema delovnega prostora",
+            "workspace_desc": "Izberite svoj želeni vizualni slog za to napravo."
         },
         "security": {
             "title": "Varnost",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Trenutnega ključa za obnovitev ni mogoče prikazati. Po potrebi ga obnovite.",
             "recovery_key_action": "Obnovi",
             "recovery_key_modal_desc": "Potrdite svoje trenutno geslo, da nadaljujete. Novi ključ bo prikazan samo enkrat.",
-            "recovery_key_loading": "Priprava..."
+            "recovery_key_loading": "Priprava...",
+            "accordion_title": "Varnost in zasebnost",
+            "accordion_desc": "Upravljajte dvofaktorsko avtentikacijo, zaupanja vredne naprave in si izposojajte pravila za zahteve iz drugih računov.",
+            "description": "Upravljajte svoje glavno geslo in konfiguracije za obnovitev trezorja.",
+            "change_password_detail": "Posodobite geslo, da ohranite svoj račun varen",
+            "recovery_key_detail": "Uporablja se za obnovitev trezorja, če pozabiš geslo"
         },
         "data_management": {
             "title": "Upravljanje podatkov",
@@ -785,10 +835,10 @@
             "owner_only_desc": "Varnostno kopiranje in obnavljanje podatkov lahko upravlja samo lastnik hiše."
         },
         "about": {
-            "title": "📱 O aplikaciji",
+            "title": "O aplikaciji",
             "version": "Različica",
             "brand": "Blagovna znamka",
-            "feedback": "✉️ Pošlji povratne informacije",
+            "feedback": "Pošlji povratne informacije",
             "legal_title": "Pravne listine",
             "legal_description": "Tukaj lahko ponovno odprete besedilo pogojev in zasebnosti tudi po tem, ko jih sprejmete.",
             "terms_link": "Pogoji uporabe",
@@ -890,7 +940,8 @@
             "revoke_devices": "Razveljavi zaupanja vredne naprave",
             "revoke_devices_desc": "Odstrani vse zapomnjene naprave, ob naslednji prijavi bo potrebna 2FA",
             "devices_revoked": "{{count}} zaupanja vredna naprava(i) odstranjena",
-            "devices_error": "Ni uspelo preklicati naprav"
+            "devices_error": "Ni uspelo preklicati naprav",
+            "preparing_setup": "Pripravljam nastavitev avtentikatorja..."
         },
         "danger_zone": {
             "title": "Račun",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Po potrditvi boste takoj izgubili dostop do računa, izbrisani podatki aplikacije pa jih ni mogoče obnoviti iz aplikacije.",
             "password_label": "Potrdite z vašim trenutnim geslom",
             "confirm_delete": "Potrdi izbris",
-            "deleting": "Brisanje..."
+            "deleting": "Brisanje...",
+            "description": "Izbriši svoj račun in trajno odstrani vse inventarne podatkovne zbirke."
         },
         "language": "Jezik",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Priljubljeni jeziki",
         "search_results": "Rezultati iskanja",
         "current_language": "Trenutni jezik",
-        "languages_available": "razpoložljivi jeziki"
+        "languages_available": "razpoložljivi jeziki",
+        "borrow_requests": {
+            "accordion_eyebrow": "Izposoja si varnost",
+            "accordion_eyebrow_desc": "Konfigurirajte pravila zahtev in upravljajte blokirane uporabnike.",
+            "title": "Nastavitve za izposojo zahtevkov",
+            "description": "Upravljajte pravila za prejemanje zahtevkov za posojila z drugih računov in seznamite blokirane uporabnike.",
+            "policy_title": "Nove prošnje za izposojo",
+            "policy_description": "Nadzorujte, kdo vam lahko pošilja zahteve za izposojo. Vaš inventar nikoli ni prikazan kot javni seznam.",
+            "policy_none": "Ne prejemajte od nikogar (privzeto)",
+            "policy_house_only": "Samo člani gospodinjstva",
+            "policy_everyone": "Vsi registrirani uporabniki",
+            "blocks_title": "Blokirani uporabniki",
+            "blocks_description": "Uporabniki, ki ste jih blokirali, da vam ne pošiljajo novih zahtevkov za posojilo.",
+            "no_blocks": "Ni bilo najdenih blokiranih uporabnikov.",
+            "unblock_btn": "Odblokiraj",
+            "policy_none_desc": "Vse dohodne zahteve so samodejno blokirane.",
+            "policy_house_only_desc": "Samo preverjeni člani vaših aktivnih hiš lahko zahtevajo predmete, ki so že vidni znotraj te skupne hiše.",
+            "policy_everyone_desc": "Drugi uporabniki ne morejo brskati ali videti vaših predmetov. Lahko pošljejo zahtevo samo tako, da neposredno vnesejo vaše uporabniško ime ali e-poštni naslov."
+        }
     },
     "inventory": {
         "title": "Inventar",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Pri tebi",
             "return_pending_hint": "Zapis se bo zaprl, ko bo posodilac potrdil, da je predmet prejel nazaj.",
             "return_pending_lender_title": "{{name}} je označil ta predmet kot vrnjen",
-            "return_pending_self_title": "Pri tebi, čaka na potrditev prejema"
+            "return_pending_self_title": "Pri tebi, čaka na potrditev prejema",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Brez naslova",
         "delete_action": "Izbriši predmet",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Prejmite opombo",
             "return_note_placeholder_borrower": "npr. Vrnil sem ga brez kakršnih koli težav",
             "return_note_placeholder_lender": "npr. Prejeto nazaj v dobrem stanju",
-            "return_submitting": "Zapiranje..."
+            "return_submitting": "Zapiranje...",
+            "reject_title": "Zavrni zahtevo",
+            "reject_subtitle": "Pravkar boste zavrnili zahtevo za \"{{item}}\".",
+            "reject_target": "Pravkar boste zavrnili prošnjo za izposojo, ki jo je poslal {{name}}.",
+            "reject_reason_label": "Razlog za zavrnitev",
+            "reject_submitting": "Zavračanje...",
+            "due_date_label": "Načrtovani datum vrnitve"
         },
         "messages": {
             "load_error": "Središče za izposojo ni bilo mogoče naložiti",
-            "action_error": "Dejanja ni bilo mogoče dokončati"
+            "action_error": "Dejanja ni bilo mogoče dokončati",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Na isti dan lahko pošljete samo eno prvo zunanjo zahtevo isti osebi. Če sprejmejo zahtevo, ta omejitev za to osebo ne velja več.",
+                "external_total_daily_limit": "Na dan lahko pošljete do 5 prvih zunanjih zahtev.",
+                "external_request_requires_verified_email": "Pred pošiljanjem zunanjih zahtev za izposojo preverite svoj e-poštni naslov.",
+                "external_offer_blocked": "Predmet lahko ponudite samo članom hiše ali registriranim uporabnikom, ki jih je mogoče neposredno identificirati.",
+                "target_blocked_by_you": "Ne morete poslati zahteve uporabniku, ki ste ga blokirali.",
+                "recent_rejection_lock": "Ta uporabnik je zavrnil nedavno zahtevo. Drugo zahtevo lahko pošljete čez 30 dni."
+            }
         },
         "preview": {
             "title": "Način predogleda",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Nobenih zahtevkov za vašo pregledovanje",
         "outgoing_empty_title": "Še ni odhodnih zahtevkov",
         "refreshing": "Osveževanje zahtev in aktivnih izposoj...",
-        "loading_description": "Priprava zahtevkov in aktivnost izposoje."
+        "loading_description": "Priprava zahtevkov in aktivnost izposoje.",
+        "reasons": {
+            "rejected": "Zavrnitev (običajna zavrnitev)",
+            "not_available": "Ni na voljo (Izdelek manjka / ni na voljo)",
+            "blocked": "Blokiraj in zavrni (Blokira tega uporabnika)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Politika zasebnosti",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Pametno upravljajte vse svoje gospodinjske predmete"
+        "tagline": "Pametno upravljajte vse svoje gospodinjske predmete",
+        "loading": "Nalaganje {{brandName}}",
+        "preparing_workspace": "Pripravljaš svoj delovni prostor..."
     },
     "nav": {
         "home": "Dom",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Počisti zgodovino",
-            "add_item": "Dodaj na seznam nakupov"
+            "add_item": "Dodaj na seznam nakupov",
+            "mark_completed": "Oznaka kot dokončana",
+            "decrease_qty": "Zmanjšaj količino",
+            "increase_qty": "Povečajte količino",
+            "delete_item": "Izbriši element",
+            "reactivate_item": "Premik nazaj na aktivni seznam"
         },
         "form": {
             "add_type": "Dodaj metodo",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Načrtovano periodično ali enkratno sledenje vzdrževanju za ta element.",
         "no_tasks": "Nobeno vzdrževalno opravilo ni dodeljeno temu elementu.",
         "confirm_delete": "To opravilo bo izbrisano. Ste prepričani?"
+    },
+    "error_boundary": {
+        "title": "Nekaj potrebuje osvežitev",
+        "description": "Vmesnik je naletel na nepričakovano težavo z upodabljanjem. Vaši shranjeni podatki o inventarju se na tem zaslonu ne spremenijo.",
+        "refresh_btn": "Osveži",
+        "home_btn": "Domov"
     }
 }

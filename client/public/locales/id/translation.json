@@ -176,7 +176,7 @@
         "created_at": "Dibuat Pada",
         "updated_at": "Diperbarui Pada",
         "none": "Tidak Ada",
-        "total": "Total",
+        "total": "Jumlah",
         "not_found": "Tidak ditemukan",
         "unauthorized": "Akses tidak sah",
         "forbidden": "Anda tidak memiliki izin",
@@ -186,7 +186,8 @@
         "hide": "Sembunyikan kata sandi",
         "logging_out": "Keluar...",
         "show": "Tampilkan kata sandi",
-        "saving": "Menyimpan..."
+        "saving": "Menyimpan...",
+        "disabled": "Dinonaktifkan"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Kunci Rumah diperlukan untuk bergabung dengan rumah yang ada",
         "house_key_not_found": "Kunci rumah tidak valid. Silakan masukkan kunci yang benar.",
         "email_not_verified": "Alamat email Anda belum diverifikasi. Silakan periksa kotak masuk Anda.",
-        "two_factor_invalid": "Kode verifikasi salah"
+        "two_factor_invalid": "Kode verifikasi salah",
+        "two_factor_invalid_try_again": "Kode verifikasi tidak valid. Silakan coba lagi.",
+        "two_factor_code_required": "Kode verifikasi diperlukan",
+        "two_factor_user_not_found": "Pengguna tidak ditemukan",
+        "two_factor_already_enabled": "Autentikasi dua faktor sudah diaktifkan",
+        "two_factor_setup_not_started": "Silakan mulai pengaturan otentikasi dua faktor terlebih dahulu",
+        "two_factor_setup_error": "Terjadi kesalahan selama penyiapan autentikasi dua faktor",
+        "two_factor_activation_error": "Terjadi kesalahan selama aktivasi autentikasi dua faktor",
+        "two_factor_password_required": "Kata sandi diperlukan",
+        "two_factor_credentials_required": "Kode TOTP, kode cadangan, atau kunci pemulihan diperlukan",
+        "two_factor_already_disabled": "Autentikasi dua faktor sudah dinonaktifkan",
+        "two_factor_password_incorrect": "Kata sandi salah",
+        "two_factor_verification_failed": "Verifikasi gagal. Silakan periksa kodenya dan coba lagi.",
+        "two_factor_disable_error": "Terjadi kesalahan saat menonaktifkan autentikasi dua faktor",
+        "two_factor_not_enabled": "Autentikasi dua faktor tidak diaktifkan",
+        "two_factor_regenerate_codes_error": "Terjadi kesalahan saat membuat ulang kode cadangan",
+        "two_factor_enabled_success": "Autentikasi dua faktor telah berhasil diaktifkan",
+        "two_factor_disabled_success": "Autentikasi dua faktor telah berhasil dinonaktifkan",
+        "password_errors": {
+            "min_length": "Kata sandi harus memiliki panjang minimal {{min}} karakter",
+            "lowercase_required": "Kata sandi harus menyertakan setidaknya satu huruf kecil",
+            "uppercase_required": "Kata sandi harus menyertakan setidaknya satu huruf besar",
+            "number_required": "Kata sandi harus menyertakan setidaknya satu angka",
+            "symbol_required": "Kata sandi harus menyertakan setidaknya satu simbol",
+            "repeated_chars": "Jangan gunakan karakter berulang dalam kata sandi Anda",
+            "predictable_sequence": "Jangan gunakan urutan yang mudah ditebak dalam kata sandi Anda",
+            "common_password": "Kata sandi ini terlalu umum dan tidak aman",
+            "contains_username": "Kata sandi tidak boleh berisi nama pengguna Anda",
+            "contains_email": "Kata sandi tidak boleh berisi informasi email Anda"
+        }
     },
     "navigation": {
         "home": "Beranda",
@@ -447,7 +477,7 @@
         "share_house": "Bagikan Rumah",
         "admin_panel": "Panel Admin",
         "logout": "Keluar",
-        "menu": "Menu",
+        "menu": "Cari",
         "personal_vault": "Brankas Pribadi",
         "borrow_requests": "Pusat Pinjaman",
         "scan_item_qr": "QR Item",
@@ -503,7 +533,7 @@
             "loading_description": "Mempersiapkan tampilan rumah Anda. Penambahan terbaru dan pencarian cepat akan muncul sebentar lagi."
         },
         "top_bar": {
-            "beta": "Beta",
+            "beta": "Versi beta",
             "items_tracked": "Item yang dilacak: {{count}}",
             "total_quantity": "Total jumlah: {{count}}",
             "shared_items": "Item yang dibagikan: {{count}}",
@@ -602,7 +632,7 @@
         "title": "BETA:",
         "text": "{{brandName}} saat ini sedang dalam fase pengujian dan hobi. Tidak ada jaminan yang diberikan untuk keberlanjutan data atau keamanan. Harap simpan salinan cadangan informasi penting.",
         "contact": "Kontak:",
-        "badge": "Beta",
+        "badge": "Versi beta",
         "aria_label": "Pemberitahuan Beta",
         "tooltip": "Fitur akses awal masih dapat berubah."
     },
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Kunci pemulihan dihasilkan kembali",
             "recovery_key_error": "Tidak dapat menghasilkan kembali kunci pemulihan",
             "account_delete_error": "Akun tidak dapat dihapus",
-            "backup_downloaded_encrypted": "Cadangan terenkripsi berhasil diunduh! ({{count}} item)"
+            "backup_downloaded_encrypted": "Cadangan terenkripsi berhasil diunduh! ({{count}} item)",
+            "policy_update_error": "Gagal memperbarui pengaturan permintaan.",
+            "policy_updated": "Setelan permintaan berhasil diperbarui.",
+            "unblock_error": "Gagal membuka blokir pengguna.",
+            "unblocked_success": "Pengguna berhasil membuka blokir.",
+            "house_owner_transferred": "Kepemilikan rumah dialihkan",
+            "house_owner_transfer_error": "Kepemilikan rumah tidak dapat dialihkan."
         },
         "user_profile": {
             "edit_username": "Ubah nama pengguna"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} tidak lagi memiliki akses ke rumah tangga ini.",
             "kick_title": "Hapus anggota ini?",
             "kick_warning": "Akses mereka ke rumah tangga akan berakhir segera dan mereka akan memerlukan undangan atau persetujuan baru untuk kembali.",
-            "kicking": "Menghapus..."
+            "kicking": "Menghapus...",
+            "access_section_eyebrow": "Akses rumah",
+            "transfer_owner": "Jadikan pemilik",
+            "transferring_owner": "Mentransfer...",
+            "transfer_owner_title": "Transfer kepemilikan rumah?",
+            "transfer_owner_confirm": "Mentransfer kepemilikan rumah tangga ini ke {{name}}?",
+            "transfer_owner_warning": "Anda tidak akan lagi menjadi pemilik rumah tangga ini. Pemilik baru akan mengelola persetujuan anggota, penghapusan, dan perubahan kepemilikan di masa mendatang.",
+            "transfer_owner_success_body": "{{name}} sekarang adalah pemilik rumah tangga ini."
         },
         "theme": {
             "title": "Tema",
@@ -729,7 +772,9 @@
             "light": "Mode Terang",
             "description": "Pilih bagaimana tampilan ruang kerja di perangkat ini.",
             "light_aria": "Beralih ke tema terang",
-            "dark_aria": "Beralih ke tema gelap"
+            "dark_aria": "Beralih ke tema gelap",
+            "workspace_title": "Tema Ruang Kerja",
+            "workspace_desc": "Pilih gaya visual pilihan Anda untuk perangkat ini."
         },
         "security": {
             "title": "Keamanan",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Kunci pemulihan saat ini tidak dapat ditampilkan. Buat ulang jika diperlukan.",
             "recovery_key_action": "Buat Ulang",
             "recovery_key_modal_desc": "Konfirmasikan kata sandi Anda saat ini untuk melanjutkan. Kunci baru hanya akan ditampilkan sekali.",
-            "recovery_key_loading": "Mempersiapkan..."
+            "recovery_key_loading": "Mempersiapkan...",
+            "accordion_title": "Keamanan dan privasi",
+            "accordion_desc": "Kelola autentikasi dua faktor, perangkat tepercaya, dan aturan permintaan pinjaman dari akun lain.",
+            "description": "Kelola sandi utama dan konfigurasi pemulihan brankas.",
+            "change_password_detail": "Perbarui kata sandi Anda untuk menjaga keamanan akun Anda",
+            "recovery_key_detail": "Digunakan untuk memulihkan brankas Anda jika Anda lupa kata sandi"
         },
         "data_management": {
             "title": "Manajemen Data",
@@ -890,7 +940,8 @@
             "revoke_devices": "Cabut Perangkat Tepercaya",
             "revoke_devices_desc": "Hapus semua perangkat yang diingat, memerlukan 2FA pada login berikutnya",
             "devices_revoked": "{{count}} perangkat tepercaya dihapus",
-            "devices_error": "Gagal mencabut perangkat"
+            "devices_error": "Gagal mencabut perangkat",
+            "preparing_setup": "Mempersiapkan penyiapan pengautentikasi Anda..."
         },
         "danger_zone": {
             "title": "Akun",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Setelah konfirmasi, Anda akan segera kehilangan akses ke akun dan data aplikasi yang dihapus tidak dapat dipulihkan dari aplikasi.",
             "password_label": "Konfirmasi dengan kata sandi Anda saat ini",
             "confirm_delete": "Konfirmasi penghapusan",
-            "deleting": "Menghapus..."
+            "deleting": "Menghapus...",
+            "description": "Hapus akun Anda dan hapus semua himpunan data inventaris secara permanen."
         },
         "language": "Bahasa",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Bahasa Populer",
         "search_results": "Hasil Pencarian",
         "current_language": "Bahasa saat ini",
-        "languages_available": "bahasa yang tersedia"
+        "languages_available": "bahasa yang tersedia",
+        "borrow_requests": {
+            "accordion_eyebrow": "Keamanan permintaan pinjaman",
+            "accordion_eyebrow_desc": "Konfigurasikan aturan permintaan dan kelola pengguna yang diblokir.",
+            "title": "Setelan permintaan pinjaman",
+            "description": "Kelola aturan untuk menerima permintaan pinjaman dari akun lain dan cantumkan pengguna yang diblokir.",
+            "policy_title": "Permintaan Pinjaman Baru",
+            "policy_description": "Kontrol siapa yang dapat mengirim permintaan pinjaman kepada Anda. Inventaris Anda tidak pernah ditampilkan sebagai daftar publik.",
+            "policy_none": "Jangan menerima dari siapa pun (Default)",
+            "policy_house_only": "Hanya anggota rumah tangga",
+            "policy_everyone": "Semua pengguna terdaftar",
+            "blocks_title": "Pengguna yang Diblokir",
+            "blocks_description": "Pengguna yang telah Anda blokir agar tidak mengirimi Anda permintaan pinjaman baru.",
+            "no_blocks": "Tidak ada pengguna yang diblokir yang ditemukan.",
+            "unblock_btn": "Buka blokir",
+            "policy_none_desc": "Semua permintaan masuk diblokir secara otomatis.",
+            "policy_house_only_desc": "Hanya anggota terverifikasi dari rumah aktif Anda yang dapat meminta item yang sudah terlihat di dalam rumah bersama tersebut.",
+            "policy_everyone_desc": "Pengguna lain tidak dapat menelusuri atau melihat item Anda. Mereka hanya dapat mengirim permintaan dengan memasukkan nama pengguna atau email Anda secara langsung."
+        }
     },
     "inventory": {
         "title": "Inventaris",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Bersamamu",
             "return_pending_hint": "Catatan akan ditutup setelah pemberi pinjaman mengonfirmasi mereka menerima kembali item tersebut.",
             "return_pending_lender_title": "{{name}} menandai item ini telah dikembalikan",
-            "return_pending_self_title": "Bersamamu, menunggu konfirmasi penerimaan"
+            "return_pending_self_title": "Bersamamu, menunggu konfirmasi penerimaan",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Item tanpa judul",
         "delete_action": "Hapus item",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Nota penerimaan",
             "return_note_placeholder_borrower": "misalnya. Saya mengembalikannya tanpa masalah",
             "return_note_placeholder_lender": "misalnya. Diterima kembali dalam kondisi baik",
-            "return_submitting": "Menutup..."
+            "return_submitting": "Menutup...",
+            "reject_title": "Tolak Permintaan",
+            "reject_subtitle": "Anda akan menolak permintaan \"{{item}}\".",
+            "reject_target": "Anda akan menolak permintaan pinjaman yang dikirim oleh {{name}}.",
+            "reject_reason_label": "Alasan Penolakan",
+            "reject_submitting": "Menolak...",
+            "due_date_label": "Tanggal pengembalian yang direncanakan"
         },
         "messages": {
             "load_error": "Pusat peminjaman tidak dapat dimuat",
-            "action_error": "Tindakan tidak dapat diselesaikan"
+            "action_error": "Tindakan tidak dapat diselesaikan",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Anda hanya dapat mengirim satu permintaan kontak pertama ke orang yang sama dalam sehari. Jika mereka menerima permintaan, batas ini tidak berlaku lagi untuk orang tersebut.",
+                "external_total_daily_limit": "Anda dapat mengirim hingga 5 permintaan kontak pertama ke luar per hari.",
+                "external_request_requires_verified_email": "Verifikasi alamat email Anda sebelum mengirim permintaan pinjaman eksternal.",
+                "external_offer_blocked": "Anda hanya dapat menawarkan item kepada anggota rumah atau pengguna terdaftar yang dapat diidentifikasi secara langsung.",
+                "target_blocked_by_you": "Anda tidak dapat mengirim permintaan kepada pengguna yang telah Anda blokir.",
+                "recent_rejection_lock": "Pengguna ini menolak permintaan terbaru. Anda dapat mengirim permintaan lain setelah 30 hari."
+            }
         },
         "preview": {
             "title": "Mode pratinjau",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Tidak ada permintaan yang memerlukan tinjauan Anda",
         "outgoing_empty_title": "Belum ada permintaan keluar",
         "refreshing": "Menyegarkan permintaan dan peminjaman aktif...",
-        "loading_description": "Menyiapkan permintaan dan aktivitas pinjaman aktif."
+        "loading_description": "Menyiapkan permintaan dan aktivitas pinjaman aktif.",
+        "reasons": {
+            "rejected": "Tolak (Penolakan normal)",
+            "not_available": "Tidak tersedia (Item hilang / tidak tersedia)",
+            "blocked": "Blokir dan tolak (Memblokir pengguna ini)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Kebijakan Privasi",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{Nama Merek}}",
-        "tagline": "Kelola semua barang rumah tangga Anda dengan cerdas"
+        "tagline": "Kelola semua barang rumah tangga Anda dengan cerdas",
+        "loading": "Memuat {{brandName}}",
+        "preparing_workspace": "Mempersiapkan ruang kerja Anda..."
     },
     "nav": {
         "home": "Beranda",
@@ -2187,7 +2284,7 @@
         "admin_panel": "Panel Admin",
         "share_house": "Bagikan Rumah",
         "new_item": "Barang Baru",
-        "menu": "Menu",
+        "menu": "Cari",
         "help": "Bantuan & Dukungan"
     },
     "theme": {
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Hapus Riwayat",
-            "add_item": "Tambahkan ke Daftar Belanja"
+            "add_item": "Tambahkan ke Daftar Belanja",
+            "mark_completed": "Tandai sebagai selesai",
+            "decrease_qty": "Kurangi kuantitas",
+            "increase_qty": "Tingkatkan kuantitas",
+            "delete_item": "Hapus item",
+            "reactivate_item": "Kembali ke daftar aktif"
         },
         "form": {
             "add_type": "Tambah Metode",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Pelacakan pemeliharaan berkala atau satu kali dijadwalkan untuk item ini.",
         "no_tasks": "Tidak ada tugas pemeliharaan yang ditugaskan pada item ini.",
         "confirm_delete": "Tugas ini akan dihapus. Apakah Anda yakin?"
+    },
+    "error_boundary": {
+        "title": "Sesuatu perlu disegarkan",
+        "description": "Antarmuka mengalami masalah rendering yang tidak terduga. Data inventaris yang disimpan tidak diubah oleh layar ini.",
+        "refresh_btn": "Segarkan",
+        "home_btn": "Beranda"
     }
 }

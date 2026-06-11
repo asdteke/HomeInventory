@@ -186,7 +186,8 @@
         "hide": "Peida parool",
         "logging_out": "Logi välja...",
         "show": "Näita parooli",
-        "saving": "Salvestamine..."
+        "saving": "Salvestamine...",
+        "disabled": "Puudega"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Olemasoleva majaga ühendamiseks on vaja maja võtit",
         "house_key_not_found": "Kehtetu maja võti. Palun sisesta õige võti.",
         "email_not_verified": "Sinu e-posti aadressi pole veel kontrollitud. Palun kontrollige oma postkasti.",
-        "two_factor_invalid": "Verifitseerimiskood on vale"
+        "two_factor_invalid": "Verifitseerimiskood on vale",
+        "two_factor_invalid_try_again": "Kehtetu kinnituskood. Palun proovi uuesti.",
+        "two_factor_code_required": "Vajalik on kontrollkood",
+        "two_factor_user_not_found": "Kasutajat ei leitud",
+        "two_factor_already_enabled": "Kaheastmeline autentimine on juba lubatud",
+        "two_factor_setup_not_started": "Palun alusta esmalt kaheastmelise autentimise seadistamist",
+        "two_factor_setup_error": "Kaheastmelise autentimise seadistamisel tekkis viga",
+        "two_factor_activation_error": "Kaheastmelise autentimise aktiveerimisel tekkis viga",
+        "two_factor_password_required": "Parool on vajalik",
+        "two_factor_credentials_required": "Vajalik on TOTP kood, varukood või taastamisvõti",
+        "two_factor_already_disabled": "Kaheastmeline autentimine on juba keelatud",
+        "two_factor_password_incorrect": "Vale parool",
+        "two_factor_verification_failed": "Kinnitamine ebaõnnestus. Palun kontrolli koodi ja proovi uuesti.",
+        "two_factor_disable_error": "Kaheastmelise autentimise keelamisel tekkis viga",
+        "two_factor_not_enabled": "Kaheastmeline autentimine ei ole lubatud",
+        "two_factor_regenerate_codes_error": "Varunduskoodide taastamisel tekkis viga",
+        "two_factor_enabled_success": "Kahefaktoriline autentimine on edukalt lubatud",
+        "two_factor_disabled_success": "Kahefaktoriline autentimine on edukalt keelatud",
+        "password_errors": {
+            "min_length": "Parool peab olema vähemalt {{min}} tähemärki pikk",
+            "lowercase_required": "Parool peab sisaldama vähemalt ühte väikest tähte",
+            "uppercase_required": "Parool peab sisaldama vähemalt ühte suurtähte",
+            "number_required": "Parool peab sisaldama vähemalt ühte numbrit",
+            "symbol_required": "Parool peab sisaldama vähemalt ühte sümbolit",
+            "repeated_chars": "Ära kasuta oma paroolis korduvaid märke",
+            "predictable_sequence": "Ära kasuta oma paroolis kergesti arvatavaid järjestusi",
+            "common_password": "See parool on liiga levinud ja ohtlik",
+            "contains_username": "Parool ei tohi sisaldada sinu kasutajanime",
+            "contains_email": "Parool ei tohi sisaldada sinu e-posti infot"
+        }
     },
     "navigation": {
         "home": "Kodu",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Taastamisvõti loodud uuesti",
             "recovery_key_error": "Ei saanud taastamisvõtit uuesti luua",
             "account_delete_error": "Kontot ei saanud kustutada",
-            "backup_downloaded_encrypted": "Krüpteeritud varukoopia alla laaditud edukalt! ({{count}} eset)"
+            "backup_downloaded_encrypted": "Krüpteeritud varukoopia alla laaditud edukalt! ({{count}} eset)",
+            "policy_update_error": "Ei õnnestunud päringu seadeid uuendada.",
+            "policy_updated": "Päringu seaded on edukalt uuendatud.",
+            "unblock_error": "Kasutaja blokeeringu eemaldamine ebaõnnestus.",
+            "unblocked_success": "Kasutaja blokeeringu edukalt eemaldatud.",
+            "house_owner_transferred": "Maja omand üle antud",
+            "house_owner_transfer_error": "Maja omandiõigust ei saanud üle anda."
         },
         "user_profile": {
             "edit_username": "Muuda kasutajanime"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} ei oma enam juurdepääsu sellele majapidamisele.",
             "kick_title": "Eemaldada see liige?",
             "kick_warning": "Nende juurdepääs majapidamisele lõpeb koheselt ja nad vajavad uut kutset või kinnitust, et tagasi tulla.",
-            "kicking": "Eemaldamine..."
+            "kicking": "Eemaldamine...",
+            "access_section_eyebrow": "Maja ligipääs",
+            "transfer_owner": "Tee omanikuks",
+            "transferring_owner": "Üleviimine...",
+            "transfer_owner_title": "Maja omandi ülekandmine?",
+            "transfer_owner_confirm": "Kas selle majapidamise omandiõigus tuleb üle anda {{name}}-le?",
+            "transfer_owner_warning": "Sa ei ole enam selle majapidamise omanik. Uus omanik haldab liikmete kinnitusi, eemaldamisi ja tulevasi omandivahetusi.",
+            "transfer_owner_success_body": "{{name}} on nüüd selle majapidamise omanik."
         },
         "theme": {
             "title": "Teema",
@@ -729,7 +772,9 @@
             "light": "Valgustusrežiim",
             "description": "Vali, kuidas tööruum selles seadmes välja näeb.",
             "light_aria": "Lülitu valgusteemale",
-            "dark_aria": "Lülitu tumedale teemale"
+            "dark_aria": "Lülitu tumedale teemale",
+            "workspace_title": "Tööruumi teema",
+            "workspace_desc": "Vali selle seadme jaoks eelistatud visuaalne stiil."
         },
         "security": {
             "title": "Turvalisus",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Praegust taastamisvõtit ei saa kuvada. Vajaduse korral genereeri see uuesti.",
             "recovery_key_action": "Genereeri uuesti",
             "recovery_key_modal_desc": "Jätkamiseks kinnita oma praegune parool. Uus võti kuvatakse ainult üks kord.",
-            "recovery_key_loading": "Valmistamine..."
+            "recovery_key_loading": "Valmistamine...",
+            "accordion_title": "Turvalisus ja privaatsus",
+            "accordion_desc": "Halda kahefaktorilist autentimist, usaldusväärseid seadmeid ja laenutaotluse reegleid teistelt kontodelt.",
+            "description": "Halda oma peaparooli ja seifi taastamise konfiguratsioone.",
+            "change_password_detail": "Uuenda oma parool, et hoida oma konto turvaline",
+            "recovery_key_detail": "Kasutatakse varakambri taastamiseks, kui unustad parooli"
         },
         "data_management": {
             "title": "Andmete haldamine",
@@ -890,7 +940,8 @@
             "revoke_devices": "Usaldatud seadmete tühistamine",
             "revoke_devices_desc": "Eemalda kõik meelde jäänud seadmed, nõudes järgmisel sisselogimisel 2FA-d",
             "devices_revoked": "{{count}} usaldusväärset seadet eemaldatud",
-            "devices_error": "Seadmete tühistamine ebaõnnestus"
+            "devices_error": "Seadmete tühistamine ebaõnnestus",
+            "preparing_setup": "Valmistan autentimisseadet..."
         },
         "danger_zone": {
             "title": "Konto",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Kinnituse järel kaotate kohe juurdepääsu kontole ja kustutatud rakenduse andmeid ei saa rakendusest taastada.",
             "password_label": "Kinnita oma praeguse parooliga",
             "confirm_delete": "Kinnita kustutamine",
-            "deleting": "Kustutamine..."
+            "deleting": "Kustutamine...",
+            "description": "Kustuta oma konto ja eemalda jäädavalt kõik inventari andmestikud."
         },
         "language": "Keel",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Populaarsed keeled",
         "search_results": "Otsingutulemused",
         "current_language": "Praegune keel",
-        "languages_available": "saadaval olevad keeled"
+        "languages_available": "saadaval olevad keeled",
+        "borrow_requests": {
+            "accordion_eyebrow": "Laena taotlemise tagatis",
+            "accordion_eyebrow_desc": "Seadista päringu reegleid ja halda blokeeritud kasutajaid.",
+            "title": "Laenamistaotluse seaded",
+            "description": "Halda reegleid laenutaotluste vastuvõtmiseks teistelt kontodelt ja loetle blokeeritud kasutajad.",
+            "policy_title": "Uued laenutaotlused",
+            "policy_description": "Kontrolli, kes saavad sulle laenupäringuid saata. Sinu inventari ei näidata kunagi avalikus nimekirjas.",
+            "policy_none": "Ära võta kelleltki vastu (vaikimisi)",
+            "policy_house_only": "Ainult majapidamisliikmed",
+            "policy_everyone": "Kõik registreeritud kasutajad",
+            "blocks_title": "Blokeeritud kasutajad",
+            "blocks_description": "Kasutajad, keda oled blokeerinud, saatmast sulle uusi laenutaotlusi.",
+            "no_blocks": "Blokeeritud kasutajaid ei leitud.",
+            "unblock_btn": "Blokeeringu eemaldamine",
+            "policy_none_desc": "Kõik saabuvad päringud blokeeritakse automaatselt.",
+            "policy_house_only_desc": "Ainult sinu aktiivsete majade kinnitatud liikmed saavad taotleda esemeid, mis on juba selles jagatud majas nähtavad.",
+            "policy_everyone_desc": "Teised kasutajad ei saa sirvida ega näha sinu esemeid. Nad saavad saata ainult päringu, kui sisestavad otse sinu kasutajanime või e-posti aadressi."
+        }
     },
     "inventory": {
         "title": "Inventar",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Sinuga",
             "return_pending_hint": "Kannet suletakse pärast seda, kui laenuandja kinnitab, et nad on objekti tagasi saanud.",
             "return_pending_lender_title": "{{name}} märgitud see ese kui tagastatud",
-            "return_pending_self_title": "Sinuga, oodates kviitungi kinnitust"
+            "return_pending_self_title": "Sinuga, oodates kviitungi kinnitust",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Pealkirjata ese",
         "delete_action": "Kustuta ese",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Vastuvõtuleht",
             "return_note_placeholder_borrower": "nt Ma andsin selle probleemideta tagasi",
             "return_note_placeholder_lender": "näiteks tagasi saadud heas seisukorras",
-            "return_submitting": "Sulgemine..."
+            "return_submitting": "Sulgemine...",
+            "reject_title": "Tagasilükkamise taotlus",
+            "reject_subtitle": "Sa oled kohe keeldumas taotlusest \"{{item}}\".",
+            "reject_target": "Sa oled kohe lükkamas tagasi laenutaotluse aadressilt {{name}}.",
+            "reject_reason_label": "Tagasilükkamise põhjus",
+            "reject_submitting": "Lükkab tagasi...",
+            "due_date_label": "Planeeritud tagasituleku kuupäev"
         },
         "messages": {
             "load_error": "Laenamiskeskust ei õnnestunud laadida",
-            "action_error": "Tegevust ei õnnestunud lõpule viia"
+            "action_error": "Tegevust ei õnnestunud lõpule viia",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Sa saad saata samale inimesele ainult ühe esmakontakti välist päringut päevas. Kui nad aktsepteerivad päringu, siis see piirang sellele inimesele enam ei kehti.",
+                "external_total_daily_limit": "Sa saad saata kuni 5 esmakontakti välist päringut päevas.",
+                "external_request_requires_verified_email": "Veendu oma e-posti aadressi kinnitamises enne välist laenupäringute saatmist.",
+                "external_offer_blocked": "Sa saad pakkuda ese ainult maja liikmetele või registreeritud kasutajatele, keda saab otse tuvastada.",
+                "target_blocked_by_you": "Sa ei saa saata päringut kasutajale, keda oled blokeerinud.",
+                "recent_rejection_lock": "See kasutaja keeldus hiljutisest päringust. Sa saad saata uue päringu pärast 30 päeva."
+            }
         },
         "preview": {
             "title": "Eelvaate režiim",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Ükski nõudmine ei vaja sinu ülevaatust",
         "outgoing_empty_title": "Väljuvaid nõudmisi veel ei ole",
         "refreshing": "Taotluste ja aktiivsete laenude värskendamine...",
-        "loading_description": "Valmistatakse ette nõudmisi ja aktiivset laenu tegevust."
+        "loading_description": "Valmistatakse ette nõudmisi ja aktiivset laenu tegevust.",
+        "reasons": {
+            "rejected": "Tagasilükkamine (tavaline tagasilükkamine)",
+            "not_available": "Pole saadaval (Ese puudub / pole saadaval)",
+            "blocked": "Blokeeri ja lükka tagasi (Blokeerib selle kasutaja)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Privaatsuspoliitika",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Nutikalt hallake kõiki oma majapidamis(esemete)"
+        "tagline": "Nutikalt hallake kõiki oma majapidamis(esemete)",
+        "loading": "Laadin {{brandName}}",
+        "preparing_workspace": "Tööruumi ettevalmistamine..."
     },
     "nav": {
         "home": "Kodu",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Kustuta ajalugu",
-            "add_item": "Lisa ostunimekirja"
+            "add_item": "Lisa ostunimekirja",
+            "mark_completed": "Märgistus lõpetatuna",
+            "decrease_qty": "Vähenda kogust",
+            "increase_qty": "Suurenda kogust",
+            "delete_item": "Kustuta ese",
+            "reactivate_item": "Liigu tagasi aktiivsete nimekirja"
         },
         "form": {
             "add_type": "Lisa Meetod",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Sellele üksusele on kavandatud perioodiline või ühekordne hoolduse jälgimine.",
         "no_tasks": "Sellele üksusele pole määratud hooldustöid.",
         "confirm_delete": "See ülesanne kustutatakse. Kas olete kindel?"
+    },
+    "error_boundary": {
+        "title": "Midagi vajab värskendust",
+        "description": "Kasutajaliides tabas ootamatut renderdamisprobleemi. Sinu salvestatud inventariandmed ei muutu selle ekraani kaudu.",
+        "refresh_btn": "Värskenda",
+        "home_btn": "Kodu"
     }
 }

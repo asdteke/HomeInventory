@@ -186,7 +186,8 @@
         "hide": "Wachtwoord verbergen",
         "logging_out": "Uitloggen...",
         "show": "Wachtwoord tonen",
-        "saving": "Opslaan..."
+        "saving": "Opslaan...",
+        "disabled": "Gehandicapt"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Een huissleutel is vereist om een bestaand huis te kunnen aanbrengen",
         "house_key_not_found": "Ongeldige huissleutel. Voer alstublieft de juiste toets in.",
         "email_not_verified": "Je e-mailadres is nog niet geverifieerd. Controleer alsjeblieft je inbox.",
-        "two_factor_invalid": "De verificatiecode is onjuist"
+        "two_factor_invalid": "De verificatiecode is onjuist",
+        "two_factor_invalid_try_again": "Ongeldige verificatiecode. Probeer het alsjeblieft opnieuw.",
+        "two_factor_code_required": "Verificatiecode is vereist",
+        "two_factor_user_not_found": "Gebruiker niet gevonden",
+        "two_factor_already_enabled": "Tweefactorauthenticatie is al ingeschakeld",
+        "two_factor_setup_not_started": "Start alstublieft eerst met het instellen van tweefactorauthenticatie",
+        "two_factor_setup_error": "Er deed zich een fout op tijdens het instellen van tweefactorauthenticatie",
+        "two_factor_activation_error": "Er trad een fout op tijdens de activatie van tweefactorauthenticatie",
+        "two_factor_password_required": "Wachtwoord is vereist",
+        "two_factor_credentials_required": "TOTP-code, back-upcode of herstelsleutel is vereist",
+        "two_factor_already_disabled": "Tweefactorauthenticatie is al uitgeschakeld",
+        "two_factor_password_incorrect": "Onjuist wachtwoord",
+        "two_factor_verification_failed": "Verificatie mislukte. Controleer alsjeblieft de code en probeer het opnieuw.",
+        "two_factor_disable_error": "Er trad een fout op bij het uitschakelen van tweefactorauthenticatie",
+        "two_factor_not_enabled": "Tweefactorauthenticatie is niet ingeschakeld",
+        "two_factor_regenerate_codes_error": "Er trad een fout op tijdens het regenereren van back-upcodes",
+        "two_factor_enabled_success": "Tweefactorauthenticatie is succesvol ingeschakeld",
+        "two_factor_disabled_success": "Tweefactorauthenticatie is met succes uitgeschakeld",
+        "password_errors": {
+            "min_length": "Het wachtwoord moet minstens {{min}} tekens lang zijn",
+            "lowercase_required": "Het wachtwoord moet minstens één kleine letter bevatten",
+            "uppercase_required": "Het wachtwoord moet minstens één hoofdletter bevatten",
+            "number_required": "Het wachtwoord moet ten minste één nummer bevatten",
+            "symbol_required": "Het wachtwoord moet ten minste één symbool bevatten",
+            "repeated_chars": "Gebruik geen herhaalde tekens in je wachtwoord",
+            "predictable_sequence": "Gebruik geen makkelijk te raden reeksen in je wachtwoord",
+            "common_password": "Dit wachtwoord is te gebruikelijk en onveilig",
+            "contains_username": "Wachtwoord mag je gebruikersnaam niet bevatten",
+            "contains_email": "Het wachtwoord mag uw e-mailgegevens niet bevatten"
+        }
     },
     "navigation": {
         "home": "Startpagina",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Herstelsleutel opnieuw gegenereerd",
             "recovery_key_error": "Kon herstelsleutel niet opnieuw genereren",
             "account_delete_error": "Het account kon niet worden verwijderd",
-            "backup_downloaded_encrypted": "Versleutelde back-up succesvol gedownload! ({{count}} items)"
+            "backup_downloaded_encrypted": "Versleutelde back-up succesvol gedownload! ({{count}} items)",
+            "policy_update_error": "Niet kunnen de instellingen van het verzoek bijwerken.",
+            "policy_updated": "Verzoekinstellingen succesvol bijgewerkt.",
+            "unblock_error": "Gebruiker is niet kunnen deblokkeren.",
+            "unblocked_success": "Gebruiker succesvol gedeblokkeerd.",
+            "house_owner_transferred": "Eigendom van het huis overgedragen",
+            "house_owner_transfer_error": "Het eigendom van het huis kon niet worden overgedragen."
         },
         "user_profile": {
             "edit_username": "Wijzig gebruikersnaam"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} heeft geen toegang meer tot dit huishouden.",
             "kick_title": "Dit lid verwijderen?",
             "kick_warning": "Hun toegang tot het huishouden eindigt onmiddellijk en ze hebben een nieuwe uitnodiging of goedkeuring nodig om terug te keren.",
-            "kicking": "Verwijderen..."
+            "kicking": "Verwijderen...",
+            "access_section_eyebrow": "Toegang tot het huis",
+            "transfer_owner": "Maak eigenaar",
+            "transferring_owner": "Overplaatsing...",
+            "transfer_owner_title": "Eigenaar van het huis?",
+            "transfer_owner_confirm": "Het eigendom van dit huishouden overdragen aan {{name}}?",
+            "transfer_owner_warning": "Je zult niet langer de eigenaar van dit huishouden zijn. De nieuwe eigenaar zal de goedkeuringen, verwijderingen van leden en toekomstige eigendomswijzigingen beheren.",
+            "transfer_owner_success_body": "{{name}} is nu de eigenaar van dit huishouden."
         },
         "theme": {
             "title": "Thema",
@@ -729,7 +772,9 @@
             "light": "Lichte modus",
             "description": "Kies hoe de werkruimte eruitziet op dit apparaat.",
             "light_aria": "Overschakelen naar licht thema",
-            "dark_aria": "Overschakelen naar donker thema"
+            "dark_aria": "Overschakelen naar donker thema",
+            "workspace_title": "Werkruimtethema",
+            "workspace_desc": "Kies je favoriete visuele stijl voor dit apparaat."
         },
         "security": {
             "title": "Beveiliging",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "De huidige herstelcode kan niet worden weergegeven. Genereer een nieuwe indien nodig.",
             "recovery_key_action": "Opnieuw genereren",
             "recovery_key_modal_desc": "Bevestig je huidige wachtwoord om door te gaan. De nieuwe sleutel wordt slechts één keer weergegeven.",
-            "recovery_key_loading": "Voorbereiden..."
+            "recovery_key_loading": "Voorbereiden...",
+            "accordion_title": "Beveiliging en privacy",
+            "accordion_desc": "Beheer tweefactorauthenticatie, vertrouwde apparaten en leenverzoekregels van andere accounts.",
+            "description": "Beheer je hoofdwachtwoord en kluisherstelconfiguraties.",
+            "change_password_detail": "Werk je wachtwoord bij om je account veilig te houden",
+            "recovery_key_detail": "Gebruikt om je kluis terug te krijgen als je je wachtwoord vergeet"
         },
         "data_management": {
             "title": "Gegevensbeheer",
@@ -785,10 +835,10 @@
             "owner_only_desc": "Het maken van een back-up van gegevens en het herstellen daarvan kan alleen worden beheerd door de huiseigenaar."
         },
         "about": {
-            "title": "📱 Over de applicatie",
+            "title": "Over de applicatie",
             "version": "Versie",
             "brand": "Merk",
-            "feedback": "✉️ Feedback Verzenden",
+            "feedback": "Feedback Verzenden",
             "legal_title": "Wettelijke documenten",
             "legal_description": "Je kunt de voorwaarden en privac teksten hier opnieuw openen, zelfs nadat je ze hebt geaccepteerd.",
             "terms_link": "Gebruiksvoorwaarden",
@@ -890,7 +940,8 @@
             "revoke_devices": "Vertrouwde apparaten intrekken",
             "revoke_devices_desc": "Verwijder alle onthouden apparaten, waardoor 2FA bij de volgende aanmelding vereist is",
             "devices_revoked": "{{count}} vertrouwd apparaat(en) verwijderd",
-            "devices_error": "Kon apparaten niet intrekken"
+            "devices_error": "Kon apparaten niet intrekken",
+            "preparing_setup": "Je authenticator-installatie voorbereiden..."
         },
         "danger_zone": {
             "title": "Verslag",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Na bevestiging verlies je onmiddellijk toegang tot het account en de verwijderde applicatiegegevens kunnen niet vanuit de app worden hersteld.",
             "password_label": "Bevestig met je huidige wachtwoord",
             "confirm_delete": "Bevestig verwijdering",
-            "deleting": "Verwijderen..."
+            "deleting": "Verwijderen...",
+            "description": "Verwijder je account en verwijder permanent alle inventarisdatasets."
         },
         "language": "Taal",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Populaire talen",
         "search_results": "Zoekresultaten",
         "current_language": "Huidige taal",
-        "languages_available": "beschikbare talen"
+        "languages_available": "beschikbare talen",
+        "borrow_requests": {
+            "accordion_eyebrow": "Leenverzoek beveiliging",
+            "accordion_eyebrow_desc": "Configureer verzoekregels en beheer geblokkeerde gebruikers.",
+            "title": "Leenverzoekinstellingen",
+            "description": "Beheer regels voor het ontvangen van leenverzoeken van andere accounts en vermeld geblokkeerde gebruikers.",
+            "policy_title": "Nieuwe Leenverzoeken",
+            "policy_description": "Beheer wie leenverzoeken naar jou kan sturen. Je inventaris wordt nooit als openbare lijst getoond.",
+            "policy_none": "Ontvang van niemand (Standaard)",
+            "policy_house_only": "Alleen huishoudelijke leden",
+            "policy_everyone": "Alle geregistreerde gebruikers",
+            "blocks_title": "Geblokkeerde gebruikers",
+            "blocks_description": "Gebruikers die je hebt geblokkeerd om je nieuwe leenverzoeken te sturen.",
+            "no_blocks": "Geen geblokkeerde gebruikers gevonden.",
+            "unblock_btn": "Ontblokkeren",
+            "policy_none_desc": "Alle binnenkomende verzoeken worden automatisch geblokkeerd.",
+            "policy_house_only_desc": "Alleen geverifieerde leden van je actieve huizen kunnen items aanvragen die al zichtbaar zijn binnen dat gedeelde huis.",
+            "policy_everyone_desc": "Andere gebruikers kunnen je items niet doorzoeken of zien. Ze kunnen alleen een verzoek sturen door je gebruikersnaam of e-mailadres direct in te voeren."
+        }
     },
     "inventory": {
         "title": "Inventaris",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Bij jou",
             "return_pending_hint": "Het record wordt gesloten nadat de lener heeft bevestigd dat ze het item hebben terugontvangen.",
             "return_pending_lender_title": "{{name}} heeft dit item als teruggeleverd gemarkeerd",
-            "return_pending_self_title": "Bij jou, wachtend op ontvangstbevestiging"
+            "return_pending_self_title": "Bij jou, wachtend op ontvangstbevestiging",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Ongetiteld item",
         "delete_action": "Item verwijderen",
@@ -1851,7 +1926,7 @@
             "bodyLine2": "Wachten op goedkeuring van huis eigenaar"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{merknaam}} - {{status}}",
             "greeting": "Toegang tot huis",
             "bodyLine1Template": "Huidig in behandeling zijnd verzoek: {{house}} ({{status}})",
             "bodyLine2": "Uw verzoek voor \"{{house}}\" wacht nog op een beslissing.",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Ontvang nota",
             "return_note_placeholder_borrower": "bijv. Ik heb het zonder problemen teruggegeven",
             "return_note_placeholder_lender": "bijv. Terug ontvangen in goede staat",
-            "return_submitting": "Afsluiten..."
+            "return_submitting": "Afsluiten...",
+            "reject_title": "Verzoek afwijzen",
+            "reject_subtitle": "Je staat op het punt het verzoek om \"{{item}}\" af te wijzen.",
+            "reject_target": "Je staat op het punt het leenverzoek van {{name}} te weigeren.",
+            "reject_reason_label": "Reden voor afwijzing",
+            "reject_submitting": "Afwijzen...",
+            "due_date_label": "Geplande terugkeerdatum"
         },
         "messages": {
             "load_error": "Leencentrum kon niet worden geladen",
-            "action_error": "De actie kon niet worden voltooid"
+            "action_error": "De actie kon niet worden voltooid",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Je kunt slechts één eerste-contact extern verzoek per dag naar dezelfde persoon sturen. Als ze een verzoek accepteren, geldt deze limiet niet meer voor die persoon.",
+                "external_total_daily_limit": "Je kunt maximaal 5 eerste-contact externe verzoeken per dag versturen.",
+                "external_request_requires_verified_email": "Verifieer je e-mailadres voordat je externe leenverzoeken stuurt.",
+                "external_offer_blocked": "Je kunt een item alleen aanbieden aan huisleden of geregistreerde gebruikers die direct geïdentificeerd kunnen worden.",
+                "target_blocked_by_you": "Je kunt geen verzoek sturen naar een gebruiker die je hebt geblokkeerd.",
+                "recent_rejection_lock": "Deze gebruiker heeft een recent verzoek afgewezen. Je kunt over 30 dagen een nieuw verzoek sturen."
+            }
         },
         "preview": {
             "title": "Voorbeeldweergave",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Geen verzoeken hoeven worden beoordeeld",
         "outgoing_empty_title": "Nog geen uitgaande verzoeken",
         "refreshing": "Verzoeken en actieve leningen worden vernieuwd...",
-        "loading_description": "Verzoeken voorbereiden en actieve uitleningsactiviteiten."
+        "loading_description": "Verzoeken voorbereiden en actieve uitleningsactiviteiten.",
+        "reasons": {
+            "rejected": "Afwijzen (normale afwijzing)",
+            "not_available": "Niet beschikbaar (Item ontbreekt / niet beschikbaar)",
+            "blocked": "Blokkeren en weigeren (Blokkeert deze gebruiker)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Privacybeleid",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{merknaam}}",
-        "tagline": "Beheer al je huishoudelijke artikelen slim"
+        "tagline": "Beheer al je huishoudelijke artikelen slim",
+        "loading": "Laden {{brandName}}",
+        "preparing_workspace": "Je werkplek voorbereiden..."
     },
     "nav": {
         "home": "Startpagina",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Geschiedenis wissen",
-            "add_item": "Toevoegen aan boodschappenlijst"
+            "add_item": "Toevoegen aan boodschappenlijst",
+            "mark_completed": "Markeer als voltooid",
+            "decrease_qty": "Vermindering van de hoeveelheid",
+            "increase_qty": "Verhoog de hoeveelheid",
+            "delete_item": "Verwijder item",
+            "reactivate_item": "Terugkeren naar actieve lijst"
         },
         "form": {
             "add_type": "Voeg methode toe",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Periodiek of eenmalig onderhoud bijhouden dat voor dit item is gepland.",
         "no_tasks": "Geen onderhoudstaken toegewezen aan dit item.",
         "confirm_delete": "Deze taak zal worden verwijderd. Weet je het zeker?"
+    },
+    "error_boundary": {
+        "title": "Er moet iets vernieuwd worden",
+        "description": "De interface kreeg een onverwacht renderingprobleem. Je opgeslagen inventarisgegevens worden niet gewijzigd door dit scherm.",
+        "refresh_btn": "Verversen",
+        "home_btn": "Home"
     }
 }

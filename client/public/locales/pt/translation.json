@@ -49,7 +49,8 @@
         "hide": "Ocultar senha",
         "logging_out": "Saindo...",
         "show": "Mostrar senha",
-        "saving": "Salvando..."
+        "saving": "Salvando...",
+        "disabled": "Deficiente"
     },
     "auth": {
         "login": {
@@ -298,7 +299,36 @@
         "join_house_key_required": "Uma Chave da Casa é necessária para unir uma casa existente",
         "house_key_not_found": "Chave da Casa Inválida. Por favor, insira a chave correta.",
         "email_not_verified": "Seu endereço de e-mail ainda não foi verificado. Por favor, verifique sua caixa de entrada.",
-        "two_factor_invalid": "O código de verificação está incorreto"
+        "two_factor_invalid": "O código de verificação está incorreto",
+        "two_factor_invalid_try_again": "Código de verificação inválido. Por favor, tente novamente.",
+        "two_factor_code_required": "Código de verificação é necessário",
+        "two_factor_user_not_found": "Usuário não encontrado",
+        "two_factor_already_enabled": "A autenticação em dois fatores já está habilitada",
+        "two_factor_setup_not_started": "Por favor, inicie primeiro a configuração de autenticação em dois fatores",
+        "two_factor_setup_error": "Um erro ocorreu durante a configuração da autenticação em dois fatores",
+        "two_factor_activation_error": "Ocorreu um erro durante a ativação da autenticação em dois fatores",
+        "two_factor_password_required": "A senha é necessária",
+        "two_factor_credentials_required": "Código TOTP, código de backup ou chave de recuperação são necessários",
+        "two_factor_already_disabled": "A autenticação de dois fatores já está desativada",
+        "two_factor_password_incorrect": "Senha incorreta",
+        "two_factor_verification_failed": "A verificação falhou. Por favor, verifique o código e tente novamente.",
+        "two_factor_disable_error": "Ocorreu um erro ao desativar a autenticação de dois fatores",
+        "two_factor_not_enabled": "A autenticação de dois fatores não está habilitada",
+        "two_factor_regenerate_codes_error": "Um erro ocorreu ao regenerar códigos de backup",
+        "two_factor_enabled_success": "A autenticação em dois fatores foi ativada com sucesso",
+        "two_factor_disabled_success": "A autenticação de dois fatores foi desativada com sucesso",
+        "password_errors": {
+            "min_length": "A senha deve ter pelo menos {{min}} caracteres",
+            "lowercase_required": "A senha deve conter pelo menos uma letra minúscula",
+            "uppercase_required": "A senha deve conter pelo menos uma letra maiúscula",
+            "number_required": "A senha deve incluir pelo menos um número",
+            "symbol_required": "A senha deve incluir pelo menos um símbolo",
+            "repeated_chars": "Não use caracteres repetidos na sua senha",
+            "predictable_sequence": "Não use sequências fáceis de adivinhar na sua senha",
+            "common_password": "Essa senha é muito comum e perigosa",
+            "contains_username": "A senha não deve conter seu nome de usuário",
+            "contains_email": "A senha não deve conter suas informações de e-mail"
+        }
     },
     "navigation": {
         "home": "Início",
@@ -310,7 +340,7 @@
         "share_house": "Compartilhar Casa",
         "admin_panel": "Painel Administrativo",
         "logout": "Sair",
-        "menu": "Menu",
+        "menu": "Cardápio",
         "personal_vault": "Cofre Pessoal",
         "borrow_requests": "Solicitações de Empréstimo",
         "scan_item_qr": "QR do item",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Chave de recuperação regenerada",
             "recovery_key_error": "Não foi possível regenerar a chave de recuperação",
             "account_delete_error": "A conta não pôde ser deletada",
-            "backup_downloaded_encrypted": "Backup criptografado baixado com sucesso! ({{count}} itens)"
+            "backup_downloaded_encrypted": "Backup criptografado baixado com sucesso! ({{count}} itens)",
+            "policy_update_error": "Falhou em atualizar as configurações de solicitação.",
+            "policy_updated": "Configurações de solicitação atualizadas com sucesso.",
+            "unblock_error": "Falhou em desbloquear o usuário.",
+            "unblocked_success": "Usuário desbloqueado com sucesso.",
+            "house_owner_transferred": "Transferência da propriedade da casa",
+            "house_owner_transfer_error": "A propriedade da casa não pôde ser transferida."
         },
         "user_profile": {
             "edit_username": "Alterar nome de usuário"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} não tem mais acesso a esta residência.",
             "kick_title": "Remover este membro?",
             "kick_warning": "O acesso deles à residência terminará imediatamente e será necessário um novo convite ou aprovação para retornar.",
-            "kicking": "Removendo..."
+            "kicking": "Removendo...",
+            "access_section_eyebrow": "Acesso à casa",
+            "transfer_owner": "Faça o proprietário",
+            "transferring_owner": "Transferindo...",
+            "transfer_owner_title": "Transferir a propriedade da casa?",
+            "transfer_owner_confirm": "Transferir a propriedade dessa casa para {{name}}?",
+            "transfer_owner_warning": "Você não será mais o dono desta casa. O novo proprietário irá gerenciar as aprovações, remoções e futuras mudanças de proprietário dos membros.",
+            "transfer_owner_success_body": "{{name}} agora é o dono desta casa."
         },
         "theme": {
             "title": "Tema",
@@ -729,7 +772,9 @@
             "light": "Modo claro",
             "description": "Escolha como o espaço de trabalho aparece neste dispositivo.",
             "light_aria": "Trocar para o tema claro",
-            "dark_aria": "Trocar para o tema escuro"
+            "dark_aria": "Trocar para o tema escuro",
+            "workspace_title": "Tema do Workspace",
+            "workspace_desc": "Selecione o estilo visual que preferir para este dispositivo."
         },
         "security": {
             "title": "Segurança",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "A chave de recuperação atual não pode ser exibida. Gere-a novamente se necessário.",
             "recovery_key_action": "Regenerar",
             "recovery_key_modal_desc": "Confirme sua senha atual para continuar. A nova chave será mostrada apenas uma vez.",
-            "recovery_key_loading": "Preparando..."
+            "recovery_key_loading": "Preparando...",
+            "accordion_title": "Segurança e privacidade",
+            "accordion_desc": "Gerencie autenticação em dois fatores, dispositivos confiáveis e regras de solicitação de empréstimos de outras contas.",
+            "description": "Gerencie sua senha mestra e configurações de recuperação do cofre.",
+            "change_password_detail": "Atualize sua senha para manter sua conta segura",
+            "recovery_key_detail": "Usado para recuperar seu cofre se você esquecer a senha"
         },
         "data_management": {
             "title": "Gerenciamento de dados",
@@ -785,17 +835,17 @@
             "owner_only_desc": "O backup e a restauração de dados só podem ser gerenciados pelo proprietário da casa."
         },
         "about": {
-            "title": "📱 Sobre o aplicativo",
+            "title": "Sobre o aplicativo",
             "version": "Versão",
             "brand": "Marca",
-            "feedback": "✉️ Enviar feedback",
+            "feedback": "Enviar feedback",
             "legal_title": "Documentos legais",
             "legal_description": "Você pode abrir os textos de termos e privacidade daqui mesmo depois de aceitá-los.",
             "terms_link": "Termos de Serviço",
             "privacy_link": "Política de Privacidade",
             "beta_title": "Status beta",
             "beta_body": "{{brandName}} ainda está em beta. Os recursos podem mudar, os fluxos de trabalho podem evoluir e os dados importantes da casa sempre devem ser copiados.",
-            "feedback_subject": "Feedback - {{brandName}}",
+            "feedback_subject": "Feedback - {{NomeMarca}}",
             "logout_body": "Quaisquer alterações não salvas em formulários abertos podem ser perdidas após você sair desta sessão.",
             "logout_description": "Você retornará à página inicial e poderá entrar novamente a qualquer momento.",
             "logout_title": "Sair agora?"
@@ -890,7 +940,8 @@
             "revoke_devices": "Revogar Dispositivos Confiáveis",
             "revoke_devices_desc": "Remover todos os dispositivos lembrados, exigindo 2FA no próximo login",
             "devices_revoked": "{{count}} dispositivo(s) confiável(is) removido(s)",
-            "devices_error": "Falha ao revogar dispositivos"
+            "devices_error": "Falha ao revogar dispositivos",
+            "preparing_setup": "Preparando seu setup de autenticador..."
         },
         "danger_zone": {
             "title": "Conta",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Após a confirmação, você perderá imediatamente o acesso à conta e os dados do aplicativo excluídos não poderão ser restaurados pelo aplicativo.",
             "password_label": "Confirme com sua senha atual",
             "confirm_delete": "Confirmar exclusão",
-            "deleting": "Excluindo..."
+            "deleting": "Excluindo...",
+            "description": "Exclua sua conta e remova permanentemente todos os conjuntos de dados de inventário."
         },
         "language": "Idioma",
         "control_sections": {
@@ -952,7 +1004,7 @@
         "share_key": "Compartilhar Chave",
         "house_members": "Membros da Casa",
         "change_password": "Alterar Senha",
-        "backup": "Backup",
+        "backup": "Reserva",
         "export_data": "Exportar Dados",
         "import_data": "Importar Dados",
         "notifications": "Notificações",
@@ -962,7 +1014,25 @@
         "popular_languages": "Idiomas Populares",
         "search_results": "Resultados da Pesquisa",
         "current_language": "Idioma atual",
-        "languages_available": "idiomas disponíveis"
+        "languages_available": "idiomas disponíveis",
+        "borrow_requests": {
+            "accordion_eyebrow": "Garantia de pedido de empréstimo",
+            "accordion_eyebrow_desc": "Configure regras de solicitação e gerencie usuários bloqueados.",
+            "title": "Configurações de solicitação de empréstimo",
+            "description": "Gerencie as regras para receber pedidos de empréstimo de outras contas e liste usuários bloqueados.",
+            "policy_title": "Novos Pedidos de Empréstimo",
+            "policy_description": "Controle quem pode enviar solicitações de empréstimo para você. Seu inventário nunca é exibido como uma lista pública.",
+            "policy_none": "Não receber de ninguém (Padrão)",
+            "policy_house_only": "Apenas membros da família",
+            "policy_everyone": "Todos os usuários registrados",
+            "blocks_title": "Usuários Bloqueados",
+            "blocks_description": "Usuários que você bloqueou para que não enviem novos pedidos de empréstimo.",
+            "no_blocks": "Nenhum usuário bloqueado encontrado.",
+            "unblock_btn": "Destravar",
+            "policy_none_desc": "Todas as solicitações recebidas são bloqueadas automaticamente.",
+            "policy_house_only_desc": "Apenas membros verificados das suas casas ativas podem solicitar itens que já estão visíveis dentro dessa casa compartilhada.",
+            "policy_everyone_desc": "Outros usuários não podem navegar ou ver seus itens. Eles só podem enviar uma solicitação inserindo seu nome de usuário ou e-mail diretamente."
+        }
     },
     "inventory": {
         "title": "Inventário",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Com você",
             "return_pending_hint": "O registro será fechado após o credor confirmar que recebeu o item de volta.",
             "return_pending_lender_title": "{{name}} marcou este item como entregue de volta",
-            "return_pending_self_title": "Com você, aguardando confirmação de recebimento"
+            "return_pending_self_title": "Com você, aguardando confirmação de recebimento",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Item sem título",
         "delete_action": "Excluir item",
@@ -1880,7 +1955,7 @@
         },
         "adminEmail": {
             "sentBy": "Este e-mail foi enviado por {{brandName}}.",
-            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
+            "footer": "© 2026 {{NomeMarca}} - {{supportEmail}}"
         },
         "testEmail": {
             "subject": "🧪 E-mail de Teste {{brandName}}",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Nota de recebimento",
             "return_note_placeholder_borrower": "por exemplo, eu devolvi sem nenhum problema",
             "return_note_placeholder_lender": "por exemplo, Recebido de volta em boas condições",
-            "return_submitting": "Fechando..."
+            "return_submitting": "Fechando...",
+            "reject_title": "Pedido de Rejeição",
+            "reject_subtitle": "Você está prestes a rejeitar o pedido de \"{{item}}\".",
+            "reject_target": "Você está prestes a rejeitar o pedido de empréstimo enviado por {{name}}.",
+            "reject_reason_label": "Motivo da Rejeição",
+            "reject_submitting": "Rejeitando...",
+            "due_date_label": "Data planejada de retorno"
         },
         "messages": {
             "load_error": "O centro de empréstimos não pôde ser carregado",
-            "action_error": "A ação não pôde ser concluída"
+            "action_error": "A ação não pôde ser concluída",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Você só pode enviar uma primeira solicitação externa para a mesma pessoa por dia. Se ela aceitar a solicitação, esse limite não se aplica mais a essa pessoa.",
+                "external_total_daily_limit": "Você pode enviar até 5 primeiras solicitações externas por dia.",
+                "external_request_requires_verified_email": "Verifique seu endereço de e-mail antes de enviar solicitações de empréstimo externas.",
+                "external_offer_blocked": "Você só pode oferecer um item para membros da casa ou usuários registrados que possam ser identificados diretamente.",
+                "target_blocked_by_you": "Você não pode enviar uma solicitação para um usuário que você bloqueou.",
+                "recent_rejection_lock": "Este usuário rejeitou uma solicitação recente. Você pode enviar outra solicitação após 30 dias."
+            }
         },
         "preview": {
             "title": "Modo de visualização",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Nenhum pedido precisa da sua análise",
         "outgoing_empty_title": "Ainda não há pedidos enviados",
         "refreshing": "Atualizando pedidos e empréstimos ativos...",
-        "loading_description": "Preparando solicitações e atividades de empréstimo ativas."
+        "loading_description": "Preparando solicitações e atividades de empréstimo ativas.",
+        "reasons": {
+            "rejected": "Rejeitar (Rejeição normal)",
+            "not_available": "Não disponível (Item faltando / não disponível)",
+            "blocked": "Bloquear e rejeitar (Bloqueia este usuário)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Política de Privacidade",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{nomedamarca}}",
-        "tagline": "Gerencie inteligentemente todos os itens da sua casa"
+        "tagline": "Gerencie inteligentemente todos os itens da sua casa",
+        "loading": "Carregando {{brandName}}",
+        "preparing_workspace": "Preparando seu espaço de trabalho..."
     },
     "nav": {
         "home": "Início",
@@ -2187,7 +2284,7 @@
         "admin_panel": "Painel Administrativo",
         "share_house": "Compartilhar Casa",
         "new_item": "Novo Item",
-        "menu": "Menu",
+        "menu": "Cardápio",
         "help": "Ajuda e Suporte"
     },
     "theme": {
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Limpar Histórico",
-            "add_item": "Adicionar à Lista de Compras"
+            "add_item": "Adicionar à Lista de Compras",
+            "mark_completed": "Marque como concluído",
+            "decrease_qty": "Diminuir a quantidade",
+            "increase_qty": "Aumentar a quantidade",
+            "delete_item": "Excluir item",
+            "reactivate_item": "Voltar para a lista ativa"
         },
         "form": {
             "add_type": "Adicionar Método",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Acompanhamento de manutenção periódica ou única programada para este item.",
         "no_tasks": "Nenhuma tarefa de manutenção atribuída a este item.",
         "confirm_delete": "Esta tarefa será excluída. Você tem certeza?"
+    },
+    "error_boundary": {
+        "title": "Algo precisa de uma atualização",
+        "description": "A interface teve um problema inesperado de renderização. Seus dados de inventário salvos não são alterados por esta tela.",
+        "refresh_btn": "Atualizar",
+        "home_btn": "Casa"
     }
 }

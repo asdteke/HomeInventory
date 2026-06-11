@@ -1273,10 +1273,12 @@ export default function PersonalVault() {
                     <p className="mt-2 text-[var(--hi-text-soft)]">{t('vault.subtitle')}</p>
                 </div>
                 <div className="flex flex-wrap items-center gap-3">
-                    <span className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium ${vaultUnlocked ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300' : 'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-300'}`}>
-                        {vaultUnlocked ? <ShieldCheck className="h-4 w-4" /> : <ShieldAlert className="h-4 w-4" />}
-                        {vaultUnlocked ? t('vault.status_unlocked') : t('vault.status_locked')}
-                    </span>
+                    {vaultConfigured && (
+                        <span className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium ${vaultUnlocked ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300' : 'bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-300'}`}>
+                            {vaultUnlocked ? <ShieldCheck className="h-4 w-4" /> : <ShieldAlert className="h-4 w-4" />}
+                            {vaultUnlocked ? t('vault.status_unlocked') : t('vault.status_locked')}
+                        </span>
+                    )}
                     {vaultConfigured && vaultUnlocked && (
                         <button type="button" onClick={lockVault} className="btn-secondary inline-flex items-center gap-2">
                             <Lock className="h-4 w-4" />

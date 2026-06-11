@@ -271,6 +271,84 @@ test('shared-house backups are limited to the house owner', async (t) => {
     assert.equal(ownerExport.data.version, '1.3');
 });
 
+test('house owner can transfer ownership to another active member', async (t) => {
+    const { port, directDb } = await startTestServer(t);
+    const ownerJar = new CookieJar();
+    const memberJar = new CookieJar();
+
+    const registerOwner = await requestJson(port, '/api/auth/register', {
+        method: 'POST',
+        body: {
+            username: 'transferowner',
+            email: 'transfer-owner@example.com',
+            password: 'Stronger!Pass123',
+            mode: 'create',
+            acceptedTerms: true,
+            acknowledgedPrivacyNotice: true
+        }
+    }, ownerJar);
+    assert.equal(registerOwner.status, 201);
+
+    const registerMember = await requestJson(port, '/api/auth/register', {
+        method: 'POST',
+        body: {
+            username: 'transfermember',
+            email: 'transfer-member@example.com',
+            password: 'Stronger!Pass123',
+            mode: 'create',
+            acceptedTerms: true,
+            acknowledgedPrivacyNotice: true
+        }
+    }, memberJar);
+    assert.equal(registerMember.status, 201);
+
+    const ownerId = registerOwner.data.user.id;
+    const memberId = registerMember.data.user.id;
+    const ownerHouse = directDb.prepare(`
+        SELECT house_key, house_name
+        FROM user_houses
+        WHERE user_id = ? AND is_owner = 1
+        LIMIT 1
+    `).get(ownerId);
+
+    directDb.prepare(`
+        INSERT OR IGNORE INTO user_houses (user_id, house_key, house_name, is_owner)
+        VALUES (?, ?, ?, 0)
+    `).run(memberId, ownerHouse.house_key, ownerHouse.house_name);
+    directDb.prepare(`
+        UPDATE users
+        SET house_key = ?, active_house_key = ?
+        WHERE id = ?
+    `).run(ownerHouse.house_key, ownerHouse.house_key, memberId);
+
+    const transferResponse = await requestJson(port, `/api/houses/members/${memberId}/transfer-owner`, {
+        method: 'POST'
+    }, ownerJar);
+    assert.equal(transferResponse.status, 200);
+
+    const ownerMembership = directDb.prepare(`
+        SELECT is_owner
+        FROM user_houses
+        WHERE user_id = ? AND house_key = ?
+    `).get(ownerId, ownerHouse.house_key);
+    const memberMembership = directDb.prepare(`
+        SELECT is_owner
+        FROM user_houses
+        WHERE user_id = ? AND house_key = ?
+    `).get(memberId, ownerHouse.house_key);
+    assert.equal(ownerMembership.is_owner, 0);
+    assert.equal(memberMembership.is_owner, 1);
+
+    const oldOwnerKickAttempt = await requestJson(port, `/api/houses/members/${memberId}/kick`, {
+        method: 'POST'
+    }, ownerJar);
+    assert.equal(oldOwnerKickAttempt.status, 403);
+
+    const newOwnerMembers = await requestJson(port, '/api/houses/members', {}, memberJar);
+    assert.equal(newOwnerMembers.status, 200);
+    assert.equal(newOwnerMembers.data.viewerCanManageMembers, true);
+});
+
 test('login attempts lock the account after repeated failures', async (t) => {
     const { port, directDb } = await startTestServer(t);
 
@@ -605,6 +683,140 @@ test('same-house member loans require borrower acceptance before becoming active
     assert.equal(returnedAfterOwnerConfirmation.returned_by_user_id, ownerId);
     assert.ok(returnedAfterOwnerConfirmation.return_requested_at);
     assert.equal(returnedAfterOwnerConfirmation.return_requested_by_user_id, borrowerId);
+});
+
+test('site member item loans notify eligible recipients before becoming active', async (t) => {
+    const { port, directDb } = await startTestServer(t);
+    const ownerJar = new CookieJar();
+    const borrowerJar = new CookieJar();
+
+    const registerOwner = await requestJson(port, '/api/auth/register', {
+        method: 'POST',
+        body: {
+            username: 'siteofferowner',
+            email: 'siteofferowner@example.com',
+            password: 'Stronger!Pass123',
+            mode: 'create',
+            acceptedTerms: true,
+            acknowledgedPrivacyNotice: true
+        }
+    }, ownerJar);
+    assert.equal(registerOwner.status, 201);
+
+    const registerBorrower = await requestJson(port, '/api/auth/register', {
+        method: 'POST',
+        body: {
+            username: 'siteofferborrower',
+            email: 'siteofferborrower@example.com',
+            password: 'Stronger!Pass123',
+            mode: 'create',
+            acceptedTerms: true,
+            acknowledgedPrivacyNotice: true
+        }
+    }, borrowerJar);
+    assert.equal(registerBorrower.status, 201);
+
+    const ownerId = registerOwner.data.user.id;
+    const borrowerId = registerBorrower.data.user.id;
+    assert.notEqual(registerOwner.data.user.house_key, registerBorrower.data.user.house_key);
+
+    const policyRes = await requestJson(port, '/api/borrow-requests/policy', {
+        method: 'POST',
+        body: { policy: 'everyone' }
+    }, borrowerJar);
+    assert.equal(policyRes.status, 200);
+
+    const createItem = await requestJson(port, '/api/items', {
+        method: 'POST',
+        body: {
+            name: 'Cross-site approval item',
+            quantity: 1
+        }
+    }, ownerJar);
+    assert.equal(createItem.status, 201);
+
+    const lendToSiteMember = await requestJson(port, `/api/items/${createItem.data.item.id}/borrow`, {
+        method: 'POST',
+        body: {
+            borrower_type: 'site_member',
+            borrower_identifier: 'siteofferborrower@example.com',
+            note: 'Cross-site approval first'
+        }
+    }, ownerJar);
+    assert.equal(lendToSiteMember.status, 202);
+    assert.equal(lendToSiteMember.data.request.status, 'pending');
+    assert.ok(lendToSiteMember.data.request.id > 0);
+
+    const activeBeforeApproval = directDb.prepare(`
+        SELECT id
+        FROM item_borrows
+        WHERE item_id = ? AND returned_at IS NULL
+    `).get(createItem.data.item.id);
+    assert.equal(activeBeforeApproval, undefined);
+
+    const pendingRequest = directDb.prepare(`
+        SELECT id, status, direction, initiator_user_id, recipient_user_id, borrow_id
+        FROM borrow_requests
+        WHERE item_id = ?
+        LIMIT 1
+    `).get(createItem.data.item.id);
+    assert.equal(pendingRequest.status, 'pending');
+    assert.equal(pendingRequest.direction, 'offer');
+    assert.equal(pendingRequest.initiator_user_id, ownerId);
+    assert.equal(pendingRequest.recipient_user_id, borrowerId);
+    assert.equal(pendingRequest.borrow_id, null);
+
+    const borrowerOverviewBefore = await requestJson(port, '/api/borrow-requests', {
+        method: 'GET'
+    }, borrowerJar);
+    assert.equal(borrowerOverviewBefore.status, 200);
+    assert.equal(borrowerOverviewBefore.data.counts.incomingPending, 1);
+    assert.equal(borrowerOverviewBefore.data.requests[0].viewer_role, 'recipient');
+    assert.equal(borrowerOverviewBefore.data.requests[0].can_accept, true);
+
+    const acceptOffer = await requestJson(port, `/api/borrow-requests/${pendingRequest.id}/accept`, {
+        method: 'POST'
+    }, borrowerJar);
+    assert.equal(acceptOffer.status, 200);
+    assert.equal(acceptOffer.data.request.status, 'accepted');
+
+    const activeAfterApproval = directDb.prepare(`
+        SELECT id, borrower_type, borrower_user_id, lent_by_user_id
+        FROM item_borrows
+        WHERE item_id = ? AND returned_at IS NULL
+        LIMIT 1
+    `).get(createItem.data.item.id);
+    assert.equal(activeAfterApproval.borrower_type, 'member');
+    assert.equal(activeAfterApproval.borrower_user_id, borrowerId);
+    assert.equal(activeAfterApproval.lent_by_user_id, ownerId);
+
+    const borrowerOverviewAfter = await requestJson(port, '/api/borrow-requests', {
+        method: 'GET'
+    }, borrowerJar);
+    assert.equal(borrowerOverviewAfter.status, 200);
+    assert.equal(borrowerOverviewAfter.data.activeBorrows.length, 1);
+    assert.equal(borrowerOverviewAfter.data.activeBorrows[0].role, 'borrower');
+
+    const borrowerDelivered = await requestJson(port, `/api/borrow-requests/active-borrows/${activeAfterApproval.id}/return`, {
+        method: 'POST',
+        body: {
+            return_note: 'I handed it back'
+        }
+    }, borrowerJar);
+    assert.equal(borrowerDelivered.status, 200);
+    assert.match(borrowerDelivered.data.message, /teslim bildirimi/i);
+    assert.equal(borrowerDelivered.data.borrow.returned_at, null);
+    assert.ok(borrowerDelivered.data.borrow.return_requested_at);
+
+    const pendingReturn = directDb.prepare(`
+        SELECT returned_at, return_requested_at, return_requested_by_user_id
+        FROM item_borrows
+        WHERE id = ?
+        LIMIT 1
+    `).get(activeAfterApproval.id);
+    assert.equal(pendingReturn.returned_at, null);
+    assert.ok(pendingReturn.return_requested_at);
+    assert.equal(pendingReturn.return_requested_by_user_id, borrowerId);
 });
 
 test('private items are owner-only and visibility changes are owner-only', async (t) => {

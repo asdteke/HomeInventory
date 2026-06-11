@@ -7,7 +7,7 @@ import {
     User as UserIcon, LogOut, Moon, Sun, Shield, ShieldCheck,
     Key, Copy, Eye, Building, Plus, ArrowRightLeft,
     Database, Download, Upload, Loader2, AlertCircle, CheckCircle,
-    X, Home, Users, Edit3, UserX, Trash2, Info
+    X, Home, Users, Edit3, UserX, Trash2, Info, Globe
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import RecoveryKeyModal from './RecoveryKeyModal';
@@ -123,6 +123,7 @@ export default function Settings() {
     const [backupImportError, setBackupImportError] = useState<string>('');
     const [pendingLeaveHouse, setPendingLeaveHouse] = useState<House | null>(null);
     const [pendingKickMember, setPendingKickMember] = useState<HouseMember | null>(null);
+    const [pendingTransferOwnerMember, setPendingTransferOwnerMember] = useState<HouseMember | null>(null);
     const [showLogoutConfirm, setShowLogoutConfirm] = useState<boolean>(false);
     const [logoutSubmitting, setLogoutSubmitting] = useState<boolean>(false);
     const { toasts, showToast, closeToast } = useToastQueue();
@@ -160,6 +161,11 @@ export default function Settings() {
     const [regenerateLoading, setRegenerateLoading] = useState<boolean>(false);
     const [revokeLoading, setRevokeLoading] = useState<boolean>(false);
 
+    // Borrow requests settings state
+    const [borrowPolicy, setBorrowPolicy] = useState<string>('none');
+    const [blockedUsers, setBlockedUsers] = useState<{ id: number; username: string }[]>([]);
+    const [showDeleteZone, setShowDeleteZone] = useState<boolean>(false);
+
     const activeHouse = houses.find((house) => house.id === activeHouseId) || null;
     const canManageBackups = activeHouse?.is_owner === 1;
     const concealedHouseKey = houseKey ? '••••••••••••••••••••••••••••••••' : t('settings.house_info.hidden_state', { defaultValue: 'Hidden until you review it securely' });
@@ -167,11 +173,13 @@ export default function Settings() {
     useEffect(() => {
         fetchUserData();
         fetchHouses();
+        fetchBorrowSettings();
 
         // Listen for house change events
         const handleHouseChange = () => {
             fetchUserData();
             fetchHouses();
+            fetchBorrowSettings();
         };
 
         window.addEventListener('houseChanged', handleHouseChange);
@@ -262,6 +270,39 @@ export default function Settings() {
             console.error('Error fetching members:', error);
         } finally {
             setLoadingMembers(false);
+        }
+    };
+
+    const fetchBorrowSettings = async () => {
+        try {
+            const [policyRes, blocksRes] = await Promise.all([
+                axios.get('/api/borrow-requests/policy'),
+                axios.get('/api/borrow-requests/blocks')
+            ]);
+            setBorrowPolicy(policyRes.data.policy);
+            setBlockedUsers(blocksRes.data.blocks || []);
+        } catch (err) {
+            console.error('Error fetching borrow settings:', err);
+        }
+    };
+
+    const handleUpdatePolicy = async (policy: string) => {
+        try {
+            await axios.post('/api/borrow-requests/policy', { policy });
+            setBorrowPolicy(policy);
+            showSuccessToast(t('settings.messages.policy_updated', { defaultValue: 'İstek ayarları başarıyla güncellendi.' }));
+        } catch (err: any) {
+            showErrorToast(err.response?.data?.error || t('settings.messages.policy_update_error', { defaultValue: 'İstek ayarları güncellenemedi.' }));
+        }
+    };
+
+    const handleUnblockUser = async (userId: number) => {
+        try {
+            await axios.post(`/api/borrow-requests/blocks/${userId}/unblock`);
+            setBlockedUsers(prev => prev.filter(u => u.id !== userId));
+            showSuccessToast(t('settings.messages.unblocked_success', { defaultValue: 'Kullanıcı engeli kaldırıldı.' }));
+        } catch (err: any) {
+            showErrorToast(err.response?.data?.error || t('settings.messages.unblock_error', { defaultValue: 'Kullanıcı engeli kaldırılamadı.' }));
         }
     };
 
@@ -414,6 +455,30 @@ export default function Settings() {
             });
         } catch (err: any) {
             showErrorToast(err.response?.data?.error || t('settings.messages.member_kick_error'));
+        } finally {
+            setMemberActionLoading('');
+        }
+    };
+
+    const handleTransferHouseOwner = async () => {
+        if (!pendingTransferOwnerMember) return;
+
+        const member = pendingTransferOwnerMember;
+        setMemberActionLoading(`transfer-${member.id}`);
+        try {
+            await axios.post(`/api/houses/members/${member.id}/transfer-owner`);
+            await Promise.all([fetchMembers(), fetchHouses(), refreshUser()]);
+            setPendingTransferOwnerMember(null);
+            window.dispatchEvent(new Event('houseChanged'));
+            showToast({
+                title: t('settings.messages.house_owner_transferred', { defaultValue: 'House ownership transferred' }),
+                description: t('settings.house_info.transfer_owner_success_body', {
+                    name: member.username,
+                    defaultValue: '{{name}} is now the owner of this household.'
+                })
+            });
+        } catch (err: any) {
+            showErrorToast(err.response?.data?.error || t('settings.messages.house_owner_transfer_error', { defaultValue: 'House ownership could not be transferred.' }));
         } finally {
             setMemberActionLoading('');
         }
@@ -822,27 +887,34 @@ export default function Settings() {
                     defaultOpen
                     className="mb-5"
                 >
-                    <div className="mb-5 flex items-center gap-4">
-                        <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-[linear-gradient(135deg,var(--hi-accent),var(--hi-secondary))] text-2xl font-bold text-white shadow-[var(--hi-shadow-soft)]">
-                            {user?.username?.[0]?.toUpperCase()}
+                    <div className="px-1 py-2">
+                        {/* Profile Info */}
+                        <div className="flex items-center gap-4 py-2">
+                            <div className="relative group shrink-0">
+                                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,var(--hi-accent),var(--hi-secondary))] text-2xl font-bold text-white shadow-md shadow-[var(--hi-shadow-soft)] transition-transform duration-300 group-hover:scale-105">
+                                    {user?.username?.[0]?.toUpperCase()}
+                                </div>
+                            </div>
+                            <div className="min-w-0">
+                                <div className="flex items-center gap-1.5 group/name">
+                                    <h2 className="text-xl font-bold text-[var(--hi-text)] tracking-tight">{user?.username}</h2>
+                                    <button
+                                        onClick={openUsernameModal}
+                                        type="button"
+                                        aria-label={t('settings.user_profile.edit_username')}
+                                        className="text-[var(--hi-text-soft)] hover:text-[var(--hi-accent)] transition-colors duration-150 p-1 rounded hover:bg-[var(--hi-panel-strong)]"
+                                        title={t('settings.user_profile.edit_username')}
+                                    >
+                                        <Edit3 className="w-3.5 h-3.5" />
+                                    </button>
+                                </div>
+                                <p className="text-sm text-[var(--hi-text-soft)] mt-0.5 truncate">{user?.email}</p>
+                            </div>
                         </div>
-                        <div className="min-w-0">
-                            <h2 className="mt-2 section-title text-2xl text-[var(--hi-text)]">{user?.username}</h2>
-                            <p className="truncate text-[var(--hi-text-soft)]">{user?.email}</p>
-                        </div>
-                        <button
-                            onClick={openUsernameModal}
-                            type="button"
-                            aria-label={t('settings.user_profile.edit_username')}
-                            className="ml-auto rounded-lg border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-2 transition hover:bg-[var(--hi-panel-strong)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]"
-                            title={t('settings.user_profile.edit_username')}
-                        >
-                            <Edit3 className="w-4 h-4 text-[var(--hi-text-soft)]" />
-                        </button>
                     </div>
                 </AccordionSection>
 
-                {/* My Houses Section */}
+                {/* Households & Access Section */}
                 <AccordionSection
                     title={t('settings.my_houses.title')}
                     description={t('settings.my_houses.accordion_description', { defaultValue: 'Switch between households, create a new one, or join an existing one with a trusted key.' })}
@@ -851,341 +923,358 @@ export default function Settings() {
                     defaultOpen
                     className="mb-5"
                 >
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-                        {houses.length > 0 && (
-                            <div className="flex gap-2 w-full sm:w-auto">
-                                <button
-                                    type="button"
-                                    onClick={() => setShowJoinHouseModal(true)}
-                                    aria-label={t('settings.my_houses.join_house')}
-                                    className="btn-secondary py-2.5 px-3 text-sm flex-1 sm:flex-none flex items-center justify-center gap-2"
-                                >
-                                    <Users className="w-4 h-4" />
-                                    <span className="hidden xs:inline">{t('settings.my_houses.join_house')}</span>
-                                    <span className="xs:hidden">{t('settings.my_houses.join_short')}</span>
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={() => setShowCreateHouseModal(true)}
-                                    aria-label={t('settings.my_houses.new_house')}
-                                    className="btn-secondary py-2.5 px-3 text-sm flex-1 sm:flex-none flex items-center justify-center gap-2"
-                                >
-                                    <Plus className="w-4 h-4" />
-                                    <span className="hidden xs:inline">{t('settings.my_houses.new_house')}</span>
-                                    <span className="xs:hidden">{t('settings.my_houses.new_short')}</span>
-                                </button>
-                            </div>
-                        )}
-                    </div>
-
-                    <div className="space-y-3">
-                        {houses.length === 0 ? (
-                            <EmptyState
-                                icon={Building}
-                                title={t('settings.my_houses.no_house')}
-                                description={t('settings.my_houses.empty_description', { defaultValue: 'Create a house to start a shared inventory, or join one with a secure house key.' })}
-                                actions={(
-                                    <>
+                    <div className="space-y-6">
+                        {/* Household Switching/List */}
+                        <div className="px-1 py-1">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                                <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-soft)]">
+                                    {t('settings.my_houses.title')}
+                                </h3>
+                                {houses.length > 0 && (
+                                    <div className="flex gap-2 w-full sm:w-auto">
                                         <button
                                             type="button"
                                             onClick={() => setShowJoinHouseModal(true)}
                                             aria-label={t('settings.my_houses.join_house')}
-                                            className="btn-secondary"
+                                            className="btn-secondary py-2 px-3 text-xs flex-1 sm:flex-none flex items-center justify-center gap-2"
                                         >
-                                            <Users className="w-4 h-4" />
+                                            <Users className="w-3.5 h-3.5" />
                                             <span>{t('settings.my_houses.join_house')}</span>
                                         </button>
                                         <button
                                             type="button"
                                             onClick={() => setShowCreateHouseModal(true)}
                                             aria-label={t('settings.my_houses.new_house')}
-                                            className="btn-secondary"
+                                            className="btn-secondary py-2 px-3 text-xs flex-1 sm:flex-none flex items-center justify-center gap-2"
                                         >
-                                            <Plus className="w-4 h-4" />
+                                            <Plus className="w-3.5 h-3.5" />
                                             <span>{t('settings.my_houses.new_house')}</span>
                                         </button>
-                                    </>
+                                    </div>
                                 )}
-                            />
-                        ) : (
-                            houses.map(house => (
-                                <div
-                                    key={house.id}
-                                    className={`flex items-center justify-between p-4 rounded-xl border transition-all
-                                        ${house.id === activeHouseId
-                                            ? 'bg-[var(--hi-accent-soft)] border-[var(--hi-border-strong)]'
-                                            : 'bg-[var(--hi-panel-strong)] border-[var(--hi-border)] hover:border-[var(--hi-border-strong)]'
-                                        }`}
-                                >
-                                    <div className="flex items-center gap-3">
-                                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center
-                                            ${house.id === activeHouseId
-                                                ? 'bg-[var(--hi-panel-strong)] text-[var(--hi-accent)]'
-                                                : 'bg-[var(--hi-panel-muted)] text-[var(--hi-text-muted)]'
-                                            }`}
+                            </div>
+
+                            <div className="space-y-3">
+                                {houses.length === 0 ? (
+                                    <EmptyState
+                                        icon={Building}
+                                        title={t('settings.my_houses.no_house')}
+                                        description={t('settings.my_houses.empty_description', { defaultValue: 'Create a house to start a shared inventory, or join one with a secure house key.' })}
+                                        actions={(
+                                            <>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setShowJoinHouseModal(true)}
+                                                    aria-label={t('settings.my_houses.join_house')}
+                                                    className="btn-secondary"
+                                                >
+                                                    <Users className="w-4 h-4" />
+                                                    <span>{t('settings.my_houses.join_house')}</span>
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setShowCreateHouseModal(true)}
+                                                    aria-label={t('settings.my_houses.new_house')}
+                                                    className="btn-secondary"
+                                                >
+                                                    <Plus className="w-4 h-4" />
+                                                    <span>{t('settings.my_houses.new_house')}</span>
+                                                </button>
+                                            </>
+                                        )}
+                                    />
+                                ) : (
+                                    houses.map(house => (
+                                        <div
+                                            key={house.id}
+                                            className={`flex items-center justify-between p-4 rounded-xl border transition-all
+                                                ${house.id === activeHouseId
+                                                    ? 'bg-[var(--hi-accent-soft)] border-[var(--hi-border-strong)]'
+                                                    : 'bg-[var(--hi-panel-strong)] border-[var(--hi-border)] hover:border-[var(--hi-border-strong)]'
+                                                }`}
                                         >
-                                            <Home className="w-5 h-5" />
-                                        </div>
-                                        <div>
-                                            <div className="flex items-center gap-2">
-                                                <h3 className={`font-semibold ${house.id === activeHouseId ? 'text-[var(--hi-accent)]' : 'text-[var(--hi-text)]'}`}>
-                                                    {house.name}
-                                                </h3>
-                                                {house.is_owner === 1 && (
-                                                    <span className="rounded-full border border-[rgba(184,153,104,0.22)] bg-[var(--hi-secondary-soft)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--hi-secondary-strong)]">
-                                                        {t('settings.my_houses.owner')}
-                                                    </span>
-                                                )}
-                                                {house.id === activeHouseId && (
-                                                    <span className="rounded-full border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--hi-accent)]">
-                                                        {t('settings.my_houses.active')}
-                                                    </span>
-                                                )}
-                                            </div>
-                                            <div className="mt-0.5 flex items-center gap-3 text-xs text-[var(--hi-text-soft)]">
-                                                <span>{t('settings.my_houses.member_count', { count: house.member_count })}</span>
-                                                <span>•</span>
-                                                <span>{t('settings.my_houses.item_count', { count: house.item_count || 0 })}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex items-center gap-2">
-                                        {house.id !== activeHouseId && (
-                                            <button
-                                                type="button"
-                                                onClick={() => handleSwitchHouse(house.id)}
-                                                disabled={houseActionLoading}
-                                                aria-label={t('settings.my_houses.switch')}
-                                                className="rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-3 py-1.5 text-sm font-medium text-[var(--hi-text-soft)] transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]"
-                                            >
-                                                {t('settings.my_houses.switch')}
-                                            </button>
-                                        )}
-                                        {/* Always allow leaving unless it's the last house, maybe check that logic later */}
-                                        {houses.length > 0 && (
-                                            <button
-                                                type="button"
-                                                onClick={() => setPendingLeaveHouse(house)}
-                                                disabled={houseActionLoading}
-                                                aria-label={t('settings.my_houses.leave')}
-                                                className="rounded-lg p-2 text-red-500 transition-colors hover:bg-red-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] dark:hover:bg-red-500/10"
-                                                title={t('settings.my_houses.leave')}
-                                            >
-                                                <LogOut className="w-4 h-4" />
-                                            </button>
-                                        )}
-                                    </div>
-                                </div>
-                            ))
-                        )}
-                    </div>
-                    <p className="mt-3 px-1 text-xs text-[var(--hi-text-soft)]">
-                        {t('settings.my_houses.info')}
-                    </p>
-
-                    {userPendingRequests.length > 0 && (
-                        <div className="mt-5 border-t border-[var(--hi-border)] pt-4">
-                            <h3 className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[var(--hi-text-soft)]">
-                                {t('settings.pending_requests.title')}
-                            </h3>
-                            <div className="space-y-2">
-                                {userPendingRequests.map((request) => (
-                                    <div
-                                        key={request.id}
-                                        className="flex items-center justify-between rounded-xl border border-[rgba(184,153,104,0.22)] bg-[var(--hi-secondary-soft)] px-4 py-3 text-sm"
-                                    >
-                                        <div>
-                                            <p className="font-medium text-[var(--hi-text)]">
-                                                {request.requested_house_name}
-                                            </p>
-                                            <p className="text-[var(--hi-text-soft)]">
-                                                {t('settings.pending_requests.waiting_since', { date: new Date(request.created_at) })}
-                                            </p>
-                                        </div>
-                                        <span className="rounded-full border border-[rgba(184,153,104,0.18)] bg-[var(--hi-panel-strong)] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--hi-secondary-strong)]">
-                                            {t('settings.pending_requests.pending_badge')}
-                                        </span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-                </AccordionSection>
-
-                {/* House Key & Members */}
-                {activeHouseId && (
-                    <AccordionSection
-                        title={t('settings.house_info.access_section_title', { defaultValue: 'House access and members' })}
-                        description={t('settings.house_info.access_section_body', { defaultValue: 'Review the active household key, manage members, and keep access limited to trusted people.' })}
-                        eyebrow={t('settings.house_info.title')}
-                        icon={Key}
-                        defaultOpen
-                        className="mb-6"
-                    >
-                        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-                            {/* Key Card */}
-                            <div className="app-control-section-nested">
-                                <h2 className="mb-3 flex items-center gap-2 text-lg font-semibold text-[var(--hi-text)]">
-                                    <Key className="h-5 w-5 text-[var(--hi-secondary)]" />
-                                    {t('settings.house_info.title')}
-                                </h2>
-
-                                <div className="rounded-[1.25rem] border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-4">
-                                    <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                                        <span className="text-sm font-medium text-[var(--hi-text-soft)]">{t('settings.house_info.key_label')}</span>
-                                        <div className="flex flex-wrap gap-2">
-                                            <button
-                                                type="button"
-                                                onClick={openHouseKeyRevealConfirm}
-                                                className="inline-flex items-center gap-1 rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] px-3 py-1.5 text-xs font-medium text-[var(--hi-accent)] transition hover:border-[var(--hi-border-strong)]"
-                                            >
-                                                <Eye className="w-3 h-3" />
-                                                {t('settings.house_info.show_securely', { defaultValue: 'Anahtarı göster' })}
-                                            </button>
-                                            <button
-                                                type="button"
-                                                onClick={openHouseKeyCopyConfirm}
-                                                className="inline-flex items-center gap-1 rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] px-3 py-1.5 text-xs font-medium text-[var(--hi-accent)] transition hover:border-[var(--hi-border-strong)]"
-                                            >
-                                                <Copy className="w-3 h-3" />
-                                                {t('settings.house_info.copy_securely', { defaultValue: 'Copy securely' })}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <code className="block w-full break-all rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] p-3 font-mono text-sm text-[var(--hi-text-soft)]">
-                                        {concealedHouseKey}
-                                    </code>
-                                    <div className="mt-3 rounded-[1rem] border border-[rgba(184,153,104,0.22)] bg-[var(--hi-secondary-soft)] px-4 py-3 text-sm leading-6 text-[var(--hi-text-soft)]">
-                                        <p className="font-medium text-[var(--hi-text)]">
-                                            {t('settings.house_info.share_warning_title', { defaultValue: 'Share carefully' })}
-                                        </p>
-                                        <p className="mt-1">
-                                            {t('settings.house_info.share_warning_body', { defaultValue: 'Anyone with this key can request access to the household inventory. Only share it with trusted members and use a private channel.' })}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Members Card */}
-                            <div className="app-control-section-nested">
-                                <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold text-[var(--hi-text)]">
-                                    <Users className="h-5 w-5 text-[var(--hi-accent)]" />
-                                    {t('settings.house_info.members_title', { count: members.length })}
-                                </h2>
-
-                                <div className="space-y-4">
-                                    <div>
-                                        <div className="mb-2 flex items-center justify-between">
-                                            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-soft)]">
-                                                {t('settings.house_info.active_members')}
-                                            </h3>
-                                            {viewerCanManageMembers && (
-                                                <span className="text-xs text-[var(--hi-text-soft)]">{t('settings.house_info.owner_controls')}</span>
-                                            )}
-                                        </div>
-
-                                        <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
-                                            {loadingMembers && (
-                                                <div className="flex justify-center py-6">
-                                                    <LoadingState
-                                                        compact
-                                                        title={t('settings.house_info.loading_members', { defaultValue: 'Üyeler yükleniyor...' })}
-                                                    />
+                                            <div className="flex items-center gap-3">
+                                                <div className={`w-10 h-10 rounded-lg flex items-center justify-center
+                                                    ${house.id === activeHouseId
+                                                        ? 'bg-[var(--hi-panel-strong)] text-[var(--hi-accent)]'
+                                                        : 'bg-[var(--hi-panel-muted)] text-[var(--hi-text-muted)]'
+                                                    }`}
+                                                >
+                                                    <Home className="w-5 h-5" />
                                                 </div>
-                                            )}
+                                                <div>
+                                                    <div className="flex items-center gap-2">
+                                                        <h3 className={`font-semibold ${house.id === activeHouseId ? 'text-[var(--hi-accent)]' : 'text-[var(--hi-text)]'}`}>
+                                                            {house.name}
+                                                        </h3>
+                                                        {house.is_owner === 1 && (
+                                                            <span className="rounded-full border border-[rgba(184,153,104,0.22)] bg-[var(--hi-secondary-soft)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--hi-secondary-strong)]">
+                                                                {t('settings.my_houses.owner')}
+                                                            </span>
+                                                        )}
+                                                        {house.id === activeHouseId && (
+                                                            <span className="rounded-full border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--hi-accent)]">
+                                                                {t('settings.my_houses.active')}
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                    <div className="mt-0.5 flex items-center gap-3 text-xs text-[var(--hi-text-soft)]">
+                                                        <span>{t('settings.my_houses.member_count', { count: house.member_count })}</span>
+                                                        <span>•</span>
+                                                        <span>{t('settings.my_houses.item_count', { count: house.item_count || 0 })}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                            {!loadingMembers && members.map((member) => (
-                                                <div key={member.id} className="flex items-center gap-3 rounded-[1rem] p-3 transition hover:bg-[var(--hi-panel-strong)]">
-                                                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--hi-accent),var(--hi-secondary))] text-xs font-bold text-white shadow-[var(--hi-shadow-soft)]">
-                                                        {member.username?.[0]?.toUpperCase() || '?'}
-                                                    </div>
-                                                    <div className="flex-1 min-w-0">
-                                                        <p className="truncate text-sm font-medium text-[var(--hi-text)]">
-                                                            {member.username}
-                                                            {member.id === user?.id && <span className="ml-1 font-normal text-[var(--hi-text-soft)]">{t('settings.house_info.you')}</span>}
-                                                        </p>
-                                                        <p className="text-xs text-[var(--hi-text-soft)]">
-                                                            {member.joined_at ? t('settings.house_info.joined_at', { date: new Date(member.joined_at) }) : '-'}
-                                                        </p>
-                                                    </div>
-                                                    {member.is_owner === 1 && (
-                                                        <Shield className="h-4 w-4 text-[var(--hi-secondary)]" />
-                                                    )}
-                                                    {viewerCanManageMembers && member.id !== user?.id && member.is_owner !== 1 && (
+                                            <div className="flex items-center gap-2">
+                                                {house.id !== activeHouseId && (
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => handleSwitchHouse(house.id)}
+                                                        disabled={houseActionLoading}
+                                                        aria-label={t('settings.my_houses.switch')}
+                                                        className="rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-3 py-1.5 text-sm font-medium text-[var(--hi-text-soft)] transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]"
+                                                    >
+                                                        {t('settings.my_houses.switch')}
+                                                    </button>
+                                                )}
+                                                {houses.length > 0 && (
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => setPendingLeaveHouse(house)}
+                                                        disabled={houseActionLoading}
+                                                        aria-label={t('settings.my_houses.leave')}
+                                                        className="rounded-lg p-2 text-red-500 transition-colors hover:bg-red-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] dark:hover:bg-red-500/10"
+                                                        title={t('settings.my_houses.leave')}
+                                                    >
+                                                        <LogOut className="w-4 h-4" />
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+                            <p className="mt-3 px-1 text-xs text-[var(--hi-text-soft)]">
+                                {t('settings.my_houses.info')}
+                            </p>
+
+                            {userPendingRequests.length > 0 && (
+                                <div className="mt-5 border-t border-[var(--hi-border)] pt-4">
+                                    <h3 className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[var(--hi-text-soft)]">
+                                        {t('settings.pending_requests.title')}
+                                    </h3>
+                                    <div className="space-y-2">
+                                        {userPendingRequests.map((request) => (
+                                            <div
+                                                key={request.id}
+                                                className="flex items-center justify-between rounded-xl border border-[rgba(184,153,104,0.22)] bg-[var(--hi-secondary-soft)] px-4 py-3 text-sm"
+                                            >
+                                                <div>
+                                                    <p className="font-medium text-[var(--hi-text)]">
+                                                        {request.requested_house_name}
+                                                    </p>
+                                                    <p className="text-[var(--hi-text-soft)]">
+                                                        {t('settings.pending_requests.waiting_since', { date: new Date(request.created_at) })}
+                                                    </p>
+                                                </div>
+                                                <span className="rounded-full border border-[rgba(184,153,104,0.18)] bg-[var(--hi-panel-strong)] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--hi-secondary-strong)]">
+                                                    {t('settings.pending_requests.pending_badge')}
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Active House Key & Members Management */}
+                        {activeHouseId && (
+                            <div className="border-t border-[var(--hi-border)] pt-6">
+                                <div className="flex items-center gap-2 mb-4 px-1">
+                                    <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--hi-text-soft)]">
+                                        {t('settings.house_info.access_section_title', { defaultValue: 'House access and members' })}
+                                    </h3>
+                                </div>
+                                <div className="app-control-section-nested">
+                                    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:divide-x lg:divide-[var(--hi-border)]">
+                                        {/* Key Section */}
+                                        <div className="lg:pr-6">
+                                            <h4 className="mb-3 flex items-center gap-2 text-base font-semibold text-[var(--hi-text)]">
+                                                <Key className="h-4.5 w-4.5 text-[var(--hi-secondary)]" />
+                                                {t('settings.house_info.title')}
+                                            </h4>
+
+                                            <div className="rounded-[1.25rem] border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-4">
+                                                <div className="mb-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                                                    <span className="text-sm font-medium text-[var(--hi-text-soft)]">{t('settings.house_info.key_label')}</span>
+                                                    <div className="flex flex-wrap gap-2">
                                                         <button
                                                             type="button"
-                                                            onClick={() => setPendingKickMember(member)}
-                                                            disabled={memberActionLoading === `kick-${member.id}`}
-                                                            aria-label={t('settings.house_info.kick')}
-                                                            className="inline-flex items-center gap-1 rounded-full border border-red-500/20 bg-red-500/5 px-2.5 py-1 text-xs font-medium text-red-400 transition hover:bg-red-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] disabled:opacity-50"
+                                                            onClick={openHouseKeyRevealConfirm}
+                                                            className="inline-flex items-center gap-1 rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] px-3 py-1.5 text-xs font-medium text-[var(--hi-accent)] transition hover:border-[var(--hi-border-strong)]"
                                                         >
-                                                            {memberActionLoading === `kick-${member.id}` ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <UserX className="h-3.5 w-3.5" />}
-                                                            {t('settings.house_info.kick')}
+                                                            <Eye className="w-3 h-3" />
+                                                            {t('settings.house_info.show_securely', { defaultValue: 'Anahtarı göster' })}
                                                         </button>
-                                                    )}
-                                                </div>
-                                            ))}
-
-                                            {!loadingMembers && members.length === 0 && (
-                                                <p className="py-4 text-center text-sm text-[var(--hi-text-soft)]">{t('settings.house_info.no_members')}</p>
-                                            )}
-                                        </div>
-                                    </div>
-
-                                    {pendingRequests.length > 0 && (
-                                        <div className="border-t border-[var(--hi-border)] pt-4">
-                                            <h3 className="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-soft)]">
-                                                {t('settings.house_info.pending_requests')}
-                                            </h3>
-
-                                            <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
-                                                {pendingRequests.map((request) => (
-                                                    <div key={request.id} className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-3">
-                                                        <div className="flex items-start justify-between gap-3">
-                                                            <div>
-                                                                <p className="text-sm font-medium text-[var(--hi-text)]">
-                                                                    {request.username}
-                                                                </p>
-                                                                <p className="text-xs text-[var(--hi-text-soft)]">
-                                                                    {request.requested_house_name}
-                                                                </p>
-                                                                <p className="mt-1 text-xs text-[var(--hi-text-muted)]">
-                                                                    {t('settings.pending_requests.waiting_since', { date: new Date(request.created_at) })}
-                                                                </p>
-                                                            </div>
-
-                                                            {viewerCanManageMembers && (
-                                                                <div className="flex gap-2">
-                                                                    <button
-                                                                        type="button"
-                                                                        onClick={() => handleApproveRequest(request.id)}
-                                                                        disabled={memberActionLoading === `approve-${request.id}`}
-                                                                        className="rounded-full border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] px-2.5 py-1 text-xs font-medium text-[var(--hi-accent)] transition hover:bg-[var(--hi-panel-strong)] disabled:opacity-50"
-                                                                    >
-                                                                        {memberActionLoading === `approve-${request.id}` ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : t('settings.house_info.approve')}
-                                                                    </button>
-                                                                    <button
-                                                                        type="button"
-                                                                        onClick={() => handleRejectRequest(request.id)}
-                                                                        disabled={memberActionLoading === `reject-${request.id}`}
-                                                                        className="rounded-full border border-red-500/20 bg-red-500/5 px-2.5 py-1 text-xs font-medium text-red-400 transition hover:bg-red-500/10 disabled:opacity-50"
-                                                                    >
-                                                                        {memberActionLoading === `reject-${request.id}` ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : t('settings.house_info.reject')}
-                                                                    </button>
-                                                                </div>
-                                                            )}
-                                                        </div>
+                                                        <button
+                                                            type="button"
+                                                            onClick={openHouseKeyCopyConfirm}
+                                                            className="inline-flex items-center gap-1 rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] px-3 py-1.5 text-xs font-medium text-[var(--hi-accent)] transition hover:border-[var(--hi-border-strong)]"
+                                                        >
+                                                            <Copy className="w-3 h-3" />
+                                                            {t('settings.house_info.copy_securely', { defaultValue: 'Copy securely' })}
+                                                        </button>
                                                     </div>
-                                                ))}
+                                                </div>
+                                                <code className="block w-full break-all rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] p-3 font-mono text-sm text-[var(--hi-text-soft)]">
+                                                    {concealedHouseKey}
+                                                </code>
+                                                <div className="mt-3 rounded-[1rem] border border-[rgba(184,153,104,0.22)] bg-[var(--hi-secondary-soft)] px-4 py-3 text-sm leading-6 text-[var(--hi-text-soft)]">
+                                                    <p className="font-medium text-[var(--hi-text)]">
+                                                        {t('settings.house_info.share_warning_title', { defaultValue: 'Share carefully' })}
+                                                    </p>
+                                                    <p className="mt-1">
+                                                        {t('settings.house_info.share_warning_body', { defaultValue: 'Anyone with this key can request access to the household inventory. Only share it with trusted members and use a private channel.' })}
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    )}
+
+                                        {/* Members Section */}
+                                        <div className="pt-6 border-t border-[var(--hi-border)] lg:border-t-0 lg:pt-0 lg:pl-6">
+                                            <h4 className="mb-4 flex items-center gap-2 text-base font-semibold text-[var(--hi-text)]">
+                                                <Users className="h-4.5 w-4.5 text-[var(--hi-accent)]" />
+                                                {t('settings.house_info.members_title', { count: members.length })}
+                                            </h4>
+
+                                            <div className="space-y-4">
+                                                <div>
+                                                    <div className="mb-2 flex items-center justify-between">
+                                                        <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-soft)]">
+                                                            {t('settings.house_info.active_members')}
+                                                        </h3>
+                                                        {viewerCanManageMembers && (
+                                                            <span className="text-xs text-[var(--hi-text-soft)]">{t('settings.house_info.owner_controls')}</span>
+                                                        )}
+                                                    </div>
+
+                                                    <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
+                                                        {loadingMembers && (
+                                                            <div className="flex justify-center py-6">
+                                                                <LoadingState
+                                                                    compact
+                                                                    title={t('settings.house_info.loading_members', { defaultValue: 'Üyeler yükleniyor...' })}
+                                                                />
+                                                            </div>
+                                                        )}
+
+                                                        {!loadingMembers && members.map((member) => (
+                                                            <div key={member.id} className="flex items-center gap-3 rounded-[1rem] p-3 transition hover:bg-[var(--hi-panel-strong)]">
+                                                                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--hi-accent),var(--hi-secondary))] text-xs font-bold text-white shadow-[var(--hi-shadow-soft)]">
+                                                                    {member.username?.[0]?.toUpperCase() || '?'}
+                                                                </div>
+                                                                <div className="flex-1 min-w-0">
+                                                                    <p className="truncate text-sm font-medium text-[var(--hi-text)]">
+                                                                        {member.username}
+                                                                        {member.id === user?.id && <span className="ml-1 font-normal text-[var(--hi-text-soft)]">{t('settings.house_info.you')}</span>}
+                                                                    </p>
+                                                                    <p className="text-xs text-[var(--hi-text-soft)]">
+                                                                        {member.joined_at ? t('settings.house_info.joined_at', { date: new Date(member.joined_at) }) : '-'}
+                                                                    </p>
+                                                                </div>
+                                                                {member.is_owner === 1 && (
+                                                                    <Shield className="h-4 w-4 text-[var(--hi-secondary)]" />
+                                                                )}
+                                                                {viewerCanManageMembers && member.id !== user?.id && member.is_owner !== 1 && (
+                                                                    <div className="flex shrink-0 flex-wrap justify-end gap-2">
+                                                                        <button
+                                                                            type="button"
+                                                                            onClick={() => setPendingTransferOwnerMember(member)}
+                                                                            disabled={memberActionLoading === `transfer-${member.id}`}
+                                                                            aria-label={t('settings.house_info.transfer_owner', { defaultValue: 'Transfer ownership' })}
+                                                                            className="inline-flex items-center gap-1 rounded-full border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] px-2.5 py-1 text-xs font-medium text-[var(--hi-accent)] transition hover:bg-[var(--hi-panel-strong)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] disabled:opacity-50"
+                                                                        >
+                                                                            {memberActionLoading === `transfer-${member.id}` ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <ShieldCheck className="h-3.5 w-3.5" />}
+                                                                            {t('settings.house_info.transfer_owner', { defaultValue: 'Make owner' })}
+                                                                        </button>
+                                                                        <button
+                                                                            type="button"
+                                                                            onClick={() => setPendingKickMember(member)}
+                                                                            disabled={memberActionLoading === `kick-${member.id}`}
+                                                                            aria-label={t('settings.house_info.kick')}
+                                                                            className="inline-flex items-center gap-1 rounded-full border border-red-500/20 bg-red-500/5 px-2.5 py-1 text-xs font-medium text-red-400 transition hover:bg-red-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] disabled:opacity-50"
+                                                                        >
+                                                                            {memberActionLoading === `kick-${member.id}` ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <UserX className="h-3.5 w-3.5" />}
+                                                                            {t('settings.house_info.kick')}
+                                                                        </button>
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        ))}
+
+                                                        {!loadingMembers && members.length === 0 && (
+                                                            <p className="py-4 text-center text-sm text-[var(--hi-text-soft)]">{t('settings.house_info.no_members')}</p>
+                                                        )}
+                                                    </div>
+                                                </div>
+
+                                                {pendingRequests.length > 0 && (
+                                                    <div className="border-t border-[var(--hi-border)] pt-4">
+                                                        <h3 className="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-soft)]">
+                                                            {t('settings.house_info.pending_requests')}
+                                                        </h3>
+
+                                                        <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
+                                                            {pendingRequests.map((request) => (
+                                                                <div key={request.id} className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-3">
+                                                                    <div className="flex items-start justify-between gap-3">
+                                                                        <div>
+                                                                            <p className="text-sm font-medium text-[var(--hi-text)]">
+                                                                                {request.username}
+                                                                            </p>
+                                                                            <p className="text-xs text-[var(--hi-text-soft)]">
+                                                                                {request.requested_house_name}
+                                                                            </p>
+                                                                            <p className="mt-1 text-xs text-[var(--hi-text-muted)]">
+                                                                                {t('settings.pending_requests.waiting_since', { date: new Date(request.created_at) })}
+                                                                            </p>
+                                                                        </div>
+
+                                                                        {viewerCanManageMembers && (
+                                                                            <div className="flex gap-2">
+                                                                                <button
+                                                                                    type="button"
+                                                                                    onClick={() => handleApproveRequest(request.id)}
+                                                                                    disabled={memberActionLoading === `approve-${request.id}`}
+                                                                                    className="rounded-full border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] px-2.5 py-1 text-xs font-medium text-[var(--hi-accent)] transition hover:bg-[var(--hi-panel-strong)] disabled:opacity-50"
+                                                                                >
+                                                                                    {memberActionLoading === `approve-${request.id}` ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : t('settings.house_info.approve')}
+                                                                                </button>
+                                                                                <button
+                                                                                    type="button"
+                                                                                    onClick={() => handleRejectRequest(request.id)}
+                                                                                    disabled={memberActionLoading === `reject-${request.id}`}
+                                                                                    className="rounded-full border border-red-500/20 bg-red-500/5 px-2.5 py-1 text-xs font-medium text-red-400 transition hover:bg-red-500/10 disabled:opacity-50"
+                                                                                >
+                                                                                    {memberActionLoading === `reject-${request.id}` ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : t('settings.house_info.reject')}
+                                                                                </button>
+                                                                            </div>
+                                                                        )}
+                                                                    </div>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </AccordionSection>
-                )}
+                        )}
+                    </div>
+                </AccordionSection>
             </section>
 
             <section id="settings-preferences" className="app-settings-section scroll-mt-24 space-y-5">
@@ -1204,102 +1293,71 @@ export default function Settings() {
                     defaultOpen
                     className="mb-5"
                 >
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                        <div className="app-control-section-nested flex h-full flex-col">
-                            <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold text-[var(--hi-text)]">
-                                {theme === 'dark' ? <Moon className="h-5 w-5 text-[var(--hi-accent)]" /> : <Sun className="h-5 w-5 text-[var(--hi-secondary)]" />}
-                                {t('settings.theme.title')}
-                            </h2>
-                            <div className="mt-2 flex flex-1 flex-col justify-between gap-4">
-                                <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-4">
-                                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                                        <p className="font-medium text-[var(--hi-text)]">{t('settings.theme.title')}</p>
-                                        <SegmentedToggle
-                                            ariaLabel={t('settings.theme.title')}
-                                            value={theme}
-                                            onChange={(val) => setTheme(val as Theme)}
-                                            fullWidth
-                                            className="sm:w-auto sm:min-w-[320px]"
-                                            activeClassName="bg-[var(--hi-panel-strong)] text-[var(--hi-text)] shadow-[var(--hi-shadow-soft)]"
-                                            options={[
-                                                {
-                                                    value: 'light',
-                                                    label: t('settings.theme.light'),
-                                                    icon: Sun,
-                                                    tooltip: t('settings.theme.light'),
-                                                    ariaLabel: t('settings.theme.light_aria', { defaultValue: 'Switch to light theme' })
-                                                },
-                                                {
-                                                    value: 'dark',
-                                                    label: t('settings.theme.dark'),
-                                                    icon: Moon,
-                                                    tooltip: t('settings.theme.dark'),
-                                                    ariaLabel: t('settings.theme.dark_aria', { defaultValue: 'Switch to dark theme' })
-                                                }
-                                            ]}
-                                        />
-                                    </div>
+                    <div className="px-1 py-2">
+                        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:divide-x md:divide-[var(--hi-border)]">
+                            {/* Theme block */}
+                            <div className="flex flex-col gap-4 pr-0 md:pr-8">
+                                <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[var(--hi-text-soft)]">
+                                    {theme === 'dark' ? <Moon className="h-4 w-4 text-[var(--hi-accent)]" /> : <Sun className="h-4 w-4 text-[var(--hi-secondary)]" />}
+                                    {t('settings.theme.title')}
+                                </h3>
+                                <div className="flex flex-col gap-1">
+                                    <p className="text-sm font-semibold text-[var(--hi-text)]">{t('settings.theme.workspace_title', { defaultValue: 'Workspace Theme' })}</p>
+                                    <p className="text-xs text-[var(--hi-text-soft)]">{t('settings.theme.workspace_desc', { defaultValue: 'Select your preferred visual style for this device.' })}</p>
                                 </div>
-
-                                <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-4">
-                                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                                        <div className="min-w-0">
-                                            <p className="font-medium text-[var(--hi-text)]">
-                                                {t('settings.language')}
-                                            </p>
-                                            <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
-                                                {t('settings.language_description')}
-                                            </p>
-                                        </div>
-                                        <LanguageSwitcher
-                                            showCodeBadge={false}
-                                            className="!w-full !justify-between !rounded-[0.9rem] !border-[var(--hi-border)] !bg-[var(--hi-panel)] !px-3 !py-2 text-sm hover:!bg-[var(--hi-panel-strong)] sm:!w-auto sm:!min-w-[220px]"
-                                        />
-                                    </div>
+                                <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-4 flex items-center justify-center w-full mt-2">
+                                    <SegmentedToggle
+                                        ariaLabel={t('settings.theme.title')}
+                                        value={theme}
+                                        onChange={(val) => setTheme(val as Theme)}
+                                        fullWidth
+                                        className="w-full"
+                                        activeClassName="bg-[var(--hi-panel-strong)] text-[var(--hi-text)] shadow-[var(--hi-shadow-soft)]"
+                                        options={[
+                                            {
+                                                value: 'light',
+                                                label: t('settings.theme.light'),
+                                                icon: Sun,
+                                                tooltip: t('settings.theme.light'),
+                                                ariaLabel: t('settings.theme.light_aria', { defaultValue: 'Switch to light theme' })
+                                            },
+                                            {
+                                                value: 'dark',
+                                                label: t('settings.theme.dark'),
+                                                icon: Moon,
+                                                tooltip: t('settings.theme.dark'),
+                                                ariaLabel: t('settings.theme.dark_aria', { defaultValue: 'Switch to dark theme' })
+                                            }
+                                        ]}
+                                    />
                                 </div>
                             </div>
-                        </div>
 
-                        <div className="app-control-section-nested flex h-full flex-col">
-                            <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold text-[var(--hi-text)]">
-                                <Shield className="h-5 w-5 text-[var(--hi-accent)]" />
-                                {t('settings.security.title')}
-                            </h2>
-                            <div className="mt-2 flex flex-1 flex-col justify-between gap-4">
-                                <button
-                                    onClick={() => setShowPasswordModal(true)}
-                                    className="group flex w-full items-center justify-between rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4 transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)]"
-                                >
-                                    <p className="font-medium text-[var(--hi-text)]">{t('settings.security.change_password')}</p>
-                                    <ArrowRightLeft className="h-5 w-5 text-[var(--hi-text-soft)] transition group-hover:text-[var(--hi-accent)]" />
-                                </button>
-
-                                {passwordRecoveryMode === 'recovery_key' && (
-                                    <div className="rounded-xl border border-[rgba(184,153,104,0.2)] bg-[var(--hi-secondary-soft)] p-4">
-                                        <div className="flex items-center justify-between gap-4">
-                                            <p className="font-medium text-[var(--hi-text)]">{t('settings.security.recovery_key_title')}</p>
-                                            <button
-                                                type="button"
-                                                onClick={() => {
-                                                    setHouseError('');
-                                                    setShowRecoveryKeyRegenerateModal(true);
-                                                }}
-                                                className="btn-secondary shrink-0 px-4 py-2 text-sm"
-                                            >
-                                                {t('settings.security.recovery_key_action')}
-                                            </button>
-                                        </div>
-                                    </div>
-                                )}
+                            {/* Language block */}
+                            <div className="flex flex-col gap-4 pl-0 md:pl-8 pt-6 border-t border-[var(--hi-border)] md:border-t-0 md:pt-0">
+                                <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[var(--hi-text-soft)]">
+                                    <Globe className="h-4 w-4 text-[var(--hi-accent)]" />
+                                    {t('settings.language')}
+                                </h3>
+                                <div className="flex flex-col gap-1">
+                                    <p className="text-sm font-semibold text-[var(--hi-text)]">{t('settings.language')}</p>
+                                    <p className="text-xs text-[var(--hi-text-soft)]">{t('settings.language_description')}</p>
+                                </div>
+                                <div className="mt-2 w-full">
+                                    <LanguageSwitcher
+                                        showCodeBadge={false}
+                                        className="!w-full !justify-between !rounded-xl !border-[var(--hi-border)] !bg-[var(--hi-panel-strong)] !px-4 !py-3.5 text-sm hover:!bg-[var(--hi-panel-strong)]"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </AccordionSection>
 
-                {/* Two-Factor Authentication Section */}
+                {/* Security & Privacy Section */}
                 <AccordionSection
-                    title={t('settings.two_factor.title')}
-                    description={t('settings.two_factor.description')}
+                    title={t('settings.security.accordion_title', { defaultValue: 'Security and privacy' })}
+                    description={t('settings.security.accordion_desc', { defaultValue: 'Manage two-factor authentication, trusted devices, and borrow request rules from other accounts.' })}
                     eyebrow={t('settings.control_sections.security', { defaultValue: 'Security' })}
                     icon={ShieldCheck}
                     badge={totpEnabled ? (
@@ -1309,125 +1367,353 @@ export default function Settings() {
                     ) : null}
                     className="mb-5"
                 >
-                    <div className="flex items-center gap-3 mb-4">
-                        <div className={`flex h-10 w-10 items-center justify-center rounded-2xl ${totpEnabled ? 'bg-[var(--hi-accent-soft)]' : 'bg-[var(--hi-panel-muted)]'}`}>
-                            <ShieldCheck className={`h-5 w-5 ${totpEnabled ? 'text-[var(--hi-accent)]' : 'text-[var(--hi-text-soft)]'}`} />
-                        </div>
-                        <div className="flex-1">
-                            <h2 className="flex items-center gap-2 text-lg font-semibold text-[var(--hi-text)]">
-                                {t('settings.two_factor.title')}
-                                {totpEnabled && (
-                                    <span className="rounded-full border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--hi-accent)]">
-                                        {t('settings.two_factor.active')}
-                                    </span>
-                                )}
-                            </h2>
-                            <p className="text-sm text-[var(--hi-text-soft)]">
-                                {t('settings.two_factor.description')}
+                    <div className="px-1 py-2 space-y-6">
+                        {/* 1. Change Password & Recovery Card */}
+                        <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-6">
+                            <h3 className="flex items-center gap-2.5 text-base font-semibold text-[var(--hi-text)] mb-2">
+                                <Shield className="h-5 w-5 text-[var(--hi-accent)]" />
+                                {t('settings.security.title')}
+                            </h3>
+                            <p className="text-sm text-[var(--hi-text-soft)] mb-5 leading-relaxed">
+                                {t('settings.security.description', { defaultValue: 'Manage your master password and vault recovery configurations.' })}
                             </p>
-                        </div>
-                    </div>
 
-                    {!totpEnabled ? (
-                        <button
-                            onClick={() => setShow2FASetup(true)}
-                            className="btn-secondary py-3 px-6 flex items-center gap-2"
-                        >
-                            <ShieldCheck className="w-4 h-4" />
-                            {t('settings.two_factor.enable')}
-                        </button>
-                    ) : (
-                        <div className="space-y-3">
-                            {/* Disable 2FA */}
-                            <button
-                                onClick={() => { setShow2FADisableModal(true); setDisableError(''); setDisablePassword(''); setDisableCode(''); setDisableMethod('totp'); }}
-                                className="group flex w-full items-center justify-between rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4 transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)]"
-                            >
-                                <div className="text-left">
-                                    <p className="font-medium text-[var(--hi-text)]">{t('settings.two_factor.disable')}</p>
-                                    <p className="text-sm text-[var(--hi-text-soft)]">{t('settings.two_factor.disable_desc')}</p>
-                                </div>
-                                <X className="h-5 w-5 text-[var(--hi-text-soft)] transition group-hover:text-red-400" />
-                            </button>
-
-                            {/* Regenerate Backup Codes */}
-                            <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4">
-                                <div className="flex items-center justify-between mb-3">
-                                    <div>
-                                        <p className="font-medium text-[var(--hi-text)]">{t('settings.two_factor.regenerate_codes')}</p>
-                                        <p className="text-sm text-[var(--hi-text-soft)]">{t('settings.two_factor.regenerate_codes_desc')}</p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                {/* Change Password Card */}
+                                <button
+                                    onClick={() => setShowPasswordModal(true)}
+                                    className="group flex items-center justify-between rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4 transition-all duration-200 hover:border-[var(--hi-accent)] hover:bg-[var(--hi-panel-strong)] text-left"
+                                >
+                                    <div className="min-w-0 flex-1">
+                                        <p className="font-semibold text-sm text-[var(--hi-text)]">{t('settings.security.change_password')}</p>
+                                        <p className="text-xs text-[var(--hi-text-soft)] mt-1 truncate">{t('settings.security.change_password_detail', { defaultValue: 'Update your password to keep your account secure' })}</p>
                                     </div>
+                                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[var(--hi-bg-strong)] text-[var(--hi-text-soft)] transition-colors group-hover:bg-[var(--hi-accent-soft)] group-hover:text-[var(--hi-accent)] ml-4">
+                                        <ArrowRightLeft className="h-4 w-4" />
+                                    </div>
+                                </button>
+
+                                {/* Recovery Key Card */}
+                                {passwordRecoveryMode === 'recovery_key' && (
+                                    <button
+                                        onClick={() => {
+                                            setHouseError('');
+                                            setShowRecoveryKeyRegenerateModal(true);
+                                        }}
+                                        className="group flex items-center justify-between rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4 transition-all duration-200 hover:border-[var(--hi-accent)] hover:bg-[var(--hi-panel-strong)] text-left"
+                                    >
+                                        <div className="min-w-0 flex-1">
+                                            <p className="font-semibold text-sm text-[var(--hi-text)]">{t('settings.security.recovery_key_title')}</p>
+                                            <p className="text-xs text-[var(--hi-text-soft)] mt-1 truncate">{t('settings.security.recovery_key_detail', { defaultValue: 'Used to recover your vault if you forget your password' })}</p>
+                                        </div>
+                                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[var(--hi-bg-strong)] text-[var(--hi-text-soft)] transition-colors group-hover:bg-[var(--hi-accent-soft)] group-hover:text-[var(--hi-accent)] ml-4">
+                                            <Key className="h-4 w-4" />
+                                        </div>
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* 2. Two-Factor Authentication Card */}
+                        <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-6">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <div className="min-w-0 flex-1">
+                                    <h3 className="flex items-center gap-2.5 text-base font-semibold text-[var(--hi-text)]">
+                                        <ShieldCheck className="h-5.5 w-5.5 text-[var(--hi-accent)]" />
+                                        {t('settings.two_factor.title')}
+                                        <span className={`ml-2 inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold ${
+                                            totpEnabled
+                                                ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20'
+                                                : 'bg-neutral-500/10 text-neutral-400 border border-neutral-500/20'
+                                        }`}>
+                                            {totpEnabled ? t('settings.two_factor.active') : t('common.disabled', { defaultValue: 'Disabled' })}
+                                        </span>
+                                    </h3>
+                                    <p className="text-sm text-[var(--hi-text-soft)] mt-2 leading-relaxed max-w-2xl">
+                                        {t('settings.two_factor.description')}
+                                    </p>
                                 </div>
-                                {!backupCodesResult ? (
-                                    <div className="flex items-center gap-2">
-                                        <input
-                                            type="password"
-                                            value={regeneratePassword}
-                                            onChange={(e) => setRegeneratePassword(e.target.value)}
-                                            placeholder={t('settings.two_factor.password_placeholder')}
-                                            className="input-field flex-1 text-sm"
-                                        />
+                                <div className="shrink-0">
+                                    {!totpEnabled && (
                                         <button
-                                            disabled={regenerateLoading || !regeneratePassword}
+                                            onClick={() => setShow2FASetup(true)}
+                                            className="btn-secondary py-2.5 px-5 text-sm font-semibold flex items-center gap-2"
+                                        >
+                                            <ShieldCheck className="w-4 h-4" />
+                                            {t('settings.two_factor.enable')}
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
+
+                            {totpEnabled && (
+                                <div className="mt-6 pt-6 border-t border-[var(--hi-border)] space-y-4">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        {/* Disable 2FA */}
+                                        <button
+                                            onClick={() => { setShow2FADisableModal(true); setDisableError(''); setDisablePassword(''); setDisableCode(''); setDisableMethod('totp'); }}
+                                            className="group flex items-center justify-between rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4 transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)] text-left"
+                                        >
+                                            <div className="min-w-0">
+                                                <p className="font-semibold text-sm text-[var(--hi-text)]">{t('settings.two_factor.disable')}</p>
+                                                <p className="text-xs text-[var(--hi-text-soft)] mt-1">{t('settings.two_factor.disable_desc')}</p>
+                                            </div>
+                                            <X className="h-4.5 w-4.5 text-[var(--hi-text-soft)] transition group-hover:text-red-400 shrink-0 ml-4" />
+                                        </button>
+
+                                        {/* Revoke Trusted Devices */}
+                                        <button
+                                            disabled={revokeLoading}
                                             onClick={async () => {
-                                                setRegenerateLoading(true);
+                                                setRevokeLoading(true);
                                                 try {
-                                                    const res = await axios.post('/api/auth/2fa/backup-codes', { password: regeneratePassword });
-                                                    setBackupCodesResult(res.data.backupCodes);
-                                                    setRegeneratePassword('');
-                                                    showSuccessToast(t('settings.two_factor.codes_regenerated'));
+                                                    const res = await axios.delete('/api/auth/2fa/trusted-devices');
+                                                    showSuccessToast(t('settings.two_factor.devices_revoked', { count: res.data.devicesRevoked || 0 }));
                                                 } catch (err: any) {
-                                                    showErrorToast(err.response?.data?.error || t('settings.two_factor.codes_error'));
+                                                    showErrorToast(err.response?.data?.error || t('settings.two_factor.devices_error'));
                                                 } finally {
-                                                    setRegenerateLoading(false);
+                                                    setRevokeLoading(false);
                                                 }
                                             }}
-                                            className="btn-secondary py-2.5 px-4 text-sm flex items-center gap-1"
+                                            className="group flex items-center justify-between rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4 transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)] text-left"
                                         >
-                                            {regenerateLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Key className="w-4 h-4" />}
-                                            {t('settings.two_factor.regenerate')}
+                                            <div className="min-w-0">
+                                                <p className="font-semibold text-sm text-[var(--hi-text)]">{t('settings.two_factor.revoke_devices')}</p>
+                                                <p className="text-xs text-[var(--hi-text-soft)] mt-1">{t('settings.two_factor.revoke_devices_desc')}</p>
+                                            </div>
+                                            {revokeLoading ? <Loader2 className="h-4.5 w-4.5 animate-spin text-[var(--hi-text-soft)] shrink-0 ml-4" /> : <Trash2 className="h-4.5 w-4.5 text-[var(--hi-text-soft)] transition group-hover:text-red-400 shrink-0 ml-4" />}
                                         </button>
                                     </div>
-                                ) : (
-                                    <div>
-                                        <div className="grid grid-cols-2 gap-1.5 mb-3">
-                                            {backupCodesResult.map((code, i) => (
-                                                <div key={i} className="select-all rounded-xl border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] px-2 py-1.5 text-center font-mono text-xs text-[var(--hi-text-soft)]">
-                                                    {code}
-                                                </div>
-                                            ))}
+
+                                    {/* Regenerate Backup Codes */}
+                                    <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4">
+                                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                                            <div>
+                                                <p className="font-semibold text-sm text-[var(--hi-text)]">{t('settings.two_factor.regenerate_codes')}</p>
+                                                <p className="text-xs text-[var(--hi-text-soft)] mt-1 leading-relaxed">{t('settings.two_factor.regenerate_codes_desc')}</p>
+                                            </div>
                                         </div>
-                                        <button onClick={() => setBackupCodesResult(null)} className="text-sm font-medium text-[var(--hi-accent)] transition hover:text-[var(--hi-accent-strong)]">
-                                            {t('settings.two_factor.close_codes')}
-                                        </button>
+                                        {!backupCodesResult ? (
+                                            <div className="flex items-center gap-2 max-w-md">
+                                                <input
+                                                    type="password"
+                                                    value={regeneratePassword}
+                                                    onChange={(e) => setRegeneratePassword(e.target.value)}
+                                                    placeholder={t('settings.two_factor.password_placeholder')}
+                                                    className="input-field text-sm py-2 px-3 bg-[var(--hi-panel-strong)]"
+                                                />
+                                                <button
+                                                    disabled={regenerateLoading || !regeneratePassword}
+                                                    onClick={async () => {
+                                                        setRegenerateLoading(true);
+                                                        try {
+                                                            const res = await axios.post('/api/auth/2fa/backup-codes', { password: regeneratePassword });
+                                                            setBackupCodesResult(res.data.backupCodes);
+                                                            setRegeneratePassword('');
+                                                            showSuccessToast(t('settings.two_factor.codes_regenerated'));
+                                                        } catch (err: any) {
+                                                            showErrorToast(err.response?.data?.error || t('settings.two_factor.codes_error'));
+                                                        } finally {
+                                                            setRegenerateLoading(false);
+                                                        }
+                                                    }}
+                                                    className="btn-secondary py-2.5 px-4 text-xs font-semibold flex items-center gap-1.5 shrink-0"
+                                                >
+                                                    {regenerateLoading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Key className="w-3.5 h-3.5" />}
+                                                    {t('settings.two_factor.regenerate')}
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            <div className="mt-2">
+                                                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
+                                                    {backupCodesResult.map((code, i) => (
+                                                        <div key={i} className="select-all rounded-lg border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] px-2 py-1.5 text-center font-mono text-xs text-[var(--hi-text-soft)]">
+                                                            {code}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                                <button onClick={() => setBackupCodesResult(null)} className="text-xs font-semibold text-[var(--hi-accent)] transition hover:text-[var(--hi-accent-strong)]">
+                                                    {t('settings.two_factor.close_codes')}
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* 3. Borrow Request Privacy Card */}
+                        <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-6">
+                            <h3 className="flex items-center gap-2.5 text-base font-semibold text-[var(--hi-text)] mb-2">
+                                <Users className="h-5.5 w-5.5 text-[var(--hi-accent)]" />
+                                {t('settings.borrow_requests.policy_title', { defaultValue: 'New Borrow Requests' })}
+                            </h3>
+                            <p className="text-sm text-[var(--hi-text-soft)] mb-5 leading-relaxed">
+                                {t('settings.borrow_requests.policy_description', { defaultValue: 'Control who can send borrow requests to you. Your inventory is never shown as a public listing.' })}
+                            </p>
+
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                {/* Option None */}
+                                <button
+                                    type="button"
+                                    onClick={() => handleUpdatePolicy('none')}
+                                    className={`group flex flex-col items-center text-center p-5 rounded-2xl border transition-all duration-200 ${
+                                        borrowPolicy === 'none'
+                                            ? 'border-[var(--hi-accent)] bg-[var(--hi-accent-soft)] shadow-[var(--hi-shadow-soft)]'
+                                            : 'border-[var(--hi-border)] bg-[var(--hi-panel-muted)] hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)]'
+                                    }`}
+                                >
+                                    <div className={`p-3 rounded-xl mb-3 transition-colors ${
+                                        borrowPolicy === 'none' ? 'bg-[var(--hi-panel-strong)] text-[var(--hi-accent)]' : 'bg-[var(--hi-bg-strong)] text-[var(--hi-text-soft)] group-hover:text-[var(--hi-text)]'
+                                    }`}>
+                                        <UserX className="w-6 h-6" />
+                                    </div>
+                                    <span className="font-bold text-sm text-[var(--hi-text)]">
+                                        {t('settings.borrow_requests.policy_none', { defaultValue: 'Do not receive from anyone (Default)' })}
+                                    </span>
+                                    <span className="text-xs text-[var(--hi-text-soft)] mt-1.5 leading-relaxed">
+                                        {t('settings.borrow_requests.policy_none_desc', { defaultValue: 'All incoming requests are blocked automatically.' })}
+                                    </span>
+                                </button>
+
+                                {/* Option House Only */}
+                                <button
+                                    type="button"
+                                    onClick={() => handleUpdatePolicy('house_only')}
+                                    className={`group flex flex-col items-center text-center p-5 rounded-2xl border transition-all duration-200 ${
+                                        borrowPolicy === 'house_only'
+                                            ? 'border-[var(--hi-accent)] bg-[var(--hi-accent-soft)] shadow-[var(--hi-shadow-soft)]'
+                                            : 'border-[var(--hi-border)] bg-[var(--hi-panel-muted)] hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)]'
+                                    }`}
+                                >
+                                    <div className={`p-3 rounded-xl mb-3 transition-colors ${
+                                        borrowPolicy === 'house_only' ? 'bg-[var(--hi-panel-strong)] text-[var(--hi-accent)]' : 'bg-[var(--hi-bg-strong)] text-[var(--hi-text-soft)] group-hover:text-[var(--hi-text)]'
+                                    }`}>
+                                        <Users className="w-6 h-6" />
+                                    </div>
+                                    <span className="font-bold text-sm text-[var(--hi-text)]">
+                                        {t('settings.borrow_requests.policy_house_only', { defaultValue: 'Household members only' })}
+                                    </span>
+                                    <span className="text-xs text-[var(--hi-text-soft)] mt-1.5 leading-relaxed">
+                                        {t('settings.borrow_requests.policy_house_only_desc', { defaultValue: 'Only verified members of your active houses can request items that are already visible inside that shared house.' })}
+                                    </span>
+                                </button>
+
+                                {/* Option Everyone */}
+                                <button
+                                    type="button"
+                                    onClick={() => handleUpdatePolicy('everyone')}
+                                    className={`group flex flex-col items-center text-center p-5 rounded-2xl border transition-all duration-200 ${
+                                        borrowPolicy === 'everyone'
+                                            ? 'border-[var(--hi-accent)] bg-[var(--hi-accent-soft)] shadow-[var(--hi-shadow-soft)]'
+                                            : 'border-[var(--hi-border)] bg-[var(--hi-panel-muted)] hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)]'
+                                    }`}
+                                >
+                                    <div className={`p-3 rounded-xl mb-3 transition-colors ${
+                                        borrowPolicy === 'everyone' ? 'bg-[var(--hi-panel-strong)] text-[var(--hi-accent)]' : 'bg-[var(--hi-bg-strong)] text-[var(--hi-text-soft)] group-hover:text-[var(--hi-text)]'
+                                    }`}>
+                                        <Globe className="w-6 h-6" />
+                                    </div>
+                                    <span className="font-bold text-sm text-[var(--hi-text)]">
+                                        {t('settings.borrow_requests.policy_everyone', { defaultValue: 'All registered users' })}
+                                    </span>
+                                    <span className="text-xs text-[var(--hi-text-soft)] mt-1.5 leading-relaxed">
+                                        {t('settings.borrow_requests.policy_everyone_desc', { defaultValue: 'Other users cannot browse or see your items. They can only send a request by entering your username or email directly.' })}
+                                    </span>
+                                </button>
+                            </div>
+
+                            {/* Blocked Users section */}
+                            <div className="mt-6 pt-6 border-t border-[var(--hi-border)]">
+                                <div className="flex items-center gap-2 mb-3">
+                                    <h4 className="font-semibold text-sm text-[var(--hi-text)]">
+                                        {t('settings.borrow_requests.blocks_title', { defaultValue: 'Blocked Users' })}
+                                    </h4>
+                                    {blockedUsers.length > 0 && (
+                                        <span className="rounded-full bg-red-500/10 text-red-500 border border-red-500/20 px-2 py-0.5 text-xs font-semibold">
+                                            {blockedUsers.length}
+                                        </span>
+                                    )}
+                                </div>
+                                <p className="text-xs text-[var(--hi-text-soft)] mb-4">
+                                    {t('settings.borrow_requests.blocks_description', { defaultValue: 'Users you have blocked cannot send you new borrow requests.' })}
+                                </p>
+
+                                {blockedUsers.length === 0 ? (
+                                    <div className="flex flex-col items-center justify-center p-6 border border-dashed border-[var(--hi-border)] rounded-xl bg-[var(--hi-panel-muted)]/50 text-center">
+                                        <Shield className="w-5 h-5 text-[var(--hi-text-soft)] mb-2" />
+                                        <p className="text-xs font-medium text-[var(--hi-text-soft)]">
+                                            {t('settings.borrow_requests.no_blocks', { defaultValue: 'No blocked users found.' })}
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                        {blockedUsers.map(blockedUser => (
+                                            <div key={blockedUser.id} className="flex items-center justify-between p-3 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] animate-fade-in">
+                                                <span className="font-semibold text-sm text-[var(--hi-text)] truncate pr-4">
+                                                    {blockedUser.username}
+                                                </span>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => handleUnblockUser(blockedUser.id)}
+                                                    className="inline-flex items-center gap-1 text-xs font-bold text-[var(--hi-accent)] hover:text-[var(--hi-accent-strong)] transition-colors"
+                                                >
+                                                    <Trash2 className="w-3.5 h-3.5" />
+                                                    {t('settings.borrow_requests.unblock_btn', { defaultValue: 'Unblock' })}
+                                                </button>
+                                            </div>
+                                        ))}
                                     </div>
                                 )}
                             </div>
-
-                            {/* Revoke Trusted Devices */}
-                            <button
-                                disabled={revokeLoading}
-                                onClick={async () => {
-                                    setRevokeLoading(true);
-                                    try {
-                                        const res = await axios.delete('/api/auth/2fa/trusted-devices');
-                                        showSuccessToast(t('settings.two_factor.devices_revoked', { count: res.data.devicesRevoked || 0 }));
-                                    } catch (err: any) {
-                                        showErrorToast(err.response?.data?.error || t('settings.two_factor.devices_error'));
-                                    } finally {
-                                        setRevokeLoading(false);
-                                    }
-                                }}
-                                className="group flex w-full items-center justify-between rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4 transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)]"
-                            >
-                                <div className="text-left">
-                                    <p className="font-medium text-[var(--hi-text)]">{t('settings.two_factor.revoke_devices')}</p>
-                                    <p className="text-sm text-[var(--hi-text-soft)]">{t('settings.two_factor.revoke_devices_desc')}</p>
-                                </div>
-                                {revokeLoading ? <Loader2 className="h-5 w-5 animate-spin text-[var(--hi-text-soft)]" /> : <Trash2 className="h-5 w-5 text-[var(--hi-text-soft)] transition group-hover:text-red-400" />}
-                            </button>
                         </div>
-                    )}
+
+                        {/* 4. Collapsible Danger Zone Card */}
+                        <div className="rounded-xl border border-red-500/20 bg-[var(--hi-panel-strong)] p-6">
+                            <div className="flex items-center justify-between gap-4">
+                                <div className="min-w-0 flex-1">
+                                    <h3 className="flex items-center gap-2.5 text-base font-semibold text-red-500">
+                                        <UserX className="h-5.5 w-5.5 text-red-500" />
+                                        {t('settings.danger_zone.title', { defaultValue: 'Danger Zone' })}
+                                    </h3>
+                                    <p className="text-sm text-[var(--hi-text-soft)] mt-2 leading-relaxed">
+                                        {t('settings.danger_zone.description', { defaultValue: 'Delete your account and permanently remove all inventory datasets.' })}
+                                    </p>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setShowDeleteZone(!showDeleteZone)}
+                                    className="btn-secondary py-2 px-3 text-xs font-semibold flex items-center gap-1 border-red-500/10 hover:border-red-500/30 text-red-500 hover:bg-red-500/5 transition-all"
+                                >
+                                    {showDeleteZone ? t('settings.house_info.hide', { defaultValue: 'Hide' }) : t('settings.house_info.show', { defaultValue: 'Show' })}
+                                </button>
+                            </div>
+
+                            {showDeleteZone && (
+                                <div className="mt-6 pt-6 border-t border-red-500/10 animate-slide-up space-y-4">
+                                    <div className="rounded-xl border border-red-500/14 bg-red-500/5 dark:bg-red-500/10 p-4">
+                                        <h4 className="font-bold text-sm text-red-500">
+                                            {t('settings.danger_zone.delete_title', { defaultValue: 'Delete account' })}
+                                        </h4>
+                                        <p className="text-xs text-[var(--hi-text-soft)] mt-2 leading-relaxed">
+                                            {t('settings.danger_zone.delete_description')}
+                                        </p>
+                                        <p className="text-xs text-red-400/90 mt-1.5 leading-relaxed font-medium">
+                                            {t('settings.danger_zone.delete_warning')}
+                                        </p>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={openDeleteAccountModal}
+                                        className="btn-danger w-full py-3 flex items-center justify-center gap-2 font-semibold text-sm shrink-0"
+                                    >
+                                        <UserX className="w-4 h-4" />
+                                        {t('settings.danger_zone.delete_action')}
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
                 </AccordionSection>
             </section>
 
@@ -1489,35 +1775,6 @@ export default function Settings() {
                     )}
                 </AccordionSection>
 
-                <AccordionSection
-                    title={t('settings.danger_zone.title')}
-                    description={t('settings.danger_zone.delete_description')}
-                    eyebrow={t('settings.control_sections.account', { defaultValue: 'Account' })}
-                    icon={UserX}
-                    className="mb-5"
-                >
-                    <div className="rounded-[1rem] border border-red-500/14 bg-[rgba(187,66,87,0.045)] p-4">
-                        <p className="font-medium text-[var(--hi-text)]">
-                            {t('settings.danger_zone.delete_title')}
-                        </p>
-                        <p className="mt-2 text-sm text-[var(--hi-text-soft)]">
-                            {t('settings.danger_zone.delete_description')}
-                        </p>
-                        <p className="mt-3 text-xs text-[var(--hi-text-soft)]">
-                            {t('settings.danger_zone.delete_warning')}
-                        </p>
-
-                        <button
-                            type="button"
-                            onClick={openDeleteAccountModal}
-                            className="btn-danger mt-4 w-full"
-                        >
-                            <UserX className="h-4 w-4" />
-                            {t('settings.danger_zone.delete_action')}
-                        </button>
-                    </div>
-                </AccordionSection>
-
                 <FloatingToastStack toasts={toasts} onClose={closeToast} />
 
                 <ConfirmDialog
@@ -1559,6 +1816,32 @@ export default function Settings() {
                         <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
                             {t('settings.house_info.kick_warning', {
                                 defaultValue: 'Their household access will end immediately and they will need a new invitation or approval to return.'
+                            })}
+                        </p>
+                    </div>
+                </ConfirmDialog>
+
+                <ConfirmDialog
+                    isOpen={Boolean(pendingTransferOwnerMember)}
+                    title={t('settings.house_info.transfer_owner_title', { defaultValue: 'Transfer house ownership?' })}
+                    description={pendingTransferOwnerMember ? t('settings.house_info.transfer_owner_confirm', {
+                        name: pendingTransferOwnerMember.username,
+                        defaultValue: 'Transfer ownership of this household to {{name}}?'
+                    }) : ''}
+                    confirmLabel={memberActionLoading === `transfer-${pendingTransferOwnerMember?.id}`
+                        ? t('settings.house_info.transferring_owner', { defaultValue: 'Transferring...' })
+                        : t('settings.house_info.transfer_owner', { defaultValue: 'Make owner' })}
+                    cancelLabel={t('common.cancel')}
+                    tone="warning"
+                    confirming={memberActionLoading === `transfer-${pendingTransferOwnerMember?.id}`}
+                    onClose={() => memberActionLoading !== `transfer-${pendingTransferOwnerMember?.id}` && setPendingTransferOwnerMember(null)}
+                    onConfirm={handleTransferHouseOwner}
+                >
+                    <div className="rounded-[1rem] border border-[rgba(184,153,104,0.22)] bg-[var(--hi-secondary-soft)] px-4 py-3">
+                        <p className="font-medium text-[var(--hi-text)]">{pendingTransferOwnerMember?.username}</p>
+                        <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
+                            {t('settings.house_info.transfer_owner_warning', {
+                                defaultValue: 'You will no longer be the owner of this household. The new owner will manage member approvals, removals, and future ownership changes.'
                             })}
                         </p>
                     </div>

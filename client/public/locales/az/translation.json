@@ -186,7 +186,8 @@
         "hide": "Parolu gizlət",
         "logging_out": "Çıxış edilir...",
         "show": "Parolu göstər",
-        "saving": "Yadda saxlanılır..."
+        "saving": "Yadda saxlanılır...",
+        "disabled": "Əlil"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Mövcud evə birləşdirmək üçün Ev Açarı tələb olunur",
         "house_key_not_found": "Etibarsız Ev Açarı. Zəhmət olmasa, düzgün açarı daxil edin.",
         "email_not_verified": "E-poçt ünvanınız hələ təsdiqlənməyib. Zəhmət olmasa, e-poçt qutunuzu yoxlayın.",
-        "two_factor_invalid": "Yoxlama kodu səhvdir"
+        "two_factor_invalid": "Yoxlama kodu səhvdir",
+        "two_factor_invalid_try_again": "Etibarsız təsdiq kodu. Zəhmət olmasa, yenidən cəhd edin.",
+        "two_factor_code_required": "Təsdiq kodu tələb olunur",
+        "two_factor_user_not_found": "İstifadəçi tapılmadı",
+        "two_factor_already_enabled": "İki faktorlu autentifikasiya artıq aktivdir",
+        "two_factor_setup_not_started": "Zəhmət olmasa, əvvəlcə iki faktorlu autentifikasiya quraşdırmasına başlayın",
+        "two_factor_setup_error": "İki faktorlu autentifikasiya qurulması zamanı xəta baş verdi",
+        "two_factor_activation_error": "İki faktorlu autentifikasiya aktivləşdirilməsi zamanı xəta baş verdi",
+        "two_factor_password_required": "Şifrə tələb olunur",
+        "two_factor_credentials_required": "TOTP kodu, ehtiyat kodu və ya bərpa açarı tələb olunur",
+        "two_factor_already_disabled": "İki faktorlu autentifikasiya artıq deaktiv edilib",
+        "two_factor_password_incorrect": "Yanlış şifrə",
+        "two_factor_verification_failed": "Təsdiq uğursuz oldu. Zəhmət olmasa kodu yoxlayın və yenidən cəhd edin.",
+        "two_factor_disable_error": "İki faktorlu autentifikasiyanı deaktiv edərkən xəta baş verdi",
+        "two_factor_not_enabled": "İki faktorlu autentifikasiya aktiv deyil",
+        "two_factor_regenerate_codes_error": "Ehtiyat kodların yenidən yaradılması zamanı səhv baş verdi",
+        "two_factor_enabled_success": "İki faktorlu autentifikasiya uğurla aktivləşdirilib",
+        "two_factor_disabled_success": "İki faktorlu autentifikasiya uğurla deaktiv edilib",
+        "password_errors": {
+            "min_length": "Şifrə ən azı {{min}} simvol uzunluğunda olmalıdır",
+            "lowercase_required": "Şifrə ən azı bir kiçik hərfdən ibarət olmalıdır",
+            "uppercase_required": "Şifrə ən azı bir böyük hərfdən ibarət olmalıdır",
+            "number_required": "Şifrə ən azı bir rəqəmi ehtiva etməlidir",
+            "symbol_required": "Şifrə ən azı bir simvolu ehtiva etməlidir",
+            "repeated_chars": "Şifrənizdə təkrarlanan simvollardan istifadə etməyin",
+            "predictable_sequence": "Şifrənizdə asan təxmin edilə bilən ardıcıllıqlardan istifadə etməyin",
+            "common_password": "Bu şifrə çox yayılmış və təhlükəsiz deyil",
+            "contains_username": "Şifrə istifadəçi adınızı içərməməlidir",
+            "contains_email": "Şifrə e-poçt məlumatınızı içərməməlidir"
+        }
     },
     "navigation": {
         "home": "Ana Səhifə",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Bərpa açarı yenidən yaradıldı",
             "recovery_key_error": "Bərpa açarını yenidən yaratmaq mümkün olmadı",
             "account_delete_error": "Hesab silinə bilmədi",
-            "backup_downloaded_encrypted": "Şifrələnmiş ehtiyat nüsxə uğurla yükləndi! ({{count}} əşya)"
+            "backup_downloaded_encrypted": "Şifrələnmiş ehtiyat nüsxə uğurla yükləndi! ({{count}} əşya)",
+            "policy_update_error": "Sorğu parametrlərini yeniləmək uğursuz oldu.",
+            "policy_updated": "Sifariş parametrləri uğurla yeniləndi.",
+            "unblock_error": "İstifadəçinin blokunu açmaq uğursuz oldu.",
+            "unblocked_success": "İstifadəçi uğurla blokdan çıxarıldı.",
+            "house_owner_transferred": "Ev mülkiyyətinin ötürülməsi",
+            "house_owner_transfer_error": "Ev mülkiyyəti köçürülə bilməzdi."
         },
         "user_profile": {
             "edit_username": "İstifadəçi adını dəyişdir"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} artıq bu evə girişə malik deyil.",
             "kick_title": "Bu üzvü silmək?",
             "kick_warning": "Onların evə giriş imkanı dərhal bitəcək və geri qayıtmaq üçün yeni dəvət və ya təsdiq lazım olacaq.",
-            "kicking": "Silinir..."
+            "kicking": "Silinir...",
+            "access_section_eyebrow": "Evə giriş",
+            "transfer_owner": "Sahibi et",
+            "transferring_owner": "Köçürülür...",
+            "transfer_owner_title": "Ev sahibliyini köçürmək?",
+            "transfer_owner_confirm": "Bu evin sahibliyini {{name}}-ə köçürmək?",
+            "transfer_owner_warning": "Artıq bu evin sahibi olmayacaqsan. Yeni sahib üzvlərin təsdiqi, çıxarılması və gələcək sahiblik dəyişikliklərini idarə edəcək.",
+            "transfer_owner_success_body": "{{name}} indi bu evin sahibidir."
         },
         "theme": {
             "title": "Mövzu",
@@ -729,7 +772,9 @@
             "light": "Yüngül Rejim",
             "description": "Bu cihazda iş yerinin görünüşünü seçin.",
             "light_aria": "Yüngül mövzuya keç",
-            "dark_aria": "Qaranlıq mövzuya keç"
+            "dark_aria": "Qaranlıq mövzuya keç",
+            "workspace_title": "İş Sahəsi Mövzusu",
+            "workspace_desc": "Bu cihaz üçün sevdiyiniz vizual üslubu seçin."
         },
         "security": {
             "title": "Təhlükəsizlik",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Cari bərpa açarı göstərilə bilmir. Lazım gələrsə, onu yenidən yaradın.",
             "recovery_key_action": "Yenidən yarat",
             "recovery_key_modal_desc": "Davam etmək üçün cari şifrənizi təsdiqləyin. Yeni açar yalnız bir dəfə göstəriləcək.",
-            "recovery_key_loading": "Hazırlanır..."
+            "recovery_key_loading": "Hazırlanır...",
+            "accordion_title": "Təhlükəsizlik və məxfilik",
+            "accordion_desc": "İki faktorlu autentifikasiyanı idarə edin, etibarlı cihazlar və digər hesablardan borc sorğu qaydalarını idarə edin.",
+            "description": "Əsas şifrənizi və vault bərpa konfiqurasiyalarınızı idarə edin.",
+            "change_password_detail": "Hesabınızı təhlükəsiz saxlamaq üçün şifrənizi yeniləyin",
+            "recovery_key_detail": "Şifrənizi unutduqda seyfinizi bərpa etmək üçün istifadə olunurdu"
         },
         "data_management": {
             "title": "Məlumatların idarə edilməsi",
@@ -890,7 +940,8 @@
             "revoke_devices": "Etibarlı Cihazları Ləğv Et",
             "revoke_devices_desc": "Bütün yadda saxlanılmış cihazları silin, növbəti girişdə 2FA tələb olunacaq",
             "devices_revoked": "{{count}} etibarlı cihaz silindi",
-            "devices_error": "Cihazları ləğv etmək alınmadı"
+            "devices_error": "Cihazları ləğv etmək alınmadı",
+            "preparing_setup": "Autentifikator qurğunuzu hazırlayıram..."
         },
         "danger_zone": {
             "title": "Hesab",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Təsdiqdən sonra dərhal hesaba girişinizi itirəcəksiniz və silinmiş tətbiq məlumatlarını tətbiqdən bərpa etmək mümkün olmayacaq.",
             "password_label": "Cari şifrənizlə təsdiqləyin",
             "confirm_delete": "Silməni təsdiqləyin",
-            "deleting": "Silinir..."
+            "deleting": "Silinir...",
+            "description": "Hesabınızı silin və bütün inventar məlumat dəstlərini daimi olaraq silin."
         },
         "language": "Dil",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Populyar Dillər",
         "search_results": "Axtarış Nəticələri",
         "current_language": "Cari dil",
-        "languages_available": "mövcud dillər"
+        "languages_available": "mövcud dillər",
+        "borrow_requests": {
+            "accordion_eyebrow": "Borcalma sorğusu təhlükəsizliyi",
+            "accordion_eyebrow_desc": "Sorğu qaydalarını konfiqurasiya edin və bloklanmış istifadəçiləri idarə edin.",
+            "title": "Borcalma sorğusu parametrləri",
+            "description": "Digər hesablardan borcalma sorğularının alınması üçün qaydaları idarə edin və bloklanmış istifadəçiləri siyahıya alın.",
+            "policy_title": "Yeni Borc Sorğuları",
+            "policy_description": "Kimin sizə borc sorğuları göndərə biləcəyini idarə edin. Sizin inventarınız heç vaxt ictimai siyahı kimi göstərilmir.",
+            "policy_none": "Heç kimdən qəbul etməyin (Default)",
+            "policy_house_only": "Yalnız ev təsərrüfatı üzvləri",
+            "policy_everyone": "Bütün qeydiyyatdan keçmiş istifadəçilər",
+            "blocks_title": "Bloklanmış İstifadəçilər",
+            "blocks_description": "Sizdən yeni borc sorğuları göndərməsini blokladığınız istifadəçilər.",
+            "no_blocks": "Heç bir bloklanmış istifadəçi tapılmadı.",
+            "unblock_btn": "Blokun açılması",
+            "policy_none_desc": "Bütün gələn sorğular avtomatik bloklanır.",
+            "policy_house_only_desc": "Yalnız aktiv evinizin təsdiqlənmiş üzvləri, o evdə artıq görünən əşyaları tələb edə bilər.",
+            "policy_everyone_desc": "Digər istifadəçilər sizin əşyalarınıza baxa və onları görə bilməz. Onlar yalnız birbaşa istifadəçi adınızı və ya e-poçtunuzu daxil edərək sorğu göndərə bilərlər."
+        }
     },
     "inventory": {
         "title": "Inventar",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Səninlə",
             "return_pending_hint": "Qeyd, əşyayı geri aldığını təsdiqləyənə qədər bağlanacaq.",
             "return_pending_lender_title": "{{name}} bu əşyayı geri çatdırılmış kimi işarələyib",
-            "return_pending_self_title": "Səninlə, qəbz təsdiqini gözləyir"
+            "return_pending_self_title": "Səninlə, qəbz təsdiqini gözləyir",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Başlıqsız maddə",
         "delete_action": "Maddəni sil",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Qəbul qeydi",
             "return_note_placeholder_borrower": "məsələn, Mən bunu heç bir problem olmadan geri verdim",
             "return_note_placeholder_lender": "məsələn, Yaxşı vəziyyətdə geri alındı",
-            "return_submitting": "Bağlanır..."
+            "return_submitting": "Bağlanır...",
+            "reject_title": "Sorğunu rədd et",
+            "reject_subtitle": "Sən “{{item}}” üçün sorğunu rədd etmək üzrə sənsən.",
+            "reject_target": "{{name}} tərəfindən göndərilən borc sorğusunu rədd etmək üzrə sənsən.",
+            "reject_reason_label": "İmtina Səbəbi",
+            "reject_submitting": "Rədd etmək...",
+            "due_date_label": "Planlaşdırılan qayıdış tarixi"
         },
         "messages": {
             "load_error": "Borclanma mərkəzi yüklənə bilmədi",
-            "action_error": "Əməliyyatı tamamlamaq mümkün olmadı"
+            "action_error": "Əməliyyatı tamamlamaq mümkün olmadı",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Hər gün eyni şəxsə yalnız bir ilk əlaqə xarici sorğu göndərə bilərsiniz. Əgər onlar sorğunu qəbul edərsə, bu məhdudiyyət həmin şəxs üçün artıq tətbiq olunmur.",
+                "external_total_daily_limit": "Hər gün maksimum 5 ilk əlaqə xarici sorğu göndərə bilərsiniz.",
+                "external_request_requires_verified_email": "Xarici borc sorğuları göndərmədən əvvəl e-poçt ünvanınızı təsdiqləyin.",
+                "external_offer_blocked": "Siz yalnız ev üzvlərinə və ya birbaşa tanına bilən qeydiyyatdan keçmiş istifadəçilərə əşya təklif edə bilərsiniz.",
+                "target_blocked_by_you": "Blokladığınız istifadəçiyə sorğu göndərə bilməzsiniz.",
+                "recent_rejection_lock": "Bu istifadəçi son sorğunu rədd etdi. 30 gündən sonra başqa bir sorğu göndərə bilərsiniz."
+            }
         },
         "preview": {
             "title": "Önizləmə rejimi",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Heç bir sorğu sizin nəzərdən keçirməyinizi tələb etmir",
         "outgoing_empty_title": "Hələ göndərilən sorğular yoxdur",
         "refreshing": "Sorğular və aktiv borclar yenilənir...",
-        "loading_description": "Hazırlanmış sorğular və aktiv borc fəaliyyəti."
+        "loading_description": "Hazırlanmış sorğular və aktiv borc fəaliyyəti.",
+        "reasons": {
+            "rejected": "Rədd et (Normal rədd etmə)",
+            "not_available": "Mövcud deyil (Əşya çatışmır / mövcud deyil)",
+            "blocked": "Blokla və rədd et (Bu istifadəçini bloklayır)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Məxfilik Siyasəti",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Bütün ev əşyalarınızı ağıllı şəkildə idarə edin"
+        "tagline": "Bütün ev əşyalarınızı ağıllı şəkildə idarə edin",
+        "loading": "Yüklənir {{brandName}}",
+        "preparing_workspace": "İş yerinizi hazırlayıram..."
     },
     "nav": {
         "home": "Ev",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Tarixi Təmizlə",
-            "add_item": "Alış Siyahısına Əlavə Et"
+            "add_item": "Alış Siyahısına Əlavə Et",
+            "mark_completed": "Tamamlanmış kimi işarə",
+            "decrease_qty": "Azaldılmış miqdar",
+            "increase_qty": "Miqdarı artır",
+            "delete_item": "Maddəni sil",
+            "reactivate_item": "Yenidən aktiv siyahıya keç"
         },
         "form": {
             "add_type": "Metodu Əlavə Et",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Bu maddə üçün periodik və ya bir dəfəlik baxımın izlənməsi planlaşdırılıb.",
         "no_tasks": "Bu maddəyə heç bir təmir vəzifəsi təyin edilməyib.",
         "confirm_delete": "Bu vəzifə silinəcək. Əminsiniz?"
+    },
+    "error_boundary": {
+        "title": "Bir şey yenilənməlidir",
+        "description": "İnterfeys gözlənilməz bir render problemi ilə üzləşdi. Saxlanılan inventar məlumatınız bu ekran tərəfindən dəyişdirilmir.",
+        "refresh_btn": "Yeniləmə",
+        "home_btn": "Ev"
     }
 }

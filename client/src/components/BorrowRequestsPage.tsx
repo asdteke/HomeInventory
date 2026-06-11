@@ -10,12 +10,14 @@ import {
     Inbox,
     Package,
     RefreshCcw,
-    Send
+    Send,
+    X
 } from 'lucide-react';
 import {
     BorrowRequestCreateDialog,
     FulfillBorrowRequestDialog,
-    ReturnBorrowRecordDialog
+    ReturnBorrowRecordDialog,
+    RejectBorrowRequestDialog
 } from './BorrowDialogs';
 import { formatBorrowDate, formatBorrowDateTime, isBorrowOverdue } from '../utils/borrowFormatting';
 import {
@@ -78,6 +80,25 @@ function BorrowPanel({ title, description, children, className = '' }: BorrowPan
             </div>
         </section>
     );
+}
+
+function getTranslatedActionErrorMessage(error: any, t: any) {
+    const fallback = t('borrow_requests.messages.action_error');
+    const errorCode = String(error?.response?.data?.code || '').trim();
+    if (errorCode) {
+        const translated = t(`borrow_requests.messages.errors.${errorCode}`, { defaultValue: '' });
+        if (translated) {
+            return translated;
+        }
+    }
+
+    const rawMessage = getRequestErrorMessage(error, fallback);
+
+    if (/aktif ödünç kaydı bulunamadı|active borrow/i.test(String(rawMessage || ''))) {
+        return t('borrow_requests.messages.active_borrow_not_found');
+    }
+
+    return rawMessage || fallback;
 }
 
 interface StatusBadgeProps {
@@ -297,6 +318,7 @@ export default function BorrowRequestsPage() {
     const [actionError, setActionError] = useState('');
     const [requestDialogOpen, setRequestDialogOpen] = useState(false);
     const [fulfillRequest, setFulfillRequest] = useState<any | null>(null);
+    const [rejectRequest, setRejectRequest] = useState<any | null>(null);
     const [returnBorrow, setReturnBorrow] = useState<any | null>(null);
     const [submitting, setSubmitting] = useState(false);
 
@@ -409,7 +431,7 @@ export default function BorrowRequestsPage() {
             }
         } catch (error) {
             if (isMountedRef.current) {
-                setActionError(getRequestErrorMessage(error, t('borrow_requests.messages.action_error')));
+                setActionError(getTranslatedActionErrorMessage(error, t));
             }
             throw error;
         }
@@ -431,7 +453,7 @@ export default function BorrowRequestsPage() {
             });
         } catch (error) {
             if (isMountedRef.current) {
-                setActionError(getRequestErrorMessage(error, t('borrow_requests.messages.action_error')));
+                setActionError(getTranslatedActionErrorMessage(error, t));
             }
         }
     };
@@ -454,25 +476,37 @@ export default function BorrowRequestsPage() {
             }
         } catch (error) {
             if (isMountedRef.current) {
-                setActionError(getRequestErrorMessage(error, t('borrow_requests.messages.action_error')));
+                setActionError(getTranslatedActionErrorMessage(error, t));
             }
             throw error;
         }
     };
 
-    const handleReject = async (request: any) => {
+    const handleReject = (request: any) => {
+        setRejectRequest(request);
+    };
+
+    const handleRejectSubmit = async (payload: { reason: string }) => {
+        if (!rejectRequest) {
+            return;
+        }
+
         try {
             await runAction(async () => {
                 await axios.post(
-                    `/api/borrow-requests/${request.id}/reject`,
-                    undefined,
+                    `/api/borrow-requests/${rejectRequest.id}/reject`,
+                    payload,
                     createRequestConfig({ timeout: ACTION_REQUEST_TIMEOUT_MS })
                 );
             });
+            if (isMountedRef.current) {
+                setRejectRequest(null);
+            }
         } catch (error) {
             if (isMountedRef.current) {
-                setActionError(getRequestErrorMessage(error, t('borrow_requests.messages.action_error')));
+                setActionError(getTranslatedActionErrorMessage(error, t));
             }
+            throw error;
         }
     };
 
@@ -487,7 +521,7 @@ export default function BorrowRequestsPage() {
             });
         } catch (error) {
             if (isMountedRef.current) {
-                setActionError(getRequestErrorMessage(error, t('borrow_requests.messages.action_error')));
+                setActionError(getTranslatedActionErrorMessage(error, t));
             }
         }
     };
@@ -526,7 +560,7 @@ export default function BorrowRequestsPage() {
             }
         } catch (error) {
             if (isMountedRef.current) {
-                setActionError(getRequestErrorMessage(error, t('borrow_requests.messages.action_error')));
+                setActionError(getTranslatedActionErrorMessage(error, t));
             }
             throw error;
         }
@@ -589,6 +623,17 @@ export default function BorrowRequestsPage() {
                     tone="danger"
                     title={t('borrow_requests.messages.action_error')}
                     description={actionError}
+                    action={
+                        <button
+                            type="button"
+                            onClick={() => setActionError('')}
+                            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-red-200/70 text-red-500 transition hover:bg-red-100/70 dark:border-red-400/20 dark:text-red-300 dark:hover:bg-red-500/10"
+                            aria-label={t('common.close')}
+                            title={t('common.close')}
+                        >
+                            <X className="h-4 w-4" />
+                        </button>
+                    }
                 />
             )}
 
@@ -720,6 +765,13 @@ export default function BorrowRequestsPage() {
                 submitting={submitting}
                 onClose={() => !submitting && setReturnBorrow(null)}
                 onSubmit={handleReturnSubmit}
+            />
+
+            <RejectBorrowRequestDialog
+                request={rejectRequest}
+                submitting={submitting}
+                onClose={() => !submitting && setRejectRequest(null)}
+                onSubmit={handleRejectSubmit}
             />
         </div>
     );

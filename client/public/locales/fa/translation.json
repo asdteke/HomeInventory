@@ -186,7 +186,8 @@
         "hide": "مخفی کردن رمز عبور",
         "logging_out": "خارج شدن از حساب...",
         "show": "نمایش رمز عبور",
-        "saving": "در حال ذخیره‌سازی..."
+        "saving": "در حال ذخیره‌سازی...",
+        "disabled": "معلول"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "کلید خانه برای اتصال به خانه موجود لازم است",
         "house_key_not_found": "کلید خانه نامعتبر. لطفا کلید درست را وارد کنید.",
         "email_not_verified": "آدرس ایمیل شما هنوز تأیید نشده است. لطفا صندوق ورودی ایمیل خود را بررسی کنید.",
-        "two_factor_invalid": "کد تأیید نادرست است"
+        "two_factor_invalid": "کد تأیید نادرست است",
+        "two_factor_invalid_try_again": "کد تأیید نامعتبر است. لطفا دوباره تلاش کنید.",
+        "two_factor_code_required": "کد تأیید لازم است",
+        "two_factor_user_not_found": "کاربر پیدا نشد",
+        "two_factor_already_enabled": "احراز هویت دو مرحله ای قبلا فعال است",
+        "two_factor_setup_not_started": "لطفا ابتدا تنظیمات احراز هویت دو مرحله ای را شروع کنید",
+        "two_factor_setup_error": "در جریان راه اندازی احراز هویت دو مرحله ای، خطایی رخ داد",
+        "two_factor_activation_error": "در جریان فعال سازی احراز هویت دو مرحله ای، خطایی رخ داد",
+        "two_factor_password_required": "رمز عبور لازم است",
+        "two_factor_credentials_required": "کد TOTP، کد پشتیبان یا کلید بازیابی مورد نیاز است",
+        "two_factor_already_disabled": "احراز هویت دو مرحله ای قبلا غیرفعال شده است",
+        "two_factor_password_incorrect": "رمز عبور نادرست",
+        "two_factor_verification_failed": "تأیید ناموفق بود. لطفا کد را بررسی کنید و دوباره تلاش کنید.",
+        "two_factor_disable_error": "هنگام غیرفعال کردن احراز هویت دو مرحله ای، خطایی رخ داد",
+        "two_factor_not_enabled": "احراز هویت دو مرحله ای فعال نیست",
+        "two_factor_regenerate_codes_error": "هنگام بازیابی کدهای پشتیبان خطایی رخ داد",
+        "two_factor_enabled_success": "احراز هویت دو مرحله ای با موفقیت فعال شده است",
+        "two_factor_disabled_success": "احراز هویت دو مرحله ای با موفقیت غیرفعال شده است",
+        "password_errors": {
+            "min_length": "رمز عبور باید حداقل {{min}} کاراکتر طول داشته باشد",
+            "lowercase_required": "رمز عبور باید حداقل یک حرف کوچک داشته باشد",
+            "uppercase_required": "رمز عبور باید حداقل شامل یک حرف بزرگ باشد",
+            "number_required": "رمز عبور باید حداقل شامل یک عدد باشد",
+            "symbol_required": "رمز عبور باید حداقل شامل یک نماد باشد",
+            "repeated_chars": "از کاراکترهای تکراری در رمز عبور خود استفاده نکنید",
+            "predictable_sequence": "از دنباله های آسان حدس در رمز عبور خود استفاده نکنید",
+            "common_password": "این رمز عبور خیلی رایج و ناامن است",
+            "contains_username": "رمز عبور نباید شامل نام کاربری شما باشد",
+            "contains_email": "رمز عبور نباید شامل اطلاعات ایمیل شما باشد"
+        }
     },
     "navigation": {
         "home": "خانه",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "کلید بازیابی تولید شد",
             "recovery_key_error": "امکان تولید مجدد کلید بازیابی وجود ندارد",
             "account_delete_error": "حساب کاربری نمی‌تواند حذف شود",
-            "backup_downloaded_encrypted": "پشتیبان‌گیری رمزگذاری‌شده با موفقیت دانلود شد! ({{count}} مورد)"
+            "backup_downloaded_encrypted": "پشتیبان‌گیری رمزگذاری‌شده با موفقیت دانلود شد! ({{count}} مورد)",
+            "policy_update_error": "به روزرسانی تنظیمات درخواست ناموفق بود.",
+            "policy_updated": "درخواست به روزرسانی تنظیمات با موفقیت انجام شد.",
+            "unblock_error": "باز کردن مسدودسازی کاربر ناموفق بود.",
+            "unblocked_success": "کاربر با موفقیت رفع مسدودیت شد.",
+            "house_owner_transferred": "مالکیت خانه منتقل شد",
+            "house_owner_transfer_error": "مالکیت خانه قابل انتقال نبود."
         },
         "user_profile": {
             "edit_username": "تغییر نام کاربری"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} دیگر به این خانه دسترسی ندارد.",
             "kick_title": "این عضو را حذف کنیم؟",
             "kick_warning": "دسترسی او به خانه بلافاصله پایان می‌یابد و برای بازگشت نیاز به دعوت یا تأیید جدید خواهد داشت.",
-            "kicking": "در حال حذف…"
+            "kicking": "در حال حذف…",
+            "access_section_eyebrow": "دسترسی به خانه",
+            "transfer_owner": "مالک کن",
+            "transferring_owner": "در حال انتقال...",
+            "transfer_owner_title": "انتقال مالکیت خانه؟",
+            "transfer_owner_confirm": "مالکیت این خانوار را به {{name}} منتقل کنید؟",
+            "transfer_owner_warning": "دیگر صاحب این خانه نخواهی بود. مالک جدید مدیریت تأییدیه اعضا، اخراج ها و تغییرات مالکیت آینده را بر عهده خواهد داشت.",
+            "transfer_owner_success_body": "{{name}} اکنون صاحب این خانه است."
         },
         "theme": {
             "title": "تم",
@@ -729,7 +772,9 @@
             "light": "حالت روشن",
             "description": "انتخاب کنید که فضای کاری در این دستگاه چگونه نمایش داده شود.",
             "light_aria": "تغییر به تم روشن",
-            "dark_aria": "تغییر به تم تاریک"
+            "dark_aria": "تغییر به تم تاریک",
+            "workspace_title": "تم فضای کاری",
+            "workspace_desc": "سبک بصری مورد علاقه خود را برای این دستگاه انتخاب کنید."
         },
         "security": {
             "title": "امنیت",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "کلید بازیابی فعلی قابل نمایش نیست. در صورت نیاز آن را دوباره تولید کنید.",
             "recovery_key_action": "دوباره تولید کردن",
             "recovery_key_modal_desc": "برای ادامه، رمز عبور فعلی خود را تأیید کنید. کلید جدید تنها یک بار نمایش داده خواهد شد.",
-            "recovery_key_loading": "در حال آماده‌سازی..."
+            "recovery_key_loading": "در حال آماده‌سازی...",
+            "accordion_title": "امنیت و حریم خصوصی",
+            "accordion_desc": "احراز هویت دو مرحله ای، دستگاه های مورد اعتماد و قوانین درخواست قرض از حساب های دیگر را مدیریت کنید.",
+            "description": "رمز عبور اصلی و پیکربندی بازیابی صندوق را مدیریت کنید.",
+            "change_password_detail": "رمز عبور خود را به روزرسانی کنید تا حساب کاربری تان امن بماند",
+            "recovery_key_detail": "برای بازیابی صندوق امانات استفاده می شود اگر رمز عبورتان را فراموش کنید"
         },
         "data_management": {
             "title": "مدیریت داده‌ها",
@@ -890,7 +940,8 @@
             "revoke_devices": "لغو دستگاه‌های مورد اعتماد",
             "revoke_devices_desc": "حذف همه دستگاه‌های به خاطر سپرده شده، نیاز به ۲FA در ورود بعدی",
             "devices_revoked": "{{count}} دستگاه مورد اعتماد حذف شد",
-            "devices_error": "لغو دستگاه‌ها ناموفق بود"
+            "devices_error": "لغو دستگاه‌ها ناموفق بود",
+            "preparing_setup": "آماده سازی تنظیمات احراز هویت خود..."
         },
         "danger_zone": {
             "title": "حساب کاربری",
@@ -903,7 +954,8 @@
             "modal_warning_body": "پس از تأیید، فوراً دسترسی خود به حساب کاربری را از دست خواهید داد و داده‌های حذف شده برنامه قابل بازیابی از برنامه نخواهند بود.",
             "password_label": "با رمز عبور فعلی خود تأیید کنید",
             "confirm_delete": "تأیید حذف",
-            "deleting": "در حال حذف..."
+            "deleting": "در حال حذف...",
+            "description": "حساب کاربری خود را حذف کنید و تمام مجموعه داده های موجودی را به طور دائمی حذف کنید."
         },
         "language": "زبان",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "زبان‌های محبوب",
         "search_results": "نتایج جستجو",
         "current_language": "زبان فعلی",
-        "languages_available": "زبان‌های موجود"
+        "languages_available": "زبان‌های موجود",
+        "borrow_requests": {
+            "accordion_eyebrow": "امنیت درخواست وام",
+            "accordion_eyebrow_desc": "قوانین درخواست را پیکربندی کنید و کاربران مسدود شده را مدیریت کنید.",
+            "title": "تنظیمات درخواست قرض",
+            "description": "قوانین دریافت درخواست وام از حساب های دیگر را مدیریت کنید و کاربران مسدود شده را فهرست کنید.",
+            "policy_title": "درخواست های وام جدید",
+            "policy_description": "کنترل کنید چه کسانی می‌توانند درخواست قرض دادن به شما ارسال کنند. موجودی شما هرگز به‌صورت فهرست عمومی نشان داده نمی‌شود.",
+            "policy_none": "از هیچ دریافت نکنید (حالت پیش فرض)",
+            "policy_house_only": "فقط اعضای خانواده",
+            "policy_everyone": "همه کاربران ثبت‌نام‌شده",
+            "blocks_title": "کاربران مسدود شده",
+            "blocks_description": "کاربرانی که شما مسدود کرده اید تا درخواست های وام جدید برایتان ارسال کنند.",
+            "no_blocks": "هیچ کاربر مسدود شده ای پیدا نشد.",
+            "unblock_btn": "رفع انسداد",
+            "policy_none_desc": "تمام درخواست های ورودی به طور خودکار مسدود می شوند.",
+            "policy_house_only_desc": "فقط اعضای تأییدشده خانه‌های فعال شما می‌توانند مواردی که قبلاً در آن خانه اشتراکی قابل مشاهده هستند را درخواست کنند.",
+            "policy_everyone_desc": "سایر کاربران نمی‌توانند اقلام شما را مرور یا مشاهده کنند. آن‌ها تنها می‌توانند با ورود نام کاربری یا ایمیل شما مستقیماً درخواست ارسال کنند."
+        }
     },
     "inventory": {
         "title": "موجودی",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "همراه شما",
             "return_pending_hint": "رکورد پس از تأیید بازگشت آیتم توسط وام‌دهنده بسته خواهد شد.",
             "return_pending_lender_title": "{{name}} این آیتم را به عنوان بازگردانده شده علامت‌گذاری کرد",
-            "return_pending_self_title": "همراه شما، در انتظار تأیید دریافت"
+            "return_pending_self_title": "همراه شما، در انتظار تأیید دریافت",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "آیتم بدون عنوان",
         "delete_action": "حذف آیتم",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "یادداشت دریافت",
             "return_note_placeholder_borrower": "به عنوان مثال، من آن را بدون هیچ مشکلی بازگرداندم",
             "return_note_placeholder_lender": "مثلاً. سالم دریافت شد",
-            "return_submitting": "در حال بستن..."
+            "return_submitting": "در حال بستن...",
+            "reject_title": "رد درخواست",
+            "reject_subtitle": "شما در آستانه رد درخواست «{{item}}» هستید.",
+            "reject_target": "شما در آستانه رد درخواست وام ارسال شده توسط {{name}} هستید.",
+            "reject_reason_label": "دلیل رد",
+            "reject_submitting": "رد کردن...",
+            "due_date_label": "تاریخ بازگشت برنامه ریزی شده"
         },
         "messages": {
             "load_error": "مرکز قرض‌گیری قابل بارگذاری نیست",
-            "action_error": "این اقدام نمی‌تواند انجام شود"
+            "action_error": "این اقدام نمی‌تواند انجام شود",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "شما می‌توانید تنها یک درخواست تماس اولیه خارجی به همان شخص در روز ارسال کنید. اگر آن‌ها درخواست را بپذیرند، این محدودیت دیگر برای آن شخص اعمال نمی‌شود.",
+                "external_total_daily_limit": "شما می‌توانید تا ۵ درخواست تماس اولیه خارجی در روز ارسال کنید.",
+                "external_request_requires_verified_email": "قبل از ارسال درخواست قرض خارجی، آدرس ایمیل خود را تأیید کنید.",
+                "external_offer_blocked": "شما تنها می‌توانید یک مورد را به اعضای خانه یا کاربران ثبت‌نام‌شده‌ای که می‌توانند مستقیماً شناسایی شوند، پیشنهاد دهید.",
+                "target_blocked_by_you": "شما نمی‌توانید درخواستی به کاربری که مسدود کرده‌اید ارسال کنید.",
+                "recent_rejection_lock": "این کاربر یک درخواست اخیر را رد کرده است. شما می‌توانید پس از ۳۰ روز درخواست دیگری ارسال کنید."
+            }
         },
         "preview": {
             "title": "حالت پیش‌نمایش",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "نیازی به بررسی درخواست‌ها نیست",
         "outgoing_empty_title": "هنوز هیچ درخواست خروجی وجود ندارد",
         "refreshing": "در حال تازه‌سازی درخواست‌ها و قرض‌های فعال...",
-        "loading_description": "آماده‌سازی درخواست‌ها و فعالیت‌های فعال امانت."
+        "loading_description": "آماده‌سازی درخواست‌ها و فعالیت‌های فعال امانت.",
+        "reasons": {
+            "rejected": "رد (رد عادی)",
+            "not_available": "در دسترس نیست (آیتم گم شده / در دسترس نیست)",
+            "blocked": "مسدود کردن و رد کردن (مسدود کردن این کاربر)"
+        }
     },
     "legal": {
         "privacy_policy_title": "سیاست حفظ حریم خصوصی",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "مدیریت هوشمندانه همه وسایل خانه شما"
+        "tagline": "مدیریت هوشمندانه همه وسایل خانه شما",
+        "loading": "در حال بارگذاری {{brandName}}",
+        "preparing_workspace": "آماده سازی فضای کاری تان..."
     },
     "nav": {
         "home": "خانه",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "پاک کردن تاریخچه",
-            "add_item": "افزودن به لیست خرید"
+            "add_item": "افزودن به لیست خرید",
+            "mark_completed": "علامت گذاری به عنوان تکمیل شده",
+            "decrease_qty": "کاهش مقدار",
+            "increase_qty": "افزایش مقدار",
+            "delete_item": "حذف آیتم",
+            "reactivate_item": "بازگشت به فهرست فعال"
         },
         "form": {
             "add_type": "اضافه کردن روش",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "پیگیری نگهداری دوره‌ای یا یک‌باره برنامه‌ریزی شده برای این مورد.",
         "no_tasks": "هیچ وظیفه نگهداری به این مورد اختصاص داده نشده است.",
         "confirm_delete": "این وظیفه حذف خواهد شد. آیا مطمئن هستید؟"
+    },
+    "error_boundary": {
+        "title": "چیزی نیاز به تازه سازی دارد",
+        "description": "رابط کاربری با مشکل رندر غیرمنتظره ای مواجه شد. داده های ذخیره شده موجودی شما توسط این صفحه تغییر نمی کند.",
+        "refresh_btn": "تازه سازی",
+        "home_btn": "خانه"
     }
 }

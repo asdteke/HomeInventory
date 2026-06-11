@@ -49,7 +49,8 @@
         "hide": "Passwort ausblenden",
         "logging_out": "Abmelden...",
         "show": "Passwort anzeigen",
-        "saving": "Speichern..."
+        "saving": "Speichern...",
+        "disabled": "Deaktiviert"
     },
     "auth": {
         "login": {
@@ -298,7 +299,36 @@
         "join_house_key_required": "Ein Hausschlüssel ist erforderlich, um ein bestehendes Haus anzuschließen",
         "house_key_not_found": "Ungültiger Hausschlüssel. Bitte geben Sie den richtigen Schlüssel ein.",
         "email_not_verified": "Ihre E-Mail-Adresse wurde noch nicht verifiziert. Bitte überprüfen Sie Ihren Posteingang.",
-        "two_factor_invalid": "Der Verifizierungscode ist falsch"
+        "two_factor_invalid": "Der Verifizierungscode ist falsch",
+        "two_factor_invalid_try_again": "Ungültiger Verifizierungscode. Bitte versuchen Sie es erneut.",
+        "two_factor_code_required": "Ein Verifizierungscode ist erforderlich",
+        "two_factor_user_not_found": "Benutzer nicht gefunden",
+        "two_factor_already_enabled": "Zwei-Faktor-Authentifizierung ist bereits aktiviert",
+        "two_factor_setup_not_started": "Bitte beginnen Sie zuerst mit der Einrichtung der Zwei-Faktor-Authentifizierung",
+        "two_factor_setup_error": "Während der Einrichtung der Zwei-Faktor-Authentifizierung trat ein Fehler auf",
+        "two_factor_activation_error": "Ein Fehler trat während der Aktivierung der Zwei-Faktor-Authentifizierung auf",
+        "two_factor_password_required": "Passwort ist erforderlich",
+        "two_factor_credentials_required": "TOTP-Code, Backup-Code oder Wiederherstellungsschlüssel sind erforderlich",
+        "two_factor_already_disabled": "Die Zwei-Faktor-Authentifizierung ist bereits deaktiviert",
+        "two_factor_password_incorrect": "Falsches Passwort",
+        "two_factor_verification_failed": "Die Verifizierung ist gescheitert. Bitte überprüfen Sie den Code und versuchen Sie es erneut.",
+        "two_factor_disable_error": "Ein Fehler trat beim Deaktivieren der Zwei-Faktor-Authentifizierung auf",
+        "two_factor_not_enabled": "Zwei-Faktor-Authentifizierung ist nicht aktiviert",
+        "two_factor_regenerate_codes_error": "Ein Fehler trat beim Regenerieren von Backup-Codes auf",
+        "two_factor_enabled_success": "Die Zwei-Faktor-Authentifizierung wurde erfolgreich aktiviert",
+        "two_factor_disabled_success": "Die Zwei-Faktor-Authentifizierung wurde erfolgreich deaktiviert",
+        "password_errors": {
+            "min_length": "Das Passwort muss mindestens {{min}} Zeichen lang sein",
+            "lowercase_required": "Das Passwort muss mindestens einen Kleinbuchstaben enthalten",
+            "uppercase_required": "Das Passwort muss mindestens einen Großbuchstaben enthalten",
+            "number_required": "Das Passwort muss mindestens eine Zahl enthalten",
+            "symbol_required": "Das Passwort muss mindestens ein Symbol enthalten",
+            "repeated_chars": "Verwenden Sie keine wiederholten Zeichen in Ihrem Passwort",
+            "predictable_sequence": "Verwenden Sie keine leicht zu erratenden Sequenzen in Ihrem Passwort",
+            "common_password": "Dieses Passwort ist zu häufig und unsicher",
+            "contains_username": "Das Passwort darf Ihren Benutzernamen nicht enthalten",
+            "contains_email": "Das Passwort darf keine Informationen Ihrer E-Mail enthalten"
+        }
     },
     "navigation": {
         "home": "Startseite",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Wiederherstellungsschlüssel neu generiert",
             "recovery_key_error": "Wiederherstellungsschlüssel konnte nicht neu generiert werden",
             "account_delete_error": "Das Konto konnte nicht gelöscht werden",
-            "backup_downloaded_encrypted": "Verschlüsselte Sicherung erfolgreich heruntergeladen! ({{count}} Elemente)"
+            "backup_downloaded_encrypted": "Verschlüsselte Sicherung erfolgreich heruntergeladen! ({{count}} Elemente)",
+            "policy_update_error": "Es konnte die Einstellungen der Anfrage nicht aktualisiert werden.",
+            "policy_updated": "Gewünschte Einstellungen wurden erfolgreich aktualisiert.",
+            "unblock_error": "Nutzer wurde nicht entblockt.",
+            "unblocked_success": "Der Nutzer wurde erfolgreich entblockt.",
+            "house_owner_transferred": "Eigentümer des Hauses übertragen",
+            "house_owner_transfer_error": "Das Hauseigentum konnte nicht übertragen werden."
         },
         "user_profile": {
             "edit_username": "Benutzernamen ändern"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} hat keinen Zugriff mehr auf diesen Haushalt.",
             "kick_title": "Dieses Mitglied entfernen?",
             "kick_warning": "Ihr Zugriff auf den Haushalt endet sofort und sie benötigen eine neue Einladung oder Genehmigung, um zurückzukehren.",
-            "kicking": "Entfernen..."
+            "kicking": "Entfernen...",
+            "access_section_eyebrow": "Zugang zum Haus",
+            "transfer_owner": "Mach den Besitzer",
+            "transferring_owner": "Übertragung...",
+            "transfer_owner_title": "Übertragung des Hausbesitzes?",
+            "transfer_owner_confirm": "Den Besitz dieses Haushalts an {{name}} übertragen?",
+            "transfer_owner_warning": "Sie sind nicht mehr der Eigentümer dieses Haushalts. Der neue Eigentümer wird Mitglieder genehmigen, entfernen und zukünftige Besitzänderungen verwalten.",
+            "transfer_owner_success_body": "{{name}} ist jetzt der Eigentümer dieses Haushalts."
         },
         "theme": {
             "title": "Thema",
@@ -729,7 +772,9 @@
             "light": "Hellmodus",
             "description": "Wähle, wie der Arbeitsbereich auf diesem Gerät aussieht.",
             "light_aria": "Zum hellen Thema wechseln",
-            "dark_aria": "Zum dunklen Thema wechseln"
+            "dark_aria": "Zum dunklen Thema wechseln",
+            "workspace_title": "Arbeitsbereichsthema",
+            "workspace_desc": "Wählen Sie Ihren bevorzugten visuellen Stil für dieses Gerät aus."
         },
         "security": {
             "title": "Sicherheit",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Der aktuelle Wiederherstellungsschlüssel kann nicht angezeigt werden. Erzeugen Sie ihn bei Bedarf neu.",
             "recovery_key_action": "Erneuern",
             "recovery_key_modal_desc": "Bestätigen Sie Ihr aktuelles Passwort, um fortzufahren. Der neue Schlüssel wird nur einmal angezeigt.",
-            "recovery_key_loading": "Wird vorbereitet..."
+            "recovery_key_loading": "Wird vorbereitet...",
+            "accordion_title": "Sicherheit und Privatsphäre",
+            "accordion_desc": "Verwalten Sie Zwei-Faktor-Authentifizierung, vertrauenswürdige Geräte und leihen Sie Anfrageregeln von anderen Konten.",
+            "description": "Verwalten Sie Ihr Hauptpasswort und die Wiederherstellungskonfigurationen des Tresors.",
+            "change_password_detail": "Aktualisieren Sie Ihr Passwort, um Ihr Konto zu schützen",
+            "recovery_key_detail": "Wird verwendet, um deinen Tresor wiederherzustellen, wenn du dein Passwort vergisst"
         },
         "data_management": {
             "title": "Datenverwaltung",
@@ -890,7 +940,8 @@
             "revoke_devices": "Vertrauenswürdige Geräte widerrufen",
             "revoke_devices_desc": "Alle gespeicherten Geräte entfernen, nächstes Login erfordert 2FA",
             "devices_revoked": "{{count}} vertrauenswürdiges Gerät(e) entfernt",
-            "devices_error": "Geräte konnten nicht widerrufen werden"
+            "devices_error": "Geräte konnten nicht widerrufen werden",
+            "preparing_setup": "Bereite deine Authentifikator-Einrichtung vor..."
         },
         "danger_zone": {
             "title": "Konto",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Nach der Bestätigung verlieren Sie sofort den Zugriff auf das Konto, und die gelöschten Anwendungsdaten können nicht aus der App wiederhergestellt werden.",
             "password_label": "Mit Ihrem aktuellen Passwort bestätigen",
             "confirm_delete": "Löschung bestätigen",
-            "deleting": "Wird gelöscht..."
+            "deleting": "Wird gelöscht...",
+            "description": "Löschen Sie Ihr Konto und entfernen Sie alle Inventardatensätze dauerhaft."
         },
         "language": "Sprache",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Beliebte Sprachen",
         "search_results": "Suchergebnisse",
         "current_language": "Aktuelle Sprache",
-        "languages_available": "Sprachen verfügbar"
+        "languages_available": "Sprachen verfügbar",
+        "borrow_requests": {
+            "accordion_eyebrow": "Sicherheitsanfrage für Leihanfragen",
+            "accordion_eyebrow_desc": "Konfigurieren Sie Anfrageregeln und verwalten Sie blockierte Benutzer.",
+            "title": "Ausleih-Anfragen",
+            "description": "Verwalten Sie Regeln für den Empfang von Leihanfragen von anderen Konten und listen Sie gesperrte Nutzer auf.",
+            "policy_title": "Neue Leihanträge",
+            "policy_description": "Kontrollieren Sie, wer Ihnen Leihanfragen senden kann. Ihr Inventar wird niemals als öffentliche Liste angezeigt.",
+            "policy_none": "Von niemandem empfangen (Standard)",
+            "policy_house_only": "Nur Haushaltsmitglieder",
+            "policy_everyone": "Alle registrierten Benutzer",
+            "blocks_title": "Blockierte Nutzer",
+            "blocks_description": "Nutzer, die du blockiert hast, um dir neue Leihanfragen zu schicken.",
+            "no_blocks": "Keine blockierten Nutzer gefunden.",
+            "unblock_btn": "Entblocken",
+            "policy_none_desc": "Alle eingehenden Anfragen werden automatisch blockiert.",
+            "policy_house_only_desc": "Nur verifizierte Mitglieder Ihrer aktiven Häuser können Gegenstände anfordern, die bereits innerhalb dieses geteilten Hauses sichtbar sind.",
+            "policy_everyone_desc": "Andere Benutzer können Ihre Gegenstände nicht durchsuchen oder sehen. Sie können nur eine Anfrage senden, indem sie Ihren Benutzernamen oder Ihre E-Mail direkt eingeben."
+        }
     },
     "inventory": {
         "title": "Inventar",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Bei Ihnen",
             "return_pending_hint": "Der Eintrag wird geschlossen, nachdem der Verleiher bestätigt hat, dass er den Artikel zurückerhalten hat.",
             "return_pending_lender_title": "{{name}} hat diesen Artikel als zurückgeliefert markiert",
-            "return_pending_self_title": "Bei Ihnen, wartet auf Empfangsbestätigung"
+            "return_pending_self_title": "Bei Ihnen, wartet auf Empfangsbestätigung",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Unbenannter Artikel",
         "delete_action": "Artikel löschen",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Empfangsnotiz",
             "return_note_placeholder_borrower": "z.B. Ohne Probleme zurückgegeben",
             "return_note_placeholder_lender": "z.B. In gutem Zustand zurückerhalten",
-            "return_submitting": "Wird geschlossen..."
+            "return_submitting": "Wird geschlossen...",
+            "reject_title": "Anfrage abgelehnt",
+            "reject_subtitle": "Sie stehen kurz davor, die Anfrage nach \"{{item}}\" abzulehnen.",
+            "reject_target": "Sie stehen kurz davor, den Leihantrag von {{name}} abzulehnen.",
+            "reject_reason_label": "Ablehnungsgrund",
+            "reject_submitting": "Ablehnen...",
+            "due_date_label": "Geplantes Rückkehrdatum"
         },
         "messages": {
             "load_error": "Leihzentrum konnte nicht geladen werden",
-            "action_error": "Die Aktion konnte nicht abgeschlossen werden"
+            "action_error": "Die Aktion konnte nicht abgeschlossen werden",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Sie können pro Tag nur eine erste externe Kontaktanfrage an dieselbe Person senden. Wenn sie eine Anfrage akzeptieren, gilt dieses Limit für diese Person nicht mehr.",
+                "external_total_daily_limit": "Sie können bis zu 5 erste externe Kontaktanfragen pro Tag senden.",
+                "external_request_requires_verified_email": "Verifizieren Sie Ihre E-Mail-Adresse, bevor Sie externe Leihanfragen senden.",
+                "external_offer_blocked": "Sie können einen Gegenstand nur Hausmitgliedern oder registrierten Benutzern anbieten, die direkt identifiziert werden können.",
+                "target_blocked_by_you": "Sie können keine Anfrage an einen Benutzer senden, den Sie blockiert haben.",
+                "recent_rejection_lock": "Dieser Benutzer hat eine kürzliche Anfrage abgelehnt. Sie können nach 30 Tagen eine weitere Anfrage senden."
+            }
         },
         "preview": {
             "title": "Vorschau-Modus",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Keine Anfragen müssen von Ihnen überprüft werden",
         "outgoing_empty_title": "Noch keine ausgehenden Anfragen",
         "refreshing": "Anfragen und aktive Ausleihen werden aktualisiert...",
-        "loading_description": "Anfragen vorbereiten und aktive Ausleihaktivitäten."
+        "loading_description": "Anfragen vorbereiten und aktive Ausleihaktivitäten.",
+        "reasons": {
+            "rejected": "Ablehnung (normale Ablehnung)",
+            "not_available": "Nicht verfügbar (Gegenstand fehlt / nicht verfügbar)",
+            "blocked": "Blockieren und ablehnen (Blockiert diesen Nutzer)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Datenschutzerklärung",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Verwalten Sie alle Ihre Haushaltsgegenstände intelligent"
+        "tagline": "Verwalten Sie alle Ihre Haushaltsgegenstände intelligent",
+        "loading": "Lädt {{brandName}}",
+        "preparing_workspace": "Bereite deinen Arbeitsplatz vor..."
     },
     "nav": {
         "home": "Startseite",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Verlauf löschen",
-            "add_item": "Zur Einkaufsliste hinzufügen"
+            "add_item": "Zur Einkaufsliste hinzufügen",
+            "mark_completed": "Als abgeschlossen markieren",
+            "decrease_qty": "Verringerung der Menge",
+            "increase_qty": "Erhöhung der Menge",
+            "delete_item": "Element löschen",
+            "reactivate_item": "Rückkehr zur aktiven Liste"
         },
         "form": {
             "add_type": "Methode hinzufügen",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Periodische oder einmalige Wartungsverfolgung für diesen Artikel geplant.",
         "no_tasks": "Keine Wartungsaufgaben diesem Artikel zugewiesen.",
         "confirm_delete": "Diese Aufgabe wird gelöscht. Bist du sicher?"
+    },
+    "error_boundary": {
+        "title": "Irgendetwas braucht eine Auffrischung",
+        "description": "Die Benutzeroberfläche stieß auf ein unerwartetes Rendering-Problem. Ihre gespeicherten Inventardaten werden von diesem Bildschirm nicht verändert.",
+        "refresh_btn": "Aktualisieren",
+        "home_btn": "Zuhause"
     }
 }

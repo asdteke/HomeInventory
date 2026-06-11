@@ -82,6 +82,7 @@ export function BorrowItemDialog({
     const [formData, setFormData] = useState({
         borrower_type: selectableMembers.length > 0 ? 'member' : 'external',
         borrower_user_id: selectableMembers[0]?.id ? String(selectableMembers[0].id) : '',
+        borrower_identifier: '',
         borrower_name: '',
         borrower_contact: '',
         due_date: '',
@@ -97,6 +98,7 @@ export function BorrowItemDialog({
         setFormData({
             borrower_type: nextSelectableMembers.length > 0 ? 'member' : 'external',
             borrower_user_id: nextSelectableMembers[0]?.id ? String(nextSelectableMembers[0].id) : '',
+            borrower_identifier: '',
             borrower_name: '',
             borrower_contact: '',
             due_date: '',
@@ -114,6 +116,7 @@ export function BorrowItemDialog({
             await onSubmit({
                 ...formData,
                 borrower_user_id: formData.borrower_type === 'member' ? formData.borrower_user_id : '',
+                borrower_identifier: formData.borrower_type === 'site_member' ? formData.borrower_identifier : '',
                 borrower_name: formData.borrower_type === 'external' ? formData.borrower_name : '',
                 borrower_contact: formData.borrower_type === 'external' ? formData.borrower_contact : ''
             });
@@ -129,7 +132,7 @@ export function BorrowItemDialog({
             onClose={onClose}
         >
             <form onSubmit={handleSubmit} noValidate className="space-y-4">
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                     <button
                         type="button"
                         onClick={() => setFormData((prev) => ({ ...prev, borrower_type: 'member' }))}
@@ -140,6 +143,16 @@ export function BorrowItemDialog({
                         disabled={selectableMembers.length === 0}
                     >
                         {t('inventory.borrow.member')}
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => setFormData((prev) => ({ ...prev, borrower_type: 'site_member' }))}
+                        className={`rounded-2xl border px-4 py-3 text-sm font-medium transition-colors ${formData.borrower_type === 'site_member'
+                            ? 'border-[var(--hi-border-strong)] bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]'
+                            : 'border-[var(--hi-border)] text-[var(--hi-text-soft)] hover:bg-[var(--hi-panel-muted)]'
+                            }`}
+                    >
+                        {t('inventory.borrow.site_member')}
                     </button>
                     <button
                         type="button"
@@ -177,6 +190,26 @@ export function BorrowItemDialog({
                             </p>
                         )}
                     </div>
+                ) : formData.borrower_type === 'site_member' ? (
+                    <div>
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                            {t('inventory.borrow.site_member_identifier')}
+                        </label>
+                        <input
+                            type="text"
+                            value={formData.borrower_identifier}
+                            onChange={(event) => setFormData((prev) => ({ ...prev, borrower_identifier: event.target.value }))}
+                            className="input-field"
+                            placeholder={t('inventory.borrow.site_member_identifier_placeholder') || ''}
+                            autoCapitalize="none"
+                            autoComplete="off"
+                            spellCheck={false}
+                            required
+                        />
+                        <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+                            {t('inventory.borrow.site_member_privacy_hint')}
+                        </p>
+                    </div>
                 ) : (
                     <>
                         <div>
@@ -204,6 +237,9 @@ export function BorrowItemDialog({
                                 placeholder={t('inventory.borrow.borrower_contact_placeholder') || ''}
                             />
                         </div>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">
+                            {t('inventory.borrow.external_privacy_hint')}
+                        </p>
                     </>
                 )}
 
@@ -608,9 +644,11 @@ export function FulfillBorrowRequestDialog({
 }: FulfillBorrowRequestDialogProps) {
     const { t } = useTranslation();
     const [itemId, setItemId] = useState('');
+    const [dueDate, setDueDate] = useState('');
 
     useEffect(() => {
         setItemId(items[0]?.id ? String(items[0].id) : '');
+        setDueDate('');
     }, [items, request]);
 
     if (!request) {
@@ -620,7 +658,10 @@ export function FulfillBorrowRequestDialog({
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
-            await onSubmit({ item_id: itemId });
+            await onSubmit({
+                item_id: itemId,
+                due_date: dueDate || undefined
+            });
         } catch {
             // Parent already handles the error.
         }
@@ -661,6 +702,18 @@ export function FulfillBorrowRequestDialog({
                             {t('borrow_requests.dialogs.no_available_items')}
                         </p>
                     )}
+                </div>
+
+                <div>
+                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                        {t('borrow_requests.dialogs.due_date_label', { defaultValue: 'Planlanan iade tarihi' })}
+                    </label>
+                    <input
+                        type="date"
+                        value={dueDate}
+                        onChange={(event) => setDueDate(event.target.value)}
+                        className="input-field"
+                    />
                 </div>
 
                 <div className="flex justify-end gap-3 pt-2">
@@ -758,6 +811,100 @@ export function ReturnBorrowRecordDialog({
                                     ? t('borrow_requests.actions.mark_delivered')
                                     : t('borrow_requests.actions.mark_received')
                             )}
+                    </button>
+                </div>
+            </form>
+        </DialogShell>
+    );
+}
+
+interface RejectBorrowRequestDialogProps {
+    request: any;
+    submitting?: boolean;
+    onClose: () => void;
+    onSubmit: (payload: { reason: string }) => Promise<any> | void;
+}
+
+export function RejectBorrowRequestDialog({
+    request = null,
+    submitting = false,
+    onClose,
+    onSubmit
+}: RejectBorrowRequestDialogProps) {
+    const { t } = useTranslation();
+    const [reason, setReason] = useState('rejected');
+
+    useEffect(() => {
+        setReason('rejected');
+    }, [request]);
+
+    if (!request) {
+        return null;
+    }
+
+    const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
+        try {
+            await onSubmit({ reason });
+        } catch {
+            // Parent handles the error.
+        }
+    };
+
+    return (
+        <DialogShell
+            title={t('borrow_requests.dialogs.reject_title', { defaultValue: 'İsteği Reddet' })}
+            subtitle={t('borrow_requests.dialogs.reject_subtitle', {
+                item: request.item?.name || request.requested_item_label || '',
+                defaultValue: '"{{item}}" talebini reddetmek üzeresiniz.'
+            }) || ''}
+            onClose={onClose}
+        >
+            <form onSubmit={handleSubmit} noValidate className="space-y-4">
+                <div className="rounded-[20px] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
+                    <p className="text-sm text-[var(--hi-text-soft)]">
+                        {t('borrow_requests.dialogs.reject_target', { name: request.counterparty_display_name, defaultValue: '{{name}} tarafından gönderilen ödünç talebini reddetmek üzeresiniz.' })}
+                    </p>
+                </div>
+
+                <div>
+                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                        {t('borrow_requests.dialogs.reject_reason_label', { defaultValue: 'Reddetme Nedeni' })}
+                    </label>
+                    <div className="space-y-2">
+                        {[
+                            { value: 'rejected', label: t('borrow_requests.reasons.rejected', { defaultValue: 'Reddet (Normal ret)' }) },
+                            { value: 'not_available', label: t('borrow_requests.reasons.not_available', { defaultValue: 'Eşyam yok / uygun değil' }) },
+                            { value: 'blocked', label: t('borrow_requests.reasons.blocked', { defaultValue: 'Engelle ve reddet (Kullanıcıyı engeller)' }) }
+                        ].map((option) => (
+                            <label
+                                key={option.value}
+                                className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition
+                                    ${reason === option.value
+                                        ? 'bg-[var(--hi-accent-soft)] border-[var(--hi-accent)] text-[var(--hi-accent)] font-semibold'
+                                        : 'bg-[var(--hi-panel-strong)] border-[var(--hi-border)] hover:border-[var(--hi-border-strong)] text-[var(--hi-text-soft)] hover:text-[var(--hi-text)]'
+                                    }`}
+                            >
+                                <input
+                                    type="radio"
+                                    name="rejectReason"
+                                    value={option.value}
+                                    checked={reason === option.value}
+                                    onChange={() => setReason(option.value)}
+                                    className="accent-[var(--hi-accent)]"
+                                />
+                                <span className="text-sm font-medium">{option.label}</span>
+                            </label>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="flex justify-end gap-3 pt-2">
+                    <button type="button" onClick={onClose} className="btn-secondary px-5 py-3" disabled={submitting}>
+                        {t('common.cancel')}
+                    </button>
+                    <button type="submit" className="btn-primary px-5 py-3 disabled:opacity-60 bg-red-600 hover:bg-red-700 border-red-600 hover:border-red-700 text-white animate-fade-in" disabled={submitting}>
+                        {submitting ? t('borrow_requests.dialogs.reject_submitting', { defaultValue: 'Reddediliyor...' }) : t('borrow_requests.actions.reject', { defaultValue: 'Reddet' })}
                     </button>
                 </div>
             </form>

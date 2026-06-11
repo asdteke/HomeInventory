@@ -397,6 +397,17 @@ try {
   emitDatabaseLog('[Database] privacy_notice_acknowledged_at column added to users table');
 } catch (e) { /* Column exists */ }
 
+try {
+  db.exec(`ALTER TABLE users ADD COLUMN borrow_request_policy TEXT DEFAULT 'none'`);
+  emitDatabaseLog('[Database] borrow_request_policy column added to users table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.exec(`ALTER TABLE borrow_requests ADD COLUMN decision_reason TEXT`);
+  emitDatabaseLog('[Database] decision_reason column added to borrow_requests table');
+} catch (e) { /* Column exists */ }
+
+
 // Optional bootstrap admin assignment from env
 try {
   const bootstrapAdminEmail = (process.env.BOOTSTRAP_ADMIN_EMAIL || '').trim().toLowerCase();
@@ -643,6 +654,7 @@ db.exec(`
     decided_at DATETIME,
     decided_by_user_id INTEGER,
     borrow_id INTEGER,
+    decision_reason TEXT,
     expires_at DATETIME NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -811,6 +823,32 @@ db.exec(`
   );
   CREATE INDEX IF NOT EXISTS idx_shopping_list_house ON shopping_list(house_key);
 `);
+
+// Create borrow_request_blocks and borrow_request_attempts tables
+db.exec(`
+  CREATE TABLE IF NOT EXISTS borrow_request_blocks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    blocker_user_id INTEGER NOT NULL,
+    blocked_user_id INTEGER NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (blocker_user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (blocked_user_id) REFERENCES users(id) ON DELETE CASCADE,
+    UNIQUE(blocker_user_id, blocked_user_id)
+  );
+  CREATE INDEX IF NOT EXISTS idx_borrow_request_blocks_blocker ON borrow_request_blocks(blocker_user_id);
+
+  CREATE TABLE IF NOT EXISTS borrow_request_attempts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    initiator_user_id INTEGER NOT NULL,
+    recipient_lookup_type TEXT NOT NULL,
+    recipient_lookup_hash TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (initiator_user_id) REFERENCES users(id) ON DELETE CASCADE
+  );
+  CREATE INDEX IF NOT EXISTS idx_borrow_attempts_lookup ON borrow_request_attempts(initiator_user_id, recipient_lookup_type, recipient_lookup_hash);
+  CREATE INDEX IF NOT EXISTS idx_borrow_attempts_rate_limit ON borrow_request_attempts(initiator_user_id, created_at);
+`);
+
 
 
 // Migrate existing users to user_houses table

@@ -186,7 +186,8 @@
         "hide": "Cuddio cyfrinair",
         "logging_out": "Allgofnodi...",
         "show": "Dangos cyfrinair",
-        "saving": "Arbed..."
+        "saving": "Arbed...",
+        "disabled": "Analluogwyd"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Mae angen Allwedd Tŷ i ymuno â thŷ presennol",
         "house_key_not_found": "Allwedd tŷ annilys. Rhowch yr allwedd gywir os gwelwch yn dda.",
         "email_not_verified": "Nid yw eich cyfeiriad e-bost wedi'i wirio eto. Gwiriwch eich mewnflwch.",
-        "two_factor_invalid": "Mae'r cod dilysu yn anghywir"
+        "two_factor_invalid": "Mae'r cod dilysu yn anghywir",
+        "two_factor_invalid_try_again": "Cod dilysu annilys. Ceisiwch eto.",
+        "two_factor_code_required": "Mae angen cod gwirio",
+        "two_factor_user_not_found": "Defnyddiwr heb ei ganfod",
+        "two_factor_already_enabled": "Mae dilysiant dau ffactor wedi ei alluogi eisoes",
+        "two_factor_setup_not_started": "Dechreuwch y gosodiad dilysiant dau ffactor yn gyntaf",
+        "two_factor_setup_error": "Digwyddodd gwall wrth osod dilysiant dau ffactor",
+        "two_factor_activation_error": "Digwyddodd gwall wrth weithredu dilysiant dau ffactor",
+        "two_factor_password_required": "Mae angen cyfrinair",
+        "two_factor_credentials_required": "Mae angen cod TOTP, cod wrth gefn, neu allwedd adfer",
+        "two_factor_already_disabled": "Dilysiant dau ffactor wedi ei analluogi eisoes",
+        "two_factor_password_incorrect": "Cyfrinair anghywir",
+        "two_factor_verification_failed": "Methodd y gwirio. Gwiriwch y cod a cheisiwch eto.",
+        "two_factor_disable_error": "Digwyddodd gwall wrth analluogi dilysiant dau ffactor",
+        "two_factor_not_enabled": "Nid yw dilysiant dau ffactor wedi ei alluogi",
+        "two_factor_regenerate_codes_error": "Digwyddodd gwall wrth ail-greu codau copi wrth gefn",
+        "two_factor_enabled_success": "Dilysiant dau ffactor wedi ei alluogi'n llwyddiannus",
+        "two_factor_disabled_success": "Dilysiant dau ffactor wedi ei analluogi'n llwyddiannus",
+        "password_errors": {
+            "min_length": "Rhaid i'r cyfrinair fod o leiaf {{min}} nod o hyd",
+            "lowercase_required": "Rhaid i'r cyfrinair gynnwys o leiaf un llythyren fach",
+            "uppercase_required": "Rhaid i'r cyfrinair gynnwys o leiaf un prif lythyren",
+            "number_required": "Rhaid i'r cyfrinair gynnwys o leiaf un rhif",
+            "symbol_required": "Rhaid i'r cyfrinair gynnwys o leiaf un symbol",
+            "repeated_chars": "Peidiwch â defnyddio nodau a ailadroddir yn eich cyfrinair",
+            "predictable_sequence": "Peidiwch â defnyddio dilyniannau hawdd i'w dyfalu yn eich cyfrinair",
+            "common_password": "Mae'r cyfrinair hwn yn rhy gyffredin ac yn anniogel",
+            "contains_username": "Ni ddylai'r cyfrinair gynnwys eich enw defnyddiwr",
+            "contains_email": "Ni ddylai'r cyfrinair gynnwys gwybodaeth eich e-bost"
+        }
     },
     "navigation": {
         "home": "Hafan",
@@ -503,7 +533,7 @@
             "loading_description": "Paratoi eich golwg cartref. Bydd ychwanegiadau diweddar a chwilio cyflym yn ymddangos mewn funud."
         },
         "top_bar": {
-            "beta": "Beta",
+            "beta": "Swyddi",
             "items_tracked": "Eitemau wedi'u dilyn: {{count}}",
             "total_quantity": "Cyfanswm y maint: {{count}}",
             "shared_items": "Eitemau a rennir: {{count}}",
@@ -602,7 +632,7 @@
         "title": "BETA:",
         "text": "Mae {{brandName}} ar hyn o bryd mewn cyfnod prawf a hobïau. Nid oes unrhyw warant yn cael ei roi ar gyfer parhad neu ddiogelwch data. Cadwch gopi wrth gefn o wybodaeth bwysig os gwelwch yn dda.",
         "contact": "Cysylltu:",
-        "badge": "Beta",
+        "badge": "Swyddi",
         "aria_label": "Hysbysiad Beta",
         "tooltip": "Efallai y bydd nodweddion mynediad cynnar yn dal i newid."
     },
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Allwedd adfer wedi’i hail-greu",
             "recovery_key_error": "Methu hail-greu allwedd adfer",
             "account_delete_error": "Ni ellid dileu'r cyfrif",
-            "backup_downloaded_encrypted": "Copi wrth gefn wedi'i amgryptio wedi'i lawrlwytho'n llwyddiannus! ({{count}} eitem)"
+            "backup_downloaded_encrypted": "Copi wrth gefn wedi'i amgryptio wedi'i lawrlwytho'n llwyddiannus! ({{count}} eitem)",
+            "policy_update_error": "Methu diweddaru gosodiadau cais.",
+            "policy_updated": "Gosodiadau cais wedi'u diweddaru'n llwyddiannus.",
+            "unblock_error": "Methu dadflocio defnyddiwr.",
+            "unblocked_success": "Defnyddiwr wedi dadflocio yn llwyddiannus.",
+            "house_owner_transferred": "Trosglwyddo perchnogaeth tŷ",
+            "house_owner_transfer_error": "Ni ellid trosglwyddo perchnogaeth tŷ."
         },
         "user_profile": {
             "edit_username": "Newid enw defnyddiwr"
@@ -721,7 +757,14 @@
             "kick_success_body": "Nid yw {{name}} bellach yn cael mynediad i'r tŷ hwn.",
             "kick_title": "Dileu'r aelod hwn?",
             "kick_warning": "Bydd eu mynediad i'r tŷ hwn yn dod i ben ar unwaith ac fe fydd angen gwahoddiad newydd neu gymeradwyaeth arnynt i ddychwelyd.",
-            "kicking": "Yn dileu..."
+            "kicking": "Yn dileu...",
+            "access_section_eyebrow": "Mynediad i'r tŷ",
+            "transfer_owner": "Gwneud yn berchennog",
+            "transferring_owner": "Wrthi'n trosglwyddo...",
+            "transfer_owner_title": "Trosglwyddo perchnogaeth tŷ?",
+            "transfer_owner_confirm": "Trosglwyddo perchnogaeth y cartref hwn i {{name}}?",
+            "transfer_owner_warning": "Ni fyddwch yn berchennog y cartref hwn mwyach. Bydd y perchennog newydd yn rheoli cymeradwyaethau aelodau, tynnu aelodau, a newidiadau perchnogaeth yn y dyfodol.",
+            "transfer_owner_success_body": "Mae {{name}} bellach yn berchennog y cartref hwn."
         },
         "theme": {
             "title": "Thema",
@@ -729,7 +772,9 @@
             "light": "Modd Golau",
             "description": "Dewiswch sut mae'r gofod gweithio'n edrych ar y ddyfais hon.",
             "light_aria": "Trowch i themâu golau",
-            "dark_aria": "Trowch i themâu tywyll"
+            "dark_aria": "Trowch i themâu tywyll",
+            "workspace_title": "Thema Gweithfan",
+            "workspace_desc": "Dewiswch eich hoff arddull weledol ar gyfer y ddyfais hon."
         },
         "security": {
             "title": "Diogelwch",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Ni ellir dangos yr allwedd adfer cyfredol. Ail-genwch ef os oes angen.",
             "recovery_key_action": "Ailgyno",
             "recovery_key_modal_desc": "Cadarnhewch eich cyfrinair cyfredol i barhau. Dim ond unwaith y bydd y allwedd newydd yn cael ei dangos.",
-            "recovery_key_loading": "Yn paratoi..."
+            "recovery_key_loading": "Yn paratoi...",
+            "accordion_title": "Diogelwch a phreifatrwydd",
+            "accordion_desc": "Rheoli dilysu dau ffactor, dyfeisiau dibynadwy, a benthyca rheolau cais o gyfrifon eraill.",
+            "description": "Rheoli eich prif gyfrinair a chyfluniadau adfer claddgell.",
+            "change_password_detail": "Diweddaru eich cyfrinair er mwyn cadw'ch cyfrif yn ddiogel",
+            "recovery_key_detail": "Defnyddir i adfer eich claddgell os ydych chi'n anghofio'ch cyfrinair"
         },
         "data_management": {
             "title": "Rheoli Data",
@@ -787,7 +837,7 @@
         "about": {
             "title": "Ynghylch yr Ap",
             "version": "Fersiwn",
-            "brand": "Brand",
+            "brand": "Cartref",
             "feedback": "Anfon Adborth",
             "legal_title": "Dogfennau Cyfreithiol",
             "legal_description": "Gallwch ailagor y telerau a'r testunau preifatrwydd o hyn hyd yn oed ar ôl eu derbyn.",
@@ -890,7 +940,8 @@
             "revoke_devices": "Diddymu Dyfeisiau Ymddiriediedig",
             "revoke_devices_desc": "Dileu pob dyfais a gofir, gan ofyn am 2FA ar y mewngofnodi nesaf",
             "devices_revoked": "{{count}} dyfais/au dibynadwy wedi'u tynnu",
-            "devices_error": "Methodd ymchwilio dyfeisiau"
+            "devices_error": "Methodd ymchwilio dyfeisiau",
+            "preparing_setup": "Wrthi'n paratoi eich gosodiad dilysydd..."
         },
         "danger_zone": {
             "title": "Cyfrif",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Ar ôl cadarnhau, byddwch yn colli mynediad i'r cyfrif ar unwaith ac ni ellir adfer data y cais wedi'i ddileu o'r app.",
             "password_label": "Cadarnhau gyda'ch cyfrinair cyfredol",
             "confirm_delete": "Cadarnhau dileu",
-            "deleting": "Dileu..."
+            "deleting": "Dileu...",
+            "description": "Dileu eich cyfrif a dileu'r holl setiau data stocrestr yn barhaol."
         },
         "language": "Iaith",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Ieithoedd Poblogaidd",
         "search_results": "Canlyniadau Chwilio",
         "current_language": "Iaith bresennol",
-        "languages_available": "ieithoedd ar gael"
+        "languages_available": "ieithoedd ar gael",
+        "borrow_requests": {
+            "accordion_eyebrow": "Benthyca cais am ddiogelwch",
+            "accordion_eyebrow_desc": "Ffurfweddu rheolau cais a rheoli defnyddwyr sydd wedi'u blocio.",
+            "title": "Benthyca gosodiadau cais",
+            "description": "Rheoli rheolau ar gyfer derbyn ceisiadau benthyca gan gyfrifon eraill a rhestru defnyddwyr sydd wedi'u blocio.",
+            "policy_title": "Ceisiadau Benthyca Newydd",
+            "policy_description": "Rheoli pwy all anfon ceisiadau benthyciad atoch chi. Nid yw eich rhestr eiddo byth yn cael ei dangos fel rhestr gyhoeddus.",
+            "policy_none": "Peidio â derbyn gan unrhyw un (Rhagosodiad)",
+            "policy_house_only": "Aelodau'r aelwyd yn unig",
+            "policy_everyone": "Pob defnyddiwr cofrestredig",
+            "blocks_title": "Defnyddwyr wedi'u Blocio",
+            "blocks_description": "Defnyddwyr rydych chi wedi'u blocio rhag anfon ceisiadau benthyca newydd atoch.",
+            "no_blocks": "Dim defnyddwyr wedi'u blocio.",
+            "unblock_btn": "Datgloi",
+            "policy_none_desc": "Mae pob cais sy'n dod i mewn yn cael ei rwystro'n awtomatig.",
+            "policy_house_only_desc": "Dim ond aelodau dilysedig o'ch tai gweithredol y gallant wneud cais am eitemau sydd eisoes yn weladwy y tu mewn i'r tŷ a rennir hwnnw.",
+            "policy_everyone_desc": "Ni all defnyddwyr eraill borolio neu weld eich eitemau. Gallant ond anfon cais trwy fynd i'ch enw defnyddiwr neu e-bost yn uniongyrchol."
+        }
     },
     "inventory": {
         "title": "Rhestr stoc",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Gyda chi",
             "return_pending_hint": "Bydd y cofnod yn cau ar ôl i'r benthycwr gadarnhau eu bod wedi derbyn yr eitem yn ôl.",
             "return_pending_lender_title": "Nododd {{name}} yr eitem hon fel wedi'i chyflwyno'n ôl",
-            "return_pending_self_title": "Gyda chi, yn aros am gadarnhad derbyniad"
+            "return_pending_self_title": "Gyda chi, yn aros am gadarnhad derbyniad",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Eitem heb deitl",
         "delete_action": "Dileu eitem",
@@ -1267,7 +1342,7 @@
             "type": {
                 "email": "E-bost",
                 "user": "Defnyddiwr",
-                "system": "System",
+                "system": "Cysawd",
                 "event": "Digwyddiad"
             },
             "action": {
@@ -1851,7 +1926,7 @@
             "bodyLine2": "Aros am gymeradwyaeth perchennog tŷ"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{statws}}",
             "greeting": "Mynediad Ty",
             "bodyLine1Template": "Cais cyfredol yn yr arfaeth: {{house}} ({{status}})",
             "bodyLine2": "Mae eich cais am \"{{house}}\" yn dal i aros am benderfyniad.",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Derbyn nodyn",
             "return_note_placeholder_borrower": "e.e. Fe'i dywedais yn ôl heb unrhyw faterion",
             "return_note_placeholder_lender": "e.e. Derbyniwyd yn ôl mewn cyflwr da",
-            "return_submitting": "Cau..."
+            "return_submitting": "Cau...",
+            "reject_title": "Gwrthod Cais",
+            "reject_subtitle": "Rydych chi ar fin gwrthod y cais am \"{{item}}\".",
+            "reject_target": "Rydych chi ar fin gwrthod y cais am fenthyca a anfonwyd gan {{name}}.",
+            "reject_reason_label": "Rheswm Gwrthod",
+            "reject_submitting": "Wrthi'n gwrthod...",
+            "due_date_label": "Dyddiad dychwelyd wedi'i gynllunio"
         },
         "messages": {
             "load_error": "Ni ellid llwytho'r ganolfan benthyca",
-            "action_error": "Ni ellid cwblhau'r gweithrediad"
+            "action_error": "Ni ellid cwblhau'r gweithrediad",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Gallwch anfon dim ond un cais cysylltiad cyntaf allanol at yr un person y dydd. Os derbyniant cais, nid yw'r terfyn hwn yn berthnasol i'r person hwnnw o hyd.",
+                "external_total_daily_limit": "Gallwch anfon hyd at 5 cais cysylltiad cyntaf allanol y dydd.",
+                "external_request_requires_verified_email": "Cadarnhewch eich cyfeiriad e-bost cyn anfon ceisiadau benthyciad allanol.",
+                "external_offer_blocked": "Dim ond i aelodau tŷ neu ddefnyddwyr cofrestredig y gellir eu hadnabod yn uniongyrchol y gallwch gynnig eitem.",
+                "target_blocked_by_you": "Ni allwch anfon cais at ddefnyddiwr rydych wedi ei rwystro.",
+                "recent_rejection_lock": "Gwrthododd y defnyddiwr hwn cais diweddar. Gallwch anfon cais arall ar ôl 30 diwrnod."
+            }
         },
         "preview": {
             "title": "Modd rhagolwg",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Dim cais angen eich adolygiad",
         "outgoing_empty_title": "Dim ceisiadau allan eto",
         "refreshing": "Adnewyddu ceisiadau a benthyciadau gweithredol...",
-        "loading_description": "Paratoi ceisiadau a gweithgarwch benthyciad gweithgar."
+        "loading_description": "Paratoi ceisiadau a gweithgarwch benthyciad gweithgar.",
+        "reasons": {
+            "rejected": "Gwrthod (Gwrthod arferol)",
+            "not_available": "Ddim ar gael (Eitem ar goll / ddim ar gael)",
+            "blocked": "Blocio a gwrthod (Blocio'r defnyddiwr hwn)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Polisi Preifatrwydd",
@@ -2175,8 +2270,10 @@
         "account_menu_tooltip": "Dewislen cyfrif {{name}}"
     },
     "app": {
-        "name": "{{brandName}}",
-        "tagline": "Rheoli'ch holl eitemau tŷ yn ddoeth"
+        "name": "{{Enw brand}}",
+        "tagline": "Rheoli'ch holl eitemau tŷ yn ddoeth",
+        "loading": "Wrthi'n llwytho {{brandName}}",
+        "preparing_workspace": "Paratoi'ch gweithfan..."
     },
     "nav": {
         "home": "Hafan",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Clirio Hanes",
-            "add_item": "Ychwanegu at y Rhestr Siopa"
+            "add_item": "Ychwanegu at y Rhestr Siopa",
+            "mark_completed": "Marcio wedi gorffen",
+            "decrease_qty": "Lleihau nifer",
+            "increase_qty": "Cynyddu nifer",
+            "delete_item": "Dileu eitem",
+            "reactivate_item": "Symud yn ôl at y rhestr weithredol"
         },
         "form": {
             "add_type": "Ychwanegu Dull",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Olrhain cynnal a chadw cyfnodol neu un-amser wedi'i drefnu ar gyfer y eitem hon.",
         "no_tasks": "Dim tasgau cynnal a chadw wedi'u neilltuo i'r eitem hon.",
         "confirm_delete": "Bydd y dasg hon yn cael ei dileu. Ydych chi'n siŵr?"
+    },
+    "error_boundary": {
+        "title": "Mae angen adnewyddu rhywbeth",
+        "description": "Mae'r rhyngwyneb wedi taro problem rendro annisgwyl. Nid yw'r data stocrestr wedi'i gadw yn cael ei newid gan y sgrin hon.",
+        "refresh_btn": "Adnewyddu",
+        "home_btn": "Hafan"
     }
 }

@@ -180,7 +180,7 @@ export default function TwoFactorSetup({ onClose, onEnabled }: TwoFactorSetupPro
                                 <Loader2 className="h-7 w-7 animate-spin" />
                             </div>
                             <p className="mt-5 text-base font-semibold text-[var(--hi-text)]">{t('settings.two_factor.setup_title')}</p>
-                            <p className="mt-2 text-sm text-[var(--hi-text-soft)]">Preparing your authenticator setup…</p>
+                            <p className="mt-2 text-sm text-[var(--hi-text-soft)]">{t('settings.two_factor.preparing_setup', { defaultValue: 'Preparing your authenticator setup…' })}</p>
                         </div>
                     )}
 

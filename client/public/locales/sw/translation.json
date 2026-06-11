@@ -186,7 +186,8 @@
         "hide": "Ficha nenosiri",
         "logging_out": "Kuondoka...",
         "show": "Onyesha nenosiri",
-        "saving": "Kuweka Akiba..."
+        "saving": "Kuweka Akiba...",
+        "disabled": "Walamavu"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Ufunguo wa Nyumba unahitajika ili kujiunga na nyumba iliyopo",
         "house_key_not_found": "Ufunguo wa Nyumba batili. Tafadhali ingiza ufunguo sahihi.",
         "email_not_verified": "Anwani yako ya barua pepe bado haijathibitishwa. Tafadhali angalia kikasha chako.",
-        "two_factor_invalid": "Msimbo wa uthibitishaji si sahihi"
+        "two_factor_invalid": "Msimbo wa uthibitishaji si sahihi",
+        "two_factor_invalid_try_again": "Msimbo batili wa uthibitishaji. Tafadhali jaribu tena.",
+        "two_factor_code_required": "Msimbo wa uthibitishaji unahitajika",
+        "two_factor_user_not_found": "Mtumiaji hajapatikana",
+        "two_factor_already_enabled": "Uthibitishaji wa vipengele viwili tayari umewezeshwa",
+        "two_factor_setup_not_started": "Tafadhali anza usanidi wa uthibitishaji wa vipengele viwili kwanza",
+        "two_factor_setup_error": "Hitilafu ilitokea wakati wa usanidi wa uthibitishaji wa vipengele viwili",
+        "two_factor_activation_error": "Hitilafu ilitokea wakati wa uanzishaji wa uthibitishaji wa sababu mbili",
+        "two_factor_password_required": "Nenosiri linahitajika",
+        "two_factor_credentials_required": "Msimbo wa TOTP, msimbo wa chelezo, au ufunguo wa kurejesha unahitajika",
+        "two_factor_already_disabled": "Uthibitishaji wa sababu mbili tayari umezimwa",
+        "two_factor_password_incorrect": "Nenosiri lisilo sahihi",
+        "two_factor_verification_failed": "Uthibitishaji umeshindwa. Tafadhali angalia msimbo na ujaribu tena.",
+        "two_factor_disable_error": "Hitilafu ilitokea wakati wa kuzima uthibitishaji wa vipengele viwili",
+        "two_factor_not_enabled": "Uthibitishaji wa vipengele viwili haujawezeshwa",
+        "two_factor_regenerate_codes_error": "Hitilafu ilitokea wakati wa kuunda upya misimbo ya chelezo",
+        "two_factor_enabled_success": "Uthibitishaji wa vipengele viwili umewezeshwa kwa mafanikio",
+        "two_factor_disabled_success": "Uthibitishaji wa sababu mbili umezimwa kwa mafanikio",
+        "password_errors": {
+            "min_length": "Nenosiri lazima liwe na angalau herufi za {{min}}",
+            "lowercase_required": "Nenosiri lazima lijumuishe angalau herufi moja ndogo",
+            "uppercase_required": "Nenosiri lazima lijumuishe angalau herufi moja kubwa",
+            "number_required": "Nenosiri lazima lijumuishe angalau nambari moja",
+            "symbol_required": "Nenosiri lazima lijumuishe angalau ishara moja",
+            "repeated_chars": "Usitumie herufi zinazorudiwa kwenye nenosiri lako",
+            "predictable_sequence": "Usitumie mfuatano rahisi kukisia katika nenosiri lako",
+            "common_password": "Nenosiri hili ni la kawaida sana na sio salama",
+            "contains_username": "Nenosiri lazima lisiwe na jina lako la mtumiaji",
+            "contains_email": "Nenosiri haipaswi kuwa na maelezo yako ya barua pepe"
+        }
     },
     "navigation": {
         "home": "Nyumbani",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Ufunguo wa urejeshaji umebadilishwa",
             "recovery_key_error": "Haiwezi kubadilisha ufunguo wa urejeshaji",
             "account_delete_error": "Akaunti haiwezi kufutwa",
-            "backup_downloaded_encrypted": "Kuhifadhi nakala iliyofichwa imeshapakuliwa kwa mafanikio! (vitu {{count}})"
+            "backup_downloaded_encrypted": "Kuhifadhi nakala iliyofichwa imeshapakuliwa kwa mafanikio! (vitu {{count}})",
+            "policy_update_error": "Imeshindwa kusasisha mipangilio ya ombi.",
+            "policy_updated": "Omba mipangilio kusasishwa kwa mafanikio.",
+            "unblock_error": "Imeshindwa kufungua mtumiaji.",
+            "unblocked_success": "Mtumiaji alizuiwa kwa mafanikio.",
+            "house_owner_transferred": "Umiliki wa nyumba uhamishwa",
+            "house_owner_transfer_error": "Umiliki wa nyumba haukuweza kuhamishwa."
         },
         "user_profile": {
             "edit_username": "Badilisha jina la mtumiaji"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} hakuwa na upatikanaji wa kaya hii tena.",
             "kick_title": "Ondoa mshiriki huyu?",
             "kick_warning": "Upatikanaji wao wa kaya utaisha mara moja na watahitaji mwaliko mpya au idhini kurudi.",
-            "kicking": "Kuondoa..."
+            "kicking": "Kuondoa...",
+            "access_section_eyebrow": "Ufikiaji wa nyumba",
+            "transfer_owner": "Fanya mmiliki",
+            "transferring_owner": "Kuhamisha...",
+            "transfer_owner_title": "Uhamisho wa umiliki wa nyumba?",
+            "transfer_owner_confirm": "Hamisha umiliki wa kaya hii kwa {{jina}}?",
+            "transfer_owner_warning": "Hutakuwa tena mmiliki wa kaya hii. Mmiliki mpya atasimamia idhini ya wanachama, kuondolewa, na mabadiliko ya umiliki wa siku zijazo.",
+            "transfer_owner_success_body": "{{jina}} sasa ndiye mmiliki wa kaya hii."
         },
         "theme": {
             "title": "Mandhari",
@@ -729,7 +772,9 @@
             "light": "Hali ya mwanga",
             "description": "Chagua jinsi nafasi ya kazi inavyoonekana kwenye kifaa hiki.",
             "light_aria": "Badilisha kuwa mandhari nyepesi",
-            "dark_aria": "Badilisha kuwa mandhari ya giza"
+            "dark_aria": "Badilisha kuwa mandhari ya giza",
+            "workspace_title": "Mandhari ya Nafasi ya Kazi",
+            "workspace_desc": "Chagua mtindo wako wa kuona unaopendelea kwa kifaa hiki."
         },
         "security": {
             "title": "Usalama",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Ufunguzi wa sasa hauwezi kuonyeshwa. Uyaundie upya ikiwa unahitajika.",
             "recovery_key_action": "Unda upya",
             "recovery_key_modal_desc": "Thibitisha nenosiri lako la sasa ili kuendelea. Funguo mpya itaonyeshwa mara moja tu.",
-            "recovery_key_loading": "Kuandaa..."
+            "recovery_key_loading": "Kuandaa...",
+            "accordion_title": "Usalama na faragha",
+            "accordion_desc": "Dhibiti uthibitishaji wa vipengele viwili, vifaa vinavyoaminika, na kukopa sheria za ombi kutoka kwa akaunti zingine.",
+            "description": "Dhibiti nenosiri lako kuu na usanidi wa urejeshaji wa vault.",
+            "change_password_detail": "Sasisha nenosiri lako ili kuweka akaunti yako salama",
+            "recovery_key_detail": "Inatumika kurejesha vault yako ikiwa utasahau nenosiri lako"
         },
         "data_management": {
             "title": "Usimamizi wa Data",
@@ -785,10 +835,10 @@
             "owner_only_desc": "Hifadhi na urejesheji wa data inaweza kudhibitiwa na mmiliki wa nyumba pekee."
         },
         "about": {
-            "title": "📱 Kuhusu Programu",
+            "title": "Kuhusu Programu",
             "version": "Toleo",
             "brand": "Chapa",
-            "feedback": "✉️ Tuma Maoni",
+            "feedback": "Tuma Maoni",
             "legal_title": "Nyaraka za Kisheria",
             "legal_description": "Unaweza kufungua tena maandiko ya masharti na faragha kutoka hapa hata baada ya kuyakubali.",
             "terms_link": "Masharti ya Huduma",
@@ -890,7 +940,8 @@
             "revoke_devices": "Toa Vifaa Vilivyotakiwa",
             "revoke_devices_desc": "Ondoa vifaa vyote vilivyohifadhiwa, vinavyotaka 2FA kwenye kuingia kijaribu",
             "devices_revoked": "{{count}} kifaa kilichotegemewa kimeondolewa",
-            "devices_error": "Imeshindwa kuondoa vifaa"
+            "devices_error": "Imeshindwa kuondoa vifaa",
+            "preparing_setup": "Kuandaa usanidi wako wa kithibitishaji..."
         },
         "danger_zone": {
             "title": "Akaunti",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Baada ya kuthibitisha, mara moja utapoteza ufikiaji wa akaunti na data ya programu iliyofutwa haiwezi kurejeshwa kutoka kwa programu.",
             "password_label": "Thibitisha kwa nenosiri lako la sasa",
             "confirm_delete": "Thibitisha kufuta",
-            "deleting": "Inafutwa..."
+            "deleting": "Inafutwa...",
+            "description": "Futa akaunti yako na uondoe kabisa hifadhidata zote za hesabu."
         },
         "language": "Lugha",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Lugha Maarufu",
         "search_results": "Matokeo ya Utafutaji",
         "current_language": "Lugha ya sasa",
-        "languages_available": "lugha zinazopatikana"
+        "languages_available": "lugha zinazopatikana",
+        "borrow_requests": {
+            "accordion_eyebrow": "Usalama wa ombi la kukopa",
+            "accordion_eyebrow_desc": "Sanidi sheria za ombi na udhibiti watumiaji waliozuiwa.",
+            "title": "Mipangilio ya ombi la kukopa",
+            "description": "Dhibiti sheria za kupokea maombi ya kukopa kutoka kwa akaunti zingine na uorodheshe watumiaji waliozuiwa.",
+            "policy_title": "Maombi mapya ya Kukopa",
+            "policy_description": "Dhibiti nani anaweza kutuma maombi ya kukopa kwako. Hali ya bidhaa zako haionekani kama orodha ya umma.",
+            "policy_none": "Usipokee kutoka kwa mtu yeyote (Chaguo-msingi)",
+            "policy_house_only": "Wanakaya tu",
+            "policy_everyone": "Watumiaji wote waliojisajili",
+            "blocks_title": "Watumiaji waliozuiwa",
+            "blocks_description": "Watumiaji ambao umewazuia kukutumia maombi mapya ya kukopa.",
+            "no_blocks": "Hakuna watumiaji waliozuiwa kupatikana.",
+            "unblock_btn": "Fungua kizuizi",
+            "policy_none_desc": "Maombi yote yanayoingia yamezuiwa kiotomatiki.",
+            "policy_house_only_desc": "Ni wanachama tu waliohifadhiwa wa nyumba zako zinazoendelea wanaoweza kuomba vitu ambavyo tayari vinaonekana ndani ya nyumba hiyo ya pamoja.",
+            "policy_everyone_desc": "Watumiaji wengine hawawezi kuvinjari au kuona bidhaa zako. Wanaweza kutuma ombi tu kwa kuingiza jina lako la mtumiaji au barua pepe moja kwa moja."
+        }
     },
     "inventory": {
         "title": "Hesabu ya Bidhaa",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Na wewe",
             "return_pending_hint": "Rekodi itafungwa baada ya mkopaji kuthibitisha walipokea kipengele hicho nyuma.",
             "return_pending_lender_title": "{{name}} alitakaswa kipengele hiki kilirudishwa",
-            "return_pending_self_title": "Na wewe, ukisubiri uthibitisho wa risiti"
+            "return_pending_self_title": "Na wewe, ukisubiri uthibitisho wa risiti",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Kipengele kisicho na kichwa",
         "delete_action": "Futa kipengele",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Kumbuka ya kupokea",
             "return_note_placeholder_borrower": "mfano. Nilirudisha bila matatizo yoyote",
             "return_note_placeholder_lender": "mfano. Ilipokelewa nyuma katika hali nzuri",
-            "return_submitting": "Kufunga..."
+            "return_submitting": "Kufunga...",
+            "reject_title": "Kukataa Ombi",
+            "reject_subtitle": "Unakaribia kukataa ombi la \"{{item}}\".",
+            "reject_target": "Unakaribia kukataa ombi la kukopa lililotumwa na {{jina}}.",
+            "reject_reason_label": "Sababu ya kukataa",
+            "reject_submitting": "Kukataa...",
+            "due_date_label": "Tarehe iliyopangwa ya kurudi"
         },
         "messages": {
             "load_error": "Kituo cha kukopa hakiwezi kupakiwa",
-            "action_error": "Hatua haiwezi kukamilika"
+            "action_error": "Hatua haiwezi kukamilika",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Unaweza kutuma ombi la kwanza la mawasiliano kutoka nje kwa mtu mmoja kwa siku. Ikiwa wanakubali ombi, kikomo hiki hakitahusiana tena na mtu huyo.",
+                "external_total_daily_limit": "Unaweza kutuma hadi maombi 5 ya kwanza ya mawasiliano kutoka nje kwa siku.",
+                "external_request_requires_verified_email": "Thibitisha anwani yako ya barua pepe kabla ya kutuma maombi ya kukopa kutoka nje.",
+                "external_offer_blocked": "Unaweza kutoa kipengele kwa wanachama wa nyumba au watumiaji waliojisajili tu ambao wanaweza kutambulika moja kwa moja.",
+                "target_blocked_by_you": "Huwezi kutuma ombi kwa mtumiaji uliyemzuia.",
+                "recent_rejection_lock": "Mtumiaji huyu alikataa ombi la hivi karibuni. Unaweza kutuma ombi lingine baada ya siku 30."
+            }
         },
         "preview": {
             "title": "Hali ya awali",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Hakuna maombi yanayohitaji mapitio yako",
         "outgoing_empty_title": "Hakuna maombi yanayotoka bado",
         "refreshing": "Kusasisha maombi na mikopo hai...",
-        "loading_description": "Kuandaa maombi na shughuli za mkopo zinazofanya kazi."
+        "loading_description": "Kuandaa maombi na shughuli za mkopo zinazofanya kazi.",
+        "reasons": {
+            "rejected": "Kukataa (Kukataliwa kwa kawaida)",
+            "not_available": "Haipatikani (Kipengee kinakosekana / hakipatikani)",
+            "blocked": "Zuia na ukatae (Inazuia mtumiaji huyu)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Sera ya Faragha",
@@ -2175,8 +2270,10 @@
         "account_menu_tooltip": "Menyu ya akaunti ya {{name}}"
     },
     "app": {
-        "name": "{{brandName}}",
-        "tagline": "Simamia kwa akili bidhaa zote za nyumbani kwako"
+        "name": "{{BrandName}}",
+        "tagline": "Simamia kwa akili bidhaa zote za nyumbani kwako",
+        "loading": "Inapakia {{brandName}}",
+        "preparing_workspace": "Kuandaa nafasi yako ya kazi..."
     },
     "nav": {
         "home": "Nyumbani",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Futa Historia",
-            "add_item": "Ongeza kwenye Orodha ya Ununuzi"
+            "add_item": "Ongeza kwenye Orodha ya Ununuzi",
+            "mark_completed": "Alama kama imekamilika",
+            "decrease_qty": "Punguza wingi",
+            "increase_qty": "Ongeza wingi",
+            "delete_item": "Futa kipengee",
+            "reactivate_item": "Rudi kwenye orodha inayotumika"
         },
         "form": {
             "add_type": "Ongeza Mbinu",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Ufuatiliaji wa matengenezo ya mara kwa mara au ya mara moja uliopangwa kwa kipengele hiki.",
         "no_tasks": "Hakuna kazi za matengenezo zilizopangwa kwa kipengele hiki.",
         "confirm_delete": "Kazi hii itafutwa. Una uhakika?"
+    },
+    "error_boundary": {
+        "title": "Kitu kinahitaji kuburudishwa",
+        "description": "Kiolesura kiligonga shida isiyotarajiwa ya uwasilishaji. Data yako ya hesabu iliyohifadhiwa haijabadilishwa na skrini hii.",
+        "refresh_btn": "Onyesha upya",
+        "home_btn": "Nyumbani"
     }
 }

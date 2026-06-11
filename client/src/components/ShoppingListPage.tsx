@@ -8,12 +8,12 @@ import {
     Trash2,
     CheckCircle2,
     ListPlus,
-    Sparkles,
     ChevronDown,
     ChevronUp,
     RefreshCw,
     Package,
-    Check
+    Check,
+    X
 } from 'lucide-react';
 import { PageHeader, SectionHeader, LoadingState, EmptyState } from './ProductUI';
 import { ConfirmDialog } from './ModalDialog';
@@ -48,8 +48,17 @@ interface InventoryItem {
 }
 
 const SHOPPING_ITEM_EXIT_MS = 220;
+const DISMISSED_STOCK_SUGGESTIONS_KEY = 'shopping_dismissed_stock_suggestions_v1';
 
-import { fetchWithCache, getCachedData, hasCache } from '../utils/apiCache';
+function readDismissedStockSuggestionSignature() {
+    if (typeof window === 'undefined') {
+        return '';
+    }
+
+    return window.localStorage.getItem(DISMISSED_STOCK_SUGGESTIONS_KEY) || '';
+}
+
+import { fetchWithCache, getCachedData, hasCache, invalidateCache } from '../utils/apiCache';
 
 export default function ShoppingListPage() {
     const { t } = useTranslation();
@@ -75,6 +84,7 @@ export default function ShoppingListPage() {
     const [isCompletedOpen, setIsCompletedOpen] = useState(false);
     const { toasts, showToast: enqueueToast, closeToast } = useToastQueue();
     const [isBulkAdding, setIsBulkAdding] = useState(false);
+    const [dismissedStockSuggestionSignature, setDismissedStockSuggestionSignature] = useState(readDismissedStockSuggestionSignature);
 
     const showToast = (msg: string, type: ToastTone = 'success') => {
         enqueueToast({
@@ -109,6 +119,22 @@ export default function ShoppingListPage() {
 
     const activeItems = useMemo(() => items.filter(item => item.is_completed === 0), [items]);
     const completedItems = useMemo(() => items.filter(item => item.is_completed === 1), [items]);
+    const stockSuggestionSignature = useMemo(() => suggestions
+        .map((suggestion) => [
+            suggestion.item_id,
+            suggestion.current_quantity,
+            suggestion.min_quantity,
+            suggestion.suggested_quantity
+        ].join(':'))
+        .sort()
+        .join('|'), [suggestions]);
+    const showStockSuggestions = suggestions.length > 0
+        && dismissedStockSuggestionSignature !== stockSuggestionSignature;
+
+    const dismissStockSuggestions = () => {
+        setDismissedStockSuggestionSignature(stockSuggestionSignature);
+        window.localStorage.setItem(DISMISSED_STOCK_SUGGESTIONS_KEY, stockSuggestionSignature);
+    };
 
     const handleAddManualItem = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -218,6 +244,10 @@ export default function ShoppingListPage() {
             await axios.put(`/api/shopping/${item.id}`, {
                 is_completed: newStatus
             });
+            if (item.item_id) {
+                invalidateCache(/^\/api\/items/);
+            }
+            fetchShoppingData();
             if (newStatus === 1) {
                 showToast(t('shopping.toast.completed', { name: item.item_name, defaultValue: `"${item.item_name}" alındı olarak işaretlendi.` }));
             } else {
@@ -296,42 +326,49 @@ export default function ShoppingListPage() {
                 })}
             />
 
-            {/* Premium Glowing "Akıllı Envanter Önerileri" Panel */}
-            {suggestions.length > 0 && (
-                <div className="relative overflow-hidden rounded-2xl border border-[var(--hi-secondary)]/20 bg-gradient-to-br from-[var(--hi-secondary-soft)]/20 via-transparent to-transparent p-5 shadow-[var(--hi-shadow-soft)] backdrop-blur-[8px] transition duration-300">
-                    {/* Background Soft Glow Effect */}
-                    <div className="absolute top-0 right-0 -mr-20 -mt-20 h-40 w-40 rounded-full bg-[var(--hi-secondary-soft)]/40 blur-[60px]" />
-                    <div className="absolute bottom-0 left-0 -ml-20 -mb-20 h-40 w-40 rounded-full bg-[var(--hi-secondary-soft)]/20 blur-[50px]" />
-
-                    <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+            {/* Low stock suggestions */}
+            {showStockSuggestions && (
+                <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-5 shadow-[var(--hi-shadow-soft)] transition duration-300">
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                         <div className="flex items-center gap-3">
-                            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--hi-secondary-soft)] text-[var(--hi-secondary-strong)] shadow-sm">
-                                <Sparkles className="h-5.5 w-5.5" />
+                            <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)] shadow-sm">
+                                <Package className="h-5 w-5" />
                             </span>
                             <div>
-                                <h3 className="text-base font-bold text-[var(--hi-text)] flex items-center gap-1.5">
-                                    {t('shopping.suggestions.title', { defaultValue: 'Akıllı Envanter Önerileri' })}
+                                <h3 className="text-base font-bold text-[var(--hi-text)]">
+                                    {t('shopping.suggestions.title', { defaultValue: 'Stok Önerileri' })}
                                 </h3>
                                 <p className="text-xs text-[var(--hi-text-muted)] font-medium">
-                                    {t('shopping.suggestions.desc', { defaultValue: 'Stoku asgari sınırın altına düşen envanter öğeleri.' })}
+                                    {t('shopping.suggestions.desc', { defaultValue: 'Asgari stok sınırının altındaki envanter öğeleri.' })}
                                 </p>
                             </div>
                         </div>
-                        <button
-                            onClick={handleBulkAddLowStock}
-                            disabled={isBulkAdding}
-                            className="btn-primary !bg-[var(--hi-secondary)] hover:!bg-[var(--hi-secondary-strong)] !shadow-none !border-none text-xs px-4 py-2 self-start sm:self-auto cursor-pointer"
-                        >
-                            {isBulkAdding ? (
-                                <RefreshCw className="h-4 w-4 animate-spin" />
-                            ) : (
-                                <ListPlus className="h-4 w-4" />
-                            )}
-                            <span>{t('shopping.suggestions.add_all', { defaultValue: 'Tüm Eksikleri Ekle' })}</span>
-                        </button>
+                        <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
+                            <button
+                                onClick={handleBulkAddLowStock}
+                                disabled={isBulkAdding}
+                                className="btn-primary !shadow-none text-xs px-4 py-2 cursor-pointer"
+                            >
+                                {isBulkAdding ? (
+                                    <RefreshCw className="h-4 w-4 animate-spin" />
+                                ) : (
+                                    <ListPlus className="h-4 w-4" />
+                                )}
+                                <span>{t('shopping.suggestions.add_all', { defaultValue: 'Tüm Eksikleri Ekle' })}</span>
+                            </button>
+                            <button
+                                type="button"
+                                onClick={dismissStockSuggestions}
+                                className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--hi-border)] text-[var(--hi-text-soft)] transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)]"
+                                aria-label={t('common.close')}
+                                title={t('common.close')}
+                            >
+                                <X className="h-4 w-4" />
+                            </button>
+                        </div>
                     </div>
 
-                    <div className="relative z-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                         {suggestions.map((suggestion) => (
                             <div
                                 key={suggestion.item_id}
@@ -399,7 +436,7 @@ export default function ShoppingListPage() {
                                                 onClick={() => handleToggleComplete(item)}
                                                 disabled={isCompleting}
                                                 className="shopping-check-button"
-                                                aria-label="Tamamlandı olarak işaretle"
+                                                aria-label={t('shopping.actions.mark_completed', { defaultValue: 'Mark as completed' })}
                                             >
                                                 <span className="shopping-check-glyph">
                                                     <Check className="h-3.5 w-3.5 stroke-[3]" />
@@ -424,7 +461,7 @@ export default function ShoppingListPage() {
                                                     onClick={() => handleUpdateQuantity(item, -1)}
                                                     disabled={item.quantity <= 1}
                                                     className="shopping-quantity-button"
-                                                    aria-label="Azalt"
+                                                    aria-label={t('shopping.actions.decrease_qty', { defaultValue: 'Decrease quantity' })}
                                                 >
                                                     <Minus className="h-3.5 w-3.5" />
                                                 </button>
@@ -434,7 +471,7 @@ export default function ShoppingListPage() {
                                                 <button
                                                     onClick={() => handleUpdateQuantity(item, 1)}
                                                     className="shopping-quantity-button"
-                                                    aria-label="Arttır"
+                                                    aria-label={t('shopping.actions.increase_qty', { defaultValue: 'Increase quantity' })}
                                                 >
                                                     <Plus className="h-3.5 w-3.5" />
                                                 </button>
@@ -443,7 +480,7 @@ export default function ShoppingListPage() {
                                             <button
                                                 onClick={() => setDeletingItem(item)}
                                                 className="shopping-delete-button"
-                                                aria-label="Sil"
+                                                aria-label={t('shopping.actions.delete_item', { defaultValue: 'Delete item' })}
                                             >
                                                 <Trash2 className="h-4.5 w-4.5" />
                                             </button>
@@ -512,7 +549,7 @@ export default function ShoppingListPage() {
                                                     onClick={() => handleToggleComplete(item)}
                                                     disabled={isCompleting}
                                                     className="shopping-check-button is-checked"
-                                                    aria-label="Aktif listeye geri taşı"
+                                                    aria-label={t('shopping.actions.reactivate_item', { defaultValue: 'Move back to active list' })}
                                                 >
                                                     <span className="shopping-check-glyph">
                                                         <Check className="h-3.5 w-3.5 stroke-[3.5]" />
@@ -529,7 +566,7 @@ export default function ShoppingListPage() {
                                                 <button
                                                     onClick={() => setDeletingItem(item)}
                                                     className="shopping-delete-button is-visible"
-                                                    aria-label="Sil"
+                                                    aria-label={t('shopping.actions.delete_item', { defaultValue: 'Delete item' })}
                                                 >
                                                     <Trash2 className="h-4 w-4" />
                                                 </button>

@@ -186,7 +186,8 @@
         "hide": "Folaigh pasfhocal",
         "logging_out": "Ag logáil amach...",
         "show": "Taispeáin pasfhocal",
-        "saving": "Ag sábháil..."
+        "saving": "Ag sábháil...",
+        "disabled": "Díchumasaithe"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Tá Eochair Tí ag teastáil chun dul isteach i dteach atá ann cheana féin",
         "house_key_not_found": "Eochair Tí Neamhbhailí. Iontráil an eochair cheart, le do thoil.",
         "email_not_verified": "Níor fíoraíodh do sheoladh ríomhphoist fós. Seiceáil do bhosca isteach le do thoil.",
-        "two_factor_invalid": "Tá an cód fíoraithe mícheart"
+        "two_factor_invalid": "Tá an cód fíoraithe mícheart",
+        "two_factor_invalid_try_again": "Cód fíoraithe neamhbhailí. Bain triail as arís le do thoil.",
+        "two_factor_code_required": "Tá cód fíoraithe ag teastáil",
+        "two_factor_user_not_found": "Úsáideoir gan aimsiú",
+        "two_factor_already_enabled": "Tá fíordheimhniú dhá fhachtóir cumasaithe cheana féin",
+        "two_factor_setup_not_started": "Tosaigh an socrú fíordheimhnithe dhá fhachtóir ar dtús",
+        "two_factor_setup_error": "Tharla earráid le linn socrú fíordheimhnithe dhá fhachtóir",
+        "two_factor_activation_error": "Tharla earráid le linn gníomhachtú fíordheimhnithe dhá fhachtóir",
+        "two_factor_password_required": "Tá pasfhocal ag teastáil",
+        "two_factor_credentials_required": "Tá cód TOTP, cód cúltaca, nó eochair aisghabhála ag teastáil",
+        "two_factor_already_disabled": "Tá fíordheimhniú dhá fhachtóir díchumasaithe cheana féin",
+        "two_factor_password_incorrect": "Pasfhocal mícheart",
+        "two_factor_verification_failed": "Theip ar an bhfíorú. Seiceáil an cód agus bain triail as arís.",
+        "two_factor_disable_error": "Tharla earráid agus fíordheimhniú dhá fhachtóir á dhíchumasú",
+        "two_factor_not_enabled": "Níl fíordheimhniú dhá fhachtóir cumasaithe",
+        "two_factor_regenerate_codes_error": "Tharla earráid agus cóid chúltaca á athghiniúint",
+        "two_factor_enabled_success": "Cumasaíodh fíordheimhniú dhá fhachtóir go rathúil",
+        "two_factor_disabled_success": "Díchumasaíodh fíordheimhniú dhá fhachtóir go rathúil",
+        "password_errors": {
+            "min_length": "Caithfidh an focal faire a bheith ar a laghad {{min}} carachtair ar fhad",
+            "lowercase_required": "Ní mór litir íochtair amháin ar a laghad a bheith san áireamh sa phasfhocal",
+            "uppercase_required": "Ní mór litir uachtair amháin ar a laghad a bheith sa phasfhocal",
+            "number_required": "Ní mór uimhir amháin ar a laghad a bheith san áireamh sa phasfhocal",
+            "symbol_required": "Ní mór siombail amháin ar a laghad a bheith sa phasfhocal",
+            "repeated_chars": "Ná húsáid carachtair arís agus arís eile i do phasfhocal",
+            "predictable_sequence": "Ná húsáid seichimh atá éasca le buille faoi thuairim i do phasfhocal",
+            "common_password": "Tá an focal faire seo róchoitianta agus neamhshábháilte",
+            "contains_username": "Níor chóir d'ainm úsáideora a bheith sa phasfhocal",
+            "contains_email": "Níor chóir go mbeadh d'fhaisnéis ríomhphoist sa phasfhocal"
+        }
     },
     "navigation": {
         "home": "Baile",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Eochair téarnaimh athghiniúint",
             "recovery_key_error": "Níorbh fhéidir eochair théarnaimh a athghiniúint",
             "account_delete_error": "Níorbh fhéidir an cuntas a scriosadh",
-            "backup_downloaded_encrypted": "Íoslódáladh cúltaca criptithe go rathúil! ({{count}} míreanna)"
+            "backup_downloaded_encrypted": "Íoslódáladh cúltaca criptithe go rathúil! ({{count}} míreanna)",
+            "policy_update_error": "Theip ar shocruithe iarratais a nuashonrú.",
+            "policy_updated": "Nuashonraíodh socruithe iarratais go rathúil.",
+            "unblock_error": "Theip ar an úsáideoir a dhíbhlocáil.",
+            "unblocked_success": "D'éirigh leis an úsáideoir a dhíbhlocáil.",
+            "house_owner_transferred": "Úinéireacht an tí aistrithe",
+            "house_owner_transfer_error": "Ní fhéadfaí úinéireacht an tí a aistriú."
         },
         "user_profile": {
             "edit_username": "Athraigh ainm úsáideora"
@@ -721,7 +757,14 @@
             "kick_success_body": "Níl rochtain ag {{name}} ar an gcéad teaghlach seo a thuilleadh.",
             "kick_title": "Bain an ball seo?",
             "kick_warning": "Críochnóidh a rochtain ar an gcéad teaghlach láithreach agus beidh cuireadh nua nó cead ag teastáil uathu chun filleadh.",
-            "kicking": "Ag baint..."
+            "kicking": "Ag baint...",
+            "access_section_eyebrow": "Rochtain ar an teach",
+            "transfer_owner": "Déan úinéir",
+            "transferring_owner": "Á aistriú...",
+            "transfer_owner_title": "Úinéireacht tí a aistriú?",
+            "transfer_owner_confirm": "Úinéireacht an teaghlaigh seo a aistriú chuig {{name}}?",
+            "transfer_owner_warning": "Ní bheidh tú i d'úinéir an teaghlaigh seo a thuilleadh. Bainisteoidh an t-úinéir nua ceaduithe ball, baint, agus athruithe úinéireachta sa todhchaí.",
+            "transfer_owner_success_body": "Is é {{name}} úinéir an teaghlaigh seo anois."
         },
         "theme": {
             "title": "Téama",
@@ -729,7 +772,9 @@
             "light": "Mód Solais",
             "description": "Roghnaigh conas a fhéachann an spás oibre ar an bhfeiste seo.",
             "light_aria": "Aistrigh go téama éadrom",
-            "dark_aria": "Aistrigh go téama dorcha"
+            "dark_aria": "Aistrigh go téama dorcha",
+            "workspace_title": "Téama an Spás Oibre",
+            "workspace_desc": "Roghnaigh an stíl amhairc is fearr leat don ghléas seo."
         },
         "security": {
             "title": "Slándáil",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Ní féidir an eochair téarnaimh reatha a thaispeáint. Athghiniúint má tá gá leis.",
             "recovery_key_action": "Athghiniúint",
             "recovery_key_modal_desc": "Dearbhaigh do phasfhocal reatha chun leanúint ar aghaidh. Ní thaispeánfar an eochair nua ach uair amháin.",
-            "recovery_key_loading": "Ag ullmhú..."
+            "recovery_key_loading": "Ag ullmhú...",
+            "accordion_title": "Slándáil agus príobháideacht",
+            "accordion_desc": "Bainistigh fíordheimhniú dhá fhachtóir, feistí iontaofa, agus rialacha iarratais a fháil ar iasacht ó chuntais eile.",
+            "description": "Bainistigh do mháistir-phasfhocal agus cumraíochtaí aisghabhála cruinneachán.",
+            "change_password_detail": "Nuashonraigh do phasfhocal chun do chuntas a choinneáil slán",
+            "recovery_key_detail": "Úsáidte chun do cruinneachán a aisghabháil má dhéanann tú dearmad ar do phasfhocal"
         },
         "data_management": {
             "title": "Bainistíocht Sonraí",
@@ -890,7 +940,8 @@
             "revoke_devices": "Cealaigh na Gléasanna Iontaofa",
             "revoke_devices_desc": "Bain gach gléas a cuireadh i gcuimhne, ag teastáil 2FA ar an logáil isteach eile",
             "devices_revoked": "Cuireadh {{count}} gléas iontaofa as",
-            "devices_error": "Theip ar ghléasanna a chealú"
+            "devices_error": "Theip ar ghléasanna a chealú",
+            "preparing_setup": "Do shocrú fíordheimhnithe á ullmhú..."
         },
         "danger_zone": {
             "title": "Cuntas",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Tar éis deimhniúcháin, caillfidh tú rochtain ar an gcuntas láithreach agus ní féidir sonraí an iarratais scriosta a athchóirú ón aip.",
             "password_label": "Deimhnigh le do phasfhocal reatha",
             "confirm_delete": "Deimhnigh scriosadh",
-            "deleting": "Ag scriosadh..."
+            "deleting": "Ag scriosadh...",
+            "description": "Scrios do chuntas agus bain gach tacar sonraí fardail go buan."
         },
         "language": "Teanga",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Tíortha Coitianta",
         "search_results": "Torthaí Cuardaigh",
         "current_language": "Teanga Reatha",
-        "languages_available": "teangacha ar fáil"
+        "languages_available": "teangacha ar fáil",
+        "borrow_requests": {
+            "accordion_eyebrow": "Urrús a iarraidh ar iasacht",
+            "accordion_eyebrow_desc": "Rialacha iarratais a chumrú agus úsáideoirí blocáilte a bhainistiú.",
+            "title": "Socruithe iarratais ar iasacht",
+            "description": "Bainistigh rialacha chun iarratais ar iasacht a fháil ó chuntais eile agus liostáil úsáideoirí blocáilte.",
+            "policy_title": "Iarratais Nua ar Iasacht",
+            "policy_description": "Rialú cé is féidir iarratais iasachta a sheoladh chugat. Ní léirítear do stoc riamh mar liosta poiblí.",
+            "policy_none": "Ná faigh ó dhuine ar bith (Réamhshocrú)",
+            "policy_house_only": "Baill teaghlaigh amháin",
+            "policy_everyone": "Gach úsáideoir cláraithe",
+            "blocks_title": "Úsáideoirí Blocáilte",
+            "blocks_description": "Úsáideoirí a chuir tú bac orthu iarratais nua ar iasacht a sheoladh chugat.",
+            "no_blocks": "Níor aimsíodh aon úsáideoir blocáilte.",
+            "unblock_btn": "Díghlasáil",
+            "policy_none_desc": "Cuirtear bac ar gach iarratas isteach go huathoibríoch.",
+            "policy_house_only_desc": "Ní féidir ach comhaltaí fíoraithe de do thithe gníomhacha earraí atá le feiceáil cheana istigh sa teach comhroinnte sin a iarraidh.",
+            "policy_everyone_desc": "Ní féidir le húsáideoirí eile brabhsáil nó do earraí a fheiceáil. Is féidir leo iarratas a sheoladh amháin trí do ainm úsáideora nó ríomhphost a chur isteach go díreach."
+        }
     },
     "inventory": {
         "title": "Stoc",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Leatsa",
             "return_pending_hint": "Dúnfaidh an taifead tar éis don iasachtóir a dheimhniú gur fhuair siad an mhír ar ais.",
             "return_pending_lender_title": "Mharcáil {{name}} an mhír seo mar hathsheachadta ar ais",
-            "return_pending_self_title": "Leatsa, ag fanacht le deimhniú ar an admháil"
+            "return_pending_self_title": "Leatsa, ag fanacht le deimhniú ar an admháil",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Earra gan teideal",
         "delete_action": "Scrios earra",
@@ -1851,7 +1926,7 @@
             "bodyLine2": "Ag fanacht le cead úinéara tí"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{stádas}}",
             "greeting": "Rochtain ar an Teach",
             "bodyLine1Template": "Iarratas reatha atá fós ag fanacht: {{house}} ({{status}})",
             "bodyLine2": "Tá do iarratas ar \"{{house}}\" fós ag fanacht le cinneadh.",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Nóta faighte",
             "return_note_placeholder_borrower": "mar shampla, thug mé ar ais é gan aon fhadhbanna",
             "return_note_placeholder_lender": "m.sh. Faighte ar ais i gcuma mhaith",
-            "return_submitting": "Ag dúnadh..."
+            "return_submitting": "Ag dúnadh...",
+            "reject_title": "Diúltaigh Iarratas",
+            "reject_subtitle": "Tá tú ar tí diúltú don iarratas ar \"{{item}}\".",
+            "reject_target": "Tá tú ar tí diúltú don iarratas ar iasacht a sheol {{name}}.",
+            "reject_reason_label": "Cúis Diúltaithe",
+            "reject_submitting": "Ag diúltú...",
+            "due_date_label": "Dáta fillte pleanáilte"
         },
         "messages": {
             "load_error": "Níorbh fhéidir lárionad iasachta a luchtú",
-            "action_error": "Níorbh fhéidir an gníomh a chur i gcrích"
+            "action_error": "Níorbh fhéidir an gníomh a chur i gcrích",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Is féidir leat ach iarratas seachtrach teagmháil-chéad amháin a sheoladh chuig an duine céanna gach lá. Má ghlacann siad le hiarratas, ní bhaineann an teorainn seo leis an duine sin níos mó.",
+                "external_total_daily_limit": "Is féidir leat suas le 5 iarratas seachtrach teagmháil-chéad a sheoladh gach lá.",
+                "external_request_requires_verified_email": "Déan do sheoladh ríomhphoist a fhíorú sula seolann tú iarratais iasachta seachtracha.",
+                "external_offer_blocked": "Ní féidir leat earra a thairiscint ach do chomhaltaí tí nó úsáideoirí cláraithe a féidir a aithint go díreach.",
+                "target_blocked_by_you": "Ní féidir leat iarratas a sheoladh chuig úsáideoir atá curtha bac ort.",
+                "recent_rejection_lock": "Dhiúltaigh an t-úsáideoir seo iarratas le déanaí. Is féidir leat iarratas eile a sheoladh tar éis 30 lá."
+            }
         },
         "preview": {
             "title": "Mód réamhamhairc",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Níor gá duit aon iarratais a léamh",
         "outgoing_empty_title": "Níl aon iarratais atá á sheoladh fós",
         "refreshing": "Ag athlódáil na n-iarratas agus na n-iasachtaí gníomhacha...",
-        "loading_description": "Ag ullmhú iarratais agus gníomhaíocht iasachta ghníomhach."
+        "loading_description": "Ag ullmhú iarratais agus gníomhaíocht iasachta ghníomhach.",
+        "reasons": {
+            "rejected": "Diúltú (Gnáthdhiúltú)",
+            "not_available": "Níl sé ar fáil (Mír ar iarraidh / níl sé ar fáil)",
+            "blocked": "Bloc agus Diúltaigh (Bloc an úsáideora seo)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Polasaí Príobháideachta",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Bainistigh do ghach earra tí go cliste"
+        "tagline": "Bainistigh do ghach earra tí go cliste",
+        "loading": "Á luchtú {{brandName}}",
+        "preparing_workspace": "Do spás oibre á ullmhú..."
     },
     "nav": {
         "home": "Baile",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Glan an Staire",
-            "add_item": "Cuir le Liosta Siopadóireachta"
+            "add_item": "Cuir le Liosta Siopadóireachta",
+            "mark_completed": "Marcáil mar chríochnaithe",
+            "decrease_qty": "Laghdaigh cainníocht",
+            "increase_qty": "Méadaigh cainníocht",
+            "delete_item": "Scrios mír",
+            "reactivate_item": "Bog ar ais go dtí an liosta gníomhach"
         },
         "form": {
             "add_type": "Cuir Modh",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Rianú cothabhála tréimhsiúil nó aon-uaire atá sceidealta don mhír seo.",
         "no_tasks": "Níl aon tascanna cothabhála sainmhínithe don mhír seo.",
         "confirm_delete": "Scriosfar an tasc seo. An bhfuil tú cinnte?"
+    },
+    "error_boundary": {
+        "title": "Teastaíonn athnuachan ó rud éigin",
+        "description": "Bhuail an comhéadan fadhb rindreála gan choinne. Ní athraíonn an scáileán seo do shonraí fardail a shábháil.",
+        "refresh_btn": "Athnuachan",
+        "home_btn": "Baile"
     }
 }

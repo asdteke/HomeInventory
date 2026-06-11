@@ -186,7 +186,8 @@
         "hide": "Ẩn mật khẩu",
         "logging_out": "Đang đăng xuất...",
         "show": "Hiện mật khẩu",
-        "saving": "Đang lưu..."
+        "saving": "Đang lưu...",
+        "disabled": "Vô hiệu hóa"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Cần có chìa khóa nhà để tham gia vào một ngôi nhà hiện có",
         "house_key_not_found": "Chìa khóa nhà không hợp lệ. Vui lòng nhập đúng khóa.",
         "email_not_verified": "Địa chỉ email của bạn chưa được xác minh. Vui lòng kiểm tra hộp thư đến của bạn.",
-        "two_factor_invalid": "Mã xác minh không chính xác"
+        "two_factor_invalid": "Mã xác minh không chính xác",
+        "two_factor_invalid_try_again": "Mã xác minh không hợp lệ. Vui lòng thử lại.",
+        "two_factor_code_required": "Mã xác minh là bắt buộc",
+        "two_factor_user_not_found": "Không tìm thấy người dùng",
+        "two_factor_already_enabled": "Xác thực hai yếu tố đã được bật",
+        "two_factor_setup_not_started": "Vui lòng bắt đầu thiết lập xác thực hai yếu tố trước",
+        "two_factor_setup_error": "Đã xảy ra lỗi trong quá trình thiết lập xác thực hai yếu tố",
+        "two_factor_activation_error": "Đã xảy ra lỗi trong quá trình kích hoạt xác thực hai yếu tố",
+        "two_factor_password_required": "Mật khẩu là bắt buộc",
+        "two_factor_credentials_required": "Mã TOTP, mã dự phòng hoặc khóa khôi phục là bắt buộc",
+        "two_factor_already_disabled": "Xác thực hai yếu tố đã bị vô hiệu hóa",
+        "two_factor_password_incorrect": "Mật khẩu không chính xác",
+        "two_factor_verification_failed": "Xác minh không thành công. Vui lòng kiểm tra mã và thử lại.",
+        "two_factor_disable_error": "Đã xảy ra lỗi khi tắt xác thực hai yếu tố",
+        "two_factor_not_enabled": "Xác thực hai yếu tố không được bật",
+        "two_factor_regenerate_codes_error": "Đã xảy ra lỗi trong khi tạo lại mã dự phòng",
+        "two_factor_enabled_success": "Xác thực hai yếu tố đã được kích hoạt thành công",
+        "two_factor_disabled_success": "Xác thực hai yếu tố đã bị vô hiệu hóa thành công",
+        "password_errors": {
+            "min_length": "Mật khẩu phải dài ít nhất {{min}} ký tự",
+            "lowercase_required": "Mật khẩu phải bao gồm ít nhất một chữ cái viết thường",
+            "uppercase_required": "Mật khẩu phải bao gồm ít nhất một chữ cái viết hoa",
+            "number_required": "Mật khẩu phải bao gồm ít nhất một số",
+            "symbol_required": "Mật khẩu phải bao gồm ít nhất một ký hiệu",
+            "repeated_chars": "Không sử dụng các ký tự lặp lại trong mật khẩu của bạn",
+            "predictable_sequence": "Không sử dụng các chuỗi dễ đoán trong mật khẩu của bạn",
+            "common_password": "Mật khẩu này quá phổ biến và không an toàn",
+            "contains_username": "Mật khẩu không được chứa tên người dùng của bạn",
+            "contains_email": "Mật khẩu không được chứa thông tin email của bạn"
+        }
     },
     "navigation": {
         "home": "Trang chủ",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Khóa phục hồi đã được tạo lại",
             "recovery_key_error": "Không thể tạo lại khóa phục hồi",
             "account_delete_error": "Không thể xóa tài khoản",
-            "backup_downloaded_encrypted": "Sao lưu được mã hóa đã tải xuống thành công! ({{count}} mục)"
+            "backup_downloaded_encrypted": "Sao lưu được mã hóa đã tải xuống thành công! ({{count}} mục)",
+            "policy_update_error": "Không cập nhật được cài đặt yêu cầu.",
+            "policy_updated": "Yêu cầu cài đặt được cập nhật thành công.",
+            "unblock_error": "Không thể bỏ chặn người dùng.",
+            "unblocked_success": "Người dùng bỏ chặn thành công.",
+            "house_owner_transferred": "Chuyển quyền sở hữu nhà ở",
+            "house_owner_transfer_error": "Quyền sở hữu nhà không thể được chuyển nhượng."
         },
         "user_profile": {
             "edit_username": "Đổi tên người dùng"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} không còn quyền truy cập vào hộ gia đình này.",
             "kick_title": "Xóa thành viên này?",
             "kick_warning": "Quyền truy cập hộ gia đình của họ sẽ chấm dứt ngay lập tức và họ sẽ cần lời mời mới hoặc sự chấp thuận để quay lại.",
-            "kicking": "Đang xóa..."
+            "kicking": "Đang xóa...",
+            "access_section_eyebrow": "Lối vào nhà",
+            "transfer_owner": "Đặt chủ sở hữu",
+            "transferring_owner": "Đang chuyển nhượng...",
+            "transfer_owner_title": "Chuyển quyền sở hữu nhà?",
+            "transfer_owner_confirm": "Chuyển quyền sở hữu hộ gia đình này cho {{name}}?",
+            "transfer_owner_warning": "Bạn sẽ không còn là chủ sở hữu của hộ gia đình này nữa. Chủ sở hữu mới sẽ quản lý việc phê duyệt, xóa và thay đổi quyền sở hữu trong tương lai của thành viên.",
+            "transfer_owner_success_body": "{{name}} hiện là chủ sở hữu của gia đình này."
         },
         "theme": {
             "title": "Chủ đề",
@@ -729,7 +772,9 @@
             "light": "Chế độ sáng",
             "description": "Chọn cách không gian làm việc hiển thị trên thiết bị này.",
             "light_aria": "Chuyển sang chủ đề sáng",
-            "dark_aria": "Chuyển sang chủ đề tối"
+            "dark_aria": "Chuyển sang chủ đề tối",
+            "workspace_title": "Chủ đề không gian làm việc",
+            "workspace_desc": "Chọn kiểu hình ảnh ưa thích của bạn cho thiết bị này."
         },
         "security": {
             "title": "Bảo mật",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Khóa khôi phục hiện tại không thể hiển thị. Tạo lại nếu cần.",
             "recovery_key_action": "Tạo lại",
             "recovery_key_modal_desc": "Xác nhận mật khẩu hiện tại của bạn để tiếp tục. Khóa mới sẽ chỉ hiển thị một lần.",
-            "recovery_key_loading": "Đang chuẩn bị..."
+            "recovery_key_loading": "Đang chuẩn bị...",
+            "accordion_title": "Bảo mật và quyền riêng tư",
+            "accordion_desc": "Quản lý xác thực hai yếu tố, thiết bị đáng tin cậy và quy tắc yêu cầu mượn từ các tài khoản khác.",
+            "description": "Quản lý mật khẩu chính và cấu hình khôi phục kho lưu trữ của bạn.",
+            "change_password_detail": "Cập nhật mật khẩu để giữ an toàn cho tài khoản của bạn",
+            "recovery_key_detail": "Được sử dụng để khôi phục kho tiền của bạn nếu bạn quên mật khẩu"
         },
         "data_management": {
             "title": "Quản lý dữ liệu",
@@ -785,10 +835,10 @@
             "owner_only_desc": "Sao lưu và khôi phục dữ liệu chỉ có thể được quản lý bởi chủ nhà."
         },
         "about": {
-            "title": "📱 Về ứng dụng",
+            "title": "Về ứng dụng",
             "version": "Phiên bản",
             "brand": "Thương hiệu",
-            "feedback": "✉️ Gửi Phản Hồi",
+            "feedback": "Gửi Phản Hồi",
             "legal_title": "Tài liệu pháp lý",
             "legal_description": "Bạn có thể mở lại các văn bản về điều khoản và quyền riêng tư từ đây ngay cả sau khi đã chấp nhận chúng.",
             "terms_link": "Điều Khoản Dịch Vụ",
@@ -890,7 +940,8 @@
             "revoke_devices": "Thu hồi thiết bị tin cậy",
             "revoke_devices_desc": "Xóa tất cả các thiết bị đã nhớ, yêu cầu 2FA khi đăng nhập lần tiếp theo",
             "devices_revoked": "{{count}} thiết bị tin cậy đã bị xóa",
-            "devices_error": "Không thể thu hồi các thiết bị"
+            "devices_error": "Không thể thu hồi các thiết bị",
+            "preparing_setup": "Chuẩn bị thiết lập trình xác thực của bạn..."
         },
         "danger_zone": {
             "title": "Tài khoản",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Sau khi xác nhận, bạn sẽ ngay lập tức mất quyền truy cập vào tài khoản và dữ liệu ứng dụng đã xóa sẽ không thể khôi phục từ ứng dụng.",
             "password_label": "Xác nhận bằng mật khẩu hiện tại của bạn",
             "confirm_delete": "Xác nhận xóa",
-            "deleting": "Đang xóa..."
+            "deleting": "Đang xóa...",
+            "description": "Xóa tài khoản của bạn và xóa vĩnh viễn tất cả các tập dữ liệu khoảng không quảng cáo."
         },
         "language": "Ngôn ngữ",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Ngôn ngữ phổ biến",
         "search_results": "Kết quả tìm kiếm",
         "current_language": "Ngôn ngữ hiện tại",
-        "languages_available": "ngôn ngữ có sẵn"
+        "languages_available": "ngôn ngữ có sẵn",
+        "borrow_requests": {
+            "accordion_eyebrow": "Bảo mật yêu cầu vay",
+            "accordion_eyebrow_desc": "Đặt cấu hình quy tắc yêu cầu và quản lý người dùng bị chặn.",
+            "title": "Cài đặt yêu cầu mượn",
+            "description": "Quản lý quy tắc nhận yêu cầu vay từ các tài khoản khác và liệt kê người dùng bị chặn.",
+            "policy_title": "Yêu cầu vay mới",
+            "policy_description": "Kiểm soát ai có thể gửi yêu cầu mượn đến bạn. Kho hàng của bạn chưa bao giờ được hiển thị như một danh sách công khai.",
+            "policy_none": "Không nhận từ bất kỳ ai (Mặc định)",
+            "policy_house_only": "Chỉ dành cho các thành viên trong gia đình",
+            "policy_everyone": "Tất cả người dùng đã đăng ký",
+            "blocks_title": "Người dùng bị chặn",
+            "blocks_description": "Người dùng bạn đã chặn gửi cho bạn yêu cầu vay mới.",
+            "no_blocks": "Không tìm thấy người dùng bị chặn.",
+            "unblock_btn": "Bỏ chặn",
+            "policy_none_desc": "Tất cả các yêu cầu đến sẽ tự động bị chặn.",
+            "policy_house_only_desc": "Chỉ các thành viên đã xác minh của các ngôi nhà đang hoạt động của bạn mới có thể yêu cầu các món đồ đã hiển thị bên trong ngôi nhà chia sẻ đó.",
+            "policy_everyone_desc": "Người dùng khác không thể duyệt hoặc xem các món đồ của bạn. Họ chỉ có thể gửi yêu cầu bằng cách nhập trực tiếp tên người dùng hoặc email của bạn."
+        }
     },
     "inventory": {
         "title": "Tồn Kho",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Ở với bạn",
             "return_pending_hint": "Hồ sơ sẽ đóng sau khi người cho vay xác nhận họ đã nhận lại vật phẩm.",
             "return_pending_lender_title": "{{name}} đã đánh dấu vật phẩm này là đã trả lại",
-            "return_pending_self_title": "Ở với bạn, chờ xác nhận biên nhận"
+            "return_pending_self_title": "Ở với bạn, chờ xác nhận biên nhận",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Mục không có tiêu đề",
         "delete_action": "Xóa mục",
@@ -1851,7 +1926,7 @@
             "bodyLine2": "Đang chờ sự phê duyệt của chủ nhà"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{trạng thái}}",
             "greeting": "Truy Cập Nhà",
             "bodyLine1Template": "Yêu cầu đang chờ hiện tại: {{house}} ({{status}})",
             "bodyLine2": "Yêu cầu của bạn cho \"{{house}}\" vẫn đang chờ quyết định.",
@@ -1876,7 +1951,7 @@
             "warningTitle": "⚠️",
             "warningBody": "Nếu tài khoản tồn tại, một liên kết đặt lại mật khẩu có hiệu lực trong 15 phút đã được gửi.",
             "fallback": "Liên kết đặt lại mật khẩu có vẻ không đầy đủ hoặc bị hỏng.",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{tên thương hiệu}}"
         },
         "adminEmail": {
             "sentBy": "Email này được gửi bởi {{brandName}}.",
@@ -1890,7 +1965,7 @@
             "sentAtLabel": "Gửi lúc",
             "senderLabel": "Người gửi",
             "serviceLabel": "Dịch vụ",
-            "footer": "© 2026 {{brandName}}"
+            "footer": "© 2026 {{tên thương hiệu}}"
         }
     },
     "vault": {
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Phiếu nhận",
             "return_note_placeholder_borrower": "ví dụ: Tôi đã trả lại mà không gặp vấn đề gì",
             "return_note_placeholder_lender": "ví dụ: Nhận lại trong tình trạng tốt",
-            "return_submitting": "Đang đóng..."
+            "return_submitting": "Đang đóng...",
+            "reject_title": "Từ chối yêu cầu",
+            "reject_subtitle": "Bạn sắp từ chối yêu cầu \"{{item}}\".",
+            "reject_target": "Bạn sắp từ chối yêu cầu vay do {{name}} gửi.",
+            "reject_reason_label": "Lý do từ chối",
+            "reject_submitting": "Từ chối...",
+            "due_date_label": "Ngày trở về dự kiến"
         },
         "messages": {
             "load_error": "Trung tâm vay không thể tải được",
-            "action_error": "Hành động không thể hoàn thành"
+            "action_error": "Hành động không thể hoàn thành",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Bạn chỉ có thể gửi một yêu cầu liên lạc lần đầu đến cùng một người trong một ngày. Nếu họ chấp nhận yêu cầu, giới hạn này không còn áp dụng với người đó.",
+                "external_total_daily_limit": "Bạn có thể gửi tối đa 5 yêu cầu liên lạc lần đầu mỗi ngày.",
+                "external_request_requires_verified_email": "Xác minh địa chỉ email của bạn trước khi gửi yêu cầu mượn từ bên ngoài.",
+                "external_offer_blocked": "Bạn chỉ có thể đề nghị một món đồ cho các thành viên trong nhà hoặc người dùng đã đăng ký mà có thể được xác định trực tiếp.",
+                "target_blocked_by_you": "Bạn không thể gửi yêu cầu cho người dùng mà bạn đã chặn.",
+                "recent_rejection_lock": "Người dùng này đã từ chối yêu cầu gần đây. Bạn có thể gửi yêu cầu khác sau 30 ngày."
+            }
         },
         "preview": {
             "title": "Chế độ xem trước",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Không có yêu cầu nào cần bạn xem xét",
         "outgoing_empty_title": "Chưa có yêu cầu gửi đi nào",
         "refreshing": "Đang làm mới các yêu cầu và mượn đang hoạt động...",
-        "loading_description": "Chuẩn bị các yêu cầu và hoạt động mượn đang hoạt động."
+        "loading_description": "Chuẩn bị các yêu cầu và hoạt động mượn đang hoạt động.",
+        "reasons": {
+            "rejected": "Từ chối (Từ chối bình thường)",
+            "not_available": "Không có sẵn (Thiếu mục / không có sẵn)",
+            "blocked": "Chặn và từ chối (Chặn người dùng này)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Chính sách bảo mật",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}} Bản Beta: {{brandName}} hiện đang trong giai đoạn thử nghiệm. Không có đảm bảo nào về tính vĩnh viễn hay bảo mật dữ liệu. {{brandName}} hiện đang trong giai đoạn thử nghiệm và giải trí. Không có đảm bảo nào về tính vĩnh viễn hay bảo mật dữ liệu. Vui lòng sao lưu thông tin quan trọng của bạn. Đăng nhập",
-        "tagline": "Quản lý thông minh tất cả các món đồ trong gia đình của bạn"
+        "tagline": "Quản lý thông minh tất cả các món đồ trong gia đình của bạn",
+        "loading": "Đang tải {{brandName}}",
+        "preparing_workspace": "Chuẩn bị không gian làm việc của bạn..."
     },
     "nav": {
         "home": "Trang chủ",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Xóa Lịch Sử",
-            "add_item": "Thêm vào Danh Sách Mua Sắm"
+            "add_item": "Thêm vào Danh Sách Mua Sắm",
+            "mark_completed": "Đánh dấu là đã hoàn thành",
+            "decrease_qty": "Giảm số lượng",
+            "increase_qty": "Tăng số lượng",
+            "delete_item": "Xóa mục",
+            "reactivate_item": "Quay lại danh sách đang hoạt động"
         },
         "form": {
             "add_type": "Thêm Phương Thức",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Theo dõi bảo trì định kỳ hoặc một lần được lên lịch cho mục này.",
         "no_tasks": "Không có nhiệm vụ bảo trì nào được gán cho mục này.",
         "confirm_delete": "Nhiệm vụ này sẽ bị xóa. Bạn có chắc không?"
+    },
+    "error_boundary": {
+        "title": "Một cái gì đó cần được làm mới",
+        "description": "Giao diện gặp sự cố kết xuất không mong muốn. Dữ liệu hàng lưu kho đã lưu của bạn không bị thay đổi bởi màn hình này.",
+        "refresh_btn": "Làm mới",
+        "home_btn": "Trang chủ"
     }
 }

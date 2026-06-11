@@ -10,7 +10,8 @@ import db from '../database.js';
 import { authenticateToken, requireActiveHouse } from '../middleware/auth.js';
 import {
     decryptBufferFromStorage,
-    encryptBufferForStorage
+    encryptBufferForStorage,
+    isEncryptedPayload
 } from '../utils/encryption.js';
 import {
     ensurePrivateDirectory,
@@ -26,6 +27,7 @@ import { validateUploadedImageBuffer } from '../utils/imageValidation.js';
 import { normalizeWarrantyDetails } from '../utils/warrantyValidation.js';
 import { getUploadsRoot } from '../utils/runtimePaths.js';
 import {
+    buildEmailLookup,
     buildUsernameLookup,
     buildBarcodeLookup,
     decryptBorrowRecord,
@@ -112,6 +114,7 @@ const BORROW_REQUEST_DIRECTION = {
 const BORROW_REQUEST_STATUS = {
     PENDING: 'pending'
 };
+const BORROW_REQUEST_POLICIES = new Set(['none', 'house_only', 'everyone']);
 const ACTIVE_BORROW_SELECT = `
     active_borrow.id AS active_borrow_id,
     active_borrow.borrower_type AS active_borrow_borrower_type,
@@ -275,7 +278,7 @@ function normalizeOptionalMoney(value) {
 function getRequestErrorStatus(error) {
     return /yetki|yalnızca|izniniz/i.test(String(error?.message || ''))
         ? 403
-        : /ge(?:ç|c)ersiz|gerekli|çok uzun|üyesi değil|kendinize|ait değil/i.test(String(error?.message || ''))
+        : /ge(?:ç|c)ersiz|gerekli|çok uzun|üyesi değil|kendinize|ait değil|bekleyen|engellediğiniz/i.test(String(error?.message || ''))
             ? 400
             : 500;
 }
@@ -349,6 +352,20 @@ function normalizeOptionalText(value, fieldLabel, maxLength = 500) {
     }
 
     return normalized;
+}
+
+function normalizeRequiredText(value, fieldLabel, maxLength = 160) {
+    const normalized = normalizeOptionalText(value, fieldLabel, maxLength);
+    if (!normalized) {
+        throw new Error(`${fieldLabel} gerekli`);
+    }
+
+    return normalized;
+}
+
+function normalizeBorrowRequestPolicy(value) {
+    const policy = String(value || '').trim();
+    return BORROW_REQUEST_POLICIES.has(policy) ? policy : 'none';
 }
 
 function buildActiveBorrowSnapshot(record, viewerUserId, itemOwnerUserId = null) {
@@ -471,15 +488,17 @@ function buildBorrowRequestExpiresAt(days = 14) {
     return new Date(Date.now() + (days * 24 * 60 * 60 * 1000)).toISOString();
 }
 
-function createMemberBorrowOffer({ item, houseKey, lenderUserId, borrowerUserId, dueDate, note }) {
-    const borrower = validateBorrowerMember(houseKey, borrowerUserId, lenderUserId);
-    const borrowerUsername = decryptUsername(borrower.username);
-    const recipientLookupHash = buildUsernameLookup(borrowerUsername);
+function userSharesHouse(firstUserId, secondUserId) {
+    return Boolean(db.prepare(`
+        SELECT 1
+        FROM user_houses first_house
+        JOIN user_houses second_house ON first_house.house_key = second_house.house_key
+        WHERE first_house.user_id = ? AND second_house.user_id = ?
+        LIMIT 1
+    `).get(firstUserId, secondUserId));
+}
 
-    if (!recipientLookupHash) {
-        throw new Error('Seçilen kullanıcı için ödünç teklifi oluşturulamadı');
-    }
-
+function assertNoPendingBorrowOffer(itemId) {
     const existingOffer = db.prepare(`
         SELECT id
         FROM borrow_requests
@@ -490,12 +509,29 @@ function createMemberBorrowOffer({ item, houseKey, lenderUserId, borrowerUserId,
     `).get(
         BORROW_REQUEST_DIRECTION.OFFER,
         BORROW_REQUEST_STATUS.PENDING,
-        item.id
+        itemId
     );
 
     if (existingOffer) {
         throw new Error('Bu eşya için zaten bekleyen bir ödünç teklifi var');
     }
+}
+
+function createBorrowOfferForUser({
+    item,
+    lenderUserId,
+    borrowerUserId,
+    recipientIdentifier,
+    recipientLookupType = 'username',
+    recipientLookupHash,
+    dueDate,
+    note
+}) {
+    if (!recipientLookupHash) {
+        throw new Error('Seçilen kullanıcı için ödünç teklifi oluşturulamadı');
+    }
+
+    assertNoPendingBorrowOffer(item.id);
 
     const result = db.prepare(`
         INSERT INTO borrow_requests (
@@ -512,14 +548,15 @@ function createMemberBorrowOffer({ item, houseKey, lenderUserId, borrowerUserId,
             due_date,
             expires_at
         )
-        VALUES (?, ?, ?, ?, 'username', ?, ?, ?, NULL, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, NULL, ?, ?, ?)
     `).run(
         BORROW_REQUEST_DIRECTION.OFFER,
         BORROW_REQUEST_STATUS.PENDING,
         lenderUserId,
-        borrower.id,
+        borrowerUserId,
+        recipientLookupType,
         recipientLookupHash,
-        encryptBorrowRequestTarget(borrowerUsername),
+        encryptBorrowRequestTarget(recipientIdentifier),
         item.id,
         note ? encryptBorrowRequestNote(note) : null,
         dueDate,
@@ -530,11 +567,93 @@ function createMemberBorrowOffer({ item, houseKey, lenderUserId, borrowerUserId,
         id: result.lastInsertRowid,
         direction: BORROW_REQUEST_DIRECTION.OFFER,
         status: BORROW_REQUEST_STATUS.PENDING,
-        recipient_user_id: borrower.id,
-        recipient_username: borrowerUsername,
+        recipient_user_id: borrowerUserId,
+        recipient_identifier: recipientIdentifier,
         item_id: item.id,
         due_date: dueDate
     };
+}
+
+function createMemberBorrowOffer({ item, houseKey, lenderUserId, borrowerUserId, dueDate, note }) {
+    const borrower = validateBorrowerMember(houseKey, borrowerUserId, lenderUserId);
+    const borrowerUsername = decryptUsername(borrower.username);
+
+    return createBorrowOfferForUser({
+        item,
+        lenderUserId,
+        borrowerUserId: borrower.id,
+        recipientIdentifier: borrowerUsername,
+        recipientLookupType: 'username',
+        recipientLookupHash: buildUsernameLookup(borrowerUsername),
+        dueDate,
+        note
+    });
+}
+
+function buildSiteBorrowerLookup(identifier) {
+    const normalized = normalizeRequiredText(identifier, 'Site üyesi', 160);
+    if (isEncryptedPayload(normalized)) {
+        throw new Error('Site üyesi kullanıcı adı veya e-posta olarak girilmeli');
+    }
+
+    const lookupType = normalized.includes('@') ? 'email' : 'username';
+    const lookupHash = lookupType === 'email'
+        ? buildEmailLookup(normalized)
+        : buildUsernameLookup(normalized);
+
+    if (!lookupHash) {
+        throw new Error('Site üyesi bilgisi geçersiz');
+    }
+
+    return { identifier: normalized, lookupType, lookupHash };
+}
+
+function createSiteMemberBorrowOffer({ item, lenderUserId, identifier, dueDate, note }) {
+    const { identifier: recipientIdentifier, lookupType, lookupHash } = buildSiteBorrowerLookup(identifier);
+    const borrower = lookupType === 'email'
+        ? db.prepare('SELECT id, borrow_request_policy FROM users WHERE email_lookup = ? LIMIT 1').get(lookupHash)
+        : db.prepare('SELECT id, borrow_request_policy FROM users WHERE username_lookup = ? LIMIT 1').get(lookupHash);
+
+    if (!borrower || borrower.id === lenderUserId) {
+        return null;
+    }
+
+    const sharesHouse = userSharesHouse(lenderUserId, borrower.id);
+    const policy = normalizeBorrowRequestPolicy(borrower.borrow_request_policy);
+    if (policy === 'none' || (policy === 'house_only' && !sharesHouse)) {
+        return null;
+    }
+
+    const isBlockedByTarget = db.prepare(`
+        SELECT 1
+        FROM borrow_request_blocks
+        WHERE blocker_user_id = ? AND blocked_user_id = ?
+        LIMIT 1
+    `).get(borrower.id, lenderUserId);
+    if (isBlockedByTarget) {
+        return null;
+    }
+
+    const hasBlockedTarget = db.prepare(`
+        SELECT 1
+        FROM borrow_request_blocks
+        WHERE blocker_user_id = ? AND blocked_user_id = ?
+        LIMIT 1
+    `).get(lenderUserId, borrower.id);
+    if (hasBlockedTarget) {
+        throw new Error('Engellediğiniz bir kullanıcıya teklif gönderemezsiniz');
+    }
+
+    return createBorrowOfferForUser({
+        item,
+        lenderUserId,
+        borrowerUserId: borrower.id,
+        recipientIdentifier,
+        recipientLookupType: lookupType,
+        recipientLookupHash: lookupHash,
+        dueDate,
+        note
+    });
 }
 
 function resolveStoredPath(storedPath) {
@@ -621,7 +740,7 @@ function serializeItem(item, viewerUserId = null) {
 
     const quantityVal = parseInt(decryptedItem.quantity, 10) || 0;
     const minQtyVal = parseInt(decryptedItem.min_quantity, 10) || 0;
-    const isLowStock = minQtyVal > 0 && quantityVal <= minQtyVal;
+    const isLowStock = minQtyVal > 0 && quantityVal < minQtyVal;
 
     return {
         ...publicItem,
@@ -990,9 +1109,12 @@ router.post('/:id/borrow', (req, res) => {
             return res.status(409).json({ error: 'Bu eşya zaten ödünçte' });
         }
 
-        const borrowerType = (
-            String(req.body.borrower_type || '').trim() === 'member' || req.body.borrower_user_id
-        ) ? 'member' : 'external';
+        const requestedBorrowerType = String(req.body.borrower_type || '').trim();
+        const borrowerType = requestedBorrowerType === 'site_member'
+            ? 'site_member'
+            : (requestedBorrowerType === 'member' || req.body.borrower_user_id)
+                ? 'member'
+                : 'external';
         const dueDate = normalizeOptionalDate(req.body.due_date, 'Planlanan teslim tarihi');
         const note = normalizeOptionalText(req.body.note, 'Ödünç notu', 1000);
 
@@ -1010,6 +1132,33 @@ router.post('/:id/borrow', (req, res) => {
                 dueDate,
                 note
             });
+
+            return res.status(202).json({
+                message: 'Ödünç teklifi gönderildi. Eşya karşı taraf onayladıktan sonra ödünçte sayılacak.',
+                request
+            });
+        } else if (borrowerType === 'site_member') {
+            const request = createSiteMemberBorrowOffer({
+                item,
+                lenderUserId: req.user.id,
+                identifier: req.body.borrower_identifier,
+                dueDate,
+                note
+            });
+
+            if (!request) {
+                return res.status(202).json({
+                    message: 'Ödünç teklifi alıcı hesabı uygunsa uygulama içinde görünecek.',
+                    request: {
+                        id: -1,
+                        direction: BORROW_REQUEST_DIRECTION.OFFER,
+                        status: BORROW_REQUEST_STATUS.PENDING,
+                        delivered: false,
+                        item_id: item.id,
+                        due_date: dueDate
+                    }
+                });
+            }
 
             return res.status(202).json({
                 message: 'Ödünç teklifi gönderildi. Eşya karşı taraf onayladıktan sonra ödünçte sayılacak.',

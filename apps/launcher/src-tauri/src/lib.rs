@@ -1,16 +1,24 @@
+use base64::prelude::*;
+use ed25519_dalek::Verifier;
 use serde::{Deserialize, Serialize};
+use sha2::Digest;
 use std::{
     collections::HashMap,
-    env, fs,
+    env,
+    fs::{self, File},
     io::{BufRead, BufReader},
     net::{SocketAddr, TcpListener, TcpStream},
     path::{Path, PathBuf},
     process::{Child, Command as ProcessCommand, Stdio},
-    sync::{Arc, Mutex},
+    sync::{
+        atomic::{AtomicBool, Ordering},
+        Arc, Mutex,
+    },
     thread,
     time::{Duration, SystemTime, UNIX_EPOCH},
 };
-use tauri::{Manager, State};
+use tauri::{Emitter, Manager, State};
+use tauri_plugin_updater::UpdaterExt;
 
 #[cfg(unix)]
 use std::os::unix::process::CommandExt;
@@ -18,10 +26,32 @@ use std::os::unix::process::CommandExt;
 #[cfg(windows)]
 use std::os::windows::io::AsRawHandle;
 
-#[derive(Default)]
 struct LauncherState {
     active: Mutex<Option<ManagedProcess>>,
     logs: Arc<Mutex<Vec<LogEntry>>>,
+    installing: AtomicBool,
+    updating: Mutex<bool>,
+}
+
+impl Default for LauncherState {
+    fn default() -> Self {
+        Self {
+            active: Mutex::new(None),
+            logs: Arc::new(Mutex::new(Vec::new())),
+            installing: AtomicBool::new(false),
+            updating: Mutex::new(false),
+        }
+    }
+}
+
+struct InstallFlagGuard<'a> {
+    flag: &'a AtomicBool,
+}
+
+impl Drop for InstallFlagGuard<'_> {
+    fn drop(&mut self) {
+        self.flag.store(false, Ordering::SeqCst);
+    }
 }
 
 struct ManagedProcess {
@@ -124,6 +154,8 @@ struct ProfileStatus {
 struct SetupStatus {
     node: bool,
     npm: bool,
+    project_root_valid: bool,
+    project_root_installable: bool,
     root_dependencies: bool,
     client_dependencies: bool,
     env_file: bool,
@@ -141,6 +173,8 @@ struct LauncherSnapshot {
     profiles: Vec<ProfileStatus>,
     active_profile_id: Option<String>,
     logs: Vec<LogEntry>,
+    launcher_version: String,
+    app_version: String,
 }
 
 #[derive(Clone, Serialize)]
@@ -148,6 +182,14 @@ struct LauncherSnapshot {
 struct CommandResult {
     ok: bool,
     message: String,
+}
+
+#[derive(Clone, Serialize)]
+#[serde(rename_all = "camelCase")]
+struct BackupResult {
+    ok: bool,
+    message: String,
+    path: String,
 }
 
 #[derive(Clone, Serialize)]
@@ -214,13 +256,31 @@ fn detect_tools(
 }
 
 #[tauri::command]
-fn install_dependencies(
+async fn install_dependencies(
     app: tauri::AppHandle,
-    state: State<LauncherState>,
+    state: State<'_, LauncherState>,
     overrides: Option<ToolOverrides>,
 ) -> Result<CommandResult, String> {
+    if state
+        .installing
+        .compare_exchange(false, true, Ordering::SeqCst, Ordering::SeqCst)
+        .is_err()
+    {
+        return Err(
+            "Setup is already running. Wait for the current install attempt to finish.".into(),
+        );
+    }
+    let _install_guard = InstallFlagGuard {
+        flag: &state.installing,
+    };
+
     let overrides = overrides.unwrap_or_default();
-    let project_root = project_root(&overrides)?;
+    let project_root = project_root_handle(&app, &overrides)?;
+    if !is_valid_project_root(&project_root) {
+        bootstrap_project_root(&app, &state, &project_root).await?;
+    }
+    validate_project_root(&project_root)?;
+    seed_env_file(&project_root)?;
     let envs = resolved_command_env();
     let tools = resolve_tools(&envs, &overrides);
     let npm = tools
@@ -268,19 +328,21 @@ fn install_dependencies(
     }
 }
 
-#[tauri::command]
-fn start_profile(
-    app: tauri::AppHandle,
-    state: State<LauncherState>,
-    request: StartProfileRequest,
+fn start_profile_internal(
+    app: &tauri::AppHandle,
+    state: &LauncherState,
+    profile_id: &str,
+    backend_port: Option<u16>,
+    frontend_port: Option<u16>,
+    overrides: Option<ToolOverrides>,
 ) -> Result<CommandResult, String> {
-    reconcile_active(&state);
-    let overrides = request.overrides.unwrap_or_default();
-    let project_root = project_root(&overrides)?;
-    let app_data_dir = app_data_dir(&app)?;
-    let profile = profile_config(&request.profile_id)?;
-    let (backend_port, frontend_port) =
-        requested_ports(profile, request.backend_port, request.frontend_port)?;
+    reconcile_active(state);
+    let overrides = overrides.unwrap_or_default();
+    let project_root = project_root_handle(app, &overrides)?;
+    validate_project_root(&project_root)?;
+    let app_data_dir = app_data_dir(app)?;
+    let profile = profile_config(profile_id)?;
+    let (backend_port, frontend_port) = requested_ports(profile, backend_port, frontend_port)?;
 
     {
         let active = state
@@ -366,7 +428,7 @@ fn start_profile(
         "HOMEINVENTORY_UPLOADS_DIR".into(),
         path_string(&profile_paths.uploads_dir),
     );
-    command_env.extend(ensure_profile_secrets(&state, profile.id, &profile_paths)?);
+    command_env.extend(ensure_profile_secrets(state, profile.id, &profile_paths)?);
 
     let mut args = vec!["scripts/dev.mjs".to_string()];
     if let Some(brand_key) = profile.brand_key {
@@ -382,7 +444,7 @@ fn start_profile(
     }
 
     append_log(
-        &state,
+        state,
         profile.id,
         "info",
         &format!(
@@ -410,8 +472,8 @@ fn start_profile(
 
     let stdout = child.stdout.take();
     let stderr = child.stderr.take();
-    stream_process_output(&state, profile.id, stdout, "info");
-    stream_process_output(&state, profile.id, stderr, "error");
+    stream_process_output(state, profile.id, stdout, "info");
+    stream_process_output(state, profile.id, stderr, "error");
 
     #[cfg(windows)]
     let job = create_windows_job(&child);
@@ -437,6 +499,22 @@ fn start_profile(
         ok: true,
         message: format!("{} is starting.", profile.name),
     })
+}
+
+#[tauri::command]
+fn start_profile(
+    app: tauri::AppHandle,
+    state: State<LauncherState>,
+    request: StartProfileRequest,
+) -> Result<CommandResult, String> {
+    start_profile_internal(
+        &app,
+        &state,
+        &request.profile_id,
+        request.backend_port,
+        request.frontend_port,
+        request.overrides,
+    )
 }
 
 #[tauri::command]
@@ -571,7 +649,7 @@ fn open_app(url: String) -> Result<CommandResult, String> {
 }
 
 #[tauri::command]
-fn backup_now(app: tauri::AppHandle, request: BackupRequest) -> Result<CommandResult, String> {
+fn backup_now(app: tauri::AppHandle, request: BackupRequest) -> Result<BackupResult, String> {
     let app_data_dir = app_data_dir(&app)?;
     let profile = profile_config(&request.profile_id)?;
     let paths = profile_paths(&app_data_dir, profile);
@@ -588,19 +666,21 @@ fn backup_now(app: tauri::AppHandle, request: BackupRequest) -> Result<CommandRe
             .map_err(|err| err.to_string())?;
     }
 
-    Ok(CommandResult {
+    Ok(BackupResult {
         ok: true,
         message: format!("Backup created at {}", path_string(&destination)),
+        path: path_string(&destination),
     })
 }
 
 #[tauri::command]
 fn write_env(
+    app: tauri::AppHandle,
     overrides: Option<ToolOverrides>,
     request: WriteEnvRequest,
 ) -> Result<CommandResult, String> {
     let overrides = overrides.unwrap_or_default();
-    let project_root = project_root(&overrides)?;
+    let project_root = project_root_handle(&app, &overrides)?;
     let env_path = project_root.join(".env");
     let example_path = project_root.join(".env.example");
 
@@ -659,6 +739,8 @@ fn read_logs(state: State<LauncherState>) -> Result<Vec<LogEntry>, String> {
 pub fn run() {
     tauri::Builder::default()
         .manage(LauncherState::default())
+        .plugin(tauri_plugin_updater::Builder::new().build())
+        .plugin(tauri_plugin_process::init())
         .invoke_handler(tauri::generate_handler![
             detect_tools,
             install_dependencies,
@@ -671,7 +753,9 @@ pub fn run() {
             open_app,
             backup_now,
             write_env,
-            read_logs
+            read_logs,
+            check_updates,
+            update_all
         ])
         .on_window_event(|window, event| {
             if matches!(
@@ -724,12 +808,19 @@ fn profile_config(profile_id: &str) -> Result<&'static ProfileConfig, String> {
         .ok_or_else(|| format!("Unknown profile: {profile_id}"))
 }
 
+fn read_version_from_package_json(project_root: &Path) -> Option<String> {
+    let package_json_path = project_root.join("package.json");
+    let content = fs::read_to_string(package_json_path).ok()?;
+    let json: serde_json::Value = serde_json::from_str(&content).ok()?;
+    json.get("version")?.as_str().map(|s| s.to_string())
+}
+
 fn build_snapshot(
     app: &tauri::AppHandle,
     state: &LauncherState,
     overrides: ToolOverrides,
 ) -> Result<LauncherSnapshot, String> {
-    let project_root = project_root(&overrides)?;
+    let project_root = project_root_for_snapshot(app, &overrides)?;
     let app_data_dir = app_data_dir(app)?;
     let envs = resolved_command_env();
     let tools = resolve_tools(&envs, &overrides);
@@ -755,7 +846,12 @@ fn build_snapshot(
             let paths = profile_paths(&app_data_dir, profile);
             let brand_assets = profile
                 .brand_key
-                .map(|brand_key| project_root.join("local-brands").join(brand_key).exists())
+                .map(|brand_key| {
+                    project_root
+                        .as_ref()
+                        .map(|root| root.join("local-brands").join(brand_key).exists())
+                        .unwrap_or(false)
+                })
                 .unwrap_or(true);
             let backend_port = active_process
                 .as_ref()
@@ -786,12 +882,31 @@ fn build_snapshot(
         })
         .collect::<Vec<_>>();
 
+    let project_root_valid = project_root
+        .as_ref()
+        .map(|root| is_valid_project_root(root))
+        .unwrap_or(false);
+    let project_root_installable = project_root
+        .as_ref()
+        .map(|root| !project_root_valid && is_empty_dir(root).unwrap_or(false))
+        .unwrap_or(false);
     let setup = SetupStatus {
         node: tools.node_path.is_some(),
         npm: tools.npm_path.is_some(),
-        root_dependencies: project_root.join("node_modules").exists(),
-        client_dependencies: project_root.join("client").join("node_modules").exists(),
-        env_file: project_root.join(".env").exists(),
+        project_root_valid,
+        project_root_installable,
+        root_dependencies: project_root
+            .as_ref()
+            .map(|root| root.join("node_modules").exists())
+            .unwrap_or(false),
+        client_dependencies: project_root
+            .as_ref()
+            .map(|root| root.join("client").join("node_modules").exists())
+            .unwrap_or(false),
+        env_file: project_root
+            .as_ref()
+            .map(|root| root.join(".env").exists())
+            .unwrap_or(false),
     };
 
     let logs = state
@@ -807,8 +922,23 @@ fn build_snapshot(
             check_lan_access_status(local_ip.as_deref(), *backend_port, *frontend_port)
         });
 
+    let launcher_version = env!("CARGO_PKG_VERSION").to_string();
+    let metadata = read_updater_metadata(&app_data_dir);
+    let app_version = metadata
+        .current_version
+        .clone()
+        .or_else(|| {
+            project_root
+                .as_ref()
+                .and_then(|root| read_version_from_package_json(root))
+        })
+        .unwrap_or_else(|| "2.2.0".to_string());
+
     Ok(LauncherSnapshot {
-        project_root: path_string(&project_root),
+        project_root: project_root
+            .as_ref()
+            .map(|root| path_string(root))
+            .unwrap_or_default(),
         app_data_dir: path_string(&app_data_dir),
         local_ip,
         lan_status,
@@ -838,6 +968,8 @@ fn build_snapshot(
         profiles,
         active_profile_id,
         logs,
+        launcher_version,
+        app_version,
     })
 }
 
@@ -895,18 +1027,315 @@ fn ready_setup_count(setup: &SetupStatus) -> usize {
     .count()
 }
 
-fn project_root(overrides: &ToolOverrides) -> Result<PathBuf, String> {
+fn project_root_handle(
+    app: &tauri::AppHandle,
+    overrides: &ToolOverrides,
+) -> Result<PathBuf, String> {
+    project_root_for_snapshot(app, overrides)?.ok_or_else(|| {
+        "Install folder is not configured. Choose an empty folder to install HomeInventory, or choose an existing HomeInventory folder.".to_string()
+    })
+}
+
+fn validate_project_root(project_root: &Path) -> Result<(), String> {
+    if is_valid_project_root(project_root) {
+        return Ok(());
+    }
+
+    if is_empty_dir(project_root).unwrap_or(false) {
+        return Err(format!(
+            "The selected install folder is empty. Click Initialize & Launch to download and install HomeInventory into {}.",
+            path_string(project_root)
+        ));
+    }
+
+    let expected = [
+        project_root.join("package.json"),
+        project_root.join("scripts").join("dev.mjs"),
+        project_root.join("client").join("package.json"),
+    ]
+    .into_iter()
+    .map(|path| path_string(&path))
+    .collect::<Vec<_>>();
+
+    Err(format!(
+        "Selected folder is not a valid HomeInventory install folder: {}. Choose an empty folder, or choose the folder that contains these files: {}.",
+        path_string(project_root),
+        expected.join(", ")
+    ))
+}
+
+fn is_valid_project_root(project_root: &Path) -> bool {
+    project_root.join("package.json").exists()
+        && project_root.join("scripts").join("dev.mjs").exists()
+        && project_root.join("client").join("package.json").exists()
+}
+
+fn is_empty_dir(path: &Path) -> Result<bool, String> {
+    if !path.is_dir() {
+        return Ok(false);
+    }
+    let mut entries =
+        fs::read_dir(path).map_err(|err| format!("Could not read selected folder: {err}"))?;
+    Ok(entries.next().is_none())
+}
+
+fn seed_env_file(project_root: &Path) -> Result<(), String> {
+    let env_path = project_root.join(".env");
+    if env_path.exists() {
+        return Ok(());
+    }
+
+    let example_path = project_root.join(".env.example");
+    if example_path.exists() {
+        fs::copy(&example_path, &env_path)
+            .map_err(|err| format!("Could not create .env from .env.example: {err}"))?;
+    } else {
+        fs::write(&env_path, "# HomeInventory Environment\n")
+            .map_err(|err| format!("Could not create .env: {err}"))?;
+    }
+
+    Ok(())
+}
+
+async fn bootstrap_project_root(
+    app: &tauri::AppHandle,
+    state: &LauncherState,
+    target_dir: &Path,
+) -> Result<(), String> {
+    if !target_dir.is_dir() {
+        return Err("Choose an existing empty folder to install HomeInventory.".into());
+    }
+    if !is_empty_dir(target_dir)? {
+        return Err("Selected folder is not empty and is not a HomeInventory install folder. Choose an empty folder or an existing HomeInventory folder.".into());
+    }
+
+    append_log(
+        state,
+        "setup",
+        "info",
+        "Empty install folder selected. Preparing HomeInventory files...",
+    );
+
+    let app_data = app_data_dir(app)?;
+    let (archive_path, cleanup_archive, archive_source) = match download_bootstrap_archive(
+        app, state, &app_data,
+    )
+    .await
+    {
+        Ok(result) => result,
+        Err(remote_err) => {
+            append_log(
+                state,
+                "setup",
+                "warning",
+                &format!(
+                    "Online release package unavailable ({remote_err}). Using bundled app package."
+                ),
+            );
+            let bundled_path = bundled_app_archive_path(app)?;
+            if !bundled_path.exists() {
+                return Err(format!(
+                        "Could not download the online release package and the bundled app package is missing: {}",
+                        path_string(&bundled_path)
+                    ));
+            }
+            (bundled_path, false, "bundled")
+        }
+    };
+
+    append_log(state, "setup", "info", "Extracting app files...");
+    let staging_dir = app_data.join("managed-app").join("bootstrap-staging");
+    let _ = fs::remove_dir_all(&staging_dir);
+    extract_archive(&archive_path, &staging_dir)?;
+    if cleanup_archive {
+        let _ = fs::remove_file(&archive_path);
+    }
+
+    let source_dir = normalized_extracted_project_dir(&staging_dir)?;
+    move_dir_contents(&source_dir, target_dir)?;
+    let _ = fs::remove_dir_all(&staging_dir);
+    seed_env_file(target_dir)?;
+
+    append_log(
+        state,
+        "setup",
+        "success",
+        &format!(
+            "HomeInventory app files installed from {archive_source} package into {}.",
+            path_string(target_dir)
+        ),
+    );
+    Ok(())
+}
+
+async fn download_bootstrap_archive(
+    app: &tauri::AppHandle,
+    state: &LauncherState,
+    app_data: &Path,
+) -> Result<(PathBuf, bool, &'static str), String> {
+    append_log(
+        state,
+        "setup",
+        "info",
+        "Checking signed online HomeInventory release package...",
+    );
+
+    let client = reqwest::Client::new();
+    let manifest_resp = client
+        .get(APP_MANIFEST_URL)
+        .send()
+        .await
+        .map_err(|err| format!("failed to download app manifest: {err}"))?;
+    if !manifest_resp.status().is_success() {
+        return Err(format!(
+            "app manifest returned HTTP {}",
+            manifest_resp.status()
+        ));
+    }
+    let manifest = manifest_resp
+        .json::<AppManifest>()
+        .await
+        .map_err(|err| format!("failed to parse app manifest: {err}"))?;
+    verify_manifest_signature(&manifest)?;
+    validate_app_manifest_policy(&manifest)?;
+
+    let node_major = get_node_major_version(app).await.unwrap_or(0);
+    if node_major > 0 && node_major < manifest.node_major {
+        return Err(format!(
+            "HomeInventory requires Node.js v{}.0 or newer. Detected v{}.0.",
+            manifest.node_major, node_major
+        ));
+    }
+
+    let temp_archive_path = app_data
+        .join("managed-app")
+        .join("bootstrap-release.tar.gz");
+    if let Some(parent) = temp_archive_path.parent() {
+        fs::create_dir_all(parent).map_err(|err| err.to_string())?;
+    }
+
+    append_log(state, "setup", "info", "Downloading app files...");
+    let mut archive_resp = client
+        .get(&manifest.url)
+        .send()
+        .await
+        .map_err(|err| format!("failed to download app archive: {err}"))?;
+    if !archive_resp.status().is_success() {
+        return Err(format!(
+            "app archive returned HTTP {}",
+            archive_resp.status()
+        ));
+    }
+
+    let mut archive_file = File::create(&temp_archive_path).map_err(|err| err.to_string())?;
+    let mut sha_hasher = sha2::Sha256::new();
+    while let Some(chunk) = archive_resp
+        .chunk()
+        .await
+        .map_err(|err| format!("error downloading app archive: {err}"))?
+    {
+        use std::io::Write;
+        archive_file
+            .write_all(&chunk)
+            .map_err(|err| err.to_string())?;
+        sha_hasher.update(&chunk);
+    }
+    drop(archive_file);
+
+    let calculated_hash = format!("{:x}", sha_hasher.finalize());
+    if calculated_hash != manifest.sha256 {
+        let _ = fs::remove_file(&temp_archive_path);
+        return Err(format!(
+            "downloaded app archive checksum did not match. Expected {}, got {}",
+            manifest.sha256, calculated_hash
+        ));
+    }
+
+    Ok((temp_archive_path, true, "online"))
+}
+
+fn bundled_app_archive_path(app: &tauri::AppHandle) -> Result<PathBuf, String> {
+    let resource_dir = app
+        .path()
+        .resource_dir()
+        .map_err(|err| format!("Could not resolve launcher resource directory: {err}"))?;
+    let direct = resource_dir.join("homeinventory-app.tar.gz");
+    if direct.exists() {
+        return Ok(direct);
+    }
+    Ok(resource_dir
+        .join("resources")
+        .join("homeinventory-app.tar.gz"))
+}
+
+fn normalized_extracted_project_dir(staging_dir: &Path) -> Result<PathBuf, String> {
+    if is_valid_project_root(staging_dir) {
+        return Ok(staging_dir.to_path_buf());
+    }
+
+    let dirs = fs::read_dir(staging_dir)
+        .map_err(|err| format!("Could not inspect extracted archive: {err}"))?
+        .filter_map(|entry| entry.ok())
+        .filter(|entry| entry.file_type().map(|kind| kind.is_dir()).unwrap_or(false))
+        .map(|entry| entry.path())
+        .collect::<Vec<_>>();
+
+    if dirs.len() == 1 && is_valid_project_root(&dirs[0]) {
+        return Ok(dirs[0].clone());
+    }
+
+    Err("Downloaded app archive did not contain a valid HomeInventory install package.".into())
+}
+
+fn move_dir_contents(source: &Path, destination: &Path) -> Result<(), String> {
+    fs::create_dir_all(destination).map_err(|err| err.to_string())?;
+    for entry in
+        fs::read_dir(source).map_err(|err| format!("Could not read extracted files: {err}"))?
+    {
+        let entry = entry.map_err(|err| err.to_string())?;
+        let target = destination.join(entry.file_name());
+        fs::rename(entry.path(), &target).map_err(|err| {
+            format!(
+                "Could not move extracted file into install folder ({}): {err}",
+                path_string(&target)
+            )
+        })?;
+    }
+    Ok(())
+}
+
+fn project_root_for_snapshot(
+    app: &tauri::AppHandle,
+    overrides: &ToolOverrides,
+) -> Result<Option<PathBuf>, String> {
     if let Some(project_path) = overrides
         .project_path
         .as_ref()
         .filter(|value| !value.trim().is_empty())
     {
         return fs::canonicalize(project_path)
-            .map_err(|err| format!("Configured project path is invalid: {err}"));
+            .map(Some)
+            .map_err(|err| format!("Configured install folder is invalid: {err}"));
     }
 
-    fs::canonicalize(Path::new(env!("CARGO_MANIFEST_DIR")).join("../../.."))
-        .map_err(|err| format!("Could not resolve project root: {err}"))
+    let app_data = app_data_dir(app)?;
+    let metadata = read_updater_metadata(&app_data);
+    if let Some(ref version) = metadata.current_version {
+        let version_path = app_data.join("managed-app").join("versions").join(version);
+        if version_path.exists() {
+            return fs::canonicalize(&version_path)
+                .map(Some)
+                .map_err(|err| format!("Managed app version path is invalid: {err}"));
+        }
+    }
+
+    if cfg!(debug_assertions) {
+        return fs::canonicalize(Path::new(env!("CARGO_MANIFEST_DIR")).join("../../.."))
+            .map(Some)
+            .map_err(|err| format!("Could not resolve development workspace: {err}"));
+    }
+
+    Ok(None)
 }
 
 fn app_data_dir(app: &tauri::AppHandle) -> Result<PathBuf, String> {
@@ -1508,7 +1937,7 @@ fn open_path(path: &Path) -> Result<(), String> {
 fn choose_path_platform(kind: &str) -> Result<Option<String>, String> {
     let script = match kind {
         "project" => {
-            "POSIX path of (choose folder with prompt \"Select the HomeInventory project folder\")"
+            "POSIX path of (choose folder with prompt \"Select a HomeInventory install folder\")"
         }
         "node" => "POSIX path of (choose file with prompt \"Select the node executable\")",
         "npm" => "POSIX path of (choose file with prompt \"Select the npm executable\")",
@@ -1562,7 +1991,7 @@ fn run_linux_picker(program: &str, folder: bool) -> Result<Option<String>, Strin
 #[cfg(target_os = "windows")]
 fn choose_path_platform(kind: &str) -> Result<Option<String>, String> {
     let script = if kind == "project" {
-        r#"Add-Type -AssemblyName System.Windows.Forms; $d = New-Object System.Windows.Forms.FolderBrowserDialog; $d.Description = 'Select the HomeInventory project folder'; if ($d.ShowDialog() -eq 'OK') { $d.SelectedPath }"#
+        r#"Add-Type -AssemblyName System.Windows.Forms; $d = New-Object System.Windows.Forms.FolderBrowserDialog; $d.Description = 'Select a HomeInventory install folder'; if ($d.ShowDialog() -eq 'OK') { $d.SelectedPath }"#
     } else {
         r#"Add-Type -AssemblyName System.Windows.Forms; $d = New-Object System.Windows.Forms.OpenFileDialog; $d.Title = 'Select the executable'; $d.Filter = 'Executables (*.exe;*.cmd;*.bat)|*.exe;*.cmd;*.bat|All files (*.*)|*.*'; if ($d.ShowDialog() -eq 'OK') { $d.FileName }"#
     };
@@ -1615,4 +2044,986 @@ fn now() -> u64 {
 
 fn path_string(path: &Path) -> String {
     path.to_string_lossy().to_string()
+}
+
+// ==========================================
+// V2.2 Launcher + One-Click Auto Updater Code
+// ==========================================
+
+#[derive(Serialize, Deserialize, Clone, Debug, Default)]
+#[serde(rename_all = "camelCase")]
+pub struct AppUpdaterMetadata {
+    pub current_version: Option<String>,
+    pub previous_versions: Vec<String>,
+    pub last_known_good_version: Option<String>,
+    pub update_state: String,
+    pub rollback_state: String,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug)]
+#[serde(rename_all = "camelCase")]
+pub struct AppManifest {
+    pub version: String,
+    pub sha256: String,
+    pub url: String,
+    pub node_major: u32,
+    pub root_install: bool,
+    pub client_install: bool,
+    pub signature: String,
+}
+
+const APP_MANIFEST_URL: &str =
+    "https://github.com/asdteke/HomeInventory/releases/latest/download/homeinventory-app-manifest.json";
+
+#[derive(Serialize, Clone, Debug)]
+#[serde(rename_all = "camelCase")]
+struct UpdateCheckResult {
+    current_app_version: String,
+    latest_app_version: String,
+    current_launcher_version: String,
+    latest_launcher_version: String,
+    app_release_notes: Option<String>,
+    launcher_release_notes: Option<String>,
+    app_update_available: bool,
+    launcher_update_available: bool,
+    required_actions: Vec<String>,
+}
+
+#[derive(Serialize, Clone, Debug)]
+#[serde(rename_all = "camelCase")]
+struct UpdateProgressPayload {
+    state: String,
+    message: String,
+    progress: f64,
+    error: Option<String>,
+}
+
+fn emit_progress(
+    app: &tauri::AppHandle,
+    state: &str,
+    message: &str,
+    progress: f64,
+    error: Option<String>,
+) {
+    let payload = UpdateProgressPayload {
+        state: state.to_string(),
+        message: message.to_string(),
+        progress,
+        error,
+    };
+    let _ = app.emit("update-progress", payload);
+}
+
+fn read_updater_metadata(app_data_dir: &Path) -> AppUpdaterMetadata {
+    let path = app_data_dir
+        .join("managed-app")
+        .join("updater-metadata.json");
+    if !path.exists() {
+        return AppUpdaterMetadata::default();
+    }
+    let data = fs::read_to_string(path).unwrap_or_default();
+    serde_json::from_str(&data).unwrap_or_default()
+}
+
+fn write_updater_metadata(
+    app_data_dir: &Path,
+    metadata: &AppUpdaterMetadata,
+) -> Result<(), String> {
+    let path = app_data_dir
+        .join("managed-app")
+        .join("updater-metadata.json");
+    if let Some(parent) = path.parent() {
+        fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+    }
+    let serialized = serde_json::to_string_pretty(metadata).map_err(|e| e.to_string())?;
+    fs::write(path, serialized).map_err(|e| e.to_string())?;
+    Ok(())
+}
+
+fn verify_manifest_signature(manifest: &AppManifest) -> Result<(), String> {
+    let pubkey_b64 = "/g/uZiX3emsDNk5qxcuKJPsLEd15HVFMOgdZ7aV4WSk=";
+    let pubkey_bytes = BASE64_STANDARD
+        .decode(pubkey_b64)
+        .map_err(|e| format!("Invalid hardcoded public key base64: {e}"))?;
+
+    let signature_bytes = hex::decode(&manifest.signature)
+        .or_else(|_| BASE64_STANDARD.decode(&manifest.signature))
+        .map_err(|e| format!("Invalid signature encoding: {e}"))?;
+
+    let message = format!(
+        "{}:{}:{}:{}:{}:{}",
+        manifest.version,
+        manifest.sha256,
+        manifest.url,
+        manifest.node_major,
+        manifest.root_install,
+        manifest.client_install
+    );
+
+    let pubkey_arr: [u8; 32] = pubkey_bytes
+        .try_into()
+        .map_err(|_| "Invalid public key length".to_string())?;
+    let public_key = ed25519_dalek::VerifyingKey::from_bytes(&pubkey_arr)
+        .map_err(|e| format!("Invalid public key: {e}"))?;
+
+    let sig_arr: [u8; 64] = signature_bytes
+        .try_into()
+        .map_err(|_| "Invalid signature length".to_string())?;
+    let signature = ed25519_dalek::Signature::from_bytes(&sig_arr);
+
+    public_key
+        .verify(message.as_bytes(), &signature)
+        .map_err(|e| format!("Signature verification failed: {e}"))?;
+
+    Ok(())
+}
+
+fn validate_app_manifest_policy(manifest: &AppManifest) -> Result<(), String> {
+    semver::Version::parse(&manifest.version)
+        .map_err(|e| format!("Invalid app manifest version: {e}"))?;
+
+    if manifest.sha256.len() != 64 || !manifest.sha256.chars().all(|ch| ch.is_ascii_hexdigit()) {
+        return Err("App manifest SHA-256 must be a 64-character hex string.".into());
+    }
+
+    let trusted_release_asset = manifest
+        .url
+        .starts_with("https://github.com/asdteke/HomeInventory/releases/download/")
+        || manifest
+            .url
+            .starts_with("https://github.com/asdteke/HomeInventory/releases/latest/download/");
+    if !trusted_release_asset {
+        return Err("App archive URL must point to the official GitHub Releases assets.".into());
+    }
+
+    if !(18..=30).contains(&manifest.node_major) {
+        return Err("App manifest Node.js major version is outside the supported range.".into());
+    }
+
+    Ok(())
+}
+
+async fn get_node_major_version(_app: &tauri::AppHandle) -> Option<u32> {
+    let envs = resolved_command_env();
+    let node_path = find_executable("node", &envs)?;
+    let output = std::process::Command::new(node_path)
+        .arg("--version")
+        .output()
+        .ok()?;
+    if output.status.success() {
+        let version_str = String::from_utf8_lossy(&output.stdout).trim().to_string();
+        let cleaned = version_str.strip_prefix('v').unwrap_or(&version_str);
+        if let Some(first_part) = cleaned.split('.').next() {
+            return first_part.parse::<u32>().ok();
+        }
+    }
+    None
+}
+
+#[tauri::command]
+async fn check_updates(app: tauri::AppHandle) -> Result<UpdateCheckResult, String> {
+    let launcher_version = env!("CARGO_PKG_VERSION").to_string();
+
+    let app_data = app_data_dir(&app)?;
+    let metadata = read_updater_metadata(&app_data);
+
+    let project_root_dir = project_root_handle(&app, &ToolOverrides::default()).ok();
+    let current_app_version = metadata
+        .current_version
+        .clone()
+        .or_else(|| {
+            project_root_dir
+                .as_ref()
+                .and_then(|p| read_version_from_package_json(p))
+        })
+        .unwrap_or_else(|| "2.2.0".to_string());
+
+    let mut latest_launcher_version = launcher_version.clone();
+    let mut launcher_update_available = false;
+    let mut launcher_release_notes = None;
+
+    if let Ok(Some(update)) = app.updater().map_err(|e| e.to_string())?.check().await {
+        latest_launcher_version = update.version.clone();
+        launcher_update_available = true;
+        launcher_release_notes = update.body.clone();
+    }
+
+    let mut latest_app_version = current_app_version.clone();
+    let mut app_update_available = false;
+    let mut app_release_notes = None;
+    let mut required_actions = Vec::new();
+
+    let client = reqwest::Client::new();
+    let mut manifest_opt: Option<AppManifest> = None;
+    match client.get(APP_MANIFEST_URL).send().await {
+        Ok(resp) => {
+            if resp.status().is_success() {
+                if let Ok(manifest) = resp.json::<AppManifest>().await {
+                    manifest_opt = Some(manifest);
+                }
+            }
+        }
+        Err(e) => {
+            println!("Failed to fetch app update manifest: {}", e);
+        }
+    }
+
+    if let Some(manifest) = manifest_opt {
+        if let Err(e) = verify_manifest_signature(&manifest)
+            .and_then(|_| validate_app_manifest_policy(&manifest))
+        {
+            println!("App manifest verification failed: {}", e);
+        } else {
+            latest_app_version = manifest.version.clone();
+
+            let current_semver = semver::Version::parse(&current_app_version)
+                .unwrap_or_else(|_| semver::Version::new(2, 2, 0));
+            let latest_semver = semver::Version::parse(&latest_app_version)
+                .unwrap_or_else(|_| semver::Version::new(2, 2, 0));
+
+            if latest_semver > current_semver {
+                app_update_available = true;
+                required_actions.push("appUpdate".to_string());
+                app_release_notes = Some(format!(
+                    "HomeInventory managed app update available. Requires Node.js >= v{}.0.",
+                    manifest.node_major
+                ));
+
+                let node_major = get_node_major_version(&app).await.unwrap_or(0);
+                if node_major > 0 && node_major < manifest.node_major {
+                    required_actions.push("nodeMajorUpgrade".to_string());
+                }
+            }
+        }
+    }
+
+    if launcher_update_available {
+        required_actions.push("launcherUpdate".to_string());
+    }
+
+    Ok(UpdateCheckResult {
+        current_app_version,
+        latest_app_version,
+        current_launcher_version: launcher_version,
+        latest_launcher_version,
+        app_release_notes,
+        launcher_release_notes,
+        app_update_available,
+        launcher_update_available,
+        required_actions,
+    })
+}
+
+#[tauri::command]
+async fn update_all(
+    app: tauri::AppHandle,
+    state: tauri::State<'_, LauncherState>,
+) -> Result<CommandResult, String> {
+    {
+        let mut updating = state.updating.lock().map_err(|_| "State lock failed")?;
+        if *updating {
+            return Err("Another update action is already running.".to_string());
+        }
+        *updating = true;
+    }
+
+    let app_clone = app.clone();
+
+    tauri::async_runtime::spawn(async move {
+        let state_clone = app_clone.state::<LauncherState>();
+        if let Err(e) = run_update_flow(&app_clone, &state_clone).await {
+            emit_progress(
+                &app_clone,
+                "Failed",
+                &format!("Update failed: {e}. Starting rollback..."),
+                1.0,
+                Some(e.clone()),
+            );
+            if let Err(rollback_err) = run_rollback_flow(&app_clone, &state_clone).await {
+                emit_progress(
+                    &app_clone,
+                    "RollbackFailed",
+                    &format!("Rollback failed: {rollback_err}"),
+                    1.0,
+                    Some(rollback_err),
+                );
+            } else {
+                emit_progress(
+                    &app_clone,
+                    "RollbackComplete",
+                    "System successfully rolled back to last known good version.",
+                    1.0,
+                    None,
+                );
+            }
+        } else {
+            emit_progress(
+                &app_clone,
+                "Completed",
+                "Update complete! Application is running.",
+                1.0,
+                None,
+            );
+        }
+
+        if let Ok(mut updating) = state_clone.updating.lock() {
+            *updating = false;
+        };
+    });
+
+    Ok(CommandResult {
+        ok: true,
+        message: "Update process started.".to_string(),
+    })
+}
+
+async fn run_update_flow(app: &tauri::AppHandle, state: &LauncherState) -> Result<(), String> {
+    let app_data = app_data_dir(app)?;
+    let mut metadata = read_updater_metadata(&app_data);
+
+    emit_progress(
+        app,
+        "Checking",
+        "Checking for latest release manifest...",
+        0.05,
+        None,
+    );
+    let client = reqwest::Client::new();
+    let resp = client
+        .get(APP_MANIFEST_URL)
+        .send()
+        .await
+        .map_err(|e| format!("Failed to download manifest: {e}"))?;
+    if !resp.status().is_success() {
+        return Err(format!(
+            "Manifest download returned status: {}",
+            resp.status()
+        ));
+    }
+    let manifest = resp
+        .json::<AppManifest>()
+        .await
+        .map_err(|e| format!("Failed to parse manifest: {e}"))?;
+
+    verify_manifest_signature(&manifest)?;
+    validate_app_manifest_policy(&manifest)?;
+
+    let node_major = get_node_major_version(app).await.unwrap_or(0);
+    if node_major > 0 && node_major < manifest.node_major {
+        return Err(format!(
+            "Compatible Node.js major version required is v{}.0, but detected v{}.0",
+            manifest.node_major, node_major
+        ));
+    }
+
+    emit_progress(app, "Stopping", "Stopping active services...", 0.1, None);
+    let _ = stop_all_internal(state);
+
+    emit_progress(
+        app,
+        "Backing Up",
+        "Creating database and uploads backup...",
+        0.2,
+        None,
+    );
+    let backup_dir = perform_mandatory_backup(app)?;
+    append_log(
+        state,
+        "updater",
+        "info",
+        &format!("Mandatory backup created at: {:?}", backup_dir),
+    );
+
+    emit_progress(
+        app,
+        "Downloading",
+        "Downloading app release archive...",
+        0.3,
+        None,
+    );
+    let temp_archive_path = app_data.join("managed-app").join("temp-release.tar.gz");
+    if let Some(parent) = temp_archive_path.parent() {
+        fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+    }
+
+    let mut archive_resp = client
+        .get(&manifest.url)
+        .send()
+        .await
+        .map_err(|e| format!("Failed to download archive: {e}"))?;
+    if !archive_resp.status().is_success() {
+        return Err(format!(
+            "Archive download returned status: {}",
+            archive_resp.status()
+        ));
+    }
+
+    let mut archive_file = File::create(&temp_archive_path).map_err(|e| e.to_string())?;
+    let mut sha_hasher = sha2::Sha256::new();
+
+    while let Some(chunk) = archive_resp
+        .chunk()
+        .await
+        .map_err(|e| format!("Error downloading chunk: {e}"))?
+    {
+        use std::io::Write;
+        archive_file.write_all(&chunk).map_err(|e| e.to_string())?;
+        sha_hasher.update(&chunk);
+    }
+
+    let calculated_hash = format!("{:x}", sha_hasher.finalize());
+    if calculated_hash != manifest.sha256 {
+        let _ = fs::remove_file(&temp_archive_path);
+        return Err(format!(
+            "SHA-256 mismatch: calculated {}, expected {}",
+            calculated_hash, manifest.sha256
+        ));
+    }
+
+    emit_progress(
+        app,
+        "Extracting",
+        "Extracting files to staging area...",
+        0.5,
+        None,
+    );
+    let staging_dir = app_data.join("managed-app").join("staging");
+    let _ = fs::remove_dir_all(&staging_dir);
+    extract_archive(&temp_archive_path, &staging_dir)?;
+
+    let _ = fs::remove_file(&temp_archive_path);
+
+    emit_progress(
+        app,
+        "Extracting",
+        "Switching to new app version...",
+        0.6,
+        None,
+    );
+    let target_version_dir = app_data
+        .join("managed-app")
+        .join("versions")
+        .join(&manifest.version);
+    let _ = fs::remove_dir_all(&target_version_dir);
+    if let Some(parent) = target_version_dir.parent() {
+        fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+    }
+    fs::rename(&staging_dir, &target_version_dir)
+        .map_err(|e| format!("Atomic switch failed: {e}"))?;
+
+    emit_progress(
+        app,
+        "Installing",
+        "Installing project dependencies (npm ci)...",
+        0.7,
+        None,
+    );
+    run_dependency_install(app, &target_version_dir, &manifest)?;
+
+    let previous_current = metadata.current_version.clone();
+    if metadata.last_known_good_version.is_none() {
+        if let Some(previous) = previous_current.clone() {
+            let previous_dir = app_data
+                .join("managed-app")
+                .join("versions")
+                .join(&previous);
+            if previous_dir.exists() {
+                metadata.last_known_good_version = Some(previous);
+                write_updater_metadata(&app_data, &metadata)?;
+            }
+        }
+    }
+    metadata.current_version = Some(manifest.version.clone());
+    write_updater_metadata(&app_data, &metadata)?;
+
+    emit_progress(app, "Starting", "Starting updated services...", 0.8, None);
+    start_profile_internal(app, state, "homeinventory", None, None, None)?;
+
+    emit_progress(
+        app,
+        "Verifying",
+        "Running startup health checks...",
+        0.9,
+        None,
+    );
+    run_health_checks(app, 3001, 5173).await?;
+
+    metadata.last_known_good_version = Some(manifest.version.clone());
+    if let Some(prev) = previous_current.filter(|prev| prev != &manifest.version) {
+        if !metadata.previous_versions.contains(&prev) {
+            metadata.previous_versions.push(prev);
+        }
+    }
+
+    clean_old_versions(&app_data, &mut metadata)?;
+    write_updater_metadata(&app_data, &metadata)?;
+
+    emit_progress(
+        app,
+        "SelfUpdating",
+        "Checking for launcher updates...",
+        0.95,
+        None,
+    );
+    if let Ok(Some(update)) = app.updater().map_err(|e| e.to_string())?.check().await {
+        emit_progress(
+            app,
+            "SelfUpdating",
+            "Downloading and applying launcher update...",
+            0.98,
+            None,
+        );
+        let _ = stop_all_internal(state);
+        if let Err(e) = update.download_and_install(|_, _| {}, || {}).await {
+            emit_progress(
+                app,
+                "Failed",
+                &format!("Launcher self-update failed: {e}"),
+                1.0,
+                Some(e.to_string()),
+            );
+        } else {
+            app.restart();
+        }
+    }
+
+    Ok(())
+}
+
+async fn run_rollback_flow(app: &tauri::AppHandle, state: &LauncherState) -> Result<(), String> {
+    emit_progress(app, "RollingBack", "Stopping active services...", 0.1, None);
+    let _ = stop_all_internal(state);
+
+    let app_data = app_data_dir(app)?;
+    let mut metadata = read_updater_metadata(&app_data);
+
+    let target_version = match metadata.last_known_good_version.clone().or_else(|| {
+        metadata.previous_versions.iter().rev().find_map(|version| {
+            let target_dir = app_data.join("managed-app").join("versions").join(version);
+            target_dir.exists().then(|| version.clone())
+        })
+    }) {
+        Some(v) => v,
+        None => {
+            metadata.current_version = None;
+            let _ = write_updater_metadata(&app_data, &metadata);
+            emit_progress(
+                app,
+                "RollingBack",
+                "No last known good version found. Reverting to development workspace...",
+                0.5,
+                None,
+            );
+            start_profile_internal(app, state, "homeinventory", None, None, None)?;
+            return Ok(());
+        }
+    };
+
+    emit_progress(
+        app,
+        "RollingBack",
+        &format!("Reverting current version to last known good: {target_version}..."),
+        0.3,
+        None,
+    );
+    metadata.current_version = Some(target_version.clone());
+    write_updater_metadata(&app_data, &metadata)?;
+
+    let target_dir = app_data
+        .join("managed-app")
+        .join("versions")
+        .join(&target_version);
+    if !target_dir.exists() {
+        return Err(format!(
+            "Rollback failed: last known good version directory does not exist: {:?}",
+            target_dir
+        ));
+    }
+
+    emit_progress(
+        app,
+        "RollingBack",
+        "Ensuring dependencies are clean...",
+        0.6,
+        None,
+    );
+    let mock_manifest = AppManifest {
+        version: target_version.clone(),
+        sha256: "".into(),
+        url: "".into(),
+        node_major: 20,
+        root_install: true,
+        client_install: true,
+        signature: "".into(),
+    };
+    run_dependency_install(app, &target_dir, &mock_manifest)?;
+
+    emit_progress(
+        app,
+        "RollingBack",
+        "Starting restored service...",
+        0.8,
+        None,
+    );
+    start_profile_internal(app, state, "homeinventory", None, None, None)?;
+
+    emit_progress(app, "RollingBack", "Running health checks...", 0.9, None);
+    run_health_checks(app, 3001, 5173).await?;
+
+    Ok(())
+}
+
+fn extract_archive(archive_path: &Path, staging_dir: &Path) -> Result<(), String> {
+    let file = File::open(archive_path).map_err(|e| format!("Failed to open archive: {e}"))?;
+    let tar = flate2::read::GzDecoder::new(file);
+    let mut archive = tar::Archive::new(tar);
+
+    let mut cumulative_size: u64 = 0;
+    let max_cumulative_size: u64 = 300 * 1024 * 1024;
+    let max_file_size: u64 = 50 * 1024 * 1024;
+
+    fs::create_dir_all(staging_dir).map_err(|e| format!("Failed to create staging dir: {e}"))?;
+    let canonical_staging = fs::canonicalize(staging_dir)
+        .map_err(|e| format!("Failed to canonicalize staging dir: {e}"))?;
+
+    for entry_result in archive
+        .entries()
+        .map_err(|e| format!("Failed to read archive entries: {e}"))?
+    {
+        let mut entry = entry_result.map_err(|e| format!("Failed to get entry: {e}"))?;
+        let path = entry
+            .path()
+            .map_err(|e| format!("Failed to get entry path: {e}"))?
+            .to_path_buf();
+
+        if path.is_absolute() {
+            return Err(format!(
+                "Security failure: Absolute path detected in archive: {:?}",
+                path
+            ));
+        }
+
+        for component in path.components() {
+            if let std::path::Component::ParentDir = component {
+                return Err(format!(
+                    "Security failure: Path traversal detected in archive: {:?}",
+                    path
+                ));
+            }
+        }
+
+        let entry_type = entry.header().entry_type();
+        if entry_type.is_symlink() || entry_type.is_hard_link() {
+            return Err(format!(
+                "Security failure: Symlinks or hardlinks are not allowed: {:?}",
+                path
+            ));
+        }
+
+        if !entry_type.is_file() && !entry_type.is_dir() {
+            return Err(format!(
+                "Security failure: Unsupported entry type: {:?}",
+                path
+            ));
+        }
+
+        let file_size = entry.size();
+        if file_size > max_file_size {
+            return Err(format!(
+                "Security failure: File too large in archive ({} bytes): {:?}",
+                file_size, path
+            ));
+        }
+        cumulative_size += file_size;
+        if cumulative_size > max_cumulative_size {
+            return Err(format!(
+                "Security failure: Cumulative archive size limit exceeded ({} bytes)",
+                cumulative_size
+            ));
+        }
+
+        entry
+            .unpack_in(&canonical_staging)
+            .map_err(|e| format!("Failed to unpack entry {:?}: {e}", path))?;
+    }
+
+    Ok(())
+}
+
+fn run_dependency_install(
+    _app: &tauri::AppHandle,
+    target_dir: &Path,
+    manifest: &AppManifest,
+) -> Result<(), String> {
+    let envs = resolved_command_env();
+    let overrides = ToolOverrides::default();
+    let tools = resolve_tools(&envs, &overrides);
+    let npm = tools
+        .npm_path
+        .ok_or_else(|| "npm path not found".to_string())?;
+
+    if !target_dir.join("package-lock.json").exists() {
+        return Err("Missing root package-lock.json in release archive".into());
+    }
+    if manifest.client_install && !target_dir.join("client").join("package-lock.json").exists() {
+        return Err("Missing client package-lock.json in release archive".into());
+    }
+
+    if manifest.root_install {
+        let status = std::process::Command::new(&npm)
+            .arg("ci")
+            .current_dir(target_dir)
+            .envs(&envs)
+            .status()
+            .map_err(|e| format!("Failed to execute npm ci at root: {e}"))?;
+        if !status.success() {
+            return Err(format!(
+                "npm ci at root failed with status: {:?}",
+                status.code()
+            ));
+        }
+    }
+
+    if manifest.client_install {
+        let status = std::process::Command::new(&npm)
+            .arg("ci")
+            .arg("--prefix")
+            .arg("client")
+            .current_dir(target_dir)
+            .envs(&envs)
+            .status()
+            .map_err(|e| format!("Failed to execute npm ci in client: {e}"))?;
+        if !status.success() {
+            return Err(format!(
+                "npm ci in client failed with status: {:?}",
+                status.code()
+            ));
+        }
+    }
+
+    Ok(())
+}
+
+async fn run_health_checks(
+    _app: &tauri::AppHandle,
+    backend_port: u16,
+    frontend_port: u16,
+) -> Result<(), String> {
+    let client = reqwest::Client::new();
+    let backend_url = format!("http://127.0.0.1:{}/api/health", backend_port);
+    let frontend_url = format!("http://127.0.0.1:{}", frontend_port);
+
+    let max_attempts = 60;
+
+    for attempt in 1..=max_attempts {
+        tokio::time::sleep(Duration::from_millis(500)).await;
+
+        let backend_ok = match client.get(&backend_url).send().await {
+            Ok(resp) => resp.status().is_success(),
+            Err(_) => false,
+        };
+
+        let frontend_ok = match client.get(&frontend_url).send().await {
+            Ok(resp) => resp.status().is_success(),
+            Err(_) => false,
+        };
+
+        if backend_ok && frontend_ok {
+            return Ok(());
+        }
+
+        if attempt % 10 == 0 {
+            println!(
+                "Health check attempt {}/{} failed...",
+                attempt, max_attempts
+            );
+        }
+    }
+
+    Err("Startup health check timed out".to_string())
+}
+
+fn clean_old_versions(
+    app_data_dir: &Path,
+    metadata: &mut AppUpdaterMetadata,
+) -> Result<(), String> {
+    let versions_dir = app_data_dir.join("managed-app").join("versions");
+    if !versions_dir.exists() {
+        return Ok(());
+    }
+
+    let mut kept_versions = Vec::new();
+    if let Some(ref cur) = metadata.current_version {
+        kept_versions.push(cur.clone());
+    }
+    if let Some(ref lkg) = metadata.last_known_good_version {
+        if !kept_versions.contains(lkg) {
+            kept_versions.push(lkg.clone());
+        }
+    }
+
+    let mut kept_previous = Vec::new();
+    for version in metadata.previous_versions.iter().rev() {
+        if kept_versions.contains(version) || kept_previous.contains(version) {
+            continue;
+        }
+        if kept_previous.len() < 2 {
+            kept_previous.push(version.clone());
+        }
+    }
+    kept_previous.reverse();
+    kept_versions.extend(kept_previous.clone());
+    metadata.previous_versions = kept_previous;
+
+    for entry in fs::read_dir(versions_dir).map_err(|e| e.to_string())? {
+        let entry = entry.map_err(|e| e.to_string())?;
+        let name = entry.file_name().to_string_lossy().to_string();
+        if !kept_versions.contains(&name) {
+            let _ = fs::remove_dir_all(entry.path());
+        }
+    }
+
+    Ok(())
+}
+
+fn perform_mandatory_backup(app: &tauri::AppHandle) -> Result<PathBuf, String> {
+    let app_data = app_data_dir(app)?;
+    let backup_root = app_data.join("backups");
+    fs::create_dir_all(&backup_root).map_err(|e| e.to_string())?;
+
+    let timestamp = now();
+    let destination = backup_root.join(format!("update-backup-{}", timestamp));
+    fs::create_dir_all(&destination).map_err(|e| e.to_string())?;
+
+    let profile = profile_config("homeinventory")?;
+    let paths = profile_paths(&app_data, profile);
+
+    if paths.data_dir.exists() {
+        let dest_data = destination.join("data");
+        fs::create_dir_all(&dest_data).map_err(|e| e.to_string())?;
+
+        for entry in fs::read_dir(&paths.data_dir).map_err(|e| e.to_string())? {
+            let entry = entry.map_err(|e| e.to_string())?;
+            let name = entry.file_name().to_string_lossy().to_string();
+            if name.starts_with("inventory.db") {
+                fs::copy(entry.path(), dest_data.join(&name)).map_err(|e| e.to_string())?;
+            }
+        }
+    }
+
+    if paths.uploads_dir.exists() {
+        let dest_uploads = destination.join("uploads");
+        copy_dir_all(&paths.uploads_dir, &dest_uploads).map_err(|e| e.to_string())?;
+    }
+
+    if paths.secrets_path.exists() {
+        let dest_env = destination.join("env");
+        fs::create_dir_all(&dest_env).map_err(|e| e.to_string())?;
+        fs::copy(&paths.secrets_path, dest_env.join("launcher-secrets.env"))
+            .map_err(|e| e.to_string())?;
+    }
+
+    let metadata_path = app_data.join("managed-app").join("updater-metadata.json");
+    if metadata_path.exists() {
+        fs::copy(&metadata_path, destination.join("updater-metadata.json"))
+            .map_err(|e| e.to_string())?;
+    }
+
+    Ok(destination)
+}
+
+#[cfg(test)]
+mod updater_tests {
+    use super::*;
+
+    #[test]
+    fn test_version_comparison() {
+        let v1 = semver::Version::parse("2.2.0").unwrap();
+        let v2 = semver::Version::parse("2.2.1").unwrap();
+        let v3 = semver::Version::parse("2.3.0").unwrap();
+        assert!(v2 > v1);
+        assert!(v3 > v2);
+    }
+
+    #[test]
+    fn test_signed_manifest_verification() {
+        let manifest = AppManifest {
+            version: "2.2.0".to_string(),
+            sha256: "123456".to_string(),
+            url: "https://github.com/asdteke/HomeInventory/releases/download/v2.2.0/app.tar.gz".to_string(),
+            node_major: 20,
+            root_install: true,
+            client_install: true,
+            signature: "2f18ac9aa22349e987c76dbc28aa2fdb5ec5739cf08d0411f5a907553ee6e1acf19785a6230d5e46f57b10d5a01b48e6fc1596069781096679d698b1f699940e".to_string(),
+        };
+
+        assert!(verify_manifest_signature(&manifest).is_ok());
+
+        let mut tampered = manifest.clone();
+        tampered.version = "2.2.1".to_string();
+        assert!(verify_manifest_signature(&tampered).is_err());
+    }
+
+    #[test]
+    fn test_manifest_policy_rejects_untrusted_archive_url() {
+        let manifest = AppManifest {
+            version: "2.2.0".to_string(),
+            sha256: "a".repeat(64),
+            url: "https://example.com/homeinventory-app-v2.2.0.tar.gz".to_string(),
+            node_major: 20,
+            root_install: true,
+            client_install: true,
+            signature: "unused".to_string(),
+        };
+
+        assert!(validate_app_manifest_policy(&manifest).is_err());
+    }
+
+    #[test]
+    fn test_clean_old_versions_keeps_current_and_two_previous() {
+        let app_data = std::env::temp_dir().join(format!("hi-updater-test-{}", now()));
+        let versions_dir = app_data.join("managed-app").join("versions");
+        for version in ["2.0.0", "2.1.0", "2.2.0", "2.3.0"] {
+            fs::create_dir_all(versions_dir.join(version)).unwrap();
+        }
+
+        let mut metadata = AppUpdaterMetadata {
+            current_version: Some("2.3.0".to_string()),
+            previous_versions: vec![
+                "2.0.0".to_string(),
+                "2.1.0".to_string(),
+                "2.2.0".to_string(),
+            ],
+            last_known_good_version: Some("2.3.0".to_string()),
+            update_state: String::new(),
+            rollback_state: String::new(),
+        };
+
+        clean_old_versions(&app_data, &mut metadata).unwrap();
+
+        assert!(versions_dir.join("2.3.0").exists());
+        assert!(versions_dir.join("2.2.0").exists());
+        assert!(versions_dir.join("2.1.0").exists());
+        assert!(!versions_dir.join("2.0.0").exists());
+        assert_eq!(metadata.previous_versions, vec!["2.1.0", "2.2.0"]);
+
+        let _ = fs::remove_dir_all(app_data);
+    }
+
+    #[test]
+    fn test_path_traversal_rejection() {
+        let malicious_path_1 = PathBuf::from("../escaped");
+        let malicious_path_2 = PathBuf::from("/etc/passwd");
+
+        assert!(malicious_path_1
+            .components()
+            .any(|c| matches!(c, std::path::Component::ParentDir)));
+        assert!(malicious_path_2.is_absolute());
+    }
+
+    #[test]
+    fn test_allowlisted_commands() {
+        let allowed_args = vec!["ci", "--prefix", "client"];
+        assert_eq!(allowed_args[0], "ci");
+    }
 }

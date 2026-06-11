@@ -135,6 +135,20 @@ function translateAuth(req, key, fallback, options = {}) {
     return fallback;
 }
 
+function passwordError(code, fallback, options = {}) {
+    return {
+        code,
+        fallback,
+        options
+    };
+}
+
+function formatPasswordError(error) {
+    return error.options && Object.keys(error.options).length > 0
+        ? error.fallback.replace(/\{\{(\w+)\}\}/g, (_, key) => String(error.options[key] ?? ''))
+        : error.fallback;
+}
+
 function resolveRoleForEmail(email) {
     const normalizedEmail = String(email || '').trim().toLowerCase();
     return BOOTSTRAP_ADMIN_EMAIL && normalizedEmail === BOOTSTRAP_ADMIN_EMAIL
@@ -447,28 +461,28 @@ function validatePasswordStrength(password, context = {}) {
     const checks = [];
 
     if (value.length < MIN_PASSWORD_LENGTH) {
-        checks.push(`Şifre en az ${MIN_PASSWORD_LENGTH} karakter olmalı`);
+        checks.push(passwordError('min_length', 'Password must be at least {{min}} characters long', { min: MIN_PASSWORD_LENGTH }));
     }
     if (!/[a-z]/.test(value)) {
-        checks.push('Şifre en az bir küçük harf içermeli');
+        checks.push(passwordError('lowercase_required', 'Password must include at least one lowercase letter'));
     }
     if (!/[A-Z]/.test(value)) {
-        checks.push('Şifre en az bir büyük harf içermeli');
+        checks.push(passwordError('uppercase_required', 'Password must include at least one uppercase letter'));
     }
     if (!/[0-9]/.test(value)) {
-        checks.push('Şifre en az bir rakam içermeli');
+        checks.push(passwordError('number_required', 'Password must include at least one number'));
     }
     if (!/[^a-zA-Z0-9]/.test(value)) {
-        checks.push('Şifre en az bir özel karakter içermeli');
+        checks.push(passwordError('symbol_required', 'Password must include at least one symbol'));
     }
     if (/(.)\1{3,}/.test(value)) {
-        checks.push('Şifrede art arda tekrar eden karakterler kullanmayın');
+        checks.push(passwordError('repeated_chars', 'Do not use repeated characters in your password'));
     }
     if (/1234|2345|3456|4567|5678|6789|7890|qwerty|asdf|zxcv/i.test(value)) {
-        checks.push('Şifrede kolay tahmin edilen sıralar kullanmayın');
+        checks.push(passwordError('predictable_sequence', 'Do not use easy-to-guess sequences in your password'));
     }
     if (COMMON_PASSWORDS.has(lowered)) {
-        checks.push('Bu şifre çok yaygın ve güvensiz');
+        checks.push(passwordError('common_password', 'This password is too common and unsafe'));
     }
 
     const username = String(context.username || '').toLowerCase().trim();
@@ -476,15 +490,16 @@ function validatePasswordStrength(password, context = {}) {
     const emailLocal = email.includes('@') ? email.split('@')[0] : '';
 
     if (username && username.length >= 3 && lowered.includes(username)) {
-        checks.push('Şifre kullanıcı adı içermemeli');
+        checks.push(passwordError('contains_username', 'Password must not contain your username'));
     }
     if (emailLocal && emailLocal.length >= 3 && lowered.includes(emailLocal)) {
-        checks.push('Şifre e-posta bilgisini içermemeli');
+        checks.push(passwordError('contains_email', 'Password must not contain your email information'));
     }
 
     return {
         valid: checks.length === 0,
-        errors: checks
+        errors: checks.map(formatPasswordError),
+        errorCodes: checks.map(({ code }) => code)
     };
 }
 
@@ -883,7 +898,8 @@ router.post('/register', async (req, res) => {
         if (!passwordValidation.valid) {
             return res.status(400).json({
                 error: passwordValidation.errors[0],
-                passwordErrors: passwordValidation.errors
+                passwordErrors: passwordValidation.errors,
+                passwordErrorCodes: passwordValidation.errorCodes
             });
         }
 
@@ -1461,7 +1477,8 @@ router.post('/reset-password', resetPasswordLimiter, async (req, res) => {
             if (!passwordValidation.valid) {
                 return res.status(400).json({
                     error: passwordValidation.errors[0],
-                    passwordErrors: passwordValidation.errors
+                    passwordErrors: passwordValidation.errors,
+                    passwordErrorCodes: passwordValidation.errorCodes
                 });
             }
 
@@ -1530,7 +1547,8 @@ router.post('/reset-password', resetPasswordLimiter, async (req, res) => {
         if (!passwordValidation.valid) {
             return res.status(400).json({
                 error: passwordValidation.errors[0],
-                passwordErrors: passwordValidation.errors
+                passwordErrors: passwordValidation.errors,
+                passwordErrorCodes: passwordValidation.errorCodes
             });
         }
 
@@ -1700,7 +1718,8 @@ router.post('/change-password', authenticateToken, async (req, res) => {
         if (!newPasswordValidation.valid) {
             return res.status(400).json({
                 error: newPasswordValidation.errors[0],
-                passwordErrors: newPasswordValidation.errors
+                passwordErrors: newPasswordValidation.errors,
+                passwordErrorCodes: newPasswordValidation.errorCodes
             });
         }
 
@@ -2486,11 +2505,11 @@ router.post('/2fa/setup', authenticateToken, (req, res) => {
         const userRow = db.prepare('SELECT id, totp_enabled FROM users WHERE id = ?').get(req.user.id);
 
         if (!userRow) {
-            return res.status(404).json({ error: 'Kullanıcı bulunamadı' });
+            return res.status(404).json({ error: translateAuth(req, 'auth.two_factor_user_not_found', 'Kullanıcı bulunamadı') });
         }
 
         if (userRow.totp_enabled === 1) {
-            return res.status(400).json({ error: '2FA zaten etkin durumda' });
+            return res.status(400).json({ error: translateAuth(req, 'auth.two_factor_already_enabled', '2FA zaten etkin durumda') });
         }
 
         const { secret, otpauthUrl } = generateTotpSecret(req.user.username || 'User');
@@ -2503,7 +2522,7 @@ router.post('/2fa/setup', authenticateToken, (req, res) => {
         res.json({ secret, otpauthUrl });
     } catch (err) {
         console.error('2FA setup error:', err);
-        res.status(500).json({ error: '2FA kurulumu sırasında hata oluştu' });
+        res.status(500).json({ error: translateAuth(req, 'auth.two_factor_setup_error', '2FA kurulumu sırasında hata oluştu') });
     }
 });
 
@@ -2513,28 +2532,28 @@ router.post('/2fa/verify-setup', authenticateToken, (req, res) => {
         const { token: totpCode } = req.body;
 
         if (!totpCode) {
-            return res.status(400).json({ error: 'Doğrulama kodu gerekli' });
+            return res.status(400).json({ error: translateAuth(req, 'auth.two_factor_code_required', 'Doğrulama kodu gerekli') });
         }
 
         const userRow = db.prepare('SELECT id, totp_secret, totp_enabled FROM users WHERE id = ?').get(req.user.id);
 
         if (!userRow) {
-            return res.status(404).json({ error: 'Kullanıcı bulunamadı' });
+            return res.status(404).json({ error: translateAuth(req, 'auth.two_factor_user_not_found', 'Kullanıcı bulunamadı') });
         }
 
         if (userRow.totp_enabled === 1) {
-            return res.status(400).json({ error: '2FA zaten etkin durumda' });
+            return res.status(400).json({ error: translateAuth(req, 'auth.two_factor_already_enabled', '2FA zaten etkin durumda') });
         }
 
         if (!userRow.totp_secret) {
-            return res.status(400).json({ error: 'Önce 2FA kurulumunu başlatın' });
+            return res.status(400).json({ error: translateAuth(req, 'auth.two_factor_setup_not_started', 'Önce 2FA kurulumunu başlatın') });
         }
 
         const base32Secret = decryptFromStorage(userRow.totp_secret, { purpose: TOTP_SECRET_PURPOSE });
         const isValid = verifyTotpToken(base32Secret, totpCode);
 
         if (!isValid) {
-            return res.status(400).json({ error: 'Doğrulama kodu hatalı. Lütfen tekrar deneyin.' });
+            return res.status(400).json({ error: translateAuth(req, 'auth.two_factor_invalid_try_again', 'Doğrulama kodu hatalı. Lütfen tekrar deneyin.') });
         }
 
         // Enable 2FA
@@ -2557,12 +2576,12 @@ router.post('/2fa/verify-setup', authenticateToken, (req, res) => {
 
         res.json({
             success: true,
-            message: '2FA başarıyla etkinleştirildi',
+            message: translateAuth(req, 'auth.two_factor_enabled_success', '2FA başarıyla etkinleştirildi'),
             backupCodes
         });
     } catch (err) {
         console.error('2FA verify-setup error:', err);
-        res.status(500).json({ error: '2FA etkinleştirme sırasında hata oluştu' });
+        res.status(500).json({ error: translateAuth(req, 'auth.two_factor_activation_error', '2FA etkinleştirme sırasında hata oluştu') });
     }
 });
 
@@ -2572,27 +2591,27 @@ router.post('/2fa/disable', authenticateToken, async (req, res) => {
         const { password, token: totpCode, backupCode, recoveryKey } = req.body;
 
         if (!password) {
-            return res.status(400).json({ error: 'Şifre gerekli' });
+            return res.status(400).json({ error: translateAuth(req, 'auth.two_factor_password_required', 'Şifre gerekli') });
         }
 
         if (!totpCode && !backupCode && !recoveryKey) {
-            return res.status(400).json({ error: 'TOTP kodu, yedek kod veya kurtarma anahtarı gerekli' });
+            return res.status(400).json({ error: translateAuth(req, 'auth.two_factor_credentials_required', 'TOTP kodu, yedek kod veya kurtarma anahtarı gerekli') });
         }
 
         const userRow = db.prepare('SELECT * FROM users WHERE id = ?').get(req.user.id);
 
         if (!userRow) {
-            return res.status(404).json({ error: 'Kullanıcı bulunamadı' });
+            return res.status(404).json({ error: translateAuth(req, 'auth.two_factor_user_not_found', 'Kullanıcı bulunamadı') });
         }
 
         if (userRow.totp_enabled !== 1) {
-            return res.status(400).json({ error: '2FA zaten devre dışı' });
+            return res.status(400).json({ error: translateAuth(req, 'auth.two_factor_already_disabled', '2FA zaten devre dışı') });
         }
 
         // Verify password
         const validPassword = await bcrypt.compare(password, userRow.password_hash);
         if (!validPassword) {
-            return res.status(401).json({ error: 'Şifre hatalı' });
+            return res.status(401).json({ error: translateAuth(req, 'auth.two_factor_password_incorrect', 'Şifre hatalı') });
         }
 
         // Verify the second factor
@@ -2615,7 +2634,7 @@ router.post('/2fa/disable', authenticateToken, async (req, res) => {
         }
 
         if (!secondFactorValid) {
-            return res.status(401).json({ error: 'Doğrulama başarısız. Kodu kontrol edip tekrar deneyin.' });
+            return res.status(401).json({ error: translateAuth(req, 'auth.two_factor_verification_failed', 'Doğrulama başarısız. Kodu kontrol edip tekrar deneyin.') });
         }
 
         // Disable 2FA and clean up
@@ -2629,10 +2648,10 @@ router.post('/2fa/disable', authenticateToken, async (req, res) => {
             sameSite: 'lax'
         });
 
-        res.json({ success: true, message: '2FA başarıyla devre dışı bırakıldı' });
+        res.json({ success: true, message: translateAuth(req, 'auth.two_factor_disabled_success', '2FA başarıyla devre dışı bırakıldı') });
     } catch (err) {
         console.error('2FA disable error:', err);
-        res.status(500).json({ error: '2FA devre dışı bırakılırken hata oluştu' });
+        res.status(500).json({ error: translateAuth(req, 'auth.two_factor_disable_error', '2FA devre dışı bırakılırken hata oluştu') });
     }
 });
 
@@ -2642,18 +2661,18 @@ router.post('/2fa/backup-codes', authenticateToken, async (req, res) => {
         const { password } = req.body;
 
         if (!password) {
-            return res.status(400).json({ error: 'Şifre gerekli' });
+            return res.status(400).json({ error: translateAuth(req, 'auth.two_factor_password_required', 'Şifre gerekli') });
         }
 
         const userRow = db.prepare('SELECT id, password_hash, totp_enabled FROM users WHERE id = ?').get(req.user.id);
 
         if (!userRow || userRow.totp_enabled !== 1) {
-            return res.status(400).json({ error: '2FA etkin değil' });
+            return res.status(400).json({ error: translateAuth(req, 'auth.two_factor_not_enabled', '2FA etkin değil') });
         }
 
         const validPassword = await bcrypt.compare(password, userRow.password_hash);
         if (!validPassword) {
-            return res.status(401).json({ error: 'Şifre hatalı' });
+            return res.status(401).json({ error: translateAuth(req, 'auth.two_factor_password_incorrect', 'Şifre hatalı') });
         }
 
         // Generate new backup codes
@@ -2672,12 +2691,12 @@ router.post('/2fa/backup-codes', authenticateToken, async (req, res) => {
 
         res.json({
             success: true,
-            message: 'Yedek kodlar yenilendi',
+            message: translateAuth(req, 'settings.two_factor.codes_regenerated', 'Yedek kodlar yenilendi'),
             backupCodes
         });
     } catch (err) {
         console.error('2FA backup-codes error:', err);
-        res.status(500).json({ error: 'Yedek kodlar oluşturulurken hata oluştu' });
+        res.status(500).json({ error: translateAuth(req, 'auth.two_factor_regenerate_codes_error', 'Yedek kodlar oluşturulurken hata oluştu') });
     }
 });
 

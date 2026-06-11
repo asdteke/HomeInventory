@@ -186,7 +186,8 @@
         "hide": "Huna kupuhipa",
         "logging_out": "E taki ana...",
         "show": "Whakaatu kupuhipa",
-        "saving": "Te Tiaki..."
+        "saving": "Te Tiaki...",
+        "disabled": "Kua monokia"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "E hiahiatia ana he Kī Whare hei hono ki tētahi whare tīariari",
         "house_key_not_found": "Kī Whare Muhu. Tāurutia koa te kī tika.",
         "email_not_verified": "Kāore anō tō wāhitau īmēra kia manatokona. Tēnā tirohia tō pouakaroto.",
-        "two_factor_invalid": "Kei te hē te waehere manatoko"
+        "two_factor_invalid": "Kei te hē te waehere manatoko",
+        "two_factor_invalid_try_again": "Waehere manatokonga muhu. Tēnā kia ngana anō.",
+        "two_factor_code_required": "E hiahiatia ana he waehere manatoko",
+        "two_factor_user_not_found": "Kāore i kitea te kaiwhakamahi",
+        "two_factor_already_enabled": "Kua whakahohea kētia te motuhēhēnga tauwehe rua",
+        "two_factor_setup_not_started": "Tīmataria koa te tatūnga motuhēhēnga-tauwehe i te tuatahi",
+        "two_factor_setup_error": "Kua puta mai tētahi hapa i te tatūnga motuhēhēnga tauwehe rua",
+        "two_factor_activation_error": "Kua puta mai tētahi hapa i te whakahohenga motuhēhēnga tauwehe rua",
+        "two_factor_password_required": "E hiahiatia ana he kupuhipa",
+        "two_factor_credentials_required": "E hiahiatia ana te waehere TOTOP, te waehere pūrua, te kī whakaora rānei",
+        "two_factor_already_disabled": "Kua monokia kētia te motuhēhēnga taurea-rua",
+        "two_factor_password_incorrect": "Kupuhipa hē",
+        "two_factor_verification_failed": "I rahua te manatokonga. Takina koa te waehere ka ngana anō.",
+        "two_factor_disable_error": "Kua puta mai tētahi hapa i te monomonotanga o te motuhēhēnga taurea-rua",
+        "two_factor_not_enabled": "Kāore i whakahohea te motuhēhēnga taurea-rua",
+        "two_factor_regenerate_codes_error": "Kua puta mai tētahi hapa i te whakaraupapatanga o ngā waehere pūrua",
+        "two_factor_enabled_success": "Kua whakahohea tikahia te motuhēhēnga taurea-rua",
+        "two_factor_disabled_success": "Kua monokia tikahia te motuhēhēnga taurea-rua",
+        "password_errors": {
+            "min_length": "Me {{min}} ngā pūāhua te roa o te kupuhipa",
+            "lowercase_required": "Kia kotahi neke atu rānei ngā pūriki i roto i te kupuhipa",
+            "uppercase_required": "Kia kotahi neke atu rānei ngā pūmatua i roto i te kupuhipa",
+            "number_required": "Kia kotahi neke atu rānei te tau i roto i te kupuhipa",
+            "symbol_required": "Kia kotahi neke atu rānei te tohu i roto i te kupuhipa",
+            "repeated_chars": "Kaua e whakamahi i ngā pūāhua tukurua ki tō kupuhipa",
+            "predictable_sequence": "Kaua e whakamahi i ngā raupapa ngāwari ki te matapae i tō kupuhipa",
+            "common_password": "He pūnoa rawa, he haumarukore hoki tēnei kupuhipa",
+            "contains_username": "Kia kaua tō ingoa kaiwhakamahi i roto i te kupuhipa",
+            "contains_email": "Kia kaua ō mōhiohio īmēra e whai i roto i te kupuhipa"
+        }
     },
     "navigation": {
         "home": "Kāinga",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Kua whakahou te kī whakaora",
             "recovery_key_error": "Kaore i taea te whakahou i te kī whakaora",
             "account_delete_error": "Kāore i taea te muku i te pūkete",
-            "backup_downloaded_encrypted": "Kua tikiake tō tārua matatika! ({{count}} ngā tūemi)"
+            "backup_downloaded_encrypted": "Kua tikiake tō tārua matatika! ({{count}} ngā tūemi)",
+            "policy_update_error": "I rahua te whakahōu i ngā tautuhinga tono.",
+            "policy_updated": "Kua tutuki pai te whakahōu i ngā tautuhinga tono.",
+            "unblock_error": "I rahua te weteārai i te kaiwhakamahi.",
+            "unblocked_success": "I tutuki pai te weteārai a te kaiwhakamahi.",
+            "house_owner_transferred": "I whakawhitia te rangatiratanga o te whare",
+            "house_owner_transfer_error": "Kāore i taea te whakawhiti i te rangatiratanga o te whare."
         },
         "user_profile": {
             "edit_username": "Panoni ingoa kaiwhakamahi"
@@ -680,7 +716,7 @@
         "house_info": {
             "title": "Pātuhi Whare Hohe",
             "key_label": "Kī Whare",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "••••••••{{hiku}}",
             "hide": "Hunaia",
             "show": "Whakaatu",
             "copy": "Tārua",
@@ -721,7 +757,14 @@
             "kick_success_body": "Kua kore āhei a {{name}} ki tēnei kāinga.",
             "kick_title": "Tangohia tēnei mema?",
             "kick_warning": "Ka mutu tonu ā rātou uru ki te kāinga, ā me tono, ā me whakaaetia anō rānei kia hoki mai.",
-            "kicking": "E tangohia ana..."
+            "kicking": "E tangohia ana...",
+            "access_section_eyebrow": "Āheitanga whare",
+            "transfer_owner": "Hangaia he rangatira",
+            "transferring_owner": "Whakawhiti ana...",
+            "transfer_owner_title": "Whakawhiti i te rangatiratanga o te whare?",
+            "transfer_owner_confirm": "Whakawhiti i te rangatiratanga o tēnei whare ki {{name}}?",
+            "transfer_owner_warning": "Kua kore koe e noho hei rangatira mo tēnei whare. Mā te rangatira hou e whakahaere ngā whakaaetanga mema, ngā tangohanga, me ngā huringa rangatiratanga ā muri ake.",
+            "transfer_owner_success_body": "Ināianei ko {{name}} te rangatira o tēnei whare."
         },
         "theme": {
             "title": "Kaupapa",
@@ -729,7 +772,9 @@
             "light": "Aratau māmā",
             "description": "Kōwhiria te āhua o te wāhi mahi i runga i tēnei pūrere.",
             "light_aria": "Hurihia ki te kaupapa māmā",
-            "dark_aria": "Hurihia ki te kaupapa pōuri"
+            "dark_aria": "Hurihia ki te kaupapa pōuri",
+            "workspace_title": "Tāhuhu Mokowāmahi",
+            "workspace_desc": "Tīpakohia tō kāhua arokite e manakohia ana mō tēnei pūrere."
         },
         "security": {
             "title": "Haumarutanga",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Kāore e taea te whakaatu i te kī whakaora o nāianei. Hangaia anō mēnā e hiahiatia ana.",
             "recovery_key_action": "Hangaia Anō",
             "recovery_key_modal_desc": "Whakau i tō kupuhipa o nāianei kia haere tonu. Ka whakaatuhia te kī hou kotahi anake.",
-            "recovery_key_loading": "Kei te Whakarite..."
+            "recovery_key_loading": "Kei te Whakarite...",
+            "accordion_title": "Haumarutanga me te tūmataitinga",
+            "accordion_desc": "Whakahaere motuhēhēnga tauwehe rua, ngā pūrere whirinaki, me te tono ture tono mai i ētahi atu pūkete.",
+            "description": "Whakahaerehia tō kupuhipa matua me ngā whirihoranga whakaora taupuni.",
+            "change_password_detail": "Whakahōutia tō kupuhipa kia haumaru ai tō pūkete",
+            "recovery_key_detail": "Ka whakamahia hei whakaora i tō taupuni ki te wareware i tō kupuhipa"
         },
         "data_management": {
             "title": "Whakahaere Raraunga",
@@ -785,10 +835,10 @@
             "owner_only_desc": "Ka taea te tārua me te whakahoki raraunga te whakahaere noa e te rangatira o te whare."
         },
         "about": {
-            "title": "📱 Mō te Taupānga",
+            "title": "Mō te Taupānga",
             "version": "Putanga",
             "brand": "Waitohu",
-            "feedback": "✉️ Tukua Urupare",
+            "feedback": "Tukua Urupare",
             "legal_title": "Tuhinga ā-Ture",
             "legal_description": "Ka taea e koe te whakatuwhera anō i ngā tikanga me ngā kuputuhi tūmataitinga i konei ahakoa kua whakaaetia e koe.",
             "terms_link": "Ngā Kaupapa Whakamahinga",
@@ -890,7 +940,8 @@
             "revoke_devices": "Whakakore i Ngā Pūrere Whai Whakaaro",
             "revoke_devices_desc": "Tangohia katoatia ngā pūrere kua maumahara, me whakamahi 2FA i te takiuru ka whai ake",
             "devices_revoked": "{{count}} taputapu whakawhirinaki i tangohia",
-            "devices_error": "Kua whakamātauria te whakahē i ngā taputapu"
+            "devices_error": "Kua whakamātauria te whakahē i ngā taputapu",
+            "preparing_setup": "Whakarite ana i tō tatūnga whakamotuhēhē..."
         },
         "danger_zone": {
             "title": "Pūkete",
@@ -903,7 +954,8 @@
             "modal_warning_body": "I muri i te whakau, ka ngaro tonu tō uru ki te kaute ā, kāore e taea te whakahoki mai i ngā raraunga tono kua mukua mai i te taupānga.",
             "password_label": "Whakau nā tō kupuhipa o nāianei",
             "confirm_delete": "Whakau te mukunga",
-            "deleting": "E muku ana..."
+            "deleting": "E muku ana...",
+            "description": "Mukua tō pūkete ka tango pūmau tonu i ngā huingararaunga rarangi katoa."
         },
         "language": "Reo",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Ngā Reo Rongonui",
         "search_results": "Ngā Huanga Rapu",
         "current_language": "Reo o nāianei",
-        "languages_available": "Ngā reo e wātea ana"
+        "languages_available": "Ngā reo e wātea ana",
+        "borrow_requests": {
+            "accordion_eyebrow": "Tono haumarutanga tono",
+            "accordion_eyebrow_desc": "Whirihoratia ngā ture tono me te whakahaere i ngā kaiwhakamahi kua āraia.",
+            "title": "Ngā tautuhinga tono tono",
+            "description": "Whakahaerehia ngā ture mō te whiwhi tono nama mai i ētahi atu pūkete me te whakarārangi i ngā kaiwhakamahi kua āraia.",
+            "policy_title": "Ngā Tono Nama Hōu",
+            "policy_description": "Manaaki ko wai ka taea te tuku tono whakatōkiri ki a koe. Kāore e whakaaturia tō rārangi taonga hei rārangi whānui.",
+            "policy_none": "Kaua e whiwhi mai i tētahi tangata (Taunoa)",
+            "policy_house_only": "Ngā mema o te whare anake",
+            "policy_everyone": "Ngā kaiwhakamahi kua rēhita katoa",
+            "blocks_title": "Ngā Kaiwhakamahi Kua Āraia",
+            "blocks_description": "Ko ngā kaiwhakamahi kua āraia e koe kia kaua e tuku tono nama hōu ki a koe.",
+            "no_blocks": "Kāore i kitea he kaiwhakamahi kua āraia.",
+            "unblock_btn": "Weteārai",
+            "policy_none_desc": "Ka āraia aunoatia ngā tono taumai katoa.",
+            "policy_house_only_desc": "Ko ngā mema kua whakamātauria anake o ō kāinga e mahi ana ka taea te tono i ngā taonga kua kitea kē i roto i taua kāinga tiritiri.",
+            "policy_everyone_desc": "Kāore e taea e ētahi kaiwhakamahi te tirotiro, te kite rānei i ō taonga. Ka taea anake te tuku tono mā te whakauru tika i tō ingoa kaiwhakamahi, īmēra rānei."
+        }
     },
     "inventory": {
         "title": "Rārangi Taonga",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Kei a koe",
             "return_pending_hint": "Ka kati te rekoata ā muri i te whakatuturutanga a te kaituku utu i te whiwhinga o te taonga.",
             "return_pending_lender_title": "I tohu a {{name}} i tēnei taonga hei whakahokia mai",
-            "return_pending_self_title": "Kei a koe, e tatari ana mō te whakatuturutanga whiwhinga"
+            "return_pending_self_title": "Kei a koe, e tatari ana mō te whakatuturutanga whiwhinga",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Tūemi kāore he taitara",
         "delete_action": "Muku taonga",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Tuhipanga whiwhi",
             "return_note_placeholder_borrower": "hei tauira, i whakahokia e au kia kore he raru",
             "return_note_placeholder_lender": "hei tauira, i riro i te āhua pai",
-            "return_submitting": "Kei te kati..."
+            "return_submitting": "Kei te kati...",
+            "reject_title": "Ākiri Tono",
+            "reject_subtitle": "Kei te ākiri koe i te tono mō \"{{item}}\".",
+            "reject_target": "Kei te whakakāhore koe i te tono nama i tukuna e {{name}}.",
+            "reject_reason_label": "Take Whakakahoretanga",
+            "reject_submitting": "E whakakāhore ana...",
+            "due_date_label": "Rā whakahoki kua whakaritea"
         },
         "messages": {
             "load_error": "Kāore i taea te uta i te pokapū nama",
-            "action_error": "Kāore i taea te whakaoti i te mahi"
+            "action_error": "Kāore i taea te whakaoti i te mahi",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Ka taea anake te tuku tono tuatahi ki waho ki taua tangata kotahi i ia rā. Ki te whakaae rātou ki te tono, kāore tēnei here e pā ana ki taua tangata anō.",
+                "external_total_daily_limit": "Ka taea te tuku tae atu ki ngā tono tuatahi ki waho e 5 i ia rā.",
+                "external_request_requires_verified_email": "Whakamātauria tō wāhitau īmēra i mua i te tuku tono whakatōkiri ki waho.",
+                "external_offer_blocked": "Ka taea anake te tuku taonga ki ngā mema kāinga, ki ngā kaiwhakamahi kua rēhita rānei e taea ana te tautuhi tika.",
+                "target_blocked_by_you": "Kaore e taea e koe te tuku tono ki tētahi kaiwhakamahi kua aukatia e koe.",
+                "recent_rejection_lock": "Nā te kaiwhakamahi nei i whakakore tētahi tono i mua. Ka taea e koe te tuku atu anō i tētahi tono i muri i te 30 rā."
+            }
         },
         "preview": {
             "title": "Aratau arotake",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Kāore he tono e hiahiatia ana tō arotake",
         "outgoing_empty_title": "Kāore anō he tono ki waho",
         "refreshing": "E whakahou ana i ngā tono me ngā nama e tūtonutia ana...",
-        "loading_description": "Kei te whakarite i ngā tono me ngā mahi nama e noho ana."
+        "loading_description": "Kei te whakarite i ngā tono me ngā mahi nama e noho ana.",
+        "reasons": {
+            "rejected": "Ākiri (Ākiri Pūnoa)",
+            "not_available": "Kāore i te wātea (Kua ngaro te tūemi/kāore i te wātea)",
+            "blocked": "Ārai me te ākiri (Ka ārai i tēnei kaiwhakamahi)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Kaupapa Noho Matatapu",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{Ingoa Ingoa}}",
-        "tagline": "Whakahaere ā-atamai i ō tuemi kāinga katoa"
+        "tagline": "Whakahaere ā-atamai i ō tuemi kāinga katoa",
+        "loading": "Uta ana i te {{brandName}}",
+        "preparing_workspace": "Whakarite ana i tō mokowāmahi..."
     },
     "nav": {
         "home": "Kāinga",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Mukua te Hītori",
-            "add_item": "Tāpirihia ki Rārangi Hokohoko"
+            "add_item": "Tāpirihia ki Rārangi Hokohoko",
+            "mark_completed": "Tohua kua oti",
+            "decrease_qty": "Whakahekea te rahinga",
+            "increase_qty": "Whakanuia te rahinga",
+            "delete_item": "Mukua te tūemi",
+            "reactivate_item": "Hoki whakamuri ki te rārangi hohe"
         },
         "form": {
             "add_type": "Tāpirihia te Tikanga",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Te whai i te tiaki auau, kotahi-anō rānei i whakaritea mō tēnei tūemi.",
         "no_tasks": "Kāore he mahi tiaki i whakatakotoria ki tēnei tūemi.",
         "confirm_delete": "Ka mukua tēnei mahi. E tino mōhio ana koe?"
+    },
+    "error_boundary": {
+        "title": "Me tāmata tētahi mea",
+        "description": "I pā mai te atanga ki tētahi raru tāhuahua ohorere. Kāore ō raraunga rarangi kua tiakina e hurihia e tēnei mata.",
+        "refresh_btn": "Whakahou",
+        "home_btn": "Kāinga"
     }
 }

@@ -1,5 +1,6 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 import { AlertTriangle, Home, RotateCcw } from 'lucide-react';
+import i18next from 'i18next';
 
 interface AppErrorBoundaryProps {
     children: ReactNode;
@@ -41,18 +42,18 @@ export default class AppErrorBoundary extends Component<AppErrorBoundaryProps, A
                     <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--hi-danger-soft)] text-[var(--hi-danger)]">
                         <AlertTriangle className="h-6 w-6" />
                     </span>
-                    <h1 className="section-title mt-5 text-2xl text-[var(--hi-text)]">Something needs a refresh</h1>
+                    <h1 className="section-title mt-5 text-2xl text-[var(--hi-text)]">{i18next.t('error_boundary.title', { defaultValue: 'Something needs a refresh' })}</h1>
                     <p className="mt-3 text-sm leading-6 text-[var(--hi-text-soft)]">
-                        The interface hit an unexpected rendering problem. Your saved inventory data is not changed by this screen.
+                        {i18next.t('error_boundary.description', { defaultValue: 'The interface hit an unexpected rendering problem. Your saved inventory data is not changed by this screen.' })}
                     </p>
                     <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
                         <button type="button" onClick={this.reloadPage} className="btn-primary">
                             <RotateCcw className="h-4 w-4" />
-                            Refresh
+                            {i18next.t('error_boundary.refresh_btn', { defaultValue: 'Refresh' })}
                         </button>
                         <button type="button" onClick={this.goHome} className="btn-secondary">
                             <Home className="h-4 w-4" />
-                            Home
+                            {i18next.t('error_boundary.home_btn', { defaultValue: 'Home' })}
                         </button>
                     </div>
                 </section>

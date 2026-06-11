@@ -74,7 +74,7 @@
             "min_quantity": "Meud as ìsle",
             "take_photo": "Glac dealbh",
             "choose_from_gallery": "Tagh bhon Ghailearaidh",
-            "take_photo_sub": "Open device camera",
+            "take_photo_sub": "Fosgail camara an uidheim",
             "choose_from_gallery_sub": "Tagh o albam",
             "photo_selected_badge": "Dealbh ùr",
             "photo_existing_badge": "Dealbh a th 'ann an - dràsta",
@@ -186,7 +186,8 @@
         "hide": "Falaich am facal - faire",
         "logging_out": "A 'logadh a - mach...",
         "show": "_Seall am facal-faire",
-        "saving": "Sàbhaladh..."
+        "saving": "Sàbhaladh...",
+        "disabled": "Ciorramach"
     },
     "auth": {
         "login": {
@@ -383,7 +384,7 @@
         "google_login": "Lean air adhart le Google",
         "login_issues": "Airson cùisean logadh a-steach",
         "placeholder_username": "me: john",
-        "placeholder_password": "••••••••",
+        "placeholder_password": "•••••••",
         "login_two_factor": {
             "title": "Fíordheimhniú Dhá Fhachtóir",
             "subtitle": "Cuir isteach an cód 6-dhigit ó d'aip fíordheimhnithe",
@@ -435,7 +436,36 @@
         "join_house_key_required": "Feumar Iuchair Taighe gus a dhol còmhla ri dachaigh a tha ann mu thràth",
         "house_key_not_found": "Iuchair Taighe mì-dhligheach. Cuir a-steach an iuchair cheart mas e do thoil e.",
         "email_not_verified": "Cha deach do sheòladh post-d a dhearbhadh fhathast. Thoir sùil air a’ bhogsa a-steach agad.",
-        "two_factor_invalid": "Tha an còd dearbhachaidh ceàrr"
+        "two_factor_invalid": "Tha an còd dearbhachaidh ceàrr",
+        "two_factor_invalid_try_again": "Còd dearbhaidh mì - dhligheach. Feuch ris a - rithist.",
+        "two_factor_code_required": "Tha feum air còd dearbhaidh",
+        "two_factor_user_not_found": "Cha deach a lorg",
+        "two_factor_already_enabled": "Tha dearbhadh dà - fhactar air a chomasachadh mu thràth",
+        "two_factor_setup_not_started": "An tòisich thu air rèiteachadh dearbhaidh dà - fhactar an toiseach",
+        "two_factor_setup_error": "Thachair mearachd rè rèiteachadh dearbhaidh dà - fhactar",
+        "two_factor_activation_error": "Thachair mearachd rè gnìomhachadh dearbhaidh dà - fhactar",
+        "two_factor_password_required": "Tha feum air facal - faire",
+        "two_factor_credentials_required": "Tha feum air còd TOTP, còd cùl - taic, no iuchair ath - bheothachaidh",
+        "two_factor_already_disabled": "Tha dearbhadh dà - fhactar air a dhì - cheadachadh mu thràth",
+        "two_factor_password_incorrect": "Facal - faire cearr",
+        "two_factor_verification_failed": "Dh'fhàillig an dearbhadh. Thoir sùil air a 'chòd agus feuch ris a - rithist.",
+        "two_factor_disable_error": "Thachair mearachd fhad's a bha e a 'cur à comas dearbhadh dà - fhactar",
+        "two_factor_not_enabled": "Chan eil dearbhadh dà - fhactar air a chomasachadh",
+        "two_factor_regenerate_codes_error": "Thachair mearachd le ath - nuadhachadh nan còdan lethbhreacan - glèidhidh",
+        "two_factor_enabled_success": "Chaidh dearbhadh dà - fhactar a chomasachadh gu soirbheachail",
+        "two_factor_disabled_success": "Chaidh dearbhadh dà - fhactar a dhì - cheadachadh gu soirbheachail",
+        "password_errors": {
+            "min_length": "Feumaidh am facal-faire a bhith co-dhiù {{ min}} caractaran a dh'fhaid",
+            "lowercase_required": "Feumaidh am facal-faire co-dhiù aon litir bheag a chur a-steach",
+            "uppercase_required": "Feumaidh co-dhiù aon litir mhòr a bhith ann am facal-faire",
+            "number_required": "Feumaidh co-dhiù aon àireamh a bhith ann am facal-faire",
+            "symbol_required": "Feumaidh co-dhiù aon samhla a bhith san fhacal-fhaire",
+            "repeated_chars": "Na cleachd caractaran a-rithist san fhacal-fhaire agad",
+            "predictable_sequence": "Na cleachd sreathan a tha furasta an tomhas san fhacal-fhaire agad",
+            "common_password": "Tha am facal-faire seo ro chumanta agus neo-shàbhailte",
+            "contains_username": "Chan fhaod an t-ainm-cleachdaiche agad a bhith ann am facal-faire",
+            "contains_email": "Chan fhaod am fiosrachadh puist-d agad a bhith ann am facal-faire"
+        }
     },
     "navigation": {
         "home": "Dachaigh",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Chaidh an iuchair ath-nuadhachaidh ath-nuadhachadh",
             "recovery_key_error": "Cha b 'urrainn dhuinn an iuchair ath - bheothachaidh ath - nuadhachadh",
             "account_delete_error": "Cha b 'urrainn dhuinn an cunntas a dhubhadh às",
-            "backup_downloaded_encrypted": "Chaidh an lethbhreac - glèidhidh a chaidh a chrioptachadh a - nuas gu soirbheachail! ({{count}} nithean)"
+            "backup_downloaded_encrypted": "Chaidh an lethbhreac - glèidhidh a chaidh a chrioptachadh a - nuas gu soirbheachail! ({{count}} nithean)",
+            "policy_update_error": "Dh'fhàillig le ùrachadh roghainnean an iarrtais.",
+            "policy_updated": "Chaidh roghainnean an iarrtais ùrachadh gu soirbheachail.",
+            "unblock_error": "Chaidh an cleachdaiche a bhacadh gu soirbheachail.",
+            "unblocked_success": "Shoirbhich le dì - bhacadh a 'chleachdaiche.",
+            "house_owner_transferred": "Seilbh taighe air a ghluasad",
+            "house_owner_transfer_error": "Cha b’ urrainnear seilbh taighe a ghluasad."
         },
         "user_profile": {
             "edit_username": "Atharraich ainm-cleachdaiche"
@@ -680,7 +716,7 @@
         "house_info": {
             "title": "Iuchair taighe",
             "key_label": "Iuchair an taighe",
-            "mask_key": "••••••••{{suffix}}",
+            "mask_key": "•••••••{{ iar-leasachan}}",
             "hide": "Falaich",
             "show": "Seall",
             "copy": "Leth-bhreac",
@@ -721,7 +757,14 @@
             "kick_success_body": "Chan eil {{name}} aig an taigh seo tuilleadh.",
             "kick_title": "Thoir air falbh a 'bhall seo?",
             "kick_warning": "Thig an cothrom dachaigh aca gu crìch sa bhad agus feumaidh iad cuireadh no aonta ùr airson tilleadh.",
-            "kicking": "'Ga thoirt air falbh..."
+            "kicking": "'Ga thoirt air falbh...",
+            "access_section_eyebrow": "Rochtain air an taigh",
+            "transfer_owner": "Dèan sealbhadair",
+            "transferring_owner": "A’ gluasad thairis...",
+            "transfer_owner_title": "A’ gluasad seilbh taighe?",
+            "transfer_owner_confirm": "An cuir thu thairis sealbh an taighe seo gu {{name}}?",
+            "transfer_owner_warning": "Cha bhith thu nad shealbhadair air an taigh seo tuilleadh. Bidh an sealbhadair ùr a 'riaghladh ceadan ball, toirt air falbh, agus atharrachaidhean seilbh san àm ri teachd.",
+            "transfer_owner_success_body": "Tèarainteachd agus prìobhaideachd"
         },
         "theme": {
             "title": "Cuspair",
@@ -729,7 +772,9 @@
             "light": "Light mode",
             "description": "Tagh mar a tha an t - àite - obrach a 'coimhead air an inneal seo.",
             "light_aria": "Atharraich gu cuspair an t - solais",
-            "dark_aria": "Atharraich gu cuspair dorcha"
+            "dark_aria": "Atharraich gu cuspair dorcha",
+            "workspace_title": "Cuspair an àite - obrach",
+            "workspace_desc": "Tagh an stoidhle lèirsinneach as fheàrr leat airson an inneal seo."
         },
         "security": {
             "title": "Tèarainteachd",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Chan urrainnear an iuchair ath - bheothachaidh làithreach a thaisbeanadh. Ath - nuadhachadh ma tha feum air.",
             "recovery_key_action": "Ath-bheothaich",
             "recovery_key_modal_desc": "Dearbhaich am facal-faire làithreach agad gus leantainn air adhart. Cha tèid an iuchair ùr a shealltainn ach aon turas.",
-            "recovery_key_loading": "Ag ullachadh..."
+            "recovery_key_loading": "Ag ullachadh...",
+            "accordion_title": "Tèarainteachd agus prìobhaideachd",
+            "accordion_desc": "Stiùirich dearbhadh dà-fhactaraidh, innealan earbsach, agus riaghailtean iarrtas iasad bho chunntasan eile.",
+            "description": "Stiùirich do phrìomh fhacal - faire agus rèiteachadh ath - bheothachadh vault.",
+            "change_password_detail": "Ùraich am facal - faire agad gus do chunntas a chumail sàbhailte",
+            "recovery_key_detail": "Mar a dh 'atharraicheas tu am facal - faire agad ma dhìochuimhnicheas tu am facal - faire agad"
         },
         "data_management": {
             "title": "Riaghladh Dàta",
@@ -785,10 +835,10 @@
             "owner_only_desc": "Chan fhaodar dàta cùl - taic agus ath - nuadhachadh a riaghladh ach le sealbhadair an taighe."
         },
         "about": {
-            "title": "📱 Mu dheidhinn Iarrtas",
+            "title": "Mu dheidhinn Iarrtas",
             "version": "Tionndadh",
             "brand": "Branda",
-            "feedback": "✉️ Cuir fios air ais",
+            "feedback": "Cuir fios air ais",
             "legal_title": "Sgrìobhainnean Laghail",
             "legal_description": "Faodaidh tu eadhon gabhail ris na teirmean prìobhaideachd às deidh seo agus faodaidh tu eadhon gabhail ris na teirmean prìobhaideachd às an seo.",
             "terms_link": "Cumhachan seirbheis",
@@ -890,7 +940,8 @@
             "revoke_devices": "Thoir air ais innealan earbsach",
             "revoke_devices_desc": "Thoir air falbh a h-uile inneal air a bheil cuimhne, a dh’ fheumas 2FA air an ath logadh a-steach",
             "devices_revoked": "{{count}} inneal(n) earbsach air an toirt air falbh",
-            "devices_error": "Dh’ fhàillig inneal a chùl-ghairm"
+            "devices_error": "Dh’ fhàillig inneal a chùl-ghairm",
+            "preparing_setup": "Ag ullachadh do shuidheachadh dearbhaidh..."
         },
         "danger_zone": {
             "title": "Cunntas",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Confirm with your current password",
             "password_label": "Confirm deletion",
             "confirm_delete": "Deleting...",
-            "deleting": "'Ga sguabadh às..."
+            "deleting": "'Ga sguabadh às...",
+            "description": "Cuir às don chunntas agad agus thoir air falbh a h - uile seata dàta tasglainn gu maireannach."
         },
         "language": "Cànan",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Tíortha Coitianta",
         "search_results": "Torthaí Cuardaigh",
         "current_language": "Cànan làithreach",
-        "languages_available": "na cànanan a tha rim faighinn"
+        "languages_available": "na cànanan a tha rim faighinn",
+        "borrow_requests": {
+            "accordion_eyebrow": "Tèarainteachd iarrtas iasad",
+            "accordion_eyebrow_desc": "Dèan rèiteachadh air riaghailtean iarrtas agus stiùirich luchd-cleachdaidh a tha air am bacadh.",
+            "title": "Roghainnean iarrtas iasad",
+            "description": "Stiùirich riaghailtean airson iarrtasan fhaighinn air iasad bho chunntasan eile agus liostaich luchd-cleachdaidh a tha air am bacadh.",
+            "policy_title": "Iarrtasan Iasad Ùr",
+            "policy_description": "Smachd air cò as urrainn iarrtasan iasad a chuir thugad. Chan eil an clàr-seilbhe agad a-riamh air a shealltainn mar liostadh poblach.",
+            "policy_none": "Na faigh thu bho dhuine sam bith (Default)",
+            "policy_house_only": "Buill taighe a-mhàin",
+            "policy_everyone": "A h-uile cleachdaiche clàraichte",
+            "blocks_title": "Cleachdaichean air am bacadh",
+            "blocks_description": "Luchd-cleachdaidh a chuir thu bacadh orra bho bhith a' cur iarrtasan ùra air iasad thugad.",
+            "no_blocks": "Cha deach bacadh a chur air luchd - cleachdaidh.",
+            "unblock_btn": "Dì - bhacadh",
+            "policy_none_desc": "Tha gach iarrtas a thig a-steach air a bhacadh gu fèin-ghluasadach.",
+            "policy_house_only_desc": "Is e dìreach buill dearbhte de na taighean gnìomhach agad as urrainn stuthan iarraidh a tha rim faicinn mar-thà taobh a-staigh an taigh roinnte sin.",
+            "policy_everyone_desc": "Chan urrainn do luchd-cleachdaidh eile na stuthan agad fhaicinn no brobhsadh. Chan urrainn dhaibh ach iarrtas a chuir a-steach le bhith a’ cuir a-steach d’ ainm-cleachdaidh no post-d gu dìreach."
+        }
     },
     "inventory": {
         "title": "Cunntas",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Còmhla riut",
             "return_pending_hint": "Bidh an clàr a 'dùnadh às deidh don neach - iasaid dearbhadh gun d' fhuair iad an rud air ais.",
             "return_pending_lender_title": "Comharraich {{name}} an nì seo mar a chaidh a lìbhrigeadh air ais",
-            "return_pending_self_title": "Còmhla riut, a 'feitheamh ri dearbhadh"
+            "return_pending_self_title": "Còmhla riut, a 'feitheamh ri dearbhadh",
+            "site_member": "Ball làrach",
+            "site_member_identifier": "Ainm-cleachdaidh no post-d",
+            "site_member_identifier_placeholder": "An dearbh ainm-cleachdaidh no post-d",
+            "site_member_privacy_hint": "Cha nochd an tairgse san Ionad Iasad ach ma tha an cunntas sin ann agus ma cheadaicheas e tairgsean a-steach.",
+            "external_privacy_hint": "Bidh seo a’ cruthachadh clàr ionadail prìobhaideach a-mhàin. Cha tèid fios app a chuir."
         },
         "untitled_item": "Rud gun tiotal",
         "delete_action": "Sguab às an nì",
@@ -1851,7 +1926,7 @@
             "bodyLine2": "A 'feitheamh ri cead bho shealbhadair an taighe"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "© 2026 {{ supportName}} - {{ supportName}} - {{ supportName}}",
             "greeting": "Rochtain air an taigh",
             "bodyLine1Template": "An t - iarrtas làithreach ri thighinn: {{house}} ({{status}})",
             "bodyLine2": "Tha an t - iarrtas agad airson \"{{ house }}\" fhathast a 'feitheamh ri co - dhùnadh.",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Faigh nota",
             "return_note_placeholder_borrower": "thug mi air ais e gun teagamh sam bith",
             "return_note_placeholder_lender": "b 'àbhaist dha a bhith air ais ann an deagh staid",
-            "return_submitting": "A 'dùnadh..."
+            "return_submitting": "A 'dùnadh...",
+            "reject_title": "Diùlt Iarrtas",
+            "reject_subtitle": "Tha thu gu bhith a’ diùltadh an iarrtas airson “{{item}}”.",
+            "reject_target": "Tha thu an impis an t-iarrtas iasad a chuir {{name}} a-steach.",
+            "reject_reason_label": "Adhbhar a' dhiùltadh",
+            "reject_submitting": "A' diùltadh...",
+            "due_date_label": "Ceann-latha tilleadh san amharc"
         },
         "messages": {
             "load_error": "Cha b 'urrainn dhuinn an t - ionad iasaid a luchdadh",
-            "action_error": "Cha b 'urrainn dhuinn an gnìomh a chrìochnachadh"
+            "action_error": "Cha b 'urrainn dhuinn an gnìomh a chrìochnachadh",
+            "active_borrow_not_found": "Cha deach an clàr iasad gnìomhach seo a lorg. Ùraich an t-Ionad Iasad agus feuch ris a-rithist.",
+            "errors": {
+                "external_target_daily_limit": "Chan urrainn dhut ach aon iarrtas ciad-fios bhon taobh a-muigh a chuir chun aon neach gach latha. Ma ghabhas iad ri iarrtas, chan eil a’ chrìoch seo a’ buntainn ris an neach sin tuilleadh.",
+                "external_total_daily_limit": "Faodaidh tu suas ri 5 iarrtasan taobh a-muigh ciad fios a chuir a-steach gach latha.",
+                "external_request_requires_verified_email": "Dearbhaich do sheòladh puist-d mus cuir thu iarrtasan iasad bhon taobh a-muigh.",
+                "external_offer_blocked": "Chan urrainn dhut rud a thairgsinn ach do bhuill taighe no do luchd-cleachdaidh clàraichte a dh’ aithnichear gu dìreach.",
+                "target_blocked_by_you": "Chan urrainn dhut iarrtas a chuir gu cleachdaiche a chuir thu bacadh air.",
+                "recent_rejection_lock": "Dhiùlt an cleachdaiche seo iarrtas o chionn ghoirid. Faodaidh tu iarrtas eile a chuir a-steach às deidh 30 latha."
+            }
         },
         "preview": {
             "title": "Modh ro - sheallaidh",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Chan eil feum air ath - bhreithneachadh air iarrtasan sam bith",
         "outgoing_empty_title": "Chan eil iarrtasan a 'dol a - mach fhathast",
         "refreshing": "Iarrtasan ath - nuadhachaidh agus duilgheadasan gnìomhach...",
-        "loading_description": "Obraich a - mach na h - iarrtasan agus na h - iarrtasan gnìomhach."
+        "loading_description": "Obraich a - mach na h - iarrtasan agus na h - iarrtasan gnìomhach.",
+        "reasons": {
+            "rejected": "Diùlt (Diùltadh àbhaisteach)",
+            "not_available": "Gun a bhith ri fhaighinn (Rud a dhìth / chan eil e ri fhaighinn)",
+            "blocked": "Bacadh is diùltadh (Blocaichean an cleachdaiche seo)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Teirmean seirbheis",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Stiùirich a h - uile càil dachaigh agad gu sgiobalta"
+        "tagline": "Stiùirich a h - uile càil dachaigh agad gu sgiobalta",
+        "loading": "A 'luchdadh {{brandName}}",
+        "preparing_workspace": "Ag ullachadh an àite - obrach agad..."
     },
     "nav": {
         "home": "Seòmraichean",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Falamhai_ch an eachdraidhdocuments-action",
-            "add_item": "Cuir ris an liosta bhùthan"
+            "add_item": "Cuir ris an liosta bhùthan",
+            "mark_completed": "Comharraich mar a chaidh a chrìochnachadh",
+            "decrease_qty": "Lùghdaich an àireamh",
+            "increase_qty": "Meudaich an àireamh",
+            "delete_item": "Sguab às an nì",
+            "reactivate_item": "Gluais air ais chun liosta ghnìomhach"
         },
         "form": {
             "add_type": "Cuir dòigh ris",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Tracadh cumail suas bho àm gu àm no aon-ùine clàraichte airson an rud seo.",
         "no_tasks": "Chan eil obair cumail suas air a shònrachadh don nì seo.",
         "confirm_delete": "Thèid an obair seo a dhubhadh às."
+    },
+    "error_boundary": {
+        "title": "Rudeigin feumach air ùrachadh",
+        "description": "Chaidh an duilleag ath - stiùireadh gu duilleag neo - aithnichte. Cha deach an dàta tasgaidh agad a shàbhaladh atharrachadh leis an sgrìn seo.",
+        "refresh_btn": "Ath-nuadhaich",
+        "home_btn": "Dachaigh"
     }
 }

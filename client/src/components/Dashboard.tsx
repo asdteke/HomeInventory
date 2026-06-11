@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +13,8 @@ import {
     AlertTriangle,
     Wrench,
     ShoppingCart,
-    Calendar
+    Calendar,
+    X
 } from 'lucide-react';
 import SecureImage from './SecureImage';
 import { EmptyState, LoadingState, PageHeader, SectionHeader, NoticeBanner } from './ProductUI';
@@ -59,6 +60,11 @@ interface DashboardMaintenanceTask {
     is_overdue?: boolean;
 }
 
+interface DashboardShoppingItem {
+    item_id?: number | null;
+    is_completed?: number;
+}
+
 function formatItemDate(value: string | undefined, locale: string): string | null {
     if (!value) {
         return null;
@@ -77,6 +83,20 @@ function formatItemDate(value: string | undefined, locale: string): string | nul
 
 import { fetchWithCache, getCachedData, hasCache } from '../utils/apiCache';
 
+const DISMISSED_DASHBOARD_ALERTS_KEY = 'dashboard_dismissed_alerts_v1';
+
+function readDismissedDashboardAlerts(): Record<string, string> {
+    if (typeof window === 'undefined') {
+        return {};
+    }
+
+    try {
+        return JSON.parse(window.localStorage.getItem(DISMISSED_DASHBOARD_ALERTS_KEY) || '{}');
+    } catch {
+        return {};
+    }
+}
+
 export default function Dashboard() {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation();
@@ -86,12 +106,15 @@ export default function Dashboard() {
     const [allItems, setAllItems] = useState<InventoryItem[]>(() => getCachedData('/api/items')?.items || []);
     const [rooms, setRooms] = useState<DashboardRoom[]>(() => getCachedData('/api/rooms')?.rooms || []);
     const [maintenanceTasks, setMaintenanceTasks] = useState<DashboardMaintenanceTask[]>(() => getCachedData('/api/maintenance')?.tasks || []);
+    const [shoppingItems, setShoppingItems] = useState<DashboardShoppingItem[]>(() => getCachedData('/api/shopping')?.items || []);
+    const [dismissedAlerts, setDismissedAlerts] = useState<Record<string, string>>(readDismissedDashboardAlerts);
 
     // Check if everything is already cached to prevent showing the loading spinner
     const isInitiallyLoaded = hasCache('/api/items/stats/summary') &&
                                hasCache('/api/items') &&
                                hasCache('/api/rooms') &&
-                               hasCache('/api/maintenance');
+                               hasCache('/api/maintenance') &&
+                               hasCache('/api/shopping');
     const [loading, setLoading] = useState<boolean>(!isInitiallyLoaded);
     const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -114,6 +137,11 @@ export default function Dashboard() {
                         if (isMounted) setMaintenanceTasks(data.tasks || []);
                     }).catch(() => {
                         if (isMounted) setMaintenanceTasks([]);
+                    }),
+                    fetchWithCache('/api/shopping', (data) => {
+                        if (isMounted) setShoppingItems(data.items || []);
+                    }).catch(() => {
+                        if (isMounted) setShoppingItems([]);
                     })
                 ]);
             } catch (error) {
@@ -169,8 +197,54 @@ export default function Dashboard() {
 
     const expiredItems = useMemo(() => allItems.filter(item => item.is_expired), [allItems]);
     const closeToExpiryItems = useMemo(() => allItems.filter(item => !item.is_expired && item.is_close_to_expiry), [allItems]);
-    const lowStockItems = useMemo(() => allItems.filter(item => item.is_low_stock), [allItems]);
+    const activeShoppingItemIds = useMemo(() => new Set(
+        shoppingItems
+            .filter(item => Number(item.is_completed) === 0 && item.item_id)
+            .map(item => Number(item.item_id))
+    ), [shoppingItems]);
+    const lowStockItems = useMemo(() => allItems.filter(item => (
+        item.is_low_stock && !activeShoppingItemIds.has(Number(item.id))
+    )), [allItems, activeShoppingItemIds]);
     const overdueTasks = useMemo(() => maintenanceTasks.filter(task => task.is_overdue), [maintenanceTasks]);
+    const alertSignatures = useMemo(() => ({
+        expired: expiredItems.map(item => item.id).sort((a, b) => a - b).join(','),
+        maintenance: overdueTasks.map(task => task.id).sort((a, b) => a - b).join(','),
+        lowStock: lowStockItems.map(item => item.id).sort((a, b) => a - b).join(','),
+        closeToExpiry: closeToExpiryItems.map(item => item.id).sort((a, b) => a - b).join(',')
+    }), [expiredItems, overdueTasks, lowStockItems, closeToExpiryItems]);
+
+    const isAlertDismissed = (alertId: keyof typeof alertSignatures) => (
+        dismissedAlerts[alertId] === alertSignatures[alertId]
+    );
+    const dismissAlert = (alertId: keyof typeof alertSignatures) => {
+        const next = {
+            ...dismissedAlerts,
+            [alertId]: alertSignatures[alertId]
+        };
+        setDismissedAlerts(next);
+        window.localStorage.setItem(DISMISSED_DASHBOARD_ALERTS_KEY, JSON.stringify(next));
+    };
+    const renderAlertAction = (alertId: keyof typeof alertSignatures, action: ReactNode) => (
+        <div className="flex flex-wrap items-center justify-end gap-2">
+            {action}
+            <button
+                type="button"
+                onClick={() => dismissAlert(alertId)}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--hi-border)] text-[var(--hi-text-soft)] transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)]"
+                aria-label={t('common.close')}
+                title={t('common.close')}
+            >
+                <X className="h-4 w-4" />
+            </button>
+        </div>
+    );
+    const showExpiredAlert = expiredItems.length > 0 && !isAlertDismissed('expired');
+    const showMaintenanceAlert = overdueTasks.length > 0 && !isAlertDismissed('maintenance');
+    const showLowStockAlert = lowStockItems.length > 0 && !isAlertDismissed('lowStock');
+    const showCloseToExpiryAlert = closeToExpiryItems.length > 0
+        && expiredItems.length === 0
+        && !isAlertDismissed('closeToExpiry');
+    const hasVisibleAlerts = showExpiredAlert || showMaintenanceAlert || showLowStockAlert || showCloseToExpiryAlert;
 
     const handleSearch = (event: React.FormEvent) => {
         event.preventDefault();
@@ -253,9 +327,9 @@ export default function Dashboard() {
             </PageHeader>
 
             {/* Warning and Notification Banners */}
-            {(expiredItems.length > 0 || closeToExpiryItems.length > 0 || lowStockItems.length > 0 || overdueTasks.length > 0) && (
+            {hasVisibleAlerts && (
                 <div className="space-y-3">
-                    {expiredItems.length > 0 && (
+                    {showExpiredAlert && (
                         <NoticeBanner
                             tone="danger"
                             icon={AlertTriangle}
@@ -264,15 +338,15 @@ export default function Dashboard() {
                                 count: expiredItems.length,
                                 defaultValue: 'Envanterinizde son kullanma tarihi geçmiş {{count}} eşya bulunuyor. Güvenliğiniz için bunları kontrol edin.'
                             })}
-                            action={
+                            action={renderAlertAction('expired',
                                 <Link to="/items" className="btn-secondary !rounded-[12px] !px-4 !py-2 text-sm text-red-500 border-red-200 bg-red-100/50 dark:bg-red-500/10 hover:bg-red-100">
                                     {t('dashboard.alerts.view_items', { defaultValue: 'Eşyaları Gör' })}
                                 </Link>
-                            }
+                            )}
                         />
                     )}
 
-                    {overdueTasks.length > 0 && (
+                    {showMaintenanceAlert && (
                         <NoticeBanner
                             tone="warning"
                             icon={Wrench}
@@ -281,15 +355,15 @@ export default function Dashboard() {
                                 count: overdueTasks.length,
                                 defaultValue: 'Zamanı geçmiş {{count}} bakım görevi bulunuyor. Cihazlarınızın ömrünü uzatmak için bakımlarını yapın.'
                             })}
-                            action={
+                            action={renderAlertAction('maintenance',
                                 <Link to="/maintenance" className="btn-secondary !rounded-[12px] !px-4 !py-2 text-sm">
                                     {t('dashboard.alerts.go_to_maintenance', { defaultValue: 'Bakıma Git' })}
                                 </Link>
-                            }
+                            )}
                         />
                     )}
 
-                    {lowStockItems.length > 0 && (
+                    {showLowStockAlert && (
                         <NoticeBanner
                             tone="info"
                             icon={ShoppingCart}
@@ -298,15 +372,15 @@ export default function Dashboard() {
                                 count: lowStockItems.length,
                                 defaultValue: '{{count}} ürün belirlediğiniz asgari stok limitinin altına düştü.'
                             })}
-                            action={
+                            action={renderAlertAction('lowStock',
                                 <Link to="/shopping" className="btn-secondary !rounded-[12px] !px-4 !py-2 text-sm text-[var(--hi-accent)] border-[var(--hi-accent-soft)]">
                                     {t('dashboard.alerts.go_to_shopping', { defaultValue: 'Alışveriş Listesi' })}
                                 </Link>
-                            }
+                            )}
                         />
                     )}
 
-                    {closeToExpiryItems.length > 0 && expiredItems.length === 0 && (
+                    {showCloseToExpiryAlert && (
                         <NoticeBanner
                             tone="info"
                             icon={Calendar}
@@ -315,11 +389,11 @@ export default function Dashboard() {
                                 count: closeToExpiryItems.length,
                                 defaultValue: '{{count}} ürünün son kullanma tarihi 30 gün içinde dolacak.'
                             })}
-                            action={
+                            action={renderAlertAction('closeToExpiry',
                                 <Link to="/items" className="btn-secondary !rounded-[12px] !px-4 !py-2 text-sm">
                                     {t('dashboard.alerts.view_items', { defaultValue: 'Eşyaları Gör' })}
                                 </Link>
-                            }
+                            )}
                         />
                     )}
                 </div>

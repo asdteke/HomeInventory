@@ -237,6 +237,71 @@ test('Shopping list correctly merges duplicate active entries and aggregates qua
     assert.equal(mergedLinked.quantity, 3); // 1 + 2 = 3
 });
 
+test('Shopping list completion updates linked inventory quantity and low-stock suggestions', () => {
+    const db = setupMockDatabase();
+    const houseKey = 'HOUSE_D_KEY';
+    const userId = 1;
+
+    db.prepare('INSERT INTO users (username, email, house_key) VALUES (?, ?, ?)').run('dana', 'dana@house.com', houseKey);
+    db.prepare('INSERT INTO items (id, name, quantity, min_quantity, house_key, user_id) VALUES (?, ?, ?, ?, ?, ?)')
+        .run(77, 'Kahve', 1, 5, houseKey, userId);
+
+    const suggestedBefore = db.prepare(`
+        SELECT id, quantity, min_quantity
+        FROM items
+        WHERE house_key = ? AND min_quantity > 0 AND quantity < min_quantity
+    `).all(houseKey);
+    assert.equal(suggestedBefore.length, 1);
+    assert.equal(suggestedBefore[0].min_quantity - suggestedBefore[0].quantity, 4);
+
+    const shoppingId = db.prepare(`
+        INSERT INTO shopping_list (item_id, item_name, quantity, is_completed, house_key, created_by)
+        VALUES (?, ?, ?, 0, ?, ?)
+    `).run(77, 'Kahve', 4, houseKey, userId).lastInsertRowid;
+
+    const activeShoppingItemIds = new Set(
+        db.prepare('SELECT item_id FROM shopping_list WHERE house_key = ? AND is_completed = 0 AND item_id IS NOT NULL')
+            .all(houseKey)
+            .map(row => row.item_id)
+    );
+    const suggestionsAfterAdd = suggestedBefore.filter(item => !activeShoppingItemIds.has(item.id));
+    assert.equal(suggestionsAfterAdd.length, 0);
+
+    function toggleShoppingComplete(itemId, isCompleted) {
+        const existing = db.prepare('SELECT * FROM shopping_list WHERE id = ? AND house_key = ?')
+            .get(itemId, houseKey);
+        const completedStatus = isCompleted ? 1 : 0;
+
+        db.transaction(() => {
+            db.prepare('UPDATE shopping_list SET is_completed = ? WHERE id = ? AND house_key = ?')
+                .run(completedStatus, itemId, houseKey);
+
+            if (existing.item_id && existing.is_completed === 0 && completedStatus === 1) {
+                db.prepare('UPDATE items SET quantity = quantity + ? WHERE id = ? AND house_key = ?')
+                    .run(existing.quantity, existing.item_id, houseKey);
+            } else if (existing.item_id && existing.is_completed === 1 && completedStatus === 0) {
+                db.prepare('UPDATE items SET quantity = MAX(1, quantity - ?) WHERE id = ? AND house_key = ?')
+                    .run(existing.quantity, existing.item_id, houseKey);
+            }
+        })();
+    }
+
+    toggleShoppingComplete(shoppingId, true);
+    const itemAfterPurchase = db.prepare('SELECT quantity FROM items WHERE id = ?').get(77);
+    assert.equal(itemAfterPurchase.quantity, 5);
+
+    const suggestedAfterPurchase = db.prepare(`
+        SELECT id
+        FROM items
+        WHERE house_key = ? AND min_quantity > 0 AND quantity < min_quantity
+    `).all(houseKey);
+    assert.equal(suggestedAfterPurchase.length, 0);
+
+    toggleShoppingComplete(shoppingId, false);
+    const itemAfterRestore = db.prepare('SELECT quantity FROM items WHERE id = ?').get(77);
+    assert.equal(itemAfterRestore.quantity, 1);
+});
+
 test('Recurrence completeness validator works as intended', () => {
     const checkValidity = (freqVal, freqUnit) => {
         const val = freqVal ? parseInt(freqVal, 10) : null;

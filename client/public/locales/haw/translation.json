@@ -186,7 +186,8 @@
         "hide": "Hūnā i ka ʻōlelo huna",
         "logging_out": "Ke haʻalele nei...",
         "show": "Hōʻike i ka ʻōlelo huna",
-        "saving": "Ke mālama nei..."
+        "saving": "Ke mālama nei...",
+        "disabled": "Hoʻopaʻa ʻia"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Pono kahi ki hale e komo ai i kahi hale e kū nei",
         "house_key_not_found": "Ki hale kūpono ʻole. E ʻoluʻolu e hoʻokomo i ke ki pololei.",
         "email_not_verified": "ʻAʻole i hōʻoia ʻia kāu helu leka uila. E ʻoluʻolu e nānā i kāu pahu leka.",
-        "two_factor_invalid": "Inoa inoa kōmi hewa"
+        "two_factor_invalid": "Inoa inoa kōmi hewa",
+        "two_factor_invalid_try_again": "He hewa ke code hōʻoia. E ʻoluʻolu e hoʻāʻo hou.",
+        "two_factor_code_required": "Pono ke code hōʻoia",
+        "two_factor_user_not_found": "ʻAʻole i loaʻa ka mea hoʻohana",
+        "two_factor_already_enabled": "Ua hoʻā ʻia ka hōʻoia ʻelua-kumu",
+        "two_factor_setup_not_started": "E ʻoluʻolu e hoʻomaka mua i ka hoʻonohonoho ʻana i ka hōʻoia ʻelua-kumu",
+        "two_factor_setup_error": "Ua loaʻa kahi hewa i ka wā o ka hoʻonohonoho ʻana i ka hōʻoia ʻelua-kumu",
+        "two_factor_activation_error": "Ua loaʻa kahi hewa i ka wā o ka hoʻāla ʻana i ka hōʻoia ʻelua-kumu",
+        "two_factor_password_required": "Pono ka ʻōlelo huna",
+        "two_factor_credentials_required": "Pono ke code TOTP, ke code kākoʻo, a i ʻole ke kī hoʻōla",
+        "two_factor_already_disabled": "Ua hoʻopau ʻia ka hōʻoia ʻelua-kumu",
+        "two_factor_password_incorrect": "ʻŌlelo huna hewa",
+        "two_factor_verification_failed": "Ua hāʻule ka hōʻoia. E ʻoluʻolu e nānā i ke code a hoʻāʻo hou.",
+        "two_factor_disable_error": "Ua loaʻa kahi hewa i ka wā e hoʻopau ai i ka hōʻoia ʻelua-kumu",
+        "two_factor_not_enabled": "ʻAʻole i hoʻā ʻia ka hōʻoia ʻelua-factor",
+        "two_factor_regenerate_codes_error": "Ua loaʻa kahi hewa i ka wā e hana hou ana i nā code kope",
+        "two_factor_enabled_success": "Ua hoʻā pono ʻia ka hōʻoia ʻelua-factor",
+        "two_factor_disabled_success": "Ua hoʻopau pono ʻia ka hōʻoia ʻelua-kumu",
+        "password_errors": {
+            "min_length": "ʻO ka ʻōlelo huna he {{min}} mau huapalapala ka lōʻihi",
+            "lowercase_required": "Pono ka ʻōlelo huna e hoʻokomo i hoʻokahi hua liʻiliʻi liʻiliʻi",
+            "uppercase_required": "Pono e hoʻokomo ʻia ka ʻōlelo huna ma ka liʻiliʻi o hoʻokahi huaʻōlelo kiʻekiʻe.",
+            "number_required": "Pono e hoʻokomo i ka ʻōlelo huna ma kahi liʻiliʻi he hoʻokahi helu",
+            "symbol_required": "Pono e hoʻokomo i ka ʻōlelo huna i hoʻokahi hōʻailona",
+            "repeated_chars": "Mai hoʻohana i nā huaʻōlelo hou i kāu ʻōlelo huna",
+            "predictable_sequence": "Mai hoʻohana i nā kaʻina maʻalahi i kāu ʻōlelo huna.",
+            "common_password": "He mea maʻamau a palekana kēia ʻōlelo huna",
+            "contains_username": "ʻAʻole pono e komo ka ʻōlelo huna i kou inoa inoa",
+            "contains_email": "ʻAʻole pono e loaʻa i ka ʻōlelo huna kāu ʻike leka uila"
+        }
     },
     "navigation": {
         "home": "wahi ʻoliʻoli",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Ua hana hou ʻia ke kī hoʻōla",
             "recovery_key_error": "ʻAʻole hiki ke hana hou i ke kī hoʻōla",
             "account_delete_error": "ʻAʻole hiki ke holoi ʻia ka moʻokāki",
-            "backup_downloaded_encrypted": "Ua hoʻoiho pono ʻia ka waihona hoʻopāʻālua! ({{count}} mau mea)"
+            "backup_downloaded_encrypted": "Ua hoʻoiho pono ʻia ka waihona hoʻopāʻālua! ({{count}} mau mea)",
+            "policy_update_error": "ʻAʻole i hōʻano hou i nā hoʻonohonoho noi.",
+            "policy_updated": "Noi ka hoʻololi ʻia ʻana.",
+            "unblock_error": "ʻAʻole hiki ke wehe i ka mea hoʻohana.",
+            "unblocked_success": "Ua wehe ʻia ka mea hoʻohana.",
+            "house_owner_transferred": "Hoʻolilo ʻia ka ʻona hale",
+            "house_owner_transfer_error": "ʻAʻole hiki ke hoʻololi ʻia ka hale."
         },
         "user_profile": {
             "edit_username": "Hoʻololi i ka inoa inoa"
@@ -721,7 +757,14 @@
             "kick_success_body": "ʻAʻohe hiki iā {{name}} ke komo hou i kēia hale.",
             "kick_title": "Wehe i kēia lālā?",
             "kick_warning": "E pau koke ana ko lākou komo ʻana i ka hale a pono lākou i kahi kono hou a i ʻole ka ʻae ʻia e hoʻi.",
-            "kicking": "Ke wehe nei..."
+            "kicking": "Ke wehe nei...",
+            "access_section_eyebrow": "Komo ʻana i ka hale",
+            "transfer_owner": "Hana i ka mea nona",
+            "transferring_owner": "Ke hoʻololi nei...",
+            "transfer_owner_title": "Hoʻololi i ka hale?",
+            "transfer_owner_confirm": "E hoʻoili i ka kuleana o kēia hale iā {{inoa}}?",
+            "transfer_owner_warning": "ʻAʻole ʻoe e lilo hou i mea nona kēia hale. Na ka mea hou e hoʻokele i ka ʻae ʻana o nā lālā, ka wehe ʻana, a me nā hoʻololi ʻana i ka wā e hiki mai ana.",
+            "transfer_owner_success_body": "ʻO {{name}} ka mea nona kēia hale."
         },
         "theme": {
             "title": "Kumuhana",
@@ -729,7 +772,9 @@
             "light": "Light mode",
             "description": "E koho i ke ʻano o ka lumi hana ma kēia hāmeʻa.",
             "light_aria": "E hoʻololi i ke kumumanaʻo māmā",
-            "dark_aria": "E hoʻololi i ke kumumanaʻo ʻeleʻele"
+            "dark_aria": "E hoʻololi i ke kumumanaʻo ʻeleʻele",
+            "workspace_title": "Kumuhana Wahi Hana",
+            "workspace_desc": "E koho i kāu kaila ʻike maka makemake ʻia no kēia hāmeʻa."
         },
         "security": {
             "title": "Palekana",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "ʻAʻole hiki ke hōʻike ʻia ke kī hoʻihoʻi i kēia manawa. E hana hou inā pono.",
             "recovery_key_action": "Hana hou",
             "recovery_key_modal_desc": "E hōʻoia i kāu ʻōlelo huna e hoʻomau. E hōʻike ʻia ke kī hou i hoʻokahi wale nō.",
-            "recovery_key_loading": "Ke hoʻomākaukau nei..."
+            "recovery_key_loading": "Ke hoʻomākaukau nei...",
+            "accordion_title": "Palekana a me ka pilikino",
+            "accordion_desc": "E mālama i ka hōʻoia ʻelua kumu, nā mea hilinaʻi, a me nā lula noi mai nā moʻokāki ʻē aʻe.",
+            "description": "E hoʻokele i kāu ʻōlelo huna haku a me nā hoʻonohonoho hoʻihoʻi ʻana i ka vault.",
+            "change_password_detail": "Hoʻohou i kāu ʻōlelo huna e mālama i ka palekana o kāu moʻokāki",
+            "recovery_key_detail": "Hoʻohana ʻia e hoʻihoʻi i kāu waihona inā poina iā ʻoe kāu ʻōlelo huna"
         },
         "data_management": {
             "title": "Hoʻokele ʻikepili",
@@ -785,10 +835,10 @@
             "owner_only_desc": "Hiki i ka mea nona ka hale ke mālama wale i ka hoʻihoʻi ʻana a me ka hoʻihoʻi ʻana i ka ʻikepili."
         },
         "about": {
-            "title": "📱 About Application",
+            "title": "E pili ana i ka palapala noi",
             "version": "Mana",
             "brand": "Lama",
-            "feedback": "✉️ Send Feedback",
+            "feedback": "Hoʻouna manaʻo manaʻo",
             "legal_title": "Nā Palapala Kānāwai",
             "legal_description": "Hiki iā ʻoe ke wehe hou i nā ʻōlelo a me nā kikokikona pilikino mai ʻaneʻi ma hope o ka ʻae ʻana iā lākou.",
             "terms_link": "Nā Manaʻo o ka lawelawe",
@@ -890,7 +940,8 @@
             "revoke_devices": "Hoʻōki i nā Hāmeʻa Hilinaʻi",
             "revoke_devices_desc": "Wehe i nā polokalamu i hoʻomanaʻo ʻia a pau, e koi ana i ka 2FA i ka wā e komo hou ai",
             "devices_revoked": "Ua wehe ʻia aku nā hāmeʻa hilinaʻi {{count}}",
-            "devices_error": "ʻAʻole i hiki ke hoʻihoʻi i nā polokalamu"
+            "devices_error": "ʻAʻole i hiki ke hoʻihoʻi i nā polokalamu",
+            "preparing_setup": "Ke hoʻomākaukau nei i kāu hoʻonohonoho hōʻoia..."
         },
         "danger_zone": {
             "title": "Moʻokāki",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Ma hope o ka hōʻoia ʻana, e nalowale koke ʻoe i ka moʻokāki a ʻaʻole hiki ke hoʻihoʻi ʻia ka ʻikepili noi i holoi ʻia.",
             "password_label": "E hōʻoia me kāu ʻōlelo huna i kēia manawa",
             "confirm_delete": "E hōʻoia i ka holoi ʻana",
-            "deleting": "Holoi ana..."
+            "deleting": "Holoi ana...",
+            "description": "Holoi i kāu moʻokāki a wehe mau i nā ʻikepili waihona āpau."
         },
         "language": "Ka ‘ōlelo",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Ngā Reo Rongonui",
         "search_results": "Ngā Huanga Rapu",
         "current_language": "Reo o nāianei",
-        "languages_available": "Ngā reo e wātea ana"
+        "languages_available": "Ngā reo e wātea ana",
+        "borrow_requests": {
+            "accordion_eyebrow": "Noi noi palekana",
+            "accordion_eyebrow_desc": "Hoʻonohonoho i nā lula noi a mālama i nā mea hoʻohana i ālai ʻia.",
+            "title": "Nā hoʻonohonoho noi noi",
+            "description": "Hoʻoponopono i nā lula no ka loaʻa ʻana o nā noi hōʻaiʻē mai nā moʻokāki ʻē aʻe a papa inoa i nā mea hoʻohana i ālai ʻia.",
+            "policy_title": "Nā noi hōʻaiʻē hou",
+            "policy_description": "E hoʻomalu i ka mea hiki ke hoʻouna i nā noi noi iā ʻoe. ʻAʻole i hōʻike ʻia kāu papa inoa ma ke ʻano he papa inoa lehulehu.",
+            "policy_none": "Mai loaʻa mai kekahi (Default)",
+            "policy_house_only": "Nā lālā o ka hale wale nō",
+            "policy_everyone": "Nā mea hoʻohana a pau i hoʻopaʻa ʻia",
+            "blocks_title": "Nā mea hoʻohana i ālai ʻia",
+            "blocks_description": "Nā mea hoʻohana āu i ālai ai mai ka hoʻouna ʻana aku iā ʻoe i nā noi hōʻaiʻē hou.",
+            "no_blocks": "ʻAʻohe mea hoʻohana i ālai ʻia.",
+            "unblock_btn": "Wehewehe",
+            "policy_none_desc": "Ua ālai ʻia nā noi komo a pau.",
+            "policy_house_only_desc": "ʻO nā lālā i hōʻoia ʻia o kou mau hale hana e hiki ke noi i nā mea i ʻike ʻia i loko o kēlā hale kaʻana.",
+            "policy_everyone_desc": "ʻAʻole hiki i nā mea hoʻohana ʻē aʻe ke nānā a ʻike i kāu mau mea. Hiki iā lākou ke hoʻouna i kahi noi ma ke komo pololei ʻana i kou inoa inoa a i ʻole leka uila."
+        }
     },
     "inventory": {
         "title": "Waihona Waiwai",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Me ʻoe",
             "return_pending_hint": "E pani ʻia ka moʻolelo ma hope o ka hōʻoia ʻana o ka mea hāʻawi kālā ua loaʻa iā lākou ka mea i hoʻihoʻi ʻ",
             "return_pending_lender_title": "Ua hōʻailona ʻo {{name}} i kēia mea ma ke ʻano he mea i hoʻihoʻi ʻia",
-            "return_pending_self_title": "Me ʻoe, e kali ana no ka hōʻoia o ka loaʻa"
+            "return_pending_self_title": "Me ʻoe, e kali ana no ka hōʻoia o ka loaʻa",
+            "site_member": "Laa pūnaewele",
+            "site_member_identifier": "inoa hoʻohana a leka uila",
+            "site_member_identifier_placeholder": "inoa inoa a leka uila pololei",
+            "site_member_privacy_hint": "Hōʻike ʻia ka hāʻawi ma Borrow Center inā loaʻa kēlā moʻohelu a ʻae i nā hāʻawi komo.",
+            "external_privacy_hint": "Hoʻokumu kēia i kahi moʻolelo kūloko pilikino wale nō. ʻAʻole hoʻouna ʻia ka leka uila."
         },
         "untitled_item": "Mea i kapa ʻole ʻia",
         "delete_action": "Holoi 'ikamu",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "E loaʻa ka memo",
             "return_note_placeholder_borrower": "e.g. ua hoʻihoʻi aku au me ka ʻole o nā pilikia",
             "return_note_placeholder_lender": "e.g. Ua loaʻa hou i ke kūlana maikaʻi",
-            "return_submitting": "Ke pani nei..."
+            "return_submitting": "Ke pani nei...",
+            "reject_title": "Hōʻole i ke noi",
+            "reject_subtitle": "Ua kokoke ʻoe e hōʻole i ke noi no \"{{item}}\".",
+            "reject_target": "Ua kokoke ʻoe e hōʻole i ka noi ʻaiʻē i hoʻouna ʻia e {{name}}.",
+            "reject_reason_label": "Ke kumu hōʻole",
+            "reject_submitting": "Hōʻole ʻia...",
+            "due_date_label": "Ka lā hoʻi i hoʻolālā ʻia"
         },
         "messages": {
             "load_error": "ʻAʻole hiki ke hoʻouka ʻia ke kikowaena hōʻaiʻē",
-            "action_error": "ʻAʻole hiki ke hoʻopau ʻia ka hana"
+            "action_error": "ʻAʻole hiki ke hoʻopau ʻia ka hana",
+            "active_borrow_not_found": "ʻAʻole hiki ke loaʻa kēia moʻolelo hōʻaiʻē ikaika. E hōʻano hou i ka Borrow Center a e hoʻāʻo hou.",
+            "errors": {
+                "external_target_daily_limit": "Hiki iā ʻoe ke hoʻouna i hoʻokahi wale nō noi i waho i ka mea hoʻokahi i kēlā me kēia lā. Inā ʻae lākou i kahi noi, ʻaʻole pili kēia palena i kēlā kanaka.",
+                "external_total_daily_limit": "Hiki iā ʻoe ke hoʻouna i 5 mau noi waho hoʻokaʻa mua i kēlā me kēia lā.",
+                "external_request_requires_verified_email": "E hōʻoia i kāu leka uila ma mua o ka hoʻouna ʻana i nā noi aie waho.",
+                "external_offer_blocked": "Hiki iā ʻoe ke hāʻawi i kahi mea i nā lālā hale a i ʻole nā ​​​​mea hoʻohana i hoʻopaʻa inoa ʻia i hiki ke ʻike pololei ʻia.",
+                "target_blocked_by_you": "ʻAʻole hiki iā ʻoe ke hoʻouna i kahi noi i kahi mea hoʻohana āu i ālai ai.",
+                "recent_rejection_lock": "Ua hōʻole kēia mea hoʻohana i kahi noi hou. Hiki iā ʻoe ke hoʻouna i kahi noi hou ma hope o 30 mau lā."
+            }
         },
         "preview": {
             "title": "ʻAno nānā mua",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "ʻAʻohe noi e pono i kāu loiloi",
         "outgoing_empty_title": "ʻAʻohe noi i waho",
         "refreshing": "Nā noi hōʻoluʻolu a me nā hōʻaiʻē ikaika...",
-        "loading_description": "Ke hoʻomākaukau nei i nā noi a me nā hana hōʻaiʻē ikaika."
+        "loading_description": "Ke hoʻomākaukau nei i nā noi a me nā hana hōʻaiʻē ikaika.",
+        "reasons": {
+            "rejected": "Hōʻole (Hoʻole maʻamau)",
+            "not_available": "ʻAʻole i loaʻa (Nalo ka mea / ʻaʻole loaʻa)",
+            "blocked": "Papa a hōʻole (Paʻa i kēia mea hoʻohana)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Kulekele Pilikino",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{InoaBrand}}",
-        "tagline": "Whakahaere ā-atamai i ō tuemi kāinga katoa"
+        "tagline": "Whakahaere ā-atamai i ō tuemi kāinga katoa",
+        "loading": "Ke hoʻouka nei iā {{brandName}}",
+        "preparing_workspace": "Ke hoʻomākaukau nei i kāu wahi hana..."
     },
     "nav": {
         "home": "Kāinga",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Holoi i ka Mōʻaukala",
-            "add_item": "Hoʻohui i ka Papa Inoa Kūʻai"
+            "add_item": "Hoʻohui i ka Papa Inoa Kūʻai",
+            "mark_completed": "E hōʻailona ua pau",
+            "decrease_qty": "E hoʻemi i ka nui",
+            "increase_qty": "Hoʻonui i ka nui",
+            "delete_item": "Holoi i ka mea",
+            "reactivate_item": "E hoʻi i ka papa inoa hana"
         },
         "form": {
             "add_type": "Hoʻohui i ke ʻAno Hana",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Hoʻonohonoho ʻia ka mālama ʻana i kēlā me kēia manawa a i ʻole hoʻokahi manawa no kēia mea.",
         "no_tasks": "ʻAʻohe hana mālama i hāʻawi ʻia i kēia mea.",
         "confirm_delete": "E holoi ʻia kēia hana. Ua maopopo anei iā ʻoe?"
+    },
+    "error_boundary": {
+        "title": "Pono kekahi mea e hoʻomaha hou",
+        "description": "Ua loaʻa i ka ʻaoʻao kahi pilikia hōʻike i manaʻo ʻole ʻia. ʻAʻole i hoʻololi ʻia kāu ʻikepili waihona i mālama ʻia e kēia pale.",
+        "refresh_btn": "Hoʻohou hou",
+        "home_btn": "wahi ʻoliʻoli"
     }
 }

@@ -49,10 +49,23 @@
         "details": "Details",
         "hide": "Hide password",
         "logging_out": "Logging out...",
-        "show": "Show password"
+        "show": "Show password",
+        "disabled": "Disabled"
     },
     "auth": {
         "password_requirements": "Use at least {{min}} characters with uppercase, lowercase, number, and symbol.",
+        "password_errors": {
+            "min_length": "Password must be at least {{min}} characters long",
+            "lowercase_required": "Password must include at least one lowercase letter",
+            "uppercase_required": "Password must include at least one uppercase letter",
+            "number_required": "Password must include at least one number",
+            "symbol_required": "Password must include at least one symbol",
+            "repeated_chars": "Do not use repeated characters in your password",
+            "predictable_sequence": "Do not use easy-to-guess sequences in your password",
+            "common_password": "This password is too common and unsafe",
+            "contains_username": "Password must not contain your username",
+            "contains_email": "Password must not contain your email information"
+        },
         "login": {
             "welcome_title": "Welcome back",
             "welcome_subtitle": "Sign in to access your inventory",
@@ -287,6 +300,23 @@
         "user_not_found": "User not found",
         "email_not_verified": "Your email address has not been verified yet. Please check your inbox.",
         "two_factor_invalid": "The verification code is incorrect",
+        "two_factor_invalid_try_again": "Invalid verification code. Please try again.",
+        "two_factor_code_required": "Verification code is required",
+        "two_factor_user_not_found": "User not found",
+        "two_factor_already_enabled": "Two-factor authentication is already enabled",
+        "two_factor_setup_not_started": "Please start two-factor authentication setup first",
+        "two_factor_setup_error": "An error occurred during two-factor authentication setup",
+        "two_factor_activation_error": "An error occurred during two-factor authentication activation",
+        "two_factor_password_required": "Password is required",
+        "two_factor_credentials_required": "TOTP code, backup code, or recovery key is required",
+        "two_factor_already_disabled": "Two-factor authentication is already disabled",
+        "two_factor_password_incorrect": "Incorrect password",
+        "two_factor_verification_failed": "Verification failed. Please check the code and try again.",
+        "two_factor_disable_error": "An error occurred while disabling two-factor authentication",
+        "two_factor_not_enabled": "Two-factor authentication is not enabled",
+        "two_factor_regenerate_codes_error": "An error occurred while regenerating backup codes",
+        "two_factor_enabled_success": "Two-factor authentication has been successfully enabled",
+        "two_factor_disabled_success": "Two-factor authentication has been successfully disabled",
         "current_password_wrong": "Current password is incorrect",
         "passwords_dont_match": "New passwords don't match",
         "password_too_short": "New password must be at least 6 characters",
@@ -711,6 +741,24 @@
     },
     "settings": {
         "title": "Settings",
+        "borrow_requests": {
+            "accordion_eyebrow": "Borrow request security",
+            "accordion_eyebrow_desc": "Configure request rules and manage blocked users.",
+            "title": "Borrow request settings",
+            "description": "Manage rules for receiving borrow requests from other accounts and list blocked users.",
+            "policy_title": "New Borrow Requests",
+            "policy_description": "Control who can send borrow requests to you. Your inventory is never shown as a public listing.",
+            "policy_none": "Do not receive from anyone (Default)",
+            "policy_house_only": "Household members only",
+            "policy_everyone": "All registered users",
+            "blocks_title": "Blocked Users",
+            "blocks_description": "Users you have blocked from sending you new borrow requests.",
+            "no_blocks": "No blocked users found.",
+            "unblock_btn": "Unblock",
+            "policy_none_desc": "All incoming requests are blocked automatically.",
+            "policy_house_only_desc": "Only verified members of your active houses can request items that are already visible inside that shared house.",
+            "policy_everyone_desc": "Other users cannot browse or see your items. They can only send a request by entering your username or email directly."
+        },
         "language": "Language",
         "subtitle": "Manage application preferences",
         "control_sections": {
@@ -728,7 +776,7 @@
         },
         "account_overview": {
             "title": "Account overview",
-            "description": "Basic profile details for the signed-in account."
+            "description": "Basic profile details and security settings for the signed-in account."
         },
         "security_section": {
             "eyebrow": "Security and preferences",
@@ -766,6 +814,7 @@
             "cancel": "Cancel",
             "setup_title": "Set Up 2FA",
             "setup_error": "Failed to start 2FA setup",
+            "preparing_setup": "Preparing your authenticator setup...",
             "step_1": "Step 1: Scan QR Code",
             "step_2": "Step 2: Verify Code",
             "step_3": "Step 3: Save Backup Codes",
@@ -795,6 +844,10 @@
             "devices_error": "Failed to revoke devices"
         },
         "messages": {
+            "policy_update_error": "Failed to update request settings.",
+            "policy_updated": "Request settings updated successfully.",
+            "unblock_error": "Failed to unblock user.",
+            "unblocked_success": "User unblocked successfully.",
             "house_switched": "{{name}} activated!",
             "house_switch_error": "Failed to switch house",
             "house_joined_success": "You successfully joined the house!",
@@ -832,7 +885,9 @@
             "member_kick_error": "Could not remove member from the house",
             "recovery_key_regenerated": "Recovery key regenerated",
             "recovery_key_error": "Could not regenerate recovery key",
-            "account_delete_error": "The account could not be deleted"
+            "account_delete_error": "The account could not be deleted",
+            "house_owner_transferred": "House ownership transferred",
+            "house_owner_transfer_error": "House ownership could not be transferred."
         },
         "user_profile": {
             "edit_username": "Change username"
@@ -860,6 +915,7 @@
         },
         "house_info": {
             "title": "Active House Key",
+            "access_section_eyebrow": "House access",
             "access_section_title": "House access and members",
             "access_section_body": "Review the active household key, manage members, and keep access limited to trusted people.",
             "key_label": "House Key",
@@ -902,7 +958,13 @@
             "kick_success_body": "{{name}} no longer has access to this household.",
             "kick_title": "Remove this member?",
             "kick_warning": "Their household access will end immediately and they will need a new invitation or approval to return.",
-            "kicking": "Removing..."
+            "kicking": "Removing...",
+            "transfer_owner": "Make owner",
+            "transferring_owner": "Transferring...",
+            "transfer_owner_title": "Transfer house ownership?",
+            "transfer_owner_confirm": "Transfer ownership of this household to {{name}}?",
+            "transfer_owner_warning": "You will no longer be the owner of this household. The new owner will manage member approvals, removals, and future ownership changes.",
+            "transfer_owner_success_body": "{{name}} is now the owner of this household."
         },
         "pending_requests": {
             "title": "My Pending Join Requests",
@@ -915,7 +977,9 @@
             "dark": "Dark Mode",
             "light": "Light Mode",
             "light_aria": "Switch to light theme",
-            "dark_aria": "Switch to dark theme"
+            "dark_aria": "Switch to dark theme",
+            "workspace_title": "Workspace Theme",
+            "workspace_desc": "Select your preferred visual style for this device."
         },
         "language_description": "Apply one language across navigation, labels, legal text, and date formatting.",
         "language_updated_title": "Language updated",
@@ -929,14 +993,19 @@
             "title": "Security",
             "change_password": "Change Password",
             "change_password_desc": "Update your account password",
+            "change_password_detail": "Update your password to keep your account secure",
             "recovery_key_title": "Recovery Key",
             "recovery_key_desc": "You can generate a new key for local password recovery.",
+            "recovery_key_detail": "Used to recover your vault if you forget your password",
             "recovery_key_missing": "No recovery key is visible for this account yet.",
             "current_key_label": "Saved Recovery Key",
             "recovery_key_unavailable": "The current recovery key cannot be displayed. Regenerate it if needed.",
             "recovery_key_action": "Regenerate",
             "recovery_key_modal_desc": "Confirm your current password to continue. The new key will be shown only once.",
-            "recovery_key_loading": "Preparing..."
+            "recovery_key_loading": "Preparing...",
+            "accordion_title": "Security and privacy",
+            "accordion_desc": "Manage two-factor authentication, trusted devices, and borrow request rules from other accounts.",
+            "description": "Manage your master password and vault recovery configurations."
         },
         "data_management": {
             "title": "Data Management",
@@ -980,6 +1049,7 @@
         },
         "danger_zone": {
             "title": "Account",
+            "description": "Delete your account and permanently remove all inventory datasets.",
             "delete_title": "Delete account",
             "delete_description": "If you want, you can permanently remove the personal data and uploaded files tied to this account.",
             "delete_warning": "This action cannot be undone.",
@@ -1144,7 +1214,12 @@
             "borrowed_by_you": "With you",
             "return_pending_hint": "The record will close after the lender confirms they received the item back.",
             "return_pending_lender_title": "{{name}} marked this item as delivered back",
-            "return_pending_self_title": "With you, waiting for receipt confirmation"
+            "return_pending_self_title": "With you, waiting for receipt confirmation",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         }
     },
     "borrow_requests": {
@@ -1234,7 +1309,7 @@
             "return_target": "It is currently shown as being with {{name}}.",
             "return_title_borrower": "Deliver item",
             "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
+            "return_subtitle_borrower": "Send a delivery notice for \"{{item}}\" after you hand it back.",
             "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
             "return_target_borrower": "Lender: {{name}}",
             "return_target_lender": "Currently with: {{name}}",
@@ -1242,11 +1317,31 @@
             "return_note_lender": "Receive note",
             "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
             "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_submitting": "Saving...",
+            "reject_title": "Reject Request",
+            "reject_subtitle": "You are about to reject the request for \"{{item}}\".",
+            "reject_target": "You are about to reject the borrow request sent by {{name}}.",
+            "reject_reason_label": "Rejection Reason",
+            "reject_submitting": "Rejecting...",
+            "due_date_label": "Planned return date"
+        },
+        "reasons": {
+            "rejected": "Reject (Normal rejection)",
+            "not_available": "Not available (Item missing / not available)",
+            "blocked": "Block and reject (Blocks this user)"
         },
         "messages": {
             "load_error": "Borrow center could not be loaded",
-            "action_error": "The action could not be completed"
+            "action_error": "The action could not be completed",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "You can send only one first-contact external request to the same person per day. If they accept a request, this limit no longer applies to that person.",
+                "external_total_daily_limit": "You can send up to 5 first-contact external requests per day.",
+                "external_request_requires_verified_email": "Verify your email address before sending external borrow requests.",
+                "external_offer_blocked": "You can only offer an item to house members or registered users who can be identified directly.",
+                "target_blocked_by_you": "You cannot send a request to a user you have blocked.",
+                "recent_rejection_lock": "This user rejected a recent request. You can send another request after 30 days."
+            }
         },
         "refreshing": "Refreshing requests and active borrows...",
         "preview": {
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Smartly manage all your household items"
+        "tagline": "Smartly manage all your household items",
+        "loading": "Loading {{brandName}}",
+        "preparing_workspace": "Preparing your workspace..."
     },
     "nav": {
         "home": "Home",
@@ -2304,8 +2401,8 @@
             "description": "View low stock items in the home inventory and easily manage your shopping list."
         },
         "suggestions": {
-            "title": "Smart Inventory Suggestions",
-            "desc": "Inventory items that have fallen below the minimum limit.",
+            "title": "Stock Suggestions",
+            "desc": "Inventory items below the minimum stock limit.",
             "add_all": "Add All Missing",
             "stock_status": "Current: {{current}} / Target: {{min}}",
             "add_qty": "Add {{qty}}"
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Clear History",
-            "add_item": "Add to Shopping List"
+            "add_item": "Add to Shopping List",
+            "mark_completed": "Mark as completed",
+            "decrease_qty": "Decrease quantity",
+            "increase_qty": "Increase quantity",
+            "delete_item": "Delete item",
+            "reactivate_item": "Move back to active list"
         },
         "form": {
             "add_type": "Add Method",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Periodic or one-time maintenance tracking scheduled for this item.",
         "no_tasks": "No maintenance tasks assigned to this item.",
         "confirm_delete": "This task will be deleted. Are you sure?"
+    },
+    "error_boundary": {
+        "title": "Something needs a refresh",
+        "description": "The interface hit an unexpected rendering problem. Your saved inventory data is not changed by this screen.",
+        "refresh_btn": "Refresh",
+        "home_btn": "Home"
     }
 }

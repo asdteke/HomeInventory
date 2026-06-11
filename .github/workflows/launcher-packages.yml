@@ -2,6 +2,19 @@ name: Launcher Packages
 
 on:
   workflow_dispatch:
+    inputs:
+      publish_release:
+        description: "Attach artifacts to a GitHub Release"
+        required: true
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+      release_tag:
+        description: "Release tag to use when publish_release is true, for example v2.2.1"
+        required: false
+        default: ""
   push:
     tags:
       - "v*"
@@ -10,23 +23,17 @@ on:
 permissions:
   contents: write
 
+env:
+  NODE_VERSION: "20"
+
 jobs:
-  package:
-    name: Build launcher packages (${{ matrix.name }})
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - name: macos
-            os: macos-latest
-            bundles: app
-          - name: windows
-            os: windows-latest
-            bundles: nsis,msi
-          - name: linux
-            os: ubuntu-22.04
-            bundles: appimage,deb,rpm
+  managed-app:
+    name: Build managed app archive
+    runs-on: ubuntu-latest
+    outputs:
+      app_version: ${{ steps.version.outputs.app_version }}
+      release_tag: ${{ steps.version.outputs.release_tag }}
+      should_publish: ${{ steps.version.outputs.should_publish }}
 
     steps:
       - name: Checkout
@@ -35,7 +42,116 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            client/package-lock.json
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Install client dependencies
+        run: npm ci --prefix client
+
+      - name: Build client
+        run: npm run build --prefix client
+
+      - name: Resolve release metadata
+        id: version
+        shell: bash
+        run: |
+          APP_VERSION="$(node -p "require('./package.json').version")"
+          if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
+            RELEASE_TAG="${GITHUB_REF_NAME}"
+            SHOULD_PUBLISH="true"
+          else
+            RELEASE_TAG="${{ github.event.inputs.release_tag }}"
+            SHOULD_PUBLISH="${{ github.event.inputs.publish_release }}"
+          fi
+
+          if [[ "${SHOULD_PUBLISH}" == "true" && -z "${RELEASE_TAG}" ]]; then
+            RELEASE_TAG="v${APP_VERSION}"
+          fi
+
+          echo "app_version=${APP_VERSION}" >> "${GITHUB_OUTPUT}"
+          echo "release_tag=${RELEASE_TAG}" >> "${GITHUB_OUTPUT}"
+          echo "should_publish=${SHOULD_PUBLISH}" >> "${GITHUB_OUTPUT}"
+
+      - name: Build bundled HomeInventory archive
+        run: npm run launcher:bundle-app
+
+      - name: Create signed managed app manifest
+        shell: bash
+        env:
+          HOMEINVENTORY_APP_MANIFEST_PRIVATE_KEY_PEM: ${{ secrets.HOMEINVENTORY_APP_MANIFEST_PRIVATE_KEY_PEM }}
+        run: |
+          if [[ "${{ steps.version.outputs.should_publish }}" != "true" ]]; then
+            echo "Skipping signed managed app manifest for non-publishing package build."
+            exit 0
+          fi
+
+          if [[ -z "${HOMEINVENTORY_APP_MANIFEST_PRIVATE_KEY_PEM}" ]]; then
+            echo "::error::HOMEINVENTORY_APP_MANIFEST_PRIVATE_KEY_PEM is required for release publishing."
+            exit 1
+          fi
+
+          node scripts/create-app-release-manifest.mjs \
+            --version "${{ steps.version.outputs.app_version }}" \
+            --archive apps/launcher/src-tauri/resources/homeinventory-app.tar.gz \
+            --url "https://github.com/asdteke/HomeInventory/releases/download/${{ steps.version.outputs.release_tag }}/homeinventory-app.tar.gz" \
+            --node-major 20 \
+            --output dist/release/homeinventory-app-manifest.json
+
+      - name: Stage managed app artifacts
+        shell: bash
+        run: |
+          mkdir -p dist/managed-app
+          cp apps/launcher/src-tauri/resources/homeinventory-app.tar.gz dist/managed-app/homeinventory-app.tar.gz
+          if [[ -f dist/release/homeinventory-app-manifest.json ]]; then
+            cp dist/release/homeinventory-app-manifest.json dist/managed-app/homeinventory-app-manifest.json
+          fi
+
+      - name: Upload managed app archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: homeinventory-managed-app
+          path: dist/managed-app/*
+          if-no-files-found: warn
+
+  package:
+    name: Build launcher packages (${{ matrix.name }})
+    needs: managed-app
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: macos-aarch64
+            os: macos-14
+            bundles: app
+            tauri_platform: darwin-aarch64
+          - name: macos-x86_64
+            os: macos-13
+            bundles: app
+            tauri_platform: darwin-x86_64
+          - name: windows-x86_64
+            os: windows-latest
+            bundles: nsis,msi
+            tauri_platform: windows-x86_64
+          - name: linux-x86_64
+            os: ubuntu-22.04
+            bundles: appimage,deb,rpm
+            tauri_platform: linux-x86_64
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
           cache: npm
           cache-dependency-path: apps/launcher/package-lock.json
 
@@ -43,7 +159,7 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
 
       - name: Install Linux Tauri dependencies
-        if: matrix.name == 'linux'
+        if: matrix.name == 'linux-x86_64'
         run: |
           sudo apt-get update
           sudo apt-get install -y \
@@ -54,6 +170,22 @@ jobs:
             patchelf \
             rpm
 
+      - name: Download managed app archive
+        uses: actions/download-artifact@v4
+        with:
+          name: homeinventory-managed-app
+          path: apps/launcher/src-tauri/resources
+
+      - name: Verify launcher signing secret
+        shell: bash
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+        run: |
+          if [[ -z "${TAURI_SIGNING_PRIVATE_KEY}" ]]; then
+            echo "::error::TAURI_SIGNING_PRIVATE_KEY is required because tauri.conf.json creates updater artifacts."
+            exit 1
+          fi
+
       - name: Install launcher dependencies
         run: npm ci --prefix apps/launcher
 
@@ -62,41 +194,44 @@ jobs:
 
       - name: Build Tauri launcher
         working-directory: apps/launcher
+        env:
+          CARGO_BUILD_JOBS: "1"
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         run: node node_modules/@tauri-apps/cli/tauri.js build --bundles ${{ matrix.bundles }}
 
-      - name: Package macOS artifacts
-        if: matrix.name == 'macos'
-        run: |
-          mkdir -p artifacts
-          ditto -c -k --keepParent \
-            "apps/launcher/src-tauri/target/release/bundle/macos/HomeInventory Launcher.app" \
-            "artifacts/HomeInventory Launcher-macos.app.zip"
-          hdiutil create \
-            -volname "HomeInventory Launcher" \
-            -srcfolder "apps/launcher/src-tauri/target/release/bundle/macos/HomeInventory Launcher.app" \
-            -ov \
-            -format UDZO \
-            "artifacts/HomeInventory Launcher-macos.dmg"
-          hdiutil verify "artifacts/HomeInventory Launcher-macos.dmg"
-
-      - name: Collect Windows artifacts
-        if: matrix.name == 'windows'
-        shell: pwsh
-        run: |
-          New-Item -ItemType Directory -Force artifacts | Out-Null
-          Copy-Item "apps\launcher\src-tauri\target\release\bundle\nsis\*.exe" artifacts -ErrorAction SilentlyContinue
-          Copy-Item "apps\launcher\src-tauri\target\release\bundle\msi\*.msi" artifacts -ErrorAction SilentlyContinue
-
-      - name: Collect Linux artifacts
-        if: matrix.name == 'linux'
+      - name: Collect distributable packages
+        shell: bash
         run: |
           mkdir -p artifacts
           find apps/launcher/src-tauri/target/release/bundle -type f \
-            \( -name '*.AppImage' -o -name '*.deb' -o -name '*.rpm' \) \
+            \( -name '*.dmg' -o -name '*.exe' -o -name '*.msi' -o -name '*.AppImage' -o -name '*.deb' -o -name '*.rpm' \) \
             -exec cp {} artifacts/ \;
 
+      - name: Create macOS DMG
+        if: startsWith(matrix.name, 'macos-')
+        shell: bash
+        run: |
+          APP_PATH="apps/launcher/src-tauri/target/release/bundle/macos/HomeInventory Launcher.app"
+          DMG_PATH="artifacts/HomeInventory Launcher_${{ needs.managed-app.outputs.app_version }}_${{ matrix.tauri_platform }}.dmg"
+          hdiutil create \
+            -volname "HomeInventory Launcher" \
+            -srcfolder "${APP_PATH}" \
+            -ov \
+            -format UDZO \
+            "${DMG_PATH}"
+          hdiutil verify "${DMG_PATH}"
+
+      - name: Collect updater artifacts
+        run: |
+          node scripts/collect-tauri-updater-artifacts.mjs \
+            --platform "${{ matrix.tauri_platform }}" \
+            --version "${{ needs.managed-app.outputs.app_version }}" \
+            --output-dir artifacts
+
       - name: List artifacts
-        run: ls artifacts
+        shell: bash
+        run: ls -la artifacts
 
       - name: Upload launcher packages
         uses: actions/upload-artifact@v4
@@ -107,10 +242,15 @@ jobs:
 
   publish-release:
     name: Attach launcher packages to GitHub Release
-    needs: package
-    if: startsWith(github.ref, 'refs/tags/')
+    needs:
+      - managed-app
+      - package
+    if: needs.managed-app.outputs.should_publish == 'true'
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Download launcher artifacts
         uses: actions/download-artifact@v4
         with:
@@ -118,10 +258,27 @@ jobs:
           path: release-assets
           merge-multiple: true
 
+      - name: Download managed app artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: homeinventory-managed-app
+          path: release-assets
+
+      - name: Create Tauri latest.json
+        run: |
+          node scripts/create-tauri-latest-json.mjs \
+            --assets-dir release-assets \
+            --output release-assets/latest.json \
+            --version "${{ needs.managed-app.outputs.app_version }}" \
+            --release-tag "${{ needs.managed-app.outputs.release_tag }}" \
+            --base-url "https://github.com/asdteke/HomeInventory/releases/download/${{ needs.managed-app.outputs.release_tag }}" \
+            --notes "HomeInventory Launcher ${{ needs.managed-app.outputs.app_version }}"
+
       - name: List release assets
         run: ls -la release-assets
 
       - name: Publish release assets
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ needs.managed-app.outputs.release_tag }}
           files: release-assets/*

@@ -49,7 +49,8 @@
         "hide": "إخفاء كلمة المرور",
         "logging_out": "تسجيل الخروج...",
         "show": "إظهار كلمة المرور",
-        "saving": "جارٍ الحفظ..."
+        "saving": "جارٍ الحفظ...",
+        "disabled": "معاق"
     },
     "auth": {
         "login": {
@@ -298,7 +299,36 @@
         "join_house_key_required": "يتطلب وجود مفتاح منزل للانضمام إلى منزل قائم",
         "house_key_not_found": "مفتاح المنزل غير صالح. يرجى إدخال المفتاح الصحيح.",
         "email_not_verified": "لم يتم التحقق من عنوان بريدك الإلكتروني بعد. يرجى التحقق من صندوق بريدك.",
-        "two_factor_invalid": "رمز التحقق غير صحيح"
+        "two_factor_invalid": "رمز التحقق غير صحيح",
+        "two_factor_invalid_try_again": "رمز التحقق غير صالح. يرجى المحاولة مرة أخرى.",
+        "two_factor_code_required": "يتطلب رمز التحقق",
+        "two_factor_user_not_found": "لم يتم العثور على المستخدم",
+        "two_factor_already_enabled": "المصادقة الثنائية مفعلة بالفعل",
+        "two_factor_setup_not_started": "يرجى بدء إعداد المصادقة الثنائية أولا",
+        "two_factor_setup_error": "حدث خطأ أثناء إعداد المصادقة الثنائية",
+        "two_factor_activation_error": "حدث خطأ أثناء تفعيل المصادقة الثنائية",
+        "two_factor_password_required": "كلمة المرور مطلوبة",
+        "two_factor_credentials_required": "يتطلب الأمر كود TOTP، أو رمز النسخ الاحتياطي، أو مفتاح الاسترداد",
+        "two_factor_already_disabled": "المصادقة الثنائية معطلة بالفعل",
+        "two_factor_password_incorrect": "كلمة مرور خاطئة",
+        "two_factor_verification_failed": "فشل التحقق. يرجى التحقق من الكود والمحاولة مرة أخرى.",
+        "two_factor_disable_error": "حدث خطأ أثناء تعطيل المصادقة الثنائية",
+        "two_factor_not_enabled": "المصادقة الثنائية غير مفعلة",
+        "two_factor_regenerate_codes_error": "حدث خطأ أثناء إعادة توليد رموز النسخ الاحتياطي",
+        "two_factor_enabled_success": "تم تفعيل المصادقة الثنائية بنجاح",
+        "two_factor_disabled_success": "تم تعطيل المصادقة الثنائية بنجاح",
+        "password_errors": {
+            "min_length": "يجب أن تكون كلمة المرور على الأقل {{min}} أحرف",
+            "lowercase_required": "يجب أن تتضمن كلمة المرور على الأقل حرفا صغيرا واحدا",
+            "uppercase_required": "يجب أن تتضمن كلمة المرور على الأقل حرف كبير واحد",
+            "number_required": "يجب أن تتضمن كلمة المرور رقما واحدا على الأقل",
+            "symbol_required": "يجب أن تتضمن كلمة المرور رمزا واحدا على الأقل",
+            "repeated_chars": "لا تستخدم الأحرف المتكررة في كلمة المرور الخاصة بك",
+            "predictable_sequence": "لا تستخدم تسلسلات سهلة التخمين في كلمة المرور",
+            "common_password": "هذه كلمة المرور شائعة جدا وغير آمنة",
+            "contains_username": "يجب ألا تحتوي كلمة المرور على اسم المستخدم الخاص بك",
+            "contains_email": "يجب ألا تحتوي كلمة المرور على معلومات بريدك الإلكتروني"
+        }
     },
     "navigation": {
         "home": "الصفحة الرئيسية",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "تم إعادة إنشاء مفتاح الاسترداد",
             "recovery_key_error": "لم يتمكن من إعادة إنشاء مفتاح الاسترداد",
             "account_delete_error": "لا يمكن حذف الحساب",
-            "backup_downloaded_encrypted": "تم تنزيل النسخة الاحتياطية المشفرة بنجاح! ({{count}} عناصر)"
+            "backup_downloaded_encrypted": "تم تنزيل النسخة الاحتياطية المشفرة بنجاح! ({{count}} عناصر)",
+            "policy_update_error": "فشل تحديث إعدادات الطلب.",
+            "policy_updated": "تم تحديث الإعدادات بنجاح.",
+            "unblock_error": "فشل في رفع حظر المستخدم.",
+            "unblocked_success": "تم رفع الحظر بنجاح.",
+            "house_owner_transferred": "نقل ملكية المنزل",
+            "house_owner_transfer_error": "لا يمكن نقل ملكية المنزل."
         },
         "user_profile": {
             "edit_username": "تغيير اسم المستخدم"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} لم يعد لديه وصول إلى هذا المنزل.",
             "kick_title": "هل تريد إزالة هذا العضو؟",
             "kick_warning": "سينتهي وصوله إلى المنزل فورًا وسيحتاج إلى دعوة جديدة أو موافقة للعودة.",
-            "kicking": "جارٍ الإزالة..."
+            "kicking": "جارٍ الإزالة...",
+            "access_section_eyebrow": "الوصول إلى المنزل",
+            "transfer_owner": "اجعل المالك",
+            "transferring_owner": "جارٍ النقل...",
+            "transfer_owner_title": "هل تريد نقل ملكية المنزل؟",
+            "transfer_owner_confirm": "هل تنقل ملكية هذا المنزل إلى {{name}}؟",
+            "transfer_owner_warning": "لن تكون بعد الآن مالك هذا المنزل. سيتولى المالك الجديد إدارة موافقات الأعضاء، والإزالة، والتغييرات المستقبلية في الملكية.",
+            "transfer_owner_success_body": "{{name}} هو الآن مالك هذا المنزل."
         },
         "theme": {
             "title": "السمة",
@@ -729,7 +772,9 @@
             "light": "وضع الإضاءة",
             "description": "اختر كيف يظهر مساحة العمل على هذا الجهاز.",
             "light_aria": "التبديل إلى السمة الفاتحة",
-            "dark_aria": "التبديل إلى السمة الداكنة"
+            "dark_aria": "التبديل إلى السمة الداكنة",
+            "workspace_title": "موضوع مساحة العمل",
+            "workspace_desc": "اختر النمط البصري المفضل لهذا الجهاز."
         },
         "security": {
             "title": "الأمان",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "لا يمكن عرض مفتاح الاسترداد الحالي. أعد إنشاؤه إذا لزم الأمر.",
             "recovery_key_action": "إعادة الإنشاء",
             "recovery_key_modal_desc": "قم بتأكيد كلمة المرور الحالية للمتابعة. سيتم عرض المفتاح الجديد مرة واحدة فقط.",
-            "recovery_key_loading": "جاري التحضير..."
+            "recovery_key_loading": "جاري التحضير...",
+            "accordion_title": "الأمان والخصوصية",
+            "accordion_desc": "إدارة المصادقة الثنائية، والأجهزة الموثوقة، وقواعد طلبات الاستعارة من حسابات أخرى.",
+            "description": "أدير إعدادات كلمة المرور الرئيسية واستعادة الخزنة.",
+            "change_password_detail": "قم بتحديث كلمة المرور للحفاظ على أمان حسابك",
+            "recovery_key_detail": "تستخدم لاستعادة خزنتك إذا نسيت كلمة المرور"
         },
         "data_management": {
             "title": "إدارة البيانات",
@@ -890,7 +940,8 @@
             "revoke_devices": "إلغاء الأجهزة الموثوقة",
             "revoke_devices_desc": "إزالة جميع الأجهزة المحفوظة، مما يتطلب التحقق بخطوتين عند تسجيل الدخول التالي",
             "devices_revoked": "تم إزالة {{count}} جهاز موثوق",
-            "devices_error": "فشل في إلغاء الأجهزة"
+            "devices_error": "فشل في إلغاء الأجهزة",
+            "preparing_setup": "تحضير إعداد المصادقة الخاص بك..."
         },
         "danger_zone": {
             "title": "الحساب",
@@ -903,7 +954,8 @@
             "modal_warning_body": "بعد التأكيد، ستفقد الوصول إلى الحساب على الفور ولا يمكن استعادة بيانات التطبيق المحذوفة من التطبيق.",
             "password_label": "أكد بكلمة المرور الحالية",
             "confirm_delete": "تأكيد الحذف",
-            "deleting": "جاري الحذف..."
+            "deleting": "جاري الحذف...",
+            "description": "احذف حسابك وقم بإزالة جميع مجموعات بيانات المخزون بشكل دائم."
         },
         "language": "اللغة",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "اللغات الشائعة",
         "search_results": "نتائج البحث",
         "current_language": "اللغة الحالية",
-        "languages_available": "لغة متاحة"
+        "languages_available": "لغة متاحة",
+        "borrow_requests": {
+            "accordion_eyebrow": "ضمان طلب الاقتراض",
+            "accordion_eyebrow_desc": "تكوين قواعد الطلبات وإدارة المستخدمين المحجوبين.",
+            "title": "إعدادات طلب الاستعارة",
+            "description": "إدارة قواعد استقبال طلبات الاقتراض من حسابات أخرى وقائمة المستخدمين المحجوبين.",
+            "policy_title": "طلبات الاقتراض الجديدة",
+            "policy_description": "تحكم في من يمكنه إرسال طلبات الاقتراض إليك. مخزونك لا يُعرض أبدًا كقائمة عامة.",
+            "policy_none": "عدم الاستقبال من أي شخص (افتراضي)",
+            "policy_house_only": "أفراد الأسرة فقط",
+            "policy_everyone": "جميع المستخدمين المسجلين",
+            "blocks_title": "المستخدمون المحظورون",
+            "blocks_description": "المستخدمون الذين قمت بحظرهم من إرسال طلبات استدانة جديدة إليك.",
+            "no_blocks": "لم يتم العثور على مستخدمين محظورين.",
+            "unblock_btn": "فك الحظر",
+            "policy_none_desc": "يتم حظر جميع الطلبات الواردة تلقائيا.",
+            "policy_house_only_desc": "الأعضاء الموثقون فقط في البيوت النشطة الخاصة بك يمكنهم طلب العناصر التي تظهر بالفعل داخل هذا المنزل المشترك.",
+            "policy_everyone_desc": "المستخدمون الآخرون لا يمكنهم تصفح أو رؤية عناصرِك. يمكنهم فقط إرسال طلب عن طريق إدخال اسم المستخدم أو البريد الإلكتروني الخاص بك مباشرة."
+        }
     },
     "inventory": {
         "title": "المخزون",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "معك",
             "return_pending_hint": "سيتم إغلاق السجل بعد أن يؤكد المقرض استلامه للعنصر مرة أخرى.",
             "return_pending_lender_title": "{{name}} قام بتحديد هذا العنصر كمُسَلَّم مرة أخرى",
-            "return_pending_self_title": "معك، في انتظار تأكيد الاستلام"
+            "return_pending_self_title": "معك، في انتظار تأكيد الاستلام",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "عنصر بدون عنوان",
         "delete_action": "حذف العنصر",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "ملاحظة الاستلام",
             "return_note_placeholder_borrower": "مثلاً: أعدته بدون أي مشكلة",
             "return_note_placeholder_lender": "مثلاً: تم استلامه بحالة جيدة",
-            "return_submitting": "جاري الإغلاق..."
+            "return_submitting": "جاري الإغلاق...",
+            "reject_title": "رفض طلب",
+            "reject_subtitle": "أنت على وشك رفض طلب \"{{item}}\".",
+            "reject_target": "أنت على وشك رفض طلب الاقتراض الذي أرسله {{name}}.",
+            "reject_reason_label": "سبب الرفض",
+            "reject_submitting": "يرفض...",
+            "due_date_label": "تاريخ العودة المخطط له"
         },
         "messages": {
             "load_error": "تعذر تحميل مركز الاقتراض",
-            "action_error": "لم يتمكن من إتمام الإجراء"
+            "action_error": "لم يتمكن من إتمام الإجراء",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "يمكنك إرسال طلب خارجي أول مرة واحد فقط للشخص نفسه يوميًا. إذا قبلوا طلبًا، فلن يطبق هذا الحد على ذلك الشخص بعد ذلك.",
+                "external_total_daily_limit": "يمكنك إرسال ما يصل إلى 5 طلبات خارجية أول مرة يوميًا.",
+                "external_request_requires_verified_email": "تحقق من بريدك الإلكتروني قبل إرسال طلبات الاقتراض الخارجية.",
+                "external_offer_blocked": "يمكنك تقديم عنصر فقط لأعضاء المنزل أو المستخدمين المسجلين الذين يمكن التعرف عليهم مباشرة.",
+                "target_blocked_by_you": "لا يمكنك إرسال طلب إلى مستخدم قمت بحظره.",
+                "recent_rejection_lock": "رفض هذا المستخدم طلبًا حديثًا. يمكنك إرسال طلب آخر بعد 30 يومًا."
+            }
         },
         "preview": {
             "title": "وضع المعاينة",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "لا توجد طلبات بحاجة لمراجعتك",
         "outgoing_empty_title": "لا توجد طلبات صادرة بعد",
         "refreshing": "جاري تحديث الطلبات والاقتراضات النشطة...",
-        "loading_description": "إعداد الطلبات والنشاطات النشطة للاستعارة."
+        "loading_description": "إعداد الطلبات والنشاطات النشطة للاستعارة.",
+        "reasons": {
+            "rejected": "رفض (رفض عادي)",
+            "not_available": "غير متوفر (العنصر مفقود / غير متوفر)",
+            "blocked": "حظر ورفض (يمنع هذا المستخدم)"
+        }
     },
     "legal": {
         "privacy_policy_title": "سياسة الخصوصية",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{اسم العلامة التجارية}}",
-        "tagline": "إدارة كل عناصر منزلك بذكاء"
+        "tagline": "إدارة كل عناصر منزلك بذكاء",
+        "loading": "جار تحميل {{brandName}}",
+        "preparing_workspace": "تحضير مكان عملك..."
     },
     "nav": {
         "home": "الرئيسية",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "مسح السجل",
-            "add_item": "إضافة إلى قائمة التسوق"
+            "add_item": "إضافة إلى قائمة التسوق",
+            "mark_completed": "مارك كاكتمل",
+            "decrease_qty": "تقليل الكمية",
+            "increase_qty": "زيادة الكمية",
+            "delete_item": "حذف العنصر",
+            "reactivate_item": "العودة إلى القائمة النشطة"
         },
         "form": {
             "add_type": "إضافة طريقة",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "متابعة الصيانة الدورية أو مرة واحدة المجدولة لهذا العنصر.",
         "no_tasks": "لم يتم تعيين أي مهام صيانة لهذا العنصر.",
         "confirm_delete": "سيتم حذف هذه المهمة. هل أنت متأكد؟"
+    },
+    "error_boundary": {
+        "title": "هناك شيء يحتاج إلى تحديث",
+        "description": "واجهت الواجهة مشكلة عرضية غير متوقعة. بيانات المخزون المحفوظة لا تتغير بهذه الشاشة.",
+        "refresh_btn": "تحديث",
+        "home_btn": "المنزل"
     }
 }

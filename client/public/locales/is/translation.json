@@ -186,7 +186,8 @@
         "hide": "Fela lykilorð",
         "logging_out": "Skráning út...",
         "show": "Sýna lykilorð",
-        "saving": "Vistar..."
+        "saving": "Vistar...",
+        "disabled": "Fatlaður"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Húslykill er nauðsynlegur til að tengjast núverandi húsi",
         "house_key_not_found": "Ógildur húsalykill. Vinsamlegast sláðu inn réttan lykil.",
         "email_not_verified": "Netfangið þitt hefur ekki verið staðfest enn. Vinsamlegast athugaðu pósthólfið þitt.",
-        "two_factor_invalid": "Staðfestingarkóðinn er rangur"
+        "two_factor_invalid": "Staðfestingarkóðinn er rangur",
+        "two_factor_invalid_try_again": "Ógildur staðfestingarkóði. Vinsamlegast reyndu aftur.",
+        "two_factor_code_required": "Staðfestingarkóði er nauðsynlegur",
+        "two_factor_user_not_found": "Notandi fannst ekki",
+        "two_factor_already_enabled": "Tveggja þátta auðkenning er þegar virk",
+        "two_factor_setup_not_started": "Vinsamlegast byrjaðu fyrst á tveggja þátta auðkenningu",
+        "two_factor_setup_error": "Villa kom upp við uppsetningu tveggja þátta auðkenningar",
+        "two_factor_activation_error": "Villa kom upp við virkjun tveggja þátta auðkenningar",
+        "two_factor_password_required": "Lykilorð er nauðsynlegt",
+        "two_factor_credentials_required": "TOTP-kóði, afritunarkóði eða endurheimtarlykill er nauðsynlegur",
+        "two_factor_already_disabled": "Tveggja þátta auðkenning er þegar óvirk",
+        "two_factor_password_incorrect": "Rangt lykilorð",
+        "two_factor_verification_failed": "Staðfesting mistókst. Vinsamlegast athugaðu kóðann og reyndu aftur.",
+        "two_factor_disable_error": "Villa kom upp við að slökkva á tveggja þátta auðkenningu",
+        "two_factor_not_enabled": "Tveggja þátta auðkenning er ekki virk",
+        "two_factor_regenerate_codes_error": "Villa kom upp við að endurheimta afritunarkóða",
+        "two_factor_enabled_success": "Tveggja þátta auðkenning hefur verið virkjuð með góðum árangri",
+        "two_factor_disabled_success": "Tveggja þátta auðkenning hefur verið slökkt á með góðum árangri",
+        "password_errors": {
+            "min_length": "Lykilorðið verður að vera að minnsta kosti {{mín}} stafir langt",
+            "lowercase_required": "Lykilorðið verður að innihalda að minnsta kosti einn lágstaf.",
+            "uppercase_required": "Lykilorðið verður að innihalda að minnsta kosti einn hástaf.",
+            "number_required": "Lykilorðið verður að innihalda að minnsta kosti eitt númer",
+            "symbol_required": "Lykilorðið verður að innihalda að minnsta kosti eitt tákn",
+            "repeated_chars": "Ekki nota endurtekna stafi í lykilorðinu þínu",
+            "predictable_sequence": "Ekki nota auðskiljanlegar raðir í lykilorðinu þínu",
+            "common_password": "Þetta lykilorð er of algengt og óöruggt",
+            "contains_username": "Lykilorðið má ekki innihalda notandanafnið þitt",
+            "contains_email": "Lykilorðið má ekki innihalda netfangið þitt"
+        }
     },
     "navigation": {
         "home": "Heim",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Endurmyndaður bata lykill",
             "recovery_key_error": "Gat ekki endurmyndað bata lykil",
             "account_delete_error": "Reikningnum gat ekki verið eytt",
-            "backup_downloaded_encrypted": "Dulkóðað afrit var sótt með góðum árangri! ({{count}} atriði)"
+            "backup_downloaded_encrypted": "Dulkóðað afrit var sótt með góðum árangri! ({{count}} atriði)",
+            "policy_update_error": "Tókst ekki að uppfæra stillingar beiðninnar.",
+            "policy_updated": "Beiðni um stillingar uppfærðar með góðum árangri.",
+            "unblock_error": "Tókst ekki að opna notandann.",
+            "unblocked_success": "Notandinn hefur aflokað með góðum árangri.",
+            "house_owner_transferred": "Eignarhald á húsinu fluttist",
+            "house_owner_transfer_error": "Ekki var hægt að flytja eignarhald hússins."
         },
         "user_profile": {
             "edit_username": "Breyta notandanafni"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} hefur ekki lengur aðgang að þessu heimili.",
             "kick_title": "Fjarlægja þennan meðlim?",
             "kick_warning": "Aðgangur þeirra að heimilinu mun stöðvast strax og þeir munu þurfa nýja boðun eða samþykki til að snúa aftur.",
-            "kicking": "Að fjarlægja..."
+            "kicking": "Að fjarlægja...",
+            "access_section_eyebrow": "Aðgangur að húsinu",
+            "transfer_owner": "Gerðu eiganda",
+            "transferring_owner": "Flutningur...",
+            "transfer_owner_title": "Flytja eignarhald á húsi?",
+            "transfer_owner_confirm": "Flytja eignarhald á þessu heimili til {{name}}?",
+            "transfer_owner_warning": "Þú munt ekki lengur vera eigandi þessa heimilis. Nýr eigandi mun sjá um samþykktir, brottvísanir meðlima og framtíðar eignarhaldsbreytingar.",
+            "transfer_owner_success_body": "{{name}} er nú eigandi þessa heimilis."
         },
         "theme": {
             "title": "Þema",
@@ -729,7 +772,9 @@
             "light": "Lýsingarhamur",
             "description": "Veldu hvernig vinnusvæðið lítur út á þessari tæki.",
             "light_aria": "Skipta yfir í létta þema",
-            "dark_aria": "Skipta yfir í dökka þema"
+            "dark_aria": "Skipta yfir í dökka þema",
+            "workspace_title": "Þema vinnusvæðisins",
+            "workspace_desc": "Veldu þinn uppáhalds sjónræna stíl fyrir þetta tæki."
         },
         "security": {
             "title": "Öryggi",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Núverandi endurheimtarlykill getur ekki verið sýndur. Endurgerðu hann ef þörf krefur.",
             "recovery_key_action": "Endurgera",
             "recovery_key_modal_desc": "Staðfestu núverandi lykilorð til að halda áfram. Nýji lykillinn verður sýndur aðeins einu sinni.",
-            "recovery_key_loading": "Undirbý til..."
+            "recovery_key_loading": "Undirbý til...",
+            "accordion_title": "Öryggi og persónuvernd",
+            "accordion_desc": "Stjórnaðu tveggja þátta auðkenningu, traustum tækjum og reglum um lánaðar beiðnir frá öðrum reikningum.",
+            "description": "Stjórnaðu aðallykilorðinu þínu og stillingum á geymsluendurheimt.",
+            "change_password_detail": "Uppfærðu lykilorðið þitt til að halda reikningnum þínum öruggum",
+            "recovery_key_detail": "Notað til að endurheimta geymsluna þína ef þú gleymir lykilorðinu þínu"
         },
         "data_management": {
             "title": "Gagnastjórnun",
@@ -890,7 +940,8 @@
             "revoke_devices": "afturkalla traust tæki",
             "revoke_devices_desc": "Fjarlægja öll vistuð tæki, krefjandi 2FA við næsta innskráningu",
             "devices_revoked": "{{count}} treyst tæk(ni) fjarlægð",
-            "devices_error": "Tókst ekki að afturkalla tæki"
+            "devices_error": "Tókst ekki að afturkalla tæki",
+            "preparing_setup": "Að undirbúa auðkenningaruppsetninguna þína..."
         },
         "danger_zone": {
             "title": "Reikningur",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Eftir staðfestingu mun þú tafarlaust missa aðgang að reikningnum og eyddar forritagögn verða ekki endurheimtanleg úr forritinu.",
             "password_label": "Staðfestu með núverandi lykilorði",
             "confirm_delete": "Staðfesta eyðingu",
-            "deleting": "Eyði..."
+            "deleting": "Eyði...",
+            "description": "Eyðileggðu reikninginn þinn og fjarlægðu varanlega öll gagnasöfn úr birgðum."
         },
         "language": "Tungumál",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Vinsæl Tungumál",
         "search_results": "Leitarniðurstöður",
         "current_language": "Núverandi tungumál",
-        "languages_available": "tiltæk tungumál"
+        "languages_available": "tiltæk tungumál",
+        "borrow_requests": {
+            "accordion_eyebrow": "Lánbeiðni trygging",
+            "accordion_eyebrow_desc": "Stilltu reglur fyrir beiðnir og stjórnaðu lokuðum notendum.",
+            "title": "Lánbeiðnistillingar",
+            "description": "Stjórnaðu reglum um að taka á móti lánsbeiðnum frá öðrum reikningum og skráðu lokaða notendur.",
+            "policy_title": "Nýjar lánsbeiðnir",
+            "policy_description": "Stjórnaðu hver getur sent þér lántafyrirspurnir. Birgðir þínar eru aldrei sýndar sem almennt skráning.\n\nAllir skráðir notendur\n\nAðeins staðfestir meðlimir í virkum húsum þínum geta beðið um hluti sem eru þegar sýnilegir innan þess deilda húss.\n\nAðrir notendur geta ekki skoðað eða séð hlutina þína. Þeir geta aðeins sent fyrirspurn með því að slá inn notandanafn eða netfang þitt beint.\n\nÞú getur aðeins sent eina fyrstu-hafta utanaðkomandi fyrirspurn til sama einstaklings á dag. Ef þeir samþykkja fyrirspurnina á ekki þessi takmörkun við lengur um þann einstakling.\n\nÞú getur sent allt að 5 fyrstu-hafta utanaðkomandi fyrirspurnir á dag.\n\nStaðfestu netfangið þitt áður en þú sendir utanaðkomandi lántafyrirspurnir.\n\nÞú getur aðeins boðið hlut til húsmeðlima eða skráðra notenda sem hægt er að bera kennsl á beint.",
+            "policy_none": "Ekki taka á móti frá neinum (Sjálfgefið)",
+            "policy_house_only": "Aðeins heimilismeðlimir",
+            "policy_everyone": "Þú getur ekki sent beiðni til notanda sem þú hefur lokað á.",
+            "blocks_title": "Lokaðir notendur",
+            "blocks_description": "Notendur sem þú hefur lokað á frá því að senda þér nýjar lánsbeiðnir.",
+            "no_blocks": "Engir lokaðir notendur fundust.",
+            "unblock_btn": "Losaðu um hindrun",
+            "policy_none_desc": "Allar innkomandi beiðnir eru sjálfkrafa lokaðar.",
+            "policy_house_only_desc": "Þessi notandi hafnaði nýlegri beiðni. Þú getur sent aðra beiðni eftir 30 daga.",
+            "policy_everyone_desc": "Aðrir notendur geta ekki vafrað eða séð hlutina þína. Þeir geta aðeins sent beiðni með því að slá inn notandanafn þitt eða netfang beint."
+        }
     },
     "inventory": {
         "title": "Birgðir",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Með þér",
             "return_pending_hint": "Skráin verður lokuð eftir að lánveitandi staðfestir að hann hafi fengið hlutinn til baka.",
             "return_pending_lender_title": "{{name}} merkti þennan hlut sem skilað",
-            "return_pending_self_title": "Með þér, bíður staðfestingar á kvittun"
+            "return_pending_self_title": "Með þér, bíður staðfestingar á kvittun",
+            "site_member": "Meðlimur vefsíðu",
+            "site_member_identifier": "Notandanafn eða netfang",
+            "site_member_identifier_placeholder": "Nákvæm notendanafn eða netfang",
+            "site_member_privacy_hint": "Tilboðið birtist aðeins í Lánaamiðstöðinni ef sú reikningur er til og leyfir innkomandi tilboð.",
+            "external_privacy_hint": "Þetta býr aðeins til einkaaðila staðbundna skrá. Ekkert forrit tilkynningar er sent."
         },
         "untitled_item": "Ónefndur hlutur",
         "delete_action": "Eyða hlut",
@@ -1263,7 +1338,7 @@
             "no_logs": "engin skráningu enn",
             "errors_title": "Kerfisbrot (Síðustu 10)",
             "no_errors": "// Kerfið er heilbrigt, engar villuskáir.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{dagsetning, stefnumótatími}}",
             "type": {
                 "email": "Tölvupóstur",
                 "user": "Notandi",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Mottaftaka",
             "return_note_placeholder_borrower": "t.d. Ég skilaði henni tilbaka án nokkurra vandamála",
             "return_note_placeholder_lender": "t.d. Mótt í góðu ástandi",
-            "return_submitting": "Loka..."
+            "return_submitting": "Loka...",
+            "reject_title": "Hafna beiðni",
+            "reject_subtitle": "Þú ert að fara að hafna beiðninni um \"{{item}}\".",
+            "reject_target": "Þú ert að fara að hafna lánbeiðninni sem {{name}} sendi.",
+            "reject_reason_label": "Ástæða höfnunar",
+            "reject_submitting": "Hafna...",
+            "due_date_label": "Áætlaður heimkomudagur"
         },
         "messages": {
             "load_error": "Lántökumiðstöð gat ekki verið hlaðin",
-            "action_error": "Aðgerðin gat ekki verið framkvæmd"
+            "action_error": "Aðgerðin gat ekki verið framkvæmd",
+            "active_borrow_not_found": "Þennan virka lánaskrá var ekki hægt að finna. Endurnýjaðu lánamiðstöðina og reyndu aftur.",
+            "errors": {
+                "external_target_daily_limit": "Þú getur sent aðeins eina fyrstu-tengsl utanaðkomandi beiðni til sömu manneskju á dag. Ef hún samþykkir beiðni, gildir þessi takmörkun ekki lengur fyrir þá manneskju.",
+                "external_total_daily_limit": "Þú getur sent allt að 5 fyrstu-tengsl utanaðkomandi beiðnir á dag.",
+                "external_request_requires_verified_email": "Staðfestu netfangið þitt áður en þú sendir beiðnir um að lána utanaðkomandi.",
+                "external_offer_blocked": "Þú mátt aðeins bjóða hlut til húseigenda eða skráðra notenda sem hægt er að bera kennsl á beint.",
+                "target_blocked_by_you": "Þú getur ekki sent beiðni til notanda sem þú hefur lokað á.",
+                "recent_rejection_lock": "Þessi notandi hafnaði nýlegri beiðni. Þú getur sent aðra beiðni eftir 30 daga."
+            }
         },
         "preview": {
             "title": "Forskoðunarhamur",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Engar fyrirspurnir þurfa yfirferð þína",
         "outgoing_empty_title": "Engar útfarandi fyrirspurnir enn",
         "refreshing": "Endurhlaða beiðnir og virk lán...",
-        "loading_description": "Undirbý fyrirspurnir og virk lántökustarfsemi."
+        "loading_description": "Undirbý fyrirspurnir og virk lántökustarfsemi.",
+        "reasons": {
+            "rejected": "Hafna (eðlileg höfnun)",
+            "not_available": "Ekki í boði (Hlutur vantar / ekki tiltækur)",
+            "blocked": "Blokka og hafna (Lokar á þennan notanda)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Persónuverndarstefna",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Stjórnðu öll heimilistæki þín á snjallan hátt"
+        "tagline": "Stjórnðu öll heimilistæki þín á snjallan hátt",
+        "loading": "Hleður {{brandName}}",
+        "preparing_workspace": "Að undirbúa vinnusvæðið þitt..."
     },
     "nav": {
         "home": "Heim",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Hreinsa sögu",
-            "add_item": "Bæta við innkaupalista"
+            "add_item": "Bæta við innkaupalista",
+            "mark_completed": "Merkið sem lokið",
+            "decrease_qty": "Minnkandi magn",
+            "increase_qty": "Auka magn",
+            "delete_item": "Eyða hlut",
+            "reactivate_item": "Færðu þig aftur á virkan lista"
         },
         "form": {
             "add_type": "Bæta aðferð",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Tímabundin eða einbúin viðhaldsskráning áætluð fyrir þennan hlut.",
         "no_tasks": "Engar viðhaldsskyldur hafa verið úthlutaðar fyrir þennan hlut.",
         "confirm_delete": "Þessi verkefni verður eytt. Ertu viss?"
+    },
+    "error_boundary": {
+        "title": "Eitthvað þarf endurnýjun",
+        "description": "Viðmótið lenti í óvæntu rendering-vandamáli. Vistað birgðagögn þín breytast ekki af þessum skjá.",
+        "refresh_btn": "Endurhlaða",
+        "home_btn": "Heimili"
     }
 }

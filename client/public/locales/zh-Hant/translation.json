@@ -186,7 +186,8 @@
         "hide": "隱藏密碼",
         "logging_out": "登出中...",
         "show": "顯示密碼",
-        "saving": "儲存中..."
+        "saving": "儲存中...",
+        "disabled": "失能"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "加入現有學院需要房屋鑰匙",
         "house_key_not_found": "無效的房屋鑰匙。請輸入正確的金鑰。",
         "email_not_verified": "您的電子郵件地址尚未被驗證。請查看您的收件匣。",
-        "two_factor_invalid": "驗證碼錯誤"
+        "two_factor_invalid": "驗證碼錯誤",
+        "two_factor_invalid_try_again": "驗證碼無效。請再試一次。",
+        "two_factor_code_required": "必須提供驗證碼",
+        "two_factor_user_not_found": "找不到使用者",
+        "two_factor_already_enabled": "雙重驗證已經啟用",
+        "two_factor_setup_not_started": "請先開始設定雙重驗證",
+        "two_factor_setup_error": "在設定雙重驗證時發生錯誤",
+        "two_factor_activation_error": "在啟用雙重驗證時發生錯誤",
+        "two_factor_password_required": "需要密碼",
+        "two_factor_credentials_required": "需要 TOTP 代碼、備份代碼或恢復金鑰",
+        "two_factor_already_disabled": "雙重驗證已經被停用",
+        "two_factor_password_incorrect": "密碼錯誤",
+        "two_factor_verification_failed": "驗證失敗。請檢查代碼後再試一次。",
+        "two_factor_disable_error": "在停用雙重驗證時發生錯誤",
+        "two_factor_not_enabled": "未啟用雙重驗證",
+        "two_factor_regenerate_codes_error": "在重新產生備份碼時發生錯誤",
+        "two_factor_enabled_success": "雙重驗證已成功啟用",
+        "two_factor_disabled_success": "雙重驗證已成功停用",
+        "password_errors": {
+            "min_length": "密碼必須至少為 {{min}} 字元",
+            "lowercase_required": "密碼必須包含至少一個小寫字母",
+            "uppercase_required": "密碼必須包含至少一個大寫字母",
+            "number_required": "密碼必須包含至少一個號碼",
+            "symbol_required": "密碼必須包含至少一個符號",
+            "repeated_chars": "請勿在密碼中使用重複字元",
+            "predictable_sequence": "不要在密碼中使用容易猜測的序列",
+            "common_password": "這個密碼太常見且不安全",
+            "contains_username": "密碼中不得包含您的使用者名稱",
+            "contains_email": "密碼不得包含您的電子郵件資訊"
+        }
     },
     "navigation": {
         "home": "首頁",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "恢復金鑰已重新生成",
             "recovery_key_error": "無法重新生成恢復金鑰",
             "account_delete_error": "帳戶無法被刪除",
-            "backup_downloaded_encrypted": "加密備份下載成功！({{count}} 項目)"
+            "backup_downloaded_encrypted": "加密備份下載成功！({{count}} 項目)",
+            "policy_update_error": "無法更新請求設定。",
+            "policy_updated": "成功請求設定更新。",
+            "unblock_error": "無法解除封鎖使用者。",
+            "unblocked_success": "使用者成功解封。",
+            "house_owner_transferred": "房屋所有權轉移",
+            "house_owner_transfer_error": "房屋所有權無法轉移。"
         },
         "user_profile": {
             "edit_username": "更改用戶名"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} 已不再能夠訪問此家庭。",
             "kick_title": "移除此成員？",
             "kick_warning": "他們的家庭訪問權限將立即結束，需要新的邀請或批准才能返回。",
-            "kicking": "正在移除…"
+            "kicking": "正在移除…",
+            "access_section_eyebrow": "宅邸進入",
+            "transfer_owner": "讓擁有者",
+            "transferring_owner": "轉移中......",
+            "transfer_owner_title": "轉讓房屋所有權？",
+            "transfer_owner_confirm": "要把這個家庭的所有權轉移給 {{name}}？",
+            "transfer_owner_warning": "你將不再是這個家庭的主人。新老闆將負責會員核准、移除及未來所有權變更。",
+            "transfer_owner_success_body": "{{name}} 現在是這個家庭的主人。"
         },
         "theme": {
             "title": "主題",
@@ -729,7 +772,9 @@
             "light": "淺色模式",
             "description": "選擇此裝置上工作區的顯示方式。",
             "light_aria": "切換至淺色主題",
-            "dark_aria": "切換至深色主題"
+            "dark_aria": "切換至深色主題",
+            "workspace_title": "工作區主題",
+            "workspace_desc": "請選擇您偏好的視覺風格。"
         },
         "security": {
             "title": "安全性",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "無法顯示當前的恢復金鑰。如有需要，請重新生成。",
             "recovery_key_action": "重新生成",
             "recovery_key_modal_desc": "請確認您當前的密碼以繼續。新的金鑰只會顯示一次。",
-            "recovery_key_loading": "準備中..."
+            "recovery_key_loading": "準備中...",
+            "accordion_title": "安全與隱私",
+            "accordion_desc": "管理雙重驗證、受信任裝置，以及從其他帳戶借用請求規則。",
+            "description": "管理你的主密碼和保險庫復原設定。",
+            "change_password_detail": "更新密碼以保護帳號安全",
+            "recovery_key_detail": "如果你忘記密碼，它用來恢復保險庫"
         },
         "data_management": {
             "title": "資料管理",
@@ -785,10 +835,10 @@
             "owner_only_desc": "資料備份和還原只能由房主管理。"
         },
         "about": {
-            "title": "📱 關於應用程式",
+            "title": "關於應用程式",
             "version": "版本",
             "brand": "品牌",
-            "feedback": "✉️ 發送反饋",
+            "feedback": "發送反饋",
             "legal_title": "法律文件",
             "legal_description": "即使已接受，您仍可從此處重新打開條款和隱私文本。",
             "terms_link": "服務條款",
@@ -890,7 +940,8 @@
             "revoke_devices": "撤銷受信任裝置",
             "revoke_devices_desc": "移除所有已記住的裝置，下一次登入將需要雙因素驗證",
             "devices_revoked": "已移除 {{count}} 個受信任裝置",
-            "devices_error": "無法撤銷裝置"
+            "devices_error": "無法撤銷裝置",
+            "preparing_setup": "正在準備你的認證器設定......"
         },
         "danger_zone": {
             "title": "帳號",
@@ -903,7 +954,8 @@
             "modal_warning_body": "確認後，您將立即失去對帳號的存取權，且已刪除的應用程式資料無法從應用程式中恢復。",
             "password_label": "使用您目前的密碼確認",
             "confirm_delete": "確認刪除",
-            "deleting": "正在刪除..."
+            "deleting": "正在刪除...",
+            "description": "刪除你的帳號並永久移除所有庫存資料集。"
         },
         "language": "語言",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "流行語言",
         "search_results": "搜尋結果",
         "current_language": "現行語言",
-        "languages_available": "可用語言"
+        "languages_available": "可用語言",
+        "borrow_requests": {
+            "accordion_eyebrow": "借用請求擔保",
+            "accordion_eyebrow_desc": "設定請求規則並管理被封鎖的使用者。",
+            "title": "借用請求設定",
+            "description": "管理接收其他帳戶借款請求的規則，並列出被封鎖的使用者。",
+            "policy_title": "新借用請求",
+            "policy_description": "控制誰可以向你發送借用請求。你的庫存永遠不會以公開列表的方式顯示。",
+            "policy_none": "請勿從任何人那裡收款（預設）",
+            "policy_house_only": "僅限家庭成員",
+            "policy_everyone": "所有已註冊用戶",
+            "blocks_title": "被封鎖的使用者",
+            "blocks_description": "你封鎖的用戶無法寄送新的借款請求。",
+            "no_blocks": "未發現被封鎖使用者。",
+            "unblock_btn": "解除封鎖",
+            "policy_none_desc": "所有收到的請求都會自動被封鎖。",
+            "policy_house_only_desc": "只有你活躍房屋的經驗證成員可以請求已在該共享房屋內顯示的物品。",
+            "policy_everyone_desc": "其他用戶無法瀏覽或查看你的物品。他們只能通過直接輸入你的用戶名或電子郵件來發送請求。"
+        }
     },
     "inventory": {
         "title": "物品欄",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "與你同在",
             "return_pending_hint": "當貸方確認已收到物品後，紀錄將關閉。",
             "return_pending_lender_title": "{{name}} 已將此項目標記為已歸還",
-            "return_pending_self_title": "與你同在，等待收據確認"
+            "return_pending_self_title": "與你同在，等待收據確認",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "未命名項目",
         "delete_action": "刪除項目",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "收貨單",
             "return_note_placeholder_borrower": "例如，我毫無問題地歸還了它",
             "return_note_placeholder_lender": "例如，收到時狀況良好",
-            "return_submitting": "關閉中..."
+            "return_submitting": "關閉中...",
+            "reject_title": "拒絕申請",
+            "reject_subtitle": "你即將拒絕「{{item}}」的請求。",
+            "reject_target": "你即將拒絕由 {{name}} 發出的借用請求。",
+            "reject_reason_label": "拒絕理由",
+            "reject_submitting": "拒絕......",
+            "due_date_label": "預定返航日期"
         },
         "messages": {
             "load_error": "借閱中心無法加載",
-            "action_error": "無法完成此操作"
+            "action_error": "無法完成此操作",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "你每天只能向同一人發送一次首次聯絡的外部請求。如果他們接受了請求，這個限制將不再適用於該人。",
+                "external_total_daily_limit": "你每天最多可以發送5次首次聯絡的外部請求。",
+                "external_request_requires_verified_email": "在發送外部借用請求前驗證你的電子郵件地址。",
+                "external_offer_blocked": "你只能向房屋成員或可以直接識別的已註冊用戶提供物品。",
+                "target_blocked_by_you": "你無法向你已封鎖的用戶發送請求。",
+                "recent_rejection_lock": "該用戶拒絕了最近的請求。你可以在30天後再次發送請求。"
+            }
         },
         "preview": {
             "title": "預覽模式",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "沒有需要您審核的請求",
         "outgoing_empty_title": "尚無外發請求",
         "refreshing": "正在刷新請求和活躍借用...",
-        "loading_description": "準備請求和活躍借用活動。"
+        "loading_description": "準備請求和活躍借用活動。",
+        "reasons": {
+            "rejected": "拒絕（正常拒絕）",
+            "not_available": "無法取得（物品缺失/無法取得）",
+            "blocked": "封鎖並拒絕（封鎖此使用者）"
+        }
     },
     "legal": {
         "privacy_policy_title": "隱私政策",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{品牌名稱}}",
-        "tagline": "聰明地管理你所有的家用品"
+        "tagline": "聰明地管理你所有的家用品",
+        "loading": "載入中 {{brandName}}",
+        "preparing_workspace": "準備你的工作區......"
     },
     "nav": {
         "home": "首頁",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "清除歷史",
-            "add_item": "加入購物清單"
+            "add_item": "加入購物清單",
+            "mark_completed": "標記為完成",
+            "decrease_qty": "減少數量",
+            "increase_qty": "增加數量",
+            "delete_item": "刪除項目",
+            "reactivate_item": "回歸現役名單"
         },
         "form": {
             "add_type": "新增方法",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "此項目安排了定期或一次性的維護追蹤。",
         "no_tasks": "此項目未分配任何維護任務。",
         "confirm_delete": "此任務將被刪除。您確定嗎？"
+    },
+    "error_boundary": {
+        "title": "有些東西需要重新整理",
+        "description": "介面遇到了意想不到的渲染問題。你儲存的庫存資料不會因此而改變。",
+        "refresh_btn": "刷新",
+        "home_btn": "首頁"
     }
 }

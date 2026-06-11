@@ -186,7 +186,8 @@
         "hide": "Dölj lösenord",
         "logging_out": "Loggar ut...",
         "show": "Visa lösenord",
-        "saving": "Sparar..."
+        "saving": "Sparar...",
+        "disabled": "Funktionsnedsatt"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "En husnyckel krävs för att ansluta till ett befintligt hus",
         "house_key_not_found": "Ogiltig husnyckel. Vänligen ange rätt nyckel.",
         "email_not_verified": "Din e-postadress har ännu inte verifierats. Vänligen kolla din inkorg.",
-        "two_factor_invalid": "Verifieringskoden är felaktig"
+        "two_factor_invalid": "Verifieringskoden är felaktig",
+        "two_factor_invalid_try_again": "Ogiltig verifieringskod. Försök igen, tack.",
+        "two_factor_code_required": "Verifieringskod krävs",
+        "two_factor_user_not_found": "Användare ej hittad",
+        "two_factor_already_enabled": "Tvåfaktorsautentisering är redan aktiverad",
+        "two_factor_setup_not_started": "Börja först med tvåfaktorsautentisering",
+        "two_factor_setup_error": "Ett fel uppstod under installationen av tvåfaktorsautentisering",
+        "two_factor_activation_error": "Ett fel uppstod vid aktivering av tvåfaktorsautentisering",
+        "two_factor_password_required": "Lösenord krävs",
+        "two_factor_credentials_required": "TOTP-kod, backupkod eller återställningsnyckel krävs",
+        "two_factor_already_disabled": "Tvåfaktorsautentisering är redan inaktiverad",
+        "two_factor_password_incorrect": "Felaktigt lösenord",
+        "two_factor_verification_failed": "Verifieringen misslyckades. Vänligen kontrollera koden och försök igen.",
+        "two_factor_disable_error": "Ett fel uppstod när tvåfaktorsautentisering inaktiverades",
+        "two_factor_not_enabled": "Tvåfaktorsautentisering är inte aktiverad",
+        "two_factor_regenerate_codes_error": "Ett fel uppstod vid regenerering av backupkoder",
+        "two_factor_enabled_success": "Tvåfaktorsautentisering har framgångsrikt aktiverats",
+        "two_factor_disabled_success": "Tvåfaktorsautentisering har framgångsrikt inaktiverats",
+        "password_errors": {
+            "min_length": "Lösenordet måste vara minst {{min}} tecken långt",
+            "lowercase_required": "Lösenordet måste innehålla minst en liten bokstav",
+            "uppercase_required": "Lösenordet måste innehålla minst en stor bokstav",
+            "number_required": "Lösenordet måste innehålla minst ett nummer",
+            "symbol_required": "Lösenordet måste innehålla minst en symbol",
+            "repeated_chars": "Använd inte upprepade tecken i ditt lösenord",
+            "predictable_sequence": "Använd inte lätt-att-gissa sekvenser i ditt lösenord",
+            "common_password": "Detta lösenord är för vanligt och osäkert",
+            "contains_username": "Lösenordet får inte innehålla ditt användarnamn",
+            "contains_email": "Lösenordet får inte innehålla din e-postadress"
+        }
     },
     "navigation": {
         "home": "Hem",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Återställningsnyckel omgenererad",
             "recovery_key_error": "Kunde inte omgenerera återställningsnyckel",
             "account_delete_error": "Kontot kunde inte tas bort",
-            "backup_downloaded_encrypted": "Krypterad säkerhetskopia nedladdad framgångsrikt! ({{count}} objekt)"
+            "backup_downloaded_encrypted": "Krypterad säkerhetskopia nedladdad framgångsrikt! ({{count}} objekt)",
+            "policy_update_error": "Misslyckades med att uppdatera inställningarna för förfrågningar.",
+            "policy_updated": "Begäran, inställningarna uppdaterades framgångsrikt.",
+            "unblock_error": "Misslyckades med att avblockera användaren.",
+            "unblocked_success": "Användaren avblockerade framgångsrikt.",
+            "house_owner_transferred": "Ägandet av huset överfördes",
+            "house_owner_transfer_error": "Äganderätten till huset kunde inte överföras."
         },
         "user_profile": {
             "edit_username": "Byt användarnamn"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} har inte längre tillgång till detta hushåll.",
             "kick_title": "Ta bort denna medlem?",
             "kick_warning": "Deras tillgång till hushållet upphör omedelbart och de behöver en ny inbjudan eller godkännande för att återvända.",
-            "kicking": "Tar bort..."
+            "kicking": "Tar bort...",
+            "access_section_eyebrow": "Tillgång till huset",
+            "transfer_owner": "Gör ägaren",
+            "transferring_owner": "Överför...",
+            "transfer_owner_title": "Överlåta ägande av huset?",
+            "transfer_owner_confirm": "Överföra äganderätten till detta hushåll till {{name}}?",
+            "transfer_owner_warning": "Du kommer inte längre att vara ägare till det här hushållet. Den nya ägaren kommer att hantera godkännanden, borttagningar av medlemmar och framtida ägarbyten.",
+            "transfer_owner_success_body": "{{name}} är nu ägare till detta hushåll."
         },
         "theme": {
             "title": "Tema",
@@ -729,7 +772,9 @@
             "light": "Ljust läge",
             "description": "Välj hur arbetsytan ska se ut på denna enhet.",
             "light_aria": "Byt till ljust tema",
-            "dark_aria": "Byt till mörkt tema"
+            "dark_aria": "Byt till mörkt tema",
+            "workspace_title": "Arbetsytetema",
+            "workspace_desc": "Välj din föredragna visuella stil för denna enhet."
         },
         "security": {
             "title": "Säkerhet",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Den nuvarande återställningsnyckeln kan inte visas. Generera om den vid behov.",
             "recovery_key_action": "Generera om",
             "recovery_key_modal_desc": "Bekräfta ditt nuvarande lösenord för att fortsätta. Den nya nyckeln visas endast en gång.",
-            "recovery_key_loading": "Förbereder..."
+            "recovery_key_loading": "Förbereder...",
+            "accordion_title": "Säkerhet och integritet",
+            "accordion_desc": "Hantera tvåfaktorsautentisering, betrodda enheter och regler för låneförfrågningar från andra konton.",
+            "description": "Hantera ditt huvudlösenord och inställningar för valvåterställning.",
+            "change_password_detail": "Uppdatera ditt lösenord för att hålla ditt konto säkert",
+            "recovery_key_detail": "Används för att återställa ditt valv om du glömmer ditt lösenord"
         },
         "data_management": {
             "title": "Databashantering",
@@ -785,10 +835,10 @@
             "owner_only_desc": "Datasäkerhetskopiering och återställning kan endast hanteras av husägaren."
         },
         "about": {
-            "title": "📱 Om applikationen",
+            "title": "Om applikationen",
             "version": "Version",
             "brand": "Märke",
-            "feedback": "✉️ Skicka feedback",
+            "feedback": "Skicka feedback",
             "legal_title": "Juridiska dokument",
             "legal_description": "Du kan öppna villkoren och sekretesspolicyn här även efter att du har accepterat dem.",
             "terms_link": "Användarvillkor",
@@ -890,7 +940,8 @@
             "revoke_devices": "Återkalla betrodda enheter",
             "revoke_devices_desc": "Ta bort alla sparade enheter, vilket kräver 2FA vid nästa inloggning",
             "devices_revoked": "{{count}} betrodda enhet(er) borttagna",
-            "devices_error": "Misslyckades med att återkalla enheter"
+            "devices_error": "Misslyckades med att återkalla enheter",
+            "preparing_setup": "Förbereder din autentiseringsuppsättning..."
         },
         "danger_zone": {
             "title": "Konto",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Efter bekräftelse förlorar du omedelbart åtkomst till kontot och de raderade applikationsdata kan inte återställas från appen.",
             "password_label": "Bekräfta med ditt nuvarande lösenord",
             "confirm_delete": "Bekräfta radering",
-            "deleting": "Raderar..."
+            "deleting": "Raderar...",
+            "description": "Radera ditt konto och ta bort alla inventariedataset permanent."
         },
         "language": "Språk",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Populära språk",
         "search_results": "Sökningsresultat",
         "current_language": "Aktuellt språk",
-        "languages_available": "Tillgängliga språk"
+        "languages_available": "Tillgängliga språk",
+        "borrow_requests": {
+            "accordion_eyebrow": "Låneförfrågan säkerhet",
+            "accordion_eyebrow_desc": "Konfigurera förfrågningsregler och hantera blockerade användare.",
+            "title": "Låneförfrågningsinställningar",
+            "description": "Hantera regler för att ta emot låneförfrågningar från andra konton och lista blockerade användare.",
+            "policy_title": "Nya låneförfrågningar",
+            "policy_description": "Kontrollera vem som kan skicka låneförfrågningar till dig. Ditt lager visas aldrig som en offentlig lista.",
+            "policy_none": "Ta inte emot från någon (Standard)",
+            "policy_house_only": "Endast hushållsmedlemmar",
+            "policy_everyone": "Alla registrerade användare",
+            "blocks_title": "Blockerade användare",
+            "blocks_description": "Användare du har blockerat från att skicka nya låneförfrågningar till dig.",
+            "no_blocks": "Inga blockerade användare hittades.",
+            "unblock_btn": "Avblockera",
+            "policy_none_desc": "Alla inkommande förfrågningar blockeras automatiskt.",
+            "policy_house_only_desc": "Endast verifierade medlemmar i dina aktiva hushåll kan begära föremål som redan är synliga inne i det delade hushållet.",
+            "policy_everyone_desc": "Andra användare kan inte bläddra bland eller se dina föremål. De kan endast skicka en förfrågan genom att ange ditt användarnamn eller e-postadress direkt."
+        }
     },
     "inventory": {
         "title": "Inventarielista",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Hos dig",
             "return_pending_hint": "Registreringen kommer att stängas efter att långivaren bekräftar att de fått tillbaka objektet.",
             "return_pending_lender_title": "{{name}} markerade detta objekt som levererat tillbaka",
-            "return_pending_self_title": "Hos dig, väntar på kvittensbekräftelse"
+            "return_pending_self_title": "Hos dig, väntar på kvittensbekräftelse",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Objekt utan titel",
         "delete_action": "Ta bort objekt",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Mottagningssedel",
             "return_note_placeholder_borrower": "t.ex. Jag lämnade tillbaka det utan problem",
             "return_note_placeholder_lender": "t.ex. Mottaget tillbaka i gott skick",
-            "return_submitting": "Stänger..."
+            "return_submitting": "Stänger...",
+            "reject_title": "Avvisa begäran",
+            "reject_subtitle": "Du är på väg att avslå begäran om \"{{item}}\".",
+            "reject_target": "Du är på väg att avslå låneförfrågan som skickats av {{name}}.",
+            "reject_reason_label": "Avslagsorsak",
+            "reject_submitting": "Avvisa...",
+            "due_date_label": "Planerad återkomstdag"
         },
         "messages": {
             "load_error": "Lånecenter kunde inte laddas",
-            "action_error": "Åtgärden kunde inte slutföras"
+            "action_error": "Åtgärden kunde inte slutföras",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Du kan bara skicka en första kontakt-förfrågan till samma person per dag. Om de accepterar en förfrågan gäller denna begränsning inte längre för den personen.",
+                "external_total_daily_limit": "Du kan skicka upp till 5 första kontakt-förfrågningar per dag.",
+                "external_request_requires_verified_email": "Verifiera din e-postadress innan du skickar externa låneförfrågningar.",
+                "external_offer_blocked": "Du kan endast erbjuda ett föremål till hushållsmedlemmar eller registrerade användare som kan identifieras direkt.",
+                "target_blocked_by_you": "Du kan inte skicka en förfrågan till en användare som du har blockerat.",
+                "recent_rejection_lock": "Denna användare avvisade en nyligen skickad förfrågan. Du kan skicka en ny förfrågan efter 30 dagar."
+            }
         },
         "preview": {
             "title": "Förhandsgranskningsläge",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Inga förfrågningar behöver din granskning",
         "outgoing_empty_title": "Inga utgående förfrågningar än",
         "refreshing": "Uppdaterar förfrågningar och aktiva lån...",
-        "loading_description": "Förbereder förfrågningar och aktivt låneaktivitet."
+        "loading_description": "Förbereder förfrågningar och aktivt låneaktivitet.",
+        "reasons": {
+            "rejected": "Avslag (Normalt avslag)",
+            "not_available": "Ej tillgänglig (Föremål saknas / inte tillgängligt)",
+            "blocked": "Blockera och avvisa (Blockerar denna användare)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Integritetspolicy",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Hantera alla dina hushållsartiklar smart"
+        "tagline": "Hantera alla dina hushållsartiklar smart",
+        "loading": "Laddar {{brandName}}",
+        "preparing_workspace": "Förbereder din arbetsplats..."
     },
     "nav": {
         "home": "Hem",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Rensa historik",
-            "add_item": "Lägg till i inköpslista"
+            "add_item": "Lägg till i inköpslista",
+            "mark_completed": "Markera som slutförd",
+            "decrease_qty": "Minska kvantitet",
+            "increase_qty": "Öka mängden",
+            "delete_item": "Ta bort objekt",
+            "reactivate_item": "Flytta tillbaka till aktiv lista"
         },
         "form": {
             "add_type": "Lägg till metod",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Periodisk eller engångsunderhållsspårning planerad för denna post.",
         "no_tasks": "Inga underhållsuppgifter tilldelade denna post.",
         "confirm_delete": "Denna uppgift kommer att tas bort. Är du säker?"
+    },
+    "error_boundary": {
+        "title": "Något behöver fräschas upp",
+        "description": "Gränssnittet stötte på ett oväntat renderingsproblem. Din sparade inventariedata ändras inte av denna skärm.",
+        "refresh_btn": "Uppdatera",
+        "home_btn": "Hem"
     }
 }

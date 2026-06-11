@@ -186,7 +186,8 @@
         "hide": "Ascunde parola",
         "logging_out": "Deconectare în curs...",
         "show": "Arată parola",
-        "saving": "Salvare..."
+        "saving": "Salvare...",
+        "disabled": "Persoană cu dizabilități"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Este necesară o cheie de casă pentru a se conecta cu o casă existentă",
         "house_key_not_found": "Cheia Casei Invalide. Vă rugăm să introduceți cheia corectă.",
         "email_not_verified": "Adresa ta de email nu a fost încă verificată. Vă rugăm să verificați inbox-ul.",
-        "two_factor_invalid": "Codul de verificare este incorect"
+        "two_factor_invalid": "Codul de verificare este incorect",
+        "two_factor_invalid_try_again": "Cod de verificare invalid. Vă rog să încercați din nou.",
+        "two_factor_code_required": "Este necesar codul de verificare",
+        "two_factor_user_not_found": "Utilizator negăsit",
+        "two_factor_already_enabled": "Autentificarea în doi pași este deja activată",
+        "two_factor_setup_not_started": "Vă rugăm să începeți configurarea autentificării în doi pași",
+        "two_factor_setup_error": "A apărut o eroare în timpul configurării autentificării în doi pași",
+        "two_factor_activation_error": "A apărut o eroare în timpul activării autentificării în doi pași",
+        "two_factor_password_required": "Este necesară parola",
+        "two_factor_credentials_required": "Este necesar codul TOTP, codul de rezervă sau cheia de recuperare",
+        "two_factor_already_disabled": "Autentificarea în doi pași este deja dezactivată",
+        "two_factor_password_incorrect": "Parolă incorectă",
+        "two_factor_verification_failed": "Verificarea a eșuat. Vă rugăm să verificați codul și să încercați din nou.",
+        "two_factor_disable_error": "A apărut o eroare în timpul dezactivării autentificării în doi pași",
+        "two_factor_not_enabled": "Autentificarea în doi pași nu este activată",
+        "two_factor_regenerate_codes_error": "A apărut o eroare în timpul regenerării codurilor de rezervă",
+        "two_factor_enabled_success": "Autentificarea în doi pași a fost activată cu succes",
+        "two_factor_disabled_success": "Autentificarea în doi pași a fost dezactivată cu succes",
+        "password_errors": {
+            "min_length": "Parola trebuie să aibă cel puțin {{min}} caractere",
+            "lowercase_required": "Parola trebuie să includă cel puțin o literă mică",
+            "uppercase_required": "Parola trebuie să includă cel puțin o literă mare",
+            "number_required": "Parola trebuie să includă cel puțin un număr",
+            "symbol_required": "Parola trebuie să includă cel puțin un simbol",
+            "repeated_chars": "Nu folosi caractere repetate în parolă",
+            "predictable_sequence": "Nu folosi secvențe ușor de ghicit în parola ta",
+            "common_password": "Această parolă este prea comună și nesigură",
+            "contains_username": "Parola nu trebuie să conțină numele tău de utilizator",
+            "contains_email": "Parola nu trebuie să conțină informațiile tale de email"
+        }
     },
     "navigation": {
         "home": "Acasă",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Cheia de recuperare a fost regenerată",
             "recovery_key_error": "Nu s-a putut regenera cheia de recuperare",
             "account_delete_error": "Contul nu a putut fi șters",
-            "backup_downloaded_encrypted": "Backup criptat descărcat cu succes! ({{count}} articole)"
+            "backup_downloaded_encrypted": "Backup criptat descărcat cu succes! ({{count}} articole)",
+            "policy_update_error": "Nu s-au actualizat setările de cerere.",
+            "policy_updated": "Setările de cerere s-au actualizat cu succes.",
+            "unblock_error": "A eșuat să deblocheze utilizatorul.",
+            "unblocked_success": "Utilizatorul a fost deblocat cu succes.",
+            "house_owner_transferred": "Proprietatea casei transferată",
+            "house_owner_transfer_error": "Proprietatea asupra casei nu putea fi transferată."
         },
         "user_profile": {
             "edit_username": "Schimbă numele de utilizator"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} nu mai are acces la acest gospodărie.",
             "kick_title": "Să se elimine acest membru?",
             "kick_warning": "Accesul lor la gospodărie se va încheia imediat și vor avea nevoie de o nouă invitație sau aprobare pentru a reveni.",
-            "kicking": "Se elimină..."
+            "kicking": "Se elimină...",
+            "access_section_eyebrow": "Acces la casă",
+            "transfer_owner": "Fă-ți proprietarul",
+            "transferring_owner": "Transfer...",
+            "transfer_owner_title": "Transferul proprietății casei?",
+            "transfer_owner_confirm": "Să transferăm proprietatea acestei gospodării către {{name}}?",
+            "transfer_owner_warning": "Nu vei mai fi proprietarul acestei gospodării. Noul proprietar va gestiona aprobările membrilor, mutările și viitoarele schimbări de proprietate.",
+            "transfer_owner_success_body": "{{name}} este acum proprietarul acestei gospodării."
         },
         "theme": {
             "title": "Temă",
@@ -729,7 +772,9 @@
             "light": "Mod luminos",
             "description": "Alegeți cum arată spațiul de lucru pe acest dispozitiv.",
             "light_aria": "Comută la tema deschisă",
-            "dark_aria": "Comută la tema întunecată"
+            "dark_aria": "Comută la tema întunecată",
+            "workspace_title": "Tema spațiului de lucru",
+            "workspace_desc": "Selectați stilul vizual preferat pentru acest dispozitiv."
         },
         "security": {
             "title": "Securitate",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Cheia de recuperare curentă nu poate fi afișată. Regener-o dacă este necesar.",
             "recovery_key_action": "Regenerare",
             "recovery_key_modal_desc": "Confirmă parola curentă pentru a continua. Noua cheie va fi afișată o singură dată.",
-            "recovery_key_loading": "Se pregătește..."
+            "recovery_key_loading": "Se pregătește...",
+            "accordion_title": "Securitate și confidențialitate",
+            "accordion_desc": "Gestionează autentificarea în doi pași, sistemele de încredere și regulile de cerere de împrumut de la alte conturi.",
+            "description": "Gestionează configurațiile parolei principale și a seifului.",
+            "change_password_detail": "Actualizează-ți parola pentru a-ți menține contul în siguranță",
+            "recovery_key_detail": "Folosit pentru a-ți recupera seiful dacă uiți parola"
         },
         "data_management": {
             "title": "Gestionarea datelor",
@@ -785,10 +835,10 @@
             "owner_only_desc": "Backup-ul și restaurarea datelor pot fi gestionate doar de proprietarul casei."
         },
         "about": {
-            "title": "📱 Despre aplicație",
+            "title": "Despre aplicație",
             "version": "Versiune",
             "brand": "Marcă",
-            "feedback": "✉️ Trimite Feedback",
+            "feedback": "Trimite Feedback",
             "legal_title": "Documente legale",
             "legal_description": "Poți redeschide termenii și textele de confidențialitate de aici chiar și după ce le-ai acceptat.",
             "terms_link": "Termeni și condiții",
@@ -890,7 +940,8 @@
             "revoke_devices": "Anulează dispozitivele de încredere",
             "revoke_devices_desc": "Elimină toate dispozitivele memorate, necesitând 2FA la următoarea autentificare",
             "devices_revoked": "{{count}} dispozitiv(e) de încredere eliminate",
-            "devices_error": "Eșec la anularea dispozitivelor"
+            "devices_error": "Eșec la anularea dispozitivelor",
+            "preparing_setup": "Pregătirea configurației autentificatorului..."
         },
         "danger_zone": {
             "title": "Cont",
@@ -903,7 +954,8 @@
             "modal_warning_body": "După confirmare, veți pierde imediat accesul la cont și datele aplicației șterse nu pot fi restaurate din aplicație.",
             "password_label": "Confirmă cu parola ta actuală",
             "confirm_delete": "Confirmă ștergerea",
-            "deleting": "Ștergere..."
+            "deleting": "Ștergere...",
+            "description": "Șterge-ți contul și elimină definitiv toate seturile de date din inventar."
         },
         "language": "Limbă",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Limbi Populare",
         "search_results": "Rezultatele Căutării",
         "current_language": "Limba curentă",
-        "languages_available": "limbi disponibile"
+        "languages_available": "limbi disponibile",
+        "borrow_requests": {
+            "accordion_eyebrow": "Garanție pentru cererea de împrumut",
+            "accordion_eyebrow_desc": "Configurează regulile de cerere și gestionează utilizatorii blocați.",
+            "title": "Setări pentru cererea de împrumut",
+            "description": "Gestionează regulile pentru primirea cererilor de împrumut de la alte conturi și listează utilizatorii blocați.",
+            "policy_title": "Cereri noi de împrumut",
+            "policy_description": "Controlează cine poate să-ți trimită cereri de împrumut. Inventarul tău nu este niciodată afișat ca listare publică.",
+            "policy_none": "Nu primiți de la nimeni (Implicit)",
+            "policy_house_only": "Doar membrii gospodăriei",
+            "policy_everyone": "Toți utilizatorii înregistrați",
+            "blocks_title": "Utilizatori blocați",
+            "blocks_description": "Utilizatorii pe care i-ai blocat să-ți trimită noi cereri de împrumut.",
+            "no_blocks": "Niciun utilizator blocat nu a fost găsit.",
+            "unblock_btn": "Deblochează",
+            "policy_none_desc": "Toate cererile primite sunt blocate automat.",
+            "policy_house_only_desc": "Doar membrii verificați ai caselor tale active pot solicita obiecte care sunt deja vizibile în acea casă comună.",
+            "policy_everyone_desc": "Alți utilizatori nu pot naviga sau vedea obiectele tale. Ei pot trimite o cerere doar introducând direct numele tău de utilizator sau adresa de email."
+        }
     },
     "inventory": {
         "title": "Inventar",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Cu tine",
             "return_pending_hint": "Înregistrarea se va închide după ce creditorul confirmă că a primit articolul înapoi.",
             "return_pending_lender_title": "{{name}} a marcat acest articol ca fiind livrat înapoi",
-            "return_pending_self_title": "La tine, așteptând confirmarea primirii"
+            "return_pending_self_title": "La tine, așteptând confirmarea primirii",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Obiect fără titlu",
         "delete_action": "Șterge obiectul",
@@ -1851,7 +1926,7 @@
             "bodyLine2": "Așteptarea aprobării proprietarului casei"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{numeBrand}} - {{status}}",
             "greeting": "Acces la casă",
             "bodyLine1Template": "Cererea curentă în așteptare: {{house}} ({{status}})",
             "bodyLine2": "Cererea ta pentru \"{{house}}\" este încă în așteptare pentru o decizie.",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Notă de primire",
             "return_note_placeholder_borrower": "de exemplu, l-am returnat fără probleme",
             "return_note_placeholder_lender": "de exemplu, Primit înapoi în stare bună",
-            "return_submitting": "Închidere..."
+            "return_submitting": "Închidere...",
+            "reject_title": "Cerere de respingere",
+            "reject_subtitle": "Ești pe cale să respingi cererea pentru \"{{item}}\".",
+            "reject_target": "Ești pe cale să respingi cererea de împrumut trimisă de {{name}}.",
+            "reject_reason_label": "Motivul respingerii",
+            "reject_submitting": "Respingând...",
+            "due_date_label": "Data planificată de returnare"
         },
         "messages": {
             "load_error": "Centrul de împrumut nu a putut fi încărcat",
-            "action_error": "Acțiunea nu a putut fi finalizată"
+            "action_error": "Acțiunea nu a putut fi finalizată",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Poți trimite doar o singură cerere de prim contact extern către aceeași persoană pe zi. Dacă ei acceptă o cerere, această limită nu se mai aplică pentru acea persoană.",
+                "external_total_daily_limit": "Poți trimite până la 5 cereri de prim contact extern pe zi.",
+                "external_request_requires_verified_email": "Verifică-ți adresa de email înainte de a trimite cereri de împrumut externe.",
+                "external_offer_blocked": "Poți oferi un obiect numai membrilor casei sau utilizatorilor înregistrați care pot fi identificați direct.",
+                "target_blocked_by_you": "Nu poți trimite o cerere unui utilizator pe care l-ai blocat.",
+                "recent_rejection_lock": "Acest utilizator a respins o cerere recentă. Poți trimite o altă cerere după 30 de zile."
+            }
         },
         "preview": {
             "title": "Modul de previzualizare",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Nicio cerere nu necesită revizuirea ta",
         "outgoing_empty_title": "Nicio cerere trimisă încă",
         "refreshing": "Reîmprospătarea cererilor și a împrumuturilor active...",
-        "loading_description": "Pregătirea cererilor și activităților de împrumut active."
+        "loading_description": "Pregătirea cererilor și activităților de împrumut active.",
+        "reasons": {
+            "rejected": "Respingerea (Respingerea normală)",
+            "not_available": "Nu este disponibil (Obiect lipsă / indisponibil)",
+            "blocked": "Blochează și respinge (Blochează acest utilizator)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Politica de confidențialitate",
@@ -2175,8 +2270,10 @@
         "account_menu_tooltip": "Meniul contului lui {{name}}"
     },
     "app": {
-        "name": "{{brandName}}",
-        "tagline": "Gestionează inteligent toate obiectele din gospodăria ta"
+        "name": "{{NumeBrand}}",
+        "tagline": "Gestionează inteligent toate obiectele din gospodăria ta",
+        "loading": "Se încarcă {{brandName}}",
+        "preparing_workspace": "Pregătirea spațiului de lucru..."
     },
     "nav": {
         "home": "Acasă",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Șterge Istoricul",
-            "add_item": "Adaugă la lista de cumpărături"
+            "add_item": "Adaugă la lista de cumpărături",
+            "mark_completed": "Marcați ca finalizat",
+            "decrease_qty": "Scădeți cantitatea",
+            "increase_qty": "Mărirea cantității",
+            "delete_item": "Șterge elementul",
+            "reactivate_item": "Întoarce-te la lista activă"
         },
         "form": {
             "add_type": "Adaugă metodă",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Urmărirea întreținerii periodice sau unice programate pentru acest articol.",
         "no_tasks": "Nu există sarcini de întreținere atribuite acestui articol.",
         "confirm_delete": "Această sarcină va fi ștearsă. Ești sigur?"
+    },
+    "error_boundary": {
+        "title": "Ceva are nevoie de o reîmprospătare",
+        "description": "Interfața a întâmpinat o problemă neașteptată de randare. Datele tale salvate din inventar nu sunt modificate de acest ecran.",
+        "refresh_btn": "Reîmprospătare",
+        "home_btn": "Acasă"
     }
 }

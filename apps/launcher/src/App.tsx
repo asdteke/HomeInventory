@@ -1,4 +1,5 @@
 import { invoke } from '@tauri-apps/api/core';
+import { listen } from '@tauri-apps/api/event';
 import {
   Archive,
   ChevronRight,
@@ -18,6 +19,9 @@ import {
   Wifi,
   AlertCircle,
   ExternalLink,
+  CheckCircle2,
+  Download,
+  RefreshCw,
 } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import logoFull from './logo-full.svg';
@@ -26,12 +30,14 @@ import logoSymbolLightSvg from './logo-symbol-light.svg?raw';
 import { QrCodeCard } from './QrCode';
 
 /* ── Types ── */
-type ViewKey = 'logs' | 'backups' | 'settings';
+type ViewKey = 'logs' | 'backups' | 'settings' | 'updates';
 
 type ToolStatus = { name: string; path?: string | null; ok: boolean; detail: string };
 
 type SetupStatus = {
   node: boolean; npm: boolean;
+  projectRootValid: boolean;
+  projectRootInstallable: boolean;
   rootDependencies: boolean; clientDependencies: boolean; envFile: boolean;
 };
 
@@ -56,9 +62,24 @@ type LauncherSnapshot = {
   projectRoot: string; appDataDir: string; localIp?: string | null;
   tools: ToolStatus[]; setup: SetupStatus; profiles: ProfileStatus[];
   activeProfileId?: string | null; lanStatus?: LanAccessStatus | null; logs: LogEntry[];
+  launcherVersion: string;
+  appVersion: string;
+};
+
+type UpdateCheckResult = {
+  currentAppVersion: string;
+  latestAppVersion: string;
+  currentLauncherVersion: string;
+  latestLauncherVersion: string;
+  appReleaseNotes?: string | null;
+  launcherReleaseNotes?: string | null;
+  appUpdateAvailable: boolean;
+  launcherUpdateAvailable: boolean;
+  requiredActions: string[];
 };
 
 type CommandResult = { ok: boolean; message: string };
+type BackupResult = CommandResult & { path: string };
 
 type PortCheckResult = {
   ok: boolean;
@@ -151,6 +172,15 @@ export function App() {
 
   // User must click to start — no auto-boot
   const [userStarted, setUserStarted] = useState(false);
+  const [setupAutoBlocked, setSetupAutoBlocked] = useState(false);
+  const [installStartedAt, setInstallStartedAt] = useState<number | null>(null);
+  const [elapsedNow, setElapsedNow] = useState(() => Date.now());
+
+  // Updater state
+  const [updateResult, setUpdateResult] = useState<UpdateCheckResult | null>(null);
+  const [checkingUpdates, setCheckingUpdates] = useState(false);
+  const [updateProgress, setUpdateProgress] = useState<{ state: string; message: string; progress: number; error?: string | null } | null>(null);
+  const [updateNotice, setUpdateNotice] = useState('');
 
   /* ── Refresh ── */
   const refresh = useCallback(async () => {
@@ -184,6 +214,93 @@ export function App() {
   useEffect(() => { saveSettings(settings); refresh(); }, [settings, refresh]);
   useEffect(() => { const t = setInterval(refresh, 2000); return () => clearInterval(t); }, [refresh]);
 
+  // Listener for update-progress
+  useEffect(() => {
+    let unlisten: (() => void) | null = null;
+    if (hasTauriRuntime()) {
+      listen<{ state: string; message: string; progress: number; error?: string | null }>('update-progress', (event) => {
+        setUpdateProgress(event.payload);
+        if (event.payload.error) {
+          setUpdateNotice(event.payload.error);
+        }
+        if (event.payload.state === 'Completed' || event.payload.state === 'RollbackComplete') {
+          // Re-enable and refresh snapshot
+          refresh();
+        }
+      }).then((fn) => {
+        unlisten = fn;
+      });
+    }
+    return () => {
+      if (unlisten) unlisten();
+    };
+  }, [refresh]);
+
+  const checkForUpdates = async () => {
+    setCheckingUpdates(true);
+    setUpdateNotice('');
+    setUpdateResult(null);
+    try {
+      if (!hasTauriRuntime()) {
+        await new Promise((r) => setTimeout(r, 1000));
+        setUpdateResult({
+          currentAppVersion: snapshot?.appVersion || '2.2.1',
+          latestAppVersion: '2.3.0',
+          currentLauncherVersion: snapshot?.launcherVersion || '2.2.1',
+          latestLauncherVersion: '2.2.1',
+          appReleaseNotes: 'Security fixes and auto-update support.',
+          launcherReleaseNotes: null,
+          appUpdateAvailable: true,
+          launcherUpdateAvailable: false,
+          requiredActions: ['appUpdate'],
+        });
+        return;
+      }
+      const result = await invoke<UpdateCheckResult>('check_updates');
+      setUpdateResult(result);
+      if (!result.appUpdateAvailable && !result.launcherUpdateAvailable) {
+        setUpdateNotice('Your software is up to date.');
+      }
+    } catch (err) {
+      setUpdateNotice(err instanceof Error ? err.message : String(err));
+    } finally {
+      setCheckingUpdates(false);
+    }
+  };
+
+  const triggerUpdate = async () => {
+    if (!updateResult) {
+      setUpdateNotice('Please check for updates before starting the update.');
+      setUpdateProgress(null);
+      return;
+    }
+
+    if (!updateResult.appUpdateAvailable && !updateResult.launcherUpdateAvailable) {
+      setUpdateNotice('Your software is up to date. No update is available to install.');
+      setUpdateProgress(null);
+      return;
+    }
+
+    setUpdateNotice('');
+    setUpdateProgress({ state: 'Starting', message: 'Initializing update orchestration...', progress: 0.01 });
+    try {
+      if (!hasTauriRuntime()) {
+        setUpdateProgress({ state: 'Backing Up', message: 'Creating database and uploads backup...', progress: 0.2 });
+        await new Promise((r) => setTimeout(r, 1000));
+        setUpdateProgress({ state: 'Downloading', message: 'Downloading release archive...', progress: 0.4 });
+        await new Promise((r) => setTimeout(r, 1000));
+        setUpdateProgress({ state: 'Installing', message: 'Running npm ci dependency install...', progress: 0.7 });
+        await new Promise((r) => setTimeout(r, 1500));
+        setUpdateProgress({ state: 'Completed', message: 'Update complete!', progress: 1.0 });
+        return;
+      }
+      await invoke('update_all');
+    } catch (err) {
+      setUpdateNotice(err instanceof Error ? err.message : String(err));
+      setUpdateProgress(null);
+    }
+  };
+
   const profiles = snapshot?.profiles ?? [];
   const active = profiles.find(p => p.id === snapshot?.activeProfileId) ?? null;
   const [selId, setSelId] = useState('homeinventory');
@@ -205,8 +322,103 @@ export function App() {
   const ready = useMemo(() => {
     if (!snapshot) return false;
     const s = snapshot.setup;
-    return s.node && s.npm && s.rootDependencies && s.clientDependencies && s.envFile;
+    return s.node && s.npm && s.projectRootValid && s.rootDependencies && s.clientDependencies && s.envFile;
   }, [snapshot]);
+
+  const updateAvailable = Boolean(updateResult?.appUpdateAvailable || updateResult?.launcherUpdateAvailable);
+  const updateBlockedByNode = Boolean(updateResult?.requiredActions.includes('nodeMajorUpgrade'));
+  const projectRootMissing = Boolean(snapshot && !snapshot.projectRoot.trim());
+  const projectRootInvalid = Boolean(snapshot?.projectRoot.trim() && !snapshot.setup.projectRootValid);
+  const projectRootInstallable = Boolean(snapshot?.setup.projectRootInstallable);
+  const projectRootBlocked = projectRootMissing || (projectRootInvalid && !projectRootInstallable);
+  const visibleLaunchNotice = projectRootMissing
+    ? 'Choose an empty install folder or an existing HomeInventory folder.'
+    : projectRootInstallable
+      ? 'Empty install folder selected. HomeInventory will be downloaded and installed here.'
+      : projectRootInvalid
+        ? 'This folder is not empty and is not a HomeInventory install folder.'
+    : notice && !['Launcher ready.', 'Browser preview — Tauri commands are simulated.'].includes(notice)
+      ? notice
+      : '';
+
+  const chooseInstallFolder = async () => {
+    if (!hasTauriRuntime()) {
+      setNotice('Folder picker is available in the desktop launcher.');
+      return;
+    }
+    try {
+      const selected = await invoke<string | null>('choose_path', { request: { kind: 'project' } });
+      if (!selected) return;
+      setSettings(current => ({ ...current, projectPath: selected }));
+      setSetupAutoBlocked(false);
+      setNotice('Install folder selected.');
+    } catch (err) {
+      setNotice(err instanceof Error ? err.message : String(err));
+    }
+  };
+
+  const clearInstallFolder = () => {
+    setSettings(current => ({ ...current, projectPath: '' }));
+    setSetupAutoBlocked(false);
+    setNotice('Install folder cleared.');
+  };
+
+  const renderPreLaunchUpdateCheck = () => {
+    const title = updateProgress
+      ? 'Update in progress'
+      : checkingUpdates
+        ? 'Checking updates...'
+        : updateResult
+          ? updateAvailable
+            ? 'Update available before launch'
+            : 'Checked before launch'
+          : 'Check updates before launch';
+
+    const detail = updateProgress
+      ? updateProgress.message
+      : checkingUpdates
+        ? 'Looking for signed launcher and app releases.'
+        : updateResult
+          ? updateBlockedByNode
+            ? 'Node.js must be upgraded before this update can be installed.'
+            : updateAvailable
+              ? 'Install the verified update before starting HomeInventory.'
+              : 'No update is available right now.'
+          : 'Verify releases, signatures, and requirements before starting services.';
+
+    const buttonLabel = checkingUpdates
+      ? 'Checking...'
+      : updateAvailable
+        ? 'Update First'
+        : updateResult
+          ? 'Check Again'
+          : 'Check Updates';
+
+    const buttonIcon = checkingUpdates
+      ? <Loader2 size={13} className="spin" />
+      : updateAvailable
+        ? <Download size={13} />
+        : <RefreshCw size={13} />;
+
+    return (
+      <div className="prelaunch-update-card">
+        <div className="prelaunch-update-copy">
+          <span className="prelaunch-update-kicker">Updates</span>
+          <strong>{title}</strong>
+          <p>{detail}</p>
+        </div>
+        <button
+          type="button"
+          className={updateAvailable ? 'btn-primary' : 'btn-secondary'}
+          onClick={updateAvailable ? triggerUpdate : checkForUpdates}
+          disabled={checkingUpdates || Boolean(updateProgress) || (updateAvailable && (updateBlockedByNode || busy === 'update'))}
+        >
+          {buttonIcon}
+          {buttonLabel}
+        </button>
+      </div>
+    );
+  };
 
   /* ── Server polling ── */
   useEffect(() => {
@@ -234,6 +446,15 @@ export function App() {
     if (serverReady) setWarmup(100);
     else setWarmup(10);
   }, [active, serverReady]);
+
+  useEffect(() => {
+    if (!userStarted || busy || active || serverReady || stopped || !ready || !snapshot) return;
+    const lastError = [...snapshot.logs].reverse().find(log => log.level === 'error');
+    const nextNotice = lastError
+      ? `${lastError.source}: ${lastError.message}`
+      : 'HomeInventory stopped before it finished starting. Open Developer Tools for logs.';
+    setNotice(current => current === nextNotice ? current : nextNotice);
+  }, [active, busy, ready, serverReady, snapshot, stopped, userStarted]);
 
   useEffect(() => {
     if (!active || !serverReady || !settings.autoOpen || openedUrl === active.frontendUrl || !hasTauriRuntime()) return;
@@ -291,14 +512,22 @@ export function App() {
   }, [selProfile, selectedBackendPort, selectedFrontendPort, portInputError]);
 
   /* ── Actions ── */
-  async function run(label: string, action: () => Promise<CommandResult | unknown>) {
+  async function run(label: string, action: () => Promise<CommandResult | unknown>): Promise<boolean> {
     setBusy(label);
     try {
-      if (!hasTauriRuntime()) { setNotice(`${label}: simulated in browser mode.`); await new Promise(r => setTimeout(r, 1500)); return; }
+      if (!hasTauriRuntime()) {
+        setNotice(`${label}: simulated in browser mode.`);
+        await new Promise(r => setTimeout(r, 1500));
+        return true;
+      }
       const r = await action();
       setNotice(isCmd(r) ? r.message : `${label} done.`);
       await refresh();
-    } catch (e) { setNotice(String(e)); }
+      return true;
+    } catch (e) {
+      setNotice(String(e));
+      return false;
+    }
     finally { setBusy(null); }
   }
 
@@ -356,7 +585,42 @@ export function App() {
     await run('stop', () => invoke('stop_profile'));
   };
 
-  const doInstall = () => run('install', () => invoke('install_dependencies', { overrides: overrides(settings) }));
+  const doInstall = async (automatic = false) => {
+    setInstallStartedAt(Date.now());
+    const ok = await run('install', () => invoke('install_dependencies', { overrides: overrides(settings) }));
+    setInstallStartedAt(null);
+    if (!ok) {
+      setSetupAutoBlocked(true);
+      setUserStarted(false);
+      return false;
+    }
+    if (!automatic) setSetupAutoBlocked(false);
+    return ok;
+  };
+
+  const doBackup = async (p: ProfileStatus): Promise<BackupResult> => {
+    setBusy('backup');
+    try {
+      if (!hasTauriRuntime()) {
+        const simulated = {
+          ok: true,
+          message: `Backup created for ${p.name}: simulated in browser mode.`,
+          path: `${snapshot?.appDataDir || '/tmp'}/backups/${p.id}-preview`,
+        };
+        setNotice(simulated.message);
+        return simulated;
+      }
+      const result = await invoke<BackupResult>('backup_now', { request: { profileId: p.id } });
+      setNotice(result.message);
+      await refresh();
+      return result;
+    } catch (e) {
+      setNotice(String(e));
+      throw e;
+    } finally {
+      setBusy(null);
+    }
+  };
 
   const doLaunch = async (p: ProfileStatus) => {
     if (portBlocked) {
@@ -385,8 +649,10 @@ export function App() {
 
   /* ── Auto-boot (only after user clicks Start) ── */
   useEffect(() => {
-    if (userStarted && hasTauriRuntime() && snapshot && !ready && !busy && snapshot.setup.node && snapshot.setup.npm) doInstall();
-  }, [snapshot, ready, busy, userStarted]);
+    if (userStarted && hasTauriRuntime() && snapshot && !ready && !busy && !setupAutoBlocked && !projectRootBlocked && snapshot.setup.node && snapshot.setup.npm) {
+      doInstall(true);
+    }
+  }, [snapshot, ready, busy, setupAutoBlocked, projectRootBlocked, userStarted]);
 
   useEffect(() => {
     if (userStarted && hasTauriRuntime() && snapshot && ready && !snapshot.activeProfileId && !busy && !stopped) {
@@ -395,6 +661,12 @@ export function App() {
     }
   }, [snapshot, ready, busy, stopped, userStarted]);
 
+  useEffect(() => {
+    if (busy !== 'install') return;
+    const timer = window.setInterval(() => setElapsedNow(Date.now()), 1000);
+    return () => window.clearInterval(timer);
+  }, [busy]);
+
   /* ── Render ── */
   if (!snapshot) return <div className="loading-state"><Loader2 size={28} className="spin" /><span>Loading environment…</span></div>;
 
@@ -402,17 +674,15 @@ export function App() {
   if (!ready && !(active && serverReady)) {
     const s = snapshot.setup;
     const installing = busy === 'install';
-    let pct = 0;
-    if (s.node) pct += 20; if (s.npm) pct += 20; if (s.envFile) pct += 20;
-    if (s.rootDependencies) pct += 20; if (s.clientDependencies) pct += 20;
+    const elapsedSeconds = installStartedAt ? Math.max(0, Math.floor((elapsedNow - installStartedAt) / 1000)) : 0;
+    const elapsedLabel = `${Math.floor(elapsedSeconds / 60)}:${String(elapsedSeconds % 60).padStart(2, '0')}`;
 
     let msg = 'Waiting to initialize…';
     if (!s.node || !s.npm) msg = 'Node.js is required.';
     else if (installing) {
-      if (pct < 60) msg = 'Installing core packages…';
-      else if (pct < 80) msg = 'Configuring database…';
-      else if (pct < 100) msg = 'Building interface (30-40s)…';
-      else msg = 'Finalizing…';
+      msg = 'Installing dependencies and preparing the app…';
+    } else if (setupAutoBlocked) {
+      msg = 'Setup stopped after an error. Choose another install folder, then try again.';
     }
 
     return (
@@ -423,12 +693,17 @@ export function App() {
             <div className="logo-aura" />
           </div>
           <p className="splash-subtitle">Your private household registry</p>
-          <span className="version-badge">v2.0 · Local-first</span>
+          <span className="version-badge">
+            {snapshot ? `App v${snapshot.appVersion} · Launcher v${snapshot.launcherVersion} · Local-first` : 'v2.2.1 · Local-first'}
+          </span>
 
           {installing ? (
-            <div className="progress-wrap" style={{ marginTop: 28 }}>
-              <div className="progress-track"><div className="progress-fill" style={{ width: `${pct}%` }} /></div>
-              <div className="progress-meta"><span>{msg}</span><span>{pct}%</span></div>
+            <div className="install-status" style={{ marginTop: 28 }}>
+              <Loader2 size={18} className="spin" />
+              <div>
+                <strong>{msg}</strong>
+                <p>Elapsed {elapsedLabel}. First install can take a few minutes depending on npm and network speed.</p>
+              </div>
             </div>
           ) : (!s.node || !s.npm) ? (
             <div className="error-box">
@@ -440,10 +715,45 @@ export function App() {
             </div>
           ) : (
             <div style={{ width: '100%', marginTop: 28 }}>
-              <button className="btn-primary" onClick={() => { setUserStarted(true); if (selProfile) doLaunch(selProfile); else doInstall(); }} disabled={Boolean(busy) || portBlocked}>
+              {renderPreLaunchUpdateCheck()}
+
+              <button
+                className="btn-primary"
+                onClick={() => {
+                  if (projectRootBlocked) {
+                    chooseInstallFolder();
+                    return;
+                  }
+                  setSetupAutoBlocked(false);
+                  setUserStarted(true);
+                  doInstall(false);
+                }}
+                disabled={Boolean(busy) || portBlocked}
+              >
                 {busy ? <Loader2 size={16} className="spin" /> : <Play size={16} />}
-                {portBusy ? `Launch on ${launchBackendPort}/${launchFrontendPort}` : 'Initialize & Launch'}
+                {projectRootBlocked ? 'Choose Install Folder' : projectRootInstallable ? 'Install & Launch' : portBusy ? `Launch on ${launchBackendPort}/${launchFrontendPort}` : 'Initialize & Launch'}
               </button>
+
+              {visibleLaunchNotice && (
+                <div className="launch-notice">
+                  <AlertCircle size={14} />
+                  <div className="launch-notice-body">
+                    <span>{visibleLaunchNotice}</span>
+                    {projectRootBlocked && (
+                      <div className="launch-notice-actions">
+                        <button type="button" className="mini-action" onClick={chooseInstallFolder}>
+                          Choose Install Folder
+                        </button>
+                        {settings.projectPath && (
+                          <button type="button" className="mini-action" onClick={clearInstallFolder}>
+                            Clear
+                          </button>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
 
               <AdvancedConfigPanel
                 showAdvanced={showAdvanced} setShowAdvanced={setShowAdvanced}
@@ -464,6 +774,10 @@ export function App() {
                   setPortUi(String(portCheck.suggestedFrontendPort));
                 }}
               />
+
+              <button className="btn-outline" onClick={() => { setDevTab('settings'); setShowDevPanel(true); }}>
+                <SlidersHorizontal size={13} /> Developer Tools
+              </button>
             </div>
           )}
 
@@ -483,6 +797,26 @@ export function App() {
                 <button className="btn-secondary compact" onClick={() => setShowLogs(false)}>Close</button>
               </div>
               <div className="drawer-body"><LogRows logs={snapshot.logs} /></div>
+            </div>
+          </div>
+        )}
+
+        {showDevPanel && (
+          <div className="modal-overlay" onClick={() => setShowDevPanel(false)}>
+            <div className="modal-panel" onClick={e => e.stopPropagation()}>
+              <DevPanelContent
+                snapshot={snapshot} profiles={profiles} settings={settings} setSettings={setSettings}
+                devTab={devTab} setDevTab={setDevTab} busy={busy} notice={notice}
+                onNotice={setNotice}
+                onClose={() => setShowDevPanel(false)}
+                onBackup={doBackup}
+                updateResult={updateResult}
+                checkingUpdates={checkingUpdates}
+                updateProgress={updateProgress}
+                updateNotice={updateNotice}
+                onCheckUpdates={checkForUpdates}
+                onTriggerUpdate={triggerUpdate}
+              />
             </div>
           </div>
         )}
@@ -532,7 +866,7 @@ export function App() {
           </a>
 
           <div className="running-qr">
-            <QrCodeCard url={activeLanUrl} size={188} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
+            <QrCodeCard url={activeLanUrl} size={296} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
             <div className={`lan-status ${lanStatus?.ok ? 'ok' : 'blocked'}`}>
               <Wifi size={12} />
               <span>{lanStatus?.message || 'LAN status is checked after the services bind to the network.'}</span>
@@ -553,12 +887,9 @@ export function App() {
             <span>UI {active.frontendPort}</span>
           </div>
 
-          <div className="running-actions" aria-label="Launcher controls">
-            <button className="icon-action" onClick={() => { setDevTab('settings'); setShowDevPanel(true); }} title="Manage app">
+          <div className="running-actions" aria-label="App controls">
+            <button className="icon-action" onClick={() => { setDevTab('settings'); setShowDevPanel(true); }} title="App settings">
               <SlidersHorizontal size={15} />
-            </button>
-            <button className="icon-action" onClick={() => { setDevTab('logs'); setShowDevPanel(true); }} title="Show logs">
-              <Terminal size={15} />
             </button>
             <button className="icon-action danger" onClick={doStop} title="Stop services">
               <Power size={15} />
@@ -574,8 +905,14 @@ export function App() {
                 devTab={devTab} setDevTab={setDevTab} busy={busy} notice={`${active.name} is running.`}
                 onNotice={setNotice}
                 onClose={() => setShowDevPanel(false)}
-                onBackup={p => run('backup', () => invoke('backup_now', { request: { profileId: p.id } }))}
+                onBackup={doBackup}
                 onStop={doStop}
+                updateResult={updateResult}
+                checkingUpdates={checkingUpdates}
+                updateProgress={updateProgress}
+                updateNotice={updateNotice}
+                onCheckUpdates={checkForUpdates}
+                onTriggerUpdate={triggerUpdate}
               />
             </div>
           </div>
@@ -598,11 +935,43 @@ export function App() {
         <span className="version-badge">{stopped ? 'Offline' : 'Ready'}</span>
 
         <div className="action-stack" style={{ marginTop: 24 }}>
-          <button className="btn-primary" disabled={Boolean(busy) || !selProfile || portBlocked}
-            onClick={() => selProfile && doLaunch(selProfile)}>
+          {renderPreLaunchUpdateCheck()}
+
+          <button
+            className="btn-primary"
+            disabled={Boolean(busy) || !selProfile || portBlocked}
+            onClick={() => {
+              if (projectRootBlocked) {
+                chooseInstallFolder();
+                return;
+              }
+              if (selProfile) doLaunch(selProfile);
+            }}
+          >
             {busy?.startsWith('start-') ? <Loader2 size={16} className="spin" /> : <Play size={16} />}
-            {portBusy ? `Launch on ${launchBackendPort}/${launchFrontendPort}` : startButtonLabel}
+            {projectRootBlocked ? 'Choose Install Folder' : portBusy ? `Launch on ${launchBackendPort}/${launchFrontendPort}` : startButtonLabel}
           </button>
+
+          {visibleLaunchNotice && (
+            <div className="launch-notice">
+              <AlertCircle size={14} />
+              <div className="launch-notice-body">
+                <span>{visibleLaunchNotice}</span>
+                {projectRootBlocked && (
+                  <div className="launch-notice-actions">
+                    <button type="button" className="mini-action" onClick={chooseInstallFolder}>
+                      Choose Install Folder
+                    </button>
+                    {settings.projectPath && (
+                      <button type="button" className="mini-action" onClick={clearInstallFolder}>
+                        Clear
+                      </button>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
 
           <AdvancedConfigPanel
             showAdvanced={showAdvanced} setShowAdvanced={setShowAdvanced}
@@ -642,7 +1011,13 @@ export function App() {
               devTab={devTab} setDevTab={setDevTab} busy={busy} notice={notice}
               onNotice={setNotice}
               onClose={() => setShowDevPanel(false)}
-              onBackup={p => run('backup', () => invoke('backup_now', { request: { profileId: p.id } }))}
+              onBackup={doBackup}
+              updateResult={updateResult}
+              checkingUpdates={checkingUpdates}
+              updateProgress={updateProgress}
+              updateNotice={updateNotice}
+              onCheckUpdates={checkForUpdates}
+              onTriggerUpdate={triggerUpdate}
             />
           </div>
         </div>
@@ -819,16 +1194,36 @@ function AdvancedConfigPanel({
 function DevPanelContent({
   snapshot, profiles, settings, setSettings, devTab, setDevTab, busy, notice,
   onNotice, onClose, onBackup, onStop,
+  updateResult, checkingUpdates, updateProgress, updateNotice, onCheckUpdates, onTriggerUpdate,
 }: {
   snapshot: LauncherSnapshot; profiles: ProfileStatus[];
   settings: LauncherSettings; setSettings: (s: LauncherSettings) => void;
   devTab: ViewKey; setDevTab: (t: ViewKey) => void;
   busy: string | null; notice: string;
   onNotice: (message: string) => void;
-  onClose: () => void; onBackup: (p: ProfileStatus) => void; onStop?: () => void;
+  onClose: () => void; onBackup: (p: ProfileStatus) => Promise<BackupResult>; onStop?: () => void;
+  updateResult: UpdateCheckResult | null;
+  checkingUpdates: boolean;
+  updateProgress: { state: string; message: string; progress: number; error?: string | null } | null;
+  updateNotice: string;
+  onCheckUpdates: () => Promise<void>;
+  onTriggerUpdate: () => Promise<void>;
 }) {
   const nodeTool = snapshot.tools.find(tool => tool.name === 'Node.js');
   const npmTool = snapshot.tools.find(tool => tool.name === 'npm');
+  const updatesAvailable = Boolean(updateResult?.appUpdateAvailable || updateResult?.launcherUpdateAvailable);
+  const nodeUpgradeRequired = Boolean(updateResult?.requiredActions.includes('nodeMajorUpgrade'));
+  const [backupResults, setBackupResults] = useState<Record<string, BackupResult>>({});
+
+  const handleBackup = async (profile: ProfileStatus) => {
+    try {
+      const result = await onBackup(profile);
+      setBackupResults(current => ({ ...current, [profile.id]: result }));
+      onNotice(result.message);
+    } catch (err) {
+      onNotice(err instanceof Error ? err.message : String(err));
+    }
+  };
 
   const chooseSettingPath = async (kind: PathKind) => {
     if (!hasTauriRuntime()) {
@@ -878,10 +1273,155 @@ function DevPanelContent({
         <button className={devTab === 'logs' ? 'active' : ''} onClick={() => setDevTab('logs')}>Logs</button>
         <button className={devTab === 'backups' ? 'active' : ''} onClick={() => setDevTab('backups')}>Backups</button>
         <button className={devTab === 'settings' ? 'active' : ''} onClick={() => setDevTab('settings')}>Settings</button>
+        <button className={devTab === 'updates' ? 'active' : ''} onClick={() => setDevTab('updates')}>Updates</button>
       </nav>
 
       <div className="modal-body">
         {devTab === 'logs' && <div className="tab-logs"><LogRows logs={snapshot.logs} /></div>}
+
+        {devTab === 'updates' && (
+          <div className="tab-updates">
+            <p className="tab-description">Manage and check for software updates.</p>
+
+            {checkingUpdates && (
+              <div className="backup-card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
+                <Loader2 size={20} className="spin" style={{ marginRight: 8 }} />
+                <span>Checking for updates...</span>
+              </div>
+            )}
+
+            {!checkingUpdates && updateProgress && (
+              <div className="update-status-card">
+                <div className="update-progress-section">
+                  <div className="update-progress-header">
+                    <span className="progress-state-badge">{updateProgress.state}</span>
+                    <span className="progress-message">{updateProgress.message}</span>
+                  </div>
+                  <div className="progress-track">
+                    <div className="progress-fill" style={{ width: `${Math.round(updateProgress.progress * 100)}%` }} />
+                  </div>
+                  <div className="progress-pct">{Math.round(updateProgress.progress * 100)}%</div>
+                </div>
+              </div>
+            )}
+
+            {!checkingUpdates && !updateProgress && updateResult && (
+              <div className="update-status-card">
+                <div className="version-info-grid">
+                  <div className="version-info-item">
+                    <span className="version-info-label">Managed App</span>
+                    <span className="version-info-value">
+                      v{updateResult.currentAppVersion}
+                      {updateResult.appUpdateAvailable && (
+                        <span style={{ fontSize: 11, color: '#e74c3c', marginLeft: 6 }}>(Update to v{updateResult.latestAppVersion})</span>
+                      )}
+                    </span>
+                  </div>
+                  <div className="version-info-item">
+                    <span className="version-info-label">Launcher</span>
+                    <span className="version-info-value">
+                      v{updateResult.currentLauncherVersion}
+                      {updateResult.launcherUpdateAvailable && (
+                        <span style={{ fontSize: 11, color: '#e74c3c', marginLeft: 6 }}>(Update to v{updateResult.latestLauncherVersion})</span>
+                      )}
+                    </span>
+                  </div>
+                </div>
+
+                {updateResult.requiredActions.includes('nodeMajorUpgrade') && (
+                  <div className="error-box" style={{ margin: 0 }}>
+                    <AlertCircle size={16} />
+                    <div>
+                      <strong>Node.js Upgrade Required</strong>
+                      <p>
+                        The latest app version requires Node.js v{updateResult.appReleaseNotes?.match(/Node\.js >= v(\d+)/)?.[1] || '20'} or higher.
+                        Please upgrade your Node.js runtime to proceed with the update.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {updateResult.appReleaseNotes && (
+                  <div className="release-notes-box">
+                    <h4>App Release Notes</h4>
+                    <div className="release-notes-content">{updateResult.appReleaseNotes}</div>
+                  </div>
+                )}
+
+                {updateResult.launcherReleaseNotes && (
+                  <div className="release-notes-box">
+                    <h4>Launcher Release Notes</h4>
+                    <div className="release-notes-content">{updateResult.launcherReleaseNotes}</div>
+                  </div>
+                )}
+
+                {!updatesAvailable && (
+                  <div className="success-box">
+                    <CheckCircle2 size={16} className="text-success" />
+                    <div>
+                      <strong>Your software is up to date</strong>
+                      <p>You are running the latest version of HomeInventory and the desktop launcher.</p>
+                    </div>
+                  </div>
+                )}
+
+                <div className="update-actions-section">
+                  {updatesAvailable && (
+                    <button
+                      className="btn-primary"
+                      onClick={onTriggerUpdate}
+                      disabled={nodeUpgradeRequired || busy === 'update'}
+                    >
+                      {busy === 'update' ? <Loader2 size={13} className="spin" /> : <Download size={13} />}
+                      Update HomeInventory
+                    </button>
+                  )}
+                  <button className="btn-secondary" onClick={onCheckUpdates} disabled={checkingUpdates || busy === 'update'}>
+                    <RefreshCw size={12} className={checkingUpdates ? 'spin' : ''} />
+                    Check Again
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {!checkingUpdates && !updateProgress && !updateResult && (
+              <div className="update-status-card">
+                <div className="error-box" style={{ margin: 0 }}>
+                  <AlertCircle size={16} />
+                  <div>
+                    <strong>Check updates before installing</strong>
+                    <p>
+                      Before running the updater, the launcher should verify the latest release,
+                      signatures, required Node.js version, and available app or launcher updates.
+                    </p>
+                  </div>
+                </div>
+                <div className="update-actions-section">
+                  <button className="btn-primary" onClick={onCheckUpdates} disabled={checkingUpdates}>
+                    <RefreshCw size={13} className={checkingUpdates ? 'spin' : ''} />
+                    Check for updates
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {!checkingUpdates && !updateProgress && updateNotice && !updateResult && (
+              <div className="update-status-card">
+                <div className="error-box" style={{ margin: 0 }}>
+                  <AlertCircle size={16} />
+                  <div>
+                    <strong>Update Status Info</strong>
+                    <p>{updateNotice}</p>
+                  </div>
+                </div>
+                <button className="btn-secondary update-check-inline" onClick={onCheckUpdates} disabled={checkingUpdates}>
+                  <RefreshCw size={12} className={checkingUpdates ? 'spin' : ''} />
+                  Check Again
+                </button>
+              </div>
+            )}
+          </div>
+        )}
 
         {devTab === 'backups' && (
           <div>
@@ -891,10 +1431,22 @@ function DevPanelContent({
                 <div className="backup-card" key={p.id}>
                   <strong>{p.name}</strong>
                   <span className="path-text">{p.dbPath}</span>
-                  <button className="btn-secondary" onClick={() => onBackup(p)} disabled={busy === 'backup' || !p.available}>
+                  {backupResults[p.id] && (
+                    <div className="backup-result">
+                      <CheckCircle2 size={13} />
+                      <span>{backupResults[p.id].path}</span>
+                    </div>
+                  )}
+                  <button className="btn-secondary" onClick={() => handleBackup(p)} disabled={busy === 'backup' || !p.available}>
                     {busy === 'backup' ? <Loader2 size={13} className="spin" /> : <FolderArchive size={13} />}
-                    Backup
+                    {busy === 'backup' ? 'Backing up...' : 'Backup Now'}
                   </button>
+                  {backupResults[p.id] && (
+                    <button className="btn-secondary" onClick={() => revealSettingPath(backupResults[p.id].path, 'Backup')}>
+                      <FolderOpen size={13} />
+                      Open Backup
+                    </button>
+                  )}
                 </div>
               ))}
             </div>
@@ -904,14 +1456,14 @@ function DevPanelContent({
         {devTab === 'settings' && (
           <div className="tab-settings">
             <PathSettingField
-              label="Project Root"
+              label="Install Folder"
               value={settings.projectPath}
               placeholder={snapshot.projectRoot}
               onChange={v => setSettings({ ...settings, projectPath: v })}
               onChoose={() => chooseSettingPath('project')}
-              onOpen={() => revealSettingPath(settings.projectPath || snapshot.projectRoot, 'Project root')}
+              onOpen={() => revealSettingPath(settings.projectPath || snapshot.projectRoot, 'Install folder')}
               onReset={() => setSettings({ ...settings, projectPath: '' })}
-              hint="Select the HomeInventory repository folder when the launcher is moved away from the project."
+              hint="Choose an empty folder for a new install, or an existing HomeInventory folder."
             />
             <PathSettingField
               label="Node Path"
@@ -934,8 +1486,8 @@ function DevPanelContent({
               hint={npmTool?.path ? `Detected: ${npmTool.path}` : 'Set this only if npm detection fails from the desktop app.'}
             />
             <div className="settings-actions">
-              <button className="settings-action" onClick={() => revealSettingPath(snapshot.projectRoot, 'Project root')}>
-                <FolderOpen size={13} /> Open Project
+              <button className="settings-action" onClick={() => revealSettingPath(snapshot.projectRoot, 'Install folder')}>
+                <FolderOpen size={13} /> Open Folder
               </button>
               <button className="settings-action" onClick={() => revealSettingPath(snapshot.appDataDir, 'Launcher data')}>
                 <FolderOpen size={13} /> Open Data
@@ -1014,6 +1566,8 @@ function mockSnapshot(settings: LauncherSettings): LauncherSnapshot {
   const data = '/Users/demo/Library/Application Support/net.homeinventory.launcher';
   const runningPreview = new URLSearchParams(window.location.search).get('preview') === 'running';
   return {
+    launcherVersion: '2.2.1',
+    appVersion: '2.2.1',
     projectRoot: root, appDataDir: data, activeProfileId: runningPreview ? 'homeinventory' : null,
     lanStatus: runningPreview ? {
       ok: true,
@@ -1030,6 +1584,8 @@ function mockSnapshot(settings: LauncherSettings): LauncherSnapshot {
     setup: {
       node: true,
       npm: true,
+      projectRootValid: true,
+      projectRootInstallable: false,
       rootDependencies: runningPreview,
       clientDependencies: runningPreview,
       envFile: runningPreview,

@@ -5,6 +5,8 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { VaultProvider } from './context/VaultContext';
 
+import { useTranslation } from 'react-i18next';
+
 import Dashboard from './components/Dashboard';
 import Layout from './components/Layout';
 import CookieBanner from './components/CookieBanner';
@@ -35,17 +37,20 @@ import MaintenancePage from './components/MaintenancePage';
 import ShoppingListPage from './components/ShoppingListPage';
 
 
-const FullscreenSpinner = () => (
-    <div className="flex min-h-screen items-center justify-center bg-[var(--hi-bg)] px-4 text-[var(--hi-text)]">
-        <div role="status" aria-live="polite" className="w-full max-w-sm rounded-[1.35rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] p-6 text-center shadow-[var(--hi-shadow-soft)]">
-            <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
-                <Loader2 className="h-5 w-5 animate-spin" />
-            </span>
-            <p className="mt-4 text-sm font-semibold text-[var(--hi-text)]">Loading {BRAND_NAME}</p>
-            <p className="mt-2 text-xs leading-5 text-[var(--hi-text-soft)]">Preparing your workspace...</p>
+const FullscreenSpinner = () => {
+    const { t } = useTranslation();
+    return (
+        <div className="flex min-h-screen items-center justify-center bg-[var(--hi-bg)] px-4 text-[var(--hi-text)]">
+            <div role="status" aria-live="polite" className="w-full max-w-sm rounded-[1.35rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] p-6 text-center shadow-[var(--hi-shadow-soft)]">
+                <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                </span>
+                <p className="mt-4 text-sm font-semibold text-[var(--hi-text)]">{t('app.loading', { defaultValue: `Loading ${BRAND_NAME}`, brandName: BRAND_NAME })}</p>
+                <p className="mt-2 text-xs leading-5 text-[var(--hi-text-soft)]">{t('app.preparing_workspace', { defaultValue: 'Preparing your workspace...' })}</p>
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 const HouseAccessRoute = () => {
     const { user, loading, membershipState, mustSetupRecoveryKey, mustAcceptLegal } = useAuth();

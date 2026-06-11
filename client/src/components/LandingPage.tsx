@@ -60,6 +60,9 @@ export default function LandingPage() {
     const aboutLabel = t('landing.nav.details', { defaultValue: isTurkish ? 'Detaylar' : 'Details' });
     const featuresLabel = t('landing.nav.features');
     const securityLabel = t('landing.nav.security');
+    const heroSecondaryCtaLabel = t('landing.hero.cta_explore', {
+        defaultValue: isTurkish ? 'Özellikleri İncele' : 'Explore Features'
+    });
     const shellTextClass = isDark ? 'text-white' : 'text-[var(--hi-text)]';
     const mutedTextClass = isDark
         ? (isCustomBrand ? 'text-[var(--hi-text-soft)]' : 'text-white/62')
@@ -508,9 +511,9 @@ export default function LandingPage() {
                                 <a
                                     href="#features"
                                     className={`inline-flex h-14 items-center justify-center rounded-full border px-8 text-base font-semibold transition ${isDark ? (isCustomBrand ? 'border-[var(--hi-border-strong)] bg-[rgba(26,36,51,0.9)] text-white shadow-[0_16px_30px_rgba(0,0,0,0.18)] hover:border-[var(--hi-secondary)] hover:bg-[rgba(33,45,63,0.98)]' : 'border-white/12 bg-white/[0.05] text-white/82 hover:border-white/20 hover:text-white') : (isCustomBrand ? 'border-[rgba(176,193,216,0.62)] bg-[rgba(255,255,255,0.98)] text-[var(--hi-text)] shadow-[0_14px_28px_rgba(19,35,61,0.12)] hover:border-[rgba(139,180,255,0.68)] hover:bg-[rgba(246,250,255,1)] hover:text-[var(--hi-text)]' : 'border-[rgba(18,32,22,0.12)] text-[#556453] hover:bg-white/60 hover:text-[var(--hi-text)]')}`}
-                                    aria-label={copy.hero.secondaryCta}
+                                    aria-label={heroSecondaryCtaLabel}
                                 >
-                                    {copy.hero.secondaryCta}
+                                    {heroSecondaryCtaLabel}
                                     <ArrowRight className="ml-2 h-4 w-4 opacity-80" />
                                 </a>
                             </div>

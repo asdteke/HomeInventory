@@ -325,7 +325,8 @@ export default function ItemList() {
                 return;
             }
 
-            const isPendingMemberOffer = Boolean(response.data?.request) && payload.borrower_type === 'member';
+            const isPendingMemberOffer = Boolean(response.data?.request)
+                && ['member', 'site_member'].includes(payload.borrower_type);
             if (response.data?.item) {
                 setItems((currentItems) => currentItems.map((item) => (
                     item.id === lendDialogItem.id
@@ -335,7 +336,7 @@ export default function ItemList() {
             }
             setToast(isPendingMemberOffer ? {
                 title: t('inventory.borrow.offer_sent_title', { defaultValue: 'Borrow offer sent' }),
-                description: t('inventory.borrow.offer_sent_body', {
+                description: response.data?.message || t('inventory.borrow.offer_sent_body', {
                     item: lendItemTitle,
                     defaultValue: '{{item}} will be marked as borrowed after the other member accepts.'
                 })

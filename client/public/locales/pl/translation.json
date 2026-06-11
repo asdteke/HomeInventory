@@ -186,7 +186,8 @@
         "hide": "Ukryj hasło",
         "logging_out": "Wylogowywanie...",
         "show": "Pokaż hasło",
-        "saving": "Zapisywanie..."
+        "saving": "Zapisywanie...",
+        "disabled": "Niepełnosprawność"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Klucz do domu jest wymagany, aby dołączyć do istniejącego domu",
         "house_key_not_found": "Nieważny klucz do domu. Proszę wpisać poprawny klucz.",
         "email_not_verified": "Twój adres e-mail nie został jeszcze zweryfikowany. Proszę sprawdzić swoją skrzynkę odbiorczą.",
-        "two_factor_invalid": "Kod weryfikacyjny jest nieprawidłowy"
+        "two_factor_invalid": "Kod weryfikacyjny jest nieprawidłowy",
+        "two_factor_invalid_try_again": "Nieprawidłowy kod weryfikacyjny. Proszę, spróbuj ponownie.",
+        "two_factor_code_required": "Wymagany jest kod weryfikacyjny",
+        "two_factor_user_not_found": "Użytkownik nie znaleziony",
+        "two_factor_already_enabled": "Uwierzytelnianie dwuskładnikowe jest już włączone",
+        "two_factor_setup_not_started": "Proszę najpierw rozpocząć konfigurację uwierzytelniania dwuskładnikowego",
+        "two_factor_setup_error": "Podczas konfiguracji uwierzytelniania dwuskładnikowego wystąpił błąd",
+        "two_factor_activation_error": "Podczas aktywacji uwierzytelniania dwuskładnikowego wystąpił błąd",
+        "two_factor_password_required": "Wymagane jest hasło",
+        "two_factor_credentials_required": "Wymagany jest kod TOTP, kod kopii zapasowej lub klucz odzyskiwający",
+        "two_factor_already_disabled": "Uwierzytelnianie dwuskładnikowe jest już wyłączone",
+        "two_factor_password_incorrect": "Błędne hasło",
+        "two_factor_verification_failed": "Weryfikacja zakończyła się niepowodzeniem. Proszę sprawdzić kod i spróbować ponownie.",
+        "two_factor_disable_error": "Podczas wyłączania uwierzytelniania dwuskładnikowego wystąpił błąd",
+        "two_factor_not_enabled": "Uwierzytelnianie dwuskładnikowe nie jest włączone",
+        "two_factor_regenerate_codes_error": "Podczas generowania kodów zapasowych wystąpił błąd",
+        "two_factor_enabled_success": "Uwierzytelnianie dwuskładnikowe zostało pomyślnie włączone",
+        "two_factor_disabled_success": "Uwierzytelnianie dwuskładnikowe zostało pomyślnie wyłączone",
+        "password_errors": {
+            "min_length": "Hasło musi mieć co najmniej {{min}} znaków",
+            "lowercase_required": "Hasło musi zawierać co najmniej jedną małą literę",
+            "uppercase_required": "Hasło musi zawierać co najmniej jedną wielką literę",
+            "number_required": "Hasło musi zawierać co najmniej jedną liczbę",
+            "symbol_required": "Hasło musi zawierać co najmniej jeden symbol",
+            "repeated_chars": "Nie używaj powtarzających się znaków w hasle",
+            "predictable_sequence": "Nie używaj łatwych do odgadnięcia sekwencji w hasle",
+            "common_password": "To hasło jest zbyt powszechne i niebezpieczne",
+            "contains_username": "Hasło nie może zawierać Twojej nazwy użytkownika",
+            "contains_email": "Hasło nie może zawierać danych e-mail"
+        }
     },
     "navigation": {
         "home": "Strona główna",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Klucz odzyskiwania wygenerowany ponownie",
             "recovery_key_error": "Nie można wygenerować klucza odzyskiwania ponownie",
             "account_delete_error": "Nie można było usunąć konta",
-            "backup_downloaded_encrypted": "Zaszyfrowana kopia zapasowa została pobrana pomyślnie! ({{count}} elementów)"
+            "backup_downloaded_encrypted": "Zaszyfrowana kopia zapasowa została pobrana pomyślnie! ({{count}} elementów)",
+            "policy_update_error": "Nie udało się zaktualizować ustawień żądania.",
+            "policy_updated": "Ustawienia żądania zostały pomyślnie zaktualizowane.",
+            "unblock_error": "Nie udało się odblokować użytkownika.",
+            "unblocked_success": "Użytkownik został skutecznie odblokowany.",
+            "house_owner_transferred": "Przeniesienie własności domu",
+            "house_owner_transfer_error": "Własność domu nie mogła zostać przeniesiona."
         },
         "user_profile": {
             "edit_username": "Zmień nazwę użytkownika"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} nie ma już dostępu do tego domu.",
             "kick_title": "Usunąć tego członka?",
             "kick_warning": "Ich dostęp do domu zakończy się natychmiast i będą potrzebować nowego zaproszenia lub zatwierdzenia, aby powrócić.",
-            "kicking": "Usuwanie..."
+            "kicking": "Usuwanie...",
+            "access_section_eyebrow": "Dostęp do domu",
+            "transfer_owner": "Ustalenie właściciela",
+            "transferring_owner": "Przeniesienie...",
+            "transfer_owner_title": "Przeniesienie własności domu?",
+            "transfer_owner_confirm": "Przeniesienie własności tego gospodarstwa domowego na {{name}}?",
+            "transfer_owner_warning": "Nie będziesz już właścicielem tego domu. Nowy właściciel będzie zarządzał zatwierdzeniami członków, usuwaniami i przyszłymi zmianami własności.",
+            "transfer_owner_success_body": "{{name}} jest teraz właścicielem tego gospodarstwa."
         },
         "theme": {
             "title": "Motyw",
@@ -729,7 +772,9 @@
             "light": "Tryb jasny",
             "description": "Wybierz, jak przestrzeń robocza ma wyglądać na tym urządzeniu.",
             "light_aria": "Przełącz na jasny motyw",
-            "dark_aria": "Przełącz na ciemny motyw"
+            "dark_aria": "Przełącz na ciemny motyw",
+            "workspace_title": "Motyw Workspace",
+            "workspace_desc": "Wybierz preferowany styl wizualny dla tego urządzenia."
         },
         "security": {
             "title": "Bezpieczeństwo",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Bieżącego klucza odzyskiwania nie można wyświetlić. Wygeneruj go ponownie, jeśli jest potrzebny.",
             "recovery_key_action": "Wygeneruj ponownie",
             "recovery_key_modal_desc": "Potwierdź swoje obecne hasło, aby kontynuować. Nowy klucz zostanie pokazany tylko raz.",
-            "recovery_key_loading": "Przygotowywanie..."
+            "recovery_key_loading": "Przygotowywanie...",
+            "accordion_title": "Bezpieczeństwo i prywatność",
+            "accordion_desc": "Zarządzaj uwierzytelnianiem dwuskładnikowym, zaufanymi urządzeniami i pożyczaj reguły żądań z innych kont.",
+            "description": "Zarządzaj hasłem głównym i konfiguracjami odzyskiwania sejfu.",
+            "change_password_detail": "Zaktualizuj hasło, aby zabezpieczyć swoje konto",
+            "recovery_key_detail": "Używany do odzyskiwania sejfu, jeśli zapomnisz hasła"
         },
         "data_management": {
             "title": "Zarządzanie danymi",
@@ -785,10 +835,10 @@
             "owner_only_desc": "Kopiowanie zapasowe i przywracanie danych mogą być zarządzane tylko przez właściciela domu."
         },
         "about": {
-            "title": "📱 O aplikacji",
+            "title": "O aplikacji",
             "version": "Wersja",
             "brand": "Marka",
-            "feedback": "✉️ Wyślij opinię",
+            "feedback": "Wyślij opinię",
             "legal_title": "Dokumenty prawne",
             "legal_description": "Możesz ponownie otworzyć teksty regulaminu i polityki prywatności stąd, nawet po ich zaakceptowaniu.",
             "terms_link": "Regulamin",
@@ -890,7 +940,8 @@
             "revoke_devices": "Cofnij zaufane urządzenia",
             "revoke_devices_desc": "Usuń wszystkie zapamiętane urządzenia, wymagając 2FA przy następnym logowaniu",
             "devices_revoked": "{{count}} zaufane urządzenie(a) usunięte",
-            "devices_error": "Nie udało się cofnąć dostępu do urządzeń"
+            "devices_error": "Nie udało się cofnąć dostępu do urządzeń",
+            "preparing_setup": "Przygotowuję konfigurację uwierzytelniania..."
         },
         "danger_zone": {
             "title": "Konto",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Po potwierdzeniu natychmiast stracisz dostęp do konta, a usuniętych danych aplikacji nie da się przywrócić z aplikacji.",
             "password_label": "Potwierdź za pomocą bieżącego hasła",
             "confirm_delete": "Potwierdź usunięcie",
-            "deleting": "Usuwanie..."
+            "deleting": "Usuwanie...",
+            "description": "Usuń konto i na stałe usuń wszystkie zbiory danych z inwentarza."
         },
         "language": "Język",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Popularne języki",
         "search_results": "Wyniki wyszukiwania",
         "current_language": "Bieżący język",
-        "languages_available": "dostępne języki"
+        "languages_available": "dostępne języki",
+        "borrow_requests": {
+            "accordion_eyebrow": "Zabezpieczenie pożyczki",
+            "accordion_eyebrow_desc": "Konfiguruj reguły żądań i zarządzaj zablokowanymi użytkownikami.",
+            "title": "Ustawienia żądań wypożyczeń",
+            "description": "Zarządzaj zasadami przyjmowania wniosków o pożyczki z innych kont oraz wypisuj zablokowanych użytkowników.",
+            "policy_title": "Nowe wnioski o pożyczkę",
+            "policy_description": "Kontroluj, kto może wysyłać do Ciebie prośby o pożyczenie. Twój inwentarz nigdy nie jest pokazywany jako publiczna lista.",
+            "policy_none": "Nie otrzymywać od nikogo (Domyślnie)",
+            "policy_house_only": "Tylko członkowie gospodarstwa domowego",
+            "policy_everyone": "Wszyscy zarejestrowani użytkownicy",
+            "blocks_title": "Zablokowani użytkownicy",
+            "blocks_description": "Użytkownicy, których zablokowałeś, nie wysyłają nowych wniosków o pożyczkę.",
+            "no_blocks": "Nie znaleziono żadnych zablokowanych użytkowników.",
+            "unblock_btn": "Odblokuj",
+            "policy_none_desc": "Wszystkie przychodzące żądania są blokowane automatycznie.",
+            "policy_house_only_desc": "Tylko zweryfikowani członkowie Twoich aktywnych domów mogą prosić o przedmioty, które są już widoczne w tym wspólnym domu.",
+            "policy_everyone_desc": "Inni użytkownicy nie mogą przeglądać ani widzieć Twoich przedmiotów. Mogą wysłać prośbę tylko wpisując bezpośrednio Twój login lub e-mail."
+        }
     },
     "inventory": {
         "title": "Inwentarz",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "U Ciebie",
             "return_pending_hint": "Rekord zostanie zamknięty po potwierdzeniu przez pożyczającego, że otrzymał przedmiot z powrotem.",
             "return_pending_lender_title": "{{name}} oznaczył ten przedmiot jako zwrócony",
-            "return_pending_self_title": "U Ciebie, czekając na potwierdzenie odbioru"
+            "return_pending_self_title": "U Ciebie, czekając na potwierdzenie odbioru",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Przedmiot bez tytułu",
         "delete_action": "Usuń przedmiot",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Dowód odbioru",
             "return_note_placeholder_borrower": "np. Oddałem to bez żadnych problemów",
             "return_note_placeholder_lender": "np. Otrzymano z powrotem w dobrym stanie",
-            "return_submitting": "Zamykanie..."
+            "return_submitting": "Zamykanie...",
+            "reject_title": "Odrzuć wniosek",
+            "reject_subtitle": "Zaraz odrzucisz prośbę o \"{{item}}\".",
+            "reject_target": "Zaraz odrzucisz wniosek o pożyczkę wysłany przez {{name}}.",
+            "reject_reason_label": "Powód odrzucenia",
+            "reject_submitting": "Odrzucając...",
+            "due_date_label": "Planowana data powrotu"
         },
         "messages": {
             "load_error": "Centrum wypożyczeń nie mogło zostać załadowane",
-            "action_error": "Nie można było ukończyć akcji"
+            "action_error": "Nie można było ukończyć akcji",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Możesz wysłać tylko jedną pierwszą prośbę kontaktową do tej samej osoby dziennie. Jeśli zaakceptuje prośbę, limit ten nie dotyczy już tej osoby.",
+                "external_total_daily_limit": "Możesz wysłać do 5 pierwszych kontaktów zewnętrznych dziennie.",
+                "external_request_requires_verified_email": "Zweryfikuj swój adres e-mail przed wysyłaniem zewnętrznych próśb o pożyczkę.",
+                "external_offer_blocked": "Możesz oferować przedmiot tylko członkom domu lub zarejestrowanym użytkownikom, których można zidentyfikować bezpośrednio.",
+                "target_blocked_by_you": "Nie możesz wysłać prośby do użytkownika, którego zablokowałeś.",
+                "recent_rejection_lock": "Ten użytkownik odrzucił ostatnią prośbę. Możesz wysłać kolejną prośbę po 30 dniach."
+            }
         },
         "preview": {
             "title": "Tryb podglądu",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Brak próśb wymagających Twojego przeglądu",
         "outgoing_empty_title": "Brak wysyłanych próśb",
         "refreshing": "Odświeżanie próśb i aktywnych wypożyczeń...",
-        "loading_description": "Przygotowywanie próśb i aktywna aktywność wypożyczeń."
+        "loading_description": "Przygotowywanie próśb i aktywna aktywność wypożyczeń.",
+        "reasons": {
+            "rejected": "Odrzucenie (Normalne odrzucenie)",
+            "not_available": "Niedostępne (Brak przedmiotu / brak dostępu)",
+            "blocked": "Zablokuj i odrzuć (Blokuje tego użytkownika)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Polityka prywatności",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}} Menu",
-        "tagline": "Inteligentnie zarządzaj wszystkimi przedmiotami w gospodarstwie domowym"
+        "tagline": "Inteligentnie zarządzaj wszystkimi przedmiotami w gospodarstwie domowym",
+        "loading": "Ładowanie {{brandName}}",
+        "preparing_workspace": "Przygotowuję twoje miejsce pracy..."
     },
     "nav": {
         "home": "Strona główna",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Wyczyść historię",
-            "add_item": "Dodaj do listy zakupów"
+            "add_item": "Dodaj do listy zakupów",
+            "mark_completed": "Mark po ukończeniu",
+            "decrease_qty": "Zmniejszaj ilość",
+            "increase_qty": "Zwiększ ilość",
+            "delete_item": "Usuń przedmiot",
+            "reactivate_item": "Powrót do aktywnej listy"
         },
         "form": {
             "add_type": "Dodaj metodę",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Śledzenie okresowej lub jednorazowej konserwacji zaplanowanej dla tego przedmiotu.",
         "no_tasks": "Do tego przedmiotu nie przypisano żadnych zadań konserwacyjnych.",
         "confirm_delete": "To zadanie zostanie usunięte. Czy na pewno?"
+    },
+    "error_boundary": {
+        "title": "Coś wymaga odświeżenia",
+        "description": "Interfejs napotkał niespodziewany problem z renderowaniem. Twoje zapisane dane ekwipunku nie są zmieniane przez ten ekran.",
+        "refresh_btn": "Odśwież",
+        "home_btn": "Dom"
     }
 }

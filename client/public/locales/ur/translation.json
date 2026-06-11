@@ -186,7 +186,8 @@
         "hide": "پاس ورڈ چھپائیں",
         "logging_out": "لاگ آؤٹ ہو رہا ہے...",
         "show": "پاس ورڈ دکھائیں",
-        "saving": "محفوظ کیا جا رہا ہے..."
+        "saving": "محفوظ کیا جا رہا ہے...",
+        "disabled": "معذور"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "موجودہ گھر میں شامل ہونے کے لیے ہاؤس کی کی ضرورت ہوتی ہے",
         "house_key_not_found": "گھر کی چابی غلط ہے۔ براہ کرم صحیح کی درج کریں۔",
         "email_not_verified": "آپ کا ای میل ایڈریس ابھی تک تصدیق نہیں ہوا۔ براہ کرم اپنا ان باکس چیک کریں۔",
-        "two_factor_invalid": "تصدیقی کوڈ غلط ہے"
+        "two_factor_invalid": "تصدیقی کوڈ غلط ہے",
+        "two_factor_invalid_try_again": "غلط تصدیقی کوڈ۔ براہ کرم دوبارہ کوشش کریں۔",
+        "two_factor_code_required": "تصدیقی کوڈ درکار ہے",
+        "two_factor_user_not_found": "صارف نہیں ملا",
+        "two_factor_already_enabled": "دو عوامل کی تصدیق پہلے ہی فعال ہے",
+        "two_factor_setup_not_started": "براہ کرم پہلے دوہری تصدیق کی سیٹ اپ شروع کریں",
+        "two_factor_setup_error": "دو عوامل کی تصدیق سیٹ اپ کے دوران ایک غلطی پیش آئی",
+        "two_factor_activation_error": "دوہری تصدیق کی فعالیت کے دوران ایک ایرر پیش آیا",
+        "two_factor_password_required": "پاس ورڈ ضروری ہے",
+        "two_factor_credentials_required": "TOTP کوڈ، بیک اپ کوڈ، یا ریکوری کی درکار ہے",
+        "two_factor_already_disabled": "دو عوامل کی تصدیق پہلے ہی غیر فعال ہو چکی ہے",
+        "two_factor_password_incorrect": "غلط پاس ورڈ",
+        "two_factor_verification_failed": "تصدیق ناکام ہو گئی۔ براہ کرم کوڈ چیک کریں اور دوبارہ کوشش کریں۔",
+        "two_factor_disable_error": "دوہری تصدیق کو غیر فعال کرتے وقت ایک غلطی ہوئی",
+        "two_factor_not_enabled": "دوہری تصدیق فعال نہیں ہے",
+        "two_factor_regenerate_codes_error": "بیک اپ کوڈز کو ری جنریٹ کرتے وقت ایک ایرر پیش آیا",
+        "two_factor_enabled_success": "دو عوامل کی تصدیق کامیابی سے فعال کر دی گئی ہے",
+        "two_factor_disabled_success": "ٹو-فیکٹر آتھنٹیکیشن کو کامیابی سے غیر فعال کر دیا گیا ہے",
+        "password_errors": {
+            "min_length": "پاس ورڈ کم از کم {{min}} حروف کا ہونا چاہیے",
+            "lowercase_required": "پاس ورڈ میں کم از کم ایک چھوٹا حرف ہونا چاہیے",
+            "uppercase_required": "پاس ورڈ میں کم از کم ایک بڑا حرف ہونا چاہیے",
+            "number_required": "پاس ورڈ میں کم از کم ایک نمبر ہونا چاہیے",
+            "symbol_required": "پاس ورڈ میں کم از کم ایک علامت شامل ہونا چاہیے",
+            "repeated_chars": "اپنے پاس ورڈ میں بار بار آنے والے حروف استعمال نہ کریں",
+            "predictable_sequence": "اپنے پاس ورڈ میں آسانی سے اندازہ لگانے والے سیکوئنسز استعمال نہ کریں",
+            "common_password": "یہ پاس ورڈ بہت عام اور غیر محفوظ ہے",
+            "contains_username": "پاس ورڈ میں آپ کا یوزر نیم شامل نہیں ہونا چاہیے",
+            "contains_email": "پاس ورڈ میں آپ کی ای میل معلومات شامل نہیں ہونی چاہیے"
+        }
     },
     "navigation": {
         "home": "ہوم",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "بحالی کی چابی دوبارہ تیار کر دی گئی",
             "recovery_key_error": "بحالی کی چابی دوبارہ تیار نہیں کی جا سکی",
             "account_delete_error": "اکاؤنٹ کو حذف نہیں کیا جا سکا",
-            "backup_downloaded_encrypted": "مرموز بیک اپ کامیابی کے ساتھ ڈاؤن لوڈ ہو گیا! ({{count}} آئٹمز)"
+            "backup_downloaded_encrypted": "مرموز بیک اپ کامیابی کے ساتھ ڈاؤن لوڈ ہو گیا! ({{count}} آئٹمز)",
+            "policy_update_error": "درخواست کی سیٹنگز اپ ڈیٹ کرنے میں ناکام رہا۔",
+            "policy_updated": "سیٹنگز کو کامیابی سے اپ ڈیٹ کرنے کی درخواست کریں۔",
+            "unblock_error": "صارف کو ان بلاک کرنے میں ناکام رہا۔",
+            "unblocked_success": "صارف نے کامیابی سے ان بلاک کر دیا۔",
+            "house_owner_transferred": "گھر کی ملکیت منتقل ہو گئی",
+            "house_owner_transfer_error": "گھر کی ملکیت منتقل نہیں کی جا سکی۔"
         },
         "user_profile": {
             "edit_username": "یوزر نیم تبدیل کریں"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} کو اب اس گھرانے تک رسائی نہیں ہے۔",
             "kick_title": "اس رکن کو ہٹائیں؟",
             "kick_warning": "ان کی گھرانے تک رسائی فوری طور پر ختم ہو جائے گی اور انہیں واپس آنے کے لیے نیا دعوت نامہ یا منظوری درکار ہوگی۔",
-            "kicking": "ہٹایا جا رہا ہے..."
+            "kicking": "ہٹایا جا رہا ہے...",
+            "access_section_eyebrow": "گھر تک رسائی",
+            "transfer_owner": "مالک بنائیں",
+            "transferring_owner": "منتقل ہو رہا ہوں...",
+            "transfer_owner_title": "گھر کی ملکیت منتقل کرنا؟",
+            "transfer_owner_confirm": "اس گھرانے کی ملکیت {{name}} کو منتقل کریں؟",
+            "transfer_owner_warning": "تم اب اس گھر کے مالک نہیں رہو گے۔ نیا مالک ممبران کی منظوری، ہٹانے اور مستقبل کی ملکیت میں تبدیلیوں کا انتظام کرے گا۔",
+            "transfer_owner_success_body": "{{name}} اب اس گھر کا مالک ہے۔"
         },
         "theme": {
             "title": "تھیم",
@@ -729,7 +772,9 @@
             "light": "لائٹ موڈ",
             "description": "اس ڈیوائس پر ورک اسپیس کی شکل منتخب کریں۔",
             "light_aria": "ہلکے تھیم پر جائیں",
-            "dark_aria": "ڈارک تھیم پر جائیں"
+            "dark_aria": "ڈارک تھیم پر جائیں",
+            "workspace_title": "ورک اسپیس تھیم",
+            "workspace_desc": "اس ڈیوائس کے لیے اپنی پسندیدہ بصری انداز منتخب کریں۔"
         },
         "security": {
             "title": "سیکیورٹی",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "موجودہ بازیابی کلید کو ظاہر نہیں کیا جا سکتا۔ ضرورت پڑنے پر اسے دوبارہ بنائیں۔",
             "recovery_key_action": "دوبارہ بنائیں",
             "recovery_key_modal_desc": "جاری رکھنے کے لیے اپنا موجودہ پاس ورڈ تصدیق کریں۔ نئی کلید صرف ایک بار دکھائی جائے گی۔",
-            "recovery_key_loading": "تیار ہو رہا ہے..."
+            "recovery_key_loading": "تیار ہو رہا ہے...",
+            "accordion_title": "سیکیورٹی اور پرائیویسی",
+            "accordion_desc": "دوہری تصدیق، قابل اعتماد ڈیوائسز، اور دیگر اکاؤنٹس سے درخواست کے قواعد ادھار لینے کا انتظام کریں۔",
+            "description": "اپنے ماسٹر پاس ورڈ اور والٹ ریکوری کنفیگریشنز کو منظم کریں۔",
+            "change_password_detail": "اپنا پاس ورڈ اپ ڈیٹ کریں تاکہ آپ کا اکاؤنٹ محفوظ رہے",
+            "recovery_key_detail": "اگر آپ اپنا پاس ورڈ بھول جائیں تو اپنے والٹ کو ریکور کرنے کے لیے استعمال ہوتا ہے"
         },
         "data_management": {
             "title": "ڈیٹا مینجمنٹ",
@@ -785,10 +835,10 @@
             "owner_only_desc": "ڈیٹا بیک اپ اور بحالی صرف مکان کے مالک کے ذریعے ہی منظم کی جا سکتی ہے۔"
         },
         "about": {
-            "title": "📱 ایپلیکیشن کے بارے میں",
+            "title": "ایپلیکیشن کے بارے میں",
             "version": "ورژن",
             "brand": "برانڈ",
-            "feedback": "✉️ رائے بھیجیں",
+            "feedback": "رائے بھیجیں",
             "legal_title": "قانونی دستاویزات",
             "legal_description": "یہاں سے آپ شرائط اور رازداری کے متن کو قبول کرنے کے بعد بھی دوبارہ کھول سکتے ہیں۔",
             "terms_link": "خدمت کی شرائط",
@@ -890,7 +940,8 @@
             "revoke_devices": "قابل اعتماد ڈیوائسز کو منسوخ کریں",
             "revoke_devices_desc": "تمام یاد شدہ ڈیوائسز کو ہٹائیں، اگلی لاگ ان پر 2FA کی ضرورت ہوگی",
             "devices_revoked": "{{count}} قابل اعتماد ڈیوائس(ز) ہٹا دی گئی ہیں",
-            "devices_error": "ڈیوائسز کو منسوخ کرنے میں ناکام"
+            "devices_error": "ڈیوائسز کو منسوخ کرنے میں ناکام",
+            "preparing_setup": "اپنا آتھنٹی کیٹر سیٹ اپ تیار کرنا..."
         },
         "danger_zone": {
             "title": "اکاؤنٹ",
@@ -903,7 +954,8 @@
             "modal_warning_body": "تصدیق کے بعد، آپ فوراً اکاؤنٹ تک رسائی کھو دیں گے اور ایپ سے حذف شدہ ایپلیکیشن ڈیٹا کو بحال نہیں کیا جا سکتا۔",
             "password_label": "اپنے موجودہ پاس ورڈ سے تصدیق کریں",
             "confirm_delete": "حذف کرنے کی تصدیق کریں",
-            "deleting": "حذف کیا جا رہا ہے..."
+            "deleting": "حذف کیا جا رہا ہے...",
+            "description": "اپنا اکاؤنٹ ڈیلیٹ کریں اور تمام انوینٹری ڈیٹا سیٹس مستقل طور پر ہٹا دیں۔"
         },
         "language": "زبان",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "مقبول زبانیں",
         "search_results": "تلاش کے نتائج",
         "current_language": "موجودہ زبان",
-        "languages_available": "دستیاب زبانیں"
+        "languages_available": "دستیاب زبانیں",
+        "borrow_requests": {
+            "accordion_eyebrow": "قرض کی درخواست سیکیورٹی",
+            "accordion_eyebrow_desc": "درخواست کے قواعد ترتیب دیں اور بلاک شدہ صارفین کا انتظام کریں۔",
+            "title": "قرض کی درخواست کی سیٹنگز",
+            "description": "دوسرے اکاؤنٹس سے قرض کی درخواستیں وصول کرنے کے قواعد کا انتظام کریں اور بلاک شدہ صارفین کی فہرست بنائیں۔",
+            "policy_title": "نئی قرض کی درخواستیں",
+            "policy_description": "یہ کنٹرول کریں کہ کون آپ کو قرض لینے کی درخواستیں بھیج سکتا ہے۔ آپ کا انوینٹری کبھی عوامی فہرست کے طور پر ظاہر نہیں ہوتا۔",
+            "policy_none": "کسی سے وصول نہ کریں (ڈیفالٹ)",
+            "policy_house_only": "صرف گھرانے کے افراد",
+            "policy_everyone": "تمام رجسٹرڈ صارفین",
+            "blocks_title": "بلاک شدہ صارفین",
+            "blocks_description": "جن صارفین کو آپ نے نئی قرض کی درخواستیں بھیجنے سے بلاک کیا ہے۔",
+            "no_blocks": "کوئی بلاک شدہ صارف نہیں ملا۔",
+            "unblock_btn": "ان بلاک",
+            "policy_none_desc": "تمام آنے والی درخواستیں خودکار طور پر بلاک کر دی جاتی ہیں۔",
+            "policy_house_only_desc": "صرف آپ کے فعال گھر کے تصدیق شدہ ممبران ان اشیاء کی درخواست کر سکتے ہیں جو پہلے ہی اس مشترکہ گھر کے اندر ظاہر ہوئی ہیں۔",
+            "policy_everyone_desc": "دیگر صارفین آپ کی اشیاء براؤز یا دیکھ نہیں سکتے۔ وہ صرف براہ راست آپ کا صارف نام یا ای میل درج کرکے درخواست بھیج سکتے ہیں۔"
+        }
     },
     "inventory": {
         "title": "انوینٹری",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "آپ کے پاس",
             "return_pending_hint": "ریکارڈ اس وقت بند ہو جائے گا جب قرض دہندہ تصدیق کرے گا کہ انہوں نے آئٹم واپس وصول کر لیا۔",
             "return_pending_lender_title": "{{name}} نے اس آئٹم کو واپس ڈیلیور شدہ کے طور پر نشان زد کیا",
-            "return_pending_self_title": "آپ کے پاس، رسید کی تصدیق کے انتظار میں"
+            "return_pending_self_title": "آپ کے پاس، رسید کی تصدیق کے انتظار میں",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "بغیر عنوان والا آئٹم",
         "delete_action": "آئٹم حذف کریں",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "وصولی کا نوٹ",
             "return_note_placeholder_borrower": "مثال کے طور پر میں نے اسے بغیر کسی مسئلے کے واپس کردیا",
             "return_note_placeholder_lender": "مثال کے طور پر واپس اچھی حالت میں موصول ہوا",
-            "return_submitting": "بند کرنا..."
+            "return_submitting": "بند کرنا...",
+            "reject_title": "درخواست کو مسترد کریں",
+            "reject_subtitle": "آپ \"{{item}}\" کی درخواست مسترد کرنے والے ہیں۔",
+            "reject_target": "آپ {{name}} کی بھیجی گئی قرض کی درخواست مسترد کرنے والے ہیں۔",
+            "reject_reason_label": "انکار کی وجہ",
+            "reject_submitting": "انکار کر رہا ہوں...",
+            "due_date_label": "منصوبہ بند واپسی کی تاریخ"
         },
         "messages": {
             "load_error": "ادھار مرکز کو لوڈ نہیں کیا جا سکا",
-            "action_error": "کارروائی مکمل نہیں کی جا سکی"
+            "action_error": "کارروائی مکمل نہیں کی جا سکی",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "آپ روزانہ ایک ہی شخص کو صرف ایک پہلی رابطہ بیرونی درخواست بھیج سکتے ہیں۔ اگر وہ درخواست قبول کر لیتے ہیں، تو یہ حد اس شخص پر مزید لاگو نہیں ہوتی۔",
+                "external_total_daily_limit": "آپ روزانہ زیادہ سے زیادہ 5 پہلی رابطہ بیرونی درخواستیں بھیج سکتے ہیں۔",
+                "external_request_requires_verified_email": "بیرونی قرض کی درخواستیں بھیجنے سے پہلے اپنا ای میل ایڈریس تصدیق کریں۔",
+                "external_offer_blocked": "آپ صرف اشیاء کو گھر کے ممبران یا رجسٹرڈ صارفین کو پیش کر سکتے ہیں جن کی براہ راست شناخت کی جا سکتی ہے۔",
+                "target_blocked_by_you": "آپ اس صارف کو درخواست نہیں بھیج سکتے جسے آپ نے بلاک کر دیا ہے۔",
+                "recent_rejection_lock": "اس صارف نے حال ہی میں ایک درخواست مسترد کر دی تھی۔ آپ 30 دن بعد دوبارہ درخواست بھیج سکتے ہیں۔"
+            }
         },
         "preview": {
             "title": "پیش نظارہ موڈ",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "کوئی بھی درخواست آپ کے جائزے کی ضرورت نہیں ہے",
         "outgoing_empty_title": "ابھی تک کوئی بھی خارج ہونے والی درخواست نہیں",
         "refreshing": "درخواستوں اور فعال قرضوں کو تازہ کر رہے ہیں...",
-        "loading_description": "درخواستوں کی تیاری اور فعال قرض کی سرگرمی۔"
+        "loading_description": "درخواستوں کی تیاری اور فعال قرض کی سرگرمی۔",
+        "reasons": {
+            "rejected": "مسترد (عام رد)",
+            "not_available": "دستیاب نہیں (آئٹم غائب / دستیاب نہیں)",
+            "blocked": "بلاک کریں اور مسترد کریں (اس صارف کو بلاک کریں)"
+        }
     },
     "legal": {
         "privacy_policy_title": "رازداری کی پالیسی",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "اپنے تمام گھریلو سامان ہوشیاری سے منظم کریں"
+        "tagline": "اپنے تمام گھریلو سامان ہوشیاری سے منظم کریں",
+        "loading": "لوڈ ہو رہا ہے {{brandName}}",
+        "preparing_workspace": "اپنا ورک اسپیس تیار کرنا..."
     },
     "nav": {
         "home": "ہوم",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "ہسٹری صاف کریں",
-            "add_item": "خریداری کی فہرست میں شامل کریں"
+            "add_item": "خریداری کی فہرست میں شامل کریں",
+            "mark_completed": "مکمل ہونے کے طور پر نشان زد کریں",
+            "decrease_qty": "مقدار کم کریں",
+            "increase_qty": "مقدار میں اضافہ کریں",
+            "delete_item": "آئٹم ڈیلیٹ کریں",
+            "reactivate_item": "فعال فہرست میں واپس جائیں"
         },
         "form": {
             "add_type": "طریقہ شامل کریں",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "اس آئٹم کے لیے وقفہ وار یا ایک مرتبہ کی دیکھ بھال کی نگرانی کا شیڈول بنایا گیا ہے۔",
         "no_tasks": "اس آئٹم کے لیے کوئی دیکھ بھال کا کام تفویض نہیں کیا گیا ہے۔",
         "confirm_delete": "یہ کام حذف کر دیا جائے گا۔ کیا آپ یقین ہے؟"
+    },
+    "error_boundary": {
+        "title": "کسی چیز کو تازہ کرنے کی ضرورت ہے",
+        "description": "انٹرفیس کو ایک غیر متوقع رینڈرنگ مسئلہ پیش آیا۔ آپ کا محفوظ شدہ انوینٹری ڈیٹا اس اسکرین سے تبدیل نہیں ہوتا۔",
+        "refresh_btn": "ریفریش",
+        "home_btn": "گھر"
     }
 }

@@ -186,7 +186,8 @@
         "hide": "Piilota salasana",
         "logging_out": "Kirjaudutaan ulos...",
         "show": "Näytä salasana",
-        "saving": "Tallennetaan..."
+        "saving": "Tallennetaan...",
+        "disabled": "Vammainen"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Talon avain vaaditaan yhdistääkseen olemassa olevan talon",
         "house_key_not_found": "Invalidinen talon avain. Syötäthän oikean avaimen.",
         "email_not_verified": "Sähköpostiosoitettasi ei ole vielä vahvistettu. Tarkista sähköpostisi.",
-        "two_factor_invalid": "Vahvistuskoodi on virheellinen"
+        "two_factor_invalid": "Vahvistuskoodi on virheellinen",
+        "two_factor_invalid_try_again": "Virheellinen vahvistuskoodi. Ole hyvä ja yritä uudelleen.",
+        "two_factor_code_required": "Vahvistuskoodi vaaditaan",
+        "two_factor_user_not_found": "Käyttäjää ei löydetty",
+        "two_factor_already_enabled": "Kaksivaiheinen tunnistautuminen on jo käytössä",
+        "two_factor_setup_not_started": "Aloita ensin kaksivaiheinen tunnistautuminen",
+        "two_factor_setup_error": "Virhe tapahtui kaksivaiheisen tunnistautumisen asennuksessa",
+        "two_factor_activation_error": "Virhe tapahtui kaksivaiheisen tunnistautumisen aktivoinnissa",
+        "two_factor_password_required": "Salasana vaaditaan",
+        "two_factor_credentials_required": "TOTP-koodi, varakoodi tai palautusavain vaaditaan",
+        "two_factor_already_disabled": "Kaksivaiheinen tunnistautuminen on jo poistettu käytöstä",
+        "two_factor_password_incorrect": "Väärä salasana",
+        "two_factor_verification_failed": "Vahvistus epäonnistui. Tarkista koodi ja yritä uudelleen.",
+        "two_factor_disable_error": "Virhe tapahtui, kun kaksivaiheinen tunnistautuminen poistettiin käytöstä",
+        "two_factor_not_enabled": "Kaksivaiheinen tunnistautuminen ei ole käytössä",
+        "two_factor_regenerate_codes_error": "Virhe tapahtui varmuuskopiokoodien uudelleengeneroinnissa",
+        "two_factor_enabled_success": "Kaksivaiheinen tunnistautuminen on onnistuneesti otettu käyttöön",
+        "two_factor_disabled_success": "Kaksivaiheinen tunnistautuminen on onnistuneesti poistettu käytöstä",
+        "password_errors": {
+            "min_length": "Salasanan tulee olla vähintään {{min}} merkkiä pitkä",
+            "lowercase_required": "Salasanassa on oltava vähintään yksi pieni kirjain",
+            "uppercase_required": "Salasanassa on oltava vähintään yksi ison kirjain",
+            "number_required": "Salasanassa on oltava vähintään yksi numero",
+            "symbol_required": "Salasanassa on oltava vähintään yksi symboli",
+            "repeated_chars": "Älä käytä toistuvia merkkejä salasanassasi",
+            "predictable_sequence": "Älä käytä helposti arvattavia sekvenssejä salasanassasi",
+            "common_password": "Tämä salasana on liian yleinen ja turvaton",
+            "contains_username": "Salasana ei saa sisältää käyttäjätunnustasi",
+            "contains_email": "Salasana ei saa sisältää sähköpostiosoitettasi tietoja"
+        }
     },
     "navigation": {
         "home": "Koti",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Palautusavain luotu uudelleen",
             "recovery_key_error": "Palautusavainta ei voitu luoda uudelleen",
             "account_delete_error": "Tiliä ei voitu poistaa",
-            "backup_downloaded_encrypted": "Salattu varmuuskopio ladattu onnistuneesti! ({{count}} kohdetta)"
+            "backup_downloaded_encrypted": "Salattu varmuuskopio ladattu onnistuneesti! ({{count}} kohdetta)",
+            "policy_update_error": "Pyyntöasetusten päivittäminen epäonnistui.",
+            "policy_updated": "Pyyntöasetukset päivitetty onnistuneesti.",
+            "unblock_error": "Käyttäjän eston poistaminen epäonnistui.",
+            "unblocked_success": "Käyttäjä on onnistuneesti poistanut eston.",
+            "house_owner_transferred": "Talon omistus siirtyi",
+            "house_owner_transfer_error": "Omistusoikeutta ei voitu siirtää."
         },
         "user_profile": {
             "edit_username": "Vaihda käyttäjänimeä"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} ei enää pääse tähän kotitalouteen.",
             "kick_title": "Poistetaanko tämä jäsen?",
             "kick_warning": "Heidän pääsynsä kotitalouteen päättyy välittömästi, ja he tarvitsevat uuden kutsun tai hyväksynnän palatakseen.",
-            "kicking": "Poistetaan..."
+            "kicking": "Poistetaan...",
+            "access_section_eyebrow": "Taloon pääsy",
+            "transfer_owner": "Tee omistaja",
+            "transferring_owner": "Siirretään...",
+            "transfer_owner_title": "Talon omistajuuden siirto?",
+            "transfer_owner_confirm": "Siirretäänkö tämän kotitalouden omistajuus {{name}}:lle?",
+            "transfer_owner_warning": "Et enää ole tämän talon omistaja. Uusi omistaja hoitaa jäsenten hyväksynnät, poistot ja tulevat omistajanvaihdokset.",
+            "transfer_owner_success_body": "{{name}} on nyt tämän talon omistaja."
         },
         "theme": {
             "title": "Teema",
@@ -729,7 +772,9 @@
             "light": "Vaalea tila",
             "description": "Valitse, miltä työtila näyttää tällä laitteella.",
             "light_aria": "Vaihda vaaleaan teemaan",
-            "dark_aria": "Vaihda tummaan teemaan"
+            "dark_aria": "Vaihda tummaan teemaan",
+            "workspace_title": "Työtilan teema",
+            "workspace_desc": "Valitse haluamasi visuaalinen tyyli tälle laitteelle."
         },
         "security": {
             "title": "Tietoturva",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Nykyistä palautusavainta ei voida näyttää. Luo se uudelleen tarvittaessa.",
             "recovery_key_action": "Luo uudelleen",
             "recovery_key_modal_desc": "Vahvista nykyinen salasanasi jatkaaksesi. Uusi avain näytetään vain kerran.",
-            "recovery_key_loading": "Valmistellaan..."
+            "recovery_key_loading": "Valmistellaan...",
+            "accordion_title": "Turvallisuus ja yksityisyys",
+            "accordion_desc": "Hallinnoi kaksivaiheista tunnistautumista, luotettuja laitteita ja lainapyyntösääntöjä muilta tileiltä.",
+            "description": "Hallinnoi pääsalasanasi ja holvin palautusasetuksia.",
+            "change_password_detail": "Päivitä salasanasi pitääksesi tilisi turvassa",
+            "recovery_key_detail": "Sitä käytetään holvin palauttamiseen, jos unohdat salasanasi"
         },
         "data_management": {
             "title": "Tietojen hallinta",
@@ -890,7 +940,8 @@
             "revoke_devices": "Peruuta Luotetut laitteet",
             "revoke_devices_desc": "Poista kaikki muistissa olevat laitteet, edellyttäen kaksivaiheista tunnistautumista seuraavalla sisäänkirjautumisella",
             "devices_revoked": "{{count}} luotettua laitetta poistettiin",
-            "devices_error": "Laitteiden peruuttaminen epäonnistui"
+            "devices_error": "Laitteiden peruuttaminen epäonnistui",
+            "preparing_setup": "Valmisteletko autentikointilaitetta..."
         },
         "danger_zone": {
             "title": "Tili",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Vahvistuksen jälkeen menetät välittömästi pääsyn tiliin, eikä poistettuja sovellustietoja voida palauttaa sovelluksesta.",
             "password_label": "Vahvista nykyisellä salasanallasi",
             "confirm_delete": "Vahvista poisto",
-            "deleting": "Poistetaan..."
+            "deleting": "Poistetaan...",
+            "description": "Poista tilisi ja poista pysyvästi kaikki varastotietosetit."
         },
         "language": "Kieli",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Suosittuja kieliä",
         "search_results": "Hakutulokset",
         "current_language": "Nykyinen kieli",
-        "languages_available": "saatavilla olevat kielet"
+        "languages_available": "saatavilla olevat kielet",
+        "borrow_requests": {
+            "accordion_eyebrow": "Lainaa pyydä vakuus",
+            "accordion_eyebrow_desc": "Määritä pyyntösäännöt ja hallinnoi estettyjä käyttäjiä.",
+            "title": "Lainapyyntöasetukset",
+            "description": "Hallinnoi sääntöjä lainapyyntöjen vastaanottamisesta muilta tileiltä ja listaa estetyt käyttäjät.",
+            "policy_title": "Uudet lainapyynnöt",
+            "policy_description": "Hallinnoi, kuka voi lähettää sinulle lainauspyyntöjä. Varastosi ei koskaan näy julkisessa listauksessa.",
+            "policy_none": "Älä ota vastaan keneltäkään (oletus)",
+            "policy_house_only": "Vain kotitalouden jäsenet",
+            "policy_everyone": "Kaikki rekisteröityneet käyttäjät",
+            "blocks_title": "Estetyt käyttäjät",
+            "blocks_description": "Käyttäjät, jotka olet estänyt lähettämästä uusia lainapyyntöjä.",
+            "no_blocks": "Estettyjä käyttäjiä ei löytynyt.",
+            "unblock_btn": "Poista esto",
+            "policy_none_desc": "Kaikki saapuvat pyynnöt estetään automaattisesti.",
+            "policy_house_only_desc": "Vain aktiivisten talojesi vahvistetut jäsenet voivat pyytää kohteita, jotka ovat jo näkyvissä yhteisessä talossa.",
+            "policy_everyone_desc": "Muut käyttäjät eivät voi selailla tai nähdä kohteitasi. He voivat vain lähettää pyynnön syöttämällä suoraan käyttäjänimesi tai sähköpostiosoitteesi."
+        }
     },
     "inventory": {
         "title": "Varasto",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Sinulla",
             "return_pending_hint": "Tietue sulkeutuu, kun lainanantaja vahvistaa saaneensa kohteen takaisin.",
             "return_pending_lender_title": "{{name}} merkitsi tämän kohteen palautetuksi",
-            "return_pending_self_title": "Sinulla, odottaa kuittivahvistusta"
+            "return_pending_self_title": "Sinulla, odottaa kuittivahvistusta",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Otsikon puuttuva kohde",
         "delete_action": "Poista kohde",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Vastaanottokuitti",
             "return_note_placeholder_borrower": "esim. Annoin sen takaisin ilman ongelmia",
             "return_note_placeholder_lender": "esim. Saapui takaisin hyvässä kunnossa",
-            "return_submitting": "Suljetaan..."
+            "return_submitting": "Suljetaan...",
+            "reject_title": "Hylkäyspyyntö",
+            "reject_subtitle": "Olet juuri hylkäämässä pyynnön \"{{item}}\".",
+            "reject_target": "Olet juuri hylkäämässä lainapyyntöä, jonka on lähettänyt {{name}}.",
+            "reject_reason_label": "Hylkäyssyy",
+            "reject_submitting": "Hylkääminen...",
+            "due_date_label": "Suunniteltu paluupäivä"
         },
         "messages": {
             "load_error": "Lainausten keskus ei voitu ladata",
-            "action_error": "Toimintoa ei voitu suorittaa"
+            "action_error": "Toimintoa ei voitu suorittaa",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Voit lähettää vain yhden ensimmäisen kontaktin ulkoisen pyynnön samalle henkilölle päivässä. Jos he hyväksyvät pyynnön, tämä rajoitus ei enää koske kyseistä henkilöä.",
+                "external_total_daily_limit": "Voit lähettää enintään 5 ensimmäisen kontaktin ulkoista pyyntöä päivässä.",
+                "external_request_requires_verified_email": "Vahvista sähköpostiosoitteesi ennen ulkoisten lainausten pyyntöjen lähettämistä.",
+                "external_offer_blocked": "Voit tarjota kohteen vain talon jäsenille tai rekisteröityneille käyttäjille, jotka voidaan tunnistaa suoraan.",
+                "target_blocked_by_you": "Et voi lähettää pyyntöä käyttäjälle, jonka olet estänyt.",
+                "recent_rejection_lock": "Tämä käyttäjä hylkäsi äskettäisen pyynnön. Voit lähettää toisen pyynnön 30 päivän kuluttua."
+            }
         },
         "preview": {
             "title": "Esikatselutila",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Ei pyyntöjä, jotka vaatisivat tarkastustasi",
         "outgoing_empty_title": "Ei lähteviä pyyntöjä vielä",
         "refreshing": "Päivitetään pyyntöjä ja aktiivisia lainoja...",
-        "loading_description": "Valmistellaan pyyntöjä ja aktiivista lainatoimintaa."
+        "loading_description": "Valmistellaan pyyntöjä ja aktiivista lainatoimintaa.",
+        "reasons": {
+            "rejected": "Hylkää (normaali hylkäys)",
+            "not_available": "Ei saatavilla (Tuote puuttuu / ei saatavilla)",
+            "blocked": "Estä ja hylkää (Estää tämän käyttäjän)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Tietosuojakäytäntö",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Hallitse älykkäästi kaikkia kotitaloustavaroitasi"
+        "tagline": "Hallitse älykkäästi kaikkia kotitaloustavaroitasi",
+        "loading": "Ladataan {{brandName}}",
+        "preparing_workspace": "Työtilan valmistelu..."
     },
     "nav": {
         "home": "Koti",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Tyhjennä historia",
-            "add_item": "Lisää ostoslistalle"
+            "add_item": "Lisää ostoslistalle",
+            "mark_completed": "Mark valmistuneena",
+            "decrease_qty": "Vähennysmäärä",
+            "increase_qty": "Lisää määrää",
+            "delete_item": "Poista tuote",
+            "reactivate_item": "Siirry takaisin aktiiviseen listaan"
         },
         "form": {
             "add_type": "Lisää menetelmä",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Tämän kohteen säännöllinen tai yksittäinen huollon seuranta on ajoitettu.",
         "no_tasks": "Tälle kohteelle ei ole määritetty huoltotehtäviä.",
         "confirm_delete": "Tämä tehtävä poistetaan. Oletko varma?"
+    },
+    "error_boundary": {
+        "title": "Jokin kaipaa päivitystä",
+        "description": "Käyttöliittymä kohtasi odottamattoman renderöintiongelman. Tallennetut varastotietosi eivät muutu tällä näytöllä.",
+        "refresh_btn": "Päivitä",
+        "home_btn": "Koti"
     }
 }

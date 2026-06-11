@@ -186,7 +186,8 @@
         "hide": "隐藏密码",
         "logging_out": "正在退出...",
         "show": "显示密码",
-        "saving": "保存中..."
+        "saving": "保存中...",
+        "disabled": "已失效"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "加入现有学院需要房屋钥匙",
         "house_key_not_found": "无效的房屋钥匙。请输入正确的密钥。",
         "email_not_verified": "您的电子邮件地址尚未被验证。请查看您的收件箱。",
-        "two_factor_invalid": "验证码不正确"
+        "two_factor_invalid": "验证码不正确",
+        "two_factor_invalid_try_again": "验证码无效。请再试一次。",
+        "two_factor_code_required": "需要验证码",
+        "two_factor_user_not_found": "用户未找到",
+        "two_factor_already_enabled": "双因素认证已经启用",
+        "two_factor_setup_not_started": "请先开始设置双因素认证",
+        "two_factor_setup_error": "在设置双因素认证时发生错误",
+        "two_factor_activation_error": "在双因素认证激活过程中发生了错误",
+        "two_factor_password_required": "需要密码",
+        "two_factor_credentials_required": "需要TOTP代码、备份代码或恢复密钥",
+        "two_factor_already_disabled": "双因素认证已经被禁用",
+        "two_factor_password_incorrect": "密码错误",
+        "two_factor_verification_failed": "验证失败。请检查代码并重新尝试。",
+        "two_factor_disable_error": "禁用双因素认证时发生错误",
+        "two_factor_not_enabled": "未启用双因素认证",
+        "two_factor_regenerate_codes_error": "在重新生成备份代码时发生了错误",
+        "two_factor_enabled_success": "双因素认证已成功启用",
+        "two_factor_disabled_success": "双因素认证已成功禁用",
+        "password_errors": {
+            "min_length": "密码必须至少为 {{min}} 字符",
+            "lowercase_required": "密码必须包含至少一个小写字母",
+            "uppercase_required": "密码必须包含至少一个大写字母",
+            "number_required": "密码必须包含至少一个数字",
+            "symbol_required": "密码必须包含至少一个符号",
+            "repeated_chars": "请勿在密码中使用重复字符",
+            "predictable_sequence": "不要在密码中使用容易猜测的序列",
+            "common_password": "这个密码太常见且不安全了",
+            "contains_username": "密码不能包含你的用户名",
+            "contains_email": "密码不得包含您的电子邮件信息"
+        }
     },
     "navigation": {
         "home": "主页",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "恢复密钥已重新生成",
             "recovery_key_error": "无法重新生成恢复密钥",
             "account_delete_error": "该帐户无法删除",
-            "backup_downloaded_encrypted": "加密备份下载成功！({{count}} 项)"
+            "backup_downloaded_encrypted": "加密备份下载成功！({{count}} 项)",
+            "policy_update_error": "未能更新请求设置。",
+            "policy_updated": "请求设置更新成功。",
+            "unblock_error": "未能解除对用户的封禁。",
+            "unblocked_success": "用户已成功解封。",
+            "house_owner_transferred": "房屋所有权转移",
+            "house_owner_transfer_error": "房屋所有权无法转让。"
         },
         "user_profile": {
             "edit_username": "修改用户名"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} 不再有权访问此家庭。",
             "kick_title": "删除该成员？",
             "kick_warning": "他们的家庭访问权限将立即终止，他们将需要新的邀请或批准才能返回。",
-            "kicking": "正在删除..."
+            "kicking": "正在删除...",
+            "access_section_eyebrow": "房屋通行",
+            "transfer_owner": "让所有者",
+            "transferring_owner": "正在转移......",
+            "transfer_owner_title": "转让房屋所有权？",
+            "transfer_owner_confirm": "把这个家庭的所有权转移到{{name}}？",
+            "transfer_owner_warning": "你将不再是这个家庭的主人。新老板将管理会员批准、撤离及未来所有权变更。",
+            "transfer_owner_success_body": "{{name}}现在是这个家庭的主人。"
         },
         "theme": {
             "title": "主题",
@@ -729,7 +772,9 @@
             "light": "明亮模式",
             "description": "选择此设备上工作区的显示方式。",
             "light_aria": "切换到浅色主题",
-            "dark_aria": "切换到深色主题"
+            "dark_aria": "切换到深色主题",
+            "workspace_title": "工作区主题",
+            "workspace_desc": "请选择您对此设备的偏好视觉风格。"
         },
         "security": {
             "title": "安全",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "当前恢复密钥无法显示。如有需要，请重新生成。",
             "recovery_key_action": "重新生成",
             "recovery_key_modal_desc": "确认您当前的密码以继续。新密钥仅会显示一次。",
-            "recovery_key_loading": "准备中..."
+            "recovery_key_loading": "准备中...",
+            "accordion_title": "安全与隐私",
+            "accordion_desc": "管理双因素认证、可信设备，并从其他账户借用请求规则。",
+            "description": "管理你的主密码和保险库恢复配置。",
+            "change_password_detail": "更新密码以保护账户安全",
+            "recovery_key_detail": "如果你忘记密码，它用来恢复你的保险库"
         },
         "data_management": {
             "title": "数据管理",
@@ -785,10 +835,10 @@
             "owner_only_desc": "数据备份和还原只能由房主管理。"
         },
         "about": {
-            "title": "📱 关于应用程序",
+            "title": "关于应用程序",
             "version": "版本",
             "brand": "品牌",
-            "feedback": "✉️ 发送反馈",
+            "feedback": "发送反馈",
             "legal_title": "法律文档",
             "legal_description": "即使已接受，您仍可以从此处重新打开条款和隐私文本。",
             "terms_link": "服务条款",
@@ -890,7 +940,8 @@
             "revoke_devices": "撤销可信设备",
             "revoke_devices_desc": "移除所有记忆中的设备，下次登录时要求双重认证",
             "devices_revoked": "{{count}} 可信设备已移除",
-            "devices_error": "未能撤销设备"
+            "devices_error": "未能撤销设备",
+            "preparing_setup": "正在准备你的认证器设置......"
         },
         "danger_zone": {
             "title": "帐号",
@@ -903,7 +954,8 @@
             "modal_warning_body": "确认后，您将立即失去对账户的访问权限，且已删除的应用数据无法从应用中恢复。",
             "password_label": "使用当前密码确认",
             "confirm_delete": "确认删除",
-            "deleting": "删除中..."
+            "deleting": "删除中...",
+            "description": "删除你的账户，永久移除所有库存数据集。"
         },
         "language": "语言",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "流行语言",
         "search_results": "搜索结果",
         "current_language": "现行语言",
-        "languages_available": "可用语言"
+        "languages_available": "可用语言",
+        "borrow_requests": {
+            "accordion_eyebrow": "借用请求担保",
+            "accordion_eyebrow_desc": "配置请求规则并管理被封禁的用户。",
+            "title": "借用请求设置",
+            "description": "管理接收其他账户借款请求的规则，并列出被封锁的用户。",
+            "policy_title": "新借用请求",
+            "policy_description": "控制谁可以向您发送借款请求。您的房源绝不会显示为公开房源。",
+            "policy_none": "请勿从任何人那里接收（默认）",
+            "policy_house_only": "仅限家庭成员",
+            "policy_everyone": "所有注册用户",
+            "blocks_title": "被封禁的用户",
+            "blocks_description": "你阻止用户发送新的借阅请求。",
+            "no_blocks": "未发现被封禁用户。",
+            "unblock_btn": "解除封锁",
+            "policy_none_desc": "所有来请求都会自动被屏蔽。",
+            "policy_house_only_desc": "只有已通过验证的活跃房屋成员才能申请该合住房屋内已可见的物品。",
+            "policy_everyone_desc": "其他用户无法浏览或查看您的项目。他们只能通过直接输入您的用户名或电子邮箱来发送申请。"
+        }
     },
     "inventory": {
         "title": "库存",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "与你",
             "return_pending_hint": "贷方确认收到退回的物品后，记录将关闭。",
             "return_pending_lender_title": "{{name}} 将此商品标记为已退回",
-            "return_pending_self_title": "与您同行，等待收货确认"
+            "return_pending_self_title": "与您同行，等待收货确认",
+            "site_member": "网站成员",
+            "site_member_identifier": "邮箱地址",
+            "site_member_identifier_placeholder": "确切的用户名或电子邮箱",
+            "site_member_privacy_hint": "仅当该账户存在并允许接收优惠时，优惠才会显示在借款中心。",
+            "external_privacy_hint": "这只会创建一个私人本地记录。未发送应用通知。"
         },
         "untitled_item": "未命名物品",
         "delete_action": "删除物品",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "收到便条",
             "return_note_placeholder_borrower": "例如",
             "return_note_placeholder_lender": "例如",
-            "return_submitting": "关闭..."
+            "return_submitting": "关闭...",
+            "reject_title": "拒绝请求",
+            "reject_subtitle": "你即将拒绝“{{item}}”的请求。",
+            "reject_target": "你即将拒绝{{name}}发送的借用请求。",
+            "reject_reason_label": "拒绝理由",
+            "reject_submitting": "拒绝......",
+            "due_date_label": "计划返回日期"
         },
         "messages": {
             "load_error": "借阅中心无法加载",
-            "action_error": "操作无法完成"
+            "action_error": "操作无法完成",
+            "active_borrow_not_found": "找不到此活动借款记录。刷新借阅中心，然后重试。",
+            "errors": {
+                "external_target_daily_limit": "您每天只能向同一个人发送一个首次联系外部请求。如果他们接受了申请，此限制将不再适用于此人。",
+                "external_total_daily_limit": "您每天最多可以发送5个首次联系外部请求。",
+                "external_request_requires_verified_email": "在发送外部借款请求之前，请验证您的电子邮件地址。",
+                "external_offer_blocked": "您只能向房屋成员或可直接识别的注册用户提供物品。",
+                "target_blocked_by_you": "您无法向已屏蔽的用户发送请求。",
+                "recent_rejection_lock": "此用户拒绝了最近的请求。您可以在30天后再次发送预订申请。"
+            }
         },
         "preview": {
             "title": "预览模式",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "没有需要您审核的请求",
         "outgoing_empty_title": "尚无外发请求",
         "refreshing": "正在刷新请求和当前借用...",
-        "loading_description": "准备请求和当前借用活动。"
+        "loading_description": "准备请求和当前借用活动。",
+        "reasons": {
+            "rejected": "拒绝（正常拒绝）",
+            "not_available": "不可用（物品缺失/不可得）",
+            "blocked": "屏蔽并拒绝（屏蔽此用户）"
+        }
     },
     "legal": {
         "privacy_policy_title": "隐私政策",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{品牌名称}}",
-        "tagline": "聪明地管理你所有的家居物品"
+        "tagline": "聪明地管理你所有的家居物品",
+        "loading": "加载中 {{brandName}}",
+        "preparing_workspace": "准备你的工作区......"
     },
     "nav": {
         "home": "首页",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "清除历史记录",
-            "add_item": "添加到购物清单"
+            "add_item": "添加到购物清单",
+            "mark_completed": "标记为已完成",
+            "decrease_qty": "减少数量",
+            "increase_qty": "增加数量",
+            "delete_item": "删除项目",
+            "reactivate_item": "回归现役名单"
         },
         "form": {
             "add_type": "添加方式",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "为此物品安排的定期或一次性维护跟踪。",
         "no_tasks": "没有为此物品分配维护任务。",
         "confirm_delete": "此任务将被删除。确定吗？"
+    },
+    "error_boundary": {
+        "title": "有些东西需要刷新",
+        "description": "界面遇到了意想不到的渲染问题。你保存的库存数据不会因此界面改变。",
+        "refresh_btn": "刷新",
+        "home_btn": "首页"
     }
 }

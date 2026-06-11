@@ -2,8 +2,9 @@ import { mkdirSync, readFileSync, rmSync } from 'node:fs';
 import { arch, platform } from 'node:os';
 import { resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 
-const repoRoot = resolve(new URL('..', import.meta.url).pathname);
+const repoRoot = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const launcherDir = resolve(repoRoot, 'apps/launcher');
 const tauriDir = resolve(repoRoot, 'apps/launcher/src-tauri');
 const bundleDir = resolve(tauriDir, 'target/release/bundle');

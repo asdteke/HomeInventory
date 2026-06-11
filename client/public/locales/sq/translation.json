@@ -186,7 +186,8 @@
         "hide": "Fshi fjalëkalimin",
         "logging_out": "Po dalim...",
         "show": "Trego fjalëkalimin",
-        "saving": "Duke kursyer..."
+        "saving": "Duke kursyer...",
+        "disabled": "Me aftësi të kufizuara"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Kërkohet një çelës shtëpie për t'u bashkuar me një shtëpi ekzistuese",
         "house_key_not_found": "Çelësi i pavlefshëm i shtëpisë. Ju lutemi futni çelësin e saktë.",
         "email_not_verified": "Adresa juaj e emailit nuk është verifikuar ende. Ju lutemi kontrolloni kutinë tuaj hyrëse.",
-        "two_factor_invalid": "Kodi i verifikimit është i pasaktë"
+        "two_factor_invalid": "Kodi i verifikimit është i pasaktë",
+        "two_factor_invalid_try_again": "Kodi i pavlefshëm i verifikimit. Ju lutemi provoni përsëri.",
+        "two_factor_code_required": "Kërkohet kodi i verifikimit",
+        "two_factor_user_not_found": "Përdoruesi nuk u gjet",
+        "two_factor_already_enabled": "Autentifikimi me dy faktorë është aktivizuar tashmë",
+        "two_factor_setup_not_started": "Ju lutemi filloni fillimisht konfigurimin e vërtetimit me dy faktorë",
+        "two_factor_setup_error": "Një gabim ndodhi gjatë konfigurimit të vërtetimit me dy faktorë",
+        "two_factor_activation_error": "Një gabim ndodhi gjatë aktivizimit të vërtetimit me dy faktorë",
+        "two_factor_password_required": "Kërkohet fjalëkalim",
+        "two_factor_credentials_required": "Kërkohet kodi TOTP, kodi rezervë ose çelësi i rikuperimit",
+        "two_factor_already_disabled": "Autentifikimi me dy faktorë tashmë është çaktivizuar",
+        "two_factor_password_incorrect": "Fjalëkalimi i pasaktë",
+        "two_factor_verification_failed": "Verifikimi dështoi. Ju lutemi kontrolloni kodin dhe provoni përsëri.",
+        "two_factor_disable_error": "Një gabim ndodhi gjatë çaktivizimit të vërtetimit me dy faktorë",
+        "two_factor_not_enabled": "Autentifikimi me dy faktorë nuk është i aktivizuar",
+        "two_factor_regenerate_codes_error": "Një gabim ndodhi gjatë rigjenerimit të kodeve rezervë",
+        "two_factor_enabled_success": "Autentifikimi me dy faktorë është aktivizuar me sukses",
+        "two_factor_disabled_success": "Autentifikimi me dy faktorë është çaktivizuar me sukses",
+        "password_errors": {
+            "min_length": "Fjalëkalimi duhet të jetë të paktën {{min}} karaktere",
+            "lowercase_required": "Fjalëkalimi duhet të përfshijë të paktën një shkronjë të vogël",
+            "uppercase_required": "Fjalëkalimi duhet të përfshijë të paktën një shkronjë të madhe",
+            "number_required": "Fjalëkalimi duhet të përfshijë të paktën një numër",
+            "symbol_required": "Fjalëkalimi duhet të përfshijë të paktën një simbol",
+            "repeated_chars": "Mos përdorni karaktere të përsëritura në fjalëkalimin tuaj",
+            "predictable_sequence": "Mos përdorni sekuenca të lehta për t'u marrë me mend në fjalëkalimin tuaj",
+            "common_password": "Ky fjalëkalim është shumë i zakonshëm dhe i pasigurt",
+            "contains_username": "Fjalëkalimi nuk duhet të përmbajë emrin tuaj të përdoruesit",
+            "contains_email": "Fjalëkalimi nuk duhet të përmbajë informacionin tuaj të emailit"
+        }
     },
     "navigation": {
         "home": "Shtëpia",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Çelësi i rikuperimit u rikrijua",
             "recovery_key_error": "Nuk mund të rikrijohet çelësi i rikuperimit",
             "account_delete_error": "Llogaria nuk mund të fshihet",
-            "backup_downloaded_encrypted": "Kopja e enkriptuar u shkarkua me sukses! ({{count}} artikuj)"
+            "backup_downloaded_encrypted": "Kopja e enkriptuar u shkarkua me sukses! ({{count}} artikuj)",
+            "policy_update_error": "Dështoi përditësimi i cilësimeve të kërkesës.",
+            "policy_updated": "Cilësimet e kërkesës u përditësuan me sukses.",
+            "unblock_error": "Dështoi zhbllokimin e përdoruesit.",
+            "unblocked_success": "Përdoruesi u zhbllokua me sukses.",
+            "house_owner_transferred": "Pronësia e shtëpisë u transferua",
+            "house_owner_transfer_error": "Pronësia e shtëpisë nuk mund të transferohej."
         },
         "user_profile": {
             "edit_username": "Ndrysho emrin e përdoruesit"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} nuk ka më qasje në këtë familje.",
             "kick_title": "Të hiqet ky anëtar?",
             "kick_warning": "Qasja e tyre në familje do të përfundojë menjëherë dhe ata do të kenë nevojë për një ftesë ose aprovim të ri për t’u kthyer.",
-            "kicking": "Po hiqet..."
+            "kicking": "Po hiqet...",
+            "access_section_eyebrow": "Qasja në shtëpi",
+            "transfer_owner": "Bëni pronar",
+            "transferring_owner": "Transferimi...",
+            "transfer_owner_title": "Transferimi i pronësisë së shtëpisë?",
+            "transfer_owner_confirm": "Transferimi i pronësisë së kësaj familjeje te {{emri}}?",
+            "transfer_owner_warning": "Ju nuk do të jeni më pronar i kësaj familjeje. Pronari i ri do të menaxhojë miratimet e anëtarëve, heqjet dhe ndryshimet e ardhshme të pronësisë.",
+            "transfer_owner_success_body": "{{emri}} tani është pronari i kësaj familjeje."
         },
         "theme": {
             "title": "Temë",
@@ -729,7 +772,9 @@
             "light": "Modalitet i lehtë",
             "description": "Zgjidhni se si duket hapësira e punës në këtë pajisje.",
             "light_aria": "Ndrysho në temë të hapur",
-            "dark_aria": "Ndrysho në temë të errët"
+            "dark_aria": "Ndrysho në temë të errët",
+            "workspace_title": "Tema e hapësirës së punës",
+            "workspace_desc": "Zgjidhni stilin tuaj vizual të preferuar për këtë pajisje."
         },
         "security": {
             "title": "Siguria",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Çelësi aktual i rikuperimit nuk mund të shfaqet. Regjenerojeni nëse është e nevojshme.",
             "recovery_key_action": "Regjenero",
             "recovery_key_modal_desc": "Konfirmoni fjalëkalimin tuaj aktual për të vazhduar. Çelësi i ri do të shfaqet vetëm një herë.",
-            "recovery_key_loading": "Duke u përgatitur..."
+            "recovery_key_loading": "Duke u përgatitur...",
+            "accordion_title": "Siguria dhe privatësia",
+            "accordion_desc": "Menaxhoni vërtetimin me dy faktorë, pajisjet e besuara dhe huazoni rregullat e kërkesave nga llogaritë e tjera.",
+            "description": "Menaxhoni fjalëkalimin tuaj kryesor dhe konfigurimet e rikuperimit të kasafortës.",
+            "change_password_detail": "Përditësoni fjalëkalimin tuaj për të mbajtur llogarinë tuaj të sigurt",
+            "recovery_key_detail": "Përdoret për të rikuperuar kasafortën tuaj nëse harroni fjalëkalimin tuaj"
         },
         "data_management": {
             "title": "Menaxhimi i të Dhënave",
@@ -785,10 +835,10 @@
             "owner_only_desc": "Kopjimi i të dhënave dhe rivendosja mund të menaxhohen vetëm nga pronari i shtëpisë."
         },
         "about": {
-            "title": "📱 Rreth Aplikacionit",
+            "title": "Rreth Aplikacionit",
             "version": "Versioni",
             "brand": "Markë",
-            "feedback": "✉️ Dërgo Feedback",
+            "feedback": "Dërgo Feedback",
             "legal_title": "Dokumentet Ligjore",
             "legal_description": "Ju mund të rihapni tekstet e kushteve dhe privatësisë nga këtu edhe pasi t'i keni pranuar ato.",
             "terms_link": "Kushtet e Shërbimit",
@@ -890,7 +940,8 @@
             "revoke_devices": "Revoko Pajisjet e Besuara",
             "revoke_devices_desc": "Hiq të gjitha pajisjet e ruajtura, duke kërkuar 2FA në hyrjen tjetër",
             "devices_revoked": "{{count}} pajisje e besuar u larguan",
-            "devices_error": "Dështoi revokimi i pajisjeve"
+            "devices_error": "Dështoi revokimi i pajisjeve",
+            "preparing_setup": "Përgatitja e konfigurimit tuaj të vërtetuesit..."
         },
         "danger_zone": {
             "title": "Llogaria",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Pas konfirmimit, menjëherë do të humbisni qasjen në llogari dhe të dhënat e fshira të aplikacionit nuk mund të rikuperohen nga aplikacioni.",
             "password_label": "Konfirmo me fjalëkalimin aktual",
             "confirm_delete": "Konfirmo fshirjen",
-            "deleting": "Po fshihet..."
+            "deleting": "Po fshihet...",
+            "description": "Fshini llogarinë tuaj dhe hiqni përgjithmonë të gjitha grupet e të dhënave të inventarit."
         },
         "language": "Gjuha",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Gjuhët e njohura",
         "search_results": "Rezultatet e kërkimit",
         "current_language": "Gjuha aktuale",
-        "languages_available": "gjuhët e disponueshme"
+        "languages_available": "gjuhët e disponueshme",
+        "borrow_requests": {
+            "accordion_eyebrow": "Kërkesa për hua me siguri",
+            "accordion_eyebrow_desc": "Konfiguroni rregullat e kërkesës dhe menaxhoni përdoruesit e bllokuar.",
+            "title": "Cilësimet e kërkesës për huazim",
+            "description": "Menaxhoni rregullat për marrjen e kërkesave për hua nga llogaritë e tjera dhe listoni përdoruesit e bllokuar.",
+            "policy_title": "Kërkesa të reja për hua",
+            "policy_description": "Kontrolloni se kush mund t'ju dërgojë kërkesa huazimi. Inventari juaj nuk tregohet kurrë si një listë publike.",
+            "policy_none": "Mos merrni nga askush (Parazgjedhje)",
+            "policy_house_only": "Vetëm anëtarët e familjes",
+            "policy_everyone": "Të gjithë përdoruesit e regjistruar",
+            "blocks_title": "Përdoruesit e bllokuar",
+            "blocks_description": "Përdoruesit që keni bllokuar t'ju dërgojnë kërkesa të reja huazimi.",
+            "no_blocks": "Nuk u gjet asnjë përdorues i bllokuar.",
+            "unblock_btn": "Zhblloko",
+            "policy_none_desc": "Të gjitha kërkesat hyrëse bllokohen automatikisht.",
+            "policy_house_only_desc": "Vetëm anëtarët e verifikuar të shtëpive tuaja aktive mund të kërkojnë objekte që tashmë janë të dukshme brenda asaj shtëpie të përbashkët.",
+            "policy_everyone_desc": "Përdorues të tjerë nuk mund të shfletojnë ose të shohin objektet tuaja. Ata mund të dërgojnë vetëm një kërkesë duke futur direkt emrin tuaj të përdoruesit ose emailin."
+        }
     },
     "inventory": {
         "title": "Inventari",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Me ju",
             "return_pending_hint": "Rekordi do të mbyllet pasi huadhënësi të konfirmojë se ka marrë artikullin prapa.",
             "return_pending_lender_title": "{{name}} e shënoi këtë artikull si të dorëzuar prapa",
-            "return_pending_self_title": "Me ju, duke pritur konfirmimin e pranimit"
+            "return_pending_self_title": "Me ju, duke pritur konfirmimin e pranimit",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Artikull pa titull",
         "delete_action": "Fshi artikullin",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Nota e pranimit",
             "return_note_placeholder_borrower": "p.sh. E kam dorëzuar përsëri pa asnjë problem",
             "return_note_placeholder_lender": "p.sh. Kthyer mbrapsht në gjendje të mirë",
-            "return_submitting": "Duke u mbyllur..."
+            "return_submitting": "Duke u mbyllur...",
+            "reject_title": "Refuzo kërkesën",
+            "reject_subtitle": "Ju jeni gati të refuzoni kërkesën për \"{{item}}\".",
+            "reject_target": "Ju jeni gati të refuzoni kërkesën për hua të dërguar nga {{name}}.",
+            "reject_reason_label": "Arsyeja e refuzimit",
+            "reject_submitting": "Duke refuzuar...",
+            "due_date_label": "Data e planifikuar e kthimit"
         },
         "messages": {
             "load_error": "Qendra e huazimit nuk mund të ngarkohej",
-            "action_error": "Veprimi nuk mund të përfundonte"
+            "action_error": "Veprimi nuk mund të përfundonte",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Ju mund të dërgoni vetëm një kërkesë të parë për kontakt nga jashtë tek e njëjta person në ditë. Nëse ata pranojnë një kërkesë, kjo kufizim nuk zbatohet më për atë person.",
+                "external_total_daily_limit": "Ju mund të dërgoni deri në 5 kërkesa të para-kontaktit nga jashtë për ditë.",
+                "external_request_requires_verified_email": "Verifikoni adresën tuaj të email-it para se të dërgoni kërkesa huazimi nga jashtë.",
+                "external_offer_blocked": "Ju mund të ofroni një objekt vetëm për anëtarët e shtëpisë ose përdorues të regjistruar të cilët mund të identifikohen drejtpërdrejt.",
+                "target_blocked_by_you": "Nuk mund të dërgoni një kërkesë tek një përdorues që keni bllokuar.",
+                "recent_rejection_lock": "Ky përdorues refuzoi një kërkesë të fundit. Mund të dërgoni një tjetër kërkesë pas 30 ditësh."
+            }
         },
         "preview": {
             "title": "Modaliteti i parashikimit",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Asnjë kërkesë nuk ka nevojë për rishikimin tuaj",
         "outgoing_empty_title": "Nuk ka kërkesa dalëse ende",
         "refreshing": "Rifreskimi i kërkesave dhe huazimeve aktive...",
-        "loading_description": "Përgatitja e kërkesave dhe aktiviteti aktiv i huazimit."
+        "loading_description": "Përgatitja e kërkesave dhe aktiviteti aktiv i huazimit.",
+        "reasons": {
+            "rejected": "Refuzo (refuzim normal)",
+            "not_available": "Nuk disponohet (Artikulli mungon / nuk disponohet)",
+            "blocked": "Blloko dhe refuzo (Bllokon këtë përdorues)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Politika e Privatësisë",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Menaxhoni në mënyrë të mençur të gjitha sendet tuaja shtëpiake"
+        "tagline": "Menaxhoni në mënyrë të mençur të gjitha sendet tuaja shtëpiake",
+        "loading": "Ngarkimi i {{brandName}}",
+        "preparing_workspace": "Përgatitja e hapësirës suaj të punës..."
     },
     "nav": {
         "home": "Shtëpi",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Pastro Historikun",
-            "add_item": "Shto në Listën e Blerjeve"
+            "add_item": "Shto në Listën e Blerjeve",
+            "mark_completed": "Shënoni si të përfunduar",
+            "decrease_qty": "Ulja e sasisë",
+            "increase_qty": "Rritja e sasisë",
+            "delete_item": "Fshi artikullin",
+            "reactivate_item": "Kthehu në listën aktive"
         },
         "form": {
             "add_type": "Shto Metodë",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Gjurmimi i mirëmbajtjes periodike ose një herë e caktuar për këtë artikull.",
         "no_tasks": "Nuk ka detyra mirëmbajtjeje të caktuara për këtë artikull.",
         "confirm_delete": "Kjo detyrë do të fshihet. A jeni të sigurt?"
+    },
+    "error_boundary": {
+        "title": "Diçka ka nevojë për një rifreskim",
+        "description": "Ndërfaqja goditi një problem të papritur të paraqitjes. Të dhënat tuaja të ruajtura të inventarit nuk ndryshohen nga ky ekran.",
+        "refresh_btn": "Rifresko",
+        "home_btn": "Shtëpi"
     }
 }

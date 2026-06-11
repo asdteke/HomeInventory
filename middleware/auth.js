@@ -12,6 +12,7 @@ const selectAuthenticatedUser = db.prepare(`
         u.email,
         u.role,
         u.is_banned,
+        u.is_verified,
         u.house_key,
         u.active_house_key,
         EXISTS(
@@ -114,6 +115,7 @@ export function resolveAuthenticatedUser(userId) {
         email: liveUser.email,
         role: liveUser.role || 'user',
         is_banned: liveUser.is_banned === 1,
+        is_verified: liveUserRow.is_verified === 1,
         house_key: normalizedPointers.house_key,
         active_house_key: normalizedPointers.active_house_key
     };
@@ -152,6 +154,7 @@ export const authenticateToken = (req, res, next) => {
             username: liveUser.username,
             email: liveUser.email,
             role: liveUser.role || tokenPayload.role || 'user',
+            is_verified: liveUser.is_verified,
             house_key: liveUser.active_house_key || liveUser.house_key || null,
             active_house_key: liveUser.active_house_key || null
         };
@@ -160,6 +163,7 @@ export const authenticateToken = (req, res, next) => {
         return res.status(403).json({ error: 'Geçersiz veya süresi dolmuş token' });
     }
 };
+
 
 export const requireActiveHouse = (req, res, next) => {
     if (!req.user?.house_key) {

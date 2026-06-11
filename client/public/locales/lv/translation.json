@@ -186,7 +186,8 @@
         "hide": "Paslēpt paroli",
         "logging_out": "Atteikšanās no konta...",
         "show": "Rādīt paroli",
-        "saving": "Saglabā..."
+        "saving": "Saglabā...",
+        "disabled": "Atspējots"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Mājas atslēga ir nepieciešama, lai pievienotos esošai mājai",
         "house_key_not_found": "Nederīga mājas atslēga. Lūdzu, ievadiet pareizo atslēgu.",
         "email_not_verified": "Jūsu e-pasta adrese vēl nav verificēta. Lūdzu, pārbaudiet savu iesūtni.",
-        "two_factor_invalid": "Verifikācijas kods ir nepareizs"
+        "two_factor_invalid": "Verifikācijas kods ir nepareizs",
+        "two_factor_invalid_try_again": "Nederīgs verifikācijas kods. Lūdzu, mēģiniet vēlreiz.",
+        "two_factor_code_required": "Nepieciešams verifikācijas kods",
+        "two_factor_user_not_found": "Lietotājs nav atrasts",
+        "two_factor_already_enabled": "Divu faktoru autentifikācija jau ir iespējota",
+        "two_factor_setup_not_started": "Lūdzu, vispirms sāciet divu faktoru autentifikācijas iestatīšanu",
+        "two_factor_setup_error": "Divu faktoru autentifikācijas iestatīšanas laikā radās kļūda",
+        "two_factor_activation_error": "Divpakāpju autentifikācijas aktivizēšanas laikā radās kļūda",
+        "two_factor_password_required": "Parole ir nepieciešama",
+        "two_factor_credentials_required": "Nepieciešams TOTP kods, rezerves kods vai atkopšanas atslēga",
+        "two_factor_already_disabled": "Divpakāpju autentifikācija jau ir atspējota",
+        "two_factor_password_incorrect": "Nepareiza parole",
+        "two_factor_verification_failed": "Verifikācija neizdevās. Lūdzu, pārbaudiet kodu un mēģiniet vēlreiz.",
+        "two_factor_disable_error": "Divu faktoru autentifikācijas atspējošanas laikā radās kļūda",
+        "two_factor_not_enabled": "Divpakāpju autentifikācija nav iespējota",
+        "two_factor_regenerate_codes_error": "Atjaunojot rezerves kodus, radās kļūda",
+        "two_factor_enabled_success": "Divu faktoru autentifikācija ir veiksmīgi iespējota",
+        "two_factor_disabled_success": "Divu faktoru autentifikācija ir veiksmīgi atspējota",
+        "password_errors": {
+            "min_length": "Parolei jābūt vismaz {{min}} garai",
+            "lowercase_required": "Parolē jābūt vismaz vienam mazajam burtam",
+            "uppercase_required": "Parolei jābūt vismaz vienam lielajam burtam",
+            "number_required": "Parolē jābūt vismaz vienam skaitlim",
+            "symbol_required": "Parolē jābūt vismaz vienam simbolam",
+            "repeated_chars": "Nelietojiet atkārtotas rakstzīmes savā parolē.",
+            "predictable_sequence": "Neizmantojiet viegli uzminētas secības savā parolē.",
+            "common_password": "Šī parole ir pārāk izplatīta un nedroša",
+            "contains_username": "Parole nedrīkst saturēt jūsu lietotājvārdu",
+            "contains_email": "Parole nedrīkst saturēt jūsu e-pasta informāciju"
+        }
     },
     "navigation": {
         "home": "Sākums",
@@ -503,7 +533,7 @@
             "loading_description": "Tiek gatavots jūsu mājas skats. Pēdējie papildinājumi un ātrā meklēšana parādīsies drīz."
         },
         "top_bar": {
-            "beta": "Beta",
+            "beta": "Beta versija",
             "items_tracked": "Izsekotie priekšmeti: {{count}}",
             "total_quantity": "Kopējais skaits: {{count}}",
             "shared_items": "Kopīgotie priekšmeti: {{count}}",
@@ -602,7 +632,7 @@
         "title": "BĒTA:",
         "text": "{{brandName}} pašlaik ir testēšanas un hobija stadijā. Nav garantijas datu saglabāšanai vai drošībai. Lūdzu, saglabājiet svarīgu informāciju rezerves kopijās.",
         "contact": "Kontakti:",
-        "badge": "Beta",
+        "badge": "Beta versija",
         "aria_label": "Beta paziņojums",
         "tooltip": "Agrīnas piekļuves funkcijas joprojām var mainīties."
     },
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Atjaunošanas atslēga ģenerēta atkārtoti",
             "recovery_key_error": "Neizdevās ģenerēt atjaunošanas atslēgu",
             "account_delete_error": "Kontu nevarēja izdzēst",
-            "backup_downloaded_encrypted": "Šifrētā dublējumkopija lejupielādēta veiksmīgi! ({{count}} elementi)"
+            "backup_downloaded_encrypted": "Šifrētā dublējumkopija lejupielādēta veiksmīgi! ({{count}} elementi)",
+            "policy_update_error": "Neizdevās atjaunināt pieprasījuma iestatījumus.",
+            "policy_updated": "Pieprasīt sekmīgi atjaunināt iestatījumus.",
+            "unblock_error": "Neizdevās atbloķēt lietotāju.",
+            "unblocked_success": "Lietotājs veiksmīgi atbloķēts.",
+            "house_owner_transferred": "Mājas īpašuma nodošana",
+            "house_owner_transfer_error": "Mājas īpašumtiesības nevarēja nodot."
         },
         "user_profile": {
             "edit_username": "Mainīt lietotājvārdu"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} vairs nevar piekļūt šai mājsaimniecībai.",
             "kick_title": "Noņemt šo dalībnieku?",
             "kick_warning": "Viņu piekļuve mājsaimniecībai tiks nekavējoties pārtraukta, un viņiem būs nepieciešama jauna ielūguma vai apstiprinājuma, lai atgrieztos.",
-            "kicking": "Notiek noņemšana..."
+            "kicking": "Notiek noņemšana...",
+            "access_section_eyebrow": "Piekļuve mājai",
+            "transfer_owner": "Padarīt īpašnieku",
+            "transferring_owner": "Pārsūtīšana...",
+            "transfer_owner_title": "Nodot mājas īpašumtiesības?",
+            "transfer_owner_confirm": "Nodot īpašumtiesības uz šo mājsaimniecību {{name}}?",
+            "transfer_owner_warning": "Jūs vairs nebūsiet šīs mājsaimniecības īpašnieks. Jaunais īpašnieks pārvaldīs dalībnieku apstiprinājumus, noņemšanu un turpmākās īpašumtiesību izmaiņas.",
+            "transfer_owner_success_body": "{{name}} tagad ir šīs mājsaimniecības īpašnieks."
         },
         "theme": {
             "title": "Temats",
@@ -729,7 +772,9 @@
             "light": "Gaismas režīms",
             "description": "Izvēlieties, kā izskatās darba vide šajā ierīcē.",
             "light_aria": "Pārslēgties uz gaišo tēmu",
-            "dark_aria": "Pārslēgties uz tumšo tēmu"
+            "dark_aria": "Pārslēgties uz tumšo tēmu",
+            "workspace_title": "Darbvietas dizains",
+            "workspace_desc": "Atlasiet vēlamo vizuālo stilu šai ierīcei."
         },
         "security": {
             "title": "Drošība",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Pašreizējā atkopšanas atslēga nevar tikt rādīta. Ģenerējiet to vēlreiz, ja nepieciešams.",
             "recovery_key_action": "Ģenerēt no jauna",
             "recovery_key_modal_desc": "Apstipriniet savu pašreizējo paroli, lai turpinātu. Jaunā atslēga tiks parādīta tikai vienu reizi.",
-            "recovery_key_loading": "Sagatavošana..."
+            "recovery_key_loading": "Sagatavošana...",
+            "accordion_title": "Drošība un konfidencialitāte",
+            "accordion_desc": "Pārvaldiet divpakāpju autentifikāciju, uzticamas ierīces un aizņemieties pieprasījuma kārtulas no citiem kontiem.",
+            "description": "Pārvaldiet galveno paroli un seifa atkopšanas konfigurācijas.",
+            "change_password_detail": "Atjauniniet paroli, lai saglabātu konta drošību",
+            "recovery_key_detail": "Izmanto, lai atkoptu seifu, ja esat aizmirsis paroli"
         },
         "data_management": {
             "title": "Datu pārvaldība",
@@ -785,10 +835,10 @@
             "owner_only_desc": "Datu rezerves kopēšanu un atjaunošanu var pārvaldīt tikai mājas īpašnieks."
         },
         "about": {
-            "title": "📱 Par lietotni",
+            "title": "Par lietotni",
             "version": "Versija",
             "brand": "Zīmols",
-            "feedback": "✉️ Sūtīt atsauksmes",
+            "feedback": "Sūtīt atsauksmes",
             "legal_title": "Juridiskie dokumenti",
             "legal_description": "Jūs varat šeit atkārtoti atvērt lietošanas noteikumus un privātuma tekstus pat pēc to pieņemšanas.",
             "terms_link": "Pakalpojumu sniegšanas noteikumi",
@@ -890,7 +940,8 @@
             "revoke_devices": "Atsaukt uzticamās ierīces",
             "revoke_devices_desc": "Noņemt visas iecerētās ierīces, kurām nepieciešama 2FA nākamajā pieteikšanās reizē",
             "devices_revoked": "{{count}} uzticamās(-ās) ierīces(-es) noņemtas",
-            "devices_error": "neizdevās atsaukt ierīces"
+            "devices_error": "neizdevās atsaukt ierīces",
+            "preparing_setup": "Tiek sagatavota autentifikatora iestatīšana..."
         },
         "danger_zone": {
             "title": "Konts",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Pēc apstiprināšanas jūs nekavējoties zaudēsiet piekļuvi kontam un dzēstos lietotnes datus no lietotnes nebūs iespējams atjaunot.",
             "password_label": "Apstipriniet ar savu pašreizējo paroli",
             "confirm_delete": "Apstipriniet dzēšanu",
-            "deleting": "Dzēšana..."
+            "deleting": "Dzēšana...",
+            "description": "Dzēsiet savu kontu un neatgriezeniski noņemiet visas krājumu datu kopas."
         },
         "language": "Valoda",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Populārākās valodas",
         "search_results": "Meklēšanas rezultāti",
         "current_language": "Pašreizējā valoda",
-        "languages_available": "pieejamās valodas"
+        "languages_available": "pieejamās valodas",
+        "borrow_requests": {
+            "accordion_eyebrow": "Aizņemties pieprasīt nodrošinājumu",
+            "accordion_eyebrow_desc": "Konfigurējiet pieprasījuma kārtulas un pārvaldiet bloķētos lietotājus.",
+            "title": "Aizņemties pieprasījuma iestatījumi",
+            "description": "Pārvaldiet noteikumus aizņemšanās pieprasījumu saņemšanai no citiem kontiem un uzskaitiet bloķētos lietotājus.",
+            "policy_title": "Jauni aizņemšanās pieprasījumi",
+            "policy_description": "Kontrolējiet, kurš var nosūtīt jums aizdevuma pieprasījumus. Jūsu inventārs nekad netiek parādīts publiskajā sarakstā.",
+            "policy_none": "Nesaņemt no neviena (noklusējums)",
+            "policy_house_only": "Tikai mājsaimniecības locekļi",
+            "policy_everyone": "Visi reģistrētie lietotāji",
+            "blocks_title": "Bloķētie lietotāji",
+            "blocks_description": "Lietotāji, kurus esat bloķējis no jaunu aizņemšanās pieprasījumu sūtīšanas.",
+            "no_blocks": "Bloķēti lietotāji nav atrasti.",
+            "unblock_btn": "Atbloķēt",
+            "policy_none_desc": "Visi ienākošie pieprasījumi tiek automātiski bloķēti.",
+            "policy_house_only_desc": "Tikai jūsu aktīvo māju pārbaudītie biedri var pieprasīt priekšmetus, kas jau ir redzami šajā kopīgajā mājā.",
+            "policy_everyone_desc": "Citi lietotāji nevar pārlūkot vai redzēt jūsu priekšmetus. Viņi var nosūtīt pieprasījumu tikai, ievadot jūsu lietotājvārdu vai e-pastu tieši."
+        }
     },
     "inventory": {
         "title": "Inventārs",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Pie jums",
             "return_pending_hint": "Ieraksts tiks aizvērts, pēc tam kad aizdevējs apstiprinās, ka objekts ir saņemts atpakaļ.",
             "return_pending_lender_title": "{{name}} atzīmēja šo priekšmetu kā atpakaļ piegādātu",
-            "return_pending_self_title": "Pie jums, gaidot saņemšanas apstiprinājumu"
+            "return_pending_self_title": "Pie jums, gaidot saņemšanas apstiprinājumu",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Nesaukts priekšmets",
         "delete_action": "Dzēst vienumu",
@@ -1074,7 +1149,7 @@
             "clothing": "Apģērbs",
             "books": "Grāmatas",
             "tools": "Rīki",
-            "sports": "Sports",
+            "sports": "Sporta veidi",
             "other": "Citi"
         },
         "add": "Pievienot kategoriju",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Saņemšanas lapa",
             "return_note_placeholder_borrower": "piemēram, es to atdevu bez jebkādām problēmām",
             "return_note_placeholder_lender": "piem., Saņemts atpakaļ labā stāvoklī",
-            "return_submitting": "Aizvēršana..."
+            "return_submitting": "Aizvēršana...",
+            "reject_title": "Noraidīt pieprasījumu",
+            "reject_subtitle": "Jūs gatavojaties noraidīt pieprasījumu par \"{{item}}\".",
+            "reject_target": "Jūs gatavojaties noraidīt aizņemšanās pieprasījumu, ko nosūtīja {{name}}.",
+            "reject_reason_label": "Noraidīšanas iemesls",
+            "reject_submitting": "Noraida...",
+            "due_date_label": "Plānotais atgriešanas datums"
         },
         "messages": {
             "load_error": "Aizņemšanās centrs nevarēja tikt ielādēts",
-            "action_error": "Darbība nevarēja tikt pabeigta"
+            "action_error": "Darbība nevarēja tikt pabeigta",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Jūs varat nosūtīt tikai vienu pirmo kontaktu ārēju pieprasījumu vienai un tai pašai personai dienā. Ja viņi pieņem pieprasījumu, šis ierobežojums vairs neattiecas uz šo personu.",
+                "external_total_daily_limit": "Jūs varat nosūtīt līdz 5 pirmā kontakta ārējiem pieprasījumiem dienā.",
+                "external_request_requires_verified_email": "Pirms nosūtāt ārējus aizdevuma pieprasījumus, apstipriniet savu e-pasta adresi.",
+                "external_offer_blocked": "Jūs varat piedāvāt priekšmetu tikai mājas biedriem vai reģistrētiem lietotājiem, kurus var identificēt tieši.",
+                "target_blocked_by_you": "Jūs nevarat nosūtīt pieprasījumu lietotājam, kuru esat bloķējis.",
+                "recent_rejection_lock": "Šis lietotājs nesen noraidīja pieprasījumu. Jūs varat nosūtīt citu pieprasījumu pēc 30 dienām."
+            }
         },
         "preview": {
             "title": "Priekšskatījuma režīms",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Nav pieprasījumu, kas prasītu jūsu pārskatīšanu",
         "outgoing_empty_title": "Vēl nav izsniegto pieprasījumu",
         "refreshing": "Atsvaidzināt pieprasījumus un aktīvos aizņēmumus...",
-        "loading_description": "Sagatavo pieprasījumus un aktīvo aizņemšanās darbību."
+        "loading_description": "Sagatavo pieprasījumus un aktīvo aizņemšanās darbību.",
+        "reasons": {
+            "rejected": "Noraidīt (parasta noraidīšana)",
+            "not_available": "Nav pieejams (Vienums trūkst / nav pieejams)",
+            "blocked": "Bloķēt un noraidīt (bloķē šo lietotāju)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Privātuma politika",
@@ -2175,8 +2270,10 @@
         "account_menu_tooltip": "{{name}} konta izvēlne"
     },
     "app": {
-        "name": "{{brandName}}",
-        "tagline": "Gudri pārvaldiet visus savus mājsaimniecības priekšmetus"
+        "name": "{{zīmols}}",
+        "tagline": "Gudri pārvaldiet visus savus mājsaimniecības priekšmetus",
+        "loading": "Tiek ielādēts {{brandName}}",
+        "preparing_workspace": "Darba vietas sagatavošana..."
     },
     "nav": {
         "home": "Mājas",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Notīrīt vēsturi",
-            "add_item": "Pievienot iepirkumu sarakstam"
+            "add_item": "Pievienot iepirkumu sarakstam",
+            "mark_completed": "Atzīmēt kā pabeigtu",
+            "decrease_qty": "Samazināt daudzumu",
+            "increase_qty": "Palielināt daudzumu",
+            "delete_item": "Dzēst vienumu",
+            "reactivate_item": "Pārvietoties atpakaļ uz aktīvo sarakstu"
         },
         "form": {
             "add_type": "Pievienot metodi",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Šī vienuma plānotā periodiskā vai vienreizējā apkope.",
         "no_tasks": "Šim vienumam nav piešķirtu apkopes uzdevumu.",
         "confirm_delete": "Šis uzdevums tiks dzēsts. Vai esat pārliecināts?"
+    },
+    "error_boundary": {
+        "title": "Kaut kas ir jāatsvaidzina",
+        "description": "Interfeiss saskārās ar negaidītu renderēšanas problēmu. Jūsu saglabātie krājumu dati šajā ekrānā netiek mainīti.",
+        "refresh_btn": "Atsvaidzināt",
+        "home_btn": "Sākums"
     }
 }

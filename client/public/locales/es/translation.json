@@ -49,7 +49,8 @@
         "hide": "Ocultar contraseña",
         "logging_out": "Cerrando sesión...",
         "show": "Mostrar contraseña",
-        "saving": "Guardando..."
+        "saving": "Guardando...",
+        "disabled": "Deshabilitado"
     },
     "auth": {
         "login": {
@@ -298,7 +299,36 @@
         "join_house_key_required": "Se requiere una llave de casa para unir una casa existente",
         "house_key_not_found": "Llave de la Casa Inválida. Por favor, introduce la clave correcta.",
         "email_not_verified": "Tu dirección de correo electrónico aún no ha sido verificada. Por favor, revisa tu bandeja de entrada.",
-        "two_factor_invalid": "El código de verificación es incorrecto"
+        "two_factor_invalid": "El código de verificación es incorrecto",
+        "two_factor_invalid_try_again": "Código de verificación inválido. Por favor, inténtalo de nuevo.",
+        "two_factor_code_required": "Se requiere código de verificación",
+        "two_factor_user_not_found": "Usuario no encontrado",
+        "two_factor_already_enabled": "La autenticación de dos pasos ya está habilitada",
+        "two_factor_setup_not_started": "Por favor, inicie primero la configuración de autenticación en dos pasos",
+        "two_factor_setup_error": "Se produjo un error durante la configuración de la autenticación en dos factores",
+        "two_factor_activation_error": "Se produjo un error durante la activación de la autenticación de dos factores",
+        "two_factor_password_required": "Se requiere contraseña",
+        "two_factor_credentials_required": "Se requiere código TOTP, código de respaldo o clave de recuperación",
+        "two_factor_already_disabled": "La autenticación de dos pasos ya está deshabilitada",
+        "two_factor_password_incorrect": "Contraseña incorrecta",
+        "two_factor_verification_failed": "La verificación falló. Por favor, revisa el código e inténtalo de nuevo.",
+        "two_factor_disable_error": "Se produjo un error al desactivar la autenticación de dos factores",
+        "two_factor_not_enabled": "La autenticación de dos factores no está habilitada",
+        "two_factor_regenerate_codes_error": "Se produjo un error al regenerar códigos de copia de seguridad",
+        "two_factor_enabled_success": "La autenticación de dos factores ha sido habilitada con éxito",
+        "two_factor_disabled_success": "La autenticación de dos factores ha sido deshabilitada con éxito",
+        "password_errors": {
+            "min_length": "La contraseña debe tener al menos {{min}} caracteres",
+            "lowercase_required": "La contraseña debe incluir al menos una letra minúscula",
+            "uppercase_required": "La contraseña debe incluir al menos una letra mayúscula",
+            "number_required": "La contraseña debe incluir al menos un número",
+            "symbol_required": "La contraseña debe incluir al menos un símbolo",
+            "repeated_chars": "No uses caracteres repetidos en tu contraseña",
+            "predictable_sequence": "No uses secuencias fáciles de adivinar en tu contraseña",
+            "common_password": "Esta contraseña es demasiado común y peligrosa",
+            "contains_username": "La contraseña no debe contener tu nombre de usuario",
+            "contains_email": "La contraseña no debe contener la información de tu correo electrónico"
+        }
     },
     "navigation": {
         "home": "Inicio",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Clave de recuperación regenerada",
             "recovery_key_error": "No se pudo regenerar la clave de recuperación",
             "account_delete_error": "La cuenta no se pudo eliminar",
-            "backup_downloaded_encrypted": "¡Copia de seguridad encriptada descargada con éxito! ({{count}} elementos)"
+            "backup_downloaded_encrypted": "¡Copia de seguridad encriptada descargada con éxito! ({{count}} elementos)",
+            "policy_update_error": "No se ha podido actualizar la configuración de solicitudes.",
+            "policy_updated": "La configuración de solicitudes se actualizó con éxito.",
+            "unblock_error": "No se ha conseguido desbloquear al usuario.",
+            "unblocked_success": "Usuario desbloqueado con éxito.",
+            "house_owner_transferred": "Transferencia de la propiedad de la vivienda",
+            "house_owner_transfer_error": "La propiedad de la vivienda no podía transferirse."
         },
         "user_profile": {
             "edit_username": "Cambiar nombre de usuario"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} ya no tiene acceso a este hogar.",
             "kick_title": "¿Eliminar a este miembro?",
             "kick_warning": "Su acceso al hogar terminará de inmediato y necesitará una nueva invitación o aprobación para regresar.",
-            "kicking": "Eliminando..."
+            "kicking": "Eliminando...",
+            "access_section_eyebrow": "Acceso a la vivienda",
+            "transfer_owner": "Haz propietario",
+            "transferring_owner": "Transferir...",
+            "transfer_owner_title": "¿Transferir la propiedad de la casa?",
+            "transfer_owner_confirm": "¿Transferir la propiedad de este hogar a {{nombre}}?",
+            "transfer_owner_warning": "Ya no serás el dueño de esta casa. El nuevo propietario gestionará las aprobaciones de los miembros, las destituciones y los futuros cambios de propiedad.",
+            "transfer_owner_success_body": "{{name}} es ahora el dueño de esta casa."
         },
         "theme": {
             "title": "Tema",
@@ -729,7 +772,9 @@
             "light": "Modo claro",
             "description": "Elige cómo se ve el espacio de trabajo en este dispositivo.",
             "light_aria": "Cambiar a tema claro",
-            "dark_aria": "Cambiar a tema oscuro"
+            "dark_aria": "Cambiar a tema oscuro",
+            "workspace_title": "Tema del espacio de trabajo",
+            "workspace_desc": "Selecciona tu estilo visual preferido para este dispositivo."
         },
         "security": {
             "title": "Seguridad",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "La clave de recuperación actual no se puede mostrar. Regénerela si es necesario.",
             "recovery_key_action": "Regenerar",
             "recovery_key_modal_desc": "Confirme su contraseña actual para continuar. La nueva clave se mostrará solo una vez.",
-            "recovery_key_loading": "Preparando..."
+            "recovery_key_loading": "Preparando...",
+            "accordion_title": "Seguridad y privacidad",
+            "accordion_desc": "Gestiona la autenticación en dos pasos, dispositivos de confianza y las reglas de solicitud de préstamos de otras cuentas.",
+            "description": "Gestiona tu contraseña maestra y configuraciones de recuperación de la bóveda.",
+            "change_password_detail": "Actualiza tu contraseña para mantener tu cuenta segura",
+            "recovery_key_detail": "Se usa para recuperar tu cámara si olvidas la contraseña"
         },
         "data_management": {
             "title": "Gestión de Datos",
@@ -890,7 +940,8 @@
             "revoke_devices": "Revocar dispositivos confiables",
             "revoke_devices_desc": "Eliminar todos los dispositivos recordados, requiriendo 2FA en el próximo inicio de sesión",
             "devices_revoked": "{{count}} dispositivo(s) confiable(s) eliminado(s)",
-            "devices_error": "Error al revocar dispositivos"
+            "devices_error": "Error al revocar dispositivos",
+            "preparing_setup": "Preparando tu configuración de autenticador..."
         },
         "danger_zone": {
             "title": "Cuenta",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Después de la confirmación, perderá inmediatamente el acceso a la cuenta y los datos de la aplicación eliminados no se pueden restaurar desde la aplicación.",
             "password_label": "Confirmar con su contraseña actual",
             "confirm_delete": "Confirmar eliminación",
-            "deleting": "Eliminando..."
+            "deleting": "Eliminando...",
+            "description": "Elimina tu cuenta y elimina permanentemente todos los conjuntos de datos de inventario."
         },
         "language": "Idioma",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Idiomas populares",
         "search_results": "Resultados de búsqueda",
         "current_language": "Idioma actual",
-        "languages_available": "idiomas disponibles"
+        "languages_available": "idiomas disponibles",
+        "borrow_requests": {
+            "accordion_eyebrow": "Solicitud de préstamo garantizado",
+            "accordion_eyebrow_desc": "Configura las reglas de solicitud y gestiona a los usuarios bloqueados.",
+            "title": "Configuración de solicitudes de préstamo",
+            "description": "Gestiona las reglas para recibir solicitudes de préstamo de otras cuentas y lista a los usuarios bloqueados.",
+            "policy_title": "Nuevas solicitudes de préstamo",
+            "policy_description": "Controla quién puede enviarte solicitudes de préstamo. Tu inventario nunca se muestra como un listado público.",
+            "policy_none": "No recibir de nadie (por defecto)",
+            "policy_house_only": "Solo para miembros del hogar",
+            "policy_everyone": "Todos los usuarios registrados",
+            "blocks_title": "Usuarios bloqueados",
+            "blocks_description": "Usuarios que has bloqueado para que no te envíen nuevas solicitudes de préstamo.",
+            "no_blocks": "No se han encontrado usuarios bloqueados.",
+            "unblock_btn": "Desbloquear",
+            "policy_none_desc": "Todas las solicitudes entrantes se bloquean automáticamente.",
+            "policy_house_only_desc": "Solo los miembros verificados de tus casas activas pueden solicitar artículos que ya sean visibles dentro de esa casa compartida.",
+            "policy_everyone_desc": "Otros usuarios no pueden explorar ni ver tus artículos. Solo pueden enviar una solicitud ingresando tu nombre de usuario o correo electrónico directamente."
+        }
     },
     "inventory": {
         "title": "Inventario",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "Contigo",
             "return_pending_hint": "El registro se cerrará después de que el prestamista confirme que recibió el artículo de vuelta.",
             "return_pending_lender_title": "{{name}} marcó este artículo como entregado de vuelta",
-            "return_pending_self_title": "Contigo, esperando confirmación de recibo"
+            "return_pending_self_title": "Contigo, esperando confirmación de recibo",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Artículo sin título",
         "delete_action": "Eliminar artículo",
@@ -1880,7 +1955,7 @@
         },
         "adminEmail": {
             "sentBy": "Este correo electrónico fue enviado por {{brandName}}.",
-            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
+            "footer": "© 2026 {{NombreMarca}} - {{supportEmail}}"
         },
         "testEmail": {
             "subject": "🧪 Correo de prueba de {{brandName}}",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Nota de recepción",
             "return_note_placeholder_borrower": "p. ej. Lo entregué sin problemas",
             "return_note_placeholder_lender": "p. ej. Recibido de vuelta en buen estado",
-            "return_submitting": "Cerrando..."
+            "return_submitting": "Cerrando...",
+            "reject_title": "Solicitud de rechazo",
+            "reject_subtitle": "Estás a punto de rechazar la solicitud de \"{{item}}\".",
+            "reject_target": "Estás a punto de rechazar la solicitud de préstamo enviada por {{name}}.",
+            "reject_reason_label": "Razón del rechazo",
+            "reject_submitting": "Rechazando...",
+            "due_date_label": "Fecha prevista de regreso"
         },
         "messages": {
             "load_error": "No se pudo cargar el centro de préstamos",
-            "action_error": "No se pudo completar la acción"
+            "action_error": "No se pudo completar la acción",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Solo puedes enviar una solicitud externa de primer contacto a la misma persona por día. Si aceptan una solicitud, este límite ya no se aplica a esa persona.",
+                "external_total_daily_limit": "Puedes enviar hasta 5 solicitudes externas de primer contacto por día.",
+                "external_request_requires_verified_email": "Verifica tu dirección de correo electrónico antes de enviar solicitudes de préstamo externas.",
+                "external_offer_blocked": "Solo puedes ofrecer un artículo a miembros de la casa o a usuarios registrados que puedan ser identificados directamente.",
+                "target_blocked_by_you": "No puedes enviar una solicitud a un usuario que has bloqueado.",
+                "recent_rejection_lock": "Este usuario rechazó una solicitud reciente. Puedes enviar otra solicitud después de 30 días."
+            }
         },
         "preview": {
             "title": "Modo de vista previa",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Ninguna solicitud necesita su revisión",
         "outgoing_empty_title": "Aún no hay solicitudes salientes",
         "refreshing": "Actualizando solicitudes y préstamos activos...",
-        "loading_description": "Preparando solicitudes y actividad de préstamo activa."
+        "loading_description": "Preparando solicitudes y actividad de préstamo activa.",
+        "reasons": {
+            "rejected": "Rechazo (rechazo normal)",
+            "not_available": "No disponible (Elemento faltante / no disponible)",
+            "blocked": "Bloquear y rechazar (Bloquea a este usuario)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Política de Privacidad",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{nombre de marca}}",
-        "tagline": "Gestiona inteligentemente todos los artículos de tu hogar"
+        "tagline": "Gestiona inteligentemente todos los artículos de tu hogar",
+        "loading": "Cargando {{brandName}}",
+        "preparing_workspace": "Preparando tu espacio de trabajo..."
     },
     "nav": {
         "home": "Inicio",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Borrar Historial",
-            "add_item": "Agregar a la lista de compras"
+            "add_item": "Agregar a la lista de compras",
+            "mark_completed": "Marca como completado",
+            "decrease_qty": "Disminuir la cantidad",
+            "increase_qty": "Aumentar la cantidad",
+            "delete_item": "Eliminar elemento",
+            "reactivate_item": "Volver a la lista activa"
         },
         "form": {
             "add_type": "Agregar método",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Seguimiento de mantenimiento periódico o único programado para este elemento.",
         "no_tasks": "No hay tareas de mantenimiento asignadas a este elemento.",
         "confirm_delete": "Esta tarea será eliminada. ¿Estás seguro?"
+    },
+    "error_boundary": {
+        "title": "Algo necesita un refresco",
+        "description": "La interfaz tuvo un problema inesperado de renderizado. Tus datos de inventario guardados no se modifican en esta pantalla.",
+        "refresh_btn": "Actualizar",
+        "home_btn": "Inicio"
     }
 }

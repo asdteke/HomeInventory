@@ -192,6 +192,18 @@ export default function Register() {
         setFormData((current) => ({ ...current, [name]: value }));
     };
 
+    const resolvePasswordServerError = (payload: any) => {
+        const firstCode = Array.isArray(payload?.passwordErrorCodes) ? payload.passwordErrorCodes[0] : '';
+        if (!firstCode) {
+            return '';
+        }
+
+        return t(`auth.password_errors.${firstCode}`, {
+            min: 10,
+            defaultValue: payload?.error || ''
+        });
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
@@ -270,7 +282,8 @@ export default function Register() {
                 navigate('/');
             }
         } catch (err: any) {
-            setError(err.response?.data?.error || err.message || t('common.error'));
+            const payload = err.response?.data;
+            setError(resolvePasswordServerError(payload) || payload?.error || err.message || t('common.error'));
         } finally {
             setLoading(false);
         }

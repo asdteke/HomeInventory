@@ -186,7 +186,8 @@
         "hide": "Skrýt heslo",
         "logging_out": "Odhlášení...",
         "show": "Zobrazit heslo",
-        "saving": "Ukládání..."
+        "saving": "Ukládání...",
+        "disabled": "Neaktivní"
     },
     "auth": {
         "login": {
@@ -435,7 +436,36 @@
         "join_house_key_required": "Pro připojení ke stávajícímu domu je potřeba klíč od domu",
         "house_key_not_found": "Neplatný klíč od domu. Zadejte prosím správné tlačítko.",
         "email_not_verified": "Vaše e-mailová adresa zatím nebyla ověřena. Zkontrolujte prosím svou schránku.",
-        "two_factor_invalid": "Ověřovací kód je nesprávný"
+        "two_factor_invalid": "Ověřovací kód je nesprávný",
+        "two_factor_invalid_try_again": "Neplatný ověřovací kód. Zkuste to prosím znovu.",
+        "two_factor_code_required": "Je vyžadován ověřovací kód",
+        "two_factor_user_not_found": "Uživatel nenalezen",
+        "two_factor_already_enabled": "Dvoufaktorové ověřování je již povoleno",
+        "two_factor_setup_not_started": "Nejprve prosím začněte s nastavením dvoufaktorové autentizace",
+        "two_factor_setup_error": "Při nastavení dvoufaktorové autentizace došlo k chybě",
+        "two_factor_activation_error": "Při aktivaci dvoufaktorové autentizace došlo k chybě",
+        "two_factor_password_required": "Je vyžadováno heslo",
+        "two_factor_credentials_required": "Je vyžadován TOTP kód, záložní kód nebo obnovovací klíč",
+        "two_factor_already_disabled": "Dvoufaktorové ověřování je již zakázáno",
+        "two_factor_password_incorrect": "Nesprávné heslo",
+        "two_factor_verification_failed": "Ověření selhalo. Prosím, zkontrolujte kód a zkuste to znovu.",
+        "two_factor_disable_error": "Při vypnutí dvoufaktorové autentizace došlo k chybě",
+        "two_factor_not_enabled": "Dvoufaktorové ověřování není zapnuté",
+        "two_factor_regenerate_codes_error": "Při generování záložních kódů došlo k chybě",
+        "two_factor_enabled_success": "Dvoufaktorové ověřování bylo úspěšně povoleno",
+        "two_factor_disabled_success": "Dvoufaktorové ověřování bylo úspěšně deaktivováno",
+        "password_errors": {
+            "min_length": "Heslo musí mít alespoň {{min}} znaků",
+            "lowercase_required": "Heslo musí obsahovat alespoň jedno malé písmeno",
+            "uppercase_required": "Heslo musí obsahovat alespoň jedno velké písmeno",
+            "number_required": "Heslo musí obsahovat alespoň jedno číslo",
+            "symbol_required": "Heslo musí obsahovat alespoň jeden znak",
+            "repeated_chars": "Nepoužívejte v hesle opakující se znaky",
+            "predictable_sequence": "Nepoužívejte v hesle snadno uhodnutelné sekvence",
+            "common_password": "Toto heslo je příliš běžné a nebezpečné",
+            "contains_username": "Heslo nesmí obsahovat vaše uživatelské jméno",
+            "contains_email": "Heslo nesmí obsahovat vaše e-mailové údaje"
+        }
     },
     "navigation": {
         "home": "Domů",
@@ -651,7 +681,13 @@
             "recovery_key_regenerated": "Obnovovací klíč znovu vygenerován",
             "recovery_key_error": "Nepodařilo se znovu vygenerovat obnovovací klíč",
             "account_delete_error": "Účet nelze smazat",
-            "backup_downloaded_encrypted": "Šifrovaná záloha byla úspěšně stažena! ({{count}} položek)"
+            "backup_downloaded_encrypted": "Šifrovaná záloha byla úspěšně stažena! ({{count}} položek)",
+            "policy_update_error": "Nepodařilo se aktualizovat nastavení požadavků.",
+            "policy_updated": "Žádost o úspěšnou aktualizaci nastavení.",
+            "unblock_error": "Nepodařilo se odblokovat uživatele.",
+            "unblocked_success": "Uživatel úspěšně odblokován.",
+            "house_owner_transferred": "Vlastnictví domu převedené",
+            "house_owner_transfer_error": "Vlastnictví domu nebylo možné převést."
         },
         "user_profile": {
             "edit_username": "Změnit uživatelské jméno"
@@ -721,7 +757,14 @@
             "kick_success_body": "{{name}} již nemá přístup k této domácnosti.",
             "kick_title": "Odstranit tohoto člena?",
             "kick_warning": "Jejich přístup k domácnosti skončí okamžitě a budou potřebovat nové pozvání nebo schválení, aby se mohli vrátit.",
-            "kicking": "Odstraňování..."
+            "kicking": "Odstraňování...",
+            "access_section_eyebrow": "Přístup k domu",
+            "transfer_owner": "Udělejte majitele",
+            "transferring_owner": "Přesouvám...",
+            "transfer_owner_title": "Převod vlastnictví domu?",
+            "transfer_owner_confirm": "Převést vlastnictví této domácnosti na {{name}}?",
+            "transfer_owner_warning": "Už nebudete majitelem této domácnosti. Nový majitel bude řídit schvalování členů, odchody a budoucí změny vlastnictví.",
+            "transfer_owner_success_body": "{{name}} je nyní majitelem této domácnosti."
         },
         "theme": {
             "title": "Téma",
@@ -729,7 +772,9 @@
             "light": "Režim světlý",
             "description": "Zvolte, jak bude pracovní prostor vypadat na tomto zařízení.",
             "light_aria": "Přepnout na světlé téma",
-            "dark_aria": "Přepnout na tmavé téma"
+            "dark_aria": "Přepnout na tmavé téma",
+            "workspace_title": "Téma pracovního prostoru",
+            "workspace_desc": "Vyberte si preferovaný vizuální styl tohoto zařízení."
         },
         "security": {
             "title": "Zabezpečení",
@@ -742,7 +787,12 @@
             "recovery_key_unavailable": "Aktuální klíč pro obnovení nelze zobrazit. V případě potřeby jej znovu vygenerujte.",
             "recovery_key_action": "Znovu vygenerovat",
             "recovery_key_modal_desc": "Potvrďte své aktuální heslo pro pokračování. Nový klíč bude zobrazen pouze jednou.",
-            "recovery_key_loading": "Připravuji..."
+            "recovery_key_loading": "Připravuji...",
+            "accordion_title": "Bezpečnost a soukromí",
+            "accordion_desc": "Spravujte dvoufaktorové ověřování, důvěryhodná zařízení a půjčujte si pravidla požadavků z jiných účtů.",
+            "description": "Spravujte své hlavní heslo a konfigurace obnovy trezoru.",
+            "change_password_detail": "Aktualizujte si heslo, abyste svůj účet ochránili",
+            "recovery_key_detail": "Používá se k obnovení vašeho trezoru, pokud zapomenete heslo"
         },
         "data_management": {
             "title": "Správa dat",
@@ -890,7 +940,8 @@
             "revoke_devices": "Zrušit důvěryhodná zařízení",
             "revoke_devices_desc": "Odstraňte všechna zapamatovaná zařízení, při příštím přihlášení bude vyžadováno 2FA",
             "devices_revoked": "{{count}} důvěryhodné zařízení(í) odstraněno",
-            "devices_error": "Nepodařilo se odvolat zařízení"
+            "devices_error": "Nepodařilo se odvolat zařízení",
+            "preparing_setup": "Připravuji tvé nastavení autentizátoru..."
         },
         "danger_zone": {
             "title": "Účet",
@@ -903,7 +954,8 @@
             "modal_warning_body": "Po potvrzení okamžitě ztratíte přístup k účtu a smazaná data aplikace nelze z aplikace obnovit.",
             "password_label": "Potvrďte svým aktuálním heslem",
             "confirm_delete": "Potvrdit smazání",
-            "deleting": "Mazání..."
+            "deleting": "Mazání...",
+            "description": "Smažte svůj účet a trvale odstraňte všechny inventární datové sady."
         },
         "language": "Jazyk",
         "control_sections": {
@@ -962,7 +1014,25 @@
         "popular_languages": "Oblíbené jazyky",
         "search_results": "Výsledky vyhledávání",
         "current_language": "Aktuální jazyk",
-        "languages_available": "dostupné jazyky"
+        "languages_available": "dostupné jazyky",
+        "borrow_requests": {
+            "accordion_eyebrow": "Půjčit si žádost o zabezpečení",
+            "accordion_eyebrow_desc": "Konfigurujte pravidla požadavků a spravujte blokované uživatele.",
+            "title": "Nastavení požadavku půjčit",
+            "description": "Spravujte pravidla pro přijímání žádostí o půjčky z jiných účtů a seznamujte blokované uživatele.",
+            "policy_title": "Nové žádosti o půjčky",
+            "policy_description": "Kontrolujte, kdo vám může posílat žádosti o půjčení. Váš inventář nikdy není zobrazen jako veřejný seznam.",
+            "policy_none": "Nepřijímejte od nikoho (výchozí)",
+            "policy_house_only": "Pouze členové domácnosti",
+            "policy_everyone": "Všichni registrovaní uživatelé",
+            "blocks_title": "Blokovaní uživatelé",
+            "blocks_description": "Uživatelé, kterým jste zablokovali možnost posílat nové žádosti o půjčky.",
+            "no_blocks": "Žádní zablokovaní uživatelé nebyli nalezeni.",
+            "unblock_btn": "Odblokovat",
+            "policy_none_desc": "Všechny příchozí požadavky jsou automaticky blokovány.",
+            "policy_house_only_desc": "Pouze ověření členové vašich aktivních domácností mohou žádat o předměty, které jsou již viditelné uvnitř sdílené domácnosti.",
+            "policy_everyone_desc": "Ostatní uživatelé nemohou prohlížet ani vidět vaše položky. Mohou poslat žádost pouze zadáním vašeho uživatelského jména nebo e-mailu přímo."
+        }
     },
     "inventory": {
         "title": "Inventář",
@@ -1029,7 +1099,12 @@
             "borrowed_by_you": "U vás",
             "return_pending_hint": "Záznam se uzavře, až věřitel potvrdí, že položku obdržel zpět.",
             "return_pending_lender_title": "{{name}} označil tuto položku jako doručenou zpět",
-            "return_pending_self_title": "U vás, čeká na potvrzení přijetí"
+            "return_pending_self_title": "U vás, čeká na potvrzení přijetí",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
         },
         "untitled_item": "Nepojmenovaná položka",
         "delete_action": "Odstranit položku",
@@ -2074,11 +2149,26 @@
             "return_note_lender": "Příjemka",
             "return_note_placeholder_borrower": "např. Vrátil jsem to bez problémů",
             "return_note_placeholder_lender": "např. Vráceno v dobrém stavu",
-            "return_submitting": "Uzavírání..."
+            "return_submitting": "Uzavírání...",
+            "reject_title": "Žádost zamítnout",
+            "reject_subtitle": "Chystáte se odmítnout žádost o \"{{item}}\".",
+            "reject_target": "Chystáte se odmítnout žádost o půjčku zaslanou {{name}}.",
+            "reject_reason_label": "Důvod odmítnutí",
+            "reject_submitting": "Odmítání...",
+            "due_date_label": "Plánované datum návratu"
         },
         "messages": {
             "load_error": "Centrum půjček se nepodařilo načíst",
-            "action_error": "Akci se nepodařilo dokončit"
+            "action_error": "Akci se nepodařilo dokončit",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "Můžete poslat pouze jednu první kontaktovací externí žádost stejné osobě za den. Pokud žádost přijmou, tento limit pro tuto osobu již neplatí.",
+                "external_total_daily_limit": "Můžete poslat až 5 prvních kontaktovacích externích žádostí za den.",
+                "external_request_requires_verified_email": "Ověřte svůj e-mail před odesláním externích žádostí o půjčení.",
+                "external_offer_blocked": "Položku můžete nabídnout pouze členům domácnosti nebo registrovaným uživatelům, kteří mohou být identifikováni přímo.",
+                "target_blocked_by_you": "Nemůžete poslat žádost uživateli, kterého jste zablokovali.",
+                "recent_rejection_lock": "Tento uživatel nedávno odmítl žádost. Další žádost můžete poslat až po 30 dnech."
+            }
         },
         "preview": {
             "title": "Režim náhledu",
@@ -2088,7 +2178,12 @@
         "incoming_empty_title": "Žádné požadavky nepotřebují vaše posouzení",
         "outgoing_empty_title": "Žádné odchozí požadavky zatím",
         "refreshing": "Obnovuji požadavky a aktivní půjčky...",
-        "loading_description": "Příprava požadavků a aktivní půjčovní činnost."
+        "loading_description": "Příprava požadavků a aktivní půjčovní činnost.",
+        "reasons": {
+            "rejected": "Odmítnutí (Normální odmítnutí)",
+            "not_available": "Není k dispozici (Chybí / není dostupná)",
+            "blocked": "Zablokovat a odmítnout (Zablokuje tohoto uživatele)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Zásady ochrany osobních údajů",
@@ -2176,7 +2271,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Chytrá správa všech vašich domácích věcí"
+        "tagline": "Chytrá správa všech vašich domácích věcí",
+        "loading": "Načítání {{brandName}}",
+        "preparing_workspace": "Připravuješ si pracovní místo..."
     },
     "nav": {
         "home": "Domů",
@@ -2327,7 +2424,12 @@
         },
         "actions": {
             "clear_completed": "Vymazat historii",
-            "add_item": "Přidat do nákupního seznamu"
+            "add_item": "Přidat do nákupního seznamu",
+            "mark_completed": "Značka dokončena",
+            "decrease_qty": "Snižte množství",
+            "increase_qty": "Zvyšte množství",
+            "delete_item": "Smazat položku",
+            "reactivate_item": "Vrátit se zpět na aktivní seznam"
         },
         "form": {
             "add_type": "Přidat metodu",
@@ -2444,5 +2546,11 @@
         "detail_card_desc": "Sledování pravidelné nebo jednorázové údržby naplánované pro tuto položku.",
         "no_tasks": "Žádné úkoly údržby přiřazené k této položce.",
         "confirm_delete": "Tento úkol bude smazán. Jste si jistí?"
+    },
+    "error_boundary": {
+        "title": "Něco potřebuje osvěžení",
+        "description": "Rozhraní narazilo na nečekaný problém s vykreslováním. Vaše uložená inventářová data se touto obrazovkou nemění.",
+        "refresh_btn": "Obnovit",
+        "home_btn": "Domov"
     }
 }
