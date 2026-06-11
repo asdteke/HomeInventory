@@ -131,18 +131,22 @@ jobs:
             os: macos-14
             bundles: app
             tauri_platform: darwin-aarch64
+            tauri_target: aarch64-apple-darwin
           - name: macos-x86_64
-            os: macos-13
+            os: macos-14
             bundles: app
             tauri_platform: darwin-x86_64
+            tauri_target: x86_64-apple-darwin
           - name: windows-x86_64
             os: windows-latest
             bundles: nsis,msi
             tauri_platform: windows-x86_64
+            tauri_target: ""
           - name: linux-x86_64
             os: ubuntu-22.04
             bundles: appimage,deb,rpm
             tauri_platform: linux-x86_64
+            tauri_target: ""
 
     steps:
       - name: Checkout
@@ -157,6 +161,10 @@ jobs:
 
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Rust target
+        if: matrix.tauri_target != ''
+        run: rustup target add ${{ matrix.tauri_target }}
 
       - name: Install Linux Tauri dependencies
         if: matrix.name == 'linux-x86_64'
@@ -193,17 +201,27 @@ jobs:
 
       - name: Build Tauri launcher
         working-directory: apps/launcher
+        shell: bash
         env:
           CARGO_BUILD_JOBS: "1"
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
-        run: node node_modules/@tauri-apps/cli/tauri.js build --bundles ${{ matrix.bundles }}
+        run: |
+          if [ -n "${{ matrix.tauri_target }}" ]; then
+            node node_modules/@tauri-apps/cli/tauri.js build --bundles ${{ matrix.bundles }} --target ${{ matrix.tauri_target }}
+          else
+            node node_modules/@tauri-apps/cli/tauri.js build --bundles ${{ matrix.bundles }}
+          fi
 
       - name: Collect distributable packages
         shell: bash
         run: |
           mkdir -p artifacts
-          find apps/launcher/src-tauri/target/release/bundle -type f \
+          TARGET_DIR="apps/launcher/src-tauri/target"
+          if [ -n "${{ matrix.tauri_target }}" ]; then
+            TARGET_DIR="apps/launcher/src-tauri/target/${{ matrix.tauri_target }}"
+          fi
+          find "$TARGET_DIR/release/bundle" -type f \
             \( -name '*.dmg' -o -name '*.exe' -o -name '*.msi' -o -name '*.AppImage' -o -name '*.deb' -o -name '*.rpm' \) \
             -exec cp {} artifacts/ \;
 
@@ -211,7 +229,11 @@ jobs:
         if: startsWith(matrix.name, 'macos-')
         shell: bash
         run: |
-          APP_PATH="apps/launcher/src-tauri/target/release/bundle/macos/HomeInventory Launcher.app"
+          TARGET_DIR="apps/launcher/src-tauri/target"
+          if [ -n "${{ matrix.tauri_target }}" ]; then
+            TARGET_DIR="apps/launcher/src-tauri/target/${{ matrix.tauri_target }}"
+          fi
+          APP_PATH="$TARGET_DIR/release/bundle/macos/HomeInventory Launcher.app"
           DMG_PATH="artifacts/HomeInventory Launcher_${{ needs.managed-app.outputs.app_version }}_${{ matrix.tauri_platform }}.dmg"
           hdiutil create \
             -volname "HomeInventory Launcher" \
@@ -230,9 +252,14 @@ jobs:
             echo "Skipping updater artifacts collection (signing key missing)."
             exit 0
           fi
+          TARGET_DIR="apps/launcher/src-tauri/target"
+          if [ -n "${{ matrix.tauri_target }}" ]; then
+            TARGET_DIR="apps/launcher/src-tauri/target/${{ matrix.tauri_target }}"
+          fi
           node scripts/collect-tauri-updater-artifacts.mjs \
             --platform "${{ matrix.tauri_platform }}" \
             --version "${{ needs.managed-app.outputs.app_version }}" \
+            --bundle-dir "$TARGET_DIR/release/bundle" \
             --output-dir artifacts
 
       - name: List artifacts
