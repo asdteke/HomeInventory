@@ -281,7 +281,8 @@ async fn install_dependencies(
     validate_project_root(&project_root)?;
     seed_env_file(&project_root)?;
     let envs = resolved_command_env();
-    let tools = resolve_tools(&envs, &overrides);
+    ensure_portable_node(&app, &state).await?;
+    let tools = resolve_tools(&app, &envs, &overrides);
     let npm = tools
         .npm_path
         .clone()
@@ -383,7 +384,7 @@ fn start_profile_internal(
     }
 
     let envs = resolved_command_env();
-    let tools = resolve_tools(&envs, &overrides);
+    let tools = resolve_tools(app, &envs, &overrides);
     let node = tools
         .node_path
         .clone()
@@ -821,7 +822,7 @@ fn build_snapshot(
     let project_root = project_root_for_snapshot(app, &overrides)?;
     let app_data_dir = app_data_dir(app)?;
     let envs = resolved_command_env();
-    let tools = resolve_tools(&envs, &overrides);
+    let tools = resolve_tools(app, &envs, &overrides);
     let active_process = state
         .active
         .lock()
@@ -1392,10 +1393,45 @@ fn resolve_login_shell_env() -> HashMap<String, String> {
     envs
 }
 
-fn resolve_tools(envs: &HashMap<String, String>, overrides: &ToolOverrides) -> ResolvedTools {
-    let node_path =
-        clean_path_override(&overrides.node_path).or_else(|| find_executable("node", envs));
-    let npm_path = clean_path_override(&overrides.npm_path)
+fn resolve_tools(
+    app: &tauri::AppHandle,
+    envs: &HashMap<String, String>,
+    overrides: &ToolOverrides,
+) -> ResolvedTools {
+    let mut node_path = clean_path_override(&overrides.node_path);
+    let mut npm_path = clean_path_override(&overrides.npm_path);
+
+    if node_path.is_none() || npm_path.is_none() {
+        if let Ok(app_data) = app_data_dir(app) {
+            let folder_name = if cfg!(target_os = "windows") {
+                "node-v20.11.1-win-x64"
+            } else if cfg!(target_os = "macos") {
+                if cfg!(target_arch = "aarch64") {
+                    "node-v20.11.1-darwin-arm64"
+                } else {
+                    "node-v20.11.1-darwin-x64"
+                }
+            } else {
+                "node-v20.11.1-linux-x64"
+            };
+
+            let portable_dir = app_data.join("bin").join(folder_name);
+            let p_node = portable_dir.join(if cfg!(windows) { "node.exe" } else { "bin/node" });
+            let p_npm = portable_dir.join(if cfg!(windows) { "npm.cmd" } else { "bin/npm" });
+
+            if p_node.exists() && p_npm.exists() {
+                if node_path.is_none() {
+                    node_path = Some(path_string(&p_node));
+                }
+                if npm_path.is_none() {
+                    npm_path = Some(path_string(&p_npm));
+                }
+            }
+        }
+    }
+
+    let node_path = node_path.or_else(|| find_executable("node", envs));
+    let npm_path = npm_path
         .or_else(|| find_executable(if cfg!(windows) { "npm.cmd" } else { "npm" }, envs))
         .or_else(|| find_executable("npm", envs));
 
@@ -1411,6 +1447,124 @@ fn clean_path_override(value: &Option<String>) -> Option<String> {
         .map(|path| path.trim())
         .filter(|path| !path.is_empty())
         .map(|path| path.to_string())
+}
+
+fn extract_zip(archive_path: &Path, dest_dir: &Path) -> Result<(), String> {
+    let file = File::open(archive_path).map_err(|e| format!("Failed to open zip: {e}"))?;
+    let mut archive = zip::ZipArchive::new(file).map_err(|e| format!("Failed to read zip: {e}"))?;
+    archive.extract(dest_dir).map_err(|e| format!("Failed to extract zip: {e}"))?;
+    Ok(())
+}
+
+fn extract_tar_gz(archive_path: &Path, dest_dir: &Path) -> Result<(), String> {
+    let file = File::open(archive_path).map_err(|e| format!("Failed to open tar.gz: {e}"))?;
+    let tar = flate2::read::GzDecoder::new(file);
+    let mut archive = tar::Archive::new(tar);
+    archive.unpack(dest_dir).map_err(|e| format!("Failed to unpack tar.gz: {e}"))?;
+    Ok(())
+}
+
+async fn ensure_portable_node(app: &tauri::AppHandle, state: &LauncherState) -> Result<(), String> {
+    let app_data = app_data_dir(app)?;
+    let folder_name = if cfg!(target_os = "windows") {
+        "node-v20.11.1-win-x64"
+    } else if cfg!(target_os = "macos") {
+        if cfg!(target_arch = "aarch64") {
+            "node-v20.11.1-darwin-arm64"
+        } else {
+            "node-v20.11.1-darwin-x64"
+        }
+    } else {
+        "node-v20.11.1-linux-x64"
+    };
+
+    let portable_dir = app_data.join("bin").join(folder_name);
+    let p_node = portable_dir.join(if cfg!(windows) { "node.exe" } else { "bin/node" });
+    let p_npm = portable_dir.join(if cfg!(windows) { "npm.cmd" } else { "bin/npm" });
+
+    if p_node.exists() && p_npm.exists() {
+        return Ok(());
+    }
+
+    append_log(
+        state,
+        "setup",
+        "info",
+        "Downloading portable Node.js v20.11.1 for standalone execution...",
+    );
+
+    let url = if cfg!(target_os = "windows") {
+        "https://nodejs.org/dist/v20.11.1/node-v20.11.1-win-x64.zip"
+    } else if cfg!(target_os = "macos") {
+        if cfg!(target_arch = "aarch64") {
+            "https://nodejs.org/dist/v20.11.1/node-v20.11.1-darwin-arm64.tar.gz"
+        } else {
+            "https://nodejs.org/dist/v20.11.1/node-v20.11.1-darwin-x64.tar.gz"
+        }
+    } else {
+        "https://nodejs.org/dist/v20.11.1/node-v20.11.1-linux-x64.tar.gz"
+    };
+
+    let client = reqwest::Client::new();
+    let mut resp = client
+        .get(url)
+        .send()
+        .await
+        .map_err(|e| format!("Failed to download Node.js: {e}"))?;
+
+    if !resp.status().is_success() {
+        return Err(format!("Node.js download returned HTTP {}", resp.status()));
+    }
+
+    let temp_archive_name = if cfg!(target_os = "windows") {
+        "node-temp.zip"
+    } else {
+        "node-temp.tar.gz"
+    };
+    let temp_archive_path = app_data.join("bin").join(temp_archive_name);
+    if let Some(parent) = temp_archive_path.parent() {
+        fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+    }
+
+    let mut file = File::create(&temp_archive_path).map_err(|e| e.to_string())?;
+    while let Some(chunk) = resp
+        .chunk()
+        .await
+        .map_err(|e| format!("Error downloading Node.js chunk: {e}"))?
+    {
+        use std::io::Write;
+        file.write_all(&chunk).map_err(|e| e.to_string())?;
+    }
+    drop(file);
+
+    append_log(state, "setup", "info", "Extracting Node.js package...");
+    let dest_dir = app_data.join("bin");
+
+    if cfg!(target_os = "windows") {
+        extract_zip(&temp_archive_path, &dest_dir)?;
+    } else {
+        extract_tar_gz(&temp_archive_path, &dest_dir)?;
+
+        #[cfg(unix)]
+        {
+            use std::os::unix::fs::PermissionsExt;
+            if p_node.exists() {
+                let mut perms = fs::metadata(&p_node).map_err(|e| e.to_string())?.permissions();
+                perms.set_mode(0o755);
+                fs::set_permissions(&p_node, perms).map_err(|e| e.to_string())?;
+            }
+            if p_npm.exists() {
+                let mut perms = fs::metadata(&p_npm).map_err(|e| e.to_string())?.permissions();
+                perms.set_mode(0o755);
+                fs::set_permissions(&p_npm, perms).map_err(|e| e.to_string())?;
+            }
+        }
+    }
+
+    let _ = fs::remove_file(&temp_archive_path);
+    append_log(state, "setup", "success", "Portable Node.js v20.11.1 installed successfully.");
+
+    Ok(())
 }
 
 fn find_executable(name: &str, envs: &HashMap<String, String>) -> Option<String> {
@@ -2750,13 +2904,13 @@ fn extract_archive(archive_path: &Path, staging_dir: &Path) -> Result<(), String
 }
 
 fn run_dependency_install(
-    _app: &tauri::AppHandle,
+    app: &tauri::AppHandle,
     target_dir: &Path,
     manifest: &AppManifest,
 ) -> Result<(), String> {
     let envs = resolved_command_env();
     let overrides = ToolOverrides::default();
-    let tools = resolve_tools(&envs, &overrides);
+    let tools = resolve_tools(app, &envs, &overrides);
     let npm = tools
         .npm_path
         .ok_or_else(|| "npm path not found".to_string())?;
