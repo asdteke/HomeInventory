@@ -2,6 +2,23 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.2.0 - Security Maintenance and Release Readiness
+
+This release prepares the public v2.2 line with dependency security maintenance, synchronized package metadata, and release workflow verification.
+
+### Highlights
+
+- **Critical npm advisory fixed:** Forced transitive `shell-quote` resolution to patched `1.8.4`, closing the open critical development-scope Dependabot alert from the root lockfile.
+- **Release metadata synchronized:** Updated root, client, launcher, Tauri, and workflow release markers to `2.2.0`.
+- **Tauri/GLib status checked:** Tauri `2.11.2` is the latest observed Tauri release, but it still resolves the GTK3 stack through `glib 0.18.x`; the upstream `glib` advisory requires `glib 0.20.0`, so this cannot yet be truly fixed by a released Tauri update.
+- **Release checks refreshed:** CI and launcher packaging workflows remain in place for the v2.2 release path.
+
+### Upgrade Notes
+
+- Run the normal production build after pulling this release: `npm run build`.
+- Back up SQLite data and uploads before upgrading a self-hosted production deployment.
+- The optional Linux desktop launcher still inherits Tauri's current GTK3/GLib runtime dependency chain until Tauri publishes a compatible upstream fix.
+
 ## v2.1.3 - React Router Güvenlik Yaması ve Mobil Kamera Desteği
 
 Bu patch sürümü, React Router same-origin redirect açık yönlendirme açığını patched React Router 6.30.4 sürümüne geçerek kapatır ve mobil kamera desteğini korur.

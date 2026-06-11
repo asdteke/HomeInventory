@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.1.3 release line. -->
+<!-- Release status: v2.2.0 release line. -->
 
 <p align="center">
   <strong>Private, self-hostable household inventory for shared homes.</strong><br/>
@@ -74,7 +74,7 @@
 HomeInventory is built for families, roommates, and small households that need a practical inventory without turning private records into a shared spreadsheet.
 
 > [!NOTE]
-> **v2.1.3 brings native mobile camera photo support.** This version adds direct hardware camera integration (`capture="environment"`) for item and invoice uploads, while preserving custom file gallery uploads and maintaining 100% localization parity across all 100+ supported languages.
+> **v2.2.0 is a security maintenance release.** It patches the open critical npm `shell-quote` advisory, keeps the mobile camera/photo work from v2.1.3, and documents the remaining upstream Tauri/GLib status for the optional Linux launcher.
 
 ## Why HomeInventory
 

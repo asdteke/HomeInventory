@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.1.3 release line. -->
+<!-- Release status: v2.2.0 release line. -->
 
 <p align="center">
   <strong>Private, selbst hostbare Haushaltsinventur für gemeinsam genutzte Zuhause.</strong><br/>
@@ -74,7 +74,7 @@
 HomeInventory ist für Familien, Wohngemeinschaften und kleine Haushalte gedacht, die ein praktisches Inventar brauchen, ohne private Datensätze in eine gemeinsame Tabelle zu verwandeln.
 
 > [!NOTE]
-> **v2.1.3 bringt native mobile Kamera-Foto-Unterstützung.** Diese Version fügt eine direkte Hardware-Kamera-Integration (`capture="environment"`) für Artikel- und Rechnungsuploads hinzu, während benutzerdefinierte Dateigalerie-Uploads beibehalten werden und eine 100%ige Lokalisierungsparietät über alle 100+ unterstützten Sprachen hinweg gewahrt bleibt.
+> **v2.2.0 ist ein Security-Maintenance-Release.** Es behebt die offene kritische npm-Warnung zu `shell-quote`, behält die mobile Kamera-/Fotoarbeit aus v2.1.3 bei und dokumentiert den verbleibenden upstream Tauri/GLib-Status für den optionalen Linux Launcher.
 
 ## Warum HomeInventory
 
