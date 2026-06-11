@@ -74,7 +74,7 @@
 HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtları ortak bir tabloya dönüştürmeden pratik envanter yönetimi sağlar.
 
 > [!NOTE]
-> **v2.2.0 güncel release hattıdır.** Eşya ve fatura fotoğrafları için mobil kamera desteği, TypeScript istemci temizliği, UI güvenilirliği ve erişilebilirlik iyileştirmeleri, production cache/compression, yenilenmiş ekran görüntüleri, platformlar arası launcher paketleri ve React Router ile `shell-quote` güvenlik yamalarını içerir.
+> **v2.2.0 güncel release hattıdır.** Kritik npm `shell-quote` uyarısını kapatır, release metadata ve dokümanları eşitler, doğrulanmış launcher paketlerini yayınlar ve kalan upstream Tauri/GLib durumunu belgelendirir. Mobil kamera, TypeScript ve UI işleri changelog'daki önceki v2.1.x bölümlerindedir.
 
 ## Neden HomeInventory
 

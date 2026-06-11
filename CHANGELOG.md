@@ -2,38 +2,33 @@
 
 All notable changes to HomeInventory are documented here.
 
-## v2.2.0 - Mobile Capture, UI Reliability, Packaging, and Security
+## v2.2.0 - Security Patch, Release Metadata, and Packaging Verification
 
 ### Highlights
 
-- **Mobile camera capture:** Added direct camera capture for item photos and invoice photos while preserving gallery/file selection. The item form now offers distinct "Take Photo" and "Choose from Gallery" flows for mobile browsers.
-- **TypeScript client completion:** Removed the remaining legacy JSX component implementations from the release surface and kept the React app on the TypeScript component path for inventory, settings, auth, admin, vault, borrowing, maintenance, shopping, QR, and scanner flows.
-- **UI reliability and accessibility:** Added a branded app-level error boundary, richer loading state, warning-capable floating toasts, a reusable toast queue hook, custom premium checkboxes, smoother settings accordion transitions, reduced-motion handling, and safer async unmount guards.
-- **Inventory and workflow polish:** Refined item cards, photo handling, maintenance alerts, shopping-list interactions, dashboard signals, settings/about content, secure media rendering, and barcode/QR scanner behavior.
-- **Production delivery polish:** Enabled response compression and long-lived static caching for hashed frontend assets, brand assets, and locale files in production builds.
-- **Launcher packaging hardening:** Stabilized the Tauri launcher build path by invoking the local CLI directly, pinning launcher TypeScript, limiting local build concurrency, and publishing native macOS, Windows, and Linux packages from the `Launcher Packages` workflow.
-- **Screenshots and docs refreshed:** Updated public screenshots and release-line documentation so the README, Docker, launcher, locale, client, roadmap, and environment guides describe the current v2.2 line.
-- **Security advisories closed:** Patched React Router to `6.30.4` for the same-origin redirect advisory and forced transitive `shell-quote` to patched `1.8.4`, closing the open critical npm Dependabot alert.
+- **Critical npm advisory fixed:** Forced transitive `shell-quote` resolution to patched `1.8.4`, closing the open critical development-scope Dependabot alert from the root lockfile.
+- **Release metadata synchronized:** Updated root, client, launcher, Tauri, and workflow release markers to `2.2.0`.
+- **Release documentation corrected:** Updated README, Docker, launcher, locale, client, roadmap, environment, changelog, and GitHub Release notes so v2.2 does not duplicate earlier v2.1.x feature work.
+- **Launcher packages verified:** Published and verified native macOS, Windows, and Linux launcher packages from the `Launcher Packages` workflow for the v2.2.0 release.
 - **Tauri/GLib status checked:** Tauri `2.11.2` is the latest observed Tauri release, but it still resolves the GTK3 stack through `glib 0.18.x`; the upstream `glib` advisory requires `glib 0.20.0`, so this cannot yet be truly fixed by a released Tauri update.
 
 ### Upgrade Notes
 
 - Run the normal production build after pulling this release: `npm run build`.
 - Back up SQLite data and uploads before upgrading a self-hosted production deployment.
-- Rebuild Docker deployments so the production server serves the new compressed and cacheable frontend assets.
 - Download fresh launcher packages from the v2.2.0 GitHub Release if you use the optional desktop launcher.
 - The optional Linux desktop launcher still inherits Tauri's current GTK3/GLib runtime dependency chain until Tauri publishes a compatible upstream fix.
 
-## v2.1.3 - React Router Güvenlik Yaması ve Mobil Kamera Desteği
+## v2.1.3 - React Router Security Patch and Mobile Camera Support
 
-Bu patch sürümü, React Router same-origin redirect açık yönlendirme açığını patched React Router 6.30.4 sürümüne geçerek kapatır ve mobil kamera desteğini korur.
+This patch release closes the React Router same-origin redirect advisory by moving to React Router 6.30.4 and keeps the mobile camera support introduced in the v2.1.x line.
 
 ### Highlights
 
-- **Güvenlik Yaması:** React Router `6.30.3` -> `6.30.4` ve `@remix-run/router` `1.23.2` -> `1.23.3` güncellenerek protocol-relative URL reinterpretation kaynaklı open redirect riski kapatıldı.
-- **Kamera ile Fotoğraf Çekme Desteği:** Eşya fotoğrafı ve Fatura fotoğrafı alanlarına "Kamerayla Çek" butonu eklendi. Mobil cihazlarda doğrudan yerel kamera arayüzü açılır.
-- **Galeriden Seçim Modu:** Mevcut galeriden dosya/fotoğraf seçme özelliği "Galeriden Seç" butonu ile geriye dönük uyumlu olarak korundu.
-- **Çeviri ve Bütünlük:** 100+ desteklenen dilin tamamı için gerekli lokalizasyon bütünlüğü sağlandı.
+- **Security patch:** Updated React Router `6.30.3` -> `6.30.4` and `@remix-run/router` `1.23.2` -> `1.23.3` to close the protocol-relative URL reinterpretation open redirect risk.
+- **Camera capture support:** Added "Take Photo" controls to item photo and invoice photo fields so supported mobile devices open the native camera flow.
+- **Gallery selection preserved:** Kept the existing file/gallery upload path through separate "Choose from Gallery" controls.
+- **Localization completeness:** Maintained required localization coverage across all 100+ supported UI languages.
 
 ## v2.1.1 - Smooth Motion, Accessibility & Global Visual Polish
 

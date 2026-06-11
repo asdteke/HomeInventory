@@ -74,7 +74,7 @@
 HomeInventory is built for families, roommates, and small households that need a practical inventory without turning private records into a shared spreadsheet.
 
 > [!NOTE]
-> **v2.2.0 is the current release line.** It includes mobile camera capture for item and invoice photos, TypeScript client cleanup, UI reliability and accessibility polish, production caching/compression, refreshed screenshots, cross-platform launcher packages, and security fixes for React Router and `shell-quote`.
+> **v2.2.0 is the current release line.** It closes the critical npm `shell-quote` advisory, syncs release metadata and docs, publishes verified launcher packages, and documents the remaining upstream Tauri/GLib status. Earlier v2.1.x sections in the changelog cover the mobile camera, TypeScript, and UI work.
 
 ## Why HomeInventory
 

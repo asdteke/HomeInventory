@@ -1,5 +1,5 @@
 # HomeInventory Client
 
-This React/Vite/TypeScript client is current for the public v2.2.0 release line.
+This React/Vite/TypeScript client documentation is current for the public v2.2.0 release line.
 
-The v2.2 client line keeps the app on TypeScript component implementations, includes the mobile camera/gallery photo flows for item and invoice uploads, and carries the app-level error boundary, toast queue, smoother settings controls, refreshed screenshots, and production asset build used by the server cache rules.
+The client is maintained on the TypeScript/Vite component path. Feature history is tracked in [../CHANGELOG.md](../CHANGELOG.md), with v2.1.x covering the mobile camera, UI polish, and TypeScript migration work.

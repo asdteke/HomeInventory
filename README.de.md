@@ -74,7 +74,7 @@
 HomeInventory ist für Familien, Wohngemeinschaften und kleine Haushalte gedacht, die ein praktisches Inventar brauchen, ohne private Datensätze in eine gemeinsame Tabelle zu verwandeln.
 
 > [!NOTE]
-> **v2.2.0 ist die aktuelle Release-Linie.** Sie enthält mobile Kameraaufnahme für Artikel- und Rechnungsfotos, TypeScript-Client-Bereinigung, UI-Zuverlässigkeits- und Accessibility-Polish, Production-Caching/Compression, aktualisierte Screenshots, plattformübergreifende Launcher-Pakete und Security-Fixes für React Router und `shell-quote`.
+> **v2.2.0 ist die aktuelle Release-Linie.** Sie schließt die kritische npm-Warnung zu `shell-quote`, synchronisiert Release-Metadaten und Dokumentation, veröffentlicht geprüfte Launcher-Pakete und dokumentiert den verbleibenden upstream Tauri/GLib-Status. Mobile Kamera-, TypeScript- und UI-Arbeiten stehen in den früheren v2.1.x-Changelog-Abschnitten.
 
 ## Warum HomeInventory
 
