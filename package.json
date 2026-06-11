@@ -15,6 +15,9 @@
     "launcher:install": "npm install --prefix apps/launcher",
     "launcher:dev": "npm run tauri --prefix apps/launcher -- dev",
     "launcher:build": "node scripts/build-launcher.mjs",
+    "launcher:bundle-app": "node scripts/build-managed-app-archive.mjs",
+    "release:app-manifest": "node scripts/create-app-release-manifest.mjs",
+    "release:tauri-latest": "node scripts/create-tauri-latest-json.mjs",
     "security:backfill-encryption": "node scripts/run-with-runtime-secrets.mjs scripts/backfill-field-encryption.mjs",
     "test:encryption": "node --test tests/encryption.test.mjs",
     "test:runtime-secrets": "node --test tests/runtimeSecrets.test.mjs",
@@ -58,7 +61,6 @@
     "concurrently": "^9.1.0"
   },
   "overrides": {
-    "shell-quote": "1.8.4",
     "oci-common": {
       "uuid": "file:./vendor/uuid"
     }
