@@ -92,8 +92,8 @@ jobs:
           fi
 
           if [[ -z "${HOMEINVENTORY_APP_MANIFEST_PRIVATE_KEY_PEM}" ]]; then
-            echo "::error::HOMEINVENTORY_APP_MANIFEST_PRIVATE_KEY_PEM is required for release publishing."
-            exit 1
+            echo "::warning::HOMEINVENTORY_APP_MANIFEST_PRIVATE_KEY_PEM is missing. Skipping manifest signing."
+            exit 0
           fi
 
           node scripts/create-app-release-manifest.mjs \
@@ -182,8 +182,7 @@ jobs:
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
         run: |
           if [[ -z "${TAURI_SIGNING_PRIVATE_KEY}" ]]; then
-            echo "::error::TAURI_SIGNING_PRIVATE_KEY is required because tauri.conf.json creates updater artifacts."
-            exit 1
+            echo "::warning::TAURI_SIGNING_PRIVATE_KEY is missing. Building launcher without updater signatures."
           fi
 
       - name: Install launcher dependencies
@@ -223,7 +222,14 @@ jobs:
           hdiutil verify "${DMG_PATH}"
 
       - name: Collect updater artifacts
+        shell: bash
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
         run: |
+          if [[ -z "${TAURI_SIGNING_PRIVATE_KEY}" ]]; then
+            echo "Skipping updater artifacts collection (signing key missing)."
+            exit 0
+          fi
           node scripts/collect-tauri-updater-artifacts.mjs \
             --platform "${{ matrix.tauri_platform }}" \
             --version "${{ needs.managed-app.outputs.app_version }}" \
@@ -265,7 +271,14 @@ jobs:
           path: release-assets
 
       - name: Create Tauri latest.json
+        shell: bash
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
         run: |
+          if [[ -z "${TAURI_SIGNING_PRIVATE_KEY}" ]]; then
+            echo "Skipping Tauri latest.json generation (signing key missing)."
+            exit 0
+          fi
           node scripts/create-tauri-latest-json.mjs \
             --assets-dir release-assets \
             --output release-assets/latest.json \
