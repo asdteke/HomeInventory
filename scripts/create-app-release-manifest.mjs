@@ -27,7 +27,7 @@ function privateKeyPem() {
     '';
 
   if (!raw.trim()) {
-    fail('HOMEINVENTORY_APP_MANIFEST_PRIVATE_KEY_PEM is required to sign the app manifest.');
+    return null;
   }
 
   return raw.includes('BEGIN PRIVATE KEY')
@@ -61,7 +61,8 @@ if (!Number.isInteger(nodeMajor) || nodeMajor < 18 || nodeMajor > 30) {
 const archive = readFileSync(archivePath);
 const sha256 = createHash('sha256').update(archive).digest('hex');
 const message = `${version}:${sha256}:${url}:${nodeMajor}:${rootInstall}:${clientInstall}`;
-const signature = sign(null, Buffer.from(message), privateKeyPem()).toString('hex');
+const key = privateKeyPem();
+const signature = key ? sign(null, Buffer.from(message), key).toString('hex') : 'unsigned';
 
 const manifest = {
   version,
