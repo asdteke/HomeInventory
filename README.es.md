@@ -74,7 +74,7 @@
 HomeInventory está pensado para familias, compañeros de piso y hogares pequeños que necesitan un inventario práctico sin convertir registros privados en una hoja compartida.
 
 > [!NOTE]
-> **v2.2.0 es la línea de versión actual.** Cierra la alerta crítica de npm para `shell-quote`, sincroniza metadatos y documentación de la versión, publica paquetes verificados del launcher y documenta el estado upstream restante de Tauri/GLib. El trabajo de cámara móvil, TypeScript e interfaz queda en las secciones anteriores v2.1.x del changelog.
+> **v2.2.0 es la línea de versión actual.** Publica paquetes verificados del launcher de escritorio, documenta el flujo actual del launcher con inicialización/lanzamiento, apertura automática del navegador, acceso QR/LAN, logs, backups, ajustes y comprobaciones de puertos, cierra la alerta crítica de npm para `shell-quote`, sincroniza metadatos de la versión y registra el estado upstream restante de Tauri/GLib.
 
 ## Por qué HomeInventory
 
@@ -98,7 +98,7 @@ HomeInventory está pensado para familias, compañeros de piso y hogares pequeñ
 | Etiquetas y escaneo | Escaneo de códigos de barras, etiquetas QR de objetos y acceso rápido móvil |
 | Backup y restore | Exportación/importación solo para propietarios con confirmaciones protegidas |
 | Auth y recuperación | JWT, Google OAuth, verificación por correo, TOTP 2FA, dispositivos de confianza y recovery keys |
-| Desktop Launcher | GUI opcional con Tauri para setup local, chequeo de dependencias, inicio/parada de perfiles, backups, logs y acceso QR/LAN |
+| Desktop Launcher | GUI opcional con Tauri para setup local, chequeo de dependencias, inicio/parada de perfiles, apertura automática del navegador, backups, logs, ajustes avanzados, comprobaciones de puertos y acceso QR/LAN |
 | Internacionalización | 100+ paquetes de locale seleccionables con fallback y validaciones automatizadas |
 
 ## Seguridad & privacidad

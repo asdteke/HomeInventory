@@ -2,21 +2,24 @@
 
 All notable changes to HomeInventory are documented here.
 
-## v2.2.0 - Security Patch, Release Metadata, and Packaging Verification
+## v2.2.0 - Launcher Release, Security Patch, and Packaging Verification
 
 ### Highlights
 
+- **Desktop launcher release line:** Published the current Tauri launcher experience as v2.2.0 packages, including one-click initialize/launch, profile start/stop, dependency detection, port checks with suggested replacements, LAN status, QR access, and automatic local browser opening after the app is ready.
+- **Launcher control panel polish:** Documented and verified the launcher UI flow across setup, warm-up, running, and stopped states, plus the system console, logs/backups/settings modal, path pickers, local backup action, and advanced email/admin/port configuration fields.
+- **Native packages verified:** Published and verified macOS `.dmg`/`.app.zip`, Windows `.exe`/`.msi`, and Linux `.AppImage`/`.deb`/`.rpm` artifacts from the `Launcher Packages` workflow for the v2.2.0 release.
 - **Critical npm advisory fixed:** Forced transitive `shell-quote` resolution to patched `1.8.4`, closing the open critical development-scope Dependabot alert from the root lockfile.
 - **Release metadata synchronized:** Updated root, client, launcher, Tauri, and workflow release markers to `2.2.0`.
-- **Release documentation corrected:** Updated README, Docker, launcher, locale, client, roadmap, environment, changelog, and GitHub Release notes so v2.2 does not duplicate earlier v2.1.x feature work.
-- **Launcher packages verified:** Published and verified native macOS, Windows, and Linux launcher packages from the `Launcher Packages` workflow for the v2.2.0 release.
 - **Tauri/GLib status checked:** Tauri `2.11.2` is the latest observed Tauri release, but it still resolves the GTK3 stack through `glib 0.18.x`; the upstream `glib` advisory requires `glib 0.20.0`, so this cannot yet be truly fixed by a released Tauri update.
+- **Documentation corrected:** Updated README, Docker, launcher, locale, client, roadmap, environment, changelog, and GitHub Release notes so the v2.2 section covers the launcher release/security/package work without repeating older mobile camera, TypeScript migration, or React Router patch items as new v2.2 work.
 
 ### Upgrade Notes
 
 - Run the normal production build after pulling this release: `npm run build`.
 - Back up SQLite data and uploads before upgrading a self-hosted production deployment.
 - Download fresh launcher packages from the v2.2.0 GitHub Release if you use the optional desktop launcher.
+- If you run through the launcher, use the fresh v2.2.0 package for the updated release metadata, package checks, and verified platform artifacts.
 - The optional Linux desktop launcher still inherits Tauri's current GTK3/GLib runtime dependency chain until Tauri publishes a compatible upstream fix.
 
 ## v2.1.3 - React Router Security Patch and Mobile Camera Support

@@ -17,9 +17,10 @@ CLI ve Docker hâlâ birinci sınıf kurulum yollarıdır. Launcher, masaüstü 
 - **Profil yalıtımı:** Launcher tarafından yönetilen profiller ayrı veri, SQLite, upload ve şifreli medya yolları kullanır.
 - **Bağımlılık doğrulama:** Node.js ve npm'i algılar; macOS/Linux GUI PATH ve Windows path çözümleme sorunlarını hesaba katar.
 - **Port ve LAN kontrolü:** Başlatmadan önce yerel portları doğrular, aynı ağdaki cihazlar için QR kod gösterir.
+- **Otomatik yerel geçiş:** Servisler hazır olduğunda yerel HomeInventory URL'sini tarayıcıda açabilir.
 - **Entegre loglar:** Kurulum, backend, frontend ve launcher loglarını tek panelde toplar.
 - **Yedekleme:** Launcher tarafından yönetilen profiller için yerel yedek oluşturur.
-- **Path override:** Otomatik algılama yetmediğinde proje kökü, Node yolu veya npm yolu seçilebilir.
+- **Gelişmiş ayarlar:** E-posta/admin bootstrap değerlerini, API/UI portlarını ve otomatik algılama yetmediğinde proje kökü, Node yolu veya npm yolu override ayarlarını yönetir.
 
 ## Güvenlik Modeli
 

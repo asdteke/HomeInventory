@@ -74,7 +74,7 @@
 HomeInventory ist für Familien, Wohngemeinschaften und kleine Haushalte gedacht, die ein praktisches Inventar brauchen, ohne private Datensätze in eine gemeinsame Tabelle zu verwandeln.
 
 > [!NOTE]
-> **v2.2.0 ist die aktuelle Release-Linie.** Sie schließt die kritische npm-Warnung zu `shell-quote`, synchronisiert Release-Metadaten und Dokumentation, veröffentlicht geprüfte Launcher-Pakete und dokumentiert den verbleibenden upstream Tauri/GLib-Status. Mobile Kamera-, TypeScript- und UI-Arbeiten stehen in den früheren v2.1.x-Changelog-Abschnitten.
+> **v2.2.0 ist die aktuelle Release-Linie.** Sie veröffentlicht geprüfte Desktop-Launcher-Pakete, dokumentiert den aktuellen Launcher-Ablauf mit Initialisierung/Start, automatischem Browser-Öffnen, QR/LAN-Zugriff, Logs, Backups, Einstellungen und Portprüfungen, schließt die kritische npm-Warnung zu `shell-quote`, synchronisiert Release-Metadaten und hält den verbleibenden upstream Tauri/GLib-Status fest.
 
 ## Warum HomeInventory
 
@@ -98,7 +98,7 @@ HomeInventory ist für Familien, Wohngemeinschaften und kleine Haushalte gedacht
 | Labels und Scan | Barcode-Scan, Gegenstands-QR-Etiketten und mobiler Schnellzugriff |
 | Backup und Restore | Export/Import nur für Eigentümer mit geschützten Bestätigungsabläufen |
 | Auth und Wiederherstellung | JWT, Google OAuth, E-Mail-Verifizierung, TOTP 2FA, vertrauenswürdige Geräte und Recovery Keys |
-| Desktop Launcher | Optionales Tauri-GUI für lokale Einrichtung, Abhängigkeitsprüfungen, Profil-Start/Stopp, Backups, Logs und QR/LAN-Zugriff |
+| Desktop Launcher | Optionales Tauri-GUI für lokale Einrichtung, Abhängigkeitsprüfungen, Profil-Start/Stopp, automatisches Browser-Öffnen, Backups, Logs, erweiterte Einstellungen, Portprüfungen und QR/LAN-Zugriff |
 | Internationalisierung | 100+ auswählbare UI-Locale-Pakete mit Fallback-Verhalten und automatisierten Prüfungen |
 
 ## Sicherheit & Datenschutz

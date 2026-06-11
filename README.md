@@ -74,7 +74,7 @@
 HomeInventory is built for families, roommates, and small households that need a practical inventory without turning private records into a shared spreadsheet.
 
 > [!NOTE]
-> **v2.2.0 is the current release line.** It closes the critical npm `shell-quote` advisory, syncs release metadata and docs, publishes verified launcher packages, and documents the remaining upstream Tauri/GLib status. Earlier v2.1.x sections in the changelog cover the mobile camera, TypeScript, and UI work.
+> **v2.2.0 is the current release line.** It publishes the verified desktop launcher packages, documents the current launcher flow (initialize/launch, auto-open, QR/LAN access, logs, backups, settings, and port checks), closes the critical npm `shell-quote` advisory, syncs release metadata, and records the remaining upstream Tauri/GLib status.
 
 ## Why HomeInventory
 
@@ -99,7 +99,7 @@ HomeInventory is built for families, roommates, and small households that need a
 | Labels and scanning | Barcode scanning, item QR labels, and mobile-friendly lookup |
 | Backup and restore | Owner-only export/import flows with guarded confirmations |
 | Auth and recovery | JWT auth, Google OAuth, email verification, TOTP 2FA, trusted devices, and recovery keys |
-| Desktop Launcher | Optional Tauri GUI plus release packages for local setup, dependency checks, profile start/stop, backups, logs, and QR/LAN access |
+| Desktop Launcher | Optional Tauri GUI plus release packages for local setup, dependency checks, profile start/stop, automatic browser opening, backups, logs, advanced settings, port checks, and QR/LAN access |
 | Internationalization | 100+ selectable UI locale packs with fallback behavior and automated validation checks |
 
 ## Security & Privacy

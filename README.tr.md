@@ -74,7 +74,7 @@
 HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtları ortak bir tabloya dönüştürmeden pratik envanter yönetimi sağlar.
 
 > [!NOTE]
-> **v2.2.0 güncel release hattıdır.** Kritik npm `shell-quote` uyarısını kapatır, release metadata ve dokümanları eşitler, doğrulanmış launcher paketlerini yayınlar ve kalan upstream Tauri/GLib durumunu belgelendirir. Mobil kamera, TypeScript ve UI işleri changelog'daki önceki v2.1.x bölümlerindedir.
+> **v2.2.0 güncel release hattıdır.** Doğrulanmış masaüstü launcher paketlerini yayınlar; initialize/launch, otomatik tarayıcı açma, QR/LAN erişimi, loglar, yedekler, ayarlar ve port kontrollerinden oluşan güncel launcher akışını belgelendirir; kritik npm `shell-quote` uyarısını kapatır, release metadata'yı eşitler ve kalan upstream Tauri/GLib durumunu kayda geçirir.
 
 ## Neden HomeInventory
 
@@ -99,7 +99,7 @@ HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtl
 | Etiket ve tarama | Barkod tarama, eşya QR etiketleri ve mobil uyumlu hızlı erişim |
 | Yedekleme ve geri yükleme | Sadece ev sahibine açık dışa/içe aktarma ve korumalı onay akışları |
 | Kimlik doğrulama | JWT, Google OAuth, e-posta doğrulama, TOTP 2FA, güvenilen cihaz ve recovery key |
-| Masaüstü Başlatıcı | Yerel kurulum, bağımlılık kontrolü, profil başlatma/durdurma, yedekleme, log ve QR/LAN erişimi için opsiyonel Tauri GUI ve release paketleri |
+| Masaüstü Başlatıcı | Yerel kurulum, bağımlılık kontrolü, profil başlatma/durdurma, otomatik tarayıcı açma, yedekleme, log, gelişmiş ayarlar, port kontrolü ve QR/LAN erişimi için opsiyonel Tauri GUI ve release paketleri |
 | Çok dil | Fallback davranışı ve otomatik doğrulama kontrolleriyle 100+ seçilebilir arayüz locale paketi |
 
 ## Güvenlik & Gizlilik

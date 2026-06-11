@@ -17,9 +17,10 @@ CLI and Docker remain first-class setup paths. The launcher is a convenience lay
 - **Profile isolation:** launcher-managed profiles receive separate data, SQLite, uploads, and encrypted media paths.
 - **Dependency verifier:** detects Node.js and npm, including macOS/Linux GUI PATH handling and Windows path lookup.
 - **Port and LAN checks:** validates local ports before launch and shows a QR code for devices on the same network.
+- **Automatic local handoff:** can open the local HomeInventory URL in the browser after the services are ready.
 - **Integrated logs:** shows setup, backend, frontend, and launcher logs in one place.
 - **Backups:** creates local backups for launcher-managed profiles.
-- **Path overrides:** lets users choose a project root, Node path, or npm path when auto-detection is not enough.
+- **Advanced settings:** lets users set email/admin bootstrap values, choose API/UI ports, and override the project root, Node path, or npm path when auto-detection is not enough.
 
 ## Safety Model
 
