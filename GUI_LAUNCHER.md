@@ -104,3 +104,23 @@ GitHub Release v2.2.0
 ```
 
 The `Launcher Packages` GitHub Actions workflow builds these packages on native macOS, Windows, and Linux runners. On tag pushes, the workflow uploads them to the matching GitHub Release alongside the normal source code archive. Linux packages still inherit Tauri's current GTK3/GLib dependency chain until an upstream Tauri release moves to a patched GLib stack.
+
+## Troubleshooting
+
+### 1. macOS: "EPERM: operation not permitted, uv_cwd" Error or Process Exiting at Launch
+If the launcher interface opens, but after clicking **Launch HomeInventory**, the app hangs at "HomeInventory is starting" and the console logs show `EPERM` or `uv_cwd` errors:
+* **Do not run the app from inside the DMG:** Open the DMG, drag and drop the `HomeInventory Launcher` app into your **`/Applications`** folder, and then eject the DMG volume.
+* **Remove the Quarantine Flag:** Open your Terminal and execute:
+  ```bash
+  xattr -cr /Applications/HomeInventory\ Launcher.app
+  ```
+* **"Documents" Folder Access Permissions:** If your project directory is located in protected user folders (like `Documents`, `Desktop`, or `Downloads`), macOS might block access:
+  - **Grant Folder Permission:** Go to *System Settings > Privacy & Security > Files and Folders* and ensure the *Documents Folder* switch is turned **ON** for *HomeInventory Launcher*.
+  - **Alternative (Recommended):** Move your project folder outside protected directories, e.g., directly into your user home directory (`/Users/<username>/HomeInventory`), and update the path in the launcher settings. This completely bypasses macOS folder privacy checks.
+
+### 2. Windows: Blue "SmartScreen" Warning
+Unsigned open-source applications downloaded from the internet may trigger a Windows SmartScreen block on launch. To bypass this:
+* Open the downloaded `.exe` or installer.
+* Click on **More info** on the blue warning card.
+* Click **Run anyway**. This is a one-time approval per binary file.
+

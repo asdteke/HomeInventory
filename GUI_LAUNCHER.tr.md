@@ -103,4 +103,22 @@ GitHub Release v2.2.0
 └── HomeInventory.Launcher-2.2.0-1.x86_64.rpm
 ```
 
-`Launcher Packages` GitHub Actions workflow'u bu paketleri native macOS, Windows ve Linux runner'larında üretir. Tag push edildiğinde paketler normal kaynak kod arşivinin yanında eşleşen GitHub Release'e otomatik eklenir. Linux paketleri, Tauri patched GLib zincirine geçene kadar Tauri'nin mevcut GTK3/GLib bağımlılık hattını miras almaya devam eder.
+`Launcher Packages` GitHub Actions workflow'u bu paketleri native macOS, Windows ve Linux runner'larında üretilir. Tag push edildiğinde paketler normal kaynak kod arşivinin yanında eşleşen GitHub Release'e otomatik eklenir. Linux paketleri, Tauri patched GLib zincirine geçene kadar Tauri'nin mevcut GTK3/GLib bağımlılık hattını miras almaya devam eder.
+
+## Sorun Giderme
+
+### 1. macOS: "EPERM: operation not permitted, uv_cwd" Hatası veya Arka Planda Başlamama
+Eğer launcher arayüzü açılıyor ancak **Launch HomeInventory** butonuna bastıktan sonra konsol loglarında `EPERM` veya `uv_cwd` hatası görüyorsanız ve durum "HomeInventory is starting" yazısında takılı kalıyorsa:
+* **Uygulamayı DMG içinden çalıştırmayın:** DMG dosyasını açın, `HomeInventory Launcher` uygulamasını sürükleyip **`/Applications` (Uygulamalar)** klasörüne kopyalayın. Ardından DMG diskini çıkartın.
+* **Karantina Kilidini Kaldırın:** Terminal uygulamasını açıp şu komutu çalıştırın:
+  ```bash
+  xattr -cr /Applications/HomeInventory\ Launcher.app
+  ```
+* **"Belgeler" (Documents) Klasör İzni:** Proje klasörünüz `Belgeler`, `Masaüstü` gibi korumalı sistem klasörlerinin altındaysa macOS erişimi kısıtlıyor olabilir:
+  - **Sistem İzni Verin:** *Sistem Ayarları > Gizlilik ve Güvenlik > Dosyalar ve Klasörler* menüsüne gidin ve *HomeInventory Launcher* altındaki *Belgeler Klasörü* iznini açın.
+  - **Alternatif (Önerilen):** Proje klasörünü `Documents` dışına, örneğin doğrudan kullanıcı ana dizininize (`/Users/<kullanıcıadınız>/HomeInventory`) taşıyın ve launcher ayarlarından bu yeni yolu seçin. Bu sayede macOS klasör korumalarını tamamen bypass etmiş olursunuz.
+
+### 2. Windows: Mavi "SmartScreen" Engeli
+İmzasız açık kaynak kodlu paketlerde Windows koruma ekranı gösterebilir. Bu engeli aşmak için:
+* `.exe` dosyasını çalıştırdığınızda çıkan ekranda **Daha fazla bilgi (More info)** yazısına tıklayın.
+* Beliren **Yine de çalıştır (Run anyway)** butonuna tıklayın. Bu işlem sadece o dosya için bir defaya mahsustur.
