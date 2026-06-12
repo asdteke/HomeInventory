@@ -314,10 +314,17 @@ async fn install_dependencies(
         "info",
         "Installing root dependencies...",
     );
-    let output = ProcessCommand::new(&npm)
+    let mut command = ProcessCommand::new(&npm);
+    command
         .arg("install")
         .current_dir(&project_root)
-        .envs(&envs)
+        .envs(&envs);
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        command.creation_flags(0x08000000); // CREATE_NO_WINDOW
+    }
+    let output = command
         .output()
         .map_err(|err| format!("Failed to run npm install at root: {err}"))?;
 
@@ -337,12 +344,19 @@ async fn install_dependencies(
         "info",
         "Installing client dependencies...",
     );
-    let output2 = ProcessCommand::new(&npm)
+    let mut command2 = ProcessCommand::new(&npm);
+    command2
         .arg("install")
         .arg("--prefix")
         .arg("client")
         .current_dir(&project_root)
-        .envs(&envs)
+        .envs(&envs);
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        command2.creation_flags(0x08000000); // CREATE_NO_WINDOW
+    }
+    let output2 = command2
         .output()
         .map_err(|err| format!("Failed to run npm install in client: {err}"))?;
 
@@ -528,6 +542,12 @@ fn start_profile_internal(
     #[cfg(unix)]
     {
         command.process_group(0);
+    }
+
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        command.creation_flags(0x08000000); // CREATE_NO_WINDOW
     }
 
     let mut child = command
@@ -1652,7 +1672,14 @@ fn find_executable(name: &str, envs: &HashMap<String, String>) -> Option<String>
 
 #[cfg(windows)]
 fn find_windows_executable(name: &str) -> Option<String> {
-    let output = ProcessCommand::new("where.exe").arg(name).output().ok()?;
+    let mut command = ProcessCommand::new("where.exe");
+    command.arg(name);
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        command.creation_flags(0x08000000); // CREATE_NO_WINDOW
+    }
+    let output = command.output().ok()?;
     if output.status.success() {
         let text = String::from_utf8_lossy(&output.stdout);
         if let Some(first) = text.lines().find(|line| !line.trim().is_empty()) {
@@ -2097,6 +2124,8 @@ fn open_url(url: &str) -> Result<(), String> {
     let mut command = {
         let mut command = ProcessCommand::new("cmd");
         command.args(["/C", "start", "", url]);
+        use std::os::windows::process::CommandExt;
+        command.creation_flags(0x08000000); // CREATE_NO_WINDOW
         command
     };
 
@@ -2211,8 +2240,14 @@ fn choose_path_platform(kind: &str) -> Result<Option<String>, String> {
     } else {
         r#"Add-Type -AssemblyName System.Windows.Forms; $d = New-Object System.Windows.Forms.OpenFileDialog; $d.Title = 'Select the executable'; $d.Filter = 'Executables (*.exe;*.cmd;*.bat)|*.exe;*.cmd;*.bat|All files (*.*)|*.*'; if ($d.ShowDialog() -eq 'OK') { $d.FileName }"#
     };
-    let output = ProcessCommand::new("powershell")
-        .args(["-NoProfile", "-Command", script])
+    let mut command = ProcessCommand::new("powershell");
+    command.args(["-NoProfile", "-Command", script]);
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        command.creation_flags(0x08000000); // CREATE_NO_WINDOW
+    }
+    let output = command
         .output()
         .map_err(|err| format!("Could not open Windows picker: {err}"))?;
     parse_picker_output(output)
