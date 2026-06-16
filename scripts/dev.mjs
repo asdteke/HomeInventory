@@ -12,12 +12,14 @@ const children = [
     spawn(npmCommand, ['--silent', 'run', 'server'], {
         cwd: projectRoot,
         env: process.env,
-        stdio: 'inherit'
+        stdio: 'inherit',
+        shell: process.platform === 'win32'
     }),
     spawn(npmCommand, ['--silent', '--prefix', 'client', 'run', 'dev', '--', '--clearScreen', 'false'], {
         cwd: projectRoot,
         env: process.env,
-        stdio: 'inherit'
+        stdio: 'inherit',
+        shell: process.platform === 'win32'
     })
 ];
 
