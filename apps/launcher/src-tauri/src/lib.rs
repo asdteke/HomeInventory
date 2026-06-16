@@ -436,6 +436,16 @@ fn start_profile_internal(
     let (backend_port, frontend_port) = requested_ports(profile, backend_port, frontend_port)?;
 
     {
+        let updating = state
+            .updating
+            .lock()
+            .map_err(|_| "Update state is locked".to_string())?;
+        if *updating {
+            return Err("Cannot start profile while an update is in progress.".to_string());
+        }
+    }
+
+    {
         let active = state
             .active
             .lock()

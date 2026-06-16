@@ -229,6 +229,7 @@ export function App() {
           setTimeout(() => {
             setUpdateProgress(null);
             setUpdateResult(null);
+            setBusy(null);
           }, 3000);
           refresh();
         }
@@ -287,6 +288,7 @@ export function App() {
     }
 
     setUpdateNotice('');
+    setBusy('update');
     setUpdateProgress({ state: 'Starting', message: 'Initializing update orchestration...', progress: 0.01 });
     try {
       if (!hasTauriRuntime()) {
@@ -297,12 +299,18 @@ export function App() {
         setUpdateProgress({ state: 'Installing', message: 'Running npm ci dependency install...', progress: 0.7 });
         await new Promise((r) => setTimeout(r, 1500));
         setUpdateProgress({ state: 'Completed', message: 'Update complete!', progress: 1.0 });
+        setTimeout(() => {
+          setUpdateProgress(null);
+          setUpdateResult(null);
+          setBusy(null);
+        }, 3000);
         return;
       }
       await invoke('update_all', { overrides: overrides(settings) });
     } catch (err) {
       setUpdateNotice(err instanceof Error ? err.message : String(err));
       setUpdateProgress(null);
+      setBusy(null);
     }
   };
 
