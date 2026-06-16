@@ -5,22 +5,19 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, '..');
-const rawNpmCommand = process.env.HOMEINVENTORY_NPM_EXEC || (process.platform === 'win32' ? 'npm.cmd' : 'npm');
-const npmCommand = process.platform === 'win32' && rawNpmCommand.includes(' ') ? `"${rawNpmCommand}"` : rawNpmCommand;
+const nodeCommand = process.execPath;
 
 // Developer entrypoint for the public v2 release line.
 const children = [
-    spawn(npmCommand, ['--silent', 'run', 'server'], {
+    spawn(nodeCommand, ['server.js'], {
         cwd: projectRoot,
         env: process.env,
-        stdio: 'inherit',
-        shell: process.platform === 'win32'
+        stdio: 'inherit'
     }),
-    spawn(npmCommand, ['--silent', '--prefix', 'client', 'run', 'dev', '--', '--clearScreen', 'false'], {
-        cwd: projectRoot,
+    spawn(nodeCommand, [path.join('node_modules', 'vite', 'bin', 'vite.js'), '--clearScreen', 'false'], {
+        cwd: path.resolve(projectRoot, 'client'),
         env: process.env,
-        stdio: 'inherit',
-        shell: process.platform === 'win32'
+        stdio: 'inherit'
     })
 ];
 

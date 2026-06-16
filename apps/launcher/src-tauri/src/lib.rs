@@ -597,6 +597,11 @@ fn start_profile_internal(
         .envs(&command_env)
         .stdout(Stdio::piped())
         .stderr(Stdio::piped());
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        command.creation_flags(0x08000000); // CREATE_NO_WINDOW
+    }
 
     #[cfg(unix)]
     {
@@ -1107,7 +1112,7 @@ fn build_snapshot(
                 .as_ref()
                 .and_then(|root| read_version_from_package_json(root))
         })
-        .unwrap_or_else(|| "2.2.0".to_string());
+        .unwrap_or_else(|| "2.2.2".to_string());
     println!("DEBUG build_snapshot: resolved app_version={}", app_version);
 
     Ok(LauncherSnapshot {
@@ -2775,10 +2780,14 @@ fn validate_app_manifest_policy(manifest: &AppManifest) -> Result<(), String> {
 async fn get_node_major_version(_app: &tauri::AppHandle) -> Option<u32> {
     let envs = resolved_command_env();
     let node_path = find_executable("node", &envs)?;
-    let output = std::process::Command::new(node_path)
-        .arg("--version")
-        .output()
-        .ok()?;
+    let mut cmd = std::process::Command::new(node_path);
+    cmd.arg("--version");
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        cmd.creation_flags(0x08000000); // CREATE_NO_WINDOW
+    }
+    let output = cmd.output().ok()?;
     if output.status.success() {
         let version_str = String::from_utf8_lossy(&output.stdout).trim().to_string();
         let cleaned = version_str.strip_prefix('v').unwrap_or(&version_str);
@@ -2810,7 +2819,7 @@ async fn check_updates(
                 .as_ref()
                 .and_then(|p| read_version_from_package_json(p))
         })
-        .unwrap_or_else(|| "2.2.0".to_string());
+        .unwrap_or_else(|| "2.2.2".to_string());
     println!("DEBUG check_updates: resolved current_app_version={}", current_app_version);
 
     if is_store_distribution() {
@@ -3396,10 +3405,17 @@ fn run_dependency_install(
     }
 
     if manifest.root_install {
-        let status = std::process::Command::new(&npm)
+        let mut command = std::process::Command::new(&npm);
+        command
             .arg("ci")
             .current_dir(target_dir)
-            .envs(&envs)
+            .envs(&envs);
+        #[cfg(windows)]
+        {
+            use std::os::windows::process::CommandExt;
+            command.creation_flags(0x08000000); // CREATE_NO_WINDOW
+        }
+        let status = command
             .status()
             .map_err(|e| format!("Failed to execute npm ci at root: {e}"))?;
         if !status.success() {
@@ -3411,12 +3427,19 @@ fn run_dependency_install(
     }
 
     if manifest.client_install {
-        let status = std::process::Command::new(&npm)
+        let mut command = std::process::Command::new(&npm);
+        command
             .arg("ci")
             .arg("--prefix")
             .arg("client")
             .current_dir(target_dir)
-            .envs(&envs)
+            .envs(&envs);
+        #[cfg(windows)]
+        {
+            use std::os::windows::process::CommandExt;
+            command.creation_flags(0x08000000); // CREATE_NO_WINDOW
+        }
+        let status = command
             .status()
             .map_err(|e| format!("Failed to execute npm ci in client: {e}"))?;
         if !status.success() {
