@@ -64,6 +64,8 @@ type LauncherSnapshot = {
   activeProfileId?: string | null; lanStatus?: LanAccessStatus | null; logs: LogEntry[];
   launcherVersion: string;
   appVersion: string;
+  distribution: string;
+  storeBuild: boolean;
 };
 
 type UpdateCheckResult = {
@@ -223,8 +225,11 @@ export function App() {
         if (event.payload.error) {
           setUpdateNotice(event.payload.error);
         }
-        if (event.payload.state === 'Completed' || event.payload.state === 'RollbackComplete') {
-          // Re-enable and refresh snapshot
+        if (event.payload.state === 'Completed' || event.payload.state === 'RollbackComplete' || event.payload.state === 'Failed') {
+          setTimeout(() => {
+            setUpdateProgress(null);
+            setUpdateResult(null);
+          }, 3000);
           refresh();
         }
       }).then((fn) => {
@@ -256,7 +261,7 @@ export function App() {
         });
         return;
       }
-      const result = await invoke<UpdateCheckResult>('check_updates');
+      const result = await invoke<UpdateCheckResult>('check_updates', { overrides: overrides(settings) });
       setUpdateResult(result);
       if (!result.appUpdateAvailable && !result.launcherUpdateAvailable) {
         setUpdateNotice('Your software is up to date.');
@@ -294,7 +299,7 @@ export function App() {
         setUpdateProgress({ state: 'Completed', message: 'Update complete!', progress: 1.0 });
         return;
       }
-      await invoke('update_all');
+      await invoke('update_all', { overrides: overrides(settings) });
     } catch (err) {
       setUpdateNotice(err instanceof Error ? err.message : String(err));
       setUpdateProgress(null);
@@ -302,22 +307,28 @@ export function App() {
   };
 
   const profiles = snapshot?.profiles ?? [];
+  const isStoreBuild = Boolean(snapshot?.storeBuild);
   const active = profiles.find(p => p.id === snapshot?.activeProfileId) ?? null;
   const [selId, setSelId] = useState('homeinventory');
   useEffect(() => { if (snapshot?.activeProfileId) setSelId(snapshot.activeProfileId); }, [snapshot?.activeProfileId]);
   const selProfile = profiles.find(p => p.id === selId) || profiles[0] || null;
   const selectedBackendPort = selProfile ? parsePort(portApi, selProfile.backendPort) : 3001;
   const selectedFrontendPort = selProfile ? parsePort(portUi, selProfile.frontendPort) : 5173;
-  const portInputError = useMemo(
-    () => validatePortInputs(portApi, portUi, selProfile),
-    [portApi, portUi, selProfile],
-  );
+  const portInputError = useMemo(() => {
+    if (!isStoreBuild) return validatePortInputs(portApi, portUi, selProfile);
+    if (!selProfile) return 'No profile is available.';
+    const backendPort = parsePort(portApi, selProfile.backendPort);
+    if (backendPort < 1024 || backendPort > 65535) return 'Local port must be between 1024 and 65535.';
+    return '';
+  }, [isStoreBuild, portApi, portUi, selProfile]);
   const portBusy = Boolean(!portInputError && portCheck && !portCheck.ok);
   const portBlocked = Boolean(portInputError);
   const portStatusBlocked = Boolean(portInputError || (portCheck && !portCheck.ok));
   const portMessage = portInputError || portCheck?.message || 'Ports are available.';
   const launchBackendPort = portBusy && portCheck ? portCheck.suggestedBackendPort : selectedBackendPort;
-  const launchFrontendPort = portBusy && portCheck ? portCheck.suggestedFrontendPort : selectedFrontendPort;
+  const launchFrontendPort = isStoreBuild
+    ? launchBackendPort
+    : portBusy && portCheck ? portCheck.suggestedFrontendPort : selectedFrontendPort;
 
   const ready = useMemo(() => {
     if (!snapshot) return false;
@@ -327,11 +338,13 @@ export function App() {
 
   const updateAvailable = Boolean(updateResult?.appUpdateAvailable || updateResult?.launcherUpdateAvailable);
   const updateBlockedByNode = Boolean(updateResult?.requiredActions.includes('nodeMajorUpgrade'));
-  const projectRootMissing = Boolean(snapshot && !snapshot.projectRoot.trim());
-  const projectRootInvalid = Boolean(snapshot?.projectRoot.trim() && !snapshot.setup.projectRootValid);
-  const projectRootInstallable = Boolean(snapshot?.setup.projectRootInstallable);
-  const projectRootBlocked = projectRootMissing || (projectRootInvalid && !projectRootInstallable);
-  const visibleLaunchNotice = projectRootMissing
+  const projectRootMissing = !isStoreBuild && Boolean(snapshot && !snapshot.projectRoot.trim());
+  const projectRootInvalid = !isStoreBuild && Boolean(snapshot?.projectRoot.trim() && !snapshot.setup.projectRootValid);
+  const projectRootInstallable = !isStoreBuild && Boolean(snapshot?.setup.projectRootInstallable);
+  const projectRootBlocked = !isStoreBuild && (projectRootMissing || (projectRootInvalid && !projectRootInstallable));
+  const visibleLaunchNotice = isStoreBuild && !ready
+    ? 'HomeInventory Local will prepare its bundled app files and local runtime from the Microsoft Store package.'
+    : projectRootMissing
     ? 'Choose an empty install folder or an existing HomeInventory folder.'
     : projectRootInstallable
       ? 'Empty install folder selected. HomeInventory will be downloaded and installed here.'
@@ -364,6 +377,10 @@ export function App() {
   };
 
   const renderPreLaunchUpdateCheck = () => {
+    if (isStoreBuild) {
+      return null;
+    }
+
     const title = updateProgress
       ? 'Update in progress'
       : checkingUpdates
@@ -430,9 +447,15 @@ export function App() {
     let on = true;
     const poll = async () => {
       try {
-        await fetch(active.frontendUrl, { method: 'HEAD', mode: 'no-cors' });
-        if (on) setServerReady(true);
-      } catch { if (on) setTimeout(poll, 500); }
+        const ready = await invoke<boolean>('is_server_ready', { port: active.frontendPort });
+        if (ready) {
+          if (on) setServerReady(true);
+        } else {
+          if (on) setTimeout(poll, 500);
+        }
+      } catch {
+        if (on) setTimeout(poll, 500);
+      }
     };
     poll();
     return () => { on = false; };
@@ -465,6 +488,20 @@ export function App() {
   useEffect(() => {
     if (!selProfile || portInputError) {
       setPortCheck(null);
+      return;
+    }
+
+    if (isStoreBuild) {
+      setPortCheck({
+        ok: true,
+        backendPort: selectedBackendPort,
+        frontendPort: selectedBackendPort,
+        backendOk: true,
+        frontendOk: true,
+        suggestedBackendPort: selectedBackendPort,
+        suggestedFrontendPort: selectedBackendPort,
+        message: 'Local port is valid.',
+      });
       return;
     }
 
@@ -509,7 +546,7 @@ export function App() {
       cancelled = true;
       window.clearTimeout(timer);
     };
-  }, [selProfile, selectedBackendPort, selectedFrontendPort, portInputError]);
+  }, [isStoreBuild, selProfile, selectedBackendPort, selectedFrontendPort, portInputError]);
 
   /* ── Actions ── */
   async function run(label: string, action: () => Promise<CommandResult | unknown>): Promise<boolean> {
@@ -558,8 +595,8 @@ export function App() {
           running: true,
           backendPort,
           frontendPort,
-          frontendUrl: `http://localhost:${frontendPort}`,
-          backendUrl: `http://localhost:${backendPort}`,
+          frontendUrl: `http://127.0.0.1:${frontendPort}`,
+          backendUrl: `http://127.0.0.1:${backendPort}`,
         } : profile),
       } : prev);
       setServerReady(true);
@@ -678,9 +715,11 @@ export function App() {
     const elapsedLabel = `${Math.floor(elapsedSeconds / 60)}:${String(elapsedSeconds % 60).padStart(2, '0')}`;
 
     let msg = 'Waiting to initialize…';
-    if (!s.node || !s.npm) msg = 'Node.js is required.';
+    if (!isStoreBuild && (!s.node || !s.npm)) msg = 'Node.js is required.';
     else if (installing) {
-      msg = 'Installing dependencies and preparing the app…';
+      msg = isStoreBuild
+        ? 'Preparing application files…'
+        : 'Installing dependencies and preparing the app…';
     } else if (setupAutoBlocked) {
       msg = 'Setup stopped after an error. Choose another install folder, then try again.';
     }
@@ -702,19 +741,19 @@ export function App() {
               <Loader2 size={18} className="spin" />
               <div>
                 <strong>{msg}</strong>
-                <p>Elapsed {elapsedLabel}. First install can take a few minutes depending on npm and network speed.</p>
+                <p>{isStoreBuild ? `Elapsed ${elapsedLabel}. Preparing bundled app files and runtime.` : `Elapsed ${elapsedLabel}. First install can take a few minutes depending on npm and network speed.`}</p>
               </div>
             </div>
-          ) : (!s.node || !s.npm) ? (
+          ) : (!isStoreBuild && (!s.node || !s.npm)) ? (
             <div className="error-box">
               <AlertCircle size={16} />
               <div>
-                <strong>Node.js not found</strong>
-                <p>Download and install from <a href="https://nodejs.org" target="_blank" rel="noreferrer">nodejs.org</a> to continue.</p>
+                <strong>{isStoreBuild ? 'Bundled runtime not ready' : 'Node.js not found'}</strong>
+                <p>{isStoreBuild ? 'Launch HomeInventory Local to prepare the runtime included with the Microsoft Store package.' : <>Download and install from <a href="https://nodejs.org" target="_blank" rel="noreferrer">nodejs.org</a> to continue.</>}</p>
               </div>
             </div>
           ) : (
-            <div style={{ width: '100%', marginTop: 28 }}>
+            <div className="action-stack" style={{ width: '100%', marginTop: 28 }}>
               {renderPreLaunchUpdateCheck()}
 
               <button
@@ -731,7 +770,7 @@ export function App() {
                 disabled={Boolean(busy) || portBlocked}
               >
                 {busy ? <Loader2 size={16} className="spin" /> : <Play size={16} />}
-                {projectRootBlocked ? 'Choose Install Folder' : projectRootInstallable ? 'Install & Launch' : portBusy ? `Launch on ${launchBackendPort}/${launchFrontendPort}` : 'Initialize & Launch'}
+                {isStoreBuild ? 'Launch HomeInventory Local' : projectRootBlocked ? 'Choose Install Folder' : projectRootInstallable ? 'Install & Launch' : portBusy ? `Launch on ${launchBackendPort}/${launchFrontendPort}` : 'Initialize & Launch'}
               </button>
 
               {visibleLaunchNotice && (
@@ -763,11 +802,12 @@ export function App() {
                 bootstrapAdminEmail={bootstrapAdminEmail} setBootstrapAdminEmail={setBootstrapAdminEmail}
                 portApi={portApi} setPortApi={setPortApi}
                 portUi={portUi} setPortUi={setPortUi}
-                localIp={snapshot.localIp}
-                lanStatus={snapshot.lanStatus}
+                localIp={snapshot?.localIp}
+                lanStatus={snapshot?.lanStatus}
                 portCheck={portCheck}
                 portMessage={portMessage}
                 portBlocked={portStatusBlocked}
+                storeBuild={isStoreBuild}
                 onUseSuggestedPorts={() => {
                   if (!portCheck) return;
                   setPortApi(String(portCheck.suggestedBackendPort));
@@ -775,7 +815,7 @@ export function App() {
                 }}
               />
 
-              <button className="btn-outline" onClick={() => { setDevTab('settings'); setShowDevPanel(true); }}>
+              <button className="btn-outline" onClick={() => { setDevTab(isStoreBuild ? 'logs' : 'settings'); setShowDevPanel(true); }}>
                 <SlidersHorizontal size={13} /> Developer Tools
               </button>
             </div>
@@ -841,7 +881,7 @@ export function App() {
             <div className="progress-meta"><span>{msg2}</span><span>{warmup}%</span></div>
           </div>
           <footer className="splash-footer center">
-            <span>{active?.frontendUrl ?? `http://localhost:${launchFrontendPort}`}</span>
+            <span>{active?.frontendUrl ?? `http://127.0.0.1:${launchFrontendPort}`}</span>
           </footer>
         </div>
       </div>
@@ -850,8 +890,8 @@ export function App() {
 
   /* ─── STATE 3: Running ─── */
   if (active && serverReady) {
-    const lanStatus = snapshot.lanStatus;
-    const activeLanUrl = lanStatus?.frontendUrl || (snapshot.localIp ? `http://${snapshot.localIp}:${active.frontendPort}` : active.frontendUrl);
+    const lanStatus = snapshot?.lanStatus;
+    const activeLanUrl = lanStatus?.frontendUrl || (snapshot?.localIp ? `http://${snapshot.localIp}:${active.frontendPort}` : active.frontendUrl);
 
     return (
       <div className="running-layout">
@@ -861,9 +901,6 @@ export function App() {
             <span className="status-pulse" />
             <span>Running locally</span>
           </div>
-          <a className="running-url" href={active.frontendUrl} target="_blank" rel="noreferrer">
-            {active.frontendUrl}
-          </a>
 
           <div className="running-qr">
             <QrCodeCard url={activeLanUrl} size={296} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
@@ -874,21 +911,21 @@ export function App() {
           </div>
 
           <button
-            className="btn-primary"
+            className="open-app-button"
             onClick={() => run('open browser', () => invoke('open_app', { url: active.frontendUrl }))}
             title="Open in browser"
           >
-            <ExternalLink size={15} />
-            Open app
+            <span className="open-app-icon"><ExternalLink size={16} /></span>
+            <span>Open app</span>
           </button>
 
           <div className="running-meta">
-            <span>API {active.backendPort}</span>
-            <span>UI {active.frontendPort}</span>
+            <span>{isStoreBuild ? `Local ${active.backendPort}` : `API ${active.backendPort}`}</span>
+            {!isStoreBuild && <span>UI {active.frontendPort}</span>}
           </div>
 
           <div className="running-actions" aria-label="App controls">
-            <button className="icon-action" onClick={() => { setDevTab('settings'); setShowDevPanel(true); }} title="App settings">
+            <button className="icon-action" onClick={() => { setDevTab(isStoreBuild ? 'logs' : 'settings'); setShowDevPanel(true); }} title="App settings">
               <SlidersHorizontal size={15} />
             </button>
             <button className="icon-action danger" onClick={doStop} title="Stop services">
@@ -922,7 +959,9 @@ export function App() {
   }
 
   /* ─── STATE 4: Stopped ─── */
-  const startButtonLabel = stopped ? 'Restart HomeInventory' : 'Launch HomeInventory';
+  const startButtonLabel = stopped
+    ? isStoreBuild ? 'Restart HomeInventory Local' : 'Restart HomeInventory'
+    : isStoreBuild ? 'Launch HomeInventory Local' : 'Launch HomeInventory';
 
   return (
     <div className="splash-layout">
@@ -949,7 +988,7 @@ export function App() {
             }}
           >
             {busy?.startsWith('start-') ? <Loader2 size={16} className="spin" /> : <Play size={16} />}
-            {projectRootBlocked ? 'Choose Install Folder' : portBusy ? `Launch on ${launchBackendPort}/${launchFrontendPort}` : startButtonLabel}
+            {isStoreBuild ? startButtonLabel : projectRootBlocked ? 'Choose Install Folder' : portBusy ? `Launch on ${launchBackendPort}/${launchFrontendPort}` : startButtonLabel}
           </button>
 
           {visibleLaunchNotice && (
@@ -981,11 +1020,12 @@ export function App() {
             bootstrapAdminEmail={bootstrapAdminEmail} setBootstrapAdminEmail={setBootstrapAdminEmail}
             portApi={portApi} setPortApi={setPortApi}
             portUi={portUi} setPortUi={setPortUi}
-            localIp={snapshot.localIp}
-            lanStatus={snapshot.lanStatus}
+            localIp={snapshot?.localIp}
+            lanStatus={snapshot?.lanStatus}
             portCheck={portCheck}
             portMessage={portMessage}
             portBlocked={portStatusBlocked}
+            storeBuild={isStoreBuild}
             onUseSuggestedPorts={() => {
               if (!portCheck) return;
               setPortApi(String(portCheck.suggestedBackendPort));
@@ -999,7 +1039,7 @@ export function App() {
         </div>
 
         <footer className="splash-footer center">
-          <span>API: {launchBackendPort} · UI: {launchFrontendPort}</span>
+          <span>{isStoreBuild ? `Local: ${launchBackendPort}` : `API: ${launchBackendPort} · UI: ${launchFrontendPort}`}</span>
         </footer>
       </div>
 
@@ -1032,7 +1072,7 @@ function AdvancedConfigPanel({
   emailFrom, setEmailFrom, supportEmail, setSupportEmail,
   bootstrapAdminEmail, setBootstrapAdminEmail,
   portApi, setPortApi, portUi, setPortUi, localIp,
-  lanStatus, portCheck, portMessage, portBlocked, onUseSuggestedPorts,
+  lanStatus, portCheck, portMessage, portBlocked, storeBuild, onUseSuggestedPorts,
 }: {
   showAdvanced: boolean; setShowAdvanced: (v: boolean) => void;
   resendKey: string; setResendKey: (v: string) => void;
@@ -1046,6 +1086,7 @@ function AdvancedConfigPanel({
   portCheck: PortCheckResult | null;
   portMessage: string;
   portBlocked: boolean;
+  storeBuild: boolean;
   onUseSuggestedPorts: () => void;
 }) {
   const uiPort = portUi.trim() || '5173';
@@ -1070,7 +1111,7 @@ function AdvancedConfigPanel({
             <ul>
               <li><strong>Email:</strong> Resend needs both an API key and a verified sender address. A key alone can look configured but still fail delivery.</li>
               <li><strong>Admin:</strong> Bootstrap Admin Email makes the first trusted admin predictable.</li>
-              <li><strong>Network:</strong> Ports must be free locally; LAN access also depends on firewall and same Wi-Fi.</li>
+              <li><strong>Network:</strong> {storeBuild ? 'HomeInventory Local uses one local port for the app and API.' : 'Ports must be free locally; LAN access also depends on firewall and same Wi-Fi.'}</li>
             </ul>
           </div>
 
@@ -1125,29 +1166,31 @@ function AdvancedConfigPanel({
           <div className="config-section">
             <div className="config-section-header">
               <Globe size={13} />
-              <span>Network Ports</span>
+              <span>{storeBuild ? 'Local Port' : 'Network Ports'}</span>
               <span className="config-badge required">Required</span>
             </div>
-            <div className="row-2">
+            <div className={storeBuild ? '' : 'row-2'}>
               <div className="field">
-                <label className="field-label">API Port</label>
+                <label className="field-label">{storeBuild ? 'Local Port' : 'API Port'}</label>
                 <input className={`field-input ${portBlocked && !portCheck?.backendOk ? 'invalid' : ''}`}
                   type="number" inputMode="numeric" min={1024} max={65535} value={portApi}
                   onChange={e => setPortApi(sanitizePortInput(e.target.value))} placeholder="3001" />
               </div>
-              <div className="field">
-                <label className="field-label">UI Port</label>
-                <input className={`field-input ${portBlocked && !portCheck?.frontendOk ? 'invalid' : ''}`}
-                  type="number" inputMode="numeric" min={1024} max={65535} value={portUi}
-                  onChange={e => setPortUi(sanitizePortInput(e.target.value))} placeholder="5173" />
-              </div>
+              {!storeBuild && (
+                <div className="field">
+                  <label className="field-label">UI Port</label>
+                  <input className={`field-input ${portBlocked && !portCheck?.frontendOk ? 'invalid' : ''}`}
+                    type="number" inputMode="numeric" min={1024} max={65535} value={portUi}
+                    onChange={e => setPortUi(sanitizePortInput(e.target.value))} placeholder="5173" />
+                </div>
+              )}
             </div>
-            <span className="field-hint">Valid range: 1024–65535. Defaults: API 3001, UI 5173. Only change if another app is using the same port.</span>
+            <span className="field-hint">{storeBuild ? 'Valid range: 1024-65535. Default: 3001. Only change if another app is using the same port.' : 'Valid range: 1024-65535. Defaults: API 3001, UI 5173. Only change if another app is using the same port.'}</span>
             <div className={`port-status ${portBlocked ? 'blocked' : 'ok'}`}>
               <span>{portMessage}</span>
               {portBlocked && portCheck && (
                 <button type="button" className="mini-action" onClick={onUseSuggestedPorts}>
-                  Use {portCheck.suggestedBackendPort}/{portCheck.suggestedFrontendPort}
+                  {storeBuild ? `Use ${portCheck.suggestedBackendPort}` : `Use ${portCheck.suggestedBackendPort}/${portCheck.suggestedFrontendPort}`}
                 </button>
               )}
             </div>
@@ -1161,7 +1204,7 @@ function AdvancedConfigPanel({
             </div>
             <ol className="tip-steps">
               <li>Keep devices on the <strong>same Wi-Fi network</strong>.</li>
-              <li>Allow Node/HomeInventory through the firewall if prompted.</li>
+              <li>Allow HomeInventory or Node.js through Windows Firewall for private networks if prompted.</li>
             </ol>
             {lanStatus && (
               <div className={`lan-status ${lanStatus.ok ? 'ok' : 'blocked'}`}>
@@ -1209,6 +1252,7 @@ function DevPanelContent({
   onCheckUpdates: () => Promise<void>;
   onTriggerUpdate: () => Promise<void>;
 }) {
+  const isStoreBuild = snapshot.storeBuild;
   const nodeTool = snapshot.tools.find(tool => tool.name === 'Node.js');
   const npmTool = snapshot.tools.find(tool => tool.name === 'npm');
   const updatesAvailable = Boolean(updateResult?.appUpdateAvailable || updateResult?.launcherUpdateAvailable);
@@ -1272,14 +1316,14 @@ function DevPanelContent({
       <nav className="modal-tabs">
         <button className={devTab === 'logs' ? 'active' : ''} onClick={() => setDevTab('logs')}>Logs</button>
         <button className={devTab === 'backups' ? 'active' : ''} onClick={() => setDevTab('backups')}>Backups</button>
-        <button className={devTab === 'settings' ? 'active' : ''} onClick={() => setDevTab('settings')}>Settings</button>
-        <button className={devTab === 'updates' ? 'active' : ''} onClick={() => setDevTab('updates')}>Updates</button>
+        {!isStoreBuild && <button className={devTab === 'settings' ? 'active' : ''} onClick={() => setDevTab('settings')}>Settings</button>}
+        {!isStoreBuild && <button className={devTab === 'updates' ? 'active' : ''} onClick={() => setDevTab('updates')}>Updates</button>}
       </nav>
 
       <div className="modal-body">
         {devTab === 'logs' && <div className="tab-logs"><LogRows logs={snapshot.logs} /></div>}
 
-        {devTab === 'updates' && (
+        {!isStoreBuild && devTab === 'updates' && (
           <div className="tab-updates">
             <p className="tab-description">Manage and check for software updates.</p>
 
@@ -1453,7 +1497,7 @@ function DevPanelContent({
           </div>
         )}
 
-        {devTab === 'settings' && (
+        {devTab === 'settings' && !isStoreBuild && (
           <div className="tab-settings">
             <PathSettingField
               label="Install Folder"
@@ -1568,6 +1612,8 @@ function mockSnapshot(settings: LauncherSettings): LauncherSnapshot {
   return {
     launcherVersion: '2.2.1',
     appVersion: '2.2.1',
+    distribution: 'standard',
+    storeBuild: false,
     projectRoot: root, appDataDir: data, activeProfileId: runningPreview ? 'homeinventory' : null,
     lanStatus: runningPreview ? {
       ok: true,
@@ -1575,7 +1621,7 @@ function mockSnapshot(settings: LauncherSettings): LauncherSnapshot {
       backendOk: true,
       frontendUrl: 'http://192.168.1.42:5173',
       backendUrl: 'http://192.168.1.42:3001',
-      message: 'LAN probe passed. Other devices should be able to connect on the same network.',
+      message: 'Network address is ready. If another device cannot connect, allow HomeInventory or Node.js through Windows Firewall for private networks.',
     } : null,
     tools: [
       { name: 'Node.js', path: '/usr/local/bin/node', ok: true, detail: 'Ready' },

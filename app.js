@@ -49,6 +49,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const clientDist = join(__dirname, 'client', 'dist');
 const NODE_ENV = process.env.NODE_ENV || 'development';
+const LOCAL_HTTP = process.env.HOMEINVENTORY_LOCAL_HTTP === 'true';
 const SITE_URL = String(
     process.env.SITE_URL ||
     process.env.INDEXNOW_BASE_URL ||
@@ -152,10 +153,12 @@ app.use(helmet({
             "connect-src": ["'self'", ...siteOrigins],
             "img-src": ["'self'", "data:", "blob:"],
             "style-src": ["'self'", "'unsafe-inline'"],
-            "script-src": ["'self'"],
-            "font-src": ["'self'", "data:"]
+            "script-src": LOCAL_HTTP ? ["'self'", "'unsafe-inline'"] : ["'self'"],
+            "font-src": ["'self'", "data:"],
+            ...(LOCAL_HTTP ? { "upgrade-insecure-requests": null } : {})
         }
     } : false,
+    hsts: LOCAL_HTTP ? false : undefined,
     crossOriginEmbedderPolicy: false
 }));
 const PORT = process.env.PORT || 3001;
@@ -165,15 +168,34 @@ const HOST = process.env.HOST || (NODE_ENV === 'production' ? '0.0.0.0' : '127.0
 // Get local network IP address
 function getLocalIP() {
     const interfaces = os.networkInterfaces();
+    let fallback = 'localhost';
+    
     for (const name of Object.keys(interfaces)) {
+        if (/virtual|vmware|vbox|loopback|tunnel|tailscale/i.test(name)) {
+            continue;
+        }
         for (const iface of interfaces[name]) {
-            // Skip internal (loopback) and non-IPv4 addresses
             if (iface.family === 'IPv4' && !iface.internal) {
+                if (iface.address.startsWith('169.254.')) {
+                    continue;
+                }
                 return iface.address;
             }
         }
     }
-    return 'localhost';
+    
+    for (const name of Object.keys(interfaces)) {
+        for (const iface of interfaces[name]) {
+            if (iface.family === 'IPv4' && !iface.internal) {
+                if (iface.address.startsWith('169.254.')) {
+                    continue;
+                }
+                return iface.address;
+            }
+        }
+    }
+    
+    return fallback;
 }
 
 // Ensure uploads directory exists

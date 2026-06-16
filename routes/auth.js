@@ -6,7 +6,7 @@ import rateLimit from 'express-rate-limit';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import db from '../database.js';
-import { generateToken, authenticateToken, cookieOptions } from '../middleware/auth.js';
+import { generateToken, authenticateToken, cookieOptions, shouldUseSecureCookies } from '../middleware/auth.js';
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import {
@@ -159,7 +159,7 @@ function resolveRoleForEmail(email) {
 function clearSessionCookies(res) {
     const baseCookieOptions = {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: shouldUseSecureCookies(),
         sameSite: 'lax',
         path: '/'
     };
@@ -171,7 +171,7 @@ function clearSessionCookies(res) {
 function clearAuthTokenCookie(res) {
     res.clearCookie('token', {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: shouldUseSecureCookies(),
         sameSite: 'lax',
         path: '/'
     });
@@ -180,7 +180,7 @@ function clearAuthTokenCookie(res) {
 function getGoogleOauthStateCookieOptions() {
     return {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: shouldUseSecureCookies(),
         sameSite: 'lax',
         path: '/api/auth/google'
     };
@@ -1217,7 +1217,7 @@ router.post('/login', async (req, res) => {
 
                     res.cookie(TRUSTED_DEVICE_COOKIE, deviceToken, {
                         httpOnly: true,
-                        secure: process.env.NODE_ENV === 'production',
+                        secure: shouldUseSecureCookies(),
                         sameSite: 'lax',
                         maxAge: TRUSTED_DEVICE_DAYS * 24 * 60 * 60 * 1000
                     });
@@ -1868,67 +1868,71 @@ router.post('/change-username', authenticateToken, async (req, res) => {
 // Configure Google Strategy
 // NOTE: In production, these should be ENV variables.
 // For this task, we assume they are in process.env or keys are set up.
-passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: `${SITE_URL}/api/auth/google/callback`
-},
-    async function (accessToken, refreshToken, profile, cb) {
-        try {
-            const email = String(profile.emails[0].value || '').trim().toLowerCase();
-            const googleId = profile.id;
-            const displayName = profile.displayName;
+const googleConfigured = !!(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET);
 
-            // Check if user exists by email
-            let user = getUserByEmail(email);
+if (googleConfigured) {
+    passport.use(new GoogleStrategy({
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: `${SITE_URL}/api/auth/google/callback`
+    },
+        async function (accessToken, refreshToken, profile, cb) {
+            try {
+                const email = String(profile.emails[0].value || '').trim().toLowerCase();
+                const googleId = profile.id;
+                const displayName = profile.displayName;
 
-            if (user) {
-                // User exists, return user
-                return cb(null, getDecryptedUser(user));
-            } else {
-                // New user - create account without assigning a house yet
-                // Create a random password since they use Google
-                const randomPassword = crypto.randomBytes(16).toString('hex');
-                const passwordHash = await bcrypt.hash(randomPassword, SALT_ROUNDS);
+                // Check if user exists by email
+                let user = getUserByEmail(email);
 
-                // Make username unique - check if displayName exists
-                let username = displayName;
-                const existingUsername = getUserByUsername(username);
-                if (existingUsername) {
-                    // Append random suffix to make it unique
-                    const suffix = crypto.randomBytes(3).toString('hex');
-                    username = `${displayName}_${suffix}`;
+                if (user) {
+                    // User exists, return user
+                    return cb(null, getDecryptedUser(user));
+                } else {
+                    // New user - create account without assigning a house yet
+                    // Create a random password since they use Google
+                    const randomPassword = crypto.randomBytes(16).toString('hex');
+                    const passwordHash = await bcrypt.hash(randomPassword, SALT_ROUNDS);
+
+                    // Make username unique - check if displayName exists
+                    let username = displayName;
+                    const existingUsername = getUserByUsername(username);
+                    if (existingUsername) {
+                        // Append random suffix to make it unique
+                        const suffix = crypto.randomBytes(3).toString('hex');
+                        username = `${displayName}_${suffix}`;
+                    }
+
+                    // Insert user with is_verified = 1 (Google already verified their email)
+                    const result = db.prepare(
+                        `INSERT INTO users (username, email, username_lookup, email_lookup, password_hash, house_key, role, is_verified)
+                         VALUES (?, ?, ?, ?, ?, ?, ?, 1)`
+                    ).run(
+                        encryptUsername(username),
+                        encryptEmail(email),
+                        buildUsernameLookup(username),
+                        buildEmailLookup(email),
+                        passwordHash,
+                        null,
+                        resolveRoleForEmail(email)
+                    );
+
+                    const newUser = {
+                        id: result.lastInsertRowid,
+                        username: username,
+                        email: email,
+                        house_key: null,
+                        role: resolveRoleForEmail(email)
+                    };
+                    return cb(null, newUser);
                 }
 
-                // Insert user with is_verified = 1 (Google already verified their email)
-                const result = db.prepare(
-                    `INSERT INTO users (username, email, username_lookup, email_lookup, password_hash, house_key, role, is_verified)
-                     VALUES (?, ?, ?, ?, ?, ?, ?, 1)`
-                ).run(
-                    encryptUsername(username),
-                    encryptEmail(email),
-                    buildUsernameLookup(username),
-                    buildEmailLookup(email),
-                    passwordHash,
-                    null,
-                    resolveRoleForEmail(email)
-                );
-
-                const newUser = {
-                    id: result.lastInsertRowid,
-                    username: username,
-                    email: email,
-                    house_key: null,
-                    role: resolveRoleForEmail(email)
-                };
-                return cb(null, newUser);
+            } catch (err) {
+                return cb(err);
             }
-
-        } catch (err) {
-            return cb(err);
         }
-    }
-));
+    ));
+}
 
 // Serialize/Deserialize user (required for session, though we mostly use tokens)
 // We might not need session if we handle token generation directly in callback.
@@ -1943,6 +1947,9 @@ passport.deserializeUser((id, done) => {
 
 // Routes
 router.get('/google', (req, res, next) => {
+    if (!googleConfigured) {
+        return res.status(501).json({ message: 'Google Authentication is not configured.' });
+    }
     const state = issueGoogleOauthState(res);
     passport.authenticate('google', {
         scope: ['profile', 'email'],
@@ -1952,12 +1959,20 @@ router.get('/google', (req, res, next) => {
 
 router.get('/google/callback',
     (req, res, next) => {
+        if (!googleConfigured) {
+            return res.redirect('/login');
+        }
         if (!consumeGoogleOauthState(req, res)) {
             return res.redirect('/login');
         }
         next();
     },
-    passport.authenticate('google', { failureRedirect: '/login', session: false }),
+    (req, res, next) => {
+        if (!googleConfigured) {
+            return res.redirect('/login');
+        }
+        passport.authenticate('google', { failureRedirect: '/login', session: false })(req, res, next);
+    },
     function (req, res) {
         // Successful authentication
         const user = req.user;
@@ -2644,7 +2659,7 @@ router.post('/2fa/disable', authenticateToken, async (req, res) => {
 
         res.clearCookie(TRUSTED_DEVICE_COOKIE, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
+            secure: shouldUseSecureCookies(),
             sameSite: 'lax'
         });
 
@@ -2707,7 +2722,7 @@ router.delete('/2fa/trusted-devices', authenticateToken, (req, res) => {
 
         res.clearCookie(TRUSTED_DEVICE_COOKIE, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
+            secure: shouldUseSecureCookies(),
             sameSite: 'lax'
         });
 

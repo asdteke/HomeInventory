@@ -10,8 +10,8 @@ import {
     resolveStoredMediaPath
 } from '../utils/mediaStorage.js';
 
-const repoRoot = '/app';
-const mediaRoot = '/app/uploads';
+const repoRoot = join(tmpdir(), 'homeinventory-app-root');
+const mediaRoot = join(repoRoot, 'uploads');
 const allowedPrefixes = [
     'uploads',
     'uploads/thumbnails',
@@ -37,7 +37,7 @@ test('resolveStoredMediaPath accepts known upload prefixes inside the media root
             mediaRoot,
             allowedPrefixes
         }),
-        '/app/uploads/photo.webp'
+        join(mediaRoot, 'photo.webp')
     );
     assert.equal(
         resolveStoredMediaPath('uploads/invoices/thumbnails/invoice.webp', {
@@ -45,7 +45,7 @@ test('resolveStoredMediaPath accepts known upload prefixes inside the media root
             mediaRoot,
             allowedPrefixes
         }),
-        '/app/uploads/invoices/thumbnails/invoice.webp'
+        join(mediaRoot, 'invoices', 'thumbnails', 'invoice.webp')
     );
 });
 

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import { spawnSync } from 'node:child_process';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join } from 'node:path';
 
 process.env.APP_ENCRYPTION_KEY = '0123456789abcdef0123456789abcdef';
@@ -11,10 +11,11 @@ process.env.APP_ENCRYPTION_KEY_ID = 'test-key';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const encryptionModulePath = join(__dirname, '..', 'utils', 'encryption.js');
+const encryptionModuleUrl = pathToFileURL(encryptionModulePath).href;
 
 function importEncryptionModule(overrides = {}) {
   return runEncryptionScript(
-    `import(${JSON.stringify(encryptionModulePath)}).then(() => console.log('import-ok')).catch((error) => { console.error(error.message); process.exit(1); });`,
+    `import(${JSON.stringify(encryptionModuleUrl)}).then(() => console.log('import-ok')).catch((error) => { console.error(error.message); process.exit(1); });`,
     overrides
   );
 }
@@ -264,7 +265,7 @@ test('decryptFromStorage supports legacy key ids via configured keyring', () => 
 
   const legacyResult = runEncryptionScript(
     `
-      const { encryptForStorage, hashLookupToken } = await import(${JSON.stringify(encryptionModulePath)});
+      const { encryptForStorage, hashLookupToken } = await import(${JSON.stringify(encryptionModuleUrl)});
       console.log(JSON.stringify({
         encrypted: encryptForStorage('rotate-me', { purpose: ${JSON.stringify(purpose)} }),
         hashedToken: hashLookupToken(${JSON.stringify(token)})
@@ -281,7 +282,7 @@ test('decryptFromStorage supports legacy key ids via configured keyring', () => 
 
   const rotatedResult = runEncryptionScript(
     `
-      const { decryptFromStorage, listLookupTokenHashes } = await import(${JSON.stringify(encryptionModulePath)});
+      const { decryptFromStorage, listLookupTokenHashes } = await import(${JSON.stringify(encryptionModuleUrl)});
       console.log(JSON.stringify({
         decrypted: decryptFromStorage(${JSON.stringify(legacyPayload.encrypted)}, { purpose: ${JSON.stringify(purpose)} }),
         hashes: listLookupTokenHashes(${JSON.stringify(token)}, { includeLegacy: true })

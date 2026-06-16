@@ -174,6 +174,8 @@ struct LauncherSnapshot {
     logs: Vec<LogEntry>,
     launcher_version: String,
     app_version: String,
+    distribution: String,
+    store_build: bool,
 }
 
 #[derive(Clone, Serialize)]
@@ -235,6 +237,7 @@ struct ProfileConfig {
 }
 
 const LOG_LIMIT: usize = 600;
+const STORE_DISTRIBUTION: &str = "store";
 const PROFILE_CONFIGS: &[ProfileConfig] = &[ProfileConfig {
     id: "homeinventory",
     name: "HomeInventory",
@@ -243,6 +246,17 @@ const PROFILE_CONFIGS: &[ProfileConfig] = &[ProfileConfig {
     frontend_port: 5173,
     brand_key: None,
 }];
+
+fn distribution() -> &'static str {
+    match option_env!("HOMEINVENTORY_DISTRIBUTION") {
+        Some(STORE_DISTRIBUTION) => STORE_DISTRIBUTION,
+        _ => "standard",
+    }
+}
+
+fn is_store_distribution() -> bool {
+    distribution() == STORE_DISTRIBUTION
+}
 
 #[tauri::command]
 fn detect_tools(
@@ -275,6 +289,27 @@ async fn install_dependencies(
 
     let overrides = overrides.unwrap_or_default();
     let project_root = project_root_handle(&app, &overrides)?;
+
+    if is_store_distribution() {
+        ensure_portable_node(&app, &state).await?;
+        sync_store_project_root(&app, &state, &project_root)?;
+        seed_env_file(&project_root)?;
+        let snapshot = build_snapshot(&app, &state, overrides)?;
+        append_log(
+            &state,
+            "setup",
+            "success",
+            "HomeInventory Local is ready. App files and runtime were prepared from the Microsoft Store package.",
+        );
+        return Ok(CommandResult {
+            ok: true,
+            message: format!(
+                "HomeInventory Local prepared. {} setup checks are now ready.",
+                ready_setup_count(&snapshot.setup)
+            ),
+        });
+    }
+
     if !is_valid_project_root(&project_root) {
         bootstrap_project_root(&app, &state, &project_root).await?;
     }
@@ -303,17 +338,16 @@ async fn install_dependencies(
             envs.insert(path_key, new_path);
         }
     }
-    let npm = tools
-        .npm_path
-        .clone()
-        .ok_or_else(|| "npm was not found. Configure the npm path in Settings.".to_string())?;
+    let npm = if is_store_distribution() {
+        tools.npm_path.clone().unwrap_or_default()
+    } else {
+        tools
+            .npm_path
+            .clone()
+            .ok_or_else(|| "npm was not found. Configure the npm path in Settings.".to_string())?
+    };
 
-    append_log(
-        &state,
-        "setup",
-        "info",
-        "Installing root dependencies...",
-    );
+    append_log(&state, "setup", "info", "Installing root dependencies...");
     let mut command = ProcessCommand::new(&npm);
     command
         .arg("install")
@@ -338,12 +372,7 @@ async fn install_dependencies(
         ));
     }
 
-    append_log(
-        &state,
-        "setup",
-        "info",
-        "Installing client dependencies...",
-    );
+    append_log(&state, "setup", "info", "Installing client dependencies...");
     let mut command2 = ProcessCommand::new(&npm);
     command2
         .arg("install")
@@ -397,6 +426,10 @@ fn start_profile_internal(
     reconcile_active(state);
     let overrides = overrides.unwrap_or_default();
     let project_root = project_root_handle(app, &overrides)?;
+    if is_store_distribution() {
+        sync_store_project_root(app, state, &project_root)?;
+    }
+    seed_env_file(&project_root)?;
     validate_project_root(&project_root)?;
     let app_data_dir = app_data_dir(app)?;
     let profile = profile_config(profile_id)?;
@@ -478,22 +511,44 @@ fn start_profile_internal(
     fs::create_dir_all(&profile_paths.log_dir).map_err(|err| err.to_string())?;
 
     let mut command_env = envs;
-    command_env.insert("NODE_ENV".into(), "development".into());
+    command_env.insert(
+        "NODE_ENV".into(),
+        if is_store_distribution() {
+            "production"
+        } else {
+            "development"
+        }
+        .into(),
+    );
     command_env.insert("HOST".into(), "0.0.0.0".into());
     command_env.insert("FRONTEND_HOST".into(), "0.0.0.0".into());
     command_env.insert("VITE_HOST".into(), "0.0.0.0".into());
     command_env.insert("PORT".into(), backend_port.to_string());
-    command_env.insert("FRONTEND_PORT".into(), frontend_port.to_string());
-    command_env.insert("VITE_PORT".into(), frontend_port.to_string());
+
+    let actual_frontend_port = if is_store_distribution() {
+        backend_port
+    } else {
+        frontend_port
+    };
+
+    command_env.insert("FRONTEND_PORT".into(), actual_frontend_port.to_string());
+    command_env.insert("VITE_PORT".into(), actual_frontend_port.to_string());
+    if is_store_distribution() {
+        command_env.insert("HOMEINVENTORY_LOCAL_HTTP".into(), "true".into());
+        command_env.insert("APP_COOKIE_SECURE".into(), "false".into());
+    }
     command_env.insert(
         "SITE_URL".into(),
-        format!("http://localhost:{}", frontend_port),
+        format!("http://127.0.0.1:{}", actual_frontend_port),
     );
     command_env.insert(
         "APP_SITE_URL".into(),
-        format!("http://localhost:{}", frontend_port),
+        format!("http://127.0.0.1:{}", actual_frontend_port),
     );
-    command_env.insert("HOMEINVENTORY_NPM_EXEC".into(), npm);
+    command_env.insert("EXPOSE_SERVER_INFO".into(), "true".into());
+    if !npm.is_empty() {
+        command_env.insert("HOMEINVENTORY_NPM_EXEC".into(), npm);
+    }
     command_env.insert(
         "HOMEINVENTORY_DATA_DIR".into(),
         path_string(&profile_paths.data_dir),
@@ -508,7 +563,11 @@ fn start_profile_internal(
     );
     command_env.extend(ensure_profile_secrets(state, profile.id, &profile_paths)?);
 
-    let mut args = vec!["scripts/dev.mjs".to_string()];
+    let mut args = if is_store_distribution() {
+        vec!["server.js".to_string()]
+    } else {
+        vec!["scripts/dev.mjs".to_string()]
+    };
     if let Some(brand_key) = profile.brand_key {
         let env_file = write_launcher_brand_env(
             &project_root,
@@ -556,8 +615,8 @@ fn start_profile_internal(
 
     let stdout = child.stdout.take();
     let stderr = child.stderr.take();
-    stream_process_output(state, profile.id, stdout, "info");
-    stream_process_output(state, profile.id, stderr, "error");
+    stream_process_output(state, profile.id, stdout, "info", Some(profile_paths.log_dir.clone()));
+    stream_process_output(state, profile.id, stderr, "error", Some(profile_paths.log_dir.clone()));
 
     #[cfg(windows)]
     let job = create_windows_job(&child);
@@ -586,9 +645,9 @@ fn start_profile_internal(
 }
 
 #[tauri::command]
-fn start_profile(
+async fn start_profile(
     app: tauri::AppHandle,
-    state: State<LauncherState>,
+    state: State<'_, LauncherState>,
     request: StartProfileRequest,
 ) -> Result<CommandResult, String> {
     start_profile_internal(
@@ -820,6 +879,19 @@ fn read_logs(state: State<LauncherState>) -> Result<Vec<LogEntry>, String> {
     Ok(logs.clone())
 }
 
+#[tauri::command]
+async fn is_server_ready(port: u16) -> bool {
+    let client = reqwest::Client::builder()
+        .timeout(std::time::Duration::from_millis(500))
+        .build()
+        .unwrap_or_default();
+    let url = format!("http://127.0.0.1:{}/api/health", port);
+    match client.get(&url).send().await {
+        Ok(resp) => resp.status().is_success(),
+        Err(_) => false,
+    }
+}
+
 pub fn run() {
     tauri::Builder::default()
         .manage(LauncherState::default())
@@ -838,7 +910,8 @@ pub fn run() {
             write_env,
             read_logs,
             check_updates,
-            update_all
+            update_all,
+            is_server_ready
         ])
         .on_window_event(|window, event| {
             if matches!(
@@ -893,9 +966,15 @@ fn profile_config(profile_id: &str) -> Result<&'static ProfileConfig, String> {
 
 fn read_version_from_package_json(project_root: &Path) -> Option<String> {
     let package_json_path = project_root.join("package.json");
-    let content = fs::read_to_string(package_json_path).ok()?;
+    let content = fs::read_to_string(&package_json_path).ok();
+    if content.is_none() {
+        println!("DEBUG read_version_from_package_json: failed to read {:?}", package_json_path);
+    }
+    let content = content?;
     let json: serde_json::Value = serde_json::from_str(&content).ok()?;
-    json.get("version")?.as_str().map(|s| s.to_string())
+    let version = json.get("version")?.as_str().map(|s| s.to_string());
+    println!("DEBUG read_version_from_package_json: path={:?}, version={:?}", package_json_path, version);
+    version
 }
 
 fn build_snapshot(
@@ -946,6 +1025,11 @@ fn build_snapshot(
                 .filter(|(profile_id, _, _)| profile_id == profile.id)
                 .map(|(_, _, frontend_port)| *frontend_port)
                 .unwrap_or(profile.frontend_port);
+            let display_frontend_port = if is_store_distribution() {
+                backend_port
+            } else {
+                frontend_port
+            };
 
             ProfileStatus {
                 id: profile.id.to_string(),
@@ -954,9 +1038,9 @@ fn build_snapshot(
                 available: profile.brand_key.is_none() || brand_assets,
                 running: active_profile_id.as_deref() == Some(profile.id),
                 backend_port,
-                frontend_port,
-                frontend_url: format!("http://localhost:{}", frontend_port),
-                backend_url: format!("http://localhost:{}", backend_port),
+                frontend_port: display_frontend_port,
+                frontend_url: format!("http://127.0.0.1:{}", display_frontend_port),
+                backend_url: format!("http://127.0.0.1:{}", backend_port),
                 data_dir: path_string(&paths.data_dir),
                 db_path: path_string(&paths.db_path),
                 uploads_dir: path_string(&paths.uploads_dir),
@@ -973,19 +1057,21 @@ fn build_snapshot(
         .as_ref()
         .map(|root| !project_root_valid && is_empty_dir(root).unwrap_or(false))
         .unwrap_or(false);
+    let store_build = is_store_distribution();
     let setup = SetupStatus {
         node: tools.node_path.is_some(),
-        npm: tools.npm_path.is_some(),
+        npm: store_build || tools.npm_path.is_some(),
         project_root_valid,
         project_root_installable,
         root_dependencies: project_root
             .as_ref()
             .map(|root| root.join("node_modules").exists())
             .unwrap_or(false),
-        client_dependencies: project_root
-            .as_ref()
-            .map(|root| root.join("client").join("node_modules").exists())
-            .unwrap_or(false),
+        client_dependencies: store_build
+            || project_root
+                .as_ref()
+                .map(|root| root.join("client").join("node_modules").exists())
+                .unwrap_or(false),
         env_file: project_root
             .as_ref()
             .map(|root| root.join(".env").exists())
@@ -1002,11 +1088,17 @@ fn build_snapshot(
     let lan_status = active_process
         .as_ref()
         .and_then(|(_, backend_port, frontend_port)| {
-            check_lan_access_status(local_ip.as_deref(), *backend_port, *frontend_port)
+            let actual_frontend_port = if is_store_distribution() {
+                *backend_port
+            } else {
+                *frontend_port
+            };
+            check_lan_access_status(local_ip.as_deref(), *backend_port, actual_frontend_port)
         });
 
     let launcher_version = env!("CARGO_PKG_VERSION").to_string();
     let metadata = read_updater_metadata(&app_data_dir);
+    println!("DEBUG build_snapshot: project_root={:?}, metadata.current_version={:?}, overrides.project_path={:?}", project_root, metadata.current_version, overrides.project_path);
     let app_version = metadata
         .current_version
         .clone()
@@ -1016,6 +1108,7 @@ fn build_snapshot(
                 .and_then(|root| read_version_from_package_json(root))
         })
         .unwrap_or_else(|| "2.2.0".to_string());
+    println!("DEBUG build_snapshot: resolved app_version={}", app_version);
 
     Ok(LauncherSnapshot {
         project_root: project_root
@@ -1053,13 +1146,31 @@ fn build_snapshot(
         logs,
         launcher_version,
         app_version,
+        distribution: distribution().to_string(),
+        store_build,
     })
 }
 
 fn get_local_ip() -> Option<String> {
-    let socket = std::net::UdpSocket::bind("0.0.0.0:0").ok()?;
-    socket.connect("8.8.8.8:80").ok()?;
-    socket.local_addr().ok().map(|a| a.ip().to_string())
+    for probe in [
+        "192.168.255.255:80",
+        "10.255.255.255:80",
+        "172.31.255.255:80",
+    ] {
+        let Ok(socket) = std::net::UdpSocket::bind("0.0.0.0:0") else {
+            continue;
+        };
+        if socket.connect(probe).is_ok() {
+            if let Ok(addr) = socket.local_addr() {
+                let ip = addr.ip().to_string();
+                if ip != "0.0.0.0" && ip != "127.0.0.1" {
+                    return Some(ip);
+                }
+            }
+        }
+    }
+
+    None
 }
 
 fn check_lan_access_status(
@@ -1074,10 +1185,10 @@ fn check_lan_access_status(
     let backend_ok = tcp_reachable(local_ip, backend_port);
     let ok = frontend_ok && backend_ok;
     let message = match (frontend_ok, backend_ok) {
-        (true, true) => "LAN probe passed. Other devices should be able to connect on the same network.".to_string(),
-        (false, true) => "Frontend is not reachable through the LAN IP. Check firewall or frontend host binding.".to_string(),
-        (true, false) => "Frontend is reachable, but the API port is not reachable through the LAN IP.".to_string(),
-        (false, false) => "LAN probe failed. Check firewall permissions and make sure the service is bound to 0.0.0.0.".to_string(),
+        (true, true) => "Network address is ready. If another device cannot connect, allow HomeInventory or Node.js through Windows Firewall for private networks.".to_string(),
+        (false, true) => "The app UI is not reachable through the LAN IP. Check Windows Firewall and host binding.".to_string(),
+        (true, false) => "The app UI is reachable, but the API is not reachable through the LAN IP.".to_string(),
+        (false, false) => "LAN check failed. Allow HomeInventory or Node.js through Windows Firewall for private networks, then restart the app.".to_string(),
     };
 
     Some(LanAccessStatus {
@@ -1131,14 +1242,24 @@ fn validate_project_root(project_root: &Path) -> Result<(), String> {
         ));
     }
 
-    let expected = [
-        project_root.join("package.json"),
-        project_root.join("scripts").join("dev.mjs"),
-        project_root.join("client").join("package.json"),
-    ]
-    .into_iter()
-    .map(|path| path_string(&path))
-    .collect::<Vec<_>>();
+    let expected_paths = if is_store_distribution() {
+        vec![
+            project_root.join("package.json"),
+            project_root.join("server.js"),
+            project_root.join("client").join("dist").join("index.html"),
+            project_root.join("node_modules"),
+        ]
+    } else {
+        vec![
+            project_root.join("package.json"),
+            project_root.join("scripts").join("dev.mjs"),
+            project_root.join("client").join("package.json"),
+        ]
+    };
+    let expected = expected_paths
+        .into_iter()
+        .map(|path| path_string(&path))
+        .collect::<Vec<_>>();
 
     Err(format!(
         "Selected folder is not a valid HomeInventory install folder: {}. Choose an empty folder, or choose the folder that contains these files: {}.",
@@ -1148,6 +1269,17 @@ fn validate_project_root(project_root: &Path) -> Result<(), String> {
 }
 
 fn is_valid_project_root(project_root: &Path) -> bool {
+    if is_store_distribution() {
+        return project_root.join("package.json").exists()
+            && project_root.join("server.js").exists()
+            && project_root
+                .join("client")
+                .join("dist")
+                .join("index.html")
+                .exists()
+            && project_root.join("node_modules").exists();
+    }
+
     project_root.join("package.json").exists()
         && project_root.join("scripts").join("dev.mjs").exists()
         && project_root.join("client").join("package.json").exists()
@@ -1185,6 +1317,11 @@ async fn bootstrap_project_root(
     state: &LauncherState,
     target_dir: &Path,
 ) -> Result<(), String> {
+    if is_store_distribution() {
+        sync_store_project_root(app, state, target_dir)?;
+        return Ok(());
+    }
+
     if !target_dir.is_dir() {
         return Err("Choose an existing empty folder to install HomeInventory.".into());
     }
@@ -1245,6 +1382,75 @@ async fn bootstrap_project_root(
         "success",
         &format!(
             "HomeInventory app files installed from {archive_source} package into {}.",
+            path_string(target_dir)
+        ),
+    );
+    Ok(())
+}
+
+fn sync_store_project_root(
+    app: &tauri::AppHandle,
+    state: &LauncherState,
+    target_dir: &Path,
+) -> Result<(), String> {
+    let bundled_path = bundled_app_archive_path(app)?;
+    if !bundled_path.exists() {
+        return Err(format!(
+            "HomeInventory Local installation is broken: bundled app package is missing: {}",
+            path_string(&bundled_path)
+        ));
+    }
+
+    let bundled_metadata = fs::metadata(&bundled_path).ok();
+    let stamp_metadata = fs::metadata(target_dir.join(".extraction_success")).ok();
+
+    let needs_extract = match (bundled_metadata, stamp_metadata) {
+        (Some(b), Some(s)) => {
+            let b_time = b.modified().unwrap_or(SystemTime::UNIX_EPOCH);
+            let s_time = s.modified().unwrap_or(SystemTime::UNIX_EPOCH);
+            b_time > s_time
+        }
+        _ => true,
+    };
+
+    let bundled_version = env!("CARGO_PKG_VERSION").to_string();
+    let current_version = read_version_from_package_json(target_dir);
+    if is_valid_project_root(target_dir)
+        && current_version.as_deref() == Some(&bundled_version)
+        && !needs_extract
+    {
+        return Ok(());
+    }
+
+    append_log(
+        state,
+        "setup",
+        "info",
+        "Preparing HomeInventory Local app files from the Microsoft Store package...",
+    );
+
+    let app_data = app_data_dir(app)?;
+    let staging_dir = app_data.join("managed-app").join("store-staging");
+    let _ = fs::remove_dir_all(&staging_dir);
+    extract_archive(&bundled_path, &staging_dir)?;
+    let source_dir = normalized_extracted_project_dir(&staging_dir)?;
+
+    if target_dir.exists() {
+        fs::remove_dir_all(target_dir)
+            .map_err(|err| format!("Could not replace Store app files: {err}"))?;
+    }
+    fs::create_dir_all(target_dir).map_err(|err| err.to_string())?;
+    move_dir_contents(&source_dir, target_dir)?;
+    let _ = fs::remove_dir_all(&staging_dir);
+    seed_env_file(target_dir)?;
+    fs::write(target_dir.join(".extraction_success"), "success").map_err(|err| err.to_string())?;
+
+    append_log(
+        state,
+        "setup",
+        "success",
+        &format!(
+            "HomeInventory Local app files are ready at {}.",
             path_string(target_dir)
         ),
     );
@@ -1342,6 +1548,15 @@ fn bundled_app_archive_path(app: &tauri::AppHandle) -> Result<PathBuf, String> {
         .path()
         .resource_dir()
         .map_err(|err| format!("Could not resolve launcher resource directory: {err}"))?;
+    if is_store_distribution() {
+        let direct = resource_dir.join("homeinventory-app-store.tar.gz");
+        if direct.exists() {
+            return Ok(direct);
+        }
+        return Ok(resource_dir
+            .join("resources")
+            .join("homeinventory-app-store.tar.gz"));
+    }
     let direct = resource_dir.join("homeinventory-app.tar.gz");
     if direct.exists() {
         return Ok(direct);
@@ -1391,6 +1606,10 @@ fn project_root_for_snapshot(
     app: &tauri::AppHandle,
     overrides: &ToolOverrides,
 ) -> Result<Option<PathBuf>, String> {
+    if is_store_distribution() {
+        return Ok(Some(store_project_root(app)?));
+    }
+
     if let Some(project_path) = overrides
         .project_path
         .as_ref()
@@ -1419,6 +1638,10 @@ fn project_root_for_snapshot(
     }
 
     Ok(None)
+}
+
+fn store_project_root(app: &tauri::AppHandle) -> Result<PathBuf, String> {
+    Ok(app_data_dir(app)?.join("managed-app").join("store-current"))
 }
 
 fn app_data_dir(app: &tauri::AppHandle) -> Result<PathBuf, String> {
@@ -1488,19 +1711,23 @@ fn resolve_tools(
     if node_path.is_none() || npm_path.is_none() {
         if let Ok(app_data) = app_data_dir(app) {
             let folder_name = if cfg!(target_os = "windows") {
-                "node-v20.11.1-win-x64"
+                "node-v20.19.0-win-x64"
             } else if cfg!(target_os = "macos") {
                 if cfg!(target_arch = "aarch64") {
-                    "node-v20.11.1-darwin-arm64"
+                    "node-v20.19.0-darwin-arm64"
                 } else {
-                    "node-v20.11.1-darwin-x64"
+                    "node-v20.19.0-darwin-x64"
                 }
             } else {
-                "node-v20.11.1-linux-x64"
+                "node-v20.19.0-linux-x64"
             };
 
             let portable_dir = app_data.join("bin").join(folder_name);
-            let p_node = portable_dir.join(if cfg!(windows) { "node.exe" } else { "bin/node" });
+            let p_node = portable_dir.join(if cfg!(windows) {
+                "node.exe"
+            } else {
+                "bin/node"
+            });
             let p_npm = portable_dir.join(if cfg!(windows) { "npm.cmd" } else { "bin/npm" });
 
             if p_node.exists() && p_npm.exists() {
@@ -1536,7 +1763,9 @@ fn clean_path_override(value: &Option<String>) -> Option<String> {
 fn extract_zip(archive_path: &Path, dest_dir: &Path) -> Result<(), String> {
     let file = File::open(archive_path).map_err(|e| format!("Failed to open zip: {e}"))?;
     let mut archive = zip::ZipArchive::new(file).map_err(|e| format!("Failed to read zip: {e}"))?;
-    archive.extract(dest_dir).map_err(|e| format!("Failed to extract zip: {e}"))?;
+    archive
+        .extract(dest_dir)
+        .map_err(|e| format!("Failed to extract zip: {e}"))?;
     Ok(())
 }
 
@@ -1544,29 +1773,65 @@ fn extract_tar_gz(archive_path: &Path, dest_dir: &Path) -> Result<(), String> {
     let file = File::open(archive_path).map_err(|e| format!("Failed to open tar.gz: {e}"))?;
     let tar = flate2::read::GzDecoder::new(file);
     let mut archive = tar::Archive::new(tar);
-    archive.unpack(dest_dir).map_err(|e| format!("Failed to unpack tar.gz: {e}"))?;
+    archive
+        .unpack(dest_dir)
+        .map_err(|e| format!("Failed to unpack tar.gz: {e}"))?;
     Ok(())
 }
 
 async fn ensure_portable_node(app: &tauri::AppHandle, state: &LauncherState) -> Result<(), String> {
     let app_data = app_data_dir(app)?;
     let folder_name = if cfg!(target_os = "windows") {
-        "node-v20.11.1-win-x64"
+        "node-v20.19.0-win-x64"
     } else if cfg!(target_os = "macos") {
         if cfg!(target_arch = "aarch64") {
-            "node-v20.11.1-darwin-arm64"
+            "node-v20.19.0-darwin-arm64"
         } else {
-            "node-v20.11.1-darwin-x64"
+            "node-v20.19.0-darwin-x64"
         }
     } else {
-        "node-v20.11.1-linux-x64"
+        "node-v20.19.0-linux-x64"
     };
 
     let portable_dir = app_data.join("bin").join(folder_name);
-    let p_node = portable_dir.join(if cfg!(windows) { "node.exe" } else { "bin/node" });
+    let p_node = portable_dir.join(if cfg!(windows) {
+        "node.exe"
+    } else {
+        "bin/node"
+    });
     let p_npm = portable_dir.join(if cfg!(windows) { "npm.cmd" } else { "bin/npm" });
 
     if p_node.exists() && p_npm.exists() {
+        return Ok(());
+    }
+
+    if is_store_distribution() {
+        let bundled_node = bundled_node_archive_path(app)?;
+        if !bundled_node.exists() {
+            return Err(format!(
+                "HomeInventory Local installation is broken: bundled Node.js runtime is missing: {}",
+                path_string(&bundled_node)
+            ));
+        }
+
+        append_log(
+            state,
+            "setup",
+            "info",
+            "Installing bundled portable Node.js runtime...",
+        );
+        let dest_dir = app_data.join("bin");
+        if cfg!(target_os = "windows") {
+            extract_zip(&bundled_node, &dest_dir)?;
+        } else {
+            extract_tar_gz(&bundled_node, &dest_dir)?;
+        }
+        append_log(
+            state,
+            "setup",
+            "success",
+            "Bundled portable Node.js runtime is ready.",
+        );
         return Ok(());
     }
 
@@ -1574,19 +1839,19 @@ async fn ensure_portable_node(app: &tauri::AppHandle, state: &LauncherState) -> 
         state,
         "setup",
         "info",
-        "Downloading portable Node.js v20.11.1 for standalone execution...",
+        "Downloading portable Node.js v20.19.0 for standalone execution...",
     );
 
     let url = if cfg!(target_os = "windows") {
-        "https://nodejs.org/dist/v20.11.1/node-v20.11.1-win-x64.zip"
+        "https://nodejs.org/dist/v20.19.0/node-v20.19.0-win-x64.zip"
     } else if cfg!(target_os = "macos") {
         if cfg!(target_arch = "aarch64") {
-            "https://nodejs.org/dist/v20.11.1/node-v20.11.1-darwin-arm64.tar.gz"
+            "https://nodejs.org/dist/v20.19.0/node-v20.19.0-darwin-arm64.tar.gz"
         } else {
-            "https://nodejs.org/dist/v20.11.1/node-v20.11.1-darwin-x64.tar.gz"
+            "https://nodejs.org/dist/v20.19.0/node-v20.19.0-darwin-x64.tar.gz"
         }
     } else {
-        "https://nodejs.org/dist/v20.11.1/node-v20.11.1-linux-x64.tar.gz"
+        "https://nodejs.org/dist/v20.19.0/node-v20.19.0-linux-x64.tar.gz"
     };
 
     let client = reqwest::Client::new();
@@ -1633,12 +1898,16 @@ async fn ensure_portable_node(app: &tauri::AppHandle, state: &LauncherState) -> 
         {
             use std::os::unix::fs::PermissionsExt;
             if p_node.exists() {
-                let mut perms = fs::metadata(&p_node).map_err(|e| e.to_string())?.permissions();
+                let mut perms = fs::metadata(&p_node)
+                    .map_err(|e| e.to_string())?
+                    .permissions();
                 perms.set_mode(0o755);
                 fs::set_permissions(&p_node, perms).map_err(|e| e.to_string())?;
             }
             if p_npm.exists() {
-                let mut perms = fs::metadata(&p_npm).map_err(|e| e.to_string())?.permissions();
+                let mut perms = fs::metadata(&p_npm)
+                    .map_err(|e| e.to_string())?
+                    .permissions();
                 perms.set_mode(0o755);
                 fs::set_permissions(&p_npm, perms).map_err(|e| e.to_string())?;
             }
@@ -1646,9 +1915,38 @@ async fn ensure_portable_node(app: &tauri::AppHandle, state: &LauncherState) -> 
     }
 
     let _ = fs::remove_file(&temp_archive_path);
-    append_log(state, "setup", "success", "Portable Node.js v20.11.1 installed successfully.");
+    append_log(
+        state,
+        "setup",
+        "success",
+        "Portable Node.js v20.19.0 installed successfully.",
+    );
 
     Ok(())
+}
+
+fn bundled_node_archive_path(app: &tauri::AppHandle) -> Result<PathBuf, String> {
+    let resource_dir = app
+        .path()
+        .resource_dir()
+        .map_err(|err| format!("Could not resolve launcher resource directory: {err}"))?;
+    let file_name = if cfg!(target_os = "windows") {
+        "node-v20.19.0-win-x64.zip"
+    } else if cfg!(target_os = "macos") {
+        if cfg!(target_arch = "aarch64") {
+            "node-v20.19.0-darwin-arm64.tar.gz"
+        } else {
+            "node-v20.19.0-darwin-x64.tar.gz"
+        }
+    } else {
+        "node-v20.19.0-linux-x64.tar.gz"
+    };
+
+    let direct = resource_dir.join(file_name);
+    if direct.exists() {
+        return Ok(direct);
+    }
+    Ok(resource_dir.join("resources").join(file_name))
 }
 
 fn find_executable(name: &str, envs: &HashMap<String, String>) -> Option<String> {
@@ -1852,9 +2150,9 @@ fn write_launcher_brand_env(
     contents.push_str(&format!("PORT={}\n", backend_port));
     contents.push_str(&format!("FRONTEND_PORT={}\n", frontend_port));
     contents.push_str(&format!("VITE_PORT={}\n", frontend_port));
-    contents.push_str(&format!("SITE_URL=http://localhost:{}\n", frontend_port));
+    contents.push_str(&format!("SITE_URL=http://127.0.0.1:{}\n", frontend_port));
     contents.push_str(&format!(
-        "APP_SITE_URL=http://localhost:{}\n",
+        "APP_SITE_URL=http://127.0.0.1:{}\n",
         frontend_port
     ));
     contents.push_str(&format!(
@@ -1883,6 +2181,7 @@ fn stream_process_output(
     source: &'static str,
     pipe: Option<impl std::io::Read + Send + 'static>,
     level: &'static str,
+    log_dir: Option<PathBuf>,
 ) {
     let Some(pipe) = pipe else {
         return;
@@ -1891,6 +2190,17 @@ fn stream_process_output(
     thread::spawn(move || {
         let reader = BufReader::new(pipe);
         for line in reader.lines().flatten() {
+            if let Some(ref dir) = log_dir {
+                let log_file_path = dir.join(format!("{}.log", source));
+                if let Ok(mut file) = std::fs::OpenOptions::new()
+                    .create(true)
+                    .append(true)
+                    .open(log_file_path)
+                {
+                    use std::io::Write;
+                    let _ = writeln!(file, "[{}] [{}] {}", now(), level, line);
+                }
+            }
             push_log(
                 &logs,
                 LogEntry {
@@ -2088,10 +2398,14 @@ fn requested_ports(
     frontend_port: Option<u16>,
 ) -> Result<(u16, u16), String> {
     let backend_port = backend_port.unwrap_or(profile.backend_port);
-    let frontend_port = frontend_port.unwrap_or(profile.frontend_port);
+    let frontend_port = if is_store_distribution() {
+        backend_port
+    } else {
+        frontend_port.unwrap_or(profile.frontend_port)
+    };
     validate_port(backend_port, "API")?;
     validate_port(frontend_port, "UI")?;
-    if backend_port == frontend_port {
+    if !is_store_distribution() && backend_port == frontend_port {
         return Err("API and UI ports must be different.".into());
     }
     Ok((backend_port, frontend_port))
@@ -2476,13 +2790,18 @@ async fn get_node_major_version(_app: &tauri::AppHandle) -> Option<u32> {
 }
 
 #[tauri::command]
-async fn check_updates(app: tauri::AppHandle) -> Result<UpdateCheckResult, String> {
+async fn check_updates(
+    app: tauri::AppHandle,
+    overrides: Option<ToolOverrides>,
+) -> Result<UpdateCheckResult, String> {
     let launcher_version = env!("CARGO_PKG_VERSION").to_string();
 
     let app_data = app_data_dir(&app)?;
     let metadata = read_updater_metadata(&app_data);
 
-    let project_root_dir = project_root_handle(&app, &ToolOverrides::default()).ok();
+    let overrides = overrides.unwrap_or_default();
+    let project_root_dir = project_root_handle(&app, &overrides).ok();
+    println!("DEBUG check_updates: project_root_dir={:?}, metadata.current_version={:?}, overrides.project_path={:?}", project_root_dir, metadata.current_version, overrides.project_path);
     let current_app_version = metadata
         .current_version
         .clone()
@@ -2492,6 +2811,23 @@ async fn check_updates(app: tauri::AppHandle) -> Result<UpdateCheckResult, Strin
                 .and_then(|p| read_version_from_package_json(p))
         })
         .unwrap_or_else(|| "2.2.0".to_string());
+    println!("DEBUG check_updates: resolved current_app_version={}", current_app_version);
+
+    if is_store_distribution() {
+        return Ok(UpdateCheckResult {
+            current_app_version: current_app_version.clone(),
+            latest_app_version: current_app_version,
+            current_launcher_version: launcher_version.clone(),
+            latest_launcher_version: launcher_version,
+            app_release_notes: Some(
+                "HomeInventory Local updates are delivered through Microsoft Store.".to_string(),
+            ),
+            launcher_release_notes: None,
+            app_update_available: false,
+            launcher_update_available: false,
+            required_actions: Vec::new(),
+        });
+    }
 
     let latest_launcher_version = launcher_version.clone();
     let launcher_update_available = false;
@@ -2567,7 +2903,16 @@ async fn check_updates(app: tauri::AppHandle) -> Result<UpdateCheckResult, Strin
 async fn update_all(
     app: tauri::AppHandle,
     state: tauri::State<'_, LauncherState>,
+    overrides: Option<ToolOverrides>,
 ) -> Result<CommandResult, String> {
+    if is_store_distribution() {
+        return Ok(CommandResult {
+            ok: true,
+            message: "HomeInventory Local updates are delivered through Microsoft Store."
+                .to_string(),
+        });
+    }
+
     {
         let mut updating = state.updating.lock().map_err(|_| "State lock failed")?;
         if *updating {
@@ -2577,10 +2922,11 @@ async fn update_all(
     }
 
     let app_clone = app.clone();
+    let overrides = overrides.unwrap_or_default();
 
     tauri::async_runtime::spawn(async move {
         let state_clone = app_clone.state::<LauncherState>();
-        if let Err(e) = run_update_flow(&app_clone, &state_clone).await {
+        if let Err(e) = run_update_flow(&app_clone, &state_clone, overrides.clone()).await {
             emit_progress(
                 &app_clone,
                 "Failed",
@@ -2588,7 +2934,7 @@ async fn update_all(
                 1.0,
                 Some(e.clone()),
             );
-            if let Err(rollback_err) = run_rollback_flow(&app_clone, &state_clone).await {
+            if let Err(rollback_err) = run_rollback_flow(&app_clone, &state_clone, overrides).await {
                 emit_progress(
                     &app_clone,
                     "RollbackFailed",
@@ -2626,7 +2972,11 @@ async fn update_all(
     })
 }
 
-async fn run_update_flow(app: &tauri::AppHandle, state: &LauncherState) -> Result<(), String> {
+async fn run_update_flow(
+    app: &tauri::AppHandle,
+    state: &LauncherState,
+    overrides: ToolOverrides,
+) -> Result<(), String> {
     let app_data = app_data_dir(app)?;
     let mut metadata = read_updater_metadata(&app_data);
 
@@ -2749,10 +3099,14 @@ async fn run_update_flow(app: &tauri::AppHandle, state: &LauncherState) -> Resul
         0.6,
         None,
     );
-    let target_version_dir = app_data
-        .join("managed-app")
-        .join("versions")
-        .join(&manifest.version);
+    let target_version_dir = if let Some(ref path) = overrides.project_path.as_ref().filter(|p| !p.trim().is_empty()) {
+        PathBuf::from(path)
+    } else {
+        app_data
+            .join("managed-app")
+            .join("versions")
+            .join(&manifest.version)
+    };
     let _ = fs::remove_dir_all(&target_version_dir);
     if let Some(parent) = target_version_dir.parent() {
         fs::create_dir_all(parent).map_err(|e| e.to_string())?;
@@ -2767,7 +3121,7 @@ async fn run_update_flow(app: &tauri::AppHandle, state: &LauncherState) -> Resul
         0.7,
         None,
     );
-    run_dependency_install(app, &target_version_dir, &manifest)?;
+    run_dependency_install(app, &target_version_dir, &manifest, &overrides)?;
 
     let previous_current = metadata.current_version.clone();
     if metadata.last_known_good_version.is_none() {
@@ -2786,7 +3140,7 @@ async fn run_update_flow(app: &tauri::AppHandle, state: &LauncherState) -> Resul
     write_updater_metadata(&app_data, &metadata)?;
 
     emit_progress(app, "Starting", "Starting updated services...", 0.8, None);
-    start_profile_internal(app, state, "homeinventory", None, None, None)?;
+    start_profile_internal(app, state, "homeinventory", None, None, Some(overrides.clone()))?;
 
     emit_progress(
         app,
@@ -2842,7 +3196,7 @@ async fn run_update_flow(app: &tauri::AppHandle, state: &LauncherState) -> Resul
     Ok(())
 }
 
-async fn run_rollback_flow(app: &tauri::AppHandle, state: &LauncherState) -> Result<(), String> {
+async fn run_rollback_flow(app: &tauri::AppHandle, state: &LauncherState, overrides: ToolOverrides) -> Result<(), String> {
     emit_progress(app, "RollingBack", "Stopping active services...", 0.1, None);
     let _ = stop_all_internal(state);
 
@@ -2866,7 +3220,7 @@ async fn run_rollback_flow(app: &tauri::AppHandle, state: &LauncherState) -> Res
                 0.5,
                 None,
             );
-            start_profile_internal(app, state, "homeinventory", None, None, None)?;
+            start_profile_internal(app, state, "homeinventory", None, None, Some(overrides))?;
             return Ok(());
         }
     };
@@ -2908,7 +3262,7 @@ async fn run_rollback_flow(app: &tauri::AppHandle, state: &LauncherState) -> Res
         client_install: true,
         signature: "".into(),
     };
-    run_dependency_install(app, &target_dir, &mock_manifest)?;
+    run_dependency_install(app, &target_dir, &mock_manifest, &overrides)?;
 
     emit_progress(
         app,
@@ -2917,7 +3271,7 @@ async fn run_rollback_flow(app: &tauri::AppHandle, state: &LauncherState) -> Res
         0.8,
         None,
     );
-    start_profile_internal(app, state, "homeinventory", None, None, None)?;
+    start_profile_internal(app, state, "homeinventory", None, None, Some(overrides))?;
 
     emit_progress(app, "RollingBack", "Running health checks...", 0.9, None);
     run_health_checks(app, 3001, 5173).await?;
@@ -3006,10 +3360,30 @@ fn run_dependency_install(
     app: &tauri::AppHandle,
     target_dir: &Path,
     manifest: &AppManifest,
+    overrides: &ToolOverrides,
 ) -> Result<(), String> {
-    let envs = resolved_command_env();
-    let overrides = ToolOverrides::default();
-    let tools = resolve_tools(app, &envs, &overrides);
+    let mut envs = resolved_command_env();
+    let tools = resolve_tools(app, &envs, overrides);
+    if let Some(node_path_str) = &tools.node_path {
+        if let Some(node_bin_dir) = Path::new(node_path_str).parent() {
+            let path_key = if cfg!(windows) {
+                envs.keys()
+                    .find(|k| k.eq_ignore_ascii_case("PATH"))
+                    .cloned()
+                    .unwrap_or_else(|| "PATH".to_string())
+            } else {
+                "PATH".to_string()
+            };
+            let current_path = envs.get(&path_key).cloned().unwrap_or_default();
+            let new_path = if current_path.is_empty() {
+                path_string(node_bin_dir)
+            } else {
+                let sep = if cfg!(windows) { ";" } else { ":" };
+                format!("{}{}{}", path_string(node_bin_dir), sep, current_path)
+            };
+            envs.insert(path_key, new_path);
+        }
+    }
     let npm = tools
         .npm_path
         .ok_or_else(|| "npm path not found".to_string())?;

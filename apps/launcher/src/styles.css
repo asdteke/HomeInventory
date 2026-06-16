@@ -627,7 +627,7 @@ button:disabled { cursor: not-allowed; opacity: 0.5; }
 }
 .btn-outline:active { transform: translateY(0); }
 
-.action-stack { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+.action-stack { display: flex; flex-direction: column; gap: 14px; width: 100%; }
 
 .launch-notice {
   width: 100%;
@@ -771,14 +771,6 @@ button:disabled { cursor: not-allowed; opacity: 0.5; }
   box-shadow: 0 0 0 5px rgba(139, 193, 150, 0.1);
 }
 
-.running-url {
-  max-width: min(100%, 390px); color: var(--hi-text-muted);
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 11px; text-decoration: none;
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-}
-.running-url:hover { color: var(--hi-text-soft); }
-
 .running-qr {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   width: min(100%, 372px);
@@ -818,8 +810,50 @@ button:disabled { cursor: not-allowed; opacity: 0.5; }
   padding-top: 0;
 }
 
-.running-card > .btn-primary {
+.open-app-button {
   width: min(100%, 390px);
+  min-height: 50px;
+  padding: 0 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(139, 193, 150, 0.28);
+  background:
+    linear-gradient(180deg, rgba(116, 169, 135, 0.96), rgba(83, 139, 108, 0.96));
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0;
+  box-shadow:
+    0 16px 34px rgba(47, 91, 66, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition: transform var(--hi-transition), box-shadow var(--hi-transition), border-color var(--hi-transition);
+}
+
+.open-app-button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(176, 221, 187, 0.44);
+  box-shadow:
+    0 20px 42px rgba(47, 91, 66, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.open-app-button:active {
+  transform: translateY(0);
+  box-shadow:
+    0 10px 22px rgba(47, 91, 66, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.open-app-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.14);
 }
 
 .icon-action {

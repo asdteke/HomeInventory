@@ -56,9 +56,25 @@ const getJwtSecret = () => {
     return jwtSecret;
 };
 
+export function shouldUseSecureCookies() {
+    const explicit = String(process.env.APP_COOKIE_SECURE || '').trim().toLowerCase();
+    if (['true', '1', 'yes', 'on'].includes(explicit)) {
+        return true;
+    }
+    if (['false', '0', 'no', 'off'].includes(explicit)) {
+        return false;
+    }
+
+    if (process.env.HOMEINVENTORY_LOCAL_HTTP === 'true') {
+        return false;
+    }
+
+    return process.env.NODE_ENV === 'production';
+}
+
 export const cookieOptions = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: shouldUseSecureCookies(),
     sameSite: 'lax',
     maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
 };
