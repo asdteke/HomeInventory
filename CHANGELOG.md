@@ -2,6 +2,17 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.2.3 - Launcher Local Branding Patch
+
+### Highlights
+
+- **Launcher branding fallback fixed:** Prevented local launcher URLs such as `127.0.0.1`, `0.0.0.0`, or IPv6 loopback addresses from being interpreted as the public brand name in the About screen and translated beta notices.
+- **Version metadata synchronized:** Updated root, client, launcher, Tauri, and Rust package metadata to `2.2.3` for this small patch release.
+
+### Upgrade Notes
+
+- Restart the desktop launcher or rebuild the client after pulling this release so the new branding fallback is compiled into the local app bundle.
+
 ## v2.2.0 - Launcher Release, Security Patch, and Packaging Verification
 
 ### Highlights

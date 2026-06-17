@@ -11,20 +11,33 @@ const CLIENT_PACKAGE_VERSION = JSON.parse(
 ).version;
 const DEFAULT_ASSET_VERSION = '20260519-pwa-assets';
 const PWA_CACHE_PREFIX = 'home-inventory-static';
+const DEFAULT_BRAND_NAME = 'HomeInventory';
+
+function isIpAddress(siteHost) {
+    const host = String(siteHost || '').trim().replace(/^\[|\]$/g, '');
+    return /^\d{1,3}(?:\.\d{1,3}){3}$/.test(host) || (
+        host.includes(':') && /^[0-9a-f:]+$/i.test(host)
+    );
+}
+
+function isLocalOrIpHost(siteHost) {
+    const host = String(siteHost || '').trim().toLocaleLowerCase('en-US');
+    return !host || host === 'localhost' || host.endsWith('.localhost') || isIpAddress(host);
+}
 
 function deriveBrandName(siteHost) {
-    if (!siteHost || /(^|\.)localhost$/.test(siteHost)) {
-        return 'Inventory';
+    if (isLocalOrIpHost(siteHost)) {
+        return DEFAULT_BRAND_NAME;
     }
 
     if (siteHost === 'homeinventory.net.tr') {
-        return 'HomeInventory';
+        return DEFAULT_BRAND_NAME;
     }
 
     const [label] = siteHost.split('.');
     const normalized = label.replace(/[-_]+/g, ' ').trim();
     if (!normalized) {
-        return 'Inventory';
+        return DEFAULT_BRAND_NAME;
     }
 
     return normalized.charAt(0).toUpperCase() + normalized.slice(1);
@@ -379,7 +392,7 @@ export default defineConfig(({ command, mode }) => {
     ).trim();
     const supportEmail = String(
         env.SUPPORT_EMAIL ||
-        (derivedHost && !/(^|\.)localhost$/.test(derivedHost) ? `support@${derivedHost}` : 'support@example.com')
+        (!isLocalOrIpHost(derivedHost) ? `support@${derivedHost}` : 'support@example.com')
     ).trim();
     const metaDescription = `${brandName} - Evinizin tum esyalarini akillica yonetin`;
     const logoFullDarkPath = String(env.APP_BRAND_LOGO_FULL_DARK || '/brand/logo-full-dark.svg').trim();

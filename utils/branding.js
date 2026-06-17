@@ -3,31 +3,44 @@ const SITE_URL = String(
     process.env.INDEXNOW_BASE_URL ||
     ''
 ).trim();
+const DEFAULT_BRAND_NAME = 'HomeInventory';
+
+function isIpAddress(siteHost) {
+    const host = String(siteHost || '').trim().replace(/^\[|\]$/g, '');
+    return /^\d{1,3}(?:\.\d{1,3}){3}$/.test(host) || (
+        host.includes(':') && /^[0-9a-f:]+$/i.test(host)
+    );
+}
+
+function isLocalOrIpHost(siteHost) {
+    const host = String(siteHost || '').trim().toLocaleLowerCase('en-US');
+    return !host || host === 'localhost' || host.endsWith('.localhost') || isIpAddress(host);
+}
 
 // Runtime branding is intentionally deployment-driven in the v2 release line.
 function deriveBrandName() {
     try {
         const host = new URL(SITE_URL).hostname.replace(/^www\./, '');
-        if (!host || /(^|\.)localhost$/.test(host)) {
-            return 'Inventory';
+        if (isLocalOrIpHost(host)) {
+            return DEFAULT_BRAND_NAME;
         }
 
         const [label] = host.split('.');
         const normalized = label.replace(/[-_]+/g, ' ').trim();
         if (!normalized) {
-            return 'Inventory';
+            return DEFAULT_BRAND_NAME;
         }
 
         return normalized.charAt(0).toUpperCase() + normalized.slice(1);
     } catch {
-        return 'Inventory';
+        return DEFAULT_BRAND_NAME;
     }
 }
 
 function deriveSupportEmail() {
     try {
         const host = new URL(SITE_URL).hostname.replace(/^www\./, '');
-        if (host && !/(^|\.)localhost$/.test(host)) {
+        if (!isLocalOrIpHost(host)) {
             return `support@${host}`;
         }
     } catch {

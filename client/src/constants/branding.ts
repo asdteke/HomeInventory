@@ -29,15 +29,31 @@ function resolveSiteHost(siteUrl: string): string {
     }
 }
 
+function isIpAddress(siteHost: string): boolean {
+    const host = String(siteHost || '').trim().replace(/^\[|\]$/g, '');
+    return /^\d{1,3}(?:\.\d{1,3}){3}$/.test(host) || (
+        host.includes(':') && /^[0-9a-f:]+$/i.test(host)
+    );
+}
+
+function isLocalOrIpHost(siteHost: string): boolean {
+    const host = String(siteHost || '').trim().toLocaleLowerCase('en-US');
+    return !host || host === 'localhost' || host.endsWith('.localhost') || isIpAddress(host);
+}
+
 function deriveBrandName(siteHost: string): string {
-    if (!siteHost || /(^|\.)localhost$/.test(siteHost)) {
-        return 'Inventory';
+    if (isLocalOrIpHost(siteHost)) {
+        return 'HomeInventory';
+    }
+
+    if (siteHost === 'homeinventory.net.tr') {
+        return 'HomeInventory';
     }
 
     const [label] = siteHost.split('.');
     const normalized = label.replace(/[-_]+/g, ' ').trim();
     if (!normalized) {
-        return 'Inventory';
+        return 'HomeInventory';
     }
 
     return normalized.charAt(0).toUpperCase() + normalized.slice(1);
@@ -103,7 +119,7 @@ export const PRIVACY_COMPLAINT_AUTHORITY = (
 export const SUPPORT_EMAIL = (
     typeof __APP_SUPPORT_EMAIL__ === 'string' && __APP_SUPPORT_EMAIL__.trim()
         ? __APP_SUPPORT_EMAIL__.trim()
-        : (BRAND_HOST && !/(^|\.)localhost$/.test(BRAND_HOST) ? `support@${BRAND_HOST}` : 'support@example.com')
+        : (!isLocalOrIpHost(BRAND_HOST) ? `support@${BRAND_HOST}` : 'support@example.com')
 );
 
 export const APP_VERSION = (
