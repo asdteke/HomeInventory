@@ -1113,17 +1113,12 @@ fn build_snapshot(
 
     let launcher_version = env!("CARGO_PKG_VERSION").to_string();
     let metadata = read_updater_metadata(&app_data_dir);
-    println!("DEBUG build_snapshot: project_root={:?}, metadata.current_version={:?}, overrides.project_path={:?}", project_root, metadata.current_version, overrides.project_path);
-    let app_version = metadata
-        .current_version
-        .clone()
-        .or_else(|| {
-            project_root
-                .as_ref()
-                .and_then(|root| read_version_from_package_json(root))
-        })
-        .unwrap_or_else(|| "2.2.2".to_string());
-    println!("DEBUG build_snapshot: resolved app_version={}", app_version);
+    let app_version = resolve_current_app_version(
+        &app_data_dir,
+        &metadata,
+        project_root.as_deref(),
+        &launcher_version,
+    );
 
     Ok(LauncherSnapshot {
         project_root: project_root
@@ -2720,6 +2715,54 @@ fn write_updater_metadata(
     Ok(())
 }
 
+fn managed_version_dir(app_data_dir: &Path, version: &str) -> PathBuf {
+    app_data_dir
+        .join("managed-app")
+        .join("versions")
+        .join(version)
+}
+
+fn managed_version_exists(app_data_dir: &Path, version: &str) -> bool {
+    managed_version_dir(app_data_dir, version).is_dir()
+}
+
+fn resolve_rollback_target(
+    app_data_dir: &Path,
+    metadata: &mut AppUpdaterMetadata,
+) -> Option<String> {
+    if let Some(last_known_good) = metadata.last_known_good_version.clone() {
+        if managed_version_exists(app_data_dir, &last_known_good) {
+            return Some(last_known_good);
+        }
+        metadata.last_known_good_version = None;
+    }
+
+    metadata
+        .previous_versions
+        .retain(|version| managed_version_exists(app_data_dir, version));
+
+    metadata.previous_versions.last().cloned()
+}
+
+fn resolve_current_app_version(
+    app_data_dir: &Path,
+    metadata: &AppUpdaterMetadata,
+    project_root: Option<&Path>,
+    fallback_version: &str,
+) -> String {
+    if let Some(current_version) = metadata.current_version.as_deref() {
+        let version_dir = managed_version_dir(app_data_dir, current_version);
+        if version_dir.is_dir() {
+            return read_version_from_package_json(&version_dir)
+                .unwrap_or_else(|| current_version.to_string());
+        }
+    }
+
+    project_root
+        .and_then(read_version_from_package_json)
+        .unwrap_or_else(|| fallback_version.to_string())
+}
+
 fn verify_manifest_signature(manifest: &AppManifest) -> Result<(), String> {
     if manifest.signature == "unsigned" || manifest.signature.is_empty() {
         return Ok(());
@@ -2820,17 +2863,12 @@ async fn check_updates(
 
     let overrides = overrides.unwrap_or_default();
     let project_root_dir = project_root_handle(&app, &overrides).ok();
-    println!("DEBUG check_updates: project_root_dir={:?}, metadata.current_version={:?}, overrides.project_path={:?}", project_root_dir, metadata.current_version, overrides.project_path);
-    let current_app_version = metadata
-        .current_version
-        .clone()
-        .or_else(|| {
-            project_root_dir
-                .as_ref()
-                .and_then(|p| read_version_from_package_json(p))
-        })
-        .unwrap_or_else(|| "2.2.2".to_string());
-    println!("DEBUG check_updates: resolved current_app_version={}", current_app_version);
+    let current_app_version = resolve_current_app_version(
+        &app_data,
+        &metadata,
+        project_root_dir.as_deref(),
+        &launcher_version,
+    );
 
     if is_store_distribution() {
         return Ok(UpdateCheckResult {
@@ -3222,20 +3260,16 @@ async fn run_rollback_flow(app: &tauri::AppHandle, state: &LauncherState, overri
     let app_data = app_data_dir(app)?;
     let mut metadata = read_updater_metadata(&app_data);
 
-    let target_version = match metadata.last_known_good_version.clone().or_else(|| {
-        metadata.previous_versions.iter().rev().find_map(|version| {
-            let target_dir = app_data.join("managed-app").join("versions").join(version);
-            target_dir.exists().then(|| version.clone())
-        })
-    }) {
+    let target_version = match resolve_rollback_target(&app_data, &mut metadata) {
         Some(v) => v,
         None => {
             metadata.current_version = None;
+            metadata.last_known_good_version = None;
             let _ = write_updater_metadata(&app_data, &metadata);
             emit_progress(
                 app,
                 "RollingBack",
-                "No last known good version found. Reverting to development workspace...",
+                "No usable last known good version found. Reverting to development workspace...",
                 0.5,
                 None,
             );
@@ -3251,19 +3285,25 @@ async fn run_rollback_flow(app: &tauri::AppHandle, state: &LauncherState, overri
         0.3,
         None,
     );
-    metadata.current_version = Some(target_version.clone());
-    write_updater_metadata(&app_data, &metadata)?;
-
-    let target_dir = app_data
-        .join("managed-app")
-        .join("versions")
-        .join(&target_version);
+    let target_dir = managed_version_dir(&app_data, &target_version);
     if !target_dir.exists() {
-        return Err(format!(
-            "Rollback failed: last known good version directory does not exist: {:?}",
-            target_dir
-        ));
+        metadata.current_version = None;
+        metadata.last_known_good_version = None;
+        metadata.previous_versions.retain(|version| version != &target_version);
+        let _ = write_updater_metadata(&app_data, &metadata);
+        emit_progress(
+            app,
+            "RollingBack",
+            "Last known good version disappeared. Reverting to development workspace...",
+            0.5,
+            None,
+        );
+        start_profile_internal(app, state, "homeinventory", None, None, Some(overrides))?;
+        return Ok(());
     }
+    metadata.current_version = Some(target_version.clone());
+    metadata.last_known_good_version = Some(target_version.clone());
+    write_updater_metadata(&app_data, &metadata)?;
 
     emit_progress(
         app,
@@ -3665,6 +3705,106 @@ mod updater_tests {
         assert!(versions_dir.join("2.1.0").exists());
         assert!(!versions_dir.join("2.0.0").exists());
         assert_eq!(metadata.previous_versions, vec!["2.1.0", "2.2.0"]);
+
+        let _ = fs::remove_dir_all(app_data);
+    }
+
+    #[test]
+    fn test_resolve_rollback_target_skips_missing_last_known_good() {
+        let app_data = std::env::temp_dir().join(format!("hi-updater-rollback-test-{}", now()));
+        let versions_dir = app_data.join("managed-app").join("versions");
+        fs::create_dir_all(versions_dir.join("2.2.1")).unwrap();
+
+        let mut metadata = AppUpdaterMetadata {
+            current_version: Some("2.2.3".to_string()),
+            previous_versions: vec![
+                "2.2.0".to_string(),
+                "2.2.1".to_string(),
+                "2.2.2".to_string(),
+            ],
+            last_known_good_version: Some("2.2.2".to_string()),
+            update_state: String::new(),
+            rollback_state: String::new(),
+        };
+
+        let target = resolve_rollback_target(&app_data, &mut metadata);
+
+        assert_eq!(target, Some("2.2.1".to_string()));
+        assert_eq!(metadata.last_known_good_version, None);
+        assert_eq!(metadata.previous_versions, vec!["2.2.1".to_string()]);
+
+        let _ = fs::remove_dir_all(app_data);
+    }
+
+    #[test]
+    fn test_resolve_rollback_target_returns_none_when_no_versions_exist() {
+        let app_data = std::env::temp_dir().join(format!("hi-updater-empty-rollback-test-{}", now()));
+
+        let mut metadata = AppUpdaterMetadata {
+            current_version: Some("2.2.3".to_string()),
+            previous_versions: vec!["2.2.2".to_string()],
+            last_known_good_version: Some("2.2.2".to_string()),
+            update_state: String::new(),
+            rollback_state: String::new(),
+        };
+
+        let target = resolve_rollback_target(&app_data, &mut metadata);
+
+        assert_eq!(target, None);
+        assert_eq!(metadata.last_known_good_version, None);
+        assert!(metadata.previous_versions.is_empty());
+
+        let _ = fs::remove_dir_all(app_data);
+    }
+
+    #[test]
+    fn test_resolve_current_app_version_ignores_missing_metadata_version() {
+        let app_data = std::env::temp_dir().join(format!("hi-current-version-test-{}", now()));
+        let project_root = app_data.join("workspace");
+        fs::create_dir_all(&project_root).unwrap();
+        fs::write(
+            project_root.join("package.json"),
+            r#"{"name":"home-inventory","version":"2.2.3"}"#,
+        )
+        .unwrap();
+
+        let metadata = AppUpdaterMetadata {
+            current_version: Some("2.2.2".to_string()),
+            previous_versions: vec![],
+            last_known_good_version: Some("2.2.2".to_string()),
+            update_state: String::new(),
+            rollback_state: String::new(),
+        };
+
+        let version = resolve_current_app_version(&app_data, &metadata, Some(&project_root), "2.2.3");
+
+        assert_eq!(version, "2.2.3");
+
+        let _ = fs::remove_dir_all(app_data);
+    }
+
+    #[test]
+    fn test_resolve_current_app_version_reads_existing_managed_version() {
+        let app_data = std::env::temp_dir().join(format!("hi-managed-current-version-test-{}", now()));
+        let version_dir = app_data.join("managed-app").join("versions").join("2.2.3");
+        fs::create_dir_all(&version_dir).unwrap();
+        fs::write(
+            version_dir.join("package.json"),
+            r#"{"name":"home-inventory","version":"2.2.3"}"#,
+        )
+        .unwrap();
+
+        let metadata = AppUpdaterMetadata {
+            current_version: Some("2.2.3".to_string()),
+            previous_versions: vec![],
+            last_known_good_version: Some("2.2.3".to_string()),
+            update_state: String::new(),
+            rollback_state: String::new(),
+        };
+
+        let version = resolve_current_app_version(&app_data, &metadata, None, "2.2.0");
+
+        assert_eq!(version, "2.2.3");
 
         let _ = fs::remove_dir_all(app_data);
     }
