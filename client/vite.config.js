@@ -235,6 +235,54 @@ self.addEventListener('fetch', (event) => {
 `;
 }
 
+const PRECACHE_EMITTED_ASSET_EXCLUDES = new Set([
+    '/sw.js',
+    '/manifest.webmanifest',
+    '/manifest-light.webmanifest',
+    '/manifest-dark.webmanifest'
+]);
+
+export function collectPrecacheBundleUrls(bundle) {
+    const bundleByFileName = new Map(
+        Object.values(bundle).map((file) => [file.fileName, file])
+    );
+    const entryBundleUrls = new Set();
+
+    const includeStaticImports = (fileName, seen = new Set()) => {
+        if (seen.has(fileName)) {
+            return;
+        }
+        seen.add(fileName);
+
+        const file = bundleByFileName.get(fileName);
+        if (!file || file.type !== 'chunk') {
+            return;
+        }
+
+        entryBundleUrls.add(`/${file.fileName}`);
+        for (const importedFileName of file.imports || []) {
+            includeStaticImports(importedFileName, seen);
+        }
+    };
+
+    for (const file of Object.values(bundle)) {
+        if (file.type === 'chunk' && file.isEntry) {
+            includeStaticImports(file.fileName);
+        }
+    }
+
+    const staticAssetUrls = Object.values(bundle)
+        .filter((file) => file.type === 'asset')
+        .map((file) => `/${file.fileName}`)
+        .filter((pathname) => !pathname.endsWith('.map'))
+        .filter((pathname) => !PRECACHE_EMITTED_ASSET_EXCLUDES.has(pathname));
+
+    return Array.from(new Set([
+        ...entryBundleUrls,
+        ...staticAssetUrls
+    ])).sort();
+}
+
 function createPwaPlugin({
     brandName,
     description,
@@ -305,14 +353,9 @@ function createPwaPlugin({
             server.middlewares.use('/manifest-dark.webmanifest', serveManifest(manifestSources.dark));
         },
         generateBundle(_outputOptions, bundle) {
-            const builtAssetUrls = Object.values(bundle)
-                .map((file) => `/${file.fileName}`)
-                .filter((pathname) => !pathname.endsWith('.map'))
-                .filter((pathname) => !['/sw.js', '/manifest.webmanifest', '/manifest-light.webmanifest', '/manifest-dark.webmanifest'].includes(pathname));
-
             const precacheUrls = Array.from(new Set([
                 ...publicPrecacheUrls,
-                ...builtAssetUrls
+                ...collectPrecacheBundleUrls(bundle)
             ])).sort();
 
             this.emitFile({

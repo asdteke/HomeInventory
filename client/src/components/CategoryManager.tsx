@@ -31,8 +31,10 @@ import IconActionButton from './IconActionButton';
 import { ConfirmDialog } from './ModalDialog';
 import { getCategoryPresentation } from '../utils/categoryDisplay';
 import { BRAND_NAME } from '../constants/branding';
+import { invalidateCache } from '../utils/apiCache';
 
 const DEFAULT_CATEGORY_COLOR = BRAND_NAME === 'HomeInventory' ? '#129e9a' : '#6f9978';
+const ITEM_CACHE_PATTERN = /^\/api\/items/;
 
 interface CategoryIconOption {
     value: string;
@@ -144,6 +146,8 @@ export default function CategoryManager() {
             } else {
                 await axios.post('/api/categories', formData);
             }
+            invalidateCache('/api/categories');
+            invalidateCache(ITEM_CACHE_PATTERN);
             fetchCategories();
             resetForm();
         } catch (err: any) {
@@ -166,6 +170,8 @@ export default function CategoryManager() {
         setError('');
         try {
             await axios.delete(`/api/categories/${pendingDeleteCategory.id}`);
+            invalidateCache('/api/categories');
+            invalidateCache(ITEM_CACHE_PATTERN);
             setCategories((currentCategories) => currentCategories.filter((category) => category.id !== pendingDeleteCategory.id));
             setToast({
                 title: t('categories.delete_success_title', { defaultValue: 'Category deleted' }),

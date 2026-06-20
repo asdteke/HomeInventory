@@ -60,15 +60,20 @@ function readDismissedStockSuggestionSignature() {
 
 import { fetchWithCache, getCachedData, hasCache, invalidateCache } from '../utils/apiCache';
 
+const SHOPPING_URL = '/api/shopping';
+const ITEM_OPTIONS_URL = '/api/items/options';
+const ITEM_CACHE_PATTERN = /^\/api\/items/;
+const DASHBOARD_SUMMARY_URL = '/api/items/dashboard-summary';
+
 export default function ShoppingListPage() {
     const { t } = useTranslation();
 
     // Initialize states from SWR cache
-    const [items, setItems] = useState<ShoppingItem[]>(() => getCachedData('/api/shopping')?.items || []);
-    const [suggestions, setSuggestions] = useState<SuggestionItem[]>(() => getCachedData('/api/shopping')?.suggestions || []);
-    const [inventoryItems, setInventoryItems] = useState<InventoryItem[]>(() => getCachedData('/api/items')?.items || []);
+    const [items, setItems] = useState<ShoppingItem[]>(() => getCachedData(SHOPPING_URL)?.items || []);
+    const [suggestions, setSuggestions] = useState<SuggestionItem[]>(() => getCachedData(SHOPPING_URL)?.suggestions || []);
+    const [inventoryItems, setInventoryItems] = useState<InventoryItem[]>(() => getCachedData(ITEM_OPTIONS_URL)?.items || []);
 
-    const isInitiallyLoaded = hasCache('/api/shopping') && hasCache('/api/items');
+    const isInitiallyLoaded = hasCache(SHOPPING_URL) && hasCache(ITEM_OPTIONS_URL);
     const [loading, setLoading] = useState(!isInitiallyLoaded);
     const [completingIds, setCompletingIds] = useState<Set<number>>(new Set());
 
@@ -97,11 +102,11 @@ export default function ShoppingListPage() {
     const fetchShoppingData = async () => {
         try {
             await Promise.all([
-                fetchWithCache('/api/shopping', (data) => {
+                fetchWithCache(SHOPPING_URL, (data) => {
                     setItems(data.items || []);
                     setSuggestions(data.suggestions || []);
                 }),
-                fetchWithCache('/api/items', (data) => {
+                fetchWithCache(ITEM_OPTIONS_URL, (data) => {
                     setInventoryItems(data.items || []);
                 })
             ]);
@@ -168,6 +173,10 @@ export default function ShoppingListPage() {
             setItemName('');
             setSelectedItemId('');
             setQuantity(1);
+            invalidateCache(SHOPPING_URL);
+            if (payload.item_id) {
+                invalidateCache(DASHBOARD_SUMMARY_URL);
+            }
             fetchShoppingData();
         } catch (error) {
             console.error('Add manual item error:', error);
@@ -188,6 +197,8 @@ export default function ShoppingListPage() {
                 name: suggestion.item_name,
                 defaultValue: `"${suggestion.item_name}" alışveriş listesine eklendi.`
             }));
+            invalidateCache(SHOPPING_URL);
+            invalidateCache(DASHBOARD_SUMMARY_URL);
             fetchShoppingData();
         } catch (error) {
             console.error('Add suggestion error:', error);
@@ -204,6 +215,8 @@ export default function ShoppingListPage() {
                 count: res.data.addedCount,
                 defaultValue: `${res.data.addedCount} adet eksik stoklu ürün listeye eklendi.`
             }));
+            invalidateCache(SHOPPING_URL);
+            invalidateCache(DASHBOARD_SUMMARY_URL);
             fetchShoppingData();
         } catch (error) {
             console.error('Bulk add low stock error:', error);
@@ -245,8 +258,9 @@ export default function ShoppingListPage() {
                 is_completed: newStatus
             });
             if (item.item_id) {
-                invalidateCache(/^\/api\/items/);
+                invalidateCache(ITEM_CACHE_PATTERN);
             }
+            invalidateCache(SHOPPING_URL);
             fetchShoppingData();
             if (newStatus === 1) {
                 showToast(t('shopping.toast.completed', { name: item.item_name, defaultValue: `"${item.item_name}" alındı olarak işaretlendi.` }));
@@ -279,6 +293,10 @@ export default function ShoppingListPage() {
             await axios.put(`/api/shopping/${item.id}`, {
                 quantity: newQty
             });
+            if (item.item_id && item.is_completed === 1) {
+                invalidateCache(ITEM_CACHE_PATTERN);
+            }
+            invalidateCache(SHOPPING_URL);
             fetchShoppingData();
         } catch (error) {
             console.error('Update quantity error:', error);
@@ -291,6 +309,10 @@ export default function ShoppingListPage() {
         try {
             await axios.delete(`/api/shopping/${deletingItem.id}`);
             showToast(t('shopping.toast.deleted', { defaultValue: 'Ürün listeden silindi.' }));
+            if (deletingItem.item_id) {
+                invalidateCache(DASHBOARD_SUMMARY_URL);
+            }
+            invalidateCache(SHOPPING_URL);
             setDeletingItem(null);
             fetchShoppingData();
         } catch (error) {
@@ -305,6 +327,7 @@ export default function ShoppingListPage() {
             setLoading(true);
             await Promise.all(completedItems.map(item => axios.delete(`/api/shopping/${item.id}`)));
             showToast(t('shopping.toast.cleared_completed', { defaultValue: 'Alınan ürünler temizlendi.' }));
+            invalidateCache(SHOPPING_URL);
             fetchShoppingData();
         } catch (error) {
             console.error('Clear completed error:', error);

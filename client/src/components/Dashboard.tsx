@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import {
     ChevronRight,
@@ -25,6 +24,8 @@ import { getRoomPresentation } from '../utils/roomDisplay';
 interface DashboardStats {
     totalItems: number;
     totalQuantity: number;
+    sharedItemsCount?: number;
+    borrowedItemsCount?: number;
 }
 
 interface InventoryItem {
@@ -50,19 +51,17 @@ interface InventoryItem {
     is_low_stock?: boolean;
 }
 
-interface DashboardRoom {
-    id: number | string;
-    name: string;
+interface DashboardAlerts {
+    expiredItemIds?: number[];
+    closeToExpiryItemIds?: number[];
+    lowStockItemIds?: number[];
+    overdueMaintenanceTaskIds?: number[];
 }
 
-interface DashboardMaintenanceTask {
-    id: number;
-    is_overdue?: boolean;
-}
-
-interface DashboardShoppingItem {
-    item_id?: number | null;
-    is_completed?: number;
+interface DashboardSummary {
+    stats?: DashboardStats;
+    recentItems?: InventoryItem[];
+    alerts?: DashboardAlerts;
 }
 
 function formatItemDate(value: string | undefined, locale: string): string | null {
@@ -84,6 +83,7 @@ function formatItemDate(value: string | undefined, locale: string): string | nul
 import { fetchWithCache, getCachedData, hasCache } from '../utils/apiCache';
 
 const DISMISSED_DASHBOARD_ALERTS_KEY = 'dashboard_dismissed_alerts_v1';
+const DASHBOARD_SUMMARY_URL = '/api/items/dashboard-summary';
 
 function readDismissedDashboardAlerts(): Record<string, string> {
     if (typeof window === 'undefined') {
@@ -100,22 +100,14 @@ function readDismissedDashboardAlerts(): Record<string, string> {
 export default function Dashboard() {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation();
+    const cachedDashboardSummary = getCachedData(DASHBOARD_SUMMARY_URL) as DashboardSummary | null;
 
-    // Initialize state directly from the SWR cache if present
-    const [stats, setStats] = useState<DashboardStats | null>(() => getCachedData('/api/items/stats/summary'));
-    const [allItems, setAllItems] = useState<InventoryItem[]>(() => getCachedData('/api/items')?.items || []);
-    const [rooms, setRooms] = useState<DashboardRoom[]>(() => getCachedData('/api/rooms')?.rooms || []);
-    const [maintenanceTasks, setMaintenanceTasks] = useState<DashboardMaintenanceTask[]>(() => getCachedData('/api/maintenance')?.tasks || []);
-    const [shoppingItems, setShoppingItems] = useState<DashboardShoppingItem[]>(() => getCachedData('/api/shopping')?.items || []);
+    const [stats, setStats] = useState<DashboardStats | null>(() => cachedDashboardSummary?.stats || null);
+    const [recentDashboardItems, setRecentDashboardItems] = useState<InventoryItem[]>(() => cachedDashboardSummary?.recentItems || []);
+    const [dashboardAlerts, setDashboardAlerts] = useState<DashboardAlerts>(() => cachedDashboardSummary?.alerts || {});
     const [dismissedAlerts, setDismissedAlerts] = useState<Record<string, string>>(readDismissedDashboardAlerts);
 
-    // Check if everything is already cached to prevent showing the loading spinner
-    const isInitiallyLoaded = hasCache('/api/items/stats/summary') &&
-                               hasCache('/api/items') &&
-                               hasCache('/api/rooms') &&
-                               hasCache('/api/maintenance') &&
-                               hasCache('/api/shopping');
-    const [loading, setLoading] = useState<boolean>(!isInitiallyLoaded);
+    const [loading, setLoading] = useState<boolean>(!hasCache(DASHBOARD_SUMMARY_URL));
     const [searchQuery, setSearchQuery] = useState<string>('');
 
     useEffect(() => {
@@ -123,27 +115,15 @@ export default function Dashboard() {
 
         const fetchData = async () => {
             try {
-                await Promise.all([
-                    fetchWithCache('/api/items/stats/summary', (data) => {
-                        if (isMounted) setStats(data);
-                    }),
-                    fetchWithCache('/api/items', (data) => {
-                        if (isMounted) setAllItems(data.items || []);
-                    }),
-                    fetchWithCache('/api/rooms', (data) => {
-                        if (isMounted) setRooms(data.rooms || []);
-                    }),
-                    fetchWithCache('/api/maintenance', (data) => {
-                        if (isMounted) setMaintenanceTasks(data.tasks || []);
-                    }).catch(() => {
-                        if (isMounted) setMaintenanceTasks([]);
-                    }),
-                    fetchWithCache('/api/shopping', (data) => {
-                        if (isMounted) setShoppingItems(data.items || []);
-                    }).catch(() => {
-                        if (isMounted) setShoppingItems([]);
-                    })
-                ]);
+                await fetchWithCache(DASHBOARD_SUMMARY_URL, (data: DashboardSummary) => {
+                    if (!isMounted) {
+                        return;
+                    }
+
+                    setStats(data.stats || null);
+                    setRecentDashboardItems(data.recentItems || []);
+                    setDashboardAlerts(data.alerts || {});
+                });
             } catch (error) {
                 console.error('Error loading dashboard data:', error);
             } finally {
@@ -161,14 +141,14 @@ export default function Dashboard() {
     }, []);
 
     const recentItems = useMemo(() => {
-        return [...allItems]
+        return [...recentDashboardItems]
             .sort((a, b) => {
                 const dateA = new Date(a.created_at || a.createdAt || 0).getTime();
                 const dateB = new Date(b.created_at || b.createdAt || 0).getTime();
                 return dateB - dateA;
             })
             .slice(0, 5);
-    }, [allItems]);
+    }, [recentDashboardItems]);
 
     const locale = i18n.language || 'en';
     const resolveVisibleRoomName = (roomLike: { id?: number; name?: string } | null) => {
@@ -176,42 +156,31 @@ export default function Dashboard() {
             return '';
         }
 
-        const fullRoom = roomLike.id
-            ? rooms.find((room) => String(room.id) === String(roomLike.id))
-            : rooms.find((room) => String(room.name || '').trim() === String(roomLike.name || '').trim());
-
-        return getRoomPresentation(fullRoom || roomLike, locale).name;
+        return getRoomPresentation(roomLike, locale).name;
     };
 
-    const totalItems = typeof stats?.totalItems === 'number' ? stats.totalItems : allItems.length;
+    const totalItems = typeof stats?.totalItems === 'number' ? stats.totalItems : recentItems.length;
     const totalQuantity = typeof stats?.totalQuantity === 'number'
         ? stats.totalQuantity
-        : allItems.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
-    const sharedItemsCount = allItems.filter((item) => Number(item.is_public) === 1).length;
-    const borrowedItemsCount = allItems.filter((item) => item.active_borrow).length;
+        : recentItems.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
+    const sharedItemsCount = stats?.sharedItemsCount || 0;
+    const borrowedItemsCount = stats?.borrowedItemsCount || 0;
     const hasItems = totalItems > 0;
     const formattedTotalItems = formatNumberForLanguage(totalItems, locale);
     const formattedTotalQuantity = formatNumberForLanguage(totalQuantity, locale);
     const formattedSharedItems = formatNumberForLanguage(sharedItemsCount, locale);
     const formattedBorrowedItems = formatNumberForLanguage(borrowedItemsCount, locale);
 
-    const expiredItems = useMemo(() => allItems.filter(item => item.is_expired), [allItems]);
-    const closeToExpiryItems = useMemo(() => allItems.filter(item => !item.is_expired && item.is_close_to_expiry), [allItems]);
-    const activeShoppingItemIds = useMemo(() => new Set(
-        shoppingItems
-            .filter(item => Number(item.is_completed) === 0 && item.item_id)
-            .map(item => Number(item.item_id))
-    ), [shoppingItems]);
-    const lowStockItems = useMemo(() => allItems.filter(item => (
-        item.is_low_stock && !activeShoppingItemIds.has(Number(item.id))
-    )), [allItems, activeShoppingItemIds]);
-    const overdueTasks = useMemo(() => maintenanceTasks.filter(task => task.is_overdue), [maintenanceTasks]);
+    const expiredItemIds = dashboardAlerts.expiredItemIds || [];
+    const closeToExpiryItemIds = dashboardAlerts.closeToExpiryItemIds || [];
+    const lowStockItemIds = dashboardAlerts.lowStockItemIds || [];
+    const overdueMaintenanceTaskIds = dashboardAlerts.overdueMaintenanceTaskIds || [];
     const alertSignatures = useMemo(() => ({
-        expired: expiredItems.map(item => item.id).sort((a, b) => a - b).join(','),
-        maintenance: overdueTasks.map(task => task.id).sort((a, b) => a - b).join(','),
-        lowStock: lowStockItems.map(item => item.id).sort((a, b) => a - b).join(','),
-        closeToExpiry: closeToExpiryItems.map(item => item.id).sort((a, b) => a - b).join(',')
-    }), [expiredItems, overdueTasks, lowStockItems, closeToExpiryItems]);
+        expired: [...expiredItemIds].sort((a, b) => a - b).join(','),
+        maintenance: [...overdueMaintenanceTaskIds].sort((a, b) => a - b).join(','),
+        lowStock: [...lowStockItemIds].sort((a, b) => a - b).join(','),
+        closeToExpiry: [...closeToExpiryItemIds].sort((a, b) => a - b).join(',')
+    }), [expiredItemIds, overdueMaintenanceTaskIds, lowStockItemIds, closeToExpiryItemIds]);
 
     const isAlertDismissed = (alertId: keyof typeof alertSignatures) => (
         dismissedAlerts[alertId] === alertSignatures[alertId]
@@ -238,11 +207,11 @@ export default function Dashboard() {
             </button>
         </div>
     );
-    const showExpiredAlert = expiredItems.length > 0 && !isAlertDismissed('expired');
-    const showMaintenanceAlert = overdueTasks.length > 0 && !isAlertDismissed('maintenance');
-    const showLowStockAlert = lowStockItems.length > 0 && !isAlertDismissed('lowStock');
-    const showCloseToExpiryAlert = closeToExpiryItems.length > 0
-        && expiredItems.length === 0
+    const showExpiredAlert = expiredItemIds.length > 0 && !isAlertDismissed('expired');
+    const showMaintenanceAlert = overdueMaintenanceTaskIds.length > 0 && !isAlertDismissed('maintenance');
+    const showLowStockAlert = lowStockItemIds.length > 0 && !isAlertDismissed('lowStock');
+    const showCloseToExpiryAlert = closeToExpiryItemIds.length > 0
+        && expiredItemIds.length === 0
         && !isAlertDismissed('closeToExpiry');
     const hasVisibleAlerts = showExpiredAlert || showMaintenanceAlert || showLowStockAlert || showCloseToExpiryAlert;
 
@@ -335,7 +304,7 @@ export default function Dashboard() {
                             icon={AlertTriangle}
                             title={t('dashboard.alerts.expired_title', { defaultValue: 'Son Kullanma Tarihi Geçmiş Eşyalar Var!' })}
                             description={t('dashboard.alerts.expired_desc', {
-                                count: expiredItems.length,
+                                count: expiredItemIds.length,
                                 defaultValue: 'Envanterinizde son kullanma tarihi geçmiş {{count}} eşya bulunuyor. Güvenliğiniz için bunları kontrol edin.'
                             })}
                             action={renderAlertAction('expired',
@@ -352,7 +321,7 @@ export default function Dashboard() {
                             icon={Wrench}
                             title={t('dashboard.alerts.maintenance_title', { defaultValue: 'Gecikmiş Bakım Görevleri Var!' })}
                             description={t('dashboard.alerts.maintenance_desc', {
-                                count: overdueTasks.length,
+                                count: overdueMaintenanceTaskIds.length,
                                 defaultValue: 'Zamanı geçmiş {{count}} bakım görevi bulunuyor. Cihazlarınızın ömrünü uzatmak için bakımlarını yapın.'
                             })}
                             action={renderAlertAction('maintenance',
@@ -369,7 +338,7 @@ export default function Dashboard() {
                             icon={ShoppingCart}
                             title={t('dashboard.alerts.low_stock_title', { defaultValue: 'Azalan Stok Uyarısı' })}
                             description={t('dashboard.alerts.low_stock_desc', {
-                                count: lowStockItems.length,
+                                count: lowStockItemIds.length,
                                 defaultValue: '{{count}} ürün belirlediğiniz asgari stok limitinin altına düştü.'
                             })}
                             action={renderAlertAction('lowStock',
@@ -386,7 +355,7 @@ export default function Dashboard() {
                             icon={Calendar}
                             title={t('dashboard.alerts.close_expiry_title', { defaultValue: 'Yaklaşan Son Kullanma Tarihleri' })}
                             description={t('dashboard.alerts.close_expiry_desc', {
-                                count: closeToExpiryItems.length,
+                                count: closeToExpiryItemIds.length,
                                 defaultValue: '{{count}} ürünün son kullanma tarihi 30 gün içinde dolacak.'
                             })}
                             action={renderAlertAction('closeToExpiry',

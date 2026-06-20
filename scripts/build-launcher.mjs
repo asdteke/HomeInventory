@@ -1,5 +1,5 @@
 import { mkdirSync, readFileSync, rmSync } from 'node:fs';
-import { arch, platform } from 'node:os';
+import { arch, platform, tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -45,8 +45,12 @@ function macArchLabel() {
     return arch() === 'arm64' ? 'aarch64' : arch();
 }
 
-function createMacDmg() {
-    const appPath = resolve(bundleDir, 'macos/HomeInventory Launcher.app');
+function cleanStaleMacBundle() {
+    if (platform() !== 'darwin') return;
+    rmSync(resolve(bundleDir, 'macos/HomeInventory Launcher.app'), { recursive: true, force: true });
+}
+
+function createMacDmg(appPath, stagingDir) {
     const dmgDir = resolve(bundleDir, 'dmg');
     const dmgPath = resolve(dmgDir, `HomeInventory Launcher_${launcherPackage.version}_${macArchLabel()}.dmg`);
 
@@ -58,7 +62,7 @@ function createMacDmg() {
         '-volname',
         'HomeInventory Launcher',
         '-srcfolder',
-        appPath,
+        stagingDir,
         '-ov',
         '-format',
         'UDZO',
@@ -66,6 +70,30 @@ function createMacDmg() {
     ]);
 
     run('hdiutil', ['verify', dmgPath]);
+    rmSync(stagingDir, { recursive: true, force: true });
+}
+
+function verifyMacSignature(appPath) {
+    run('codesign', ['--verify', '--deep', '--strict', '--verbose=2', appPath]);
+    run('codesign', ['--display', '--verbose=4', appPath]);
+}
+
+function prepareMacAppForDistribution() {
+    const sourceAppPath = resolve(bundleDir, 'macos/HomeInventory Launcher.app');
+    const stagingDir = resolve(tmpdir(), 'homeinventory-launcher-dmg-staging');
+    const stagedAppPath = resolve(stagingDir, 'HomeInventory Launcher.app');
+    const executablePath = resolve(stagedAppPath, 'Contents/MacOS/homeinventory-launcher');
+
+    rmSync(stagingDir, { recursive: true, force: true });
+    mkdirSync(stagingDir, { recursive: true });
+    run('ditto', ['--noextattr', '--noqtn', sourceAppPath, stagedAppPath]);
+    run('xattr', ['-cr', stagedAppPath]);
+    run('codesign', ['--force', '--sign', '-', '--options', 'runtime', executablePath]);
+    run('xattr', ['-cr', stagedAppPath]);
+    run('codesign', ['--force', '--sign', '-', '--options', 'runtime', stagedAppPath]);
+    run('xattr', ['-cr', stagedAppPath]);
+
+    return { appPath: stagedAppPath, stagingDir };
 }
 
 function readManagedAppArchiveVersion() {
@@ -102,7 +130,12 @@ function verifyManagedAppArchiveVersion() {
 
 const bundles = defaultBundles();
 verifyManagedAppArchiveVersion();
-run('node', ['node_modules/@tauri-apps/cli/tauri.js', 'build', '--bundles', bundles], {
+cleanStaleMacBundle();
+const tauriArgs = ['node_modules/@tauri-apps/cli/tauri.js', 'build', '--bundles', bundles];
+if (platform() === 'darwin') {
+    tauriArgs.push('--config', JSON.stringify({ bundle: { macOS: { signingIdentity: null } } }));
+}
+run('node', tauriArgs, {
     cwd: launcherDir,
     env: {
         ...process.env,
@@ -111,5 +144,7 @@ run('node', ['node_modules/@tauri-apps/cli/tauri.js', 'build', '--bundles', bund
 });
 
 if (platform() === 'darwin' && bundles.split(',').map((value) => value.trim()).includes('app')) {
-    createMacDmg();
+    const staged = prepareMacAppForDistribution();
+    verifyMacSignature(staged.appPath);
+    createMacDmg(staged.appPath, staged.stagingDir);
 }

@@ -448,6 +448,18 @@ try {
     CREATE INDEX IF NOT EXISTS idx_items_barcode ON items(barcode);
     CREATE INDEX IF NOT EXISTS idx_items_barcode_lookup ON items(barcode_lookup);
     CREATE INDEX IF NOT EXISTS idx_items_house_key ON items(house_key);
+    CREATE INDEX IF NOT EXISTS idx_items_house_updated ON items(house_key, updated_at DESC, id DESC);
+    CREATE INDEX IF NOT EXISTS idx_items_house_created ON items(house_key, created_at DESC, id DESC);
+    CREATE INDEX IF NOT EXISTS idx_items_house_category_updated ON items(house_key, category_id, updated_at DESC, id DESC);
+    CREATE INDEX IF NOT EXISTS idx_items_house_room_updated ON items(house_key, room_id, updated_at DESC, id DESC);
+    CREATE INDEX IF NOT EXISTS idx_items_house_location_updated ON items(house_key, location_id, updated_at DESC, id DESC);
+    CREATE INDEX IF NOT EXISTS idx_items_house_barcode_lookup ON items(house_key, barcode_lookup);
+    CREATE INDEX IF NOT EXISTS idx_items_house_expiry ON items(house_key, expiry_date, id);
+    CREATE INDEX IF NOT EXISTS idx_items_house_stock ON items(house_key, min_quantity, quantity, id);
+    CREATE INDEX IF NOT EXISTS idx_items_house_photo_path ON items(house_key, photo_path);
+    CREATE INDEX IF NOT EXISTS idx_items_house_thumbnail_path ON items(house_key, thumbnail_path);
+    CREATE INDEX IF NOT EXISTS idx_items_house_invoice_photo_path ON items(house_key, invoice_photo_path);
+    CREATE INDEX IF NOT EXISTS idx_items_house_invoice_thumbnail_path ON items(house_key, invoice_thumbnail_path);
     CREATE INDEX IF NOT EXISTS idx_rooms_house_key ON rooms(house_key);
     CREATE INDEX IF NOT EXISTS idx_categories_house_key ON categories(house_key);
     CREATE INDEX IF NOT EXISTS idx_locations_room ON locations(room_id);
@@ -615,6 +627,7 @@ db.exec(`
   );
   CREATE INDEX IF NOT EXISTS idx_item_borrows_item ON item_borrows(item_id);
   CREATE INDEX IF NOT EXISTS idx_item_borrows_house ON item_borrows(house_key);
+  CREATE INDEX IF NOT EXISTS idx_item_borrows_house_returned_item ON item_borrows(house_key, returned_at, item_id);
   CREATE INDEX IF NOT EXISTS idx_item_borrows_borrower_user ON item_borrows(borrower_user_id);
   CREATE INDEX IF NOT EXISTS idx_item_borrows_due_date ON item_borrows(due_date);
   CREATE UNIQUE INDEX IF NOT EXISTS idx_item_borrows_active_item
@@ -804,6 +817,7 @@ db.exec(`
   );
   CREATE INDEX IF NOT EXISTS idx_item_maintenance_due ON item_maintenance(next_due_date);
   CREATE INDEX IF NOT EXISTS idx_item_maintenance_house ON item_maintenance(house_key);
+  CREATE INDEX IF NOT EXISTS idx_item_maintenance_house_due ON item_maintenance(house_key, next_due_date, id);
 `);
 
 // Create shopping_list table for inventory replenishment & custom shopping items
@@ -822,6 +836,8 @@ db.exec(`
     FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE
   );
   CREATE INDEX IF NOT EXISTS idx_shopping_list_house ON shopping_list(house_key);
+  CREATE INDEX IF NOT EXISTS idx_shopping_list_house_created ON shopping_list(house_key, created_at DESC, id DESC);
+  CREATE INDEX IF NOT EXISTS idx_shopping_list_house_completed_item ON shopping_list(house_key, is_completed, item_id);
 `);
 
 // Create borrow_request_blocks and borrow_request_attempts tables

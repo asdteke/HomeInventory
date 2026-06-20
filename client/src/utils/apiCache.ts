@@ -2,6 +2,13 @@ import axios from 'axios';
 
 // In-memory SWR (Stale-While-Revalidate) Cache for GET requests
 const cache: Record<string, { data: any; timestamp: number }> = {};
+const inFlightRequests: Record<string, Promise<any>> = {};
+const cacheVersions: Record<string, number> = {};
+
+function regexMatches(regex: RegExp, value: string): boolean {
+    regex.lastIndex = 0;
+    return regex.test(value);
+}
 
 /**
  * Checks if a URL is currently cached.
@@ -30,22 +37,38 @@ export async function fetchWithCache(
     onError?: (err: any) => void
 ): Promise<any> {
     const cached = cache[url];
+    const requestVersion = cacheVersions[url] || 0;
     if (cached) {
         onUpdate(cached.data);
     }
 
-    try {
-        const response = await axios.get(url);
-        const freshData = response.data;
+    if (!inFlightRequests[url]) {
+        const request = axios.get(url)
+            .then((response) => response.data)
+            .finally(() => {
+                if (inFlightRequests[url] === request) {
+                    delete inFlightRequests[url];
+                }
+            });
+        inFlightRequests[url] = request;
+    }
 
-        const isDifferent = !cached || JSON.stringify(cached.data) !== JSON.stringify(freshData);
+    try {
+        const freshData = await inFlightRequests[url];
+        if ((cacheVersions[url] || 0) !== requestVersion) {
+            return freshData;
+        }
+
+        const latestCached = cache[url];
+
+        const isDifferent = !latestCached || JSON.stringify(latestCached.data) !== JSON.stringify(freshData);
 
         cache[url] = {
             data: freshData,
             timestamp: Date.now()
         };
 
-        if (isDifferent) {
+        if (isDifferent || !cached) {
             onUpdate(freshData);
         }
 
@@ -63,16 +86,34 @@ export async function fetchWithCache(
  */
 export function invalidateCache(urlPattern?: string | RegExp): void {
     if (!urlPattern) {
+        const keys = new Set([
+            ...Object.keys(cache),
+            ...Object.keys(inFlightRequests),
+            ...Object.keys(cacheVersions)
+        ]);
         for (const key in cache) {
             delete cache[key];
+        }
+        for (const key in inFlightRequests) {
+            delete inFlightRequests[key];
+        }
+        for (const key of keys) {
+            cacheVersions[key] = (cacheVersions[key] || 0) + 1;
         }
         return;
     }
 
     const regex = typeof urlPattern === 'string' ? new RegExp(urlPattern) : urlPattern;
     for (const key in cache) {
-        if (regex.test(key)) {
+        if (regexMatches(regex, key)) {
             delete cache[key];
+            cacheVersions[key] = (cacheVersions[key] || 0) + 1;
+        }
+    }
+    for (const key in inFlightRequests) {
+        if (regexMatches(regex, key)) {
+            delete inFlightRequests[key];
+            cacheVersions[key] = (cacheVersions[key] || 0) + 1;
         }
     }
 }

@@ -2,6 +2,26 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.3.0 - Performance and macOS Distribution
+
+### Highlights
+
+- **Application optimizations:** Bundles the latest dashboard, inventory, maintenance, shopping, caching, and client build improvements in the v2.3 release line.
+- **Ad-hoc macOS code signing:** ARM64 and Intel launcher applications are ad-hoc signed before DMG and updater artifacts are created, preserving bundle integrity and allowing a GUI-only Gatekeeper override where macOS permits it.
+- **Managed app version selection:** Fresh launcher installations prefer the bundled managed app when it is newer than the currently published online release, preventing a v2.3 launcher from bootstrapping an older v2.2.x app.
+- **Bundled managed app updates:** Existing v2.2.x managed installations now detect and can install the newer v2.3 app embedded in the launcher even before the matching GitHub release manifest is published.
+- **Transactional update recovery:** Internal service restarts can complete while the updater lock is held, rollback targets the immediately previous version, and failures before a version switch no longer trigger an unnecessary downgrade.
+- **Offline-first release install:** When the embedded managed app matches or exceeds the online release, the launcher installs the sealed bundled archive directly and downloads only when GitHub offers a newer app version.
+- **Release verification:** macOS package jobs now verify the final application signature before creating and publishing each DMG.
+- **Dependency security:** Updated Multer to `2.2.0` and undici to `7.28.0`, closing the nested multipart field, aborted upload cleanup, TLS validation, shared-cache isolation, and related newly disclosed advisories.
+- **CI security gate:** Root, client, and launcher dependency audits now reject moderate-or-higher advisories, and the launcher frontend is built during normal CI validation.
+- **Version metadata synchronized:** Updated root, client, launcher, Tauri, and Rust package metadata to `2.3.0`.
+
+### Upgrade Notes
+
+- Ad-hoc signing does not replace Apple notarization. On first launch, macOS may still require **System Settings > Privacy & Security > Open Anyway**.
+- Existing HomeInventory data remains outside the launcher application bundle and is preserved during launcher upgrades.
+
 ## v2.2.3 - Launcher Local Branding Patch
 
 ### Highlights

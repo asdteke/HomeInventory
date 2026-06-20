@@ -7,6 +7,9 @@ import FloatingToast from './FloatingToast';
 import IconActionButton from './IconActionButton';
 import { ConfirmDialog } from './ModalDialog';
 import { getRoomPresentation } from '../utils/roomDisplay';
+import { invalidateCache } from '../utils/apiCache';
+
+const ITEM_CACHE_PATTERN = /^\/api\/items/;
 
 export interface Room {
     id: number;
@@ -45,6 +48,8 @@ export default function RoomManager() {
         try {
             if (editingId) await axios.put(`/api/rooms/${editingId}`, formData);
             else await axios.post('/api/rooms', formData);
+            invalidateCache('/api/rooms');
+            invalidateCache(ITEM_CACHE_PATTERN);
             fetchRooms(); resetForm();
         } catch (err: any) {
             setError(err.response?.data?.error || t('common.error'));
@@ -68,6 +73,8 @@ export default function RoomManager() {
         setError('');
         try {
             await axios.delete(`/api/rooms/${pendingDeleteRoom.id}`);
+            invalidateCache('/api/rooms');
+            invalidateCache(ITEM_CACHE_PATTERN);
             setRooms((currentRooms) => currentRooms.filter((room) => room.id !== pendingDeleteRoom.id));
             setToast({
                 title: t('rooms.delete_success_title', { defaultValue: 'Room deleted' }),

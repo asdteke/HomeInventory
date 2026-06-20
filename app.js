@@ -27,7 +27,7 @@ import borrowRequestsRoutes from './routes/borrowRequests.js';
 import maintenanceRoutes from './routes/maintenance.js';
 import shoppingRoutes from './routes/shopping.js';
 import passport from 'passport';
-import { BRAND_NAME } from './utils/branding.js';
+import { BRAND_NAME, SUPPORT_EMAIL } from './utils/branding.js';
 import { renderStartupSummary } from './utils/devConsole.js';
 import { getUploadsRoot } from './utils/runtimePaths.js';
 
@@ -256,6 +256,113 @@ app.use('/locales', express.static(join(clientDist, 'locales'), {
     }
 }));
 
+function getCanonicalSiteUrl() {
+    try {
+        const url = new URL(SITE_URL);
+        if (!['http:', 'https:'].includes(url.protocol)) {
+            throw new Error('Unsupported SITE_URL protocol');
+        }
+
+        url.hash = '';
+        url.search = '';
+        return url.toString().replace(/\/+$/, '');
+    } catch {
+        return 'http://localhost:5173';
+    }
+}
+
+function sanitizeMetadataValue(value) {
+    return String(value || '').replace(/[\r\n]+/g, ' ').trim();
+}
+
+function escapeXml(value) {
+    return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&apos;');
+}
+
+const canonicalSiteUrl = getCanonicalSiteUrl();
+
+// Public metadata must be served before the language detector. Otherwise its
+// Set-Cookie response makes these static resources ineligible for edge caching.
+app.get('/robots.txt', (_req, res) => {
+    const body = [
+        'User-agent: *',
+        'Allow: /',
+        '',
+        `Sitemap: ${canonicalSiteUrl}/sitemap.xml`,
+        ''
+    ].join('\n');
+
+    res.setHeader('Cache-Control', 'public, max-age=3600');
+    return res.type('text/plain; charset=utf-8').send(body);
+});
+
+app.get('/sitemap.xml', (_req, res) => {
+    const entries = [
+        ['/', 'daily', '1.0'],
+        ['/landing', 'weekly', '0.9'],
+        ['/login', 'weekly', '0.8'],
+        ['/register', 'weekly', '0.8']
+    ];
+    const urls = entries.map(([pathname, changefreq, priority]) => [
+        '  <url>',
+        `    <loc>${escapeXml(`${canonicalSiteUrl}${pathname}`)}</loc>`,
+        `    <changefreq>${changefreq}</changefreq>`,
+        `    <priority>${priority}</priority>`,
+        '  </url>'
+    ].join('\n')).join('\n');
+    const body = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+        urls,
+        '</urlset>',
+        ''
+    ].join('\n');
+
+    res.setHeader('Cache-Control', 'public, max-age=3600');
+    return res.type('application/xml; charset=utf-8').send(body);
+});
+
+app.get('/.well-known/security.txt', (_req, res) => {
+    const configuredContact = sanitizeMetadataValue(process.env.SECURITY_CONTACT);
+    const contact = configuredContact || `mailto:${sanitizeMetadataValue(SUPPORT_EMAIL)}`;
+    const policy = sanitizeMetadataValue(
+        process.env.SECURITY_POLICY_URL ||
+        'https://github.com/asdteke/HomeInventory/security/policy'
+    );
+    const expires = new Date(Date.now() + (180 * 24 * 60 * 60 * 1000)).toISOString();
+    const body = [
+        `Contact: ${contact}`,
+        `Expires: ${expires}`,
+        'Preferred-Languages: tr, en',
+        `Canonical: ${canonicalSiteUrl}/.well-known/security.txt`,
+        `Policy: ${policy}`,
+        ''
+    ].join('\n');
+
+    res.setHeader('Cache-Control', 'public, max-age=3600');
+    return res.type('text/plain; charset=utf-8').send(body);
+});
+
+// Serve concrete public files without running request-language detection. The
+// SPA shell itself still falls through to the existing localized catch-all.
+app.use(express.static(clientDist, {
+    index: false,
+    maxAge: '1h',
+    setHeaders: (res, filePath) => {
+        const fileName = filePath.split(/[\\/]/).pop();
+        if (fileName === 'sw.js' || fileName === 'index.html') {
+            res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+        } else {
+            res.setHeader('Cache-Control', 'public, max-age=3600');
+        }
+    }
+}));
+
 app.use(express.json({ limit: '5mb' }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true, limit: '5mb' }));
@@ -363,10 +470,6 @@ app.get('/api/server-info', (req, res) => {
 });
 
 app.use('/api', notFoundHandler);
-
-// Serve frontend in production
-// Serve frontend static files
-app.use(express.static(clientDist));
 
 // IndexNow key verification file endpoint: https://<host>/<INDEXNOW_KEY>.txt
 app.get(/^\/([A-Za-z0-9-]{8,128})\.txt$/, (req, res) => {

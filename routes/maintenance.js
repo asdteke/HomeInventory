@@ -10,6 +10,10 @@ const router = express.Router();
 router.use(authenticateToken);
 router.use(requireActiveHouse);
 
+function visibleItemCondition(alias = 'items') {
+    return `(${alias}.is_public = 1 OR ${alias}.user_id = ?)`;
+}
+
 function calculateNextDueDate(fromDateStr, frequencyValue, frequencyUnit) {
     if (!frequencyValue || !frequencyUnit) {
         return null;
@@ -79,8 +83,9 @@ router.get('/', (req, res) => {
             FROM item_maintenance im
             JOIN items ON im.item_id = items.id
             WHERE im.house_key = ?
+              AND ${visibleItemCondition('items')}
             ORDER BY im.next_due_date ASC
-        `).all(req.user.house_key);
+        `).all(req.user.house_key, req.user.id);
 
         res.json({ tasks: tasks.map(serializeMaintenanceTask) });
     } catch (err) {
@@ -114,8 +119,12 @@ router.post('/', (req, res) => {
             return res.status(400).json({ error: 'Planlanan tarih gerekli' });
         }
 
-        // Ensure item belongs to the same household
-        const item = db.prepare('SELECT id FROM items WHERE id = ? AND house_key = ?').get(item_id, req.user.house_key);
+        // Ensure item belongs to the same household and is visible to the current user.
+        const item = db.prepare(`
+            SELECT id
+            FROM items
+            WHERE id = ? AND house_key = ? AND ${visibleItemCondition('items')}
+        `).get(item_id, req.user.house_key, req.user.id);
         if (!item) {
             return res.status(400).json({ error: 'Geçersiz eşya veya eşyaya erişim yetkiniz yok' });
         }
@@ -182,9 +191,13 @@ router.put('/:id', (req, res) => {
             next_due_date
         } = req.body;
 
-        // Ensure task belongs to the same household
-        const existingTask = db.prepare('SELECT * FROM item_maintenance WHERE id = ? AND house_key = ?')
-            .get(taskId, req.user.house_key);
+        // Ensure task belongs to the same household and is tied to an item visible to the current user.
+        const existingTask = db.prepare(`
+            SELECT im.*
+            FROM item_maintenance im
+            JOIN items ON im.item_id = items.id
+            WHERE im.id = ? AND im.house_key = ? AND ${visibleItemCondition('items')}
+        `).get(taskId, req.user.house_key, req.user.id);
         if (!existingTask) {
             return res.status(404).json({ error: 'Bakım görevi bulunamadı' });
         }
@@ -264,9 +277,13 @@ router.post('/:id/perform', (req, res) => {
     try {
         const taskId = req.params.id;
 
-        // Ensure task belongs to the same household
-        const existingTask = db.prepare('SELECT * FROM item_maintenance WHERE id = ? AND house_key = ?')
-            .get(taskId, req.user.house_key);
+        // Ensure task belongs to the same household and is tied to an item visible to the current user.
+        const existingTask = db.prepare(`
+            SELECT im.*
+            FROM item_maintenance im
+            JOIN items ON im.item_id = items.id
+            WHERE im.id = ? AND im.house_key = ? AND ${visibleItemCondition('items')}
+        `).get(taskId, req.user.house_key, req.user.id);
         if (!existingTask) {
             return res.status(404).json({ error: 'Bakım görevi bulunamadı' });
         }
@@ -304,9 +321,13 @@ router.delete('/:id', (req, res) => {
     try {
         const taskId = req.params.id;
 
-        // Ensure task belongs to the same household
-        const existingTask = db.prepare('SELECT id FROM item_maintenance WHERE id = ? AND house_key = ?')
-            .get(taskId, req.user.house_key);
+        // Ensure task belongs to the same household and is tied to an item visible to the current user.
+        const existingTask = db.prepare(`
+            SELECT im.id
+            FROM item_maintenance im
+            JOIN items ON im.item_id = items.id
+            WHERE im.id = ? AND im.house_key = ? AND ${visibleItemCondition('items')}
+        `).get(taskId, req.user.house_key, req.user.id);
         if (!existingTask) {
             return res.status(404).json({ error: 'Bakım görevi bulunamadı' });
         }

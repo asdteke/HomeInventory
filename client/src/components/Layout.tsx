@@ -676,7 +676,16 @@ export default function Layout() {
             <main className={`transition-all duration-300 ${sidebarOpen ? 'lg:ml-[288px]' : 'lg:ml-[112px]'}`}>
                 <div className="px-3 pb-28 pt-4 lg:px-8 lg:pb-10 lg:pt-8">
                     <div key={`${location.pathname}${location.search}`} className="animate-fade-in">
-                        <Outlet />
+                        <Suspense
+                            fallback={(
+                                <div role="status" aria-live="polite" className="flex min-h-[42vh] items-center justify-center">
+                                    <div className="spinner" />
+                                    <span className="sr-only">{t('common.loading')}</span>
+                                </div>
+                            )}
+                        >
+                            <Outlet />
+                        </Suspense>
                     </div>
                 </div>
             </main>

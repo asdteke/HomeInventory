@@ -422,6 +422,7 @@ fn start_profile_internal(
     backend_port: Option<u16>,
     frontend_port: Option<u16>,
     overrides: Option<ToolOverrides>,
+    allow_during_update: bool,
 ) -> Result<CommandResult, String> {
     reconcile_active(state);
     let overrides = overrides.unwrap_or_default();
@@ -435,12 +436,12 @@ fn start_profile_internal(
     let profile = profile_config(profile_id)?;
     let (backend_port, frontend_port) = requested_ports(profile, backend_port, frontend_port)?;
 
-    {
+    if !allow_during_update {
         let updating = state
             .updating
             .lock()
             .map_err(|_| "Update state is locked".to_string())?;
-        if *updating {
+        if profile_start_is_blocked(*updating, allow_during_update) {
             return Err("Cannot start profile while an update is in progress.".to_string());
         }
     }
@@ -659,6 +660,10 @@ fn start_profile_internal(
     })
 }
 
+fn profile_start_is_blocked(updating: bool, allow_during_update: bool) -> bool {
+    updating && !allow_during_update
+}
+
 #[tauri::command]
 async fn start_profile(
     app: tauri::AppHandle,
@@ -672,6 +677,7 @@ async fn start_profile(
         request.backend_port,
         request.frontend_port,
         request.overrides,
+        false,
     )
 }
 
@@ -1498,6 +1504,28 @@ async fn download_bootstrap_archive(
     verify_manifest_signature(&manifest)?;
     validate_app_manifest_policy(&manifest)?;
 
+    let bundled_version = env!("CARGO_PKG_VERSION");
+    if bundled_app_is_same_or_newer(bundled_version, &manifest.version) {
+        let bundled_path = bundled_app_archive_path(app)?;
+        if !bundled_path.exists() {
+            return Err(format!(
+                "bundled app version {bundled_version} is newer than online version {}, but its archive is missing: {}",
+                manifest.version,
+                path_string(&bundled_path)
+            ));
+        }
+        append_log(
+            state,
+            "setup",
+            "info",
+            &format!(
+                "Bundled HomeInventory {bundled_version} is newer than online release {}. Using bundled app package.",
+                manifest.version
+            ),
+        );
+        return Ok((bundled_path, false, "bundled"));
+    }
+
     let node_major = get_node_major_version(app).await.unwrap_or(0);
     if node_major > 0 && node_major < manifest.node_major {
         return Err(format!(
@@ -1551,6 +1579,26 @@ async fn download_bootstrap_archive(
     }
 
     Ok((temp_archive_path, true, "online"))
+}
+
+fn should_prefer_bundled_app_version(bundled_version: &str, online_version: &str) -> bool {
+    let Ok(bundled) = semver::Version::parse(bundled_version) else {
+        return false;
+    };
+    let Ok(online) = semver::Version::parse(online_version) else {
+        return true;
+    };
+    bundled > online
+}
+
+fn bundled_app_is_same_or_newer(bundled_version: &str, online_version: &str) -> bool {
+    let Ok(bundled) = semver::Version::parse(bundled_version) else {
+        return false;
+    };
+    let Ok(online) = semver::Version::parse(online_version) else {
+        return true;
+    };
+    bundled >= online
 }
 
 fn bundled_app_archive_path(app: &tauri::AppHandle) -> Result<PathBuf, String> {
@@ -2939,6 +2987,33 @@ async fn check_updates(
         }
     }
 
+    let bundled_path = bundled_app_archive_path(&app)?;
+    if bundled_path.exists()
+        && should_prefer_bundled_app_version(&launcher_version, &latest_app_version)
+    {
+        latest_app_version = launcher_version.clone();
+        app_update_available = should_prefer_bundled_app_version(
+            &latest_app_version,
+            &current_app_version,
+        );
+        if app_update_available {
+            if !required_actions.contains(&"appUpdate".to_string()) {
+                required_actions.push("appUpdate".to_string());
+            }
+            app_release_notes = Some(
+                "A newer HomeInventory managed app is included with this launcher."
+                    .to_string(),
+            );
+            let node_major = get_node_major_version(&app).await.unwrap_or(0);
+            if node_major > 0
+                && node_major < 20
+                && !required_actions.contains(&"nodeMajorUpgrade".to_string())
+            {
+                required_actions.push("nodeMajorUpgrade".to_string());
+            }
+        }
+    }
+
     if launcher_update_available {
         required_actions.push("launcherUpdate".to_string());
     }
@@ -2983,30 +3058,51 @@ async fn update_all(
 
     tauri::async_runtime::spawn(async move {
         let state_clone = app_clone.state::<LauncherState>();
+        let version_before_update = app_data_dir(&app_clone)
+            .ok()
+            .map(|path| read_updater_metadata(&path).current_version)
+            .unwrap_or_default();
         if let Err(e) = run_update_flow(&app_clone, &state_clone, overrides.clone()).await {
+            let version_after_failure = app_data_dir(&app_clone)
+                .ok()
+                .map(|path| read_updater_metadata(&path).current_version)
+                .unwrap_or_default();
+            let rollback_required =
+                update_failure_requires_rollback(&version_before_update, &version_after_failure);
             emit_progress(
                 &app_clone,
                 "Failed",
-                &format!("Update failed: {e}. Starting rollback..."),
+                &format!(
+                    "Update failed: {e}.{}",
+                    if rollback_required {
+                        " Starting rollback..."
+                    } else {
+                        " The installed version was not changed."
+                    }
+                ),
                 1.0,
                 Some(e.clone()),
             );
-            if let Err(rollback_err) = run_rollback_flow(&app_clone, &state_clone, overrides).await {
-                emit_progress(
-                    &app_clone,
-                    "RollbackFailed",
-                    &format!("Rollback failed: {rollback_err}"),
-                    1.0,
-                    Some(rollback_err),
-                );
-            } else {
-                emit_progress(
-                    &app_clone,
-                    "RollbackComplete",
-                    "System successfully rolled back to last known good version.",
-                    1.0,
-                    None,
-                );
+            if rollback_required {
+                if let Err(rollback_err) =
+                    run_rollback_flow(&app_clone, &state_clone, overrides).await
+                {
+                    emit_progress(
+                        &app_clone,
+                        "RollbackFailed",
+                        &format!("Rollback failed: {rollback_err}"),
+                        1.0,
+                        Some(rollback_err),
+                    );
+                } else {
+                    emit_progress(
+                        &app_clone,
+                        "RollbackComplete",
+                        "System successfully rolled back to the previous version.",
+                        1.0,
+                        None,
+                    );
+                }
             }
         } else {
             emit_progress(
@@ -3029,6 +3125,13 @@ async fn update_all(
     })
 }
 
+fn update_failure_requires_rollback(
+    version_before_update: &Option<String>,
+    version_after_failure: &Option<String>,
+) -> bool {
+    version_before_update != version_after_failure
+}
+
 async fn run_update_flow(
     app: &tauri::AppHandle,
     state: &LauncherState,
@@ -3045,24 +3148,81 @@ async fn run_update_flow(
         None,
     );
     let client = reqwest::Client::new();
-    let resp = client
-        .get(APP_MANIFEST_URL)
-        .send()
-        .await
-        .map_err(|e| format!("Failed to download manifest: {e}"))?;
-    if !resp.status().is_success() {
-        return Err(format!(
-            "Manifest download returned status: {}",
-            resp.status()
-        ));
-    }
-    let manifest = resp
-        .json::<AppManifest>()
-        .await
-        .map_err(|e| format!("Failed to parse manifest: {e}"))?;
+    let online_manifest = match client.get(APP_MANIFEST_URL).send().await {
+        Ok(resp) if resp.status().is_success() => match resp.json::<AppManifest>().await {
+            Ok(manifest) => {
+                verify_manifest_signature(&manifest)?;
+                validate_app_manifest_policy(&manifest)?;
+                Some(manifest)
+            }
+            Err(err) => {
+                append_log(
+                    state,
+                    "updater",
+                    "warning",
+                    &format!("Online app manifest could not be parsed: {err}"),
+                );
+                None
+            }
+        },
+        Ok(resp) => {
+            append_log(
+                state,
+                "updater",
+                "warning",
+                &format!("Online app manifest returned HTTP {}.", resp.status()),
+            );
+            None
+        }
+        Err(err) => {
+            append_log(
+                state,
+                "updater",
+                "warning",
+                &format!("Online app manifest could not be downloaded: {err}"),
+            );
+            None
+        }
+    };
 
-    verify_manifest_signature(&manifest)?;
-    validate_app_manifest_policy(&manifest)?;
+    let bundled_path = bundled_app_archive_path(app)?;
+    let bundled_version = env!("CARGO_PKG_VERSION").to_string();
+    let use_bundled = bundled_path.exists()
+        && online_manifest
+            .as_ref()
+            .map(|manifest| {
+                bundled_app_is_same_or_newer(&bundled_version, &manifest.version)
+            })
+            .unwrap_or(true);
+
+    let (manifest, bundled_archive) = if use_bundled {
+        append_log(
+            state,
+            "updater",
+            "info",
+            &format!("Using bundled HomeInventory {bundled_version} update package."),
+        );
+        (
+            AppManifest {
+                version: bundled_version,
+                sha256: String::new(),
+                url: "bundled://homeinventory-app.tar.gz".to_string(),
+                node_major: 20,
+                root_install: true,
+                client_install: true,
+                signature: "bundled".to_string(),
+            },
+            Some(bundled_path),
+        )
+    } else {
+        (
+            online_manifest.ok_or_else(|| {
+                "No valid online or bundled HomeInventory update package is available."
+                    .to_string()
+            })?,
+            None,
+        )
+    };
 
     let node_major = get_node_major_version(app).await.unwrap_or(0);
     if node_major > 0 && node_major < manifest.node_major {
@@ -3093,7 +3253,11 @@ async fn run_update_flow(
     emit_progress(
         app,
         "Downloading",
-        "Downloading app release archive...",
+        if bundled_archive.is_some() {
+            "Preparing bundled app release archive..."
+        } else {
+            "Downloading app release archive..."
+        },
         0.3,
         None,
     );
@@ -3102,38 +3266,47 @@ async fn run_update_flow(
         fs::create_dir_all(parent).map_err(|e| e.to_string())?;
     }
 
-    let mut archive_resp = client
-        .get(&manifest.url)
-        .send()
-        .await
-        .map_err(|e| format!("Failed to download archive: {e}"))?;
-    if !archive_resp.status().is_success() {
-        return Err(format!(
-            "Archive download returned status: {}",
-            archive_resp.status()
-        ));
-    }
+    if let Some(bundled_archive_path) = bundled_archive {
+        fs::copy(&bundled_archive_path, &temp_archive_path).map_err(|err| {
+            format!(
+                "Failed to prepare bundled app archive from {}: {err}",
+                path_string(&bundled_archive_path)
+            )
+        })?;
+    } else {
+        let mut archive_resp = client
+            .get(&manifest.url)
+            .send()
+            .await
+            .map_err(|e| format!("Failed to download archive: {e}"))?;
+        if !archive_resp.status().is_success() {
+            return Err(format!(
+                "Archive download returned status: {}",
+                archive_resp.status()
+            ));
+        }
 
-    let mut archive_file = File::create(&temp_archive_path).map_err(|e| e.to_string())?;
-    let mut sha_hasher = sha2::Sha256::new();
+        let mut archive_file = File::create(&temp_archive_path).map_err(|e| e.to_string())?;
+        let mut sha_hasher = sha2::Sha256::new();
 
-    while let Some(chunk) = archive_resp
-        .chunk()
-        .await
-        .map_err(|e| format!("Error downloading chunk: {e}"))?
-    {
-        use std::io::Write;
-        archive_file.write_all(&chunk).map_err(|e| e.to_string())?;
-        sha_hasher.update(&chunk);
-    }
+        while let Some(chunk) = archive_resp
+            .chunk()
+            .await
+            .map_err(|e| format!("Error downloading chunk: {e}"))?
+        {
+            use std::io::Write;
+            archive_file.write_all(&chunk).map_err(|e| e.to_string())?;
+            sha_hasher.update(&chunk);
+        }
 
-    let calculated_hash = format!("{:x}", sha_hasher.finalize());
-    if calculated_hash != manifest.sha256 {
-        let _ = fs::remove_file(&temp_archive_path);
-        return Err(format!(
-            "SHA-256 mismatch: calculated {}, expected {}",
-            calculated_hash, manifest.sha256
-        ));
+        let calculated_hash = format!("{:x}", sha_hasher.finalize());
+        if calculated_hash != manifest.sha256 {
+            let _ = fs::remove_file(&temp_archive_path);
+            return Err(format!(
+                "SHA-256 mismatch: calculated {}, expected {}",
+                calculated_hash, manifest.sha256
+            ));
+        }
     }
 
     emit_progress(
@@ -3148,6 +3321,17 @@ async fn run_update_flow(
     extract_archive(&temp_archive_path, &staging_dir)?;
 
     let _ = fs::remove_file(&temp_archive_path);
+
+    let extracted_root = normalized_extracted_project_dir(&staging_dir)?;
+    let extracted_version = read_version_from_package_json(&extracted_root)
+        .ok_or_else(|| "Extracted app archive does not contain a valid version.".to_string())?;
+    if extracted_version != manifest.version {
+        let _ = fs::remove_dir_all(&staging_dir);
+        return Err(format!(
+            "Extracted app version mismatch: expected {}, found {}.",
+            manifest.version, extracted_version
+        ));
+    }
 
     emit_progress(
         app,
@@ -3181,23 +3365,27 @@ async fn run_update_flow(
     run_dependency_install(app, &target_version_dir, &manifest, &overrides)?;
 
     let previous_current = metadata.current_version.clone();
-    if metadata.last_known_good_version.is_none() {
-        if let Some(previous) = previous_current.clone() {
-            let previous_dir = app_data
-                .join("managed-app")
-                .join("versions")
-                .join(&previous);
-            if previous_dir.exists() {
-                metadata.last_known_good_version = Some(previous);
-                write_updater_metadata(&app_data, &metadata)?;
-            }
-        }
+    if let Some(previous) = immediate_rollback_version(
+        &app_data,
+        previous_current.as_deref(),
+        &manifest.version,
+    ) {
+        metadata.last_known_good_version = Some(previous);
+        write_updater_metadata(&app_data, &metadata)?;
     }
     metadata.current_version = Some(manifest.version.clone());
     write_updater_metadata(&app_data, &metadata)?;
 
     emit_progress(app, "Starting", "Starting updated services...", 0.8, None);
-    start_profile_internal(app, state, "homeinventory", None, None, Some(overrides.clone()))?;
+    start_profile_internal(
+        app,
+        state,
+        "homeinventory",
+        None,
+        None,
+        Some(overrides.clone()),
+        true,
+    )?;
 
     emit_progress(
         app,
@@ -3253,6 +3441,21 @@ async fn run_update_flow(
     Ok(())
 }
 
+fn immediate_rollback_version(
+    app_data_dir: &Path,
+    previous_version: Option<&str>,
+    next_version: &str,
+) -> Option<String> {
+    let previous = previous_version?.trim();
+    if previous.is_empty()
+        || previous == next_version
+        || !managed_version_exists(app_data_dir, previous)
+    {
+        return None;
+    }
+    Some(previous.to_string())
+}
+
 async fn run_rollback_flow(app: &tauri::AppHandle, state: &LauncherState, overrides: ToolOverrides) -> Result<(), String> {
     emit_progress(app, "RollingBack", "Stopping active services...", 0.1, None);
     let _ = stop_all_internal(state);
@@ -3273,7 +3476,15 @@ async fn run_rollback_flow(app: &tauri::AppHandle, state: &LauncherState, overri
                 0.5,
                 None,
             );
-            start_profile_internal(app, state, "homeinventory", None, None, Some(overrides))?;
+            start_profile_internal(
+                app,
+                state,
+                "homeinventory",
+                None,
+                None,
+                Some(overrides),
+                true,
+            )?;
             return Ok(());
         }
     };
@@ -3298,7 +3509,15 @@ async fn run_rollback_flow(app: &tauri::AppHandle, state: &LauncherState, overri
             0.5,
             None,
         );
-        start_profile_internal(app, state, "homeinventory", None, None, Some(overrides))?;
+        start_profile_internal(
+            app,
+            state,
+            "homeinventory",
+            None,
+            None,
+            Some(overrides),
+            true,
+        )?;
         return Ok(());
     }
     metadata.current_version = Some(target_version.clone());
@@ -3330,7 +3549,15 @@ async fn run_rollback_flow(app: &tauri::AppHandle, state: &LauncherState, overri
         0.8,
         None,
     );
-    start_profile_internal(app, state, "homeinventory", None, None, Some(overrides))?;
+    start_profile_internal(
+        app,
+        state,
+        "homeinventory",
+        None,
+        None,
+        Some(overrides),
+        true,
+    )?;
 
     emit_progress(app, "RollingBack", "Running health checks...", 0.9, None);
     run_health_checks(app, 3001, 5173).await?;
@@ -3634,6 +3861,52 @@ fn perform_mandatory_backup(app: &tauri::AppHandle) -> Result<PathBuf, String> {
 #[cfg(test)]
 mod updater_tests {
     use super::*;
+
+    #[test]
+    fn test_bootstrap_prefers_newer_bundled_managed_app() {
+        assert!(should_prefer_bundled_app_version("2.3.0", "2.2.3"));
+        assert!(!should_prefer_bundled_app_version("2.3.0", "2.3.0"));
+        assert!(!should_prefer_bundled_app_version("2.2.3", "2.3.0"));
+        assert!(should_prefer_bundled_app_version("2.3.0", "invalid"));
+
+        assert!(bundled_app_is_same_or_newer("2.3.0", "2.2.3"));
+        assert!(bundled_app_is_same_or_newer("2.3.0", "2.3.0"));
+        assert!(!bundled_app_is_same_or_newer("2.2.3", "2.3.0"));
+    }
+
+    #[test]
+    fn test_update_internal_restart_bypasses_only_the_update_lock() {
+        assert!(profile_start_is_blocked(true, false));
+        assert!(!profile_start_is_blocked(true, true));
+        assert!(!profile_start_is_blocked(false, false));
+    }
+
+    #[test]
+    fn test_rollback_runs_only_after_the_managed_version_switches() {
+        let before = Some("2.2.3".to_string());
+        assert!(!update_failure_requires_rollback(&before, &before));
+        assert!(update_failure_requires_rollback(
+            &before,
+            &Some("2.3.0".to_string())
+        ));
+    }
+
+    #[test]
+    fn test_immediate_previous_version_replaces_stale_rollback_target() {
+        let app_data = std::env::temp_dir().join(format!("hi-immediate-rollback-test-{}", now()));
+        fs::create_dir_all(managed_version_dir(&app_data, "2.2.3")).unwrap();
+
+        assert_eq!(
+            immediate_rollback_version(&app_data, Some("2.2.3"), "2.3.0"),
+            Some("2.2.3".to_string())
+        );
+        assert_eq!(
+            immediate_rollback_version(&app_data, Some("2.3.0"), "2.3.0"),
+            None
+        );
+
+        let _ = fs::remove_dir_all(app_data);
+    }
 
     #[test]
     fn test_version_comparison() {

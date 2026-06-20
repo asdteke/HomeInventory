@@ -298,7 +298,10 @@ function ActiveBorrowCard({ borrow, t, i18n, onReturn }: ActiveBorrowCardProps) 
     );
 }
 
-import { fetchWithCache, getCachedData, hasCache } from '../utils/apiCache';
+import { fetchWithCache, getCachedData, hasCache, invalidateCache } from '../utils/apiCache';
+
+const BORROW_REQUESTS_CACHE_URL = '/api/borrow-requests';
+const ITEM_CACHE_PATTERN = /^\/api\/items/;
 
 export default function BorrowRequestsPage() {
     const { t, i18n } = useTranslation();
@@ -307,11 +310,11 @@ export default function BorrowRequestsPage() {
     const overviewRequestIdRef = useRef(0);
 
     // Initialize states from SWR cache
-    const [requests, setRequests] = useState<any[]>(() => getCachedData('/api/borrow-requests')?.requests || []);
-    const [activeBorrows, setActiveBorrows] = useState<any[]>(() => getCachedData('/api/borrow-requests')?.activeBorrows || []);
-    const [availableItems, setAvailableItems] = useState<any[]>(() => getCachedData('/api/borrow-requests')?.availableItems || []);
+    const [requests, setRequests] = useState<any[]>(() => getCachedData(BORROW_REQUESTS_CACHE_URL)?.requests || []);
+    const [activeBorrows, setActiveBorrows] = useState<any[]>(() => getCachedData(BORROW_REQUESTS_CACHE_URL)?.activeBorrows || []);
+    const [availableItems, setAvailableItems] = useState<any[]>(() => getCachedData(BORROW_REQUESTS_CACHE_URL)?.availableItems || []);
 
-    const isInitiallyLoaded = hasCache('/api/borrow-requests');
+    const isInitiallyLoaded = hasCache(BORROW_REQUESTS_CACHE_URL);
     const [loading, setLoading] = useState(!isInitiallyLoaded);
     const [refreshing, setRefreshing] = useState(false);
     const [backendReady, setBackendReady] = useState(true);
@@ -364,13 +367,13 @@ export default function BorrowRequestsPage() {
         if (silent) {
             setRefreshing(true);
         } else {
-            if (!hasCache('/api/borrow-requests')) {
+            if (!hasCache(BORROW_REQUESTS_CACHE_URL)) {
                 setLoading(true);
             }
         }
 
         try {
-            await fetchWithCache('/api/borrow-requests', (data) => {
+            await fetchWithCache(BORROW_REQUESTS_CACHE_URL, (data) => {
                 if (!isMountedRef.current || overviewRequestIdRef.current !== requestId) {
                     return;
                 }
@@ -409,6 +412,8 @@ export default function BorrowRequestsPage() {
         setActionError('');
         try {
             await task();
+            invalidateCache(BORROW_REQUESTS_CACHE_URL);
+            invalidateCache(ITEM_CACHE_PATTERN);
             await fetchOverview({ silent: true });
         } finally {
             if (isMountedRef.current) {

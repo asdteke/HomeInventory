@@ -1,5 +1,4 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
-import { AlertTriangle, Home, RotateCcw } from 'lucide-react';
 import i18next from 'i18next';
 
 interface AppErrorBoundaryProps {
@@ -40,7 +39,7 @@ export default class AppErrorBoundary extends Component<AppErrorBoundaryProps, A
             <main className="flex min-h-screen items-center justify-center bg-[var(--hi-bg)] px-4 py-10 text-[var(--hi-text)]">
                 <section className="w-full max-w-xl rounded-[1.5rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] p-6 text-center shadow-[var(--hi-shadow-lift)] sm:p-8">
                     <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--hi-danger-soft)] text-[var(--hi-danger)]">
-                        <AlertTriangle className="h-6 w-6" />
+                        <span className="text-2xl font-black leading-none">!</span>
                     </span>
                     <h1 className="section-title mt-5 text-2xl text-[var(--hi-text)]">{i18next.t('error_boundary.title', { defaultValue: 'Something needs a refresh' })}</h1>
                     <p className="mt-3 text-sm leading-6 text-[var(--hi-text-soft)]">
@@ -48,11 +47,9 @@ export default class AppErrorBoundary extends Component<AppErrorBoundaryProps, A
                     </p>
                     <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
                         <button type="button" onClick={this.reloadPage} className="btn-primary">
-                            <RotateCcw className="h-4 w-4" />
                             {i18next.t('error_boundary.refresh_btn', { defaultValue: 'Refresh' })}
                         </button>
                         <button type="button" onClick={this.goHome} className="btn-secondary">
-                            <Home className="h-4 w-4" />
                             {i18next.t('error_boundary.home_btn', { defaultValue: 'Home' })}
                         </button>
                     </div>

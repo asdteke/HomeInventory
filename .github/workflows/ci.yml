@@ -1,6 +1,6 @@
 name: CI
 
-# Current for the public v2.2.0 release line.
+# Current for the public v2.3.0 release line.
 
 on:
   pull_request:
@@ -29,12 +29,16 @@ jobs:
           cache-dependency-path: |
             package-lock.json
             client/package-lock.json
+            apps/launcher/package-lock.json
 
       - name: Install root dependencies
         run: npm ci
 
       - name: Install client dependencies
         run: npm ci --prefix client
+
+      - name: Install launcher dependencies
+        run: npm ci --prefix apps/launcher
 
       - name: Validate JSON files
         run: |
@@ -114,11 +118,17 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Build launcher frontend
+        run: npm run build --prefix apps/launcher
+
       - name: Test
         run: node --test --test-concurrency=1 tests/*.test.mjs
 
-      - name: Audit high severity dependencies
-        run: npm audit --audit-level=high
+      - name: Audit moderate severity dependencies
+        run: npm audit --audit-level=moderate
 
-      - name: Audit client high severity dependencies
-        run: npm audit --audit-level=high --prefix client
+      - name: Audit client moderate severity dependencies
+        run: npm audit --audit-level=moderate --prefix client
+
+      - name: Audit launcher moderate severity dependencies
+        run: npm audit --audit-level=moderate --prefix apps/launcher

@@ -1,6 +1,6 @@
 # GitHub Actions Release Notes
 
-HomeInventory v2.2 uses two update channels:
+HomeInventory v2.3 uses two update channels:
 
 - Tauri launcher self-update, signed by Tauri updater keys.
 - Managed HomeInventory app update, shipped as `homeinventory-app.tar.gz` with a signed app manifest.
@@ -11,11 +11,13 @@ Required repository secrets:
 - `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`: optional password for the Tauri signing key.
 - `HOMEINVENTORY_APP_MANIFEST_PRIVATE_KEY_PEM`: Ed25519 PKCS#8 PEM private key used by `scripts/create-app-release-manifest.mjs`.
 
+macOS launcher applications use Tauri's `signingIdentity: "-"` setting for ad-hoc code signing. This validates bundle integrity but does not provide Apple notarization. Test Gatekeeper behavior without removing quarantine before publishing a release.
+
 Release workflow:
 
 1. Confirm `package.json`, `apps/launcher/package.json`, and `apps/launcher/src-tauri/tauri.conf.json` versions match.
 2. Run CI and fix any launcher, client, or Rust failures.
-3. Create a Git tag such as `v2.2.1`, or run `Launcher Packages` manually with `publish_release=true` and `release_tag=v2.2.1`.
+3. Create a Git tag such as `v2.3.0`, or run `Launcher Packages` manually with `publish_release=true` and `release_tag=v2.3.0`.
 4. The workflow builds `homeinventory-app.tar.gz`, signs `homeinventory-app-manifest.json`, builds launcher packages, collects updater signatures, generates `latest.json`, and attaches all release assets.
 
 Manual package builds still require `TAURI_SIGNING_PRIVATE_KEY` because `tauri.conf.json` has `createUpdaterArtifacts` enabled.

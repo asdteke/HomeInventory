@@ -9,6 +9,14 @@ const router = express.Router();
 router.use(authenticateToken);
 router.use(requireActiveHouse);
 
+function visibleItemCondition(alias = 'items') {
+    return `(${alias}.is_public = 1 OR ${alias}.user_id = ?)`;
+}
+
+function visibleShoppingItemCondition(itemAlias = 'items', shoppingAlias = 'sl') {
+    return `(${shoppingAlias}.item_id IS NULL OR ${visibleItemCondition(itemAlias)})`;
+}
+
 // GET /api/shopping - Fetch shopping list (active and completed) + suggested low stock items
 router.get('/', (req, res) => {
     try {
@@ -20,15 +28,19 @@ router.get('/', (req, res) => {
             FROM shopping_list sl
             LEFT JOIN items ON sl.item_id = items.id
             WHERE sl.house_key = ?
+              AND ${visibleShoppingItemCondition('items', 'sl')}
             ORDER BY sl.created_at DESC
-        `).all(houseKey);
+        `).all(houseKey, req.user.id);
 
         // 2. Fetch all inventory items that are low stock
         const lowStockItems = db.prepare(`
             SELECT id, name, quantity, min_quantity
             FROM items
-            WHERE house_key = ? AND min_quantity > 0 AND quantity < min_quantity
-        `).all(houseKey);
+            WHERE house_key = ?
+              AND ${visibleItemCondition('items')}
+              AND min_quantity > 0
+              AND quantity < min_quantity
+        `).all(houseKey, req.user.id);
 
         // Identify which item_ids are already in the active shopping list
         const activeShoppingItemIds = new Set(
@@ -67,8 +79,11 @@ router.post('/', (req, res) => {
         let linkedItemId = item_id || null;
 
         if (linkedItemId) {
-            const item = db.prepare('SELECT id, name FROM items WHERE id = ? AND house_key = ?')
-                .get(linkedItemId, req.user.house_key);
+            const item = db.prepare(`
+                SELECT id, name
+                FROM items
+                WHERE id = ? AND house_key = ? AND ${visibleItemCondition('items')}
+            `).get(linkedItemId, req.user.house_key, req.user.id);
             if (!item) {
                 return res.status(400).json({ error: 'Geçersiz eşya veya eşyaya erişim yetkiniz yok' });
             }
@@ -125,8 +140,11 @@ router.post('/add-low-stock', (req, res) => {
         const lowStockItems = db.prepare(`
             SELECT id, name, quantity, min_quantity
             FROM items
-            WHERE house_key = ? AND min_quantity > 0 AND quantity < min_quantity
-        `).all(houseKey);
+            WHERE house_key = ?
+              AND ${visibleItemCondition('items')}
+              AND min_quantity > 0
+              AND quantity < min_quantity
+        `).all(houseKey, req.user.id);
 
         // Identify already active item IDs
         const activeShoppingItemIds = new Set(
@@ -174,8 +192,13 @@ router.put('/:id', (req, res) => {
         const { quantity, is_completed } = req.body;
 
         // Ensure shopping item belongs to user house
-        const existing = db.prepare('SELECT * FROM shopping_list WHERE id = ? AND house_key = ?')
-            .get(itemId, req.user.house_key);
+        const existing = db.prepare(`
+            SELECT sl.*
+            FROM shopping_list sl
+            LEFT JOIN items ON sl.item_id = items.id
+            WHERE sl.id = ? AND sl.house_key = ?
+              AND ${visibleShoppingItemCondition('items', 'sl')}
+        `).get(itemId, req.user.house_key, req.user.id);
 
         if (!existing) {
             return res.status(404).json({ error: 'Ürün bulunamadı' });
@@ -241,8 +264,13 @@ router.delete('/:id', (req, res) => {
         const itemId = req.params.id;
 
         // Ensure shopping item belongs to user house
-        const existing = db.prepare('SELECT id FROM shopping_list WHERE id = ? AND house_key = ?')
-            .get(itemId, req.user.house_key);
+        const existing = db.prepare(`
+            SELECT sl.id
+            FROM shopping_list sl
+            LEFT JOIN items ON sl.item_id = items.id
+            WHERE sl.id = ? AND sl.house_key = ?
+              AND ${visibleShoppingItemCondition('items', 'sl')}
+        `).get(itemId, req.user.house_key, req.user.id);
 
         if (!existing) {
             return res.status(404).json({ error: 'Ürün bulunamadı' });

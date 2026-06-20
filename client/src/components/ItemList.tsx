@@ -21,7 +21,9 @@ import SegmentedToggle from './SegmentedToggle';
 import { getRoomPresentation } from '../utils/roomDisplay';
 import { getCategoryPresentation } from '../utils/categoryDisplay';
 
-import { fetchWithCache, getCachedData, hasCache } from '../utils/apiCache';
+import { fetchWithCache, getCachedData, hasCache, invalidateCache } from '../utils/apiCache';
+
+const ITEM_CACHE_PATTERN = /^\/api\/items/;
 
 export default function ItemList() {
     const { t, i18n } = useTranslation();
@@ -267,6 +269,7 @@ export default function ItemList() {
 
         try {
             await apiPromise;
+            invalidateCache(ITEM_CACHE_PATTERN);
 
             if (isActiveRef.current) {
                 setDeletingIds((prev) => {
@@ -327,6 +330,7 @@ export default function ItemList() {
 
             const isPendingMemberOffer = Boolean(response.data?.request)
                 && ['member', 'site_member'].includes(payload.borrower_type);
+            invalidateCache(ITEM_CACHE_PATTERN);
             if (response.data?.item) {
                 setItems((currentItems) => currentItems.map((item) => (
                     item.id === lendDialogItem.id
@@ -385,6 +389,7 @@ export default function ItemList() {
                     item.id === returnDialogItem.id ? response.data.item : item
                 )));
             }
+            invalidateCache(ITEM_CACHE_PATTERN);
             await fetchItems();
             if (isActiveRef.current) {
                 setReturnDialogItem(null);

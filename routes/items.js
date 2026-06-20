@@ -1050,6 +1050,146 @@ router.get('/stats/summary', (req, res) => {
     }
 });
 
+router.get('/dashboard-summary', (req, res) => {
+    try {
+        const houseKey = req.user.house_key;
+        const viewerUserId = req.user.id;
+        const todayStr = new Date().toISOString().split('T')[0];
+        const closeExpiryStr = new Date(Date.now() + (30 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0];
+
+        const itemStats = db.prepare(`
+            SELECT COUNT(*) as totalItems,
+                   COALESCE(SUM(quantity), 0) as totalQuantity,
+                   COALESCE(SUM(CASE WHEN is_public = 1 THEN 1 ELSE 0 END), 0) as sharedItemsCount,
+                   COALESCE(SUM(CASE WHEN EXISTS (
+                       SELECT 1
+                       FROM item_borrows active_borrow
+                       WHERE active_borrow.item_id = items.id
+                         AND active_borrow.house_key = items.house_key
+                         AND active_borrow.returned_at IS NULL
+                   ) THEN 1 ELSE 0 END), 0) as borrowedItemsCount
+            FROM items
+            WHERE items.house_key = ? AND ${visibleItemCondition('items')}
+        `).get(houseKey, viewerUserId);
+
+        const recentItems = db.prepare(`
+            SELECT items.*, categories.name as category_name, categories.icon as category_icon,
+                   rooms.name as room_name, locations.name as location_name, users.username,
+                   ${ACTIVE_BORROW_SELECT}
+            FROM items
+            LEFT JOIN categories ON items.category_id = categories.id AND categories.house_key = items.house_key
+            LEFT JOIN rooms ON items.room_id = rooms.id AND rooms.house_key = items.house_key
+            LEFT JOIN locations ON items.location_id = locations.id AND locations.house_key = items.house_key
+            LEFT JOIN users ON items.user_id = users.id
+            ${ACTIVE_BORROW_JOINS}
+            WHERE items.house_key = ? AND ${visibleItemCondition('items')}
+            ORDER BY items.created_at DESC, items.id DESC
+            LIMIT 5
+        `).all(houseKey, viewerUserId).map((item) => serializeItem(item, viewerUserId));
+
+        const expiredItemIds = db.prepare(`
+            SELECT id
+            FROM items
+            WHERE house_key = ?
+              AND ${visibleItemCondition('items')}
+              AND expiry_date IS NOT NULL
+              AND expiry_date < ?
+            ORDER BY expiry_date ASC, id ASC
+        `).all(houseKey, viewerUserId, todayStr).map((row) => row.id);
+
+        const closeToExpiryItemIds = db.prepare(`
+            SELECT id
+            FROM items
+            WHERE house_key = ?
+              AND ${visibleItemCondition('items')}
+              AND expiry_date IS NOT NULL
+              AND expiry_date >= ?
+              AND expiry_date <= ?
+            ORDER BY expiry_date ASC, id ASC
+        `).all(houseKey, viewerUserId, todayStr, closeExpiryStr).map((row) => row.id);
+
+        const lowStockItemIds = db.prepare(`
+            SELECT items.id
+            FROM items
+            WHERE items.house_key = ?
+              AND ${visibleItemCondition('items')}
+              AND items.min_quantity > 0
+              AND items.quantity < items.min_quantity
+              AND NOT EXISTS (
+                  SELECT 1
+                  FROM shopping_list
+                  WHERE shopping_list.house_key = items.house_key
+                    AND shopping_list.item_id = items.id
+                    AND shopping_list.is_completed = 0
+              )
+            ORDER BY items.id ASC
+        `).all(houseKey, viewerUserId).map((row) => row.id);
+
+        const overdueMaintenanceTaskIds = db.prepare(`
+            SELECT item_maintenance.id
+            FROM item_maintenance
+            JOIN items
+              ON item_maintenance.item_id = items.id
+             AND item_maintenance.house_key = items.house_key
+            WHERE item_maintenance.house_key = ?
+              AND ${visibleItemCondition('items')}
+              AND item_maintenance.next_due_date < ?
+            ORDER BY item_maintenance.next_due_date ASC, item_maintenance.id ASC
+        `).all(houseKey, viewerUserId, todayStr).map((row) => row.id);
+
+        const stats = {
+            totalItems: itemStats?.totalItems || 0,
+            totalQuantity: itemStats?.totalQuantity || 0,
+            sharedItemsCount: itemStats?.sharedItemsCount || 0,
+            borrowedItemsCount: itemStats?.borrowedItemsCount || 0
+        };
+
+        res.json({
+            ...stats,
+            stats,
+            recentItems,
+            alerts: {
+                expiredItemIds,
+                closeToExpiryItemIds,
+                lowStockItemIds,
+                overdueMaintenanceTaskIds
+            }
+        });
+    } catch (err) {
+        console.error('Dashboard summary error:', err);
+        res.status(500).json({ error: 'Ana sayfa özeti yüklenemedi' });
+    }
+});
+
+router.get('/options', (req, res) => {
+    try {
+        const rows = db.prepare(`
+            SELECT items.id, items.name, items.quantity, items.min_quantity,
+                   rooms.name as room_name
+            FROM items
+            LEFT JOIN rooms ON items.room_id = rooms.id AND rooms.house_key = items.house_key
+            WHERE items.house_key = ? AND ${visibleItemCondition('items')}
+            ORDER BY items.updated_at DESC, items.id DESC
+        `).all(req.user.house_key, req.user.id);
+
+        const items = rows.map((row) => {
+            const item = decryptItemRecord(row);
+            return {
+                id: item.id,
+                name: item.name,
+                quantity: item.quantity,
+                min_quantity: item.min_quantity,
+                room_name: item.room_name || ''
+            };
+        });
+
+        res.json({ items });
+    } catch (err) {
+        console.error('Get item options error:', err);
+        res.status(500).json({ error: 'Eşya seçenekleri yüklenemedi' });
+    }
+});
+
 // Get single item (must be from same house)
 router.get('/:id', (req, res) => {
     try {

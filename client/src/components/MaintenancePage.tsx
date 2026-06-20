@@ -53,16 +53,20 @@ interface TaskCardProps {
     locale: string;
 }
 
-import { fetchWithCache, getCachedData, hasCache } from '../utils/apiCache';
+import { fetchWithCache, getCachedData, hasCache, invalidateCache } from '../utils/apiCache';
+
+const MAINTENANCE_URL = '/api/maintenance';
+const ITEM_OPTIONS_URL = '/api/items/options';
+const DASHBOARD_SUMMARY_URL = '/api/items/dashboard-summary';
 
 export default function MaintenancePage() {
     const { t, i18n } = useTranslation();
 
     // Initialize states from SWR cache
-    const [tasks, setTasks] = useState<MaintenanceTask[]>(() => getCachedData('/api/maintenance')?.tasks || []);
-    const [inventoryItems, setInventoryItems] = useState<InventoryItem[]>(() => getCachedData('/api/items')?.items || []);
+    const [tasks, setTasks] = useState<MaintenanceTask[]>(() => getCachedData(MAINTENANCE_URL)?.tasks || []);
+    const [inventoryItems, setInventoryItems] = useState<InventoryItem[]>(() => getCachedData(ITEM_OPTIONS_URL)?.items || []);
 
-    const isInitiallyLoaded = hasCache('/api/maintenance') && hasCache('/api/items');
+    const isInitiallyLoaded = hasCache(MAINTENANCE_URL) && hasCache(ITEM_OPTIONS_URL);
     const [loading, setLoading] = useState(!isInitiallyLoaded);
 
     // Modal & Action states
@@ -95,10 +99,10 @@ export default function MaintenancePage() {
     const fetchTasksAndItems = async () => {
         try {
             await Promise.all([
-                fetchWithCache('/api/maintenance', (data) => {
+                fetchWithCache(MAINTENANCE_URL, (data) => {
                     if (isActiveRef.current) setTasks(data.tasks || []);
                 }),
-                fetchWithCache('/api/items', (data) => {
+                fetchWithCache(ITEM_OPTIONS_URL, (data) => {
                     if (isActiveRef.current) setInventoryItems(data.items || []);
                 })
             ]);
@@ -183,6 +187,8 @@ export default function MaintenancePage() {
                 showToast(t('maintenance.toast.created', { defaultValue: 'Yeni bakım görevi eklendi' }));
             }
             setIsFormOpen(false);
+            invalidateCache(MAINTENANCE_URL);
+            invalidateCache(DASHBOARD_SUMMARY_URL);
             fetchTasksAndItems();
         } catch (error: any) {
             if (!isActiveRef.current) return;
@@ -198,6 +204,8 @@ export default function MaintenancePage() {
             if (!isActiveRef.current) return;
             showToast(t('maintenance.toast.deleted', { defaultValue: 'Bakım görevi başarıyla silindi.' }));
             setDeletingTask(null);
+            invalidateCache(MAINTENANCE_URL);
+            invalidateCache(DASHBOARD_SUMMARY_URL);
             fetchTasksAndItems();
         } catch (error) {
             if (!isActiveRef.current) return;
@@ -241,6 +249,8 @@ export default function MaintenancePage() {
                     next.delete(taskId);
                     return next;
                 });
+                invalidateCache(MAINTENANCE_URL);
+                invalidateCache(DASHBOARD_SUMMARY_URL);
                 fetchTasksAndItems();
             }, remainingTime);
         } catch (error) {

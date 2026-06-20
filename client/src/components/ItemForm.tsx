@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Camera, X, Lock, Globe, MapPin, Plus, Loader2, ChevronDown, Check, QrCode, ScanBarcode, Search, ExternalLink, CalendarDays, Edit3, ChevronRight } from 'lucide-react';
 import SecureImage from './SecureImage';
+import FullscreenImage from './FullscreenImage';
 import { MAX_PHOTO_UPLOAD_MB, isPhotoUploadTooLarge } from '../utils/mediaLimits';
 import { formatBorrowDate, formatBorrowDateTime, isBorrowOverdue } from '../utils/borrowFormatting';
 import {
@@ -15,9 +16,11 @@ import {
 import { resolveVisibleItemTitle } from '../utils/itemDisplay';
 import { getCategoryPresentation } from '../utils/categoryDisplay';
 import { getRoomPresentation } from '../utils/roomDisplay';
+import { invalidateCache } from '../utils/apiCache';
 
 const ItemQRCode = lazy(() => import('./ItemQRCode'));
 const BarcodeScanner = lazy(() => import('./BarcodeScanner'));
+const ITEM_CACHE_PATTERN = /^\/api\/items/;
 
 interface MaintenanceTask {
     id: number;
@@ -355,6 +358,7 @@ export default function ItemForm() {
             } else {
                 await axios.post('/api/maintenance', payload);
             }
+            invalidateCache('/api/items/dashboard-summary');
             setIsTaskFormOpen(false);
             await fetchMaintenanceTasks();
         } catch (error) {
@@ -365,6 +369,7 @@ export default function ItemForm() {
     const handlePerformTask = async (task: MaintenanceTask) => {
         try {
             await axios.post(`/api/maintenance/${task.id}/perform`);
+            invalidateCache('/api/items/dashboard-summary');
             await fetchMaintenanceTasks();
         } catch (error) {
             console.error('Perform maintenance task error:', error);
@@ -377,6 +382,7 @@ export default function ItemForm() {
         }
         try {
             await axios.delete(`/api/maintenance/${task.id}`);
+            invalidateCache('/api/items/dashboard-summary');
             await fetchMaintenanceTasks();
         } catch (error) {
             console.error('Delete maintenance task error:', error);
@@ -829,6 +835,7 @@ export default function ItemForm() {
                 timeout: ACTION_REQUEST_TIMEOUT_MS,
                 headers: { 'Content-Type': 'multipart/form-data' }
             }));
+            invalidateCache(ITEM_CACHE_PATTERN);
             setBarcodeMessage(t('items.messages.quick_add_success', { barcode }));
         } catch (err) {
             console.error('Quick add error:', err);
@@ -976,6 +983,7 @@ export default function ItemForm() {
                 setShowInvoiceSection(false);
             }
 
+            invalidateCache(ITEM_CACHE_PATTERN);
             navigate('/items');
         } catch (err) {
             setError(getRequestErrorMessage(err, t('common.error')));
@@ -1088,7 +1096,14 @@ export default function ItemForm() {
                 <div className="space-y-5">
                     <div className="card overflow-hidden p-0">
                         {existingPhoto && !removePhoto && (
-                            <SecureImage src={existingPhoto} alt={formData.name} className="h-64 w-full object-cover" />
+                            <FullscreenImage
+                                src={existingPhoto}
+                                alt={formData.name || t('items.form.photo')}
+                                secure
+                                className="w-full"
+                            >
+                                <SecureImage src={existingPhoto} alt={formData.name} className="h-64 w-full object-cover" />
+                            </FullscreenImage>
                         )}
                         <div className="space-y-4 p-5">
                             {formData.description && (
@@ -1116,7 +1131,14 @@ export default function ItemForm() {
                             {hasInvoiceContent ? (
                                 <div className="space-y-4">
                                     {existingInvoicePhoto && !removeInvoicePhoto && (
-                                        <SecureImage src={existingInvoicePhoto} alt={t('items.form.invoice_photo')} className="max-h-64 w-full rounded-xl object-cover" />
+                                        <FullscreenImage
+                                            src={existingInvoicePhoto}
+                                            alt={t('items.form.invoice_photo')}
+                                            secure
+                                            className="w-full rounded-xl"
+                                        >
+                                            <SecureImage src={existingInvoicePhoto} alt={t('items.form.invoice_photo')} className="max-h-64 w-full rounded-xl object-cover" />
+                                        </FullscreenImage>
                                     )}
                                     <div className="grid gap-3 sm:grid-cols-2">
                                         <DetailField label={t('items.form.invoice_price')} value={formData.invoice_price} />
@@ -1470,16 +1492,25 @@ export default function ItemForm() {
                             {/* Left Side: Premium Preview Zone */}
                             <div className="relative flex h-52 w-full md:w-52 flex-shrink-0 items-center justify-center overflow-hidden rounded-[20px] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] transition-all duration-300 shadow-[inset_0_2px_8px_rgba(0,0,0,0.04)] group/preview">
                                 {photoPreview ? (
-                                    <>
+                                    <FullscreenImage
+                                        src={photoPreview}
+                                        alt={formData.name || t('items.form.photo')}
+                                        className="h-full w-full"
+                                    >
                                         <img src={photoPreview} alt="" className="w-full h-full object-cover transition-transform duration-500 group-hover/preview:scale-105" />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/preview:opacity-100 transition duration-300 flex items-end justify-center p-3">
                                             <span className="text-[10px] font-bold text-white bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-full uppercase tracking-wider border border-white/20">
                                                 {t('items.form.photo_selected_badge', { defaultValue: 'Yeni Fotoğraf' })}
                                             </span>
                                         </div>
-                                    </>
+                                    </FullscreenImage>
                                 ) : existingPhoto ? (
-                                    <>
+                                    <FullscreenImage
+                                        src={existingPhoto}
+                                        alt={formData.name || t('items.form.photo')}
+                                        secure
+                                        className="h-full w-full"
+                                    >
                                         <SecureImage
                                             src={existingPhoto}
                                             alt=""
@@ -1495,7 +1526,7 @@ export default function ItemForm() {
                                                 {t('items.form.photo_existing_badge', { defaultValue: 'Mevcut Fotoğraf' })}
                                             </span>
                                         </div>
-                                    </>
+                                    </FullscreenImage>
                                 ) : (
                                     <div className="relative flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-[var(--hi-panel-muted)] to-[var(--hi-bg)] gap-3 p-4">
                                         <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--hi-panel-strong)] shadow-[var(--hi-shadow-soft)] border border-[var(--hi-border)] text-[var(--hi-text-soft)] group-hover/preview:scale-110 group-hover/preview:border-[var(--hi-accent)] group-hover/preview:text-[var(--hi-accent)] transition duration-300">
@@ -1702,16 +1733,25 @@ export default function ItemForm() {
                                         {/* Left Side: Premium Preview Zone */}
                                         <div className="relative flex h-52 w-full md:w-52 flex-shrink-0 items-center justify-center overflow-hidden rounded-[20px] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] transition-all duration-300 shadow-[inset_0_2px_8px_rgba(0,0,0,0.04)] group/preview">
                                             {invoicePhotoPreview ? (
-                                                <>
+                                                <FullscreenImage
+                                                    src={invoicePhotoPreview}
+                                                    alt={t('items.form.invoice_photo')}
+                                                    className="h-full w-full"
+                                                >
                                                     <img src={invoicePhotoPreview} alt="" className="w-full h-full object-cover transition-transform duration-500 group-hover/preview:scale-105" />
                                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/preview:opacity-100 transition duration-300 flex items-end justify-center p-3">
                                                         <span className="text-[10px] font-bold text-white bg-white/20 backdrop-blur-md px-3 py-1.5 rounded-full uppercase tracking-wider border border-white/20">
                                                             {t('items.form.photo_selected_badge', { defaultValue: 'Yeni Fotoğraf' })}
                                                         </span>
                                                     </div>
-                                                </>
+                                                </FullscreenImage>
                                             ) : existingInvoicePhoto ? (
-                                                <>
+                                                <FullscreenImage
+                                                    src={existingInvoicePhoto}
+                                                    alt={t('items.form.invoice_photo')}
+                                                    secure
+                                                    className="h-full w-full"
+                                                >
                                                     <SecureImage
                                                         src={existingInvoicePhoto}
                                                         alt=""
@@ -1727,7 +1767,7 @@ export default function ItemForm() {
                                                             {t('items.form.photo_existing_badge', { defaultValue: 'Mevcut Fotoğraf' })}
                                                         </span>
                                                     </div>
-                                                </>
+                                                </FullscreenImage>
                                             ) : (
                                                 <div className="relative flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-[var(--hi-panel-muted)] to-[var(--hi-bg)] gap-3 p-4">
                                                     <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--hi-panel-strong)] shadow-[var(--hi-shadow-soft)] border border-[var(--hi-border)] text-[var(--hi-text-soft)] group-hover/preview:scale-110 group-hover/preview:border-[var(--hi-accent)] group-hover/preview:text-[var(--hi-accent)] transition duration-300">

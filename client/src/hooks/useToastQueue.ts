@@ -12,7 +12,9 @@ export interface ToastQueueInput {
 
 const MAX_VISIBLE_TOASTS = 3;
 
-function getToastSignature(toast: ToastQueueInput) {
+type ToastSignatureInput = Pick<FloatingToastItem, 'tone' | 'type' | 'title' | 'message' | 'description'>;
+
+function getToastSignature(toast: ToastSignatureInput) {
     return [
         toast.tone || toast.type || 'success',
         toast.title || '',

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback, FormEvent, ChangeEvent } from 'react';
+import { Suspense, lazy, useState, useRef, useEffect, useCallback, FormEvent, ChangeEvent } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -10,13 +10,10 @@ import {
     X, Home, Users, Edit3, UserX, Trash2, Info, Globe
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import RecoveryKeyModal from './RecoveryKeyModal';
-import TwoFactorSetup from './TwoFactorSetup';
 import { copyTextToClipboard } from '../utils/clipboard';
 import { validatePasswordStrengthClient } from '../utils/passwordValidation';
 import { EmptyState, LoadingState, PageHeader, SectionHeader } from './ProductUI';
 import LanguageSwitcher from './LanguageSwitcher';
-import HouseKeyModal from './HouseKeyModal';
 import AccordionSection from './AccordionSection';
 import { FloatingToastStack } from './FloatingToast';
 import SegmentedToggle from './SegmentedToggle';
@@ -26,7 +23,22 @@ import { decryptBackupPayload, encryptBackupPayload, isEncryptedBackupPayload } 
 import { useToastQueue } from '../hooks/useToastQueue';
 import { PremiumCheckbox } from './PremiumCheckbox';
 
+const HouseKeyModal = lazy(() => import('./HouseKeyModal'));
+const RecoveryKeyModal = lazy(() => import('./RecoveryKeyModal'));
+const TwoFactorSetup = lazy(() => import('./TwoFactorSetup'));
+
 const MODAL_CLOSE_BUTTON_CLASS = 'rounded-xl p-2 text-[var(--hi-text-soft)] transition hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]';
+
+function ModalLoadingFallback() {
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
+            <div role="status" aria-live="polite" className="flex items-center gap-3 rounded-2xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] px-5 py-4 text-sm font-medium text-[var(--hi-text)] shadow-[var(--hi-shadow)]">
+                <Loader2 className="h-5 w-5 animate-spin text-[var(--hi-accent)]" />
+                <span>Loading...</span>
+            </div>
+        </div>
+    );
+}
 
 interface SettingsUser {
     id: number;
@@ -2404,29 +2416,33 @@ export default function Settings() {
                 )}
 
                 {displayRecoveryKey && (
-                    <RecoveryKeyModal
-                        recoveryKey={displayRecoveryKey}
-                        title={t('auth.recovery_key_modal.settings_title')}
-                        subtitle={t('auth.recovery_key_modal.subtitle')}
-                        warning={t('auth.recovery_key_modal.warning')}
-                        confirmLabel={t('auth.recovery_key_modal.confirm')}
-                        onConfirm={() => setDisplayRecoveryKey('')}
-                    />
+                    <Suspense fallback={<ModalLoadingFallback />}>
+                        <RecoveryKeyModal
+                            recoveryKey={displayRecoveryKey}
+                            title={t('auth.recovery_key_modal.settings_title')}
+                            subtitle={t('auth.recovery_key_modal.subtitle')}
+                            warning={t('auth.recovery_key_modal.warning')}
+                            confirmLabel={t('auth.recovery_key_modal.confirm')}
+                            onConfirm={() => setDisplayRecoveryKey('')}
+                        />
+                    </Suspense>
                 )}
 
                 {showHouseKeyModal && (
-                    <HouseKeyModal
-                        houseKey={houseKey}
-                        title={t('settings.house_info.modal_title', { defaultValue: 'House key access' })}
-                        subtitle={t('settings.house_info.modal_subtitle', { defaultValue: 'Use this key only for trusted household members who should request access to this shared inventory.' })}
-                        warning={t('settings.house_info.share_warning_body', { defaultValue: 'Anyone with this key can request access to the household inventory. Only share it with trusted members and use a private channel.' })}
-                        confirmLabel={t('common.close')}
-                        onCopied={() => showToast({
-                            title: t('settings.house_info.copy_success_title', { defaultValue: 'House key copied' }),
-                            description: t('settings.house_info.copy_success_body', { defaultValue: 'Treat it like a household password and share it only through a trusted channel.' })
-                        })}
-                        onConfirm={() => setShowHouseKeyModal(false)}
-                    />
+                    <Suspense fallback={<ModalLoadingFallback />}>
+                        <HouseKeyModal
+                            houseKey={houseKey}
+                            title={t('settings.house_info.modal_title', { defaultValue: 'House key access' })}
+                            subtitle={t('settings.house_info.modal_subtitle', { defaultValue: 'Use this key only for trusted household members who should request access to this shared inventory.' })}
+                            warning={t('settings.house_info.share_warning_body', { defaultValue: 'Anyone with this key can request access to the household inventory. Only share it with trusted members and use a private channel.' })}
+                            confirmLabel={t('common.close')}
+                            onCopied={() => showToast({
+                                title: t('settings.house_info.copy_success_title', { defaultValue: 'House key copied' }),
+                                description: t('settings.house_info.copy_success_body', { defaultValue: 'Treat it like a household password and share it only through a trusted channel.' })
+                            })}
+                            onConfirm={() => setShowHouseKeyModal(false)}
+                        />
+                    </Suspense>
                 )}
 
                 <SettingsAboutSection onLogout={() => setShowLogoutConfirm(true)} />
@@ -2434,10 +2450,12 @@ export default function Settings() {
 
             {/* 2FA Setup Modal */}
             {show2FASetup && (
-                <TwoFactorSetup
-                    onClose={() => setShow2FASetup(false)}
-                    onEnabled={() => { fetchUserData(); }}
-                />
+                <Suspense fallback={<ModalLoadingFallback />}>
+                    <TwoFactorSetup
+                        onClose={() => setShow2FASetup(false)}
+                        onEnabled={() => { fetchUserData(); }}
+                    />
+                </Suspense>
             )}
 
             {/* 2FA Disable Modal */}
