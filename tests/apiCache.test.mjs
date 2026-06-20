@@ -1,6 +1,27 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import axios from '../client/node_modules/axios/index.js';
+import ts from '../client/node_modules/typescript/lib/typescript.js';
+
+const apiCacheSourceUrl = new URL('../client/src/utils/apiCache.ts', import.meta.url);
+const axiosModuleUrl = pathToFileURL(
+    fileURLToPath(new URL('../client/node_modules/axios/index.js', import.meta.url))
+).href;
+
+async function loadApiCache() {
+    const source = readFileSync(apiCacheSourceUrl, 'utf8');
+    const transpiled = ts.transpileModule(source, {
+        compilerOptions: {
+            module: ts.ModuleKind.ESNext,
+            target: ts.ScriptTarget.ES2022
+        },
+        fileName: fileURLToPath(apiCacheSourceUrl)
+    }).outputText.replace("from 'axios'", `from '${axiosModuleUrl}'`);
+    const moduleUrl = `data:text/javascript;base64,${Buffer.from(transpiled).toString('base64')}`;
+    return import(moduleUrl);
+}
 
 function createDeferred() {
     let resolve;
@@ -14,7 +35,7 @@ function createDeferred() {
 }
 
 test('fetchWithCache preserves a newer in-flight request when an invalidated request settles', async () => {
-    const apiCache = await import('../client/src/utils/apiCache.ts');
+    const apiCache = await loadApiCache();
     apiCache.invalidateCache();
 
     const originalGet = axios.get;
@@ -70,7 +91,7 @@ test('fetchWithCache preserves a newer in-flight request when an invalidated req
 });
 
 test('invalidateCache applies global regular expressions to every matching URL', async () => {
-    const apiCache = await import('../client/src/utils/apiCache.ts');
+    const apiCache = await loadApiCache();
     apiCache.invalidateCache();
 
     const originalGet = axios.get;
