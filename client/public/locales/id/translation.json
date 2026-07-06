@@ -10,7 +10,7 @@
         "load_error": "Gagal memuat item",
         "form": {
             "name": "Nama Item",
-            "name_placeholder": "mis. TV Samsung 55 inci",
+            "name_placeholder": "mis. TV 55 inci",
             "required": "*",
             "description": "Deskripsi",
             "description_placeholder": "Catatan tentang barang...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Dekat Kadaluarsa",
             "expired": "Kadaluarsa",
             "low_stock": "Persediaan Rendah"
+        },
+        "untitled_item": "Item tanpa judul",
+        "attachments": {
+            "title": "Foto dan file",
+            "add": "Tambahkan file",
+            "empty": "Belum ada file yang ditambahkan.",
+            "form_desc": "Lampirkan foto barang, struk, faktur, atau dokumen layanan.",
+            "detail_desc": "Foto, struk, faktur, dan file layanan disimpan untuk barang ini.",
+            "upload_error": "File tidak dapat diunggah.",
+            "delete_error": "File tidak dapat dihapus.",
+            "delete_confirm": "Hapus file ini?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Tampilkan kata sandi",
         "saving": "Menyimpan...",
         "disabled": "Dinonaktifkan",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Perbesar",
+        "zoom_out": "Perkecil",
+        "reset": "Atur Ulang",
+        "print": "Cetak",
+        "record_count": "{{count}} catatan"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Anda akan dikembalikan ke layar masuk dan perlu masuk lagi untuk mengelola inventaris rumah tangga Anda.",
         "logout_warning": "Gunakan ini saat Anda selesai menggunakan perangkat bersama atau pribadi.",
         "maintenance": "Jadwal Pemeliharaan",
-        "shopping": "Daftar Belanja"
+        "shopping": "Daftar Belanja",
+        "activity": "Aktivitas",
+        "notifications": "Notifikasi",
+        "service": "Layanan"
     },
     "dashboard": {
         "welcome": "Selamat datang kembali, <1>{{name}}</1>",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} item telah jatuh di bawah batas stok minimum Anda.",
             "go_to_shopping": "Daftar Belanja",
             "close_expiry_title": "Tanggal Kedaluwarsa Mendatang",
-            "close_expiry_desc": "{{count}} produk akan kedaluwarsa dalam 30 hari."
+            "close_expiry_desc": "{{count}} produk akan kedaluwarsa dalam 30 hari.",
+            "view_low_stock_items": "Lihat Stok Rendah"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Kunci Rumah Aktif",
             "key_label": "Kunci Rumah",
-            "mask_key": "••••••••{{akhiran}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Sembunyikan",
             "show": "Tampilkan",
             "copy": "Salin",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} lokasi yang sudah ada dilewati.",
             "skipped_rooms": "{{count}} ruangan yang sudah ada dilewati.",
             "owner_only_title": "Cadangkan dan Pulihkan Dibatasi",
-            "owner_only_desc": "Cadangan dan pemulihan data hanya dapat dikelola oleh pemilik rumah."
+            "owner_only_desc": "Cadangan dan pemulihan data hanya dapat dikelola oleh pemilik rumah.",
+            "include_media_title": "Sertakan foto dan gambar struk",
+            "include_media_body": "Cadangan penuh mungkin lebih besar, tetapi foto barang dan gambar struk juga dapat dipulihkan.",
+            "skipped_attachments": "{{count}} lampiran dilewati."
         },
         "about": {
             "title": "Tentang Aplikasi",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Semua permintaan masuk diblokir secara otomatis.",
             "policy_house_only_desc": "Hanya anggota terverifikasi dari rumah aktif Anda yang dapat meminta item yang sudah terlihat di dalam rumah bersama tersebut.",
             "policy_everyone_desc": "Pengguna lain tidak dapat menelusuri atau melihat item Anda. Mereka hanya dapat mengirim permintaan dengan memasukkan nama pengguna atau email Anda secara langsung."
+        },
+        "activity_log": {
+            "title": "Aktivitas dan log audit",
+            "description": "Tinjau sejarah terlindungi dari perubahan item, pembaruan stok, lampiran, dan aksi massal.",
+            "encrypted_title": "Catatan aktivitas disimpan terlindungi",
+            "encrypted_body": "Tindakan dan detail aktivitas baru disimpan terenkripsi di database dan hanya didekripsi untuk sesi aktif Anda."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Catatan akan ditutup setelah pemberi pinjaman mengonfirmasi mereka menerima kembali item tersebut.",
             "return_pending_lender_title": "{{name}} menandai item ini telah dikembalikan",
             "return_pending_self_title": "Bersamamu, menunggu konfirmasi penerimaan",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Anggota situs",
+            "site_member_identifier": "Nama pengguna atau email",
+            "site_member_identifier_placeholder": "Nama pengguna atau email yang tepat",
+            "site_member_privacy_hint": "Penawaran muncul di Pusat Pinjaman hanya jika akun tersebut ada dan mengizinkan penawaran masuk.",
+            "external_privacy_hint": "Ini hanya membuat catatan lokal pribadi. Tidak ada pemberitahuan aplikasi yang dikirim.",
+            "available": "Tersedia"
         },
         "untitled_item": "Item tanpa judul",
         "delete_action": "Hapus item",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Saring berdasarkan ruangan",
         "refreshing_results": "Menyegarkan item...",
         "empty_filter_title": "Tidak ada item yang cocok dengan pencarian itu",
-        "delete_error_title": "Hapus gagal"
+        "delete_error_title": "Hapus gagal",
+        "tools": {
+            "title": "Alat"
+        },
+        "no_room": "Tidak ada ruang",
+        "all_locations": "Semua lokasi",
+        "location_filter_label": "Saring berdasarkan lokasi",
+        "visibility_filter_label": "Saring berdasarkan visibilitas",
+        "visibility_all": "Semua visibilitas",
+        "visibility_mine": "Item saya",
+        "visibility_others": "Anggota lain",
+        "borrow_filter_label": "Saring berdasarkan status pinjam",
+        "borrow_filter_all": "Semua status pinjam",
+        "stock_filter_label": "Saring berdasarkan status stok",
+        "stock_filter_all": "Semua status stok",
+        "stock_filter_ok": "Stok ok",
+        "expiry_filter_label": "Filter berdasarkan tanggal kedaluwarsa",
+        "expiry_filter_all": "Semua tanggal kedaluwarsa",
+        "expiry_filter_dated": "Memiliki tanggal",
+        "expiry_filter_none": "Tidak ada tanggal",
+        "warranty_filter_label": "Saring berdasarkan garansi",
+        "warranty_filter_all": "Semua garansi",
+        "warranty_filter_expired": "Garansi kadaluwarsa",
+        "warranty_filter_close": "Segera berakhir",
+        "warranty_filter_active": "Garansi aktif",
+        "warranty_filter_none": "Tidak ada informasi garansi",
+        "sort_label": "Urutkan",
+        "sort_updated_desc": "Baru-baru ini diperbarui",
+        "sort_updated_asc": "Pembaruan tertua",
+        "sort_created_desc": "Terbaru pertama",
+        "sort_created_asc": "Tertua pertama",
+        "sort_name_asc": "Nama A-Z",
+        "sort_name_desc": "Nama Z-A",
+        "sort_quantity_desc": "Jumlah dari tinggi ke rendah",
+        "sort_quantity_asc": "Jumlah dari rendah ke tinggi",
+        "sort_expiry_asc": "Kedaluwarsa paling cepat",
+        "sort_expiry_desc": "Kedaluwarsa paling lambat",
+        "stock_increase": "Tingkatkan stok",
+        "stock_decrease": "Kurangi stok",
+        "stock_adjust_error": "Stok tidak dapat diperbarui.",
+        "bulk": {
+            "select_visible": "Pilih terlihat",
+            "clear_visible": "Batalkan pilih terlihat",
+            "selected_short": "kategori yang dipilih",
+            "keep_category": "Pertahankan kategori",
+            "keep_room": "Pertahankan ruangan",
+            "keep_location": "Simpan lokasi",
+            "keep_visibility": "Simpan visibilitas",
+            "apply": "Terapkan",
+            "no_fields": "Pilih setidaknya satu bidang untuk tindakan massal.",
+            "updated_title": "Pembaruan massal selesai",
+            "updated_body": "{{count}} item diperbarui. {{skipped}} dilewati.",
+            "update_error": "Pembaruan massal tidak dapat diselesaikan.",
+            "deleted_title": "Penghapusan massal selesai",
+            "deleted_body": "{{count}} item dihapus. {{skipped}} dilewati.",
+            "delete_error": "Penghapusan massal tidak dapat diselesaikan.",
+            "delete_title": "Hapus item yang dipilih?",
+            "delete_description": "{{count}} item yang dipilih akan dihapus dari inventaris rumah tangga ini. Ini tidak dapat dibatalkan.",
+            "select_item": "Pilih item",
+            "unselect_item": "Batalkan pilihan item"
+        },
+        "qr_labels": {
+            "title": "Label QR",
+            "open": "Label Item",
+            "description": "{{count}} label item siap sebagai lembar cetak.",
+            "empty": "Ubah filter atau tambahkan item inventaris untuk mencetak label.",
+            "sheet_label": "Lembar Label Item",
+            "item_label": "Label Item"
+        }
     },
     "categories": {
         "title": "Kategori",
@@ -1341,7 +1436,7 @@
             "no_logs": "belum ada log",
             "errors_title": "Kesalahan Sistem (10 Terakhir)",
             "no_errors": "// Sistem sehat, tidak ada log kesalahan.",
-            "date_fmt": "{{tanggal, tanggalwaktu}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "E-mail",
                 "user": "Pengguna",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Unit mesh",
-                    "meta": "Konsol TV • Deco M4",
+                    "meta": "Konsol TV • Network node",
                     "state": null
                 },
                 {
@@ -1968,7 +2063,7 @@
             "sentAtLabel": "Dikirim pada",
             "senderLabel": "Pengirim",
             "serviceLabel": "Layanan",
-            "footer": "© 2026 {{namamerek}}"
+            "footer": "© 2026 {{brandName}}"
         }
     },
     "vault": {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Pusat peminjaman tidak dapat dimuat",
             "action_error": "Tindakan tidak dapat diselesaikan",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Catatan pinjaman aktif ini tidak dapat ditemukan. Segarkan Pusat Pinjaman dan coba lagi.",
             "errors": {
                 "external_target_daily_limit": "Anda hanya dapat mengirim satu permintaan kontak pertama ke orang yang sama dalam sehari. Jika mereka menerima permintaan, batas ini tidak berlaku lagi untuk orang tersebut.",
                 "external_total_daily_limit": "Anda dapat mengirim hingga 5 permintaan kontak pertama ke luar per hari.",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "Menu akun {{name}}"
     },
     "app": {
-        "name": "{{Nama Merek}}",
+        "name": "{{brandName}}",
         "tagline": "Kelola semua barang rumah tangga Anda dengan cerdas",
         "loading": "Memuat {{brandName}}",
         "preparing_workspace": "Mempersiapkan ruang kerja Anda..."
@@ -2555,5 +2650,102 @@
         "description": "Antarmuka mengalami masalah rendering yang tidak terduga. Data inventaris yang disimpan tidak diubah oleh layar ini.",
         "refresh_btn": "Segarkan",
         "home_btn": "Beranda"
+    },
+    "activity": {
+        "title": "Riwayat Aktivitas",
+        "description": "Perubahan terlindungi terbaru di inventaris rumah Anda.",
+        "empty_title": "Belum ada aktivitas",
+        "empty_description": "Perubahan item, pembaruan stok, lampiran, peminjaman, dan tindakan massal akan muncul di sini.",
+        "unknown_actor": "Pengguna tidak dikenal",
+        "deleted_item_with_id": "Item #{{id}} dihapus",
+        "item_missing": "Catatan item ini tidak lagi ada",
+        "actions": {
+            "item_created": "Item ditambahkan",
+            "item_updated": "Item diperbarui",
+            "item_deleted": "Item dihapus",
+            "item_borrowed": "Item dipinjamkan",
+            "item_returned": "Item dikembalikan",
+            "item_bulk_updated": "Pembaruan massal",
+            "item_bulk_deleted": "Hapus massal",
+            "item_stock_adjusted": "Stok diperbarui",
+            "item_attachment_added": "Lampiran ditambahkan",
+            "item_attachment_deleted": "Lampiran dihapus"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} catatan terkait",
+        "empty_title": "Tidak ada catatan terkait yang ditemukan",
+        "low_stock": {
+            "title": "Stok Rendah",
+            "description": "Barang di bawah tingkat stok minimum.",
+            "qty": "Stok {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Barang Kedaluwarsa",
+            "description": "Barang dengan tanggal kedaluwarsa."
+        },
+        "expiring": {
+            "title": "Tanggal Kedaluwarsa Mendatang",
+            "description": "Barang yang akan kedaluwarsa dalam 30 hari."
+        },
+        "maintenance": {
+            "title": "Pemeliharaan Terlambat",
+            "description": "Tugas pemeliharaan yang melewati tanggal yang dijadwalkan."
+        }
+    },
+    "notifications": {
+        "title": "Pusat Notifikasi",
+        "description": "Stok, garansi, pemeliharaan, kedaluwarsa, dan peringatan pengembalian pinjaman.",
+        "meta_total": "{{count}} notifikasi",
+        "meta_urgent": "{{count}} mendesak",
+        "empty_title": "Tidak ada peringatan yang memerlukan perhatian Anda saat ini",
+        "empty_desc": "Stok rendah, tanggal mendatang, dan pemeliharaan yang terlambat akan muncul di sini.",
+        "items": {
+            "stock_empty_title": "Habis stok",
+            "stock_low_title": "Stok rendah",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Tanggal kedaluwarsa telah lewat",
+            "expiry_close_title": "Tanggal kedaluwarsa mendekat",
+            "warranty_expired_title": "Garansi telah habis",
+            "warranty_close_title": "Garansi akan segera berakhir",
+            "maintenance_overdue_title": "Pemeliharaan tertunda",
+            "maintenance_close_title": "Pemeliharaan akan segera jatuh tempo",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Pengembalian pinjaman tertunda",
+            "borrow_close_title": "Pengembalian pinjaman akan segera jatuh tempo",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} hari tersisa ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Pusat Layanan dan Garansi",
+        "description": "Lacak garansi, jadwal perawatan, dan tindakan layanan dalam satu tempat.",
+        "meta_warranty": "{{count}} catatan garansi",
+        "meta_tasks": "{{count}} tugas perawatan",
+        "empty_title": "Tidak ada tindakan layanan atau garansi",
+        "empty_desc": "Tanggal garansi yang akan datang dan tugas perawatan akan dikumpulkan di sini.",
+        "warranty_section": "Pelacakan Garansi",
+        "warranty_desc": "Garansi yang sudah kedaluwarsa dan garansi yang berakhir dalam 30 hari.",
+        "maintenance_section": "Tindakan Pemeliharaan",
+        "maintenance_desc": "Tugas pemeliharaan yang tertunda dan yang akan datang.",
+        "no_warranty": "Tidak ada tindakan garansi yang akan datang.",
+        "no_tasks": "Tidak ada tugas pemeliharaan yang dijadwalkan.",
+        "overdue": "Terlambat",
+        "upcoming": "Segera",
+        "expired": "Kedaluwarsa",
+        "summary_warranty": "Pelacakan garansi",
+        "summary_tasks": "Tugas pemeliharaan",
+        "open_warranty_filter": "Filter garansi terbuka",
+        "open_warranty_filter_desc": "Memfilter item garansi yang aktif di inventaris."
+    },
+    "storage_labels": {
+        "title": "Label Rak dan Ruangan",
+        "description": "{{count}} label ruangan/rak siap sebagai lembar cetak.",
+        "empty_title": "Tidak ada ruangan atau rak untuk dilabeli",
+        "empty_desc": "Tambahkan ruangan atau lokasi terlebih dahulu, lalu cetak label QR di sini.",
+        "sheet_label": "Lembar Label Lokasi",
+        "scan_hint": "Memindai kode QR membuka inventaris yang difilter untuk ruangan atau rak tersebut.",
+        "room": "Ruangan",
+        "location": "Rak/Kotak"
     }
 }

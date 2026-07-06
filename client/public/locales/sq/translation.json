@@ -10,7 +10,7 @@
         "load_error": "Deshtoi ngarkimi i artikullit",
         "form": {
             "name": "Emri i artikullit",
-            "name_placeholder": "p.sh. Samsung TV 55 inç",
+            "name_placeholder": "p.sh. TV 55 inç",
             "required": "*",
             "description": "Përshkrimi",
             "description_placeholder": "Shënime rreth artikullit...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Afër Skadencës",
             "expired": "i Skaduar",
             "low_stock": "Stock i Ulët"
+        },
+        "untitled_item": "Artikull pa titull",
+        "attachments": {
+            "title": "Foto dhe skedarë",
+            "add": "Shto skedarë",
+            "empty": "Ende nuk janë shtuar skedarë.",
+            "form_desc": "Shtoni foto të artikullit, fatura, faturat e pagesës ose dokumentet e shërbimit.",
+            "detail_desc": "Fotot, faturat, faturat dhe skedarët e shërbimit u ruajtën për këtë artikull.",
+            "upload_error": "Skedarët nuk mund të ngarkoheshin.",
+            "delete_error": "Skedari nuk mund të fshihej.",
+            "delete_confirm": "Të fshihet ky skedar?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Trego fjalëkalimin",
         "saving": "Duke kursyer...",
         "disabled": "Me aftësi të kufizuara",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Zmadho",
+        "zoom_out": "Zvogëlo",
+        "reset": "Rivendos",
+        "print": "Shtyp",
+        "record_count": "{{count}} regjistra"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Do të ktheheni në ekranin e hyrjes dhe do t'ju duhet të identifikoheni përsëri për të menaxhuar inventarin e shtëpisë tuaj.",
         "logout_warning": "Përdorni këtë kur të keni mbaruar në një pajisje të përbashkët ose personale.",
         "maintenance": "Orari i Mirëmbajtjes",
-        "shopping": "Lista e Blerjeve"
+        "shopping": "Lista e Blerjeve",
+        "activity": "Aktivitet",
+        "notifications": "Njoftimet",
+        "service": "Shërbimi"
     },
     "dashboard": {
         "welcome": "Mirësevini, <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} artikuj kanë rënë nën kufirin tuaj minimal të stokut.",
             "go_to_shopping": "Lista e Blerjeve",
             "close_expiry_title": "Datat e Afërta të Skadimit",
-            "close_expiry_desc": "{{count}} produkte do të skadojnë brenda 30 ditëve."
+            "close_expiry_desc": "{{count}} produkte do të skadojnë brenda 30 ditëve.",
+            "view_low_stock_items": "Shiko Stokun e Ulët"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Çelësi Aktiv i Shtëpisë",
             "key_label": "Çelësi i Shtëpisë",
-            "mask_key": "••••••••{{prapashtesë}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Fshi",
             "show": "Shfaq",
             "copy": "Kopjo",
@@ -765,9 +782,9 @@
             "transfer_owner": "Bëni pronar",
             "transferring_owner": "Transferimi...",
             "transfer_owner_title": "Transferimi i pronësisë së shtëpisë?",
-            "transfer_owner_confirm": "Transferimi i pronësisë së kësaj familjeje te {{emri}}?",
+            "transfer_owner_confirm": "Transferimi i pronësisë së kësaj familjeje te {{name}}?",
             "transfer_owner_warning": "Ju nuk do të jeni më pronar i kësaj familjeje. Pronari i ri do të menaxhojë miratimet e anëtarëve, heqjet dhe ndryshimet e ardhshme të pronësisë.",
-            "transfer_owner_success_body": "{{emri}} tani është pronari i kësaj familjeje."
+            "transfer_owner_success_body": "{{name}} tani është pronari i kësaj familjeje."
         },
         "theme": {
             "title": "Temë",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} vende ekzistuese u anashkaluan.",
             "skipped_rooms": "{{count}} dhoma ekzistuese u anashkaluan.",
             "owner_only_title": "Krijimi i kopjeve rezervë dhe restaurimi i kufizuar",
-            "owner_only_desc": "Kopjimi i të dhënave dhe rivendosja mund të menaxhohen vetëm nga pronari i shtëpisë."
+            "owner_only_desc": "Kopjimi i të dhënave dhe rivendosja mund të menaxhohen vetëm nga pronari i shtëpisë.",
+            "include_media_title": "Përfshini foto dhe imazhe të faturës",
+            "include_media_body": "Bëhet një kopje e plotë rezervë që mund të jetë më e madhe, por fotot e artikullit dhe imazhet e faturave gjithashtu mund të rivendosen.",
+            "skipped_attachments": "{{count}} bashkëngjitje u anashkaluan."
         },
         "about": {
             "title": "Rreth Aplikacionit",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Të gjitha kërkesat hyrëse bllokohen automatikisht.",
             "policy_house_only_desc": "Vetëm anëtarët e verifikuar të shtëpive tuaja aktive mund të kërkojnë objekte që tashmë janë të dukshme brenda asaj shtëpie të përbashkët.",
             "policy_everyone_desc": "Përdorues të tjerë nuk mund të shfletojnë ose të shohin objektet tuaja. Ata mund të dërgojnë vetëm një kërkesë duke futur direkt emrin tuaj të përdoruesit ose emailin."
+        },
+        "activity_log": {
+            "title": "Aktiviteti dhe regjistri i auditimit",
+            "description": "Rishikoni historinë e mbrojtur të ndryshimeve të artikullit, azhurnimeve të stokut, bashkëngjitjeve dhe veprimeve në masë.",
+            "encrypted_title": "Regjistrat e aktivitetit ruhen të mbrojtur",
+            "encrypted_body": "Veprimet dhe detajet e reja të aktivitetit ruhen të koduara në bazën e të dhënave dhe deshifrohen vetëm për sesionin tuaj aktiv."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Rekordi do të mbyllet pasi huadhënësi të konfirmojë se ka marrë artikullin prapa.",
             "return_pending_lender_title": "{{name}} e shënoi këtë artikull si të dorëzuar prapa",
             "return_pending_self_title": "Me ju, duke pritur konfirmimin e pranimit",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Anëtar i faqes",
+            "site_member_identifier": "Emri i përdoruesit ose emaili",
+            "site_member_identifier_placeholder": "Emri i saktë i përdoruesit ose emaili",
+            "site_member_privacy_hint": "Oferta shfaqet në Qendrën e Huazimit vetëm nëse ai llogari ekziston dhe lejon oferta hyrëse.",
+            "external_privacy_hint": "Kjo krijon vetëm një regjistrim privat lokal. Nuk dërgohet asnjë njoftim i aplikacionit.",
+            "available": "Në dispozicion"
         },
         "untitled_item": "Artikull pa titull",
         "delete_action": "Fshi artikullin",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Filtrimi sipas dhomës",
         "refreshing_results": "Rifreskimi i artikujve...",
         "empty_filter_title": "Asnjë artikull nuk përputhej me këtë kërkim",
-        "delete_error_title": "Fshirja dështoi"
+        "delete_error_title": "Fshirja dështoi",
+        "tools": {
+            "title": "Veglat"
+        },
+        "no_room": "Asnjë dhomë",
+        "all_locations": "Të gjitha vendndodhjet",
+        "location_filter_label": "Filtroni sipas vendndodhjes",
+        "visibility_filter_label": "Filtroni sipas dukshmërisë",
+        "visibility_all": "E gjitha dukshmëria",
+        "visibility_mine": "Sendet e mia",
+        "visibility_others": "Anëtarët e tjerë",
+        "borrow_filter_label": "Filtroni sipas statusit të huazimit",
+        "borrow_filter_all": "Të gjitha statuset e huazimit",
+        "stock_filter_label": "Filtroni sipas statusit të stokut",
+        "stock_filter_all": "Të gjitha statuset e stokut",
+        "stock_filter_ok": "Stoku në rregull",
+        "expiry_filter_label": "Filtroni sipas datës së skadimit",
+        "expiry_filter_all": "Të gjitha datat e skadimit",
+        "expiry_filter_dated": "Ka datë",
+        "expiry_filter_none": "Pa datë",
+        "warranty_filter_label": "Filtroni sipas garancisë",
+        "warranty_filter_all": "Të gjitha garancitë",
+        "warranty_filter_expired": "Garanci të skaduara",
+        "warranty_filter_close": "Përfundon së shpejti",
+        "warranty_filter_active": "Garanci aktive",
+        "warranty_filter_none": "Asnjë informacion për garancinë",
+        "sort_label": "Rendit",
+        "sort_updated_desc": "Së fundmi i përditësuar",
+        "sort_updated_asc": "Përditësimi më i vjetër",
+        "sort_created_desc": "Më i fundit i pari",
+        "sort_created_asc": "Më i vjetri i pari",
+        "sort_name_asc": "Emri A-Z",
+        "sort_name_desc": "Emri Z-A",
+        "sort_quantity_desc": "Sasia nga lartë në të ulët",
+        "sort_quantity_asc": "Sasia nga e ulët në të lartë",
+        "sort_expiry_asc": "Skadon më shpejt",
+        "sort_expiry_desc": "Skadon më vonë",
+        "stock_increase": "Rritni stoqet",
+        "stock_decrease": "Ulni stoqet",
+        "stock_adjust_error": "Stoqet nuk mund të përditësohen.",
+        "bulk": {
+            "select_visible": "Zgjidhni të dukshmet",
+            "clear_visible": "Zgjedh çaktivizimi i dukshëm",
+            "selected_short": "zgjedhur",
+            "keep_category": "Mbaj kategorinë",
+            "keep_room": "Mbaj dhomën",
+            "keep_location": "Mbaj vendndodhjen",
+            "keep_visibility": "Mbaj dukshmërinë",
+            "apply": "Zbato",
+            "no_fields": "Zgjidh të paktën një fushë për veprimin në masë.",
+            "updated_title": "Përditësimi në masë u plotësua",
+            "updated_body": "{{count}} artikuj u përditësuan. {{skipped}} u anashkaluan.",
+            "update_error": "Përditësimi në masë nuk mund të përfundohej.",
+            "deleted_title": "Fshirja në masë u plotësua",
+            "deleted_body": "{{count}} artikuj u fshinë. {{skipped}} u anashkaluan.",
+            "delete_error": "Fshirja në masë nuk mund të përfundohej.",
+            "delete_title": "A të fshihen artikujt e zgjedhur?",
+            "delete_description": "{{count}} artikuj të zgjedhur do të hiqen nga ky inventar shtëpiak. Kjo nuk mund të zhbëhet.",
+            "select_item": "Zgjidh artikullin",
+            "unselect_item": "Shkëput artikullin"
+        },
+        "qr_labels": {
+            "title": "Etiketat QR",
+            "open": "Etiketat e artikullit",
+            "description": "{{count}} etiketat e artikujve janë gati si fletë për printim.",
+            "empty": "Ndrysho filtrat ose shto artikujt e inventarit për të printuar etiketat.",
+            "sheet_label": "Fleta e etiketave të artikullit",
+            "item_label": "Etiketa e Artikullit"
+        }
     },
     "categories": {
         "title": "Kategoritë",
@@ -1341,7 +1436,7 @@
             "no_logs": "ende asnjë regjistrim",
             "errors_title": "Gabimet e Sistemit (10 të fundit)",
             "no_errors": "// Sistemi është i shëndetshëm, nuk ka regjistrime gabimesh.",
-            "date_fmt": "{{data, ora e datës}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "Email",
                 "user": "Përdoruesi",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Njësia Mesh",
-                    "meta": "Konsola TV • Deco M4",
+                    "meta": "Konsola TV • Network node",
                     "state": null
                 },
                 {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Qendra e huazimit nuk mund të ngarkohej",
             "action_error": "Veprimi nuk mund të përfundonte",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Ky regjistër i aktiv i huazimit nuk mund të gjendet. Rifreskoni Qendrën e Huazimeve dhe provoni përsëri.",
             "errors": {
                 "external_target_daily_limit": "Ju mund të dërgoni vetëm një kërkesë të parë për kontakt nga jashtë tek e njëjta person në ditë. Nëse ata pranojnë një kërkesë, kjo kufizim nuk zbatohet më për atë person.",
                 "external_total_daily_limit": "Ju mund të dërgoni deri në 5 kërkesa të para-kontaktit nga jashtë për ditë.",
@@ -2555,5 +2650,102 @@
         "description": "Ndërfaqja goditi një problem të papritur të paraqitjes. Të dhënat tuaja të ruajtura të inventarit nuk ndryshohen nga ky ekran.",
         "refresh_btn": "Rifresko",
         "home_btn": "Shtëpi"
+    },
+    "activity": {
+        "title": "Historia e Aktivitetit",
+        "description": "Ndryshime të fundit të mbrojtura në inventarin tuaj të shtëpisë.",
+        "empty_title": "Nuk ka aktivitet deri tani",
+        "empty_description": "Ndryshimet e artikujve, azhurnimet e stokut, bashkëngjitjet, huazimet dhe veprimet në masë do të shfaqen këtu.",
+        "unknown_actor": "Përdorues i panjohur",
+        "deleted_item_with_id": "Artikulli i fshirë #{{id}}",
+        "item_missing": "Ky regjistër i artikullit nuk ekziston më",
+        "actions": {
+            "item_created": "Artikulli u shtua",
+            "item_updated": "Artikulli u përditësua",
+            "item_deleted": "Artikulli u fshi",
+            "item_borrowed": "Artikulli u huazua",
+            "item_returned": "Artikulli u kthye",
+            "item_bulk_updated": "Përditësim masiv",
+            "item_bulk_deleted": "Fshi masivisht",
+            "item_stock_adjusted": "Stoku u përditësua",
+            "item_attachment_added": "Bashkëngjitje e shtuar",
+            "item_attachment_deleted": "Bashkëngjitje e fshirë"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} rekorde të lidhura",
+        "empty_title": "Nuk u gjetën rekorde të lidhura",
+        "low_stock": {
+            "title": "Stok i ulët",
+            "description": "Artikuj nën nivelin e tyre minimal të stokut.",
+            "qty": "Stoku {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Artikujt e skaduar",
+            "description": "Artikuj me datë të skaduar."
+        },
+        "expiring": {
+            "title": "Data të ardhshme të skadimit",
+            "description": "Artikuj që skadojnë brenda 30 ditëve."
+        },
+        "maintenance": {
+            "title": "Mirëmbajtje e vonuar",
+            "description": "Detyrat e mirëmbajtjes që kanë kaluar datën e planifikuar."
+        }
+    },
+    "notifications": {
+        "title": "Qendra e Njoftimeve",
+        "description": "Stoku, garancia, mirëmbajtja, skadimi dhe paralajmërimet për kthimin e huazimit.",
+        "meta_total": "{{count}} njoftime",
+        "meta_urgent": "{{count}} urgjent",
+        "empty_title": "Asnjë paralajmërim nuk kërkon vëmendjen tuaj tani",
+        "empty_desc": "Stoku i ulët, datat e ardhshme dhe mirëmbajtja e vonuar do të shfaqen këtu.",
+        "items": {
+            "stock_empty_title": "Stoku përfundoi",
+            "stock_low_title": "Stoku i ulët",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Data e skadimit ka kaluar",
+            "expiry_close_title": "Afati i skadencës po afrohet",
+            "warranty_expired_title": "Garancia ka skaduar",
+            "warranty_close_title": "Garancia po mbaron së shpejti",
+            "maintenance_overdue_title": "Mirëmbajtja e tepruar",
+            "maintenance_close_title": "Mirëmbajtja e afërt",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Kthimi i huazimit i vonuar",
+            "borrow_close_title": "Kthimi i huazimit i afërt",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} ditë të mbetura ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Qendra e Shërbimit dhe Garancisë",
+        "description": "Ndjekni garancitë, oraret e mirëmbajtjes dhe veprimet e shërbimit në një vend.",
+        "meta_warranty": "{{count}} regjistrime garancie",
+        "meta_tasks": "{{count}} detyra mirëmbajtjeje",
+        "empty_title": "Asnjë veprim shërbimi ose garancie",
+        "empty_desc": "Datat e ardhshme të garancisë dhe detyrat e mirëmbajtjes do të mblidhen këtu.",
+        "warranty_section": "Ndjekja e Garancisë",
+        "warranty_desc": "Garancitë e skaduara dhe garancitë që përfundojnë brenda 30 ditëve.",
+        "maintenance_section": "Veprimet e Mirëmbajtjes",
+        "maintenance_desc": "Detyrat e mirëmbajtjes të vonuara dhe të ardhshme.",
+        "no_warranty": "Nuk ka asnjë veprim të ardhshëm të garancisë.",
+        "no_tasks": "Nuk ka asnjë detyrë të planifikuar mirëmbajtjeje.",
+        "overdue": "Vonuar",
+        "upcoming": "Së shpejti",
+        "expired": "Skaduar",
+        "summary_warranty": "Ndjekja e garancisë",
+        "summary_tasks": "Detyrat e mirëmbajtjes",
+        "open_warranty_filter": "Hapi filtrin e garancisë",
+        "open_warranty_filter_desc": "Filtron artikujt me garanci aktive në inventar."
+    },
+    "storage_labels": {
+        "title": "Etiketat e raftit dhe dhomës",
+        "description": "{{count}} etiketë/e dhome/rafte janë gati si fletë për printim.",
+        "empty_title": "Asnjë dhomë ose raft për t'u etiketuar",
+        "empty_desc": "Shtoni fillimisht dhomat ose vendndodhjet, pastaj printoni etiketat QR këtu.",
+        "sheet_label": "Fleta e Etiketës së Vendndodhjes",
+        "scan_hint": "Skanimi i kodit QR hap inventarin e filtruar për atë dhomë ose raft.",
+        "room": "Dhomë",
+        "location": "Raft/Kutia"
     }
 }

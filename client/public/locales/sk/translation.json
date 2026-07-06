@@ -10,7 +10,7 @@
         "load_error": "Nepodarilo sa načítať položku",
         "form": {
             "name": "Názov položky",
-            "name_placeholder": "napr. Samsung TV 55 palcov",
+            "name_placeholder": "napr. TV 55 palcov",
             "required": "*",
             "description": "Popis",
             "description_placeholder": "Poznámky o položke...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Blízko vypršania",
             "expired": "Expirované",
             "low_stock": "Nízky stav zásob"
+        },
+        "untitled_item": "Nepomenovaná položka",
+        "attachments": {
+            "title": "Fotky a súbory",
+            "add": "Pridať súbory",
+            "empty": "Ešte neboli pridané žiadne súbory.",
+            "form_desc": "Priložte fotky položky, účtenky, faktúry alebo servisné dokumenty.",
+            "detail_desc": "Fotky, účtenky, faktúry a servisné súbory uložené pre túto položku.",
+            "upload_error": "Súbory sa nepodarilo nahrať.",
+            "delete_error": "Súbor sa nepodarilo odstrániť.",
+            "delete_confirm": "Odstrániť tento súbor?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Zobraziť heslo",
         "saving": "Ukladá sa...",
         "disabled": "Zdravotne postihnutí",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Priblížiť",
+        "zoom_out": "Oddialiť",
+        "reset": "Obnoviť",
+        "print": "Tlačiť",
+        "record_count": "{{count}} záznamy"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Budete vrátení na prihlasovaciu obrazovku a na spravovanie domácich zásob sa budete musieť opäť prihlásiť.",
         "logout_warning": "Použite toto, keď skončíte na spoločnom alebo osobnom zariadení.",
         "maintenance": "Harmonogram údržby",
-        "shopping": "Nákupný zoznam"
+        "shopping": "Nákupný zoznam",
+        "activity": "Aktivita",
+        "notifications": "Oznámenia",
+        "service": "Služba"
     },
     "dashboard": {
         "welcome": "Vitajte, <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} položiek kleslo pod vašu minimálnu hranicu zásob.",
             "go_to_shopping": "Nákupný zoznam",
             "close_expiry_title": "Blížiace sa dátumy exspirácie",
-            "close_expiry_desc": "{{count}} produktov vyprší do 30 dní."
+            "close_expiry_desc": "{{count}} produktov vyprší do 30 dní.",
+            "view_low_stock_items": "Zobraziť nízky stav zásob"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Aktívny kľúč domu",
             "key_label": "Kľúč domu",
-            "mask_key": "••••••••{{sufix}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Skryť",
             "show": "Zobraziť",
             "copy": "Kopírovať",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} existujúcich miest preskočených.",
             "skipped_rooms": "{{count}} existujúcich izieb preskočených.",
             "owner_only_title": "Zálohovať a Obnoviť obmedzené",
-            "owner_only_desc": "Zálohovanie a obnovenie údajov môže spravovať iba majiteľ domu."
+            "owner_only_desc": "Zálohovanie a obnovenie údajov môže spravovať iba majiteľ domu.",
+            "include_media_title": "Zahrnúť fotografie a obrázky účtov",
+            "include_media_body": "Plná záloha môže byť väčšia, ale fotografie položiek a obrázky účtov je možné tiež obnoviť.",
+            "skipped_attachments": "{{count}} príloh bolo preskočených."
         },
         "about": {
             "title": "O aplikácii",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Všetky prichádzajúce požiadavky sú automaticky blokované.",
             "policy_house_only_desc": "Iba overení členovia vašich aktívnych domov môžu žiadať o predmety, ktoré sú už viditeľné vo vnútri zdieľaného domu.",
             "policy_everyone_desc": "Ostatní používatelia nemôžu prehliadať ani vidieť vaše predmety. Môžu poslať žiadosť iba tým, že priamo zadajú vaše používateľské meno alebo e-mail."
+        },
+        "activity_log": {
+            "title": "Protokol aktivít a auditu",
+            "description": "Prezrite si chránenú históriu zmien položiek, aktualizácií zásob, príloh a hromadných akcií.",
+            "encrypted_title": "Záznamy aktivít sú uložené chránené",
+            "encrypted_body": "Nové akcie a detaily aktivít sú uložené šifrované v databáze a sú dešifrované iba pre vašu aktívnu reláciu."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Záznam sa uzavrie po potvrdení, že veriteľ dostal položku späť.",
             "return_pending_lender_title": "{{name}} označil túto položku ako vrátenú",
             "return_pending_self_title": "U vás, čakanie na potvrdenie prijatia",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Člen stránky",
+            "site_member_identifier": "Používateľské meno alebo e-mail",
+            "site_member_identifier_placeholder": "Presné používateľské meno alebo e-mail",
+            "site_member_privacy_hint": "Ponuka sa zobrazuje v Centre pôžičiek iba ak tento účet existuje a povoľuje prijímanie ponúk.",
+            "external_privacy_hint": "Toto vytvára iba súkromný lokálny záznam. Žiadne oznámenie v aplikácii nie je odoslané.",
+            "available": "Dostupné"
         },
         "untitled_item": "Nepomenovaná položka",
         "delete_action": "Odstrániť položku",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Filtrovať podľa miestnosti",
         "refreshing_results": "Obnovovanie položiek...",
         "empty_filter_title": "Žiadne položky nezodpovedali tomuto vyhľadávaniu",
-        "delete_error_title": "Odstránenie zlyhalo"
+        "delete_error_title": "Odstránenie zlyhalo",
+        "tools": {
+            "title": "Nástroje"
+        },
+        "no_room": "Žiadna miestnosť",
+        "all_locations": "Všetky lokality",
+        "location_filter_label": "Filtrovať podľa lokality",
+        "visibility_filter_label": "Filtrovať podľa viditeľnosti",
+        "visibility_all": "Všetka viditeľnosť",
+        "visibility_mine": "Moje položky",
+        "visibility_others": "Iní členovia",
+        "borrow_filter_label": "Filtrovať podľa stavu pôžičky",
+        "borrow_filter_all": "Všetky stavy pôžičiek",
+        "stock_filter_label": "Filtrovať podľa stavu zásob",
+        "stock_filter_all": "Všetky stavy zásob",
+        "stock_filter_ok": "Zásoba v poriadku",
+        "expiry_filter_label": "Filtrovať podľa dátumu expirácie",
+        "expiry_filter_all": "Všetky dátumy expirácie",
+        "expiry_filter_dated": "Má dátum",
+        "expiry_filter_none": "Žiadny dátum",
+        "warranty_filter_label": "Filter podľa záruky",
+        "warranty_filter_all": "Všetky záruky",
+        "warranty_filter_expired": "Expirované záruky",
+        "warranty_filter_close": "Čoskoro končiace",
+        "warranty_filter_active": "Aktívne záruky",
+        "warranty_filter_none": "Žiadne informácie o záruke",
+        "sort_label": "Zoradiť",
+        "sort_updated_desc": "Nedávno aktualizované",
+        "sort_updated_asc": "Najstaršia aktualizácia",
+        "sort_created_desc": "Najnovšie prvé",
+        "sort_created_asc": "Najstaršie prvé",
+        "sort_name_asc": "Názov A-Z",
+        "sort_name_desc": "Názov Z-A",
+        "sort_quantity_desc": "Množstvo od najvyššieho po najnižšie",
+        "sort_quantity_asc": "Množstvo od najnižšieho po najvyššie",
+        "sort_expiry_asc": "Exspirácia najskôr",
+        "sort_expiry_desc": "Exspirácia najneskôr",
+        "stock_increase": "Zvýšiť zásoby",
+        "stock_decrease": "Znížiť zásoby",
+        "stock_adjust_error": "Zásoby sa nedali aktualizovať.",
+        "bulk": {
+            "select_visible": "Vybrať viditeľné",
+            "clear_visible": "Zrušiť výber viditeľných",
+            "selected_short": "vybrané",
+            "keep_category": "Zachovať kategóriu",
+            "keep_room": "Zachovať miestnosť",
+            "keep_location": "Zachovať umiestnenie",
+            "keep_visibility": "Zachovať viditeľnosť",
+            "apply": "Použiť",
+            "no_fields": "Vyberte aspoň jedno pole pre hromadnú akciu.",
+            "updated_title": "Hromadná aktualizácia dokončená",
+            "updated_body": "{{count}} položiek aktualizovaných. {{skipped}} preskočených.",
+            "update_error": "Hromadná aktualizácia sa nedala dokončiť.",
+            "deleted_title": "Hromadné vymazanie dokončené",
+            "deleted_body": "{{count}} položiek vymazaných. {{skipped}} preskočených.",
+            "delete_error": "Hromadné vymazanie sa nedalo dokončiť.",
+            "delete_title": "Vymazať vybrané položky?",
+            "delete_description": "{{count}} vybraných položiek bude odstránených z tohto inventára domácnosti. Toto sa nedá vrátiť späť.",
+            "select_item": "Vybrať položku",
+            "unselect_item": "Zrušiť výber položky"
+        },
+        "qr_labels": {
+            "title": "QR štítky",
+            "open": "Štítky položiek",
+            "description": "{{count}} štítkov položiek je pripravených na tlač",
+            "empty": "Zmeňte filtre alebo pridajte položky zo skladu na tlač štítkov",
+            "sheet_label": "List štítkov položiek",
+            "item_label": "Štítok položky"
+        }
     },
     "categories": {
         "title": "Kategórie",
@@ -1341,7 +1436,7 @@
             "no_logs": "ešte žiadne záznamy",
             "errors_title": "Systémové chyby (posledných 10)",
             "no_errors": "// Systém je zdravý, žiadne chybové záznamy.",
-            "date_fmt": "{{dátum, dátum a čas}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "E-mail",
                 "user": "Používateľ",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Mrežová jednotka",
-                    "meta": "TV konzola • Deco M4",
+                    "meta": "TV konzola • Network node",
                     "state": null
                 },
                 {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Centrum požičania sa nedalo načítať",
             "action_error": "Akciu sa nepodarilo dokončiť",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Tento aktívny záznam o požičaní sa nenašiel. Obnovte Centrum požičania a skúste to znova.",
             "errors": {
                 "external_target_daily_limit": "Môžete poslať iba jednu prvú externú žiadosť kontaktu tej istej osobe denne. Ak žiadosť prijmú, toto obmedzenie sa na túto osobu už nevzťahuje.",
                 "external_total_daily_limit": "Môžete poslať až 5 prvých externých žiadostí kontaktu denne.",
@@ -2555,5 +2650,102 @@
         "description": "Rozhranie narazilo na nečakaný problém s vykresľovaním. Vaše uložené inventárne dáta sa touto obrazovkou nemenia.",
         "refresh_btn": "Obnoviť",
         "home_btn": "Domov"
+    },
+    "activity": {
+        "title": "História aktivít",
+        "description": "Nedávne chránené zmeny vo vašom domácom inventári.",
+        "empty_title": "Ešte žiadna aktivita",
+        "empty_description": "Zmeny položiek, aktualizácie zásob, prílohy, požičiavanie a hromadné akcie sa tu zobrazia.",
+        "unknown_actor": "Neznámy používateľ",
+        "deleted_item_with_id": "Odstránená položka #{{id}}",
+        "item_missing": "Tento záznam položky už neexistuje",
+        "actions": {
+            "item_created": "Položka pridaná",
+            "item_updated": "Položka aktualizovaná",
+            "item_deleted": "Položka odstránená",
+            "item_borrowed": "Položka zapožičaná",
+            "item_returned": "Položka vrátená",
+            "item_bulk_updated": "Hromadná aktualizácia",
+            "item_bulk_deleted": "Hromadné odstránenie",
+            "item_stock_adjusted": "Stav zásob aktualizovaný",
+            "item_attachment_added": "Priložený súbor pridaný",
+            "item_attachment_deleted": "Priložený súbor odstránený"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} súvisiacich záznamov",
+        "empty_title": "Neboli nájdené žiadne súvisiace záznamy",
+        "low_stock": {
+            "title": "Nízky stav zásob",
+            "description": "Položky pod minimálnou úrovňou zásob.",
+            "qty": "Zásoby {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Expirované položky",
+            "description": "Položky s uplynutou dobou platnosti."
+        },
+        "expiring": {
+            "title": "Blížiace sa dátumy exspirácie",
+            "description": "Položky, ktorých platnosť vyprší do 30 dní."
+        },
+        "maintenance": {
+            "title": "Nedodaná údržba",
+            "description": "Úlohy údržby po uplynutí plánovaného dátumu."
+        }
+    },
+    "notifications": {
+        "title": "Centrum upozornení",
+        "description": "Upozornenia na sklad, záruku, údržbu, exspiráciu a vrátenie požičaných položiek.",
+        "meta_total": "{{count}} upozornení",
+        "meta_urgent": "{{count}} naliehavé",
+        "empty_title": "Momentálne si nevyžadujú pozornosť žiadne upozornenia",
+        "empty_desc": "Nízke zásoby, nadchádzajúce termíny a oneskorená údržba sa zobrazia tu.",
+        "items": {
+            "stock_empty_title": "Vypredané",
+            "stock_low_title": "Nízke zásoby",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Dátum exspirácie uplynul",
+            "expiry_close_title": "Dátum exspirácie sa blíži",
+            "warranty_expired_title": "Záruka vypršala",
+            "warranty_close_title": "Záruka sa blíži ku koncu",
+            "maintenance_overdue_title": "Údržba po lehote",
+            "maintenance_close_title": "Údržba sa blíži",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Vrátka výpožičky po lehote",
+            "borrow_close_title": "Vrátka výpožičky sa blíži",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: zostáva {{count}} dní ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Servisné a záručné centrum",
+        "description": "Sledovanie záruk, plánov údržby a servisných úkonov na jednom mieste.",
+        "meta_warranty": "{{count}} záznamov o záruke",
+        "meta_tasks": "{{count}} úloh údržby",
+        "empty_title": "Žiadna servisná alebo záručná akcia",
+        "empty_desc": "Nadchádzajúce dátumy záruky a úlohy údržby budú tu zhromaždené.",
+        "warranty_section": "Sledovanie záruky",
+        "warranty_desc": "Expirované záruky a záruky končiace do 30 dní.",
+        "maintenance_section": "Úkony údržby",
+        "maintenance_desc": "Po termíne a nadchádzajúce úlohy údržby.",
+        "no_warranty": "Žiadna nadchádzajúca záručná akcia.",
+        "no_tasks": "Žiadna naplánovaná údržbová úloha.",
+        "overdue": "Po termíne",
+        "upcoming": "Čoskoro",
+        "expired": "Vypršané",
+        "summary_warranty": "Sledovanie záruky",
+        "summary_tasks": "Údržbové úlohy",
+        "open_warranty_filter": "Filter otvorenej záruky",
+        "open_warranty_filter_desc": "Filtruje položky s aktívnou zárukou v inventári."
+    },
+    "storage_labels": {
+        "title": "Štítky políc a miestností",
+        "description": "{{count}} štítkov miestností/políc je pripravených ako tlačový list.",
+        "empty_title": "Žiadne miestnosti ani police na označenie",
+        "empty_desc": "Najprv pridajte miestnosti alebo miesta, potom tu vytlačte QR štítky.",
+        "sheet_label": "List štítkov umiestnení",
+        "scan_hint": "Skenovanie QR kódu otvorí filtrovaný inventár pre danú miestnosť alebo poličku.",
+        "room": "Miestnosť",
+        "location": "Polica/Box"
     }
 }

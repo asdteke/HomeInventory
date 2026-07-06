@@ -10,7 +10,7 @@
         "load_error": "Non se puido cargar o elemento",
         "form": {
             "name": "Nome do elemento",
-            "name_placeholder": "por exemplo, Samsung TV 55 polgadas",
+            "name_placeholder": "por exemplo, TV 55 polgadas",
             "required": "*",
             "description": "Descrición",
             "description_placeholder": "Notas sobre o artigo...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Preto de expirar",
             "expired": "Caducado",
             "low_stock": "Stock baixo"
+        },
+        "untitled_item": "Elemento sen título",
+        "attachments": {
+            "title": "Fotos e arquivos",
+            "add": "Engadir ficheiros",
+            "empty": "Aínda non se engadiu ningún ficheiro.",
+            "form_desc": "Adxuntar fotos do artigo, recibos, facturas ou documentos de servizo.",
+            "detail_desc": "Fotos, recibos, facturas e ficheiros de servizo gardados para este artigo.",
+            "upload_error": "Non se puideron subir os ficheiros.",
+            "delete_error": "Non se puido eliminar o ficheiro.",
+            "delete_confirm": "Eliminar este ficheiro?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Mostrar contrasinal",
         "saving": "Gardando...",
         "disabled": "Discapacitado",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Achegar",
+        "zoom_out": "Afastar",
+        "reset": "Restablecer",
+        "print": "Imprimir",
+        "record_count": "{{count}} rexistros"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Volverás á pantalla de inicio de sesión e necesitarás iniciar sesión de novo para xestionar o inventario do fogar.",
         "logout_warning": "Usa isto cando remates nun dispositivo compartido ou persoal.",
         "maintenance": "Programa de Mantemento",
-        "shopping": "Lista de Compras"
+        "shopping": "Lista de Compras",
+        "activity": "Actividade",
+        "notifications": "Notificacións",
+        "service": "Servizo"
     },
     "dashboard": {
         "welcome": "Benvido de novo, <1>{{name}}</1>",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} artigos caeron por debaixo do teu límite mínimo de stock.",
             "go_to_shopping": "Lista de compras",
             "close_expiry_title": "Próximas datas de caducidade",
-            "close_expiry_desc": "{{count}} produtos caducarán dentro de 30 días."
+            "close_expiry_desc": "{{count}} produtos caducarán dentro de 30 días.",
+            "view_low_stock_items": "Ver stock baixo"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Chave da Casa Activa",
             "key_label": "Chave da Casa",
-            "mask_key": "••••••••{{sufixo}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Ocultar",
             "show": "Mostrar",
             "copy": "Copiar",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} localizacións existentes omitidas.",
             "skipped_rooms": "{{count}} salas existentes omitidas.",
             "owner_only_title": "Copia de seguridade e restauración restrinxidas",
-            "owner_only_desc": "A copia de seguridade e a restauración de datos só poden ser xestionadas polo propietario da casa."
+            "owner_only_desc": "A copia de seguridade e a restauración de datos só poden ser xestionadas polo propietario da casa.",
+            "include_media_title": "Incluir fotos e imaxes do recibo",
+            "include_media_body": "A copia de seguridade completa pode ser máis grande, pero tamén se poden restaurar fotos de elementos e imaxes de recibos.",
+            "skipped_attachments": "{{count}} anexos foron omitidos."
         },
         "about": {
             "title": "Sobre a aplicación",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Todas as solicitudes entrantes bloqueanse automaticamente.",
             "policy_house_only_desc": "Só os membros verificados das túas casas activas poden solicitar elementos que xa son visibles dentro desa casa compartida.",
             "policy_everyone_desc": "Outros usuarios non poden navegar nin ver os teus elementos. Só poden enviar unha solicitude introducindo directamente o teu nome de usuario ou correo electrónico."
+        },
+        "activity_log": {
+            "title": "Rexistro de actividade e auditoría",
+            "description": "Revise a historia protexida dos cambios de elementos, actualizacións de stock, anexos e accións masivas.",
+            "encrypted_title": "Os rexistros de actividade almacénanse protexidos",
+            "encrypted_body": "As novas accións e detalles de actividade almacénanse cifrados na base de datos e só se descifran para a túa sesión activa."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "O rexistro pecharase despois de que o prestamista confirme que recibiu o elemento de volta.",
             "return_pending_lender_title": "{{name}} marcou este elemento como devolto",
             "return_pending_self_title": "Contigo, agardando confirmación de recibo",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Membro do sitio",
+            "site_member_identifier": "Nome de usuario ou correo electrónico",
+            "site_member_identifier_placeholder": "Nome de usuario ou correo exacto",
+            "site_member_privacy_hint": "A oferta aparece en Centro de Empréstamo só se esa conta existe e permite ofertas entrantes.",
+            "external_privacy_hint": "Isto crea un rexistro local privado só. Non se envía ningunha notificación da aplicación.",
+            "available": "Disponible"
         },
         "untitled_item": "Elemento sen título",
         "delete_action": "Eliminar elemento",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Filtrar por habitación",
         "refreshing_results": "Actualizando elementos...",
         "empty_filter_title": "Ningún elemento coincideu con esa busca",
-        "delete_error_title": "Eliminar fallou"
+        "delete_error_title": "Eliminar fallou",
+        "tools": {
+            "title": "Ferramentas"
+        },
+        "no_room": "Sen habitación",
+        "all_locations": "Todas as localizacións",
+        "location_filter_label": "Filtrar por localización",
+        "visibility_filter_label": "Filtrar por visibilidade",
+        "visibility_all": "Toda a visibilidade",
+        "visibility_mine": "Os meus elementos",
+        "visibility_others": "Outros membros",
+        "borrow_filter_label": "Filtrar por estado de préstamo",
+        "borrow_filter_all": "Todos os estados de préstamo",
+        "stock_filter_label": "Filtrar por estado de stock",
+        "stock_filter_all": "Todos os estados de stock",
+        "stock_filter_ok": "Stock aceptable",
+        "expiry_filter_label": "Filtrar por data de caducidade",
+        "expiry_filter_all": "Todas as datas de caducidade",
+        "expiry_filter_dated": "Ten data",
+        "expiry_filter_none": "Sen data",
+        "warranty_filter_label": "Filtrar por garantía",
+        "warranty_filter_all": "Todas as garantías",
+        "warranty_filter_expired": "Garantías vencidas",
+        "warranty_filter_close": "A piques de rematar",
+        "warranty_filter_active": "Garantías activas",
+        "warranty_filter_none": "Sen información de garantía",
+        "sort_label": "Ordenar",
+        "sort_updated_desc": "Actualizado recentemente",
+        "sort_updated_asc": "Actualización máis antiga",
+        "sort_created_desc": "Primeiro o máis novo",
+        "sort_created_asc": "Primeiro o máis antigo",
+        "sort_name_asc": "Nome A-Z",
+        "sort_name_desc": "Nome Z-A",
+        "sort_quantity_desc": "Cantidade de maior a menor",
+        "sort_quantity_asc": "Cantidade de menor a maior",
+        "sort_expiry_asc": "Vencemento máis próximo",
+        "sort_expiry_desc": "Vencemento máis distante",
+        "stock_increase": "Incrementar stock",
+        "stock_decrease": "Reducir stock",
+        "stock_adjust_error": "Non se puido actualizar o stock.",
+        "bulk": {
+            "select_visible": "Seleccionar visible",
+            "clear_visible": "Deseleccionar visible",
+            "selected_short": "seleccionado",
+            "keep_category": "Manter categoría",
+            "keep_room": "Manter sala",
+            "keep_location": "Manter localización",
+            "keep_visibility": "Manter visibilidade",
+            "apply": "Aplicar",
+            "no_fields": "Escolla polo menos un campo para a acción masiva.",
+            "updated_title": "Actualización masiva completa",
+            "updated_body": "{{count}} elementos actualizados. {{skipped}} omitidos.",
+            "update_error": "Non se puido completar a actualización masiva.",
+            "deleted_title": "Eliminación masiva completada",
+            "deleted_body": "{{count}} elementos eliminados. {{skipped}} omitidos.",
+            "delete_error": "A eliminación masiva non se puido completar.",
+            "delete_title": "Eliminar os elementos seleccionados?",
+            "delete_description": "{{count}} elementos seleccionados serán eliminados deste inventario do fogar. Isto non se pode desfacerse.",
+            "select_item": "Seleccionar elemento",
+            "unselect_item": "Deseleccionar elemento"
+        },
+        "qr_labels": {
+            "title": "Etiquetas QR",
+            "open": "Etiquetas de elementos",
+            "description": "{{count}} etiquetas de elementos están listas como folla de impresión.",
+            "empty": "Cambia os filtros ou engade artigos de inventario para imprimir etiquetas.",
+            "sheet_label": "Folleto de etiquetas de artigo",
+            "item_label": "Etiqueta de artigo"
+        }
     },
     "categories": {
         "title": "Categorías",
@@ -1341,7 +1436,7 @@
             "no_logs": "aínda sen rexistros",
             "errors_title": "Erros do sistema (Últimos 10)",
             "no_errors": "// Sistema saudable, ningún rexistro de erros.",
-            "date_fmt": "{{data, datahora}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "Correo electrónico",
                 "user": "Usuario",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Unidade de malha",
-                    "meta": "Consola de TV • Deco M4",
+                    "meta": "Consola de TV • Network node",
                     "state": null
                 },
                 {
@@ -1929,7 +2024,7 @@
             "bodyLine2": "Agardando a aprobación do propietario da casa"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{estado}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Acceso á casa",
             "bodyLine1Template": "Solicitude pendente actual: {{house}} ({{status}})",
             "bodyLine2": "A túa solicitude para \"{{house}}\" aínda está agardando unha decisión.",
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Non se puido cargar o centro de préstamos",
             "action_error": "Non se puido completar a acción",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Non se puido atopar este rexistro de préstamo activo. Refresca o Centro de Préstamos e intenta de novo.",
             "errors": {
                 "external_target_daily_limit": "Só podes enviar unha solicitude externa de primeiro contacto á mesma persoa por día. Se aceptan unha solicitude, este límite xa non se aplica a esa persoa.",
                 "external_total_daily_limit": "Podes enviar ata 5 solicitudes externas de primeiro contacto por día.",
@@ -2555,5 +2650,102 @@
         "description": "A interface tivo un problema inesperado de renderizado. Os teus datos de inventario gardados non cambian nesta pantalla.",
         "refresh_btn": "Actualizar",
         "home_btn": "Fogar"
+    },
+    "activity": {
+        "title": "Historial de actividade",
+        "description": "Cambios recentes protexidos no inventario da túa casa.",
+        "empty_title": "Sen actividade aínda",
+        "empty_description": "Os cambios de elementos, actualizacións de stock, anexos, préstamos e accións masivas aparecerán aquí.",
+        "unknown_actor": "Usuario descoñecido",
+        "deleted_item_with_id": "Elemento eliminado #{{id}}",
+        "item_missing": "Este rexistro de elemento xa non existe",
+        "actions": {
+            "item_created": "Elemento engadido",
+            "item_updated": "Elemento actualizado",
+            "item_deleted": "Elemento eliminado",
+            "item_borrowed": "Elemento prestado",
+            "item_returned": "Elemento devolto",
+            "item_bulk_updated": "Actualización masiva",
+            "item_bulk_deleted": "Eliminación masiva",
+            "item_stock_adjusted": "Inventario actualizado",
+            "item_attachment_added": "Anexo engadido",
+            "item_attachment_deleted": "Anexo eliminado"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} rexistros relacionados",
+        "empty_title": "Non se atoparon rexistros relacionados",
+        "low_stock": {
+            "title": "Stock baixo",
+            "description": "Artigos por baixo do seu nivel mínimo de stock.",
+            "qty": "Stock {{quantity}} / mín {{min}}"
+        },
+        "expired": {
+            "title": "Artigos caducados",
+            "description": "Artigos cunha data caducada."
+        },
+        "expiring": {
+            "title": "Próximas Datas de Vencemento",
+            "description": "Artigos que vencen dentro de 30 días."
+        },
+        "maintenance": {
+            "title": "Mantemento Atrasado",
+            "description": "Tarefas de mantemento pasadas a súa data programada."
+        }
+    },
+    "notifications": {
+        "title": "Centro de notificacións",
+        "description": "Alertas de stock, garantía, mantemento, caducidade e devolucións de préstamos.",
+        "meta_total": "{{count}} notificacións",
+        "meta_urgent": "{{count}} urxentes",
+        "empty_title": "Non hai alertas que requiran a súa atención neste momento",
+        "empty_desc": "Aquí aparecerán os baixos existencias, as datas próximas e o mantemento atrasado.",
+        "items": {
+            "stock_empty_title": "Sen existencias",
+            "stock_low_title": "Baixos existencias",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Data de caducidade pasada",
+            "expiry_close_title": "Data de caducidade achegándose",
+            "warranty_expired_title": "Garantía expirada",
+            "warranty_close_title": "Garantía a piques de rematar",
+            "maintenance_overdue_title": "Mantemento atrasado",
+            "maintenance_close_title": "Mantemento próximo",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Devolución de préstamo atrasada",
+            "borrow_close_title": "Devolución de préstamo próxima",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} días restantes ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Centro de Servizo e Garantía",
+        "description": "Realiza un seguimento das garantías, os programas de mantemento e as accións de servizo nun só lugar.",
+        "meta_warranty": "{{count}} rexistros de garantía",
+        "meta_tasks": "{{count}} tarefas de mantemento",
+        "empty_title": "Sen acción de servizo ou garantía",
+        "empty_desc": "As próximas datas de garantía e tarefas de mantemento serán recollidas aquí.",
+        "warranty_section": "Seguimento da garantía",
+        "warranty_desc": "Garantías caducadas e garantías que rematan nos próximos 30 días.",
+        "maintenance_section": "Acciones de mantemento",
+        "maintenance_desc": "Tarefas de mantemento vencidas e próximas.",
+        "no_warranty": "Ningunha acción de garantía próxima.",
+        "no_tasks": "Ningunha tarefa de mantemento programada.",
+        "overdue": "Atrasado",
+        "upcoming": "Próximo",
+        "expired": "Caducado",
+        "summary_warranty": "Seguimento da garantía",
+        "summary_tasks": "Tarefas de mantemento",
+        "open_warranty_filter": "Filtro de garantía aberta",
+        "open_warranty_filter_desc": "Filtra os artigos con garantía activa no inventario."
+    },
+    "storage_labels": {
+        "title": "Etiquetas de Estante e Sala",
+        "description": "{{count}} etiquetas de sala/estante están listas como folla de impresión.",
+        "empty_title": "Non hai salas ou estantes para etiquetar",
+        "empty_desc": "Engade primeiro salas ou localizacións, logo imprime as etiquetas QR aquí.",
+        "sheet_label": "Etiqueta de Ubicación",
+        "scan_hint": "Escanear o código QR abre o inventario filtrado para esa sala ou estante.",
+        "room": "Sala",
+        "location": "Estante/Caixa"
     }
 }

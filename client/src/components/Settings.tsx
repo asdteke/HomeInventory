@@ -7,7 +7,7 @@ import {
     User as UserIcon, LogOut, Moon, Sun, Shield, ShieldCheck,
     Key, Copy, Eye, Building, Plus, ArrowRightLeft,
     Database, Download, Upload, Loader2, AlertCircle, CheckCircle,
-    X, Home, Users, Edit3, UserX, Trash2, Info, Globe
+    X, Home, Users, Edit3, UserX, Trash2, Info, Globe, Activity
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { copyTextToClipboard } from '../utils/clipboard';
@@ -126,6 +126,7 @@ export default function Settings() {
     const [houseKeyCopyAcknowledged, setHouseKeyCopyAcknowledged] = useState<boolean>(false);
     const [showBackupModal, setShowBackupModal] = useState<boolean>(false);
     const [backupEncryptEnabled, setBackupEncryptEnabled] = useState<boolean>(true);
+    const [backupIncludeMedia, setBackupIncludeMedia] = useState<boolean>(true);
     const [backupPassphrase, setBackupPassphrase] = useState<string>('');
     const [backupPassphraseConfirm, setBackupPassphraseConfirm] = useState<string>('');
     const [backupModalError, setBackupModalError] = useState<string>('');
@@ -532,6 +533,7 @@ export default function Settings() {
 
     const resetBackupModal = () => {
         setBackupEncryptEnabled(true);
+        setBackupIncludeMedia(true);
         setBackupPassphrase('');
         setBackupPassphraseConfirm('');
         setBackupModalError('');
@@ -570,7 +572,7 @@ export default function Settings() {
         setBackupModalError('');
         setDownloading(true);
         try {
-            const response = await axios.get('/api/backup/export');
+            const response = await axios.get(backupIncludeMedia ? '/api/backup/export-full' : '/api/backup/export');
             const data = response.data;
             const payload = backupEncryptEnabled
                 ? await encryptBackupPayload(data, backupPassphrase)
@@ -580,9 +582,10 @@ export default function Settings() {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
+            const backupKind = backupIncludeMedia ? 'full-backup' : 'backup';
             a.download = backupEncryptEnabled
-                ? `inventory-backup-${new Date().toISOString().split('T')[0]}.hibak.json`
-                : `inventory-backup-${new Date().toISOString().split('T')[0]}.json`;
+                ? `inventory-${backupKind}-${new Date().toISOString().split('T')[0]}.hibak.json`
+                : `inventory-${backupKind}-${new Date().toISOString().split('T')[0]}.json`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -641,7 +644,8 @@ export default function Settings() {
             skipped.categories ? t('settings.data_management.skipped_categories', { count: skipped.categories, defaultValue: '{{count}} existing categories skipped.' }) : '',
             skipped.rooms ? t('settings.data_management.skipped_rooms', { count: skipped.rooms, defaultValue: '{{count}} existing rooms skipped.' }) : '',
             skipped.locations ? t('settings.data_management.skipped_locations', { count: skipped.locations, defaultValue: '{{count}} existing locations skipped.' }) : '',
-            skipped.borrows ? t('settings.data_management.skipped_borrows', { count: skipped.borrows, defaultValue: '{{count}} existing borrow records skipped.' }) : ''
+            skipped.borrows ? t('settings.data_management.skipped_borrows', { count: skipped.borrows, defaultValue: '{{count}} existing borrow records skipped.' }) : '',
+            skipped.attachments ? t('settings.data_management.skipped_attachments', { count: skipped.attachments, defaultValue: '{{count}} existing attachments skipped.' }) : ''
         ].filter(Boolean);
 
         showToast({
@@ -655,7 +659,9 @@ export default function Settings() {
                     rooms: imported.rooms || 0,
                     locations: imported.locations || 0,
                     borrows: imported.borrows || 0,
-                    defaultValue: '{{items}} items, {{categories}} categories, {{rooms}} rooms, {{locations}} locations, {{borrows}} borrow records restored.'
+                    attachments: imported.attachments || 0,
+                    media: imported.media || 0,
+                    defaultValue: '{{items}} items, {{categories}} categories, {{rooms}} rooms, {{locations}} locations, {{borrows}} borrow records, {{attachments}} attachments, {{media}} media files restored.'
                 }),
                 ...previewLines,
                 ...skippedBits
@@ -894,7 +900,6 @@ export default function Settings() {
                 <AccordionSection
                     title={t('settings.account_overview.title', { defaultValue: 'Account overview' })}
                     description={t('settings.account_overview.description', { defaultValue: 'Basic profile details for the signed-in account.' })}
-                    eyebrow={t('settings.control_sections.account', { defaultValue: 'Account' })}
                     icon={UserIcon}
                     defaultOpen
                     className="mb-5"
@@ -930,7 +935,6 @@ export default function Settings() {
                 <AccordionSection
                     title={t('settings.my_houses.title')}
                     description={t('settings.my_houses.accordion_description', { defaultValue: 'Switch between households, create a new one, or join an existing one with a trusted key.' })}
-                    eyebrow={t('settings.control_sections.houses', { defaultValue: 'Houses' })}
                     icon={Building}
                     defaultOpen
                     className="mb-5"
@@ -1290,17 +1294,9 @@ export default function Settings() {
             </section>
 
             <section id="settings-preferences" className="app-settings-section scroll-mt-24 space-y-5">
-                <SectionHeader
-                    eyebrow={t('settings.security_section.eyebrow', { defaultValue: 'Security and preferences' })}
-                    title={t('settings.security_section.title', { defaultValue: 'Protection and preferences' })}
-                    description={t('settings.security_section.description', { defaultValue: 'Control sign-in, account recovery, trusted devices, and appearance without hunting through separate panels.' })}
-                />
-
                 {/* Theme & Security Section */}
                 <AccordionSection
                     title={t('settings.preferences_section.title', { defaultValue: 'Appearance and language' })}
-                    description={t('settings.preferences_section.description', { defaultValue: 'Keep the workspace comfortable on this device and set the language used across navigation and legal text.' })}
-                    eyebrow={t('settings.control_sections.preferences', { defaultValue: 'Preferences' })}
                     icon={theme === 'dark' ? Moon : Sun}
                     defaultOpen
                     className="mb-5"
@@ -1315,7 +1311,6 @@ export default function Settings() {
                                 </h3>
                                 <div className="flex flex-col gap-1">
                                     <p className="text-sm font-semibold text-[var(--hi-text)]">{t('settings.theme.workspace_title', { defaultValue: 'Workspace Theme' })}</p>
-                                    <p className="text-xs text-[var(--hi-text-soft)]">{t('settings.theme.workspace_desc', { defaultValue: 'Select your preferred visual style for this device.' })}</p>
                                 </div>
                                 <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-4 flex items-center justify-center w-full mt-2">
                                     <SegmentedToggle
@@ -1346,16 +1341,12 @@ export default function Settings() {
                             </div>
 
                             {/* Language block */}
-                            <div className="flex flex-col gap-4 pl-0 md:pl-8 pt-6 border-t border-[var(--hi-border)] md:border-t-0 md:pt-0">
-                                <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-[var(--hi-text-soft)]">
+                            <div className="flex flex-col gap-3 pl-0 md:pl-8 pt-6 border-t border-[var(--hi-border)] md:border-t-0 md:pt-0">
+                                <div className="flex items-center gap-2 text-sm font-semibold text-[var(--hi-text)]">
                                     <Globe className="h-4 w-4 text-[var(--hi-accent)]" />
-                                    {t('settings.language')}
-                                </h3>
-                                <div className="flex flex-col gap-1">
-                                    <p className="text-sm font-semibold text-[var(--hi-text)]">{t('settings.language')}</p>
-                                    <p className="text-xs text-[var(--hi-text-soft)]">{t('settings.language_description')}</p>
+                                    <span>{t('settings.language')}</span>
                                 </div>
-                                <div className="mt-2 w-full">
+                                <div className="w-full">
                                     <LanguageSwitcher
                                         showCodeBadge={false}
                                         className="!w-full !justify-between !rounded-xl !border-[var(--hi-border)] !bg-[var(--hi-panel-strong)] !px-4 !py-3.5 text-sm hover:!bg-[var(--hi-panel-strong)]"
@@ -1370,7 +1361,6 @@ export default function Settings() {
                 <AccordionSection
                     title={t('settings.security.accordion_title', { defaultValue: 'Security and privacy' })}
                     description={t('settings.security.accordion_desc', { defaultValue: 'Manage two-factor authentication, trusted devices, and borrow request rules from other accounts.' })}
-                    eyebrow={t('settings.control_sections.security', { defaultValue: 'Security' })}
                     icon={ShieldCheck}
                     badge={totpEnabled ? (
                         <span className="rounded-full border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--hi-accent)]">
@@ -1739,7 +1729,6 @@ export default function Settings() {
                 <AccordionSection
                     title={t('settings.data_management.title')}
                     description={t('settings.data_management.accordion_description', { defaultValue: 'Download encrypted backups, restore trusted files, and keep sensitive exports separate from everyday settings.' })}
-                    eyebrow={t('settings.control_sections.data', { defaultValue: 'Data' })}
                     icon={Database}
                     className="mb-5"
                 >
@@ -1785,6 +1774,32 @@ export default function Settings() {
                             </div>
                         </div>
                     )}
+                </AccordionSection>
+
+                <AccordionSection
+                    title={t('settings.activity_log.title', { defaultValue: 'Aktivite ve denetim kaydı' })}
+                    description={t('settings.activity_log.description', { defaultValue: 'Eşya ekleme, stok değişimi, dosya ekleri ve toplu işlemlerin güvenli geçmişini buradan inceleyin.' })}
+                    icon={Activity}
+                    className="mb-5"
+                >
+                    <div className="flex flex-col gap-3 rounded-2xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4 sm:flex-row sm:items-center sm:justify-between">
+                        <div className="min-w-0">
+                            <p className="font-medium text-[var(--hi-text)]">
+                                {t('settings.activity_log.encrypted_title', { defaultValue: 'Aktivite kayıtları korumalı saklanır' })}
+                            </p>
+                            <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
+                                {t('settings.activity_log.encrypted_body', { defaultValue: 'Yeni aktivite aksiyonları ve detayları veritabanında şifreli tutulur; ekrandaki liste yalnızca oturumunuz açıkken çözülür.' })}
+                            </p>
+                        </div>
+                        <button
+                            type="button"
+                            onClick={() => navigate('/activity')}
+                            className="btn-secondary shrink-0 !px-4 !py-2.5 text-sm"
+                        >
+                            <Activity className="h-4 w-4" />
+                            <span>{t('navigation.activity', { defaultValue: 'Aktivite' })}</span>
+                        </button>
+                    </div>
                 </AccordionSection>
 
                 <FloatingToastStack toasts={toasts} onClose={closeToast} />
@@ -1976,6 +1991,21 @@ export default function Settings() {
                                 </p>
                                 <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
                                     {t('settings.data_management.encrypt_toggle_body', { defaultValue: 'Recommended. The downloaded file is wrapped with a passphrase you choose and can be restored later with the same passphrase.' })}
+                                </p>
+                            </div>
+                        </label>
+
+                        <label className="app-premium-checkbox-container flex items-start gap-3 rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 cursor-pointer hover:border-[var(--hi-border-strong)] transition-all">
+                            <PremiumCheckbox
+                                checked={backupIncludeMedia}
+                                onChange={(event) => setBackupIncludeMedia(event.target.checked)}
+                            />
+                            <div>
+                                <p className="font-medium text-[var(--hi-text)]">
+                                    {t('settings.data_management.include_media_title', { defaultValue: 'Fotoğraf ve fatura görsellerini dahil et' })}
+                                </p>
+                                <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
+                                    {t('settings.data_management.include_media_body', { defaultValue: 'Tam yedek daha büyük olabilir, ancak eşya fotoğrafları ve fatura görselleri de geri yüklenebilir.' })}
                                 </p>
                             </div>
                         </label>

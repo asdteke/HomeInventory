@@ -19,14 +19,24 @@ function resolveSiteHost(siteUrl) {
 }
 
 function deriveBrandName(siteHost) {
-    if (!siteHost || /(^|\.)localhost$/.test(siteHost)) {
-        return 'Inventory';
+    const host = String(siteHost || '').trim().toLocaleLowerCase('en-US');
+    const normalizedHost = host.replace(/^\[|\]$/g, '');
+    const isIpAddress = /^\d{1,3}(?:\.\d{1,3}){3}$/.test(normalizedHost) || (
+        normalizedHost.includes(':') && /^[0-9a-f:]+$/i.test(normalizedHost)
+    );
+
+    if (!host || host === 'localhost' || host.endsWith('.localhost') || isIpAddress) {
+        return 'HomeInventory';
     }
 
-    const [label] = siteHost.split('.');
+    if (host === 'homeinventory.net.tr') {
+        return 'HomeInventory';
+    }
+
+    const [label] = host.split('.');
     const normalized = label.replace(/[-_]+/g, ' ').trim();
     if (!normalized) {
-        return 'Inventory';
+        return 'HomeInventory';
     }
 
     return normalized.charAt(0).toUpperCase() + normalized.slice(1);
@@ -43,7 +53,7 @@ function normalizeBrandKey(value) {
 
 export const SITE_URL = resolveSiteUrl();
 const SITE_HOST = resolveSiteHost(SITE_URL);
-const FALLBACK_APP_VERSION = '2.2.1';
+const FALLBACK_APP_VERSION = '2.4.0';
 const CONFIGURED_BRAND_KEY = (
     typeof __APP_BRAND_KEY__ === 'string' && __APP_BRAND_KEY__.trim()
         ? normalizeBrandKey(__APP_BRAND_KEY__)
@@ -92,7 +102,7 @@ export const PRIVACY_COMPLAINT_AUTHORITY = (
 export const SUPPORT_EMAIL = (
     typeof __APP_SUPPORT_EMAIL__ === 'string' && __APP_SUPPORT_EMAIL__.trim()
         ? __APP_SUPPORT_EMAIL__.trim()
-        : (BRAND_HOST && !/(^|\.)localhost$/.test(BRAND_HOST) ? `support@${BRAND_HOST}` : 'support@example.com')
+        : (BRAND_HOST && !/(^|\.)localhost$/.test(BRAND_HOST) && !/^\d{1,3}(?:\.\d{1,3}){3}$/.test(BRAND_HOST) ? `support@${BRAND_HOST}` : 'support@example.com')
 );
 
 export const APP_VERSION = (

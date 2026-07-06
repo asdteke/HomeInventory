@@ -227,9 +227,7 @@ export default function Dashboard() {
         return (
             <LoadingState
                 title={t('common.loading')}
-                description={t('dashboard.page.loading_description', {
-                    defaultValue: 'Ana görünüm hazırlanıyor. Son eklenen eşyalar ve hızlı arama birkaç saniye içinde gelecek.'
-                })}
+                description={t('dashboard.page.loading_description', { defaultValue: 'Ana görünüm hazırlanıyor.' })}
             />
         );
     }
@@ -238,7 +236,7 @@ export default function Dashboard() {
         <div className="space-y-5">
             <PageHeader
                 title={t('dashboard.page.title')}
-                description={hasItems ? t('dashboard.page.description_ready') : t('dashboard.page.description_empty')}
+                description={hasItems ? undefined : t('dashboard.page.description_empty')}
                 meta={hasItems ? [
                     { label: t('dashboard.top_bar.items_tracked', { count: formattedTotalItems as any }), tone: 'accent' as const },
                     { label: t('dashboard.top_bar.total_quantity', { count: formattedTotalQuantity as any }), tone: 'secondary' as const },
@@ -257,7 +255,6 @@ export default function Dashboard() {
                 <section className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel)] p-4 shadow-[var(--hi-shadow-soft)] sm:p-5">
                     <SectionHeader
                         title={t('dashboard.search_panel.title')}
-                        description={t('dashboard.search_panel.description')}
                     />
 
                     <form onSubmit={handleSearch} className="mt-4">
@@ -283,7 +280,6 @@ export default function Dashboard() {
                     </form>
 
                     <div className="mt-3 flex flex-wrap items-center gap-2 text-sm text-[var(--hi-text-soft)]">
-                        <span>{t('dashboard.search_panel.secondary_hint', { defaultValue: 'Sensitive records stay separate.' })}</span>
                         <Link
                             to="/vault"
                             className="inline-flex items-center gap-1 font-semibold text-[var(--hi-accent)] transition hover:text-[var(--hi-accent-strong)]"
@@ -305,10 +301,10 @@ export default function Dashboard() {
                             title={t('dashboard.alerts.expired_title', { defaultValue: 'Son Kullanma Tarihi Geçmiş Eşyalar Var!' })}
                             description={t('dashboard.alerts.expired_desc', {
                                 count: expiredItemIds.length,
-                                defaultValue: 'Envanterinizde son kullanma tarihi geçmiş {{count}} eşya bulunuyor. Güvenliğiniz için bunları kontrol edin.'
+                                defaultValue: '{{count}} eşyanın son kullanma tarihi geçti.'
                             })}
                             action={renderAlertAction('expired',
-                                <Link to="/items" className="btn-secondary !rounded-[12px] !px-4 !py-2 text-sm text-red-500 border-red-200 bg-red-100/50 dark:bg-red-500/10 hover:bg-red-100">
+                                <Link to="/alerts/expired" className="btn-secondary !rounded-[12px] !px-4 !py-2 text-sm text-red-500 border-red-200 bg-red-100/50 dark:bg-red-500/10 hover:bg-red-100">
                                     {t('dashboard.alerts.view_items', { defaultValue: 'Eşyaları Gör' })}
                                 </Link>
                             )}
@@ -322,10 +318,10 @@ export default function Dashboard() {
                             title={t('dashboard.alerts.maintenance_title', { defaultValue: 'Gecikmiş Bakım Görevleri Var!' })}
                             description={t('dashboard.alerts.maintenance_desc', {
                                 count: overdueMaintenanceTaskIds.length,
-                                defaultValue: 'Zamanı geçmiş {{count}} bakım görevi bulunuyor. Cihazlarınızın ömrünü uzatmak için bakımlarını yapın.'
+                                defaultValue: '{{count}} bakım görevi gecikmiş.'
                             })}
                             action={renderAlertAction('maintenance',
-                                <Link to="/maintenance" className="btn-secondary !rounded-[12px] !px-4 !py-2 text-sm">
+                                <Link to="/alerts/maintenance" className="btn-secondary !rounded-[12px] !px-4 !py-2 text-sm">
                                     {t('dashboard.alerts.go_to_maintenance', { defaultValue: 'Bakıma Git' })}
                                 </Link>
                             )}
@@ -342,8 +338,8 @@ export default function Dashboard() {
                                 defaultValue: '{{count}} ürün belirlediğiniz asgari stok limitinin altına düştü.'
                             })}
                             action={renderAlertAction('lowStock',
-                                <Link to="/shopping" className="btn-secondary !rounded-[12px] !px-4 !py-2 text-sm text-[var(--hi-accent)] border-[var(--hi-accent-soft)]">
-                                    {t('dashboard.alerts.go_to_shopping', { defaultValue: 'Alışveriş Listesi' })}
+                                <Link to="/alerts/low-stock" className="btn-secondary !rounded-[12px] !px-4 !py-2 text-sm text-[var(--hi-accent)] border-[var(--hi-accent-soft)]">
+                                    {t('dashboard.alerts.view_low_stock_items', { defaultValue: 'Azalan Stokları Gör' })}
                                 </Link>
                             )}
                         />
@@ -359,7 +355,7 @@ export default function Dashboard() {
                                 defaultValue: '{{count}} ürünün son kullanma tarihi 30 gün içinde dolacak.'
                             })}
                             action={renderAlertAction('closeToExpiry',
-                                <Link to="/items" className="btn-secondary !rounded-[12px] !px-4 !py-2 text-sm">
+                                <Link to="/alerts/expiring" className="btn-secondary !rounded-[12px] !px-4 !py-2 text-sm">
                                     {t('dashboard.alerts.view_items', { defaultValue: 'Eşyaları Gör' })}
                                 </Link>
                             )}
@@ -371,7 +367,6 @@ export default function Dashboard() {
             <section className="card !p-4 lg:!p-5">
                 <SectionHeader
                     title={t('dashboard.content.title')}
-                    description={hasItems ? t('dashboard.content.description') : t('dashboard.content.description_empty')}
                     action={hasItems ? (
                         <Link to="/items" className="btn-secondary !rounded-[12px] !px-4 !py-2.5 text-sm">
                             <span>{t('dashboard.content.see_all')}</span>
@@ -455,27 +450,13 @@ export default function Dashboard() {
                         <EmptyState
                             icon={Package}
                             title={t('dashboard.content.empty_title', { defaultValue: 'No recent additions yet' })}
-                            description={t('dashboard.content.empty_description', { defaultValue: 'This list starts filling itself as soon as you add the first item. Begin with something easy to recognize later, then rooms and categories will stay truthful from day one.' })}
+                            description={t('dashboard.content.empty_description', { defaultValue: 'İlk eşyayı eklediğinizde bu alan otomatik dolacak.' })}
                             actions={(
                                 <Link to="/items/new" className="btn-primary">
                                     <Plus className="h-4 w-4" />
                                     <span>{t('navigation.new_item')}</span>
                                 </Link>
                             )}
-                            tips={[
-                                {
-                                    title: t('dashboard.content.empty_tip_one_title', { defaultValue: 'Start with one visible household item' }),
-                                    description: t('dashboard.content.empty_tip_one_body', { defaultValue: 'Pick something you will recognize instantly later, like an appliance, storage box, or small tool.' })
-                                },
-                                {
-                                    title: t('dashboard.content.empty_tip_two_title', { defaultValue: 'Assign a real room' }),
-                                    description: t('dashboard.content.empty_tip_two_body', { defaultValue: 'Room and category counts stay accurate only when new items are assigned as they are created.' })
-                                },
-                                {
-                                    title: t('dashboard.content.empty_tip_three_title', { defaultValue: 'Keep secrets out of the shared feed' }),
-                                    description: t('dashboard.content.empty_tip_three_body', { defaultValue: 'Use Personal Vault for keys, codes, deeds, or anything that should not appear in household inventory history.' })
-                                }
-                            ]}
                         />
                     </div>
                 )}

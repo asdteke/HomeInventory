@@ -10,7 +10,7 @@
         "load_error": "Mahsulotni yuklash amalga oshmadi",
         "form": {
             "name": "Mahsulot nomi",
-            "name_placeholder": "masalan, Samsung TV 55 dyuym",
+            "name_placeholder": "masalan, TV 55 dyuym",
             "required": "*",
             "description": "Ta'rif",
             "description_placeholder": "Mahsulot haqida eslatmalar...",
@@ -66,7 +66,20 @@
             "warranty_calculation_help": "Agar kafolat boshlanish sanasini bo'sh qolsangiz, kvitansiya sanasi ishlatiladi. Vaqt davomiyligini kiritganingizda, kafolat tugash sanasi avtomatik hisoblanadi.",
             "vault_hint_title": "Juda sezgir yozuv?",
             "vault_hint_description": "Pasportlar, hujjatlar, shaxsiy ma’lumotlar, kirish kodlari va standart inventarizatsiya oqimidan tashqarida saqlanishi kerak bo‘lgan boshqa yozuvlar uchun ularni Personal Vault’da saqlang.",
-            "vault_hint_action": "Personal Vault’ni ochish"
+            "vault_hint_action": "Personal Vault’ni ochish",
+            "location": "Joylashuv",
+            "remove_photo": "Fotoni o‘chirish",
+            "visibility_owner_only": "Faqat narsani qo‘shgan shaxs ko‘rinishini o‘zgartira oladi.",
+            "expiry_date": "Muddati tugash sanasi",
+            "min_quantity": "Minimal miqdor",
+            "take_photo": "Rasmga olish",
+            "choose_from_gallery": "Galereyadan tanlang",
+            "take_photo_sub": "Qurilma kamerasi",
+            "choose_from_gallery_sub": "Albomdan tanlang",
+            "photo_selected_badge": "Yangi Foto",
+            "photo_existing_badge": "Mavjud rasm",
+            "no_photo_yet": "Rasm qo'shilmagan",
+            "photo_options_title": "Rasm Amaliyot Variantlari"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" tez qo‘shildi - keyin tahrir qilishingiz mumkin",
@@ -115,7 +128,24 @@
         "delete_error": "Elementni o'chirishda xato",
         "no_permission": "Bu elementni o'zgartirishga ruxsatingiz yo'q",
         "barcode_search_error": "Shtrix-kod qidiruvi muvaffaqiyatsiz bo'ldi",
-        "stats_error": "Xatolik yuklash statistikasi"
+        "stats_error": "Xatolik yuklash statistikasi",
+        "detail_subtitle": "Narsa tafsilotlari",
+        "status": {
+            "close_to_expiry": "Muddati tugashga yaqin",
+            "expired": "Muddati o'tgan",
+            "low_stock": "Zaxira kam"
+        },
+        "untitled_item": "Nomlanmagan element",
+        "attachments": {
+            "title": "Fotosuratlar va fayllar",
+            "add": "Fayllarni qo'shish",
+            "empty": "Hali hech qanday fayl qo'shilmadi.",
+            "form_desc": "Mahsulot fotosuratlari, kvitansiyalar, hisob-fakturalar yoki xizmat hujjatlarini ilova qiling.",
+            "detail_desc": "Ushbu mahsulot uchun saqlangan fotosuratlar, kvitansiyalar, hisob-fakturalar va xizmat fayllari.",
+            "upload_error": "Fayllarni yuklab bo'lmadi.",
+            "delete_error": "Faylni o'chirib bo'lmadi.",
+            "delete_confirm": "Bu faylni o'chirish?"
+        }
     },
     "common": {
         "save": "Saqlash",
@@ -162,7 +192,18 @@
         "unauthorized": "Ruxsatsiz kirish",
         "forbidden": "Sizda bu harakat uchun ruxsat yo'q",
         "validation_error": "Tasdiqlash xatosi",
-        "server_error": "Server xatosi"
+        "server_error": "Server xatosi",
+        "details": "Tafsilotlar",
+        "hide": "Parolni yashirish",
+        "logging_out": "Chiqilmoqda...",
+        "show": "Parolni ko‘rsatish",
+        "saving": "Saqlanmoqda...",
+        "disabled": "Nogiron",
+        "zoom_in": "Yaqinlashtiring",
+        "zoom_out": "Yaqinroq qilib ko'rsating",
+        "reset": "Qayta o'rnatish",
+        "print": "Bosma nashr",
+        "record_count": "{{count}} yozuvlari"
     },
     "auth": {
         "login": {
@@ -194,7 +235,8 @@
                 "verify": "Tekshirish",
                 "back": "Orqaga",
                 "use_backup": "Zaxira kodidan foydalaning",
-                "use_totp": "Avtentifikatoridan foydalaning"
+                "use_totp": "Avtentifikatoridan foydalaning",
+                "code_required": "Tekshirish kodi talab qilinadi"
             },
             "welcome_title": "Qaytganingiz bilan",
             "welcome_subtitle": "Inventaringizga kirish uchun tizimga kiring",
@@ -207,7 +249,7 @@
             "support_link": "Qo'llab-quvvatlash bilan bog'laning"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "Uy xo‘jaligingizni sozlang",
             "subtitle": "Yangi hisob yaratish yoki mavjud uyga qo'shilish",
             "create_house": "Yangi uy yaratish",
             "join_house": "Uyga qo'shilish",
@@ -303,7 +345,7 @@
             "confirm_password_placeholder": "Parolingizni qayta kiriting",
             "reset_submit": "Parolni tiklash",
             "resetting": "Tiklanmoqda...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Foydalanuvchi nomingizni yoki elektron pochtangizni kiriting"
         },
         "reset_password": {
             "title": "Parolni tiklash",
@@ -410,7 +452,36 @@
         "join_house_key_required": "Mavjud uyga birlashtirish uchun uy kaliti talab qilinadi",
         "house_key_not_found": "Nogiron uy kaliti. Iltimos, to'g'ri kalitni kiriting.",
         "email_not_verified": "Sizning elektron pochta manzilingiz hali tasdiqlanmagan. Iltimos, elektron pochtangizni tekshiring.",
-        "two_factor_invalid": "Tasdiqlash kodi noto'g'ri"
+        "two_factor_invalid": "Tasdiqlash kodi noto'g'ri",
+        "two_factor_invalid_try_again": "Noto'g'ri tasdiqlovchi kodi. Iltimos, yana urinib ko'ring.",
+        "two_factor_code_required": "Tekshirish kodi talab qilinadi",
+        "two_factor_user_not_found": "Foydalanuvchi topilmadi",
+        "two_factor_already_enabled": "Ikki bosqichli autentifikatsiya allaqachon yoqilgan",
+        "two_factor_setup_not_started": "Iltimos, avval ikki bosqichli autentifikatsiyani sozlashni boshlang",
+        "two_factor_setup_error": "Ikki bosqichli autentifikatsiya sozlashda xato yuz berdi",
+        "two_factor_activation_error": "Ikki bosqichli autentifikatsiya faollashtirilganda xato yuz berdi",
+        "two_factor_password_required": "Parol talab qilinadi",
+        "two_factor_credentials_required": "TOTP kodi, zaxira kodi yoki tiklash kaliti talab qilinadi",
+        "two_factor_already_disabled": "Ikki bosqichli autentifikatsiya allaqachon o'chirilgan",
+        "two_factor_password_incorrect": "Noto'g'ri parol",
+        "two_factor_verification_failed": "Tasdiqlash muvaffaqiyatsiz bo'ldi. Iltimos, kodni tekshiring va yana urinib ko'ring.",
+        "two_factor_disable_error": "Ikki bosqichli autentifikatsiyani o'chirib qo'yishda xato yuz berdi",
+        "two_factor_not_enabled": "Ikki bosqichli autentifikatsiya yo'q",
+        "two_factor_regenerate_codes_error": "Zaxira kodlarni tiklashda xato yuz berdi",
+        "two_factor_enabled_success": "Ikki faktorli autentifikatsiya muvaffaqiyatli yoqilgan",
+        "two_factor_disabled_success": "Ikki faktorli autentifikatsiya muvaffaqiyatli o'chirib qo'yildi",
+        "password_errors": {
+            "min_length": "Parol kamida {{min}} belgi uzunlikda bo'lishi kerak",
+            "lowercase_required": "Parol kamida bitta kichik harfdan iborat bo'lishi kerak",
+            "uppercase_required": "Parol kamida bitta katta harfdan iborat bo'lishi kerak",
+            "number_required": "Parol kamida bitta raqamni o'z ichiga olishi kerak",
+            "symbol_required": "Parol kamida bitta belgini o'z ichiga olishi kerak",
+            "repeated_chars": "Parolingizda takroriy belgilardan foydalanmang",
+            "predictable_sequence": "Parolingizda oson taxmin qilinadigan ketma-ketliklardan foydalanmang",
+            "common_password": "Bu parol juda keng tarqalgan va xavfli",
+            "contains_username": "Parolda foydalanuvchi nomingiz bo'lmasligi kerak",
+            "contains_email": "Parol sizning elektron pochta ma'lumotlaringizni o'z ichiga olmasligi kerak"
+        }
     },
     "navigation": {
         "home": "Bosh sahifa",
@@ -429,7 +500,12 @@
         "logout_aria": "Hisobingizdan chiqish",
         "logout_title": "Chiqishni xohlaysizmi?",
         "logout_description": "Siz kirish ekraniga qaytarilasiz va uy anjomlarini boshqarish uchun qayta kirishingiz kerak bo'ladi.",
-        "logout_warning": "Buni ulashilgan yoki shaxsiy qurilmada ishni tugatganingizda ishlating."
+        "logout_warning": "Buni ulashilgan yoki shaxsiy qurilmada ishni tugatganingizda ishlating.",
+        "maintenance": "Texnik xizmat jadvali",
+        "shopping": "Xaridlar ro'yxati",
+        "activity": "Faoliyat",
+        "notifications": "Bildirishnomalar",
+        "service": "Xizmat"
     },
     "dashboard": {
         "welcome": "Xush kelibsiz, <1>{{name}}</1>! 👋",
@@ -556,7 +632,21 @@
         "no_items_filter": "Hech qanday element bu filtrga mos kelmaydi",
         "manage": "Boshqaruv",
         "add_item": "Element qo'shish",
-        "search_item": "Qidiruv elementi"
+        "search_item": "Qidiruv elementi",
+        "alerts": {
+            "expired_title": "Mavjud narsalar muddati tugagan!",
+            "expired_desc": "Inventaringizda {{count}} ta muddati o'tgan narsalar mavjud. Iltimos, xavfsizligingiz uchun ularni tekshiring.",
+            "view_items": "Narsalarni ko'rish",
+            "maintenance_title": "Muddatidan oshib ketgan texnik xizmat vazifalari!",
+            "maintenance_desc": "Joriy vaqtdan kechikkan {{count}} ta texnik xizmat vazifalari mavjud. Qurilmangizning xizmat muddatini uzaytirish uchun texnik xizmatni bajaring.",
+            "go_to_maintenance": "Texnik xizmatga o'tish",
+            "low_stock_title": "Kam zaxira ogohlantirishi",
+            "low_stock_desc": "{{count}} ta narsa sizning minimal zaxira limitingizdan pastga tushdi.",
+            "go_to_shopping": "Xaridlar ro'yxati",
+            "close_expiry_title": "Yaqinlashayotgan muddati o'tadigan sanalar",
+            "close_expiry_desc": "{{count}} mahsulot 30 kun ichida muddati tugaydi.",
+            "view_low_stock_items": "Low Stockni ko'rish"
+        }
     },
     "beta_banner": {
         "title": "BETA:",
@@ -611,7 +701,13 @@
             "recovery_key_regenerated": "Qayta tiklash kaliti qayta yaratildi",
             "recovery_key_error": "Qayta tiklash kalitini qayta yaratib bo‘lmadi",
             "account_delete_error": "Hisob o'chirib bo'lmadi",
-            "backup_downloaded_encrypted": "Shifrlangan zaxira muvaffaqiyatli yuklab olindi! ({{count}} ta element)"
+            "backup_downloaded_encrypted": "Shifrlangan zaxira muvaffaqiyatli yuklab olindi! ({{count}} ta element)",
+            "policy_update_error": "So'rov sozlamalarini yangilashda muvaffaqiyatsizlik bo'ldi.",
+            "policy_updated": "So'rov sozlamalari muvaffaqiyatli yangilandi.",
+            "unblock_error": "Foydalanuvchini blokdan chiqarish muvaffaqiyatsiz bo'ldi.",
+            "unblocked_success": "Foydalanuvchi muvaffaqiyatli blokdan chiqdi.",
+            "house_owner_transferred": "Uy egaligi o'tkazildi",
+            "house_owner_transfer_error": "Uy egaligi o'tkazib yuborilmadi."
         },
         "user_profile": {
             "edit_username": "Foydalanuvchi nomini o'zgartirish"
@@ -632,7 +728,10 @@
             "info": "💡 Siz bir nechta uy a'zosi bo'lishingiz va ular orasida almashtirishingiz mumkin. Har bir uy alohida inventarizatsiyani saqlaydi.",
             "accordion_description": "Uylar orasida o'ting, yangi uy yarating yoki ishonchli kalit bilan mavjud uyga qo'shiling.",
             "empty_description": "Yangi uy yarating va ulashishni boshlang yoki ishonchli uy kaliti bilan mavjud uyga qo'shiling.",
-            "leave_success_body": "Sizda endi ushbu uyga kirish imkoniyati yo'q va faol uyingiz yangilandi."
+            "leave_success_body": "Sizda endi ushbu uyga kirish imkoniyati yo'q va faol uyingiz yangilandi.",
+            "leave_title": "Ushbu uydan chiqmoqchimisiz?",
+            "leave_warning": "Siz ushbu uy ish joyiga kirish huquqini yo'qotasiz, yana bir a'zo sizni taklif qilmaguncha yoki tasdiqlamaguncha.",
+            "leaving": "Chiqilmoqda..."
         },
         "house_info": {
             "title": "Faol Uy Kaliti",
@@ -674,7 +773,18 @@
             "copy_error": "Uy kaliti nusxalanmadi.",
             "modal_title": "Uy kalitiga kirish",
             "modal_subtitle": "Ushbu kalitni faqat ushbu umumiy inventarizatsiyaga kirishni so'rashi kerak bo'lgan ishonchli uy a'zolari uchun ishlating.",
-            "loading_members": "A'zolar yuklanmoqda..."
+            "loading_members": "A'zolar yuklanmoqda...",
+            "kick_success_body": "{{name}} endi ushbu uyga kirish huquqiga ega emas.",
+            "kick_title": "Ushbu a'zoni olib tashlashni xohlaysizmi?",
+            "kick_warning": "Ularning uyga kirish huquqi darhol tugaydi va qaytish uchun yangi taklifnoma yoki tasdiq kerak bo'ladi.",
+            "kicking": "Olib tashlanmoqda...",
+            "access_section_eyebrow": "Uyga kirish",
+            "transfer_owner": "Egasi bo'lsin",
+            "transferring_owner": "Ko'chirish...",
+            "transfer_owner_title": "Uy egasini o'tkazish?",
+            "transfer_owner_confirm": "Bu xonadon mulkini {{name}} ga o'tkazish?",
+            "transfer_owner_warning": "Siz endi bu uy egasi bo'lmaysiz. Yangi egasi a'zolarni tasdiqlash, ko'chirish va kelajakdagi egalik o'zgarishlarini boshqaradi.",
+            "transfer_owner_success_body": "{{name}} endi bu uy egasi."
         },
         "theme": {
             "title": "Mavzu",
@@ -682,7 +792,9 @@
             "light": "Yorug' rejim",
             "description": "Ushbu qurilmada ish maydoni qanday ko‘rinishini tanlang.",
             "light_aria": "Yorug‘ mavzuga o‘ting",
-            "dark_aria": "Qorong‘i mavzuga o‘ting"
+            "dark_aria": "Qorong‘i mavzuga o‘ting",
+            "workspace_title": "Ish joyi mavzusi",
+            "workspace_desc": "Ushbu qurilma uchun o'zingiz yoqtirgan vizual uslubni tanlang."
         },
         "security": {
             "title": "Xavfsizlik",
@@ -695,7 +807,12 @@
             "recovery_key_unavailable": "Joriy tiklash kaliti ko‘rsatilmaydi. Kerak bo‘lsa, uni qayta yaratish mumkin.",
             "recovery_key_action": "Qayta yaratish",
             "recovery_key_modal_desc": "Davom etish uchun joriy parolingizni tasdiqlang. Yangi kalit faqat bir marta ko‘rsatiladi.",
-            "recovery_key_loading": "Tayyorlanmoqda..."
+            "recovery_key_loading": "Tayyorlanmoqda...",
+            "accordion_title": "Xavfsizlik va maxfiylik",
+            "accordion_desc": "Ikki bosqichli autentifikatsiya, ishonchli qurilmalar va boshqa hisoblardan qarz so'rovi qoidalarini boshqarish.",
+            "description": "Asosiy parolingiz va vault tiklash konfiguratsiyalarini boshqaring.",
+            "change_password_detail": "Hisobingizni xavfsiz saqlash uchun parolingizni yangilang.",
+            "recovery_key_detail": "Agar parolingizni unutsangiz, seyfingizni tiklash uchun ishlatiladi"
         },
         "data_management": {
             "title": "Ma'lumotlarni boshqarish",
@@ -720,20 +837,41 @@
             "unencrypted_warning": "Oddiy JSON eksportlarini tekshirish osonroq, ammo faylni ochgan har kim sizning uy ma'lumotlaringizni darhol o'qiy oladi.",
             "import_encrypted_title": "Shifrlangan zaxirani qulfdan chiqarish",
             "import_encrypted_body": "Shifrlangan ushbu faylni tiklash uchun yuklab olish paytida ishlatilgan zaxira parolini kiriting.",
-            "unlock_and_import": "Ochiq va import qil"
+            "unlock_and_import": "Ochiq va import qil",
+            "export_encrypted_notice": "Zaxira nusxa jonli uy xo'jaligi ma’lumotlaridan tayyorlanadi va keyin siz tanlagan parol bilan himoyalanadi. Keyinchalik faylni tiklash uchun zarur bo‘lgan shu parolni xavfsiz joyda saqlang.",
+            "export_encrypted_title": "Yuklashdan oldin shifrlash qo'llanadi",
+            "import_summary_body": "{{items}} ta mahsulot, {{categories}} ta kategoriya, {{rooms}} ta xona, {{locations}} ta joy, {{borrows}} ta qarz yozuvi tiklandi.",
+            "import_summary_title": "Zaxira nusxa tiklandi",
+            "preview_categories": "Kategoriyalar",
+            "preview_items": "Mahsulotlar",
+            "preview_locations": "Joylar",
+            "preview_rooms": "Xonalar",
+            "skipped_borrows": "{{count}} mavjud bo‘lgan qarz yozuvlari o'tkazib yuborildi.",
+            "skipped_categories": "{{count}} mavjud bo‘lgan kategoriyalar o'tkazib yuborildi.",
+            "skipped_items": "{{count}} mavjud elementlar o'tkazib yuborildi.",
+            "skipped_locations": "{{count}} mavjud joylar o'tkazib yuborildi.",
+            "skipped_rooms": "{{count}} mavjud xonalar o'tkazib yuborildi.",
+            "owner_only_title": "Zaxira va tiklash cheklangan",
+            "owner_only_desc": "Ma'lumotlarni zaxiralash va tiklash faqat uy egasi tomonidan boshqarilishi mumkin.",
+            "include_media_title": "Fotosuratlar va chek tasvirlarini qo'shing",
+            "include_media_body": "To'liq zaxira hajmi kattaroq bo'lishi mumkin, lekin mahsulot fotosuratlari va kvitansiya tasvirlari ham tiklanishi mumkin.",
+            "skipped_attachments": "{{count}} ilovalar o'tkazib yuborildi."
         },
         "about": {
-            "title": "📱 Ilova haqida",
+            "title": "Ilova haqida",
             "version": "Versiya",
             "brand": "Brend",
-            "feedback": "✉️ Fikr-mulohaza yuborish",
+            "feedback": "Fikr-mulohaza yuborish",
             "legal_title": "Yuridik hujjatlar",
             "legal_description": "Siz ularni qabul qilganingizdan keyin ham shartlar va maxfiylik matnlarini bu yerdan qayta ochishingiz mumkin.",
             "terms_link": "Xizmat ko'rsatish shartlari",
             "privacy_link": "Maxfiylik siyosati",
             "beta_title": "Beta holati",
             "beta_body": "{{brandName}} hanuz beta bosqichida. Xususiyatlar o'zgarishi mumkin, ish jarayonlari rivojlanishi mumkin va muhim uy ma'lumotlari har doim zaxira qilinishi kerak.",
-            "feedback_subject": "Fikr-mulohaza - {{brandName}}"
+            "feedback_subject": "Fikr-mulohaza - {{brandName}}",
+            "logout_body": "Ochiq formalardagi saqlanmagan o'zgarishlar siz ushbu sessiyadan chiqqaningizdan keyin yo'qolishi mumkin.",
+            "logout_description": "Siz bosh sahifaga qaytasiz va istalgan vaqtda qayta kirishingiz mumkin.",
+            "logout_title": "Hozir chiqmoqchimisiz?"
         },
         "modals": {
             "password": {
@@ -825,7 +963,8 @@
             "revoke_devices": "Ishonchli Qurilmalarni Bekor Qilish",
             "revoke_devices_desc": "Barcha eslab qolingan qurilmalarni olib tashlash, keyingi kirishda 2FA talab qilinadi",
             "devices_revoked": "{{count}} ishonchli qurilma(lar) olib tashlandi",
-            "devices_error": "Qurilmalarni bekor qilish muvaffaqiyatsiz tugadi"
+            "devices_error": "Qurilmalarni bekor qilish muvaffaqiyatsiz tugadi",
+            "preparing_setup": "Autentifikator sozlamasini tayyorlayapman..."
         },
         "danger_zone": {
             "title": "Hisob",
@@ -838,7 +977,8 @@
             "modal_warning_body": "Tasdiqlagandan so'ng, siz darhol hisobga kirishni yo'qotasiz va o'chirilgan ilova ma'lumotlari ilovadan tiklanmaydi.",
             "password_label": "Joriy parolingiz bilan tasdiqlang",
             "confirm_delete": "O'chirishni tasdiqlang",
-            "deleting": "O'chirilmoqda..."
+            "deleting": "O'chirilmoqda...",
+            "description": "Akkauntingizni o'chirib tashlang va barcha inventar ma'lumotlar to'plamlarini butunlay o'chiring."
         },
         "language": "Til",
         "control_sections": {
@@ -897,7 +1037,31 @@
         "popular_languages": "Ommabop tillar",
         "search_results": "Qidiruv natijalari",
         "current_language": "Hozirgi til",
-        "languages_available": "mavjud tillar mavjud"
+        "languages_available": "mavjud tillar mavjud",
+        "borrow_requests": {
+            "accordion_eyebrow": "Qarz so'rovi kafolati",
+            "accordion_eyebrow_desc": "So'rov qoidalarini sozlash va bloklangan foydalanuvchilarni boshqarish.",
+            "title": "Qarzga olish so'rovi sozlamalari",
+            "description": "Boshqa akkauntlardan qarz olish so'rovlarini qabul qilish qoidalarini boshqaring va bloklangan foydalanuvchilarni ro'yxatga oling.",
+            "policy_title": "Yangi qarzga olish so'rovlari",
+            "policy_description": "Kim sizga qarz so‘rovlarini yuborishi mumkinligini nazorat qiling. Sizning inventoringiz hech qachon ommaviy ro‘yxat sifatida ko‘rsatilmaydi.",
+            "policy_none": "Hech kimdan qabul qilmang (Default)",
+            "policy_house_only": "Faqat xonadon a'zolari",
+            "policy_everyone": "Barcha ro‘yxatdan o‘tgan foydalanuvchilar",
+            "blocks_title": "Bloklangan foydalanuvchilar",
+            "blocks_description": "Yangi qarz so'rovlarini yuborishdan to'sib qo'ygan foydalanuvchilar.",
+            "no_blocks": "Bloklangan foydalanuvchilar topilmadi.",
+            "unblock_btn": "Blokni och",
+            "policy_none_desc": "Barcha kiruvchi so'rovlar avtomatik bloklanadi.",
+            "policy_house_only_desc": "Faol uylaringizning faqat tasdiqlangan a'zolari o‘sha ulashilgan uy ichida allaqachon ko‘rinadigan narsalarni talab qilishi mumkin.",
+            "policy_everyone_desc": "Boshqa foydalanuvchilar sizning narsalaringizni ko‘rolmaydi yoki ko‘zdan kechira olmaydi. Ular faqat sizning foydalanuvchi nomingiz yoki elektron pochtangizni to‘g‘ridan-to‘g‘ri kiritish orqali so‘rov yuborishi mumkin."
+        },
+        "activity_log": {
+            "title": "Faoliyat va audit jurnali",
+            "description": "Mahsulot o'zgarishlari, stok yangilanishlari, ilovalar va ommaviy harakatlarning himoyalangan tarixini ko'rib chiqing.",
+            "encrypted_title": "Faoliyat yozuvlari himoyalangan holda saqlanadi",
+            "encrypted_body": "Yangi faoliyat harakatlari va tafsilotlari ma'lumotlar bazasida shifrlangan holda saqlanadi va faqat faol sessiyangiz uchun shifrlanadi."
+        }
     },
     "inventory": {
         "title": "Inventar",
@@ -959,8 +1123,18 @@
             "no_history": "Bu buyum uchun hali qarz olish tarixi mavjud emas.",
             "lend_success_title": "Element berildi",
             "lend_success_body": "{{item}} endi ijaraga olingan deb belgilandi.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_title": "Qarz olish taklifi yuborildi",
+            "offer_sent_body": "{{item}} boshqa a'zo qabul qilgandan so'ng qarz olingan deb belgilanishi kerak.",
+            "borrowed_by_you": "Sizda",
+            "return_pending_hint": "Qarz beruvchi narsani qaytarib olganini tasdiqlagandan keyin rekord yopiladi.",
+            "return_pending_lender_title": "{{name}} bu narsani qaytarilgan deb belgiladi",
+            "return_pending_self_title": "Sizda, qabul qilinganini tasdiqlashni kutmoqda",
+            "site_member": "Sayt a'zosi",
+            "site_member_identifier": "Foydalanuvchi nomi yoki elektron pochta",
+            "site_member_identifier_placeholder": "Aniq foydalanuvchi nomi yoki elektron pochta manzili",
+            "site_member_privacy_hint": "Taklif Borrow Centerda faqat shu hisob mavjud bo'lsa va kiruvchi takliflarni qabul qilsa ko'rsatiladi.",
+            "external_privacy_hint": "Bu faqat shaxsiy mahalliy yozuv yaratadi. Hech qanday ilova bildirishnomasi yuborilmaydi.",
+            "available": "Mavjud"
         },
         "untitled_item": "Nomsiz element",
         "delete_action": "Elementni o'chirish",
@@ -976,7 +1150,76 @@
         "category_filter_label": "Kategoriya bo'yicha filtr",
         "room_filter_label": "Xona bo'yicha filtr",
         "refreshing_results": "Elementlar yangilanmoqda...",
-        "empty_filter_title": "Hech qanday element qidiruvga mos kelmadi"
+        "empty_filter_title": "Hech qanday element qidiruvga mos kelmadi",
+        "delete_error_title": "O‘chirish muvaffaqiyatsiz bo‘ldi",
+        "tools": {
+            "title": "Asboblar"
+        },
+        "no_room": "Joy yo'q",
+        "all_locations": "Barcha joylashuvlar",
+        "location_filter_label": "Joylashuv bo'yicha filtrlash",
+        "visibility_filter_label": "Ko'rinish bo'yicha filtrlash",
+        "visibility_all": "Barcha ko'rinish",
+        "visibility_mine": "Mening buyumlarim",
+        "visibility_others": "Boshqa a'zolar",
+        "borrow_filter_label": "Qarzga olish holati bo'yicha filtrlash",
+        "borrow_filter_all": "Barcha qarzga olingan maqomlar",
+        "stock_filter_label": "Zaxira holati bo'yicha filtrlash",
+        "stock_filter_all": "Barcha zaxira holatlari",
+        "stock_filter_ok": "Stok joyida",
+        "expiry_filter_label": "Foydalanish muddati bo'yicha filtrlash",
+        "expiry_filter_all": "Barcha amal qilish muddatlari",
+        "expiry_filter_dated": "Sanasi bor",
+        "expiry_filter_none": "Sana yo'q",
+        "warranty_filter_label": "Kafolat bo'yicha filtr",
+        "warranty_filter_all": "Barcha kafolatlar",
+        "warranty_filter_expired": "Muddati o'tgan kafolatlar",
+        "warranty_filter_close": "Tez orada tugaydi",
+        "warranty_filter_active": "Faol kafolatlar",
+        "warranty_filter_none": "Kafolat haqida ma'lumot yo'q",
+        "sort_label": "Qora",
+        "sort_updated_desc": "Yaqinda yangilangan",
+        "sort_updated_asc": "Eng eski yangilanish",
+        "sort_created_desc": "Eng yangi birinchi",
+        "sort_created_asc": "Eng qadimgi birinchi",
+        "sort_name_asc": "Ismi A-Z",
+        "sort_name_desc": "Ism Z-A",
+        "sort_quantity_desc": "Miqdori yuqoridan pastgacha",
+        "sort_quantity_asc": "Miqdori pastdan yuqorigacha",
+        "sort_expiry_asc": "Muddati eng tez tugaydi",
+        "sort_expiry_desc": "So'nggi muddat",
+        "stock_increase": "Zaxirani oshirish",
+        "stock_decrease": "Zaxirani kamaytirish",
+        "stock_adjust_error": "Zaxirani yangilab bo'lmadi.",
+        "bulk": {
+            "select_visible": "Ko'rinishni tanlang",
+            "clear_visible": "Ko'rinadigan tanlashni bekor qilish",
+            "selected_short": "Tanlangan",
+            "keep_category": "Kategoriyani saqlash",
+            "keep_room": "Joy qoldiring",
+            "keep_location": "Joylashuvni saqlang",
+            "keep_visibility": "Ko'rinishni saqlang",
+            "apply": "Ariza topshir",
+            "no_fields": "Ommaviy harakat uchun kamida bitta maydonni tanlang.",
+            "updated_title": "Ommaviy yangilanish yakunlandi",
+            "updated_body": "{{count}} elementlar yangilandi. {{skipped}} o'tib ketdi.",
+            "update_error": "Ommaviy yangilanish yakunlanmadi.",
+            "deleted_title": "Ommaviy o'chirish yakunlandi",
+            "deleted_body": "{{count}} elementlar o'chirildi. {{skipped}} o'tib ketdi.",
+            "delete_error": "Ommaviy o'chirish yakunlanmadi.",
+            "delete_title": "Tanlangan buyumlarni o'chirish?",
+            "delete_description": "{{count}} tanlangan buyumlar ushbu xonadon inventarizatsiyasidan olib tashlanadi. Buni bekor qilib bo'lmaydi.",
+            "select_item": "Tanlangan buyumni tanlash",
+            "unselect_item": "Elementni tanlashni bekor qiling"
+        },
+        "qr_labels": {
+            "title": "QR Yorliqlari",
+            "open": "Mahsulot yorliqlari",
+            "description": "{{count}} item yorliqlari chop etish varaqasi sifatida tayyor.",
+            "empty": "Yorliqlarni bosish uchun filtrlarni o'zgartiring yoki inventar buyumlarini qo'shing.",
+            "sheet_label": "Mahsulot yorlig'i varaqasi",
+            "item_label": "Mahsulot yorlig'i"
+        }
     },
     "categories": {
         "title": "Toifalar",
@@ -1023,7 +1266,10 @@
         "name_required": "Kategoriya nomi talab qilinadi",
         "load_error": "Xatolik yuklash kategoriyalari",
         "add_error": "Kategoriya qo'shishda xato",
-        "update_error": "Kategoriyani yangilash xatosi"
+        "update_error": "Kategoriyani yangilash xatosi",
+        "color_required": "Rang #RRGGBB formatida bo‘lishi kerak",
+        "empty_description": "Yangi narsalar bir xil tuzilishga amal qilishi va keyinchalik osonroq ko‘rilishi uchun bir necha kategoriya yarating.",
+        "empty_title": "Hali kategoriya yo‘q"
     },
     "rooms": {
         "title": "Xonalar",
@@ -1097,7 +1343,9 @@
         "name_required": "Xona nomi talab qilinadi",
         "load_error": "Xatolik yuklash xonalari",
         "add_error": "Xona qo'shishda xato",
-        "update_error": "Xonani yangilash xatosi"
+        "update_error": "Xonani yangilash xatosi",
+        "empty_description": "Oshxona, ombor yoki garaj kabi xonalar yarating, shunda narsalarning joylashuvi barqaror bo‘ladi va qidirish osonroq bo‘ladi.",
+        "empty_title": "Hali xonalar yo‘q"
     },
     "admin": {
         "title": "Admin Paneli",
@@ -1176,7 +1424,12 @@
             "households_label": "Uy xo‘jaliklari",
             "items_label": "Ega bo‘lgan buyumlar",
             "last_seen_short": "Ko‘rilgan",
-            "last_seen_short_never": "Yangi"
+            "last_seen_short_never": "Yangi",
+            "failed_logins": "{{count}} muvaffaqiyatsiz sign-in",
+            "load_failed_title": "Foydalanuvchilar yuklab bo'lmadi",
+            "pending_requests": "{{count}} kutayotgan uy so'rovlari",
+            "role_admin": "Administrator",
+            "role_user": "Foydalanuvchi"
         },
         "logs": {
             "title": "Admin Jurnallari",
@@ -1208,7 +1461,9 @@
             "section_eyebrow": "Audit izlari",
             "errors_eyebrow": "Diagnostika",
             "section_body": "Har bir moderatsiya yoki operatsion o'zgarish admin qatlami tomonidan qayd etiladi.",
-            "errors_body": "Server log fayllaridan olingan eng so'nggi tahlil qilingan xato satrlari."
+            "errors_body": "Server log fayllaridan olingan eng so'nggi tahlil qilingan xato satrlari.",
+            "load_failed_title": "Faoliyat yuklab bo'lmadi",
+            "no_logs_title": "Hozircha admin harakatlari yo'q"
         },
         "email": {
             "title": "E-mail yuborish",
@@ -1242,7 +1497,14 @@
             "status_body": "Operatsion xabar yuborishdan oldin tezkor ishonch tekshiruvi.",
             "unconfigured_title": "Elektron pochta yetkazilishi sozlanmagan",
             "unconfigured_body": "Yuborish formasi sozlamalarni ko‘rib chiqish uchun ko‘rinishda qoladi, ammo pochta provayderi sozlanmaguncha yetkazib berish muvaffaqiyatsiz bo‘ladi.",
-            "status_eyebrow": "Yetkazib berish"
+            "status_eyebrow": "Yetkazib berish",
+            "configured_body": "Qayta yuborish admin tomonidan boshlangan chiqish xabarlari uchun mavjud.",
+            "configured_title": "Elektron pochta yetkazib berish sozlangan",
+            "error_title": "Elektron pochta jo'natilmadi",
+            "format_hint": "HTML qo'llab-quvvatlanadi. Masalan: <b>qalin</b>, <i>kursiv</i>, <a href=\"...\">havola</a>",
+            "from_label": "Yuboruvchi",
+            "load_failed_title": "Elektron pochta vositalari yuklab bo'lmadi",
+            "success_title": "Elektron pochta yuborildi"
         },
         "overview": {
             "email_warning_title": "Elektron pochta yetkazib berish sozlanmagan",
@@ -1327,7 +1589,9 @@
         "stats_loaded": "Statistika yuklandi",
         "logs_loaded": "Jurnallar yuklandi",
         "load_error": "Ma'lumotlarni yuklash xatosi",
-        "action_error": "Xatolik harakatni bajarish"
+        "action_error": "Xatolik harakatni bajarish",
+        "load_failed_body": "Admin yo'nalishi ochiq, lekin umumiy ma'lumot kelmadi. Siz sahifadan chiqmasdan qayta urinib ko'rishingiz mumkin.",
+        "load_failed_title": "Admin umumiy ko'rinish yuklab bo'lmadi"
     },
     "landing": {
         "nav": {
@@ -1344,12 +1608,12 @@
             "cta_register": "Hisob yaratish",
             "stat_free": "Bepul",
             "stat_access": "Kirish",
-            "free_badge": "Open Source",
+            "free_badge": "Ochiq Manba",
             "badge": "HomeInventory v2.0 keldi",
             "cta_explore": "Xususiyatlarini o'rganing",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Tizimga kirish",
+            "stat_members": "Ulashilgan uylar",
+            "stat_vault": "Shaxsiy Xavfsizlik Qutisi"
         },
         "features": {
             "title": "Nega <1>HomeInventory</1>?",
@@ -1420,7 +1684,7 @@
                 "description": "Elementlar, kafolatlar, muhim hujjatlar va qarzlarni kuzatishni bir tinch joyda saqlang. Uyingizda nima borligini bir qarashda ko'ring.",
                 "primaryCta": "Bepul boshlang",
                 "secondaryCta": "Mahsulotni ko'ring",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Tavsiya etilgan oqim: hisob • bosh sahifa • xonalar va kategoriyalar • narsalar • zaxira",
                 "searchPlaceholder": "Element, xona yoki barkod bo'yicha qidiruv"
             },
             "heroInventoryRows": [
@@ -1436,7 +1700,7 @@
                 },
                 {
                     "name": "Internet tarmog‘i birligi",
-                    "meta": "TV konsoli • Deco M4",
+                    "meta": "TV konsoli • Network node",
                     "state": null
                 },
                 {
@@ -1671,8 +1935,9 @@
         "privacy_summary": "Tarmoq tafsilotlari sizga yoʻl-yoʻriq kerak boʻlgunga qadar yashirin qoladi.",
         "link_privacy_note": "Tarmoq manzili bu erda yashirin qoladi. Kodni skanerlash yoki havolani nusxalash faqat siz mahalliy sozlamangizda elementga bevosita kirishni ulashmoqchi bo‘lsangiz qilinadi.",
         "helper": "Bu elementni darhol ochish uchun skanerlash, yoki kerak bo‘lganda bevosita havolani nusxalash.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_error_title": "Havolani avtomatik nusxalashning imkoni bo'lmadi",
+        "copy_manual_help": "Brauzeringiz avtomatik nusxalashga ruxsat bermadi. Havola tanlangan, shuning uchun uni qo'lda nusxalashingiz mumkin.",
+        "loading": "QR vositalarini tayyorlash..."
     },
     "house_access_pending": {
         "eyebrow": "Uyga Kirish",
@@ -1859,7 +2124,11 @@
             "name_required": "Ombor yozuvi uchun element nomi talab qilinadi.",
             "options_failed": "Kategoriya va xona variantlarini yuklab bo'lmadi.",
             "delete_success_title": "Trezor yozuvi o‘chirildi",
-            "delete_success_body": "Shaxsiy yozuv trezoringizdan doimiy ravishda o‘chirildi."
+            "delete_success_body": "Shaxsiy yozuv trezoringizdan doimiy ravishda o‘chirildi.",
+            "passphrase_lowercase": "Kamida bitta kichik harfni kiriting.",
+            "passphrase_min_length": "Xavfsiz xotira paroli kamida 12 ta belgidan iborat bo'lishi kerak.",
+            "passphrase_number": "Kamida bitta raqam kiriting.",
+            "passphrase_uppercase": "Kamida bitta katta harfni kiriting."
         },
         "recovery_file_title": "{{brandName}} Shaxsiy Shkafni Tiklash Kaliti",
         "recovery_file_created_label": "Yaratildi",
@@ -1907,8 +2176,8 @@
             "empty": "Hozirda faol qarzlar yo‘q.",
             "borrowed_from": "{{name}} dan olingan",
             "lent_to": "Hozirda {{name}} da",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Qaytarilganini tasdiqlash uchun qarz beruvchining javobini kutmoqda.",
+            "return_pending_lender": "{{name}} ushbu narsani qaytarilgan deb belgiladi. Yozuvni yopish uchun qabulni tasdiqlang.",
             "empty_title": "Hozircha faol qarzlar yo‘q",
             "empty_description": "Qabul qilingan so‘rovlar, biror narsa qarzga olinib yoki berilganidan keyin, muddati va qaytarish holati bilan birga shu yerda ko‘rinadi."
         },
@@ -1919,7 +2188,7 @@
             "cancelled": "Bekor qilingan",
             "expired": "Muddati o‘tgan",
             "returned": "Qaytarildi",
-            "return_pending": "Return pending"
+            "return_pending": "Qaytarish kutmoqda"
         },
         "actions": {
             "send_request": "So‘rov narsasi",
@@ -1928,8 +2197,8 @@
             "reject": "Rad etish",
             "cancel": "Bekor qilish",
             "fulfill_request": "So‘rovni bajarish",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Mark berdi",
+            "mark_received": "Mark oldi",
             "open_inventory": "Ochiq inventarizatsiya"
         },
         "labels": {
@@ -1968,21 +2237,36 @@
             "return_title": "Qaytarilgan deb belgilash",
             "return_subtitle": "'{{item}}' uchun faol qarz berishni yopish",
             "return_target": "Hozir bu {{name}} bilan ekanligi ko‘rsatilgan.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Mahsulotni yetkazib ber",
+            "return_title_lender": "Mahsulotni qabul qil",
+            "return_subtitle_borrower": "Faol qarzni \"{{item}}\" uchun uni qaytarganingizdan so'ng yoping.",
+            "return_subtitle_lender": "Faol qarzni \"{{item}}\" uchun uni qaytarib olganingizdan so'ng yoping.",
+            "return_target_borrower": "Qarzdor: {{name}}",
+            "return_target_lender": "Hozirda: {{name}}",
+            "return_note_borrower": "Yetkazib berish varaqasi",
+            "return_note_lender": "Qabul qilish varaqasi",
+            "return_note_placeholder_borrower": "masalan, Men uni hech qanday muammosiz qaytardim",
+            "return_note_placeholder_lender": "masalan, Yaxshi holatda qaytarib olindi",
+            "return_submitting": "Yopilmoqda...",
+            "reject_title": "So'rovni rad etish",
+            "reject_subtitle": "Siz \"{{item}}\" so'rovini rad etmoqchisiz.",
+            "reject_target": "Siz {{name}} tomonidan yuborilgan qarzga olish so'rovini rad etmoqchisiz.",
+            "reject_reason_label": "Rad etish sababi",
+            "reject_submitting": "Rad etmoqda...",
+            "due_date_label": "Rejalashtirilgan qaytish sanasi"
         },
         "messages": {
             "load_error": "Qarzdorlik markazi yuklanmadi",
-            "action_error": "Amalni bajarib bo'lmadi"
+            "action_error": "Amalni bajarib bo'lmadi",
+            "active_borrow_not_found": "Bu faol qarzga olingan yozuv topilmadi. Borrow Centerni yangilab, yana urinib ko'ring.",
+            "errors": {
+                "external_target_daily_limit": "Siz bir kunga bir kishi uchun faqat bitta birinchi marta tashqi so‘rov yuborishingiz mumkin. Agar ular so‘rovni qabul qilsa, bu cheklov o‘sha kishi uchun amal qilmaydi.",
+                "external_total_daily_limit": "Har kuni siz 5 tagacha birinchi marta tashqi so‘rov yuborishingiz mumkin.",
+                "external_request_requires_verified_email": "Tashqi qarz so‘rovlarini yuborishdan oldin elektron pochtangizni tasdiqlang.",
+                "external_offer_blocked": "Siz faqat uy a'zolariga yoki to‘g‘ridan-to‘g‘ri aniqlanishi mumkin bo‘lgan ro‘yxatdan o‘tgan foydalanuvchilarga narsani taklif qilishingiz mumkin.",
+                "target_blocked_by_you": "Siz bloklagan foydalanuvchiga so‘rov yuborolmaysiz.",
+                "recent_rejection_lock": "Bu foydalanuvchi yaqinda yuborilgan so‘rovni rad etdi. Siz 30 kundan so‘ng yana so‘rov yuborishingiz mumkin."
+            }
         },
         "preview": {
             "title": "Ko'rib chiqish rejimi",
@@ -1992,7 +2276,12 @@
         "incoming_empty_title": "Hech qanday so'rov sizning ko'rib chiqishingizni talab qilmaydi",
         "outgoing_empty_title": "Hozirgacha hech qanday chiqayotgan so'rov yo'q",
         "refreshing": "So‘rovlar va faol qarz olish yangilanmoqda...",
-        "loading_description": "So‘rovlar va faol qarz olish faoliyatini tayyorlash."
+        "loading_description": "So‘rovlar va faol qarz olish faoliyatini tayyorlash.",
+        "reasons": {
+            "rejected": "Rad etish (Oddiy rad etish)",
+            "not_available": "Mavjud emas (Element yo'q/mavjud emas)",
+            "blocked": "Bloklash va rad etish (Bu foydalanuvchini bloklaydi)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Maxfiylik siyosati",
@@ -2007,7 +2296,7 @@
         "consent_submit": "Davom etish",
         "consent_submitting": "Saqlanmoqda...",
         "consent_required": "Davom etishdan oldin Foydalanish Shartlari va Maxfiylik Bildirishnomasini tasdiqlashingiz kerak.",
-        "document_badge": "Legal document",
+        "document_badge": "Yuridik hujjat",
         "data_privacy_badge": "Bosh sahifaga qaytish",
         "back_to_home": "Tez kirish",
         "quick_access": "Ushbu sahifada",
@@ -2031,13 +2320,13 @@
             "shortcuts": {
                 "what": "Biz nimaga ishlov beramiz",
                 "why": "Nima uchun",
-                "sharing": "Sharing",
+                "sharing": "Ulashish",
                 "rights": "Biz qanday maʼlumotlarni yigʻamiz va qayta ishlaymiz"
             },
             "section_titles": {
                 "what": "Biz qaysi ma’lumotlarni yig‘amiz va qay tarzda ishlaymiz",
                 "why": "Nega biz uni ishlatamiz",
-                "sharing": "Storage and transfer",
+                "sharing": "Saqlash va uzatish",
                 "rights": "Bu amalda nimani anglatadi"
             }
         },
@@ -2047,7 +2336,7 @@
             "eyebrow": "Tezkor xulosa",
             "title": "Amaliyotda bu nima anglatadi",
             "items": {
-                "use": "Use the service only for data you are authorized to upload, store, or share.",
+                "use": "Xizmatdan faqat siz yuklash, saqlash yoki ulashish huquqiga ega bo‘lgan ma’lumotlar uchun foydalaning.",
                 "responsibility": "Parol, tiklash materiallari va zaxira nusxalarini xavfsiz saqlang.",
                 "security": "Hisob doimiy ravishda oʻchiriladi, shuning uchun siz muhim maʼlumotlarning zaxira nusxasini oʻzingiz saqlashingiz kerak.",
                 "backups": "Mavjudligi, qo'llab-quvvatlashi va integratsiyasi ushbu o'rnatish operatoriga bog'liq; xizmat qonun hujjatlarida ruxsat etilgan darajada “mavjud bo‘lganidek” va “mavjud bo‘lganidek” asosida taqdim etiladi.",
@@ -2079,8 +2368,10 @@
         "account_menu_tooltip": "{{name}} hisob menyusi"
     },
     "app": {
-        "name": "{{brandName}}",
-        "tagline": "Barcha uy-ro'zg'or buyumlaringizni aqlli boshqaring"
+        "name": "{{brandName}} vazifani tahrirlash",
+        "tagline": "Barcha uy-ro'zg'or buyumlaringizni aqlli boshqaring",
+        "loading": "{{brandName}} yuklanmoqda",
+        "preparing_workspace": "Ish joyingizni tayyorlayapsiz..."
     },
     "nav": {
         "home": "Uy",
@@ -2174,14 +2465,287 @@
         "too_many_login_attempts": "Juda ko'p kirish urinishlari. Iltimos, 15 daqiqadan keyin yana urinib ko'ring."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Kirish",
+        "page_title_register": "Hisob yaratish",
+        "page_title_choose_house": "Uyni tanlash",
+        "page_title_recovery_key": "Qayta tiklash kaliti",
+        "page_title_house_access": "Uyga kirish",
+        "page_title_legal_review": "Huquqiy ko‘rib chiqish",
+        "page_title_new_item": "Yangi mahsulot",
+        "page_title_edit_item": "Mahsulotni tahrirlash",
+        "page_title_items": "Inventarizatsiya"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Savat ro‘yxatini yuklashda xato yuz berdi.",
+            "select_item_error": "Iltimos, inventarizatsiyadan biror narsani tanlang.",
+            "empty_name": "Iltimos, biror narsaning nomini kiriting.",
+            "added": "Narsa xaridlar ro'yxatiga qo'shildi.",
+            "add_error": "Narsa qo'shishda xatolik yuz berdi.",
+            "added_suggestion": "\"{{name}}\" xaridlar ro'yxatiga qo'shildi.",
+            "bulk_added": "{{count}} kam zaxiradagi mahsulotlar ro'yxatga qo'shildi.",
+            "bulk_error": "Kam zaxiradagi mahsulotlarni qo'shishda xatolik yuz berdi.",
+            "completed": "\"{{name}}\" bajarilgan deb belgilandi.",
+            "reactivated": "\"{{name}}\" faol ro'yxatga qaytarildi.",
+            "update_error": "Yangilanishda xato yuz berdi.",
+            "deleted": "Element ro'yxatdan o'chirildi.",
+            "delete_error": "O'chirishda xato yuz berdi.",
+            "cleared_completed": "Tugatgan narsalar tozalandi.",
+            "clear_error": "Tozalash paytida xato yuz berdi."
+        },
+        "loading_desc": "Xarid ro‘yxati tayyorlanmoqda...",
+        "page": {
+            "title": "Xarid ro‘yxati",
+            "description": "Uy inventarizatsiyasidagi kam zahiradagi mahsulotlarni ko'ring va xarid qilishingiz kerak bo'lgan ro'yxatingizni oson boshqaring."
+        },
+        "suggestions": {
+            "title": "Aqlli Inventarizatsiya Takliflari",
+            "desc": "Minimal chegaradan pastga tushgan inventarizatsiya mahsulotlari.",
+            "add_all": "Barchasini qo'shish",
+            "stock_status": "Joriy: {{current}} / Maqsad: {{min}}",
+            "add_qty": "Qo'shish {{qty}}"
+        },
+        "sections": {
+            "active_list": "Xarid qiladigan narsalar",
+            "active_desc": "Hozirgi xarid narsalarini savatga qo'shish.",
+            "active_count": "{{count}} Ta Mahsulot",
+            "completed_list": "Xarid Qilingan Mahsulotlar ({{count}})",
+            "add_item": "Mahsulotni Qo‘lda Qo‘shish",
+            "add_desc": "Ro‘yxatga maxsus mahsulotni qo‘lda qo‘shish."
+        },
+        "empty": {
+            "title": "Sizning xaridlar ro‘yxatingiz bo‘sh",
+            "desc": "Yuqoridagi takliflardan yetishmayotgan mahsulotlarni qo‘shishingiz yoki o‘ng tomondagi forma orqali elementlarni qo‘lda qo‘shishingiz mumkin."
+        },
+        "card": {
+            "linked_inventory": "Inventarda saqlandi"
+        },
+        "actions": {
+            "clear_completed": "Tarixni tozalash",
+            "add_item": "Savdo ro'yxatiga qo'shish",
+            "mark_completed": "Belgi tugallangan",
+            "decrease_qty": "Qisqartirish miqdori",
+            "increase_qty": "Miqdorini oshirish",
+            "delete_item": "O'chirish elementi",
+            "reactivate_item": "Faol ro'yxatga qaytish"
+        },
+        "form": {
+            "add_type": "Usul qo'shish",
+            "add_type_inventory": "Inventar elementlari",
+            "add_type_custom": "Moslashtirilgan element",
+            "select_inventory_item": "Inventaridan item tanlang",
+            "no_inventory_items": "Inventaringizda hali hech qanday item yo'q.",
+            "select_item_placeholder": "Item tanlang",
+            "current_stock": "Joriy",
+            "item_name": "Mahsulot nomi",
+            "item_name_placeholder": "masalan, Sut, Yuvish vositasi, Qahva donalari...",
+            "quantity": "Miqdor"
+        },
+        "modal": {
+            "delete_title": "Mahsulotni ro‘yxatdan o‘chirishmi?",
+            "delete_desc": "Siz rostdan ham \"{{name}}\" ni xarid ro‘yxatingizdan olib tashlamoqchimisiz?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Ma'lumotlarni yuklashda xato yuz berdi",
+            "select_item_error": "Iltimos, biror narsani tanlang.",
+            "task_name_error": "Vazifa nomi talab qilinadi.",
+            "date_error": "Rejalashtirilgan sana talab qilinadi.",
+            "updated": "Texnik xizmat vazifasi yangilandi",
+            "created": "Yangi texnik xizmat vazifasi qo‘shildi",
+            "save_error": "Saqlashda xatolik yuz berdi",
+            "deleted": "Texnik xizmat vazifasi muvaffaqiyatli o'chirildi.",
+            "delete_error": "O'chirish jarayonida xato yuz berdi.",
+            "performed": "Texnik xizmat bajarildi deb qayd etildi. Keyingi sana belgilandi.",
+            "perform_error": "Saqlash paytida xato yuz berdi."
+        },
+        "freq": {
+            "one_time": "Bir martalik",
+            "unit": {
+                "days": "Kun",
+                "weeks": "Haftalik",
+                "months": "Oy",
+                "years": "Yil"
+            },
+            "format": "Har {{val}} {{unit}}"
+        },
+        "loading_desc": "Texnik xizmat jadvali yuklanmoqda...",
+        "page": {
+            "title": "Texnik xizmat va davriy kuzatuv",
+            "description": "Uy inventaringizdagi maishiy texnika, filtrlari yoki xavfsizlik uskunalari uchun davriy texnik xizmat jadvalini boshqaring."
+        },
+        "actions": {
+            "add_task": "Yangi vazifa qo'shish",
+            "manage": "Boshqarish",
+            "perform": "Bajildi deb belgilash",
+            "edit_task": "Vazifani tahrirlash"
+        },
+        "alerts": {
+            "overdue_title": "Sizning kechikgan vazifalaringiz bor!",
+            "overdue_desc": "{{count}} ta kechiktirilgan texnik xizmat vazifalari mavjud. Kechikishlar jihozlarning ishlash muddatini qisqartirishi mumkin."
+        },
+        "empty": {
+            "title": "Hech qanday texnik xizmat vazifasi rejalashtirilmagan",
+            "desc": "AC filtri tozalash, kotel texnik xizmatini ko‘rib chiqish yoki olov detektori batareyasini tekshirish kabi takroriy vazifalarni qo‘shish bilan boshlang."
+        },
+        "sections": {
+            "overdue": "Muddati o'tgan vazifalar",
+            "overdue_desc": "Darhol bajarilishi kerak bo'lgan shoshilinch texnik xizmat.",
+            "upcoming": "Rejalashtirilgan / Yaqinlashayotgan vazifalar",
+            "upcoming_desc": "Kelgusi kunlarda bajarilishi kerak bo'lgan texnik xizmat.",
+            "no_upcoming": "Kelajakda rejalashtirilgan faol vazifalar yo‘q."
+        },
+        "modal": {
+            "edit_title": "Vazifani tahrirlash",
+            "create_title": "Yangi texnik xizmat vazifasini rejalashtirish",
+            "perform_title": "Texnik xizmatni yakunlash",
+            "perform_desc": "Bugun \"{{name}}\"ni bajarilgan deb belgilamoqchimisiz?",
+            "perform_confirm": "Ha, bajarildi",
+            "perform_recurrence_info": "Bu davriy vazifa. Saqlaganingizda, tizim avtomatik ravishda keyingi texnik xizmat ko‘rsatish sanasini hisoblaydi.",
+            "delete_title": "Texnik xizmat vazifasini o‘chirmoqchimisiz?",
+            "delete_desc": "Siz \"{{name}}\" davriy texnik xizmat jadvalini o'chirishni xohlaysizmi? Bu amalni bekor qilib bo'lmaydi."
+        },
+        "form": {
+            "item": "Tegishli element",
+            "no_items": "Texnik xizmat jadvalini tuzishdan oldin avvalo inventarizatsiyaga element qo'shishingiz kerak.",
+            "select_item_placeholder": "Elementni tanlang",
+            "task_name": "Vazifa / Operatsiya Nomi",
+            "task_name_placeholder": "masalan, Filtrni almashtirish, Davriy tekshiruv...",
+            "description": "Tafsilot / Ta'rif",
+            "description_placeholder": "Vazifa tafsilotlari, ishlatiladigan materiallar va hokazo...",
+            "frequency_value": "Takrorlanish Tezligi",
+            "frequency_placeholder": "masalan 6 (bir martalik bo‘lsa bo‘sh qoldiring)",
+            "frequency_unit": "Tezlik Birligi",
+            "next_due_date": "Keyingi Belgilangan Sana",
+            "section_help": "Texnik xizmat ko‘rsatish jadvallarini shu yerdan boshqaring",
+            "section_collapsed": "Davriy nazorat va vazifalarni qo‘shish uchun bosing",
+            "has_tasks": "{{count}} Vazifa",
+            "new_item_warning_title": "Elementni saqlash kutmoqda",
+            "new_item_warning_desc": "Texnik xizmat jadvalini qo'shish uchun avval ushbu elementni saqlashingiz kerak.",
+            "manage_desc": "Ushbu jihoz yoki element uchun texnik xizmat jadvallarini boshqarish."
+        },
+        "fields": {
+            "task_name": "Vazifa nomi",
+            "task_name_placeholder": "masalan, konditsioner filtrini tozalash",
+            "description": "Tavsif",
+            "description_placeholder": "Vazifa tafsilotlari, ishlatiladigan materiallar va hokazo...",
+            "frequency_value": "Takrorlanish chastotasi",
+            "frequency_value_placeholder": "Bir martalik bo‘lsa bo‘sh qoldiring",
+            "frequency_unit": "Tezlik birligi",
+            "next_due_date": "Rejalashtirilgan sana"
+        },
+        "card": {
+            "untitled_item": "Sarlavhasiz element",
+            "last_performed": "Oxirgi bajarilgan:",
+            "next_due_label": "Belgilangan sana",
+            "complete_tooltip": "Texnik xizmatni bugun bajarilgan deb belgilang"
+        },
+        "detail_card_desc": "Ushbu element uchun rejalashtirilgan davriy yoki bir martalik texnik xizmatni kuzatish.",
+        "no_tasks": "Ushbu elementga hech qanday texnik xizmat vazifalari tayinlanmagan.",
+        "confirm_delete": "Ushbu vazifa o‘chiriladi. Ishonchingiz komilmi?"
+    },
+    "error_boundary": {
+        "title": "Nimadir yangilanishi kerak",
+        "description": "Interfeysda kutilmagan render muammosi yuzaga keldi. Saqlangan inventarizatsiya ma'lumotlari bu ekran tomonidan o'zgartirilmaydi.",
+        "refresh_btn": "Yangilanish",
+        "home_btn": "Uy"
+    },
+    "activity": {
+        "title": "Faoliyat tarixi",
+        "description": "Uy inventarizidagi so'nggi himoyalangan o'zgarishlar.",
+        "empty_title": "Hali hech qanday faoliyat yo'q",
+        "empty_description": "Mahsulot o'zgarishlari, zaxira yangilanishlari, ilovalar, qarzga olish va ommaviy harakatlar bu yerda ko'rsatiladi.",
+        "unknown_actor": "Noma'lum foydalanuvchi",
+        "deleted_item_with_id": "O'chirilgan element #{{id}}",
+        "item_missing": "Bu item yozuvi endi mavjud emas",
+        "actions": {
+            "item_created": "Element qo'shildi",
+            "item_updated": "Mahsulot yangilandi",
+            "item_deleted": "Element o'chirildi",
+            "item_borrowed": "Berilgan ma'lumot",
+            "item_returned": "Mahsulot qaytarildi",
+            "item_bulk_updated": "Ommaviy yangilanish",
+            "item_bulk_deleted": "Ommaviy o'chirish",
+            "item_stock_adjusted": "Stok yangilangan",
+            "item_attachment_added": "Qo'shimcha qo'shildi",
+            "item_attachment_deleted": "Ilova o'chirildi"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} bilan bog'liq yozuvlar",
+        "empty_title": "Tegishli yozuvlar topilmadi",
+        "low_stock": {
+            "title": "Past zaxiralar",
+            "description": "Minimal zaxira darajasidan past bo'lgan mahsulotlar.",
+            "qty": "Zaxira {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Muddati o'tgan buyumlar",
+            "description": "Muddati o'tgan buyumlar."
+        },
+        "expiring": {
+            "title": "Yaqinlashib kelayotgan muddatlar",
+            "description": "30 kun ichida muddati tugaydigan buyumlar."
+        },
+        "maintenance": {
+            "title": "Kechiktirilgan texnik xizmat",
+            "description": "Texnik xizmat ko'rsatish vazifalari belgilangan muddatdan o'tib ketgan."
+        }
+    },
+    "notifications": {
+        "title": "Xabar Markazi",
+        "description": "Zaxira, kafolat, texnik xizmat ko'rsatish, amal qilish muddati tugashi va qarzga qaytarish ogohlantirishlari.",
+        "meta_total": "{{count}} bildirishnomalari",
+        "meta_urgent": "{{count}} shoshilinch",
+        "empty_title": "Hozir hech qanday ogohlantirish e'tiboringizni talab qilmaydi",
+        "empty_desc": "Past zaxira, yaqinlashayotgan sanalar va kechiktirilgan texnik xizmat ko'rsatish bu yerda ko'rsatiladi.",
+        "items": {
+            "stock_empty_title": "Stokda tugab qolgan",
+            "stock_low_title": "Kam zaxiralar",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Amal qilish muddati o'tib ketdi",
+            "expiry_close_title": "Muddati tugash yaqinlashmoqda",
+            "warranty_expired_title": "Kafolat muddati tugadi",
+            "warranty_close_title": "Kafolat tez orada tugaydi",
+            "maintenance_overdue_title": "Ta'mirlash muddati kechikdi",
+            "maintenance_close_title": "Texnik xizmat tez orada bajarilishi kerak",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Qarz qaytarish muddati o'tgan",
+            "borrow_close_title": "Tez orada qarz qaytarish muddati kerak",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} kun qoldi ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Xizmat va Kafolat Markazi",
+        "description": "Kafolatlar, texnik xizmat jadvali va xizmat ko'rsatish harakatlarini bir joyda kuzating.",
+        "meta_warranty": "{{count}} kafolat yozuvlari",
+        "meta_tasks": "{{count}} texnik xizmat vazifalari",
+        "empty_title": "Hech qanday xizmat yoki kafolat harakati yo'q",
+        "empty_desc": "Kelayotgan kafolat sanalari va texnik xizmat ko'rsatish ishlari shu yerda yig'iladi.",
+        "warranty_section": "Kafolat kuzatuvi",
+        "warranty_desc": "Muddati o'tgan kafolatlar va 30 kun ichida tugaydigan kafolatlar.",
+        "maintenance_section": "Texnik xizmat ko'rsatish ishlari",
+        "maintenance_desc": "Kechiktirilgan va yaqinlashib kelayotgan texnik xizmat ko'rsatish ishlari.",
+        "no_warranty": "Kelajakda kafolat jarayoni yo'q.",
+        "no_tasks": "Rejalashtirilgan texnik xizmat ko'rsatilmagan.",
+        "overdue": "Kechiktirilgan",
+        "upcoming": "Tez orada",
+        "expired": "Muddati o'tgan",
+        "summary_warranty": "Kafolat kuzatuvi",
+        "summary_tasks": "Texnik xizmat ko'rsatish vazifalari",
+        "open_warranty_filter": "Kafolat filtrini och",
+        "open_warranty_filter_desc": "Inventardagi faol kafolat buyumlarini filtrlaydi."
+    },
+    "storage_labels": {
+        "title": "Javon va xona yorliqlari",
+        "description": "{{count}} xona/javon yorliqlari bosma varaq sifatida tayyor.",
+        "empty_title": "Hech qanday xona yoki javon yo'q",
+        "empty_desc": "Avval xonalar yoki joylarni qo'shing, so'ngra bu yerga QR yorliqlarini chop eting.",
+        "sheet_label": "Joylashuv yorlig'i varag'i",
+        "scan_hint": "QR kodni skanerlash o'sha xona yoki javonning filtrlangan inventarini ochadi.",
+        "room": "Xona",
+        "location": "Javon/Quti"
     }
 }

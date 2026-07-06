@@ -10,7 +10,7 @@
         "load_error": "Kunde inte ladda artikel",
         "form": {
             "name": "Artikelnamn",
-            "name_placeholder": "t.ex. Samsung TV 55 tum",
+            "name_placeholder": "t.ex. TV 55 tum",
             "required": "*",
             "description": "Beskrivning",
             "description_placeholder": "Anteckningar om artikeln...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Nära utgångsdatum",
             "expired": "Utgånget",
             "low_stock": "Lågt lager"
+        },
+        "untitled_item": "Objekt utan titel",
+        "attachments": {
+            "title": "Foton och filer",
+            "add": "Lägg till filer",
+            "empty": "Inga filer tillagda än.",
+            "form_desc": "Bifoga objektfoton, kvitton, fakturor eller servicedokument.",
+            "detail_desc": "Foton, kvitton, fakturor och servicefiler sparade för detta objekt.",
+            "upload_error": "Filer kunde inte laddas upp.",
+            "delete_error": "Filen kunde inte tas bort.",
+            "delete_confirm": "Ta bort denna fil?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Visa lösenord",
         "saving": "Sparar...",
         "disabled": "Funktionsnedsatt",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Zooma in",
+        "zoom_out": "Zooma ut",
+        "reset": "Återställ",
+        "print": "Skriv ut",
+        "record_count": "{{count}} poster"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Du kommer att återgå till inloggningsskärmen och behöver logga in igen för att hantera ditt hushållsinventarium.",
         "logout_warning": "Använd detta när du är klar på en delad eller personlig enhet.",
         "maintenance": "Underhållsschema",
-        "shopping": "Shoppinglista"
+        "shopping": "Shoppinglista",
+        "activity": "Aktivitet",
+        "notifications": "Notiser",
+        "service": "Tjänst"
     },
     "dashboard": {
         "welcome": "Välkommen, <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} artiklar har fallit under din miniminivå.",
             "go_to_shopping": "Inköpslista",
             "close_expiry_title": "Kommande utgångsdatum",
-            "close_expiry_desc": "{{count}} produkter kommer att gå ut inom 30 dagar."
+            "close_expiry_desc": "{{count}} produkter kommer att gå ut inom 30 dagar.",
+            "view_low_stock_items": "Visa låg lagersaldo"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Aktivt husnyckel",
             "key_label": "Husnyckel",
-            "mask_key": "••••••••{{ändelse}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Dölj",
             "show": "Visa",
             "copy": "Kopiera",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} befintliga platser hoppades över.",
             "skipped_rooms": "{{count}} befintliga rum hoppades över.",
             "owner_only_title": "Säkerhetskopiering och återställning begränsad",
-            "owner_only_desc": "Datasäkerhetskopiering och återställning kan endast hanteras av husägaren."
+            "owner_only_desc": "Datasäkerhetskopiering och återställning kan endast hanteras av husägaren.",
+            "include_media_title": "Inkludera foton och kvittobilder",
+            "include_media_body": "Den fullständiga säkerhetskopian kan vara större, men artikelbilder och kvitto bilder kan också återställas.",
+            "skipped_attachments": "{{count}} bilagor hoppades över."
         },
         "about": {
             "title": "Om applikationen",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Alla inkommande förfrågningar blockeras automatiskt.",
             "policy_house_only_desc": "Endast verifierade medlemmar i dina aktiva hushåll kan begära föremål som redan är synliga inne i det delade hushållet.",
             "policy_everyone_desc": "Andra användare kan inte bläddra bland eller se dina föremål. De kan endast skicka en förfrågan genom att ange ditt användarnamn eller e-postadress direkt."
+        },
+        "activity_log": {
+            "title": "Aktivitet och revisionslogg",
+            "description": "Granska den skyddade historiken över ändringar av objekt, lageruppdateringar, bilagor och massåtgärder.",
+            "encrypted_title": "Aktivitetsregister lagras skyddade",
+            "encrypted_body": "Nya aktivitetsåtgärder och detaljer lagras krypterade i databasen och dekrypteras endast för din aktiva session."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Registreringen kommer att stängas efter att långivaren bekräftar att de fått tillbaka objektet.",
             "return_pending_lender_title": "{{name}} markerade detta objekt som levererat tillbaka",
             "return_pending_self_title": "Hos dig, väntar på kvittensbekräftelse",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Webbplatsmedlem",
+            "site_member_identifier": "Användarnamn eller e-post",
+            "site_member_identifier_placeholder": "Exakt användarnamn eller e-post",
+            "site_member_privacy_hint": "Erbjudandet visas i Lånecenter endast om det kontot finns och tillåter inkommande erbjudanden.",
+            "external_privacy_hint": "Detta skapar endast en privat lokal post. Ingen appavisering skickas.",
+            "available": "Tillgänglig"
         },
         "untitled_item": "Objekt utan titel",
         "delete_action": "Ta bort objekt",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Filtrera efter rum",
         "refreshing_results": "Uppdaterar objekt...",
         "empty_filter_title": "Inga objekt matchade den sökningen",
-        "delete_error_title": "Radering misslyckades"
+        "delete_error_title": "Radering misslyckades",
+        "tools": {
+            "title": "Verktyg"
+        },
+        "no_room": "Ingen plats",
+        "all_locations": "Alla platser",
+        "location_filter_label": "Filtrera efter plats",
+        "visibility_filter_label": "Filtrera efter synlighet",
+        "visibility_all": "All synlighet",
+        "visibility_mine": "Mina artiklar",
+        "visibility_others": "Andra medlemmar",
+        "borrow_filter_label": "Filtrera efter lånestatus",
+        "borrow_filter_all": "Alla lånestatusar",
+        "stock_filter_label": "Filtrera efter lagerstatus",
+        "stock_filter_all": "Alla lagerstatusar",
+        "stock_filter_ok": "Lagret ok",
+        "expiry_filter_label": "Filtrera efter utgångsdatum",
+        "expiry_filter_all": "Alla utgångsdatum",
+        "expiry_filter_dated": "Har datum",
+        "expiry_filter_none": "Inget datum",
+        "warranty_filter_label": "Filtrera efter garanti",
+        "warranty_filter_all": "Alla garantier",
+        "warranty_filter_expired": "Utgångna garantier",
+        "warranty_filter_close": "Slutar snart",
+        "warranty_filter_active": "Aktiva garantier",
+        "warranty_filter_none": "Ingen garantiinfo",
+        "sort_label": "Sortera",
+        "sort_updated_desc": "Senast uppdaterad",
+        "sort_updated_asc": "Äldsta uppdatering",
+        "sort_created_desc": "Nyast först",
+        "sort_created_asc": "Äldst först",
+        "sort_name_asc": "Namn A-Ö",
+        "sort_name_desc": "Namn Z-A",
+        "sort_quantity_desc": "Kvantitet hög till låg",
+        "sort_quantity_asc": "Kvantitet låg till hög",
+        "sort_expiry_asc": "Snart utgång",
+        "sort_expiry_desc": "Senast utgång",
+        "stock_increase": "Öka lager",
+        "stock_decrease": "Minska lager",
+        "stock_adjust_error": "Lagret kunde inte uppdateras.",
+        "bulk": {
+            "select_visible": "Välj synlig",
+            "clear_visible": "Avmarkera synlig",
+            "selected_short": "markerad",
+            "keep_category": "Behåll kategori",
+            "keep_room": "Behåll rum",
+            "keep_location": "Behåll plats",
+            "keep_visibility": "Behåll synlighet",
+            "apply": "Använd",
+            "no_fields": "Välj minst ett fält för massåtgärden.",
+            "updated_title": "Massuppdatering slutförd",
+            "updated_body": "{{count}} objekt uppdaterade. {{skipped}} hoppade över.",
+            "update_error": "Massuppdatering kunde inte slutföras.",
+            "deleted_title": "Massradering slutförd",
+            "deleted_body": "{{count}} objekt raderade. {{skipped}} hoppade över.",
+            "delete_error": "Massradering kunde inte slutföras.",
+            "delete_title": "Ta bort valda objekt?",
+            "delete_description": "{{count}} valda objekt kommer att tas bort från detta hushållsinventarium. Detta kan inte ångras.",
+            "select_item": "Välj objekt",
+            "unselect_item": "Avmarkera objekt"
+        },
+        "qr_labels": {
+            "title": "QR-etiketter",
+            "open": "Objektetiketter",
+            "description": "{{count}} objektetiketter är redo som ett utskriftsblad.",
+            "empty": "Ändra filter eller lägg till inventarieobjekt för att skriva ut etiketter.",
+            "sheet_label": "Artikel Etikettark",
+            "item_label": "Artikeln Ätikkett"
+        }
     },
     "categories": {
         "title": "Kategorier",
@@ -1341,7 +1436,7 @@
             "no_logs": "inga loggar än",
             "errors_title": "Systemfel (Sista 10)",
             "no_errors": "// Systemet är friskt, inga felloggar.",
-            "date_fmt": "{{datum, datetime}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "E-post",
                 "user": "Användare",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Mesh-enhet",
-                    "meta": "TV-bänk • Deco M4",
+                    "meta": "TV-bänk • Network node",
                     "state": null
                 },
                 {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Lånecenter kunde inte laddas",
             "action_error": "Åtgärden kunde inte slutföras",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Denna aktiva lånepost kunde inte hittas. Uppdatera Lånecenter och försök igen.",
             "errors": {
                 "external_target_daily_limit": "Du kan bara skicka en första kontakt-förfrågan till samma person per dag. Om de accepterar en förfrågan gäller denna begränsning inte längre för den personen.",
                 "external_total_daily_limit": "Du kan skicka upp till 5 första kontakt-förfrågningar per dag.",
@@ -2555,5 +2650,102 @@
         "description": "Gränssnittet stötte på ett oväntat renderingsproblem. Din sparade inventariedata ändras inte av denna skärm.",
         "refresh_btn": "Uppdatera",
         "home_btn": "Hem"
+    },
+    "activity": {
+        "title": "Aktivitets historik",
+        "description": "Nyligen skyddade ändringar i ditt hemmalagret.",
+        "empty_title": "Ingen aktivitet än",
+        "empty_description": "Objektändringar, lageruppdateringar, bilagor, utlåning och massåtgärder kommer att visas här.",
+        "unknown_actor": "Okänd användare",
+        "deleted_item_with_id": "Raderat objekt #{{id}}",
+        "item_missing": "Denna objektpost finns inte längre",
+        "actions": {
+            "item_created": "Objekt tillagt",
+            "item_updated": "Objekt uppdaterat",
+            "item_deleted": "Objekt raderat",
+            "item_borrowed": "Objekt utlånat",
+            "item_returned": "Objekt återlämnat",
+            "item_bulk_updated": "Massuppdatering",
+            "item_bulk_deleted": "Massradering",
+            "item_stock_adjusted": "Lager uppdaterat",
+            "item_attachment_added": "Bilaga tillagd",
+            "item_attachment_deleted": "Bilaga raderad"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} relaterade poster",
+        "empty_title": "Inga relaterade poster hittades",
+        "low_stock": {
+            "title": "Låg lagerstatus",
+            "description": "Artiklar under sin minimilagernivå.",
+            "qty": "Lager {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Utgångna artiklar",
+            "description": "Artiklar med ett utgånget datum."
+        },
+        "expiring": {
+            "title": "Kommande utgångsdatum",
+            "description": "Objekt som går ut inom 30 dagar."
+        },
+        "maintenance": {
+            "title": "Försenat underhåll",
+            "description": "Underhållsuppgifter som har passerat sitt schemalagda datum."
+        }
+    },
+    "notifications": {
+        "title": "Meddelandecenter",
+        "description": "Lager-, garanti-, underhålls-, utgångs- och låneåterlämningsvarningar.",
+        "meta_total": "{{count}} meddelanden",
+        "meta_urgent": "{{count}} brådskande",
+        "empty_title": "Inga varningar behöver din uppmärksamhet just nu",
+        "empty_desc": "Lågt lager, kommande datum och förfallen underhåll kommer att visas här.",
+        "items": {
+            "stock_empty_title": "Slut i lager",
+            "stock_low_title": "Lågt lager",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Utgångsdatum passerat",
+            "expiry_close_title": "Utgångsdatum närmar sig",
+            "warranty_expired_title": "Garanti upphörd",
+            "warranty_close_title": "Garanti går snart ut",
+            "maintenance_overdue_title": "Underhåll förfallet",
+            "maintenance_close_title": "Underhåll snart förfallotid",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Låneåterlämning försenad",
+            "borrow_close_title": "Låneåterlämning snart förfallotid",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} dagar kvar ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Service- och garanticenter",
+        "description": "Spåra garantier, underhållsscheman och serviceåtgärder på ett ställe.",
+        "meta_warranty": "{{count}} garantiposter",
+        "meta_tasks": "{{count}} underhållsuppgifter",
+        "empty_title": "Ingen service eller garantihantering",
+        "empty_desc": "Kommande garantidatum och underhållsuppgifter kommer att samlas här.",
+        "warranty_section": "Garantisökning",
+        "warranty_desc": "Utgångna garantier och garantier som upphör inom 30 dagar.",
+        "maintenance_section": "Underhållsåtgärder",
+        "maintenance_desc": "Förfallna och kommande underhållsuppgifter.",
+        "no_warranty": "Ingen kommande garantihantering.",
+        "no_tasks": "Ingen planerad underhållsuppgift.",
+        "overdue": "Förfallen",
+        "upcoming": "Snart",
+        "expired": "Utgånget",
+        "summary_warranty": "Garantiuppföljning",
+        "summary_tasks": "Underhållsuppgifter",
+        "open_warranty_filter": "Öppna garantifilter",
+        "open_warranty_filter_desc": "Filtrerar aktiva garantiobjekt i inventariet."
+    },
+    "storage_labels": {
+        "title": "Hyll- och rumsetiketter",
+        "description": "{{count}} rum-/hylletiketter är klara som ett utskriftsblad.",
+        "empty_title": "Inga rum eller hyllor att märka",
+        "empty_desc": "Lägg till rum eller platser först, och skriv sedan ut QR-etiketter här.",
+        "sheet_label": "Platsetikettblad",
+        "scan_hint": "Skanning av QR-koden öppnar det filtrerade lagret för det rummet eller hyllan.",
+        "room": "Rum",
+        "location": "Hylla/Låda"
     }
 }

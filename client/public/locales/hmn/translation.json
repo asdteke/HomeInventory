@@ -41,7 +41,7 @@
             "search_google": "Nrhiav hauv Google",
             "barcode_saved": "✓ Barcode yuav raug cawm",
             "visibility": "Yam khoom pom",
-            "visibility_public": "Visible to all house members",
+            "visibility_public": "Hiển thị cho tất cả các thành viên trong nhà",
             "visibility_private": "Tsuas yog koj pom xwb",
             "submit_add": "Txuag...",
             "submit_save": "Txuag Kev Hloov Pauv",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Nyob ze rau hnub tas sij hawm",
             "expired": "Tas Sij Hawm Lawm",
             "low_stock": "Tshuag tsawg"
+        },
+        "untitled_item": "Khoom tsis muaj npe",
+        "attachments": {
+            "title": "Cov duab thiab cov ntaub ntawv",
+            "add": "Ntxiv cov ntaub ntawv",
+            "empty": "Tsis tau ntxiv cov ntaub ntawv.",
+            "form_desc": "Muab cov duab khoom, cov ntawv txais nyiaj, cov ntawv them nqi, lossis cov ntaub ntawv kev pabcuam txuas nrog.",
+            "detail_desc": "Cov duab, cov ntawv txais nyiaj, cov ntawv them nqi, thiab cov ntaub ntawv kev pabcuam tau khaws cia rau yam khoom no.",
+            "upload_error": "Tsis tuaj yeem upload cov ntaub ntawv.",
+            "delete_error": "Cov ntaub ntawv tsis tuaj yeem raug rho tawm.",
+            "delete_confirm": "Rho tawm cov ntaub ntawv no?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Qhia lo lus zais",
         "saving": "Nyiaj Txuag $",
         "disabled": "Xiam oob qhab",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Zoom rau hauv",
+        "zoom_out": "Zoom tawm",
+        "reset": "Rov pib dua",
+        "print": "Luam tawm",
+        "record_count": "cov ntaub ntawv {{count}}"
     },
     "auth": {
         "login": {
@@ -279,9 +292,9 @@
                 "email_verification": {
                     "title": "📧 Email Verification Yuav tsum tau",
                     "message": "Account tsim! Thov txheeb xyuas koj tus email chaw nyob kom nkag mus.",
-                    "step_1": "Peb tau xa email pov thawj mus rau &lt;1&gt;{{email}}</1> .",
+                    "step_1": "Peb tau xa email txheeb xyuas rau <1>{{email}}</1>.",
                     "step_2": "Tom qab ua pov thawj, <1>koj tuaj yeem nkag mus</1>.",
-                    "step_3": "Kos spam/junk folder yog email tsis tuaj txog.",
+                    "step_3": "Tom qab txheeb xyuas, <1>koj tuaj yeem nkag mus</1>.",
                     "spam_note": "Tseem ceeb: Koj tus yuam sij tsev tseem raug xa hauv email. Koj tuaj yeem faib nws rau cov neeg hauv tsev neeg.",
                     "key_note": "Ok, Mus rau ID nkag mus",
                     "button": "Okay, mus rau Login"
@@ -489,7 +502,10 @@
         "logout_description": "Koj yuav raug xa rov qab mus rau qhov screen nkag mus thiab yuav tsum tau nkag mus dua kom tswj tau koj cov khoom hauv tsev neeg.",
         "logout_warning": "Siv qhov no thaum koj ua tiav ntawm ib lub cuab yeej sib koom lossis tus kheej.",
         "maintenance": "Teem sijhawm txij nkawm",
-        "shopping": "Daim Ntawv Teev Khoom"
+        "shopping": "Daim Ntawv Teev Khoom",
+        "activity": "Cov Dej Num",
+        "notifications": "Kev Ceeb Toom",
+        "service": "Kev pab cuam"
     },
     "dashboard": {
         "welcome": "Welcome, <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} cov khoom tau poob qis dua koj qhov tsawg kawg nkaus.",
             "go_to_shopping": "Daim Ntawv Teev Khoom",
             "close_expiry_title": "Cov Hnub Kawg Uas Yuav Los Txog",
-            "close_expiry_desc": "Cov khoom {{count}} yuav tas sij hawm tsis pub dhau 30 hnub."
+            "close_expiry_desc": "Cov khoom {{count}} yuav tas sij hawm tsis pub dhau 30 hnub.",
+            "view_low_stock_items": "Saib Cov Tshuag Tsawg"
         }
     },
     "beta_banner": {
@@ -726,7 +743,7 @@
             "share_info": "💡 Cov neeg siv uas koj qhia tus yuam sij no rau tuaj yeem nkag mus rau koj cov khoom muag los ntawm kev siv qhov kev xaiv &quot;Koom nrog Tsev&quot; thaum lub sijhawm sau npe.",
             "members_title": "Cov Tswv Cuab Hauv Tsev ({{count}})",
             "you": "Koj",
-            "joined_at": "Koom nrog: {{hnub tim, hnub tim sijhawm}}",
+            "joined_at": "Koom nrog: {{date, datetime}}",
             "no_members": "Tsis muaj lwm cov tswv cuab tseem",
             "invite_title": "Mời Thành Viên Gia Đình",
             "invite_desc": "Chia sẻ khóa nhà của bạn để thành viên gia đình có thể truy cập cùng một kho. Mỗi thành viên đăng nhập bằng tài khoản riêng nhưng truy cập cùng dữ liệu.",
@@ -835,10 +852,13 @@
             "skipped_locations": "hla mus rau qhov chaw uas twb muaj lawm {{count}}.",
             "skipped_rooms": "{{count}} cov chav uas twb muaj lawm hla mus lawm.",
             "owner_only_title": "Thaub qab thiab rov qab los txwv",
-            "owner_only_desc": "Tsuas yog tus tswv tsev thiaj li tswj tau qhov kev thaub qab thiab kho cov ntaub ntawv xwb."
+            "owner_only_desc": "Tsuas yog tus tswv tsev thiaj li tswj tau qhov kev thaub qab thiab kho cov ntaub ntawv xwb.",
+            "include_media_title": "Muab cov duab thiab cov duab ntawm daim ntawv txais nyiaj",
+            "include_media_body": "Qhov thaub qab tag nrho yuav loj dua, tab sis cov duab khoom thiab cov duab tau txais kuj tuaj yeem rov qab tau.",
+            "skipped_attachments": "Cov ntawv txuas {{count}} raug hla mus."
         },
         "about": {
-            "title": "About Application",
+            "title": "Txog Daim Ntawv Thov",
             "version": "Phiên bản",
             "brand": "Thương hiệu",
             "feedback": "Xa lus tawm tswv yim",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Tag nrho cov lus thov tuaj raug kaw cia li.",
             "policy_house_only_desc": "Tsuas yog cov tswvcuab uas tau lees paub ntawm koj lub tsev uas nquag tuaj yeem thov cov khoom uas twb pom nyob rau hauv lub tsev sib koom.",
             "policy_everyone_desc": "Lwm tus neeg siv tsis tuaj yeem xauj lossis pom koj cov khoom. Lawv tsuas tuaj yeem xa daim ntawv thov los ntawm kev nkag mus rau koj lub npe siv lossis email ncaj qha."
+        },
+        "activity_log": {
+            "title": "Cov ntaub ntawv teev kev ua ub no thiab kev tshuaj xyuas",
+            "description": "Tshuaj xyuas keeb kwm tiv thaiv ntawm kev hloov pauv khoom, kev hloov kho tshiab ntawm cov khoom lag luam, cov ntaub ntawv txuas, thiab kev ua ntau yam.",
+            "encrypted_title": "Cov ntaub ntawv ua ub no raug khaws cia kom muaj kev tiv thaiv",
+            "encrypted_body": "Cov kev ua ub ua no tshiab thiab cov ntsiab lus tau khaws cia encrypted hauv lub database thiab tsuas yog decrypted rau koj qhov kev sib tham nquag."
         }
     },
     "inventory": {
@@ -1082,12 +1108,12 @@
             "unknown": "Tsis paub",
             "overdue_badge": "Dhau sijhawm lawm",
             "borrowed_badge": "Qiv tau",
-            "borrowed_to": "Nrog {{lub npe}}",
-            "due_date_short": "Hnub Xaus:",
+            "borrowed_to": "Nrog {{name}}",
+            "due_date_short": "Tsim nyog: {{date}}",
             "actions_error": "Kev qiv nyiaj tsis tuaj yeem ua tiav",
             "borrowed_at": "Qiv rau hnub tim: {{date}}",
             "due_date_label": "Xav tias yuav tau txais rov qab: {{date}}",
-            "note_label": "Lus Cim: {{lus cim}}",
+            "note_label": "Lus Cim: {{note}}",
             "return_note_label": "Rov qab los lus ceeb toom: {{note}}",
             "no_active": "Cov khoom no tsis tau qiv tam sim no.",
             "history_title": "Keeb Kwm",
@@ -1107,7 +1133,8 @@
             "site_member_identifier": "Tus neeg siv lub npe lossis email",
             "site_member_identifier_placeholder": "Lub npe neeg siv tiag tiag lossis email",
             "site_member_privacy_hint": "Qhov kev pom zoo tshwm sim hauv Lub Chaw qiv nyiaj tsuas yog tias muaj tus lej ntawd thiab tso cai rau cov khoom tuaj. Qhov no tsim cov ntaub ntawv ntiag tug hauv zos nkaus xwb. Tsis muaj app ceeb toom xa.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "external_privacy_hint": "Qhov no tsuas yog tsim cov ntaub ntawv ntiag tug hauv zos xwb. Tsis muaj kev ceeb toom app xa mus.",
+            "available": "Muaj"
         },
         "untitled_item": "Mục không có tiêu đề",
         "delete_action": "Xóa mục",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Lọc theo phòng",
         "refreshing_results": "Đang làm mới các mục...",
         "empty_filter_title": "Không có mục nào phù hợp với tìm kiếm đó",
-        "delete_error_title": "Rho tawm ua tsis tiav"
+        "delete_error_title": "Rho tawm ua tsis tiav",
+        "tools": {
+            "title": "Cov Twj"
+        },
+        "no_room": "Tsis muaj chaw",
+        "all_locations": "Txhua qhov chaw",
+        "location_filter_label": "Lim los ntawm qhov chaw",
+        "visibility_filter_label": "Lim los ntawm kev pom kev",
+        "visibility_all": "Txhua qhov pom kev",
+        "visibility_mine": "Kuv cov khoom",
+        "visibility_others": "Lwm cov tswv cuab",
+        "borrow_filter_label": "Lim los ntawm qhov xwm txheej qiv nyiaj",
+        "borrow_filter_all": "Txhua qhov xwm txheej qiv nyiaj",
+        "stock_filter_label": "Lim los ntawm cov xwm txheej ntawm cov khoom lag luam",
+        "stock_filter_all": "Tag nrho cov xwm txheej ntawm cov khoom lag luam",
+        "stock_filter_ok": "Tshuag zoo",
+        "expiry_filter_label": "Lim los ntawm hnub tas sij hawm",
+        "expiry_filter_all": "Txhua hnub tas sij hawm",
+        "expiry_filter_dated": "Muaj hnub tim",
+        "expiry_filter_none": "Tsis muaj hnub tim",
+        "warranty_filter_label": "Lim los ntawm kev lees paub",
+        "warranty_filter_all": "Txhua qhov kev lees paub",
+        "warranty_filter_expired": "Cov kev lav phib xaub tas sij hawm",
+        "warranty_filter_close": "Yuav xaus sai sai no",
+        "warranty_filter_active": "Cov ntawv pov thawj uas siv tau",
+        "warranty_filter_none": "Tsis muaj cov ntaub ntawv warranty",
+        "sort_label": "Xaiv ua tso ua ke",
+        "sort_updated_desc": "Tsis ntev los no tau hloov kho tshiab",
+        "sort_updated_asc": "Qhov hloov tshiab qub tshaj plaws",
+        "sort_created_desc": "Qhov tshiab tshaj plaws ua ntej",
+        "sort_created_asc": "Qhov qub tshaj plaws ua ntej",
+        "sort_name_asc": "Lub Npe AZ",
+        "sort_name_desc": "Lub Npe ZA",
+        "sort_quantity_desc": "Qhov ntau los tsawg",
+        "sort_quantity_asc": "Qhov ntau tsawg mus rau siab",
+        "sort_expiry_asc": "Lub sijhawm tas sij hawm sai tshaj plaws",
+        "sort_expiry_desc": "Lub sijhawm tas sij hawm tshiab tshaj plaws",
+        "stock_increase": "Ua kom muaj khoom ntau ntxiv",
+        "stock_decrease": "Txo cov khoom muag",
+        "stock_adjust_error": "Tsis tuaj yeem hloov kho cov khoom lag luam.",
+        "bulk": {
+            "select_visible": "Xaiv qhov pom tseeb",
+            "clear_visible": "Tsis xaiv pom",
+            "selected_short": "Xaiv lawm",
+            "keep_category": "Khaws pawg",
+            "keep_room": "Khaws chav tsev",
+            "keep_location": "Khaws qhov chaw",
+            "keep_visibility": "Khaws kom pom tseeb",
+            "apply": "Thov",
+            "no_fields": "Xaiv tsawg kawg ib daim teb rau kev ua ntau yam.",
+            "updated_title": "Kev hloov kho ntau yam tiav lawm",
+            "updated_body": "{{count}} yam khoom tau hloov kho tshiab. {{skipped}} hla mus lawm.",
+            "update_error": "Tsis tuaj yeem ua tiav kev hloov kho ntau yam.",
+            "deleted_title": "Kev rho tawm ntau yam tiav lawm",
+            "deleted_body": "cov khoom {{count}} raug tshem tawm. {{skipped}} raug hla mus.",
+            "delete_error": "Tsis tuaj yeem ua tiav kev rho tawm ntau yam.",
+            "delete_title": "Rho tawm cov khoom xaiv?",
+            "delete_description": "{{count}} yam khoom uas tau xaiv yuav raug tshem tawm ntawm cov khoom muag hauv tsev neeg no. Qhov no tsis tuaj yeem thim rov qab.",
+            "select_item": "Xaiv yam khoom",
+            "unselect_item": "Tsis xaiv yam khoom"
+        },
+        "qr_labels": {
+            "title": "Cov Ntawv Cim QR",
+            "open": "Cov Ntawv Sau Khoom",
+            "description": "Cov ntawv lo rau khoom {{count}} twb npaj tiav lawm ua daim ntawv luam tawm.",
+            "empty": "Hloov cov lim dej lossis ntxiv cov khoom muag rau cov ntawv luam tawm.",
+            "sheet_label": "Daim Ntawv Sau Npe Khoom",
+            "item_label": "Daim Ntawv Qhia Khoom"
+        }
     },
     "categories": {
         "title": "Danh Mục",
@@ -1341,7 +1436,7 @@
             "no_logs": "chưa có nhật ký",
             "errors_title": "Lỗi hệ thống (10 lần gần nhất)",
             "no_errors": "// Hệ thống hoạt động bình thường, không có nhật ký lỗi.",
-            "date_fmt": "{{hnub tim, hnub tim sijhawm}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "Tus Email",
                 "user": "Người dùng",
@@ -1508,7 +1603,7 @@
         "hero": {
             "title_1": "Quản lý mọi thứ",
             "title_2": "Trong ngôi nhà của bạn!",
-            "description": "Digitize your home inventory. Categorize items, invite family, and access from anywhere. Modern, secure, and easy to use.",
+            "description": "Số hóa kho đồ trong nhà của bạn. Phân loại các món đồ, mời gia đình, và truy cập từ bất cứ đâu. Hiện đại, an toàn, và dễ sử dụng.",
             "cta_start": "Get Started",
             "cta_register": "Tạo tài khoản",
             "stat_free": "Miễn phí",
@@ -1556,7 +1651,7 @@
             "button": "Đăng nhập"
         },
         "footer": {
-            "desc": "The easy and secure platform to digitize your home inventory.",
+            "desc": "Nền tảng dễ dàng và an toàn để số hóa kho nhà của bạn.",
             "links": "Liên kết nhanh",
             "contact": "Liên hệ với chúng tôi",
             "copyright": "© {{year}} {{brandName}}. Bảo lưu mọi quyền."
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Đơn vị lưới",
-                    "meta": "Kệ TV • Deco M4",
+                    "meta": "Kệ TV • Network node",
                     "state": null
                 },
                 {
@@ -2555,5 +2650,102 @@
         "description": "Lub interface ntsib teeb meem rendering tsis tau xav txog. Koj cov ntaub ntawv khaws cia tsis tau hloov los ntawm lub vijtsam no.",
         "refresh_btn": "Hloov tshiab",
         "home_btn": "Tsev"
+    },
+    "activity": {
+        "title": "Keeb Kwm Kev Ua Haujlwm",
+        "description": "Cov kev hloov pauv tsis ntev los no hauv koj cov khoom muag hauv tsev.",
+        "empty_title": "Tsis muaj kev ua ub no tseem",
+        "empty_description": "Kev hloov pauv khoom, kev hloov kho tshiab ntawm cov khoom muag, cov ntaub ntawv txuas ntxiv, kev qiv nyiaj, thiab kev ua ntau yam yuav tshwm sim ntawm no.",
+        "unknown_actor": "Tus neeg siv tsis paub",
+        "deleted_item_with_id": "Cov khoom raug rho tawm #{{id}}",
+        "item_missing": "Cov ntaub ntawv no tsis muaj lawm",
+        "actions": {
+            "item_created": "Khoom ntxiv lawm",
+            "item_updated": "Khoom tau hloov kho tshiab",
+            "item_deleted": "Cov khoom raug tshem tawm lawm",
+            "item_borrowed": "Khoom qiv",
+            "item_returned": "Khoom xa rov qab",
+            "item_bulk_updated": "Hloov kho ntau zaus",
+            "item_bulk_deleted": "Rho tawm ntau heev",
+            "item_stock_adjusted": "Cov Tshuag tau hloov kho tshiab",
+            "item_attachment_added": "Ntxiv cov ntaub ntawv txuas",
+            "item_attachment_deleted": "Cov ntaub ntawv txuas raug tshem tawm"
+        }
+    },
+    "alerts": {
+        "detail_count": "cov ntaub ntawv cuam tshuam txog {{count}}",
+        "empty_title": "Tsis muaj cov ntaub ntawv cuam tshuam pom",
+        "low_stock": {
+            "title": "Tshuag tsawg",
+            "description": "Cov khoom qis dua lawv qib tsawg kawg nkaus.",
+            "qty": "Tshuag {{quantity}} / feeb {{min}}"
+        },
+        "expired": {
+            "title": "Cov Khoom Uas Tas Sij Hawm Lawm",
+            "description": "Cov khoom uas muaj hnub tas sij hawm."
+        },
+        "expiring": {
+            "title": "Cov Hnub Kawg Uas Yuav Los Txog",
+            "description": "Cov khoom tas sij hawm hauv 30 hnub."
+        },
+        "maintenance": {
+            "title": "Kev Txij Nkawm Uas Dhau Sijhawm Lawm",
+            "description": "Cov haujlwm txij nkawm dhau hnub teem tseg lawm."
+        }
+    },
+    "notifications": {
+        "title": "Chaw Ceeb Toom",
+        "description": "Cov ntawv ceeb toom txog Tshuag, warranty, kev saib xyuas, hnub tas sij hawm thiab qiv rov qab.",
+        "meta_total": "cov ntawv ceeb toom {{count}}",
+        "meta_urgent": "{{count}} ceev heev",
+        "empty_title": "Tsis muaj kev ceeb toom uas koj xav tau tam sim no",
+        "empty_desc": "Yuav muaj khoom tsawg, hnub tim tom ntej, thiab kev txij nkawm uas dhau sijhawm lawm yuav tshwm sim ntawm no.",
+        "items": {
+            "stock_empty_title": "Tsis muaj khoom",
+            "stock_low_title": "Tshuag tsawg",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Hnub tas sij hawm dhau mus lawm",
+            "expiry_close_title": "Hnub tas sij hawm yuav los txog",
+            "warranty_expired_title": "Kev lav phib xaub tas sij hawm",
+            "warranty_close_title": "Kev lav phib xaub yuav tas sai sai no",
+            "maintenance_overdue_title": "Kev saib xyuas lig dhau lawm",
+            "maintenance_close_title": "Kev saib xyuas yuav tsum tau ua sai sai no",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Qiv nyiaj rov qab uas dhau sijhawm lawm",
+            "borrow_close_title": "Yuav tsum tau qiv nyiaj rov qab sai sai no",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} hnub tshuav ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Chaw Pabcuam thiab Chaw Pov Hwm",
+        "description": "Taug qab cov kev lees paub, cov sijhawm txij nkawm, thiab cov haujlwm pabcuam hauv ib qho chaw.",
+        "meta_warranty": "Cov ntaub ntawv pov thawj {{count}}",
+        "meta_tasks": "{{count}} cov haujlwm txij nkawm",
+        "empty_title": "Tsis muaj kev pabcuam lossis kev lav phib xaub",
+        "empty_desc": "Cov hnub lav thiab cov haujlwm txij nkawm uas yuav los txog no yuav raug sau rau ntawm no.",
+        "warranty_section": "Kev Tshawb Xyuas Kev Pov Hwm",
+        "warranty_desc": "Cov kev lees paub tas sij hawm thiab cov kev lees paub xaus rau hauv 30 hnub.",
+        "maintenance_section": "Cov Kev Ua Haujlwm Txij Nkawm",
+        "maintenance_desc": "Cov haujlwm txij nkawm uas tau ua dhau los lawm thiab cov haujlwm uas yuav los tom ntej.",
+        "no_warranty": "Tsis muaj kev txiav txim siab txog kev lav phib xaub tom ntej.",
+        "no_tasks": "Tsis muaj kev saib xyuas txij nkawm raws sijhawm.",
+        "overdue": "Dhau sijhawm lawm",
+        "upcoming": "Tsis ntev tom ntej no",
+        "expired": "Tas Sij Hawm Lawm",
+        "summary_warranty": "Kev taug qab kev lees paub",
+        "summary_tasks": "Cov haujlwm txij nkawm",
+        "open_warranty_filter": "Qhib lub lim dej lav",
+        "open_warranty_filter_desc": "Lim cov khoom lav uas tseem siv tau hauv cov khoom muag."
+    },
+    "storage_labels": {
+        "title": "Cov Ntawv Sau Rau Txee Thiab Chav",
+        "description": "Cov ntawv lo rau chav/txee {{count}} twb npaj tiav lawm ua daim ntawv luam tawm.",
+        "empty_title": "Tsis muaj chav lossis txee rau sau npe",
+        "empty_desc": "Ua ntej ntxiv cov chav lossis qhov chaw, tom qab ntawd luam cov ntawv cim QR ntawm no.",
+        "sheet_label": "Daim Ntawv Qhia Chaw Nyob",
+        "scan_hint": "Kev luam theej daim QR code qhib cov khoom muag uas tau lim rau chav lossis txee ntawd.",
+        "room": "Chav",
+        "location": "Txee/Thawv"
     }
 }

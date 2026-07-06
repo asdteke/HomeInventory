@@ -51,9 +51,11 @@
         "show": "إظهار كلمة المرور",
         "saving": "جارٍ الحفظ...",
         "disabled": "معاق",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "تكبير",
+        "zoom_out": "تصغير",
+        "reset": "إعادة ضبط",
+        "print": "طباعة",
+        "record_count": "{{count}} سجلات"
     },
     "auth": {
         "login": {
@@ -352,7 +354,10 @@
         "logout_description": "سيتم إرجاعك إلى شاشة تسجيل الدخول وستحتاج إلى تسجيل الدخول مرة أخرى لإدارة مخزون منزلك.",
         "logout_warning": "استخدم هذا عند الانتهاء على جهاز مشترك أو شخصي.",
         "maintenance": "جدول الصيانة",
-        "shopping": "قائمة التسوق"
+        "shopping": "قائمة التسوق",
+        "activity": "النشاط",
+        "notifications": "الإشعارات",
+        "service": "الخدمة"
     },
     "dashboard": {
         "welcome": "مرحبًا بعودتك، <1>{{name}}</1>",
@@ -491,7 +496,8 @@
             "low_stock_desc": "{{count}} عناصر قد انخفضت عن الحد الأدنى للمخزون لديك.",
             "go_to_shopping": "قائمة التسوق",
             "close_expiry_title": "تواريخ انتهاء الصلاحية القادمة",
-            "close_expiry_desc": "{{count}} منتجات ستنتهي صلاحيتها خلال 30 يومًا."
+            "close_expiry_desc": "{{count}} منتجات ستنتهي صلاحيتها خلال 30 يومًا.",
+            "view_low_stock_items": "عرض المخزون المنخفض"
         }
     },
     "beta_banner": {
@@ -641,6 +647,17 @@
             "close_to_expiry": "قريب من انتهاء الصلاحية",
             "expired": "منتهي الصلاحية",
             "low_stock": "نفد المخزون"
+        },
+        "untitled_item": "عنصر بدون عنوان",
+        "attachments": {
+            "title": "الصور والملفات",
+            "add": "إضافة ملفات",
+            "empty": "لم يتم إضافة أي ملفات بعد.",
+            "form_desc": "إرفاق صور العنصر، الإيصالات، الفواتير، أو مستندات الخدمة.",
+            "detail_desc": "تم حفظ الصور، الإيصالات، الفواتير، وملفات الخدمة لهذا العنصر.",
+            "upload_error": "لم يمكن رفع الملفات.",
+            "delete_error": "تعذر حذف الملف.",
+            "delete_confirm": "هل تريد حذف هذا الملف؟"
         }
     },
     "settings": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "مفتاح المنزل النشط",
             "key_label": "مفتاح المنزل",
-            "mask_key": "••••••••{{اللاحقة}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "إخفاء",
             "show": "عرض",
             "copy": "نسخ",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} موقع موجود تم تخطيه.",
             "skipped_rooms": "{{count}} غرفة موجودة تم تخطيها.",
             "owner_only_title": "النسخ الاحتياطي والاستعادة محدود",
-            "owner_only_desc": "يمكن فقط لمالك المنزل إدارة النسخ الاحتياطي للبيانات واستعادتها."
+            "owner_only_desc": "يمكن فقط لمالك المنزل إدارة النسخ الاحتياطي للبيانات واستعادتها.",
+            "include_media_title": "تضمين الصور وصور الإيصالات",
+            "include_media_body": "قد تكون النسخة الاحتياطية الكاملة أكبر، لكن يمكن أيضًا استعادة صور العناصر وصور الإيصالات.",
+            "skipped_attachments": "تم تجاهل {{count}} مرفقًا."
         },
         "about": {
             "title": "حول التطبيق",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "يتم حظر جميع الطلبات الواردة تلقائيا.",
             "policy_house_only_desc": "الأعضاء الموثقون فقط في البيوت النشطة الخاصة بك يمكنهم طلب العناصر التي تظهر بالفعل داخل هذا المنزل المشترك.",
             "policy_everyone_desc": "المستخدمون الآخرون لا يمكنهم تصفح أو رؤية عناصرِك. يمكنهم فقط إرسال طلب عن طريق إدخال اسم المستخدم أو البريد الإلكتروني الخاص بك مباشرة."
+        },
+        "activity_log": {
+            "title": "سجل النشاط والتدقيق",
+            "description": "راجع التاريخ المحمي لتغييرات العناصر، وتحديثات المخزون، والمرفقات، والإجراءات الجماعية.",
+            "encrypted_title": "يتم تخزين سجلات النشاط بشكل محمي",
+            "encrypted_body": "يتم تخزين إجراءات النشاط الجديدة والتفاصيل بشكل مشفر في قاعدة البيانات ولا يتم فك تشفيرها إلا لجلسةك النشطة."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "سيتم إغلاق السجل بعد أن يؤكد المقرض استلامه للعنصر مرة أخرى.",
             "return_pending_lender_title": "{{name}} قام بتحديد هذا العنصر كمُسَلَّم مرة أخرى",
             "return_pending_self_title": "معك، في انتظار تأكيد الاستلام",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "عضو الموقع",
+            "site_member_identifier": "اسم المستخدم أو البريد الإلكتروني",
+            "site_member_identifier_placeholder": "اسم المستخدم أو البريد الإلكتروني بالضبط",
+            "site_member_privacy_hint": "يظهر العرض في مركز الإقراض فقط إذا كان هذا الحساب موجودًا ويسمح بالعرض الوارد.",
+            "external_privacy_hint": "هذا ينشئ سجلًا محليًا خاصًا فقط. لا يتم إرسال إشعار التطبيق.",
+            "available": "متاح"
         },
         "untitled_item": "عنصر بدون عنوان",
         "delete_action": "حذف العنصر",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "تصفية حسب الغرفة",
         "refreshing_results": "تحديث العناصر...",
         "empty_filter_title": "لم تطابق أي عناصر هذا البحث",
-        "delete_error_title": "فشل الحذف"
+        "delete_error_title": "فشل الحذف",
+        "tools": {
+            "title": "الأدوات"
+        },
+        "no_room": "لا توجد غرفة",
+        "all_locations": "جميع المواقع",
+        "location_filter_label": "التصفية حسب الموقع",
+        "visibility_filter_label": "التصفية حسب الرؤية",
+        "visibility_all": "كل الرؤية",
+        "visibility_mine": "عناصرى",
+        "visibility_others": "الأعضاء الآخرون",
+        "borrow_filter_label": "التصفية حسب حالة الاستعارة",
+        "borrow_filter_all": "جميع حالات الاقتراض",
+        "stock_filter_label": "التصفية حسب حالة المخزون",
+        "stock_filter_all": "جميع حالات المخزون",
+        "stock_filter_ok": "المخزون جيد",
+        "expiry_filter_label": "التصفية حسب تاريخ الانتهاء",
+        "expiry_filter_all": "جميع تواريخ الانتهاء",
+        "expiry_filter_dated": "لدي تاريخ",
+        "expiry_filter_none": "لا يوجد تاريخ",
+        "warranty_filter_label": "تصفية حسب الضمان",
+        "warranty_filter_all": "جميع الضمانات",
+        "warranty_filter_expired": "الضمانات منتهية",
+        "warranty_filter_close": "قد تنتهي قريبًا",
+        "warranty_filter_active": "الضمانات الفعّالة",
+        "warranty_filter_none": "لا توجد معلومات عن الضمان",
+        "sort_label": "ترتيب",
+        "sort_updated_desc": "تم التحديث مؤخرًا",
+        "sort_updated_asc": "أقدم تحديث",
+        "sort_created_desc": "الأحدث أولاً",
+        "sort_created_asc": "الأقدم أولاً",
+        "sort_name_asc": "الاسم أ-ي",
+        "sort_name_desc": "الاسم ي-أ",
+        "sort_quantity_desc": "الكمية من الأعلى إلى الأقل",
+        "sort_quantity_asc": "الكمية من الأقل إلى الأعلى",
+        "sort_expiry_asc": "الأقرب انتهاءً",
+        "sort_expiry_desc": "انتهاء الصلاحية آخر",
+        "stock_increase": "زيادة المخزون",
+        "stock_decrease": "تقليل المخزون",
+        "stock_adjust_error": "تعذر تحديث المخزون.",
+        "bulk": {
+            "select_visible": "تحديد المرئي",
+            "clear_visible": "إلغاء تحديد المرئي",
+            "selected_short": "مختار",
+            "keep_category": "احتفظ بالفئة",
+            "keep_room": "احتفظ بالغرفة",
+            "keep_location": "احتفظ بالموقع",
+            "keep_visibility": "احتفظ بالرؤية",
+            "apply": "تطبيق",
+            "no_fields": "اختر حقلًا واحدًا على الأقل للعملية الجماعية.",
+            "updated_title": "تم اكتمال التحديث الجماعي",
+            "updated_body": "تم تحديث {{count}} عنصر. تم تخطي {{skipped}}.",
+            "update_error": "تعذّر إكمال التحديث الجماعي.",
+            "deleted_title": "تم الحذف الجماعي",
+            "deleted_body": "تم حذف {{count}} عنصر. تم تخطي {{skipped}}.",
+            "delete_error": "تعذّر إكمال الحذف الجماعي.",
+            "delete_title": "حذف العناصر المحددة؟",
+            "delete_description": "سيتم إزالة {{count}} عنصرًا محددًا من هذه الجردة المنزلية. لا يمكن التراجع عن هذا.",
+            "select_item": "اختر العنصر",
+            "unselect_item": "إلغاء اختيار العنصر"
+        },
+        "qr_labels": {
+            "title": "ملصقات QR",
+            "open": "ملصقات العناصر",
+            "description": "{{count}} من ملصقات العناصر جاهزة كصفحة للطباعة.",
+            "empty": "غيّر الفلاتر أو أضف عناصر من المخزون لطباعة الملصقات.",
+            "sheet_label": "صفحة ملصقات العناصر",
+            "item_label": "ملصق العنصر"
+        }
     },
     "categories": {
         "title": "التصنيفات",
@@ -1341,7 +1436,7 @@
             "no_logs": "لا توجد سجلات بعد",
             "errors_title": "أخطاء النظام (آخر 10)",
             "no_errors": "// النظام سليم، لا توجد سجلات أخطاء.",
-            "date_fmt": "{{التاريخ، التاريخ والوقت}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "البريد الإلكتروني",
                 "user": "المستخدم",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "وحدة الشبكة",
-                    "meta": "وحدة التلفاز • Deco M4",
+                    "meta": "وحدة التلفاز • Network node",
                     "state": null
                 },
                 {
@@ -1902,7 +1997,7 @@
             ],
             "fallback": "يبدو رابط إعادة تعيين كلمة المرور غير مكتمل أو معطل.",
             "support": "قضايا التسجيل:",
-            "footer": "© 2026 {{اسم العلامة التجارية}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
             "subject": "مرحباً بكم في {{brandName}}",
@@ -1920,7 +2015,7 @@
                 "💡يمكنك أن تكون عضوا في بيوت متعددة والتبديل بينها. يحتفظ كل منزل بمخزون منفصل."
             ],
             "support": "قضايا التسجيل:",
-            "footer": "© 2026 {{اسم العلامة التجارية}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "انضم إلى البيت",
@@ -1929,7 +2024,7 @@
             "bodyLine2": "في انتظار موافقة صاحب المنزل"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{الحالة}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "الوصول إلى المنزل",
             "bodyLine1Template": "الطلب الحالي المعلق: {{house}} ({{status}})",
             "bodyLine2": "طلبك الخاص بـ \"{{house}}\" لا يزال في انتظار القرار.",
@@ -1954,7 +2049,7 @@
             "warningTitle": "⚠️",
             "warningBody": "في حالة وجود حساب، تم إرسال رابط إعادة تعيين كلمة المرور صالح لمدة 15 دقيقة.",
             "fallback": "يبدو رابط إعادة تعيين كلمة المرور غير مكتمل أو معطل.",
-            "footer": "© 2026 {{اسم العلامة التجارية}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "تم إرسال هذا البريد الإلكتروني بواسطة {{brandName}}.",
@@ -1968,7 +2063,7 @@
             "sentAtLabel": "أُرسل في",
             "senderLabel": "المرسل",
             "serviceLabel": "الخدمة",
-            "footer": "© 2026 {{اسم العلامة التجارية}}"
+            "footer": "© 2026 {{brandName}}"
         }
     },
     "vault": {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "تعذر تحميل مركز الاقتراض",
             "action_error": "لم يتمكن من إتمام الإجراء",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "لم يتم العثور على سجل الإعارة النشط هذا. حدّث مركز الإعارة وحاول مرة أخرى.",
             "errors": {
                 "external_target_daily_limit": "يمكنك إرسال طلب خارجي أول مرة واحد فقط للشخص نفسه يوميًا. إذا قبلوا طلبًا، فلن يطبق هذا الحد على ذلك الشخص بعد ذلك.",
                 "external_total_daily_limit": "يمكنك إرسال ما يصل إلى 5 طلبات خارجية أول مرة يوميًا.",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "قائمة حساب {{name}}"
     },
     "app": {
-        "name": "{{اسم العلامة التجارية}}",
+        "name": "{{brandName}}",
         "tagline": "إدارة كل عناصر منزلك بذكاء",
         "loading": "جار تحميل {{brandName}}",
         "preparing_workspace": "تحضير مكان عملك..."
@@ -2555,5 +2650,102 @@
         "description": "واجهت الواجهة مشكلة عرضية غير متوقعة. بيانات المخزون المحفوظة لا تتغير بهذه الشاشة.",
         "refresh_btn": "تحديث",
         "home_btn": "المنزل"
+    },
+    "activity": {
+        "title": "سجل النشاط",
+        "description": "التغييرات المحمية الأخيرة في مخزون منزلك.",
+        "empty_title": "لا يوجد نشاط حتى الآن",
+        "empty_description": "ستظهر هنا تغييرات العناصر، تحديثات المخزون، المرفقات، الاستعارة، والإجراءات الجماعية.",
+        "unknown_actor": "مستخدم غير معروف",
+        "deleted_item_with_id": "تم حذف العنصر #{{id}}",
+        "item_missing": "سجل هذا العنصر لم يعد موجودًا",
+        "actions": {
+            "item_created": "تم إضافة العنصر",
+            "item_updated": "تم تحديث العنصر",
+            "item_deleted": "تم حذف العنصر",
+            "item_borrowed": "تم إعارة العنصر",
+            "item_returned": "تم إرجاع العنصر",
+            "item_bulk_updated": "تحديث جماعي",
+            "item_bulk_deleted": "حذف جماعي",
+            "item_stock_adjusted": "تم تحديث المخزون",
+            "item_attachment_added": "تم إضافة مرفق",
+            "item_attachment_deleted": "تم حذف المرفق"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} سجلات مرتبطة",
+        "empty_title": "لم يتم العثور على سجلات مرتبطة",
+        "low_stock": {
+            "title": "مخزون منخفض",
+            "description": "العناصر أقل من الحد الأدنى للمخزون.",
+            "qty": "المخزون {{quantity}} / الحد الأدنى {{min}}"
+        },
+        "expired": {
+            "title": "عناصر منتهية الصلاحية",
+            "description": "العناصر التي انتهت تاريخ صلاحيتها."
+        },
+        "expiring": {
+            "title": "تواريخ الانتهاء القادمة",
+            "description": "العناصر التي ستنتهي خلال 30 يومًا."
+        },
+        "maintenance": {
+            "title": "الصيانة المتأخرة",
+            "description": "مهام الصيانة التي تجاوزت تاريخها المحدد."
+        }
+    },
+    "notifications": {
+        "title": "مركز الإشعارات",
+        "description": "تنبيهات المخزون، الضمان، الصيانة، الانتهاء، وإرجاع الإعارة.",
+        "meta_total": "{{count}} إشعارات",
+        "meta_urgent": "{{count}} عاجلة",
+        "empty_title": "لا توجد تنبيهات تحتاج إلى اهتمامك في الوقت الحالي",
+        "empty_desc": "المخزون المنخفض، التواريخ القادمة، والصيانة المتأخرة ستظهر هنا.",
+        "items": {
+            "stock_empty_title": "نفد المخزون",
+            "stock_low_title": "المخزون منخفض",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "تاريخ الانتهاء قد مر",
+            "expiry_close_title": "تاريخ الانتهاء يقترب",
+            "warranty_expired_title": "الضمان منتهي",
+            "warranty_close_title": "الضمان سينتهي قريبًا",
+            "maintenance_overdue_title": "الصيانة متأخرة",
+            "maintenance_close_title": "الصيانة ستستحق قريبًا",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "إرجاع الاستعارة متأخر",
+            "borrow_close_title": "إرجاع الاستعارة سيستحق قريبًا",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} أيام متبقية ({{date}})"
+        }
+    },
+    "service": {
+        "title": "مركز الخدمة والضمان",
+        "description": "تتبع الضمانات، جداول الصيانة، وإجراءات الخدمة في مكان واحد.",
+        "meta_warranty": "{{count}} سجلات ضمان",
+        "meta_tasks": "{{count}} مهام صيانة",
+        "empty_title": "لا توجد خدمة أو إجراء ضمان",
+        "empty_desc": "سيتم جمع مواعيد الضمان القادمة ومهام الصيانة هنا.",
+        "warranty_section": "تتبع الضمان",
+        "warranty_desc": "الضمانات المنتهية والضمانات التي ستنتهي خلال 30 يومًا.",
+        "maintenance_section": "إجراءات الصيانة",
+        "maintenance_desc": "المهام المتأخرة والمقبلة للصيانة.",
+        "no_warranty": "لا توجد إجراءات ضمان قادمة.",
+        "no_tasks": "لا توجد مهمة صيانة مجدولة",
+        "overdue": "متأخر",
+        "upcoming": "قريب",
+        "expired": "منتهي",
+        "summary_warranty": "تتبع الضمان",
+        "summary_tasks": "مهام الصيانة",
+        "open_warranty_filter": "فلتر الضمان المفتوح",
+        "open_warranty_filter_desc": "يقوم بتصفية عناصر الضمان النشطة في المخزون."
+    },
+    "storage_labels": {
+        "title": "ملصقات الرف والغرفة",
+        "description": "{{count}} ملصق غرفة/رف جاهز كصفحة للطباعة.",
+        "empty_title": "لا توجد غرف أو رفوف للتوسيم",
+        "empty_desc": "أضف الغرف أو المواقع أولاً، ثم اطبع ملصقات QR هنا.",
+        "sheet_label": "ورقة ملصقات المواقع",
+        "scan_hint": "يؤدي مسح رمز QR إلى فتح المخزون المصفى لتلك الغرفة أو الرف.",
+        "room": "الغرفة",
+        "location": "رف/صندوق"
     }
 }

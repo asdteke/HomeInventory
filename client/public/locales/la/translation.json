@@ -51,9 +51,11 @@
         "show": "Ostende tessera",
         "saving": "Servans...• • • • • • • • Rationem Conservationis Index Emptorum",
         "disabled": "Inhabilis",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Ingrandire",
+        "zoom_out": "Minuere",
+        "reset": "Restituere",
+        "print": "Imprimere",
+        "record_count": "{{count}} monumenta"
     },
     "auth": {
         "login": {
@@ -319,7 +321,7 @@
         "two_factor_not_enabled": "Duo-factor authentication non est enable",
         "two_factor_regenerate_codes_error": "Error evenit dum backup codices regenerare",
         "two_factor_enabled_success": "Duo-factor authentication feliciter enable est",
-        "two_factor_disabled_success": "Bifactor Authentication feliciter deactivated est © 2026 {{brandName}} © 2026 {{brandName}} {{brandName}} - {{status}}",
+        "two_factor_disabled_success": "Duobus-factor authentication feliciter deactivatus est",
         "password_errors": {
             "min_length": "Tessera debet esse saltem {{min}} characteres longum",
             "lowercase_required": "Tessera debet includere saltem unam litteram minusculam",
@@ -352,7 +354,10 @@
         "logout_description": "Redibis ad sign-in screen et opus erit iterum log in ad administrandum inventarium domesticum.",
         "logout_warning": "Utere hoc cum confeceris in communi vel personali dispositivo.",
         "maintenance": "Ordo Conservationis",
-        "shopping": "Index Emptor"
+        "shopping": "Index Emptor",
+        "activity": "Actio",
+        "notifications": "Notificationes",
+        "service": "Ministerium"
     },
     "dashboard": {
         "welcome": "Salve, <1>{{name}}</1>! 👋",
@@ -485,13 +490,14 @@
             "expired_desc": "Sunt {{count}} res tempere expiratae in tuo inventario. Quaeso eas inspice pro tua salute.",
             "view_items": "Vide Res",
             "maintenance_title": "Munera Conservationis Praeterita!",
-            "maintenance_desc": "Sunt {{count}} opera conservationis morosa. Fac conservationem ut vitam machinarum tuarum extendas. I ad Conservationem. Monitio Parvi Copiei. {{count}} res infra minimum tuum copiam limitis ceciderunt.",
+            "maintenance_desc": "Negotia morosa: {{count}}.",
             "go_to_maintenance": "I ad Conservationem",
             "low_stock_title": "Monitio Parvi Stock",
             "low_stock_desc": "{{count}} res cadunt infra vestri minimum stock terminum.",
             "go_to_shopping": "Index Emptionis",
             "close_expiry_title": "Dies Expirationis Venturikae",
-            "close_expiry_desc": "{{count}} producta intra XXX dies expirabunt."
+            "close_expiry_desc": "{{count}} producta intra XXX dies expirabunt.",
+            "view_low_stock_items": "Videre Parvum Stock"
         }
     },
     "beta_banner": {
@@ -513,7 +519,7 @@
         "load_error": "Defecit onerari item",
         "form": {
             "name": "Nomen item",
-            "name_placeholder": "Exempli gratia Samsung TV 55 pollices",
+            "name_placeholder": "Exempli gratia TV 55 pollices",
             "required": "*",
             "description": "Descriptio",
             "description_placeholder": "Notae de item...",
@@ -641,6 +647,17 @@
             "close_to_expiry": "Prope Exspirare",
             "expired": "Exspiravit",
             "low_stock": "Parvus Stock"
+        },
+        "untitled_item": "Res sine titulo",
+        "attachments": {
+            "title": "Photographiae et fasciculi",
+            "add": "Adde fasciculos",
+            "empty": "Nulli fasciculi adhuc additi sunt.",
+            "form_desc": "Adjunge photographias rerum, recepta, cautiones, vel documenta ministerii.",
+            "detail_desc": "Photographiae, recepta, cautiones et fasciculi ministerii servati sunt pro hac re.",
+            "upload_error": "Fasciculi non possunt uploadari.",
+            "delete_error": "Fasciculus deleri non potuit.",
+            "delete_confirm": "Delere hunc fasciculum?"
         }
     },
     "settings": {
@@ -688,7 +705,7 @@
             "policy_update_error": "Defecit ad renovandum petitionem occasus.",
             "policy_updated": "Petitionis occasus feliciter renovati sunt.",
             "unblock_error": "Defecit ad user expromendum.",
-            "unblocked_success": "Usor feliciter solutus. Reicere Petitio. Es paratus reicere petitionem pro \"{{item}}\". Es paratus reicere petitionem mutuandi a {{name}} missa.",
+            "unblocked_success": "Usor feliciter liberatus est.",
             "house_owner_transferred": "Domus possessionem translata",
             "house_owner_transfer_error": "Domus possessionem non potuit transferre"
         },
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Clavis Domus Activa",
             "key_label": "Clavis Domus",
-            "mask_key": "Si vis, potes semper removere data personalia et fasciculos uploadatos huius rationi coniunctos. Item deletum. Craticula",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Occulta",
             "show": "Ostende",
             "copy": "Copia",
@@ -763,10 +780,10 @@
             "kicking": "Removendo...",
             "access_section_eyebrow": "Domus accessum",
             "transfer_owner": "Fac dominum",
-            "transferring_owner": "Transferens... Tradere domum possessionem? Tradere possessionem huius familiae ad {{name}}? Non iam es dominus huius familiae. Novus dominus administrabit approbationes membrorum, removales, et futura mutationes possessionis.",
+            "transferring_owner": "Transferri...",
             "transfer_owner_title": "Transferre domus possessionem?",
-            "transfer_owner_confirm": "Transfere dominii huius familiae ad {{name}}? Non iam eris dominus huius familiae. Novus dominus curabit approbationes membrorum, removales, et futuras mutationes potestatis. Delere rationem tuam et permanentur omne documenta inventarii. © 2026 {{brandName}}",
-            "transfer_owner_warning": "You will no longer be the owner of this household. The new owner will manage member approvals, removals, and future ownership changes.",
+            "transfer_owner_confirm": "Tradere domus huius proprietatem ad {{name}}?",
+            "transfer_owner_warning": "Non eris dominus domus huius. Novus dominus membrum approbationes, remotiones et mutationes futuri dominii administrabit.",
             "transfer_owner_success_body": "{{name}} nunc dominii huius familiae est."
         },
         "theme": {
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} loca existentes praeterita.",
             "skipped_rooms": "{{count}} cubicula existentes praeterita.",
             "owner_only_title": "Substitutio et Restituere Restrictum",
-            "owner_only_desc": "Data tergum et restituere tantum possunt administrari a domo domino."
+            "owner_only_desc": "Data tergum et restituere tantum possunt administrari a domo domino.",
+            "include_media_title": "Imagines et recepta includere",
+            "include_media_body": "Copia plena maior esse potest, sed imagines rerum et recepta quoque restitui possunt.",
+            "skipped_attachments": "Attachiamenta {{count}} omittendae sunt."
         },
         "about": {
             "title": "De Applicatione",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Omnia venientia petitiones automatici clausa sunt",
             "policy_house_only_desc": "Tantum verificata membra domorum activarum tuarum petere possunt vasa quae intus sunt in communi domo iam conspicua.",
             "policy_everyone_desc": "Aliae usores non possunt videre vel videre items. Solum possunt mittere petitionem per intrantes nomen usoris vel electronicae directe."
+        },
+        "activity_log": {
+            "title": "Actio et audit log",
+            "description": "Recognoscere conservata historia rerum mutationes, copia updates, attachiamenta et actiones molis.",
+            "encrypted_title": "Acta actionum servantur protecta Nova actionum facta et singula servantur encrypta in database et solum decrypta pro tua sessione activa Disponibile Instrumenta Nullus locus Omnes loci Filtra per locum Filtra per visibilitatem",
+            "encrypted_body": "Actiones novae et singulae actiones in datorum encryptae conditae sunt et solum in sessione activa tua decrypta sunt."
         }
     },
     "inventory": {
@@ -1097,8 +1123,8 @@
             "no_history": "Nullum historiam mutui huius rei adhuc est.",
             "lend_success_title": "Res concessa",
             "lend_success_body": "{{item}} nunc notata est ut concessa.",
-            "offer_sent_title": "Oblatio mutui missa {{item}} signabitur ut mutuata postquam alter membrum accipit. Claudens... Nunc nullae sunt activae mutui.",
-            "offer_sent_body": "{{item}} signabitur ut mutuatus postquam alius membrum accipit. Concludens... Nunc non sunt activa mutuabilia. {{name}} signavit hoc item ut redditum. Confirmare receptum ad claudendum tabulam.",
+            "offer_sent_title": "Oblatio mutui missa",
+            "offer_sent_body": "{{item}} signabitur ut mutuatum postquam alius membrum accipit.",
             "borrowed_by_you": "Tecum",
             "return_pending_hint": "Relatio claudetur postquam mutuator confirmaverit recipisse rem.",
             "return_pending_lender_title": "{{name}} hanc rem ut redditam recitavit",
@@ -1107,7 +1133,8 @@
             "site_member_identifier": "Usoris nomen vel electronica",
             "site_member_identifier_placeholder": "Exactus usoris nomen vel electronica",
             "site_member_privacy_hint": "Offertum apparet in Centrum Mutuum solum si illud rationem existit et permittit incepta offerenda.",
-            "external_privacy_hint": "Hoc solum privatum localem recordum creat. Nulla app notificatio mittitur. Hoc activum siccio recordum inveni non potest. Renovare Centrum Siccio et iterum conare. Unum tantum primum contactum externum petitionem ad eundem hominem per diem mittere potes. Si accipiant petitionem, hic limitatio amplius ad illum non applicatur."
+            "external_privacy_hint": "Hoc solum privatum localem recordum creat. Nulla app notificatio mittitur. Hoc activum siccio recordum inveni non potest. Renovare Centrum Siccio et iterum conare. Unum tantum primum contactum externum petitionem ad eundem hominem per diem mittere potes. Si accipiant petitionem, hic limitatio amplius ad illum non applicatur.",
+            "available": "Praesto"
         },
         "untitled_item": "Res sine titulo",
         "delete_action": "Delere rem",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Filtrum per conclave",
         "refreshing_results": "Res renovantes...",
         "empty_filter_title": "Nulla res ad quaerendi correspondent",
-        "delete_error_title": "Delere defecit"
+        "delete_error_title": "Delere defecit",
+        "tools": {
+            "title": "Instrumenta"
+        },
+        "no_room": "Nullus locus",
+        "all_locations": "Omnes locus",
+        "location_filter_label": "Filtrum per locum",
+        "visibility_filter_label": "Filter visibilis",
+        "visibility_all": "Omnis visibilitas",
+        "visibility_mine": "Mea autem",
+        "visibility_others": "Alii sodales",
+        "borrow_filter_label": "Filtra per statum mutui",
+        "borrow_filter_all": "Omnes status mutui",
+        "stock_filter_label": "Filtra per statum copia",
+        "stock_filter_all": "Omnes statum copia",
+        "stock_filter_ok": "Copia ok",
+        "expiry_filter_label": "Filtra per diem expirationis",
+        "expiry_filter_all": "Omnes dies expirationis",
+        "expiry_filter_dated": "Habent diem",
+        "expiry_filter_none": "Nullam diem",
+        "warranty_filter_label": "Filtra per cautionem",
+        "warranty_filter_all": "Omnes cautionibus",
+        "warranty_filter_expired": "Cautionibus expiratas",
+        "warranty_filter_close": "Mox finient",
+        "warranty_filter_active": "Active cautiones",
+        "warranty_filter_none": "Nullum notitia cautio",
+        "sort_label": "Sortire",
+        "sort_updated_desc": "Nuper renovatum",
+        "sort_updated_asc": "Vetustissima renovatio",
+        "sort_created_desc": "Novissima prima",
+        "sort_created_asc": "Vetustissima prima",
+        "sort_name_asc": "Nomen A-Z",
+        "sort_name_desc": "Nomen Z-A",
+        "sort_quantity_desc": "Quantitas alta ad humilem",
+        "sort_quantity_asc": "Quantitas humilis ad altam",
+        "sort_expiry_asc": "Expiratio citius",
+        "sort_expiry_desc": "Expiratio sero",
+        "stock_increase": "Augere stock",
+        "stock_decrease": "Minuere stock",
+        "stock_adjust_error": "Stock non potuit renovari.",
+        "bulk": {
+            "select_visible": "Selige visibile",
+            "clear_visible": "Deselege visibile",
+            "selected_short": "selectum",
+            "keep_category": "Serva categoria",
+            "keep_room": "Serva conclave",
+            "keep_location": "Serva locum",
+            "keep_visibility": "Serva visibilitatem",
+            "apply": "Applica",
+            "no_fields": "Elige saltem unam agrum pro actione colectiva.",
+            "updated_title": "Update coactus completus",
+            "updated_body": "{{count}} res renovatae. {{skipped}} praeterita.",
+            "update_error": "Update coactus completus fieri non potuit.",
+            "deleted_title": "Delete coactus completus",
+            "deleted_body": "{{count}} res deletae. {{skipped}} praeterita.",
+            "delete_error": "Delete coactus fieri non potuit.",
+            "delete_title": "Delere elementa selecta?",
+            "delete_description": "{{count}} res electae ex inventario familiari removebuntur. Hoc fieri infectum non potest.",
+            "select_item": "Lego item",
+            "unselect_item": "Rem deselectare"
+        },
+        "qr_labels": {
+            "title": "Tituli QR",
+            "open": "Tituli rerum",
+            "description": "{{count}} item pittacia ut chartae impressae paratae sunt.",
+            "empty": "Mutare Filtra vel inventarium addere items ad pittacia imprimenda.",
+            "sheet_label": "Etiam Label Tabula",
+            "item_label": "Etiam Label"
+        }
     },
     "categories": {
         "title": "Categoriae",
@@ -1147,7 +1242,7 @@
         "defaults": {
             "kitchen": "Cucina",
             "electronics": "Electronica",
-            "hobbies": "Studia >>> Garagium >>> Auditio >>> Status >>> Omnia >>> Activa >>> Proscriptum >>> Administratores >>> Nullae recentes systematis errores >>> {{date, datetime}}",
+            "hobbies": "Occupationes",
             "furniture": "Supellex",
             "clothing": "Vestimenta",
             "books": "Libri",
@@ -1221,7 +1316,7 @@
                 "description": "Cubiculum infantium"
             },
             "garage": {
-                "name": "Garage © 2026 {{brandName}} © 2026 {{brandName}} {{brandName}} - {{status}}",
+                "name": "Repositorium",
                 "description": "Vehiculi et repono area"
             },
             "balcony": {
@@ -1294,7 +1389,7 @@
             "ban_description": "Prohibere usorem statim impedit accessum donec administrator id restituat.",
             "ban_warning": "Usor accessum amittit donec alius administrator explicite restituat.",
             "unban_title": "Hunc usorem restituere?",
-            "unban_description": "Restitutio accessum concedit hoc usorem iterum signare. Delere hanc rationem? Admin {{date, datetime}}",
+            "unban_description": "Restituere accessum permittit hoc usorem iterum inire.",
             "unban_warning": "Usor iterum accessum accipit in proximam felicem signum-in.",
             "delete_title": "Hoc rationem delere?",
             "delete_description": "Deletio {{username}} sempiternam remove rationem eiusque data inventarii possessi.",
@@ -1311,7 +1406,7 @@
             "filtered_total": "{{count}} rationes visibiles",
             "total_platform": "{{count}} rationes totales",
             "empty_title": "Nulla ratione congruens",
-            "empty_body": "Conare aliud quaerere vel filtrum ut usores in visum reducas. Omnes Activa Interdicta Administratores Nulla recentia systematis errore {{date, datetime}} Email",
+            "empty_body": "Conare diversum quaerere vel filtrum ut usores rursus in conspectu adducas.",
             "filters": {
                 "all": "Tutti",
                 "active": "Attivo",
@@ -1343,7 +1438,7 @@
             "no_errors": "// Systema sanum, nullae errorum log.",
             "date_fmt": "{{date, time}}",
             "type": {
-                "email": "Epistula electronica Utere hoc pro auxilio operationis vel account-relata communicatio. Contentum sensibile manere debet intra app quam maxime. Praesidium currente mittendi: {{rateLimit}}. Epistulae mittuntur ab {{supportEmail}}. Omnes missiones sunt annotatae pro securitate, contentum excluso",
+                "email": "Epistula Electronica",
                 "user": "Usor",
                 "system": "Systema",
                 "event": "Eventus"
@@ -1556,7 +1651,7 @@
             "button": "Ingredere"
         },
         "footer": {
-            "desc": "The easy and secure platform to digitize your home inventory.",
+            "desc": "La piattaforma facile e sicura per digitalizzare il tuo inventario domestico.",
             "links": "Celeres Nexus",
             "contact": "Continge Nos",
             "copyright": "© {{year}} {{brandName}}. Omnia iura servata."
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Unitas reticularis",
-                    "meta": "Mensa televisoria • Deco M4",
+                    "meta": "Mensa televisoria • Network node",
                     "state": null
                 },
                 {
@@ -1902,7 +1997,7 @@
             ],
             "fallback": "Tessera reset nexus videtur imperfectus vel fractus.",
             "support": "Quaestiones Registrationis:",
-            "footer": "© 2026 {{brandName}} © 2026 {{brandName}} {{brandName}} - {{status}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
             "subject": "Gratus ad {{brandName}}",
@@ -1954,7 +2049,7 @@
             "warningTitle": "⚠️",
             "warningBody": "Si ratio existit, nexus ad repositum tesserae validus per 15 minuta missus est.",
             "fallback": "Tessera reset nexus videtur imperfectus vel fractus.",
-            "footer": "© 2026 {{brandName}} © 2026 {{brandName}} - {{supportEmail}} Omnia tua domus res prudenter administrare Version BETA: {{brandName}} in momento in probatione est. Nullae potestates de data permanentia vel securitate dantur."
+            "footer": "© 2026 {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "Haec epistula missa est ab {{brandName}}.",
@@ -1968,7 +2063,7 @@
             "sentAtLabel": "Missum ad",
             "senderLabel": "Mittens",
             "serviceLabel": "Ministerium",
-            "footer": "© 2026 {{brandName}} © 2026 {{brandName}} © 2026 {{brandName}} - {{supportEmail}} Callide administrare omnia tua domestica"
+            "footer": "© 2026 {{brandName}}"
         }
     },
     "vault": {
@@ -2003,7 +2098,7 @@
         "security_note_2": "Si oblivisceris verbum transitus, potes uti clavi recuperationis. Si ambo amittuntur, contenta permanenter inaccessibilia fiunt.",
         "recovery_ready_title": "Clavis Recuperationis Parata",
         "recovery_ready_description": "Hanc clavem semel tantum ostendimus. Serva eam alicubi tuto.",
-        "recovery_visible_once": "Clavis haec non ostendetur iterum postea. Nova Vallis Record Edita Vallis Record Haec sequitur communem item fluxum propius, sed textus planus numquam relinquit navigatrum. Adde Vallis Record Serva Mutationes Vallis codices non spectantur in officiis exterioribus automatice; textus codicis tantum reconditur ut data encrypta. Photographiae, codicis scanatio, et externa producti inquisitione sunt consilio impeditum in hoc primo vallis fluxu. Eae egent separata encrypta media et secretum canalem.",
+        "recovery_visible_once": "Haec clavis postea iterum non ostendetur.",
         "record_new_title": "Novum Arca Recordum",
         "record_edit_title": "Emenda Arca Recordum",
         "record_form_subtitle": "Hoc sequitur ordinarium rerum fluxum propius, sed sermo simplex numquam relinquit navigatrum.",
@@ -2078,10 +2173,10 @@
         "active": {
             "title": "Mutua activa",
             "subtitle": "Res nunc apud te aut a te concessae",
-            "empty": "Nunc nulla activa mutuatur. {{name}} hoc item redditum signavit. Recipere confirma ut recordum claudatur. Garage Inventarium records",
+            "empty": "Nullae sunt mutuae activae nunc.",
             "borrowed_from": "Mutuatum a {{name}}",
             "lent_to": "Nunc cum {{name}}",
-            "return_pending_borrower": "Exspectans ut creditor confirmet se accepisse. {{name}} signavit hunc rem redditam. Confirmare receptionem ad claudendum recordum. Redditionem exspectans. Signa ut reddita",
+            "return_pending_borrower": "Exspectans ut creditor confirmet illud recepisse.",
             "return_pending_lender": "{{name}} this item as noted back.",
             "empty_title": "Nessun prestito attivo al momento",
             "empty_description": "Acceptatae petitiones hic apparent cum res mutuatur aut fovere, una cum dies debiti et statum reditus"
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Centrum mutui oneri non potuit oneri recipi",
             "action_error": "Actio perfici non potuit",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Haec recordatio activae mutui reperiri non potuit. Refrescare Centrum Mutui et iterum conare.",
             "errors": {
                 "external_target_daily_limit": "Unam tantum petitionem externam primo-contamenti ad eundem hominem per diem mittere potes. Si petitionem recipiunt, hic modus non amplius pro eo applicatur.",
                 "external_total_daily_limit": "Petitiones externas per diem ad primum contactum mittere potes.",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "Menu rationis {{name}}"
     },
     "app": {
-        "name": "{{brandName}} Callide administrare omnia tua domestica items Menu BETA Versio: {{brandName}} nunc in probatione est. Nulla spondet de stabilitate data vel securitate.",
+        "name": "{{brandName}}",
         "tagline": "Acriter administrare omnia supellectile tua",
         "loading": "Onusturika {{brandName}}",
         "preparing_workspace": "Praeparans tuum locum laboris..."
@@ -2287,7 +2382,7 @@
         "admin_panel": "Administratio Tabula",
         "share_house": "Domum Partiri",
         "new_item": "Novum Res",
-        "menu": "Menu BETA Versio: {{brandName}} hoc tempore in probatione est. Nulla garantia datur de data permanenti vel securitate. Signum in Crea rationem",
+        "menu": "Index",
         "help": "Auxilium et Subsidium"
     },
     "theme": {
@@ -2408,7 +2503,7 @@
             "desc": "Inventarium items quae ceciderunt infra minimum limite.",
             "add_all": "Adde Omnia Deficientia",
             "stock_status": "Praesens: {{current}} / Propositum: {{min}}",
-            "add_qty": "Addere {{qty}} Items emere Items actuales ad addere in curru tuo {{count}} Items"
+            "add_qty": "Adde {{qty}}"
         },
         "sections": {
             "active_list": "Res Emendae",
@@ -2506,10 +2601,10 @@
             "create_title": "Nova Administratio Munus Constituere",
             "perform_title": "Administratio Complete",
             "perform_desc": "Visne hodie \"{{name}}\" tamquam completa recensere?",
-            "perform_confirm": "Ita, Perfectum. Haec est operatio periodica. Cum servaveris, ratio automatice calculabit proximam diem sustentationis. Delere Operatio Sustentationis? Certus es te velle delere periodicam sustentationis schedulam \"{{name}}\"? Haec actio non potest retractari.",
+            "perform_confirm": "Ita, Completum",
             "perform_recurrence_info": "Hoc est munus periodicum. Cum servas, systema automatice computabit proximam diem conservationis.",
             "delete_title": "Delere Munus Conservationis?",
-            "delete_desc": "Esne certus vis delere periodicam sustentationis schedulam \"{{name}}\"? Haec actio revocari non potest. {{count}} Munera Item Servare Pendens Primus debes servare hunc elementum adde sustentationis schedulam."
+            "delete_desc": "Esne certus vis delere ordinariam conservationem schedulam \"{{name}}\"? Haec actio retractari non potest."
         },
         "form": {
             "item": "Res Pertinens",
@@ -2524,7 +2619,7 @@
             "frequency_unit": "Unitas Frequentiae",
             "next_due_date": "Proximum Datum Statutum",
             "section_help": "Ex hoc loco administrationem schedulas conservationis",
-            "section_collapsed": "Clique addere periodicas imperia et munera {{count}} Munera Res Servare Pendens Primo debes salvare hanc rem ut addere sustentationem consilium.",
+            "section_collapsed": "Click addere periodicum imperium et officia",
             "has_tasks": "{{count}} Munera",
             "new_item_warning_title": "Item Serva Pending",
             "new_item_warning_desc": "Hoc item prius servandum est ut addere schedulam sustentationis.",
@@ -2555,5 +2650,102 @@
         "description": "Interfacies occurrit inopinatum problema redditionis. Tua servata inventarium data non mutatur a hoc screen.",
         "refresh_btn": "Refice",
         "home_btn": "Domus"
+    },
+    "activity": {
+        "title": "Historia Activitatis",
+        "description": "Recentes mutationes protectae in tua inventario domestico.",
+        "empty_title": "Nulla activitas adhuc",
+        "empty_description": "Mutationes rerum, renovationes stocorum, adnexa, mutui, et actiones massivae hic apparebunt.",
+        "unknown_actor": "Usor ignotus",
+        "deleted_item_with_id": "Res deletum #{{id}}",
+        "item_missing": "Haec res record iam non existit",
+        "actions": {
+            "item_created": "Res addita",
+            "item_updated": "Res renovata",
+            "item_deleted": "Res deletum",
+            "item_borrowed": "Res concessa",
+            "item_returned": "Res reddita",
+            "item_bulk_updated": "Renovatio massiva",
+            "item_bulk_deleted": "Massa dele",
+            "item_stock_adjusted": "Stipem renovata",
+            "item_attachment_added": "Adnectio addita",
+            "item_attachment_deleted": "Adnectio deleta"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} records relevans",
+        "empty_title": "Nullae records relevans invenitae",
+        "low_stock": {
+            "title": "Stipem humilem",
+            "description": "Res sub eorum minimo gradu stipis.",
+            "qty": "Copia {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Res Expiratae",
+            "description": "Res cum data expirata."
+        },
+        "expiring": {
+            "title": "Proxime Exspirantes Datis",
+            "description": "Res intra 30 dies expirantes."
+        },
+        "maintenance": {
+            "title": "Maintenance Praeterita",
+            "description": "Officia conservationis post suam datorum diem."
+        }
+    },
+    "notifications": {
+        "title": "Centrum Notificationum",
+        "description": "Stipem, warantiam, sustentationem, expirationem, et restitutionem mutuo admonitiones.",
+        "meta_total": "{{count}} notificationes",
+        "meta_urgent": "{{count}} urgere",
+        "empty_title": "Nulla summis opus est tibi attendere nunc",
+        "empty_desc": "Humilis stirps, dies ventura, sustentatio decuit hic apparebit.",
+        "items": {
+            "stock_empty_title": "De stirpe",
+            "stock_low_title": "Humilis stirpe",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Expirata date Transierunt",
+            "expiry_close_title": "Dies denominationis appropinquans",
+            "warranty_expired_title": "Warantiaz finita",
+            "warranty_close_title": "Warantiaz mox terminatur",
+            "maintenance_overdue_title": "Conservatio praeterita",
+            "maintenance_close_title": "Conservatio mox debetur",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Mutuo redemptio praeterita",
+            "borrow_close_title": "Mutuo redemptio mox debetur",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} dies restant ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Centrum Servitii et Fidei",
+        "description": "Monitor warranties, schemata conservationis, et actiones servitii in uno loco.",
+        "meta_warranty": "{{count}} recorda fidei",
+        "meta_tasks": "{{count}} opera conservationis",
+        "empty_title": "Nulla actio servitii vel fidei",
+        "empty_desc": "Futurae fidei dies et opera conservationis hic collecta erunt.",
+        "warranty_section": "Tracking Fidei",
+        "warranty_desc": "Fidei expirati et fidei per 30 dies finiturae.",
+        "maintenance_section": "Actiones Conservationis",
+        "maintenance_desc": "Neglegentes et futurae conservationis officium.",
+        "no_warranty": "Nulla futura cautio actio.",
+        "no_tasks": "Nulla constituta conservationis officium.",
+        "overdue": "Neglectum",
+        "upcoming": "Mox",
+        "expired": "Exspiratum",
+        "summary_warranty": "Cautio observatio",
+        "summary_tasks": "Munera conservationis",
+        "open_warranty_filter": "Aperi talionis cautelae",
+        "open_warranty_filter_desc": "Filtra items talionis activae in inventario."
+    },
+    "storage_labels": {
+        "title": "Tabulae et Camarae Inscriptiones",
+        "description": "{{count}} camerae/tabulae inscriptiones paratae sunt ut charta typographica.",
+        "empty_title": "Nullae camerae vel tabulae ad insigniendos",
+        "empty_desc": "Primum addas camerae vel loca, deinde hic QR inscriptiones imprimi.",
+        "sheet_label": "Tabula Locorum Inscriptionum",
+        "scan_hint": "QR codice scandendo aperit inventarium filtratum illius camerae vel plutei.",
+        "room": "Camera",
+        "location": "Pluteus/Arca"
     }
 }

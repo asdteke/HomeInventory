@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { execFileSync } from 'child_process';
-import { isProtectedTranslationKey } from './i18n-helpers.mjs';
+import { isAllowedIdenticalTranslation, isProtectedTranslationKey } from './i18n-helpers.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -50,6 +50,20 @@ function collectStringKeyPaths(object, prefix = '') {
     return keyPaths;
 }
 
+function isInvalidTranslationValue(value) {
+    const text = String(value || '');
+    return [
+        /INVALID TARGET LANGUAGE/i,
+        /LANGPAIR=/i,
+        /ALMOST ALL LANGUAGES/i,
+        /HI_MISSING_SEP/i,
+        /HI_VAULT_SEP/i,
+        /Unselect visible selected/i,
+        /görün sichtbar/i,
+        /Nova Vallis/i
+    ].some((pattern) => pattern.test(text));
+}
+
 function getTargetLanguages() {
     return fs
         .readdirSync(LOCALES_DIR)
@@ -89,12 +103,11 @@ async function run() {
                 return false;
             }
 
-            return text && (
+            return text && !isAllowedIdenticalTranslation(keyPath, lang) && (
                 force ||
                 !localeValue ||
                 (localeValue === text && text.length > 2) ||
-                String(localeValue).includes('HI_MISSING_SEP') ||
-                String(localeValue).includes('HI_VAULT_SEP')
+                isInvalidTranslationValue(localeValue)
             );
         });
 

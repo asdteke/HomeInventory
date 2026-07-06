@@ -41,7 +41,7 @@
             "search_google": "جستجو در گوگل",
             "barcode_saved": "✓ بارکد ذخیره خواهد شد",
             "visibility": "نمایش آیتم",
-            "visibility_public": "Visible to all house members",
+            "visibility_public": "برای همه در این خانه قابل مشاهده است",
             "visibility_private": "فقط برای شما قابل مشاهده است",
             "submit_add": "افزودن آیتم",
             "submit_save": "ذخیره تغییرات",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Наздик ба анҷом",
             "expired": "Гузаштааст",
             "low_stock": "Захираи кам"
+        },
+        "untitled_item": "Адад бе ном",
+        "attachments": {
+            "title": "Суратҳо ва файлҳо",
+            "add": "Илова кардани файлҳо",
+            "empty": "Ҳанӯз ягон файл илова карда нашудааст.",
+            "form_desc": "Суратҳо, квитансияҳо, фактураҳо ё ҳуҷҷатҳои хидматиро замима кунед.",
+            "detail_desc": "Аксҳо, квитансияҳо, фактураҳо ва файлҳои хидматӣ, ки барои ин ашё захира шудаанд.",
+            "upload_error": "Файлҳоро бор карда натавонистанд.",
+            "delete_error": "Файлро нест кардан мумкин нест.",
+            "delete_confirm": "Ин файлро нест кунед?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Нишон додани парол",
         "saving": "Дар ҳоли ҳифз...",
         "disabled": "Имкон дода нашудааст",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Масштаб кардан",
+        "zoom_out": "Масоҳат кардан",
+        "reset": "Бозсозӣ",
+        "print": "Чоп кардан",
+        "record_count": "{{count}} сабт"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "شما به صفحه ورود بازگردانده خواهید شد و برای مدیریت موجودی خانه باید دوباره وارد شوید.",
         "logout_warning": "این را زمانی استفاده کنید که کارتان با یک دستگاه مشترک یا شخصی تمام شده است.",
         "maintenance": "Нақшаи хидматрасонӣ",
-        "shopping": "Рӯйхати харид"
+        "shopping": "Рӯйхати харид",
+        "activity": "Фаъолият",
+        "notifications": "Огоҳиномаҳо",
+        "service": "Хизмат"
     },
     "dashboard": {
         "welcome": "Welcome, <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "Захираи {{count}} ашё аз ҳадди ақали муайяншуда камтар шудааст.",
             "go_to_shopping": "Рӯйхати харид",
             "close_expiry_title": "Мӯҳлати истифодаи наздикшаванда",
-            "close_expiry_desc": "Мӯҳлати истифодаи {{count}} маҳсулот дар давоми 30 рӯз ба охир мерасад."
+            "close_expiry_desc": "Мӯҳлати истифодаи {{count}} маҳсулот дар давоми 30 рӯз ба охир мерасад.",
+            "view_low_stock_items": "Захираи камро дидан"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "کلید خانه فعال",
             "key_label": "کلید خانه",
-            "mask_key": "••••••••{{суффикс}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "مخفی کردن",
             "show": "نمایش",
             "copy": "کپی",
@@ -823,7 +840,7 @@
             "unlock_and_import": "باز کردن قفل و وارد کردن",
             "export_encrypted_notice": "Нусхаи эҳтиётӣ аз маълумоти зиндаи хонавода омода карда мешавад ва сипас бо гузарвожаи интихобкардаи шумо печонида мешавад.",
             "export_encrypted_title": "Рамзгузорӣ пеш аз зеркашӣ татбиқ карда мешавад",
-            "import_summary_body": "{{items}} ашё, {{categories}} категорияҳо, {{rooms}} ҳуҷраҳо, {{locations}} маконҳо, {{қарзҳо}} сабтҳои қарз барқарор карда шуданд.",
+            "import_summary_body": "{{items}} ашё, {{categories}} категорияҳо, {{rooms}} ҳуҷраҳо, {{locations}} маконҳо, {{borrows}} сабтҳои қарз барқарор карда шуданд.",
             "import_summary_title": "Нусхаи эҳтиётӣ барқарор карда шуд",
             "preview_categories": "دسته‌بندی‌ها",
             "preview_items": "موجودی",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} макони мавҷуда гузаронида шуд.",
             "skipped_rooms": "{{count}} утоқҳои мавҷуда гузаронида шуданд.",
             "owner_only_title": "Нусхабардорӣ ва барқароркунӣ маҳдуд аст",
-            "owner_only_desc": "Нусхабардории маълумот ва барқароркунӣ танҳо аз ҷониби соҳиби хона идора карда мешавад."
+            "owner_only_desc": "Нусхабардории маълумот ва барқароркунӣ танҳо аз ҷониби соҳиби хона идора карда мешавад.",
+            "include_media_title": "Суратҳо ва тасвирҳои квитансияро дохил кунед",
+            "include_media_body": "Нусхаи пурра метавонад калонтар бошад, аммо аксҳои ашё ва тасвирҳои квитансияро низ барқарор кардан мумкин аст.",
+            "skipped_attachments": "{{count}} замима гузаронида шуд."
         },
         "about": {
             "title": "Дар бораи барнома",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Ang lahat ng mga tinatanggap ay awtomatikong",
             "policy_house_only_desc": "Maaari lamang na naka-verified ang mga tao ng iyong aktibidad na mga item na nakikita sa loob ng ibahagi na home",
             "policy_everyone_desc": "Ang iba pang mga gumagamit ay hindi maaaring mag-browse o makita ang iyong mga item. Maaaring ipadala lamang ang isang kahilingan sa pamamagitan ng pagpasok ng iyong username o"
+        },
+        "activity_log": {
+            "title": "Журнали фаъолият ва аудит",
+            "description": "Таърихи ҳифзшудаи тағирот, навсозиҳои саҳҳомӣ, замимаҳо ва амалҳои оммавиро аз назар гузаронед.",
+            "encrypted_title": "Сабтҳои фаъолият ҳифзшуда нигоҳ дошта мешаванд",
+            "encrypted_body": "Амалҳо ва тафсилоти нави фаъолият дар базаи маълумот рамзкунонидашуда нигоҳ дошта мешаванд ва танҳо барои сессияи фаъоли шумо рамзкушо карда мешаванд."
         }
     },
     "inventory": {
@@ -1107,7 +1133,8 @@
             "site_member_identifier": "Номи корбар ё почтаи электронӣ",
             "site_member_identifier_placeholder": "Номи корванд ё почтаи электронӣ",
             "site_member_privacy_hint": "Пешниҳод дар Маркази қарзӣ танҳо дар сурате пайдо мешавад, ки агар ин ҳисоб вуҷуд дошта бошад ва пешниҳодҳои воридшударо иҷозат диҳад.",
-            "external_privacy_hint": "Ин танҳо сабти маҳаллиро эҷод мекунад. Ягон огоҳинома оиди барнома фиристода намешавад."
+            "external_privacy_hint": "Ин танҳо сабти маҳаллиро эҷод мекунад. Ягон огоҳинома оиди барнома фиристода намешавад.",
+            "available": "дастрас"
         },
         "untitled_item": "آیتم بدون عنوان",
         "delete_action": "حذف آیتم",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "فیلتر بر اساس اتاق",
         "refreshing_results": "در حال تازه‌سازی موارد...",
         "empty_filter_title": "هیچ آیتمی با این جستجو مطابقت ندارد",
-        "delete_error_title": "Нест кардан қатъ шуд"
+        "delete_error_title": "Нест кардан қатъ шуд",
+        "tools": {
+            "title": "Воситаҳо"
+        },
+        "no_room": "Ҷой нест",
+        "all_locations": "Ҳама ҷойҳо",
+        "location_filter_label": "Аз рӯи макон филтр кунед",
+        "visibility_filter_label": "Аз рӯи намуди зоҳирӣ филтр кунед",
+        "visibility_all": "Ҳама намуди зоҳирӣ",
+        "visibility_mine": "ашёи ман",
+        "visibility_others": "Дигар аъзоён",
+        "borrow_filter_label": "Аз рӯи ҳолати қарз филтр кунед",
+        "borrow_filter_all": "Ҳама ҳолатҳои қарзӣ",
+        "stock_filter_label": "Аз рӯи ҳолати саҳмияҳо филтр кунед",
+        "stock_filter_all": "Ҳама ҳолати саҳмияҳо",
+        "stock_filter_ok": "Захира хуб",
+        "expiry_filter_label": "Аз рӯи санаи анҷомёбӣ филтр кунед",
+        "expiry_filter_all": "Ҳама мӯҳлатҳои анҷомдодашуда",
+        "expiry_filter_dated": "Сана дорад",
+        "expiry_filter_none": "Санаи нест",
+        "warranty_filter_label": "Филтр аз рӯи кафолат",
+        "warranty_filter_all": "Ҳама кафолатҳо",
+        "warranty_filter_expired": "Кафолатҳои мӯҳлаташон гузашта",
+        "warranty_filter_close": "Ба зудӣ ба охир мерасад",
+        "warranty_filter_active": "Кафолатҳои фаъол",
+        "warranty_filter_none": "Маълумот дар бораи кафолат нест",
+        "sort_label": "Тартиб додан",
+        "sort_updated_desc": "Ба наздикӣ нав карда шуд",
+        "sort_updated_asc": "Навсозии қадимтарин",
+        "sort_created_desc": "Аввалин навтарин",
+        "sort_created_asc": "Аввалин кӯҳнатарин",
+        "sort_name_asc": "Номи А-З",
+        "sort_name_desc": "Номи З-А",
+        "sort_quantity_desc": "Миқдори аз баланд то паст",
+        "sort_quantity_asc": "Миқдори аз паст то баланд",
+        "sort_expiry_asc": "Ба зудӣ ба охир мерасад",
+        "sort_expiry_desc": "Мӯҳлати охирин",
+        "stock_increase": "Захираҳоро зиёд кунед",
+        "stock_decrease": "Кам кардани захираҳо",
+        "stock_adjust_error": "Захираҳоро навсозӣ кардан мумкин нест.",
+        "bulk": {
+            "select_visible": "Намоишро интихоб кунед",
+            "clear_visible": "Интихоби намоён",
+            "selected_short": "интихоб шуд",
+            "keep_category": "Категорияро нигоҳ доред",
+            "keep_room": "Ҳуҷра нигоҳ доред",
+            "keep_location": "Ҷойгоҳро нигоҳ доред",
+            "keep_visibility": "Намоишро нигоҳ доред",
+            "apply": "Муроҷиат кунед",
+            "no_fields": "Барои амали оммавӣ ҳадди аққал як майдонро интихоб кунед.",
+            "updated_title": "Навсозии оммавӣ анҷом ёфт",
+            "updated_body": "{{count}} адад нав карда шуд. {{skipped}} гузаред.",
+            "update_error": "Навсозии оммавӣ анҷом дода нашуд.",
+            "deleted_title": "Несткунии оммавӣ анҷом ёфт",
+            "deleted_body": "{{count}} адад нест карда шуд. {{skipped}} гузаред.",
+            "delete_error": "Несткунии оммавӣ анҷом дода нашуд.",
+            "delete_title": "Объектҳои интихобшударо нест кунед?",
+            "delete_description": "{{count}} ашёи интихобшуда аз ин феҳристи хонавода хориҷ карда мешавад. Инро бекор кардан мумкин нест.",
+            "select_item": "Элементро интихоб кунед",
+            "unselect_item": "Интихоби ашё"
+        },
+        "qr_labels": {
+            "title": "Нишонҳои QR",
+            "open": "Нишонҳои ашё",
+            "description": "{{count}} тамғакоғазҳои ашё ҳамчун варақи чоп омодаанд.",
+            "empty": "Филтрҳоро тағир диҳед ё ҷузъҳои инвентаризатсияро барои чопи тамғакоғазҳо илова кунед.",
+            "sheet_label": "Варақаи тамғаи ашё",
+            "item_label": "Нишони ашё"
+        }
     },
     "categories": {
         "title": "دسته‌بندی‌ها",
@@ -1341,7 +1436,7 @@
             "no_logs": "هنوز هیچ گزارشی ثبت نشده",
             "errors_title": "خطاهای سیستم (10 مورد آخر)",
             "no_errors": "// سیستم سالم است، هیچ گزارش خطایی وجود ندارد.",
-            "date_fmt": "{{сана, санаи вақт}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "ایمیل",
                 "user": "کاربر",
@@ -1508,7 +1603,7 @@
         "hero": {
             "title_1": "مدیریت همه چیز",
             "title_2": "در خانه شما!",
-            "description": "Digitize your home inventory. Categorize items, invite family, and access from anywhere. Modern, secure, and easy to use.",
+            "description": "موجودی خانه خود را دیجیتالی کنید. اقلام را دسته‌بندی کنید، خانواده را دعوت کنید و از هر جا دسترسی پیدا کنید. مدرن، امن و آسان برای استفاده.",
             "cta_start": "Get Started",
             "cta_register": "ایجاد حساب کاربری",
             "stat_free": "رایگان",
@@ -1556,7 +1651,7 @@
             "button": "ورود"
         },
         "footer": {
-            "desc": "The easy and secure platform to digitize your home inventory.",
+            "desc": "پلتفرم آسان و امن برای دیجیتالی کردن موجودی خانه‌تان.",
             "links": "پیوندهای سریع",
             "contact": "با ما تماس بگیرید",
             "copyright": "© {{year}} {{brandName}}. Ҳамаи ҳуқуқҳо ҳифз шудаанд."
@@ -2555,5 +2650,102 @@
         "description": "Ang interface ay naganap na problema sa pagtatanghal na pagtatanghal. Ang iyong naka-save na data ng inventory ay hindi baguhin sa screen na ito.",
         "refresh_btn": "@ action",
         "home_btn": "home"
+    },
+    "activity": {
+        "title": "Таърихи фаъолият",
+        "description": "Тағироти охирини муҳофизатшуда дар инвентаризатсияи хонаи шумо.",
+        "empty_title": "Ҳанӯз фаъолияте нест",
+        "empty_description": "Тағироти ҷузъҳо, навсозиҳои саҳҳомӣ, замимаҳо, қарзгирӣ ва амалҳои оммавӣ дар ин ҷо пайдо мешаванд.",
+        "unknown_actor": "Корбари номаълум",
+        "deleted_item_with_id": "Элементи тозашуда №{{id}}",
+        "item_missing": "Ин сабти ҷузъ дигар вуҷуд надорад",
+        "actions": {
+            "item_created": "Элемент илова карда шуд",
+            "item_updated": "Объект нав карда шуд",
+            "item_deleted": "Элемент нест карда шуд",
+            "item_borrowed": "Мол ба қарз дода шудааст",
+            "item_returned": "Адад баргардонида шуд",
+            "item_bulk_updated": "Навсозии оммавӣ",
+            "item_bulk_deleted": "Нобудкунии оммавӣ",
+            "item_stock_adjusted": "Захира нав карда шуд",
+            "item_attachment_added": "Замима илова карда шуд",
+            "item_attachment_deleted": "Замима нест карда шуд"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} сабтҳои марбут",
+        "empty_title": "Ягон сабти марбут ёфт нашуд",
+        "low_stock": {
+            "title": "Захираи кам",
+            "description": "Ададҳо аз сатҳи ҳадди ақали захираҳои худ.",
+            "qty": "Захира {{quantity}} / дақ {{min}}"
+        },
+        "expired": {
+            "title": "Маҳсулоти мӯҳлати истифодашуда",
+            "description": "Маҳсулоте, ки мӯҳлати истифодаашон гузаштааст."
+        },
+        "expiring": {
+            "title": "Мӯҳлатҳои дарпешистода",
+            "description": "Маҳсулот дар давоми 30 рӯз ба охир мерасад."
+        },
+        "maintenance": {
+            "title": "Нигоҳдории таъхирнопазир",
+            "description": "Вазифаҳои нигоҳдорӣ аз санаи пешбинишуда гузаштаанд."
+        }
+    },
+    "notifications": {
+        "title": "Маркази огоҳӣ",
+        "description": "Захира, кафолат, нигоҳдорӣ, ба охир расидани мӯҳлат ва огоҳиҳои баргардонидани қарз.",
+        "meta_total": "{{count}} огоҳинома",
+        "meta_urgent": "{{count}} таъҷилӣ",
+        "empty_title": "Дар айни замон ягон огоҳӣ ба таваҷҷӯҳи шумо ниёз надорад",
+        "empty_desc": "Дар ин ҷо захираҳои кам, санаҳои дарпешистода ва нигоҳдории таъхирнопазир пайдо мешаванд.",
+        "items": {
+            "stock_empty_title": "Батамом фурӯхта шудааст",
+            "stock_low_title": "Захираи кам",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Мӯҳлати анҷоми кор гузашт",
+            "expiry_close_title": "Мӯҳлати анҷомёбӣ наздик мешавад",
+            "warranty_expired_title": "Кафолат ба охир расид",
+            "warranty_close_title": "Кафолат ба зудӣ ба охир мерасад",
+            "maintenance_overdue_title": "Мудлати таъмир гузаштааст",
+            "maintenance_close_title": "Нигоҳдорӣ ба зудӣ анҷом дода мешавад",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Мӯҳлати баргардонидани қарз",
+            "borrow_close_title": "Баргардонидани қарз ба зудӣ",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} рӯз мондааст ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Маркази хидматрасонӣ ва кафолат",
+        "description": "Кафолатҳо, ҷадвалҳои нигоҳдорӣ ва амалҳои хидматрасониро дар як ҷо пайгирӣ кунед.",
+        "meta_warranty": "{{count}} сабти кафолат",
+        "meta_tasks": "{{count}} вазифаи нигоҳдорӣ",
+        "empty_title": "Ҳеҷ гуна хидмат ё кафолат вуҷуд надорад",
+        "empty_desc": "Дар ин ҷо санаҳои кафолати оянда ва вазифаҳои нигоҳдорӣ ҷамъ карда мешаванд.",
+        "warranty_section": "Пайгирии кафолат",
+        "warranty_desc": "Кафолатҳо ва кафолатҳо дар давоми 30 рӯз ба охир мерасад.",
+        "maintenance_section": "Амалҳои нигоҳдорӣ",
+        "maintenance_desc": "Вазифаҳои нигоҳубини таъхирнопазир ва дарпешистода.",
+        "no_warranty": "Ягон амали кафолати дарпешистода.",
+        "no_tasks": "Ягон вазифаи нигоҳдории нақшавӣ.",
+        "overdue": "Муддат гузаштааст",
+        "upcoming": "Ба наздикӣ",
+        "expired": "Муддат гузаштааст",
+        "summary_warranty": "Мониторинги кафолат",
+        "summary_tasks": "Вазифаҳои нигоҳдорӣ",
+        "open_warranty_filter": "Филтри кафолатро кушоед",
+        "open_warranty_filter_desc": "Ҷузъҳои кафолати фаъолро дар инвентарҳо филтр мекунад."
+    },
+    "storage_labels": {
+        "title": "Нишонҳои раф ва ҳуҷра",
+        "description": "{{count}} тамғакоғазҳои ҳуҷра/раф ҳамчун варақи чоп омодаанд.",
+        "empty_title": "Ягон ҳуҷра ё раф барои тамғагузорӣ",
+        "empty_desc": "Аввал утоқҳо ё маконҳоро илова кунед, пас тамғакоғазҳои QR-ро дар ин ҷо чоп кунед.",
+        "sheet_label": "Варақаи нишони ҷойгиршавӣ",
+        "scan_hint": "Сканкунии рамзи QR инвентаризатсияи филтршударо барои он ҳуҷра ё раф мекушояд.",
+        "room": "Ҳуҷра",
+        "location": "Раф/қуттӣ"
     }
 }

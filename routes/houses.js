@@ -241,7 +241,7 @@ router.post('/join', authenticateToken, (req, res) => {
         notifyOwnersAboutJoinRequest(request.house_key, req.user.username, request.requested_house_name);
 
         res.json({
-            message: 'Katilim isteginiz gonderildi',
+            message: 'Katılım isteğiniz gönderildi',
             request
         });
     } catch (error) {

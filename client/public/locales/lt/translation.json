@@ -10,7 +10,7 @@
         "load_error": "Nepavyko įkelti prekės",
         "form": {
             "name": "Prekės pavadinimas",
-            "name_placeholder": "pvz., Samsung TV 55 colių",
+            "name_placeholder": "pvz., TV 55 colių",
             "required": "*",
             "description": "Aprašymas",
             "description_placeholder": "Pastabos apie prekę...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Artėja galiojimo pabaiga",
             "expired": "Pasibaigęs galiojimas",
             "low_stock": "Mažas likutis"
+        },
+        "untitled_item": "Nepavadintas daiktas",
+        "attachments": {
+            "title": "Nuotraukos ir failai",
+            "add": "Pridėti failus",
+            "empty": "Failų dar nepridėta.",
+            "form_desc": "Prisegti daikto nuotraukas, kvitus, sąskaitas ar aptarnavimo dokumentus.",
+            "detail_desc": "Šiam daiktui išsaugotos nuotraukos, kvitai, sąskaitos ir aptarnavimo failai.",
+            "upload_error": "Failų įkelti nepavyko.",
+            "delete_error": "Failo nepavyko ištrinti.",
+            "delete_confirm": "Ištrinti šį failą?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Rodyti slaptažodį",
         "saving": "Įrašoma...",
         "disabled": "Išjungta",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Artinti",
+        "zoom_out": "Toli",
+        "reset": "Atstatyti",
+        "print": "Spausdinti",
+        "record_count": "{{count}} įrašai"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Būsite grąžinti į prisijungimo ekraną ir turėsite vėl prisijungti, kad galėtumėte tvarkyti savo namų ūkio inventorių.",
         "logout_warning": "Naudokite tai, kai baigėte naudotis bendrą arba asmeninį įrenginį.",
         "maintenance": "Priežiūros tvarkaraštis",
-        "shopping": "Pirkinių sąrašas"
+        "shopping": "Pirkinių sąrašas",
+        "activity": "Veikla",
+        "notifications": "Pranešimai",
+        "service": "Paslauga"
     },
     "dashboard": {
         "welcome": "Sveiki, <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} prekių kiekis nukrito žemiau jūsų minimalaus atsargų limito.",
             "go_to_shopping": "Pirkinių sąrašas",
             "close_expiry_title": "Artėjantys galiojimo laikai",
-            "close_expiry_desc": "{{count}} produktai pasibaigs per 30 dienų."
+            "close_expiry_desc": "{{count}} produktai pasibaigs per 30 dienų.",
+            "view_low_stock_items": "Peržiūrėti mažą atsargų kiekį"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Aktyvus namo raktas",
             "key_label": "Namo raktas",
-            "mask_key": "••••••••{{priesaga}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Slėpti",
             "show": "Rodyti",
             "copy": "Kopijuoti",
@@ -767,7 +784,7 @@
             "transfer_owner_title": "Perduoti namo nuosavybę?",
             "transfer_owner_confirm": "Perduoti šio namų ūkio nuosavybę {{name}}?",
             "transfer_owner_warning": "Jūs nebebūsite šio namų ūkio savininkas. Naujasis savininkas tvarkys narių patvirtinimus, pašalinimus ir būsimus nuosavybės pakeitimus.",
-            "transfer_owner_success_body": "{{vardas}} dabar yra šio namų ūkio savininkas."
+            "transfer_owner_success_body": "{{name}} dabar yra šio namų ūkio savininkas."
         },
         "theme": {
             "title": "Tema",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} esamos vietos praleistos.",
             "skipped_rooms": "{{count}} esami kambariai praleisti.",
             "owner_only_title": "Atsarginė kopija ir atkūrimas ribotas",
-            "owner_only_desc": "Duomenų atsarginių kopijų kūrimą ir atkūrimą gali valdyti tik namo savininkas."
+            "owner_only_desc": "Duomenų atsarginių kopijų kūrimą ir atkūrimą gali valdyti tik namo savininkas.",
+            "include_media_title": "Įtraukti nuotraukas ir kvitų vaizdus",
+            "include_media_body": "Pilna atsarginė kopija gali būti didesnė, tačiau taip pat galima atkurti prekių nuotraukas ir kvitų vaizdus.",
+            "skipped_attachments": "{{count}} prisegtukai buvo praleisti."
         },
         "about": {
             "title": "Apie programą",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Visos gaunamos užklausos blokuojamos automatiškai.",
             "policy_house_only_desc": "Tik patvirtinti jūsų aktyvių namų nariai gali prašyti daiktų, kurie jau matomi tame bendrame name.",
             "policy_everyone_desc": "Kiti naudotojai negali naršyti ar matyti jūsų daiktų. Jie gali tik siųsti užklausą įvesdami jūsų vartotojo vardą arba el. paštą tiesiogiai."
+        },
+        "activity_log": {
+            "title": "Veiklos ir audito žurnalas",
+            "description": "Peržiūrėkite apsaugotą prekių pakeitimų, atsargų atnaujinimų, prisegtukų ir masinių veiksmų istoriją.",
+            "encrypted_title": "Veiklos įrašai saugomi apsaugoti",
+            "encrypted_body": "Naujos veiklos veiksmai ir detalės yra saugomos šifruotai duomenų bazėje ir atšifruojamos tik jūsų aktyvios sesijos metu."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Įrašas bus uždarytas po to, kai skolintojas patvirtins, kad gavo daiktą atgal.",
             "return_pending_lender_title": "{{name}} pažymėjo šį daiktą kaip grąžintą",
             "return_pending_self_title": "Pas jus, laukiama gavimo patvirtinimo",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Svetainės narys",
+            "site_member_identifier": "Vartotojo vardas arba el. paštas",
+            "site_member_identifier_placeholder": "Tikslus vartotojo vardas arba el. paštas",
+            "site_member_privacy_hint": "Pasiūlymas pasirodo Tik skolinimo centre tik tuo atveju, jei tas paskyra egzistuoja ir leidžia gauti pasiūlymus.",
+            "external_privacy_hint": "Tai sukuria tik privatų vietinį įrašą. Nėra siunčiamas joks programos pranešimas.",
+            "available": "Pasiekiama"
         },
         "untitled_item": "Be pavadinimo daiktas",
         "delete_action": "Ištrinti prekę",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Filtruoti pagal kambarį",
         "refreshing_results": "Atnaujinami daiktai...",
         "empty_filter_title": "Nėra daiktų, atitinkančių šią paiešką",
-        "delete_error_title": "Ištrinti nepavyko"
+        "delete_error_title": "Ištrinti nepavyko",
+        "tools": {
+            "title": "Įrankiai"
+        },
+        "no_room": "Nėra vietos",
+        "all_locations": "Visos vietos",
+        "location_filter_label": "Filtruoti pagal vietą",
+        "visibility_filter_label": "Filtruoti pagal matomumą",
+        "visibility_all": "Visa matomumas",
+        "visibility_mine": "Mano daiktai",
+        "visibility_others": "Kiti nariai",
+        "borrow_filter_label": "Filtruoti pagal skolinimosi statusą",
+        "borrow_filter_all": "Visos skolinimosi būsenos",
+        "stock_filter_label": "Filtruoti pagal atsargų būseną",
+        "stock_filter_all": "Visos atsargų būsenos",
+        "stock_filter_ok": "Atsargos geros",
+        "expiry_filter_label": "Filtruoti pagal galiojimo datą",
+        "expiry_filter_all": "Visos galiojimo datos",
+        "expiry_filter_dated": "Yra data",
+        "expiry_filter_none": "Nėra datos",
+        "warranty_filter_label": "Filtruoti pagal garantiją",
+        "warranty_filter_all": "Visos garantijos",
+        "warranty_filter_expired": "Pasibaigusios garantijos",
+        "warranty_filter_close": "Greitai pasibaigs",
+        "warranty_filter_active": "Aktyvios garantijos",
+        "warranty_filter_none": "Nėra garantijos informacijos",
+        "sort_label": "Rikiuoti",
+        "sort_updated_desc": "Neseniai atnaujinta",
+        "sort_updated_asc": "Senas atnaujinimas",
+        "sort_created_desc": "Naujausias pirmas",
+        "sort_created_asc": "Seniausias pirmas",
+        "sort_name_asc": "Pavadinimas A–Z",
+        "sort_name_desc": "Pavadinimas Z–A",
+        "sort_quantity_desc": "Kiekis nuo didžiausio iki mažiausio",
+        "sort_quantity_asc": "Kiekis nuo mažiausio iki didžiausio",
+        "sort_expiry_asc": "Greičiausiai pasibaigs galiojimas",
+        "sort_expiry_desc": "Galiojimo pabaiga vėliausiai",
+        "stock_increase": "Padidinti atsargas",
+        "stock_decrease": "Sumažinti atsargas",
+        "stock_adjust_error": "Nepavyko atnaujinti atsargų.",
+        "bulk": {
+            "select_visible": "Pasirinkti matomus",
+            "clear_visible": "Atsirinkti matomus",
+            "selected_short": "pasirinkta",
+            "keep_category": "Išlaikyti kategoriją",
+            "keep_room": "Išlaikyti kambarį",
+            "keep_location": "Išlaikyti vietą",
+            "keep_visibility": "Išlaikyti matomumą",
+            "apply": "Taikyti",
+            "no_fields": "Pasirinkite bent vieną lauką masinėms veiksmų atlikimui.",
+            "updated_title": "Masinis atnaujinimas baigtas",
+            "updated_body": "Atnaujinta {{count}} elementų. Praleista {{skipped}}.",
+            "update_error": "Masinis atnaujinimas negalėjo būti atliktas.",
+            "deleted_title": "Masinis trynimas baigtas",
+            "deleted_body": "Ištrinta {{count}} elementai. Praleista {{skipped}}.",
+            "delete_error": "Masinis trynimas negalėjo būti atliktas.",
+            "delete_title": "Ištrinti pasirinktus elementus?",
+            "delete_description": "Iš šio namų ūkio inventoriaus bus pašalinti {{count}} pasirinktų elementų. To negalima atšaukti.",
+            "select_item": "Pasirinkti elementą",
+            "unselect_item": "Atžymėti elementą"
+        },
+        "qr_labels": {
+            "title": "QR etiketės",
+            "open": "Prekės etiketės",
+            "description": "{{count}} prekės etiketės paruoštos spausdinimui lapu.",
+            "empty": "Pakeiskite filtrus arba pridėkite inventoriaus prekes, kad spausdintumėte etiketes.",
+            "sheet_label": "Prekės etikečių lapas",
+            "item_label": "Prekės etikėtė"
+        }
     },
     "categories": {
         "title": "Kategorijos",
@@ -1341,7 +1436,7 @@
             "no_logs": "dar nėra žurnalų",
             "errors_title": "Sistemos klaidos (Paskutinės 10)",
             "no_errors": "// Sistema veikia gerai, klaidų žurnalų nėra.",
-            "date_fmt": "{{data, datatime}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "El. paštas",
                 "user": "Vartotojas",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Tinklo įrenginys",
-                    "meta": "TV konsolė • Deco M4",
+                    "meta": "TV konsolė • Network node",
                     "state": null
                 },
                 {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Paskolų centras negalėjo būti įkeltas",
             "action_error": "Veiksmas negalėjo būti užbaigtas",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Šio aktyvaus skolinimosi įrašo nepavyko rasti. Atnaujinkite Skolinimosi centrą ir bandykite dar kartą.",
             "errors": {
                 "external_target_daily_limit": "Vienam asmeniui galite siųsti tik vieną pirmąją išorinę užklausą per dieną. Jei jie priima užklausą, ši riba daugiau nebegalioja tam asmeniui.",
                 "external_total_daily_limit": "Galite siųsti iki 5 pirmųjų išorinių užklausų per dieną.",
@@ -2408,7 +2503,7 @@
             "desc": "Atsargų prekės, kurių kiekis nukrito žemiau minimalios ribos.",
             "add_all": "Pridėti visas trūkstamas",
             "stock_status": "Dabartinis: {{current}} / Tikslas: {{min}}",
-            "add_qty": "Įdėti {{qty}} Prekės į pirkinių krepšelį Dabartinės prekės, kurias reikia pridėti prie jūsų krepšelio. {{count}} Prekės"
+            "add_qty": "Pridėti {{qty}}"
         },
         "sections": {
             "active_list": "Prekės pirkti",
@@ -2555,5 +2650,102 @@
         "description": "Sąsaja susidūrė su netikėta atvaizdavimo problema. Šiame ekrane išsaugoti atsargų duomenys nepakeičiami.",
         "refresh_btn": "Atnaujinti",
         "home_btn": "Pradžia"
+    },
+    "activity": {
+        "title": "Veiklos istorija",
+        "description": "Naujausi apsaugoti pakeitimai jūsų namų inventoriuje.",
+        "empty_title": "Veiklos dar nėra",
+        "empty_description": "Čia bus rodomi daiktų pakeitimai, atsargų atnaujinimai, priedai, skolinimasis ir masinės operacijos.",
+        "unknown_actor": "Nežinomas vartotojas",
+        "deleted_item_with_id": "Ištrintas daiktas #{{id}}",
+        "item_missing": "Šio daikto įrašas nebėra prieinamas",
+        "actions": {
+            "item_created": "Daiktas pridėtas",
+            "item_updated": "Daiktas atnaujintas",
+            "item_deleted": "Prekė ištrinta",
+            "item_borrowed": "Prekė išnuomota",
+            "item_returned": "Prekė grąžinta",
+            "item_bulk_updated": "Masinis atnaujinimas",
+            "item_bulk_deleted": "Masinis ištrynimas",
+            "item_stock_adjusted": "Atsargos atnaujintos",
+            "item_attachment_added": "Priedas pridėtas",
+            "item_attachment_deleted": "Priedas ištrintas"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} susiję įrašai",
+        "empty_title": "Nėra susijusių įrašų",
+        "low_stock": {
+            "title": "Mažas atsargų kiekis",
+            "description": "Prekės žemiau minimalaus atsargų lygio.",
+            "qty": "Atsargos {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Pasibaigusio galiojimo prekės",
+            "description": "Prekės su pasibaigusiu galiojimo laiku."
+        },
+        "expiring": {
+            "title": "Artėjantys galiojimo terminai",
+            "description": "Prekės, kurių galiojimas baigsis per 30 dienų."
+        },
+        "maintenance": {
+            "title": "Pavėluotas priežiūros darbai",
+            "description": "Priežiūros užduotys, kurių grafikas jau pasibaigęs."
+        }
+    },
+    "notifications": {
+        "title": "Pranešimų centras",
+        "description": "Atsargų, garantijos, priežiūros, galiojimo ir skolinimosi grąžinimo pranešimai.",
+        "meta_total": "{{count}} pranešimų",
+        "meta_urgent": "{{count}} skubių",
+        "empty_title": "Šiuo metu pranešimai jūsų dėmesio nereikalauja",
+        "empty_desc": "Mažas atsargų kiekis, artėjantys terminai ir pavėluota priežiūra bus rodomi čia.",
+        "items": {
+            "stock_empty_title": "Nėra sandėlyje",
+            "stock_low_title": "Mažas atsargų kiekis",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Galiojimo data pasibaigė",
+            "expiry_close_title": "Artėja galiojimo pabaiga",
+            "warranty_expired_title": "Garantija pasibaigė",
+            "warranty_close_title": "Garantija greitai pasibaigs",
+            "maintenance_overdue_title": "Pavėluota priežiūra",
+            "maintenance_close_title": "Greitai reikalinga priežiūra",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Vėluojama grąžinti paskolą",
+            "borrow_close_title": "Greitai reikės grąžinti paskolą",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: liko {{count}} dienos ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Aptarnavimo ir garantijų centras",
+        "description": "Stebėkite garantijas, priežiūros tvarkaraščius ir aptarnavimo veiksmus vienoje vietoje.",
+        "meta_warranty": "{{count}} garantijos įrašai",
+        "meta_tasks": "{{count}} priežiūros užduotys",
+        "empty_title": "Nėra aptarnavimo ar garantijos veiksmų",
+        "empty_desc": "Čia bus surinktos artėjančios garantijos datos ir priežiūros užduotys.",
+        "warranty_section": "Garantijos sekimas",
+        "warranty_desc": "Pasibaigusios garantijos ir garantijos, baigsiančios galioti per 30 dienų.",
+        "maintenance_section": "Priežiūros veiksmai",
+        "maintenance_desc": "Pavėluotos ir artėjančios priežiūros užduotys.",
+        "no_warranty": "Nėra artėjančių garantijos veiksmų.",
+        "no_tasks": "Nėra suplanuotos priežiūros užduoties.",
+        "overdue": "Vėluoja",
+        "upcoming": "Greitai",
+        "expired": "Pasibaigęs",
+        "summary_warranty": "Garantijos stebėjimas",
+        "summary_tasks": "Priežiūros užduotys",
+        "open_warranty_filter": "Atidaryti garantijos filtrą",
+        "open_warranty_filter_desc": "Filtruoja aktyvius garantijos elementus inventoriuje."
+    },
+    "storage_labels": {
+        "title": "Lentynos ir kambario etiketės",
+        "description": "{{count}} kambario/ lentynos etiketės paruoštos spausdinimo lapui.",
+        "empty_title": "Nėra kambarių ar lentynų, kurioms būtų priskirtos etiketės",
+        "empty_desc": "Pirmiausia pridėkite kambarius arba vietas, tada spausdinkite QR etiketes čia.",
+        "sheet_label": "Vietos etikečių lapas",
+        "scan_hint": "Nuskenavus QR kodą atidaromas filtruotas tos kambario ar lentynos inventorius.",
+        "room": "Kambarys",
+        "location": "Lentyna/Dėžutė"
     }
 }

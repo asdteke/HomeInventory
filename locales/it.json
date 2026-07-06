@@ -44,7 +44,18 @@
         "unauthorized": "Accesso non autorizzato",
         "forbidden": "Non hai il permesso per questa azione",
         "validation_error": "Errore di validazione",
-        "server_error": "Errore del server"
+        "server_error": "Errore del server",
+        "details": "Dettagli",
+        "hide": "Nascondi password",
+        "logging_out": "Disconnessione in corso...",
+        "show": "Mostra password",
+        "saving": "Salvataggio...",
+        "disabled": "Disabili",
+        "zoom_in": "Ingrandisci",
+        "zoom_out": "Rimpicciolisci",
+        "reset": "Reimposta",
+        "print": "Stampa",
+        "record_count": "{{count}} record"
     },
     "auth": {
         "login": {
@@ -76,7 +87,8 @@
                 "verify": "Verifica",
                 "back": "Indietro",
                 "use_backup": "Usa codice di backup",
-                "use_totp": "Usa autenticatore"
+                "use_totp": "Usa autenticatore",
+                "code_required": "È richiesto il codice di verifica"
             },
             "welcome_title": "Bentornato",
             "welcome_subtitle": "Accedi per visualizzare il tuo inventario",
@@ -98,7 +110,7 @@
             "form_title": "Crea account",
             "username": "Nome utente",
             "username_placeholder": "es. john",
-            "email": "Email",
+            "email": "E-mail",
             "email_placeholder": "es. john@example.com",
             "password": "Password",
             "password_placeholder": "Crea una password",
@@ -185,7 +197,7 @@
             "confirm_password_placeholder": "Reinserisci la tua password",
             "reset_submit": "Reimposta password",
             "resetting": "Reimpostazione in corso...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Inserisci il tuo nome utente o email"
         },
         "reset_password": {
             "title": "Reimposta password",
@@ -226,10 +238,10 @@
         "password_requirements": "Usa almeno {{min}} caratteri con maiuscole, minuscole, numero e simbolo.",
         "logout": "Esci",
         "logging_in": "Accesso in corso...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "Benvenuto a {{brandName}}",
         "username_email": "Nome utente o Email",
         "username": "Nome utente",
-        "email": "Email",
+        "email": "E-mail",
         "password": "Password •••••••• Home Menu",
         "confirm_password": "Conferma Password",
         "new_password": "Nuova Password",
@@ -292,10 +304,39 @@
         "join_house_key_required": "È necessaria una Chiave della Casa per unire una casa esistente",
         "house_key_not_found": "Chiave della casa invalida. Per favore, inserisci la chiave corretta.",
         "email_not_verified": "Il tuo indirizzo email non è ancora stato verificato. Per favore, controlla la tua casella di posta.",
-        "two_factor_invalid": "Il codice di verifica è errato"
+        "two_factor_invalid": "Il codice di verifica è errato",
+        "two_factor_invalid_try_again": "Codice di verifica non valido. Per favore, riprova.",
+        "two_factor_code_required": "È richiesto un codice di verifica",
+        "two_factor_user_not_found": "Utente non trovato",
+        "two_factor_already_enabled": "L'autenticazione a due fattori è già abilitata",
+        "two_factor_setup_not_started": "Per favore, inizia prima la configurazione dell'autenticazione a due fattori",
+        "two_factor_setup_error": "Si è verificato un errore durante l'installazione dell'autenticazione a due fattori",
+        "two_factor_activation_error": "Si è verificato un errore durante l'attivazione dell'autenticazione a due fattori",
+        "two_factor_password_required": "È richiesta la password",
+        "two_factor_credentials_required": "È necessario codice TOTP, codice di backup o chiave di recupero",
+        "two_factor_already_disabled": "L'autenticazione a due fattori è già disabilitata",
+        "two_factor_password_incorrect": "Password errata",
+        "two_factor_verification_failed": "La verifica è fallita. Per favore controlla il codice e riprova.",
+        "two_factor_disable_error": "Si è verificato un errore durante la disabilitazione dell'autenticazione a due fattori",
+        "two_factor_not_enabled": "L'autenticazione a due fattori non è abilitata",
+        "two_factor_regenerate_codes_error": "Si è verificato un errore durante la rigenerazione dei codici di backup",
+        "two_factor_enabled_success": "L'autenticazione a due fattori è stata abilitata con successo",
+        "two_factor_disabled_success": "L'autenticazione a due fattori è stata disabilitata con successo",
+        "password_errors": {
+            "min_length": "La password deve essere lunga almeno {{min}} caratteri",
+            "lowercase_required": "La password deve includere almeno una lettera minuscola",
+            "uppercase_required": "La password deve includere almeno una lettera maiuscola",
+            "number_required": "La password deve includere almeno un numero",
+            "symbol_required": "La password deve includere almeno un simbolo",
+            "repeated_chars": "Non usare caratteri ripetuti nella password",
+            "predictable_sequence": "Non usare sequenze facili da indovinare nella tua password",
+            "common_password": "Questa password è troppo comune e pericolosa",
+            "contains_username": "La password non deve contenere il tuo nome utente",
+            "contains_email": "La password non deve contenere le informazioni della tua email"
+        }
     },
     "navigation": {
-        "home": "Home",
+        "home": "Casa",
         "inventory": "Inventario",
         "rooms": "Camere",
         "categories": "Categorie",
@@ -304,14 +345,19 @@
         "share_house": "Condividi Casa",
         "admin_panel": "Pannello Admin",
         "logout": "Disconnetti",
-        "menu": "Menu",
+        "menu": "Menù",
         "personal_vault": "Cassaforte Personale",
         "borrow_requests": "Centro Prestiti",
         "scan_item_qr": "QR dell'Elemento",
         "logout_aria": "Esci dal tuo account",
         "logout_title": "Vuoi uscire?",
         "logout_description": "Verrai riportato alla schermata di accesso e dovrai accedere di nuovo per gestire l'inventario della tua famiglia.",
-        "logout_warning": "Usa questo quando hai finito su un dispositivo condiviso o personale."
+        "logout_warning": "Usa questo quando hai finito su un dispositivo condiviso o personale.",
+        "maintenance": "Programma di Manutenzione",
+        "shopping": "Lista della Spesa",
+        "activity": "Attività",
+        "notifications": "Notifiche",
+        "service": "Servizio"
     },
     "dashboard": {
         "welcome": "Bentornato, <1>{{name}}</1>",
@@ -351,8 +397,8 @@
             "settings": "Impostazioni"
         },
         "page": {
-            "kicker": "Home",
-            "title": "Home",
+            "kicker": "Casa",
+            "title": "Casa",
             "description_ready": "Cerca nel tuo inventario, rivedi le aggiunte recenti e passa rapidamente al compito successivo.",
             "description_empty": "Inizia a costruire un registro della casa calmo e ricercabile da un punto di partenza chiaro.",
             "loading_description": "Preparazione della vista della casa. Le aggiunte recenti e la ricerca rapida appariranno tra un momento."
@@ -438,7 +484,21 @@
         "no_items_filter": "Nessun articolo corrisponde a questo filtro",
         "manage": "Gestisci",
         "add_item": "Aggiungi articolo",
-        "search_item": "Cerca articolo"
+        "search_item": "Cerca articolo",
+        "alerts": {
+            "expired_title": "Articoli Scaduti!",
+            "expired_desc": "Ci sono {{count}} articoli scaduti nel tuo inventario. Controllali per la tua sicurezza.",
+            "view_items": "Visualizza elementi",
+            "maintenance_title": "Compiti di manutenzione scaduti!",
+            "maintenance_desc": "Ci sono {{count}} compiti di manutenzione scaduti. Esegui la manutenzione per prolungare la durata dei tuoi elettrodomestici.",
+            "go_to_maintenance": "Vai alla manutenzione",
+            "low_stock_title": "Avviso di scorte basse",
+            "low_stock_desc": "{{count}} articoli sono scesi al di sotto del limite minimo di scorte.",
+            "go_to_shopping": "Lista della spesa",
+            "close_expiry_title": "Date di scadenza imminenti",
+            "close_expiry_desc": "{{count}} prodotti scadranno entro 30 giorni.",
+            "view_low_stock_items": "Visualizza Scorte Basse"
+        }
     },
     "beta_banner": {
         "title": "BETA:",
@@ -459,7 +519,7 @@
         "load_error": "Caricamento dell'articolo non riuscito",
         "form": {
             "name": "Nome articolo",
-            "name_placeholder": "ad es. TV Samsung 55 pollici",
+            "name_placeholder": "ad es. TV 55 pollici",
             "required": "*",
             "description": "Descrizione",
             "description_placeholder": "Note sull'articolo...",
@@ -515,7 +575,20 @@
             "warranty_calculation_help": "Se lasci vuota la data di inizio della garanzia, viene utilizzata la data della fattura. Quando inserisci la durata, la data di fine garanzia viene calcolata automaticamente.",
             "vault_hint_title": "Hai bisogno di maggiore privacy?",
             "vault_hint_description": "Per passaporti, atti, dettagli di identità, codici di accesso e altri documenti che dovrebbero rimanere fuori dal tuo inventario condiviso, conservali invece nella Cassaforte Personale.",
-            "vault_hint_action": "Apri la Cassaforte Personale"
+            "vault_hint_action": "Apri la Cassaforte Personale",
+            "location": "Posizione",
+            "remove_photo": "Rimuovi foto",
+            "visibility_owner_only": "Solo la persona che ha aggiunto l'oggetto può cambiare la visibilità.",
+            "expiry_date": "Data di scadenza",
+            "min_quantity": "Quantità minima",
+            "take_photo": "Scatta foto",
+            "choose_from_gallery": "Scegli dalla galleria",
+            "take_photo_sub": "Apri la fotocamera del dispositivo",
+            "choose_from_gallery_sub": "Seleziona dall'album",
+            "photo_selected_badge": "Nuova Foto",
+            "photo_existing_badge": "Foto esistente",
+            "no_photo_yet": "Nessuna foto aggiunta",
+            "photo_options_title": "Opzioni di azione dell'immagine"
         },
         "qrcode": {
             "title": "Codice QR",
@@ -568,7 +641,24 @@
         "delete_error": "Errore nell'eliminazione dell'articolo",
         "no_permission": "Non hai il permesso di modificare questo articolo",
         "barcode_search_error": "Ricerca barcode fallita",
-        "stats_error": "Errore nel caricamento delle statistiche"
+        "stats_error": "Errore nel caricamento delle statistiche",
+        "detail_subtitle": "Dettagli dell'oggetto",
+        "status": {
+            "close_to_expiry": "Vicino alla scadenza",
+            "expired": "Scaduto",
+            "low_stock": "Scorta bassa"
+        },
+        "untitled_item": "Elemento senza titolo",
+        "attachments": {
+            "title": "Foto e file",
+            "add": "Aggiungi file",
+            "empty": "Nessun file aggiunto ancora.",
+            "form_desc": "Allega foto dell'articolo, ricevute, fatture o documenti di servizio.",
+            "detail_desc": "Foto, ricevute, fatture e file di servizio salvati per questo articolo.",
+            "upload_error": "Impossibile caricare i file.",
+            "delete_error": "Impossibile eliminare il file.",
+            "delete_confirm": "Eliminare questo file?"
+        }
     },
     "settings": {
         "title": "Impostazioni",
@@ -611,7 +701,13 @@
             "recovery_key_regenerated": "Chiave di recupero rigenerata",
             "recovery_key_error": "Impossibile rigenerare la chiave di recupero",
             "account_delete_error": "L'account non può essere eliminato",
-            "backup_downloaded_encrypted": "Backup criptato scaricato con successo! ({{count}} elementi)"
+            "backup_downloaded_encrypted": "Backup criptato scaricato con successo! ({{count}} elementi)",
+            "policy_update_error": "Non sono riuscito ad aggiornare le impostazioni delle richieste.",
+            "policy_updated": "Le impostazioni delle richieste sono state aggiornate con successo.",
+            "unblock_error": "Non è riuscito a sbloccare l'utente.",
+            "unblocked_success": "Utente sbloccato con successo.",
+            "house_owner_transferred": "Trasferimento della proprietà della casa",
+            "house_owner_transfer_error": "La proprietà immobiliare non poteva essere trasferita."
         },
         "user_profile": {
             "edit_username": "Cambia nome utente"
@@ -632,7 +728,10 @@
             "info": "Puoi essere membro di più case e passare da una all'altra. Ogni famiglia mantiene il proprio inventario.",
             "accordion_description": "Passa da un nucleo familiare all'altro, crea uno nuovo o unisciti a uno esistente con una chiave fidata.",
             "empty_description": "Crea una nuova famiglia per iniziare a condividere, oppure unisciti a una con una chiave di casa affidabile.",
-            "leave_success_body": "Non hai più accesso a questa famiglia e la tua casa attiva è stata aggiornata."
+            "leave_success_body": "Non hai più accesso a questa famiglia e la tua casa attiva è stata aggiornata.",
+            "leave_title": "Uscire da questa casa?",
+            "leave_warning": "Perderai l'accesso a questo spazio di lavoro domestico finché un altro membro non ti inviterà o approverà di nuovo.",
+            "leaving": "Uscita in corso..."
         },
         "house_info": {
             "title": "Chiave della casa attiva",
@@ -674,7 +773,18 @@
             "copy_error": "La chiave di casa non può essere copiata.",
             "modal_title": "Accesso chiave di casa",
             "modal_subtitle": "Usa questa chiave solo per i membri fidati della famiglia che dovrebbero richiedere l'accesso a questo inventario condiviso.",
-            "loading_members": "Caricamento membri..."
+            "loading_members": "Caricamento membri...",
+            "kick_success_body": "{{name}} non ha più accesso a questa casa.",
+            "kick_title": "Rimuovere questo membro?",
+            "kick_warning": "Il loro accesso alla casa terminerà immediatamente e avranno bisogno di un nuovo invito o approvazione per tornare.",
+            "kicking": "Rimozione in corso...",
+            "access_section_eyebrow": "Accesso alla casa",
+            "transfer_owner": "Fai proprietario",
+            "transferring_owner": "Trasferimento...",
+            "transfer_owner_title": "Trasferire la proprietà della casa?",
+            "transfer_owner_confirm": "Trasferire la proprietà di questa famiglia a {{name}}?",
+            "transfer_owner_warning": "Non sarai più il proprietario di questa casa. Il nuovo proprietario gestirà le approvazioni dei membri, le rimozioni e i futuri cambiamenti di proprietà.",
+            "transfer_owner_success_body": "{{name}} è ora il proprietario di questa casa."
         },
         "theme": {
             "title": "Tema",
@@ -682,7 +792,9 @@
             "light": "Modalità Chiara",
             "description": "Scegli come appare lo spazio di lavoro su questo dispositivo.",
             "light_aria": "Passa al tema chiaro",
-            "dark_aria": "Passa al tema scuro"
+            "dark_aria": "Passa al tema scuro",
+            "workspace_title": "Tema dello spazio di lavoro",
+            "workspace_desc": "Seleziona lo stile visivo che preferisci per questo dispositivo."
         },
         "security": {
             "title": "Sicurezza",
@@ -695,7 +807,12 @@
             "recovery_key_unavailable": "La chiave di recupero corrente non può essere visualizzata. Rigenerala se necessario.",
             "recovery_key_action": "Rigenera",
             "recovery_key_modal_desc": "Conferma la tua password corrente per continuare. La nuova chiave sarà mostrata solo una volta.",
-            "recovery_key_loading": "Preparazione in corso..."
+            "recovery_key_loading": "Preparazione in corso...",
+            "accordion_title": "Sicurezza e privacy",
+            "accordion_desc": "Gestisci l'autenticazione a due fattori, dispositivi affidabili e regole di richiesta di prestito da altri account.",
+            "description": "Gestisci la password principale e le configurazioni di recupero del vault.",
+            "change_password_detail": "Aggiorna la tua password per mantenere il tuo account sicuro",
+            "recovery_key_detail": "Usato per recuperare la cassaforte se dimenticavi la password"
         },
         "data_management": {
             "title": "Gestione Dati",
@@ -720,7 +837,25 @@
             "unencrypted_warning": "Le esportazioni JSON semplici sono più facili da ispezionare, ma chiunque apra il file può leggere immediatamente i dati della tua famiglia.",
             "import_encrypted_title": "Sblocca il backup criptato",
             "import_encrypted_body": "Inserisci la passphrase di backup utilizzata durante il download per ripristinare questo file crittografato.",
-            "unlock_and_import": "Sblocca e importa"
+            "unlock_and_import": "Sblocca e importa",
+            "export_encrypted_notice": "Il backup è preparato dai dati della casa live e poi protetto con la passphrase che scegli. Conserva quella passphrase in un posto sicuro perché sarà necessaria per ripristinare il file in seguito.",
+            "export_encrypted_title": "La crittografia verrà applicata prima del download",
+            "import_summary_body": "{{items}} articoli, {{categories}} categorie, {{rooms}} stanze, {{locations}} luoghi, {{borrows}} registrazioni di prestito ripristinate.",
+            "import_summary_title": "Backup ripristinato",
+            "preview_categories": "Categorie",
+            "preview_items": "Articoli",
+            "preview_locations": "Luoghi",
+            "preview_rooms": "Stanze",
+            "skipped_borrows": "{{count}} registrazioni di prestito esistenti saltate.",
+            "skipped_categories": "{{count}} categorie esistenti saltate.",
+            "skipped_items": "{{count}} elementi esistenti saltati.",
+            "skipped_locations": "{{count}} posizioni esistenti saltate.",
+            "skipped_rooms": "{{count}} stanze esistenti saltate.",
+            "owner_only_title": "Backup e Ripristino Limitati",
+            "owner_only_desc": "Il backup e il ripristino dei dati possono essere gestiti solo dal proprietario della casa.",
+            "include_media_title": "Includi foto e immagini delle ricevute",
+            "include_media_body": "Il backup completo può essere più grande, ma anche le foto degli articoli e le immagini delle ricevute possono essere ripristinate.",
+            "skipped_attachments": "{{count}} allegati sono stati saltati."
         },
         "about": {
             "title": "Informazioni sull'applicazione",
@@ -733,7 +868,10 @@
             "privacy_link": "Informativa sulla privacy",
             "beta_title": "Stato beta",
             "beta_body": "{{brandName}} è ancora in beta. Le funzionalità possono cambiare, i flussi di lavoro possono evolversi e i dati domestici importanti devono sempre essere salvati.",
-            "feedback_subject": "Feedback - {{brandName}}"
+            "feedback_subject": "Riscontro - {{brandName}}",
+            "logout_body": "Eventuali modifiche non salvate nei moduli aperti potrebbero andare perse dopo aver lasciato questa sessione.",
+            "logout_description": "Tornerai alla pagina principale e potrai accedere di nuovo in qualsiasi momento.",
+            "logout_title": "Vuoi uscire ora?"
         },
         "modals": {
             "password": {
@@ -788,7 +926,7 @@
             "disable_confirm": "Disattiva 2FA",
             "disable_error": "Impossibile disattivare 2FA",
             "disabled_success": "L'autenticazione a due fattori è stata disattivata",
-            "password_label": "Password",
+            "password_label": "Parola d'accesso",
             "password_placeholder": "Inserisci la tua password",
             "method_totp": "Autenticatore",
             "method_backup": "Codice di backup",
@@ -825,7 +963,8 @@
             "revoke_devices": "Revoca dispositivi affidabili",
             "revoke_devices_desc": "Rimuovi tutti i dispositivi memorizzati, richiedendo l'autenticazione a due fattori al prossimo accesso",
             "devices_revoked": "{{count}} dispositivo(i) attendibile(i) rimosso(i)",
-            "devices_error": "Impossibile revocare i dispositivi"
+            "devices_error": "Impossibile revocare i dispositivi",
+            "preparing_setup": "Preparare la configurazione dell'autenticatore..."
         },
         "danger_zone": {
             "title": "Account",
@@ -838,7 +977,8 @@
             "modal_warning_body": "Dopo la conferma, perderai immediatamente l'accesso all'account e i dati dell'applicazione eliminata non possono essere ripristinati dall'app.",
             "password_label": "Conferma con la tua password attuale",
             "confirm_delete": "Conferma eliminazione",
-            "deleting": "Eliminazione in corso..."
+            "deleting": "Eliminazione in corso...",
+            "description": "Elimina il tuo account e rimuovi definitivamente tutti i dataset di inventario."
         },
         "language": "Lingua",
         "control_sections": {
@@ -897,7 +1037,31 @@
         "popular_languages": "Lingue popolari",
         "search_results": "Risultati della ricerca",
         "current_language": "Lingua corrente",
-        "languages_available": "lingue disponibili"
+        "languages_available": "lingue disponibili",
+        "borrow_requests": {
+            "accordion_eyebrow": "Garanzia richiesta di prestito",
+            "accordion_eyebrow_desc": "Configura le regole di richiesta e gestisci gli utenti bloccati.",
+            "title": "Impostazioni della richiesta di prestito",
+            "description": "Gestisci le regole per ricevere richieste di prestito da altri account e elenca gli utenti bloccati.",
+            "policy_title": "Nuove richieste di prestito",
+            "policy_description": "Controlla chi può inviarti richieste di prestito. Il tuo inventario non viene mai mostrato come elenco pubblico.",
+            "policy_none": "Non ricevere da nessuno (Predefinito)",
+            "policy_house_only": "Solo membri della famiglia",
+            "policy_everyone": "Tutti gli utenti registrati",
+            "blocks_title": "Utenti bloccati",
+            "blocks_description": "Gli utenti che hai bloccato non ti inviano nuove richieste di prestito.",
+            "no_blocks": "Nessun utente bloccato trovato.",
+            "unblock_btn": "Sblocca",
+            "policy_none_desc": "Tutte le richieste in arrivo vengono bloccate automaticamente.",
+            "policy_house_only_desc": "Solo i membri verificati delle tue case attive possono richiedere oggetti già visibili all'interno di quella casa condivisa.",
+            "policy_everyone_desc": "Altri utenti non possono sfogliare o vedere i tuoi oggetti. Possono solo inviare una richiesta inserendo direttamente il tuo nome utente o la tua email."
+        },
+        "activity_log": {
+            "title": "Registro attività e audit",
+            "description": "Revisiona la cronologia protetta delle modifiche agli elementi, degli aggiornamenti di stock, degli allegati e delle azioni di massa.",
+            "encrypted_title": "I record delle attività sono conservati protetti",
+            "encrypted_body": "Le nuove azioni e i dettagli delle attività sono memorizzati criptati nel database e vengono decriptati solo per la tua sessione attiva."
+        }
     },
     "inventory": {
         "title": "Inventario",
@@ -959,8 +1123,18 @@
             "no_history": "Non ci sono ancora storici dei prestiti per questo articolo.",
             "lend_success_title": "Oggetto prestato",
             "lend_success_body": "{{item}} è ora contrassegnato come preso in prestito.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_title": "Offerta di prestito inviata",
+            "offer_sent_body": "{{item}} sarà contrassegnato come preso in prestito dopo che l'altro membro accetterà.",
+            "borrowed_by_you": "Con te",
+            "return_pending_hint": "Il record si chiuderà dopo che il prestatore confermerà di aver ricevuto l'oggetto indietro.",
+            "return_pending_lender_title": "{{name}} ha contrassegnato questo oggetto come restituito",
+            "return_pending_self_title": "Con te, in attesa della conferma di ricezione",
+            "site_member": "Membro del sito",
+            "site_member_identifier": "Nome utente o email",
+            "site_member_identifier_placeholder": "Nome utente o email esatto",
+            "site_member_privacy_hint": "L'offerta appare nel Centro di Prestiti solo se quell'account esiste e consente offerte in arrivo.",
+            "external_privacy_hint": "Questo crea solo un record locale privato. Nessuna notifica dell'app viene inviata.",
+            "available": "Disponibile"
         },
         "untitled_item": "Articolo senza titolo",
         "delete_action": "Elimina articolo",
@@ -976,7 +1150,76 @@
         "category_filter_label": "Filtra per categoria",
         "room_filter_label": "Filtra per stanza",
         "refreshing_results": "Aggiornamento elementi...",
-        "empty_filter_title": "Nessun articolo corrisponde a questa ricerca"
+        "empty_filter_title": "Nessun articolo corrisponde a questa ricerca",
+        "delete_error_title": "Eliminazione fallita",
+        "tools": {
+            "title": "Strumenti"
+        },
+        "no_room": "Nessuna stanza",
+        "all_locations": "Tutte le posizioni",
+        "location_filter_label": "Filtra per posizione",
+        "visibility_filter_label": "Filtra per visibilità",
+        "visibility_all": "Tutte le visibilità",
+        "visibility_mine": "I miei oggetti",
+        "visibility_others": "Altri membri",
+        "borrow_filter_label": "Filtra per stato di prestito",
+        "borrow_filter_all": "Tutti gli stati di prestito",
+        "stock_filter_label": "Filtra per stato di stock",
+        "stock_filter_all": "Tutti gli stati di stock",
+        "stock_filter_ok": "Stock disponibile",
+        "expiry_filter_label": "Filtra per data di scadenza",
+        "expiry_filter_all": "Tutte le date di scadenza",
+        "expiry_filter_dated": "Ha la data",
+        "expiry_filter_none": "Nessuna data",
+        "warranty_filter_label": "Filtra per garanzia",
+        "warranty_filter_all": "Tutte le garanzie",
+        "warranty_filter_expired": "Garanzie scadute",
+        "warranty_filter_close": "In scadenza",
+        "warranty_filter_active": "Garanzie attive",
+        "warranty_filter_none": "Nessuna informazione sulla garanzia",
+        "sort_label": "Ordina",
+        "sort_updated_desc": "Aggiornato di recente",
+        "sort_updated_asc": "Aggiornamento più vecchio",
+        "sort_created_desc": "Più recenti prima",
+        "sort_created_asc": "Più vecchi prima",
+        "sort_name_asc": "Nome A-Z",
+        "sort_name_desc": "Nome Z-A",
+        "sort_quantity_desc": "Quantità da alta a bassa",
+        "sort_quantity_asc": "Quantità da bassa a alta",
+        "sort_expiry_asc": "Scadenza più vicina",
+        "sort_expiry_desc": "Scadenza più lontana",
+        "stock_increase": "Aumenta scorte",
+        "stock_decrease": "Diminuisci scorte",
+        "stock_adjust_error": "Impossibile aggiornare le scorte.",
+        "bulk": {
+            "select_visible": "Seleziona visibile",
+            "clear_visible": "Deseleziona visibile",
+            "selected_short": "selezionato",
+            "keep_category": "Mantieni categoria",
+            "keep_room": "Mantieni la stanza",
+            "keep_location": "Mantieni la posizione",
+            "keep_visibility": "Mantieni la visibilità",
+            "apply": "Applica",
+            "no_fields": "Scegli almeno un campo per l'azione di massa.",
+            "updated_title": "Aggiornamento di massa completato",
+            "updated_body": "{{count}} elementi aggiornati. {{skipped}} saltati.",
+            "update_error": "Non è stato possibile completare l'aggiornamento di massa.",
+            "deleted_title": "Eliminazione massiva completata",
+            "deleted_body": "{{count}} elementi eliminati. {{skipped}} ignorati.",
+            "delete_error": "L'eliminazione massiva non può essere completata.",
+            "delete_title": "Eliminare gli elementi selezionati?",
+            "delete_description": "{{count}} elementi selezionati saranno rimossi da questo inventario domestico. Questa operazione non può essere annullata.",
+            "select_item": "Seleziona elemento",
+            "unselect_item": "Deseleziona elemento"
+        },
+        "qr_labels": {
+            "title": "Etichette QR",
+            "open": "Etichette degli articoli",
+            "description": "{{count}} etichette degli articoli sono pronte come foglio di stampa.",
+            "empty": "Cambia i filtri o aggiungi articoli in inventario per stampare le etichette.",
+            "sheet_label": "Foglio di etichette degli articoli",
+            "item_label": "Etichetta articolo"
+        }
     },
     "categories": {
         "title": "Categorie",
@@ -1023,7 +1266,10 @@
         "name_required": "Nome categoria richiesto",
         "load_error": "Errore nel caricamento delle categorie",
         "add_error": "Errore nell'aggiunta della categoria",
-        "update_error": "Errore nell'aggiornamento della categoria"
+        "update_error": "Errore nell'aggiornamento della categoria",
+        "color_required": "Il colore deve essere nel formato #RRGGBB",
+        "empty_description": "Crea alcune categorie in modo che i nuovi oggetti seguano la stessa struttura e siano più facili da consultare in seguito.",
+        "empty_title": "Nessuna categoria ancora"
     },
     "rooms": {
         "title": "Stanze",
@@ -1097,7 +1343,9 @@
         "name_required": "Nome stanza richiesto",
         "load_error": "Errore nel caricamento delle stanze",
         "add_error": "Errore nell'aggiunta della stanza",
-        "update_error": "Errore nell'aggiornamento della stanza"
+        "update_error": "Errore nell'aggiornamento della stanza",
+        "empty_description": "Crea stanze come cucina, deposito o garage in modo che le posizioni degli oggetti rimangano coerenti e più facili da cercare.",
+        "empty_title": "Nessuna stanza ancora"
     },
     "admin": {
         "title": "Pannello di amministrazione",
@@ -1176,7 +1424,12 @@
             "households_label": "Famiglie",
             "items_label": "Oggetti posseduti",
             "last_seen_short": "Visti",
-            "last_seen_short_never": "Nuovi"
+            "last_seen_short_never": "Nuovi",
+            "failed_logins": "{{count}} tentativi di accesso falliti",
+            "load_failed_title": "Gli utenti non hanno potuto essere caricati",
+            "pending_requests": "{{count}} richieste di casa in sospeso",
+            "role_admin": "Amministratore",
+            "role_user": "Utente"
         },
         "logs": {
             "title": "Registri amministrativi",
@@ -1185,7 +1438,7 @@
             "no_errors": "// Sistema sano, nessun registro di errori.",
             "date_fmt": "{{date, datetime}}",
             "type": {
-                "email": "Email",
+                "email": "E-mail",
                 "user": "Utente",
                 "system": "Sistema",
                 "event": "Evento"
@@ -1208,7 +1461,9 @@
             "section_body": "Ogni modifica di moderazione o operativa viene registrata dal livello amministrativo.",
             "errors_body": "Le ultime righe di errore elaborate dai file di log del server.",
             "section_eyebrow": "Traccia di controllo",
-            "errors_eyebrow": "Diagnostica"
+            "errors_eyebrow": "Diagnostica",
+            "load_failed_title": "L'attività non ha potuto essere caricata",
+            "no_logs_title": "Nessuna azione dell'amministratore ancora"
         },
         "email": {
             "title": "Invia e-mail",
@@ -1242,7 +1497,14 @@
             "status_body": "Un rapido controllo di sicurezza prima di inviare comunicazioni operative.",
             "unconfigured_title": "L'invio delle e-mail non è configurato",
             "unconfigured_body": "Il modulo di invio resta visibile per la verifica della configurazione, ma l’invio fallirà finché il provider di posta non sarà configurato.",
-            "status_eyebrow": "Consegna"
+            "status_eyebrow": "Consegna",
+            "configured_body": "Il reinvio è disponibile per i messaggi in uscita attivati dall'amministratore.",
+            "configured_title": "La consegna delle email è configurata",
+            "error_title": "Invio email fallito",
+            "format_hint": "L'HTML è supportato. Per esempio: <b>grassetto</b>, <i>corsivo</i>, <a href=\"...\">link</a>",
+            "from_label": "Mittente",
+            "load_failed_title": "Gli strumenti email non hanno potuto essere caricati",
+            "success_title": "Email inviata"
         },
         "overview": {
             "email_warning_title": "L'invio delle e-mail non è configurato",
@@ -1327,7 +1589,9 @@
         "stats_loaded": "Statistiche caricate",
         "logs_loaded": "Log caricati",
         "load_error": "Errore nel caricamento dei dati",
-        "action_error": "Errore nell'esecuzione dell'azione"
+        "action_error": "Errore nell'esecuzione dell'azione",
+        "load_failed_body": "Il percorso dell'amministratore è aperto, ma i dati panoramici non sono arrivati. Puoi riprovare senza lasciare la pagina.",
+        "load_failed_title": "La panoramica dell'amministratore non ha potuto essere caricata"
     },
     "landing": {
         "nav": {
@@ -1347,9 +1611,9 @@
             "free_badge": "Open Source",
             "badge": "HomeInventory v2.0 è qui",
             "cta_explore": "Esplora le funzionalità",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Accedi",
+            "stat_members": "Case condivise",
+            "stat_vault": "Vault privato"
         },
         "features": {
             "title": "Perché <1>HomeInventory</1>?",
@@ -1420,7 +1684,7 @@
                 "description": "Conserva oggetti, garanzie, documenti importanti e il tracciamento dei prestiti in un unico luogo tranquillo. Vedi cosa contiene la tua casa a colpo d'occhio.",
                 "primaryCta": "Inizia Gratis",
                 "secondaryCta": "Vedi il Prodotto",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Flusso suggerito: account • casa • stanze e categorie • oggetti • backup",
                 "searchPlaceholder": "Cerca un oggetto, una stanza o un codice a barre"
             },
             "heroInventoryRows": [
@@ -1436,7 +1700,7 @@
                 },
                 {
                     "name": "Unità mesh",
-                    "meta": "Consolle TV • Deco M4",
+                    "meta": "Consolle TV • Network node",
                     "state": null
                 },
                 {
@@ -1671,8 +1935,9 @@
         "privacy_summary": "I dettagli della rete restano nascosti finché non serve la guida.",
         "link_privacy_note": "L'indirizzo della rete rimane nascosto qui. Scansiona il codice o copia il link solo quando vuoi intenzionalmente condividere l'accesso diretto all'elemento sulla tua configurazione locale.",
         "helper": "Scansiona per aprire subito questo elemento, o copia il link diretto quando necessario.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_error_title": "Il collegamento non può essere copiato automaticamente",
+        "copy_manual_help": "Il tuo browser non ha consentito la copia automatica. Il link è selezionato in modo da poterlo copiare manualmente.",
+        "loading": "Preparazione strumenti QR..."
     },
     "house_access_pending": {
         "eyebrow": "Accesso alla Casa",
@@ -1859,7 +2124,11 @@
             "name_required": "È richiesto un nome per un record del caveau.",
             "options_failed": "Le opzioni di categoria e stanza non possono essere caricate.",
             "delete_success_title": "Record del caveau eliminato",
-            "delete_success_body": "Il record privato è stato rimosso definitivamente dal tuo caveau."
+            "delete_success_body": "Il record privato è stato rimosso definitivamente dal tuo caveau.",
+            "passphrase_lowercase": "Includere almeno una lettera minuscola.",
+            "passphrase_min_length": "La frase segreta del caveau deve essere di almeno 12 caratteri.",
+            "passphrase_number": "Includere almeno un numero.",
+            "passphrase_uppercase": "Includere almeno una lettera maiuscola."
         },
         "recovery_file_title": "Chiave di recupero per il Vault personale di {{brandName}}",
         "recovery_file_created_label": "Creata",
@@ -1907,8 +2176,8 @@
             "empty": "Non ci sono prestiti attivi al momento.",
             "borrowed_from": "Preso in prestito da {{name}}",
             "lent_to": "Attualmente con {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "In attesa che il prestatore confermi di averlo ricevuto indietro.",
+            "return_pending_lender": "{{name}} ha contrassegnato questo articolo come restituito. Confermare il ricevimento per chiudere il record.",
             "empty_title": "Nessun prestito attivo al momento",
             "empty_description": "Le richieste accettate appariranno qui una volta che un oggetto è preso in prestito o prestato, insieme alle date di scadenza e allo stato del ritorno."
         },
@@ -1919,7 +2188,7 @@
             "cancelled": "Annullato",
             "expired": "Scaduto",
             "returned": "Restituito",
-            "return_pending": "Return pending"
+            "return_pending": "Restituzione in sospeso"
         },
         "actions": {
             "send_request": "Richiedi oggetto",
@@ -1928,8 +2197,8 @@
             "reject": "Rifiuta",
             "cancel": "Annulla",
             "fulfill_request": "Soddisfa richiesta",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Contrassegna come consegnato",
+            "mark_received": "Contrassegna come ricevuto",
             "open_inventory": "Apri inventario"
         },
         "labels": {
@@ -1968,21 +2237,36 @@
             "return_title": "Segna come restituito",
             "return_subtitle": "Chiudi il prestito attivo per \"{{item}}\"",
             "return_target": "Attualmente risulta essere con {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Consegnare l'articolo",
+            "return_title_lender": "Ricevere l'articolo",
+            "return_subtitle_borrower": "Chiudere il prestito attivo per \"{{item}}\" dopo averlo restituito.",
+            "return_subtitle_lender": "Chiudere il prestito attivo per \"{{item}}\" dopo averlo ricevuto indietro.",
+            "return_target_borrower": "Presitatore: {{name}}",
+            "return_target_lender": "Attualmente con: {{name}}",
+            "return_note_borrower": "Documento di consegna",
+            "return_note_lender": "Documento di ricezione",
+            "return_note_placeholder_borrower": "ad esempio, l'ho restituito senza problemi",
+            "return_note_placeholder_lender": "ad esempio, ricevuto indietro in buone condizioni",
+            "return_submitting": "Chiusura...",
+            "reject_title": "Richiesta di rifiuto",
+            "reject_subtitle": "Stai per rifiutare la richiesta di \"{{item}}\".",
+            "reject_target": "Stai per rifiutare la richiesta di prestito inviata da {{name}}.",
+            "reject_reason_label": "Motivo del rifiuto",
+            "reject_submitting": "Rifiutare...",
+            "due_date_label": "Data prevista di ritorno"
         },
         "messages": {
             "load_error": "Impossibile caricare il centro prestiti",
-            "action_error": "L'azione non può essere completata"
+            "action_error": "L'azione non può essere completata",
+            "active_borrow_not_found": "Impossibile trovare questo record di prestito attivo. Aggiorna il Centro Prestiti e riprova.",
+            "errors": {
+                "external_target_daily_limit": "Puoi inviare solo una richiesta di primo contatto esterna alla stessa persona al giorno. Se accetta una richiesta, questo limite non si applica più a quella persona.",
+                "external_total_daily_limit": "Puoi inviare fino a 5 richieste di primo contatto esterne al giorno.",
+                "external_request_requires_verified_email": "Verifica il tuo indirizzo email prima di inviare richieste di prestito esterne.",
+                "external_offer_blocked": "Puoi offrire un oggetto solo ai membri della casa o agli utenti registrati che possono essere identificati direttamente.",
+                "target_blocked_by_you": "Non puoi inviare una richiesta a un utente che hai bloccato.",
+                "recent_rejection_lock": "Questo utente ha rifiutato una richiesta recente. Puoi inviare un'altra richiesta dopo 30 giorni."
+            }
         },
         "preview": {
             "title": "Modalità anteprima",
@@ -1992,7 +2276,12 @@
         "incoming_empty_title": "Nessuna richiesta necessita della tua revisione",
         "outgoing_empty_title": "Nessuna richiesta in uscita ancora",
         "refreshing": "Aggiornamento delle richieste e dei prestiti attivi...",
-        "loading_description": "Preparazione delle richieste e attività di prestito attive."
+        "loading_description": "Preparazione delle richieste e attività di prestito attive.",
+        "reasons": {
+            "rejected": "Rifiuto (rifiuto normale)",
+            "not_available": "Non disponibile (Elemento mancante / non disponibile)",
+            "blocked": "Blocca e rifiuta (Blocca questo utente)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Informativa sulla privacy",
@@ -2080,10 +2369,12 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Gestisci in modo intelligente tutti gli articoli della casa"
+        "tagline": "Gestisci in modo intelligente tutti gli articoli della casa",
+        "loading": "Caricamento {{brandName}}",
+        "preparing_workspace": "Preparare il tuo spazio di lavoro..."
     },
     "nav": {
-        "home": "Home",
+        "home": "Casa",
         "inventory": "Inventario",
         "rooms": "Stanze",
         "categories": "Categorie",
@@ -2091,7 +2382,7 @@
         "admin_panel": "Pannello di Amministrazione",
         "share_house": "Condividi Casa",
         "new_item": "Nuovo Articolo",
-        "menu": "Menu",
+        "menu": "Menù",
         "help": "Aiuto e Supporto"
     },
     "theme": {
@@ -2100,11 +2391,11 @@
     },
     "terms": {
         "title": "Termini di Utilizzo e Disclaimer",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "Versione BETA: {{brandName}} è attualmente in fase di test. Non vengono fornite garanzie riguardo alla permanenza o alla sicurezza dei dati.",
         "disclaimer": "Disclaimer: Utilizzando questa applicazione, accetti che non puoi richiedere alcun risarcimento per eventuali perdite di dati, problemi di accesso o altri problemi tecnici.",
         "backup_warning": "Backup dei Dati: Ti raccomandiamo vivamente di fare regolarmente il backup delle tue informazioni importanti.",
         "accept": "Effettuando il login, accetti questi termini.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} è attualmente in fase di test e hobbistica. Non vengono fornite garanzie riguardo alla permanenza o alla sicurezza dei dati. Si prega di mantenere copie di backup delle informazioni importanti.",
         "contact": "Contatti"
     },
     "locations": {
@@ -2174,14 +2465,287 @@
         "too_many_login_attempts": "Troppi tentativi di login. Riprova tra 15 minuti."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Accedi",
+        "page_title_register": "Crea un account",
+        "page_title_choose_house": "Scegli la casa",
+        "page_title_recovery_key": "Chiave di recupero",
+        "page_title_house_access": "Accesso alla casa",
+        "page_title_legal_review": "Revisione legale",
+        "page_title_new_item": "Nuovo elemento",
+        "page_title_edit_item": "Modifica elemento",
+        "page_title_items": "Inventario"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Errore durante il caricamento della lista della spesa.",
+            "select_item_error": "Seleziona un elemento dall'inventario.",
+            "empty_name": "Inserisci un nome dell'elemento.",
+            "added": "Articolo aggiunto alla lista della spesa.",
+            "add_error": "Si è verificato un errore durante l'aggiunta dell'articolo.",
+            "added_suggestion": "\"{{name}}\" aggiunto alla lista della spesa.",
+            "bulk_added": "{{count}} articoli a basso stock aggiunti alla lista.",
+            "bulk_error": "Errore nell'aggiunta degli articoli a basso stock.",
+            "completed": "\"{{name}}\" contrassegnato come completato.",
+            "reactivated": "\"{{name}}\" spostato di nuovo nella lista attiva.",
+            "update_error": "Si è verificato un errore durante l'aggiornamento.",
+            "deleted": "Elemento eliminato dalla lista.",
+            "delete_error": "Si è verificato un errore durante l'eliminazione.",
+            "cleared_completed": "Elementi completati cancellati.",
+            "clear_error": "Si è verificato un errore durante la cancellazione."
+        },
+        "loading_desc": "Preparazione della lista della spesa...",
+        "page": {
+            "title": "Lista della spesa",
+            "description": "Visualizza gli articoli a bassa disponibilità nell'inventario di casa e gestisci facilmente la tua lista della spesa."
+        },
+        "suggestions": {
+            "title": "Suggerimenti intelligenti per l'inventario",
+            "desc": "Articoli dell'inventario che sono scesi al di sotto del limite minimo.",
+            "add_all": "Aggiungi tutti i mancanti",
+            "stock_status": "Attuale: {{current}} / Obiettivo: {{min}}",
+            "add_qty": "Aggiungi {{qty}}"
+        },
+        "sections": {
+            "active_list": "Articoli da comprare",
+            "active_desc": "Articoli attuali da aggiungere al carrello.",
+            "active_count": "{{count}} Articoli",
+            "completed_list": "Articoli acquistati ({{count}})",
+            "add_item": "Aggiungi articolo manualmente",
+            "add_desc": "Aggiungi manualmente un articolo personalizzato alla lista."
+        },
+        "empty": {
+            "title": "La tua lista della spesa è vuota",
+            "desc": "Puoi aggiungere gli articoli mancanti dai suggerimenti sopra o aggiungere articoli manualmente usando il modulo a destra."
+        },
+        "card": {
+            "linked_inventory": "Salvato nell'inventario"
+        },
+        "actions": {
+            "clear_completed": "Cancella cronologia",
+            "add_item": "Aggiungi alla lista della spesa",
+            "mark_completed": "Segna come completato",
+            "decrease_qty": "Diminuisce la quantità",
+            "increase_qty": "Aumentare la quantità",
+            "delete_item": "Elimina elemento",
+            "reactivate_item": "Torna alla lista attiva"
+        },
+        "form": {
+            "add_type": "Aggiungi metodo",
+            "add_type_inventory": "Voce di Inventario",
+            "add_type_custom": "Voce Personalizzata",
+            "select_inventory_item": "Seleziona Voce dall'Inventario",
+            "no_inventory_items": "Nessuna voce nel tuo inventario ancora.",
+            "select_item_placeholder": "Seleziona un articolo",
+            "current_stock": "Corrente",
+            "item_name": "Nome dell'articolo",
+            "item_name_placeholder": "es. Latte, Detersivo, Chicchi di caffè...",
+            "quantity": "Quantità"
+        },
+        "modal": {
+            "delete_title": "Eliminare l'articolo dalla lista?",
+            "delete_desc": "Sei sicuro di voler rimuovere \"{{name}}\" dalla tua lista della spesa?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Errore nel caricamento delle informazioni",
+            "select_item_error": "Si prega di selezionare un elemento.",
+            "task_name_error": "Il nome del compito è obbligatorio.",
+            "date_error": "La data pianificata è obbligatoria.",
+            "updated": "Compito di manutenzione aggiornato",
+            "created": "Nuovo compito di manutenzione aggiunto",
+            "save_error": "Si è verificato un errore durante il salvataggio",
+            "deleted": "Compito di manutenzione eliminato con successo.",
+            "delete_error": "Si è verificato un errore durante il processo di eliminazione.",
+            "performed": "Manutenzione registrata come completata. Prossima data programmata.",
+            "perform_error": "Si è verificato un errore durante il salvataggio."
+        },
+        "freq": {
+            "one_time": "Una tantum",
+            "unit": {
+                "days": "Giorno",
+                "weeks": "Settimana",
+                "months": "Mese",
+                "years": "Anno"
+            },
+            "format": "Ogni {{val}} {{unit}}"
+        },
+        "loading_desc": "Caricamento programma di manutenzione...",
+        "page": {
+            "title": "Manutenzione e Tracciamento Periodico",
+            "description": "Gestisci i programmi di manutenzione periodica per elettrodomestici, filtri o attrezzature di sicurezza nel tuo inventario domestico."
+        },
+        "actions": {
+            "add_task": "Aggiungi Nuovo Compito",
+            "manage": "Gestisci",
+            "perform": "Segna come completato",
+            "edit_task": "Modifica Attività"
+        },
+        "alerts": {
+            "overdue_title": "Hai compiti scaduti!",
+            "overdue_desc": "Ci sono {{count}} compiti di manutenzione scaduti. I ritardi possono ridurre la durata degli elettrodomestici."
+        },
+        "empty": {
+            "title": "Nessuna attività di manutenzione programmata",
+            "desc": "Inizia aggiungendo attività ricorrenti come la pulizia del filtro dell'aria condizionata, la manutenzione della caldaia o il controllo delle batterie dei rilevatori di fumo."
+        },
+        "sections": {
+            "overdue": "Attività scadute",
+            "overdue_desc": "Manutenzione urgente che deve essere effettuata immediatamente.",
+            "upcoming": "Attività Programmate / In Arrivo",
+            "upcoming_desc": "Manutenzione imminente nei prossimi giorni.",
+            "no_upcoming": "Nessuna attività attiva programmata per il futuro."
+        },
+        "modal": {
+            "edit_title": "Modifica Attività",
+            "create_title": "Programma nuova attività di manutenzione",
+            "perform_title": "Completare la manutenzione",
+            "perform_desc": "Vuoi registrare \"{{name}}\" come completata oggi?",
+            "perform_confirm": "Sì, completato",
+            "perform_recurrence_info": "Questa è un'attività periodica. Quando salvi, il sistema calcolerà automaticamente la prossima data di manutenzione.",
+            "delete_title": "Eliminare l'attività di manutenzione?",
+            "delete_desc": "Sei sicuro di voler eliminare il programma di manutenzione periodica \"{{name}}\"? Questa azione non può essere annullata."
+        },
+        "form": {
+            "item": "Voce correlata",
+            "no_items": "Devi prima aggiungere un articolo all'inventario prima di programmare la manutenzione.",
+            "select_item_placeholder": "Seleziona un articolo",
+            "task_name": "Nome del compito / operazione",
+            "task_name_placeholder": "ad es. Sostituzione del filtro, Controllo periodico...",
+            "description": "Dettaglio / Descrizione",
+            "description_placeholder": "Dettagli del compito, materiali da utilizzare, ecc...",
+            "frequency_value": "Frequenza di ricorrenza",
+            "frequency_placeholder": "ad es. 6 (lascia vuoto per una tantum)",
+            "frequency_unit": "Unità di Frequenza",
+            "next_due_date": "Prossima Data Programmata",
+            "section_help": "Gestisci i programmi di manutenzione da qui",
+            "section_collapsed": "Clicca per aggiungere controlli e attività periodiche",
+            "has_tasks": "{{count}} Attività",
+            "new_item_warning_title": "Salvataggio elemento in sospeso",
+            "new_item_warning_desc": "Devi prima salvare questo elemento per aggiungere un programma di manutenzione.",
+            "manage_desc": "Gestisci i programmi di manutenzione per questo apparecchio o elemento."
+        },
+        "fields": {
+            "task_name": "Nome del compito",
+            "task_name_placeholder": "ad es. Pulizia del filtro AC",
+            "description": "Descrizione",
+            "description_placeholder": "Dettagli del compito, materiali da utilizzare, ecc...",
+            "frequency_value": "Frequenza di Ricorrenza",
+            "frequency_value_placeholder": "Lascia vuoto per una sola volta",
+            "frequency_unit": "Unità di Frequenza",
+            "next_due_date": "Data Programmata"
+        },
+        "card": {
+            "untitled_item": "Elemento senza titolo",
+            "last_performed": "Ultima esecuzione:",
+            "next_due_label": "Data programmata",
+            "complete_tooltip": "Segna la manutenzione come completata oggi"
+        },
+        "detail_card_desc": "Tracciamento della manutenzione periodica o una tantum programmato per questo articolo.",
+        "no_tasks": "Nessun compito di manutenzione assegnato a questo articolo.",
+        "confirm_delete": "Questo compito verrà eliminato. Sei sicuro?"
+    },
+    "error_boundary": {
+        "title": "Qualcosa ha bisogno di un rinfresco",
+        "description": "L'interfaccia ha incontrato un problema di rendering inatteso. I dati dell'inventario salvati non vengono modificati da questa schermata.",
+        "refresh_btn": "Aggiorna",
+        "home_btn": "Casa"
+    },
+    "activity": {
+        "title": "Cronologia attività",
+        "description": "Modifiche protette recenti nel tuo inventario domestico.",
+        "empty_title": "Nessuna attività ancora",
+        "empty_description": "Modifiche agli articoli, aggiornamenti di magazzino, allegati, prestiti e azioni di massa appariranno qui.",
+        "unknown_actor": "Utente sconosciuto",
+        "deleted_item_with_id": "Articolo eliminato #{{id}}",
+        "item_missing": "Questo record dell'articolo non esiste più",
+        "actions": {
+            "item_created": "Elemento aggiunto",
+            "item_updated": "Elemento aggiornato",
+            "item_deleted": "Elemento eliminato",
+            "item_borrowed": "Elemento prestato",
+            "item_returned": "Articolo restituito",
+            "item_bulk_updated": "Aggiornamento collettivo",
+            "item_bulk_deleted": "Eliminazione collettiva",
+            "item_stock_adjusted": "Stock aggiornato",
+            "item_attachment_added": "Allegato aggiunto",
+            "item_attachment_deleted": "Allegato eliminato"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} record correlati",
+        "empty_title": "Nessun record correlato trovato",
+        "low_stock": {
+            "title": "Scorte basse",
+            "description": "Articoli al di sotto del livello minimo di scorte.",
+            "qty": "Scorte {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Articoli scaduti",
+            "description": "Articoli con data scaduta."
+        },
+        "expiring": {
+            "title": "Date di scadenza imminenti",
+            "description": "Articoli in scadenza entro 30 giorni."
+        },
+        "maintenance": {
+            "title": "Manutenzione scaduta",
+            "description": "Attività di manutenzione oltre la data programmata."
+        }
+    },
+    "notifications": {
+        "title": "Centro notifiche",
+        "description": "Avvisi su scorte, garanzia, manutenzione, scadenza e restituzione prestiti.",
+        "meta_total": "{{count}} notifiche",
+        "meta_urgent": "{{count}} urgente",
+        "empty_title": "Nessun avviso richiede la tua attenzione in questo momento",
+        "empty_desc": "Scorte basse, date imminenti e manutenzione scaduta appariranno qui.",
+        "items": {
+            "stock_empty_title": "Esaurito",
+            "stock_low_title": "Scorte basse",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Data di scadenza passata",
+            "expiry_close_title": "Data di scadenza imminente",
+            "warranty_expired_title": "Garanzia scaduta",
+            "warranty_close_title": "Garanzia in scadenza",
+            "maintenance_overdue_title": "Manutenzione in ritardo",
+            "maintenance_close_title": "Manutenzione in scadenza",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Restituzione prestito in ritardo",
+            "borrow_close_title": "Restituzione del prestito in scadenza",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} giorni rimanenti ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Centro Assistenza e Garanzia",
+        "description": "Traccia garanzie, programmi di manutenzione e azioni di servizio in un unico posto.",
+        "meta_warranty": "{{count}} registrazioni di garanzia",
+        "meta_tasks": "{{count}} attività di manutenzione",
+        "empty_title": "Nessuna azione di servizio o garanzia",
+        "empty_desc": "Le prossime date di garanzia e le attività di manutenzione saranno raccolte qui.",
+        "warranty_section": "Tracciamento Garanzia",
+        "warranty_desc": "Garanzie scadute e garanzie in scadenza entro 30 giorni.",
+        "maintenance_section": "Azioni di Manutenzione",
+        "maintenance_desc": "Attività di manutenzione scadute e imminenti.",
+        "no_warranty": "Nessuna azione di garanzia imminente.",
+        "no_tasks": "Nessun compito di manutenzione programmato.",
+        "overdue": "Scaduto",
+        "upcoming": "Presto",
+        "expired": "Garanzia scaduta",
+        "summary_warranty": "Tracciamento garanzia",
+        "summary_tasks": "Compiti di manutenzione",
+        "open_warranty_filter": "Filtro garanzia aperta",
+        "open_warranty_filter_desc": "Filtra gli articoli in garanzia attiva nell'inventario."
+    },
+    "storage_labels": {
+        "title": "Etichette per scaffali e stanze",
+        "description": "{{count}} etichetta/e per stanze/scaffali sono pronte come foglio di stampa.",
+        "empty_title": "Nessuna stanza o scaffale da etichettare",
+        "empty_desc": "Aggiungi prima le stanze o le località, quindi stampa le etichette QR qui.",
+        "sheet_label": "Foglio etichette località",
+        "scan_hint": "Scansionando il codice QR si apre l'inventario filtrato per quella stanza o scaffale.",
+        "room": "Stanza",
+        "location": "Scaffale/Scatola"
     }
 }

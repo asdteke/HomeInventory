@@ -1027,7 +1027,7 @@ router.post('/register', async (req, res) => {
             res.cookie('token', token, cookieOptions);
             
             return res.status(201).json({
-                message: isNewHouse ? 'Kayit basarili' : 'Katilim isteginiz gonderildi',
+                message: isNewHouse ? 'Kayıt başarılı' : 'Katılım isteğiniz gönderildi',
                 success: true,
                 user: {
                     id: newUser.id,
@@ -2176,7 +2176,7 @@ router.get('/verify-email', (req, res) => {
                 <div class="card">
                     <div class="icon">🎉</div>
                     <h1>Hesabınız Aktifleştirildi!</h1>
-                    <p>${pending.is_new_house === 1 ? 'E-posta doğrulaması başarılı. Artik giris yapabilirsiniz.' : 'E-posta dogrulamasi basarili. Katilim isteginiz gonderildi, artik giris yapabilirsiniz.'}</p>
+                    <p>${pending.is_new_house === 1 ? 'E-posta doğrulaması başarılı. Artık giriş yapabilirsiniz.' : 'E-posta doğrulaması başarılı. Katılım isteğiniz gönderildi, artık giriş yapabilirsiniz.'}</p>
                     <a href="/login" style="display: inline-block; margin-top: 20px; padding: 12px 24px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; text-decoration: none; border-radius: 8px; font-weight: bold;">Giriş Yap</a>
                 </div>
             </body>
@@ -2252,7 +2252,7 @@ router.post('/join-house', authenticateToken, async (req, res) => {
         notifyOwnersAboutJoinRequest(house_key, req.user.username, request.requested_house_name);
 
         res.json({
-            message: 'Katilim isteginiz gonderildi',
+            message: 'Katılım isteğiniz gönderildi',
             pendingRequests: listPendingJoinRequestsForUser(req.user.id)
         });
     } catch (err) {
@@ -2463,7 +2463,7 @@ router.post('/google-complete', authenticateToken, async (req, res) => {
             }
 
             res.cookie('token', token, cookieOptions).json({
-                message: 'Katilim isteginiz gonderildi',
+                message: 'Katılım isteğiniz gönderildi',
                 house_key,
                 request,
                 newRecoveryKey,

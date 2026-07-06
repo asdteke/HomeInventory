@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Sürüm durumu: v2.2.0 release line. -->
+<!-- Sürüm durumu: v2.4.0 release line. -->
 
 <p align="center">
   <strong>Paylaşımlı evler için özel, self-host edilebilir ev envanteri.</strong><br/>
@@ -74,12 +74,13 @@
 HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtları ortak bir tabloya dönüştürmeden pratik envanter yönetimi sağlar.
 
 > [!NOTE]
-> **v2.2.0 güncel release hattıdır.** Doğrulanmış masaüstü launcher paketlerini yayınlar; initialize/launch, otomatik tarayıcı açma, QR/LAN erişimi, loglar, yedekler, ayarlar ve port kontrollerinden oluşan güncel launcher akışını belgelendirir; kritik npm `shell-quote` uyarısını kapatır, release metadata'yı eşitler ve kalan upstream Tauri/GLib durumunu kayda geçirir.
+> **v2.4.0 güncel release hattıdır.** Günlük envanter kullanımına odaklanır: toplu düzenleme, daha güçlü filtreler, yazdırılabilir eşya/raf QR etiketleri, tıklanınca ilgili kayıtları açan uyarılar, bildirim/servis merkezi, çoklu ek dosya, şifreli aktivite geçmişi ve medya dahil daha eksiksiz yedekler.
 
 ## Neden HomeInventory
 
 - **Tek ev, birden fazla kişi:** ev oluşturun veya eve katılın, aktif evi değiştirin ve ortak envanteri doğru üyelik kapsamında tutun.
 - **Gerçek eşya kayıtları:** fotoğraf, oda, konum, kategori, miktar, garanti tarihi, fatura bilgisi, not ve ek dosya saklayın.
+- **Toplu işleme uygun envanter:** birden fazla eşyayı seçin, oda/kategori/konum/görünürlük alanlarını toplu güncelleyin, güvenli şekilde silin ve stok, tarih, garanti, ödünç durumu, sahiplik ve konuma göre filtreleyin.
 - **Mobilde kamera odaklı giriş:** desteklenen mobil tarayıcılarda eşya ve fatura fotoğrafını doğrudan çekin veya galeriden/dosyadan yüklemeye devam edin.
 - **TypeScript destekli istemci:** React arayüzü TypeScript/Vite kod tabanına taşındı; editör geri bildirimi, refactor güveni ve build zamanı kontrolleri güçlendi.
 - **Hassas veriler için daha doğru alan:** Personal Vault, çok özel kayıtları normal ev araması ve ortak çalışma akışından ayrı tutar.
@@ -91,13 +92,16 @@ HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtl
 | Alan | Kapsam |
 | --- | --- |
 | Envanter | Eşyalar, kamera/galeri fotoğrafları, odalar, kategoriler, konumlar, miktarlar, garanti ve fatura metadata alanları |
+| Toplu işlemler | Çoklu seçim, toplu kategori/oda/konum/görünürlük güncelleme, toplu silme, hızlı stok ayarı, gelişmiş filtreleme ve sıralama |
 | Paylaşımlı evler | Ev oluşturma, ev erişim akışlarıyla katılma, aktif ev değiştirme ve üyeliğe göre veri kapsamı |
 | Borrow Center | Gelen, giden ve aktif ödünç kayıtları; net istek durumları |
 | Personal Vault | Kimlikler, mülk belgeleri, erişim kodları ve hassas notlar için istemci tarafında şifrelenen vault akışı |
 | Alışveriş Listesi | Manuel ve envantere bağlı alışveriş öğeleri, tamamlanan geçmişi ve düşük stok önerileri |
 | Akıllı Bakım | Tekrarlayan eşya bakım görevleri, gecikme göstergeleri ve otomatik sonraki bakım tarihi hesaplama |
-| Etiket ve tarama | Barkod tarama, eşya QR etiketleri ve mobil uyumlu hızlı erişim |
-| Yedekleme ve geri yükleme | Sadece ev sahibine açık dışa/içe aktarma ve korumalı onay akışları |
+| Etiket ve tarama | Barkod tarama, markalı eşya QR etiket sayfaları, oda/raf etiketleri, kesim çizgileri ve mobil uyumlu hızlı erişim |
+| Uyarılar ve servis | Düşük stok, son kullanma, garanti, bakım ve ödünç iade için odaklı takip ekranları |
+| Yedekleme ve geri yükleme | Sadece ev sahibine açık dışa/içe aktarma, korumalı onay akışları ve isteğe bağlı medya/ek dosya kapsamı |
+| Aktivite geçmişi | Düzenleme, stok değişimi, ek dosya, ödünç ve toplu işlemler için korumalı eşya aktivite kaydı |
 | Kimlik doğrulama | JWT, Google OAuth, e-posta doğrulama, TOTP 2FA, güvenilen cihaz ve recovery key |
 | Masaüstü Başlatıcı | Yerel kurulum, bağımlılık kontrolü, profil başlatma/durdurma, otomatik tarayıcı açma, yedekleme, log, gelişmiş ayarlar, port kontrolü ve QR/LAN erişimi için opsiyonel Tauri GUI ve release paketleri |
 | Çok dil | Fallback davranışı ve otomatik doğrulama kontrolleriyle 100+ seçilebilir arayüz locale paketi |
@@ -106,6 +110,7 @@ HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtl
 
 - **AES-256-GCM şifreleme**, hassas envanter, auth ve profil alanlarını disk veya SQLite üzerine yazılmadan önce korur.
 - **Şifreli medya işleme**, görsel metadata bilgisini temizler ve ham upload yerine korumalı medya blob depolar.
+- **Şifreli aktivite kaydı**, eşya aktivite aksiyonlarını ve detaylarını SQLite'a yazmadan önce korur.
 - **Ev kapsamlı yetkilendirme**, oda, kategori, eşya, medya ve yedek verilerini aktif ev üyeliğiyle sınırlar.
 - **Personal Vault ayrımı**, en hassas kayıtları normal ortak envanter akışlarının dışında tutar.
 - **Rate limit ve sertleştirilmiş auth rotaları**, giriş, yedekleme ve etkileşimli uçlarda brute-force ve kötüye kullanım riskini azaltır.

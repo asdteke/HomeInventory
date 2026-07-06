@@ -10,7 +10,7 @@
         "load_error": "Nchọpụta ị loading ihe dara",
         "form": {
             "name": "Aha Ihe",
-            "name_placeholder": "dị ka Samsung TV 55 inch",
+            "name_placeholder": "dị ka TV 55 inch",
             "required": "*",
             "description": "Nkọwa",
             "description_placeholder": "Nkọwa gbasara ihe...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "N nso na ngwụcha",
             "expired": "Agwụla",
             "low_stock": "Ọnọdụ Stock Dị Ala"
+        },
+        "untitled_item": "Ihe a na-enweghị aha",
+        "attachments": {
+            "title": "Foto na faịlụ",
+            "add": "Tinye faịlụ",
+            "empty": "Enweghị faịlụ etinyere ugbu a.",
+            "form_desc": "Tinye foto ihe, nkwụnye ego, akwụkwọ ịkwụ ụgwọ, ma ọ bụ akwụkwọ ọrụ.",
+            "detail_desc": "Echekwara foto, nkwụnye ego, akwụkwọ ịkwụ ụgwọ, na faịlụ ọrụ maka ihe a.",
+            "upload_error": "Enweghị ike bulite faịlụ.",
+            "delete_error": "Enweghị ike ihichapụ faịlụ.",
+            "delete_confirm": "Ị ga-ehichapụ faịlụ a?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Gosi okwuntughe",
         "saving": "Na-echekwa...",
         "disabled": "Nwere nkwarụ",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Tuu N'ihu",
+        "zoom_out": "Tuu azụ",
+        "reset": "Hapụla mgbanwe",
+        "print": "Bipụta",
+        "record_count": "{{count}} ndekọ"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "A ga-ewepụ gị na ihuenyo nbanye ma ị ga-achọ ịbanye ọzọ iji jikwaa ihe nchekwa ụlọ gị.",
         "logout_warning": "Jiri nke a mgbe ị kwụsịrị na ngwaọrụ e jikọrọ ọnụ ma ọ bụ nkeonwe.",
         "maintenance": "Ụdị Nlekọta",
-        "shopping": "Ndepụta Ịzụ Ahịa"
+        "shopping": "Ndepụta Ịzụ Ahịa",
+        "activity": "Ọrụ",
+        "notifications": "Mgbasa ozi",
+        "service": "Ọrụ"
     },
     "dashboard": {
         "welcome": "Nnọọ azụ, <1>{{name}}</1>",
@@ -628,7 +644,8 @@
             "low_stock_desc": "Ihe {{count}} adọrọ n'okpuru oke ngwongwo gị kacha nta.",
             "go_to_shopping": "Ndepụta Ịzụ Ahịa",
             "close_expiry_title": "Ụbọchị Njedebe Na-abịa",
-            "close_expiry_desc": "{{count}} ngwaahịa gaala n'oge ọ bụla n'ime ụbọchị 30."
+            "close_expiry_desc": "{{count}} ngwaahịa gaala n'oge ọ bụla n'ime ụbọchị 30.",
+            "view_low_stock_items": "Lee Ngwongwo Dị Mfe"
         }
     },
     "beta_banner": {
@@ -765,9 +782,9 @@
             "transfer_owner": "Mee onyenwe",
             "transferring_owner": "Nyefe ...",
             "transfer_owner_title": "Nyefee ụlọ nwe?",
-            "transfer_owner_confirm": "Nyefee ikike nke ezinụlọ a na {{aha}}?",
+            "transfer_owner_confirm": "Nyefee ikike nke ezinụlọ a na {{name}}?",
             "transfer_owner_warning": "Ị gakwaghị abụ onye nwe ụlọ a. Onye nwe ọhụrụ ahụ ga-achịkwa nkwenye ndị otu, mwepụ, na mgbanwe nwe n'ọdịnihu.",
-            "transfer_owner_success_body": "Ugbu a, ọ bụ onye nwe ụlọ a."
+            "transfer_owner_success_body": "{{name}} bụ ugbu a onye nwe ụlọ a."
         },
         "theme": {
             "title": "Isiokwu",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} ebe ndị dị adị tọgburu.",
             "skipped_rooms": "{{count}} ụlọ ndị dị adị tọgburu.",
             "owner_only_title": "Nchekwa na Nchegharị Emechiri",
-            "owner_only_desc": "Enwere naanị onye nwe ụlọ nwere ike ijikwa ndabere data na iwughachi ya."
+            "owner_only_desc": "Enwere naanị onye nwe ụlọ nwere ike ijikwa ndabere data na iwughachi ya.",
+            "include_media_title": "Tinye foto na onyonyo nnata",
+            "include_media_body": "Ihe ndabere zuru ezu nwere ike ịdị nnukwu, ma foto ihe na onyonyo nnata nwekwara ike imeghachi.",
+            "skipped_attachments": "{{count}} njikọ echefughị."
         },
         "about": {
             "title": "Banyere Ngwaọrụ",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "A na-egbochi arịrịọ niile na-abata na-akpaghị aka.",
             "policy_house_only_desc": "Ndị òtù a na-ahụkarị nke ụlọ gị dị ndụ naanị ka nwere ike ịrịọ ihe ndị dịlarịrị n'ime ụlọ ahụ a na-ekekọrịta.",
             "policy_everyone_desc": "Ndị ọrụ ndị ọzọ enweghị ike ilele ma ọ bụ hụ ihe gị. Ha nwere ike izipu arịrịọ naanị site n'itinye aha njirimara gị ma ọ bụ email gị ozugbo."
+        },
+        "activity_log": {
+            "title": "Omume na ndekọ nyocha",
+            "description": "Lelee akụkọ echekwara nke mgbanwe ihe, mmelite nkwakọba, mgbakwunye, na omume nnukwu.",
+            "encrypted_title": "Ejiri nchebe chekwaa ndekọ omume",
+            "encrypted_body": "A na-echekwa ihe ọhụrụ nke omume na nkọwa na nke e jikọrọ ọnụ n'ime ndekọ data ma a na-eme decrypt ha naanị maka oge ntọala gị nke na-arụ ọrụ."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Ndekọ ahụ ga-emechi mgbe onye na-enye ego kwadoro na ha natara ihe ahụ azụ.",
             "return_pending_lender_title": "{{name}} mere akara na ihe a dị ka ebufere azụ",
             "return_pending_self_title": "Dị na gị, na-echere nkwenye nnata",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Onye otu saịtị",
+            "site_member_identifier": "Aha njirimara ma ọ bụ ozi-e",
+            "site_member_identifier_placeholder": "Aha njirimara kpọmkwem ma ọ bụ ozi-e",
+            "site_member_privacy_hint": "Onyinye ahụ na-apụta na Ebe Ekwere Iwe naanị ma ọ bụrụ na akaụntụ ahụ dị ma na-ekwe ka ebugo onyinye na-abata.",
+            "external_privacy_hint": " Nke a na-emepụta naanị ndekọ mpaghara nkeonwe. Enweghị ozi ngwa zigara.",
+            "available": "Dị"
         },
         "untitled_item": "Ihe nke enweghị aha",
         "delete_action": "Hichapụ ihe",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Nzọpụta site na ụlọ",
         "refreshing_results": "Na-emelite ihe...",
         "empty_filter_title": "Enweghị ihe ọ bụla zutere ọchụchọ ahụ",
-        "delete_error_title": "Ihichapụ dara"
+        "delete_error_title": "Ihichapụ dara",
+        "tools": {
+            "title": "Ngwaọrụ"
+        },
+        "no_room": "Enweghị ụlọ",
+        "all_locations": "Ebe niile",
+        "location_filter_label": "Họrọ site na ebe",
+        "visibility_filter_label": "Họrọ site na ịhụ anya",
+        "visibility_all": "Ihụ anya niile",
+        "visibility_mine": "Ihe m",
+        "visibility_others": "Ndị ọzọ òtù",
+        "borrow_filter_label": "Nyocha site na ọnọdụ ịkpọrọ",
+        "borrow_filter_all": "Ọnọdụ ịkpọrọ niile",
+        "stock_filter_label": "Chọta site na ọnọdụ ngwongwo",
+        "stock_filter_all": "Ọnọdụ ngwongwo niile",
+        "stock_filter_ok": "Ngwongwo dị mma",
+        "expiry_filter_label": "Chọta site na ụbọchị ngwụcha",
+        "expiry_filter_all": "Ụbọchị ngwụcha niile",
+        "expiry_filter_dated": "Ọ nwere ụbọchị",
+        "expiry_filter_none": "Enweghị ụbọchị",
+        "warranty_filter_label": "Hichaa site na nkwa",
+        "warranty_filter_all": "Akwụkwọ nkwa niile",
+        "warranty_filter_expired": "Akwụkwọ nkwa nke agwụchala",
+        "warranty_filter_close": "Na-agwụ nso",
+        "warranty_filter_active": "Akwụkwọ nkwa dị ugbu a",
+        "warranty_filter_none": "Enweghị ozi nkwado",
+        "sort_label": "Hazie",
+        "sort_updated_desc": "Emelitere nso",
+        "sort_updated_asc": "Emelitere ochie",
+        "sort_created_desc": "Ọhụrụ nke mbụ",
+        "sort_created_asc": "Ochie nke mbụ",
+        "sort_name_asc": "Aha A-Z",
+        "sort_name_desc": "Aha Z-A",
+        "sort_quantity_desc": "Ọnụọgụ dị elu ruo nke dị ala",
+        "sort_quantity_asc": "Ọnụọgụ dị ala ruo nke dị elu",
+        "sort_expiry_asc": "Ngwụcha oge mbụ",
+        "sort_expiry_desc": "Ngwụcha oge ikpeazụ",
+        "stock_increase": "Tụkwasị akụ",
+        "stock_decrease": "Belata akụ",
+        "stock_adjust_error": "enwebeghị ike imezi akụ.",
+        "bulk": {
+            "select_visible": "Họrọ ihe a na-ahụ anya",
+            "clear_visible": "Hapụ ịhọrọ nke a na-ahụ",
+            "selected_short": "ahọpụtara",
+            "keep_category": "Chekwaa ogbe",
+            "keep_room": "Chekwaa ụlọ",
+            "keep_location": "Chekwaa ọnọdụ",
+            "keep_visibility": "Chekwaa ịhụ anya",
+            "apply": "Tinye",
+            "no_fields": "Họrọ opekata mpe otu ubi maka omume ọtụtụ.",
+            "updated_title": "Melite ọtụtụ zuru ezu",
+            "updated_body": "Emegharịrị ihe {{count}}. Emeghị {{skipped}}.",
+            "update_error": "Enweghị ike ime melite ọtụtụ.",
+            "deleted_title": "Ihichapụ nnukwu ihe zuru ezu",
+            "deleted_body": "Ehichapụla {{count}} ihe. E weere {{skipped}} na-enweghị ihichapụ.",
+            "delete_error": "Enweghị ike imecha ihichapụ nnukwu ihe.",
+            "delete_title": "Ihichapụ ihe ahọpụtara?",
+            "delete_description": "{{count}} ihe ahọpụtara ga-ewepụ na ndepụta ụlọ a. Nke a agaghị ezughị.",
+            "select_item": "Họrọ ihe",
+            "unselect_item": "Wepu ihe ahọpụtara"
+        },
+        "qr_labels": {
+            "title": "Akara QR",
+            "open": "Akwụkwọ Nchịkọta Ihe",
+            "description": "{{count}} akwụkwọ nchịkọta ihe dị njikere dịka akwụkwọ bipụtara.",
+            "empty": "Gbanwee ihe nchịkọta ma ọ bụ tinye ihe ndị e debere iji bipụta akwụkwọ nchịkọta.",
+            "sheet_label": "Akwụkwọ Nchịkọta Ihe",
+            "item_label": "Nkọwa Ihe"
+        }
     },
     "categories": {
         "title": "Ụdị",
@@ -1341,7 +1436,7 @@
             "no_logs": "enweghi ndekọ ọ bụla ugbu a",
             "errors_title": "Nsogbu Sistemụ (Nke 10 ikpeazụ)",
             "no_errors": "// Sistemụ dị mma, enweghi ndekọ njehie.",
-            "date_fmt": "{{ụbọchị, ụbọchị na oge}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "Ọrụ Email",
                 "user": "Onye ọrụ",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Ngwaọrụ mesh",
-                    "meta": "Igbe telivishọn • Deco M4",
+                    "meta": "Igbe telivishọn • Network node",
                     "state": null
                 },
                 {
@@ -1902,7 +1997,7 @@
             ],
             "fallback": "Njikọ nke tọgharịa paswọọdụ yiri ka ọ zuru oke ma ọ bụ mebiri.",
             "support": "Nsogbu ndebanye aha:",
-            "footer": "© 2026 {{brandAha}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
             "subject": "Nnọọ na {{brandName}}",
@@ -1920,7 +2015,7 @@
                 "💡 Ị nwere ike ịbụ onye otu ụlọ dị iche iche ma gbanwee n'etiti ha. Ụlọ ọ bụla na-edobe ihe dị iche iche n'otu n'ọdụ."
             ],
             "support": "Nsogbu ndebanye aha:",
-            "footer": "© 2026 {{brandAha}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Jikọọ na Ụlọ",
@@ -1929,7 +2024,7 @@
             "bodyLine2": "Na-echere nkwenye onye nwe ụlọ"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandAha}} - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Ịbanye n'ụlọ",
             "bodyLine1Template": "Arịrịọ na-echere ugbu a: {{house}} ({{status}})",
             "bodyLine2": "Arịrịọ gị maka \"{{house}}\" ka na-echere mkpebi.",
@@ -1954,7 +2049,7 @@
             "warningTitle": "⚠️",
             "warningBody": "Ọ bụrụ na akaụntụ dị, nke njikọ ịtọgharịa okwuntughe nke dị irè maka nkeji 15 ezitere.",
             "fallback": "Njikọ nke tọgharịa paswọọdụ yiri ka ọ zuru oke ma ọ bụ mebiri.",
-            "footer": "© 2026 {{brandAha}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "E-mail a sitere na {{brandName}}.",
@@ -1968,7 +2063,7 @@
             "sentAtLabel": "E zigara na",
             "senderLabel": "Onye zitere",
             "serviceLabel": "Ọrụ",
-            "footer": "© 2026 {{brandAha}}"
+            "footer": "© 2026 {{brandName}}"
         }
     },
     "vault": {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Enweghị ike ibubata etiti ịkwụ ụgwọ",
             "action_error": "Enweghị ike imezu ihe omume a",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Enweghị ike ịchọta ndekọ mbinye akwụkwọ a na-eme. Melite Etiti Mbanye Akwụkwọ ma nwaa ọzọ.",
             "errors": {
                 "external_target_daily_limit": "Ị nwere ike izipu naanị otu arịrịọ kọntaktị mbụ si na mpụga otu ụbọchị n'otu onye. Ọ bụrụ na ha nabata arịrịọ, oke a agaghị arụ ọrụ na onye ahụ ọzọ.",
                 "external_total_daily_limit": "Ị nwere ike izipu ruo arịrịọ kọntaktị mbụ si na mpụga 5 kwa ụbọchị.",
@@ -2191,8 +2286,8 @@
     "legal": {
         "privacy_policy_title": "Iwu Nzuzo",
         "terms_of_service_title": "Okwu Ọrụ",
-        "privacy_policy_content": "## Nchịkọta",
-        "terms_of_service_content": "Usoro ọrụ",
+        "privacy_policy_content": "## Nchịkọta\n**{{brandName}}** bụ ngwanrọ mepere emepe ma enwere ike ịnye ya site na nrụnye gọọmentị ma ọ bụ nke onwe. Maka nrụnye a, onye na-ahụ maka data ma ọ bụ onye na-ahụ maka ọrụ bụ **{{controllerName}}**.\n- **Adreesị njikwa:** {{controllerAddress}}\n- **Kọntaktị nzuzo:** {{privacyEmail}}\n- **General support contact:** {{supportEmail}}\n\nNkwupụta a na-akọwa ** ihe data nkeonwe na-ahazi **, ** otu esi enweta ya **, ** ihe kpatara eji edozi ya **, ** onye nwere ike ịnata ya **, ** ogologo oge a na-edebe ya **, na ** ikike ị nwere **.\n\nỌ bụrụ na onye ọzọ na-arụ ọrụ nrụnye a, onye ọrụ ahụ na-ahụ maka njirimara onye njikwa ọ bụla, nkwa nkwado, nkọwa mbufe, ntọala njigide, na ọkwa iwu mpaghara na-emetụta ya.\n\n## Kedu data anyị na-anakọta ma na-edozi\n- ** Data akaụntụ: ** aha njirimara, adreesị ozi-e, hash paswọọdụ, kuki nnọkọ, data ngwaọrụ tụkwasịrị obi, na ndekọ nchekwa.\n- ** Data ọrụ: ** ụlọ, ụlọ, edemede, ihe, mgbasa ozi ebugoro, arịrịọ mgbazinye, na ndekọ nchekwa nkeonwe ị mepụtara.\n- ** Data teknụzụ: ** Adreesị IP, ihe nchọgharị / nnọkọ nnọkọ, na data mmasị asụsụ dị mkpa maka mpaghara na nchekwa akaụntụ.\n- ** Data onye na-eweta njirimara nhọrọ: ** ọ bụrụ na ịhọrọ Google Nbanye, Google na-ekerịta adreesị ozi-e gị, njirimara akaụntụ Google, na aha ngosi profaịlụ na anyị ka anyị nwee ike nyochaa gị ma ọ bụ mepụta akaụntụ gị.\n- ** Data nchọgharị nhọrọ: ** ọ bụrụ na ị na-eji barcode ma ọ bụ nyocha ngwaahịa, uru barcode ị nyefere nwere ike iziga ihe nkesa anyị na Open Food Facts, Open Products Facts, Open Beauty Facts, ma ọ bụ Google ka enwere ike iweghachite nsonaazụ achọrọ.\n\n## Otu esi enweta data\n- ** Ozugbo site n'aka gị: ** mgbe ị debanyere aha, banye, mepụta ma ọ bụ dezie ndekọ, bulite mgbasa ozi, hazie ntọala nchekwa, ma ọ bụ kpọtụrụ nkwado.\n- ** Na-akpaghị aka site na ihe nchọgharị gị ma ọ bụ ngwaọrụ gị: ** site na kuki nnọkọ achọrọ, usoro ngwaọrụ a tụkwasịrị obi, njikwa IP, mmasị asụsụ, na ndekọ nchekwa dị mkpa iji rụọ ọrụ ma chebe ngwa ahụ.\n- ** Site na Google: ** naanị ma ọ bụrụ na ịhọrọ Nbanye Google, ejedebeghị na data njirimara achọrọ iji nyochaa gị ma ọ bụ mepụta akaụntụ gị.\n- ** Site na isi mmalite data ngwaahịa mpụga: ** naanị ma ọ bụrụ na ị na-ebute barcode ma ọ bụ nyocha ngwaahịa, na-ejedebe na arịrịọ nyocha ma weghachite metadata ngwaahịa.\n\n## Ihe mere anyị ji eme ya\n- ** Ọrụ akaụntụ: ** iji mepụta ma rụọ ọrụ akaụntụ gị.\n- ** Nkwenye na nchekwa: ** iji nyochaa gị ma chekwaa nnọkọ na nkwenye abụọ.\n- ** Isi atụmatụ: ** iji nye ngwaahịa, ndabere, na atụmatụ Vault nkeonwe.\n- ** Nkwado: ** Iji zaghachi arịrịọ nkwado.\n- **Nhọrọ nbanye na atụmatụ nyocha: ** iji mezue Google Nbanye na mpụga barcode / ngwaahịa nyocha naanị mgbe ịhọrọ atụmatụ ndị ahụ.\n- ** Ọrụ iwu na nchekwa: ** iji mezuo ọrụ iwu ma ọ bụ nchekwa.\n\n## Usoro iwu na usoro nchịkọta\n- ** N'okpuru GDPR, ebe ọdabara: ** nhazi dabere na arụmọrụ nkwekọrịta, ọrụ iwu, nkwenye maka nkwenye ọ bụla, yana mmasị ziri ezi nke onye ọrụ na ọrụ na nchekwa akaụntụ.\n- ** N'okpuru KVKK, ebe ọdabara:** nhazi dabere na ntọala iwu na Nkeji edemede 5 na 6, gụnyere ebe ọ dị mkpa maka nguzobe ma ọ bụ ịrụ ọrụ nke nkwekọrịta, nnabata n'ọrụ iwu, mmega ahụ ma ọ bụ nchedo ikike, ma ọ bụ ọdịmma ziri ezi nke onye na-achịkwa ma ọ bụrụ na emerụghị ikike na nnwere onwe gị bụ isi.\n- ** Usoro nchịkọta: ** A na-anakọta data site na ụzọ elektrọnik site na ụdị, nnọkọ ndị a kwadoro, kuki achọrọ, OAuth nhọrọ, ndekọ ngwa, ebugolite, na arịrịọ API.\n\n## Nchekwa na nnyefe\n- ** Anyị anaghị ere data nkeonwe. **\n- Enwere ike ịnata data nkeonwe site na nnabata, nchekwa data, nchekwa, email, nyocha, na ndị na-eweta akụrụngwa iji rụọ ọrụ nrụnye a.\n- Ọ bụrụ na ịhọrọ Google Sign-In ma ọ bụ barcode / ngwaahịa lookup, a na-ekerịta nkwenye dị mkpa ma ọ bụ data nyocha na onye na-eweta ahọpụtara naanị iji mezue atụmatụ ị kpalitere.\n- Enwere ike igosipụta data n'ụlọ ikpe, ndị na-achịkwa, ma ọ bụ ndị isi ọha na eze mgbe iwu kwadoro.\n- **Nyefee nkwupụta maka nrụnye a:** {{transferDisclosure}}\n- A na-echekwa data akaụntụ mgbe akaụntụ gị na-arụ ọrụ.\n- Mgbe ị na-ehichapụ akaụntụ gị na Ntọala, a na-ehichapụ data akaụntụ gị, ọdịnaya nchekwa nkeonwe, mgbasa ozi ebugoro, na ndekọ ngwa nke akaụntụ gị na-ehichapụ na ngwa ahụ n'egbughị oge, belụsọ ozi a ga-ejigide maka nkwupụta iwu, ọrụ iwu, ma ọ bụ ọrụ nchekwa.\n\n## Ikike gị\n- Dabere na iwu dị, ị nwere ike ịrịọ nkwenye ma a na-ahazi data nkeonwe gị, ịnweta ya, yana ozi gbasara ebumnuche, edemede, ndị nnata na nnyefe.\n- Ị nwere ike ịrịọ maka ndozi, nhichapụ, mbibi, mgbochi, ma ọ bụ mmegide, yana ebe ọdabara.\n- Ebe nhazi dabere na nkwenye, ị nwere ike ịdọrọ nkwenye n'oge ọ bụla na-enweghị imetụta nhazi iwu kwadoro.\n- Ị nwere ike ịrịọ ka a gwa ndị nnata mmezi, nhichapụ, ma ọ bụ mbibi ebe iwu chọrọ nke a.\n- Ị nwere ike ịjụ nsonaazụ emepụtara naanị site na akpaghị aka ma ọ bụrụ na iwu nyere gị ikike ahụ.\n- Ebe iwu kwadoro, ị nwere ike ịchọ nkwụghachi ụgwọ maka mmebi nke nhazi iwu na-akwadoghị.\n- Ị nwere ike itinye akwụkwọ mkpesa na **{{complaintAuthority}}**\n\n## Olee otú iji tọghata WMV ka iTunes\n- Jiri nhichapụ akaụntụ n'ime ngwa ma ọ bụ kpọtụrụ **{{privacyEmail}}** maka arịrịọ nzuzo.\n- Ebe GDPR metụtara, a ga-aza arịrịọ n'egbughị oge na-ekwesịghị ekwesị na ụkpụrụ n'ime ọnwa 1 mgbe nkwenye njirimara gasịrị.\n\n## Mkpebi Ntughari\n- Ngwa a anaghị eji naanị mkpebi akpaaka ma ọ bụ profaịlụ nke na-emepụta mmetụta iwu ma ọ bụ nke yiri nke ahụ na gị.\n\n## Ihe dị mkpa\nA na-enye ọkwa a maka nghọta. ** Ọ dị iche na ahịa ọ bụla nhọrọ, nchịkọta, ma ọ bụ nkwenye kuki na-adịghị mkpa **, nke a ga-arịọ iche iche mgbe achọrọ.\n\nNdị na-ahụ maka ọrụ na-emeghe na-emeghe abụghị onye na-ahụ maka data ma ọ bụ nhazi na-akpaghị aka maka ndị ọzọ na-akwado onwe ha.",
+        "terms_of_service_content": "Usoro nke ọrụ\n\n1. Nchịkọta\n{{brandName}} bụ ngwanrọ mepere emepe ma enwere ike iji ya mee ihe site na nrụnye gọọmentị ma ọ bụ nke onwe ya. Usoro ndị a na-emetụta nrụnye a kapịrị ọnụ ị na-eji.\n- Ọ bụrụ na onye ọzọ na-arụ ọrụ a, onye ọrụ ahụ nwere ike ịgbakwunye usoro ndị a na iwu ndị a kapịrị ọnụ, nkwa nkwado, ma ọ bụ ọkwa iwu mpaghara.\n\n2. Iwu ojiji\n- Ị na-ahụ maka iwu, izi ezi, na ikike nke ọdịnaya ị na-etinye na ọrụ ahụ.\n- Nnweta mepere emepe nke ngwanrọ anaghị enye gị ikike ibulite, chekwaa, ma ọ bụ kesaa data nke ị na-enyeghị ikike iji.\nAnyị nwere ike ịkwụsịtụ ma ọ bụ wepu akaụntụ ndị na-emegbu ọrụ ahụ, mebie usoro ndị a, ma ọ bụ mepụta nchekwa ma ọ bụ ihe ize ndụ iwu.\n\n3. Nchedo akaụntụ\n- Debe paswọọdụ gị, ihe mgbake gị, na nkwado ndabere na mpaghara nchebe.\n\n4. Data Lifecycle\n- Debe nkwado ndabere gị nke ozi dị mkpa.\n- Ihichapụ akaụntụ gị site na Ntọala na-ewepụ data ngwa na mgbasa ozi nke akaụntụ gị ma enweghị ike iwepụ ya.\n\n5. Mgbochi na Disclaimer\n- Nnweta, nkwado, njikọta, na oge nzaghachi na-adabere na onye na-arụ ọrụ nke nrụnye a.\n- A na-enye ọrụ ahụ na \"dị ka ọ dị\" na \"dị ka ọ dị\" ruo n'ókè iwu kwere.",
         "register_consent": "Agụwo m, aghọtakwara m, ma kwekọrọ na <1>Okwu Ọrụ</1> na <2>Atụmatụ Nzuzo</2>.",
         "consent_title": "Nyochaa akwụkwọ iwu",
         "consent_subtitle": "Biko kwado okwu ndị dị ugbu a tupu ịga n’ihu.",
@@ -2273,9 +2368,9 @@
         "account_menu_tooltip": "Menu akaụntụ {{name}}"
     },
     "app": {
-        "name": "{{brandAha}}",
+        "name": "{{brandName}}",
         "tagline": "Jiri amamihe jikwaa ihe niile dị n'ụlọ gị.",
-        "loading": "Loading {{brandName}}",
+        "loading": "Na-ebubata {{brandName}}",
         "preparing_workspace": "Ńkwadebe wọkspeesi gị"
     },
     "nav": {
@@ -2555,5 +2650,102 @@
         "description": "The interface kụrụ nsogbu nsụgharị a na-atụghị anya ya. A gaghị agbanwe data gị echekwara site na ihuenyo a.",
         "refresh_btn": "Nweta ume ọhụrụ",
         "home_btn": "Ebe obibi"
+    },
+    "activity": {
+        "title": "Akụkọ Omume",
+        "description": "Mgbanwe echekwara ọhụrụ na ndekọ ụlọ gị.",
+        "empty_title": "Ọnọdụ ezughị ezu",
+        "empty_description": "Mgbanwe ihe, mmelite akụrụngwa, nkwụnye, ịrịọ, na omume ndị buru ibu ga-apụta ebe a.",
+        "unknown_actor": "Onye ọrụ amaghi",
+        "deleted_item_with_id": "Ehichapụ ihe #{{id}}",
+        "item_missing": "Akwụkwọ ihe a adịghịzi",
+        "actions": {
+            "item_created": "Tinyeere ihe",
+            "item_updated": "Emelitere ihe",
+            "item_deleted": "Ihe ehichapụtala",
+            "item_borrowed": "E nyere ihe",
+            "item_returned": "Ihe weghachiri",
+            "item_bulk_updated": "Melite nnukwu",
+            "item_bulk_deleted": "Hichapụ nnukwu",
+            "item_stock_adjusted": "Emeela mmelite ngwaahịa",
+            "item_attachment_added": "Tinyere mgbakwunye",
+            "item_attachment_deleted": "Wepụ mgbakwunye"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} ndekọ ndị metụtara ya",
+        "empty_title": "Enweghị ndekọ ndị metụtara ya",
+        "low_stock": {
+            "title": "Ndị nwere obere akụrụngwa",
+            "description": "Ihe dị n'okpuru ọkwa akụrụngwa kacha nta ha.",
+            "qty": "Stock {{quantity}} / nkeji {{min}}"
+        },
+        "expired": {
+            "title": "Ihe Agwụla Oge",
+            "description": "Ihe nwere ụbọchị agwụla oge."
+        },
+        "expiring": {
+            "title": "Ụbọchị Agwụla Oge Na-abịa",
+            "description": "Ihe ndị na-agwụ na ụbọchị 30."
+        },
+        "maintenance": {
+            "title": "Mmezi ndị agwụla oge",
+            "description": "Ihe ọrụ mmezi gafere ụbọchị a tụrụ ha."
+        }
+    },
+    "notifications": {
+        "title": "Ebe Ọma Kpọrọ Ntanetị",
+        "description": "Nkwakọba, akwụkwọ ikike, mmezi, ngwụsị oge, na ntinye mkpesa mgbazinye.",
+        "meta_total": "{{count}} ọkwa",
+        "meta_urgent": "{{count}} ngwa ngwa",
+        "empty_title": "Enweghị mkpesa ọ bụla chọrọ ntị gị ugbu a",
+        "empty_desc": "Ọnụ ahịa dị ala, ụbọchị na-abịa, na mmezi gafere nke ga-apụta ebe a.",
+        "items": {
+            "stock_empty_title": "Apụghị inwe ngwaahịa",
+            "stock_low_title": "Ọnụ ahịa dị ala",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Ọgụgụ ụbọchị agafela",
+            "expiry_close_title": "Ụbọchị ngwụcha na-abịa",
+            "warranty_expired_title": "Ntụkwasị obi agwụla",
+            "warranty_close_title": "Ntụkwasị obi ga-akwụsị n’oge na-adịghị anya",
+            "maintenance_overdue_title": "Mmezi oge gafeela",
+            "maintenance_close_title": "Nchekwa ga-adị n'oge na-adịghị anya",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Nloghachi nke e ji akọ ụgwọ gafere oge",
+            "borrow_close_title": "Nloghachi nke e ji akọ ụgwọ ga-adị n'oge na-adịghị anya",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: ụbọchị {{count}} fọdụrụ ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Ụlọ ọrụ Ọrụ na Nchekwa",
+        "description": "Soro nchekwaghị, usoro mmezi, na ọrụ ọrụ niile n'otu ebe.",
+        "meta_warranty": "{{count}} ndekọ nchekwaghị",
+        "meta_tasks": "{{count}} ọrụ mmezi",
+        "empty_title": "Enweghị ọrụ ma ọ bụ ọrụ nkwụghachi",
+        "empty_desc": "A ga-anakọta ụbọchị nkwụghachi na ọrụ mmezi na-abịa ebe a.",
+        "warranty_section": "Nlekọta Nkwụghachi",
+        "warranty_desc": "Nkwụghachi agaghịzi mkpa ma ọ bụ nkwụghachi na-akwụsị n'ime ụbọchị 30.",
+        "maintenance_section": "Omume Nlekọta",
+        "maintenance_desc": "Ọrụ nlekọta na-agafe na nke na-abịa.",
+        "no_warranty": "Enweghị ọrụ nkwụghachi ụgwọ na-abịa.",
+        "no_tasks": "Enweghị ọrụ nlekọta e debere.",
+        "overdue": "Na-erughị oge",
+        "upcoming": "N'oge na-adịghị anya",
+        "expired": "Agwụla",
+        "summary_warranty": "Nlekọta nkwa",
+        "summary_tasks": "Ụlọ ọrụ mmezi",
+        "open_warranty_filter": "Meghee nzacha nkwenye",
+        "open_warranty_filter_desc": "Na-eji nzacha ihe nkwenye dị irè na ụlọ nkwakọba."
+    },
+    "storage_labels": {
+        "title": "Akwụkwọ mkpado ihe nkwakọba na ime ụlọ",
+        "description": "{{count}} mkpado ime ụlọ/ụlọ nkwakọba dị njikere dịka akwụkwọ mbipụta.",
+        "empty_title": "Enweghị ụlọ ma ọ bụ ụlọ nkwakọba iji tinye mkpado",
+        "empty_desc": "Tinye ụlọ ma ọ bụ ebe mbụ, mgbe ahụ bipụta mkpado QR ebe a.",
+        "sheet_label": "Akwụkwọ Mkpado Ebe",
+        "scan_hint": "Ile QR koodu na-emeghe ngwugwu ejiri sie maka ụlọ ahụ ma ọ bụ selufu.",
+        "room": "Ụlọ",
+        "location": "Selufu/Igbe"
     }
 }

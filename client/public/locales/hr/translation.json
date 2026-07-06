@@ -10,7 +10,7 @@
         "load_error": "Učitavanje predmeta nije uspjelo",
         "form": {
             "name": "Naziv predmeta",
-            "name_placeholder": "npr. Samsung TV 55 inča",
+            "name_placeholder": "npr. TV 55 inča",
             "required": "*",
             "description": "Opis",
             "description_placeholder": "Napomene o predmetu...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Blizu isteka",
             "expired": "Istečeno",
             "low_stock": "Mala zaliha"
+        },
+        "untitled_item": "Nepoznati predmet",
+        "attachments": {
+            "title": "Fotografije i datoteke",
+            "add": "Dodaj datoteke",
+            "empty": "Još nisu dodane datoteke.",
+            "form_desc": "Priložite fotografije stavki, račune, fakture ili službene dokumente.",
+            "detail_desc": "Fotografije, računi, fakture i službene datoteke spremljeni za ovu stavku.",
+            "upload_error": "Datoteke se nisu mogle prenijeti.",
+            "delete_error": "Datoteka se nije mogla izbrisati.",
+            "delete_confirm": "Izbrisati ovu datoteku?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Prikaži lozinku",
         "saving": "Spremanje...",
         "disabled": "Onemogućeno",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Povećaj",
+        "zoom_out": "Smanji",
+        "reset": "Vrati na početno",
+        "print": "Ispiši",
+        "record_count": "{{count}} zapisa"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Bit ćete vraćeni na ekran za prijavu i morat ćete se ponovno prijaviti kako biste upravljali zalihama u kućanstvu.",
         "logout_warning": "Koristite ovo kada završite na zajedničkom ili osobnom uređaju.",
         "maintenance": "Raspored održavanja",
-        "shopping": "Popis za kupnju"
+        "shopping": "Popis za kupnju",
+        "activity": "Aktivnost",
+        "notifications": "Obavijesti",
+        "service": "Usluga"
     },
     "dashboard": {
         "welcome": "Dobrodošao natrag, <1>{{name}}</1>",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} stavki je palo ispod vašeg minimalnog limita zaliha.",
             "go_to_shopping": "Popis za kupovinu",
             "close_expiry_title": "Nadolazeći datumi isteka",
-            "close_expiry_desc": "{{count}} proizvoda će isteći u roku od 30 dana."
+            "close_expiry_desc": "{{count}} proizvoda će isteći u roku od 30 dana.",
+            "view_low_stock_items": "Prikaži mali zalihu"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Aktivni ključ kuće",
             "key_label": "Ključ kuće",
-            "mask_key": "••••••••{{sufiks}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Sakrij",
             "show": "Prikaži",
             "copy": "Kopiraj",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} postojećih lokacija preskočeno.",
             "skipped_rooms": "{{count}} postojećih soba preskočeno.",
             "owner_only_title": "Sigurnosna kopija i vraćanje ograničeno",
-            "owner_only_desc": "Sigurnosnu kopiju podataka i obnavljanje može upravljati samo vlasnik kuće."
+            "owner_only_desc": "Sigurnosnu kopiju podataka i obnavljanje može upravljati samo vlasnik kuće.",
+            "include_media_title": "Uključite fotografije i slike računa",
+            "include_media_body": "Potpuna sigurnosna kopija može biti veća, ali se mogu vratiti i fotografije stavki i slike računa.",
+            "skipped_attachments": "Preskočeno je {{count}} privitaka."
         },
         "about": {
             "title": "O aplikaciji",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Svi dolazni zahtjevi automatski se blokiraju.",
             "policy_house_only_desc": "Samo verificirani članovi vaših aktivnih kuća mogu zatražiti predmete koji su već vidljivi unutar te zajedničke kuće.",
             "policy_everyone_desc": "Ostali korisnici ne mogu pregledavati niti vidjeti vaše predmete. Oni mogu poslati zahtjev samo unosom vašeg korisničkog imena ili e-mail adrese izravno."
+        },
+        "activity_log": {
+            "title": "Aktivnost i zapisnik revizije",
+            "description": "Pregledajte zaštićenu povijest promjena stavki, ažuriranja zaliha, privitaka i masovnih radnji.",
+            "encrypted_title": "Zapisi aktivnosti pohranjuju se zaštićeno",
+            "encrypted_body": "Nove aktivnosti i detalji pohranjuju se šifrirani u bazu podataka i dešifriraju se samo za vašu aktivnu sesiju."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Zapis će se zatvoriti nakon što zajmodavac potvrdi da je predmet primio natrag.",
             "return_pending_lender_title": "{{name}} je označio/la ovaj predmet kao vraćen",
             "return_pending_self_title": "S tobom, čeka se potvrda primitka",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Član stranice",
+            "site_member_identifier": "Korisničko ime ili e-mail",
+            "site_member_identifier_placeholder": "Točno korisničko ime ili e-mail",
+            "site_member_privacy_hint": "Ponuda se pojavljuje u Centru za posuđivanje samo ako taj račun postoji i omogućuje dolazne ponude.",
+            "external_privacy_hint": "Ovo stvara samo privatni lokalni zapis. Nema obavijesti unutar aplikacije.",
+            "available": "Dostupno"
         },
         "untitled_item": "Stavka bez naslova",
         "delete_action": "Izbriši stavku",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Filtriraj po sobi",
         "refreshing_results": "Osvježavanje predmeta...",
         "empty_filter_title": "Nijedna stavka ne odgovara pretraživanju",
-        "delete_error_title": "Brisanje nije uspjelo"
+        "delete_error_title": "Brisanje nije uspjelo",
+        "tools": {
+            "title": "Alati"
+        },
+        "no_room": "Nema prostora",
+        "all_locations": "Sve lokacije",
+        "location_filter_label": "Filtriraj po lokaciji",
+        "visibility_filter_label": "Filtriraj po vidljivosti",
+        "visibility_all": "Sve vidljivosti",
+        "visibility_mine": "Moji predmeti",
+        "visibility_others": "Ostali članovi",
+        "borrow_filter_label": "Filtriraj prema statusu posudbe",
+        "borrow_filter_all": "Svi statusi posudbe",
+        "stock_filter_label": "Filtriraj prema statusu zaliha",
+        "stock_filter_all": "Svi statusi zaliha",
+        "stock_filter_ok": "Zaliha ok",
+        "expiry_filter_label": "Filtriraj po datumu isteka",
+        "expiry_filter_all": "Svi datumi isteka",
+        "expiry_filter_dated": "Ima datum",
+        "expiry_filter_none": "Nema datuma",
+        "warranty_filter_label": "Filtriraj po jamstvu",
+        "warranty_filter_all": "Sva jamstva",
+        "warranty_filter_expired": "Istekla jamstva",
+        "warranty_filter_close": "Uskoro završava",
+        "warranty_filter_active": "Aktivne garancije",
+        "warranty_filter_none": "Nema informacija o garanciji",
+        "sort_label": "Sortiraj",
+        "sort_updated_desc": "Nedavno ažurirano",
+        "sort_updated_asc": "Najstarija ažuriranja",
+        "sort_created_desc": "Najnovije prvo",
+        "sort_created_asc": "Najstarije prvo",
+        "sort_name_asc": "Ime A-Z",
+        "sort_name_desc": "Ime Z-A",
+        "sort_quantity_desc": "Količina od visoke do niske",
+        "sort_quantity_asc": "Količina od niske do visoke",
+        "sort_expiry_asc": "Najraniji datum isteka",
+        "sort_expiry_desc": "Najkasniji datum isteka",
+        "stock_increase": "Povećaj zalihe",
+        "stock_decrease": "Smanji zalihe",
+        "stock_adjust_error": "Zalihe se nisu mogle ažurirati.",
+        "bulk": {
+            "select_visible": "Odaberi vidljivo",
+            "clear_visible": "Poništi odabir vidljivog",
+            "selected_short": "odabrano",
+            "keep_category": "Zadrži kategoriju",
+            "keep_room": "Zadrži sobu",
+            "keep_location": "Zadrži lokaciju",
+            "keep_visibility": "Zadrži vidljivost",
+            "apply": "Primijeni",
+            "no_fields": "Odaberite barem jedno polje za masovnu akciju.",
+            "updated_title": "Masovno ažuriranje dovršeno",
+            "updated_body": "{{count}} stavki ažurirano. {{skipped}} preskočeno.",
+            "update_error": "Masovno ažuriranje nije uspjelo.",
+            "deleted_title": "Masovno brisanje dovršeno",
+            "deleted_body": "{{count}} stavki obrisano. {{skipped}} preskočeno.",
+            "delete_error": "Masovno brisanje nije moglo biti dovršeno.",
+            "delete_title": "Obriši odabrane stavke?",
+            "delete_description": "{{count}} odabranih stavki bit će uklonjeno iz ovog kućnog inventara. Ovo se ne može poništiti.",
+            "select_item": "Odaberi stavku",
+            "unselect_item": "Poništi odabir stavke"
+        },
+        "qr_labels": {
+            "title": "QR Oznake",
+            "open": "Oznake stavki",
+            "description": "{{count}} oznaka stavki je spremno kao lista za ispis.",
+            "empty": "Promijenite filtre ili dodajte stavke zaliha za ispis naljepnica.",
+            "sheet_label": "List naljepnica za stavke",
+            "item_label": "Naljepnica za stavku"
+        }
     },
     "categories": {
         "title": "Kategorije",
@@ -1341,7 +1436,7 @@
             "no_logs": "još nema zapisa",
             "errors_title": "Pogreške sustava (Posljednjih 10)",
             "no_errors": "// Sustav je zdrav, nema zapisnika pogrešaka.",
-            "date_fmt": "{{datum, datumvrijeme}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "E-pošta",
                 "user": "Korisnik",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Mrežna jedinica",
-                    "meta": "TV konzola • Deco M4",
+                    "meta": "TV konzola • Network node",
                     "state": null
                 },
                 {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Centar za posudbu nije se mogao učitati",
             "action_error": "Radnja nije mogla biti dovršena",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Ovaj aktivni zapis posudbe nije moguće pronaći. Osvježite Centar posudbe i pokušajte ponovno.",
             "errors": {
                 "external_target_daily_limit": "Možete poslati samo jedan prvi vanjski zahtjev za kontakt po osobi dnevno. Ako ona prihvati zahtjev, ovo ograničenje više ne vrijedi za tu osobu.",
                 "external_total_daily_limit": "Možete poslati do 5 prvih vanjskih zahtjeva za kontakt dnevno.",
@@ -2555,5 +2650,102 @@
         "description": "Sučelje je naišlo na neočekivani problem s renderiranjem. Vaši spremljeni podaci o inventaru ne mijenjaju se ovim zaslonom.",
         "refresh_btn": "Osvježi",
         "home_btn": "Početna"
+    },
+    "activity": {
+        "title": "Povijest aktivnosti",
+        "description": "Nedavne zaštićene promjene u vašem kućnom inventaru.",
+        "empty_title": "Još nema aktivnosti",
+        "empty_description": "Promjene stavki, ažuriranja zaliha, privitci, posudba i masovne akcije pojavit će se ovdje.",
+        "unknown_actor": "Nepoznati korisnik",
+        "deleted_item_with_id": "Izbrisana stavka #{{id}}",
+        "item_missing": "Evidencija ove stavke više ne postoji",
+        "actions": {
+            "item_created": "Stavka dodana",
+            "item_updated": "Stavka ažurirana",
+            "item_deleted": "Stavka izbrisana",
+            "item_borrowed": "Stavka posuđena",
+            "item_returned": "Stavka vraćena",
+            "item_bulk_updated": "Masovno ažuriranje",
+            "item_bulk_deleted": "Masovno brisanje",
+            "item_stock_adjusted": "Zalihe ažurirane",
+            "item_attachment_added": "Privitak dodan",
+            "item_attachment_deleted": "Privitak izbrisan"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} povezanih zapisa",
+        "empty_title": "Nisu pronađeni povezani zapisi",
+        "low_stock": {
+            "title": "Niska zaliha",
+            "description": "Artikli ispod minimalne razine zaliha.",
+            "qty": "Zaliha {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Istekli artikli",
+            "description": "Stavke s isteklim rokom."
+        },
+        "expiring": {
+            "title": "Nadolazeći datumi isteka",
+            "description": "Stavke koje ističu u roku od 30 dana."
+        },
+        "maintenance": {
+            "title": "Zakasnili održavanje",
+            "description": "Održavanje zadataka nakon njihovog zakazanog datuma."
+        }
+    },
+    "notifications": {
+        "title": "Centar za obavijesti",
+        "description": "Upozorenja o zalihama, jamstvu, održavanju, isteku i vraćanju posudbi.",
+        "meta_total": "{{count}} obavijesti",
+        "meta_urgent": "{{count}} hitno",
+        "empty_title": "Trenutno nema upozorenja koja zahtijevaju vašu pažnju",
+        "empty_desc": "Niska zaliha, nadolazeći datumi i zakašnjih održavanja pojavit će se ovdje.",
+        "items": {
+            "stock_empty_title": "Nema na skladištu",
+            "stock_low_title": "Niska zaliha",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Rok trajanja prošao",
+            "expiry_close_title": "Rok trajanja se približava",
+            "warranty_expired_title": "Jamstvo isteklo",
+            "warranty_close_title": "Jamstvo uskoro istječe",
+            "maintenance_overdue_title": "Održavanje je prekasno",
+            "maintenance_close_title": "Održavanje uskoro treba",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Povrat posuđenog prekoračen",
+            "borrow_close_title": "Povrat posudbe uskoro dospije",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: preostalo {{count}} dana ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Centar za servis i jamstvo",
+        "description": "Pratite jamstva, rasporede održavanja i servisne radnje na jednom mjestu.",
+        "meta_warranty": "{{count}} zapisa o jamstvu",
+        "meta_tasks": "{{count}} zadataka održavanja",
+        "empty_title": "Nema servisa ili jamstvenih radnji",
+        "empty_desc": "Nadolazeći datumi jamstva i zadaci održavanja bit će ovdje prikupljeni.",
+        "warranty_section": "Praćenje jamstva",
+        "warranty_desc": "Istečena jamstva i jamstva koja ističu u roku od 30 dana.",
+        "maintenance_section": "Održavanje",
+        "maintenance_desc": "Zakašnjeli i nadolazeći zadaci održavanja.",
+        "no_warranty": "Nema nadolazeće akcije jamstva.",
+        "no_tasks": "Nema zakazanog zadatka održavanja.",
+        "overdue": "Prošlo je vrijeme",
+        "upcoming": "Uskoro",
+        "expired": "Isteklo",
+        "summary_warranty": "Praćenje jamstva",
+        "summary_tasks": "Zadaci održavanja",
+        "open_warranty_filter": "Filtriranje otvorenog jamstva",
+        "open_warranty_filter_desc": "Filtrira stavke u skladištu koje su pod aktivnim jamstvom."
+    },
+    "storage_labels": {
+        "title": "Naljepnice za police i prostorije",
+        "description": "{{count}} naljepnica za prostorije/police je spremno za ispis.",
+        "empty_title": "Nema prostorija ili polica za označavanje",
+        "empty_desc": "Prvo dodajte sobe ili lokacije, zatim ovdje ispišite QR naljepnice.",
+        "sheet_label": "Lista naljepnica za lokaciju",
+        "scan_hint": "Skeniranje QR koda otvara filtrirani inventar za tu sobu ili policu.",
+        "room": "Soba",
+        "location": "Polica/Kutija"
     }
 }

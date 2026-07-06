@@ -51,9 +51,11 @@
         "show": "Mostra password",
         "saving": "Salvataggio...",
         "disabled": "Disabili",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Ingrandisci",
+        "zoom_out": "Rimpicciolisci",
+        "reset": "Reimposta",
+        "print": "Stampa",
+        "record_count": "{{count}} record"
     },
     "auth": {
         "login": {
@@ -352,7 +354,10 @@
         "logout_description": "Verrai riportato alla schermata di accesso e dovrai accedere di nuovo per gestire l'inventario della tua famiglia.",
         "logout_warning": "Usa questo quando hai finito su un dispositivo condiviso o personale.",
         "maintenance": "Programma di Manutenzione",
-        "shopping": "Lista della Spesa"
+        "shopping": "Lista della Spesa",
+        "activity": "Attività",
+        "notifications": "Notifiche",
+        "service": "Servizio"
     },
     "dashboard": {
         "welcome": "Bentornato, <1>{{name}}</1>",
@@ -491,7 +496,8 @@
             "low_stock_desc": "{{count}} articoli sono scesi al di sotto del limite minimo di scorte.",
             "go_to_shopping": "Lista della spesa",
             "close_expiry_title": "Date di scadenza imminenti",
-            "close_expiry_desc": "{{count}} prodotti scadranno entro 30 giorni."
+            "close_expiry_desc": "{{count}} prodotti scadranno entro 30 giorni.",
+            "view_low_stock_items": "Visualizza Scorte Basse"
         }
     },
     "beta_banner": {
@@ -513,7 +519,7 @@
         "load_error": "Caricamento dell'articolo non riuscito",
         "form": {
             "name": "Nome articolo",
-            "name_placeholder": "ad es. TV Samsung 55 pollici",
+            "name_placeholder": "ad es. TV 55 pollici",
             "required": "*",
             "description": "Descrizione",
             "description_placeholder": "Note sull'articolo...",
@@ -641,6 +647,17 @@
             "close_to_expiry": "Vicino alla scadenza",
             "expired": "Scaduto",
             "low_stock": "Scorta bassa"
+        },
+        "untitled_item": "Elemento senza titolo",
+        "attachments": {
+            "title": "Foto e file",
+            "add": "Aggiungi file",
+            "empty": "Nessun file aggiunto ancora.",
+            "form_desc": "Allega foto dell'articolo, ricevute, fatture o documenti di servizio.",
+            "detail_desc": "Foto, ricevute, fatture e file di servizio salvati per questo articolo.",
+            "upload_error": "Impossibile caricare i file.",
+            "delete_error": "Impossibile eliminare il file.",
+            "delete_confirm": "Eliminare questo file?"
         }
     },
     "settings": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Chiave della casa attiva",
             "key_label": "Chiave della casa",
-            "mask_key": "••••••••{{suffisso}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Nascondi",
             "show": "Mostra",
             "copy": "Copia",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} posizioni esistenti saltate.",
             "skipped_rooms": "{{count}} stanze esistenti saltate.",
             "owner_only_title": "Backup e Ripristino Limitati",
-            "owner_only_desc": "Il backup e il ripristino dei dati possono essere gestiti solo dal proprietario della casa."
+            "owner_only_desc": "Il backup e il ripristino dei dati possono essere gestiti solo dal proprietario della casa.",
+            "include_media_title": "Includi foto e immagini delle ricevute",
+            "include_media_body": "Il backup completo può essere più grande, ma anche le foto degli articoli e le immagini delle ricevute possono essere ripristinate.",
+            "skipped_attachments": "{{count}} allegati sono stati saltati."
         },
         "about": {
             "title": "Informazioni sull'applicazione",
@@ -848,7 +868,7 @@
             "privacy_link": "Informativa sulla privacy",
             "beta_title": "Stato beta",
             "beta_body": "{{brandName}} è ancora in beta. Le funzionalità possono cambiare, i flussi di lavoro possono evolversi e i dati domestici importanti devono sempre essere salvati.",
-            "feedback_subject": "Feedback - {{NomeMarca}}",
+            "feedback_subject": "Riscontro - {{brandName}}",
             "logout_body": "Eventuali modifiche non salvate nei moduli aperti potrebbero andare perse dopo aver lasciato questa sessione.",
             "logout_description": "Tornerai alla pagina principale e potrai accedere di nuovo in qualsiasi momento.",
             "logout_title": "Vuoi uscire ora?"
@@ -906,7 +926,7 @@
             "disable_confirm": "Disattiva 2FA",
             "disable_error": "Impossibile disattivare 2FA",
             "disabled_success": "L'autenticazione a due fattori è stata disattivata",
-            "password_label": "Password ••••••••{{suffix}} Account Feedback - {{brandName}}",
+            "password_label": "Parola d'accesso",
             "password_placeholder": "Inserisci la tua password",
             "method_totp": "Autenticatore",
             "method_backup": "Codice di backup",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Tutte le richieste in arrivo vengono bloccate automaticamente.",
             "policy_house_only_desc": "Solo i membri verificati delle tue case attive possono richiedere oggetti già visibili all'interno di quella casa condivisa.",
             "policy_everyone_desc": "Altri utenti non possono sfogliare o vedere i tuoi oggetti. Possono solo inviare una richiesta inserendo direttamente il tuo nome utente o la tua email."
+        },
+        "activity_log": {
+            "title": "Registro attività e audit",
+            "description": "Revisiona la cronologia protetta delle modifiche agli elementi, degli aggiornamenti di stock, degli allegati e delle azioni di massa.",
+            "encrypted_title": "I record delle attività sono conservati protetti",
+            "encrypted_body": "Le nuove azioni e i dettagli delle attività sono memorizzati criptati nel database e vengono decriptati solo per la tua sessione attiva."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Il record si chiuderà dopo che il prestatore confermerà di aver ricevuto l'oggetto indietro.",
             "return_pending_lender_title": "{{name}} ha contrassegnato questo oggetto come restituito",
             "return_pending_self_title": "Con te, in attesa della conferma di ricezione",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Membro del sito",
+            "site_member_identifier": "Nome utente o email",
+            "site_member_identifier_placeholder": "Nome utente o email esatto",
+            "site_member_privacy_hint": "L'offerta appare nel Centro di Prestiti solo se quell'account esiste e consente offerte in arrivo.",
+            "external_privacy_hint": "Questo crea solo un record locale privato. Nessuna notifica dell'app viene inviata.",
+            "available": "Disponibile"
         },
         "untitled_item": "Articolo senza titolo",
         "delete_action": "Elimina articolo",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Filtra per stanza",
         "refreshing_results": "Aggiornamento elementi...",
         "empty_filter_title": "Nessun articolo corrisponde a questa ricerca",
-        "delete_error_title": "Eliminazione fallita"
+        "delete_error_title": "Eliminazione fallita",
+        "tools": {
+            "title": "Strumenti"
+        },
+        "no_room": "Nessuna stanza",
+        "all_locations": "Tutte le posizioni",
+        "location_filter_label": "Filtra per posizione",
+        "visibility_filter_label": "Filtra per visibilità",
+        "visibility_all": "Tutte le visibilità",
+        "visibility_mine": "I miei oggetti",
+        "visibility_others": "Altri membri",
+        "borrow_filter_label": "Filtra per stato di prestito",
+        "borrow_filter_all": "Tutti gli stati di prestito",
+        "stock_filter_label": "Filtra per stato di stock",
+        "stock_filter_all": "Tutti gli stati di stock",
+        "stock_filter_ok": "Stock disponibile",
+        "expiry_filter_label": "Filtra per data di scadenza",
+        "expiry_filter_all": "Tutte le date di scadenza",
+        "expiry_filter_dated": "Ha la data",
+        "expiry_filter_none": "Nessuna data",
+        "warranty_filter_label": "Filtra per garanzia",
+        "warranty_filter_all": "Tutte le garanzie",
+        "warranty_filter_expired": "Garanzie scadute",
+        "warranty_filter_close": "In scadenza",
+        "warranty_filter_active": "Garanzie attive",
+        "warranty_filter_none": "Nessuna informazione sulla garanzia",
+        "sort_label": "Ordina",
+        "sort_updated_desc": "Aggiornato di recente",
+        "sort_updated_asc": "Aggiornamento più vecchio",
+        "sort_created_desc": "Più recenti prima",
+        "sort_created_asc": "Più vecchi prima",
+        "sort_name_asc": "Nome A-Z",
+        "sort_name_desc": "Nome Z-A",
+        "sort_quantity_desc": "Quantità da alta a bassa",
+        "sort_quantity_asc": "Quantità da bassa a alta",
+        "sort_expiry_asc": "Scadenza più vicina",
+        "sort_expiry_desc": "Scadenza più lontana",
+        "stock_increase": "Aumenta scorte",
+        "stock_decrease": "Diminuisci scorte",
+        "stock_adjust_error": "Impossibile aggiornare le scorte.",
+        "bulk": {
+            "select_visible": "Seleziona visibile",
+            "clear_visible": "Deseleziona visibile",
+            "selected_short": "selezionato",
+            "keep_category": "Mantieni categoria",
+            "keep_room": "Mantieni la stanza",
+            "keep_location": "Mantieni la posizione",
+            "keep_visibility": "Mantieni la visibilità",
+            "apply": "Applica",
+            "no_fields": "Scegli almeno un campo per l'azione di massa.",
+            "updated_title": "Aggiornamento di massa completato",
+            "updated_body": "{{count}} elementi aggiornati. {{skipped}} saltati.",
+            "update_error": "Non è stato possibile completare l'aggiornamento di massa.",
+            "deleted_title": "Eliminazione massiva completata",
+            "deleted_body": "{{count}} elementi eliminati. {{skipped}} ignorati.",
+            "delete_error": "L'eliminazione massiva non può essere completata.",
+            "delete_title": "Eliminare gli elementi selezionati?",
+            "delete_description": "{{count}} elementi selezionati saranno rimossi da questo inventario domestico. Questa operazione non può essere annullata.",
+            "select_item": "Seleziona elemento",
+            "unselect_item": "Deseleziona elemento"
+        },
+        "qr_labels": {
+            "title": "Etichette QR",
+            "open": "Etichette degli articoli",
+            "description": "{{count}} etichette degli articoli sono pronte come foglio di stampa.",
+            "empty": "Cambia i filtri o aggiungi articoli in inventario per stampare le etichette.",
+            "sheet_label": "Foglio di etichette degli articoli",
+            "item_label": "Etichetta articolo"
+        }
     },
     "categories": {
         "title": "Categorie",
@@ -1341,7 +1436,7 @@
             "no_logs": "nessun registro ancora",
             "errors_title": "Errori di sistema (Ultimi 10)",
             "no_errors": "// Sistema sano, nessun registro di errori.",
-            "date_fmt": "{{data, dataora}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "E-mail",
                 "user": "Utente",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Unità mesh",
-                    "meta": "Consolle TV • Deco M4",
+                    "meta": "Consolle TV • Network node",
                     "state": null
                 },
                 {
@@ -1929,7 +2024,7 @@
             "bodyLine2": "In attesa dell'approvazione del proprietario della casa"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{NomeMarca}} - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Accesso alla Casa",
             "bodyLine1Template": "Richiesta in sospeso attuale: {{house}} ({{status}})",
             "bodyLine2": "La tua richiesta per \"{{house}}\" è ancora in attesa di una decisione.",
@@ -1958,7 +2053,7 @@
         },
         "adminEmail": {
             "sentBy": "Questa email è stata inviata da {{brandName}}.",
-            "footer": "© 2026 {{NomeMarca}} - {{supportEmail}}"
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         },
         "testEmail": {
             "subject": "🧪 Email di prova {{brandName}}",
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Impossibile caricare il centro prestiti",
             "action_error": "L'azione non può essere completata",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Impossibile trovare questo record di prestito attivo. Aggiorna il Centro Prestiti e riprova.",
             "errors": {
                 "external_target_daily_limit": "Puoi inviare solo una richiesta di primo contatto esterna alla stessa persona al giorno. Se accetta una richiesta, questo limite non si applica più a quella persona.",
                 "external_total_daily_limit": "Puoi inviare fino a 5 richieste di primo contatto esterne al giorno.",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "Menu account di {{name}}"
     },
     "app": {
-        "name": "{{NomeMarchio}}",
+        "name": "{{brandName}}",
         "tagline": "Gestisci in modo intelligente tutti gli articoli della casa",
         "loading": "Caricamento {{brandName}}",
         "preparing_workspace": "Preparare il tuo spazio di lavoro..."
@@ -2553,7 +2648,104 @@
     "error_boundary": {
         "title": "Qualcosa ha bisogno di un rinfresco",
         "description": "L'interfaccia ha incontrato un problema di rendering inatteso. I dati dell'inventario salvati non vengono modificati da questa schermata.",
-        "refresh_btn": "Refresh",
+        "refresh_btn": "Aggiorna",
         "home_btn": "Casa"
+    },
+    "activity": {
+        "title": "Cronologia attività",
+        "description": "Modifiche protette recenti nel tuo inventario domestico.",
+        "empty_title": "Nessuna attività ancora",
+        "empty_description": "Modifiche agli articoli, aggiornamenti di magazzino, allegati, prestiti e azioni di massa appariranno qui.",
+        "unknown_actor": "Utente sconosciuto",
+        "deleted_item_with_id": "Articolo eliminato #{{id}}",
+        "item_missing": "Questo record dell'articolo non esiste più",
+        "actions": {
+            "item_created": "Elemento aggiunto",
+            "item_updated": "Elemento aggiornato",
+            "item_deleted": "Elemento eliminato",
+            "item_borrowed": "Elemento prestato",
+            "item_returned": "Articolo restituito",
+            "item_bulk_updated": "Aggiornamento collettivo",
+            "item_bulk_deleted": "Eliminazione collettiva",
+            "item_stock_adjusted": "Stock aggiornato",
+            "item_attachment_added": "Allegato aggiunto",
+            "item_attachment_deleted": "Allegato eliminato"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} record correlati",
+        "empty_title": "Nessun record correlato trovato",
+        "low_stock": {
+            "title": "Scorte basse",
+            "description": "Articoli al di sotto del livello minimo di scorte.",
+            "qty": "Scorte {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Articoli scaduti",
+            "description": "Articoli con data scaduta."
+        },
+        "expiring": {
+            "title": "Date di scadenza imminenti",
+            "description": "Articoli in scadenza entro 30 giorni."
+        },
+        "maintenance": {
+            "title": "Manutenzione scaduta",
+            "description": "Attività di manutenzione oltre la data programmata."
+        }
+    },
+    "notifications": {
+        "title": "Centro notifiche",
+        "description": "Avvisi su scorte, garanzia, manutenzione, scadenza e restituzione prestiti.",
+        "meta_total": "{{count}} notifiche",
+        "meta_urgent": "{{count}} urgente",
+        "empty_title": "Nessun avviso richiede la tua attenzione in questo momento",
+        "empty_desc": "Scorte basse, date imminenti e manutenzione scaduta appariranno qui.",
+        "items": {
+            "stock_empty_title": "Esaurito",
+            "stock_low_title": "Scorte basse",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Data di scadenza passata",
+            "expiry_close_title": "Data di scadenza imminente",
+            "warranty_expired_title": "Garanzia scaduta",
+            "warranty_close_title": "Garanzia in scadenza",
+            "maintenance_overdue_title": "Manutenzione in ritardo",
+            "maintenance_close_title": "Manutenzione in scadenza",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Restituzione prestito in ritardo",
+            "borrow_close_title": "Restituzione del prestito in scadenza",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} giorni rimanenti ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Centro Assistenza e Garanzia",
+        "description": "Traccia garanzie, programmi di manutenzione e azioni di servizio in un unico posto.",
+        "meta_warranty": "{{count}} registrazioni di garanzia",
+        "meta_tasks": "{{count}} attività di manutenzione",
+        "empty_title": "Nessuna azione di servizio o garanzia",
+        "empty_desc": "Le prossime date di garanzia e le attività di manutenzione saranno raccolte qui.",
+        "warranty_section": "Tracciamento Garanzia",
+        "warranty_desc": "Garanzie scadute e garanzie in scadenza entro 30 giorni.",
+        "maintenance_section": "Azioni di Manutenzione",
+        "maintenance_desc": "Attività di manutenzione scadute e imminenti.",
+        "no_warranty": "Nessuna azione di garanzia imminente.",
+        "no_tasks": "Nessun compito di manutenzione programmato.",
+        "overdue": "Scaduto",
+        "upcoming": "Presto",
+        "expired": "Garanzia scaduta",
+        "summary_warranty": "Tracciamento garanzia",
+        "summary_tasks": "Compiti di manutenzione",
+        "open_warranty_filter": "Filtro garanzia aperta",
+        "open_warranty_filter_desc": "Filtra gli articoli in garanzia attiva nell'inventario."
+    },
+    "storage_labels": {
+        "title": "Etichette per scaffali e stanze",
+        "description": "{{count}} etichetta/e per stanze/scaffali sono pronte come foglio di stampa.",
+        "empty_title": "Nessuna stanza o scaffale da etichettare",
+        "empty_desc": "Aggiungi prima le stanze o le località, quindi stampa le etichette QR qui.",
+        "sheet_label": "Foglio etichette località",
+        "scan_hint": "Scansionando il codice QR si apre l'inventario filtrato per quella stanza o scaffale.",
+        "room": "Stanza",
+        "location": "Scaffale/Scatola"
     }
 }

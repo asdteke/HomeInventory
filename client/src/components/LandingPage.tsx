@@ -168,7 +168,7 @@ export default function LandingPage() {
             heroInventoryRows: [
                 { name: 'Airfryer', meta: 'Mutfak tezgahı • Garanti 08/2028', state: null, icon: Package, accent: isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#5d8b6a]' },
                 { name: 'Matkap seti', meta: 'Depo dolabı • 14 parça', state: 'Ödünç verildi', icon: Package, accent: 'text-[#b3874f]' },
-                { name: 'Mesh uydu ünitesi', meta: 'TV ünitesi • Deco M4', state: null, icon: Smartphone, accent: 'text-[#5a7388]' },
+                { name: 'Mesh uydu ünitesi', meta: 'TV ünitesi • Ağ noktası', state: null, icon: Smartphone, accent: 'text-[#5a7388]' },
                 { name: 'Yedek kapı anahtarı', meta: 'Antre çekmecesi', state: null, icon: KeyRound, accent: 'text-[#a57e45]' },
                 { name: 'Kombi garanti PDF’i', meta: 'Belgeler • PDF eklendi', state: null, icon: FileText, accent: isCustomBrand ? 'text-[var(--hi-secondary)]' : 'text-[#6c7b69]' },
                 { name: 'HEPA filtre', meta: 'Çocuk odası • Değişim 11/2026', state: null, icon: Package, accent: isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#6f9978]' }
@@ -260,7 +260,7 @@ export default function LandingPage() {
         }
         : {
             hero: {
-                statement: 'Know what you own. Find it without the friction.',
+                statement: 'HomeInventory keeps your home inventory organized.',
                 statementAccent: 'Shared inventory for the household. Personal Vault just for you.',
                 description: 'Keep items, warranties, important documents, and borrow tracking in one calm place. See what your home contains at a glance.',
                 primaryCta: 'Start Free',
@@ -271,7 +271,7 @@ export default function LandingPage() {
             heroInventoryRows: [
                 { name: 'Air fryer', meta: 'Kitchen counter • Warranty 08/2028', state: null, icon: Package, accent: isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#5d8b6a]' },
                 { name: 'Drill set', meta: 'Storage cabinet • 14 pieces', state: 'Borrowed', icon: Package, accent: 'text-[#b3874f]' },
-                { name: 'Mesh unit', meta: 'TV console • Deco M4', state: null, icon: Smartphone, accent: 'text-[#5a7388]' },
+                { name: 'Mesh unit', meta: 'TV console • Network node', state: null, icon: Smartphone, accent: 'text-[#5a7388]' },
                 { name: 'Spare door key', meta: 'Entry drawer', state: null, icon: KeyRound, accent: 'text-[#a57e45]' },
                 { name: 'Boiler warranty PDF', meta: 'Documents • PDF attached', state: null, icon: FileText, accent: isCustomBrand ? 'text-[var(--hi-secondary)]' : 'text-[#6c7b69]' },
                 { name: 'HEPA filter', meta: 'Kids room • Replace 11/2026', state: null, icon: Package, accent: isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#6f9978]' }

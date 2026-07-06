@@ -1,6 +1,7 @@
 {
     "common": {
         "save": "Kaydet",
+        "saving": "Kaydediliyor...",
         "cancel": "İptal",
         "loading": "Yükleniyor...",
         "error": "Hata oluştu",
@@ -44,7 +45,17 @@
         "unauthorized": "Yetkisiz erişim",
         "forbidden": "Bu işlem için yetkiniz yok",
         "validation_error": "Doğrulama hatası",
-        "server_error": "Sunucu hatası"
+        "server_error": "Sunucu hatası",
+        "details": "Detay",
+        "hide": "Şifreyi gizle",
+        "logging_out": "Çıkış yapılıyor...",
+        "show": "Şifreyi göster",
+        "disabled": "Engelli",
+        "zoom_in": "Yakınlaştır",
+        "zoom_out": "Uzaklaştır",
+        "reset": "Sıfırla",
+        "print": "Yazdır",
+        "record_count": "{{count}} kayıt"
     },
     "meta": {
         "page_title_sign_in": "Giriş yap",
@@ -59,6 +70,18 @@
     },
     "auth": {
         "password_requirements": "Şifre en az {{min}} karakter olmalı; büyük harf, küçük harf, rakam ve özel karakter içermeli.",
+        "password_errors": {
+            "min_length": "Şifre en az {{min}} karakter olmalı",
+            "lowercase_required": "Şifre en az bir küçük harf içermeli",
+            "uppercase_required": "Şifre en az bir büyük harf içermeli",
+            "number_required": "Şifre en az bir rakam içermeli",
+            "symbol_required": "Şifre en az bir özel karakter içermeli",
+            "repeated_chars": "Şifrede art arda tekrar eden karakterler kullanmayın",
+            "predictable_sequence": "Şifrede kolay tahmin edilen sıralar kullanmayın",
+            "common_password": "Bu şifre çok yaygın ve güvensiz",
+            "contains_username": "Şifre kullanıcı adı içermemeli",
+            "contains_email": "Şifre e-posta bilgisini içermemeli"
+        },
         "login": {
             "welcome_title": "Tekrar hoş geldiniz",
             "welcome_subtitle": "Envanterinize erişmek için giriş yapın",
@@ -82,7 +105,7 @@
             "register_link": "Kayıt ol",
             "legal_intro": "Devam ederek",
             "support_contact": "Giriş sorunları için:",
-            "terms_title": "📋 Kullanım Şartları ve Sorumluluk Reddi",
+            "terms_title": "Kullanım Şartları ve Sorumluluk Reddi",
             "terms_beta": "BETA Sürümü: {{brandName}} şu anda test aşamasındadır. Verilerinizin kalıcılığı veya güvenliği konusunda hiçbir garanti verilmemektedir.",
             "terms_disclaimer": "Sorumluluk Reddi: Bu uygulamayı kullanarak, olası veri kaybı, erişim sorunları veya diğer teknik aksaklıklardan dolayı hiçbir tazminat talep edemeyeceğinizi kabul etmiş olursunuz.",
             "terms_backup": "Veri Yedekleme: Önemli bilgilerinizi düzenli olarak yedeklemenizi şiddetle tavsiye ederiz.",
@@ -97,7 +120,8 @@
                 "verify": "Doğrula",
                 "back": "Geri",
                 "use_backup": "Yedek kod kullan",
-                "use_totp": "Doğrulama uygulaması kullan"
+                "use_totp": "Doğrulama uygulaması kullan",
+                "code_required": "Doğrulama kodu gerekli"
             }
         },
         "register": {
@@ -111,8 +135,8 @@
             "mode_label": "Nasıl devam etmek istersiniz?",
             "mode_create_body": "Evinizi oluşturun, davetleri daha sonra paylaşın.",
             "mode_join_body": "Size verilen Ev Anahtarı ile katılın.",
-            "create_house_desc": "🏠 Yeni bir ev oluşturulacak ve size özel bir <strong>Ev Anahtarı</strong> verilecek. Bu anahtarı ailenizle paylaşarak aynı envantere erişebilirsiniz.",
-            "join_house_desc": "👨‍👩‍👧‍👦 Mevcut bir eve katılmak için size paylaşılan <strong>Ev Anahtarı</strong>'nı girin. İsteğiniz ev sahibinin onayına gönderilir.",
+            "create_house_desc": "Yeni bir ev oluşturulacak ve size özel bir <strong>Ev Anahtarı</strong> verilecek. Bu anahtarı ailenizle paylaşarak aynı envantere erişebilirsiniz.",
+            "join_house_desc": "Mevcut bir eve katılmak için size paylaşılan <strong>Ev Anahtarı</strong>'nı girin. İsteğiniz ev sahibinin onayına gönderilir.",
             "form_title": "Hesap oluştur",
             "account_section": "Hesabınız",
             "access_section": "Ev erişimi",
@@ -156,7 +180,7 @@
             "key_required": "Mevcut eve katılmak için Ev Anahtarı gerekli",
             "modals": {
                 "key_created": {
-                    "title": "🎉 Eviniz Oluşturuldu!",
+                    "title": "Eviniz Oluşturuldu!",
                     "subtitle": "Aşağıdaki anahtarı güvenli bir yere kaydedin",
                     "warning": "Önemli: Bu anahtar sadece bir kez gösterilecek. Aile üyelerinizin aynı envantere erişebilmesi için bu anahtarı onlarla paylaşın.",
                     "copy": "Kopyala",
@@ -168,7 +192,7 @@
                     "button": "Anahtarı Kaydettim, Devam Et"
                 },
                 "email_verification": {
-                    "title": "📧 E-posta Doğrulama Gerekli",
+                    "title": "E-posta Doğrulama Gerekli",
                     "message": "Hesabınız oluşturuldu! Giriş yapmak için e-posta adresinizi doğrulayın.",
                     "step_1": "<1>{{email}}</1> adresine bir doğrulama e-postası gönderdik.",
                     "step_2": "E-postadaki <1>\"Hesabımı Doğrula\"</1> butonuna tıklayın.",
@@ -292,6 +316,23 @@
         "user_not_found": "Kullanıcı bulunamadı",
         "email_not_verified": "E-posta adresiniz doğrulanmamış. Lütfen gelen kutunuzu kontrol edin.",
         "two_factor_invalid": "Doğrulama kodu hatalı",
+        "two_factor_invalid_try_again": "Doğrulama kodu hatalı. Lütfen tekrar deneyin.",
+        "two_factor_code_required": "Doğrulama kodu gerekli",
+        "two_factor_user_not_found": "Kullanıcı bulunamadı",
+        "two_factor_already_enabled": "2FA zaten etkin durumda",
+        "two_factor_setup_not_started": "Önce 2FA kurulumunu başlatın",
+        "two_factor_setup_error": "2FA kurulumu sırasında hata oluştu",
+        "two_factor_activation_error": "2FA etkinleştirme sırasında hata oluştu",
+        "two_factor_password_required": "Şifre gerekli",
+        "two_factor_credentials_required": "TOTP kodu, yedek kod veya kurtarma anahtarı gerekli",
+        "two_factor_already_disabled": "2FA zaten devre dışı",
+        "two_factor_password_incorrect": "Şifre hatalı",
+        "two_factor_verification_failed": "Doğrulama başarısız. Kodu kontrol edip tekrar deneyin.",
+        "two_factor_disable_error": "2FA devre dışı bırakılırken hata oluştu",
+        "two_factor_not_enabled": "2FA etkin değil",
+        "two_factor_regenerate_codes_error": "Yedek kodlar yenilenirken hata oluştu",
+        "two_factor_enabled_success": "2FA başarıyla etkinleştirildi",
+        "two_factor_disabled_success": "2FA başarıyla devre dışı bırakıldı",
         "current_password_wrong": "Mevcut şifre yanlış",
         "passwords_dont_match": "Yeni şifreler eşleşmiyor",
         "password_too_short": "Yeni şifre en az 6 karakter olmalı",
@@ -322,7 +363,12 @@
         "logout_title": "Çıkış yapılsın mı?",
         "logout_description": "Giriş ekranına döneceksiniz ve ev envanterinizi yönetmek için yeniden oturum açmanız gerekecek.",
         "logout_warning": "Ortak veya kişisel bir cihazda işiniz bittiğinde bunu kullanın.",
-        "menu": "Menü"
+        "menu": "Menü",
+        "maintenance": "Bakım Takvimi",
+        "shopping": "Alışveriş Listesi",
+        "activity": "Aktivite",
+        "notifications": "Bildirimler",
+        "service": "Servis"
     },
     "layout": {
         "secondary_controls_title": "Araçlar",
@@ -335,14 +381,28 @@
     },
     "dashboard": {
         "welcome": "Tekrar hoş geldin, <1>{{name}}</1>",
+        "alerts": {
+            "expired_title": "Tarihi geçmiş eşyalar",
+            "expired_desc": "Tarihi geçen eşya: {{count}}.",
+            "view_items": "Eşyaları Gör",
+            "maintenance_title": "Gecikmiş bakım",
+            "maintenance_desc": "Gecikmiş bakım: {{count}}.",
+            "go_to_maintenance": "Bakıma Git",
+            "low_stock_title": "Azalan stok",
+            "low_stock_desc": "Azalan stok: {{count}}.",
+            "go_to_shopping": "Alışveriş Listesi",
+            "close_expiry_title": "Yaklaşan son kullanma",
+            "close_expiry_desc": "Yaklaşan tarih: {{count}}.",
+            "view_low_stock_items": "Azalan stokları gör"
+        },
         "subtitle": "Envanterinizin genel durumu",
         "quick_search": "Hızlı ara...",
         "page": {
             "kicker": "Ana Sayfa",
             "title": "Ana Sayfa",
-            "description_ready": "Envanterde arayın, son eklenenlere göz atın ve sıradaki işe hızlıca geçin.",
+            "description_ready": "",
             "description_empty": "Tek bir net başlangıç noktasından düzenli ve aranabilir bir ev kaydı oluşturmaya başlayın.",
-            "loading_description": "Ana görünüm hazırlanıyor. Son eklenenler ve hızlı arama birkaç saniye içinde gelecek."
+            "loading_description": "Ana görünüm hazırlanıyor."
         },
         "top_bar": {
             "beta": "Beta",
@@ -362,7 +422,7 @@
         },
         "search_panel": {
             "title": "Envanterde ara",
-            "description": "Eşya, oda, konum veya barkodu tek yerden bulun.",
+            "description": "",
             "placeholder": "Eşya, oda, konum veya barkod ara",
             "submit": "Envanteri ara",
             "secondary_hint": "Hassas kayıtlar ayrı tutulur."
@@ -374,7 +434,7 @@
             "vault_description": "Belge, kod ve diğer hassas kayıtları paylaşılan aramanın dışında tutun."
         },
         "filters": {
-            "private": "🔒 Özel Eşyalarım",
+            "private": "Özel Eşyalarım",
             "public": "🌐 Herkese Açık",
             "remove": "Filtreyi Kaldır",
             "no_items": "Bu filtreye uygun eşya yok"
@@ -434,7 +494,7 @@
             "manage": "Yönet"
         },
         "quick_actions": {
-            "title": "⚡ Hızlı İşlemler",
+            "title": "Hızlı İşlemler",
             "add_item": "Eşya Ekle",
             "search_item": "Eşya Ara",
             "categories": "Kategoriler",
@@ -479,7 +539,9 @@
         "load_error": "Eşya yüklenemedi",
         "form": {
             "name": "Eşya Adı",
-            "name_placeholder": "örn: Samsung TV 55 inç",
+            "name_placeholder": "örn: TV 55 inç",
+            "expiry_date": "Son Kullanma Tarihi",
+            "min_quantity": "Minimum Miktar",
             "required": "*",
             "description": "Açıklama",
             "description_placeholder": "Eşya hakkında notlar...",
@@ -501,6 +563,14 @@
             "location_selected": "Konum seçildi: {{name}}",
             "location_empty": "Bu odada henüz konum tanımlı değil. Yazmaya başlayarak yeni konum oluşturabilirsiniz.",
             "photo": "Fotoğraf",
+            "take_photo": "Kamerayla Çek",
+            "take_photo_sub": "Cihaz kamerasını aç",
+            "choose_from_gallery": "Galeriden Seç",
+            "choose_from_gallery_sub": "Albümden görsel seç",
+            "photo_selected_badge": "Yeni Fotoğraf",
+            "photo_existing_badge": "Mevcut Fotoğraf",
+            "no_photo_yet": "Fotoğraf Eklenmedi",
+            "photo_options_title": "Görsel Ekleme Seçenekleri",
             "add_photo": "Ekle",
             "vault_hint_title": "Çok hassas bir kayıt mı?",
             "vault_hint_description": "Pasaport, tapu, kimlik bilgileri, erişim kodları ve normal envanter listenizde tutmak istemediğiniz diğer kayıtlar için Kişisel Kasa'yı kullanın.",
@@ -535,7 +605,10 @@
             "visibility_private": "Sadece siz görebilirsiniz",
             "submit_add": "Eşyayı Ekle",
             "submit_save": "Değişiklikleri Kaydet",
-            "submitting": "Kaydediliyor..."
+            "submitting": "Kaydediliyor...",
+            "location": "Konum",
+            "remove_photo": "Fotoğrafı kaldır",
+            "visibility_owner_only": "Görünürlüğü yalnızca eşyayı ekleyen kişi değiştirebilir."
         },
         "qrcode": {
             "title": "QR Kod",
@@ -588,7 +661,24 @@
         "delete_error": "Eşya silinirken hata oluştu",
         "no_permission": "Bu eşya üzerinde işlem yapma yetkiniz yok",
         "barcode_search_error": "Barkod araması başarısız",
-        "stats_error": "İstatistikler yüklenemedi"
+        "stats_error": "İstatistikler yüklenemedi",
+        "detail_subtitle": "Eşya detayları",
+        "status": {
+            "close_to_expiry": "Son Kullanma Yakın",
+            "expired": "Süresi Geçmiş",
+            "low_stock": "Azalan Stok"
+        },
+        "untitled_item": "İsimsiz eşya",
+        "attachments": {
+            "title": "Fotoğraflar ve dosyalar",
+            "add": "Dosya ekle",
+            "empty": "Henüz dosya eklenmemiş.",
+            "form_desc": "Eşya fotoğrafı, fiş, fatura veya servis belgesi ekleyin.",
+            "detail_desc": "Bu eşya için saklanan fotoğraf, fiş, fatura ve servis dosyaları.",
+            "upload_error": "Dosyalar yüklenemedi.",
+            "delete_error": "Dosya silinemedi.",
+            "delete_confirm": "Bu dosya silinsin mi?"
+        }
     },
     "vault": {
         "title": "Kişisel Kasa",
@@ -673,11 +763,33 @@
             "delete_success_body": "Özel kayıt kasanızdan kalıcı olarak kaldırıldı.",
             "decrypt_failed": "Kasa içeriği çözülemedi.",
             "name_required": "Kasa kaydı için eşya adı gerekli.",
-            "options_failed": "Kategori ve oda seçenekleri yüklenemedi."
+            "options_failed": "Kategori ve oda seçenekleri yüklenemedi.",
+            "passphrase_lowercase": "En az bir küçük harf ekleyin.",
+            "passphrase_min_length": "Kasa parolası en az 12 karakter olmalıdır.",
+            "passphrase_number": "En az bir rakam ekleyin.",
+            "passphrase_uppercase": "En az bir büyük harf ekleyin."
         }
     },
     "settings": {
         "title": "Ayarlar",
+        "borrow_requests": {
+            "accordion_eyebrow": "Ödünç talebi güvenliği",
+            "accordion_eyebrow_desc": "Talep kurallarını yapılandırın ve kullanıcı engellerini yönetin.",
+            "title": "Ödünç talebi ayarları",
+            "description": "Hesaplar arası ödünç talebi alma kurallarını yönetin ve engellenen kullanıcıları listeleyin.",
+            "policy_title": "Yeni Ödünç Talepleri",
+            "policy_description": "Size kimlerin ödünç talebi gönderebileceğini belirleyin. Envanteriniz hiçbir zaman herkese açık bir liste olarak gösterilmez.",
+            "policy_none": "Hiç kimseden alma (Varsayılan)",
+            "policy_house_only": "Sadece ev üyeleri",
+            "policy_everyone": "Tüm kayıtlı kullanıcılardan al",
+            "blocks_title": "Engellenen Kullanıcılar",
+            "blocks_description": "Yeni ödünç talebi göndermesini engellediğiniz kullanıcılar.",
+            "no_blocks": "Engellenmiş kullanıcı bulunmuyor.",
+            "unblock_btn": "Engeli Kaldır",
+            "policy_none_desc": "Tüm gelen talepler otomatik olarak engelleniyor.",
+            "policy_house_only_desc": "Sadece aktif hanelerinizin doğrulanmış üyeleri, zaten o ortak hanede görünür olan eşyalar için talep gönderebilir.",
+            "policy_everyone_desc": "Diğer kullanıcılar eşyalarınızı gezemez veya göremez. Yalnızca kullanıcı adınızı ya da e-posta adresinizi doğrudan girerek size talep gönderebilirler."
+        },
         "language": "Dil",
         "subtitle": "Hesap, ev erişimi ve uygulama tercihlerini yönetin",
         "control_sections": {
@@ -695,7 +807,7 @@
         },
         "account_overview": {
             "title": "Hesap özeti",
-            "description": "Oturumu açık hesap için temel profil bilgileri."
+            "description": "Oturumu açık hesap için temel profil ve güvenlik ayarları."
         },
         "security_section": {
             "eyebrow": "Güvenlik ve tercihler",
@@ -759,9 +871,14 @@
             "revoke_devices": "Güvenilen Cihazları Kaldır",
             "revoke_devices_desc": "Tüm hatırlanan cihazları kaldır, sonraki girişte 2FA gerekli olur",
             "devices_revoked": "{{count}} güvenilen cihaz kaldırıldı",
-            "devices_error": "Cihazlar kaldırılamadı"
+            "devices_error": "Cihazlar kaldırılamadı",
+            "preparing_setup": "Kimlik doğrulama kurulumunuzu hazırlıyorum..."
         },
         "messages": {
+            "policy_update_error": "İstek ayarları güncellenemedi.",
+            "policy_updated": "İstek ayarları başarıyla güncellendi.",
+            "unblock_error": "Kullanıcı engeli kaldırılamadı.",
+            "unblocked_success": "Kullanıcı engeli kaldırıldı.",
             "house_switched": "{{name}} aktif edildi!",
             "house_switch_error": "Ev değiştirilemedi",
             "house_joined_success": "Eve başarıyla katıldınız!",
@@ -799,7 +916,9 @@
             "member_kick_error": "Üye evden çıkarılamadı",
             "recovery_key_regenerated": "Kurtarma anahtarı yenilendi",
             "recovery_key_error": "Kurtarma anahtarı yenilenemedi",
-            "account_delete_error": "Hesap silinemedi"
+            "account_delete_error": "Hesap silinemedi",
+            "house_owner_transferred": "Ev sahipliği devredildi",
+            "house_owner_transfer_error": "Ev mülkiyeti devredilemezdi."
         },
         "user_profile": {
             "edit_username": "Kullanıcı adını değiştir"
@@ -820,10 +939,14 @@
             "switch": "Aktif Yap",
             "leave": "Evden Ayrıl",
             "info": "Birden fazla eve üye olabilir ve aralarında geçiş yapabilirsiniz. Her ev kendi envanterini ayrı tutar.",
-            "leave_success_body": "Bu eve erişiminiz kaldırıldı. Gerekirse aktif eviniz otomatik olarak güncellendi."
+            "leave_success_body": "Bu eve erişiminiz kaldırıldı. Gerekirse aktif eviniz otomatik olarak güncellendi.",
+            "leave_title": "Bu evden ayrılınsın mı?",
+            "leave_warning": "Başka bir üye sizi tekrar davet edene veya onaylayana kadar bu ev çalışma alanına erişiminizi kaybedersiniz.",
+            "leaving": "Ayrılınıyor..."
         },
         "house_info": {
             "title": "Aktif Ev Anahtarı",
+            "access_section_eyebrow": "Ev erişimi",
             "access_section_title": "Ev erişimi ve üyeler",
             "access_section_body": "Aktif ev anahtarını gözden geçirin, üyeleri yönetin ve erişimi sadece güvendiğiniz kişilerle sınırlayın.",
             "key_label": "Ev Anahtarı",
@@ -862,7 +985,17 @@
             "reject": "Reddet",
             "kick": "Evden Çıkar",
             "invite_title": "Aile Üyelerini Davet Et",
-            "invite_desc": "Ev anahtarınızı paylaşarak aile üyelerinizin aynı envantere erişmesini sağlayın. Her üye kendi hesabıyla giriş yapar, ancak aynı verilere erişir."
+            "invite_desc": "Ev anahtarınızı paylaşarak aile üyelerinizin aynı envantere erişmesini sağlayın. Her üye kendi hesabıyla giriş yapar, ancak aynı verilere erişir.",
+            "kick_success_body": "{{name}} artık bu eve erişemiyor.",
+            "kick_title": "Bu üye kaldırılsın mı?",
+            "kick_warning": "Ev erişimi hemen sona erecek ve geri dönmek için yeni bir davet veya onay gerekecek.",
+            "kicking": "Kaldırılıyor...",
+            "transfer_owner": "Sahibi Yap",
+            "transferring_owner": "Transfer...",
+            "transfer_owner_title": "Ev mülkiyetini devretmek mi?",
+            "transfer_owner_confirm": "Bu hane mülkiyetini {{name}}'e devretmek mi?",
+            "transfer_owner_warning": "Artık bu evin sahibi olmayacaksın. Yeni sahip, üye onaylarını, görevden alınmalarını ve gelecekteki sahiplik değişikliklerini yönetecektir.",
+            "transfer_owner_success_body": "{{name}} artık bu evin sahibi."
         },
         "pending_requests": {
             "title": "Bekleyen Katılım İsteklerim",
@@ -875,7 +1008,9 @@
             "dark": "Karanlık Mod",
             "light": "Açık Mod",
             "light_aria": "Açık temaya geç",
-            "dark_aria": "Koyu temaya geç"
+            "dark_aria": "Koyu temaya geç",
+            "workspace_title": "Çalışma Alanı Teması",
+            "workspace_desc": "Bu cihaz için tercih ettiğiniz görsel tarzı seçin."
         },
         "language_description": "Gezinme, etiketler, yasal metinler ve tarih biçimleri için tek bir dil kullanın.",
         "language_updated_title": "Dil güncellendi",
@@ -896,7 +1031,12 @@
             "recovery_key_unavailable": "Mevcut kurtarma anahtarı görüntülenemiyor. Gerekirse yeniden üretin.",
             "recovery_key_action": "Yeniden Üret",
             "recovery_key_modal_desc": "Devam etmek için mevcut şifrenizi doğrulayın. Yeni anahtar size sadece bir kez gösterilecek.",
-            "recovery_key_loading": "Hazırlanıyor..."
+            "recovery_key_loading": "Hazırlanıyor...",
+            "accordion_title": "Güvenlik ve gizlilik",
+            "accordion_desc": "İki faktörlü kimlik doğrulamayı, güvenilir cihazları ve diğer hesaplardan ödünç alma talebi kurallarını yönetin.",
+            "description": "Ana şifrenizi ve kasa kurtarma yapılandırmalarınızı yönetin.",
+            "change_password_detail": "Hesabınızı güvende tutmak için şifrenizi güncelleyin",
+            "recovery_key_detail": "Şifrenizi unutursanız kasanızı kurtarmak için kullanılır"
         },
         "data_management": {
             "title": "Veri Yönetimi",
@@ -921,7 +1061,25 @@
             "unlock_and_import": "Kilidi aç ve içe aktar",
             "upload_backup": "Yedeği Yükle",
             "uploading": "Yükleniyor...",
-            "import_json": "JSON'dan içe aktar"
+            "import_json": "JSON'dan içe aktar",
+            "export_encrypted_notice": "Yedek, canlı ev verilerinden hazırlanır ve seçtiğiniz parola ile şifrelenir. Dosyayı daha sonra geri yüklemek için bu parola gerektiğinden güvenli bir yerde saklayın.",
+            "export_encrypted_title": "İndirmeden önce şifreleme uygulanacak",
+            "import_summary_body": "{{items}} eşya, {{categories}} kategori, {{rooms}} oda, {{locations}} konum, {{borrows}} ödünç kaydı geri yüklendi.",
+            "import_summary_title": "Yedek geri yüklendi",
+            "preview_categories": "Kategoriler",
+            "preview_items": "Eşyalar",
+            "preview_locations": "Konumlar",
+            "preview_rooms": "Odalar",
+            "skipped_borrows": "{{count}} mevcut ödünç kaydı atlandı.",
+            "skipped_categories": "{{count}} mevcut kategori atlandı.",
+            "skipped_items": "{{count}} mevcut eşya atlandı.",
+            "skipped_locations": "{{count}} mevcut konum atlandı.",
+            "skipped_rooms": "{{count}} mevcut oda atlandı.",
+            "owner_only_title": "Yedekleme ve Geri Yükleme Kısıtlı",
+            "owner_only_desc": "Veri yedekleme ve geri yükleme yalnızca ev sahibi tarafından yönetilebilir.",
+            "include_media_title": "Fotoğraf ve fatura görsellerini dahil et",
+            "include_media_body": "Tam yedek daha büyük olabilir, ancak eşya fotoğrafları ve fatura görselleri de geri yüklenebilir.",
+            "skipped_attachments": "{{count}} ek dosya atlandı."
         },
         "danger_zone": {
             "title": "Hesap",
@@ -934,7 +1092,8 @@
             "modal_warning_body": "Onaydan sonra hesaba erişiminizi hemen kaybedersiniz ve silinen uygulama verileri uygulama içinden geri getirilemez.",
             "password_label": "Mevcut şifrenizle doğrulayın",
             "confirm_delete": "Silmeyi onayla",
-            "deleting": "Siliniyor..."
+            "deleting": "Siliniyor...",
+            "description": "Hesabınızı silin ve tüm envanter veri setlerini kalıcı olarak kaldırın."
         },
         "about": {
             "title": "Uygulama Hakkında",
@@ -947,7 +1106,10 @@
             "legal_description": "Kabul ettikten sonra da kullanım koşulları ve gizlilik metinlerini buradan tekrar açabilirsiniz.",
             "terms_link": "Kullanım Koşulları",
             "privacy_link": "Gizlilik Politikası",
-            "feedback_subject": "Geri Bildirim - {{brandName}}"
+            "feedback_subject": "Geri Bildirim - {{brandName}}",
+            "logout_body": "Bu oturumdan ayrıldıktan sonra açık formlardaki kaydedilmemiş değişiklikler kaybolabilir.",
+            "logout_description": "Ana sayfaya döneceksiniz ve istediğiniz zaman tekrar giriş yapabilirsiniz.",
+            "logout_title": "Şimdi çıkış yapılsın mı?"
         },
         "modals": {
             "password": {
@@ -1003,7 +1165,13 @@
         "popular_languages": "Popüler Diller",
         "search_results": "Arama Sonuçları",
         "current_language": "Geçerli dil",
-        "languages_available": "dil mevcut"
+        "languages_available": "dil mevcut",
+        "activity_log": {
+            "title": "Aktivite ve denetim kaydı",
+            "description": "Eşya değişiklikleri, stok güncellemeleri, ekler ve toplu işlemlerin korumalı geçmişini inceleyin.",
+            "encrypted_title": "Aktivite kayıtları korumalı saklanır",
+            "encrypted_body": "Yeni aktivite aksiyonları ve detayları veritabanında şifreli tutulur; ekrandaki liste yalnızca açık oturumunuzda çözülür."
+        }
     },
     "inventory": {
         "title": "Envanter",
@@ -1028,14 +1196,15 @@
         "delete_description": "Bu işlem eşyayı aktif ev envanterinden kaldırır.",
         "delete_warning": "Fotoğraflar, açıklama ve yerleşim bilgileri de bu kayıtla birlikte kaldırılır.",
         "delete_error": "Silme hatası",
+        "delete_error_title": "Silme başarısız",
         "delete_success_title": "Eşya silindi",
         "delete_success_body": "Eşya aktif ev envanterinden kaldırıldı.",
         "view_mode": "Eşya görünümü",
         "grid_view": "Izgara",
         "list_view": "Liste",
         "load_warning": {
-            "title": "Kismi yukleme modu",
-            "body": "Bazi yardimci veriler su anda gec geldiginden sayfa tam filtre bilgileri olmadan acildi. Yenile dediginizde tekrar deneyecegiz."
+            "title": "Kısmi yükleme modu",
+            "body": "Bazı yardımcı veriler geciktiği için sayfa tam filtre bilgileri olmadan açıldı. Yenilediğinizde tekrar deneyeceğiz."
         },
         "borrow": {
             "section_title": "Ödünç Takibi",
@@ -1081,7 +1250,85 @@
             "history_active": "{{name}} için açık kayıt",
             "history_returned": "{{name}} kaydı kapatıldı",
             "returned_at": "Teslim alındı: {{date}}",
-            "no_history": "Bu eşya için henüz ödünç geçmişi yok."
+            "no_history": "Bu eşya için henüz ödünç geçmişi yok.",
+            "borrowed_by_you": "Sende",
+            "return_pending_hint": "Kayıt, eşyayı veren kişi geri teslim aldığını onaylayınca kapanacak.",
+            "return_pending_lender_title": "{{name}} bu eşyayı geri teslim ettiğini bildirdi",
+            "return_pending_self_title": "Sende, teslim alma onayı bekleniyor",
+            "site_member": "Site üyesi",
+            "site_member_identifier": "Kullanıcı adı veya e-posta",
+            "site_member_identifier_placeholder": "Tam kullanıcı adı veya e-posta",
+            "site_member_privacy_hint": "Teklif, sadece hesap varsa ve gelen tekliflere izin veriyorsa Ödünç Merkezi’nde görünür.",
+            "external_privacy_hint": "Bu sadece özel bir yerel kayıt oluşturur. Uygulama bildirimi gönderilmez.",
+            "available": "Müsait"
+        },
+        "tools": {
+            "title": "Araçlar"
+        },
+        "no_room": "Odasız",
+        "all_locations": "Tüm konumlar",
+        "location_filter_label": "Konuma göre filtrele",
+        "visibility_filter_label": "Görünürlüğe göre filtrele",
+        "visibility_all": "Tüm görünürlükler",
+        "visibility_mine": "Benim eşyalarım",
+        "visibility_others": "Diğer üyeler",
+        "borrow_filter_label": "Ödünç durumuna göre filtrele",
+        "borrow_filter_all": "Tüm ödünç durumları",
+        "stock_filter_label": "Stok durumuna göre filtrele",
+        "stock_filter_all": "Tüm stok durumları",
+        "stock_filter_ok": "Stok yeterli",
+        "expiry_filter_label": "Son kullanma durumuna göre filtrele",
+        "expiry_filter_all": "Tüm son kullanma durumları",
+        "expiry_filter_dated": "Tarihi olanlar",
+        "expiry_filter_none": "Tarihi olmayanlar",
+        "warranty_filter_label": "Garanti durumuna göre filtrele",
+        "warranty_filter_all": "Tüm garanti durumları",
+        "warranty_filter_expired": "Garantisi bitenler",
+        "warranty_filter_close": "Garantisi yakında bitecekler",
+        "warranty_filter_active": "Garantisi devam edenler",
+        "warranty_filter_none": "Garanti bilgisi olmayanlar",
+        "sort_label": "Sıralama",
+        "sort_updated_desc": "Son güncellenen",
+        "sort_updated_asc": "En eski güncelleme",
+        "sort_created_desc": "Yeni eklenen",
+        "sort_created_asc": "İlk eklenen",
+        "sort_name_asc": "Ada göre A-Z",
+        "sort_name_desc": "Ada göre Z-A",
+        "sort_quantity_desc": "Adet yüksekten düşüğe",
+        "sort_quantity_asc": "Adet düşükten yükseğe",
+        "sort_expiry_asc": "Son kullanma yakından uzağa",
+        "sort_expiry_desc": "Son kullanma uzaktan yakına",
+        "stock_increase": "Stok artır",
+        "stock_decrease": "Stok azalt",
+        "stock_adjust_error": "Stok güncellenemedi.",
+        "bulk": {
+            "select_visible": "Listedekileri seç",
+            "clear_visible": "Listedekilerin seçimini kaldır",
+            "selected_short": "seçili",
+            "keep_category": "Kategori değişmesin",
+            "keep_room": "Oda değişmesin",
+            "keep_location": "Konum değişmesin",
+            "keep_visibility": "Görünürlük değişmesin",
+            "apply": "Uygula",
+            "no_fields": "Toplu işlem için en az bir alan seçin.",
+            "updated_title": "Toplu güncelleme tamamlandı",
+            "updated_body": "{{count}} eşya güncellendi. {{skipped}} eşya atlandı.",
+            "update_error": "Toplu güncelleme tamamlanamadı.",
+            "deleted_title": "Toplu silme tamamlandı",
+            "deleted_body": "{{count}} eşya silindi. {{skipped}} eşya atlandı.",
+            "delete_error": "Toplu silme tamamlanamadı.",
+            "delete_title": "Seçili eşyalar silinsin mi?",
+            "delete_description": "{{count}} seçili eşya bu ev envanterinden kaldırılacak. Bu işlem geri alınamaz.",
+            "select_item": "Eşyayı seç",
+            "unselect_item": "Seçimi kaldır"
+        },
+        "qr_labels": {
+            "title": "QR Etiketleri",
+            "open": "Eşya Etiketleri",
+            "description": "{{count}} eşya etiketi düzenli çıktı sayfası olarak hazır.",
+            "empty": "Etiket basmak için filtreleri değiştirin veya envantere eşya ekleyin.",
+            "sheet_label": "Eşya Etiket Sayfası",
+            "item_label": "Eşya Etiketi"
         }
     },
     "borrow_requests": {
@@ -1171,7 +1418,7 @@
             "return_target": "Şu anda {{name}} kullanıcısında görünüyor.",
             "return_title_borrower": "Teslim et",
             "return_title_lender": "Teslim al",
-            "return_subtitle_borrower": "\"{{item}}\" için aktif ödünç kaydını teslim ettikten sonra kapat.",
+            "return_subtitle_borrower": "\"{{item}}\" için teslim ettim bildirimi gönder.",
             "return_subtitle_lender": "\"{{item}}\" için aktif ödünç kaydını geri teslim aldıktan sonra kapat.",
             "return_target_borrower": "Ödünç veren: {{name}}",
             "return_target_lender": "Şu anda kimde: {{name}}",
@@ -1179,11 +1426,31 @@
             "return_note_lender": "Teslim alma notu",
             "return_note_placeholder_borrower": "Örn: Sorunsuz teslim ettim",
             "return_note_placeholder_lender": "Örn: Sorunsuz teslim alındı",
-            "return_submitting": "Kapatılıyor..."
+            "return_submitting": "Kaydediliyor...",
+            "reject_title": "İsteği Reddet",
+            "reject_subtitle": "\"{{item}}\" talebini reddetmek üzeresiniz.",
+            "reject_target": "{{name}} tarafından gönderilen ödünç talebini reddetmek üzeresiniz.",
+            "reject_reason_label": "Reddetme Nedeni",
+            "reject_submitting": "Reddediliyor...",
+            "due_date_label": "Planlanan iade tarihi"
+        },
+        "reasons": {
+            "rejected": "Reddet (Normal ret)",
+            "not_available": "Eşyam yok / uygun değil",
+            "blocked": "Engelle ve reddet (Kullanıcıyı engeller)"
         },
         "messages": {
             "load_error": "Ödünç merkezi yüklenemedi",
-            "action_error": "İşlem tamamlanamadı"
+            "action_error": "İşlem tamamlanamadı",
+            "active_borrow_not_found": "Bu aktif ödünç kaydı bulunamadı. Ödünç Merkezi’ni yenileyip tekrar deneyin.",
+            "errors": {
+                "external_target_daily_limit": "Aynı kişiye günde yalnızca 1 ilk temas dış talebi gönderebilirsiniz. Karşı taraf talebi kabul ederse bu sınır artık o kişi için uygulanmaz.",
+                "external_total_daily_limit": "Günde en fazla 5 ilk temas dış talebi gönderebilirsiniz.",
+                "external_request_requires_verified_email": "Dış ödünç talebi göndermeden önce e-posta adresinizi doğrulayın.",
+                "external_offer_blocked": "Bir eşyayı yalnızca ev üyelerine veya doğrudan tanımlanabilen kayıtlı kullanıcılara teklif edebilirsiniz.",
+                "target_blocked_by_you": "Engellediğiniz bir kullanıcıya talep gönderemezsiniz.",
+                "recent_rejection_lock": "Bu kullanıcı yakın zamanda bir talebi reddetti. 30 gün sonra tekrar talep gönderebilirsiniz."
+            }
         },
         "refreshing": "İstekler ve aktif ödünçler yenileniyor...",
         "preview": {
@@ -1234,9 +1501,12 @@
         "deleted": "Kategori silindi",
         "not_found": "Kategori bulunamadı",
         "name_required": "Kategori adı gerekli",
+        "color_required": "Renk #RRGGBB formatında olmalı",
         "load_error": "Kategoriler yüklenirken hata oluştu",
         "add_error": "Kategori eklenirken hata oluştu",
-        "update_error": "Kategori güncellenirken hata oluştu"
+        "update_error": "Kategori güncellenirken hata oluştu",
+        "empty_description": "Yeni eşyalar aynı yapıyı izlesin ve daha kolay taransın diye birkaç kategori oluşturun.",
+        "empty_title": "Henüz kategori yok"
     },
     "rooms": {
         "title": "Odalar",
@@ -1310,7 +1580,9 @@
         "name_required": "Oda adı gerekli",
         "load_error": "Odalar yüklenirken hata oluştu",
         "add_error": "Oda eklenirken hata oluştu",
-        "update_error": "Oda güncellenirken hata oluştu"
+        "update_error": "Oda güncellenirken hata oluştu",
+        "empty_description": "Eşya konumları tutarlı ve daha kolay aranabilir olsun diye mutfak, depo veya garaj gibi odalar oluşturun.",
+        "empty_title": "Henüz oda yok"
     },
     "admin": {
         "title": "Yönetim Paneli",
@@ -1397,7 +1669,12 @@
             "households_label": "Hanehalkları",
             "items_label": "Sahip olunan eşyalar",
             "last_seen_short": "Görüldü",
-            "last_seen_short_never": "Yeni"
+            "last_seen_short_never": "Yeni",
+            "failed_logins": "{{count}} başarısız giriş",
+            "load_failed_title": "Kullanıcılar yüklenemedi",
+            "pending_requests": "{{count}} bekleyen ev isteği",
+            "role_admin": "Yönetici",
+            "role_user": "Kullanıcı"
         },
         "logs": {
             "title": "Yönetici Kayıtları",
@@ -1429,7 +1706,9 @@
             "section_body": "Her moderasyon veya operasyon değişikliği yönetici katmanına kaydedilir.",
             "errors_body": "Sunucu günlük dosyalarından ayrıştırılan en son hata satırları.",
             "section_eyebrow": "Denetim izi",
-            "errors_eyebrow": "Tanılama"
+            "errors_eyebrow": "Tanılama",
+            "load_failed_title": "Etkinlikler yüklenemedi",
+            "no_logs_title": "Henüz yönetici işlemi yok"
         },
         "email": {
             "status_title": "Giden e-posta durumu",
@@ -1448,7 +1727,7 @@
             "rate_limit_fallback": "dakikada 3 e-posta",
             "to": "Alıcı (To)",
             "subject": "Konu",
-            "placeholder_to": "name@example.com",
+            "placeholder_to": "isim@example.com",
             "placeholder_subject": "Mesaj konusu",
             "message": "Mesaj (HTML destekli)",
             "placeholder_message": "Mesajınızı buraya yazın...",
@@ -1463,7 +1742,14 @@
             "info_bullet_1": "E-postalar {{supportEmail}} adresinden gönderilir",
             "info_bullet_2": "Spam önlemek için dakikada en fazla 3 e-posta gönderilebilir",
             "info_bullet_3": "İçerik hariç tüm gönderimler güvenlik için loglanır",
-            "status_eyebrow": "Teslimat"
+            "status_eyebrow": "Teslimat",
+            "configured_body": "Resend, yönetici tarafından tetiklenen dışa giden mesajlar için kullanılabilir.",
+            "configured_title": "E-posta gönderimi yapılandırıldı",
+            "error_title": "E-posta gönderilemedi",
+            "format_hint": "HTML desteklenir. Örneğin: <b>kalın</b>, <i>italik</i>, <a href=\"...\">bağlantı</a>",
+            "from_label": "Gönderen",
+            "load_failed_title": "E-posta araçları yüklenemedi",
+            "success_title": "E-posta gönderildi"
         },
         "overview": {
             "email_warning_title": "E-posta teslimi yapılandırılmadı",
@@ -1540,7 +1826,9 @@
         "stats_loaded": "İstatistikler yüklendi",
         "logs_loaded": "Loglar yüklendi",
         "load_error": "Veriler yüklenirken hata oluştu",
-        "action_error": "İşlem sırasında hata oluştu"
+        "action_error": "İşlem sırasında hata oluştu",
+        "load_failed_body": "Yönetici alanı açık, ancak genel bakış verileri gelmedi. Sayfadan çıkmadan yeniden deneyebilirsiniz.",
+        "load_failed_title": "Yönetici özeti yüklenemedi"
     },
     "legal": {
         "privacy_policy_title": "Gizlilik Politikası",
@@ -1724,7 +2012,7 @@
                 },
                 {
                     "name": "Mesh uydu ünitesi",
-                    "meta": "TV ünitesi • Deco M4",
+                    "meta": "TV ünitesi • Network node",
                     "state": null
                 },
                 {
@@ -1950,7 +2238,7 @@
         "found_local": "Zaten kayıtlı",
         "found_local_msg": "Bu barkod envanterinizde zaten kayıtlı.",
         "found_online": "Ürün Bulundu!",
-        "google_result": "⚡ Google arama sonucu - doğrulayın",
+        "google_result": "Google arama sonucu - doğrulayın",
         "barcode": "Barkod: {{code}}",
         "new_product": "Yeni Ürün",
         "not_found_db": "Bu barkod veritabanlarında bulunamadı.",
@@ -1996,16 +2284,17 @@
         "link_privacy_note": "Ağ adresi burada görünmez. Yerel kurulumunuzda doğrudan eşya erişimini bilinçli olarak paylaşmak istediğinizde QR kodu okutun veya bağlantıyı kopyalayın.",
         "helper": "Okutunca anında açılır; gerekirse doğrudan bağlantıyı kopyalayın.",
         "usage_title": "Kullanım",
-        "usage_desc": "QR kodu yazdırıp eşyanın üzerine yapıştırın. Telefonunuzla okutarak anında bu sayfaya ulaşın!"
+        "usage_desc": "QR kodu yazdırıp eşyanın üzerine yapıştırın. Telefonunuzla okutarak anında bu sayfaya ulaşın!",
+        "loading": "QR araçları hazırlanıyor..."
     },
     "emails": {
         "verification": {
-            "subject": "🏠 {{brandName}} - 📧 E-posta Doğrulama Gerekli",
-            "headerTitle": "Hesabınıza hoş geldiniz",
+            "subject": "{{brandName}} - E-posta Doğrulama Gerekli",
+            "headerTitle": "Hoş geldiniz {{brandName}}",
             "headerSubtitle": "Yeni hesap oluşturun veya mevcut eve katılın",
-            "greeting": "Hesap doğrulama",
+            "greeting": "Hoş geldiniz {{brandName}}",
             "intro": "Hesabınız oluşturuldu! Giriş yapmak için e-posta adresinizi doğrulayın.",
-            "verifyPrompt": "📧 E-posta Doğrulama Gerekli",
+            "verifyPrompt": "E-posta Doğrulama Gerekli",
             "verifyButton": "✓ Hesabımı Doğrula",
             "warningTitle": "Güvenlik notu:",
             "warningBody": "Bu e-posta yalnızca adresinizi doğrulamak içindir. Ev erişimi ve davet bilgileri doğrulama sonrasında uygulama içinde gösterilir.",
@@ -2024,9 +2313,9 @@
         },
         "welcome": {
             "subject": "{{brandName}} hesabınız hazır",
-            "headerTitle": "Hesabınız hazır",
+            "headerTitle": "Hoş geldiniz {{brandName}}",
             "headerSubtitle": "Hesabınız hazır",
-            "greeting": "Hoş geldiniz",
+            "greeting": "Hoş geldiniz {{brandName}}",
             "intro": "Hesabınız başarıyla oluşturuldu. Ev erişimi ve davet bilgileri giriş yaptıktan sonra uygulama içinde gösterilir.",
             "houseKeyLabel": "Ev Anahtarı",
             "houseKeyNote": "Ev anahtarı güvenlik için e-posta içinde gönderilmez. Giriş yaptıktan sonra uygulama içinde görüntüleyebilirsiniz.",
@@ -2041,16 +2330,16 @@
             "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
-            "subject": "🏠 Yeni eve katılma isteği",
+            "subject": "Yeni eve katılma isteği",
             "greeting": "Ev erişim güncellemesi",
             "bodyLine1Template": "{{username}}, \"{{house}}\" evine katılmak istedi.",
             "bodyLine2": "Lütfen isteği uygulama içinden inceleyin."
         },
         "houseJoinDecision": {
-            "subjectTemplate": "Ev isteği {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Ev erişim güncellemesi",
             "bodyLine1Template": "\"{{house}}\" için isteğiniz {{status}}.",
-            "bodyLine2": "Güncel erişim durumunuzu uygulama içinden görebilirsiniz.",
+            "bodyLine2": "\"{{house}}\" için yaptığınız talep hâlâ karar bekliyor.",
             "statusLabels": {
                 "approved": "onaylandı",
                 "rejected": "reddedildi",
@@ -2058,14 +2347,14 @@
             }
         },
         "houseKick": {
-            "subject": "🏠 Ev erişiminiz kaldırıldı",
+            "subject": "Ev erişiminiz kaldırıldı",
             "greeting": "Ev erişim güncellemesi",
-            "bodyLine1Template": "\"{{house}}\" evine erişiminiz kaldırıldı.",
+            "bodyLine1Template": "\"{{name}}\" evine erişiminiz kaldırıldı.",
             "bodyLine2": "İstediğiniz zaman uygulama içinden başka bir eve katılabilirsiniz."
         },
         "passwordReset": {
-            "subject": "🔐 Şifreyi Sıfırla",
-            "headerTitle": "🔐 Şifreyi Sıfırla",
+            "subject": "Şifreyi Sıfırla",
+            "headerTitle": "Şifreyi Sıfırla",
             "greeting": "Şifre sıfırlama talebi",
             "intro": "Şifrenizi güvenli şekilde sıfırlamak için aşağıdaki butonu kullanın.",
             "buttonLabel": "Şifreyi Sıfırla",
@@ -2091,7 +2380,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Evinizin tüm eşyalarını akıllıca yönetin"
+        "tagline": "Evinizin tüm eşyalarını akıllıca yönetin",
+        "loading": "{{brandName}} yükleniyor",
+        "preparing_workspace": "İş alanınızı hazırlamak..."
     },
     "nav": {
         "home": "Ana Sayfa",
@@ -2183,5 +2474,278 @@
     "rate_limit": {
         "too_many_requests": "Çok fazla istek gönderdiniz. Lütfen 15 dakika sonra tekrar deneyin.",
         "too_many_login_attempts": "Çok fazla giriş denemesi. Lütfen 15 dakika sonra tekrar deneyin."
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Alışveriş listesi yüklenirken hata oluştu.",
+            "select_item_error": "Lütfen envanterden bir ürün seçin.",
+            "empty_name": "Lütfen ürün adı girin.",
+            "added": "Ürün alışveriş listesine eklendi.",
+            "add_error": "Ürün eklenirken bir hata oluştu.",
+            "added_suggestion": "\"{{name}}\" alışveriş listesine eklendi.",
+            "bulk_added": "{{count}} adet eksik stoklu ürün listeye eklendi.",
+            "bulk_error": "Eksik stoklu ürünler eklenirken hata oluştu.",
+            "completed": "\"{{name}}\" alındı olarak işaretlendi.",
+            "reactivated": "\"{{name}}\" aktif listeye geri taşındı.",
+            "update_error": "Güncelleme sırasında hata oluştu.",
+            "deleted": "Ürün listeden silindi.",
+            "delete_error": "Silme işlemi sırasında hata oluştu.",
+            "cleared_completed": "Alınan ürünler temizlendi.",
+            "clear_error": "Temizleme sırasında hata oluştu."
+        },
+        "loading_desc": "Alışveriş listesi hazırlanıyor...",
+        "page": {
+            "title": "Alışveriş Listesi",
+            "description": "Ev envanterinde azalan stoklu ürünleri görün ve kolayca alışveriş listenizi yönetin."
+        },
+        "suggestions": {
+            "title": "Stok Önerileri",
+            "desc": "Asgari stok sınırının altındaki envanter öğeleri.",
+            "add_all": "Tüm Eksikleri Ekle",
+            "stock_status": "Mevcut: {{current}} / Hedef: {{min}}",
+            "add_qty": "{{qty}} Ekle"
+        },
+        "sections": {
+            "active_list": "Alınacak Ürünler",
+            "active_desc": "Sepetinize ekleyeceğiniz güncel alışveriş öğeleri.",
+            "active_count": "{{count}} Ürün",
+            "completed_list": "Alınan Ürünler ({{count}})",
+            "add_item": "Manuel Ürün Ekle",
+            "add_desc": "Listeye el ile özel bir ürün ekleyin."
+        },
+        "empty": {
+            "title": "Alışveriş listeniz boş",
+            "desc": "Yukarıdaki önerilerden eksik stokları ekleyebilir veya sağdaki form ile manuel ürün ekleyebilirsiniz."
+        },
+        "card": {
+            "linked_inventory": "Envanterde Kayıtlı"
+        },
+        "actions": {
+            "clear_completed": "Geçmişi Temizle",
+            "add_item": "Alışveriş Listesine Ekle",
+            "mark_completed": "Tamamlanmış olarak işaret",
+            "decrease_qty": "Miktarı azalt",
+            "increase_qty": "Miktarı artır",
+            "delete_item": "Sil öğesi",
+            "reactivate_item": "Aktif listeye geri dön"
+        },
+        "form": {
+            "add_type": "Ekleme Yöntemi",
+            "add_type_inventory": "Envanter Eşyası",
+            "add_type_custom": "Özel Ürün",
+            "select_inventory_item": "Envanterden Eşya Seç",
+            "no_inventory_items": "Envanterinizde henüz eşya yok.",
+            "select_item_placeholder": "Bir eşya seçin",
+            "current_stock": "Mevcut",
+            "item_name": "Ürün Adı",
+            "item_name_placeholder": "Örn: Süt, Deterjan, Filtre Kahve...",
+            "quantity": "Adet / Miktar"
+        },
+        "modal": {
+            "delete_title": "Ürünü Listeden Sil?",
+            "delete_desc": "\"{{name}}\" ürününü alışveriş listenizden kaldırmak istediğinizden emin misiniz?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Bilgiler yüklenirken hata oluştu",
+            "select_item_error": "Lütfen bir eşya seçin.",
+            "task_name_error": "Görev adı gereklidir.",
+            "date_error": "Planlanan tarih gereklidir.",
+            "updated": "Bakım görevi güncellendi",
+            "created": "Yeni bakım görevi eklendi",
+            "save_error": "Kaydederken hata oluştu",
+            "deleted": "Bakım görevi başarıyla silindi.",
+            "delete_error": "Silme işlemi sırasında bir hata oluştu.",
+            "performed": "Bakım tamamlandı olarak kaydedildi. Bir sonraki tarih planlandı.",
+            "perform_error": "Kaydedilirken bir hata oluştu."
+        },
+        "freq": {
+            "one_time": "Tek Seferlik",
+            "unit": {
+                "days": "Gün",
+                "weeks": "Hafta",
+                "months": "Ay",
+                "years": "Yıl"
+            },
+            "format": "Her {{val}} {{unit}}"
+        },
+        "loading_desc": "Bakım takvimi yükleniyor...",
+        "page": {
+            "title": "Bakım & Periyodik Takip",
+            "description": "Ev envanterinizdeki cihazların, filtrelerin veya güvenlik ekipmanlarının periyodik bakım takvimlerini yönetin."
+        },
+        "actions": {
+            "add_task": "Yeni Görev Ekle",
+            "manage": "Yönet",
+            "perform": "Yapıldı Olarak İşaretle",
+            "edit_task": "Görevi Düzenle"
+        },
+        "alerts": {
+            "overdue_title": "Süresi Geçmiş Görevleriniz Var!",
+            "overdue_desc": "Zamanı geçmiş {{count}} bakım görevi bulunuyor. Gecikmeler cihaz ömrünü azaltabilir."
+        },
+        "empty": {
+            "title": "Planlanmış bakım görevi bulunmuyor",
+            "desc": "Klima filtresi temizliği, kombi bakımı veya yangın dedektörü pil kontrolü gibi tekrarlayan görevleri ekleyerek başlayın."
+        },
+        "sections": {
+            "overdue": "Zamanı Geçen Görevler",
+            "overdue_desc": "Hemen yapılması gereken acil bakımlar.",
+            "upcoming": "Planlı / Gelecek Görevler",
+            "upcoming_desc": "Önümüzdeki günlerde yaklaşan bakımlar.",
+            "no_upcoming": "Gelecekte planlanmış aktif görev yok."
+        },
+        "modal": {
+            "edit_title": "Görevi Düzenle",
+            "create_title": "Yeni Bakım Görevi Planla",
+            "perform_title": "Bakımı Tamamla",
+            "perform_desc": "\"{{name}}\" görevini bugün yapılmış olarak kaydetmek istiyor musunuz?",
+            "perform_confirm": "Evet, Tamamlandı",
+            "perform_recurrence_info": "Bu periyodik bir görevdir. Kaydettiğinizde sistem otomatik olarak bir sonraki bakım tarihini hesaplayacaktır.",
+            "delete_title": "Bakım Görevini Sil?",
+            "delete_desc": "\"{{name}}\" periyodik bakım programını silmek istediğinizden emin misiniz? Bu işlem geri alınamaz."
+        },
+        "form": {
+            "item": "İlgili Eşya",
+            "no_items": "Bakım planlamak için önce envantere bir eşya eklemelisiniz.",
+            "select_item_placeholder": "Bir Eşya Seçin",
+            "task_name": "Görev / İşlem Adı",
+            "task_name_placeholder": "Örn: Filtre Değişimi, Periyodik Kontrol...",
+            "description": "Detay / Açıklama",
+            "description_placeholder": "Görevin detayları, kullanılacak malzemeler vb...",
+            "frequency_value": "Tekrar Sıklığı",
+            "frequency_placeholder": "Örn: 6 (Boş bırakılırsa tek seferlik)",
+            "frequency_unit": "Sıklık Birimi",
+            "next_due_date": "Sıradaki Planlanan Tarih",
+            "section_help": "Bakım takvimlerini buradan yönetin",
+            "section_collapsed": "Periyodik kontrol ve görevleri eklemek için tıklayın",
+            "has_tasks": "{{count}} Görev",
+            "new_item_warning_title": "Eşya Kaydı Bekleniyor",
+            "new_item_warning_desc": "Bakım takvimi eklemek için önce bu eşyayı kaydetmeniz gerekmektedir.",
+            "manage_desc": "Bu cihaza veya eşyaya ait bakımları düzenleyin."
+        },
+        "fields": {
+            "task_name": "Görev Adı",
+            "task_name_placeholder": "örn. Klima filtresi temizliği",
+            "description": "Açıklama",
+            "description_placeholder": "Görev detayları veya yapılması gerekenler...",
+            "frequency_value": "Tekrarlama Sıklığı",
+            "frequency_value_placeholder": "Tek seferlik için boş bırakın",
+            "frequency_unit": "Zaman Birimi",
+            "next_due_date": "Planlanan Tarih"
+        },
+        "card": {
+            "untitled_item": "İsimsiz Eşya",
+            "last_performed": "Son Yapılma:",
+            "next_due_label": "Planlanan Tarih",
+            "complete_tooltip": "Bakımı Bugün Yapıldı Olarak İşaretle"
+        },
+        "detail_card_desc": "Bu eşya için planlanmış periyodik veya tek seferlik bakım takipleri.",
+        "no_tasks": "Bu eşyaya atanmış herhangi bir bakım görevi bulunmuyor.",
+        "confirm_delete": "Bu görev silinecek. Emin misiniz?"
+    },
+    "error_boundary": {
+        "title": "Bir şeyin yenilenmesi gerekiyor",
+        "description": "Arayüz beklenmedik bir render sorunu yaşadı. Kaydedilen envanter verileriniz bu ekranda değişmez.",
+        "refresh_btn": "Yenileme",
+        "home_btn": "Ana Sayfa"
+    },
+    "activity": {
+        "title": "Aktivite Geçmişi",
+        "description": "Ev envanterindeki son korumalı işlemler.",
+        "empty_title": "Henüz aktivite yok",
+        "empty_description": "Eşya değişiklikleri, stok güncellemeleri, ekler, ödünç işlemleri ve toplu aksiyonlar burada görünür.",
+        "unknown_actor": "Bilinmeyen kullanıcı",
+        "deleted_item_with_id": "Silinen eşya #{{id}}",
+        "item_missing": "Bu eşya kaydı artık mevcut değil",
+        "actions": {
+            "item_created": "Eşya eklendi",
+            "item_updated": "Eşya güncellendi",
+            "item_deleted": "Eşya silindi",
+            "item_borrowed": "Eşya ödünç verildi",
+            "item_returned": "Eşya teslim alındı",
+            "item_bulk_updated": "Toplu güncelleme",
+            "item_bulk_deleted": "Toplu silme",
+            "item_stock_adjusted": "Stok güncellendi",
+            "item_attachment_added": "Ek dosya eklendi",
+            "item_attachment_deleted": "Ek dosya silindi"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} ilgili kayıt",
+        "empty_title": "İlgili kayıt bulunamadı",
+        "low_stock": {
+            "title": "Azalan Stoklar",
+            "description": "Minimum stok sınırının altındaki eşyalar.",
+            "qty": "Stok {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Süresi Geçmiş Eşyalar",
+            "description": "Son kullanma tarihi geçmiş kayıtlar."
+        },
+        "expiring": {
+            "title": "Yaklaşan Tarihler",
+            "description": "30 gün içinde son kullanma tarihi dolacak kayıtlar."
+        },
+        "maintenance": {
+            "title": "Gecikmiş Bakım",
+            "description": "Planlanan tarihi geçmiş bakım görevleri."
+        }
+    },
+    "notifications": {
+        "title": "Bildirim Merkezi",
+        "description": "Stok, garanti, bakım, son kullanma ve ödünç iade uyarıları.",
+        "meta_total": "{{count}} bildirim",
+        "meta_urgent": "{{count}} acil",
+        "empty_title": "Şu an ilgilenmeniz gereken bir uyarı yok",
+        "empty_desc": "Düşük stok, yaklaşan tarih veya gecikmiş bakım olduğunda burada görünür.",
+        "items": {
+            "stock_empty_title": "Stok tükendi",
+            "stock_low_title": "Düşük stok",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Son kullanma tarihi geçti",
+            "expiry_close_title": "Son kullanma tarihi yaklaşıyor",
+            "warranty_expired_title": "Garanti süresi doldu",
+            "warranty_close_title": "Garanti süresi yaklaşıyor",
+            "maintenance_overdue_title": "Bakım tarihi geçti",
+            "maintenance_close_title": "Bakım zamanı yaklaşıyor",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Ödünç iade tarihi geçti",
+            "borrow_close_title": "Ödünç iade tarihi yaklaşıyor",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} gün kaldı ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Servis ve Garanti Merkezi",
+        "description": "Garanti süresi, bakım takvimi ve servis aksiyonlarını tek yerden takip edin.",
+        "meta_warranty": "{{count}} garanti kaydı",
+        "meta_tasks": "{{count}} bakım görevi",
+        "empty_title": "Servis veya garanti aksiyonu yok",
+        "empty_desc": "Garanti tarihi yaklaşan ürünler ve bakım görevleri burada toplanır.",
+        "warranty_section": "Garanti Takibi",
+        "warranty_desc": "Süresi dolan veya 30 gün içinde dolacak garanti kayıtları.",
+        "maintenance_section": "Bakım Aksiyonları",
+        "maintenance_desc": "Geciken ve sıradaki bakım görevleri.",
+        "no_warranty": "Yaklaşan garanti aksiyonu yok.",
+        "no_tasks": "Planlanmış bakım görevi yok.",
+        "overdue": "Geçti",
+        "upcoming": "Yakın",
+        "expired": "Doldu",
+        "summary_warranty": "Garanti takibi",
+        "summary_tasks": "Bakım görevi",
+        "open_warranty_filter": "Garanti filtresini aç",
+        "open_warranty_filter_desc": "Aktif garantili eşyaları envanterde filtreler."
+    },
+    "storage_labels": {
+        "title": "Raf ve Oda Etiketleri",
+        "description": "{{count}} oda/raf etiketi düzenli çıktı sayfası olarak hazır.",
+        "empty_title": "Etiket üretilecek oda veya raf yok",
+        "empty_desc": "Önce oda veya konum ekleyin, sonra buradan QR etiket basın.",
+        "sheet_label": "Yerleşim Etiket Sayfası",
+        "scan_hint": "QR kodu taranınca ilgili oda veya rafın filtrelenmiş envanteri açılır.",
+        "room": "Oda",
+        "location": "Raf/Kutu"
     }
 }

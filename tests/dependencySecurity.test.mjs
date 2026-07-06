@@ -24,10 +24,17 @@ function isAtLeast(actual, minimum) {
     return true;
 }
 
-test('multipart and HTTP client dependencies stay above patched security versions', () => {
+test('multipart, HTTP client, and i18n dependencies stay above patched security versions', () => {
     const multerVersion = lockfile.packages?.['node_modules/multer']?.version;
     const undiciVersion = lockfile.packages?.['node_modules/undici']?.version;
+    const i18nextHttpMiddlewareVersion = lockfile.packages?.['node_modules/i18next-http-middleware']?.version;
+    const i18nextFsBackendVersion = lockfile.packages?.['node_modules/i18next-fs-backend']?.version;
 
     assert.ok(isAtLeast(multerVersion, '2.2.0'), `multer ${multerVersion} is below patched 2.2.0`);
     assert.ok(isAtLeast(undiciVersion, '7.28.0'), `undici ${undiciVersion} is below patched 7.28.0`);
+    assert.ok(
+        isAtLeast(i18nextHttpMiddlewareVersion, '3.9.7'),
+        `i18next-http-middleware ${i18nextHttpMiddlewareVersion} is below patched 3.9.7`
+    );
+    assert.equal(i18nextFsBackendVersion, undefined, 'i18next-fs-backend should not be reintroduced');
 });

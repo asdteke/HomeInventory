@@ -42,6 +42,8 @@ const ITEM_PHOTO_MEDIA_PURPOSE = 'inventory.media.photo';
 const ITEM_THUMBNAIL_MEDIA_PURPOSE = 'inventory.media.thumbnail';
 const ITEM_INVOICE_MEDIA_PURPOSE = 'inventory.media.invoice';
 const ITEM_INVOICE_THUMBNAIL_MEDIA_PURPOSE = 'inventory.media.invoice_thumbnail';
+const ACTIVITY_ACTION_PURPOSE = 'inventory.activity.action';
+const ACTIVITY_METADATA_PURPOSE = 'inventory.activity.metadata';
 const SHOULD_LOG_DATABASE_EVENTS = process.env.NODE_ENV !== 'production'
   || String(process.env.LOG_DATABASE_EVENTS || '').trim() === 'true';
 
@@ -474,6 +476,68 @@ try {
 // ======================================================
 // CREATE ADDITIONAL TABLES
 // ======================================================
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS item_activity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    house_key TEXT NOT NULL,
+    item_id INTEGER,
+    actor_user_id INTEGER,
+    action TEXT NOT NULL,
+    metadata_json TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE SET NULL,
+    FOREIGN KEY (actor_user_id) REFERENCES users(id) ON DELETE SET NULL
+  );
+  CREATE INDEX IF NOT EXISTS idx_item_activity_house_created ON item_activity(house_key, created_at DESC, id DESC);
+  CREATE INDEX IF NOT EXISTS idx_item_activity_item ON item_activity(item_id);
+  CREATE INDEX IF NOT EXISTS idx_item_activity_actor ON item_activity(actor_user_id);
+
+  CREATE TABLE IF NOT EXISTS item_attachments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    item_id INTEGER NOT NULL,
+    house_key TEXT NOT NULL,
+    uploaded_by INTEGER NOT NULL,
+    original_name TEXT NOT NULL,
+    stored_path TEXT NOT NULL,
+    mime_type TEXT NOT NULL,
+    size_bytes INTEGER NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (item_id) REFERENCES items(id) ON DELETE CASCADE,
+    FOREIGN KEY (uploaded_by) REFERENCES users(id) ON DELETE CASCADE
+  );
+  CREATE INDEX IF NOT EXISTS idx_item_attachments_item ON item_attachments(item_id);
+  CREATE INDEX IF NOT EXISTS idx_item_attachments_house ON item_attachments(house_key);
+`);
+
+try {
+  const legacyActivityRows = db.prepare(`
+    SELECT id, action, metadata_json
+    FROM item_activity
+  `).all();
+  const encryptLegacyActivity = db.transaction((rows) => {
+    const update = db.prepare(`
+      UPDATE item_activity
+      SET action = ?, metadata_json = ?
+      WHERE id = ?
+    `);
+    for (const row of rows) {
+      const nextAction = row.action && !isEncryptedPayload(row.action)
+        ? encryptForStorage(row.action, { purpose: ACTIVITY_ACTION_PURPOSE })
+        : row.action;
+      const nextMetadata = row.metadata_json && !isEncryptedPayload(row.metadata_json)
+        ? encryptForStorage(row.metadata_json, { purpose: ACTIVITY_METADATA_PURPOSE })
+        : row.metadata_json;
+
+      if (nextAction !== row.action || nextMetadata !== row.metadata_json) {
+        update.run(nextAction, nextMetadata, row.id);
+      }
+    }
+  });
+  encryptLegacyActivity(legacyActivityRows);
+} catch (e) {
+  emitDatabaseLog('[Database] Activity encryption migration skipped:', e.message);
+}
 
 // Create pending_registrations table for email verification before account creation
 db.exec(`

@@ -1,4 +1,4 @@
-# Envanterim (Home Inventory) - Disaster Recovery & Restore Playbook
+# HomeInventory - Disaster Recovery & Restore Playbook
 
 This playbook provides definitive, step-by-step instructions for safely restoring the database, user uploads, or the entire application from our hardened backup infrastructure.
 
@@ -240,7 +240,7 @@ This procedure uses a **Staging/Swap (Blue-Green) Workflow** to prevent any data
 
 Since historical backups previously contained raw text of `.env` configurations (which have now been securely quarantined and sanitized), it is highly recommended to perform a **Secret Rotation** for all sensitive parameters to ensure absolute protection.
 
-### Steps to Rotate Envanterim Secrets:
+### Steps to Rotate HomeInventory Secrets:
 
 1. **Rotate Database Session Keys:**
    Change the `SESSION_SECRET` value in `/home/ubuntu/home-inventory/.env` to a new cryptographically secure random string:

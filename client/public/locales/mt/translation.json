@@ -10,7 +10,7 @@
         "load_error": "Ma rnexxiex iniżżel l-oġġett",
         "form": {
             "name": "Isem l-Oġġett",
-            "name_placeholder": "per eżempju Samsung TV 55 pulzier",
+            "name_placeholder": "per eżempju TV 55 pulzier",
             "required": "*",
             "description": "Deskrizzjoni",
             "description_placeholder": "Nnoti dwar l-oġġett...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Qrib li Jiskadi",
             "expired": "Skadut",
             "low_stock": "Riserva Baxxa"
+        },
+        "untitled_item": "Oġġett bla titlu",
+        "attachments": {
+            "title": "Ritratti u fajls",
+            "add": "Żid fajls",
+            "empty": "Xejn fajls ma ġewmiżjuda għad.",
+            "form_desc": "Imbagħad ritratti tal-oġġett, riċevuti, fatturi, jew dokumenti tas-servizz.",
+            "detail_desc": "Ritratti, riċevuti, fatturi, u fajls tas-servizz ġew maħżuna għal dan l-oġġett.",
+            "upload_error": "Ma setgħux jitpoġġew il-fajls.",
+            "delete_error": "Ma setgħax jitħassar il-fajl.",
+            "delete_confirm": "Tħassar dan il-fajl?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Uri l-password",
         "saving": "Se jinżamm...",
         "disabled": "Persuni b'diżabilità",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Inżomm viċin",
+        "zoom_out": "Inżomm bogħod",
+        "reset": "Irrisetta",
+        "print": "Ippprintja",
+        "record_count": "{{count}} rekord"
     },
     "auth": {
         "login": {
@@ -245,7 +258,7 @@
             "form_title": "Irreġistra",
             "username": "Isem tal-utent",
             "username_placeholder": "eż. john",
-            "email": "Email",
+            "email": "Imejl",
             "email_placeholder": "eż. john@example.com",
             "password": "Password",
             "password_placeholder": "Mill-inqas 6 karattri",
@@ -489,7 +502,10 @@
         "logout_description": "Inti se terġa' ttieħdu lura għas-screen tas-sinjal u ikollok bżonn tidħol mill-ġdid biex timmaniġġja l-inventarju tad-dar tiegħek.",
         "logout_warning": "Uża dan meta tkun spiċċajt fuq tagħmir kondiviż jew personali.",
         "maintenance": "Skeda ta' Manutenzjoni",
-        "shopping": "Lista tax-Xiri"
+        "shopping": "Lista tax-Xiri",
+        "activity": "Attività",
+        "notifications": "Notifiki",
+        "service": "Servizz"
     },
     "dashboard": {
         "welcome": "Merħba, <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} oġġetti naqsu taħt il-limitu minimu tas-stokk tiegħek.",
             "go_to_shopping": "Lista tal-Kixxief",
             "close_expiry_title": "Data ta' Skadenza li Qed Tmiss",
-            "close_expiry_desc": "{{count}} prodotti se jiskadru fi żmien 30 ġurnata."
+            "close_expiry_desc": "{{count}} prodotti se jiskadru fi żmien 30 ġurnata.",
+            "view_low_stock_items": "Ara Stokk Baxx"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Ċavetta Aktiva tad-Dar",
             "key_label": "Ċavetta tad-Dar",
-            "mask_key": "••••••••{{suffiss}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Iħalli",
             "show": "Uri",
             "copy": "Kopja",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} postijiet eżistenti skippjati.",
             "skipped_rooms": "{{count}} kmamar eżistenti skippjati.",
             "owner_only_title": "Backup u Irkupru Mhux Permess",
-            "owner_only_desc": "Il-backup u r-restawr tad-dejta jistgħu jiġu mmaniġġjati biss mill-propjetarju tad-dar."
+            "owner_only_desc": "Il-backup u r-restawr tad-dejta jistgħu jiġu mmaniġġjati biss mill-propjetarju tad-dar.",
+            "include_media_title": "Inkorpora r-ritratti u l-immaġnijiet tar-riċevuti",
+            "include_media_body": "Il-backup sħiħ jista' jkun ikbar, imma r-ritratti tal-oġġetti u l-immaġnijiet tar-riċevuti jistgħu wkoll jiġu rrestawrati.",
+            "skipped_attachments": "{{count}} attachments ġew skippjati."
         },
         "about": {
             "title": "Dwar l-Applikazzjoni",
@@ -1031,10 +1051,16 @@
             "blocks_title": "Utenti Imblukkati",
             "blocks_description": "Utenti li bllokkajt milli jibagħtuk talbiet ġodda ta' self.",
             "no_blocks": "L-ebda utent imblukkat ma nstab.",
-            "unblock_btn": "Unblock",
+            "unblock_btn": "Iftaħ",
             "policy_none_desc": "It-talbiet kollha li jaslu jiġu mblukkati awtomatikament.",
             "policy_house_only_desc": "Biss il-membri verifikati tad-djar attivi tiegħek jistgħu jitolbu oġġetti li diġà huma viżibbli ġewwa dik id-dar kondiviża.",
             "policy_everyone_desc": "Utenti oħra ma jistgħux jibbrawżjaw jew jaraw l-oġġetti tiegħek. Jistgħu jibagħtu talba biss billi jiddaħħlu l-isem tal-utent jew l-email tiegħek direttament."
+        },
+        "activity_log": {
+            "title": "Attività u log ta' awditjar",
+            "description": "Irrevedi l-istorja protetta ta' bidliet fl-oġġetti, aġġornamenti tas-sħab, attachments, u azzjonijiet f'bulk.",
+            "encrypted_title": "Ir-rekords ta' attività huma maħżuna protetti",
+            "encrypted_body": "Azzjonijiet u dettalji ġodda ta' attività huma maħżuna encrypted fid-database u ġew dekriptjati biss għal sessjoni attiva tiegħek."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Ir-rekord jingħalaq wara li l-konċedut jikkonferma li rċieva l-oġġett lura.",
             "return_pending_lender_title": "{{name}} immarka dan l-oġġett bħala rilaxxat lura",
             "return_pending_self_title": "Miegħek, qed tistenna l-konferma tar-riċevuta",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Membru tas-sit",
+            "site_member_identifier": "Isem ta' utent jew email",
+            "site_member_identifier_placeholder": "Utentname eżatt jew email",
+            "site_member_privacy_hint": "L-offerta tidher fil-Borrow Center biss jekk dik il-kont teżisti u tippermetti offerti li jidħlu.",
+            "external_privacy_hint": "Dan joħloq rekord lokali privat biss. Ma jintbagħtx notifika tal-app.",
+            "available": "Disponibbli"
         },
         "untitled_item": "Oġġett bla titlu",
         "delete_action": "Ħassar oġġett",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Iffaċċja skont il-kamra",
         "refreshing_results": "Qed inħarsu l-oġġetti mill-ġdid...",
         "empty_filter_title": "L-ebda oġġett ma qabbel ma’ dik it-tfittxija",
-        "delete_error_title": "Ħassar falla"
+        "delete_error_title": "Ħassar falla",
+        "tools": {
+            "title": "Għodod"
+        },
+        "no_room": "L-ebda kamra",
+        "all_locations": "L-istabbilimenti kollha",
+        "location_filter_label": "Ffiltra skont il-lokalità",
+        "visibility_filter_label": "Filtra skond viżibilità",
+        "visibility_all": "Il-viżibilità kollha",
+        "visibility_mine": "L-affarijiet tiegħi",
+        "visibility_others": "Membri oħra",
+        "borrow_filter_label": "Filtra skond status ta' self",
+        "borrow_filter_all": "Is-sintenzi kollha tas-self",
+        "stock_filter_label": "Filtra skond status tal-istokk",
+        "stock_filter_all": "L-istati kollha tal-istokk",
+        "stock_filter_ok": "Stock tajjeb",
+        "expiry_filter_label": "Filtra skont id-data ta' skadenza",
+        "expiry_filter_all": "L-iskadenzi kollha",
+        "expiry_filter_dated": "Għandu data",
+        "expiry_filter_none": "Ebda data",
+        "warranty_filter_label": "Filtra skont il-garanzija",
+        "warranty_filter_all": "Il-garanziji kollha",
+        "warranty_filter_expired": "Garanziji skaduti",
+        "warranty_filter_close": "Qed jintemm dalwaqt",
+        "warranty_filter_active": "Garanziji attivi",
+        "warranty_filter_none": "L-ebda informazzjoni dwar il-garanzija",
+        "sort_label": "Ikkategorizza",
+        "sort_updated_desc": "Aġġornat reċentement",
+        "sort_updated_asc": "L-aġġornament l-iktar qadim",
+        "sort_created_desc": "L-aktar ġdid l-ewwel",
+        "sort_created_asc": "L-iktar qadim l-ewwel",
+        "sort_name_asc": "Ismijiet A-Z",
+        "sort_name_desc": "Ismijiet Z-A",
+        "sort_quantity_desc": "Kwantità mill-ogħla sal-iktar baxxa",
+        "sort_quantity_asc": "Kwantità mill-iktar baxxa sal-ogħla",
+        "sort_expiry_asc": "Skadenza l-aktar qrib",
+        "sort_expiry_desc": "Skadenza l-aktar 'il bogħod",
+        "stock_increase": "Żid l-istokk",
+        "stock_decrease": "Naqqas l-istokk",
+        "stock_adjust_error": "Ma setax jiġi aġġornat l-istokk.",
+        "bulk": {
+            "select_visible": "Agħżel viżibbli",
+            "clear_visible": "Neħħi l-għażla viżibbli",
+            "selected_short": "magħżul",
+            "keep_category": "Żomm il-kategorija",
+            "keep_room": "Żomm il-kamra",
+            "keep_location": "Żomm il-post",
+            "keep_visibility": "Żomm viżibilità",
+            "apply": "Applika",
+            "no_fields": "Agħżel mill-inqas qasam wieħed għall-azzjoni tal-massa.",
+            "updated_title": "Aġġornament tal-massa komplut",
+            "updated_body": "{{count}} oġġetti aġġornati. {{skipped}} skippjati.",
+            "update_error": "Ma setax isir l-aġġornament tal-massa.",
+            "deleted_title": "Tħassir tal-massa komplut",
+            "deleted_body": "{{count}} oġġetti mħassra. {{skipped}} skippjati.",
+            "delete_error": "Ma setax jinkiseb it-tħassir bil-massa.",
+            "delete_title": "Tħassar l-oġġetti magħżula?",
+            "delete_description": "{{count}} oġġetti magħżula se jitneħħew minn dan l-inventarju tal-familja. Dan ma jistax jitħassar.",
+            "select_item": "Agħżel oġġett",
+            "unselect_item": "Neħħi l-għażla ta' oġġett"
+        },
+        "qr_labels": {
+            "title": "Etiketti QR",
+            "open": "Etiketti tal-Oġġetti",
+            "description": "{{count}} etiketti ta' oġġetti huma lesti bħala folja tal-ikklikkjar.",
+            "empty": "Ibdel il-filtri jew żid oġġetti tal-inventarju biex tiskopri tikketti.",
+            "sheet_label": "Folja tat-Tikketti tal-Oġġetti",
+            "item_label": "Tikketta tal-Oġġett"
+        }
     },
     "categories": {
         "title": "Kategoriji",
@@ -1341,7 +1436,7 @@
             "no_logs": "l-ebda logs sa issa",
             "errors_title": "Ħtijiet tas-Sistema (L-aħħar 10)",
             "no_errors": "// Sistema b'saħħitha, l-ebda log tal-iżbalji.",
-            "date_fmt": "{{data, datatime}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "Imejl",
                 "user": "Utent",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Unità mesh",
-                    "meta": "Konsool tat-TV • Deco M4",
+                    "meta": "Konsool tat-TV • Network node",
                     "state": null
                 },
                 {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Ma tistax titħaddem ċentru tal-qari",
             "action_error": "L-azzjoni ma setgħetx tiġi kompluta",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Din ir-rekord ta' self attiv ma setgħetx tintlibes. Aġġorna l-Borż Center u erġa' prova.",
             "errors": {
                 "external_target_daily_limit": "Tista' tibgħat biss talba waħda esterna ta' kuntatt immedjat lill-istess persuna kuljum. Jekk jaċċettaw talba, dan il-limitu ma japplikax aktar għal dik il-persuna.",
                 "external_total_daily_limit": "Tista' tibgħat sa 5 talbiet esterni ta' kuntatt immedjat kuljum.",
@@ -2553,7 +2648,104 @@
     "error_boundary": {
         "title": "Xi ħaġa teħtieġ rinnovazzjoni",
         "description": "L-interface sab problema ta' rendering mhux mistennija. Id-data tal-inventarju maħżuna tiegħek ma tinbidilx minn dan l-iskrin.",
-        "refresh_btn": "Refresh",
+        "refresh_btn": "Aġġorna",
         "home_btn": "Dar"
+    },
+    "activity": {
+        "title": "Storja tal-Attività",
+        "description": "Bidliet protetti reċenti fil-inventarju tad-dar tiegħek.",
+        "empty_title": "L-ebda attività għadha",
+        "empty_description": "Bidliet fl-oġġett, aġġornamenti tal-istokk, attachments, self, u azzjonijiet b'massa se jidhru hawn.",
+        "unknown_actor": "Utent mhux magħruf",
+        "deleted_item_with_id": "Oġġett #{{id}} imħassar",
+        "item_missing": "Dan ir-rekord tal-oġġett ma jeżistix aktar",
+        "actions": {
+            "item_created": "Oġġett miżjud",
+            "item_updated": "Oġġett aġġornat",
+            "item_deleted": "Oġġett imħassar",
+            "item_borrowed": "Oġġett imqarreb",
+            "item_returned": "Oġġett mirtub",
+            "item_bulk_updated": "Aġġornament b'massa",
+            "item_bulk_deleted": "Ħassar b'massa",
+            "item_stock_adjusted": "Stokk aġġornat",
+            "item_attachment_added": "Attakk magħmul",
+            "item_attachment_deleted": "Attakk imħassar"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} rekord relatat",
+        "empty_title": "Ma nstabux rekord relatat",
+        "low_stock": {
+            "title": "Preservazzjoni Baxxa",
+            "description": "Oġġetti taħt il-livell minimu tagħhom tal-istok",
+            "qty": "Stokk {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Oġġetti Skaduti",
+            "description": "Oġġetti bi data skaduta"
+        },
+        "expiring": {
+            "title": "Data ta' Skadenza li Jmiss",
+            "description": "Oġġetti li qed jiskadru fi żmien 30 ġurnata."
+        },
+        "maintenance": {
+            "title": "Manutenzjoni skaduta",
+            "description": "Kompiti ta' manutenzjoni li għaddew mid-data prevista tagħhom."
+        }
+    },
+    "notifications": {
+        "title": "Ċentru ta' Notifikazzjonijiet",
+        "description": "Twissijiet dwar stokk, garanzija, manutenzjoni, skadenza u ritorn ta' self.",
+        "meta_total": "{{count}} notifikazzjonijiet",
+        "meta_urgent": "{{count}} urġenti",
+        "empty_title": "M'hemm l-ebda twissija li teħtieġ l-attenzjoni tiegħek bħalissa",
+        "empty_desc": "Stock baxx, data li ġejja, u manutenzjoni mifruxa jidher hawn.",
+        "items": {
+            "stock_empty_title": "Barra l-istokk",
+            "stock_low_title": "Stock baxx",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Data ta' skadenza għaddiet",
+            "expiry_close_title": "Data ta' skadenza qed tiġri",
+            "warranty_expired_title": "Garanzija skadut",
+            "warranty_close_title": "Garanzija se tispiċċa dalwaqt",
+            "maintenance_overdue_title": "Manutenzjoni mifruxa",
+            "maintenance_close_title": "Kura li ġejja dalwaqt",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Skadenza ta' ritorn ta' self",
+            "borrow_close_title": "Ritorn ta' self li ġej dalwaqt",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: baqgħu {{count}} ijiem ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Ċentru tas-Servizz u tal-Garanzija",
+        "description": "Segwi garanziji, skedi ta' manutenzjoni u azzjonijiet ta' servizz fi post wieħed.",
+        "meta_warranty": "{{count}} rekord ta' garanzija",
+        "meta_tasks": "{{count}} kompiti ta' manutenzjoni",
+        "empty_title": "L-ebda servizz jew azzjoni ta' garanzija",
+        "empty_desc": "Id-dati ta' garanzija li ġejjin u l-kompiti ta' manutenzjoni jinġabru hawn.",
+        "warranty_section": "Monitoraġġ tal-Garanzija",
+        "warranty_desc": "Garanziji eskaduti u garanziji li jintemmu fi żmien 30 jum.",
+        "maintenance_section": "Azzjonijiet ta' Manutenzjoni",
+        "maintenance_desc": "Kompiti ta' manutenzjoni skaduti u li ġejjin.",
+        "no_warranty": "L-ebda azzjoni ta' garanzija li ġejja.",
+        "no_tasks": "L-ebda kompitu ta' manutenzjoni skedat.",
+        "overdue": "Skadut",
+        "upcoming": "Dalwaqt",
+        "expired": "Skadat",
+        "summary_warranty": "Segwitu tal-garanzija",
+        "summary_tasks": "Ħidmiet ta' manutenzjoni",
+        "open_warranty_filter": "Filtru tal-garanzija miftuħa",
+        "open_warranty_filter_desc": "Filtri l-oġġetti tal-garanzija attiva fl-inventarju."
+    },
+    "storage_labels": {
+        "title": "Etiketti tal-ixkaffa u tal-kamra",
+        "description": "{{count}} tikketti tal-kamra/ġnien huma lesti bħala folja għall-istampar.",
+        "empty_title": "L-ebda kmamar jew ġnub biex jiġu tikkettjati",
+        "empty_desc": "Żid kmamar jew postijiet l-ewwel, imbagħad stampa tikketti QR hawn.",
+        "sheet_label": "Folja tat-Tikketta tal-Lokazzjoni",
+        "scan_hint": "Is-skanning tal-kodiċi QR jiftaħ l-inventarju filtrat għal dik il-kamra jew ġnien.",
+        "room": "Kamra",
+        "location": "Ġnien/Kaxxa"
     }
 }

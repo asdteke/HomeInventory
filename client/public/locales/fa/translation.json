@@ -134,6 +134,17 @@
             "close_to_expiry": "نزدیک به انقضا",
             "expired": "منقضی شده",
             "low_stock": "موجودی کم"
+        },
+        "untitled_item": "مورد بدون عنوان",
+        "attachments": {
+            "title": "عکس‌ها و فایل‌ها",
+            "add": "افزودن فایل‌ها",
+            "empty": "هنوز فایلی اضافه نشده است.",
+            "form_desc": "عکس‌های مورد، رسیدها، فاکتورها یا اسناد خدمات را ضمیمه کنید.",
+            "detail_desc": "عکس‌ها، رسیدها، فاکتورها و فایل‌های خدمات برای این مورد ذخیره شدند.",
+            "upload_error": "فایل‌ها قابل آپلود نبودند.",
+            "delete_error": "فایل قابل حذف شدن نیست.",
+            "delete_confirm": "آیا این فایل را حذف کنیم؟"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "نمایش رمز عبور",
         "saving": "در حال ذخیره‌سازی...",
         "disabled": "معلول",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "بزرگنمایی",
+        "zoom_out": "کوچکنمایی",
+        "reset": "بازنشانی",
+        "print": "چاپ",
+        "record_count": "{{count}} رکورد"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "شما به صفحه ورود بازگردانده خواهید شد و برای مدیریت موجودی خانه باید دوباره وارد شوید.",
         "logout_warning": "این را زمانی استفاده کنید که کارتان با یک دستگاه مشترک یا شخصی تمام شده است.",
         "maintenance": "برنامه زمان‌بندی نگهداری",
-        "shopping": "لیست خرید"
+        "shopping": "لیست خرید",
+        "activity": "فعالیت",
+        "notifications": "اعلان‌ها",
+        "service": "سرویس"
     },
     "dashboard": {
         "welcome": "خوش برگشتید، <1>{{name}}</1>",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} کالاها به زیر حداقل موجودی شما رسیده‌اند.",
             "go_to_shopping": "فهرست خرید",
             "close_expiry_title": "تاریخ‌های انقضای پیش رو",
-            "close_expiry_desc": "{{count}} محصول ظرف ۳۰ روز منقضی خواهند شد."
+            "close_expiry_desc": "{{count}} محصول ظرف ۳۰ روز منقضی خواهند شد.",
+            "view_low_stock_items": "مشاهده موجودی کم"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "کلید خانه فعال",
             "key_label": "کلید خانه",
-            "mask_key": "••••••••{{پسوند}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "مخفی کردن",
             "show": "نمایش",
             "copy": "کپی",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} محل موجود نادیده گرفته شد.",
             "skipped_rooms": "{{count}} اتاق موجود نادیده گرفته شد.",
             "owner_only_title": "پشتیبان‌گیری و بازیابی محدود",
-            "owner_only_desc": "پشتیبان‌گیری و بازیابی داده‌ها تنها می‌تواند توسط مالک خانه مدیریت شود."
+            "owner_only_desc": "پشتیبان‌گیری و بازیابی داده‌ها تنها می‌تواند توسط مالک خانه مدیریت شود.",
+            "include_media_title": "شامل عکس‌ها و تصاویر رسید",
+            "include_media_body": "نسخه پشتیبان کامل ممکن است بزرگ‌تر باشد، اما عکس‌های آیتم و تصاویر رسید نیز می‌توانند بازیابی شوند.",
+            "skipped_attachments": "{{count}} پیوست نادیده گرفته شدند."
         },
         "about": {
             "title": "درباره برنامه",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "تمام درخواست های ورودی به طور خودکار مسدود می شوند.",
             "policy_house_only_desc": "فقط اعضای تأییدشده خانه‌های فعال شما می‌توانند مواردی که قبلاً در آن خانه اشتراکی قابل مشاهده هستند را درخواست کنند.",
             "policy_everyone_desc": "سایر کاربران نمی‌توانند اقلام شما را مرور یا مشاهده کنند. آن‌ها تنها می‌توانند با ورود نام کاربری یا ایمیل شما مستقیماً درخواست ارسال کنند."
+        },
+        "activity_log": {
+            "title": "گزارش فعالیت و بررسی",
+            "description": "تاریخچه محافظت‌شده تغییرات آیتم، به‌روزرسانی موجودی، پیوست‌ها و اقدامات حجمی را مرور کنید.",
+            "encrypted_title": "سوابق فعالیت به‌صورت محافظت‌شده ذخیره می‌شوند",
+            "encrypted_body": "اقدامات و جزئیات فعالیت جدید به‌صورت رمزنگاری شده در پایگاه داده ذخیره می‌شوند و تنها برای جلسه فعال شما رمزگشایی می‌شوند."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "رکورد پس از تأیید بازگشت آیتم توسط وام‌دهنده بسته خواهد شد.",
             "return_pending_lender_title": "{{name}} این آیتم را به عنوان بازگردانده شده علامت‌گذاری کرد",
             "return_pending_self_title": "همراه شما، در انتظار تأیید دریافت",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "عضو سایت",
+            "site_member_identifier": "نام کاربری یا ایمیل",
+            "site_member_identifier_placeholder": "نام کاربری یا ایمیل دقیق",
+            "site_member_privacy_hint": "این پیشنهاد فقط در مرکز وام ظاهر می‌شود اگر آن حساب وجود داشته باشد و دریافت پیشنهادها را بپذیرد.",
+            "external_privacy_hint": "این تنها یک رکورد خصوصی محلی ایجاد می‌کند. هیچ اعلان اپلیکیشن ارسال نمی‌شود.",
+            "available": "در دسترس"
         },
         "untitled_item": "آیتم بدون عنوان",
         "delete_action": "حذف آیتم",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "فیلتر بر اساس اتاق",
         "refreshing_results": "در حال تازه‌سازی موارد...",
         "empty_filter_title": "هیچ آیتمی با این جستجو مطابقت ندارد",
-        "delete_error_title": "حذف ناموفق بود"
+        "delete_error_title": "حذف ناموفق بود",
+        "tools": {
+            "title": "ابزارها"
+        },
+        "no_room": "هیچ اتاقی",
+        "all_locations": "همه مکان‌ها",
+        "location_filter_label": "فیلتر بر اساس مکان",
+        "visibility_filter_label": "فیلتر بر اساس دید",
+        "visibility_all": "همه دیدها",
+        "visibility_mine": "اقلام من",
+        "visibility_others": "دیگر اعضا",
+        "borrow_filter_label": "فیلتر بر اساس وضعیت امانت",
+        "borrow_filter_all": "تمام وضعیت‌های قرض",
+        "stock_filter_label": "فیلتر بر اساس وضعیت موجودی",
+        "stock_filter_all": "تمام وضعیت‌های موجودی",
+        "stock_filter_ok": "موجودی خوب",
+        "expiry_filter_label": "فیلتر بر اساس تاریخ انقضا",
+        "expiry_filter_all": "تمام تاریخ‌های انقضا",
+        "expiry_filter_dated": "دارای تاریخ",
+        "expiry_filter_none": "بدون تاریخ",
+        "warranty_filter_label": "فیلتر بر اساس گارانتی",
+        "warranty_filter_all": "همه گارانتی‌ها",
+        "warranty_filter_expired": "گارانتی‌های منقضی شده",
+        "warranty_filter_close": "در شرف پایان",
+        "warranty_filter_active": "گارانتی‌های فعال",
+        "warranty_filter_none": "هیچ اطلاعات گارانتی",
+        "sort_label": "مرتب‌سازی",
+        "sort_updated_desc": "به‌تازگی به‌روزرسانی شده",
+        "sort_updated_asc": "قدیمی‌ترین بروزرسانی",
+        "sort_created_desc": "جدیدترین ابتدا",
+        "sort_created_asc": "قدیمی‌ترین ابتدا",
+        "sort_name_asc": "نام A-Z",
+        "sort_name_desc": "نام Z-A",
+        "sort_quantity_desc": "تعداد از زیاد به کم",
+        "sort_quantity_asc": "تعداد از کم به زیاد",
+        "sort_expiry_asc": "تاریخ انقضا نزدیک‌ترین",
+        "sort_expiry_desc": "انقضا آخرین",
+        "stock_increase": "افزایش موجودی",
+        "stock_decrease": "کاهش موجودی",
+        "stock_adjust_error": "موجودی نتوانست به‌روزرسانی شود.",
+        "bulk": {
+            "select_visible": "انتخاب قابل مشاهده",
+            "clear_visible": "لغو انتخاب قابل مشاهده",
+            "selected_short": "انتخاب شده",
+            "keep_category": "حفظ دسته‌بندی",
+            "keep_room": "حفظ اتاق",
+            "keep_location": "حفظ مکان",
+            "keep_visibility": "حفظ قابلیت مشاهده",
+            "apply": "اعمال",
+            "no_fields": "حداقل یک فیلد برای عملیات دسته‌ای انتخاب کنید.",
+            "updated_title": "به‌روزرسانی دسته‌ای کامل شد",
+            "updated_body": "{{count}} مورد به‌روزرسانی شد. {{skipped}} رد شد.",
+            "update_error": "به‌روزرسانی گروهی نمی‌تواند تکمیل شود.",
+            "deleted_title": "حذف گروهی کامل شد",
+            "deleted_body": "{{count}} مورد حذف شد. {{skipped}} مورد رد شد.",
+            "delete_error": "حذف گروهی نمی‌تواند تکمیل شود.",
+            "delete_title": "موارد انتخاب‌شده را حذف کنید؟",
+            "delete_description": "{{count}} مورد انتخاب‌شده از موجودی خانگی حذف خواهند شد. این عمل قابل بازگشت نیست.",
+            "select_item": "انتخاب مورد",
+            "unselect_item": "لغو انتخاب مورد"
+        },
+        "qr_labels": {
+            "title": "برچسب‌های QR",
+            "open": "برچسب‌های کالا",
+            "description": "{{count}} برچسب کالا آماده است به عنوان یک برگه چاپ.",
+            "empty": "فیلترها را تغییر دهید یا اقلام موجودی را برای چاپ برچسب اضافه کنید.",
+            "sheet_label": "برگه برچسب کالا",
+            "item_label": "برچسب کالا"
+        }
     },
     "categories": {
         "title": "دسته‌بندی‌ها",
@@ -1341,7 +1436,7 @@
             "no_logs": "هنوز هیچ گزارشی ثبت نشده",
             "errors_title": "خطاهای سیستم (10 مورد آخر)",
             "no_errors": "// سیستم سالم است، هیچ گزارش خطایی وجود ندارد.",
-            "date_fmt": "{{تاریخ، زمان}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "ایمیل",
                 "user": "کاربر",
@@ -1929,7 +2024,7 @@
             "bodyLine2": "در انتظار تایید مالک خانه"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{وضعیت}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "دسترسی به خانه",
             "bodyLine1Template": "درخواست فعلی در انتظار: {{house}} ({{status}})",
             "bodyLine2": "درخواست شما برای \"{{house}}\" هنوز منتظر تصمیم است.",
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "مرکز قرض‌گیری قابل بارگذاری نیست",
             "action_error": "این اقدام نمی‌تواند انجام شود",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "این رکورد قرض فعال پیدا نشد. مرکز قرض را تازه‌سازی کنید و دوباره تلاش کنید.",
             "errors": {
                 "external_target_daily_limit": "شما می‌توانید تنها یک درخواست تماس اولیه خارجی به همان شخص در روز ارسال کنید. اگر آن‌ها درخواست را بپذیرند، این محدودیت دیگر برای آن شخص اعمال نمی‌شود.",
                 "external_total_daily_limit": "شما می‌توانید تا ۵ درخواست تماس اولیه خارجی در روز ارسال کنید.",
@@ -2408,11 +2503,11 @@
             "desc": "آیتم‌های موجودی که به زیر حداقل رسیده‌اند.",
             "add_all": "افزودن همه موارد گمشده",
             "stock_status": "فعلی: {{current}} / هدف: {{min}}",
-            "add_qty": "افزودن {{qty}} مورد برای خرید >>> اقلام فعلی برای افزودن به سبد خرید شما >>> {{count}} مورد"
+            "add_qty": "افزودن {{qty}}"
         },
         "sections": {
             "active_list": "اقلامی برای خرید",
-            "active_desc": "اقلام خرید فعلی برای افزودن به سبد خرید شما. {{count}} مورد",
+            "active_desc": "موارد خرید فعلی برای اضافه کردن به سبد خرید شما.",
             "active_count": "{{count}} آیتم",
             "completed_list": "اقلام خریداری شده ({{count}})",
             "add_item": "افزودن آیتم به صورت دستی",
@@ -2555,5 +2650,102 @@
         "description": "رابط کاربری با مشکل رندر غیرمنتظره ای مواجه شد. داده های ذخیره شده موجودی شما توسط این صفحه تغییر نمی کند.",
         "refresh_btn": "تازه سازی",
         "home_btn": "خانه"
+    },
+    "activity": {
+        "title": "تاریخچه فعالیت",
+        "description": "تغییرات محافظت‌شده اخیر در موجودی خانه شما.",
+        "empty_title": "هنوز فعالیتی وجود ندارد",
+        "empty_description": "تغییرات آیتم، به‌روزرسانی‌های موجودی، پیوست‌ها، امانت‌گیری و اقدامات گروهی در اینجا ظاهر خواهند شد.",
+        "unknown_actor": "کاربر ناشناخته",
+        "deleted_item_with_id": "آیتم حذف شد #{{id}}",
+        "item_missing": "این رکورد آیتم دیگر وجود ندارد",
+        "actions": {
+            "item_created": "آیتم اضافه شد",
+            "item_updated": "آیتم به‌روز شد",
+            "item_deleted": "آیتم حذف شد",
+            "item_borrowed": "آیتم قرض داده شد",
+            "item_returned": "آیتم برگشت داده شد",
+            "item_bulk_updated": "به‌روزرسانی گروهی",
+            "item_bulk_deleted": "حذف گروهی",
+            "item_stock_adjusted": "موجودی به‌روز شد",
+            "item_attachment_added": "پیوست اضافه شد",
+            "item_attachment_deleted": "پیوست حذف شد"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} رکورد مرتبط",
+        "empty_title": "رکورد مرتبطی یافت نشد",
+        "low_stock": {
+            "title": "موجودی کم",
+            "description": "اقلامی که زیر سطح حداقل موجودی هستند.",
+            "qty": "موجودی {{quantity}} / حداقل {{min}}"
+        },
+        "expired": {
+            "title": "اقلام منقضی شده",
+            "description": "اقلامی که تاریخ انقضای آن‌ها گذشته است."
+        },
+        "expiring": {
+            "title": "تاریخ‌های انقضای نزدیک",
+            "description": "اقلامی که ظرف ۳۰ روز آینده منقضی می‌شوند."
+        },
+        "maintenance": {
+            "title": "تعمیر و نگهداری معوق",
+            "description": "وظایف تعمیر و نگهداری که از تاریخ برنامه‌ریزی شده گذشته‌اند."
+        }
+    },
+    "notifications": {
+        "title": "مرکز اعلان‌ها",
+        "description": "هشدارهای موجودی، گارانتی، تعمیر و نگهداری، انقضا و بازگشت امانت.",
+        "meta_total": "{{count}} اعلان",
+        "meta_urgent": "{{count}} فوری",
+        "empty_title": "فعلاً نیازی به توجه شما به هشدارها نیست",
+        "empty_desc": "موجودی کم، تاریخ‌های آتی و نگهداری‌های معوقه در اینجا ظاهر خواهند شد.",
+        "items": {
+            "stock_empty_title": "موجودی تمام شده",
+            "stock_low_title": "موجودی کم",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "تاریخ انقضا گذشته",
+            "expiry_close_title": "تاریخ انقضا نزدیک است",
+            "warranty_expired_title": "گارانتی منقضی شده",
+            "warranty_close_title": "گارانتی به زودی پایان می‌یابد",
+            "maintenance_overdue_title": "نگهداری معوق",
+            "maintenance_close_title": "نگهداری به زودی مورد نیاز",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "بازگشت امانت معوق",
+            "borrow_close_title": "بازگشت امانت به زودی مورد نیاز",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} روز باقی مانده ({{date}})"
+        }
+    },
+    "service": {
+        "title": "مرکز خدمات و گارانتی",
+        "description": "پیگیری گارانتی‌ها، برنامه‌های نگهداری و اقدامات خدماتی در یک مکان",
+        "meta_warranty": "{{count}} رکورد گارانتی",
+        "meta_tasks": "{{count}} کار تعمیر و نگهداری",
+        "empty_title": "هیچ اقدام خدمات یا گارانتی",
+        "empty_desc": "تاریخ‌های آینده گارانتی و کارهای تعمیر و نگهداری در اینجا جمع‌آوری می‌شوند.",
+        "warranty_section": "پیگیری گارانتی",
+        "warranty_desc": "گارانتی‌های منقضی شده و گارانتی‌هایی که ظرف ۳۰ روز پایان می‌یابند.",
+        "maintenance_section": "اقدامات تعمیر و نگهداری",
+        "maintenance_desc": "کارهای تعمیر و نگهداری عقب افتاده و آینده.",
+        "no_warranty": "هیچ اقدام گارانتی پیش رو وجود ندارد.",
+        "no_tasks": "هیچ وظیفه نگهداری برنامه‌ریزی‌شده‌ای وجود ندارد.",
+        "overdue": "سررسید گذشته",
+        "upcoming": "به‌زودی",
+        "expired": "منقضی شده",
+        "summary_warranty": "پیگیری ضمانت",
+        "summary_tasks": "وظایف نگهداری",
+        "open_warranty_filter": "فیلتر ضمانت باز",
+        "open_warranty_filter_desc": "فیلتر کردن موارد دارای گارانتی فعال در موجودی."
+    },
+    "storage_labels": {
+        "title": "برچسب‌های قفسه و اتاق",
+        "description": "{{count}} برچسب اتاق/قفسه آماده به عنوان شیت چاپ هستند.",
+        "empty_title": "اتاق یا قفسه‌ای برای برچسب زدن وجود ندارد",
+        "empty_desc": "ابتدا اتاق‌ها یا مکان‌ها را اضافه کنید، سپس برچسب‌های QR را در اینجا چاپ کنید.",
+        "sheet_label": "شیت برچسب مکان",
+        "scan_hint": "اسکن کردن کد QR موجودی فیلتر شده آن اتاق یا قفسه را باز می‌کند.",
+        "room": "اتاق",
+        "location": "قفسه/جعبه"
     }
 }

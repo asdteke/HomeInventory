@@ -10,7 +10,7 @@
         "load_error": "شيءَ لوڊ ڪرڻ ۾ ناڪامي",
         "form": {
             "name": "شيءَ جو نالو",
-            "name_placeholder": "مثال طور Samsung TV 55 انچ",
+            "name_placeholder": "مثال طور TV 55 انچ",
             "required": "*",
             "description": "وضاحت",
             "description_placeholder": "شيءَ بابت نوٽس...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "ختم ٿيڻ ويجھو",
             "expired": "ختم ٿيل",
             "low_stock": "گھٽ اسٽاڪ"
+        },
+        "untitled_item": "بغير عنوان جي شيءِ",
+        "attachments": {
+            "title": "تصويرون ۽ فائلون",
+            "add": "فائلون شامل ڪريو",
+            "empty": "اڃا تائين ڪا فائل شامل نه آهي.",
+            "form_desc": "شيءِ جي تصويرون، رسيدون، انوائس يا سروس جا دستاويز لڳايو.",
+            "detail_desc": "تصويرون، رسيدون، انوائس ۽ سروس جون فائلون هن شيءِ لاءِ محفوظ ڪيون ويون آهن.",
+            "upload_error": "فائلون اپلوڊ نٿيون ٿي سگهن.",
+            "delete_error": "فائل کي ختم نه ٿو ڪري سگهجي.",
+            "delete_confirm": "ڇا هن فائل کي ختم ڪيو وڃي؟"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "پاسورڊ ڏيکاريو",
         "saving": "محفوظ ڪري رهيو آهي...",
         "disabled": "معذور",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "زوم ان",
+        "zoom_out": "زوم آئوٽ",
+        "reset": "ري سيٽ",
+        "print": "پرنٽ",
+        "record_count": "{{count}} رڪارڊ"
     },
     "auth": {
         "login": {
@@ -458,7 +471,7 @@
         "two_factor_enabled_success": "ٻه عنصر جي تصديق ڪاميابي سان چالو ڪئي وئي آهي",
         "two_factor_disabled_success": "ٻه عنصر جي تصديق ڪاميابي سان غير فعال ٿي وئي آهي",
         "password_errors": {
-            "min_length": "ڳجھو لفظ گهٽ ۾ گهٽ {{من}} اکر ڊگهو هجڻ گهرجي",
+            "min_length": "ڳجھو لفظ گهٽ ۾ گهٽ {{min}} اکر ڊگهو هجڻ گهرجي",
             "lowercase_required": "پاسورڊ ۾ گهٽ ۾ گهٽ هڪ ننڍڙو اکر شامل هجڻ ضروري آهي",
             "uppercase_required": "پاسورڊ ۾ گهٽ ۾ گهٽ هڪ وڏو اکر شامل هجڻ لازمي آهي",
             "number_required": "پاسورڊ ۾ گهٽ ۾ گهٽ هڪ نمبر شامل هجڻ ضروري آهي",
@@ -489,7 +502,10 @@
         "logout_description": "توهان کي سائن-ان اسڪرين ڏانهن واپس موٽايو ويندو ۽ توهان کي پنهنجي گهروائي اسٽاڪ کي منظم ڪرڻ لاءِ ٻيهر لاگ ان ٿيڻ جي ضرورت پوندي.",
         "logout_warning": "جڏهن توهان شيئر ڪيل يا ذاتي ڊيوائس تي ختم ٿيو ته ان جو استعمال ڪريو.",
         "maintenance": "سار سنڀال جو شيڊول",
-        "shopping": "خريداري جي فهرست"
+        "shopping": "خريداري جي فهرست",
+        "activity": "سرگرمي",
+        "notifications": "اطلاعات",
+        "service": "خدمت"
     },
     "dashboard": {
         "welcome": "ڀليڪار، <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} شيون توهان جي گھٽ ۾ گھٽ اسٽاڪ حد کان هيٺ آيون آهن.",
             "go_to_shopping": "خريداري جي فهرست",
             "close_expiry_title": "ايندڙ ختم ٿيڻ جون تاريخون",
-            "close_expiry_desc": "{{count}} شيون 30 ڏينهن اندر ختم ٿي وينديون."
+            "close_expiry_desc": "{{count}} شيون 30 ڏينهن اندر ختم ٿي وينديون.",
+            "view_low_stock_items": "گهٽ اسٽاڪ ڏسو"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "فعال گهر جي چاٻي",
             "key_label": "گهر جي چاٻي",
-            "mask_key": "•••••••{{ لاحقه}}",
+            "mask_key": "•••••••{{suffix}}",
             "hide": "لڪائڻ",
             "show": "ڏيکاريو",
             "copy": "نقل ڪريو",
@@ -767,7 +784,7 @@
             "transfer_owner_title": "گهر جي ملڪيت جي منتقلي؟",
             "transfer_owner_confirm": "هن گهر جي ملڪيت {{name}} ڏانهن منتقل ڪريو؟",
             "transfer_owner_warning": "تون هاڻي هن گهر جو مالڪ نه هوندين. نئون مالڪ ميمبرن جي منظوري ، برطرفي ۽ مستقبل جي ملڪيت جي تبديلين جو انتظام ڪندو.",
-            "transfer_owner_success_body": "{{نالو}} هاڻي هن گهر جو مالڪ آهي."
+            "transfer_owner_success_body": "{{name}} هاڻي هن گهر جو مالڪ آهي."
         },
         "theme": {
             "title": "موضوع",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} موجود ماڳن کي ٺڪرائي ڇڏيو.",
             "skipped_rooms": "{{count}} موجود ڪمرن کي ٺڪرائي ڇڏيو.",
             "owner_only_title": "بيڪ اپ ۽ بحالي محدود",
-            "owner_only_desc": "ڊيٽا جو بيڪ اپ ۽ بحالي صرف گهر جو مالڪ ئي سنڀالي سگهي ٿو."
+            "owner_only_desc": "ڊيٽا جو بيڪ اپ ۽ بحالي صرف گهر جو مالڪ ئي سنڀالي سگهي ٿو.",
+            "include_media_title": "تصويرون ۽ رسيد جون تصويرون شامل ڪريو",
+            "include_media_body": "مڪمل بيڪ اپ وڏو ٿي سگهي ٿو، پر شئيون جون تصويرون ۽ رسيد جون تصويرون پڻ بحال ڪري سگهجن ٿيون.",
+            "skipped_attachments": "{{count}} منسلڪات کي ڇڏي ڏنو ويو."
         },
         "about": {
             "title": "ايپليڪيشن بابت",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "سڀ ايندڙ درخواستون پاڻمرادو بلاڪ ٿي وينديون آهن.",
             "policy_house_only_desc": "صرف توهانجي فعال گهرن جا تصديق ٿيل ميمبر ئي شيون درخواست ڪري سگهن ٿا جيڪي ان گڏيل گهر اندر اڳ ۾ ئي نظر اينديون آهن.",
             "policy_everyone_desc": "ٻيا استعمال ڪندڙ توهانجي شيون نه ڏسي سگهن ٿا ۽ نه ئي برائوز ڪري سگهن ٿا. اهي صرف توهانجو يوزر نيم يا ايميل سڌو داخل ڪري درخواست موڪلي سگهن ٿا."
+        },
+        "activity_log": {
+            "title": "سرگرمي ۽ آڊٽ لاگ",
+            "description": "شئي ۾ ٿيل تبديلين، اسٽاڪ اپڊيٽس، منسلڪات ۽ وڏي ڪارروائين جي محفوظ ٿيل تاريخ جو جائزو وٺو.",
+            "encrypted_title": "سرگرمي جا ريڪارڊ محفوظ ٿيل آهن",
+            "encrypted_body": "نئون سرگرمي جون ڪارروائيون ۽ تفصيل ڊيٽابيس ۾ اينڪرپٽ ٿيل محفوظ ڪيا وڃن ٿا ۽ صرف توهان جي سرگرم سيشن لاءِ ڊيڪرپٽ ڪيا وڃن ٿا."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "ريڪارڊ ان وقت بند ٿيندو جڏهن قرض ڏيندڙ تصديق ڪري ته انهن شي واپس حاصل ڪئي آهي.",
             "return_pending_lender_title": "{{name}} هن شي کي واپس موڪلڻ طور نشان لڳايو",
             "return_pending_self_title": "توهان سان گڏ، رسيد جي تصديق جو انتظار آهي",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "سائيٽ جو ميمبر",
+            "site_member_identifier": "يوزر نيم يا اي ميل",
+            "site_member_identifier_placeholder": "صحيح يوزر نيم يا اي ميل",
+            "site_member_privacy_hint": "پيشڪش صرف بورو سينٽر ۾ نظر اچي ٿي جيڪڏهن اهو اڪائونٽ موجود هجي ۽ ايندڙ پيشڪشن جي اجازت ڏئي.",
+            "external_privacy_hint": "اهو صرف هڪ نجي مقامي رڪارڊ ٺاهي ٿو. ڪابه ايپ اطلاع نه موڪلي ويندي.",
+            "available": "موجود"
         },
         "untitled_item": "بغير عنوان جي شئي",
         "delete_action": "شئي ڊليٽ ڪريو",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "ڪمري ذريعي فلٽر ڪريو",
         "refreshing_results": "شيون تازه ڪاري ڪري رهيا آهن...",
         "empty_filter_title": "ڪنهن به شيءَ هن ڳولا سان ميل نه کاتو",
-        "delete_error_title": "حذف ناڪام ٿيو"
+        "delete_error_title": "حذف ناڪام ٿيو",
+        "tools": {
+            "title": "اوزار"
+        },
+        "no_room": "ڪو ڪمرو ناهي",
+        "all_locations": "سڀ هنڌ",
+        "location_filter_label": "هنڌ جي لحاظ سان فلٽر ڪريو",
+        "visibility_filter_label": "ڏسڻ جي لحاظ سان فلٽر ڪريو",
+        "visibility_all": "سڀ ڏسڻ",
+        "visibility_mine": "منهنجا شيون",
+        "visibility_others": "ٻيا ميمبر",
+        "borrow_filter_label": "قرض وٺڻ واري حالت جي لحاظ سان فلٽر ڪريو",
+        "borrow_filter_all": "سڀ قرض جون حالتون",
+        "stock_filter_label": "اسٽاڪ جي حالت موجب فلٽر ڪريو",
+        "stock_filter_all": "سڀ اسٽاڪ جون حالتون",
+        "stock_filter_ok": "اسٽاڪ ٺيڪ آهي",
+        "expiry_filter_label": "ختم ٿيڻ جي تاريخ موجب فلٽر ڪريو",
+        "expiry_filter_all": "سڀ ختم ٿيڻ جون تاريخون",
+        "expiry_filter_dated": "تاريخ آهي",
+        "expiry_filter_none": "تاريخ ناهي",
+        "warranty_filter_label": "وارنٽي ذريعي فلٽر ڪريو",
+        "warranty_filter_all": "سڀ وارنٽيون",
+        "warranty_filter_expired": "ختم ٿيل وارنٽيون",
+        "warranty_filter_close": "جلد ختم ٿيڻ واريون",
+        "warranty_filter_active": "فعال وارنٽيون",
+        "warranty_filter_none": "ڪا وارنٽي معلومات ناهي",
+        "sort_label": "ترتيب ڏيو",
+        "sort_updated_desc": "تازو اپڊيٽ ٿيل",
+        "sort_updated_asc": "تمام پراڻو اپڊيٽ",
+        "sort_created_desc": "سڀ کان نئون پهرين",
+        "sort_created_asc": "سڀ کان قديم پهرين",
+        "sort_name_asc": "نالو A کان Z",
+        "sort_name_desc": "نالو Z کان A",
+        "sort_quantity_desc": "مقدار گھٽ کان وڌ",
+        "sort_quantity_asc": "مقدار وڌيڪ کان گھٽ",
+        "sort_expiry_asc": "جلد ختم ٿيڻ وارو",
+        "sort_expiry_desc": "گهٽ ۾ گهٽ ختم ٿيڻ واري تاريخ",
+        "stock_increase": "اسٽاڪ وڌايو",
+        "stock_decrease": "اسٽاڪ گھٽايو",
+        "stock_adjust_error": "اسٽاڪ اپڊيٽ نه ڪري سگهيو.",
+        "bulk": {
+            "select_visible": "ڏيکاريل چونڊيو",
+            "clear_visible": "ڏيکاريل منتخب نه ڪيو",
+            "selected_short": "منتخب ٿيل",
+            "keep_category": "ڪيٽيگري برقرار رکو",
+            "keep_room": "ڪمرو برقرار رکو",
+            "keep_location": "جڳھ برقرار رکو",
+            "keep_visibility": "ڏسڻ جو حق برقرار رکو",
+            "apply": "لاڳو ڪريو",
+            "no_fields": "بلڪ عمل لاءِ گهٽ ۾ گهٽ هڪ فيلڊ چونڊيو.",
+            "updated_title": "بلڪ اپڊيٽ مڪمل ٿي وئي",
+            "updated_body": "{{count}} شيون اپڊيٽ ٿيل. {{skipped}} ڇڏي ڏنل.",
+            "update_error": "بيچ اپڊيٽ مڪمل نه ٿي سگهيو.",
+            "deleted_title": "بيچ ڊليٽ مڪمل",
+            "deleted_body": "{{count}} شيون حذف ٿي ويون. {{skipped}} ڇڏي ڏنل.",
+            "delete_error": "بيچ ڊليٽ مڪمل نه ٿي سگهي.",
+            "delete_title": "چونڊيل شيون حذف ڪيون وڃن؟",
+            "delete_description": "{{count}} چونڊيل شيون هن گهرو انوينٽري مان هٽايو وينديون. اهو واپس نه آڻي سگهجي.",
+            "select_item": "شيء چونڊيو",
+            "unselect_item": "شيء چونڊ ختم ڪريو"
+        },
+        "qr_labels": {
+            "title": "QR ليبل",
+            "open": "شيون جا ليبل",
+            "description": "{{count}} شيون جا ليبل پرنٽ شيٽ طور تي تيار آهن.",
+            "empty": "ليبل پرنٽ ڪرڻ لاءِ فلٽر تبديل ڪريو يا انوينٽري شيون شامل ڪريو.",
+            "sheet_label": "شيون جي ليبل واري شيٽ",
+            "item_label": "شيون جو ليبل"
+        }
     },
     "categories": {
         "title": "ڪيٽيگريز",
@@ -1341,7 +1436,7 @@
             "no_logs": "اڃا تائين ڪو به لاگ نه آهي",
             "errors_title": "سسٽم جون غلطيون (آخري 10)",
             "no_errors": "// سسٽم صحتمند، ڪو به غلطي لاگ ناهي.",
-            "date_fmt": "{{تاريخ، وقت}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "اي ميل",
                 "user": "صارف",
@@ -1929,7 +2024,7 @@
             "bodyLine2": "گهر جي مالڪ جي منظوري جو انتظار"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{اسٽيٽس}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "گهر تائين رسائي",
             "bodyLine1Template": "موجوده pendent درخواست: {{house}} ({{status}})",
             "bodyLine2": "توهان جي درخواست '{{house}}' لاءِ اڃا فيصلي جو انتظار آهي.",
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "قرض وٺڻ جو سينٽر لوڊ نه ٿي سگهي",
             "action_error": "ڪارروائي مڪمل نه ٿي سگهي",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "هي فعال قرض رڪارڊ ونه مليو. برائو سينٽر کي ريفريش ڪريو ۽ ٻيهر ڪوشش ڪريو.",
             "errors": {
                 "external_target_daily_limit": "توهان هڪ ئي شخص کي روزانو پهرين رابطو خارجي درخواست موڪلي سگهو ٿا. جيڪڏهن اهي درخواست قبول ڪن ٿا، انهن لاءِ هي حد وڌيڪ لاڳو نه ٿيندي.",
                 "external_total_daily_limit": "توهان روزانو 5 پهرين رابطو خارجي درخواستون موڪلي سگهو ٿا.",
@@ -2555,5 +2650,102 @@
         "description": "انٽرفيس هڪ غير متوقع رينڊنگ مسئلي کي ماريو. توهان جي محفوظ ڪيل انوینٽري ڊيٽا هن اسڪرين طرفان تبديل نه ڪئي وئي آهي.",
         "refresh_btn": "ريتازو ڪريو",
         "home_btn": "گھر"
+    },
+    "activity": {
+        "title": "سرگرمي جو تاريخ",
+        "description": "توهانجي گهر جي فهرست ۾ تازيون محفوظ ڪيل تبديليون.",
+        "empty_title": "اڃا ڪا سرگرمي ناهي",
+        "empty_description": "شئي ۾ تبديليون، اسٽاڪ جي تازه ڪاري، منسلڪات، قرض، ۽ گھڻا عمل هتي ظاهر ٿيندا.",
+        "unknown_actor": "اڻڄاتل صارف",
+        "deleted_item_with_id": "ختم ڪيل شئي #{{id}}",
+        "item_missing": "هي شئي جو رڪارڊ هاڻي موجود ناهي",
+        "actions": {
+            "item_created": "شئي شامل ڪئي وئي",
+            "item_updated": "شيء تازو ڪيو ويو",
+            "item_deleted": "شيء ختم ڪيو ويو",
+            "item_borrowed": "شيء قرض ڏنو ويو",
+            "item_returned": "شيء واپس ڪيو ويو",
+            "item_bulk_updated": "وڏي مقدار ۾ تازه ڪاري",
+            "item_bulk_deleted": "وڏي مقدار ۾ ختم",
+            "item_stock_adjusted": "اسٽاڪ تازو ڪيو ويو",
+            "item_attachment_added": "منسلڪ شامل ڪيو ويو",
+            "item_attachment_deleted": "لڳايل فائل حذف ڪئي وئي"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} لاڳاپيل رڪارڊز",
+        "empty_title": "ڪو به لاڳاپيل رڪارڊ نه مليو",
+        "low_stock": {
+            "title": "گهٽ اسٽاڪ",
+            "description": "شيون پنهنجي گهٽ ۾ گهٽ اسٽاڪ ليول کان هيٺ آهن.",
+            "qty": "اسٽاڪ {{quantity}} / گهٽ ۾ گهٽ {{min}}"
+        },
+        "expired": {
+            "title": "ختم ٿيل شيون",
+            "description": "شيون جن جي تاريخ ختم ٿي چڪي آهي."
+        },
+        "expiring": {
+            "title": "ايندڙ ختم ٿيڻ جون تاريخون",
+            "description": "شيون 30 ڏينهن اندر ختم ٿي رهيون آهن."
+        },
+        "maintenance": {
+            "title": "وقت کان وڌيڪ سار سنڀال",
+            "description": "سار سنڀال جا ڪم انهن جي مقرر ڪيل تاريخ کان اڳ."
+        }
+    },
+    "notifications": {
+        "title": "نوٽيفڪيشن سينٽر اسٽاڪ ، وارنٽي ، سار سنڀال ، ختم ٿيڻ ، ۽ قرض جي واپسي جي خبردارين",
+        "description": "آهي.",
+        "meta_total": "{{count}} اطلاعن",
+        "meta_urgent": "{{count}} تڪڙي",
+        "empty_title": "ھاڻ ڪو به الرٽ توھان جي ڌيان جي ضرورت نٿو رکي",
+        "empty_desc": "گھٽ اسٽاڪ، ايندڙ تاريخون، ۽ ملتوي ٿيل سار سنڀال هتي ظاهر ٿيندي",
+        "items": {
+            "stock_empty_title": "اسٽاڪ ۾ ختم",
+            "stock_low_title": "گھٽ اسٽاڪ",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "ميعاد ختم ٿي وئي",
+            "expiry_close_title": "ميعاد ويجهي اچي رهي آهي",
+            "warranty_expired_title": "وارنٽي ختم ٿي وئي",
+            "warranty_close_title": "وارنٽي جلد ختم ٿيڻ واري آهي",
+            "maintenance_overdue_title": "سنڀال جو وقت گذري ويو",
+            "maintenance_close_title": "سنڀال جلد ٿيڻ وارو آهي",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "قرض واپس ڪرڻ جو وقت گذري ويو",
+            "borrow_close_title": "قرض واپس ڪرڻ جو وقت جلد آهي",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} ڏينهن باقي آهن ({{date}})"
+        }
+    },
+    "service": {
+        "title": "سروس ۽ وارنٽي سينٽر",
+        "description": "وارنٽيون، سنڀال جا شيڊيول، ۽ سروس جا عمل هڪ جاءِ تي ٽريڪ ڪريو.",
+        "meta_warranty": "{{count}} وارنٽي رڪارڊ",
+        "meta_tasks": "{{count}} سار سنڀال جا ڪم",
+        "empty_title": "ڪو به سروس يا وارنٽي ڪارروائي ناهي",
+        "empty_desc": "ايندڙ وارنٽي جون تاريخون ۽ سار سنڀال جا ڪم هتي گڏ ڪيا ويندا.",
+        "warranty_section": "وارنٽي ٽريڪنگ",
+        "warranty_desc": "مدي کان خارج وارنٽيون ۽ 30 ڏينهن اندر ختم ٿيندڙ وارنٽيون.",
+        "maintenance_section": "سار سنڀال جون ڪارروايون",
+        "maintenance_desc": "ملتوي ٿيل ۽ ايندڙ سار سنڀال جا ڪم.",
+        "no_warranty": "ڪو به ايندڙ وارنٽي ڪارروائي ناهي.",
+        "no_tasks": "ڪوبه مقرر ٿيل سار سنڀال جو ڪم نه آهي.",
+        "overdue": "وقت تي مڪمل نه ٿيل",
+        "upcoming": "جلد",
+        "expired": "مدي ختم ٿيل",
+        "summary_warranty": "وارنٽي ٽريڪنگ",
+        "summary_tasks": "سار سنڀال جا ڪم",
+        "open_warranty_filter": "کليل وارنٽي فلٽر",
+        "open_warranty_filter_desc": "اسٽاڪ ۾ فعال وارنٽي وارا شيون فلٽر ڪري ٿو."
+    },
+    "storage_labels": {
+        "title": "شيلف ۽ ڪمري جا ليبل",
+        "description": "{{count}} ڪمري/شيلف جا ليبل پرنٽ شيٽ طور تي تيار آهن.",
+        "empty_title": "ليبل ڪرڻ لاءِ ڪٿي ڪمرا يا شيلا موجود ناهن",
+        "empty_desc": "پهريان ڪمرا يا جڳهيون شامل ڪريو، پوءِ هتي QR ليبل پرنٽ ڪريو.",
+        "sheet_label": "جڳھه جي ليبل شيٽ",
+        "scan_hint": "QR ڪوڊ اسڪين ڪرڻ سان ان ڪمري يا شيلف جي فلٽر ڪيل انوينٽري کوليندي آهي.",
+        "room": "ڪمرو",
+        "location": "شيلف/ڊٻو"
     }
 }

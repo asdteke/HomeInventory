@@ -53,7 +53,9 @@
         "disabled": "Disabled",
         "zoom_in": "Zoom in",
         "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "reset": "Reset",
+        "print": "Print",
+        "record_count": "{{count}} records"
     },
     "auth": {
         "password_requirements": "Use at least {{min}} characters with uppercase, lowercase, number, and symbol.",
@@ -352,7 +354,10 @@
         "logout_warning": "Use this when you are done on a shared or personal device.",
         "menu": "Menu",
         "maintenance": "Maintenance Schedule",
-        "shopping": "Shopping List"
+        "shopping": "Shopping List",
+        "activity": "Activity",
+        "notifications": "Notifications",
+        "service": "Service"
     },
     "layout": {
         "secondary_controls_title": "Utilities",
@@ -366,26 +371,27 @@
     "dashboard": {
         "welcome": "Welcome back, <1>{{name}}</1>",
         "alerts": {
-            "expired_title": "Items Have Expired!",
-            "expired_desc": "There are {{count}} expired items in your inventory. Please check them for your safety.",
+            "expired_title": "Expired items",
+            "expired_desc": "Expired items: {{count}}.",
             "view_items": "View Items",
-            "maintenance_title": "Overdue Maintenance Tasks!",
-            "maintenance_desc": "There are {{count}} overdue maintenance tasks. Perform maintenance to extend the lifespan of your appliances.",
+            "maintenance_title": "Overdue maintenance",
+            "maintenance_desc": "Overdue tasks: {{count}}.",
             "go_to_maintenance": "Go to Maintenance",
-            "low_stock_title": "Low Stock Alert",
-            "low_stock_desc": "{{count}} items have fallen below your minimum stock limit.",
+            "low_stock_title": "Low stock",
+            "low_stock_desc": "Low-stock items: {{count}}.",
             "go_to_shopping": "Shopping List",
-            "close_expiry_title": "Upcoming Expiration Dates",
-            "close_expiry_desc": "{{count}} products will expire within 30 days."
+            "close_expiry_title": "Upcoming expiration",
+            "close_expiry_desc": "Expiring soon: {{count}}.",
+            "view_low_stock_items": "View Low Stock"
         },
         "subtitle": "Overview of your inventory",
         "quick_search": "Quick search...",
         "page": {
             "kicker": "Home",
             "title": "Home",
-            "description_ready": "Search your inventory, review recent additions, and move quickly into the next task.",
+            "description_ready": "",
             "description_empty": "Start building a calm, searchable home record from one clear starting point.",
-            "loading_description": "Preparing your home view. Recent additions and quick search will appear in a moment."
+            "loading_description": "Preparing your home view."
         },
         "top_bar": {
             "beta": "Beta",
@@ -405,7 +411,7 @@
         },
         "search_panel": {
             "title": "Search inventory",
-            "description": "Find an item, room, location, or barcode from one place.",
+            "description": "",
             "placeholder": "Search an item, room, location, or barcode",
             "submit": "Search inventory",
             "secondary_hint": "Sensitive records stay separate."
@@ -522,7 +528,7 @@
         "load_error": "Failed to load item",
         "form": {
             "name": "Item Name",
-            "name_placeholder": "e.g. Samsung TV 55 inch",
+            "name_placeholder": "e.g. TV 55 inch",
             "expiry_date": "Expiration Date",
             "min_quantity": "Minimum Quantity",
             "required": "*",
@@ -650,6 +656,17 @@
             "close_to_expiry": "Close to Expiration",
             "expired": "Expired",
             "low_stock": "Low Stock"
+        },
+        "untitled_item": "Untitled item",
+        "attachments": {
+            "title": "Photos and files",
+            "add": "Add files",
+            "empty": "No files added yet.",
+            "form_desc": "Attach item photos, receipts, invoices, or service documents.",
+            "detail_desc": "Photos, receipts, invoices, and service files saved for this item.",
+            "upload_error": "Files could not be uploaded.",
+            "delete_error": "File could not be deleted.",
+            "delete_confirm": "Delete this file?"
         }
     },
     "vault": {
@@ -1048,7 +1065,10 @@
             "skipped_locations": "{{count}} existing locations skipped.",
             "skipped_rooms": "{{count}} existing rooms skipped.",
             "owner_only_title": "Backup and Restore Restricted",
-            "owner_only_desc": "Data backup and restore can only be managed by the house owner."
+            "owner_only_desc": "Data backup and restore can only be managed by the house owner.",
+            "include_media_title": "Include photos and receipt images",
+            "include_media_body": "The full backup may be larger, but item photos and receipt images can also be restored.",
+            "skipped_attachments": "{{count}} attachments were skipped."
         },
         "danger_zone": {
             "title": "Account",
@@ -1134,7 +1154,13 @@
         "popular_languages": "Popular Languages",
         "search_results": "Search Results",
         "current_language": "Current language",
-        "languages_available": "languages available"
+        "languages_available": "languages available",
+        "activity_log": {
+            "title": "Activity and audit log",
+            "description": "Review the protected history of item changes, stock updates, attachments, and bulk actions.",
+            "encrypted_title": "Activity records are stored protected",
+            "encrypted_body": "New activity actions and details are stored encrypted in the database and are only decrypted for your active session."
+        }
     },
     "inventory": {
         "title": "Inventory",
@@ -1222,7 +1248,76 @@
             "site_member_identifier": "Username or email",
             "site_member_identifier_placeholder": "Exact username or email",
             "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent.",
+            "available": "Available"
+        },
+        "tools": {
+            "title": "Tools"
+        },
+        "no_room": "No room",
+        "all_locations": "All locations",
+        "location_filter_label": "Filter by location",
+        "visibility_filter_label": "Filter by visibility",
+        "visibility_all": "All visibility",
+        "visibility_mine": "My items",
+        "visibility_others": "Other members",
+        "borrow_filter_label": "Filter by borrow status",
+        "borrow_filter_all": "All borrow statuses",
+        "stock_filter_label": "Filter by stock status",
+        "stock_filter_all": "All stock statuses",
+        "stock_filter_ok": "Stock ok",
+        "expiry_filter_label": "Filter by expiration date",
+        "expiry_filter_all": "All expiration dates",
+        "expiry_filter_dated": "Has date",
+        "expiry_filter_none": "No date",
+        "warranty_filter_label": "Filter by warranty",
+        "warranty_filter_all": "All warranties",
+        "warranty_filter_expired": "Expired warranties",
+        "warranty_filter_close": "Ending soon",
+        "warranty_filter_active": "Active warranties",
+        "warranty_filter_none": "No warranty info",
+        "sort_label": "Sort",
+        "sort_updated_desc": "Recently updated",
+        "sort_updated_asc": "Oldest update",
+        "sort_created_desc": "Newest first",
+        "sort_created_asc": "Oldest first",
+        "sort_name_asc": "Name A-Z",
+        "sort_name_desc": "Name Z-A",
+        "sort_quantity_desc": "Quantity high to low",
+        "sort_quantity_asc": "Quantity low to high",
+        "sort_expiry_asc": "Expiration soonest",
+        "sort_expiry_desc": "Expiration latest",
+        "stock_increase": "Increase stock",
+        "stock_decrease": "Decrease stock",
+        "stock_adjust_error": "Stock could not be updated.",
+        "bulk": {
+            "select_visible": "Select visible",
+            "clear_visible": "Unselect visible",
+            "selected_short": "selected",
+            "keep_category": "Keep category",
+            "keep_room": "Keep room",
+            "keep_location": "Keep location",
+            "keep_visibility": "Keep visibility",
+            "apply": "Apply",
+            "no_fields": "Choose at least one field for the bulk action.",
+            "updated_title": "Bulk update complete",
+            "updated_body": "{{count}} items updated. {{skipped}} skipped.",
+            "update_error": "Bulk update could not be completed.",
+            "deleted_title": "Bulk delete complete",
+            "deleted_body": "{{count}} items deleted. {{skipped}} skipped.",
+            "delete_error": "Bulk delete could not be completed.",
+            "delete_title": "Delete selected items?",
+            "delete_description": "{{count}} selected items will be removed from this household inventory. This cannot be undone.",
+            "select_item": "Select item",
+            "unselect_item": "Unselect item"
+        },
+        "qr_labels": {
+            "title": "QR Labels",
+            "open": "Item Labels",
+            "description": "{{count}} item labels are ready as a print sheet.",
+            "empty": "Change filters or add inventory items to print labels.",
+            "sheet_label": "Item Label Sheet",
+            "item_label": "Item Label"
         }
     },
     "borrow_requests": {
@@ -1885,7 +1980,7 @@
         "preview_privacy_notice": "Demo view: no real user data is displayed.",
         "homeinventory": {
             "hero": {
-                "statement": "HomeInventory is running. Set up your home inventory.",
+                "statement": "HomeInventory keeps your home inventory organized.",
                 "statementAccent": "Create a home, add rooms and categories, then start recording items, documents, warranties, and borrowing.",
                 "description": "Use this screen as your starting point after installation. Begin with an account, build the household structure, add important items, and keep private records in Personal Vault.",
                 "primaryCta": "Start setup",
@@ -1906,7 +2001,7 @@
                 },
                 {
                     "name": "Mesh unit",
-                    "meta": "TV console • Deco M4",
+                    "meta": "TV console • Network node",
                     "state": null
                 },
                 {
@@ -2555,5 +2650,102 @@
         "description": "The interface hit an unexpected rendering problem. Your saved inventory data is not changed by this screen.",
         "refresh_btn": "Refresh",
         "home_btn": "Home"
+    },
+    "activity": {
+        "title": "Activity History",
+        "description": "Recent protected changes in your home inventory.",
+        "empty_title": "No activity yet",
+        "empty_description": "Item changes, stock updates, attachments, borrowing, and bulk actions will appear here.",
+        "unknown_actor": "Unknown user",
+        "deleted_item_with_id": "Deleted item #{{id}}",
+        "item_missing": "This item record no longer exists",
+        "actions": {
+            "item_created": "Item added",
+            "item_updated": "Item updated",
+            "item_deleted": "Item deleted",
+            "item_borrowed": "Item lent",
+            "item_returned": "Item returned",
+            "item_bulk_updated": "Bulk update",
+            "item_bulk_deleted": "Bulk delete",
+            "item_stock_adjusted": "Stock updated",
+            "item_attachment_added": "Attachment added",
+            "item_attachment_deleted": "Attachment deleted"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} related records",
+        "empty_title": "No related records found",
+        "low_stock": {
+            "title": "Low Stock",
+            "description": "Items below their minimum stock level.",
+            "qty": "Stock {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Expired Items",
+            "description": "Items with an expired date."
+        },
+        "expiring": {
+            "title": "Upcoming Expiration Dates",
+            "description": "Items expiring within 30 days."
+        },
+        "maintenance": {
+            "title": "Overdue Maintenance",
+            "description": "Maintenance tasks past their scheduled date."
+        }
+    },
+    "notifications": {
+        "title": "Notification Center",
+        "description": "Stock, warranty, maintenance, expiration, and borrow return alerts.",
+        "meta_total": "{{count}} notifications",
+        "meta_urgent": "{{count}} urgent",
+        "empty_title": "No alerts need your attention right now",
+        "empty_desc": "Low stock, upcoming dates, and overdue maintenance will appear here.",
+        "items": {
+            "stock_empty_title": "Out of stock",
+            "stock_low_title": "Low stock",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Expiration date passed",
+            "expiry_close_title": "Expiration date approaching",
+            "warranty_expired_title": "Warranty expired",
+            "warranty_close_title": "Warranty ending soon",
+            "maintenance_overdue_title": "Maintenance overdue",
+            "maintenance_close_title": "Maintenance due soon",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Borrow return overdue",
+            "borrow_close_title": "Borrow return due soon",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} days left ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Service and Warranty Center",
+        "description": "Track warranties, maintenance schedules, and service actions in one place.",
+        "meta_warranty": "{{count}} warranty records",
+        "meta_tasks": "{{count}} maintenance tasks",
+        "empty_title": "No service or warranty action",
+        "empty_desc": "Upcoming warranty dates and maintenance tasks will be collected here.",
+        "warranty_section": "Warranty Tracking",
+        "warranty_desc": "Expired warranties and warranties ending within 30 days.",
+        "maintenance_section": "Maintenance Actions",
+        "maintenance_desc": "Overdue and upcoming maintenance tasks.",
+        "no_warranty": "No upcoming warranty action.",
+        "no_tasks": "No scheduled maintenance task.",
+        "overdue": "Overdue",
+        "upcoming": "Soon",
+        "expired": "Expired",
+        "summary_warranty": "Warranty tracking",
+        "summary_tasks": "Maintenance tasks",
+        "open_warranty_filter": "Open warranty filter",
+        "open_warranty_filter_desc": "Filters active warranty items in inventory."
+    },
+    "storage_labels": {
+        "title": "Shelf and Room Labels",
+        "description": "{{count}} room/shelf labels are ready as a print sheet.",
+        "empty_title": "No rooms or shelves to label",
+        "empty_desc": "Add rooms or locations first, then print QR labels here.",
+        "sheet_label": "Location Label Sheet",
+        "scan_hint": "Scanning the QR code opens the filtered inventory for that room or shelf.",
+        "room": "Room",
+        "location": "Shelf/Box"
     }
 }

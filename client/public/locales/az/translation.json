@@ -10,7 +10,7 @@
         "load_error": "Əşyanın yüklənməsi alınmadı",
         "form": {
             "name": "Əşyanın adı",
-            "name_placeholder": "məsələn, Samsung TV 55 düym",
+            "name_placeholder": "məsələn, TV 55 düym",
             "required": "*",
             "description": "Təsvir",
             "description_placeholder": "Element haqqında qeydlər...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Son istifadə tarixinə yaxındır",
             "expired": "Müddəti keçib",
             "low_stock": "Az Stok"
+        },
+        "untitled_item": "Başlıqsız maddə",
+        "attachments": {
+            "title": "Şəkillər və fayllar",
+            "add": "Fayl əlavə et",
+            "empty": "Hələ heç bir fayl əlavə olunmayıb.",
+            "form_desc": "Maddə şəkillərini, qəbzləri, fakturaları və ya xidmət sənədlərini əlavə edin.",
+            "detail_desc": "Bu maddə üçün şəkillər, qəbzlər, fakturalar və xidmət faylları saxlanılıb.",
+            "upload_error": "Fayllar yüklənə bilmədi.",
+            "delete_error": "Fayl silinə bilmədi.",
+            "delete_confirm": "Bu faylı silmək istəyirsiniz?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Parolu göstər",
         "saving": "Yadda saxlanılır...",
         "disabled": "Əlil",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Böyüt",
+        "zoom_out": "Kiçilt",
+        "reset": "Sıfırla",
+        "print": "Çap et",
+        "record_count": "{{count}} qeyd"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "İmza ekranına qaytarılacaqsınız və ev təsərrüfatı inventarınızı idarə etmək üçün yenidən daxil olmalısınız.",
         "logout_warning": "Paylaşılan və ya şəxsi cihazda işinizi bitirdikdə bunu istifadə edin.",
         "maintenance": "Baxım Cədvəli",
-        "shopping": "Alış-veriş Siyahısı"
+        "shopping": "Alış-veriş Siyahısı",
+        "activity": "Fəaliyyət",
+        "notifications": "Bildirişlər",
+        "service": "Xidmət"
     },
     "dashboard": {
         "welcome": "Xoş gəlmisiniz, <1>{{name}}</1>",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} məhsul minimum stok limitinizin altına düşüb.",
             "go_to_shopping": "Alış-veriş Siyahısı",
             "close_expiry_title": "Gələcək Müddəti Bitmə Tarixləri",
-            "close_expiry_desc": "{{count}} məhsul 30 gün ərzində müddəti bitəcək."
+            "close_expiry_desc": "{{count}} məhsul 30 gün ərzində müddəti bitəcək.",
+            "view_low_stock_items": "Az Stokları Gör"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Aktiv Ev Açarı",
             "key_label": "Ev Açarı",
-            "mask_key": "••••••••{{şəkilçi}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Gizlət",
             "show": "Göstər",
             "copy": "Kopyala",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} mövcud yerlər atlandı.",
             "skipped_rooms": "{{count}} mövcud otaqlar atlandı.",
             "owner_only_title": "Ehtiyat Nüsxə və Bərpa Məhduddur",
-            "owner_only_desc": "Data ehtiyat nüsxəsi və bərpası yalnız ev sahibi tərəfindən idarə oluna bilər."
+            "owner_only_desc": "Data ehtiyat nüsxəsi və bərpası yalnız ev sahibi tərəfindən idarə oluna bilər.",
+            "include_media_title": "Şəkilləri və qəbz şəkillərini daxil et",
+            "include_media_body": "Tam ehtiyat nüsxə daha böyük ola bilər, amma maddə şəkilləri və qəbz şəkilləri də bərpa edilə bilər.",
+            "skipped_attachments": "{{count}} əlavələr atlandı."
         },
         "about": {
             "title": "Tətbiq haqqında",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Bütün gələn sorğular avtomatik bloklanır.",
             "policy_house_only_desc": "Yalnız aktiv evinizin təsdiqlənmiş üzvləri, o evdə artıq görünən əşyaları tələb edə bilər.",
             "policy_everyone_desc": "Digər istifadəçilər sizin əşyalarınıza baxa və onları görə bilməz. Onlar yalnız birbaşa istifadəçi adınızı və ya e-poçtunuzu daxil edərək sorğu göndərə bilərlər."
+        },
+        "activity_log": {
+            "title": "Fəaliyyət və audit jurnalı",
+            "description": "Maddə dəyişikliklərinin, stok yeniliklərinin, əlavələrin və kütləvi əməliyyatların qorunan tarixçəsini nəzərdən keçirin.",
+            "encrypted_title": "Fəaliyyət qeydləri qorunmuş şəkildə saxlanılır",
+            "encrypted_body": "Yeni fəaliyyət hərəkətləri və detalları bazada şifrələnmiş şəkildə saxlanılır və yalnız sizin aktiv sessiyanız üçün deşifrə olunur."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Qeyd, əşyayı geri aldığını təsdiqləyənə qədər bağlanacaq.",
             "return_pending_lender_title": "{{name}} bu əşyayı geri çatdırılmış kimi işarələyib",
             "return_pending_self_title": "Səninlə, qəbz təsdiqini gözləyir",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Sayt üzvü",
+            "site_member_identifier": "İstifadəçi adı və ya emaill",
+            "site_member_identifier_placeholder": "Dəqiq istifadəçi adı və ya email",
+            "site_member_privacy_hint": "Təklif yalnız həmin hesab mövcud olduqda və gələn təkliflərə icazə verdikdə Borrow Center-də görünür.",
+            "external_privacy_hint": "Bu yalnız şəxsi lokal qeyd yaradır. Heç bir tətbiq bildirişi göndərilmir.",
+            "available": "Mövcuddur"
         },
         "untitled_item": "Başlıqsız maddə",
         "delete_action": "Maddəni sil",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Otaq üzrə filtrlə",
         "refreshing_results": "Maddələr yenilənir...",
         "empty_filter_title": "Heç bir maddə həmin axtarışa uyğun gəlmədi",
-        "delete_error_title": "Silinmə uğursuz oldu"
+        "delete_error_title": "Silinmə uğursuz oldu",
+        "tools": {
+            "title": "Alətlər"
+        },
+        "no_room": "Heç bir otaq",
+        "all_locations": "Bütün yerlər",
+        "location_filter_label": "Yerlərə görə filtr",
+        "visibility_filter_label": "Görünüşə görə filtr",
+        "visibility_all": "Bütün görünüşlər",
+        "visibility_mine": "Mənim əşyalarım",
+        "visibility_others": "Digər üzvlər",
+        "borrow_filter_label": "Borclanma vəziyyətinə görə filtr",
+        "borrow_filter_all": "Bütün borclanma vəziyyətləri",
+        "stock_filter_label": "Stok vəziyyətinə görə filtr",
+        "stock_filter_all": "Bütün stok vəziyyətləri",
+        "stock_filter_ok": "Stok yaxşıdır",
+        "expiry_filter_label": "Son istifadə tarixinə görə filtr",
+        "expiry_filter_all": "Bütün son istifadə tarixləri",
+        "expiry_filter_dated": "Tarixi var",
+        "expiry_filter_none": "Tarix yoxdur",
+        "warranty_filter_label": "Zəmanət üzrə filtr",
+        "warranty_filter_all": "Bütün zəmanətlər",
+        "warranty_filter_expired": "Vaxtı bitmiş zəmanətlər",
+        "warranty_filter_close": "Tezliklə bitəcək",
+        "warranty_filter_active": "Aktiv zəmanətlər",
+        "warranty_filter_none": "Zəmanət məlumatı yoxdur",
+        "sort_label": "Sıralamaq",
+        "sort_updated_desc": "Son yenilənən",
+        "sort_updated_asc": "Ən köhnə yeniləmə",
+        "sort_created_desc": "Ən yenisi əvvəl",
+        "sort_created_asc": "Ən köhnəsi əvvəl",
+        "sort_name_asc": "Ad A-Z",
+        "sort_name_desc": "Ad Z-A",
+        "sort_quantity_desc": "Miqdar yüksəkdən aşağı",
+        "sort_quantity_asc": "Miqdar aşağıdan yuxarı",
+        "sort_expiry_asc": "Müddəti ən tez bitən",
+        "sort_expiry_desc": "Müddəti ən gec bitən",
+        "stock_increase": "Stoku artır",
+        "stock_decrease": "Stoku azalt",
+        "stock_adjust_error": "Stok yenilənə bilmədi.",
+        "bulk": {
+            "select_visible": "Görünənləri seç",
+            "clear_visible": "Görünənlərin seçimdə olmadığını işarələ",
+            "selected_short": "seçilmiş",
+            "keep_category": "Kateqoriyanı saxla",
+            "keep_room": "Otağı saxla",
+            "keep_location": "Yeri saxla",
+            "keep_visibility": "Görünürlüğü saxla",
+            "apply": "Tətbiq et",
+            "no_fields": "Toplu əməliyyat üçün ən azı bir sahə seçin.",
+            "updated_title": "Toplu yeniləmə tamamlandı",
+            "updated_body": "{{count}} maddə yeniləndi. {{skipped}} keçildi.",
+            "update_error": "Toplu yeniləmə tamamlanmadı.",
+            "deleted_title": "Toplu silmə tamamlandı",
+            "deleted_body": "{{count}} maddə silindi. {{skipped}} keçildi.",
+            "delete_error": "Toplu silmə tamamlanmadı.",
+            "delete_title": "Seçilmiş maddələri silmək?",
+            "delete_description": "{{count}} seçilmiş maddə bu ev təsərrüfatı inventarından silinəcək. Bu, geri alınmaz.",
+            "select_item": "Maddəni seç",
+            "unselect_item": "Elementi seçimi ləğv et"
+        },
+        "qr_labels": {
+            "title": "QR Etiketləri",
+            "open": "Element Etiketləri",
+            "description": "{{count}} element etiketi çap vərəqi kimi hazırdır.",
+            "empty": "Etiketləri çap etmək üçün filtrləri dəyişdirin və ya inventar elementləri əlavə edin.",
+            "sheet_label": "Element Etiket Vərəqi",
+            "item_label": "Element Etiketi"
+        }
     },
     "categories": {
         "title": "Kateqoriyalar",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Mesh vahidi",
-                    "meta": "TV konsolu • Deco M4",
+                    "meta": "TV konsolu • Network node",
                     "state": null
                 },
                 {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Borclanma mərkəzi yüklənə bilmədi",
             "action_error": "Əməliyyatı tamamlamaq mümkün olmadı",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Bu aktiv borc qeydi tapılmadı. Borc Mərkəzini yeniləyin və yenidən cəhd edin.",
             "errors": {
                 "external_target_daily_limit": "Hər gün eyni şəxsə yalnız bir ilk əlaqə xarici sorğu göndərə bilərsiniz. Əgər onlar sorğunu qəbul edərsə, bu məhdudiyyət həmin şəxs üçün artıq tətbiq olunmur.",
                 "external_total_daily_limit": "Hər gün maksimum 5 ilk əlaqə xarici sorğu göndərə bilərsiniz.",
@@ -2555,5 +2650,102 @@
         "description": "İnterfeys gözlənilməz bir render problemi ilə üzləşdi. Saxlanılan inventar məlumatınız bu ekran tərəfindən dəyişdirilmir.",
         "refresh_btn": "Yeniləmə",
         "home_btn": "Ev"
+    },
+    "activity": {
+        "title": "Fəaliyyət Tarixi",
+        "description": "Ev inventarınızda son qorunan dəyişikliklər.",
+        "empty_title": "Hələ fəaliyyət yoxdur",
+        "empty_description": "Məhsul dəyişiklikləri, stok yeniləmələri, əlavələr, borc götürmə və kütləvi əməliyyatlar burada görünəcək.",
+        "unknown_actor": "Naməlum istifadəçi",
+        "deleted_item_with_id": "Silinmiş məhsul #{{id}}",
+        "item_missing": "Bu məhsul qeydi artıq mövcud deyil",
+        "actions": {
+            "item_created": "Məhsul əlavə edildi",
+            "item_updated": "Məhsul yeniləndi",
+            "item_deleted": "Məhsul silindi",
+            "item_borrowed": "Məhsul icarəyə verildi",
+            "item_returned": "Məhsul qaytarıldı",
+            "item_bulk_updated": "Toplu yeniləmə",
+            "item_bulk_deleted": "Toplu silmə",
+            "item_stock_adjusted": "Stok yeniləndi",
+            "item_attachment_added": "Əlavə əlavə olundu",
+            "item_attachment_deleted": "Əlavə silindi"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} əlaqəli qeydlər",
+        "empty_title": "Əlaqəli qeyd tapılmadı",
+        "low_stock": {
+            "title": "Aşağı Səhm",
+            "description": "Maddələr minimum səhm səviyyəsinin altındadır.",
+            "qty": "Səhm {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Müddəti keçmiş maddələr",
+            "description": "Son istifadə tarixi keçmiş əşyalar."
+        },
+        "expiring": {
+            "title": "Gələcək Son İstifadə Tarixləri",
+            "description": "30 gün ərzində istifadə müddəti bitəcək əşyalar."
+        },
+        "maintenance": {
+            "title": "Gecikmiş Baxım",
+            "description": "Planlaşdırılmış tarixini keçmiş baxım vəzifələri."
+        }
+    },
+    "notifications": {
+        "title": "Bildiriş Mərkəzi",
+        "description": "Ehtiyat, zəmanət, baxım, son istifadə və borc qaytarma bildirişləri.",
+        "meta_total": "{{count}} bildiriş",
+        "meta_urgent": "{{count}} təcili",
+        "empty_title": "Hazırda diqqət tələb edən heç bir xəbərdarlıq yoxdur",
+        "empty_desc": "Aşağı stok, yaxınlaşan tarixlər və gecikmiş texniki xidmət burada görünəcək.",
+        "items": {
+            "stock_empty_title": "Stokda yoxdur",
+            "stock_low_title": "Aşağı stok",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Müddət bitib",
+            "expiry_close_title": "Müddət yaxınlaşır",
+            "warranty_expired_title": "Zəmanət müddəti bitib",
+            "warranty_close_title": "Zəmanət tezliklə bitir",
+            "maintenance_overdue_title": "Baxım gecikib",
+            "maintenance_close_title": "Baxım tezliklə baş tutacaq",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Geri qaytarma gecikib",
+            "borrow_close_title": "Geri qaytarma tezliklə baş tutacaq",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} gün qaldı ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Xidmət və Zəmanət Mərkəzi",
+        "description": "Zəmanətləri, baxım cədvəllərini və xidmət hərəkətlərini bir yerdə izləyin.",
+        "meta_warranty": "{{count}} zəmanət qeydi",
+        "meta_tasks": "{{count}} texniki xidmət tapşırıqları",
+        "empty_title": "Heç bir xidmət və ya zəmanət fəaliyyəti yoxdur",
+        "empty_desc": "Gələcək zəmanət tarixləri və texniki xidmət tapşırıqları burada toplanacaq.",
+        "warranty_section": "Zəmanət İzləmə",
+        "warranty_desc": "Müddəti bitmiş zəmanətlər və 30 gün ərzində bitəcək zəmanətlər.",
+        "maintenance_section": "Texniki Xidmət Fəaliyyətləri",
+        "maintenance_desc": "Vaxtı keçmiş və gələcək texniki xidmət tapşırıqları.",
+        "no_warranty": "Heç bir yaxın zəmanət tədbiri yoxdur.",
+        "no_tasks": "Heç bir planlaşdırılmış texniki xidmət vəzifəsi yoxdur.",
+        "overdue": "Vaxtı keçmiş",
+        "upcoming": "Tezliklə",
+        "expired": "Müddəti bitmiş",
+        "summary_warranty": "Zəmanət izləmə",
+        "summary_tasks": "Texniki xidmət tapşırıqları",
+        "open_warranty_filter": "Zəmanət filtrini aç",
+        "open_warranty_filter_desc": "Aktiv zəmanət maddələrini inventar siyahısında filtrləyir."
+    },
+    "storage_labels": {
+        "title": "Raf və Otaq Etiketləri",
+        "description": "{{count}} otaq/raf etiketi çap vərəqi kimi hazırdır.",
+        "empty_title": "Etiketlənəcək otaq və ya raf yoxdur",
+        "empty_desc": "Əvvəl otaqları və ya yerləri əlavə edin, sonra QR etiketlərini burada çap edin.",
+        "sheet_label": "Yer Etiket Vərəqi",
+        "scan_hint": "QR kodunu skan etmək həmin otaq və ya raf üçün filtrlənmiş inventarı açır.",
+        "room": "Otaq",
+        "location": "Rəf/Qutu"
     }
 }

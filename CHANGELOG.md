@@ -2,6 +2,29 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.4.0 - Inventory Operations, Labels, Alerts, and Backup Media
+
+### Highlights
+
+- **Advanced inventory operations:** Added multi-select, bulk category/room/location/visibility updates, bulk deletion, stock +/- actions, richer filters, and practical sorting for larger household inventories.
+- **Actionable alerts:** Dashboard warnings now open focused alert detail pages for low stock, expiration dates, and overdue maintenance instead of dropping users into a broad inventory view.
+- **Notification and service centers:** Added dedicated notification and service/warranty surfaces for low stock, warranty, expiration, maintenance, and borrow-return follow-up.
+- **Printable QR labels:** Added item QR label sheets plus room/shelf labels with cut guides and embedded product branding for real-world storage use.
+- **Multiple attachments:** Item records now support multiple additional files for photos, receipts, invoices, manuals, and service documents.
+- **Encrypted activity history:** Item changes, stock updates, bulk actions, and attachment changes are recorded in a protected activity log.
+- **Attachment security hardening:** Uploaded documents now receive stricter type validation, suspicious PDF actions are blocked, attachment names are encrypted at rest, and downloads are forced through safe attachment headers.
+- **Dependency security:** Replaced the filesystem i18n backend with a local JSON-only backend and updated `i18next-http-middleware` to the patched version, clearing the open critical npm audit advisories.
+- **Backup media coverage:** Owner backups can include item media and attachments so full restores can bring files back alongside inventory records.
+- **macOS DMG polish:** The launcher DMG now includes the standard Applications shortcut so users can drag the app into Applications.
+- **Brand build verification:** Custom local brand assets, PWA icons, locale overlays, and production build output were verified for branded deployment paths.
+- **Version metadata synchronized:** Updated root, client, launcher, Tauri, and Rust package metadata to `2.4.0`.
+
+### Upgrade Notes
+
+- Run `npm run build` after pulling this release.
+- Back up SQLite data and uploads before upgrading a self-hosted production deployment.
+- If you use custom brand overlays, rebuild the brand bundle so the new labels, alerts, notification, and activity strings are available.
+
 ## v2.3.0 - Performance and macOS Distribution
 
 ### Highlights

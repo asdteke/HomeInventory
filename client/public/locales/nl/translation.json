@@ -10,7 +10,7 @@
         "load_error": "Laden van artikel mislukt",
         "form": {
             "name": "Artikelnnaam",
-            "name_placeholder": "bijv. Samsung TV 55 inch",
+            "name_placeholder": "bijv. TV 55 inch",
             "required": "*",
             "description": "Beschrijving",
             "description_placeholder": "Notities over het artikel...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Bijna verlopen",
             "expired": "Verlopen",
             "low_stock": "Lage voorraad"
+        },
+        "untitled_item": "Ongetiteld item",
+        "attachments": {
+            "title": "Foto's en bestanden",
+            "add": "Bestanden toevoegen",
+            "empty": "Nog geen bestanden toegevoegd.",
+            "form_desc": "Voeg foto's van items, bonnetjes, facturen of servicedocumenten toe.",
+            "detail_desc": "Foto's, bonnetjes, facturen en servicebestanden opgeslagen voor dit item.",
+            "upload_error": "Bestanden konden niet worden geüpload.",
+            "delete_error": "Bestand kon niet worden verwijderd.",
+            "delete_confirm": "Dit bestand verwijderen?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Wachtwoord tonen",
         "saving": "Opslaan...",
         "disabled": "Gehandicapt",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Inzoomen",
+        "zoom_out": "Uitzoomen",
+        "reset": "Resetten",
+        "print": "Afdrukken",
+        "record_count": "{{count}} records"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "U wordt teruggebracht naar het aanmeldscherm en moet opnieuw inloggen om uw huishoudinventaris te beheren.",
         "logout_warning": "Gebruik dit wanneer u klaar bent op een gedeeld of persoonlijk apparaat.",
         "maintenance": "Onderhoudsschema",
-        "shopping": "Boodschappenlijst"
+        "shopping": "Boodschappenlijst",
+        "activity": "Activiteit",
+        "notifications": "Meldingen",
+        "service": "Dienst"
     },
     "dashboard": {
         "welcome": "Welkom, <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} artikelen zijn onder uw minimumvoorraadlimiet gevallen.",
             "go_to_shopping": "Boodschappenlijst",
             "close_expiry_title": "Aankomende vervaldatums",
-            "close_expiry_desc": "{{count}} producten zullen binnen 30 dagen verlopen."
+            "close_expiry_desc": "{{count}} producten zullen binnen 30 dagen verlopen.",
+            "view_low_stock_items": "Bekijk lage voorraad"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Actieve Huissleutel",
             "key_label": "Huissleutel",
-            "mask_key": "••••••••{{achtervoegsel}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Verbergen",
             "show": "Tonen",
             "copy": "Kopiëren",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} bestaande locaties overgeslagen.",
             "skipped_rooms": "{{count}} bestaande kamers overgeslagen.",
             "owner_only_title": "Back-up en herstel beperkt",
-            "owner_only_desc": "Het maken van een back-up van gegevens en het herstellen daarvan kan alleen worden beheerd door de huiseigenaar."
+            "owner_only_desc": "Het maken van een back-up van gegevens en het herstellen daarvan kan alleen worden beheerd door de huiseigenaar.",
+            "include_media_title": "Inclusief foto's en bonafbeeldingen",
+            "include_media_body": "De volledige back-up kan groter zijn, maar foto’s van items en bonafbeeldingen kunnen ook worden hersteld.",
+            "skipped_attachments": "{{count}} bijlagen zijn overgeslagen."
         },
         "about": {
             "title": "Over de applicatie",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Alle binnenkomende verzoeken worden automatisch geblokkeerd.",
             "policy_house_only_desc": "Alleen geverifieerde leden van je actieve huizen kunnen items aanvragen die al zichtbaar zijn binnen dat gedeelde huis.",
             "policy_everyone_desc": "Andere gebruikers kunnen je items niet doorzoeken of zien. Ze kunnen alleen een verzoek sturen door je gebruikersnaam of e-mailadres direct in te voeren."
+        },
+        "activity_log": {
+            "title": "Activiteiten- en controlelogboek",
+            "description": "Bekijk de beschermde geschiedenis van itemwijzigingen, voorraadupdates, bijlagen en bulkacties.",
+            "encrypted_title": "Activiteitsrecords worden beschermd opgeslagen",
+            "encrypted_body": "Nieuwe activiteitsacties en details worden versleuteld in de database opgeslagen en alleen voor uw actieve sessie ontsleuteld."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Het record wordt gesloten nadat de lener heeft bevestigd dat ze het item hebben terugontvangen.",
             "return_pending_lender_title": "{{name}} heeft dit item als teruggeleverd gemarkeerd",
             "return_pending_self_title": "Bij jou, wachtend op ontvangstbevestiging",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Lid van de site",
+            "site_member_identifier": "Gebruikersnaam of e-mailadres",
+            "site_member_identifier_placeholder": "Exacte gebruikersnaam of e-mailadres",
+            "site_member_privacy_hint": "Het aanbod verschijnt alleen in het Leencentrum als dat account bestaat en inkomende aanbiedingen toestaat.",
+            "external_privacy_hint": "Dit maakt alleen een privé lokaal record aan. Er wordt geen app-melding verzonden.",
+            "available": "Beschikbaar"
         },
         "untitled_item": "Ongetiteld item",
         "delete_action": "Item verwijderen",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Filteren op kamer",
         "refreshing_results": "Items vernieuwen...",
         "empty_filter_title": "Geen items kwamen overeen met die zoekopdracht",
-        "delete_error_title": "Verwijderen mislukt"
+        "delete_error_title": "Verwijderen mislukt",
+        "tools": {
+            "title": "Hulpmiddelen"
+        },
+        "no_room": "Geen ruimte",
+        "all_locations": "Alle locaties",
+        "location_filter_label": "Filter op locatie",
+        "visibility_filter_label": "Filter op zichtbaarheid",
+        "visibility_all": "Alle zichtbaarheid",
+        "visibility_mine": "Mijn items",
+        "visibility_others": "Andere leden",
+        "borrow_filter_label": "Filter op uitleenstatus",
+        "borrow_filter_all": "Alle uitleenstatussen",
+        "stock_filter_label": "Filter op voorraadstatus",
+        "stock_filter_all": "Alle voorraadstatussen",
+        "stock_filter_ok": "Voorraad ok",
+        "expiry_filter_label": "Filter op vervaldatum",
+        "expiry_filter_all": "Alle vervaldata",
+        "expiry_filter_dated": "Heeft datum",
+        "expiry_filter_none": "Geen datum",
+        "warranty_filter_label": "Filter op garantie",
+        "warranty_filter_all": "Alle garanties",
+        "warranty_filter_expired": "Verlopen garanties",
+        "warranty_filter_close": "Komt binnenkort te vervallen",
+        "warranty_filter_active": "Actieve garanties",
+        "warranty_filter_none": "Geen garantie-informatie",
+        "sort_label": "Sorteren",
+        "sort_updated_desc": "Recent bijgewerkt",
+        "sort_updated_asc": "Oudste update",
+        "sort_created_desc": "Nieuwste eerst",
+        "sort_created_asc": "Oudste eerst",
+        "sort_name_asc": "Naam A-Z",
+        "sort_name_desc": "Naam Z-A",
+        "sort_quantity_desc": "Hoeveelheid hoog naar laag",
+        "sort_quantity_asc": "Hoeveelheid laag naar hoog",
+        "sort_expiry_asc": "Verloopt het eerst",
+        "sort_expiry_desc": "Verloopt het laatst",
+        "stock_increase": "Voorraad verhogen",
+        "stock_decrease": "Voorraad verlagen",
+        "stock_adjust_error": "Voorraad kon niet worden bijgewerkt.",
+        "bulk": {
+            "select_visible": "Zichtbaar selecteren",
+            "clear_visible": "Zichtbaar deselecteren",
+            "selected_short": "geselecteerd",
+            "keep_category": "Categorie behouden",
+            "keep_room": "Behoud kamer",
+            "keep_location": "Behoud locatie",
+            "keep_visibility": "Behoud zichtbaarheid",
+            "apply": "Toepassen",
+            "no_fields": "Kies ten minste één veld voor de bulkactie.",
+            "updated_title": "Bulkupdate voltooid",
+            "updated_body": "{{count}} items bijgewerkt. {{skipped}} overgeslagen.",
+            "update_error": "Bulkupdate kon niet worden voltooid.",
+            "deleted_title": "Bulkverwijdering voltooid",
+            "deleted_body": "{{count}} items verwijderd. {{skipped}} overgeslagen.",
+            "delete_error": "Bulkverwijdering kon niet worden voltooid.",
+            "delete_title": "Geselecteerde items verwijderen?",
+            "delete_description": "{{count}} geselecteerde items zullen uit deze huishoudinventory worden verwijderd. Dit kan niet ongedaan worden gemaakt.",
+            "select_item": "Item selecteren",
+            "unselect_item": "Item deselecteren"
+        },
+        "qr_labels": {
+            "title": "QR-labels",
+            "open": "Artikellabels",
+            "description": "{{count}} artikellabels zijn klaar als een afdrukvel.",
+            "empty": "Pas filters aan of voeg voorraadartikelen toe om labels af te drukken.",
+            "sheet_label": "Artikel labelvel",
+            "item_label": "Artikellabel"
+        }
     },
     "categories": {
         "title": "Categorieën",
@@ -1341,7 +1436,7 @@
             "no_logs": "nog geen logs",
             "errors_title": "Systeemfouten (Laatste 10)",
             "no_errors": "// Systeem gezond, geen foutlogs.",
-            "date_fmt": "{{datum, datumtijd}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "E-mail",
                 "user": "Gebruiker",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Mesh-eenheid",
-                    "meta": "TV-console • Deco M4",
+                    "meta": "TV-console • Network node",
                     "state": null
                 },
                 {
@@ -1929,7 +2024,7 @@
             "bodyLine2": "Wachten op goedkeuring van huis eigenaar"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{merknaam}} - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Toegang tot huis",
             "bodyLine1Template": "Huidig in behandeling zijnd verzoek: {{house}} ({{status}})",
             "bodyLine2": "Uw verzoek voor \"{{house}}\" wacht nog op een beslissing.",
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Leencentrum kon niet worden geladen",
             "action_error": "De actie kon niet worden voltooid",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Dit actieve uitleenrecord kon niet worden gevonden. Vernieuw het Uitleencentrum en probeer het opnieuw.",
             "errors": {
                 "external_target_daily_limit": "Je kunt slechts één eerste-contact extern verzoek per dag naar dezelfde persoon sturen. Als ze een verzoek accepteren, geldt deze limiet niet meer voor die persoon.",
                 "external_total_daily_limit": "Je kunt maximaal 5 eerste-contact externe verzoeken per dag versturen.",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "{{name}} accountmenu"
     },
     "app": {
-        "name": "{{merknaam}}",
+        "name": "{{brandName}}",
         "tagline": "Beheer al je huishoudelijke artikelen slim",
         "loading": "Laden {{brandName}}",
         "preparing_workspace": "Je werkplek voorbereiden..."
@@ -2554,6 +2649,103 @@
         "title": "Er moet iets vernieuwd worden",
         "description": "De interface kreeg een onverwacht renderingprobleem. Je opgeslagen inventarisgegevens worden niet gewijzigd door dit scherm.",
         "refresh_btn": "Verversen",
-        "home_btn": "Home"
+        "home_btn": "Startpagina"
+    },
+    "activity": {
+        "title": "Activiteit Geschiedenis",
+        "description": "Recente beschermde wijzigingen in uw huishoudinventaris.",
+        "empty_title": "Nog geen activiteit",
+        "empty_description": "Itemwijzigingen, voorraadupdates, bijlagen, uitleningen en bulkacties worden hier weergegeven.",
+        "unknown_actor": "Onbekende gebruiker",
+        "deleted_item_with_id": "Verwijderd item #{{id}}",
+        "item_missing": "Dit itemrecord bestaat niet meer",
+        "actions": {
+            "item_created": "Item toegevoegd",
+            "item_updated": "Item bijgewerkt",
+            "item_deleted": "Item verwijderd",
+            "item_borrowed": "Item uitgeleend",
+            "item_returned": "Item geretourneerd",
+            "item_bulk_updated": "Bulk bijwerking",
+            "item_bulk_deleted": "Bulk verwijderen",
+            "item_stock_adjusted": "Voorraad bijgewerkt",
+            "item_attachment_added": "Bijlage toegevoegd",
+            "item_attachment_deleted": "Bijlage verwijderd"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} gerelateerde records",
+        "empty_title": "Geen gerelateerde records gevonden",
+        "low_stock": {
+            "title": "Lage voorraad",
+            "description": "Artikelen onder hun minimumvoorraadniveau.",
+            "qty": "Voorraad {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Verlopen artikelen",
+            "description": "Items met een verlopen datum."
+        },
+        "expiring": {
+            "title": "Aankomende vervaldatums",
+            "description": "Items die binnen 30 dagen verlopen."
+        },
+        "maintenance": {
+            "title": "Achterstallig onderhoud",
+            "description": "Onderhoudstaken na hun geplande datum."
+        }
+    },
+    "notifications": {
+        "title": "Meldingencentrum",
+        "description": "Voorraad-, garantie-, onderhouds-, verval- en terugbrengmeldingen.",
+        "meta_total": "{{count}} meldingen",
+        "meta_urgent": "{{count}} dringend",
+        "empty_title": "Er zijn momenteel geen meldingen die uw aandacht nodig hebben",
+        "empty_desc": "Lage voorraad, komende data en achterstallig onderhoud verschijnen hier",
+        "items": {
+            "stock_empty_title": "Niet op voorraad",
+            "stock_low_title": "Lage voorraad",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Verloopdatum verstreken",
+            "expiry_close_title": "Verloopdatum nadert",
+            "warranty_expired_title": "Garantie verlopen",
+            "warranty_close_title": "Garantie eindigt binnenkort",
+            "maintenance_overdue_title": "Onderhoud achterstallig",
+            "maintenance_close_title": "Onderhoud binnenkort",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Teruggave lening achterstallig",
+            "borrow_close_title": "Teruggave lening binnenkort",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: nog {{count}} dagen ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Service- en garantiebureau",
+        "description": "Volg garanties, onderhoudsschema's en serviceacties op één plek.",
+        "meta_warranty": "{{count}} garantiedocumenten",
+        "meta_tasks": "{{count}} onderhoudstaken",
+        "empty_title": "Geen service- of garantieactie",
+        "empty_desc": "Aankomende garantiedata en onderhoudstaken worden hier verzameld.",
+        "warranty_section": "Garantie Tracking",
+        "warranty_desc": "Verlopen garanties en garanties die binnen 30 dagen eindigen.",
+        "maintenance_section": "Onderhoudsacties",
+        "maintenance_desc": "Achterstallige en aankomende onderhoudstaken.",
+        "no_warranty": "Geen aanstaande garantieactie.",
+        "no_tasks": "Geen geplande onderhoudstaak.",
+        "overdue": "Over tijd",
+        "upcoming": "Binnenkort",
+        "expired": "Verlopen",
+        "summary_warranty": "Garantie tracking",
+        "summary_tasks": "Onderhoudstaken",
+        "open_warranty_filter": "Open garantie filter",
+        "open_warranty_filter_desc": "Filtert actieve garantie-items in de inventaris."
+    },
+    "storage_labels": {
+        "title": "Plank- en Kamerslabels",
+        "description": "{{count}} kamer-/planklabels zijn klaar als een printvel.",
+        "empty_title": "Geen kamers of planken om te labelen",
+        "empty_desc": "Voeg eerst kamers of locaties toe, print dan hier QR-labels.",
+        "sheet_label": "Locatie Labelvel",
+        "scan_hint": "Het scannen van de QR-code opent de gefilterde inventaris voor die kamer of plank.",
+        "room": "Kamer",
+        "location": "Plank/Doos"
     }
 }

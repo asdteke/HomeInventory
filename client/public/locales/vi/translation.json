@@ -10,7 +10,7 @@
         "load_error": "Không tải được mặt hàng",
         "form": {
             "name": "Tên mặt hàng",
-            "name_placeholder": "ví dụ: TV Samsung 55 inch",
+            "name_placeholder": "ví dụ: TV 55 inch",
             "required": "*",
             "description": "Mô tả",
             "description_placeholder": "Ghi chú về mặt hàng...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Gần hết hạn",
             "expired": "Hết hạn",
             "low_stock": "Hàng tồn kho thấp"
+        },
+        "untitled_item": "Mục không có tiêu đề",
+        "attachments": {
+            "title": "Ảnh và tệp",
+            "add": "Thêm tệp",
+            "empty": "Chưa có tệp nào được thêm vào.",
+            "form_desc": "Đính kèm ảnh mặt hàng, biên lai, hóa đơn hoặc tài liệu dịch vụ.",
+            "detail_desc": "Ảnh, biên lai, hóa đơn và tệp dịch vụ được lưu cho mục này.",
+            "upload_error": "Không thể tải tệp lên.",
+            "delete_error": "Không thể xóa tệp.",
+            "delete_confirm": "Xóa tệp này?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Hiện mật khẩu",
         "saving": "Đang lưu...",
         "disabled": "Vô hiệu hóa",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Phóng to",
+        "zoom_out": "Thu nhỏ",
+        "reset": "Xóa và làm lại",
+        "print": "In ấn",
+        "record_count": "{{count}} bản ghi"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Bạn sẽ được đưa trở lại màn hình đăng nhập và cần đăng nhập lại để quản lý kho hàng gia đình của mình.",
         "logout_warning": "Sử dụng điều này khi bạn đã xong trên thiết bị dùng chung hoặc cá nhân.",
         "maintenance": "Lịch bảo trì",
-        "shopping": "Danh sách mua sắm"
+        "shopping": "Danh sách mua sắm",
+        "activity": "Hoạt động",
+        "notifications": "Thông báo",
+        "service": "Dịch vụ"
     },
     "dashboard": {
         "welcome": "Chào mừng, <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} mặt hàng đã giảm xuống dưới hạn mức tồn kho tối thiểu của bạn.",
             "go_to_shopping": "Danh sách mua sắm",
             "close_expiry_title": "Ngày hết hạn sắp tới",
-            "close_expiry_desc": "{{count}} sản phẩm sẽ hết hạn trong vòng 30 ngày."
+            "close_expiry_desc": "{{count}} sản phẩm sẽ hết hạn trong vòng 30 ngày.",
+            "view_low_stock_items": "Xem hàng thấp"
         }
     },
     "beta_banner": {
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} địa điểm hiện tại bị bỏ qua.",
             "skipped_rooms": "{{count}} phòng hiện tại bị bỏ qua.",
             "owner_only_title": "Sao lưu và Khôi phục Bị Giới hạn",
-            "owner_only_desc": "Sao lưu và khôi phục dữ liệu chỉ có thể được quản lý bởi chủ nhà."
+            "owner_only_desc": "Sao lưu và khôi phục dữ liệu chỉ có thể được quản lý bởi chủ nhà.",
+            "include_media_title": "Bao gồm ảnh và hình ảnh biên lai",
+            "include_media_body": "Bản sao lưu đầy đủ có thể lớn hơn, nhưng ảnh mặt hàng và hình ảnh biên lai cũng có thể được khôi phục.",
+            "skipped_attachments": "{{count}} tệp đính kèm đã bị bỏ qua."
         },
         "about": {
             "title": "Về ứng dụng",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Tất cả các yêu cầu đến sẽ tự động bị chặn.",
             "policy_house_only_desc": "Chỉ các thành viên đã xác minh của các ngôi nhà đang hoạt động của bạn mới có thể yêu cầu các món đồ đã hiển thị bên trong ngôi nhà chia sẻ đó.",
             "policy_everyone_desc": "Người dùng khác không thể duyệt hoặc xem các món đồ của bạn. Họ chỉ có thể gửi yêu cầu bằng cách nhập trực tiếp tên người dùng hoặc email của bạn."
+        },
+        "activity_log": {
+            "title": "Nhật ký hoạt động và kiểm tra",
+            "description": "Xem lại lịch sử được bảo vệ của các thay đổi mặt hàng, cập nhật kho, tệp đính kèm và hành động hàng loạt.",
+            "encrypted_title": "Bản ghi hoạt động được lưu trữ được bảo vệ",
+            "encrypted_body": "Các hành động và chi tiết hoạt động mới được lưu trữ được mã hóa trong cơ sở dữ liệu và chỉ được giải mã cho phiên hoạt động của bạn."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Hồ sơ sẽ đóng sau khi người cho vay xác nhận họ đã nhận lại vật phẩm.",
             "return_pending_lender_title": "{{name}} đã đánh dấu vật phẩm này là đã trả lại",
             "return_pending_self_title": "Ở với bạn, chờ xác nhận biên nhận",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Thành viên trang web",
+            "site_member_identifier": "Tên người dùng hoặc email",
+            "site_member_identifier_placeholder": "Tên người dùng hoặc email chính xác",
+            "site_member_privacy_hint": "Ưu đãi chỉ xuất hiện trong Trung tâm vay nếu tài khoản đó tồn tại và cho phép các đề nghị đến.",
+            "external_privacy_hint": "Thao tác này chỉ tạo một bản ghi cục bộ riêng tư. Không có thông báo ứng dụng nào được gửi.",
+            "available": "Có sẵn"
         },
         "untitled_item": "Mục không có tiêu đề",
         "delete_action": "Xóa mục",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Lọc theo phòng",
         "refreshing_results": "Đang làm mới các mục...",
         "empty_filter_title": "Không có mục nào phù hợp với tìm kiếm đó",
-        "delete_error_title": "Xóa thất bại"
+        "delete_error_title": "Xóa thất bại",
+        "tools": {
+            "title": "Công cụ"
+        },
+        "no_room": "Không có phòng",
+        "all_locations": "Tất cả các địa điểm",
+        "location_filter_label": "Lọc theo vị trí",
+        "visibility_filter_label": "Lọc theo chế độ hiển thị",
+        "visibility_all": "Tất cả khả năng hiển thị",
+        "visibility_mine": "Vật dụng của tôi",
+        "visibility_others": "Các thành viên khác",
+        "borrow_filter_label": "Lọc theo trạng thái vay",
+        "borrow_filter_all": "Tất cả các trạng thái vay",
+        "stock_filter_label": "Lọc theo trạng thái hàng tồn kho",
+        "stock_filter_all": "Tất cả trạng thái hàng tồn kho",
+        "stock_filter_ok": "Cổ phiếu ok",
+        "expiry_filter_label": "Lọc theo ngày hết hạn",
+        "expiry_filter_all": "Tất cả ngày hết hạn",
+        "expiry_filter_dated": "Có ngày",
+        "expiry_filter_none": "Không có ngày",
+        "warranty_filter_label": "Lọc theo bảo hành",
+        "warranty_filter_all": "Tất cả các bảo hành",
+        "warranty_filter_expired": "Bảo hành hết hạn",
+        "warranty_filter_close": "Sắp kết thúc",
+        "warranty_filter_active": "Bảo hành đang hoạt động",
+        "warranty_filter_none": "Không có thông tin bảo hành",
+        "sort_label": "Sắp xếp",
+        "sort_updated_desc": "Cập nhật gần đây",
+        "sort_updated_asc": "Bản cập nhật cũ nhất",
+        "sort_created_desc": "Mới nhất đầu tiên",
+        "sort_created_asc": "Già nhất trước",
+        "sort_name_asc": "Tên A-Z",
+        "sort_name_desc": "Tên Z-A",
+        "sort_quantity_desc": "Số lượng từ cao đến thấp",
+        "sort_quantity_asc": "Số lượng từ thấp đến cao",
+        "sort_expiry_asc": "Hết hạn sớm nhất",
+        "sort_expiry_desc": "Hết hạn muộn nhất",
+        "stock_increase": "Tăng hàng tồn kho",
+        "stock_decrease": "Giảm hàng tồn kho",
+        "stock_adjust_error": "Không thể cập nhật hàng tồn kho.",
+        "bulk": {
+            "select_visible": "Chọn hiển thị",
+            "clear_visible": "Bỏ chọn hiển thị",
+            "selected_short": "Đã chọn",
+            "keep_category": "Giữ danh mục",
+            "keep_room": "Giữ phòng",
+            "keep_location": "Giữ vị trí",
+            "keep_visibility": "Duy trì khả năng hiển thị",
+            "apply": "Đăng ký",
+            "no_fields": "Chọn ít nhất một trường cho thao tác hàng loạt.",
+            "updated_title": "Hoàn tất cập nhật hàng loạt",
+            "updated_body": "{{count}} mục được cập nhật. {{skipped}} đã bỏ qua.",
+            "update_error": "Không thể hoàn tất cập nhật hàng loạt.",
+            "deleted_title": "Xóa hàng loạt hoàn tất",
+            "deleted_body": "{{count}} mục đã bị xóa. {{skipped}} đã bỏ qua.",
+            "delete_error": "Không thể hoàn tất xóa hàng loạt.",
+            "delete_title": "Xóa các mục đã chọn?",
+            "delete_description": "{{count}} mặt hàng đã chọn sẽ bị xóa khỏi kho hộ gia đình này. Điều này không thể hoàn tác.",
+            "select_item": "Chọn mục",
+            "unselect_item": "Bỏ chọn mục"
+        },
+        "qr_labels": {
+            "title": "Nhãn QR",
+            "open": "Nhãn mặt hàng",
+            "description": "{{count}} nhãn mục đã sẵn sàng dưới dạng tờ in.",
+            "empty": "Thay đổi bộ lọc hoặc thêm mặt hàng trong kho để in nhãn.",
+            "sheet_label": "Bảng nhãn mặt hàng",
+            "item_label": "Nhãn mặt hàng"
+        }
     },
     "categories": {
         "title": "Danh Mục",
@@ -1341,7 +1436,7 @@
             "no_logs": "chưa có nhật ký",
             "errors_title": "Lỗi hệ thống (10 lần gần nhất)",
             "no_errors": "// Hệ thống hoạt động bình thường, không có nhật ký lỗi.",
-            "date_fmt": "{{ngày, giờ}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "E-mail",
                 "user": "Người dùng",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Đơn vị lưới",
-                    "meta": "Kệ TV • Deco M4",
+                    "meta": "Kệ TV • Network node",
                     "state": null
                 },
                 {
@@ -1929,7 +2024,7 @@
             "bodyLine2": "Đang chờ sự phê duyệt của chủ nhà"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{trạng thái}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Truy Cập Nhà",
             "bodyLine1Template": "Yêu cầu đang chờ hiện tại: {{house}} ({{status}})",
             "bodyLine2": "Yêu cầu của bạn cho \"{{house}}\" vẫn đang chờ quyết định.",
@@ -1954,7 +2049,7 @@
             "warningTitle": "⚠️",
             "warningBody": "Nếu tài khoản tồn tại, một liên kết đặt lại mật khẩu có hiệu lực trong 15 phút đã được gửi.",
             "fallback": "Liên kết đặt lại mật khẩu có vẻ không đầy đủ hoặc bị hỏng.",
-            "footer": "© 2026 {{tên thương hiệu}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "Email này được gửi bởi {{brandName}}.",
@@ -1968,7 +2063,7 @@
             "sentAtLabel": "Gửi lúc",
             "senderLabel": "Người gửi",
             "serviceLabel": "Dịch vụ",
-            "footer": "© 2026 {{tên thương hiệu}}"
+            "footer": "© 2026 {{brandName}}"
         }
     },
     "vault": {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Trung tâm vay không thể tải được",
             "action_error": "Hành động không thể hoàn thành",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Không thể tìm thấy hồ sơ vay đang hoạt động này. Làm mới Trung tâm vay và thử lại.",
             "errors": {
                 "external_target_daily_limit": "Bạn chỉ có thể gửi một yêu cầu liên lạc lần đầu đến cùng một người trong một ngày. Nếu họ chấp nhận yêu cầu, giới hạn này không còn áp dụng với người đó.",
                 "external_total_daily_limit": "Bạn có thể gửi tối đa 5 yêu cầu liên lạc lần đầu mỗi ngày.",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "Menu tài khoản của {{name}}"
     },
     "app": {
-        "name": "{{brandName}} Bản Beta: {{brandName}} hiện đang trong giai đoạn thử nghiệm. Không có đảm bảo nào về tính vĩnh viễn hay bảo mật dữ liệu. {{brandName}} hiện đang trong giai đoạn thử nghiệm và giải trí. Không có đảm bảo nào về tính vĩnh viễn hay bảo mật dữ liệu. Vui lòng sao lưu thông tin quan trọng của bạn. Đăng nhập",
+        "name": "{{brandName}}",
         "tagline": "Quản lý thông minh tất cả các món đồ trong gia đình của bạn",
         "loading": "Đang tải {{brandName}}",
         "preparing_workspace": "Chuẩn bị không gian làm việc của bạn..."
@@ -2555,5 +2650,102 @@
         "description": "Giao diện gặp sự cố kết xuất không mong muốn. Dữ liệu hàng lưu kho đã lưu của bạn không bị thay đổi bởi màn hình này.",
         "refresh_btn": "Làm mới",
         "home_btn": "Trang chủ"
+    },
+    "activity": {
+        "title": "Lịch sử hoạt động",
+        "description": "Những thay đổi được bảo vệ gần đây trong kho nhà của bạn.",
+        "empty_title": "Chưa có hoạt động nào",
+        "empty_description": "Thay đổi mặt hàng, cập nhật hàng tồn kho, tệp đính kèm, mượn và hành động hàng loạt sẽ xuất hiện tại đây.",
+        "unknown_actor": "Người dùng không xác định",
+        "deleted_item_with_id": "Mục đã xóa #{{id}}",
+        "item_missing": "Bản ghi mặt hàng này không còn tồn tại",
+        "actions": {
+            "item_created": "Mục được thêm vào",
+            "item_updated": "Cập nhật mặt hàng",
+            "item_deleted": "Mục đã xóa",
+            "item_borrowed": "Vật phẩm cho mượn",
+            "item_returned": "Mặt hàng trả lại",
+            "item_bulk_updated": "Cập nhật hàng loạt",
+            "item_bulk_deleted": "Xóa hàng loạt",
+            "item_stock_adjusted": "Cập nhật kho",
+            "item_attachment_added": "Đã thêm tệp đính kèm",
+            "item_attachment_deleted": "Tệp đính kèm đã bị xóa"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} bản ghi liên quan",
+        "empty_title": "Không tìm thấy hồ sơ liên quan",
+        "low_stock": {
+            "title": "Cổ phiếu thấp",
+            "description": "Các mặt hàng dưới mức tồn kho tối thiểu.",
+            "qty": "Tồn kho {{quantity}} / phút {{min}}"
+        },
+        "expired": {
+            "title": "Vật phẩm hết hạn",
+            "description": "Các mặt hàng có ngày hết hạn."
+        },
+        "expiring": {
+            "title": "Ngày hết hạn sắp tới",
+            "description": "Các mặt hàng hết hạn trong vòng 30 ngày."
+        },
+        "maintenance": {
+            "title": "Bảo trì quá hạn",
+            "description": "Các nhiệm vụ bảo trì quá ngày dự kiến."
+        }
+    },
+    "notifications": {
+        "title": "Trung tâm thông báo",
+        "description": "Cảnh báo hàng tồn kho, bảo hành, bảo trì, hết hạn và trả lại mượn.",
+        "meta_total": "{{count}} thông báo",
+        "meta_urgent": "{{count}} khẩn cấp",
+        "empty_title": "Không có cảnh báo nào cần bạn chú ý ngay bây giờ",
+        "empty_desc": "Hàng tồn kho thấp, ngày sắp tới và bảo trì quá hạn sẽ xuất hiện tại đây.",
+        "items": {
+            "stock_empty_title": "Hết hàng",
+            "stock_low_title": "Kho thấp",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Ngày hết hạn đã trôi qua",
+            "expiry_close_title": "Ngày hết hạn đang đến gần",
+            "warranty_expired_title": "Hết hạn bảo hành",
+            "warranty_close_title": "Bảo hành sắp kết thúc",
+            "maintenance_overdue_title": "Quá hạn bảo trì",
+            "maintenance_close_title": "Bảo trì sẽ sớm đến hạn",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Lợi nhuận vay quá hạn",
+            "borrow_close_title": "Vay lợi nhuận đến hạn sớm",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} ngày còn lại ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Trung tâm dịch vụ và bảo hành",
+        "description": "Theo dõi bảo hành, lịch bảo trì và hành động dịch vụ ở một nơi.",
+        "meta_warranty": "{{count}} hồ sơ bảo hành",
+        "meta_tasks": "{{count}} nhiệm vụ bảo trì",
+        "empty_title": "Không có hành động dịch vụ hoặc bảo hành",
+        "empty_desc": "Ngày bảo hành sắp tới và nhiệm vụ bảo trì sẽ được thu thập tại đây.",
+        "warranty_section": "Theo dõi bảo hành",
+        "warranty_desc": "Bảo hành hết hạn và bảo hành kết thúc trong vòng 30 ngày.",
+        "maintenance_section": "Hành động bảo trì",
+        "maintenance_desc": "Các nhiệm vụ bảo trì quá hạn và sắp tới.",
+        "no_warranty": "Không có hành động bảo hành sắp tới.",
+        "no_tasks": "Không có nhiệm vụ bảo trì theo lịch trình.",
+        "overdue": "Quá hạn",
+        "upcoming": "Sắp tới",
+        "expired": "Hết hạn",
+        "summary_warranty": "Theo dõi bảo hành",
+        "summary_tasks": "Nhiệm vụ bảo trì",
+        "open_warranty_filter": "Mở bộ lọc bảo hành",
+        "open_warranty_filter_desc": "Lọc các mặt hàng bảo hành đang hoạt động trong kho."
+    },
+    "storage_labels": {
+        "title": "Kệ và nhãn phòng",
+        "description": "{{count}} nhãn phòng/kệ đã sẵn sàng dưới dạng tờ in.",
+        "empty_title": "Không có phòng hoặc kệ để dán nhãn",
+        "empty_desc": "Thêm phòng hoặc địa điểm trước, sau đó in nhãn QR tại đây.",
+        "sheet_label": "Bảng nhãn vị trí",
+        "scan_hint": "Quét mã QR sẽ mở khoảng không quảng cáo đã lọc cho phòng hoặc kệ đó.",
+        "room": "Phòng",
+        "location": "Kệ / Hộp"
     }
 }

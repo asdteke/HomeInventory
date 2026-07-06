@@ -134,6 +134,17 @@
             "close_to_expiry": "만료 임박",
             "expired": "만료됨",
             "low_stock": "재고 부족"
+        },
+        "untitled_item": "제목 없는 항목",
+        "attachments": {
+            "title": "사진 및 파일",
+            "add": "파일 추가",
+            "empty": "아직 추가된 파일이 없습니다.",
+            "form_desc": "항목 사진, 영수증, 송장 또는 서비스 문서를 첨부하세요.",
+            "detail_desc": "이 항목에 대한 사진, 영수증, 송장 및 서비스 파일이 저장되었습니다.",
+            "upload_error": "파일을 업로드할 수 없습니다.",
+            "delete_error": "파일을 삭제할 수 없습니다.",
+            "delete_confirm": "이 파일을 삭제하시겠습니까?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "비밀번호 표시",
         "saving": "저장 중...",
         "disabled": "장애",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "확대",
+        "zoom_out": "축소",
+        "reset": "재설정",
+        "print": "인쇄",
+        "record_count": "{{count}} 기록"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "로그인 화면으로 돌아가게 되며, 가정용 재고를 관리하려면 다시 로그인해야 합니다.",
         "logout_warning": "공용 또는 개인 기기에서 작업을 마친 경우 사용하세요.",
         "maintenance": "유지보수 일정",
-        "shopping": "쇼핑 목록"
+        "shopping": "쇼핑 목록",
+        "activity": "활동",
+        "notifications": "알림",
+        "service": "서비스"
     },
     "dashboard": {
         "welcome": "환영합니다, <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}}개의 품목이 최소 재고 한도 아래로 떨어졌습니다.",
             "go_to_shopping": "쇼핑 목록",
             "close_expiry_title": "다가오는 유통 기한",
-            "close_expiry_desc": "{{count}}개의 제품이 30일 이내에 만료됩니다."
+            "close_expiry_desc": "{{count}}개의 제품이 30일 이내에 만료됩니다.",
+            "view_low_stock_items": "재고 부족 보기"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "활성 집 키",
             "key_label": "집 키",
-            "mask_key": "••••••••{{접미사}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "숨기기",
             "show": "보기",
             "copy": "복사",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}}개의 기존 위치 건너뜀.",
             "skipped_rooms": "{{count}}개의 기존 방 건너뜀.",
             "owner_only_title": "백업 및 복원 제한",
-            "owner_only_desc": "데이터 백업 및 복원은 집주인만 관리할 수 있습니다."
+            "owner_only_desc": "데이터 백업 및 복원은 집주인만 관리할 수 있습니다.",
+            "include_media_title": "사진 및 영수증 이미지 포함",
+            "include_media_body": "전체 백업은 더 클 수 있지만, 항목 사진과 영수증 이미지도 복원할 수 있습니다.",
+            "skipped_attachments": "{{count}}개의 첨부 파일이 건너뛰어졌습니다."
         },
         "about": {
             "title": "애플리케이션 정보",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "모든 수신 요청은 자동으로 차단됩니다.",
             "policy_house_only_desc": "활성 하우스의 인증된 멤버만 해당 공유 하우스 내에서 이미 보이는 아이템을 요청할 수 있습니다.",
             "policy_everyone_desc": "다른 사용자는 당신의 아이템을 탐색하거나 볼 수 없습니다. 그들은 오직 사용자 이름이나 이메일을 직접 입력하여 요청을 보낼 수 있습니다."
+        },
+        "activity_log": {
+            "title": "활동 및 감사 로그",
+            "description": "항목 변경, 재고 업데이트, 첨부 파일 및 대량 작업의 보호된 기록을 검토합니다.",
+            "encrypted_title": "활동 기록은 보호된 상태로 저장됩니다",
+            "encrypted_body": "새 활동 동작 및 세부 정보는 데이터베이스에 암호화되어 저장되며, 활성 세션에서만 복호화됩니다."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "대출자가 항목을 반환받았음을 확인하면 기록이 종료됩니다.",
             "return_pending_lender_title": "{{name}} 이 항목을 반환 완료로 표시함",
             "return_pending_self_title": "당신과 함께 있으며, 수령 확인 대기 중",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "사이트 회원",
+            "site_member_identifier": "사용자 이름 또는 이메일",
+            "site_member_identifier_placeholder": "정확한 사용자 이름 또는 이메일",
+            "site_member_privacy_hint": "해당 계정이 존재하고 수신 제안을 허용하는 경우에만 오퍼가 대출 센터에 표시됩니다.",
+            "external_privacy_hint": "이는 로컬에서만 개인 기록을 생성합니다. 앱 알림은 전송되지 않습니다.",
+            "available": "사용 가능"
         },
         "untitled_item": "제목 없는 항목",
         "delete_action": "항목 삭제",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "방별 필터",
         "refreshing_results": "항목 새로 고침 중...",
         "empty_filter_title": "검색된 항목이 없습니다",
-        "delete_error_title": "삭제 실패"
+        "delete_error_title": "삭제 실패",
+        "tools": {
+            "title": "도구"
+        },
+        "no_room": "객실 없음",
+        "all_locations": "모든 위치",
+        "location_filter_label": "위치별 필터",
+        "visibility_filter_label": "가시성별 필터",
+        "visibility_all": "모든 가시성",
+        "visibility_mine": "내 아이템",
+        "visibility_others": "다른 회원",
+        "borrow_filter_label": "대출 상태별 필터",
+        "borrow_filter_all": "모든 대출 상태",
+        "stock_filter_label": "재고 상태별 필터",
+        "stock_filter_all": "모든 재고 상태",
+        "stock_filter_ok": "재고 있음",
+        "expiry_filter_label": "만료일별 필터",
+        "expiry_filter_all": "모든 만료일",
+        "expiry_filter_dated": "날짜 있음",
+        "expiry_filter_none": "날짜 없음",
+        "warranty_filter_label": "보증별 필터",
+        "warranty_filter_all": "모든 보증",
+        "warranty_filter_expired": "만료된 보증",
+        "warranty_filter_close": "곧 종료",
+        "warranty_filter_active": "활성 보증",
+        "warranty_filter_none": "보증 정보 없음",
+        "sort_label": "정렬",
+        "sort_updated_desc": "최근 업데이트",
+        "sort_updated_asc": "가장 오래된 업데이트",
+        "sort_created_desc": "최신순",
+        "sort_created_asc": "오래된 순",
+        "sort_name_asc": "이름 A-Z",
+        "sort_name_desc": "이름 Z-A",
+        "sort_quantity_desc": "수량 높은 순",
+        "sort_quantity_asc": "수량 낮은 순",
+        "sort_expiry_asc": "만료 임박 순",
+        "sort_expiry_desc": "유통기한 최신",
+        "stock_increase": "재고 증가",
+        "stock_decrease": "재고 감소",
+        "stock_adjust_error": "재고를 업데이트할 수 없습니다.",
+        "bulk": {
+            "select_visible": "보기 선택",
+            "clear_visible": "보기 선택 해제",
+            "selected_short": "선택됨",
+            "keep_category": "카테고리 유지",
+            "keep_room": "방 유지",
+            "keep_location": "위치 유지",
+            "keep_visibility": "표시 상태 유지",
+            "apply": "적용",
+            "no_fields": "일괄 작업을 위해 최소 하나의 필드를 선택하세요.",
+            "updated_title": "일괄 업데이트 완료",
+            "updated_body": "{{count}}개 항목이 업데이트되었습니다. {{skipped}}개는 건너뛰었습니다.",
+            "update_error": "대량 업데이트를 완료할 수 없습니다.",
+            "deleted_title": "대량 삭제 완료",
+            "deleted_body": "{{count}}개 항목이 삭제되었습니다. {{skipped}}개 항목은 건너뜀.",
+            "delete_error": "대량 삭제를 완료할 수 없습니다.",
+            "delete_title": "선택한 항목을 삭제하시겠습니까?",
+            "delete_description": "{{count}}개의 선택된 항목이 이 가정용 인벤토리에서 제거됩니다. 이 작업은 되돌릴 수 없습니다.",
+            "select_item": "항목 선택",
+            "unselect_item": "항목 선택 해제"
+        },
+        "qr_labels": {
+            "title": "QR 라벨",
+            "open": "아이템 라벨",
+            "description": "{{count}}개의 아이템 라벨이 인쇄용 시트로 준비되었습니다.",
+            "empty": "필터를 변경하거나 인벤토리 아이템을 추가하여 라벨을 인쇄하세요.",
+            "sheet_label": "아이템 라벨 시트",
+            "item_label": "아이템 라벨"
+        }
     },
     "categories": {
         "title": "카테고리",
@@ -1341,7 +1436,7 @@
             "no_logs": "아직 기록이 없습니다",
             "errors_title": "시스템 오류(최근 10개)",
             "no_errors": "// 시스템이 정상이며 오류 로그가 없습니다.",
-            "date_fmt": "{{날짜, 날짜/시간}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "이메일",
                 "user": "사용자",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "메시 유닛",
-                    "meta": "TV 콘솔 • Deco M4",
+                    "meta": "TV 콘솔 • Network node",
                     "state": null
                 },
                 {
@@ -1902,7 +1997,7 @@
             ],
             "fallback": "비밀번호 재설정 링크가 불완전하거나 손상된 것 같습니다.",
             "support": "등록 문제:",
-            "footer": "© 2026 {{브랜드 이름}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
             "subject": "{{brandName}}에 오신 것을 환영합니다",
@@ -1920,7 +2015,7 @@
                 "💡 여러 집의 회원이 될 수 있으며, 집 간에 전환할 수 있습니다. 각 집은 별도의 인벤토리를 유지합니다."
             ],
             "support": "등록 문제:",
-            "footer": "© 2026 {{브랜드 이름}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "집 참여",
@@ -1929,7 +2024,7 @@
             "bodyLine2": "집 소유자의 승인을 기다리는 중"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{브랜드 이름}} - {{상태}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "집 접근",
             "bodyLine1Template": "현재 대기 중인 요청: {{house}} ({{status}})",
             "bodyLine2": "\"{{house}}\"에 대한 귀하의 요청이 아직 결정되지 않았습니다.",
@@ -1954,7 +2049,7 @@
             "warningTitle": "⚠️",
             "warningBody": "계정이 존재하면 15분 동안 유효한 비밀번호 재설정 링크가 전송되었습니다.",
             "fallback": "비밀번호 재설정 링크가 불완전하거나 손상된 것 같습니다.",
-            "footer": "© 2026 {{브랜드 이름}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "이 이메일은 {{brandName}}에서 발송되었습니다.",
@@ -1968,7 +2063,7 @@
             "sentAtLabel": "전송 시각",
             "senderLabel": "발신자",
             "serviceLabel": "서비스",
-            "footer": "© 2026 {{브랜드 이름}}"
+            "footer": "© 2026 {{brandName}}"
         }
     },
     "vault": {
@@ -2103,7 +2198,7 @@
             "cancel": "취소",
             "fulfill_request": "요청 이행",
             "mark_delivered": "반송 완료로 표시",
-            "mark_received": "\"{{item}}\"에 대해 \"{{item}}\"에 대한 활성 대출 항목을 반환 후",
+            "mark_received": "마크가 받았다",
             "open_inventory": "열린 인벤토리"
         },
         "labels": {
@@ -2144,7 +2239,7 @@
             "return_target": "현재 {{name}}와 함께 있는 것으로 표시됩니다.",
             "return_title_borrower": "전달",
             "return_title_lender": "물품 수신",
-            "return_subtitle_borrower": "표시하세요.",
+            "return_subtitle_borrower": "\"{{item}}\"을 반납한 후 배달 알림을 보내세요.",
             "return_subtitle_lender": "받은 후 \"{{item}}\"에 대한 활성 대여를 종료하십시오.",
             "return_target_borrower": "대여자: {{name}}",
             "return_target_lender": "현재 소유자: {{name}}",
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "대출 센터를 불러올 수 없습니다",
             "action_error": "작업을 완료할 수 없습니다",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "이 활성 대출 기록을 찾을 수 없습니다. 대출 센터를 새로고침하고 다시 시도하세요.",
             "errors": {
                 "external_target_daily_limit": "동일한 사람에게 하루에 한 번만 첫 번째 외부 연락 요청을 보낼 수 있습니다. 그 사람이 요청을 수락하면 이 제한은 더 이상 그 사람에게 적용되지 않습니다.",
                 "external_total_daily_limit": "하루에 최대 5개의 첫 번째 외부 연락 요청을 보낼 수 있습니다.",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "{{name}} 계정 메뉴"
     },
     "app": {
-        "name": "{{brandName}} BETA 버전: {{brandName}}는 현재 테스트 단계에 있습니다. 데이터의 영구성이나 보안에 대해서는 어떠한 보장도 제공되지 않습니다.",
+        "name": "{{brandName}}",
         "tagline": "모든 가정용품을 스마트하게 관리하세요",
         "loading": "{{brandName}} 로딩 중입니다",
         "preparing_workspace": "작업 공간 준비 중..."
@@ -2300,7 +2395,7 @@
         "disclaimer": "면책 조항: 이 애플리케이션을 사용함으로써, 잠재적인 데이터 손실, 접근 문제 또는 기타 기술적 문제에 대해 보상을 청구할 수 없음을 동의하게 됩니다.",
         "backup_warning": "데이터 백업: 중요한 정보를 정기적으로 백업할 것을 강력히 권장합니다.",
         "accept": "로그인함으로써, 귀하는 이 약관에 동의하게 됩니다.",
-        "short_notice": "로그인",
+        "short_notice": "{{brandName}}은 현재 테스트 및 취미 단계에 있습니다. 데이터 영구성이나 보안에 대해 어떠한 보장도 제공되지 않습니다. 중요한 정보는 백업해 두시기 바랍니다.",
         "contact": "문의"
     },
     "locations": {
@@ -2555,5 +2650,102 @@
         "description": "인터페이스가 예상치 못한 렌더링 문제를 겪었습니다. 이 화면에서는 저장된 재고 데이터가 변경되지 않습니다.",
         "refresh_btn": "새로고침",
         "home_btn": "홈"
+    },
+    "activity": {
+        "title": "활동 기록",
+        "description": "최근 가정용 재고에서 보호된 변경 사항.",
+        "empty_title": "아직 활동 없음",
+        "empty_description": "항목 변경, 재고 업데이트, 첨부 파일, 대여 및 대량 작업이 여기에 표시됩니다.",
+        "unknown_actor": "알 수 없는 사용자",
+        "deleted_item_with_id": "삭제된 항목 #{{id}}",
+        "item_missing": "이 항목 기록은 더 이상 존재하지 않습니다",
+        "actions": {
+            "item_created": "항목 추가됨",
+            "item_updated": "항목 업데이트됨",
+            "item_deleted": "항목 삭제됨",
+            "item_borrowed": "항목 대출됨",
+            "item_returned": "항목 반환됨",
+            "item_bulk_updated": "대량 업데이트",
+            "item_bulk_deleted": "대량 삭제",
+            "item_stock_adjusted": "재고 업데이트됨",
+            "item_attachment_added": "첨부파일 추가됨",
+            "item_attachment_deleted": "첨부파일 삭제됨"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}}개의 관련 기록",
+        "empty_title": "관련 기록이 없습니다",
+        "low_stock": {
+            "title": "재고 부족",
+            "description": "최소 재고 수준 이하의 품목",
+            "qty": "재고 {{quantity}} / 최소 {{min}}"
+        },
+        "expired": {
+            "title": "만료된 품목",
+            "description": "만료된 날짜가 있는 품목"
+        },
+        "expiring": {
+            "title": "다가오는 만료일",
+            "description": "30일 이내에 만료되는 항목."
+        },
+        "maintenance": {
+            "title": "연체된 유지보수",
+            "description": "예정일이 지난 유지보수 작업."
+        }
+    },
+    "notifications": {
+        "title": "알림 센터",
+        "description": "재고, 보증, 유지보수, 만료 및 대출 반납 알림.",
+        "meta_total": "{{count}}개의 알림",
+        "meta_urgent": "{{count}}개의 긴급",
+        "empty_title": "현재 주의가 필요한 알림이 없습니다",
+        "empty_desc": "재고 부족, 다가오는 날짜 및 연체된 유지보수가 여기에 표시됩니다.",
+        "items": {
+            "stock_empty_title": "품절",
+            "stock_low_title": "재고 부족",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "유효기간 경과",
+            "expiry_close_title": "유효기간 임박",
+            "warranty_expired_title": "보증 만료",
+            "warranty_close_title": "보증 곧 종료",
+            "maintenance_overdue_title": "유지보수 연체",
+            "maintenance_close_title": "정기 점검 예정",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "대출 반납 연체",
+            "borrow_close_title": "대출 반납 예정",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}}일 남음 ({{date}})"
+        }
+    },
+    "service": {
+        "title": "서비스 및 보증 센터",
+        "description": "한 곳에서 보증, 정기 점검 일정 및 서비스 작업을 추적하세요.",
+        "meta_warranty": "{{count}}개의 보증 기록",
+        "meta_tasks": "{{count}}개의 정기 점검 작업",
+        "empty_title": "서비스 또는 보증 작업 없음",
+        "empty_desc": "예정된 보증 날짜 및 유지 관리 작업이 여기에 수집됩니다.",
+        "warranty_section": "보증 추적",
+        "warranty_desc": "만료된 보증 및 30일 이내에 종료되는 보증.",
+        "maintenance_section": "유지 관리 작업",
+        "maintenance_desc": "연체 및 예정된 유지 관리 작업.",
+        "no_warranty": "예정된 보증 작업 없음.",
+        "no_tasks": "예정된 유지 관리 작업 없음.",
+        "overdue": "연체",
+        "upcoming": "곧",
+        "expired": "만료됨",
+        "summary_warranty": "보증 추적",
+        "summary_tasks": "유지보수 작업",
+        "open_warranty_filter": "열린 보증 필터",
+        "open_warranty_filter_desc": "재고에서 활성 보증 항목을 필터링합니다."
+    },
+    "storage_labels": {
+        "title": "선반 및 방 라벨",
+        "description": "{{count}}개의 방/선반 라벨이 인쇄용 시트로 준비되었습니다.",
+        "empty_title": "라벨을 붙일 방이나 선반이 없습니다",
+        "empty_desc": "먼저 방이나 위치를 추가한 다음 여기에서 QR 라벨을 인쇄하세요.",
+        "sheet_label": "위치 라벨 시트",
+        "scan_hint": "QR 코드를 스캔하면 해당 방이나 선반에 대한 필터된 재고가 열립니다.",
+        "room": "방",
+        "location": "선반/상자"
     }
 }

@@ -134,6 +134,17 @@
             "close_to_expiry": "समाप्ति के करीब",
             "expired": "समाप्त",
             "low_stock": "न्यून स्टॉक"
+        },
+        "untitled_item": "बिना शीर्षक का आइटम",
+        "attachments": {
+            "title": "फोटो और फ़ाइलें",
+            "add": "फाइलें जोड़ें",
+            "empty": "अभी तक कोई फ़ाइल नहीं जोड़ी गई।",
+            "form_desc": "आइटम की तस्वीरें, रसीदें, चालान, या सेवा दस्तावेज़ संलग्न करें।",
+            "detail_desc": "इस आइटम के लिए तस्वीरें, रसीदें, चालान और सेवा फ़ाइलें सहेजी गईं।",
+            "upload_error": "फ़ाइलें अपलोड नहीं की जा सकीं।",
+            "delete_error": "फ़ाइल को हटाया नहीं जा सका।",
+            "delete_confirm": "क्या आप इस फ़ाइल को हटाना चाहते हैं?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "पासवर्ड दिखाएँ",
         "saving": "सहेजा जा रहा है...",
         "disabled": "अक्षम",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "ज़ूम इन",
+        "zoom_out": "ज़ूम आउट",
+        "reset": "रीसेट",
+        "print": "प्रिंट",
+        "record_count": "{{count}} रिकॉर्ड"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "आपको साइन-इन स्क्रीन पर वापस भेज दिया जाएगा और अपने गृह वस्तु सूची को प्रबंधित करने के लिए आपको फिर से लॉग इन करना होगा।",
         "logout_warning": "इसका उपयोग तब करें जब आप साझा या व्यक्तिगत डिवाइस पर काम समाप्त कर लें।",
         "maintenance": "रखरखाव योजना",
-        "shopping": "खरीदारी सूची"
+        "shopping": "खरीदारी सूची",
+        "activity": "गतिविधि",
+        "notifications": "सूचनाएं",
+        "service": "सेवा"
     },
     "dashboard": {
         "welcome": "स्वागत है वापस, <1>{{name}}</1>",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} आइटम आपके न्यूनतम स्टॉक सीमा से नीचे आ गए हैं।",
             "go_to_shopping": "खरीदारी सूची",
             "close_expiry_title": "आने वाली समाप्ति तिथियाँ",
-            "close_expiry_desc": "{{count}} उत्पाद 30 दिनों के भीतर समाप्त हो जाएंगे।"
+            "close_expiry_desc": "{{count}} उत्पाद 30 दिनों के भीतर समाप्त हो जाएंगे।",
+            "view_low_stock_items": "कम स्टॉक देखें"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "सक्रिय घर कुंजी",
             "key_label": "घर कुंजी",
-            "mask_key": "••••••••{{प्रत्यय}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "छिपाएँ",
             "show": "दिखाएँ",
             "copy": "कॉपी करें",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} मौजूदा स्थान छोड़े गए.",
             "skipped_rooms": "{{count}} मौजूदा कमरे छोड़े गए.",
             "owner_only_title": "बैकअप और पुनर्स्थापना प्रतिबंधित",
-            "owner_only_desc": "डेटा बैकअप और रिस्टोर केवल घर के मालिक द्वारा ही प्रबंधित किया जा सकता है।"
+            "owner_only_desc": "डेटा बैकअप और रिस्टोर केवल घर के मालिक द्वारा ही प्रबंधित किया जा सकता है।",
+            "include_media_title": "फ़ोटो और रसीद की छवियाँ शामिल करें",
+            "include_media_body": "पूरा बैकअप बड़ा हो सकता है, लेकिन आइटम फ़ोटो और रसीद की छवियाँ भी पुनर्स्थापित की जा सकती हैं।",
+            "skipped_attachments": "{{count}} अटैचमेंट्स को छोड़ दिया गया।"
         },
         "about": {
             "title": "एप्लिकेशन के बारे में",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "सभी आवक अनुरोध स्वचालित रूप से ब्लॉक हो जाते हैं।",
             "policy_house_only_desc": "केवल आपके सक्रिय घरों के सत्यापित सदस्य ही उस साझा घर के अंदर पहले से दिखाई दे रहे आइटम का अनुरोध कर सकते हैं।",
             "policy_everyone_desc": "अन्य उपयोगकर्ता आपके आइटम को ब्राउज़ या देख नहीं सकते। वे केवल सीधे आपका उपयोगकर्ता नाम या ईमेल दर्ज करके अनुरोध भेज सकते हैं।"
+        },
+        "activity_log": {
+            "title": "गतिविधि और ऑडिट लॉग",
+            "description": "आइटम परिवर्तनों, स्टॉक अपडेट, अटैचमेंट्स और बल्क क्रियाओं के संरक्षित इतिहास की समीक्षा करें।",
+            "encrypted_title": "गतिविधि रिकॉर्ड संरक्षित रूप से संग्रहीत होते हैं",
+            "encrypted_body": "नई गतिविधि क्रियाएँ और विवरण डेटाबेस में एन्क्रिप्टेड रूप में संग्रहीत होते हैं और केवल आपके सक्रिय सत्र के लिए डिक्रिप्ट किए जाते हैं।"
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "रिकॉर्ड तब बंद हो जाएगा जब उधारदाता पुष्टि करेगा कि उन्होंने आइटम वापस प्राप्त कर लिया है।",
             "return_pending_lender_title": "{{name}} ने इस आइटम को वापस प्रदान किया हुआ चिह्नित किया",
             "return_pending_self_title": "आपके पास, रसीद पुष्टि की प्रतीक्षा है",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "साइट सदस्य",
+            "site_member_identifier": "उपयोगकर्ता नाम या ईमेल",
+            "site_member_identifier_placeholder": "सटीक उपयोगकर्ता नाम या ईमेल",
+            "site_member_privacy_hint": "यह ऑफ़र केवल तभी Borrow Center में दिखाई देता है जब वह खाता मौजूद हो और इनकमिंग ऑफ़र की अनुमति देता हो।",
+            "external_privacy_hint": "यह केवल एक निजी स्थानीय रिकॉर्ड बनाता है। कोई ऐप नोटिफिकेशन नहीं भेजा जाता।",
+            "available": "उपलब्ध"
         },
         "untitled_item": "बिना शीर्षक का आइटम",
         "delete_action": "आइटम हटाएँ",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "कमरे के अनुसार फ़िल्टर करें",
         "refreshing_results": "वस्तुओं को रीफ़्रेश किया जा रहा है...",
         "empty_filter_title": "उस खोज से कोई आइटम मेल नहीं खाता",
-        "delete_error_title": "डिलीट विफल"
+        "delete_error_title": "डिलीट विफल",
+        "tools": {
+            "title": "उपकरण"
+        },
+        "no_room": "कोई कमरा नहीं",
+        "all_locations": "सभी स्थान",
+        "location_filter_label": "स्थान के अनुसार फ़िल्टर करें",
+        "visibility_filter_label": "दृश्यता के अनुसार फ़िल्टर करें",
+        "visibility_all": "सभी दृश्यता",
+        "visibility_mine": "मेरे आइटम",
+        "visibility_others": "अन्य सदस्य",
+        "borrow_filter_label": "उधार स्थिति के अनुसार फ़िल्टर करें",
+        "borrow_filter_all": "सभी उधार स्थिति",
+        "stock_filter_label": "स्टॉक स्थिति द्वारा फ़िल्टर करें",
+        "stock_filter_all": "सभी स्टॉक स्थिति",
+        "stock_filter_ok": "स्टॉक ठीक है",
+        "expiry_filter_label": "समाप्ति तिथि द्वारा फ़िल्टर करें",
+        "expiry_filter_all": "सभी समाप्ति तिथियाँ",
+        "expiry_filter_dated": "तारीख है",
+        "expiry_filter_none": "कोई तारीख नहीं",
+        "warranty_filter_label": "वारंटी द्वारा फ़िल्टर करें",
+        "warranty_filter_all": "सभी वारंटियाँ",
+        "warranty_filter_expired": "समाप्त हुई वारंटियाँ",
+        "warranty_filter_close": "शीघ्र समाप्त होने वाली",
+        "warranty_filter_active": "सक्रिय वारंटी",
+        "warranty_filter_none": "कोई वारंटी जानकारी नहीं",
+        "sort_label": "क्रमबद्ध करें",
+        "sort_updated_desc": "हाल ही में अपडेट किया गया",
+        "sort_updated_asc": "सबसे पुराना अपडेट",
+        "sort_created_desc": "सबसे नया पहले",
+        "sort_created_asc": "सबसे पुराना पहले",
+        "sort_name_asc": "नाम A-Z",
+        "sort_name_desc": "नाम Z-A",
+        "sort_quantity_desc": "मात्रा अधिक से कम",
+        "sort_quantity_asc": "मात्रा कम से अधिक",
+        "sort_expiry_asc": "शीघ्र समाप्ति",
+        "sort_expiry_desc": "समाप्ति नवीनतम",
+        "stock_increase": "स्टॉक बढ़ाएं",
+        "stock_decrease": "स्टॉक कम करें",
+        "stock_adjust_error": "स्टॉक को अपडेट नहीं किया जा सका।",
+        "bulk": {
+            "select_visible": "दिखाएं चुनें",
+            "clear_visible": "दिखाना हटा दें",
+            "selected_short": "चयनित",
+            "keep_category": "श्रेणी रखें",
+            "keep_room": "कमरे को रखें",
+            "keep_location": "स्थान रखें",
+            "keep_visibility": "दृश्यता रखें",
+            "apply": "लागू करें",
+            "no_fields": "थोक कार्रवाई के लिए कम से कम एक फ़ील्ड चुनें।",
+            "updated_title": "थोक अद्यतन पूरा हुआ",
+            "updated_body": "{{count}} आइटम अद्यतन किए गए। {{skipped}} छोड़ दिए गए।",
+            "update_error": "बल्क अपडेट पूरा नहीं किया जा सका।",
+            "deleted_title": "बल्क डिलीट पूरा",
+            "deleted_body": "{{count}} आइटम हटाए गए। {{skipped}} छोड़े गए।",
+            "delete_error": "बल्क डिलीट पूरा नहीं किया जा सका।",
+            "delete_title": "चयनित आइटम हटाएं?",
+            "delete_description": "{{count}} चयनित आइटम इस घरेलू सूची से हटा दिए जाएंगे। इसे पूर्ववत नहीं किया जा सकता।",
+            "select_item": "आइटम चुनें",
+            "unselect_item": "आइटम का चयन हटाएं"
+        },
+        "qr_labels": {
+            "title": "क्यूआर लेबल",
+            "open": "आइटम लेबल",
+            "description": "{{count}} आइटम लेबल प्रिंट शीट के रूप में तैयार हैं।",
+            "empty": "लेबल प्रिंट करने के लिए फ़िल्टर बदलें या इन्वेंटरी आइटम जोड़ें।",
+            "sheet_label": "आइटम लेबल शीट",
+            "item_label": "आइटम लेबल"
+        }
     },
     "categories": {
         "title": "श्रेणियाँ",
@@ -1341,7 +1436,7 @@
             "no_logs": "अभी तक कोई लॉग नहीं",
             "errors_title": "सिस्टम त्रुटियाँ (अंतिम 10)",
             "no_errors": "// सिस्टम स्वस्थ है, कोई त्रुटि लॉग नहीं।",
-            "date_fmt": "{{दिनांक, दिनांकसमय}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "ईमेल",
                 "user": "उपयोगकर्ता",
@@ -1902,7 +1997,7 @@
             ],
             "fallback": "पासवर्ड रीसेट लिंक अधूरा या टूटा हुआ लग रहा है।",
             "support": "पंजीकरण समस्याएँ:",
-            "footer": "© 2026 {{ब्रांडनाम}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
             "subject": "{{brandName}} में आपका स्वागत है",
@@ -1920,7 +2015,7 @@
                 "💡 आप कई घरों के सदस्य हो सकते हैं और उनके बीच स्विच कर सकते हैं। प्रत्येक घर का अलग इन्वेंटरी होता है।"
             ],
             "support": "पंजीकरण समस्याएँ:",
-            "footer": "© 2026 {{ब्रांडनाम}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "घर में शामिल हों",
@@ -1929,7 +2024,7 @@
             "bodyLine2": "घर मालिक की अनुमति का इंतजार कर रहा है"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{ब्रांडनाम}} - {{स्थिति}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "घर तक पहुंच",
             "bodyLine1Template": "वर्तमान लंबित अनुरोध: {{house}} ({{status}})",
             "bodyLine2": "आपका \"{{house}}\" के लिए अनुरोध अभी भी निर्णय के इंतजार में है।",
@@ -1954,11 +2049,11 @@
             "warningTitle": "⚠️",
             "warningBody": "यदि खाता मौजूद है, तो 15 मिनट के लिए वैध पासवर्ड रीसेट लिंक भेजा गया है।",
             "fallback": "पासवर्ड रीसेट लिंक अधूरा या टूटा हुआ लग रहा है।",
-            "footer": "© 2026 {{ब्रांडनाम}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "यह ईमेल {{brandName}} द्वारा भेजा गया था।",
-            "footer": "© 2026 {{ब्रांडनाम}} - {{supportEmail}}"
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         },
         "testEmail": {
             "subject": "🧪 {{brandName}} परीक्षण ईमेल",
@@ -1968,7 +2063,7 @@
             "sentAtLabel": "भेजा गया",
             "senderLabel": "प्रेषक",
             "serviceLabel": "सेवा",
-            "footer": "© 2026 {{ब्रांडनाम}}"
+            "footer": "© 2026 {{brandName}}"
         }
     },
     "vault": {
@@ -2154,7 +2249,7 @@
             "return_note_placeholder_lender": "उदा. अच्छी स्थिति में वापस प्राप्त",
             "return_submitting": "समापन हो रहा है...",
             "reject_title": "अनुरोध अस्वीकार करें",
-            "reject_subtitle": "आप \"{{आइटम}}\" के अनुरोध को अस्वीकार करने वाले हैं।",
+            "reject_subtitle": "आप \"{{item}}\" के अनुरोध को अस्वीकार करने वाले हैं।",
             "reject_target": "आप {{name}} द्वारा भेजे गए उधार अनुरोध को अस्वीकार करने वाले हैं.",
             "reject_reason_label": "अस्वीकृति का कारण",
             "reject_submitting": "अस्वीकार कर रहा है...",
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "उधार केंद्र लोड नहीं किया जा सका",
             "action_error": "क्रिया पूरी नहीं की जा सकी",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "यह सक्रिय उधार रिकॉर्ड नहीं पाया जा सका। बोर्रो सेंटर को रिफ्रेश करें और फिर से प्रयास करें।",
             "errors": {
                 "external_target_daily_limit": "आप एक ही व्यक्ति को प्रतिदिन केवल एक प्रथम-संपर्क बाहरी अनुरोध भेज सकते हैं। यदि वे अनुरोध स्वीकार कर लेते हैं, तो यह सीमा उस व्यक्ति पर लागू नहीं होती।",
                 "external_total_daily_limit": "आप प्रतिदिन अधिकतम 5 प्रथम-संपर्क बाहरी अनुरोध भेज सकते हैं।",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "{{name}} खाता मेनू"
     },
     "app": {
-        "name": "{{ब्रांड का नाम}}",
+        "name": "{{brandName}}",
         "tagline": "अपने सभी घरेलू सामानों का स्मार्ट तरीके से प्रबंधन करें",
         "loading": "{{brandName}} लोड हो रहा है",
         "preparing_workspace": "अपना कार्यक्षेत्र तैयार करना..."
@@ -2555,5 +2650,102 @@
         "description": "इंटरफ़ेस ने एक अप्रत्याशित रेंडरिंग समस्या को मारा। आपका सहेजा गया इन्वेंट्री डेटा इस स्क्रीन द्वारा परिवर्तित नहीं किया गया है।",
         "refresh_btn": "ताज़ा करना",
         "home_btn": "घर"
+    },
+    "activity": {
+        "title": "गतिविधि इतिहास",
+        "description": "आपके होम इन्वेंटरी में हाल की संरक्षित बदलाव।",
+        "empty_title": "अभी तक कोई गतिविधि नहीं",
+        "empty_description": "वस्तु बदलाव, स्टॉक अपडेट, संलग्नक, उधार लेना, और बल्क क्रियाएँ यहाँ दिखाई देंगी।",
+        "unknown_actor": "अज्ञात उपयोगकर्ता",
+        "deleted_item_with_id": "हटाया गया आइटम #{{id}}",
+        "item_missing": "यह आइटम रिकॉर्ड अब मौजूद नहीं है",
+        "actions": {
+            "item_created": "आइटम जोड़ा गया",
+            "item_updated": "आइटम अपडेट किया गया",
+            "item_deleted": "आइटम हटाया गया",
+            "item_borrowed": "आइटम उधार दिया गया",
+            "item_returned": "आइटम लौटाया गया",
+            "item_bulk_updated": "थोक अपडेट",
+            "item_bulk_deleted": "थोक हटाएं",
+            "item_stock_adjusted": "स्टॉक अपडेट किया गया",
+            "item_attachment_added": "अटैचमेंट जोड़ा गया",
+            "item_attachment_deleted": "संलग्नक हटाया गया"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} संबंधित रिकॉर्ड",
+        "empty_title": "कोई संबंधित रिकॉर्ड नहीं मिला",
+        "low_stock": {
+            "title": "कम स्टॉक",
+            "description": "उन वस्तुओं का स्टॉक उनकी न्यूनतम स्टॉक स्तर से कम है।",
+            "qty": "स्टॉक {{quantity}} / न्यूनतम {{min}}"
+        },
+        "expired": {
+            "title": "समाप्त हो गई वस्तुएं",
+            "description": "जिन वस्तुओं की समाप्ति तिथि हो गई है।"
+        },
+        "expiring": {
+            "title": "आगामी समाप्ति तिथियाँ",
+            "description": "30 दिनों के भीतर समाप्त होने वाले आइटम।"
+        },
+        "maintenance": {
+            "title": "लंबित रखरखाव",
+            "description": "उन रखरखाव कार्यों की जो निर्धारित तिथि के बाद हैं।"
+        }
+    },
+    "notifications": {
+        "title": "सूचना केंद्र",
+        "description": "स्टॉक, वारंटी, रखरखाव, समाप्ति, और उधार वापसी अलर्ट।",
+        "meta_total": "{{count}} सूचनाएँ",
+        "meta_urgent": "{{count}} अत्यावश्यक",
+        "empty_title": "अभी किसी भी अलर्ट को आपकी ध्यान देने की आवश्यकता नहीं है",
+        "empty_desc": "कम स्टॉक, आने वाली तिथियाँ, और समय सीमा से अधिक मेंटेनेंस यहाँ दिखाई देंगे।",
+        "items": {
+            "stock_empty_title": "स्टॉक खत्म",
+            "stock_low_title": "कम स्टॉक",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "समाप्ति तिथि बीत चुकी है",
+            "expiry_close_title": "समाप्ति तिथि नजदीक है",
+            "warranty_expired_title": "वारंटी समाप्त हो चुकी है",
+            "warranty_close_title": "वारंटी जल्द खत्म होने वाली है",
+            "maintenance_overdue_title": "रखरखाव की अवधि समाप्त",
+            "maintenance_close_title": "रखरखाव जल्द ही होने वाला है",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "उधार वापसी की अवधि समाप्त",
+            "borrow_close_title": "उधार वापसी जल्द ही होने वाली है",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} दिन शेष ({{date}})"
+        }
+    },
+    "service": {
+        "title": "सेवा और वारंटी केंद्र",
+        "description": "एक ही स्थान पर वारंटियों, रखरखाव शेड्यूल और सेवा कार्रवाइयों को ट्रैक करें।",
+        "meta_warranty": "{{count}} वारंटी रिकॉर्ड",
+        "meta_tasks": "{{count}} रखरखाव कार्य",
+        "empty_title": "कोई सेवा या वारंटी कार्रवाई नहीं",
+        "empty_desc": "आगामी वारंटी दिनांक और रखरखाव कार्य यहां एकत्र किए जाएंगे।",
+        "warranty_section": "वारंटी ट्रैकिंग",
+        "warranty_desc": "समाप्त हो चुकी वारंटियाँ और 30 दिनों के भीतर समाप्त होने वाली वारंटियाँ।",
+        "maintenance_section": "रखरखाव क्रियाएँ",
+        "maintenance_desc": "अत्यधिक विलंबित और आगामी रखरखाव कार्य।",
+        "no_warranty": "कोई आगामी वारंटी कार्रवाई नहीं।",
+        "no_tasks": "कोई निर्धारित रखरखाव कार्य नहीं।",
+        "overdue": "विलंबित",
+        "upcoming": "जल्द ही",
+        "expired": "समाप्त",
+        "summary_warranty": "वारंटी ट्रैकिंग",
+        "summary_tasks": "मेंटेनेंस कार्य",
+        "open_warranty_filter": "खुली वारंटी फ़िल्टर",
+        "open_warranty_filter_desc": "स्टॉक में सक्रिय वारंटी आइटम को फ़िल्टर करता है।"
+    },
+    "storage_labels": {
+        "title": "शेल्फ और कमरे के लेबल",
+        "description": "{{count}} कमरे/शेल्फ लेबल प्रिंट शीट के रूप में तैयार हैं।",
+        "empty_title": "लेबल करने के लिए कोई कमरे या शेल्फ नहीं",
+        "empty_desc": "पहले कमरे या स्थान जोड़ें, फिर यहां QR लेबल प्रिंट करें।",
+        "sheet_label": "स्थान लेबल शीट",
+        "scan_hint": "QR कोड स्कैन करने पर उस कमरे या शेल्फ के लिए फ़िल्टर की गई सूची खुलती है।",
+        "room": "कमरा",
+        "location": "शेल्फ/बॉक्स"
     }
 }

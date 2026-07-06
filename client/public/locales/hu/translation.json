@@ -10,7 +10,7 @@
         "load_error": "Az elem betöltése sikertelen",
         "form": {
             "name": "Elem neve",
-            "name_placeholder": "pl. Samsung TV 55 hüvelyk",
+            "name_placeholder": "pl. TV 55 hüvelyk",
             "required": "*",
             "description": "Leírás",
             "description_placeholder": "Megjegyzések a tételről...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Lejárathoz közel",
             "expired": "Lejárt",
             "low_stock": "Alacsony készlet"
+        },
+        "untitled_item": "Név nélküli elem",
+        "attachments": {
+            "title": "Fotók és fájlok",
+            "add": "Fájlok hozzáadása",
+            "empty": "Még nem adtak hozzá fájlokat.",
+            "form_desc": "Csatolja a tétel fényképeit, nyugtáit, számláit vagy szervizdokumentumait.",
+            "detail_desc": "A tételhez mentett fényképek, nyugták, számlák és szervizfájlok.",
+            "upload_error": "A fájlok nem tölthetők fel.",
+            "delete_error": "A fájl nem törölhető.",
+            "delete_confirm": "Törli ezt a fájlt?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Jelszó megjelenítése",
         "saving": "Mentés...",
         "disabled": "Mozgáskorlátozott",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Nagyítás",
+        "zoom_out": "Kicsinyítés",
+        "reset": "Alaphelyzet",
+        "print": "Nyomtatás",
+        "record_count": "{{count}} rekord"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Visszakerülsz a bejelentkezési képernyőre, és újra be kell jelentkezned a háztartási készlet kezeléséhez.",
         "logout_warning": "Használd ezt, ha befejezted a munkát egy megosztott vagy személyes eszközön.",
         "maintenance": "Karbantartási ütemterv",
-        "shopping": "Bevásárlólista"
+        "shopping": "Bevásárlólista",
+        "activity": "Tevékenység",
+        "notifications": "Értesítések",
+        "service": "Szolgáltatás"
     },
     "dashboard": {
         "welcome": "Üdv újra, <1>{{name}}</1>",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} termék esett az Ön minimum készletszintje alá.",
             "go_to_shopping": "Bevásárlólista",
             "close_expiry_title": "Közelgő lejárati dátumok",
-            "close_expiry_desc": "{{count}} termék fog 30 napon belül lejárni."
+            "close_expiry_desc": "{{count}} termék fog 30 napon belül lejárni.",
+            "view_low_stock_items": "Alacsony készlet megtekintése"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Aktív ház kulcs",
             "key_label": "Ház kulcs",
-            "mask_key": "••••••••{{utótag}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Elrejtés",
             "show": "Mutasd",
             "copy": "Másolás",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} meglévő hely kihagyva.",
             "skipped_rooms": "{{count}} meglévő szoba kihagyva.",
             "owner_only_title": "Biztonsági mentés és visszaállítás korlátozva",
-            "owner_only_desc": "Az adatok biztonsági mentését és visszaállítását csak a háztulajdonos kezelheti."
+            "owner_only_desc": "Az adatok biztonsági mentését és visszaállítását csak a háztulajdonos kezelheti.",
+            "include_media_title": "Fényképek és számlaképek mellékelése",
+            "include_media_body": "A teljes biztonsági mentés nagyobb lehet, de a termékfotók és a számlaképek is visszaállíthatók.",
+            "skipped_attachments": "{{count}} csatolmányt kihagytunk."
         },
         "about": {
             "title": "Az alkalmazásról",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Minden bejövő kérés automatikusan blokkolódik.",
             "policy_house_only_desc": "Csak az aktív házaid hitelesített tagjai kérhetnek tárgyakat, amelyek már láthatók az adott közös házban.",
             "policy_everyone_desc": "Más felhasználók nem böngészhetnek és nem láthatják a tárgyaidat. Csak úgy küldhetnek kérést, ha közvetlenül beírják a felhasználónevedet vagy az emailedet."
+        },
+        "activity_log": {
+            "title": "Tevékenységi és audit napló",
+            "description": "Tekintse át az elemek változásainak, a készletfrissítéseknek, a csatolmányoknak és a tömeges műveleteknek a védett előzményeit.",
+            "encrypted_title": "A tevékenységi feljegyzések védve vannak tárolva",
+            "encrypted_body": "Az új tevékenységi műveletek és részletek titkosítva kerülnek tárolásra az adatbázisban, és csak az aktív munkamenethez vannak visszafejtve."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "A rekord lezárul, miután a kölcsönadó megerősítette, hogy visszakapta a tárgyat.",
             "return_pending_lender_title": "{{name}} ezt a tételt visszaszállítva jelölte",
             "return_pending_self_title": "Önnél, a visszaigazolásra vár",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Webhelytag",
+            "site_member_identifier": "Felhasználónév vagy e-mail",
+            "site_member_identifier_placeholder": "Pontos felhasználónév vagy e-mail",
+            "site_member_privacy_hint": "Az ajánlat csak akkor jelenik meg a Kölcsönző Központban, ha a fiók létezik és engedélyezi a bejövő ajánlatokat.",
+            "external_privacy_hint": "Ez csak egy privát helyi rekordot hoz létre. Nincs alkalmazás értesítés küldve.",
+            "available": "Elérhető"
         },
         "untitled_item": "Cím nélküli elem",
         "delete_action": "Elem törlése",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Szűrés szoba szerint",
         "refreshing_results": "Elemfrissítés...",
         "empty_filter_title": "Egyetlen elem sem felelt meg a keresésnek",
-        "delete_error_title": "Törlés sikertelen"
+        "delete_error_title": "Törlés sikertelen",
+        "tools": {
+            "title": "Eszközök"
+        },
+        "no_room": "Nincs szoba",
+        "all_locations": "Összes helyszín",
+        "location_filter_label": "Szűrés helyszín szerint",
+        "visibility_filter_label": "Szűrés láthatóság szerint",
+        "visibility_all": "Minden láthatóság",
+        "visibility_mine": "Saját elemeim",
+        "visibility_others": "Más tagok",
+        "borrow_filter_label": "Szűrés kölcsönzési állapot szerint",
+        "borrow_filter_all": "Minden kölcsönzési státusz",
+        "stock_filter_label": "Szűrés készlet státusz szerint",
+        "stock_filter_all": "Minden készlet státusz",
+        "stock_filter_ok": "Készlet rendben",
+        "expiry_filter_label": "Szűrés lejárati dátum szerint",
+        "expiry_filter_all": "Minden lejárati dátum",
+        "expiry_filter_dated": "Van dátum",
+        "expiry_filter_none": "Nincs dátum",
+        "warranty_filter_label": "Szűrés garancia szerint",
+        "warranty_filter_all": "Minden garancia",
+        "warranty_filter_expired": "Lejárt garancia",
+        "warranty_filter_close": "Hamarosan lejár",
+        "warranty_filter_active": "Aktív garanciák",
+        "warranty_filter_none": "Nincs garanciainformáció",
+        "sort_label": "Rendezés",
+        "sort_updated_desc": "Legutóbb frissítve",
+        "sort_updated_asc": "Legrégebbi frissítés",
+        "sort_created_desc": "Legújabb először",
+        "sort_created_asc": "Legrégebbi először",
+        "sort_name_asc": "Név A-Z",
+        "sort_name_desc": "Név Z-A",
+        "sort_quantity_desc": "Mennyiség magasról alacsonyra",
+        "sort_quantity_asc": "Mennyiség alacsonyról magasra",
+        "sort_expiry_asc": "Lejárat legközelebb",
+        "sort_expiry_desc": "Lejárati dátum legkésőbb",
+        "stock_increase": "Készlet növelése",
+        "stock_decrease": "Készlet csökkentése",
+        "stock_adjust_error": "A készlet nem frissíthető.",
+        "bulk": {
+            "select_visible": "Kiválasztás látható",
+            "clear_visible": "Látható kijelölésének megszüntetése",
+            "selected_short": "kiválasztott",
+            "keep_category": "Megőrízni a kategóriát",
+            "keep_room": "Megőrízni a szobát",
+            "keep_location": "Megőrízni a helyszínt",
+            "keep_visibility": "Megőrízni a láthatóságot",
+            "apply": "Alkalmaz",
+            "no_fields": "Válasszon ki legalább egy mezőt a tömeges művelethez.",
+            "updated_title": "Tömeges frissítés befejezve",
+            "updated_body": "{{count}} elem frissítve. {{skipped}} kihagyva.",
+            "update_error": "A tömeges frissítés nem fejeződött be.",
+            "deleted_title": "A tömeges törlés befejeződött",
+            "deleted_body": "{{count}} elem törölve. {{skipped}} kihagyva.",
+            "delete_error": "A tömeges törlés nem fejeződött be.",
+            "delete_title": "Törli a kijelölt elemeket?",
+            "delete_description": "{{count}} kijelölt elem kerül eltávolításra ebből a háztartási készletből. Ez nem visszavonható.",
+            "select_item": "Elem kiválasztása",
+            "unselect_item": "Elem kijelölésének megszüntetése"
+        },
+        "qr_labels": {
+            "title": "QR címkék",
+            "open": "Termékcímkék",
+            "description": "{{count}} termékcímke készen áll nyomtatási lapként.",
+            "empty": "Módosítsa a szűrőket vagy adjon hozzá készletcikkeket a címkék nyomtatásához.",
+            "sheet_label": "Címke lap",
+            "item_label": "Címke"
+        }
     },
     "categories": {
         "title": "Kategóriák",
@@ -1341,7 +1436,7 @@
             "no_logs": "még nincs napló",
             "errors_title": "Rendszerhibák (Utolsó 10)",
             "no_errors": "// A rendszer egészséges, nincs hibanapló.",
-            "date_fmt": "{{dátum, dátumidő}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "E-mail",
                 "user": "Felhasználó",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Hálózati egység",
-                    "meta": "TV állvány • Deco M4",
+                    "meta": "TV állvány • Network node",
                     "state": null
                 },
                 {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "A kölcsönzési központ nem tölthető be",
             "action_error": "A művelet nem hajtható végre",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Ez az aktív kölcsönzési rekord nem található. Frissítse a Kölcsönzési Központot, és próbálja újra.",
             "errors": {
                 "external_target_daily_limit": "Ugyanannak a személynek naponta csak egy első kapcsolatfelvételi külső kérést küldhetsz. Ha elfogadják a kérést, ez a korlátozás már nem vonatkozik arra a személyre.",
                 "external_total_daily_limit": "Naponta legfeljebb 5 első kapcsolatfelvételi külső kérést küldhetsz.",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "{{name}} fiók menü"
     },
     "app": {
-        "name": "{{brandName}} BETA verzió: A {{brandName}} jelenleg tesztelési fázisban van. Nincs garancia az adatok állandóságára vagy biztonságára. {{brandName}} jelenleg tesztelési és hobbi fázisban van. Nincs garancia az adatok állandóságára vagy biztonságára. Kérjük, tartsa biztonsági mentésben a fontos információit. Bejelentkezés",
+        "name": "{{brandName}}",
         "tagline": "Okosan kezeld az összes háztartási tárgyadat",
         "loading": "Betöltés {{brandName}}",
         "preparing_workspace": "A munkaterület előkészítése..."
@@ -2555,5 +2650,102 @@
         "description": "Az interfész váratlan renderelési problémát okozott. A mentett készletadataid ezen a képernyőn nem változnak.",
         "refresh_btn": "Frissítés",
         "home_btn": "Otthon"
+    },
+    "activity": {
+        "title": "Tevékenység történelem",
+        "description": "Legutóbbi védett változások az otthoni készletében.",
+        "empty_title": "Még nincs aktivitás",
+        "empty_description": "A tételváltozások, készletfrissítések, mellékletek, kölcsönzések és tömeges műveletek itt jelennek meg.",
+        "unknown_actor": "Ismeretlen felhasználó",
+        "deleted_item_with_id": "Törölt elem #{{id}}",
+        "item_missing": "Ez az elem rekord már nem létezik",
+        "actions": {
+            "item_created": "Elem hozzáadva",
+            "item_updated": "Elem frissítve",
+            "item_deleted": "Elem törölve",
+            "item_borrowed": "Elem kikölcsönözve",
+            "item_returned": "Elem visszaadva",
+            "item_bulk_updated": "Tömeges frissítés",
+            "item_bulk_deleted": "Tömeges törlés",
+            "item_stock_adjusted": "Készlet frissítve",
+            "item_attachment_added": "Melléklet hozzáadva",
+            "item_attachment_deleted": "Melléklet törölve"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} kapcsolódó rekord",
+        "empty_title": "Nem találhatók kapcsolódó rekordok",
+        "low_stock": {
+            "title": "Alacsony készlet",
+            "description": "Az elemek a minimális készletszint alatt vannak.",
+            "qty": "Készlet {{quantity}} / perc {{min}}"
+        },
+        "expired": {
+            "title": "Lejárt tételek",
+            "description": "Lejárt dátummal rendelkező tételek"
+        },
+        "expiring": {
+            "title": "Közelgő lejárati dátumok",
+            "description": "30 napon belül lejáró tételek."
+        },
+        "maintenance": {
+            "title": "Lejárt karbantartás",
+            "description": "A karbantartási feladatok elmúltak az ütemezett dátumukon."
+        }
+    },
+    "notifications": {
+        "title": "Értesítési központ",
+        "description": "Készlet, garancia, karbantartás, lejárat és kölcsön-visszavétel figyelmeztetések.",
+        "meta_total": "{{count}} értesítés",
+        "meta_urgent": "{{count}} sürgős",
+        "empty_title": "Jelenleg nincs figyelmet igénylő értesítés",
+        "empty_desc": "Alacsony készlet, közelgő dátumok és elmaradt karbantartás itt jelenik meg.",
+        "items": {
+            "stock_empty_title": "Kifogyott",
+            "stock_low_title": "Alacsony készlet",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Lejárt szavatosság",
+            "expiry_close_title": "Lejárati dátum közeledik",
+            "warranty_expired_title": "A garancia lejárt",
+            "warranty_close_title": "A garancia hamarosan lejár",
+            "maintenance_overdue_title": "Karbantartás esedékes",
+            "maintenance_close_title": "Karbantartás hamarosan esedékes",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Kölcsönzés visszahozatala késedelmes",
+            "borrow_close_title": "Kölcsönzés visszahozatala hamarosan esedékes",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} nap van hátra ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Szerviz- és Garanciaközpont",
+        "description": "Kövesse nyomon a garanciákat, karbantartási ütemterveket és szervizműveleteket egy helyen.",
+        "meta_warranty": "{{count}} garanciajegyzék",
+        "meta_tasks": "{{count}} karbantartási feladat",
+        "empty_title": "Nincs szolgáltatás vagy garanciális intézkedés",
+        "empty_desc": "A közelgő garanciális dátumokat és karbantartási feladatokat itt gyűjtjük.",
+        "warranty_section": "Garancia követés",
+        "warranty_desc": "Lejárt garanciák és a következő 30 napon belül lejáró garanciák.",
+        "maintenance_section": "Karbantartási műveletek",
+        "maintenance_desc": "Lejárt és közelgő karbantartási feladatok.",
+        "no_warranty": "Nincs közelgő garanciális intézkedés.",
+        "no_tasks": "Nincs ütemezett karbantartási feladat.",
+        "overdue": "Lejárt",
+        "upcoming": "Hamarosan",
+        "expired": "Érvénytelen",
+        "summary_warranty": "Garancia nyomon követés",
+        "summary_tasks": "Karbantartási feladatok",
+        "open_warranty_filter": "Nyitott garancia szűrő",
+        "open_warranty_filter_desc": "A készletben az aktív garanciájú tételeket szűri."
+    },
+    "storage_labels": {
+        "title": "Polc- és szoba címkék",
+        "description": "{{count}} szoba/polc címke készen áll nyomtatott lapként.",
+        "empty_title": "Nincsenek címkézhető szobák vagy polcok",
+        "empty_desc": "Először adj hozzá szobákat vagy helyszíneket, majd itt nyomtasd ki a QR-címkéket.",
+        "sheet_label": "Helyszín címke lap",
+        "scan_hint": "A QR-kód beolvasása megnyitja a szűrt készletet az adott szobához vagy polchoz.",
+        "room": "Szoba",
+        "location": "Polc/Doboz"
     }
 }

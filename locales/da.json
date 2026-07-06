@@ -10,7 +10,7 @@
         "load_error": "Kunne ikke indlæse emne",
         "form": {
             "name": "Emnenavn",
-            "name_placeholder": "f.eks. Samsung TV 55 tommer",
+            "name_placeholder": "f.eks. TV 55 tommer",
             "required": "*",
             "description": "Beskrivelse",
             "description_placeholder": "Noter om varen...",
@@ -66,7 +66,20 @@
             "warranty_calculation_help": "Hvis du lader garantistartdatoen stå tom, bruges fakturadatoen. Når du indtaster varigheden, beregnes garantislutdatoen automatisk.",
             "vault_hint_title": "Har du brug for ekstra privatliv?",
             "vault_hint_description": "For pas, skøder, identitetsoplysninger, adgangskoder og andre optegnelser, der bør holdes uden for dit delte lager, skal du i stedet opbevare dem i Personlig Valutaskab.",
-            "vault_hint_action": "Åbn Personlig Valutaskab"
+            "vault_hint_action": "Åbn Personlig Valutaskab",
+            "location": "Placering",
+            "remove_photo": "Fjern foto",
+            "visibility_owner_only": "Kun personen, der tilføjede varen, kan ændre synlighed.",
+            "expiry_date": "Udløbsdato",
+            "min_quantity": "Minimumsmængde",
+            "take_photo": "Tag foto",
+            "choose_from_gallery": "Vælg fra galleriet",
+            "take_photo_sub": "Åbn enhedens kamera",
+            "choose_from_gallery_sub": "Vælg fra albummet",
+            "photo_selected_badge": "Nyt foto",
+            "photo_existing_badge": "Eksisterende foto",
+            "no_photo_yet": "Ingen foto tilføjet",
+            "photo_options_title": "Billedhandlingsmuligheder"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" hurtigt tilføjet - du kan redigere senere",
@@ -115,7 +128,24 @@
         "delete_error": "Fejl ved at slette genstand",
         "no_permission": "No permission",
         "barcode_search_error": "Stregkodesøgning mislykkedes",
-        "stats_error": "Stats error"
+        "stats_error": "Stats error",
+        "detail_subtitle": "Varedetaljer",
+        "status": {
+            "close_to_expiry": "Nær udløbsdato",
+            "expired": "Udløbet",
+            "low_stock": "Lav lagerbeholdning"
+        },
+        "untitled_item": "Uden titel vare",
+        "attachments": {
+            "title": "Fotos og filer",
+            "add": "Tilføj filer",
+            "empty": "Ingen filer tilføjet endnu.",
+            "form_desc": "Vedhæft varefotos, kvitteringer, fakturaer eller servicedokumenter.",
+            "detail_desc": "Fotos, kvitteringer, fakturaer og servicefiler gemt for denne vare.",
+            "upload_error": "Filer kunne ikke uploades.",
+            "delete_error": "Filen kunne ikke slettes.",
+            "delete_confirm": "Slet denne fil?"
+        }
     },
     "common": {
         "save": "Gem",
@@ -162,7 +192,18 @@
         "unauthorized": "Uautoriseret adgang",
         "forbidden": "Permission denied",
         "validation_error": "Valideringsfejl",
-        "server_error": "Serverfejl"
+        "server_error": "Serverfejl",
+        "details": "Detaljer",
+        "hide": "Skjul adgangskode",
+        "logging_out": "Logger ud...",
+        "show": "Vis adgangskode",
+        "saving": "Gemmer...",
+        "disabled": "Handicappet",
+        "zoom_in": "Zoom ind",
+        "zoom_out": "Zoom ud",
+        "reset": "Nulstil",
+        "print": "Udskriv",
+        "record_count": "{{count}} poster"
     },
     "auth": {
         "login": {
@@ -194,7 +235,8 @@
                 "verify": "Bekræft",
                 "back": "Tilbage",
                 "use_backup": "Brug backup-kode",
-                "use_totp": "Brug autentifikator"
+                "use_totp": "Brug autentifikator",
+                "code_required": "Bekræftelseskode er påkrævet"
             },
             "welcome_title": "Velkommen tilbage",
             "welcome_subtitle": "Log ind for at få adgang til dit inventar",
@@ -303,7 +345,7 @@
             "confirm_password_placeholder": "Indtast din adgangskode igen",
             "reset_submit": "Nulstil adgangskode",
             "resetting": "Nulstiller...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Indtast dit brugernavn eller email"
         },
         "reset_password": {
             "title": "Nulstil adgangskode",
@@ -344,10 +386,10 @@
         "password_requirements": "Brug mindst {{min}} tegn med store bogstaver, små bogstaver, nummer og symbol.",
         "logout": "Log ud",
         "logging_in": "Logger ind...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "Velkommen til {{brandName}}",
         "username_email": "Brugernavn eller Email",
         "username": "Brugernavn",
-        "email": "Email",
+        "email": "E-mail",
         "password": "Adgangskode",
         "confirm_password": "Bekræft adgangskode",
         "new_password": "Ny adgangskode",
@@ -410,7 +452,36 @@
         "join_house_key_required": "En husnøgle kræves for at indgå i et eksisterende hus",
         "house_key_not_found": "Ugyldig husnøgle. Indtast venligst den korrekte nøgle.",
         "email_not_verified": "Din e-mailadresse er endnu ikke blevet verificeret. Tjek venligst din indbakke.",
-        "two_factor_invalid": "Verifikationskoden er forkert"
+        "two_factor_invalid": "Verifikationskoden er forkert",
+        "two_factor_invalid_try_again": "Ugyldig verifikationskode. Prøv venligst igen.",
+        "two_factor_code_required": "Verifikationskode er påkrævet",
+        "two_factor_user_not_found": "Bruger ikke fundet",
+        "two_factor_already_enabled": "Tofaktorautentificering er allerede aktiveret",
+        "two_factor_setup_not_started": "Start venligst opsætningen af tofaktorautentificering først",
+        "two_factor_setup_error": "En fejl opstod under opsætning af tofaktorautentificering",
+        "two_factor_activation_error": "En fejl opstod under aktivering af tofaktorautentificering",
+        "two_factor_password_required": "Adgangskode kræves",
+        "two_factor_credentials_required": "TOTP-kode, backupkode eller gendannelsesnøgle er påkrævet",
+        "two_factor_already_disabled": "Tofaktorautentificering er allerede deaktiveret",
+        "two_factor_password_incorrect": "Forkert adgangskode",
+        "two_factor_verification_failed": "Verifikationen mislykkedes. Tjek venligst koden og prøv igen.",
+        "two_factor_disable_error": "En fejl opstod, da tofaktorautentificering blev deaktiveret",
+        "two_factor_not_enabled": "Tofaktorautentificering er ikke aktiveret",
+        "two_factor_regenerate_codes_error": "En fejl opstod under regenerering af backup-koder",
+        "two_factor_enabled_success": "Tofaktorautentificering er blevet aktiveret med succes",
+        "two_factor_disabled_success": "To-faktor-autentificering er blevet deaktiveret med succes",
+        "password_errors": {
+            "min_length": "Adgangskoden skal være mindst {{min}} lang",
+            "lowercase_required": "Adgangskode skal inkludere mindst ét lille bogstav",
+            "uppercase_required": "Adgangskode skal inkludere mindst ét stort bogstav",
+            "number_required": "Adgangskode skal inkludere mindst ét tal",
+            "symbol_required": "Adgangskode skal inkludere mindst ét symbol",
+            "repeated_chars": "Brug ikke gentagne tegn i din adgangskode",
+            "predictable_sequence": "Brug ikke let-at-gætte sekvenser i din adgangskode",
+            "common_password": "Denne adgangskode er for almindelig og usikker",
+            "contains_username": "Adgangskoden må ikke indeholde dit brugernavn",
+            "contains_email": "Adgangskoden må ikke indeholde dine e-mailoplysninger"
+        }
     },
     "navigation": {
         "home": "Hjem",
@@ -429,7 +500,12 @@
         "logout_aria": "Log ud af din konto",
         "logout_title": "Vil du logge ud?",
         "logout_description": "Du vil blive sendt tilbage til login-skærmen og skal logge ind igen for at administrere dit husstands-lager.",
-        "logout_warning": "Brug dette, når du er færdig på en delt eller personlig enhed."
+        "logout_warning": "Brug dette, når du er færdig på en delt eller personlig enhed.",
+        "maintenance": "Vedligeholdelsesplan",
+        "shopping": "Indkøbsliste",
+        "activity": "Aktivitet",
+        "notifications": "Notifikationer",
+        "service": "Tjeneste"
     },
     "dashboard": {
         "welcome": "Velkommen tilbage, <1>{{name}}</1>",
@@ -538,7 +614,7 @@
             "step_three_title": "Hold private optegnelser adskilt",
             "step_three_body": "Brug Personlig Vault til pas, skøder og adgangskoder."
         },
-        "title": "Dashboard",
+        "title": "Instrumentbræt",
         "total_items": "Samlede varer",
         "total_rooms": "Samlede rum",
         "total_categories": "Samlede kategorier",
@@ -556,7 +632,21 @@
         "no_items_filter": "Ingen genstande matcher dette filter",
         "manage": "Administrer",
         "add_item": "Tilføj genstand",
-        "search_item": "Søg genstand"
+        "search_item": "Søg genstand",
+        "alerts": {
+            "expired_title": "Varer er udløbet!",
+            "expired_desc": "Der er {{count}} udløbne varer i dit lager. Tjek dem venligst for din sikkerhed.",
+            "view_items": "Se emner",
+            "maintenance_title": "Forsømte vedligeholdsopgaver!",
+            "maintenance_desc": "Der er {{count}} forsømte vedligeholdsopgaver. Udfør vedligeholdelse for at forlænge levetiden på dine apparater.",
+            "go_to_maintenance": "Gå til vedligeholdelse",
+            "low_stock_title": "Lav lageradvarsel",
+            "low_stock_desc": "{{count}} varer er faldet under din minimumslagertærskel.",
+            "go_to_shopping": "Indkøbsliste",
+            "close_expiry_title": "Kommende udløbsdatoer",
+            "close_expiry_desc": "{{count}} produkter vil udløbe inden for 30 dage.",
+            "view_low_stock_items": "Se lav lagerbeholdning"
+        }
     },
     "beta_banner": {
         "title": "BETA:",
@@ -611,7 +701,13 @@
             "recovery_key_regenerated": "Gendannelsesnøgle genereret på ny",
             "recovery_key_error": "Kunne ikke generere gendannelsesnøgle på ny",
             "account_delete_error": "Kontoen kunne ikke slettes",
-            "backup_downloaded_encrypted": "Krypteret backup downloadet succesfuldt! ({{count}} varer)"
+            "backup_downloaded_encrypted": "Krypteret backup downloadet succesfuldt! ({{count}} varer)",
+            "policy_update_error": "Fejlede i at opdatere forespørgselsindstillingerne.",
+            "policy_updated": "Anmodningsindstillinger opdateret korrekt.",
+            "unblock_error": "Mislykkedes med at fjerne blokeringen af brugeren.",
+            "unblocked_success": "Brugeren har ophævet blokeringen med succes.",
+            "house_owner_transferred": "Ejerskab af hus overført",
+            "house_owner_transfer_error": "Ejerskab af hus kunne ikke overføres."
         },
         "user_profile": {
             "edit_username": "Skift brugernavn"
@@ -632,7 +728,10 @@
             "info": "Du kan være medlem af flere huse og skifte mellem dem. Hver husstand har sit eget inventar.",
             "accordion_description": "Skift mellem husstande, opret en ny, eller deltag i en eksisterende med en betroet nøgle.",
             "empty_description": "Opret et nyt husstand for at begynde at dele, eller bliv medlem af et med en betroet husnøgle.",
-            "leave_success_body": "Du har ikke længere adgang til denne husstand, og dit aktive hus blev opdateret."
+            "leave_success_body": "Du har ikke længere adgang til denne husstand, og dit aktive hus blev opdateret.",
+            "leave_title": "Forlad dette hus?",
+            "leave_warning": "Du mister adgangen til denne husstands arbejdsområde, indtil et andet medlem inviterer eller godkender dig igen.",
+            "leaving": "Forlader..."
         },
         "house_info": {
             "title": "Aktivt husnøgle",
@@ -674,7 +773,18 @@
             "copy_error": "Husnøglen kunne ikke kopieres.",
             "modal_title": "Adgang til husnøgle",
             "modal_subtitle": "Brug denne nøgle kun til betroede husstandsmedlemmer, som skal anmode om adgang til dette delte lager.",
-            "loading_members": "Indlæser medlemmer..."
+            "loading_members": "Indlæser medlemmer...",
+            "kick_success_body": "{{name}} har ikke længere adgang til dette husstand.",
+            "kick_title": "Fjern dette medlem?",
+            "kick_warning": "Deres adgang til husstanden vil ophøre straks, og de skal have en ny invitation eller godkendelse for at vende tilbage.",
+            "kicking": "Fjernes...",
+            "access_section_eyebrow": "Adgang til huset",
+            "transfer_owner": "Gør ejer",
+            "transferring_owner": "Overførsler...",
+            "transfer_owner_title": "Overdragelse af ejerskabet af huset?",
+            "transfer_owner_confirm": "Overdrage ejerskabet af denne husstand til {{name}}?",
+            "transfer_owner_warning": "Du vil ikke længere være ejer af denne husstand. Den nye ejer vil håndtere medlemsgodkendelser, fjernelser og fremtidige ejerskift.",
+            "transfer_owner_success_body": "{{name}} er nu ejer af denne husstand."
         },
         "theme": {
             "title": "Tema",
@@ -682,7 +792,9 @@
             "light": "Lys tilstand",
             "description": "Vælg, hvordan arbejdsområdet ser ud på denne enhed.",
             "light_aria": "Skift til lyst tema",
-            "dark_aria": "Skift til mørkt tema"
+            "dark_aria": "Skift til mørkt tema",
+            "workspace_title": "Arbejdsområdetema",
+            "workspace_desc": "Vælg din foretrukne visuelle stil til denne enhed."
         },
         "security": {
             "title": "Sikkerhed",
@@ -695,7 +807,12 @@
             "recovery_key_unavailable": "Den nuværende gendannelsesnøgle kan ikke vises. Gendan den, hvis det er nødvendigt.",
             "recovery_key_action": "Gendan",
             "recovery_key_modal_desc": "Bekræft din nuværende adgangskode for at fortsætte. Den nye nøgle vil kun blive vist én gang.",
-            "recovery_key_loading": "Forbereder..."
+            "recovery_key_loading": "Forbereder...",
+            "accordion_title": "Sikkerhed og privatliv",
+            "accordion_desc": "Administrer tofaktorautentificering, betroede enheder og lån anmodningsregler fra andre konti.",
+            "description": "Administrer din hovedadgangskode og gendannelsesindstillinger for hvelv.",
+            "change_password_detail": "Opdater din adgangskode for at holde din konto sikker",
+            "recovery_key_detail": "Bruges til at gendanne din boks, hvis du glemmer din adgangskode"
         },
         "data_management": {
             "title": "Datastyring",
@@ -720,7 +837,25 @@
             "unencrypted_warning": "Almindelige JSON-eksporter er nemmere at inspicere, men enhver, der åbner filen, kan straks læse dine husstandsdata.",
             "import_encrypted_title": "Lås op for krypteret backup",
             "import_encrypted_body": "Indtast sikkerhedskoden, der blev brugt under download, for at gendanne denne krypterede fil.",
-            "unlock_and_import": "Lås op og importer"
+            "unlock_and_import": "Lås op og importer",
+            "export_encrypted_notice": "Sikkerhedskopien er forberedt fra live husstandsdata og derefter indpakket med den adgangsfrase, du vælger. Opbevar den adgangsfrase et sikkert sted, da den er nødvendig for at gendanne filen senere.",
+            "export_encrypted_title": "Kryptering vil blive anvendt før download",
+            "import_summary_body": "{{items}} varer, {{categories}} kategorier, {{rooms}} rum, {{locations}} lokationer, {{borrows}} låneposter gendannet.",
+            "import_summary_title": "Sikkerhedskopi gendannet",
+            "preview_categories": "Kategorier",
+            "preview_items": "Varer",
+            "preview_locations": "Lokationer",
+            "preview_rooms": "Rum",
+            "skipped_borrows": "{{count}} eksisterende låneposter blev sprunget over.",
+            "skipped_categories": "{{count}} eksisterende kategorier blev sprunget over.",
+            "skipped_items": "{{count}} eksisterende elementer blev sprunget over.",
+            "skipped_locations": "{{count}} eksisterende lokationer blev sprunget over.",
+            "skipped_rooms": "{{count}} eksisterende rum blev sprunget over.",
+            "owner_only_title": "Sikkerhedskopi og gendannelse begrænset",
+            "owner_only_desc": "Data backup og gendannelse kan kun administreres af husets ejer.",
+            "include_media_title": "Inkluder fotos og kvitteringsbilleder",
+            "include_media_body": "Den fulde sikkerhedskopi kan være større, men varefotos og kvitteringsbilleder kan også gendannes.",
+            "skipped_attachments": "{{count}} vedhæftede filer blev sprunget over."
         },
         "about": {
             "title": "Om applikationen",
@@ -733,7 +868,10 @@
             "privacy_link": "Privatlivspolitik",
             "beta_title": "Beta-status",
             "beta_body": "{{brandName}} er stadig i beta. Funktioner kan ændre sig, arbejdsgange kan udvikle sig, og vigtige husstandsdata bør altid sikkerhedskopieres.",
-            "feedback_subject": "Feedback - {{brandName}}"
+            "feedback_subject": "Feedback - {{brandName}}",
+            "logout_body": "Eventuelle ikke-gemte ændringer i åbne formularer kan gå tabt, efter du forlader denne session.",
+            "logout_description": "Du vil vende tilbage til startsiden og kan logge ind igen når som helst.",
+            "logout_title": "Log ud nu?"
         },
         "modals": {
             "password": {
@@ -825,7 +963,8 @@
             "revoke_devices": "Tilbagekald betroede enheder",
             "revoke_devices_desc": "Fjern alle huskede enheder, kræver 2FA ved næste login",
             "devices_revoked": "{{count}} betroet(e) enhed(er) fjernet",
-            "devices_error": "Kunne ikke tilbagekalde enheder"
+            "devices_error": "Kunne ikke tilbagekalde enheder",
+            "preparing_setup": "Forbereder din autentificeringsopsætning..."
         },
         "danger_zone": {
             "title": "Konto",
@@ -838,7 +977,8 @@
             "modal_warning_body": "Efter bekræftelse vil du straks miste adgangen til kontoen, og de slettede applikationsdata kan ikke gendannes fra appen.",
             "password_label": "Bekræft med din nuværende adgangskode",
             "confirm_delete": "Bekræft sletning",
-            "deleting": "Sletter..."
+            "deleting": "Sletter...",
+            "description": "Slet din konto og fjern permanent alle lagerdatasæt."
         },
         "language": "Sprog",
         "control_sections": {
@@ -887,7 +1027,7 @@
         "share_key": "Del nøgle",
         "house_members": "Husmedlemmer",
         "change_password": "Skift adgangskode",
-        "backup": "Backup",
+        "backup": "Sikkerhedskopi",
         "export_data": "Eksportér data",
         "import_data": "Importér data",
         "notifications": "Notifikationer",
@@ -897,7 +1037,31 @@
         "popular_languages": "Populære sprog",
         "search_results": "Søgeresultater",
         "current_language": "Aktuelt sprog",
-        "languages_available": "tilgængelige sprog"
+        "languages_available": "tilgængelige sprog",
+        "borrow_requests": {
+            "accordion_eyebrow": "Låneanmodning sikkerhed",
+            "accordion_eyebrow_desc": "Konfigurer anmodningsregler og håndter blokerede brugere.",
+            "title": "Låneanmodningsindstillinger",
+            "description": "Administrer regler for modtagelse af låneanmodninger fra andre konti og list blokerede brugere.",
+            "policy_title": "Nye låneanmodninger",
+            "policy_description": "Kontroller, hvem der kan sende låneanmodninger til dig. Dit lager vises aldrig som en offentlig liste.",
+            "policy_none": "Modtag ikke fra nogen (Standard)",
+            "policy_house_only": "Kun husstandsmedlemmer",
+            "policy_everyone": "Alle registrerede brugere",
+            "blocks_title": "Blokerede brugere",
+            "blocks_description": "Brugere, du har blokeret for at sende dig nye låneanmodninger.",
+            "no_blocks": "Ingen blokerede brugere fundet.",
+            "unblock_btn": "Afblokering",
+            "policy_none_desc": "Alle indkommende forespørgsler bliver automatisk blokeret.",
+            "policy_house_only_desc": "Kun verificerede medlemmer af dine aktive husstande kan anmode om genstande, der allerede er synlige inde i det delte hus.",
+            "policy_everyone_desc": "Andre brugere kan ikke gennemse eller se dine genstande. De kan kun sende en anmodning ved direkte at indtaste dit brugernavn eller din e-mail."
+        },
+        "activity_log": {
+            "title": "Aktivitet og revisionslog",
+            "description": "Gennemgå den beskyttede historie over vareændringer, lageropdateringer, vedhæftede filer og massehandlinger.",
+            "encrypted_title": "Aktivitetsregistre gemmes beskyttet",
+            "encrypted_body": "Nye aktivitetsaktioner og detaljer gemmes krypteret i databasen og dekrypteres kun for din aktive session."
+        }
     },
     "inventory": {
         "title": "Inventar",
@@ -959,8 +1123,18 @@
             "no_history": "Der er endnu ingen lånehistorik for denne vare.",
             "lend_success_title": "Genstand udlånt",
             "lend_success_body": "{{item}} er nu markeret som udlånt.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_title": "Lånetilbud sendt",
+            "offer_sent_body": "{{item}} vil blive markeret som udlånt, efter at det andet medlem accepterer.",
+            "borrowed_by_you": "Hos dig",
+            "return_pending_hint": "Registreringen lukkes, når långiveren bekræfter, at de har modtaget varen tilbage.",
+            "return_pending_lender_title": "{{name}} markerede denne vare som leveret tilbage",
+            "return_pending_self_title": "Hos dig, venter på kvitteringsbekræftelse",
+            "site_member": "Medlem på siden",
+            "site_member_identifier": "Brugernavn eller e-mail",
+            "site_member_identifier_placeholder": "Præcist brugernavn eller e-mail",
+            "site_member_privacy_hint": "Tilbuddet vises kun i Lånecenter, hvis den konto eksisterer og tillader indkommende tilbud.",
+            "external_privacy_hint": "Dette skaber kun en privat lokal registrering. Ingen app-notifikation sendes.",
+            "available": "Tilgængelig"
         },
         "untitled_item": "Uden titel",
         "delete_action": "Slet vare",
@@ -976,7 +1150,76 @@
         "category_filter_label": "Filtrer efter kategori",
         "room_filter_label": "Filtrer efter rum",
         "refreshing_results": "Opdaterer varer...",
-        "empty_filter_title": "Ingen varer matchede den søgning"
+        "empty_filter_title": "Ingen varer matchede den søgning",
+        "delete_error_title": "Sletning mislykkedes",
+        "tools": {
+            "title": "Værktøjer"
+        },
+        "no_room": "Ingen rum",
+        "all_locations": "Alle lokationer",
+        "location_filter_label": "Filtrer efter lokation",
+        "visibility_filter_label": "Filtrer efter synlighed",
+        "visibility_all": "Alle synligheder",
+        "visibility_mine": "Mine genstande",
+        "visibility_others": "Andre medlemmer",
+        "borrow_filter_label": "Filtrer efter lånestatus",
+        "borrow_filter_all": "Alle lånestatusser",
+        "stock_filter_label": "Filtrer efter lagerstatus",
+        "stock_filter_all": "Alle lagerstatusser",
+        "stock_filter_ok": "Lager ok",
+        "expiry_filter_label": "Filtrer efter udløbsdato",
+        "expiry_filter_all": "Alle udløbsdatoer",
+        "expiry_filter_dated": "Har dato",
+        "expiry_filter_none": "Ingen dato",
+        "warranty_filter_label": "Filtrer efter garanti",
+        "warranty_filter_all": "Alle garantier",
+        "warranty_filter_expired": "Udløbne garantier",
+        "warranty_filter_close": "Slutter snart",
+        "warranty_filter_active": "Aktive garantier",
+        "warranty_filter_none": "Ingen garantioplysninger",
+        "sort_label": "Sorter",
+        "sort_updated_desc": "For nylig opdateret",
+        "sort_updated_asc": "Ældste opdatering",
+        "sort_created_desc": "Nyeste først",
+        "sort_created_asc": "Ældste først",
+        "sort_name_asc": "Navn A-Z",
+        "sort_name_desc": "Navn Z-A",
+        "sort_quantity_desc": "Mængde højest til lavest",
+        "sort_quantity_asc": "Mængde lavest til højest",
+        "sort_expiry_asc": "Udløber først",
+        "sort_expiry_desc": "Udløb senest",
+        "stock_increase": "Forøg lager",
+        "stock_decrease": "Formindsk lager",
+        "stock_adjust_error": "Lager kunne ikke opdateres.",
+        "bulk": {
+            "select_visible": "Vælg synlige",
+            "clear_visible": "Fravælg synlige",
+            "selected_short": "valgt",
+            "keep_category": "Behold kategori",
+            "keep_room": "Behold rum",
+            "keep_location": "Behold placering",
+            "keep_visibility": "Behold synlighed",
+            "apply": "Anvend",
+            "no_fields": "Vælg mindst ét felt til massehandlingen.",
+            "updated_title": "Masseopdatering fuldført",
+            "updated_body": "{{count}} elementer opdateret. {{skipped}} sprunget over.",
+            "update_error": "Masseopdatering kunne ikke gennemføres.",
+            "deleted_title": "Masse sletning fuldført",
+            "deleted_body": "{{count}} emner slettet. {{skipped}} sprunget over.",
+            "delete_error": "Masse sletning kunne ikke gennemføres.",
+            "delete_title": "Slet valgte emner?",
+            "delete_description": "{{count}} valgte emner vil blive fjernet fra dette husstandsindeks. Dette kan ikke fortrydes.",
+            "select_item": "Vælg emne",
+            "unselect_item": "Fjern valg af emne"
+        },
+        "qr_labels": {
+            "title": "QR-etiketter",
+            "open": "Vareetiketter",
+            "description": "{{count}} vareetiketter er klar som et udskriftsark.",
+            "empty": "Skift filtre eller tilføj lagerartikler for at udskrive etiketter.",
+            "sheet_label": "Ark med vareetiketter",
+            "item_label": "Vareetiket"
+        }
     },
     "categories": {
         "title": "Kategorier",
@@ -1023,7 +1266,10 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "color_required": "Farven skal være i formatet #RRGGBB",
+        "empty_description": "Opret nogle kategorier, så nye emner følger den samme struktur og er lettere at gennemse senere.",
+        "empty_title": "Ingen kategorier endnu"
     },
     "rooms": {
         "title": "Rum",
@@ -1097,7 +1343,9 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "empty_description": "Opret rum som køkken, opbevaring eller garage, så vareplaceringer forbliver konsistente og lettere at søge.",
+        "empty_title": "Ingen rum endnu"
     },
     "admin": {
         "title": "Adminpanel",
@@ -1176,7 +1424,12 @@
             "households_label": "Husstande",
             "items_label": "Ejede genstande",
             "last_seen_short": "Set",
-            "last_seen_short_never": "Ny"
+            "last_seen_short_never": "Ny",
+            "failed_logins": "{{count}} mislykkede logins",
+            "load_failed_title": "Brugere kunne ikke indlæses",
+            "pending_requests": "{{count}} ventende husansøgninger",
+            "role_admin": "Administrator",
+            "role_user": "Bruger"
         },
         "logs": {
             "title": "Admin-logfiler",
@@ -1191,7 +1444,7 @@
                 "event": "Begivenhed"
             },
             "action": {
-                "send": "Send",
+                "send": "Sende",
                 "delete": "Slet",
                 "update": "Opdater",
                 "create": "Opret",
@@ -1208,7 +1461,9 @@
             "section_eyebrow": "Revisionsspor",
             "errors_eyebrow": "Diagnostik",
             "section_body": "Enhver moderation eller operationel ændring registreret af admin-laget.",
-            "errors_body": "De seneste analyserede fejl linjer fra serverlogfilerne."
+            "errors_body": "De seneste analyserede fejl linjer fra serverlogfilerne.",
+            "load_failed_title": "Aktivitet kunne ikke indlæses",
+            "no_logs_title": "Ingen admin handlinger endnu"
         },
         "email": {
             "title": "Send e-mail",
@@ -1216,7 +1471,7 @@
             "subject": "Emne",
             "message": "Besked (HTML understøttet)",
             "placeholder_message": "Skriv din besked her...",
-            "send": "Send",
+            "send": "Sende",
             "sending": "Sender...",
             "success": "E-mail sendt succesfuldt!",
             "error": "Afsendelse mislykkedes",
@@ -1242,7 +1497,14 @@
             "status_body": "En hurtig tillidskontrol før afsendelse af driftskommunikation.",
             "unconfigured_title": "E-maillevering er ikke konfigureret",
             "unconfigured_body": "Afsendelsesformularen forbliver synlig til gennemgang af opsætning, men levering vil fejle, indtil e-mailudbyderen er konfigureret.",
-            "status_eyebrow": "Levering"
+            "status_eyebrow": "Levering",
+            "configured_body": "Genforsendelse er tilgængelig for admin-udløste udgående beskeder.",
+            "configured_title": "E-mail levering er konfigureret",
+            "error_title": "E-mail mislykkedes",
+            "format_hint": "HTML understøttes. For eksempel: <b>fed</b>, <i>kursiv</i>, <a href=\"...\">link</a>",
+            "from_label": "Afsender",
+            "load_failed_title": "E-mailværktøjer kunne ikke indlæses",
+            "success_title": "E-mail sendt"
         },
         "overview": {
             "email_warning_title": "E-maillevering er ikke konfigureret",
@@ -1300,7 +1562,7 @@
                 "private_items_chip": "{{count}} privat",
                 "system": "Systemstatus",
                 "system_body": "{{count}} timers oppetid",
-                "storage_chip": "{{count}} MB uploads"
+                "storage_chip": "{{count}} MB-uploads"
             }
         },
         "meta": {
@@ -1327,7 +1589,9 @@
         "stats_loaded": "Stats loaded",
         "logs_loaded": "Logs indlæst",
         "load_error": "Error loading",
-        "action_error": "Action error"
+        "action_error": "Action error",
+        "load_failed_body": "Admin-ruten er åben, men oversigtsdataene ankom ikke. Du kan prøve igen uden at forlade siden.",
+        "load_failed_title": "Adminoversigt kunne ikke indlæses"
     },
     "landing": {
         "nav": {
@@ -1344,12 +1608,12 @@
             "cta_register": "Opret konto",
             "stat_free": "Gratis",
             "stat_access": "Adgang",
-            "free_badge": "Open Source",
+            "free_badge": "Åben kilde",
             "badge": "HomeInventory v2.0 er her",
             "cta_explore": "Udforsk funktioner",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Log ind",
+            "stat_members": "Delte hjem",
+            "stat_vault": "Privat hvelv"
         },
         "features": {
             "title": "Hvorfor <1>HomeInventory</1>?",
@@ -1420,7 +1684,7 @@
                 "description": "Opbevar genstande, garantier, vigtige dokumenter og lånespor i et roligt sted. Se, hvad dit hjem indeholder med et blik.",
                 "primaryCta": "Start Gratis",
                 "secondaryCta": "Se Produktet",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Foreslået flow: konto • hjem • værelser og kategorier • varer • backup",
                 "searchPlaceholder": "Søg efter en genstand, et rum eller en stregkode"
             },
             "heroInventoryRows": [
@@ -1436,7 +1700,7 @@
                 },
                 {
                     "name": "Mesh-enhed",
-                    "meta": "TV-bord • Deco M4",
+                    "meta": "TV-bord • Network node",
                     "state": null
                 },
                 {
@@ -1671,8 +1935,9 @@
         "privacy_summary": "Netværksdetaljer forbliver skjult, indtil du har brug for vejledningen.",
         "link_privacy_note": "Netværksadressen forbliver skjult her. Scan koden eller kopier linket kun, når du med vilje ønsker at dele direkte adgang til elementet på dit lokale setup.",
         "helper": "Scan for at åbne dette element med det samme, eller kopier det direkte link når det er nødvendigt.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_error_title": "Link kunne ikke kopieres automatisk",
+        "copy_manual_help": "Din browser tillod ikke automatisk kopiering. Linket er markeret, så du kan kopiere det manuelt.",
+        "loading": "Forbereder QR-værktøjer..."
     },
     "house_access_pending": {
         "eyebrow": "Husadgang",
@@ -1797,7 +2062,7 @@
             "successBody": "Hvis du har modtaget denne e-mail, er {{brandName}} e-maillevering konfigureret korrekt.",
             "sentAtLabel": "Sendt den",
             "senderLabel": "Afsender",
-            "serviceLabel": "Service",
+            "serviceLabel": "Tjeneste",
             "footer": "© 2026 {{brandName}}"
         }
     },
@@ -1859,7 +2124,11 @@
             "name_required": "Et varenavn er påkrævet for en vault-optegnelse.",
             "options_failed": "Kategori- og rumindstillinger kunne ikke indlæses.",
             "delete_success_title": "Vault-optegnelse slettet",
-            "delete_success_body": "Den private optegnelse blev permanent fjernet fra dit vault."
+            "delete_success_body": "Den private optegnelse blev permanent fjernet fra dit vault.",
+            "passphrase_lowercase": "Inkluder mindst ét småt bogstav.",
+            "passphrase_min_length": "Vault-adgangskode skal være mindst 12 tegn.",
+            "passphrase_number": "Inkluder mindst ét tal.",
+            "passphrase_uppercase": "Inkluder mindst ét stort bogstav."
         },
         "recovery_file_title": "{{brandName}} Personlig Vault Gendannelsesnøgle",
         "recovery_file_created_label": "Oprettet",
@@ -1907,8 +2176,8 @@
             "empty": "Der er ingen aktive lån lige nu.",
             "borrowed_from": "Lånt fra {{name}}",
             "lent_to": "I øjeblikket hos {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Venter på, at långiveren bekræfter, at de har modtaget det tilbage.",
+            "return_pending_lender": "{{name}} har markeret denne vare som returneret. Bekræft modtagelsen for at lukke registreringen.",
             "empty_title": "Ingen aktive lån lige nu",
             "empty_description": "Accepterede forespørgsler vises her, når en genstand er lånt eller udlånt, sammen med forfaldsdatoer og tilbageleveringsstatus."
         },
@@ -1919,7 +2188,7 @@
             "cancelled": "Annulleret",
             "expired": "Udløbet",
             "returned": "Returneret",
-            "return_pending": "Return pending"
+            "return_pending": "Returnering afventer"
         },
         "actions": {
             "send_request": "Anmod om vare",
@@ -1928,8 +2197,8 @@
             "reject": "Afvis",
             "cancel": "Annuller",
             "fulfill_request": "Opfyld anmodning",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Marker som leveret",
+            "mark_received": "Marker som modtaget",
             "open_inventory": "Åbn lager"
         },
         "labels": {
@@ -1968,21 +2237,36 @@
             "return_title": "Marker som returneret",
             "return_subtitle": "Luk den aktive lån for \"{{item}}\"",
             "return_target": "Den vises i øjeblikket som værende hos {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Lever varen",
+            "return_title_lender": "Modtag varen",
+            "return_subtitle_borrower": "Luk den aktive låneperiode for \"{{item}}\" efter du har afleveret den.",
+            "return_subtitle_lender": "Luk den aktive låneperiode for \"{{item}}\" efter du har modtaget den tilbage.",
+            "return_target_borrower": "Långiver: {{name}}",
+            "return_target_lender": "Aktuelt hos: {{name}}",
+            "return_note_borrower": "Leveringsseddel",
+            "return_note_lender": "Modtagelsesseddel",
+            "return_note_placeholder_borrower": "f.eks. Jeg afleverede det tilbage uden problemer",
+            "return_note_placeholder_lender": "f.eks. Modtaget tilbage i god stand",
+            "return_submitting": "Lukker...",
+            "reject_title": "Afvis anmodning",
+            "reject_subtitle": "Du er ved at afvise anmodningen om \"{{item}}\".",
+            "reject_target": "Du er ved at afvise låneanmodningen sendt af {{name}}.",
+            "reject_reason_label": "Afvisningsårsag",
+            "reject_submitting": "Afviser...",
+            "due_date_label": "Planlagt tilbagevendende dato"
         },
         "messages": {
             "load_error": "Lånecenter kunne ikke indlæses",
-            "action_error": "Handlingen kunne ikke fuldføres"
+            "action_error": "Handlingen kunne ikke fuldføres",
+            "active_borrow_not_found": "Denne aktive udlånsregistrering kunne ikke findes. Opdater Udlånscenteret og prøv igen.",
+            "errors": {
+                "external_target_daily_limit": "Du kan kun sende én første-kontakt ekstern anmodning til den samme person pr. dag. Hvis de accepterer en anmodning, gælder denne grænse ikke længere for den person.",
+                "external_total_daily_limit": "Du kan sende op til 5 første-kontakt eksterne anmodninger pr. dag.",
+                "external_request_requires_verified_email": "Verificer din e-mailadresse, før du sender eksterne låneanmodninger.",
+                "external_offer_blocked": "Du kan kun tilbyde en genstand til husmedlemmer eller registrerede brugere, der kan identificeres direkte.",
+                "target_blocked_by_you": "Du kan ikke sende en forespørgsel til en bruger, du har blokeret.",
+                "recent_rejection_lock": "Denne bruger afviste en nylig forespørgsel. Du kan sende en ny forespørgsel efter 30 dage."
+            }
         },
         "preview": {
             "title": "Forhåndsvisningstilstand",
@@ -1992,7 +2276,12 @@
         "incoming_empty_title": "Ingen forespørgsler kræver din gennemgang",
         "outgoing_empty_title": "Ingen udgående forespørgsler endnu",
         "refreshing": "Opdaterer forespørgsler og aktive lån...",
-        "loading_description": "Forbereder forespørgsler og aktiv låneaktivitet."
+        "loading_description": "Forbereder forespørgsler og aktiv låneaktivitet.",
+        "reasons": {
+            "rejected": "Afvisning (Normal afvisning)",
+            "not_available": "Ikke tilgængelig (Genstande mangler / ikke tilgængelig)",
+            "blocked": "Blokér og afvis (Blokerer denne bruger)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Privatlivspolitik",
@@ -2080,7 +2369,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Administrer alle dine husholdningsartikler smart"
+        "tagline": "Administrer alle dine husholdningsartikler smart",
+        "loading": "Indlæser {{brandName}}",
+        "preparing_workspace": "Forbereder dit arbejdsområde..."
     },
     "nav": {
         "home": "Hjem",
@@ -2100,11 +2391,11 @@
     },
     "terms": {
         "title": "Betingelser for brug og ansvarsfraskrivelse",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "BETA Version: {{brandName}} er i øjeblikket i testfasen. Der gives ingen garantier for datapermeabilitet eller sikkerhed.",
         "disclaimer": "Ansvarsfraskrivelse: Ved at bruge denne applikation accepterer du, at du ikke kan kræve nogen kompensation for potentiel datatab, adgangsproblemer eller andre tekniske problemer.",
         "backup_warning": "Sikkerhedskopi af data: Vi anbefaler kraftigt, at du regelmæssigt laver backup af dine vigtige oplysninger.",
         "accept": "Ved at logge ind accepterer du disse betingelser.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} er i øjeblikket i test- og hobbyfase. Der gives ingen garantier for datapermeabilitet eller sikkerhed. Sørg venligst for at have dine vigtige oplysninger sikkerhedskopieret.",
         "contact": "Kontakt"
     },
     "locations": {
@@ -2174,14 +2465,287 @@
         "too_many_login_attempts": "Too many login attempts"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Log ind",
+        "page_title_register": "Opret konto",
+        "page_title_choose_house": "Vælg hus",
+        "page_title_recovery_key": "Gendannelsesnøgle",
+        "page_title_house_access": "Husadgang",
+        "page_title_legal_review": "Juridisk gennemgang",
+        "page_title_new_item": "Nyt element",
+        "page_title_edit_item": "Rediger element",
+        "page_title_items": "Lager"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Fejl ved indlæsning af indkøbsliste.",
+            "select_item_error": "Vælg venligst en vare fra lageret.",
+            "empty_name": "Indtast venligst et varenavn.",
+            "added": "Vare tilføjet til indkøbsliste.",
+            "add_error": "Der opstod en fejl under tilføjelsen af varen.",
+            "added_suggestion": "\"{{name}}\" tilføjet til indkøbsliste.",
+            "bulk_added": "{{count}} varer med lav lagerbeholdning tilføjet til listen.",
+            "bulk_error": "Fejl ved tilføjelse af lavtlagerartikler.",
+            "completed": "\"{{name}}\" markeret som færdig.",
+            "reactivated": "\"{{name}}\" flyttet tilbage til aktiv liste.",
+            "update_error": "Der opstod en fejl under opdatering.",
+            "deleted": "Element slettet fra listen.",
+            "delete_error": "Der opstod en fejl under sletningen.",
+            "cleared_completed": "Fuldførte elementer ryddet.",
+            "clear_error": "Der opstod en fejl under rydning."
+        },
+        "loading_desc": "Forbereder indkøbsliste...",
+        "page": {
+            "title": "Indkøbsliste",
+            "description": "Se varer med lav lagerbeholdning i hjemmebeholdningen og administrer nemt din indkøbsliste."
+        },
+        "suggestions": {
+            "title": "Smarte lagerforslag",
+            "desc": "Lagerartikler, der er faldet under minimumsgrænsen.",
+            "add_all": "Tilføj alle manglende",
+            "stock_status": "Nuværende: {{current}} / Mål: {{min}}",
+            "add_qty": "Tilføj {{qty}}"
+        },
+        "sections": {
+            "active_list": "Varer at købe",
+            "active_desc": "Nuværende indkøbsvare at tilføje til din kurv.",
+            "active_count": "{{count}} varer",
+            "completed_list": "Købte varer ({{count}})",
+            "add_item": "Tilføj vare manuelt",
+            "add_desc": "Tilføj manuelt en brugerdefineret vare til listen."
+        },
+        "empty": {
+            "title": "Din indkøbsliste er tom",
+            "desc": "Du kan tilføje manglende varer fra forslagene ovenfor eller tilføje varer manuelt ved hjælp af formularen til højre."
+        },
+        "card": {
+            "linked_inventory": "Gemt i lager"
+        },
+        "actions": {
+            "clear_completed": "Ryd historik",
+            "add_item": "Tilføj til indkøbsliste",
+            "mark_completed": "Marker som fuldført",
+            "decrease_qty": "Reducer mængde",
+            "increase_qty": "Øg mængden",
+            "delete_item": "Slet element",
+            "reactivate_item": "Flyt tilbage til aktiv liste"
+        },
+        "form": {
+            "add_type": "Tilføj metode",
+            "add_type_inventory": "Inventarvare",
+            "add_type_custom": "Brugerdefineret vare",
+            "select_inventory_item": "Vælg vare fra inventar",
+            "no_inventory_items": "Ingen varer i dit inventar endnu.",
+            "select_item_placeholder": "Vælg et item",
+            "current_stock": "Nuværende",
+            "item_name": "Item navn",
+            "item_name_placeholder": "f.eks. Mælk, Vaskemiddel, Kaffe Bønner...",
+            "quantity": "Mængde"
+        },
+        "modal": {
+            "delete_title": "Slet vare fra listen?",
+            "delete_desc": "Er du sikker på, at du vil fjerne \"{{name}}\" fra din indkøbsliste?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Fejl ved indlæsning af oplysninger",
+            "select_item_error": "Vælg venligst en vare.",
+            "task_name_error": "Opgavens navn er påkrævet.",
+            "date_error": "Planlagt dato er påkrævet.",
+            "updated": "Vedligeholdelsesopgaven er opdateret",
+            "created": "Ny vedligeholdelsesopgave tilføjet",
+            "save_error": "Der opstod en fejl under gemning",
+            "deleted": "Vedligeholdelsesopgaven blev slettet succesfuldt.",
+            "delete_error": "Der opstod en fejl under sletteprocessen.",
+            "performed": "Vedligeholdelse registreret som fuldført. Næste dato planlagt.",
+            "perform_error": "Der opstod en fejl under gemning."
+        },
+        "freq": {
+            "one_time": "Éngangs",
+            "unit": {
+                "days": "Dag",
+                "weeks": "Uge",
+                "months": "Måned",
+                "years": "År"
+            },
+            "format": "Hver {{val}} {{unit}}"
+        },
+        "loading_desc": "Indlæser vedligeholdelsesplan...",
+        "page": {
+            "title": "Vedligeholdelse & Periodisk opfølgning",
+            "description": "Administrer periodiske vedligeholdelsesplaner for apparater, filtre eller sikkerhedsudstyr i dit hjeminventar."
+        },
+        "actions": {
+            "add_task": "Tilføj ny opgave",
+            "manage": "Administrer",
+            "perform": "Marker som udført",
+            "edit_task": "Rediger Opgave"
+        },
+        "alerts": {
+            "overdue_title": "Du har forfaldne opgaver!",
+            "overdue_desc": "Der er {{count}} forfaldne vedligeholdelsesopgaver. Forsinkelser kan reducere apparaters levetid."
+        },
+        "empty": {
+            "title": "Ingen vedligeholdelsesopgaver planlagt",
+            "desc": "Kom i gang ved at tilføje tilbagevendende opgaver såsom rengøring af AC-filter, vedligeholdelse af kedel eller kontrol af batterier i brandmeldere."
+        },
+        "sections": {
+            "overdue": "Forfaldne opgaver",
+            "overdue_desc": "Hastende vedligeholdelse, der skal udføres med det samme.",
+            "upcoming": "Planlagte / Kommende opgaver",
+            "upcoming_desc": "Forestående vedligeholdelse i de kommende dage.",
+            "no_upcoming": "Ingen aktive opgaver planlagt i fremtiden."
+        },
+        "modal": {
+            "edit_title": "Rediger opgave",
+            "create_title": "Planlæg ny vedligeholdelsesopgave",
+            "perform_title": "Fuldfør vedligeholdelse",
+            "perform_desc": "Vil du registrere \"{{name}}\" som fuldført i dag?",
+            "perform_confirm": "Ja, fuldført",
+            "perform_recurrence_info": "Dette er en periodisk opgave. Når du gemmer, vil systemet automatisk beregne den næste vedligeholdelsesdato.",
+            "delete_title": "Slet vedligeholdelsesopgave?",
+            "delete_desc": "Er du sikker på, at du vil slette den periodiske vedligeholdelsesplan \"{{name}}\"? Denne handling kan ikke fortrydes."
+        },
+        "form": {
+            "item": "Relateret element",
+            "no_items": "Du skal først tilføje en vare til lagerbeholdningen, før du planlægger vedligeholdelse.",
+            "select_item_placeholder": "Vælg en vare",
+            "task_name": "Opgave-/operationsnavn",
+            "task_name_placeholder": "f.eks. Filterudskiftning, Periodisk kontrol...",
+            "description": "Detalje / Beskrivelse",
+            "description_placeholder": "Opgavedetaljer, materialer der skal anvendes, osv...",
+            "frequency_value": "Gentagelsesfrekvens",
+            "frequency_placeholder": "f.eks. 6 (lad stå tomt for engangs)",
+            "frequency_unit": "Frekvensenhed",
+            "next_due_date": "Næste planlagte dato",
+            "section_help": "Administrer vedligeholdelsesplaner herfra",
+            "section_collapsed": "Klik for at tilføje periodiske kontrolopgaver og opgaver",
+            "has_tasks": "{{count}} opgaver",
+            "new_item_warning_title": "Element gemning afventer",
+            "new_item_warning_desc": "Du skal først gemme dette element for at tilføje en vedligeholdelsesplan.",
+            "manage_desc": "Administrer vedligeholdelsesplaner for denne enhed eller dette element."
+        },
+        "fields": {
+            "task_name": "Opgave navn",
+            "task_name_placeholder": "f.eks. rengøring af AC-filter",
+            "description": "Beskrivelse",
+            "description_placeholder": "Opgavedetaljer, materialer der skal bruges, osv...",
+            "frequency_value": "Gentagelsesfrekvens",
+            "frequency_value_placeholder": "Lad stå tomt for engangs",
+            "frequency_unit": "Frekvensenhed",
+            "next_due_date": "Planlagt dato"
+        },
+        "card": {
+            "untitled_item": "Uden Titel",
+            "last_performed": "Sidst Udført:",
+            "next_due_label": "Planlagt Dato",
+            "complete_tooltip": "Marker Vedligeholdelse som Udført i Dag"
+        },
+        "detail_card_desc": "Periodisk eller engangs vedligeholdelsesovervågning planlagt for denne vare.",
+        "no_tasks": "Ingen vedligeholdelsesopgaver tildelt denne vare.",
+        "confirm_delete": "Denne opgave vil blive slettet. Er du sikker?"
+    },
+    "error_boundary": {
+        "title": "Noget trænger til en opdatering",
+        "description": "Brugerfladen stødte på et uventet renderingsproblem. Dine gemte lagerdata ændres ikke af denne skærm.",
+        "refresh_btn": "Opfrisk",
+        "home_btn": "Hjem"
+    },
+    "activity": {
+        "title": "Aktivitetshistorik",
+        "description": "Nylige beskyttede ændringer i dit hjemmeinventar.",
+        "empty_title": "Ingen aktivitet endnu",
+        "empty_description": "Vareændringer, lageropdateringer, vedhæftninger, udlån og massehandlinger vises her.",
+        "unknown_actor": "Ukendt bruger",
+        "deleted_item_with_id": "Slettet vare #{{id}}",
+        "item_missing": "Denne varepost findes ikke længere",
+        "actions": {
+            "item_created": "Vare tilføjet",
+            "item_updated": "Vare opdateret",
+            "item_deleted": "Vare slettet",
+            "item_borrowed": "Vare udlånt",
+            "item_returned": "Vare returneret",
+            "item_bulk_updated": "Masseopdatering",
+            "item_bulk_deleted": "Masse sletning",
+            "item_stock_adjusted": "Lager opdateret",
+            "item_attachment_added": "Vedhæftning tilføjet",
+            "item_attachment_deleted": "Vedhæftning slettet"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} relaterede poster",
+        "empty_title": "Ingen relaterede poster fundet",
+        "low_stock": {
+            "title": "Lav lagerbeholdning",
+            "description": "Varer under deres minimumsbeholdning.",
+            "qty": "Lager {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Udløbne varer",
+            "description": "Varer med udløbsdato."
+        },
+        "expiring": {
+            "title": "Kommende udløbsdatoer",
+            "description": "Varer, der udløber inden for 30 dage."
+        },
+        "maintenance": {
+            "title": "Forfalden vedligeholdelse",
+            "description": "Vedligeholdelsesopgaver, der er overskredet deres planlagte dato."
+        }
+    },
+    "notifications": {
+        "title": "Notifikationscenter",
+        "description": "Lager, garanti, vedligeholdelse, udløb og låne-retur alarmer.",
+        "meta_total": "{{count}} notifikationer",
+        "meta_urgent": "{{count}} haster",
+        "empty_title": "Ingen alarmer kræver din opmærksomhed lige nu",
+        "empty_desc": "Lavt lager, kommende datoer og forfalden vedligeholdelse vil blive vist her.",
+        "items": {
+            "stock_empty_title": "Udsolgt",
+            "stock_low_title": "Lav lagerbeholdning",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Udløbsdato passeret",
+            "expiry_close_title": "Udløbsdato nærmer sig",
+            "warranty_expired_title": "Garanti udløbet",
+            "warranty_close_title": "Garanti udløber snart",
+            "maintenance_overdue_title": "Vedligeholdelse forsinket",
+            "maintenance_close_title": "Vedligeholdelse forfalder snart",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Lån tilbage sendt for sent",
+            "borrow_close_title": "Lån tilbage snart forfaldent",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} dage tilbage ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Service- og garanticenter",
+        "description": "Spor garantier, vedligeholdelsesplaner og servicehandlinger ét sted.",
+        "meta_warranty": "{{count}} garantiregistreringer",
+        "meta_tasks": "{{count}} vedligeholdelsesopgaver",
+        "empty_title": "Ingen service- eller garantihandlinger",
+        "empty_desc": "Kommende garantidatoer og vedligeholdelsesopgaver vil blive samlet her.",
+        "warranty_section": "Garantiopfølgning",
+        "warranty_desc": "Udløbne garantier og garantier, der udløber inden for 30 dage.",
+        "maintenance_section": "Vedligeholdelseshandlinger",
+        "maintenance_desc": "Forfaldne og kommende vedligeholdelsesopgaver.",
+        "no_warranty": "Ingen kommende garantiaktion.",
+        "no_tasks": "Ingen planlagt vedligeholdelsesopgave.",
+        "overdue": "Forsinket",
+        "upcoming": "Snart",
+        "expired": "Udløbet",
+        "summary_warranty": "Garantiovervågning",
+        "summary_tasks": "Vedligeholdelsesopgaver",
+        "open_warranty_filter": "Åbn garantifilter",
+        "open_warranty_filter_desc": "Filtrerer aktive garantiposter i lageret."
+    },
+    "storage_labels": {
+        "title": "Hylde- og rumetiketter",
+        "description": "{{count}} rum-/hyldemærkater er klar som et udskriftsark.",
+        "empty_title": "Ingen rum eller hylder at mærke",
+        "empty_desc": "Tilføj først rum eller lokationer, og udskriv derefter QR-mærkater her.",
+        "sheet_label": "Lokationsmærkeark",
+        "scan_hint": "Scanning af QR-koden åbner det filtrerede inventar for det rum eller den hylde.",
+        "room": "Rum",
+        "location": "Hylde/æske"
     }
 }

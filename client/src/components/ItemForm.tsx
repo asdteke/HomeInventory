@@ -2,7 +2,7 @@ import { Suspense, lazy, useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, Camera, X, Lock, Globe, MapPin, Plus, Loader2, ChevronDown, Check, QrCode, ScanBarcode, Search, ExternalLink, CalendarDays, Edit3, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Camera, X, Lock, Globe, MapPin, Plus, Loader2, ChevronDown, Check, QrCode, ScanBarcode, Search, ExternalLink, CalendarDays, Edit3, ChevronRight, Download, FileText, Paperclip, Trash2, Upload } from 'lucide-react';
 import SecureImage from './SecureImage';
 import FullscreenImage from './FullscreenImage';
 import { MAX_PHOTO_UPLOAD_MB, isPhotoUploadTooLarge } from '../utils/mediaLimits';
@@ -218,6 +218,17 @@ function formatIsoDateForDisplay(value) {
     return `${day}.${month}.${year}`;
 }
 
+function formatAttachmentSize(value) {
+    const bytes = Number(value || 0);
+    if (!Number.isFinite(bytes) || bytes <= 0) {
+        return '0 KB';
+    }
+    if (bytes < 1024 * 1024) {
+        return `${Math.ceil(bytes / 1024)} KB`;
+    }
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
 function formatFreqText(val: any, unit: any, t: any) {
     if (!val || !unit) return t('maintenance.freq.one_time', { defaultValue: 'Tek Seferlik' });
     const unitTranslation = t(`maintenance.freq.unit.${unit}`, {
@@ -254,6 +265,7 @@ export default function ItemForm() {
     const cameraInputRef = useRef(null);
     const invoiceFileInputRef = useRef(null);
     const invoiceCameraInputRef = useRef(null);
+    const attachmentInputRef = useRef(null);
     const invoiceDatePickerRef = useRef(null);
     const warrantyStartDatePickerRef = useRef(null);
     const warrantyDatePickerRef = useRef(null);
@@ -271,6 +283,9 @@ export default function ItemForm() {
     const [existingInvoicePhoto, setExistingInvoicePhoto] = useState(null);
     const [removeInvoicePhoto, setRemoveInvoicePhoto] = useState(false);
     const [showInvoiceSection, setShowInvoiceSection] = useState(false);
+    const [attachments, setAttachments] = useState<any[]>([]);
+    const [attachmentUploading, setAttachmentUploading] = useState(false);
+    const [attachmentDeletingId, setAttachmentDeletingId] = useState<number | null>(null);
     const [categories, setCategories] = useState([]);
     const [rooms, setRooms] = useState([]);
     const [locations, setLocations] = useState([]);
@@ -310,6 +325,20 @@ export default function ItemForm() {
         } finally {
             if (isMountedRef.current) {
                 setIsMaintenanceLoading(false);
+            }
+        }
+    };
+
+    const fetchAttachments = async (signal?: AbortSignal) => {
+        if (!id) return;
+        try {
+            const res = await axios.get(`/api/items/${id}/attachments`, createRequestConfig({ signal }));
+            if (isMountedRef.current) {
+                setAttachments(res.data.attachments || []);
+            }
+        } catch (error) {
+            if (!isRequestCanceled(error)) {
+                console.error('Fetch attachments error:', error);
             }
         }
     };
@@ -420,6 +449,7 @@ export default function ItemForm() {
             setFetching(true);
             setBorrowHistoryLoading(true);
             fetchItem(itemController.signal);
+            fetchAttachments(itemController.signal);
 
             return () => {
                 optionsController.abort();
@@ -438,6 +468,7 @@ export default function ItemForm() {
         setExistingInvoicePhoto(null);
         setRemoveInvoicePhoto(false);
         setShowInvoiceSection(false);
+        setAttachments([]);
         setActiveBorrow(null);
         setBorrowHistory([]);
         setBorrowHistoryLoading(false);
@@ -747,6 +778,54 @@ export default function ItemForm() {
             setInvoicePhoto(file);
             setRemoveInvoicePhoto(false);
             updateImagePreview(file, setInvoicePhotoPreview);
+        }
+    };
+
+    const handleAttachmentUpload = async (event) => {
+        const files = Array.from(event.target.files || []) as File[];
+        if (!files.length || !id) {
+            return;
+        }
+
+        setAttachmentUploading(true);
+        setError('');
+        try {
+            const uploadedAttachments = [];
+            for (const file of files) {
+                const data = new FormData();
+                data.append('attachment', file);
+                const response = await axios.post(`/api/items/${id}/attachments`, data, {
+                    timeout: ACTION_REQUEST_TIMEOUT_MS,
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                });
+                uploadedAttachments.push(response.data.attachment);
+            }
+            setAttachments((current) => [...uploadedAttachments.reverse(), ...current]);
+            invalidateCache(ITEM_CACHE_PATTERN);
+        } catch (err) {
+            setError(getRequestErrorMessage(err, t('items.attachments.upload_error', { defaultValue: 'Ek dosya yüklenemedi' })));
+        } finally {
+            setAttachmentUploading(false);
+            if (attachmentInputRef.current) {
+                attachmentInputRef.current.value = '';
+            }
+        }
+    };
+
+    const handleDeleteAttachment = async (attachmentId) => {
+        if (!window.confirm(t('items.attachments.delete_confirm', { defaultValue: 'Bu ek dosya silinecek. Emin misiniz?' }))) {
+            return;
+        }
+
+        setAttachmentDeletingId(attachmentId);
+        try {
+            await axios.delete(`/api/items/attachments/${attachmentId}`);
+            setAttachments((current) => current.filter((attachment) => attachment.id !== attachmentId));
+            invalidateCache(ITEM_CACHE_PATTERN);
+        } catch (err) {
+            setError(getRequestErrorMessage(err, t('items.attachments.delete_error', { defaultValue: 'Ek dosya silinemedi' })));
+        } finally {
+            setAttachmentDeletingId(null);
         }
     };
 
@@ -1153,6 +1232,55 @@ export default function ItemForm() {
                                 <p className="rounded-xl border border-dashed border-[var(--hi-border-strong)] px-4 py-3 text-sm text-[var(--hi-text-soft)]">
                                     {t('items.form.invoice_section_collapsed')}
                                 </p>
+                            )}
+                        </div>
+
+                        <div className="card space-y-4 p-5">
+                            <div className="flex items-start justify-between gap-3">
+                                <div>
+                                    <h2 className="font-semibold text-[var(--hi-text)]">{t('items.attachments.title', { defaultValue: 'Ek Dosyalar' })}</h2>
+                                    <p className="text-sm text-[var(--hi-text-soft)]">
+                                        {t('items.attachments.detail_desc', { defaultValue: 'Garanti belgesi, PDF kılavuz veya ilgili belge ekleri.' })}
+                                    </p>
+                                </div>
+                                {canEditItem && (
+                                    <button
+                                        type="button"
+                                        onClick={() => setIsDetailEditMode(true)}
+                                        className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--hi-brand-text)] hover:underline"
+                                    >
+                                        <Upload className="h-4 w-4" />
+                                        {t('common.manage', { defaultValue: 'Yönet' })}
+                                    </button>
+                                )}
+                            </div>
+                            {attachments.length === 0 ? (
+                                <p className="rounded-xl border border-dashed border-[var(--hi-border-strong)] px-4 py-3 text-sm text-[var(--hi-text-soft)]">
+                                    {t('items.attachments.empty', { defaultValue: 'Bu eşyaya eklenmiş dosya yok.' })}
+                                </p>
+                            ) : (
+                                <div className="divide-y divide-[var(--hi-border)]">
+                                    {attachments.map((attachment) => (
+                                        <div key={attachment.id} className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0">
+                                            <div className="flex min-w-0 items-center gap-3">
+                                                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)]">
+                                                    <FileText className="h-4 w-4" />
+                                                </span>
+                                                <div className="min-w-0">
+                                                    <p className="truncate text-sm font-semibold text-[var(--hi-text)]">{attachment.original_name}</p>
+                                                    <p className="text-xs text-[var(--hi-text-soft)]">{formatAttachmentSize(attachment.size_bytes)}</p>
+                                                </div>
+                                            </div>
+                                            <a
+                                                href={`/api/items/attachments/${attachment.id}/download`}
+                                                className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)] hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)]"
+                                                title={t('common.download', { defaultValue: 'İndir' })}
+                                            >
+                                                <Download className="h-4 w-4" />
+                                            </a>
+                                        </div>
+                                    ))}
+                                </div>
                             )}
                         </div>
 
@@ -2075,7 +2203,7 @@ export default function ItemForm() {
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.quantity')}</label>
-                            <input type="number" name="quantity" value={formData.quantity} onChange={handleChange} className="input-field" min="1" />
+                            <input type="number" name="quantity" value={formData.quantity} onChange={handleChange} className="input-field" min="0" />
                         </div>
                         <div>
                             <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.category')}</label>
@@ -2312,6 +2440,86 @@ export default function ItemForm() {
                                     </button>
                                 </div>
                             )}
+                        </div>
+                    )}
+
+                    {isEditing && (
+                        <div className="overflow-hidden rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] shadow-[var(--hi-shadow-soft)]">
+                            <div className="flex items-center justify-between gap-4 px-4 py-4">
+                                <div className="flex min-w-0 items-center gap-3">
+                                    <Paperclip className="h-5 w-5 shrink-0 text-[var(--hi-accent)]" />
+                                    <div className="min-w-0">
+                                        <p className="font-medium text-[var(--hi-text)]">{t('items.attachments.title', { defaultValue: 'Ek Dosyalar' })}</p>
+                                        <p className="text-sm text-[var(--hi-text-soft)]">
+                                            {t('items.attachments.form_desc', { defaultValue: 'PDF, görsel veya metin dosyalarını toplu ekleyin. Dosya başına en fazla 10 MB.' })}
+                                        </p>
+                                    </div>
+                                </div>
+                                <button
+                                    type="button"
+                                    disabled={!canEditItem || attachmentUploading}
+                                    onClick={() => attachmentInputRef.current?.click()}
+                                    className="btn-secondary shrink-0 !px-3 !py-2 text-sm disabled:opacity-50"
+                                >
+                                    {attachmentUploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
+                                    <span>{t('items.attachments.add', { defaultValue: 'Dosya Ekle' })}</span>
+                                </button>
+                                <input
+                                    ref={attachmentInputRef}
+                                    type="file"
+                                    accept="application/pdf,image/jpeg,image/png,image/webp,text/plain"
+                                    multiple
+                                    onChange={handleAttachmentUpload}
+                                    className="hidden"
+                                />
+                            </div>
+
+                            <div className="border-t border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
+                                {attachments.length === 0 ? (
+                                    <p className="rounded-xl border border-dashed border-[var(--hi-border-strong)] px-4 py-6 text-center text-sm text-[var(--hi-text-soft)]">
+                                        {t('items.attachments.empty', { defaultValue: 'Bu eşyaya eklenmiş dosya yok.' })}
+                                    </p>
+                                ) : (
+                                    <div className="divide-y divide-[var(--hi-border)]">
+                                        {attachments.map((attachment) => (
+                                            <div key={attachment.id} className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0">
+                                                <div className="flex min-w-0 items-center gap-3">
+                                                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--hi-panel-strong)] text-[var(--hi-text-soft)]">
+                                                        <FileText className="h-4 w-4" />
+                                                    </span>
+                                                    <div className="min-w-0">
+                                                        <p className="truncate text-sm font-semibold text-[var(--hi-text)]">{attachment.original_name}</p>
+                                                        <p className="text-xs text-[var(--hi-text-soft)]">
+                                                            {formatAttachmentSize(attachment.size_bytes)}
+                                                            {attachment.created_at ? ` • ${formatIsoDateForDisplay(String(attachment.created_at).slice(0, 10))}` : ''}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div className="flex shrink-0 items-center gap-1.5">
+                                                    <a
+                                                        href={`/api/items/attachments/${attachment.id}/download`}
+                                                        className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] text-[var(--hi-text-soft)] hover:text-[var(--hi-text)]"
+                                                        title={t('common.download', { defaultValue: 'İndir' })}
+                                                    >
+                                                        <Download className="h-4 w-4" />
+                                                    </a>
+                                                    {canEditItem && (
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => handleDeleteAttachment(attachment.id)}
+                                                            disabled={attachmentDeletingId === attachment.id}
+                                                            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-rose-500/20 bg-rose-500/5 text-rose-500 hover:bg-rose-500/10 disabled:opacity-50"
+                                                            title={t('common.delete', { defaultValue: 'Sil' })}
+                                                        >
+                                                            {attachmentDeletingId === attachment.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+                                                        </button>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     )}
 

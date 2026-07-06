@@ -1,6 +1,7 @@
 {
     "common": {
         "save": "Save",
+        "saving": "Saving...",
         "cancel": "Cancel",
         "loading": "Loading...",
         "error": "An error occurred",
@@ -44,10 +45,32 @@
         "unauthorized": "Unauthorized access",
         "forbidden": "You don't have permission for this action",
         "validation_error": "Validation error",
-        "server_error": "Server error"
+        "server_error": "Server error",
+        "details": "Details",
+        "hide": "Hide password",
+        "logging_out": "Logging out...",
+        "show": "Show password",
+        "disabled": "Disabled",
+        "zoom_in": "Zoom in",
+        "zoom_out": "Zoom out",
+        "reset": "Reset",
+        "print": "Print",
+        "record_count": "{{count}} records"
     },
     "auth": {
         "password_requirements": "Use at least {{min}} characters with uppercase, lowercase, number, and symbol.",
+        "password_errors": {
+            "min_length": "Password must be at least {{min}} characters long",
+            "lowercase_required": "Password must include at least one lowercase letter",
+            "uppercase_required": "Password must include at least one uppercase letter",
+            "number_required": "Password must include at least one number",
+            "symbol_required": "Password must include at least one symbol",
+            "repeated_chars": "Do not use repeated characters in your password",
+            "predictable_sequence": "Do not use easy-to-guess sequences in your password",
+            "common_password": "This password is too common and unsafe",
+            "contains_username": "Password must not contain your username",
+            "contains_email": "Password must not contain your email information"
+        },
         "login": {
             "welcome_title": "Welcome back",
             "welcome_subtitle": "Sign in to access your inventory",
@@ -71,7 +94,7 @@
             "register_link": "Register",
             "legal_intro": "By continuing, you agree to our",
             "support_contact": "For login issues:",
-            "terms_title": "📋 Terms of Use and Disclaimer",
+            "terms_title": "Terms of Use and Disclaimer",
             "terms_beta": "BETA Version: {{brandName}} is currently in testing phase. No guarantee is given regarding the persistence or security of your data.",
             "terms_disclaimer": "Disclaimer: By using this application, you agree that you cannot claim any compensation for potential data loss, access issues, or other technical malfunctions.",
             "terms_backup": "Data Backup: We strongly recommend backing up your important information regularly.",
@@ -86,7 +109,8 @@
                 "verify": "Verify",
                 "back": "Back",
                 "use_backup": "Use backup code",
-                "use_totp": "Use authenticator"
+                "use_totp": "Use authenticator",
+                "code_required": "Verification code is required"
             }
         },
         "register": {
@@ -100,8 +124,8 @@
             "mode_label": "Household access",
             "mode_create_body": "Start your household here, then invite others.",
             "mode_join_body": "Join with the House Key you received.",
-            "create_house_desc": "🏠 A new house will be created and you'll get a unique <strong>House Key</strong>. Share this key with family to access the same inventory.",
-            "join_house_desc": "👨‍👩‍👧‍👦 Enter the <strong>House Key</strong> shared with you to join an existing house. Your request will be sent to the house owner for approval.",
+            "create_house_desc": "A new house will be created and you'll get a unique <strong>House Key</strong>. Share this key with family to access the same inventory.",
+            "join_house_desc": "Enter the <strong>House Key</strong> shared with you to join an existing house. Your request will be sent to the house owner for approval.",
             "form_title": "Create account",
             "account_section": "Your account",
             "access_section": "House access",
@@ -145,7 +169,7 @@
             "key_required": "House Key is required to join an existing house",
             "modals": {
                 "key_created": {
-                    "title": "🎉 House Created!",
+                    "title": "House Created!",
                     "subtitle": "Save the key below in a safe place",
                     "warning": "Important: This key will only be shown once. Share it with family members so they can access the same inventory.",
                     "copy": "Copy",
@@ -157,7 +181,7 @@
                     "button": "I Saved the Key, Continue"
                 },
                 "email_verification": {
-                    "title": "📧 Email Verification Required",
+                    "title": "Email Verification Required",
                     "message": "Account created! Please verify your email address to login.",
                     "step_1": "We sent a verification email to <1>{{email}}</1>.",
                     "step_2": "Click the <1>\"Verify My Account\"</1> button in the email.",
@@ -281,6 +305,23 @@
         "user_not_found": "User not found",
         "email_not_verified": "Your email address has not been verified yet. Please check your inbox.",
         "two_factor_invalid": "The verification code is incorrect",
+        "two_factor_invalid_try_again": "Invalid verification code. Please try again.",
+        "two_factor_code_required": "Verification code is required",
+        "two_factor_user_not_found": "User not found",
+        "two_factor_already_enabled": "Two-factor authentication is already enabled",
+        "two_factor_setup_not_started": "Please start two-factor authentication setup first",
+        "two_factor_setup_error": "An error occurred during two-factor authentication setup",
+        "two_factor_activation_error": "An error occurred during two-factor authentication activation",
+        "two_factor_password_required": "Password is required",
+        "two_factor_credentials_required": "TOTP code, backup code, or recovery key is required",
+        "two_factor_already_disabled": "Two-factor authentication is already disabled",
+        "two_factor_password_incorrect": "Incorrect password",
+        "two_factor_verification_failed": "Verification failed. Please check the code and try again.",
+        "two_factor_disable_error": "An error occurred while disabling two-factor authentication",
+        "two_factor_not_enabled": "Two-factor authentication is not enabled",
+        "two_factor_regenerate_codes_error": "An error occurred while regenerating backup codes",
+        "two_factor_enabled_success": "Two-factor authentication has been successfully enabled",
+        "two_factor_disabled_success": "Two-factor authentication has been successfully disabled",
         "current_password_wrong": "Current password is incorrect",
         "passwords_dont_match": "New passwords don't match",
         "password_too_short": "New password must be at least 6 characters",
@@ -311,7 +352,12 @@
         "logout_title": "Log out?",
         "logout_description": "You will be returned to the sign-in screen and need to log in again to manage your household inventory.",
         "logout_warning": "Use this when you are done on a shared or personal device.",
-        "menu": "Menu"
+        "menu": "Menu",
+        "maintenance": "Maintenance Schedule",
+        "shopping": "Shopping List",
+        "activity": "Activity",
+        "notifications": "Notifications",
+        "service": "Service"
     },
     "layout": {
         "secondary_controls_title": "Utilities",
@@ -324,14 +370,28 @@
     },
     "dashboard": {
         "welcome": "Welcome back, <1>{{name}}</1>",
+        "alerts": {
+            "expired_title": "Expired items",
+            "expired_desc": "Expired items: {{count}}.",
+            "view_items": "View Items",
+            "maintenance_title": "Overdue maintenance",
+            "maintenance_desc": "Overdue tasks: {{count}}.",
+            "go_to_maintenance": "Go to Maintenance",
+            "low_stock_title": "Low stock",
+            "low_stock_desc": "Low-stock items: {{count}}.",
+            "go_to_shopping": "Shopping List",
+            "close_expiry_title": "Upcoming expiration",
+            "close_expiry_desc": "Expiring soon: {{count}}.",
+            "view_low_stock_items": "View Low Stock"
+        },
         "subtitle": "Overview of your inventory",
         "quick_search": "Quick search...",
         "page": {
             "kicker": "Home",
             "title": "Home",
-            "description_ready": "Search your inventory, review recent additions, and move quickly into the next task.",
+            "description_ready": "",
             "description_empty": "Start building a calm, searchable home record from one clear starting point.",
-            "loading_description": "Preparing your home view. Recent additions and quick search will appear in a moment."
+            "loading_description": "Preparing your home view."
         },
         "top_bar": {
             "beta": "Beta",
@@ -351,7 +411,7 @@
         },
         "search_panel": {
             "title": "Search inventory",
-            "description": "Find an item, room, location, or barcode from one place.",
+            "description": "",
             "placeholder": "Search an item, room, location, or barcode",
             "submit": "Search inventory",
             "secondary_hint": "Sensitive records stay separate."
@@ -363,7 +423,7 @@
             "vault_description": "Store documents, codes, and other sensitive records outside shared search."
         },
         "filters": {
-            "private": "🔒 My Private Items",
+            "private": "My Private Items",
             "public": "🌐 Public",
             "remove": "Clear Filter",
             "no_items": "No items match this filter"
@@ -423,7 +483,7 @@
             "manage": "Manage"
         },
         "quick_actions": {
-            "title": "⚡ Quick Actions",
+            "title": "Quick Actions",
             "add_item": "Add Item",
             "search_item": "Search Item",
             "categories": "Categories",
@@ -468,7 +528,9 @@
         "load_error": "Failed to load item",
         "form": {
             "name": "Item Name",
-            "name_placeholder": "e.g. Samsung TV 55 inch",
+            "name_placeholder": "e.g. TV 55 inch",
+            "expiry_date": "Expiration Date",
+            "min_quantity": "Minimum Quantity",
             "required": "*",
             "description": "Description",
             "description_placeholder": "Notes about the item...",
@@ -490,6 +552,14 @@
             "location_selected": "Location selected: {{name}}",
             "location_empty": "No location defined in this room yet. Start typing to create one.",
             "photo": "Photo",
+            "take_photo": "Take Photo",
+            "take_photo_sub": "Open device camera",
+            "choose_from_gallery": "Choose from Gallery",
+            "choose_from_gallery_sub": "Select from album",
+            "photo_selected_badge": "New Photo",
+            "photo_existing_badge": "Existing Photo",
+            "no_photo_yet": "No Photo Added",
+            "photo_options_title": "Image Action Options",
             "add_photo": "Add",
             "vault_hint_title": "Need extra privacy?",
             "vault_hint_description": "For passports, deeds, identity details, access codes, and other records that should stay out of your shared inventory, store them in Personal Vault instead.",
@@ -524,7 +594,10 @@
             "visibility_private": "Only visible to you",
             "submit_add": "Add Item",
             "submit_save": "Save Changes",
-            "submitting": "Saving..."
+            "submitting": "Saving...",
+            "location": "Location",
+            "remove_photo": "Remove photo",
+            "visibility_owner_only": "Only the person who added the item can change visibility."
         },
         "qrcode": {
             "title": "QR Code",
@@ -577,7 +650,24 @@
         "delete_error": "Error deleting item",
         "no_permission": "You don't have permission to modify this item",
         "barcode_search_error": "Barcode search failed",
-        "stats_error": "Error loading statistics"
+        "stats_error": "Error loading statistics",
+        "detail_subtitle": "Item details",
+        "status": {
+            "close_to_expiry": "Close to Expiration",
+            "expired": "Expired",
+            "low_stock": "Low Stock"
+        },
+        "untitled_item": "Untitled item",
+        "attachments": {
+            "title": "Photos and files",
+            "add": "Add files",
+            "empty": "No files added yet.",
+            "form_desc": "Attach item photos, receipts, invoices, or service documents.",
+            "detail_desc": "Photos, receipts, invoices, and service files saved for this item.",
+            "upload_error": "Files could not be uploaded.",
+            "delete_error": "File could not be deleted.",
+            "delete_confirm": "Delete this file?"
+        }
     },
     "vault": {
         "title": "Personal Vault",
@@ -662,11 +752,33 @@
             "delete_success_body": "The private record was permanently removed from your vault.",
             "decrypt_failed": "The vault content could not be decrypted.",
             "name_required": "An item name is required for a vault record.",
-            "options_failed": "Category and room options could not be loaded."
+            "options_failed": "Category and room options could not be loaded.",
+            "passphrase_lowercase": "Include at least one lowercase letter.",
+            "passphrase_min_length": "Vault passphrase must be at least 12 characters.",
+            "passphrase_number": "Include at least one number.",
+            "passphrase_uppercase": "Include at least one uppercase letter."
         }
     },
     "settings": {
         "title": "Settings",
+        "borrow_requests": {
+            "accordion_eyebrow": "Borrow request security",
+            "accordion_eyebrow_desc": "Configure request rules and manage blocked users.",
+            "title": "Borrow request settings",
+            "description": "Manage rules for receiving borrow requests from other accounts and list blocked users.",
+            "policy_title": "New Borrow Requests",
+            "policy_description": "Control who can send borrow requests to you. Your inventory is never shown as a public listing.",
+            "policy_none": "Do not receive from anyone (Default)",
+            "policy_house_only": "Household members only",
+            "policy_everyone": "All registered users",
+            "blocks_title": "Blocked Users",
+            "blocks_description": "Users you have blocked from sending you new borrow requests.",
+            "no_blocks": "No blocked users found.",
+            "unblock_btn": "Unblock",
+            "policy_none_desc": "All incoming requests are blocked automatically.",
+            "policy_house_only_desc": "Only verified members of your active houses can request items that are already visible inside that shared house.",
+            "policy_everyone_desc": "Other users cannot browse or see your items. They can only send a request by entering your username or email directly."
+        },
         "language": "Language",
         "subtitle": "Manage application preferences",
         "control_sections": {
@@ -684,7 +796,7 @@
         },
         "account_overview": {
             "title": "Account overview",
-            "description": "Basic profile details for the signed-in account."
+            "description": "Basic profile details and security settings for the signed-in account."
         },
         "security_section": {
             "eyebrow": "Security and preferences",
@@ -722,6 +834,7 @@
             "cancel": "Cancel",
             "setup_title": "Set Up 2FA",
             "setup_error": "Failed to start 2FA setup",
+            "preparing_setup": "Preparing your authenticator setup...",
             "step_1": "Step 1: Scan QR Code",
             "step_2": "Step 2: Verify Code",
             "step_3": "Step 3: Save Backup Codes",
@@ -751,6 +864,10 @@
             "devices_error": "Failed to revoke devices"
         },
         "messages": {
+            "policy_update_error": "Failed to update request settings.",
+            "policy_updated": "Request settings updated successfully.",
+            "unblock_error": "Failed to unblock user.",
+            "unblocked_success": "User unblocked successfully.",
             "house_switched": "{{name}} activated!",
             "house_switch_error": "Failed to switch house",
             "house_joined_success": "You successfully joined the house!",
@@ -788,7 +905,9 @@
             "member_kick_error": "Could not remove member from the house",
             "recovery_key_regenerated": "Recovery key regenerated",
             "recovery_key_error": "Could not regenerate recovery key",
-            "account_delete_error": "The account could not be deleted"
+            "account_delete_error": "The account could not be deleted",
+            "house_owner_transferred": "House ownership transferred",
+            "house_owner_transfer_error": "House ownership could not be transferred."
         },
         "user_profile": {
             "edit_username": "Change username"
@@ -809,10 +928,14 @@
             "switch": "Make Active",
             "leave": "Leave House",
             "info": "You can be a member of multiple houses and switch between them. Each household keeps its own inventory.",
-            "leave_success_body": "You no longer have access to this household and your active house was refreshed."
+            "leave_success_body": "You no longer have access to this household and your active house was refreshed.",
+            "leave_title": "Leave this house?",
+            "leave_warning": "You will lose access to this household workspace until another member invites or approves you again.",
+            "leaving": "Leaving..."
         },
         "house_info": {
             "title": "Active House Key",
+            "access_section_eyebrow": "House access",
             "access_section_title": "House access and members",
             "access_section_body": "Review the active household key, manage members, and keep access limited to trusted people.",
             "key_label": "House Key",
@@ -851,7 +974,17 @@
             "reject": "Reject",
             "kick": "Remove",
             "invite_title": "Invite Family Members",
-            "invite_desc": "Share your house key to let family members access the same inventory. Each member logs in with their own account but accesses the same data."
+            "invite_desc": "Share your house key to let family members access the same inventory. Each member logs in with their own account but accesses the same data.",
+            "kick_success_body": "{{name}} no longer has access to this household.",
+            "kick_title": "Remove this member?",
+            "kick_warning": "Their household access will end immediately and they will need a new invitation or approval to return.",
+            "kicking": "Removing...",
+            "transfer_owner": "Make owner",
+            "transferring_owner": "Transferring...",
+            "transfer_owner_title": "Transfer house ownership?",
+            "transfer_owner_confirm": "Transfer ownership of this household to {{name}}?",
+            "transfer_owner_warning": "You will no longer be the owner of this household. The new owner will manage member approvals, removals, and future ownership changes.",
+            "transfer_owner_success_body": "{{name}} is now the owner of this household."
         },
         "pending_requests": {
             "title": "My Pending Join Requests",
@@ -864,7 +997,9 @@
             "dark": "Dark Mode",
             "light": "Light Mode",
             "light_aria": "Switch to light theme",
-            "dark_aria": "Switch to dark theme"
+            "dark_aria": "Switch to dark theme",
+            "workspace_title": "Workspace Theme",
+            "workspace_desc": "Select your preferred visual style for this device."
         },
         "language_description": "Apply one language across navigation, labels, legal text, and date formatting.",
         "language_updated_title": "Language updated",
@@ -878,14 +1013,19 @@
             "title": "Security",
             "change_password": "Change Password",
             "change_password_desc": "Update your account password",
+            "change_password_detail": "Update your password to keep your account secure",
             "recovery_key_title": "Recovery Key",
             "recovery_key_desc": "You can generate a new key for local password recovery.",
+            "recovery_key_detail": "Used to recover your vault if you forget your password",
             "recovery_key_missing": "No recovery key is visible for this account yet.",
             "current_key_label": "Saved Recovery Key",
             "recovery_key_unavailable": "The current recovery key cannot be displayed. Regenerate it if needed.",
             "recovery_key_action": "Regenerate",
             "recovery_key_modal_desc": "Confirm your current password to continue. The new key will be shown only once.",
-            "recovery_key_loading": "Preparing..."
+            "recovery_key_loading": "Preparing...",
+            "accordion_title": "Security and privacy",
+            "accordion_desc": "Manage two-factor authentication, trusted devices, and borrow request rules from other accounts.",
+            "description": "Manage your master password and vault recovery configurations."
         },
         "data_management": {
             "title": "Data Management",
@@ -910,10 +1050,29 @@
             "unlock_and_import": "Unlock and import",
             "upload_backup": "Upload Backup",
             "uploading": "Uploading...",
-            "import_json": "Import from JSON"
+            "import_json": "Import from JSON",
+            "export_encrypted_notice": "The backup is prepared from live household data and then wrapped with the passphrase you choose. Keep that passphrase somewhere safe because it is required to restore the file later.",
+            "export_encrypted_title": "Encryption will be applied before download",
+            "import_summary_body": "{{items}} items, {{categories}} categories, {{rooms}} rooms, {{locations}} locations, {{borrows}} borrow records restored.",
+            "import_summary_title": "Backup restored",
+            "preview_categories": "Categories",
+            "preview_items": "Items",
+            "preview_locations": "Locations",
+            "preview_rooms": "Rooms",
+            "skipped_borrows": "{{count}} existing borrow records skipped.",
+            "skipped_categories": "{{count}} existing categories skipped.",
+            "skipped_items": "{{count}} existing items skipped.",
+            "skipped_locations": "{{count}} existing locations skipped.",
+            "skipped_rooms": "{{count}} existing rooms skipped.",
+            "owner_only_title": "Backup and Restore Restricted",
+            "owner_only_desc": "Data backup and restore can only be managed by the house owner.",
+            "include_media_title": "Include photos and receipt images",
+            "include_media_body": "The full backup may be larger, but item photos and receipt images can also be restored.",
+            "skipped_attachments": "{{count}} attachments were skipped."
         },
         "danger_zone": {
             "title": "Account",
+            "description": "Delete your account and permanently remove all inventory datasets.",
             "delete_title": "Delete account",
             "delete_description": "If you want, you can permanently remove the personal data and uploaded files tied to this account.",
             "delete_warning": "This action cannot be undone.",
@@ -936,7 +1095,10 @@
             "legal_title": "Legal Documents",
             "legal_description": "You can reopen the terms and privacy texts from here even after accepting them.",
             "terms_link": "Terms of Service",
-            "privacy_link": "Privacy Policy"
+            "privacy_link": "Privacy Policy",
+            "logout_body": "Any unsaved changes in open forms may be lost after you leave this session.",
+            "logout_description": "You will return to the home page and can sign back in anytime.",
+            "logout_title": "Log out now?"
         },
         "modals": {
             "password": {
@@ -992,7 +1154,13 @@
         "popular_languages": "Popular Languages",
         "search_results": "Search Results",
         "current_language": "Current language",
-        "languages_available": "languages available"
+        "languages_available": "languages available",
+        "activity_log": {
+            "title": "Activity and audit log",
+            "description": "Review the protected history of item changes, stock updates, attachments, and bulk actions.",
+            "encrypted_title": "Activity records are stored protected",
+            "encrypted_body": "New activity actions and details are stored encrypted in the database and are only decrypted for your active session."
+        }
     },
     "inventory": {
         "title": "Inventory",
@@ -1017,6 +1185,7 @@
         "delete_description": "This removes the item from the household inventory. Use this only when you are sure it should not stay in history.",
         "delete_warning": "Photos, description, and placement details tied to this record will be removed from the active inventory view.",
         "delete_error": "The item could not be deleted",
+        "delete_error_title": "Delete failed",
         "delete_success_title": "Item deleted",
         "delete_success_body": "The item was removed from the active household inventory.",
         "view_mode": "Item layout",
@@ -1070,7 +1239,85 @@
             "history_active": "Open record for {{name}}",
             "history_returned": "Closed record for {{name}}",
             "returned_at": "Returned on: {{date}}",
-            "no_history": "There is no borrow history for this item yet."
+            "no_history": "There is no borrow history for this item yet.",
+            "borrowed_by_you": "With you",
+            "return_pending_hint": "The record will close after the lender confirms they received the item back.",
+            "return_pending_lender_title": "{{name}} marked this item as delivered back",
+            "return_pending_self_title": "With you, waiting for receipt confirmation",
+            "site_member": "Site member",
+            "site_member_identifier": "Username or email",
+            "site_member_identifier_placeholder": "Exact username or email",
+            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
+            "external_privacy_hint": "This creates a private local record only. No app notification is sent.",
+            "available": "Available"
+        },
+        "tools": {
+            "title": "Tools"
+        },
+        "no_room": "No room",
+        "all_locations": "All locations",
+        "location_filter_label": "Filter by location",
+        "visibility_filter_label": "Filter by visibility",
+        "visibility_all": "All visibility",
+        "visibility_mine": "My items",
+        "visibility_others": "Other members",
+        "borrow_filter_label": "Filter by borrow status",
+        "borrow_filter_all": "All borrow statuses",
+        "stock_filter_label": "Filter by stock status",
+        "stock_filter_all": "All stock statuses",
+        "stock_filter_ok": "Stock ok",
+        "expiry_filter_label": "Filter by expiration date",
+        "expiry_filter_all": "All expiration dates",
+        "expiry_filter_dated": "Has date",
+        "expiry_filter_none": "No date",
+        "warranty_filter_label": "Filter by warranty",
+        "warranty_filter_all": "All warranties",
+        "warranty_filter_expired": "Expired warranties",
+        "warranty_filter_close": "Ending soon",
+        "warranty_filter_active": "Active warranties",
+        "warranty_filter_none": "No warranty info",
+        "sort_label": "Sort",
+        "sort_updated_desc": "Recently updated",
+        "sort_updated_asc": "Oldest update",
+        "sort_created_desc": "Newest first",
+        "sort_created_asc": "Oldest first",
+        "sort_name_asc": "Name A-Z",
+        "sort_name_desc": "Name Z-A",
+        "sort_quantity_desc": "Quantity high to low",
+        "sort_quantity_asc": "Quantity low to high",
+        "sort_expiry_asc": "Expiration soonest",
+        "sort_expiry_desc": "Expiration latest",
+        "stock_increase": "Increase stock",
+        "stock_decrease": "Decrease stock",
+        "stock_adjust_error": "Stock could not be updated.",
+        "bulk": {
+            "select_visible": "Select visible",
+            "clear_visible": "Unselect visible",
+            "selected_short": "selected",
+            "keep_category": "Keep category",
+            "keep_room": "Keep room",
+            "keep_location": "Keep location",
+            "keep_visibility": "Keep visibility",
+            "apply": "Apply",
+            "no_fields": "Choose at least one field for the bulk action.",
+            "updated_title": "Bulk update complete",
+            "updated_body": "{{count}} items updated. {{skipped}} skipped.",
+            "update_error": "Bulk update could not be completed.",
+            "deleted_title": "Bulk delete complete",
+            "deleted_body": "{{count}} items deleted. {{skipped}} skipped.",
+            "delete_error": "Bulk delete could not be completed.",
+            "delete_title": "Delete selected items?",
+            "delete_description": "{{count}} selected items will be removed from this household inventory. This cannot be undone.",
+            "select_item": "Select item",
+            "unselect_item": "Unselect item"
+        },
+        "qr_labels": {
+            "title": "QR Labels",
+            "open": "Item Labels",
+            "description": "{{count}} item labels are ready as a print sheet.",
+            "empty": "Change filters or add inventory items to print labels.",
+            "sheet_label": "Item Label Sheet",
+            "item_label": "Item Label"
         }
     },
     "borrow_requests": {
@@ -1160,7 +1407,7 @@
             "return_target": "It is currently shown as being with {{name}}.",
             "return_title_borrower": "Deliver item",
             "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
+            "return_subtitle_borrower": "Send a delivery notice for \"{{item}}\" after you hand it back.",
             "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
             "return_target_borrower": "Lender: {{name}}",
             "return_target_lender": "Currently with: {{name}}",
@@ -1168,11 +1415,31 @@
             "return_note_lender": "Receive note",
             "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
             "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_submitting": "Saving...",
+            "reject_title": "Reject Request",
+            "reject_subtitle": "You are about to reject the request for \"{{item}}\".",
+            "reject_target": "You are about to reject the borrow request sent by {{name}}.",
+            "reject_reason_label": "Rejection Reason",
+            "reject_submitting": "Rejecting...",
+            "due_date_label": "Planned return date"
+        },
+        "reasons": {
+            "rejected": "Reject (Normal rejection)",
+            "not_available": "Not available (Item missing / not available)",
+            "blocked": "Block and reject (Blocks this user)"
         },
         "messages": {
             "load_error": "Borrow center could not be loaded",
-            "action_error": "The action could not be completed"
+            "action_error": "The action could not be completed",
+            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "errors": {
+                "external_target_daily_limit": "You can send only one first-contact external request to the same person per day. If they accept a request, this limit no longer applies to that person.",
+                "external_total_daily_limit": "You can send up to 5 first-contact external requests per day.",
+                "external_request_requires_verified_email": "Verify your email address before sending external borrow requests.",
+                "external_offer_blocked": "You can only offer an item to house members or registered users who can be identified directly.",
+                "target_blocked_by_you": "You cannot send a request to a user you have blocked.",
+                "recent_rejection_lock": "This user rejected a recent request. You can send another request after 30 days."
+            }
         },
         "refreshing": "Refreshing requests and active borrows...",
         "preview": {
@@ -1223,9 +1490,12 @@
         "deleted": "Category deleted",
         "not_found": "Category not found",
         "name_required": "Category name is required",
+        "color_required": "Color must be in #RRGGBB format",
         "load_error": "Error loading categories",
         "add_error": "Error adding category",
-        "update_error": "Error updating category"
+        "update_error": "Error updating category",
+        "empty_description": "Create a few categories so new items follow the same structure and are easier to scan later.",
+        "empty_title": "No categories yet"
     },
     "rooms": {
         "title": "Rooms",
@@ -1299,7 +1569,9 @@
         "name_required": "Room name is required",
         "load_error": "Error loading rooms",
         "add_error": "Error adding room",
-        "update_error": "Error updating room"
+        "update_error": "Error updating room",
+        "empty_description": "Create rooms like kitchen, storage, or garage so item locations stay consistent and easier to search.",
+        "empty_title": "No rooms yet"
     },
     "admin": {
         "title": "Admin Panel",
@@ -1445,7 +1717,12 @@
                 "active": "Active",
                 "banned": "Banned",
                 "admin": "Admins"
-            }
+            },
+            "failed_logins": "{{count}} failed sign-ins",
+            "load_failed_title": "Users could not load",
+            "pending_requests": "{{count}} pending house requests",
+            "role_admin": "Admin",
+            "role_user": "User"
         },
         "logs": {
             "section_eyebrow": "Audit trail",
@@ -1477,7 +1754,9 @@
                 "user_target": "User: {{username}}",
                 "email_sent": "Recipient: {{recipient}} | Subject: {{subject}}",
                 "indexnow_submitted": "IndexNow submission successful. URL count: {{count}}"
-            }
+            },
+            "load_failed_title": "Activity could not load",
+            "no_logs_title": "No admin actions yet"
         },
         "email": {
             "status_eyebrow": "Delivery",
@@ -1511,7 +1790,14 @@
             "info_title": "Information",
             "info_bullet_1": "Emails are sent from {{supportEmail}}",
             "info_bullet_2": "You can send at most 3 emails per minute to prevent spam",
-            "info_bullet_3": "All sends are logged for security, excluding content"
+            "info_bullet_3": "All sends are logged for security, excluding content",
+            "configured_body": "Resend is available for admin-triggered outbound messages.",
+            "configured_title": "Email delivery is configured",
+            "error_title": "Email failed",
+            "format_hint": "HTML is supported. For example: <b>bold</b>, <i>italic</i>, <a href=\"...\">link</a>",
+            "from_label": "Sender",
+            "load_failed_title": "Email tools could not load",
+            "success_title": "Email sent"
         },
         "ban_user": "Ban",
         "unban_user": "Unban",
@@ -1529,7 +1815,9 @@
         "stats_loaded": "Statistics loaded",
         "logs_loaded": "Logs loaded",
         "load_error": "Error loading data",
-        "action_error": "Error performing action"
+        "action_error": "Error performing action",
+        "load_failed_body": "The admin route is open, but the overview data did not arrive. You can retry without leaving the page.",
+        "load_failed_title": "Admin overview could not load"
     },
     "legal": {
         "privacy_policy_title": "Privacy Policy",
@@ -1692,7 +1980,7 @@
         "preview_privacy_notice": "Demo view: no real user data is displayed.",
         "homeinventory": {
             "hero": {
-                "statement": "HomeInventory is running. Set up your home inventory.",
+            "statement": "HomeInventory keeps your home inventory organized.",
                 "statementAccent": "Create a home, add rooms and categories, then start recording items, documents, warranties, and borrowing.",
                 "description": "Use this screen as your starting point after installation. Begin with an account, build the household structure, add important items, and keep private records in Personal Vault.",
                 "primaryCta": "Start setup",
@@ -1713,7 +2001,7 @@
                 },
                 {
                     "name": "Mesh unit",
-                    "meta": "TV console • Deco M4",
+                    "meta": "TV console • Network node",
                     "state": null
                 },
                 {
@@ -1939,7 +2227,7 @@
         "found_local": "Already Registered!",
         "found_local_msg": "This barcode is already in your inventory.",
         "found_online": "Product Found!",
-        "google_result": "⚡ Google search result - please verify",
+        "google_result": "Google search result - please verify",
         "barcode": "Barcode: {{code}}",
         "new_product": "New Product",
         "not_found_db": "This barcode was not found in databases.",
@@ -1985,16 +2273,17 @@
         "usage_title": "Usage",
         "usage_desc": "Print the QR code and stick it on the item. Scan with your phone to access this page instantly!",
         "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually.",
+        "loading": "Preparing QR tools..."
     },
     "emails": {
         "verification": {
-            "subject": "🏠 {{brandName}} - 📧 Email Verification Required",
+            "subject": "{{brandName}} - Email Verification Required",
             "headerTitle": "Welcome to {{brandName}}",
             "headerSubtitle": "Create a new account or join an existing house",
             "greeting": "Welcome to {{brandName}}",
             "intro": "Account created! Please verify your email address to login.",
-            "verifyPrompt": "📧 Email Verification Required",
+            "verifyPrompt": "Email Verification Required",
             "verifyButton": "✓ Verify My Account",
             "warningTitle": "Security note:",
             "warningBody": "This email only verifies your address. House access details are shown after verification in the app.",
@@ -2063,8 +2352,8 @@
             "footer": "© 2026 {{brandName}}"
         },
         "passwordReset": {
-            "subject": "🔐 Reset Password",
-            "headerTitle": "🔐 Reset Password",
+            "subject": "Reset Password",
+            "headerTitle": "Reset Password",
             "greeting": "Forgot Password",
             "intro": "Start a secure recovery flow to access your account again.",
             "buttonLabel": "Reset Password",
@@ -2080,7 +2369,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Smartly manage all your household items"
+        "tagline": "Smartly manage all your household items",
+        "loading": "Loading {{brandName}}",
+        "preparing_workspace": "Preparing your workspace..."
     },
     "nav": {
         "home": "Home",
@@ -2183,5 +2474,278 @@
         "page_title_new_item": "New item",
         "page_title_edit_item": "Edit item",
         "page_title_items": "Inventory"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Error loading shopping list.",
+            "select_item_error": "Please select an item from the inventory.",
+            "empty_name": "Please enter an item name.",
+            "added": "Item added to shopping list.",
+            "add_error": "An error occurred while adding the item.",
+            "added_suggestion": "\"{{name}}\" added to shopping list.",
+            "bulk_added": "{{count}} low stock items added to the list.",
+            "bulk_error": "Error adding low stock items.",
+            "completed": "\"{{name}}\" marked as completed.",
+            "reactivated": "\"{{name}}\" moved back to active list.",
+            "update_error": "Error occurred during update.",
+            "deleted": "Item deleted from list.",
+            "delete_error": "Error occurred during deletion.",
+            "cleared_completed": "Cleared completed items.",
+            "clear_error": "Error occurred during clearing."
+        },
+        "loading_desc": "Preparing shopping list...",
+        "page": {
+            "title": "Shopping List",
+            "description": "View low stock items in the home inventory and easily manage your shopping list."
+        },
+        "suggestions": {
+            "title": "Stock Suggestions",
+            "desc": "Inventory items below the minimum stock limit.",
+            "add_all": "Add All Missing",
+            "stock_status": "Current: {{current}} / Target: {{min}}",
+            "add_qty": "Add {{qty}}"
+        },
+        "sections": {
+            "active_list": "Items to Buy",
+            "active_desc": "Current shopping items to add to your cart.",
+            "active_count": "{{count}} Items",
+            "completed_list": "Purchased Items ({{count}})",
+            "add_item": "Add Item Manually",
+            "add_desc": "Manually add a custom item to the list."
+        },
+        "empty": {
+            "title": "Your shopping list is empty",
+            "desc": "You can add missing stock from the suggestions above or add items manually using the form on the right."
+        },
+        "card": {
+            "linked_inventory": "Saved in Inventory"
+        },
+        "actions": {
+            "clear_completed": "Clear History",
+            "add_item": "Add to Shopping List",
+            "mark_completed": "Mark as completed",
+            "decrease_qty": "Decrease quantity",
+            "increase_qty": "Increase quantity",
+            "delete_item": "Delete item",
+            "reactivate_item": "Move back to active list"
+        },
+        "form": {
+            "add_type": "Add Method",
+            "add_type_inventory": "Inventory Item",
+            "add_type_custom": "Custom Item",
+            "select_inventory_item": "Select Item from Inventory",
+            "no_inventory_items": "No items in your inventory yet.",
+            "select_item_placeholder": "Select an item",
+            "current_stock": "Current",
+            "item_name": "Item Name",
+            "item_name_placeholder": "e.g. Milk, Detergent, Coffee Beans...",
+            "quantity": "Quantity"
+        },
+        "modal": {
+            "delete_title": "Delete Item from List?",
+            "delete_desc": "Are you sure you want to remove \"{{name}}\" from your shopping list?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Error loading information",
+            "select_item_error": "Please select an item.",
+            "task_name_error": "Task name is required.",
+            "date_error": "Planned date is required.",
+            "updated": "Maintenance task updated",
+            "created": "New maintenance task added",
+            "save_error": "Error occurred while saving",
+            "deleted": "Maintenance task successfully deleted.",
+            "delete_error": "An error occurred during the deletion process.",
+            "performed": "Maintenance logged as completed. Next date scheduled.",
+            "perform_error": "An error occurred while saving."
+        },
+        "freq": {
+            "one_time": "One-Time",
+            "unit": {
+                "days": "Day",
+                "weeks": "Week",
+                "months": "Month",
+                "years": "Year"
+            },
+            "format": "Every {{val}} {{unit}}"
+        },
+        "loading_desc": "Loading maintenance schedule...",
+        "page": {
+            "title": "Maintenance & Periodic Tracking",
+            "description": "Manage periodic maintenance schedules for appliances, filters, or safety equipment in your home inventory."
+        },
+        "actions": {
+            "add_task": "Add New Task",
+            "manage": "Manage",
+            "perform": "Mark as Done",
+            "edit_task": "Edit Task"
+        },
+        "alerts": {
+            "overdue_title": "You Have Overdue Tasks!",
+            "overdue_desc": "There are {{count}} overdue maintenance tasks. Delays can reduce appliance lifespan."
+        },
+        "empty": {
+            "title": "No maintenance tasks scheduled",
+            "desc": "Get started by adding recurring tasks such as AC filter cleaning, boiler maintenance, or fire detector battery checks."
+        },
+        "sections": {
+            "overdue": "Overdue Tasks",
+            "overdue_desc": "Urgent maintenance that needs to be done immediately.",
+            "upcoming": "Scheduled / Upcoming Tasks",
+            "upcoming_desc": "Approaching maintenance in the coming days.",
+            "no_upcoming": "No active tasks scheduled in the future."
+        },
+        "modal": {
+            "edit_title": "Edit Task",
+            "create_title": "Schedule New Maintenance Task",
+            "perform_title": "Complete Maintenance",
+            "perform_desc": "Do you want to log \"{{name}}\" as completed today?",
+            "perform_confirm": "Yes, Completed",
+            "perform_recurrence_info": "This is a periodic task. When you save, the system will automatically calculate the next maintenance date.",
+            "delete_title": "Delete Maintenance Task?",
+            "delete_desc": "Are you sure you want to delete the periodic maintenance schedule \"{{name}}\"? This action cannot be undone."
+        },
+        "form": {
+            "item": "Related Item",
+            "no_items": "You must add an item to the inventory first before scheduling maintenance.",
+            "select_item_placeholder": "Select an Item",
+            "task_name": "Task / Operation Name",
+            "task_name_placeholder": "e.g. Filter Replacement, Periodic Check...",
+            "description": "Detail / Description",
+            "description_placeholder": "Task details, materials to be used, etc...",
+            "frequency_value": "Recurrence Frequency",
+            "frequency_placeholder": "e.g. 6 (leave blank for one-time)",
+            "frequency_unit": "Frequency Unit",
+            "next_due_date": "Next Scheduled Date",
+            "section_help": "Manage maintenance schedules from here",
+            "section_collapsed": "Click to add periodic controls and tasks",
+            "has_tasks": "{{count}} Tasks",
+            "new_item_warning_title": "Item Save Pending",
+            "new_item_warning_desc": "You must save this item first to add a maintenance schedule.",
+            "manage_desc": "Manage maintenance schedules for this appliance or item."
+        },
+        "fields": {
+            "task_name": "Task Name",
+            "task_name_placeholder": "e.g. AC filter cleaning",
+            "description": "Description",
+            "description_placeholder": "Task details, materials to be used, etc...",
+            "frequency_value": "Recurrence Frequency",
+            "frequency_value_placeholder": "Leave blank for one-time",
+            "frequency_unit": "Frequency Unit",
+            "next_due_date": "Scheduled Date"
+        },
+        "card": {
+            "untitled_item": "Untitled Item",
+            "last_performed": "Last Done:",
+            "next_due_label": "Scheduled Date",
+            "complete_tooltip": "Mark Maintenance as Done Today"
+        },
+        "detail_card_desc": "Periodic or one-time maintenance tracking scheduled for this item.",
+        "no_tasks": "No maintenance tasks assigned to this item.",
+        "confirm_delete": "This task will be deleted. Are you sure?"
+    },
+    "error_boundary": {
+        "title": "Something needs a refresh",
+        "description": "The interface hit an unexpected rendering problem. Your saved inventory data is not changed by this screen.",
+        "refresh_btn": "Refresh",
+        "home_btn": "Home"
+    },
+    "activity": {
+        "title": "Activity History",
+        "description": "Recent protected changes in your home inventory.",
+        "empty_title": "No activity yet",
+        "empty_description": "Item changes, stock updates, attachments, borrowing, and bulk actions will appear here.",
+        "unknown_actor": "Unknown user",
+        "deleted_item_with_id": "Deleted item #{{id}}",
+        "item_missing": "This item record no longer exists",
+        "actions": {
+            "item_created": "Item added",
+            "item_updated": "Item updated",
+            "item_deleted": "Item deleted",
+            "item_borrowed": "Item lent",
+            "item_returned": "Item returned",
+            "item_bulk_updated": "Bulk update",
+            "item_bulk_deleted": "Bulk delete",
+            "item_stock_adjusted": "Stock updated",
+            "item_attachment_added": "Attachment added",
+            "item_attachment_deleted": "Attachment deleted"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} related records",
+        "empty_title": "No related records found",
+        "low_stock": {
+            "title": "Low Stock",
+            "description": "Items below their minimum stock level.",
+            "qty": "Stock {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Expired Items",
+            "description": "Items with an expired date."
+        },
+        "expiring": {
+            "title": "Upcoming Expiration Dates",
+            "description": "Items expiring within 30 days."
+        },
+        "maintenance": {
+            "title": "Overdue Maintenance",
+            "description": "Maintenance tasks past their scheduled date."
+        }
+    },
+    "notifications": {
+        "title": "Notification Center",
+        "description": "Stock, warranty, maintenance, expiration, and borrow return alerts.",
+        "meta_total": "{{count}} notifications",
+        "meta_urgent": "{{count}} urgent",
+        "empty_title": "No alerts need your attention right now",
+        "empty_desc": "Low stock, upcoming dates, and overdue maintenance will appear here.",
+        "items": {
+            "stock_empty_title": "Out of stock",
+            "stock_low_title": "Low stock",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Expiration date passed",
+            "expiry_close_title": "Expiration date approaching",
+            "warranty_expired_title": "Warranty expired",
+            "warranty_close_title": "Warranty ending soon",
+            "maintenance_overdue_title": "Maintenance overdue",
+            "maintenance_close_title": "Maintenance due soon",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Borrow return overdue",
+            "borrow_close_title": "Borrow return due soon",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} days left ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Service and Warranty Center",
+        "description": "Track warranties, maintenance schedules, and service actions in one place.",
+        "meta_warranty": "{{count}} warranty records",
+        "meta_tasks": "{{count}} maintenance tasks",
+        "empty_title": "No service or warranty action",
+        "empty_desc": "Upcoming warranty dates and maintenance tasks will be collected here.",
+        "warranty_section": "Warranty Tracking",
+        "warranty_desc": "Expired warranties and warranties ending within 30 days.",
+        "maintenance_section": "Maintenance Actions",
+        "maintenance_desc": "Overdue and upcoming maintenance tasks.",
+        "no_warranty": "No upcoming warranty action.",
+        "no_tasks": "No scheduled maintenance task.",
+        "overdue": "Overdue",
+        "upcoming": "Soon",
+        "expired": "Expired",
+        "summary_warranty": "Warranty tracking",
+        "summary_tasks": "Maintenance tasks",
+        "open_warranty_filter": "Open warranty filter",
+        "open_warranty_filter_desc": "Filters active warranty items in inventory."
+    },
+    "storage_labels": {
+        "title": "Shelf and Room Labels",
+        "description": "{{count}} room/shelf labels are ready as a print sheet.",
+        "empty_title": "No rooms or shelves to label",
+        "empty_desc": "Add rooms or locations first, then print QR labels here.",
+        "sheet_label": "Location Label Sheet",
+        "scan_hint": "Scanning the QR code opens the filtered inventory for that room or shelf.",
+        "room": "Room",
+        "location": "Shelf/Box"
     }
 }

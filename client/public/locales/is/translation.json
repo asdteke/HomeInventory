@@ -10,7 +10,7 @@
         "load_error": "Ekki tókst að hlaða atriði",
         "form": {
             "name": "Nafn atriðis",
-            "name_placeholder": "t.d. Samsung TV 55 tommur",
+            "name_placeholder": "t.d. TV 55 tommur",
             "required": "*",
             "description": "Lýsing",
             "description_placeholder": "Athugasemdir um hlutinn...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Nálægt útrunninum",
             "expired": "Útrunnið",
             "low_stock": "Lítið birgðir"
+        },
+        "untitled_item": "Ónefnd vara",
+        "attachments": {
+            "title": "Myndir og skrár",
+            "add": "Bæta við skrám",
+            "empty": "Engar skrár bættar við enn.",
+            "form_desc": "Tengdu myndir af vörunni, kvittanir, reikninga eða þjónustugögn.",
+            "detail_desc": "Myndir, kvittanir, reikningar og þjónustuskrár vistaðar fyrir þessa vöru.",
+            "upload_error": "Ekki tókst að hlaða upp skrám.",
+            "delete_error": "Ekki tókst að eyða skrá.",
+            "delete_confirm": "Eyða þessari skrá?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Sýna lykilorð",
         "saving": "Vistar...",
         "disabled": "Fatlaður",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Þysja inn",
+        "zoom_out": "Þysja út",
+        "reset": "Endurstilla",
+        "print": "Prenta",
+        "record_count": "{{count}} færslur"
     },
     "auth": {
         "login": {
@@ -458,7 +471,7 @@
         "two_factor_enabled_success": "Tveggja þátta auðkenning hefur verið virkjuð með góðum árangri",
         "two_factor_disabled_success": "Tveggja þátta auðkenning hefur verið slökkt á með góðum árangri",
         "password_errors": {
-            "min_length": "Lykilorðið verður að vera að minnsta kosti {{mín}} stafir langt",
+            "min_length": "Lykilorðið verður að vera að minnsta kosti {{min}} stafir langt",
             "lowercase_required": "Lykilorðið verður að innihalda að minnsta kosti einn lágstaf.",
             "uppercase_required": "Lykilorðið verður að innihalda að minnsta kosti einn hástaf.",
             "number_required": "Lykilorðið verður að innihalda að minnsta kosti eitt númer",
@@ -489,7 +502,10 @@
         "logout_description": "Þú verður sendur aftur á innskráningarskjáinn og þarft að skrá þig inn aftur til að stjórna heimilishaldsinventar.",
         "logout_warning": "Notaðu þetta þegar þú hefur lokið á sameiginlegri eða persónulegri tæki.",
         "maintenance": "Viðhaldsskrá",
-        "shopping": "Innkaupaskrá"
+        "shopping": "Innkaupaskrá",
+        "activity": "Starfsemi",
+        "notifications": "Tilkynningar",
+        "service": "Þjónusta"
     },
     "dashboard": {
         "welcome": "Velkomin/n aftur, <1>{{name}}</1>",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} hlutir hafa fallið undir lágmarkslager þinn.",
             "go_to_shopping": "Innkaupalisti",
             "close_expiry_title": "Væntanlegir gjalddagar",
-            "close_expiry_desc": "{{count}} vörur renna út innan 30 daga."
+            "close_expiry_desc": "{{count}} vörur renna út innan 30 daga.",
+            "view_low_stock_items": "Sjá lítinn lager"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Virkur húss lykill",
             "key_label": "Húss lykill",
-            "mask_key": "••••••••{{viðskeyti}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Fela",
             "show": "Sýna",
             "copy": "Afrita",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} núverandi staðsetningar sleppt.",
             "skipped_rooms": "{{count}} núverandi herbergi sleppt.",
             "owner_only_title": "Afritun og endurheimt takmörkuð",
-            "owner_only_desc": "Gagnavarsla og endurheimt getur aðeins verið stjórnað af húsráðanda."
+            "owner_only_desc": "Gagnavarsla og endurheimt getur aðeins verið stjórnað af húsráðanda.",
+            "include_media_title": "Meðtaka myndir og kvittunarform",
+            "include_media_body": "Fullt afrit gæti verið stærra, en myndir af vörum og kvittanir geta einnig verið endurheimtar.",
+            "skipped_attachments": "{{count}} viðhengi voru sleppt."
         },
         "about": {
             "title": "Um forritið",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Allar innkomandi beiðnir eru sjálfkrafa lokaðar.",
             "policy_house_only_desc": "Þessi notandi hafnaði nýlegri beiðni. Þú getur sent aðra beiðni eftir 30 daga.",
             "policy_everyone_desc": "Aðrir notendur geta ekki vafrað eða séð hlutina þína. Þeir geta aðeins sent beiðni með því að slá inn notandanafn þitt eða netfang beint."
+        },
+        "activity_log": {
+            "title": "Atburðar- og skoðunarskrá",
+            "description": "Skoðaðu verndaða sögu um breytingar á vörum, uppfærslur á lager, viðhengi og fjöldaaðgerðir.",
+            "encrypted_title": "Virkniupplýsingar eru geymdar verndaðar",
+            "encrypted_body": "Nýjar virkniaðgerðir og upplýsingar eru geymdar dulkóðaðar í gagnagrunninum og eru aðeins afkóðaðar fyrir virka fund þinn."
         }
     },
     "inventory": {
@@ -1107,7 +1133,8 @@
             "site_member_identifier": "Notandanafn eða netfang",
             "site_member_identifier_placeholder": "Nákvæm notendanafn eða netfang",
             "site_member_privacy_hint": "Tilboðið birtist aðeins í Lánaamiðstöðinni ef sú reikningur er til og leyfir innkomandi tilboð.",
-            "external_privacy_hint": "Þetta býr aðeins til einkaaðila staðbundna skrá. Ekkert forrit tilkynningar er sent."
+            "external_privacy_hint": "Þetta býr aðeins til einkaaðila staðbundna skrá. Ekkert forrit tilkynningar er sent.",
+            "available": "Tiltækt"
         },
         "untitled_item": "Ónefndur hlutur",
         "delete_action": "Eyða hlut",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Sía eftir herbergi",
         "refreshing_results": "Endurnýja atriði...",
         "empty_filter_title": "Engir hlutir samsvara þeirri leit",
-        "delete_error_title": "Eyða mistókst"
+        "delete_error_title": "Eyða mistókst",
+        "tools": {
+            "title": "Verkfæri"
+        },
+        "no_room": "Enginn herbergi",
+        "all_locations": "Öll svæði",
+        "location_filter_label": "Sí filtrera eftir staðsetningu",
+        "visibility_filter_label": "Sí filtrera eftir sýnileika",
+        "visibility_all": "Öll sýnileiki",
+        "visibility_mine": "Mínir hlutir",
+        "visibility_others": "Aðrir meðlimir",
+        "borrow_filter_label": "Sía eftir lántökustöðu",
+        "borrow_filter_all": "Allar lánastöður",
+        "stock_filter_label": "Sía eftir birgðastöðu",
+        "stock_filter_all": "Allar birgðastöður",
+        "stock_filter_ok": "Birgðir í lagi",
+        "expiry_filter_label": "Sía eftir útrennsludegi",
+        "expiry_filter_all": "Allir útrennsludagar",
+        "expiry_filter_dated": "Hefur dagsetningu",
+        "expiry_filter_none": "Engin dagsetning",
+        "warranty_filter_label": "Síu eftir ábyrgð",
+        "warranty_filter_all": "Allar ábyrgðir",
+        "warranty_filter_expired": "Útrunnar ábyrgðir",
+        "warranty_filter_close": "Að renna út fljótlega",
+        "warranty_filter_active": "Virk ábyrgð",
+        "warranty_filter_none": "Engar upplýsingar um ábyrgð",
+        "sort_label": "Raða",
+        "sort_updated_desc": "Nýlega uppfært",
+        "sort_updated_asc": "Elsta uppfærsla",
+        "sort_created_desc": "Nýjasta fyrst",
+        "sort_created_asc": "Elsta fyrst",
+        "sort_name_asc": "Nafn A-Ö",
+        "sort_name_desc": "Nafn Z-A",
+        "sort_quantity_desc": "Magn frá hæðstu til lægstu",
+        "sort_quantity_asc": "Magn frá lægstu til hæðstu",
+        "sort_expiry_asc": "Útrunnin fljótast",
+        "sort_expiry_desc": "Rennur út síðast",
+        "stock_increase": "Aukið birgðir",
+        "stock_decrease": "Minnkað birgðir",
+        "stock_adjust_error": "Ekki var hægt að uppfæra birgðir.",
+        "bulk": {
+            "select_visible": "Veldu sýnilegt",
+            "clear_visible": "Afveldu sýnilegt",
+            "selected_short": "valið",
+            "keep_category": "Haltu flokk",
+            "keep_room": "Haltu herbergi",
+            "keep_location": "Haltu staðsetningu",
+            "keep_visibility": "Haltu sýnileika",
+            "apply": "Sækja",
+            "no_fields": "Veldu að minnsta kosti eitt svið fyrir hópaðgerð.",
+            "updated_title": "Hópaúrvinnsla lokið",
+            "updated_body": "{{count}} atriði uppfærð. {{skipped}} sleppt.",
+            "update_error": "Heildaruppfærsla gat ekki verið lokið.",
+            "deleted_title": "Heildareyðing lokið",
+            "deleted_body": "{{count}} atriði eytt. {{skipped}} sleppt.",
+            "delete_error": "Heildareyðingu gat ekki verið lokið.",
+            "delete_title": "Eyða völdum hlutum?",
+            "delete_description": "{{count}} valdir hlutir verða fjarlægðir úr þessari heimilisskrá. Þetta verður ekki hægt að afturkalla.",
+            "select_item": "Veldu hlut",
+            "unselect_item": "Afveldu hlut"
+        },
+        "qr_labels": {
+            "title": "QR merkimiðar",
+            "open": "Vörumerki",
+            "description": "{{count}} vörumerki eru tilbúin á prentblaði.",
+            "empty": "Breyttu sía eða bættu við birgðum til að prenta merkin.",
+            "sheet_label": "Vara merkingarblöð",
+            "item_label": "Vara merking"
+        }
     },
     "categories": {
         "title": "Flokkar",
@@ -1341,7 +1436,7 @@
             "no_logs": "engin skráningu enn",
             "errors_title": "Kerfisbrot (Síðustu 10)",
             "no_errors": "// Kerfið er heilbrigt, engar villuskáir.",
-            "date_fmt": "{{dagsetning, stefnumótatími}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "Tölvupóstur",
                 "user": "Notandi",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Grindareining",
-                    "meta": "Sjónvarpsborð • Deco M4",
+                    "meta": "Sjónvarpsborð • Network node",
                     "state": null
                 },
                 {
@@ -2408,7 +2503,7 @@
             "desc": "Birgðarvörur sem hafa fallið undir lágmarksgrend.",
             "add_all": "Bæta við öllum sem vantar",
             "stock_status": "Núverandi: {{current}} / Markmið: {{min}}",
-            "add_qty": "Bæta við {{qty}} hlutum til kaupa. Núverandi innkaupalisti til að bæta í körfuna þína. {{count}} hlutur"
+            "add_qty": "Bæta við {{qty}}"
         },
         "sections": {
             "active_list": "Vörur til að kaupa",
@@ -2555,5 +2650,102 @@
         "description": "Viðmótið lenti í óvæntu rendering-vandamáli. Vistað birgðagögn þín breytast ekki af þessum skjá.",
         "refresh_btn": "Endurhlaða",
         "home_btn": "Heimili"
+    },
+    "activity": {
+        "title": "Virkni saga",
+        "description": "Nýlegar varnarbreytingar í heimilishaldsskýrslu þinni.",
+        "empty_title": "Engin virkni enn",
+        "empty_description": "Breytingar á hlutum, birgðauppfærslur, viðhengi, lántaka og hópaðgerðir munu birtast hér.",
+        "unknown_actor": "Óþekktur notandi",
+        "deleted_item_with_id": "Eyttu hlutur #{{id}}",
+        "item_missing": "Þessi vöruskrá er ekki lengur til",
+        "actions": {
+            "item_created": "Vara bætt við",
+            "item_updated": "Vara uppfærð",
+            "item_deleted": "Vara eytt",
+            "item_borrowed": "Vara lendir",
+            "item_returned": "Vara skilað",
+            "item_bulk_updated": "Fjöldauppfærsla",
+            "item_bulk_deleted": "Fjöldeyðing",
+            "item_stock_adjusted": "Birgðir uppfærðar",
+            "item_attachment_added": "Viðhengi bætt við",
+            "item_attachment_deleted": "Viðhengi eytt"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} tengd skrá",
+        "empty_title": "Engin tengd gögn fundust",
+        "low_stock": {
+            "title": "Lítill birgðir",
+            "description": "Vörur undir lágmarksbirgðastigi sínu.",
+            "qty": "Birgðir {{quantity}} / lágmark {{min}}"
+        },
+        "expired": {
+            "title": "Útrunnin atriði",
+            "description": "Atriði með útrunnið dagsetningu."
+        },
+        "expiring": {
+            "title": "Komandi útrunnin dagsetning",
+            "description": "Atriði sem renna út innan 30 daga."
+        },
+        "maintenance": {
+            "title": "Tímabær viðhald",
+            "description": "Viðhaldsverkefni sem eru liðinn á áætluðum tíma."
+        }
+    },
+    "notifications": {
+        "title": "Tilkynningamiðstöð",
+        "description": "Viðvaranir um birgðir, ábyrgð, viðhald, gildistíma og endurgreiðslu lána.",
+        "meta_total": "{{count}} tilkynningar",
+        "meta_urgent": "{{count}} brýnt",
+        "empty_title": "Engar viðvaranir krefjast athygli þinnar núna",
+        "empty_desc": "Lítill birgðastöðugleiki, komandi dagsetningar og seint viðhald munu birtast hér.",
+        "items": {
+            "stock_empty_title": "Úr birgðum",
+            "stock_low_title": "Lítill birgðastaða",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Gildistími liðinn",
+            "expiry_close_title": "Gildistími að renna",
+            "warranty_expired_title": "Trygging útrunnin",
+            "warranty_close_title": "Trygging að renna út fljótlega",
+            "maintenance_overdue_title": "Viðhald liðinn",
+            "maintenance_close_title": "Viðhald að fara að renna út fljótlega",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Lán til baka seinkað",
+            "borrow_close_title": "Lán til baka bráðlega",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} dagar eftir ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Þjónustu- og ábyrgðarmiðstöð",
+        "description": "Fylgstu með ábyrgðum, viðhaldsskipulagi og þjónustuaðgerðum á einum stað.",
+        "meta_warranty": "{{count}} ábyrgskrár",
+        "meta_tasks": "{{count}} viðhaldsvinna",
+        "empty_title": "Engin þjónustu- eða ábyrgðaraðgerð",
+        "empty_desc": "Komandi ábyrgðardagar og viðhaldsaðgerðir verða skráðar hér.",
+        "warranty_section": "Eftirlit með ábyrgð",
+        "warranty_desc": "Útrunnin ábyrgð og ábyrgðir sem renna út innan 30 daga.",
+        "maintenance_section": "Viðhaldsaðgerðir",
+        "maintenance_desc": "Seinþroska og væntanleg viðhald verkefni.",
+        "no_warranty": "Engin væntanleg ábyrgðaraðgerð.",
+        "no_tasks": "Engin skipulögð viðhald verkefni.",
+        "overdue": "Seinþroska",
+        "upcoming": "Fljótlega",
+        "expired": "Útrunnið",
+        "summary_warranty": "Vottaábyrgðarskráning",
+        "summary_tasks": "Viðhald verkefni",
+        "open_warranty_filter": "Opna tryggingasía",
+        "open_warranty_filter_desc": "Síar virkar tryggingavörur í birgðahaldi."
+    },
+    "storage_labels": {
+        "title": "Hillu- og herbergismerkimiðar",
+        "description": "{{count}} herbergis-/hillu merkimiðar eru tilbúnir sem prentblað.",
+        "empty_title": "Engar herbergi eða hillur til að merkja",
+        "empty_desc": "Bættu við herbergjum eða stöðum fyrst, og prentaðu síðan QR-merki hér.",
+        "sheet_label": "Merkimiðasíða fyrir staðsetningu",
+        "scan_hint": "Skönnun QR-kóðans opnar síaða birgðaskrá fyrir það herbergi eða þá hillu.",
+        "room": "Herbergi",
+        "location": "Hilla/Kassi"
     }
 }

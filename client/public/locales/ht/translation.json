@@ -10,7 +10,7 @@
         "load_error": "Echwe pou chaje atik",
         "form": {
             "name": "Non Atik",
-            "name_placeholder": "pa egzanp Samsung TV 55 pous",
+            "name_placeholder": "pa egzanp TV 55 pous",
             "required": "*",
             "description": "Deskripsyon",
             "description_placeholder": "Nòt sou atik la...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Prèske Pouse",
             "expired": "Pase Dat",
             "low_stock": "Stock Ki Ba"
+        },
+        "untitled_item": "Atik san tit",
+        "attachments": {
+            "title": "Foto ak fichye",
+            "add": "Ajoute fichye",
+            "empty": "Pa gen okenn fichye ki ajoute ankò.",
+            "form_desc": "Tache foto atik, resi, fakti, oswa dokiman sèvis yo.",
+            "detail_desc": "Foto, resi, fakti, ak dosye sèvis ki sove pou atik sa a.",
+            "upload_error": "Dosye yo pa t kapab telechaje.",
+            "delete_error": "Dosye a pa t kapab efase.",
+            "delete_confirm": "Efase dosye sa a?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Montre modpas",
         "saving": "Ap sove...",
         "disabled": "Enfim",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Agrandi",
+        "zoom_out": "Redwi",
+        "reset": "Reyajiste",
+        "print": "Enprime",
+        "record_count": "{{count}} dosye"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Ou pral retounen nan ekran koneksyon an epi ou bezwen konekte ankò pou jere envantè kay ou.",
         "logout_warning": "Sèvi ak sa lè ou fin itilize yon aparèy pataje oswa pèsonèl.",
         "maintenance": "Orè Antretyen",
-        "shopping": "Lis Komès"
+        "shopping": "Lis Komès",
+        "activity": "Aktivite",
+        "notifications": "Notifikasyon",
+        "service": "Sèvis"
     },
     "dashboard": {
         "welcome": "Byenveni tounen, <1>{{name}}</1>",
@@ -628,14 +644,15 @@
             "low_stock_desc": "{{count}} atik tonbe anba limit estòk minimòm ou.",
             "go_to_shopping": "Lis Acha",
             "close_expiry_title": "Dat Ekspirasyon Kap Vini yo",
-            "close_expiry_desc": "{{count}} pwodwi ap ekspire nan 30 jou."
+            "close_expiry_desc": "{{count}} pwodwi ap ekspire nan 30 jou.",
+            "view_low_stock_items": "Gade Estòk Ba"
         }
     },
     "beta_banner": {
         "title": "BETA:",
         "text": "{{brandName}} kounye a nan faz tès ak lwazi. Pa gen okenn garanti ki bay pou pèmanans oswa sekirite done. Tanpri kenbe sovgad enfòmasyon ki enpòtan yo.",
         "contact": "Kontakte:",
-        "badge": "Beta ••••••••{{suffix}} Feedback - {{brandName}} {{date, datetime}}",
+        "badge": "Beta",
         "aria_label": "Avi Beta",
         "tooltip": "Karakteristik aksè bonè yo ka toujou chanje."
     },
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Kle Kay Aktif",
             "key_label": "Kle Kay",
-            "mask_key": "••••••••{{sfiks}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Kache",
             "show": "Montre",
             "copy": "Kopye",
@@ -765,9 +782,9 @@
             "transfer_owner": "Fè pwopriyetè",
             "transferring_owner": "Transfere ...",
             "transfer_owner_title": "Transfere kay pwopriyete?",
-            "transfer_owner_confirm": "Transfere pwopriyetè kay sa a nan {{non}}?",
+            "transfer_owner_confirm": "Transfere pwopriyetè kay sa a nan {{name}}?",
             "transfer_owner_warning": "Ou p'ap mèt kay sa a ankò. Nouvo pwopriyetè a pral jere apwobasyon manm yo, retire, ak chanjman pwopriyetè nan lavni.",
-            "transfer_owner_success_body": "{{non}} se kounye a mèt kay sa a."
+            "transfer_owner_success_body": "{{name}} se kounye a mèt kay sa a."
         },
         "theme": {
             "title": "Tèm",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} kote ki egziste deja yo sote.",
             "skipped_rooms": "{{count}} chanm ki egziste deja yo sote.",
             "owner_only_title": "Sovgad ak Restore Restrenn",
-            "owner_only_desc": "Backup ak retabli done yo kapab sèlman jere pa pwopriyetè kay la."
+            "owner_only_desc": "Backup ak retabli done yo kapab sèlman jere pa pwopriyetè kay la.",
+            "include_media_title": "Enkli foto ak imaj resi",
+            "include_media_body": "Sove konplè a ka pi gwo, men foto atik ak imaj resi yo ka retabli tou.",
+            "skipped_attachments": "{{count}} atachman te sote."
         },
         "about": {
             "title": "Konsènan Aplikasyon",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Tout demann fèk ap rantre bloke otomatikman.",
             "policy_house_only_desc": "Sèlman manm verifye nan kay aktif ou yo ka fè demann pou atik ki deja vizib andedan kay pataje sa a.",
             "policy_everyone_desc": "Lòt itilizatè yo pa ka browse oswa wè atik ou yo. Yo ka sèlman voye yon demann lè yo antre non itilizatè ou oswa imel ou dirèkteman."
+        },
+        "activity_log": {
+            "title": "Aktivite ak jounal odyans",
+            "description": "Revize istwa pwoteje chanjman atik yo, mizajou stock yo, anèks yo, ak aksyon an foul.",
+            "encrypted_title": "Dosye aktivite yo estoke pwoteje",
+            "encrypted_body": "Nouvo aksyon ak detay aktivite yo estoke an kripte nan baz done a epi yo sèlman dechifre pou sesyon aktif ou."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Dosye a pral fèmen apre preteur a konfime li resevwa atik la tounen.",
             "return_pending_lender_title": "{{name}} make atik sa a kòm retounen delivre",
             "return_pending_self_title": "Avèk ou, ap tann konfimasyon resevwa",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Manm sit",
+            "site_member_identifier": "Non itilizatè oswa imèl",
+            "site_member_identifier_placeholder": "Non itilizatè oswa imèl egzak",
+            "site_member_privacy_hint": "Òf la parèt nan Sant Prete a sèlman si kont sa a egziste epi li pèmèt òf kap vini yo.",
+            "external_privacy_hint": "Sa kreye sèlman yon dosye lokal prive. Pa gen okenn notifikasyon nan aplikasyon an ki voye.",
+            "available": "Disponib"
         },
         "untitled_item": "Atik san tit",
         "delete_action": "Efase atik",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Filtre pa chanm",
         "refreshing_results": "Ap rafrechi atik...",
         "empty_filter_title": "Pa gen anyen ki matche ak rechèch sa a",
-        "delete_error_title": "Efase echwe"
+        "delete_error_title": "Efase echwe",
+        "tools": {
+            "title": "Zouti"
+        },
+        "no_room": "Pa gen espas",
+        "all_locations": "Tout kote",
+        "location_filter_label": "Filtre pa kote",
+        "visibility_filter_label": "Filtre pa vizibilite",
+        "visibility_all": "Tout vizibilite",
+        "visibility_mine": "Atik mwen yo",
+        "visibility_others": "Lòt manm",
+        "borrow_filter_label": "Filtè pa estati prè",
+        "borrow_filter_all": "Tout estati prè",
+        "stock_filter_label": "Filtè pa estati stock",
+        "stock_filter_all": "Tout estati stock",
+        "stock_filter_ok": "Stock an òd",
+        "expiry_filter_label": "Filtè pa dat ekspirasyon",
+        "expiry_filter_all": "Tout dat ekspirasyon",
+        "expiry_filter_dated": "Gen dat",
+        "expiry_filter_none": "Pa gen dat",
+        "warranty_filter_label": "Filtre pa garanti",
+        "warranty_filter_all": "Tout garanti yo",
+        "warranty_filter_expired": "Garanti ekspire",
+        "warranty_filter_close": "Ap fini byento",
+        "warranty_filter_active": "Garanti aktif",
+        "warranty_filter_none": "Pa gen enfòmasyon sou garanti",
+        "sort_label": "Triye",
+        "sort_updated_desc": "Dènye aktyalizasyon",
+        "sort_updated_asc": "Pi ansyen aktyalizasyon",
+        "sort_created_desc": "Pi nouvo an premye",
+        "sort_created_asc": "Pi ansyen an premye",
+        "sort_name_asc": "Non A-Z",
+        "sort_name_desc": "Non Z-A",
+        "sort_quantity_desc": "Kantite soti nan pi wo rive nan pi ba",
+        "sort_quantity_asc": "Kantite soti piti pou rive gwo",
+        "sort_expiry_asc": "Ekspirasyon pi pre",
+        "sort_expiry_desc": "Ekspirasyon pi lwen",
+        "stock_increase": "Ogmante stock",
+        "stock_decrease": "Diminye stock",
+        "stock_adjust_error": "Pa t kapab mete ajou stock la.",
+        "bulk": {
+            "select_visible": "Chwazi vizib",
+            "clear_visible": "Dezaktive vizib",
+            "selected_short": "kategori chwazi",
+            "keep_category": "Kenbe kategori",
+            "keep_room": "Kenbe chanm",
+            "keep_location": "Kenbe kote",
+            "keep_visibility": "Kenbe vizibilite",
+            "apply": "Aplike",
+            "no_fields": "Chwazi omwen yon chan pou aksyon an mas.",
+            "updated_title": "Mizajou an gwo fini",
+            "updated_body": "{{count}} atik mete ajou. {{skipped}} sote.",
+            "update_error": "Pa t ka fè mizajou an gwo a.",
+            "deleted_title": "Efase an gwo fini",
+            "deleted_body": "{{count}} atik efase. {{skipped}} sote.",
+            "delete_error": "Efase an gwoup pa t kapab fini.",
+            "delete_title": "Efase atik yo chwazi?",
+            "delete_description": "{{count}} atik chwazi yo ap retire nan envantè kay sa a. Sa pa ka defè.",
+            "select_item": "Chwazi atik",
+            "unselect_item": "Dezaktive atik"
+        },
+        "qr_labels": {
+            "title": "Etikèt QR",
+            "open": "Etikèt Atik",
+            "description": "{{count}} etikèt atik yo pare kòm yon fèy enprime.",
+            "empty": "Chanje filtè yo oswa ajoute atik envantè pou enprime etikèt yo.",
+            "sheet_label": "Fèy Etikèt Atik",
+            "item_label": "Etikèt Atik"
+        }
     },
     "categories": {
         "title": "Kategori",
@@ -1341,7 +1436,7 @@
             "no_logs": "pa gen okenn journaux ankò",
             "errors_title": "Erè Sistèm (10 dènye)",
             "no_errors": "// Sistèm an sante, pa gen okenn journaux erè.",
-            "date_fmt": "{{dat, dat lè}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "Imèl",
                 "user": "Itilizatè",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Inite rezo",
-                    "meta": "Konsole televizyon • Deco M4",
+                    "meta": "Konsole televizyon • Network node",
                     "state": null
                 },
                 {
@@ -2155,7 +2250,7 @@
             "return_submitting": "Fèmen...",
             "reject_title": "Rejte Demann",
             "reject_subtitle": "Ou pral rejte demann lan pou \"{{item}}\".",
-            "reject_target": "Ou se sou rejte demann lan prete voye pa {{non}}.",
+            "reject_target": "Ou se sou rejte demann lan prete voye pa {{name}}.",
             "reject_reason_label": "Rejè Rezon",
             "reject_submitting": "Rejte ...",
             "due_date_label": "Dat retounen planifye"
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Sant prete pa t ka chaje",
             "action_error": "Aksyon an pa t ka konplete",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Dosye prete aktif sa a pa t kapab jwenn. Rafrechi Sant Prete a epi eseye ankò.",
             "errors": {
                 "external_target_daily_limit": "Ou ka sèlman voye yon premye demann kontak ekstèn bay menm moun nan pa jou. Si yo aksepte yon demann, limit sa a pap aplike ankò pou moun sa a.",
                 "external_total_daily_limit": "Ou ka voye jiska 5 premye demann kontak ekstèn pa jou.",
@@ -2275,7 +2370,7 @@
     "app": {
         "name": "{{brandName}}",
         "tagline": "Smartly jere tout bagay nan kay ou",
-        "loading": "Loading {{brandName}}",
+        "loading": "Ap chaje {{brandName}}",
         "preparing_workspace": "Prepare espas travay ou ..."
     },
     "nav": {
@@ -2408,7 +2503,7 @@
             "desc": "Atik envantè ki tonbe anba limit minimòm nan.",
             "add_all": "Ajoute Tout Ki Manke",
             "stock_status": "Kouran: {{current}} / Sib: {{min}}",
-            "add_qty": "Ajoute {{qty}} >>> Atik pou Achte >>> Atik aktyèl pou fè makèt pou ajoute nan kabwa ou. >>> {{count}} Atik"
+            "add_qty": "Ajoute {{qty}}"
         },
         "sections": {
             "active_list": "Atik pou Achte",
@@ -2555,5 +2650,102 @@
         "description": "Entèfas a frape yon pwoblèm rann inatandi Done envantè sove ou pa chanje pa ekran sa a.",
         "refresh_btn": "Rafrechi",
         "home_btn": "Kay"
+    },
+    "activity": {
+        "title": "Istwa Aktivite",
+        "description": "Chanjman pwoteje resan nan envantè kay ou.",
+        "empty_title": "Pa gen okenn aktivite ankò",
+        "empty_description": "Chanjman atik, mizajou stock, atachman, prete, ak aksyon an gwoup pral parèt isit la.",
+        "unknown_actor": "Itilizatè enkoni",
+        "deleted_item_with_id": "Atik #{{id}} efase",
+        "item_missing": "Dosye atik sa a pa egziste ankò",
+        "actions": {
+            "item_created": "Atik ajoute",
+            "item_updated": "Atik mete ajou",
+            "item_deleted": "Atik efase",
+            "item_borrowed": "Atik lwe",
+            "item_returned": "Atik retounen",
+            "item_bulk_updated": "Mizajou an gwo",
+            "item_bulk_deleted": "Efase an gwo",
+            "item_stock_adjusted": "Stock mete ajou",
+            "item_attachment_added": "Atachman ajoute",
+            "item_attachment_deleted": "Atachman efase"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} dosye ki gen rapò",
+        "empty_title": "Pa gen okenn dosye ki gen rapò jwenn",
+        "low_stock": {
+            "title": "Stòk Ba",
+            "description": "Atik yo anba nivo minimòm stòk yo.",
+            "qty": "Stòk {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Atik ki ekspire",
+            "description": "Atik ki gen yon dat ki ekspire."
+        },
+        "expiring": {
+            "title": "Dat ekspirasyon kap vini",
+            "description": "Atik ki pral ekspire nan 30 jou."
+        },
+        "maintenance": {
+            "title": "Antretyen",
+            "description": "Antretyen Travay ki sot pase dat pwograme yo"
+        }
+    },
+    "notifications": {
+        "title": "Sant Notifikasyon",
+        "description": "Stock, garanti, antretyen, ekspirasyon ak prete alèt retounen.",
+        "meta_total": "{{count}} notifikasyon",
+        "meta_urgent": "{{count}} ijans",
+        "empty_title": "Pa gen okenn alèt ki bezwen atansyon ou kounye a",
+        "empty_desc": "Pwodwi ki ba, dat ki ap vini yo, ak antretyen an reta ap parèt isit la.",
+        "items": {
+            "stock_empty_title": "Soti nan stock",
+            "stock_low_title": "Ti stock",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Dat ekspirasyon pase",
+            "expiry_close_title": "Dat ekspirasyon apwoche",
+            "warranty_expired_title": "Garanti ekspire",
+            "warranty_close_title": "Garanti ap fini byento",
+            "maintenance_overdue_title": "Antretyen an reta",
+            "maintenance_close_title": "Antretyen ap vini byento",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Prè retounen depi tan",
+            "borrow_close_title": "Prè retounen pwòch dat",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} jou rete ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Sèvis ak Sant Garanti",
+        "description": "Swiv garanti, orè antretyen, ak aksyon sèvis nan yon sèl plas.",
+        "meta_warranty": "{{count}} dosye garanti",
+        "meta_tasks": "{{count}} travay antretyen",
+        "empty_title": "Pa gen aksyon sèvis oswa garanti",
+        "empty_desc": "Dat garanti kap vini yo ak travay antretyen yo pral ranmase isit la.",
+        "warranty_section": "Swivi Garanti",
+        "warranty_desc": "Garanti ki ekspire ak garanti kap fini nan 30 jou.",
+        "maintenance_section": "Aksyon Antretyen",
+        "maintenance_desc": "Tach antretyen an reta ak k ap vini yo.",
+        "no_warranty": "Pa gen okenn aksyon garanti k ap vini.",
+        "no_tasks": "Pa gen okenn tach antretyen ki pwograme.",
+        "overdue": "Anreta",
+        "upcoming": "Byento",
+        "expired": "Ekspire",
+        "summary_warranty": "Swivi garanti",
+        "summary_tasks": "Tach antretyen",
+        "open_warranty_filter": "Louvri filtè garanti",
+        "open_warranty_filter_desc": "Filtè atik garanti aktif nan envantè."
+    },
+    "storage_labels": {
+        "title": "Etikèt etajè ak chanm",
+        "description": "{{count}} etikèt chanm/etajè pare kòm yon fèy enprime.",
+        "empty_title": "Pa gen chanm oswa etajè pou make",
+        "empty_desc": "Ajoute chanm oswa kote an premye, apre sa enprime etikèt QR yo isit la.",
+        "sheet_label": "Fèy Etikèt Kote",
+        "scan_hint": "Eskane kòd QR a louvri envantè filtre pou chanm oswa etajè sa a.",
+        "room": "Chanm",
+        "location": "Etajè/Kahon"
     }
 }

@@ -10,7 +10,7 @@
         "load_error": "Eseme laadimine ebaõnnestus",
         "form": {
             "name": "Eseme nimi",
-            "name_placeholder": "näiteks Samsung TV 55 tolli",
+            "name_placeholder": "näiteks TV 55 tolli",
             "required": "*",
             "description": "Kirjeldus",
             "description_placeholder": "Eseme kohta märkused...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Lähedal aegumisele",
             "expired": "Aegunud",
             "low_stock": "Väike laoseis"
+        },
+        "untitled_item": "Pealkirjata ese",
+        "attachments": {
+            "title": "Fotod ja failid",
+            "add": "Lisa faile",
+            "empty": "Faile pole veel lisatud.",
+            "form_desc": "Lisa eseme fotosid, kviitungeid, arveid või teenusdokumente.",
+            "detail_desc": "Selle eseme fotod, kviitungid, arved ja teenusefailid on salvestatud.",
+            "upload_error": "Faile ei õnnestunud üles laadida.",
+            "delete_error": "Faili ei olnud võimalik kustutada.",
+            "delete_confirm": "Kustutada see fail?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Näita parooli",
         "saving": "Salvestamine...",
         "disabled": "Puudega",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Suurenda",
+        "zoom_out": "Vähenda",
+        "reset": "Lähtesta",
+        "print": "Prindi",
+        "record_count": "{{count}} kirjet"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Sind suunatakse tagasi sisselogimise ekraanile ja pead uuesti sisse logima, et hallata oma kodumajapidamise inventari.",
         "logout_warning": "Kasuta seda, kui oled lõpetanud ühiskasutuses oleva või isikliku seadmega.",
         "maintenance": "Hooldusgraafik",
-        "shopping": "Ostunimekiri"
+        "shopping": "Ostunimekiri",
+        "activity": "Tegevus",
+        "notifications": "Teavitused",
+        "service": "Teenus"
     },
     "dashboard": {
         "welcome": "Tere tulemast tagasi, <1>{{name}}</1>",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} kirjet on langenud teie miinimallaoseisu alla.",
             "go_to_shopping": "Ostunimekiri",
             "close_expiry_title": "Eelseisvad aegumiskuupäevad",
-            "close_expiry_desc": "{{count}} toodet aeguvad 30 päeva jooksul."
+            "close_expiry_desc": "{{count}} toodet aeguvad 30 päeva jooksul.",
+            "view_low_stock_items": "Vaata vähese lao kohta"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Aktiivse maja võti",
             "key_label": "Maja võti",
-            "mask_key": "•••••••••{{liide}}",
+            "mask_key": "•••••••••{{suffix}}",
             "hide": "Peida",
             "show": "Näita",
             "copy": "Kopeeri",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} olemasolevat asukohta jäeti vahele.",
             "skipped_rooms": "{{count}} olemasolevat tuba jäeti vahele.",
             "owner_only_title": "Varundamine ja taastamine piiratud",
-            "owner_only_desc": "Andmete varundamist ja taastamist saab hallata ainult maja omanik."
+            "owner_only_desc": "Andmete varundamist ja taastamist saab hallata ainult maja omanik.",
+            "include_media_title": "Kaasa fotod ja kviitungipildid",
+            "include_media_body": "Täielik varukoopia võib olla suurem, kuid kauba fotod ja kviitungipildid saab samuti taastada.",
+            "skipped_attachments": "{{count}} manust eirati."
         },
         "about": {
             "title": "Rakenduse kohta",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Kõik saabuvad päringud blokeeritakse automaatselt.",
             "policy_house_only_desc": "Ainult sinu aktiivsete majade kinnitatud liikmed saavad taotleda esemeid, mis on juba selles jagatud majas nähtavad.",
             "policy_everyone_desc": "Teised kasutajad ei saa sirvida ega näha sinu esemeid. Nad saavad saata ainult päringu, kui sisestavad otse sinu kasutajanime või e-posti aadressi."
+        },
+        "activity_log": {
+            "title": "Tegevuste ja auditi logi",
+            "description": "Vaata läbi kaitstud ajalugu kauba muutuste, laoseisu uuenduste, manuste ja hulgitegevuste kohta.",
+            "encrypted_title": "Tegevusandmed salvestatakse kaitstult",
+            "encrypted_body": "Uued tegevusülesanded ja üksikasjad salvestatakse andmebaasis krüpteeritult ning dekrüpteeritakse ainult teie aktiivse seansi jaoks."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Kannet suletakse pärast seda, kui laenuandja kinnitab, et nad on objekti tagasi saanud.",
             "return_pending_lender_title": "{{name}} märgitud see ese kui tagastatud",
             "return_pending_self_title": "Sinuga, oodates kviitungi kinnitust",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Saidiliige",
+            "site_member_identifier": "Kasutajanimi või e-post",
+            "site_member_identifier_placeholder": "Täpne kasutajanimi või e-post",
+            "site_member_privacy_hint": "Pakkumine kuvatakse Laenukeskuses ainult siis, kui see konto eksisteerib ja lubab sissetulevaid pakkumisi.",
+            "external_privacy_hint": "See loob ainult privaatse kohalikku kirje. Rakenduse teavitust ei saadeta.",
+            "available": "Saadaval"
         },
         "untitled_item": "Pealkirjata ese",
         "delete_action": "Kustuta ese",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Sorteeri toa järgi",
         "refreshing_results": "Esete värskendamine...",
         "empty_filter_title": "Ükski ese ei vasta sellele otsingule",
-        "delete_error_title": "Kustutamine ebaõnnestus"
+        "delete_error_title": "Kustutamine ebaõnnestus",
+        "tools": {
+            "title": "Tööriistad"
+        },
+        "no_room": "Ühtegi tuba",
+        "all_locations": "Kõik asukohad",
+        "location_filter_label": "Sorteeri asukoha järgi",
+        "visibility_filter_label": "Sorteeri nähtavuse järgi",
+        "visibility_all": "Kõik nähtavused",
+        "visibility_mine": "Minu esemed",
+        "visibility_others": "Teised liikmed",
+        "borrow_filter_label": "Sorteeri laenamise oleku järgi",
+        "borrow_filter_all": "Kõik laenuseisundid",
+        "stock_filter_label": "Filtreeri laoseisundi järgi",
+        "stock_filter_all": "Kõik laoseisundid",
+        "stock_filter_ok": "Laoseis korras",
+        "expiry_filter_label": "Filtreeri aegumiskuupäeva järgi",
+        "expiry_filter_all": "Kõik aegumiskuupäevad",
+        "expiry_filter_dated": "On kuupäev",
+        "expiry_filter_none": "Puudub kuupäev",
+        "warranty_filter_label": "Filtreeri garantiide järgi",
+        "warranty_filter_all": "Kõik garantiid",
+        "warranty_filter_expired": "Aegunud garantiid",
+        "warranty_filter_close": "Lõppemas peagi",
+        "warranty_filter_active": "Aktiivsed garantiid",
+        "warranty_filter_none": "Puudub garantiiteave",
+        "sort_label": "Sorteeri",
+        "sort_updated_desc": "Hiljuti uuendatud",
+        "sort_updated_asc": "Kõige vanem uuendus",
+        "sort_created_desc": "Kõige uuem ees",
+        "sort_created_asc": "Kõige vanem ees",
+        "sort_name_asc": "Nimi A-Z",
+        "sort_name_desc": "Nimi Z-A",
+        "sort_quantity_desc": "Kogus kõrgeimast madalaimani",
+        "sort_quantity_asc": "Kogus madalaimast kõrgeimani",
+        "sort_expiry_asc": "Aegumistähtaeg lähim",
+        "sort_expiry_desc": "Aegumiskuupäev hiljem",
+        "stock_increase": "Suurenda varusid",
+        "stock_decrease": "Vähenda varusid",
+        "stock_adjust_error": "Varusid ei õnnestunud uuendada.",
+        "bulk": {
+            "select_visible": "Vali nähtav",
+            "clear_visible": "Tühista nähtav",
+            "selected_short": "valitud",
+            "keep_category": "Hoia kategooriat",
+            "keep_room": "Hoia ruumi",
+            "keep_location": "Hoia asukohta",
+            "keep_visibility": "Hoia nähtavust",
+            "apply": "Rakenda",
+            "no_fields": "Valige hulgitoiminguks vähemalt üks väli.",
+            "updated_title": "Hulgiparandus lõpetatud",
+            "updated_body": "{{count}} eset värskendati. {{skipped}} jäi vahele.",
+            "update_error": "Hulgimuudatus ei õnnestunud.",
+            "deleted_title": "Hulgikustutus lõpetatud",
+            "deleted_body": "{{count}} eset kustutatud. {{skipped}} jäeti vahele.",
+            "delete_error": "Hulgikustutust ei õnnestunud lõpule viia.",
+            "delete_title": "Kustutada valitud esemed?",
+            "delete_description": "{{count}} valitud eset eemaldatakse sellest majapidamisvarustuse nimekirjast. Seda ei saa tagasi võtta.",
+            "select_item": "Vali ese",
+            "unselect_item": "Tühista eseme valik"
+        },
+        "qr_labels": {
+            "title": "QR sildid",
+            "open": "Toote sildid",
+            "description": "{{count}} tootesildid on valmis printimisleheks.",
+            "empty": "Muuda filtreid või lisa laoseadmeid siltide printimiseks.",
+            "sheet_label": "Toote sildileht",
+            "item_label": "Tootesilt"
+        }
     },
     "categories": {
         "title": "Kategooriad",
@@ -1341,7 +1436,7 @@
             "no_logs": "veel logisid pole",
             "errors_title": "Süsteemi vead (viimased 10)",
             "no_errors": "// Süsteem on terve, vealogisid ei ole.",
-            "date_fmt": "{{kuupäev, kellaaeg}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "E-post",
                 "user": "Kasutaja",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Võrguühik",
-                    "meta": "Teleri alus • Deco M4",
+                    "meta": "Teleri alus • Network node",
                     "state": null
                 },
                 {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Laenamiskeskust ei õnnestunud laadida",
             "action_error": "Tegevust ei õnnestunud lõpule viia",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Seda aktiivset laenukirjet ei leitud. Värskenda Laenukeskust ja proovi uuesti.",
             "errors": {
                 "external_target_daily_limit": "Sa saad saata samale inimesele ainult ühe esmakontakti välist päringut päevas. Kui nad aktsepteerivad päringu, siis see piirang sellele inimesele enam ei kehti.",
                 "external_total_daily_limit": "Sa saad saata kuni 5 esmakontakti välist päringut päevas.",
@@ -2408,7 +2503,7 @@
             "desc": "Laoseisu artiklid, mis on langenud alla miinimumpiiri.",
             "add_all": "Lisa kõik puuduvad",
             "stock_status": "Praegune: {{current}} / Siht: {{min}}",
-            "add_qty": "Lisa {{qty}} eset ostmiseks. Praegused ostetavad esemed lisamiseks ostukorvi. {{count}} eset"
+            "add_qty": "Lisa {{qty}}"
         },
         "sections": {
             "active_list": "Esemed, mida osta",
@@ -2555,5 +2650,102 @@
         "description": "Kasutajaliides tabas ootamatut renderdamisprobleemi. Sinu salvestatud inventariandmed ei muutu selle ekraani kaudu.",
         "refresh_btn": "Värskenda",
         "home_btn": "Kodu"
+    },
+    "activity": {
+        "title": "Tegevuste ajalugu",
+        "description": "Hiljutised kaitstud muudatused teie kodu inventaris.",
+        "empty_title": "Veel tegevust ei ole",
+        "empty_description": "Esemete muutused, laoseisu uuendused, manused, laenutamised ja masstegevused kuvatakse siin.",
+        "unknown_actor": "Tundmatu kasutaja",
+        "deleted_item_with_id": "Kustutatud ese #{{id}}",
+        "item_missing": "Selle esemekirjet enam ei eksisteeri",
+        "actions": {
+            "item_created": "Ese lisatud",
+            "item_updated": "Ese on uuendatud",
+            "item_deleted": "Ese on kustutatud",
+            "item_borrowed": "Ese on laenatud",
+            "item_returned": "Ese on tagastatud",
+            "item_bulk_updated": "Hulgivärskendus",
+            "item_bulk_deleted": "Hulgikustutus",
+            "item_stock_adjusted": "Laoseis on uuendatud",
+            "item_attachment_added": "Manuse on lisatud",
+            "item_attachment_deleted": "Manus kustutatud"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} seotud kirjet",
+        "empty_title": "Ühtegi seotud kirjet ei leitud",
+        "low_stock": {
+            "title": "Madal laoseis",
+            "description": "Kaubad allpool minimaalset laoseisu.",
+            "qty": "Laos {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Aegunud kaubad",
+            "description": "Kaubad, mille kuupäev on möödunud."
+        },
+        "expiring": {
+            "title": "Käesolevad aegumiskuupäevad",
+            "description": "Kõik esemed, mis aeguvad 30 päeva jooksul."
+        },
+        "maintenance": {
+            "title": "Hilinenud hooldus",
+            "description": "Hooldustööd, mis on oma planeeritud kuupäeva ületanud."
+        }
+    },
+    "notifications": {
+        "title": "Teavituskeskus",
+        "description": "Laoseis, garantii, hooldus, aegumine ja laenutuse tagastamise teated.",
+        "meta_total": "{{count}} teadet",
+        "meta_urgent": "{{count}} kiiret",
+        "empty_title": "Praegu ei vaja ühtegi hoiatus teie tähelepanu",
+        "empty_desc": "Madal laoseis, tulevased kuupäevad ja aegunud hooldus kuvatakse siin.",
+        "items": {
+            "stock_empty_title": "Laos otsas",
+            "stock_low_title": "Madal laoseis",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Aegumiskuupäev möödunud",
+            "expiry_close_title": "Aegumiskuupäev lähenemas",
+            "warranty_expired_title": "Garantii aegunud",
+            "warranty_close_title": "Garantii lõppeb varsti",
+            "maintenance_overdue_title": "Hooldus aegunud",
+            "maintenance_close_title": "Hooldus peagi aegumas",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Laen tagastamine aegunud",
+            "borrow_close_title": "Laen tagastamine peagi aegumas",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} päeva jäänud ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Teenindus- ja Garantii Keskus",
+        "description": "Jälgige garantiisid, hooldusgraafikuid ja teenindustoiminguid ühes kohas.",
+        "meta_warranty": "{{count}} garantiikirjet",
+        "meta_tasks": "{{count}} hooldustööd",
+        "empty_title": "Teenindus- või garantiitoimingut pole",
+        "empty_desc": "Siia kogutakse töötluse alla kuuluvad garantiikuupäevad ja hooldustööd.",
+        "warranty_section": "Garantiijälgimine",
+        "warranty_desc": "Aegunud garantiid ja garantiid, mille lõppkuupäev on 30 päeva jooksul.",
+        "maintenance_section": "Hooldustoimingud",
+        "maintenance_desc": "Välja viimata ja eelseisvad hooldustööd.",
+        "no_warranty": "Eelseisvat garantiitoimingut pole.",
+        "no_tasks": "Ühtegi ajastatud hooldustööde ülesannet ei ole.",
+        "overdue": "Aegunud",
+        "upcoming": "Peagi",
+        "expired": "Aegunud",
+        "summary_warranty": "Garantiijälgimine",
+        "summary_tasks": "Hooldustööd",
+        "open_warranty_filter": "Ava garantiifilter",
+        "open_warranty_filter_desc": "Filtreerib laos aktiivsed garantiitooteid."
+    },
+    "storage_labels": {
+        "title": "Riiuli ja ruumi sildid",
+        "description": "{{count}} ruumi/riiuli silt on valmis trükileheks.",
+        "empty_title": "Ruume või riiuleid pole märgistamiseks",
+        "empty_desc": "Lisa esmalt ruumid või asukohad, seejärel trüki QR-sildid siit.",
+        "sheet_label": "Asukoha sildileht",
+        "scan_hint": "QR-koodi skannimine avab selle ruumi või riiuli filtreeritud inventari.",
+        "room": "Ruum",
+        "location": "Riiul/Kast"
     }
 }

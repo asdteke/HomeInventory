@@ -52,7 +52,7 @@ export default function SegmentedToggle({
                         className={`inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] ${fullWidth ? 'flex-1' : ''} ${buttonClassName} ${isActive ? activeClassName : inactiveClassName}`.trim()}
                     >
                         {Icon && <Icon className="h-4 w-4" />}
-                        <span>{option.label}</span>
+                        {option.label && <span>{option.label}</span>}
                     </button>
                 );
 

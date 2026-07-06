@@ -10,7 +10,7 @@
         "load_error": "Laden fan item mislukt",
         "form": {
             "name": "Itemnamme",
-            "name_placeholder": "bygelyks Samsung TV 55 inch",
+            "name_placeholder": "bygelyks TV 55 inch",
             "required": "*",
             "description": "Beskriuwing",
             "description_placeholder": "Notysjes oer it item...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Tichtby ferdwine",
             "expired": "Ferlern",
             "low_stock": "Leech op foarried"
+        },
+        "untitled_item": "Nammeleas item",
+        "attachments": {
+            "title": "Foto's en bestannen",
+            "add": "Triemmen tafoegje",
+            "empty": "Noch gjin bestannen tafoege.",
+            "form_desc": "Foegje itemfoto's, ûntfangsten, faktueren of tsjinstdokuminten ta.",
+            "detail_desc": "Foto's, ûntfangsten, faktueren en tsjinstbestannen opslein foar dit item.",
+            "upload_error": "Bestannen koene net opladen wurde.",
+            "delete_error": "Bestân koe net wisket wurde. Dit bestân wiskje? Fotos en ûntfangstôfbyldings opnimme Folsleine backup kin grutter wêze, mar itemfotos en ûntfangstôfbyldings kinne ek werstäl wurd.",
+            "delete_confirm": "Dizze triem wiskje?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Toan wachtwurd",
         "saving": "Besparje... •••••••• Underhâldskema Boadskippenlist",
         "disabled": "Utskeakele",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Ynzoome",
+        "zoom_out": "Utsjinne",
+        "reset": "Resette",
+        "print": "Printen",
+        "record_count": "{{count}} opnamen"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Jo sille werombringe wurde nei it oanmeldskerm en moatte opnij ynlogge om jo húshâldfoarsjenningen te behearjen.",
         "logout_warning": "Brûk dit as jo klear binne op in dielde of persoanlike apparaat.",
         "maintenance": "Underhâld Schedule",
-        "shopping": "Winkelje List"
+        "shopping": "Winkelje List",
+        "activity": "Aktiviteit",
+        "notifications": "Melding",
+        "service": "Tsjinst"
     },
     "dashboard": {
         "welcome": "Wolkom werom, <1>{{name}}</1>",
@@ -622,13 +638,14 @@
             "expired_desc": "Der binne {{count}} ferrinne items yn jo ynventaris. Kontrolearje se foar jo feiligens.",
             "view_items": "Sjoch Items",
             "maintenance_title": "Overtiid ûnderhâldtaken!",
-            "maintenance_desc": "Der binne {{count}} achterstallige ûnderhâldstaken. Doch ûnderhâld om de libbensdoer fan jo apparaten te ferlingjen. Gean nei Underhâld Leech foarrie warskôging {{count}} artikels binne ûnder jo minimale foarriegoad brûkt.",
+            "maintenance_desc": "Oerfalde taken: {{count}}.",
             "go_to_maintenance": "Gean nei Underhâld",
             "low_stock_title": "Leech talitstatuswaarskôging",
             "low_stock_desc": "{{count}} artikels binne ûnder jo minimale foarriedslimyt fallen.",
             "go_to_shopping": "Winkellist",
             "close_expiry_title": "Oankomende ferrintdata",
-            "close_expiry_desc": "{{count}} produkten sille binnen 30 dagen ferrinne."
+            "close_expiry_desc": "{{count}} produkten sille binnen 30 dagen ferrinne.",
+            "view_low_stock_items": "Sjoch leechfoarsjenning Untitled item Foto's en bestannen Tafoegje bestannen"
         }
     },
     "beta_banner": {
@@ -705,7 +722,7 @@
             "owner": "Eigner",
             "active": "Aktiv",
             "member_count": "{{count}} leden",
-            "item_count": "{{count}} items >>> Jo kinne lid wêze fan meardere hús en wikselje tusken harren. Elk húshâlding hâldt har eigen ynventaris. >>> Items >>> Feedback - {{brandName}}",
+            "item_count": "{{count}} artikels",
             "switch": "Meitsje Aktiv",
             "leave": "Ferlit Hûs",
             "info": "Jo kinne lid wêze fan meardere húshâldens en wikselje tusken harren. Elk húshâld hâldt syn eigen ynventaris bij.",
@@ -728,7 +745,7 @@
             "you": "(Jo)",
             "joined_at": "Taheakke: {{date, datetime}} Laden leden... Gjin oare leden oant no Gjin wachtsjende fersiken Eigner kontrôles beskikber Akseptearje Ofkeapje Fuortsmite",
             "no_members": "Gjin oare leden oant no",
-            "invite_title": "Ynnoade Famyljeleden Diel jo húskaai om famyljeleden tagong te jaan ta deselde ynventaris. Elk lid meldt him oan mei syn eigen akkount mar hat tagong ta deselde gegevens. Myn wachtsjende oanfrege om mei te dwaan Wachtsjend sûnt: {{date, datetime}} Wachtsjend Thema Kies hoe't de wurkromte derút sjocht op dit apparaat. Donkere Modus",
+            "invite_title": "Noedig Famyljeliden út",
             "invite_desc": "Diele jo húskaaien om famyljeleden tastân te jaan tagong ta deselde ynventaris. Elke lid logt yn mei har eigen akkount mar tagong ta deselde gegevens krije.",
             "active_members": "Aktive leden",
             "pending_requests": "Yn ôfwachting fan oanfragen",
@@ -766,7 +783,7 @@
             "transferring_owner": "Oerdrachjend...",
             "transfer_owner_title": "Hûseignerskip oerdrachtsje?",
             "transfer_owner_confirm": "Oerdracht fan it eigerskip fan dit húshâlding oan {{name}}?",
-            "transfer_owner_warning": "Do silst net langer de eigner fan dit hûshâlding wêze. De nije eigner sil lid-akkuraatsje, fuorthelingen en takomstige eignerskipswizigingen beheare. {{name}} is no de eigner fan dit hûshâlding. Feiligens en privacy Behear twa-faktor autentikaasje, fertroude apparaten, en regels foar lienfraach fan oare akkounts.",
+            "transfer_owner_warning": "Do silst net mear de eigner fan dit húshâlding wêze. De nije eigner sil lidgoedkarring, fuortheljen en takomstige eigendomskwikskes beheare.",
             "transfer_owner_success_body": "{{name}} is no de eigner fan dit húshâlding."
         },
         "theme": {
@@ -826,7 +843,7 @@
             "import_summary_body": "{{items}} items, {{categories}} kategoryen, {{rooms}} keamers, {{locations}} lokaasjes, {{borrows}} liene notysjes wersteld.",
             "import_summary_title": "Reservekopy wersteld",
             "preview_categories": "Kategoryen",
-            "preview_items": "Items {{count}} MB uploads © 2026 {{brandName}} {{brandName}} - {{status}}",
+            "preview_items": "Artikels",
             "preview_locations": "Lokaasjes",
             "preview_rooms": "Keamers",
             "skipped_borrows": "{{count}} besteande liene notysjes oerslein.",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} besteande lokaasjes oerslein.",
             "skipped_rooms": "{{count}} besteande keamers oerslein.",
             "owner_only_title": "Reservekopy en Herstel Beheind",
-            "owner_only_desc": "Data-backup en weromsette kin allinich beheard wurde troch de húseigner."
+            "owner_only_desc": "Data-backup en weromsette kin allinich beheard wurde troch de húseigner.",
+            "include_media_title": "Omfetsje foto's en ôfbyldings fan ûntfangst",
+            "include_media_body": "De folsleine reservekopy kin grutter wêze, mar itemfoto's en ûntfangstôfbyldings kinne ek wersteld wurde.",
+            "skipped_attachments": "{{count}} oanheechings waarden oerslein."
         },
         "about": {
             "title": "Oer Applikaasje",
@@ -908,7 +928,7 @@
             "disabled_success": "Twa-faktor-autentikaasje is útskeakele",
             "password_label": "Wachtwurd",
             "password_placeholder": "Fiert jo wachtwurd yn",
-            "method_totp": "Authenticator \"{{name}}\" makke! {{count}} items Jo kinne lid wêze fan meardere húshâldens en wikselje tusken harren. Elk húshâldhâld hâldt syn eigen ynventarisaasje by.",
+            "method_totp": "Authintisator",
             "method_backup": "Backup-koade",
             "method_recovery": "Recovery-kaai",
             "totp_code_label": "Authenticator-koade",
@@ -965,7 +985,7 @@
             "account": "Akkount",
             "houses": "Huizen",
             "security": "Feiligens",
-            "data": "Data \"{{name}}\" makke! {{count}} items Jo kinne lid wêze fan meardere húshâldens en wikselje tusken harren. Elk húshâlding hâldt syn eigen ynventarisaasje.",
+            "data": "Gegevens",
             "preferences": "Foarkarren",
             "about": "Oer"
         },
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Alle ynkommende fersiken wurde automatysk blokkeare.",
             "policy_house_only_desc": "Allinich ferifiearre leden fan jo aktive huzen kinne items oanfreegje dy't al sichtber binne binnen dat dield hûs.",
             "policy_everyone_desc": "Oare brûkers kinne net troch jo items blêdzje of se sjen. Se kinne allinich in fersyk stjoere troch jo brûkersnamme of e-post direkt yn te fieren."
+        },
+        "activity_log": {
+            "title": "Aktiviteit- en kontrôlelog",
+            "description": "Beoordeel de beskermde skiednis fan itemwizigingen, foarriedupdates, oanheechings en bulkaksjes.",
+            "encrypted_title": "Aktiviteitsrekken wurde beskermd opslein",
+            "encrypted_body": "Nije aktiviteitaksjes en details wurde kriptografysk opslein yn 'e database en wurde allinich ûntsletten foar jo aktive sesje."
         }
     },
     "inventory": {
@@ -1097,17 +1123,18 @@
             "no_history": "Dêr is noch gjin lienhistoarje foar dit item.",
             "lend_success_title": "Item liene",
             "lend_success_body": "{{item}} is no markearre as liene.",
-            "offer_sent_title": "Lieningoanbod tawiisd {{{item}}} sil as liene markearre wurde nei't it oare lid it aksepteart. Wachtsjen oant de lener befestiget dat se it weromkrigen hawwe. {{name}} markearre dit item as weromlevere. Befestigje ûntfangst om it rekôr te sluten.",
+            "offer_sent_title": "Liening oanbod ferstjoerd",
             "offer_sent_body": "{{item}} sil markearre wurde as liene nei't it oare lid it akseptearret.",
             "borrowed_by_you": "Mei dy",
             "return_pending_hint": "It rekord sil slute nei't de lener befêstiget dat se it item weromkrigen hawwe.",
             "return_pending_lender_title": "{{name}} markearre dit item as weromlevere",
             "return_pending_self_title": "Mei dy, wachtsjend op ûntfangstbefestiging",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Lid fan side",
+            "site_member_identifier": "Ynlognamme of e-mail",
+            "site_member_identifier_placeholder": "Presys ynlognamme of e-mail",
+            "site_member_privacy_hint": "It oanbod ferskynt allinich yn it Leechsintrum as dat akkount bestiet en ynkommende oanbiedingen tastiet.",
+            "external_privacy_hint": "Dit makket allinich in privaat lokaal rekord. Gjin app-notifikaasje wurdt ferstjoerd.",
+            "available": "Beskikber"
         },
         "untitled_item": "Untitled artikel",
         "delete_action": "Wiskje item",
@@ -1118,13 +1145,81 @@
         "delete_success_body": "It item waard fuorthelle út it aktive húsynventaris.",
         "view_mode": "Itemútlis",
         "grid_view": "Raster",
-        "list_view": "List Weigerje Oanfrege Jo steane op it punt om de oanfrege foar \"{{item}}\" te wegerjen. Jo steane op it punt om de fergune oanfrege te wegerjen dy't ferstjoerd is troch {{name}}.",
+        "list_view": "Listwerjefte",
         "loading_description": "Items, keamers en filters tarieden",
         "category_filter_label": "Filterje op kategory",
         "room_filter_label": "Filterje op keamer",
         "refreshing_results": "Artikelen wurde fernijd...",
         "empty_filter_title": "Gjin items wiene oerien mei dy syktocht",
-        "delete_error_title": "Wiskje mislearre"
+        "delete_error_title": "Wiskje mislearre",
+        "tools": {
+            "title": "Ark"
+        },
+        "no_room": "Gjin keamer Alle lokaasjes Filterje op lokaasje Filterje op sichtberens",
+        "all_locations": "Alle lokaasjes",
+        "location_filter_label": "Filterje op lokaasje",
+        "visibility_filter_label": "Filter op sichtberens",
+        "visibility_all": "Alle sichtberens",
+        "visibility_mine": "Myn artikels",
+        "visibility_others": "Oare leden",
+        "borrow_filter_label": "Filterje op liensteat",
+        "borrow_filter_all": "Alle skuldtensysjes",
+        "stock_filter_label": "Filterje op foarrêdstâns",
+        "stock_filter_all": "Alle foarrêdstâns",
+        "stock_filter_ok": "Foarrêst ok",
+        "expiry_filter_label": "Filterje op ferrin datum",
+        "expiry_filter_all": "Alle ferrin datums",
+        "expiry_filter_dated": "Hat datum",
+        "expiry_filter_none": "Gjin datum",
+        "warranty_filter_label": "Filterje op garânsje",
+        "warranty_filter_all": "Alle garânsjes",
+        "warranty_filter_expired": "Ferâldere garânsjes",
+        "warranty_filter_close": "Wol gau ôfrinne",
+        "warranty_filter_active": "Aktive garânsjes",
+        "warranty_filter_none": "Gjin garânsje ynformaasje",
+        "sort_label": "Sortearje",
+        "sort_updated_desc": "Koartlyn bywurke",
+        "sort_updated_asc": "Aldste bywurking",
+        "sort_created_desc": "Nijkste earst",
+        "sort_created_asc": "Aldste earst",
+        "sort_name_asc": "Namme A-Z",
+        "sort_name_desc": "Namme Z-A",
+        "sort_quantity_desc": "Hoemannichte heech nei leech",
+        "sort_quantity_asc": "Hoemannichte leech nei heech",
+        "sort_expiry_asc": "Ferfaldatum it fluchst",
+        "sort_expiry_desc": "Oan 'e ein fan' e tiid lêste",
+        "stock_increase": "Foegje foarried ta",
+        "stock_decrease": "Ferminderje foarried",
+        "stock_adjust_error": "Foarried koe net bywurke wurde.",
+        "bulk": {
+            "select_visible": "Selektearje sichtber",
+            "clear_visible": "Dekselektearje sichtber",
+            "selected_short": "selektearre",
+            "keep_category": "Behâlde kategory",
+            "keep_room": "Behâlde keamer",
+            "keep_location": "Behâlde lokaasje",
+            "keep_visibility": "Behâlde sichtberens",
+            "apply": "Tapasse",
+            "no_fields": "Kies op syn minst ien fjild foar de bulkaksje.",
+            "updated_title": "Bulk-update foltôge",
+            "updated_body": "{{count}} items bywurke. {{skipped}} oerslein.",
+            "update_error": "Bulk-update koe net foltôge wurde.",
+            "deleted_title": "Bulk-wiskjen foltôge",
+            "deleted_body": "{{count}} items wiskd. {{skipped}} oerslein.",
+            "delete_error": "Bulk-wiskjen koe net foltôge wurde.",
+            "delete_title": "Selektearre items wiskje?",
+            "delete_description": "{{count}} selektearre items wurde fuorthelle fan dizze húshâlding ynventaris. Dit kin net werommakke wurde.",
+            "select_item": "Item selektearje",
+            "unselect_item": "Item deselektearje"
+        },
+        "qr_labels": {
+            "title": "QR-tikkaetiketten",
+            "open": "Item-tikkaetiketten",
+            "description": "{{count}} item-tikkaetiketten binne klear as in printblêd.",
+            "empty": "Wizigje filters of foeegje ynventarlid-items ta om etiketten te printsjen.",
+            "sheet_label": "Item Etiketblêd",
+            "item_label": "Item Etiket"
+        }
     },
     "categories": {
         "title": "Kategoryen",
@@ -1311,7 +1406,7 @@
             "filtered_total": "{{count}} sichtbere akkounts",
             "total_platform": "{{count}} totaal akkounts",
             "empty_title": "Gjin oerienkommende akkounts",
-            "empty_body": "Besykje in oare sykjen of filter om brûkers werom yn sicht te bringen. Alle Aktive Ferneatige Behearders Gjin resinte systeemflaters {{date, datetime}} Status fan útgeande e-post",
+            "empty_body": "Besykje in oare sykjen of filter om brûkers wer sichtber te meitsjen.",
             "filters": {
                 "all": "Alle",
                 "active": "Aktyf",
@@ -1341,7 +1436,7 @@
             "no_logs": "noch gjin logs",
             "errors_title": "Systeem Flaters (Lêste 10)",
             "no_errors": "// Systeem sûn, gjin flaterlogs.",
-            "date_fmt": "{{datum, datetime}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "E-post Brûker Systeem Evenemint Stjoer Wiskje Bywurkje Oanmeitsje",
                 "user": "Brûker",
@@ -1467,7 +1562,7 @@
                 "private_items_chip": "{{count}} privee",
                 "system": "Systeem sûnens",
                 "system_body": "{{count}} oeren uptime",
-                "storage_chip": "{{count}} MB uploads"
+                "storage_chip": "{{count}} MB oan uploads"
             }
         },
         "meta": {
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Mesh ienheid",
-                    "meta": "TV-konsole • Deco M4",
+                    "meta": "TV-konsole • Network node",
                     "state": null
                 },
                 {
@@ -1841,7 +1936,7 @@
         "link_privacy_note": "It netwurkadres bliuwt hjir ferburgen. Scan de koade of kopiearje de link allinne as jo bewust direkt item tagong op jo lokale ynstellings diele wolle.",
         "helper": "Scan om dit item fuortendaliks iepen te meitsjen, of kopiearje de direkte link wannear nedich.",
         "copy_error_title": "Link koe net automatysk kopiearre wurde",
-        "copy_manual_help": "Jo blêder tastien gjin automatysk kopiearjen. De keppeling is selektearre sadat jo it hânmjittich kopiearje kinne. © 2026 {{brandName}} © 2026 {{brandName}} {{brandName}} - {{status}}",
+        "copy_manual_help": "Jo browser tastien gjin automatyske kopiearjen. De keppeling is selektearre sadat jo it hânmjittich kinne kopiearje.",
         "loading": "Tariede QR-gereedschappen..."
     },
     "house_access_pending": {
@@ -1902,7 +1997,7 @@
             ],
             "fallback": "De keppeling foar reset fan wachtwurd liket net kompleet of brutsen.",
             "support": "Registratieproblemen:",
-            "footer": "© 2026 {{brandName}} © 2026 {{brandName}} {{brandName}} - {{status}} © 2026 {{brandName}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
             "subject": "Wolkom by {{brandName}}",
@@ -1954,7 +2049,7 @@
             "warningTitle": "⚠️",
             "warningBody": "As der in akkount bestiet, is in wachtwurd weromsette keppeling jildich foar 15 minuten stjoerd.",
             "fallback": "De keppeling foar reset fan wachtwurd liket net kompleet of brutsen.",
-            "footer": "© 2026 {{brandName}} © 2026 {{brandName}} - {{supportEmail}} {{brandName}} Menu"
+            "footer": "© 2026 {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "Dizze e-post is ferstjoerd troch {{brandName}}.",
@@ -1967,8 +2062,8 @@
             "successBody": "As jo dizze e-mail krigen hawwe, is {{brandName}} e-mailferstjoering korrekt konfigurearre.",
             "sentAtLabel": "Stjoerd om",
             "senderLabel": "Stjoerder",
-            "serviceLabel": "Tsjinst © 2026 {{brandName}} © 2026 {{brandName}} © 2026 {{brandName}} - {{supportEmail}}",
-            "footer": "© 2026 {{brandName}} - {{supportEmail}} Scan QR"
+            "serviceLabel": "Tsjinst",
+            "footer": "© 2026 {{brandName}}"
         }
     },
     "vault": {
@@ -2053,7 +2148,7 @@
             "pending_removal": "De hjoeddeistige foto sil fuorthelle wurde as jo opslaan.",
             "viewer_hint": "Iepen fan it krypearre oarspronklik opslein yn Personal Vault.",
             "viewer_loading": "Foto yn undecodearjen...",
-            "viewer_failed": "It folsleine grutte foto koe net iepene wurde. Kies asjebleaft in stipe ôfbyldingsbestân. Boarnefoto's kinne oant {{maxSizeMb}} MB grut wêze. Data",
+            "viewer_failed": "It folsleine grutte foto koe net iepene wurde.",
             "open_full_action": "Folle grutte iepenje",
             "unsupported": "Kies asjebleaft in stipe ôfbyldingsbestân.",
             "source_too_large": "Boarnefoto's kinne oant {{maxSizeMb}} MB grut wêze.",
@@ -2081,7 +2176,7 @@
             "empty": "Der binne gjin aktive lienings op it stuit.",
             "borrowed_from": "Leend fan {{name}}",
             "lent_to": "Hjoed by {{name}}",
-            "return_pending_borrower": "Wachtsjend op de skuldein om te befestigjen dat se it wer ûntfongen hawwe. {{name}} markearre dit item as wer útlevere. Befestigje ûntfangst om it rekord te sluten. Item Hjoed mei: {{name}}",
+            "return_pending_borrower": "Wachtsjen op de lener om te befêstigjen dat se it werom krigen hawwe.",
             "return_pending_lender": "{{name}} hat dit item as weromlevere markearre. Befêstigje ûntfangst om it rekord te sluten.",
             "empty_title": "Gjin aktive lienings op it stuit",
             "empty_description": "Akseptearre oanfragen ferskine hjir as in item lien of lein wurdt, tegearre mei ferfaldata en weromjefte status."
@@ -2146,7 +2241,7 @@
             "return_title_lender": "Ontfange item",
             "return_subtitle_borrower": "Slút de aktive lening foar \"{{item}}\" nei't jo it weromjûn hawwe.",
             "return_subtitle_lender": "Slút de aktive lening foar \"{{item}}\" nei't jo it weromkregen hawwe.",
-            "return_target_borrower": "Jouwer: {{name}} Hjoed by: {{name}} Leveringsnota Oanbeljûzjenota",
+            "return_target_borrower": "Lener: {{name}}",
             "return_target_lender": "Hjoed by: {{name}}",
             "return_note_borrower": "Leveringsnota",
             "return_note_lender": "Oanfonstatus",
@@ -2155,7 +2250,7 @@
             "return_submitting": "Sluten...",
             "reject_title": "Oanfraach ôfkeapje",
             "reject_subtitle": "Jo steane op it punt om de oanfraach foar \"{{item}}\" ôf te keapjen.",
-            "reject_target": "Do bist oer it punt om it lienoanfragen fan {{name}} ôf te wizen. {{count}} MB uploads © 2026 {{brandName}} {{brandName}} - {{status}}",
+            "reject_target": "Do bist krekt dwaande mei it ôfwiisjen fan de liene-fersyk stjoerd troch {{name}}.",
             "reject_reason_label": "Ofwiisingsredenen",
             "reject_submitting": "Ofwize...",
             "due_date_label": "Plande weromkomstdatum"
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Leen sintrum koe net laden wurde",
             "action_error": "De aksje koe net foltôge wurde",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Dit aktive lienrecord koe net fûn wurde. Ferskuorje it Liensintrum en besykje it op nije.",
             "errors": {
                 "external_target_daily_limit": "Jo kinne mar ien earste kontakt ekstern fersyk nei deselde persoan per dei stjoere. As se in fersyk akseptearje, jildt dizze limyt net mear foar dy persoan.",
                 "external_total_daily_limit": "Jo kinne oant 5 earste kontakt eksterne fersiken per dei stjoere.",
@@ -2329,7 +2424,7 @@
         "name": "{{brandName}} Menu Scan QR",
         "tagline": "Behear al jo húshâldlike artikels tûk",
         "loading": "Laden {{brandName}}... wurkromte tariede... QR scannen... Markearje as foltôge",
-        "preparing_workspace": "Preparing your workspace..."
+        "preparing_workspace": "It tarieden fan jo wurkromte... Skannje QR Oanmarkeare as klear Aktiviteitshistoarje"
     },
     "nav": {
         "home": "Thús",
@@ -2357,7 +2452,7 @@
         "contact": "Kontakt"
     },
     "qr": {
-        "scan": "Scan QR",
+        "scan": "QR scanne",
         "generate": "Generearje QR",
         "share": "Diel QR"
     },
@@ -2390,7 +2485,7 @@
             "added_suggestion": "\"{{name}}\" tafoege oan winkel-list.",
             "bulk_added": "{{count}} items mei lege foarried tafoege oan de list.",
             "bulk_error": "Flater by it tafoegjen fan items mei lege foarried.",
-            "completed": "\"{{name}}\" oanjûn as foltôge.\"{{name}}\" werombrocht nei aktive list.\"Fout barde tidens bywurking.\"Item wiske fan list.",
+            "completed": "\"{{name}}\" markearre as foltôge.",
             "reactivated": "\"{{name}}\" werom brocht nei aktiven list.",
             "update_error": "Flater barde tidens bywurking.",
             "deleted": "Item fuortsmiten út 'e list.",
@@ -2405,7 +2500,7 @@
         },
         "suggestions": {
             "title": "Slimme Ynventarisaasje oanbefellingen",
-            "desc": "Ynventaryflakken dy't ûnder de minimale limyt fallen binne. Binne jo wis dat jo it perioadyske ûnderhâldsskema \"{{name}}\" wiskje wolle? Dizze aksje kin net weromdraaie wurde. Ferwiisde Flak Jo moatte earst in flak tafoegje oan it ynventary om ûnderhâld te plannen.",
+            "desc": "Ynventaarartikelen ûnder de minimale foarriedlimyt.",
             "add_all": "Foegje alle ferdwûne ta",
             "stock_status": "Hjoed: {{current}} / Doel: {{min}}",
             "add_qty": "Foegje {{qty}} ta"
@@ -2428,7 +2523,7 @@
         "actions": {
             "clear_completed": "Skjin skiednis",
             "add_item": "Tafoegje oan winkellist",
-            "mark_completed": "Mark as completed",
+            "mark_completed": "Markearje as foltôge",
             "decrease_qty": "Ferlies kwantiteit",
             "increase_qty": "Ferheegje kwantiteit",
             "delete_item": "Wiskje item",
@@ -2508,7 +2603,7 @@
             "perform_desc": "Wolsto \"{{name}}\" hjoed as foltôge registrearje?",
             "perform_confirm": "Ja, Foltôge",
             "perform_recurrence_info": "Dit is in perioadyske taak. As jo it opslaan, sil it systeem automatysk de folgjende ûnderhâldsdatum berekkenje.",
-            "delete_title": "Taak foar ûnderhâld wiskje? Binne jo wis dat jo it perioodike ûnderhâldsskema \"{{name}}\" wiskje wolle? Dizze aksje kin net werommakke wurde. Ferbûne objekt Jo moatte earst in item tafoegje oan it foarriedfoarsjenning foardat jo ûnderhâld plannen.",
+            "delete_title": "Soargje taak wiskje?",
             "delete_desc": "Binne jo wis dat jo it perioadyske ûnderhâldsskedule \"{{name}}\" wiskje wolle? Dizze aksje kin net weromdraaie wurde."
         },
         "form": {
@@ -2555,5 +2650,102 @@
         "description": "It ynterface tsjinne in ûnferwachte renderprobleem. Jo bewarre ynventardata wurdt net wizige troch dit skerm.",
         "refresh_btn": "Weromsette",
         "home_btn": "Thús"
+    },
+    "activity": {
+        "title": "Aktiviteit Skiednis",
+        "description": "Resinte beskermde wizigingen yn jo thúsynventaris. Gjin aktiviteit oant no Taheakke items, stockupdates, oanheakken, lieningen, en massahannelings sille hjir ferskine. Unbekende brûker",
+        "empty_title": "Noch gjin aktiviteit",
+        "empty_description": "Item feroarings, stock updates, taheaksels, lienen, en bulk aksjes sille ferskine hjir.",
+        "unknown_actor": "Unbekende brûker",
+        "deleted_item_with_id": "Fuorthelle item #{{id}}",
+        "item_missing": "Dit itemrekôr bestiet net mear",
+        "actions": {
+            "item_created": "Item tafoege",
+            "item_updated": "Item bywurke",
+            "item_deleted": "Artikel wisket",
+            "item_borrowed": "Artikel útlen",
+            "item_returned": "Artikel weromjûn",
+            "item_bulk_updated": "Bulkwurking",
+            "item_bulk_deleted": "Bulk wiskje",
+            "item_stock_adjusted": "Foarried bywurke",
+            "item_attachment_added": "Oanhangsel tafoege",
+            "item_attachment_deleted": "Oanhangsel wiskje"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} relatearre rekords",
+        "empty_title": "Gjin relatearre rekords fûn",
+        "low_stock": {
+            "title": "Leech foarraad",
+            "description": "Artikelen ûnder har minimale foarraadsnivo.",
+            "qty": "Oandiel {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Ferrin Items",
+            "description": "Items mei in ferrinne datum"
+        },
+        "expiring": {
+            "title": "Kommende ferrinne datums",
+            "description": "Itemen dy&#39;t oer 30 dagen ferrinne."
+        },
+        "maintenance": {
+            "title": "Oerfalle ûnderhâld",
+            "description": "Underhâldstaken dy't harren plande datum oerstreame."
+        }
+    },
+    "notifications": {
+        "title": "Notifikaasjesintrum",
+        "description": "Foarried, garânsje, ûnderhâld, ferrin en liene-werom alerts.",
+        "meta_total": "{{count}} notifikaasjes",
+        "meta_urgent": "{{count}} dringend",
+        "empty_title": "Gjin alerts fereaskje no jo oandacht",
+        "empty_desc": "Leech foarried, kommende datums, en achterstallich ûnderhâld sille hjir ferskine.",
+        "items": {
+            "stock_empty_title": "Útfoarried",
+            "stock_low_title": "Leech foarried",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Ferrin tiid ferrûn",
+            "expiry_close_title": "Ferljochtingsdatum komt tichterby",
+            "warranty_expired_title": "Garânsje ferrûn",
+            "warranty_close_title": "Garânsje einiget gau",
+            "maintenance_overdue_title": "Untfangen ûnderhâld",
+            "maintenance_close_title": "Underhâld gau fereaske",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Lening werom oerskeat",
+            "borrow_close_title": "Lening werom gau fereaske",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} dagen oer ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Tsjinst- en Garânsjesintrum",
+        "description": "Folgje garânsjes, ûnderhâldsskema's en tsjinstaksjes op ien plak",
+        "meta_warranty": "{{count}} garânsjerekken",
+        "meta_tasks": "{{count}} ûnderhâldstaken",
+        "empty_title": "Gjin tsjinst of garânsjeynsje",
+        "empty_desc": "Kommende garânsjedatums en ûnderhâldstaken sille hjir sammele wurde.",
+        "warranty_section": "Garânsjefolging",
+        "warranty_desc": "Ferlinge garânsjes en garânsjes dy't binnen 30 dagen einigje.",
+        "maintenance_section": "Onderhâldsaksjes",
+        "maintenance_desc": "Oerfâldige en kommende ûnderhâldstaken.",
+        "no_warranty": "Gjin kommende garânsjeaksje.",
+        "no_tasks": "Gjin skedulearre ûnderhâldstaak.",
+        "overdue": "Oer tiid Soon Ferlern Garânsje folch",
+        "upcoming": "Gau",
+        "expired": "Ferrûn",
+        "summary_warranty": "Garânsje tracking",
+        "summary_tasks": "Underhâldstaken",
+        "open_warranty_filter": "Oanfrege garânsjefilter",
+        "open_warranty_filter_desc": "Filtrearret aktive garânsje-items yn it foarried."
+    },
+    "storage_labels": {
+        "title": "Plank- en keamerlabels",
+        "description": "{{count}} keamer/skuorflabels binne klear as in printsje-blêd.",
+        "empty_title": "Gjin keamers of skuorren om te labeljen",
+        "empty_desc": "Foegje earst keamers of lokaasjes ta, en dan print hjir QR-labels.",
+        "sheet_label": "Lokaasje Label Blêd",
+        "scan_hint": "It scannen fan de QR-koade iepenet it filtrearre foarried foar dat keamer of planke.",
+        "room": "Keamer",
+        "location": "Planke/Doaze"
     }
 }

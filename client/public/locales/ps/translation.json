@@ -134,6 +134,17 @@
             "close_to_expiry": "د ختمیدو نېږدې",
             "expired": "ختم شوی",
             "low_stock": "ټیټ ذخیره"
+        },
+        "untitled_item": "بې سرلیک توکی",
+        "attachments": {
+            "title": "عکسونه او فایلونه",
+            "add": "فایلونه اضافه کړئ",
+            "empty": "لا تر اوسه هیڅ فایلونه اضافه شوي نه دي.",
+            "form_desc": "د توکي عکسونه، رسیدونه، رسیدونه، یا د خدمت اسناد ضمیمه کړئ.",
+            "detail_desc": "د دې توکي لپاره عکسونه، رسیدونه، رسیدونه او د خدمت فایلونه خوندي شوي.",
+            "upload_error": "فایلونه اپلوډ نشول.",
+            "delete_error": "د فایل له منځه وړل ممکن نه شو.",
+            "delete_confirm": "آیا دا فایل حذف کړو؟"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "پټنوم ښکاره کړئ",
         "saving": "په خوندي کولو...",
         "disabled": "معیوب",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "نږدې کول",
+        "zoom_out": "لرې کول",
+        "reset": "بیا تنظیمول",
+        "print": "چاپ کول",
+        "record_count": "{{count}} ریکارډونه"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "تاسو به د ننوتلو سکرین ته بیرته راستون شئ او اړتیا لرئ چې بیا ننوتل ترڅو د خپل کور د زیرمو مدیریت وکړئ.",
         "logout_warning": "دا د هغه وخت لپاره وکاروئ کله چې تاسو په شریک یا شخصي وسیله کې کار پای ته ورسوئ.",
         "maintenance": "د ساتنې مهالویش",
-        "shopping": "د خریداری لیست"
+        "shopping": "د خریداری لیست",
+        "activity": "فعالیت",
+        "notifications": "خبرتیاوې",
+        "service": "خدمت"
     },
     "dashboard": {
         "welcome": "ښه راغلاست، <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} توکي ستاسو د لږ تر لږه زېرمو حد څخه ښکته شوي دي.",
             "go_to_shopping": "د خرید لیست",
             "close_expiry_title": "راتلونکي د پای نیټې",
-            "close_expiry_desc": "{{count}} محصولات به د ۳۰ ورځو دننه پای ته ورسیږي."
+            "close_expiry_desc": "{{count}} محصولات به د ۳۰ ورځو دننه پای ته ورسیږي.",
+            "view_low_stock_items": "ټيټ ذخیره وګورئ"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "فعال د کور کیلي",
             "key_label": "د کور کیلي",
-            "mask_key": "•••••••{{لاحقه}}",
+            "mask_key": "•••••••{{suffix}}",
             "hide": "پټول",
             "show": "ښودل",
             "copy": "کاپي کول",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} موجود ځایونه پریښودل شوي.",
             "skipped_rooms": "{{count}} موجود خونې پریښودل شوي.",
             "owner_only_title": "بیک اپ او بیا رغاونه محدوده شوې",
-            "owner_only_desc": "د ډاټا بیک اپ او بیا رغونه یوازې د کور مالک لخوا اداره کیدی شي."
+            "owner_only_desc": "د ډاټا بیک اپ او بیا رغونه یوازې د کور مالک لخوا اداره کیدی شي.",
+            "include_media_title": "عکسونه او د رسید عکسونه شامل کړئ",
+            "include_media_body": "بشپړ بیک اپ ممکن لوی وي، مګر د توکو عکسونه او د رسید عکسونه هم بیرته ترلاسه کیدی شي.",
+            "skipped_attachments": "{{count}} ضمیمې له پامه غورځول شوې."
         },
         "about": {
             "title": "د غوښتنلیک په اړه",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "ټولې راتلونکې غوښتنې په اوتومات ډول بندېږی.",
             "policy_house_only_desc": "یوازې ستاسو د فعالو کورونو تصدیق شوي غړي کولی شي هغه توکي غوښتنه وکړي چې دمخه په هغه شریک کور کې لیدل کیږي.",
             "policy_everyone_desc": "نور کارونکي ستاسو توکي نه شي کتلی یا لیدلی. دوی یوازې د دې امکان لري چې د کارن نوم یا بریښنالیک په مستقیم ډول دننه کولو سره غوښتنه واستوي."
+        },
+        "activity_log": {
+            "title": "فعالیت او تفتیش ثبت",
+            "description": "د توکو د بدلونونو، سټاک تازه معلوماتو، ضمیمو، او ډله ییزو فعالیتونو محافظت شوې تاریخچه بیاکتنه کړئ.",
+            "encrypted_title": "د فعالیت ثبتونه په خوندي ډول زیرمه شوي",
+            "encrypted_body": "نوي فعالیتونه او جزئیات په ډیټابیس کې په کوډ شوي شکل کې ذخیره کیږي او یوازې ستاسو د فعال سیشن لپاره یې کوډ مات (ډی کرپټ) کیږي."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "دا ریکارډ به وروسته وتړل شي کله چې پور ورکوونکی تایید کړي چې توکي بیرته ترلاسه کړي.",
             "return_pending_lender_title": "{{name}} دا توکی د بیرته رسولو په توګه نښه کړ",
             "return_pending_self_title": "له تاسو سره، د رسید تایید ته په انتظار کې",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "د سایټ غړی",
+            "site_member_identifier": "د کارونکي نوم یا بریښنالیک",
+            "site_member_identifier_placeholder": "دقیق کارونکي نوم یا بریښنالیک",
+            "site_member_privacy_hint": "وړاندیز یوازې په پور اخیستلو مرکز کې څرګندیږي که هغه حساب شتون ولري او راتلونکي وړاندیزونه ومني.",
+            "external_privacy_hint": "دا یوازې محلي شخصي ریکارډ جوړوي. هیڅ اپلیکیشن خبرتیا نه لیږل کیږي.",
+            "available": "موجود"
         },
         "untitled_item": "بې نومه توکی",
         "delete_action": "توکي ړنګول",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "د خونې له مخې فلټر کړئ",
         "refreshing_results": "توکي تازه کول...",
         "empty_filter_title": "هیڅ توکي د دې لټون سره سمون نه لري",
-        "delete_error_title": "د حذفولو هڅه ناکامه شوه"
+        "delete_error_title": "د حذفولو هڅه ناکامه شوه",
+        "tools": {
+            "title": "وسایل"
+        },
+        "no_room": "هیڅ خونه نشته",
+        "all_locations": "ټول ځایونه",
+        "location_filter_label": "د ځای له مخې فلټر کړئ",
+        "visibility_filter_label": "د لید وړتیا له مخې فلټر کړئ",
+        "visibility_all": "ټول لید وړتیا",
+        "visibility_mine": "زما توکي",
+        "visibility_others": "نور غړي",
+        "borrow_filter_label": "د پور وضعیت له مخې فلټر کړئ",
+        "borrow_filter_all": "د ټولو پور وضعیتونه",
+        "stock_filter_label": "د سټاک وضعیت له مخې فلټر کول",
+        "stock_filter_all": "د ټولو سټاک وضعیتونه",
+        "stock_filter_ok": "سټاک سم دی",
+        "expiry_filter_label": "د پای نیټې له مخې فلټر کول",
+        "expiry_filter_all": "د ټولو پای نیټې",
+        "expiry_filter_dated": "نیټه لري",
+        "expiry_filter_none": "نیټه نشته",
+        "warranty_filter_label": "د تضمین له مخې فلټر کړئ",
+        "warranty_filter_all": "ټول تضمینونه",
+        "warranty_filter_expired": "پای ته رسېدلي تضمینونه",
+        "warranty_filter_close": "ژر ختمیدونکي",
+        "warranty_filter_active": "فعال تضمینونه",
+        "warranty_filter_none": "د تضمین معلومات نشته",
+        "sort_label": "ترتیب کړئ",
+        "sort_updated_desc": "تازه شوی وروستی",
+        "sort_updated_asc": "تر ټولو زاړه تازه معلومات",
+        "sort_created_desc": "تر ټولو نوي لومړی",
+        "sort_created_asc": "زاړه لومړی",
+        "sort_name_asc": "نوم A-Z",
+        "sort_name_desc": "نوم Z-A",
+        "sort_quantity_desc": "مقدار لوړ څخه ټیټ",
+        "sort_quantity_asc": "مقدار ټیټ څخه لوړ",
+        "sort_expiry_asc": "ژر ختمیدونکی",
+        "sort_expiry_desc": "وروستۍ نیټه پای ته رسېږي",
+        "stock_increase": "زیرمې زیاتې کړئ",
+        "stock_decrease": "زیرمې کمې کړئ",
+        "stock_adjust_error": "زیرمې نشي تازه کېدای.",
+        "bulk": {
+            "select_visible": "ښکاره کړئ غوره کړئ",
+            "clear_visible": "ښکاره مه کوئ غوره کړئ",
+            "selected_short": "غوره شوی",
+            "keep_category": "کټګورۍ وساتئ",
+            "keep_room": "خونې وساتئ",
+            "keep_location": "ځای وساتئ",
+            "keep_visibility": "لیدلوری وساتئ",
+            "apply": "پلي کړئ",
+            "no_fields": "د ګڼ شمېر عملیاتو لپاره لږترلږه یوه ساحه وټاکئ.",
+            "updated_title": "د ګڼ شمېر تازه کولو عمل بشپړ شو",
+            "updated_body": "{{count}} توکي تازه شول. {{skipped}} پاتې شول.",
+            "update_error": "ډله ییز تازه کول بشپړ نشو.",
+            "deleted_title": "ډله ییز حذف کول بشپړ شو",
+            "deleted_body": "{{count}} توکي حذف شول. {{skipped}} له پامه غورځول شول.",
+            "delete_error": "ډله ییز حذف کول بشپړ نه شو.",
+            "delete_title": "ټاکل شوي توکي حذف کړو؟",
+            "delete_description": "{{count}} ټاکل شوي توکي به د دې کورنۍ د توکو له فهرسته لرې شي. دا نه شي بیرته راوستلی.",
+            "select_item": "توکی وټاکه",
+            "unselect_item": "توکی غیر ټاکه"
+        },
+        "qr_labels": {
+            "title": "QR لیبلونه",
+            "open": "د توکو لیبلونه",
+            "description": "{{count}} د توکو لیبلونه د چاپ لپاره چمتو دي.",
+            "empty": "فلټرونه بدل کړئ یا د لیبلونو چاپ کولو لپاره د ذخیرې توکي اضافه کړئ.",
+            "sheet_label": "د توکو د لیبلونو پاڼه",
+            "item_label": "د توکي لیبل"
+        }
     },
     "categories": {
         "title": "کټګورۍ",
@@ -1341,7 +1436,7 @@
             "no_logs": "تر اوسه کوم ریکارډ نشته",
             "errors_title": "د سیسټم تېروتنې (وروستۍ ۱۰)",
             "no_errors": "// سیسټم روغ دی، هېڅ تېروتنې ثبت شوي نه دي.",
-            "date_fmt": "{{تاریخ، نیټه وخت}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "برېښنالیک",
                 "user": "کاروونکی",
@@ -1929,7 +2024,7 @@
             "bodyLine2": "د کور د مالک د تایید انتظار"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{د برانډ نوم}} - {{حالت}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "د کور لاسرسی",
             "bodyLine1Template": "اوسنی انتظار کې غوښتنه: {{house}} ({{status}})",
             "bodyLine2": "ستاسو غوښتنه د \"{{house}}\" لپاره لاهم د پریکړې په انتظار کې ده.",
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "د پور مرکز نشو بارېدلی",
             "action_error": "عملیه بشپړېدای نشوه",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "دا فعال پور اخیستونکی ثبت ونه موندل شو. د پور اخیستنې مرکز تازه کړئ او بیا هڅه وکړئ.",
             "errors": {
                 "external_target_daily_limit": "تاسو کولی شئ په یوه ورځ کې یوازې یو لومړني اړیکې بهرنی غوښتنه ورته شخص ته واستوئ. که دوی غوښتنه ومني، نو دا محدودیت نور د دې شخص لپاره نه تطبیقیږي.",
                 "external_total_daily_limit": "تاسو کولی شئ د ورځې په جریان کې تر ۵ لومړنیو اړیکو بهرني غوښتنې واستوئ.",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "د {{name}} د حساب مینو"
     },
     "app": {
-        "name": "{{د برانډ نوم}}",
+        "name": "{{brandName}}",
         "tagline": "خپل ټول کورنی توکی په هوښیارۍ سره مدیریت کړئ",
         "loading": "{{brandName}} بارول کېږی",
         "preparing_workspace": "ستاسو د کار ځای چمتو کول..."
@@ -2412,7 +2507,7 @@
         },
         "sections": {
             "active_list": "د شاملولو لپاره اوسني د خریدلو توکي ستاسو په کارت کې.",
-            "active_desc": "{{count}} توکي",
+            "active_desc": "د اوسني پیرود توکي چې ستاسو په ګاډۍ کې باید اضافه شي.",
             "active_count": "{{count}} توکي",
             "completed_list": "اخستل شوي توکي ({{count}})",
             "add_item": "توکي په لاسي توګه اضافه کړئ",
@@ -2555,5 +2650,102 @@
         "description": "انترفیس له یوه ناڅاپی رینډر ستونزه سره مخ شو. ستاسو ذخیره شوی ذخیره معلومات د دې سکرین له امله نه بدلیږی.",
         "refresh_btn": "تازه کول",
         "home_btn": "کور"
+    },
+    "activity": {
+        "title": "د فعالیت تاریخ",
+        "description": "په دې وروستیو کې ستاسو د کور د ذخیرې خوندي شوي بدلونونه.",
+        "empty_title": "تر اوسه کوم فعالیت نشته",
+        "empty_description": "د توکي بدلونونه، د ذخیرې تازه معلومات، ضمیمې، پور اخیستل، او ډله ییز کړنې دلته ښکاره کېږي.",
+        "unknown_actor": "نامعلوم کارن",
+        "deleted_item_with_id": "حذف شوی توکی #{{id}}",
+        "item_missing": "د دې توکي ریکارډ نور موجود نه دی",
+        "actions": {
+            "item_created": "توکی اضافه شو",
+            "item_updated": "توکي تازه شو",
+            "item_deleted": "توکي حذف شو",
+            "item_borrowed": "توکي پور ورکړل شو",
+            "item_returned": "توکي بېرته راوړل شو",
+            "item_bulk_updated": "ډله ییز تازه کول",
+            "item_bulk_deleted": "ډله ییز حذف کول",
+            "item_stock_adjusted": "سټاک تازه شو",
+            "item_attachment_added": "ضمیمه اضافه شوه",
+            "item_attachment_deleted": "ملحق حذف شو"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} اړوند ریکارډونه",
+        "empty_title": "هیڅ اړوند ریکارډ ونه موندل شو",
+        "low_stock": {
+            "title": "ټیټ سټاک",
+            "description": "توکي د دوی د لږ تر لږه سټاک کچې لاندې.",
+            "qty": "سټاک {{quantity}} / لږترلږه {{min}}"
+        },
+        "expired": {
+            "title": "د ختمیدو توکي",
+            "description": "توکي چې د ختمیدو نیټه لري."
+        },
+        "expiring": {
+            "title": "راتلونکې پای نیټې",
+            "description": "توکي چې د ۳۰ ورځو په موده کې ختمیږي."
+        },
+        "maintenance": {
+            "title": "تیر شوی ساتنه",
+            "description": "د ساتنې دندې چې د هغوی ټاکل شوې نیټې تیرې شوې دي."
+        }
+    },
+    "notifications": {
+        "title": "د خبرتیا مرکز",
+        "description": "د سټاک، تضمین، ساتنې، پای، او پور بیرته راستنیدو خبرتیاوې.",
+        "meta_total": "{{count}} خبرتیاوې",
+        "meta_urgent": "{{count}} عاجل",
+        "empty_title": "اوس مهال ستاسو پام ته کوم خبرتیاوې اړتیا نلري",
+        "empty_desc": "کم زېرمه، راتلونکي نیټې، او تېره شوې ساتنې به دلته ښکاره شي.",
+        "items": {
+            "stock_empty_title": "زېرمه ختمه شوې",
+            "stock_low_title": "کم زېرمه",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "د ختمېدو نېټه تېره شوې",
+            "expiry_close_title": "د ختمېدو نېټه نږدې ده",
+            "warranty_expired_title": "تضمین پای ته رسېدلی",
+            "warranty_close_title": "تضمین ډېر ژر ختمېږي",
+            "maintenance_overdue_title": "ساتنه ناوخته شوې",
+            "maintenance_close_title": "ساتنه ژر راتلونکې ده",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "پور بېرته ورکول ناوخته شوي",
+            "borrow_close_title": "پور بېرته ورکول ژر راتلونکې دي",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} ورځې پاتې دي ({{date}})"
+        }
+    },
+    "service": {
+        "title": "د خدمت او تضمین مرکز",
+        "description": "په یوه ځای کې د تضمینونو، ساتنې مهالویشونو، او خدماتو کړنې تعقیب کړئ.",
+        "meta_warranty": "{{count}} د تضمین ریکارډونه",
+        "meta_tasks": "{{count}} د ساتنې دندې",
+        "empty_title": "هیڅ خدمت یا ضامن فعالیت نشته",
+        "empty_desc": "راتلونکی د ضامن نیټې او د ساتنې دندې به دلته راټولې شي.",
+        "warranty_section": "د ضامن تعقیب",
+        "warranty_desc": "پای ته رسیدلي ضامنونه او هغه ضامنونه چې په ۳۰ ورځو کې پای ته رسیږي.",
+        "maintenance_section": "د ساتنې کړنې",
+        "maintenance_desc": "ناوخته او راتلونکې د ساتنې دندې.",
+        "no_warranty": "هیڅ راتلونکی د ضامن فعالیت نشته.",
+        "no_tasks": "هیڅ مهالویش شوی ساتنې دنده نشته.",
+        "overdue": "ناوخته شوی",
+        "upcoming": "ژر",
+        "expired": "موده تېره شوې",
+        "summary_warranty": "د تضمین تعقیب",
+        "summary_tasks": "د ساتنې دندې",
+        "open_warranty_filter": "د خلاص تضمین فلټر",
+        "open_warranty_filter_desc": "د موجودۍ په ذخیره کې فعال تضمین توکي فلټر کوي."
+    },
+    "storage_labels": {
+        "title": "د المارۍ او خونې لیبلونه",
+        "description": "{{count}} د خونې/المارۍ لیبلونه د چاپ لپاره چمتو دي.",
+        "empty_title": "د لیبل کولو لپاره خونې یا المارۍ نشته",
+        "empty_desc": "لومړی خونې یا ځایونه اضافه کړئ، بیا دلته QR لیبلونه چاپ کړئ.",
+        "sheet_label": "د ځای لیبل پاڼه",
+        "scan_hint": "د QR کوډ سکین کول د هغه خونې یا المارۍ فلټر شوی موجودي پرانیزي.",
+        "room": "خونه",
+        "location": "المارۍ/بکس"
     }
 }

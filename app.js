@@ -26,6 +26,8 @@ import vaultRoutes from './routes/vault.js';
 import borrowRequestsRoutes from './routes/borrowRequests.js';
 import maintenanceRoutes from './routes/maintenance.js';
 import shoppingRoutes from './routes/shopping.js';
+import activityRoutes from './routes/activity.js';
+import notificationsRoutes from './routes/notifications.js';
 import passport from 'passport';
 import { BRAND_NAME, SUPPORT_EMAIL } from './utils/branding.js';
 import { renderStartupSummary } from './utils/devConsole.js';
@@ -428,6 +430,8 @@ app.use('/api/vault', interactiveApiLimiter);
 app.use('/api/borrow-requests', interactiveApiLimiter);
 app.use('/api/maintenance', interactiveApiLimiter);
 app.use('/api/shopping', interactiveApiLimiter);
+app.use('/api/activity', interactiveApiLimiter);
+app.use('/api/notifications', interactiveApiLimiter);
 
 // API Routes
 app.use('/api/auth', authRoutes);
@@ -444,6 +448,8 @@ app.use('/api/vault', vaultRoutes);
 app.use('/api/borrow-requests', borrowRequestsRoutes);
 app.use('/api/maintenance', maintenanceRoutes);
 app.use('/api/shopping', shoppingRoutes);
+app.use('/api/activity', activityRoutes);
+app.use('/api/notifications', notificationsRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

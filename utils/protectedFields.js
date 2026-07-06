@@ -24,6 +24,7 @@ export const CATEGORY_NAME_PURPOSE = 'inventory.category.name';
 export const USERNAME_PURPOSE = 'identity.username';
 export const EMAIL_PURPOSE = 'identity.email';
 export const HOUSE_NAME_PURPOSE = 'inventory.house.name';
+export const ATTACHMENT_ORIGINAL_NAME_PURPOSE = 'inventory.attachment.original_name';
 
 function compareDisplayText(left, right) {
     return String(left || '').localeCompare(String(right || ''), undefined, {
@@ -261,6 +262,14 @@ export function encryptHouseName(value) {
 
 export function decryptHouseName(value) {
     return decryptFromStorage(value, { purpose: HOUSE_NAME_PURPOSE });
+}
+
+export function encryptAttachmentOriginalName(value) {
+    return encryptForStorage(value, { purpose: ATTACHMENT_ORIGINAL_NAME_PURPOSE });
+}
+
+export function decryptAttachmentOriginalName(value) {
+    return decryptFromStorage(value, { purpose: ATTACHMENT_ORIGINAL_NAME_PURPOSE });
 }
 
 export function decryptItemRecord(record) {

@@ -10,7 +10,7 @@
         "load_error": "ไม่สามารถโหลดสินค้าได้",
         "form": {
             "name": "ชื่อสินค้า",
-            "name_placeholder": "เช่น ทีวี Samsung 55 นิ้ว",
+            "name_placeholder": "เช่น ทีวี 55 นิ้ว",
             "required": "*",
             "description": "คำอธิบาย",
             "description_placeholder": "หมายเหตุเกี่ยวกับสินค้า...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "ใกล้หมดอายุ",
             "expired": "หมดอายุ",
             "low_stock": "สต็อกต่ำ"
+        },
+        "untitled_item": "รายการไม่มีชื่อ",
+        "attachments": {
+            "title": "รูปภาพและไฟล์",
+            "add": "เพิ่มไฟล์",
+            "empty": "ยังไม่มีการเพิ่มไฟล์",
+            "form_desc": "แนบรูปภาพรายการ ใบเสร็จ ใบแจ้งหนี้ หรือเอกสารบริการ",
+            "detail_desc": "รูปภาพ ใบเสร็จ ใบแจ้งหนี้ และไฟล์บริการถูกบันทึกสำหรับรายการนี้",
+            "upload_error": "ไม่สามารถอัปโหลดไฟล์ได้",
+            "delete_error": "ไม่สามารถลบไฟล์ได้",
+            "delete_confirm": "ต้องการลบไฟล์นี้หรือไม่?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "แสดงรหัสผ่าน",
         "saving": "กำลังบันทึก...",
         "disabled": "พิการ",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "ซูมเข้า",
+        "zoom_out": "ซูมออก",
+        "reset": "รีเซ็ต",
+        "print": "พิมพ์",
+        "record_count": "{{count}} ระเบียน"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "คุณจะถูกส่งกลับไปยังหน้าจอลงชื่อเข้าใช้และจำเป็นต้องลงชื่อเข้าใช้ใหม่เพื่อจัดการสินค้าคงคลังในบ้านของคุณ",
         "logout_warning": "ใช้นี้เมื่อคุณเสร็จสิ้นบนอุปกรณ์ที่ใช้ร่วมกันหรืออุปกรณ์ส่วนตัว",
         "maintenance": "ตารางบำรุงรักษา",
-        "shopping": "รายการซื้อของ"
+        "shopping": "รายการซื้อของ",
+        "activity": "กิจกรรม",
+        "notifications": "การแจ้งเตือน",
+        "service": "บริการ"
     },
     "dashboard": {
         "welcome": "ยินดีต้อนรับ, <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "มี {{count}} รายการที่ต่ำกว่าจำนวนสินค้าคงเหล่าขั้นต่ำของคุณ",
             "go_to_shopping": "รายการช้อปปิ้ง",
             "close_expiry_title": "วันหมดอายุที่ใกล้จะถึง",
-            "close_expiry_desc": "สินค้า {{count}} ชิ้นจะหมดอายุภายใน 30 วัน"
+            "close_expiry_desc": "สินค้า {{count}} ชิ้นจะหมดอายุภายใน 30 วัน",
+            "view_low_stock_items": "ดูสต็อกต่ำ"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "กุญแจบ้านปัจจุบัน",
             "key_label": "กุญแจบ้าน",
-            "mask_key": "••••••••{{คำต่อท้าย}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "ซ่อน",
             "show": "แสดง",
             "copy": "คัดลอก",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} สถานที่ที่มีอยู่ถูกข้ามไป.",
             "skipped_rooms": "{{count}} ห้องที่มีอยู่ถูกข้ามไป.",
             "owner_only_title": "สำรองและกู้คืนถูกจำกัด",
-            "owner_only_desc": "การสำรองและกู้คืนข้อมูลสามารถจัดการได้โดยเจ้าของบ้านเท่านั้น"
+            "owner_only_desc": "การสำรองและกู้คืนข้อมูลสามารถจัดการได้โดยเจ้าของบ้านเท่านั้น",
+            "include_media_title": "รวมรูปภาพและรูปใบเสร็จ",
+            "include_media_body": "การสำรองข้อมูลเต็มอาจมีขนาดใหญ่กว่า แต่สามารถกู้คืนรูปภาพของสินค้าและรูปใบเสร็จได้ด้วย",
+            "skipped_attachments": "ข้อมูลแนบ {{count}} รายการถูกข้าม"
         },
         "about": {
             "title": "เกี่ยวกับแอปพลิเคชัน",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "คําขอขาเข้าทั้งหมดจะถูกบล็อกโดยอัตโนมัติ",
             "policy_house_only_desc": "สมาชิกที่ได้รับการยืนยันเท่านั้นของบ้านที่คุณอยู่ปัจจุบันสามารถขอไอเท็มที่ปรากฏอยู่ภายในบ้านแชร์นั้นแล้ว",
             "policy_everyone_desc": "ผู้ใช้อื่นไม่สามารถเรียกดูหรือเห็นไอเท็มของคุณได้ พวกเขาสามารถส่งคำขอได้โดยการป้อนชื่อผู้ใช้หรืออีเมลของคุณโดยตรงเท่านั้น"
+        },
+        "activity_log": {
+            "title": "บันทึกกิจกรรมและการตรวจสอบ",
+            "description": "ตรวจสอบประวัติการเปลี่ยนแปลงของรายการ, การอัปเดตสต็อก, ข้อมูลแนบ, และการทำรายการเป็นกลุ่มที่ถูกป้องกัน",
+            "encrypted_title": "บันทึกกิจกรรมถูกจัดเก็บแบบป้องกัน",
+            "encrypted_body": "การกระทำและรายละเอียดกิจกรรมใหม่ถูกเก็บเข้ารหัสในฐานข้อมูลและจะถูกถอดรหัสเฉพาะสำหรับเซสชันที่ใช้งานของคุณ"
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "บันทึกจะปิดหลังจากผู้ให้กู้ยืนยันว่าพวกเขาได้รับรายการคืนแล้ว",
             "return_pending_lender_title": "{{name}} ทำเครื่องหมายว่าส่งรายการนี้กลับแล้ว",
             "return_pending_self_title": "อยู่กับคุณ รอการยืนยันใบเสร็จ",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "สมาชิกไซต์",
+            "site_member_identifier": "ชื่อผู้ใช้หรืออีเมล",
+            "site_member_identifier_placeholder": "ชื่อผู้ใช้หรืออีเมลที่แน่นอน",
+            "site_member_privacy_hint": "ข้อเสนอจะแสดงในศูนย์ยืมเท่านั้นหากบัญชีนั้นมีอยู่และอนุญาตให้รับข้อเสนอ",
+            "external_privacy_hint": "สิ่งนี้สร้างบันทึกภายในส่วนตัวเท่านั้น ไม่มีการส่งการแจ้งเตือนในแอป",
+            "available": "ใช้งานได้"
         },
         "untitled_item": "รายการไม่มีชื่อ",
         "delete_action": "ลบรายการ",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "กรองตามห้อง",
         "refreshing_results": "กำลังรีเฟรชรายการ...",
         "empty_filter_title": "ไม่มีรายการที่ตรงกับการค้นหานั้น",
-        "delete_error_title": "ลบไม่สำเร็จ"
+        "delete_error_title": "ลบไม่สำเร็จ",
+        "tools": {
+            "title": "เครื่องมือ"
+        },
+        "no_room": "ไม่มีห้อง",
+        "all_locations": "ทุกสถานที่",
+        "location_filter_label": "กรองตามสถานที่",
+        "visibility_filter_label": "กรองตามการมองเห็น",
+        "visibility_all": "ทุกการมองเห็น",
+        "visibility_mine": "ไอเท็มของฉัน",
+        "visibility_others": "สมาชิกคนอื่น",
+        "borrow_filter_label": "กรองตามสถานะการยืม",
+        "borrow_filter_all": "สถานะการยืมทั้งหมด",
+        "stock_filter_label": "กรองตามสถานะสต็อก",
+        "stock_filter_all": "สถานะสต็อกทั้งหมด",
+        "stock_filter_ok": "สต็อกโอเค",
+        "expiry_filter_label": "กรองตามวันหมดอายุ",
+        "expiry_filter_all": "วันหมดอายุทั้งหมด",
+        "expiry_filter_dated": "มีวัน",
+        "expiry_filter_none": "ไม่มีวัน",
+        "warranty_filter_label": "กรองตามการรับประกัน",
+        "warranty_filter_all": "การรับประกันทั้งหมด",
+        "warranty_filter_expired": "การรับประกันที่หมดอายุ",
+        "warranty_filter_close": "กำลังจะหมด",
+        "warranty_filter_active": "การรับประกันที่ใช้งานอยู่",
+        "warranty_filter_none": "ไม่มีข้อมูลการรับประกัน",
+        "sort_label": "จัดลำดับ",
+        "sort_updated_desc": "อัปเดตล่าสุด",
+        "sort_updated_asc": "อัปเดตเก่าสุด",
+        "sort_created_desc": "ใหม่ที่สุดก่อน",
+        "sort_created_asc": "เก่าสุดก่อน",
+        "sort_name_asc": "ชื่อ A-Z",
+        "sort_name_desc": "ชื่อ Z-A",
+        "sort_quantity_desc": "จำนวนมากไปน้อย",
+        "sort_quantity_asc": "จำนวนน้อยไปมาก",
+        "sort_expiry_asc": "ใกล้หมดอายุที่สุด",
+        "sort_expiry_desc": "หมดอายุล่าสุด",
+        "stock_increase": "เพิ่มสต็อก",
+        "stock_decrease": "ลดสต็อก",
+        "stock_adjust_error": "ไม่สามารถอัปเดตสต็อกได้",
+        "bulk": {
+            "select_visible": "เลือกที่มองเห็น",
+            "clear_visible": "ยกเลิกการเลือกที่มองเห็น",
+            "selected_short": "ที่เลือก",
+            "keep_category": "เก็บหมวดหมู่",
+            "keep_room": "เก็บห้อง",
+            "keep_location": "เก็บที่ตั้ง",
+            "keep_visibility": "เก็บการมองเห็น",
+            "apply": "ใช้",
+            "no_fields": "เลือกอย่างน้อยหนึ่งช่องสำหรับการดำเนินการแบบกลุ่ม",
+            "updated_title": "การปรับปรุงแบบกลุ่มเสร็จสมบูรณ์",
+            "updated_body": "ปรับปรุง {{count}} รายการแล้ว ข้าม {{skipped}} รายการ.",
+            "update_error": "ไม่สามารถทำการปรับปรุงเป็นกลุ่มได้",
+            "deleted_title": "การลบเป็นกลุ่มเสร็จสมบูรณ์",
+            "deleted_body": "ลบ {{count}} รายการแล้ว ข้าม {{skipped}} รายการ",
+            "delete_error": "ไม่สามารถทำการลบเป็นกลุ่มได้",
+            "delete_title": "ต้องการลบรายการที่เลือกหรือไม่?",
+            "delete_description": "รายการที่เลือก {{count}} รายการจะถูกลบออกจากคลังสินค้าครัวเรือนนี้ การดำเนินการนี้ไม่สามารถยกเลิกได้",
+            "select_item": "เลือกรายการ",
+            "unselect_item": "ยกเลิกรายการ"
+        },
+        "qr_labels": {
+            "title": "ป้าย QR",
+            "open": "ป้ายสินค้า",
+            "description": "ป้ายสินค้าจำนวน {{count}} พร้อมสำหรับการพิมพ์",
+            "empty": "เปลี่ยนตัวกรองหรือเพิ่มรายการสินค้าคงคลังเพื่อพิมพ์ป้าย",
+            "sheet_label": "แผ่นป้ายสินค้า",
+            "item_label": "ป้ายสินค้า"
+        }
     },
     "categories": {
         "title": "หมวดหมู่",
@@ -1341,7 +1436,7 @@
             "no_logs": "ยังไม่มีบันทึก",
             "errors_title": "ข้อผิดพลาดของระบบ (ล่าสุด 10 รายการ)",
             "no_errors": "// ระบบปกติ ไม่มีบันทึกข้อผิดพลาด",
-            "date_fmt": "{{วันที่, วันที่และเวลา}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "อีเมล",
                 "user": "ผู้ใช้",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "หน่วยตาข่าย",
-                    "meta": "โต๊ะทีวี • Deco M4",
+                    "meta": "โต๊ะทีวี • Network node",
                     "state": null
                 },
                 {
@@ -1929,7 +2024,7 @@
             "bodyLine2": "รอการอนุมัติจากเจ้าของบ้าน"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{ชื่อแบรนด์}} - {{สถานะ}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "การเข้าบ้าน",
             "bodyLine1Template": "คำขอที่รอดำเนินการปัจจุบัน: {{house}} ({{status}})",
             "bodyLine2": "คำขอของคุณสำหรับ \"{{house}}\" ยังคงรอการตัดสินใจ",
@@ -1968,7 +2063,7 @@
             "sentAtLabel": "ส่งเมื่อ",
             "senderLabel": "ผู้ส่ง",
             "serviceLabel": "บริการ",
-            "footer": "© 2026 {{ชื่อแบรนด์}}"
+            "footer": "© 2026 {{brandName}}"
         }
     },
     "vault": {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "ไม่สามารถโหลดศูนย์ยืมได้",
             "action_error": "ไม่สามารถดำเนินการนี้ให้เสร็จสิ้นได้",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "ไม่พบบันทึกการยืมที่ใช้งานนี้ รีเฟรชศูนย์การยืมแล้วลองอีกครั้ง",
             "errors": {
                 "external_target_daily_limit": "คุณสามารถส่งคำขอจากภายนอกเพื่อติดต่อครั้งแรกไปยังบุคคลเดียวกันได้เพียงครั้งเดียวต่อวัน หากพวกเขายอมรับคำขอ ข้อจำกัดนี้จะไม่ถูกนำมาใช้กับบุคคลนั้นอีก",
                 "external_total_daily_limit": "คุณสามารถส่งคำขอจากภายนอกเพื่อติดต่อครั้งแรกได้สูงสุด 5 ครั้งต่อวัน",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "เมนูบัญชีของ {{name}}"
     },
     "app": {
-        "name": "{{ชื่อแบรนด์}}",
+        "name": "{{brandName}}",
         "tagline": "จัดการสิ่งของในบ้านของคุณอย่างชาญฉลาด",
         "loading": "กําลังโหลด {{brandName}}",
         "preparing_workspace": "การเตรียมพื้นที่ทํางานของคุณ..."
@@ -2555,5 +2650,102 @@
         "description": "อินเทอร์เฟซประสบปัญหาการแสดงผลที่ไม่คาดคิด ข้อมูลสินค้าคงคลังที่บันทึกไว้ของคุณจะไม่เปลี่ยนแปลงโดยหน้าจอนี้",
         "refresh_btn": "รีเฟรช",
         "home_btn": "หน้าแรก"
+    },
+    "activity": {
+        "title": "ประวัติการทำกิจกรรม",
+        "description": "การเปลี่ยนแปลงที่ได้รับการป้องกันล่าสุดในสินค้าคงคลังที่บ้านของคุณ",
+        "empty_title": "ยังไม่มีการทำกิจกรรม",
+        "empty_description": "การเปลี่ยนแปลงรายการ, การปรับปรุงสต็อก, สิ่งที่แนบมาด้วย, การยืม, และการกระทำแบบจำนวนมากจะแสดงที่นี่",
+        "unknown_actor": "ผู้ใช้ที่ไม่ทราบ",
+        "deleted_item_with_id": "ลบรายการ #{{id}}",
+        "item_missing": "บันทึกรายการนี้ไม่มีอยู่แล้ว",
+        "actions": {
+            "item_created": "เพิ่มรายการ",
+            "item_updated": "อัปเดตไอเท็ม",
+            "item_deleted": "ลบไอเท็ม",
+            "item_borrowed": "ให้ยืมไอเท็ม",
+            "item_returned": "คืนไอเท็ม",
+            "item_bulk_updated": "อัปเดตครั้งใหญ่",
+            "item_bulk_deleted": "ลบครั้งใหญ่",
+            "item_stock_adjusted": "อัปเดตสต็อก",
+            "item_attachment_added": "เพิ่มไฟล์แนบ",
+            "item_attachment_deleted": "แนบถูกลบ"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} ระเบียนที่เกี่ยวข้อง",
+        "empty_title": "ไม่พบระเบียนที่เกี่ยวข้อง",
+        "low_stock": {
+            "title": "สินค้าคงคลังต่ำ",
+            "description": "สินค้าต่ำกว่าระดับสต็อกขั้นต่ำ",
+            "qty": "สต็อก {{quantity}} / ขั้นต่ำ {{min}}"
+        },
+        "expired": {
+            "title": "สินค้าหมดอายุ",
+            "description": "สินค้าที่มีวันหมดอายุ."
+        },
+        "expiring": {
+            "title": "วันหมดอายุกำลังจะมาถึง",
+            "description": "รายการที่หมดอายุภายใน 30 วัน"
+        },
+        "maintenance": {
+            "title": "งานบำรุงรักษาล่าช้า",
+            "description": "งานบำรุงรักษาที่เกินกำหนด"
+        }
+    },
+    "notifications": {
+        "title": "ศูนย์แจ้งเตือน",
+        "description": "การแจ้งเตือนเกี่ยวกับสต็อก การรับประกัน งานบำรุงรักษา วันหมดอายุ และการคืนยืม",
+        "meta_total": "{{count}} การแจ้งเตือน",
+        "meta_urgent": "{{count}} ด่วน",
+        "empty_title": "ไม่มีการแจ้งเตือนที่ต้องให้ความสนใจในตอนนี้",
+        "empty_desc": "สินค้าคงเหลือต่ำ วันที่ใกล้ถึง และการบำรุงรักษาที่ค้างจะแสดงที่นี่",
+        "items": {
+            "stock_empty_title": "ขาดสต็อก",
+            "stock_low_title": "สินค้าคงเหลือต่ำ",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "วันที่หมดอายุผ่านไปแล้ว",
+            "expiry_close_title": "วันที่หมดอายุใกล้เข้ามา",
+            "warranty_expired_title": "การรับประกันหมดอายุแล้ว",
+            "warranty_close_title": "การรับประกันจะหมดอายุเร็ว ๆ นี้",
+            "maintenance_overdue_title": "การบำรุงรักษาล่าช้า",
+            "maintenance_close_title": "การบำรุงรักษาใกล้ถึงกำหนด",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "การคืนยืมล่าช้า",
+            "borrow_close_title": "การคืนยืมใกล้ถึงกำหนด",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: เหลือ {{count}} วัน ({{date}})"
+        }
+    },
+    "service": {
+        "title": "ศูนย์บริการและรับประกัน",
+        "description": "ติดตามการรับประกัน ตารางการบำรุงรักษา และการดำเนินการบริการทั้งหมดในที่เดียว",
+        "meta_warranty": "{{count}} บันทึกการรับประกัน",
+        "meta_tasks": "{{count}} งานบำรุงรักษา",
+        "empty_title": "ไม่มีการบริการหรือการดำเนินการรับประกัน",
+        "empty_desc": "วันที่รับประกันและงานบำรุงรักษาที่จะมาถึงจะถูกรวบรวมไว้ที่นี่",
+        "warranty_section": "การติดตามการรับประกัน",
+        "warranty_desc": "การรับประกันที่หมดอายุและการรับประกันที่จะสิ้นสุดภายใน 30 วัน",
+        "maintenance_section": "การดำเนินการบำรุงรักษา",
+        "maintenance_desc": "งานบำรุงรักษาที่เกินกำหนดและงานบำรุงรักษาที่จะมาถึง",
+        "no_warranty": "ไม่มีการดำเนินการรับประกันที่จะมาถึง",
+        "no_tasks": "ไม่มีงานบำรุงรักษาที่กำหนด",
+        "overdue": "เกินกำหนด",
+        "upcoming": "เร็ว ๆ นี้",
+        "expired": "หมดอายุ",
+        "summary_warranty": "การติดตามการรับประกัน",
+        "summary_tasks": "งานบำรุงรักษา",
+        "open_warranty_filter": "เปิดตัวกรองการรับประกัน",
+        "open_warranty_filter_desc": "กรองสินค้าที่อยู่ภายใต้การรับประกันที่ใช้งานในสต็อก"
+    },
+    "storage_labels": {
+        "title": "ป้ายชั้นวางและป้ายห้อง",
+        "description": "{{count}} ป้ายห้อง/ชั้นวางพร้อมสำหรับแผ่นพิมพ์แล้ว",
+        "empty_title": "ไม่มีห้องหรือชั้นวางให้ติดป้าย",
+        "empty_desc": "เพิ่มห้องหรือสถานที่ก่อน จากนั้นพิมพ์ป้าย QR ที่นี่",
+        "sheet_label": "แผ่นป้ายสถานที่",
+        "scan_hint": "การสแกนรหัส QR จะเปิดสินค้าคงคลังที่กรองแล้วสำหรับห้องหรือชั้นวางนั้น",
+        "room": "ห้อง",
+        "location": "ชั้นวาง/กล่อง"
     }
 }

@@ -10,7 +10,7 @@
         "load_error": "Haikufanikiwa kupakia kipengee",
         "form": {
             "name": "Jina la Kipengee",
-            "name_placeholder": "mfano TV ya Samsung 55 inch",
+            "name_placeholder": "mfano TV ya 55 inch",
             "required": "*",
             "description": "Maelezo",
             "description_placeholder": "Maelezo kuhusu kipengee...",
@@ -41,7 +41,7 @@
             "search_google": "Tafuta kwenye Google",
             "barcode_saved": "✓ Nambari ya msalaba itahifadhiwa",
             "visibility": "Uwonekano wa Bidhaa",
-            "visibility_public": "Visible to all house members",
+            "visibility_public": "Unaonekana kwa wanachama wote wa nyumba",
             "visibility_private": "Unaonekana kwako tu",
             "submit_add": "Ongeza Bidhaa",
             "submit_save": "Hifadhi Mabadiliko",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Kuyandikira Tsiku Lotha",
             "expired": "Zatha Tsiku",
             "low_stock": "Katundu Wotsika"
+        },
+        "untitled_item": "Chinthu chopanda dzina",
+        "attachments": {
+            "title": "Zithunzi ndi mafayilo",
+            "add": "Onjezani mafayilo",
+            "empty": "Palibe mafayilo omwe adawonjezeredwabe.",
+            "form_desc": "Phatikizani zithunzi za chinthu, malisiti, ma invoice, kapena zikalata zautumiki.",
+            "detail_desc": "Zithunzi, malisiti, ma invoice, ndi mafayilo autumiki osungidwa pa chinthu ichi.",
+            "upload_error": "Mafayilo sanathe kukweza.",
+            "delete_error": "Fayilo sinathe kuchotsedwa.",
+            "delete_confirm": "Chotsani fayiloyi?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Onetsani mawu achinsinsi",
         "saving": "Kusunga...",
         "disabled": "Usatheketsa",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Kulitsani",
+        "zoom_out": "Kuwonjezera kunja",
+        "reset": "Bwezeretsani",
+        "print": "Sindikizani",
+        "record_count": "Zolemba za {{count}}"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Utarudishwa kwenye skrini ya kuingia na utahitaji kuingia tena ili kusimamia hesabu ya kaya yako.",
         "logout_warning": "Tumia hii unapomaliza kwenye kifaa cha pamoja au binafsi.",
         "maintenance": "Nthawi Yokonza",
-        "shopping": "Mndandanda wa Zogula"
+        "shopping": "Mndandanda wa Zogula",
+        "activity": "Ntchito",
+        "notifications": "Zidziwitso",
+        "service": "Utumiki"
     },
     "dashboard": {
         "welcome": "Welcome, <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "Zinthu {{count}} zatsika pansi pa malire a katundu wanu wocheperako.",
             "go_to_shopping": "Mndandanda wa Zogula",
             "close_expiry_title": "Masiku Otha Nthawi Yake Omwe Akubwera",
-            "close_expiry_desc": "Zinthu {{count}} zitha nthawi yake mkati mwa masiku 30."
+            "close_expiry_desc": "Zinthu {{count}} zitha nthawi yake mkati mwa masiku 30.",
+            "view_low_stock_items": "Onani Katundu Wotsika"
         }
     },
     "beta_banner": {
@@ -765,9 +782,9 @@
             "transfer_owner": "Pangani mwiniwake",
             "transferring_owner": "Kusamutsa...",
             "transfer_owner_title": "Kusamutsa nyumba umwini?",
-            "transfer_owner_confirm": "Kusamutsa umwini wa banja ili {{dzina}}?",
+            "transfer_owner_confirm": "Kusamutsa umwini wa banja ili {{name}}?",
             "transfer_owner_warning": "Simudzakhalanso mwini wa banja lino. Mwini watsopano adzasamalira zovomerezeka za mamembala, kuchotsa, ndi kusintha kwa umwini wamtsogolo.",
-            "transfer_owner_success_body": "{{NAME}} tsopano ndi mwini wa nyumbayi."
+            "transfer_owner_success_body": "{{name}} tsopano ndi mwini wa nyumbayi."
         },
         "theme": {
             "title": "Mandhari",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} malo omwe alipo adalumphidwa.",
             "skipped_rooms": "{{count}} zipinda zomwe zilipo zidalumphidwa.",
             "owner_only_title": "Zosunga zobwezeretsera ndi Kubwezeretsa Zoletsedwa",
-            "owner_only_desc": "Data kubwerera kamodzi ndi kubwezeretsa akhoza kokha ankalamulira ndi mwini nyumba."
+            "owner_only_desc": "Data kubwerera kamodzi ndi kubwezeretsa akhoza kokha ankalamulira ndi mwini nyumba.",
+            "include_media_title": "Phatikizani zithunzi ndi zithunzi zolandila",
+            "include_media_body": "Zosunga zobwezeretsera zonse zitha kukhala zazikulu, koma zithunzi zazinthu ndi zithunzi zolandila zitha kubwezeretsedwanso.",
+            "skipped_attachments": "{{count}} zomangira zinadumpha."
         },
         "about": {
             "title": "Zokhudza Kugwiritsa Ntchito",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Zopempha zonse zomwe zikubwera zimatsekedwa zokha.",
             "policy_house_only_desc": "Anthu okhawo omwe atsimikiziridwa m 'nyumba zanu zogwira ntchito amatha kupempha zinthu zomwe zikuwoneka kale mkati mwa nyumba yomwe mwagawana.",
             "policy_everyone_desc": "Ogwiritsa ntchito ena sangathe kusakatula kapena kuwona zinthu zanu. Iwo akhoza kungotumiza pempho mwa kulowa dzina lanu lolowera kapena imelo mwachindunji."
+        },
+        "activity_log": {
+            "title": "Ntchito ndi zolemba zowunikira",
+            "description": "Onani mbiri yotetezedwa ya kusintha kwa zinthu, zosintha za katundu, zowonjezera, ndi zochita zambiri.",
+            "encrypted_title": "Zolemba za ntchito zimasungidwa zotetezedwa",
+            "encrypted_body": "Zochita zatsopano za ntchito ndi tsatanetsatane zimasungidwa mwachinsinsi mu database ndipo zimangosungidwa pa gawo lanu logwira ntchito."
         }
     },
     "inventory": {
@@ -1107,7 +1133,8 @@
             "site_member_identifier": "Dzina la wogwiritsa ntchito kapena imelo",
             "site_member_identifier_placeholder": "Dzina lenileni kapena imelo",
             "site_member_privacy_hint": "Kupereka kumawonekera mu Ngongole Center pokhapokha ngati akauntiyo ilipo ndipo imalola zopereka zomwe zikubwera.",
-            "external_privacy_hint": "Izi zimapanga mbiri yachinsinsi yakomweko yokha. Palibe chidziwitso cha app chomwe chimatumizidwa."
+            "external_privacy_hint": "Izi zimapanga mbiri yachinsinsi yakomweko yokha. Palibe chidziwitso cha app chomwe chimatumizidwa.",
+            "available": "Kupezeka"
         },
         "untitled_item": "Kipengele kisicho na kichwa",
         "delete_action": "Futa kipengele",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Chujua kwa chumba",
         "refreshing_results": "Kurefresha vitu...",
         "empty_filter_title": "Hakuna vitu vilivyokidhi utafutaji huo",
-        "delete_error_title": "Chotsani analephera"
+        "delete_error_title": "Chotsani analephera",
+        "tools": {
+            "title": "Zida"
+        },
+        "no_room": "Palibe malo",
+        "all_locations": "Malo onse",
+        "location_filter_label": "Fyuluta ndi malo",
+        "visibility_filter_label": "Fyuluta ndi kuwonekera",
+        "visibility_all": "Kuwonekera konse",
+        "visibility_mine": "Zinthu zanga",
+        "visibility_others": "Mamembala ena",
+        "borrow_filter_label": "Fyuluta ndi udindo wobwereka",
+        "borrow_filter_all": "Maudindo onse obwereka",
+        "stock_filter_label": "Fyuluta ndi katundu udindo",
+        "stock_filter_all": "Maudindo onse a katundu",
+        "stock_filter_ok": "Stock chabwino",
+        "expiry_filter_label": "Fyuluta ndi tsiku lotha ntchito",
+        "expiry_filter_all": "Masiku onse otha ntchito",
+        "expiry_filter_dated": "Ali ndi tsiku",
+        "expiry_filter_none": "Palibe tsiku",
+        "warranty_filter_label": "Fyuluta ndi chitsimikizo",
+        "warranty_filter_all": "Zitsimikizo zonse",
+        "warranty_filter_expired": "Zitsimikizo zomwe zatha ntchito",
+        "warranty_filter_close": "Kutha posachedwa",
+        "warranty_filter_active": "Zitsimikizo zogwira ntchito",
+        "warranty_filter_none": "Palibe chidziwitso cha chitsimikizo",
+        "sort_label": "Mtundu",
+        "sort_updated_desc": "Kusinthidwa posachedwa",
+        "sort_updated_asc": "Zosintha zakale kwambiri",
+        "sort_created_desc": "Choyamba chatsopano",
+        "sort_created_asc": "Wamkulu kwambiri woyamba",
+        "sort_name_asc": "Dzina A-Z",
+        "sort_name_desc": "Dzina Z-A",
+        "sort_quantity_desc": "Kuchuluka kwa mkulu mpaka wotsika",
+        "sort_quantity_asc": "Kuchuluka kotsika mpaka mkulu",
+        "sort_expiry_asc": "Kutha posachedwa",
+        "sort_expiry_desc": "Kutha kwaposachedwa",
+        "stock_increase": "Onjezerani katundu",
+        "stock_decrease": "Kuchepetsa katundu",
+        "stock_adjust_error": "Stock sinathe kusinthidwa.",
+        "bulk": {
+            "select_visible": "Sankhani zowoneka bwino",
+            "clear_visible": "Osasankha zowoneka bwino",
+            "selected_short": "Osankhidwa",
+            "keep_category": "Sungani gulu",
+            "keep_room": "Sungani malo",
+            "keep_location": "Sungani malo",
+            "keep_visibility": "Sungani kuwonekera",
+            "apply": "Gwiritsani ntchito",
+            "no_fields": "Sankhani gawo limodzi kuti mukhale ndi zochita zambiri.",
+            "updated_title": "Zosintha zambiri zathunthu",
+            "updated_body": "{{count}} zinthu zosinthidwa. {{skipped}} skipped.",
+            "update_error": "Kusintha kwakukulu sikunathe kumalizidwa.",
+            "deleted_title": "Chotsani chochuluka chokwanira",
+            "deleted_body": "{{count}} zinthu zachotsedwa. {{skipped}} skipped.",
+            "delete_error": "Kuchotsa kwakukulu sikunathe.",
+            "delete_title": "Chotsani zinthu zosankhidwa?",
+            "delete_description": "{{count}} zinthu zosankhidwa zidzachotsedwa pamndandanda wabanjawu. Izi sizingatheke kuchotsedwa.",
+            "select_item": "Sankhani chinthu",
+            "unselect_item": "Chosankha chinthu"
+        },
+        "qr_labels": {
+            "title": "Zolemba za QR",
+            "open": "Zolemba za Item",
+            "description": "{{count}} zolemba zazinthu ndizokonzeka ngati pepala losindikiza.",
+            "empty": "Sinthani zosefera kapena onjezerani zinthu zowonongeka kuti musindikize zolemba.",
+            "sheet_label": "Tsamba la zilembo za zinthu",
+            "item_label": "Chizindikiro cha Item"
+        }
     },
     "categories": {
         "title": "Makundi",
@@ -1341,7 +1436,7 @@
             "no_logs": "hakuna rekodi bado",
             "errors_title": "Makosa ya Mfumo (10 ya Mwisho)",
             "no_errors": "// Mfumo uko afya, hakuna rekodi za makosa.",
-            "date_fmt": "{{tarehe, muda}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "Barua pepe",
                 "user": "Mtumiaji",
@@ -1508,7 +1603,7 @@
         "hero": {
             "title_1": "Dhibiti Kila Kitu",
             "title_2": "Ndani ya Nyumba Yako!",
-            "description": "Digitize your home inventory. Categorize items, invite family, and access from anywhere. Modern, secure, and easy to use.",
+            "description": "Digitalisha hesabu ya nyumba yako. Panga vitu kwa makundi, mkaribishe familia, na pata kutoka mahali popote. Kisasa, salama, na rahisi kutumia.",
             "cta_start": "Get Started",
             "cta_register": "Unda Akaunti",
             "stat_free": "Bure",
@@ -1556,7 +1651,7 @@
             "button": "Ingia"
         },
         "footer": {
-            "desc": "The easy and secure platform to digitize your home inventory.",
+            "desc": "Jukwaa rahisi na salama la kuweka dijiti hesabu ya nyumba yako.",
             "links": "Viungo vya Haraka",
             "contact": "Wasiliana Nasi",
             "copyright": "© {{year}} {{brandName}}. Haki zote zimehifadhiwa."
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Kitengo cha mesh",
-                    "meta": "Kwenyewe cha TV • Deco M4",
+                    "meta": "Kwenyewe cha TV • Network node",
                     "state": null
                 },
                 {
@@ -1902,7 +1997,7 @@
             ],
             "fallback": "Kiungo cha kurekebisha nywila kinaonekana hakikamiliki au kimevunjika.",
             "support": "Masuala ya Usajili:",
-            "footer": "© 2026 {{BrandName}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
             "subject": "Karibu kwenye {{brandName}}",
@@ -1920,7 +2015,7 @@
                 "💡 Unaweza kuwa mwanachama wa nyumba nyingi na kubadilisha kati ya hizo. Kila nyumba inaendelea na hesabu tofauti."
             ],
             "support": "Masuala ya Usajili:",
-            "footer": "© 2026 {{BrandName}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Jiunge na Nyumba",
@@ -1929,7 +2024,7 @@
             "bodyLine2": "Kusubiri idhini kutoka kwa mmiliki wa nyumba"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{BrandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Ufikiaji wa Nyumba",
             "bodyLine1Template": "Ombi linalosubiri kwa sasa: {{house}} ({{status}})",
             "bodyLine2": "Ombi lako la \"{{house}}\" bado linangojea uamuzi.",
@@ -1954,11 +2049,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Ikiwa akaunti ipo, kiungo cha kuweka upya neno la siri kilicho halali kwa dakika 15 kimepelekwa.",
             "fallback": "Kiungo cha kurekebisha nywila kinaonekana hakikamiliki au kimevunjika.",
-            "footer": "© 2026 {{BrandName}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "Barua pepe hii imetumwa na {{brandName}}.",
-            "footer": "© 2026 {{BrandName}} - {{SupportEmail}}"
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         },
         "testEmail": {
             "subject": "🧪 Jaribio la Barua Pepe la {{brandName}}",
@@ -1968,7 +2063,7 @@
             "sentAtLabel": "Imetumwa saa",
             "senderLabel": "Mtumaji",
             "serviceLabel": "Huduma",
-            "footer": "© 2026 {{BrandName}}"
+            "footer": "© 2026 {{brandName}}"
         }
     },
     "vault": {
@@ -2035,7 +2130,7 @@
             "passphrase_number": "Phatikizanipo nambala imodzi.",
             "passphrase_uppercase": "Phatikizani zilembo zazikulu imodzi."
         },
-        "recovery_file_title": "{{BrandName}} Personal Vault Kusangalala Ofunika",
+        "recovery_file_title": "{{brandName}} Personal Vault Kusangalala Ofunika",
         "recovery_file_created_label": "Yapangidwa",
         "recovery_file_key_label": "Recovery key",
         "recovery_file_warning": "Ngati mutataya kiyi iyi komanso vault passphrase yanu, vault singabwezeretsedwe.",
@@ -2193,7 +2288,7 @@
         "terms_of_service_title": "Masharti ya Huduma",
         "privacy_policy_content": "## Mwachidule\n**{{brandName}}** ndi mapulogalamu apakompyuta otsegula ndipo atha kuperekedwa kudzera mwa ovomerezeka kapena okhazikitsa okha. Pakukhazikitsa uku, wowongolera data kapena wogwiritsa ntchito ndi **{{controllerName}}**.\n- **Adilesi yowongolera:** {{controllerAddress}}\n- **Kulumikizana pazinsinsi:** {{privacyEmail}}\n- **Kulumikizana nawo pafupipafupi:** {{supportEmail}}\n\nChidziwitsochi chikufotokozera ** zomwe deta yaumwini imakonzedwa **, **momwe imapezedwa **, ** chifukwa chiyani imakonzedwa **, ** ndani angalandire **, ** yomwe imasungidwa kwa nthawi yayitali bwanji **, ndi ** maufulu omwe mungakhale nawo **.\n\nNgati kuyikaku kumayendetsedwa ndi munthu wina, wogwiritsa ntchitoyo ndiye kuti ali ndi udindo wodziwitsa wolamulira wina aliyense, zomwe akuyenera kuchita, kusamutsa zambiri, zosunga zobwezeretsera, ndi zidziwitso zamalamulo zakuderalo zomwe zikugwira ntchito.\n\n## Zomwe timasonkhanitsa ndikukonza\n- **Zidziwitso zaakaunti:** lolowera, imelo adilesi, mawu achinsinsi, makeke agawo, data yodalirika yazida, ndi zolemba zachitetezo.\n- **Zidziwitso zautumiki: ** nyumba, zipinda, magulu, zinthu, media zokwezedwa, zopempha zobwereketsa, ndi zolemba zanu zomwe mumapanga.\n- **Zaukadaulo:** adilesi ya IP, zozindikiritsa msakatuli/gawo, ndi zokonda zachilankhulo zomwe zimafunikira kuti mumasulidwe komanso chitetezo cha akaunti.\n- **Zida zomwe simukuzikonda:** mukasankha Google Sign-In, Google imagawana nafe imelo adilesi yanu, chizindikiritso cha akaunti ya Google, ndi dzina lowonetsa mbiri yanu kuti tikutsimikizireni kapena kupanga akaunti yanu.\n- **Pempho losasankha:** ngati mugwiritsa ntchito barcode kapena kuyang'ana zinthu, mtengo wa barcode womwe mwatumiza ukhoza kutumizidwa ndi seva yathu ku Open Food Facts, Open Products Facts, Open Beauty Facts, kapena Google kuti zotsatira zomwe mwapempha zibwezedwe.\n\n## Momwe timapezera deta\n- ** Mwachindunji kuchokera kwa inu: ** mukalembetsa, kulowa, kupanga kapena kusintha ma rekodi, kukweza media, sinthani zosintha zachitetezo, kapena kulumikizana ndi chithandizo.\n- **Zokha kuchokera pa msakatuli wanu kapena chipangizo chanu:** kudzera m'makuke agawo omwe amafunikira, makina odalirika azipangizo, kugwiritsa ntchito IP, zokonda zachilankhulo, ndi zolemba zachitetezo zofunika kuti mugwiritse ntchito ndikuteteza pulogalamuyi.\n- **Kuchokera ku Google:** pokhapokha mutasankha Google Sign-In, zokhazo zomwe zimafunikira kukutsimikizirani kapena kupanga akaunti yanu.\n- **Kuchokera kuzinthu zakunja:** pokhapokha mutayambitsa barcode kapena kuyang'ana kwazinthu, zochepera pa pempho loyang'ana ndikubweza metadata yazinthu.\n\n## Chifukwa chiyani timachikonza\n- **Kugwiritsa ntchito Akaunti: ** kuti mupange ndikugwiritsa ntchito akaunti yanu.\n- **Kutsimikizika ndi chitetezo:** kukutsimikizirani ndikuteteza magawo ndi kutsimikizika kwazinthu ziwiri.\n- ** Zoyambira: ** kuti mupereke zosungira, zosunga zobwezeretsera, ndi mawonekedwe a Personal Vault.\n- **Thandizo: ** kuyankha zopempha zothandizira.\n- **Zosankha zolowera ndi kuyang'ana:** kuti mumalize Kulowa mu Google ndikuyang'ana kunja kwa barcode/chinthu pokhapokha mwasankha izi.\n- **Zofunikira pazamalamulo ndi chitetezo:** kukwaniritsa zofunikira pazamalamulo kapena zachitetezo.\n\n## Maziko ovomerezeka ndi njira yotolera\n- **Pansi pa GDPR, ngati kuli koyenera:** kukonza kumatengera magwiridwe antchito a kontrakitala, udindo wazamalamulo, kuvomereza chilichonse chogwirizana ndi chilolezo, komanso chidwi chovomerezeka cha wogwiritsa ntchito pa ntchito ndi chitetezo cha akaunti.\n- **Pansi pa KVKK, ngati kuli koyenera:** kukonza kumakhazikitsidwa pazifukwa zamalamulo mu Ndime 5 ndi 6, kuphatikiza ngati kuli kofunikira pakukhazikitsa kapena kuchita mgwirizano, kutsata malamulo, kugwiritsa ntchito kapena kuteteza ufulu, kapena zokomera zovomerezeka za woyang'anira malinga ngati ufulu wanu wofunikira ndi ufulu wanu sizikuvulazidwa.\n- **Njira yosonkhanitsira:** data imasonkhanitsidwa ndi njira zamagetsi kudzera m'mafomu, magawo ovomerezeka, makeke ofunikira, ma OAuth osasankha, logi la mapulogalamu, zokwezedwa, ndi zopempha za API.\n\n## Kusunga ndi kusamutsa\n- **Sitigulitsa zaumwini.**\n- Zambiri zamunthu zitha kulandiridwa ndi omwe akuchititsa, nkhokwe, kusungirako, imelo, kutsimikizika, ndi omwe amapereka zida zomwe zimagwiritsidwa ntchito pokhazikitsa izi.\n- Mukasankha Google Sign-In kapena barcode/kufufuza zinthu, kutsimikizika koyenera kapena kufufuza komwe kumagawidwa ndi omwe mwamusankha kuti mumalize zomwe mwayambitsa.\n- Zambiri zitha kuwululidwa ku makhothi, oyang'anira, kapena akuluakulu aboma pakafunidwa mwalamulo.\n- **Kuwulura kwakusamutsa pakukhazikitsa uku:** {{transferDisclosure}}\n- Zambiri za akaunti zimasungidwa pomwe akaunti yanu ikugwira ntchito.\n- Mukachotsa akaunti yanu pa Zochunira, data ya akaunti yanu, zomwe zili m'malo osungiramo zinthu zakale, media zomwe zidakwezedwa, ndi zolemba zamapulogalamu a akaunti yanu zimachotsedwa pa pulogalamuyo mosachedwetsa, kupatula zidziwitso zomwe ziyenera kusungidwa pamilandu, ntchito zamalamulo, kapena chitetezo.\n\n##Ufulu wanu\n- Kutengera ndi lamulo lomwe likugwiritsidwa ntchito, mutha kupempha chitsimikiziro ngati chidziwitso chanu chasinthidwa, kuyipeza, komanso chidziwitso chokhudza zolinga, magulu, olandila, ndi kusamutsidwa.\n- Mutha kupempha kukonzedwanso, kufufutidwa, kuwonongedwa, kuletsa, kapena kutsutsa, komanso ngati kuli koyenera kusanja deta.\n- Kumene kukonza kumatengera chilolezo, mutha kuchotsa chilolezo nthawi iliyonse popanda kukhudza kukonzedwa kovomerezeka.\n- Mutha kupempha kuti kuwongolera, kufufutidwa, kapena kuwononga zotsatira zidziwitsidwe kwa olandira kumene lamulo likufuna izi.\n- Mutha kutsutsa zotsatira zomwe zapangidwa ndi njira zokha ngati lamulo likupatsani ufulu umenewo.\n- Kumene kumaloledwa ndi lamulo, mutha kufunafuna chipukuta misozi chifukwa cha kuwonongeka komwe kunabwera chifukwa chochita zinthu mosaloledwa.\n- Mutha kudandaula ku **{{complaintAuthority}}**\n\n## Momwe mungagwiritsire ntchito maufulu\n- Gwiritsani ntchito njira yochotsa akaunti ya mkati mwa pulogalamu kapena kulumikizana ndi **{{privacyEmail}}** pazofunsira zachinsinsi.\n- Kumene GDPR ikugwira ntchito, zopempha ziyenera kuyankhidwa popanda kuchedwa ndipo makamaka mkati mwa mwezi wa 1 pambuyo potsimikiziridwa.\n\n## Kupanga zisankho zokha\n- Pulogalamuyi sigwiritsa ntchito kupanga zisankho zokha zokha kapena mbiri yomwe imakhala ndi zovuta zamalamulo kapenanso chimodzimodzi pa inu.\n\n##Chidziwitso chofunikira\nChidziwitsochi chaperekedwa kuti chiwonekere. **Ndizosiyana ndi kutsatsa kulikonse, kusanthula, kapena chilolezo chosafunikira cha cookie **, chomwe chiyenera kupemphedwa padera pakafunika.\n\nOyang'anira mapulojekiti otseguka omwe ali pamwamba pawo samangoyang'anira deta kapena purosesa ya anthu ena omwe adzipangira okha.",
         "terms_of_service_content": "Terms of Service\n\n1. Mwachidule\n{{brandName}} ndi mapulogalamu otsegula ndipo atha kugwiritsidwa ntchito kudzera m'malo ovomerezeka kapena odzipangira okha. Mawu awa akugwira ntchito pa kukhazikitsa komwe mukugwiritsa ntchito.\n- Ngati kuyikaku kumayendetsedwa ndi munthu wina, wogwiritsa ntchitoyo atha kuwonjezera mawuwa ndi malamulo okhudzana ndi kutumiza, malonjezano othandizira, kapena zidziwitso zamalamulo am'deralo.\n\n2. Malamulo Ogwiritsa Ntchito\n- Muli ndi udindo pa zovomerezeka, zolondola, komanso umwini wa zomwe mumayika muutumiki.\n- Kupezeka kwa pulogalamuyo sikumakupatsani ufulu wotsitsa, kusunga, kapena kugawana zomwe simunaloledwa kugwiritsa ntchito.\n- Titha kuyimitsa kapena kuchotsa maakaunti omwe amagwiritsa ntchito molakwika ntchito, kuphwanya mfundozi, kapena kupanga chiwopsezo chachitetezo kapena mwalamulo.\n\n3. Chitetezo cha Akaunti\n- Sungani mawu achinsinsi anu, zida zobwezeretsa, ndi zosunga zobwezeretsera zotetezedwa.\n\n4. Data Lifecycle\n- Sungani zosunga zobwezeretsera zanu zazidziwitso zofunika.\n- Kuchotsa akaunti yanu pa Zikhazikiko kumachotseratu zonse za pulogalamuyo ndi media zomwe zidakwezedwa za akaunti yanu ndipo sizingasinthe.\n\n5. Zochepa ndi Chodzikanira\n- Kupezeka, chithandizo, kuphatikizika, ndi nthawi zoyankhira zimadalira wogwiritsa ntchito kukhazikitsa uku.\n- Ntchitoyi imaperekedwa \"monga momwe iliri\" komanso \"monga momwe ilipo\" malinga ndi momwe lamulo limavomerezera.",
-        "register_consent": "Unikaninso zikalata zamalamulo",
+        "register_consent": "Ndikuvomereza <1>Migwirizano ya Utumiki</1> ndikuvomereza kuti ndawerenga <2>Chidziwitso Chachinsinsi</2>.",
         "consent_title": "Chonde tsimikizirani zomwe zilipo musanapitilize.",
         "consent_subtitle": "Tikufuna chivomerezo chojambulidwa cha Migwirizano Yantchito ndi Zinsinsi zapano musanapitilize kugwiritsa ntchito pulogalamuyi.",
         "consent_notice": "Ndikuvomereza Migwirizano Yantchito ndikutsimikizira kuti ndawerenga Chidziwitso Chazinsinsi.",
@@ -2273,9 +2368,9 @@
         "account_menu_tooltip": "Menyu ya akaunti ya {{name}}"
     },
     "app": {
-        "name": "{{dzina lamtundu}}",
+        "name": "{{brandName}}",
         "tagline": "Simamia kwa akili bidhaa zote za nyumbani kwako",
-        "loading": "Kutsegula {{BrandName}}",
+        "loading": "Kutsegula {{brandName}}",
         "preparing_workspace": "Kukonzekera malo anu ogwirira ntchito..."
     },
     "nav": {
@@ -2555,5 +2650,102 @@
         "description": "The mawonekedwe anagunda mosayembekezereka rendering vuto. Anu opulumutsidwa katundu deta si kusinthidwa ndi chophimba ichi.",
         "refresh_btn": "Zotsitsimutsa",
         "home_btn": "ZOKHUD"
+    },
+    "activity": {
+        "title": "Mbiri ya Ntchito",
+        "description": "Kusintha kwaposachedwa kotetezedwa m'nyumba yanu.",
+        "empty_title": "Palibe ntchito pakadali pano",
+        "empty_description": "Kusintha kwa zinthu, kusintha kwa katundu, zowonjezera, kubwereka, ndi zochita zambiri zidzawonekera pano.",
+        "unknown_actor": "Wogwiritsa ntchito wosadziwika",
+        "deleted_item_with_id": "Chinthu chochotsedwa #{{id}}",
+        "item_missing": "Mbiri ya chinthuchi kulibenso",
+        "actions": {
+            "item_created": "Chinthu chowonjezeredwa",
+            "item_updated": "Chinthu chosinthidwa",
+            "item_deleted": "Chinthu chochotsedwa",
+            "item_borrowed": "Chinthu chobwereka",
+            "item_returned": "Chinthu chobwezeretsedwa",
+            "item_bulk_updated": "Kusintha kwakukulu",
+            "item_bulk_deleted": "Chotsani chochuluka",
+            "item_stock_adjusted": "Stock kusinthidwa",
+            "item_attachment_added": "Zophatikizira zowonjezeredwa",
+            "item_attachment_deleted": "Zophatikizira zochotsedwa"
+        }
+    },
+    "alerts": {
+        "detail_count": "Zolemba zogwirizana ndi {{count}}",
+        "empty_title": "Palibe zolemba zogwirizana zomwe zapezeka",
+        "low_stock": {
+            "title": "Katundu Wotsika",
+            "description": "Zinthu zomwe zili pansi pa mlingo wawo wocheperako.",
+            "qty": "Katundu {{quantity}} / osachepera {{min}}"
+        },
+        "expired": {
+            "title": "Zinthu Zotha Ntchito",
+            "description": "Zinthu zomwe zili ndi tsiku lotha ntchito."
+        },
+        "expiring": {
+            "title": "Masiku Omaliza Ntchito",
+            "description": "Zinthu zomwe zimatha mkati mwa masiku 30."
+        },
+        "maintenance": {
+            "title": "Kukonza Mochedwa",
+            "description": "Ntchito zokonza zapita tsiku lawo lolinganizidwa."
+        }
+    },
+    "notifications": {
+        "title": "Malo Azidziwitso",
+        "description": "Stock, chitsimikizo, kukonza, kutha ntchito, ndi kubwereka machenjezo obwerera.",
+        "meta_total": "Zidziwitso za {{count}}",
+        "meta_urgent": "{{count}} mwachangu",
+        "empty_title": "Palibe zidziwitso zomwe zimafunikira chidwi chanu pompano",
+        "empty_desc": "Zogulitsa zochepa, masiku omwe akubwera, ndi kukonza mochedwa zidzawonekera pano.",
+        "items": {
+            "stock_empty_title": "Kutha kwa katundu",
+            "stock_low_title": "Katundu wotsika",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Tsiku lotha ntchito ladutsa",
+            "expiry_close_title": "Tsiku lotha ntchito likuyandikira",
+            "warranty_expired_title": "Chitsimikizo chatha",
+            "warranty_close_title": "Chitsimikizo chikutha posachedwa",
+            "maintenance_overdue_title": "Kukonza mochedwa",
+            "maintenance_close_title": "Kukonza komwe kudzachitika posachedwa",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Kubwereka kubwerera mochedwa",
+            "borrow_close_title": "Kubwereka kubwerera posachedwa",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} masiku otsala ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Utumiki ndi Chitsimikizo Center",
+        "description": "Tsatirani zitsimikizo, nda yokonza, ndi zochita zautumiki pamalo amodzi.",
+        "meta_warranty": "{{count}} zolemba za chitsimikizo",
+        "meta_tasks": "{{count}} ntchito zokonza",
+        "empty_title": "Palibe ntchito kapena chitsimikizo",
+        "empty_desc": "Masiku a chitsimikizo omwe akubwera ndi ntchito zokonza zidzasonkhanitsidwa pano.",
+        "warranty_section": "Kutsatira kwa Chitsimikizo",
+        "warranty_desc": "Zitsimikizo zomwe zatha ntchito ndi zitsimikizo zomwe zimatha mkati mwa masiku 30.",
+        "maintenance_section": "Zochita Zosamalira",
+        "maintenance_desc": "Ntchito zowonongeka mochedwa komanso zomwe zikubwera.",
+        "no_warranty": "Palibe chitsimikizo chomwe chikubwera.",
+        "no_tasks": "Palibe ntchito yokonza.",
+        "overdue": "Zachedwa",
+        "upcoming": "Posakhalitsa",
+        "expired": "Kutha",
+        "summary_warranty": "Kutsatira kwa chitsimikizo",
+        "summary_tasks": "Ntchito zokonza",
+        "open_warranty_filter": "Tsegulani fyuluta ya chitsimikizo",
+        "open_warranty_filter_desc": "Imasefa zinthu zogwira chitsimikizo mu katundu."
+    },
+    "storage_labels": {
+        "title": "Alumali ndi Zolemba Zachipinda",
+        "description": "{{count}} zolemba za chipinda / alumali ndizokonzeka ngati pepala losindikiza.",
+        "empty_title": "Palibe zipinda kapena mashelufu oti mulembe",
+        "empty_desc": "Onjezani zipinda kapena malo poyamba, kenako sindikizani zolemba za QR pano.",
+        "sheet_label": "Tsamba la Chizindikiro cha Malo",
+        "scan_hint": "Kusanthula code ya QR kumatsegula mndandanda wosefedwa wa chipinda kapena alumali.",
+        "room": "Chipinda",
+        "location": "Shelufu / Bokosi"
     }
 }

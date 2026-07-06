@@ -26,11 +26,18 @@ import { normalizeOptionalDate } from '../utils/dateValidation.js';
 import { validateUploadedImageBuffer } from '../utils/imageValidation.js';
 import { normalizeWarrantyDetails } from '../utils/warrantyValidation.js';
 import { getUploadsRoot } from '../utils/runtimePaths.js';
+import { recordItemActivity } from '../utils/activityLog.js';
+import {
+    ALLOWED_ATTACHMENT_MIME_TYPES,
+    buildSafeAttachmentHeaders,
+    validateAttachmentFile
+} from '../utils/attachmentSecurity.js';
 import {
     buildEmailLookup,
     buildUsernameLookup,
     buildBarcodeLookup,
     decryptBorrowRecord,
+    decryptAttachmentOriginalName,
     decryptItemInvoiceDate,
     decryptItemRecord,
     decryptUsername,
@@ -43,6 +50,7 @@ import {
     encryptBorrowRequestTarget,
     encryptBorrowReturnNote,
     encryptItemBarcode,
+    encryptAttachmentOriginalName,
     encryptItemDescription,
     encryptItemInvoiceCurrency,
     encryptItemInvoiceDate,
@@ -61,18 +69,21 @@ const ITEM_PHOTO_MEDIA_PURPOSE = 'inventory.media.photo';
 const ITEM_THUMBNAIL_MEDIA_PURPOSE = 'inventory.media.thumbnail';
 const ITEM_INVOICE_MEDIA_PURPOSE = 'inventory.media.invoice';
 const ITEM_INVOICE_THUMBNAIL_MEDIA_PURPOSE = 'inventory.media.invoice_thumbnail';
+const ATTACHMENT_MEDIA_PURPOSE = 'inventory.media.attachment';
 const MAX_MEDIA_READ_BYTES = 16 * 1024 * 1024;
+const MAX_ATTACHMENT_UPLOAD_BYTES = 10 * 1024 * 1024;
 
 const router = express.Router();
 const MEDIA_FILE_REGEX = /^[A-Za-z0-9._-]+\.webp$/;
-
+const ATTACHMENT_FILE_REGEX = /^[A-Za-z0-9._-]+\.bin$/;
 // Ensure uploads directories exist
 const uploadsDir = getUploadsRoot(repoRoot);
 const thumbnailsDir = join(uploadsDir, 'thumbnails');
 const invoiceUploadsDir = join(uploadsDir, 'invoices');
 const invoiceThumbnailsDir = join(uploadsDir, 'invoices', 'thumbnails');
+const attachmentsDir = join(uploadsDir, 'attachments');
 
-for (const directory of [uploadsDir, thumbnailsDir, invoiceUploadsDir, invoiceThumbnailsDir]) {
+for (const directory of [uploadsDir, thumbnailsDir, invoiceUploadsDir, invoiceThumbnailsDir, attachmentsDir]) {
     ensurePrivateDirectory(directory);
 }
 
@@ -115,6 +126,19 @@ const BORROW_REQUEST_STATUS = {
     PENDING: 'pending'
 };
 const BORROW_REQUEST_POLICIES = new Set(['none', 'house_only', 'everyone']);
+const MAX_BULK_ITEM_IDS = 250;
+const ITEM_SORT_OPTIONS = new Set([
+    'updated_desc',
+    'updated_asc',
+    'created_desc',
+    'created_asc',
+    'name_asc',
+    'name_desc',
+    'quantity_desc',
+    'quantity_asc',
+    'expiry_asc',
+    'expiry_desc'
+]);
 const ACTIVE_BORROW_SELECT = `
     active_borrow.id AS active_borrow_id,
     active_borrow.borrower_type AS active_borrow_borrower_type,
@@ -162,6 +186,14 @@ const rawUploadFields = upload.fields([
     { name: 'invoice_photo', maxCount: 1 }
 ]);
 
+const attachmentUpload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: MAX_ATTACHMENT_UPLOAD_BYTES },
+    fileFilter(req, file, cb) {
+        cb(null, ALLOWED_ATTACHMENT_MIME_TYPES.has(file.mimetype));
+    }
+}).single('attachment');
+
 function createBadRequestError(message) {
     const error = new Error(message);
     error.statusCode = 400;
@@ -184,6 +216,20 @@ function uploadFields(req, res, next) {
             return;
         }
 
+        next();
+    });
+}
+
+function uploadAttachment(req, res, next) {
+    attachmentUpload(req, res, (error) => {
+        if (error instanceof multer.MulterError && error.code === 'LIMIT_FILE_SIZE') {
+            next(createBadRequestError('Ek dosya en fazla 10 MB olabilir'));
+            return;
+        }
+        if (error) {
+            next(error);
+            return;
+        }
         next();
     });
 }
@@ -256,6 +302,46 @@ async function processImage(buffer, config) {
 
 function getUploadedFile(req, fieldName) {
     return req.files?.[fieldName]?.[0] || null;
+}
+
+function sanitizeAttachmentName(value) {
+    const normalized = String(value || 'attachment')
+        .replace(/[\r\n\\/]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .slice(0, 160);
+
+    return normalized || 'attachment';
+}
+
+function storeAttachment(file) {
+    validateAttachmentFile(file);
+
+    const storedName = `${Date.now()}-${crypto.randomUUID()}.bin`;
+    const storedPath = join(attachmentsDir, storedName);
+    writePrivateFile(
+        storedPath,
+        encryptBufferForStorage(file.buffer, { purpose: ATTACHMENT_MEDIA_PURPOSE })
+    );
+    file.buffer.fill(0);
+
+    return {
+        originalName: sanitizeAttachmentName(file.originalname),
+        storedPath: `uploads/attachments/${storedName}`,
+        mimeType: file.mimetype,
+        sizeBytes: file.size || 0
+    };
+}
+
+function serializeAttachmentRecord(record) {
+    if (!record) {
+        return record;
+    }
+
+    return {
+        ...record,
+        original_name: decryptAttachmentOriginalName(record.original_name)
+    };
 }
 
 function parseBoolean(value) {
@@ -339,6 +425,44 @@ function resolveItemReferenceIds(body, houseKey, existingItem = null) {
         roomId: roomId ?? null,
         locationId: locationId ?? null
     };
+}
+
+function normalizeBulkItemIds(rawIds) {
+    if (!Array.isArray(rawIds)) {
+        throw new Error('Eşya listesi geçersiz');
+    }
+
+    const ids = [];
+    const seen = new Set();
+    for (const rawId of rawIds) {
+        const id = Number.parseInt(String(rawId), 10);
+        if (!Number.isInteger(id) || id <= 0) {
+            continue;
+        }
+        if (!seen.has(id)) {
+            ids.push(id);
+            seen.add(id);
+        }
+        if (ids.length > MAX_BULK_ITEM_IDS) {
+            throw new Error(`Tek seferde en fazla ${MAX_BULK_ITEM_IDS} eşya seçilebilir`);
+        }
+    }
+
+    if (!ids.length) {
+        throw new Error('İşlem için en az bir eşya seçin');
+    }
+
+    return ids;
+}
+
+function recordActivity(action, req, itemId, metadata = null) {
+    recordItemActivity(db, {
+        houseKey: req.user.house_key,
+        itemId,
+        actorUserId: req.user.id,
+        action,
+        metadata
+    });
 }
 
 function normalizeOptionalText(value, fieldLabel, maxLength = 500) {
@@ -810,6 +934,95 @@ function matchesItemSearch(item, searchTerm) {
     return searchableFields.some((fieldValue) => normalizeSearchValue(fieldValue).includes(normalizedSearch));
 }
 
+function getNormalizedItemStatusFilters(query) {
+    const todayStr = new Date().toISOString().split('T')[0];
+    const closeExpiryStr = new Date(Date.now() + (30 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0];
+    const normalized = {
+        todayStr,
+        closeExpiryStr,
+        sort: ITEM_SORT_OPTIONS.has(String(query.sort || '')) ? String(query.sort) : 'updated_desc'
+    };
+
+    for (const key of ['visibility', 'stock', 'expiry', 'borrowed', 'warranty']) {
+        normalized[key] = String(query[key] || '').trim();
+    }
+
+    return normalized;
+}
+
+function itemMatchesPostQueryFilters(item, filters) {
+    if (filters.warranty === 'expired') {
+        return Boolean(item.warranty_expiry_date && item.warranty_expiry_date < filters.todayStr);
+    }
+    if (filters.warranty === 'close') {
+        return Boolean(
+            item.warranty_expiry_date
+            && item.warranty_expiry_date >= filters.todayStr
+            && item.warranty_expiry_date <= filters.closeExpiryStr
+        );
+    }
+    if (filters.warranty === 'active') {
+        return Boolean(item.warranty_expiry_date && item.warranty_expiry_date >= filters.todayStr);
+    }
+    if (filters.warranty === 'none') {
+        return !item.warranty_expiry_date;
+    }
+
+    return true;
+}
+
+function compareNullableText(a, b) {
+    return String(a || '').localeCompare(String(b || ''), undefined, { sensitivity: 'base', numeric: true });
+}
+
+function compareDateWithMissingLast(a, b, direction = 'asc') {
+    if (!a && !b) {
+        return 0;
+    }
+    if (!a) {
+        return 1;
+    }
+    if (!b) {
+        return -1;
+    }
+
+    return direction === 'desc'
+        ? String(b).localeCompare(String(a))
+        : String(a).localeCompare(String(b));
+}
+
+function sortItemsForResponse(items, sort) {
+    const sorted = [...items];
+
+    sorted.sort((a, b) => {
+        switch (sort) {
+            case 'updated_asc':
+                return String(a.updated_at || '').localeCompare(String(b.updated_at || '')) || a.id - b.id;
+            case 'created_asc':
+                return String(a.created_at || '').localeCompare(String(b.created_at || '')) || a.id - b.id;
+            case 'created_desc':
+                return String(b.created_at || '').localeCompare(String(a.created_at || '')) || b.id - a.id;
+            case 'name_asc':
+                return compareNullableText(a.name, b.name) || a.id - b.id;
+            case 'name_desc':
+                return compareNullableText(b.name, a.name) || b.id - a.id;
+            case 'quantity_desc':
+                return (Number(b.quantity || 0) - Number(a.quantity || 0)) || compareNullableText(a.name, b.name);
+            case 'quantity_asc':
+                return (Number(a.quantity || 0) - Number(b.quantity || 0)) || compareNullableText(a.name, b.name);
+            case 'expiry_asc':
+                return compareDateWithMissingLast(a.expiry_date, b.expiry_date, 'asc') || compareNullableText(a.name, b.name);
+            case 'expiry_desc':
+                return compareDateWithMissingLast(a.expiry_date, b.expiry_date, 'desc') || compareNullableText(a.name, b.name);
+            case 'updated_desc':
+            default:
+                return String(b.updated_at || '').localeCompare(String(a.updated_at || '')) || b.id - a.id;
+        }
+    });
+
+    return sorted;
+}
+
 function deleteStoredFile(storedPath) {
     const fullPath = resolveStoredPath(storedPath);
     if (fullPath && fs.existsSync(fullPath)) {
@@ -927,6 +1140,7 @@ router.get('/media/:type/:filename', async (req, res) => {
 router.get('/', (req, res) => {
     try {
         const { search, category_id, room_id, location_id, barcode } = req.query;
+        const statusFilters = getNormalizedItemStatusFilters(req.query);
         const houseKey = req.user.house_key;
 
         let query = `
@@ -950,6 +1164,42 @@ router.get('/', (req, res) => {
             query += ' AND items.barcode_lookup = ?';
             params.push(buildBarcodeLookup(barcode));
         }
+        if (statusFilters.visibility === 'public') {
+            query += ' AND items.is_public = 1';
+        } else if (statusFilters.visibility === 'private') {
+            query += ' AND items.is_public = 0 AND items.user_id = ?';
+            params.push(req.user.id);
+        } else if (statusFilters.visibility === 'mine') {
+            query += ' AND items.user_id = ?';
+            params.push(req.user.id);
+        } else if (statusFilters.visibility === 'others') {
+            query += ' AND items.user_id <> ?';
+            params.push(req.user.id);
+        }
+        if (statusFilters.stock === 'low') {
+            query += ' AND items.min_quantity > 0 AND items.quantity < items.min_quantity';
+        } else if (statusFilters.stock === 'ok') {
+            query += ' AND (items.min_quantity <= 0 OR items.quantity >= items.min_quantity)';
+        }
+        if (statusFilters.expiry === 'expired') {
+            query += ' AND items.expiry_date IS NOT NULL AND items.expiry_date < ?';
+            params.push(statusFilters.todayStr);
+        } else if (statusFilters.expiry === 'close') {
+            query += ' AND items.expiry_date IS NOT NULL AND items.expiry_date >= ? AND items.expiry_date <= ?';
+            params.push(statusFilters.todayStr, statusFilters.closeExpiryStr);
+        } else if (statusFilters.expiry === 'none') {
+            query += ' AND items.expiry_date IS NULL';
+        } else if (statusFilters.expiry === 'dated') {
+            query += ' AND items.expiry_date IS NOT NULL';
+        }
+        if (statusFilters.borrowed === 'borrowed') {
+            query += ' AND active_borrow.id IS NOT NULL';
+        } else if (statusFilters.borrowed === 'available') {
+            query += ' AND active_borrow.id IS NULL';
+        } else if (statusFilters.borrowed === 'overdue') {
+            query += ' AND active_borrow.id IS NOT NULL AND active_borrow.due_date IS NOT NULL AND active_borrow.due_date < ?';
+            params.push(statusFilters.todayStr);
+        }
 
         query += ' ORDER BY items.updated_at DESC';
         let items = db.prepare(query).all(...params).map((item) => serializeItem(item, req.user.id));
@@ -957,6 +1207,9 @@ router.get('/', (req, res) => {
         if (search) {
             items = items.filter((item) => matchesItemSearch(item, search));
         }
+        items = items
+            .filter((item) => itemMatchesPostQueryFilters(item, statusFilters));
+        items = sortItemsForResponse(items, statusFilters.sort);
 
         res.json({ items });
     } catch (err) {
@@ -1190,6 +1443,300 @@ router.get('/options', (req, res) => {
     }
 });
 
+router.post('/bulk', (req, res) => {
+    try {
+        const ids = normalizeBulkItemIds(req.body?.item_ids);
+        const action = String(req.body?.action || '').trim();
+        const payload = req.body?.payload && typeof req.body.payload === 'object' ? req.body.payload : {};
+        const editableItems = db.prepare(`
+            SELECT *
+            FROM items
+            WHERE house_key = ?
+              AND user_id = ?
+              AND id IN (${ids.map(() => '?').join(',')})
+        `).all(req.user.house_key, req.user.id, ...ids);
+
+        if (!editableItems.length) {
+            return res.status(403).json({ error: 'Seçili eşyaları düzenleme yetkiniz yok' });
+        }
+
+        const editableIds = editableItems.map((item) => item.id);
+        const skippedCount = ids.length - editableIds.length;
+
+        if (action === 'delete') {
+            const deleteItems = db.transaction((itemsToDelete) => {
+                for (const item of itemsToDelete) {
+                    db.prepare(`
+                        UPDATE borrow_requests
+                        SET status = CASE WHEN status = 'pending' THEN 'cancelled' ELSE status END,
+                            item_id = NULL,
+                            borrow_id = NULL,
+                            updated_at = CURRENT_TIMESTAMP
+                        WHERE item_id = ?
+                    `).run(item.id);
+                    db.prepare('DELETE FROM item_borrows WHERE item_id = ?').run(item.id);
+                    db.prepare('DELETE FROM items WHERE id = ?').run(item.id);
+                    recordActivity('item.bulk_deleted', req, null, { item_id: item.id });
+                }
+            });
+
+            deleteItems(editableItems);
+            for (const item of editableItems) {
+                deleteStoredFile(item.photo_path);
+                deleteStoredFile(item.thumbnail_path);
+                deleteStoredFile(item.invoice_photo_path);
+                deleteStoredFile(item.invoice_thumbnail_path);
+            }
+
+            return res.json({
+                message: 'Toplu silme tamamlandı',
+                updatedCount: editableItems.length,
+                skippedCount
+            });
+        }
+
+        const updateFields = [];
+        const updateValues = [];
+        const changedFields = [];
+
+        if (Object.prototype.hasOwnProperty.call(payload, 'category_id')) {
+            updateFields.push('category_id = ?');
+            updateValues.push(normalizeHouseScopedReferenceId(payload.category_id, {
+                fieldLabel: 'Kategori',
+                query: HOUSE_SCOPED_REFERENCE_QUERIES.category,
+                houseKey: req.user.house_key
+            }));
+            changedFields.push('category');
+        }
+        if (Object.prototype.hasOwnProperty.call(payload, 'room_id')) {
+            const roomId = normalizeHouseScopedReferenceId(payload.room_id, {
+                fieldLabel: 'Oda',
+                query: HOUSE_SCOPED_REFERENCE_QUERIES.room,
+                houseKey: req.user.house_key
+            });
+            updateFields.push('room_id = ?');
+            updateValues.push(roomId);
+            changedFields.push('room');
+            if (!Object.prototype.hasOwnProperty.call(payload, 'location_id')) {
+                updateFields.push('location_id = ?');
+                updateValues.push(null);
+                changedFields.push('location');
+            }
+        }
+        if (Object.prototype.hasOwnProperty.call(payload, 'location_id')) {
+            updateFields.push('location_id = ?');
+            updateValues.push(normalizeHouseScopedReferenceId(payload.location_id, {
+                fieldLabel: 'Konum',
+                query: HOUSE_SCOPED_REFERENCE_QUERIES.location,
+                houseKey: req.user.house_key
+            }));
+            changedFields.push('location');
+        }
+        if (Object.prototype.hasOwnProperty.call(payload, 'is_public')) {
+            updateFields.push('is_public = ?');
+            updateValues.push(parseBoolean(payload.is_public) ? 1 : 0);
+            changedFields.push('visibility');
+        }
+
+        if (!updateFields.length) {
+            return res.status(400).json({ error: 'Güncellenecek alan seçilmedi' });
+        }
+
+        updateFields.push('updated_at = CURRENT_TIMESTAMP');
+        db.prepare(`
+            UPDATE items
+            SET ${updateFields.join(', ')}
+            WHERE house_key = ?
+              AND user_id = ?
+              AND id IN (${editableIds.map(() => '?').join(',')})
+        `).run(...updateValues, req.user.house_key, req.user.id, ...editableIds);
+
+        for (const itemId of editableIds) {
+            recordActivity('item.bulk_updated', req, itemId, { fields: changedFields });
+        }
+
+        res.json({
+            message: 'Toplu güncelleme tamamlandı',
+            updatedCount: editableIds.length,
+            skippedCount,
+            changedFields
+        });
+    } catch (err) {
+        console.error('Bulk item action error:', err);
+        res.status(getRequestErrorStatus(err)).json({ error: err.message || 'Toplu işlem tamamlanamadı' });
+    }
+});
+
+router.post('/:id/stock-adjust', (req, res) => {
+    try {
+        const itemId = req.params.id;
+        const delta = Number.parseInt(String(req.body?.delta ?? ''), 10);
+        if (!Number.isInteger(delta) || delta === 0 || Math.abs(delta) > 10000) {
+            return res.status(400).json({ error: 'Stok değişimi geçersiz' });
+        }
+
+        const existing = db.prepare('SELECT * FROM items WHERE id = ? AND house_key = ?')
+            .get(itemId, req.user.house_key);
+        if (!existing || (!existing.is_public && existing.user_id !== req.user.id)) {
+            return res.status(404).json({ error: 'Eşya bulunamadı veya yetkiniz yok' });
+        }
+        if (existing.user_id !== req.user.id) {
+            return res.status(403).json({ error: 'Stok bilgisini yalnızca eşya sahibi değiştirebilir' });
+        }
+
+        const nextQuantity = Math.max(0, (Number.parseInt(String(existing.quantity || 0), 10) || 0) + delta);
+        db.prepare('UPDATE items SET quantity = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ? AND house_key = ?')
+            .run(nextQuantity, itemId, req.user.house_key);
+        recordActivity('item.stock_adjusted', req, Number.parseInt(itemId, 10), {
+            delta,
+            quantity: nextQuantity
+        });
+
+        const item = db.prepare(`
+            SELECT items.*, categories.name as category_name, categories.icon as category_icon,
+                   rooms.name as room_name, locations.name as location_name, users.username,
+                   ${ACTIVE_BORROW_SELECT}
+            FROM items
+            LEFT JOIN categories ON items.category_id = categories.id AND categories.house_key = items.house_key
+            LEFT JOIN rooms ON items.room_id = rooms.id AND rooms.house_key = items.house_key
+            LEFT JOIN locations ON items.location_id = locations.id AND locations.house_key = items.house_key
+            LEFT JOIN users ON items.user_id = users.id
+            ${ACTIVE_BORROW_JOINS}
+            WHERE items.id = ? AND items.house_key = ? AND ${visibleItemCondition('items')}
+        `).get(itemId, req.user.house_key, req.user.id);
+
+        res.json({ message: 'Stok güncellendi', item: serializeItem(item, req.user.id) });
+    } catch (err) {
+        console.error('Stock adjust error:', err);
+        res.status(getRequestErrorStatus(err)).json({ error: err.message || 'Stok güncellenemedi' });
+    }
+});
+
+router.get('/:id/attachments', (req, res) => {
+    try {
+        const item = db.prepare(`SELECT id FROM items WHERE id = ? AND house_key = ? AND ${visibleItemCondition('items')}`)
+            .get(req.params.id, req.user.house_key, req.user.id);
+        if (!item) {
+            return res.status(404).json({ error: 'Eşya bulunamadı' });
+        }
+
+        const attachments = db.prepare(`
+            SELECT id, item_id, original_name, mime_type, size_bytes, created_at, uploaded_by
+            FROM item_attachments
+            WHERE item_id = ? AND house_key = ?
+            ORDER BY created_at DESC, id DESC
+        `).all(req.params.id, req.user.house_key);
+
+        res.json({ attachments: attachments.map(serializeAttachmentRecord) });
+    } catch (err) {
+        console.error('List attachments error:', err);
+        res.status(500).json({ error: 'Ek dosyalar yüklenemedi' });
+    }
+});
+
+router.post('/:id/attachments', uploadAttachment, (req, res) => {
+    try {
+        const item = db.prepare('SELECT * FROM items WHERE id = ? AND house_key = ?')
+            .get(req.params.id, req.user.house_key);
+        if (!item || (!item.is_public && item.user_id !== req.user.id)) {
+            return res.status(404).json({ error: 'Eşya bulunamadı veya yetkiniz yok' });
+        }
+        if (item.user_id !== req.user.id) {
+            return res.status(403).json({ error: 'Ek dosyaları yalnızca eşya sahibi yönetebilir' });
+        }
+
+        const stored = storeAttachment(req.file);
+        const result = db.prepare(`
+            INSERT INTO item_attachments (
+                item_id, house_key, uploaded_by, original_name, stored_path, mime_type, size_bytes
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        `).run(
+            item.id,
+            req.user.house_key,
+            req.user.id,
+            encryptAttachmentOriginalName(stored.originalName),
+            stored.storedPath,
+            stored.mimeType,
+            stored.sizeBytes
+        );
+        recordActivity('item.attachment_added', req, item.id, { attachment_id: result.lastInsertRowid });
+
+        const attachment = db.prepare(`
+            SELECT id, item_id, original_name, mime_type, size_bytes, created_at, uploaded_by
+            FROM item_attachments
+            WHERE id = ?
+        `).get(result.lastInsertRowid);
+        res.status(201).json({ message: 'Ek dosya eklendi', attachment: serializeAttachmentRecord(attachment) });
+    } catch (err) {
+        console.error('Create attachment error:', err);
+        res.status(getRequestErrorStatus(err)).json({ error: err.message || 'Ek dosya eklenemedi' });
+    }
+});
+
+router.get('/attachments/:attachmentId/download', (req, res) => {
+    try {
+        const attachment = db.prepare(`
+            SELECT ia.*, items.user_id, items.is_public
+            FROM item_attachments ia
+            JOIN items ON items.id = ia.item_id AND items.house_key = ia.house_key
+            WHERE ia.id = ? AND ia.house_key = ? AND ${visibleItemCondition('items')}
+        `).get(req.params.attachmentId, req.user.house_key, req.user.id);
+        if (!attachment) {
+            return res.status(404).json({ error: 'Ek dosya bulunamadı' });
+        }
+
+        const resolvedPath = resolveStoredMediaPath(attachment.stored_path, {
+            repoRoot,
+            mediaRoot: uploadsDir,
+            allowedPrefixes: ['uploads/attachments']
+        });
+        if (!resolvedPath || !ATTACHMENT_FILE_REGEX.test(path.basename(resolvedPath))) {
+            return res.status(404).json({ error: 'Ek dosya bulunamadı' });
+        }
+
+        const encryptedBuffer = fs.readFileSync(resolvedPath);
+        const fileBuffer = isEncryptedPayload(encryptedBuffer.toString('utf8'))
+            ? decryptBufferFromStorage(encryptedBuffer.toString('utf8'), { purpose: ATTACHMENT_MEDIA_PURPOSE })
+            : encryptedBuffer;
+
+        const headers = buildSafeAttachmentHeaders(decryptAttachmentOriginalName(attachment.original_name));
+        for (const [name, value] of Object.entries(headers)) {
+            res.setHeader(name, value);
+        }
+        res.send(fileBuffer);
+    } catch (err) {
+        console.error('Download attachment error:', err);
+        res.status(500).json({ error: 'Ek dosya indirilemedi' });
+    }
+});
+
+router.delete('/attachments/:attachmentId', (req, res) => {
+    try {
+        const attachment = db.prepare(`
+            SELECT ia.*, items.user_id
+            FROM item_attachments ia
+            JOIN items ON items.id = ia.item_id AND items.house_key = ia.house_key
+            WHERE ia.id = ? AND ia.house_key = ?
+        `).get(req.params.attachmentId, req.user.house_key);
+        if (!attachment) {
+            return res.status(404).json({ error: 'Ek dosya bulunamadı' });
+        }
+        if (attachment.user_id !== req.user.id) {
+            return res.status(403).json({ error: 'Ek dosyaları yalnızca eşya sahibi silebilir' });
+        }
+
+        deleteStoredFile(attachment.stored_path);
+        db.prepare('DELETE FROM item_attachments WHERE id = ? AND house_key = ?')
+            .run(req.params.attachmentId, req.user.house_key);
+        recordActivity('item.attachment_deleted', req, attachment.item_id, { attachment_id: attachment.id });
+        res.json({ message: 'Ek dosya silindi' });
+    } catch (err) {
+        console.error('Delete attachment error:', err);
+        res.status(500).json({ error: 'Ek dosya silinemedi' });
+    }
+});
+
 // Get single item (must be from same house)
 router.get('/:id', (req, res) => {
     try {
@@ -1357,6 +1904,7 @@ router.post('/:id/borrow', (req, res) => {
             WHERE items.id = ? AND items.house_key = ? AND ${visibleItemCondition('items')}
         `).get(item.id, req.user.house_key, req.user.id);
 
+        recordActivity('item.borrowed', req, item.id);
         res.status(201).json({
             message: 'Eşya ödünç verildi',
             borrow: serializeBorrowRecord(borrow, req.user.id, updatedItem?.user_id || null),
@@ -1467,6 +2015,7 @@ router.post('/:id/return', (req, res) => {
             WHERE items.id = ? AND items.house_key = ? AND ${visibleItemCondition('items')}
         `).get(item.id, req.user.house_key, req.user.id);
 
+        recordActivity('item.returned', req, item.id);
         res.json({
             message: 'Eşya teslim alındı',
             borrow: serializeBorrowRecord(borrow, req.user.id, updatedItem?.user_id || null),
@@ -1516,7 +2065,7 @@ router.post('/', uploadFields, async (req, res) => {
             warranty_duration_unit,
             warranty_expiry_date
         });
-        const normalizedQuantity = Math.max(1, parseInt(quantity, 10) || 1);
+        const normalizedQuantity = Math.max(0, parseInt(quantity, 10) || 0);
         const normalizedMinQuantity = Math.max(0, parseInt(min_quantity, 10) || 0);
         const normalizedExpiryDate = expiry_date ? normalizeOptionalDate(expiry_date, 'Son kullanma tarihi') : null;
         const { categoryId, roomId, locationId } = resolveItemReferenceIds(req.body, houseKey);
@@ -1583,6 +2132,7 @@ router.post('/', uploadFields, async (req, res) => {
             ${ACTIVE_BORROW_JOINS}
             WHERE items.id = ?
         `).get(result.lastInsertRowid);
+        recordActivity('item.created', req, result.lastInsertRowid);
         res.status(201).json({ message: 'Eşya eklendi', item: serializeItem(item, req.user.id) });
     } catch (err) {
         console.error('Create item error:', err);
@@ -1672,7 +2222,7 @@ router.put('/:id', uploadFields, async (req, res) => {
             : null;
 
         const normalizedQuantity = quantity !== undefined
-            ? Math.max(1, parseInt(quantity, 10) || 1)
+            ? Math.max(0, parseInt(quantity, 10) || 0)
             : existing.quantity;
         const normalizedMinQuantity = min_quantity !== undefined
             ? Math.max(0, parseInt(min_quantity, 10) || 0)
@@ -1770,6 +2320,7 @@ router.put('/:id', uploadFields, async (req, res) => {
             ${ACTIVE_BORROW_JOINS}
             WHERE items.id = ? AND items.house_key = ? AND ${visibleItemCondition('items')}
         `).get(itemId, req.user.house_key, req.user.id);
+        recordActivity('item.updated', req, itemId);
         res.json({ message: 'Eşya güncellendi', item: serializeItem(item, req.user.id) });
     } catch (err) {
         console.error('Update item error:', err);
@@ -1812,6 +2363,7 @@ router.delete('/:id', (req, res) => {
         `).run(req.params.id);
         db.prepare('DELETE FROM item_borrows WHERE item_id = ?').run(req.params.id);
         db.prepare('DELETE FROM items WHERE id = ?').run(req.params.id);
+        recordActivity('item.deleted', req, null, { item_id: Number.parseInt(req.params.id, 10) || null });
         res.json({ message: 'Eşya silindi' });
     } catch (err) {
         res.status(500).json({ error: 'Eşya silinirken hata oluştu' });

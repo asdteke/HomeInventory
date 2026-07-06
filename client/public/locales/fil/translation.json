@@ -10,7 +10,7 @@
         "load_error": "Nabigong i-load ang item",
         "form": {
             "name": "Pangalan ng Item",
-            "name_placeholder": "hal. Samsung TV 55 pulgada",
+            "name_placeholder": "hal. TV 55 pulgada",
             "required": "*",
             "description": "Paglalarawan",
             "description_placeholder": "Mga tala tungkol sa item...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Malapit Nang Mag-expire",
             "expired": "Paso na",
             "low_stock": "Kaunting Stock"
+        },
+        "untitled_item": "Walang pamagat na item",
+        "attachments": {
+            "title": "Mga larawan at file",
+            "add": "Magdagdag ng mga file",
+            "empty": "Walang naidagdag na mga file.",
+            "form_desc": "Maglakip ng mga larawan ng item, resibo, invoices, o mga dokumento ng serbisyo.",
+            "detail_desc": "Mga larawan, resibo, invoices, at mga file ng serbisyo ay nai-save para sa item na ito.",
+            "upload_error": "Hindi mai-upload ang mga file.",
+            "delete_error": "Hindi mabura ang file.",
+            "delete_confirm": "Burahin ang file na ito?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Ipakita ang password",
         "saving": "Nagsi-save...",
         "disabled": "Hindi pinagana",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Palaparin",
+        "zoom_out": "Paliliitin",
+        "reset": "I-reset",
+        "print": "I-print",
+        "record_count": "{{count}} tala"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Ibabalik ka sa sign-in screen at kailangan mong mag-log in muli upang pamahalaan ang iyong imbentaryo sa bahay.",
         "logout_warning": "Gamitin ito kapag tapos ka na sa isang shared o personal na device.",
         "maintenance": "Iskedyul ng Pagpapanatili",
-        "shopping": "Listahan ng Pamimili"
+        "shopping": "Listahan ng Pamimili",
+        "activity": "Aktibidad",
+        "notifications": "Mga Abiso",
+        "service": "Serbisyo"
     },
     "dashboard": {
         "welcome": "Maligayang pagbabalik, <1>{{name}}</1>",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} na item ang bumaba sa iyong minimum na limitasyon ng stock.",
             "go_to_shopping": "Tala ng Pamimili",
             "close_expiry_title": "Paparating na mga Petsa ng Pag-expire",
-            "close_expiry_desc": "{{count}} na produkto ang mag-eexpire sa loob ng 30 araw."
+            "close_expiry_desc": "{{count}} na produkto ang mag-eexpire sa loob ng 30 araw.",
+            "view_low_stock_items": "Tingnan ang Mababang Stock"
         }
     },
     "beta_banner": {
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} umiiral na lokasyon ang nilaktawan.",
             "skipped_rooms": "{{count}} umiiral na kuwarto ang nilaktawan.",
             "owner_only_title": "Limitado ang Backup at Restore",
-            "owner_only_desc": "Ang pag-backup at pag-restore ng data ay maaari lamang pamahalaan ng may-ari ng bahay."
+            "owner_only_desc": "Ang pag-backup at pag-restore ng data ay maaari lamang pamahalaan ng may-ari ng bahay.",
+            "include_media_title": "Isama ang mga larawan at imahe ng resibo",
+            "include_media_body": "Maaaring mas malaki ang buong backup, ngunit ang mga larawan ng item at imahe ng resibo ay maaaring maibalik din.",
+            "skipped_attachments": "{{count}} na mga attachment ang nilaktawan."
         },
         "about": {
             "title": "Tungkol sa Aplikasyon",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Ang lahat ng mga papasok na kahilingan ay awtomatikong na-block.",
             "policy_house_only_desc": "Tanging mga beripikadong miyembro ng iyong mga aktibong bahay lamang ang maaaring humiling ng mga item na nakikita na sa loob ng bahaging iyon.",
             "policy_everyone_desc": "Ang ibang mga gumagamit ay hindi maaaring mag-browse o makita ang iyong mga item. Maaari lamang silang magpadala ng kahilingan sa pamamagitan ng direktang paglalagay ng iyong username o email."
+        },
+        "activity_log": {
+            "title": "Aktibidad at tala ng audit",
+            "description": "Suriin ang protektadong kasaysayan ng mga pagbabago sa item, mga update sa stock, mga kalakip, at mga bulk na aksyon.",
+            "encrypted_title": "Ang mga tala ng aktibidad ay nakaimbak nang protektado",
+            "encrypted_body": "Ang mga bagong aksyon at detalye ng aktibidad ay iniimbak nang naka-encrypt sa database at tanging dina-decrypt lamang para sa iyong aktibong session."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Magsasara ang rekord matapos kumpirmahin ng nagpapahiram na natanggap nila pabalik ang item.",
             "return_pending_lender_title": "Minarkahan ni {{name}} ang item na ito bilang naibalik",
             "return_pending_self_title": "Nasa iyo, naghihintay ng kumpirmasyon ng resibo",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Miyembro ng site",
+            "site_member_identifier": "Username o email",
+            "site_member_identifier_placeholder": "Eksaktong username o email",
+            "site_member_privacy_hint": "Lumilitaw ang alok sa Borrow Center lamang kung umiiral ang account na iyon at pinapayagan ang mga papasok na alok.",
+            "external_privacy_hint": "Lumilikha lamang ito ng pribadong lokal na tala. Walang notipikasyon ng app na ipinapadala.",
+            "available": "Magagamit"
         },
         "untitled_item": "Walang pamagat na item",
         "delete_action": "Tanggalin ang item",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Salain ayon sa silid",
         "refreshing_results": "Ina-refresh ang mga item...",
         "empty_filter_title": "Walang mga item na tumugma sa paghahanap na iyon",
-        "delete_error_title": "Nabigong tanggalin"
+        "delete_error_title": "Nabigong tanggalin",
+        "tools": {
+            "title": "Mga Kagamitan"
+        },
+        "no_room": "Walang silid",
+        "all_locations": "Lahat ng lokasyon",
+        "location_filter_label": "Salain ayon sa lokasyon",
+        "visibility_filter_label": "Salain ayon sa nakikita",
+        "visibility_all": "Lahat ng nakikita",
+        "visibility_mine": "Aking mga item",
+        "visibility_others": "Ibang mga miyembro",
+        "borrow_filter_label": "Salain ayon sa katayuan ng pautang",
+        "borrow_filter_all": "Lahat ng katayuan ng pautang",
+        "stock_filter_label": "Salain ayon sa katayuan ng stock",
+        "stock_filter_all": "Lahat ng katayuan ng stock",
+        "stock_filter_ok": "Stock ayos",
+        "expiry_filter_label": "I-filter ayon sa petsa ng pag-expire",
+        "expiry_filter_all": "Lahat ng petsa ng pag-expire",
+        "expiry_filter_dated": "May petsa",
+        "expiry_filter_none": "Walang petsa",
+        "warranty_filter_label": "Salain ayon sa warranty",
+        "warranty_filter_all": "Lahat ng warranty",
+        "warranty_filter_expired": "Expired na warranty",
+        "warranty_filter_close": "Malapit nang matapos",
+        "warranty_filter_active": "Aktibong garantiya",
+        "warranty_filter_none": "Walang impormasyon sa garantiya",
+        "sort_label": "Ayusin",
+        "sort_updated_desc": "Kamakailan lang na na-update",
+        "sort_updated_asc": "Pinakalumang update",
+        "sort_created_desc": "Pinakabago una",
+        "sort_created_asc": "Pinakaluma una",
+        "sort_name_asc": "Pangalan A-Z",
+        "sort_name_desc": "Pangalan Z-A",
+        "sort_quantity_desc": "Dami mataas hanggang mababa",
+        "sort_quantity_asc": "Dami mababa hanggang mataas",
+        "sort_expiry_asc": "Maging kamakailan ang pag-expire",
+        "sort_expiry_desc": "Pinakabagong petsa ng pag-expire",
+        "stock_increase": "Dagdagan ang stock",
+        "stock_decrease": "Bawasan ang stock",
+        "stock_adjust_error": "Hindi ma-update ang stock.",
+        "bulk": {
+            "select_visible": "Piliin ang nakikita",
+            "clear_visible": "Alisin ang pagpili sa nakikita",
+            "selected_short": "napili",
+            "keep_category": "Panatilihin ang kategorya",
+            "keep_room": "Panatilihin ang silid",
+            "keep_location": "Panatilihin ang lokasyon",
+            "keep_visibility": "Panatilihin ang kakayahang makita",
+            "apply": "Ilapat",
+            "no_fields": "Pumili ng hindi bababa sa isang larangan para sa maramihang aksyon.",
+            "updated_title": "Kumpletong maramihang pag-update",
+            "updated_body": "{{count}} na item ang na-update. {{skipped}} ang hindi na-update.",
+            "update_error": "Hindi natapos ang maramihang pag-update.",
+            "deleted_title": "Kumpleto na ang maramihang pagbura",
+            "deleted_body": "{{count}} na item ang nabura. {{skipped}} ang hindi nabura.",
+            "delete_error": "Hindi makumpleto ang maramihang pagtanggal.",
+            "delete_title": "Tanggalin ang napiling mga item?",
+            "delete_description": "Ang {{count}} napiling item ay aalisin mula sa imbentaryo ng sambahayan na ito. Hindi ito maibabalik.",
+            "select_item": "Piliin ang item",
+            "unselect_item": "Alisin ang pagpili ng item"
+        },
+        "qr_labels": {
+            "title": "Mga Label ng QR",
+            "open": "Mga Label ng Item",
+            "description": "{{count}} na mga label ng item ay handa na bilang isang print sheet.",
+            "empty": "Palitan ang mga filter o magdagdag ng mga item sa imbentaryo upang mag-print ng mga label.",
+            "sheet_label": "Sheet ng Label ng Item",
+            "item_label": "Label ng Item"
+        }
     },
     "categories": {
         "title": "Mga Kategorya",
@@ -1341,7 +1436,7 @@
             "no_logs": "wala pang mga tala",
             "errors_title": "Mga Error ng Sistema (Huling 10)",
             "no_errors": "// Malusog ang sistema, walang tala ng error.",
-            "date_fmt": "{{petsa, petsa-oras}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "Email",
                 "user": "Gumagamit",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Mesh na yunit",
-                    "meta": "Mesa ng TV • Deco M4",
+                    "meta": "Mesa ng TV • Network node",
                     "state": null
                 },
                 {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Hindi ma-load ang sentro ng pagpapahiram",
             "action_error": "Hindi makumpleto ang aksyon",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Hindi matagpuan ang aktibong tala ng pagpapahiram na ito. I-refresh ang Sentro ng Pagpapahiram at subukang muli.",
             "errors": {
                 "external_target_daily_limit": "Maaari kang magpadala ng isang unang-kontak na panlabas na kahilingan sa parehong tao bawat araw. Kung tinanggap nila ang isang kahilingan, hindi na naaapektuhan ang limitasyong ito para sa taong iyon.",
                 "external_total_daily_limit": "Maaari kang magpadala ng hanggang 5 unang-kontak na panlabas na kahilingan bawat araw.",
@@ -2555,5 +2650,102 @@
         "description": "Ang interface ay tumama sa isang hindi inaasahang problema sa pag-render. Ang iyong naka-save na data ng imbentaryo ay hindi binabago ng screen na ito.",
         "refresh_btn": "I-refresh",
         "home_btn": "Tahanan"
+    },
+    "activity": {
+        "title": "Kasaysayan ng Aktibidad",
+        "description": "Mga kamakailang protektadong pagbabago sa iyong imbentaryo sa bahay.",
+        "empty_title": "Walang aktibidad pa",
+        "empty_description": "Mga pagbabago sa item, pag-update ng stock, mga kalakip, pagpapahiram, at maramihang aksyon ay ipapakita dito.",
+        "unknown_actor": "Hindi kilalang gumagamit",
+        "deleted_item_with_id": "Tinanggal na item #{{id}}",
+        "item_missing": "Ang talaan ng item na ito ay wala na",
+        "actions": {
+            "item_created": "Idinagdag na item",
+            "item_updated": "Na-update ang item",
+            "item_deleted": "Nabura ang item",
+            "item_borrowed": "Nailaan ang item",
+            "item_returned": "Naibalik ang item",
+            "item_bulk_updated": "Maramihang pag-update",
+            "item_bulk_deleted": "Maramihang pagtanggal",
+            "item_stock_adjusted": "Na-update ang stock",
+            "item_attachment_added": "Nadagdag ang kalakip",
+            "item_attachment_deleted": "Tinanggal ang Kalakip"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} kaugnay na tala",
+        "empty_title": "Walang nahanap na kaugnay na tala",
+        "low_stock": {
+            "title": "Mababang Stock",
+            "description": "Mga item na mas mababa sa kanilang minimum na antas ng stock.",
+            "qty": "Stock {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Mga Expired na Item",
+            "description": "Mga item na may petsang paso."
+        },
+        "expiring": {
+            "title": "Nalalapit na Petsa ng Pag-expire",
+            "description": "Mga item na mag-e-expire sa loob ng 30 araw."
+        },
+        "maintenance": {
+            "title": "Napalampas na Pagpapanatili",
+            "description": "Mga gawain sa pagpapanatili na lampas na sa naka-iskedyul na petsa."
+        }
+    },
+    "notifications": {
+        "title": "Sentro ng Abiso",
+        "description": "Mga alerto sa pagbabalik ng stock, warranty, pagpapanatili, pag-expire, at paghiram.",
+        "meta_total": "{{count}} mga abiso",
+        "meta_urgent": "{{count}} kagyat",
+        "empty_title": "Walang alerto na nangangailangan ng iyong pansin sa ngayon",
+        "empty_desc": "Ang mababang stock, paparating na mga petsa, at naantalang pagsasaayos ay lalabas dito.",
+        "items": {
+            "stock_empty_title": "Wala sa stock",
+            "stock_low_title": "Mababang stock",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Lagpas na ang petsa ng pag-expire",
+            "expiry_close_title": "Malapit nang mag-expire ang petsa",
+            "warranty_expired_title": "Warrantiy nag-expire na",
+            "warranty_close_title": "Malapit nang matapos ang warranty",
+            "maintenance_overdue_title": "Lagpas na ang iskedyul ng pagpapanatili",
+            "maintenance_close_title": "Malapit nang isagawa ang pagpapanatili",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Lagpas na ang iskedyul ng pagbabalik ng hiram",
+            "borrow_close_title": "Malapit nang isagawa ang pagbabalik ng hiram",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} na araw na lang ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Sentro ng Serbisyo at Warranty",
+        "description": "Subaybayan ang mga warranty, iskedyul ng maintenance, at aksyon sa serbisyo sa isang lugar.",
+        "meta_warranty": "{{count}} tala ng warranty",
+        "meta_tasks": "{{count}} na gawain sa pagpapanatili",
+        "empty_title": "Walang serbisyo o aksyon sa warranty",
+        "empty_desc": "Dito kokolektahin ang mga darating na petsa ng warranty at mga gawain sa pagpapanatili.",
+        "warranty_section": "Pagsubaybay ng Warranty",
+        "warranty_desc": "Nag-expire na mga warranty at mga warranty na magtatapos sa loob ng 30 araw.",
+        "maintenance_section": "Mga Aksyon sa Pagpapanatili",
+        "maintenance_desc": "Mga overdue at paparating na gawain sa pagpapanatili.",
+        "no_warranty": "Walang paparating na aksyon sa warranty.",
+        "no_tasks": "Walang nakaiskedyul na gawain sa pagpapanatili.",
+        "overdue": "Huli na",
+        "upcoming": "Malapit na",
+        "expired": "Nag-expire",
+        "summary_warranty": "Pagsubaybay ng warranty",
+        "summary_tasks": "Mga gawain sa pagpapanatili",
+        "open_warranty_filter": "Buksan ang filter ng warranty",
+        "open_warranty_filter_desc": "Nagsasala ng mga aktibong item ng warranty sa imbentaryo."
+    },
+    "storage_labels": {
+        "title": "Mga Label ng Istante at Silid",
+        "description": "{{count}} na label ng silid/istante ay handa na bilang isang print sheet.",
+        "empty_title": "Walang silid o istante na mayroon ng label",
+        "empty_desc": "Magdagdag muna ng mga silid o lokasyon, pagkatapos ay iprint ang QR labels dito.",
+        "sheet_label": "Sheet ng Label ng Lokasyon",
+        "scan_hint": "Ang pag-scan ng QR code ay nagbubukas ng na-filter na imbentaryo para sa silid o istante na iyon.",
+        "room": "Silid",
+        "location": "Istante/Kahon"
     }
 }

@@ -51,9 +51,11 @@
         "show": "Mostrar senha",
         "saving": "Salvando...",
         "disabled": "Deficiente",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Aproximar",
+        "zoom_out": "Afastar",
+        "reset": "Redefinir",
+        "print": "Imprimir",
+        "record_count": "{{count}} registros"
     },
     "auth": {
         "login": {
@@ -352,7 +354,10 @@
         "logout_description": "Você será retornado à tela de login e precisará entrar novamente para gerenciar o inventário da sua residência.",
         "logout_warning": "Use isto quando terminar em um dispositivo compartilhado ou pessoal.",
         "maintenance": "Cronograma de Manutenção",
-        "shopping": "Lista de Compras"
+        "shopping": "Lista de Compras",
+        "activity": "Atividade",
+        "notifications": "Notificações",
+        "service": "Serviço"
     },
     "dashboard": {
         "welcome": "Bem-vindo, <1>{{name}}</1>! 👋",
@@ -491,7 +496,8 @@
             "low_stock_desc": "{{count}} itens caíram abaixo do seu limite mínimo de estoque.",
             "go_to_shopping": "Lista de Compras",
             "close_expiry_title": "Datas de Validade Próximas",
-            "close_expiry_desc": "{{count}} produtos expirarão dentro de 30 dias."
+            "close_expiry_desc": "{{count}} produtos expirarão dentro de 30 dias.",
+            "view_low_stock_items": "Ver Estoque Baixo"
         }
     },
     "beta_banner": {
@@ -513,7 +519,7 @@
         "load_error": "Falha ao carregar item",
         "form": {
             "name": "Nome do Item",
-            "name_placeholder": "ex. TV Samsung 55 polegadas",
+            "name_placeholder": "ex. TV 55 polegadas",
             "required": "*",
             "description": "Descrição",
             "description_placeholder": "Observações sobre o item...",
@@ -641,6 +647,17 @@
             "close_to_expiry": "Próximo da Validade",
             "expired": "Vencido",
             "low_stock": "Estoque Baixo"
+        },
+        "untitled_item": "Item sem título",
+        "attachments": {
+            "title": "Fotos e arquivos",
+            "add": "Adicionar arquivos",
+            "empty": "Nenhum arquivo adicionado ainda.",
+            "form_desc": "Anexe fotos do item, recibos, faturas ou documentos de serviço.",
+            "detail_desc": "Fotos, recibos, faturas e arquivos de serviço salvos para este item.",
+            "upload_error": "Os arquivos não puderam ser enviados.",
+            "delete_error": "O arquivo não pôde ser excluído.",
+            "delete_confirm": "Excluir este arquivo?"
         }
     },
     "settings": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Chave da Casa Ativa",
             "key_label": "Chave da Casa",
-            "mask_key": "••••••••{{sufixo}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Ocultar",
             "show": "Mostrar",
             "copy": "Copiar",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} locais existentes ignorados.",
             "skipped_rooms": "{{count}} salas existentes ignoradas.",
             "owner_only_title": "Backup e Restauração Restritos",
-            "owner_only_desc": "O backup e a restauração de dados só podem ser gerenciados pelo proprietário da casa."
+            "owner_only_desc": "O backup e a restauração de dados só podem ser gerenciados pelo proprietário da casa.",
+            "include_media_title": "Incluir fotos e imagens de recibos",
+            "include_media_body": "O backup completo pode ser maior, mas fotos do item e imagens de recibos também podem ser restauradas.",
+            "skipped_attachments": "{{count}} anexos foram ignorados."
         },
         "about": {
             "title": "Sobre o aplicativo",
@@ -848,7 +868,7 @@
             "privacy_link": "Política de Privacidade",
             "beta_title": "Status beta",
             "beta_body": "{{brandName}} ainda está em beta. Os recursos podem mudar, os fluxos de trabalho podem evoluir e os dados importantes da casa sempre devem ser copiados.",
-            "feedback_subject": "Feedback - {{NomeMarca}}",
+            "feedback_subject": "Comentários - {{brandName}}",
             "logout_body": "Quaisquer alterações não salvas em formulários abertos podem ser perdidas após você sair desta sessão.",
             "logout_description": "Você retornará à página inicial e poderá entrar novamente a qualquer momento.",
             "logout_title": "Sair agora?"
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Todas as solicitações recebidas são bloqueadas automaticamente.",
             "policy_house_only_desc": "Apenas membros verificados das suas casas ativas podem solicitar itens que já estão visíveis dentro dessa casa compartilhada.",
             "policy_everyone_desc": "Outros usuários não podem navegar ou ver seus itens. Eles só podem enviar uma solicitação inserindo seu nome de usuário ou e-mail diretamente."
+        },
+        "activity_log": {
+            "title": "Registro de atividade e auditoria",
+            "description": "Revise o histórico protegido de alterações de itens, atualizações de estoque, anexos e ações em massa.",
+            "encrypted_title": "Os registros de atividade são armazenados de forma protegida",
+            "encrypted_body": "Novas ações e detalhes de atividades são armazenados criptografados no banco de dados e só são descriptografados para sua sessão ativa."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "O registro será fechado após o credor confirmar que recebeu o item de volta.",
             "return_pending_lender_title": "{{name}} marcou este item como entregue de volta",
             "return_pending_self_title": "Com você, aguardando confirmação de recebimento",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Membro do site",
+            "site_member_identifier": "Nome de usuário ou e-mail",
+            "site_member_identifier_placeholder": "Nome de usuário ou e-mail exato",
+            "site_member_privacy_hint": "A oferta aparece no Centro de Empréstimos somente se essa conta existir e permitir ofertas recebidas.",
+            "external_privacy_hint": "Isso cria apenas um registro local privado. Nenhuma notificação de aplicativo é enviada.",
+            "available": "Disponível"
         },
         "untitled_item": "Item sem título",
         "delete_action": "Excluir item",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Filtrar por sala",
         "refreshing_results": "Atualizando itens...",
         "empty_filter_title": "Nenhum item correspondeu a essa pesquisa",
-        "delete_error_title": "Falha ao excluir"
+        "delete_error_title": "Falha ao excluir",
+        "tools": {
+            "title": "Ferramentas"
+        },
+        "no_room": "Sem espaço",
+        "all_locations": "Todos os locais",
+        "location_filter_label": "Filtrar por local",
+        "visibility_filter_label": "Filtrar por visibilidade",
+        "visibility_all": "Toda visibilidade",
+        "visibility_mine": "Meus itens",
+        "visibility_others": "Outros membros",
+        "borrow_filter_label": "Filtrar por status de empréstimo",
+        "borrow_filter_all": "Todos os status de empréstimo",
+        "stock_filter_label": "Filtrar por status de estoque",
+        "stock_filter_all": "Todos os status de estoque",
+        "stock_filter_ok": "Estoque ok",
+        "expiry_filter_label": "Filtrar por data de validade",
+        "expiry_filter_all": "Todas as datas de validade",
+        "expiry_filter_dated": "Tem data",
+        "expiry_filter_none": "Sem data",
+        "warranty_filter_label": "Filtrar por garantia",
+        "warranty_filter_all": "Todas as garantias",
+        "warranty_filter_expired": "Garantias expiradas",
+        "warranty_filter_close": "Terminando em breve",
+        "warranty_filter_active": "Garantias ativas",
+        "warranty_filter_none": "Sem informação de garantia",
+        "sort_label": "Ordenar",
+        "sort_updated_desc": "Atualizado recentemente",
+        "sort_updated_asc": "Atualização mais antiga",
+        "sort_created_desc": "Mais recente primeiro",
+        "sort_created_asc": "Mais antiga primeiro",
+        "sort_name_asc": "Nome A-Z",
+        "sort_name_desc": "Nome Z-A",
+        "sort_quantity_desc": "Quantidade do maior para o menor",
+        "sort_quantity_asc": "Quantidade do menor para o maior",
+        "sort_expiry_asc": "Vencimento mais próximo",
+        "sort_expiry_desc": "Vencimento mais distante",
+        "stock_increase": "Aumentar estoque",
+        "stock_decrease": "Diminuir estoque",
+        "stock_adjust_error": "Não foi possível atualizar o estoque.",
+        "bulk": {
+            "select_visible": "Selecionar visíveis",
+            "clear_visible": "Desmarcar visíveis",
+            "selected_short": "selecionado",
+            "keep_category": "Manter categoria",
+            "keep_room": "Manter sala",
+            "keep_location": "Manter localização",
+            "keep_visibility": "Manter visibilidade",
+            "apply": "Aplicar",
+            "no_fields": "Escolha pelo menos um campo para a ação em massa.",
+            "updated_title": "Atualização em massa concluída",
+            "updated_body": "{{count}} itens atualizados. {{skipped}} ignorados.",
+            "update_error": "Não foi possível concluir a atualização em massa.",
+            "deleted_title": "Exclusão em massa concluída",
+            "deleted_body": "{{count}} itens excluídos. {{skipped}} ignorados.",
+            "delete_error": "Não foi possível concluir a exclusão em massa.",
+            "delete_title": "Excluir itens selecionados?",
+            "delete_description": "{{count}} itens selecionados serão removidos deste inventário doméstico. Isto não pode ser desfeito.",
+            "select_item": "Selecionar item",
+            "unselect_item": "Desmarcar item"
+        },
+        "qr_labels": {
+            "title": "Etiquetas QR",
+            "open": "Etiquetas de item",
+            "description": "{{count}} etiquetas de item estão prontas como uma folha de impressão.",
+            "empty": "Altere os filtros ou adicione itens de inventário para imprimir etiquetas.",
+            "sheet_label": "Folha de Etiquetas de Item",
+            "item_label": "Etiqueta de Item"
+        }
     },
     "categories": {
         "title": "Categorias",
@@ -1343,7 +1438,7 @@
             "no_logs": "ainda sem registros",
             "errors_title": "Erros do sistema (Últimos 10)",
             "no_errors": "// Sistema saudável, sem registros de erro.",
-            "date_fmt": "{{data, data e hora}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "E-mail",
                 "user": "Usuário",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Unidade Mesh",
-                    "meta": "Console de TV • Deco M4",
+                    "meta": "Console de TV • Network node",
                     "state": null
                 },
                 {
@@ -1902,7 +1997,7 @@
             ],
             "fallback": "O link de redefinição de senha parece incompleto ou quebrado.",
             "support": "Problemas de registro:",
-            "footer": "© 2026 {{nomedamarca}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
             "subject": "Bem-vindo ao {{brandName}}",
@@ -1920,7 +2015,7 @@
                 "💡 Você pode ser membro de várias casas e alternar entre elas. Cada casa mantém um inventário separado."
             ],
             "support": "Problemas de registro:",
-            "footer": "© 2026 {{nomedamarca}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Entrar em Casa",
@@ -1954,11 +2049,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Se uma conta existir, um link de redefinição de senha válido por 15 minutos foi enviado.",
             "fallback": "O link de redefinição de senha parece incompleto ou quebrado.",
-            "footer": "© 2026 {{nomedamarca}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "Este e-mail foi enviado por {{brandName}}.",
-            "footer": "© 2026 {{NomeMarca}} - {{supportEmail}}"
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         },
         "testEmail": {
             "subject": "🧪 E-mail de Teste {{brandName}}",
@@ -1968,7 +2063,7 @@
             "sentAtLabel": "Enviado em",
             "senderLabel": "Remetente",
             "serviceLabel": "Serviço",
-            "footer": "© 2026 {{nomedamarca}}"
+            "footer": "© 2026 {{brandName}}"
         }
     },
     "vault": {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "O centro de empréstimos não pôde ser carregado",
             "action_error": "A ação não pôde ser concluída",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Este registro de empréstimo ativo não pôde ser encontrado. Atualize o Centro de Empréstimos e tente novamente.",
             "errors": {
                 "external_target_daily_limit": "Você só pode enviar uma primeira solicitação externa para a mesma pessoa por dia. Se ela aceitar a solicitação, esse limite não se aplica mais a essa pessoa.",
                 "external_total_daily_limit": "Você pode enviar até 5 primeiras solicitações externas por dia.",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "Menu da conta de {{name}}"
     },
     "app": {
-        "name": "{{nomedamarca}}",
+        "name": "{{brandName}}",
         "tagline": "Gerencie inteligentemente todos os itens da sua casa",
         "loading": "Carregando {{brandName}}",
         "preparing_workspace": "Preparando seu espaço de trabalho..."
@@ -2555,5 +2650,102 @@
         "description": "A interface teve um problema inesperado de renderização. Seus dados de inventário salvos não são alterados por esta tela.",
         "refresh_btn": "Atualizar",
         "home_btn": "Casa"
+    },
+    "activity": {
+        "title": "Histórico de Atividade",
+        "description": "Alterações recentes protegidas em seu inventário doméstico.",
+        "empty_title": "Nenhuma atividade ainda",
+        "empty_description": "Alterações de itens, atualizações de estoque, anexos, empréstimos e ações em massa aparecerão aqui.",
+        "unknown_actor": "Usuário desconhecido",
+        "deleted_item_with_id": "Item excluído #{{id}}",
+        "item_missing": "Este registro de item não existe mais",
+        "actions": {
+            "item_created": "Item adicionado",
+            "item_updated": "Item atualizado",
+            "item_deleted": "Item excluído",
+            "item_borrowed": "Item emprestado",
+            "item_returned": "Item retornado",
+            "item_bulk_updated": "Atualização em massa",
+            "item_bulk_deleted": "Exclusão em massa",
+            "item_stock_adjusted": "Estoque atualizado",
+            "item_attachment_added": "Anexo adicionado",
+            "item_attachment_deleted": "Anexo excluído"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} registros relacionados",
+        "empty_title": "Nenhum registro relacionado encontrado",
+        "low_stock": {
+            "title": "Estoque baixo",
+            "description": "Itens abaixo do nível mínimo de estoque.",
+            "qty": "Estoque {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Itens Vencidos",
+            "description": "Itens com data de validade expirada."
+        },
+        "expiring": {
+            "title": "Próximas Datas de Validade",
+            "description": "Itens que vencem dentro de 30 dias."
+        },
+        "maintenance": {
+            "title": "Manutenção Atrasada",
+            "description": "Tarefas de manutenção com data programada já ultrapassada."
+        }
+    },
+    "notifications": {
+        "title": "Central de Notificações",
+        "description": "Alertas de estoque, garantia, manutenção, vencimento e devolução de empréstimos.",
+        "meta_total": "{{count}} notificações",
+        "meta_urgent": "{{count}} urgente(s)",
+        "empty_title": "Nenhum alerta precisa da sua atenção no momento",
+        "empty_desc": "Estoque baixo, datas próximas e manutenção atrasada aparecerão aqui.",
+        "items": {
+            "stock_empty_title": "Fora de estoque",
+            "stock_low_title": "Estoque baixo",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Data de validade vencida",
+            "expiry_close_title": "Data de expiração se aproximando",
+            "warranty_expired_title": "Garantia expirada",
+            "warranty_close_title": "Garantia encerrando em breve",
+            "maintenance_overdue_title": "Manutenção atrasada",
+            "maintenance_close_title": "Manutenção a vencer em breve",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Empréstimo a devolver atrasado",
+            "borrow_close_title": "Empréstimo a devolver em breve",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} dias restantes ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Centro de Serviço e Garantia",
+        "description": "Acompanhe garantias, cronogramas de manutenção e ações de serviço em um só lugar.",
+        "meta_warranty": "{{count}} registros de garantia",
+        "meta_tasks": "{{count}} tarefas de manutenção",
+        "empty_title": "Nenhuma ação de serviço ou garantia",
+        "empty_desc": "Datas de garantia e tarefas de manutenção próximas serão coletadas aqui.",
+        "warranty_section": "Rastreamento de Garantia",
+        "warranty_desc": "Garantias expiradas e garantias que terminam em 30 dias.",
+        "maintenance_section": "Ações de Manutenção",
+        "maintenance_desc": "Tarefas de manutenção atrasadas e próximas.",
+        "no_warranty": "Nenhuma ação de garantia próxima.",
+        "no_tasks": "Nenhuma tarefa de manutenção agendada.",
+        "overdue": "Atrasado",
+        "upcoming": "Em breve",
+        "expired": "Expirado",
+        "summary_warranty": "Rastreamento de garantia",
+        "summary_tasks": "Tarefas de manutenção",
+        "open_warranty_filter": "Abrir filtro de garantia",
+        "open_warranty_filter_desc": "Filtra itens de garantia ativos no inventário."
+    },
+    "storage_labels": {
+        "title": "Etiquetas de prateleira e sala",
+        "description": "{{count}} etiquetas de sala/prateleira estão prontas para impressão.",
+        "empty_title": "Nenhuma sala ou prateleira para etiquetar",
+        "empty_desc": "Adicione salas ou locais primeiro, depois imprima as etiquetas QR aqui.",
+        "sheet_label": "Folha de etiquetas de local",
+        "scan_hint": "Escanear o código QR abre o inventário filtrado para aquele cômodo ou prateleira.",
+        "room": "Cômodo",
+        "location": "Prateleira/Caixa"
     }
 }

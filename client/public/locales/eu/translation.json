@@ -10,7 +10,7 @@
         "load_error": "Elementua kargatzea huts egin du",
         "form": {
             "name": "Elementuaren izena",
-            "name_placeholder": "adib. Samsung TV 55 hazbete",
+            "name_placeholder": "adib. TV 55 hazbete",
             "required": "*",
             "description": "Deskribapena",
             "description_placeholder": "Produktuari buruzko oharrak...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Iraungitzear",
             "expired": "Iraungi da",
             "low_stock": "Stock baxua"
+        },
+        "untitled_item": "Izenik gabeko elementua",
+        "attachments": {
+            "title": "Argazkiak eta fitxategiak",
+            "add": "Gehitu fitxategiak",
+            "empty": "Oraindik ez dira fitxategirik gehitu.",
+            "form_desc": "Erantsi elementuaren argazkiak, erreziboak, fakturak edo zerbitzu-dokumentuak.",
+            "detail_desc": "Elementu honetarako argazkiak, erreziboak, fakturak eta zerbitzu fitxategiak gorde dira.",
+            "upload_error": "Fitxategiak ezin izan ziren igotzeko.",
+            "delete_error": "Fitxategia ezin izan da ezabatu.",
+            "delete_confirm": "Ezabatu fitxategi hau?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Pasahitza erakutsi",
         "saving": "Gordetzen...",
         "disabled": "Ezgaitua",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Handitu",
+        "zoom_out": "Txikitu",
+        "reset": "Berrezarri",
+        "print": "Inprimatu",
+        "record_count": "{{count}} erregistro"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Saioa hasten den pantailara itzuliko zara eta berriro saioa hasi beharko duzu zure etxeko stocka kudeatzeko.",
         "logout_warning": "Hau erabili partekatutako edo gailu pertsonal batean amaitutakoan.",
         "maintenance": "Mantentze-lanak Ordutegia",
-        "shopping": "Erosketa Zerrenda"
+        "shopping": "Erosketa Zerrenda",
+        "activity": "Jarduera",
+        "notifications": "Jakinarazpenak",
+        "service": "Zerbitzua"
     },
     "dashboard": {
         "welcome": "Ongi etorri berriro, <1>{{name}}</1>",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} artikulu zure stock minimoaren azpitik daude.",
             "go_to_shopping": "Erosketa Zerrenda",
             "close_expiry_title": "Etorkizuneko Iraungitze Data",
-            "close_expiry_desc": "{{count}} produktu iraungiko dira 30 egunetan."
+            "close_expiry_desc": "{{count}} produktu iraungiko dira 30 egunetan.",
+            "view_low_stock_items": "Ikusi Stok Txikia"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Etxe Aktiboaren Gakoa",
             "key_label": "Etxe Gakoa",
-            "mask_key": "•••••••••{{atzizkia}}",
+            "mask_key": "•••••••••{{suffix}}",
             "hide": "Ezkutatu",
             "show": "Erakutsi",
             "copy": "Kopiatu",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} kokaleku existitzen dira eta saltatuta.",
             "skipped_rooms": "{{count}} gela existitzen dira eta saltatuta.",
             "owner_only_title": "Babeskopia eta Berreskurapena Mugatua",
-            "owner_only_desc": "Datuen babeskopia eta berreskurapena etxearen jabeak soilik kudea dezake."
+            "owner_only_desc": "Datuen babeskopia eta berreskurapena etxearen jabeak soilik kudea dezake.",
+            "include_media_title": "Sartu argazkiak eta ordainagiri irudiak",
+            "include_media_body": "Babeskopia osoa handiagoa izan daiteke, baina elementuen argazkiak eta ordainagiri irudiak ere berreskuratu daitezke.",
+            "skipped_attachments": "{{count}} atxikitzeak saltatu ziren."
         },
         "about": {
             "title": "Aplikazioari buruz",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Sarrera eskaera guztiak automatikoki blokeatzen dira.",
             "policy_house_only_desc": "Zure etxe aktiboetako kide bakarrak eskatu dezakete dagoeneko etxe partekatuan ikusgai dauden elementuak.",
             "policy_everyone_desc": "Beste erabiltzaileek ezin dute zure elementuak arakatu edo ikusi. Eskaria bidaltzeko, zure erabiltzaile-izena edo posta elektronikoa zuzenean sartu behar dute."
+        },
+        "activity_log": {
+            "title": "Ekintza eta auditoriaren loga",
+            "description": "Begiratu elementuen aldaketen, stock eguneratzeen, atxikizunen eta ekintza masiboen historial babestua.",
+            "encrypted_title": "Jarduera-erregistroak babestuta gordetzen dira",
+            "encrypted_body": "Jarduera-ekintza eta xehetasun berriak datu-basean kriptatuta gordetzen dira eta soilik zure saio aktiborako deszifratu egiten dira."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Erregistroa itxi egingo da mailegu-emariak elementua itzulita jaso duela baieztatzen duenean.",
             "return_pending_lender_title": "{{name}} elementu hau berreskuratu dela markatu du",
             "return_pending_self_title": "Zurekin, jaso dela baieztatzeko zain",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Gune kidea",
+            "site_member_identifier": "Erabiltzaile-izena edo posta elektronikoa",
+            "site_member_identifier_placeholder": "Erabiltzaile-izena edo posta elektroniko zehatza",
+            "site_member_privacy_hint": "Eskaintza Mendeku Zentroan bakarrik agertzen da kontu hori existitzen bada eta etortzen diren eskaintzak onartzen baditu.",
+            "external_privacy_hint": "Honek tokiko erregistro pribatua besterik ez du sortzen. Ez da aplikazioko abisurik bidaltzen.",
+            "available": "Eskuragarri"
         },
         "untitled_item": "Izengabea den elementua",
         "delete_action": "Elementua ezabatu",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Gelaz iragazi",
         "refreshing_results": "Elementuak berritzen...",
         "empty_filter_title": "Ez dago bilaketa horri dagokion ezer",
-        "delete_error_title": "Ezabaketa huts egin du"
+        "delete_error_title": "Ezabaketa huts egin du",
+        "tools": {
+            "title": "Tresnak"
+        },
+        "no_room": "Gela ez dago",
+        "all_locations": "Leku guztiak",
+        "location_filter_label": "Lekuaren arabera iragazi",
+        "visibility_filter_label": "Ikusgarritasunaren arabera iragazi",
+        "visibility_all": "Ikusgarritasun guztiak",
+        "visibility_mine": "Nire elementuak",
+        "visibility_others": "Beste kideak",
+        "borrow_filter_label": "Mailegu-egoeraren arabera iragazi",
+        "borrow_filter_all": "Mailegu-egoera guztiak",
+        "stock_filter_label": "Stock-egoeraren arabera iragazi",
+        "stock_filter_all": "Stock-egoera guztiak",
+        "stock_filter_ok": "Stock ona",
+        "expiry_filter_label": "Irakurgaiaren iraupen-aron iragazi",
+        "expiry_filter_all": "Iraupen-dataren arabera guztiak",
+        "expiry_filter_dated": "Data du",
+        "expiry_filter_none": "Data ez",
+        "warranty_filter_label": "Bermearen arabera iragazi",
+        "warranty_filter_all": "Bermae guztiak",
+        "warranty_filter_expired": "Iraungitako bermak",
+        "warranty_filter_close": "Laster amaitzen direnak",
+        "warranty_filter_active": "Aktibo diren bermak",
+        "warranty_filter_none": "Bermearen informaziorik ez",
+        "sort_label": "Ordenatu",
+        "sort_updated_desc": "Berriki eguneratua",
+        "sort_updated_asc": "Eguneratze zaharrena",
+        "sort_created_desc": "Berriena lehen",
+        "sort_created_asc": "Zaharrena lehen",
+        "sort_name_asc": "Izena A-Z",
+        "sort_name_desc": "Izena Z-A",
+        "sort_quantity_desc": "Kantitatea handitik txikira",
+        "sort_quantity_asc": "Kantitatea txikitik handira",
+        "sort_expiry_asc": "Hondatzeko data lehenena",
+        "sort_expiry_desc": "Hondatzeko data azkena",
+        "stock_increase": "Stocka handitu",
+        "stock_decrease": "Stocka txikitu",
+        "stock_adjust_error": "Stocka ezin izan da eguneratu.",
+        "bulk": {
+            "select_visible": "Ikusgarria hautatu",
+            "clear_visible": "Ikusgarria deshautatu",
+            "selected_short": "hautatua",
+            "keep_category": "Kategoria gordetu",
+            "keep_room": "Gela gordetu",
+            "keep_location": "Kokapena gordetu",
+            "keep_visibility": "Ikusgarritasuna gorde",
+            "apply": "Aplikatu",
+            "no_fields": "Aukeratu gutxienez eremu bat bolumen ekintzarako.",
+            "updated_title": "Bolumen eguneraketa amaituta",
+            "updated_body": "{{count}} elementu eguneratu dira. {{skipped}} saltatu dira.",
+            "update_error": "Eguneraketa masiboa ezin izan da burutu.",
+            "deleted_title": "Ezabatze masiboa burututa",
+            "deleted_body": "{{count}} elementu ezabatu dira. {{skipped}} saltatu dira.",
+            "delete_error": "Ezabatze masiboa ezin izan da burutu.",
+            "delete_title": "Hautatutako elementuak ezabatu?",
+            "delete_description": "{{count}} hautatutako elementu kenduko dira etxeko stock honetatik. Hau ezin da atzera bota.",
+            "select_item": "Elementua hautatu",
+            "unselect_item": "Elementua deshautatu"
+        },
+        "qr_labels": {
+            "title": "QR Etiketak",
+            "open": "Elementu Etiketak",
+            "description": "{{count}} elementu etiketak prest daude inprimatzeko orrialde gisa.",
+            "empty": "Aldatu iragazkiak edo gehitu inventarioko elementuak etiketak inprimatzeko.",
+            "sheet_label": "Elementu Etiketa Orrialdea",
+            "item_label": "Elementu Etiketa"
+        }
     },
     "categories": {
         "title": "Kategoria",
@@ -1341,7 +1436,7 @@
             "no_logs": "oraindik ez da logikik",
             "errors_title": "Sistema Akatsak (Azken 10)",
             "no_errors": "// Sistema osasuntsua, ez dago akatsen logikorik.",
-            "date_fmt": "{{data, data-ordua}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "Posta elektronikoa",
                 "user": "Erabiltzailea",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Sare-unitatea",
-                    "meta": "Telebista kontsola • Deco M4",
+                    "meta": "Telebista kontsola • Network node",
                     "state": null
                 },
                 {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Mailegu zentroa ezin izan da kargatu",
             "action_error": "Ekintza ezin izan da burutu",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Ezin izan da aurkitu mailegu erregistro aktibo hau. Eguneratu Mailegu Zentroa eta saiatu berriro.",
             "errors": {
                 "external_target_daily_limit": "Egunean pertsona berari bidal daitekeen lehen harremaneko eskaria bakarra izan daiteke. Pertsona hori eskaera bat onartzen badu, muga hori ez da pertsona horri aplikatzen jarraituko.",
                 "external_total_daily_limit": "Eguneko bost lehen harremaneko eskari external bidal daitezke gehienez.",
@@ -2555,5 +2650,102 @@
         "description": "Interfazeak ustekabeko errendaketa arazo bat izan zuen. Zure gordetako inbentarioaren datuak ez dira pantaila honek aldatzen.",
         "refresh_btn": "Berritzea",
         "home_btn": "Etxea"
+    },
+    "activity": {
+        "title": "Jarduera Historikoa",
+        "description": "Etxeko stockean azken aldaketak babestuta.",
+        "empty_title": "Oraindik ez dago jarduerarik",
+        "empty_description": "Elementu aldaketak, stock eguneraketak, eranskailuak, maileguak eta bidezko ekintzak hemen agertuko dira.",
+        "unknown_actor": "Erabiltzaile ezezaguna",
+        "deleted_item_with_id": "Ezabatutako elementua #{{id}}",
+        "item_missing": "Elementu honen erregistroa ez da gehiago existitzen",
+        "actions": {
+            "item_created": "Elementua gehitu da",
+            "item_updated": "Elementua eguneratua",
+            "item_deleted": "Elementua ezabatu da",
+            "item_borrowed": "Elementua mailegutu da",
+            "item_returned": "Elementua itzuli da",
+            "item_bulk_updated": "Guztizko eguneraketa",
+            "item_bulk_deleted": "Guztizko ezabapena",
+            "item_stock_adjusted": "Stocka eguneratua",
+            "item_attachment_added": "Erantsia gehitu da",
+            "item_attachment_deleted": "Erantsia ezabatu da"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} erregistro erlazionatu",
+        "empty_title": "Ez da erregistro erlazionaturik aurkitu",
+        "low_stock": {
+            "title": "Stok baxua",
+            "description": "Elementuak euren gutxieneko stock maila azpitik.",
+            "qty": "Stocka {{quantity}} / gutxienekoa {{min}}"
+        },
+        "expired": {
+            "title": "Iraungitako elementuak",
+            "description": "Data iraungia duten elementuak."
+        },
+        "expiring": {
+            "title": "Etorkizuneko iraungitze-datak",
+            "description": "30 eguneko epean iraungiko diren artikuluak."
+        },
+        "maintenance": {
+            "title": "Mantentze",
+            "description": "Mantentze lanak beren data programatua gaindituz."
+        }
+    },
+    "notifications": {
+        "title": "Jakinarazpen Zentroa",
+        "description": "Stock, berme, mantentze, iraungitze eta mailegu itzulketa alertak.",
+        "meta_total": "{{count}} jakinarazpenak",
+        "meta_urgent": "{{count}} premiazkoa",
+        "empty_title": "Une honetan ez dago arreta behar duten alerta",
+        "empty_desc": "Stock baxua, hurrengo datak eta berrespen atzeratua hemen agertuko dira.",
+        "items": {
+            "stock_empty_title": "Stockik gabe",
+            "stock_low_title": "Stock baxua",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Iraungitze-data igaro da",
+            "expiry_close_title": "Iraungitze-data hurbiltzen ari da",
+            "warranty_expired_title": "Bermea iraungi da",
+            "warranty_close_title": "Bermea laster amaituko da",
+            "maintenance_overdue_title": "Mantentze-lanak berandu",
+            "maintenance_close_title": "Mantentze-lanak laster",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Mailegu itzultzea berandu",
+            "borrow_close_title": "Mailegu itzultzea laster",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} egun gelditzen dira ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Zerbitzu eta Berme Zentroa",
+        "description": "Jarraitu bermeak, mantentze-taulak eta zerbitzu ekintzak lekuko bakarrean.",
+        "meta_warranty": "{{count}} berme erregistro",
+        "meta_tasks": "{{count}} mantentze-lan",
+        "empty_title": "Ez dago zerbitzu edo berme ekintzarik",
+        "empty_desc": "Etorkizuneko bermeak eta mantentze-lanak hemen bilduko dira.",
+        "warranty_section": "Bermeen jarraipena",
+        "warranty_desc": "Iraungitako bermeak eta 30 eguneko epean amaituko diren bermeak.",
+        "maintenance_section": "Mantentze Ekintzak",
+        "maintenance_desc": "Mantentze-lan atzeratuak eta datozenak.",
+        "no_warranty": "Ez dago etorkizuneko berme ekintzarik.",
+        "no_tasks": "Ez dago programatutako mantentze-lanerik.",
+        "overdue": "Atzeratuak",
+        "upcoming": "Laster",
+        "expired": "Iraungita",
+        "summary_warranty": "Bermeen jarraipena",
+        "summary_tasks": "Mantentze-lanak",
+        "open_warranty_filter": "Irekitako berme iragazkia",
+        "open_warranty_filter_desc": "Biltegian dauden aktibo bermeko elementuak iragazten ditu."
+    },
+    "storage_labels": {
+        "title": "Apal eta Gelako Etiketak",
+        "description": "{{count}} gela/apal etiketak inprimatzeko orri bezala prest daude.",
+        "empty_title": "Etiketa jarri beharreko gelarik edo apalik ez",
+        "empty_desc": "Gehitu lehenengo gelak edo kokapenak, eta ondoren hemen inprimatu QR etiketak.",
+        "sheet_label": "Kokapen Etiketa Orriak",
+        "scan_hint": "QR kodea eskaneatzeak gelarako edo apaleko iragaztutako biltegia zabaltzen du.",
+        "room": "Gela",
+        "location": "Apalategia/Kaxa"
     }
 }

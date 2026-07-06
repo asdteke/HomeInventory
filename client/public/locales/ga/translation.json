@@ -10,7 +10,7 @@
         "load_error": "Theip ar luchtú na míre",
         "form": {
             "name": "Ainm na Míre",
-            "name_placeholder": "m.sh. Teilifís Samsung 55 orlach",
+            "name_placeholder": "m.sh. Teilifís 55 orlach",
             "required": "*",
             "description": "Cur Síos",
             "description_placeholder": "Nótaí faoin earra...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Gar don Éagtha",
             "expired": "Ascalaithe",
             "low_stock": "Stoc Íseal"
+        },
+        "untitled_item": "Mír gan Teideal",
+        "attachments": {
+            "title": "Grianghraif agus comhaid",
+            "add": "Cuir comhaid",
+            "empty": "Níor cuireadh aon comhaid leis fós.",
+            "form_desc": "Cuir grianghraif earra, admhálacha, sonrascáin, nó doiciméid seirbhíse leis.",
+            "detail_desc": "Grianghraif, admhálacha, sonrascáin, agus comhaid seirbhíse sábháilte don earra seo.",
+            "upload_error": "Ní raibh sé indéanta comhaid a uaslódáil.",
+            "delete_error": "Níorbh fhéidir an comhad a scriosadh.",
+            "delete_confirm": "An scriosfaidh tú an comhad seo?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Taispeáin pasfhocal",
         "saving": "Ag sábháil...",
         "disabled": "Díchumasaithe",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Dlúthghabháil isteach",
+        "zoom_out": "Scaoil amach",
+        "reset": "Athshocraigh",
+        "print": "Clóigh",
+        "record_count": "{{count}} taifid"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Beidh tú ar ais ar an scáileán sínte agus beidh ort logáil isteach arís chun do stoc teach a bhainistiú.",
         "logout_warning": "Úsáid seo nuair atá tú críochnaithe ar ghléas roinnte nó pearsanta.",
         "maintenance": "Sceideal Cothabhála",
-        "shopping": "Liosta Siopadóireachta"
+        "shopping": "Liosta Siopadóireachta",
+        "activity": "Gníomhaíocht",
+        "notifications": "Fógraí",
+        "service": "Seirbhís"
     },
     "dashboard": {
         "welcome": "Fáilte ar ais, <1>{{name}}</1>",
@@ -628,7 +644,8 @@
             "low_stock_desc": "Tá {{count}} míreanna tar éis titim faoi do theorainn stoc íosta.",
             "go_to_shopping": "Liosta Siopadóireachta",
             "close_expiry_title": "Dáta Éaga atá Le teacht",
-            "close_expiry_desc": "Réidhfidh {{count}} táirgí laistigh de 30 lá."
+            "close_expiry_desc": "Réidhfidh {{count}} táirgí laistigh de 30 lá.",
+            "view_low_stock_items": "Amharc Stoc Íseal"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Eochair an Tí Gníomhach",
             "key_label": "Eochair an Tí",
-            "mask_key": "•••••••{{iarmhír}}",
+            "mask_key": "•••••••{{suffix}}",
             "hide": "Folaigh",
             "show": "Taispeáin",
             "copy": "Cóipeáil",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} suíomhanna atá ann cheana scipeáilte.",
             "skipped_rooms": "{{count}} seomraí atá ann cheana scipeáilte.",
             "owner_only_title": "Cúltaca agus Athshlánú Teoranta",
-            "owner_only_desc": "Ní féidir cúltaca sonraí agus athshlánú a bhainistiú ach ag úinéir an tí."
+            "owner_only_desc": "Ní féidir cúltaca sonraí agus athshlánú a bhainistiú ach ag úinéir an tí.",
+            "include_media_title": "Cuir pictiúir agus íomhánna admhála san áireamh",
+            "include_media_body": "D’fhéadfadh an cóip shlán a bheith níos mó, ach is féidir pictiúir earraí agus íomhánna admhála a athshlánú freisin.",
+            "skipped_attachments": "Cuireadh {{count}} ceangaltán ar leataobh."
         },
         "about": {
             "title": "Maidir leis an Iarratas",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Cuirtear bac ar gach iarratas isteach go huathoibríoch.",
             "policy_house_only_desc": "Ní féidir ach comhaltaí fíoraithe de do thithe gníomhacha earraí atá le feiceáil cheana istigh sa teach comhroinnte sin a iarraidh.",
             "policy_everyone_desc": "Ní féidir le húsáideoirí eile brabhsáil nó do earraí a fheiceáil. Is féidir leo iarratas a sheoladh amháin trí do ainm úsáideora nó ríomhphost a chur isteach go díreach."
+        },
+        "activity_log": {
+            "title": "Gníomhaíocht agus loga iniúchta",
+            "description": "Athbhreithnigh stair chosanta na mball athruithe, nuashonruithe stoc, ceangaltáin, agus gníomhartha sléibhe.",
+            "encrypted_title": "Taifid gníomhaíochta stóráilte go cosanta",
+            "encrypted_body": "Tá gníomhartha agus sonraí gníomhaíochta nua stóráilte go criptithe sa bhunachar sonraí agus ní dhéantar iad a dhíghlasáil ach don tseisiún gníomhach atá agat."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Dúnfaidh an taifead tar éis don iasachtóir a dheimhniú gur fhuair siad an mhír ar ais.",
             "return_pending_lender_title": "Mharcáil {{name}} an mhír seo mar hathsheachadta ar ais",
             "return_pending_self_title": "Leatsa, ag fanacht le deimhniú ar an admháil",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Ball láithreáin",
+            "site_member_identifier": "Ainm úsáideora nó ríomhphost",
+            "site_member_identifier_placeholder": "Ainm úsáideora nó ríomhphost cruinn",
+            "site_member_privacy_hint": "Tá an tairiscint le feiceáil i lárionad Iasachta amháin má tá an cuntas sin ann agus má cheadaíonn sé tairiscintí ag teacht isteach.",
+            "external_privacy_hint": "Cruthaíonn sé taifead áitiúil príobháideach amháin. Ní sheoltar fógra aip.",
+            "available": "Ar Fáil"
         },
         "untitled_item": "Earra gan teideal",
         "delete_action": "Scrios earra",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Scag de réir seomra",
         "refreshing_results": "Ag athnuachan míreanna...",
         "empty_filter_title": "Níor mheaitseáil aon earra leis an gceannach sin",
-        "delete_error_title": "Theip ar scrios"
+        "delete_error_title": "Theip ar scrios",
+        "tools": {
+            "title": "Uirlisí"
+        },
+        "no_room": "Níl aon seomra",
+        "all_locations": "Gach suíomh",
+        "location_filter_label": "Scag de réir shuímh",
+        "visibility_filter_label": "Scag de réir infheictheachta",
+        "visibility_all": "Gach infheictheacht",
+        "visibility_mine": "Mo chuid earraí",
+        "visibility_others": "Baill eile",
+        "borrow_filter_label": "Scag de réir stádas iasachta",
+        "borrow_filter_all": "Gach stádas iasachta",
+        "stock_filter_label": "Scag de réir stádas stoc",
+        "stock_filter_all": "Gach stádas stoc",
+        "stock_filter_ok": "Stoc ceart",
+        "expiry_filter_label": "Scag de réir dáta éaga",
+        "expiry_filter_all": "Gach dáta éaga",
+        "expiry_filter_dated": "Tá dáta ann",
+        "expiry_filter_none": "Níl dáta ann",
+        "warranty_filter_label": "Scag de réir baránta",
+        "warranty_filter_all": "Gach baránta",
+        "warranty_filter_expired": "Baránta imithe in éag",
+        "warranty_filter_close": "Ag críochnú go luath",
+        "warranty_filter_active": "Barántais gníomhacha",
+        "warranty_filter_none": "Níl aon eolas baránta",
+        "sort_label": "Sórtáil",
+        "sort_updated_desc": "Nuashonraíodh le déanaí",
+        "sort_updated_asc": "An seanfhógra is sine",
+        "sort_created_desc": "Is nua an chéad cheann",
+        "sort_created_asc": "Is sean an chéad cheann",
+        "sort_name_asc": "Ainm A-Z",
+        "sort_name_desc": "Ainm Z-A",
+        "sort_quantity_desc": "Cainníocht ó ard go íseal",
+        "sort_quantity_asc": "Cainníocht ó íseal go ard",
+        "sort_expiry_asc": "Éaga is gaire",
+        "sort_expiry_desc": "Dáta éaga is déanaí",
+        "stock_increase": "Méadú stoc",
+        "stock_decrease": "Laghdú stoc",
+        "stock_adjust_error": "Níorbh fhéidir stoc a nuashonrú.",
+        "bulk": {
+            "select_visible": "Roghnaigh infheicthe",
+            "clear_visible": "Dídhéanamh infheicthe",
+            "selected_short": "roghnaithe",
+            "keep_category": "Coinnigh catagóir",
+            "keep_room": "Coinnigh seomra",
+            "keep_location": "Coinnigh suíomh",
+            "keep_visibility": "Coinnigh inbhraiteacht",
+            "apply": "Cuir i bhfeidhm",
+            "no_fields": "Roghnaigh ar a laghad réimse amháin don ghníomh ilmhór.",
+            "updated_title": "Nuashonrú ilmhór críochnaithe",
+            "updated_body": "Nuashonraíodh {{count}} earraí. Léim {{skipped}} orthu.",
+            "update_error": "Níorbh fhéidir uasdátú mais a chríochnú.",
+            "deleted_title": "Scriosadh mais críochnaithe",
+            "deleted_body": "Scriosadh {{count}} mír. Scipeáladh {{skipped}}.",
+            "delete_error": "Níorbh fhéidir scriosadh mais a chríochnú.",
+            "delete_title": "An scriosfaidh tú na míreanna a roghnaíodh?",
+            "delete_description": "Beidh {{count}} mír(í) roghnaithe bainte as an t-inventar baile seo. Ní féidir é seo a dhíchur.",
+            "select_item": "Roghnaigh mír",
+            "unselect_item": "Dún roghnú mír"
+        },
+        "qr_labels": {
+            "title": "Lipéid QR",
+            "open": "Lipéid Míre",
+            "description": "Tá {{count}} lipéid mhíre réidh mar dhuilleog printéireachta.",
+            "empty": "Athraigh scagairí nó cuir míreanna stoc leis chun lipéid a phriontáil.",
+            "sheet_label": "Duillín Lipéad Míre",
+            "item_label": "Lipéad Míre"
+        }
     },
     "categories": {
         "title": "Catagóirí",
@@ -1341,7 +1436,7 @@
             "no_logs": "níl aon loganna go fóill",
             "errors_title": "Earráidí Córais (10 Deiridh)",
             "no_errors": "// Córais sláintiúil, níl aon loganna earráide.",
-            "date_fmt": "{{dáta, am dáta}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "Ríomhphost",
                 "user": "Úsáideoir",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Aonad mogalra",
-                    "meta": "Consól teilifíse • Deco M4",
+                    "meta": "Consól teilifíse • Network node",
                     "state": null
                 },
                 {
@@ -1929,7 +2024,7 @@
             "bodyLine2": "Ag fanacht le cead úinéara tí"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{stádas}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Rochtain ar an Teach",
             "bodyLine1Template": "Iarratas reatha atá fós ag fanacht: {{house}} ({{status}})",
             "bodyLine2": "Tá do iarratas ar \"{{house}}\" fós ag fanacht le cinneadh.",
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Níorbh fhéidir lárionad iasachta a luchtú",
             "action_error": "Níorbh fhéidir an gníomh a chur i gcrích",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Níor féidir an taifead fiachta gníomhach seo a fháil. Athnuaigh an Lárionad Fiachta agus déan iarracht arís.",
             "errors": {
                 "external_target_daily_limit": "Is féidir leat ach iarratas seachtrach teagmháil-chéad amháin a sheoladh chuig an duine céanna gach lá. Má ghlacann siad le hiarratas, ní bhaineann an teorainn seo leis an duine sin níos mó.",
                 "external_total_daily_limit": "Is féidir leat suas le 5 iarratas seachtrach teagmháil-chéad a sheoladh gach lá.",
@@ -2555,5 +2650,102 @@
         "description": "Bhuail an comhéadan fadhb rindreála gan choinne. Ní athraíonn an scáileán seo do shonraí fardail a shábháil.",
         "refresh_btn": "Athnuachan",
         "home_btn": "Baile"
+    },
+    "activity": {
+        "title": "Stair Gníomhaíochta",
+        "description": "Athruithe cosanta le déanaí i do liosta baile.",
+        "empty_title": "Gan gníomhaíocht go fóill",
+        "empty_description": "Athruithe earraí, nuashonruithe stoic, ceangaltáin, iasachtaí, agus gníomhaíochtaí móra beidh le feiceáil anseo.",
+        "unknown_actor": "Úsáideoir anaithnid",
+        "deleted_item_with_id": "Mír scriosta #{{id}}",
+        "item_missing": "Níl an taifead míre seo ann níos mó",
+        "actions": {
+            "item_created": "Mír curtha leis",
+            "item_updated": "Mír nuashonraithe",
+            "item_deleted": "D'aistrigh an mír",
+            "item_borrowed": "Mír iasachta",
+            "item_returned": "Mír ar ais",
+            "item_bulk_updated": "Nuashonrú mór",
+            "item_bulk_deleted": "Scrios mór",
+            "item_stock_adjusted": "Stoc nuashonraithe",
+            "item_attachment_added": "Ceangaltán curtha leis",
+            "item_attachment_deleted": "Ceangaltán scriosta"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} taifid ghaolmhar",
+        "empty_title": "Níor aimsíodh aon taifid ghaolmhar",
+        "low_stock": {
+            "title": "Stoc Íseal",
+            "description": "Míreanna faoi bhun a leibhéal stoc íosta.",
+            "qty": "Stoc {{quantity}} / nóim {{min}}"
+        },
+        "expired": {
+            "title": "Míreanna Imithe in Éag",
+            "description": "Míreanna le dáta éaga atá thart"
+        },
+        "expiring": {
+            "title": "Dátaí Éaga atá le teacht",
+            "description": "Míreanna ag dul in éag laistigh de 30 lá."
+        },
+        "maintenance": {
+            "title": "Cothabháil Thrádála",
+            "description": "Tascanna cothabhála atá thart ar a dáta sceidealaithe."
+        }
+    },
+    "notifications": {
+        "title": "Ionad Fógra",
+        "description": "Stoic, barántas, cothabháil, dí-úsáid, agus fógraí filleadh iasachta.",
+        "meta_total": "{{count}} fógraí",
+        "meta_urgent": "{{count}} práinneach",
+        "empty_title": "Níl aon fógraí ag teastáil uait faoi láthair",
+        "empty_desc": "Stoc íseal, dátaí atá le teacht, agus cothabháil atá thar am le feiceáil anseo.",
+        "items": {
+            "stock_empty_title": "As stoc",
+            "stock_low_title": "Stoc íseal",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Tá dáta éaga caite",
+            "expiry_close_title": "Ag druidim le dáta éaga",
+            "warranty_expired_title": "Ráthaíocht imithe in éag",
+            "warranty_close_title": "Ráthaíocht ag deireadh go luath",
+            "maintenance_overdue_title": "Cothabháil thar am",
+            "maintenance_close_title": "Tá cothabháil le déanamh go luath",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Tá filleadh iasachta thar am",
+            "borrow_close_title": "Tá filleadh iasachta le déanamh go luath",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} lá fágtha ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Ionad Seirbhís agus Baránta",
+        "description": "Rian na barántas, sceidil cothabhála, agus gníomhartha seirbhíse in áit amháin.",
+        "meta_warranty": "{{count}} taifid baránta",
+        "meta_tasks": "{{count}} tascanna cothabhála",
+        "empty_title": "Gan aon seirbhís ná gníomhaíocht bharántais",
+        "empty_desc": "Bailfear dátaí bharántais agus tascanna cothabhála atá le teacht anseo.",
+        "warranty_section": "Rianú Bharántais",
+        "warranty_desc": "Barántais atá imithe in éag agus barántais a chríochnóidh laistigh de 30 lá.",
+        "maintenance_section": "Gníomhartha Cothabhála",
+        "maintenance_desc": "Tascanna cothabhála atá thar téarma agus atá le teacht.",
+        "no_warranty": "Níl aon ghníomh ráthach le teacht.",
+        "no_tasks": "Níl aon tasc cothabhála sceidealaithe.",
+        "overdue": "Ró-dhéanach",
+        "upcoming": "Go luath",
+        "expired": "Éagtha",
+        "summary_warranty": "Rianú barántais",
+        "summary_tasks": "Tascanna cothabhála",
+        "open_warranty_filter": "Scagaire baránta oscailte",
+        "open_warranty_filter_desc": "Scagann míreanna baránta gníomhacha i stóras."
+    },
+    "storage_labels": {
+        "title": "Lipéid Seilfe agus Seomra",
+        "description": "Tá {{count}} lipéid seomra/síleála réidh mar bhileog chló.",
+        "empty_title": "Níl aon seomraí ná síleála le lipéadú",
+        "empty_desc": "Cuir seomraí nó láithreáin leis ar dtús, ansin clóigh lipéid QR anseo.",
+        "sheet_label": "Bileog Lipéid Láithreáin",
+        "scan_hint": "Osclaíonn scanadh an chód QR an t-inventar scagtha don seomra nó do sheilf sin.",
+        "room": "Seomra",
+        "location": "Seilfe/Bosca"
     }
 }

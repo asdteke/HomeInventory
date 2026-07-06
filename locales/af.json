@@ -10,7 +10,7 @@
         "load_error": "Kon nie item laai nie",
         "form": {
             "name": "Item Naam",
-            "name_placeholder": "bv. Samsung TV 55 duim",
+            "name_placeholder": "bv. TV 55 duim",
             "required": "*",
             "description": "Beskrywing",
             "description_placeholder": "Aantekeninge oor die item...",
@@ -66,7 +66,20 @@
             "warranty_calculation_help": "As u die waarborgbegindatum leeg laat, word die faktuurdatum gebruik. Wanneer u die duur invoer, word die waarborg-einddatum outomaties bereken.",
             "vault_hint_title": "Het jy ekstra privaatheid nodig?",
             "vault_hint_description": "Vir paspoorte, aktes, identiteitsbesonderhede, toegangskodes, en ander rekords wat uit jou gedeelde voorraad moet bly, bêre dit eerder in Persoonlike Kluis.",
-            "vault_hint_action": "Maak Persoonlike Kluis oop"
+            "vault_hint_action": "Maak Persoonlike Kluis oop",
+            "location": "Ligging",
+            "remove_photo": "Verwyder foto",
+            "visibility_owner_only": "Net die persoon wat die item bygevoeg het kan sigbaarheid verander.",
+            "expiry_date": "Vervaldatum",
+            "min_quantity": "Minimum Hoeveelheid",
+            "take_photo": "Neem Foto",
+            "choose_from_gallery": "Kies uit Galery",
+            "take_photo_sub": "Maak toestel se kamera oop",
+            "choose_from_gallery_sub": "Kies uit album",
+            "photo_selected_badge": "Nuwe Foto",
+            "photo_existing_badge": "Bestaande Foto",
+            "no_photo_yet": "Geen Foto Toegevoeg",
+            "photo_options_title": "Beeldaksie Opsies"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" vinnig bygevoeg - jy kan later wysig",
@@ -115,7 +128,24 @@
         "delete_error": "Fout om item uit te vee",
         "no_permission": "Jy het nie toestemming om hierdie item te wysig nie",
         "barcode_search_error": "Strepieskode-soektog het misluk",
-        "stats_error": "Foutlaaistatistieke"
+        "stats_error": "Foutlaaistatistieke",
+        "detail_subtitle": "Itembesonderhede",
+        "status": {
+            "close_to_expiry": "Naby aan Verval",
+            "expired": "Vervald",
+            "low_stock": "Lae Voorraad"
+        },
+        "untitled_item": "Ongetitelde item",
+        "attachments": {
+            "title": "Foto's en lêers",
+            "add": "Voeg lêers by",
+            "empty": "Geen lêers is nog bygevoeg nie.",
+            "form_desc": "Sluit itemfoto's, kwitansies, fakture of dienstdokumente aan.",
+            "detail_desc": "Foto's, kwitansies, fakture en dienslêers is vir hierdie item gestoor.",
+            "upload_error": "Lêers kon nie opgelaai word nie.",
+            "delete_error": "Lêer kon nie uitgeskakel word nie.",
+            "delete_confirm": "Wil u hierdie lêer uitskakel?"
+        }
     },
     "common": {
         "save": "Stoor",
@@ -162,7 +192,18 @@
         "unauthorized": "Ongemagtigde toegang",
         "forbidden": "Jy het nie toestemming vir hierdie aksie nie",
         "validation_error": "Valideringsfout",
-        "server_error": "Bedienerfout"
+        "server_error": "Bedienerfout",
+        "details": "Besonderhede",
+        "hide": "Versteek wagwoord",
+        "logging_out": "Teken uit...",
+        "show": "Wys wagwoord",
+        "saving": "Besig om te stoor... •••••••• Item QR Items het verval!",
+        "disabled": "Gestremd",
+        "zoom_in": "Inzoem",
+        "zoom_out": "Uitzoem",
+        "reset": "Stel terug",
+        "print": "Druk",
+        "record_count": "{{count}} rekords"
     },
     "auth": {
         "login": {
@@ -194,7 +235,8 @@
                 "verify": "Verifieer",
                 "back": "Terug",
                 "use_backup": "Gebruik rugsteunkode",
-                "use_totp": "Gebruik autentiseerder"
+                "use_totp": "Gebruik autentiseerder",
+                "code_required": "Verifikasiekode is vereis"
             },
             "welcome_title": "Welkom terug",
             "welcome_subtitle": "Teken in om toegang tot jou voorraad te kry",
@@ -303,7 +345,7 @@
             "confirm_password_placeholder": "Tik jou wagwoord weer in",
             "reset_submit": "Stel Wagwoord terug",
             "resetting": "Terugsellen...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Voer jou gebruikersnaam of e-posadres in"
         },
         "reset_password": {
             "title": "Stel Wagwoord terug",
@@ -410,7 +452,36 @@
         "join_house_key_required": "'n Huissleutel is nodig om by 'n bestaande huis aan te sluit",
         "house_key_not_found": "Ongeldige huissleutel. Voer asseblief die korrekte sleutel in.",
         "email_not_verified": "Jou e-posadres is nog nie geverifieer nie. Kyk asseblief jou inkassie na.",
-        "two_factor_invalid": "Die verifikasiekode is verkeerd"
+        "two_factor_invalid": "Die verifikasiekode is verkeerd",
+        "two_factor_invalid_try_again": "Ongeldige verifikasiekode. Probeer asseblief weer.",
+        "two_factor_code_required": "Verifikasiekode is nodig",
+        "two_factor_user_not_found": "Gebruiker nie gevind nie",
+        "two_factor_already_enabled": "Tweefaktor-verifikasie is reeds geaktiveer",
+        "two_factor_setup_not_started": "Begin asseblief eers met die opstelling van tweefaktor-verifikasie",
+        "two_factor_setup_error": "'n Fout het voorgekom tydens die opstelling van tweefaktor-verifikasie",
+        "two_factor_activation_error": "'n Fout het voorgekom tydens tweefaktor-verifikasieaktivering",
+        "two_factor_password_required": "Wagwoord is nodig",
+        "two_factor_credentials_required": "TOTP-kode, rugsteunkode of herstelsleutel is nodig",
+        "two_factor_already_disabled": "Tweefaktor-verifikasie is reeds gedeaktiveer",
+        "two_factor_password_incorrect": "Verkeerde wagwoord",
+        "two_factor_verification_failed": "Verifikasie het misluk. Kontroleer asseblief die kode en probeer weer.",
+        "two_factor_disable_error": "'n Fout het voorgekom terwyl twee-faktor-verifikasie gedeaktiveer is",
+        "two_factor_not_enabled": "Tweefaktor-verifikasie is nie geaktiveer nie",
+        "two_factor_regenerate_codes_error": "'n Fout het voorgekom terwyl rugsteunkodes hergenereer is",
+        "two_factor_enabled_success": "Tweefaktor-verifikasie is suksesvol geaktiveer",
+        "two_factor_disabled_success": "Tweefaktor-verifikasie is suksesvol gedeaktiveer",
+        "password_errors": {
+            "min_length": "Die wagwoord moet minstens {{min}} karakters lank wees",
+            "lowercase_required": "Wagwoord moet ten minste een kleinletter insluit",
+            "uppercase_required": "Wagwoord moet ten minste een hoofletter insluit",
+            "number_required": "Wagwoord moet minstens een nommer insluit",
+            "symbol_required": "Wagwoord moet minstens een simbool insluit",
+            "repeated_chars": "Moet geen herhaalde karakters in jou wagwoord gebruik nie",
+            "predictable_sequence": "Moet geen maklik-om-te-raai reekse in jou wagwoord gebruik nie",
+            "common_password": "Hierdie wagwoord is te algemeen en onveilig",
+            "contains_username": "Wagwoord mag nie jou gebruikersnaam bevat nie",
+            "contains_email": "Wagwoord mag nie jou e-posinligting bevat nie"
+        }
     },
     "navigation": {
         "home": "Tuis",
@@ -425,11 +496,16 @@
         "menu": "Kieslys",
         "personal_vault": "Persoonlike Kluis",
         "borrow_requests": "Lening Sentrum",
-        "scan_item_qr": "Item QR",
+        "scan_item_qr": "item QR",
         "logout_aria": "Teken uit van jou rekening",
         "logout_title": "Teken uit?",
         "logout_description": "Jy sal na die aanmeldskerm teruggebring word en moet weer aanmeld om jou huishoudelike voorraad te bestuur.",
-        "logout_warning": "Gebruik dit wanneer jy klaar is op 'n gedeelde of persoonlike toestel."
+        "logout_warning": "Gebruik dit wanneer jy klaar is op 'n gedeelde of persoonlike toestel.",
+        "maintenance": "Onderhoudskedule",
+        "shopping": "Inkopielys",
+        "activity": "aktiwiteit",
+        "notifications": "kennisgewings",
+        "service": "Diens"
     },
     "dashboard": {
         "welcome": "Welkom terug, <1>{{name}}</1>",
@@ -446,7 +522,7 @@
             "total_quantity": "Totale Hoeveelheid",
             "fullest_room": "Volste Kamer",
             "category_count": "Kategorieë",
-            "items_suffix": "items"
+            "items_suffix": "Items"
         },
         "recent_items": {
             "title": "Onlangs bygevoeg",
@@ -538,7 +614,7 @@
             "step_three_title": "Hou private rekords apart",
             "step_three_body": "Gebruik Persoonlike Kladkas vir passe, akte en toegangskodes."
         },
-        "title": "Dashboard",
+        "title": "Dashboord",
         "total_items": "Totale Items",
         "total_rooms": "Totale Kamers",
         "total_categories": "Totale Kategorieë",
@@ -556,7 +632,21 @@
         "no_items_filter": "Geen items pas by hierdie filter nie",
         "manage": "Bestuur",
         "add_item": "Voeg Item By",
-        "search_item": "Soekitem"
+        "search_item": "Soekitem",
+        "alerts": {
+            "expired_title": "Items Het Verstryk!",
+            "expired_desc": "Daar is {{count}} vervalde items in jou voorraad. Kontroleer asseblief vir jou veiligheid.",
+            "view_items": "Bekyk Items",
+            "maintenance_title": "Agterstallige Onderhoudstake!",
+            "maintenance_desc": "Daar is {{count}} agterstallige onderhoudstake. Voer onderhoud uit om die leeftyd van jou toestelle te verleng.",
+            "go_to_maintenance": "Gaan na Onderhoud",
+            "low_stock_title": "Lae Voorraad Waarskuwing",
+            "low_stock_desc": "{{count}} items het onder jou minimum voorraadgrens geval.",
+            "go_to_shopping": "Inkopielys",
+            "close_expiry_title": "Komende Vervaldatums",
+            "close_expiry_desc": "{{count}} produkte sal binne 30 dae verval.",
+            "view_low_stock_items": "Kyk Lae Voorraad"
+        }
     },
     "beta_banner": {
         "title": "BÈTA:",
@@ -611,7 +701,13 @@
             "recovery_key_regenerated": "Herstel sleutel hergegenereer",
             "recovery_key_error": "Kon nie herstel sleutel hergenereer nie",
             "account_delete_error": "Die rekening kon nie verwyder word nie",
-            "backup_downloaded_encrypted": "Gekodeerde rugsteun suksesvol afgelaai! ({{count}} items)"
+            "backup_downloaded_encrypted": "Gekodeerde rugsteun suksesvol afgelaai! ({{count}} items)",
+            "policy_update_error": "Het nie versoekinstellings opgedateer nie.",
+            "policy_updated": "Versoekinstellings suksesvol opgedateer.",
+            "unblock_error": "Kon nie gebruiker deblokkeer nie.",
+            "unblocked_success": "Gebruiker suksesvol gedeblokkeer.",
+            "house_owner_transferred": "Huiseienaarskap is oorgedra",
+            "house_owner_transfer_error": "Huiseienaarskap kon nie oorgedra word nie."
         },
         "user_profile": {
             "edit_username": "Verander gebruikersnaam"
@@ -626,13 +722,16 @@
             "owner": "Eienaar",
             "active": "Aktief",
             "member_count": "{{count}} lede",
-            "item_count": "{{count}} items",
+            "item_count": "{{count}} voorwerpe",
             "switch": "Maak Aktief",
             "leave": "Verlaat Huis",
             "info": "Jy kan lid wees van verskeie huise en tussen hulle wissel. Elke huishouding hou sy eie voorraad.",
             "accordion_description": "Skakel tussen huishoudings, skep 'n nuwe een, of sluit aan by 'n bestaande met 'n betroubare sleutel.",
             "empty_description": "Skep 'n nuwe huishouding om te begin deel, of sluit aan by een met 'n betroubare huis sleutel.",
-            "leave_success_body": "Jy het nie meer toegang tot hierdie huishouding nie en jou aktiewe huis is ververs."
+            "leave_success_body": "Jy het nie meer toegang tot hierdie huishouding nie en jou aktiewe huis is ververs.",
+            "leave_title": "Verlaat hierdie huis?",
+            "leave_warning": "Jy sal jou toegang tot hierdie huishouding se werksruimte verloor totdat 'n ander lid jou weer nooi of goedkeur.",
+            "leaving": "Verlaat..."
         },
         "house_info": {
             "title": "Aktiewe Huissleutel",
@@ -674,7 +773,18 @@
             "copy_error": "Die huis sleutel kon nie gekopieer word nie.",
             "modal_title": "Toegang tot huissleutel",
             "modal_subtitle": "Gebruik hierdie sleutel slegs vir vertroude huishoudelike lede wat toegang tot hierdie gedeelde voorraad moet versoek.",
-            "loading_members": "Laai lede..."
+            "loading_members": "Laai lede...",
+            "kick_success_body": "{{name}} het nie meer toegang tot hierdie huishouding nie.",
+            "kick_title": "Verwyder hierdie lid?",
+            "kick_warning": "Hul toegang tot die huishouding sal onmiddellik eindig en hulle sal 'n nuwe uitnodiging of goedkeuring nodig hê om terug te keer.",
+            "kicking": "Verwydering...",
+            "access_section_eyebrow": "Toegang tot die huis",
+            "transfer_owner": "Maak eienaar",
+            "transferring_owner": "Oorplasing...",
+            "transfer_owner_title": "Oordrag van huiseienaarskap?",
+            "transfer_owner_confirm": "Oordra eienaarskap van hierdie huishouding na {{name}}?",
+            "transfer_owner_warning": "Jy sal nie meer die eienaar van hierdie huishouding wees nie. Die nuwe eienaar sal ledegoedkeurings, verwyderings en toekomstige eienaarskapsveranderings bestuur.",
+            "transfer_owner_success_body": "{{name}} is nou die eienaar van hierdie huishouding."
         },
         "theme": {
             "title": "Tema",
@@ -682,7 +792,9 @@
             "light": "Ligmodus",
             "description": "Kies hoe die werksruimte op hierdie toestel lyk.",
             "light_aria": "Skakel na ligtema",
-            "dark_aria": "Skakel na donker tema"
+            "dark_aria": "Skakel na donker tema",
+            "workspace_title": "Werksruimte-tema",
+            "workspace_desc": "Kies jou voorkeur visuele styl vir hierdie toestel."
         },
         "security": {
             "title": "Sekuriteit",
@@ -695,7 +807,12 @@
             "recovery_key_unavailable": "Die huidige herstelsleutel kan nie vertoon word nie. Genereer dit weer indien nodig.",
             "recovery_key_action": "Genereer weer",
             "recovery_key_modal_desc": "Bevestig jou huidige wagwoord om voort te gaan. Die nuwe sleutel sal slegs een keer vertoon word.",
-            "recovery_key_loading": "Besig om voor te berei..."
+            "recovery_key_loading": "Besig om voor te berei...",
+            "accordion_title": "Sekuriteit en privaatheid",
+            "accordion_desc": "Bestuur tweefaktor-verifikasie, betroubare toestelle, en leen versoekreëls van ander rekeninge.",
+            "description": "Bestuur jou hoofwagwoord en kluisherstelkonfigurasies.",
+            "change_password_detail": "Werk jou wagwoord op om jou rekening veilig te hou",
+            "recovery_key_detail": "Dit word gebruik om jou kluis te herstel as jy jou wagwoord vergeet"
         },
         "data_management": {
             "title": "Data Bestuur",
@@ -720,7 +837,25 @@
             "unencrypted_warning": "Eenvoudige JSON-uitvoere is makliker om te ondersoek, maar enigiemand wat die lêer oopmaak, kan jou huishoudelike data onmiddellik lees.",
             "import_encrypted_title": "Ontsluit enkripteerde rugsteun",
             "import_encrypted_body": "Voer die rugsteunwagwoord in wat tydens aflaai gebruik is om hierdie geïnkripteer lêer te herstel.",
-            "unlock_and_import": "Ontsluit en voer in"
+            "unlock_and_import": "Ontsluit en voer in",
+            "export_encrypted_notice": "Die rugsteun word voorberei vanaf lewendige huishoudelike data en dan met die wagwoord wat u kies toegedraai. Hou daardie wagwoord op 'n veilige plek omdat dit benodig word om die lêer later te herstel.",
+            "export_encrypted_title": "Enkripsie sal voor aflaai toegepas word",
+            "import_summary_body": "{{items}} items, {{categories}} kategorieë, {{rooms}} kamers, {{locations}} plekke, {{borrows}} uitleenrekords herstel.",
+            "import_summary_title": "Rugsteun herstel",
+            "preview_categories": "Kategorieë",
+            "preview_items": "Items",
+            "preview_locations": "Plekke",
+            "preview_rooms": "Kamers",
+            "skipped_borrows": "{{count}} bestaande uitleenrekords oorgeslaan.",
+            "skipped_categories": "{{count}} bestaande kategorieë oorgeslaan.",
+            "skipped_items": "{{count}} bestaande items oorgeslaan.",
+            "skipped_locations": "{{count}} bestaande plekke oorgeslaan.",
+            "skipped_rooms": "{{count}} bestaande kamers oorgeslaan.",
+            "owner_only_title": "Rugsteun en Herstel Beperk",
+            "owner_only_desc": "Databerging en herstel kan slegs deur die eienaar van die huis bestuur word.",
+            "include_media_title": "Sluit foto's en kwitansiebeelde in",
+            "include_media_body": "Die volledige rugsteun mag groter wees, maar itemfoto's en kwitansiebeelde kan ook herstel word.",
+            "skipped_attachments": "{{count}} attachments is oorgeslaan."
         },
         "about": {
             "title": "Oor Aansoek",
@@ -733,7 +868,10 @@
             "privacy_link": "Privaatheidsbeleid",
             "beta_title": "Beta-status",
             "beta_body": "{{brandName}} is nog in beta. Kenmerke kan verander, werkvloei kan ontwikkel, en belangrike huishoudelike data moet altyd gerugsteun word.",
-            "feedback_subject": "Terugvoer - {{brandName}}"
+            "feedback_subject": "Terugvoer - {{brandName}}",
+            "logout_body": "Enige ongemakigde veranderingen in oop vorms kan verlore gaan nadat u hierdie sessie verlaat.",
+            "logout_description": "U sal terug keer na die tuisblad en kan enige tyd weer aanmeld.",
+            "logout_title": "Wil u nou uitteken?"
         },
         "modals": {
             "password": {
@@ -825,7 +963,8 @@
             "revoke_devices": "Trek Gestroopte Toestelle int",
             "revoke_devices_desc": "Verwyder alle onthoude toestelle, vereis 2FA by volgende aanmelding",
             "devices_revoked": "{{count}} betroubare toestel(e) verwyder",
-            "devices_error": "Kon nie toestelleherroep nie"
+            "devices_error": "Kon nie toestelleherroep nie",
+            "preparing_setup": "Berei jou verifikasie-opstelling voor..."
         },
         "danger_zone": {
             "title": "Rekening",
@@ -838,14 +977,15 @@
             "modal_warning_body": "Na bevestiging, sal jy onmiddellik toegang tot die rekening verloor en die uitgeveë toepassingsdata kan nie van die app herstel word nie.",
             "password_label": "Bevestig met jou huidige wagwoord",
             "confirm_delete": "Bevestig verwydering",
-            "deleting": "Verwydering..."
+            "deleting": "Verwydering...",
+            "description": "Verwyder jou rekening en verwyder permanent alle inventarisdatastelle."
         },
         "language": "Taal",
         "control_sections": {
             "account": "Rekening",
             "houses": "Huise",
             "security": "Sekuriteit",
-            "data": "Data",
+            "data": "Gegewens",
             "preferences": "Voorkeure",
             "about": "Oor"
         },
@@ -897,7 +1037,31 @@
         "popular_languages": "Populêre tale",
         "search_results": "Soekresultate",
         "current_language": "Huidige taal",
-        "languages_available": "Tale beskikbaar"
+        "languages_available": "Tale beskikbaar",
+        "borrow_requests": {
+            "accordion_eyebrow": "Leningversoeksekuriteit",
+            "accordion_eyebrow_desc": "Stel versoekreëls op en bestuur geblokkeerde gebruikers.",
+            "title": "Stel uitleenversoekinstellings in",
+            "description": "Bestuur reëls vir die ontvang van uitleenversoeke van ander rekeninge en lys geblokkeerde gebruikers.",
+            "policy_title": "Nuwe Uitleenversoeke",
+            "policy_description": "Beheer wie kan leenversoeke aan jou stuur. Jou voorraad word nooit as 'n openbare lys vertoon nie.",
+            "policy_none": "Moet van niemand ontvang nie (Standaard)",
+            "policy_house_only": "Net huishoudelike lede",
+            "policy_everyone": "Alle geregistreerde gebruikers",
+            "blocks_title": "Geblokkeerde Gebruikers",
+            "blocks_description": "Gebruikers wat jy geblokkeer het om jou nuwe leenversoeke te stuur.",
+            "no_blocks": "Geen geblokkeerde gebruikers gevind nie.",
+            "unblock_btn": "Ontblokkeer",
+            "policy_none_desc": "Alle inkomende versoeke word outomaties geblokkeer.",
+            "policy_house_only_desc": "Slegs bevestigde lede van jou aktiewe huise kan items versoek wat reeds binne daardie gedeelde huis sigbaar is.",
+            "policy_everyone_desc": "Ander gebruikers kan nie jou items blaai of sien nie. Hulle kan slegs 'n versoek stuur deur jou gebruikersnaam of e-pos direk in te voer."
+        },
+        "activity_log": {
+            "title": "Aktiwiteit- en ouditlog",
+            "description": "Hersien die beskermde geskiedenis van itemveranderings, voorraadopdaterings, bylaes, en grootskaalse aksies.",
+            "encrypted_title": "Aktiwiteitsrekords word beskerm gestoor",
+            "encrypted_body": "Nuwe aktiwiteitsaans en besonderhede word geïnkripteer in die databasis gestoor en word slegs ontsleuteld vir jou aktiewe sessie."
+        }
     },
     "inventory": {
         "title": "Inventaris",
@@ -959,8 +1123,18 @@
             "no_history": "Daar is nog geen uitleengeskiedenis vir hierdie item nie.",
             "lend_success_title": "Item geleen",
             "lend_success_body": "{{item}} is nou as geleen gemerk.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_title": "Leningaanbod gestuur",
+            "offer_sent_body": "{{item}} sal as geleen gemerk word nadat die ander lid dit aanvaar.",
+            "borrowed_by_you": "By jou",
+            "return_pending_hint": "Die rekord sal sluit nadat die lener bevestig het dat hulle die item terug ontvang het.",
+            "return_pending_lender_title": "{{name}} het hierdie item as teruggelewer gemerk",
+            "return_pending_self_title": "By jou, wag vir ontvangsbevestiging",
+            "site_member": "Terreinlid",
+            "site_member_identifier": "Gebruikersnaam of e-pos",
+            "site_member_identifier_placeholder": "Presiese gebruikersnaam of e-pos",
+            "site_member_privacy_hint": "Die aanbod verskyn slegs in die Lening Sentrum as daardie rekening bestaan en inkomende aanbiedings toelaat.",
+            "external_privacy_hint": "Dit skep slegs 'n privaat plaaslike rekord. Geen app-kennisgewing word gestuur nie.",
+            "available": "Beskikbaar"
         },
         "untitled_item": "Ongetitelde item",
         "delete_action": "Verwyder item",
@@ -976,7 +1150,76 @@
         "category_filter_label": "Filter volgens kategorie",
         "room_filter_label": "Filter volgens kamer",
         "refreshing_results": "Besig om items te verfris...",
-        "empty_filter_title": "Geen items het by daardie soektog gepas nie"
+        "empty_filter_title": "Geen items het by daardie soektog gepas nie",
+        "delete_error_title": "Vee het misluk",
+        "tools": {
+            "title": "Gereedskap"
+        },
+        "no_room": "Geen plek",
+        "all_locations": "Alle plekke",
+        "location_filter_label": "Filtreer volgens ligging",
+        "visibility_filter_label": "Filtreer volgens sigbaarheid",
+        "visibility_all": "Al die sigbaarheid",
+        "visibility_mine": "My items",
+        "visibility_others": "Ander lede",
+        "borrow_filter_label": "Filter volgens uitleenstatus",
+        "borrow_filter_all": "Alle uitleenstatusse",
+        "stock_filter_label": "Filter volgens voorraadstatus",
+        "stock_filter_all": "Alle voorraadstatusse",
+        "stock_filter_ok": "Voorraad ok",
+        "expiry_filter_label": "Filter volgens vervaldatum",
+        "expiry_filter_all": "Alle vervaldatums",
+        "expiry_filter_dated": "Het datum",
+        "expiry_filter_none": "Geen datum",
+        "warranty_filter_label": "Filter volgens waarborg",
+        "warranty_filter_all": "Alle waarborge",
+        "warranty_filter_expired": "Vervalde waarborge",
+        "warranty_filter_close": "Binnekort eindigend",
+        "warranty_filter_active": "Aktiewe waarborge",
+        "warranty_filter_none": "Geen waarborginligting",
+        "sort_label": "Sorteer",
+        "sort_updated_desc": "Onlangs bygewerk",
+        "sort_updated_asc": "Oudste bywerking",
+        "sort_created_desc": "Nuwe eerste",
+        "sort_created_asc": "Oudste eerste",
+        "sort_name_asc": "Naam A-Z",
+        "sort_name_desc": "Naam Z-A",
+        "sort_quantity_desc": "Hoeveelheid van hoog na laag",
+        "sort_quantity_asc": "Hoeveelheid laag tot hoog",
+        "sort_expiry_asc": "Vervaldatum vinnigste",
+        "sort_expiry_desc": "Vervaldatum laatste",
+        "stock_increase": "Vergroot voorraad",
+        "stock_decrease": "Verminder voorraad",
+        "stock_adjust_error": "Voorraad kon nie opgedateer word nie.",
+        "bulk": {
+            "select_visible": "Kies sigbaar",
+            "clear_visible": "Ontkies sigbaar",
+            "selected_short": "geselekteer",
+            "keep_category": "Hou kategorie",
+            "keep_room": "Hou kamer",
+            "keep_location": "Hou ligging",
+            "keep_visibility": "Hou sigbaarheid",
+            "apply": "Pas toe",
+            "no_fields": "Kies ten minste een veld vir die bondelaksie.",
+            "updated_title": "Grootmaatwerk opdatering voltooi",
+            "updated_body": "{{count}} items opgedateer. {{skipped}} oorgeslaan.",
+            "update_error": "Grootmaatwerk opdatering kon nie voltooi word nie.",
+            "deleted_title": "Grootmaat wissing voltooi",
+            "deleted_body": "{{count}} items uitgeskakel. {{skipped}} oorgeslaan.",
+            "delete_error": "Grootmaat-uitwissing kon nie voltooi word nie.",
+            "delete_title": "Wissel items uit?",
+            "delete_description": "{{count}} geselekteerde items sal van hierdie huishoudelike inventaris verwyder word. Dit kan nie ongedaan gemaak word nie.",
+            "select_item": "Kies item",
+            "unselect_item": "Kies item af"
+        },
+        "qr_labels": {
+            "title": "QR-etikette",
+            "open": "Itemetikette",
+            "description": "{{count}} itemetikette is gereed as 'n drukkblad.",
+            "empty": "Verander filters of voeg voorraaditems by om etikette te druk.",
+            "sheet_label": "Item Etiketteblad",
+            "item_label": "Item Etiket"
+        }
     },
     "categories": {
         "title": "Kategorier",
@@ -1023,7 +1266,10 @@
         "name_required": "Kategorienaam is nodig",
         "load_error": "Foutlaaikategorieë",
         "add_error": "Foutbyvoegingskategorie",
-        "update_error": "Foutopdateringskategorie"
+        "update_error": "Foutopdateringskategorie",
+        "color_required": "Kleur moet in #RRGGBB-formaat wees",
+        "empty_description": "Skep 'n paar kategorieë sodat nuwe items dieselfde struktuur volg en later makliker deurgesoek kan word.",
+        "empty_title": "Nog geen kategorieë nie"
     },
     "rooms": {
         "title": "Kamers",
@@ -1097,7 +1343,9 @@
         "name_required": "Kamernaam word vereis",
         "load_error": "Foutlaaikamers",
         "add_error": "Fout wat ruimte byvoeg",
-        "update_error": "Foutopdateringskamer"
+        "update_error": "Foutopdateringskamer",
+        "empty_description": "Skep kamers soos kombuis, stoorplek of motorhuis sodat itemliggings konsekwent bly en makliker gesoek kan word.",
+        "empty_title": "Nog geen kamers nie"
     },
     "admin": {
         "title": "Beheerpaneel",
@@ -1176,7 +1424,12 @@
             "households_label": "Huishoudings",
             "items_label": "Besit items",
             "last_seen_short": "Gesien",
-            "last_seen_short_never": "Nuut"
+            "last_seen_short_never": "Nuut",
+            "failed_logins": "{{count}} mislukte aanmeldings",
+            "load_failed_title": "Gebruikers kon nie gelaai word nie",
+            "pending_requests": "{{count}} hangende huisversoeke",
+            "role_admin": "Administrateur",
+            "role_user": "Gebruiker"
         },
         "logs": {
             "title": "Admin Logboeke",
@@ -1208,7 +1461,9 @@
             "section_eyebrow": "Ouditspoor",
             "errors_eyebrow": "Diagnostiek",
             "section_body": "Elke moderasie- of bedryfsverandering wat deur die administrasielaag opgeteken is.",
-            "errors_body": "Die nuutste geparsde foutlyne van die bediener-loglêers."
+            "errors_body": "Die nuutste geparsde foutlyne van die bediener-loglêers.",
+            "load_failed_title": "Aktiwiteit kon nie gelaai word nie",
+            "no_logs_title": "Nog geen admin-aksies nie"
         },
         "email": {
             "title": "Stuur E-pos",
@@ -1229,10 +1484,10 @@
             "notes_body": "Gebruik dit vir operasionele ondersteuning of rekeningverwante kontak. Sensitiewe inhoud moet indien moontlik binne die app bly.",
             "notes_body_with_rate_limit": "Gebruik dit vir operasionele ondersteuning of rekeningverwante kontak. Sensitiewe inhoud moet indien moontlik binne die app bly. Huidige stuurveiligheidsmaatreël: {{rateLimit}}.",
             "rate_limit_fallback": "3 e-posse per minuut",
-            "placeholder_to": "name@example.com",
+            "placeholder_to": "naam@voorbeeld.com",
             "placeholder_subject": "Boodskaponderwerp",
             "send_success_with_id": "✅ E-pos suksesvol gestuur! ID: {{emailId}}",
-            "send_error": "Email could not be sent",
+            "send_error": "E-pos kon nie gestuur word nie",
             "rate_limit_reached": "⏳ Koerslimiet bereik. Wag asseblief 1 minuut.",
             "info_title": "Inligting",
             "info_bullet_1": "E-posse word gestuur vanaf {{supportEmail}}",
@@ -1242,7 +1497,14 @@
             "status_body": "'n Vinnige vertrouenskontrole voor die stuur van operasionele kommunikasie.",
             "unconfigured_title": "E-posaflewering is nie gekonfigureer nie",
             "unconfigured_body": "Die stuurvorm bly sigbaar vir instellingshersiening, maar aflewering sal misluk totdat die e-posverskaffer gekonfigureer is.",
-            "status_eyebrow": "Aflewering"
+            "status_eyebrow": "Aflewering",
+            "configured_body": "Herstuur is beskikbaar vir admin-geaktiveerde uitgaande boodskappe.",
+            "configured_title": "E-pos aflewering is geconfigureer",
+            "error_title": "E-pos het misluk",
+            "format_hint": "HTML word ondersteun. Byvoorbeeld: <b>vet</b>, <i>skuins</i>, <a href=\"...\">skakel</a>",
+            "from_label": "Afsender",
+            "load_failed_title": "E-posgereedskap kon nie gelaai word nie",
+            "success_title": "E-pos gestuur"
         },
         "overview": {
             "email_warning_title": "E-pos aflewering is nie opgestel nie",
@@ -1327,7 +1589,9 @@
         "stats_loaded": "Statistieke gelaai",
         "logs_loaded": "Logs gelaai",
         "load_error": "Foutlaaidata",
-        "action_error": "Foutuitvoering van aksie"
+        "action_error": "Foutuitvoering van aksie",
+        "load_failed_body": "Die admin-roete is oop, maar die oorsigdata het nie aangekom nie. Jy kan probeer weer sonder om die bladsy te verlaat.",
+        "load_failed_title": "Admin-oorsig kon nie gelaai word nie"
     },
     "landing": {
         "nav": {
@@ -1344,12 +1608,12 @@
             "cta_register": "Skep Rekening",
             "stat_free": "Gratis",
             "stat_access": "Toegang",
-            "free_badge": "Open Source",
+            "free_badge": "Oop Bron",
             "badge": "HomeInventory v2.0 is hier",
             "cta_explore": "Verken Kenmerke",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Meld aan",
+            "stat_members": "Gedeelde huise",
+            "stat_vault": "Privaat kluis"
         },
         "features": {
             "title": "Waarom <1>HomeInventory</1>?",
@@ -1420,7 +1684,7 @@
                 "description": "Hou items, waarborge, belangrike dokumente, en uitleenopsporing op een rustige plek. Sien wat jou huis bevat in een oogopslag.",
                 "primaryCta": "Begin Gratis",
                 "secondaryCta": "Sien die Produk",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Gesuggereerde vloei: rekening • huis • kamers en kategorieë • items • rugsteun",
                 "searchPlaceholder": "Soek 'n item, kamer, of strepieskode"
             },
             "heroInventoryRows": [
@@ -1436,7 +1700,7 @@
                 },
                 {
                     "name": "Mesk eenheid",
-                    "meta": "TV-konsoles • Deco M4",
+                    "meta": "TV-konsoles • Network node",
                     "state": null
                 },
                 {
@@ -1671,8 +1935,9 @@
         "privacy_summary": "Netwerkbesonderhede bly weggesteek totdat jy die leiding nodig het.",
         "link_privacy_note": "Die netwerkadres bly hier versteek. Skandeer die kode of kopieer die skakel eers wanneer jy op 'n doelbewuste manier direkte toegang tot die item op jou plaaslike opstelling wil deel.",
         "helper": "Skandeer om hierdie item onmiddellik oop te maak, of kopieer die direkte skakel wanneer nodig.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_error_title": "Skakel kon nie outomaties gekopieer word nie",
+        "copy_manual_help": "Jou blaaier het nie outomatiese kopieer toegelaat nie. Die skakel is geselekteer sodat jy dit handmatig kan kopieer.",
+        "loading": "Berei QR-gereedskap voor..."
     },
     "house_access_pending": {
         "eyebrow": "Huistoegang",
@@ -1859,7 +2124,11 @@
             "name_required": "'n Itemnaam is nodig vir 'n geldrekord.",
             "options_failed": "Kategorie- en kameropsies kon nie gelaai word nie.",
             "delete_success_title": "Gegeldrekord verwyder",
-            "delete_success_body": "Die privaat rekord is permanent van jou geldkiste verwyder."
+            "delete_success_body": "Die privaat rekord is permanent van jou geldkiste verwyder.",
+            "passphrase_lowercase": "Sluit ten minste een kleinletter in.",
+            "passphrase_min_length": "Kluiswagwoord moet ten minste 12 karakters wees.",
+            "passphrase_number": "Sluit ten minste een syfer in.",
+            "passphrase_uppercase": "Sluit ten minste een hoofletter in."
         },
         "recovery_file_title": "{{brandName}} Persoonlike Kluis Herstel Sleutel",
         "recovery_file_created_label": "Geskep",
@@ -1907,8 +2176,8 @@
             "empty": "Daar is tans geen aktiewe uitleen nie.",
             "borrowed_from": "Geleen van {{name}}",
             "lent_to": "Tans by {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Wag vir die lener om te bevestig dat hulle dit terug ontvang het.",
+            "return_pending_lender": "{{name}} het hierdie item as terug afgelewer gemerk. Bevestig ontvangs om die rekord te sluit.",
             "empty_title": "Geen aktiewe uitleen tans nie",
             "empty_description": "Aanvaarde versoeke verskyn hier sodra 'n item uitgeleen of geleen word, saam met sperdatums en terugkeerstaat."
         },
@@ -1919,7 +2188,7 @@
             "cancelled": "Gekanselleer",
             "expired": "Verstryking",
             "returned": "Terugbesorg",
-            "return_pending": "Return pending"
+            "return_pending": "Terugstuur hangend"
         },
         "actions": {
             "send_request": "Versoek Item",
@@ -1928,8 +2197,8 @@
             "reject": "Weier",
             "cancel": "Kanselleer",
             "fulfill_request": "Voldoen aan Versoek",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Merk as afgelewer",
+            "mark_received": "Merk as ontvang",
             "open_inventory": "Maak inventaris oop"
         },
         "labels": {
@@ -1968,21 +2237,36 @@
             "return_title": "Merk as Terugbesorg",
             "return_subtitle": "Sluit die aktiewe lening vir \"{{item}}\"",
             "return_target": "Dit word tans getoon as synde by {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Lewer item",
+            "return_title_lender": "Ontvang item",
+            "return_subtitle_borrower": "Sluit die aktiewe lening vir \"{{item}}\" nadat jy dit terugbesorg het.",
+            "return_subtitle_lender": "Sluit die aktiewe lening vir \"{{item}}\" toe nadat jy dit terug ontvang het.",
+            "return_target_borrower": "Lener: {{name}}",
+            "return_target_lender": "Tans by: {{name}}",
+            "return_note_borrower": "Afleweringsnota",
+            "return_note_lender": "Ontvang nota",
+            "return_note_placeholder_borrower": "bv. Ek het dit teruggegee sonder enige probleme",
+            "return_note_placeholder_lender": "bv. Terugontvang in goeie toestand",
+            "return_submitting": "Afsluiting...",
+            "reject_title": "Verwerp Versoek",
+            "reject_subtitle": "Jy staan op die punt om die versoek vir \"{{item}}\" te weier.",
+            "reject_target": "Jy staan op die punt om die leenversoek wat deur {{name}} gestuur is, te weier.",
+            "reject_reason_label": "Verwerpingsrede",
+            "reject_submitting": "Verwerp...",
+            "due_date_label": "Beplande terugkeerdatum"
         },
         "messages": {
             "load_error": "Lening sentrum kon nie gelaai word nie",
-            "action_error": "Die aksie kon nie voltooi word nie"
+            "action_error": "Die aksie kon nie voltooi word nie",
+            "active_borrow_not_found": "Hierdie aktiewe uitleenrekord kon nie gevind word nie. Vernu die Uitleensentrum en probeer weer.",
+            "errors": {
+                "external_target_daily_limit": "Jy kan slegs een eerste-kontak eksterne versoek per dag aan dieselfde persoon stuur. As hulle 'n versoek aanvaar, geld hierdie limiet nie meer vir daardie persoon nie.",
+                "external_total_daily_limit": "Jy kan tot 5 eerste-kontak eksterne versoeke per dag stuur.",
+                "external_request_requires_verified_email": "Bevestig jou e-posadres voordat jy eksterne leenversoeke stuur.",
+                "external_offer_blocked": "Jy kan slegs 'n item aan huishoudelike lede of geregistreerde gebruikers wat direk geïdentifiseer kan word, aanbied.",
+                "target_blocked_by_you": "Jy kan nie 'n versoek aan 'n gebruiker stuur wat jy geblokkeer het nie.",
+                "recent_rejection_lock": "Hierdie gebruiker het onlangs 'n versoek van jou afgekeur. Jy kan 'n ander versoek stuur na 30 dae."
+            }
         },
         "preview": {
             "title": "Voorskou modus",
@@ -1992,7 +2276,12 @@
         "incoming_empty_title": "Geen versoeke benodig jou beoordeling nie",
         "outgoing_empty_title": "Nog geen uitgegane versoeke nie",
         "refreshing": "Herlaai versoeke en aktiewe lenings...",
-        "loading_description": "Versoeke voorberei en aktiewe leenaktiwiteit."
+        "loading_description": "Versoeke voorberei en aktiewe leenaktiwiteit.",
+        "reasons": {
+            "rejected": "Verwerp (Normale verwerping)",
+            "not_available": "Nie beskikbaar nie (Item ontbreek / nie beskikbaar nie)",
+            "blocked": "Blokkeer en verwerp (Blokkeer hierdie gebruiker)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Privaatheidsbeleid",
@@ -2080,7 +2369,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Bestuur al jou huishoudelike items slim"
+        "tagline": "Bestuur al jou huishoudelike items slim",
+        "loading": "Laai {{brandName}}",
+        "preparing_workspace": "Berei jou werkspasie voor..."
     },
     "nav": {
         "home": "Tuis",
@@ -2174,14 +2465,287 @@
         "too_many_login_attempts": "Te veel aanmeldpogings. Probeer asseblief weer oor 15 minute."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Teken in",
+        "page_title_register": "Skep rekening",
+        "page_title_choose_house": "Kies huis",
+        "page_title_recovery_key": "Herstel sleutel",
+        "page_title_house_access": "Toegang tot huis",
+        "page_title_legal_review": "Regsgradering",
+        "page_title_new_item": "Nuwe item",
+        "page_title_edit_item": "Wysig item",
+        "page_title_items": "Inventaris"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Fout met die laai van inkopielys.",
+            "select_item_error": "Kies asseblief 'n item uit die inventaris.",
+            "empty_name": "Voer asseblief 'n itemnaam in.",
+            "added": "Item bygevoeg by inkopielys.",
+            "add_error": "'n Fout het voorgekom tydens die byvoeging van die item.",
+            "added_suggestion": "\"{{name}}\" bygevoeg by inkopielys.",
+            "bulk_added": "{{count}} items met lae voorraad bygevoeg by die lys.",
+            "bulk_error": "Fout by die toevoeging van items met lae voorraad.",
+            "completed": "\"{{name}}\" gemerk as voltooi.",
+            "reactivated": "\"{{name}}\" teruggeskuif na aktiewe lys.",
+            "update_error": "Fout het gedurende opdatering voorgekom.",
+            "deleted": "Item uit die lys verwyder.",
+            "delete_error": "Fout het tydens verwydering voorgekom.",
+            "cleared_completed": "Voltooide items geskuif.",
+            "clear_error": "Fout het tydens skoonmaak voorgekom."
+        },
+        "loading_desc": "Beplanning van inkopielys...",
+        "page": {
+            "title": "Inkopielys",
+            "description": "Bekyk items met lae voorraad in die huisvoorraad en bestuur jou inkopielys maklik."
+        },
+        "suggestions": {
+            "title": "Slim Voorrade Voorstelle",
+            "desc": "Voorraaditems wat onder die minimumlimiet geval het.",
+            "add_all": "Voeg Alle Ontbrekende By",
+            "stock_status": "Huidig: {{current}} / Teiken: {{min}}",
+            "add_qty": "Voeg {{qty}} By"
+        },
+        "sections": {
+            "active_list": "Items om te Koop",
+            "active_desc": "Huidige inkopiesitems om by jou mandjie te voeg.",
+            "active_count": "{{count}} items",
+            "completed_list": "Gekochte Items ({{count}})",
+            "add_item": "Voeg Item Handmatig by",
+            "add_desc": "Voeg handmatig 'n pasgemaakte item by die lys."
+        },
+        "empty": {
+            "title": "Jou inkopielys is leeg",
+            "desc": "Jy kan ontbrekende voorraad van die voorstelle hierbo byvoeg of items handmatig voeg met die vorm aan die regterkant."
+        },
+        "card": {
+            "linked_inventory": "Gestoor in Voorraad"
+        },
+        "actions": {
+            "clear_completed": "Maak Geskiedenis Skoon",
+            "add_item": "Voeg by Inkopiemandjie",
+            "mark_completed": "Merk as voltooi",
+            "decrease_qty": "Verminderde hoeveelheid",
+            "increase_qty": "Verhoog hoeveelheid",
+            "delete_item": "Verwyder item",
+            "reactivate_item": "Skuif terug na aktiewe lys"
+        },
+        "form": {
+            "add_type": "Voeg Metode by",
+            "add_type_inventory": "Voorraad Item",
+            "add_type_custom": "Pasgemaakte Item",
+            "select_inventory_item": "Kies Item uit Voorraad",
+            "no_inventory_items": "Geen items in jou voorraad nog.",
+            "select_item_placeholder": "Kies 'n item",
+            "current_stock": "Huidig",
+            "item_name": "Item Naam",
+            "item_name_placeholder": "bv. Melk, Skoonmaakmiddel, Koffieboontjies...",
+            "quantity": "Aantal"
+        },
+        "modal": {
+            "delete_title": "Verwyder item van lys?",
+            "delete_desc": "Is jy seker jy wil \"{{name}}\" van jou inkopielys verwyder?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Fout om inligting te laai",
+            "select_item_error": "Kies asseblief 'n item.",
+            "task_name_error": "Taaknaam is vereis.",
+            "date_error": "Beplande datum is vereis.",
+            "updated": "Onderhoudstaak bygewerk",
+            "created": "Nuwe instandhoudingsopdrag bygevoeg",
+            "save_error": "Fout het voorgekom tydens die stoor",
+            "deleted": "Instandhoudingsopdrag suksesvol verwyder.",
+            "delete_error": "'n Fout het voorgekom tydens die verwyderingsproses.",
+            "performed": "Onderhoud as voltooi aangeteken. Volgende datum geskeduleer.",
+            "perform_error": "'n Fout het voorgekom tydens stoor."
+        },
+        "freq": {
+            "one_time": "Eenmalig",
+            "unit": {
+                "days": "Dag",
+                "weeks": "Week",
+                "months": "Maand",
+                "years": "Jaar"
+            },
+            "format": "Elke {{val}} {{unit}}"
+        },
+        "loading_desc": "Laai onderhoudskedule...",
+        "page": {
+            "title": "Onderhoud & Periodieke Opvolg",
+            "description": "Bestuur periodieke onderhoudskedules vir toestelle, filters, of veiligheidstoerusting in jou huisinventaris."
+        },
+        "actions": {
+            "add_task": "Voeg Nuwe Taak By",
+            "manage": "Bestuur",
+            "perform": "Merk as Klaar",
+            "edit_task": "Wysig Taak"
+        },
+        "alerts": {
+            "overdue_title": "Jy Het Agterstallige Take!",
+            "overdue_desc": "Daar is {{count}} agterstallige instandhoudings take. Vertraagde kan die lewe van toestelle verkort."
+        },
+        "empty": {
+            "title": "Geen instandhoudingswerk geskeduleer nie",
+            "desc": "Begin deur terugkerende take by te voeg, soos AC-filter skoonmaak, ketelonderhoud, of branddetektor battery kontrole."
+        },
+        "sections": {
+            "overdue": "Agterstallige Take",
+            "overdue_desc": "Dringende instandhouding wat onmiddellik gedoen moet word.",
+            "upcoming": "Geskeduleerde / Komende Take",
+            "upcoming_desc": "Opkomende onderhoud in die komende dae.",
+            "no_upcoming": "Geen aktiewe take is vir die toekoms geskeduleer nie."
+        },
+        "modal": {
+            "edit_title": "Wysig Taak",
+            "create_title": "Skeduleer Nuwe Onderhoudstaak",
+            "perform_title": "Voltooi Onderhoud",
+            "perform_desc": "Wil jy \"{{name}}\" vandag as voltooi merk?",
+            "perform_confirm": "Ja, Voltooi",
+            "perform_recurrence_info": "Dit is 'n periodieke taak. Wanneer u stoor, sal die stelsel outomaties die volgende onderhoudsdatum bereken.",
+            "delete_title": "Wis Onderhoudstaak?",
+            "delete_desc": "Is u seker dat u die periodieke onderhoudskedule \"{{name}}\" wil verwyder? Hierdie aksie kan nie ongedaan gemaak word nie."
+        },
+        "form": {
+            "item": "Verwante Item",
+            "no_items": "Jy moet eers 'n item by die voorraad voeg voordat jy onderhoud skeduleer.",
+            "select_item_placeholder": "Kies 'n Item",
+            "task_name": "Taak / Operasie Naam",
+            "task_name_placeholder": "bv. Filtervervanging, Periodieke Toets...",
+            "description": "Detail / Beskrywing",
+            "description_placeholder": "Taakbesonderhede, materiaal wat gebruik gaan word, ens...",
+            "frequency_value": "Herhalingsfrekwensie",
+            "frequency_placeholder": "bv. 6 (laat leeg vir eenmalig)",
+            "frequency_unit": "Frekwensie-eenheid",
+            "next_due_date": "Volgende Geskeduleerde Datum",
+            "section_help": "Bestuur onderhoudsskedules van hier",
+            "section_collapsed": "Klik om periodieke kontroles en take by te voeg",
+            "has_tasks": "{{count}} Take",
+            "new_item_warning_title": "Item Stoor Hangende",
+            "new_item_warning_desc": "Jy moet eers hierdie item stoor om 'n onderhoudskedule by te voeg.",
+            "manage_desc": "Bestuur onderhoudskedules vir hierdie toestel of item."
+        },
+        "fields": {
+            "task_name": "Taak Naam",
+            "task_name_placeholder": "bv. Lugversorger filter skoonmaak",
+            "description": "Beskrywing",
+            "description_placeholder": "Taak besonderhede, materiale wat gebruik gaan word, ens...",
+            "frequency_value": "Herhalingsfrekwensie",
+            "frequency_value_placeholder": "Laat leeg vir eenmalig",
+            "frequency_unit": "Frekwensie-eenheid",
+            "next_due_date": "Geskeduleerde datum"
+        },
+        "card": {
+            "untitled_item": "Onbenoemde Item",
+            "last_performed": "Laas Gedoen:",
+            "next_due_label": "Geskeduleerde Datum",
+            "complete_tooltip": "Merk Onderhoud as Vandag Gedoen"
+        },
+        "detail_card_desc": "Periodieke of eenmalige instandhoudingsopsporing vir hierdie item geskeduleer.",
+        "no_tasks": "Geen instandhoudings take aan hierdie item toegeken nie.",
+        "confirm_delete": "Hierdie taak sal verwyder word. Is jy seker?"
+    },
+    "error_boundary": {
+        "title": "Iets het 'n opknapping nodig",
+        "description": "Die koppelvlak het 'n onverwagte renderingsprobleem ondervind. Jou gestoor inventarisdata word nie deur hierdie skerm verander nie.",
+        "refresh_btn": "Verfris",
+        "home_btn": "Tuis"
+    },
+    "activity": {
+        "title": "Aktiwiteitsgeskiedenis",
+        "description": "Onlangse beskermde veranderings in jou huisvoorraad.",
+        "empty_title": "Nog geen aktiwiteit nie",
+        "empty_description": "Itemveranderings, voorraadopdaterings, aanhegsels, uitleen en massa-aksies sal hier verskyn.",
+        "unknown_actor": "Onbekende gebruiker",
+        "deleted_item_with_id": "Verwyderde item #{{id}}",
+        "item_missing": "Hierdie itemrekord bestaan nie meer nie",
+        "actions": {
+            "item_created": "Item bygevoeg",
+            "item_updated": "Item opgedateer",
+            "item_deleted": "Item verwyder",
+            "item_borrowed": "Item uitgelaat",
+            "item_returned": "Item teruggekeer",
+            "item_bulk_updated": "Groepsopdatering",
+            "item_bulk_deleted": "Groepverwydering",
+            "item_stock_adjusted": "Voorraad opgedateer",
+            "item_attachment_added": "Aanhegsel bygevoeg",
+            "item_attachment_deleted": "Aanhegsel uitgevee"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} verwante rekords",
+        "empty_title": "Geen verwante rekords gevind",
+        "low_stock": {
+            "title": "Lae voorraad",
+            "description": "Items is onder hul minimum voorraadvlak.",
+            "qty": "Voorraad {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Vervalde Items",
+            "description": "Items met 'n vervaldatum."
+        },
+        "expiring": {
+            "title": "Komende Vervaldatums",
+            "description": "Items wat binne 30 dae verval."
+        },
+        "maintenance": {
+            "title": "Agterstallige Onderhoud",
+            "description": "Onderhoudstake wat hul geskeduleerde datum verpas het."
+        }
+    },
+    "notifications": {
+        "title": "Kennisgewingsentrum",
+        "description": "Voorraad-, waarborg-, onderhoud-, vervaldatum- en uitleen-terugkeerwaarskuwings.",
+        "meta_total": "{{count}} kennisgewings",
+        "meta_urgent": "{{count}} dringend",
+        "empty_title": "Geen waarskuwings benodig jou aandag tans nie",
+        "empty_desc": "Lae voorraad, komende datums en agterstallige onderhoud sal hier verskyn.",
+        "items": {
+            "stock_empty_title": "Uit voorraad",
+            "stock_low_title": "Lae voorraad",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Vervaldatum verby",
+            "expiry_close_title": "Vervaldatum nader",
+            "warranty_expired_title": "Waarborg vervalle",
+            "warranty_close_title": "Waarborg eindig binnekort",
+            "maintenance_overdue_title": "Onderhoud agterstallig",
+            "maintenance_close_title": "Onderhoud binnekort verskuldig",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Terugskryf oortyd",
+            "borrow_close_title": "Terugskryf binnekort te betaal",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} dae oor ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Diens- en waarborgsentrum",
+        "description": "Volg waarborge, instandhoudingskedules en diensaksies op een plek.",
+        "meta_warranty": "{{count}} waarborgrekords",
+        "meta_tasks": "{{count}} instandhoudingstake",
+        "empty_title": "Geen diens- of waarborgaksie",
+        "empty_desc": "Komende waarborgdatums en instandhoudings-werk sal hier versamel word.",
+        "warranty_section": "Waarborgopsporing",
+        "warranty_desc": "Verstreke waarborg en waarborg wat binne 30 dae eindig.",
+        "maintenance_section": "Instandhoudingsaksies",
+        "maintenance_desc": "Agterstallige en komende onderhoudstake.",
+        "no_warranty": "Geen komende waarborgaksie nie.",
+        "no_tasks": "Geen geskeduleerde onderhoudstaak nie.",
+        "overdue": "Achterstallig",
+        "upcoming": "Binnekort",
+        "expired": "Verstryk",
+        "summary_warranty": "Waarborgopsporing",
+        "summary_tasks": "Onderhoudstake",
+        "open_warranty_filter": "Maak waarborgfilter oop",
+        "open_warranty_filter_desc": "Filter aktiewe waarborgitems in voorraad."
+    },
+    "storage_labels": {
+        "title": "Rak- en Kameretikette",
+        "description": "{{count}} kamer-/raketikette is gereed as 'n drukkieblad.",
+        "empty_title": "Geen kamers of rakke om te etiketteer nie",
+        "empty_desc": "Voeg eers kamers of lokasies by, druk dan QR-etikette hier.",
+        "sheet_label": "Lokaal Etiketblad",
+        "scan_hint": "Die opname van die QR-kode open die gefilterde voorraad vir daardie kamer of rak.",
+        "room": "Kamer",
+        "location": "Rak/Doos"
     }
 }

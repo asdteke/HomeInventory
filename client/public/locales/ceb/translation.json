@@ -10,7 +10,7 @@
         "load_error": "Napakyas sa pag-load sa butang",
         "form": {
             "name": "Ngalan sa Butang",
-            "name_placeholder": "pananglitan Samsung TV 55 pulgada",
+            "name_placeholder": "pananglitan TV 55 pulgada",
             "required": "*",
             "description": "Deskripsyon",
             "description_placeholder": "Mga nota bahin sa item...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Hapiti sa Pag-expire",
             "expired": "Mihunong na",
             "low_stock": "Gamayan sa Stock"
+        },
+        "untitled_item": "Wala’y titulo nga butang",
+        "attachments": {
+            "title": "Mga litrato ug mga file",
+            "add": "Idugang ang mga file",
+            "empty": "Wala pay gidugang nga mga file.",
+            "form_desc": "I-attach ang litrato sa item, resibo, invoice, o dokumento sa serbisyo.",
+            "detail_desc": "Naluwas ang mga litrato, resibo, invoice, ug mga file sa serbisyo para niining item.",
+            "upload_error": "Dili ma-upload ang mga file.",
+            "delete_error": "Dili matangtang ang file.",
+            "delete_confirm": "Tangtangon ba kini nga file?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Ipakita ang password",
         "saving": "Nagluwas...",
         "disabled": "Gipakataas",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Palapda",
+        "zoom_out": "Paglihok pabalik",
+        "reset": "I-reset",
+        "print": "I-print",
+        "record_count": "{{count}} ka rekord"
     },
     "auth": {
         "login": {
@@ -427,7 +440,7 @@
         "google_login": "Padayon gamit ang Google",
         "login_issues": "Para sa mga isyu sa pag-login",
         "placeholder_username": "pananglitan: john •••••••• Two-Factor Authentication Menu",
-        "placeholder_password": "Menu Items Naka-expire Na! Aduna’y {{count}} nga mga items nga naka-expire sa imong imbentaryo. Palihug susiha kini alang sa imong kaluwasan.",
+        "placeholder_password": "••••••••",
         "login_two_factor": {
             "title": "Duhaka-Faktor sa Pagpamatood",
             "subtitle": "Isulod ang 6-ka-digit nga code gikan sa imong authenticator app",
@@ -489,7 +502,10 @@
         "logout_description": "Ibalik ka sa sign-in screen ug kinahanglan ka mosulod pag-usab aron dumalahan ang imong household inventory.",
         "logout_warning": "Gamita kini kung humana ka sa usa ka shared o personal nga device.",
         "maintenance": "Eskedyul sa Pagmintinar",
-        "shopping": "Listahan sa Pamalit"
+        "shopping": "Listahan sa Pamalit",
+        "activity": "Kalihokan",
+        "notifications": "Mga pahibalo",
+        "service": "Serbisyo"
     },
     "dashboard": {
         "welcome": "Welcome balik, <1>{{name}}</1>",
@@ -618,7 +634,7 @@
         "add_item": "Idugang ang Butang",
         "search_item": "Pangitaa ang Butang",
         "alerts": {
-            "expired_title": "Ang mga butang napalabay na! Anaa {{count}} ka napalabay nga butang sa imong imbentaryo. Palihug susiha kini alang sa imong kaluwasan. Beta Barcode",
+            "expired_title": "Mga butang nga expired",
             "expired_desc": "Aduna'y {{count}} ka nadaut nga butang sa imong imbentaryo. Palihug susiha kini alang sa imong kaluwasan.",
             "view_items": "Tan-awa ang mga Butang",
             "maintenance_title": "Mga Trabaho sa Pagmintinar nga Na-late na!",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} ka butang ang nahulog sa ilawom sa imong minimum nga limit sa stock.",
             "go_to_shopping": "Listahan sa Pamalit",
             "close_expiry_title": "Umaabot nga Petsa sa Pag-expire",
-            "close_expiry_desc": "{{count}} ka produkto ang mo-expire sulod sa 30 ka adlaw."
+            "close_expiry_desc": "{{count}} ka produkto ang mo-expire sulod sa 30 ka adlaw.",
+            "view_low_stock_items": "Tan-awa ang Gamayng Stock"
         }
     },
     "beta_banner": {
@@ -688,7 +705,7 @@
             "policy_update_error": "Napakyas sa pag-update sa mga setting sa hangyo.",
             "policy_updated": "Malampuson nga na-update ang mga setting sa hangyo.",
             "unblock_error": "Napakyas sa pag-unblock sa tiggamit.",
-            "unblocked_success": "Malampuson nga na-unblock ang tiggamit. ••••••••{{suffix}} Grid Balibaran ang Hangyo",
+            "unblocked_success": "Malampusong na-unblock ang tiggamit.",
             "house_owner_transferred": "Napasa ang pagpanag-iya sa balay",
             "house_owner_transfer_error": "Wala mapasa ang pagpanag-iya sa balay"
         },
@@ -766,7 +783,7 @@
             "transferring_owner": "Nagbalhin...",
             "transfer_owner_title": "Balhinon ba ang panag-iya sa balay?",
             "transfer_owner_confirm": "Ibalhin ba ang panag-iya ning panimalay ngadto kang {{name}}?",
-            "transfer_owner_warning": "Dili na ikaw ang tag-iya sa kini nga panimalay. Ang bag-ong tag-iya ang magdumala sa pag-apruba sa mga myembro, pagtangtang, ug umaabot nga mga kausaban sa pagpanag-iya. {{name}} mao na karon ang tag-iya sa kini nga panimalay. Seguridad ug pribasiya Pagdumala sa two-factor authentication, kasaligan nga mga device, ug mga lagda sa pag-ayo sa utang gikan sa lain nga mga account.",
+            "transfer_owner_warning": "Dili na ikaw ang tag-iya sa kini nga panimalay. Ang bag-ong tag-iya ang magdumala sa pag-apruba sa miyembro, pagtangtang, ug umaabot nga mga pag-usab sa tag-iya.",
             "transfer_owner_success_body": "Karon si {{name}} mao na ang tag-iya niining panimalay."
         },
         "theme": {
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} nga naglungtad nga mga lokasyon gi-laktawan.",
             "skipped_rooms": "{{count}} nga naglungtad nga mga kwarto gi-laktawan.",
             "owner_only_title": "Gisal-ot ug Gibabagan ang Backup ug Restore",
-            "owner_only_desc": "Ang pag-backup ug pag-restore sa datos mahimo lang pagdumala sa tag-iya sa balay."
+            "owner_only_desc": "Ang pag-backup ug pag-restore sa datos mahimo lang pagdumala sa tag-iya sa balay.",
+            "include_media_title": "Apil ang mga litrato ug imahe sa resibo",
+            "include_media_body": "Ang kompleto nga backup mahimong mas dako, apan ang mga litrato sa item ug imahe sa resibo mahimo usab ibalik.",
+            "skipped_attachments": "{{count}} ka mga attachment gikaltas."
         },
         "about": {
             "title": "Mahitungod sa Aplikasyon",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Tanang umaabot nga hangyo awtomatikong mapugngan.",
             "policy_house_only_desc": "Ang mga beripikadong miyembro lang sa imong aktibong balay ang makapangayo og butang nga nakit-an na sulod sa maong shared nga balay.",
             "policy_everyone_desc": "Ang ubang tiggamit dili makatan-aw o makakita sa imong mga butang. Makapadala ra sila og hangyo pinaagi sa pagsulod direkta sa imong username o email."
+        },
+        "activity_log": {
+            "title": "Aktibidad ug talaan sa audit",
+            "description": "Tan-awa ang protektadong kasaysayan sa mga kausaban sa item, updates sa stock, attachments, ug dagkong aksyon.",
+            "encrypted_title": "Ang mga rekord sa aktibidad giprotektahan",
+            "encrypted_body": "Ang bag-ong aksyon sa aktibidad ug detalye gisulod nga naka-encrypt sa database ug gi-decrypt ra alang sa imong aktibo nga sesyon."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Magsira ang rekord pagkahuman makumpirma sa nagpahulam nga nadawat nila ang butang pag-usab.",
             "return_pending_lender_title": "{{name}} gimarkahan kini nga butang nga naidala na",
             "return_pending_self_title": "Uban nimo, naghulat sa kumpirmasyon sa resibo",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Miyembro sa site",
+            "site_member_identifier": "Username o email",
+            "site_member_identifier_placeholder": "Eksaktong username o email",
+            "site_member_privacy_hint": "Ang tanyag makita sa Borrow Center kung kini nga account naglungtad ug nagtugot sa mosulod nga mga tanyag.",
+            "external_privacy_hint": "Nagmugna kini og pribadong lokal nga rekord lamang. Wala magpadala og notipikasyon ang app.",
+            "available": "Magamit"
         },
         "untitled_item": "Walay titulo nga butang",
         "delete_action": "Pangtangtanga ang butang",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "I-filter pinaagi sa lawak",
         "refreshing_results": "Nag-refresh sa mga butang...",
         "empty_filter_title": "Walay mga butang nga mitugma sa pagpangita",
-        "delete_error_title": "Napakyas ang pagtangtang"
+        "delete_error_title": "Napakyas ang pagtangtang",
+        "tools": {
+            "title": "Mga Himan"
+        },
+        "no_room": "Walay lawak",
+        "all_locations": "Tanang lokasyon",
+        "location_filter_label": "Isala pinaagi sa lokasyon",
+        "visibility_filter_label": "Isala pinaagi sa kakit-an",
+        "visibility_all": "Tanang kakit-an",
+        "visibility_mine": "Akong mga butang",
+        "visibility_others": "Ubang mga miyembro",
+        "borrow_filter_label": "Isala pinaagi sa kahimtang sa pautang",
+        "borrow_filter_all": "Tanang kahimtang sa pautang",
+        "stock_filter_label": "I-filter base sa kahimtang sa stock",
+        "stock_filter_all": "Tanang kahimtang sa stock",
+        "stock_filter_ok": "ok ang stock",
+        "expiry_filter_label": "I-filter base sa petsa sa pag-expire",
+        "expiry_filter_all": "Tanang petsa sa pag-expire",
+        "expiry_filter_dated": "Adunay petsa",
+        "expiry_filter_none": "Wala'y petsa",
+        "warranty_filter_label": "I-filter base sa warranty",
+        "warranty_filter_all": "Tanang garantiya",
+        "warranty_filter_expired": "Nag-expire na nga garantiya",
+        "warranty_filter_close": "HapIT na matapos",
+        "warranty_filter_active": "Aktibo nga garantiya",
+        "warranty_filter_none": "Walay impormasyon sa garantiya",
+        "sort_label": "I-arrange",
+        "sort_updated_desc": "Bag-ohay lang gi-update",
+        "sort_updated_asc": "Pinakaduol nga update",
+        "sort_created_desc": "Pinakabag-o una",
+        "sort_created_asc": "Pinakakaraan una",
+        "sort_name_asc": "Ngalan A-Z",
+        "sort_name_desc": "Ngalan Z-A",
+        "sort_quantity_desc": "Kadaghanan gikan sa taas padulong sa ubos",
+        "sort_quantity_asc": "Kadaghanan gikan sa ubos padulong sa taas",
+        "sort_expiry_asc": "Dali matapos",
+        "sort_expiry_desc": "Pinakalate matapos",
+        "stock_increase": "Pagdugang sa stock",
+        "stock_decrease": "Pagminus sa stock",
+        "stock_adjust_error": "Dili ma-update ang stock",
+        "bulk": {
+            "select_visible": "Pili-a ang makita",
+            "clear_visible": "Dili pili-a ang makita",
+            "selected_short": "napili",
+            "keep_category": "Ipadayon ang kategorya",
+            "keep_room": "Ipadayon ang kwarto",
+            "keep_location": "Ipadayon ang lokasyon",
+            "keep_visibility": "Ipadayon ang kakita",
+            "apply": "I-apply",
+            "no_fields": "Pagpili ug labing menos usa ka field para sa bulk nga aksyon.",
+            "updated_title": "Nahuman ang bulk update",
+            "updated_body": "{{count}} ka items ang na-update. {{skipped}} ang gipasagdan.",
+            "update_error": "Dili makompleto ang bulk update.",
+            "deleted_title": "Tapos na ang dagkong pag-delete",
+            "deleted_body": "{{count}} ka items ang na-delete. {{skipped}} gi-skip.",
+            "delete_error": "Dili matapos ang dagkong pag-delete.",
+            "delete_title": "I-delete ba ang napili nga items?",
+            "delete_description": "{{count}} ka napiling items ang tangtangon gikan sa inventory sa panimalay. Dili kini mabawi.",
+            "select_item": "Pili-a ang item",
+            "unselect_item": "I-undan ang item"
+        },
+        "qr_labels": {
+            "title": "Mga Label sa QR",
+            "open": "Mga Label sa Butang",
+            "description": "{{count}} ka mga label sa butang andam na isip print sheet.",
+            "empty": "Usba ang mga filter o dugangi ang mga inventory nga butang aron mag-print og mga label.",
+            "sheet_label": "Sheet sa Label sa Butang",
+            "item_label": "Label sa Butang"
+        }
     },
     "categories": {
         "title": "Mga Kategorya",
@@ -1333,7 +1428,7 @@
             "failed_logins": "{{count}} napakyas nga sign-ins",
             "load_failed_title": "Dili maload ang mga tiggamit",
             "pending_requests": "{{count}} naghulat nga hangyo sa balay",
-            "role_admin": "Admin Email Barcode: {{code}} © 2026 {{brandName}}",
+            "role_admin": "Administrador",
             "role_user": "Tiggamit"
         },
         "logs": {
@@ -1341,7 +1436,7 @@
             "no_logs": "wala pay mga log",
             "errors_title": "Mga Sayop sa Sistema (Hulip sa 10 Kaniadto)",
             "no_errors": "// Maayo ang sistema, walay error nga log.",
-            "date_fmt": "{{petsa, petsa}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "Email",
                 "user": "Tiggamit",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Mesh nga yunit",
-                    "meta": "Mesa sa TV • Deco M4",
+                    "meta": "Mesa sa TV • Network node",
                     "state": null
                 },
                 {
@@ -1795,7 +1890,7 @@
         "found_local_msg": "Ania ang barcode sa imong imbentaryo.",
         "found_online": "Nakaplagan ang produkto!",
         "google_result": "⚡ Resulta sa Google search - palihug susiha",
-        "barcode": "Barcode: {{code}} © 2026 {{brandName}} {{brandName}} - {{status}} Nag-load sa {{brandName}}",
+        "barcode": "Barkod: {{code}}",
         "new_product": "Bag-ong Produkto",
         "not_found_db": "Wala kini nga barcode makita sa database.",
         "google_search": "Pangitaa sa Google",
@@ -1954,7 +2049,7 @@
             "warningTitle": "⚠️",
             "warningBody": "Kung adunay account, usa ka link sa pag-reset sa password nga balido sulod sa 15 ka minuto gipadala.",
             "fallback": "Ang link sa pag-reset sa password morag dili kompleto o guba.",
-            "footer": "© 2026 {{brandName}} © 2026 {{brandName}} - {{supportEmail}} Admin Panel Menu"
+            "footer": "© 2026 {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "Gisugo kini nga email sa {{brandName}}.",
@@ -1968,7 +2063,7 @@
             "sentAtLabel": "Gisugo sa",
             "senderLabel": "Magpadala",
             "serviceLabel": "Serbisyo",
-            "footer": "© 2026 {{brandName}} © 2026 {{brandName}} © 2026 {{brandName}} - {{supportEmail}} {{brandName}}"
+            "footer": "© 2026 {{brandName}}"
         }
     },
     "vault": {
@@ -2154,7 +2249,7 @@
             "return_note_placeholder_lender": "pananglitan Nadawat nga balik sa maayong kahimtang",
             "return_submitting": "Gisira...",
             "reject_title": "Ibalibad ang Hangyo",
-            "reject_subtitle": "Duol na nimo nga i-reject ang hangyo para sa \"{{item}}\". Duol na nimo nga i-reject ang hangyo sa pagpahulam nga gisend ni {{name}}. Rason sa Pagdumili Gidumili...",
+            "reject_subtitle": "Ikaw hapit na mohikaw sa hangyo para sa \"{{item}}\".",
             "reject_target": "Hapiton nimo nga ibalibad ang hangyo sa pagpautang nga gipadala ni {{name}}.",
             "reject_reason_label": "Rason sa Pagbalibad",
             "reject_submitting": "Gibalibaran...",
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Dili maload ang borrow center",
             "action_error": "Dili mahuman ang aksyon",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Kining aktibong rekord sa pautang wala makit-i. I-refresh ang Borrow Center ug sulayi pag-usab.",
             "errors": {
                 "external_target_daily_limit": "Makapadala ka lang og usa ka first-contact external nga hangyo sa mao gihapon nga tawo matag adlaw. Kung ilang dawaton ang hangyo, kini nga limitasyon wala nay bisa sa maong tawo.",
                 "external_total_daily_limit": "Makapadala ka og hangtod 5 ka first-contact external nga hangyo matag adlaw.",
@@ -2326,9 +2421,9 @@
         "select_option": "Pilia ang usa ka opsyon"
     },
     "app": {
-        "name": "Gibalhin balik sa aktibong lista ang \"{{name}}\".",
+        "name": "Gibalhin balik sa aktibong lista ang \"{{brandName}}\".",
         "tagline": "Maayong pagdumala sa tanan nimong gamit sa panimalay",
-        "loading": "Loading {{brandName}}",
+        "loading": "Nag-load {{brandName}}",
         "preparing_workspace": "Gipangandaman ang imong workspace..."
     },
     "nav": {
@@ -2390,7 +2485,7 @@
             "added_suggestion": "\"{{name}}\" nadugang sa listahan sa pamalit.",
             "bulk_added": "{{count}} ka items nga gamay ang stock ang gidugang sa listahan.",
             "bulk_error": "Sayop sa pagdugang sa mga items nga gamay ang stock.",
-            "completed": "\"{{name}}\" gimarkahan nga nakompleto. \"{{name}}\" gibalik sa aktibong listahan.",
+            "completed": "\"{{name}}\" gi-markahan nga nahuman na.",
             "reactivated": "\"{{name}}\" gibalik sa aktibong listahan.",
             "update_error": "Nahitabo ang sayop sa pag-update.",
             "deleted": "Gitudlo ang butang gikan sa lista.",
@@ -2408,7 +2503,7 @@
             "desc": "Mga butang sa imbentaryo nga nahulog sa ubos sa minimum nga limitasyon.",
             "add_all": "Idugang ang Tanang Wala",
             "stock_status": "Karon: {{current}} / Target: {{min}}",
-            "add_qty": "Idugang ang {{qty}} nga mga Butang Paliton Kasamtangang mga butang sa pamalit nga idugang sa imong cart {{count}} nga mga Butang"
+            "add_qty": "Idugang ang {{qty}}"
         },
         "sections": {
             "active_list": "Mga Butang nga Paliton",
@@ -2555,5 +2650,102 @@
         "description": "Ang interface nakasinati og dili gilauman nga problema sa pag-render. Ang imong nasave nga datos sa imbentaryo wala mausab tungod niini nga screen.",
         "refresh_btn": "I-refresh",
         "home_btn": "Panimalay"
+    },
+    "activity": {
+        "title": "Kasaysayan sa Kalihokan",
+        "description": "Bag-ohay nga protektadong kausaban sa imong inventory sa balay.",
+        "empty_title": "Wala pay kalihokan",
+        "empty_description": "Ang mga kausaban sa item, update sa stock, attachment, pautang, ug dagkong aksyon ipakita dinhi.",
+        "unknown_actor": "Dili mailhi nga tiggamit",
+        "deleted_item_with_id": "Gitangtang nga butang #{{id}}",
+        "item_missing": "Wala na naglungtad ang rekord sa butang",
+        "actions": {
+            "item_created": "Gibutang ang butang",
+            "item_updated": "Gi-update ang butang",
+            "item_deleted": "Gitangtang ang butang",
+            "item_borrowed": "Gihulam ang butang",
+            "item_returned": "Gibalik ang butang",
+            "item_bulk_updated": "Daghang pag-update",
+            "item_bulk_deleted": "Dagkong pagtangtang",
+            "item_stock_adjusted": "Na-update ang stock",
+            "item_attachment_added": "Gidugang ang attachment",
+            "item_attachment_deleted": "Gitangtang ang attachment"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} nga may kalabutan nga rekord",
+        "empty_title": "Wala'y nakitang may kalabutan nga rekord",
+        "low_stock": {
+            "title": "Ubos nga Stock",
+            "description": "Mga item ubos sa ilang minimum nga lebel sa stock.",
+            "qty": "Stock {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Expired nga mga Butang",
+            "description": "Mga butang nga milapas na sa ilang petsa sa pag-expire."
+        },
+        "expiring": {
+            "title": "Umaabot nga Petsa sa Pag-expire",
+            "description": "Mga butang nga mo-expire sulod sa 30 ka adlaw."
+        },
+        "maintenance": {
+            "title": "Naulahi nga Pagmintinar",
+            "description": "Mga buluhaton sa pagmintinar nga milapas na sa gikatakdang petsa."
+        }
+    },
+    "notifications": {
+        "title": "Sentro sa Notipikasyon",
+        "description": "Stock, warranty, maintenance, expiration, ug balik sa pautang nga mga pahimangno.",
+        "meta_total": "{{count}} ka mga pahibalo",
+        "meta_urgent": "{{count}} ka importante",
+        "empty_title": "Wala'y mga pahimangno nga nagkinahanglan sa imong pagtagad karon",
+        "empty_desc": "Ubos nga stock, umaabot nga mga petsa, ug atrasadong maintenance mahimong makita dinhi.",
+        "items": {
+            "stock_empty_title": "Wala nay stock",
+            "stock_low_title": "Ubos nga stock",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Milabay na ang petsa sa pag-expire",
+            "expiry_close_title": "Padulong na ang petsa sa pag-expire",
+            "warranty_expired_title": "Nawala na ang warranty",
+            "warranty_close_title": "Hapiti na matapos ang warranty",
+            "maintenance_overdue_title": "Napasangan ang maintenance",
+            "maintenance_close_title": "Hapiti na sa takdang panahon para sa maintenance",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Napasangan ang pagbalik sa gi-utang",
+            "borrow_close_title": "Hapiti na sa takdang panahon ang pagbalik sa gi-utang",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} ka adlaw na lang ang nabilin ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Sentro sa Serbisyo ug Warranty",
+        "description": "Sundan ang mga warranty, iskedyul sa maintenance, ug mga aksyon sa serbisyo sa usa ka lugar.",
+        "meta_warranty": "{{count}} rekord sa warranty",
+        "meta_tasks": "{{count}} mga buluhaton sa maintenance",
+        "empty_title": "Walay aksyon sa serbisyo o warranty",
+        "empty_desc": "Ang umaabot nga mga petsa sa warranty ug mga buluhaton sa maintenance ipon dinhi.",
+        "warranty_section": "Pagsubay sa Warranty",
+        "warranty_desc": "Mga warranty nga mi-expire ug mga warranty nga matapos sulod sa 30 ka adlaw.",
+        "maintenance_section": "Mga Aksyon sa Pagmentinar",
+        "maintenance_desc": "Mga naulahi ug umaabot nga buluhaton sa pagmentinar.",
+        "no_warranty": "Wala’y umaabot nga aksyon sa warranty.",
+        "no_tasks": "Wala’y naka-iskedyul nga buluhaton sa pagmentinar.",
+        "overdue": "Naulahi",
+        "upcoming": "Sa dili madugay",
+        "expired": "Expirado",
+        "summary_warranty": "Pagsubay sa warranty",
+        "summary_tasks": "Mga buluhaton sa pagmentinar",
+        "open_warranty_filter": "Ablihi ang filter sa warranty",
+        "open_warranty_filter_desc": "Gafilter ang mga aktibo nga item sa warranty sa imbentaryo."
+    },
+    "storage_labels": {
+        "title": "Mga Label sa Estante ug Kwarto",
+        "description": "{{count}} ka label sa kwarto/estante andam na isip print sheet.",
+        "empty_title": "Walay mga kwarto o estante nga i-label",
+        "empty_desc": "Idugang una ang mga kwarto o lokasyon, unya i-print ang mga QR label dinhi.",
+        "sheet_label": "Label sa Lokasyon",
+        "scan_hint": "Ang pag-scan sa QR code mopakita sa gipang-filter nga imbentaryo alang niining kwarto o estante.",
+        "room": "Kwarto",
+        "location": "Estante/Kahon"
     }
 }

@@ -98,7 +98,7 @@ Copyright 2026 HomeInventory contributors. HomeInventory Local includes open-sou
 Use the Cloudflare-free MSI URL in Partner Center:
 
 ```text
-https://packages.144.24.254.85.sslip.io/store-packages/homeinventory-local/2.2.0/HomeInventory-Local-2.2.0-x64-en-US.msi
+https://packages.144.24.254.85.sslip.io/store-packages/homeinventory-local/2.4.0/HomeInventory-Local-2.4.0-x64-en-US.msi
 ```
 
 Package settings:

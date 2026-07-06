@@ -10,7 +10,7 @@
         "load_error": "Kunne ikke laste inn vare",
         "form": {
             "name": "Varenavn",
-            "name_placeholder": "f.eks. Samsung TV 55 tommer",
+            "name_placeholder": "f.eks. TV 55 tommer",
             "required": "*",
             "description": "Beskrivelse",
             "description_placeholder": "Notater om varen...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Nær utløpsdato",
             "expired": "Utløpt",
             "low_stock": "Lavt lager"
+        },
+        "untitled_item": "Uten tittel",
+        "attachments": {
+            "title": "Bilder og filer",
+            "add": "Legg til filer",
+            "empty": "Ingen filer lagt til ennå.",
+            "form_desc": "Legg ved bilder av varen, kvitteringer, fakturaer eller servicedokumenter.",
+            "detail_desc": "Bilder, kvitteringer, fakturaer og servicefiler lagret for denne varen.",
+            "upload_error": "Filer kunne ikke lastes opp.",
+            "delete_error": "Filen kunne ikke slettes.",
+            "delete_confirm": "Slette denne filen?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Vis passord",
         "saving": "Lagrer...",
         "disabled": "Funksjonshemmet",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Zoom inn",
+        "zoom_out": "Zoom ut",
+        "reset": "Tilbakestill",
+        "print": "Skriv ut",
+        "record_count": "{{count}} poster"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Du vil bli returnert til påloggingsskjermen og må logge inn igjen for å administrere husholdningsbeholdningen din.",
         "logout_warning": "Bruk dette når du er ferdig på en delt eller personlig enhet.",
         "maintenance": "Vedlikeholdsplan",
-        "shopping": "Handleliste"
+        "shopping": "Handleliste",
+        "activity": "Aktivitet",
+        "notifications": "Varsler",
+        "service": "Tjeneste"
     },
     "dashboard": {
         "welcome": "Velkommen, <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} varer har falt under din minimale lagergrense.",
             "go_to_shopping": "Handleliste",
             "close_expiry_title": "Kommende utløpsdatoer",
-            "close_expiry_desc": "{{count}} produkter vil utløpe innen 30 dager."
+            "close_expiry_desc": "{{count}} produkter vil utløpe innen 30 dager.",
+            "view_low_stock_items": "Se lav beholdning"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Aktiv Husnøkkel",
             "key_label": "Husnøkkel",
-            "mask_key": "••••••••{{suffiks}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Skjul",
             "show": "Vis",
             "copy": "Kopier",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} eksisterende steder hoppet over.",
             "skipped_rooms": "{{count}} eksisterende rom hoppet over.",
             "owner_only_title": "Sikkerhetskopiering og gjenoppretting begrenset",
-            "owner_only_desc": "Datasikkerhetskopiering og gjenoppretting kan kun administreres av huseieren."
+            "owner_only_desc": "Datasikkerhetskopiering og gjenoppretting kan kun administreres av huseieren.",
+            "include_media_title": "Inkluder bilder og kvitteringsbilder",
+            "include_media_body": "Full sikkerhetskopi kan være større, men varebilder og kvitteringsbilder kan også gjenopprettes.",
+            "skipped_attachments": "{{count}} vedlegg ble hoppet over."
         },
         "about": {
             "title": "Om applikasjonen",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Alle innkommende forespørsler blokkeres automatisk.",
             "policy_house_only_desc": "Kun verifiserte medlemmer av dine aktive hus kan be om gjenstander som allerede er synlige inne i det delte huset.",
             "policy_everyone_desc": "Andre brukere kan ikke bla gjennom eller se dine gjenstander. De kan bare sende en forespørsel ved å skrive inn brukernavnet eller e-posten din direkte."
+        },
+        "activity_log": {
+            "title": "Aktivitet og revisjonslogg",
+            "description": "Se gjennom den beskyttede historikken over vareendringer, lageroppdateringer, vedlegg og massehandlinger.",
+            "encrypted_title": "Aktivitetsregistre lagres beskyttet",
+            "encrypted_body": "Nye aktivitetshandlinger og detaljer lagres kryptert i databasen og dekrypteres kun for din aktive økt."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Oppføringen lukkes etter at långiveren bekrefter at de har mottatt varen tilbake.",
             "return_pending_lender_title": "{{name}} markerte dette elementet som levert tilbake",
             "return_pending_self_title": "Hos deg, venter på kvitteringsbekreftelse",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Nettstedsmedlem",
+            "site_member_identifier": "Brukernavn eller e-post",
+            "site_member_identifier_placeholder": "Eksakt brukernavn eller e-post",
+            "site_member_privacy_hint": "Tilbudet vises i Lånesenteret kun hvis den kontoen eksisterer og tillater innkommende tilbud.",
+            "external_privacy_hint": "Dette oppretter kun en privat lokal post. Ingen app-varsling sendes.",
+            "available": "Tilgjengelig"
         },
         "untitled_item": "Uten tittel",
         "delete_action": "Slett vare",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Filtrer etter rom",
         "refreshing_results": "Oppdaterer elementer...",
         "empty_filter_title": "Ingen elementer samsvarte med det søket",
-        "delete_error_title": "Sletting mislyktes"
+        "delete_error_title": "Sletting mislyktes",
+        "tools": {
+            "title": "Verktøy"
+        },
+        "no_room": "Ingen plass",
+        "all_locations": "Alle lokasjoner",
+        "location_filter_label": "Filtrer etter lokasjon",
+        "visibility_filter_label": "Filtrer etter synlighet",
+        "visibility_all": "All synlighet",
+        "visibility_mine": "Mine elementer",
+        "visibility_others": "Andre medlemmer",
+        "borrow_filter_label": "Filtrer etter lånestatus",
+        "borrow_filter_all": "Alle lånestatus",
+        "stock_filter_label": "Filtrer etter lagersaldo",
+        "stock_filter_all": "Alle lagersaldo",
+        "stock_filter_ok": "Lager ok",
+        "expiry_filter_label": "Filtrer etter utløpsdato",
+        "expiry_filter_all": "Alle utløpsdatoer",
+        "expiry_filter_dated": "Har dato",
+        "expiry_filter_none": "Ingen dato",
+        "warranty_filter_label": "Filtrer etter garanti",
+        "warranty_filter_all": "Alle garantier",
+        "warranty_filter_expired": "Utløpte garantier",
+        "warranty_filter_close": "Slutter snart",
+        "warranty_filter_active": "Aktive garantier",
+        "warranty_filter_none": "Ingen garantiinformasjon",
+        "sort_label": "Sorter",
+        "sort_updated_desc": "Nylig oppdatert",
+        "sort_updated_asc": "Eldre oppdatering",
+        "sort_created_desc": "Nyeste først",
+        "sort_created_asc": "Eldste først",
+        "sort_name_asc": "Navn A-Å",
+        "sort_name_desc": "Navn Å-A",
+        "sort_quantity_desc": "Mengde høy til lav",
+        "sort_quantity_asc": "Mengde lav til høy",
+        "sort_expiry_asc": "Utløper snart",
+        "sort_expiry_desc": "Utløper sist",
+        "stock_increase": "Øk lager",
+        "stock_decrease": "Reduser lager",
+        "stock_adjust_error": "Lager kunne ikke oppdateres.",
+        "bulk": {
+            "select_visible": "Velg synlig",
+            "clear_visible": "Fjern valg for synlig",
+            "selected_short": "valgt",
+            "keep_category": "Behold kategori",
+            "keep_room": "Behold rom",
+            "keep_location": "Behold plassering",
+            "keep_visibility": "Behold synlighet",
+            "apply": "Bruk",
+            "no_fields": "Velg minst ett felt for massehandlingen.",
+            "updated_title": "Masseoppdatering fullført",
+            "updated_body": "{{count}} elementer oppdatert. {{skipped}} hoppet over.",
+            "update_error": "Masseoppdatering kunne ikke fullføres.",
+            "deleted_title": "Masse-sletting fullført",
+            "deleted_body": "{{count}} elementer slettet. {{skipped}} hoppet over.",
+            "delete_error": "Masse-sletting kunne ikke fullføres.",
+            "delete_title": "Slette valgte elementer?",
+            "delete_description": "{{count}} valgte elementer vil bli fjernet fra dette husholdningsinventaret. Dette kan ikke angres.",
+            "select_item": "Velg vare",
+            "unselect_item": "Fjern valg av vare"
+        },
+        "qr_labels": {
+            "title": "QR-etiketter",
+            "open": "Vareetiketter",
+            "description": "{{count}} vareetiketter er klare som et utskriftsark.",
+            "empty": "Endre filtre eller legg til lagerartikler for å skrive ut etiketter.",
+            "sheet_label": "Vareetikettark",
+            "item_label": "Vareetikett"
+        }
     },
     "categories": {
         "title": "Kategorier",
@@ -1341,7 +1436,7 @@
             "no_logs": "ingen logger ennå",
             "errors_title": "Systemfeil (Siste 10)",
             "no_errors": "// Systemet er sunt, ingen feillogger.",
-            "date_fmt": "{{dato, datetime}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "E-post",
                 "user": "Bruker",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Mesh-enhet",
-                    "meta": "TV-benk • Deco M4",
+                    "meta": "TV-benk • Network node",
                     "state": null
                 },
                 {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Lånesenteret kunne ikke lastes",
             "action_error": "Handlingen kunne ikke fullføres",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Denne aktive låneposten kunne ikke bli funnet. Oppdater Lånesenteret og prøv igjen.",
             "errors": {
                 "external_target_daily_limit": "Du kan bare sende én første-kontakt ekstern forespørsel til samme person per dag. Hvis de aksepterer en forespørsel, gjelder ikke dette begrensningen for den personen lenger.",
                 "external_total_daily_limit": "Du kan sende opptil 5 første-kontakt eksterne forespørsler per dag.",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "{{name}} kontomeny"
     },
     "app": {
-        "name": "{{merkenavn}}",
+        "name": "{{brandName}}",
         "tagline": "Administrer alle husholdningsartikler smart",
         "loading": "Laster {{brandName}}",
         "preparing_workspace": "Forbereder arbeidsplassen din..."
@@ -2555,5 +2650,102 @@
         "description": "Grensesnittet fikk et uventet renderingsproblem. Dine lagrede inventardata endres ikke av denne skjermen.",
         "refresh_btn": "Oppdater",
         "home_btn": "Hjem"
+    },
+    "activity": {
+        "title": "Aktivitetshistorikk",
+        "description": "Nylige beskyttede endringer i hjemmeinventaret ditt.",
+        "empty_title": "Ingen aktivitet ennå",
+        "empty_description": "Vareendringer, lageroppdateringer, vedlegg, lån og massehandlinger vil vises her.",
+        "unknown_actor": "Ukjent bruker",
+        "deleted_item_with_id": "Slettet vare #{{id}}",
+        "item_missing": "Denne vareposten finnes ikke lenger",
+        "actions": {
+            "item_created": "Vare lagt til",
+            "item_updated": "Vare oppdatert",
+            "item_deleted": "Vare slettet",
+            "item_borrowed": "Vare utlånt",
+            "item_returned": "Vare returnert",
+            "item_bulk_updated": "Masseoppdatering",
+            "item_bulk_deleted": "Masse sletting",
+            "item_stock_adjusted": "Lager oppdatert",
+            "item_attachment_added": "Vedlegg lagt til",
+            "item_attachment_deleted": "Vedlegg slettet"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} relaterte poster",
+        "empty_title": "Ingen relaterte poster funnet",
+        "low_stock": {
+            "title": "Lavt lager",
+            "description": "Varer under deres minimumslager.",
+            "qty": "Lager {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Utgåtte varer",
+            "description": "Varer med en utløpt dato."
+        },
+        "expiring": {
+            "title": "Kommende utløpsdatoer",
+            "description": "Varer som utløper innen 30 dager."
+        },
+        "maintenance": {
+            "title": "Forsinket vedlikehold",
+            "description": "Vedlikeholdsoppgaver forfalt etter planlagt dato."
+        }
+    },
+    "notifications": {
+        "title": "Varslingssenter",
+        "description": "Lager, garanti, vedlikehold, utløp og varsler om tilbakelevering av lån.",
+        "meta_total": "{{count}} varsler",
+        "meta_urgent": "{{count}} haster",
+        "empty_title": "Ingen varsler trenger din oppmerksomhet akkurat nå",
+        "empty_desc": "Lavt lager, kommende datoer og forfalt vedlikehold vises her.",
+        "items": {
+            "stock_empty_title": "Utsolgt",
+            "stock_low_title": "Lavt lager",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Utløpsdato passert",
+            "expiry_close_title": "Utløpsdato nærmer seg",
+            "warranty_expired_title": "Garantien er utløpt",
+            "warranty_close_title": "Garantien avsluttes snart",
+            "maintenance_overdue_title": "Vedlikehold forfalt",
+            "maintenance_close_title": "Vedlikehold forfaller snart",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Lån tilbake forfalt",
+            "borrow_close_title": "Lån tilbake forfaller snart",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} dager igjen ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Service- og garantisenter",
+        "description": "Følg garantier, vedlikeholdsplaner og servicehandlinger på ett sted.",
+        "meta_warranty": "{{count}} garantiposter",
+        "meta_tasks": "{{count}} vedlikeholdsoppgaver",
+        "empty_title": "Ingen service- eller garantihandling",
+        "empty_desc": "Kommende garantidatoer og vedlikeholdsoppgaver vil bli samlet her.",
+        "warranty_section": "Garantiovervåking",
+        "warranty_desc": "Utløpte garantier og garantier som utløper innen 30 dager.",
+        "maintenance_section": "Vedlikeholdsaksjoner",
+        "maintenance_desc": "Forfalte og kommende vedlikeholdsoppgaver.",
+        "no_warranty": "Ingen kommende garantihandling.",
+        "no_tasks": "Ingen planlagt vedlikeholdsoppgave.",
+        "overdue": "Forfalt",
+        "upcoming": "Snart",
+        "expired": "Utløpt",
+        "summary_warranty": "Garantiovervåking",
+        "summary_tasks": "Vedlikeholdsoppgaver",
+        "open_warranty_filter": "Åpne garantifilter",
+        "open_warranty_filter_desc": "Filtrerer aktive garantivarer i lageret."
+    },
+    "storage_labels": {
+        "title": "Hylle- og rometiketter",
+        "description": "{{count}} rom-/hylleetiketter er klare som utskriftsark.",
+        "empty_title": "Ingen rom eller hyller å merke",
+        "empty_desc": "Legg til rom eller steder først, og skriv deretter ut QR-etiketter her.",
+        "sheet_label": "Stedetikettark",
+        "scan_hint": "Å skanne QR-koden åpner det filtrerte lageret for det rommet eller den hyllen.",
+        "room": "Rom",
+        "location": "Hylle/Eske"
     }
 }

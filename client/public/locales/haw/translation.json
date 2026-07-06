@@ -9,7 +9,7 @@
         "subtitle": "E hoʻokomo i nā kikoʻī kikoʻī __> loaʻa HI_",
         "load_error": "Inoa Mea",
         "form": {
-            "name": "e.g. Samsung TV 55 iniha",
+            "name": "e.g. TV 55 iniha",
             "name_placeholder": "Hōʻike",
             "required": "*",
             "description": "Ka Ho‘ākāka ‘ana",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Kokoke i ka Pau ʻana",
             "expired": "Pau ka manawa",
             "low_stock": "Waihona Haʻahaʻa"
+        },
+        "untitled_item": "Mea i kapa ʻole ʻia",
+        "attachments": {
+            "title": "Nā kiʻi a me nā faila",
+            "add": "Hoʻohui i nā faila",
+            "empty": "ʻAʻohe faila i hoʻohui ʻia.",
+            "form_desc": "E hoʻopili i nā kiʻi o nā mea, nā palapala hoʻokipa, nā bila, a i ʻole nā ​​​​palapala lawelawe.",
+            "detail_desc": "Ua mālama ʻia nā kiʻi, nā palapala hoʻokipa, nā invoice, a me nā faila lawelawe no kēia mea.",
+            "upload_error": "ʻAʻole hiki ke hoʻouka ʻia nā faila.",
+            "delete_error": "ʻAʻole hiki ke holoi ʻia ka faila.",
+            "delete_confirm": "Holoi i kēia faila?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Hōʻike i ka ʻōlelo huna",
         "saving": "Ke mālama nei...",
         "disabled": "Hoʻopaʻa ʻia",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Hoʻonui",
+        "zoom_out": "Hoʻonui i ka nui",
+        "reset": "Hoʻonohonoho hou",
+        "print": "Paʻi",
+        "record_count": "Nā moʻolelo {{count}}"
     },
     "auth": {
         "login": {
@@ -489,10 +502,13 @@
         "logout_description": "E hoʻihoʻi ʻia ʻoe i ka pale komo a pono ʻoe e komo hou e hoʻokele i kāu waihona hale.",
         "logout_warning": "E hoʻohana i kēia ke pau ʻoe ma kahi hāmeʻa i kaʻana like ʻia a pilikino paha.",
         "maintenance": "Papa Hana Mālama",
-        "shopping": "Papa inoa kūʻai"
+        "shopping": "Papa inoa kūʻai",
+        "activity": "Hana",
+        "notifications": "Nā Hoʻolaha",
+        "service": "lawelawe"
     },
     "dashboard": {
-        "welcome": "Welina hou mai, &lt;1&gt;{{name}}</1>",
+        "welcome": "Welina mai, <1>{{name}}</1>",
         "subtitle": "🔒 Kaʻu mau mea kiko'ī",
         "quick_search": "🌐 Public",
         "filters": {
@@ -628,7 +644,8 @@
             "low_stock_desc": "Ua hāʻule nā ​​mea {{count}} ma lalo o kāu palena palena iki no ka waihona.",
             "go_to_shopping": "Papa inoa kūʻai",
             "close_expiry_title": "Nā Lā Pau e Hiki Mai Ana",
-            "close_expiry_desc": "E pau ana nā huahana {{count}} i loko o 30 mau lā."
+            "close_expiry_desc": "E pau ana nā huahana {{count}} i loko o 30 mau lā.",
+            "view_low_stock_items": "Nānā i ka Waihona Haʻahaʻa"
         }
     },
     "beta_banner": {
@@ -765,7 +782,7 @@
             "transfer_owner": "Hana i ka mea nona",
             "transferring_owner": "Ke hoʻololi nei...",
             "transfer_owner_title": "Hoʻololi i ka hale?",
-            "transfer_owner_confirm": "E hoʻoili i ka kuleana o kēia hale iā {{inoa}}?",
+            "transfer_owner_confirm": "E hoʻoili i ka kuleana o kēia hale iā {{name}}?",
             "transfer_owner_warning": "ʻAʻole ʻoe e lilo hou i mea nona kēia hale. Na ka mea hou e hoʻokele i ka ʻae ʻana o nā lālā, ka wehe ʻana, a me nā hoʻololi ʻana i ka wā e hiki mai ana.",
             "transfer_owner_success_body": "ʻO {{name}} ka mea nona kēia hale."
         },
@@ -835,7 +852,10 @@
             "skipped_locations": "Ua hoʻokuʻu ʻia nā wahi i loaʻa ma {{count}}.",
             "skipped_rooms": "Ua hoʻokuʻu ʻia nā lumi e kū nei ma {{count}}.",
             "owner_only_title": "Palena ʻia ka Backup a me ka Hoʻihoʻi",
-            "owner_only_desc": "Hiki i ka mea nona ka hale ke mālama wale i ka hoʻihoʻi ʻana a me ka hoʻihoʻi ʻana i ka ʻikepili."
+            "owner_only_desc": "Hiki i ka mea nona ka hale ke mālama wale i ka hoʻihoʻi ʻana a me ka hoʻihoʻi ʻana i ka ʻikepili.",
+            "include_media_title": "E hoʻokomo i nā kiʻi a me nā kiʻi palapala hoʻokipa",
+            "include_media_body": "ʻOi aku paha ka nui o ka waihona piha, akā hiki ke hoʻihoʻi ʻia nā kiʻi o nā mea a me nā kiʻi palapala hoʻokipa.",
+            "skipped_attachments": "Ua kāpae ʻia nā mea hoʻopili {{count}}."
         },
         "about": {
             "title": "E pili ana i ka palapala noi",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Ua ālai ʻia nā noi komo a pau.",
             "policy_house_only_desc": "ʻO nā lālā i hōʻoia ʻia o kou mau hale hana e hiki ke noi i nā mea i ʻike ʻia i loko o kēlā hale kaʻana.",
             "policy_everyone_desc": "ʻAʻole hiki i nā mea hoʻohana ʻē aʻe ke nānā a ʻike i kāu mau mea. Hiki iā lākou ke hoʻouna i kahi noi ma ke komo pololei ʻana i kou inoa inoa a i ʻole leka uila."
+        },
+        "activity_log": {
+            "title": "Moʻolelo hana a me ka loiloi",
+            "description": "E nānā hou i ka mōʻaukala i pale ʻia o nā loli o nā mea, nā mea hou i loko o ka waihona, nā mea hoʻopili, a me nā hana nui.",
+            "encrypted_title": "Mālama ʻia nā moʻolelo hana",
+            "encrypted_body": "Hoʻopāʻālua ʻia nā hana a me nā kikoʻī hana hou i loko o ka waihona ʻikepili a wehe wale ʻia no kāu kau hana."
         }
     },
     "inventory": {
@@ -1083,7 +1109,7 @@
             "overdue_badge": "Ua hala ka manawa",
             "borrowed_badge": "Ua hōʻaiʻē ʻia",
             "borrowed_to": "Me {{name}}",
-            "due_date_short": "Palena pau}}",
+            "due_date_short": "Pau ma: {{date}}",
             "actions_error": "ʻAʻole hiki ke hoʻopau ʻia ka hana hōʻaiʻē",
             "borrowed_at": "Lent ma: {{date}}",
             "due_date_label": "Hoʻihoʻi i manaʻo ʻia: {{date}}",
@@ -1107,7 +1133,8 @@
             "site_member_identifier": "inoa hoʻohana a leka uila",
             "site_member_identifier_placeholder": "inoa inoa a leka uila pololei",
             "site_member_privacy_hint": "Hōʻike ʻia ka hāʻawi ma Borrow Center inā loaʻa kēlā moʻohelu a ʻae i nā hāʻawi komo.",
-            "external_privacy_hint": "Hoʻokumu kēia i kahi moʻolelo kūloko pilikino wale nō. ʻAʻole hoʻouna ʻia ka leka uila."
+            "external_privacy_hint": "Hoʻokumu kēia i kahi moʻolelo kūloko pilikino wale nō. ʻAʻole hoʻouna ʻia ka leka uila.",
+            "available": "Loaʻa"
         },
         "untitled_item": "Mea i kapa ʻole ʻia",
         "delete_action": "Holoi 'ikamu",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Kānana ma ka lumi",
         "refreshing_results": "Mea inoa ʻole",
         "empty_filter_title": "ʻAʻohe mea i kūlike me kēlā hulina",
-        "delete_error_title": "Holoi ʻole ʻia"
+        "delete_error_title": "Holoi ʻole ʻia",
+        "tools": {
+            "title": "Nā Mea Hana"
+        },
+        "no_room": "ʻAʻohe lumi",
+        "all_locations": "Nā wahi āpau",
+        "location_filter_label": "Kānana ma ka wahi",
+        "visibility_filter_label": "Kānana ma ka ʻike ʻia",
+        "visibility_all": "ʻIke ʻia nā mea a pau",
+        "visibility_mine": "Kaʻu mau mea",
+        "visibility_others": "Nā lālā ʻē aʻe",
+        "borrow_filter_label": "Kānana ma ke kūlana hōʻaiʻē",
+        "borrow_filter_all": "Nā kūlana hōʻaiʻē āpau",
+        "stock_filter_label": "Kānana ma ke kūlana waihona",
+        "stock_filter_all": "Nā kūlana waihona āpau",
+        "stock_filter_ok": "Maikaʻi ka waihona",
+        "expiry_filter_label": "Kānana ma ka lā pau",
+        "expiry_filter_all": "Nā lā pau āpau",
+        "expiry_filter_dated": "Loaʻa ka lā",
+        "expiry_filter_none": "ʻAʻohe lā",
+        "warranty_filter_label": "Kānana ma ka palapala hoʻokō",
+        "warranty_filter_all": "Nā palapala hōʻoia a pau",
+        "warranty_filter_expired": "Nā palapala hoʻokō i pau",
+        "warranty_filter_close": "E pau koke ana",
+        "warranty_filter_active": "Nā palapala hōʻoia hana",
+        "warranty_filter_none": "ʻAʻohe ʻike palapala hoʻokō",
+        "sort_label": "Hoʻokaʻawale",
+        "sort_updated_desc": "Ua hōʻano hou ʻia nei",
+        "sort_updated_asc": "Hoʻohou kahiko loa",
+        "sort_created_desc": "ʻO ka mea hou loa mua",
+        "sort_created_asc": "Kahiko loa mua",
+        "sort_name_asc": "Inoa AZ",
+        "sort_name_desc": "Inoa ZA",
+        "sort_quantity_desc": "Ka nui kiʻekiʻe a haʻahaʻa",
+        "sort_quantity_asc": "Ka nui haʻahaʻa a kiʻekiʻe",
+        "sort_expiry_asc": "Pau koke loa",
+        "sort_expiry_desc": "Pau hope loa",
+        "stock_increase": "Hoʻonui i ka waihona",
+        "stock_decrease": "E hoʻemi i ka waihona",
+        "stock_adjust_error": "ʻAʻole hiki ke hōʻano hou ʻia ka waihona.",
+        "bulk": {
+            "select_visible": "Koho i ʻike ʻia",
+            "clear_visible": "Wehe i ke koho ʻike ʻia",
+            "selected_short": "i koho ʻia",
+            "keep_category": "E mālama i ka mahele",
+            "keep_room": "E mālama i kahi",
+            "keep_location": "E mālama i ka wahi",
+            "keep_visibility": "E mālama i ka ʻike",
+            "apply": "E noi",
+            "no_fields": "E koho i hoʻokahi kahua no ka hana nui.",
+            "updated_title": "Ua pau ka hoʻopou hou ʻana",
+            "updated_body": "Ua hōʻano hou ʻia nā mea {{count}}. Ua hoʻokuʻu ʻia ʻo {{skipped}}.",
+            "update_error": "ʻAʻole hiki ke hoʻopau ʻia ka hoʻonui nui ʻana.",
+            "deleted_title": "Ua pau ka holoi nui ʻana",
+            "deleted_body": "Ua holoi ʻia nā mea {{count}}. Ua hoʻokuʻu ʻia ʻo {{skipped}}.",
+            "delete_error": "ʻAʻole hiki ke hoʻopau ʻia ka holoi nui ʻana.",
+            "delete_title": "Holoi i nā mea i koho ʻia?",
+            "delete_description": "E wehe ʻia ka {{count}} mau mea i koho ʻia mai kēia papa helu hale. ʻAʻole hiki ke hoʻopau ʻia kēia.",
+            "select_item": "Koho i ka mea",
+            "unselect_item": "Wehe i ke koho ʻana i ka mea"
+        },
+        "qr_labels": {
+            "title": "Nā Lepili QR",
+            "open": "Nā Lepili Mea",
+            "description": "Ua mākaukau nā lepili mea {{count}} ma ke ʻano he pepa paʻi.",
+            "empty": "E hoʻololi i nā kānana a i ʻole e hoʻohui i nā mea waihona e paʻi i nā lepili.",
+            "sheet_label": "Pepa Lepili Mea",
+            "item_label": "Lepili Mea"
+        }
     },
     "categories": {
         "title": "Māhele",
@@ -1266,7 +1361,7 @@
             "total_users": "Ka nui o nā mea hoʻohana",
             "new_today": "I kēia lā: +{{count}} hou",
             "total_inventory": "Huina Inventory",
-            "inventory_details": "Nā lumi {{lumi}}, nā māhele {{categories}}",
+            "inventory_details": "Nā lumi {{rooms}}, nā māhele {{categories}}",
             "banned_users": "Ua ālai ʻia ke komo",
             "access_blocked": "Hoʻomanaʻo Pūnaewele",
             "server_memory": "Hoʻomanaʻo kikowaena",
@@ -1341,7 +1436,7 @@
             "no_logs": "ʻaʻohe mau moʻolelo i kēia manawa",
             "errors_title": "Nā hewa ʻōnaehana (Nā 10 hope loa)",
             "no_errors": "// Ola kino ka ʻōnaehana, ʻaʻohe moʻolelo hewa.",
-            "date_fmt": "{{lā, lāmanawa}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "Leka uila",
                 "user": "Mea hoʻohana",
@@ -1357,9 +1452,9 @@
                 "disable": "Hoʻopau"
             },
             "audit": {
-                "email_sent": "Mea Loaʻa: {{mea loaʻa}} | Kumuhana: {{kumuhana}}",
+                "email_sent": "Mea Loaʻa: {{recipient}} | Kumuhana: {{subject}}",
                 "user_deleted": "Ua holoi ʻia ka mea hoʻohana: {{username}} | Nā ʻohana i holoi ʻia: {{deletedHouses}} | Nā kuleana i hoʻoili ʻia: {{transferredOwnerships}}",
-                "user_target": "Mea hoʻohana: {{inoa mea hoʻohana}}",
+                "user_target": "Mea hoʻohana: {{username}}",
                 "indexnow_submitted": "Ua holomua ka hoʻouna ʻana o IndexNow. Helu URL: {{count}}"
             },
             "no_errors_title": "ʻAʻohe hewa ʻōnaehana hou",
@@ -1508,7 +1603,7 @@
         "hero": {
             "title_1": "E hoʻokele i nā mea āpau",
             "title_2": "I loko o kou home!",
-            "description": "Digitize your home inventory. Categorize items, invite family, and access from anywhere. Modern, secure, and easy to use.",
+            "description": "Tāpiritia te rārangi rawa o tō kāinga ki te rorohiko. Whakarōpūhia ngā tūemi, tonoa ētahi kāinga, ka taea te toro mai i hea. Pōturi, haumaru, ā, māmā ki te whakamahi.",
             "cta_start": "Get Started",
             "cta_register": "Kūkulu i Waihona Hou",
             "stat_free": "Manuahi",
@@ -1556,7 +1651,7 @@
             "button": "E komo"
         },
         "footer": {
-            "desc": "The easy and secure platform to digitize your home inventory.",
+            "desc": "Te papa māmā, haumaru hoki hei matapōkerei i tō rārangi taonga whare.",
             "links": "Nā Loulou Wikiwiki",
             "contact": "E hui kūkā pū nō kāou",
             "copyright": "© {{year}} {{brandName}}. Ua mālama ʻia nā kuleana āpau."
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Wae whatu",
-                    "meta": "Pouaka pouaka whakaata • Deco M4",
+                    "meta": "Pouaka pouaka whakaata • Network node",
                     "state": null
                 },
                 {
@@ -1929,7 +2024,7 @@
             "bodyLine2": "Ke kali nei no ka ʻae ʻia e ka mea nona ka hale"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{kūlana}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Ke komo ʻana i ka hale",
             "bodyLine1Template": "Ke noi e kali nei i kēia manawa: {{house}} ({{status}})",
             "bodyLine2": "Ke kali nei kāu noi no &quot;{{house}}&quot; no kahi hoʻoholo.",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "Papa kuhikuhi moʻokāki {{name}}"
     },
     "app": {
-        "name": "{{InoaBrand}}",
+        "name": "{{brandName}}",
         "tagline": "Whakahaere ā-atamai i ō tuemi kāinga katoa",
         "loading": "Ke hoʻouka nei iā {{brandName}}",
         "preparing_workspace": "Ke hoʻomākaukau nei i kāu wahi hana..."
@@ -2555,5 +2650,102 @@
         "description": "Ua loaʻa i ka ʻaoʻao kahi pilikia hōʻike i manaʻo ʻole ʻia. ʻAʻole i hoʻololi ʻia kāu ʻikepili waihona i mālama ʻia e kēia pale.",
         "refresh_btn": "Hoʻohou hou",
         "home_btn": "wahi ʻoliʻoli"
+    },
+    "activity": {
+        "title": "Moʻolelo Hana",
+        "description": "Nā loli i pale ʻia i hala koke nei i kāu waihona home.",
+        "empty_title": "ʻAʻohe hana i kēia manawa",
+        "empty_description": "E ʻike ʻia nā loli o nā mea, nā mea hou i loko o ka waihona, nā mea hoʻopili, ka hoʻolimalima ʻana, a me nā hana nui ma aneʻi.",
+        "unknown_actor": "Mea hoʻohana ʻike ʻole ʻia",
+        "deleted_item_with_id": "Mea i holoi ʻia #{{id}}",
+        "item_missing": "ʻAʻole i loaʻa hou kēia moʻolelo mea",
+        "actions": {
+            "item_created": "Ua hoʻohui ʻia ka mea",
+            "item_updated": "Ua hōʻano hou ʻia ka mea",
+            "item_deleted": "Ua holoi ʻia ka mea",
+            "item_borrowed": "Mea i hāʻawi ʻia",
+            "item_returned": "Mea i hoʻihoʻi ʻia",
+            "item_bulk_updated": "Hoʻohou nui",
+            "item_bulk_deleted": "Holoi nui",
+            "item_stock_adjusted": "Ua hōʻano hou ʻia ka waihona",
+            "item_attachment_added": "Ua hoʻohui ʻia ka mea hoʻopili",
+            "item_attachment_deleted": "Ua holoi ʻia ka mea hoʻopili"
+        }
+    },
+    "alerts": {
+        "detail_count": "Nā moʻolelo pili {{count}}",
+        "empty_title": "ʻAʻohe moʻolelo pili i loaʻa",
+        "low_stock": {
+            "title": "Waihona Haʻahaʻa",
+            "description": "Nā mea ma lalo o ko lākou pae waihona liʻiliʻi loa.",
+            "qty": "Waihona {{quantity}} / minuke {{min}}"
+        },
+        "expired": {
+            "title": "Nā Mea Pau",
+            "description": "Nā mea me ka lā pau."
+        },
+        "expiring": {
+            "title": "Nā Lā Pau e Hiki Mai Ana",
+            "description": "Pau nā mea i loko o 30 lā."
+        },
+        "maintenance": {
+            "title": "Mālama i hala i ka manawa kūpono",
+            "description": "Nā hana mālama i hala i kā lākou lā i hoʻonohonoho ʻia."
+        }
+    },
+    "notifications": {
+        "title": "Kikowaena Hoʻolaha",
+        "description": "Nā leka hoʻomaopopo no ka waihona, ka palapala hoʻokō, ka mālama ʻana, ka pau ʻana o ka lā, a me ka hoʻihoʻi ʻana i nā hōʻaiʻē.",
+        "meta_total": "Nā leka hoʻomaopopo {{count}}",
+        "meta_urgent": "{{count}} wikiwiki",
+        "empty_title": "ʻAʻohe leka hoʻomaopopo e pono ai kou nānā ʻana i kēia manawa",
+        "empty_desc": "E ʻike ʻia ma aneʻi nā waihona haʻahaʻa, nā lā e hiki mai ana, a me ka mālama ʻana i hala.",
+        "items": {
+            "stock_empty_title": "Lako ʻole ʻia",
+            "stock_low_title": "Haʻahaʻa ka waihona",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Ua hala ka lā pau",
+            "expiry_close_title": "Ke kokoke mai nei ka lā pau",
+            "warranty_expired_title": "Pau ka palapala hoʻokō",
+            "warranty_close_title": "Pau koke ka palapala hoʻokō",
+            "maintenance_overdue_title": "Ua hala ka manawa mālama",
+            "maintenance_close_title": "Pono koke ka mālama ʻana",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Ua hala ka manawa e hoʻihoʻi ai i ka hōʻaiʻē",
+            "borrow_close_title": "E hiki koke mai ana ka hoʻihoʻi ʻana o ka hōʻaiʻē",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} lā i koe ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Kikowaena Lawelawe a me ka Palapala Hoʻokō",
+        "description": "E hahai i nā palapala hoʻokō, nā papa hana mālama, a me nā hana lawelawe ma kahi hoʻokahi.",
+        "meta_warranty": "Nā moʻolelo palapala hoʻokō {{count}}",
+        "meta_tasks": "{{count}} mau hana mālama",
+        "empty_title": "ʻAʻohe hana lawelawe a palapala hoʻokō paha",
+        "empty_desc": "E hōʻiliʻili ʻia nā lā palapala hoʻokō e hiki mai ana a me nā hana mālama ma aneʻi.",
+        "warranty_section": "Ka Nānā ʻana i ka Palapala Hoʻokō",
+        "warranty_desc": "Nā palapala hoʻokō i pau a me nā palapala hoʻokō e pau ana i loko o 30 mau lā.",
+        "maintenance_section": "Nā Hana Mālama",
+        "maintenance_desc": "Nā hana mālama i hala a me nā hana mālama e hiki mai ana.",
+        "no_warranty": "ʻAʻohe hana palapala hoʻokō e hiki mai ana.",
+        "no_tasks": "ʻAʻohe hana mālama i hoʻonohonoho ʻia.",
+        "overdue": "Ua hala ka manawa",
+        "upcoming": "koke",
+        "expired": "Pau ka manawa",
+        "summary_warranty": "Ka nānā ʻana i ka palapala hoʻokō",
+        "summary_tasks": "Nā hana mālama",
+        "open_warranty_filter": "E wehe i ka kānana palapala hoʻokō",
+        "open_warranty_filter_desc": "Kānana i nā mea palapala hoʻokō hana i loko o ka waihona."
+    },
+    "storage_labels": {
+        "title": "Nā Lepili Papa a me ka Lumi",
+        "description": "Ua mākaukau ka {{count}} lepili lumi/papa ma ke ʻano he pepa paʻi.",
+        "empty_title": "ʻAʻohe lumi a papa paha e lepili ai",
+        "empty_desc": "E hoʻohui mua i nā lumi a i ʻole nā ​​​​wahi, a laila e paʻi i nā lepili QR ma aneʻi.",
+        "sheet_label": "Pepa Lepili Wahi",
+        "scan_hint": "ʻO ka nānā ʻana i ke code QR e wehe i ka waihona i kānana ʻia no kēlā lumi a i ʻole ka papa.",
+        "room": "Lumi",
+        "location": "Papa/Pahu"
     }
 }

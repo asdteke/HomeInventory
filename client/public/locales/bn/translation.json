@@ -134,6 +134,17 @@
             "close_to_expiry": "মেয়াদোত্তীর্ণের কাছে",
             "expired": "মেয়াদোত্তীর্ণ",
             "low_stock": "স্টক কম"
+        },
+        "untitled_item": "শিরোনামহীন আইটেম",
+        "attachments": {
+            "title": "ছবি এবং ফাইল",
+            "add": "ফাইল যোগ করুন",
+            "empty": "এখনও কোন ফাইল যোগ করা হয়নি।",
+            "form_desc": "আইটেমের ছবি, রসিদ, চালান বা সার্ভিস ডকুমেন্ট সংযুক্ত করুন।",
+            "detail_desc": "এই আইটেমের জন্য ছবি, রসিদ, চালান এবং সার্ভিস ফাইল সংরক্ষণ করা হয়েছে।",
+            "upload_error": "ফাইল আপলোড করা যায়নি।",
+            "delete_error": "ফাইল মুছে ফেলা যায়নি।",
+            "delete_confirm": "এই ফাইলটি মুছবেন?"
         }
     },
     "common": {
@@ -186,11 +197,13 @@
         "hide": "পাসওয়ার্ড লুকান",
         "logging_out": "লগ আউট হচ্ছে...",
         "show": "পাসওয়ার্ড দেখান",
-        "saving": "সংরক্ষণ হচ্ছে... •••••••• আইটেমের মেয়াদ শেষ হয়েছে! আপনার ইনভেন্টরিতে {{count}}টি মেয়াদোত্তীর্ণ আইটেম রয়েছে। অনুগ্রহ করে আপনার সুরক্ষা নিশ্চিত করার জন্য এগুলো পরীক্ষা করুন।",
+        "saving": "সংরক্ষণ করা হচ্ছে...",
         "disabled": "নিষ্ক্রিয়",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "জুম ইন",
+        "zoom_out": "জুম আউট",
+        "reset": "রিসেট",
+        "print": "প্রিন্ট",
+        "record_count": "{{count}} রেকর্ড"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "আপনাকে সাইন-ইন স্ক্রিনে ফেরত নিয়ে যাবে এবং আপনার বাড়ির ইনভেন্টরি পরিচালনা করতে আবার লগ ইন করতে হবে।",
         "logout_warning": "এটি ব্যবহার করুন যখন আপনি একটি শেয়ার করা বা ব্যক্তিগত ডিভাইসে শেষ করেছেন।",
         "maintenance": "রক্ষণাবেক্ষণের সময়সূচী",
-        "shopping": "কেনাকাটার তালিকা"
+        "shopping": "কেনাকাটার তালিকা",
+        "activity": "কার্যক্রম",
+        "notifications": "বিজ্ঞপ্তি",
+        "service": "সেবা"
     },
     "dashboard": {
         "welcome": "স্বাগতম, <1>{{name}}</1>",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} টি আইটেম আপনার ন্যূনতম স্টক সীমার নিচে নেমে গেছে।",
             "go_to_shopping": "শপিং তালিকা",
             "close_expiry_title": "আসন্ন মেয়াদ শেষের তারিখ",
-            "close_expiry_desc": "{{count}} টি পণ্য ৩০ দিনের মধ্যে মেয়াদোত্তীর্ণ হবে।"
+            "close_expiry_desc": "{{count}} টি পণ্য ৩০ দিনের মধ্যে মেয়াদোত্তীর্ণ হবে।",
+            "view_low_stock_items": "কম স্টক দেখুন"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "সক্রিয় ঘরের চাবি",
             "key_label": "ঘরের চাবি",
-            "mask_key": "••••••••{{প্রত্যয়}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "লুকান",
             "show": "দেখান",
             "copy": "কপি করুন",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} বিদ্যমান অবস্থান এড়ানো হয়েছে।",
             "skipped_rooms": "{{count}} বিদ্যমান রুম এড়ানো হয়েছে।",
             "owner_only_title": "ব্যাকআপ এবং পুনরুদ্ধার সীমিত",
-            "owner_only_desc": "তথ্য ব্যাকআপ এবং পুনরুদ্ধার শুধুমাত্র বাড়ির মালিক দ্বারা পরিচালনা করা যেতে পারে।"
+            "owner_only_desc": "তথ্য ব্যাকআপ এবং পুনরুদ্ধার শুধুমাত্র বাড়ির মালিক দ্বারা পরিচালনা করা যেতে পারে।",
+            "include_media_title": "ফটো এবং প্রাপ্তি চিত্রগুলি অন্তর্ভুক্ত করুন",
+            "include_media_body": "সম্পূর্ণ ব্যাকআপটি বড় হতে পারে তবে আইটেম ফটো এবং প্রাপ্তি চিত্রগুলিও পুনরুদ্ধার করা যেতে পারে।",
+            "skipped_attachments": "{{count}} সংযুক্তি এড়িয়ে গেছে।"
         },
         "about": {
             "title": "অ্যাপ্লিকেশন সম্পর্কে",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "সমস্ত আগত অনুরোধ স্বয়ংক্রিয়ভাবে অবরুদ্ধ হয়েছে।",
             "policy_house_only_desc": "আপনার সক্রিয় হাউসের শুধুমাত্র যাচাই করা সদস্যরা ইতিমধ্যেই ঐ শেয়ার করা ঘরের ভিতরে দৃশ্যমান আইটেমের জন্য অনুরোধ করতে পারে।",
             "policy_everyone_desc": "অন্যান্য ব্যবহারকারীরা আপনার আইটেম ব্রাউজ বা দেখতে পারবে না। তারা শুধু আপনার ব্যবহারকারীর নাম বা ইমেইল সরাসরি দিয়ে অনুরোধ পাঠাতে পারে।"
+        },
+        "activity_log": {
+            "title": "কার্যকলাপ এবং অডিট লগ",
+            "description": "আইটেম পরিবর্তন, স্টক আপডেট, সংযুক্তি এবং বাল্ক ক্রিয়াকলাপগুলির সুরক্ষিত ইতিহাস পর্যালোচনা করুন।",
+            "encrypted_title": "কার্যকলাপের রেকর্ডগুলি সুরক্ষিত সংরক্ষণ করা হয়",
+            "encrypted_body": "নতুন কার্যকলাপের কাজ এবং বিবরণ ডাটাবেসে এঙ্ক্রিপ্ট করা অবস্থায় সংরক্ষিত হয় এবং শুধুমাত্র আপনার সক্রিয় সেশনের জন্য ডিক্রিপ্ট করা হয়।"
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "ঋণদাতা আইটেমটি ফেরত পেয়েছে নিশ্চিত করার পরে রেকর্ডটি বন্ধ হবে।",
             "return_pending_lender_title": "{{name}} এই আইটেমটি ফেরত দেওয়া হিসেবে চিহ্নিত করেছেন",
             "return_pending_self_title": "আপনার সাথে, রসিদ নিশ্চিতকরণের অপেক্ষায়",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "সাইট সদস্য",
+            "site_member_identifier": "ব্যবহারকারীর নাম বা ইমেল",
+            "site_member_identifier_placeholder": "সঠিক ব্যবহারকারীর নাম বা ইমেল",
+            "site_member_privacy_hint": "অফারটি শুধুমাত্র তখনই ঋণ কেন্দ্রেঅ্যাপিয়ার হবে যদি সেই অ্যাকাউন্টটি বিদ্যমান থাকে এবং ইনকামিং অফারগুলি অনুমোদন করে।",
+            "external_privacy_hint": "এটি শুধুমাত্র একটি ব্যক্তিগত স্থানীয় রেকর্ড তৈরি করে। কোনো অ্যাপনোটিফিকেশন পাঠানো হয় না।",
+            "available": "উপলব্ধ"
         },
         "untitled_item": "শিরোনামহীন আইটেম",
         "delete_action": "আইটেম মুছুন",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "রুম দ্বারা ফিল্টার করুন",
         "refreshing_results": "আইটেম রিফ্রেশ হচ্ছে...",
         "empty_filter_title": "কোনো আইটেম সেই সার্চের সাথে মেলে নি",
-        "delete_error_title": "মুছতে ব্যর্থ"
+        "delete_error_title": "মুছতে ব্যর্থ",
+        "tools": {
+            "title": "সরঞ্জামসমূহ"
+        },
+        "no_room": "কোনো কক্ষ নেই",
+        "all_locations": "সব স্থান",
+        "location_filter_label": "স্থানের দ্বারা ফিল্টার করুন",
+        "visibility_filter_label": "দৃশ্যমানতার দ্বারা ফিল্টার করুন",
+        "visibility_all": "সব দৃশ্যমানতা",
+        "visibility_mine": "আমার আইটেমসমূহ",
+        "visibility_others": "অন্যান্য সদস্য",
+        "borrow_filter_label": "ধার নেওয়ার স্থিতি দ্বারা ফিল্টার করুন",
+        "borrow_filter_all": "সমস্ত ধারার স্ট্যাটাস",
+        "stock_filter_label": "স্টক স্ট্যাটাস দ্বারা ফিল্টার করুন",
+        "stock_filter_all": "সমস্ত স্টক স্ট্যাটাস",
+        "stock_filter_ok": "স্টক ঠিক আছে",
+        "expiry_filter_label": "মেয়াদ শেষের তারিখ দ্বারা ফিল্টার করুন",
+        "expiry_filter_all": "সমস্ত মেয়াদ শেষের তারিখ",
+        "expiry_filter_dated": "তারিখ আছে",
+        "expiry_filter_none": "কোনো তারিখ নেই",
+        "warranty_filter_label": "ওয়ারেন্টি অনুযায়ী ফিল্টার করুন",
+        "warranty_filter_all": "সমস্ত ওয়ারেন্টি",
+        "warranty_filter_expired": "মেয়াদ উত্তীর্ণ ওয়ারেন্টি",
+        "warranty_filter_close": "শীঘ্রই শেষ হচ্ছে",
+        "warranty_filter_active": "সক্রিয় ওয়ারেন্টি",
+        "warranty_filter_none": "কোন ওয়ারেন্টি তথ্য নেই",
+        "sort_label": "সাজান",
+        "sort_updated_desc": "সম্প্রতি আপডেট হয়েছে",
+        "sort_updated_asc": "সর্বপ্রাচীনতম আপডেট",
+        "sort_created_desc": "নতুনতম আগে",
+        "sort_created_asc": "সর্বপ্রাচীনতম আগে",
+        "sort_name_asc": "নাম A-Z",
+        "sort_name_desc": "নাম Z-A",
+        "sort_quantity_desc": "পরিমাণ বেশি থেকে কম",
+        "sort_quantity_asc": "পরিমাণ কম থেকে বেশি",
+        "sort_expiry_asc": "মেয়াদ তাড়াতাড়ি শেষ হওয়া",
+        "sort_expiry_desc": "শেষ তারিখ সর্বশেষ",
+        "stock_increase": "স্টক বৃদ্ধি",
+        "stock_decrease": "স্টক হ্রাস",
+        "stock_adjust_error": "স্টক আপডেট করা যায়নি।",
+        "bulk": {
+            "select_visible": "দৃশ্যমান নির্বাচন করুন",
+            "clear_visible": "দৃশ্যমান নির্বাচন বাতিল করুন",
+            "selected_short": "নির্বাচিত",
+            "keep_category": "বর্গ রাখুন",
+            "keep_room": "রুম রাখুন",
+            "keep_location": "অবস্থান রাখুন",
+            "keep_visibility": "দৃশ্যমানতা রাখুন",
+            "apply": "প্রয়োগ করুন",
+            "no_fields": "বড় কাজের জন্য অন্তত একটি ক্ষেত্র নির্বাচন করুন।",
+            "updated_title": "একত্রিতকরণ আপডেট সম্পূর্ণ হয়েছে",
+            "updated_body": "{{count}} আইটেম আপডেট হয়েছে। {{skipped}} এড়ানো হয়েছে।",
+            "update_error": "বাল্ক আপডেট সম্পন্ন করা যায়নি।",
+            "deleted_title": "বাল্ক মুছে ফেলা সম্পন্ন",
+            "deleted_body": "{{count}} টি আইটেম মুছে ফেলা হয়েছে। {{skipped}} টি এড়ানো হয়েছে।",
+            "delete_error": "বাল্ক মুছে ফেলা সম্পন্ন করা যায়নি।",
+            "delete_title": "নির্বাচিত আইটেমগুলো মুছবেন?",
+            "delete_description": "{{count}} টি নির্বাচিত আইটেম এই গৃহস্থালির ইনভেন্টরি থেকে সরানো হবে। এটি পূর্বাবস্থায় ফেরানো যাবে না।",
+            "select_item": "আইটেম নির্বাচন করুন",
+            "unselect_item": "আইটেম নির্বাচন মোছা"
+        },
+        "qr_labels": {
+            "title": "কিউআর লেবেল",
+            "open": "আইটেম লেবেল",
+            "description": "{{count}}টি আইটেম লেবেল প্রিন্ট শিট হিসাবে প্রস্তুত।",
+            "empty": "লেবেল প্রিন্ট করতে ফিল্টার পরিবর্তন করুন বা ইনভেন্টরি আইটেম যোগ করুন।",
+            "sheet_label": "আইটেম লেবেল শিট",
+            "item_label": "আইটেম লেবেল"
+        }
     },
     "categories": {
         "title": "বিভাগসমূহ",
@@ -1341,7 +1436,7 @@
             "no_logs": "এখনও কোনো লগ নেই",
             "errors_title": "সিস্টেম ত্রুটি (শেষ ১০)",
             "no_errors": "// সিস্টেম সুস্থ, কোনো ত্রুটি লগ নেই।",
-            "date_fmt": "{{তারিখ, তারিখের সময়}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "ইমেল",
                 "user": "ব্যবহারকারী",
@@ -1929,7 +2024,7 @@
             "bodyLine2": "বাড়ির মালিকের অনুমোদনের জন্য অপেক্ষা করছে"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{স্ট্যাটাস}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "হাউস অ্যাক্সেস",
             "bodyLine1Template": "বর্তমান মুলতুবি অনুরোধ: {{house}} ({{status}})",
             "bodyLine2": "\"{{house}}\" এর জন্য আপনার অনুরোধ এখনও একটি সিদ্ধান্তের জন্য অপেক্ষা করছে৷",
@@ -2144,9 +2239,9 @@
             "return_target": "এটি বর্তমানে {{name}} এর কাছে দেখানো হচ্ছে।",
             "return_title_borrower": "আইটেম সরবরাহ করুন",
             "return_title_lender": "আইটেমটি গ্রহণ করুন",
-            "return_subtitle_borrower": "আপনি এটি ফেরত দেওয়ার পরে \"{{আইটেম}}\" এর জন্য সক্রিয় ঋণটি বন্ধ করুন।",
-            "return_subtitle_lender": "আপনি এটি ফেরত পাওয়ার পরে \"{{আইটেম}}\" এর জন্য সক্রিয় ঋণটি বন্ধ করুন।",
-            "return_target_borrower": "ঋণদাতা: {{নাম}}",
+            "return_subtitle_borrower": "আপনি এটি ফেরত দেওয়ার পরে \"{{item}}\" এর জন্য সক্রিয় ঋণটি বন্ধ করুন।",
+            "return_subtitle_lender": "আপনি এটি ফেরত পাওয়ার পরে \"{{item}}\" এর জন্য সক্রিয় ঋণটি বন্ধ করুন।",
+            "return_target_borrower": "ঋণদাতা: {{name}}",
             "return_target_lender": "বর্তমানে সঙ্গে: {{name}}",
             "return_note_borrower": "ডেলিভারি নোট",
             "return_note_lender": "গ্রহণ নোট",
@@ -2155,7 +2250,7 @@
             "return_submitting": "বন্ধ করা হচ্ছে...",
             "reject_title": "অনুরোধ প্রত্যাখ্যান করুন",
             "reject_subtitle": "আপনি '{{item}}' এর জন্য অনুরোধ প্রত্যাখ্যান করতে যাচ্ছেন।",
-            "reject_target": "আপনি {{নাম}} দ্বারা প্রেরিত ধারের অনুরোধ প্রত্যাখ্যান করতে চলেছেন।",
+            "reject_target": "আপনি {{name}} দ্বারা প্রেরিত ধারের অনুরোধ প্রত্যাখ্যান করতে চলেছেন।",
             "reject_reason_label": "প্রত্যাখ্যানের কারণ",
             "reject_submitting": "প্রত্যাখ্যান করা হচ্ছে...",
             "due_date_label": "পরিকল্পিত প্রত্যাবর্তনের তারিখ"
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "ধার কেন্দ্র লোড করা যায়নি",
             "action_error": "কার্যটি সম্পন্ন করা যায়নি",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "এই সক্রিয় ঋণগ্রহণ রেকর্ডটি পাওয়া যায়নি। ঋণ কেন্দ্র রিফ্রেশ করুন এবং পুনরায় চেষ্টা করুন।",
             "errors": {
                 "external_target_daily_limit": "আপনি একদিনে একই ব্যক্তিকে শুধুমাত্র একটি প্রথম-যোগাযোগ বহিরাগত অনুরোধ পাঠাতে পারেন। যদি তারা একটি অনুরোধ গ্রহণ করে, তবে এই সীমা ঐ ব্যক্তির জন্য আর প্রযোজ্য হবে না।",
                 "external_total_daily_limit": "আপনি একদিনে সর্বোচ্চ ৫টি প্রথম-যোগাযোগ বহিরাগত অনুরোধ পাঠাতে পারেন।",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "{{name}} অ্যাকাউন্ট মেনুর জন্য অ্যাকাউন্ট মেনু খুলুন"
     },
     "app": {
-        "name": "{{ব্র্যান্ডনাম}}",
+        "name": "{{brandName}}",
         "tagline": "আপনার সব ঘরোয়া জিনিসগুলো বুদ্ধিমত্তার সাথে পরিচালনা করুন",
         "loading": "{{brandName}} লোড করা হচ্ছে",
         "preparing_workspace": "আপনার কর্মক্ষেত্র প্রস্তুত করা হচ্ছে..."
@@ -2555,5 +2650,102 @@
         "description": "ইন্টারফেসটি একটি অপ্রত্যাশিত রেন্ডারিং সমস্যায় আঘাত করেছে। আপনার সংরক্ষিত ইনভেন্টরি তথ্য এই স্ক্রিন দ্বারা পরিবর্তিত হয় না।",
         "refresh_btn": "রিফ্রেশ করুন",
         "home_btn": "হোম"
+    },
+    "activity": {
+        "title": "ক্রিয়াকলাপের ইতিহাস",
+        "description": "আপনার হোম ইনভেন্টরিতে সাম্প্রতিক সুরক্ষিত পরিবর্তনগুলি।",
+        "empty_title": "এখনও কোনো ক্রিয়াকলাপ নেই",
+        "empty_description": "আইটেম পরিবর্তন, স্টক আপডেট, সংযুক্তি, ধার নেওয়া, এবং বড় আকারের ক্রিয়াকলাপগুলি এখানে প্রদর্শিত হবে।",
+        "unknown_actor": "অজানা ব্যবহারকারী",
+        "deleted_item_with_id": "মুছে ফেলা আইটেম #{{id}}",
+        "item_missing": "এই আইটেম রেকর্ডটি আর বিদ্যমান নেই",
+        "actions": {
+            "item_created": "আইটেম যোগ করা হয়েছে",
+            "item_updated": "আইটেম আপডেট করা হয়েছে",
+            "item_deleted": "আইটেম মুছে ফেলা হয়েছে",
+            "item_borrowed": "আইটেম ধার দেওয়া হয়েছে",
+            "item_returned": "আইটেম ফেরত এসেছে",
+            "item_bulk_updated": "ব্যাচ আপডেট",
+            "item_bulk_deleted": "ব্যাচ মুছে ফেলা",
+            "item_stock_adjusted": "স্টক আপডেট করা হয়েছে",
+            "item_attachment_added": "সংযুক্তি যোগ করা হয়েছে",
+            "item_attachment_deleted": "সংযোগিত ফাইল মুছে ফেলা হয়েছে"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}}টি সম্পর্কিত রেকর্ড",
+        "empty_title": "কোন সম্পর্কিত রেকর্ড পাওয়া যায়নি",
+        "low_stock": {
+            "title": "কম স্টক",
+            "description": "আইটেমগুলো তাদের ন্যূনতম স্টক স্তরের নিচে।",
+            "qty": "স্টক {{quantity}} / ন্যূনতম {{min}}"
+        },
+        "expired": {
+            "title": "মেয়াদ উত্তীর্ণ আইটেম",
+            "description": "মেয়াদ উত্তীর্ণ তারিখযুক্ত আইটেম।"
+        },
+        "expiring": {
+            "title": "আসন্ন মেয়াদ শেষ হওয়ার তারিখ",
+            "description": "৩০ দিনের মধ্যে মেয়াদ শেষ হওয়া আইটেম।"
+        },
+        "maintenance": {
+            "title": "বিলম্বিত রক্ষণাবেক্ষণ",
+            "description": "নির্ধারিত তারিখের পরে রক্ষণাবেক্ষণের কাজ।"
+        }
+    },
+    "notifications": {
+        "title": "নোটিফিকেশন সেন্টার",
+        "description": "স্টক, ওয়ারেন্টি, রক্ষণাবেক্ষণ, মেয়াদ শেষ হওয়া এবং ঋণ ফেরত সতর্কতা।",
+        "meta_total": "{{count}} নোটিফিকেশন",
+        "meta_urgent": "{{count}} জরুরি",
+        "empty_title": "এই মুহূর্তে কোনো সতর্কতা আপনার মনোযোগের প্রয়োজন নেই",
+        "empty_desc": "নিচু স্টক, আসন্ন তারিখ এবং মেয়াদোত্তীর্ণ রক্ষণাবেক্ষণ এখানে প্রদর্শিত হবে।",
+        "items": {
+            "stock_empty_title": "স্টক শেষ",
+            "stock_low_title": "কম স্টক",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "শেষ করার তারিখ পার হয়েছে",
+            "expiry_close_title": "শেষ করার তারিখ আসছে",
+            "warranty_expired_title": "ওয়ারেন্টি শেষ হয়েছে",
+            "warranty_close_title": "ওয়ারেন্টি শীঘ্রই শেষ হবে",
+            "maintenance_overdue_title": "রক্ষণাবেক্ষণ সময় অতীর্ণ",
+            "maintenance_close_title": "রক্ষণাবেক্ষণ শীঘ্রই প্রয়োজন",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "ঋণ ফেরত সময় অতীর্ণ",
+            "borrow_close_title": "ঋণ ফেরত শীঘ্রই প্রয়োজন",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} দিন বাকি ({{date}})"
+        }
+    },
+    "service": {
+        "title": "সার্ভিস এবং ওয়ারেন্টি কেন্দ্র",
+        "description": "এক জায়গায় ওয়ারেন্টি, রক্ষণাবেক্ষণ সময়সূচি এবং সার্ভিস কার্যক্রম ট্র্যাক করুন।",
+        "meta_warranty": "{{count}} ওয়ারেন্টি রেকর্ড",
+        "meta_tasks": "{{count}} রক্ষণাবেক্ষণ কাজ",
+        "empty_title": "কোন সার্ভিস বা ওয়ারেন্টি কাজ নেই",
+        "empty_desc": "আসন্ন ওয়ারেন্টি তারিখ এবং রক্ষণাবেক্ষণ কাজগুলি এখানে সংগ্রহ করা হবে।",
+        "warranty_section": "ওয়ারেন্টি ট্র্যাকিং",
+        "warranty_desc": "মেয়াদ শেষ হওয়া ওয়ারেন্টি এবং ৩০ দিনের মধ্যে শেষ হওয়া ওয়ারেন্টি।",
+        "maintenance_section": "রক্ষণাবেক্ষণ কার্যাবলী",
+        "maintenance_desc": "মেয়াদোত্তীর্ণ এবং আসন্ন রক্ষণাবেক্ষণ কাজ।",
+        "no_warranty": "কোন আসন্ন ওয়ারেন্টি কাজ নেই।",
+        "no_tasks": "কোনো নির্ধারিত রক্ষণাবেক্ষণ কাজ নেই।",
+        "overdue": "মেয়াদোত্তীर्ण",
+        "upcoming": "শীঘ্রই",
+        "expired": "মেয়াদ শেষ হয়েছে",
+        "summary_warranty": "ওয়ারেন্টি ট্র্যাকিং",
+        "summary_tasks": "রক্ষণাবেক্ষণ কাজ",
+        "open_warranty_filter": "খোলা ওয়ারেন্টি ফিল্টার",
+        "open_warranty_filter_desc": "ইনভেন্টরিতে সক্রিয় ওয়ারেন্টি আইটেমগুলিকে ফিল্টার করে।"
+    },
+    "storage_labels": {
+        "title": "তাক এবং রুম লেবেল",
+        "description": "{{count}} টি রুম/তাক লেবেল এক প্রিন্ট শীট হিসাবে প্রস্তুত।",
+        "empty_title": "লেবেল করার জন্য কোনো রুম বা তাক নেই",
+        "empty_desc": "প্রথমে রুম বা অবস্থান যোগ করুন, তারপর এখানে QR লেবেল প্রিন্ট করুন।",
+        "sheet_label": "অবস্থান লেবেল শীট",
+        "scan_hint": "QR কোড স্ক্যান করলে সেই রুম বা তাকের ফিল্টার করা ইনভেন্টরি খোলে।",
+        "room": "রুম",
+        "location": "শেলফ/বক্স"
     }
 }

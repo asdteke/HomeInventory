@@ -2,7 +2,7 @@
 
 Deploy HomeInventory using Docker for easy self-hosting.
 
-This guide targets the public v2.2.0 release line and later patch releases. Docker upgrades should rebuild the image rather than only restarting an old container.
+This guide targets the public v2.4.0 release line and later patch releases. Docker upgrades should rebuild the image rather than only restarting an old container.
 
 ## Quick Start
 

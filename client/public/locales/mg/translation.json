@@ -10,7 +10,7 @@
         "load_error": "Tsy tafiditra ny entana",
         "form": {
             "name": "Anaran'ny entana",
-            "name_placeholder": "ohatra Samsung TV 55 mirefy",
+            "name_placeholder": "ohatra TV 55 mirefy",
             "required": "*",
             "description": "Famaritana",
             "description_placeholder": "Fanamarihana momba ny entana...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Haka-daty akaiky lany",
             "expired": "Lany daty",
             "low_stock": "Tahiry ambany"
+        },
+        "untitled_item": "Zavatra tsy misy lohateny",
+        "attachments": {
+            "title": "Sary sy rakitra",
+            "add": "Ampio rakitra",
+            "empty": "Tsy mbola nampiana rakitra.",
+            "form_desc": "Apetraho ny sary, faktiora, kaonty, na taratasy fanompoana amin'ny zavatra.",
+            "detail_desc": "Sary, faktiora, kaonty, ary rakitra fanompoana voatahiry ho an'ity zavatra ity.",
+            "upload_error": "Tsy afaka nampakarina ny rakitra.",
+            "delete_error": "Tsy afaka fafana ny rakitra.",
+            "delete_confirm": "Fafana ity rakitra ity ve?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Asehoy ny tenimiafina",
         "saving": "Mamonjy...",
         "disabled": "Sembana",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Atsangana ny sary",
+        "zoom_out": "Ahena ny sary",
+        "reset": "Averina",
+        "print": "Pirinty",
+        "record_count": "{{count}} firaketana"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Haverina any amin'ny efijery fidirana ianao ary mila miditra indray mba hitantanana ny tahiry ao an-tokantrano.",
         "logout_warning": "Ampiasao izany rehefa vita amin'ny fitaovana iombonana na manokana ianao.",
         "maintenance": "Fandaharam-potoana fikojakojana",
-        "shopping": "Lisitry ny fividianana"
+        "shopping": "Lisitry ny fividianana",
+        "activity": "Hetsika",
+        "notifications": "Fampahafantarana",
+        "service": "Serivisy"
     },
     "dashboard": {
         "welcome": "Tonga soa, <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} ny entana no latsaky ny fetra tahiry farany ambany napetrakao.",
             "go_to_shopping": "Lisitry ny fividianana",
             "close_expiry_title": "Daty hahataperan'ny fotoana ho avy",
-            "close_expiry_desc": "{{count}} vokatra no ho lany daty ao anatin'ny 30 andro."
+            "close_expiry_desc": "{{count}} vokatra no ho lany daty ao anatin'ny 30 andro.",
+            "view_low_stock_items": "Jereo ny Tahiry Ambany"
         }
     },
     "beta_banner": {
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} toerana efa misy no tsy voahaja.",
             "skipped_rooms": "{{count}} efitra efa misy no tsy voahaja.",
             "owner_only_title": "Voafetra ny Backup sy ny Famerenana",
-            "owner_only_desc": "Ny fanaovana kopia sy famerenana angona dia azon'ny tompon-trano ihany no tantanana."
+            "owner_only_desc": "Ny fanaovana kopia sy famerenana angona dia azon'ny tompon-trano ihany no tantanana.",
+            "include_media_title": "Ampidiro ny sary sy ny sary faktiora",
+            "include_media_body": "Mety ho lehibe kokoa ny backup feno, fa azo averina ihany koa ny sary entana sy ny sary faktiora.",
+            "skipped_attachments": "Nodaroka ny fanampiny {{count}}."
         },
         "about": {
             "title": "Momba ny Fampiharana",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Voasakana ho azy ny fangatahana rehetra miditra.",
             "policy_house_only_desc": "Ny mpikambana voamarina ao amin'ny trano mavitrika anao ihany no afaka mangataka zavatra efa hita ao anatin'io trano ifampizarana io.",
             "policy_everyone_desc": "Tsy afaka mijery na mahita ny zavatrao ny mpampiasa hafa. Afaka mandefa fangatahana fotsiny izy ireo amin'ny fidirana mivantana ny anaranao na ny mailakao."
+        },
+        "activity_log": {
+            "title": "Asa sy diary fanaraha-maso",
+            "description": "Diniho ny tantara voaaro momba ny fanovana zavatra, fanavaozana tahiry, fanampin-javatra, ary hetsika betsaka.",
+            "encrypted_title": "Ny firaketana hetsika dia voaaro amin'ny fitehirizana",
+            "encrypted_body": "Ny hetsika vaovao sy ny antsipirihany dia tehirizina voarakitra ao anaty angon-drakitra ary afahana fotsiny amin'ny fivoriana mavitrika misy anao."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Hikatona ny rakitra aorian'ny fanamafisan'ny mpampindram-bola fa azony ny entana indray.",
             "return_pending_lender_title": "{{name}} nanamarika ity entana ity ho naverina",
             "return_pending_self_title": "Aminao, miandry fanamafisana ny fandraisana",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Mpikambana ao amin'ny tranokala",
+            "site_member_identifier": "Anarana mpampiasa na mailaka",
+            "site_member_identifier_placeholder": "Anarana mpampiasa na mailaka marina",
+            "site_member_privacy_hint": "Ny tolotra dia miseho ao amin'ny Tobim-pindramam-boky raha misy io kaonty io ary mamela tolotra ho avy.",
+            "external_privacy_hint": "Izany dia mamorona firaketana manokana eo an-toerana fotsiny. Tsy misy fampahatsiahivana amin'ny fampiharana alefa.",
+            "available": "Misy"
         },
         "untitled_item": "Entana tsy misy lohateny",
         "delete_action": "Fafao ny entana",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Sivana araka ny efitra",
         "refreshing_results": "Manavao ireo zavatra...",
         "empty_filter_title": "Tsy misy zavatra mifanaraka amin'io fikarohana io",
-        "delete_error_title": "Tsy nahomby ny famafana"
+        "delete_error_title": "Tsy nahomby ny famafana",
+        "tools": {
+            "title": "Fitaovana"
+        },
+        "no_room": "Tsy misy efitra",
+        "all_locations": "Toerana rehetra",
+        "location_filter_label": "Sivana araka ny toerana",
+        "visibility_filter_label": "Sivana araka ny fahitana",
+        "visibility_all": "Fahitana rehetra",
+        "visibility_mine": "Entako",
+        "visibility_others": "Mpikambana hafa",
+        "borrow_filter_label": "Sivio araka ny sata mindrana",
+        "borrow_filter_all": "Sata mindrana rehetra",
+        "stock_filter_label": "Sivio araka ny sata tahiry",
+        "stock_filter_all": "Sata tahiry rehetra",
+        "stock_filter_ok": "Tahiry ok",
+        "expiry_filter_label": "Sivio araka ny daty lany fotoana",
+        "expiry_filter_all": "Daty lany fotoana rehetra",
+        "expiry_filter_dated": "Manana daty",
+        "expiry_filter_none": "Tsy misy daty",
+        "warranty_filter_label": "Sivio amin'ny antoka",
+        "warranty_filter_all": "Ny antoka rehetra",
+        "warranty_filter_expired": "Antoka lany daty",
+        "warranty_filter_close": "Hifarana tsy ho ela",
+        "warranty_filter_active": "Antoka mbola misy",
+        "warranty_filter_none": "Tsy misy vaovao momba ny antoka",
+        "sort_label": "Karazana",
+        "sort_updated_desc": "Nohavaozina vao haingana",
+        "sort_updated_asc": "Fanavaozana tranainy indrindra",
+        "sort_created_desc": "Vaovao indrindra aloha",
+        "sort_created_asc": "Tranainy aloha",
+        "sort_name_asc": "Anarana A-Z",
+        "sort_name_desc": "Anarana Z-A",
+        "sort_quantity_desc": "Habetsahana ambony indrindra mankany ambany",
+        "sort_quantity_asc": "Haben'ny entana ambany ka hatrany ambony",
+        "sort_expiry_asc": "Lany daty aloha indrindra",
+        "sort_expiry_desc": "Lany daty farany indrindra",
+        "stock_increase": "Ampitomboy ny tahiry",
+        "stock_decrease": "Ahena ny tahiry",
+        "stock_adjust_error": "Tsy afaka havaozina ny tahiry.",
+        "bulk": {
+            "select_visible": "Safidio hita",
+            "clear_visible": "Esory ny safidina hita",
+            "selected_short": "voafantina",
+            "keep_category": "Tohizo ny sokajy",
+            "keep_room": "Tohizo ny efitrano",
+            "keep_location": "Tohizo ny toerana",
+            "keep_visibility": "Tohizo ny fahitana",
+            "apply": "Ampiharo",
+            "no_fields": "Safidio farafahakeliny ny saha iray ho an'ny hetsika betsaka.",
+            "updated_title": "Fanavaozana betsaka vita",
+            "updated_body": "{{count}} entana no havaozina. {{skipped}} voasakana.",
+            "update_error": "Tsy vita ny fanavaozana betsaka.",
+            "deleted_title": "Fafàna betsaka vita",
+            "deleted_body": "{{count}} entana voafafa. {{skipped}} voasakana.",
+            "delete_error": "Tsy vita ny fafàna betsaka.",
+            "delete_title": "Fafao ve ny entana voafantina?",
+            "delete_description": "Ny entana {{count}} voafantina dia hoesorina amin'ity lisitry ny entana ao an-trano ity. Tsy azo averina izany.",
+            "select_item": "Fidio ny entana",
+            "unselect_item": "Esory ny fisafidianana entana"
+        },
+        "qr_labels": {
+            "title": "Marika QR",
+            "open": "Marika entana",
+            "description": "Efa vonona ho toy ny taratasy pirinty ny marika entana {{count}}.",
+            "empty": "Ovay ny sivana na ampio entana ao amin'ny tahiry mba hahafahana manonta marika.",
+            "sheet_label": "Taratasy Marika Entana",
+            "item_label": "Marika Entana"
+        }
     },
     "categories": {
         "title": "Sokajy",
@@ -1341,7 +1436,7 @@
             "no_logs": "tsy mbola misy tantara",
             "errors_title": "Hadisoana amin'ny rafitra (Farany 10)",
             "no_errors": "// Rafitra ara-pahasalamana, tsy misy tantara nahitana hadisoana.",
-            "date_fmt": "{{daty, daty}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "Mailaka",
                 "user": "Mpampiasa",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Unité mesh",
-                    "meta": "Console TV • Deco M4",
+                    "meta": "Console TV • Network node",
                     "state": null
                 },
                 {
@@ -1929,7 +2024,7 @@
             "bodyLine2": "Miandry ny fankatoavan'ny tompon-trano"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{Marka}} - {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Fidirana an-trano",
             "bodyLine1Template": "Fangatahana mbola miandry ankehitriny: {{house}} ({{status}})",
             "bodyLine2": "Miandry fanapahan-kevitra ny fangatahanao ho an'ny \"{{house}}\".",
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Tsy afaka nalaina ny foiben'ny fampindramam-boky",
             "action_error": "Tsy vita ny hetsika",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Tsy hita ity firaketana mpindrana miasa ity. Havaozy ny Foiben'ny Fampindramana ary andramo indray.",
             "errors": {
                 "external_target_daily_limit": "Afaka mandefa fangatahana ivelany voalohany amin'ny olona iray ihany ianao isan'andro. Raha manaiky fangatahana izy ireo, tsy mihatra intsony io fetra io amin'izany olona izany.",
                 "external_total_daily_limit": "Afaka mandefa fangatahana ivelany voalohany hatramin'ny 5 isan'andro ianao.",
@@ -2275,7 +2370,7 @@
     "app": {
         "name": "{{brandName}}",
         "tagline": "Mitantana amim-pahendrena ny entana rehetra ao an-tokantranonao",
-        "loading": "Loading {{brandName}}",
+        "loading": "Mameno {{brandName}}",
         "preparing_workspace": "Manomana ny toeram-piasanao ..."
     },
     "nav": {
@@ -2555,5 +2650,102 @@
         "description": "Ny interface dia niharan'ny olana tsy nampoizina. Tsy miova amin'ity efijery ity ny angon-drakitra voatahiry ao amin'ny tahirin-kevitrao.",
         "refresh_btn": "Mamelombelona",
         "home_btn": "Trano"
+    },
+    "activity": {
+        "title": "Tantaran'ny Asa",
+        "description": "Fanovana fiarovana vao haingana amin'ny fananana ao an-tranonao.",
+        "empty_title": "Tsy mbola misy asa",
+        "empty_description": "Ny fanovana entana, fanavaozana tahiry, fampidirana, fampindramana, ary asa betsaka dia hiseho eto.",
+        "unknown_actor": "Mpampiasa tsy fantatra",
+        "deleted_item_with_id": "Voafoana ny entana #{{id}}",
+        "item_missing": "Tsy misy intsony ny firaketana ity entana ity",
+        "actions": {
+            "item_created": "Nampiana entana",
+            "item_updated": "Nohavaozina ny entana",
+            "item_deleted": "Voafoana ny entana",
+            "item_borrowed": "Nampindrana entana",
+            "item_returned": "Naverina ny entana",
+            "item_bulk_updated": "Fanavaozana betsaka",
+            "item_bulk_deleted": "Fafao be",
+            "item_stock_adjusted": "Vaovao ny tahiry",
+            "item_attachment_added": "Nampiana fanampiny",
+            "item_attachment_deleted": "Fafana fanampiny"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} firaketana mifandray",
+        "empty_title": "Tsy misy firaketana mifandray hita",
+        "low_stock": {
+            "title": "Tahiry ambany",
+            "description": "Entana ambany noho ny haavon'ny tahiry farany ambany.",
+            "qty": "Tahiry {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Entana lany daty",
+            "description": "Entana manana daty lany"
+        },
+        "expiring": {
+            "title": "Daty lany ho avy",
+            "description": "Entana ho lany ao anatin'ny 30 andro"
+        },
+        "maintenance": {
+            "title": "Fikojakojana tara",
+            "description": "Asa fikojakojana efa latsaka ny daty voatondro"
+        }
+    },
+    "notifications": {
+        "title": "Foiben'ny Fampahatsiahivana",
+        "description": "Tahiry, antoka, fikojakojana, fahataperana, ary fampahatsiahivana fiverenana mindrana.",
+        "meta_total": "{{count}} fampahatsiahivana",
+        "meta_urgent": "{{count}} maika",
+        "empty_title": "Tsy misy fampahatsiahivana mila ny sainao amin'izao fotoana izao",
+        "empty_desc": "Hiseho eto ny tahiry ambany, daty ho avy, sy fikojakojana tara.",
+        "items": {
+            "stock_empty_title": "Tsy misy tahiry",
+            "stock_low_title": "Tahiry ambany",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Lany daty",
+            "expiry_close_title": "Daty hifaranana manakaiky",
+            "warranty_expired_title": "Antoka lany",
+            "warranty_close_title": "Antoka ho tapaka tsy ho ela",
+            "maintenance_overdue_title": "Fikarakarana efa tara",
+            "maintenance_close_title": "Fikarakarana ho avy tsy ho ela",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Fampindramana tsy voaloa",
+            "borrow_close_title": "Fampindramana ho voaloa tsy ho ela",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: andro {{count}} sisa ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Foibe Fanompoana sy Antoka",
+        "description": "Araho ny antoka, ny fandaharam-potoanan'ny fikojakojana, ary ny hetsika fanompoana amin'ny toerana iray.",
+        "meta_warranty": "{{count}} firaketana antoka",
+        "meta_tasks": "{{count}} asa fikojakojana",
+        "empty_title": "Tsy misy hetsika fanompoana na antoka",
+        "empty_desc": "Ny daty antoka sy ny asa fikojakojana ho avy dia ho voangona eto.",
+        "warranty_section": "Fanarahan-draharahan'ny Antoka",
+        "warranty_desc": "Antoka lany daty sy antoka hifarana ao anatin'ny 30 andro.",
+        "maintenance_section": "Hetra fikojakojana",
+        "maintenance_desc": "Asa fikojakojana efa lany daty sy ho avy.",
+        "no_warranty": "Tsy misy asa fiantohana ho avy.",
+        "no_tasks": "Tsy misy asa fikojakojana voalahatra.",
+        "overdue": "Efa lany daty",
+        "upcoming": "Tsy ho ela",
+        "expired": "Lany daty",
+        "summary_warranty": "Fanaraha-maso fiantohana",
+        "summary_tasks": "Asa fikojakojana",
+        "open_warranty_filter": "Sivana fiantohana misokatra",
+        "open_warranty_filter_desc": "Misivana ireo entana mbola ao anatin'ny fiantohana ao amin'ny tahiry."
+    },
+    "storage_labels": {
+        "title": "Marika talantalana sy efitra",
+        "description": "{{count}} marika efitra/talantalana dia vonona ho takelaka fanontam-pirinty.",
+        "empty_title": "Tsy misy efitra na talantalana hofehezina",
+        "empty_desc": "Ampidiro aloha ny efitra na toerana, avy eo dia manonta ireo marika QR eto.",
+        "sheet_label": "Takelaka marika toerana",
+        "scan_hint": "Ny fakàna sary ny kaody QR dia manokatra ny lisitry ny entana voasivana ho an’io efitra na talantalana io.",
+        "room": "Efitra",
+        "location": "Talantalana/Boaty"
     }
 }

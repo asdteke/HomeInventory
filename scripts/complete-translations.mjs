@@ -11,137 +11,56 @@ const __dirname = path.dirname(__filename);
 const ROOT_LOCALES_DIR = path.join(__dirname, '..', 'locales');
 const CLIENT_LOCALES_DIR = path.join(__dirname, '..', 'client', 'public', 'locales');
 const BASE_LANG = 'en';
-const MYMEMORY_BATCH_SEPARATOR = 'QX7QX7QX7QX7';
-const MYMEMORY_LONG_TEXT_THRESHOLD = 220;
-
 const SKIP_LANGS = new Set(['en', 'brand']);
-const BATCH_SIZE = 8; // Smaller batches improve translation quality and reliability
-const DELAY_MS = 1500; // Increased delay for stability
-const RATE_LIMIT_WAIT_MS = 30000; // Wait 30s on rate limit
-const USE_AZURE_TRANSLATOR = process.env.USE_AZURE_TRANSLATOR === '1' && Boolean(process.env.AZURE_TRANSLATOR_KEY);
+const BATCH_SIZE = 100; // Since Azure supports large batches, we can increase this. For Google, we process one-by-one inside translateBatch anyway.
+const DELAY_MS = 1000;
+const USE_AZURE_TRANSLATOR = process.env.USE_AZURE_TRANSLATOR !== '0' && Boolean(process.env.AZURE_TRANSLATOR_KEY);
+
 const AZURE_LANG_MAP = {
-    'sr': 'sr-Cyrl',
-    'nb': 'nb',
+    'no': 'nb',       // Norwegian
+    'hmn': 'mww',     // Hmong (mww is Hmong Daw in Azure)
+    'mn': 'mn-Cyrl',  // Mongolian
+    'ny': 'nya',      // Nyanja
+    'sr': 'sr-Latn',  // Serbian Latin
+    'sr-Cyrl': 'sr-Cyrl',
+    'zh': 'zh-Hans',  // Chinese fallback to Simplified
     'zh-Hans': 'zh-Hans',
-    'zh-Hant': 'zh-Hant',
-    'jv': 'jw' // Javanese might be different
+    'zh-Hant': 'zh-Hant'
 };
 
-// Mapping for Google (if needed)
-const GOOGLE_LANG_MAP = {
-    'sr-Cyrl': 'sr',
-    'zh-Hans': 'zh-CN',
-    'zh-Hant': 'zh-TW',
-    'nb': 'no'
-};
-
-const MYMEMORY_LANG_MAP = {
-    'sr-Cyrl': 'sr',
-    'zh-Hans': 'zh-Hans',
-    'zh-Hant': 'zh-Hant',
-    'nb': 'nb',
-    'jv': 'jw'
-};
+const AZURE_UNSUPPORTED_LANGS = new Set([
+    'ceb', // Cebuano
+    'co',  // Corsican
+    'eo',  // Esperanto
+    'fy',  // Frisian
+    'gd',  // Scottish Gaelic
+    'haw', // Hawaiian
+    'jv',  // Javanese
+    'la',  // Latin
+    'tg',  // Tajik
+    'yi'   // Yiddish
+]);
 
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function buildMyMemoryBatches(texts) {
-    const batches = [];
-    let currentBatch = [];
-    let currentChars = 0;
-
-    for (const text of texts) {
-        const nextChars = currentChars + text.length + MYMEMORY_BATCH_SEPARATOR.length + 4;
-        const shouldFlush =
-            currentBatch.length >= 8 ||
-            (currentBatch.length > 0 && nextChars > 850);
-
-        if (shouldFlush) {
-            batches.push(currentBatch);
-            currentBatch = [];
-            currentChars = 0;
-        }
-
-        currentBatch.push(text);
-        currentChars += text.length + MYMEMORY_BATCH_SEPARATOR.length + 4;
-    }
-
-    if (currentBatch.length > 0) {
-        batches.push(currentBatch);
-    }
-
-    return batches;
-}
-
-async function translateMyMemorySingle(text, targetLang) {
-    const myMemoryTarget = MYMEMORY_LANG_MAP[targetLang] || targetLang;
-    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|${encodeURIComponent(myMemoryTarget)}`;
-
-    for (let attempt = 0; attempt < 4; attempt += 1) {
-        const response = await fetch(url);
-        if (response.ok) {
-            const data = await response.json();
-            const translatedText = String(data?.responseData?.translatedText || '').trim();
-
-            if (!translatedText) {
-                throw new Error('MyMemory returned an empty translation.');
+async function translateWithGtxGoogle(text, targetLang) {
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(targetLang)}&dt=t&q=${encodeURIComponent(text)}`;
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+        try {
+            const response = await fetch(url);
+            if (response.ok) {
+                const data = await response.json();
+                const translated = data[0].map(item => item[0]).join('');
+                if (translated) return translated;
             }
-
-            return translatedText;
+        } catch (err) {
+            console.warn(`    Google GTX translation attempt ${attempt + 1} failed for ${targetLang}: ${err.message}`);
         }
-
-        if (response.status !== 429 && response.status < 500) {
-            throw new Error(`MyMemory request failed with status ${response.status}`);
-        }
-
-        if (attempt === 3) {
-            throw new Error(`MyMemory request failed with status ${response.status}`);
-        }
-
-        await delay(2500 * (attempt + 1));
+        await delay(1000);
     }
-
-    throw new Error('MyMemory translation failed.');
-}
-
-async function translateMyMemoryBatch(texts, targetLang) {
-    const translatedTexts = [];
-    const batches = buildMyMemoryBatches(texts);
-
-    for (const batch of batches) {
-        const payload = batch.join(` ${MYMEMORY_BATCH_SEPARATOR} `);
-        const translatedPayload = await translateMyMemorySingle(payload, targetLang);
-        const translatedValues = translatedPayload.split(
-            new RegExp(`\\s*${MYMEMORY_BATCH_SEPARATOR}\\s*`, 'g')
-        );
-
-        translatedTexts.push(...batch.map((item, index) => translatedValues[index] || item));
-    }
-
-    return translatedTexts;
-}
-
-async function translateWithMyMemory(texts, targetLang) {
-    if (texts.some((text) => text.length > MYMEMORY_LONG_TEXT_THRESHOLD || text.includes('\n'))) {
-        const translatedTexts = [];
-        for (const text of texts) {
-            translatedTexts.push(await translateMyMemorySingle(text, targetLang));
-        }
-        return translatedTexts;
-    }
-
-    try {
-        return await translateMyMemoryBatch(texts, targetLang);
-    } catch (error) {
-        console.warn(`    MyMemory batch fallback failed for ${targetLang}, retrying one-by-one...`);
-        const translatedTexts = [];
-        for (const text of texts) {
-            translatedTexts.push(await translateMyMemorySingle(text, targetLang));
-        }
-        return translatedTexts;
-    }
+    return text;
 }
 
 function getDeepValue(obj, keyPath) {
@@ -176,35 +95,24 @@ function collectStringKeyPaths(obj, prefix = '') {
 
 async function translateBatch(texts, targetLang) {
     const azureTarget = AZURE_LANG_MAP[targetLang] || targetLang;
-    const googleTarget = GOOGLE_LANG_MAP[targetLang] || targetLang;
 
-    if (USE_AZURE_TRANSLATOR) {
+    if (USE_AZURE_TRANSLATOR && !AZURE_UNSUPPORTED_LANGS.has(targetLang)) {
         try {
             console.log(`    Trying Azure for ${texts.length} items to ${targetLang}...`);
             return await translateWithAzure(texts, azureTarget);
         } catch (azureError) {
-            console.warn(`    Azure failed for ${targetLang}, trying MyMemory...`);
+            console.warn(`    Azure failed for ${targetLang}. Falling back to Google GTX...`);
         }
     }
 
-    try {
-        console.warn(`    Using MyMemory for ${targetLang}...`);
-        return await translateWithMyMemory(texts, targetLang);
-    } catch (myMemoryError) {
-        console.warn(`    MyMemory failed for ${targetLang}, trying Google fallback...`);
-        try {
-            const results = [];
-            for (const text of texts) {
-                const res = await googleTranslate(text, { to: googleTarget });
-                results.push(res.text);
-                await delay(200);
-            }
-            return results;
-        } catch (googleError) {
-            console.error(`    All translation providers failed for ${targetLang}. Using source text.`);
-            return texts;
-        }
+    console.log(`    Using Google GTX for ${texts.length} items to ${targetLang} (one-by-one)...`);
+    const results = [];
+    for (const text of texts) {
+        const res = await translateWithGtxGoogle(text, targetLang);
+        results.push(res);
+        await delay(100); // Small delay to avoid aggressive rate limiting
     }
+    return results;
 }
 
 async function processTranslations(sourceFile, targetFile, targetLang) {

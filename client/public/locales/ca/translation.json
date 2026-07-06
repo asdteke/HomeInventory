@@ -10,7 +10,7 @@
         "load_error": "Error en carregar l'element",
         "form": {
             "name": "Nom de l'Element",
-            "name_placeholder": "per exemple, Samsung TV 55 polzades",
+            "name_placeholder": "per exemple, TV 55 polzades",
             "required": "*",
             "description": "Descripció",
             "description_placeholder": "Notes sobre l'article...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Proper a caducar",
             "expired": "Caducat",
             "low_stock": "Poc estoc"
+        },
+        "untitled_item": "Element sense títol",
+        "attachments": {
+            "title": "Fotos i arxius",
+            "add": "Afegir arxius",
+            "empty": "Encara no s'han afegit arxius.",
+            "form_desc": "Adjunteu fotos de l'element, rebuts, factures o documents de servei.",
+            "detail_desc": "Fotos, rebuts, factures i arxius de servei desats per a aquest element.",
+            "upload_error": "No s'han pogut carregar els arxius.",
+            "delete_error": "No s'ha pogut eliminar el fitxer.",
+            "delete_confirm": "Vols eliminar aquest fitxer?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Mostra la contrasenya",
         "saving": "Desant...",
         "disabled": "Discapacitat",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Acosta",
+        "zoom_out": "Allunya",
+        "reset": "Restableix",
+        "print": "Imprimeix",
+        "record_count": "{{count}} registres"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Se't retornarà a la pantalla d'inici de sessió i hauràs d'iniciar sessió de nou per gestionar l'inventari del teu llar.",
         "logout_warning": "Utilitza això quan hagis acabat en un dispositiu compartit o personal.",
         "maintenance": "Horari de manteniment",
-        "shopping": "Llista de compres"
+        "shopping": "Llista de compres",
+        "activity": "Activitat",
+        "notifications": "Notificacions",
+        "service": "Servei"
     },
     "dashboard": {
         "welcome": "Benvingut de nou, <1>{{name}}</1>",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} articles han caigut per sota del vostre límit mínim d'estoc.",
             "go_to_shopping": "Llista de compres",
             "close_expiry_title": "Dates de caducitat properes",
-            "close_expiry_desc": "{{count}} productes caducaran dins de 30 dies."
+            "close_expiry_desc": "{{count}} productes caducaran dins de 30 dies.",
+            "view_low_stock_items": "Veure poc estoc"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Clau de la Casa Activa",
             "key_label": "Clau de la Casa",
-            "mask_key": "•••••••••{{sufix}}",
+            "mask_key": "•••••••••{{suffix}}",
             "hide": "Amaga",
             "show": "Mostra",
             "copy": "Copia",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} ubicacions existents s'han saltat.",
             "skipped_rooms": "{{count}} habitacions existents s'han saltat.",
             "owner_only_title": "Còpia de seguretat i restauració restringida",
-            "owner_only_desc": "La còpia de seguretat i la restauració de dades només poden ser gestionades pel propietari de la casa."
+            "owner_only_desc": "La còpia de seguretat i la restauració de dades només poden ser gestionades pel propietari de la casa.",
+            "include_media_title": "Inclou fotos i imatges de rebuts",
+            "include_media_body": "La còpia de seguretat completa pot ser més gran, però també es poden restaurar fotos d'articles i imatges de rebuts.",
+            "skipped_attachments": "S'han omès {{count}} fitxers adjunts."
         },
         "about": {
             "title": "Sobre l'aplicació",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Totes les peticions entrants es bloquegen automàticament.",
             "policy_house_only_desc": "Només els membres verificats de les teves cases actives poden sol·licitar articles que ja són visibles dins d'aquesta casa compartida.",
             "policy_everyone_desc": "Altres usuaris no poden navegar ni veure els teus articles. Només poden enviar una sol·licitud introduint directament el teu nom d'usuari o correu electrònic."
+        },
+        "activity_log": {
+            "title": "Activitat i registre d'auditoria",
+            "description": "Revisa l'historial protegit de canvis d'articles, actualitzacions d'estoc, fitxers adjunts i accions massives.",
+            "encrypted_title": "Els registres d'activitat es guarden protegits",
+            "encrypted_body": "Les noves accions i detalls d'activitat es guarden xifrats a la base de dades i només es desxifren per a la teva sessió activa."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "El registre es tancarà després que el prestador confirmi que ha rebut l'element de tornada.",
             "return_pending_lender_title": "{{name}} ha marcat aquest element com a tornat lliurat",
             "return_pending_self_title": "Amb tu, esperant confirmació de recepció",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Membre del lloc",
+            "site_member_identifier": "Nom d'usuari o correu electrònic",
+            "site_member_identifier_placeholder": "Nom d'usuari o correu electrònic exactes",
+            "site_member_privacy_hint": "L'oferta apareix al Centre de Préstecs només si aquest compte existeix i permet ofertes entrants.",
+            "external_privacy_hint": "Això crea només un registre local privat. No s'envia cap notificació de l'aplicació.",
+            "available": "Disponible"
         },
         "untitled_item": "Article sense títol",
         "delete_action": "Suprimeix l'article",
@@ -1124,11 +1151,79 @@
         "room_filter_label": "Filtrar per habitació",
         "refreshing_results": "Actualitzant elements...",
         "empty_filter_title": "Cap article coincideix amb aquesta cerca",
-        "delete_error_title": "La supressió ha fallat"
+        "delete_error_title": "La supressió ha fallat",
+        "tools": {
+            "title": "Eines"
+        },
+        "no_room": "Cap habitació",
+        "all_locations": "Totes les ubicacions",
+        "location_filter_label": "Filtra per ubicació",
+        "visibility_filter_label": "Filtra per visibilitat",
+        "visibility_all": "Tota la visibilitat",
+        "visibility_mine": "Els meus elements",
+        "visibility_others": "Altres membres",
+        "borrow_filter_label": "Filtra per estat de préstec",
+        "borrow_filter_all": "Tots els estats de préstec",
+        "stock_filter_label": "Filtra per estat d'estoc",
+        "stock_filter_all": "Tots els estats d'estoc",
+        "stock_filter_ok": "Estoc correcte",
+        "expiry_filter_label": "Filtra per data de caducitat",
+        "expiry_filter_all": "Totes les dates de caducitat",
+        "expiry_filter_dated": "Té data",
+        "expiry_filter_none": "Cap data",
+        "warranty_filter_label": "Filtra per garantia",
+        "warranty_filter_all": "Totes les garanties",
+        "warranty_filter_expired": "Garanties caducades",
+        "warranty_filter_close": "Acaben aviat",
+        "warranty_filter_active": "Garanties actives",
+        "warranty_filter_none": "Cap informació de garantia",
+        "sort_label": "Ordena",
+        "sort_updated_desc": "Actualitzat recentment",
+        "sort_updated_asc": "Actualització més antiga",
+        "sort_created_desc": "El més nou primer",
+        "sort_created_asc": "El més antic primer",
+        "sort_name_asc": "Nom A-Z",
+        "sort_name_desc": "Nom Z-A",
+        "sort_quantity_desc": "Quantitat de més a menys",
+        "sort_quantity_asc": "Quantitat de menys a més",
+        "sort_expiry_asc": "Caducitat més propera",
+        "sort_expiry_desc": "Caducitat més llunyana",
+        "stock_increase": "Augmentar l'estoc",
+        "stock_decrease": "Disminuir l'estoc",
+        "stock_adjust_error": "No s'ha pogut actualitzar l'estoc.",
+        "bulk": {
+            "select_visible": "Selecciona visible",
+            "clear_visible": "Deselecciona visible",
+            "selected_short": "seleccionat",
+            "keep_category": "Mantén la categoria",
+            "keep_room": "Mantén l'habitació",
+            "keep_location": "Mantén la ubicació",
+            "keep_visibility": "Mantén la visibilitat",
+            "apply": "Aplica",
+            "no_fields": "Tria almenys un camp per a l'acció massiva.",
+            "updated_title": "Actualització massiva completada",
+            "updated_body": "{{count}} articles actualitzats. {{skipped}} saltats.",
+            "update_error": "No s'ha pogut completar l'actualització massiva.",
+            "deleted_title": "Eliminació massiva completada",
+            "deleted_body": "{{count}} articles eliminats. {{skipped}} saltats.",
+            "delete_error": "No s'ha pogut completar l'eliminació massiva.",
+            "delete_title": "Vols eliminar els articles seleccionats?",
+            "delete_description": "{{count}} articles seleccionats seran eliminats d'aquest inventari domèstic. Això no es pot desfer.",
+            "select_item": "Selecciona article",
+            "unselect_item": "Desseleccionar l'article"
+        },
+        "qr_labels": {
+            "title": "Etiquetes QR",
+            "open": "Etiquetes d'article",
+            "description": "{{count}} etiquetes d'article estan llestes com a full de impressió.",
+            "empty": "Canvia els filtres o afegeix articles d'inventari per imprimir etiquetes.",
+            "sheet_label": "Full d'etiquetes d'article",
+            "item_label": "Etiqueta d'article"
+        }
     },
     "categories": {
         "title": "Categories",
-        "subtitle": "{{compte}} Categories",
+        "subtitle": "{{count}} Categories",
         "new_category": "Nova Categoria",
         "edit_title": "Editar categoria",
         "new_title": "Nova categoria",
@@ -1341,7 +1436,7 @@
             "no_logs": "encara no hi ha registres",
             "errors_title": "Errors del sistema (Últims 10)",
             "no_errors": "// Sistema saludable, sense registres d'errors.",
-            "date_fmt": "{{data, datahora}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "Correu electrònic",
                 "user": "Usuari",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Unitat de malla",
-                    "meta": "Consola de TV • Deco M4",
+                    "meta": "Consola de TV • Network node",
                     "state": null
                 },
                 {
@@ -1929,7 +2024,7 @@
             "bodyLine2": "S'està esperant l'aprovació del propietari"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{estat}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Accés a la casa",
             "bodyLine1Template": "Sol·licitud pendent actual: {{house}} ({{status}})",
             "bodyLine2": "La vostra sol·licitud de \"{{house}}\" encara està esperant una decisió.",
@@ -1958,7 +2053,7 @@
         },
         "adminEmail": {
             "sentBy": "Aquest correu electrònic ha estat enviat per {{brandName}}.",
-            "footer": "© 2026 {{NomMarca}} - {{supportEmail}}"
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         },
         "testEmail": {
             "subject": "🧪 Correu electrònic de prova {{brandName}}",
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "No s'ha pogut carregar el centre de préstecs",
             "action_error": "No s'ha pogut completar l'acció",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "No s'ha pogut trobar aquest registre de préstec actiu. Actualitza el Centre de Préstecs i torna-ho a provar.",
             "errors": {
                 "external_target_daily_limit": "Només pots enviar una primera sol·licitud externa de contacte a la mateixa persona per dia. Si accepten una sol·licitud, aquest límit ja no s'aplica a aquesta persona.",
                 "external_total_daily_limit": "Pots enviar fins a 5 primeres sol·licituds externes de contacte per dia.",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "Menú del compte de {{name}}"
     },
     "app": {
-        "name": "{{NomMarca}}",
+        "name": "{{brandName}}",
         "tagline": "Gestiona intel·ligentment tots els objectes de la llar",
         "loading": "Carregant {{brandName}}",
         "preparing_workspace": "Preparant el teu espai de treball..."
@@ -2555,5 +2650,102 @@
         "description": "La interfície va tenir un problema inesperat de renderització. Les dades de l'inventari desades no canvien en aquesta pantalla.",
         "refresh_btn": "Refrescar",
         "home_btn": "Llar"
+    },
+    "activity": {
+        "title": "Historial d'activitat",
+        "description": "Canvis recents protegits en el teu inventari domèstic.",
+        "empty_title": "Encara no hi ha activitat",
+        "empty_description": "Canvis d'articles, actualitzacions d'estoc, adjunts, préstecs i accions massives apareixeran aquí.",
+        "unknown_actor": "Usuari desconegut",
+        "deleted_item_with_id": "Article eliminat #{{id}}",
+        "item_missing": "Aquest registre d'article ja no existeix",
+        "actions": {
+            "item_created": "Article afegit",
+            "item_updated": "Article actualitzat",
+            "item_deleted": "Article eliminat",
+            "item_borrowed": "Article prestat",
+            "item_returned": "Article retornat",
+            "item_bulk_updated": "Actualització massiva",
+            "item_bulk_deleted": "Eliminació massiva",
+            "item_stock_adjusted": "Estoc actualitzat",
+            "item_attachment_added": "Adjunt afegit",
+            "item_attachment_deleted": "Adjunt eliminat"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} registres relacionats",
+        "empty_title": "No s'han trobat registres relacionats",
+        "low_stock": {
+            "title": "Baix estoc",
+            "description": "Articles per sota del seu nivell mínim d'estoc.",
+            "qty": "Estoc {{quantity}} / mín {{min}}"
+        },
+        "expired": {
+            "title": "Articles caducats",
+            "description": "Articles amb data caducada."
+        },
+        "expiring": {
+            "title": "Properes Dates de Caducitat",
+            "description": "Articles que caduquen en els pròxims 30 dies."
+        },
+        "maintenance": {
+            "title": "Manteniment Endarrerit",
+            "description": "Tasques de manteniment passades de la seva data programada."
+        }
+    },
+    "notifications": {
+        "title": "Centre de Notificacions",
+        "description": "Alertes d'estoc, garantia, manteniment, caducitat i retorn de préstec.",
+        "meta_total": "{{count}} notificacions",
+        "meta_urgent": "{{count}} urgents",
+        "empty_title": "Ara mateix no hi ha alertes que necessitin la teva atenció",
+        "empty_desc": "Aquí apareixeran les baixes existències, les dates pròximes i el manteniment pendent",
+        "items": {
+            "stock_empty_title": "Fora d'estoc",
+            "stock_low_title": "Baixes existències",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "La data de caducitat ha passat",
+            "expiry_close_title": "La data de caducitat s'aproxima",
+            "warranty_expired_title": "Garantia caducada",
+            "warranty_close_title": "Garantia a punt d'acabar",
+            "maintenance_overdue_title": "Manteniment pendent",
+            "maintenance_close_title": "Manteniment proper",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Retorn de préstec pendent",
+            "borrow_close_title": "Retorn de préstec proper",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: queden {{count}} dies ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Centre de Servei i Garantia",
+        "description": "Feu el seguiment de garanties, calendaris de manteniment i accions de servei en un sol lloc.",
+        "meta_warranty": "{{count}} registres de garantia",
+        "meta_tasks": "{{count}} tasques de manteniment",
+        "empty_title": "Cap acció de servei o garantia",
+        "empty_desc": "Les pròximes dates de garantia i tasques de manteniment es recopilaran aquí.",
+        "warranty_section": "Seguiment de la garantia",
+        "warranty_desc": "Garanties caducades i garanties que finalitzen en els pròxims 30 dies.",
+        "maintenance_section": "Accions de manteniment",
+        "maintenance_desc": "Tasques de manteniment pendents i pròximes.",
+        "no_warranty": "Cap acció de garantia pròxima.",
+        "no_tasks": "Cap tasca de manteniment programada.",
+        "overdue": "Vencudes",
+        "upcoming": "Aviat",
+        "expired": "Caducades",
+        "summary_warranty": "Seguiment de la garantia",
+        "summary_tasks": "Tasques de manteniment",
+        "open_warranty_filter": "Filtre de garantia oberta",
+        "open_warranty_filter_desc": "Filtra els articles amb garantia activa a l’inventari."
+    },
+    "storage_labels": {
+        "title": "Etiquetes d'estanteria i habitació",
+        "description": "{{count}} etiquetes d'habitació/estanteria estan llestes com a full de impressió.",
+        "empty_title": "No hi ha habitacions ni estanteries per etiquetar",
+        "empty_desc": "Afegeix primer habitacions o ubicacions, i després imprimeix les etiquetes QR aquí.",
+        "sheet_label": "Full d'etiquetes d'ubicació",
+        "scan_hint": "L'escaneig del codi QR obre l'inventari filtrat d'aquella habitació o estanteria.",
+        "room": "Habitació",
+        "location": "Estanteria/Caixa"
     }
 }

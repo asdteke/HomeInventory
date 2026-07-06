@@ -10,7 +10,7 @@
         "load_error": "Ku fashilmay in la raro shayga",
         "form": {
             "name": "Magaca Shayga",
-            "name_placeholder": "tusaale. Samsung TV 55 inch",
+            "name_placeholder": "tusaale. TV 55 inch",
             "required": "*",
             "description": "Sharaxaad",
             "description_placeholder": "Qoraallo ku saabsan shayga...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Ku dhowaad dhacaya",
             "expired": "Dhacay",
             "low_stock": "Alaab yar"
+        },
+        "untitled_item": "Shay aan cinwaan lahayn",
+        "attachments": {
+            "title": "Sawirro iyo faylal",
+            "add": "Ku dar faylal",
+            "empty": "Faylal lama daray weli.",
+            "form_desc": "Ku lifaaq sawirrada shayga, rasiidhka, biilasha, ama dukumentiyada adeegga.",
+            "detail_desc": "Sawirro, rasiidhyo, biilalo, iyo faylal adeeg ayaa loo keydiyay shaygan.",
+            "upload_error": "Looma rakibi karin faylasha.",
+            "delete_error": "Faylka lama tirtiri karo.",
+            "delete_confirm": "Ma tirtirtaa faylkan?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Muuji erayga sirta ah",
         "saving": "Badbaadinaya...",
         "disabled": "Naafo",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Isku dhawa",
+        "zoom_out": "Isku fogee",
+        "reset": "Dib u deji",
+        "print": "Daabac",
+        "record_count": "{{count}} diiwaan"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Waxaad dib loogu celin doonaa shaashada gelitaanka oo waxaad u baahan doontaa inaad mar kale gasho si aad u maamusho kaydka gurigaaga.",
         "logout_warning": "Tan isticmaal marka aad dhameyso ku shaqeynta qalab wadaag ama mid shaqsi ah.",
         "maintenance": "Jadwalka Dayactirka",
-        "shopping": "Liiska Waxyaabaha La Soo Iibsado"
+        "shopping": "Liiska Waxyaabaha La Soo Iibsado",
+        "activity": "Dhaqdhaqaaq",
+        "notifications": "Ogeysiis",
+        "service": "Adeeg"
     },
     "dashboard": {
         "welcome": "Soo dhawoow, <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} shay ayaa hoos uga dhacay xadkaaga ugu yar ee kaydka.",
             "go_to_shopping": "Liiska Wax iibsiga",
             "close_expiry_title": "Taariikhaha dhacaya ee soo socda",
-            "close_expiry_desc": "{{count}} badeecooyin ayaa dhacaya 30 maalmood gudahood."
+            "close_expiry_desc": "{{count}} badeecooyin ayaa dhacaya 30 maalmood gudahood.",
+            "view_low_stock_items": "Eeg Kaydka Yaraaday"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Furaha Guriga Firfircoon",
             "key_label": "Furaha Guriga",
-            "mask_key": "••••••••{{kuxig}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Qari",
             "show": "Muuji",
             "copy": "Nuqul",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} goobo hore loo jiray ayaa la iska dhaafay.",
             "skipped_rooms": "{{count}} qolal hore loo jiray ayaa la iska dhaafay.",
             "owner_only_title": "Kaydinta iyo Soo Celinta waa Xaddidan",
-            "owner_only_desc": "Kaydinta iyo soo celinta xogta waxaa kaliya maamuli kara milkiilaha guriga."
+            "owner_only_desc": "Kaydinta iyo soo celinta xogta waxaa kaliya maamuli kara milkiilaha guriga.",
+            "include_media_title": "Ku dar sawirada iyo sawirada rasiidhka",
+            "include_media_body": "Kayd buuxa waxaa laga yaabaa inuu ka weyn yahay, laakiin sawirada alaabta iyo sawirada rasiidhka sidoo kale waa la soo celin karaa.",
+            "skipped_attachments": "{{count}} lifaaqo ayaa la booqday."
         },
         "about": {
             "title": "Ku saabsan Codsiga",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Dhammaan codsiyada soo galaya si toos ah ayaa loo xannibay.",
             "policy_house_only_desc": "Kaliya xubnaha la xaqiijiyay ee guryahaaga firfircoon ayaa codsan kara alaabta horey loogu arkay gudaha gurigaas la wadaago.",
             "policy_everyone_desc": "Isticmaalayaasha kale ma baari karaan ama ma arki karaan alaabtaada. Waxay kaliya codsi soo diri karaan iyagoo si toos ah u galaya magacaaga isticmaale ama iimaylkaaga."
+        },
+        "activity_log": {
+            "title": "Dhaqdhaqaaq iyo diiwaanka kormeerka",
+            "description": "Dib u eeg taariikhda la ilaaliyay ee isbeddelada alaabta, cusbooneysiinta kaydka, lifaaqyada, iyo falalka guud.",
+            "encrypted_title": "Diiwaannada hawlaha waa la kaydiyaa si la ilaaliyo",
+            "encrypted_body": "Hawlaha cusub iyo faahfaahinta waxaa lagu keydiyaa si sir ah gudaha xogta waxaana kaliya la furayaa fadhigaaga firfircoon."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Diiwaanka wuu xirmi doonaa ka dib marka amaahiyaha uu xaqiijiyo in uu walxaha soo celiyey.",
             "return_pending_lender_title": "{{name}} wuxuu calaamadeeyay walxahan in dib loo soo celiyey",
             "return_pending_self_title": "Adiga ayaa wata, sugaya xaqiijinta rasiidka",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Xubin goobta",
+            "site_member_identifier": "Magaca isticmaale ama email",
+            "site_member_identifier_placeholder": "Magaca isticmaale ama email sax ah",
+            "site_member_privacy_hint": "Bixinta waxay ka muuqataa Xarunta Amaahda kaliya haddii akoonkaas uu jiro isla markaana uu oggol yahay bixinta soo-galista.",
+            "external_privacy_hint": "Tani waxay abuureysaa rikoodh ganacsi oo gaar ah oo maxalli ah kaliya. Wax ogeysiis ah oo app ah lama xaqiijin.",
+            "available": "La heli karo"
         },
         "untitled_item": "Shayga aan cinwaan lahayn",
         "delete_action": "Tirtir shayga",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Shaandhaynta qolka",
         "refreshing_results": "Waxyaabaha cusub...",
         "empty_filter_title": "Wax shay ah oo la mid ah raadintaas ma jirin",
-        "delete_error_title": "Tirtiriddu waa fashilantay"
+        "delete_error_title": "Tirtiriddu waa fashilantay",
+        "tools": {
+            "title": "Qalabka"
+        },
+        "no_room": "Ma jirto qol",
+        "all_locations": "Dhammaan meelaha",
+        "location_filter_label": "Shaandheynta goobta",
+        "visibility_filter_label": "Shaandheynta muuqaalka",
+        "visibility_all": "Dhammaan muuqaalka",
+        "visibility_mine": "Shayadayda",
+        "visibility_others": "Xubnaha kale",
+        "borrow_filter_label": "Sifee iyadoo lagu saleynayo xaaladda amaahda",
+        "borrow_filter_all": "Dhammaan xaaladaha amaahda",
+        "stock_filter_label": "Sifee iyadoo lagu saleynayo xaaladda kaydka",
+        "stock_filter_all": "Dhammaan xaaladaha kaydka",
+        "stock_filter_ok": "Kaydka waa ok",
+        "expiry_filter_label": "Sifee iyadoo lagu saleynayo taariikhda dhicitaanka",
+        "expiry_filter_all": "Dhammaan taariikhaha dhicitaanka",
+        "expiry_filter_dated": "Waxay leedahay taariikh",
+        "expiry_filter_none": "Taariikh ma jirto",
+        "warranty_filter_label": "Sifee iyadoo la raacayo dammaanad",
+        "warranty_filter_all": "Dhammaan dammaanadaha",
+        "warranty_filter_expired": "Dammaanadaha dhamaaday",
+        "warranty_filter_close": "Ku dhamaanaya dhowaan",
+        "warranty_filter_active": "Dammaanadaha firfircoon",
+        "warranty_filter_none": "Macluumaad dammaanad ma jiro",
+        "sort_label": "Kala saar",
+        "sort_updated_desc": "Waxaa dhawaan la cusbooneysiiyay",
+        "sort_updated_asc": "Cusbooneysiintii ugu da'da weyn",
+        "sort_created_desc": "Kan ugu cusub marka hore",
+        "sort_created_asc": "Kan ugu da'da weyn marka hore",
+        "sort_name_asc": "Magaca A-Z",
+        "sort_name_desc": "Magaca Z-A",
+        "sort_quantity_desc": "Tirada sare ilaa hoose",
+        "sort_quantity_asc": "Tirada hoose ilaa sare",
+        "sort_expiry_asc": "Dhicitaanka ugu dhow",
+        "sort_expiry_desc": "Dhicitaanka ugu dambeeya",
+        "stock_increase": "Kordhi kaydka",
+        "stock_decrease": "Yaree kaydka",
+        "stock_adjust_error": "Kaydka lama cusbooneysiin karo.",
+        "bulk": {
+            "select_visible": "Xulo muuqaalka",
+            "clear_visible": "Ka dooro muuqaalka",
+            "selected_short": "la xushay",
+            "keep_category": "Sii qaybta",
+            "keep_room": "Sii qolka",
+            "keep_location": "Sii goobta",
+            "keep_visibility": "Sii muuqaalka",
+            "apply": "Codso",
+            "no_fields": "Dooro ugu yaraan halbeeg si ficilka tiro badan.",
+            "updated_title": "Cusbooneysiinta tiro badan waa la dhammeeyey",
+            "updated_body": "{{count}} shay ayaa la cusbooneysiiyay. {{skipped}} waa la dhaafay.",
+            "update_error": "Cusbooneysiinta tirada badan lama dhameystiri karin.",
+            "deleted_title": "Tirtiridda tirada badan waa la dhammeystiray",
+            "deleted_body": "{{count}} shay ayaa la tirtiray. {{skipped}} waa la dhaafay.",
+            "delete_error": "Tirtiridda tirada badan lama dhameystiri karin.",
+            "delete_title": "Ma tirtirtaa shayada la xushay?",
+            "delete_description": "{{count}} shay oo la xushay ayaa laga saari doonaa kaydka gurigan. Tani lagama noqan karo.",
+            "select_item": "Xulo shay",
+            "unselect_item": "Ka saar xulashada shay"
+        },
+        "qr_labels": {
+            "title": "Calaamadaha QR",
+            "open": "Calaamadaha Shayga",
+            "description": "{{count}} calaamadood oo shay ayaa diyaar u ah xaashida daabacaadda.",
+            "empty": "Beddel shaandhaynta ama ku dar shayada keydka si loo daabaco calaamadaha.",
+            "sheet_label": "Xaashida Calaamadaha Shayga",
+            "item_label": "Calaamadda Shayga"
+        }
     },
     "categories": {
         "title": "Qaybaha",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Unug mesh",
-                    "meta": "Khaanadda TV-ga • Deco M4",
+                    "meta": "Khaanadda TV-ga • Network node",
                     "state": null
                 },
                 {
@@ -2035,7 +2130,7 @@
             "passphrase_number": "Ka mid noqo ugu yaraan hal lambar.",
             "passphrase_uppercase": "Ka mid noqo ugu yaraan hal xaraf weyn."
         },
-        "recovery_file_title": "Furaha Soo Celinta Sanduuqa Shakhsiyeed ee {{brandName}} ••••••••{{suffix}} Dalabka amaahda waa la diray {{item}} waxaa loo calaamadin doonaa in la amaahday ka dib markii xubin kale ay aqbasho.",
+        "recovery_file_title": "Furaha Soo Celinta Sanduuqa Shakhsiyeed ee {{brandName}}",
         "recovery_file_created_label": "La Abuuray",
         "recovery_file_key_label": "Furaha Soo-kabashada",
         "recovery_file_warning": "Haddii aad lumiso furahan iyo ereyga sirta ah ee qalabkaaga labadaba, qalabka lama soo celin karo.",
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Xarunta amaahda lama soo rarri karin",
             "action_error": "Ficilka lama dhammaystiri karo",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Diiwaanka amaahda firfircoon lama helin. Dib u cusboonaysii Xarunta Amaahda oo isku day mar kale.",
             "errors": {
                 "external_target_daily_limit": "Waxaad u diri kartaa hal codsi oo xiriirka koowaad ah oo dibadda ah qof isku mid ah maalintii. Haddii ay aqbalaan codsi, xadkaasi mar dambe qofkaas kama khusayo.",
                 "external_total_daily_limit": "Waxaad u diri kartaa ilaa 5 codsi oo xiriirka koowaad ah oo dibadda ah maalintii.",
@@ -2555,5 +2650,102 @@
         "description": "Interface-ku wuxuu la kulmay dhibaato aan la filayn oo rendering ah. Xogta kaydsan ee kaydsan ma beddeli karto shaashaddan.",
         "refresh_btn": "Cusboonaysiin",
         "home_btn": "Guriga"
+    },
+    "activity": {
+        "title": "Taariikhda Hawlaha",
+        "description": "Isbeddelada ugu dambeeyay ee la ilaaliyay ee kaydka gurigaaga.",
+        "empty_title": "Wax hawl ah weli ma jiraan",
+        "empty_description": "Isbeddelada alaabta, cusbooneysiinta kaydka, lifaaqyada, amaahda, iyo ficilada tirada badan ayaa halkan ka muuqan doona.",
+        "unknown_actor": "Isticmaale aan la aqoon",
+        "deleted_item_with_id": "Alaabta la tirtiray #{{id}}",
+        "item_missing": "Diwaanka shaygan mar dambe ma jiro",
+        "actions": {
+            "item_created": "Shay la daray",
+            "item_updated": "Shay la cusbooneysiiyay",
+            "item_deleted": "Shay la tirtiray",
+            "item_borrowed": "Shay la amaahday",
+            "item_returned": "Shay la soo celiyay",
+            "item_bulk_updated": "Cusbooneysiinta tirada badan",
+            "item_bulk_deleted": "Tirtirka tirada badan",
+            "item_stock_adjusted": "Kaydka waa la cusbooneysiiyay",
+            "item_attachment_added": "Lifaaqa waa la daray",
+            "item_attachment_deleted": "Lifaaqa waa la tirtiray"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} diiwaanada la xiriira",
+        "empty_title": "Lama helin diiwaan la xiriira",
+        "low_stock": {
+            "title": "Kayd hooseeya",
+            "description": "Alaabooyinka ka hooseeya heerka kaydintooda ugu yar.",
+            "qty": "Kayd {{quantity}} / ugu yar {{min}}"
+        },
+        "expired": {
+            "title": "Alaabooyinka Dhacay",
+            "description": "Alaabooyinka leh taariikh dhicitaan."
+        },
+        "expiring": {
+            "title": "Taariikhaha Dhicitaanka Soo Socda",
+            "description": "Alaabooyinka dhici doona 30 maalmood gudaheed."
+        },
+        "maintenance": {
+            "title": "Dayactirka Dib-u-dhaca",
+            "description": "Hawlaha dayactirka ee ka dambeeyey taariikhdooda qorshaysan."
+        }
+    },
+    "notifications": {
+        "title": "Xarunta Ogeysiiska",
+        "description": "Kaydka, dammaanad, dayactir, dhicitaan, iyo digniinaha soo celinta amaahda.",
+        "meta_total": "{{count}} ogeysiis",
+        "meta_urgent": "{{count}} degdeg ah",
+        "empty_title": "Ma jiraan digniino u baahan fiiro gaar ah hadda",
+        "empty_desc": "Alaab yari, taariikho soo socda, iyo dayactirka dhaaftay ayaa halkan ka muuqan doona.",
+        "items": {
+            "stock_empty_title": "Alaab dhammaatay",
+            "stock_low_title": "Alaab yari",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Taariikhda dhicitaanka waa la dhaafay",
+            "expiry_close_title": "Taariikhda dhicitaanka ayaa soo dhowaanaysa",
+            "warranty_expired_title": "Damaanad ayaa dhacay",
+            "warranty_close_title": "Damaanad waxay dhici doontaa dhowaan",
+            "maintenance_overdue_title": "Dayactir waa ka dib",
+            "maintenance_close_title": "Dayactir waa dhici doona dhowaan",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Amaah celin waa ka dib",
+            "borrow_close_title": "Amaah celin waa dhici doona dhowaan",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} maalmood ayaa haray ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Xarunta Adeegga iyo Damaanada",
+        "description": "La soco dammaanadaha, jadwalka dayactirka, iyo ficillada adeegga hal meel.",
+        "meta_warranty": "{{count}} diiwaanno dammaanad",
+        "meta_tasks": "{{count}} hawlo dayactir",
+        "empty_title": "Wax ficil adeeg ama dammaanad ah ma jiraan",
+        "empty_desc": "Taariikhaha dammaanad ee soo socda iyo hawlaha dayactirka ayaa halkan lagu ururin doonaa.",
+        "warranty_section": "La socoshada Dammaanadda",
+        "warranty_desc": "Dammaanadaha dhacay iyo dammaanadaha dhammaanaya 30 maalmood gudahood.",
+        "maintenance_section": "Ficillada Dayactirka",
+        "maintenance_desc": "Hawlgallada dayactirka ee dib udhacay iyo kuwa soo socda.",
+        "no_warranty": "Wax tallaabo damaanad soo socda ma jirto.",
+        "no_tasks": "Hawl dayactir jadwalaysan ma jirto.",
+        "overdue": "Dib udhacay",
+        "upcoming": "Dhawaan",
+        "expired": "Dhaafay",
+        "summary_warranty": "Raadraaca damaanad",
+        "summary_tasks": "Hawlgallada dayactirka",
+        "open_warranty_filter": "Fur shaandhada dammaanadda",
+        "open_warranty_filter_desc": "Waxay shaandheysaa alaabta dammaanadda ee kaydka."
+    },
+    "storage_labels": {
+        "title": "Calaamadaha Shelf iyo Qolka",
+        "description": "{{count}} calaamado qol/shelf diyaar u ah warqad daabacaad.",
+        "empty_title": "Ma jiro qolal ama shelf la calaamadeeyo",
+        "empty_desc": "Marka hore ku dar qolal ama goobaha, ka dibna halkan daabac calaamadaha QR.",
+        "sheet_label": "Warqadda Calaamadda Goobta",
+        "scan_hint": "Marka QR code la sawiro, waxay fureysaa kaydka shaandheysan ee qolkaas ama shelf-kaas.",
+        "room": "Qol",
+        "location": "Khaas/Weel"
     }
 }

@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Estado de la versión: línea de lanzamiento v2.2.0. -->
+<!-- Estado de la versión: línea de lanzamiento v2.4.0. -->
 
 <p align="center">
   <strong>Inventario privado y autoalojable para hogares compartidos.</strong><br/>
@@ -74,7 +74,7 @@
 HomeInventory está pensado para familias, compañeros de piso y hogares pequeños que necesitan un inventario práctico sin convertir registros privados en una hoja compartida.
 
 > [!NOTE]
-> **v2.2.0 es la línea de versión actual.** Publica paquetes verificados del launcher de escritorio, documenta el flujo actual del launcher con inicialización/lanzamiento, apertura automática del navegador, acceso QR/LAN, logs, backups, ajustes y comprobaciones de puertos, cierra la alerta crítica de npm para `shell-quote`, sincroniza metadatos de la versión y registra el estado upstream restante de Tauri/GLib.
+> **v2.4.0 es la línea de versión actual.** Añade acciones masivas seguras para inventario, etiquetas QR imprimibles, detalles de alertas accionables, vistas de servicio/actividad, varias fotos por objeto y una interfaz más limpia.
 
 ## Por qué HomeInventory
 

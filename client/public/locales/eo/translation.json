@@ -51,9 +51,11 @@
         "show": "Montri pasvorton",
         "saving": "Konservas...",
         "disabled": "Malŝaltita",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Zomi",
+        "zoom_out": "Malgrandigi",
+        "reset": "Restarigi",
+        "print": "Presi",
+        "record_count": "{{count}} rekordojn"
     },
     "auth": {
         "login": {
@@ -352,7 +354,10 @@
         "logout_description": "Vi revenos al la ensaluta ekrano kaj bezonos denove ensaluti por administri vian hejman stokregistron.",
         "logout_warning": "Uzu ĉi tion kiam vi finos en komuna aŭ persona aparato.",
         "maintenance": "Prizorga horaro",
-        "shopping": "Butiklisto"
+        "shopping": "Butiklisto",
+        "activity": "Aktivaĵoj",
+        "notifications": "Sciigoj",
+        "service": "Servo"
     },
     "dashboard": {
         "welcome": "Bonvenon reen, <1>{{name}}</1>",
@@ -410,7 +415,7 @@
             "eyebrow": "Komuna inventaro",
             "title_ready": "Domanara inventaro por {{name}}",
             "title_empty": "Komencu vian hejman stokregistron",
-            "summary_ready": "{{count}} eroj jam estas spuritaj tra {{ĉambroj}} ĉambroj. Serĉu la liston, aldonu la sekvan eron aŭ konservu privatajn rekordojn apartaj.",
+            "summary_ready": "{{count}} eroj jam estas spuritaj tra {{rooms}} ĉambroj. Serĉu la liston, aldonu la sekvan eron aŭ konservu privatajn rekordojn apartaj.",
             "summary_ready_no_rooms": "{{count}} eroj jam estas spuritaj. Aldonu ĉambrojn por konservi lokojn kaj serĉi pli klara.",
             "summary_empty": "Aldonu la unuan objekton por malŝlosi serĉon, ĉambran historion kaj pli klaran hejman spuradon."
         },
@@ -485,13 +490,14 @@
             "expired_desc": "Estas {{count}} eksvalidiĝintaj eroj en via inventaro. Bonvolu kontroli ilin por via sekureco.",
             "view_items": "Rigardu Erojn",
             "maintenance_title": "Malfruajn Prizorgajn Taskojn!",
-            "maintenance_desc": "Estas {{kalkulo}} prokrastitaj prizorgaj taskoj. Faru prizorgadon por plilongigi la vivdaŭron de viaj aparatoj.",
+            "maintenance_desc": "Estas {{count}} prokrastitaj prizorgaj taskoj. Faru prizorgadon por plilongigi la vivdaŭron de viaj aparatoj.",
             "go_to_maintenance": "Iru al Prizorgado",
             "low_stock_title": "Averto de Malalta Stoko",
             "low_stock_desc": "{{count}} eroj falis sub via minimuma stokolimo.",
             "go_to_shopping": "Aĉetlisto",
             "close_expiry_title": "Venontaj Eksvalidiĝdatoj",
-            "close_expiry_desc": "{{count}} produktoj eksvalidiĝos ene de 30 tagoj."
+            "close_expiry_desc": "{{count}} produktoj eksvalidiĝos ene de 30 tagoj.",
+            "view_low_stock_items": "Vidi Malalta Stock"
         }
     },
     "beta_banner": {
@@ -513,7 +519,7 @@
         "load_error": "Fiaskis ŝargi eron",
         "form": {
             "name": "Era nomo",
-            "name_placeholder": "ekz. Samsung TV 55 coloj",
+            "name_placeholder": "ekz. TV 55 coloj",
             "required": "*",
             "description": "Priskribo",
             "description_placeholder": "Notoj pri la objekto...",
@@ -641,6 +647,17 @@
             "close_to_expiry": "Proksime al Eksvalidiĝo",
             "expired": "Eksvalidiĝis",
             "low_stock": "Malalta Stoko"
+        },
+        "untitled_item": "Sentitola ero",
+        "attachments": {
+            "title": "Fotoj kaj dosieroj",
+            "add": "Aldoni dosierojn",
+            "empty": "Ankoraŭ neniuj dosieroj aldonitaj.",
+            "form_desc": "Almetu eronfotojn, kvitancojn, fakturojn aŭ servajn dokumentojn.",
+            "detail_desc": "Fotoj, kvitancoj, fakturoj kaj servaj dosieroj konservitaj por ĉi tiu objekto.",
+            "upload_error": "Ne eblis alŝuti dosierojn.",
+            "delete_error": "La dosiero ne povus esti forigita.",
+            "delete_confirm": "Ĉu forigi ĉi tiun dosieron?"
         }
     },
     "settings": {
@@ -659,7 +676,7 @@
             "backup_downloaded": "Sekurkopio elŝutita sukcese! ({{count}} eroj)",
             "export_error": "Eraro okazis dum eksportado",
             "import_invalid_format": "Nevalida sekurkopia dosierformato",
-            "import_success": "{{items}} eroj, {{categories}} kategorioj, {{ĉambroj}} ĉambroj, {{lokoj}} lokoj aldonitaj.",
+            "import_success": "{{items}} eroj, {{categories}} kategorioj, {{rooms}} ĉambroj, {{locations}} lokoj aldonitaj.",
             "import_error": "Importeraro: {{error}}",
             "password_changed": "Pasvorto sukcese ŝanĝita!",
             "password_error_current": "Aktuala pasvorto estas malĝusta",
@@ -719,14 +736,14 @@
         "house_info": {
             "title": "Aktiva Doma Ŝlosilo",
             "key_label": "Domo Ŝlosilo",
-            "mask_key": "••••••••{{sufikso}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Kaŝi",
             "show": "Montri",
             "copy": "Kopiu",
             "share_info": "💡 Uzantoj povas aliri la opcion de via invento ĉi-ŝlosilo dum vi kunhavas ĉi tiun ŝlosilon. registriĝo.",
             "members_title": "Dommembroj ({{count}})",
             "you": "(Vi)",
-            "joined_at": "Aliĝis: {{dato, dato}}",
+            "joined_at": "Aliĝis: {{date, datetime}}",
             "no_members": "Neniuj pritraktataj petoj",
             "invite_title": "Inviti Familianojn",
             "invite_desc": "Kunhavigu vian domŝlosilon por lasi familianojn aliri la saman inventaron. Ĉiu membro ensalutas per sia propra konto sed aliras la samajn datumojn.",
@@ -823,7 +840,7 @@
             "unlock_and_import": "Malŝlosu kaj importi",
             "export_encrypted_notice": "La sekurkopio estas preta el vivaj hejmaj datumoj kaj poste envolvita kun la pasfrazo, kiun vi elektas. Konservu tiun pasfrazon ie sekura ĉar ĝi estas postulata por restarigi la dosieron poste.",
             "export_encrypted_title": "Ĉifrado estos aplikata antaŭ elŝuto",
-            "import_summary_body": "{{items}} eroj, {{categories}} kategorioj, {{ĉambroj}} ĉambroj, {{lokoj}} lokoj, {{pruntas}} prunteprenas rekordojn restarigitaj.",
+            "import_summary_body": "{{items}} eroj, {{categories}} kategorioj, {{rooms}} ĉambroj, {{locations}} lokoj, {{borrows}} prunteprenas rekordojn restarigitaj.",
             "import_summary_title": "Rezervo restarigita",
             "preview_categories": "Kategorioj",
             "preview_items": "Inventaire",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} ekzistantaj lokoj preterlasitaj.",
             "skipped_rooms": "{{count}} ekzistantaj ĉambroj preterlasis.",
             "owner_only_title": "Sekurkopio kaj restarigo restriktita",
-            "owner_only_desc": "Datensekurkopio kaj restarigo povas nur esti administritaj fare de la domposedanto."
+            "owner_only_desc": "Datensekurkopio kaj restarigo povas nur esti administritaj fare de la domposedanto.",
+            "include_media_title": "Inkluzivi fotojn kaj kvitancojn",
+            "include_media_body": "La plena sekurkopio povas esti pli granda, sed objektofotoj kaj kvitancaj bildoj ankaŭ povas esti restarigitaj.",
+            "skipped_attachments": "{{count}} aldonaĵoj estis preterlasitaj."
         },
         "about": {
             "title": "Pri Apliko",
@@ -892,7 +912,7 @@
         "select_language": "Elektu Lingvon",
         "pending_requests": {
             "title": "Miaj pritraktataj aliĝpetoj",
-            "waiting_since": "Atendante ekde: {{dato, datotempo}}",
+            "waiting_since": "Atendante ekde: {{date, datetime}}",
             "pending_badge": "Pritraktata"
         },
         "two_factor": {
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Ĉiuj envenantaj petoj estas aŭtomate blokitaj.",
             "policy_house_only_desc": "Nur kontrolitaj membroj de viaj aktivaj domoj povas peti erojn kiuj jam estas videblaj ene de tiu komuna domo.",
             "policy_everyone_desc": "Aliaj uzantoj ne povas foliumi aŭ vidi viajn erojn. Ili povas sendi peton nur enmetante vian uzantnomon aŭ retpoŝton rekte."
+        },
+        "activity_log": {
+            "title": "Aktiveco kaj revizioprotokolo",
+            "description": "Revizu la protektitan historion de objektoŝanĝoj, akciaj ĝisdatigoj, aldonaĵoj kaj amasaj agoj.",
+            "encrypted_title": "Agadrekordoj estas konservitaj protektite",
+            "encrypted_body": "Novaj agadoj kaj detaloj estas konservitaj ĉifrite en la datumbazo kaj estas nur deĉifritaj por via aktiva sesio."
         }
     },
     "inventory": {
@@ -1088,7 +1114,7 @@
             "borrowed_at": "Pruntedonita je: {{date}}",
             "due_date_label": "Atendita reveno: {{date}}",
             "note_label": "Noto: {{note}}",
-            "return_note_label": "Revena noto: {{noto}}",
+            "return_note_label": "Revena noto: {{note}}",
             "no_active": "Historio",
             "history_title": "Historio",
             "history_active": "Malfermu rekordon por {{name}}",
@@ -1107,7 +1133,8 @@
             "site_member_identifier": "Uzantnomo aŭ retpoŝto",
             "site_member_identifier_placeholder": "Ĝusta uzantnomo aŭ retpoŝto",
             "site_member_privacy_hint": "La oferto aperas en Pruntcentro nur se tiu konto ekzistas kaj permesas alvenantajn ofertojn.",
-            "external_privacy_hint": "Ĉi tio kreas nur privatan lokan rekordon. Neniu aplikaĵa sciigo estas sendita."
+            "external_privacy_hint": "Ĉi tio kreas nur privatan lokan rekordon. Neniu aplikaĵa sciigo estas sendita.",
+            "available": "Disponeblaj"
         },
         "untitled_item": "Sentitola ero",
         "delete_action": "Forigi eron",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Filtri laŭ ĉambro",
         "refreshing_results": "Refreŝigante erojn...",
         "empty_filter_title": "Neniuj eroj kongruis kun tiu serĉo",
-        "delete_error_title": "Forigo malsukcesis"
+        "delete_error_title": "Forigo malsukcesis",
+        "tools": {
+            "title": "Iloj"
+        },
+        "no_room": "Neniu ĉambro",
+        "all_locations": "Ĉiuj lokoj",
+        "location_filter_label": "Ĉia videbleco",
+        "visibility_filter_label": "Filtri laŭ videbleco",
+        "visibility_all": "Ĉiu videbleco",
+        "visibility_mine": "Miaj aĵoj",
+        "visibility_others": "Aliaj membroj",
+        "borrow_filter_label": "Filtri laŭ pruntstatuso",
+        "borrow_filter_all": "Ĉiuj pruntstatusoj",
+        "stock_filter_label": "Filtri laŭ stoka stato",
+        "stock_filter_all": "Stoko en ordo",
+        "stock_filter_ok": "Filtrilo laŭ limdato",
+        "expiry_filter_label": "Filtri laŭ eksvalidiĝa dato",
+        "expiry_filter_all": "Ĉiuj limdatoj",
+        "expiry_filter_dated": "Havas daton",
+        "expiry_filter_none": "Neniu dato",
+        "warranty_filter_label": "Filtri laŭ garantio",
+        "warranty_filter_all": "Ĉiuj garantioj",
+        "warranty_filter_expired": "Baldaŭ finiĝanta",
+        "warranty_filter_close": "Aktivaj garantioj",
+        "warranty_filter_active": "Aktivaj garantioj",
+        "warranty_filter_none": "Neniuj garantiaj informoj",
+        "sort_label": "Ordigi",
+        "sort_updated_desc": "Lastatempe ĝisdatigita",
+        "sort_updated_asc": "Plej malnova ĝisdatigo",
+        "sort_created_desc": "Plej nova unua",
+        "sort_created_asc": "Nomo A-Z",
+        "sort_name_asc": "Nomo Z-A",
+        "sort_name_desc": "Nomo ZA",
+        "sort_quantity_desc": "Kvanto alta al malalta",
+        "sort_quantity_asc": "Kvanto malalta al alta",
+        "sort_expiry_asc": "Eksvalidiĝo plej baldaŭ",
+        "sort_expiry_desc": "Eksvalidiĝo plej lasta",
+        "stock_increase": "Pliigi stokon <<<>_SEP_SEP_SEP__>_S",
+        "stock_decrease": "Stoko ne povis esti ĝisdatigita.",
+        "stock_adjust_error": "Elektu videblan",
+        "bulk": {
+            "select_visible": "Elekti videblan",
+            "clear_visible": "Malselektu videblan",
+            "selected_short": "elektitan",
+            "keep_category": "Konservu kategorion",
+            "keep_room": "Konservi ĉambron",
+            "keep_location": "Konservu videblecon",
+            "keep_visibility": "Apliki",
+            "apply": "Apliki",
+            "no_fields": "Elektu almenaŭ unu kampon por la amasa ago.",
+            "updated_title": "Plena ĝisdatigo finiĝis",
+            "updated_body": "{{count}} eroj ĝisdatigitaj. {{skipped}} saltita.",
+            "update_error": "Granda ĝisdatigo ne povis esti kompletigita.",
+            "deleted_title": "Plena forigo finita",
+            "deleted_body": "{{count}} eroj forigitaj. {{skipped}} saltita.",
+            "delete_error": "La amasa forigo ne povis esti finita.",
+            "delete_title": "Ĉu forigi elektitajn erojn?",
+            "delete_description": "{{count}} elektitaj eroj estos forigitaj de ĉi tiu hejma inventaro. Ĉi tio ne povas esti malfarita.",
+            "select_item": "Elektu eron",
+            "unselect_item": "Malelektu eron"
+        },
+        "qr_labels": {
+            "title": "QR-Etikedoj",
+            "open": "Item-Etikedoj",
+            "description": "{{count}} etikedoj estas pretaj kiel presita folio.",
+            "empty": "Ŝanĝu filtrilojn aŭ aldonu inventaraĵojn por presi etikedojn.",
+            "sheet_label": "Item Etikedfolio",
+            "item_label": "Etikedo"
+        }
     },
     "categories": {
         "title": "Kategorioj",
@@ -1341,7 +1436,7 @@
             "no_logs": "ankoraŭ neniuj protokoloj",
             "errors_title": "Sistemaj Eraroj (Lasta 10)",
             "no_errors": "// Sistemo sana, neniuj eraroj.",
-            "date_fmt": "Domŝlosilo",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "Retpoŝto",
                 "user": "Uzanto",
@@ -1508,7 +1603,7 @@
         "hero": {
             "title_1": "Administri Ĉion",
             "title_2": "En Via Hejmo!",
-            "description": "Digitize your home inventory. Categorize items, invite family, and access from anywhere. Modern, secure, and easy to use.",
+            "description": "Numérisez l'inventaire de votre maison. Catégorisez les objets, invitez la famille et accédez depuis n'importe où. Moderne, sécurisé, et facile à utiliser.",
             "cta_start": "Komencu",
             "cta_register": "Krei Konton",
             "stat_free": "Senpaga",
@@ -1556,7 +1651,7 @@
             "button": "Ensalutu"
         },
         "footer": {
-            "desc": "The easy and secure platform to digitize your home inventory.",
+            "desc": "La plateforme facile et sécurisée pour numériser votre inventaire domestique.",
             "links": "Rapidaj Ligiloj",
             "contact": "Kontaktu Nin",
             "copyright": "© {{year}} {{brandName}}. Ĉiuj rajtoj rezervitaj."
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Unité Mesh",
-                    "meta": "Console TV • Deco M4",
+                    "meta": "Console TV • Network node",
                     "state": null
                 },
                 {
@@ -1902,7 +1997,7 @@
             ],
             "fallback": "La ligilo de rekomencigita pasvorto aspektas nekompleta aŭ rompita.",
             "support": "Registradaj problemoj:",
-            "footer": "© 2026 {{marknomo}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
             "subject": "Bonvenon al {{brandName}}",
@@ -1920,7 +2015,7 @@
                 "💡 Vous pouvez être membre de plusieurs maisons et passer de l'une à l'autre. Chaque maison maintient un inventaire séparé."
             ],
             "support": "Registradaj problemoj:",
-            "footer": "© 2026 {{marknomo}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Aliĝu al Domo",
@@ -1929,7 +2024,7 @@
             "bodyLine2": "aprobo de domo"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{marknomo}} - {{stato}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Domo-Aliro",
             "bodyLine1Template": "Nuna pritraktata peto: {{house}} ({{status}})",
             "bodyLine2": "Via peto por \"{{house}}\" ankoraŭ atendas decidon.",
@@ -1954,11 +2049,11 @@
             "warningTitle": "⚠️",
             "warningBody": "Se konto ekzistas, pasvorta rekomencigita ligilo valida por 15 minutoj estas sendita.",
             "fallback": "La ligilo de rekomencigita pasvorto aspektas nekompleta aŭ rompita.",
-            "footer": "© 2026 {{marknomo}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "Ĉi tiu retpoŝto estis sendita de {{brandName}}.",
-            "footer": "© 2026 {{marknomo}} - {{subtenoRetpoŝto}}"
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         },
         "testEmail": {
             "subject": "🧪 {{brandName}} Testa Retpoŝto",
@@ -1968,7 +2063,7 @@
             "sentAtLabel": "Sendita ĉe",
             "senderLabel": "Sendanto",
             "serviceLabel": "Servo",
-            "footer": "© 2026 {{marknomo}}"
+            "footer": "© 2026 {{brandName}}"
         }
     },
     "vault": {
@@ -2141,12 +2236,12 @@
             "fulfill_submitting": "Konservas...",
             "return_title": "Marki Revenita",
             "return_subtitle": "Fermu la aktivan prunteprenon por \"{{item}}\"",
-            "return_target": "Ĝi estas nuntempe montrata kiel kun {{nomo}}.",
+            "return_target": "Ĝi estas nuntempe montrata kiel kun {{name}}.",
             "return_title_borrower": "Liveru objekton",
             "return_title_lender": "Ricevu objekton",
             "return_subtitle_borrower": "Fermu la aktivan prunteprenon por \"{{item}}\" post kiam vi redonas ĝin.",
             "return_subtitle_lender": "Fermu la aktivan prunteprenon por \"{{item}}\" post kiam vi ricevos ĝin reen.",
-            "return_target_borrower": "Pruntedoninto: {{nomo}}",
+            "return_target_borrower": "Pruntedoninto: {{name}}",
             "return_target_lender": "Nuntempe kun: {{name}}",
             "return_note_borrower": "Livernoto",
             "return_note_lender": "Ricevu noton",
@@ -2278,7 +2373,7 @@
         "share": "Partager QR"
     },
     "app": {
-        "name": "{{marknomo}}",
+        "name": "{{brandName}}",
         "tagline": "Gérez intelligemment tous vos articles ménagers",
         "loading": "Ŝargas {{brandName}}",
         "preparing_workspace": "Preparante vian laborspacon..."
@@ -2407,13 +2502,13 @@
             "title": "Inteligentaj Sugestoj pri Inventaro",
             "desc": "Inventaraĵoj kiuj falis sub la minimuman limon.",
             "add_all": "Aldonu ĉiujn mankantajn",
-            "stock_status": "Nuna: {{nuna}} / Celo: {{min}}",
+            "stock_status": "Nuna: {{current}} / Celo: {{min}}",
             "add_qty": "Aldonu {{qty}}"
         },
         "sections": {
             "active_list": "Aĉeteblajn Erojn",
             "active_desc": "Aktualajn aĉetaĵojn por aldoni al via ĉaro.",
-            "active_count": "{{kalkuli}} Erojn",
+            "active_count": "{{count}} Erojn",
             "completed_list": "Aĉetitaj Eroj ({{count}})",
             "add_item": "Mane Aldonu Eron",
             "add_desc": "Mane aldonu laŭmendan eron al la listo."
@@ -2488,7 +2583,7 @@
         },
         "alerts": {
             "overdue_title": "Vi Havas Malfruajn Taskojn!",
-            "overdue_desc": "Estas {{kalkulo}} prokrastitaj prizorgaj taskoj. Prokrastoj povas redukti la vivdaŭron de aparato."
+            "overdue_desc": "Estas {{count}} prokrastitaj prizorgaj taskoj. Prokrastoj povas redukti la vivdaŭron de aparato."
         },
         "empty": {
             "title": "Neniuj prizorgaj taskoj planitaj",
@@ -2555,5 +2650,102 @@
         "description": "La interfaco trafis neatenditan igan problemon. Viaj konservitaj stokaj datumoj ne ŝanĝiĝas per ĉi tiu ekrano.",
         "refresh_btn": "Aktualigi",
         "home_btn": "Hejmo"
+    },
+    "activity": {
+        "title": "Agadhistorio",
+        "description": "Lastatempaj protektitaj ŝanĝoj en via hejma inventaro.",
+        "empty_title": "Ankoraŭ neniu agado",
+        "empty_description": "Ŝanĝoj de eroj, akciaj ĝisdatigoj, aldonaĵoj, pruntado kaj amasaj agoj aperos ĉi tie.",
+        "unknown_actor": "Nekonata uzanto",
+        "deleted_item_with_id": "Forigita ero n-ro{{id}}",
+        "item_missing": "Ĉi tiu ero-rekordo ne plu ekzistas",
+        "actions": {
+            "item_created": "Ero aldonita",
+            "item_updated": "Ero ĝisdatigita",
+            "item_deleted": "Ero forigita",
+            "item_borrowed": "Ero prunteprenita",
+            "item_returned": "Ero resendita",
+            "item_bulk_updated": "Poka forigo",
+            "item_bulk_deleted": "Stoko ĝisdatigita",
+            "item_stock_adjusted": "Akcioj ĝisdatigitaj",
+            "item_attachment_added": "Aldonaĵo aldonita",
+            "item_attachment_deleted": "Aldonaĵo forigita"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} rilataj rekordoj",
+        "empty_title": "Neniuj rilataj rekordoj trovitaj",
+        "low_stock": {
+            "title": "> Ilia Malalta Stock <<<>>_SEP_ estas Malalta Stock <<<>>__SEP_> akcia nivelo.",
+            "description": "Eroj sub ilia minimuma akcia nivelo.",
+            "qty": "Stoko {{quantity}}/min {{min}}"
+        },
+        "expired": {
+            "title": "Eksvalidigitaj eroj",
+            "description": "Eroj kun eksvalidiĝinta dato."
+        },
+        "expiring": {
+            "title": "Venontaj Limdatoj",
+            "description": "Eroj eksvalidiĝantaj ene de 30 tagoj."
+        },
+        "maintenance": {
+            "title": "Malfrua Prizorgado",
+            "description": "Prizorgaj taskoj post sia planita dato."
+        }
+    },
+    "notifications": {
+        "title": "Sciiga Centro",
+        "description": "Atentigoj pri stoko, garantio, prizorgado, eksvalidiĝo kaj prunto-reveno.",
+        "meta_total": "{{count}} sciigoj",
+        "meta_urgent": "{{count}} urĝa",
+        "empty_title": "Neniuj atentigoj bezonas vian atenton nun",
+        "empty_desc": "Malalta stoko, venontaj datoj kaj posttempa prizorgado aperos ĉi tie.",
+        "items": {
+            "stock_empty_title": "Elĉerpita",
+            "stock_low_title": "Malalta stoko",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Limdato pasis",
+            "expiry_close_title": "Eksvalida dato proksimiĝanta <<<__HI_MISSING__> Milito eksvalidiĝinta>>",
+            "warranty_expired_title": "Garantio eksvalidiĝis",
+            "warranty_close_title": "Garantio finiĝanta baldaŭ",
+            "maintenance_overdue_title": "Prizorgado prokrastita",
+            "maintenance_close_title": "Prizorgado baldaŭa",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Prunteprena reveno prokrastita",
+            "borrow_close_title": "Pruntoj Revenas Baldaŭ",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} tagoj restis ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Servo kaj Garantia Centro",
+        "description": "Spuri garantiojn, prizorgajn horarojn kaj servajn agojn en unu loko.",
+        "meta_warranty": "{{count}} garantiaj registroj",
+        "meta_tasks": "{{count}} prizorgaj taskoj",
+        "empty_title": "Neniu servo aŭ garantia ago",
+        "empty_desc": "Venontaj garantiaj datoj kaj prizorgaj taskoj estos kolektitaj ĉi tie.",
+        "warranty_section": "Spurado de Garantio",
+        "warranty_desc": "Eksvalidiĝintaj garantioj kaj garantioj finiĝantaj ene de 30 tagoj.",
+        "maintenance_section": "Prizorgaj Agoj",
+        "maintenance_desc": "Malfruaj kaj venontaj prizorgaj taskoj.",
+        "no_warranty": "Neniu venonta garantia ago.",
+        "no_tasks": "Neniu planita prizorga tasko.",
+        "overdue": "Malfruis",
+        "upcoming": "Baldaŭ",
+        "expired": "Forpasinta",
+        "summary_warranty": "Prizorgaj taskoj",
+        "summary_tasks": "Prizorgado taskoj",
+        "open_warranty_filter": "Malfermu garantian filtrilon",
+        "open_warranty_filter_desc": "Filtrigas aktivajn garantiajn erojn en stokregistro."
+    },
+    "storage_labels": {
+        "title": "Breto kaj Ĉambro-Etikedoj",
+        "description": "{{count}} ĉambraj/bretaj etikedoj estas pretaj kiel presita folio.",
+        "empty_title": "Neniuj ĉambroj aŭ bretoj por etikedi",
+        "empty_desc": "Unue aldonu ĉambrojn aŭ lokojn, poste presi QR-etikedojn ĉi tie.",
+        "sheet_label": "Loka Etikedfolio",
+        "scan_hint": "Skanante la QR-kodon malfermas la filtritan inventaron por tiu ĉambro aŭ breto.",
+        "room": "Ĉambro",
+        "location": "Breto/Kesto"
     }
 }

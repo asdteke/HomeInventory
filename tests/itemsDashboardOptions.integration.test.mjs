@@ -171,6 +171,33 @@ async function requestForm(port, path, fields, jar = null) {
     };
 }
 
+async function requestMultipartFile(port, path, { fieldName, filename, mimeType, content }, jar = null) {
+    const headers = {};
+
+    if (jar) {
+        const cookieHeader = jar.toHeader();
+        if (cookieHeader) {
+            headers.cookie = cookieHeader;
+        }
+    }
+
+    const formData = new FormData();
+    formData.append(fieldName, new Blob([content], { type: mimeType }), filename);
+
+    const response = await fetch(`http://127.0.0.1:${port}${path}`, {
+        method: 'POST',
+        headers,
+        body: formData
+    });
+
+    jar?.applySetCookie(response.headers);
+
+    return {
+        status: response.status,
+        data: await response.json()
+    };
+}
+
 async function startTestServer(t) {
     const tempDir = mkdtempSync(join(tmpdir(), 'homeinventory-items-'));
     const dbPath = join(tempDir, 'inventory.db');
@@ -254,7 +281,8 @@ test('dashboard summary and item options return compact, scoped inventory data',
     const expiringSoon = await createItem(port, ownerJar, {
         name: 'Expiring Coffee',
         quantity: 2,
-        expiry_date: isoDateAfter(7)
+        expiry_date: isoDateAfter(7),
+        warranty_expiry_date: isoDateAfter(7)
     });
     const lowStock = await createItem(port, ownerJar, {
         name: 'Low Stock Batteries',
@@ -335,6 +363,113 @@ test('dashboard summary and item options return compact, scoped inventory data',
         ['id', 'min_quantity', 'name', 'quantity', 'room_name']
     );
     assert.equal(options.data.items.some((item) => item.name === 'Outsider Item'), false);
+
+    const lowStockFilter = await requestJson(port, '/api/items?stock=low&sort=name_asc', {}, ownerJar);
+    assert.equal(lowStockFilter.status, 200);
+    assert.deepEqual(
+        lowStockFilter.data.items.map((item) => item.name),
+        ['Already Listed Soap', 'Low Stock Batteries']
+    );
+
+    const expiredFilter = await requestJson(port, '/api/items?expiry=expired', {}, ownerJar);
+    assert.equal(expiredFilter.status, 200);
+    assert.deepEqual(expiredFilter.data.items.map((item) => item.name), ['Private Expired Document Box']);
+
+    const closeExpiryFilter = await requestJson(port, '/api/items?expiry=close&sort=expiry_asc', {}, ownerJar);
+    assert.equal(closeExpiryFilter.status, 200);
+    assert.deepEqual(closeExpiryFilter.data.items.map((item) => item.name), ['Expiring Coffee']);
+
+    const privateFilter = await requestJson(port, '/api/items?visibility=private', {}, ownerJar);
+    assert.equal(privateFilter.status, 200);
+    assert.deepEqual(privateFilter.data.items.map((item) => item.name), ['Private Expired Document Box']);
+
+    const warrantyFilter = await requestJson(port, '/api/items?warranty=close', {}, ownerJar);
+    assert.equal(warrantyFilter.status, 200);
+    assert.deepEqual(warrantyFilter.data.items.map((item) => item.name), ['Expiring Coffee']);
+
+    const notifications = await requestJson(port, '/api/notifications', {}, ownerJar);
+    assert.equal(notifications.status, 200);
+    assert.equal(notifications.data.summary.total >= 4, true);
+    assert.equal(
+        notifications.data.notifications.some((entry) => entry.id === `stock-low-${lowStock.id}`),
+        true
+    );
+    assert.equal(
+        notifications.data.notifications.some((entry) => entry.id === `expiry-close-${expiringSoon.id}`),
+        true
+    );
+    assert.equal(
+        notifications.data.notifications.some((entry) => entry.id === `warranty-close-${expiringSoon.id}`),
+        true
+    );
+    assert.equal(
+        notifications.data.notifications.some((entry) => entry.id === `maintenance-${maintenance.data.task.id}`),
+        true
+    );
+
+    const nameSort = await requestJson(port, '/api/items?sort=name_asc', {}, ownerJar);
+    assert.equal(nameSort.status, 200);
+    assert.deepEqual(
+        nameSort.data.items.map((item) => item.name),
+        [
+            'Already Listed Soap',
+            'Expiring Coffee',
+            'Low Stock Batteries',
+            'Private Expired Document Box'
+        ]
+    );
+
+    const bulkUpdate = await requestJson(port, '/api/items/bulk', {
+        method: 'POST',
+        body: {
+            action: 'update',
+            item_ids: [expiringSoon.id, lowStock.id],
+            payload: {
+                is_public: false
+            }
+        }
+    }, ownerJar);
+    assert.equal(bulkUpdate.status, 200);
+    assert.equal(bulkUpdate.data.updatedCount, 2);
+
+    const stockAdjust = await requestJson(port, `/api/items/${lowStock.id}/stock-adjust`, {
+        method: 'POST',
+        body: { delta: -1 }
+    }, ownerJar);
+    assert.equal(stockAdjust.status, 200);
+    assert.equal(stockAdjust.data.item.quantity, 0);
+
+    const attachmentUpload = await requestMultipartFile(port, `/api/items/${expiringSoon.id}/attachments`, {
+        fieldName: 'attachment',
+        filename: 'manual.txt',
+        mimeType: 'text/plain',
+        content: 'service manual'
+    }, ownerJar);
+    assert.equal(attachmentUpload.status, 201);
+    assert.equal(attachmentUpload.data.attachment.original_name, 'manual.txt');
+
+    const attachments = await requestJson(port, `/api/items/${expiringSoon.id}/attachments`, {}, ownerJar);
+    assert.equal(attachments.status, 200);
+    assert.deepEqual(attachments.data.attachments.map((attachment) => attachment.original_name), ['manual.txt']);
+
+    const activity = await requestJson(port, '/api/activity', {}, ownerJar);
+    assert.equal(activity.status, 200);
+    assert.equal(
+        activity.data.activities.some((entry) => entry.action === 'item.bulk_updated'),
+        true
+    );
+    assert.equal(
+        activity.data.activities.some((entry) => entry.action === 'item.stock_adjusted'),
+        true
+    );
+
+    const fullBackup = await requestJson(port, '/api/backup/export-full', {}, ownerJar);
+    assert.equal(fullBackup.status, 200);
+    assert.equal(fullBackup.data.meta.includesEncryptedMedia, true);
+    assert.equal(Array.isArray(fullBackup.data.media), true);
+    assert.equal(fullBackup.data.attachments.length, 1);
+    assert.equal(fullBackup.data.attachments[0].original_name, 'manual.txt');
+    assert.equal(fullBackup.data.media.length >= 1, true);
 });
 
 test('dashboard summary, maintenance, and shopping preserve private item visibility for house members', async (t) => {

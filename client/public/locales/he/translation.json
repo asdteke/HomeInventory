@@ -134,6 +134,17 @@
             "close_to_expiry": "קרוב לתפוגה",
             "expired": "פג תוקף",
             "low_stock": "מלאי נמוך"
+        },
+        "untitled_item": "פריט ללא כותרת",
+        "attachments": {
+            "title": "תמונות וקבצים",
+            "add": "הוסף קבצים",
+            "empty": "עדיין לא נוספו קבצים.",
+            "form_desc": "צרף תמונות פריט, קבלות, חשבוניות או מסמכי שירות.",
+            "detail_desc": "תמונות, קבלות, חשבוניות וקבצי שירות נשמרו עבור פריט זה.",
+            "upload_error": "לא ניתן היה להעלות את הקבצים.",
+            "delete_error": "לא ניתן למחוק את הקובץ.",
+            "delete_confirm": "למחוק קובץ זה?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "הצג סיסמה",
         "saving": "שומר...",
         "disabled": "נכים",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "התקרב",
+        "zoom_out": "התרחק",
+        "reset": "אפס",
+        "print": "הדפס",
+        "record_count": "{{count}} רשומות"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "תחזור למסך הכניסה ותצטרך להיכנס שוב כדי לנהל את המלאי של הבית שלך.",
         "logout_warning": "השתמש בזה כשסיימת במכשיר משותף או אישי.",
         "maintenance": "לוח תחזוקה",
-        "shopping": "רשימת קניות"
+        "shopping": "רשימת קניות",
+        "activity": "פעילות",
+        "notifications": "התראות",
+        "service": "שירות"
     },
     "dashboard": {
         "welcome": "ברוך שובך, <1>{{name}}</1>",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} פריטים ירדו מתחת למגבלת המלאי המינימלית שלך.",
             "go_to_shopping": "רשימת קניות",
             "close_expiry_title": "תאריכי תפוגה קרובים",
-            "close_expiry_desc": "{{count}} מוצרים יפוגו תוך 30 ימים."
+            "close_expiry_desc": "{{count}} מוצרים יפוגו תוך 30 ימים.",
+            "view_low_stock_items": "צפה במלאי נמוך"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "מפתח הבית הפעיל",
             "key_label": "מפתח הבית",
-            "mask_key": "••••••••{{סִיוֹמֶת}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "הסתר",
             "show": "הצג",
             "copy": "העתק",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} מיקומים קיימים דולגו.",
             "skipped_rooms": "{{count}} חדרים קיימים דולגו.",
             "owner_only_title": "גיבוי ושחזור מוגבלים",
-            "owner_only_desc": "גיבוי ושחזור נתונים ניתנים לניהול רק על ידי בעל הבית."
+            "owner_only_desc": "גיבוי ושחזור נתונים ניתנים לניהול רק על ידי בעל הבית.",
+            "include_media_title": "לכלול תמונות חשבוניות ודפי קבלה",
+            "include_media_body": "הגיבוי המלא עשוי להיות גדול יותר, אך ניתן גם לשחזר תמונות פריטים ודפי קבלה.",
+            "skipped_attachments": "{{count}} קבצים מצורפים דולגו."
         },
         "about": {
             "title": "על האפליקציה",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "כל הבקשות הנכנסות נחסמות אוטומטית.",
             "policy_house_only_desc": "רק חברים מאומתים של הבתים הפעילים שלך יכולים לבקש פריטים שכבר נראים בתוך הבית המשותף הזה.",
             "policy_everyone_desc": "משתמשים אחרים אינם יכולים לדפדף או לראות את הפריטים שלך. הם יכולים לשלוח בקשה רק על ידי הזנת שם המשתמש או כתובת האימייל שלך ישירות."
+        },
+        "activity_log": {
+            "title": "יומן פעילות וביקורת",
+            "description": "סקירה של ההיסטוריה המוגנת של שינויים בפריט, עדכוני מלאי, קבצים מצורפים ופעולות בכמויות גדולות.",
+            "encrypted_title": "רשומות פעילות נשמרות מוגנות",
+            "encrypted_body": "פעולות ופרטים חדשים של פעילות נשמרים מוצפנים במסד הנתונים ומפורשים רק עבור המפגש הפעיל שלך."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "הרשומה תסגר לאחר שהלווה יאשר שהוא קיבל את הפריט חזרה.",
             "return_pending_lender_title": "{{name}} סמן פריט זה כהוחזר",
             "return_pending_self_title": "אצלך, מחכה לאישור קבלה",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "חברי האתר",
+            "site_member_identifier": "שם משתמש או אימייל",
+            "site_member_identifier_placeholder": "שם משתמש או אימייל מדויק",
+            "site_member_privacy_hint": "ההצעה מופיעה במרכז ההשאלות רק אם החשבון קיים ומאפשר הצעות נכנסות.",
+            "external_privacy_hint": "זה יוצר רשומה מקומית פרטית בלבד. אין שליחת התראה באפליקציה.",
+            "available": "זמין"
         },
         "untitled_item": "פריט ללא כותרת",
         "delete_action": "מחק פריט",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "סנן לפי חדר",
         "refreshing_results": "מרענן פריטים...",
         "empty_filter_title": "אין פריטים התואמים את החיפוש",
-        "delete_error_title": "המחיקה נכשלה"
+        "delete_error_title": "המחיקה נכשלה",
+        "tools": {
+            "title": "כלים"
+        },
+        "no_room": "אין חדר",
+        "all_locations": "כל המיקומים",
+        "location_filter_label": "סנן לפי מיקום",
+        "visibility_filter_label": "סנן לפי נראות",
+        "visibility_all": "כל הנראות",
+        "visibility_mine": "הפריטים שלי",
+        "visibility_others": "חברים אחרים",
+        "borrow_filter_label": "סנן לפי מצב ההשאלה",
+        "borrow_filter_all": "כל מצבי ההשאלה",
+        "stock_filter_label": "סנן לפי מצב המלאי",
+        "stock_filter_all": "כל מצבי המלאי",
+        "stock_filter_ok": "המלאי תקין",
+        "expiry_filter_label": "סנן לפי תאריך תפוגה",
+        "expiry_filter_all": "כל תאריכי התפוגה",
+        "expiry_filter_dated": "יש תאריך",
+        "expiry_filter_none": "אין תאריך",
+        "warranty_filter_label": "סנן לפי אחריות",
+        "warranty_filter_all": "כל האחריות",
+        "warranty_filter_expired": "אחריות שפגה",
+        "warranty_filter_close": "מסתיימת בקרוב",
+        "warranty_filter_active": "אחריות פעילה",
+        "warranty_filter_none": "אין מידע על אחריות",
+        "sort_label": "מיין",
+        "sort_updated_desc": "עודכן לאחרונה",
+        "sort_updated_asc": "עדכון הכי ישן",
+        "sort_created_desc": "חדש ראשון",
+        "sort_created_asc": "ישן ראשון",
+        "sort_name_asc": "שם A-Z",
+        "sort_name_desc": "שם ז-א",
+        "sort_quantity_desc": "כמות מהגבוה לנמוך",
+        "sort_quantity_asc": "כמות מהנמוך לגבוה",
+        "sort_expiry_asc": "פקיעה בקרוב",
+        "sort_expiry_desc": "תפוגה אחרונה",
+        "stock_increase": "הגדל מלאי",
+        "stock_decrease": "הפחת מלאי",
+        "stock_adjust_error": "לא ניתן לעדכן את המלאי.",
+        "bulk": {
+            "select_visible": "בחר גלוי",
+            "clear_visible": "בטל בחירה של גלוי",
+            "selected_short": "נבחר",
+            "keep_category": "שמור קטגוריה",
+            "keep_room": "שמור חדר",
+            "keep_location": "שמור מיקום",
+            "keep_visibility": "שמור נראות",
+            "apply": "החל",
+            "no_fields": "בחר לפחות שדה אחד לפעולה המונית.",
+            "updated_title": "העדכון ההמוני הושלם",
+            "updated_body": "{{count}} פריטים עודכנו. {{skipped}} אופסו.",
+            "update_error": "לא ניתן היה להשלים את העדכון ההמוני.",
+            "deleted_title": "מחיקה המונית הושלמה",
+            "deleted_body": "נמחקו {{count}} פריטים. ניתנו דילוגים על {{skipped}}.",
+            "delete_error": "לא ניתן היה להשלים את המחיקה ההמונית.",
+            "delete_title": "למחוק פריטים שנבחרו?",
+            "delete_description": "{{count}} פריטים שנבחרו יוסרו מהמלאי של משק הבית הזה. לא ניתן לבטל פעולה זו.",
+            "select_item": "בחר פריט",
+            "unselect_item": "בטל בחירת פריט"
+        },
+        "qr_labels": {
+            "title": "מדבקות QR",
+            "open": "מדבקות פריטים",
+            "description": "{{count}} מדבקות פריטים מוכנות כגיליון להדפסה.",
+            "empty": "שנה את המסננים או הוסף פריטי מלאי להדפסת מדבקות.",
+            "sheet_label": "גיליון תוויות פריט",
+            "item_label": "תווית פריט"
+        }
     },
     "categories": {
         "title": "קטגוריות",
@@ -1341,7 +1436,7 @@
             "no_logs": "עדיין אין יומנים",
             "errors_title": "שגיאות מערכת (10 האחרונות)",
             "no_errors": "// המערכת בריאה, אין יומני שגיאות.",
-            "date_fmt": "{{תאריך, תאריך ושעה}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "דוא\"ל",
                 "user": "משתמש",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "יחידת Mesh",
-                    "meta": "קונסולת טלוויזיה • Deco M4",
+                    "meta": "קונסולת טלוויזיה • Network node",
                     "state": null
                 },
                 {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "מרכז ההשאלה לא נטען",
             "action_error": "לא ניתן היה להשלים את הפעולה",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "לא ניתן למצוא את רשומת ההשאלה הפעילה הזו. רענן את מרכז ההשאלות ונסה שוב.",
             "errors": {
                 "external_target_daily_limit": "ניתן לשלוח רק בקשת קשר ראשונית אחת לאדם הנוסף ביום. אם הוא מקבל בקשה, מגבלה זו כבר לא חלה על אותו אדם.",
                 "external_total_daily_limit": "ניתן לשלוח עד 5 בקשות קשר ראשוניות ליום.",
@@ -2555,5 +2650,102 @@
         "description": "הממשק נתקל בבעיית רינדור בלתי צפויה. נתוני המלאי השמורים שלך אינם משתנים על ידי מסך זה.",
         "refresh_btn": "רענון",
         "home_btn": "בית"
+    },
+    "activity": {
+        "title": "היסטוריית פעילות",
+        "description": "שינויים מוקדמים ומוגנים במלאי הבית שלך.",
+        "empty_title": "עדיין אין פעילות",
+        "empty_description": "שינויים בפריטים, עדכוני מלאי, קבצים מצורפים, השאלות ופעולות מרובות יופיעו כאן.",
+        "unknown_actor": "משתמש לא ידוע",
+        "deleted_item_with_id": "פריט נמחק #{{id}}",
+        "item_missing": "רשומת הפריט הזו כבר אינה קיימת",
+        "actions": {
+            "item_created": "פריט נוסף",
+            "item_updated": "פריט עודכן",
+            "item_deleted": "פריט נמחק",
+            "item_borrowed": "פריט הושאל",
+            "item_returned": "פריט הוחזר",
+            "item_bulk_updated": "עדכון בכמות גדולה",
+            "item_bulk_deleted": "מחיקה בכמות גדולה",
+            "item_stock_adjusted": "המלאי עודכן",
+            "item_attachment_added": "קובץ מצורף נוסף",
+            "item_attachment_deleted": "קובץ מצורף נמחק"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} רשומות קשורות",
+        "empty_title": "לא נמצאו רשומות קשורות",
+        "low_stock": {
+            "title": "מלאי נמוך",
+            "description": "פריטים שמתחת לרמת המלאי המינימלית.",
+            "qty": "מלאי {{quantity}} / מינימום {{min}}"
+        },
+        "expired": {
+            "title": "פריטים שפגו",
+            "description": "פריטים עם תאריך פג תוקף."
+        },
+        "expiring": {
+            "title": "תאריכי פקיעה קרובים",
+            "description": "פריטים שפוקעים תוך 30 יום."
+        },
+        "maintenance": {
+            "title": "תחזוקה באיחור",
+            "description": "משימות תחזוקה שמעבר למועד המתוכנן שלהן."
+        }
+    },
+    "notifications": {
+        "title": "מרכז ההתראות",
+        "description": "התראות על מלאי, אחריות, תחזוקה, תפוגה והחזרת השאלות.",
+        "meta_total": "{{count}} התראות",
+        "meta_urgent": "{{count}} דחופות",
+        "empty_title": "אין התראות שדורשות את תשומת הלב שלך כרגע",
+        "empty_desc": "מלאי נמוך, תאריכים קרובים ותחזוקה באיחור יופיעו כאן.",
+        "items": {
+            "stock_empty_title": "אזל מהמלאי",
+            "stock_low_title": "מלאי נמוך",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "תאריך פג תוקף עבר",
+            "expiry_close_title": "תאריך פג תוקף מתקרב",
+            "warranty_expired_title": "האחריות פגה",
+            "warranty_close_title": "האחריות עומדת להסתיים בקרוב",
+            "maintenance_overdue_title": "תחזוקה מפגרת",
+            "maintenance_close_title": "תחזוקה בקרוב",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "החזרת הלוואה מפגרת",
+            "borrow_close_title": "החזרת הלוואה בקרוב",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: נשארו {{count}} ימים ({{date}})"
+        }
+    },
+    "service": {
+        "title": "מרכז שירות ואחריות",
+        "description": "מעקב אחר אחריות, לוחות תחזוקה ופעולות שירות במקום אחד.",
+        "meta_warranty": "{{count}} רשומות אחריות",
+        "meta_tasks": "{{count}} משימות תחזוקה",
+        "empty_title": "ללא פעולה שירותית או אחריות",
+        "empty_desc": "תאריכי אחריות ומשימות תחזוקה קרובות ייאספו כאן.",
+        "warranty_section": "מעקב אחר אחריות",
+        "warranty_desc": "אחריות שפג תוקפה ואחריות המסתיימת תוך 30 יום.",
+        "maintenance_section": "פעולות תחזוקה",
+        "maintenance_desc": "משימות תחזוקה שעברו את מועדן ומשימות קרובות.",
+        "no_warranty": "אין פעולת אחריות קרובה.",
+        "no_tasks": "אין משימת תחזוקה מתוזמנת.",
+        "overdue": "פג תוקף",
+        "upcoming": "בקרוב",
+        "expired": "פג",
+        "summary_warranty": "עקביות אחריות",
+        "summary_tasks": "משימות תחזוקה",
+        "open_warranty_filter": "סינון אחריות פתוחה",
+        "open_warranty_filter_desc": "מסנן פריטי אחריות פעילים במלאי."
+    },
+    "storage_labels": {
+        "title": "תוויות למדף ולחדר",
+        "description": "{{count}} תוויות חדר/מדף מוכנות כגיליון להדפסה.",
+        "empty_title": "אין חדרים או מדפים לתיוג",
+        "empty_desc": "הוסף חדרים או מקומות קודם, ואז הדפס כאן תוויות QR.",
+        "sheet_label": "גיליון תווית מיקום",
+        "scan_hint": "סריקת קוד ה-QR פותחת את המלאי המסונן עבור החדר או המדף הזה.",
+        "room": "חדר",
+        "location": "מדף/קופסה"
     }
 }

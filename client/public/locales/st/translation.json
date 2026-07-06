@@ -10,7 +10,7 @@
         "load_error": "Ho hloleha ho kenya ntho",
         "form": {
             "name": "Lebitso la Ntho",
-            "name_placeholder": "mohlala Samsung TV 55 inch",
+            "name_placeholder": "mohlala TV 55 inch",
             "required": "*",
             "description": "Tlhaloso",
             "description_placeholder": "Litlhahiso mabapi le ntho...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Haufi le ho Felloa ke Nako",
             "expired": "E Fesitsoe",
             "low_stock": "Stock e Nyane"
+        },
+        "untitled_item": "Ntho e sa bōpiloeng lebitso",
+        "attachments": {
+            "title": "Lifoto le lifaele",
+            "add": "Eketsa lifaele",
+            "empty": "Ha ho lifaele tse ekelletsoeng hajoale.",
+            "form_desc": "Kenyelletsa lifoto tsa ntho, resiti, invoice, kapa litokomane tsa tšebeletso.",
+            "detail_desc": "Lifoto, resiti, li-invoice, le lifaele tsa tšebeletso li bolokiloe bakeng sa ntho ena.",
+            "upload_error": "Ha ho ka kenya lifaele.",
+            "delete_error": "Faele e ne e sa khone ho hlakisoa.",
+            "delete_confirm": "Na u batla ho hlakola faele ena?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Bontša phasewete",
         "saving": "Ho boloka...",
         "disabled": "Ba holofetseng",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Phahamisa",
+        "zoom_out": "Tlosa",
+        "reset": "Fetola hape",
+        "print": "Hatisa",
+        "record_count": "{{count}} lereko"
     },
     "auth": {
         "login": {
@@ -458,7 +471,7 @@
         "two_factor_enabled_success": "Ts'ebetso ea ts",
         "two_factor_disabled_success": "Netefatso ea lintlha tse peli e holofalitsoe ka katleho",
         "password_errors": {
-            "min_length": "Phasewete e tlameha ho ba bonyane litlhaku tse telele",
+            "min_length": "Phasewete e tlameha ho be le bonyane litlhaku tse {{min}}",
             "lowercase_required": "Phasewete e tlameha ho ba le bonyane lengolo le le leng le lenyenyane",
             "uppercase_required": "Phasewete e tlameha ho ba le bonyane lengolo le le leng le leholo",
             "number_required": "Phasewete e tlameha ho ba le bonyane nomoro e le 'ngoe",
@@ -489,7 +502,10 @@
         "logout_description": "U tla khutlisetsoa skrineng sa ho kena 'me u hloka ho kena hape ho tsamaisa thepa ea lelapa la hau.",
         "logout_warning": "Sebelisa sena ha u qetile ho sesebelisoa se arolelanoang kapa sa botho.",
         "maintenance": "Lenaneo la Tlhokomelo",
-        "shopping": "Lenane la Mabenkele"
+        "shopping": "Lenane la Mabenkele",
+        "activity": "Boitšoaro",
+        "notifications": "Litsebiso",
+        "service": "Tšebeletso"
     },
     "dashboard": {
         "welcome": "Amoheloa, <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "Lihlahisoa tse {{count}} li otelehile tlase ho moeli oa hau oa bonyane oa thepa.",
             "go_to_shopping": "Lenane la Mabenkele",
             "close_expiry_title": "Matsatsi a Kamoso a ho Phela",
-            "close_expiry_desc": "Lihlahisoa {{count}} li tla fela nakong ea matsatsi a 30."
+            "close_expiry_desc": "Lihlahisoa {{count}} li tla fela nakong ea matsatsi a 30.",
+            "view_low_stock_items": "Sheba Stokong e Fokolang"
         }
     },
     "beta_banner": {
@@ -765,9 +782,9 @@
             "transfer_owner": "Etsa mong'a eona",
             "transferring_owner": "Ho fetisetsa ...",
             "transfer_owner_title": "Ho fetisetsa thepa ea ntlo?",
-            "transfer_owner_confirm": "Ho fetisetsa beng ba ntlo ena ho {{lebitso}}?",
+            "transfer_owner_confirm": "Ho fetisetsa beng ba ntlo ena ho {{name}}?",
             "transfer_owner_warning": "Ha u sa tla hlola u le mong'a ntlo ena. Mong'a eona e mocha o tla tsamaisa tumello ea litho, ho tlosoa le liphetoho tsa beng ba nako e tlang.",
-            "transfer_owner_success_body": "Hona joale ke mong'a ntlo ena."
+            "transfer_owner_success_body": "{{name}} joale ke mong'a lelapa lena."
         },
         "theme": {
             "title": "Sehlooho",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} libaka tse teng li lehlile.",
             "skipped_rooms": "{{count}} likarolo tse teng li lehlile.",
             "owner_only_title": "Tsamaiso ea Khbackup le Ho Khutlisa e Thibetsoe",
-            "owner_only_desc": "Ho boloka le ho khutlisa data ho ka tsamaisoa feela ke mong'a ntlo."
+            "owner_only_desc": "Ho boloka le ho khutlisa data ho ka tsamaisoa feela ke mong'a ntlo.",
+            "include_media_title": "Kenyeletsa litšoantšo le litšoantšo tsa leqephe la tefo",
+            "include_media_body": "Tšehetso e felletseng e ka ba kholo, empa litšoantšo tsa lintho le litšoantšo tsa leqephe la tefo li ka boela tsa khutlisetsoa.",
+            "skipped_attachments": "Lits'oants'o tse {{count}} li ile tsa qojoa."
         },
         "about": {
             "title": "Mabapi le Kopo",
@@ -1031,10 +1051,16 @@
             "blocks_title": "Basebelisi ba thibetsoeng",
             "blocks_description": "Basebelisi bao u ba thibetseng ho u romella likopo tse ncha tsa ho alima.",
             "no_blocks": "Ha ho basebelisi ba thibetsoeng ba fumanoeng.",
-            "unblock_btn": "Unblock",
+            "unblock_btn": "Thibela ho thibeloa",
             "policy_none_desc": "Likopo tsohle tse kenang li thibetsoe ka boiketsetso.",
             "policy_house_only_desc": "Ke litho tse netefalitsoeng tsa matlo a hau a sebetsang feela tse ka kopa lintho tse seng kae tse se li bonahala kahare ho ntlo eo e arolelanoang.",
             "policy_everyone_desc": "Basebelisi ba bang ha ba khone ho sheba kapa ho bona lintho tsa hau. Ba ka romella kopo feela ka ho kenya lebitso la mosebelisi kapa imeile ea hau ka kotloloho."
+        },
+        "activity_log": {
+            "title": "Lenaneo la mesebetsi le rekoto ea tlhahlobo",
+            "description": "Hlahloba histori e sireletsehileng ea liphetoho tsa ntho, litlhahlobo tsa thepa, lifaele tse hoketsoeng, le liketso tse ngata.",
+            "encrypted_title": "Lirekoto tsa mesebetsi li bolokiloe ka mokhoa o sireletsehileng",
+            "encrypted_body": "Liketso le lintlha tse ncha tsa mesebetsi li bolokiloe li sireletsehile ka mokhoa oa encryption ho database 'me li hlahlojoa feela bakeng sa sehlopha sa hau se sebetsang."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Rekoto e tla koaloa kamora ha mokoloto a tiisa hore o fumane ntho e khutletsoeng.",
             "return_pending_lender_title": "{{name}} o hlalositse ntho ena e le e khutletsoeng",
             "return_pending_self_title": "Le wena, o emetse tiiso ea ho amohela",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Leloko la sebaka",
+            "site_member_identifier": "Lebitso la mosebelisi kapa imeile",
+            "site_member_identifier_placeholder": "Lebitso la mosebelisi kapa imeile ka nepo",
+            "site_member_privacy_hint": "Tlhahiso e hlaha ho Borrow Center feela haeba ak'haonte eo e teng 'me e lumella litlhahiso tse kenang.",
+            "external_privacy_hint": "Sena se etsa hore ho be le rekoto ea poraefete ea lehae feela. Ha ho na tsebiso ea app e rometsoeng.",
+            "available": "E fumaneha"
         },
         "untitled_item": "Ntho e sa hatisoang",
         "delete_action": "Hlakola ntho",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Sefa ka kamore",
         "refreshing_results": "Ntsa lintho hape...",
         "empty_filter_title": "Ha ho lintho tse lumellaneng le patlo eo",
-        "delete_error_title": "Ho hlakoloa ho hl 실패"
+        "delete_error_title": "Ho hlakoloa ho hl 실패",
+        "tools": {
+            "title": "Lisebelisoa"
+        },
+        "no_room": "Ha ho na sebaka",
+        "all_locations": "libaka tsohle",
+        "location_filter_label": "Sefa ka sebaka",
+        "visibility_filter_label": "Sefa ka ponahalo",
+        "visibility_all": "Ponahalo eohle",
+        "visibility_mine": "Lihlahisoa tsa ka",
+        "visibility_others": "Litho tse ling",
+        "borrow_filter_label": "Sefa ka boemo ba ho poso",
+        "borrow_filter_all": "Maemo ohle a poso",
+        "stock_filter_label": "Sefa ka boemo ba thepa",
+        "stock_filter_all": "Maemo ohle a thepa",
+        "stock_filter_ok": "Thepa e lokile",
+        "expiry_filter_label": "Sefa ka letsatsi la ho felloa ke nako",
+        "expiry_filter_all": "Matsatsi aohle a ho fela",
+        "expiry_filter_dated": "E na le letsatsi",
+        "expiry_filter_none": "Ha ho na letsatsi",
+        "warranty_filter_label": "Sefa ho latela tiiso",
+        "warranty_filter_all": "Litiiso tsohle",
+        "warranty_filter_expired": "Litiiso tse felileng",
+        "warranty_filter_close": "Li fela haufinyane",
+        "warranty_filter_active": "Litiiso tse sebetsang",
+        "warranty_filter_none": "Ha ho tlhahisoleseding ea waranti",
+        "sort_label": "Hlophisa",
+        "sort_updated_desc": "E ntlafalitsoe morao-rao",
+        "sort_updated_asc": "Ntlafatso e khale ka ho fetisisa",
+        "sort_created_desc": "E ncha pele",
+        "sort_created_asc": "E khale pele",
+        "sort_name_asc": "Lebitso A-Z",
+        "sort_name_desc": "Lebitso Z-A",
+        "sort_quantity_desc": "Palo e phahameng ho isa tla tlase",
+        "sort_quantity_asc": "Palo e tlase ho isa holimo",
+        "sort_expiry_asc": "Qalo ea ho fela haufinyane",
+        "sort_expiry_desc": "Qalo ea ho fela morao",
+        "stock_increase": "Eketsa thepa",
+        "stock_decrease": "Fokotsa thepa",
+        "stock_adjust_error": "Ha ho ka khonahala ho ntlafatsa thepa.",
+        "bulk": {
+            "select_visible": "Khetha tse bonahalang",
+            "clear_visible": "Tlosa khetho e bonahalang",
+            "selected_short": "khethiloeng",
+            "keep_category": "Boloka sehlopha",
+            "keep_room": "Boloka kamore",
+            "keep_location": "Boloka sebaka",
+            "keep_visibility": "Boloka ponahalo",
+            "apply": "Sebelisa",
+            "no_fields": "Khethang bonyane sebaka se le seng bakeng sa ketso e kholo.",
+            "updated_title": "Ntjhafatso e kholo e phethiloe",
+            "updated_body": "Lintho tse {{count}} li ntjhafalitsoe. {{skipped}} li ile tsa qojoa.",
+            "update_error": "Ntjhafatso e kholo e ne e sa khonehe ho phethahala.",
+            "deleted_title": "Ho hlakola ka bongata ho phethiloe",
+            "deleted_body": "Lintho tse {{count}} li hlakotsoe. {{skipped}} li ile tsa qojoa.",
+            "delete_error": "Ho hlakola ka bongata ha hoa ka ha phethahala.",
+            "delete_title": "Na u hlakola lintho tse khethiloeng?",
+            "delete_description": "{{count}} lintho tse khethiloeng li tla tlosoa ho lethathamo lena la thepa ea lapeng. Sena ha se khonehe ho hlakisoa.",
+            "select_item": "Khetha ntho",
+            "unselect_item": "Hlakola khetho ea ntho"
+        },
+        "qr_labels": {
+            "title": "Malebela a QR",
+            "open": "Malebela a Ntho",
+            "description": "Malebela a {{count}} a ntho a se a itokiselitse ho hlahisoa leqephe.",
+            "empty": "Fetola lifilter kapa eketsa lintho tse kenyang lethathamo ho hlahisa malebela.",
+            "sheet_label": "Leqephe la Lebelelo la Ntho",
+            "item_label": "Lebitso la Ntho"
+        }
     },
     "categories": {
         "title": "Likarolo",
@@ -1341,7 +1436,7 @@
             "no_logs": "ha ho logs leha e le life hajoale",
             "errors_title": "Liphoso tsa Sisteme (10 tsa ho qetela)",
             "no_errors": "// Sisteme e phetseng hantle, ha ho litlaleho tsa liphoso.",
-            "date_fmt": "{{letsatsi, nako}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "Imeile",
                 "user": "Mosebedisi",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Uniti ea mesh",
-                    "meta": "Konsole ea TV • Deco M4",
+                    "meta": "Konsole ea TV • Network node",
                     "state": null
                 },
                 {
@@ -1929,7 +2024,7 @@
             "bodyLine2": "E emetse tumello ea mong'a ntlo"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{boemo}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Phihlello ea Ntlo",
             "bodyLine1Template": "Kopo e emetseng hona joale: {{house}} ({{status}})",
             "bodyLine2": "Kopo ea hau bakeng sa \"{{house}}\" e ntse e emetse qeto.",
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Setsi sa ho bokella chelete se sitoa ho jarisoa",
             "action_error": "Ketso e sitsoe ho phethoa",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Rekoto ena ea ho bokella e sa sebetseng e ne e sa fumanoe. Khutlisetsa Borakanyi boo 'me o leke hape.",
             "errors": {
                 "external_target_daily_limit": "U ka romella kopo e le 'ngoe feela ea pele ea kantle ho motho a le mong ka letsatsi. Haeba ba amohela kopo, moeli ona ha o sa sebetsa ho motho eo.",
                 "external_total_daily_limit": "U ka romella likopo tsa pele tsa kantle ho batho ba bangata ho fihlela ho 5 ka letsatsi.",
@@ -2275,7 +2370,7 @@
     "app": {
         "name": "{{brandName}}",
         "tagline": "Laola ka bohlale thepa eohle ea hau ea lapeng",
-        "loading": "Loading {{brandName}}",
+        "loading": "Ebe e kenya {{brandName}}",
         "preparing_workspace": "Ho lokisetsa sebaka sa hau sa marang-rang ..."
     },
     "nav": {
@@ -2431,7 +2526,7 @@
             "mark_completed": "Tšoaea joalo ka ha e phethiloe",
             "decrease_qty": "Fokotsa palo",
             "increase_qty": "Eketsa palo",
-            "delete_item": "Delete item",
+            "delete_item": "Hlakola ntho",
             "reactivate_item": "Khutlela lethathamong le sebetsang"
         },
         "form": {
@@ -2555,5 +2650,102 @@
         "description": "Segokanyimmediamentsi sa sebolokigolo se ile sa kopana le bothata bo sa lebelloang. Lintlha tsa hau tse bolokiloeng ha li fetoloe ke skrine ena.",
         "refresh_btn": "Khatholla",
         "home_btn": "Lehae"
+    },
+    "activity": {
+        "title": "Nalane ea Ts'ebetso",
+        "description": "Liphetoho tse sirelelitsoeng tse ncha ka thepa ea hau ea lapeng.",
+        "empty_title": "Ha ho ts'ebetso e ho ntse e le teng",
+        "empty_description": "Liphetoho tsa ntho, lintlafatso tsa stock, lifaele tse hoketsoeng, ho rhahela, le liketso tsa bongata li tla hlaha mona.",
+        "unknown_actor": "Mošomi eo e sa tsejweng",
+        "deleted_item_with_id": "Ntho e hlakotsoe #{{id}}",
+        "item_missing": "Rekoto ena ea ntho ha e sa e-ba teng",
+        "actions": {
+            "item_created": "Ntho e ekelitsoe",
+            "item_updated": "Ntho e ntlafalitsoe",
+            "item_deleted": "Ntho e hlakotsoe",
+            "item_borrowed": "Ntho e adumelitsoe",
+            "item_returned": "Ntho e khutlisiwe",
+            "item_bulk_updated": "Ntjhafatso e kholo",
+            "item_bulk_deleted": "Hlakola ka bongata",
+            "item_stock_adjusted": "Stokie e ntjhafalitsoe",
+            "item_attachment_added": "Tlhaloso e kentsoe",
+            "item_attachment_deleted": "Tlhaloso e hlakotsoe"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} direkoto tse amanang",
+        "empty_title": "Ha ho rekoto e amanang e fumanoe",
+        "low_stock": {
+            "title": "Stokie e tlase",
+            "description": "Lintho tse ka tlase ho tekano ea tsona e nyane ea thepa.",
+            "qty": "Setoko {{quantity}} / motsotsoana {{min}}"
+        },
+        "expired": {
+            "title": "Lintho tse Felileng Nako ea Tšebeliso",
+            "description": "Lintho tse nang le letsatsi le fetileng."
+        },
+        "expiring": {
+            "title": "Lilemo tse tlang tsa ho felisoa",
+            "description": "Lintho tse tla fela ka matsatsi a 30."
+        },
+        "maintenance": {
+            "title": "Tlhokomelo e fetileng Nako",
+            "description": "Mesebetsi ea tlhokomelo e fetileng letsatsi le reriloeng."
+        }
+    },
+    "notifications": {
+        "title": "Setsi sa Tsebiso",
+        "description": "Lisebelisoa tsa thepa, waranti, tlhokomelo, letsatsi la ho fela, le tsebiso tsa ho khutlisa mekoloto.",
+        "meta_total": "{{count}} tsebiso",
+        "meta_urgent": "{{count}} tsa kapele",
+        "empty_title": "Ha ho na tsebiso tse hlokang tlhokomelo ea hau hajoale",
+        "empty_desc": "Lisebelisoa tse tlase, matsatsi a tlang, le tlhokomelo e fetileng li tla hlaha mona.",
+        "items": {
+            "stock_empty_title": "Ha ho na thepa",
+            "stock_low_title": "Lisebelisoa tse tlase",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Letsatsi la ho fela le fetile",
+            "expiry_close_title": "Letsatsi la ho fela le atamela",
+            "warranty_expired_title": "Tšireletso e felile",
+            "warranty_close_title": "Tšireletso e tla fela haufinyane",
+            "maintenance_overdue_title": "Tlhokomelo e fetile nako",
+            "maintenance_close_title": "Tlhokomelo e tla tla haufinyane",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Mosebetsi oa ho khutlisa o fetile nako",
+            "borrow_close_title": "Mosebetsi oa ho khutlisa o tla tla haufinyane",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: Malatsi a {{count}} a setseng ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Setsi sa Tšebeletso le Waranti",
+        "description": "Latela waranti, meralo ea tlhokomelo, le liketso tsa tšebeletso sebakeng se le seng.",
+        "meta_warranty": "Rekoto ea waranti e {{count}}",
+        "meta_tasks": "Mesebetsi ea tlhokomelo e {{count}}",
+        "empty_title": "Ha ho ketso ea tšebeletso kapa waranti",
+        "empty_desc": "Matsatsi a tlang a waranti le mesebetsi ea tlhokomelo a tla bokelloa mona.",
+        "warranty_section": "Ho Latela Waranti",
+        "warranty_desc": "Liwaranti tse felileng le liwaranti tse felang ka matsatsi a 30.",
+        "maintenance_section": "Lisebelisoa tsa Tlhokomelo",
+        "maintenance_desc": "Mesebetsi ea tlhokomelo e fetileng le e tlang.",
+        "no_warranty": "Ha ho ketso ea waranti e tlang.",
+        "no_tasks": "Ha ho mosebetsi oa tlhokomelo o reriloeng.",
+        "overdue": "E fetileng",
+        "upcoming": "Haufinyane",
+        "expired": "E felile",
+        "summary_warranty": "Ho latela waranti",
+        "summary_tasks": "Lihlahisoa tsa tlhokomelo",
+        "open_warranty_filter": "Sefa waranti e bulehileng",
+        "open_warranty_filter_desc": "Sefa lihlahisoa tse nang le waranti tse sebetsang ka thepa."
+    },
+    "storage_labels": {
+        "title": "Matšoao a lishelefo le liphaposi",
+        "description": "{{count}} matšoao a phaposi/shelefo a se a loketse joalo ka leqephe la khatiso.",
+        "empty_title": "Ha ho na liphapo kapa lishelefo tse lokelang ho arotsoa matšoao",
+        "empty_desc": "Eketsa liphapo kapa libaka pele, ebe u hatisa matšoao a QR mona.",
+        "sheet_label": "Letlapa la Lebitso la Sebaka",
+        "scan_hint": "Ho sotha khoutu ea QR ho bula lethathamo le sehlahlobisitsoeng la thepa bakeng sa kamore eo kapa setopo.",
+        "room": "Kamore",
+        "location": "Setopo/Sebokose"
     }
 }

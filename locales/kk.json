@@ -10,7 +10,7 @@
         "load_error": "Тауарды жүктеу сәтсіз болды",
         "form": {
             "name": "Тауардың атауы",
-            "name_placeholder": "Мысалы, Samsung TV 55 дюйм",
+            "name_placeholder": "Мысалы, TV 55 дюйм",
             "required": "*",
             "description": "Сипаттама",
             "description_placeholder": "Тауар туралы ескертпелер...",
@@ -66,7 +66,20 @@
             "warranty_calculation_help": "Егер сіз кепілдік басталу күнін бос қалдырсаңыз, шот-фактураның күні пайдаланылады. Ұзақтығын енгізген кезде кепілдік аяқталу күні автоматты түрде есептеледі.",
             "vault_hint_title": "Өте сезімтал жазба ма?",
             "vault_hint_description": "Паспорттар, құжаттар, жеке мәліметтер, кіру кодтары және стандартты инвентаризация ағынынан шықпайтын басқа жазбалар үшін оларды орнына Жеке Сейфте сақтаңыз.",
-            "vault_hint_action": "Жеке Сейфті ашу"
+            "vault_hint_action": "Жеке Сейфті ашу",
+            "location": "Орналасқан жері",
+            "remove_photo": "Суретті жою",
+            "visibility_owner_only": "Затты қосқан адам ғана көрінуін өзгерте алады.",
+            "expiry_date": "Мерзім аяқталу күні",
+            "min_quantity": "Ең аз мөлшер",
+            "take_photo": "Суретке түсіру",
+            "choose_from_gallery": "Галереядан таңдаңыз",
+            "take_photo_sub": "Құрылғының камерасын ашу",
+            "choose_from_gallery_sub": "Альбомнан таңдаңыз",
+            "photo_selected_badge": "Жаңа сурет",
+            "photo_existing_badge": "Бар фотосурет",
+            "no_photo_yet": "Сурет қосылмаған",
+            "photo_options_title": "Сурет әрекеті параметрлері"
         },
         "messages": {
             "quick_add_success": "✓ \"{{barcode}}\" жедел қосылды - кейін өңдей аласыз",
@@ -105,7 +118,7 @@
         "all_categories": "Барлық санаттар",
         "all_rooms": "Барлық бөлмелер",
         "confirm_delete": "Бұл элементті өшіргіңіз келетініне сенімдісіз бе?",
-        "items_deleted": "{{count}} item(s) deleted",
+        "items_deleted": "{{count}} элемент жойылды",
         "added": "Элемент қосылды",
         "updated": "Элемент жаңартылды",
         "deleted": "Элемент жойылды",
@@ -115,7 +128,24 @@
         "delete_error": "Элементті өшіру қатесі",
         "no_permission": "No permission",
         "barcode_search_error": "Штрих-код іздеу сәтсіз аяқталды",
-        "stats_error": "Stats error"
+        "stats_error": "Stats error",
+        "detail_subtitle": "Зат туралы мәлімет",
+        "status": {
+            "close_to_expiry": "Мерзіміне жақын",
+            "expired": "Мерзімі өткен",
+            "low_stock": "Таусылған қор"
+        },
+        "untitled_item": "Атаусыз зат",
+        "attachments": {
+            "title": "Суреттер мен файлдар",
+            "add": "Файлдарды қосу",
+            "empty": "Әлі файлдар қосылған жоқ.",
+            "form_desc": "Заттың суреттерін, түбіртектерін, шот-фактураларын немесе қызмет көрсету құжаттарын тіркеңіз.",
+            "detail_desc": "Бұл затқа арналған суреттер, түбіртектер, шот-фактуралар және қызмет көрсету файлдары сақталды.",
+            "upload_error": "Файлдарды жүктеу мүмкін болмады.",
+            "delete_error": "Файл жойылмады.",
+            "delete_confirm": "Осы файлды жою керек пе?"
+        }
     },
     "common": {
         "save": "Сақтау",
@@ -162,7 +192,18 @@
         "unauthorized": "Рұқсатсыз кіру",
         "forbidden": "Permission denied",
         "validation_error": "Тексеру қатесі",
-        "server_error": "Сервер қатесі"
+        "server_error": "Сервер қатесі",
+        "details": "Толығырақ",
+        "hide": "Құпия сөзді жасыру",
+        "logging_out": "Шығып жатыр...",
+        "show": "Құпия сөзді көрсету",
+        "saving": "Сақталу...",
+        "disabled": "Істен шыққан",
+        "zoom_in": "Үлкейту",
+        "zoom_out": "Кішілеу",
+        "reset": "Қалпына келтіру",
+        "print": "Басып шығару",
+        "record_count": "{{count}} жазба"
     },
     "auth": {
         "login": {
@@ -194,7 +235,8 @@
                 "verify": "Тексеру",
                 "back": "Қайта",
                 "use_backup": "Сақтық көшірме кодын пайдаланыңыз",
-                "use_totp": "Аутентификатор"
+                "use_totp": "Аутентификатор",
+                "code_required": "Растау коды қажет"
             },
             "welcome_title": "Хош келдің",
             "welcome_subtitle": "Инвентарьға кіру үшін кіріңіз",
@@ -207,7 +249,7 @@
             "support_link": "Қолдауға хабарласу"
         },
         "register": {
-            "title": "Set up your household",
+            "title": "Үйіңізді орнатыңыз",
             "subtitle": "Жаңа есептік жазба жасаңыз немесе бар үйге қосылыңыз",
             "create_house": "Жаңа Үй Құру",
             "join_house": "Үйге Қосу",
@@ -303,7 +345,7 @@
             "confirm_password_placeholder": "Құпия сөзді қайта енгізіңіз",
             "reset_submit": "Құпия сөзді қалпына келтіру",
             "resetting": "Қалпына келтіріліп жатыр...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Пайдаланушы атыңызды немесе электрондық поштаңызды енгізіңіз"
         },
         "reset_password": {
             "title": "Құпия сөзді қалпына келтіру",
@@ -344,7 +386,7 @@
         "password_requirements": "Әріптердің үлкені мен кішісін, санды және символды қосу арқылы кемінде {{min}} таңба пайдаланыңыз.",
         "logout": "Шығу",
         "logging_in": "Кіру...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "{{brandName}} қонақтаймыз",
         "username_email": "Пайдаланушы аты немесе Электрондық пошта",
         "username": "Пайдаланушы аты",
         "email": "Электрондық пошта",
@@ -410,7 +452,36 @@
         "join_house_key_required": "Бар үйге қосылу үшін Үй кілті қажет",
         "house_key_not_found": "Жарамсыз үй кілті. Дұрыс кілтті енгізіңіз.",
         "email_not_verified": "Сіздің электрондық пошта мекенжайыңыз әлі расталмаған. Кіріс жәшігіңізді тексеріңіз.",
-        "two_factor_invalid": "Тексеру коды дұрыс емес"
+        "two_factor_invalid": "Тексеру коды дұрыс емес",
+        "two_factor_invalid_try_again": "Жарамсыз тексеру коды. Өтінемін, қайта көріңіз.",
+        "two_factor_code_required": "Тексеру коды қажет",
+        "two_factor_user_not_found": "Пайдаланушы табылмады",
+        "two_factor_already_enabled": "Екі факторлы аутентификация қазірдің өзінде қосылған",
+        "two_factor_setup_not_started": "Алдымен екі факторлы аутентификацияны бастаңыз",
+        "two_factor_setup_error": "Екі факторлы аутентификация орнату кезінде қате болды",
+        "two_factor_activation_error": "Екі факторлы аутентификацияны іске қосу кезінде қате болды",
+        "two_factor_password_required": "Құпия сөз қажет",
+        "two_factor_credentials_required": "TOTP коды, сақтық көшірме коды немесе қалпына келтіру кілті қажет",
+        "two_factor_already_disabled": "Екі факторлы аутентификация қазірдің өзінде өшірілген",
+        "two_factor_password_incorrect": "Қате құпиясөз",
+        "two_factor_verification_failed": "Тексеру сәтсіз аяқталды. Кодты тексеріп, қайта көріңіз.",
+        "two_factor_disable_error": "Екі факторлы аутентификацияны өшіру кезінде қате болды",
+        "two_factor_not_enabled": "Екі факторлы аутентификация қосылмаған",
+        "two_factor_regenerate_codes_error": "Резервтік кодтарды қалпына келтіру кезінде қате пайда болды",
+        "two_factor_enabled_success": "Екі факторлы аутентификация сәтті іске қосылды",
+        "two_factor_disabled_success": "Екі факторлы аутентификация сәтті өшірілді",
+        "password_errors": {
+            "min_length": "Құпия сөз кем дегенде {{min}} таңбалар болуы тиіс",
+            "lowercase_required": "Құпия сөзде кем дегенде бір кіші әріп болуы керек",
+            "uppercase_required": "Құпиясөзде кемінде бір бас әріп болуы керек",
+            "number_required": "Құпиясөзде кем дегенде бір сан болуы тиіс",
+            "symbol_required": "Құпия сөзде кем дегенде бір символ болуы тиіс",
+            "repeated_chars": "Құпия сөзіңізде қайталанатын таңбаларды қолданбаңыз",
+            "predictable_sequence": "Құпия сөзіңізде оңай болжауға болатын тізбектерді қолданбаңыз",
+            "common_password": "Бұл құпиясөз тым кең таралған және қауіпті",
+            "contains_username": "Құпиясөзде пайдаланушы атыңыз болмауы керек",
+            "contains_email": "Құпиясөзде электрондық пошта ақпаратыңыз болмауы тиіс"
+        }
     },
     "navigation": {
         "home": "Басты бет",
@@ -429,7 +500,12 @@
         "logout_aria": "Есептік жазбаңыздан шығыңыз",
         "logout_title": "Шығасыз ба?",
         "logout_description": "Сіз кіру экранына қайта оралып, үй шаруашылығының қорын басқару үшін қайта кіруіңіз керек болады.",
-        "logout_warning": "Ортақ немесе жеке құрылғыда жұмысты аяқтаған кезде қолдану үшін."
+        "logout_warning": "Ортақ немесе жеке құрылғыда жұмысты аяқтаған кезде қолдану үшін.",
+        "maintenance": "Күтіп ұстау кестесі",
+        "shopping": "Сатып алу тізімі",
+        "activity": "Тапсырма",
+        "notifications": "Хабарламалар",
+        "service": "Қызмет"
     },
     "dashboard": {
         "welcome": "Қош келдіңіз, <1>{{name}}</1>! 👋",
@@ -556,7 +632,21 @@
         "no_items_filter": "Осы фильтріге сәйкес ешбір зат табылмады",
         "manage": "Басқару",
         "add_item": "Затты қосу",
-        "search_item": "Затты іздеу"
+        "search_item": "Затты іздеу",
+        "alerts": {
+            "expired_title": "Тауарлардың жарамдылық мерзімі өткен!",
+            "expired_desc": "Сіздің инвентаризацияңызда {{count}} жарамдылық мерзімі өткен заттар бар. Өзіңіздің қауіпсіздігіңіз үшін оларды тексеріңіз.",
+            "view_items": "Заттарды қарау",
+            "maintenance_title": "Уақытынан кешіктірілген техникалық қызмет көрсету тапсырмалары!",
+            "maintenance_desc": "Күтуге қалған {{count}} техникалық қызмет көрсету тапсырмасы бар. Құрал-жабдықтардың пайдалану мерзімін ұзарту үшін техникалық қызмет көрсетіңіз.",
+            "go_to_maintenance": "Техникалық қызметке өтіңіз",
+            "low_stock_title": "Тауар қоры азайды деген ескерту",
+            "low_stock_desc": "{{count}} тауар сіздің минималды қор шегіңізден төмендеді.",
+            "go_to_shopping": "Сатып алу тізімі",
+            "close_expiry_title": "Жаңадан мерзімі аяқталатын күндер",
+            "close_expiry_desc": "{{count}} өнімдер 30 күн ішінде мерзімі аяқталады.",
+            "view_low_stock_items": "Төменгі қорды қарау"
+        }
     },
     "beta_banner": {
         "title": "БЕТА:",
@@ -611,7 +701,13 @@
             "recovery_key_regenerated": "Қалпына келтіру кілті қайта жасалды",
             "recovery_key_error": "Қалпына келтіру кілтін қайта жасау мүмкін емес",
             "account_delete_error": "Есепшот жойыла алмады",
-            "backup_downloaded_encrypted": "Шифрланған сақтық көшірме сәтті жүктелді! ({{count}} элемент)"
+            "backup_downloaded_encrypted": "Шифрланған сақтық көшірме сәтті жүктелді! ({{count}} элемент)",
+            "policy_update_error": "Сұраныс баптауларын жаңарту мүмкін болмады.",
+            "policy_updated": "Сұраныс баптаулары сәтті жаңартылды.",
+            "unblock_error": "Пайдаланушыны блоктан шығара алмадым.",
+            "unblocked_success": "Пайдаланушы сәтті бұғатталды.",
+            "house_owner_transferred": "Үй иелігі ауыстырылды",
+            "house_owner_transfer_error": "Үйдің меншік құқығы берілмеді."
         },
         "user_profile": {
             "edit_username": "Пайдаланушы атын өзгерту"
@@ -632,7 +728,10 @@
             "info": "💡 Сіз бірнеше үйдің мүшесі бола аласыз және олар арасында ауыса аласыз. Әр үйдің жеке инвентаризациясы бар.",
             "accordion_description": "Үйлер арасында ауысу, жаңа үй жасау немесе сенімді кілтпен бар үйге қосылу.",
             "empty_description": "Жаңа үй жасап, бөлісуді бастаңыз немесе сенімді үй кілтімен бар үйге қосылыңыз.",
-            "leave_success_body": "Сізде бұл үйге енді қолжетімділік жоқ және сіздің белсенді үйіңіз жаңартылды."
+            "leave_success_body": "Сізде бұл үйге енді қолжетімділік жоқ және сіздің белсенді үйіңіз жаңартылды.",
+            "leave_title": "Осы үйден шығу ма?",
+            "leave_warning": "Сізге басқа мүше қайта шақырған немесе мақұлдағанға дейін осы үйдің жұмыс кеңістігіне кіру мүмкіндігі жоқ болады.",
+            "leaving": "Шығу..."
         },
         "house_info": {
             "title": "Қолданыстағы Үй Кілті",
@@ -674,7 +773,18 @@
             "copy_error": "Үй кілтін көшіру мүмкін болмады.",
             "modal_title": "Үй кілтіне қол жеткізу",
             "modal_subtitle": "Бұл кілтті тек сенімді үй мүшелері үшін пайдаланыңыз, олар осы ортақ инвентарьға кіруді сұрауы керек.",
-            "loading_members": "Мүшелерді жүктеу..."
+            "loading_members": "Мүшелерді жүктеу...",
+            "kick_success_body": "{{name}} енді осы үйге кіру мүмкіндігі жоқ.",
+            "kick_title": "Осы мүшені өшіру ме?",
+            "kick_warning": "Олардың үйге кіру мүмкіндігі дереу аяқталады және қайта кіру үшін жаңа шақыру немесе мақұлдау қажет болады.",
+            "kicking": "Өшіру...",
+            "access_section_eyebrow": "Үйге кіру",
+            "transfer_owner": "Өндіруші",
+            "transferring_owner": "Ауыстыру...",
+            "transfer_owner_title": "Үй иелігін ауыстыру ма?",
+            "transfer_owner_confirm": "Бұл үйдің иелігін {{name}} компаниясына беру керек пе?",
+            "transfer_owner_warning": "Сен енді бұл үйдің иесі болмайсың. Жаңа иесі мүшелердің мақұлдауын, шығарылуын және болашақ меншік өзгерістерін басқарады.",
+            "transfer_owner_success_body": "{{name}} енді осы үйдің иесі."
         },
         "theme": {
             "title": "Тақырып",
@@ -682,7 +792,9 @@
             "light": "Жарық режим",
             "description": "Бұл құрылғыда жұмыс кеңістігінің қалай көрінетінін таңдаңыз.",
             "light_aria": "Жарық тақырыбына ауысу",
-            "dark_aria": "Қара тақырыбына ауысу"
+            "dark_aria": "Қара тақырыбына ауысу",
+            "workspace_title": "Жұмыс кеңістігі тақырыбы",
+            "workspace_desc": "Бұл құрылғы үшін өзіңізге ұнаған визуалды стильді таңдаңыз."
         },
         "security": {
             "title": "Қауіпсіздік",
@@ -695,7 +807,12 @@
             "recovery_key_unavailable": "Ағымдағы қалпына келтіру кілтін көрсету мүмкін емес. Қажет болса оны қайта жасаңыз.",
             "recovery_key_action": "Қайта жасау",
             "recovery_key_modal_desc": "Жалғастыру үшін ағымдағы құпия сөзіңізді растаңыз. Жаңа кілт тек бір рет көрсетіледі.",
-            "recovery_key_loading": "Дайындалып жатыр..."
+            "recovery_key_loading": "Дайындалып жатыр...",
+            "accordion_title": "Қауіпсіздік пен құпиялылық",
+            "accordion_desc": "Екі факторлы аутентификацияны, сенімді құрылғыларды басқару және басқа аккаунттардан сұраныс ережелерін қарызға алу.",
+            "description": "Негізгі құпия сөзді және сейфті қалпына келтіру конфигурацияларын басқарыңыз.",
+            "change_password_detail": "Құпиясөзіңізді жаңартыңыз, аккаунтыңызды қауіпсіз ұстаңыз",
+            "recovery_key_detail": "Құпия сөзді ұмытсаң, сейфіңді қалпына келтіру үшін қолданылған"
         },
         "data_management": {
             "title": "Деректерді басқару",
@@ -720,20 +837,41 @@
             "unencrypted_warning": "Ашық JSON экспорттарын тексеру оңай, бірақ файлды ашқан кез келген адам сіздің үй деректеріңізді дереу көре алады.",
             "import_encrypted_title": "Шифрланған сақтық көшірмені ашу",
             "import_encrypted_body": "Бұл шифрланған файлды қалпына келтіру үшін жүктеу кезінде пайдаланылған сақтық көшірме құпиясөзін енгізіңіз.",
-            "unlock_and_import": "Ашу және импорттау"
+            "unlock_and_import": "Ашу және импорттау",
+            "export_encrypted_notice": "Резервтік көшіру тірі үй шаруашылығы деректерінен дайындалады, содан кейін сіз таңдаған құпия сөзбен оралады. Сол құпия сөзді қауіпсіз жерде сақтаңыз, себебі файлды кейін қалпына келтіру үшін қажет болады.",
+            "export_encrypted_title": "Жүктемеден бұрын шифрлау қолданылатын болады",
+            "import_summary_body": "{{items}} заттар, {{categories}} санаттар, {{rooms}} бөлмелер, {{locations}} орындар, {{borrows}} қарыз жазбалары қалпына келтірілді.",
+            "import_summary_title": "Резервтік көшіру қалпына келтірілді",
+            "preview_categories": "Санаттар",
+            "preview_items": "Заттар",
+            "preview_locations": "Орындар",
+            "preview_rooms": "Бөлмелер",
+            "skipped_borrows": "{{count}} бұрыннан бар қарыз жазбалары өткізіп жіберілді.",
+            "skipped_categories": "{{count}} бұрыннан бар санаттар өткізіп жіберілді.",
+            "skipped_items": "{{count}} бар элемент өткізіліп жіберілді.",
+            "skipped_locations": "{{count}} бар орындар өткізіліп жіберілді.",
+            "skipped_rooms": "{{count}} бар бөлмелер өткізіліп жіберілді.",
+            "owner_only_title": "Сақтық көшірме және қалпына келтіру шектелді",
+            "owner_only_desc": "Деректерді сақтық көшірмелеу және қалпына келтіру тек үйдің иесі тарапынан басқарылуы мүмкін.",
+            "include_media_title": "Фотосуреттер мен түбіртек суреттерін қосу",
+            "include_media_body": "Толық сақтық көшірме үлкен болуы мүмкін, бірақ тауар фотосуреттері мен түбіртек суреттерін қалпына келтіруге болады.",
+            "skipped_attachments": "{{count}} тіркелімдер өткізіп жіберілді."
         },
         "about": {
-            "title": "📱 Қосымша туралы",
+            "title": "Қосымша туралы",
             "version": "Нұсқа",
             "brand": "Бренд",
-            "feedback": "✉️ Кері байланыс жіберу",
+            "feedback": "Кері байланыс жіберу",
             "legal_title": "Құқықтық құжаттар",
             "legal_description": "Оларды қабылдағаннан кейін де қызмет көрсету шарттары мен құпиялық мәтіндерін осында қайта аша аласыз.",
             "terms_link": "Қызмет көрсету шарттары",
             "privacy_link": "Құпиялық туралы саясат",
             "beta_title": "Бета мәртебесі",
             "beta_body": "{{brandName}} әлі бета кезеңінде. Функциялар өзгеруі мүмкін, жұмыс ағындары дамуы мүмкін, және маңызды үй деректерін әрдайым сақтап қою керек.",
-            "feedback_subject": "Пікірлер - {{brandName}}"
+            "feedback_subject": "Пікірлер - {{brandName}}",
+            "logout_body": "Ашық формалардағы сақталмаған өзгерістер осы сессиядан шыққаннан кейін жоғалуы мүмкін.",
+            "logout_description": "Сіз басты бетке оралып, кез келген уақытта қайта кіре аласыз.",
+            "logout_title": "Қазір шығасыз ба?"
         },
         "modals": {
             "password": {
@@ -825,7 +963,8 @@
             "revoke_devices": "кері қайтару",
             "revoke_devices_desc": "Жою барлық есте сақталған құрылғылар, келесі кіруде 2FA қажет",
             "devices_revoked": "{{count}} сенімді құрылғы(лар) жойылды",
-            "devices_error": "Құрылғыларды қайтару сәтсіз аяқталды"
+            "devices_error": "Құрылғыларды қайтару сәтсіз аяқталды",
+            "preparing_setup": "Аутентификатор жүйесін дайындап жатырмын..."
         },
         "danger_zone": {
             "title": "Есепшот",
@@ -838,7 +977,8 @@
             "modal_warning_body": "Расталғаннан кейін, сіз дереу есептік жазбаға қол жеткізуді жоғалтасыз және жойылған қолданба деректері қолданбадан қалпына келтірілмейді.",
             "password_label": "Ағымдағы құпия сөзбен растаңыз",
             "confirm_delete": "Жоюды растау",
-            "deleting": "Жойылуда..."
+            "deleting": "Жойылуда...",
+            "description": "Аккаунтыңызды өшіріп, барлық инвентарь деректер жиынтықтарын мәңгілікке жойыңыз."
         },
         "language": "Тіл",
         "control_sections": {
@@ -897,7 +1037,31 @@
         "popular_languages": "Танымал тілдер",
         "search_results": "Іздеу нәтижелері",
         "current_language": "Ағымдағы тіл",
-        "languages_available": "Қол жетімді тілдер"
+        "languages_available": "Қол жетімді тілдер",
+        "borrow_requests": {
+            "accordion_eyebrow": "Қарызға сұрау қауіпсіздігі",
+            "accordion_eyebrow_desc": "Сұраныс ережелерін баптау және бұғатталған пайдаланушыларды басқару.",
+            "title": "Қарызға алу баптаулары",
+            "description": "Басқа аккаунттардан қарыз алу сұраныстарын қабылдау ережелерін басқару және бұғатталған пайдаланушылардың тізімі.",
+            "policy_title": "Жаңа қарыз сұраныстары",
+            "policy_description": "Сізге кім қарыз сұрауын жібере алатынын бақылаңыз. Сіздің қорларыңыз ешқашан ашық тізім ретінде көрсетілмейді.",
+            "policy_none": "Ешкімнен қабылдамаңыз (Әдепкі)",
+            "policy_house_only": "Тек үй мүшелеріне арналған",
+            "policy_everyone": "Барлық тіркелген қолданушылар",
+            "blocks_title": "Бұғатталған пайдаланушылар",
+            "blocks_description": "Жаңа қарыз сұраныстарын жіберуге кедергі жасаған пайдаланушылар.",
+            "no_blocks": "Бұғатталған пайдаланушылар табылмады.",
+            "unblock_btn": "Блоктан шығару",
+            "policy_none_desc": "Барлық кіріс сұраныстар автоматты түрде бұғатталады.",
+            "policy_house_only_desc": "Белгілі бір үйде белсенді мүшелер ғана сол жалпы үйдің ішінде көрінетін заттарды сұрай алады.",
+            "policy_everyone_desc": "Басқа қолданушылар сіздің заттарыңызды көре алмайды немесе шолып көре алмайды. Олар тек сіздің пайдаланушы атыңызды немесе электрондық поштаңызды тікелей енгізу арқылы өтініш жібере алады."
+        },
+        "activity_log": {
+            "title": "Қызмет әрекеті және аудит журналы",
+            "description": "Тауар өзгерістері, қор жаңартулары, тіркелімдер және көпшілік әрекеттердің қорғалған тарихын қарау.",
+            "encrypted_title": "Қызмет әрекеттерінің жазбалары қорғалған түрде сақталады",
+            "encrypted_body": "Жаңа әрекеттер мен мәліметтер деректер қорында шифрланған түрде сақталады және тек сіздің белсенді сессияңыз үшін шифрдан шығарылады."
+        }
     },
     "inventory": {
         "title": "Қойма",
@@ -959,8 +1123,18 @@
             "no_history": "Бұл затқа қатысты қарыз алу тарихы әлі жоқ.",
             "lend_success_title": "Зат берілді",
             "lend_success_body": "{{item}} қазір қарызға берілген ретінде белгіленген.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_title": "Қарыз беру ұсынысы жіберілді",
+            "offer_sent_body": "Басқа мүше қабылдағаннан кейін {{item}} қарыз алынған деп белгіленеді.",
+            "borrowed_by_you": "Сізде",
+            "return_pending_hint": "Зат қарыз беруші оны алғанын растағаннан кейін жазба жабылады.",
+            "return_pending_lender_title": "{{name}} бұл затты қайтарылған деп белгіледі",
+            "return_pending_self_title": "Сізде, түбіртек растауын күтіп отыр",
+            "site_member": "Сайт мүшесі",
+            "site_member_identifier": "Пайдаланушы аты немесе электрондық пошта",
+            "site_member_identifier_placeholder": "Дәл пайдаланушы аты немесе электрондық пошта",
+            "site_member_privacy_hint": "Ұсыныс тек сол есептік жазба бар және кіріс ұсыныстарға рұқсат берген жағдайда Қарыз орталығында ғана көрсетіледі.",
+            "external_privacy_hint": "Бұл тек жеке жергілікті жазбаны жасайды. Қосымша хабарландыру жіберілмейді.",
+            "available": "Қол жетімді"
         },
         "untitled_item": "Атаусыз зат",
         "delete_action": "Элементті жою",
@@ -976,7 +1150,76 @@
         "category_filter_label": "Санат бойынша сүзгілеу",
         "room_filter_label": "Бөлме бойынша сүзгілеу",
         "refreshing_results": "Заттар жаңартылып жатыр...",
-        "empty_filter_title": "Сол іздеу бойынша сәйкес заттар жоқ"
+        "empty_filter_title": "Сол іздеу бойынша сәйкес заттар жоқ",
+        "delete_error_title": "Жою сәтсіз аяқталды",
+        "tools": {
+            "title": "Құралдар"
+        },
+        "no_room": "Бөлме жоқ",
+        "all_locations": "Барлық орындар",
+        "location_filter_label": "Орын бойынша сүзу",
+        "visibility_filter_label": "Көріну бойынша сүзу",
+        "visibility_all": "Барлық көріну",
+        "visibility_mine": "Менің заттарым",
+        "visibility_others": "Басқа мүшелер",
+        "borrow_filter_label": "Қарыз алу күйі бойынша сүзу",
+        "borrow_filter_all": "Барлық қарыз мәртебелері",
+        "stock_filter_label": "Қор мәртебесі бойынша сүзу",
+        "stock_filter_all": "Барлық қор мәртебелері",
+        "stock_filter_ok": "Қор жарамды",
+        "expiry_filter_label": "Жарамдылық мерзімі бойынша сүзу",
+        "expiry_filter_all": "Барлық жарамдылық мерзімдері",
+        "expiry_filter_dated": "Күні бар",
+        "expiry_filter_none": "Күні жоқ",
+        "warranty_filter_label": "Кепілдік бойынша сүзу",
+        "warranty_filter_all": "Барлық кепілдіктер",
+        "warranty_filter_expired": "Мерзімі өткен кепілдіктер",
+        "warranty_filter_close": "Жақында аяқталатын",
+        "warranty_filter_active": "Белсенді кепілдіктер",
+        "warranty_filter_none": "Кепілдік туралы ақпарат жоқ",
+        "sort_label": "Сұрыптау",
+        "sort_updated_desc": "Жақында жаңартылған",
+        "sort_updated_asc": "Ең ескі жаңарту",
+        "sort_created_desc": "Жаңа ең бірінші",
+        "sort_created_asc": "Ең ескі бірінші",
+        "sort_name_asc": "Аты А-дан Я-ға",
+        "sort_name_desc": "Аты Я-дан А-ға",
+        "sort_quantity_desc": "Саны көптен азға",
+        "sort_quantity_asc": "Саны аздан көпке",
+        "sort_expiry_asc": "Срок мерзімі тез аяқталатын",
+        "sort_expiry_desc": "Мерзімі соңғы",
+        "stock_increase": "Қорды арттыру",
+        "stock_decrease": "Қорды азайту",
+        "stock_adjust_error": "Қорды жаңарту мүмкін болмады.",
+        "bulk": {
+            "select_visible": "Көрінетінді таңдау",
+            "clear_visible": "Көрінетінді таңдаудан шығару",
+            "selected_short": "таңдалған",
+            "keep_category": "Санатты сақтау",
+            "keep_room": "Бөлмені сақтау",
+            "keep_location": "Орналасқан жерді сақтау",
+            "keep_visibility": "Көрінуін сақтау",
+            "apply": "Қолдану",
+            "no_fields": "Көптеген әрекет үшін кемінде бір өрісті таңдаңыз.",
+            "updated_title": "Көптеген жаңарту аяқталды",
+            "updated_body": "{{count}} элемент жаңартылды. {{skipped}} өткізіліп қалды.",
+            "update_error": "Жаппай жаңарту аяқталмады.",
+            "deleted_title": "Жаппай жою аяқталды",
+            "deleted_body": "{{count}} зат жойылды. {{skipped}} өткізіп жіберілді.",
+            "delete_error": "Жаппай жою аяқталмады.",
+            "delete_title": "Таңдалған заттарды өшіру?",
+            "delete_description": "{{count}} таңдалған заттар осы үй шаруашылығының тізімінен алынады. Бұл әрекетті болдырмау мүмкін емес.",
+            "select_item": "Затты таңдау",
+            "unselect_item": "Затты таңдауды болдырмау"
+        },
+        "qr_labels": {
+            "title": "QR Жапсырмалары",
+            "open": "Тауар жапсырмалары",
+            "description": "{{count}} тауар жапсырмасы басып шығару парағы ретінде дайын.",
+            "empty": "Жапсырмаларды басып шығару үшін сүзгілерді өзгертіңіз немесе тауарларды қосыңыз.",
+            "sheet_label": "Тауар жапсырмалары парағы",
+            "item_label": "Тауар жапсырмасы"
+        }
     },
     "categories": {
         "title": "Санаттар",
@@ -1023,7 +1266,10 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "color_required": "Түс #RRGGBB форматында болуы керек",
+        "empty_description": "Жаңа заттар сол құрылымды сақтап, кейін оңай қарау үшін бірнеше категория жасаңыз.",
+        "empty_title": "Әлі категория жоқ"
     },
     "rooms": {
         "title": "Бөлмелер",
@@ -1097,7 +1343,9 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "empty_description": "Заттардың орналасуы біркелкі болып, іздеу оңай болу үшін асхана, сақтау бөлмесі немесе гараж сияқты бөлмелер жасаңыз.",
+        "empty_title": "Әлі бөлмелер жоқ"
     },
     "admin": {
         "title": "Әкімші панелі",
@@ -1176,7 +1424,12 @@
             "households_label": "Тұрмыстар",
             "items_label": "Меншіктелген заттар",
             "last_seen_short": "Көрген",
-            "last_seen_short_never": "Жаңа"
+            "last_seen_short_never": "Жаңа",
+            "failed_logins": "{{count}} сәтсіз кіру",
+            "load_failed_title": "Пайдаланушылар жүктеле алмады",
+            "pending_requests": "{{count}} күтіп тұрған үй сұранысы",
+            "role_admin": "Әкімшілік",
+            "role_user": "Пайдаланушы"
         },
         "logs": {
             "title": "Админнің журналы",
@@ -1208,7 +1461,9 @@
             "section_eyebrow": "Аудит жолы",
             "errors_eyebrow": "Диагностика",
             "section_body": "Әрбір әкімдік қабаты арқылы тіркелген түзету немесе операциялық өзгеріс.",
-            "errors_body": "Сервер лог файлдарынан соңғы талданған қате жолдары."
+            "errors_body": "Сервер лог файлдарынан соңғы талданған қате жолдары.",
+            "load_failed_title": "Белсенділік жүктеле алмады",
+            "no_logs_title": "Әлі әкімшілік іс-әрекеттер жоқ"
         },
         "email": {
             "title": "Электрондық хат жіберу",
@@ -1242,7 +1497,14 @@
             "status_body": "Операциялық хабарламаны жібермес бұрын жылдам сенімділік тексеруі.",
             "unconfigured_title": "Электрондық поштаны жеткізу бапталмаған",
             "unconfigured_body": "Жөнелту формасы баптауды қарау үшін көрінетін қалуда, бірақ поштаны жеткізу пошта провайдері бапталғанға дейін сәтсіз болады.",
-            "status_eyebrow": "Жеткізу"
+            "status_eyebrow": "Жеткізу",
+            "configured_body": "Қайта жіберу әкімшілік бастамасымен шығыс хабарламалар үшін қолжетімді.",
+            "configured_title": "Электрондық пошта жеткізілуі конфигурацияланды",
+            "error_title": "Электрондық пошта жіберілмеді",
+            "format_hint": "HTML қолдау табады. Мысалы: <b>қалың</b>, <i>итальдық</i>, <a href=\"...\">сілтеме</a>",
+            "from_label": "Жіберуші",
+            "load_failed_title": "Электрондық пошта құралдарын жүктеу мүмкін болмады",
+            "success_title": "Электрондық пошта жіберілді"
         },
         "overview": {
             "email_warning_title": "Электрондық поштаны жеткізу бапталмаған",
@@ -1327,7 +1589,9 @@
         "stats_loaded": "Stats loaded",
         "logs_loaded": "Журналдар жүктелді",
         "load_error": "Error loading",
-        "action_error": "Action error"
+        "action_error": "Action error",
+        "load_failed_body": "Әкімшілік маршруты ашық, бірақ шолу деректері келмеді. Сіз беттен шықпай қайта көріңіз аласыз.",
+        "load_failed_title": "Әкімшілік шолу жүктеле алмады"
     },
     "landing": {
         "nav": {
@@ -1344,12 +1608,12 @@
             "cta_register": "Тіркелу",
             "stat_free": "Тегін",
             "stat_access": "Қол жеткізу",
-            "free_badge": "Open Source",
+            "free_badge": "Ашық көзі",
             "badge": "HomeInventory v2.0 осында",
             "cta_explore": "Ерекшеліктерді зерттеу",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Кіру",
+            "stat_members": "Ортақ үйлер",
+            "stat_vault": "Жеке қазына"
         },
         "features": {
             "title": "Неге <1>HomeInventory</1>?",
@@ -1420,7 +1684,7 @@
                 "description": "Заттарды, кепілдіктерді, маңызды құжаттарды және қарызды бақылауды бір тыныш орнында сақтаңыз. Үйде не бар екенін бір қарағанда көріңіз.",
                 "primaryCta": "Тегін бастау",
                 "secondaryCta": "Өнімді көру",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Ұсынылған ағын: есептік жазба • үй • бөлмелер мен санаттар • заттар • резервтік көшіру",
                 "searchPlaceholder": "Затты, бөлмені немесе штрихкодты іздеу"
             },
             "heroInventoryRows": [
@@ -1436,7 +1700,7 @@
                 },
                 {
                     "name": "Тор бірлігі",
-                    "meta": "ТВ консоль • Deco M4",
+                    "meta": "ТВ консоль • Network node",
                     "state": null
                 },
                 {
@@ -1671,8 +1935,9 @@
         "privacy_summary": "Желі туралы мәліметтер сізге нұсқау қажет болғанға дейін жасырын қалады.",
         "link_privacy_note": "Желі мекенжайы мұнда жасырын болады. Санды сканерлеу немесе сілтемені көшіру тек сіз жергілікті орнатылымда элементке тікелей қол жеткісуді бөлісуді мақсат еткенде жасалуы керек.",
         "helper": "Осы элементті дереу ашу үшін сканерлеңіз немесе қажет болғанда тікелей сілтемені көшіріңіз.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_error_title": "Сілтемені автоматты түрде көшіру мүмкін болмады",
+        "copy_manual_help": "Браузеріңіз автоматты көшіруге рұқсат бермеді. Сілтеме таңдалған, сондықтан сіз оны қолмен көшіре аласыз.",
+        "loading": "QR құралдарын дайындау..."
     },
     "house_access_pending": {
         "eyebrow": "Үйге кіру",
@@ -1859,7 +2124,11 @@
             "name_required": "Қойма жазбасы үшін элемент аты қажет.",
             "options_failed": "Санат және бөлме параметрлерін жүктеу мүмкін болмады.",
             "delete_success_title": "Қоржын жазбасы өшірілді",
-            "delete_success_body": "Жеке жазба сіздің қоржыныңыздан тұрақты түрде жойылды."
+            "delete_success_body": "Жеке жазба сіздің қоржыныңыздан тұрақты түрде жойылды.",
+            "passphrase_lowercase": "Ең кемі бір кіші әріп қосыңыз.",
+            "passphrase_min_length": "Сақтау құпия сөзінің ұзындығы кемінде 12 таңба болуы керек.",
+            "passphrase_number": "Ең кемі бір сан қосыңыз.",
+            "passphrase_uppercase": "Ең кемі бір бас әріп қосыңыз."
         },
         "recovery_file_title": "{{brandName}} Жеке Сақтау Қалқанының Қалпына Келтіру Кілті",
         "recovery_file_created_label": "Жасалды",
@@ -1907,8 +2176,8 @@
             "empty": "Қазіргі уақытта ешқандай белсенді қарыз жоқ.",
             "borrowed_from": "{{name}}-дан қарызға алынған",
             "lent_to": "Қазіргі уақытта {{name}}-де",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Қарыз берушінің оны қайтарылғанын растауын күту.",
+            "return_pending_lender": "{{name}} осы затты қайтарылды деп белгіледі. Жазбаны жабу үшін қабылдауды растаңыз.",
             "empty_title": "Қазіргі уақытта белсенді қарыздар жоқ",
             "empty_description": "Зат берілген немесе алынғаннан кейін қабылданған сұраулар мұнда көрсетіледі, төлеу күндері мен қайтару жағдайымен бірге."
         },
@@ -1919,7 +2188,7 @@
             "cancelled": "Болдырылмаған",
             "expired": "Мерзімі аяқталған",
             "returned": "Қайтарылды",
-            "return_pending": "Return pending"
+            "return_pending": "Қайтару күтілуде"
         },
         "actions": {
             "send_request": "Сұраныс элементі",
@@ -1928,8 +2197,8 @@
             "reject": "Бас тарту",
             "cancel": "Болдырмау",
             "fulfill_request": "Сұранысты орындау",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Қайтарылды деп белгілеу",
+            "mark_received": "Қабылданды деп белгілеу",
             "open_inventory": "Санақты ашу"
         },
         "labels": {
@@ -1968,21 +2237,36 @@
             "return_title": "Қайтарылған деп белгілеу",
             "return_subtitle": "\"{{item}}\" үшін белсенді қарызды жабу",
             "return_target": "Қазіргі уақытта {{name}}-тің қолында көрсетіледі.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Жеткізу",
+            "return_title_lender": "Қабылдау",
+            "return_subtitle_borrower": "\"{{item}}\" үшін белсенді қарызды қайтарғаннан кейін жабыңыз.",
+            "return_subtitle_lender": "\"{{item}}\" үшін белсенді қарызды оны қайтарғаннан кейін жауып қойыңыз.",
+            "return_target_borrower": "Несие беруші: {{name}}",
+            "return_target_lender": "Қазіргі уақытта: {{name}}",
+            "return_note_borrower": "Жеткізу қағазы",
+            "return_note_lender": "Ескерту қабылдаңыз",
+            "return_note_placeholder_borrower": "мысалы, мен оны ешқандай қиындықсыз қайта тапсырдым",
+            "return_note_placeholder_lender": "мысалы, жақсы күйінде қайтарылды",
+            "return_submitting": "Жабу...",
+            "reject_title": "Өтінішті қабылдамау",
+            "reject_subtitle": "Сіз \"{{item}}\" сұранысын қабылдамауға жақынсыз.",
+            "reject_target": "Сіз {{name}} жіберген қарыз сұранысын қабылдамауға жақынсыз.",
+            "reject_reason_label": "Бас тарту себебі",
+            "reject_submitting": "Бас тарту...",
+            "due_date_label": "Жоспарланған қайту күні"
         },
         "messages": {
             "load_error": "Несие орталығын жүктей алмады",
-            "action_error": "Әрекетті орындау мүмкін болмады"
+            "action_error": "Әрекетті орындау мүмкін болмады",
+            "active_borrow_not_found": "Осы белсенді қарыз жазбасын табу мүмкін болмады. Қарыз орталығын жаңартып, қайтадан көріңіз.",
+            "errors": {
+                "external_target_daily_limit": "Сіз бір адамға күніне тек бір рет сыртқы бірінші байланыс сұрауын жібере аласыз. Егер олар өтінішті қабылдаса, бұл шектеу сол адамға қолданылмайды.",
+                "external_total_daily_limit": "Сіз күніне барлығы 5 сыртқы бірінші байланыс сұрауын жібере аласыз.",
+                "external_request_requires_verified_email": "Сыртқы қарыз сұрауларын жібермес бұрын электрондық поштаңызды растаңыз.",
+                "external_offer_blocked": "Сіз затты тек үй мүшелеріне немесе тікелей анықталатын тіркелген қолданушыларға ұсына аласыз.",
+                "target_blocked_by_you": "Сіз бөгет қойған пайдаланушыға сұраныс жібере алмайсыз.",
+                "recent_rejection_lock": "Бұл пайдаланушы соңғы сұранысты қабылдамады. 30 күн өткен соң тағы бір сұраныс жібере аласыз."
+            }
         },
         "preview": {
             "title": "Алдын ала қарау режимі",
@@ -1992,7 +2276,12 @@
         "incoming_empty_title": "Сіздің қарап шығуыңызды қажет ететін сұраулар жоқ",
         "outgoing_empty_title": "Әлі ешқандай шыққан сұраулар жоқ",
         "refreshing": "Сұраныстар мен белсенді қарыздарды жаңарту...",
-        "loading_description": "Сұраулар мен белсенді қарыз әрекеттерін дайындау."
+        "loading_description": "Сұраулар мен белсенді қарыз әрекеттерін дайындау.",
+        "reasons": {
+            "rejected": "Қабылдау (Қалыпты қабылдамау)",
+            "not_available": "Қолжетімсіз (Зат жоқ / қолжетімсіз)",
+            "blocked": "Блоктау және қабылдамау (Бұл пайдаланушыны бұғаттайды)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Құпиялылық саясаты",
@@ -2007,7 +2296,7 @@
         "consent_submit": "Жалғастыру",
         "consent_submitting": "Жүктелуде...",
         "consent_required": "Үздіксіз жалғасу үшін Сізге Қызмет көрсету шарттары мен Құпиялық туралы хабарламаны растау қажет.",
-        "document_badge": "Legal document",
+        "document_badge": "Құқықтық құжат",
         "data_privacy_badge": "Негізгі бетке оралу",
         "back_to_home": "Жылдам кіру",
         "quick_access": "Осы бетте",
@@ -2025,13 +2314,13 @@
             "items": {
                 "what": "**Біз нені өңдейміз:** Біз тіркелгіні, қызметті, техникалық қауіпсіздікті және тіркелгіңізді және қолданбаны іске қосу үшін қажетті қосымша провайдер деректерін өңдейміз.",
                 "why": "**Неге:** Деректер аутентификация, сеанс қауіпсіздігі, инвентарлық жұмыс процестері, сақтық көшірмелер және Жеке қойма мүмкіндіктері үшін пайдаланылады.",
-                "sharing": "**Sharing and storage:** We do not sell personal data. It is kept on the infrastructure chosen for this installation; if you choose Google Sign-In or barcode lookup, limited data is shared with the selected provider to complete that feature, and the operator should disclose countries and safeguards where required.",
+                "sharing": "**Бөлісу және сақтау:** Біз жеке мәліметтерді сатпаймыз. Ол осы орнату үшін таңдалған инфрақұрылымда сақталады; егер сіз Google арқылы кіруді немесе штрихкодты іздеуді таңдасаңыз, сол функцияны орындау үшін шектеулі мәліметтер таңдалған провайдермен бөлісіледі, және оператор қажет болған жағдайда елдерді және қауіпсіздік шараларын жариялауы тиіс.",
                 "control": "Біз нені өңдейміз"
             },
             "shortcuts": {
                 "what": "Неліктен",
                 "why": "Неге",
-                "sharing": "Sharing",
+                "sharing": "Бөлісу",
                 "rights": "Біз қандай деректерді жинаймыз және өңдейміз"
             },
             "section_titles": {
@@ -2041,13 +2330,13 @@
                 "rights": "Осы орнатуға қолданылатын шарттар туралы сұрақтар үшін:"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "Бұл {{brandName}} орнату шарттары қолдануға рұқсат етілгендікті, сіздің қауіпсіздік жауапкершілігіңізді және есептік жазбаның жойылуының салдарын түсінікті, оңай оқылатын форматта түсіндіреді.",
         "terms_support_label": "Бұл іс жүзінде нені білдіреді",
         "terms_summary": {
             "eyebrow": "Қысқаша мазмұны",
             "title": "Бұл іс жүзінде нені білдіретіні",
             "items": {
-                "use": "Use the service only for data you are authorized to upload, store, or share.",
+                "use": "Қызметті тек сізге жүктеуге, сақтауға немесе бөлісуге рұқсат етілген деректер үшін пайдаланыңыз.",
                 "responsibility": "Құпия сөзді, қалпына келтіру материалдарын және сақтық көшірмелерді қауіпсіз сақтаңыз.",
                 "security": "Есептік жазбаны жою тұрақты, сондықтан маңызды ақпараттың сақтық көшірмелерін сақтау керек.",
                 "backups": "Қол жетімділік, қолдау және біріктіру осы орнату операторына байланысты; қызмет заңмен рұқсат етілген көлемде «бар болса» және «қол жетімді» негізде көрсетіледі.",
@@ -2080,7 +2369,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Барлық үй заттарын ақылды түрде басқару"
+        "tagline": "Барлық үй заттарын ақылды түрде басқару",
+        "loading": "Жүктеу {{brandName}}",
+        "preparing_workspace": "Жұмыс орнын дайындап жатырмын..."
     },
     "nav": {
         "home": "Басты бет",
@@ -2100,11 +2391,11 @@
     },
     "terms": {
         "title": "Қолдану шарттары және жауапкершіліктен бас тарту",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "{{brandName}} қазіргі уақытта тестілеу және хобби кезеңінде. Деректердің тұрақтылығы немесе қауіпсіздігі бойынша ешқандай кепілдік берілмейді. Өтініш, маңызды ақпараттарыңызды сақтап қойыңыз.",
         "disclaimer": "Жауапкершіліктен бас тарту: Бұл қолданбаны пайдалану арқылы сіз кез келген деректердің жоғалуы, кіру мәселелері немесе басқа техникалық проблемалар үшін өтем сұрай алмайтыныңызға келісесіз.",
         "backup_warning": "Деректерді сақтық көшірмелеу: Біз сіздің маңызды ақпараттарыңызды үнемі сақтық көшірмелеп отыруыңызды қатты ұсынамыз.",
         "accept": "Кіру арқылы сіз осы шарттарға келісесіз.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} қазіргі уақытта тек сынақ және хобби кезеңінде тұр. Деректердің сақталуы немесе қауіпсіздігі бойынша ешқандай кепілдік берілмейді. Маңызды мәліметтеріңізді сақтық көшірмеде сақтауды ұмытпаңыз.",
         "contact": "Байланыс"
     },
     "locations": {
@@ -2174,14 +2465,287 @@
         "too_many_login_attempts": "Too many login attempts"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Кіру",
+        "page_title_register": "Тіркелгі құру",
+        "page_title_choose_house": "Үйді таңдау",
+        "page_title_recovery_key": "Қалпына келтіру кілті",
+        "page_title_house_access": "Үйге кіру",
+        "page_title_legal_review": "Құқықтық шолу",
+        "page_title_new_item": "Жаңа зат",
+        "page_title_edit_item": "Тауар",
+        "page_title_items": "өңдеу"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Сатып алу тізімін жүктеу қатесі.",
+            "select_item_error": "Тауардан бір элемент таңдаңыз.",
+            "empty_name": "Элементтің атауын енгізіңіз.",
+            "added": "Элемент сатып алу тізіміне қосылды.",
+            "add_error": "Элементті қосу кезінде қате пайда болды.",
+            "added_suggestion": "\"{{name}}\" сатып алу тізіміне қосылды.",
+            "bulk_added": "{{count}} тауарлардың қоры аз элементтері тізімге қосылды.",
+            "bulk_error": "Қоры аз элементтерді қосқанда қате пайда болды.",
+            "completed": "\"{{name}}\" аяқталған деп белгіленді.",
+            "reactivated": "\"{{name}}\" қайта белсенді тізімге көшірілді.",
+            "update_error": "Жаңарту кезінде қате орын алды.",
+            "deleted": "Тауар тізімнен жойылды.",
+            "delete_error": "Жою кезінде қате орын алды.",
+            "cleared_completed": "Аяқталған элементтер тазаланды.",
+            "clear_error": "Тазалау кезінде қате орын алды."
+        },
+        "loading_desc": "Сауда тізімін дайындау...",
+        "page": {
+            "title": "Сатып алу тізімі",
+            "description": "Үйдегі қордағы аз қалған заттарды қарап шығыңыз және сатып алу тізіміңізді оңай басқарыңыз."
+        },
+        "suggestions": {
+            "title": "Ақылды қор ұсыныстары",
+            "desc": "Минималды шектен төмен түскен қор элементтері.",
+            "add_all": "Барлық жоқ заттарды қосу",
+            "stock_status": "Қазіргісі: {{current}} / Мақсаты: {{min}}",
+            "add_qty": "{{qty}} қосу"
+        },
+        "sections": {
+            "active_list": "Сатып алатын заттар",
+            "active_desc": "Қазіргі сауда заттарын себетке қосу.",
+            "active_count": "{{count}} Заттар",
+            "completed_list": "Сатып алынған заттар ({{count}})",
+            "add_item": "Затты қолмен қосу",
+            "add_desc": "Тізімге өз қолыңызбен жеке зат қосыңыз."
+        },
+        "empty": {
+            "title": "Сіздің сатып алу тізіміңіз бос",
+            "desc": "Жоғарыдағы ұсыныстардан жетіспейтін тауарларды қоса аласыз немесе оң жақтағы форма арқылы заттарды қолмен қоса аласыз."
+        },
+        "card": {
+            "linked_inventory": "Запаста сақталған"
+        },
+        "actions": {
+            "clear_completed": "Тарихты тазалау",
+            "add_item": "Сатып алу тізіміне қосу",
+            "mark_completed": "Аяқталған деп белгілеңіз",
+            "decrease_qty": "Көлемін азайту",
+            "increase_qty": "Көлемін арттыру",
+            "delete_item": "Элементті жою",
+            "reactivate_item": "Белсенді тізімге қайта оралу"
+        },
+        "form": {
+            "add_type": "Әдісті қосу",
+            "add_type_inventory": "Қоймадағы зат",
+            "add_type_custom": "Таңдамалы зат",
+            "select_inventory_item": "Инвентарьдан затты таңдаңыз",
+            "no_inventory_items": "Сіздің инвентарыңызда әлі зат жоқ.",
+            "select_item_placeholder": "Затты таңдаңыз",
+            "current_stock": "Ағымдағы",
+            "item_name": "Тауардың атауы",
+            "item_name_placeholder": "мысалы, Сүт, Жуу ұнтағы, Кофе дәндері...",
+            "quantity": "Саны"
+        },
+        "modal": {
+            "delete_title": "Тізімнен элементті өшіргіңіз келе ме?",
+            "delete_desc": "Сіз шынымен де «{{name}}» затын сатып алу тізімінен алып тастағыңыз келе ме?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Ақпаратты жүктеу кезінде қате",
+            "select_item_error": "Өтінемін, элементті таңдаңыз.",
+            "task_name_error": "Тапсырма атауы қажет.",
+            "date_error": "Жоспарланған күн қажет.",
+            "updated": "Техникалық қызмет тапсырмасы жаңартылды",
+            "created": "Жаңа техникалық қызмет тапсырмасы қосылды",
+            "save_error": "Сақтау кезінде қате пайда болды",
+            "deleted": "Техникалық қызмет тапсырмасы сәтті жойылды.",
+            "delete_error": "Жою процесі кезінде қате пайда болды.",
+            "performed": "Техникалық қызмет толық аяқталған деп тіркелді. Келесі күн жоспарлануда.",
+            "perform_error": "Сақтау кезінде қате пайда болды."
+        },
+        "freq": {
+            "one_time": "Бір реттік",
+            "unit": {
+                "days": "Күн",
+                "weeks": "Апта",
+                "months": "Ай",
+                "years": "Жыл"
+            },
+            "format": "Әр {{val}} {{unit}}"
+        },
+        "loading_desc": "Күтім кестесін жүктеу...",
+        "page": {
+            "title": "Қызмет көрсету және кезеңдік бақылау",
+            "description": "Үйдегі құрылғылар, сүзгілер немесе қауіпсіздік жабдықтары үшін кезеңдік қызмет көрсету кестесін басқару."
+        },
+        "actions": {
+            "add_task": "Жаңа тапсырма қосу",
+            "manage": "Басқару",
+            "perform": "Аяқталған деп белгілеңіз",
+            "edit_task": "Міндетті өңдеу"
+        },
+        "alerts": {
+            "overdue_title": "Сізде мерзімі өткен тапсырмалар бар!",
+            "overdue_desc": "{{count}} мерзімі өткен техникалық қызмет көрсету тапсырмасы бар. Кешігулер құрылғының қызмет ету мерзімін қысқартуы мүмкін."
+        },
+        "empty": {
+            "title": "Техникалық қызмет көрсету тапсырмалары жоспарланбаған",
+            "desc": "Жиі қайталанатын тапсырмаларды қосу арқылы бастаңыз, мысалы, кондиционер сүзгілерін тазалау, қазандықты техникалық қызмет көрсету немесе өрт детекторларының батареяларын тексеру."
+        },
+        "sections": {
+            "overdue": "Уақытынан өткен тапсырмалар",
+            "overdue_desc": "Дереу орындалуы қажет шұғыл техникалық қызмет көрсету.",
+            "upcoming": "Кестеленген / Келе жатқан тапсырмалар",
+            "upcoming_desc": "Жақын арада техникалық қызмет көрсетуге жақындау.",
+            "no_upcoming": "Болашақта жоспарланған белсенді тапсырмалар жоқ."
+        },
+        "modal": {
+            "edit_title": "Тапсырманы өңдеу",
+            "create_title": "Жаңа техникалық қызмет көрсету тапсырмасын жоспарлау",
+            "perform_title": "Техникалық қызмет көрсетуді толық",
+            "perform_desc": "\"{{name}}\" деп бүгін аяқталған деп тіркеуді қалайсыз ба?",
+            "perform_confirm": "Иә, аяқталды",
+            "perform_recurrence_info": "Бұл мерзімді тапсырма. Сақтағанда, жүйе келесі техникалық қызмет көрсету күнін автоматты түрде есептейді.",
+            "delete_title": "Техникалық қызмет тапсырмасын өшіргіңіз келе ме?",
+            "delete_desc": "\"{{name}}\" мерзімді техникалық қызмет кестесін өшіргіңіз келетініне сенімдісіз бе? Бұл әрекетті кері қайтаруға болмайды."
+        },
+        "form": {
+            "item": "Қатысты зат",
+            "no_items": "Техникалық қызметті жоспарламас бұрын бірінші кезекте тауарды инвентаризацияға қосуыңыз керек.",
+            "select_item_placeholder": "Тауарды таңдаңыз",
+            "task_name": "Міндет / Операция атауы",
+            "task_name_placeholder": "Мысалы: Фильтрді ауыстыру, Кезекті тексеру...",
+            "description": "Толығырақ / Сипаттама",
+            "description_placeholder": "Тапсырма мәліметтері, қолданылатын материалдар және т.б...",
+            "frequency_value": "Қайталау жиілігі",
+            "frequency_placeholder": "мысалы, 6 (бір реттік үшін бос қалдырыңыз)",
+            "frequency_unit": "Жиілік бірлігі",
+            "next_due_date": "Келесі жоспарланған күн",
+            "section_help": "Жөндеу кестелерін осы жерден басқарыңыз",
+            "section_collapsed": "Үлгідегі бақылаулар мен тапсырмаларды қосу үшін басыңыз",
+            "has_tasks": "{{count}} тапсырмалар",
+            "new_item_warning_title": "Элемент сақтау күтілуде",
+            "new_item_warning_desc": "Күтім кестесін қосу үшін алдымен осы элементті сақтау қажет.",
+            "manage_desc": "Бұл құрылғы немесе элемент үшін күтім кестелерін басқару."
+        },
+        "fields": {
+            "task_name": "Міндет атауы",
+            "task_name_placeholder": "мысалы, кондиционер сүзгісін тазалау",
+            "description": "Сипаттама",
+            "description_placeholder": "Міндеттердің егжей-тегжейі, пайдаланылатын материалдар және т.б.",
+            "frequency_value": "Қайталау жиілігі",
+            "frequency_value_placeholder": "Бір реттік болса бос қалдырыңыз",
+            "frequency_unit": "Жиілік бірлігі",
+            "next_due_date": "Жоспарланған күн"
+        },
+        "card": {
+            "untitled_item": "Атаусыз элемент",
+            "last_performed": "Соңғы орындау:",
+            "next_due_label": "Жоспарланған күн",
+            "complete_tooltip": "Бүгін техникалық қызметті 완료 деп белгілеу"
+        },
+        "detail_card_desc": "Бұл элемент үшін жоспарланған периодтық немесе бір реттік техникалық қызмет көрсетуді қадағалау.",
+        "no_tasks": "Бұл затқа қызмет көрсету тапсырмалары тағайындалмаған.",
+        "confirm_delete": "Бұл тапсырма жойылады. Сіз сенімдісіз бе?"
+    },
+    "error_boundary": {
+        "title": "Бір нәрсеге жаңарту керек",
+        "description": "Интерфейс күтпеген рендеринг мәселесіне тап болды. Сақталған инвентарь деректеріңіз осы экранда өзгермейді.",
+        "refresh_btn": "Жаңарту",
+        "home_btn": "Үй"
+    },
+    "activity": {
+        "title": "Іс-әрекет тарихы",
+        "description": "Үйіңіздің инвентаризациясында соңғы қорғалатын өзгерістер.",
+        "empty_title": "Әзірге әрекет жоқ",
+        "empty_description": "Элемент өзгерістері, қор жаңартулары, тіркемелер, қарызға беру және көпшіліктік әрекеттер мұнда көрсетіледі.",
+        "unknown_actor": "Белгісіз қолданушы",
+        "deleted_item_with_id": "#{{id}} элементі жойылды",
+        "item_missing": "Бұл элемент жазбасы енді жоқ",
+        "actions": {
+            "item_created": "Элемент қосылды",
+            "item_updated": "Элемент жаңартылды",
+            "item_deleted": "Элемент өшірілді",
+            "item_borrowed": "Элемент берілді",
+            "item_returned": "Элемент қайтарылды",
+            "item_bulk_updated": "Көп мөлшерде жаңарту",
+            "item_bulk_deleted": "Көп мөлшерде өшіру",
+            "item_stock_adjusted": "Қор жаңартылды",
+            "item_attachment_added": "Қосымша тіркелді",
+            "item_attachment_deleted": "Қосымша жойылды"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} байланысты жазба",
+        "empty_title": "Байланысты жазбалар табылмады",
+        "low_stock": {
+            "title": "Төмен қор",
+            "description": "Елементтер минималды қор деңгейінен төмен.",
+            "qty": "Қор {{quantity}} / мин {{min}}"
+        },
+        "expired": {
+            "title": "Мерзімі өткен тауарлар",
+            "description": "Мерзімі өткен күндері бар тауарлар."
+        },
+        "expiring": {
+            "title": "Алдағы жарамдылық мерзімдері",
+            "description": "30 күн ішінде аяқталатын заттар."
+        },
+        "maintenance": {
+            "title": "Кешіктірілген техникалық қызмет",
+            "description": "жоспарланған мерзімнен кейінгі техникалық қызмет көрсету тапсырмалары."
+        }
+    },
+    "notifications": {
+        "title": "Хабарлама орталығы",
+        "description": "Қор, кепілдік, техникалық қызмет көрсету, мерзімі аяқталуы және қарызды қайтару туралы ескертулер.",
+        "meta_total": "{{count}} хабарламалар",
+        "meta_urgent": "{{count}} шұғыл",
+        "empty_title": "Қазір ешқандай ескертулер сіздің назарыңызды қажет етпейді",
+        "empty_desc": "Тауар азайды, жақында болатын күндер және уақытынан кешіктірілген техникалық қызмет көрсету осында көрсетіледі.",
+        "items": {
+            "stock_empty_title": "Қор таусылды",
+            "stock_low_title": "Қор азайды",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Сақталу мерзімі өтті",
+            "expiry_close_title": "Сақталу мерзімі жақында аяқталады",
+            "warranty_expired_title": "Кепілдік мерзімі өтті",
+            "warranty_close_title": "Кепілдік мерзімі жақында аяқталады",
+            "maintenance_overdue_title": "Техникалық қызмет мерзімі өтті",
+            "maintenance_close_title": "Техникалық қызмет мерзімі жақында",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Қарыз қайтару мерзімі өтті",
+            "borrow_close_title": "Қарыз қайтару мерзімі жақында",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} күн қалды ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Қызмет және Кепілдік Орталығы",
+        "description": "Барлық кепілдік жазбаларын, техникалық қызмет кестелерін және қызмет әрекеттерін бір жерден қадағалаңыз.",
+        "meta_warranty": "{{count}} кепілдік жазбалары",
+        "meta_tasks": "{{count}} техникалық қызмет көрсету тапсырмалары",
+        "empty_title": "Қызмет көрсету немесе кепілдік әрекеті жоқ",
+        "empty_desc": "Алдағы кепілдік мерзімдері мен техникалық қызмет көрсету тапсырмалары мұнда жиналады.",
+        "warranty_section": "Кепілдік бақылауы",
+        "warranty_desc": "Мерзімі өткен кепілдіктер және 30 күн ішінде аяқталатын кепілдіктер.",
+        "maintenance_section": "Техникалық қызмет көрсету әрекеттері",
+        "maintenance_desc": "Мерзімі өтіп кеткен және алдағы техникалық қызмет көрсету тапсырмалары.",
+        "no_warranty": "Алдағы кепілдік әрекеті жоқ.",
+        "no_tasks": "Белгіленген техникалық қызмет көрсету тапсырмасы жоқ.",
+        "overdue": "Мерзімі өткен",
+        "upcoming": "Жақында",
+        "expired": "Уақыты өткен",
+        "summary_warranty": "Кепілдік бақылауы",
+        "summary_tasks": "Техникалық қызмет көрсету тапсырмалары",
+        "open_warranty_filter": "Ашық кепілдік сүзгісі",
+        "open_warranty_filter_desc": "Сүзгілер қордағы белсенді кепілдік заттарын көрсетеді."
+    },
+    "storage_labels": {
+        "title": "Сөре және Бөлме Жапсырмалары",
+        "description": "{{count}} бөлме/сөре жапсырмалары баспа парағы ретінде дайын.",
+        "empty_title": "Жапсырмалар үшін бөлмелер немесе сөрелер жоқ",
+        "empty_desc": "Алдымен бөлмелерді немесе орындарды қосыңыз, содан кейін QR жапсырмаларын осында басып шығарыңыз.",
+        "sheet_label": "Орын Жапсырмасы Парағы",
+        "scan_hint": "QR кодты сканерлеу сол бөлме немесе сөреге арналған сүзілген жабдықтарды ашады.",
+        "room": "Бөлме",
+        "location": "Сөре/Қорап"
     }
 }

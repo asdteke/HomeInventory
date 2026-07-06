@@ -6,7 +6,7 @@
         },
         "title_new": "Cuir Nì Ùr ris",
         "title_edit": "Deasaich an nì",
-        "subtitle": "m.e. Samsung TV 55 òirleach",
+        "subtitle": "m.e. TV 55 òirleach",
         "load_error": "Tuairisgeul",
         "form": {
             "name": "Notaichean mun rud...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Faisg air Crìochnachaidh",
             "expired": "air tighinn gu crìch",
             "low_stock": "Stoc ìosal"
+        },
+        "untitled_item": "Nì gun tiotal",
+        "attachments": {
+            "title": "Dealbhan is faidhlichean",
+            "add": "Cuir faidhlichean ris",
+            "empty": "Cha deach faidhlichean a chur ris fhathast.",
+            "form_desc": "Ceangail dealbhan nì, cuidhteasan, fàirdealan no sgrìobhainnean seirbheis.",
+            "detail_desc": "Dealbhan, cuidhteasan, fàirdealan is faidhlichean seirbheis air an sàbhaladh airson an rud seo.",
+            "upload_error": "Cha b 'urrainn dhuinn na faidhlichean a luchdadh suas.",
+            "delete_error": "Sguab às am faidhle seo?",
+            "delete_confirm": "Cuir a-steach dealbhan agus dealbhan cuidhteas"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "_Seall am facal-faire",
         "saving": "Sàbhaladh...",
         "disabled": "Ciorramach",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Gluais a-steach",
+        "zoom_out": "Gluais a-mach",
+        "reset": "Ath-shuidhich",
+        "print": "Clò-bhuail",
+        "record_count": "{{count}} clàran"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Thèid do thoirt air ais chun sgrion clàraidh agus feumaidh tu logadh a - steach a - rithist gus an clàr dachaigh agad a riaghladh.",
         "logout_warning": "Cleachd seo nuair a tha thu air a dhèanamh air inneal co - roinnte no pearsanta.",
         "maintenance": "Clàr cumail suas",
-        "shopping": "Liosta Bhùthan"
+        "shopping": "Liosta Bhùthan",
+        "activity": "Gnìomhachd",
+        "notifications": "Brathan",
+        "service": "Seirbheis"
     },
     "dashboard": {
         "welcome": "Fàilte, <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "Tha {{count}} nì air tuiteam fon ìre as lugha de stoc agad.",
             "go_to_shopping": "Liosta bhùthan",
             "close_expiry_title": "Cinn-latha Crìochnachaidh ri Teachd",
-            "close_expiry_desc": "Thig bathar {{count}} gu crìch taobh a-staigh 30 latha."
+            "close_expiry_desc": "Thig bathar {{count}} gu crìch taobh a-staigh 30 latha.",
+            "view_low_stock_items": "Seall air Stoc Ìosal"
         }
     },
     "beta_banner": {
@@ -719,14 +736,14 @@
         "house_info": {
             "title": "Iuchair taighe",
             "key_label": "Iuchair an taighe",
-            "mask_key": "•••••••{{ iar-leasachan}}",
+            "mask_key": "•••••••{{suffix}}",
             "hide": "Falaich",
             "show": "Seall",
             "copy": "Leth-bhreac",
             "share_info": "💡 Faodaidh luchd-cleachdaidh a bhios tu a’ roinn an iuchair seo le bhith a’ cleachdadh an roghainn “Thig còmhla ris an tasgadh agad” tron ​​​​roghainn clàraidh le bhith a’ cleachdadh an taigh-tasgaidh agad.",
             "members_title": "Buill Taighe ({{count}})",
             "you": "(Sibh)",
-            "joined_at": "Thàinig sinn còmhla: {{ceann-latha, ceann-latha}}",
+            "joined_at": "Thàinig sinn còmhla: {{date, datetime}}",
             "no_members": "Chan eil ball sam bith eile ann fhathast",
             "invite_title": "Thoir cuireadh do Bhuill Teaghlaich",
             "invite_desc": "Roinn iuchair an taighe agad gus am faigh buill teaghlaich cothrom air an aon chlàr-seilbhe. Bidh gach ball a’ logadh a-steach leis a’ chunntas aca fhèin ach a’ faighinn cothrom air an aon dàta.",
@@ -767,7 +784,7 @@
             "transfer_owner_title": "A’ gluasad seilbh taighe?",
             "transfer_owner_confirm": "An cuir thu thairis sealbh an taighe seo gu {{name}}?",
             "transfer_owner_warning": "Cha bhith thu nad shealbhadair air an taigh seo tuilleadh. Bidh an sealbhadair ùr a 'riaghladh ceadan ball, toirt air falbh, agus atharrachaidhean seilbh san àm ri teachd.",
-            "transfer_owner_success_body": "Tèarainteachd agus prìobhaideachd"
+            "transfer_owner_success_body": "'S e {{name}} sealbhadair an taighe seo a-nis."
         },
         "theme": {
             "title": "Cuspair",
@@ -823,7 +840,7 @@
             "unlock_and_import": "Fosgail agus Ion-phortaich",
             "export_encrypted_notice": "Tha an cùl - taic air ullachadh bho dhàta dachaigh beò agus an uairsin air a phasgadh leis an fhacal - faire a thaghas tu. Cùm am facal - faire sin an àiteigin sàbhailte oir tha feum air gus am faidhle a thoirt air ais nas fhaide air adhart.",
             "export_encrypted_title": "Thèid crioptachadh a chur an sàs ro luchdachadh a - nuas",
-            "import_summary_body": "{{nithean}} nithean, {{roinnean}} roinnean, {{seòmraichean}} seòmraichean, {{àiteachan}} àiteachan, {{seòmraichean}} clàran air iasad air ais.",
+            "import_summary_body": "{{items}} nithean, {{categories}} roinnean, {{rooms}} seòmraichean, {{locations}} àiteachan, {{borrows}} clàran air iasad air ais.",
             "import_summary_title": "Aisig an lethbhreac - glèidhidh",
             "preview_categories": "Roinn ùr",
             "preview_items": "Stoc",
@@ -835,7 +852,10 @@
             "skipped_locations": "Chaidh {{count}} de na h - àiteachan a bha ann a sguabadh às.",
             "skipped_rooms": "Chaidh {{count}} de na seòmraichean a th 'ann a sguabadh às.",
             "owner_only_title": "Cùl-taic agus Ath-nuadhachadh Cuingealaichte",
-            "owner_only_desc": "Chan fhaodar dàta cùl - taic agus ath - nuadhachadh a riaghladh ach le sealbhadair an taighe."
+            "owner_only_desc": "Chan fhaodar dàta cùl - taic agus ath - nuadhachadh a riaghladh ach le sealbhadair an taighe.",
+            "include_media_title": "Gabh a - steach dealbhan is dealbhan - gabhail",
+            "include_media_body": "Faodaidh an làn lethbhreac - glèidhidh a bhith nas motha, ach faodar dealbhan nithean agus ìomhaighean cuidhteas fhaighinn air ais cuideachd.",
+            "skipped_attachments": "Chaidh leum thairis air {{count}} ceanglachan."
         },
         "about": {
             "title": "Mu dheidhinn Iarrtas",
@@ -891,7 +911,7 @@
         },
         "select_language": "Tagh Cànan",
         "pending_requests": {
-            "title": "A’ feitheamh bhon uair sin: {{ceann-latha, an ceann-latha}}",
+            "title": "Na h-Iarrtasan Comainn a tha ri thighinn agam",
             "waiting_since": "A 'feitheamh bho: {{date, datetime}}",
             "pending_badge": "A 'feitheamh"
         },
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Tha gach iarrtas a thig a-steach air a bhacadh gu fèin-ghluasadach.",
             "policy_house_only_desc": "Is e dìreach buill dearbhte de na taighean gnìomhach agad as urrainn stuthan iarraidh a tha rim faicinn mar-thà taobh a-staigh an taigh roinnte sin.",
             "policy_everyone_desc": "Chan urrainn do luchd-cleachdaidh eile na stuthan agad fhaicinn no brobhsadh. Chan urrainn dhaibh ach iarrtas a chuir a-steach le bhith a’ cuir a-steach d’ ainm-cleachdaidh no post-d gu dìreach."
+        },
+        "activity_log": {
+            "title": "Thoir sùil air eachdraidh dìon atharrachaidhean nithean, ùrachadh stoc, ceanglachan, agus mòr-ghnìomhan.",
+            "description": "Dèan ath - sgrùdadh air eachdraidh dìon atharrachaidhean nithean, ùrachaidhean stoc, ceanglachain, agus gnìomhan mòra.",
+            "encrypted_title": "Tha clàran gnìomhachd air an stòradh fo dhìon",
+            "encrypted_body": "Tha gnìomhan gnìomhachd ùra agus mion-fhiosrachadh air an stòradh ann an crioptachadh san stòr-dàta agus chan eil iad air an dì-chrioptachadh ach airson an t-seisean gnìomhach agad."
         }
     },
     "inventory": {
@@ -1083,7 +1109,7 @@
             "overdue_badge": "Diluain",
             "borrowed_badge": "Air iasad",
             "borrowed_to": "Le {{name}}",
-            "due_date_short": ": tdddddddddddddddddddddddddfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjblgvvvvvvvvvvvvv",
+            "due_date_short": "Ri phàigheadh: {{date}}",
             "actions_error": "Cha b 'urrainn dhuinn an gnìomh iasaid a chrìochnachadh",
             "borrowed_at": "Air a 'chladach: {{date}}",
             "due_date_label": "Till dhan duilleag a leanas: {{date}}",
@@ -1107,7 +1133,8 @@
             "site_member_identifier": "Ainm-cleachdaidh no post-d",
             "site_member_identifier_placeholder": "An dearbh ainm-cleachdaidh no post-d",
             "site_member_privacy_hint": "Cha nochd an tairgse san Ionad Iasad ach ma tha an cunntas sin ann agus ma cheadaicheas e tairgsean a-steach.",
-            "external_privacy_hint": "Bidh seo a’ cruthachadh clàr ionadail prìobhaideach a-mhàin. Cha tèid fios app a chuir."
+            "external_privacy_hint": "Bidh seo a’ cruthachadh clàr ionadail prìobhaideach a-mhàin. Cha tèid fios app a chuir.",
+            "available": "Ri fhaighinn"
         },
         "untitled_item": "Rud gun tiotal",
         "delete_action": "Sguab às an nì",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Criathraich a - rèir seòmar",
         "refreshing_results": "Ag ath - nuadhachadh nithean...",
         "empty_filter_title": "Cha robh nithean co - ionnan ris an rannsachadh sin",
-        "delete_error_title": "Dh'fhàillig an sguabadh às"
+        "delete_error_title": "Dh'fhàillig an sguabadh às",
+        "tools": {
+            "title": "Innealan"
+        },
+        "no_room": "Gun rùm",
+        "all_locations": "A h-uile àite",
+        "location_filter_label": "Criathraich a rèir àite",
+        "visibility_filter_label": "Criathraich a-rèir faicsinneachd",
+        "visibility_all": "A h-uile faicsinneachd",
+        "visibility_mine": "Na nithean agam",
+        "visibility_others": "Buill eile",
+        "borrow_filter_label": "Criathraich a rèir inbhe iasad",
+        "borrow_filter_all": "A h-uile inbhe iasad",
+        "stock_filter_label": "Criathraich a rèir inbhe stoc",
+        "stock_filter_all": "Inbhe stuic gu lèir",
+        "stock_filter_ok": "Stoc ceart gu leòr",
+        "expiry_filter_label": "Criathraich a rèir ceann-latha crìochnachaidh",
+        "expiry_filter_all": "Ceann-latha crìochnachaidh uile",
+        "expiry_filter_dated": "Tha ceann-latha ann",
+        "expiry_filter_none": "Gun cheann-latha",
+        "warranty_filter_label": "Criathraich le barantas",
+        "warranty_filter_all": "A h-uile barantas",
+        "warranty_filter_expired": "Barantasan a dh’ fhalbh air tighinn gu crìch",
+        "warranty_filter_close": "A’ tighinn gu crìch a dh’ aithghearr",
+        "warranty_filter_active": "Barantasan gnìomhach",
+        "warranty_filter_none": "Gun fhiosrachadh barantais",
+        "sort_label": "Deasaich",
+        "sort_updated_desc": "Air ùrachadh o chionn ghoirid",
+        "sort_updated_asc": "An t-ùrachadh as sine",
+        "sort_created_desc": "An tionndadh as ùire an-toiseach",
+        "sort_created_asc": "An tè as sine an toiseach",
+        "sort_name_asc": "Ainm A-Z",
+        "sort_name_desc": "Ainm Z-A",
+        "sort_quantity_desc": "Meud àrd gu ìosal",
+        "sort_quantity_asc": "Meud ìosal gu àrd",
+        "sort_expiry_asc": "A’ tighinn gu crìch as luaithe",
+        "sort_expiry_desc": "An ceann-latha as ùire",
+        "stock_increase": "Meudaich stoc",
+        "stock_decrease": "Lùghdaich stoc",
+        "stock_adjust_error": "Cha b’ urrainn dhuinn an stoc ùrachadh.",
+        "bulk": {
+            "select_visible": "Tagh faicsinneach",
+            "clear_visible": "Neo-thaghadh faicsinneach",
+            "selected_short": "taghta",
+            "keep_category": "Cùm roinn",
+            "keep_room": "Cùm rùm",
+            "keep_location": "Cùm àite",
+            "keep_visibility": "Cùm faicsinneachd",
+            "apply": "Cuir a-steach",
+            "no_fields": "Tagh co-dhiù aon raon airson a’ mhòr-ghnìomh.",
+            "updated_title": "Ùrachadh mòr air a chrìochnachadh",
+            "updated_body": "{{count}} nithean air an ùrachadh. Leum {{skipped}}.",
+            "update_error": "Cha b’ urrainn dhuinn ùrachadh mòr a chrìochnachadh.",
+            "deleted_title": "Sguab às mòr-chuid coileanta",
+            "deleted_body": "Chaidh {{count}} nithean a dhubhadh às. {{skipped}} air an sguabadh às.",
+            "delete_error": "Cha b 'urrainnear a' mhòr - chuid de sguabadh às a chrìochnachadh.",
+            "delete_title": "Sguab às na nithean a thagh thu?",
+            "delete_description": "Thèid {{count}} rud a thagh thu a thoirt air falbh o chlàr an taighe seo. Chan urrainnear seo a chuir dheth.",
+            "select_item": "Cuir às do nì",
+            "unselect_item": "Neo - thagh nì"
+        },
+        "qr_labels": {
+            "title": "Leubail QR",
+            "open": "Leubail nithean",
+            "description": "Tha bileagan nì {{count}} deiseil mar dhuilleag clò-bhualaidh.",
+            "empty": "Atharraich sìoltachain no cuir nithean tasgaidh ris gus bileagan a chlò-bhualadh.",
+            "sheet_label": "Duilleag leubail an nì",
+            "item_label": "Leubail an nì"
+        }
     },
     "categories": {
         "title": "Roinn ùr",
@@ -1266,7 +1361,7 @@
             "total_users": "Luchd-cleachdaidh Iomlan",
             "new_today": "An-diugh: +{{count}} ùr",
             "total_inventory": "Clàr-stuthan Iomlan",
-            "inventory_details": "Seòmraichean {{seòmraichean}}, {{roinnean}} roinnean",
+            "inventory_details": "Seòmraichean {{rooms}}, {{categories}} roinnean",
             "banned_users": "Cothrom air a bhacadh",
             "access_blocked": "Cuimhne an fhrithealaiche",
             "server_memory": "Cuimhne an fhrithealaiche",
@@ -1302,7 +1397,7 @@
             "ban_success_title": "Cleachdaiche air a thoirmeasg",
             "ban_success_body": "Chaidh casg a chuir air {{username}} bho bhith a’ clàradh a-steach.",
             "unban_success_title": "Cothrom air ath-nuadhachadh",
-            "unban_success_body": "'S urrainn dhut logadh a - steach a - rithist.",
+            "unban_success_body": "'S urrainn do {{username}} clàradh a-steach a-rithist.",
             "delete_success_title": "Cunntas air a sguabadh às",
             "delete_success_body": "Chaidh {{username}} agus an dàta leis a bheil seilbh co-cheangailte ris a thoirt air falbh gu buan.",
             "section_title": "Smachd ruigsinneachd cleachdaiche",
@@ -1332,7 +1427,7 @@
             "last_seen_short_never": "Nua",
             "failed_logins": "Dh'fhàillig {{count}} logadh a - steach",
             "load_failed_title": "Cha b 'urrainn do luchd - cleachdaidh luchdadh",
-            "pending_requests": "A 'feitheamh ri iarrtasan taighe",
+            "pending_requests": "{{count}} iarrtasan taighe a' feitheamh",
             "role_admin": "Rianairean",
             "role_user": "Cleachdaiche"
         },
@@ -1341,7 +1436,7 @@
             "no_logs": "chan eil logaichean ann fhathast",
             "errors_title": "Mearachdan an t-siostaim (10 mu dheireadh)",
             "no_errors": "// System fallain, gun logaichean mearachd.",
-            "date_fmt": "{{ceann-latha, ceann-latha}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "Post-d",
                 "user": "Cleachdaiche",
@@ -1456,7 +1551,7 @@
             "cards": {
                 "accounts": "Cunntasan",
                 "accounts_body": "{{count}} soidhnigeadh ùr anns na 7 làithean a dh’ fhalbh",
-                "admins_chip": "xdjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjdjjjjjjjjjjjjjjjsssjddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjj",
+                "admins_chip": "{{count}} rianairean",
                 "banned_chip": "Chaidh {{count}} a thoirmeasg",
                 "households": "Taighean",
                 "households_body": "{{count}} com - pàirteachas gnìomhach air feadh an àrd - ùrlair",
@@ -1508,7 +1603,7 @@
         "hero": {
             "title_1": "Stiùirich a h - uile rud",
             "title_2": "Aig an taigh!",
-            "description": "Digitize your home inventory. Categorize items, invite family, and access from anywhere. Modern, secure, and easy to use.",
+            "description": "Digitiú do liosta inveistithe teaghlaigh. Catagóirghnigh earraí, cuireadh a thabhairt do theaghlach, agus rochtain a fháil ó áit ar bith. Nua-aimseartha, sábháilte, agus éasca le húsáid.",
             "cta_start": "Tòisich",
             "cta_register": "Cruthaich cunntas",
             "stat_free": "AN-ASGAIDH",
@@ -1521,7 +1616,7 @@
             "stat_vault": "Iiiiiiiiiiidddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj"
         },
         "features": {
-            "title": "Carson <1>{{ainm - àite}} </ 1 >?",
+            "title": "Carson <1>Cunntas Dachaigh</1>?",
             "subtitle": "Na h-uile feart gus riaghladh na dachaigh a dhèanamh nas sìmplidhe ann an aon àrd-ùrlar.",
             "items": {
                 "categorize": {
@@ -1556,7 +1651,7 @@
             "button": "Log a-steach"
         },
         "footer": {
-            "desc": "The easy and secure platform to digitize your home inventory.",
+            "desc": "An t-ardán éasca agus sábháilte chun do inventaire tí a dhigitigh.",
             "links": "Ceanglaichean luath",
             "contact": "Cuir Fios Thugainn",
             "copyright": "© {{year}} {{brandName}}. Na còraichean uile glèidhte."
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Aonad mogalra",
-                    "meta": "Consól teilifíse • Deco M4",
+                    "meta": "Consól teilifíse • Network node",
                     "state": null
                 },
                 {
@@ -1819,7 +1914,7 @@
         "copy_url": "Dèan lethbhreac den URL",
         "download": "Luchdaich a - nuas QR",
         "usage_title": "Cleachdadh",
-        "usage_desc": "Clò - bhuail an còd QR agus cùm e air a 'chuspair. Scan le do iPhone gus faighinn a - steach don duilleag seo sa bhad!",
+        "usage_desc": "Clò-bhuail an còd QR agus cùm e air a' chuspair. Scan leis an fhòn agad gus faighinn a-steach don duilleag seo sa bhad!",
         "caption": "Ceangal nì",
         "caption_hint": "Dèan lethbhreac no clò-bhualadh air an t-slighe nì dhìreach nuair a bhios feum agad air ruigsinneachd luath.",
         "format_badge": "Às-mhalairt SVG",
@@ -1902,7 +1997,7 @@
             ],
             "fallback": "Tha an ceangal ath - shuidheachadh facal - faire a 'coimhead neo - iomlan no briste.",
             "support": "Ceistean clàraidh:",
-            "footer": "© 2026 {{ainm - àite}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
             "subject": "Fàilte gu {{brandName}}",
@@ -1920,16 +2015,16 @@
                 "💡 Is féidir leat a bheith i do bhall de iliomad tithe agus sleamhnaigh eatarthu. Coinníonn gach teach stocaireacht ar leith."
             ],
             "support": "Ceistean clàraidh:",
-            "footer": "© 2026 {{ainm - àite}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "Iiiiiiiiiiidddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj",
             "greeting": "Rochtain air an taigh",
-            "bodyLine1Template": "Cuir iarrtas {{username}}",
+            "bodyLine1Template": "{{username}} Cuir Iarrtas {{house}}",
             "bodyLine2": "A 'feitheamh ri cead bho shealbhadair an taighe"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "© 2026 {{ supportName}} - {{ supportName}} - {{ supportName}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Rochtain air an taigh",
             "bodyLine1Template": "An t - iarrtas làithreach ri thighinn: {{house}} ({{status}})",
             "bodyLine2": "Tha an t - iarrtas agad airson \"{{ house }}\" fhathast a 'feitheamh ri co - dhùnadh.",
@@ -1954,7 +2049,7 @@
             "warningTitle": "⚠️",
             "warningBody": "Ma tha cunntas ann, chaidh ceangal ath - shuidheachadh facal - faire a tha dligheach airson 15 mionaidean a chuir.",
             "fallback": "Tha an ceangal ath - shuidheachadh facal - faire a 'coimhead neo - iomlan no briste.",
-            "footer": "© 2026 {{ainm - àite}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "Chaidh am post - d seo a chuir le {{brandName}}.",
@@ -1968,7 +2063,7 @@
             "sentAtLabel": "Air a chur aig",
             "senderLabel": "Seòladair",
             "serviceLabel": "Iiiiiiiiiiidddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj",
-            "footer": "© 2026 {{ainm - àite}}"
+            "footer": "© 2026 {{brandName}}"
         }
     },
     "vault": {
@@ -2146,7 +2241,7 @@
             "return_title_lender": "Faigh an nì",
             "return_subtitle_borrower": "Dùin an iasad gnìomhach airson \"{{ item }}\" às deidh dhut a thoirt air ais.",
             "return_subtitle_lender": "Dùin an iasad gnìomhach airson \"{{ item }}\" nuair a gheibh thu air ais e.",
-            "return_target_borrower": "Xdjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjdjjjjjjjjjjjjjjjsssjddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjj",
+            "return_target_borrower": "Neach-iasaid: {{name}}",
             "return_target_lender": "An - dràsta le: {{name}}",
             "return_note_borrower": "Nota lìbhrigidh",
             "return_note_lender": "Faigh nota",
@@ -2193,7 +2288,7 @@
         "terms_of_service_title": "Cumhachan seirbheis",
         "privacy_policy_content": "## Sealladh farsaing\n** {{brandName}}** ’S e bathar-bog le còd fosgailte a th’ ann agus dh’ fhaodadh gun tèid a sholarachadh tro stàladh oifigeil no fèin-aoigheachd. Airson an stàlaidh seo, is e **{{controllerName}}** rianadair an dàta no gnìomhaiche na seirbheis.\n- **Seòladh an neach-riaghlaidh:** {{controllerAddress}}\n- ** Cuir fios gu dìomhaireachd:** {{privacyEmail}}\n- ** Cuir fios gu taic choitcheann:** {{supportEmail}}\n\nTha am fios seo a’ mìneachadh ** dè an dàta pearsanta a thathas a’ giullachd **, ** mar a gheibhear e **, ** carson a tha e air a ghiullachd **, ** cò gheibh e **, ** dè cho fada ‘s a thèid a chumail **, agus ** dè na còraichean a dh’ fhaodadh a bhith agad **.\n\nMa tha an stàladh seo air a ruith le treas phàrtaidh, tha uallach air a’ ghnìomhaiche sin airson dearbh-aithne rianadair a tha sònraichte airson cleachdadh, geallaidhean taice, mion-fhiosrachadh gluasaid, suidheachaidhean gleidhidh, agus fiosan laghail ionadail a tha iomchaidh.\n\n## Dè an dàta a bhios sinn a’ cruinneachadh agus a’ pròiseasadh\n- ** Dàta cunntais: ** ainm neach-cleachdaidh, seòladh puist-d, hash facal-faire, briosgaidean seisean, dàta inneal earbsach, agus logaichean tèarainteachd.\n- ** Dàta seirbheis: ** taighean, seòmraichean, roinnean, nithean, meadhanan air an luchdachadh suas, iarrtasan iasad, agus clàran seilearan pearsanta a chruthaicheas tu.\n- ** Dàta teignigeach: ** Seòladh IP, aithnichearan brabhsair / seisean, agus dàta roghainn cànain a dh’ fheumar airson sgìreachadh agus tèarainteachd cunntais.\n- ** Dàta solaraiche dearbh-aithne roghainneil: ** ma thaghas tu Google Sign-In, bidh Google a’ roinn do sheòladh puist-d, aithnichear cunntas Google, agus ainm taisbeanaidh pròifil leinn gus an urrainn dhuinn do dhearbhadh no do chunntas a chruthachadh.\n- ** Dàta iarrtas sgrùdaidh roghainneil: ** ma chleachdas tu còd-barra no sgrùdadh toraidh, faodaidh an t-seirbheisiche againn an luach còd-barra a chuireas tu a-steach a chuir gu Fiosrachadh Bidhe Fosgailte, Fiosrachadh Bathar Fosgailte, Fiosrachadh Bòidhchead Fosgailte, no Google gus an tèid an toradh a chaidh iarraidh a thilleadh.\n\n## Mar a gheibh sinn dàta\n- ** Gu dìreach bhuat: ** nuair a chlàras tu, clàraich a-steach, cruthaich no deasaich thu clàran, luchdaich suas meadhanan, rèitichidh tu roghainnean tèarainteachd, no cuir fios gu taic.\n- ** Gu fèin-ghluasadach bhon bhrobhsair no inneal agad: ** tro bhriosgaidean seisean riatanach, uidheamachdan inneal earbsach, làimhseachadh IP, roghainn cànain, agus logaichean tèarainteachd a dh ’fheumar gus an tagradh obrachadh agus a dhìon.\n- **Bho Google:** dìreach ma thaghas tu Google Sign-In, cuingichte ris an dàta dearbh-aithne a dh’ fheumar gus do dhearbhadh no do chunntas a chruthachadh.\n- ** Bho stòran dàta toraidh taobh a-muigh: ** dìreach ma bhrosnaicheas tu còd-bàr no sgrùdadh toraidh, cuibhrichte ris an iarrtas sgrùdaidh agus meata-dàta toraidh air ais.\n\n## Carson a bhios sinn ga làimhseachadh\n- ** Obrachadh cunntais: ** gus do chunntas a chruthachadh agus obrachadh.\n- ** Dearbhadh agus tèarainteachd: ** gus do dhearbhadh agus seiseanan tèarainte agus dearbhadh dà-fhactaraidh.\n- ** Prìomh fheartan: ** gus clàr-seilbhe, cùl-taic, agus feartan Personal Vault a thoirt seachad.\n- **Taic:** gus freagairt a thoirt do iarrtasan taic.\n- ** Feartan soidhnidh a-steach is sgrùdaidh roghainneil: ** gus crìoch a chuir air Google Sign-In agus còd-barra taobh a-muigh / sgrùdadh toraidh dìreach nuair a thaghas tu na feartan sin.\n- ** Dleastanasan laghail is tèarainteachd: ** gus dleastanasan laghail no tèarainteachd a choileanadh.\n\n## Bunait laghail agus dòigh cruinneachaidh\n- ** Fo GDPR, far a bheil sin iomchaidh:** tha giullachd stèidhichte air coileanadh cùmhnant, dleastanasan laghail, cead airson feart sam bith a tha stèidhichte air cead, agus ùidh dhligheach a’ ghnìomhaiche ann an tèarainteachd seirbheis is cunntais.\n- **Fo KVKK, far a bheil sin iomchaidh:** tha giollachd stèidhichte air na h-adhbharan laghail ann an Artaigilean 5 agus 6, a’ toirt a-steach far a bheil sin riatanach airson cùmhnant a stèidheachadh no a choileanadh, gèilleadh ri dleastanasan laghail, cleachdadh no dìon chòraichean, no ùidhean dligheach an neach-riaghlaidh fhad ‘s nach tèid do chòraichean agus do shaorsa bunaiteach a mhilleadh.\n- ** Modh cruinneachaidh: ** tha dàta air a chruinneachadh tro dhòighean dealanach tro fhoirmean, seiseanan dearbhte, briosgaidean riatanach, sruthan roghainneil OAuth, logaichean tagraidh, luchdachadh suas, agus iarrtasan API.\n\n## Stòradh is gluasad\n- **Cha bhith sinn a’ reic dàta pearsanta.**\n- Faodaidh na solaraichean aoigheachd, stòr-dàta, stòradh, post-d, dearbhadh, agus bun-structar a chleachdar gus an stàladh seo obrachadh, dàta pearsanta fhaighinn.\n- Ma thaghas tu Google Sign-In no còd-barra / sgrùdadh toraidh, thèid an dàta dearbhaidh no sgrùdaidh iomchaidh a cho-roinn leis an t-solaraiche taghte a-mhàin gus am feart a bhrosnaich thu a chrìochnachadh.\n- Faodar dàta fhoillseachadh do chùirtean, riaghladairean, no ùghdarrasan poblach nuair a tha sin riatanach fon lagh.\n- **Gluais foillseachadh airson an stàlaidh seo:** {{transferDisclosure}}\n- Tha dàta cunntais air a chumail fhad ‘s a tha do chunntas gnìomhach.\n- Nuair a sguabas tu às do chunntas bho Settings, thèid an dàta cunntais agad, susbaint seilear pearsanta, meadhanan a chaidh a luchdachadh suas, agus clàran tagraidh a bhuineas don chunntas agad a dhubhadh às an tagradh gun dàil sam bith, ach a-mhàin fiosrachadh a dh’ fheumar a chumail airson tagraidhean laghail, dleastanasan reachdail, no dleastanasan tèarainteachd.\n\n## Do chòraichean\n- A rèir an lagh iomchaidh, faodaidh tu dearbhadh iarraidh a bheil an dàta pearsanta agad air a phròiseasadh, ruigsinneachd air, agus fiosrachadh mu adhbharan, roinnean, luchd-faighinn agus gluasadan.\n- Faodaidh tu iarraidh air ceartachadh, cur às, sgrios, cuingealachadh no gearan, agus far a bheil sin iomchaidh comasachd dàta.\n- Far a bheil giullachd stèidhichte air cead, faodaidh tu cead a tharraing air ais aig àm sam bith gun a bhith a’ toirt buaidh air giullachd laghail roimhe.\n- Faodaidh tu iarraidh gun tèid toraidhean ceartachaidh, cuir às no sgrios a chuir an cèill do luchd-faighinn far a bheil an lagh ag iarraidh seo.\n- Faodaidh tu cur an aghaidh thoraidhean a thig a-mach a-mhàin tro dhòighean fèin-ghluasadach ma bheir an lagh a’ chòir sin dhut.\n- Far a bheil sin ceadaichte fon lagh, faodaidh tu airgead-dìolaidh a shireadh airson milleadh a rinn giullachd mì-laghail.\n- Faodaidh tu gearan a chuir a-steach le **{{complaintAuthority}}**\n\n## Mar a chleachdas tu còraichean\n- Cleachd an sruth cuir às do chunntas in-app no cuir fios gu **{{privacyEmail}}** airson iarrtasan prìobhaideachd.\n- Far a bheil GDPR a’ buntainn, bu chòir iarrtasan a fhreagairt gun dàil neo-iomchaidh agus ann am prionnsapal taobh a-staigh mìos às deidh dearbhadh dearbh-aithne.\n\n## Co-dhùnadh fèin-ghluasadach\n- Cha bhith an tagradh seo a’ cleachdadh co-dhùnaidhean no pròifilean fèin-ghluasadach a-mhàin a bheir buaidh laghail no an aon seòrsa buaidh ort.\n\n## Nota cudromach\nTha an sanas seo air a thoirt seachad airson follaiseachd. ** Tha e air leth bho mhargaidheachd roghainneil, anailis, no cead cookie neo-riatanach **, a dh’ fheumar iarraidh air leth nuair a bhios feum air.\n\nChan eil luchd-gleidhidh pròiseict stòr fosgailte shuas an abhainn gu fèin-ghluasadach mar rianadair dàta no pròiseasar airson cleachdadh fèin-aoigheachd treas-phàrtaidh.",
         "terms_of_service_content": "Teirmean seirbheis\n\n1. Ro-shealladh\n'S e bathar-bog le còd fosgailte a th' ann an {{brandName}} agus gabhaidh a chleachdadh tro shuidheachaidhean oifigeil no fèin-aoigheachd. Tha na teirmean seo a’ buntainn ris an stàladh sònraichte a tha thu a’ cleachdadh.\n- Ma tha an stàladh seo air a ruith le treas phàrtaidh, faodaidh an gnìomhaiche sin cur ris na cumhachan sin le riaghailtean sònraichte cleachdadh, geallaidhean taic, no fiosan laghail ionadail.\n\n2. Riaghailtean Cleachdaidh\n- Tha uallach ort airson dligheachd, mionaideachd agus seilbh an t-susbaint a chuireas tu san t-seirbheis.\n- Chan eil cothrom air bathar-bog stòr fosgailte a’ toirt dhut còraichean airson dàta a luchdachadh suas, a stòradh no a cho-roinn nach eil cead agad a chleachdadh.\n- Faodaidh sinn cunntasan a chuir dheth no a thoirt air falbh a nì ana-cleachdadh air an t-seirbheis, a bhriseas na cumhachan sin, no a chruthaicheas cunnart tèarainteachd no laghail.\n\n3. Tèarainteachd cunntais\n- Cùm am facal-faire agad, stuthan ath-bheothachaidh agus cùl-taic tèarainte.\n\n4. Cuairt-beatha Dàta\n- Cùm na cùl-taic agad fhèin de fhiosrachadh cudromach.\n- Le bhith a’ cuir às do chunntas bho Settings gu buan bheir sin air falbh dàta tagraidh agus meadhanan a chaidh a luchdachadh suas leis a’ chunntas agad agus chan urrainnear a chuir dheth.\n\n5. Cuingealachaidhean agus Àicheadh\n- Tha na tha ri fhaighinn, taic, aonachadh, agus amannan freagairt an urra ri gnìomhaiche an stàlaidh seo.\n- Tha an t-seirbheis air a thoirt seachad air bunait “mar a tha” agus “mar a tha ri fhaighinn” chun na h-ìre a tha ceadaichte fon lagh.",
-        "register_consent": "Tha mi a 'gabhail ris na Cumhachan Seirbheis </ 1> agus tha mi ag aideachadh gu bheil mi air an <2> Fios Prìobhaideachd </ 2> a leughadh.",
+        "register_consent": "Gabhaidh mi ris na <1>Cumhachan Seirbheis</1> agus tha mi ag aideachadh gun do leugh mi am <2> Sanas Dìomhaireachd</2>.",
         "consent_title": "Dèan lèirmheas air sgrìobhainnean laghail",
         "consent_subtitle": "Feuch an dearbhaich thu na cumhachan làithreach mus lean thu air adhart.",
         "consent_notice": "Feumaidh sinn aithne chlàraichte airson na Cumhachan Seirbheis làithreach agus Fios Prìobhaideachd mus urrainn dhut leantainn air adhart a 'cleachdadh an tagraidh.",
@@ -2473,7 +2568,7 @@
                 "months": "Mìos",
                 "years": "Bliadhna"
             },
-            "format": "～ ～ ～"
+            "format": "A h-uile {{val}} {{unit}}"
         },
         "loading_desc": "A 'luchdadh clàr cumail suas...",
         "page": {
@@ -2555,5 +2650,102 @@
         "description": "Chaidh an duilleag ath - stiùireadh gu duilleag neo - aithnichte. Cha deach an dàta tasgaidh agad a shàbhaladh atharrachadh leis an sgrìn seo.",
         "refresh_btn": "Ath-nuadhaich",
         "home_btn": "Dachaigh"
+    },
+    "activity": {
+        "title": "Eachdraidh gnìomhachd",
+        "description": "Atharraichean dìon o chionn ghoirid ann an clàr na dachaigh agad.",
+        "empty_title": "Chan eil gnìomh ann fhathast",
+        "empty_description": "Nochdaidh atharrachaidhean nithean, ùrachaidhean stoc, ceanglachain, iasad, agus gnìomhan mòra an seo.",
+        "unknown_actor": "Cleachdaiche neo-aithnichte",
+        "deleted_item_with_id": "Nì air a sguabadh às #{{id}}",
+        "item_missing": "Chan eil clàr an nì seo ann tuilleadh",
+        "actions": {
+            "item_created": "An nì air a chur ris",
+            "item_updated": "An nì air ùrachadh",
+            "item_deleted": "An nì air a sguabadh às",
+            "item_borrowed": "An nì air iasad",
+            "item_returned": "An nì air a thilleadh",
+            "item_bulk_updated": "Ùrachadh mòr",
+            "item_bulk_deleted": "Sguab às gu mòr",
+            "item_stock_adjusted": "Stoc air ùrachadh",
+            "item_attachment_added": "Ceangal air a chur ris",
+            "item_attachment_deleted": "An ceanglachan air a sguabadh às"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} clàran co-cheangailte",
+        "empty_title": "Cha deach clàran co-cheangailte a lorg",
+        "low_stock": {
+            "title": "Stoc Ìosal",
+            "description": "Rudan fon ìre stuic as ìsle aca.",
+            "qty": "Stoc {{quantity}} / mion {{ min}}"
+        },
+        "expired": {
+            "title": "Nithean air tighinn gu crìch",
+            "description": "Nithean le ceann-latha crìochnachaidh."
+        },
+        "expiring": {
+            "title": "Cinn-latha Crìochnachaidh ri Teachd",
+            "description": "Nithean a’ tighinn gu crìch taobh a-staigh 30 latha."
+        },
+        "maintenance": {
+            "title": "Obair-càraidh fadalach",
+            "description": "Gnìomhan cumail suas seachad air a' cheann-latha clàraichte aca."
+        }
+    },
+    "notifications": {
+        "title": "Ionad Fiosrachaidh",
+        "description": "Stoc, barantas, cumail suas, tighinn gu crìch, agus rabhaidhean tilleadh air iasad.",
+        "meta_total": "{{count}} brathan",
+        "meta_urgent": "{{count}} èiginneach",
+        "empty_title": "Nochdaidh stoc ìosal, cinn-latha ri thighinn, agus cumail-suas fadalach an seo.",
+        "empty_desc": "Bidh stoc ìosal, cinn - latha ri thighinn, agus cumail suas fad - ùine a 'nochdadh an seo.",
+        "items": {
+            "stock_empty_title": "A-mach à stoc",
+            "stock_low_title": "Stoc ìosal",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Chaidh an ceann-latha crìochnachaidh seachad",
+            "expiry_close_title": "Ceann-latha crìochnachaidh a’ teannadh",
+            "warranty_expired_title": "Thàinig barantas gu crìch",
+            "warranty_close_title": "Barantas a’ tighinn gu crìch a dh’ aithghearr",
+            "maintenance_overdue_title": "Obair-càraidh ri thighinn",
+            "maintenance_close_title": "Obair-càraidh ri thighinn a dh’ aithghearr",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "'S AND ADD CODES",
+            "borrow_close_title": "Tilleadh air ais a dh 'aithghearr",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} latha air fhàgail ({{date}})"
+        }
+    },
+    "service": {
+        "title": "'S AND ADD CODES",
+        "description": "A 'cumail sùil air barantas, clàran - ama cumail suas, agus gnìomhan seirbheis ann an aon àite.",
+        "meta_warranty": "{{count}} clàran barantais",
+        "meta_tasks": "Tasgannan cumail suas {{count}}",
+        "empty_title": "Chan eil seirbheis no barantas gnìomha",
+        "empty_desc": "Gheibhear na h - atharrachaidhean agus na h - atharrachaidhean a tha ri thighinn an seo.",
+        "warranty_section": "Tracadh Barantais",
+        "warranty_desc": "Tha barantas agus barantas a 'tighinn gu crìch taobh a - staigh 30 latha.",
+        "maintenance_section": "Iiiiiiiiiiidddddddddddddddddddddddddddddddddddddddddddddddddjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj",
+        "maintenance_desc": "Tasgadh fad - ùine agus cosgaisean tasgaidh.",
+        "no_warranty": "Chan eil gnìomhaiche tèarainteachd sam bith a 'tighinn.",
+        "no_tasks": "Chan eil obair cumail suas clàraichte.",
+        "overdue": "Diluain",
+        "upcoming": "A dh'aithghearr",
+        "expired": "Air a chrìochnachadh",
+        "summary_warranty": "'S AND ADD CODES",
+        "summary_tasks": "'S AND ADD CODES",
+        "open_warranty_filter": "Fosgail sìoltachan barantais",
+        "open_warranty_filter_desc": "Criathraich nithean tèarainteachd gnìomhach anns a 'chlàr - seilbhe."
+    },
+    "storage_labels": {
+        "title": "'S AND ADD CODES",
+        "description": "Tha {{count}} bileagan seòmar/sgeilp deiseil mar dhuilleag chlò - bhualaidh.",
+        "empty_title": "Chan eil seòmraichean no sgeilpichean airson bileagan",
+        "empty_desc": "Cuir seòmraichean no àiteachan ris an toiseach, agus an uairsin clò - bhuail bileagan QR an seo.",
+        "sheet_label": "Duilleag leubail an ionaid",
+        "scan_hint": "Le bhith a 'sganadh an còd QR fosglaidh an clàr - seilbhe criathraichte airson an t - seòmar no an sgeilp sin.",
+        "room": "Seòmar",
+        "location": "Sgeilp/bogsa"
     }
 }

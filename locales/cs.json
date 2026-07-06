@@ -10,7 +10,7 @@
         "load_error": "Nepodařilo se načíst položku",
         "form": {
             "name": "Název položky",
-            "name_placeholder": "např. Samsung TV 55 palců",
+            "name_placeholder": "např. TV 55 palců",
             "required": "*",
             "description": "Popis",
             "description_placeholder": "Poznámky k položce...",
@@ -66,7 +66,20 @@
             "warranty_calculation_help": "Pokud necháte pole s datem zahájení záruky prázdné, použije se datum faktury. Když zadáte délku, datum konce záruky se vypočítá automaticky.",
             "vault_hint_title": "Potřebujete větší soukromí?",
             "vault_hint_description": "Pro pasy, listiny, identifikační údaje, přístupové kódy a jiné záznamy, které by měly zůstat mimo váš sdílený inventář, je uložte raději do Osobní trezoru.",
-            "vault_hint_action": "Otevřít Osobní trezor"
+            "vault_hint_action": "Otevřít Osobní trezor",
+            "location": "Umístění",
+            "remove_photo": "Odebrat foto",
+            "visibility_owner_only": "Viditelnost může změnit pouze osoba, která položku přidala.",
+            "expiry_date": "Datum vypršení",
+            "min_quantity": "Minimální množství",
+            "take_photo": "Pořiďte fotografii",
+            "choose_from_gallery": "Vyberte z galerie",
+            "take_photo_sub": "Otevřete fotoaparát zařízení",
+            "choose_from_gallery_sub": "Vybrat z alba",
+            "photo_selected_badge": "Nová fotografie",
+            "photo_existing_badge": "Existující fotografie",
+            "no_photo_yet": "Žádná fotografie přidána",
+            "photo_options_title": "Možnosti akce s obrázkem"
         },
         "messages": {
             "quick_add_success": "✓ „{{barcode}}“ rychle přidáno - můžete upravit později",
@@ -115,7 +128,24 @@
         "delete_error": "Chyba při mazání položky",
         "no_permission": "No permission",
         "barcode_search_error": "Vyhledávání čárového kódu neúspěšné",
-        "stats_error": "Stats error"
+        "stats_error": "Stats error",
+        "detail_subtitle": "Podrobnosti o položce",
+        "status": {
+            "close_to_expiry": "Blízko vypršení",
+            "expired": "Expirace",
+            "low_stock": "Nízký stav"
+        },
+        "untitled_item": "Nepojmenovaná položka",
+        "attachments": {
+            "title": "Fotografie a soubory",
+            "add": "Přidat soubory",
+            "empty": "Ještě nebyly přidány žádné soubory.",
+            "form_desc": "Přiložte fotografie položek, účtenky, faktury nebo servisní dokumenty.",
+            "detail_desc": "Fotky, účtenky, faktury a servisní soubory uložené pro tuto položku.",
+            "upload_error": "Soubory se nepodařilo nahrát.",
+            "delete_error": "Soubor se nepodařilo odstranit.",
+            "delete_confirm": "Odstranit tento soubor?"
+        }
     },
     "common": {
         "save": "Uložit",
@@ -162,7 +192,18 @@
         "unauthorized": "Neoprávněný přístup",
         "forbidden": "Permission denied",
         "validation_error": "Validační chyba",
-        "server_error": "Chyba serveru"
+        "server_error": "Chyba serveru",
+        "details": "Podrobnosti",
+        "hide": "Skrýt heslo",
+        "logging_out": "Odhlášení...",
+        "show": "Zobrazit heslo",
+        "saving": "Ukládání...",
+        "disabled": "Neaktivní",
+        "zoom_in": "Přiblížit",
+        "zoom_out": "Oddálit",
+        "reset": "Obnovit",
+        "print": "Tisk",
+        "record_count": "{{count}} záznamů"
     },
     "auth": {
         "login": {
@@ -194,7 +235,8 @@
                 "verify": "Ověřit",
                 "back": "Zpět",
                 "use_backup": "Použít záložní kód",
-                "use_totp": "Použít ověřovač"
+                "use_totp": "Použít ověřovač",
+                "code_required": "Je vyžadován ověřovací kód"
             },
             "welcome_title": "Vítejte zpět",
             "welcome_subtitle": "Přihlaste se pro přístup k vašemu inventáři",
@@ -303,7 +345,7 @@
             "confirm_password_placeholder": "Zadejte své heslo znovu",
             "reset_submit": "Obnovit heslo",
             "resetting": "Probíhá obnova...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Zadejte své uživatelské jméno nebo e-mail"
         },
         "reset_password": {
             "title": "Obnovit heslo",
@@ -344,7 +386,7 @@
         "password_requirements": "Použijte alespoň {{min}} znaků s velkými písmeny, malými písmeny, čísly a symbolem.",
         "logout": "Odhlásit se",
         "logging_in": "Přihlašování...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "Vítejte v {{brandName}}",
         "username_email": "Uživatelské jméno nebo e-mail",
         "username": "Uživatelské jméno",
         "email": "E-mail",
@@ -410,7 +452,36 @@
         "join_house_key_required": "Pro připojení ke stávajícímu domu je potřeba klíč od domu",
         "house_key_not_found": "Neplatný klíč od domu. Zadejte prosím správné tlačítko.",
         "email_not_verified": "Vaše e-mailová adresa zatím nebyla ověřena. Zkontrolujte prosím svou schránku.",
-        "two_factor_invalid": "Ověřovací kód je nesprávný"
+        "two_factor_invalid": "Ověřovací kód je nesprávný",
+        "two_factor_invalid_try_again": "Neplatný ověřovací kód. Zkuste to prosím znovu.",
+        "two_factor_code_required": "Je vyžadován ověřovací kód",
+        "two_factor_user_not_found": "Uživatel nenalezen",
+        "two_factor_already_enabled": "Dvoufaktorové ověřování je již povoleno",
+        "two_factor_setup_not_started": "Nejprve prosím začněte s nastavením dvoufaktorové autentizace",
+        "two_factor_setup_error": "Při nastavení dvoufaktorové autentizace došlo k chybě",
+        "two_factor_activation_error": "Při aktivaci dvoufaktorové autentizace došlo k chybě",
+        "two_factor_password_required": "Je vyžadováno heslo",
+        "two_factor_credentials_required": "Je vyžadován TOTP kód, záložní kód nebo obnovovací klíč",
+        "two_factor_already_disabled": "Dvoufaktorové ověřování je již zakázáno",
+        "two_factor_password_incorrect": "Nesprávné heslo",
+        "two_factor_verification_failed": "Ověření selhalo. Prosím, zkontrolujte kód a zkuste to znovu.",
+        "two_factor_disable_error": "Při vypnutí dvoufaktorové autentizace došlo k chybě",
+        "two_factor_not_enabled": "Dvoufaktorové ověřování není zapnuté",
+        "two_factor_regenerate_codes_error": "Při generování záložních kódů došlo k chybě",
+        "two_factor_enabled_success": "Dvoufaktorové ověřování bylo úspěšně povoleno",
+        "two_factor_disabled_success": "Dvoufaktorové ověřování bylo úspěšně deaktivováno",
+        "password_errors": {
+            "min_length": "Heslo musí mít alespoň {{min}} znaků",
+            "lowercase_required": "Heslo musí obsahovat alespoň jedno malé písmeno",
+            "uppercase_required": "Heslo musí obsahovat alespoň jedno velké písmeno",
+            "number_required": "Heslo musí obsahovat alespoň jedno číslo",
+            "symbol_required": "Heslo musí obsahovat alespoň jeden znak",
+            "repeated_chars": "Nepoužívejte v hesle opakující se znaky",
+            "predictable_sequence": "Nepoužívejte v hesle snadno uhodnutelné sekvence",
+            "common_password": "Toto heslo je příliš běžné a nebezpečné",
+            "contains_username": "Heslo nesmí obsahovat vaše uživatelské jméno",
+            "contains_email": "Heslo nesmí obsahovat vaše e-mailové údaje"
+        }
     },
     "navigation": {
         "home": "Domů",
@@ -429,7 +500,12 @@
         "logout_aria": "Odhlaste se ze svého účtu",
         "logout_title": "Odhlásit se?",
         "logout_description": "Budete přesměrováni na přihlašovací obrazovku a budete se muset znovu přihlásit, abyste mohli spravovat svůj domácí inventář.",
-        "logout_warning": "Použijte toto, když skončíte na sdíleném nebo osobním zařízení."
+        "logout_warning": "Použijte toto, když skončíte na sdíleném nebo osobním zařízení.",
+        "maintenance": "Plán údržby",
+        "shopping": "Nákupní seznam",
+        "activity": "Aktivita",
+        "notifications": "Oznámení",
+        "service": "Služba"
     },
     "dashboard": {
         "welcome": "Vítejte zpět, <1>{{name}}</1>",
@@ -556,7 +632,21 @@
         "no_items_filter": "Žádné položky neodpovídají tomuto filtru",
         "manage": "Spravovat",
         "add_item": "Přidat položku",
-        "search_item": "Vyhledat položku"
+        "search_item": "Vyhledat položku",
+        "alerts": {
+            "expired_title": "Položky vypršely!",
+            "expired_desc": "Ve vašem inventáři je {{count}} prošlých položek. Zkontrolujte je prosím pro vaši bezpečnost.",
+            "view_items": "Zobrazit položky",
+            "maintenance_title": "Požadavky na údržbu po termínu!",
+            "maintenance_desc": "Existuje {{count}} zpožděných úkolů údržby. Proveďte údržbu, aby se prodloužila životnost vašich spotřebičů.",
+            "go_to_maintenance": "Přejít na Údržbu",
+            "low_stock_title": "Upozornění na nízký stav zásob",
+            "low_stock_desc": "{{count}} položek spadlo pod váš minimální limit zásob.",
+            "go_to_shopping": "Nákupní seznam",
+            "close_expiry_title": "Blížící se datumy vypršení",
+            "close_expiry_desc": "{{count}} produktů vyprší do 30 dnů.",
+            "view_low_stock_items": "Zobrazit nízký stav zásob"
+        }
     },
     "beta_banner": {
         "title": "BETA:",
@@ -611,7 +701,13 @@
             "recovery_key_regenerated": "Obnovovací klíč znovu vygenerován",
             "recovery_key_error": "Nepodařilo se znovu vygenerovat obnovovací klíč",
             "account_delete_error": "Účet nelze smazat",
-            "backup_downloaded_encrypted": "Šifrovaná záloha byla úspěšně stažena! ({{count}} položek)"
+            "backup_downloaded_encrypted": "Šifrovaná záloha byla úspěšně stažena! ({{count}} položek)",
+            "policy_update_error": "Nepodařilo se aktualizovat nastavení požadavků.",
+            "policy_updated": "Žádost o úspěšnou aktualizaci nastavení.",
+            "unblock_error": "Nepodařilo se odblokovat uživatele.",
+            "unblocked_success": "Uživatel úspěšně odblokován.",
+            "house_owner_transferred": "Vlastnictví domu převedené",
+            "house_owner_transfer_error": "Vlastnictví domu nebylo možné převést."
         },
         "user_profile": {
             "edit_username": "Změnit uživatelské jméno"
@@ -632,7 +728,10 @@
             "info": "Můžete být členem více domů a mezi nimi přepínat. Každá domácnost si uchovává svůj vlastní inventář.",
             "accordion_description": "Přepínejte mezi domácnostmi, vytvořte novou nebo se připojte k existující pomocí důvěryhodného klíče.",
             "empty_description": "Vytvořte novou domácnost pro sdílení, nebo se připojte k existující s důvěryhodným klíčem domácnosti.",
-            "leave_success_body": "Už nemáte přístup k této domácnosti a váš aktivní dům byl obnoven."
+            "leave_success_body": "Už nemáte přístup k této domácnosti a váš aktivní dům byl obnoven.",
+            "leave_title": "Opustit tento dům?",
+            "leave_warning": "Ztratíte přístup k pracovnímu prostoru této domácnosti, dokud vás jiný člen znovu nepozve nebo neschválí.",
+            "leaving": "Odcházíte..."
         },
         "house_info": {
             "title": "Klíč k aktivnímu domu",
@@ -674,7 +773,18 @@
             "copy_error": "Klíč od domu nelze zkopírovat.",
             "modal_title": "Přístup ke klíči od domu",
             "modal_subtitle": "Tento klíč používejte pouze pro důvěryhodné členy domácnosti, kteří by měli požadovat přístup k tomuto sdílenému inventáři.",
-            "loading_members": "Načítání členů..."
+            "loading_members": "Načítání členů...",
+            "kick_success_body": "{{name}} již nemá přístup k této domácnosti.",
+            "kick_title": "Odstranit tohoto člena?",
+            "kick_warning": "Jejich přístup k domácnosti skončí okamžitě a budou potřebovat nové pozvání nebo schválení, aby se mohli vrátit.",
+            "kicking": "Odstraňování...",
+            "access_section_eyebrow": "Přístup k domu",
+            "transfer_owner": "Udělejte majitele",
+            "transferring_owner": "Přesouvám...",
+            "transfer_owner_title": "Převod vlastnictví domu?",
+            "transfer_owner_confirm": "Převést vlastnictví této domácnosti na {{name}}?",
+            "transfer_owner_warning": "Už nebudete majitelem této domácnosti. Nový majitel bude řídit schvalování členů, odchody a budoucí změny vlastnictví.",
+            "transfer_owner_success_body": "{{name}} je nyní majitelem této domácnosti."
         },
         "theme": {
             "title": "Téma",
@@ -682,7 +792,9 @@
             "light": "Režim světlý",
             "description": "Zvolte, jak bude pracovní prostor vypadat na tomto zařízení.",
             "light_aria": "Přepnout na světlé téma",
-            "dark_aria": "Přepnout na tmavé téma"
+            "dark_aria": "Přepnout na tmavé téma",
+            "workspace_title": "Téma pracovního prostoru",
+            "workspace_desc": "Vyberte si preferovaný vizuální styl tohoto zařízení."
         },
         "security": {
             "title": "Zabezpečení",
@@ -695,7 +807,12 @@
             "recovery_key_unavailable": "Aktuální klíč pro obnovení nelze zobrazit. V případě potřeby jej znovu vygenerujte.",
             "recovery_key_action": "Znovu vygenerovat",
             "recovery_key_modal_desc": "Potvrďte své aktuální heslo pro pokračování. Nový klíč bude zobrazen pouze jednou.",
-            "recovery_key_loading": "Připravuji..."
+            "recovery_key_loading": "Připravuji...",
+            "accordion_title": "Bezpečnost a soukromí",
+            "accordion_desc": "Spravujte dvoufaktorové ověřování, důvěryhodná zařízení a půjčujte si pravidla požadavků z jiných účtů.",
+            "description": "Spravujte své hlavní heslo a konfigurace obnovy trezoru.",
+            "change_password_detail": "Aktualizujte si heslo, abyste svůj účet ochránili",
+            "recovery_key_detail": "Používá se k obnovení vašeho trezoru, pokud zapomenete heslo"
         },
         "data_management": {
             "title": "Správa dat",
@@ -720,7 +837,25 @@
             "unencrypted_warning": "Nešifrované JSON exporty jsou jednodušší ke kontrole, ale kdokoli, kdo soubor otevře, může okamžitě číst vaše domácí údaje.",
             "import_encrypted_title": "Odemknout šifrovanou zálohu",
             "import_encrypted_body": "Zadejte záložní heslovou frázi použité při stahování pro obnovení tohoto šifrovaného souboru.",
-            "unlock_and_import": "Odemknout a importovat"
+            "unlock_and_import": "Odemknout a importovat",
+            "export_encrypted_notice": "Záloha je připravena z aktuálních dat domácnosti a poté zašifrována heslem, které si zvolíte. Uchovejte toto heslo na bezpečném místě, protože je vyžadováno pro obnovení souboru později.",
+            "export_encrypted_title": "Šifrování bude použito před stažením",
+            "import_summary_body": "Obnoveny {{items}} položky, {{categories}} kategorie, {{rooms}} místnosti, {{locations}} lokace, {{borrows}} záznamy o půjčkách.",
+            "import_summary_title": "Záloha obnovena",
+            "preview_categories": "Kategorie",
+            "preview_items": "Položky",
+            "preview_locations": "Lokace",
+            "preview_rooms": "Místnosti",
+            "skipped_borrows": "{{count}} existujících záznamů o půjčkách přeskočeno.",
+            "skipped_categories": "{{count}} existujících kategorií přeskočeno.",
+            "skipped_items": "{{count}} existujících položek přeskočeno.",
+            "skipped_locations": "{{count}} existujících míst přeskočeno.",
+            "skipped_rooms": "{{count}} existujících pokojů přeskočeno.",
+            "owner_only_title": "Zálohování a Obnovení Omezeno",
+            "owner_only_desc": "Zálohování a obnovení dat může spravovat pouze majitel domu.",
+            "include_media_title": "Zahrnout fotografie a obrázky účtenek",
+            "include_media_body": "Úplná záloha může být větší, ale fotografie položek a obrázky účtenek lze také obnovit.",
+            "skipped_attachments": "{{count}} příloh bylo přeskočeno."
         },
         "about": {
             "title": "O aplikaci",
@@ -733,7 +868,10 @@
             "privacy_link": "Zásady ochrany soukromí",
             "beta_title": "Beta stav",
             "beta_body": "{{brandName}} je stále v betaverzi. Funkce se mohou měnit, pracovní postupy se mohou vyvíjet a důležitá domácí data by měla být vždy zálohována.",
-            "feedback_subject": "Zpětná vazba - {{brandName}}"
+            "feedback_subject": "Zpětná vazba - {{brandName}}",
+            "logout_body": "Jakékoli neuložené změny v otevřených formulářích mohou být po opuštění této relace ztraceny.",
+            "logout_description": "Vrátíte se na domovskou stránku a můžete se kdykoli znovu přihlásit.",
+            "logout_title": "Odhlásit se nyní?"
         },
         "modals": {
             "password": {
@@ -825,7 +963,8 @@
             "revoke_devices": "Zrušit důvěryhodná zařízení",
             "revoke_devices_desc": "Odstraňte všechna zapamatovaná zařízení, při příštím přihlášení bude vyžadováno 2FA",
             "devices_revoked": "{{count}} důvěryhodné zařízení(í) odstraněno",
-            "devices_error": "Nepodařilo se odvolat zařízení"
+            "devices_error": "Nepodařilo se odvolat zařízení",
+            "preparing_setup": "Připravuji tvé nastavení autentizátoru..."
         },
         "danger_zone": {
             "title": "Účet",
@@ -838,7 +977,8 @@
             "modal_warning_body": "Po potvrzení okamžitě ztratíte přístup k účtu a smazaná data aplikace nelze z aplikace obnovit.",
             "password_label": "Potvrďte svým aktuálním heslem",
             "confirm_delete": "Potvrdit smazání",
-            "deleting": "Mazání..."
+            "deleting": "Mazání...",
+            "description": "Smažte svůj účet a trvale odstraňte všechny inventární datové sady."
         },
         "language": "Jazyk",
         "control_sections": {
@@ -897,7 +1037,31 @@
         "popular_languages": "Oblíbené jazyky",
         "search_results": "Výsledky vyhledávání",
         "current_language": "Aktuální jazyk",
-        "languages_available": "dostupné jazyky"
+        "languages_available": "dostupné jazyky",
+        "borrow_requests": {
+            "accordion_eyebrow": "Půjčit si žádost o zabezpečení",
+            "accordion_eyebrow_desc": "Konfigurujte pravidla požadavků a spravujte blokované uživatele.",
+            "title": "Nastavení požadavku půjčit",
+            "description": "Spravujte pravidla pro přijímání žádostí o půjčky z jiných účtů a seznamujte blokované uživatele.",
+            "policy_title": "Nové žádosti o půjčky",
+            "policy_description": "Kontrolujte, kdo vám může posílat žádosti o půjčení. Váš inventář nikdy není zobrazen jako veřejný seznam.",
+            "policy_none": "Nepřijímejte od nikoho (výchozí)",
+            "policy_house_only": "Pouze členové domácnosti",
+            "policy_everyone": "Všichni registrovaní uživatelé",
+            "blocks_title": "Blokovaní uživatelé",
+            "blocks_description": "Uživatelé, kterým jste zablokovali možnost posílat nové žádosti o půjčky.",
+            "no_blocks": "Žádní zablokovaní uživatelé nebyli nalezeni.",
+            "unblock_btn": "Odblokovat",
+            "policy_none_desc": "Všechny příchozí požadavky jsou automaticky blokovány.",
+            "policy_house_only_desc": "Pouze ověření členové vašich aktivních domácností mohou žádat o předměty, které jsou již viditelné uvnitř sdílené domácnosti.",
+            "policy_everyone_desc": "Ostatní uživatelé nemohou prohlížet ani vidět vaše položky. Mohou poslat žádost pouze zadáním vašeho uživatelského jména nebo e-mailu přímo."
+        },
+        "activity_log": {
+            "title": "Protokol činnosti a auditu",
+            "description": "Zkontrolujte chráněnou historii změn položek, aktualizací zásob, příloh a hromadných akcí.",
+            "encrypted_title": "Záznamy činnosti jsou uchovávány chráněné",
+            "encrypted_body": "Nové akce činnosti a podrobnosti jsou uchovávány zašifrované v databázi a jsou dešifrovány pouze pro vaši aktivní relaci."
+        }
     },
     "inventory": {
         "title": "Inventář",
@@ -959,8 +1123,18 @@
             "no_history": "Pro tuto položku zatím není žádná historie půjček.",
             "lend_success_title": "Předmět půjčen",
             "lend_success_body": "{{item}} je nyní označen jako půjčen.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_title": "Nabídka půjčení odeslána",
+            "offer_sent_body": "{{item}} bude označeno jako půjčené poté, co druhý člen nabídku přijme.",
+            "borrowed_by_you": "U vás",
+            "return_pending_hint": "Záznam se uzavře, až věřitel potvrdí, že položku obdržel zpět.",
+            "return_pending_lender_title": "{{name}} označil tuto položku jako doručenou zpět",
+            "return_pending_self_title": "U vás, čeká na potvrzení přijetí",
+            "site_member": "Člen webu",
+            "site_member_identifier": "Uživatelské jméno nebo e-mail",
+            "site_member_identifier_placeholder": "Přesné uživatelské jméno nebo e-mail",
+            "site_member_privacy_hint": "Nabídka se zobrazuje v Půjčovním centru pouze v případě, že tento účet existuje a umožňuje příchozí nabídky.",
+            "external_privacy_hint": "Toto vytváří pouze soukromý lokální záznam. Žádné oznámení v aplikaci není odesláno.",
+            "available": "K dispozici"
         },
         "untitled_item": "Nepojmenovaná položka",
         "delete_action": "Odstranit položku",
@@ -976,7 +1150,76 @@
         "category_filter_label": "Filtrovat podle kategorie",
         "room_filter_label": "Filtrovat podle pokoje",
         "refreshing_results": "Obnovují se položky...",
-        "empty_filter_title": "Žádné položky neodpovídaly tomuto vyhledávání"
+        "empty_filter_title": "Žádné položky neodpovídaly tomuto vyhledávání",
+        "delete_error_title": "Odstranění selhalo",
+        "tools": {
+            "title": "Nástroje"
+        },
+        "no_room": "Žádná místnost",
+        "all_locations": "Všechny lokality",
+        "location_filter_label": "Filtrovat podle lokality",
+        "visibility_filter_label": "Filtrovat podle viditelnosti",
+        "visibility_all": "Všechny viditelnosti",
+        "visibility_mine": "Moje položky",
+        "visibility_others": "Ostatní členové",
+        "borrow_filter_label": "Filtrovat podle stavu půjčení",
+        "borrow_filter_all": "Všechny stavy půjčení",
+        "stock_filter_label": "Filtrovat podle stavu zásob",
+        "stock_filter_all": "Všechny stavy zásob",
+        "stock_filter_ok": "Zásoby v pořádku",
+        "expiry_filter_label": "Filtrovat podle data vypršení",
+        "expiry_filter_all": "Všechny datumy vypršení",
+        "expiry_filter_dated": "Má datum",
+        "expiry_filter_none": "Bez data",
+        "warranty_filter_label": "Filtrovat podle záruky",
+        "warranty_filter_all": "Všechny záruky",
+        "warranty_filter_expired": "Expirované záruky",
+        "warranty_filter_close": "Brzy končí",
+        "warranty_filter_active": "Aktivní záruky",
+        "warranty_filter_none": "Žádné informace o záruce",
+        "sort_label": "Třídit",
+        "sort_updated_desc": "Nedávno aktualizováno",
+        "sort_updated_asc": "Nejstarší aktualizace",
+        "sort_created_desc": "Nejnovější první",
+        "sort_created_asc": "Nejstarší první",
+        "sort_name_asc": "Název A-Z",
+        "sort_name_desc": "Název Z-A",
+        "sort_quantity_desc": "Množství od nejvyššího k nejnižšímu",
+        "sort_quantity_asc": "Množství od nejnižšího k nejvyššímu",
+        "sort_expiry_asc": "Brzy vyprší",
+        "sort_expiry_desc": "Vyprší později",
+        "stock_increase": "Zvýšit zásoby",
+        "stock_decrease": "Snížit zásoby",
+        "stock_adjust_error": "Nelze aktualizovat zásoby.",
+        "bulk": {
+            "select_visible": "Vybrat viditelné",
+            "clear_visible": "Zrušit výběr viditelné",
+            "selected_short": "vybrané",
+            "keep_category": "Zachovat kategorii",
+            "keep_room": "Zachovat místnost",
+            "keep_location": "Zachovat umístění",
+            "keep_visibility": "Zachovat viditelnost",
+            "apply": "Použít",
+            "no_fields": "Vyberte alespoň jedno pole pro hromadnou akci.",
+            "updated_title": "Hromadná aktualizace dokončena",
+            "updated_body": "{{count}} položek aktualizováno. {{skipped}} přeskočeno.",
+            "update_error": "Hromadnou aktualizaci se nepodařilo dokončit.",
+            "deleted_title": "Hromadné smazání dokončeno",
+            "deleted_body": "{{count}} položek smazáno. {{skipped}} přeskočeno.",
+            "delete_error": "Hromadné smazání se nepodařilo dokončit.",
+            "delete_title": "Smazat vybrané položky?",
+            "delete_description": "{{count}} vybraných položek bude odstraněno z tohoto domácího inventáře. Toto nelze vrátit zpět.",
+            "select_item": "Vybrat položku",
+            "unselect_item": "Zrušit výběr položky"
+        },
+        "qr_labels": {
+            "title": "QR štítky",
+            "open": "Štítky položek",
+            "description": "{{count}} štítků položek je připraveno jako tiskový list.",
+            "empty": "Změňte filtry nebo přidejte položky do inventáře pro tisk štítků.",
+            "sheet_label": "Tiskový list štítků položek",
+            "item_label": "Popisek položky"
+        }
     },
     "categories": {
         "title": "Kategorie",
@@ -1023,7 +1266,10 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "color_required": "Barva musí být ve formátu #RRGGBB",
+        "empty_description": "Vytvořte několik kategorií, aby nové položky měly stejnou strukturu a bylo je později snazší procházet.",
+        "empty_title": "Žádné kategorie zatím"
     },
     "rooms": {
         "title": "Místnosti",
@@ -1097,7 +1343,9 @@
         "name_required": "Name required",
         "load_error": "Error loading",
         "add_error": "Error adding",
-        "update_error": "Error updating"
+        "update_error": "Error updating",
+        "empty_description": "Vytvořte místnosti jako kuchyň, sklad nebo garáž, aby umístění položek zůstalo konzistentní a snazší k vyhledání.",
+        "empty_title": "Žádné místnosti zatím"
     },
     "admin": {
         "title": "Administrátorský panel",
@@ -1176,7 +1424,12 @@
             "households_label": "Domácnosti",
             "items_label": "Vlastněné předměty",
             "last_seen_short": "Viděno",
-            "last_seen_short_never": "Nové"
+            "last_seen_short_never": "Nové",
+            "failed_logins": "{{count}} neúspěšných přihlášení",
+            "load_failed_title": "Uživatelé se nepodařilo načíst",
+            "pending_requests": "{{count}} čekajících žádostí o dům",
+            "role_admin": "Administrátor",
+            "role_user": "Uživatel"
         },
         "logs": {
             "title": "Administrátorské záznamy",
@@ -1208,7 +1461,9 @@
             "section_eyebrow": "Auditní stopa",
             "errors_eyebrow": "Diagnostika",
             "section_body": "Každá moderace nebo provozní změna zaznamenaná administrační vrstvou.",
-            "errors_body": "Poslední analyzované řádky chyb z logovacích souborů serveru."
+            "errors_body": "Poslední analyzované řádky chyb z logovacích souborů serveru.",
+            "load_failed_title": "Aktivita se nepodařilo načíst",
+            "no_logs_title": "Žádné administrátorské akce zatím"
         },
         "email": {
             "title": "Odeslat e-mail",
@@ -1229,7 +1484,7 @@
             "notes_body": "Používejte toto pro provozní podporu nebo komunikaci týkající se účtu. Citlivý obsah by měl, kdykoli je to možné, zůstat uvnitř aplikace.",
             "notes_body_with_rate_limit": "Používejte toto pro provozní podporu nebo komunikaci týkající se účtu. Citlivý obsah by měl, kdykoli je to možné, zůstat uvnitř aplikace. Aktuální ochrana odesílání: {{rateLimit}}.",
             "rate_limit_fallback": "3 e-maily za minutu",
-            "placeholder_to": "name@example.com",
+            "placeholder_to": "jmeno@example.com",
             "placeholder_subject": "Předmět zprávy",
             "send_success_with_id": "✅ E-mail byl úspěšně odeslán! ID: {{emailId}}",
             "send_error": "E-mail nelze odeslat",
@@ -1242,7 +1497,14 @@
             "status_body": "Rychlá kontrola důvěryhodnosti před odesláním provozní komunikace.",
             "unconfigured_title": "Doručování e-mailů není nastaveno",
             "unconfigured_body": "Formulář pro odeslání zůstává viditelný pro kontrolu nastavení, ale doručení selže, dokud nebude poskytovatel e-mailu nakonfigurován.",
-            "status_eyebrow": "Dodání"
+            "status_eyebrow": "Dodání",
+            "configured_body": "Opětovné odeslání je k dispozici pro odchozí zprávy spuštěné administrátorem.",
+            "configured_title": "Odesílání e-mailů je nakonfigurováno",
+            "error_title": "E-mail se nezdařil",
+            "format_hint": "HTML je podporováno. Například: <b>tučný</b>, <i>kurzíva</i>, <a href=\"...\">odkaz</a>",
+            "from_label": "Odesílatel",
+            "load_failed_title": "Nástroje pro e-maily se nepodařilo načíst",
+            "success_title": "E-mail odeslán"
         },
         "overview": {
             "email_warning_title": "Doručování e-mailů není nastaveno",
@@ -1327,7 +1589,9 @@
         "stats_loaded": "Stats loaded",
         "logs_loaded": "Záznamy načteny",
         "load_error": "Error loading",
-        "action_error": "Action error"
+        "action_error": "Action error",
+        "load_failed_body": "Administrátorská cesta je otevřená, ale souhrnná data nedorazila. Můžete zkusit znovu bez opuštění stránky.",
+        "load_failed_title": "Souhrn administrátora se nepodařilo načíst"
     },
     "landing": {
         "nav": {
@@ -1344,12 +1608,12 @@
             "cta_register": "Vytvořit účet",
             "stat_free": "Zdarma",
             "stat_access": "Přístup",
-            "free_badge": "Open Source",
+            "free_badge": "Otevřený zdroj",
             "badge": "HomeInventory verze 2.0 je tady",
             "cta_explore": "Prozkoumat funkce",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Přihlásit se",
+            "stat_members": "Sdílené domácnosti",
+            "stat_vault": "Soukromý trezor"
         },
         "features": {
             "title": "Proč <1>HomeInventory</1>?",
@@ -1420,7 +1684,7 @@
                 "description": "Uložte položky, záruky, důležité dokumenty a sledování vypůjčení na jednom klidném místě. Podívejte se na obsah vašeho domova na první pohled.",
                 "primaryCta": "Začněte zdarma",
                 "secondaryCta": "Zobrazit produkt",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Navrhovaný tok: účet • domov • místnosti a kategorie • položky • záloha",
                 "searchPlaceholder": "Vyhledat položku, místnost nebo čárový kód"
             },
             "heroInventoryRows": [
@@ -1436,7 +1700,7 @@
                 },
                 {
                     "name": "Síťová jednotka",
-                    "meta": "TV konzole • Deco M4",
+                    "meta": "TV konzole • Network node",
                     "state": null
                 },
                 {
@@ -1671,8 +1935,9 @@
         "privacy_summary": "Detaily sítě zůstanou skryté, dokud nepotřebujete pokyny.",
         "link_privacy_note": "Adresa sítě zůstává zde skrytá. Naskenujte kód nebo zkopírujte odkaz pouze tehdy, když úmyslně chcete sdílet přímý přístup k položce na vašem lokálním nastavení.",
         "helper": "Naskenujte pro okamžité otevření této položky, nebo zkopírujte přímý odkaz, když je potřeba.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_error_title": "Odkaz nebylo možné automaticky zkopírovat",
+        "copy_manual_help": "Váš prohlížeč nepovolil automatické kopírování. Odkaz je vybrán, abyste jej mohli zkopírovat ručně.",
+        "loading": "Příprava QR nástrojů..."
     },
     "house_access_pending": {
         "eyebrow": "Přístup k domu",
@@ -1759,7 +2024,7 @@
             "bodyLine2": "Čekání na souhlas majitele domu"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{status}}",
+            "subjectTemplate": "{{brandName}} – {{status}}",
             "greeting": "Přístup k domu",
             "bodyLine1Template": "Aktuální nevyřízený požadavek: {{house}} ({{status}})",
             "bodyLine2": "Vaše žádost o „{{house}}“ stále čeká na rozhodnutí.",
@@ -1788,7 +2053,7 @@
         },
         "adminEmail": {
             "sentBy": "Tento e-mail byl odeslán společností {{brandName}}.",
-            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
+            "footer": "© 2026 {{brandName}} – {{supportEmail}}"
         },
         "testEmail": {
             "subject": "🧪 {{brandName}} testovací e-mail",
@@ -1859,7 +2124,11 @@
             "name_required": "Pro záznam ve trezoru je nutný název položky.",
             "options_failed": "Možnosti kategorie a místnosti nelze načíst.",
             "delete_success_title": "Záznam ve trezoru odstraněn",
-            "delete_success_body": "Soukromý záznam byl trvale odstraněn z vašeho trezoru."
+            "delete_success_body": "Soukromý záznam byl trvale odstraněn z vašeho trezoru.",
+            "passphrase_lowercase": "Zahrňte alespoň jedno malé písmeno.",
+            "passphrase_min_length": "Heslo trezoru musí mít alespoň 12 znaků.",
+            "passphrase_number": "Zahrňte alespoň jedno číslo.",
+            "passphrase_uppercase": "Zahrňte alespoň jedno velké písmeno."
         },
         "recovery_file_title": "Obnovovací klíč osobního úložiště {{brandName}}",
         "recovery_file_created_label": "Vytvořeno",
@@ -1907,8 +2176,8 @@
             "empty": "Momentálně nejsou žádné aktivní výpůjčky.",
             "borrowed_from": "Půjčeno od {{name}}",
             "lent_to": "Momentálně u {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "Čeká se na potvrzení od poskytovatele půjčky, že ji obdržel zpět.",
+            "return_pending_lender": "{{name}} označil tuto položku jako vrácenou. Potvrďte přijetí pro uzavření záznamu.",
             "empty_title": "Momentálně nejsou žádné aktivní výpůjčky",
             "empty_description": "Přijaté žádosti se zobrazí zde, jakmile je položka vypůjčena nebo půjčena, spolu s daty splatnosti a stavem vrácení."
         },
@@ -1919,7 +2188,7 @@
             "cancelled": "Zrušeno",
             "expired": "Vypršelo",
             "returned": "Vráceno",
-            "return_pending": "Return pending"
+            "return_pending": "Vrácení čeká"
         },
         "actions": {
             "send_request": "Požádat o položku",
@@ -1928,8 +2197,8 @@
             "reject": "Odmítnout",
             "cancel": "Zrušit",
             "fulfill_request": "Splnit žádost",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Označit jako doručeno",
+            "mark_received": "Označit jako přijaté",
             "open_inventory": "Otevřít inventář"
         },
         "labels": {
@@ -1968,21 +2237,36 @@
             "return_title": "Označit jako vráceno",
             "return_subtitle": "Uzavřít aktivní výpůjčku pro „{{item}}“",
             "return_target": "Aktuálně je zobrazena u {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Doručit položku",
+            "return_title_lender": "Přijmout položku",
+            "return_subtitle_borrower": "Uzavřete aktivní půjčku pro \"{{item}}\" poté, co ji vrátíte.",
+            "return_subtitle_lender": "Uzavřete aktivní půjčku pro \"{{item}}\" poté, co ji obdržíte zpět.",
+            "return_target_borrower": "Věřitel: {{name}}",
+            "return_target_lender": "Aktuálně u: {{name}}",
+            "return_note_borrower": "Dodací list",
+            "return_note_lender": "Příjemka",
+            "return_note_placeholder_borrower": "např. Vrátil jsem to bez problémů",
+            "return_note_placeholder_lender": "např. Vráceno v dobrém stavu",
+            "return_submitting": "Uzavírání...",
+            "reject_title": "Žádost zamítnout",
+            "reject_subtitle": "Chystáte se odmítnout žádost o \"{{item}}\".",
+            "reject_target": "Chystáte se odmítnout žádost o půjčku zaslanou {{name}}.",
+            "reject_reason_label": "Důvod odmítnutí",
+            "reject_submitting": "Odmítání...",
+            "due_date_label": "Plánované datum návratu"
         },
         "messages": {
             "load_error": "Centrum půjček se nepodařilo načíst",
-            "action_error": "Akci se nepodařilo dokončit"
+            "action_error": "Akci se nepodařilo dokončit",
+            "active_borrow_not_found": "Tento aktivní záznam o půjčce nebyl nalezen. Obnovte Centrum půjček a zkuste to znovu.",
+            "errors": {
+                "external_target_daily_limit": "Můžete poslat pouze jednu první kontaktovací externí žádost stejné osobě za den. Pokud žádost přijmou, tento limit pro tuto osobu již neplatí.",
+                "external_total_daily_limit": "Můžete poslat až 5 prvních kontaktovacích externích žádostí za den.",
+                "external_request_requires_verified_email": "Ověřte svůj e-mail před odesláním externích žádostí o půjčení.",
+                "external_offer_blocked": "Položku můžete nabídnout pouze členům domácnosti nebo registrovaným uživatelům, kteří mohou být identifikováni přímo.",
+                "target_blocked_by_you": "Nemůžete poslat žádost uživateli, kterého jste zablokovali.",
+                "recent_rejection_lock": "Tento uživatel nedávno odmítl žádost. Další žádost můžete poslat až po 30 dnech."
+            }
         },
         "preview": {
             "title": "Režim náhledu",
@@ -1992,7 +2276,12 @@
         "incoming_empty_title": "Žádné požadavky nepotřebují vaše posouzení",
         "outgoing_empty_title": "Žádné odchozí požadavky zatím",
         "refreshing": "Obnovuji požadavky a aktivní půjčky...",
-        "loading_description": "Příprava požadavků a aktivní půjčovní činnost."
+        "loading_description": "Příprava požadavků a aktivní půjčovní činnost.",
+        "reasons": {
+            "rejected": "Odmítnutí (Normální odmítnutí)",
+            "not_available": "Není k dispozici (Chybí / není dostupná)",
+            "blocked": "Zablokovat a odmítnout (Zablokuje tohoto uživatele)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Zásady ochrany osobních údajů",
@@ -2015,7 +2304,7 @@
         "contents": "> Obsah",
         "page_label": "Stránka",
         "overview": "Přehled",
-        "contact": "Contact",
+        "contact": "Kontakt",
         "jump_to": "Přejít na",
         "privacy_description": "Oznámení o ochraně osobních údajů pro tuto instalaci {{brandName}} vysvětluje, jaká data jsou zpracovávána, jak jsou shromažďována, jak jsou sdílena nebo přenášena a jaká práva a způsoby stížností mohou platit.",
         "privacy_support_label": "Pro požadavky na ochranu osobních údajů, aplikace práv a dotazy týkající se této instalace týkající se stížností:",
@@ -2041,7 +2330,7 @@
                 "rights": "Pro dotazy ohledně podmínek, které se vztahují na tuto instalaci:"
             }
         },
-        "terms_description": "The terms for this {{brandName}} installation explain acceptable use, your security responsibilities, and the consequences of account deletion in a clearer, easier-to-scan format.",
+        "terms_description": "Podmínky pro tuto instalaci {{brandName}} vysvětlují přijatelné použití, vaše bezpečnostní povinnosti a důsledky smazání účtu v jasnějším, snáze přehledném formátu.",
         "terms_support_label": "Co to znamená v praxi",
         "terms_summary": {
             "eyebrow": "Rychlé shrnutí",
@@ -2080,7 +2369,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Chytrá správa všech vašich domácích věcí"
+        "tagline": "Chytrá správa všech vašich domácích věcí",
+        "loading": "Načítání {{brandName}}",
+        "preparing_workspace": "Připravuješ si pracovní místo..."
     },
     "nav": {
         "home": "Domů",
@@ -2091,7 +2382,7 @@
         "admin_panel": "Administrátorský panel",
         "share_house": "Sdílený dům",
         "new_item": "Nová položka",
-        "menu": "Menu",
+        "menu": "Nabídka",
         "help": "Nápověda a podpora"
     },
     "theme": {
@@ -2100,11 +2391,11 @@
     },
     "terms": {
         "title": "Podmínky použití a prohlášení o vyloučení odpovědnosti",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "BETA verze: {{brandName}} je v současné době ve fázi testování. Není zaručena trvalost ani bezpečnost dat.",
         "disclaimer": "Prohlášení o vyloučení odpovědnosti: Používáním této aplikace souhlasíte s tím, že nemůžete požadovat žádné odškodnění za případnou ztrátu dat, problémy s přístupem nebo jiné technické problémy.",
         "backup_warning": "Zálohování dat: Důrazně doporučujeme pravidelně zálohovat své důležité informace.",
         "accept": "Přihlášením souhlasíte s těmito podmínkami.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} je v současné době ve fázi testování a hobby. Není zaručena trvalost ani bezpečnost dat. Prosím, mějte své důležité informace zálohované.",
         "contact": "Kontakt"
     },
     "locations": {
@@ -2174,14 +2465,287 @@
         "too_many_login_attempts": "Too many login attempts"
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Přihlásit se",
+        "page_title_register": "Vytvořit účet",
+        "page_title_choose_house": "Vyberte dům",
+        "page_title_recovery_key": "Obnova klíče",
+        "page_title_house_access": "Přístup do domu",
+        "page_title_legal_review": "Právní přezkum",
+        "page_title_new_item": "Nová položka",
+        "page_title_edit_item": "Upravit položku",
+        "page_title_items": "Inventář"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Chyba při načítání nákupního seznamu.",
+            "select_item_error": "Vyberte položku ze zásob.",
+            "empty_name": "Zadejte název položky.",
+            "added": "Položka byla přidána do nákupního seznamu.",
+            "add_error": "Při přidávání položky došlo k chybě.",
+            "added_suggestion": "\"{{name}}\" bylo přidáno do nákupního seznamu.",
+            "bulk_added": "{{count}} položek s nízkým množstvím bylo přidáno do seznamu.",
+            "bulk_error": "Chyba při přidávání položek s nízkým množstvím.",
+            "completed": "\"{{name}}\" bylo označeno jako dokončené.",
+            "reactivated": "\"{{name}}\" byl přesunut zpět na aktivní seznam.",
+            "update_error": "Došlo k chybě během aktualizace.",
+            "deleted": "Položka byla ze seznamu odstraněna.",
+            "delete_error": "Došlo k chybě během mazání.",
+            "cleared_completed": "Vyčištěny dokončené položky.",
+            "clear_error": "Při čištění došlo k chybě."
+        },
+        "loading_desc": "Příprava nákupního seznamu...",
+        "page": {
+            "title": "Nákupní seznam",
+            "description": "Zobrazení položek s nízkým stavem zásob v domácí inventuře a snadná správa vašeho nákupního seznamu."
+        },
+        "suggestions": {
+            "title": "Chytré návrhy inventáře",
+            "desc": "Položky inventáře, které klesly pod minimální limit.",
+            "add_all": "Přidat vše chybějící",
+            "stock_status": "Aktuální: {{current}} / Cíl: {{min}}",
+            "add_qty": "Přidat {{qty}}"
+        },
+        "sections": {
+            "active_list": "Položky k nákupu",
+            "active_desc": "Aktuální položky k nákupu k přidání do vašeho košíku.",
+            "active_count": "{{count}} položek",
+            "completed_list": "Zakoupené položky ({{count}})",
+            "add_item": "Přidat položku ručně",
+            "add_desc": "Ručně přidat vlastní položku do seznamu."
+        },
+        "empty": {
+            "title": "Váš nákupní seznam je prázdný",
+            "desc": "Chybějící zboží můžete přidat z výše uvedených návrhů nebo přidat položky ručně pomocí formuláře vpravo."
+        },
+        "card": {
+            "linked_inventory": "Uloženo do zásob"
+        },
+        "actions": {
+            "clear_completed": "Vymazat historii",
+            "add_item": "Přidat do nákupního seznamu",
+            "mark_completed": "Značka dokončena",
+            "decrease_qty": "Snižte množství",
+            "increase_qty": "Zvyšte množství",
+            "delete_item": "Smazat položku",
+            "reactivate_item": "Vrátit se zpět na aktivní seznam"
+        },
+        "form": {
+            "add_type": "Přidat metodu",
+            "add_type_inventory": "Položka skladu",
+            "add_type_custom": "Vlastní položka",
+            "select_inventory_item": "Vyberte položku z inventáře",
+            "no_inventory_items": "Váš inventář ještě neobsahuje žádné položky.",
+            "select_item_placeholder": "Vyberte položku",
+            "current_stock": "Aktuální",
+            "item_name": "Název položky",
+            "item_name_placeholder": "např. Mléko, Prací prášek, Kávová zrna...",
+            "quantity": "Množství"
+        },
+        "modal": {
+            "delete_title": "Smazat položku ze seznamu?",
+            "delete_desc": "Opravdu chcete odstranit „{{name}}“ ze svého nákupního seznamu?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Chyba při načítání informací",
+            "select_item_error": "Vyberte položku.",
+            "task_name_error": "Název úkolu je povinný.",
+            "date_error": "Plánované datum je povinné.",
+            "updated": "Údržbový úkol byl aktualizován",
+            "created": "Nový údržbový úkol byl přidán",
+            "save_error": "Při ukládání došlo k chybě",
+            "deleted": "Údržbová úloha byla úspěšně odstraněna.",
+            "delete_error": "Při odstraňování došlo k chybě.",
+            "performed": "Údržba byla zaznamenána jako dokončená. Další termín naplánován.",
+            "perform_error": "Při ukládání došlo k chybě."
+        },
+        "freq": {
+            "one_time": "Jednorázově",
+            "unit": {
+                "days": "Den",
+                "weeks": "Týden",
+                "months": "Měsíc",
+                "years": "Rok"
+            },
+            "format": "Každý {{val}} {{unit}}"
+        },
+        "loading_desc": "Načítání plánu údržby...",
+        "page": {
+            "title": "Údržba a periodické sledování",
+            "description": "Spravujte pravidelné plány údržby pro spotřebiče, filtry nebo bezpečnostní vybavení ve vašem domácím inventáři."
+        },
+        "actions": {
+            "add_task": "Přidat nový úkol",
+            "manage": "Spravovat",
+            "perform": "Označit jako dokončeno",
+            "edit_task": "Upravit úkol"
+        },
+        "alerts": {
+            "overdue_title": "Máte zpožděné úkoly!",
+            "overdue_desc": "Je {{count}} zpožděných údržbových úkolů. Zpoždění může snížit životnost zařízení."
+        },
+        "empty": {
+            "title": "Žádné údržbové úkoly nejsou naplánovány",
+            "desc": "Začněte tím, že přidáte opakující se úkoly, jako je čištění filtrů klimatizace, údržba kotle nebo kontrola baterií detektorů kouře."
+        },
+        "sections": {
+            "overdue": "Zpožděné úkoly",
+            "overdue_desc": "Naléhavá údržba, kterou je třeba provést okamžitě.",
+            "upcoming": "Naplánované / nadcházející úkoly",
+            "upcoming_desc": "Připravovaná údržba v nadcházejících dnech.",
+            "no_upcoming": "Žádné aktivní úkoly naplánované do budoucna."
+        },
+        "modal": {
+            "edit_title": "Upravit úkol",
+            "create_title": "Naplánovat nový úkol údržby",
+            "perform_title": "Dokončit údržbu",
+            "perform_desc": "Chcete dnes zaznamenat \"{{name}}\" jako dokončené?",
+            "perform_confirm": "Ano, dokončeno",
+            "perform_recurrence_info": "Toto je periodický úkol. Když uložíte, systém automaticky vypočítá datum další údržby.",
+            "delete_title": "Odstranit údržbový úkol?",
+            "delete_desc": "Opravdu chcete smazat plán pravidelné údržby \"{{name}}\"? Tato akce je nevratná."
+        },
+        "form": {
+            "item": "Související položka",
+            "no_items": "Než naplánujete údržbu, musíte nejprve přidat položku do inventáře.",
+            "select_item_placeholder": "Vyberte položku",
+            "task_name": "Název úkolu / operace",
+            "task_name_placeholder": "např. Výměna filtru, Pravidelná kontrola...",
+            "description": "Podrobnosti / popis",
+            "description_placeholder": "Podrobnosti úkolu, použité materiály atd...",
+            "frequency_value": "Frekvence opakování",
+            "frequency_placeholder": "např. 6 (ponechte prázdné pro jednorázovou událost)",
+            "frequency_unit": "Jednotka frekvence",
+            "next_due_date": "Další plánované datum",
+            "section_help": "Spravujte plány údržby zde",
+            "section_collapsed": "Klikněte pro přidání pravidelných kontrol a úkolů",
+            "has_tasks": "{{count}} Úkoly",
+            "new_item_warning_title": "Položka uložení čeká",
+            "new_item_warning_desc": "Nejprve musíte tuto položku uložit, abyste mohli přidat plán údržby.",
+            "manage_desc": "Spravujte plány údržby pro tento spotřebič nebo položku."
+        },
+        "fields": {
+            "task_name": "Název úkolu",
+            "task_name_placeholder": "např. čištění filtru klimatizace",
+            "description": "Popis",
+            "description_placeholder": "Podrobnosti úkolu, použité materiály atd...",
+            "frequency_value": "Frekvence opakování",
+            "frequency_value_placeholder": "Nechte prázdné pro jednorázové",
+            "frequency_unit": "Jednotka frekvence",
+            "next_due_date": "Plánované datum"
+        },
+        "card": {
+            "untitled_item": "Nepojmenovaná položka",
+            "last_performed": "Naposledy provedeno:",
+            "next_due_label": "Plánované datum",
+            "complete_tooltip": "Označit údržbu jako dokončenou dnes"
+        },
+        "detail_card_desc": "Sledování pravidelné nebo jednorázové údržby naplánované pro tuto položku.",
+        "no_tasks": "Žádné úkoly údržby přiřazené k této položce.",
+        "confirm_delete": "Tento úkol bude smazán. Jste si jistí?"
+    },
+    "error_boundary": {
+        "title": "Něco potřebuje osvěžení",
+        "description": "Rozhraní narazilo na nečekaný problém s vykreslováním. Vaše uložená inventářová data se touto obrazovkou nemění.",
+        "refresh_btn": "Obnovit",
+        "home_btn": "Domov"
+    },
+    "activity": {
+        "title": "Historie aktivit",
+        "description": "Nedávné chráněné změny ve vašem domácím inventáři.",
+        "empty_title": "Žádná aktivita zatím",
+        "empty_description": "Změny položek, aktualizace zásob, přílohy, půjčování a hromadné akce se zde zobrazí.",
+        "unknown_actor": "Neznámý uživatel",
+        "deleted_item_with_id": "Smazaná položka #{{id}}",
+        "item_missing": "Tento záznam položky již neexistuje",
+        "actions": {
+            "item_created": "Položka přidána",
+            "item_updated": "Položka aktualizována",
+            "item_deleted": "Položka smazána",
+            "item_borrowed": "Položka vypůjčena",
+            "item_returned": "Položka vrácena",
+            "item_bulk_updated": "Hromadná aktualizace",
+            "item_bulk_deleted": "Hromadné smazání",
+            "item_stock_adjusted": "Stav zásob aktualizován",
+            "item_attachment_added": "Příloha přidána",
+            "item_attachment_deleted": "Příloha smazána"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} souvisejících záznamů",
+        "empty_title": "Nenašly se žádné související záznamy",
+        "low_stock": {
+            "title": "Nízký stav zásob",
+            "description": "Položky pod jejich minimální úrovní zásob.",
+            "qty": "Zásoba {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Prošlé položky",
+            "description": "Položky s vypršenou platností."
+        },
+        "expiring": {
+            "title": "Nadcházející datum vypršení",
+            "description": "Položky, které vyprší během 30 dní."
+        },
+        "maintenance": {
+            "title": "Zpožděná údržba",
+            "description": "Údržbové úkoly po jejich naplánovaném datu."
+        }
+    },
+    "notifications": {
+        "title": "Centrum oznámení",
+        "description": "Upozornění na zásoby, záruku, údržbu, expiraci a vrácení půjčených položek.",
+        "meta_total": "{{count}} oznámení",
+        "meta_urgent": "{{count}} urgentní",
+        "empty_title": "Momentálně nevyžadují žádná oznámení vaši pozornost",
+        "empty_desc": "Nízké zásoby, nadcházející termíny a opožděná údržba se zde zobrazí.",
+        "items": {
+            "stock_empty_title": "Vyprodáno",
+            "stock_low_title": "Nízké zásoby",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Datum expirace prošlo",
+            "expiry_close_title": "Datum expirace se blíží",
+            "warranty_expired_title": "Záruka vypršela",
+            "warranty_close_title": "Záruka brzy končí",
+            "maintenance_overdue_title": "Údržba je po termínu",
+            "maintenance_close_title": "Údržba brzy bude potřebná",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Vrácení půjčeného je po termínu",
+            "borrow_close_title": "Vrácení půjčeného bude brzy potřebné",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: zbývá {{count}} dní ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Servisní a záruční centrum",
+        "description": "Sledujte záruky, plány údržby a servisní činnosti na jednom místě.",
+        "meta_warranty": "{{count}} záznamů o záruce",
+        "meta_tasks": "{{count}} úkolů údržby",
+        "empty_title": "Žádná servisní nebo záruční akce",
+        "empty_desc": "Nadcházející záruční termíny a úkoly údržby budou zde shromážděny.",
+        "warranty_section": "Sledování záruk",
+        "warranty_desc": "Vypršené záruky a záruky končící během 30 dnů.",
+        "maintenance_section": "Údržbové akce",
+        "maintenance_desc": "Po splatnosti a nadcházející údržbové úkoly.",
+        "no_warranty": "Žádná nadcházející akce v rámci záruky.",
+        "no_tasks": "Žádný naplánovaný údržbový úkol.",
+        "overdue": "Po splatnosti",
+        "upcoming": "Brzy",
+        "expired": "Vypršelo",
+        "summary_warranty": "Sledování záruky",
+        "summary_tasks": "Údržbové úkoly",
+        "open_warranty_filter": "Filtr otevřené záruky",
+        "open_warranty_filter_desc": "Filtruje položky s aktivní zárukou v inventáři."
+    },
+    "storage_labels": {
+        "title": "Štítky polic a místností",
+        "description": "{{count}} štítek/místnost/police je připravena jako tiskový list.",
+        "empty_title": "Žádné místnosti ani police k označení",
+        "empty_desc": "Nejprve přidejte místnosti nebo lokace, poté zde vytiskněte QR štítky.",
+        "sheet_label": "Štítek lokace",
+        "scan_hint": "Naskenováním QR kódu se otevře filtrovaný inventář pro danou místnost nebo polici.",
+        "room": "Místnost",
+        "location": "Police/Box"
     }
 }

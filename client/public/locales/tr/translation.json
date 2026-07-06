@@ -53,7 +53,9 @@
         "disabled": "Engelli",
         "zoom_in": "Yakınlaştır",
         "zoom_out": "Uzaklaştır",
-        "reset": "Sıfırla"
+        "reset": "Sıfırla",
+        "print": "Yazdır",
+        "record_count": "{{count}} kayıt"
     },
     "meta": {
         "page_title_sign_in": "Giriş yap",
@@ -363,7 +365,10 @@
         "logout_warning": "Ortak veya kişisel bir cihazda işiniz bittiğinde bunu kullanın.",
         "menu": "Menü",
         "maintenance": "Bakım Takvimi",
-        "shopping": "Alışveriş Listesi"
+        "shopping": "Alışveriş Listesi",
+        "activity": "Aktivite",
+        "notifications": "Bildirimler",
+        "service": "Servis"
     },
     "layout": {
         "secondary_controls_title": "Araçlar",
@@ -377,26 +382,27 @@
     "dashboard": {
         "welcome": "Tekrar hoş geldin, <1>{{name}}</1>",
         "alerts": {
-            "expired_title": "Son Kullanma Tarihi Geçmiş Eşyalar Var!",
-            "expired_desc": "Envanterinizde son kullanma tarihi geçmiş {{count}} eşya bulunuyor. Güvenliğiniz için bunları kontrol edin.",
+            "expired_title": "Tarihi geçmiş eşyalar",
+            "expired_desc": "Tarihi geçen eşya: {{count}}.",
             "view_items": "Eşyaları Gör",
-            "maintenance_title": "Gecikmiş Bakım Görevleri Var!",
-            "maintenance_desc": "Zamanı geçmiş {{count}} bakım görevi bulunuyor. Cihazlarınızın ömrünü uzatmak için bakımlarını yapın.",
+            "maintenance_title": "Gecikmiş bakım",
+            "maintenance_desc": "Gecikmiş bakım: {{count}}.",
             "go_to_maintenance": "Bakıma Git",
-            "low_stock_title": "Azalan Stok Uyarısı",
-            "low_stock_desc": "{{count}} ürün belirlediğiniz asgari stok limitinin altına düştü.",
+            "low_stock_title": "Azalan stok",
+            "low_stock_desc": "Azalan stok: {{count}}.",
             "go_to_shopping": "Alışveriş Listesi",
-            "close_expiry_title": "Yaklaşan Son Kullanma Tarihleri",
-            "close_expiry_desc": "{{count}} ürünün son kullanma tarihi 30 gün içinde dolacak."
+            "close_expiry_title": "Yaklaşan son kullanma",
+            "close_expiry_desc": "Yaklaşan tarih: {{count}}.",
+            "view_low_stock_items": "Azalan stokları gör"
         },
         "subtitle": "Envanterinizin genel durumu",
         "quick_search": "Hızlı ara...",
         "page": {
             "kicker": "Ana Sayfa",
             "title": "Ana Sayfa",
-            "description_ready": "Envanterde arayın, son eklenenlere göz atın ve sıradaki işe hızlıca geçin.",
+            "description_ready": "",
             "description_empty": "Tek bir net başlangıç noktasından düzenli ve aranabilir bir ev kaydı oluşturmaya başlayın.",
-            "loading_description": "Ana görünüm hazırlanıyor. Son eklenenler ve hızlı arama birkaç saniye içinde gelecek."
+            "loading_description": "Ana görünüm hazırlanıyor."
         },
         "top_bar": {
             "beta": "Beta",
@@ -416,7 +422,7 @@
         },
         "search_panel": {
             "title": "Envanterde ara",
-            "description": "Eşya, oda, konum veya barkodu tek yerden bulun.",
+            "description": "",
             "placeholder": "Eşya, oda, konum veya barkod ara",
             "submit": "Envanteri ara",
             "secondary_hint": "Hassas kayıtlar ayrı tutulur."
@@ -533,7 +539,7 @@
         "load_error": "Eşya yüklenemedi",
         "form": {
             "name": "Eşya Adı",
-            "name_placeholder": "örn: Samsung TV 55 inç",
+            "name_placeholder": "örn: TV 55 inç",
             "expiry_date": "Son Kullanma Tarihi",
             "min_quantity": "Minimum Miktar",
             "required": "*",
@@ -661,6 +667,17 @@
             "close_to_expiry": "Son Kullanma Yakın",
             "expired": "Süresi Geçmiş",
             "low_stock": "Azalan Stok"
+        },
+        "untitled_item": "İsimsiz eşya",
+        "attachments": {
+            "title": "Fotoğraflar ve dosyalar",
+            "add": "Dosya ekle",
+            "empty": "Henüz dosya eklenmemiş.",
+            "form_desc": "Eşya fotoğrafı, fiş, fatura veya servis belgesi ekleyin.",
+            "detail_desc": "Bu eşya için saklanan fotoğraf, fiş, fatura ve servis dosyaları.",
+            "upload_error": "Dosyalar yüklenemedi.",
+            "delete_error": "Dosya silinemedi.",
+            "delete_confirm": "Bu dosya silinsin mi?"
         }
     },
     "vault": {
@@ -933,7 +950,7 @@
             "access_section_title": "Ev erişimi ve üyeler",
             "access_section_body": "Aktif ev anahtarını gözden geçirin, üyeleri yönetin ve erişimi sadece güvendiğiniz kişilerle sınırlayın.",
             "key_label": "Ev Anahtarı",
-            "mask_key": "••••••••{{sonek}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Gizle",
             "show": "Göster",
             "copy": "Kopyala",
@@ -1059,7 +1076,10 @@
             "skipped_locations": "{{count}} mevcut konum atlandı.",
             "skipped_rooms": "{{count}} mevcut oda atlandı.",
             "owner_only_title": "Yedekleme ve Geri Yükleme Kısıtlı",
-            "owner_only_desc": "Veri yedekleme ve geri yükleme yalnızca ev sahibi tarafından yönetilebilir."
+            "owner_only_desc": "Veri yedekleme ve geri yükleme yalnızca ev sahibi tarafından yönetilebilir.",
+            "include_media_title": "Fotoğraf ve fatura görsellerini dahil et",
+            "include_media_body": "Tam yedek daha büyük olabilir, ancak eşya fotoğrafları ve fatura görselleri de geri yüklenebilir.",
+            "skipped_attachments": "{{count}} ek dosya atlandı."
         },
         "danger_zone": {
             "title": "Hesap",
@@ -1145,7 +1165,13 @@
         "popular_languages": "Popüler Diller",
         "search_results": "Arama Sonuçları",
         "current_language": "Geçerli dil",
-        "languages_available": "dil mevcut"
+        "languages_available": "dil mevcut",
+        "activity_log": {
+            "title": "Aktivite ve denetim kaydı",
+            "description": "Eşya değişiklikleri, stok güncellemeleri, ekler ve toplu işlemlerin korumalı geçmişini inceleyin.",
+            "encrypted_title": "Aktivite kayıtları korumalı saklanır",
+            "encrypted_body": "Yeni aktivite aksiyonları ve detayları veritabanında şifreli tutulur; ekrandaki liste yalnızca açık oturumunuzda çözülür."
+        }
     },
     "inventory": {
         "title": "Envanter",
@@ -1177,8 +1203,8 @@
         "grid_view": "Izgara",
         "list_view": "Liste",
         "load_warning": {
-            "title": "Kismi yukleme modu",
-            "body": "Bazi yardimci veriler su anda gec geldiginden sayfa tam filtre bilgileri olmadan acildi. Yenile dediginizde tekrar deneyecegiz."
+            "title": "Kısmi yükleme modu",
+            "body": "Bazı yardımcı veriler geciktiği için sayfa tam filtre bilgileri olmadan açıldı. Yenilediğinizde tekrar deneyeceğiz."
         },
         "borrow": {
             "section_title": "Ödünç Takibi",
@@ -1233,7 +1259,76 @@
             "site_member_identifier": "Kullanıcı adı veya e-posta",
             "site_member_identifier_placeholder": "Tam kullanıcı adı veya e-posta",
             "site_member_privacy_hint": "Teklif, sadece hesap varsa ve gelen tekliflere izin veriyorsa Ödünç Merkezi’nde görünür.",
-            "external_privacy_hint": "Bu sadece özel bir yerel kayıt oluşturur. Uygulama bildirimi gönderilmez."
+            "external_privacy_hint": "Bu sadece özel bir yerel kayıt oluşturur. Uygulama bildirimi gönderilmez.",
+            "available": "Müsait"
+        },
+        "tools": {
+            "title": "Araçlar"
+        },
+        "no_room": "Odasız",
+        "all_locations": "Tüm konumlar",
+        "location_filter_label": "Konuma göre filtrele",
+        "visibility_filter_label": "Görünürlüğe göre filtrele",
+        "visibility_all": "Tüm görünürlükler",
+        "visibility_mine": "Benim eşyalarım",
+        "visibility_others": "Diğer üyeler",
+        "borrow_filter_label": "Ödünç durumuna göre filtrele",
+        "borrow_filter_all": "Tüm ödünç durumları",
+        "stock_filter_label": "Stok durumuna göre filtrele",
+        "stock_filter_all": "Tüm stok durumları",
+        "stock_filter_ok": "Stok yeterli",
+        "expiry_filter_label": "Son kullanma durumuna göre filtrele",
+        "expiry_filter_all": "Tüm son kullanma durumları",
+        "expiry_filter_dated": "Tarihi olanlar",
+        "expiry_filter_none": "Tarihi olmayanlar",
+        "warranty_filter_label": "Garanti durumuna göre filtrele",
+        "warranty_filter_all": "Tüm garanti durumları",
+        "warranty_filter_expired": "Garantisi bitenler",
+        "warranty_filter_close": "Garantisi yakında bitecekler",
+        "warranty_filter_active": "Garantisi devam edenler",
+        "warranty_filter_none": "Garanti bilgisi olmayanlar",
+        "sort_label": "Sıralama",
+        "sort_updated_desc": "Son güncellenen",
+        "sort_updated_asc": "En eski güncelleme",
+        "sort_created_desc": "Yeni eklenen",
+        "sort_created_asc": "İlk eklenen",
+        "sort_name_asc": "Ada göre A-Z",
+        "sort_name_desc": "Ada göre Z-A",
+        "sort_quantity_desc": "Adet yüksekten düşüğe",
+        "sort_quantity_asc": "Adet düşükten yükseğe",
+        "sort_expiry_asc": "Son kullanma yakından uzağa",
+        "sort_expiry_desc": "Son kullanma uzaktan yakına",
+        "stock_increase": "Stok artır",
+        "stock_decrease": "Stok azalt",
+        "stock_adjust_error": "Stok güncellenemedi.",
+        "bulk": {
+            "select_visible": "Listedekileri seç",
+            "clear_visible": "Listedekilerin seçimini kaldır",
+            "selected_short": "seçili",
+            "keep_category": "Kategori değişmesin",
+            "keep_room": "Oda değişmesin",
+            "keep_location": "Konum değişmesin",
+            "keep_visibility": "Görünürlük değişmesin",
+            "apply": "Uygula",
+            "no_fields": "Toplu işlem için en az bir alan seçin.",
+            "updated_title": "Toplu güncelleme tamamlandı",
+            "updated_body": "{{count}} eşya güncellendi. {{skipped}} eşya atlandı.",
+            "update_error": "Toplu güncelleme tamamlanamadı.",
+            "deleted_title": "Toplu silme tamamlandı",
+            "deleted_body": "{{count}} eşya silindi. {{skipped}} eşya atlandı.",
+            "delete_error": "Toplu silme tamamlanamadı.",
+            "delete_title": "Seçili eşyalar silinsin mi?",
+            "delete_description": "{{count}} seçili eşya bu ev envanterinden kaldırılacak. Bu işlem geri alınamaz.",
+            "select_item": "Eşyayı seç",
+            "unselect_item": "Seçimi kaldır"
+        },
+        "qr_labels": {
+            "title": "QR Etiketleri",
+            "open": "Eşya Etiketleri",
+            "description": "{{count}} eşya etiketi düzenli çıktı sayfası olarak hazır.",
+            "empty": "Etiket basmak için filtreleri değiştirin veya envantere eşya ekleyin.",
+            "sheet_label": "Eşya Etiket Sayfası",
+            "item_label": "Eşya Etiketi"
         }
     },
     "borrow_requests": {
@@ -1586,7 +1681,7 @@
             "no_logs": "henüz kayıt yok",
             "errors_title": "Sistem Hataları (Son 10)",
             "no_errors": "// Sistem sağlıklı, hata kaydı yok.",
-            "date_fmt": "{{tarih, tarihsaat}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "E-posta",
                 "user": "Kullanıcı",
@@ -1917,7 +2012,7 @@
                 },
                 {
                     "name": "Mesh uydu ünitesi",
-                    "meta": "TV ünitesi • Deco M4",
+                    "meta": "TV ünitesi • Network node",
                     "state": null
                 },
                 {
@@ -2195,9 +2290,9 @@
     "emails": {
         "verification": {
             "subject": "{{brandName}} - E-posta Doğrulama Gerekli",
-            "headerTitle": "Hesabınıza hoş geldiniz",
+            "headerTitle": "Hoş geldiniz {{brandName}}",
             "headerSubtitle": "Yeni hesap oluşturun veya mevcut eve katılın",
-            "greeting": "Hesap doğrulama",
+            "greeting": "Hoş geldiniz {{brandName}}",
             "intro": "Hesabınız oluşturuldu! Giriş yapmak için e-posta adresinizi doğrulayın.",
             "verifyPrompt": "E-posta Doğrulama Gerekli",
             "verifyButton": "✓ Hesabımı Doğrula",
@@ -2218,9 +2313,9 @@
         },
         "welcome": {
             "subject": "{{brandName}} hesabınız hazır",
-            "headerTitle": "Hesabınız hazır",
+            "headerTitle": "Hoş geldiniz {{brandName}}",
             "headerSubtitle": "Hesabınız hazır",
-            "greeting": "Hoş geldiniz",
+            "greeting": "Hoş geldiniz {{brandName}}",
             "intro": "Hesabınız başarıyla oluşturuldu. Ev erişimi ve davet bilgileri giriş yaptıktan sonra uygulama içinde gösterilir.",
             "houseKeyLabel": "Ev Anahtarı",
             "houseKeyNote": "Ev anahtarı güvenlik için e-posta içinde gönderilmez. Giriş yaptıktan sonra uygulama içinde görüntüleyebilirsiniz.",
@@ -2241,10 +2336,10 @@
             "bodyLine2": "Lütfen isteği uygulama içinden inceleyin."
         },
         "houseJoinDecision": {
-            "subjectTemplate": "Ev isteği {{status}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Ev erişim güncellemesi",
             "bodyLine1Template": "\"{{house}}\" için isteğiniz {{status}}.",
-            "bodyLine2": "Güncel erişim durumunuzu uygulama içinden görebilirsiniz.",
+            "bodyLine2": "\"{{house}}\" için yaptığınız talep hâlâ karar bekliyor.",
             "statusLabels": {
                 "approved": "onaylandı",
                 "rejected": "reddedildi",
@@ -2254,7 +2349,7 @@
         "houseKick": {
             "subject": "Ev erişiminiz kaldırıldı",
             "greeting": "Ev erişim güncellemesi",
-            "bodyLine1Template": "\"{{house}}\" evine erişiminiz kaldırıldı.",
+            "bodyLine1Template": "\"{{name}}\" evine erişiminiz kaldırıldı.",
             "bodyLine2": "İstediğiniz zaman uygulama içinden başka bir eve katılabilirsiniz."
         },
         "passwordReset": {
@@ -2555,5 +2650,102 @@
         "description": "Arayüz beklenmedik bir render sorunu yaşadı. Kaydedilen envanter verileriniz bu ekranda değişmez.",
         "refresh_btn": "Yenileme",
         "home_btn": "Ana Sayfa"
+    },
+    "activity": {
+        "title": "Aktivite Geçmişi",
+        "description": "Ev envanterindeki son korumalı işlemler.",
+        "empty_title": "Henüz aktivite yok",
+        "empty_description": "Eşya değişiklikleri, stok güncellemeleri, ekler, ödünç işlemleri ve toplu aksiyonlar burada görünür.",
+        "unknown_actor": "Bilinmeyen kullanıcı",
+        "deleted_item_with_id": "Silinen eşya #{{id}}",
+        "item_missing": "Bu eşya kaydı artık mevcut değil",
+        "actions": {
+            "item_created": "Eşya eklendi",
+            "item_updated": "Eşya güncellendi",
+            "item_deleted": "Eşya silindi",
+            "item_borrowed": "Eşya ödünç verildi",
+            "item_returned": "Eşya teslim alındı",
+            "item_bulk_updated": "Toplu güncelleme",
+            "item_bulk_deleted": "Toplu silme",
+            "item_stock_adjusted": "Stok güncellendi",
+            "item_attachment_added": "Ek dosya eklendi",
+            "item_attachment_deleted": "Ek dosya silindi"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} ilgili kayıt",
+        "empty_title": "İlgili kayıt bulunamadı",
+        "low_stock": {
+            "title": "Azalan Stoklar",
+            "description": "Minimum stok sınırının altındaki eşyalar.",
+            "qty": "Stok {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Süresi Geçmiş Eşyalar",
+            "description": "Son kullanma tarihi geçmiş kayıtlar."
+        },
+        "expiring": {
+            "title": "Yaklaşan Tarihler",
+            "description": "30 gün içinde son kullanma tarihi dolacak kayıtlar."
+        },
+        "maintenance": {
+            "title": "Gecikmiş Bakım",
+            "description": "Planlanan tarihi geçmiş bakım görevleri."
+        }
+    },
+    "notifications": {
+        "title": "Bildirim Merkezi",
+        "description": "Stok, garanti, bakım, son kullanma ve ödünç iade uyarıları.",
+        "meta_total": "{{count}} bildirim",
+        "meta_urgent": "{{count}} acil",
+        "empty_title": "Şu an ilgilenmeniz gereken bir uyarı yok",
+        "empty_desc": "Düşük stok, yaklaşan tarih veya gecikmiş bakım olduğunda burada görünür.",
+        "items": {
+            "stock_empty_title": "Stok tükendi",
+            "stock_low_title": "Düşük stok",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Son kullanma tarihi geçti",
+            "expiry_close_title": "Son kullanma tarihi yaklaşıyor",
+            "warranty_expired_title": "Garanti süresi doldu",
+            "warranty_close_title": "Garanti süresi yaklaşıyor",
+            "maintenance_overdue_title": "Bakım tarihi geçti",
+            "maintenance_close_title": "Bakım zamanı yaklaşıyor",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Ödünç iade tarihi geçti",
+            "borrow_close_title": "Ödünç iade tarihi yaklaşıyor",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} gün kaldı ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Servis ve Garanti Merkezi",
+        "description": "Garanti süresi, bakım takvimi ve servis aksiyonlarını tek yerden takip edin.",
+        "meta_warranty": "{{count}} garanti kaydı",
+        "meta_tasks": "{{count}} bakım görevi",
+        "empty_title": "Servis veya garanti aksiyonu yok",
+        "empty_desc": "Garanti tarihi yaklaşan ürünler ve bakım görevleri burada toplanır.",
+        "warranty_section": "Garanti Takibi",
+        "warranty_desc": "Süresi dolan veya 30 gün içinde dolacak garanti kayıtları.",
+        "maintenance_section": "Bakım Aksiyonları",
+        "maintenance_desc": "Geciken ve sıradaki bakım görevleri.",
+        "no_warranty": "Yaklaşan garanti aksiyonu yok.",
+        "no_tasks": "Planlanmış bakım görevi yok.",
+        "overdue": "Geçti",
+        "upcoming": "Yakın",
+        "expired": "Doldu",
+        "summary_warranty": "Garanti takibi",
+        "summary_tasks": "Bakım görevi",
+        "open_warranty_filter": "Garanti filtresini aç",
+        "open_warranty_filter_desc": "Aktif garantili eşyaları envanterde filtreler."
+    },
+    "storage_labels": {
+        "title": "Raf ve Oda Etiketleri",
+        "description": "{{count}} oda/raf etiketi düzenli çıktı sayfası olarak hazır.",
+        "empty_title": "Etiket üretilecek oda veya raf yok",
+        "empty_desc": "Önce oda veya konum ekleyin, sonra buradan QR etiket basın.",
+        "sheet_label": "Yerleşim Etiket Sayfası",
+        "scan_hint": "QR kodu taranınca ilgili oda veya rafın filtrelenmiş envanteri açılır.",
+        "room": "Oda",
+        "location": "Raf/Kutu"
     }
 }

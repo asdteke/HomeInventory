@@ -10,7 +10,7 @@
         "load_error": "Methu llwytho eitem",
         "form": {
             "name": "Enw Eitem",
-            "name_placeholder": "e.e. Teledu Samsung 55 modfedd",
+            "name_placeholder": "e.e. Teledu 55 modfedd",
             "required": "*",
             "description": "Disgrifiad",
             "description_placeholder": "Nodiadau am y eitem...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Wedi agosáu at Ddod i ben",
             "expired": "Wedi Dod i ben",
             "low_stock": "Stoc Isel"
+        },
+        "untitled_item": "Eitem heb deitl",
+        "attachments": {
+            "title": "Lluniau a ffeiliau",
+            "add": "Ychwanegu ffeiliau",
+            "empty": "Nid oes unrhyw ffeiliau wedi'u hychwanegu eto.",
+            "form_desc": "Ymweld â lluniau eitem, derbyniadau, anfonebau, neu ddogfennau gwasanaeth.",
+            "detail_desc": "Lluniau, derbyniadau, anfonebau, a ffeiliau gwasanaeth wedi'u cadw ar gyfer y eitem hon.",
+            "upload_error": "Methwyd llwytho ffeiliau.",
+            "delete_error": "Methwyd dileu'r ffeil.",
+            "delete_confirm": "Dileu'r ffeil hon?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Dangos cyfrinair",
         "saving": "Arbed...",
         "disabled": "Analluogwyd",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Chwyddo i mewn",
+        "zoom_out": "Llacio",
+        "reset": "Ailosod",
+        "print": "Argraffu",
+        "record_count": "{{count}} cofnod"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Byddwch yn cael eich dychwelyd i'r sgrin mewngofnodi ac mae angen i chi fewngofnodi eto i reoli eich rhestr eiddo cartref.",
         "logout_warning": "Defnyddiwch hwn pan fyddwch wedi gorffen ar ddyfais rennir neu bersonol.",
         "maintenance": "Rhaglen Cynnal a Chadw",
-        "shopping": "Rhestr Siopa"
+        "shopping": "Rhestr Siopa",
+        "activity": "Gweithgaredd",
+        "notifications": "Hysbysiadau",
+        "service": "Gwasanaeth"
     },
     "dashboard": {
         "welcome": "Croeso yn ôl, <1>{{name}}</1>",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} o eitemau wedi disgyn y tu hwnt i'ch terfyn stoc lleiaf.",
             "go_to_shopping": "Rhestr Siopa",
             "close_expiry_title": "Dyddiadau Dod i Ben Yn Ymlaen",
-            "close_expiry_desc": "{{count}} o gynhyrchion fydd yn dod i ben o fewn 30 diwrnod."
+            "close_expiry_desc": "{{count}} o gynhyrchion fydd yn dod i ben o fewn 30 diwrnod.",
+            "view_low_stock_items": "Gweld Stoc Isel"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Allwedd y Tŷ Gweithredol",
             "key_label": "Allwedd y Tŷ",
-            "mask_key": "•••••••{{ôl-ddodiad}}",
+            "mask_key": "•••••••{{suffix}}",
             "hide": "Cuddio",
             "show": "Dangos",
             "copy": "Copïo",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} lleoliadau presennol wedi'u sgipio.",
             "skipped_rooms": "{{count}} ystafelloedd presennol wedi'u sgipio.",
             "owner_only_title": "Copïo wrth gefn a Adfer wedi'u Cyfyngu",
-            "owner_only_desc": "Dim ond perchnog y tŷ all reoli copïo wrth gefn a adfer data."
+            "owner_only_desc": "Dim ond perchnog y tŷ all reoli copïo wrth gefn a adfer data.",
+            "include_media_title": "Cynnwys lluniau a delweddau derbynneb",
+            "include_media_body": "Efallai y bydd y copi wrth gefn llawn yn fwy, ond gellir adfer lluniau eitemau a delweddau derbynneb hefyd.",
+            "skipped_attachments": "Cafodd {{count}} atodiad eu hepgor."
         },
         "about": {
             "title": "Ynghylch yr Ap",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Mae pob cais sy'n dod i mewn yn cael ei rwystro'n awtomatig.",
             "policy_house_only_desc": "Dim ond aelodau dilysedig o'ch tai gweithredol y gallant wneud cais am eitemau sydd eisoes yn weladwy y tu mewn i'r tŷ a rennir hwnnw.",
             "policy_everyone_desc": "Ni all defnyddwyr eraill borolio neu weld eich eitemau. Gallant ond anfon cais trwy fynd i'ch enw defnyddiwr neu e-bost yn uniongyrchol."
+        },
+        "activity_log": {
+            "title": "Log gweithgaredd ac archwilio",
+            "description": "Adolygwch hanes amddiffynnol newidiadau eitemau, diweddariadau stoc, atodiadau, a gweithredoedd màs.",
+            "encrypted_title": "Mae cofnodion gweithgaredd yn cael eu storio wedi’u hamddiffyn",
+            "encrypted_body": "Mae gweithredoedd ac manylion gweithgaredd newydd yn cael eu storio wedi’u hamgryptio yn y gronfa ddata ac fe’u datgryptir yn unig ar gyfer eich sesiwn weithredol."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Bydd y cofnod yn cau ar ôl i'r benthycwr gadarnhau eu bod wedi derbyn yr eitem yn ôl.",
             "return_pending_lender_title": "Nododd {{name}} yr eitem hon fel wedi'i chyflwyno'n ôl",
             "return_pending_self_title": "Gyda chi, yn aros am gadarnhad derbyniad",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Aelod safle",
+            "site_member_identifier": "Enw defnyddiwr neu e-bost",
+            "site_member_identifier_placeholder": "Enw defnyddiwr neu e-bost union",
+            "site_member_privacy_hint": "Mae'r cynnig yn ymddangos yn Canolfan Benthyciadau dim ond os yw'r cyfrif hwnnw'n bodoli ac yn caniatáu cynigion sy'n dod i mewn.",
+            "external_privacy_hint": "Mae hyn yn creu cofnod lleol preifat yn unig. Nid yw hysbysiad ap yn cael ei anfon.",
+            "available": "Ar gael"
         },
         "untitled_item": "Eitem heb deitl",
         "delete_action": "Dileu eitem",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Hidlo yn ôl ystafell",
         "refreshing_results": "Yn ail-lwytho eitemau...",
         "empty_filter_title": "Dim eitemau a gyd-chafodd y chwiliad hwnnw",
-        "delete_error_title": "Methodd Dileu"
+        "delete_error_title": "Methodd Dileu",
+        "tools": {
+            "title": "Offer"
+        },
+        "no_room": "Dim ystafell",
+        "all_locations": "Pob lleoliad",
+        "location_filter_label": "Hidlo yn ôl lleoliad",
+        "visibility_filter_label": "Hidlo yn ôl gwelededd",
+        "visibility_all": "Pob gwelededd",
+        "visibility_mine": "Fy eitemau",
+        "visibility_others": "Aelodau eraill",
+        "borrow_filter_label": "Hidlo yn ôl statws benthyciad",
+        "borrow_filter_all": "Pob statws benthyciad",
+        "stock_filter_label": "Hidlo yn ôl statws stoc",
+        "stock_filter_all": "Pob statws stoc",
+        "stock_filter_ok": "Stoc yn iawn",
+        "expiry_filter_label": "Hidlo yn ôl dyddiad dod i ben",
+        "expiry_filter_all": "Pob dyddiad dod i ben",
+        "expiry_filter_dated": "Mae dyddiad",
+        "expiry_filter_none": "Dim dyddiad",
+        "warranty_filter_label": "Hidlo yn ôl gwarant",
+        "warranty_filter_all": "Pob gwarant",
+        "warranty_filter_expired": "Gwarantau sydd wedi dod i ben",
+        "warranty_filter_close": "Yn dod i ben yn fuan",
+        "warranty_filter_active": "Gwarantau gweithredol",
+        "warranty_filter_none": "Dim gwybodaeth gwarant",
+        "sort_label": "Trefnu",
+        "sort_updated_desc": "Wedi'i ddiweddaru'n ddiweddar",
+        "sort_updated_asc": "Diweddariad hynaf",
+        "sort_created_desc": "Y diweddaraf gyntaf",
+        "sort_created_asc": "Yr hynaf gyntaf",
+        "sort_name_asc": "Enw A-Z",
+        "sort_name_desc": "Enw Z-A",
+        "sort_quantity_desc": "Maint uchel i isel",
+        "sort_quantity_asc": "Maint isel i uchel",
+        "sort_expiry_asc": "Dod i ben yn fuan",
+        "sort_expiry_desc": "Dod i ben yn ddiweddarach",
+        "stock_increase": "Cynyddu stoc",
+        "stock_decrease": "Gostwng stoc",
+        "stock_adjust_error": "Ni ellid diweddaru stoc.",
+        "bulk": {
+            "select_visible": "Dewiswch y rhai sydd yn weladwy",
+            "clear_visible": "Dad-ddewis gweledol",
+            "selected_short": "wedi'i ddewis",
+            "keep_category": "Cadw categori",
+            "keep_room": "Cadw ystafell",
+            "keep_location": "Cadw lleoliad",
+            "keep_visibility": "Cadw gwelededd",
+            "apply": "Gwneud cais",
+            "no_fields": "Dewiswch o leiaf un maes ar gyfer y cam gweithredu màs.",
+            "updated_title": "Diweddariad màs wedi'i gwblhau",
+            "updated_body": "{{count}} eitem wedi'u diweddaru. {{skipped}} wedi'u hepgor.",
+            "update_error": "Ni ellid cwblhau'r diweddariad màs.",
+            "deleted_title": "Dileu màs wedi'i gwblhau",
+            "deleted_body": "{{count}} eitem wedi'u dileu. {{skipped}} wedi'u hepgor.",
+            "delete_error": "Ni ellid cwblhau'r dileu màs.",
+            "delete_title": "Dileu'r eitemau a ddewiswyd?",
+            "delete_description": "{{count}} eitem a ddewiswyd fydd yn cael eu tynnu o'r rhestr eiddo hyn. Ni ellir dadwneud hyn.",
+            "select_item": "Dewiswch eitem",
+            "unselect_item": "Diddewis eitem"
+        },
+        "qr_labels": {
+            "title": "Labeli QR",
+            "open": "Labeli Eitem",
+            "description": "Mae {{count}} label eitem yn barod fel taflen argraffu.",
+            "empty": "Newid hidlyddion neu ychwanegu eitemau rhestr eiddo i argraffu labeli.",
+            "sheet_label": "Taflen Label Eitem",
+            "item_label": "Label Eitem"
+        }
     },
     "categories": {
         "title": "Categori",
@@ -1341,7 +1436,7 @@
             "no_logs": "dim logiau eto",
             "errors_title": "Gwallau System (Y 10 Diwethaf)",
             "no_errors": "// System iach, dim logiau gwall.",
-            "date_fmt": "{{ dyddiad, amser dyddiad}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "E-bost",
                 "user": "Defnyddiwr",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Uned rhwydwaith",
-                    "meta": "Consol teledu • Deco M4",
+                    "meta": "Consol teledu • Network node",
                     "state": null
                 },
                 {
@@ -1929,7 +2024,7 @@
             "bodyLine2": "Aros am gymeradwyaeth perchennog tŷ"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{statws}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "Mynediad Ty",
             "bodyLine1Template": "Cais cyfredol yn yr arfaeth: {{house}} ({{status}})",
             "bodyLine2": "Mae eich cais am \"{{house}}\" yn dal i aros am benderfyniad.",
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Ni ellid llwytho'r ganolfan benthyca",
             "action_error": "Ni ellid cwblhau'r gweithrediad",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Ni ellid dod o hyd i'r cofnod benthyg gweithredol hwn. Diweddarwch y Ganolfan Benthyg a cheisiwch eto.",
             "errors": {
                 "external_target_daily_limit": "Gallwch anfon dim ond un cais cysylltiad cyntaf allanol at yr un person y dydd. Os derbyniant cais, nid yw'r terfyn hwn yn berthnasol i'r person hwnnw o hyd.",
                 "external_total_daily_limit": "Gallwch anfon hyd at 5 cais cysylltiad cyntaf allanol y dydd.",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "Dewislen cyfrif {{name}}"
     },
     "app": {
-        "name": "{{Enw brand}}",
+        "name": "{{brandName}}",
         "tagline": "Rheoli'ch holl eitemau tŷ yn ddoeth",
         "loading": "Wrthi'n llwytho {{brandName}}",
         "preparing_workspace": "Paratoi'ch gweithfan..."
@@ -2408,7 +2503,7 @@
             "desc": "Eitemau stoc sydd wedi gostwng i'r isafswm a ganiateir.",
             "add_all": "Ychwanegu'r Holl Gollwyd",
             "stock_status": "Cyfredol: {{current}} / Targed: {{min}}",
-            "add_qty": "Ychwanegu {{qty}} Eitemau i Brynu Eitemau siopa presennol i ychwanegu at eich basged. {{count}} Eitemau"
+            "add_qty": "Ychwanegu {{qty}}"
         },
         "sections": {
             "active_list": "Eitemau i'w Prynu",
@@ -2555,5 +2650,102 @@
         "description": "Mae'r rhyngwyneb wedi taro problem rendro annisgwyl. Nid yw'r data stocrestr wedi'i gadw yn cael ei newid gan y sgrin hon.",
         "refresh_btn": "Adnewyddu",
         "home_btn": "Hafan"
+    },
+    "activity": {
+        "title": "Hanes Gweithgaredd",
+        "description": "Newidiadau diogelu diweddar yn eich rhestr eiddo cartref.",
+        "empty_title": "Dim gweithgaredd eto",
+        "empty_description": "Bydd newidiadau eitemau, diweddariadau stoc, atodiadau, benthyg, a gweithredoedd màs yn ymddangos yma.",
+        "unknown_actor": "Defnyddiwr anhysbys",
+        "deleted_item_with_id": "Eitem wedi'i dileu #{{id}}",
+        "item_missing": "Nid yw'r cofnod eitem hwn yn bodoli mwyach",
+        "actions": {
+            "item_created": "Eitem wedi'i hychwanegu",
+            "item_updated": "Eitem wedi'i diweddaru",
+            "item_deleted": "Eitem wedi'i ddileu",
+            "item_borrowed": "Eitem wedi'i benthyg",
+            "item_returned": "Eitem wedi'i dychwelyd",
+            "item_bulk_updated": "Diweddariad swmp",
+            "item_bulk_deleted": "Dileu swmp",
+            "item_stock_adjusted": "Stoc wedi'i ddiweddaru",
+            "item_attachment_added": "Atodiad wedi'i ychwanegu",
+            "item_attachment_deleted": "Atodiad wedi'i ddileu"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} cofnod cysylltiedig",
+        "empty_title": "Dim cofnodion cysylltiedig wedi'u canfod",
+        "low_stock": {
+            "title": "Stoc Isel",
+            "description": "Eitemau o dan eu lefel stoc lleiaf.",
+            "qty": "Stoc {{quantity}} / lleiaf {{min}}"
+        },
+        "expired": {
+            "title": "Eitemau sydd wedi dod i ben",
+            "description": "Eitemau gyda dyddiad a diflannodd."
+        },
+        "expiring": {
+            "title": "Dyddiadau Dod i Ben yn Agos",
+            "description": "Eitemau sydd ar fin dod i ben o fewn 30 diwrnod."
+        },
+        "maintenance": {
+            "title": "Cynnal a Chadw Gor-dyddiad",
+            "description": "Tasgau cynnal a chadw sydd wedi mynd heibio eu dyddiad wedi’i drefnu."
+        }
+    },
+    "notifications": {
+        "title": "Canolfan Hysbysiadau",
+        "description": "Stoc, gwarant, cynnal a chadw, dod i ben, a rhybuddion dychwelyd benthyciad.",
+        "meta_total": "{{count}} hysbysiadau",
+        "meta_urgent": "{{count}} yn frys",
+        "empty_title": "Nid oes unrhyw rybuddion yn galw am eich sylw ar hyn o bryd",
+        "empty_desc": "Bydd stoc isel, dyddiadau sydd i ddod, a chynnal a chadw sydd wedi dod yn hwyr yn ymddangos yma.",
+        "items": {
+            "stock_empty_title": "Allan o stoc",
+            "stock_low_title": "Stoc isel",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Dyddiad dod i ben wedi mynd heibio",
+            "expiry_close_title": "Dyddiad dod i ben yn agosáu",
+            "warranty_expired_title": "Gwarant wedi dod i ben",
+            "warranty_close_title": "Gwarant yn dod i ben yn fuan",
+            "maintenance_overdue_title": "Cynnal a chadw dros ben",
+            "maintenance_close_title": "Cynnal a chadw ar fin digwydd",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Dychweliad benthyciad dros ben",
+            "borrow_close_title": "Dychweliad benthyciad ar fin digwydd",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: {{count}} diwrnodau yn weddill ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Canolfan Gwasanaeth a Gwarant",
+        "description": "Dilyn gwarantau, amserlenni cynnal a chadw, a gweithredoedd gwasanaeth mewn un lle.",
+        "meta_warranty": "{{count}} cofnod gwarant",
+        "meta_tasks": "{{count}} tasgau cynnal a chadw",
+        "empty_title": "Dim gweithred gwasanaeth na gwarant",
+        "empty_desc": "Bydd dyddiadau gwarant a thasgau cynnal a chadw sydd ar ddod yn cael eu casglu yma.",
+        "warranty_section": "Olrhain Gwarant",
+        "warranty_desc": "Gwarantau sydd wedi dod i ben a gwarantau sy'n dod i ben o fewn 30 diwrnod.",
+        "maintenance_section": "Gweithredoedd Cynnal a Chadw",
+        "maintenance_desc": "Tasgau cynnal a chadw sydd wedi mynd heibio ac sydd ar ddod.",
+        "no_warranty": "Dim gweithred warant ar ddod.",
+        "no_tasks": "Dim tasg gynlluniedig o gynnal a chadw.",
+        "overdue": "Wedi mynd heibio",
+        "upcoming": "Yn fuan",
+        "expired": "Wedi dod i ben",
+        "summary_warranty": "Olrhain gwarant",
+        "summary_tasks": "Tasgau cynnal a chadw",
+        "open_warranty_filter": "Hidlydd gwarant agored",
+        "open_warranty_filter_desc": "Hidlydd eitemau gwarant gweithredol yn y stoc."
+    },
+    "storage_labels": {
+        "title": "Labeli Silff a Ystafell",
+        "description": "Mae {{count}} label ystafell/silff yn barod fel taflen argraffu.",
+        "empty_title": "Dim ystafelloedd na silffoedd i'w labelu",
+        "empty_desc": "Ychwanegwch ystafelloedd neu leoliadau yn gyntaf, yna argraffwch labeli QR yma.",
+        "sheet_label": "Taflen Label Lleoliad",
+        "scan_hint": "Mae sganio'r cod QR yn agor y rhestr eiddo wedi'i hidlo ar gyfer y stafell neu'r silff honno.",
+        "room": "Ystafell",
+        "location": "Silff/Bocs"
     }
 }

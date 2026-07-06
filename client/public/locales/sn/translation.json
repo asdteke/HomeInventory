@@ -10,7 +10,7 @@
         "load_error": "Kukundikana kurodha chigadzirwa",
         "form": {
             "name": "Zita Rechigadzirwa",
-            "name_placeholder": "semuenzaniso Samsung TV 55 inch",
+            "name_placeholder": "semuenzaniso TV 55 inch",
             "required": "*",
             "description": "Tsananguro",
             "description_placeholder": "Zvinyorwa nezve chigadzirwa...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Pedyo Nekupfuura Nguva",
             "expired": "Zvapera",
             "low_stock": "Zvishoma Muzvitoro"
+        },
+        "untitled_item": "Chigadzirwa chisina zita",
+        "attachments": {
+            "title": "Mifananidzo nemafaira",
+            "add": "Wedzera mafaira",
+            "empty": "Hakuna mafaira akawedzerwa parizvino.",
+            "form_desc": "Batanidza mifananidzo yechigadzirwa, risiti, invoice, kana magwaro ebasa.",
+            "detail_desc": "Mifananidzo, risiti, invoice, uye mafaira ebasa akachengetwa kwechigadzirwa ichi.",
+            "upload_error": "Mafaira haana kukwanisa kurodhwa.",
+            "delete_error": "Faira haina kukwanisa kudzimwa.",
+            "delete_confirm": "Dzima faira iri here?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Ratidza password",
         "saving": "Kuchengetedza...",
         "disabled": "Akaremara",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Zooma mukati",
+        "zoom_out": "Zooma kunze",
+        "reset": "Dzorerazve",
+        "print": "Dhinda",
+        "record_count": "{{count}} marekodhi"
     },
     "auth": {
         "login": {
@@ -458,7 +471,7 @@
         "two_factor_enabled_success": "Yakazara nzira kuchinyorwa: Linux Vakapindwa muropa » General » Noticias » Kubudirira",
         "two_factor_disabled_success": "Maviri-Factor Authentication Akaremara Kubudirira",
         "password_errors": {
-            "min_length": "Password inofanira kunge iri mavara akareba",
+            "min_length": "Pasiwedhi inofanira kuva nemavara anosvika {{min}} kana kupfuura",
             "lowercase_required": "Password inofanira kunge iine tsamba imwe chete yemavara mashomanana",
             "uppercase_required": "Password inofanira kunge iine tsamba imwe chete yepamusoro",
             "number_required": "Password inofanira kunge iine nhamba imwe chete",
@@ -489,7 +502,10 @@
         "logout_description": "Uchadzoserwa pachiratidziro chekunyoresa uye uchafanirwa kupinda zvakare kuti ugadzirise zvinhu zvemumba mako.",
         "logout_warning": "Shandisa izvi kana wapedza pamuenzaniso wakagovaniswa kana wega.",
         "maintenance": "Ronga Rekugadzirisa",
-        "shopping": "Runyorwa rweKutenga"
+        "shopping": "Runyorwa rweKutenga",
+        "activity": "Chiitiko",
+        "notifications": "Zviziviso",
+        "service": "Sevhisi"
     },
     "dashboard": {
         "welcome": "Mauya, <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} zvinhu zvaderera kupfuura muganhu wako wepasi we stock.",
             "go_to_shopping": "Runyorwa rweKutenga",
             "close_expiry_title": "Zuva Riri Kuswedera Rekupera",
-            "close_expiry_desc": "Zvigadzirwa {{count}} zvichapera mukati memazuva 30."
+            "close_expiry_desc": "Zvigadzirwa {{count}} zvichapera mukati memazuva 30.",
+            "view_low_stock_items": "Ona Zvinhu Zvisina Zvakawanda"
         }
     },
     "beta_banner": {
@@ -686,9 +703,9 @@
             "account_delete_error": "Akaunti haugone kubviswa",
             "backup_downloaded_encrypted": "Backup yakavharirwa yakadhindwa zvakanaka! ({{count}} zvinhu)",
             "policy_update_error": "Yakakundikana kugadzirisa zvikumbiro zvirongwa.",
-            "policy_updated": "Request settings updated successfully.",
+            "policy_updated": "Zvirongwa zvekukumbira zvagadziridzwa nemazvo.",
             "unblock_error": "Yakakundikana kuvhura mushandisi.",
-            "unblocked_success": "User unblocked successfully.",
+            "unblocked_success": "Mushandisi abviswa kuvharwa nemazvo.",
             "house_owner_transferred": "Varidzi veimba vakaendeswa",
             "house_owner_transfer_error": "Varidzi vedzimba havagone kuchinjiswa."
         },
@@ -765,9 +782,9 @@
             "transfer_owner": "Ita muridzi",
             "transferring_owner": "Kuchinjisa ...",
             "transfer_owner_title": "Kuchinjisa muridzi wemba?",
-            "transfer_owner_confirm": "Transfer ownership of this household to {{name}}?",
+            "transfer_owner_confirm": "Chinja muridzi wemba iyi kuenda kuna {{name}}?",
             "transfer_owner_warning": "Hauchizovi muridzi wemba iyoyo. Muridzi mutsva achatarisira kubvumidzwa kwenhengo, kubviswa, uye shanduko yevaridzi mune ramangwana.",
-            "transfer_owner_success_body": "Iye zvino ndiye muridzi weimba iyi."
+            "transfer_owner_success_body": "{{name}} ikozvino ndiye muridzi wemusha uyu."
         },
         "theme": {
             "title": "Musoro",
@@ -776,7 +793,7 @@
             "description": "Sarudza kuti nzvimbo yekushandira inoonekwa sei pane mudziyo uyu.",
             "light_aria": "Shandura kuenda kune theme yakajeka",
             "dark_aria": "Shandura kuenda kune theme yakasviba",
-            "workspace_title": "Workspace Theme",
+            "workspace_title": "Musoro weWorkspace",
             "workspace_desc": "Sarudza yako yaunofarira dhizaini dhizaini yeichi chishandiso."
         },
         "security": {
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} nzvimbo dziripo dzapfuura.",
             "skipped_rooms": "{{count}} makamuri aripo mapfuura.",
             "owner_only_title": "Kuchengetedza uye Kudzorera Zvakadzivirirwa",
-            "owner_only_desc": "Kuchengetedza uye kudzoreredza data kunogona kutungamirwa nemuridzi wemba chete."
+            "owner_only_desc": "Kuchengetedza uye kudzoreredza data kunogona kutungamirwa nemuridzi wemba chete.",
+            "include_media_title": "Sanganisira mafoto nemifananidzo yemaripi",
+            "include_media_body": "Backup yakazara inogona kunge yakakura, asi mafoto ezvinhu nemifananidzo yemaripi zvinogonawo kudzorerwa.",
+            "skipped_attachments": "{{count}} zvinyorwa zvakapfuura."
         },
         "about": {
             "title": "Nezve Chikumbiro",
@@ -1023,7 +1043,7 @@
             "accordion_eyebrow_desc": "Gadzirisa mitemo yekukumbira uye gadzirisa vashandisi vakavharwa.",
             "title": "Zvirongwa zvechikumbiro",
             "description": "Gadzirisa mitemo yekugamuchira zvikumbiro zvekukwereta kubva kune mamwe maakaundi uye nyora vashandisi vakavharirwa.",
-            "policy_title": "New Borrow Requests",
+            "policy_title": "Zvikumbiro Zvitsva Zvekukwereta",
             "policy_description": "Dzora kuti ndiani anogona kutumira zvikumbiro zvekukwereta kwauri. Zvakatemwa zvawakaita hazvina kuratidzwa se runyorwa rweveruzhinji.",
             "policy_none": "Usagamuchira kubva kune chero munhu (Regai kugamuchira kubva kune mumwe munhu)",
             "policy_house_only": "Nhengo dzemhuri chete",
@@ -1031,10 +1051,16 @@
             "blocks_title": "Vashandisi vakavharirwa",
             "blocks_description": "Vashandisi vawakadzivirira kukutumira zvikumbiro zvitsva zvekukwereta.",
             "no_blocks": "Hapana vashandisi vakavharirwa vakawanikwa.",
-            "unblock_btn": "Unblock",
+            "unblock_btn": "Bvisa kuvharwa",
             "policy_none_desc": "Zvese zvikumbiro zvinouya zvinovharwa otomatiki.",
             "policy_house_only_desc": "Vanhengo dzakanyoreswa chete dzemisha yako inoshanda dzinogona kukumbira zvinhu zviri pachena mukati meimba yakagoverwa iyoyo.",
             "policy_everyone_desc": "Vamwe vashandisi havafaniri kukwanisa kutsvaga kana kuona zvinhu zvako. Vanogona kungotumira chikumbiro nekuisa zita rako remushandisi kana email zvakananga."
+        },
+        "activity_log": {
+            "title": "Chiitiko uye audit log",
+            "description": "Ongorora nhoroondo yakadzivirirwa yeshanduko dzezvinhu, kugadziridzwa kwezvitoro, zvinyorwa, uye zviito zvebulk.",
+            "encrypted_title": "Zvinyorwa zvechiitiko zvakachengetwa zvadzivirirwa",
+            "encrypted_body": "Maitiro matsva ebasa uye ruzivo zvakachengetwa zvakavharidzirwa mudhatabhesi uye zvinongoburitswa panguva yesesheni yako iripo."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Rekodhiyo ichavharwa mushure mekunge mupi wemari asimbisa kugamuchira chinhu chadzoka.",
             "return_pending_lender_title": "{{name}} akamaka chinhu ichi sekudzorerwa",
             "return_pending_self_title": "Nemi, kumirira kusimbiswa kwekugamuchira",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Nhengo yesaiti",
+            "site_member_identifier": "Zita rekushandisa kana email",
+            "site_member_identifier_placeholder": "Zita rekushandisa kana email chaizvo",
+            "site_member_privacy_hint": "Chipo chinongoonekwa muBorrow Center chete kana account iyoyo iripo uye ichibvumira kupihwa kunouya.",
+            "external_privacy_hint": "Izvi zvinoita rekodhi yemuno yakavanzika chete. Hapana ziviso yeapp inotumirwa.",
+            "available": "Inowanikwa"
         },
         "untitled_item": "Chinyorwa chisina musoro",
         "delete_action": "Bvisa chinhu",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Sefa nezve imba",
         "refreshing_results": "Kuvandudza zvinhu...",
         "empty_filter_title": "Hapana zvinhu zvakawirirana nekutsvaga uku",
-        "delete_error_title": "Kubvisa kwakaramba"
+        "delete_error_title": "Kubvisa kwakaramba",
+        "tools": {
+            "title": "Zvishandiso"
+        },
+        "no_room": "Hapana kamuri",
+        "all_locations": "Nzvimbo dzese",
+        "location_filter_label": "Sefa nezvenzvimbo",
+        "visibility_filter_label": "Sefa nezvekuoneka",
+        "visibility_all": "Kuoneka kwese",
+        "visibility_mine": "Zvinhu zvangu",
+        "visibility_others": "Nhengo dzimwe",
+        "borrow_filter_label": "Sefa nezvemamiriro ekukwereta",
+        "borrow_filter_all": "Zvese zvikwereti",
+        "stock_filter_label": "Sefa nezve chimiro chezvitoro",
+        "stock_filter_all": "Zvese chimiro chezvitoro",
+        "stock_filter_ok": "Chitoro chakanaka",
+        "expiry_filter_label": "Sefa nezve zuva rekupfuura",
+        "expiry_filter_all": "Zvese mazuva ekupfuura",
+        "expiry_filter_dated": "Une zuva",
+        "expiry_filter_none": "Hapana zuva",
+        "warranty_filter_label": "Sefa nezvema waranti",
+        "warranty_filter_all": "Zvese zvema waranti",
+        "warranty_filter_expired": "Zvema waranti zvapera",
+        "warranty_filter_close": "Zviri kupera munguva pfupi",
+        "warranty_filter_active": "Zvema waranti zviri kushanda",
+        "warranty_filter_none": "Hapana ruzivo rwewaranti",
+        "sort_label": "Ronga",
+        "sort_updated_desc": "Zvichangobva kugadziridzwa",
+        "sort_updated_asc": "Kuvandudzwa kwepakare",
+        "sort_created_desc": "Kwekupedzisira kutanga",
+        "sort_created_asc": "Kwekare kutanga",
+        "sort_name_asc": "Zita A-Z",
+        "sort_name_desc": "Zita Z-A",
+        "sort_quantity_desc": "Huwandu hwakakwira kusvika pahwese",
+        "sort_quantity_asc": "Huwandu hwakaderera kusvika pahwese",
+        "sort_expiry_asc": "Kupera nguva nokukurumidza",
+        "sort_expiry_desc": "Kupera nguva kwekupedzisira",
+        "stock_increase": "Wedzera stock",
+        "stock_decrease": "Deredza stock",
+        "stock_adjust_error": "Stock haigoni kuvandudzwa.",
+        "bulk": {
+            "select_visible": "Sarudza zvinoratidzika",
+            "clear_visible": "Bvisa kusarudza zvinoratidzika",
+            "selected_short": "yasarudzwa",
+            "keep_category": "Chengeta chikamu",
+            "keep_room": "Chengeta imba",
+            "keep_location": "Chengeta nzvimbo",
+            "keep_visibility": "Chengeta kuoneka",
+            "apply": "Shandisa",
+            "no_fields": "Sarudza chinzvimbo chimwe chete kana kupfuura kuti uite chiito chakawanda.",
+            "updated_title": "Kuvandudzwa kwakawanda kwapera",
+            "updated_body": "Zvinhu {{count}} zvagadziridzwa. {{skipped}} zvapfuura.",
+            "update_error": "Kugadzirisa kwakawanda hakukwaniswi kupedzwa.",
+            "deleted_title": "Kubvisa kwakawanda kwapedzwa",
+            "deleted_body": "Zvinhu {{count}} zabviswa. {{skipped}} zvapfuura.",
+            "delete_error": "Kubvisa kwakawanda hakukwaniswi kupedzwa.",
+            "delete_title": "Bvisa zvinhu zvakasarudzwa?",
+            "delete_description": "Zvinhu {{count}} zvakasarudzwa zvichabviswa muinventori yemhuri ino. Izvi hazvigone kudzoserwa.",
+            "select_item": "Sarudza chinhu",
+            "unselect_item": "Bvisa kusarudza chinhu"
+        },
+        "qr_labels": {
+            "title": "Zviratidzo zveQR",
+            "open": "Zviratidzo zveChinhu",
+            "description": "{{count}} zviratidzo zvechinhu zvakagadzirira semashiti ekudhinda.",
+            "empty": "Chinja mafirita kana kuwedzera zvinhu zvekuchengetera kuti udhinde zviratidzo.",
+            "sheet_label": "Shiiti reZviratidzo zveChinhu",
+            "item_label": "Chiratidzo cheChinhu"
+        }
     },
     "categories": {
         "title": "Zvikamu",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Chikamu chemesh",
-                    "meta": "Tafura yeTV • Deco M4",
+                    "meta": "Tafura yeTV • Network node",
                     "state": null
                 },
                 {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Hofisi yekukwereta haigoni kurodha",
             "action_error": "Chiito hachigoni kupedzwa",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Rekodhiyo iyi iri kushandiswa hazvina kuwanikwa. Dzorerazve Borrow Center uye edza zvakare.",
             "errors": {
                 "external_target_daily_limit": "Unogona kutumira chikumbiro chimwe chete chekudyidzana kwekutanga kune munhu mumwe chete pazuva. Kana vakagamuchira chikumbiro, muganho uyu haushandi kumunhu iyeye.",
                 "external_total_daily_limit": "Unogona kutumira zvikumbiro zvekudyidzana kwekutanga zvekunze zvinosvika zvishanu pazuva.",
@@ -2275,7 +2370,7 @@
     "app": {
         "name": "{{brandName}}",
         "tagline": "Chengetedza zvine hungwaru zvinhu zvako zvese zvemumba",
-        "loading": "Loading {{brandName}}",
+        "loading": "Kurodha {{brandName}}",
         "preparing_workspace": "Kugadzirira nzvimbo yako yebasa ..."
     },
     "nav": {
@@ -2431,7 +2526,7 @@
             "mark_completed": "Maka sekupedzisa",
             "decrease_qty": "Deredza huwandu",
             "increase_qty": "Wedzera huwandu",
-            "delete_item": "Delete item",
+            "delete_item": "Bvisa chinhu",
             "reactivate_item": "Dzokera kune Active List"
         },
         "form": {
@@ -2555,5 +2650,102 @@
         "description": "Iyo interface yakarova dambudziko risingatarisirwi rekuburitsa. Yako yakachengetwa inventory data haina kuchinjwa neichi chidzitiro.",
         "refresh_btn": "Zorodza",
         "home_btn": "Musha"
+    },
+    "activity": {
+        "title": "Nhoroondo yeChiitiko",
+        "description": "Shanduko dzichangobva kuitika dzakachengetedzwa mudura rako remumba.",
+        "empty_title": "Hakuna chiitiko parizvino",
+        "empty_description": "Shanduko yezvinhu, zvigadziriso zvezvitoro, zvakatakurwa, kukweretesa, uye zviito zvakawanda zvichatanga kuoneka pano.",
+        "unknown_actor": "Mushandisi asingazivikanwi",
+        "deleted_item_with_id": "Chigadzirwa chakabviswa #{{id}}",
+        "item_missing": "Chinyorwa ichi hachisisipo",
+        "actions": {
+            "item_created": "Chigadzirwa chawedzerwa",
+            "item_updated": "Chigadzirwa chagadziridzwa",
+            "item_deleted": "Chigadzirwa chabviswa",
+            "item_borrowed": "Chigadzirwa chakakweretwa",
+            "item_returned": "Chigadzirwa chadzoserwa",
+            "item_bulk_updated": "Gadziridzo hombe",
+            "item_bulk_deleted": "Bvisa zvinhu zvakawanda",
+            "item_stock_adjusted": "Stock yakagadziridzwa",
+            "item_attachment_added": "Chishandiso chawedzerwa",
+            "item_attachment_deleted": "Chishandiso chabviswa"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} zvinyorwa zvine chekuita nazvo",
+        "empty_title": "Hapana zvinyorwa zvine chekuita nazvo zvakawanikwa",
+        "low_stock": {
+            "title": "Stock Shoma",
+            "description": "Zvinhu zviri pasi pemhando yavo shoma yestock.",
+            "qty": "Stock {{quantity}} / shoma {{min}}"
+        },
+        "expired": {
+            "title": "Zvinhu Zvapera",
+            "description": "Zvinhu zviri nezuro imwe nguva yapfuura."
+        },
+        "expiring": {
+            "title": "Zuva Rinotevera Rekupera",
+            "description": "Zvinhu zvichapera mukati memazuva 30."
+        },
+        "maintenance": {
+            "title": "Kugadzirisa Kwakundikana",
+            "description": "Mabasa ekugadzirisa akapfuura zuva rakarongwa."
+        }
+    },
+    "notifications": {
+        "title": "Nzvimbo yeZviziviso",
+        "description": "Zviziviso zve stock, warandi, kugadzirisa, kupera, uye kudzorerwa kwekukwereta.",
+        "meta_total": "{{count}} ziviso",
+        "meta_urgent": "{{count}} inokurumidza",
+        "empty_title": "Hapana zviziviso zvinoda kutarirwa kwako parizvino",
+        "empty_desc": "Kushomeka kwezvinhu, mazuva ari kusvika, uye kugadzirwa kwakapfuura nguva zvichaonekwa pano.",
+        "items": {
+            "stock_empty_title": "Hapana zvinhu",
+            "stock_low_title": "Kushomeka kwezvinhu",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Zuva rekupfuura kwenguva yakatarwa",
+            "expiry_close_title": "Zuva rekupfuura kwekushandiswa kuri kuswedera",
+            "warranty_expired_title": "Warranty yapera",
+            "warranty_close_title": "Warranty ichapera munguva pfupi",
+            "maintenance_overdue_title": "Kuchengetedza kwapfuura nguva",
+            "maintenance_close_title": "Kuchengetedza kuchasvika nguva pfupi",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Kudzorera chikwereti kwapfuura nguva",
+            "borrow_close_title": "Kudzorera chikwereti kuchasvika nguva pfupi",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: mazuva {{count}} asara ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Centre reSevhisi neWarranty",
+        "description": "Teedzera waranti, zvakarongwa zvekuchengetedza, uye zviito zvebasa panzvimbo imwe chete.",
+        "meta_warranty": "{{count}} marekodhi ewaranti",
+        "meta_tasks": "{{count}} mabasa ekuchengetedza",
+        "empty_title": "Hapana chiito chebasa kana chewaranti",
+        "empty_desc": "Mazuva ewaranti ari kuuya uye mabasa ekuchengetedza acharongedzwa pano.",
+        "warranty_section": "Kutevera Waranti",
+        "warranty_desc": "Warranties dzapera uye warrant dzinopera mukati memazuva 30.",
+        "maintenance_section": "Zviito zveKuchengetedza",
+        "maintenance_desc": "Mabasa ekuchengetedza anenge asina kuitwa uye ari kuda kuitwa.",
+        "no_warranty": "Hapana chiito chegwarandi chiri kuuya.",
+        "no_tasks": "Hapana basa rekuchengetedza rakarongwa.",
+        "overdue": "Asina kuitwa",
+        "upcoming": "Munguva pfupi",
+        "expired": "Yaperera",
+        "summary_warranty": "Kutevera gwarandi",
+        "summary_tasks": "Mabasa ekuchengetedza",
+        "open_warranty_filter": "Vhura sifa yewarakiti",
+        "open_warranty_filter_desc": "Inosefa zvinhu zvisina kufamba zvine warakiti muzvitoro."
+    },
+    "storage_labels": {
+        "title": "Malebhu eMitengo neMakamuri",
+        "description": "{{count}} malebhu emakuru/makamuri akagadzirira seyashiti yekudhinda.",
+        "empty_title": "Hakuna makamuri kana malebhu ekuti adhinhwe",
+        "empty_desc": "Wedzera makamuri kana nzvimbo kutanga, wobva wadhinda malebhu eQR pano.",
+        "sheet_label": "Shiti yeLebhu Yenzvimbo",
+        "scan_hint": "Kuongorora QR code kunovhura zvinyorwa zvakasvinwa zveizvozvo kamuri kana shefu.",
+        "room": "Imba",
+        "location": "Shefu/Bhokisi"
     }
 }

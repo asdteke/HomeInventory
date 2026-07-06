@@ -51,9 +51,11 @@
         "show": "パスワードを表示",
         "saving": "保存中…",
         "disabled": "障害者",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "ズームイン",
+        "zoom_out": "ズームアウト",
+        "reset": "リセット",
+        "print": "印刷",
+        "record_count": "{{count}} 件の記録"
     },
     "auth": {
         "login": {
@@ -352,7 +354,10 @@
         "logout_description": "サインイン画面に戻り、家庭の在庫を管理するには再度ログインが必要です。",
         "logout_warning": "共有デバイスや個人デバイスで作業が終わったときに使用してください。",
         "maintenance": "メンテナンススケジュール",
-        "shopping": "買い物リスト"
+        "shopping": "買い物リスト",
+        "activity": "アクティビティ",
+        "notifications": "通知",
+        "service": "サービス"
     },
     "dashboard": {
         "welcome": "お帰りなさい、<1>{{name}}</1>",
@@ -491,7 +496,8 @@
             "low_stock_desc": "{{count}} 件の商品が最低在庫制限を下回っています。",
             "go_to_shopping": "買い物リスト",
             "close_expiry_title": "近日の有効期限",
-            "close_expiry_desc": "{{count}} 件の商品が30日以内に期限切れになります。"
+            "close_expiry_desc": "{{count}} 件の商品が30日以内に期限切れになります。",
+            "view_low_stock_items": "在庫不足を表示"
         }
     },
     "beta_banner": {
@@ -641,6 +647,17 @@
             "close_to_expiry": "期限切れ間近",
             "expired": "期限切れ",
             "low_stock": "在庫不足"
+        },
+        "untitled_item": "無題のアイテム",
+        "attachments": {
+            "title": "写真とファイル",
+            "add": "ファイルを追加",
+            "empty": "まだファイルは追加されていません。",
+            "form_desc": "アイテムの写真、領収書、請求書、またはサービス書類を添付してください。",
+            "detail_desc": "このアイテムの写真、領収書、請求書、サービスファイルが保存されました。",
+            "upload_error": "ファイルをアップロードできませんでした。",
+            "delete_error": "ファイルを削除できませんでした。",
+            "delete_confirm": "このファイルを削除しますか？"
         }
     },
     "settings": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "アクティブハウスキー",
             "key_label": "ハウスキー",
-            "mask_key": "••••••••{{サフィックス}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "非表示",
             "show": "表示",
             "copy": "コピー",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} 件の既存のロケーションはスキップされました。",
             "skipped_rooms": "{{count}} 件の既存の部屋はスキップされました。",
             "owner_only_title": "バックアップと復元が制限されています",
-            "owner_only_desc": "データのバックアップと復元は住宅の所有者のみが管理できます。"
+            "owner_only_desc": "データのバックアップと復元は住宅の所有者のみが管理できます。",
+            "include_media_title": "写真と領収書の画像を含める",
+            "include_media_body": "完全バックアップはより大きくなる場合がありますが、アイテムの写真や領収書の画像も復元できます。",
+            "skipped_attachments": "{{count}} 件の添付ファイルはスキップされました。"
         },
         "about": {
             "title": "アプリケーションについて",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "すべての受信リクエストは自動的にブロックされます。",
             "policy_house_only_desc": "あなたのアクティブなハウスの確認済みメンバーのみが、すでにその共有ハウス内で表示されているアイテムをリクエストできます。",
             "policy_everyone_desc": "他のユーザーはあなたのアイテムを閲覧したり見ることはできません。彼らはあなたのユーザー名またはメールアドレスを直接入力することでのみリクエストを送信できます。"
+        },
+        "activity_log": {
+            "title": "活動および監査ログ",
+            "description": "アイテムの変更、在庫更新、添付ファイル、および一括操作の保護された履歴を確認します。",
+            "encrypted_title": "活動記録は保護された状態で保存されます",
+            "encrypted_body": "新しいアクティビティのアクションと詳細はデータベースに暗号化されて保存され、アクティブなセッションでのみ復号されます。"
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "貸主がアイテムを受け取ったことを確認した後、記録は閉じられます。",
             "return_pending_lender_title": "{{name}} がこのアイテムを返送済みとしてマークしました",
             "return_pending_self_title": "あなたと一緒です。受領確認待ち",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "サイトメンバー",
+            "site_member_identifier": "ユーザー名またはメール",
+            "site_member_identifier_placeholder": "正確なユーザー名またはメール",
+            "site_member_privacy_hint": "そのアカウントが存在し、受信オファーを許可している場合にのみ、オファーは借用センターに表示されます。",
+            "external_privacy_hint": "これはプライベートなローカル記録のみを作成します。アプリ通知は送信されません。",
+            "available": "利用可能"
         },
         "untitled_item": "無題のアイテム",
         "delete_action": "アイテムを削除",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "部屋でフィルター",
         "refreshing_results": "アイテムを更新中...",
         "empty_filter_title": "その検索に一致するアイテムはありません",
-        "delete_error_title": "削除に失敗しました"
+        "delete_error_title": "削除に失敗しました",
+        "tools": {
+            "title": "ツール"
+        },
+        "no_room": "部屋なし",
+        "all_locations": "すべての場所",
+        "location_filter_label": "場所でフィルター",
+        "visibility_filter_label": "表示状態でフィルター",
+        "visibility_all": "すべての表示状態",
+        "visibility_mine": "自分のアイテム",
+        "visibility_others": "他のメンバー",
+        "borrow_filter_label": "借用状況でフィルター",
+        "borrow_filter_all": "すべての借用状況",
+        "stock_filter_label": "在庫状況でフィルター",
+        "stock_filter_all": "すべての在庫状況",
+        "stock_filter_ok": "在庫あり",
+        "expiry_filter_label": "有効期限でフィルター",
+        "expiry_filter_all": "すべての有効期限",
+        "expiry_filter_dated": "日付あり",
+        "expiry_filter_none": "日付なし",
+        "warranty_filter_label": "保証でフィルター",
+        "warranty_filter_all": "すべての保証",
+        "warranty_filter_expired": "期限切れの保証",
+        "warranty_filter_close": "まもなく終了",
+        "warranty_filter_active": "有効な保証",
+        "warranty_filter_none": "保証情報なし",
+        "sort_label": "並べ替え",
+        "sort_updated_desc": "最近更新された",
+        "sort_updated_asc": "最も古い更新",
+        "sort_created_desc": "新しい順",
+        "sort_created_asc": "古い順",
+        "sort_name_asc": "名前 A-Z",
+        "sort_name_desc": "名前 Z-A",
+        "sort_quantity_desc": "数量 多い順",
+        "sort_quantity_asc": "数量 少ない順",
+        "sort_expiry_asc": "期限が近い順",
+        "sort_expiry_desc": "有効期限最新",
+        "stock_increase": "在庫を増やす",
+        "stock_decrease": "在庫を減らす",
+        "stock_adjust_error": "在庫を更新できませんでした",
+        "bulk": {
+            "select_visible": "表示を選択",
+            "clear_visible": "表示を選択解除",
+            "selected_short": "選択済み",
+            "keep_category": "カテゴリを保持",
+            "keep_room": "部屋を保持",
+            "keep_location": "場所を保持",
+            "keep_visibility": "表示設定を保持",
+            "apply": "適用",
+            "no_fields": "一括操作のフィールドを少なくとも1つ選択してください。",
+            "updated_title": "一括更新が完了しました",
+            "updated_body": "{{count}} 件が更新されました。{{skipped}} 件はスキップされました。",
+            "update_error": "一括更新を完了できませんでした。",
+            "deleted_title": "一括削除が完了しました",
+            "deleted_body": "{{count}} 件が削除されました。{{skipped}} 件はスキップされました。",
+            "delete_error": "一括削除を完了できませんでした。",
+            "delete_title": "選択したアイテムを削除しますか？",
+            "delete_description": "{{count}} 件の選択されたアイテムがこの家庭用在庫から削除されます。これは元に戻せません。",
+            "select_item": "アイテムを選択",
+            "unselect_item": "アイテムの選択を解除"
+        },
+        "qr_labels": {
+            "title": "QRラベル",
+            "open": "商品ラベル",
+            "description": "{{count}} 件の商品のラベルが印刷用シートとして準備できました。",
+            "empty": "フィルターを変更するか、ラベル印刷用に在庫アイテムを追加してください。",
+            "sheet_label": "商品ラベルシート",
+            "item_label": "商品ラベル"
+        }
     },
     "categories": {
         "title": "カテゴリー",
@@ -1343,7 +1438,7 @@
             "no_logs": "まだログはありません",
             "errors_title": "システムエラー（直近 10 件）",
             "no_errors": "// システムは正常、エラーログはありません。",
-            "date_fmt": "{{日付、日時}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "メール",
                 "user": "ユーザー",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "メッシュユニット",
-                    "meta": "TVコンソール • Deco M4",
+                    "meta": "TVコンソール • Network node",
                     "state": null
                 },
                 {
@@ -1902,7 +1997,7 @@
             ],
             "fallback": "パスワードリセットリンクが不完全または壊れているようです。",
             "support": "登録の問題:",
-            "footer": "© 2026 {{ブランド名}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
             "subject": "{{brandName}}へようこそ",
@@ -1920,7 +2015,7 @@
                 "💡 複数のハウスに所属し、切り替えることができます。各ハウスごとに別々のインベントリが管理されます。"
             ],
             "support": "登録の問題:",
-            "footer": "© 2026 {{ブランド名}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "ハウスに参加",
@@ -1929,7 +2024,7 @@
             "bodyLine2": "ハウスオーナーの承認を待っています"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{ブランド名}} - {{ステータス}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "ハウスアクセス",
             "bodyLine1Template": "現在の保留中のリクエスト: {{house}} ({{status}})",
             "bodyLine2": "「{{house}}」へのリクエストはまだ決定待ちです",
@@ -1954,11 +2049,11 @@
             "warningTitle": "⚠️",
             "warningBody": "アカウントが存在する場合、15分間有効なパスワードリセットリンクが送信されました。",
             "fallback": "パスワードリセットリンクが不完全または壊れているようです。",
-            "footer": "© 2026 {{ブランド名}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "このメールは{{brandName}}から送信されました。",
-            "footer": "© 2026 {{ブランド名}} - {{サポートメール}}"
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         },
         "testEmail": {
             "subject": "🧪 {{brandName}} テストメール",
@@ -1968,7 +2063,7 @@
             "sentAtLabel": "送信日時",
             "senderLabel": "送信者",
             "serviceLabel": "サービス",
-            "footer": "© 2026 {{ブランド名}}"
+            "footer": "© 2026 {{brandName}}"
         }
     },
     "vault": {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "借用センターを読み込むことができませんでした",
             "action_error": "操作を完了できませんでした",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "この有効な貸出記録は見つかりませんでした。貸出センターを更新して、もう一度お試しください。",
             "errors": {
                 "external_target_daily_limit": "同じ人物に対しては1日1回までしか最初の外部連絡リクエストを送信できません。相手がリクエストを承認した場合、この制限はその人物には適用されなくなります。",
                 "external_total_daily_limit": "1日に最大5件の最初の外部連絡リクエストを送信できます。",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "{{name}} のアカウントメニュー"
     },
     "app": {
-        "name": "{{ブランド名}}",
+        "name": "{{brandName}}",
         "tagline": "すべての家庭用品をスマートに管理する",
         "loading": "{{brandName}}の読み込み中",
         "preparing_workspace": "作業スペースの準備をしています..."
@@ -2412,7 +2507,7 @@
         },
         "sections": {
             "active_list": "カートに追加する現在のショッピングアイテム",
-            "active_desc": "{{count}}個のアイテム",
+            "active_desc": "現在カートに追加するショッピングアイテム。",
             "active_count": "{{count}} アイテム",
             "completed_list": "購入済みアイテム ({{count}})",
             "add_item": "アイテムを手動で追加",
@@ -2555,5 +2650,102 @@
         "description": "インターフェースは予期せぬレンダリングの問題に直面しました。この画面で保存された在庫データは変更されません。",
         "refresh_btn": "リフレッシュ",
         "home_btn": "ホーム"
+    },
+    "activity": {
+        "title": "アクティビティ履歴",
+        "description": "最近のホーム在庫の保護された変更。",
+        "empty_title": "まだ活動はありません",
+        "empty_description": "アイテムの変更、在庫の更新、添付ファイル、借用、および一括操作はここに表示されます。",
+        "unknown_actor": "不明なユーザー",
+        "deleted_item_with_id": "アイテム #{{id}} が削除されました",
+        "item_missing": "このアイテムの記録は存在しません",
+        "actions": {
+            "item_created": "アイテムが追加されました",
+            "item_updated": "アイテムが更新されました",
+            "item_deleted": "アイテムが削除されました",
+            "item_borrowed": "アイテムが貸し出されました",
+            "item_returned": "アイテムが返却されました",
+            "item_bulk_updated": "一括更新",
+            "item_bulk_deleted": "一括削除",
+            "item_stock_adjusted": "在庫が更新されました",
+            "item_attachment_added": "添付ファイルが追加されました",
+            "item_attachment_deleted": "添付ファイルが削除されました"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} 件の関連記録",
+        "empty_title": "関連する記録が見つかりません",
+        "low_stock": {
+            "title": "在庫不足",
+            "description": "最小在庫レベルを下回っているアイテム",
+            "qty": "在庫 {{quantity}} / 最小 {{min}}"
+        },
+        "expired": {
+            "title": "期限切れアイテム",
+            "description": "期限が切れたアイテム"
+        },
+        "expiring": {
+            "title": "近日期限切れ予定",
+            "description": "30日以内に期限が切れるアイテム。"
+        },
+        "maintenance": {
+            "title": "期限切れのメンテナンス",
+            "description": "予定日を過ぎたメンテナンス作業。"
+        }
+    },
+    "notifications": {
+        "title": "通知センター",
+        "description": "在庫、保証、メンテナンス、期限切れ、貸出返却のアラート。",
+        "meta_total": "{{count}} 件の通知",
+        "meta_urgent": "{{count}} 件の緊急",
+        "empty_title": "現在、注意が必要なアラートはありません",
+        "empty_desc": "在庫不足、今後の日付、および期限切れのメンテナンスがここに表示されます。",
+        "items": {
+            "stock_empty_title": "在庫切れ",
+            "stock_low_title": "在庫不足",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "有効期限切れ",
+            "expiry_close_title": "有効期限が近い",
+            "warranty_expired_title": "保証期間終了",
+            "warranty_close_title": "保証期間がまもなく終了",
+            "maintenance_overdue_title": "メンテナンス期限超過",
+            "maintenance_close_title": "まもなくメンテナンス",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "借用返却が期限超過",
+            "borrow_close_title": "借用返却がまもなく期限",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: 残り {{count}} 日 ({{date}})"
+        }
+    },
+    "service": {
+        "title": "サービスおよび保証センター",
+        "description": "保証、メンテナンス予定、およびサービス操作を一箇所で追跡",
+        "meta_warranty": "{{count}} 件の保証記録",
+        "meta_tasks": "{{count}} 件のメンテナンス作業",
+        "empty_title": "サービスや保証のアクションはありません",
+        "empty_desc": "今後の保証日およびメンテナンス作業はここに表示されます。",
+        "warranty_section": "保証追跡",
+        "warranty_desc": "期限切れの保証および30日以内に終了する保証。",
+        "maintenance_section": "メンテナンスアクション",
+        "maintenance_desc": "遅延しているおよび今後のメンテナンス作業。",
+        "no_warranty": "今後の保証アクションはありません。",
+        "no_tasks": "予定されているメンテナンス作業はありません。",
+        "overdue": "期限切れ",
+        "upcoming": "まもなく",
+        "expired": "有効期限切れ",
+        "summary_warranty": "保証追跡",
+        "summary_tasks": "メンテナンス作業",
+        "open_warranty_filter": "開いている保証フィルター",
+        "open_warranty_filter_desc": "在庫内の有効な保証アイテムをフィルターします。"
+    },
+    "storage_labels": {
+        "title": "棚および部屋のラベル",
+        "description": "{{count}} の部屋／棚ラベルが印刷用シートとして準備できています。",
+        "empty_title": "ラベルを付ける部屋や棚がありません",
+        "empty_desc": "まず部屋や場所を追加してから、ここでQRラベルを印刷してください。",
+        "sheet_label": "位置ラベルシート",
+        "scan_hint": "QRコードをスキャンすると、その部屋や棚のフィルタリングされた在庫が開きます。",
+        "room": "部屋",
+        "location": "棚／ボックス"
     }
 }

@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.2.0 release line. -->
+<!-- Release status: v2.4.0 release line. -->
 
 <p align="center">
   <strong>Private, self-hostable household inventory for shared homes.</strong><br/>
@@ -74,12 +74,13 @@
 HomeInventory is built for families, roommates, and small households that need a practical inventory without turning private records into a shared spreadsheet.
 
 > [!NOTE]
-> **v2.2.0 is the current release line.** It publishes the verified desktop launcher packages, documents the current launcher flow (initialize/launch, auto-open, QR/LAN access, logs, backups, settings, and port checks), closes the critical npm `shell-quote` advisory, syncs release metadata, and records the remaining upstream Tauri/GLib status.
+> **v2.4.0 is the current release line.** It focuses on practical daily inventory work: bulk editing, richer filters, printable item/shelf QR labels, actionable alerts, a notification/service center, multiple attachments, encrypted activity history, and fuller media-aware backups.
 
 ## Why HomeInventory
 
 - **One household, many people:** create or join homes, switch the active home, and keep shared inventory scoped to the right members.
 - **Real item records:** track photos, rooms, locations, categories, quantities, warranty dates, invoice data, notes, and attachments.
+- **Bulk-friendly inventory:** select multiple items, move them between rooms or categories, adjust visibility, delete safely, and filter by stock, dates, warranties, borrowing, owner, and location.
 - **Camera-first mobile entry:** take item and invoice photos directly from supported mobile browsers, or keep using gallery/file uploads.
 - **TypeScript-powered client:** the React interface now runs on a TypeScript/Vite codebase, improving editor feedback, refactor confidence, and build-time checks.
 - **Sensitive data has a better place:** Personal Vault keeps highly private records away from regular household search and collaboration.
@@ -91,13 +92,16 @@ HomeInventory is built for families, roommates, and small households that need a
 | Area | What it covers |
 | --- | --- |
 | Inventory | Items, camera/gallery photos, rooms, categories, locations, quantities, warranty and invoice metadata |
+| Bulk operations | Multi-select, bulk category/room/location/visibility updates, bulk deletion, quick stock adjustment, advanced filters, and sorting |
 | Shared homes | Create homes, join with house access flows, switch active homes, and keep data scoped by membership |
 | Borrow Center | Incoming, outgoing, and active lending records with clear request states |
 | Personal Vault | Client-side encrypted vault flow for IDs, property documents, access codes, and sensitive notes |
 | Shopping List | Manual and inventory-linked shopping items, completed history, and low-stock suggestions |
 | Smart Maintenance | Recurring item-care tasks, overdue indicators, and automated next-due-date calculations |
-| Labels and scanning | Barcode scanning, item QR labels, and mobile-friendly lookup |
-| Backup and restore | Owner-only export/import flows with guarded confirmations |
+| Labels and scanning | Barcode scanning, branded item QR label sheets, room/shelf labels, print cut guides, and mobile-friendly lookup |
+| Alerts and service | Focused low-stock, expiration, warranty, maintenance, and borrow-return surfaces |
+| Backup and restore | Owner-only export/import flows with guarded confirmations and optional media/attachment coverage |
+| Activity history | Protected item activity log for edits, stock changes, attachments, borrowing, and bulk actions |
 | Auth and recovery | JWT auth, Google OAuth, email verification, TOTP 2FA, trusted devices, and recovery keys |
 | Desktop Launcher | Optional Tauri GUI plus release packages for local setup, dependency checks, profile start/stop, automatic browser opening, backups, logs, advanced settings, port checks, and QR/LAN access |
 | Internationalization | 100+ selectable UI locale packs with fallback behavior and automated validation checks |
@@ -106,6 +110,7 @@ HomeInventory is built for families, roommates, and small households that need a
 
 - **AES-256-GCM encryption at rest** protects sensitive inventory, auth, and profile fields before they are written to disk or SQLite.
 - **Encrypted media handling** strips image metadata and stores protected media blobs instead of raw uploads.
+- **Encrypted activity logging** protects item activity actions and metadata before writing audit history to SQLite.
 - **Household-scoped authorization** keeps rooms, categories, items, media, and backups limited to the active household membership.
 - **Personal Vault separation** keeps highly sensitive records out of normal shared inventory flows.
 - **Rate limiting and hardened auth routes** reduce brute-force and abuse risk around login, backup, and interactive endpoints.

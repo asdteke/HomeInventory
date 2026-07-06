@@ -250,11 +250,11 @@ export function App() {
       if (!hasTauriRuntime()) {
         await new Promise((r) => setTimeout(r, 1000));
         setUpdateResult({
-          currentAppVersion: snapshot?.appVersion || '2.2.1',
-          latestAppVersion: '2.3.0',
-          currentLauncherVersion: snapshot?.launcherVersion || '2.2.1',
-          latestLauncherVersion: '2.2.1',
-          appReleaseNotes: 'Security fixes and auto-update support.',
+          currentAppVersion: snapshot?.appVersion || '2.4.0',
+          latestAppVersion: '2.4.0',
+          currentLauncherVersion: snapshot?.launcherVersion || '2.4.0',
+          latestLauncherVersion: '2.4.0',
+          appReleaseNotes: 'Inventory operations, label printing, actionable alerts, and backup media support.',
           launcherReleaseNotes: null,
           appUpdateAvailable: true,
           launcherUpdateAvailable: false,
@@ -741,7 +741,7 @@ export function App() {
           </div>
           <p className="splash-subtitle">Your private household registry</p>
           <span className="version-badge">
-            {snapshot ? `App v${snapshot.appVersion} · Launcher v${snapshot.launcherVersion} · Local-first` : 'v2.2.1 · Local-first'}
+            {snapshot ? `App v${snapshot.appVersion} · Launcher v${snapshot.launcherVersion} · Local-first` : 'v2.4.0 · Local-first'}
           </span>
 
           {installing ? (
@@ -1618,8 +1618,8 @@ function mockSnapshot(settings: LauncherSettings): LauncherSnapshot {
   const data = '/Users/demo/Library/Application Support/net.homeinventory.launcher';
   const runningPreview = new URLSearchParams(window.location.search).get('preview') === 'running';
   return {
-    launcherVersion: '2.2.1',
-    appVersion: '2.2.1',
+    launcherVersion: '2.4.0',
+    appVersion: '2.4.0',
     distribution: 'standard',
     storeBuild: false,
     projectRoot: root, appDataDir: data, activeProfileId: runningPreview ? 'homeinventory' : null,

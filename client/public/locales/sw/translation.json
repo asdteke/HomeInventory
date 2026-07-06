@@ -10,7 +10,7 @@
         "load_error": "Haikufanikiwa kupakia kipengee",
         "form": {
             "name": "Jina la Kipengee",
-            "name_placeholder": "mfano TV ya Samsung 55 inch",
+            "name_placeholder": "mfano TV ya 55 inch",
             "required": "*",
             "description": "Maelezo",
             "description_placeholder": "Maelezo kuhusu kipengee...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Karibu Kumalizika",
             "expired": "Kumalizika",
             "low_stock": "Hali ya Chini ya Hisa"
+        },
+        "untitled_item": "Kitu kisicho na jina",
+        "attachments": {
+            "title": "Picha na faili",
+            "add": "Ongeza faili",
+            "empty": "Hakuna faili zilizoongezwa bado.",
+            "form_desc": "Ambatisha picha za bidhaa, risiti, ankara, au nyaraka za huduma.",
+            "detail_desc": "Picha, risiti, ankara, na faili za huduma zimehifadhiwa kwa bidhaa hii.",
+            "upload_error": "Faili hauguzikiwi.",
+            "delete_error": "Faili haiwezi kufutwa.",
+            "delete_confirm": "Futa faili hili?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Onyesha nenosiri",
         "saving": "Kuweka Akiba...",
         "disabled": "Walamavu",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Panua",
+        "zoom_out": "Punguza",
+        "reset": "Weka upya",
+        "print": "Chapa",
+        "record_count": "Rekodi {{count}}"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Utarudishwa kwenye skrini ya kuingia na utahitaji kuingia tena ili kusimamia hesabu ya kaya yako.",
         "logout_warning": "Tumia hii unapomaliza kwenye kifaa cha pamoja au binafsi.",
         "maintenance": "Ratiba ya Matengenezo",
-        "shopping": "Orodha ya Ununuzi"
+        "shopping": "Orodha ya Ununuzi",
+        "activity": "Shughuli",
+        "notifications": "Arifa",
+        "service": "Huduma"
     },
     "dashboard": {
         "welcome": "Karibu, <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} vipengele vimeangukia chini ya kikomo chako cha chini cha hisa.",
             "go_to_shopping": "Orodha ya Ununuzi",
             "close_expiry_title": "Tarehe Zinazokaribia Kuisha",
-            "close_expiry_desc": "bidhaa {{count}} zitaisha ndani ya siku 30."
+            "close_expiry_desc": "bidhaa {{count}} zitaisha ndani ya siku 30.",
+            "view_low_stock_items": "Angalia Hali ya Chini ya Hisa"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Funguo ya Nyumba Inayotumika",
             "key_label": "Funguo ya Nyumba",
-            "mask_key": "••••••••{{kiambishi tamati}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Ficha",
             "show": "Onyesha",
             "copy": "Nakili",
@@ -765,9 +782,9 @@
             "transfer_owner": "Fanya mmiliki",
             "transferring_owner": "Kuhamisha...",
             "transfer_owner_title": "Uhamisho wa umiliki wa nyumba?",
-            "transfer_owner_confirm": "Hamisha umiliki wa kaya hii kwa {{jina}}?",
+            "transfer_owner_confirm": "Hamisha umiliki wa kaya hii kwa {{name}}?",
             "transfer_owner_warning": "Hutakuwa tena mmiliki wa kaya hii. Mmiliki mpya atasimamia idhini ya wanachama, kuondolewa, na mabadiliko ya umiliki wa siku zijazo.",
-            "transfer_owner_success_body": "{{jina}} sasa ndiye mmiliki wa kaya hii."
+            "transfer_owner_success_body": "{{name}} sasa ndiye mmiliki wa kaya hii."
         },
         "theme": {
             "title": "Mandhari",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} maeneo yaliyopo wameachwa.",
             "skipped_rooms": "{{count}} vyumba vilivyopo vimeachwa.",
             "owner_only_title": "Hifadhi Nakala na Rejesha Imezuiliwa",
-            "owner_only_desc": "Hifadhi na urejesheji wa data inaweza kudhibitiwa na mmiliki wa nyumba pekee."
+            "owner_only_desc": "Hifadhi na urejesheji wa data inaweza kudhibitiwa na mmiliki wa nyumba pekee.",
+            "include_media_title": "Jumuisha picha na picha za risiti",
+            "include_media_body": "Nakala kamili inaweza kuwa kubwa zaidi, lakini picha za bidhaa na picha za risiti pia zinaweza kurejeshwa.",
+            "skipped_attachments": "Viambatanisho {{count}} vilirukwa."
         },
         "about": {
             "title": "Kuhusu Programu",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Maombi yote yanayoingia yamezuiwa kiotomatiki.",
             "policy_house_only_desc": "Ni wanachama tu waliohifadhiwa wa nyumba zako zinazoendelea wanaoweza kuomba vitu ambavyo tayari vinaonekana ndani ya nyumba hiyo ya pamoja.",
             "policy_everyone_desc": "Watumiaji wengine hawawezi kuvinjari au kuona bidhaa zako. Wanaweza kutuma ombi tu kwa kuingiza jina lako la mtumiaji au barua pepe moja kwa moja."
+        },
+        "activity_log": {
+            "title": "Shughuli na kumbukumbu ya ukaguzi",
+            "description": "Kagua historia iliyo hifadhiwa ya mabadiliko ya bidhaa, masasisho ya hisa, viambatanisho, na hatua za wingi.",
+            "encrypted_title": "Rekodi za shughuli zinahifadhiwa zimehifadhiwa",
+            "encrypted_body": "Vitendo vipya vya shughuli na maelezo vinahifadhiwa vimefichwa kwenye hifadhidata na vinafichuliwa tu kwa kipindi chako cha kutumia kisaio."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Rekodi itafungwa baada ya mkopaji kuthibitisha walipokea kipengele hicho nyuma.",
             "return_pending_lender_title": "{{name}} alitakaswa kipengele hiki kilirudishwa",
             "return_pending_self_title": "Na wewe, ukisubiri uthibitisho wa risiti",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Mwanachama wa tovuti",
+            "site_member_identifier": "Jina la mtumiaji au barua pepe",
+            "site_member_identifier_placeholder": "Jina sahihi la mtumiaji au barua pepe",
+            "site_member_privacy_hint": "Ofa inaonekana katika Kituo cha Kukopa tu ikiwa akaunti hiyo ipo na inaruhusu ofa zinazopokelewa.",
+            "external_privacy_hint": "Hii inaunda rekodi ya kibinafsi ya ndani tu. Hakuna arifa ya programu inayotumwa.",
+            "available": "Inapatikana"
         },
         "untitled_item": "Kipengele kisicho na kichwa",
         "delete_action": "Futa kipengele",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Chujua kwa chumba",
         "refreshing_results": "Kurefresha vitu...",
         "empty_filter_title": "Hakuna vitu vilivyokidhi utafutaji huo",
-        "delete_error_title": "Kufuta kushindikana"
+        "delete_error_title": "Kufuta kushindikana",
+        "tools": {
+            "title": "Vifaa"
+        },
+        "no_room": "Hakuna chumba",
+        "all_locations": "Vilele vyote",
+        "location_filter_label": "Chuja kwa eneo",
+        "visibility_filter_label": "Chuja kwa uonekano",
+        "visibility_all": "Uonekano wote",
+        "visibility_mine": "Vitu vyangu",
+        "visibility_others": "Wanachama wengine",
+        "borrow_filter_label": "Chuja kwa hali ya kukopa",
+        "borrow_filter_all": "Hali zote za kukopa",
+        "stock_filter_label": "Chuja kwa hali ya hisa",
+        "stock_filter_all": "Hali zote za hisa",
+        "stock_filter_ok": "Hisa sawa",
+        "expiry_filter_label": "Chuja kwa tarehe ya kumalizika",
+        "expiry_filter_all": "Tarehe zote za kumalizika",
+        "expiry_filter_dated": "Ina tarehe",
+        "expiry_filter_none": "Hakuna tarehe",
+        "warranty_filter_label": "Chuja kwa dhamana",
+        "warranty_filter_all": "Dhamana zote",
+        "warranty_filter_expired": "Dhamana zilizoyeyuka",
+        "warranty_filter_close": "Zetakoma hivi karibuni",
+        "warranty_filter_active": "Dhamana hai",
+        "warranty_filter_none": "Hakuna taarifa ya dhamana",
+        "sort_label": "Panga",
+        "sort_updated_desc": "Imesasishwa hivi majuzi",
+        "sort_updated_asc": "Sasisho la kale zaidi",
+        "sort_created_desc": "Mpya kwanza",
+        "sort_created_asc": "Kale kwanza",
+        "sort_name_asc": "Jina A-Z",
+        "sort_name_desc": "Jina Z-A",
+        "sort_quantity_desc": "Idadi kutoka juu hadi chini",
+        "sort_quantity_asc": "Idadi kutoka chini hadi juu",
+        "sort_expiry_asc": "Kuisha muda haraka zaidi",
+        "sort_expiry_desc": "Kuisha muda mwisho",
+        "stock_increase": "Ongeza hisa",
+        "stock_decrease": "Punguza hisa",
+        "stock_adjust_error": "Hisa haikuweza kuhesabiwa upya.",
+        "bulk": {
+            "select_visible": "Chagua vinavyoonekana",
+            "clear_visible": "Toa alama vinavyoonekana",
+            "selected_short": "imechaguliwa",
+            "keep_category": "Hifadhi kategoria",
+            "keep_room": "Hifadhi chumba",
+            "keep_location": "Hifadhi eneo",
+            "keep_visibility": "Hifadhi uwonekano",
+            "apply": "Tumia",
+            "no_fields": "Chagua angalau uwanja mmoja kwa hatua ya wingi.",
+            "updated_title": "Sasisho kwa wingi limekamilika",
+            "updated_body": "{{count}} bidhaa zimepitiwa. {{skipped}} zimekwepa.",
+            "update_error": "Sasisho la wingi haliwezi kukamilika.",
+            "deleted_title": "Uondoaji wa wingi umekamilika",
+            "deleted_body": "{{count}} bidhaa zimefutwa. {{skipped}} zimekwepa.",
+            "delete_error": "Uondoaji wa wingi haukuweza kukamilika.",
+            "delete_title": "Futa bidhaa zilizochaguliwa?",
+            "delete_description": "{{count}} bidhaa zilizochaguliwa zitaondolewa kutoka kwenye orodha hii ya kaya. Hii haiwezi kubadilishwa.",
+            "select_item": "Chagua bidhaa",
+            "unselect_item": "Chagua kipengee visichaguliwe"
+        },
+        "qr_labels": {
+            "title": "Lebo za QR",
+            "open": "Lebo za Vipengee",
+            "description": "Lebo {{count}} za vipengee ziko tayari kama karatasi ya kuchapisha.",
+            "empty": "Badilisha vichujio au ongeza vipengee vya hesabu ili kuchapisha lebo.",
+            "sheet_label": "Karatasi ya Lebo ya Kipengee",
+            "item_label": "Lebo ya Kipengee"
+        }
     },
     "categories": {
         "title": "Makundi",
@@ -1341,7 +1436,7 @@
             "no_logs": "hakuna rekodi bado",
             "errors_title": "Makosa ya Mfumo (10 ya Mwisho)",
             "no_errors": "// Mfumo uko afya, hakuna rekodi za makosa.",
-            "date_fmt": "{{tarehe, muda}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "Barua pepe",
                 "user": "Mtumiaji",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Kitengo cha mesh",
-                    "meta": "Kwenyewe cha TV • Deco M4",
+                    "meta": "Kwenyewe cha TV • Network node",
                     "state": null
                 },
                 {
@@ -2155,7 +2250,7 @@
             "return_submitting": "Kufunga...",
             "reject_title": "Kukataa Ombi",
             "reject_subtitle": "Unakaribia kukataa ombi la \"{{item}}\".",
-            "reject_target": "Unakaribia kukataa ombi la kukopa lililotumwa na {{jina}}.",
+            "reject_target": "Unakaribia kukataa ombi la kukopa lililotumwa na {{name}}.",
             "reject_reason_label": "Sababu ya kukataa",
             "reject_submitting": "Kukataa...",
             "due_date_label": "Tarehe iliyopangwa ya kurudi"
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Kituo cha kukopa hakiwezi kupakiwa",
             "action_error": "Hatua haiwezi kukamilika",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Rekodi hii haiyo ya mkopo haiwezi kupatikana. Sasisha Kituo cha Kukopa na jaribu tena.",
             "errors": {
                 "external_target_daily_limit": "Unaweza kutuma ombi la kwanza la mawasiliano kutoka nje kwa mtu mmoja kwa siku. Ikiwa wanakubali ombi, kikomo hiki hakitahusiana tena na mtu huyo.",
                 "external_total_daily_limit": "Unaweza kutuma hadi maombi 5 ya kwanza ya mawasiliano kutoka nje kwa siku.",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "Menyu ya akaunti ya {{name}}"
     },
     "app": {
-        "name": "{{BrandName}}",
+        "name": "{{brandName}}",
         "tagline": "Simamia kwa akili bidhaa zote za nyumbani kwako",
         "loading": "Inapakia {{brandName}}",
         "preparing_workspace": "Kuandaa nafasi yako ya kazi..."
@@ -2555,5 +2650,102 @@
         "description": "Kiolesura kiligonga shida isiyotarajiwa ya uwasilishaji. Data yako ya hesabu iliyohifadhiwa haijabadilishwa na skrini hii.",
         "refresh_btn": "Onyesha upya",
         "home_btn": "Nyumbani"
+    },
+    "activity": {
+        "title": "Historia ya Shughuli",
+        "description": "Mabadiliko yaliyolindwa hivi karibuni katika orodha yako ya nyumbani.",
+        "empty_title": "Hakuna shughuli bado",
+        "empty_description": "Mabadiliko ya bidhaa, sasisho la hisa, viambatanisho, kukopa, na vitendo vikubwa vitaonekana hapa.",
+        "unknown_actor": "Mtumiaji asiyejulikana",
+        "deleted_item_with_id": "Bidhaa iliyofutwa #{{id}}",
+        "item_missing": "Rekodi hii ya bidhaa haipo tena",
+        "actions": {
+            "item_created": "Bidhaa imeongezwa",
+            "item_updated": "Kitu kimeboreshwa",
+            "item_deleted": "Kitu kimefutwa",
+            "item_borrowed": "Kitu kimekopesha",
+            "item_returned": "Kitu kimerudishwa",
+            "item_bulk_updated": "Maboresho ya wingi",
+            "item_bulk_deleted": "Kufuta kwa wingi",
+            "item_stock_adjusted": "Hali ya hisa imesasishwa",
+            "item_attachment_added": "Kiambatanisho kimeongezwa",
+            "item_attachment_deleted": "Kiambatanisho kimefutwa"
+        }
+    },
+    "alerts": {
+        "detail_count": "rekodi {{count}} zinazohusiana",
+        "empty_title": "Hakuna rekodi zinazohusiana zilizopatikana",
+        "low_stock": {
+            "title": "Hali ya hisa chini",
+            "description": "Bidhaa zilizo chini ya kiwango cha chini cha hisa.",
+            "qty": "Hisa {{quantity}} / chini {{min}}"
+        },
+        "expired": {
+            "title": "Bidhaa zilizochelewa",
+            "description": "Bidhaa zenye tarehe iliyopita."
+        },
+        "expiring": {
+            "title": "Tarehe Zinazokaribia Kumalizika",
+            "description": "Vitu vinavyotarajiwa kumalizika ndani ya siku 30."
+        },
+        "maintenance": {
+            "title": "Matengenezo Yaliyochelewa",
+            "description": "Kazi za matengenezo zilizopita tarehe yao iliyopangwa."
+        }
+    },
+    "notifications": {
+        "title": "Kituo cha Arifa",
+        "description": "Tahadhari za hisa, dhamana, matengenezo, kumalizika, na kurudisha madeni.",
+        "meta_total": "arifa {{count}}",
+        "meta_urgent": "dharura {{count}}",
+        "empty_title": "Hakuna tahadhari zinazohitaji umakini wako kwa sasa",
+        "empty_desc": "Hali ya hisa ya chini, tarehe zijazo, na matengenezo yaliyochelewa yataonekana hapa.",
+        "items": {
+            "stock_empty_title": "Hali ya hisa imeisha",
+            "stock_low_title": "Hali ya hisa ya chini",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Tarehe ya mwisho imepita",
+            "expiry_close_title": "Tarehe ya mwisho inakaribia",
+            "warranty_expired_title": "Dhamana imeisha",
+            "warranty_close_title": "Dhamana itamalizika hivi karibuni",
+            "maintenance_overdue_title": "Matengenezo yasiyofanywa",
+            "maintenance_close_title": "Matengenezo yanayotarajiwa hivi karibuni",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Kurudisha madeni yaliyochelewa",
+            "borrow_close_title": "Kurudisha madeni yanayotarajiwa hivi karibuni",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: siku {{count}} zimebaki ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Kituo cha Huduma na Udhamini",
+        "description": "Fuata rekodi za udhamini, ratiba za matengenezo, na hatua za huduma mahali pamoja.",
+        "meta_warranty": "rekodi {{count}} za udhamini",
+        "meta_tasks": "{{count}} kazi za matengenezo",
+        "empty_title": "Hakuna huduma au hatua ya dhamana",
+        "empty_desc": "Tarehe za dhamana zinazokuja na kazi za matengenezo zitatumika hapa.",
+        "warranty_section": "Ufuatiliaji wa Dhamana",
+        "warranty_desc": "Dhamana zilizokamilika na dhamana zinazomalizika ndani ya siku 30.",
+        "maintenance_section": "Hatua za Matengenezo",
+        "maintenance_desc": "Kazi za matengenezo zilizocheleweshwa na zinazokuja.",
+        "no_warranty": "Hakuna hatua ya dhamana inayokuja.",
+        "no_tasks": "Hakuna kazi ya matengenezo iliyopangwa.",
+        "overdue": "Iliyochelewa",
+        "upcoming": "Karibu",
+        "expired": "Imekwishwa",
+        "summary_warranty": "Ufuatiliaji wa dhamana",
+        "summary_tasks": "Kazi za matengenezo",
+        "open_warranty_filter": "Kichujio cha dhamana kilicho wazi",
+        "open_warranty_filter_desc": "Huchuja vipengele vya dhamana vilivyo hai kwenye hesabu."
+    },
+    "storage_labels": {
+        "title": "Leibul Lenye Rafu na Chumba",
+        "description": "{{count}} leibul za chumba/rafu ziko tayari kama karatasi ya uchapishaji.",
+        "empty_title": "Hakuna vyumba au rafu za kuorodhesha",
+        "empty_desc": "Ongeza vyumba au maeneo kwanza, kisha chapisha leibul za QR hapa.",
+        "sheet_label": "Karatasi ya Leibul ya Eneo",
+        "scan_hint": "Kuchanganua msimbo wa QR hufungua hesabu iliyochujwa ya chumba au rafu hiyo.",
+        "room": "Chumba",
+        "location": "Rafu/Kiini"
     }
 }

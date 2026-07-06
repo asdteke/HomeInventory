@@ -10,7 +10,7 @@
         "load_error": "無法載入物品",
         "form": {
             "name": "物品名稱",
-            "name_placeholder": "例如 Samsung 55 吋電視",
+            "name_placeholder": "例如 55 吋電視",
             "required": "*",
             "description": "說明",
             "description_placeholder": "有關物品的備註...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "即將到期",
             "expired": "已過期",
             "low_stock": "庫存不足"
+        },
+        "untitled_item": "無題項目",
+        "attachments": {
+            "title": "照片與檔案",
+            "add": "新增檔案",
+            "empty": "目前還沒有新增任何檔案。",
+            "form_desc": "附上物品照片、收據、發票或服務文件。",
+            "detail_desc": "本商品已保存照片、收據、發票及服務檔案。",
+            "upload_error": "檔案無法上傳。",
+            "delete_error": "檔案無法被刪除。",
+            "delete_confirm": "刪除這個檔案？"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "顯示密碼",
         "saving": "儲存中...",
         "disabled": "失能",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "放大",
+        "zoom_out": "拉遠鏡頭",
+        "reset": "重置",
+        "print": "印刷品",
+        "record_count": "{{count}} 紀錄"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "您將被返回登入畫面，並需要再次登入以管理您的家庭物品庫存。",
         "logout_warning": "當您在共用或個人裝置上使用完畢時請使用此功能。",
         "maintenance": "維護計劃",
-        "shopping": "購物清單"
+        "shopping": "購物清單",
+        "activity": "活動",
+        "notifications": "通知",
+        "service": "服役"
     },
     "dashboard": {
         "welcome": "歡迎，<1>{{name}}</1>！👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} 項物品已低於您的最低庫存限制。",
             "go_to_shopping": "購物清單",
             "close_expiry_title": "即將到期日期",
-            "close_expiry_desc": "{{count}} 件產品將在30天內過期。"
+            "close_expiry_desc": "{{count}} 件產品將在30天內過期。",
+            "view_low_stock_items": "查看低庫存"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "活躍房子金鑰",
             "key_label": "房子金鑰",
-            "mask_key": "••••••••{{後綴}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "隱藏",
             "show": "顯示",
             "copy": "複製",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} 個現有位置已跳過。",
             "skipped_rooms": "{{count}} 個現有房間已跳過。",
             "owner_only_title": "備份和還原受限",
-            "owner_only_desc": "資料備份和還原只能由房主管理。"
+            "owner_only_desc": "資料備份和還原只能由房主管理。",
+            "include_media_title": "附上照片和收據圖片",
+            "include_media_body": "完整備份可能更大，但商品照片和收據圖片也能被還原。",
+            "skipped_attachments": "{{count}} 附件被跳過。"
         },
         "about": {
             "title": "關於應用程式",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "所有收到的請求都會自動被封鎖。",
             "policy_house_only_desc": "只有你活躍房屋的經驗證成員可以請求已在該共享房屋內顯示的物品。",
             "policy_everyone_desc": "其他用戶無法瀏覽或查看你的物品。他們只能通過直接輸入你的用戶名或電子郵件來發送請求。"
+        },
+        "activity_log": {
+            "title": "活動與稽核日誌",
+            "description": "檢視受保護的商品變更歷史、庫存更新、附件及批量行動。",
+            "encrypted_title": "活動紀錄會被保護保存",
+            "encrypted_body": "新的活動動作和細節會加密儲存在資料庫中，只有在你的活躍會話中才會被解密。"
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "當貸方確認已收到物品後，紀錄將關閉。",
             "return_pending_lender_title": "{{name}} 已將此項目標記為已歸還",
             "return_pending_self_title": "與你同在，等待收據確認",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "場地成員",
+            "site_member_identifier": "使用者名稱或電子郵件",
+            "site_member_identifier_placeholder": "請提供確切的用戶名或電子郵件",
+            "site_member_privacy_hint": "只有當借款中心存在且允許收到報價時，該優惠才會出現在該帳戶中。",
+            "external_privacy_hint": "這只會建立一個私有的本地記錄。沒有發送任何應用程式通知。",
+            "available": "可取得"
         },
         "untitled_item": "未命名項目",
         "delete_action": "刪除項目",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "按房間篩選",
         "refreshing_results": "正在重新整理項目...",
         "empty_filter_title": "沒有符合該搜尋的項目",
-        "delete_error_title": "刪除失敗"
+        "delete_error_title": "刪除失敗",
+        "tools": {
+            "title": "工具"
+        },
+        "no_room": "沒有空間",
+        "all_locations": "所有地點",
+        "location_filter_label": "依地點篩選",
+        "visibility_filter_label": "依可見度篩選",
+        "visibility_all": "全能見度",
+        "visibility_mine": "我的物品",
+        "visibility_others": "其他成員",
+        "borrow_filter_label": "以借用狀態篩選",
+        "borrow_filter_all": "所有借用狀態",
+        "stock_filter_label": "依庫存狀態篩選",
+        "stock_filter_all": "所有庫存狀態",
+        "stock_filter_ok": "槍托還可以",
+        "expiry_filter_label": "以有效期限篩選",
+        "expiry_filter_all": "所有有效期限",
+        "expiry_filter_dated": "有日期",
+        "expiry_filter_none": "沒有日期",
+        "warranty_filter_label": "依保固篩選",
+        "warranty_filter_all": "所有保固",
+        "warranty_filter_expired": "保固已過期",
+        "warranty_filter_close": "即將結束",
+        "warranty_filter_active": "有效保固",
+        "warranty_filter_none": "沒有保固資訊",
+        "sort_label": "排序",
+        "sort_updated_desc": "最近更新",
+        "sort_updated_asc": "最早更新",
+        "sort_created_desc": "最新先行",
+        "sort_created_asc": "最年長的先",
+        "sort_name_asc": "名稱 A-Z",
+        "sort_name_desc": "名稱 Z-A",
+        "sort_quantity_desc": "數量從高到低",
+        "sort_quantity_asc": "數量從低到高",
+        "sort_expiry_asc": "最早到期",
+        "sort_expiry_desc": "最晚到期",
+        "stock_increase": "增加存量",
+        "stock_decrease": "減少存貨",
+        "stock_adjust_error": "庫存無法更新。",
+        "bulk": {
+            "select_visible": "選擇可見",
+            "clear_visible": "取消選取可見",
+            "selected_short": "精選",
+            "keep_category": "保留分類",
+            "keep_room": "留點空間",
+            "keep_location": "保持位置",
+            "keep_visibility": "保持可見性",
+            "apply": "申請",
+            "no_fields": "至少選擇一個欄位作為大宗行動。",
+            "updated_title": "大量更新完成",
+            "updated_body": "{{count}} 項目已更新。{{skipped}} 跳過了。",
+            "update_error": "無法完成批量更新。",
+            "deleted_title": "大量刪除完成",
+            "deleted_body": "{{count}} 項目已刪除。{{skipped}} 跳過了。",
+            "delete_error": "無法完成大量刪除。",
+            "delete_title": "刪除選取的項目？",
+            "delete_description": "{{count}} 選定的物品將從此家庭清單中移除。這無法逆轉。",
+            "select_item": "選擇項目",
+            "unselect_item": "取消選取項目"
+        },
+        "qr_labels": {
+            "title": "QR 標籤",
+            "open": "物品標籤",
+            "description": "{{count}} 項目標籤已準備好列印表。",
+            "empty": "更改過濾器或新增庫存項目以列印標籤。",
+            "sheet_label": "商品標籤表",
+            "item_label": "物品標籤"
+        }
     },
     "categories": {
         "title": "類別",
@@ -1343,7 +1438,7 @@
             "no_logs": "尚無日誌",
             "errors_title": "系統錯誤（最近 10 條）",
             "no_errors": "// 系統健康，沒有錯誤日誌。",
-            "date_fmt": "{{日期，日期時間}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "電子郵件",
                 "user": "使用者",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "網狀單元",
-                    "meta": "電視櫃 • Deco M4",
+                    "meta": "電視櫃 • Network node",
                     "state": null
                 },
                 {
@@ -1902,7 +1997,7 @@
             ],
             "fallback": "密碼重設連結似乎不完整或已損壞。",
             "support": "註冊問題：",
-            "footer": "© 2026 {{品牌}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
             "subject": "歡迎使用 {{brandName}}",
@@ -1920,7 +2015,7 @@
                 "💡 你可以成為多個房子的成員並在它們之間切換。每個房子都有獨立的庫存。"
             ],
             "support": "註冊問題：",
-            "footer": "© 2026 {{品牌}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "加入房子",
@@ -1929,7 +2024,7 @@
             "bodyLine2": "等待房屋擁有者審核"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{brandName}} - {{狀態}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "房屋訪問",
             "bodyLine1Template": "當前待處理的請求：{{house}} ({{status}})",
             "bodyLine2": "你對「{{house}}」的請求仍在等待決定。",
@@ -1954,7 +2049,7 @@
             "warningTitle": "⚠️",
             "warningBody": "如果帳戶存在，已發送一個有效期為 15 分鐘的密碼重設連結。",
             "fallback": "密碼重設連結似乎不完整或已損壞。",
-            "footer": "© 2026 {{品牌}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "此電子郵件由 {{brandName}} 發送。",
@@ -1968,7 +2063,7 @@
             "sentAtLabel": "發送時間",
             "senderLabel": "發件人",
             "serviceLabel": "服務",
-            "footer": "© 2026 {{品牌}}"
+            "footer": "© 2026 {{brandName}}"
         }
     },
     "vault": {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "借閱中心無法加載",
             "action_error": "無法完成此操作",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "此有效借款紀錄無法找到。重新整理借用中心並重新嘗試。",
             "errors": {
                 "external_target_daily_limit": "你每天只能向同一人發送一次首次聯絡的外部請求。如果他們接受了請求，這個限制將不再適用於該人。",
                 "external_total_daily_limit": "你每天最多可以發送5次首次聯絡的外部請求。",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "{{name}} 的帳戶選單"
     },
     "app": {
-        "name": "{{品牌名稱}}",
+        "name": "{{brandName}}",
         "tagline": "聰明地管理你所有的家用品",
         "loading": "載入中 {{brandName}}",
         "preparing_workspace": "準備你的工作區......"
@@ -2555,5 +2650,102 @@
         "description": "介面遇到了意想不到的渲染問題。你儲存的庫存資料不會因此而改變。",
         "refresh_btn": "刷新",
         "home_btn": "首頁"
+    },
+    "activity": {
+        "title": "活動歷史",
+        "description": "近期受保護的房屋庫存變動。",
+        "empty_title": "目前還沒有動靜",
+        "empty_description": "商品變更、庫存更新、附件、借用及批量行動將在此顯示。",
+        "unknown_actor": "未知使用者",
+        "deleted_item_with_id": "已刪除項目 #{{id}}",
+        "item_missing": "此項目紀錄已不存在",
+        "actions": {
+            "item_created": "新增項目",
+            "item_updated": "項目更新",
+            "item_deleted": "項目已刪除",
+            "item_borrowed": "借出物品",
+            "item_returned": "物品已歸還",
+            "item_bulk_updated": "大量更新",
+            "item_bulk_deleted": "大量刪除",
+            "item_stock_adjusted": "庫存更新",
+            "item_attachment_added": "附加資料",
+            "item_attachment_deleted": "附件已刪除"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} 相關紀錄",
+        "empty_title": "未發現相關紀錄",
+        "low_stock": {
+            "title": "庫存不足",
+            "description": "低於最低庫存量的物品。",
+            "qty": "股票 {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "過期商品",
+            "description": "標有過期期限的物品。"
+        },
+        "expiring": {
+            "title": "即將到期日",
+            "description": "商品在30天內到期。"
+        },
+        "maintenance": {
+            "title": "逾期維修",
+            "description": "維修工作超出預定日期。"
+        }
+    },
+    "notifications": {
+        "title": "通知中心",
+        "description": "庫存、保固、維護、到期及借款退貨警示。",
+        "meta_total": "{{count}} 通知",
+        "meta_urgent": "{{count}} 緊急",
+        "empty_title": "目前沒有任何警報需要您注意",
+        "empty_desc": "庫存不足、即將到來的日期以及逾期維護將顯示於此。",
+        "items": {
+            "stock_empty_title": "缺貨",
+            "stock_low_title": "庫存不足",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "過期已過",
+            "expiry_close_title": "到期日即將來臨",
+            "warranty_expired_title": "保固已過期",
+            "warranty_close_title": "保固即將到期",
+            "maintenance_overdue_title": "維修逾期",
+            "maintenance_close_title": "維修即將進行",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "逾期借款",
+            "borrow_close_title": "借款，快到期",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}：{{count}}剩餘天數（{{date}}）"
+        }
+    },
+    "service": {
+        "title": "服務與保固中心",
+        "description": "在同一地點追蹤保固、保養時程及服務進度。",
+        "meta_warranty": "{{count}} 保固紀錄",
+        "meta_tasks": "{{count}} 維護任務",
+        "empty_title": "沒有維修或保固行動",
+        "empty_desc": "即將到期的保固日期及維修任務將在此收集。",
+        "warranty_section": "保固追蹤",
+        "warranty_desc": "保固過期及保固在30天內結束。",
+        "maintenance_section": "維護措施",
+        "maintenance_desc": "逾期及即將進行的維護工作。",
+        "no_warranty": "沒有即將到來的保固處理。",
+        "no_tasks": "沒有定期維護任務。",
+        "overdue": "逾期",
+        "upcoming": "很快",
+        "expired": "已過期",
+        "summary_warranty": "保固追蹤",
+        "summary_tasks": "維護任務",
+        "open_warranty_filter": "開放保固濾網",
+        "open_warranty_filter_desc": "篩選庫存中的有效保固商品。"
+    },
+    "storage_labels": {
+        "title": "書架與房間標籤",
+        "description": "{{count}} 房間/書架標籤已準備好列印紙張。",
+        "empty_title": "沒有房間或書架需要標記",
+        "empty_desc": "先新增房間或地點，然後在這裡列印 QR 標籤。",
+        "sheet_label": "地點標籤表",
+        "scan_hint": "掃描 QR 碼後，會開啟該房間或書架的篩選庫存。",
+        "room": "房間",
+        "location": "書架/盒子"
     }
 }

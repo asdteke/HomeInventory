@@ -33,6 +33,12 @@ const BorrowRequestsPage = lazy(() => import('./components/BorrowRequestsPage'))
 const LegalConsent = lazy(() => import('./components/LegalConsent'));
 const MaintenancePage = lazy(() => import('./components/MaintenancePage'));
 const ShoppingListPage = lazy(() => import('./components/ShoppingListPage'));
+const QRLabelsPage = lazy(() => import('./components/QRLabelsPage'));
+const ActivityPage = lazy(() => import('./components/ActivityPage'));
+const StorageLabelsPage = lazy(() => import('./components/StorageLabelsPage'));
+const NotificationsPage = lazy(() => import('./components/NotificationsPage'));
+const ServiceCenterPage = lazy(() => import('./components/ServiceCenterPage'));
+const AlertDetailPage = lazy(() => import('./components/AlertDetailPage'));
 
 
 const FullscreenSpinner = () => {
@@ -204,6 +210,12 @@ function AppRoutes() {
                     <Route path="items" element={<ItemList />} />
                     <Route path="maintenance" element={<MaintenancePage />} />
                     <Route path="shopping" element={<ShoppingListPage />} />
+                    <Route path="qr-labels" element={<QRLabelsPage />} />
+                    <Route path="storage-labels" element={<StorageLabelsPage />} />
+                    <Route path="notifications" element={<NotificationsPage />} />
+                    <Route path="service" element={<ServiceCenterPage />} />
+                    <Route path="activity" element={<ActivityPage />} />
+                    <Route path="alerts/:type" element={<AlertDetailPage />} />
                     <Route path="borrow-requests" element={<BorrowRequestsPage />} />
                     <Route path="vault" element={<PersonalVaultRoute />} />
                     <Route path="items/new" element={<ItemForm />} />

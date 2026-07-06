@@ -1,5 +1,5 @@
 #!/bin/bash
-# Envanterim - Tightened Backup Lifecycle Cron Script (Security Hardened)
+# HomeInventory - Tightened Backup Lifecycle Cron Script (Security Hardened)
 # Runs hourly to take consistent db backups and daily full-app archives.
 
 set -euo pipefail
@@ -37,7 +37,7 @@ if [ "$CURRENT_HOUR" = "03" ] || [ "$FORCE_DAILY" = "--force-daily" ]; then
     sqlite3 "$APP_DIR/data/inventory.db" ".backup '$DAILY_DB'"
     
     # Create a staging area for clean tarball
-    STAGE_DIR="/tmp/envanterim-backup-stage-$TIMESTAMP"
+    STAGE_DIR="/tmp/homeinventory-backup-stage-$TIMESTAMP"
     mkdir -p "$STAGE_DIR"
     
     # Copy app contents EXCLUDING node_modules, logs, data/uploads, and ALL environment/sensitive config files

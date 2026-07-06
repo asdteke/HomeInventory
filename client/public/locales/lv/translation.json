@@ -10,7 +10,7 @@
         "load_error": "Neizdevās ielādēt preci",
         "form": {
             "name": "Preces nosaukums",
-            "name_placeholder": "piem. Samsung TV 55 collas",
+            "name_placeholder": "piem. TV 55 collas",
             "required": "*",
             "description": "Apraksts",
             "description_placeholder": "Piezīmes par preci...",
@@ -134,6 +134,17 @@
             "close_to_expiry": "Tuvojas derīguma termiņa beigām",
             "expired": "Beidzies derīguma termiņš",
             "low_stock": "Zems krājums"
+        },
+        "untitled_item": "Nevirsrakstīts vienums",
+        "attachments": {
+            "title": "Fotoattēli un faili",
+            "add": "Pievienot failus",
+            "empty": "Faili vēl nav pievienoti.",
+            "form_desc": "Pievienojiet vienuma fotoattēlus, kvītis, rēķinus vai pakalpojumu dokumentus.",
+            "detail_desc": "Fotoattēli, kvītis, rēķini un pakalpojumu faili šim vienumam ir saglabāti.",
+            "upload_error": "Failus neizdevās augšupielādēt.",
+            "delete_error": "Failu nevarēja dzēst.",
+            "delete_confirm": "Dzēst šo failu?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "Rādīt paroli",
         "saving": "Saglabā...",
         "disabled": "Atspējots",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "Tuvināt",
+        "zoom_out": "Tālzināt",
+        "reset": "Atiestatīt",
+        "print": "Drukāt",
+        "record_count": "{{count}} ieraksti"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "Jūs tiksiet pārvietots atpakaļ uz pierakstīšanās ekrānu un būs jāielogojas vēlreiz, lai pārvaldītu savu mājsaimniecības krājumu.",
         "logout_warning": "Izmantojiet to, kad esat pabeidzis lietot koplietotu vai personīgu ierīci.",
         "maintenance": "Apkopes grafiks",
-        "shopping": "Iepirkumu saraksts"
+        "shopping": "Iepirkumu saraksts",
+        "activity": "Aktivitate",
+        "notifications": "Paziņojumi",
+        "service": "Pakalpojums"
     },
     "dashboard": {
         "welcome": "Laipni lūdzam, <1>{{name}}</1>! 👋",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} preces ir nokritušas zem jūsu minimālā krājumu limita.",
             "go_to_shopping": "Iešanas saraksts",
             "close_expiry_title": "Drīzumā beigsies derīguma termiņš",
-            "close_expiry_desc": "{{count}} produkti beigsies derīguma termiņš tuvāko 30 dienu laikā."
+            "close_expiry_desc": "{{count}} produkti beigsies derīguma termiņš tuvāko 30 dienu laikā.",
+            "view_low_stock_items": "Skatīt zemu krājumu"
         }
     },
     "beta_banner": {
@@ -719,7 +736,7 @@
         "house_info": {
             "title": "Aktīvās mājas atslēga",
             "key_label": "Mājas atslēga",
-            "mask_key": "••••••••{{sufikss}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "Paslēpt",
             "show": "Rādīt",
             "copy": "Kopēt",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} esošās atrašanās vietas tika pārlēktas.",
             "skipped_rooms": "{{count}} esošās telpas tika pārlēktas.",
             "owner_only_title": "Dublēšana un atjaunošana ierobežota",
-            "owner_only_desc": "Datu rezerves kopēšanu un atjaunošanu var pārvaldīt tikai mājas īpašnieks."
+            "owner_only_desc": "Datu rezerves kopēšanu un atjaunošanu var pārvaldīt tikai mājas īpašnieks.",
+            "include_media_title": "Iekļaut fotoattēlus un čeka attēlus",
+            "include_media_body": "Pilna dublējuma izmērs var būt lielāks, bet arī preču fotoattēlus un čeka attēlus var atjaunot.",
+            "skipped_attachments": "{{count}} pielikumi tika izlaisti."
         },
         "about": {
             "title": "Par lietotni",
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "Visi ienākošie pieprasījumi tiek automātiski bloķēti.",
             "policy_house_only_desc": "Tikai jūsu aktīvo māju pārbaudītie biedri var pieprasīt priekšmetus, kas jau ir redzami šajā kopīgajā mājā.",
             "policy_everyone_desc": "Citi lietotāji nevar pārlūkot vai redzēt jūsu priekšmetus. Viņi var nosūtīt pieprasījumu tikai, ievadot jūsu lietotājvārdu vai e-pastu tieši."
+        },
+        "activity_log": {
+            "title": "Darbību un audita žurnāls",
+            "description": "Pārskatiet aizsargāto preču izmaiņu, krājumu atjauninājumu, pielikumu un masu darbību vēsturi.",
+            "encrypted_title": "Darbību ieraksti tiek glabāti aizsargāti",
+            "encrypted_body": "Jaunas darbības darbības un detaļas tiek glabātas šifrētā veidā datubāzē un tiek atšifrētas tikai jūsu aktīvās sesijas laikā."
         }
     },
     "inventory": {
@@ -1103,11 +1129,12 @@
             "return_pending_hint": "Ieraksts tiks aizvērts, pēc tam kad aizdevējs apstiprinās, ka objekts ir saņemts atpakaļ.",
             "return_pending_lender_title": "{{name}} atzīmēja šo priekšmetu kā atpakaļ piegādātu",
             "return_pending_self_title": "Pie jums, gaidot saņemšanas apstiprinājumu",
-            "site_member": "Site member",
-            "site_member_identifier": "Username or email",
-            "site_member_identifier_placeholder": "Exact username or email",
-            "site_member_privacy_hint": "The offer appears in Borrow Center only if that account exists and allows incoming offers.",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "site_member": "Vietnes dalībnieks",
+            "site_member_identifier": "Lietotājvārds vai e-pasts",
+            "site_member_identifier_placeholder": "Precīzs lietotājvārds vai e-pasts",
+            "site_member_privacy_hint": "Piedāvājums parādās Aizņemšanās centrā tikai tad, ja šis konts pastāv un pieļauj ienākošos piedāvājumus.",
+            "external_privacy_hint": "Tas izveido tikai privātu lokālu ierakstu. Nepaziņo nevienai lietotnei.",
+            "available": "Pieejams"
         },
         "untitled_item": "Nesaukts priekšmets",
         "delete_action": "Dzēst vienumu",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "Filtrēt pēc istabas",
         "refreshing_results": "Atsvaidzina priekšmetus...",
         "empty_filter_title": "Neviens priekšmets neatbilda šim meklējumam",
-        "delete_error_title": "Dzēšana neizdevās"
+        "delete_error_title": "Dzēšana neizdevās",
+        "tools": {
+            "title": "Rīki"
+        },
+        "no_room": "Nav istabas",
+        "all_locations": "Visas atrašanās vietas",
+        "location_filter_label": "Filtrēt pēc atrašanās vietas",
+        "visibility_filter_label": "Filtrēt pēc redzamības",
+        "visibility_all": "Visa redzamība",
+        "visibility_mine": "Mani priekšmeti",
+        "visibility_others": "Citi biedri",
+        "borrow_filter_label": "Filtrēt pēc aizņēmuma statusa",
+        "borrow_filter_all": "Visi aizdevuma statusi",
+        "stock_filter_label": "Filtrēt pēc krājumu statusa",
+        "stock_filter_all": "Visi krājumu statusi",
+        "stock_filter_ok": "Krājums kārtībā",
+        "expiry_filter_label": "Filtrēt pēc derīguma termiņa",
+        "expiry_filter_all": "Visi derīguma termiņi",
+        "expiry_filter_dated": "Ir datums",
+        "expiry_filter_none": "Nav datuma",
+        "warranty_filter_label": "Filtrēt pēc garantijas",
+        "warranty_filter_all": "Visas garantijas",
+        "warranty_filter_expired": "Beigušās garantijas",
+        "warranty_filter_close": "Drīzumā beigsies",
+        "warranty_filter_active": "Aktīvās garantijas",
+        "warranty_filter_none": "Nav informācijas par garantiju",
+        "sort_label": "Kārtot",
+        "sort_updated_desc": "Nesen atjaunināts",
+        "sort_updated_asc": "Vecākā atjauninājuma",
+        "sort_created_desc": "Jaunākā vispirms",
+        "sort_created_asc": "Vecākā vispirms",
+        "sort_name_asc": "Nosaukums A-Z",
+        "sort_name_desc": "Nosaukums Z-A",
+        "sort_quantity_desc": "Daudzums no lielākā līdz mazākajam",
+        "sort_quantity_asc": "Daudzums no mazākā līdz lielākajam",
+        "sort_expiry_asc": "Drīzākie derīguma termiņi",
+        "sort_expiry_desc": "Derīguma termiņš beidzas",
+        "stock_increase": "Palielināt krājumu",
+        "stock_decrease": "Samazināt krājumu",
+        "stock_adjust_error": "Krājumu nevarēja atjaunināt.",
+        "bulk": {
+            "select_visible": "Atlasīt redzamo",
+            "clear_visible": "Notīrīt redzamo",
+            "selected_short": "atlasīts",
+            "keep_category": "Saglabāt kategoriju",
+            "keep_room": "Saglabāt istabu",
+            "keep_location": "Saglabāt atrašanās vietu",
+            "keep_visibility": "Saglabāt redzamību",
+            "apply": "Lietot",
+            "no_fields": "Izvēlieties vismaz vienu lauku masu darbībai.",
+            "updated_title": "Masveida atjaunināšana pabeigta",
+            "updated_body": "{{count}} vienības atjauninātas. {{skipped}} izlaistas.",
+            "update_error": "Masveida atjaunināšanu nevarēja pabeigt.",
+            "deleted_title": "Masveida dzēšana pabeigta",
+            "deleted_body": "Dzēsti {{count}} priekšmeti. Izlaisti {{skipped}}.",
+            "delete_error": "Masveida dzēšanu nevarēja pabeigt.",
+            "delete_title": "Dzēst atlasītos priekšmetus?",
+            "delete_description": "Tiks noņemti {{count}} atlasītie priekšmeti no šī mājsaimniecības inventāra. To nevar atsaukt.",
+            "select_item": "Atlasīt priekšmetu",
+            "unselect_item": "Atzīmēt priekšmetu kā neizvēlētu"
+        },
+        "qr_labels": {
+            "title": "QR etiķetes",
+            "open": "Preces etiķetes",
+            "description": "{{count}} preces etiķetes ir gatavas drukas lapai.",
+            "empty": "Mainiet filtrus vai pievienojiet krājuma vienības, lai drukātu etiķetes.",
+            "sheet_label": "Preces etiķešu lapa",
+            "item_label": "Preces etiķete"
+        }
     },
     "categories": {
         "title": "Kategorijas",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "Tīkla ierīce",
-                    "meta": "TV konsoles • Deco M4",
+                    "meta": "TV konsoles • Network node",
                     "state": null
                 },
                 {
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "Aizņemšanās centrs nevarēja tikt ielādēts",
             "action_error": "Darbība nevarēja tikt pabeigta",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "Šo aktīvo aizdevuma ierakstu nevarēja atrast. Atsvaidziniet Aizdevumu centru un mēģiniet vēlreiz.",
             "errors": {
                 "external_target_daily_limit": "Jūs varat nosūtīt tikai vienu pirmo kontaktu ārēju pieprasījumu vienai un tai pašai personai dienā. Ja viņi pieņem pieprasījumu, šis ierobežojums vairs neattiecas uz šo personu.",
                 "external_total_daily_limit": "Jūs varat nosūtīt līdz 5 pirmā kontakta ārējiem pieprasījumiem dienā.",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "{{name}} konta izvēlne"
     },
     "app": {
-        "name": "{{zīmols}}",
+        "name": "{{brandName}}",
         "tagline": "Gudri pārvaldiet visus savus mājsaimniecības priekšmetus",
         "loading": "Tiek ielādēts {{brandName}}",
         "preparing_workspace": "Darba vietas sagatavošana..."
@@ -2555,5 +2650,102 @@
         "description": "Interfeiss saskārās ar negaidītu renderēšanas problēmu. Jūsu saglabātie krājumu dati šajā ekrānā netiek mainīti.",
         "refresh_btn": "Atsvaidzināt",
         "home_btn": "Sākums"
+    },
+    "activity": {
+        "title": "Darbības vēsture",
+        "description": "Neseni aizsargāti jūsu mājas inventāra grozījumi.",
+        "empty_title": "Vēl nav aktivitāšu",
+        "empty_description": "Preču grozījumi, krājumu atjauninājumi, pielikumi, aizņemšanās un masveida darbības tiks rādītas šeit.",
+        "unknown_actor": "Nezināms lietotājs",
+        "deleted_item_with_id": "Dzēsta prece #{{id}}",
+        "item_missing": "Šī preces ieraksta vairs nav",
+        "actions": {
+            "item_created": "Vienums pievienots",
+            "item_updated": "Vienums atjaunināts",
+            "item_deleted": "Vienums izdzēsts",
+            "item_borrowed": "Vienums aizdots",
+            "item_returned": "Vienums atgriezts",
+            "item_bulk_updated": "Masveida atjaunināšana",
+            "item_bulk_deleted": "Masveida dzēšana",
+            "item_stock_adjusted": "Krājums atjaunināts",
+            "item_attachment_added": "Pielikums pievienots",
+            "item_attachment_deleted": "Pielikums dzēsts"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} saistīti ieraksti",
+        "empty_title": "Nav atrasti saistīti ieraksti",
+        "low_stock": {
+            "title": "Zems krājums",
+            "description": "Preces zem minimālā krājuma līmeņa.",
+            "qty": "Krājums {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Derīguma termiņš beidzies",
+            "description": "Preces ar beigu termiņu."
+        },
+        "expiring": {
+            "title": "Drīzumā beigsies termiņš",
+            "description": "Preces, kuru termiņš beigsies 30 dienu laikā."
+        },
+        "maintenance": {
+            "title": "Nokavētā apkope",
+            "description": "Apkopes uzdevumi pēc to paredzētā datuma."
+        }
+    },
+    "notifications": {
+        "title": "Paziņojumu centrs",
+        "description": "Brīdinājumi par krājumu, garantiju, apkopi, termiņa beigām un aizdevumu atgriešanu.",
+        "meta_total": "{{count}} paziņojumi",
+        "meta_urgent": "{{count}} steidzami",
+        "empty_title": "Pašreiz nav brīdinājumu, kuri prasa jūsu uzmanību",
+        "empty_desc": "Šeit parādīsies zems krājums, gaidāmie datumi un kavētā apkope.",
+        "items": {
+            "stock_empty_title": "Beigušies krājumi",
+            "stock_low_title": "Zems krājums",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Derīguma termiņš ir beidzies",
+            "expiry_close_title": "Derīguma termiņš tuvojas",
+            "warranty_expired_title": "Garantija beigusies",
+            "warranty_close_title": "Garantija drīz beigsies",
+            "maintenance_overdue_title": "Apkopes termiņš nokavēts",
+            "maintenance_close_title": "Drīzumā nepieciešama apkope",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Aizdevuma atdošana nokavēta",
+            "borrow_close_title": "Drīzumā jāatdod aizdevums",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}}: atlikušas {{count}} dienas ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Servisa un garantijas centrs",
+        "description": "Izsekojiet garantijas, apkopes grafikus un servisa darbības vienuviet.",
+        "meta_warranty": "{{count}} garantijas ieraksti",
+        "meta_tasks": "{{count}} apkopes uzdevumi",
+        "empty_title": "Nav servisa vai garantijas darbības",
+        "empty_desc": "Šeit tiks apkopoti gaidāmie garantijas datumi un apkopes uzdevumi.",
+        "warranty_section": "Garantijas izsekošana",
+        "warranty_desc": "Beigušās garantijas un garantijas, kas beidzas 30 dienu laikā.",
+        "maintenance_section": "Apkopes darbības",
+        "maintenance_desc": "Nokavētie un gaidāmie apkopes uzdevumi.",
+        "no_warranty": "Nav gaidāmas garantijas darbības.",
+        "no_tasks": "Nav plānots apkopes uzdevums.",
+        "overdue": "Kavēts",
+        "upcoming": "Drīzumā",
+        "expired": "Beidzies",
+        "summary_warranty": "Garantijas uzskaite",
+        "summary_tasks": "Apkopes uzdevumi",
+        "open_warranty_filter": "Atvērt garantijas filtrs",
+        "open_warranty_filter_desc": "Filtrē aktīvos garantijas priekšmetus krājumā."
+    },
+    "storage_labels": {
+        "title": "Plaukta un telpas etiķetes",
+        "description": "{{count}} telpas/plaukta etiķetes ir gatavas kā drukas lapa.",
+        "empty_title": "Nav telpu vai plauktu, ko etiķetēt",
+        "empty_desc": "Pievienojiet vispirms telpas vai atrašanās vietas, pēc tam šeit izdrukājiet QR etiķetes.",
+        "sheet_label": "Atrašanās vietas etiķetes lapa",
+        "scan_hint": "QR koda skenēšana atver filtrētu krājumu šai telpai vai plauktam.",
+        "room": "Telpa",
+        "location": "Plaukts/Kaste"
     }
 }

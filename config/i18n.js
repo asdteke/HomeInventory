@@ -1,7 +1,7 @@
 import i18next from 'i18next';
-import Backend from 'i18next-fs-backend';
 import middleware from 'i18next-http-middleware';
 import { readdirSync } from 'fs';
+import { readFile } from 'fs/promises';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { BRAND_HOST, BRAND_NAME, SUPPORT_EMAIL } from '../utils/branding.js';
@@ -22,6 +22,31 @@ export const SUPPORTED_LANGUAGES = readdirSync(LOCALES_DIR)
     .map((file) => file.replace(/\.json$/, ''))
     .sort((left, right) => left.localeCompare(right));
 
+class JsonLocaleBackend {
+    static type = 'backend';
+    type = 'backend';
+
+    init(_services, options = {}) {
+        this.options = {
+            loadPath: join(LOCALES_DIR, '{{lng}}.json'),
+            parse: JSON.parse,
+            ...options
+        };
+    }
+
+    read(language, namespace, callback) {
+        if (!SUPPORTED_LANGUAGES.includes(language) || namespace !== 'translation') {
+            callback(new Error('Unsupported locale request'), false);
+            return;
+        }
+
+        const filename = this.options.loadPath.replace('{{lng}}', language);
+        readFile(filename, 'utf8')
+            .then((data) => callback(null, this.options.parse(data.replace(/^\uFEFF/, ''))))
+            .catch((error) => callback(error, false));
+    }
+}
+
 function normalizeLanguageCode(lang) {
     if (!lang) return 'tr';
     return lang.split('-')[0].toLowerCase();
@@ -34,7 +59,7 @@ function getFallbackLanguages(lang) {
 // i18next başlatma fonksiyonu
 export const initI18n = async () => {
     await i18next
-        .use(Backend)
+        .use(JsonLocaleBackend)
         .use(middleware.LanguageDetector)
         .init({
             fallbackLng: getFallbackLanguages,

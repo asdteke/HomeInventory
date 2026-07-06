@@ -35,7 +35,7 @@
         "back": "Retour",
         "next": "Suivant",
         "retry": "Réessayer",
-        "actions": "Actions",
+        "actions": "Actes",
         "created_at": "Créé le",
         "updated_at": "Mis à jour le",
         "none": "Aucun",
@@ -44,7 +44,18 @@
         "unauthorized": "Accès non autorisé",
         "forbidden": "Vous n'avez pas la permission pour cette action",
         "validation_error": "Erreur de validation",
-        "server_error": "Erreur serveur"
+        "server_error": "Erreur serveur",
+        "details": "Détails",
+        "hide": "Masquer le mot de passe",
+        "logging_out": "Déconnexion en cours...",
+        "show": "Montrer le mot de passe",
+        "saving": "Sauvegarde...",
+        "disabled": "Handicapé",
+        "zoom_in": "Zoomer",
+        "zoom_out": "Dézoomer",
+        "reset": "Réinitialiser",
+        "print": "Imprimer",
+        "record_count": "{{count}} enregistrements"
     },
     "auth": {
         "login": {
@@ -76,7 +87,8 @@
                 "verify": "Vérifier",
                 "back": "Retour",
                 "use_backup": "Utiliser le code de sauvegarde",
-                "use_totp": "Utiliser l'authentificateur"
+                "use_totp": "Utiliser l'authentificateur",
+                "code_required": "Le code de vérification est requis"
             },
             "welcome_title": "Bon retour",
             "welcome_subtitle": "Connectez-vous pour accéder à votre inventaire",
@@ -125,7 +137,7 @@
                     "copied": "Copié",
                     "button": "J'ai sauvegardé la clé, continuer",
                     "badge": "Accès à la maison",
-                    "important": "Important",
+                    "important": "important",
                     "key_label": "Clé de la maison",
                     "storage_hint": "Gardez cette clé dans un endroit sûr afin que les membres de la famille de confiance puissent la rejoindre plus tard."
                 },
@@ -185,7 +197,7 @@
             "confirm_password_placeholder": "Saisissez de nouveau votre mot de passe",
             "reset_submit": "Réinitialiser le mot de passe",
             "resetting": "Réinitialisation en cours...",
-            "identifier_required": "Enter your username or email"
+            "identifier_required": "Entrez votre nom d'utilisateur ou e-mail"
         },
         "reset_password": {
             "title": "Réinitialiser le mot de passe",
@@ -218,7 +230,7 @@
             "warning": "Si vous perdez cette clé pendant que l'e-mail est désactivé, vous ne pourrez peut-être pas récupérer votre mot de passe. Copiez-la et conservez-la en lieu sûr.",
             "confirm": "J'ai sauvegardé la clé",
             "badge": "Accès de récupération",
-            "important": "Important",
+            "important": "Important •••••••• Menu Les articles ont expiré !",
             "key_label": "Clé de récupération",
             "storage_hint": "Stockez ceci dans votre gestionnaire de mots de passe ou dans un autre emplacement hors ligne sécurisé.",
             "copied": "Copié"
@@ -226,7 +238,7 @@
         "password_requirements": "Utilisez au moins {{min}} caractères avec majuscules, minuscules, chiffre et symbole.",
         "logout": "Déconnexion",
         "logging_in": "Connexion en cours...",
-        "welcome": "Welcome to {{brandName}}",
+        "welcome": "Bienvenue chez {{brandName}}",
         "username_email": "Nom d'utilisateur ou E-mail",
         "username": "Nom d'utilisateur",
         "email": "E-mail",
@@ -292,7 +304,36 @@
         "join_house_key_required": "Une clé de maison est nécessaire pour rejoindre une maison existante",
         "house_key_not_found": "Clé de maison invalide. Veuillez entrer la bonne tonalité.",
         "email_not_verified": "Votre adresse e-mail n’a pas encore été vérifiée. Veuillez vérifier votre boîte de réception.",
-        "two_factor_invalid": "Le code de vérification est incorrect"
+        "two_factor_invalid": "Le code de vérification est incorrect",
+        "two_factor_invalid_try_again": "Code de vérification invalide. Veuillez réessayer.",
+        "two_factor_code_required": "Un code de vérification est requis",
+        "two_factor_user_not_found": "Utilisateur non trouvé",
+        "two_factor_already_enabled": "L’authentification à deux facteurs est déjà activée",
+        "two_factor_setup_not_started": "Veuillez commencer par la configuration d’authentification à deux facteurs",
+        "two_factor_setup_error": "Une erreur s’est produite lors de la configuration de l’authentification à deux facteurs",
+        "two_factor_activation_error": "Une erreur s’est produite lors de l’activation de l’authentification à deux facteurs",
+        "two_factor_password_required": "Un mot de passe est requis",
+        "two_factor_credentials_required": "Le code TOTP, le code de sauvegarde ou la clé de récupération sont requis",
+        "two_factor_already_disabled": "L’authentification à deux facteurs est déjà désactivée",
+        "two_factor_password_incorrect": "Mot de passe incorrect",
+        "two_factor_verification_failed": "La vérification a échoué. Veuillez vérifier le code et réessayer.",
+        "two_factor_disable_error": "Une erreur s’est produite lors de la désactivation de l’authentification à deux facteurs",
+        "two_factor_not_enabled": "L’authentification à deux facteurs n’est pas activée",
+        "two_factor_regenerate_codes_error": "Une erreur s’est produite lors de la régénération des codes de sauvegarde",
+        "two_factor_enabled_success": "L’authentification à deux facteurs a été activée avec succès",
+        "two_factor_disabled_success": "L’authentification à deux facteurs a été désactivée avec succès",
+        "password_errors": {
+            "min_length": "Le mot de passe doit avoir au moins {{min}} caractères",
+            "lowercase_required": "Le mot de passe doit comporter au moins une lettre minuscule",
+            "uppercase_required": "Le mot de passe doit comporter au moins une lettre majuscule",
+            "number_required": "Le mot de passe doit comporter au moins un chiffre",
+            "symbol_required": "Le mot de passe doit comporter au moins un symbole",
+            "repeated_chars": "N’utilisez pas de caractères répétés dans votre mot de passe",
+            "predictable_sequence": "N’utilisez pas de séquences faciles à deviner dans votre mot de passe",
+            "common_password": "Ce mot de passe est trop courant et dangereux",
+            "contains_username": "Le mot de passe ne doit pas contenir votre nom d’utilisateur",
+            "contains_email": "Le mot de passe ne doit pas contenir vos informations e-mail"
+        }
     },
     "navigation": {
         "home": "Accueil",
@@ -311,7 +352,12 @@
         "logout_aria": "Déconnectez-vous de votre compte",
         "logout_title": "Se déconnecter ?",
         "logout_description": "Vous serez renvoyé à l'écran de connexion et devrez vous reconnecter pour gérer l'inventaire de votre foyer.",
-        "logout_warning": "Utilisez ceci lorsque vous avez terminé sur un appareil partagé ou personnel."
+        "logout_warning": "Utilisez ceci lorsque vous avez terminé sur un appareil partagé ou personnel.",
+        "maintenance": "Programme de maintenance",
+        "shopping": "Liste de courses",
+        "activity": "Activité",
+        "notifications": "Notifications",
+        "service": "Service"
     },
     "dashboard": {
         "welcome": "Bon retour, <1>{{name}}</1>",
@@ -319,7 +365,7 @@
         "quick_search": "Recherche rapide...",
         "filters": {
             "private": "🔒 Mes articles privés",
-            "public": "🌐 Public",
+            "public": "🌐Public",
             "remove": "Effacer le filtre",
             "no_items": "Aucun article ne correspond à ce filtre"
         },
@@ -433,12 +479,26 @@
         "category_count": "Catégorie",
         "items_count": "articles",
         "private_items": "Mes articles privés",
-        "public_items": "Public",
+        "public_items": "Publique",
         "remove_filter": "Supprimer le filtre",
         "no_items_filter": "Aucun article ne correspond à ce filtre",
         "manage": "Gérer",
         "add_item": "Ajouter un article",
-        "search_item": "Rechercher un article"
+        "search_item": "Rechercher un article",
+        "alerts": {
+            "expired_title": "Les articles ont expiré !",
+            "expired_desc": "Il y a {{count}} articles périmés dans votre inventaire. Veuillez les vérifier pour votre sécurité.",
+            "view_items": "Voir les articles",
+            "maintenance_title": "Tâches de maintenance en retard !",
+            "maintenance_desc": "Il y a {{count}} tâches de maintenance en retard. Effectuez la maintenance pour prolonger la durée de vie de vos appareils.",
+            "go_to_maintenance": "Aller à la Maintenance",
+            "low_stock_title": "Alerte de Stock Faible",
+            "low_stock_desc": "{{count}} articles sont tombés en dessous de votre limite de stock minimum.",
+            "go_to_shopping": "Liste de Courses",
+            "close_expiry_title": "Dates d'expiration à venir",
+            "close_expiry_desc": "{{count}} produits expireront dans les 30 jours.",
+            "view_low_stock_items": "Voir le stock faible"
+        }
     },
     "beta_banner": {
         "title": "BÊTA :",
@@ -459,7 +519,7 @@
         "load_error": "Échec du chargement de l'élément",
         "form": {
             "name": "Nom de l'élément",
-            "name_placeholder": "par ex. Téléviseur Samsung 55 pouces",
+            "name_placeholder": "par ex. Téléviseur 55 pouces",
             "required": "*",
             "description": "Description",
             "description_placeholder": "Remarques sur l'article...",
@@ -515,7 +575,20 @@
             "warranty_calculation_help": "Si vous laissez la date de début de la garantie vide, la date de la facture est utilisée. Lorsque vous saisissez la durée, la date de fin de la garantie est calculée automatiquement.",
             "vault_hint_title": "Besoin de plus de confidentialité ?",
             "vault_hint_description": "Pour les passeports, actes, informations d'identité, codes d'accès et autres documents qui doivent rester hors de votre inventaire partagé, stockez-les dans le Coffre Personnel à la place.",
-            "vault_hint_action": "Ouvrir le Coffre Personnel"
+            "vault_hint_action": "Ouvrir le Coffre Personnel",
+            "location": "Emplacement",
+            "remove_photo": "Supprimer la photo",
+            "visibility_owner_only": "Seule la personne qui a ajouté l'article peut changer la visibilité.",
+            "expiry_date": "Date d'expiration",
+            "min_quantity": "Quantité minimale",
+            "take_photo": "Prendre une photo",
+            "choose_from_gallery": "Choisir dans la galerie",
+            "take_photo_sub": "Ouvrir la caméra de l'appareil",
+            "choose_from_gallery_sub": "Sélectionner depuis l'album",
+            "photo_selected_badge": "Nouvelle photo",
+            "photo_existing_badge": "Photo existante",
+            "no_photo_yet": "Aucune photo ajoutée",
+            "photo_options_title": "Options d'action de l'image"
         },
         "qrcode": {
             "title": "Code QR",
@@ -547,7 +620,7 @@
         "photo": "Photo",
         "add_photo": "Ajouter une Photo",
         "change_photo": "Changer la Photo",
-        "is_public": "Public",
+        "is_public": "public",
         "save": "Enregistrer",
         "cancel": "Annuler",
         "saving": "Enregistrement...",
@@ -568,7 +641,24 @@
         "delete_error": "Erreur lors de la suppression de l'article",
         "no_permission": "Vous n'avez pas la permission de modifier cet article",
         "barcode_search_error": "Échec de la recherche de code-barres",
-        "stats_error": "Erreur lors du chargement des statistiques"
+        "stats_error": "Erreur lors du chargement des statistiques",
+        "detail_subtitle": "Détails de l'article",
+        "status": {
+            "close_to_expiry": "Proche de l'expiration",
+            "expired": "Expiré",
+            "low_stock": "Stock faible"
+        },
+        "untitled_item": "Élément sans titre",
+        "attachments": {
+            "title": "Photos et fichiers",
+            "add": "Ajouter des fichiers",
+            "empty": "Aucun fichier ajouté pour le moment.",
+            "form_desc": "Joindre des photos d'articles, des reçus, des factures ou des documents de service.",
+            "detail_desc": "Photos, reçus, factures et dossiers de service enregistrés pour cet article.",
+            "upload_error": "Les fichiers n'ont pas pu être téléchargés.",
+            "delete_error": "Le fichier n'a pas pu être supprimé.",
+            "delete_confirm": "Supprimer ce fichier ?"
+        }
     },
     "settings": {
         "title": "Paramètres",
@@ -611,7 +701,13 @@
             "recovery_key_regenerated": "Clé de récupération régénérée",
             "recovery_key_error": "Impossible de régénérer la clé de récupération",
             "account_delete_error": "Le compte n'a pas pu être supprimé",
-            "backup_downloaded_encrypted": "Sauvegarde chiffrée téléchargée avec succès ! ({{count}} éléments)"
+            "backup_downloaded_encrypted": "Sauvegarde chiffrée téléchargée avec succès ! ({{count}} éléments)",
+            "policy_update_error": "Échec de mettre à jour les paramètres de requête.",
+            "policy_updated": "Les paramètres de requête ont été mis à jour avec succès.",
+            "unblock_error": "Échec à débloquer l’utilisateur.",
+            "unblocked_success": "L’utilisateur a été débloqué avec succès.",
+            "house_owner_transferred": "Transfert de propriété immobilière",
+            "house_owner_transfer_error": "La propriété immobilière ne pouvait pas être transférée."
         },
         "user_profile": {
             "edit_username": "Changer le nom d'utilisateur"
@@ -632,7 +728,10 @@
             "info": "Vous pouvez être membre de plusieurs maisons et passer de l'une à l'autre. Chaque foyer garde son propre inventaire.",
             "accordion_description": "Passez d'un ménage à l'autre, créez-en un nouveau ou rejoignez-en un existant avec une clé de confiance.",
             "empty_description": "Créez un nouveau foyer pour commencer à partager, ou rejoignez-en un avec une clé de maison fiable.",
-            "leave_success_body": "Vous n'avez plus accès à ce foyer et votre maison active a été actualisée."
+            "leave_success_body": "Vous n'avez plus accès à ce foyer et votre maison active a été actualisée.",
+            "leave_title": "Quitter cette maison ?",
+            "leave_warning": "Vous perdrez l'accès à cet espace de travail du foyer jusqu'à ce qu'un autre membre vous invite ou vous approuve à nouveau.",
+            "leaving": "Départ en cours..."
         },
         "house_info": {
             "title": "Clé de la maison active",
@@ -674,7 +773,18 @@
             "copy_error": "La clé de la maison n'a pas pu être copiée.",
             "modal_title": "Accès à la clé de la maison",
             "modal_subtitle": "N'utilisez cette clé que pour les membres de la maison de confiance qui devraient demander l'accès à cet inventaire partagé.",
-            "loading_members": "Chargement des membres..."
+            "loading_members": "Chargement des membres...",
+            "kick_success_body": "{{name}} n'a plus accès à ce foyer.",
+            "kick_title": "Supprimer ce membre ?",
+            "kick_warning": "Son accès au foyer prendra fin immédiatement et il aura besoin d'une nouvelle invitation ou approbation pour revenir.",
+            "kicking": "Suppression en cours...",
+            "access_section_eyebrow": "Accès à la maison",
+            "transfer_owner": "Faire propriétaire",
+            "transferring_owner": "Transfert...",
+            "transfer_owner_title": "Transférer la propriété ?",
+            "transfer_owner_confirm": "Transférer la propriété de ce foyer à {{name}} ?",
+            "transfer_owner_warning": "Tu ne seras plus le propriétaire de ce foyer. Le nouveau propriétaire gérera les approbations des membres, les départs et les futurs changements de propriétaires.",
+            "transfer_owner_success_body": "{{name}} est maintenant le propriétaire de ce foyer."
         },
         "theme": {
             "title": "Thème",
@@ -682,7 +792,9 @@
             "light": "Mode Clair",
             "description": "Choisissez l'apparence de l'espace de travail sur cet appareil.",
             "light_aria": "Passer au thème clair",
-            "dark_aria": "Passer au thème sombre"
+            "dark_aria": "Passer au thème sombre",
+            "workspace_title": "Thème de l’espace de travail",
+            "workspace_desc": "Sélectionnez le style visuel que vous souhaitez pour cet appareil."
         },
         "security": {
             "title": "Sécurité",
@@ -695,7 +807,12 @@
             "recovery_key_unavailable": "La clé de récupération actuelle ne peut pas être affichée. Régénérez-la si nécessaire.",
             "recovery_key_action": "Régénérer",
             "recovery_key_modal_desc": "Confirmez votre mot de passe actuel pour continuer. La nouvelle clé ne sera affichée qu'une seule fois.",
-            "recovery_key_loading": "Préparation..."
+            "recovery_key_loading": "Préparation...",
+            "accordion_title": "Sécurité et confidentialité",
+            "accordion_desc": "Gérez l’authentification à deux facteurs, les appareils de confiance et les règles de demande d’emprunt auprès d’autres comptes.",
+            "description": "Gérez votre mot de passe maître et les configurations de récupération du coffre.",
+            "change_password_detail": "Mettez à jour votre mot de passe pour garder votre compte sécurisé",
+            "recovery_key_detail": "Utilisé pour récupérer votre coffre si vous oubliez votre mot de passe"
         },
         "data_management": {
             "title": "Gestion des données",
@@ -720,7 +837,25 @@
             "unencrypted_warning": "Les exports JSON simples sont plus faciles à inspecter, mais toute personne qui ouvre le fichier peut lire immédiatement vos données du foyer.",
             "import_encrypted_title": "Déverrouiller la sauvegarde chiffrée",
             "import_encrypted_body": "Entrez la phrase de passe de sauvegarde utilisée lors du téléchargement pour restaurer ce fichier chiffré.",
-            "unlock_and_import": "Déverrouiller et importer"
+            "unlock_and_import": "Déverrouiller et importer",
+            "export_encrypted_notice": "La sauvegarde est préparée à partir des données ménagères en direct puis chiffrée avec la phrase secrète que vous choisissez. Conservez cette phrase secrète dans un endroit sûr car elle sera nécessaire pour restaurer le fichier plus tard.",
+            "export_encrypted_title": "Le chiffrement sera appliqué avant le téléchargement",
+            "import_summary_body": "{{items}} articles, {{categories}} catégories, {{rooms}} pièces, {{locations}} emplacements, {{borrows}} enregistrements de prêt restaurés.",
+            "import_summary_title": "Sauvegarde restaurée",
+            "preview_categories": "Catégories",
+            "preview_items": "Articles",
+            "preview_locations": "Emplacements",
+            "preview_rooms": "Pièces",
+            "skipped_borrows": "{{count}} enregistrements de prêt existants ignorés.",
+            "skipped_categories": "{{count}} catégories existantes ignorées.",
+            "skipped_items": "{{count}} éléments existants ignorés.",
+            "skipped_locations": "{{count}} emplacements existants ignorés.",
+            "skipped_rooms": "{{count}} pièces existantes ignorées.",
+            "owner_only_title": "Sauvegarde et restauration limitées",
+            "owner_only_desc": "La sauvegarde et la restauration des données ne peuvent être gérées que par le propriétaire de la maison.",
+            "include_media_title": "Inclure des photos et des images de reçus",
+            "include_media_body": "La sauvegarde complète peut être plus volumineuse, mais les photos des articles et les images des reçus peuvent également être restaurées.",
+            "skipped_attachments": "{{count}} pièces jointes ont été ignorées."
         },
         "about": {
             "title": "À propos de l'application",
@@ -733,7 +868,10 @@
             "privacy_link": "Politique de confidentialité",
             "beta_title": "Statut bêta",
             "beta_body": "{{brandName}} est encore en version bêta. Les fonctionnalités peuvent changer, les flux de travail peuvent évoluer, et les données importantes du foyer doivent toujours être sauvegardées.",
-            "feedback_subject": "Retour d'information - {{brandName}}"
+            "feedback_subject": "Retour d'information - {{brandName}}",
+            "logout_body": "Toutes les modifications non enregistrées dans les formulaires ouverts peuvent être perdues après avoir quitté cette session.",
+            "logout_description": "Vous retournerez à la page d'accueil et pourrez vous reconnecter à tout moment.",
+            "logout_title": "Se déconnecter maintenant ?"
         },
         "modals": {
             "password": {
@@ -825,7 +963,8 @@
             "revoke_devices": "Révoquer les appareils de confiance",
             "revoke_devices_desc": "Supprimer tous les appareils mémorisés, nécessitant une authentification à deux facteurs lors de la prochaine connexion",
             "devices_revoked": "{{count}} appareil(s) de confiance supprimé(s)",
-            "devices_error": "Échec de la révocation des appareils"
+            "devices_error": "Échec de la révocation des appareils",
+            "preparing_setup": "Préparer votre installation d’authentificateur..."
         },
         "danger_zone": {
             "title": "Compte",
@@ -838,7 +977,8 @@
             "modal_warning_body": "Après confirmation, vous perdrez immédiatement l'accès au compte et les données de l'application supprimées ne peuvent pas être restaurées depuis l'application.",
             "password_label": "Confirmer avec votre mot de passe actuel",
             "confirm_delete": "Confirmer la suppression",
-            "deleting": "Suppression en cours..."
+            "deleting": "Suppression en cours...",
+            "description": "Supprimez votre compte et supprimez définitivement tous les jeux de données d’inventaire."
         },
         "language": "Langue",
         "control_sections": {
@@ -897,7 +1037,31 @@
         "popular_languages": "Langues populaires",
         "search_results": "Résultats de recherche",
         "current_language": "Langue actuelle",
-        "languages_available": "langues disponibles"
+        "languages_available": "langues disponibles",
+        "borrow_requests": {
+            "accordion_eyebrow": "Garantie de demande d’emprunt",
+            "accordion_eyebrow_desc": "Configurez les règles de requête et gérez les utilisateurs bloqués.",
+            "title": "Paramètres de la demande d’emprunt",
+            "description": "Gérez les règles pour recevoir les demandes d’emprunt d’autres comptes et listez les utilisateurs bloqués.",
+            "policy_title": "Demandes d’emprunt de nouveaux",
+            "policy_description": "Contrôlez qui peut vous envoyer des demandes d'emprunt. Votre inventaire n'est jamais affiché publiquement.",
+            "policy_none": "Ne recevoir de personne (Par défaut)",
+            "policy_house_only": "Réservé aux membres du foyer",
+            "policy_everyone": "Tous les utilisateurs enregistrés",
+            "blocks_title": "Utilisateurs bloqués",
+            "blocks_description": "Les utilisateurs que vous avez bloqués ne vous envoient pas de nouvelles demandes d’emprunt.",
+            "no_blocks": "Aucun utilisateur bloqué trouvé.",
+            "unblock_btn": "Déblocage",
+            "policy_none_desc": "Toutes les requêtes entrantes sont bloquées automatiquement.",
+            "policy_house_only_desc": "Seuls les membres vérifiés de vos maisons actives peuvent demander des objets déjà visibles à l'intérieur de cette maison partagée.",
+            "policy_everyone_desc": "Les autres utilisateurs ne peuvent pas parcourir ni voir vos objets. Ils peuvent seulement envoyer une demande en entrant directement votre nom d’utilisateur ou votre adresse e-mail."
+        },
+        "activity_log": {
+            "title": "Activité et journal d'audit",
+            "description": "Examinez l'historique protégé des modifications d'éléments, des mises à jour de stock, des pièces jointes et des actions en masse.",
+            "encrypted_title": "Les enregistrements d'activité sont stockés de manière protégée",
+            "encrypted_body": "Les nouvelles actions et détails d'activité sont stockés cryptés dans la base de données et ne sont décryptés que pour votre session active."
+        }
     },
     "inventory": {
         "title": "Inventaire",
@@ -959,8 +1123,18 @@
             "no_history": "Il n'y a pas encore d'historique d'emprunt pour cet article.",
             "lend_success_title": "Objet prêté",
             "lend_success_body": "{{item}} est maintenant marqué comme emprunté.",
-            "offer_sent_title": "Borrow offer sent",
-            "offer_sent_body": "{{item}} will be marked as borrowed after the other member accepts."
+            "offer_sent_title": "Offre de prêt envoyée",
+            "offer_sent_body": "{{item}} sera marqué comme emprunté après que l'autre membre l'accepte.",
+            "borrowed_by_you": "Avec vous",
+            "return_pending_hint": "L'enregistrement sera clôturé après que le prêteur aura confirmé qu'il a reçu l'article.",
+            "return_pending_lender_title": "{{name}} a marqué cet article comme rendu",
+            "return_pending_self_title": "Avec vous, en attente de la confirmation de réception",
+            "site_member": "Membre du site",
+            "site_member_identifier": "Nom d'utilisateur ou e-mail",
+            "site_member_identifier_placeholder": "Nom d'utilisateur exact ou e-mail",
+            "site_member_privacy_hint": "L'offre apparaît dans le Centre d'Emprunt uniquement si ce compte existe et autorise les offres entrantes.",
+            "external_privacy_hint": "Cela crée uniquement un enregistrement local privé. Aucune notification de l'application n'est envoyée.",
+            "available": "Disponible"
         },
         "untitled_item": "Article sans titre",
         "delete_action": "Supprimer l'article",
@@ -976,7 +1150,76 @@
         "category_filter_label": "Filtrer par catégorie",
         "room_filter_label": "Filtrer par pièce",
         "refreshing_results": "Actualisation des éléments...",
-        "empty_filter_title": "Aucun article ne correspond à cette recherche"
+        "empty_filter_title": "Aucun article ne correspond à cette recherche",
+        "delete_error_title": "Échec de la suppression",
+        "tools": {
+            "title": "Outils"
+        },
+        "no_room": "Pas de chambre",
+        "all_locations": "Tous les emplacements",
+        "location_filter_label": "Filtrer par emplacement",
+        "visibility_filter_label": "Filtrer par visibilité",
+        "visibility_all": "Toute visibilité",
+        "visibility_mine": "Mes articles",
+        "visibility_others": "Autres membres",
+        "borrow_filter_label": "Filtrer par statut d'emprunt",
+        "borrow_filter_all": "Tous les statuts d'emprunt",
+        "stock_filter_label": "Filtrer par statut de stock",
+        "stock_filter_all": "Tous les statuts de stock",
+        "stock_filter_ok": "Stock correct",
+        "expiry_filter_label": "Filtrer par date d'expiration",
+        "expiry_filter_all": "Toutes les dates d'expiration",
+        "expiry_filter_dated": "A une date",
+        "expiry_filter_none": "Aucune date",
+        "warranty_filter_label": "Filtrer par garantie",
+        "warranty_filter_all": "Toutes les garanties",
+        "warranty_filter_expired": "Garanties expirées",
+        "warranty_filter_close": "Se terminant bientôt",
+        "warranty_filter_active": "Garanties actives",
+        "warranty_filter_none": "Aucune information sur la garantie",
+        "sort_label": "Trier",
+        "sort_updated_desc": "Récemment mis à jour",
+        "sort_updated_asc": "Mise à jour la plus ancienne",
+        "sort_created_desc": "La plus récente en premier",
+        "sort_created_asc": "La plus ancienne en premier",
+        "sort_name_asc": "Nom A-Z",
+        "sort_name_desc": "Nom Z-A",
+        "sort_quantity_desc": "Quantité de la plus élevée à la plus basse",
+        "sort_quantity_asc": "Quantité de la plus basse à la plus élevée",
+        "sort_expiry_asc": "Expiration au plus tôt",
+        "sort_expiry_desc": "Expiration au plus tard",
+        "stock_increase": "Augmenter le stock",
+        "stock_decrease": "Diminuer le stock",
+        "stock_adjust_error": "Le stock n'a pas pu être mis à jour.",
+        "bulk": {
+            "select_visible": "Sélectionner visible",
+            "clear_visible": "Désélectionner visible",
+            "selected_short": "sélectionné",
+            "keep_category": "Conserver la catégorie",
+            "keep_room": "Conserver la pièce",
+            "keep_location": "Conserver l'emplacement",
+            "keep_visibility": "Conserver la visibilité",
+            "apply": "Appliquer",
+            "no_fields": "Choisissez au moins un champ pour l'action groupée.",
+            "updated_title": "Mise à jour en masse terminée",
+            "updated_body": "{{count}} articles mis à jour. {{skipped}} ignorés.",
+            "update_error": "La mise à jour en masse n'a pas pu être effectuée.",
+            "deleted_title": "Suppression en masse terminée",
+            "deleted_body": "{{count}} articles supprimés. {{skipped}} ignorés.",
+            "delete_error": "La suppression en masse n'a pas pu être effectuée.",
+            "delete_title": "Supprimer les éléments sélectionnés ?",
+            "delete_description": "{{count}} éléments sélectionnés seront supprimés de cet inventaire domestique. Cela ne peut pas être annulé.",
+            "select_item": "Sélectionner l'élément",
+            "unselect_item": "Désélectionner l'article"
+        },
+        "qr_labels": {
+            "title": "Étiquettes QR",
+            "open": "Étiquettes d'article",
+            "description": "{{count}} étiquettes d'article sont prêtes sous forme de feuille d'impression.",
+            "empty": "Changez les filtres ou ajoutez des articles en inventaire pour imprimer des étiquettes.",
+            "sheet_label": "Feuille d'étiquettes d'article",
+            "item_label": "Étiquette d'article"
+        }
     },
     "categories": {
         "title": "Catégories",
@@ -1023,7 +1266,10 @@
         "name_required": "Le nom de la catégorie est requis",
         "load_error": "Erreur lors du chargement des catégories",
         "add_error": "Erreur lors de l'ajout de la catégorie",
-        "update_error": "Erreur lors de la mise à jour de la catégorie"
+        "update_error": "Erreur lors de la mise à jour de la catégorie",
+        "color_required": "La couleur doit être au format #RRGGBB",
+        "empty_description": "Créez quelques catégories afin que les nouveaux articles suivent la même structure et soient plus faciles à consulter plus tard.",
+        "empty_title": "Aucune catégorie pour le moment"
     },
     "rooms": {
         "title": "Pièces",
@@ -1097,7 +1343,9 @@
         "name_required": "Le nom de la pièce est requis",
         "load_error": "Erreur lors du chargement des pièces",
         "add_error": "Erreur lors de l'ajout de la pièce",
-        "update_error": "Erreur lors de la mise à jour de la pièce"
+        "update_error": "Erreur lors de la mise à jour de la pièce",
+        "empty_description": "Créez des pièces comme la cuisine, le stockage ou le garage afin que les emplacements des articles restent cohérents et plus faciles à rechercher.",
+        "empty_title": "Aucune pièce pour le moment"
     },
     "admin": {
         "title": "Panneau d'administration",
@@ -1176,14 +1424,19 @@
             "households_label": "Ménages",
             "items_label": "Objets possédés",
             "last_seen_short": "Vu",
-            "last_seen_short_never": "Nouveau"
+            "last_seen_short_never": "Nouveau",
+            "failed_logins": "{{count}} tentatives de connexion échouées",
+            "load_failed_title": "Les utilisateurs n'ont pas pu se charger",
+            "pending_requests": "{{count}} demandes de maison en attente",
+            "role_admin": "Administrateur",
+            "role_user": "Utilisateur"
         },
         "logs": {
             "title": "Journaux d'administration",
             "no_logs": "pas encore de journaux",
             "errors_title": "Erreurs système (10 dernières)",
             "no_errors": "// Système en bonne santé, aucun journal d'erreur.",
-            "date_fmt": "{{date, datetime}}",
+            "date_fmt": "{{date, dateheure}}",
             "type": {
                 "email": "E-mail",
                 "user": "Utilisateur",
@@ -1208,7 +1461,9 @@
             "section_body": "Chaque changement de modération ou opération est consigné par la couche administrateur.",
             "errors_body": "Les dernières lignes d’erreur analysées à partir des journaux du serveur.",
             "section_eyebrow": "Trace d'audit",
-            "errors_eyebrow": "Diagnostic"
+            "errors_eyebrow": "Diagnostic",
+            "load_failed_title": "L'activité n'a pas pu se charger",
+            "no_logs_title": "Aucune action d'administrateur pour le moment"
         },
         "email": {
             "title": "Envoyer un e-mail",
@@ -1229,7 +1484,7 @@
             "notes_body": "Utilisez ceci pour le support opérationnel ou les démarches liées au compte. Le contenu sensible doit rester à l'intérieur de l'application dans la mesure du possible.",
             "notes_body_with_rate_limit": "Utilisez ceci pour le support opérationnel ou les démarches liées au compte. Le contenu sensible doit rester à l'intérieur de l'application dans la mesure du possible. Protection actuelle contre l'envoi : {{rateLimit}}.",
             "rate_limit_fallback": "3 e-mails par minute",
-            "placeholder_to": "name@example.com",
+            "placeholder_to": "nom@exemple.com",
             "placeholder_subject": "Objet du message",
             "send_success_with_id": "✅ E-mail envoyé avec succès ! ID : {{emailId}}",
             "send_error": "L'e-mail n'a pas pu être envoyé",
@@ -1242,7 +1497,14 @@
             "status_body": "Vérification rapide avant l'envoi de communications opérationnelles.",
             "unconfigured_title": "L'envoi d'e-mails n'est pas configuré",
             "unconfigured_body": "Le formulaire d'envoi reste visible pour la vérification de la configuration, mais l'envoi échouera tant que le fournisseur d'e-mails n'est pas configuré.",
-            "status_eyebrow": "Livraison"
+            "status_eyebrow": "Livraison",
+            "configured_body": "La renvoi est disponible pour les messages sortants déclenchés par l'administrateur.",
+            "configured_title": "La livraison des e-mails est configurée",
+            "error_title": "Échec de l'envoi de l'e-mail",
+            "format_hint": "Le HTML est pris en charge. Par exemple : <b>gras</b>, <i>italique</i>, <a href=\"...\">lien</a>",
+            "from_label": "Expéditeur",
+            "load_failed_title": "Les outils de messagerie n'ont pas pu se charger",
+            "success_title": "E-mail envoyé"
         },
         "overview": {
             "email_warning_title": "L'envoi d'e-mails n'est pas configuré",
@@ -1327,7 +1589,9 @@
         "stats_loaded": "Statistiques chargées",
         "logs_loaded": "Journaux chargés",
         "load_error": "Erreur lors du chargement des données",
-        "action_error": "Erreur lors de l'exécution de l'action"
+        "action_error": "Erreur lors de l'exécution de l'action",
+        "load_failed_body": "La route administrateur est ouverte, mais les données de l'aperçu n'ont pas été reçues. Vous pouvez réessayer sans quitter la page.",
+        "load_failed_title": "L'aperçu administrateur n'a pas pu se charger"
     },
     "landing": {
         "nav": {
@@ -1344,12 +1608,12 @@
             "cta_register": "Créer un Compte",
             "stat_free": "Gratuit",
             "stat_access": "Accéder",
-            "free_badge": "Open Source",
+            "free_badge": "Source ouverte",
             "badge": "HomeInventory v2.0 est arrivé",
             "cta_explore": "Explorer les fonctionnalités",
-            "cta_login": "Sign in",
-            "stat_members": "Shared homes",
-            "stat_vault": "Private Vault"
+            "cta_login": "Se connecter",
+            "stat_members": "Maisons partagées",
+            "stat_vault": "Coffre privé"
         },
         "features": {
             "title": "Pourquoi <1>HomeInventory</1> ?",
@@ -1420,7 +1684,7 @@
                 "description": "Gardez objets, garanties, documents importants et suivi des emprunts dans un seul endroit calme. Voyez ce que contient votre maison d'un coup d'œil.",
                 "primaryCta": "Commencez Gratuit",
                 "secondaryCta": "Voir le Produit",
-                "trustSignal": "Suggested flow: account • home • rooms and categories • items • backup",
+                "trustSignal": "Flux suggéré : compte • maison • pièces et catégories • objets • sauvegarde",
                 "searchPlaceholder": "Recherchez un objet, une pièce ou un code-barres"
             },
             "heroInventoryRows": [
@@ -1436,7 +1700,7 @@
                 },
                 {
                     "name": "Unité Mesh",
-                    "meta": "Console TV • Deco M4",
+                    "meta": "Console TV • Network node",
                     "state": null
                 },
                 {
@@ -1671,8 +1935,9 @@
         "privacy_summary": "Les détails du réseau restent cachés jusqu'à ce que vous ayez besoin des instructions.",
         "link_privacy_note": "L'adresse réseau reste masquée ici. Scannez le code ou copiez le lien uniquement lorsque vous souhaitez intentionnellement partager l'accès direct aux éléments sur votre configuration locale.",
         "helper": "Scannez pour ouvrir cet élément instantanément, ou copiez le lien direct si nécessaire.",
-        "copy_error_title": "Link could not be copied automatically",
-        "copy_manual_help": "Your browser did not allow automatic copying. The link is selected so you can copy it manually."
+        "copy_error_title": "Le lien n'a pas pu être copié automatiquement",
+        "copy_manual_help": "Votre navigateur n'a pas autorisé la copie automatique. Le lien est sélectionné afin que vous puissiez le copier manuellement.",
+        "loading": "Préparation des outils QR..."
     },
     "house_access_pending": {
         "eyebrow": "Accès à la maison",
@@ -1859,7 +2124,11 @@
             "name_required": "Un nom d'objet est requis pour un enregistrement du coffre.",
             "options_failed": "Les options de catégorie et de pièce n'ont pas pu être chargées.",
             "delete_success_title": "Enregistrement du coffre supprimé",
-            "delete_success_body": "L'enregistrement privé a été définitivement supprimé de votre coffre."
+            "delete_success_body": "L'enregistrement privé a été définitivement supprimé de votre coffre.",
+            "passphrase_lowercase": "Inclure au moins une lettre minuscule.",
+            "passphrase_min_length": "La phrase de passe du coffre doit comporter au moins 12 caractères.",
+            "passphrase_number": "Inclure au moins un chiffre.",
+            "passphrase_uppercase": "Inclure au moins une lettre majuscule."
         },
         "recovery_file_title": "Clé de récupération du coffre personnel {{brandName}}",
         "recovery_file_created_label": "Créée",
@@ -1907,8 +2176,8 @@
             "empty": "Il n'y a pas de prêts actifs pour le moment.",
             "borrowed_from": "Emprunté de {{name}}",
             "lent_to": "Actuellement avec {{name}}",
-            "return_pending_borrower": "Waiting for the lender to confirm they received it back.",
-            "return_pending_lender": "{{name}} marked this item as delivered back. Confirm receipt to close the record.",
+            "return_pending_borrower": "En attente que le prêteur confirme qu'il l'a reçu en retour.",
+            "return_pending_lender": "{{name}} a marqué cet article comme restitué. Confirmez la réception pour clôturer le dossier.",
             "empty_title": "Aucun prêt actif pour le moment",
             "empty_description": "Les demandes acceptées apparaissent ici une fois qu'un article est emprunté ou prêté, avec les dates d'échéance et l'état du retour."
         },
@@ -1919,7 +2188,7 @@
             "cancelled": "Annulé",
             "expired": "Expiré",
             "returned": "Rendu",
-            "return_pending": "Return pending"
+            "return_pending": "Retour en attente"
         },
         "actions": {
             "send_request": "Demander l'article",
@@ -1928,8 +2197,8 @@
             "reject": "Refuser",
             "cancel": "Annuler",
             "fulfill_request": "Exécuter la demande",
-            "mark_delivered": "Mark delivered",
-            "mark_received": "Mark received",
+            "mark_delivered": "Mark a livré",
+            "mark_received": "Mark a reçu",
             "open_inventory": "Ouvrir l'inventaire"
         },
         "labels": {
@@ -1968,21 +2237,36 @@
             "return_title": "Marquer comme rendu",
             "return_subtitle": "Clore l'emprunt actif pour \"{{item}}\"",
             "return_target": "Il est actuellement indiqué comme étant avec {{name}}.",
-            "return_title_borrower": "Deliver item",
-            "return_title_lender": "Receive item",
-            "return_subtitle_borrower": "Close the active borrow for \"{{item}}\" after you hand it back.",
-            "return_subtitle_lender": "Close the active borrow for \"{{item}}\" after you receive it back.",
-            "return_target_borrower": "Lender: {{name}}",
-            "return_target_lender": "Currently with: {{name}}",
-            "return_note_borrower": "Delivery note",
-            "return_note_lender": "Receive note",
-            "return_note_placeholder_borrower": "e.g. I handed it back without any issues",
-            "return_note_placeholder_lender": "e.g. Received back in good condition",
-            "return_submitting": "Closing..."
+            "return_title_borrower": "Livrer l'article",
+            "return_title_lender": "Recevoir l'article",
+            "return_subtitle_borrower": "Fermez l'emprunt actif pour «{{item}}» après l'avoir rendu.",
+            "return_subtitle_lender": "Fermez l'emprunt actif pour «{{item}}» après l'avoir reçu en retour.",
+            "return_target_borrower": "Prêteur : {{name}}",
+            "return_target_lender": "Actuellement avec : {{name}}",
+            "return_note_borrower": "Bon de livraison",
+            "return_note_lender": "Bon de réception",
+            "return_note_placeholder_borrower": "par exemple, je l'ai rendu sans aucun problème",
+            "return_note_placeholder_lender": "par exemple, reçu en bon état",
+            "return_submitting": "Fermeture...",
+            "reject_title": "Demande de refus",
+            "reject_subtitle": "Vous êtes sur le point de refuser la demande de « {{item}} ».",
+            "reject_target": "Vous êtes sur le point de refuser la demande d’emprunt envoyée par {{name}}.",
+            "reject_reason_label": "Raison du rejet",
+            "reject_submitting": "Rejeter...",
+            "due_date_label": "Date de retour prévue"
         },
         "messages": {
             "load_error": "Le centre d'emprunt n'a pas pu être chargé",
-            "action_error": "L'action n'a pas pu être complétée"
+            "action_error": "L'action n'a pas pu être complétée",
+            "active_borrow_not_found": "Ce dossier d'emprunt actif est introuvable. Actualisez le Centre d'emprunt et réessayez.",
+            "errors": {
+                "external_target_daily_limit": "Vous ne pouvez envoyer qu'une seule demande de premier contact externe à la même personne par jour. Si elle accepte une demande, cette limite ne s'applique plus à cette personne.",
+                "external_total_daily_limit": "Vous pouvez envoyer jusqu'à 5 demandes de premier contact externe par jour.",
+                "external_request_requires_verified_email": "Vérifiez votre adresse e-mail avant d'envoyer des demandes d'emprunt externes.",
+                "external_offer_blocked": "Vous ne pouvez proposer un objet qu'aux membres de la maison ou aux utilisateurs enregistrés pouvant être identifiés directement.",
+                "target_blocked_by_you": "Vous ne pouvez pas envoyer de demande à un utilisateur que vous avez bloqué.",
+                "recent_rejection_lock": "Cet utilisateur a rejeté une demande récente. Vous pouvez envoyer une autre demande après 30 jours."
+            }
         },
         "preview": {
             "title": "Mode aperçu",
@@ -1992,7 +2276,12 @@
         "incoming_empty_title": "Aucune demande ne nécessite votre examen",
         "outgoing_empty_title": "Aucune demande sortante pour le moment",
         "refreshing": "Actualisation des demandes et des emprunts actifs...",
-        "loading_description": "Préparation des demandes et activité de prêt active."
+        "loading_description": "Préparation des demandes et activité de prêt active.",
+        "reasons": {
+            "rejected": "Rejet (rejet normal)",
+            "not_available": "Non disponible (Objet manquant / non disponible)",
+            "blocked": "Bloquer et rejeter (Bloque cet utilisateur)"
+        }
     },
     "legal": {
         "privacy_policy_title": "Politique de confidentialité",
@@ -2085,7 +2374,9 @@
     },
     "app": {
         "name": "{{brandName}}",
-        "tagline": "Gérez intelligemment tous vos articles ménagers"
+        "tagline": "Gérez intelligemment tous vos articles ménagers",
+        "loading": "Chargement {{brandName}}",
+        "preparing_workspace": "Préparer ton espace de travail..."
     },
     "nav": {
         "home": "Accueil",
@@ -2105,11 +2396,11 @@
     },
     "terms": {
         "title": "Conditions d'Utilisation et Clause de Non-Responsabilité",
-        "beta_notice": "BETA Version: {{brandName}} is currently in testing phase. No guarantees are made regarding data permanence or security.",
+        "beta_notice": "Version BETA : {{brandName}} est actuellement en phase de test. Aucune garantie n'est donnée concernant la permanence ou la sécurité des données.",
         "disclaimer": "Clause de Non-Responsabilité: En utilisant cette application, vous acceptez de ne pas pouvoir demander de compensation pour une éventuelle perte de données, des problèmes d'accès ou d'autres problèmes techniques.",
         "backup_warning": "Sauvegarde des Données: Nous vous recommandons fortement de sauvegarder régulièrement vos informations importantes.",
         "accept": "En vous connectant, vous acceptez ces conditions.",
-        "short_notice": "{{brandName}} is currently in testing and hobby phase. No guarantees are made regarding data permanence or security. Please keep your important information backed up.",
+        "short_notice": "{{brandName}} est actuellement en phase de test et de loisir. Aucune garantie n'est donnée concernant la permanence ou la sécurité des données. Veuillez conserver une sauvegarde de vos informations importantes.",
         "contact": "Contact"
     },
     "locations": {
@@ -2174,14 +2465,287 @@
         "too_many_login_attempts": "Trop de tentatives de connexion. Veuillez réessayer dans 15 minutes."
     },
     "meta": {
-        "page_title_sign_in": "Sign in",
-        "page_title_register": "Create account",
-        "page_title_choose_house": "Choose house",
-        "page_title_recovery_key": "Recovery key",
-        "page_title_house_access": "House access",
-        "page_title_legal_review": "Legal review",
-        "page_title_new_item": "New item",
-        "page_title_edit_item": "Edit item",
-        "page_title_items": "Inventory"
+        "page_title_sign_in": "Se connecter",
+        "page_title_register": "Créer un compte",
+        "page_title_choose_house": "Choisir la maison",
+        "page_title_recovery_key": "Clé de récupération",
+        "page_title_house_access": "Accès à la maison",
+        "page_title_legal_review": "Révision juridique",
+        "page_title_new_item": "Nouvel article",
+        "page_title_edit_item": "Modifier l'article",
+        "page_title_items": "Inventaire"
+    },
+    "shopping": {
+        "toast": {
+            "fetch_error": "Erreur lors du chargement de la liste de courses.",
+            "select_item_error": "Veuillez sélectionner un article dans l'inventaire.",
+            "empty_name": "Veuillez entrer un nom d'article.",
+            "added": "Article ajouté à la liste de courses.",
+            "add_error": "Une erreur s'est produite lors de l'ajout de l'article.",
+            "added_suggestion": "\"{{name}}\" ajouté à la liste de courses.",
+            "bulk_added": "{{count}} articles en faible stock ajoutés à la liste.",
+            "bulk_error": "Erreur lors de l'ajout des articles en faible stock.",
+            "completed": "\"{{name}}\" marqué comme terminé.",
+            "reactivated": "\"{{name}}\" a été replacé dans la liste active.",
+            "update_error": "Une erreur est survenue lors de la mise à jour.",
+            "deleted": "Élément supprimé de la liste.",
+            "delete_error": "Une erreur est survenue lors de la suppression.",
+            "cleared_completed": "Éléments complétés effacés.",
+            "clear_error": "Une erreur s'est produite lors de l'effacement."
+        },
+        "loading_desc": "Préparation de la liste de courses...",
+        "page": {
+            "title": "Liste de courses",
+            "description": "Voir les articles en faible stock dans l'inventaire domestique et gérer facilement votre liste de courses."
+        },
+        "suggestions": {
+            "title": "Suggestions intelligentes d'inventaire",
+            "desc": "Articles de l'inventaire tombés en dessous de la limite minimale.",
+            "add_all": "Ajouter tous les manquants",
+            "stock_status": "Actuel : {{current}} / Cible : {{min}}",
+            "add_qty": "Ajouter {{qty}}"
+        },
+        "sections": {
+            "active_list": "Articles à acheter",
+            "active_desc": "Articles d'achat actuels à ajouter à votre panier.",
+            "active_count": "{{count}} Articles",
+            "completed_list": "Articles achetés ({{count}})",
+            "add_item": "Ajouter un article manuellement",
+            "add_desc": "Ajouter manuellement un article personnalisé à la liste."
+        },
+        "empty": {
+            "title": "Votre liste de courses est vide",
+            "desc": "Vous pouvez ajouter le stock manquant à partir des suggestions ci-dessus ou ajouter des articles manuellement en utilisant le formulaire à droite."
+        },
+        "card": {
+            "linked_inventory": "Enregistré dans l'inventaire"
+        },
+        "actions": {
+            "clear_completed": "Effacer l'historique",
+            "add_item": "Ajouter à la liste de courses",
+            "mark_completed": "Marquez comme terminé",
+            "decrease_qty": "Diminution de la quantité",
+            "increase_qty": "Augmenter la quantité",
+            "delete_item": "Supprimer l’élément",
+            "reactivate_item": "Retour à la liste active"
+        },
+        "form": {
+            "add_type": "Ajouter une méthode",
+            "add_type_inventory": "Article d'inventaire",
+            "add_type_custom": "Article personnalisé",
+            "select_inventory_item": "Sélectionner un article dans l'inventaire",
+            "no_inventory_items": "Aucun article dans votre inventaire pour le moment.",
+            "select_item_placeholder": "Sélectionnez un article",
+            "current_stock": "Actuel",
+            "item_name": "Nom de l'article",
+            "item_name_placeholder": "ex. Lait, Détergent, Grains de café...",
+            "quantity": "Quantité"
+        },
+        "modal": {
+            "delete_title": "Supprimer l'article de la liste ?",
+            "delete_desc": "Êtes-vous sûr de vouloir supprimer \"{{name}}\" de votre liste de courses ?"
+        }
+    },
+    "maintenance": {
+        "toast": {
+            "fetch_error": "Erreur lors du chargement des informations",
+            "select_item_error": "Veuillez sélectionner un élément.",
+            "task_name_error": "Le nom de la tâche est requis.",
+            "date_error": "La date prévue est requise.",
+            "updated": "Tâche de maintenance mise à jour",
+            "created": "Nouvelle tâche de maintenance ajoutée",
+            "save_error": "Une erreur s'est produite lors de l'enregistrement",
+            "deleted": "Tâche de maintenance supprimée avec succès.",
+            "delete_error": "Une erreur s'est produite lors du processus de suppression.",
+            "performed": "Maintenance enregistrée comme terminée. Prochaine date programmée.",
+            "perform_error": "Une erreur s'est produite lors de l'enregistrement."
+        },
+        "freq": {
+            "one_time": "Une fois",
+            "unit": {
+                "days": "Jour",
+                "weeks": "Semaine",
+                "months": "Mois",
+                "years": "Année"
+            },
+            "format": "Chaque {{val}} {{unit}}"
+        },
+        "loading_desc": "Chargement du calendrier de maintenance...",
+        "page": {
+            "title": "Suivi de la maintenance et périodique",
+            "description": "Gérez les calendriers d'entretien périodique pour les appareils, filtres ou équipements de sécurité dans l'inventaire de votre maison."
+        },
+        "actions": {
+            "add_task": "Ajouter une nouvelle tâche",
+            "manage": "Gérer",
+            "perform": "Marquer comme terminé",
+            "edit_task": "Modifier la tâche"
+        },
+        "alerts": {
+            "overdue_title": "Vous avez des tâches en retard !",
+            "overdue_desc": "Il y a {{count}} tâches de maintenance en retard. Les retards peuvent réduire la durée de vie des appareils."
+        },
+        "empty": {
+            "title": "Aucune tâche de maintenance programmée",
+            "desc": "Commencez en ajoutant des tâches récurrentes telles que le nettoyage des filtres de climatisation, l'entretien de la chaudière ou la vérification des piles des détecteurs de fumée."
+        },
+        "sections": {
+            "overdue": "Tâches en retard",
+            "overdue_desc": "Maintenance urgente qui doit être effectuée immédiatement.",
+            "upcoming": "Tâches prévues / à venir",
+            "upcoming_desc": "Maintenance à venir dans les prochains jours.",
+            "no_upcoming": "Aucune tâche active prévue dans le futur."
+        },
+        "modal": {
+            "edit_title": "Modifier la tâche",
+            "create_title": "Programmer une nouvelle tâche de maintenance",
+            "perform_title": "Terminer la maintenance",
+            "perform_desc": "Voulez-vous enregistrer « {{name}} » comme terminé aujourd'hui ?",
+            "perform_confirm": "Oui, Terminé",
+            "perform_recurrence_info": "Il s'agit d'une tâche périodique. Lorsque vous enregistrez, le système calculera automatiquement la prochaine date d'entretien.",
+            "delete_title": "Supprimer la tâche d'entretien ?",
+            "delete_desc": "Êtes-vous sûr de vouloir supprimer le calendrier de maintenance périodique \"{{name}}\" ? Cette action est irréversible."
+        },
+        "form": {
+            "item": "Élément associé",
+            "no_items": "Vous devez d'abord ajouter un élément à l'inventaire avant de planifier la maintenance.",
+            "select_item_placeholder": "Sélectionner un élément",
+            "task_name": "Nom de la tâche / de l'opération",
+            "task_name_placeholder": "par ex. Remplacement du filtre, Vérification périodique...",
+            "description": "Détail / Description",
+            "description_placeholder": "Détails de la tâche, matériaux à utiliser, etc...",
+            "frequency_value": "Fréquence de récurrence",
+            "frequency_placeholder": "par ex. 6 (laisser vide pour une seule fois)",
+            "frequency_unit": "Unité de fréquence",
+            "next_due_date": "Date prévue suivante",
+            "section_help": "Gérez les calendriers de maintenance à partir d'ici",
+            "section_collapsed": "Cliquez pour ajouter des contrôles et tâches périodiques",
+            "has_tasks": "{{count}} Tâches",
+            "new_item_warning_title": "Éléments en attente de sauvegarde",
+            "new_item_warning_desc": "Vous devez d'abord enregistrer cet article pour ajouter un programme d'entretien.",
+            "manage_desc": "Gérer les programmes d'entretien pour cet appareil ou article."
+        },
+        "fields": {
+            "task_name": "Nom de la tâche",
+            "task_name_placeholder": "ex. nettoyage du filtre de climatisation",
+            "description": "Description",
+            "description_placeholder": "Détails de la tâche, matériaux à utiliser, etc...",
+            "frequency_value": "Fréquence de récurrence",
+            "frequency_value_placeholder": "Laisser vide pour une seule fois",
+            "frequency_unit": "Unité de fréquence",
+            "next_due_date": "Date prévue"
+        },
+        "card": {
+            "untitled_item": "Élément sans titre",
+            "last_performed": "Dernière réalisation :",
+            "next_due_label": "Date prévue",
+            "complete_tooltip": "Marquer l'entretien comme effectué aujourd'hui"
+        },
+        "detail_card_desc": "Suivi de l'entretien périodique ou ponctuel prévu pour cet article.",
+        "no_tasks": "Aucune tâche d'entretien n'est assignée à cet article.",
+        "confirm_delete": "Cette tâche sera supprimée. Êtes-vous sûr ?"
+    },
+    "error_boundary": {
+        "title": "Quelque chose a besoin d’un rafraîchissement",
+        "description": "L’interface a rencontré un problème de rendu inattendu. Vos données d’inventaire sauvegardées ne sont pas modifiées par cet écran.",
+        "refresh_btn": "Rafraîchissement",
+        "home_btn": "Accueil"
+    },
+    "activity": {
+        "title": "Historique des activités",
+        "description": "Modifications récentes protégées dans votre inventaire domestique.",
+        "empty_title": "Aucune activité pour le moment",
+        "empty_description": "Les modifications d'articles, les mises à jour de stock, les pièces jointes, les prêts et les actions en masse apparaîtront ici.",
+        "unknown_actor": "Utilisateur inconnu",
+        "deleted_item_with_id": "Élément supprimé #{{id}}",
+        "item_missing": "Cet enregistrement d'élément n'existe plus",
+        "actions": {
+            "item_created": "Élément ajouté",
+            "item_updated": "Article mis à jour",
+            "item_deleted": "Article supprimé",
+            "item_borrowed": "Article prêté",
+            "item_returned": "Article retourné",
+            "item_bulk_updated": "Mise à jour en masse",
+            "item_bulk_deleted": "Suppression en masse",
+            "item_stock_adjusted": "Stock mis à jour",
+            "item_attachment_added": "Pièce jointe ajoutée",
+            "item_attachment_deleted": "Pièce jointe supprimée"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} enregistrements associés",
+        "empty_title": "Aucun enregistrement associé trouvé",
+        "low_stock": {
+            "title": "Stock faible",
+            "description": "Articles en dessous de leur niveau de stock minimum.",
+            "qty": "Stock {{quantity}} / min {{min}}"
+        },
+        "expired": {
+            "title": "Articles périmés",
+            "description": "Articles avec une date expirée."
+        },
+        "expiring": {
+            "title": "Dates d'expiration à venir",
+            "description": "Articles expirant dans les 30 jours."
+        },
+        "maintenance": {
+            "title": "Maintenance en retard",
+            "description": "Tâches de maintenance dépassant leur date prévue."
+        }
+    },
+    "notifications": {
+        "title": "Centre de notifications",
+        "description": "Alertes de stock, de garantie, de maintenance, d'expiration et de retour d'emprunt.",
+        "meta_total": "{{count}} notifications",
+        "meta_urgent": "{{count}} urgentes",
+        "empty_title": "Aucune alerte ne nécessite votre attention pour le moment",
+        "empty_desc": "Le stock faible, les dates à venir et la maintenance en retard apparaîtront ici.",
+        "items": {
+            "stock_empty_title": "En rupture de stock",
+            "stock_low_title": "Stock faible",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "Date d'expiration passée",
+            "expiry_close_title": "Date d'expiration approchant",
+            "warranty_expired_title": "Garantie expirée",
+            "warranty_close_title": "Garantie se terminant bientôt",
+            "maintenance_overdue_title": "Maintenance en retard",
+            "maintenance_close_title": "Maintenance à venir",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "Retour d'emprunt en retard",
+            "borrow_close_title": "Retour d'emprunt à venir",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}} : {{count}} jours restants ({{date}})"
+        }
+    },
+    "service": {
+        "title": "Centre de service et de garantie",
+        "description": "Suivez les garanties, les calendriers d'entretien et les actions de service en un seul endroit.",
+        "meta_warranty": "{{count}} enregistrements de garantie",
+        "meta_tasks": "{{count}} tâches de maintenance",
+        "empty_title": "Aucune action de service ou de garantie",
+        "empty_desc": "Les prochaines dates de garantie et les tâches de maintenance seront rassemblées ici.",
+        "warranty_section": "Suivi de la garantie",
+        "warranty_desc": "Garanties expirées et garanties se terminant dans les 30 jours.",
+        "maintenance_section": "Actions de maintenance",
+        "maintenance_desc": "Tâches de maintenance en retard et à venir.",
+        "no_warranty": "Aucune action de garantie à venir.",
+        "no_tasks": "Aucune tâche de maintenance programmée.",
+        "overdue": "En retard",
+        "upcoming": "Bientôt",
+        "expired": "Expiré",
+        "summary_warranty": "Suivi de la garantie",
+        "summary_tasks": "Tâches de maintenance",
+        "open_warranty_filter": "Filtre de garantie ouverte",
+        "open_warranty_filter_desc": "Filtre les articles en garantie active dans l'inventaire."
+    },
+    "storage_labels": {
+        "title": "Étiquettes d'étagère et de pièce",
+        "description": "{{count}} étiquette(s) de pièce/étagère sont prêtes sous forme de feuille à imprimer.",
+        "empty_title": "Aucune pièce ou étagère à étiqueter",
+        "empty_desc": "Ajoutez d'abord des pièces ou des emplacements, puis imprimez les étiquettes QR ici.",
+        "sheet_label": "Étiquette de localisation",
+        "scan_hint": "Scanner le code QR ouvre l'inventaire filtré pour cette pièce ou cette étagère.",
+        "room": "Pièce",
+        "location": "Étagère/Boîte"
     }
 }

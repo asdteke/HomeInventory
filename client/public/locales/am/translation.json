@@ -134,6 +134,17 @@
             "close_to_expiry": "ጊዜው የሚያበቃበት ቀን",
             "expired": "ጊዜው አልፎበታል",
             "low_stock": "ዝቅተኛ የአክሲዮን"
+        },
+        "untitled_item": "ርዕስ የሌለው ንጥል",
+        "attachments": {
+            "title": "ፎቶዎችን እና ፋይሎችን ይመልከቱ",
+            "add": "ፋይሎችን ያክሉ",
+            "empty": "እስካሁን ምንም ፋይሎች አልተጨመሩም።",
+            "form_desc": "የንጥል ፎቶዎችን፣ ደረሰኞችን፣ ደረሰኞችን ወይም የአገልግሎት ሰነዶችን ያያይዙ።",
+            "detail_desc": "ለዚህ ንጥል የተቀመጡ ፎቶዎች፣ ደረሰኞች፣ ደረሰኞች እና የአገልግሎት ፋይሎች።",
+            "upload_error": "ፋይሎች ሊሰቀሉ አልተቻሉም።",
+            "delete_error": "ፋይሉ ሊሰረዝ አልተቻለም። ይህን ፋይል",
+            "delete_confirm": "ሰርዝ?"
         }
     },
     "common": {
@@ -188,9 +199,11 @@
         "show": "የይለፍ ቃል አሳይ",
         "saving": "በማስቀመጥ ላይ ...",
         "disabled": "ተሰናክሏል",
-        "zoom_in": "Zoom in",
-        "zoom_out": "Zoom out",
-        "reset": "Reset"
+        "zoom_in": "አጉላ",
+        "zoom_out": "አሳንስ",
+        "reset": "ዳግም አስጀምር",
+        "print": "ማተም",
+        "record_count": "{{count}} መዝገቦችን"
     },
     "auth": {
         "login": {
@@ -489,7 +502,10 @@
         "logout_description": "ወደ መግቢያ ማያ ገጹ ይመለሳሉ እና የቤተሰብዎን ክምችት ለማስተዳደር እንደገና መግባት ያስፈልግዎታል።",
         "logout_warning": "በጋራ ወይም በግል መሳሪያ ላይ ሲጨርሱ ይህንን ይጠቀሙ።",
         "maintenance": "የጥገና መርሃ ግብር",
-        "shopping": "የግዢ ዝርዝር"
+        "shopping": "የግዢ ዝርዝር",
+        "activity": "የእንቅስቃሴ",
+        "notifications": "ማሳወቂያዎች",
+        "service": "አገልግሎት"
     },
     "dashboard": {
         "welcome": "እንኳን በደህና መጣህ፣ <1>{{name}}</1>",
@@ -628,7 +644,8 @@
             "low_stock_desc": "{{count}} እቃዎች ከዝቅተኛው የአክሲዮን ገደብዎ በታች ወድቀዋል።",
             "go_to_shopping": "የግዢ ዝርዝር",
             "close_expiry_title": "መጪ የማለቂያ ቀናት",
-            "close_expiry_desc": "{{count}} ምርቶች በ30 ቀናት ውስጥ የአገልግሎት ጊዜው ያበቃል።"
+            "close_expiry_desc": "{{count}} ምርቶች በ30 ቀናት ውስጥ የአገልግሎት ጊዜው ያበቃል።",
+            "view_low_stock_items": "ዝቅተኛ የአክሲዮን"
         }
     },
     "beta_banner": {
@@ -647,7 +664,7 @@
         "title": "ቅንብሮች",
         "subtitle": "የመተግበሪያ ምርጫዎችን ያቀናብሩ",
         "messages": {
-            "house_switched": "መሣሪያዎችን መሻር አልተሳካም!",
+            "house_switched": "{{name}} ነቅቷል!",
             "house_switch_error": "ቤት መቀየር አልተሳካም",
             "house_joined_success": "በተሳካ ሁኔታ ቤቱን ተቀላቅለዋል!",
             "house_join_error": "ቤት መቀላቀል አልተሳካም",
@@ -719,14 +736,14 @@
         "house_info": {
             "title": "ንቁ የቤት ቁልፍ",
             "key_label": "የቤት ቁልፍ",
-            "mask_key": "••••••••{{ቅጥያ}}",
+            "mask_key": "••••••••{{suffix}}",
             "hide": "ደብቅ",
             "show": "አሳይ",
             "copy": "ይቅዱ",
             "share_info": "💡 ይህንን ቁልፍ የሚያጋሩዋቸው ተጠቃሚዎች በምዝገባ ወቅት \"ቤት ተቀላቀል\" የሚለውን አማራጭ በመጠቀም የእርስዎን ክምችት ማግኘት ይችላሉ።",
             "members_title": "ምክር ቤት አባላት ({{count}})",
             "you": "(እርስዎ)",
-            "joined_at": "የተቀላቀለው {{ቀን፣ ቀን ሰዓት}}",
+            "joined_at": "የተቀላቀለው {{date, datetime}}",
             "no_members": "እስካሁን ሌሎች አባላት የሉም",
             "invite_title": "የቤተሰብ አባላትን ይጋብዙ",
             "invite_desc": "የቤተሰብ አባላት ተመሳሳይ ክምችት እንዲደርሱ ለማድረግ የቤትዎን ቁልፍ ያጋሩ። እያንዳንዱ አባል በራሱ መለያ ይገባል ነገር ግን ተመሳሳይ ውሂብ ይደርሳል።",
@@ -823,7 +840,7 @@
             "unlock_and_import": "ምትኬን",
             "export_encrypted_notice": "መጠባበቂያው የሚዘጋጀው ከቀጥታ የቤተሰብ ውሂብ ነው እና ከዚያ በመረጡት የይለፍ ሐረግ ተጠቅልሏል። ፋይሉን በኋላ ወደነበረበት መመለስ ስለሚያስፈልግ ያንን የይለፍ ሐረግ ደህንነቱ በተጠበቀ ቦታ ያስቀምጡት።",
             "export_encrypted_title": "ምስጠራ ከማውረድ በፊት ይተገበራል",
-            "import_summary_body": "{{items}} ንጥሎች፣ {{ምድቦች}} ምድቦች፣ {{ክፍሎች}} ክፍሎች፣ {{አካባቢዎች}} ቦታዎች፣ {{ብድር}} የተበደረ መዝገቦች ወደነበሩበት ተመልሰዋል።",
+            "import_summary_body": "{{items}} ንጥሎች፣ {{categories}} ምድቦች፣ {{rooms}} ክፍሎች፣ {{locations}} ቦታዎች፣ {{borrows}} የተበደረ መዝገቦች ወደነበሩበት ተመልሰዋል።",
             "import_summary_title": "ምትኬ ወደነበረበት ተመልሷል",
             "preview_categories": "ምድቦች",
             "preview_items": "እቃዎች",
@@ -835,7 +852,10 @@
             "skipped_locations": "{{count}} ነባር ቦታዎች ተዘለሉ።",
             "skipped_rooms": "{{count}} ነባር ክፍሎች ተዘለሉ።",
             "owner_only_title": "ምትኬ እና እነበረበት መልስ የተገደበ",
-            "owner_only_desc": "የውሂብ ምትኬ እና ወደነበረበት መመለስ የሚቻለው በቤቱ ባለቤት ብቻ ነው።"
+            "owner_only_desc": "የውሂብ ምትኬ እና ወደነበረበት መመለስ የሚቻለው በቤቱ ባለቤት ብቻ ነው።",
+            "include_media_title": "ፎቶዎችን እና ደረሰኝ ምስሎችን ያካትቱ",
+            "include_media_body": "ሙሉው ምትኬ ትልቅ ሊሆን ይችላል፣ ነገር ግን የንጥል ፎቶዎች እና ደረሰኝ ምስሎችም ወደነበሩበት ሊመለሱ ይችላሉ።",
+            "skipped_attachments": "{{count}} አባሪዎች ተዘልለዋል።"
         },
         "about": {
             "title": "ስለ መተግበሪያ",
@@ -943,7 +963,7 @@
             "revoke_devices": "መሻር",
             "revoke_devices_desc": "በሚቀጥለው መግቢያ ላይ 2FA የሚያስፈልጋቸው ሁሉንም የሚታወሱ መሳሪያዎችን ያስወግዱ",
             "devices_revoked": "{{count}} የታመነ መሳሪያ(ዎች) ተወግዷል",
-            "devices_error": "{{name}} ገቢር",
+            "devices_error": "መሣሪያዎችን መሻር አልተሳካም",
             "preparing_setup": "የማረጋገጫ ማዋቀርዎን በማዘጋጀት ላይ..."
         },
         "danger_zone": {
@@ -1035,6 +1055,12 @@
             "policy_none_desc": "ሁሉም ገቢ ጥያቄዎች በራስ-ሰር ታግደዋል።",
             "policy_house_only_desc": "የተረጋገጡ የንቁ ቤትዎ አባላት ብቻ በዚያ የጋራ ቤት ውስጥ የሚታዩ እቃዎችን መጠየቅ ይችላሉ።",
             "policy_everyone_desc": "ሌሎች ተጠቃሚዎች ንጥሎችዎን ማሰስ ወይም ማየት አይችሉም። ጥያቄ መላክ የሚችሉት የተጠቃሚ ስምዎን ወይም ኢሜልዎን በቀጥታ በማስገባት ብቻ ነው።"
+        },
+        "activity_log": {
+            "title": "የእንቅስቃሴ እና የኦዲት ምዝግብ ማስታወሻ",
+            "description": "የተጠበቀውን የንጥል ለውጦች፣ የአክሲዮን ማሻሻያዎች፣ አባሪዎች እና የጅምላ እርምጃዎች ታሪክ ይገምግሙ።",
+            "encrypted_title": "የእንቅስቃሴ መዝገቦች ተጠብቀው ይቀመጣሉ",
+            "encrypted_body": "አዲስ የእንቅስቃሴ እርምጃዎች እና ዝርዝሮች በመረጃ ቋቱ ውስጥ የተመሰጠሩ ናቸው እና ዲክሪፕት የሚደረጉት ለእርስዎ ንቁ ክፍለ ጊዜ ብቻ ነው።"
         }
     },
     "inventory": {
@@ -1098,7 +1124,7 @@
             "lend_success_title": "ንጥል ብድር",
             "lend_success_body": "{{item}} አሁን እንደተበደረ ምልክት ተደርጎበታል።",
             "offer_sent_title": "የተላከው ቅናሽ ብድር",
-            "offer_sent_body": "{{ንጥል}} የተላከ የብድር አቅርቦት ሌላኛው አባል ከተቀበለ በኋላ እንደተበደረ ምልክት ይደረግበታል።",
+            "offer_sent_body": "{{item}} የተላከ የብድር አቅርቦት ሌላኛው አባል ከተቀበለ በኋላ እንደተበደረ ምልክት ይደረግበታል።",
             "borrowed_by_you": "ከእርስዎ ጋር",
             "return_pending_hint": "አበዳሪው እቃውን መልሰው መቀበሉን ካረጋገጠ በኋላ መዝገቡ ይዘጋል።",
             "return_pending_lender_title": "{{name}} ይህን ንጥል ተመልሶ እንደደረሰ ምልክት አድርጎታል",
@@ -1107,7 +1133,8 @@
             "site_member_identifier": "የተጠቃሚ ስም ወይም በኢ-ሜይል",
             "site_member_identifier_placeholder": "ትክክለኛ የተጠቃሚ ስም ወይም ኢሜል",
             "site_member_privacy_hint": "ቅናሹ በብድር ማእከል ውስጥ የሚታየው መለያው ካለ እና ገቢ ቅናሾችን የሚፈቅድ ከሆነ ብቻ ነው። ይህ የግል አካባቢያዊ መዝገብ ብቻ ይፈጥራል። ምንም የመተግበሪያ ማሳወቂያ አልተላከም። ይህ ንቁ የብድር መዝገብ ሊገኝ አልቻለም። የብድር ማእከልን ያድሱ እና እንደገና ይሞክሩ።",
-            "external_privacy_hint": "This creates a private local record only. No app notification is sent."
+            "external_privacy_hint": "ይህ የግል አካባቢያዊ መዝገብ ብቻ ይፈጥራል። ምንም የመተግበሪያ ማሳወቂያ አልተላከም።",
+            "available": "የሚገኙ"
         },
         "untitled_item": "ርዕስ የሌለው ንጥል",
         "delete_action": "ንጥል ሰርዝ",
@@ -1124,7 +1151,75 @@
         "room_filter_label": "ክፍል በ አጣራ",
         "refreshing_results": "መንፈስን የሚያድስ ንጥሎች...",
         "empty_filter_title": "ምንም እቃዎች ከፍለጋው ጋር የሚዛመዱ የሉም",
-        "delete_error_title": "ያልተሳካ"
+        "delete_error_title": "ያልተሳካ",
+        "tools": {
+            "title": "መሳሪያዎች"
+        },
+        "no_room": "በሁሉም አካባቢዎች",
+        "all_locations": "ቦታ የለም",
+        "location_filter_label": "በአካባቢ አጣራ",
+        "visibility_filter_label": "በታይነት አጣራ",
+        "visibility_all": "ሁሉም ታይነት",
+        "visibility_mine": "የእኔ ንጥሎች",
+        "visibility_others": "ሌሎች አባላት",
+        "borrow_filter_label": "በብድር ሁኔታ ያጣሩ",
+        "borrow_filter_all": "ሁሉም የብድር ሁኔታዎች",
+        "stock_filter_label": "በአክሲዮን ሁኔታ አጣራ",
+        "stock_filter_all": "ሁሉም የአክሲዮን ሁኔታዎች",
+        "stock_filter_ok": "አክሲዮን እሺ",
+        "expiry_filter_label": "ጊዜው የሚያበቃበት ቀን",
+        "expiry_filter_all": "ሁሉም የማለቂያ ቀናት",
+        "expiry_filter_dated": "ቀን አለው",
+        "expiry_filter_none": "ቀን የለም",
+        "warranty_filter_label": "በዋስትና አጣራ",
+        "warranty_filter_all": "ሁሉም ዋስትናዎች",
+        "warranty_filter_expired": "ጊዜ ያለፈባቸው ዋስትናዎች",
+        "warranty_filter_close": "በቅርቡ ያበቃል",
+        "warranty_filter_active": "ንቁ ዋስትናዎች",
+        "warranty_filter_none": "ምንም የዋስትና መረጃ የለም",
+        "sort_label": "ደርድር",
+        "sort_updated_desc": "በቅርቡ የዘመነ",
+        "sort_updated_asc": "በጣም የቆየ ዝመና",
+        "sort_created_desc": "አዲሱ የመጀመሪያ",
+        "sort_created_asc": "በጣም ጥንታዊው የመጀመሪያ",
+        "sort_name_asc": "ስም AZ",
+        "sort_name_desc": "ስም ZA",
+        "sort_quantity_desc": "ብዛት ከከፍተኛ ወደ ዝቅተኛ",
+        "sort_quantity_asc": "ብዛት ከዝቅተኛ እስከ ከፍተኛ",
+        "sort_expiry_asc": "ጊዜው የሚያበቃው በቅርቡ",
+        "sort_expiry_desc": "ጊዜው የሚያበቃበት የቅርብ ጊዜ",
+        "stock_increase": "አክሲዮን ይጨምሩ",
+        "stock_decrease": "የአክሲዮን",
+        "stock_adjust_error": "አክሲዮን መቀነስ አልተቻለም።",
+        "bulk": {
+            "select_visible": "የሚታይ",
+            "clear_visible": "የሚታይ",
+            "selected_short": "የተመረጠውን ይምረጡ",
+            "keep_category": "ምድብ",
+            "keep_room": "ቦታ ያስቀምጡ",
+            "keep_location": "ቦታን ይጠብቁ",
+            "keep_visibility": "ታይነትን ይጠብቁ",
+            "apply": "ተግብር",
+            "no_fields": "ለጅምላ እርምጃ ቢያንስ አንድ መስክ ይምረጡ።",
+            "updated_title": "የጅምላ ዝማኔ ተጠናቅቋል",
+            "updated_body": "{{count}} ንጥሎች ተዘምኗል። {{skipped}} ተዘለለ።",
+            "update_error": "የጅምላ ዝመና ሊጠናቀቅ አልቻለም።",
+            "deleted_title": "የተሰረዙትን",
+            "deleted_body": "{{count}} እቃዎች በጅምላ ሰርዝ። {{skipped}} ተዘለለ።",
+            "delete_error": "የጅምላ መሰረዝ ሊጠናቀቅ አልቻለም።",
+            "delete_title": "የተመረጡ እቃዎችን ሰርዝ?",
+            "delete_description": "{{count}} የተመረጡ እቃዎች ከዚህ የቤት ውስጥ ክምችት ይወገዳሉ። ይህ ሊቀለበስ አይችልም።",
+            "select_item": "ንጥል ይምረጡ",
+            "unselect_item": "ንጥል አልመረጠም"
+        },
+        "qr_labels": {
+            "title": "የ QR መለያዎች",
+            "open": "የንጥል መለያዎች",
+            "description": "{{count}} የንጥል መለያዎች እንደ የህትመት ሉህ ዝግጁ ናቸው።",
+            "empty": "መለያዎችን ለማተም ማጣሪያዎችን ይቀይሩ ወይም የእቃ ዝርዝር እቃዎችን ያክሉ።",
+            "sheet_label": "የንጥል መለያ ሉህ",
+            "item_label": "የንጥል መለያ"
+        }
     },
     "categories": {
         "title": "ምድቦች",
@@ -1341,7 +1436,7 @@
             "no_logs": "እስካሁን ምንም ምዝግብ ማስታወሻዎች የሉም",
             "errors_title": "የስርዓት ስህተቶች (የመጨረሻዎቹ 10)",
             "no_errors": "// ስርዓት ጤናማ፣ ምንም የስህተት ምዝግብ ማስታወሻዎች የሉም።",
-            "date_fmt": "{{ቀን፣ ቀን ሰዓት}}",
+            "date_fmt": "{{date, datetime}}",
             "type": {
                 "email": "ኢሜይል",
                 "user": "የተጠቃሚ",
@@ -1358,8 +1453,8 @@
             },
             "audit": {
                 "email_sent": "ተቀባይ {{recipient}} | ርዕሰ ጉዳይ {{subject}}",
-                "user_deleted": "ተጠቃሚ ተሰርዟል {{የተጠቃሚ ስም}} | የተሰረዙ ቤተሰቦች {{የተሰረዙ ቤቶች}} | የተላለፉ ባለቤትነቶች {{transferredOwnerships}}",
-                "user_target": "ተጠቃሚ {{የተጠቃሚ ስም}}",
+                "user_deleted": "ተጠቃሚ ተሰርዟል {{username}} | የተሰረዙ ቤተሰቦች {{deletedHouses}} | የተላለፉ ባለቤትነቶች {{transferredOwnerships}}",
+                "user_target": "ተጠቃሚ {{username}}",
                 "indexnow_submitted": "IndexNow ማስገባት ተሳክቷል። የዩአርኤል ብዛት {{count}}"
             },
             "no_errors_title": "ምንም የቅርብ ጊዜ የስርዓት ስህተቶች የሉም",
@@ -1383,7 +1478,7 @@
             "compose_eyebrow": "መልእክት",
             "compose_body": "ደህንነቱ የተጠበቀ የኤችቲኤምኤል ቅርጸት እና የመድረክ ብራንዲንግ ያለው አንድ የወጪ ኢሜይል ይፃፉ።",
             "security_title": "አስተዳዳሪ ደህንነቱ የተጠበቀ",
-            "security_body": "አስተዳዳሪ {{የተጠቃሚ ስም}} • ገደብ {{ቀሪ}}/3 ኢሜይሎች በደቂቃ",
+            "security_body": "አስተዳዳሪ {{username}} • ገደብ {{remaining}}/3 ኢሜይሎች በደቂቃ",
             "from_unconfigured": "ከደብዳቤ ማዋቀር",
             "notes_label": "የአጠቃቀም ማስታወሻ",
             "notes_body": "ይህንን ለተግባራዊ ድጋፍ ወይም ከመለያ ጋር ለተያያዘ ተደራሽነት ይጠቀሙ። ሚስጥራዊነት ያለው ይዘት በተቻለ መጠን በመተግበሪያው ውስጥ መቆየት አለበት።",
@@ -1605,7 +1700,7 @@
                 },
                 {
                     "name": "ጥልፍልፍ አሃድ",
-                    "meta": "የቲቪ ኮንሶል • Deco M4",
+                    "meta": "የቲቪ ኮንሶል • Network node",
                     "state": null
                 },
                 {
@@ -1840,7 +1935,7 @@
         "privacy_summary": "የአውታረ መረብ ዝርዝሮች መመሪያውን እስኪፈልጉ ድረስ ተደብቀው ይቆያሉ።",
         "link_privacy_note": "የአውታረ መረብ አድራሻው እዚህ ተደብቆ ይቆያል። ኮዱን ይቃኙ ወይም አገናኙን ይቅዱ ሆን ብለው በአከባቢዎ ማዋቀር ላይ ቀጥተኛ የንጥል መዳረሻን ማጋራት ሲፈልጉ ብቻ ነው።",
         "helper": "Scan ይህን ንጥል ወዲያውኑ ለመክፈት ወይም አስፈላጊ ሆኖ ሲገኝ ቀጥተኛውን አገናኝ ይቅዱ።",
-        "copy_error_title": "አገናኝ በራስ-ሰር ሊገለበጥ አልተቻለም። አሳሽዎ ራስ-ሰር መቅዳት አልፈቀደም። አገናኙ ተመርጧል ስለዚህ እራስዎ መቅዳት ይችላሉ. © 2026 {{የምርት ስም}} © 2026 {{የምርት ስም}}",
+        "copy_error_title": "አገናኝ በራስ-ሰር ሊገለበጥ አልተቻለም",
         "copy_manual_help": "አሳሽዎ አውቶማቲክ መቅዳት አልፈቀደም። አገናኙ ተመርጧል ስለዚህ እራስዎ መቅዳት ይችላሉ.",
         "loading": "የQR መሳሪያዎችን በማዘጋጀት ላይ..."
     },
@@ -1902,7 +1997,7 @@
             ],
             "fallback": "የይለፍ ቃል ዳግም ማስጀመሪያ አገናኝ ያልተሟላ ወይም የተሰበረ ይመስላል።",
             "support": "የምዝገባ ጉዳዮች",
-            "footer": "© 2026 {{brandName}} © 2026 {{brandName}} የተግባር ስም ያስፈልጋል። የታቀደበት ቀን ያስፈልጋል።"
+            "footer": "© 2026 {{brandName}}"
         },
         "welcome": {
             "subject": "ወደ {{brandName}} እንኳን በደህና መጡ",
@@ -1920,7 +2015,7 @@
                 "💡 የበርካታ ቤቶች አባል መሆን እና በመካከላቸው መቀያየር ይችላሉ። እያንዳንዱ ቤት የተለየ ክምችት ይይዛል."
             ],
             "support": "የምዝገባ ጉዳዮች",
-            "footer": "© 2026 {{የምርት ስም}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "houseJoinRequest": {
             "subject": "ቤት ይቀላቀሉ",
@@ -1929,7 +2024,7 @@
             "bodyLine2": "የቤት ባለቤት ይሁንታን በመጠበቅ ላይ"
         },
         "houseJoinDecision": {
-            "subjectTemplate": "{{የምርት ስም}} - {{ሁኔታ}}",
+            "subjectTemplate": "{{brandName}} - {{status}}",
             "greeting": "የቤት መዳረሻ",
             "bodyLine1Template": "አሁን በመጠባበቅ ላይ ያለ ጥያቄ፡- {{house}} ({{status}})",
             "bodyLine2": "የ«{{house}}» ጥያቄዎ አሁንም ውሳኔ እየጠበቀ ነው።",
@@ -1954,11 +2049,11 @@
             "warningTitle": "⚠️",
             "warningBody": "መለያ ካለ ለ15 ደቂቃ የሚሰራ የይለፍ ቃል ዳግም ማስጀመሪያ አገናኝ ተልኳል።",
             "fallback": "የይለፍ ቃል ዳግም ማስጀመሪያ አገናኝ ያልተሟላ ወይም የተሰበረ ይመስላል።",
-            "footer": "© 2026 {{የምርት ስም}}"
+            "footer": "© 2026 {{brandName}}"
         },
         "adminEmail": {
             "sentBy": "ይህ ኢሜይል የተላከው በ{{brandName}} ነው።",
-            "footer": "© 2026 {{የምርት ስም}} - {{የድጋፍ ኢሜይል}}"
+            "footer": "© 2026 {{brandName}} - {{supportEmail}}"
         },
         "testEmail": {
             "subject": "🧪 {{brandName}} የሙከራ ኢሜይል",
@@ -2154,7 +2249,7 @@
             "return_note_placeholder_lender": "ለምሳሌ በጥሩ ሁኔታ ተመልሶ ተቀብሏል",
             "return_submitting": "መዝጊያ...",
             "reject_title": "ጥያቄን ውድቅ ያድርጉ",
-            "reject_subtitle": "የ\"{{ንጥል}}\" ጥያቄን ውድቅ ልትሆን ነው።",
+            "reject_subtitle": "የ\"{{item}}\" ጥያቄን ውድቅ ልትሆን ነው።",
             "reject_target": "በ{{name}} የተላከውን የብድር ጥያቄ ውድቅ ልትል ነው።",
             "reject_reason_label": "ውድቅ የተደረገበት ምክንያት",
             "reject_submitting": "አለመቀበል...",
@@ -2163,7 +2258,7 @@
         "messages": {
             "load_error": "የብድር ማእከል መጫን አልተቻለም",
             "action_error": "ድርጊቱ ሊጠናቀቅ አልቻለም",
-            "active_borrow_not_found": "This active borrow record could not be found. Refresh the Borrow Center and try again.",
+            "active_borrow_not_found": "ይህ ገባሪ የብድር መዝገብ ሊገኝ አልቻለም። የብድር ማእከልን ያድሱ እና እንደገና ይሞክሩ።",
             "errors": {
                 "external_target_daily_limit": "በቀን አንድ የመጀመሪያ ግንኙነት ውጫዊ ጥያቄ ለተመሳሳይ ሰው መላክ ይችላሉ። ጥያቄን ከተቀበሉ፣ ይህ ገደብ ከአሁን በኋላ ለዚያ ሰው አይተገበርም።",
                 "external_total_daily_limit": "በቀን እስከ 5 የመጀመሪያ ግንኙነት ውጫዊ ጥያቄዎችን መላክ ይችላሉ።",
@@ -2211,7 +2306,7 @@
         "overview": "አጠቃላይ እይታ",
         "contact": "ተገናኝ",
         "jump_to": "ይዝለሉ",
-        "privacy_description": "የዚህ {{brandName}} ጭነት የግላዊነት ማስታወቂያ ምን አይነት ውሂብ እንደተሰራ፣ እንዴት እንደሚሰበሰብ፣ እንዴት እንደሚጋራ ወይም እንደሚተላለፍ እና ምን አይነት መብቶች እና የቅሬታ መንገዶች ሊተገበሩ እንደሚችሉ ያብራራል። የዚህ መጫኛ ኦፕሬተር. የዚህ {{brandName}} መጫኛ ውሎች ተቀባይነት ያለው አጠቃቀምን፣ የደህንነት ኃላፊነቶችዎን እና መለያ መሰረዝ የሚያስከትለውን መዘዝ ይበልጥ ግልጽ በሆነ ለመቃኘት ቀላል በሆነ ቅርጸት ያብራራሉ። ክፍት ምንጭ",
+        "privacy_description": "የዚህ {{brandName}} ጭነት የግላዊነት ማስታወቂያ ምን አይነት ውሂብ እንደተሰራ፣ እንዴት እንደሚሰበሰብ፣ እንዴት እንደሚጋራ ወይም እንደሚተላለፍ እና ምን አይነት መብቶች እና የቅሬታ መንገዶች ሊተገበሩ እንደሚችሉ ያብራራል።",
         "privacy_support_label": "ለግላዊነት ጥያቄዎች፣ የመብቶች ማመልከቻዎች እና ስለዚህ ጭነት ከቅሬታ ጋር ለተያያዙ ጥያቄዎች፡-",
         "privacy_summary": {
             "title": "በተግባር",
@@ -2273,7 +2368,7 @@
         "account_menu_tooltip": "{{name}} የመለያ ሜኑ ክፈት"
     },
     "app": {
-        "name": "{{የምርት ስም}}",
+        "name": "{{brandName}}",
         "tagline": "ሁሉንም የቤት እቃዎችዎን በጥበብ ያስተዳድሩ",
         "loading": "{{brandName}} ን በመጫን ላይ",
         "preparing_workspace": "የስራ ቦታዎን በማዘጋጀት ላይ..."
@@ -2507,7 +2602,7 @@
             "perform_title": "የተሟላ ጥገና",
             "perform_desc": "መርሐግብር ያስይዙ ዛሬ እንደተጠናቀቀ \"{{name}}\" መመዝገብ ይፈልጋሉ?",
             "perform_confirm": "አዎ ተጠናቅቋል",
-            "perform_recurrence_info": "ይህ ወቅታዊ ተግባር ነው. ሲያስቀምጡ ስርዓቱ የሚቀጥለውን የጥገና ቀን በራስ-ሰር ያሰላል። የጥገና ስራን ሰርዝ? እርግጠኛ ነዎት ወቅታዊ የጥገና መርሃ ግብር \"{{name}}\" መሰረዝ ይፈልጋሉ? ይህ እርምጃ ሊቀለበስ አይችልም። ተዛማጅ ንጥል",
+            "perform_recurrence_info": "ይህ ወቅታዊ ተግባር ነው. ሲያስቀምጡ ስርዓቱ የሚቀጥለውን የጥገና ቀን በራስ-ሰር ያሰላል።",
             "delete_title": "ይሰርዙ?",
             "delete_desc": "በየጊዜው የጥገና መርሃ ግብር \"{{name}}\" መሰረዝ እንደሚፈልጉ እርግጠኛ ነዎት? ይህ እርምጃ ሊቀለበስ አይችልም።"
         },
@@ -2525,7 +2620,7 @@
             "next_due_date": "በሚቀጥለው የታቀደበት ቀን",
             "section_help": "የጥገና መርሃ ግብሮችን ከዚህ ያስተዳድሩ",
             "section_collapsed": "ወቅታዊ መቆጣጠሪያዎችን እና ተግባራትን ለመጨመር ጠቅ ያድርጉ",
-            "has_tasks": "{{ቆጠራ}} ተግባራት",
+            "has_tasks": "{{count}} ተግባራት",
             "new_item_warning_title": "የንጥል ቁጠባ በመጠባበቅ ላይ",
             "new_item_warning_desc": "የጥገና መርሃ ግብር ለመጨመር መጀመሪያ ይህን ንጥል ማስቀመጥ አለቦት።",
             "manage_desc": "ለዚህ መሳሪያ ወይም ንጥል የጥገና መርሃ ግብሮችን ያስተዳድሩ።"
@@ -2555,5 +2650,102 @@
         "description": "በይነገጹ ያልተጠበቀ የአተረጓጎም ችግር ገጥሞታል። የተቀመጠ የእቃ ዝርዝር ውሂብዎ በዚህ ማያ ገጽ አልተቀየረም።",
         "refresh_btn": "አዝናና",
         "home_btn": "መግቢያ ገፅ"
+    },
+    "activity": {
+        "title": "የእንቅስቃሴ ታሪክ",
+        "description": "በቤትዎ ክምችት ውስጥ የቅርብ ጊዜ የተጠበቁ ለውጦች።",
+        "empty_title": "እስካሁን ምንም እንቅስቃሴ የለም",
+        "empty_description": "የንጥል ለውጦች፣ የአክሲዮን ማሻሻያዎች፣ አባሪዎች፣ መበደር እና የጅምላ እርምጃዎች እዚህ አይታዩም።",
+        "unknown_actor": "ያልታወቀ ተጠቃሚ",
+        "deleted_item_with_id": "የተሰረዘ ንጥል #{{id}}",
+        "item_missing": "ይህ የንጥል መዝገብ ከአሁን በኋላ የለም",
+        "actions": {
+            "item_created": "ንጥል ታክሏል ንጥል",
+            "item_updated": "ንጥል ተዘምኗል",
+            "item_deleted": "ንጥል ተሰርዟል",
+            "item_borrowed": "ንጥል ተበድሯል",
+            "item_returned": "ንጥል",
+            "item_bulk_updated": "በጅምላ ዝማኔ ተመልሷል",
+            "item_bulk_deleted": "በጅምላ መሰረዝ",
+            "item_stock_adjusted": "አክሲዮን ተዘምኗል",
+            "item_attachment_added": "አባሪ ታክሏል",
+            "item_attachment_deleted": "አባሪ ተሰርዟል"
+        }
+    },
+    "alerts": {
+        "detail_count": "{{count}} ተዛማጅ መዝገቦች",
+        "empty_title": "ከዝቅተኛ",
+        "low_stock": {
+            "title": "የአክሲዮን ደረጃቸው በታች",
+            "description": "ምንም ተዛማጅ መዝገቦች አልተገኙም።",
+            "qty": "አክሲዮን {{quantity}} / ደቂቃ {{min}}"
+        },
+        "expired": {
+            "title": "ጊዜ ያለፈባቸው እቃዎች",
+            "description": "ጊዜው ያለፈበት ቀን ያላቸው ዕቃዎች።"
+        },
+        "expiring": {
+            "title": "መጪ የማብቂያ ቀናት",
+            "description": "በ30 ቀናት ውስጥ የሚያበቃ ዕቃዎች።"
+        },
+        "maintenance": {
+            "title": "ጊዜው ያለፈበት የጥገና",
+            "description": "የጥገና ስራዎች ከታቀደለት ቀን አልፈዋል።"
+        }
+    },
+    "notifications": {
+        "title": "ማሳወቂያ ማዕከል",
+        "description": "አክሲዮን፣ ዋስትና፣ ጥገና፣ ጊዜው የሚያበቃ እና የመመለሻ ማንቂያዎችን ይበድሩ።",
+        "meta_total": "{{count}} ማሳወቂያዎች",
+        "meta_urgent": "{{count}} አስቸኳይ",
+        "empty_title": "ምንም ማንቂያዎች አሁን የእርስዎን ትኩረት አያስፈልጋቸውም",
+        "empty_desc": "ዝቅተኛ ክምችት፣ መጪ ቀናት እና ጊዜ ያለፈበት ጥገና እዚህ ይታያሉ።",
+        "items": {
+            "stock_empty_title": "ከገበያ ተጠናቀቀ",
+            "stock_low_title": "ዝቅተኛ የአክሲዮን",
+            "stock_body": "{{item}}: {{quantity}}/{{min}}",
+            "expiry_expired_title": "የሚያበቃበት ቀን አልፏል",
+            "expiry_close_title": "ጊዜው የሚያበቃበት ቀን እየቀረበ ነው",
+            "warranty_expired_title": "ዋስትና ጊዜው አልፎበታል",
+            "warranty_close_title": "ዋስትና በቅርቡ ያበቃል",
+            "maintenance_overdue_title": "ጥገና ጊዜው ያለፈበት",
+            "maintenance_close_title": "ጥገና በቅርቡ ይጠናቀቃል",
+            "maintenance_body": "{{item}}: {{task}} ({{date}})",
+            "borrow_overdue_title": "መበደር ጊዜው ያለፈበት",
+            "borrow_close_title": "መመለሻ በቅርቡ",
+            "date_body": "{{item}}: {{date}}",
+            "remaining_body": "{{item}} {{count}} ቀናት ቀርተዋል ({{date}})"
+        }
+    },
+    "service": {
+        "title": "የአገልግሎት እና የዋስትና ማእከል",
+        "description": "ዋስትናዎችን፣ የጥገና መርሃ ግብሮችን እና የአገልግሎት እርምጃዎችን በአንድ ቦታ ይከታተሉ።",
+        "meta_warranty": "{{count}} የዋስትና መዝገቦች",
+        "meta_tasks": "{{count}} የጥገና ስራዎች",
+        "empty_title": "ምንም አይነት የአገልግሎት ወይም የዋስትና እርምጃ",
+        "empty_desc": "መጪ የዋስትና ቀናት እና የጥገና ስራዎች እዚህ ይሰበሰባሉ።",
+        "warranty_section": "የዋስትና ክትትል",
+        "warranty_desc": "ጊዜ ያለፈባቸው ዋስትናዎች እና ዋስትናዎች በ30 ቀናት ውስጥ ያበቃል።",
+        "maintenance_section": "የጥገና እርምጃዎች",
+        "maintenance_desc": "ጊዜ ያለፈባቸው እና መጪ የጥገና ስራዎች።",
+        "no_warranty": "ምንም መጪ የዋስትና እርምጃ የለም።",
+        "no_tasks": "የታቀደ የጥገና ስራ የለም።",
+        "overdue": "ጊዜው ያለፈበት",
+        "upcoming": "በቅርቡ",
+        "expired": "ጊዜው አልፎበታል",
+        "summary_warranty": "የዋስትና ክትትል",
+        "summary_tasks": "የጥገና ስራዎች",
+        "open_warranty_filter": "የዋስትና ማጣሪያን ይክፈቱ",
+        "open_warranty_filter_desc": "ንቁ የዋስትና ዕቃዎችን በእቃዎች ውስጥ ያጣራል።"
+    },
+    "storage_labels": {
+        "title": "የመደርደሪያ እና የክፍል መለያዎች",
+        "description": "{{count}} ክፍል/የመደርደሪያ መለያዎች እንደ ህትመት ሉህ ዝግጁ ናቸው።",
+        "empty_title": "ለመሰየም",
+        "empty_desc": "ምንም ክፍሎች ወይም መደርደሪያዎች የሉም መጀመሪያ ክፍሎችን ወይም ቦታዎችን ያክሉ ፣ ከዚያ የQR መለያዎችን እዚህ ያትሙ።",
+        "sheet_label": "የአካባቢ መለያ ሉህ",
+        "scan_hint": "የQR ኮድን መቃኘት ለዚያ ክፍል ወይም መደርደሪያ የተጣራውን ክምችት ይከፍታል።",
+        "room": "ክፍል",
+        "location": "መደርደሪያ / ሣጥን"
     }
 }
