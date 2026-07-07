@@ -1,4 +1,4 @@
-import { mkdirSync, readFileSync, rmSync } from 'node:fs';
+import { mkdirSync, readFileSync, rmSync, symlinkSync } from 'node:fs';
 import { arch, platform, tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -53,9 +53,12 @@ function cleanStaleMacBundle() {
 function createMacDmg(appPath, stagingDir) {
     const dmgDir = resolve(bundleDir, 'dmg');
     const dmgPath = resolve(dmgDir, `HomeInventory Launcher_${launcherPackage.version}_${macArchLabel()}.dmg`);
+    const applicationsLink = resolve(stagingDir, 'Applications');
 
     mkdirSync(dmgDir, { recursive: true });
     rmSync(dmgPath, { force: true });
+    rmSync(applicationsLink, { force: true });
+    symlinkSync('/Applications', applicationsLink);
 
     run('hdiutil', [
         'create',

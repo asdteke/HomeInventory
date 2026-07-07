@@ -115,6 +115,9 @@ jobs:
           console.log('Locale parity and artifact checks passed.');
           NODE
 
+      - name: Validate app and launcher version parity
+        run: npm run version:check
+
       - name: Build
         run: npm run build
 

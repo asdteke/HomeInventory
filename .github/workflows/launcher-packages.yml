@@ -54,6 +54,9 @@ jobs:
       - name: Install client dependencies
         run: npm ci --prefix client
 
+      - name: Validate app and launcher version parity
+        run: npm run version:check
+
       - name: Build client
         run: npm run build --prefix client
 
@@ -194,6 +197,53 @@ jobs:
       - name: Build launcher frontend
         run: npm --prefix apps/launcher run build
 
+      - name: Verify Apple signing and notarization secrets
+        if: startsWith(matrix.name, 'macos-') && needs.managed-app.outputs.should_publish == 'true'
+        shell: bash
+        env:
+          APPLE_CERTIFICATE_P12_BASE64: ${{ secrets.APPLE_CERTIFICATE_P12_BASE64 }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_DEVELOPER_ID_APPLICATION: ${{ secrets.APPLE_DEVELOPER_ID_APPLICATION }}
+          APPLE_NOTARY_KEY_ID: ${{ secrets.APPLE_NOTARY_KEY_ID }}
+          APPLE_NOTARY_ISSUER_ID: ${{ secrets.APPLE_NOTARY_ISSUER_ID }}
+          APPLE_NOTARY_KEY_P8: ${{ secrets.APPLE_NOTARY_KEY_P8 }}
+        run: |
+          missing=()
+          for name in \
+            APPLE_CERTIFICATE_P12_BASE64 \
+            APPLE_CERTIFICATE_PASSWORD \
+            APPLE_DEVELOPER_ID_APPLICATION \
+            APPLE_NOTARY_KEY_ID \
+            APPLE_NOTARY_ISSUER_ID \
+            APPLE_NOTARY_KEY_P8
+          do
+            if [[ -z "${!name}" ]]; then
+              missing+=("$name")
+            fi
+          done
+          if (( ${#missing[@]} > 0 )); then
+            printf 'Missing required macOS signing/notarization secrets: %s\n' "${missing[*]}"
+            exit 1
+          fi
+
+      - name: Import Apple Developer ID certificate
+        if: startsWith(matrix.name, 'macos-') && needs.managed-app.outputs.should_publish == 'true'
+        shell: bash
+        env:
+          APPLE_CERTIFICATE_P12_BASE64: ${{ secrets.APPLE_CERTIFICATE_P12_BASE64 }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+        run: |
+          KEYCHAIN_PATH="$RUNNER_TEMP/homeinventory-signing.keychain-db"
+          CERTIFICATE_PATH="$RUNNER_TEMP/homeinventory-developer-id.p12"
+          export CERTIFICATE_PATH
+          python3 -c "import base64, os, pathlib; pathlib.Path(os.environ['CERTIFICATE_PATH']).write_bytes(base64.b64decode(os.environ['APPLE_CERTIFICATE_P12_BASE64']))"
+          security create-keychain -p "" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "" "$KEYCHAIN_PATH"
+          security import "$CERTIFICATE_PATH" -P "$APPLE_CERTIFICATE_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN_PATH"
+          security list-keychains -d user -s "$KEYCHAIN_PATH"
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "" "$KEYCHAIN_PATH"
+
       - name: Build Tauri launcher
         working-directory: apps/launcher
         shell: bash
@@ -207,6 +257,20 @@ jobs:
           else
             node node_modules/@tauri-apps/cli/tauri.js build --bundles ${{ matrix.bundles }}
           fi
+
+      - name: Sign macOS application for distribution
+        if: startsWith(matrix.name, 'macos-') && needs.managed-app.outputs.should_publish == 'true'
+        shell: bash
+        env:
+          APPLE_DEVELOPER_ID_APPLICATION: ${{ secrets.APPLE_DEVELOPER_ID_APPLICATION }}
+        run: |
+          TARGET_DIR="apps/launcher/src-tauri/target"
+          if [ -n "${{ matrix.tauri_target }}" ]; then
+            TARGET_DIR="apps/launcher/src-tauri/target/${{ matrix.tauri_target }}"
+          fi
+          APP_PATH="$TARGET_DIR/release/bundle/macos/HomeInventory Launcher.app"
+          xattr -cr "$APP_PATH"
+          codesign --force --deep --options runtime --timestamp --sign "$APPLE_DEVELOPER_ID_APPLICATION" "$APP_PATH"
 
       - name: Verify macOS application signature
         if: startsWith(matrix.name, 'macos-')
@@ -245,6 +309,7 @@ jobs:
           DMG_PATH="artifacts/HomeInventory Launcher_${{ needs.managed-app.outputs.app_version }}_${{ matrix.tauri_platform }}.dmg"
           DMG_STAGING="$(mktemp -d)"
           ditto --noextattr --noqtn "$APP_PATH" "$DMG_STAGING/HomeInventory Launcher.app"
+          ln -s /Applications "$DMG_STAGING/Applications"
           codesign --verify --deep --strict --verbose=2 "$DMG_STAGING/HomeInventory Launcher.app"
           hdiutil create \
             -volname "HomeInventory Launcher" \
@@ -254,6 +319,27 @@ jobs:
             "${DMG_PATH}"
           hdiutil verify "${DMG_PATH}"
           rm -rf "${DMG_STAGING}"
+
+      - name: Notarize macOS DMG
+        if: startsWith(matrix.name, 'macos-') && needs.managed-app.outputs.should_publish == 'true'
+        shell: bash
+        env:
+          APPLE_DEVELOPER_ID_APPLICATION: ${{ secrets.APPLE_DEVELOPER_ID_APPLICATION }}
+          APPLE_NOTARY_KEY_ID: ${{ secrets.APPLE_NOTARY_KEY_ID }}
+          APPLE_NOTARY_ISSUER_ID: ${{ secrets.APPLE_NOTARY_ISSUER_ID }}
+          APPLE_NOTARY_KEY_P8: ${{ secrets.APPLE_NOTARY_KEY_P8 }}
+        run: |
+          DMG_PATH="artifacts/HomeInventory Launcher_${{ needs.managed-app.outputs.app_version }}_${{ matrix.tauri_platform }}.dmg"
+          NOTARY_KEY_PATH="$RUNNER_TEMP/AuthKey_${APPLE_NOTARY_KEY_ID}.p8"
+          printf '%s' "$APPLE_NOTARY_KEY_P8" > "$NOTARY_KEY_PATH"
+          codesign --force --timestamp --sign "$APPLE_DEVELOPER_ID_APPLICATION" "$DMG_PATH"
+          xcrun notarytool submit "$DMG_PATH" \
+            --key "$NOTARY_KEY_PATH" \
+            --key-id "$APPLE_NOTARY_KEY_ID" \
+            --issuer "$APPLE_NOTARY_ISSUER_ID" \
+            --wait
+          xcrun stapler staple "$DMG_PATH"
+          xcrun stapler validate "$DMG_PATH"
 
       - name: Collect updater artifacts
         shell: bash
