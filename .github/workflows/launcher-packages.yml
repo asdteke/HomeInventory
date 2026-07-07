@@ -15,10 +15,6 @@ on:
         description: "Release tag to use when publish_release is true, for example v2.2.1"
         required: false
         default: ""
-  push:
-    tags:
-      - "v*"
-      - "launcher-v*"
 
 permissions:
   contents: write
@@ -65,13 +61,8 @@ jobs:
         shell: bash
         run: |
           APP_VERSION="$(node -p "require('./package.json').version")"
-          if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
-            RELEASE_TAG="${GITHUB_REF_NAME}"
-            SHOULD_PUBLISH="true"
-          else
-            RELEASE_TAG="${{ github.event.inputs.release_tag }}"
-            SHOULD_PUBLISH="${{ github.event.inputs.publish_release }}"
-          fi
+          RELEASE_TAG="${{ github.event.inputs.release_tag }}"
+          SHOULD_PUBLISH="${{ github.event.inputs.publish_release }}"
 
           if [[ "${SHOULD_PUBLISH}" == "true" && -z "${RELEASE_TAG}" ]]; then
             RELEASE_TAG="v${APP_VERSION}"
