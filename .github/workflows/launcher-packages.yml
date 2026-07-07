@@ -188,8 +188,9 @@ jobs:
       - name: Build launcher frontend
         run: npm --prefix apps/launcher run build
 
-      - name: Verify Apple signing and notarization secrets
-        if: startsWith(matrix.name, 'macos-') && needs.managed-app.outputs.should_publish == 'true'
+      - name: Resolve macOS signing mode
+        id: mac-signing
+        if: startsWith(matrix.name, 'macos-')
         shell: bash
         env:
           APPLE_CERTIFICATE_P12_BASE64: ${{ secrets.APPLE_CERTIFICATE_P12_BASE64 }}
@@ -199,26 +200,23 @@ jobs:
           APPLE_NOTARY_ISSUER_ID: ${{ secrets.APPLE_NOTARY_ISSUER_ID }}
           APPLE_NOTARY_KEY_P8: ${{ secrets.APPLE_NOTARY_KEY_P8 }}
         run: |
-          missing=()
-          for name in \
-            APPLE_CERTIFICATE_P12_BASE64 \
-            APPLE_CERTIFICATE_PASSWORD \
-            APPLE_DEVELOPER_ID_APPLICATION \
-            APPLE_NOTARY_KEY_ID \
-            APPLE_NOTARY_ISSUER_ID \
-            APPLE_NOTARY_KEY_P8
-          do
-            if [[ -z "${!name}" ]]; then
-              missing+=("$name")
-            fi
-          done
-          if (( ${#missing[@]} > 0 )); then
-            printf 'Missing required macOS signing/notarization secrets: %s\n' "${missing[*]}"
-            exit 1
+          if [[ -n "${APPLE_CERTIFICATE_P12_BASE64}" && -n "${APPLE_CERTIFICATE_PASSWORD}" && -n "${APPLE_DEVELOPER_ID_APPLICATION}" ]]; then
+            echo "mode=developer-id" >> "${GITHUB_OUTPUT}"
+            echo "Using Developer ID signing for macOS app."
+          else
+            echo "mode=ad-hoc" >> "${GITHUB_OUTPUT}"
+            echo "::warning::Apple Developer ID signing secrets are missing. Using ad-hoc macOS signing."
+          fi
+
+          if [[ -n "${APPLE_CERTIFICATE_P12_BASE64}" && -n "${APPLE_CERTIFICATE_PASSWORD}" && -n "${APPLE_DEVELOPER_ID_APPLICATION}" && -n "${APPLE_NOTARY_KEY_ID}" && -n "${APPLE_NOTARY_ISSUER_ID}" && -n "${APPLE_NOTARY_KEY_P8}" ]]; then
+            echo "can_notarize=true" >> "${GITHUB_OUTPUT}"
+          else
+            echo "can_notarize=false" >> "${GITHUB_OUTPUT}"
+            echo "::warning::Apple notarization secrets are missing. macOS DMG will not be notarized."
           fi
 
       - name: Import Apple Developer ID certificate
-        if: startsWith(matrix.name, 'macos-') && needs.managed-app.outputs.should_publish == 'true'
+        if: startsWith(matrix.name, 'macos-') && steps.mac-signing.outputs.mode == 'developer-id'
         shell: bash
         env:
           APPLE_CERTIFICATE_P12_BASE64: ${{ secrets.APPLE_CERTIFICATE_P12_BASE64 }}
@@ -250,7 +248,7 @@ jobs:
           fi
 
       - name: Sign macOS application for distribution
-        if: startsWith(matrix.name, 'macos-') && needs.managed-app.outputs.should_publish == 'true'
+        if: startsWith(matrix.name, 'macos-')
         shell: bash
         env:
           APPLE_DEVELOPER_ID_APPLICATION: ${{ secrets.APPLE_DEVELOPER_ID_APPLICATION }}
@@ -261,7 +259,11 @@ jobs:
           fi
           APP_PATH="$TARGET_DIR/release/bundle/macos/HomeInventory Launcher.app"
           xattr -cr "$APP_PATH"
-          codesign --force --deep --options runtime --timestamp --sign "$APPLE_DEVELOPER_ID_APPLICATION" "$APP_PATH"
+          if [[ "${{ steps.mac-signing.outputs.mode }}" == "developer-id" ]]; then
+            codesign --force --deep --options runtime --timestamp --sign "$APPLE_DEVELOPER_ID_APPLICATION" "$APP_PATH"
+          else
+            codesign --force --deep --options runtime --sign - "$APP_PATH"
+          fi
 
       - name: Verify macOS application signature
         if: startsWith(matrix.name, 'macos-')
@@ -312,7 +314,7 @@ jobs:
           rm -rf "${DMG_STAGING}"
 
       - name: Notarize macOS DMG
-        if: startsWith(matrix.name, 'macos-') && needs.managed-app.outputs.should_publish == 'true'
+        if: startsWith(matrix.name, 'macos-') && needs.managed-app.outputs.should_publish == 'true' && steps.mac-signing.outputs.can_notarize == 'true'
         shell: bash
         env:
           APPLE_DEVELOPER_ID_APPLICATION: ${{ secrets.APPLE_DEVELOPER_ID_APPLICATION }}
