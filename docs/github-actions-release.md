@@ -5,7 +5,7 @@ HomeInventory v2.5 publishes two independently verified artifact families:
 - Native launcher packages. macOS applications are code-signed; optional Tauri updater artifacts use the Tauri signing key.
 - The managed HomeInventory archive, shipped as `homeinventory-app.tar.gz` with an Ed25519-signed `homeinventory-app-manifest.json` and a SHA-256 digest.
 
-The launcher rejects online managed-app manifests with an empty or `unsigned` signature. The release job also fails before publishing when the managed-app signing secret is missing. The archive builder excludes `.env`, databases, uploads, dependencies, local/private brands, and generated build output.
+The v2.5 launcher rejects online managed-app manifests with an empty or `unsigned` `signatureV2`. During the v2.5 compatibility window, the legacy `signature` field remains `unsigned` so v2.4 and older launchers can still consume the manifest; they ignore the new field, while v2.5 and newer require and verify `signatureV2`. The release job fails before publishing when the managed-app signing secret is missing. The archive builder excludes `.env`, databases, uploads, dependencies, local/private brands, and generated build output.
 
 ## Repository secrets
 
@@ -31,7 +31,7 @@ Never commit any of these values. Key rotation requires updating the correspondi
 
 ## Signing modes
 
-- **Managed app:** release publication always requires an Ed25519 signature. `--allow-unsigned true` exists only for local, non-release fixtures.
+- **Managed app:** release publication always requires an Ed25519 `signatureV2`. The legacy `signature: "unsigned"` marker is retained only for pre-v2.5 launcher compatibility and is never trusted by v2.5 or newer. `--allow-unsigned true` exists only for local, non-release fixtures.
 - **macOS with Apple secrets:** Developer ID signing, timestamping, notarization, and stapling are performed and verified.
 - **macOS without Apple secrets:** the workflow falls back to ad-hoc signing. This checks bundle integrity but does not establish developer identity or notarization; Gatekeeper may require manual approval.
 - **Tauri updater:** updater artifacts and `latest.json` are produced only when the Tauri signing key is available.

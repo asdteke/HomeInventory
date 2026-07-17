@@ -2693,6 +2693,8 @@ pub struct AppManifest {
     pub root_install: bool,
     pub client_install: bool,
     pub signature: String,
+    #[serde(default)]
+    pub signature_v2: String,
 }
 
 const APP_MANIFEST_URL: &str =
@@ -2812,17 +2814,17 @@ fn resolve_current_app_version(
 }
 
 fn verify_manifest_signature(manifest: &AppManifest) -> Result<(), String> {
-    if manifest.signature == "unsigned" || manifest.signature.is_empty() {
+    if manifest.signature_v2 == "unsigned" || manifest.signature_v2.is_empty() {
         return Err("App update manifest is not signed.".to_string());
     }
 
-    let pubkey_b64 = "/g/uZiX3emsDNk5qxcuKJPsLEd15HVFMOgdZ7aV4WSk=";
+    let pubkey_b64 = "GaUIILPldrqF7o0X0XfuDo8i45eXCS4lFCnFjulnCh8=";
     let pubkey_bytes = BASE64_STANDARD
         .decode(pubkey_b64)
         .map_err(|e| format!("Invalid hardcoded public key base64: {e}"))?;
 
-    let signature_bytes = hex::decode(&manifest.signature)
-        .or_else(|_| BASE64_STANDARD.decode(&manifest.signature))
+    let signature_bytes = hex::decode(&manifest.signature_v2)
+        .or_else(|_| BASE64_STANDARD.decode(&manifest.signature_v2))
         .map_err(|e| format!("Invalid signature encoding: {e}"))?;
 
     let message = format!(
@@ -3211,6 +3213,7 @@ async fn run_update_flow(
                 root_install: true,
                 client_install: true,
                 signature: "bundled".to_string(),
+                signature_v2: "bundled".to_string(),
             },
             Some(bundled_path),
         )
@@ -3539,6 +3542,7 @@ async fn run_rollback_flow(app: &tauri::AppHandle, state: &LauncherState, overri
         root_install: true,
         client_install: true,
         signature: "".into(),
+        signature_v2: "".into(),
     };
     run_dependency_install(app, &target_dir, &mock_manifest, &overrides)?;
 
@@ -3926,7 +3930,8 @@ mod updater_tests {
             node_major: 20,
             root_install: true,
             client_install: true,
-            signature: "2f18ac9aa22349e987c76dbc28aa2fdb5ec5739cf08d0411f5a907553ee6e1acf19785a6230d5e46f57b10d5a01b48e6fc1596069781096679d698b1f699940e".to_string(),
+            signature: "unsigned".to_string(),
+            signature_v2: "991ec4e2720a46d950471941a4dee711b3d86d4b8d3f6c233745721a6bebf27d462855426de0f22708729c0ca5b7ad474ab55c01fc410c93956223291a86eb0b".to_string(),
         };
 
         assert!(verify_manifest_signature(&manifest).is_ok());
@@ -3946,10 +3951,11 @@ mod updater_tests {
             root_install: true,
             client_install: true,
             signature: "unsigned".to_string(),
+            signature_v2: "unsigned".to_string(),
         };
 
         assert!(verify_manifest_signature(&manifest).is_err());
-        manifest.signature.clear();
+        manifest.signature_v2.clear();
         assert!(verify_manifest_signature(&manifest).is_err());
     }
 
@@ -3963,6 +3969,7 @@ mod updater_tests {
             root_install: true,
             client_install: true,
             signature: "unused".to_string(),
+            signature_v2: "unused".to_string(),
         };
 
         assert!(validate_app_manifest_policy(&manifest).is_err());

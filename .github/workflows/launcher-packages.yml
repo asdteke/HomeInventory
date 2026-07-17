@@ -92,7 +92,7 @@ jobs:
             --node-major 20 \
             --output dist/release/homeinventory-app-manifest.json
 
-          node -e "const m=require('./dist/release/homeinventory-app-manifest.json'); if (!m.signature || m.signature === 'unsigned') throw new Error('Managed app manifest is not signed')"
+          node -e "const m=require('./dist/release/homeinventory-app-manifest.json'); if (!m.signatureV2 || m.signatureV2 === 'unsigned') throw new Error('Managed app manifest is not signed')"
 
       - name: Stage managed app artifacts
         shell: bash

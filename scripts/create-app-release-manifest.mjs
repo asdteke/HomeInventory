@@ -69,7 +69,7 @@ if (!key && !allowUnsigned) {
       'Use --allow-unsigned true only for a local, non-release fixture.'
   );
 }
-const signature = key ? sign(null, Buffer.from(message), key).toString('hex') : 'unsigned';
+const signatureV2 = key ? sign(null, Buffer.from(message), key).toString('hex') : 'unsigned';
 
 const manifest = {
   version,
@@ -78,7 +78,10 @@ const manifest = {
   nodeMajor,
   rootInstall,
   clientInstall,
-  signature
+  // v2.4 and older launchers accept this legacy marker and ignore unknown fields.
+  // v2.5 and newer require and verify signatureV2 with the embedded public key.
+  signature: 'unsigned',
+  signatureV2
 };
 
 mkdirSync(dirname(outputPath), { recursive: true });
