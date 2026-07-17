@@ -4,22 +4,10 @@ import { useTranslation } from 'react-i18next';
 import Tooltip from './Tooltip';
 import FloatingToast from './FloatingToast';
 import { copyTextToClipboard } from '../utils/clipboard';
-import { SITE_URL } from '../constants/branding';
+import { ASSET_VERSION, QR_LOGO_PATH, SITE_URL } from '../constants/branding';
+import '../admin-overlays-v25.css';
 
-declare const __APP_ASSET_VERSION__: string | undefined;
-declare const __APP_QR_LOGO_PATH__: string | undefined;
-declare const __APP_BRAND_LOGO_SYMBOL_LIGHT__: string | undefined;
-
-const QR_LOGO_VERSION = (
-    typeof __APP_ASSET_VERSION__ === 'string' && __APP_ASSET_VERSION__.trim()
-        ? __APP_ASSET_VERSION__.trim()
-        : '20260519-pwa-assets'
-);
-const CONFIGURED_QR_LOGO_PATH = typeof __APP_QR_LOGO_PATH__ === 'string' ? __APP_QR_LOGO_PATH__.trim() : '';
-const CONFIGURED_BRAND_SYMBOL_PATH = typeof __APP_BRAND_LOGO_SYMBOL_LIGHT__ === 'string'
-    ? __APP_BRAND_LOGO_SYMBOL_LIGHT__.trim()
-    : '';
-const QR_LOGO_ASSET = `${CONFIGURED_QR_LOGO_PATH || CONFIGURED_BRAND_SYMBOL_PATH || '/brand/logo-symbol-light.svg'}?v=${QR_LOGO_VERSION}`;
+const QR_LOGO_ASSET = `${QR_LOGO_PATH}?v=${ASSET_VERSION}`;
 
 function slugifyFilePart(value: string | number | undefined) {
     return String(value || '')
@@ -265,17 +253,17 @@ export default function ItemQRCode({ itemId, size = 280 }: ItemQRCodeProps) {
     if (!itemId) return null;
 
     return (
-        <div className="pt-4">
-            <div className="grid gap-5 xl:grid-cols-[minmax(180px,228px)_minmax(0,1fr)] xl:items-center">
+        <div className="item-qr-v25 pt-4">
+            <div className="item-qr-v25-layout grid gap-5 xl:grid-cols-[minmax(180px,228px)_minmax(0,1fr)] xl:items-center">
                 <div className="mx-auto w-full max-w-[228px]">
-                    <div className="rounded-[1.2rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-3 shadow-[var(--hi-shadow-soft)]">
+                    <div className="item-qr-v25-code rounded-[1.75rem] p-3">
                         <div
-                            className="group relative mx-auto aspect-square w-full transition duration-300 hover:-translate-y-0.5"
+                            className="group relative mx-auto aspect-square w-full"
                             style={{ maxWidth: `${qrDisplaySize}px` }}
                         >
                             {!loading && !qrError && qrMarkup ? (
                                 <div
-                                    className="w-full max-w-full drop-shadow-[0_16px_36px_rgba(28,41,32,0.1)] [&>svg]:block [&>svg]:h-auto [&>svg]:w-full"
+                                    className="item-qr-v25-markup w-full max-w-full [&>svg]:block [&>svg]:h-auto [&>svg]:w-full"
                                     dangerouslySetInnerHTML={{ __html: qrMarkup }}
                                 />
                             ) : null}
@@ -283,7 +271,7 @@ export default function ItemQRCode({ itemId, size = 280 }: ItemQRCodeProps) {
                             {!loading && !qrError ? null : (
                                 <div
                                     aria-hidden="true"
-                                    className="pointer-events-none absolute inset-0 rounded-[1.6rem] bg-white shadow-[0_16px_36px_rgba(28,41,32,0.1)]"
+                                    className="item-qr-v25-placeholder pointer-events-none absolute inset-0 rounded-[1.45rem] bg-white"
                                 />
                             )}
 
@@ -301,7 +289,7 @@ export default function ItemQRCode({ itemId, size = 280 }: ItemQRCodeProps) {
                 </div>
 
                 <div className="min-w-0 space-y-3">
-                    <div className="grid gap-2 sm:grid-cols-2 xl:max-w-[22rem]">
+                    <div className="item-qr-v25-actions grid gap-2 sm:grid-cols-2 xl:max-w-[22rem]">
                         <Tooltip label={t('item_qr.copy_url_safe', { defaultValue: 'Copy link' })} className="w-full">
                             <button
                                 type="button"
@@ -329,7 +317,7 @@ export default function ItemQRCode({ itemId, size = 280 }: ItemQRCodeProps) {
                         </Tooltip>
                     </div>
 
-                    <div className="max-w-full rounded-[0.9rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] px-3 py-2">
+                    <div className="item-qr-v25-link max-w-full rounded-[1.15rem] px-3 py-2.5">
                         <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-muted)]">
                             {t('item_qr.link_preview_label', { defaultValue: 'Direct item link' })}
                         </p>
@@ -340,7 +328,7 @@ export default function ItemQRCode({ itemId, size = 280 }: ItemQRCodeProps) {
                             aria-readonly="true"
                             aria-label={t('item_qr.link_preview_aria', { defaultValue: 'Preview of the direct item link' })}
                             title={itemUrl}
-                            className="mt-1 break-all rounded-[0.72rem] bg-[var(--hi-bg-strong)] px-2.5 py-1.5 font-mono text-[11px] leading-5 text-[var(--hi-text-soft)] outline-none focus-visible:ring-2 focus-visible:ring-[rgba(45,82,65,0.18)]"
+                            className="item-qr-v25-url mt-1 break-all rounded-[0.85rem] px-2.5 py-1.5 font-mono text-[11px] leading-5 text-[var(--hi-text-soft)] outline-none focus-visible:ring-2 focus-visible:ring-[rgba(45,82,65,0.18)]"
                         >
                             {itemUrl || t('item_qr.url_loading', { defaultValue: 'Loading URL...' })}
                         </div>

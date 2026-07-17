@@ -26,7 +26,7 @@ import {
     getRequestErrorMessage,
     isRequestCanceled
 } from '../utils/httpRequests';
-import { EmptyState, LoadingState, NoticeBanner, PageHeader } from './ProductUI';
+import { EmptyState, LoadingState, NoticeBanner } from './ProductUI';
 
 const EMPTY_STATE_BUTTON_CLASS = 'btn-secondary min-w-[170px] justify-center';
 const REQUEST_EMPTY_STATE_CLASS = 'h-[17rem] justify-center';
@@ -43,13 +43,13 @@ interface StatCardProps {
 
 function StatCard({ icon: Icon, label, value, accent = 'text-[var(--hi-accent)] bg-[var(--hi-accent-soft)]' }: StatCardProps) {
     return (
-        <div className="stat-card border border-[var(--hi-border)] p-4">
+        <div className="borrow-stat-v25">
             <div className="flex items-center justify-between gap-4">
                 <div>
                     <p className="text-sm text-[var(--hi-text-soft)]">{label}</p>
                     <p className="mt-1 text-2xl font-semibold text-[var(--hi-text)]">{value}</p>
                 </div>
-                <div className={`rounded-lg border border-[var(--hi-border)] p-3 ${accent}`}>
+                <div className={`borrow-stat-icon-v25 ${accent}`}>
                     <Icon className="w-5 h-5" />
                 </div>
             </div>
@@ -66,8 +66,8 @@ interface BorrowPanelProps {
 
 function BorrowPanel({ title, description, children, className = '' }: BorrowPanelProps) {
     return (
-        <section className={`card flex h-full flex-col gap-4 p-5 ${className}`.trim()}>
-            <div className="border-b border-[var(--hi-border)] pb-3.5">
+        <section className={`borrow-panel-v25 ${className}`.trim()}>
+            <div className="borrow-panel-heading-v25">
                 <h2 className="section-title text-xl text-[var(--hi-text)]">{title}</h2>
                 {description && (
                     <p className="mt-1.5 text-sm leading-6 text-[var(--hi-text-soft)]">
@@ -137,7 +137,7 @@ function RequestCard({ request, t, i18n, onAccept, onReject, onCancel }: Request
     const effectiveStatus = request.borrow?.returned_at ? 'returned' : request.status;
 
     return (
-        <div className="card p-4 space-y-3.5">
+        <article className="borrow-entry-v25 space-y-3.5">
             <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
                     <div className="flex items-center gap-2">
@@ -219,7 +219,7 @@ function RequestCard({ request, t, i18n, onAccept, onReject, onCancel }: Request
                     </button>
                 )}
             </div>
-        </div>
+        </article>
     );
 }
 
@@ -238,7 +238,7 @@ function ActiveBorrowCard({ borrow, t, i18n, onReturn }: ActiveBorrowCardProps) 
         : t('borrow_requests.actions.mark_received');
 
     return (
-        <div className="card p-4 space-y-3.5">
+        <article className="borrow-entry-v25 space-y-3.5">
             <div className="flex items-start justify-between gap-3">
                 <div>
                     <div className="flex items-center gap-2">
@@ -294,7 +294,7 @@ function ActiveBorrowCard({ borrow, t, i18n, onReturn }: ActiveBorrowCardProps) 
                     </button>
                 </div>
             )}
-        </div>
+        </article>
     );
 }
 
@@ -583,35 +583,36 @@ export default function BorrowRequestsPage() {
     }
 
     return (
-        <div className="space-y-5 animate-fade-in">
-            <PageHeader
-                title={t('borrow_requests.title')}
-                description={t('borrow_requests.subtitle_compact', {
-                    defaultValue: 'Track requests you sent, requests waiting on you, and items currently out.'
-                })}
-                actions={(
-                    <>
-                        <button
-                            type="button"
-                            onClick={() => fetchOverview({ silent: true })}
-                            className="btn-secondary inline-flex items-center gap-2"
-                            disabled={refreshing}
-                        >
-                            <RefreshCcw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
-                            {t('common.refresh')}
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => setRequestDialogOpen(true)}
-                            className="btn-primary inline-flex items-center gap-2"
-                            disabled={!backendReady}
-                        >
-                            <Inbox className="w-4 h-4" />
-                            {t('borrow_requests.actions.send_request')}
-                        </button>
-                    </>
-                )}
-            />
+        <div className="borrow-page-v25 animate-fade-in">
+            <header className="workspace-intro workspace-intro-with-action borrow-intro-v25">
+                <div>
+                    <h1>{t('borrow_requests.title')}</h1>
+                    <p>{t('borrow_requests.subtitle_compact', {
+                        defaultValue: 'Track requests you sent, requests waiting on you, and items currently out.'
+                    })}</p>
+                </div>
+                <div className="borrow-header-actions-v25">
+                    <button
+                        type="button"
+                        onClick={() => fetchOverview({ silent: true })}
+                        className="btn-secondary borrow-refresh-v25"
+                        disabled={refreshing}
+                        aria-label={t('common.refresh')}
+                    >
+                        <RefreshCcw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
+                        <span>{t('common.refresh')}</span>
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => setRequestDialogOpen(true)}
+                        className="btn-primary"
+                        disabled={!backendReady}
+                    >
+                        <Inbox className="w-4 h-4" />
+                        <span>{t('borrow_requests.actions.send_request')}</span>
+                    </button>
+                </div>
+            </header>
 
             {!backendReady && (
                 <NoticeBanner
@@ -649,8 +650,8 @@ export default function BorrowRequestsPage() {
                 </div>
             )}
 
-            <div aria-busy={refreshing} className={`space-y-8 transition-opacity ${refreshing ? 'opacity-80' : 'opacity-100'}`}>
-                <div className={`grid grid-cols-1 gap-4 md:grid-cols-3 ${refreshing ? 'animate-pulse' : ''}`}>
+            <div aria-busy={refreshing} className={`borrow-content-v25 transition-opacity ${refreshing ? 'opacity-80' : 'opacity-100'}`}>
+                <div className={`borrow-stats-v25 ${refreshing ? 'animate-pulse' : ''}`}>
                     <StatCard icon={Package} label={t('borrow_requests.stats.active')} value={sectionCounts.active} accent="bg-[rgba(111,153,120,0.16)] text-[#6f9978]" />
                     <StatCard icon={Inbox} label={t('borrow_requests.stats.incoming')} value={sectionCounts.incoming} accent="bg-[var(--hi-secondary-soft)] text-[var(--hi-secondary-strong)]" />
                     <StatCard icon={Send} label={t('borrow_requests.stats.outgoing')} value={sectionCounts.outgoing} accent="bg-[var(--hi-panel-muted)] text-[var(--hi-accent)]" />

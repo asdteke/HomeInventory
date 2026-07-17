@@ -40,9 +40,17 @@ Your frontend will be happily running on `http://localhost:5173` and the backend
 We love tests! Whenever possible, please run tests to ensure your changes are solid:
 
 ```bash
-npm run test:encryption
-npm run test:runtime-secrets
+npm run version:check
+npm run i18n:check
+npm run build
+npm run build --prefix apps/launcher
+node --test --test-concurrency=1 tests/*.test.mjs
+npm audit --audit-level=moderate
+npm audit --audit-level=moderate --prefix client
+npm audit --audit-level=moderate --prefix apps/launcher
 ```
+
+Launcher or release-pipeline changes should also pass `cargo test --manifest-path apps/launcher/src-tauri/Cargo.toml`. See [`docs/release-checklist.md`](docs/release-checklist.md) before publishing artifacts.
 
 *Did you change something visual or complex?* (Like UI behavior, auth, uploads, translations, or admin flows). If so, please add some quick notes in your pull request about how you manually tested it. We appreciate the extra care!
 

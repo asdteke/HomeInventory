@@ -12,7 +12,7 @@ on:
           - "false"
           - "true"
       release_tag:
-        description: "Release tag to use when publish_release is true, for example v2.2.1"
+        description: "Release tag to use when publish_release is true, for example v2.5.0"
         required: false
         default: ""
 
@@ -91,6 +91,8 @@ jobs:
             --url "https://github.com/asdteke/HomeInventory/releases/download/${{ steps.version.outputs.release_tag }}/homeinventory-app.tar.gz" \
             --node-major 20 \
             --output dist/release/homeinventory-app-manifest.json
+
+          node -e "const m=require('./dist/release/homeinventory-app-manifest.json'); if (!m.signature || m.signature === 'unsigned') throw new Error('Managed app manifest is not signed')"
 
       - name: Stage managed app artifacts
         shell: bash

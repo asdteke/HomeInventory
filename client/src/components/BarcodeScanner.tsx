@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import axios from 'axios';
-import { X, Camera, Loader2, Package, Search, Plus, ExternalLink, Flashlight, ZoomIn, ZoomOut, CheckCircle } from 'lucide-react';
+import { X, Camera, Loader2, Package, Search, Plus, ExternalLink, Flashlight, ZoomIn, ZoomOut, CheckCircle, AlertCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { loadScannerRuntime } from '../utils/scannerRuntime';
+import '../scanner.css';
 
 // Beep sound for successful scan
 const playBeep = (success = true) => {
@@ -664,168 +665,133 @@ export default function BarcodeScanner({ isOpen, onClose, onProductFound, onBarc
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 bg-black flex flex-col">
-            {/* Header */}
-            <div className="flex-shrink-0 p-4 bg-gradient-to-b from-black/80 to-transparent">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3 text-white">
-                        <Camera className="w-6 h-6" />
-                        <span className="font-semibold">{t('scanner.title')}</span>
+        <div className="scanner-overlay">
+            <section className="scanner-shell" role="dialog" aria-modal="true" aria-labelledby="barcode-scanner-title">
+                <header className="scanner-header">
+                    <div className="scanner-heading">
+                        <span className="scanner-heading-icon"><Camera className="h-5 w-5" /></span>
+                        <div className="scanner-heading-copy">
+                            <h2 id="barcode-scanner-title">{t('scanner.title')}</h2>
+                            <p>{t('scanner.hint')}</p>
+                        </div>
                     </div>
-                    <button onClick={handleClose} className="p-2 text-white bg-white/20 rounded-full hover:bg-white/30">
-                        <X className="w-6 h-6" />
+                    <button type="button" onClick={handleClose} className="scanner-close" aria-label={t('common.close')}>
+                        <X className="h-5 w-5" />
                     </button>
-                </div>
-            </div>
+                </header>
 
-            {/* Scanner Area */}
-            <div className="flex-1 flex flex-col items-center justify-center p-4">
-                {!productInfo && (
-                    <>
-                        <div id="barcode-reader" className="w-full max-w-sm rounded-2xl overflow-hidden" />
-
-                        {/* Camera Controls - Flash button always visible when scanning */}
-                        {isScanning && (
-                            <div className="flex flex-col items-center gap-3 mt-4">
-                                <div className="flex items-center gap-4">
-                                    {/* Flash Button - Always visible, gracefully fails if unsupported */}
-                                    <button onClick={toggleFlash}
-                                        className={`p-4 rounded-full transition-all duration-200 shadow-lg ${flashOn
-                                            ? 'bg-yellow-400 text-black scale-110'
-                                            : 'bg-black/50 text-white hover:bg-black/70'} 
-                                            ${flashSupported === false ? 'opacity-50' : ''}`}
-                                        title={flashSupported === false ? t('scanner.flash_unsupported') : (flashOn ? 'Flaşı Kapat' : 'Flaşı Aç')}>
-                                        <Flashlight className="w-7 h-7" />
-                                    </button>
-
-                                    {/* Zoom Controls */}
-                                    <div className="flex items-center gap-2 bg-black/50 rounded-full px-3 py-2">
-                                        <button onClick={() => changeZoom(Math.max(1, zoomLevel - 0.5))} className="p-1 text-white">
-                                            <ZoomOut className="w-5 h-5" />
-                                        </button>
-                                        <span className="text-white text-sm min-w-[3rem] text-center">{zoomLevel.toFixed(1)}x</span>
-                                        <button onClick={() => changeZoom(Math.min(maxZoom, zoomLevel + 0.5))} className="p-1 text-white">
-                                            <ZoomIn className="w-5 h-5" />
-                                        </button>
-                                    </div>
+                <div className="scanner-body">
+                    {!productInfo ? (
+                        <>
+                            <div className="scanner-stage">
+                                <div className="scanner-camera">
+                                    <div id="barcode-reader" />
+                                    <div className="scanner-reticle" aria-hidden="true"><span /></div>
+                                    {isScanning && <div className="scanner-scanline" aria-hidden="true" />}
+                                    {!isScanning && !error && (
+                                        <div className="scanner-permission-note">
+                                            <Camera className="h-3.5 w-3.5" />
+                                            <span>{t('scanner.init')}</span>
+                                        </div>
+                                    )}
+                                    {(preparingScanner || (loading && !isScanning)) && !error && (
+                                        <div className="scanner-state-cover">
+                                            <div className="scanner-state-card">
+                                                <Loader2 className="scanner-spinner h-5 w-5" />
+                                                <span>{status || t('scanner.init')}</span>
+                                            </div>
+                                        </div>
+                                    )}
+                                    {flashFeedback.text && (
+                                        <div className={`scanner-feedback ${flashFeedback.type === 'success' ? 'is-success' : flashFeedback.type === 'error' ? 'is-error' : ''}`}>
+                                            {flashFeedback.text}
+                                        </div>
+                                    )}
                                 </div>
 
-                                {/* Flash Message Toast */}
-                                {flashFeedback.text && (
-                                    <div className={`px-4 py-2 rounded-full text-sm font-medium animate-fade-in ${flashFeedback.type === 'success' ? 'bg-yellow-400 text-black' :
-                                        flashFeedback.type === 'error' ? 'bg-red-500/80 text-white' :
-                                            'bg-white/20 text-white'
-                                        }`}>
-                                        {flashFeedback.text}
+                                {isScanning && (
+                                    <div className="scanner-toolbar">
+                                        <button
+                                            type="button"
+                                            onClick={toggleFlash}
+                                            className={`scanner-control ${flashOn ? 'is-on' : ''}`}
+                                            title={flashSupported === false ? t('scanner.flash_unsupported') : (flashOn ? 'Flaşı Kapat' : 'Flaşı Aç')}
+                                            aria-label={flashSupported === false ? t('scanner.flash_unsupported') : (flashOn ? 'Flaşı Kapat' : 'Flaşı Aç')}
+                                        >
+                                            <Flashlight className="h-5 w-5" />
+                                        </button>
+                                        <div className="scanner-zoom" aria-label={t('scanner.zoom_hint')}>
+                                            <button type="button" onClick={() => changeZoom(Math.max(1, zoomLevel - 0.5))} disabled={zoomLevel <= 1} aria-label="Zoom out">
+                                                <ZoomOut className="h-4 w-4" />
+                                            </button>
+                                            <strong>{zoomLevel.toFixed(1)}x</strong>
+                                            <button type="button" onClick={() => changeZoom(Math.min(maxZoom, zoomLevel + 0.5))} disabled={zoomLevel >= maxZoom} aria-label="Zoom in">
+                                                <ZoomIn className="h-4 w-4" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {error && (
+                                    <div className="scanner-alert" role="alert">
+                                        <AlertCircle className="h-5 w-5" />
+                                        <div className="scanner-alert-copy">
+                                            <strong>{t('common.error')}</strong>
+                                            <span>{error}</span>
+                                            <div className="scanner-alert-actions">
+                                                <button type="button" className="scanner-alert-button" onClick={async () => { await stopScanner(); await startScanner(); }}>
+                                                    {t('scanner.retry')}
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <button type="button" onClick={() => setError('')} className="scanner-alert-dismiss" aria-label={t('common.close')}>
+                                            <X className="h-4 w-4" />
+                                        </button>
                                     </div>
                                 )}
                             </div>
-                        )}
 
-                        <div className="mt-4 px-4 py-2 bg-white/10 rounded-full">
-                            <p className="text-white/80 text-sm flex items-center gap-2">
-                                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
-                                {status || t('scanner.hint')}
-                            </p>
-                        </div>
-
-                        <div className="mt-3 text-center">
-                            <p className="text-white/50 text-xs">{t('scanner.zoom_hint')}</p>
-                        </div>
-                    </>
-                )}
-
-                {/* Product Result */}
-                {productInfo && (
-                    <div className="w-full max-w-md bg-white dark:bg-slate-800 rounded-2xl p-6 animate-slide-up">
-                        {/* Found in Local DB */}
-                        {productInfo.source === 'local' && (
-                            <>
-                                <div className="flex items-center gap-2 text-blue-500 mb-4">
-                                    <Package className="w-6 h-6" />
-                                    <span className="font-semibold">{t('scanner.found_local')}</span>
-                                </div>
-                                <h3 className="text-xl font-bold text-slate-900 dark:text-white text-center mb-2">{productInfo.name}</h3>
-                                <p className="text-sm text-slate-500 text-center mb-4">{t('scanner.found_local_msg')}</p>
-                            </>
-                        )}
-
-                        {/* Found Online */}
-                        {productInfo.source === 'online' && (
-                            <>
-                                <div className="flex items-center gap-2 text-green-500 mb-4">
-                                    <CheckCircle className="w-6 h-6" />
-                                    <span className="font-semibold">{t('scanner.found_online')}</span>
-                                    <span className="text-xs text-slate-400">({productInfo.sourceName})</span>
-                                </div>
-
-                                {productInfo.image && (
-                                    <img src={productInfo.image} alt={productInfo.name} className="w-32 h-32 object-contain mx-auto mb-4 rounded-lg bg-white" />
-                                )}
-
-                                <h3 className="text-xl font-bold text-slate-900 dark:text-white text-center mb-2">
-                                    {productInfo.brand && <span className="text-primary-500">{productInfo.brand} </span>}
-                                    {productInfo.name}
-                                </h3>
-
-                                {productInfo.isGoogleResult && (
-                                    <p className="text-xs text-amber-500 text-center mb-2">{t('scanner.google_result')}</p>
-                                )}
-
-                                <p className="text-sm text-slate-500 text-center mb-4">{t('scanner.barcode', { code: productInfo.barcode })}</p>
-                            </>
-                        )}
-
-                        {/* Not Found */}
-                        {(productInfo.source === 'notfound' || productInfo.source === 'error') && (
-                            <>
-                                <div className="flex items-center gap-2 text-amber-500 mb-4">
-                                    <Plus className="w-6 h-6" />
-                                    <span className="font-semibold">{t('scanner.new_product')}</span>
-                                </div>
-
-                                <p className="text-slate-600 dark:text-slate-400 text-center mb-3">
-                                    {t('scanner.not_found_db')}
-                                </p>
-
-                                <div className="p-3 bg-slate-100 dark:bg-slate-700 rounded-lg text-center font-mono text-lg mb-3">
-                                    {productInfo.barcode}
-                                </div>
-
-                                <button onClick={handleGoogleSearch}
-                                    className="w-full flex items-center justify-center gap-2 p-3 mb-4 bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 text-blue-600 dark:text-blue-400 rounded-xl hover:bg-blue-100 transition-colors">
-                                    <ExternalLink className="w-4 h-4" />
-                                    {t('scanner.google_search')}
-                                </button>
-
-                                {onQuickAdd && (
-                                    <button onClick={handleQuickAdd}
-                                        className="w-full flex items-center justify-center gap-2 p-3 mb-4 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 text-amber-600 dark:text-amber-400 rounded-xl hover:bg-amber-100 transition-colors">
-                                        <Plus className="w-4 h-4" />
-                                        {t('scanner.quick_add')}
+                            <div className="scanner-guidance">
+                                <span className="scanner-guidance-icon">{loading ? <Loader2 className="scanner-spinner h-4 w-4" /> : <Search className="h-4 w-4" />}</span>
+                                <p>{status || t('scanner.hint')}<small>{t('scanner.zoom_hint')}</small></p>
+                            </div>
+                        </>
+                    ) : (
+                        <div className="scanner-result animate-slide-up">
+                            <div className="scanner-result-heading">
+                                {productInfo.source === 'local' ? <Package className="h-5 w-5" /> : productInfo.source === 'online' ? <CheckCircle className="h-5 w-5" /> : <Plus className="h-5 w-5" />}
+                                <span>{productInfo.source === 'local'
+                                    ? t('scanner.found_local')
+                                    : productInfo.source === 'online'
+                                        ? t('scanner.found_online')
+                                        : t('scanner.new_product')}</span>
+                            </div>
+                            {productInfo.image && <img src={productInfo.image} alt={productInfo.name || ''} className="scanner-result-image" />}
+                            <h3>{productInfo.name ? `${productInfo.brand ? `${productInfo.brand} ` : ''}${productInfo.name}` : t('scanner.not_found_db')}</h3>
+                            <p>{productInfo.source === 'local' ? t('scanner.found_local_msg') : productInfo.source === 'online' ? (productInfo.sourceName || t('scanner.found_online')) : t('scanner.not_found_db')}</p>
+                            <div className="scanner-result-code">{t('scanner.barcode', { code: productInfo.barcode })}</div>
+                            {(productInfo.source === 'notfound' || productInfo.source === 'error') && (
+                                <>
+                                    <button type="button" onClick={handleGoogleSearch} className="scanner-result-link">
+                                        <ExternalLink className="h-4 w-4" /> {t('scanner.google_search')}
                                     </button>
-                                )}
-                            </>
-                        )}
-
-                        {/* Actions */}
-                        <div className="flex gap-3 mt-4">
-                            <button onClick={handleRescan} className="flex-1 btn-secondary py-3">{t('scanner.rescan')}</button>
-                            <button onClick={handleUseProduct} className="flex-1 btn-primary py-3">
-                                {(productInfo.source === 'notfound' || productInfo.source === 'error') ? t('common.cancel') || 'İptal' : t('common.select') || 'Seç'}
-                            </button>
+                                    {onQuickAdd && (
+                                        <button type="button" onClick={handleQuickAdd} className="scanner-result-link">
+                                            <Plus className="h-4 w-4" /> {t('scanner.quick_add')}
+                                        </button>
+                                    )}
+                                </>
+                            )}
+                            <div className="scanner-result-actions">
+                                <button type="button" onClick={handleRescan} className="scanner-result-action">{t('scanner.rescan')}</button>
+                                <button type="button" onClick={handleUseProduct} className="scanner-result-action scanner-result-action--primary">
+                                    {(productInfo.source === 'notfound' || productInfo.source === 'error') ? (t('common.cancel') || 'İptal') : (t('common.select') || 'Seç')}
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                )}
-
-                {/* Loading State - if purely loading without camera */}
-                {(preparingScanner || (loading && !isScanning)) && (
-                    <div className="flex flex-col items-center justify-center text-white">
-                        <Loader2 className="w-10 h-10 animate-spin mb-4" />
-                        <p>{status}</p>
-                    </div>
-                )}
-            </div>
+                    )}
+                </div>
+            </section>
         </div>
     );
 }

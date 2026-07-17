@@ -15,7 +15,7 @@ import {
     Check,
     X
 } from 'lucide-react';
-import { PageHeader, SectionHeader, LoadingState, EmptyState } from './ProductUI';
+import { SectionHeader, LoadingState } from './ProductUI';
 import { ConfirmDialog } from './ModalDialog';
 import { FloatingToastStack, ToastTone } from './FloatingToast';
 import SegmentedToggle from './SegmentedToggle';
@@ -341,17 +341,23 @@ export default function ShoppingListPage() {
     }
 
     return (
-        <div className="space-y-6">
-            <PageHeader
-                title={t('shopping.page.title', { defaultValue: 'Alışveriş Listesi' })}
-                description={t('shopping.page.description', {
-                    defaultValue: 'Ev envanterinde azalan stoklu ürünleri görün ve kolayca alışveriş listenizi yönetin.'
-                })}
-            />
+        <div className="shopping-page-v25 animate-fade-in">
+            <header className="workspace-intro shopping-intro-v25">
+                <div>
+                    <h1>{t('shopping.page.title', { defaultValue: 'Alışveriş Listesi' })}</h1>
+                    <p>{t('shopping.page.description', {
+                        defaultValue: 'Ev envanterinde azalan stoklu ürünleri görün ve kolayca alışveriş listenizi yönetin.'
+                    })}</p>
+                </div>
+                <div className="shopping-intro-count" aria-label={t('shopping.sections.active_count', { count: activeItems.length, defaultValue: `${activeItems.length} Ürün` })}>
+                    <strong>{activeItems.length}</strong>
+                    <span>{t('shopping.sections.active_list', { defaultValue: 'Alınacak Ürünler' })}</span>
+                </div>
+            </header>
 
             {/* Low stock suggestions */}
             {showStockSuggestions && (
-                <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-5 shadow-[var(--hi-shadow-soft)] transition duration-300">
+                <section className="shopping-suggestions-v25">
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                         <div className="flex items-center gap-3">
                             <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)] shadow-sm">
@@ -391,11 +397,11 @@ export default function ShoppingListPage() {
                         </div>
                     </div>
 
-                    <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="shopping-suggestion-list-v25">
                         {suggestions.map((suggestion) => (
                             <div
                                 key={suggestion.item_id}
-                                className="group flex items-center justify-between gap-3 p-3.5 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)]/60 hover:bg-[var(--hi-panel-strong)] hover:border-[var(--hi-secondary)]/30 hover:-translate-y-0.5 shadow-sm hover:shadow-md transition-all duration-300"
+                                className="shopping-suggestion-row-v25 group"
                             >
                                 <div className="min-w-0">
                                     <p className="text-sm font-bold truncate text-[var(--hi-text)] group-hover:text-[var(--hi-secondary-strong)] transition-colors" title={suggestion.item_name}>
@@ -419,14 +425,14 @@ export default function ShoppingListPage() {
                             </div>
                         ))}
                     </div>
-                </div>
+                </section>
             )}
 
             {/* Main 2-Column Premium Grid Layout */}
-            <div className="grid gap-6 lg:grid-cols-12">
+            <div className="shopping-workspace-v25 grid gap-6 lg:grid-cols-12">
                 {/* LEFT COLUMN: Shopping List Section & History */}
                 <div className="lg:col-span-8 space-y-5">
-                    <div className="card !p-5 space-y-4 shadow-[var(--hi-shadow-soft)] border border-[var(--hi-border)] bg-[var(--hi-panel-strong)]/40 backdrop-blur-[4px]">
+                    <section className="shopping-list-section-v25">
                         <div className="flex items-center justify-between pb-2 border-b border-[var(--hi-border)]/60">
                             <SectionHeader
                                 title={t('shopping.sections.active_list', { defaultValue: 'Alınacak Ürünler' })}
@@ -438,13 +444,15 @@ export default function ShoppingListPage() {
                         </div>
 
                         {activeItems.length === 0 ? (
-                            <EmptyState
-                                icon={ShoppingCart}
-                                title={t('shopping.empty.title', { defaultValue: 'Alışveriş listeniz boş' })}
-                                description={t('shopping.empty.desc', {
-                                    defaultValue: 'Yukarıdaki önerilerden eksik stokları ekleyebilir veya sağdaki form ile manuel ürün ekleyebilirsiniz.'
-                                })}
-                            />
+                            <div className="workspace-empty shopping-empty-v25">
+                                <span className="workspace-empty-icon"><ShoppingCart aria-hidden="true" /></span>
+                                <div className="min-w-0">
+                                    <h2>{t('shopping.empty.title', { defaultValue: 'Alışveriş listeniz boş' })}</h2>
+                                    <p>{t('shopping.empty.desc', {
+                                        defaultValue: 'Yukarıdaki önerilerden eksik stokları ekleyebilir veya sağdaki form ile manuel ürün ekleyebilirsiniz.'
+                                    })}</p>
+                                </div>
+                            </div>
                         ) : (
                             <div className="shopping-list-scroll">
                                 {activeItems.map((item) => {
@@ -513,11 +521,11 @@ export default function ShoppingListPage() {
                             })}
                             </div>
                         )}
-                    </div>
+                    </section>
 
                     {/* Completed Drawer with custom emerald checked animations */}
                     {completedItems.length > 0 && (
-                        <div className="card !p-5 space-y-3 shadow-[var(--hi-shadow-soft)] border border-[var(--hi-border)] bg-[var(--hi-panel-strong)]/30">
+                        <section className="shopping-completed-section-v25">
                             <div
                                 onClick={() => setIsCompletedOpen(!isCompletedOpen)}
                                 onKeyDown={(e) => {
@@ -599,13 +607,13 @@ export default function ShoppingListPage() {
                                 })}
                                 </div>
                             )}
-                        </div>
+                        </section>
                     )}
                 </div>
 
                 {/* RIGHT COLUMN: Glassmorphic Floating Controller Form */}
                 <div className="lg:col-span-4">
-                    <div className="card !p-5 space-y-5 border border-[var(--hi-border)] shadow-[var(--hi-shadow-soft)] bg-gradient-to-b from-[var(--hi-panel-strong)] to-[var(--hi-panel-strong)]/60 backdrop-blur-[8px] sticky top-6">
+                    <aside className="shopping-add-panel-v25">
                         <div className="pb-2 border-b border-[var(--hi-border)]/60">
                             <SectionHeader
                                 title={t('shopping.sections.add_item', { defaultValue: 'Manuel Ürün Ekle' })}
@@ -624,6 +632,10 @@ export default function ShoppingListPage() {
                                     setQuantity(1);
                                 }}
                                 fullWidth
+                                sliding
+                                className="shopping-add-type-v25"
+                                activeClassName="text-white"
+                                inactiveClassName="text-[var(--hi-text-soft)] hover:text-[var(--hi-text)]"
                                 options={[
                                     {
                                         value: 'inventory',
@@ -715,7 +727,7 @@ export default function ShoppingListPage() {
                                 </button>
                             </form>
                         </div>
-                    </div>
+                    </aside>
                 </div>
             </div>
 

@@ -2,6 +2,27 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.5.0 - Responsive Liquid Glass, Workflow Polish, and Release Hardening
+
+### Highlights
+
+- **Cohesive responsive interface:** Reworked the dashboard, inventory, item details/forms, settings, Personal Vault, maintenance, shopping, borrowing, rooms, legal pages, and authentication surfaces around one restrained liquid-glass system for light and dark themes.
+- **Mobile-safe navigation and overlays:** Unified the floating top/bottom navigation, side menu, dialogs, language picker, house-key view, scanners, and notifications so controls remain reachable and text does not overflow on narrow screens.
+- **Inventory presentation fixes:** Simplified repeated headings, rebuilt item cards and selection controls, improved image/visibility placement, and corrected responsive detail layouts on both compact and wide viewports.
+- **Readable status and feedback:** Improved toast motion, alert/empty-state contrast, security status labels, borrow-policy selection state, and notification spacing without adding heavy animation.
+- **Performance-aware glass styling:** Consolidated visual tokens, reduced expensive effects where they do not add clarity, and added reduced-motion and constrained-device fallbacks.
+- **Brand isolation:** Kept public HomeInventory assets and PWA metadata separate from optional local branding overlays; private/local brand directories are excluded from Git and from launcher-managed app archives.
+- **Signed update enforcement:** Online managed-app manifests must now carry a valid Ed25519 signature. Release generation fails when its signing key is missing, and the launcher rejects empty or explicitly unsigned manifests.
+- **Launcher packaging:** Updated the launcher, Tauri, Rust, and managed-app archive metadata to `2.5.0`, retained platform package checks, and documented signing/notarization requirements in one release checklist.
+- **Dependency security:** Updated production and tooling dependencies, kept moderate-or-higher npm audits in CI, and retained unit coverage for manifest signature and archive policy checks.
+
+### Upgrade Notes
+
+- Run `npm ci`, `npm ci --prefix client`, and `npm run build` after pulling the release.
+- Back up the SQLite database and uploads before upgrading a self-hosted installation.
+- Launcher publishers must configure the managed-app manifest key. Unsigned online manifests are intentionally rejected in v2.5.0.
+- Local/private brand overlays are not part of the open-source source archive or the HomeInventory launcher bundle.
+
 ## v2.4.0 - Inventory Operations, Labels, Alerts, and Backup Media
 
 ### Highlights

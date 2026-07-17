@@ -14,7 +14,7 @@ import {
     Package,
     Loader2
 } from 'lucide-react';
-import { PageHeader, SectionHeader, LoadingState, EmptyState, NoticeBanner } from './ProductUI';
+import { SectionHeader, LoadingState, NoticeBanner } from './ProductUI';
 import ModalDialog, { ConfirmDialog } from './ModalDialog';
 import { FloatingToastStack, ToastTone } from './FloatingToast';
 import { formatDateForLanguage } from '../utils/appFormatting';
@@ -297,19 +297,20 @@ export default function MaintenancePage() {
     }
 
     return (
-        <div className="space-y-6">
-            <PageHeader
-                title={t('maintenance.page.title', { defaultValue: 'Bakım & Periyodik Takip' })}
-                description={t('maintenance.page.description', {
-                    defaultValue: 'Ev envanterinizdeki cihazların, filtrelerin veya güvenlik ekipmanlarının periyodik bakım takvimlerini yönetin.'
-                })}
-                actions={
-                    <button onClick={handleOpenCreateModal} className="btn-primary cursor-pointer">
-                        <Plus className="h-4 w-4" />
-                        <span>{t('maintenance.actions.add_task', { defaultValue: 'Yeni Görev Ekle' })}</span>
-                    </button>
-                }
-            />
+        <div className="maintenance-page-v25 animate-fade-in">
+            <header className="workspace-intro workspace-intro-with-action">
+                <div>
+                    <p className="workspace-eyebrow">{t('navigation.service', { defaultValue: 'Maintenance' })}</p>
+                    <h1>{t('maintenance.page.title', { defaultValue: 'Bakım & Periyodik Takip' })}</h1>
+                    <p>{t('maintenance.page.description', {
+                        defaultValue: 'Ev envanterinizdeki cihazların, filtrelerin veya güvenlik ekipmanlarının periyodik bakım takvimlerini yönetin.'
+                    })}</p>
+                </div>
+                <button onClick={handleOpenCreateModal} className="btn-primary maintenance-desktop-add cursor-pointer">
+                    <Plus className="h-4 w-4" />
+                    <span>{t('maintenance.actions.add_task', { defaultValue: 'Yeni Görev Ekle' })}</span>
+                </button>
+            </header>
 
             {/* Overdue alerts */}
             {classifiedTasks.overdue.length > 0 && (
@@ -325,19 +326,19 @@ export default function MaintenancePage() {
             )}
 
             {tasks.length === 0 ? (
-                <EmptyState
-                    icon={Wrench}
-                    title={t('maintenance.empty.title', { defaultValue: 'Planlanmış bakım görevi bulunmuyor' })}
-                    description={t('maintenance.empty.desc', {
-                        defaultValue: 'Klima filtresi temizliği, kombi bakımı veya yangın dedektörü pil kontrolü gibi tekrarlayan görevleri ekleyerek başlayın.'
-                    })}
-                    actions={
-                        <button onClick={handleOpenCreateModal} className="btn-primary cursor-pointer">
-                            <Plus className="h-4 w-4" />
-                            <span>{t('maintenance.actions.add_task', { defaultValue: 'İlk Görevi Ekle' })}</span>
-                        </button>
-                    }
-                />
+                <section className="workspace-empty maintenance-empty">
+                    <span className="workspace-empty-icon"><Wrench /></span>
+                    <div>
+                        <h2>{t('maintenance.empty.title', { defaultValue: 'Planlanmış bakım görevi bulunmuyor' })}</h2>
+                        <p>{t('maintenance.empty.desc', {
+                            defaultValue: 'Klima filtresi temizliği, kombi bakımı veya yangın dedektörü pil kontrolü gibi tekrarlayan görevleri ekleyerek başlayın.'
+                        })}</p>
+                    </div>
+                    <button onClick={handleOpenCreateModal} className="btn-primary maintenance-empty-add cursor-pointer">
+                        <Plus className="h-4 w-4" />
+                        <span>{t('maintenance.actions.add_task', { defaultValue: 'İlk Görevi Ekle' })}</span>
+                    </button>
+                </section>
             ) : (
                 <div className="grid gap-6 lg:grid-cols-12">
                     {/* Overdue Tasks Column */}

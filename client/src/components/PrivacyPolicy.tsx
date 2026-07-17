@@ -10,7 +10,8 @@ import {
     DPO_EMAIL,
     PRIVACY_COMPLAINT_AUTHORITY,
     PRIVACY_TRANSFER_DISCLOSURE,
-    SUPPORT_EMAIL
+    SUPPORT_CONTACT_LABEL,
+    SUPPORT_CONTACT_URL
 } from '../constants/branding';
 import { resolveVerifiedLegalTranslationLanguage } from '../utils/legalTranslations';
 
@@ -66,7 +67,7 @@ export default function PrivacyPolicy() {
     const controllerAddress = DATA_CONTROLLER_ADDRESS || (
         pageT('legal.controller_address_unconfigured')
     );
-    const privacyEmail = DPO_EMAIL || SUPPORT_EMAIL;
+    const privacyEmail = DPO_EMAIL || SUPPORT_CONTACT_LABEL;
     const transferDisclosure = PRIVACY_TRANSFER_DISCLOSURE || (
         pageT('legal.transfer_disclosure_default')
     );
@@ -119,11 +120,12 @@ export default function PrivacyPolicy() {
                 privacyEmail,
                 transferDisclosure,
                 complaintAuthority,
-                supportEmail: SUPPORT_EMAIL
+                supportEmail: SUPPORT_CONTACT_LABEL
             })}
             summaryBlock={summaryBlock}
             supportLabel={pageT('legal.privacy_support_label')}
             supportValue={privacyEmail}
+            supportHref={DPO_EMAIL ? `mailto:${DPO_EMAIL}` : SUPPORT_CONTACT_URL}
             backLabel={pageT('legal.back_to_home')}
         />
     );

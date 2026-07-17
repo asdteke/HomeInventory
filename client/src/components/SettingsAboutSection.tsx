@@ -1,7 +1,13 @@
 import { AlertTriangle, HelpCircle, LogOut } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { APP_VERSION, BRAND_NAME, SUPPORT_EMAIL } from '../constants/branding';
+import {
+    APP_VERSION,
+    BRAND_NAME,
+    SUPPORT_CONTACT_LABEL,
+    SUPPORT_CONTACT_URL
+} from '../constants/branding';
+import '../vault-settings-v25.css';
 
 interface SettingsAboutSectionProps {
     onLogout: () => void | Promise<void>;
@@ -15,99 +21,90 @@ export default function SettingsAboutSection({ onLogout }: SettingsAboutSectionP
     });
 
     return (
-        <>
-            <div className="app-control-section mb-6">
-                <p className="app-kicker mb-3">{t('settings.control_sections.about', { defaultValue: 'About' })}</p>
-                <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold text-[var(--hi-text)]">
-                    {t('settings.about.title')}
-                </h2>
-                <div className="space-y-4">
-                    <div className="flex items-center justify-between border-b border-[var(--hi-border)] py-3">
-                        <span className="text-[var(--hi-text-soft)]">{t('settings.about.version')}</span>
-                        <span className="font-medium text-[var(--hi-text)]">{APP_VERSION}</span>
+        <div className="settings-about-v25 mb-6">
+            <section className="settings-about-surface" aria-labelledby="settings-about-title">
+                <header className="settings-about-header">
+                    <div>
+                        <p className="app-kicker mb-2">{t('settings.control_sections.about', { defaultValue: 'About' })}</p>
+                        <h2 id="settings-about-title" className="text-xl font-semibold text-[var(--hi-text)]">
+                            {t('settings.about.title')}
+                        </h2>
                     </div>
-                    <div className="flex items-center justify-between border-b border-[var(--hi-border)] py-3">
-                        <span className="text-[var(--hi-text-soft)]">{t('settings.about.brand')}</span>
-                        <span className="font-medium text-[var(--hi-text)]">{BRAND_NAME}</span>
-                    </div>
-                    <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4">
-                        <div className="mb-3 flex items-start gap-3">
-                            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--hi-panel)] text-[var(--hi-text-muted)]">
-                                <HelpCircle className="h-5 w-5" />
-                            </span>
-                            <div>
-                                <p className="text-sm font-semibold text-[var(--hi-text)]">
-                                    {t('common.help_support')}
-                                </p>
-                                <p className="mt-1 text-xs leading-5 text-[var(--hi-text-soft)] [overflow-wrap:anywhere]">
-                                    {SUPPORT_EMAIL}
-                                </p>
-                            </div>
+                    <dl className="settings-about-identity" aria-label={t('settings.about.title')}>
+                        <div>
+                            <dt>{t('settings.about.version')}</dt>
+                            <dd>{APP_VERSION}</dd>
+                        </div>
+                        <div>
+                            <dt>{t('settings.about.brand')}</dt>
+                            <dd>{BRAND_NAME}</dd>
+                        </div>
+                    </dl>
+                </header>
+
+                <div className="settings-about-content">
+                    <div className="settings-about-row">
+                        <span className="settings-about-icon" aria-hidden="true">
+                            <HelpCircle className="h-5 w-5" />
+                        </span>
+                        <div className="min-w-0 flex-1">
+                            <p className="text-sm font-semibold text-[var(--hi-text)]">{t('common.help_support')}</p>
+                            <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)] [overflow-wrap:anywhere]">
+                                {SUPPORT_CONTACT_LABEL}
+                            </p>
                         </div>
                         <a
-                            href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(feedbackSubject)}`}
-                            className="btn-secondary flex w-full items-center justify-center gap-2 py-3"
+                            href={SUPPORT_CONTACT_URL.startsWith('mailto:')
+                                ? `${SUPPORT_CONTACT_URL}?subject=${encodeURIComponent(feedbackSubject)}`
+                                : SUPPORT_CONTACT_URL}
+                            target={SUPPORT_CONTACT_URL.startsWith('http') ? '_blank' : undefined}
+                            rel={SUPPORT_CONTACT_URL.startsWith('http') ? 'noreferrer' : undefined}
+                            className="btn-secondary settings-about-action"
                         >
                             {t('settings.about.feedback')}
                         </a>
                     </div>
-                    <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4">
-                        <div className="mb-3">
-                            <p className="text-sm font-semibold text-[var(--hi-text)]">
-                                {t('settings.about.legal_title')}
-                            </p>
-                            <p className="mt-1 text-xs text-[var(--hi-text-soft)]">
-                                {t('settings.about.legal_description')}
-                            </p>
-                        </div>
-                        <div className="grid gap-2 sm:grid-cols-2">
-                            <Link to="/terms-of-service" className="btn-secondary py-3 text-center">
-                                {t('settings.about.terms_link')}
-                            </Link>
-                            <Link to="/privacy-policy" className="btn-secondary py-3 text-center">
-                                {t('settings.about.privacy_link')}
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="rounded-xl border border-[rgba(184,153,104,0.24)] bg-[var(--hi-secondary-soft)] p-4">
-                        <div className="flex items-start gap-3">
-                            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[rgba(184,153,104,0.12)] text-[var(--hi-secondary-strong)]">
-                                <AlertTriangle className="h-5 w-5" />
-                            </span>
-                            <div>
-                                <p className="text-sm font-semibold text-[var(--hi-text)]">
-                                    {t('settings.about.beta_title', { defaultValue: 'Beta status' })}
-                                </p>
-                                <p className="mt-2 text-sm leading-6 text-[var(--hi-text-soft)]">
-                                    {t('settings.about.beta_body', {
-                                        brandName: BRAND_NAME,
-                                        defaultValue: `${BRAND_NAME} is still in beta. Features can change, workflows may evolve, and important household data should always be backed up.`
-                                    })}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div className="app-control-section mb-6">
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-soft)]">
-                            {t('common.logout')}
-                        </p>
+                    <div className="settings-about-row settings-about-legal">
+                        <div className="min-w-0 flex-1">
+                            <p className="text-sm font-semibold text-[var(--hi-text)]">{t('settings.about.legal_title')}</p>
+                            <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">{t('settings.about.legal_description')}</p>
+                        </div>
+                        <nav className="settings-about-links" aria-label={t('settings.about.legal_title')}>
+                            <Link to="/terms-of-service">{t('settings.about.terms_link')}</Link>
+                            <Link to="/privacy-policy">{t('settings.about.privacy_link')}</Link>
+                        </nav>
                     </div>
+
+                    <aside className="settings-about-beta">
+                        <AlertTriangle className="h-5 w-5 shrink-0" aria-hidden="true" />
+                        <div>
+                            <p className="text-sm font-semibold text-[var(--hi-text)]">
+                                {t('settings.about.beta_title', { defaultValue: 'Beta status' })}
+                            </p>
+                            <p className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
+                                {t('settings.about.beta_body', {
+                                    brandName: BRAND_NAME,
+                                    defaultValue: `${BRAND_NAME} is still in beta. Features can change, workflows may evolve, and important household data should always be backed up.`
+                                })}
+                            </p>
+                        </div>
+                    </aside>
+                </div>
+
+                <footer className="settings-about-footer">
+                    <span className="text-sm font-semibold text-[var(--hi-text-soft)]">{t('common.logout')}</span>
                     <button
                         type="button"
                         onClick={onLogout}
                         aria-label={t('common.logout')}
-                        className="inline-flex items-center justify-center gap-2 rounded-xl border border-red-500/18 bg-red-500/6 px-5 py-3 font-medium text-red-400 transition hover:bg-red-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]"
+                        className="settings-about-logout"
                     >
-                        <LogOut className="h-5 w-5" />
+                        <LogOut className="h-5 w-5" aria-hidden="true" />
                         {t('common.logout')}
                     </button>
-                </div>
-            </div>
-        </>
+                </footer>
+            </section>
+        </div>
     );
 }

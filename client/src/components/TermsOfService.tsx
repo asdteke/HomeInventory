@@ -2,7 +2,11 @@ import * as React from 'react';
 import { FileText } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import LegalDocumentPage from './LegalDocumentPage';
-import { BRAND_NAME, SUPPORT_EMAIL } from '../constants/branding';
+import {
+    BRAND_NAME,
+    SUPPORT_CONTACT_LABEL,
+    SUPPORT_CONTACT_URL
+} from '../constants/branding';
 import { resolveVerifiedLegalTranslationLanguage } from '../utils/legalTranslations';
 
 const TERMS_PAGE_KEYS = [
@@ -56,11 +60,12 @@ export default function TermsOfService() {
             })}
             content={pageT('legal.terms_of_service_content', {
                 brandName: BRAND_NAME,
-                supportEmail: SUPPORT_EMAIL
+                supportEmail: SUPPORT_CONTACT_LABEL
             })}
             summaryBlock={summaryBlock}
             supportLabel={pageT('legal.terms_support_label')}
-            supportValue={SUPPORT_EMAIL}
+            supportValue={SUPPORT_CONTACT_LABEL}
+            supportHref={SUPPORT_CONTACT_URL}
             backLabel={pageT('legal.back_to_home')}
         />
     );

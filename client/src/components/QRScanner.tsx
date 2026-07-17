@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { X, Camera, AlertCircle, CheckCircle, RefreshCw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { loadScannerRuntime } from '../utils/scannerRuntime';
+import '../scanner.css';
 
 const SCANNER_ID = 'qr-scanner';
 
@@ -250,68 +251,64 @@ export default function QRScanner({ isOpen, onClose }: QRScannerProps) {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 bg-black">
-            {/* Header */}
-            <div className="absolute top-0 left-0 right-0 z-10 p-4 bg-gradient-to-b from-black/80 to-transparent">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3 text-white">
-                        <Camera className="w-6 h-6" />
-                        <div>
-                            <span className="block font-semibold">{t('scanner.qr_title')}</span>
-                            <span className="mt-0.5 block text-xs text-white/65">{t('scanner.qr_subtitle')}</span>
+        <div className="scanner-overlay">
+            <section className="scanner-shell" role="dialog" aria-modal="true" aria-labelledby="qr-scanner-title">
+                <header className="scanner-header">
+                    <div className="scanner-heading">
+                        <span className="scanner-heading-icon"><Camera className="h-5 w-5" /></span>
+                        <div className="scanner-heading-copy">
+                            <h2 id="qr-scanner-title">{t('scanner.qr_title')}</h2>
+                            <p>{t('scanner.qr_subtitle')}</p>
                         </div>
                     </div>
-                    <button onClick={handleClose} className="p-2 text-white bg-white/20 rounded-full hover:bg-white/30">
-                        <X className="w-6 h-6" />
+                    <button type="button" onClick={handleClose} className="scanner-close" aria-label={t('common.close')}>
+                        <X className="h-5 w-5" />
                     </button>
-                </div>
-            </div>
+                </header>
 
-            {/* Scanner */}
-            <div className="flex flex-col items-center justify-center min-h-screen p-4">
-                <div id="qr-reader" ref={scannerRef} className="w-full max-w-sm rounded-2xl overflow-hidden" />
-
-                {preparingScanner && !isScanning && !error && !success && (
-                    <div className="absolute inset-x-4 bottom-24 rounded-xl bg-black/65 px-4 py-3 text-center text-sm text-white">
-                        <span className="inline-flex items-center gap-2">
-                            <RefreshCw className="h-4 w-4 animate-spin" />
-                            {t('scanner.init')}
-                        </span>
-                    </div>
-                )}
-
-                {/* Error Message with Retry */}
-                {error && (
-                    <div className="absolute bottom-24 left-4 right-4 p-4 bg-red-500/90 text-white rounded-xl">
-                        <div className="flex items-start gap-3">
-                            <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                            <div className="flex-1">
-                                <span className="text-sm block mb-2">{error}</span>
-                                <button onClick={handleRetry} className="flex items-center gap-2 px-3 py-1.5 bg-white/20 rounded-lg text-sm hover:bg-white/30">
-                                    <RefreshCw className="w-4 h-4" />
-                                    {t('scanner.retry')}
-                                </button>
-                            </div>
-                            <button onClick={() => setError('')} className="p-1 hover:bg-white/20 rounded">
-                                <X className="w-4 h-4" />
-                            </button>
+                <div className="scanner-body">
+                    <div className="scanner-stage">
+                        <div className="scanner-camera">
+                            <div id="qr-reader" ref={scannerRef} />
+                            <div className="scanner-reticle scanner-reticle--qr" aria-hidden="true"><span /></div>
+                            {isScanning && <div className="scanner-scanline scanner-scanline--qr" aria-hidden="true" />}
+                            {!isScanning && !error && !success && (
+                                <div className="scanner-permission-note"><Camera className="h-3.5 w-3.5" /><span>{t('scanner.init')}</span></div>
+                            )}
+                            {preparingScanner && !isScanning && !error && !success && (
+                                <div className="scanner-state-cover">
+                                    <div className="scanner-state-card"><RefreshCw className="scanner-spinner h-5 w-5" /><span>{t('scanner.init')}</span></div>
+                                </div>
+                            )}
                         </div>
-                    </div>
-                )}
 
-                {/* Success Message */}
-                {success && (
-                    <div className="absolute bottom-24 left-4 right-4 flex items-center gap-3 p-4 bg-green-500/90 text-white rounded-xl">
-                        <CheckCircle className="w-5 h-5 flex-shrink-0" />
-                        <span className="text-sm">{success}</span>
+                        {error && (
+                            <div className="scanner-alert" role="alert">
+                                <AlertCircle className="h-5 w-5" />
+                                <div className="scanner-alert-copy">
+                                    <strong>{t('common.error')}</strong>
+                                    <span>{error}</span>
+                                    <div className="scanner-alert-actions">
+                                        <button type="button" onClick={handleRetry} className="scanner-alert-button"><RefreshCw className="mr-1 inline h-3.5 w-3.5" />{t('scanner.retry')}</button>
+                                    </div>
+                                </div>
+                                <button type="button" onClick={() => setError('')} className="scanner-alert-dismiss" aria-label={t('common.close')}><X className="h-4 w-4" /></button>
+                            </div>
+                        )}
+                        {success && (
+                            <div className="scanner-alert scanner-alert--success" role="status">
+                                <CheckCircle className="h-5 w-5" />
+                                <div className="scanner-alert-copy"><strong>{t('common.success')}</strong><span>{success}</span></div>
+                            </div>
+                        )}
                     </div>
-                )}
-            </div>
 
-            {/* Instructions */}
-            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-center">
-                <p className="text-white/80 text-sm">{t('scanner.qr_hint')}</p>
-            </div>
+                    <div className="scanner-guidance">
+                        <span className="scanner-guidance-icon"><Camera className="h-4 w-4" /></span>
+                        <p>{t('scanner.qr_hint')}<small>{t('scanner.qr_subtitle')}</small></p>
+                    </div>
+                </div>
+            </section>
         </div>
     );
 }

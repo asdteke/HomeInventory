@@ -5,24 +5,45 @@ import { useTranslation } from 'react-i18next';
 import { AlertTriangle, Info, ShieldAlert, X } from 'lucide-react';
 
 interface ToneStyle {
-    badge: string;
+    className: string;
     icon: React.ComponentType<{ className?: string }>;
 }
 
 const TONE_STYLES: Record<'default' | 'warning' | 'danger', ToneStyle> = {
     default: {
-        badge: 'bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]',
+        className: 'app-modal-icon--default',
         icon: Info
     },
     warning: {
-        badge: 'bg-[var(--hi-secondary-soft)] text-[var(--hi-secondary-strong)]',
+        className: 'app-modal-icon--warning',
         icon: AlertTriangle
     },
     danger: {
-        badge: 'bg-[var(--hi-danger-soft)] text-[var(--hi-danger)]',
+        className: 'app-modal-icon--danger',
         icon: ShieldAlert
     }
 };
+
+let bodyScrollLockCount = 0;
+let bodyOverflowBeforeLock = '';
+
+function lockBodyScroll() {
+    if (bodyScrollLockCount === 0) {
+        bodyOverflowBeforeLock = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+    }
+
+    bodyScrollLockCount += 1;
+
+    return () => {
+        bodyScrollLockCount = Math.max(0, bodyScrollLockCount - 1);
+
+        if (bodyScrollLockCount === 0) {
+            document.body.style.overflow = bodyOverflowBeforeLock;
+            bodyOverflowBeforeLock = '';
+        }
+    };
+}
 
 export interface ModalDialogProps {
     isOpen: boolean;
@@ -60,15 +81,17 @@ export default function ModalDialog({
         }
 
         const handleEscape = (event: KeyboardEvent) => {
-            if (event.key === 'Escape') {
+            if (event.key === 'Escape' && !event.defaultPrevented) {
                 onClose?.();
             }
         };
 
+        const unlockBodyScroll = lockBodyScroll();
         document.addEventListener('keydown', handleEscape);
 
         return () => {
             document.removeEventListener('keydown', handleEscape);
+            unlockBodyScroll();
         };
     }, [isOpen, onClose]);
 
@@ -81,7 +104,7 @@ export default function ModalDialog({
 
     return createPortal(
         <div
-            className="fixed inset-0 z-[80] flex items-center justify-center bg-black/55 p-4 backdrop-blur-sm"
+            className="app-modal-backdrop fixed inset-0 z-[80] flex items-center justify-center p-4"
             onMouseDown={(event) => {
                 if (event.target === event.currentTarget) {
                     onClose?.();
@@ -93,19 +116,20 @@ export default function ModalDialog({
                 aria-modal="true"
                 aria-labelledby={titleId}
                 aria-describedby={description ? descriptionId : undefined}
-                className={`w-full overflow-hidden rounded-[28px] border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] shadow-[var(--hi-shadow)] ${widthClassName}`.trim()}
+                className={`app-modal-dialog w-full ${widthClassName}`.trim()}
+                data-tone={tone}
             >
-                <div className="flex items-start justify-between gap-4 border-b border-[var(--hi-border)] px-6 py-5">
-                    <div className="flex min-w-0 items-start gap-3">
-                        <span className={`mt-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ${toneStyle.badge}`}>
-                            <LeadingIcon className="h-5 w-5" />
+                <header className="app-modal-header">
+                    <div className="app-modal-heading">
+                        <span className={`app-modal-icon ${toneStyle.className}`} aria-hidden="true">
+                            <LeadingIcon className="app-modal-icon-svg" />
                         </span>
-                        <div className="min-w-0">
-                            <h2 id={titleId} className="text-xl font-semibold text-[var(--hi-text)]">
+                        <div className="app-modal-copy">
+                            <h2 id={titleId} className="app-modal-title">
                                 {title}
                             </h2>
                             {description && (
-                                <p id={descriptionId} className="mt-1 text-sm leading-6 text-[var(--hi-text-soft)]">
+                                <p id={descriptionId} className="app-modal-description">
                                     {description}
                                 </p>
                             )}
@@ -116,20 +140,22 @@ export default function ModalDialog({
                         type="button"
                         onClick={() => onClose?.()}
                         aria-label={resolvedCloseLabel}
-                        className="rounded-xl p-2 text-[var(--hi-text-soft)] transition hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)]"
+                        className="app-modal-close"
                     >
-                        <X className="h-5 w-5" />
+                        <X className="app-modal-close-icon" aria-hidden="true" />
                     </button>
-                </div>
+                </header>
 
-                <div className="px-6 py-5">
-                    {children}
+                <div className="app-modal-scroll-region">
+                    <div className="app-modal-body">
+                        {children}
+                    </div>
                 </div>
 
                 {footer && (
-                    <div className="flex flex-wrap justify-end gap-3 border-t border-[var(--hi-border)] px-6 py-5">
+                    <footer className="app-modal-footer">
                         {footer}
-                    </div>
+                    </footer>
                 )}
             </div>
         </div>,

@@ -4,14 +4,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#6366f1" />
-  <title>Inventory Offline</title>
+  <meta name="theme-color" content="__APP_THEME_COLOR_LIGHT__" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="__APP_THEME_COLOR_DARK__" media="(prefers-color-scheme: dark)" />
+  <title>__APP_BRAND_NAME__ · Offline</title>
   <style>
     :root {
       color-scheme: light;
       font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f8fafc;
-      color: #0f172a;
+      --app-background: __APP_BACKGROUND_COLOR_LIGHT__;
+      --app-theme: __APP_THEME_COLOR_LIGHT__;
+      --app-surface: rgba(255, 255, 255, 0.72);
+      --app-border: rgba(44, 64, 55, 0.18);
+      --app-text: #15261f;
+      --app-muted: #52655a;
+      --app-shadow: rgba(27, 44, 36, 0.12);
+      background: var(--app-background);
+      color: var(--app-text);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        color-scheme: dark;
+        --app-background: __APP_BACKGROUND_COLOR_DARK__;
+        --app-theme: __APP_THEME_COLOR_DARK__;
+        --app-surface: rgba(27, 36, 32, 0.76);
+        --app-border: rgba(221, 232, 226, 0.16);
+        --app-text: #f2f6f3;
+        --app-muted: #c4cec8;
+        --app-shadow: rgba(0, 0, 0, 0.28);
+      }
     }
 
     body {
@@ -20,17 +41,21 @@
       display: grid;
       place-items: center;
       background:
-        radial-gradient(circle at top, rgba(99, 102, 241, 0.16), transparent 40%),
-        linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+        radial-gradient(circle at 18% 8%, color-mix(in srgb, var(--app-theme) 34%, transparent), transparent 44%),
+        linear-gradient(145deg, color-mix(in srgb, var(--app-background) 82%, white), var(--app-background));
+      padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+      box-sizing: border-box;
     }
 
     main {
       width: min(92vw, 32rem);
-      padding: 2rem;
-      border-radius: 1.5rem;
-      background: rgba(255, 255, 255, 0.92);
-      border: 1px solid rgba(148, 163, 184, 0.25);
-      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+      padding: clamp(1.5rem, 6vw, 2.25rem);
+      border-radius: clamp(1.75rem, 7vw, 2.75rem);
+      background: var(--app-surface);
+      border: 1px solid var(--app-border);
+      box-shadow: 0 20px 60px var(--app-shadow);
+      -webkit-backdrop-filter: blur(18px) saturate(118%);
+      backdrop-filter: blur(18px) saturate(118%);
     }
 
     h1 {
@@ -42,7 +67,7 @@
     p {
       margin: 0 0 1rem;
       line-height: 1.6;
-      color: #334155;
+      color: var(--app-muted);
     }
 
     a {
@@ -54,15 +79,16 @@
       border-radius: 999px;
       text-decoration: none;
       font-weight: 600;
-      color: #ffffff;
-      background: linear-gradient(135deg, #6366f1, #3b82f6);
+      color: var(--app-text);
+      background: color-mix(in srgb, var(--app-theme) 78%, var(--app-surface));
+      border: 1px solid var(--app-border);
     }
   </style>
 </head>
 
 <body>
   <main>
-    <h1>You're offline</h1>
+    <h1>__APP_BRAND_NAME__ is offline</h1>
     <p>The app shell is available, but live inventory data stays on the server and needs a connection to refresh securely.</p>
     <p>Reconnect to continue syncing items, account state, and vault data.</p>
     <a href="/">Try again</a>

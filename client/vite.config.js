@@ -10,7 +10,7 @@ const CLIENT_PACKAGE_VERSION = JSON.parse(
     readFileSync(new URL('./package.json', import.meta.url), 'utf8')
 ).version;
 const DEFAULT_ASSET_VERSION = '20260519-pwa-assets';
-const PWA_CACHE_PREFIX = 'home-inventory-static';
+const LEGACY_PWA_CACHE_PREFIX = 'home-inventory-static-';
 const DEFAULT_BRAND_NAME = 'HomeInventory';
 
 function isIpAddress(siteHost) {
@@ -27,10 +27,6 @@ function isLocalOrIpHost(siteHost) {
 
 function deriveBrandName(siteHost) {
     if (isLocalOrIpHost(siteHost)) {
-        return DEFAULT_BRAND_NAME;
-    }
-
-    if (siteHost === 'homeinventory.net.tr') {
         return DEFAULT_BRAND_NAME;
     }
 
@@ -119,8 +115,9 @@ function createPwaManifest({
     }, null, 2);
 }
 
-function createServiceWorker({ cacheName, precacheUrls }) {
-    return `const CACHE_PREFIX = ${JSON.stringify(PWA_CACHE_PREFIX)};
+export function createServiceWorker({ legacyCachePrefix, cachePrefix, cacheName, precacheUrls }) {
+    return `const LEGACY_CACHE_PREFIX = ${JSON.stringify(legacyCachePrefix)};
+const CACHE_PREFIX = ${JSON.stringify(cachePrefix)};
 const STATIC_CACHE = ${JSON.stringify(cacheName)};
 const PRECACHE_URLS = ${JSON.stringify(precacheUrls, null, 2)};
 const APP_SHELL_URL = '/';
@@ -138,7 +135,9 @@ self.addEventListener('activate', (event) => {
         const cacheKeys = await caches.keys();
         await Promise.all(
             cacheKeys
-                .filter((key) => key.startsWith(CACHE_PREFIX) && key !== STATIC_CACHE)
+                .filter((key) => key !== STATIC_CACHE && (
+                    key.startsWith(CACHE_PREFIX) || key.startsWith(LEGACY_CACHE_PREFIX)
+                ))
                 .map((key) => caches.delete(key))
         );
         await self.clients.claim();
@@ -287,11 +286,14 @@ function createPwaPlugin({
     brandName,
     description,
     buildId,
+    legacyCachePrefix,
+    cachePrefix,
     appleTouchIconPaths,
     brandAssetUrls,
     faviconPaths,
     manifestId,
     manifestPaths,
+    localePrecacheUrls,
     pwaIconPaths,
     themeColors
 }) {
@@ -333,7 +335,8 @@ function createPwaPlugin({
         faviconPaths.dark,
         ...brandAssetUrls,
         `/locales/en/translation.json?v=${encodedBuildId}`,
-        `/locales/tr/translation.json?v=${encodedBuildId}`
+        `/locales/tr/translation.json?v=${encodedBuildId}`,
+        ...localePrecacheUrls
     ];
 
     return {
@@ -380,7 +383,9 @@ function createPwaPlugin({
                 type: 'asset',
                 fileName: 'sw.js',
                 source: createServiceWorker({
-                    cacheName: `${PWA_CACHE_PREFIX}-${buildId}`,
+                    legacyCachePrefix,
+                    cachePrefix,
+                    cacheName: `${cachePrefix}-${buildId}`,
                     precacheUrls
                 })
             });
@@ -431,12 +436,10 @@ export default defineConfig(({ command, mode }) => {
     ).trim();
     const manifestId = String(
         env.APP_PWA_MANIFEST_ID ||
-        `/app/${brandKey}/${assetVersion}`
+        `/app/${brandKey}`
     ).trim();
-    const supportEmail = String(
-        env.SUPPORT_EMAIL ||
-        (!isLocalOrIpHost(derivedHost) ? `support@${derivedHost}` : 'support@example.com')
-    ).trim();
+    const cachePrefix = `home-inventory-${brandKey}-static`;
+    const supportEmail = String(env.SUPPORT_EMAIL || '').trim();
     const metaDescription = `${brandName} - Evinizin tum esyalarini akillica yonetin`;
     const logoFullDarkPath = String(env.APP_BRAND_LOGO_FULL_DARK || '/brand/logo-full-dark.svg').trim();
     const logoFullLightPath = String(env.APP_BRAND_LOGO_FULL_LIGHT || '/brand/logo-full-light.svg').trim();
@@ -470,6 +473,11 @@ export default defineConfig(({ command, mode }) => {
         logoSymbolDarkPath,
         logoSymbolLightPath
     ].filter(Boolean).map((assetPath) => withAssetVersion(assetPath, assetVersion));
+    const localePrecacheUrls = brandKey === 'homeinventory'
+        ? []
+        : ['en', 'tr'].map((language) => (
+            `/brand-local/${encodeURIComponent(brandKey)}/locales/${language}/translation.json?v=${encodeURIComponent(buildId)}`
+        ));
 
     return {
         clearScreen: false,
@@ -548,6 +556,8 @@ export default defineConfig(({ command, mode }) => {
                 brandName,
                 description: metaDescription,
                 buildId,
+                legacyCachePrefix: LEGACY_PWA_CACHE_PREFIX,
+                cachePrefix,
                 appleTouchIconPaths: {
                     light: appleTouchIconLightPath,
                     dark: appleTouchIconDarkPath
@@ -562,6 +572,7 @@ export default defineConfig(({ command, mode }) => {
                     light: manifestLightPath,
                     dark: manifestDarkPath
                 },
+                localePrecacheUrls,
                 pwaIconPaths: {
                     light: {
                         icon192: pwaIcon192LightPath,

@@ -17,7 +17,7 @@ function DialogShell({ title, subtitle, children, onClose }: DialogShellProps) {
     return (
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/55 p-4 backdrop-blur-sm" onClick={onClose}>
             <div
-                className="w-full max-w-lg overflow-hidden rounded-[28px] border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] shadow-[var(--hi-shadow)]"
+                className="app-modal-dialog w-full max-w-lg overflow-hidden"
                 onClick={(event) => event.stopPropagation()}
             >
                 <div className="flex items-start justify-between gap-4 border-b border-[var(--hi-border)] px-6 py-5">

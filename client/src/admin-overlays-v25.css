@@ -1,0 +1,495 @@
+/* Admin and overlay surfaces for the v2.5 liquid material system.
+   Blur is intentionally limited to one page header, one banner, and one toolbar. */
+
+.admin-v25 {
+  --admin-v25-surface: color-mix(in srgb, var(--hi-panel-strong) 94%, transparent);
+  --admin-v25-subtle: color-mix(in srgb, var(--hi-panel-muted) 72%, transparent);
+  isolation: isolate;
+}
+
+/* The global shell already paints soft gradients; avoid filtering a viewport-sized
+   pseudo-element while the admin workspace is active. */
+.premium-shell:has(.admin-v25)::before {
+  filter: none;
+  opacity: .56;
+}
+
+.admin-v25 .app-page-header {
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--hi-border-strong) 70%, transparent);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.admin-v25 .app-page-header::after,
+.admin-v25-metric::before,
+.admin-v25-metric::after {
+  display: none;
+}
+
+.admin-v25-tab {
+  min-width: 0;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+}
+
+.admin-v25-tab > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.admin-v25-tab.is-active {
+  background: linear-gradient(145deg, color-mix(in srgb, var(--hi-accent) 88%, white), var(--hi-accent)) !important;
+  box-shadow: 0 12px 28px -20px color-mix(in srgb, var(--hi-accent) 72%, transparent) !important;
+}
+
+.admin-v25 .card,
+.admin-v25-surface,
+.admin-v25-metric,
+.admin-v25-user-card {
+  border-color: color-mix(in srgb, var(--hi-border) 78%, transparent) !important;
+  background: var(--admin-v25-surface) !important;
+  box-shadow: 0 18px 44px -38px color-mix(in srgb, var(--hi-text) 40%, transparent) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.admin-v25 .card,
+.admin-v25-surface {
+  border-radius: 1.75rem !important;
+}
+
+.admin-v25-metric,
+.admin-v25-user-card {
+  border-radius: 1.65rem;
+}
+
+.admin-v25-metric {
+  min-height: 12.5rem;
+  border-inline-start: 3px solid color-mix(in srgb, var(--hi-accent) 54%, var(--hi-border)) !important;
+}
+
+.admin-v25-metric-secondary {
+  border-inline-start-color: color-mix(in srgb, var(--hi-secondary) 68%, var(--hi-border)) !important;
+}
+
+.admin-v25-metric-warning {
+  border-inline-start-color: color-mix(in srgb, var(--hi-warning) 72%, var(--hi-border)) !important;
+}
+
+.admin-v25-list,
+.admin-v25-feed {
+  gap: 0 !important;
+  overflow: hidden;
+  border-block: 1px solid color-mix(in srgb, var(--hi-border) 70%, transparent);
+}
+
+.admin-v25-row,
+.admin-v25-feed-item {
+  border: 0 !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--hi-border) 70%, transparent) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.admin-v25-list > .admin-v25-row:last-child,
+.admin-v25-feed > .admin-v25-feed-item:last-child,
+.admin-v25 .space-y-3 > .admin-v25-row:last-child {
+  border-bottom: 0 !important;
+}
+
+.admin-v25-inline-stat {
+  border: 0 !important;
+  border-inline-start: 2px solid color-mix(in srgb, var(--hi-accent) 34%, var(--hi-border)) !important;
+  border-radius: 0 .9rem .9rem 0 !important;
+  background: color-mix(in srgb, var(--hi-panel-muted) 48%, transparent) !important;
+  box-shadow: none !important;
+}
+
+.admin-v25 .app-notice,
+.admin-v25 .app-empty-state {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.admin-v25-user-card {
+  min-width: 0;
+  transition: border-color var(--hi-transition-standard), box-shadow var(--hi-transition-standard), transform var(--hi-transition-standard);
+}
+
+.admin-v25-user-card h3,
+.admin-v25-row p,
+.admin-v25-feed-item p,
+.admin-mail-v25 p,
+.admin-mail-v25 li {
+  overflow-wrap: anywhere;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .admin-v25-user-card:hover {
+    border-color: var(--hi-border-strong) !important;
+    box-shadow: 0 20px 46px -36px color-mix(in srgb, var(--hi-text) 46%, transparent) !important;
+    transform: translateY(-1px);
+  }
+}
+
+/* Legacy standalone admin mail panel. */
+.admin-mail-v25 {
+  color: var(--hi-text);
+}
+
+.admin-mail-v25-header,
+.admin-mail-v25-security,
+.admin-mail-v25-info {
+  border: 1px solid color-mix(in srgb, var(--hi-border) 82%, transparent);
+  background: color-mix(in srgb, var(--hi-panel) 84%, transparent);
+  box-shadow: none;
+}
+
+.admin-mail-v25-header {
+  border-radius: 1.6rem;
+  padding: 1.15rem;
+}
+
+.admin-mail-v25-icon {
+  background: linear-gradient(145deg, color-mix(in srgb, var(--hi-accent) 84%, white), var(--hi-accent));
+  box-shadow: 0 14px 30px -22px color-mix(in srgb, var(--hi-accent) 78%, transparent);
+}
+
+.admin-mail-v25-security {
+  border-color: color-mix(in srgb, var(--hi-accent) 26%, var(--hi-border));
+  background: color-mix(in srgb, var(--hi-accent-soft) 62%, var(--hi-panel));
+}
+
+.admin-mail-v25-status {
+  border: 1px solid currentColor;
+}
+
+.admin-mail-v25-status-success {
+  color: var(--hi-success);
+  background: var(--hi-success-soft);
+}
+
+.admin-mail-v25-status-error {
+  color: var(--hi-danger);
+  background: var(--hi-danger-soft);
+}
+
+.admin-mail-v25-form {
+  border: 1px solid color-mix(in srgb, var(--hi-border) 82%, transparent);
+  background: color-mix(in srgb, var(--hi-panel-strong) 94%, transparent);
+  box-shadow: 0 20px 48px -40px color-mix(in srgb, var(--hi-text) 42%, transparent);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.admin-mail-v25-field {
+  border-radius: 1rem !important;
+  background: color-mix(in srgb, var(--hi-panel-muted) 64%, transparent) !important;
+}
+
+.admin-mail-v25-actions {
+  border-top: 1px solid color-mix(in srgb, var(--hi-border) 72%, transparent);
+  background: color-mix(in srgb, var(--hi-panel-muted) 42%, transparent);
+}
+
+/* Cookie banner: a single fixed glass layer, sized around mobile safe areas. */
+.cookie-banner-v25 {
+  padding-bottom: max(.75rem, env(safe-area-inset-bottom));
+  animation: cookie-banner-v25-enter 420ms cubic-bezier(.22, 1, .36, 1) both;
+}
+
+.cookie-banner-v25-frame {
+  max-height: calc(100dvh - 1.5rem);
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid color-mix(in srgb, var(--hi-border-strong) 58%, transparent);
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--hi-panel-strong) 90%, transparent), color-mix(in srgb, var(--hi-panel) 78%, transparent));
+  box-shadow: 0 24px 64px -34px color-mix(in srgb, var(--hi-text) 46%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(122%);
+  backdrop-filter: blur(18px) saturate(122%);
+}
+
+.cookie-banner-v25-icon {
+  border: 1px solid color-mix(in srgb, var(--hi-accent) 24%, var(--hi-border));
+  background: var(--hi-accent-soft);
+}
+
+.cookie-banner-v25-link,
+.cookie-banner-v25-close {
+  background: color-mix(in srgb, var(--hi-panel-muted) 64%, transparent);
+}
+
+.cookie-banner-v25-link:hover,
+.cookie-banner-v25-close:hover {
+  background: color-mix(in srgb, var(--hi-accent-soft) 72%, var(--hi-panel));
+}
+
+@keyframes cookie-banner-v25-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Full-screen image viewer: opaque stage plus one small glass toolbar. */
+.fullscreen-image-v25 {
+  height: 100dvh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(63, 79, 69, .32), transparent 44%),
+    rgba(7, 10, 8, .97);
+}
+
+.fullscreen-image-v25-safe {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+}
+
+.fullscreen-image-v25-toolbar {
+  border: 1px solid rgba(255, 255, 255, .14);
+  background: linear-gradient(145deg, rgba(46, 55, 49, .76), rgba(21, 26, 23, .68));
+  box-shadow: 0 18px 46px -28px rgba(0, 0, 0, .8);
+  -webkit-backdrop-filter: blur(16px) saturate(118%);
+  backdrop-filter: blur(16px) saturate(118%);
+}
+
+.fullscreen-image-v25-tool,
+.fullscreen-image-v25-open {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: 0 0 2.75rem;
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .08);
+  color: #fff;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  transition: background-color var(--hi-transition-standard), border-color var(--hi-transition-standard), transform var(--hi-transition-standard);
+}
+
+.fullscreen-image-v25-open {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-basis: 2.5rem;
+  border-color: rgba(255, 255, 255, .2);
+  background: rgba(9, 13, 11, .72);
+  box-shadow: 0 10px 24px -14px rgba(0, 0, 0, .8);
+}
+
+.fullscreen-image-v25-tool:hover,
+.fullscreen-image-v25-tool:focus-visible,
+.fullscreen-image-v25-open:hover {
+  border-color: rgba(255, 255, 255, .3);
+  background: rgba(255, 255, 255, .16);
+}
+
+.fullscreen-image-v25-tool:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, .9);
+  outline-offset: 2px;
+}
+
+.fullscreen-image-v25-tool:disabled {
+  cursor: not-allowed;
+  opacity: .38;
+}
+
+.fullscreen-image-v25-close {
+  background: rgba(255, 255, 255, .14);
+}
+
+.fullscreen-image-v25-stage {
+  overscroll-behavior: contain;
+}
+
+.fullscreen-image-v25-media {
+  transform-origin: center;
+  transition: transform 200ms cubic-bezier(.22, 1, .36, 1);
+}
+
+/* QR share panel: solid nested layers avoid costly repeated glass compositing. */
+.item-qr-v25-code {
+  border: 1px solid color-mix(in srgb, var(--hi-border) 82%, transparent);
+  background: color-mix(in srgb, var(--hi-panel-muted) 74%, transparent);
+  box-shadow: 0 18px 40px -34px color-mix(in srgb, var(--hi-text) 42%, transparent);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.item-qr-v25-markup,
+.item-qr-v25-placeholder {
+  overflow: hidden;
+  border-radius: 1.45rem;
+  box-shadow: 0 16px 30px -24px rgba(28, 41, 32, .32);
+}
+
+.dark .item-qr-v25-markup,
+.dark .item-qr-v25-placeholder {
+  box-shadow: 0 18px 32px -24px rgba(0, 0, 0, .52);
+}
+
+.item-qr-v25-link {
+  border: 1px solid color-mix(in srgb, var(--hi-border) 78%, transparent);
+  background: color-mix(in srgb, var(--hi-panel-muted) 48%, transparent);
+}
+
+.item-qr-v25-url {
+  background: color-mix(in srgb, var(--hi-bg-strong) 82%, transparent);
+}
+
+@supports (content-visibility: auto) {
+  .admin-v25-surface,
+  .admin-v25 .card,
+  .admin-v25-user-card,
+  .admin-v25-feed-item,
+  .item-qr-v25 {
+    content-visibility: auto;
+  }
+
+  .admin-v25-surface,
+  .admin-v25 .card,
+  .admin-v25-user-card {
+    contain-intrinsic-size: 1px 340px;
+  }
+
+  .admin-v25-feed-item,
+  .item-qr-v25 {
+    contain-intrinsic-size: 1px 180px;
+  }
+}
+
+@media (max-width: 639px) {
+  .admin-v25 .app-page-header {
+    border-radius: 0;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .admin-v25-tab {
+    min-height: 2.75rem !important;
+    flex: 1 1 calc(50% - .25rem);
+    justify-content: center;
+    padding: .65rem .85rem !important;
+  }
+
+  .admin-v25-metric {
+    min-height: 0;
+  }
+
+  .admin-v25-inline-stat {
+    padding-inline: .75rem !important;
+  }
+
+  .admin-v25-user-card,
+  .admin-v25-surface,
+  .admin-v25 .card,
+  .admin-mail-v25-form {
+    border-radius: 1.35rem !important;
+  }
+
+  .admin-mail-v25-header,
+  .admin-mail-v25-security,
+  .admin-mail-v25-info {
+    border-radius: 1.2rem;
+  }
+
+  .admin-mail-v25-actions {
+    padding-inline: 1rem !important;
+  }
+
+  .cookie-banner-v25-frame {
+    border-radius: 1.55rem;
+  }
+
+  .fullscreen-image-v25-toolbar {
+    min-height: 3.5rem !important;
+  }
+
+  .fullscreen-image-v25-toolbar > p {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+  }
+
+  .fullscreen-image-v25-toolbar > div {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .item-qr-v25-actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-v25-user-card,
+  .admin-v25-tab,
+  .cookie-banner-v25,
+  .fullscreen-image-v25-media,
+  .fullscreen-image-v25-tool,
+  .fullscreen-image-v25-open {
+    animation: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .admin-v25 .app-page-header,
+  .cookie-banner-v25-frame,
+  .fullscreen-image-v25-toolbar {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .admin-v25 .app-page-header,
+  .cookie-banner-v25-frame {
+    background: var(--hi-panel-strong) !important;
+  }
+
+  .fullscreen-image-v25-toolbar {
+    background: rgb(28, 34, 30) !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .admin-v25 .app-page-header,
+  .admin-v25 .card,
+  .admin-v25-metric,
+  .admin-v25-user-card,
+  .admin-mail-v25-form,
+  .cookie-banner-v25-frame,
+  .fullscreen-image-v25-toolbar,
+  .item-qr-v25-code {
+    border: 1px solid CanvasText !important;
+    background: Canvas !important;
+    box-shadow: none !important;
+  }
+
+  .fullscreen-image-v25,
+  .fullscreen-image-v25-toolbar,
+  .fullscreen-image-v25-tool,
+  .fullscreen-image-v25-open {
+    color: CanvasText !important;
+  }
+}

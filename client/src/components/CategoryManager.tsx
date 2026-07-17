@@ -25,15 +25,15 @@ import {
     Wrench,
     X
 } from 'lucide-react';
-import { EmptyState, NoticeBanner, PageHeader } from './ProductUI';
+import { EmptyState, NoticeBanner } from './ProductUI';
 import FloatingToast from './FloatingToast';
 import IconActionButton from './IconActionButton';
 import { ConfirmDialog } from './ModalDialog';
 import { getCategoryPresentation } from '../utils/categoryDisplay';
-import { BRAND_NAME } from '../constants/branding';
+import { BRAND_KEY } from '../constants/branding';
 import { invalidateCache } from '../utils/apiCache';
 
-const DEFAULT_CATEGORY_COLOR = BRAND_NAME === 'HomeInventory' ? '#129e9a' : '#6f9978';
+const DEFAULT_CATEGORY_COLOR = BRAND_KEY === 'homeinventory' ? '#6f9978' : '#2868d8';
 const ITEM_CACHE_PATTERN = /^\/api\/items/;
 
 interface CategoryIconOption {
@@ -202,17 +202,16 @@ export default function CategoryManager() {
     }
 
     return (
-        <div className="space-y-6 animate-fade-in">
-            <PageHeader
-                breadcrumbs={[{ label: t('navigation.home') || '', to: '/' }]}
-                title={t('categories.title')}
-                description={t('categories.subtitle', { count: categories.length })}
-                actions={(
-                    <button type="button" onClick={() => setShowForm(true)} aria-label={t('categories.new_category') || undefined} className="btn-secondary inline-flex items-center gap-2">
-                        <Plus className="w-5 h-5" /> {t('categories.new_category')}
-                    </button>
-                )}
-            />
+        <div className="manager-page-v25 category-manager-v25 animate-fade-in">
+            <header className="workspace-intro workspace-intro-with-action manager-intro-v25">
+                <div>
+                    <h1>{t('categories.title')}</h1>
+                    <p>{t('categories.subtitle', { count: categories.length })}</p>
+                </div>
+                <button type="button" onClick={() => setShowForm(true)} aria-label={t('categories.new_category') || undefined} className="btn-primary manager-create-v25">
+                    <Plus className="w-5 h-5" /> <span>{t('categories.new_category')}</span>
+                </button>
+            </header>
 
             {error && (
                 <NoticeBanner
@@ -223,7 +222,7 @@ export default function CategoryManager() {
             )}
 
             {showForm && (
-                <div className="card">
+                <section className="manager-form-v25">
                     <div className="flex items-center justify-between mb-4">
                         <h3 className="text-lg font-semibold text-[var(--hi-text)]">{editingId ? t('categories.edit_title') : t('categories.new_title')}</h3>
                         <button type="button" onClick={resetForm} aria-label={t('common.close') || undefined} className="rounded-xl p-2 text-[var(--hi-text-soft)] transition hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]">
@@ -285,7 +284,7 @@ export default function CategoryManager() {
                             <button type="button" onClick={resetForm} className="btn-secondary">{t('common.cancel')}</button>
                         </div>
                     </form>
-                </div>
+                </section>
             )}
 
             {categories.length === 0 ? (
@@ -301,14 +300,14 @@ export default function CategoryManager() {
                     )}
                 />
             ) : (
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+                <div className="manager-list-v25">
                     {categories.map((cat) => {
                         const categoryPresentation = getCategoryPresentation(cat, i18n.resolvedLanguage || i18n.language);
                         const iconOption = getCategoryIconOption(cat, categoryPresentation.name);
                         const CategoryIcon = iconOption.icon;
 
                         return (
-                            <div key={cat.id} className="card flex items-center gap-4 p-4 hover:shadow-md transition-shadow">
+                            <article key={cat.id} className="manager-row-v25 flex items-center gap-4">
                                 <div
                                     className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[0.95rem] border shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
                                     style={{
@@ -335,7 +334,7 @@ export default function CategoryManager() {
                                         onClick={() => setPendingDeleteCategory(cat)}
                                     />
                                 </div>
-                            </div>
+                            </article>
                         );
                     })}
                 </div>

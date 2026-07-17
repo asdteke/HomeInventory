@@ -6,7 +6,8 @@ import { ArrowRight, Eye, EyeOff, KeyRound, Lock, Moon, ShieldCheck, Sun, User }
 import BrandLogo from './BrandLogo';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTheme } from '../context/ThemeContext';
-import { BRAND_KEY, BRAND_NAME, SUPPORT_EMAIL } from '../constants/branding';
+import { BRAND_KEY, BRAND_NAME, SUPPORT_CONTACT_URL } from '../constants/branding';
+import '../auth-landing-v25.css';
 import { resolveVerifiedLegalTranslationLanguage } from '../utils/legalTranslations';
 import { PremiumCheckbox } from './PremiumCheckbox';
 
@@ -40,10 +41,10 @@ export default function Login() {
         : 'bg-[var(--hi-bg)] text-[var(--hi-text)]';
     const pageGlow = isDark
         ? (isCustomBrand
-            ? 'radial-gradient(circle_at_18%_16%,rgba(103,227,242,0.08),transparent_26%),radial-gradient(circle_at_82%_18%,rgba(139,180,255,0.09),transparent_30%),linear-gradient(180deg,#101620_0%,#161c27_52%,#111722_100%)'
+            ? 'radial-gradient(circle_at_18%_16%,rgba(88,213,240,0.08),transparent_26%),radial-gradient(circle_at_82%_18%,rgba(100,168,255,0.10),transparent_30%),linear-gradient(180deg,#08111e_0%,#0d1726_52%,#10213a_100%)'
             : 'radial-gradient(circle_at_20%_18%,rgba(205,176,136,0.08),transparent_26%),radial-gradient(circle_at_78%_22%,rgba(74,125,100,0.12),transparent_30%),linear-gradient(180deg,#151a17_0%,#1a201d_52%,#151917_100%)')
         : (isCustomBrand
-            ? 'radial-gradient(circle_at_18%_18%,rgba(139,180,255,0.13),transparent_24%),radial-gradient(circle_at_82%_20%,rgba(18,158,154,0.10),transparent_28%),linear-gradient(180deg,#f4f8fd_0%,#eff5fc_48%,#eaf1fa_100%)'
+            ? 'radial-gradient(circle_at_18%_18%,rgba(100,168,255,0.14),transparent_24%),radial-gradient(circle_at_82%_20%,rgba(22,166,220,0.10),transparent_28%),linear-gradient(180deg,#f3f7ff_0%,#edf4ff_48%,#e8f1ff_100%)'
             : 'radial-gradient(circle_at_18%_18%,rgba(184,153,104,0.12),transparent_24%),radial-gradient(circle_at_82%_20%,rgba(45,82,65,0.10),transparent_28%),linear-gradient(180deg,#f7f2e8_0%,#f4ede2_48%,#efe6d9_100%)');
     const topChromeClass = isDark
         ? (isCustomBrand
@@ -164,22 +165,18 @@ export default function Login() {
     };
 
     return (
-        <div className={`landing-page-shell relative min-h-screen overflow-hidden ${pageClass}`}>
+        <div className={`auth-page-v25 landing-page-shell relative min-h-screen overflow-hidden ${pageClass}`}>
             <div className="absolute inset-0" style={{ background: pageGlow }} />
             <div className={`absolute inset-0 ${isDark ? 'opacity-[0.14]' : 'opacity-[0.22]'}`}>
                 <div className="landing-grid absolute inset-0" />
             </div>
             <div className={`absolute left-[-7rem] top-16 h-56 w-56 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(139,180,255,0.10)]' : 'bg-[rgba(205,176,136,0.10)]') : (isCustomBrand ? 'bg-[rgba(139,180,255,0.16)]' : 'bg-[rgba(205,176,136,0.16)]')}`} />
-            <div className={`absolute bottom-8 right-[-5rem] h-64 w-64 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(103,227,242,0.12)]' : 'bg-[rgba(74,125,100,0.14)]') : (isCustomBrand ? 'bg-[rgba(18,158,154,0.10)]' : 'bg-[rgba(45,82,65,0.10)]')}`} />
+            <div className={`absolute bottom-8 right-[-5rem] h-64 w-64 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.12)]' : 'bg-[rgba(74,125,100,0.14)]') : (isCustomBrand ? 'bg-[rgba(22,166,220,0.10)]' : 'bg-[rgba(45,82,65,0.10)]')}`} />
 
-            <div className="relative z-10 flex min-h-screen items-center justify-center px-5 py-8 sm:px-6 sm:py-12">
+            <div className="auth-shell-v25 relative z-10 flex min-h-screen items-center justify-center px-5 py-8 sm:px-6 sm:py-12">
                 <div className="w-full max-w-[31rem]">
-                    <div className="mb-4 flex items-center justify-between gap-3 sm:mb-5">
-                        <div className={`hidden text-xs font-medium uppercase tracking-[0.22em] sm:block ${isDark ? 'text-white/30' : 'text-[var(--hi-text-muted)]'}`}>
-                            {t('landing.nav.login')}
-                        </div>
-
-                        <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
+                    <div className="auth-top-tools-v25 mb-4 flex items-center justify-between gap-3 sm:mb-5">
+                        <div className="auth-top-controls-v25 flex shrink-0 items-center gap-2 sm:gap-3">
                             <button
                                 type="button"
                                 onClick={toggleTheme}
@@ -197,9 +194,13 @@ export default function Login() {
                                 />
                             </div>
                         </div>
+
+                        <div className={`auth-top-label-v25 text-right font-medium uppercase ${isDark ? 'text-white/38' : 'text-[var(--hi-text-muted)]'}`}>
+                            {t('landing.nav.login')}
+                        </div>
                     </div>
 
-                    <div className={`relative overflow-hidden rounded-[var(--hi-radius-md)] ${cardClass}`}>
+                    <div className={`auth-card-v25 relative overflow-hidden rounded-[var(--hi-radius-md)] ${cardClass}`}>
                         <div className={`landing-panel-glow absolute inset-0 ${isCustomBrand && isDark ? 'opacity-30' : 'opacity-50'}`} />
 
                         <div className={`relative p-6 sm:p-8 ${isCustomBrand && isDark ? 'bg-[linear-gradient(180deg,rgba(17,24,35,0.24),rgba(17,24,35,0.08))]' : ''}`}>
@@ -328,7 +329,7 @@ export default function Login() {
                                                         {privacyLinkLabel}
                                                     </Link>
                                                     <span className={isDark ? 'text-white/18' : 'text-[var(--hi-border-strong)]'}>&bull;</span>
-                                                    <a href={`mailto:${SUPPORT_EMAIL}`} title={SUPPORT_EMAIL} className={`transition ${footerLinkClass}`}>
+                                                    <a href={SUPPORT_CONTACT_URL} target="_blank" rel="noreferrer" className={`transition ${footerLinkClass}`}>
                                                         {supportLabel}
                                                     </a>
                                                 </div>

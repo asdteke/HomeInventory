@@ -49,8 +49,16 @@ import './database.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const clientDist = join(__dirname, 'client', 'dist');
+const requestedClientDist = String(process.env.APP_CLIENT_DIST_DIR || 'dist').trim();
+if (!/^dist(?:-[a-z0-9-]+)?$/i.test(requestedClientDist)) {
+    throw new Error('APP_CLIENT_DIST_DIR must be a safe client build directory name such as dist or dist-custom.');
+}
+const clientDist = join(__dirname, 'client', requestedClientDist);
 const NODE_ENV = process.env.NODE_ENV || 'development';
+const clientIndexPath = join(clientDist, 'index.html');
+if (NODE_ENV === 'production' && !fs.existsSync(clientIndexPath)) {
+    throw new Error(`Production client build is missing: ${clientIndexPath}. Build the selected brand before starting the server.`);
+}
 const LOCAL_HTTP = process.env.HOMEINVENTORY_LOCAL_HTTP === 'true';
 const SITE_URL = String(
     process.env.SITE_URL ||
@@ -166,6 +174,9 @@ app.use(helmet({
 const PORT = process.env.PORT || 3001;
 const FRONTEND_PORT = process.env.FRONTEND_PORT || 5173;
 const HOST = process.env.HOST || (NODE_ENV === 'production' ? '0.0.0.0' : '127.0.0.1');
+// 250 MiB of media expands to roughly 334 MiB when embedded as base64 JSON.
+// This is intentionally route-specific; regular API requests remain small.
+const FULL_BACKUP_JSON_LIMIT = '360mb';
 
 // Get local network IP address
 function getLocalIP() {
@@ -365,6 +376,7 @@ app.use(express.static(clientDist, {
     }
 }));
 
+app.use('/api/backup/import', express.json({ limit: FULL_BACKUP_JSON_LIMIT }));
 app.use(express.json({ limit: '5mb' }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true, limit: '5mb' }));
@@ -494,7 +506,10 @@ app.get('*', (req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({ error: 'Sayfa bulunamadı' });
     }
-    res.sendFile(join(clientDist, 'index.html'));
+    // The SPA shell names the client chunk set. Never let a browser reuse an
+    // older shell after a deploy or a local production rebuild.
+    res.setHeader('Cache-Control', 'no-store, max-age=0, must-revalidate');
+    res.sendFile(clientIndexPath, { cacheControl: false });
 });
 
 // Error handling middleware (KVKK uyumlu)

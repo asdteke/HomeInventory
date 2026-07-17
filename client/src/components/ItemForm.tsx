@@ -82,7 +82,7 @@ function DetailField({ label, value, mono = false }) {
     }
 
     return (
-        <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
+        <div className="item-detail-field">
             <p className="text-xs text-[var(--hi-text-muted)]">{label}</p>
             <p className={`mt-1 font-medium text-[var(--hi-text)] [overflow-wrap:anywhere] ${mono ? 'font-mono text-sm' : ''}`}>
                 {value}
@@ -1146,34 +1146,34 @@ export default function ItemForm() {
 
     if (isEditing && !isDetailEditMode) {
         return (
-            <div className="mx-auto max-w-2xl animate-fade-in">
-                <div className="mb-6 flex items-center justify-between gap-4">
+            <div className="item-detail-page mx-auto max-w-5xl animate-fade-in">
+                <header className="item-detail-intro">
                     <div className="flex min-w-0 items-center gap-4">
                         <button
                             onClick={() => navigate(-1)}
-                            className="inline-flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)] transition-colors hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)]"
+                            className="item-form-back"
                         >
                             <ArrowLeft className="w-6 h-6" />
                         </button>
                         <div className="min-w-0">
-                            <h1 className="section-title truncate text-3xl text-[var(--hi-text)]">{formData.name || t('inventory.untitled_item')}</h1>
-                            <p className="text-sm text-[var(--hi-text-soft)]">{t('items.detail_subtitle', { defaultValue: 'Item details' })}</p>
+                            <h1>{formData.name || t('inventory.untitled_item')}</h1>
+                            <p>{t('items.detail_subtitle', { defaultValue: 'Item details' })}</p>
                         </div>
                     </div>
                     {canEditItem && (
                         <button
                             type="button"
                             onClick={() => setIsDetailEditMode(true)}
-                            className="inline-flex items-center gap-2 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-2 text-sm font-medium text-[var(--hi-text)] transition hover:bg-[var(--hi-panel-strong)]"
+                            className="item-detail-edit"
                         >
                             <Edit3 className="h-4 w-4" />
                             {t('common.edit')}
                         </button>
                     )}
-                </div>
+                </header>
 
-                <div className="space-y-5">
-                    <div className="card overflow-hidden p-0">
+                <div className="item-detail-layout">
+                    <section className="item-detail-overview">
                         {existingPhoto && !removePhoto && (
                             <FullscreenImage
                                 src={existingPhoto}
@@ -1184,7 +1184,7 @@ export default function ItemForm() {
                                 <SecureImage src={existingPhoto} alt={formData.name} className="h-64 w-full object-cover" />
                             </FullscreenImage>
                         )}
-                        <div className="space-y-4 p-5">
+                        <div className="item-detail-overview-copy space-y-4">
                             {formData.description && (
                                 <p className="text-sm leading-6 text-[var(--hi-text-soft)]">{formData.description}</p>
                             )}
@@ -1199,9 +1199,9 @@ export default function ItemForm() {
                                 <DetailField label={t('items.form.min_quantity', { defaultValue: 'Asgari Stok Limiti' })} value={formData.min_quantity > 0 ? formData.min_quantity : null} />
                             </div>
                         </div>
-                    </div>
+                    </section>
 
-                    <div className="space-y-5">
+                    <div className="item-detail-sections">
                         <div className="card space-y-4 p-5">
                             <div>
                                 <h2 className="font-semibold text-[var(--hi-text)]">{t('items.form.invoice_section')}</h2>
@@ -1465,27 +1465,28 @@ export default function ItemForm() {
     }
 
     return (
-        <div className="mx-auto max-w-2xl animate-fade-in">
-            {/* Header */}
-            <div className="flex items-center gap-4 mb-6">
+        <div className="item-form-page mx-auto max-w-5xl animate-fade-in">
+            <header className="item-form-intro">
                 <button
                     onClick={() => navigate(-1)}
-                    className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)] transition-colors hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)]"
+                    className="item-form-back"
+                    aria-label={t('common.back', { defaultValue: 'Back' })}
                 >
                     <ArrowLeft className="w-6 h-6" />
                 </button>
-                <div>
-                    <h1 className="section-title text-3xl text-[var(--hi-text)]">{isEditing ? t('items.title_edit') : t('items.title_new')}</h1>
-                    <p className="text-sm text-[var(--hi-text-soft)]">{t('items.subtitle')}</p>
+                <div className="item-form-intro-copy">
+                    <p>{t('navigation.inventory', { defaultValue: 'Inventory' })}</p>
+                    <h1>{isEditing ? t('items.title_edit') : t('items.title_new')}</h1>
+                    <span>{t('items.subtitle')}</span>
                 </div>
-            </div>
+            </header>
 
-            <div className="card">
+            <div className="item-form-surface">
                 {error && <div className="bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 text-red-600 dark:text-red-400 px-4 py-3 rounded-xl mb-6">{error}</div>}
 
-                <form onSubmit={handleSubmit} noValidate className="space-y-6">
+                <form onSubmit={handleSubmit} noValidate className="item-form-workspace space-y-6">
                     {/* Item Privacy Toggle */}
-                    <div className="flex items-center justify-between rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-4 shadow-[var(--hi-shadow-soft)]">
+                    <div className="item-form-visibility flex items-center justify-between rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-4 shadow-[var(--hi-shadow-soft)]">
                         <div className="flex items-center gap-3">
                             {formData.is_public ? <Globe className="w-5 h-5 text-[var(--hi-accent)]" /> : <Lock className="w-5 h-5 text-[var(--hi-secondary)]" />}
                             <div>
@@ -1610,15 +1611,16 @@ export default function ItemForm() {
                         </div>
                     )}
 
+                    <div className="item-form-primary-grid">
                     {/* Photo Upload */}
-                    <div className="space-y-3">
+                    <div className="item-form-photo-section space-y-3">
                         <label className="block text-sm font-semibold tracking-wide text-[var(--hi-text)]">
                             {t('items.form.photo')}
                         </label>
-                        <div className="flex flex-col md:flex-row gap-5 p-5 rounded-[24px] border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] shadow-[var(--hi-shadow-soft)] overflow-hidden relative group/widget transition-all duration-300 hover:border-[var(--hi-border-strong)]">
+                        <div className="item-form-photo-workspace flex flex-col gap-5 p-5 rounded-[24px] border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] shadow-[var(--hi-shadow-soft)] overflow-hidden relative group/widget transition-all duration-300 hover:border-[var(--hi-border-strong)]">
 
                             {/* Left Side: Premium Preview Zone */}
-                            <div className="relative flex h-52 w-full md:w-52 flex-shrink-0 items-center justify-center overflow-hidden rounded-[20px] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] transition-all duration-300 shadow-[inset_0_2px_8px_rgba(0,0,0,0.04)] group/preview">
+                            <div className="relative flex h-52 w-full flex-shrink-0 items-center justify-center overflow-hidden rounded-[20px] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] transition-all duration-300 shadow-[inset_0_2px_8px_rgba(0,0,0,0.04)] group/preview">
                                 {photoPreview ? (
                                     <FullscreenImage
                                         src={photoPreview}
@@ -1737,6 +1739,7 @@ export default function ItemForm() {
                         </div>
                     </div>
 
+                    <section className="item-form-core-fields">
                     {/* Name with Barcode Scanner */}
                     <div>
                         <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.name')} <span className="text-red-500">{t('items.form.required')}</span></label>
@@ -1821,6 +1824,8 @@ export default function ItemForm() {
                                 <ExternalLink className="h-4 w-4" />
                             </a>
                         </div>
+                    </div>
+                    </section>
                     </div>
 
                     {/* Optional Invoice Section */}
@@ -2618,7 +2623,7 @@ export default function ItemForm() {
                     </div>
 
                     {/* Submit */}
-                    <div className="flex gap-3 pt-4">
+                    <div className="item-form-actions flex gap-3 pt-4">
                         <button type="submit" disabled={loading} className="btn-primary flex-1 py-3 flex items-center justify-center gap-2">
                             {loading && <Loader2 className="w-5 h-5 animate-spin" />}
                             {loading ? t('items.form.submitting') : (isEditing ? t('items.form.submit_save') : t('items.form.submit_add'))}

@@ -4,7 +4,7 @@ import QRCode from 'qrcode';
 import { useTranslation } from 'react-i18next';
 import { X, Copy, Download, ShieldCheck, Loader2, CheckCircle, AlertCircle, ChevronRight, KeyRound } from 'lucide-react';
 import { copyTextToClipboard } from '../utils/clipboard';
-import { BRAND_NAME } from '../constants/branding';
+import { BRAND_KEY, BRAND_NAME } from '../constants/branding';
 import { PremiumCheckbox } from './PremiumCheckbox';
 
 export interface TwoFactorSetupProps {
@@ -93,7 +93,7 @@ export default function TwoFactorSetup({ onClose, onEnabled }: TwoFactorSetupPro
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `homeinventory-2fa-backup-codes-${new Date().toISOString().split('T')[0]}.txt`;
+        a.download = `${BRAND_KEY}-2fa-backup-codes-${new Date().toISOString().split('T')[0]}.txt`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -113,7 +113,7 @@ export default function TwoFactorSetup({ onClose, onEnabled }: TwoFactorSetupPro
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-4 backdrop-blur-sm animate-fade-in">
-            <div className="max-h-[92vh] w-full max-w-4xl overflow-y-auto rounded-[2rem] border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] text-[var(--hi-text)] shadow-2xl">
+            <div className="app-modal-dialog max-h-[92vh] w-full max-w-4xl overflow-y-auto text-[var(--hi-text)]">
                 <div className="border-b border-[var(--hi-border)] px-6 py-6 sm:px-8">
                     <div className="flex items-start justify-between gap-4">
                         <div className="flex items-start gap-4">

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { Plus, Edit3, Trash2, X, FolderOpen } from 'lucide-react';
-import { EmptyState, NoticeBanner, PageHeader } from './ProductUI';
+import { EmptyState, NoticeBanner } from './ProductUI';
 import FloatingToast from './FloatingToast';
 import IconActionButton from './IconActionButton';
 import { ConfirmDialog } from './ModalDialog';
@@ -98,17 +98,16 @@ export default function RoomManager() {
     if (loading) return <div className="flex justify-center py-20"><div className="spinner"></div></div>;
 
     return (
-        <div className="space-y-6 animate-fade-in">
-            <PageHeader
-                breadcrumbs={[{ label: t('navigation.home'), to: '/' }]}
-                title={t('rooms.title')}
-                description={t('rooms.subtitle', { count: rooms.length })}
-                actions={(
-                    <button type="button" onClick={() => setShowForm(true)} aria-label={t('rooms.new_room')} className="btn-secondary inline-flex items-center gap-2">
-                        <Plus className="w-5 h-5" /> {t('rooms.new_room')}
-                    </button>
-                )}
-            />
+        <div className="manager-page-v25 room-manager-v25 animate-fade-in">
+            <header className="workspace-intro workspace-intro-with-action manager-intro-v25">
+                <div>
+                    <h1>{t('rooms.title')}</h1>
+                    <p>{t('rooms.subtitle', { count: rooms.length })}</p>
+                </div>
+                <button type="button" onClick={() => setShowForm(true)} aria-label={t('rooms.new_room')} className="btn-primary manager-create-v25">
+                    <Plus className="w-5 h-5" /> <span>{t('rooms.new_room')}</span>
+                </button>
+            </header>
 
             {error && (
                 <NoticeBanner
@@ -119,7 +118,7 @@ export default function RoomManager() {
             )}
 
             {showForm && (
-                <div className="card">
+                <section className="manager-form-v25">
                     <div className="flex items-center justify-between mb-4">
                         <h3 className="text-lg font-semibold text-[var(--hi-text)]">{editingId ? t('rooms.edit_title') : t('rooms.new_title')}</h3>
                         <button type="button" onClick={resetForm} aria-label={t('common.close')} className="rounded-xl p-2 text-[var(--hi-text-soft)] transition hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]"><X className="w-5 h-5" /></button>
@@ -138,7 +137,7 @@ export default function RoomManager() {
                             <button type="button" onClick={resetForm} className="btn-secondary">{t('common.cancel')}</button>
                         </div>
                     </form>
-                </div>
+                </section>
             )}
 
             {rooms.length === 0 ? (
@@ -154,12 +153,12 @@ export default function RoomManager() {
                     )}
                 />
             ) : (
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="manager-list-v25">
                     {rooms.map((room) => {
                         const roomPresentation = getRoomPresentation(room, i18n.resolvedLanguage || i18n.language);
 
                         return (
-                        <div key={room.id} className="card p-4 sm:p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[var(--hi-shadow-soft)]">
+                        <article key={room.id} className="manager-row-v25">
                             <div className="flex items-start justify-between gap-3">
                                 <div className="min-w-0 flex flex-1 items-start gap-3">
                                     <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-[0.95rem] border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
@@ -192,7 +191,7 @@ export default function RoomManager() {
                                     />
                                 </div>
                             </div>
-                        </div>
+                        </article>
                     )})}
                 </div>
             )}

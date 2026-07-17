@@ -14,12 +14,13 @@ import {
     getRequestErrorMessage
 } from '../utils/httpRequests';
 import { resolveVisibleItemTitle } from '../utils/itemDisplay';
-import { EmptyState, LoadingState, PageHeader } from './ProductUI';
+import { LoadingState } from './ProductUI';
 import FloatingToast from './FloatingToast';
 import IconActionButton from './IconActionButton';
 import SegmentedToggle from './SegmentedToggle';
 import { getRoomPresentation } from '../utils/roomDisplay';
 import { getCategoryPresentation } from '../utils/categoryDisplay';
+import '../inventory-card-v25.css';
 
 import { fetchWithCache, getCachedData, hasCache, invalidateCache } from '../utils/apiCache';
 
@@ -146,7 +147,6 @@ export default function ItemList() {
         filters.sort !== DEFAULT_ITEM_SORT
     );
     const secondaryActionButtonClass = 'flex-1 lg:flex-none inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel)] px-4 py-2 text-sm font-medium text-[var(--hi-text)] transition-all duration-200 hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]';
-    const compactFilterInputClass = 'input-field !h-10 !rounded-xl !px-3 !py-2 text-sm';
     const currentLanguage = i18n.resolvedLanguage || i18n.language;
 
     const getVisibleRoomName = (roomLike: any) => {
@@ -712,27 +712,42 @@ export default function ItemList() {
     ];
 
     return (
-        <div className="space-y-4 animate-fade-in">
-            <PageHeader
-                className="inventory-page-header"
-                breadcrumbs={[{ label: t('navigation.home'), to: '/' }]}
-                title={t('inventory.title')}
-                description={t('inventory.subtitle', { count: items.length })}
-                meta={hasActiveFilters ? [{ label: t('common.filter', { defaultValue: 'Filter' }), tone: 'secondary' }] : []}
-                actions={(
-                    <Link to="/items/new" className="btn-primary inline-flex items-center justify-center gap-2 self-start">
-                        <Plus className="w-5 h-5" /> {t('inventory.new_item')}
+        <div className="inventory-page animate-fade-in">
+            <header className="inventory-intro">
+                <div className="inventory-intro-copy">
+                    <h1>{t('inventory.title')}</h1>
+                    <p>{t('inventory.subtitle', { count: items.length })}</p>
+                </div>
+                <div className="inventory-intro-actions">
+                    <div className="inventory-result-count" aria-label={t('inventory.subtitle', { count: items.length })}>
+                        <strong>{items.length}</strong>
+                        <span>{t('navigation.inventory', { defaultValue: 'Inventory' })}</span>
+                    </div>
+                    <Link to="/items/new" className="btn-primary inventory-desktop-new">
+                        <Plus className="h-5 w-5" />
+                        <span>{t('inventory.new_item')}</span>
                     </Link>
-                )}
-            >
-                <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel)] p-2.5 shadow-[var(--hi-shadow-soft)]">
-                    <div className="mb-2 flex flex-wrap items-center justify-end gap-1.5">
-                        <p className="sr-only">{t('common.filter', { defaultValue: 'Filter' })}</p>
-                        <div className="flex flex-wrap items-center justify-end gap-1.5">
+                </div>
+            </header>
+
+            <section className="inventory-controls" aria-label={t('common.filter', { defaultValue: 'Filter' })}>
+                <div className="inventory-search-row">
+                    <label className="inventory-search-field">
+                        <Search className="h-5 w-5" />
+                        <span className="sr-only">{t('inventory.search_placeholder')}</span>
+                        <input
+                            type="text"
+                            placeholder={t('inventory.search_placeholder')}
+                            value={filters.search}
+                            onChange={(e) => setFilters({ ...filters, search: e.target.value })}
+                            aria-label={t('inventory.search_placeholder')}
+                        />
+                    </label>
+                    <div className="inventory-tool-row">
                             <button
                                 type="button"
                                 onClick={() => setShowDetailedFilters((current) => !current)}
-                                className={`inline-flex h-9 w-9 items-center justify-center rounded-xl border text-sm font-semibold transition ${shouldShowDetailedFilters ? 'border-[var(--hi-accent-border)] bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]' : 'border-[var(--hi-border)] bg-[var(--hi-panel-muted)] text-[var(--hi-text)] hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)]'}`}
+                                className={`inventory-tool-button ${shouldShowDetailedFilters ? 'is-active' : ''}`}
                                 aria-expanded={shouldShowDetailedFilters}
                                 aria-label={t('common.details', { defaultValue: 'Details' })}
                                 title={t('common.details', { defaultValue: 'Details' })}
@@ -745,7 +760,7 @@ export default function ItemList() {
                                     <Link
                                         key={tool.to}
                                         to={tool.to}
-                                        className="group inline-flex h-9 w-9 items-center justify-center rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] text-[var(--hi-text)] transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)]"
+                                        className="inventory-tool-button"
                                         aria-label={tool.label}
                                         title={tool.label}
                                     >
@@ -777,26 +792,15 @@ export default function ItemList() {
                                     }
                                 ]}
                             />
-                        </div>
                     </div>
+                </div>
 
-                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-[minmax(18rem,2fr)_minmax(12rem,1fr)_minmax(12rem,1fr)_minmax(12rem,1fr)]">
-                        <div className="relative">
-                            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--hi-text-muted)]" />
-                            <input
-                                type="text"
-                                placeholder={t('inventory.search_placeholder')}
-                                value={filters.search}
-                                onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-                                aria-label={t('inventory.search_placeholder')}
-                                className={`${compactFilterInputClass} !pl-10`}
-                            />
-                        </div>
+                    <div className="inventory-primary-filters">
                         <select
                             value={filters.category_id}
                             onChange={(e) => setFilters({ ...filters, category_id: e.target.value })}
                             aria-label={t('inventory.category_filter_label', { defaultValue: 'Kategoriye göre filtrele' })}
-                            className={compactFilterInputClass}
+                            className="inventory-filter-select"
                         >
                             <option value="">{t('inventory.all_categories')}</option>
                             {categories.map((category) => (
@@ -809,7 +813,7 @@ export default function ItemList() {
                             value={filters.room_id}
                             onChange={(e) => setFilters({ ...filters, room_id: e.target.value, location_id: '' })}
                             aria-label={t('inventory.room_filter_label', { defaultValue: 'Odaya göre filtrele' })}
-                            className={compactFilterInputClass}
+                            className="inventory-filter-select"
                         >
                             <option value="">{t('inventory.all_rooms')}</option>
                             {rooms.map((room) => (
@@ -822,7 +826,7 @@ export default function ItemList() {
                             value={filters.sort}
                             onChange={(e) => setFilters({ ...filters, sort: e.target.value })}
                             aria-label={t('inventory.sort_label', { defaultValue: 'Sıralama' })}
-                            className={compactFilterInputClass}
+                            className="inventory-filter-select"
                         >
                             <option value="updated_desc">{t('inventory.sort_updated_desc', { defaultValue: 'Son güncellenen' })}</option>
                             <option value="updated_asc">{t('inventory.sort_updated_asc', { defaultValue: 'En eski güncelleme' })}</option>
@@ -838,12 +842,12 @@ export default function ItemList() {
                     </div>
 
                     {shouldShowDetailedFilters && (
-                        <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+                        <div className="inventory-detail-filters">
                         <select
                             value={filters.location_id}
                             onChange={(e) => setFilters({ ...filters, location_id: e.target.value })}
                             aria-label={t('inventory.location_filter_label', { defaultValue: 'Konuma göre filtrele' })}
-                            className={compactFilterInputClass}
+                            className="inventory-filter-select"
                         >
                             <option value="">{t('inventory.all_locations', { defaultValue: 'Tüm konumlar' })}</option>
                             {availableLocations.map((location) => (
@@ -856,7 +860,7 @@ export default function ItemList() {
                             value={filters.visibility}
                             onChange={(e) => setFilters({ ...filters, visibility: e.target.value })}
                             aria-label={t('inventory.visibility_filter_label', { defaultValue: 'Görünürlüğe göre filtrele' })}
-                            className={compactFilterInputClass}
+                            className="inventory-filter-select"
                         >
                             <option value="">{t('inventory.visibility_all', { defaultValue: 'Tüm görünürlükler' })}</option>
                             <option value="public">{t('items.form.visibility_public', { defaultValue: 'Paylaşılan' })}</option>
@@ -868,7 +872,7 @@ export default function ItemList() {
                             value={filters.borrowed}
                             onChange={(e) => setFilters({ ...filters, borrowed: e.target.value })}
                             aria-label={t('inventory.borrow_filter_label', { defaultValue: 'Ödünç durumuna göre filtrele' })}
-                            className={compactFilterInputClass}
+                            className="inventory-filter-select"
                         >
                             <option value="">{t('inventory.borrow_filter_all', { defaultValue: 'Tüm ödünç durumları' })}</option>
                             <option value="borrowed">{t('inventory.borrow.borrowed_badge', { defaultValue: 'Ödünçte' })}</option>
@@ -879,7 +883,7 @@ export default function ItemList() {
                             value={filters.stock}
                             onChange={(e) => setFilters({ ...filters, stock: e.target.value })}
                             aria-label={t('inventory.stock_filter_label', { defaultValue: 'Stok durumuna göre filtrele' })}
-                            className={compactFilterInputClass}
+                            className="inventory-filter-select"
                         >
                             <option value="">{t('inventory.stock_filter_all', { defaultValue: 'Tüm stok durumları' })}</option>
                             <option value="low">{t('items.status.low_stock', { defaultValue: 'Azalan Stok' })}</option>
@@ -889,7 +893,7 @@ export default function ItemList() {
                             value={filters.expiry}
                             onChange={(e) => setFilters({ ...filters, expiry: e.target.value })}
                             aria-label={t('inventory.expiry_filter_label', { defaultValue: 'Son kullanma durumuna göre filtrele' })}
-                            className={compactFilterInputClass}
+                            className="inventory-filter-select"
                         >
                             <option value="">{t('inventory.expiry_filter_all', { defaultValue: 'Tüm son kullanma durumları' })}</option>
                             <option value="expired">{t('items.status.expired', { defaultValue: 'Son Kullanma Geçti' })}</option>
@@ -901,7 +905,7 @@ export default function ItemList() {
                             value={filters.warranty}
                             onChange={(e) => setFilters({ ...filters, warranty: e.target.value })}
                             aria-label={t('inventory.warranty_filter_label', { defaultValue: 'Garanti durumuna göre filtrele' })}
-                            className={compactFilterInputClass}
+                            className="inventory-filter-select"
                         >
                             <option value="">{t('inventory.warranty_filter_all', { defaultValue: 'Tüm garanti durumları' })}</option>
                             <option value="expired">{t('inventory.warranty_filter_expired', { defaultValue: 'Garantisi bitenler' })}</option>
@@ -911,8 +915,12 @@ export default function ItemList() {
                         </select>
                         </div>
                     )}
-                </div>
-            </PageHeader>
+                {hasActiveFilters && (
+                    <button type="button" onClick={clearFilters} className="inventory-clear-filters">
+                        {t('dashboard.filters.remove', { defaultValue: 'Clear Filter' })}
+                    </button>
+                )}
+            </section>
 
             {items.length > 0 && (
                 <section className={`bulk-action-bar ${selectedCount > 0 ? 'bulk-action-bar-active' : ''}`}>
@@ -991,31 +999,33 @@ export default function ItemList() {
             {/* Items */}
             <div aria-busy={filtersLoading}>
                 {items.length === 0 ? (
-                <EmptyState
-                    icon={Package}
-                    title={hasActiveFilters
-                        ? t('inventory.empty_filter_title', { defaultValue: 'Aramanıza uygun eşya bulunamadı' })
-                        : t('inventory.empty_title')}
-                    description={hasActiveFilters ? t('inventory.empty_filter') : t('inventory.empty_msg')}
-                    className="!py-10"
-                    actions={(
-                        <>
-                            {hasActiveFilters && (
-                                <button type="button" onClick={clearFilters} className="btn-secondary">
-                                    <Search className="w-4 h-4" />
-                                    <span>{t('dashboard.filters.remove', { defaultValue: 'Clear Filter' })}</span>
-                                </button>
-                            )}
-                            <Link to="/items/new" className="btn-primary inline-flex items-center gap-2">
-                                <Plus className="w-5 h-5" /> {t('inventory.add_first')}
-                            </Link>
-                        </>
-                    )}
-                />
+                <section className="inventory-empty">
+                    <div className="inventory-empty-icon" aria-hidden="true">
+                        <Package className="h-7 w-7" />
+                    </div>
+                    <div className="inventory-empty-copy">
+                        <h2>{hasActiveFilters
+                            ? t('inventory.empty_filter_title', { defaultValue: 'Aramanıza uygun eşya bulunamadı' })
+                            : t('inventory.empty_title')}</h2>
+                        <p>{hasActiveFilters ? t('inventory.empty_filter') : t('inventory.empty_msg')}</p>
+                    </div>
+                    <div className="inventory-empty-actions">
+                        {hasActiveFilters && (
+                            <button type="button" onClick={clearFilters} className="btn-secondary">
+                                <Search className="h-4 w-4" />
+                                <span>{t('dashboard.filters.remove', { defaultValue: 'Clear Filter' })}</span>
+                            </button>
+                        )}
+                        <Link to="/items/new" className="btn-primary inventory-empty-new">
+                            <Plus className="h-5 w-5" />
+                            <span>{t('inventory.add_first')}</span>
+                        </Link>
+                    </div>
+                </section>
             ) : (
                 <>
                     {/* Mobile: Always cards / Desktop: Grid or List */}
-                    <div className={`
+                    <div className={`inventory-results-grid
             grid gap-4
             grid-cols-1 sm:grid-cols-2
             ${viewMode === 'grid' ? 'lg:grid-cols-3 xl:grid-cols-4' : 'lg:grid-cols-1'}
@@ -1042,16 +1052,16 @@ export default function ItemList() {
                                 <div
                                     key={item.id}
                                     style={{
-                                        borderLeft: `4px solid ${item.category_color || 'var(--hi-border)'}`
-                                    }}
+                                        '--item-category-color': item.category_color || 'var(--hi-border)'
+                                    } as React.CSSProperties}
                                     className={`
-                                        inventory-item-card card flex h-full flex-col p-0 overflow-hidden group hover:scale-[1.002] hover:-translate-y-[1.5px] hover:shadow-[var(--hi-shadow-soft)]
+                                        inventory-item-card flex h-full flex-col p-0 overflow-hidden group
                                         ${isDeleting ? 'is-deleting' : ''}
                                         ${viewMode === 'list' ? 'lg:min-h-[148px] lg:flex-row lg:items-stretch' : ''}
                                     `.trim()}
                                 >
                                     {/* Image */}
-                                    <div className={`
+                                    <div className={`inventory-item-media
                   overflow-hidden relative bg-[var(--hi-panel-muted)]
                   ${viewMode === 'list' ? 'lg:w-36 lg:min-h-[148px] lg:flex-shrink-0 lg:self-stretch' : 'aspect-[4/3] sm:aspect-square'}
                 `}>
@@ -1082,7 +1092,7 @@ export default function ItemList() {
                                             )}
                                         </div>
 
-                                        <div className="absolute top-2 right-2 flex gap-1">
+                                        <div className="inventory-card-desktop-visibility absolute top-2 right-2 flex gap-1">
                                             {item.is_public ? <span className="p-1.5 rounded-full bg-[var(--hi-accent)] text-white"><Globe className="w-3 h-3" /></span>
                                                 : <span className="p-1.5 rounded-full bg-[var(--hi-secondary)] text-white"><Lock className="w-3 h-3" /></span>}
                                         </div>
@@ -1090,7 +1100,7 @@ export default function ItemList() {
                                             <button
                                                 type="button"
                                                 onClick={() => toggleItemSelection(item.id)}
-                                                className="absolute bottom-2 right-2 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/35 bg-black/55 text-white shadow-lg backdrop-blur-sm transition hover:bg-black/70"
+                                                className="inventory-card-desktop-selection absolute bottom-2 right-2 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/35 bg-black/55 text-white shadow-lg backdrop-blur-sm transition hover:bg-black/70"
                                                 aria-label={selectedItemIds.has(item.id)
                                                     ? t('inventory.bulk.unselect_item', { defaultValue: 'Seçimi kaldır' })
                                                     : t('inventory.bulk.select_item', { defaultValue: 'Eşyayı seç' })}
@@ -1105,15 +1115,36 @@ export default function ItemList() {
                                         )}
                                     </div>
 
+                                    <div className="inventory-card-mobile-meta" aria-label={item.is_public
+                                        ? t('items.form.visibility_public', { defaultValue: 'Shared' })
+                                        : t('items.form.visibility_private', { defaultValue: 'Private' })}
+                                    >
+                                        <span className={`inventory-card-mobile-visibility ${item.is_public ? 'is-public' : 'is-private'}`}>
+                                            {item.is_public ? <Globe aria-hidden="true" /> : <Lock aria-hidden="true" />}
+                                        </span>
+                                        {canManageItem && (
+                                            <button
+                                                type="button"
+                                                onClick={() => toggleItemSelection(item.id)}
+                                                className={`inventory-card-mobile-selection ${selectedItemIds.has(item.id) ? 'is-selected' : ''}`}
+                                                aria-label={selectedItemIds.has(item.id)
+                                                    ? t('inventory.bulk.unselect_item', { defaultValue: 'Unselect item' })
+                                                    : t('inventory.bulk.select_item', { defaultValue: 'Select item' })}
+                                            >
+                                                {selectedItemIds.has(item.id) ? <CheckSquare aria-hidden="true" /> : <Square aria-hidden="true" />}
+                                            </button>
+                                        )}
+                                    </div>
+
                                     {/* Content */}
-                                    <div className={`flex flex-1 flex-col p-4 ${viewMode === 'list' ? 'lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(18rem,28rem)] lg:items-center lg:gap-5 lg:px-5 lg:py-4 xl:grid-cols-[minmax(0,1fr)_minmax(23rem,31rem)]' : ''}`}>
+                                    <div className={`inventory-item-content flex flex-1 flex-col p-4 ${viewMode === 'list' ? 'lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(18rem,28rem)] lg:items-center lg:gap-5 lg:px-5 lg:py-4 xl:grid-cols-[minmax(0,1fr)_minmax(23rem,31rem)]' : ''}`}>
                                         <div className={`${viewMode === 'list' ? 'min-w-0' : 'flex-1'}`}>
                                             <div className="mb-2 flex items-start justify-between gap-3">
                                                 <h3 className="min-w-0 flex-1 font-semibold leading-tight text-[var(--hi-text)] [overflow-wrap:anywhere]">
                                                     {itemTitle}
                                                 </h3>
                                                 {canManageItem ? (
-                                                    <div className="ml-2 inline-flex shrink-0 items-center rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel)]">
+                                                    <div className="inventory-item-quantity ml-2 inline-flex shrink-0 items-center rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel)]">
                                                         <button
                                                             type="button"
                                                             onClick={() => handleStockAdjust(item, -1)}
@@ -1169,7 +1200,7 @@ export default function ItemList() {
                                             )}
 
                                             {/* Tags */}
-                                            <div className={`flex flex-wrap gap-2 ${viewMode === 'list' ? 'mb-0' : 'mb-3'}`}>
+                                            <div className={`inventory-item-tags flex flex-wrap gap-2 ${viewMode === 'list' ? 'mb-0' : 'mb-3'}`}>
                                                 {visibleCategoryName && (
                                                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium" style={{ backgroundColor: `${item.category_color}15`, color: item.category_color }}>
                                                         <span className="truncate max-w-[11rem]">{item.category_icon} {visibleCategoryName}</span>
@@ -1209,7 +1240,7 @@ export default function ItemList() {
                                         </div>
 
                                         {/* Actions */}
-                                        <div className={`mt-auto grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_2.75rem] items-center gap-2 ${viewMode === 'list' ? 'lg:mt-0 lg:w-full lg:flex-shrink-0' : ''}`}>
+                                        <div className={`inventory-item-actions mt-auto grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_2.75rem] items-center gap-2 ${viewMode === 'list' ? 'lg:mt-0 lg:w-full lg:flex-shrink-0' : ''}`}>
                                             <div className="min-w-0">
                                                 {activeBorrow && activeBorrow.can_mark_returned !== false ? (
                                                 <button

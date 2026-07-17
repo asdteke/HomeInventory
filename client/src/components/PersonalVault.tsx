@@ -25,6 +25,8 @@ import { ConfirmDialog } from './ModalDialog';
 import { formatDateForLanguage } from '../utils/appFormatting';
 import { getCategoryPresentation } from '../utils/categoryDisplay';
 import { getRoomPresentation } from '../utils/roomDisplay';
+import { BRAND_KEY } from '../constants/branding';
+import '../vault-settings-v25.css';
 
 interface CurrencyOption {
     code: string;
@@ -411,7 +413,7 @@ function downloadRecoveryKeyFile(recoveryKey: string, labels: any) {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'homeinventory-personal-vault-recovery-key.txt';
+    link.download = `${BRAND_KEY}-personal-vault-recovery-key.txt`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -645,6 +647,7 @@ export default function PersonalVault() {
 
     const fileInputRef = useRef<HTMLInputElement>(null);
     const itemPhotoPreviewUrlsRef = useRef<Record<string, string>>({});
+    const photoPreviewLoadRef = useRef<number>(0);
     const photoDraftRef = useRef<PhotoDraft | null>(null);
     const photoViewerUrlRef = useRef<string | null>(null);
     const photoViewerRequestRef = useRef<number>(0);
@@ -892,6 +895,9 @@ export default function PersonalVault() {
     };
 
     const fetchItems = async () => {
+        const previewLoadId = photoPreviewLoadRef.current + 1;
+        photoPreviewLoadRef.current = previewLoadId;
+
         if (!vaultUnlocked) {
             setItems([]);
             replaceItemPhotoPreviewUrls({});
@@ -914,24 +920,44 @@ export default function PersonalVault() {
                     );
                 })
             );
-            const photoPreviewEntries = await Promise.all(
-                decryptedItems
-                    .filter((item) => item.has_photo)
-                    .map(async (item) => {
-                        try {
-                            const previewResponse = await axios.get(`/api/vault/items/${item.id}/photo-preview`);
-                            const previewBytes = await decryptBytes(previewResponse.data.encrypted_photo_preview_payload);
-                            return [item.id, createImageUrlFromBytes(previewBytes)] as [string, string];
-                        } catch (error) {
-                            console.error(`Vault photo preview fetch error for item ${item.id}:`, error);
-                            return null;
-                        }
-                    })
-            );
             setItems(decryptedItems);
-            replaceItemPhotoPreviewUrls(
-                Object.fromEntries(photoPreviewEntries.filter((entry): entry is [string, string] => entry !== null))
-            );
+            replaceItemPhotoPreviewUrls({});
+
+            // Do not block the first usable vault render on every encrypted photo.
+            // Two small workers progressively hydrate previews without creating a
+            // network/decryption spike on large vaults.
+            const previewQueue = decryptedItems.filter((item) => item.has_photo);
+            const hydratePreview = async (item: VaultItem) => {
+                try {
+                    const previewResponse = await axios.get(`/api/vault/items/${item.id}/photo-preview`);
+                    const previewBytes = await decryptBytes(previewResponse.data.encrypted_photo_preview_payload);
+                    const previewUrl = createImageUrlFromBytes(previewBytes);
+
+                    if (photoPreviewLoadRef.current !== previewLoadId) {
+                        revokeObjectUrl(previewUrl);
+                        return;
+                    }
+
+                    const previousUrl = itemPhotoPreviewUrlsRef.current[item.id];
+                    if (previousUrl && previousUrl !== previewUrl) {
+                        revokeObjectUrl(previousUrl);
+                    }
+                    const nextUrls = { ...itemPhotoPreviewUrlsRef.current, [item.id]: previewUrl };
+                    itemPhotoPreviewUrlsRef.current = nextUrls;
+                    setItemPhotoPreviewUrls(nextUrls);
+                } catch (error) {
+                    console.error(`Vault photo preview fetch error for item ${item.id}:`, error);
+                }
+            };
+            const worker = async () => {
+                while (previewQueue.length && photoPreviewLoadRef.current === previewLoadId) {
+                    const item = previewQueue.shift();
+                    if (!item) break;
+                    await hydratePreview(item);
+                    await new Promise<void>((resolve) => window.requestAnimationFrame(() => resolve()));
+                }
+            };
+            void Promise.all(Array.from({ length: Math.min(2, previewQueue.length) }, () => worker()));
         } catch (error: any) {
             console.error('Vault items fetch error:', error);
             setItems([]);
@@ -960,6 +986,7 @@ export default function PersonalVault() {
     }, [vaultUnlocked]);
 
     useEffect(() => () => {
+        photoPreviewLoadRef.current += 1;
         revokeObjectUrlMap(itemPhotoPreviewUrlsRef.current);
         revokeObjectUrl(photoDraftRef.current?.previewUrl);
         revokeObjectUrl(photoViewerUrlRef.current);
@@ -1266,11 +1293,11 @@ export default function PersonalVault() {
     const showPendingPhotoRemoval = Boolean(editingItem?.has_photo) && photoMarkedForRemoval && !photoDraft;
 
     return (
-        <div className="space-y-6 animate-fade-in">
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div className="vault-page-v25 space-y-6 animate-fade-in">
+            <div className="vault-intro flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                 <div>
-                    <h1 className="section-title text-4xl text-[var(--hi-text)]">{t('vault.title')}</h1>
-                    <p className="mt-2 text-[var(--hi-text-soft)]">{t('vault.subtitle')}</p>
+                    <h1>{t('vault.title')}</h1>
+                    <p>{t('vault.subtitle')}</p>
                 </div>
                 <div className="flex flex-wrap items-center gap-3">
                     {vaultConfigured && (
@@ -1289,8 +1316,8 @@ export default function PersonalVault() {
             </div>
 
             {!vaultConfigured && (
-                <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-                    <form onSubmit={handleSetup} className="card space-y-5 border-[var(--hi-border-strong)] p-6">
+                <div className="vault-setup-layout grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+                    <form onSubmit={handleSetup} className="vault-setup-form space-y-5">
                         <div>
                             <h2 className="section-title text-2xl text-[var(--hi-text)]">{t('vault.setup_title')}</h2>
                             <p className="mt-2 text-sm text-[var(--hi-text-soft)]">{t('vault.setup_description')}</p>
@@ -1337,84 +1364,80 @@ export default function PersonalVault() {
                         </button>
                     </form>
 
-                    <div className="card space-y-4 bg-[linear-gradient(180deg,var(--hi-panel-strong),var(--hi-panel-muted))] p-6">
+                    <aside className="vault-protection-note space-y-4">
                         <h2 className="section-title text-2xl text-[var(--hi-text)]">{t('vault.protection_title')}</h2>
                         <div className="space-y-3 text-sm text-[var(--hi-text-soft)]">
                             <p>{t('vault.protection_item_1')}</p>
                             <p>{t('vault.protection_item_2')}</p>
                             <p>{t('vault.protection_item_3')}</p>
                         </div>
-                    </div>
+                    </aside>
                 </div>
             )}
 
             {vaultConfigured && !vaultUnlocked && (
-                <div>
-                    <div className="grid gap-6 lg:grid-cols-[1fr_0.9fr]">
-                        <form onSubmit={handleUnlock} className="card space-y-5 border-[var(--hi-border-strong)] bg-[linear-gradient(180deg,var(--hi-panel-strong),var(--hi-panel))] p-6">
-                            <div>
-                                <div>
-                                    <h2 className="section-title text-2xl text-[var(--hi-text)]">{t('vault.unlock_title')}</h2>
-                                    <p className="mt-2 text-sm text-[var(--hi-text-soft)]">{t('vault.unlock_description')}</p>
-                                </div>
-                            </div>
-
-                            <div className="flex flex-wrap gap-2">
-                                <button
-                                    type="button"
-                                    onClick={() => setUnlockMode('passphrase')}
-                                    className={`rounded-xl px-4 py-2 text-sm font-medium transition ${unlockMode === 'passphrase' ? 'bg-[var(--hi-accent)] text-white' : 'bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)]'}`}
-                                >
-                                    {t('vault.unlock_with_passphrase')}
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={() => setUnlockMode('recovery')}
-                                    className={`rounded-xl px-4 py-2 text-sm font-medium transition ${unlockMode === 'recovery' ? 'bg-[var(--hi-accent)] text-white' : 'bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)]'}`}
-                                >
-                                    {t('vault.unlock_with_recovery')}
-                                </button>
-                            </div>
-
-                            <input
-                                type={unlockMode === 'recovery' ? 'text' : 'password'}
-                                value={unlockSecret}
-                                onChange={(event) => setUnlockSecret(event.target.value)}
-                                className="input-field"
-                                placeholder={unlockMode === 'recovery' ? t('vault.unlock_recovery_placeholder') : t('vault.unlock_passphrase_placeholder')}
-                                autoComplete={unlockMode === 'recovery' ? 'off' : 'current-password'}
-                            />
-
-                            {unlockError && (
-                                <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-300">
-                                    {unlockError}
-                                </div>
-                            )}
-
-                            <button type="submit" disabled={vaultActionLoading} className="btn-primary inline-flex items-center gap-2">
-                                <LockOpen className="h-4 w-4" />
-                                {vaultActionLoading ? t('vault.unlocking') : t('vault.unlock_action')}
-                            </button>
-                        </form>
-
-                        <div className="card space-y-5 border-[var(--hi-border-strong)] bg-[linear-gradient(180deg,var(--hi-panel-strong),var(--hi-panel))] p-6">
-                            <div className="flex items-center gap-4">
-                                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
-                                    <ShieldAlert className="h-5 w-5" />
-                                </div>
-                                <h2 className="section-title text-2xl text-[var(--hi-text)]">{t('vault.security_note_title')}</h2>
-                            </div>
-                            <div className="space-y-3 text-sm leading-7 text-[var(--hi-text-soft)]">
-                                <p>{t('vault.security_note_1')}</p>
-                                <p>{t('vault.security_note_2')}</p>
-                            </div>
+                <div className="vault-unlock-layout grid gap-6 lg:grid-cols-[1fr_0.9fr]">
+                    <form onSubmit={handleUnlock} className="vault-unlock-panel space-y-5">
+                        <div>
+                            <h2 className="section-title text-2xl text-[var(--hi-text)]">{t('vault.unlock_title')}</h2>
+                            <p className="mt-2 text-sm text-[var(--hi-text-soft)]">{t('vault.unlock_description')}</p>
                         </div>
-                    </div>
+
+                        <div className="flex flex-wrap gap-2">
+                            <button
+                                type="button"
+                                onClick={() => setUnlockMode('passphrase')}
+                                className={`rounded-xl px-4 py-2 text-sm font-medium transition ${unlockMode === 'passphrase' ? 'bg-[var(--hi-accent)] text-white' : 'bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)]'}`}
+                            >
+                                {t('vault.unlock_with_passphrase')}
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setUnlockMode('recovery')}
+                                className={`rounded-xl px-4 py-2 text-sm font-medium transition ${unlockMode === 'recovery' ? 'bg-[var(--hi-accent)] text-white' : 'bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)]'}`}
+                            >
+                                {t('vault.unlock_with_recovery')}
+                            </button>
+                        </div>
+
+                        <input
+                            type={unlockMode === 'recovery' ? 'text' : 'password'}
+                            value={unlockSecret}
+                            onChange={(event) => setUnlockSecret(event.target.value)}
+                            className="input-field"
+                            placeholder={unlockMode === 'recovery' ? t('vault.unlock_recovery_placeholder') : t('vault.unlock_passphrase_placeholder')}
+                            autoComplete={unlockMode === 'recovery' ? 'off' : 'current-password'}
+                        />
+
+                        {unlockError && (
+                            <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-300">
+                                {unlockError}
+                            </div>
+                        )}
+
+                        <button type="submit" disabled={vaultActionLoading} className="btn-primary inline-flex items-center gap-2">
+                            <LockOpen className="h-4 w-4" />
+                            {vaultActionLoading ? t('vault.unlocking') : t('vault.unlock_action')}
+                        </button>
+                    </form>
+
+                    <aside className="vault-security-panel space-y-5">
+                        <div className="flex items-center gap-4">
+                            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
+                                <ShieldAlert className="h-5 w-5" />
+                            </div>
+                            <h2 className="section-title text-2xl text-[var(--hi-text)]">{t('vault.security_note_title')}</h2>
+                        </div>
+                        <div className="space-y-3 text-sm leading-7 text-[var(--hi-text-soft)]">
+                            <p>{t('vault.security_note_1')}</p>
+                            <p>{t('vault.security_note_2')}</p>
+                        </div>
+                    </aside>
                 </div>
             )}
 
             {setupSuccessKey && (
-                <div className="card space-y-4 border-[var(--hi-border-strong)] bg-[linear-gradient(180deg,var(--hi-accent-soft),var(--hi-panel-strong))] p-6">
+                <div className="vault-recovery-panel space-y-4">
                     <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                         <div>
                             <h2 className="section-title text-2xl text-[var(--hi-text)]">{t('vault.recovery_ready_title')}</h2>
@@ -1450,8 +1473,8 @@ export default function PersonalVault() {
             )}
 
             {vaultConfigured && vaultUnlocked && (
-                <div className="vault-secure-reveal grid gap-6 xl:grid-cols-[1fr_1.05fr]">
-                    <form onSubmit={handleSubmitItem} className="card space-y-6 p-6">
+                <div className="vault-secure-reveal vault-secure-workspace grid gap-6 xl:grid-cols-[1fr_1.05fr]">
+                    <form onSubmit={handleSubmitItem} className="vault-record-form space-y-6">
                         <div className="flex items-center justify-between gap-3">
                             <div>
                                 <h2 className="section-title text-2xl text-[var(--hi-text)]">
@@ -1571,7 +1594,7 @@ export default function PersonalVault() {
                                 />
                             </div>
 
-                            <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-4 shadow-[var(--hi-shadow-soft)]">
+                            <section className="vault-form-section vault-photo-control">
                                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                                     <div className="min-w-0">
                                         <p className="text-sm font-medium text-[var(--hi-text)]">{t('items.form.photo')}</p>
@@ -1629,7 +1652,7 @@ export default function PersonalVault() {
                                                     void openStoredPhotoViewer(editingItem);
                                                 }
                                             }}
-                                            className="group block w-full overflow-hidden rounded-xl border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] text-left transition hover:border-[var(--hi-border-strong)]"
+                                            className="vault-photo-preview group block w-full overflow-hidden text-left"
                                         >
                                             <img
                                                 src={activeFormPhotoPreviewUrl}
@@ -1652,13 +1675,13 @@ export default function PersonalVault() {
                                         </button>
                                     </div>
                                 ) : (
-                                    <div className="mt-4 rounded-xl border border-dashed border-[var(--hi-border-strong)] bg-[var(--hi-bg-strong)] px-4 py-6 text-sm text-[var(--hi-text-soft)]">
+                                    <div className="vault-photo-empty mt-4 px-4 py-6 text-sm text-[var(--hi-text-soft)]">
                                         {photoCopy.emptyState}
                                     </div>
                                 )}
-                            </div>
+                            </section>
 
-                            <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] shadow-[var(--hi-shadow-soft)]">
+                            <section className="vault-form-section vault-invoice-control">
                                 <button
                                     type="button"
                                     onClick={() => setShowInvoiceSection((currentValue) => !currentValue)}
@@ -1681,7 +1704,7 @@ export default function PersonalVault() {
                                 </button>
 
                                 {showInvoiceSection && (
-                                    <div className="space-y-4 border-t border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 pb-4 pt-4">
+                                    <div className="vault-invoice-fields space-y-4 border-t border-[var(--hi-border)] px-4 pb-4 pt-4">
                                         <p className="text-xs text-[var(--hi-text-soft)]">{t('items.form.invoice_security')}</p>
 
                                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -1799,10 +1822,10 @@ export default function PersonalVault() {
                                         </div>
                                     </div>
                                 )}
-                            </div>
+                            </section>
                         </div>
 
-                        <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-sm text-[var(--hi-text-soft)]">
+                        <div className="vault-inline-note px-4 py-3 text-sm text-[var(--hi-text-soft)]">
                             <p>{photoCopy.hint}</p>
                             <p className="mt-1">{photoCopy.privacyNote}</p>
                         </div>
@@ -1817,8 +1840,8 @@ export default function PersonalVault() {
                         </button>
                     </form>
 
-                    <div className="space-y-4">
-                        <div className="card space-y-4 p-4">
+                    <div className="vault-record-browser space-y-4">
+                        <div className="vault-filter-bar space-y-4">
                             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                                 <div className="relative sm:col-span-2">
                                     <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[var(--hi-text-muted)]" />
@@ -1864,9 +1887,9 @@ export default function PersonalVault() {
                         )}
 
                         {itemsLoading ? (
-                            <div className="card flex justify-center py-16"><div className="spinner"></div></div>
+                            <div className="vault-record-state flex justify-center py-16"><div className="spinner"></div></div>
                         ) : filteredItems.length === 0 ? (
-                            <div className="card p-8 text-center">
+                            <div className="vault-record-state p-8 text-center">
                                 <Package className="mx-auto mb-4 h-12 w-12 text-[var(--hi-text-muted)] opacity-45" />
                                 <h3 className="text-lg font-semibold text-[var(--hi-text)]">
                                     {items.length === 0 ? t('vault.empty_title') : t('vault.empty_filter_title')}
@@ -1876,9 +1899,9 @@ export default function PersonalVault() {
                                 </p>
                             </div>
                         ) : (
-                            <div className="space-y-4">
+                            <div className="vault-record-list space-y-3">
                                 {filteredItems.map((item) => (
-                                    <article key={item.id} className="card p-5">
+                                    <article key={item.id} className="vault-record-row p-5">
                                         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                                             <div className="min-w-0 flex-1">
                                                 <div className="flex flex-wrap items-start gap-2">
@@ -1920,7 +1943,7 @@ export default function PersonalVault() {
                                                         <button
                                                             type="button"
                                                             onClick={() => { void openStoredPhotoViewer(item); }}
-                                                            className="group block w-full overflow-hidden rounded-xl border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] text-left transition hover:border-[var(--hi-border-strong)]"
+                                                            className="vault-photo-preview group block w-full overflow-hidden text-left"
                                                         >
                                                             <img
                                                                 src={itemPhotoPreviewUrls[item.id]}
@@ -1952,7 +1975,7 @@ export default function PersonalVault() {
                                                 )}
 
                                                 {(item.invoice_price || item.invoice_date || item.warranty_expiry_date) && (
-                                                    <div className="mt-4 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-sm text-[var(--hi-text-soft)]">
+                                                    <div className="vault-record-finance mt-4 px-4 py-3 text-sm text-[var(--hi-text-soft)]">
                                                         {item.invoice_price && (
                                                             <p>
                                                                 {t('items.form.invoice_price')}: {item.invoice_price} {item.invoice_currency || ''}
@@ -2029,14 +2052,17 @@ export default function PersonalVault() {
             />
 
             {photoViewer.open && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 py-6 backdrop-blur-sm" onClick={closePhotoViewer}>
+                <div className="vault-photo-backdrop fixed inset-0 z-50 flex items-center justify-center px-4 py-6" onClick={closePhotoViewer}>
                     <div
-                        className="w-full max-w-6xl rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-4 shadow-[var(--hi-shadow)]"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="vault-photo-viewer-title"
+                        className="vault-photo-dialog w-full max-w-6xl p-4"
                         onClick={(event) => event.stopPropagation()}
                     >
                         <div className="mb-4 flex items-start justify-between gap-4">
                             <div className="min-w-0">
-                                <h2 className="truncate text-lg font-semibold text-[var(--hi-text)]">
+                                <h2 id="vault-photo-viewer-title" className="truncate text-lg font-semibold text-[var(--hi-text)]">
                                     {photoViewer.title || t('items.form.photo')}
                                 </h2>
                                 {photoViewer.caption && (
@@ -2050,7 +2076,7 @@ export default function PersonalVault() {
                             </button>
                         </div>
 
-                        <div className="flex min-h-[320px] max-h-[78vh] items-center justify-center overflow-auto rounded-xl border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] p-3">
+                        <div className="vault-photo-stage flex min-h-[320px] max-h-[78vh] items-center justify-center overflow-auto p-3">
                             {photoViewer.loading ? (
                                 <div className="flex flex-col items-center gap-3 text-sm text-[var(--hi-text-soft)]">
                                     <div className="spinner"></div>

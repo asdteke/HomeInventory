@@ -3,9 +3,11 @@ import { Link, useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
-import { Sun, Moon, AlertCircle, Loader2 } from 'lucide-react';
+import { Sun, Moon, AlertCircle, Loader2, LockKeyhole, ShieldCheck } from 'lucide-react';
 import BrandLogo from './BrandLogo';
+import LanguageSwitcher from './LanguageSwitcher';
 import { validatePasswordStrengthClient } from '../utils/passwordValidation';
+import '../auth-onboarding-v25.css';
 
 export default function ResetPassword() {
     const { t } = useTranslation();
@@ -53,79 +55,99 @@ export default function ResetPassword() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 p-4 transition-colors duration-300 dark:bg-slate-950">
-            <button
-                onClick={toggleTheme}
-                className="absolute right-4 top-4 rounded-xl border border-slate-200 bg-white p-3 text-slate-600 shadow-sm transition-all hover:scale-110 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400"
-            >
-                {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </button>
-
-            <div className="mx-auto flex min-h-screen w-full max-w-md items-center justify-center">
-                <div className="w-full">
-                    <div className="mb-8 text-center">
-                        <Link to="/">
-                            <BrandLogo variant="full" size="md" className="mx-auto mb-4 w-auto max-h-[76px]" />
-                        </Link>
-                        <h1 className="mb-2 text-3xl font-bold gradient-text">{t('auth.reset_password.title')}</h1>
-                        <p className="text-slate-500 dark:text-slate-400">{t('auth.reset_password.subtitle')}</p>
+        <div className="auth-flow-page-v25">
+            <main className="auth-flow-shell-v25 flex min-h-[100svh] flex-col justify-center">
+                <div className="auth-flow-topbar-v25">
+                    <Link to="/" className="auth-flow-brand-v25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)]">
+                        <BrandLogo variant="full" size="md" />
+                    </Link>
+                    <div className="auth-flow-tools-v25">
+                        <div className="auth-flow-language-v25">
+                            <LanguageSwitcher
+                                showTooltip={false}
+                                showCodeBadge={false}
+                                className="!h-[2.65rem] !rounded-full !border-[var(--hi-border)] !bg-[var(--hi-panel-muted)] !px-3 !py-0 !text-[var(--hi-text)] max-[430px]:!h-[2.45rem]"
+                            />
+                        </div>
+                        <button
+                            type="button"
+                            onClick={toggleTheme}
+                            className="auth-flow-tool-v25"
+                            title={isDark ? t('common.theme.light') : t('common.theme.dark')}
+                            aria-label={isDark ? t('common.theme.light') : t('common.theme.dark')}
+                        >
+                            {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                        </button>
                     </div>
+                </div>
 
-                    <div className="card">
+                <section className="auth-flow-card-v25" aria-labelledby="reset-password-title">
+                    <div className="auth-flow-card-body-v25">
+                        <header className="auth-flow-hero-v25">
+                            <span className="auth-flow-icon-v25"><LockKeyhole className="h-6 w-6" /></span>
+                            <p className="auth-flow-kicker-v25">{t('auth.reset_password.new_password')}</p>
+                            <h1 id="reset-password-title" className="auth-flow-title-v25">{t('auth.reset_password.title')}</h1>
+                            <p className="auth-flow-subtitle-v25">{t('auth.reset_password.subtitle')}</p>
+                        </header>
+
                         {!token && (
-                            <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-700 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-300">
-                                {t('auth.reset_password.missing_token')}
+                            <div className="auth-flow-feedback-v25 is-error" role="alert">
+                                <AlertCircle className="h-4 w-4" />
+                                <span>{t('auth.reset_password.missing_token')}</span>
                             </div>
                         )}
 
                         {error && (
-                            <div className="mb-6 flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-600 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-400">
-                                <AlertCircle className="h-5 w-5 flex-shrink-0" />
+                            <div className="auth-flow-feedback-v25 is-error" role="alert">
+                                <AlertCircle className="h-4 w-4" />
                                 <span>{error}</span>
                             </div>
                         )}
 
                         {success && (
-                            <div className="mb-6 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-green-700 dark:border-green-500/30 dark:bg-green-500/10 dark:text-green-300">
-                                {success}
+                            <div className="auth-flow-feedback-v25 is-success" role="status">
+                                <ShieldCheck className="h-4 w-4" />
+                                <span>{success}</span>
                             </div>
                         )}
 
-                        <form onSubmit={handleSubmit} className="space-y-5">
-                            <div>
-                                <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                        <form onSubmit={handleSubmit} className="auth-flow-form-v25">
+                            <div className="auth-flow-field-v25">
+                                <label className="auth-flow-label-v25">
                                     {t('auth.reset_password.new_password')}
                                 </label>
                                 <input
                                     type="password"
                                     value={newPassword}
                                     onChange={(event) => setNewPassword(event.target.value)}
-                                    className="input-field"
+                                    className="auth-flow-input-v25"
                                     placeholder={t('auth.reset_password.new_password_placeholder')}
+                                    autoComplete="new-password"
                                     disabled={!token || Boolean(success)}
                                     required
                                 />
                             </div>
 
-                            <div>
-                                <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                            <div className="auth-flow-field-v25">
+                                <label className="auth-flow-label-v25">
                                     {t('auth.reset_password.confirm_password')}
                                 </label>
                                 <input
                                     type="password"
                                     value={confirmPassword}
                                     onChange={(event) => setConfirmPassword(event.target.value)}
-                                    className="input-field"
+                                    className="auth-flow-input-v25"
                                     placeholder={t('auth.reset_password.confirm_password_placeholder')}
+                                    autoComplete="new-password"
                                     disabled={!token || Boolean(success)}
                                     required
                                 />
                             </div>
 
-                            <button type="submit" disabled={!token || loading || Boolean(success)} className="btn-primary w-full py-3">
+                            <button type="submit" disabled={!token || loading || Boolean(success)} className="auth-flow-primary-v25 w-full">
                                 {loading ? (
                                     <span className="flex items-center justify-center gap-2">
-                                        <Loader2 className="h-5 w-5 animate-spin" />
+                                        <Loader2 className="h-4 w-4 animate-spin" />
                                         {t('auth.reset_password.submitting')}
                                     </span>
                                 ) : (
@@ -133,15 +155,14 @@ export default function ResetPassword() {
                                 )}
                             </button>
                         </form>
-
-                        <div className="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
-                            <Link to="/login" className="text-primary-500 hover:text-primary-600">
-                                {t('auth.reset_password.back_to_login')}
-                            </Link>
-                        </div>
                     </div>
-                </div>
-            </div>
+                    <footer className="auth-flow-footer-v25">
+                        <Link to="/login" className="auth-flow-link-v25">
+                            {t('auth.reset_password.back_to_login')}
+                        </Link>
+                    </footer>
+                </section>
+            </main>
         </div>
     );
 }

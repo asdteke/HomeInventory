@@ -29,10 +29,6 @@ function deriveBrandName(siteHost) {
         return 'HomeInventory';
     }
 
-    if (host === 'homeinventory.net.tr') {
-        return 'HomeInventory';
-    }
-
     const [label] = host.split('.');
     const normalized = label.replace(/[-_]+/g, ' ').trim();
     if (!normalized) {
@@ -53,7 +49,7 @@ function normalizeBrandKey(value) {
 
 export const SITE_URL = resolveSiteUrl();
 const SITE_HOST = resolveSiteHost(SITE_URL);
-const FALLBACK_APP_VERSION = '2.4.0';
+const FALLBACK_APP_VERSION = '2.5.0';
 const CONFIGURED_BRAND_KEY = (
     typeof __APP_BRAND_KEY__ === 'string' && __APP_BRAND_KEY__.trim()
         ? normalizeBrandKey(__APP_BRAND_KEY__)
@@ -68,6 +64,18 @@ export const BRAND_NAME = (
 
 export const BRAND_HOST = SITE_HOST;
 export const BRAND_KEY = CONFIGURED_BRAND_KEY || 'homeinventory';
+export const ASSET_VERSION = (
+    typeof __APP_ASSET_VERSION__ === 'string' && __APP_ASSET_VERSION__.trim()
+        ? __APP_ASSET_VERSION__.trim()
+        : '20260519-pwa-assets'
+);
+export const QR_LOGO_PATH = (
+    typeof __APP_QR_LOGO_PATH__ === 'string' && __APP_QR_LOGO_PATH__.trim()
+        ? __APP_QR_LOGO_PATH__.trim()
+        : typeof __APP_BRAND_LOGO_SYMBOL_LIGHT__ === 'string' && __APP_BRAND_LOGO_SYMBOL_LIGHT__.trim()
+            ? __APP_BRAND_LOGO_SYMBOL_LIGHT__.trim()
+            : '/brand/logo-symbol-light.svg'
+);
 
 export const DATA_CONTROLLER_NAME = (
     typeof __APP_DATA_CONTROLLER_NAME__ === 'string' && __APP_DATA_CONTROLLER_NAME__.trim()
@@ -102,8 +110,14 @@ export const PRIVACY_COMPLAINT_AUTHORITY = (
 export const SUPPORT_EMAIL = (
     typeof __APP_SUPPORT_EMAIL__ === 'string' && __APP_SUPPORT_EMAIL__.trim()
         ? __APP_SUPPORT_EMAIL__.trim()
-        : (BRAND_HOST && !/(^|\.)localhost$/.test(BRAND_HOST) && !/^\d{1,3}(?:\.\d{1,3}){3}$/.test(BRAND_HOST) ? `support@${BRAND_HOST}` : 'support@example.com')
+        : ''
 );
+
+export const PROJECT_REPOSITORY_URL = 'https://github.com/asdteke/HomeInventory';
+export const SUPPORT_CONTACT_URL = SUPPORT_EMAIL
+    ? `mailto:${SUPPORT_EMAIL}`
+    : PROJECT_REPOSITORY_URL;
+export const SUPPORT_CONTACT_LABEL = SUPPORT_EMAIL || 'GitHub · asdteke/HomeInventory';
 
 export const APP_VERSION = (
     typeof __APP_VERSION__ === 'string' && __APP_VERSION__.trim()

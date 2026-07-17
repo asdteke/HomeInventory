@@ -27,25 +27,28 @@ export default function AccordionSection({
     const buttonId = useId();
 
     return (
-        <section className={`app-control-section ${className}`.trim()}>
+        <section
+            className={`app-control-section ${isOpen ? 'is-open' : 'is-closed'} ${className}`.trim()}
+            data-accordion-state={isOpen ? 'open' : 'closed'}
+        >
             <button
                 type="button"
                 id={buttonId}
                 onClick={() => setIsOpen((value) => !value)}
-                className="flex w-full items-start justify-between gap-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 rounded-xl p-1"
+                className="app-accordion-trigger"
                 aria-expanded={isOpen}
                 aria-controls={contentId}
             >
-                <div className="min-w-0">
+                <div className="app-accordion-leading">
                     {eyebrow && <p className="app-kicker mb-1.5">{eyebrow}</p>}
-                    <div className="flex flex-wrap items-center gap-3">
+                    <div className="app-accordion-title-row">
                         {Icon && (
-                            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-[var(--hi-panel-muted)] text-[var(--hi-accent)]">
+                            <span className="app-accordion-icon">
                                 <Icon className="h-5 w-5" />
                             </span>
                         )}
-                        <div className="min-w-0">
-                            <div className="flex flex-wrap items-center gap-2">
+                        <div className="app-accordion-copy">
+                            <div className="app-accordion-heading">
                                 <h2 className="text-lg font-semibold text-[var(--hi-text)]">{title}</h2>
                                 {badge}
                             </div>
@@ -58,7 +61,7 @@ export default function AccordionSection({
                     </div>
                 </div>
 
-                <span className={`mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)] transition-all duration-300 ${isOpen ? 'rotate-180 bg-[var(--hi-accent-soft)] border-[var(--hi-accent)] text-[var(--hi-accent)]' : ''}`}>
+                <span className={`app-accordion-chevron ${isOpen ? 'is-open' : ''}`}>
                     <ChevronDown className="h-5 w-5" />
                 </span>
             </button>

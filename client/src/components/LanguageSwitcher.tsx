@@ -73,8 +73,13 @@ export default function LanguageSwitcher({
             }
         };
 
+        const previousBodyOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
         document.addEventListener('keydown', handleEsc);
-        return () => document.removeEventListener('keydown', handleEsc);
+        return () => {
+            document.removeEventListener('keydown', handleEsc);
+            document.body.style.overflow = previousBodyOverflow;
+        };
     }, [isOpen]);
 
     const handleSelect = async (code: string) => {
@@ -107,21 +112,20 @@ export default function LanguageSwitcher({
             key={language.code}
             type="button"
             onClick={() => handleSelect(language.code)}
-            className={`flex min-h-[48px] items-center justify-between rounded-xl border px-3 py-2.5 text-sm transition-all group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] ${
-                currentLangCode === language.code
-                    ? 'border-[var(--hi-border-strong)] bg-[var(--hi-accent-soft)] text-[var(--hi-text)] font-semibold'
-                    : 'border-transparent text-[var(--hi-text-soft)] hover:bg-[var(--hi-accent-soft)] hover:text-[var(--hi-text)]'
-            }`}
+            aria-current={currentLangCode === language.code ? 'true' : undefined}
+            className={`language-picker-option ${currentLangCode === language.code ? 'is-active' : ''}`}
         >
-            <div className="flex items-center gap-3">
-                <span className={`flex h-6 min-w-[24px] items-center justify-center rounded-md px-1.5 text-[9px] font-bold uppercase transition-colors ${
-                    currentLangCode === language.code ? 'bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]' : 'bg-[var(--hi-panel-muted)] text-[var(--hi-text-muted)]'
-                }`}>
+            <span className="language-picker-option-main">
+                <span className="language-picker-option-code">
                     {language.code}
                 </span>
-                {language.label}
-            </div>
-            {currentLangCode === language.code && <Check className="h-4 w-4 text-[var(--hi-accent)]" />}
+                <span className="language-picker-option-label">{language.label}</span>
+            </span>
+            {currentLangCode === language.code && (
+                <span className="language-picker-option-check" aria-hidden="true">
+                    <Check className="h-4 w-4" />
+                </span>
+            )}
         </button>
     );
 
@@ -181,23 +185,23 @@ export default function LanguageSwitcher({
             {isOpen && typeof document !== 'undefined' && createPortal(
                 <div
                     data-language-switcher-portal="true"
-                    className="fixed inset-0 z-[9999] overflow-y-auto bg-black/55 backdrop-blur-sm animate-in fade-in duration-200"
+                    className="language-picker-backdrop fixed inset-0 z-[9999] overflow-y-auto animate-in fade-in duration-200"
                     onMouseDown={(event) => {
                         if (event.target === event.currentTarget) {
                             setIsOpen(false);
                         }
                     }}
                 >
-                    <div className="flex min-h-full items-start justify-center p-4 pb-6 pt-20">
+                    <div className="language-picker-frame flex min-h-full items-start justify-center p-4 pb-6 pt-12">
                         <div
                             ref={modalRef}
                             role="dialog"
                             aria-modal="true"
                             aria-labelledby={titleId}
                             aria-describedby={descriptionId}
-                            className="flex max-h-[calc(100dvh-7rem)] w-full max-w-md flex-col overflow-hidden rounded-[1.6rem] border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] text-[var(--hi-text)] shadow-2xl animate-in zoom-in-95 duration-200 backdrop-blur-xl"
+                            className="language-picker-dialog flex max-h-[calc(100dvh-4.5rem)] w-full max-w-md flex-col overflow-hidden text-[var(--hi-text)] animate-in zoom-in-95 duration-200"
                         >
-                            <div className="flex items-center justify-between border-b border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4">
+                            <div className="language-picker-header flex items-start justify-between gap-4">
                                 <div>
                                     <h3 id={titleId} className="flex items-center gap-2 font-semibold text-[var(--hi-text)]">
                                         <Globe className="h-5 w-5 text-[var(--hi-secondary)]" />
@@ -211,14 +215,14 @@ export default function LanguageSwitcher({
                                     type="button"
                                     onClick={() => setIsOpen(false)}
                                     aria-label={t('common.close')}
-                                    className="rounded-lg p-1 text-[var(--hi-text-muted)] transition hover:bg-[var(--hi-accent-soft)] hover:text-[var(--hi-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)]"
+                                    className="language-picker-close text-[var(--hi-text-muted)] transition hover:text-[var(--hi-text)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)]"
                                 >
                                     <X className="h-5 w-5" />
                                 </button>
                             </div>
 
-                            <div className="border-b border-[var(--hi-border)] p-4">
-                                <div className="relative">
+                            <div className="language-picker-search">
+                                <div className="language-picker-search-field relative">
                                     <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--hi-text-muted)]" />
                                     <input
                                         autoFocus
@@ -226,7 +230,7 @@ export default function LanguageSwitcher({
                                         placeholder={t('common.search')}
                                         value={searchQuery}
                                         onChange={(event) => setSearchQuery(event.target.value)}
-                                        className="w-full rounded-xl border border-[var(--hi-border-strong)] bg-[var(--hi-bg-strong)] py-2 pl-10 pr-4 text-sm text-[var(--hi-text)] outline-none transition-all placeholder:text-[var(--hi-text-muted)] focus:ring-2 focus:ring-[var(--hi-accent)]"
+                                        className="language-picker-input w-full py-2.5 pl-10 pr-4 text-sm text-[var(--hi-text)] outline-none transition-all placeholder:text-[var(--hi-text-muted)] focus:ring-2 focus:ring-[var(--hi-accent)]"
                                     />
                                     {searchQuery && (
                                         <button
@@ -242,30 +246,30 @@ export default function LanguageSwitcher({
                                 </div>
                             </div>
 
-                            <div className="flex-1 overflow-y-auto p-2">
+                            <div className="language-picker-list flex-1 overflow-y-auto">
                                 {searchQuery ? (
-                                    <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
+                                    <div className="language-picker-group">
                                         {filteredLanguages.map(renderLanguageButton)}
                                     </div>
                                 ) : (
-                                    <div className="space-y-4">
+                                    <div>
                                         {frequentLanguages.length > 0 && (
-                                            <div>
-                                                <p className="px-2 pb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-muted)]">
+                                            <div className="language-picker-section">
+                                                <p className="language-picker-section-title">
                                                     {t('settings.frequently_used', { defaultValue: 'Frequently used' })}
                                                 </p>
-                                                <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
+                                                <div className="language-picker-group">
                                                     {frequentLanguages.map(renderLanguageButton)}
                                                 </div>
                                             </div>
                                         )}
 
                                         {otherLanguages.length > 0 && (
-                                            <div>
-                                                <p className="px-2 pb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--hi-text-muted)]">
+                                            <div className="language-picker-section">
+                                                <p className="language-picker-section-title">
                                                     {t('settings.other_languages', { defaultValue: 'All languages' })}
                                                 </p>
-                                                <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
+                                                <div className="language-picker-group">
                                                     {otherLanguages.map(renderLanguageButton)}
                                                 </div>
                                             </div>

@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.4.0 release line. -->
+<!-- Release status: v2.5.0 release line. -->
 
 <p align="center">
   <strong>Private, self-hostable household inventory for shared homes.</strong><br/>
@@ -74,7 +74,7 @@
 HomeInventory is built for families, roommates, and small households that need a practical inventory without turning private records into a shared spreadsheet.
 
 > [!NOTE]
-> **v2.4.0 is the current release line.** It focuses on practical daily inventory work: bulk editing, richer filters, printable item/shelf QR labels, actionable alerts, a notification/service center, multiple attachments, encrypted activity history, and fuller media-aware backups.
+> **v2.5.0 is the current release line.** It completes the responsive visual refresh, keeps the liquid-glass treatment readable and lightweight, improves inventory and overlay behavior across mobile and desktop, and hardens the launcher/release pipeline.
 
 ## Why HomeInventory
 
@@ -219,6 +219,7 @@ For advanced configuration, reverse proxy setup, and production deployment, see 
 - [SECURITY.md](SECURITY.md): vulnerability reporting process
 - [CHANGELOG.md](CHANGELOG.md): release history and upgrade notes
 - [ROADMAP.md](ROADMAP.md): short-term project direction
+- [docs/release-checklist.md](docs/release-checklist.md): release, signing, launcher, and artifact verification
 
 Recommended GitHub topics for maintainers: `home-inventory`, `self-hosted`, `inventory-management`, `household`, `pwa`, `sqlite`, `express`, `react`, `docker`, `privacy`, `qr-code`, `barcode`, `2fa`.
 

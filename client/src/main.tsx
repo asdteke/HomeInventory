@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
+import './performance-v25.css'
 import './i18n';
 
 function isPrivateLocalHost(hostname: string) {
@@ -29,7 +30,7 @@ if (shouldDisableServiceWorker && 'serviceWorker' in navigator) {
         if ('caches' in window) {
             caches.keys().then((keys) => {
                 keys
-                    .filter((key) => key.startsWith('home-inventory-static'))
+                    .filter((key) => /^home-inventory(?:-[a-z0-9]+)?-static(?:-|$)/.test(key))
                     .forEach((key) => caches.delete(key));
             });
         }

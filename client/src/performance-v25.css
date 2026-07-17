@@ -1,0 +1,202 @@
+/*
+ * Rendering budget for the liquid material system.
+ * Only navigation, dialogs and one workspace surface may sample the backdrop.
+ */
+:root {
+  --hi-glass-blur: 16px;
+  --hi-glass-blur-mobile: 16px;
+  --hi-glass-saturation: 122%;
+}
+
+/* Repeated content never receives its own compositor-heavy backdrop layer. */
+.inventory-item-card,
+.maintenance-task-card,
+.shopping-suggestion-row-v25,
+.borrow-entry-v25,
+.manager-row-v25,
+.settings-house-row,
+.settings-profile-summary,
+.settings-key-card,
+.settings-about-row,
+.operations-row-v25,
+.operations-compact-row-v25,
+.vault-record-row,
+.admin-v25-row,
+.admin-v25-user-card {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Structural surfaces keep a lightweight glass sample. Repeated list rows
+   above remain blur-free, so restoring the material does not multiply layers. */
+.card,
+.stat-card,
+.app-control-section,
+.app-empty-state,
+.app-notice {
+  -webkit-backdrop-filter: blur(9px) saturate(110%) !important;
+  backdrop-filter: blur(9px) saturate(110%) !important;
+}
+
+/* Keep the identity of glass while capping the expensive blur radius. */
+.mobile-topbar,
+.mobile-liquid-nav,
+.mobile-drawer-panel,
+.app-modal-dialog,
+.language-modal-shell,
+.landing-mobile-menu-v25,
+.auth-card-v25,
+.operations-workspace-v25,
+.vault-secure-workspace,
+.settings-about-surface,
+.cookie-banner-v25-frame,
+.fullscreen-image-v25-toolbar {
+  -webkit-backdrop-filter: blur(var(--hi-glass-blur)) saturate(var(--hi-glass-saturation)) !important;
+  backdrop-filter: blur(var(--hi-glass-blur)) saturate(var(--hi-glass-saturation)) !important;
+}
+
+/* Avoid keeping animation-only elements promoted after their transition ends. */
+.mobile-liquid-nav,
+.mobile-topbar,
+.app-modal-dialog,
+.inventory-item-card,
+.maintenance-task-card,
+.auth-card-v25,
+.operations-workspace-v25,
+.vault-secure-workspace {
+  will-change: auto !important;
+}
+
+/* Long, repeated records can skip layout and paint work below the fold. */
+@supports (content-visibility: auto) {
+  .inventory-item-card,
+  .maintenance-task-card,
+  .shopping-suggestion-row-v25,
+  .shopping-list-item,
+  .borrow-entry-v25,
+  .manager-row-v25,
+  .operations-row-v25,
+  .operations-compact-row-v25,
+  .vault-record-row,
+  .admin-v25-user-card,
+  .activity-entry {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 180px;
+  }
+}
+
+@media (max-width: 767px) {
+  .premium-shell::before {
+    filter: none !important;
+    opacity: .36 !important;
+  }
+
+  .mobile-topbar,
+  .mobile-liquid-nav,
+  .mobile-drawer-panel,
+  .app-modal-dialog,
+  .language-modal-shell,
+  .landing-mobile-menu-v25,
+  .auth-card-v25,
+  .operations-workspace-v25,
+  .vault-secure-workspace,
+  .settings-about-surface,
+  .cookie-banner-v25-frame,
+  .fullscreen-image-v25-toolbar {
+    -webkit-backdrop-filter: blur(var(--hi-glass-blur-mobile)) saturate(118%) !important;
+    backdrop-filter: blur(var(--hi-glass-blur-mobile)) saturate(118%) !important;
+  }
+
+  .card,
+  .stat-card,
+  .app-control-section,
+  .app-empty-state,
+  .app-notice {
+    -webkit-backdrop-filter: blur(7px) saturate(108%) !important;
+    backdrop-filter: blur(7px) saturate(108%) !important;
+  }
+
+  .inventory-item-card,
+  .maintenance-task-card,
+  .vault-record-row,
+  .admin-v25-user-card {
+    box-shadow: 0 12px 28px -24px rgba(7, 17, 12, .28) !important;
+  }
+
+  /* Camera frames already provide a dark optical background. Keep a modest
+     blur on controls without asking mobile GPUs to resample the full feed. */
+  .scanner-shell {
+    -webkit-backdrop-filter: blur(12px) saturate(112%) !important;
+    backdrop-filter: blur(12px) saturate(112%) !important;
+  }
+
+  .scanner-toolbar,
+  .scanner-alert {
+    -webkit-backdrop-filter: blur(9px) saturate(110%) !important;
+    backdrop-filter: blur(9px) saturate(110%) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .mobile-topbar,
+  .mobile-liquid-nav,
+  .mobile-drawer-panel,
+  .app-modal-dialog,
+  .language-modal-shell,
+  .landing-mobile-menu-v25,
+  .auth-card-v25,
+  .operations-workspace-v25,
+  .vault-secure-workspace,
+  .settings-about-surface,
+  .cookie-banner-v25-frame,
+  .fullscreen-image-v25-toolbar {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .mobile-topbar,
+  .mobile-liquid-nav,
+  .mobile-drawer-panel,
+  .app-modal-dialog,
+  .language-modal-shell,
+  .auth-card-v25,
+  .operations-workspace-v25,
+  .vault-secure-workspace,
+  .settings-about-surface,
+  .cookie-banner-v25-frame {
+    background: var(--hi-panel-strong) !important;
+  }
+}
+
+/* Browsers without backdrop sampling receive a deliberately opaque material,
+   rather than a transparent panel with unreadable content underneath it. */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .mobile-topbar,
+  .mobile-liquid-nav,
+  .mobile-drawer-panel,
+  .app-modal-dialog,
+  .language-modal-shell,
+  .landing-mobile-menu-v25,
+  .auth-card-v25,
+  .operations-workspace-v25,
+  .vault-secure-workspace,
+  .settings-about-surface,
+  .cookie-banner-v25-frame {
+    background: var(--hi-panel-strong) !important;
+  }
+}

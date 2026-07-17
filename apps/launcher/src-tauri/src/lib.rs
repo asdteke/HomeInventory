@@ -2813,7 +2813,7 @@ fn resolve_current_app_version(
 
 fn verify_manifest_signature(manifest: &AppManifest) -> Result<(), String> {
     if manifest.signature == "unsigned" || manifest.signature.is_empty() {
-        return Ok(());
+        return Err("App update manifest is not signed.".to_string());
     }
 
     let pubkey_b64 = "/g/uZiX3emsDNk5qxcuKJPsLEd15HVFMOgdZ7aV4WSk=";
@@ -3413,7 +3413,7 @@ async fn run_update_flow(
         0.95,
         None,
     );
-    // Skip self-updating of the launcher since auto-updates are disabled in the unsigned setup
+    // Keep launcher self-update installation disabled until the rollout policy is enabled.
     /*
     if let Ok(Some(update)) = app.updater().map_err(|e| e.to_string())?.check().await {
         emit_progress(
@@ -3934,6 +3934,23 @@ mod updater_tests {
         let mut tampered = manifest.clone();
         tampered.version = "2.2.1".to_string();
         assert!(verify_manifest_signature(&tampered).is_err());
+    }
+
+    #[test]
+    fn test_unsigned_manifest_is_rejected() {
+        let mut manifest = AppManifest {
+            version: "2.5.0".to_string(),
+            sha256: "a".repeat(64),
+            url: "https://github.com/asdteke/HomeInventory/releases/download/v2.5.0/homeinventory-app.tar.gz".to_string(),
+            node_major: 20,
+            root_install: true,
+            client_install: true,
+            signature: "unsigned".to_string(),
+        };
+
+        assert!(verify_manifest_signature(&manifest).is_err());
+        manifest.signature.clear();
+        assert!(verify_manifest_signature(&manifest).is_err());
     }
 
     #[test]

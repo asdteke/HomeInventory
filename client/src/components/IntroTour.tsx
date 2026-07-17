@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import Joyride, { STATUS, EVENTS, CallBackProps, Step } from 'react-joyride';
-import { useTheme } from '../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
+import { KeyRound, PackageSearch, Tags } from 'lucide-react';
+import '../vault-settings-v25.css';
 
 const INTRO_TOUR_BOOT_FLAG = '__homeInventoryIntroBooted';
 const INTRO_TOUR_OPT_IN_KEY = 'enableIntroTour';
@@ -10,7 +11,16 @@ export default function IntroTour() {
     const { t } = useTranslation();
     const [run, setRun] = useState(false);
     const [stepIndex, setStepIndex] = useState(0);
-    const { isDark } = useTheme();
+    const [reduceMotion, setReduceMotion] = useState(() => (
+        typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ));
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const handleMotionPreference = (event: MediaQueryListEvent) => setReduceMotion(event.matches);
+        mediaQuery.addEventListener('change', handleMotionPreference);
+        return () => mediaQuery.removeEventListener('change', handleMotionPreference);
+    }, []);
 
     useEffect(() => {
         const autoStartEnabled = localStorage.getItem(INTRO_TOUR_OPT_IN_KEY) === 'true';
@@ -64,10 +74,12 @@ export default function IntroTour() {
         {
             target: '#intro-inventory',
             content: (
-                <div className="text-center">
-                    <div className="text-4xl mb-3">📦</div>
-                    <h3 className="text-lg font-bold mb-2">{t('intro.inventory.title')}</h3>
-                    <p className="text-sm">{t('intro.inventory.content')}</p>
+                <div className="intro-tour-v25">
+                    <span className="intro-tour-v25__icon" aria-hidden="true"><PackageSearch /></span>
+                    <div>
+                        <h3>{t('intro.inventory.title')}</h3>
+                        <p>{t('intro.inventory.content')}</p>
+                    </div>
                 </div>
             ),
             disableBeacon: true,
@@ -77,10 +89,12 @@ export default function IntroTour() {
         {
             target: '#intro-house-key',
             content: (
-                <div className="text-center">
-                    <div className="text-4xl mb-3">🔑</div>
-                    <h3 className="text-lg font-bold mb-2">{t('intro.house_key.title')}</h3>
-                    <p className="text-sm">{t('intro.house_key.content')}</p>
+                <div className="intro-tour-v25">
+                    <span className="intro-tour-v25__icon" aria-hidden="true"><KeyRound /></span>
+                    <div>
+                        <h3>{t('intro.house_key.title')}</h3>
+                        <p>{t('intro.house_key.content')}</p>
+                    </div>
                 </div>
             ),
             placement: 'right',
@@ -89,10 +103,12 @@ export default function IntroTour() {
         {
             target: '#intro-categories',
             content: (
-                <div className="text-center">
-                    <div className="text-4xl mb-3">🏷️</div>
-                    <h3 className="text-lg font-bold mb-2">{t('intro.categories.title')}</h3>
-                    <p className="text-sm">{t('intro.categories.content')}</p>
+                <div className="intro-tour-v25">
+                    <span className="intro-tour-v25__icon" aria-hidden="true"><Tags /></span>
+                    <div>
+                        <h3>{t('intro.categories.title')}</h3>
+                        <p>{t('intro.categories.content')}</p>
+                    </div>
                 </div>
             ),
             placement: 'right',
@@ -100,60 +116,58 @@ export default function IntroTour() {
         },
     ];
 
-    // Dark theme aware styles
     const joyrideStyles = {
         options: {
-            primaryColor: '#8b5cf6',
+            primaryColor: 'var(--hi-accent)',
             zIndex: 10000,
-            arrowColor: isDark ? '#1e293b' : '#ffffff',
-            backgroundColor: isDark ? '#1e293b' : '#ffffff',
-            textColor: isDark ? '#e2e8f0' : '#1e293b',
-            overlayColor: 'rgba(0, 0, 0, 0.5)',
+            arrowColor: 'var(--hi-panel-strong)',
+            backgroundColor: 'var(--hi-panel-strong)',
+            textColor: 'var(--hi-text)',
+            overlayColor: 'rgba(9, 14, 11, 0.58)',
         },
         tooltip: {
-            borderRadius: 16,
-            padding: 20,
-            backgroundColor: isDark ? '#1e293b' : '#ffffff',
-            color: isDark ? '#e2e8f0' : '#1e293b',
-            boxShadow: isDark
-                ? '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(148, 163, 184, 0.1)'
-                : '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+            borderRadius: 24,
+            padding: 0,
+            backgroundColor: 'var(--hi-panel-strong)',
+            color: 'var(--hi-text)',
+            border: '1px solid var(--hi-border-strong)',
+            boxShadow: 'var(--hi-shadow)',
+            overflow: 'hidden',
         },
         tooltipContainer: {
-            textAlign: 'center' as const,
-        },
-        tooltipTitle: {
-            color: isDark ? '#f1f5f9' : '#0f172a',
-            fontWeight: 700,
+            textAlign: 'left' as const,
         },
         tooltipContent: {
-            color: isDark ? '#cbd5e1' : '#475569',
-            padding: '10px 0',
+            color: 'var(--hi-text-soft)',
+            padding: 0,
         },
         buttonNext: {
-            borderRadius: 12,
-            padding: '10px 20px',
-            backgroundColor: '#8b5cf6',
+            borderRadius: 999,
+            padding: '11px 20px',
+            backgroundColor: 'var(--hi-accent)',
             color: '#ffffff',
-            fontWeight: 500,
+            fontWeight: 650,
+            outlineOffset: 3,
         },
         buttonBack: {
-            borderRadius: 12,
+            borderRadius: 999,
             marginRight: 10,
-            color: isDark ? '#94a3b8' : '#64748b',
+            color: 'var(--hi-text-soft)',
+            fontWeight: 600,
         },
         buttonSkip: {
-            borderRadius: 12,
-            color: isDark ? '#94a3b8' : '#64748b',
+            borderRadius: 999,
+            color: 'var(--hi-text-soft)',
         },
         buttonClose: {
-            color: isDark ? '#94a3b8' : '#64748b',
+            color: 'var(--hi-text-soft)',
         },
         spotlight: {
-            borderRadius: 16,
+            borderRadius: 20,
+            boxShadow: '0 0 0 3px var(--hi-accent), 0 0 0 9999px rgba(9, 14, 11, 0.58)',
         },
         beacon: {
-            display: 'none', // Hide beacons, start immediately
+            display: 'none',
         },
     };
 
@@ -170,7 +184,7 @@ export default function IntroTour() {
             callback={handleJoyrideCallback}
             styles={joyrideStyles}
             floaterProps={{
-                disableAnimation: false,
+                disableAnimation: reduceMotion,
             }}
             locale={{
                 back: t('intro.buttons.back'),

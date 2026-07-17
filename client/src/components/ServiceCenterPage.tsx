@@ -3,8 +3,9 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight, CalendarDays, CheckCircle2, Filter, ShieldCheck, Wrench } from 'lucide-react';
-import { EmptyState, LoadingState, PageHeader, SectionHeader } from './ProductUI';
+import { LoadingState } from './ProductUI';
 import { resolveVisibleItemTitle } from '../utils/itemDisplay';
+import '../operations-v25.css';
 
 function todayIsoDate() {
     return new Date().toISOString().slice(0, 10);
@@ -21,15 +22,15 @@ function TaskRow({ task, overdue, t }: { task: any; overdue: boolean; t: any }) 
     return (
         <Link
             to="/maintenance"
-            className="flex items-center justify-between gap-3 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel)] px-4 py-3 transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)]"
+            className="operations-compact-row-v25 group"
         >
-            <span className="min-w-0">
-                <span className="block truncate text-sm font-semibold text-[var(--hi-text)]">{task.task_name}</span>
-                <span className="mt-1 block text-xs text-[var(--hi-text-soft)]">
+            <span className="operations-row-copy-v25">
+                <strong>{task.task_name}</strong>
+                <span>
                     {task.item_name || t('inventory.untitled_item')} · {formatDisplayDate(task.next_due_date)}
                 </span>
             </span>
-            <span className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold ${overdue ? 'bg-rose-500/10 text-rose-500' : 'bg-amber-500/10 text-amber-600 dark:text-amber-400'}`}>
+            <span className={`operations-status-v25 ${overdue ? 'is-danger' : 'is-warning'}`}>
                 {overdue ? t('service.overdue', { defaultValue: 'Geçti' }) : t('service.upcoming', { defaultValue: 'Yakın' })}
             </span>
         </Link>
@@ -37,20 +38,16 @@ function TaskRow({ task, overdue, t }: { task: any; overdue: boolean; t: any }) 
 }
 
 function SummaryTile({ icon: Icon, label, value, tone = 'default' }: { icon: any; label: string; value: string | number; tone?: 'default' | 'warning' | 'danger' }) {
-    const toneClass = tone === 'danger'
-        ? 'bg-rose-500/10 text-rose-600 dark:text-rose-300'
-        : tone === 'warning'
-            ? 'bg-amber-500/10 text-amber-700 dark:text-amber-300'
-            : 'bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]';
+    const toneClass = tone === 'danger' ? 'is-danger' : tone === 'warning' ? 'is-warning' : 'is-info';
 
     return (
-        <div className="flex items-center gap-3 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel)] px-4 py-3">
-            <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${toneClass}`}>
-                <Icon className="h-4.5 w-4.5" />
+        <div className={`operations-metric-v25 ${toneClass}`}>
+            <span className="operations-metric-icon-v25">
+                <Icon />
             </span>
-            <span className="min-w-0">
-                <span className="block text-xs font-semibold uppercase tracking-[0.14em] text-[var(--hi-text-muted)]">{label}</span>
-                <span className="mt-1 block text-lg font-semibold text-[var(--hi-text)]">{value}</span>
+            <span>
+                <small>{label}</small>
+                <strong>{value}</strong>
             </span>
         </div>
     );
@@ -61,15 +58,15 @@ function WarrantyRow({ item, expired, t }: { item: any; expired: boolean; t: any
     return (
         <Link
             to={`/items/${item.id}/edit`}
-            className="flex items-center justify-between gap-3 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel)] px-4 py-3 transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)]"
+            className="operations-compact-row-v25 group"
         >
-            <span className="min-w-0">
-                <span className="block truncate text-sm font-semibold text-[var(--hi-text)]">{title}</span>
-                <span className="mt-1 block text-xs text-[var(--hi-text-soft)]">
+            <span className="operations-row-copy-v25">
+                <strong>{title}</strong>
+                <span>
                     {item.room_name || t('inventory.no_room', { defaultValue: 'Odasız' })} · {formatDisplayDate(item.warranty_expiry_date)}
                 </span>
             </span>
-            <span className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold ${expired ? 'bg-rose-500/10 text-rose-500' : 'bg-amber-500/10 text-amber-600 dark:text-amber-400'}`}>
+            <span className={`operations-status-v25 ${expired ? 'is-danger' : 'is-warning'}`}>
                 {expired ? t('service.expired', { defaultValue: 'Doldu' }) : t('service.upcoming', { defaultValue: 'Yakın' })}
             </span>
         </Link>
@@ -123,104 +120,96 @@ export default function ServiceCenterPage() {
     }
 
     return (
-        <div className="space-y-5">
-            <PageHeader
-                title={t('service.title', { defaultValue: 'Servis ve Garanti Merkezi' })}
-                description={t('service.description', { defaultValue: 'Garanti süresi, bakım takvimi ve servis aksiyonlarını tek yerden takip edin.' })}
-                meta={[
-                    { label: t('service.meta_warranty', { count: warrantyExpired.length + warrantyClose.length, defaultValue: '{{count}} garanti kaydı' }), tone: 'default' },
-                    { label: t('service.meta_tasks', { count: overdueTasks.length + upcomingTasks.length, defaultValue: '{{count}} bakım görevi' }), tone: overdueTasks.length ? 'warning' : 'default' }
-                ]}
-                actions={(
+        <div className="operations-page-v25 animate-fade-in">
+            <header className="operations-intro-v25">
+                <div className="operations-intro-copy-v25">
+                    <span className="operations-hero-icon-v25 is-info" aria-hidden="true"><Wrench /></span>
+                    <div>
+                        <h1>{t('service.title', { defaultValue: 'Servis ve Garanti Merkezi' })}</h1>
+                        <p>{t('service.description', { defaultValue: 'Garanti süresi, bakım takvimi ve servis aksiyonlarını tek yerden takip edin.' })}</p>
+                    </div>
+                </div>
+                <div className="operations-intro-actions-v25">
                     <Link to="/maintenance" className="btn-secondary shrink-0">
                         <Wrench className="h-4 w-4" />
                         <span>{t('navigation.maintenance', { defaultValue: 'Bakım Takvimi' })}</span>
                     </Link>
-                )}
-            />
-
-            <div className="grid gap-3 md:grid-cols-3">
-                <SummaryTile
-                    icon={ShieldCheck}
-                    label={t('service.summary_warranty', { defaultValue: 'Garanti takibi' })}
-                    value={warrantyCount}
-                    tone={warrantyExpired.length ? 'danger' : warrantyClose.length ? 'warning' : 'default'}
-                />
-                <SummaryTile
-                    icon={Wrench}
-                    label={t('service.summary_tasks', { defaultValue: 'Bakım görevi' })}
-                    value={taskCount}
-                    tone={overdueTasks.length ? 'danger' : taskCount ? 'warning' : 'default'}
-                />
-                <Link
-                    to="/items?warranty=active&sort=expiry_asc"
-                    className="group flex items-center justify-between gap-3 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel)] px-4 py-3 transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)]"
-                >
-                    <span className="flex min-w-0 items-center gap-3">
-                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
-                            <Filter className="h-4.5 w-4.5" />
-                        </span>
-                        <span className="min-w-0">
-                            <span className="block text-sm font-semibold text-[var(--hi-text)]">{t('service.open_warranty_filter', { defaultValue: 'Garanti filtresini aç' })}</span>
-                            <span className="mt-1 block truncate text-xs text-[var(--hi-text-soft)]">{t('service.open_warranty_filter_desc', { defaultValue: 'Aktif garantili eşyaları envanterde filtreler.' })}</span>
-                        </span>
-                    </span>
-                    <ArrowRight className="h-4 w-4 shrink-0 text-[var(--hi-text-soft)] transition group-hover:translate-x-0.5 group-hover:text-[var(--hi-accent)]" />
-                </Link>
-            </div>
-
-            {totalActionCount === 0 ? (
-                <EmptyState
-                    icon={CheckCircle2}
-                    title={t('service.empty_title', { defaultValue: 'Servis veya garanti aksiyonu yok' })}
-                    description={t('service.empty_desc', { defaultValue: 'Garanti tarihi yaklaşan ürünler ve bakım görevleri burada toplanır.' })}
-                    actions={<Link to="/items" className="btn-secondary">{t('navigation.inventory')}</Link>}
-                />
-            ) : (
-                <div className="grid items-start gap-5 xl:grid-cols-2">
-                    <div
-                        role="region"
-                        aria-label={t('service.warranty_section', { defaultValue: 'Garanti Takibi' })}
-                        className="space-y-4 rounded-2xl border border-[var(--hi-border)] bg-[var(--hi-panel)] p-4 shadow-[var(--hi-shadow-soft)]"
-                    >
-                        <SectionHeader
-                            title={t('service.warranty_section', { defaultValue: 'Garanti Takibi' })}
-                            description={t('service.warranty_desc', { defaultValue: 'Süresi dolan veya 30 gün içinde dolacak garanti kayıtları.' })}
-                            action={<ShieldCheck className="h-5 w-5 text-[var(--hi-accent)]" />}
-                        />
-                        <div className="space-y-2">
-                            {warrantyExpired.map((item) => <WarrantyRow key={`expired-${item.id}`} item={item} expired t={t} />)}
-                            {warrantyClose.map((item) => <WarrantyRow key={`close-${item.id}`} item={item} expired={false} t={t} />)}
-                            {warrantyExpired.length + warrantyClose.length === 0 && (
-                                <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel)] px-4 py-6 text-sm text-[var(--hi-text-soft)]">
-                                    {t('service.no_warranty', { defaultValue: 'Yaklaşan garanti aksiyonu yok.' })}
-                                </div>
-                            )}
-                        </div>
-                    </div>
-
-                    <div
-                        role="region"
-                        aria-label={t('service.maintenance_section', { defaultValue: 'Bakım Aksiyonları' })}
-                        className="space-y-4 rounded-2xl border border-[var(--hi-border)] bg-[var(--hi-panel)] p-4 shadow-[var(--hi-shadow-soft)]"
-                    >
-                        <SectionHeader
-                            title={t('service.maintenance_section', { defaultValue: 'Bakım Aksiyonları' })}
-                            description={t('service.maintenance_desc', { defaultValue: 'Geciken ve sıradaki bakım görevleri.' })}
-                            action={<CalendarDays className="h-5 w-5 text-[var(--hi-accent)]" />}
-                        />
-                        <div className="space-y-2">
-                            {overdueTasks.map((task) => <TaskRow key={`overdue-${task.id}`} task={task} overdue t={t} />)}
-                            {upcomingTasks.map((task) => <TaskRow key={`upcoming-${task.id}`} task={task} overdue={false} t={t} />)}
-                            {overdueTasks.length + upcomingTasks.length === 0 && (
-                                <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel)] px-4 py-6 text-sm text-[var(--hi-text-soft)]">
-                                    {t('service.no_tasks', { defaultValue: 'Planlanmış bakım görevi yok.' })}
-                                </div>
-                            )}
-                        </div>
-                    </div>
                 </div>
-            )}
+            </header>
+
+            <section className="operations-workspace-v25">
+                <div className="operations-metrics-v25">
+                    <SummaryTile
+                        icon={ShieldCheck}
+                        label={t('service.summary_warranty', { defaultValue: 'Garanti takibi' })}
+                        value={warrantyCount}
+                        tone={warrantyExpired.length ? 'danger' : warrantyClose.length ? 'warning' : 'default'}
+                    />
+                    <SummaryTile
+                        icon={Wrench}
+                        label={t('service.summary_tasks', { defaultValue: 'Bakım görevi' })}
+                        value={taskCount}
+                        tone={overdueTasks.length ? 'danger' : taskCount ? 'warning' : 'default'}
+                    />
+                    <Link to="/items?warranty=active&sort=expiry_asc" className="operations-metric-v25 operations-metric-link-v25 is-info group">
+                        <span className="operations-metric-icon-v25">
+                            <Filter />
+                        </span>
+                        <span>
+                            <small>{t('service.open_warranty_filter', { defaultValue: 'Garanti filtresini aç' })}</small>
+                            <strong className="operations-metric-label-v25">{t('navigation.inventory')}</strong>
+                        </span>
+                        <ArrowRight className="operations-metric-arrow-v25" />
+                    </Link>
+                </div>
+
+                {totalActionCount === 0 ? (
+                    <div className="operations-inline-empty-v25 operations-inline-empty-bordered-v25">
+                        <span className="operations-empty-icon-v25"><CheckCircle2 /></span>
+                        <div>
+                            <h2>{t('service.empty_title', { defaultValue: 'Servis veya garanti aksiyonu yok' })}</h2>
+                            <p>{t('service.empty_desc', { defaultValue: 'Garanti tarihi yaklaşan ürünler ve bakım görevleri burada toplanır.' })}</p>
+                        </div>
+                        <Link to="/items" className="btn-secondary">{t('navigation.inventory')}</Link>
+                    </div>
+                ) : (
+                    <div className="operations-columns-v25">
+                        <div role="region" aria-label={t('service.warranty_section', { defaultValue: 'Garanti Takibi' })} className="operations-column-v25">
+                            <div className="operations-section-heading-v25">
+                                <span className="operations-section-icon-v25 is-info"><ShieldCheck /></span>
+                                <div>
+                                    <h2>{t('service.warranty_section', { defaultValue: 'Garanti Takibi' })}</h2>
+                                    <p>{t('service.warranty_desc', { defaultValue: 'Süresi dolan veya 30 gün içinde dolacak garanti kayıtları.' })}</p>
+                                </div>
+                            </div>
+                            <div className="operations-compact-list-v25">
+                                {warrantyExpired.map((item) => <WarrantyRow key={`expired-${item.id}`} item={item} expired t={t} />)}
+                                {warrantyClose.map((item) => <WarrantyRow key={`close-${item.id}`} item={item} expired={false} t={t} />)}
+                                {warrantyExpired.length + warrantyClose.length === 0 && (
+                                    <p className="operations-quiet-message-v25">{t('service.no_warranty', { defaultValue: 'Yaklaşan garanti aksiyonu yok.' })}</p>
+                                )}
+                            </div>
+                        </div>
+
+                        <div role="region" aria-label={t('service.maintenance_section', { defaultValue: 'Bakım Aksiyonları' })} className="operations-column-v25">
+                            <div className="operations-section-heading-v25">
+                                <span className="operations-section-icon-v25 is-warning"><CalendarDays /></span>
+                                <div>
+                                    <h2>{t('service.maintenance_section', { defaultValue: 'Bakım Aksiyonları' })}</h2>
+                                    <p>{t('service.maintenance_desc', { defaultValue: 'Geciken ve sıradaki bakım görevleri.' })}</p>
+                                </div>
+                            </div>
+                            <div className="operations-compact-list-v25">
+                                {overdueTasks.map((task) => <TaskRow key={`overdue-${task.id}`} task={task} overdue t={t} />)}
+                                {upcomingTasks.map((task) => <TaskRow key={`upcoming-${task.id}`} task={task} overdue={false} t={t} />)}
+                                {overdueTasks.length + upcomingTasks.length === 0 && (
+                                    <p className="operations-quiet-message-v25">{t('service.no_tasks', { defaultValue: 'Planlanmış bakım görevi yok.' })}</p>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </section>
         </div>
     );
 }

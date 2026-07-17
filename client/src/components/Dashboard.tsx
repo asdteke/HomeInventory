@@ -16,7 +16,7 @@ import {
     X
 } from 'lucide-react';
 import SecureImage from './SecureImage';
-import { EmptyState, LoadingState, PageHeader, SectionHeader, NoticeBanner } from './ProductUI';
+import { LoadingState, SectionHeader, NoticeBanner } from './ProductUI';
 import { formatDateForLanguage, formatNumberForLanguage } from '../utils/appFormatting';
 import { resolveVisibleItemTitle } from '../utils/itemDisplay';
 import { getRoomPresentation } from '../utils/roomDisplay';
@@ -194,12 +194,12 @@ export default function Dashboard() {
         window.localStorage.setItem(DISMISSED_DASHBOARD_ALERTS_KEY, JSON.stringify(next));
     };
     const renderAlertAction = (alertId: keyof typeof alertSignatures, action: ReactNode) => (
-        <div className="flex flex-wrap items-center justify-end gap-2">
+        <div className="dashboard-notice-actions">
             {action}
             <button
                 type="button"
                 onClick={() => dismissAlert(alertId)}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--hi-border)] text-[var(--hi-text-soft)] transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)]"
+                className="dashboard-notice-dismiss"
                 aria-label={t('common.close')}
                 title={t('common.close')}
             >
@@ -233,69 +233,86 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="space-y-5">
-            <PageHeader
-                title={t('dashboard.page.title')}
-                description={hasItems ? undefined : t('dashboard.page.description_empty')}
-                meta={hasItems ? [
-                    { label: t('dashboard.top_bar.items_tracked', { count: formattedTotalItems as any }), tone: 'accent' as const },
-                    { label: t('dashboard.top_bar.total_quantity', { count: formattedTotalQuantity as any }), tone: 'secondary' as const },
-                    ...(sharedItemsCount > 0 ? [{ label: t('dashboard.top_bar.shared_items', { count: formattedSharedItems as any }), tone: 'secondary' as const }] : []),
-                    ...(borrowedItemsCount > 0 ? [{ label: t('dashboard.top_bar.borrowed_now', { count: formattedBorrowedItems as any }), tone: 'accent' as const }] : [])
-                ] : [
-                    { label: t('dashboard.top_bar.status_empty'), tone: 'secondary' as const }
-                ]}
-                actions={(
-                    <Link to="/items/new" className="btn-primary">
-                        <Plus className="h-4 w-4" />
-                        <span>{t('navigation.new_item')}</span>
+        <div className="dashboard-page">
+            <header className="dashboard-intro">
+                <div className="dashboard-intro-copy">
+                    <h1>{t('dashboard.page.title')}</h1>
+                    <p>
+                        {hasItems
+                            ? t('dashboard.page.description_ready', { defaultValue: 'Your household inventory, recent activity, and important reminders in one calm overview.' })
+                            : t('dashboard.page.description_empty')}
+                    </p>
+                </div>
+
+                <Link to="/items/new" className="btn-primary dashboard-desktop-create hidden lg:inline-flex">
+                    <Plus className="h-4 w-4" />
+                    <span>{t('navigation.new_item')}</span>
+                </Link>
+
+                <div className="dashboard-stats" aria-label={t('dashboard.page.title')}>
+                    {hasItems ? (
+                        <>
+                            <span className="dashboard-stat">
+                                <strong>{formattedTotalItems}</strong>
+                                <small>{t('dashboard.stats.total_items', { defaultValue: 'Items' })}</small>
+                            </span>
+                            <span className="dashboard-stat">
+                                <strong>{formattedTotalQuantity}</strong>
+                                <small>{t('dashboard.stats.total_quantity', { defaultValue: 'Total quantity' })}</small>
+                            </span>
+                            {sharedItemsCount > 0 && (
+                                <span className="dashboard-stat">
+                                    <strong>{formattedSharedItems}</strong>
+                                    <small>{t('dashboard.visibility.public', { defaultValue: 'Shared' })}</small>
+                                </span>
+                            )}
+                            {borrowedItemsCount > 0 && (
+                                <span className="dashboard-stat">
+                                    <strong>{formattedBorrowedItems}</strong>
+                                    <small>{t('inventory.borrow.borrowed_badge', { defaultValue: 'Borrowed' })}</small>
+                                </span>
+                            )}
+                        </>
+                    ) : (
+                        <span className="dashboard-empty-status">
+                            <span aria-hidden="true" />
+                            {t('dashboard.top_bar.status_empty')}
+                        </span>
+                    )}
+                </div>
+            </header>
+
+            <section className="dashboard-search-region" aria-labelledby="dashboard-search-title">
+                <div className="dashboard-search-heading">
+                    <h2 id="dashboard-search-title">{t('dashboard.search_panel.title')}</h2>
+                    <Link to="/vault" className="dashboard-vault-link">
+                        <KeyRound className="h-4 w-4" />
+                        <span>{t('navigation.personal_vault')}</span>
                     </Link>
-                )}
-            >
-                <section className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel)] p-4 shadow-[var(--hi-shadow-soft)] sm:p-5">
-                    <SectionHeader
-                        title={t('dashboard.search_panel.title')}
+                </div>
+
+                <form onSubmit={handleSearch} className="dashboard-search-form">
+                    <Search className="dashboard-search-icon" aria-hidden="true" />
+                    <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(event) => setSearchQuery(event.target.value)}
+                        placeholder={t('dashboard.search_panel.placeholder')}
+                        aria-label={t('dashboard.search_panel.placeholder')}
                     />
-
-                    <form onSubmit={handleSearch} className="mt-4">
-                        <div className="overflow-hidden rounded-xl border border-[var(--hi-border)] bg-[var(--hi-bg-strong)] transition focus-within:border-[var(--hi-border-strong)]">
-                            <div className="flex flex-col md:flex-row md:items-center">
-                                <div className="relative flex-1 px-4">
-                                    <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[var(--hi-text-muted)]" />
-                                    <input
-                                        type="text"
-                                        value={searchQuery}
-                                        onChange={(event) => setSearchQuery(event.target.value)}
-                                        placeholder={t('dashboard.search_panel.placeholder')}
-                                        aria-label={t('dashboard.search_panel.placeholder')}
-                                        className="h-14 w-full border-0 bg-transparent pl-10 pr-4 text-base text-[var(--hi-text)] outline-none placeholder:text-[var(--hi-text-muted)]"
-                                    />
-                                </div>
-                                <button type="submit" className="btn-secondary m-2 h-11 min-w-[150px] !rounded-[12px] !px-5">
-                                    <Search className="h-4 w-4" />
-                                    <span>{t('dashboard.search_panel.submit')}</span>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-
-                    <div className="mt-3 flex flex-wrap items-center gap-2 text-sm text-[var(--hi-text-soft)]">
-                        <Link
-                            to="/vault"
-                            className="inline-flex items-center gap-1 font-semibold text-[var(--hi-accent)] transition hover:text-[var(--hi-accent-strong)]"
-                        >
-                            <KeyRound className="h-4 w-4" />
-                            <span>{t('navigation.personal_vault')}</span>
-                        </Link>
-                    </div>
-                </section>
-            </PageHeader>
+                    <button type="submit" className="dashboard-search-submit" aria-label={t('dashboard.search_panel.submit')}>
+                        <Search className="h-4 w-4" />
+                        <span>{t('dashboard.search_panel.submit')}</span>
+                    </button>
+                </form>
+            </section>
 
             {/* Warning and Notification Banners */}
             {hasVisibleAlerts && (
-                <div className="space-y-3">
+                <div className="dashboard-alerts space-y-3">
                     {showExpiredAlert && (
                         <NoticeBanner
+                            className="dashboard-notice"
                             tone="danger"
                             icon={AlertTriangle}
                             title={t('dashboard.alerts.expired_title', { defaultValue: 'Son Kullanma Tarihi Geçmiş Eşyalar Var!' })}
@@ -304,7 +321,7 @@ export default function Dashboard() {
                                 defaultValue: '{{count}} eşyanın son kullanma tarihi geçti.'
                             })}
                             action={renderAlertAction('expired',
-                                <Link to="/alerts/expired" className="btn-secondary !rounded-[12px] !px-4 !py-2 text-sm text-red-500 border-red-200 bg-red-100/50 dark:bg-red-500/10 hover:bg-red-100">
+                                <Link to="/alerts/expired" className="dashboard-notice-link text-red-500">
                                     {t('dashboard.alerts.view_items', { defaultValue: 'Eşyaları Gör' })}
                                 </Link>
                             )}
@@ -313,6 +330,7 @@ export default function Dashboard() {
 
                     {showMaintenanceAlert && (
                         <NoticeBanner
+                            className="dashboard-notice"
                             tone="warning"
                             icon={Wrench}
                             title={t('dashboard.alerts.maintenance_title', { defaultValue: 'Gecikmiş Bakım Görevleri Var!' })}
@@ -321,7 +339,7 @@ export default function Dashboard() {
                                 defaultValue: '{{count}} bakım görevi gecikmiş.'
                             })}
                             action={renderAlertAction('maintenance',
-                                <Link to="/alerts/maintenance" className="btn-secondary !rounded-[12px] !px-4 !py-2 text-sm">
+                                <Link to="/alerts/maintenance" className="dashboard-notice-link">
                                     {t('dashboard.alerts.go_to_maintenance', { defaultValue: 'Bakıma Git' })}
                                 </Link>
                             )}
@@ -330,6 +348,7 @@ export default function Dashboard() {
 
                     {showLowStockAlert && (
                         <NoticeBanner
+                            className="dashboard-notice"
                             tone="info"
                             icon={ShoppingCart}
                             title={t('dashboard.alerts.low_stock_title', { defaultValue: 'Azalan Stok Uyarısı' })}
@@ -338,7 +357,7 @@ export default function Dashboard() {
                                 defaultValue: '{{count}} ürün belirlediğiniz asgari stok limitinin altına düştü.'
                             })}
                             action={renderAlertAction('lowStock',
-                                <Link to="/alerts/low-stock" className="btn-secondary !rounded-[12px] !px-4 !py-2 text-sm text-[var(--hi-accent)] border-[var(--hi-accent-soft)]">
+                                <Link to="/alerts/low-stock" className="dashboard-notice-link text-[var(--hi-accent)]">
                                     {t('dashboard.alerts.view_low_stock_items', { defaultValue: 'Azalan Stokları Gör' })}
                                 </Link>
                             )}
@@ -347,6 +366,7 @@ export default function Dashboard() {
 
                     {showCloseToExpiryAlert && (
                         <NoticeBanner
+                            className="dashboard-notice"
                             tone="info"
                             icon={Calendar}
                             title={t('dashboard.alerts.close_expiry_title', { defaultValue: 'Yaklaşan Son Kullanma Tarihleri' })}
@@ -355,7 +375,7 @@ export default function Dashboard() {
                                 defaultValue: '{{count}} ürünün son kullanma tarihi 30 gün içinde dolacak.'
                             })}
                             action={renderAlertAction('closeToExpiry',
-                                <Link to="/alerts/expiring" className="btn-secondary !rounded-[12px] !px-4 !py-2 text-sm">
+                                <Link to="/alerts/expiring" className="dashboard-notice-link">
                                     {t('dashboard.alerts.view_items', { defaultValue: 'Eşyaları Gör' })}
                                 </Link>
                             )}
@@ -364,11 +384,12 @@ export default function Dashboard() {
                 </div>
             )}
 
-            <section className="card !p-4 lg:!p-5">
+            <section className="dashboard-feed">
                 <SectionHeader
                     title={t('dashboard.content.title')}
+                    className="dashboard-feed-header"
                     action={hasItems ? (
-                        <Link to="/items" className="btn-secondary !rounded-[12px] !px-4 !py-2.5 text-sm">
+                        <Link to="/items" className="dashboard-see-all">
                             <span>{t('dashboard.content.see_all')}</span>
                             <ChevronRight className="h-4 w-4" />
                         </Link>
@@ -376,7 +397,7 @@ export default function Dashboard() {
                 />
 
                 {recentItems.length > 0 ? (
-                    <div className="mt-4 space-y-3">
+                    <div className="dashboard-recent-list">
                         {recentItems.map((item) => {
                             const itemTitle = resolveVisibleItemTitle(item, t('dashboard.content.untitled_item'));
                             const visibilityIsPublic = Number(item.is_public) === 1;
@@ -396,9 +417,9 @@ export default function Dashboard() {
                                 <Link
                                     key={item.id}
                                     to={`/items/${item.id}/edit`}
-                                    className="group grid gap-3 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--hi-border-strong)] hover:shadow-[var(--hi-shadow-soft)] sm:grid-cols-[68px_minmax(0,1fr)_20px] sm:items-center"
+                                    className="dashboard-recent-item group grid gap-3 sm:grid-cols-[58px_minmax(0,1fr)_20px] sm:items-center"
                                 >
-                                    <div className="h-[68px] w-[68px] overflow-hidden rounded-lg bg-black/5 dark:bg-white/5">
+                                    <div className="dashboard-item-media">
                                         {item.photo_path ? (
                                             <SecureImage
                                                 src={item.photo_path}
@@ -446,18 +467,18 @@ export default function Dashboard() {
                         })}
                     </div>
                 ) : (
-                    <div className="mt-4">
-                        <EmptyState
-                            icon={Package}
-                            title={t('dashboard.content.empty_title', { defaultValue: 'No recent additions yet' })}
-                            description={t('dashboard.content.empty_description', { defaultValue: 'İlk eşyayı eklediğinizde bu alan otomatik dolacak.' })}
-                            actions={(
-                                <Link to="/items/new" className="btn-primary">
-                                    <Plus className="h-4 w-4" />
-                                    <span>{t('navigation.new_item')}</span>
-                                </Link>
-                            )}
-                        />
+                    <div className="dashboard-empty-feed">
+                        <span className="dashboard-empty-icon" aria-hidden="true">
+                            <Package className="h-6 w-6" />
+                        </span>
+                        <div className="min-w-0">
+                            <h3>{t('dashboard.content.empty_title', { defaultValue: 'No recent additions yet' })}</h3>
+                            <p>{t('dashboard.content.empty_description', { defaultValue: 'İlk eşyayı eklediğinizde bu alan otomatik dolacak.' })}</p>
+                        </div>
+                        <Link to="/items/new" className="btn-primary hidden lg:inline-flex">
+                            <Plus className="h-4 w-4" />
+                            <span>{t('navigation.new_item')}</span>
+                        </Link>
                     </div>
                 )}
             </section>

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { Info, X } from 'lucide-react';
 import { resolveVerifiedLegalTranslationLanguage } from '../utils/legalTranslations';
+import '../admin-overlays-v25.css';
 
 const COOKIE_NOTICE_KEYS = [
     'cookies.banner_text',
@@ -33,13 +34,16 @@ export default function CookieBanner() {
     if (!isVisible || location.pathname === '/legal-consent') return null;
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 z-[100] p-4 animate-slide-up pointer-events-none">
-            <div className="pointer-events-auto relative mx-auto flex max-w-6xl flex-col gap-4 rounded-[28px] border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-4 shadow-[var(--hi-shadow)] sm:flex-row sm:items-center sm:gap-5 sm:p-5">
-                <div className="hidden h-16 w-16 flex-shrink-0 items-center justify-center rounded-[20px] border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] sm:flex">
+        <div className="cookie-banner-v25 pointer-events-none fixed inset-x-0 bottom-0 z-[100] p-3 sm:p-4">
+            <section
+                className="cookie-banner-v25-frame pointer-events-auto relative mx-auto flex max-w-6xl flex-col gap-4 rounded-[2rem] p-4 sm:flex-row sm:items-center sm:gap-5 sm:p-5"
+                aria-label={legalT('cookies.banner_text')}
+            >
+                <div className="cookie-banner-v25-icon hidden h-14 w-14 flex-shrink-0 items-center justify-center rounded-[1.15rem] sm:flex">
                     <Info className="h-7 w-7 text-[var(--hi-accent)]" />
                 </div>
 
-                <div className="min-w-0 flex-1 pr-10 text-center text-sm leading-relaxed text-[var(--hi-text-soft)] sm:pr-0 sm:text-left">
+                <div className="min-w-0 flex-1 pr-9 text-left text-sm leading-6 text-[var(--hi-text-soft)] sm:pr-0">
                     <span className="mr-2 inline-block align-middle sm:hidden">
                         <Info className="inline h-4 w-4 text-[var(--hi-accent)]" />
                     </span>
@@ -50,24 +54,28 @@ export default function CookieBanner() {
                     <Link
                         to="/privacy-policy"
                         target="_blank"
-                        className="inline-flex items-center justify-center rounded-2xl px-3 py-2 text-sm font-medium text-[var(--hi-text-soft)] transition hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)]"
+                        rel="noopener noreferrer"
+                        className="cookie-banner-v25-link inline-flex min-h-11 items-center justify-center rounded-full px-4 py-2 text-sm font-semibold text-[var(--hi-text-soft)] transition hover:text-[var(--hi-text)]"
                     >
                         {legalT('cookies.learn_more')}
                     </Link>
                     <button
+                        type="button"
                         onClick={handleAccept}
-                        className="btn-primary min-w-[160px] py-2.5"
+                        className="btn-primary min-h-11 min-w-[160px] py-2.5"
                     >
                         {legalT('cookies.accept')}
                     </button>
                     <button
+                        type="button"
                         onClick={handleAccept}
-                        className="absolute right-3 top-3 rounded-xl p-2 text-[var(--hi-text-soft)] transition hover:bg-[var(--hi-panel-muted)] hover:text-[var(--hi-text)] sm:hidden"
+                        className="cookie-banner-v25-close absolute right-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-full text-[var(--hi-text-soft)] transition hover:text-[var(--hi-text)] sm:hidden"
+                        aria-label={i18n.t('common.close', { defaultValue: 'Close' })}
                     >
                         <X className="w-5 h-5" />
                     </button>
                 </div>
-            </div>
+            </section>
         </div>
     );
 }

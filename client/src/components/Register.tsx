@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 import {
@@ -18,7 +18,8 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
-import { BRAND_KEY, BRAND_NAME, SUPPORT_EMAIL } from '../constants/branding';
+import { BRAND_KEY, BRAND_NAME, SUPPORT_CONTACT_URL } from '../constants/branding';
+import '../auth-landing-v25.css';
 import { validatePasswordStrengthClient } from '../utils/passwordValidation';
 import { resolveVerifiedLegalTranslationLanguage } from '../utils/legalTranslations';
 import BrandLogo from './BrandLogo';
@@ -49,6 +50,16 @@ export default function Register() {
     });
     const [legalAccepted, setLegalAccepted] = useState(false);
     const [mode, setMode] = useState<'create' | 'join'>('create');
+    const [modeDragProgress, setModeDragProgress] = useState<number | null>(null);
+    const modeTrackRef = useRef<HTMLDivElement | null>(null);
+    const modeDragRef = useRef<{
+        pointerId: number;
+        startX: number;
+        startProgress: number;
+        currentProgress: number;
+        travel: number;
+    } | null>(null);
+    const suppressModeClickRef = useRef(false);
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -72,10 +83,10 @@ export default function Register() {
         : 'bg-[var(--hi-bg)] text-[var(--hi-text)]';
     const pageGlow = isDark
         ? (isCustomBrand
-            ? 'radial-gradient(circle_at_18%_16%,rgba(103,227,242,0.08),transparent_26%),radial-gradient(circle_at_82%_18%,rgba(139,180,255,0.09),transparent_30%),linear-gradient(180deg,#101620_0%,#161c27_52%,#111722_100%)'
+            ? 'radial-gradient(circle_at_18%_16%,rgba(88,213,240,0.08),transparent_26%),radial-gradient(circle_at_82%_18%,rgba(100,168,255,0.10),transparent_30%),linear-gradient(180deg,#08111e_0%,#0d1726_52%,#10213a_100%)'
             : 'radial-gradient(circle_at_20%_18%,rgba(205,176,136,0.08),transparent_26%),radial-gradient(circle_at_78%_22%,rgba(74,125,100,0.12),transparent_30%),linear-gradient(180deg,#151a17_0%,#1a201d_52%,#151917_100%)')
         : (isCustomBrand
-            ? 'radial-gradient(circle_at_18%_18%,rgba(139,180,255,0.13),transparent_24%),radial-gradient(circle_at_82%_20%,rgba(18,158,154,0.10),transparent_28%),linear-gradient(180deg,#f4f8fd_0%,#eff5fc_48%,#eaf1fa_100%)'
+            ? 'radial-gradient(circle_at_18%_18%,rgba(100,168,255,0.14),transparent_24%),radial-gradient(circle_at_82%_20%,rgba(22,166,220,0.10),transparent_28%),linear-gradient(180deg,#f3f7ff_0%,#edf4ff_48%,#e8f1ff_100%)'
             : 'radial-gradient(circle_at_18%_18%,rgba(184,153,104,0.12),transparent_24%),radial-gradient(circle_at_82%_20%,rgba(45,82,65,0.10),transparent_28%),linear-gradient(180deg,#f7f2e8_0%,#f4ede2_48%,#efe6d9_100%)');
     const topChromeClass = isDark
         ? (isCustomBrand
@@ -168,6 +179,13 @@ export default function Register() {
         { value: 'join' as const, icon: Users, label: t('auth.register.join_house') }
     ];
 
+    const visualMode = modeDragProgress === null
+        ? mode
+        : (modeDragProgress >= 0.5 ? 'join' : 'create');
+    const dragStretch = modeDragProgress === null
+        ? 0
+        : Math.sin(modeDragProgress * Math.PI);
+
     const activeMode = mode === 'create'
         ? {
             icon: Home,
@@ -185,6 +203,63 @@ export default function Register() {
                     : 'Join with the House Key you received.'
             })
         };
+
+    const handleModePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+        if (!event.isPrimary || event.button !== 0) {
+            return;
+        }
+
+        const track = modeTrackRef.current;
+        if (!track) {
+            return;
+        }
+
+        modeDragRef.current = {
+            pointerId: event.pointerId,
+            startX: event.clientX,
+            startProgress: mode === 'join' ? 1 : 0,
+            currentProgress: mode === 'join' ? 1 : 0,
+            travel: Math.max(track.getBoundingClientRect().width / 2, 1)
+        };
+        suppressModeClickRef.current = false;
+        setModeDragProgress(mode === 'join' ? 1 : 0);
+        track.setPointerCapture(event.pointerId);
+    };
+
+    const handleModePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+        const drag = modeDragRef.current;
+        if (!drag || drag.pointerId !== event.pointerId) {
+            return;
+        }
+
+        const delta = event.clientX - drag.startX;
+        if (Math.abs(delta) > 5) {
+            suppressModeClickRef.current = true;
+        }
+
+        drag.currentProgress = Math.min(1, Math.max(0, drag.startProgress + (delta / drag.travel)));
+        setModeDragProgress(drag.currentProgress);
+    };
+
+    const finishModeDrag = (event: React.PointerEvent<HTMLDivElement>, cancelled = false) => {
+        const drag = modeDragRef.current;
+        if (!drag || drag.pointerId !== event.pointerId) {
+            return;
+        }
+
+        if (modeTrackRef.current?.hasPointerCapture(event.pointerId)) {
+            modeTrackRef.current.releasePointerCapture(event.pointerId);
+        }
+
+        if (!cancelled && suppressModeClickRef.current) {
+            const nextMode = drag.currentProgress >= 0.5 ? 'join' : 'create';
+            setMode(nextMode);
+            setError('');
+        }
+
+        modeDragRef.current = null;
+        setModeDragProgress(null);
+    };
     const ActiveModeIcon = activeMode.icon;
 
     const handleChange = ({ target: { name, value } }: React.ChangeEvent<HTMLInputElement>) => {
@@ -314,22 +389,18 @@ export default function Register() {
     };
 
     return (
-        <div className={`landing-page-shell relative min-h-screen overflow-hidden ${pageClass}`}>
+        <div className={`auth-page-v25 landing-page-shell relative min-h-screen overflow-hidden ${pageClass}`}>
             <div className="absolute inset-0" style={{ background: pageGlow }} />
             <div className={`absolute inset-0 ${isDark ? 'opacity-[0.14]' : 'opacity-[0.22]'}`}>
                 <div className="landing-grid absolute inset-0" />
             </div>
             <div className={`absolute left-[-7rem] top-16 h-56 w-56 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(139,180,255,0.10)]' : 'bg-[rgba(205,176,136,0.10)]') : (isCustomBrand ? 'bg-[rgba(139,180,255,0.16)]' : 'bg-[rgba(205,176,136,0.16)]')}`} />
-            <div className={`absolute bottom-8 right-[-5rem] h-64 w-64 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(103,227,242,0.12)]' : 'bg-[rgba(74,125,100,0.14)]') : (isCustomBrand ? 'bg-[rgba(18,158,154,0.10)]' : 'bg-[rgba(45,82,65,0.10)]')}`} />
+            <div className={`absolute bottom-8 right-[-5rem] h-64 w-64 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.12)]' : 'bg-[rgba(74,125,100,0.14)]') : (isCustomBrand ? 'bg-[rgba(22,166,220,0.10)]' : 'bg-[rgba(45,82,65,0.10)]')}`} />
 
-            <div className="relative z-10 flex min-h-screen items-center justify-center px-5 py-8 sm:px-6 sm:py-12">
+            <div className="auth-shell-v25 relative z-10 flex min-h-screen items-center justify-center px-5 py-8 sm:px-6 sm:py-12">
                 <div className="w-full max-w-[31rem]">
-                    <div className="mb-4 flex items-center justify-between gap-3 sm:mb-5">
-                        <div className={`hidden text-xs font-medium uppercase tracking-[0.22em] sm:block ${isDark ? 'text-white/30' : 'text-[var(--hi-text-muted)]'}`}>
-                            {registerShellLabel}
-                        </div>
-
-                        <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
+                    <div className="auth-top-tools-v25 mb-4 flex items-center justify-between gap-3 sm:mb-5">
+                        <div className="auth-top-controls-v25 flex shrink-0 items-center gap-2 sm:gap-3">
                             <button
                                 type="button"
                                 onClick={toggleTheme}
@@ -347,9 +418,13 @@ export default function Register() {
                                 />
                             </div>
                         </div>
+
+                        <div className={`auth-top-label-v25 text-right font-medium uppercase ${isDark ? 'text-white/38' : 'text-[var(--hi-text-muted)]'}`}>
+                            {registerShellLabel}
+                        </div>
                     </div>
 
-                    <div className={`relative overflow-hidden rounded-[var(--hi-radius-md)] ${cardClass}`}>
+                    <div className={`auth-card-v25 relative overflow-hidden rounded-[var(--hi-radius-md)] ${cardClass}`}>
                         <div className={`landing-panel-glow absolute inset-0 ${isCustomBrand && isDark ? 'opacity-30' : 'opacity-50'}`} />
 
                         <div className={`relative p-6 sm:p-8 ${isCustomBrand && isDark ? 'bg-[linear-gradient(180deg,rgba(17,24,35,0.24),rgba(17,24,35,0.08))]' : ''}`}>
@@ -387,19 +462,37 @@ export default function Register() {
                                                 defaultValue: isTurkish ? 'Nasıl devam etmek istersiniz?' : 'Household access'
                                             })}
                                         </label>
-                                        <div className={`rounded-[var(--hi-radius-md)] border ${segmentedSurfaceClass}`}>
-                                            <div className="relative grid grid-cols-2 gap-0.5 p-0.5" role="tablist" aria-label={t('auth.register.mode_label') || undefined}>
+                                        <div className={`register-mode-v25 border ${segmentedSurfaceClass}`}>
+                                            <div
+                                                ref={modeTrackRef}
+                                                className={`register-mode-track-v25 relative grid grid-cols-2 ${modeDragProgress !== null ? 'is-dragging' : ''}`}
+                                                role="tablist"
+                                                aria-label={t('auth.register.mode_label') || undefined}
+                                                onPointerDown={handleModePointerDown}
+                                                onPointerMove={handleModePointerMove}
+                                                onPointerUp={(event) => finishModeDrag(event)}
+                                                onPointerCancel={(event) => finishModeDrag(event, true)}
+                                                onClickCapture={(event) => {
+                                                    if (suppressModeClickRef.current) {
+                                                        event.preventDefault();
+                                                        event.stopPropagation();
+                                                        suppressModeClickRef.current = false;
+                                                    }
+                                                }}
+                                            >
                                                 <span
                                                     aria-hidden="true"
-                                                    className={`pointer-events-none absolute inset-y-0.5 left-0.5 z-0 w-[calc(50%-0.1875rem)] rounded-[calc(var(--hi-radius-md)-10px)] border transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${segmentedThumbClass}`}
+                                                    className={`register-mode-thumb-v25 pointer-events-none absolute z-0 border ${segmentedThumbClass}`}
                                                     style={{
-                                                        transform: mode === 'join'
-                                                            ? 'translateX(calc(100% + 0.125rem))'
-                                                            : 'translateX(0)'
-                                                    }}
+                                                        '--register-drag-progress': modeDragProgress ?? (mode === 'join' ? 1 : 0),
+                                                        '--register-glow-x': `${18 + ((modeDragProgress ?? (mode === 'join' ? 1 : 0)) * 64)}%`,
+                                                        transform: `translate3d(${(modeDragProgress ?? (mode === 'join' ? 1 : 0)) * 100}%, 0, 0) scaleX(${1 + (dragStretch * 0.055)}) scaleY(${1 - (dragStretch * 0.025)})`,
+                                                        transformOrigin: (modeDragProgress ?? (mode === 'join' ? 1 : 0)) < 0.5 ? 'left center' : 'right center'
+                                                    } as React.CSSProperties}
                                                 />
                                                 {modeOptions.map((option) => {
                                                     const isActive = mode === option.value;
+                                                    const isVisuallyActive = visualMode === option.value;
                                                     const Icon = option.icon;
 
                                                     return (
@@ -412,9 +505,9 @@ export default function Register() {
                                                                 setMode(option.value);
                                                                 setError('');
                                                             }}
-                                                            className={`relative z-10 inline-flex h-12 items-center justify-center gap-2.5 rounded-[calc(var(--hi-radius-md)-10px)] px-4 text-sm transition duration-200 ${isActive ? `font-semibold ${activeModeTextClass}` : `font-medium ${inactiveModeClass}`}`}
+                                                            className={`register-mode-option-v25 relative z-10 inline-flex items-center justify-center gap-2.5 px-4 text-sm ${isVisuallyActive ? `is-active font-semibold ${activeModeTextClass}` : `font-medium ${inactiveModeClass}`}`}
                                                         >
-                                                            <Icon className={`h-4 w-4 ${isActive ? activeModeTextClass : ''}`} />
+                                                            <Icon className={`h-4 w-4 ${isVisuallyActive ? activeModeTextClass : ''}`} />
                                                             <span>{option.label}</span>
                                                         </button>
                                                     );
@@ -581,7 +674,7 @@ export default function Register() {
                                             </Link>
                                         </p>
 
-                                        <a href={`mailto:${SUPPORT_EMAIL}`} title={SUPPORT_EMAIL} className={`text-xs font-medium transition ${footerLinkClass}`}>
+                                        <a href={SUPPORT_CONTACT_URL} target="_blank" rel="noreferrer" className={`text-xs font-medium transition ${footerLinkClass}`}>
                                             {supportLabel}
                                         </a>
                                     </div>
@@ -637,7 +730,7 @@ export default function Register() {
                                 </p>
                             </div>
 
-                            <div className={`flex items-start gap-3 rounded-xl border p-4 ${isCustomBrand ? 'border-[rgba(103,227,242,0.24)] bg-[rgba(103,227,242,0.10)] dark:border-[rgba(103,227,242,0.28)] dark:bg-[rgba(103,227,242,0.12)]' : 'border-green-200 bg-green-50 dark:border-green-500/30 dark:bg-green-500/10'}`}>
+                            <div className={`flex items-start gap-3 rounded-xl border p-4 ${isCustomBrand ? 'border-[rgba(88,213,240,0.24)] bg-[rgba(88,213,240,0.10)] dark:border-[rgba(88,213,240,0.28)] dark:bg-[rgba(88,213,240,0.12)]' : 'border-green-200 bg-green-50 dark:border-green-500/30 dark:bg-green-500/10'}`}>
                                 <span className="text-2xl">2️⃣</span>
                                 <p className={`text-sm ${isCustomBrand ? 'text-[var(--hi-accent)] dark:text-[var(--hi-accent)]' : 'text-green-700 dark:text-green-300'}`}>
                                     <Trans i18nKey="auth.register.modals.email_verification.step_2" components={{ 1: <strong /> }} />

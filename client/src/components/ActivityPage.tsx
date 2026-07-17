@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { Activity, Clock3, Package } from 'lucide-react';
-import { EmptyState, LoadingState, PageHeader } from './ProductUI';
+import { LoadingState } from './ProductUI';
 
 interface ActivityRecord {
     id: number;
@@ -63,25 +63,27 @@ export default function ActivityPage() {
     }
 
     return (
-        <div className="space-y-5">
-            <PageHeader
-                breadcrumbs={[{ label: t('navigation.home'), to: '/' }]}
-                title={t('activity.title', { defaultValue: 'Aktivite Geçmişi' })}
-                description={t('activity.description', { defaultValue: 'Ev envanterinde yapılan son güvenli işlemler.' })}
-            />
+        <div className="activity-page animate-fade-in">
+            <header className="workspace-intro">
+                <p className="workspace-eyebrow">{t('navigation.home')}</p>
+                <h1>{t('activity.title', { defaultValue: 'Aktivite Geçmişi' })}</h1>
+                <p>{t('activity.description', { defaultValue: 'Ev envanterinde yapılan son güvenli işlemler.' })}</p>
+            </header>
 
             {activities.length === 0 ? (
-                <EmptyState
-                    icon={Activity}
-                    title={t('activity.empty_title', { defaultValue: 'Henüz aktivite yok' })}
-                    description={t('activity.empty_description', { defaultValue: 'Eşya ekleme, güncelleme, ödünç verme ve toplu işlemler burada görünecek.' })}
-                />
+                <section className="workspace-empty">
+                    <span className="workspace-empty-icon"><Activity /></span>
+                    <div>
+                        <h2>{t('activity.empty_title', { defaultValue: 'Henüz aktivite yok' })}</h2>
+                        <p>{t('activity.empty_description', { defaultValue: 'Eşya ekleme, güncelleme, ödünç verme ve toplu işlemler burada görünecek.' })}</p>
+                    </div>
+                </section>
             ) : (
-                <section className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel)] p-4 shadow-[var(--hi-shadow-soft)]">
-                    <div className="space-y-3">
+                <section className="activity-timeline">
+                    <div>
                         {activities.map((entry) => (
-                            <article key={entry.id} className="flex gap-3 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-3">
-                                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
+                            <article key={entry.id} className="activity-entry">
+                                <span className="activity-entry-icon">
                                     <Activity className="h-4 w-4" />
                                 </span>
                                 <div className="min-w-0 flex-1">

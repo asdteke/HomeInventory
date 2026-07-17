@@ -21,6 +21,7 @@ import BrandLogo from './BrandLogo';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTheme } from '../context/ThemeContext';
 import { BRAND_KEY, BRAND_NAME } from '../constants/branding';
+import '../auth-landing-v25.css';
 
 const GITHUB_REPOSITORY_URL = 'https://github.com/asdteke/HomeInventory';
 
@@ -78,10 +79,10 @@ export default function LandingPage() {
         : 'border border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text-soft)] hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)]';
     const heroBackground = isDark
         ? (isCustomBrand
-            ? 'radial-gradient(circle_at_top_left,rgba(139,180,255,0.09),transparent_24%),radial-gradient(circle_at_top_right,rgba(103,227,242,0.12),transparent_34%),linear-gradient(180deg,#101620_0%,#161d29_58%,#121823_100%)'
+            ? 'radial-gradient(circle_at_top_left,rgba(100,168,255,0.10),transparent_24%),radial-gradient(circle_at_top_right,rgba(88,213,240,0.12),transparent_34%),linear-gradient(180deg,#08111e_0%,#0d1726_58%,#10213a_100%)'
             : 'radial-gradient(circle_at_top_left,rgba(205,176,136,0.08),transparent_24%),radial-gradient(circle_at_top_right,rgba(74,125,100,0.14),transparent_34%),linear-gradient(180deg,#181d1a_0%,#1b211d_58%,#171b18_100%)')
         : (isCustomBrand
-            ? 'radial-gradient(circle_at_top_left,rgba(139,180,255,0.16),transparent_24%),radial-gradient(circle_at_top_right,rgba(18,158,154,0.10),transparent_30%),linear-gradient(180deg,#f5f9fe_0%,#eef4fc_54%,#e9f0fa_100%)'
+            ? 'radial-gradient(circle_at_top_left,rgba(100,168,255,0.16),transparent_24%),radial-gradient(circle_at_top_right,rgba(22,166,220,0.10),transparent_30%),linear-gradient(180deg,#f3f7ff_0%,#edf4ff_54%,#e8f1ff_100%)'
             : 'radial-gradient(circle_at_top_left,rgba(205,176,136,0.18),transparent_24%),radial-gradient(circle_at_top_right,rgba(45,82,65,0.10),transparent_30%),linear-gradient(180deg,#f7f1e8_0%,#f2ebdf_54%,#ece3d4_100%)');
     const featureBackground = isDark
         ? (isCustomBrand
@@ -92,24 +93,24 @@ export default function LandingPage() {
             : 'radial-gradient(circle_at_18%_18%,rgba(184,153,104,0.12),transparent_24%),linear-gradient(180deg,#f3ede2_0%,#ebe2d3_100%)');
     const aboutBackground = isDark
         ? (isCustomBrand
-            ? 'radial-gradient(circle_at_85%_18%,rgba(103,227,242,0.08),transparent_22%),linear-gradient(180deg,#151c28_0%,#131923_100%)'
+            ? 'radial-gradient(circle_at_85%_18%,rgba(88,213,240,0.08),transparent_22%),linear-gradient(180deg,#0d1726_0%,#0a1422_100%)'
             : 'radial-gradient(circle_at_85%_18%,rgba(74,125,100,0.08),transparent_22%),linear-gradient(180deg,#1f2522_0%,#1b211d_100%)')
         : (isCustomBrand
-            ? 'radial-gradient(circle_at_84%_16%,rgba(18,158,154,0.08),transparent_22%),linear-gradient(180deg,#f4f8fe_0%,#f7fbff_100%)'
+            ? 'radial-gradient(circle_at_84%_16%,rgba(22,166,220,0.08),transparent_22%),linear-gradient(180deg,#f3f7ff_0%,#f8fbff_100%)'
             : 'radial-gradient(circle_at_84%_16%,rgba(45,82,65,0.08),transparent_22%),linear-gradient(180deg,#f5f0e7_0%,#f8f5ef_100%)');
     const ctaBackground = isDark
         ? (isCustomBrand
-            ? 'radial-gradient(circle_at_10%_20%,rgba(139,180,255,0.12),transparent_20%),radial-gradient(circle_at_92%_18%,rgba(103,227,242,0.10),transparent_24%),linear-gradient(180deg,#141b26_0%,#111823_100%)'
+            ? 'radial-gradient(circle_at_10%_20%,rgba(100,168,255,0.13),transparent_20%),radial-gradient(circle_at_92%_18%,rgba(88,213,240,0.10),transparent_24%),linear-gradient(180deg,#0c1727_0%,#091321_100%)'
             : 'radial-gradient(circle_at_10%_20%,rgba(205,176,136,0.12),transparent_20%),radial-gradient(circle_at_92%_18%,rgba(74,125,100,0.1),transparent_24%),linear-gradient(180deg,#181d1a_0%,#171c19_100%)')
         : (isCustomBrand
-            ? 'radial-gradient(circle_at_12%_18%,rgba(139,180,255,0.14),transparent_20%),radial-gradient(circle_at_90%_14%,rgba(18,158,154,0.08),transparent_24%),linear-gradient(180deg,#f4f8fd_0%,#eef4fb_100%)'
+            ? 'radial-gradient(circle_at_12%_18%,rgba(100,168,255,0.15),transparent_20%),radial-gradient(circle_at_90%_14%,rgba(22,166,220,0.08),transparent_24%),linear-gradient(180deg,#f3f7ff_0%,#edf4ff_100%)'
             : 'radial-gradient(circle_at_12%_18%,rgba(184,153,104,0.16),transparent_20%),radial-gradient(circle_at_90%_14%,rgba(45,82,65,0.1),transparent_24%),linear-gradient(180deg,#f6f1e7_0%,#f7f2e8_100%)');
     const securityPanelClass = isDark
         ? (isCustomBrand ? 'border border-[var(--hi-border)] bg-[linear-gradient(180deg,rgba(28,38,53,0.96),rgba(20,28,40,0.98))] shadow-[0_30px_70px_rgba(0,0,0,0.24)]' : 'border border-[#4d6755] bg-[#314338] shadow-[0_30px_70px_rgba(0,0,0,0.18)]')
         : (isCustomBrand ? 'border border-[rgba(176,193,216,0.34)] bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(239,246,253,0.94))] shadow-[0_26px_52px_rgba(19,35,61,0.10)]' : 'border border-[#d4c4aa] bg-[#fbf7f0] shadow-[0_26px_52px_rgba(38,48,38,0.12)]');
     const securityMutedClass = isDark ? (isCustomBrand ? 'text-[var(--hi-text-soft)]' : 'text-white/62') : (isCustomBrand ? 'text-[var(--hi-text-soft)]' : 'text-[#627060]');
     const securityStrongClass = isDark ? 'text-white' : 'text-[var(--hi-text)]';
-    const securityIconSurfaceClass = isDark ? (isCustomBrand ? 'bg-[rgba(103,227,242,0.12)]' : 'bg-[rgba(205,176,136,0.16)]') : (isCustomBrand ? 'bg-[rgba(139,180,255,0.14)]' : 'bg-[rgba(184,153,104,0.14)]');
+    const securityIconSurfaceClass = isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.12)]' : 'bg-[rgba(205,176,136,0.16)]') : (isCustomBrand ? 'bg-[rgba(100,168,255,0.14)]' : 'bg-[rgba(184,153,104,0.14)]');
     const securityPanelEyebrow = t(`${brandTranslationNamespace}.security_panel.eyebrow`, { defaultValue: isTurkish ? 'Özel bilgiler için' : 'Scoped access' });
     const securityPanelTitle = t(`${brandTranslationNamespace}.security_panel.title`, { defaultValue: isTurkish ? 'Hassas kayıtlar ortak envanterden ayrı kalır' : 'Private records never appear in the shared list' });
     const securityPanelDescription = t(`${brandTranslationNamespace}.security_panel.description`, {
@@ -363,16 +364,16 @@ export default function LandingPage() {
         }, t, brandTranslationNamespace);
 
     return (
-        <div className="landing-page-shell min-h-screen overflow-hidden bg-[var(--hi-bg)] text-[var(--hi-text)] selection:bg-[var(--hi-secondary-soft)]">
-            <header className={`fixed inset-x-0 top-0 z-50 backdrop-blur-xl ${headerClass}`}>
-                <div className="mx-auto flex h-24 max-w-7xl items-center justify-between px-6 lg:px-8">
+        <div className="landing-v25 landing-page-shell min-h-screen overflow-hidden bg-[var(--hi-bg)] text-[var(--hi-text)] selection:bg-[var(--hi-secondary-soft)]">
+            <header className={`landing-topbar-v25 fixed inset-x-0 top-0 z-50 backdrop-blur-xl ${headerClass}`}>
+                <div className="landing-topbar-inner-v25 mx-auto flex h-24 max-w-7xl items-center justify-between px-6 lg:px-8">
                     <Link
                         to="/"
                         aria-label={brandDisplayName}
                         title={brandDisplayName}
-                        className="rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-secondary)]"
+                        className="landing-brand-v25 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-secondary)]"
                     >
-                        <BrandLogo variant="full" size="md" className="max-h-10 w-auto" />
+                        <BrandLogo variant="full" size="md" className="h-auto w-auto" />
                     </Link>
 
                     <nav className="hidden items-center gap-8 md:flex">
@@ -418,7 +419,7 @@ export default function LandingPage() {
                     <button
                         type="button"
                         onClick={() => setMobileNavOpen((open) => !open)}
-                        className={`rounded-xl p-2 md:hidden ${ghostThemeClass}`}
+                        className={`landing-menu-button-v25 rounded-xl p-2 ${ghostThemeClass}`}
                         aria-controls="landing-mobile-menu"
                         aria-expanded={mobileNavOpen}
                         aria-label={mobileNavOpen ? t('common.close') : t('navigation.menu')}
@@ -429,61 +430,84 @@ export default function LandingPage() {
             </header>
 
             {mobileNavOpen && (
-                <div id="landing-mobile-menu" className="fixed inset-0 z-[60] md:hidden">
+                <div id="landing-mobile-menu" className="fixed inset-0 z-[60]">
                     <button
                         type="button"
                         aria-label={t('common.close')}
-                        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+                        className="landing-mobile-backdrop-v25 absolute inset-0"
                         onClick={() => setMobileNavOpen(false)}
                     />
 
-                    <div className="absolute inset-x-3 top-[6.5rem] rounded-[2rem] border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] p-4 shadow-2xl backdrop-blur-2xl">
-                        <div className="grid gap-3">
+                    <aside className="landing-mobile-sheet-v25 absolute inset-x-3 top-[5.25rem]" aria-label={t('navigation.menu')}>
+                        <div className="landing-mobile-sheet-head-v25">
+                            <div className="min-w-0">
+                                <p className="landing-mobile-sheet-kicker-v25">{brandDisplayName}</p>
+                                <p className="landing-mobile-sheet-title-v25">{t('navigation.menu')}</p>
+                            </div>
                             <button
                                 type="button"
-                                onClick={toggleTheme}
-                                className={`inline-flex h-11 items-center justify-center rounded-full px-4 text-sm font-medium transition ${ghostThemeClass}`}
+                                onClick={() => setMobileNavOpen(false)}
+                                className="landing-mobile-close-v25"
+                                aria-label={t('common.close')}
                             >
-                                {isDark ? <Sun className="mr-2 h-4 w-4" /> : <Moon className="mr-2 h-4 w-4" />}
-                                {isDark ? t('common.theme.light') : t('common.theme.dark')}
+                                <X className="h-5 w-5" />
+                            </button>
+                        </div>
+
+                        <div className="landing-mobile-tools-v25">
+                            <button type="button" onClick={toggleTheme} className="landing-mobile-tool-v25">
+                                {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                                <span>{isDark ? t('common.theme.light') : t('common.theme.dark')}</span>
                             </button>
                             <LanguageSwitcher
                                 showCodeBadge={false}
                                 showTooltip={false}
-                                className={`!h-11 !rounded-full !px-4 !py-0 ${chromeButtonClass}`}
+                                className="landing-mobile-language-v25 !h-12 !rounded-full !px-4 !py-0"
                             />
-                            <a href="#features" onClick={() => setMobileNavOpen(false)} className={`rounded-2xl px-3 py-2 text-sm font-medium transition ${isDark ? 'text-white/75 hover:bg-white/5 hover:text-white' : 'text-[var(--hi-text-soft)] hover:bg-black/5 hover:text-[var(--hi-text)]'}`}>
-                                {featuresLabel}
-                            </a>
-                            <a href="#security" onClick={() => setMobileNavOpen(false)} className={`rounded-2xl px-3 py-2 text-sm font-medium transition ${isDark ? 'text-white/75 hover:bg-white/5 hover:text-white' : 'text-[var(--hi-text-soft)] hover:bg-black/5 hover:text-[var(--hi-text)]'}`}>
-                                {securityLabel}
-                            </a>
-                            <a href="#about" onClick={() => setMobileNavOpen(false)} className={`rounded-2xl px-3 py-2 text-sm font-medium transition ${isDark ? 'text-white/75 hover:bg-white/5 hover:text-white' : 'text-[var(--hi-text-soft)] hover:bg-black/5 hover:text-[var(--hi-text)]'}`}>
-                                {aboutLabel}
-                            </a>
-                            <Link to="/login" onClick={() => setMobileNavOpen(false)} className={`rounded-2xl px-3 py-2 text-sm font-medium transition ${isDark ? 'text-white/75 hover:bg-white/5 hover:text-white' : 'text-[var(--hi-text-soft)] hover:bg-black/5 hover:text-[var(--hi-text)]'}`}>
-                                {t('landing.nav.login')}
-                            </Link>
-                            <Link
-                                to="/register"
-                                onClick={() => setMobileNavOpen(false)}
-                                className={`inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-semibold text-white transition ${isCustomBrand ? 'btn-primary !h-11 !rounded-full !px-5' : 'bg-[#6f9978] hover:bg-[#7aa484]'}`}
-                            >
-                                {copy.hero.primaryCta}
-                            </Link>
                         </div>
-                    </div>
+
+                        <nav className="landing-mobile-nav-v25">
+                            <a href="#features" onClick={() => setMobileNavOpen(false)} className="landing-mobile-nav-link-v25">
+                                <span className="landing-mobile-nav-icon-v25"><Package className="h-[1.15rem] w-[1.15rem]" /></span>
+                                <span>{featuresLabel}</span>
+                                <ArrowRight className="ml-auto h-4 w-4" />
+                            </a>
+                            <a href="#security" onClick={() => setMobileNavOpen(false)} className="landing-mobile-nav-link-v25">
+                                <span className="landing-mobile-nav-icon-v25"><ShieldCheck className="h-[1.15rem] w-[1.15rem]" /></span>
+                                <span>{securityLabel}</span>
+                                <ArrowRight className="ml-auto h-4 w-4" />
+                            </a>
+                            <a href="#about" onClick={() => setMobileNavOpen(false)} className="landing-mobile-nav-link-v25">
+                                <span className="landing-mobile-nav-icon-v25"><FileText className="h-[1.15rem] w-[1.15rem]" /></span>
+                                <span>{aboutLabel}</span>
+                                <ArrowRight className="ml-auto h-4 w-4" />
+                            </a>
+                            <Link to="/login" onClick={() => setMobileNavOpen(false)} className="landing-mobile-nav-link-v25">
+                                <span className="landing-mobile-nav-icon-v25"><Lock className="h-[1.15rem] w-[1.15rem]" /></span>
+                                <span>{t('landing.nav.login')}</span>
+                                <ArrowRight className="ml-auto h-4 w-4" />
+                            </Link>
+                        </nav>
+
+                        <div className="landing-mobile-action-v25">
+                            <Link to="/register" onClick={() => setMobileNavOpen(false)} className="landing-mobile-primary-v25">
+                                <span>{copy.hero.primaryCta}</span>
+                                <ArrowRight className="h-4 w-4" />
+                            </Link>
+                            <p>{isTurkish ? 'Dakikalar içinde ev alanınızı hazırlayın.' : 'Set up your household in minutes.'}</p>
+                        </div>
+                    </aside>
                 </div>
             )}
 
             <main className="pt-24">
-                <section className="relative overflow-hidden pb-28 pt-28 lg:min-h-[calc(100svh-6rem)] lg:pb-36 lg:pt-32">
+                <section className="landing-hero-v25 relative overflow-hidden pb-28 pt-28 lg:min-h-[calc(100svh-6rem)] lg:pb-36 lg:pt-32">
                     <div className="absolute inset-0 -z-10" style={{ background: heroBackground }} />
                     <div className={`absolute inset-0 -z-10 ${isDark ? 'opacity-[0.16]' : 'opacity-[0.28]'}`}>
                         <div className="landing-grid absolute inset-0" />
                     </div>
                     <div className={`absolute -left-24 top-24 -z-10 h-64 w-64 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(139,180,255,0.14)]' : 'bg-[rgba(205,176,136,0.14)]') : (isCustomBrand ? 'bg-[rgba(139,180,255,0.20)]' : 'bg-[rgba(205,176,136,0.22)]')}`} />
-                    <div className={`absolute right-0 top-0 -z-10 h-[28rem] w-[28rem] rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(103,227,242,0.14)]' : 'bg-[rgba(74,125,100,0.14)]') : (isCustomBrand ? 'bg-[rgba(18,158,154,0.10)]' : 'bg-[rgba(45,82,65,0.12)]')}`} />
+                    <div className={`absolute right-0 top-0 -z-10 h-[28rem] w-[28rem] rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.14)]' : 'bg-[rgba(74,125,100,0.14)]') : (isCustomBrand ? 'bg-[rgba(22,166,220,0.10)]' : 'bg-[rgba(45,82,65,0.12)]')}`} />
 
                     <div className="mx-auto grid max-w-7xl items-start gap-12 px-6 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1fr)] lg:gap-16 lg:px-8">
                         <div className={`max-w-[30rem] ${shellTextClass}`}>
@@ -621,7 +645,7 @@ export default function LandingPage() {
 
                                     <div className={index === 1 ? 'lg:order-1' : ''}>
                                         <div className={`landing-surface landing-lift rounded-[1rem] p-8 md:p-9 ${index === 1 ? 'lg:translate-y-6' : ''} ${isDark ? (isCustomBrand ? 'bg-[rgba(22,30,42,0.76)]' : 'bg-[rgba(17,23,20,0.7)]') : (isCustomBrand ? 'bg-[rgba(251,253,255,0.8)]' : 'bg-[rgba(255,251,245,0.76)]')}`} style={{ border: isDark ? (isCustomBrand ? '1px solid rgba(105,131,171,0.34)' : '1px solid rgba(255,255,255,0.06)') : (isCustomBrand ? '1px solid rgba(176,193,216,0.26)' : '1px solid rgba(18,32,22,0.05)'), boxShadow: isDark ? '0 2px 8px rgba(0,0,0,0.10)' : (isCustomBrand ? '0 2px 8px rgba(19,35,61,0.05)' : '0 2px 8px rgba(24,32,26,0.05)') }}>
-                                            <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${index === 0 ? (isDark ? (isCustomBrand ? 'bg-[rgba(103,227,242,0.14)]' : 'bg-[rgba(111,153,120,0.16)]') : (isCustomBrand ? 'bg-[rgba(139,180,255,0.12)]' : 'bg-[rgba(93,139,106,0.12)]')) : index === 1 ? (isDark ? (isCustomBrand ? 'bg-[rgba(139,180,255,0.16)]' : 'bg-[rgba(90,115,136,0.18)]') : 'bg-[rgba(90,115,136,0.12)]') : (isDark ? (isCustomBrand ? 'bg-[rgba(103,227,242,0.10)]' : 'bg-[rgba(182,139,77,0.18)]') : (isCustomBrand ? 'bg-[rgba(18,158,154,0.10)]' : 'bg-[rgba(182,139,77,0.12)]'))}`}>
+                                            <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${index === 0 ? (isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.14)]' : 'bg-[rgba(111,153,120,0.16)]') : (isCustomBrand ? 'bg-[rgba(100,168,255,0.12)]' : 'bg-[rgba(93,139,106,0.12)]')) : index === 1 ? (isDark ? (isCustomBrand ? 'bg-[rgba(100,168,255,0.16)]' : 'bg-[rgba(90,115,136,0.18)]') : 'bg-[rgba(90,115,136,0.12)]') : (isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.10)]' : 'bg-[rgba(182,139,77,0.18)]') : (isCustomBrand ? 'bg-[rgba(22,166,220,0.10)]' : 'bg-[rgba(182,139,77,0.12)]'))}`}>
                                                 {index === 0 ? <Package className={`h-5 w-5 ${isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#6f9978]'}`} /> : index === 1 ? <Users className={`h-5 w-5 ${isCustomBrand ? 'text-[var(--hi-secondary)]' : 'text-[#5a7388]'}`} /> : <Lock className={`h-5 w-5 ${isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#a57e45]'}`} />}
                                             </div>
                                             <p className={`mt-8 text-3xl font-semibold tracking-[-0.05em] ${shellTextClass}`}>
@@ -655,7 +679,7 @@ export default function LandingPage() {
                             <ul className="mt-8 space-y-5">
                                 {copy.security.bullets.map((item: string) => (
                                     <li key={item} className={`flex items-start gap-3 ${isDark ? (isCustomBrand ? 'text-white' : 'text-white/86') : (isCustomBrand ? 'text-[var(--hi-text)]' : 'text-[#3e4d40]')}`}>
-                                        <span className={`mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${isDark ? (isCustomBrand ? 'bg-[rgba(103,227,242,0.12)]' : 'bg-white/8') : (isCustomBrand ? 'bg-[rgba(139,180,255,0.12)]' : 'bg-[rgba(182,139,77,0.12)]')}`}>
+                                        <span className={`mt-0.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.12)]' : 'bg-white/8') : (isCustomBrand ? 'bg-[rgba(100,168,255,0.12)]' : 'bg-[rgba(182,139,77,0.12)]')}`}>
                                             <ShieldCheck className={`h-4 w-4 ${isDark ? (isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#d9c29e]') : (isCustomBrand ? 'text-[var(--hi-accent)]' : 'text-[#a67a3d]')}`} />
                                         </span>
                                         <span>{item}</span>
@@ -669,7 +693,7 @@ export default function LandingPage() {
                                 className="pointer-events-none absolute inset-0"
                                 style={{
                                     background: isDark
-                                        ? (isCustomBrand ? 'radial-gradient(circle_at_top_left,rgba(103,227,242,0.12),transparent 30%),linear-gradient(180deg,rgba(255,255,255,0.03),transparent 32%)' : 'radial-gradient(circle_at_top_left,rgba(205,176,136,0.12),transparent 30%),linear-gradient(180deg,rgba(255,255,255,0.03),transparent 32%)')
+                                        ? (isCustomBrand ? 'radial-gradient(circle_at_top_left,rgba(88,213,240,0.12),transparent 30%),linear-gradient(180deg,rgba(255,255,255,0.03),transparent 32%)' : 'radial-gradient(circle_at_top_left,rgba(205,176,136,0.12),transparent 30%),linear-gradient(180deg,rgba(255,255,255,0.03),transparent 32%)')
                                         : (isCustomBrand ? 'radial-gradient(circle_at_top_left,rgba(139,180,255,0.14),transparent 30%),linear-gradient(180deg,rgba(255,255,255,0.58),transparent 34%)' : 'radial-gradient(circle_at_top_left,rgba(184,153,104,0.16),transparent 30%),linear-gradient(180deg,rgba(255,255,255,0.46),transparent 34%)')
                                 }}
                             />
@@ -814,7 +838,7 @@ export default function LandingPage() {
 
                 <section className="relative overflow-hidden py-32" style={{ background: ctaBackground }}>
                     <div className={`pointer-events-none absolute -left-20 top-10 h-64 w-64 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(139,180,255,0.12)]' : 'bg-[rgba(205,176,136,0.12)]') : (isCustomBrand ? 'bg-[rgba(139,180,255,0.14)]' : 'bg-[rgba(184,153,104,0.16)]')}`} />
-                    <div className={`pointer-events-none absolute right-0 top-0 h-72 w-72 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(103,227,242,0.1)]' : 'bg-[rgba(74,125,100,0.1)]') : (isCustomBrand ? 'bg-[rgba(18,158,154,0.08)]' : 'bg-[rgba(45,82,65,0.1)]')}`} />
+                    <div className={`pointer-events-none absolute right-0 top-0 h-72 w-72 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.1)]' : 'bg-[rgba(74,125,100,0.1)]') : (isCustomBrand ? 'bg-[rgba(22,166,220,0.08)]' : 'bg-[rgba(45,82,65,0.1)]')}`} />
 
                     <div className="mx-auto max-w-7xl px-6 lg:px-8">
                         <div className={`relative rounded-[1rem] px-8 py-14 md:px-12 ${isDark ? (isCustomBrand ? 'border border-[var(--hi-border)] bg-[linear-gradient(135deg,rgba(27,37,52,0.96),rgba(18,25,36,0.98))] shadow-[0_30px_70px_rgba(0,0,0,0.24)]' : 'border border-white/6 bg-[linear-gradient(135deg,rgba(41,49,44,0.96),rgba(24,29,26,0.98))] shadow-[0_30px_70px_rgba(0,0,0,0.24)]') : (isCustomBrand ? 'border border-[rgba(176,193,216,0.26)] bg-[linear-gradient(135deg,rgba(255,255,255,0.96),rgba(239,246,253,0.98))] shadow-[0_28px_56px_rgba(19,35,61,0.10)]' : 'border border-[rgba(45,82,65,0.06)] bg-[linear-gradient(135deg,rgba(255,255,255,0.96),rgba(241,235,224,0.98))] shadow-[0_28px_56px_rgba(38,48,38,0.10)]')}`}>

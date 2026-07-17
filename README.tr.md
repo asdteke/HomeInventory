@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Sürüm durumu: v2.4.0 release line. -->
+<!-- Sürüm durumu: v2.5.0 release line. -->
 
 <p align="center">
   <strong>Paylaşımlı evler için özel, self-host edilebilir ev envanteri.</strong><br/>
@@ -74,7 +74,7 @@
 HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtları ortak bir tabloya dönüştürmeden pratik envanter yönetimi sağlar.
 
 > [!NOTE]
-> **v2.4.0 güncel release hattıdır.** Günlük envanter kullanımına odaklanır: toplu düzenleme, daha güçlü filtreler, yazdırılabilir eşya/raf QR etiketleri, tıklanınca ilgili kayıtları açan uyarılar, bildirim/servis merkezi, çoklu ek dosya, şifreli aktivite geçmişi ve medya dahil daha eksiksiz yedekler.
+> **v2.5.0 güncel release hattıdır.** Mobil ve masaüstü arayüz dönüşümünü tamamlar; liquid-glass görünümünü okunabilir ve hafif tutar, envanter ile açılır pencere davranışlarını iyileştirir ve launcher/release zincirini sertleştirir.
 
 ## Neden HomeInventory
 
@@ -219,6 +219,7 @@ Gelişmiş yapılandırma, reverse proxy kurulumu ve canlı ortam dağıtımlar�
 - [SECURITY.md](SECURITY.md): güvenlik açığı bildirim süreci
 - [CHANGELOG.md](CHANGELOG.md): sürüm geçmişi ve yükseltme notları
 - [ROADMAP.md](ROADMAP.md): kısa vadeli proje yönü
+- [docs/release-checklist.md](docs/release-checklist.md): release, imzalama, launcher ve artifact doğrulama listesi
 
 Bakımcılar için önerilen GitHub topic'leri: `home-inventory`, `self-hosted`, `inventory-management`, `household`, `pwa`, `sqlite`, `express`, `react`, `docker`, `privacy`, `qr-code`, `barcode`, `2fa`.
 

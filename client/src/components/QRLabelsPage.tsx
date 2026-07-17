@@ -3,12 +3,14 @@ import axios from 'axios';
 import { Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Package, Printer, QrCode, Tags } from 'lucide-react';
-import { PageHeader, LoadingState, EmptyState } from './ProductUI';
+import { LoadingState } from './ProductUI';
 import { resolveVisibleItemTitle } from '../utils/itemDisplay';
 import { getCategoryPresentation } from '../utils/categoryDisplay';
 import { getRoomPresentation } from '../utils/roomDisplay';
+import { ASSET_VERSION, QR_LOGO_PATH } from '../constants/branding';
+import '../operations-v25.css';
 
-const LABEL_LOGO_SRC = '/brand/logo-symbol-light.svg';
+const LABEL_LOGO_SRC = `${QR_LOGO_PATH}?v=${ASSET_VERSION}`;
 
 export default function QRLabelsPage() {
     const { t, i18n } = useTranslation();
@@ -47,11 +49,16 @@ export default function QRLabelsPage() {
             const { generateItemQrMarkup } = await import('../utils/itemQrRuntime');
             const origin = window.location.origin;
             const next: Record<number, string> = {};
-            for (const item of items) {
+            for (let index = 0; index < items.length; index += 1) {
+                if (!mounted) return;
+                const item = items[index];
                 next[item.id] = generateItemQrMarkup(new URL(`/items/${item.id}/edit`, origin).toString(), {
                     width: 154,
                     logoDataUrl: LABEL_LOGO_SRC
                 });
+                if ((index + 1) % 24 === 0) {
+                    await new Promise<void>((resolve) => window.setTimeout(resolve, 0));
+                }
             }
             if (mounted) {
                 setQrMarkupById(next);
@@ -74,13 +81,19 @@ export default function QRLabelsPage() {
     }
 
     return (
-        <div className="space-y-5 print:bg-white print:text-black">
-            <PageHeader
-                className="print:hidden"
-                breadcrumbs={[{ label: t('navigation.inventory'), to: '/items' }]}
-                title={t('inventory.qr_labels.title', { defaultValue: 'QR Etiketleri' })}
-                description={t('inventory.qr_labels.description', { count: items.length, defaultValue: '{{count}} eşya etiketi düzenli çıktı sayfası olarak hazır.' })}
-                actions={(
+        <div className="operations-page-v25 operations-label-page-v25 animate-fade-in print:bg-white print:text-black">
+            <header className="operations-intro-v25 print:hidden">
+                <div className="operations-intro-copy-v25">
+                    <span className="operations-hero-icon-v25 is-info" aria-hidden="true"><QrCode /></span>
+                    <div>
+                        <nav className="operations-breadcrumb-v25" aria-label="Breadcrumb">
+                            <Link to="/items">{t('navigation.inventory')}</Link>
+                        </nav>
+                        <h1>{t('inventory.qr_labels.title', { defaultValue: 'QR Etiketleri' })}</h1>
+                        <p>{t('inventory.qr_labels.description', { count: items.length, defaultValue: '{{count}} eşya etiketi düzenli çıktı sayfası olarak hazır.' })}</p>
+                    </div>
+                </div>
+                <div className="operations-intro-actions-v25">
                     <div className="flex flex-wrap gap-2 print:hidden">
                         <Link to="/storage-labels" className="btn-secondary">
                             <Tags className="h-4 w-4" />
@@ -91,19 +104,24 @@ export default function QRLabelsPage() {
                             <span>{t('common.print', { defaultValue: 'Yazdır' })}</span>
                         </button>
                     </div>
-                )}
-            />
+                </div>
+            </header>
 
             {items.length === 0 ? (
-                <EmptyState
-                    icon={QrCode}
-                    title={t('inventory.empty_filter_title', { defaultValue: 'Aramanıza uygun eşya bulunamadı' })}
-                    description={t('inventory.qr_labels.empty', { defaultValue: 'Etiket basmak için filtreleri değiştirin veya envantere eşya ekleyin.' })}
-                    actions={<Link to="/items" className="btn-secondary">{t('navigation.inventory')}</Link>}
-                />
+                <section className="operations-workspace-v25 print:hidden">
+                    <div className="operations-inline-empty-v25">
+                        <span className="operations-empty-icon-v25"><QrCode /></span>
+                        <div>
+                            <h2>{t('inventory.empty_filter_title', { defaultValue: 'Aramanıza uygun eşya bulunamadı' })}</h2>
+                            <p>{t('inventory.qr_labels.empty', { defaultValue: 'Etiket basmak için filtreleri değiştirin veya envantere eşya ekleyin.' })}</p>
+                        </div>
+                        <Link to="/items" className="btn-secondary">{t('navigation.inventory')}</Link>
+                    </div>
+                </section>
             ) : (
-                <article className="label-print-page">
-                    <header className="label-sheet-header print:hidden">
+                <section className="operations-workspace-v25 operations-label-preview-v25">
+                    <article className="label-print-page">
+                    <header className="label-sheet-header operations-sheet-toolbar-v25 print:hidden">
                         <div className="flex items-center gap-3">
                             <img src={LABEL_LOGO_SRC} alt="" className="h-11 w-11 object-contain" />
                             <div>
@@ -160,7 +178,8 @@ export default function QRLabelsPage() {
                             );
                         })}
                     </section>
-                </article>
+                    </article>
+                </section>
             )}
         </div>
     );

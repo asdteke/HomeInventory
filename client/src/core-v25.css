@@ -1,0 +1,204 @@
+/* Shared v2.5 primitives: open layouts, rounded controls and one glass layer per workspace. */
+.core-page-intro-v25,
+.premium-shell .core-page-intro-v25 {
+  position: relative;
+  overflow: visible;
+  padding: .25rem .1rem 1.15rem;
+  border: 0;
+  border-bottom: 1px solid var(--hi-border-strong);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.core-page-intro-v25::after,
+.premium-shell .core-page-intro-v25::after {
+  display: none;
+}
+
+.core-page-intro-v25 > div,
+.core-page-intro-v25 .app-page-header-body,
+.core-page-intro-v25 .app-page-description {
+  min-width: 0;
+}
+
+.core-page-intro-v25 .section-title {
+  max-width: 22ch;
+  font-size: clamp(2rem, 1.68rem + 1.18vw, 3.15rem) !important;
+  line-height: 1.02;
+  letter-spacing: -.045em !important;
+  overflow-wrap: anywhere;
+}
+
+.core-page-intro-v25 .app-page-description {
+  margin-top: .7rem;
+  max-width: 44rem;
+  line-height: 1.55;
+}
+
+.core-page-intro-v25 .app-page-actions {
+  align-items: center;
+}
+
+.core-page-intro-v25 .app-page-actions .btn-primary,
+.core-page-intro-v25 .app-page-actions .btn-secondary {
+  min-height: 2.85rem;
+  border-radius: 999px;
+}
+
+.core-page-intro-v25 .app-page-header-body {
+  margin-top: .9rem;
+  padding-top: .9rem;
+}
+
+.core-section-header-v25 {
+  min-width: 0;
+  padding-bottom: .7rem;
+  border-bottom: 1px solid var(--hi-border);
+}
+
+.core-section-header-v25 > div:first-child,
+.core-section-header-v25 .section-title,
+.core-section-header-v25 p {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.core-notice-v25 {
+  min-width: 0;
+  border: 1px solid var(--hi-border-strong);
+  border-left-width: 1px;
+  border-radius: 1.65rem;
+  background: color-mix(in srgb, var(--hi-panel-strong) 86%, transparent);
+  box-shadow: var(--hi-shadow-soft);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.core-notice-v25 .app-notice-icon {
+  border-radius: 1rem;
+}
+
+.core-empty-v25,
+.premium-shell .core-empty-v25 {
+  min-width: 0;
+  min-height: 11rem;
+  padding: clamp(1.15rem, .9rem + 1vw, 1.8rem) .2rem;
+  border: 0;
+  border-top: 1px solid var(--hi-border);
+  border-bottom: 1px solid var(--hi-border);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.core-empty-v25 .app-empty-state-icon {
+  width: 3.25rem;
+  height: 3.25rem;
+  border: 1px solid var(--hi-border);
+  border-radius: 1.2rem;
+  background: color-mix(in srgb, var(--hi-accent-soft) 78%, transparent);
+}
+
+.core-empty-v25 .app-empty-state-grid {
+  overflow: hidden;
+  border-top: 1px solid var(--hi-border);
+  border-bottom: 1px solid var(--hi-border);
+}
+
+.core-empty-v25 .app-empty-state-step {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.core-empty-v25 .app-empty-state-step + .app-empty-state-step {
+  border-left: 1px solid var(--hi-border);
+}
+
+.core-loading-v25,
+.premium-shell .core-loading-v25 {
+  overflow: hidden;
+  border: 0;
+  border-top: 1px solid var(--hi-border);
+  border-bottom: 1px solid var(--hi-border);
+  border-radius: 0 !important;
+  background: transparent;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.core-loading-v25::before {
+  opacity: .45;
+}
+
+@media (max-width: 767px) {
+  .core-page-intro-v25,
+  .premium-shell .core-page-intro-v25 {
+    padding: .1rem 0 .9rem;
+  }
+
+  .core-page-intro-v25 > div:first-child {
+    gap: .85rem;
+  }
+
+  .core-page-intro-v25 .section-title {
+    max-width: 100%;
+    font-size: clamp(1.85rem, 9vw, 2.45rem) !important;
+  }
+
+  .core-page-intro-v25 .app-page-description {
+    font-size: .86rem;
+    line-height: 1.55;
+  }
+
+  .core-page-intro-v25 .app-page-actions,
+  .core-page-intro-v25 .app-page-actions > * {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .core-page-intro-v25 .app-page-actions .btn-primary,
+  .core-page-intro-v25 .app-page-actions .btn-secondary {
+    width: 100%;
+    justify-content: center;
+    white-space: normal;
+  }
+
+  .core-notice-v25 {
+    align-items: flex-start;
+    border-radius: 1.4rem;
+    padding: .85rem;
+  }
+
+  .core-empty-v25 {
+    min-height: 9rem;
+  }
+
+  .core-empty-v25 .app-empty-state-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .core-empty-v25 .app-empty-state-step + .app-empty-state-step {
+    border-top: 1px solid var(--hi-border);
+    border-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .core-loading-v25::before {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .core-notice-v25 {
+    background: var(--hi-panel-strong);
+  }
+}

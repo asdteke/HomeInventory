@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ComponentType, CSSProperties, SVGProps } from 'react';
 import { createPortal } from 'react-dom';
 import { AlertCircle, AlertTriangle, CheckCircle2, Info, X } from 'lucide-react';
@@ -18,25 +18,20 @@ export interface FloatingToastItem {
 
 interface ToastStyle {
     icon: ComponentType<SVGProps<SVGSVGElement> & { title?: string }>;
-    iconClassName: string;
 }
 
 const TOAST_STYLES: Record<ToastTone, ToastStyle> = {
     success: {
-        icon: CheckCircle2,
-        iconClassName: 'bg-[var(--hi-success-soft)] text-[var(--hi-success)]'
+        icon: CheckCircle2
     },
     danger: {
-        icon: AlertCircle,
-        iconClassName: 'bg-[var(--hi-danger-soft)] text-[var(--hi-danger)]'
+        icon: AlertCircle
     },
     warning: {
-        icon: AlertTriangle,
-        iconClassName: 'bg-[var(--hi-warning-soft)] text-[var(--hi-warning)]'
+        icon: AlertTriangle
     },
     info: {
-        icon: Info,
-        iconClassName: 'bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]'
+        icon: Info
     }
 };
 
@@ -79,6 +74,25 @@ function ToastSurface({
     const requestedTone = tone || type;
     const toastTone = isToastTone(requestedTone) ? requestedTone : 'success';
     const autoDismissMs = duration ?? (toastTone === 'danger' ? 5200 : 3200);
+    const [isExiting, setIsExiting] = useState(false);
+    const closeTimerRef = useRef<number | null>(null);
+    const onCloseRef = useRef(onClose);
+
+    useEffect(() => {
+        onCloseRef.current = onClose;
+    }, [onClose]);
+
+    const beginClose = useCallback(() => {
+        if (closeTimerRef.current !== null) {
+            return;
+        }
+
+        setIsExiting(true);
+        closeTimerRef.current = window.setTimeout(() => {
+            onCloseRef.current?.();
+            closeTimerRef.current = null;
+        }, 260);
+    }, []);
 
     useEffect(() => {
         if (!autoDismissMs) {
@@ -86,13 +100,19 @@ function ToastSurface({
         }
 
         const timerId = window.setTimeout(() => {
-            onClose?.();
+            beginClose();
         }, autoDismissMs);
 
         return () => {
             window.clearTimeout(timerId);
         };
-    }, [autoDismissMs, onClose]);
+    }, [autoDismissMs, beginClose]);
+
+    useEffect(() => () => {
+        if (closeTimerRef.current !== null) {
+            window.clearTimeout(closeTimerRef.current);
+        }
+    }, []);
 
     const style = TOAST_STYLES[toastTone as ToastTone] || TOAST_STYLES.success;
     const Icon = style.icon;
@@ -105,24 +125,24 @@ function ToastSurface({
             role={toastTone === 'danger' ? 'alert' : 'status'}
             aria-live={toastTone === 'danger' ? 'assertive' : 'polite'}
             aria-atomic="true"
-            className={`app-liquid-glass-toast toast-${toastTone}`}
+            className={`app-liquid-glass-toast toast-${toastTone}${isExiting ? ' is-exiting' : ''}`}
             style={toastStyle}
         >
-            <div className="flex items-start gap-3">
-                <span className={`app-floating-toast-icon ${style.iconClassName}`}>
+            <div className="app-floating-toast-main">
+                <span className="app-floating-toast-icon" aria-hidden="true">
                     <Icon className="h-5 w-5" />
                 </span>
-                <div className="min-w-0 flex-1">
+                <div className="app-floating-toast-content">
                     {toastTitle && (
-                        <p className="font-semibold leading-5 text-[var(--hi-text)]">{toastTitle}</p>
+                        <p className="app-floating-toast-title">{toastTitle}</p>
                     )}
                     {description && (
-                        <p className="mt-1 whitespace-pre-line text-sm leading-6 text-[var(--hi-text-soft)]">{description}</p>
+                        <p className="app-floating-toast-description">{description}</p>
                     )}
                 </div>
                 <button
                     type="button"
-                    onClick={() => onClose?.()}
+                    onClick={beginClose}
                     aria-label={t('common.close') || 'Close'}
                     className="app-floating-toast-close"
                 >

@@ -29,6 +29,7 @@ import FloatingToast from './FloatingToast';
 import { ConfirmDialog } from './ModalDialog';
 import { EmptyState, NoticeBanner, PageHeader, SectionHeader } from './ProductUI';
 import { formatDateForLanguage, formatNumberForLanguage } from '../utils/appFormatting';
+import '../admin-overlays-v25.css';
 
 interface TabItem {
     id: 'dashboard' | 'users' | 'logs' | 'email';
@@ -388,9 +389,9 @@ function AdminTabButton({ active, icon: Icon, label, onClick }: AdminTabButtonPr
             type="button"
             onClick={onClick}
             aria-pressed={active}
-            className={`inline-flex min-h-[52px] items-center gap-2 rounded-[1rem] px-4 py-3 text-sm font-semibold transition ${
+            className={`admin-v25-tab inline-flex min-h-[52px] items-center gap-2 rounded-[1rem] px-4 py-3 text-sm font-semibold transition ${
                 active
-                    ? 'bg-[var(--hi-accent)] text-white shadow-[0_16px_32px_rgba(45,82,65,0.18)]'
+                    ? 'is-active bg-[var(--hi-accent)] text-white shadow-[0_16px_32px_rgba(45,82,65,0.18)]'
                     : 'border border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text-soft)] hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)]'
             }`}
         >
@@ -412,24 +413,20 @@ interface OverviewMetricCardProps {
 function OverviewMetricCard({ icon: Icon, label, value, description, tone = 'accent', chips = [] }: OverviewMetricCardProps) {
     const toneMap = {
         accent: {
-            icon: 'bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]',
-            border: 'from-[var(--hi-accent)]/20 via-transparent to-transparent'
+            icon: 'bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]'
         },
         secondary: {
-            icon: 'bg-[var(--hi-secondary-soft)] text-[var(--hi-secondary-strong)]',
-            border: 'from-[var(--hi-secondary)]/24 via-transparent to-transparent'
+            icon: 'bg-[var(--hi-secondary-soft)] text-[var(--hi-secondary-strong)]'
         },
         warning: {
-            icon: 'bg-[var(--hi-warning-soft)] text-[var(--hi-warning)]',
-            border: 'from-[var(--hi-warning)]/24 via-transparent to-transparent'
+            icon: 'bg-[var(--hi-warning-soft)] text-[var(--hi-warning)]'
         }
     };
 
     const style = toneMap[tone] || toneMap.accent;
 
     return (
-        <div className="relative overflow-hidden rounded-[1.65rem] border border-[var(--hi-border)] bg-[linear-gradient(180deg,var(--hi-panel-strong),var(--hi-panel))] p-5 shadow-[var(--hi-shadow-soft)]">
-            <div className={`pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r ${style.border}`} />
+        <div className={`admin-v25-metric admin-v25-metric-${tone} relative overflow-hidden rounded-[1.65rem] border border-[var(--hi-border)] bg-[linear-gradient(180deg,var(--hi-panel-strong),var(--hi-panel))] p-5 shadow-[var(--hi-shadow-soft)]`}>
             <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                     <p className="text-sm font-semibold text-[var(--hi-text-soft)]">{label}</p>
@@ -466,11 +463,11 @@ interface SummaryListProps {
 
 function SummaryList({ items }: SummaryListProps) {
     return (
-        <div className="grid auto-rows-fr gap-3">
+        <div className="admin-v25-list grid auto-rows-fr gap-3">
             {items.map((item) => (
                 <div
                     key={item.label}
-                    className="flex h-full items-start justify-between gap-4 rounded-[1.1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3"
+                    className="admin-v25-row flex h-full items-start justify-between gap-4 rounded-[1.1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3"
                 >
                     <div className="min-w-0">
                         <p className="text-sm font-semibold text-[var(--hi-text)]">{item.label}</p>
@@ -507,7 +504,7 @@ function ActivityFeed({ items, locale, t, emptyTitle, emptyDescription }: Activi
     }
 
     return (
-        <div className="space-y-3">
+        <div className="admin-v25-feed space-y-3">
             {items.map((item) => (
                 (() => {
                     const formattedDetails = formatAdminLogDetails(item, t);
@@ -515,7 +512,7 @@ function ActivityFeed({ items, locale, t, emptyTitle, emptyDescription }: Activi
                     return (
                         <div
                             key={`${item.id}-${item.created_at || item.timestamp || item.error}`}
-                            className="rounded-[1.15rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4"
+                            className="admin-v25-feed-item rounded-[1.15rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4"
                         >
                             <div className="flex items-start justify-between gap-3">
                                 <div className="min-w-0">
@@ -587,7 +584,7 @@ function UserCard({
     const isAdminAccount = user.role === 'admin';
 
     return (
-        <article className="rounded-[1.65rem] border border-[var(--hi-border)] bg-[linear-gradient(180deg,var(--hi-panel-strong),var(--hi-panel))] p-5 shadow-[var(--hi-shadow-soft)]">
+        <article className="admin-v25-user-card rounded-[1.65rem] border border-[var(--hi-border)] bg-[linear-gradient(180deg,var(--hi-panel-strong),var(--hi-panel))] p-5 shadow-[var(--hi-shadow-soft)]">
             <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                 <div className="min-w-0 flex-1">
                     <div className="flex items-start gap-4">
@@ -612,25 +609,25 @@ function UserCard({
                     </div>
 
                     <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-                        <div className="rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
+                        <div className="admin-v25-inline-stat rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
                             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--hi-text-muted)]">
                                 {t('admin.users.joined_label', { defaultValue: 'Joined' })}
                             </p>
                             <p className="mt-2 text-sm font-semibold text-[var(--hi-text)]">{joinedAt || t('admin.users.no_date', { defaultValue: 'Unknown' })}</p>
                         </div>
-                        <div className="rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
+                        <div className="admin-v25-inline-stat rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
                             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--hi-text-muted)]">
                                 {t('admin.users.last_seen_label', { defaultValue: 'Last sign-in' })}
                             </p>
                             <p className="mt-2 text-sm font-semibold text-[var(--hi-text)]">{lastLogin || t('admin.users.no_last_login', { defaultValue: 'No sign-in yet' })}</p>
                         </div>
-                        <div className="rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
+                        <div className="admin-v25-inline-stat rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
                             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--hi-text-muted)]">
                                 {t('admin.users.households_label', { defaultValue: 'Households' })}
                             </p>
                             <p className="mt-2 text-sm font-semibold text-[var(--hi-text)]">{formatNumberForLanguage(user.house_count || 0, locale)}</p>
                         </div>
-                        <div className="rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
+                        <div className="admin-v25-inline-stat rounded-[1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
                             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--hi-text-muted)]">
                                 {t('admin.users.items_label', { defaultValue: 'Owned items' })}
                             </p>
@@ -947,7 +944,7 @@ export default function AdminPanel() {
         });
 
     return (
-        <div className="space-y-6 pb-20">
+        <div className="admin-v25 space-y-6 pb-20">
             <PageHeader
                 title={t('admin.title', { defaultValue: 'Admin Control' })}
                 description={t('admin.subtitle', { defaultValue: 'Review platform health, user access, audit activity, and communication from one calm control surface.' })}
@@ -1199,7 +1196,7 @@ export default function AdminPanel() {
                                         {stats.recent_users.map((user) => (
                                             <div
                                                 key={user.id}
-                                                className="flex items-center gap-3 rounded-[1.15rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3"
+                                                className="admin-v25-row flex items-center gap-3 rounded-[1.15rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3"
                                             >
                                                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[0.95rem] bg-[linear-gradient(135deg,var(--hi-accent-soft),var(--hi-secondary-soft))] text-sm font-semibold text-[var(--hi-text)]">
                                                     {getInitials(user.username)}
@@ -1392,7 +1389,7 @@ export default function AdminPanel() {
                     />
                 ) : (
                     <div className="grid items-stretch gap-6 xl:grid-cols-[1.15fr_0.85fr]">
-                        <section className="card !mt-0 !flex !h-full !flex-col !p-5">
+                        <section className="admin-v25-surface card !mt-0 !flex !h-full !flex-col !p-5">
                             <SectionHeader
                                 eyebrow={t('admin.logs.section_eyebrow', { defaultValue: 'Audit trail' })}
                                 title={t('admin.logs.title', { defaultValue: 'Admin activity' })}
@@ -1407,7 +1404,7 @@ export default function AdminPanel() {
                             />
                         </section>
 
-                        <section className="card !mt-0 !flex !h-full !flex-col !p-5">
+                        <section className="admin-v25-surface card !mt-0 !flex !h-full !flex-col !p-5">
                             <SectionHeader
                                 eyebrow={t('admin.logs.errors_eyebrow', { defaultValue: 'Diagnostics' })}
                                 title={t('admin.logs.errors_title', { defaultValue: 'Recent system errors' })}
@@ -1489,7 +1486,7 @@ export default function AdminPanel() {
                             )}
 
                             <div className="mt-5 space-y-3">
-                                <div className="rounded-[1.1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
+                                <div className="admin-v25-row rounded-[1.1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
                                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--hi-text-muted)]">
                                         {t('admin.email.from_label', { defaultValue: 'Sender' })}
                                     </p>
@@ -1499,7 +1496,7 @@ export default function AdminPanel() {
                                             : t('admin.email.from_unconfigured', { defaultValue: 'Available after mail setup' })}
                                     </p>
                                 </div>
-                                <div className="rounded-[1.1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
+                                <div className="admin-v25-row rounded-[1.1rem] border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3">
                                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--hi-text-muted)]">
                                         {t('admin.email.notes_label', { defaultValue: 'Usage note' })}
                                     </p>

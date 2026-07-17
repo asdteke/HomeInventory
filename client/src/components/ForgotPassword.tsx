@@ -8,6 +8,7 @@ import BrandLogo from './BrandLogo';
 import LanguageSwitcher from './LanguageSwitcher';
 import RecoveryKeyModal from './RecoveryKeyModal';
 import { validatePasswordStrengthClient } from '../utils/passwordValidation';
+import '../auth-onboarding-v25.css';
 
 export default function ForgotPassword() {
     const { t, i18n } = useTranslation();
@@ -24,21 +25,6 @@ export default function ForgotPassword() {
     const [resetLoading, setResetLoading] = useState(false);
     const [rotatedRecoveryKey, setRotatedRecoveryKey] = useState('');
 
-    const topChromeClass = isDark
-        ? 'border-white/10 bg-white/4 text-white/84 hover:bg-white/8 hover:text-white'
-        : 'border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text-soft)] hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)]';
-    const pageClass = isDark ? 'bg-[var(--hi-bg-strong)] text-white' : 'bg-[var(--hi-bg)] text-[var(--hi-text)]';
-    const pageGlow = isDark
-        ? 'radial-gradient(circle_at_20%_18%,rgba(205,176,136,0.08),transparent_26%),radial-gradient(circle_at_78%_22%,rgba(74,125,100,0.12),transparent_30%),linear-gradient(180deg,#151a17_0%,#1a201d_52%,#151917_100%)'
-        : 'radial-gradient(circle_at_18%_18%,rgba(184,153,104,0.12),transparent_24%),radial-gradient(circle_at_82%_20%,rgba(45,82,65,0.10),transparent_28%),linear-gradient(180deg,#f7f2e8_0%,#f4ede2_48%,#efe6d9_100%)';
-    const cardClass = isDark
-        ? 'border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] shadow-[0_30px_80px_rgba(0,0,0,0.32)]'
-        : 'border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] shadow-[var(--hi-shadow)]';
-    const labelClass = isDark ? 'text-white/78' : 'text-[var(--hi-text-soft)]';
-    const subtleTextClass = isDark ? 'text-white/55' : 'text-[var(--hi-text-soft)]';
-    const inputClass = isDark
-        ? 'input-field h-12 border-white/8 bg-transparent text-white placeholder:text-white/28'
-        : 'input-field h-12 border-[var(--hi-border)] bg-[var(--hi-bg-strong)] text-[var(--hi-text)] placeholder:text-[var(--hi-text-muted)]';
     const isTurkish = (i18n.resolvedLanguage || i18n.language || 'en').startsWith('tr');
 
     const handleRequestReset = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -107,78 +93,78 @@ export default function ForgotPassword() {
     const emailModeActive = mode === 'email';
 
     return (
-        <div className={`relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-6 sm:py-10 ${pageClass}`}>
-            <div className="absolute inset-0" style={{ background: pageGlow }} />
-
-            <div className="relative z-10 w-full max-w-md">
-                <div className="mb-6 flex items-start justify-between gap-3 sm:mb-8 sm:items-center">
-                    <Link to="/" className="min-w-0 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-secondary)]">
-                        <BrandLogo variant="full" size="md" className="h-auto max-h-10 w-auto sm:max-h-11" />
+        <div className="auth-flow-page-v25">
+            <main className="auth-flow-shell-v25 flex min-h-[100svh] flex-col justify-center">
+                <div className="auth-flow-topbar-v25">
+                    <Link to="/" className="auth-flow-brand-v25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)]">
+                        <BrandLogo variant="full" size="md" />
                     </Link>
-
-                    <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+                    <div className="auth-flow-tools-v25">
+                        <div className="auth-flow-language-v25">
+                            <LanguageSwitcher
+                                showTooltip={false}
+                                showCodeBadge={false}
+                                className="!h-[2.65rem] !rounded-full !border-[var(--hi-border)] !bg-[var(--hi-panel-muted)] !px-3 !py-0 !text-[var(--hi-text)] max-[430px]:!h-[2.45rem]"
+                            />
+                        </div>
                         <button
                             type="button"
                             onClick={toggleTheme}
-                            className={`inline-flex h-10 w-10 items-center justify-center rounded-full border transition sm:h-11 sm:w-11 ${topChromeClass}`}
+                            className="auth-flow-tool-v25"
                             title={isDark ? t('common.theme.light') : t('common.theme.dark')}
                             aria-label={isDark ? t('common.theme.light') : t('common.theme.dark')}
                         >
                             {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
                         </button>
-                        <div className="w-[140px] sm:w-[164px]">
-                            <LanguageSwitcher className={`!h-10 !rounded-full !px-3 !py-0 sm:!h-11 sm:!px-4 ${isDark ? '!border-white/10 !bg-white/4 !text-white/88 hover:!bg-white/8' : '!border-[var(--hi-border)] !bg-[var(--hi-panel)] !text-[var(--hi-text)] hover:!bg-[var(--hi-panel-strong)]'}`} />
-                        </div>
                     </div>
                 </div>
 
-                <div className="mb-8 text-center">
-                    <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-[20px] bg-[var(--hi-accent)] shadow-[var(--hi-shadow-soft)]">
-                        {recoveryModeActive ? <KeyRound className="h-8 w-8 text-white" /> : emailModeActive ? <Mail className="h-8 w-8 text-white" /> : <ShieldCheck className="h-8 w-8 text-white" />}
-                    </div>
-                    <h1 className={`text-3xl font-semibold tracking-[-0.03em] ${isDark ? 'text-white' : 'text-[var(--hi-text)]'}`}>
-                        {t('auth.forgot_password.title')}
-                    </h1>
-                    <p className={`mt-2 text-lg ${subtleTextClass}`}>
-                        {t('auth.forgot_password.subtitle')}
-                    </p>
-                </div>
+                <section className="auth-flow-card-v25" aria-labelledby="forgot-password-title">
+                    <div className="auth-flow-card-body-v25">
+                        <header className="auth-flow-hero-v25">
+                            <span className="auth-flow-icon-v25">
+                                {recoveryModeActive ? <KeyRound className="h-6 w-6" /> : emailModeActive ? <Mail className="h-6 w-6" /> : <ShieldCheck className="h-6 w-6" />}
+                            </span>
+                            <p className="auth-flow-kicker-v25">{isTurkish ? 'Güvenli hesap kurtarma' : 'Secure account recovery'}</p>
+                            <h1 id="forgot-password-title" className="auth-flow-title-v25">{t('auth.forgot_password.title')}</h1>
+                            <p className="auth-flow-subtitle-v25">{t('auth.forgot_password.subtitle')}</p>
+                        </header>
 
-                <div className={`overflow-hidden rounded-[2rem] backdrop-blur-xl ${cardClass}`}>
-                    <div className="p-8">
                         {error && (
-                            <div className="mb-6 flex items-start gap-3 rounded-xl border border-red-500/25 bg-red-500/10 px-4 py-3 text-sm text-red-300">
-                                <AlertCircle className="mt-0.5 h-5 w-5 flex-shrink-0" />
+                            <div className="auth-flow-feedback-v25 is-error" role="alert">
+                                <AlertCircle className="h-4 w-4" />
                                 <span>{error}</span>
                             </div>
                         )}
 
                         {message && (
-                            <div className={`mb-6 rounded-xl border px-4 py-3 text-sm leading-6 ${isDark ? 'border-[var(--hi-border-strong)] bg-[var(--hi-accent-soft)] text-white/84' : 'border-[var(--hi-border)] bg-[var(--hi-accent-soft)] text-[var(--hi-text)]'}`}>
-                                {message}
+                            <div className="auth-flow-feedback-v25 is-success" role="status">
+                                <ShieldCheck className="h-4 w-4" />
+                                <span>{message}</span>
                             </div>
                         )}
 
                         {!mode && (
-                            <form onSubmit={handleRequestReset} noValidate className="space-y-5">
-                                <div>
-                                    <label className={`mb-2 block text-sm font-medium ${labelClass}`}>
+                            <form onSubmit={handleRequestReset} noValidate className="auth-flow-form-v25">
+                                <div className="auth-flow-field-v25">
+                                    <label className="auth-flow-label-v25">
                                         {t('auth.forgot_password.identifier')}
                                     </label>
                                     <input
                                         type="text"
                                         value={identifier}
                                         onChange={(event) => setIdentifier(event.target.value)}
-                                        className={inputClass}
+                                        className="auth-flow-input-v25"
                                         placeholder={t('auth.forgot_password.identifier_placeholder')}
+                                        autoComplete="username"
                                         required
                                     />
                                 </div>
 
-                                <button type="submit" disabled={requestLoading} className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-[var(--hi-accent)] px-5 text-base font-semibold text-white transition hover:bg-[var(--hi-accent-strong)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] disabled:opacity-60">
+                                <button type="submit" disabled={requestLoading} className="auth-flow-primary-v25 w-full">
                                     {requestLoading ? (
                                         <span className="flex items-center justify-center gap-2">
-                                            <Loader2 className="h-5 w-5 animate-spin" />
+                                            <Loader2 className="h-4 w-4 animate-spin" />
                                             {t('auth.forgot_password.requesting')}
                                         </span>
                                     ) : (
@@ -192,75 +178,79 @@ export default function ForgotPassword() {
                         )}
 
                         {emailModeActive && (
-                            <div className="space-y-5">
-                                <div className={`rounded-xl px-4 py-4 text-sm leading-6 ${isDark ? 'border border-white/8 bg-[rgba(255,255,255,0.03)] text-white/72' : 'border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)]'}`}>
+                            <div className="auth-flow-form-v25">
+                                <div className="auth-flow-notice-v25">
                                     {t('auth.forgot_password.email_success')}
                                 </div>
-                                <Link to="/login" className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-[var(--hi-accent)] px-5 text-base font-semibold text-white transition hover:bg-[var(--hi-accent-strong)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)]">
+                                <Link to="/login" className="auth-flow-primary-v25 w-full">
                                     {t('auth.forgot_password.back_to_login')}
                                 </Link>
                             </div>
                         )}
 
                         {recoveryModeActive && (
-                            <form onSubmit={handleRecoveryReset} noValidate className="space-y-5">
-                                <div className={`rounded-xl px-4 py-4 text-sm leading-6 ${isDark ? 'border border-white/8 bg-[rgba(255,255,255,0.03)] text-white/72' : 'border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] text-[var(--hi-text-soft)]'}`}>
+                            <form onSubmit={handleRecoveryReset} noValidate className="auth-flow-form-v25">
+                                <div className="auth-flow-notice-v25">
                                     {t('auth.forgot_password.recovery_mode_info')}
                                 </div>
 
-                                <div>
-                                    <label className={`mb-2 block text-sm font-medium ${labelClass}`}>
+                                <div className="auth-flow-field-v25">
+                                    <label className="auth-flow-label-v25">
                                         {t('auth.forgot_password.identifier')}
                                     </label>
-                                    <input type="text" value={identifier} className={`${inputClass} ${isDark ? 'opacity-75' : 'opacity-90'}`} disabled />
+                                    <input type="text" value={identifier} className="auth-flow-input-v25" disabled />
                                 </div>
 
-                                <div>
-                                    <label className={`mb-2 block text-sm font-medium ${labelClass}`}>
+                                <div className="auth-flow-field-v25">
+                                    <label className="auth-flow-label-v25">
                                         {t('auth.forgot_password.recovery_key')}
                                     </label>
                                     <input
                                         type="text"
                                         value={recoveryKey}
                                         onChange={(event) => setRecoveryKey(event.target.value)}
-                                        className={`${inputClass} font-mono text-sm`}
+                                        className="auth-flow-input-v25 font-mono text-sm"
                                         placeholder={t('auth.forgot_password.recovery_key_placeholder')}
+                                        autoComplete="off"
+                                        spellCheck={false}
                                         required
                                     />
                                 </div>
 
-                                <div>
-                                    <label className={`mb-2 block text-sm font-medium ${labelClass}`}>
+                                <div className="auth-flow-field-v25">
+                                    <label className="auth-flow-label-v25">
                                         {t('auth.forgot_password.new_password')}
                                     </label>
                                     <input
                                         type="password"
                                         value={newPassword}
                                         onChange={(event) => setNewPassword(event.target.value)}
-                                        className={inputClass}
+                                        className="auth-flow-input-v25"
                                         placeholder={t('auth.forgot_password.new_password_placeholder')}
+                                        autoComplete="new-password"
                                         required
                                     />
                                 </div>
 
-                                <div>
-                                    <label className={`mb-2 block text-sm font-medium ${labelClass}`}>
+                                <div className="auth-flow-field-v25">
+                                    <label className="auth-flow-label-v25">
                                         {t('auth.forgot_password.confirm_password')}
                                     </label>
                                     <input
                                         type="password"
                                         value={confirmPassword}
                                         onChange={(event) => setConfirmPassword(event.target.value)}
-                                        className={inputClass}
+                                        className="auth-flow-input-v25"
                                         placeholder={t('auth.forgot_password.confirm_password_placeholder')}
+                                        autoComplete="new-password"
                                         required
                                     />
                                 </div>
 
-                                <button type="submit" disabled={resetLoading} className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-[var(--hi-accent)] px-5 text-base font-semibold text-white transition hover:bg-[var(--hi-accent-strong)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--hi-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--hi-panel-strong)] disabled:opacity-60">
+                                <button type="submit" disabled={resetLoading} className="auth-flow-primary-v25 w-full">
                                     {resetLoading ? (
                                         <span className="flex items-center justify-center gap-2">
-                                            <Loader2 className="h-5 w-5 animate-spin" />
+                                            <Loader2 className="h-4 w-4 animate-spin" />
                                             {t('auth.forgot_password.resetting')}
                                         </span>
                                     ) : (
@@ -274,19 +264,19 @@ export default function ForgotPassword() {
                         )}
                     </div>
 
-                    <div className={`px-8 py-6 text-center ${isDark ? 'border-t border-white/8 bg-[rgba(255,255,255,0.02)]' : 'border-t border-[var(--hi-border)] bg-[var(--hi-panel-muted)]'}`}>
-                        <Link to="/login" className={`text-sm font-medium transition ${isDark ? 'text-white/68 hover:text-white' : 'text-[var(--hi-text-soft)] hover:text-[var(--hi-text)]'}`}>
+                    <footer className="auth-flow-footer-v25">
+                        <Link to="/login" className="auth-flow-link-v25">
                             {t('auth.forgot_password.back_to_login')}
                         </Link>
-                    </div>
-                </div>
+                    </footer>
+                </section>
 
-                <p className={`mt-6 text-center text-xs ${isDark ? 'text-white/34' : 'text-[var(--hi-text-muted)]'}`}>
+                <p className="mt-5 text-center text-xs leading-5 text-[var(--hi-text-muted)]">
                     {isTurkish
                         ? 'Hesap kurtarma e-posta veya kayıtlı kurtarma anahtarınızla çalışır.'
                         : 'The secure account recovery flow works through email or your saved recovery key.'}
                 </p>
-            </div>
+            </main>
 
             {rotatedRecoveryKey && (
                 <RecoveryKeyModal

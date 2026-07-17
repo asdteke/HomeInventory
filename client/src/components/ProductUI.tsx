@@ -1,6 +1,7 @@
 import React from 'react';
 import { Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import '../core-v25.css';
 
 function resolveMetaTone(tone?: string) {
     switch (tone) {
@@ -60,7 +61,7 @@ export function PageHeader({
         && !filteredBreadcrumbs.some((crumb) => normalizeHeaderText(crumb?.label) === normalizeHeaderText(kicker));
 
     return (
-        <section className={`app-page-header ${className}`.trim()}>
+        <section className={`app-page-header core-page-intro-v25 ${className}`.trim()}>
             <div className="flex flex-col gap-6 xl:flex-row xl:items-start xl:justify-between">
                 <div className="min-w-0 max-w-3xl space-y-4">
                     {filteredBreadcrumbs.length > 0 && (
@@ -123,7 +124,7 @@ export interface SectionHeaderProps {
 
 export function SectionHeader({ eyebrow, title, description, action, className = '' }: SectionHeaderProps) {
     return (
-        <div className={`app-section-header ${className}`.trim()}>
+        <div className={`app-section-header core-section-header-v25 ${className}`.trim()}>
             <div className="min-w-0">
                 {eyebrow && <p className="app-kicker app-kicker-subtle">{eyebrow}</p>}
                 <h2 className="section-title mt-2.5 text-xl leading-snug text-[var(--hi-text)]">{title}</h2>
@@ -150,7 +151,7 @@ export function NoticeBanner({ icon: Icon, title, description, tone = 'info', ac
         <div
             role={liveRole}
             aria-live={tone === 'danger' ? 'assertive' : 'polite'}
-            className={`app-notice app-notice-${tone} ${className}`.trim()}
+            className={`app-notice core-notice-v25 app-notice-${tone} ${className}`.trim()}
         >
             {Icon && (
                 <span className="app-notice-icon">
@@ -196,7 +197,7 @@ export function LoadingState({
         <div
             role="status"
             aria-live="polite"
-            className={`app-loading-state flex min-h-[16rem] flex-col items-center justify-center gap-3 rounded-[1.5rem] border border-[var(--hi-border)] bg-[var(--hi-panel)] px-6 py-10 text-center shadow-[var(--hi-shadow-soft)] ${className}`.trim()}
+                className={`app-loading-state core-loading-v25 flex min-h-[16rem] flex-col items-center justify-center gap-3 px-6 py-10 text-center ${className}`.trim()}
         >
             <span className="app-loading-state-icon flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--hi-accent-soft)] text-[var(--hi-accent)]">
                 <Loader2 className="h-5 w-5 animate-spin" />
@@ -233,7 +234,7 @@ export interface EmptyStateProps {
 
 export function EmptyState({ icon: Icon, title, description, actions, tips = [], align = 'center', className = '' }: EmptyStateProps) {
     return (
-        <div className={`app-empty-state ${align === 'left' ? 'app-empty-state-left' : ''} ${className}`.trim()}>
+        <div className={`app-empty-state core-empty-v25 ${align === 'left' ? 'app-empty-state-left' : ''} ${className}`.trim()}>
             {Icon && (
                 <span className="app-empty-state-icon">
                     <Icon className="h-7 w-7" />

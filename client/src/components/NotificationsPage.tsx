@@ -2,8 +2,9 @@ import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { AlertTriangle, Bell, CheckCircle2, Clock, Package, ShieldCheck, Wrench } from 'lucide-react';
-import { EmptyState, LoadingState, PageHeader } from './ProductUI';
+import { AlertTriangle, ArrowUpRight, Bell, CheckCircle2, Clock, Package, ShieldCheck, Wrench } from 'lucide-react';
+import { LoadingState } from './ProductUI';
+import '../operations-v25.css';
 
 const TYPE_ICON: Record<string, any> = {
     stock: Package,
@@ -15,12 +16,12 @@ const TYPE_ICON: Record<string, any> = {
 
 function severityClass(severity: string) {
     if (severity === 'danger') {
-        return 'border-rose-500/25 bg-rose-500/8 text-rose-500';
+        return 'is-danger';
     }
     if (severity === 'warning') {
-        return 'border-amber-500/25 bg-amber-500/8 text-amber-500';
+        return 'is-warning';
     }
-    return 'border-sky-500/25 bg-sky-500/8 text-sky-500';
+    return 'is-info';
 }
 
 export default function NotificationsPage() {
@@ -62,22 +63,36 @@ export default function NotificationsPage() {
     }
 
     return (
-        <div className="space-y-5">
-            <PageHeader
-                title={t('notifications.title', { defaultValue: 'Bildirim Merkezi' })}
-                description={t('notifications.description', { defaultValue: 'Stok, garanti, bakım, son kullanma ve ödünç iade uyarıları.' })}
-                meta={meta}
-            />
+        <div className="operations-page-v25 animate-fade-in">
+            <header className="operations-intro-v25">
+                <div className="operations-intro-copy-v25">
+                    <span className="operations-hero-icon-v25 is-info" aria-hidden="true">
+                        <Bell />
+                    </span>
+                    <div>
+                        <h1>{t('notifications.title', { defaultValue: 'Bildirim Merkezi' })}</h1>
+                        <p>{t('notifications.description', { defaultValue: 'Stok, garanti, bakım, son kullanma ve ödünç iade uyarıları.' })}</p>
+                    </div>
+                </div>
+                <div className="operations-intro-meta-v25" aria-label={t('notifications.title', { defaultValue: 'Bildirim Merkezi' })}>
+                    {meta.map((item) => (
+                        <span key={item.label} className={item.tone === 'warning' ? 'is-warning' : ''}>{item.label}</span>
+                    ))}
+                </div>
+            </header>
 
-            {notifications.length === 0 ? (
-                <EmptyState
-                    icon={CheckCircle2}
-                    title={t('notifications.empty_title', { defaultValue: 'Şu an ilgilenmeniz gereken bir uyarı yok' })}
-                    description={t('notifications.empty_desc', { defaultValue: 'Düşük stok, yaklaşan tarih veya gecikmiş bakım olduğunda burada görünecek.' })}
-                    actions={<Link to="/items" className="btn-secondary">{t('navigation.inventory')}</Link>}
-                />
-            ) : (
-                <section className="space-y-3">
+            <section className="operations-workspace-v25" aria-live="polite">
+                {notifications.length === 0 ? (
+                    <div className="operations-inline-empty-v25">
+                        <span className="operations-empty-icon-v25"><CheckCircle2 /></span>
+                        <div>
+                            <h2>{t('notifications.empty_title', { defaultValue: 'Şu an ilgilenmeniz gereken bir uyarı yok' })}</h2>
+                            <p>{t('notifications.empty_desc', { defaultValue: 'Düşük stok, yaklaşan tarih veya gecikmiş bakım olduğunda burada görünecek.' })}</p>
+                        </div>
+                        <Link to="/items" className="btn-secondary">{t('navigation.inventory')}</Link>
+                    </div>
+                ) : (
+                    <div className="operations-list-v25">
                     {notifications.map((notification) => {
                         const Icon = TYPE_ICON[notification.type] || AlertTriangle;
                         const title = notification.titleKey
@@ -96,20 +111,22 @@ export default function NotificationsPage() {
                             <Link
                                 key={notification.id}
                                 to={notification.target || '/items'}
-                                className="flex items-start gap-4 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel)] p-4 shadow-[var(--hi-shadow-soft)] transition hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)]"
+                                className="operations-row-v25 group"
                             >
-                                <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border ${severityClass(notification.severity)}`}>
-                                    <Icon className="h-5 w-5" />
+                                <span className={`operations-row-icon-v25 ${severityClass(notification.severity)}`}>
+                                    <Icon />
                                 </span>
-                                <span className="min-w-0 flex-1">
-                                    <span className="block font-semibold text-[var(--hi-text)]">{title}</span>
-                                    <span className="mt-1 block text-sm leading-6 text-[var(--hi-text-soft)] [overflow-wrap:anywhere]">{body}</span>
+                                <span className="operations-row-copy-v25">
+                                    <strong>{title}</strong>
+                                    <span>{body}</span>
                                 </span>
+                                <ArrowUpRight className="operations-row-arrow-v25" aria-hidden="true" />
                             </Link>
                         );
                     })}
-                </section>
-            )}
+                    </div>
+                )}
+            </section>
         </div>
     );
 }

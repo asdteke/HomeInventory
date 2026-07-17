@@ -3,10 +3,12 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { FolderOpen, MapPin, Printer, QrCode } from 'lucide-react';
-import { EmptyState, LoadingState, PageHeader } from './ProductUI';
+import { LoadingState } from './ProductUI';
 import { getRoomPresentation } from '../utils/roomDisplay';
+import { ASSET_VERSION, QR_LOGO_PATH } from '../constants/branding';
+import '../operations-v25.css';
 
-const LABEL_LOGO_SRC = '/brand/logo-symbol-light.svg';
+const LABEL_LOGO_SRC = `${QR_LOGO_PATH}?v=${ASSET_VERSION}`;
 
 function buildInventoryUrl(origin: string, params: Record<string, string | number | null | undefined>) {
     const url = new URL('/items', origin);
@@ -79,11 +81,16 @@ export default function StorageLabelsPage() {
         const renderCodes = async () => {
             const { generateItemQrMarkup } = await import('../utils/itemQrRuntime');
             const next: Record<string, string> = {};
-            for (const label of labels) {
+            for (let index = 0; index < labels.length; index += 1) {
+                if (!mounted) return;
+                const label = labels[index];
                 next[label.key] = generateItemQrMarkup(label.target, {
                     width: 154,
                     logoDataUrl: LABEL_LOGO_SRC
                 });
+                if ((index + 1) % 24 === 0) {
+                    await new Promise<void>((resolve) => window.setTimeout(resolve, 0));
+                }
             }
             if (mounted) {
                 setQrMarkupByKey(next);
@@ -106,33 +113,44 @@ export default function StorageLabelsPage() {
     }
 
     return (
-        <div className="space-y-5 print:bg-white print:text-black">
-            <PageHeader
-                className="print:hidden"
-                breadcrumbs={[{ label: t('navigation.inventory'), to: '/items' }]}
-                title={t('storage_labels.title', { defaultValue: 'Raf ve Oda Etiketleri' })}
-                description={t('storage_labels.description', {
-                    count: labels.length,
-                    defaultValue: '{{count}} oda/raf etiketi düzenli çıktı sayfası olarak hazır.'
-                })}
-                actions={(
+        <div className="operations-page-v25 operations-label-page-v25 animate-fade-in print:bg-white print:text-black">
+            <header className="operations-intro-v25 print:hidden">
+                <div className="operations-intro-copy-v25">
+                    <span className="operations-hero-icon-v25 is-info" aria-hidden="true"><MapPin /></span>
+                    <div>
+                        <nav className="operations-breadcrumb-v25" aria-label="Breadcrumb">
+                            <Link to="/items">{t('navigation.inventory')}</Link>
+                        </nav>
+                        <h1>{t('storage_labels.title', { defaultValue: 'Raf ve Oda Etiketleri' })}</h1>
+                        <p>{t('storage_labels.description', {
+                            count: labels.length,
+                            defaultValue: '{{count}} oda/raf etiketi düzenli çıktı sayfası olarak hazır.'
+                        })}</p>
+                    </div>
+                </div>
+                <div className="operations-intro-actions-v25">
                     <button type="button" onClick={() => window.print()} className="btn-primary print:hidden">
                         <Printer className="h-4 w-4" />
                         <span>{t('common.print', { defaultValue: 'Yazdır' })}</span>
                     </button>
-                )}
-            />
+                </div>
+            </header>
 
             {labels.length === 0 ? (
-                <EmptyState
-                    icon={QrCode}
-                    title={t('storage_labels.empty_title', { defaultValue: 'Etiket üretilecek oda veya raf yok' })}
-                    description={t('storage_labels.empty_desc', { defaultValue: 'Önce oda veya konum ekleyin, sonra buradan QR etiket basın.' })}
-                    actions={<Link to="/rooms" className="btn-secondary">{t('navigation.rooms')}</Link>}
-                />
+                <section className="operations-workspace-v25 print:hidden">
+                    <div className="operations-inline-empty-v25">
+                        <span className="operations-empty-icon-v25"><QrCode /></span>
+                        <div>
+                            <h2>{t('storage_labels.empty_title', { defaultValue: 'Etiket üretilecek oda veya raf yok' })}</h2>
+                            <p>{t('storage_labels.empty_desc', { defaultValue: 'Önce oda veya konum ekleyin, sonra buradan QR etiket basın.' })}</p>
+                        </div>
+                        <Link to="/rooms" className="btn-secondary">{t('navigation.rooms')}</Link>
+                    </div>
+                </section>
             ) : (
-                <article className="label-print-page">
-                    <header className="label-sheet-header print:hidden">
+                <section className="operations-workspace-v25 operations-label-preview-v25">
+                    <article className="label-print-page">
+                    <header className="label-sheet-header operations-sheet-toolbar-v25 print:hidden">
                         <div className="flex items-center gap-3">
                             <img src={LABEL_LOGO_SRC} alt="" className="h-11 w-11 object-contain" />
                             <div>
@@ -183,7 +201,8 @@ export default function StorageLabelsPage() {
                             );
                         })}
                     </section>
-                </article>
+                    </article>
+                </section>
             )}
         </div>
     );

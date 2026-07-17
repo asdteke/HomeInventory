@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.4.0 release line. -->
+<!-- Release status: v2.5.0 release line. -->
 
 <p align="center">
   <strong>Private, selbst hostbare Haushaltsinventur für gemeinsam genutzte Zuhause.</strong><br/>
@@ -74,7 +74,7 @@
 HomeInventory ist für Familien, Wohngemeinschaften und kleine Haushalte gedacht, die ein praktisches Inventar brauchen, ohne private Datensätze in eine gemeinsame Tabelle zu verwandeln.
 
 > [!NOTE]
-> **v2.4.0 ist die aktuelle Release-Linie.** Sie ergänzt sichere Inventar-Massenaktionen, druckbare QR-/Lageretiketten, klickbare Warnungsdetails, Service-/Aktivitätsansichten, mehrere Fotos pro Gegenstand und eine aufgeräumtere Oberfläche.
+> **v2.5.0 ist die aktuelle Release-Linie.** Sie vervollständigt die responsive Überarbeitung, verbessert Inventar- und Dialogabläufe und härtet den Launcher- und Release-Prozess.
 
 ## Warum HomeInventory
 

@@ -48,6 +48,7 @@ const url = readArg(
 const nodeMajor = Number(readArg('node-major', '20'));
 const rootInstall = readBoolArg('root-install', true);
 const clientInstall = readBoolArg('client-install', true);
+const allowUnsigned = readBoolArg('allow-unsigned', false);
 const outputPath = resolve(repoRoot, readArg('output', 'dist/release/homeinventory-app-manifest.json'));
 
 if (!existsSync(archivePath)) {
@@ -62,6 +63,12 @@ const archive = readFileSync(archivePath);
 const sha256 = createHash('sha256').update(archive).digest('hex');
 const message = `${version}:${sha256}:${url}:${nodeMajor}:${rootInstall}:${clientInstall}`;
 const key = privateKeyPem();
+if (!key && !allowUnsigned) {
+  fail(
+    'HOMEINVENTORY_APP_MANIFEST_PRIVATE_KEY_PEM is required. ' +
+      'Use --allow-unsigned true only for a local, non-release fixture.'
+  );
+}
 const signature = key ? sign(null, Buffer.from(message), key).toString('hex') : 'unsigned';
 
 const manifest = {

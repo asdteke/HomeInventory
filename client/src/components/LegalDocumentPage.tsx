@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import BrandLogo from './BrandLogo';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTheme } from '../context/ThemeContext';
+import '../legal-pages-v25.css';
 
 const SECTION_TITLE_PATTERN = /^(?:\d+\.\s+|#{2,3}\s+)(.+)$/;
 const TURKISH_CHAR_MAP: Record<string, string> = {
@@ -191,6 +192,7 @@ export interface LegalDocumentPageProps {
     summaryCards?: SummaryCardItem[];
     supportLabel: string;
     supportValue: string;
+    supportHref?: string;
     backLabel: string;
     translationLanguage?: string;
 }
@@ -205,6 +207,7 @@ export default function LegalDocumentPage({
     summaryCards = [],
     supportLabel,
     supportValue,
+    supportHref,
     backLabel,
     translationLanguage
 }: LegalDocumentPageProps) {
@@ -248,31 +251,25 @@ export default function LegalDocumentPage({
         .filter((shortcut): shortcut is { id: string; label: string; title: string } => shortcut !== null);
 
     return (
-        <div id="document-top" className="relative min-h-screen overflow-hidden bg-[var(--hi-bg)] px-4 py-6 text-[var(--hi-text)] sm:px-6 sm:py-8">
+        <div id="document-top" className="legal-page-v25 relative min-h-screen overflow-hidden bg-[var(--hi-bg)] px-4 py-6 text-[var(--hi-text)] sm:px-6 sm:py-8">
             <div className="absolute inset-0 -z-10" style={{ background: pageGlow }} />
 
             <div className="mx-auto max-w-6xl">
-                <header className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="flex items-center justify-between gap-4 sm:justify-start">
-                        <Link
-                            to="/"
-                            className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition ${topChromeClass}`}
-                        >
-                            <ArrowLeft className="h-4 w-4" />
-                            {backLabel}
-                        </Link>
-
-                        <Link to="/" className="sm:hidden">
-                            <BrandLogo variant="full" size="md" className="h-auto max-h-10 w-auto" />
-                        </Link>
-                    </div>
-
-                    <Link to="/" className="hidden sm:block">
-                        <BrandLogo variant="full" size="md" className="h-auto max-h-11 w-auto" />
+                <header className="legal-topbar-v25">
+                    <Link
+                        to="/"
+                        className={`legal-back-v25 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition ${topChromeClass}`}
+                    >
+                        <ArrowLeft className="h-4 w-4" />
+                        <span>{backLabel}</span>
                     </Link>
 
-                    <div className="flex items-center justify-end gap-2 sm:gap-3">
-                        <div className="w-[140px] sm:w-[164px]">
+                    <Link to="/" className="legal-brand-v25" aria-label={pageLabel}>
+                        <BrandLogo variant="symbol" size="md" className="h-auto w-auto" />
+                    </Link>
+
+                    <div className="legal-tools-v25">
+                        <div className="legal-language-v25">
                             <LanguageSwitcher className="!h-10 !rounded-full !border-[var(--hi-border)] !bg-[var(--hi-panel)] !px-3 !py-0 !text-[var(--hi-text)] hover:!bg-[var(--hi-panel-strong)] sm:!h-11 sm:!px-4" />
                         </div>
                         <button
@@ -285,7 +282,7 @@ export default function LegalDocumentPage({
                     </div>
                 </header>
 
-                <section className={`rounded-[2rem] p-6 sm:p-8 lg:p-10 ${heroShellClass}`}>
+                <section className={`legal-hero-v25 rounded-[2rem] p-6 sm:p-8 lg:p-10 ${heroShellClass}`}>
                     <div className="grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-start">
                         <div>
                             <div className="inline-flex items-center gap-2 rounded-full border border-[var(--hi-secondary-soft)] bg-[var(--hi-secondary-soft)] px-4 py-2 text-sm font-medium text-[var(--hi-secondary)]">
@@ -306,7 +303,7 @@ export default function LegalDocumentPage({
                         {(summaryBlock || summaryCards.length > 0) ? (
                             <div className="grid gap-4">
                                 {summaryBlock ? (
-                                    <article className={`rounded-[1.75rem] p-6 sm:p-7 ${summaryHighlightClass}`}>
+                                    <article className={`legal-summary-v25 rounded-[1.75rem] p-6 sm:p-7 ${summaryHighlightClass}`}>
                                         {summaryBlock.eyebrow ? (
                                             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--hi-secondary)]">
                                                 {summaryBlock.eyebrow}
@@ -350,7 +347,7 @@ export default function LegalDocumentPage({
                                 ) : null}
 
                                 {summaryCards.map((card) => (
-                                    <article key={card.title} className={`rounded-[1.5rem] p-5 ${panelClass}`}>
+                                    <article key={card.title} className={`legal-summary-v25 rounded-[1.5rem] p-5 ${panelClass}`}>
                                         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--hi-secondary)]">
                                             {card.eyebrow}
                                         </p>
@@ -367,8 +364,8 @@ export default function LegalDocumentPage({
                     </div>
                 </section>
 
-                <section className="mt-8 grid gap-6 xl:grid-cols-[280px_minmax(0,1fr)]">
-                    <aside className="xl:sticky xl:top-8 xl:self-start">
+                <section className="legal-document-layout-v25 mt-8 grid gap-6 xl:grid-cols-[280px_minmax(0,1fr)]">
+                    <aside className="legal-toc-v25 xl:sticky xl:top-8 xl:self-start">
                         <div className={`rounded-[1.75rem] p-6 ${panelClass}`}>
                             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--hi-secondary)]">
                                 {quickAccessLabel}
@@ -397,9 +394,9 @@ export default function LegalDocumentPage({
                         </div>
                     </aside>
 
-                    <div className="space-y-6">
+                    <div className="legal-document-v25 space-y-6">
                         {parsed.intro.length > 0 ? (
-                            <article className={`rounded-[1.75rem] p-6 sm:p-7 ${panelClass}`}>
+                            <article className={`legal-section-v25 rounded-[1.75rem] p-6 sm:p-7 ${panelClass}`}>
                                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--hi-secondary)]">
                                     {documentT('legal.overview')}
                                 </p>
@@ -431,7 +428,7 @@ export default function LegalDocumentPage({
                             <article
                                 key={section.id}
                                 id={section.id}
-                                className={`scroll-mt-24 rounded-[1.75rem] p-6 sm:p-7 ${panelClass}`}
+                                className={`legal-section-v25 scroll-mt-24 rounded-[1.75rem] p-6 sm:p-7 ${panelClass}`}
                             >
                                 <h2 className="text-2xl font-semibold tracking-[-0.02em] sm:text-[1.85rem]">
                                     {section.title}
@@ -457,7 +454,7 @@ export default function LegalDocumentPage({
                             </article>
                         ))}
 
-                        <footer className={`rounded-[1.75rem] p-6 sm:p-7 ${panelClass}`}>
+                        <footer className={`legal-contact-v25 rounded-[1.75rem] p-6 sm:p-7 ${panelClass}`}>
                             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--hi-secondary)]">
                                 {documentT('legal.contact')}
                             </p>
@@ -465,7 +462,9 @@ export default function LegalDocumentPage({
                                 {supportLabel}
                             </h2>
                             <a
-                                href={`mailto:${supportValue}`}
+                                href={supportHref || `mailto:${supportValue}`}
+                                target={supportHref?.startsWith('http') ? '_blank' : undefined}
+                                rel={supportHref?.startsWith('http') ? 'noreferrer' : undefined}
                                 className="mt-4 inline-flex rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-2 text-sm font-medium text-[var(--hi-text)] transition hover:bg-[var(--hi-panel-strong)]"
                             >
                                 {supportValue}
