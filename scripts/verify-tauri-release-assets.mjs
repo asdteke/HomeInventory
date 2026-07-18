@@ -26,6 +26,7 @@ function walk(dir, files = []) {
 
 const assetsDir = resolve(repoRoot, readArg('assets-dir', 'release-assets'));
 const expectedVersion = readArg('version');
+const publicRelease = process.argv.includes('--public');
 
 if (!expectedVersion) fail('--version is required.');
 if (!existsSync(assetsDir)) fail(`Release assets directory not found: ${assetsDir}`);
@@ -70,12 +71,17 @@ for (const platform of requiredPlatforms) {
   if (!artifactName || !names.has(artifactName)) {
     fail(`Updater artifact referenced by ${platform} is missing: ${artifactName || entry.url}`);
   }
-  if (!names.has(`${artifactName}.sig`)) {
+  if (!publicRelease && !names.has(`${artifactName}.sig`)) {
     fail(`Updater signature file is missing for ${artifactName}.`);
   }
 }
 
-const installerChecks = [
+const installerChecks = publicRelease ? [
+  ['macOS Apple Silicon DMG', (name) => name.includes('darwin-aarch64') && name.endsWith('.dmg')],
+  ['macOS Intel DMG', (name) => name.includes('darwin-x86_64') && name.endsWith('.dmg')],
+  ['Windows installer', (name) => name.includes('windows-x86_64') && name.endsWith('.exe')],
+  ['Linux AppImage', (name) => name.includes('linux-x86_64') && name.endsWith('.AppImage')]
+] : [
   ['macOS Apple Silicon DMG', (name) => name.includes('darwin-aarch64') && name.endsWith('.dmg')],
   ['macOS Intel DMG', (name) => name.includes('darwin-x86_64') && name.endsWith('.dmg')],
   ['Windows NSIS installer', (name) => name.endsWith('_x64-setup.exe')],
@@ -88,4 +94,8 @@ for (const [label, predicate] of installerChecks) {
   if (![...names].some(predicate)) fail(`${label} is missing from the release.`);
 }
 
-console.log(`Verified synchronized HomeInventory ${expectedVersion} release assets.`);
+if (publicRelease && names.size !== 9) {
+  fail(`Public release should contain exactly 9 focused assets, found ${names.size}.`);
+}
+
+console.log(`Verified synchronized HomeInventory ${expectedVersion}${publicRelease ? ' public' : ''} release assets.`);

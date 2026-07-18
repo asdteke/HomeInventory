@@ -204,6 +204,8 @@ struct PortCheckResult {
     frontend_ok: bool,
     suggested_backend_port: u16,
     suggested_frontend_port: u16,
+    existing_home_inventory: bool,
+    existing_frontend_url: Option<String>,
     message: String,
 }
 
@@ -632,8 +634,20 @@ fn start_profile_internal(
 
     let stdout = child.stdout.take();
     let stderr = child.stderr.take();
-    stream_process_output(state, profile.id, stdout, "info", Some(profile_paths.log_dir.clone()));
-    stream_process_output(state, profile.id, stderr, "error", Some(profile_paths.log_dir.clone()));
+    stream_process_output(
+        state,
+        profile.id,
+        stdout,
+        "info",
+        Some(profile_paths.log_dir.clone()),
+    );
+    stream_process_output(
+        state,
+        profile.id,
+        stderr,
+        "error",
+        Some(profile_paths.log_dir.clone()),
+    );
 
     #[cfg(windows)]
     let job = create_windows_job(&child);
@@ -683,7 +697,7 @@ async fn start_profile(
 }
 
 #[tauri::command]
-fn check_ports(request: CheckPortsRequest) -> Result<PortCheckResult, String> {
+async fn check_ports(request: CheckPortsRequest) -> Result<PortCheckResult, String> {
     validate_port(request.backend_port, "API")?;
     validate_port(request.frontend_port, "UI")?;
 
@@ -697,32 +711,44 @@ fn check_ports(request: CheckPortsRequest) -> Result<PortCheckResult, String> {
             frontend_ok: false,
             suggested_backend_port: next_free_port(request.backend_port),
             suggested_frontend_port,
+            existing_home_inventory: false,
+            existing_frontend_url: None,
             message: "API and UI ports must be different.".into(),
         });
     }
 
     let backend_ok = is_port_available(request.backend_port);
     let frontend_ok = is_port_available(request.frontend_port);
+    let existing_frontend_url = if !backend_ok {
+        detect_existing_homeinventory(request.backend_port).await
+    } else {
+        None
+    };
+    let existing_home_inventory = existing_frontend_url.is_some();
     let ok = backend_ok && frontend_ok;
-    let message = match (backend_ok, frontend_ok) {
-        (true, true) => "Ports are available.".to_string(),
-        (false, true) => format!(
-            "API port {} is busy. Suggested: {}.",
-            request.backend_port,
-            next_free_port(request.backend_port)
-        ),
-        (true, false) => format!(
-            "UI port {} is busy. Suggested: {}.",
-            request.frontend_port,
-            next_free_port(request.frontend_port)
-        ),
-        (false, false) => format!(
-            "Ports {} and {} are busy. Suggested: {}/{}.",
-            request.backend_port,
-            request.frontend_port,
-            next_free_port(request.backend_port),
-            next_free_port(request.frontend_port)
-        ),
+    let message = if existing_home_inventory {
+        "HomeInventory is already running on the selected ports. Open the existing session instead of starting a duplicate.".to_string()
+    } else {
+        match (backend_ok, frontend_ok) {
+            (true, true) => "Ports are available.".to_string(),
+            (false, true) => format!(
+                "API port {} is busy. Suggested: {}.",
+                request.backend_port,
+                next_free_port(request.backend_port)
+            ),
+            (true, false) => format!(
+                "UI port {} is busy. Suggested: {}.",
+                request.frontend_port,
+                next_free_port(request.frontend_port)
+            ),
+            (false, false) => format!(
+                "Ports {} and {} are busy. Suggested: {}/{}.",
+                request.backend_port,
+                request.frontend_port,
+                next_free_port(request.backend_port),
+                next_free_port(request.frontend_port)
+            ),
+        }
     };
 
     Ok(PortCheckResult {
@@ -741,8 +767,40 @@ fn check_ports(request: CheckPortsRequest) -> Result<PortCheckResult, String> {
         } else {
             next_free_port(request.frontend_port)
         },
+        existing_home_inventory,
+        existing_frontend_url,
         message,
     })
+}
+
+async fn detect_existing_homeinventory(backend_port: u16) -> Option<String> {
+    let client = reqwest::Client::builder()
+        .timeout(Duration::from_millis(700))
+        .build()
+        .ok()?;
+    let response = client
+        .get(format!("http://127.0.0.1:{backend_port}/api/server-info"))
+        .send()
+        .await
+        .ok()?;
+    if !response.status().is_success() {
+        return None;
+    }
+    let payload = response.json::<serde_json::Value>().await.ok()?;
+    let reported_backend_port = json_port(payload.get("backendPort")?)?;
+    let frontend_port = json_port(payload.get("frontendPort")?)?;
+    if reported_backend_port != backend_port || !(1024..=65535).contains(&frontend_port) {
+        return None;
+    }
+    Some(format!("http://127.0.0.1:{frontend_port}"))
+}
+
+fn json_port(value: &serde_json::Value) -> Option<u16> {
+    match value {
+        serde_json::Value::Number(number) => number.as_u64()?.try_into().ok(),
+        serde_json::Value::String(text) => text.trim().parse().ok(),
+        _ => None,
+    }
 }
 
 #[tauri::command]
@@ -2441,7 +2499,10 @@ fn create_windows_job(child: &Child) -> Option<WindowsJob> {
 }
 
 fn is_port_available(port: u16) -> bool {
-    TcpListener::bind(("127.0.0.1", port)).is_ok()
+    // HomeInventory listens on every IPv4 interface so LAN devices can connect.
+    // Checking only 127.0.0.1 can miss a wildcard listener on macOS and briefly
+    // start a duplicate process that immediately exits with EADDRINUSE.
+    TcpListener::bind(("0.0.0.0", port)).is_ok()
 }
 
 fn validate_port(port: u16, label: &str) -> Result<(), String> {
@@ -3927,6 +3988,26 @@ mod updater_tests {
         assert!(profile_start_is_blocked(true, false));
         assert!(!profile_start_is_blocked(true, true));
         assert!(!profile_start_is_blocked(false, false));
+    }
+
+    #[test]
+    fn test_port_availability_rejects_a_wildcard_listener() {
+        let listener = match TcpListener::bind(("0.0.0.0", 0)) {
+            Ok(listener) => listener,
+            Err(error) if error.kind() == std::io::ErrorKind::PermissionDenied => return,
+            Err(error) => panic!("Could not create test listener: {error}"),
+        };
+        let port = listener.local_addr().unwrap().port();
+        assert!(!is_port_available(port));
+    }
+
+    #[test]
+    fn test_server_info_ports_accept_numbers_and_strings() {
+        assert_eq!(json_port(&serde_json::json!(3001)), Some(3001));
+        assert_eq!(json_port(&serde_json::json!("5173")), Some(5173));
+        assert_eq!(json_port(&serde_json::json!(" 5173 ")), Some(5173));
+        assert_eq!(json_port(&serde_json::json!(70000)), None);
+        assert_eq!(json_port(&serde_json::json!("invalid")), None);
     }
 
     #[test]

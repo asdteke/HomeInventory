@@ -51,17 +51,34 @@ if (!existsSync(assetsDir)) {
 
 const platformKeys = ['darwin-aarch64', 'darwin-x86_64', 'windows-x86_64', 'linux-x86_64'];
 const platforms = {};
+const preferredSuffixes = {
+  'darwin-aarch64': ['.app.tar.gz'],
+  'darwin-x86_64': ['.app.tar.gz'],
+  'windows-x86_64': ['.exe', '.nsis.zip', '.msi'],
+  'linux-x86_64': ['.AppImage', '.AppImage.tar.gz', '.deb', '.rpm']
+};
 
-for (const sigPath of walk(assetsDir).filter((path) => path.endsWith('.sig'))) {
-  const sigName = basename(sigPath);
-  const artifactName = sigName.slice(0, -4);
-  const platform = platformKeys.find((key) => artifactName.includes(`_${key}`));
-  const artifactPath = join(dirname(sigPath), artifactName);
-  if (!platform || !existsSync(artifactPath)) continue;
+const signedArtifacts = walk(assetsDir)
+  .filter((path) => path.endsWith('.sig'))
+  .map((sigPath) => {
+    const artifactName = basename(sigPath).slice(0, -4);
+    const platform = platformKeys.find((key) => artifactName.includes(`_${key}`));
+    const artifactPath = join(dirname(sigPath), artifactName);
+    return { sigPath, artifactName, artifactPath, platform };
+  })
+  .filter((candidate) => candidate.platform && existsSync(candidate.artifactPath));
+
+for (const platform of platformKeys) {
+  const candidates = signedArtifacts.filter((candidate) => candidate.platform === platform);
+  const preferred = preferredSuffixes[platform]
+    .map((suffix) => candidates.find((candidate) => candidate.artifactName.endsWith(suffix)))
+    .find(Boolean);
+  const selected = preferred || candidates.sort((a, b) => a.artifactName.localeCompare(b.artifactName))[0];
+  if (!selected) continue;
 
   platforms[platform] = {
-    signature: readFileSync(sigPath, 'utf8').trim(),
-    url: assetUrl(baseUrl, artifactName)
+    signature: readFileSync(selected.sigPath, 'utf8').trim(),
+    url: assetUrl(baseUrl, selected.artifactName)
   };
 }
 

@@ -439,8 +439,19 @@ jobs:
             --assets-dir release-assets \
             --version "${{ needs.managed-app.outputs.app_version }}"
 
+      - name: Stage focused public release assets
+        run: |
+          node scripts/stage-public-release-assets.mjs \
+            --source release-assets \
+            --output public-release-assets \
+            --version "${{ needs.managed-app.outputs.app_version }}"
+          node scripts/verify-tauri-release-assets.mjs \
+            --assets-dir public-release-assets \
+            --version "${{ needs.managed-app.outputs.app_version }}" \
+            --public
+
       - name: List release assets
-        run: ls -la release-assets
+        run: ls -la public-release-assets
 
       - name: Replace existing release
         shell: bash
@@ -456,4 +467,14 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ needs.managed-app.outputs.release_tag }}
-          files: release-assets/*
+          name: HomeInventory ${{ needs.managed-app.outputs.release_tag }}
+          body: |
+            ## Recommended downloads
+
+            - **macOS (Apple Silicon):** the `darwin-aarch64.dmg` file
+            - **macOS (Intel):** the `darwin-x86_64.dmg` file
+            - **Windows:** the `windows-x86_64.exe` file
+            - **Linux:** the `linux-x86_64.AppImage` file
+
+            The remaining files are signed metadata used automatically by HomeInventory updates.
+          files: public-release-assets/*

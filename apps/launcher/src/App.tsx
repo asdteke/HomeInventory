@@ -92,6 +92,8 @@ type PortCheckResult = {
   frontendOk: boolean;
   suggestedBackendPort: number;
   suggestedFrontendPort: number;
+  existingHomeInventory: boolean;
+  existingFrontendUrl?: string | null;
   message: string;
 };
 
@@ -177,6 +179,7 @@ export function App() {
 
   // User must click to start — no auto-boot
   const [userStarted, setUserStarted] = useState(false);
+  const [autoStartPending, setAutoStartPending] = useState(false);
   const [setupAutoBlocked, setSetupAutoBlocked] = useState(false);
   const [installStartedAt, setInstallStartedAt] = useState<number | null>(null);
   const [elapsedNow, setElapsedNow] = useState(() => Date.now());
@@ -348,9 +351,11 @@ export function App() {
     if (backendPort < 1024 || backendPort > 65535) return 'Local port must be between 1024 and 65535.';
     return '';
   }, [isStoreBuild, portApi, portUi, selProfile]);
-  const portBusy = Boolean(!portInputError && portCheck && !portCheck.ok);
+  const existingHomeInventory = Boolean(portCheck?.existingHomeInventory && portCheck.existingFrontendUrl);
+  const portBusy = Boolean(!portInputError && portCheck && !portCheck.ok && !existingHomeInventory);
+  const checkingPorts = Boolean(selProfile && !portInputError && !portCheck);
   const portBlocked = Boolean(portInputError);
-  const portStatusBlocked = Boolean(portInputError || (portCheck && !portCheck.ok));
+  const portStatusBlocked = Boolean(portInputError || (portCheck && !portCheck.ok && !existingHomeInventory));
   const portMessage = portInputError || portCheck?.message || 'Ports are available.';
   const launchBackendPort = portBusy && portCheck ? portCheck.suggestedBackendPort : selectedBackendPort;
   const launchFrontendPort = isStoreBuild
@@ -369,7 +374,9 @@ export function App() {
   const projectRootInvalid = !isStoreBuild && Boolean(snapshot?.projectRoot.trim() && !snapshot.setup.projectRootValid);
   const projectRootInstallable = !isStoreBuild && Boolean(snapshot?.setup.projectRootInstallable);
   const projectRootBlocked = !isStoreBuild && (projectRootMissing || (projectRootInvalid && !projectRootInstallable));
-  const visibleLaunchNotice = isStoreBuild && !ready
+  const visibleLaunchNotice = existingHomeInventory
+    ? portMessage
+    : isStoreBuild && !ready
     ? 'HomeInventory Local will prepare its bundled app files and local runtime from the Microsoft Store package.'
     : projectRootMissing
     ? 'Choose an empty install folder or an existing HomeInventory folder.'
@@ -504,6 +511,7 @@ export function App() {
       ? `${lastError.source}: ${lastError.message}`
       : 'HomeInventory stopped before it finished starting. Open Developer Tools for logs.';
     setNotice(current => current === nextNotice ? current : nextNotice);
+    setUserStarted(false);
   }, [active, busy, ready, serverReady, snapshot, stopped, userStarted]);
 
   useEffect(() => {
@@ -518,6 +526,8 @@ export function App() {
       return;
     }
 
+    setPortCheck(null);
+
     if (isStoreBuild) {
       setPortCheck({
         ok: true,
@@ -527,6 +537,8 @@ export function App() {
         frontendOk: true,
         suggestedBackendPort: selectedBackendPort,
         suggestedFrontendPort: selectedBackendPort,
+        existingHomeInventory: false,
+        existingFrontendUrl: null,
         message: 'Local port is valid.',
       });
       return;
@@ -543,6 +555,8 @@ export function App() {
           frontendOk: true,
           suggestedBackendPort: selectedBackendPort,
           suggestedFrontendPort: selectedFrontendPort,
+          existingHomeInventory: false,
+          existingFrontendUrl: null,
           message: 'Ports look valid in browser preview.',
         });
         return;
@@ -563,6 +577,8 @@ export function App() {
             frontendOk: false,
             suggestedBackendPort: selectedBackendPort,
             suggestedFrontendPort: selectedFrontendPort,
+            existingHomeInventory: false,
+            existingFrontendUrl: null,
             message: String(e),
           });
         }
@@ -600,6 +616,16 @@ export function App() {
     requestedBackendPort = launchBackendPort,
     requestedFrontendPort = launchFrontendPort,
   ) => {
+    if (checkingPorts) {
+      setNotice('Checking local ports before launch…');
+      return;
+    }
+    if (existingHomeInventory && portCheck?.existingFrontendUrl) {
+      setAutoStartPending(false);
+      setUserStarted(false);
+      await run('open-existing', () => invoke('open_app', { url: portCheck.existingFrontendUrl }));
+      return;
+    }
     if (portBlocked) {
       setNotice(portMessage);
       return;
@@ -611,6 +637,7 @@ export function App() {
       setPortUi(String(frontendPort));
       setNotice(`Default ports were busy. Launching on ${backendPort}/${frontendPort}.`);
     }
+    setUserStarted(true);
     setStopped(false);
     setServerReady(false);
     if (!hasTauriRuntime()) {
@@ -630,13 +657,18 @@ export function App() {
       setNotice(`Starting ${p.name}: simulated in browser mode.`);
       return;
     }
-    await run(`start-${p.id}`, () => invoke('start_profile', {
+    const started = await run(`start-${p.id}`, () => invoke('start_profile', {
       request: { profileId: p.id, backendPort, frontendPort, overrides: overrides(settings) },
     }));
+    if (!started) {
+      setAutoStartPending(false);
+      setUserStarted(false);
+    }
   };
 
   const doStop = async () => {
     setStopped(true); setServerReady(false); setShowDevPanel(false);
+    setAutoStartPending(false); setUserStarted(false);
     if (!hasTauriRuntime()) {
       setSnapshot(prev => prev ? {
         ...prev,
@@ -655,6 +687,7 @@ export function App() {
     setInstallStartedAt(null);
     if (!ok) {
       setSetupAutoBlocked(true);
+      setAutoStartPending(false);
       setUserStarted(false);
       return false;
     }
@@ -711,19 +744,14 @@ export function App() {
     await doStart(p, backendPort, frontendPort);
   };
 
-  /* ── Auto-boot (only after user clicks Start) ── */
+  /* ── Continue once after a user-requested first-time setup ── */
   useEffect(() => {
-    if (userStarted && hasTauriRuntime() && snapshot && !ready && !busy && !setupAutoBlocked && !projectRootBlocked && snapshot.setup.node && snapshot.setup.npm) {
-      doInstall(true);
-    }
-  }, [snapshot, ready, busy, setupAutoBlocked, projectRootBlocked, userStarted]);
-
-  useEffect(() => {
-    if (userStarted && hasTauriRuntime() && snapshot && ready && !snapshot.activeProfileId && !busy && !stopped) {
+    if (autoStartPending && userStarted && hasTauriRuntime() && snapshot && ready && !snapshot.activeProfileId && !busy && !stopped && portCheck) {
+      setAutoStartPending(false);
       const dp = snapshot.profiles.find(p => p.id === 'homeinventory');
       if (dp) doStart(dp);
     }
-  }, [snapshot, ready, busy, stopped, userStarted]);
+  }, [autoStartPending, snapshot, ready, busy, stopped, userStarted, portCheck]);
 
   useEffect(() => {
     if (busy !== 'install') return;
@@ -791,13 +819,14 @@ export function App() {
                     return;
                   }
                   setSetupAutoBlocked(false);
+                  setAutoStartPending(true);
                   setUserStarted(true);
                   doInstall(false);
                 }}
-                disabled={Boolean(busy) || portBlocked}
+                disabled={Boolean(busy) || portBlocked || checkingPorts}
               >
-                {busy ? <Loader2 size={16} className="spin" /> : <Play size={16} />}
-                {isStoreBuild ? 'Launch HomeInventory Local' : projectRootBlocked ? 'Choose Install Folder' : projectRootInstallable ? 'Install & Launch' : portBusy ? `Launch on ${launchBackendPort}/${launchFrontendPort}` : 'Initialize & Launch'}
+                {busy || checkingPorts ? <Loader2 size={16} className="spin" /> : <Play size={16} />}
+                {checkingPorts ? 'Checking local ports…' : isStoreBuild ? 'Launch HomeInventory Local' : projectRootBlocked ? 'Choose Install Folder' : projectRootInstallable ? 'Install & Launch' : existingHomeInventory ? 'Open Running HomeInventory' : portBusy ? `Launch on ${launchBackendPort}/${launchFrontendPort}` : 'Initialize & Launch'}
               </button>
 
               {visibleLaunchNotice && (
@@ -1014,7 +1043,7 @@ export function App() {
 
           <button
             className="btn-primary"
-            disabled={Boolean(busy) || checkingUpdates || Boolean(updateProgress) || !selProfile || portBlocked || (updateAvailable && updateBlockedByNode)}
+            disabled={Boolean(busy) || checkingUpdates || checkingPorts || Boolean(updateProgress) || !selProfile || portBlocked || (updateAvailable && updateBlockedByNode)}
             onClick={() => {
               if (projectRootBlocked) {
                 chooseInstallFolder();
@@ -1027,8 +1056,10 @@ export function App() {
               if (selProfile) doLaunch(selProfile);
             }}
           >
-            {busy?.startsWith('start-') || checkingUpdates ? <Loader2 size={16} className="spin" /> : updateAvailable ? <Download size={16} /> : <Play size={16} />}
-            {checkingUpdates
+            {busy?.startsWith('start-') || checkingUpdates || checkingPorts ? <Loader2 size={16} className="spin" /> : updateAvailable ? <Download size={16} /> : <Play size={16} />}
+            {checkingPorts
+              ? 'Checking local ports…'
+              : checkingUpdates
               ? 'Checking for updates…'
               : updateAvailable
                 ? `Update App to v${updateResult?.latestAppVersion}`
@@ -1036,6 +1067,8 @@ export function App() {
                   ? startButtonLabel
                   : projectRootBlocked
                     ? 'Choose Install Folder'
+                    : existingHomeInventory
+                      ? 'Open Running HomeInventory'
                     : portBusy
                       ? `Launch on ${launchBackendPort}/${launchFrontendPort}`
                       : startButtonLabel}
