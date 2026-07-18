@@ -13,6 +13,7 @@ All notable changes to HomeInventory are documented here.
 - **Performance-aware glass styling:** Consolidated visual tokens, reduced expensive effects where they do not add clarity, and added reduced-motion and constrained-device fallbacks.
 - **Brand isolation:** Kept public HomeInventory assets and PWA metadata separate from optional local branding overlays; private/local brand directories are excluded from Git and from launcher-managed app archives.
 - **Signed update enforcement:** Online managed-app manifests must now carry a valid Ed25519 signature. Release generation fails when its signing key is missing, and the launcher rejects empty or explicitly unsigned manifests.
+- **Coordinated launcher updates:** Re-enabled the signed Tauri updater with a pinned public key, required complete updater assets in the release workflow, and blocked partial updates whose launcher and managed-app versions differ.
 - **Launcher packaging:** Updated the launcher, Tauri, Rust, and managed-app archive metadata to `2.5.0`, retained platform package checks, and documented signing/notarization requirements in one release checklist.
 - **Dependency security:** Updated production and tooling dependencies, kept moderate-or-higher npm audits in CI, and retained unit coverage for manifest signature and archive policy checks.
 
@@ -21,6 +22,7 @@ All notable changes to HomeInventory are documented here.
 - Run `npm ci`, `npm ci --prefix client`, and `npm run build` after pulling the release.
 - Back up the SQLite database and uploads before upgrading a self-hosted installation.
 - Launcher publishers must configure the managed-app manifest key. Unsigned online manifests are intentionally rejected in v2.5.0.
+- Launcher installations older than v2.5.0 require one final manual v2.5.0 launcher install; subsequent coordinated releases update the launcher and managed app together.
 - Local/private brand overlays are not part of the open-source source archive or the HomeInventory launcher bundle.
 
 ## v2.4.0 - Inventory Operations, Labels, Alerts, and Backup Media

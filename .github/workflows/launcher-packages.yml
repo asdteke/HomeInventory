@@ -15,6 +15,9 @@ on:
         description: "Release tag to use when publish_release is true, for example v2.5.0"
         required: false
         default: ""
+  push:
+    tags:
+      - "v*"
 
 permissions:
   contents: write
@@ -61,11 +64,21 @@ jobs:
         shell: bash
         run: |
           APP_VERSION="$(node -p "require('./package.json').version")"
-          RELEASE_TAG="${{ github.event.inputs.release_tag }}"
-          SHOULD_PUBLISH="${{ github.event.inputs.publish_release }}"
+          if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
+            RELEASE_TAG="${GITHUB_REF_NAME}"
+            SHOULD_PUBLISH="true"
+          else
+            RELEASE_TAG="${{ github.event.inputs.release_tag }}"
+            SHOULD_PUBLISH="${{ github.event.inputs.publish_release }}"
+          fi
 
           if [[ "${SHOULD_PUBLISH}" == "true" && -z "${RELEASE_TAG}" ]]; then
             RELEASE_TAG="v${APP_VERSION}"
+          fi
+
+          if [[ "${SHOULD_PUBLISH}" == "true" && "${RELEASE_TAG}" != "v${APP_VERSION}" ]]; then
+            echo "::error::Release tag ${RELEASE_TAG} does not match app and launcher version v${APP_VERSION}."
+            exit 1
           fi
 
           echo "app_version=${APP_VERSION}" >> "${GITHUB_OUTPUT}"
@@ -83,6 +96,11 @@ jobs:
           if [[ "${{ steps.version.outputs.should_publish }}" != "true" ]]; then
             echo "Skipping managed app manifest for non-publishing package build."
             exit 0
+          fi
+
+          if [[ -z "${HOMEINVENTORY_APP_MANIFEST_PRIVATE_KEY_PEM}" ]]; then
+            echo "::error::HOMEINVENTORY_APP_MANIFEST_PRIVATE_KEY_PEM is required for release publishing."
+            exit 1
           fi
 
           node scripts/create-app-release-manifest.mjs \
@@ -180,8 +198,11 @@ jobs:
         env:
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
         run: |
-          if [[ -z "${TAURI_SIGNING_PRIVATE_KEY}" ]]; then
-            echo "::warning::TAURI_SIGNING_PRIVATE_KEY is missing. Building launcher without updater signatures."
+          if [[ "${{ needs.managed-app.outputs.should_publish }}" == "true" && -z "${TAURI_SIGNING_PRIVATE_KEY}" ]]; then
+            echo "::error::TAURI_SIGNING_PRIVATE_KEY is required for a synchronized release."
+            exit 1
+          elif [[ -z "${TAURI_SIGNING_PRIVATE_KEY}" ]]; then
+            echo "::warning::TAURI_SIGNING_PRIVATE_KEY is missing. This non-release build will not produce updater artifacts."
           fi
 
       - name: Install launcher dependencies
@@ -342,8 +363,13 @@ jobs:
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
         run: |
           if [[ -z "${TAURI_SIGNING_PRIVATE_KEY}" ]]; then
-            echo "Skipping updater artifacts collection (signing key missing)."
-            exit 0
+            if [[ "${{ needs.managed-app.outputs.should_publish }}" == "true" ]]; then
+              echo "::error::Signed updater artifacts are mandatory for release publishing."
+              exit 1
+            else
+              echo "Skipping updater artifacts collection for a non-release build."
+              exit 0
+            fi
           fi
           TARGET_DIR="apps/launcher/src-tauri/target"
           if [ -n "${{ matrix.tauri_target }}" ]; then
@@ -396,8 +422,8 @@ jobs:
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
         run: |
           if [[ -z "${TAURI_SIGNING_PRIVATE_KEY}" ]]; then
-            echo "Skipping Tauri latest.json generation (signing key missing)."
-            exit 0
+            echo "::error::TAURI_SIGNING_PRIVATE_KEY is required to publish latest.json."
+            exit 1
           fi
           node scripts/create-tauri-latest-json.mjs \
             --assets-dir release-assets \
@@ -407,8 +433,24 @@ jobs:
             --base-url "https://github.com/asdteke/HomeInventory/releases/download/${{ needs.managed-app.outputs.release_tag }}" \
             --notes "HomeInventory Launcher ${{ needs.managed-app.outputs.app_version }}"
 
+      - name: Verify synchronized release assets
+        run: |
+          node scripts/verify-tauri-release-assets.mjs \
+            --assets-dir release-assets \
+            --version "${{ needs.managed-app.outputs.app_version }}"
+
       - name: List release assets
         run: ls -la release-assets
+
+      - name: Replace existing release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ needs.managed-app.outputs.release_tag }}
+        run: |
+          if gh release view "${RELEASE_TAG}" >/dev/null 2>&1; then
+            gh release delete "${RELEASE_TAG}" --yes
+          fi
 
       - name: Publish release assets
         uses: softprops/action-gh-release@v2

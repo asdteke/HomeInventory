@@ -18,6 +18,7 @@ use std::{
     time::{Duration, SystemTime, UNIX_EPOCH},
 };
 use tauri::{Emitter, Manager, State};
+use tauri_plugin_updater::UpdaterExt;
 
 #[cfg(unix)]
 use std::os::unix::process::CommandExt;
@@ -916,6 +917,7 @@ async fn is_server_ready(port: u16) -> bool {
 pub fn run() {
     tauri::Builder::default()
         .manage(LauncherState::default())
+        .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_process::init())
         .invoke_handler(tauri::generate_handler![
             detect_tools,
@@ -2901,6 +2903,23 @@ async fn get_node_major_version(_app: &tauri::AppHandle) -> Option<u32> {
     None
 }
 
+fn validate_coordinated_release(
+    current_launcher_version: &str,
+    target_app_version: &str,
+    available_launcher_version: Option<&str>,
+) -> Result<(), String> {
+    let target_launcher_version =
+        available_launcher_version.unwrap_or(current_launcher_version);
+
+    if target_launcher_version != target_app_version {
+        return Err(format!(
+            "Release version mismatch: managed app targets {target_app_version}, but launcher targets {target_launcher_version}. Update was blocked to keep both components synchronized."
+        ));
+    }
+
+    Ok(())
+}
+
 #[tauri::command]
 async fn check_updates(
     app: tauri::AppHandle,
@@ -2936,9 +2955,20 @@ async fn check_updates(
         });
     }
 
-    let latest_launcher_version = launcher_version.clone();
-    let launcher_update_available = false;
-    let launcher_release_notes = None;
+    let launcher_update = app
+        .updater()
+        .map_err(|e| format!("Launcher updater is not available: {e}"))?
+        .check()
+        .await
+        .map_err(|e| format!("Launcher update metadata could not be verified: {e}"))?;
+    let latest_launcher_version = launcher_update
+        .as_ref()
+        .map(|update| update.version.clone())
+        .unwrap_or_else(|| launcher_version.clone());
+    let launcher_update_available = launcher_update.is_some();
+    let launcher_release_notes = launcher_update
+        .as_ref()
+        .and_then(|update| update.body.clone());
 
     let mut latest_app_version = current_app_version.clone();
     let mut app_update_available = false;
@@ -3019,6 +3049,14 @@ async fn check_updates(
     if launcher_update_available {
         required_actions.push("launcherUpdate".to_string());
     }
+
+    validate_coordinated_release(
+        &launcher_version,
+        &latest_app_version,
+        launcher_update
+            .as_ref()
+            .map(|update| update.version.as_str()),
+    )?;
 
     Ok(UpdateCheckResult {
         current_app_version,
@@ -3227,6 +3265,21 @@ async fn run_update_flow(
         )
     };
 
+    let launcher_version = env!("CARGO_PKG_VERSION").to_string();
+    let launcher_update = app
+        .updater()
+        .map_err(|e| format!("Launcher updater is not available: {e}"))?
+        .check()
+        .await
+        .map_err(|e| format!("Launcher update metadata could not be verified: {e}"))?;
+    validate_coordinated_release(
+        &launcher_version,
+        &manifest.version,
+        launcher_update
+            .as_ref()
+            .map(|update| update.version.as_str()),
+    )?;
+
     let node_major = get_node_major_version(app).await.unwrap_or(0);
     if node_major > 0 && node_major < manifest.node_major {
         return Err(format!(
@@ -3416,9 +3469,7 @@ async fn run_update_flow(
         0.95,
         None,
     );
-    // Keep launcher self-update installation disabled until the rollout policy is enabled.
-    /*
-    if let Ok(Some(update)) = app.updater().map_err(|e| e.to_string())?.check().await {
+    if let Some(update) = launcher_update {
         emit_progress(
             app,
             "SelfUpdating",
@@ -3427,19 +3478,12 @@ async fn run_update_flow(
             None,
         );
         let _ = stop_all_internal(state);
-        if let Err(e) = update.download_and_install(|_, _| {}, || {}).await {
-            emit_progress(
-                app,
-                "Failed",
-                &format!("Launcher self-update failed: {e}"),
-                1.0,
-                Some(e.to_string()),
-            );
-        } else {
-            app.restart();
-        }
+        update
+            .download_and_install(|_, _| {}, || {})
+            .await
+            .map_err(|e| format!("Launcher self-update failed: {e}"))?;
+        app.restart();
     }
-    */
 
     Ok(())
 }
@@ -3893,6 +3937,18 @@ mod updater_tests {
             &before,
             &Some("2.3.0".to_string())
         ));
+    }
+
+    #[test]
+    fn test_coordinated_release_accepts_matching_app_and_launcher_versions() {
+        assert!(validate_coordinated_release("2.4.0", "2.5.0", Some("2.5.0")).is_ok());
+        assert!(validate_coordinated_release("2.5.0", "2.5.0", None).is_ok());
+    }
+
+    #[test]
+    fn test_coordinated_release_rejects_partial_updates() {
+        assert!(validate_coordinated_release("2.4.0", "2.5.0", None).is_err());
+        assert!(validate_coordinated_release("2.5.0", "2.5.0", Some("2.6.0")).is_err());
     }
 
     #[test]

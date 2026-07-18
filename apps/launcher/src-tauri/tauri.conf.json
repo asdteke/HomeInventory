@@ -6,7 +6,7 @@
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://127.0.0.1:1420",
-    "beforeBuildCommand": "npm run build",
+    "beforeBuildCommand": "node ../../scripts/verify-managed-app-archive.mjs && npm run build",
     "frontendDist": "../dist"
   },
   "app": {
@@ -27,6 +27,7 @@
   },
   "bundle": {
     "active": true,
+    "createUpdaterArtifacts": true,
     "targets": "all",
     "resources": [
       "resources/homeinventory-app.tar.gz"
@@ -53,6 +54,17 @@
           "x": 480,
           "y": 170
         }
+      }
+    }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEI3RjE5RDlGNzREMUQ4N0EKUldSNjJORjBuNTN4dDZvNXRZUXlHNXZOaFp4Vk8yQit2TU9JR3dYNW1heFRLNktaOUpXYmRwVnoK",
+      "endpoints": [
+        "https://github.com/asdteke/HomeInventory/releases/latest/download/latest.json"
+      ],
+      "windows": {
+        "installMode": "passive"
       }
     }
   }

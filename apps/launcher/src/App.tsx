@@ -24,6 +24,7 @@ import {
   RefreshCw,
 } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import launcherPackage from '../package.json';
 import logoFull from './logo-full.svg';
 import logoSymbolLight from './logo-symbol-light.svg';
 import logoSymbolLightSvg from './logo-symbol-light.svg?raw';
@@ -99,6 +100,8 @@ type LauncherSettings = {
 };
 
 type PathKind = 'project' | 'node' | 'npm';
+
+const LAUNCHER_VERSION = launcherPackage.version;
 
 const defaultSettings: LauncherSettings = {
   projectPath: '', nodePath: '', npmPath: '', autoOpen: true,
@@ -183,6 +186,7 @@ export function App() {
   const [checkingUpdates, setCheckingUpdates] = useState(false);
   const [updateProgress, setUpdateProgress] = useState<{ state: string; message: string; progress: number; error?: string | null } | null>(null);
   const [updateNotice, setUpdateNotice] = useState('');
+  const [initialUpdateCheckStarted, setInitialUpdateCheckStarted] = useState(false);
 
   /* ── Refresh ── */
   const refresh = useCallback(async () => {
@@ -250,15 +254,15 @@ export function App() {
       if (!hasTauriRuntime()) {
         await new Promise((r) => setTimeout(r, 1000));
         setUpdateResult({
-          currentAppVersion: snapshot?.appVersion || '2.4.0',
-          latestAppVersion: '2.4.0',
-          currentLauncherVersion: snapshot?.launcherVersion || '2.4.0',
-          latestLauncherVersion: '2.4.0',
-          appReleaseNotes: 'Inventory operations, label printing, actionable alerts, and backup media support.',
+          currentAppVersion: snapshot?.appVersion || LAUNCHER_VERSION,
+          latestAppVersion: LAUNCHER_VERSION,
+          currentLauncherVersion: snapshot?.launcherVersion || LAUNCHER_VERSION,
+          latestLauncherVersion: LAUNCHER_VERSION,
+          appReleaseNotes: null,
           launcherReleaseNotes: null,
-          appUpdateAvailable: true,
+          appUpdateAvailable: false,
           launcherUpdateAvailable: false,
-          requiredActions: ['appUpdate'],
+          requiredActions: [],
         });
         return;
       }
@@ -273,6 +277,21 @@ export function App() {
       setCheckingUpdates(false);
     }
   };
+
+  useEffect(() => {
+    if (
+      initialUpdateCheckStarted
+      || !hasTauriRuntime()
+      || !snapshot
+      || snapshot.storeBuild
+      || snapshot.activeProfileId
+    ) {
+      return;
+    }
+
+    setInitialUpdateCheckStarted(true);
+    checkForUpdates();
+  }, [initialUpdateCheckStarted, snapshot?.activeProfileId, snapshot?.launcherVersion, snapshot?.appVersion, snapshot?.storeBuild]);
 
   const triggerUpdate = async () => {
     if (!updateResult) {
@@ -741,7 +760,7 @@ export function App() {
           </div>
           <p className="splash-subtitle">Your private household registry</p>
           <span className="version-badge">
-            {snapshot ? `App v${snapshot.appVersion} · Launcher v${snapshot.launcherVersion} · Local-first` : 'v2.4.0 · Local-first'}
+            {snapshot ? `App v${snapshot.appVersion} · Launcher v${snapshot.launcherVersion} · Local-first` : `v${LAUNCHER_VERSION} · Local-first`}
           </span>
 
           {installing ? (
@@ -904,14 +923,22 @@ export function App() {
     return (
       <div className="running-layout">
         <section className="running-card">
-          <img src={logoFull} alt="HomeInventory" className="running-logo" />
-          <div className="running-status">
-            <span className="status-pulse" />
-            <span>Running locally</span>
+          <header className="running-topbar">
+            <img src={logoFull} alt="HomeInventory" className="running-logo" />
+            <div className="running-status" role="status">
+              <span className="status-pulse" />
+              <span>Running</span>
+            </div>
+          </header>
+
+          <div className="running-intro">
+            <span className="running-eyebrow">Local access</span>
+            <h1>Your inventory is ready.</h1>
+            <p>Open it on this device, or scan the code from another device on the same network.</p>
           </div>
 
           <div className="running-qr">
-            <QrCodeCard url={activeLanUrl} size={296} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
+            <QrCodeCard url={activeLanUrl} size={220} logoSrc={logoSymbolLight} logoSvg={logoSymbolLightSvg} />
             <div className={`lan-status ${lanStatus?.ok ? 'ok' : 'blocked'}`}>
               <Wifi size={12} />
               <span>{lanStatus?.message || 'LAN status is checked after the services bind to the network.'}</span>
@@ -928,15 +955,16 @@ export function App() {
           </button>
 
           <div className="running-meta">
-            <span>{isStoreBuild ? `Local ${active.backendPort}` : `API ${active.backendPort}`}</span>
-            {!isStoreBuild && <span>UI {active.frontendPort}</span>}
+            <span>App v{snapshot.appVersion}</span>
+            <span>Launcher v{snapshot.launcherVersion}</span>
+            <span>{isStoreBuild ? `Port ${active.backendPort}` : `Ports ${active.backendPort}/${active.frontendPort}`}</span>
           </div>
 
           <div className="running-actions" aria-label="App controls">
-            <button className="icon-action" onClick={() => { setDevTab(isStoreBuild ? 'logs' : 'settings'); setShowDevPanel(true); }} title="App settings">
+            <button className="icon-action" onClick={() => { setDevTab(isStoreBuild ? 'logs' : 'settings'); setShowDevPanel(true); }} title="Launcher settings" aria-label="Launcher settings">
               <SlidersHorizontal size={15} />
             </button>
-            <button className="icon-action danger" onClick={doStop} title="Stop services">
+            <button className="icon-action danger" onClick={doStop} title="Stop local services" aria-label="Stop local services">
               <Power size={15} />
             </button>
           </div>
@@ -986,17 +1014,31 @@ export function App() {
 
           <button
             className="btn-primary"
-            disabled={Boolean(busy) || !selProfile || portBlocked}
+            disabled={Boolean(busy) || checkingUpdates || Boolean(updateProgress) || !selProfile || portBlocked || (updateAvailable && updateBlockedByNode)}
             onClick={() => {
               if (projectRootBlocked) {
                 chooseInstallFolder();
                 return;
               }
+              if (updateAvailable) {
+                triggerUpdate();
+                return;
+              }
               if (selProfile) doLaunch(selProfile);
             }}
           >
-            {busy?.startsWith('start-') ? <Loader2 size={16} className="spin" /> : <Play size={16} />}
-            {isStoreBuild ? startButtonLabel : projectRootBlocked ? 'Choose Install Folder' : portBusy ? `Launch on ${launchBackendPort}/${launchFrontendPort}` : startButtonLabel}
+            {busy?.startsWith('start-') || checkingUpdates ? <Loader2 size={16} className="spin" /> : updateAvailable ? <Download size={16} /> : <Play size={16} />}
+            {checkingUpdates
+              ? 'Checking for updates…'
+              : updateAvailable
+                ? `Update App to v${updateResult?.latestAppVersion}`
+                : isStoreBuild
+                  ? startButtonLabel
+                  : projectRootBlocked
+                    ? 'Choose Install Folder'
+                    : portBusy
+                      ? `Launch on ${launchBackendPort}/${launchFrontendPort}`
+                      : startButtonLabel}
           </button>
 
           {visibleLaunchNotice && (
@@ -1618,8 +1660,8 @@ function mockSnapshot(settings: LauncherSettings): LauncherSnapshot {
   const data = '/Users/demo/Library/Application Support/net.homeinventory.launcher';
   const runningPreview = new URLSearchParams(window.location.search).get('preview') === 'running';
   return {
-    launcherVersion: '2.4.0',
-    appVersion: '2.4.0',
+    launcherVersion: LAUNCHER_VERSION,
+    appVersion: LAUNCHER_VERSION,
     distribution: 'standard',
     storeBuild: false,
     projectRoot: root, appDataDir: data, activeProfileId: runningPreview ? 'homeinventory' : null,

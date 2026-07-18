@@ -36,18 +36,20 @@ npm audit --audit-level=moderate --prefix apps/launcher
 ## 3. Signing and integrity
 
 - [ ] Verify the GitHub Actions publishing environment contains `HOMEINVENTORY_APP_MANIFEST_PRIVATE_KEY_PEM`.
-- [ ] If updater artifacts are expected, verify `TAURI_SIGNING_PRIVATE_KEY` and its password are configured.
+- [ ] Verify `TAURI_SIGNING_PRIVATE_KEY` and its optional password are configured; updater artifacts are mandatory for public releases.
 - [ ] If a trusted macOS release is expected, configure the Developer ID and notarization secrets listed in [`github-actions-release.md`](github-actions-release.md).
 - [ ] Confirm `homeinventory-app-manifest.json` contains a non-empty `signatureV2` that is not `unsigned`; the legacy `signature` field remains `unsigned` for pre-v2.5 launcher compatibility.
 - [ ] Confirm the manifest SHA-256 matches `homeinventory-app.tar.gz`.
 - [ ] Confirm the launcher Rust signature tests pass and reject both tampered and unsigned manifests.
+- [ ] Confirm `latest.json` and the managed-app manifest report the same version and contain signed updater entries for macOS ARM64, macOS Intel, Windows x64, and Linux x64.
 - [ ] Verify macOS artifacts with `codesign --verify --deep --strict --verbose=2`; for notarized builds also run `xcrun stapler validate`.
 
 ## 4. Publish and smoke test
 
 - [ ] Tag exactly the version reported by `npm run version:check`.
 - [ ] Run `Launcher Packages` with `publish_release=true` and the matching tag.
-- [ ] Confirm all expected platform packages and managed-app assets are attached.
+- [ ] Confirm all expected platform installers, four updater packages/signatures, `latest.json`, and managed-app assets are attached.
+- [ ] From v2.5.0 onward, update a previous coordinated installation and confirm both **App** and **Launcher** display the new version after restart.
 - [ ] Install on clean macOS, Windows, and Linux environments where available.
 - [ ] Start a fresh launcher profile, verify dependency/port checks, open the browser handoff, create an account and home, restart services, and confirm data isolation.
 - [ ] Test backup creation and confirm no secret or private-brand files are present in the archive.
