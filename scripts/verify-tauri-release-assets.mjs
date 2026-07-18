@@ -94,8 +94,8 @@ for (const [label, predicate] of installerChecks) {
   if (![...names].some(predicate)) fail(`${label} is missing from the release.`);
 }
 
-if (publicRelease && names.size !== 9) {
-  fail(`Public release should contain exactly 9 focused assets, found ${names.size}.`);
+if (publicRelease && names.size !== 12) {
+  fail(`Public release should contain exactly 12 focused assets, found ${names.size}.`);
 }
 
 console.log(`Verified synchronized HomeInventory ${expectedVersion}${publicRelease ? ' public' : ''} release assets.`);

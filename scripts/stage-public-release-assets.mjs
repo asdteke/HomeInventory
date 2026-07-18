@@ -5,7 +5,8 @@ import {
   readFileSync,
   readdirSync,
   rmSync,
-  statSync
+  statSync,
+  writeFileSync
 } from 'node:fs';
 import { basename, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -28,6 +29,10 @@ function filesIn(directory) {
     .filter((path) => statSync(path).isFile());
 }
 
+function githubAssetName(name) {
+  return name.replace(/\s+/g, '.');
+}
+
 const sourceDir = resolve(repoRoot, readArg('source', 'release-assets'));
 const outputDir = resolve(repoRoot, readArg('output', 'public-release-assets'));
 const expectedVersion = readArg('version');
@@ -44,8 +49,7 @@ if (latest.version !== expectedVersion) {
 
 const selectedNames = new Set([
   'homeinventory-app.tar.gz',
-  'homeinventory-app-manifest.json',
-  'latest.json'
+  'homeinventory-app-manifest.json'
 ]);
 
 for (const [platform, entry] of Object.entries(latest.platforms || {})) {
@@ -64,6 +68,22 @@ for (const platform of ['darwin-aarch64', 'darwin-x86_64']) {
   selectedNames.add(basename(matches[0]));
 }
 
+for (const [platform, suffixes] of [
+  ['windows-x86_64', ['.msi']],
+  ['linux-x86_64', ['.deb', '.rpm']]
+]) {
+  for (const suffix of suffixes) {
+    const matches = filesIn(sourceDir).filter((path) => {
+      const name = basename(path);
+      return name.includes(`_${platform}`) && name.endsWith(suffix);
+    });
+    if (matches.length !== 1) {
+      fail(`Expected exactly one ${platform} ${suffix} package, found ${matches.length}.`);
+    }
+    selectedNames.add(basename(matches[0]));
+  }
+}
+
 rmSync(outputDir, { recursive: true, force: true });
 mkdirSync(outputDir, { recursive: true });
 
@@ -71,7 +91,15 @@ for (const name of selectedNames) {
   if (!name) fail('An updater URL resolved to an empty asset name.');
   const source = join(sourceDir, name);
   if (!existsSync(source)) fail(`Selected release asset is missing: ${name}`);
-  copyFileSync(source, join(outputDir, name));
+  copyFileSync(source, join(outputDir, githubAssetName(name)));
 }
 
-console.log(`Staged ${selectedNames.size} public HomeInventory ${expectedVersion} release assets.`);
+
+for (const entry of Object.values(latest.platforms || {})) {
+  const rawName = decodeURIComponent(new URL(entry.url).pathname.split('/').pop() || '');
+  const safeName = githubAssetName(rawName);
+  entry.url = `${entry.url.slice(0, entry.url.lastIndexOf('/') + 1)}${encodeURIComponent(safeName)}`;
+}
+writeFileSync(join(outputDir, 'latest.json'), `${JSON.stringify(latest, null, 2)}\n`);
+
+console.log(`Staged ${selectedNames.size + 1} public HomeInventory ${expectedVersion} release assets.`);

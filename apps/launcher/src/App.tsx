@@ -342,6 +342,7 @@ export function App() {
   const [selId, setSelId] = useState('homeinventory');
   useEffect(() => { if (snapshot?.activeProfileId) setSelId(snapshot.activeProfileId); }, [snapshot?.activeProfileId]);
   const selProfile = profiles.find(p => p.id === selId) || profiles[0] || null;
+  const selectedProfileId = selProfile?.id ?? null;
   const selectedBackendPort = selProfile ? parsePort(portApi, selProfile.backendPort) : 3001;
   const selectedFrontendPort = selProfile ? parsePort(portUi, selProfile.frontendPort) : 5173;
   const portInputError = useMemo(() => {
@@ -353,7 +354,7 @@ export function App() {
   }, [isStoreBuild, portApi, portUi, selProfile]);
   const existingHomeInventory = Boolean(portCheck?.existingHomeInventory && portCheck.existingFrontendUrl);
   const portBusy = Boolean(!portInputError && portCheck && !portCheck.ok && !existingHomeInventory);
-  const checkingPorts = Boolean(selProfile && !portInputError && !portCheck);
+  const checkingPorts = Boolean(selectedProfileId && !portInputError && !portCheck);
   const portBlocked = Boolean(portInputError);
   const portStatusBlocked = Boolean(portInputError || (portCheck && !portCheck.ok && !existingHomeInventory));
   const portMessage = portInputError || portCheck?.message || 'Ports are available.';
@@ -376,6 +377,8 @@ export function App() {
   const projectRootBlocked = !isStoreBuild && (projectRootMissing || (projectRootInvalid && !projectRootInstallable));
   const visibleLaunchNotice = existingHomeInventory
     ? portMessage
+    : portBusy
+      ? portMessage
     : isStoreBuild && !ready
     ? 'HomeInventory Local will prepare its bundled app files and local runtime from the Microsoft Store package.'
     : projectRootMissing
@@ -521,7 +524,7 @@ export function App() {
   }, [active, serverReady, settings.autoOpen, openedUrl]);
 
   useEffect(() => {
-    if (!selProfile || portInputError) {
+    if (!selectedProfileId || portInputError) {
       setPortCheck(null);
       return;
     }
@@ -589,7 +592,7 @@ export function App() {
       cancelled = true;
       window.clearTimeout(timer);
     };
-  }, [isStoreBuild, selProfile, selectedBackendPort, selectedFrontendPort, portInputError]);
+  }, [isStoreBuild, selectedProfileId, selectedBackendPort, selectedFrontendPort, portInputError]);
 
   /* ── Actions ── */
   async function run(label: string, action: () => Promise<CommandResult | unknown>): Promise<boolean> {
@@ -1511,10 +1514,10 @@ function DevPanelContent({
               </div>
             )}
 
-            {!checkingUpdates && !updateProgress && !updateResult && (
+            {!checkingUpdates && !updateProgress && !updateResult && !updateNotice && (
               <div className="update-status-card">
-                <div className="error-box" style={{ margin: 0 }}>
-                  <AlertCircle size={16} />
+                <div className="update-guidance-box">
+                  <Info size={16} />
                   <div>
                     <strong>Check updates before installing</strong>
                     <p>
@@ -1534,10 +1537,20 @@ function DevPanelContent({
 
             {!checkingUpdates && !updateProgress && updateNotice && !updateResult && (
               <div className="update-status-card">
-                <div className="error-box" style={{ margin: 0 }}>
-                  <AlertCircle size={16} />
+                <div className="version-info-grid">
+                  <div className="version-info-item">
+                    <span className="version-info-label">Managed App</span>
+                    <span className="version-info-value">v{snapshot.appVersion}</span>
+                  </div>
+                  <div className="version-info-item">
+                    <span className="version-info-label">Launcher</span>
+                    <span className="version-info-value">v{snapshot.launcherVersion}</span>
+                  </div>
+                </div>
+                <div className="update-guidance-box unavailable">
+                  <Info size={16} />
                   <div>
-                    <strong>Update Status Info</strong>
+                    <strong>Update information is temporarily unavailable</strong>
                     <p>{updateNotice}</p>
                   </div>
                 </div>

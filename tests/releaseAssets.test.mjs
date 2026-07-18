@@ -16,7 +16,7 @@ function runScript(script, args) {
   assert.equal(result.status, 0, `${script} failed:\n${result.stdout}\n${result.stderr}`);
 }
 
-test('public release contains only recommended installers and required updater files', () => {
+test('public release contains supported installers and required updater files without signature sidecars', () => {
   const root = mkdtempSync(join(tmpdir(), 'homeinventory-release-assets-'));
   const source = join(root, 'source');
   const output = join(root, 'public');
@@ -68,8 +68,16 @@ test('public release contains only recommended installers and required updater f
   ]);
 
   const names = readdirSync(output).sort();
-  assert.equal(names.length, 9);
+  assert.equal(names.length, 12);
   assert.equal(names.some((name) => name.endsWith('.sig')), false);
-  assert.equal(names.some((name) => name.endsWith('.msi')), false);
-  assert.equal(names.some((name) => name.endsWith('.deb') || name.endsWith('.rpm')), false);
+  assert.equal(names.some((name) => name.endsWith('.msi')), true);
+  assert.equal(names.some((name) => name.endsWith('.deb')), true);
+  assert.equal(names.some((name) => name.endsWith('.rpm')), true);
+
+  const publicLatest = JSON.parse(readFileSync(join(output, 'latest.json'), 'utf8'));
+  for (const entry of Object.values(publicLatest.platforms)) {
+    const name = decodeURIComponent(new URL(entry.url).pathname.split('/').pop());
+    assert.equal(name.includes(' '), false);
+    assert.equal(names.includes(name), true, `latest.json references missing public asset ${name}`);
+  }
 });
