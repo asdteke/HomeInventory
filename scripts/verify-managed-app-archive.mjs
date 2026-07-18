@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { basename, dirname, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
@@ -21,8 +21,8 @@ if (!existsSync(archivePath)) {
 
 const archivePackageResult = spawnSync(
   'tar',
-  ['-xOf', archivePath, './package.json'],
-  { cwd: repoRoot, encoding: 'utf8', shell: false }
+  ['-xOf', basename(archivePath), './package.json'],
+  { cwd: dirname(archivePath), encoding: 'utf8', shell: false }
 );
 
 if (archivePackageResult.status !== 0) {
