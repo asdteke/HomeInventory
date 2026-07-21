@@ -142,6 +142,13 @@ body {
   transition: background-color var(--hi-transition-standard), color var(--hi-transition-standard);
 }
 
+html.dark body {
+  background:
+    radial-gradient(circle at top left, rgba(205, 176, 136, 0.045), transparent 24%),
+    radial-gradient(circle at top right, rgba(74, 125, 100, 0.055), transparent 26%),
+    linear-gradient(180deg, var(--hi-bg-strong) 0%, var(--hi-bg) 58%, var(--hi-bg-strong) 100%);
+}
+
 html[data-brand]:not([data-brand='homeinventory']) body {
   background:
     radial-gradient(circle at top left, rgba(22, 166, 220, 0.09), transparent 22%),
@@ -5633,22 +5640,38 @@ html.dark[data-brand]:not([data-brand='homeinventory']) {
 
 .settings-page .settings-theme-control {
   margin-top: .25rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.settings-page .settings-theme-control .segmented-toggle-v25.is-sliding {
+  min-height: 4.5rem;
   padding: .35rem !important;
-  border-color: var(--settings-border-v2) !important;
+  border: 1px solid var(--settings-border-v2) !important;
   border-radius: 999px !important;
   background: var(--settings-control) !important;
   box-shadow: none !important;
 }
 
-.settings-page .settings-theme-control [role="tablist"] {
+.settings-page .settings-theme-control .segmented-toggle-thumb-v25 {
   border: 0;
   border-radius: 999px;
-  background: transparent;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .14),
+    0 10px 24px color-mix(in srgb, var(--hi-accent) 18%, transparent);
+}
+
+.settings-page .settings-theme-control .segmented-toggle-thumb-v25::after {
+  inset: 1px 8% auto;
+  border-radius: 999px;
 }
 
 .settings-page .settings-theme-control [role="tab"] {
   min-width: 0;
-  min-height: 2.75rem;
+  min-height: 3.8rem;
   border-radius: 999px;
 }
 
@@ -6864,7 +6887,7 @@ html.dark[data-brand]:not([data-brand='homeinventory']) {
 
 .dashboard-recent-list {
   margin-top: .7rem;
-  padding: .15rem .8rem;
+  padding: .25rem .25rem;
   border: 1px solid var(--hi-border-strong);
   border-radius: 1.65rem;
   background: color-mix(in srgb, var(--hi-panel-strong) 90%, transparent);
@@ -6877,16 +6900,21 @@ html.dark[data-brand]:not([data-brand='homeinventory']) {
   min-width: 0;
   grid-template-columns: 3.25rem minmax(0, 1fr);
   align-items: center;
-  padding: .9rem .1rem;
+  padding: .9rem .65rem;
   border-bottom: 1px solid var(--dashboard-divider);
   border-radius: 0;
   background: transparent;
-  transition: background .18s ease;
+  transition: background .18s ease, border-radius .18s ease, border-color .18s ease;
 }
 
 .dashboard-recent-item:hover {
   border-radius: 1.15rem;
   background: var(--dashboard-hover);
+  border-bottom-color: transparent;
+}
+
+.dashboard-recent-item:last-child {
+  border-bottom: none;
 }
 
 .dashboard-item-media {
@@ -8169,6 +8197,131 @@ html.dark[data-brand]:not([data-brand='homeinventory']) {
   background: color-mix(in srgb, var(--hi-panel-muted) 48%, transparent);
 }
 
+/* Borrow tracking — an open status timeline, not a boxed panel. */
+.item-borrow-tracking-v26,
+.item-detail-sections > .item-borrow-tracking-v26,
+.item-detail-layout > .item-borrow-tracking-v26 {
+  min-width: 0;
+  overflow: visible !important;
+  padding: 1.15rem .1rem !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--hi-border-strong) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.item-borrow-header-v26 {
+  display: grid;
+  grid-template-columns: 2.8rem minmax(0, 1fr);
+  align-items: center;
+  gap: .85rem;
+  padding: 0 0 1rem !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+
+.item-borrow-heading-icon-v26 {
+  display: flex;
+  width: 2.8rem;
+  height: 2.8rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem 1rem 1rem .35rem;
+  background: var(--hi-accent-soft);
+  color: var(--hi-accent);
+}
+
+.item-borrow-header-v26 h2 {
+  font-size: 1rem;
+  font-weight: 760;
+}
+
+.item-borrow-header-v26 p {
+  margin-top: .2rem;
+  font-size: .78rem;
+  line-height: 1.5;
+}
+
+.item-borrow-body-v26 {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  gap: clamp(1.25rem, 3vw, 2.6rem) !important;
+  padding: .2rem 0 0 !important;
+  background: transparent !important;
+}
+
+.item-borrow-status-v26 {
+  align-self: start;
+  border-radius: 1.4rem 1.4rem 1.4rem .45rem !important;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 12%, transparent);
+}
+
+.item-borrow-status-v26.is-empty {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  align-items: center;
+  gap: .75rem;
+  min-height: 4.5rem;
+  padding: .85rem 1rem !important;
+  border: 0 !important;
+  background: color-mix(in srgb, var(--hi-accent-soft) 58%, var(--hi-panel-muted)) !important;
+}
+
+.item-borrow-status-v26.is-empty > span {
+  display: flex;
+  width: 2.25rem;
+  height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: .85rem;
+  background: color-mix(in srgb, var(--hi-panel-strong) 78%, transparent);
+  color: var(--hi-accent);
+}
+
+.item-borrow-history-v26 {
+  min-width: 0;
+  padding-left: clamp(1.25rem, 2.5vw, 2rem);
+  border-left: 1px solid var(--hi-border);
+}
+
+.item-borrow-history-v26 > div:first-child {
+  min-height: 2.25rem;
+  margin-bottom: .5rem !important;
+}
+
+.item-borrow-history-v26 > div.space-y-3 > div {
+  border-color: color-mix(in srgb, var(--hi-border) 76%, transparent);
+  border-radius: 1.2rem 1.2rem 1.2rem .4rem;
+  background: color-mix(in srgb, var(--hi-panel-muted) 64%, transparent);
+}
+
+.item-borrow-empty-v26 {
+  padding: .75rem 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  line-height: 1.55;
+}
+
+.item-borrow-tracking-form-v26 {
+  margin-block: .25rem;
+}
+
+@media (max-width: 767px) {
+  .item-borrow-body-v26 {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem !important;
+  }
+
+  .item-borrow-history-v26 {
+    padding-top: 1rem;
+    padding-left: 0;
+    border-top: 1px solid var(--hi-border);
+    border-left: 0;
+  }
+}
+
 /* Inventory card repair */
 .inventory-item-card::before {
   content: '';
@@ -8732,6 +8885,13 @@ html.dark[data-brand]:not([data-brand='homeinventory']) {
   border-left: 1px solid var(--hi-border);
 }
 
+@media (min-width: 768px) {
+  .manager-row-v25:last-child,
+  .manager-row-v25:nth-last-child(2):nth-child(odd) {
+    border-bottom: 0;
+  }
+}
+
 .manager-row-v25 > div:first-child {
   min-width: 0;
 }
@@ -9043,5 +9203,9 @@ html.dark[data-brand]:not([data-brand='homeinventory']) {
   .manager-row-v25:nth-child(even) {
     padding: .85rem .1rem;
     border-left: 0;
+  }
+
+  .manager-row-v25:last-child {
+    border-bottom: 0;
   }
 }

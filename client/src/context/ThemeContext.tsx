@@ -22,7 +22,7 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
-    const [theme, setTheme] = useState<Theme>(() => {
+    const [theme, setThemeState] = useState<Theme>(() => {
         // Check localStorage first
         const saved = localStorage.getItem('theme') as Theme | null;
         if (saved === 'light' || saved === 'dark') return saved;
@@ -38,12 +38,14 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
         localStorage.setItem('theme', theme);
     }, [theme]);
 
+    const setTheme = setThemeState;
+
     // Listen for system theme changes
     useEffect(() => {
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
         const handleChange = (e: MediaQueryListEvent) => {
             if (!localStorage.getItem('theme')) {
-                setTheme(e.matches ? 'dark' : 'light');
+                setThemeState(e.matches ? 'dark' : 'light');
             }
         };
         mediaQuery.addEventListener('change', handleChange);

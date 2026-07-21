@@ -2863,17 +2863,26 @@ fn resolve_current_app_version(
     project_root: Option<&Path>,
     fallback_version: &str,
 ) -> String {
+    installed_app_version(app_data_dir, metadata, project_root)
+        .unwrap_or_else(|| fallback_version.to_string())
+}
+
+fn installed_app_version(
+    app_data_dir: &Path,
+    metadata: &AppUpdaterMetadata,
+    project_root: Option<&Path>,
+) -> Option<String> {
     if let Some(current_version) = metadata.current_version.as_deref() {
         let version_dir = managed_version_dir(app_data_dir, current_version);
         if version_dir.is_dir() {
-            return read_version_from_package_json(&version_dir)
-                .unwrap_or_else(|| current_version.to_string());
+            return Some(
+                read_version_from_package_json(&version_dir)
+                    .unwrap_or_else(|| current_version.to_string()),
+            );
         }
     }
 
-    project_root
-        .and_then(read_version_from_package_json)
-        .unwrap_or_else(|| fallback_version.to_string())
+    project_root.and_then(read_version_from_package_json)
 }
 
 fn verify_manifest_signature(manifest: &AppManifest) -> Result<(), String> {
@@ -2993,12 +3002,12 @@ async fn check_updates(
 
     let overrides = overrides.unwrap_or_default();
     let project_root_dir = project_root_handle(&app, &overrides).ok();
-    let current_app_version = resolve_current_app_version(
+    let current_app_version = installed_app_version(
         &app_data,
         &metadata,
         project_root_dir.as_deref(),
-        &launcher_version,
-    );
+    )
+    .unwrap_or_else(|| "0.0.0".to_string());
 
     if is_store_distribution() {
         return Ok(UpdateCheckResult {
@@ -3457,14 +3466,10 @@ async fn run_update_flow(
         0.6,
         None,
     );
-    let target_version_dir = if let Some(ref path) = overrides.project_path.as_ref().filter(|p| !p.trim().is_empty()) {
-        PathBuf::from(path)
-    } else {
-        app_data
-            .join("managed-app")
-            .join("versions")
-            .join(&manifest.version)
-    };
+    // Updates always install into the launcher's versioned managed-app area.
+    // A manually selected project path may be a development checkout or a
+    // user-owned folder and must never be removed or replaced by the updater.
+    let target_version_dir = managed_version_dir(&app_data, &manifest.version);
     let _ = fs::remove_dir_all(&target_version_dir);
     if let Some(parent) = target_version_dir.parent() {
         fs::create_dir_all(parent).map_err(|e| e.to_string())?;
@@ -3479,7 +3484,9 @@ async fn run_update_flow(
         0.7,
         None,
     );
-    run_dependency_install(app, &target_version_dir, &manifest, &overrides)?;
+    let mut managed_overrides = overrides.clone();
+    managed_overrides.project_path = Some(path_string(&target_version_dir));
+    run_dependency_install(app, &target_version_dir, &manifest, &managed_overrides)?;
 
     let previous_current = metadata.current_version.clone();
     if let Some(previous) = immediate_rollback_version(
@@ -3500,7 +3507,7 @@ async fn run_update_flow(
         "homeinventory",
         None,
         None,
-        Some(overrides.clone()),
+        Some(managed_overrides.clone()),
         true,
     )?;
 
@@ -4239,6 +4246,22 @@ mod updater_tests {
         let version = resolve_current_app_version(&app_data, &metadata, None, "2.2.0");
 
         assert_eq!(version, "2.2.3");
+
+        let _ = fs::remove_dir_all(app_data);
+    }
+
+    #[test]
+    fn test_installed_app_version_is_none_without_a_real_install() {
+        let app_data = std::env::temp_dir().join(format!("hi-no-install-version-test-{}", now()));
+        let metadata = AppUpdaterMetadata {
+            current_version: Some("2.5.0".to_string()),
+            previous_versions: vec![],
+            last_known_good_version: Some("2.5.0".to_string()),
+            update_state: String::new(),
+            rollback_state: String::new(),
+        };
+
+        assert_eq!(installed_app_version(&app_data, &metadata, None), None);
 
         let _ = fs::remove_dir_all(app_data);
     }

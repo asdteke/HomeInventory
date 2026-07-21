@@ -16,8 +16,11 @@ function readCargoVersion(relativePath) {
 
 const versions = new Map([
   ['package.json', readJsonVersion('package.json')],
+  ['package-lock.json', readJsonVersion('package-lock.json')],
   ['client/package.json', readJsonVersion('client/package.json')],
+  ['client/package-lock.json', readJsonVersion('client/package-lock.json')],
   ['apps/launcher/package.json', readJsonVersion('apps/launcher/package.json')],
+  ['apps/launcher/package-lock.json', readJsonVersion('apps/launcher/package-lock.json')],
   ['apps/launcher/src-tauri/tauri.conf.json', readJsonVersion('apps/launcher/src-tauri/tauri.conf.json')],
   ['apps/launcher/src-tauri/Cargo.toml', readCargoVersion('apps/launcher/src-tauri/Cargo.toml')],
 ]);

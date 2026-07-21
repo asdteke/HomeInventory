@@ -475,10 +475,6 @@ export default function Dashboard() {
                             <h3>{t('dashboard.content.empty_title', { defaultValue: 'No recent additions yet' })}</h3>
                             <p>{t('dashboard.content.empty_description', { defaultValue: 'İlk eşyayı eklediğinizde bu alan otomatik dolacak.' })}</p>
                         </div>
-                        <Link to="/items/new" className="btn-primary hidden lg:inline-flex">
-                            <Plus className="h-4 w-4" />
-                            <span>{t('navigation.new_item')}</span>
-                        </Link>
                     </div>
                 )}
             </section>

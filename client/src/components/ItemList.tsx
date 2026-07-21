@@ -1009,18 +1009,14 @@ export default function ItemList() {
                             : t('inventory.empty_title')}</h2>
                         <p>{hasActiveFilters ? t('inventory.empty_filter') : t('inventory.empty_msg')}</p>
                     </div>
-                    <div className="inventory-empty-actions">
-                        {hasActiveFilters && (
+                    {hasActiveFilters && (
+                        <div className="inventory-empty-actions">
                             <button type="button" onClick={clearFilters} className="btn-secondary">
                                 <Search className="h-4 w-4" />
                                 <span>{t('dashboard.filters.remove', { defaultValue: 'Clear Filter' })}</span>
                             </button>
-                        )}
-                        <Link to="/items/new" className="btn-primary inventory-empty-new">
-                            <Plus className="h-5 w-5" />
-                            <span>{t('inventory.add_first')}</span>
-                        </Link>
-                    </div>
+                        </div>
+                    )}
                 </section>
             ) : (
                 <>

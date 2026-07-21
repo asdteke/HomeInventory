@@ -2,7 +2,7 @@ import { Suspense, lazy, useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, Camera, X, Lock, Globe, MapPin, Plus, Loader2, ChevronDown, Check, QrCode, ScanBarcode, Search, ExternalLink, CalendarDays, Edit3, ChevronRight, Download, FileText, Paperclip, Trash2, Upload } from 'lucide-react';
+import { ArrowLeft, Camera, X, Lock, Globe, MapPin, Plus, Loader2, ChevronDown, Check, QrCode, ScanBarcode, Search, ExternalLink, CalendarDays, Edit3, ChevronRight, Download, FileText, Paperclip, Trash2, Upload, ArrowRightLeft, History } from 'lucide-react';
 import SecureImage from './SecureImage';
 import FullscreenImage from './FullscreenImage';
 import { MAX_PHOTO_UPLOAD_MB, isPhotoUploadTooLarge } from '../utils/mediaLimits';
@@ -1373,15 +1373,20 @@ export default function ItemForm() {
                         </div>
                     </div>
 
-                    <div className="card overflow-hidden p-0">
-                        <div className="border-b border-[var(--hi-border)] bg-[var(--hi-panel-strong)] px-4 py-4">
-                            <h2 className="font-semibold text-[var(--hi-text)]">{t('inventory.borrow.section_title')}</h2>
-                            <p className="text-sm text-[var(--hi-text-soft)]">{t('inventory.borrow.section_subtitle')}</p>
+                    <section className="card item-borrow-tracking-v26 overflow-hidden p-0">
+                        <div className="item-borrow-header-v26 border-b border-[var(--hi-border)] bg-[var(--hi-panel-strong)] px-4 py-4">
+                            <span className="item-borrow-heading-icon-v26" aria-hidden="true">
+                                <ArrowRightLeft className="h-5 w-5" />
+                            </span>
+                            <div>
+                                <h2 className="font-semibold text-[var(--hi-text)]">{t('inventory.borrow.section_title')}</h2>
+                                <p className="text-sm text-[var(--hi-text-soft)]">{t('inventory.borrow.section_subtitle')}</p>
+                            </div>
                         </div>
 
-                        <div className="space-y-4 bg-[var(--hi-panel)] p-4">
+                        <div className="item-borrow-body-v26 space-y-4 bg-[var(--hi-panel)] p-4">
                             {activeBorrow ? (
-                                <div className={`rounded-2xl border px-4 py-3 ${activeBorrowReturnPending
+                                <div className={`item-borrow-status-v26 rounded-2xl border px-4 py-3 ${activeBorrowReturnPending
                                     ? 'border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-200'
                                     : activeBorrowOverdue
                                     ? 'border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-300'
@@ -1402,14 +1407,18 @@ export default function ItemForm() {
                                     </div>
                                 </div>
                             ) : (
-                                <div className="rounded-xl border border-dashed border-[var(--hi-border-strong)] bg-[var(--hi-panel-muted)] px-4 py-3">
+                                <div className="item-borrow-status-v26 is-empty rounded-xl border border-dashed border-[var(--hi-border-strong)] bg-[var(--hi-panel-muted)] px-4 py-3">
+                                    <span aria-hidden="true"><ArrowRightLeft className="h-4 w-4" /></span>
                                     <p className="text-sm text-[var(--hi-text-soft)]">{t('inventory.borrow.no_active')}</p>
                                 </div>
                             )}
 
-                            <div>
+                            <div className="item-borrow-history-v26">
                                 <div className="mb-3 flex items-center justify-between">
-                                    <h3 className="text-sm font-semibold text-[var(--hi-text)]">{t('inventory.borrow.history_title')}</h3>
+                                    <h3 className="flex items-center gap-2 text-sm font-semibold text-[var(--hi-text)]">
+                                        <History className="h-4 w-4 text-[var(--hi-accent)]" />
+                                        {t('inventory.borrow.history_title')}
+                                    </h3>
                                     <span className="text-xs text-[var(--hi-text-muted)]">{borrowHistory.length}</span>
                                 </div>
 
@@ -1454,11 +1463,11 @@ export default function ItemForm() {
                                         ))}
                                     </div>
                                 ) : (
-                                    <p className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-sm text-[var(--hi-text-soft)]">{t('inventory.borrow.no_history')}</p>
+                                    <p className="item-borrow-empty-v26 rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 text-sm text-[var(--hi-text-soft)]">{t('inventory.borrow.no_history')}</p>
                                 )}
                             </div>
                         </div>
-                    </div>
+                    </section>
                 </div>
             </div>
         );
@@ -1511,15 +1520,20 @@ export default function ItemForm() {
                     )}
 
                     {isEditing && (
-                        <div className="overflow-hidden rounded-xl border border-[var(--hi-border)]">
-                            <div className="border-b border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-4">
-                                <h2 className="font-semibold text-[var(--hi-text)]">{t('inventory.borrow.section_title')}</h2>
-                                <p className="text-sm text-[var(--hi-text-soft)]">{t('inventory.borrow.section_subtitle')}</p>
+                        <section className="item-borrow-tracking-v26 item-borrow-tracking-form-v26 overflow-hidden rounded-xl border border-[var(--hi-border)]">
+                            <div className="item-borrow-header-v26 border-b border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-4">
+                                <span className="item-borrow-heading-icon-v26" aria-hidden="true">
+                                    <ArrowRightLeft className="h-5 w-5" />
+                                </span>
+                                <div>
+                                    <h2 className="font-semibold text-[var(--hi-text)]">{t('inventory.borrow.section_title')}</h2>
+                                    <p className="text-sm text-[var(--hi-text-soft)]">{t('inventory.borrow.section_subtitle')}</p>
+                                </div>
                             </div>
 
-                            <div className="p-4 space-y-4">
+                            <div className="item-borrow-body-v26 p-4 space-y-4">
                                 {activeBorrow ? (
-                                    <div className={`rounded-2xl border px-4 py-3 ${activeBorrowReturnPending
+                                    <div className={`item-borrow-status-v26 rounded-2xl border px-4 py-3 ${activeBorrowReturnPending
                                         ? 'border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-200'
                                         : activeBorrowOverdue
                                         ? 'border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-300'
@@ -1550,14 +1564,18 @@ export default function ItemForm() {
                                         </div>
                                     </div>
                                 ) : (
-                                    <div className="rounded-xl border border-dashed border-[var(--hi-border-strong)] px-4 py-3">
+                                    <div className="item-borrow-status-v26 is-empty rounded-xl border border-dashed border-[var(--hi-border-strong)] px-4 py-3">
+                                        <span aria-hidden="true"><ArrowRightLeft className="h-4 w-4" /></span>
                                         <p className="text-sm text-[var(--hi-text-soft)]">{t('inventory.borrow.no_active')}</p>
                                     </div>
                                 )}
 
-                                <div>
+                                <div className="item-borrow-history-v26">
                                     <div className="flex items-center justify-between mb-3">
-                                        <h3 className="text-sm font-semibold text-[var(--hi-text)]">{t('inventory.borrow.history_title')}</h3>
+                                        <h3 className="flex items-center gap-2 text-sm font-semibold text-[var(--hi-text)]">
+                                            <History className="h-4 w-4 text-[var(--hi-accent)]" />
+                                            {t('inventory.borrow.history_title')}
+                                        </h3>
                                         <span className="text-xs text-[var(--hi-text-muted)]">{borrowHistory.length}</span>
                                     </div>
 
@@ -1604,11 +1622,11 @@ export default function ItemForm() {
                                             ))}
                                         </div>
                                     ) : (
-                                        <p className="text-sm text-[var(--hi-text-soft)]">{t('inventory.borrow.no_history')}</p>
+                                        <p className="item-borrow-empty-v26 text-sm text-[var(--hi-text-soft)]">{t('inventory.borrow.no_history')}</p>
                                     )}
                                 </div>
                             </div>
-                        </div>
+                        </section>
                     )}
 
                     <div className="item-form-primary-grid">

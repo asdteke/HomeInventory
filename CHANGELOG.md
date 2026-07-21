@@ -2,6 +2,25 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.5.1 - Interface Polish, Security Updates, and Version Parity
+
+### Highlights
+
+- **Admin workspace redesign:** Rebuilt the management overview, summary metrics, diagnostics, filters, and empty states around aligned, softer surfaces without oversized rectangular shells or the washed-out lower-page glare.
+- **Settings behavior:** Settings accordions now start collapsed on every visit, the redundant 2FA status badge was removed from the accordion heading, and theme controls retain a simple, consistent interaction.
+- **Vault and item-detail polish:** Reworked Personal Vault onboarding into one focused secure flow and redesigned Borrow Tracking as a lighter status-and-history timeline instead of a large nested card.
+- **Interface cleanup:** Removed duplicate add buttons from dashboard, inventory, and maintenance empty states, and removed the trailing separator below the final room row.
+- **Security updates:** Upgraded `axios` to `^1.18.1` in the backend and client and pinned patched `body-parser`, redirect, form-data, and shell-command parsing dependencies; regression tests now enforce their safe minimum versions.
+- **Safe managed-app updates:** Launcher updates now install only into the versioned managed-app directory, never replace a user-selected project folder, and correctly detect when no managed installation exists.
+- **Version parity:** Synchronized root, client, launcher, Tauri, Rust, lockfile, and bundled managed-app metadata at `2.5.1`; CI now validates lockfile versions as well as package manifests.
+- **Local package verification:** Local macOS test DMGs can use ad-hoc signing without requiring the private updater key, while publishing builds still require signed updater artifacts.
+
+### Upgrade Notes
+
+- Back up the database and uploads before upgrading a self-hosted installation.
+- Launcher users should install the `2.5.1` launcher and allow its coordinated update so both **Managed App** and **Launcher** report `v2.5.1`.
+- Public package publication still requires the managed-app manifest key and Tauri updater signing key documented in the release checklist.
+
 ## v2.5.0 - Responsive Liquid Glass, Workflow Polish, and Release Hardening
 
 ### Highlights

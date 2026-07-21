@@ -946,6 +946,7 @@ export default function AdminPanel() {
     return (
         <div className="admin-v25 space-y-6 pb-20">
             <PageHeader
+                className="admin-v25-hero"
                 title={t('admin.title', { defaultValue: 'Admin Control' })}
                 description={t('admin.subtitle', { defaultValue: 'Review platform health, user access, audit activity, and communication from one calm control surface.' })}
                 meta={pageMeta}
@@ -954,14 +955,14 @@ export default function AdminPanel() {
                         type="button"
                         onClick={handleRefresh}
                         disabled={refreshing}
-                        className="btn-secondary"
+                        className="admin-v25-refresh"
                     >
                         <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
                         <span>{t('admin.refresh', { defaultValue: 'Refresh' })}</span>
                     </button>
                 )}
             >
-                <div className="flex flex-wrap gap-2">
+                <div className="admin-v25-tabs flex flex-wrap gap-2">
                     {TAB_ITEMS.map((tab) => (
                         <AdminTabButton
                             key={tab.id}
@@ -1024,7 +1025,7 @@ export default function AdminPanel() {
                             </div>
                         )}
 
-                        <div className="grid gap-4 xl:grid-cols-4">
+                        <div className="admin-v25-metrics grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
                             <OverviewMetricCard
                                 icon={Users}
                                 label={t('admin.overview.cards.accounts', { defaultValue: 'Accounts' })}
@@ -1102,7 +1103,7 @@ export default function AdminPanel() {
                             />
                         </div>
 
-                        <div className="grid items-stretch gap-6 xl:auto-rows-fr xl:grid-cols-2">
+                        <div className="admin-v25-section-grid grid items-stretch gap-6 xl:auto-rows-fr xl:grid-cols-2">
                             <section className="card !mt-0 !flex !h-full !flex-col !p-5">
                                 <SectionHeader
                                     eyebrow={t('admin.overview.sections.governance_eyebrow', { defaultValue: 'Access' })}
@@ -1169,7 +1170,7 @@ export default function AdminPanel() {
                             </section>
                         </div>
 
-                        <div className="grid items-stretch gap-6 xl:auto-rows-fr xl:grid-cols-[1.15fr_0.85fr]">
+                        <div className="admin-v25-section-grid grid items-stretch gap-6 xl:auto-rows-fr xl:grid-cols-[1.15fr_0.85fr]">
                             <section className="card !mt-0 !flex !h-full !flex-col !p-5">
                                 <SectionHeader
                                     eyebrow={t('admin.overview.sections.activity_eyebrow', { defaultValue: 'Audit' })}

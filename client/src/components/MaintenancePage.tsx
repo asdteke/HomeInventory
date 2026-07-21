@@ -334,10 +334,6 @@ export default function MaintenancePage() {
                             defaultValue: 'Klima filtresi temizliği, kombi bakımı veya yangın dedektörü pil kontrolü gibi tekrarlayan görevleri ekleyerek başlayın.'
                         })}</p>
                     </div>
-                    <button onClick={handleOpenCreateModal} className="btn-primary maintenance-empty-add cursor-pointer">
-                        <Plus className="h-4 w-4" />
-                        <span>{t('maintenance.actions.add_task', { defaultValue: 'İlk Görevi Ekle' })}</span>
-                    </button>
                 </section>
             ) : (
                 <div className="grid gap-6 lg:grid-cols-12">
