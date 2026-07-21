@@ -1294,7 +1294,7 @@ export default function PersonalVault() {
 
     return (
         <div className="vault-page-v25 space-y-6 animate-fade-in">
-            <div className="vault-intro flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div className="vault-intro vault-intro-v26 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                 <div>
                     <h1>{t('vault.title')}</h1>
                     <p>{t('vault.subtitle')}</p>
@@ -1316,18 +1316,43 @@ export default function PersonalVault() {
             </div>
 
             {!vaultConfigured && (
-                <div className="vault-setup-layout grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-                    <form onSubmit={handleSetup} className="vault-setup-form space-y-5">
+                <section className="vault-setup-layout vault-onboarding-v26">
+                    <div className="vault-onboarding-story-v26">
+                        <span className="vault-onboarding-mark-v26" aria-hidden="true">
+                            <ShieldCheck className="h-6 w-6" />
+                        </span>
                         <div>
+                            <p className="vault-onboarding-eyebrow-v26">{t('vault.protection_title')}</p>
                             <h2 className="section-title text-2xl text-[var(--hi-text)]">{t('vault.setup_title')}</h2>
-                            <p className="mt-2 text-sm text-[var(--hi-text-soft)]">{t('vault.setup_description')}</p>
+                            <p className="vault-onboarding-description-v26">{t('vault.setup_description')}</p>
                         </div>
 
-                        <div className="rounded-2xl border border-[var(--hi-border-strong)] bg-[var(--hi-secondary-soft)] p-4 text-sm text-[var(--hi-text)]">
-                            {t('vault.setup_warning')}
+                        <div className="vault-protection-stream-v26">
+                            <div className="vault-protection-step-v26">
+                                <span aria-hidden="true"><Lock className="h-4 w-4" /></span>
+                                <p>{t('vault.protection_item_1')}</p>
+                            </div>
+                            <div className="vault-protection-step-v26">
+                                <span aria-hidden="true"><ShieldCheck className="h-4 w-4" /></span>
+                                <p>{t('vault.protection_item_2')}</p>
+                            </div>
+                            <div className="vault-protection-step-v26">
+                                <span aria-hidden="true"><KeyRound className="h-4 w-4" /></span>
+                                <p>{t('vault.protection_item_3')}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form onSubmit={handleSetup} className="vault-setup-form vault-setup-form-v26 space-y-5">
+                        <div className="vault-setup-form-heading-v26">
+                            <span aria-hidden="true"><KeyRound className="h-5 w-5" /></span>
+                            <div>
+                                <h3>{t('vault.passphrase')}</h3>
+                                <p>{t('vault.setup_warning')}</p>
+                            </div>
                         </div>
 
-                        <div className="space-y-4">
+                        <div className="vault-passphrase-fields-v26 space-y-4">
                             <div>
                                 <label className="mb-2 block text-sm font-medium text-[var(--hi-text-soft)]">{t('vault.passphrase')}</label>
                                 <input
@@ -1363,16 +1388,7 @@ export default function PersonalVault() {
                             {vaultActionLoading ? t('vault.setting_up') : t('vault.setup_action')}
                         </button>
                     </form>
-
-                    <aside className="vault-protection-note space-y-4">
-                        <h2 className="section-title text-2xl text-[var(--hi-text)]">{t('vault.protection_title')}</h2>
-                        <div className="space-y-3 text-sm text-[var(--hi-text-soft)]">
-                            <p>{t('vault.protection_item_1')}</p>
-                            <p>{t('vault.protection_item_2')}</p>
-                            <p>{t('vault.protection_item_3')}</p>
-                        </div>
-                    </aside>
-                </div>
+                </section>
             )}
 
             {vaultConfigured && !vaultUnlocked && (

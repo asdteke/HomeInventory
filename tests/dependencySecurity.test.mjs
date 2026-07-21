@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
 const lockfile = JSON.parse(readFileSync(new URL('../package-lock.json', import.meta.url), 'utf8'));
+const clientLockfile = JSON.parse(readFileSync(new URL('../client/package-lock.json', import.meta.url), 'utf8'));
 
 function numericVersion(version) {
     return String(version || '').split('.').map((part) => Number.parseInt(part, 10) || 0);
@@ -24,14 +25,30 @@ function isAtLeast(actual, minimum) {
     return true;
 }
 
-test('multipart, HTTP client, and i18n dependencies stay above patched security versions', () => {
+test('security-sensitive dependencies stay above patched versions', () => {
     const multerVersion = lockfile.packages?.['node_modules/multer']?.version;
     const undiciVersion = lockfile.packages?.['node_modules/undici']?.version;
+    const bodyParserVersion = lockfile.packages?.['node_modules/body-parser']?.version;
+    const shellQuoteVersion = lockfile.packages?.['node_modules/shell-quote']?.version;
+    const axiosVersion = lockfile.packages?.['node_modules/axios']?.version;
+    const clientAxiosVersion = clientLockfile.packages?.['node_modules/axios']?.version;
+    const followRedirectsVersion = lockfile.packages?.['node_modules/follow-redirects']?.version;
+    const clientFollowRedirectsVersion = clientLockfile.packages?.['node_modules/follow-redirects']?.version;
+    const formDataVersion = lockfile.packages?.['node_modules/form-data']?.version;
+    const clientFormDataVersion = clientLockfile.packages?.['node_modules/form-data']?.version;
     const i18nextHttpMiddlewareVersion = lockfile.packages?.['node_modules/i18next-http-middleware']?.version;
     const i18nextFsBackendVersion = lockfile.packages?.['node_modules/i18next-fs-backend']?.version;
 
     assert.ok(isAtLeast(multerVersion, '2.2.0'), `multer ${multerVersion} is below patched 2.2.0`);
     assert.ok(isAtLeast(undiciVersion, '7.28.0'), `undici ${undiciVersion} is below patched 7.28.0`);
+    assert.ok(isAtLeast(bodyParserVersion, '1.20.6'), `body-parser ${bodyParserVersion} is below patched 1.20.6`);
+    assert.ok(isAtLeast(shellQuoteVersion, '1.10.0'), `shell-quote ${shellQuoteVersion} is below patched 1.10.0`);
+    assert.ok(isAtLeast(axiosVersion, '1.18.1'), `root axios ${axiosVersion} is below patched 1.18.1`);
+    assert.ok(isAtLeast(clientAxiosVersion, '1.18.1'), `client axios ${clientAxiosVersion} is below patched 1.18.1`);
+    assert.ok(isAtLeast(followRedirectsVersion, '1.16.0'), `root follow-redirects ${followRedirectsVersion} is below patched 1.16.0`);
+    assert.ok(isAtLeast(clientFollowRedirectsVersion, '1.16.0'), `client follow-redirects ${clientFollowRedirectsVersion} is below patched 1.16.0`);
+    assert.ok(isAtLeast(formDataVersion, '4.0.6'), `root form-data ${formDataVersion} is below patched 4.0.6`);
+    assert.ok(isAtLeast(clientFormDataVersion, '4.0.6'), `client form-data ${clientFormDataVersion} is below patched 4.0.6`);
     assert.ok(
         isAtLeast(i18nextHttpMiddlewareVersion, '3.9.7'),
         `i18next-http-middleware ${i18nextHttpMiddlewareVersion} is below patched 3.9.7`

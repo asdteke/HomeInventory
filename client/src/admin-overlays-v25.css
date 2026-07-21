@@ -2,7 +2,7 @@
    Blur is intentionally limited to one page header, one banner, and one toolbar. */
 
 .admin-v25 {
-  --admin-v25-surface: color-mix(in srgb, var(--hi-panel-strong) 94%, transparent);
+  --admin-v25-surface: color-mix(in srgb, var(--hi-panel-strong) 91%, transparent);
   --admin-v25-subtle: color-mix(in srgb, var(--hi-panel-muted) 72%, transparent);
   isolation: isolate;
 }
@@ -10,18 +10,74 @@
 /* The global shell already paints soft gradients; avoid filtering a viewport-sized
    pseudo-element while the admin workspace is active. */
 .premium-shell:has(.admin-v25)::before {
+  background: none;
   filter: none;
-  opacity: .56;
+  opacity: 0;
 }
 
 .admin-v25 .app-page-header {
   border: 0;
-  border-bottom: 1px solid color-mix(in srgb, var(--hi-border-strong) 70%, transparent);
+  border-bottom: 0;
   border-radius: 0;
   background: transparent;
   box-shadow: none;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
+}
+
+.admin-v25-hero {
+  padding: clamp(.25rem, 1vw, .75rem) 0 0 !important;
+}
+
+.admin-v25-hero > div:first-child {
+  align-items: center;
+}
+
+.admin-v25-hero .app-page-description {
+  max-width: 56rem;
+}
+
+.admin-v25-refresh {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  padding: .65rem 1rem;
+  border: 1px solid color-mix(in srgb, var(--hi-accent) 28%, var(--hi-border));
+  border-radius: 999px;
+  color: var(--hi-accent);
+  background: color-mix(in srgb, var(--hi-accent-soft) 64%, var(--hi-panel));
+  box-shadow: 0 12px 30px -24px color-mix(in srgb, var(--hi-accent) 60%, transparent);
+  font-size: .875rem;
+  font-weight: 700;
+  transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+}
+
+.admin-v25-refresh:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--hi-accent) 52%, var(--hi-border));
+  background: color-mix(in srgb, var(--hi-accent-soft) 82%, var(--hi-panel));
+}
+
+.admin-v25-refresh:disabled {
+  cursor: progress;
+  opacity: .68;
+}
+
+.admin-v25 .app-page-header-body {
+  margin-top: 1.35rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.admin-v25-tabs {
+  width: fit-content;
+  max-width: 100%;
+  padding: .35rem;
+  border: 1px solid color-mix(in srgb, var(--hi-border-strong) 72%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--hi-panel-muted) 76%, transparent);
 }
 
 .admin-v25 .app-page-header::after,
@@ -32,6 +88,9 @@
 
 .admin-v25-tab {
   min-width: 0;
+  min-height: 2.75rem !important;
+  padding: .6rem 1rem !important;
+  border-color: transparent !important;
   border-radius: 999px !important;
   box-shadow: none !important;
 }
@@ -59,7 +118,10 @@
 
 .admin-v25 .card,
 .admin-v25-surface {
-  border-radius: 1.75rem !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 .admin-v25-metric,
@@ -68,8 +130,16 @@
 }
 
 .admin-v25-metric {
-  min-height: 12.5rem;
-  border-inline-start: 3px solid color-mix(in srgb, var(--hi-accent) 54%, var(--hi-border)) !important;
+  display: flex;
+  min-height: 12rem;
+  flex-direction: column;
+  border-color: color-mix(in srgb, var(--hi-border-strong) 78%, transparent) !important;
+  border-inline-start: 1px solid color-mix(in srgb, var(--hi-border-strong) 78%, transparent) !important;
+  background:
+    linear-gradient(150deg, color-mix(in srgb, var(--hi-panel-strong) 96%, transparent), color-mix(in srgb, var(--hi-panel) 86%, transparent)) !important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 13%, transparent),
+    0 20px 48px -38px color-mix(in srgb, var(--hi-text) 48%, transparent) !important;
 }
 
 .admin-v25-metric-secondary {
@@ -77,7 +147,30 @@
 }
 
 .admin-v25-metric-warning {
-  border-inline-start-color: color-mix(in srgb, var(--hi-warning) 72%, var(--hi-border)) !important;
+  border-color: color-mix(in srgb, var(--hi-warning) 30%, var(--hi-border)) !important;
+}
+
+.admin-v25-metric > div:last-child {
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.admin-v25-section-grid {
+  position: relative;
+  gap: clamp(2rem, 4vw, 4rem) !important;
+  padding-block: .5rem 1rem;
+}
+
+.admin-v25-section-grid > section {
+  min-width: 0;
+  padding: .5rem 0 !important;
+}
+
+@media (min-width: 1280px) {
+  .admin-v25-section-grid > section + section {
+    border-inline-start: 1px solid color-mix(in srgb, var(--hi-border) 76%, transparent) !important;
+    padding-inline-start: clamp(2rem, 4vw, 4rem) !important;
+  }
 }
 
 .admin-v25-list,
@@ -116,6 +209,40 @@
 .admin-v25 .app-empty-state {
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
+}
+
+.admin-v25 .app-empty-state {
+  min-height: 12rem;
+  padding: 1.25rem 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.admin-v25 .app-empty-state-icon {
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--hi-accent-soft) 75%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--hi-accent) 24%, transparent);
+}
+
+@media (max-width: 767px) {
+  .admin-v25-hero .app-page-actions,
+  .admin-v25-refresh {
+    width: 100%;
+  }
+
+  .admin-v25-tabs {
+    display: grid !important;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-radius: 1.55rem;
+  }
+
+  .admin-v25-tab {
+    justify-content: center;
+  }
 }
 
 .admin-v25-user-card {

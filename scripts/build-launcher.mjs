@@ -136,7 +136,18 @@ verifyManagedAppArchiveVersion();
 cleanStaleMacBundle();
 const tauriArgs = ['node_modules/@tauri-apps/cli/tauri.js', 'build', '--bundles', bundles];
 if (platform() === 'darwin') {
-    tauriArgs.push('--config', JSON.stringify({ bundle: { macOS: { signingIdentity: null } } }));
+    const bundleConfig = {
+        macOS: { signingIdentity: null }
+    };
+
+    // Local test DMGs use an ad-hoc macOS signature and do not need updater
+    // artifacts. Release builds still create and sign updater artifacts when
+    // the private release key is present in CI or the publishing environment.
+    if (!process.env.TAURI_SIGNING_PRIVATE_KEY) {
+        bundleConfig.createUpdaterArtifacts = false;
+    }
+
+    tauriArgs.push('--config', JSON.stringify({ bundle: bundleConfig }));
 }
 run('node', tauriArgs, {
     cwd: launcherDir,

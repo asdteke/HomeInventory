@@ -233,6 +233,13 @@ export function App() {
           setUpdateNotice(event.payload.error);
         }
         if (event.payload.state === 'Completed' || event.payload.state === 'RollbackComplete' || event.payload.state === 'Failed') {
+          if (event.payload.state === 'Completed') {
+            // A successful managed update becomes the active install. Clear a
+            // legacy/custom project path so later launches keep using it.
+            setSettings(current => current.projectPath
+              ? { ...current, projectPath: '' }
+              : current);
+          }
           setTimeout(() => {
             setUpdateProgress(null);
             setUpdateResult(null);

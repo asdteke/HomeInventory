@@ -925,7 +925,6 @@ export default function Settings() {
                     title={t('settings.account_overview.title', { defaultValue: 'Account overview' })}
                     description={t('settings.account_overview.description', { defaultValue: 'Basic profile details for the signed-in account.' })}
                     icon={UserIcon}
-                    defaultOpen
                     className="mb-5"
                 >
                     <div className="settings-profile-summary px-1 py-2">
@@ -960,7 +959,6 @@ export default function Settings() {
                     title={t('settings.my_houses.title')}
                     description={t('settings.my_houses.accordion_description', { defaultValue: 'Switch between households, create a new one, or join an existing one with a trusted key.' })}
                     icon={Building}
-                    defaultOpen
                     className="mb-5"
                 >
                     <div className="settings-household-workspace space-y-6">
@@ -1329,7 +1327,6 @@ export default function Settings() {
                 <AccordionSection
                     title={t('settings.preferences_section.title', { defaultValue: 'Appearance and language' })}
                     icon={theme === 'dark' ? Moon : Sun}
-                    defaultOpen
                     className="mb-5"
                 >
                     <div className="px-1 py-2">
@@ -1349,8 +1346,9 @@ export default function Settings() {
                                         value={theme}
                                         onChange={(val) => setTheme(val as Theme)}
                                         fullWidth
+                                        sliding
                                         className="w-full"
-                                        activeClassName="bg-[var(--hi-panel-strong)] text-[var(--hi-text)] shadow-[var(--hi-shadow-soft)]"
+                                        activeClassName="text-white"
                                         options={[
                                             {
                                                 value: 'light',
@@ -1394,11 +1392,6 @@ export default function Settings() {
                     title={t('settings.security.accordion_title', { defaultValue: 'Security and privacy' })}
                     description={t('settings.security.accordion_desc', { defaultValue: 'Manage two-factor authentication, trusted devices, and borrow request rules from other accounts.' })}
                     icon={ShieldCheck}
-                    badge={totpEnabled ? (
-                        <span className="rounded-full border border-[var(--hi-border)] bg-[var(--hi-accent-soft)] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--hi-accent)]">
-                            {t('settings.two_factor.active')}
-                        </span>
-                    ) : null}
                     className="mb-5"
                 >
                     <div className="px-1 py-2 space-y-6">
