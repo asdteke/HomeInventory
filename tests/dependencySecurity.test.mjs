@@ -4,6 +4,7 @@ import test from 'node:test';
 
 const lockfile = JSON.parse(readFileSync(new URL('../package-lock.json', import.meta.url), 'utf8'));
 const clientLockfile = JSON.parse(readFileSync(new URL('../client/package-lock.json', import.meta.url), 'utf8'));
+const launcherLockfile = JSON.parse(readFileSync(new URL('../apps/launcher/package-lock.json', import.meta.url), 'utf8'));
 
 function numericVersion(version) {
     return String(version || '').split('.').map((part) => Number.parseInt(part, 10) || 0);
@@ -39,6 +40,10 @@ test('security-sensitive dependencies stay above patched versions', () => {
     const i18nextHttpMiddlewareVersion = lockfile.packages?.['node_modules/i18next-http-middleware']?.version;
     const i18nextFsBackendVersion = lockfile.packages?.['node_modules/i18next-fs-backend']?.version;
     const sharpVersion = lockfile.packages?.['node_modules/sharp']?.version;
+    const clientPostcssVersion = clientLockfile.packages?.['node_modules/postcss']?.version;
+    const launcherPostcssVersion = launcherLockfile.packages?.['node_modules/postcss']?.version;
+    const reactRouterVersion = clientLockfile.packages?.['node_modules/react-router']?.version;
+    const reactRouterDomVersion = clientLockfile.packages?.['node_modules/react-router-dom']?.version;
 
     assert.ok(isAtLeast(multerVersion, '2.2.0'), `multer ${multerVersion} is below patched 2.2.0`);
     assert.ok(isAtLeast(undiciVersion, '7.28.0'), `undici ${undiciVersion} is below patched 7.28.0`);
@@ -55,5 +60,9 @@ test('security-sensitive dependencies stay above patched versions', () => {
         `i18next-http-middleware ${i18nextHttpMiddlewareVersion} is below patched 3.9.7`
     );
     assert.ok(isAtLeast(sharpVersion, '0.35.3'), `sharp ${sharpVersion} is below patched 0.35.3`);
+    assert.ok(isAtLeast(clientPostcssVersion, '8.5.18'), `client postcss ${clientPostcssVersion} is below patched 8.5.18`);
+    assert.ok(isAtLeast(launcherPostcssVersion, '8.5.18'), `launcher postcss ${launcherPostcssVersion} is below patched 8.5.18`);
+    assert.ok(isAtLeast(reactRouterVersion, '7.18.0'), `react-router ${reactRouterVersion} is below patched 7.18.0`);
+    assert.ok(isAtLeast(reactRouterDomVersion, '7.18.0'), `react-router-dom ${reactRouterDomVersion} is below patched 7.18.0`);
     assert.equal(i18nextFsBackendVersion, undefined, 'i18next-fs-backend should not be reintroduced');
 });

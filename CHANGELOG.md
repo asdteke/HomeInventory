@@ -2,14 +2,15 @@
 
 All notable changes to HomeInventory are documented here.
 
-## v2.5.2 - sharp/libvips Security Patch
+## v2.5.2 - Dependency Security Patch
 
 ### Highlights
 
 - **High-severity image-processing advisory fixed:** Upgraded `sharp` from `0.34.5` to `0.35.3`, including the patched libvips `8.18.3` prebuilt runtime, to resolve GHSA-f88m-g3jw-g9cj and its inherited CVE-2026-33327, CVE-2026-33328, CVE-2026-35590, and CVE-2026-35591 findings.
-- **Regression coverage:** Dependency security tests now reject future `sharp` resolutions below `0.35.3`.
+- **Five newly disclosed frontend advisories fixed:** Upgraded client and launcher `postcss` to `8.5.23` for GHSA-r28c-9q8g-f849, and moved the client from React Router `6.30.4` to `7.18.1` for GHSA-wrjc-x8rr-h8h6 and GHSA-337j-9hxr-rhxg.
+- **Regression coverage:** Dependency security tests now reject future `sharp`, `postcss`, or React Router resolutions below their patched minimums.
 - **Patch-only scope:** Retained the v2.5.1 application feature set without introducing v2.6.0 functionality.
-- **Version parity:** Synchronized root, client, launcher, Tauri, Rust, lockfile, documentation, and Envanterim brand metadata at `2.5.2`.
+- **Version parity:** Synchronized root, client, launcher, Tauri, Rust, lockfile, documentation, and local/private brand metadata at `2.5.2`.
 
 ### Upgrade Notes
 
