@@ -8,7 +8,6 @@ All notable changes to HomeInventory are documented here.
 
 - **High-severity image-processing advisory fixed:** Upgraded `sharp` from `0.34.5` to `0.35.3`, including the patched libvips `8.18.3` prebuilt runtime, to resolve GHSA-f88m-g3jw-g9cj and its inherited CVE-2026-33327, CVE-2026-33328, CVE-2026-35590, and CVE-2026-35591 findings.
 - **Five newly disclosed frontend advisories fixed:** Upgraded client and launcher `postcss` to `8.5.23` for GHSA-r28c-9q8g-f849, and moved the client from React Router `6.30.4` to `7.18.1` for GHSA-wrjc-x8rr-h8h6 and GHSA-337j-9hxr-rhxg.
-- **RSC-only advisory documented:** GHSA-qwww-vcr4-c8h2 affects only React Router's unstable RSC APIs, which this declarative `BrowserRouter` application does not use. CI permits only that exact advisory and continues to fail for every other moderate-or-higher client advisory.
 - **Regression coverage:** Dependency security tests now reject future `sharp`, `postcss`, or React Router resolutions below their patched minimums.
 - **Patch-only scope:** Retained the v2.5.1 application feature set without introducing v2.6.0 functionality.
 - **Version parity:** Synchronized root, client, launcher, Tauri, Rust, lockfile, documentation, and local/private brand metadata at `2.5.2`.
