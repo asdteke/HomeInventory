@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.5.1 release line. -->
+<!-- Release status: v2.5.2 release line. -->
 
 <p align="center">
   <strong>Private, self-hostable household inventory for shared homes.</strong><br/>
@@ -74,7 +74,7 @@
 HomeInventory is built for families, roommates, and small households that need a practical inventory without turning private records into a shared spreadsheet.
 
 > [!NOTE]
-> **v2.5.1 is the current release line.** It refines the admin, settings, Personal Vault, and item-detail interfaces, updates security-sensitive dependencies, and keeps the managed app and desktop launcher synchronized at the same version.
+> **v2.5.2 is the current release line.** It retains the v2.5.1 feature set, updates `sharp` and its bundled libvips runtime for the latest security advisory, and keeps the managed app and desktop launcher synchronized at the same version.
 
 ## Why HomeInventory
 

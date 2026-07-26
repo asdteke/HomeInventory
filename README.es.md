@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Estado de la versión: línea de lanzamiento v2.5.1. -->
+<!-- Estado de la versión: línea de lanzamiento v2.5.2. -->
 
 <p align="center">
   <strong>Inventario privado y autoalojable para hogares compartidos.</strong><br/>
@@ -74,7 +74,7 @@
 HomeInventory está pensado para familias, compañeros de piso y hogares pequeños que necesitan un inventario práctico sin convertir registros privados en una hoja compartida.
 
 > [!NOTE]
-> **v2.5.1 es la línea de versión actual.** Mejora las interfaces principales, actualiza dependencias relacionadas con la seguridad y mantiene la aplicación administrada y el launcher de escritorio en la misma versión.
+> **v2.5.2 es la línea de versión actual.** Conserva las funciones de v2.5.1, actualiza `sharp` y el entorno libvips incluido para el último aviso de seguridad y mantiene la aplicación administrada y el launcher de escritorio en la misma versión.
 
 ## Por qué HomeInventory
 

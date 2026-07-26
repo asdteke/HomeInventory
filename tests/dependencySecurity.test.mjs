@@ -38,6 +38,7 @@ test('security-sensitive dependencies stay above patched versions', () => {
     const clientFormDataVersion = clientLockfile.packages?.['node_modules/form-data']?.version;
     const i18nextHttpMiddlewareVersion = lockfile.packages?.['node_modules/i18next-http-middleware']?.version;
     const i18nextFsBackendVersion = lockfile.packages?.['node_modules/i18next-fs-backend']?.version;
+    const sharpVersion = lockfile.packages?.['node_modules/sharp']?.version;
 
     assert.ok(isAtLeast(multerVersion, '2.2.0'), `multer ${multerVersion} is below patched 2.2.0`);
     assert.ok(isAtLeast(undiciVersion, '7.28.0'), `undici ${undiciVersion} is below patched 7.28.0`);
@@ -53,5 +54,6 @@ test('security-sensitive dependencies stay above patched versions', () => {
         isAtLeast(i18nextHttpMiddlewareVersion, '3.9.7'),
         `i18next-http-middleware ${i18nextHttpMiddlewareVersion} is below patched 3.9.7`
     );
+    assert.ok(isAtLeast(sharpVersion, '0.35.3'), `sharp ${sharpVersion} is below patched 0.35.3`);
     assert.equal(i18nextFsBackendVersion, undefined, 'i18next-fs-backend should not be reintroduced');
 });

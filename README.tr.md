@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Sürüm durumu: v2.5.1 release line. -->
+<!-- Sürüm durumu: v2.5.2 release line. -->
 
 <p align="center">
   <strong>Paylaşımlı evler için özel, self-host edilebilir ev envanteri.</strong><br/>
@@ -74,7 +74,7 @@
 HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtları ortak bir tabloya dönüştürmeden pratik envanter yönetimi sağlar.
 
 > [!NOTE]
-> **v2.5.1 güncel release hattıdır.** Yönetim paneli, ayarlar, Personal Vault ve eşya detaylarını iyileştirir; güvenlikle ilgili bağımlılıkları günceller ve yönetilen uygulama ile masaüstü Launcher sürümünü aynı tutar.
+> **v2.5.2 güncel release hattıdır.** v2.5.1 özellik kümesini korur, son güvenlik duyurusu için `sharp` ve paketlenmiş libvips çalışma zamanını günceller ve yönetilen uygulama ile masaüstü Launcher sürümünü aynı tutar.
 
 ## Neden HomeInventory
 

@@ -2,6 +2,22 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.5.2 - sharp/libvips Security Patch
+
+### Highlights
+
+- **High-severity image-processing advisory fixed:** Upgraded `sharp` from `0.34.5` to `0.35.3`, including the patched libvips `8.18.3` prebuilt runtime, to resolve GHSA-f88m-g3jw-g9cj and its inherited CVE-2026-33327, CVE-2026-33328, CVE-2026-35590, and CVE-2026-35591 findings.
+- **Regression coverage:** Dependency security tests now reject future `sharp` resolutions below `0.35.3`.
+- **Patch-only scope:** Retained the v2.5.1 application feature set without introducing v2.6.0 functionality.
+- **Version parity:** Synchronized root, client, launcher, Tauri, Rust, lockfile, documentation, and Envanterim brand metadata at `2.5.2`.
+
+### Upgrade Notes
+
+- Node.js `20.9.0` or newer is required by `sharp 0.35.3`; the v2.5 release workflow continues to use Node.js 20.
+- Back up the database and uploads before upgrading a self-hosted installation.
+- Reinstall root dependencies and rebuild the application so the patched native image-processing runtime is present.
+- Launcher users should install the `2.5.2` launcher and allow its coordinated update so both **Managed App** and **Launcher** report `v2.5.2`.
+
 ## v2.5.1 - Interface Polish, Security Updates, and Version Parity
 
 ### Highlights
