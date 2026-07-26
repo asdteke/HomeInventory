@@ -131,7 +131,7 @@ jobs:
         run: npm audit --audit-level=moderate
 
       - name: Audit client moderate severity dependencies
-        run: npm audit --audit-level=moderate --prefix client
+        run: node scripts/audit-client-dependencies.mjs
 
       - name: Audit launcher moderate severity dependencies
         run: npm audit --audit-level=moderate --prefix apps/launcher
