@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Joyride, { STATUS, EVENTS, CallBackProps, Step } from 'react-joyride';
+import { Joyride, STATUS, EVENTS, EventData, Step } from 'react-joyride';
 import { useTranslation } from 'react-i18next';
 import { KeyRound, PackageSearch, Tags } from 'lucide-react';
 import '../vault-settings-v25.css';
@@ -48,7 +48,7 @@ export default function IntroTour() {
         }
     }, []);
 
-    const handleJoyrideCallback = (data: CallBackProps) => {
+    const handleJoyrideEvent = (data: EventData) => {
         const { status, type, index } = data;
 
         // Handle step changes
@@ -64,7 +64,7 @@ export default function IntroTour() {
         }
 
         // Handle errors (like target not found)
-        if (type === EVENTS.TARGET_NOT_FOUND) {
+        if (type === EVENTS.ERROR) {
             // Skip to next step if target not found
             setStepIndex(index + 1);
         }
@@ -82,9 +82,9 @@ export default function IntroTour() {
                     </div>
                 </div>
             ),
-            disableBeacon: true,
+            skipBeacon: true,
             placement: 'right',
-            spotlightClicks: true,
+            blockTargetInteraction: false,
         },
         {
             target: '#intro-house-key',
@@ -98,7 +98,7 @@ export default function IntroTour() {
                 </div>
             ),
             placement: 'right',
-            spotlightClicks: true,
+            blockTargetInteraction: false,
         },
         {
             target: '#intro-categories',
@@ -112,19 +112,11 @@ export default function IntroTour() {
                 </div>
             ),
             placement: 'right',
-            spotlightClicks: true,
+            blockTargetInteraction: false,
         },
     ];
 
     const joyrideStyles = {
-        options: {
-            primaryColor: 'var(--hi-accent)',
-            zIndex: 10000,
-            arrowColor: 'var(--hi-panel-strong)',
-            backgroundColor: 'var(--hi-panel-strong)',
-            textColor: 'var(--hi-text)',
-            overlayColor: 'rgba(9, 14, 11, 0.58)',
-        },
         tooltip: {
             borderRadius: 24,
             padding: 0,
@@ -133,6 +125,7 @@ export default function IntroTour() {
             border: '1px solid var(--hi-border-strong)',
             boxShadow: 'var(--hi-shadow)',
             overflow: 'hidden',
+            transition: reduceMotion ? 'none' : undefined,
         },
         tooltipContainer: {
             textAlign: 'left' as const,
@@ -141,7 +134,7 @@ export default function IntroTour() {
             color: 'var(--hi-text-soft)',
             padding: 0,
         },
-        buttonNext: {
+        buttonPrimary: {
             borderRadius: 999,
             padding: '11px 20px',
             backgroundColor: 'var(--hi-accent)',
@@ -162,10 +155,6 @@ export default function IntroTour() {
         buttonClose: {
             color: 'var(--hi-text-soft)',
         },
-        spotlight: {
-            borderRadius: 20,
-            boxShadow: '0 0 0 3px var(--hi-accent), 0 0 0 9999px rgba(9, 14, 11, 0.58)',
-        },
         beacon: {
             display: 'none',
         },
@@ -177,15 +166,21 @@ export default function IntroTour() {
             run={run}
             stepIndex={stepIndex}
             continuous
-            showProgress
-            showSkipButton
             scrollToFirstStep
-            disableScrolling={false}
-            callback={handleJoyrideCallback}
-            styles={joyrideStyles}
-            floaterProps={{
-                disableAnimation: reduceMotion,
+            onEvent={handleJoyrideEvent}
+            options={{
+                primaryColor: 'var(--hi-accent)',
+                zIndex: 10000,
+                arrowColor: 'var(--hi-panel-strong)',
+                backgroundColor: 'var(--hi-panel-strong)',
+                textColor: 'var(--hi-text)',
+                overlayColor: 'rgba(9, 14, 11, 0.58)',
+                showProgress: true,
+                buttons: ['back', 'close', 'primary', 'skip'],
+                skipScroll: false,
+                spotlightRadius: 20,
             }}
+            styles={joyrideStyles}
             locale={{
                 back: t('intro.buttons.back'),
                 close: t('intro.buttons.close'),

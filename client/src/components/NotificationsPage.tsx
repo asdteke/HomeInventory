@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { AlertTriangle, ArrowUpRight, Bell, CheckCircle2, Clock, Package, ShieldCheck, Wrench } from 'lucide-react';
 import { LoadingState } from './ProductUI';

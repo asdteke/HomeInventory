@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { AlertTriangle, Calendar, ChevronRight, Package, ShoppingCart, Wrench } from 'lucide-react';
 import { LoadingState } from './ProductUI';

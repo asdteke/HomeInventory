@@ -1,5 +1,5 @@
 import { Suspense, lazy, useState, useEffect, useRef } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Camera, X, Lock, Globe, MapPin, Plus, Loader2, ChevronDown, Check, QrCode, ScanBarcode, Search, ExternalLink, CalendarDays, Edit3, ChevronRight, Download, FileText, Paperclip, Trash2, Upload, ArrowRightLeft, History } from 'lucide-react';

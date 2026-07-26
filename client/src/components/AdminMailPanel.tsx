@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, ChangeEvent, FormEvent } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { Mail, Send, AlertCircle, CheckCircle, Loader2, Shield } from 'lucide-react';

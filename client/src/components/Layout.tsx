@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Link, NavLink, Outlet, useLocation, useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation, useMatch, useNavigate, useResolvedPath } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 import {

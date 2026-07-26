@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router';
 import { Info, X } from 'lucide-react';
 import { resolveVerifiedLegalTranslationLanguage } from '../utils/legalTranslations';
 import '../admin-overlays-v25.css';

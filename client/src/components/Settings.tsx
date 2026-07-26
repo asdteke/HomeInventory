@@ -1,7 +1,7 @@
 import { Suspense, lazy, useState, useRef, useEffect, useCallback, FormEvent, ChangeEvent } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { useTheme, Theme } from '../context/ThemeContext';
 import {
     User as UserIcon, LogOut, Moon, Sun, Shield, ShieldCheck,

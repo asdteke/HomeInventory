@@ -7,14 +7,15 @@ All notable changes to HomeInventory are documented here.
 ### Highlights
 
 - **High-severity image-processing advisory fixed:** Upgraded `sharp` from `0.34.5` to `0.35.3`, including the patched libvips `8.18.3` prebuilt runtime, to resolve GHSA-f88m-g3jw-g9cj and its inherited CVE-2026-33327, CVE-2026-33328, CVE-2026-35590, and CVE-2026-35591 findings.
-- **Five newly disclosed frontend advisories fixed:** Upgraded client and launcher `postcss` to `8.5.23` for GHSA-r28c-9q8g-f849, and moved the client from React Router `6.30.4` to `7.18.1` for GHSA-wrjc-x8rr-h8h6 and GHSA-337j-9hxr-rhxg.
+- **Newly disclosed frontend advisories fixed:** Upgraded client and launcher `postcss` to `8.5.23` for GHSA-r28c-9q8g-f849, and moved the client to patched React Router `8.3.0` so GHSA-wrjc-x8rr-h8h6, GHSA-337j-9hxr-rhxg, and the newly surfaced RSC advisory GHSA-qwww-vcr4-c8h2 are all resolved without an audit exception.
+- **Required compatibility updates:** Updated the client to React `19.2.7`, migrated the existing guided tour to `react-joyride 3.2.0`, and moved CI/release client builds to Node.js `22.22.0`; no v2.6.0 application functionality is included.
 - **Regression coverage:** Dependency security tests now reject future `sharp`, `postcss`, or React Router resolutions below their patched minimums.
 - **Patch-only scope:** Retained the v2.5.1 application feature set without introducing v2.6.0 functionality.
 - **Version parity:** Synchronized root, client, launcher, Tauri, Rust, lockfile, documentation, and local/private brand metadata at `2.5.2`.
 
 ### Upgrade Notes
 
-- Node.js `20.9.0` or newer is required by `sharp 0.35.3`; the v2.5 release workflow continues to use Node.js 20.
+- Node.js `22.22.0` or newer is required to build the v2.5.2 client with React Router `8.3.0`.
 - Back up the database and uploads before upgrading a self-hosted installation.
 - Reinstall root dependencies and rebuild the application so the patched native image-processing runtime is present.
 - Launcher users should install the `2.5.2` launcher and allow its coordinated update so both **Managed App** and **Launcher** report `v2.5.2`.

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { matchPath, useLocation } from 'react-router-dom';
+import { matchPath, useLocation } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { BRAND_KEY, BRAND_NAME } from '../constants/branding';
 import { useTheme } from '../context/ThemeContext';

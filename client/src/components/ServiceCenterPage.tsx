@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight, CalendarDays, CheckCircle2, Filter, ShieldCheck, Wrench } from 'lucide-react';
 import { LoadingState } from './ProductUI';

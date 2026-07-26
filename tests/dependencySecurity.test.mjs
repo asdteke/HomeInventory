@@ -62,7 +62,7 @@ test('security-sensitive dependencies stay above patched versions', () => {
     assert.ok(isAtLeast(sharpVersion, '0.35.3'), `sharp ${sharpVersion} is below patched 0.35.3`);
     assert.ok(isAtLeast(clientPostcssVersion, '8.5.18'), `client postcss ${clientPostcssVersion} is below patched 8.5.18`);
     assert.ok(isAtLeast(launcherPostcssVersion, '8.5.18'), `launcher postcss ${launcherPostcssVersion} is below patched 8.5.18`);
-    assert.ok(isAtLeast(reactRouterVersion, '7.18.0'), `react-router ${reactRouterVersion} is below patched 7.18.0`);
-    assert.ok(isAtLeast(reactRouterDomVersion, '7.18.0'), `react-router-dom ${reactRouterDomVersion} is below patched 7.18.0`);
+    assert.ok(isAtLeast(reactRouterVersion, '8.3.0'), `react-router ${reactRouterVersion} is below patched 8.3.0`);
+    assert.equal(reactRouterDomVersion, undefined, 'react-router-dom should not reintroduce the vulnerable React Router 7 line');
     assert.equal(i18nextFsBackendVersion, undefined, 'i18next-fs-backend should not be reintroduced');
 });

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { ShieldAlert, Loader2, AlertCircle, KeyRound, Moon, Sun, UserRound } from 'lucide-react';

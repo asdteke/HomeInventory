@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
