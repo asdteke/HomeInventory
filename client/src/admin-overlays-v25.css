@@ -19,8 +19,8 @@
   border: 0;
   border-bottom: 0;
   border-radius: 0;
-  background: transparent;
-  box-shadow: none;
+  background: transparent !important;
+  box-shadow: none !important;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
@@ -326,7 +326,7 @@
   background: color-mix(in srgb, var(--hi-panel-muted) 42%, transparent);
 }
 
-/* Cookie banner: a single fixed glass layer, sized around mobile safe areas. */
+/* Cookie banner: an opaque fixed surface, sized around mobile safe areas. */
 .cookie-banner-v25 {
   padding-bottom: max(.75rem, env(safe-area-inset-bottom));
   animation: cookie-banner-v25-enter 420ms cubic-bezier(.22, 1, .36, 1) both;
@@ -338,10 +338,11 @@
   overscroll-behavior: contain;
   border: 1px solid color-mix(in srgb, var(--hi-border-strong) 58%, transparent);
   background:
-    linear-gradient(145deg, color-mix(in srgb, var(--hi-panel-strong) 90%, transparent), color-mix(in srgb, var(--hi-panel) 78%, transparent));
-  box-shadow: 0 24px 64px -34px color-mix(in srgb, var(--hi-text) 46%, transparent);
-  -webkit-backdrop-filter: blur(18px) saturate(122%);
-  backdrop-filter: blur(18px) saturate(122%);
+    linear-gradient(145deg, color-mix(in srgb, var(--hi-panel-strong) 90%, transparent), color-mix(in srgb, var(--hi-panel) 78%, transparent)),
+    var(--hi-bg-strong);
+  box-shadow: 0 18px 44px -32px color-mix(in srgb, var(--hi-text) 38%, transparent);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 .cookie-banner-v25-icon {
@@ -589,7 +590,6 @@
     backdrop-filter: none !important;
   }
 
-  .admin-v25 .app-page-header,
   .cookie-banner-v25-frame {
     background: var(--hi-panel-strong) !important;
   }

@@ -21,6 +21,7 @@ import {
     listPendingJoinRequestsForUser,
     rejectJoinRequest,
     syncUserHousePointers,
+    transferOwnedPublicLocations,
     transferHouseOwnership
 } from '../utils/houseMembership.js';
 import {
@@ -35,6 +36,10 @@ import {
     resolveSeedLanguage
 } from '../utils/houseDefaults.js';
 import { getEmailDeliveryStatus } from '../utils/branding.js';
+import {
+    deletePrivateBoxMediaFiles,
+    removeOwnedPrivateBoxes
+} from '../utils/privateBoxLifecycle.js';
 
 const router = express.Router();
 
@@ -124,6 +129,13 @@ function notifyMemberAboutKick(email, houseName) {
         }),
         'House kick notification error:'
     );
+}
+
+function cleanupPrivateBoxMediaAfterCommit(cleanup, context) {
+    const result = deletePrivateBoxMediaFiles(cleanup?.mediaPaths);
+    if (result.failures.length > 0) {
+        console.error(`${context}: ${result.failures.length} private box media file(s) could not be removed`);
+    }
 }
 
 router.get('/', authenticateToken, (req, res) => {
@@ -316,6 +328,7 @@ router.post('/members/:memberId/kick', authenticateToken, (req, res) => {
             memberId
         });
 
+        cleanupPrivateBoxMediaAfterCommit(result.privateBoxCleanup, 'Kick member media cleanup');
         notifyMemberAboutKick(result.member.email, result.house?.name);
 
         res.json({
@@ -412,8 +425,21 @@ router.post('/:id/leave', authenticateToken, (req, res) => {
             }
         }
 
-        db.prepare('DELETE FROM user_houses WHERE id = ?').run(houseId);
-        syncUserHousePointers(req.user.id);
+        const leaveHouse = db.transaction(() => {
+            transferOwnedPublicLocations({
+                ownerUserId: req.user.id,
+                houseKey: houseToLeave.house_key
+            });
+            const privateBoxCleanup = removeOwnedPrivateBoxes({
+                ownerUserId: req.user.id,
+                houseKey: houseToLeave.house_key
+            });
+            db.prepare('DELETE FROM user_houses WHERE id = ?').run(houseId);
+            syncUserHousePointers(req.user.id);
+            return privateBoxCleanup;
+        });
+        const privateBoxCleanup = leaveHouse();
+        cleanupPrivateBoxMediaAfterCommit(privateBoxCleanup, 'Leave house media cleanup');
 
         res.json({ message: 'Evden başarıyla ayrıldınız' });
     } catch (error) {

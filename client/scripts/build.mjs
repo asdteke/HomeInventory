@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { join } from 'node:path';
 
@@ -57,6 +57,15 @@ child.once('exit', (code, signal) => {
     if (code !== 0) {
         process.exitCode = code ?? 1;
         return;
+    }
+
+    // Local brand preparation intentionally writes ignored overlays under public/brand-local.
+    // A normal HomeInventory build must never publish those private/local assets.
+    if (!isCustomBrandBuild) {
+        rmSync(
+            join(fileURLToPath(new URL(`../${outputDirectory}/`, import.meta.url)), 'brand-local'),
+            { recursive: true, force: true }
+        );
     }
 
     // Local production runs keep immutable asset headers. Stamp generated asset URLs so a

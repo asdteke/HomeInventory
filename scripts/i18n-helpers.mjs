@@ -23,6 +23,8 @@ const DEFAULT_IDENTICAL_TRANSLATION_ALLOWLIST = {
     "af": new Set([
         "admin.users.status",
         "borrow_requests.dialogs.item_label",
+        "boxes.item_count",
+        "boxes.items_short",
         "inventory.visibility_mine",
         "maintenance.freq.unit.weeks",
         "settings.data_management.preview_items",
@@ -89,6 +91,7 @@ const DEFAULT_IDENTICAL_TRANSLATION_ALLOWLIST = {
         "settings.version",
     ]),
     "de": new Set([
+        "activity.box_with_id",
         "admin.logs.type.system",
         "admin.users.status",
         "inventory.sort_name_asc",
@@ -129,6 +132,8 @@ const DEFAULT_IDENTICAL_TRANSLATION_ALLOWLIST = {
         "admin.overview.sections.activity_eyebrow",
         "admin.users.action",
         "alerts.low_stock.qty",
+        "boxes.note",
+        "boxes.photo",
         "common.total",
         "emails.testEmail.serviceLabel",
         "items.description",

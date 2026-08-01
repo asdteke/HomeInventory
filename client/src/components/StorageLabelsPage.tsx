@@ -144,7 +144,7 @@ export default function StorageLabelsPage() {
                             <h2>{t('storage_labels.empty_title', { defaultValue: 'Etiket üretilecek oda veya raf yok' })}</h2>
                             <p>{t('storage_labels.empty_desc', { defaultValue: 'Önce oda veya konum ekleyin, sonra buradan QR etiket basın.' })}</p>
                         </div>
-                        <Link to="/rooms" className="btn-secondary">{t('navigation.rooms')}</Link>
+                        <Link to="/organize/rooms" className="btn-secondary">{t('navigation.rooms')}</Link>
                     </div>
                 </section>
             ) : (

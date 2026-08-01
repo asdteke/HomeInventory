@@ -10,9 +10,9 @@ Currently, we focus our security patches and fixes on our active development bra
 
 | Version | Actively Supported |
 | --- | --- |
-| `2.5.x` | ✅ Yes |
+| `2.6.x` | ✅ Yes |
 | `main` | ✅ Yes |
-| `2.4.x` and older snapshots, forks, or unmaintained branches | ❌ No |
+| `2.5.x` and older snapshots, forks, or unmaintained branches | ❌ No |
 
 ## 🕵️‍♀️ How to Report a Vulnerability
 

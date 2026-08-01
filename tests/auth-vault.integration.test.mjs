@@ -494,6 +494,15 @@ test('2FA, trusted-device cookies, logout, and personal vault flows are enforced
     assert.equal(meBeforeDelete.status, 200);
     const aliceUserId = meBeforeDelete.data.user.id;
     const aliceHouseKey = meBeforeDelete.data.user.house_key;
+    const bobUserId = registerBob.data.user.id;
+
+    directDb.prepare(`
+        INSERT OR IGNORE INTO user_houses (user_id, house_key, house_name, is_owner)
+        SELECT ?, house_key, house_name, 0
+        FROM user_houses
+        WHERE user_id = ? AND house_key = ?
+        LIMIT 1
+    `).run(bobUserId, aliceUserId, aliceHouseKey);
 
     const mediaFileSuffix = `delete-account-${Date.now()}`;
     const storedPhotoPath = `uploads/${mediaFileSuffix}.webp`;
@@ -506,9 +515,13 @@ test('2FA, trusted-device cookies, logout, and personal vault flows are enforced
     writeFileSync(thumbnailFullPath, Buffer.from('delete-account-thumb'));
 
     const deleteLocation = directDb.prepare(`
-        INSERT INTO locations (name, room_id, created_by, house_key)
-        VALUES (?, NULL, ?, ?)
-    `).run('Delete Test Location', aliceUserId, aliceHouseKey);
+        INSERT INTO locations (name, room_id, created_by, is_public, house_key)
+        VALUES (?, NULL, ?, 0, ?)
+    `).run('Delete Test Private Location', aliceUserId, aliceHouseKey);
+    const publicDeleteLocation = directDb.prepare(`
+        INSERT INTO locations (name, room_id, created_by, is_public, house_key)
+        VALUES (?, NULL, ?, 1, ?)
+    `).run('Delete Test Shared Location', aliceUserId, aliceHouseKey);
 
     directDb.prepare(`
         INSERT INTO items (
@@ -566,6 +579,14 @@ test('2FA, trusted-device cookies, logout, and personal vault flows are enforced
     assert.equal(directDb.prepare('SELECT COUNT(*) AS count FROM users WHERE id = ?').get(aliceUserId).count, 0);
     assert.equal(directDb.prepare('SELECT COUNT(*) AS count FROM items WHERE user_id = ?').get(aliceUserId).count, 0);
     assert.equal(directDb.prepare('SELECT COUNT(*) AS count FROM locations WHERE created_by = ?').get(aliceUserId).count, 0);
+    assert.equal(
+        directDb.prepare('SELECT id FROM locations WHERE id = ?').get(Number(deleteLocation.lastInsertRowid)),
+        undefined
+    );
+    assert.equal(
+        directDb.prepare('SELECT created_by FROM locations WHERE id = ?').get(Number(publicDeleteLocation.lastInsertRowid)).created_by,
+        bobUserId
+    );
     assert.equal(directDb.prepare('SELECT COUNT(*) AS count FROM personal_vaults WHERE user_id = ?').get(aliceUserId).count, 0);
     assert.equal(directDb.prepare('SELECT COUNT(*) AS count FROM personal_vault_items WHERE user_id = ?').get(aliceUserId).count, 0);
     assert.equal(directDb.prepare('SELECT COUNT(*) AS count FROM trusted_devices WHERE user_id = ?').get(aliceUserId).count, 0);

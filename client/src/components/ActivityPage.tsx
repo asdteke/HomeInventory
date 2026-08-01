@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import { Activity, Clock3, Package } from 'lucide-react';
+import { Activity, Box, Clock3, Package } from 'lucide-react';
 import { LoadingState } from './ProductUI';
 
 interface ActivityRecord {
@@ -23,12 +23,34 @@ function actionLabel(action: string, t: any) {
         'item.returned': t('activity.actions.item_returned', { defaultValue: 'Eşya teslim alındı' }),
         'item.bulk_updated': t('activity.actions.item_bulk_updated', { defaultValue: 'Toplu güncellendi' }),
         'item.bulk_deleted': t('activity.actions.item_bulk_deleted', { defaultValue: 'Toplu silindi' }),
+        'item.box_moved': t('activity.actions.item_box_moved', { defaultValue: 'Eşya kutular arasında taşındı' }),
         'item.stock_adjusted': t('activity.actions.item_stock_adjusted', { defaultValue: 'Stok güncellendi' }),
         'item.attachment_added': t('activity.actions.item_attachment_added', { defaultValue: 'Ek dosya eklendi' }),
-        'item.attachment_deleted': t('activity.actions.item_attachment_deleted', { defaultValue: 'Ek dosya silindi' })
+        'item.attachment_deleted': t('activity.actions.item_attachment_deleted', { defaultValue: 'Ek dosya silindi' }),
+        'box.created': t('activity.actions.box_created', { defaultValue: 'Kutu oluşturuldu' }),
+        'box.updated': t('activity.actions.box_updated', { defaultValue: 'Kutu güncellendi' }),
+        'box.archived': t('activity.actions.box_archived', { defaultValue: 'Kutu arşivlendi' }),
+        'box.restored': t('activity.actions.box_restored', { defaultValue: 'Kutu geri yüklendi' }),
+        'box.deleted': t('activity.actions.box_deleted', { defaultValue: 'Kutu silindi' })
     };
 
     return labels[action] || action;
+}
+
+function activitySubject(entry: ActivityRecord, t: any) {
+    if (entry.action.startsWith('box.')) {
+        const boxId = Number(entry.metadata?.box_id);
+        return Number.isInteger(boxId) && boxId > 0
+            ? t('activity.box_with_id', { id: boxId, defaultValue: 'Kutu #{{id}}' })
+            : t('activity.box', { defaultValue: 'Kutu' });
+    }
+
+    return entry.item_name || (entry.metadata?.item_id
+        ? t('activity.deleted_item_with_id', {
+            id: entry.metadata.item_id,
+            defaultValue: 'Silinen eşya #{{id}}'
+        })
+        : t('activity.item_missing', { defaultValue: 'Eşya kaydı artık mevcut değil' }));
 }
 
 export default function ActivityPage() {
@@ -94,16 +116,16 @@ export default function ActivityPage() {
                                         </span>
                                     </div>
                                     <p className="mt-1 text-sm text-[var(--hi-text-soft)]">
-                                        {entry.item_name || (entry.metadata?.item_id
-                                            ? t('activity.deleted_item_with_id', { id: entry.metadata.item_id, defaultValue: 'Silinen eşya #{{id}}' })
-                                            : t('activity.item_missing', { defaultValue: 'Eşya kaydı artık mevcut değil' }))}
+                                        {activitySubject(entry, t)}
                                     </p>
                                     <p className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[var(--hi-text-muted)]">
                                         <Clock3 className="h-3.5 w-3.5" />
                                         {new Date(entry.created_at).toLocaleString(i18n.language)}
                                     </p>
                                 </div>
-                                <Package className="mt-1 h-4 w-4 shrink-0 text-[var(--hi-text-muted)]" />
+                                {entry.action.startsWith('box.')
+                                    ? <Box className="mt-1 h-4 w-4 shrink-0 text-[var(--hi-text-muted)]" />
+                                    : <Package className="mt-1 h-4 w-4 shrink-0 text-[var(--hi-text-muted)]" />}
                             </article>
                         ))}
                     </div>

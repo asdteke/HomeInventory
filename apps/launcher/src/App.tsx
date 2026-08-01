@@ -23,7 +23,7 @@ import {
   Download,
   RefreshCw,
 } from 'lucide-react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import launcherPackage from '../package.json';
 import logoFull from './logo-full.svg';
 import logoSymbolLight from './logo-symbol-light.svg';
@@ -65,6 +65,8 @@ type LauncherSnapshot = {
   activeProfileId?: string | null; lanStatus?: LanAccessStatus | null; logs: LogEntry[];
   launcherVersion: string;
   appVersion: string;
+  appSource: 'managed' | 'custom' | 'store' | 'development' | 'missing';
+  bundledSyncRequired: boolean;
   distribution: string;
   storeBuild: boolean;
 };
@@ -176,6 +178,7 @@ export function App() {
   const [portApi, setPortApi] = useState('');
   const [portUi, setPortUi] = useState('');
   const [portCheck, setPortCheck] = useState<PortCheckResult | null>(null);
+  const [portCheckRevision, setPortCheckRevision] = useState(0);
 
   // User must click to start — no auto-boot
   const [userStarted, setUserStarted] = useState(false);
@@ -190,6 +193,11 @@ export function App() {
   const [updateProgress, setUpdateProgress] = useState<{ state: string; message: string; progress: number; error?: string | null } | null>(null);
   const [updateNotice, setUpdateNotice] = useState('');
   const [initialUpdateCheckStarted, setInitialUpdateCheckStarted] = useState(false);
+  const [updateListenerReady, setUpdateListenerReady] = useState(false);
+  const [bundledSyncStarted, setBundledSyncStarted] = useState(false);
+  const [bundledSyncRetryAvailable, setBundledSyncRetryAvailable] = useState(false);
+  const bundledSyncStartedRef = useRef(false);
+  const bundledSyncInFlightRef = useRef(false);
 
   /* ── Refresh ── */
   const refresh = useCallback(async () => {
@@ -226,13 +234,27 @@ export function App() {
   // Listener for update-progress
   useEffect(() => {
     let unlisten: (() => void) | null = null;
+    let mounted = true;
     if (hasTauriRuntime()) {
       listen<{ state: string; message: string; progress: number; error?: string | null }>('update-progress', (event) => {
         setUpdateProgress(event.payload);
         if (event.payload.error) {
           setUpdateNotice(event.payload.error);
         }
-        if (event.payload.state === 'Completed' || event.payload.state === 'RollbackComplete' || event.payload.state === 'Failed') {
+        const terminal = event.payload.state === 'Completed'
+          || event.payload.state === 'RollbackComplete'
+          || event.payload.state === 'RollbackFailed'
+          || event.payload.state === 'Failed';
+        if (terminal) {
+          const bundledSyncTerminal = bundledSyncInFlightRef.current;
+          if (bundledSyncTerminal) {
+            bundledSyncInFlightRef.current = false;
+            const canRetry = event.payload.state !== 'Completed';
+            setBundledSyncRetryAvailable(canRetry);
+            if (canRetry) {
+              setUpdateNotice(event.payload.message);
+            }
+          }
           if (event.payload.state === 'Completed') {
             // A successful managed update becomes the active install. Clear a
             // legacy/custom project path so later launches keep using it.
@@ -248,10 +270,20 @@ export function App() {
           refresh();
         }
       }).then((fn) => {
+        if (!mounted) {
+          fn();
+          return;
+        }
         unlisten = fn;
+        setUpdateListenerReady(true);
+      }).catch((err) => {
+        if (mounted) {
+          setUpdateNotice(err instanceof Error ? err.message : String(err));
+        }
       });
     }
     return () => {
+      mounted = false;
       if (unlisten) unlisten();
     };
   }, [refresh]);
@@ -290,18 +322,161 @@ export function App() {
 
   useEffect(() => {
     if (
+      bundledSyncStartedRef.current
+      || !updateListenerReady
+      || !hasTauriRuntime()
+      || !snapshot?.bundledSyncRequired
+      || snapshot.appSource !== 'managed'
+      || snapshot.storeBuild
+      || snapshot.activeProfileId
+      || settings.projectPath.trim()
+      || bundledSyncRetryAvailable
+    ) {
+      return;
+    }
+
+    const managedProfile = snapshot.profiles.find(profile => profile.id === 'homeinventory')
+      || snapshot.profiles[0];
+    if (!managedProfile || validatePortInputs(portApi, portUi, managedProfile)) {
+      return;
+    }
+    const requestedBackendPort = parsePort(portApi, managedProfile.backendPort);
+    const requestedFrontendPort = parsePort(portUi, managedProfile.frontendPort);
+    const portCheckIsCurrent = portCheck
+      && portCheck.backendPort === requestedBackendPort
+      && portCheck.frontendPort === requestedFrontendPort;
+    if (!portCheckIsCurrent) {
+      return;
+    }
+
+    const pauseBundledSync = (message: string) => {
+      bundledSyncStartedRef.current = true;
+      bundledSyncInFlightRef.current = false;
+      setBundledSyncStarted(true);
+      setBundledSyncRetryAvailable(true);
+      setUpdateNotice(message);
+      setUpdateProgress(null);
+      setBusy(null);
+    };
+
+    if (portCheck.existingHomeInventory) {
+      pauseBundledSync(
+        `${portCheck.message} Stop the running instance, then choose Retry Sync.`,
+      );
+      return;
+    }
+
+    if (
+      !portCheck.ok
+      && portCheck.suggestedBackendPort === requestedBackendPort
+      && portCheck.suggestedFrontendPort === requestedFrontendPort
+    ) {
+      pauseBundledSync(
+        portCheck.message || 'Local ports could not be verified. Choose Retry Sync to check again.',
+      );
+      return;
+    }
+
+    const backendPort = portCheck.ok
+      ? requestedBackendPort
+      : portCheck.suggestedBackendPort;
+    const frontendPort = portCheck.ok
+      ? requestedFrontendPort
+      : portCheck.suggestedFrontendPort;
+    const suggestedPortError = validatePortInputs(
+      String(backendPort),
+      String(frontendPort),
+      managedProfile,
+    );
+    if (suggestedPortError) {
+      pauseBundledSync(suggestedPortError);
+      return;
+    }
+
+    bundledSyncStartedRef.current = true;
+    bundledSyncInFlightRef.current = true;
+    setBundledSyncStarted(true);
+    setUpdateNotice('');
+    setBusy('bundled-sync');
+    setUpdateProgress({
+      state: 'Starting',
+      message: 'Preparing the included managed app. Dependency installation may require internet access...',
+      progress: 0.01,
+    });
+    invoke<CommandResult>('sync_bundled_managed_app', {
+      request: {
+        overrides: overrides(settings),
+        backendPort,
+        frontendPort,
+      },
+    }).catch((err) => {
+      bundledSyncInFlightRef.current = false;
+      setBundledSyncRetryAvailable(true);
+      setUpdateNotice(err instanceof Error ? err.message : String(err));
+      setUpdateProgress(null);
+      setBusy(null);
+      refresh();
+    });
+  }, [
+    bundledSyncRetryAvailable,
+    bundledSyncStarted,
+    portApi,
+    portCheck,
+    portUi,
+    refresh,
+    settings,
+    snapshot?.activeProfileId,
+    snapshot?.appSource,
+    snapshot?.bundledSyncRequired,
+    snapshot?.profiles,
+    snapshot?.storeBuild,
+    updateListenerReady,
+  ]);
+
+  const retryBundledSync = () => {
+    bundledSyncStartedRef.current = false;
+    bundledSyncInFlightRef.current = false;
+    setBundledSyncStarted(false);
+    setBundledSyncRetryAvailable(false);
+    setUpdateNotice('');
+    setUpdateResult(null);
+    setUpdateProgress(null);
+    setBusy(null);
+    setPortCheck(null);
+    setPortCheckRevision(current => current + 1);
+  };
+
+  useEffect(() => {
+    if (
       initialUpdateCheckStarted
+      || !updateListenerReady
       || !hasTauriRuntime()
       || !snapshot
       || snapshot.storeBuild
       || snapshot.activeProfileId
+      || busy === 'bundled-sync'
+      || Boolean(updateProgress)
+      || (snapshot.bundledSyncRequired && !bundledSyncStarted)
+      || bundledSyncRetryAvailable
     ) {
       return;
     }
 
     setInitialUpdateCheckStarted(true);
     checkForUpdates();
-  }, [initialUpdateCheckStarted, snapshot?.activeProfileId, snapshot?.launcherVersion, snapshot?.appVersion, snapshot?.storeBuild]);
+  }, [
+    bundledSyncRetryAvailable,
+    bundledSyncStarted,
+    busy,
+    initialUpdateCheckStarted,
+    snapshot?.activeProfileId,
+    snapshot?.appVersion,
+    snapshot?.bundledSyncRequired,
+    snapshot?.launcherVersion,
+    snapshot?.storeBuild,
+    updateListenerReady,
+    updateProgress,
+  ]);
 
   const triggerUpdate = async () => {
     if (!updateResult) {
@@ -425,7 +600,9 @@ export function App() {
       return null;
     }
 
-    const title = updateProgress
+    const title = bundledSyncRetryAvailable
+      ? 'Managed app sync paused'
+      : updateProgress
       ? 'Update in progress'
       : checkingUpdates
         ? 'Checking updates...'
@@ -435,7 +612,9 @@ export function App() {
             : 'Checked before launch'
           : 'Check updates before launch';
 
-    const detail = updateProgress
+    const detail = bundledSyncRetryAvailable
+      ? updateNotice || 'The previous version remains available. Retry when you are ready.'
+      : updateProgress
       ? updateProgress.message
       : checkingUpdates
         ? 'Looking for signed launcher and app releases.'
@@ -447,7 +626,9 @@ export function App() {
               : 'No update is available right now.'
           : 'Verify releases, signatures, and requirements before starting services.';
 
-    const buttonLabel = checkingUpdates
+    const buttonLabel = bundledSyncRetryAvailable
+      ? 'Retry Sync'
+      : checkingUpdates
       ? 'Checking...'
       : updateAvailable
         ? 'Update First'
@@ -455,7 +636,9 @@ export function App() {
           ? 'Check Again'
           : 'Check Updates';
 
-    const buttonIcon = checkingUpdates
+    const buttonIcon = bundledSyncRetryAvailable
+      ? <RefreshCw size={13} />
+      : checkingUpdates
       ? <Loader2 size={13} className="spin" />
       : updateAvailable
         ? <Download size={13} />
@@ -470,9 +653,11 @@ export function App() {
         </div>
         <button
           type="button"
-          className={updateAvailable ? 'btn-primary' : 'btn-secondary'}
-          onClick={updateAvailable ? triggerUpdate : checkForUpdates}
-          disabled={checkingUpdates || Boolean(updateProgress) || (updateAvailable && (updateBlockedByNode || busy === 'update'))}
+          className={bundledSyncRetryAvailable || updateAvailable ? 'btn-primary' : 'btn-secondary'}
+          onClick={bundledSyncRetryAvailable ? retryBundledSync : updateAvailable ? triggerUpdate : checkForUpdates}
+          disabled={bundledSyncRetryAvailable
+            ? Boolean(busy)
+            : checkingUpdates || Boolean(updateProgress) || (updateAvailable && (updateBlockedByNode || busy === 'update'))}
         >
           {buttonIcon}
           {buttonLabel}
@@ -525,10 +710,18 @@ export function App() {
   }, [active, busy, ready, serverReady, snapshot, stopped, userStarted]);
 
   useEffect(() => {
-    if (!active || !serverReady || !settings.autoOpen || openedUrl === active.frontendUrl || !hasTauriRuntime()) return;
+    if (
+      busy === 'bundled-sync'
+      || bundledSyncInFlightRef.current
+      || !active
+      || !serverReady
+      || !settings.autoOpen
+      || openedUrl === active.frontendUrl
+      || !hasTauriRuntime()
+    ) return;
     setOpenedUrl(active.frontendUrl);
     invoke('open_app', { url: active.frontendUrl }).catch(e => setNotice(String(e)));
-  }, [active, serverReady, settings.autoOpen, openedUrl]);
+  }, [active, busy, serverReady, settings.autoOpen, openedUrl]);
 
   useEffect(() => {
     if (!selectedProfileId || portInputError) {
@@ -599,7 +792,14 @@ export function App() {
       cancelled = true;
       window.clearTimeout(timer);
     };
-  }, [isStoreBuild, selectedProfileId, selectedBackendPort, selectedFrontendPort, portInputError]);
+  }, [
+    isStoreBuild,
+    portCheckRevision,
+    selectedProfileId,
+    selectedBackendPort,
+    selectedFrontendPort,
+    portInputError,
+  ]);
 
   /* ── Actions ── */
   async function run(label: string, action: () => Promise<CommandResult | unknown>): Promise<boolean> {
@@ -1715,6 +1915,8 @@ function mockSnapshot(settings: LauncherSettings): LauncherSnapshot {
   return {
     launcherVersion: LAUNCHER_VERSION,
     appVersion: LAUNCHER_VERSION,
+    appSource: settings.projectPath ? 'custom' : 'development',
+    bundledSyncRequired: false,
     distribution: 'standard',
     storeBuild: false,
     projectRoot: root, appDataDir: data, activeProfileId: runningPreview ? 'homeinventory' : null,

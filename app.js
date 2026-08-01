@@ -17,6 +17,7 @@ import itemsRoutes from './routes/items.js';
 import categoriesRoutes from './routes/categories.js';
 import roomsRoutes from './routes/rooms.js';
 import locationsRoutes from './routes/locations.js';
+import boxesRoutes from './routes/boxes.js';
 import barcodeRoutes from './routes/barcode.js';
 import emailRoutes from './routes/email.js';
 import adminRoutes from './routes/admin.js';
@@ -400,6 +401,30 @@ function buildRateLimitKey(req) {
     return `${req.ip}:${tokenFingerprint}`;
 }
 
+function createLocalizedRateLimitHandler({
+    translationKey,
+    fallback,
+    code,
+    retryAfterMinutes
+}) {
+    return (req, res, _next, options) => {
+        let error = fallback;
+
+        try {
+            const translated = req?.t?.(translationKey);
+            if (typeof translated === 'string' && translated.trim() && translated !== translationKey) {
+                error = translated;
+            }
+        } catch {}
+
+        return res.status(options?.statusCode || 429).json({
+            error,
+            code,
+            retryAfterMinutes
+        });
+    };
+}
+
 // SECURITY: Keep a generous interactive limiter for day-to-day app usage,
 // but avoid punishing normal inventory flows with long lockouts.
 const interactiveApiLimiter = rateLimit({
@@ -411,7 +436,12 @@ const interactiveApiLimiter = rateLimit({
 
         return 240;
     },
-    message: { error: 'Kısa sürede çok fazla işlem yapıldı. Lütfen birkaç dakika sonra tekrar deneyin.' },
+    handler: createLocalizedRateLimitHandler({
+        translationKey: 'rate_limit.too_many_requests',
+        fallback: 'Too many actions in a short time. Please try again in a few minutes.',
+        code: 'API_RATE_LIMITED',
+        retryAfterMinutes: 5
+    }),
     standardHeaders: true,
     legacyHeaders: false,
     validate: false,
@@ -422,7 +452,12 @@ const interactiveApiLimiter = rateLimit({
 const authLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 20, // Only 20 attempts per 15 minutes for auth
-    message: { error: 'Çok fazla giriş denemesi. Lütfen 15 dakika sonra tekrar deneyin.' },
+    handler: createLocalizedRateLimitHandler({
+        translationKey: 'rate_limit.too_many_login_attempts',
+        fallback: 'Too many login attempts. Please try again in 15 minutes.',
+        code: 'AUTH_RATE_LIMITED',
+        retryAfterMinutes: 15
+    }),
     standardHeaders: true,
     legacyHeaders: false,
 });
@@ -436,6 +471,7 @@ app.use('/api/items', interactiveApiLimiter);
 app.use('/api/categories', interactiveApiLimiter);
 app.use('/api/rooms', interactiveApiLimiter);
 app.use('/api/locations', interactiveApiLimiter);
+app.use('/api/boxes', interactiveApiLimiter);
 app.use('/api/houses', interactiveApiLimiter);
 app.use('/api/barcode', interactiveApiLimiter);
 app.use('/api/vault', interactiveApiLimiter);
@@ -451,6 +487,7 @@ app.use('/api/items', itemsRoutes);
 app.use('/api/categories', categoriesRoutes);
 app.use('/api/rooms', roomsRoutes);
 app.use('/api/locations', locationsRoutes);
+app.use('/api/boxes', boxesRoutes);
 app.use('/api/barcode', barcodeRoutes);
 app.use('/api/email', emailRoutes);
 app.use('/api/admin', adminRoutes);

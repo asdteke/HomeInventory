@@ -7,8 +7,6 @@ import {
     ChevronLeft,
     ChevronDown,
     ChevronRight,
-    FolderOpen,
-    Grid2x2,
     Home,
     KeyRound,
     LogOut,
@@ -51,13 +49,16 @@ interface MobileBottomNavLinkProps {
     label: string;
     Icon: React.ComponentType<any>;
     end?: boolean;
+    activePaths?: string[];
 }
 
-function MobileBottomNavLink({ to, label, Icon, end = false }: MobileBottomNavLinkProps) {
+function MobileBottomNavLink({ to, label, Icon, end = false, activePaths = [] }: MobileBottomNavLinkProps) {
+    const location = useLocation();
+
     return (
         <NavLink to={to} end={end}>
             {({ isActive }) => (
-                <span className={`${MOBILE_NAV_LINK_CLASS} ${isActive ? 'is-active' : ''}`}>
+                <span className={`${MOBILE_NAV_LINK_CLASS} ${isActive || activePaths.some((path) => location.pathname === path || location.pathname.startsWith(`${path}/`)) ? 'is-active' : ''}`}>
                     <span className="mobile-liquid-nav-content">
                         <span className={MOBILE_NAV_ICON_BASE_CLASS}>
                             <Icon className="h-4 w-4" />
@@ -76,6 +77,7 @@ interface ShellLinkProps {
         label: string;
         icon: React.ComponentType<any>;
         end?: boolean;
+        activePaths?: string[];
     };
     compact?: boolean;
     onClick?: () => void;
@@ -87,8 +89,10 @@ interface ShellLinkProps {
 
 export function ShellLink({ item, compact = false, onClick, tone = 'default', className = '', spacious = false, variant = 'default' }: ShellLinkProps) {
     const Icon = item.icon;
+    const location = useLocation();
     const resolvedPath = useResolvedPath(item.to);
-    const isActive = Boolean(useMatch({ path: resolvedPath.pathname, end: item.end }));
+    const isActive = Boolean(useMatch({ path: resolvedPath.pathname, end: item.end }))
+        || Boolean(item.activePaths?.some((path) => location.pathname === path || location.pathname.startsWith(`${path}/`)));
     const isCustomBrand = BRAND_KEY !== 'homeinventory';
     const activeClasses = compact
         ? tone === 'danger'
@@ -349,7 +353,8 @@ export default function Layout() {
         {
             to: '/items',
             label: t('navigation.inventory') || '',
-            icon: Package
+            icon: Package,
+            activePaths: ['/organize']
         },
         {
             to: '/maintenance',
@@ -370,16 +375,6 @@ export default function Layout() {
             to: '/vault',
             label: t('navigation.personal_vault') || '',
             icon: KeyRound
-        },
-        {
-            to: '/rooms',
-            label: t('navigation.rooms') || '',
-            icon: FolderOpen
-        },
-        {
-            to: '/categories',
-            label: t('navigation.categories') || '',
-            icon: Grid2x2
         },
         {
             to: '/settings',
@@ -824,7 +819,7 @@ export default function Layout() {
             <nav aria-label={t('navigation.menu', { defaultValue: 'Primary navigation' }) || undefined} className="mobile-liquid-nav safe-area-pb fixed bottom-3 left-3 right-3 z-40 lg:hidden">
                 <div className="mobile-liquid-nav-grid">
                     <MobileBottomNavLink to="/" end label={t('navigation.home') || ''} Icon={Home} />
-                    <MobileBottomNavLink to="/items" label={t('navigation.inventory') || ''} Icon={Package} />
+                    <MobileBottomNavLink to="/items" label={t('navigation.inventory') || ''} Icon={Package} activePaths={['/organize']} />
                     <NavLink to="/items/new" aria-label={t('navigation.new_item') || undefined} className={MOBILE_NAV_ITEM_CLASS}>
                         <span className="mobile-liquid-nav-create">
                             <Plus className="h-6 w-6" />

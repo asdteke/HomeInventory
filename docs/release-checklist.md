@@ -1,18 +1,18 @@
-# HomeInventory v2.5 Release Checklist
+# HomeInventory v2.6.0 Release Checklist
 
 Use this checklist for public HomeInventory source and launcher releases. Local/private branding is deliberately outside this workflow.
 
 ## 1. Source and brand boundary
 
 - [ ] Work from a clean review branch and inspect `git status --short --ignored`.
-- [ ] Confirm `.env`, databases, uploads, logs, private keys, `.local/`, `local-brands/`, `private-brands/`, and `client/public/brand-local/` are not tracked.
+- [ ] Confirm `.env`, databases, uploads, logs, private keys, `.local/`, `local-brands/`, `private-brands/`, `client/public/brand-local/`, and generated `client/dist-*/` build directories are neither tracked nor included in release archives.
 - [ ] Confirm the normal client command is `npm run build` or `npm run build:homeinventory`.
 - [ ] Confirm the generated PWA manifest, logos, theme colors, legal text, and support fallback identify HomeInventory only.
 - [ ] Run `npm run launcher:bundle-app`, list the archive with `tar -tzf`, and verify that no private/local brand path appears.
 
 ## 2. Deterministic validation
 
-Use the Node.js major configured in CI (Node 20 for v2.5):
+Use the Node.js version configured in CI (Node 22.22.0 for v2.6.0):
 
 ```bash
 npm ci
@@ -23,7 +23,7 @@ npm run i18n:check
 npm run build
 npm run build --prefix apps/launcher
 node --test --test-concurrency=1 tests/*.test.mjs
-cargo test --manifest-path apps/launcher/src-tauri/Cargo.toml
+cargo test --locked --manifest-path apps/launcher/src-tauri/Cargo.toml
 npm audit --audit-level=moderate
 npm audit --audit-level=moderate --prefix client
 npm audit --audit-level=moderate --prefix apps/launcher
@@ -31,6 +31,12 @@ npm audit --audit-level=moderate --prefix apps/launcher
 
 - [ ] Check light/dark modes at 384×824 and a desktop viewport.
 - [ ] Exercise login/register, dashboard, inventory list/detail/create, scanners, maintenance, shopping, borrow center, vault, settings, dialogs, legal pages, side menu, and top/bottom navigation.
+- [ ] Create, edit, archive, and restore both shared and personal boxes; verify camera/gallery photos and room-scoped inline location creation.
+- [ ] Assign, move, and unassign items through item forms, box contents, and multi-select. Confirm assigned items follow the box room/location and unassigned items retain their current room/location.
+- [ ] Delete a non-empty box once by moving contents to a valid destination and once by explicit unassignment. Include hidden private contents and confirm no item identifiers or private metadata leak.
+- [ ] In a multi-user household, verify personal boxes and labels remain creator-only (including from the household-owner inventory view), private items remain hidden inside shared boxes, and a public item inside another member's personal box does not reveal that box or its exact placement.
+- [ ] Scan and print box QR labels through the existing QR flow; verify both the compact single-label layout and multi-label sheet.
+- [ ] Round-trip standard and full encrypted owner backups. Verify box visibility, archive state, assignments, room/location, and full-backup media restore correctly.
 - [ ] Test keyboard focus, reduced motion, long translations, text zoom, and horizontal overflow.
 
 ## 3. Signing and integrity

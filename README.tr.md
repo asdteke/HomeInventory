@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Sürüm durumu: v2.5.2 release line. -->
+<!-- Sürüm durumu: v2.6.0 release line. -->
 
 <p align="center">
   <strong>Paylaşımlı evler için özel, self-host edilebilir ev envanteri.</strong><br/>
@@ -52,7 +52,7 @@
 </p>
 
 <details>
-<summary><strong>Daha fazla ekran görüntüsü: Envanter, Borrow Center, Vault, Kategoriler</strong></summary>
+<summary><strong>Daha fazla ekran görüntüsü: Envanter, Kutular, Kutu İçeriği, Ödünç Merkezi, Kişisel Kasa, Kategoriler</strong></summary>
 
 <br/>
 
@@ -60,10 +60,16 @@
   <img src="docs/assets/screenshot-inventory.png" alt="Envanter ekranı" width="82%" />
 </p>
 <p align="center">
-  <img src="docs/assets/screenshot-borrow.png" alt="Borrow Center ekranı" width="82%" />
+  <img src="docs/assets/screenshot-boxes.png" alt="Kutular ekranı" width="82%" />
 </p>
 <p align="center">
-  <img src="docs/assets/screenshot-vault.png" alt="Personal Vault ekranı" width="82%" />
+  <img src="docs/assets/screenshot-box-detail.png" alt="Kutu içeriği ekranı" width="82%" />
+</p>
+<p align="center">
+  <img src="docs/assets/screenshot-borrow.png" alt="Ödünç Merkezi ekranı" width="82%" />
+</p>
+<p align="center">
+  <img src="docs/assets/screenshot-vault.png" alt="Kişisel Kasa ekranı" width="82%" />
 </p>
 <p align="center">
   <img src="docs/assets/screenshot-categories.png" alt="Kategoriler ekranı" width="82%" />
@@ -74,7 +80,7 @@
 HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtları ortak bir tabloya dönüştürmeden pratik envanter yönetimi sağlar.
 
 > [!NOTE]
-> **v2.5.2 güncel release hattıdır.** v2.5.1 özellik kümesini korur, son güvenlik duyurusu için `sharp` ve paketlenmiş libvips çalışma zamanını günceller ve yönetilen uygulama ile masaüstü Launcher sürümünü aynı tutar.
+> **v2.6.0 güncel release hattıdır.** Güvenli eşya taşıma, mevcut QR etiket sistemi, isteğe bağlı kutu fotoğrafı/konumu ve yedek uyumlu depolama ile sade ortak ve kişisel kutu yönetimi ekler; yönetilen uygulama ile masaüstü Launcher sürümünü aynı tutar.
 
 ## Neden HomeInventory
 
@@ -92,6 +98,7 @@ HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtl
 | Alan | Kapsam |
 | --- | --- |
 | Envanter | Eşyalar, kamera/galeri fotoğrafları, odalar, kategoriler, konumlar, miktarlar, garanti ve fatura metadata alanları |
+| Kutular | Ortak veya kişisel kutular, tekli/toplu eşya atama, kamera/galeri fotoğrafı, oda seçimi ve aynı yerden konum oluşturma, korumalı taşıma/silme ve mevcut QR etiket baskısı |
 | Toplu işlemler | Çoklu seçim, toplu kategori/oda/konum/görünürlük güncelleme, toplu silme, hızlı stok ayarı, gelişmiş filtreleme ve sıralama |
 | Paylaşımlı evler | Ev oluşturma, ev erişim akışlarıyla katılma, aktif ev değiştirme ve üyeliğe göre veri kapsamı |
 | Borrow Center | Gelen, giden ve aktif ödünç kayıtları; net istek durumları |
@@ -100,7 +107,7 @@ HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtl
 | Akıllı Bakım | Tekrarlayan eşya bakım görevleri, gecikme göstergeleri ve otomatik sonraki bakım tarihi hesaplama |
 | Etiket ve tarama | Barkod tarama, markalı eşya QR etiket sayfaları, oda/raf etiketleri, kesim çizgileri ve mobil uyumlu hızlı erişim |
 | Uyarılar ve servis | Düşük stok, son kullanma, garanti, bakım ve ödünç iade için odaklı takip ekranları |
-| Yedekleme ve geri yükleme | Sadece ev sahibine açık dışa/içe aktarma, korumalı onay akışları ve isteğe bağlı medya/ek dosya kapsamı |
+| Yedekleme ve geri yükleme | Sadece ev sahibine açık standart/tam dışa ve içe aktarma; parola ile şifreleme, kutu metadata'sı, atamaları ve arşiv durumu ile isteğe bağlı medya/ek dosya kapsamı |
 | Aktivite geçmişi | Düzenleme, stok değişimi, ek dosya, ödünç ve toplu işlemler için korumalı eşya aktivite kaydı |
 | Kimlik doğrulama | JWT, Google OAuth, e-posta doğrulama, TOTP 2FA, güvenilen cihaz ve recovery key |
 | Masaüstü Başlatıcı | Yerel kurulum, bağımlılık kontrolü, profil başlatma/durdurma, otomatik tarayıcı açma, yedekleme, log, gelişmiş ayarlar, port kontrolü ve QR/LAN erişimi için opsiyonel Tauri GUI ve release paketleri |
@@ -112,6 +119,7 @@ HomeInventory; aileler, ev arkadaşları ve küçük haneler için özel kayıtl
 - **Şifreli medya işleme**, görsel metadata bilgisini temizler ve ham upload yerine korumalı medya blob depolar.
 - **Şifreli aktivite kaydı**, eşya aktivite aksiyonlarını ve detaylarını SQLite'a yazmadan önce korur.
 - **Ev kapsamlı yetkilendirme**, oda, kategori, eşya, medya ve yedek verilerini aktif ev üyeliğiyle sınırlar.
+- **Bağımsız kutu ve eşya gizliliği**, ortak kutunun her üyenin özel eşyasını normal envanter görünümünde açığa çıkarmadan barındırmasını; kişisel kutu ve tam konumunun yalnızca oluşturan kişiye görünmesini sağlar. Ev sahibi yedeği felaket kurtarma için özel ev kayıtlarını da içerir; indirme penceresinde parola ile şifreleme varsayılan olarak açıktır.
 - **Personal Vault ayrımı**, en hassas kayıtları normal ortak envanter akışlarının dışında tutar.
 - **Rate limit ve sertleştirilmiş auth rotaları**, giriş, yedekleme ve etkileşimli uçlarda brute-force ve kötüye kullanım riskini azaltır.
 - **Bağımlılık güvenliği bakımı**, yüksek seviye npm uyarılarını CI içinde kapalı tutar; kalan Tauri/GLib uyarısı upstream Linux launcher bağımlılığı olarak takip edilir.
@@ -135,8 +143,8 @@ SQLite depolama + şifreli medya
 
 | Backend | Frontend |
 | --- | --- |
-| Node.js, Express, better-sqlite3 | React 18, Vite, Tailwind CSS |
-| JWT, bcrypt, Passport Google OAuth 2.0 | React Router v6, react-i18next |
+| Node.js, Express, better-sqlite3 | React 19, Vite, Tailwind CSS |
+| JWT, bcrypt, Passport Google OAuth 2.0 | React Router v8, react-i18next |
 | Helmet, express-rate-limit, i18next | Lucide React, html5-qrcode |
 | Sharp, şifreli medya depolama | PWA-ready responsive arayüz |
 
@@ -159,7 +167,7 @@ Yalıtım detayları ve gelişmiş ayarlar için [GUI_LAUNCHER.tr.md](GUI_LAUNCH
 ### Seçenek B: Terminal Kurulumu
 
 #### Gereksinimler
-- Node.js 18+
+- Node.js 22.22.0+
 - npm 9+
 - Git
 

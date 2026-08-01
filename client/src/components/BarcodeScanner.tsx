@@ -35,10 +35,20 @@ interface BarcodeScannerProps {
     onClose: () => void;
     onProductFound: (product: { name: string; barcode: string; imageUrl?: string }) => void;
     onBarcodeOnly: (barcode: string) => void;
-    onQuickAdd?: (barcode: string) => void;
+    onQuickAdd?: (barcode: string) => void | Promise<void>;
+    onExistingItemFound?: (item: { id: number; name?: string; box_id?: number | null }) => void | Promise<void>;
+    existingItemActionLabel?: string;
 }
 
-export default function BarcodeScanner({ isOpen, onClose, onProductFound, onBarcodeOnly, onQuickAdd }: BarcodeScannerProps) {
+export default function BarcodeScanner({
+    isOpen,
+    onClose,
+    onProductFound,
+    onBarcodeOnly,
+    onQuickAdd,
+    onExistingItemFound,
+    existingItemActionLabel
+}: BarcodeScannerProps) {
     const { t } = useTranslation();
     const html5QrcodeRef = useRef<any>(null);
     const isMountedRef = useRef(true);
@@ -613,11 +623,26 @@ export default function BarcodeScanner({ isOpen, onClose, onProductFound, onBarc
 
     const handleUseProduct = async () => {
         if (productInfo) {
-            await stopScanner();
-
             if (productInfo.existingItem) {
+                if (onExistingItemFound) {
+                    setLoading(true);
+                    setError('');
+                    try {
+                        await onExistingItemFound(productInfo.existingItem);
+                        await stopScanner();
+                        onClose();
+                    } catch (err: any) {
+                        setError(err?.message || t('common.error'));
+                    } finally {
+                        setLoading(false);
+                    }
+                    return;
+                }
+
+                await stopScanner();
                 window.location.href = `/items/${productInfo.existingItem.id}/edit`;
             } else if (productInfo.name) {
+                await stopScanner();
                 onProductFound({
                     name: productInfo.brand ? `${productInfo.brand} ${productInfo.name}` : productInfo.name,
                     barcode: productInfo.barcode,
@@ -625,18 +650,27 @@ export default function BarcodeScanner({ isOpen, onClose, onProductFound, onBarc
                 });
                 onClose();
             } else {
+                await stopScanner();
                 onBarcodeOnly(productInfo.barcode);
                 onClose();
             }
         }
     };
 
-    const handleQuickAdd = () => {
+    const handleQuickAdd = async () => {
         if (productInfo?.barcode && onQuickAdd) {
-            onQuickAdd(productInfo.barcode);
-            setProductInfo(null);
-            scanProcessingRef.current = false;
-            resumeScanner();
+            setLoading(true);
+            setError('');
+            try {
+                await onQuickAdd(productInfo.barcode);
+                setProductInfo(null);
+                scanProcessingRef.current = false;
+                await resumeScanner();
+            } catch (err: any) {
+                setError(err?.message || t('common.error'));
+            } finally {
+                setLoading(false);
+            }
         }
     };
 
@@ -770,6 +804,15 @@ export default function BarcodeScanner({ isOpen, onClose, onProductFound, onBarc
                             <h3>{productInfo.name ? `${productInfo.brand ? `${productInfo.brand} ` : ''}${productInfo.name}` : t('scanner.not_found_db')}</h3>
                             <p>{productInfo.source === 'local' ? t('scanner.found_local_msg') : productInfo.source === 'online' ? (productInfo.sourceName || t('scanner.found_online')) : t('scanner.not_found_db')}</p>
                             <div className="scanner-result-code">{t('scanner.barcode', { code: productInfo.barcode })}</div>
+                            {error && (
+                                <div className="scanner-alert" role="alert">
+                                    <AlertCircle className="h-5 w-5" />
+                                    <div className="scanner-alert-copy">
+                                        <strong>{t('common.error')}</strong>
+                                        <span>{error}</span>
+                                    </div>
+                                </div>
+                            )}
                             {(productInfo.source === 'notfound' || productInfo.source === 'error') && (
                                 <>
                                     <button type="button" onClick={handleGoogleSearch} className="scanner-result-link">
@@ -784,8 +827,14 @@ export default function BarcodeScanner({ isOpen, onClose, onProductFound, onBarc
                             )}
                             <div className="scanner-result-actions">
                                 <button type="button" onClick={handleRescan} className="scanner-result-action">{t('scanner.rescan')}</button>
-                                <button type="button" onClick={handleUseProduct} className="scanner-result-action scanner-result-action--primary">
-                                    {(productInfo.source === 'notfound' || productInfo.source === 'error') ? (t('common.cancel') || 'İptal') : (t('common.select') || 'Seç')}
+                                <button type="button" onClick={handleUseProduct} disabled={loading} className="scanner-result-action scanner-result-action--primary">
+                                    {loading
+                                        ? t('common.loading')
+                                        : productInfo.existingItem && onExistingItemFound
+                                            ? existingItemActionLabel || t('common.select')
+                                            : (productInfo.source === 'notfound' || productInfo.source === 'error')
+                                                ? (t('common.cancel') || 'İptal')
+                                                : (t('common.select') || 'Seç')}
                                 </button>
                             </div>
                         </div>

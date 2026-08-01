@@ -644,6 +644,11 @@ export default function Settings() {
                 t('settings.data_management.preview_locations', { defaultValue: 'Locations' }),
                 preview.locations,
                 preview?.omitted?.locations || 0
+            ),
+            formatPreviewLine(
+                t('settings.data_management.preview_boxes', { defaultValue: 'Boxes' }),
+                preview.boxes,
+                preview?.omitted?.boxes || 0
             )
         ].filter(Boolean);
 
@@ -652,6 +657,7 @@ export default function Settings() {
             skipped.categories ? t('settings.data_management.skipped_categories', { count: skipped.categories, defaultValue: '{{count}} existing categories skipped.' }) : '',
             skipped.rooms ? t('settings.data_management.skipped_rooms', { count: skipped.rooms, defaultValue: '{{count}} existing rooms skipped.' }) : '',
             skipped.locations ? t('settings.data_management.skipped_locations', { count: skipped.locations, defaultValue: '{{count}} existing locations skipped.' }) : '',
+            skipped.boxes ? t('settings.data_management.skipped_boxes', { count: skipped.boxes, defaultValue: '{{count}} existing boxes skipped.' }) : '',
             skipped.borrows ? t('settings.data_management.skipped_borrows', { count: skipped.borrows, defaultValue: '{{count}} existing borrow records skipped.' }) : '',
             skipped.attachments ? t('settings.data_management.skipped_attachments', { count: skipped.attachments, defaultValue: '{{count}} existing attachments skipped.' }) : ''
         ].filter(Boolean);
@@ -666,10 +672,11 @@ export default function Settings() {
                     categories: imported.categories || 0,
                     rooms: imported.rooms || 0,
                     locations: imported.locations || 0,
+                    boxes: imported.boxes || 0,
                     borrows: imported.borrows || 0,
                     attachments: imported.attachments || 0,
                     media: imported.media || 0,
-                    defaultValue: '{{items}} items, {{categories}} categories, {{rooms}} rooms, {{locations}} locations, {{borrows}} borrow records, {{attachments}} attachments, {{media}} media files restored.'
+                    defaultValue: '{{items}} items, {{categories}} categories, {{rooms}} rooms, {{locations}} locations, {{boxes}} boxes, {{borrows}} borrow records, {{attachments}} attachments, {{media}} media files restored.'
                 }),
                 ...previewLines,
                 ...skippedBits

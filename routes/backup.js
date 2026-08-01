@@ -1,16 +1,24 @@
 import express from 'express';
 import rateLimit from 'express-rate-limit';
 import fs from 'fs';
+import crypto from 'node:crypto';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 import db from '../database.js';
+import { hashLookupToken } from '../utils/encryption.js';
 import { authenticateToken, requireActiveHouse } from '../middleware/auth.js';
 import { isHouseOwner } from '../utils/houseMembership.js';
 import { normalizeWarrantyDetails } from '../utils/warrantyValidation.js';
-import { ensurePrivateDirectory, normalizeStoredPath, resolveStoredMediaPath, writePrivateFile } from '../utils/mediaStorage.js';
+import {
+    ensurePrivateDirectory,
+    normalizeStoredPath,
+    PRIVATE_FILE_MODE,
+    resolveStoredMediaPath
+} from '../utils/mediaStorage.js';
 import { getUploadsRoot } from '../utils/runtimePaths.js';
 import {
     buildBarcodeLookup,
+    decryptBoxRecord,
     buildUsernameLookup,
     decryptBorrowRecord,
     decryptAttachmentOriginalName,
@@ -23,6 +31,9 @@ import {
     encryptBorrowNote,
     encryptBorrowReturnNote,
     encryptAttachmentOriginalName,
+    encryptBoxCode,
+    encryptBoxName,
+    encryptBoxNote,
     encryptCategoryName,
     encryptItemBarcode,
     encryptItemDescription,
@@ -51,8 +62,19 @@ const BACKUP_MEDIA_PREFIXES = [
     'uploads/thumbnails',
     'uploads/invoices',
     'uploads/invoices/thumbnails',
-    'uploads/attachments'
+    'uploads/attachments',
+    'uploads/boxes',
+    'uploads/boxes/thumbnails'
 ];
+const RESTORE_MEDIA_DIRECTORIES = new Map([
+    ['uploads', '.webp'],
+    ['uploads/thumbnails', '.webp'],
+    ['uploads/invoices', '.webp'],
+    ['uploads/invoices/thumbnails', '.webp'],
+    ['uploads/attachments', '.bin'],
+    ['uploads/boxes', '.webp'],
+    ['uploads/boxes/thumbnails', '.webp']
+]);
 
 const backupRateLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -98,15 +120,49 @@ function normalizeImportValue(value) {
     return String(value ?? '').trim().toLocaleLowerCase('tr-TR');
 }
 
-function createItemFingerprint(item) {
+function normalizeImportBoolean(value, defaultValue = true) {
+    if (value === undefined || value === null || value === '') return defaultValue;
+    if (typeof value === 'boolean') return value;
+    return !['0', 'false', 'off', 'no'].includes(String(value).trim().toLocaleLowerCase('en-US'));
+}
+
+function createLocationScopeKey(name, roomId) {
+    return JSON.stringify([
+        String(roomId ?? ''),
+        normalizeImportValue(name)
+    ]);
+}
+
+function buildScopedLocationMap(records) {
+    const map = new Map();
+
+    for (const record of records) {
+        if (!record?.name) continue;
+        const key = createLocationScopeKey(record.name, record.room_id);
+        if (!map.has(key)) map.set(key, record);
+    }
+
+    return map;
+}
+
+function createItemFingerprint(item, {
+    ownerId = item?.user_id,
+    categoryId = item?.category_id,
+    roomId = item?.room_id,
+    locationId = item?.location_id,
+    boxId = item?.box_id
+} = {}) {
     return JSON.stringify([
         normalizeImportValue(item.name),
         normalizeImportValue(item.description),
         Number(item.quantity || 1),
         normalizeImportValue(item.barcode),
-        normalizeImportValue(item.category_name),
-        normalizeImportValue(item.room_name),
-        normalizeImportValue(item.location_name),
+        Number(categoryId || 0),
+        Number(roomId || 0),
+        Number(locationId || 0),
+        Number(boxId || 0),
+        normalizeImportBoolean(item.is_public, true) ? 1 : 0,
+        Number(ownerId || 0),
         normalizeImportValue(item.invoice_price),
         normalizeImportValue(item.invoice_currency),
         normalizeImportValue(item.invoice_date),
@@ -119,7 +175,23 @@ function createItemFingerprint(item) {
     ]);
 }
 
-function collectMediaEntries(items, attachments = []) {
+function findMatchingItemCandidate(candidates = [], importedMediaSignature = []) {
+    const suppliedMediaIndexes = importedMediaSignature
+        .map((digest, index) => digest ? index : -1)
+        .filter((index) => index >= 0);
+
+    if (suppliedMediaIndexes.length === 0) {
+        return candidates[0]?.item || null;
+    }
+
+    return candidates.find((candidate) => (
+        suppliedMediaIndexes.every(
+            (index) => candidate.mediaSignature[index] === importedMediaSignature[index]
+        )
+    ))?.item || null;
+}
+
+function collectMediaEntries(items, attachments = [], boxes = []) {
     const mediaEntries = [];
     const seen = new Set();
     let totalBytes = 0;
@@ -152,6 +224,33 @@ function collectMediaEntries(items, attachments = []) {
                 throw error;
             }
 
+            mediaEntries.push({
+                path: storedPath,
+                size: stats.size,
+                content_base64: fs.readFileSync(resolvedPath).toString('base64')
+            });
+            seen.add(storedPath);
+        }
+    }
+
+    for (const box of boxes) {
+        for (const field of ['photo_path', 'thumbnail_path']) {
+            const storedPath = normalizeStoredPath(box?.[field]);
+            if (!storedPath || seen.has(storedPath)) continue;
+            const resolvedPath = resolveStoredMediaPath(storedPath, {
+                repoRoot,
+                mediaRoot: uploadsRoot,
+                allowedPrefixes: BACKUP_MEDIA_PREFIXES
+            });
+            if (!resolvedPath || !fs.existsSync(resolvedPath)) continue;
+            const stats = fs.statSync(resolvedPath);
+            if (!stats.isFile()) continue;
+            totalBytes += stats.size;
+            if (totalBytes > MAX_FULL_BACKUP_MEDIA_BYTES) {
+                const error = new Error('Medya yedeği güvenli boyut sınırını aşıyor');
+                error.statusCode = 413;
+                throw error;
+            }
             mediaEntries.push({
                 path: storedPath,
                 size: stats.size,
@@ -199,44 +298,224 @@ function collectMediaEntries(items, attachments = []) {
     return { mediaEntries, totalBytes };
 }
 
-function restoreMediaEntries(mediaEntries = []) {
-    if (!Array.isArray(mediaEntries) || mediaEntries.length === 0) {
-        return { restoredMedia: 0, restoredBytes: 0 };
-    }
+function getStoredMediaDirectory(storedPath) {
+    const normalized = normalizeStoredPath(storedPath);
+    if (!normalized) return null;
+    const lastSeparator = normalized.lastIndexOf('/');
+    return lastSeparator > 0 ? normalized.slice(0, lastSeparator) : null;
+}
 
-    let restoredMedia = 0;
-    let restoredBytes = 0;
-    const seen = new Set();
-
-    for (const entry of mediaEntries) {
-        const storedPath = normalizeStoredPath(entry?.path);
-        const contentBase64 = String(entry?.content_base64 || '');
-        if (!storedPath || !contentBase64 || seen.has(storedPath)) {
-            continue;
-        }
-
-        const resolvedPath = resolveStoredMediaPath(storedPath, {
+function createRestoreTarget(directory, extension, reservedTargets) {
+    for (let attempt = 0; attempt < 10; attempt += 1) {
+        const targetPath = `${directory}/restore-${Date.now()}-${crypto.randomUUID()}${extension}`;
+        const resolvedTargetPath = resolveStoredMediaPath(targetPath, {
             repoRoot,
             mediaRoot: uploadsRoot,
             allowedPrefixes: BACKUP_MEDIA_PREFIXES
         });
-        if (!resolvedPath) {
+        if (
+            resolvedTargetPath
+            && !reservedTargets.has(targetPath)
+            && !fs.existsSync(resolvedTargetPath)
+        ) {
+            reservedTargets.add(targetPath);
+            return { targetPath, resolvedTargetPath };
+        }
+    }
+
+    throw new Error('İçe aktarılan medya için benzersiz dosya adı oluşturulamadı');
+}
+
+function buildRestoreMediaPlan(mediaEntries = []) {
+    const plan = {
+        entries: [],
+        bySource: new Map(),
+        totalBytes: 0
+    };
+    if (!Array.isArray(mediaEntries)) return plan;
+
+    let totalBytes = 0;
+    const reservedTargets = new Set();
+    for (const entry of mediaEntries) {
+        const storedPath = normalizeStoredPath(entry?.path);
+        const contentBase64 = String(entry?.content_base64 || '').replace(/\s+/g, '');
+        const sourceDirectory = getStoredMediaDirectory(storedPath);
+        const extension = RESTORE_MEDIA_DIRECTORIES.get(sourceDirectory);
+        if (!storedPath || !contentBase64 || !extension || plan.bySource.has(storedPath)) continue;
+
+        const resolvedSourcePath = resolveStoredMediaPath(storedPath, {
+            repoRoot,
+            mediaRoot: uploadsRoot,
+            allowedPrefixes: BACKUP_MEDIA_PREFIXES
+        });
+        if (!resolvedSourcePath) continue;
+
+        const buffer = Buffer.from(contentBase64, 'base64');
+        const canonicalInput = contentBase64.replace(/=+$/g, '');
+        const canonicalDecoded = buffer.toString('base64').replace(/=+$/g, '');
+        const declaredSize = Number.parseInt(String(entry?.size ?? ''), 10);
+        const sizeMatches = !Number.isInteger(declaredSize)
+            || (declaredSize >= 0 && declaredSize === buffer.length);
+        if (!buffer.length || canonicalDecoded !== canonicalInput || !sizeMatches) {
+            if (Buffer.isBuffer(buffer)) buffer.fill(0);
             continue;
         }
 
-        const buffer = Buffer.from(contentBase64, 'base64');
-        restoredBytes += buffer.length;
-        if (restoredBytes > MAX_FULL_BACKUP_MEDIA_BYTES) {
-            throw new Error('İçe aktarılan medya güvenli boyut sınırını aşıyor');
+        totalBytes += buffer.length;
+        if (totalBytes > MAX_FULL_BACKUP_MEDIA_BYTES) {
+            if (Buffer.isBuffer(buffer)) buffer.fill(0);
+            const error = new Error('İçe aktarılan medya güvenli boyut sınırını aşıyor');
+            error.statusCode = 413;
+            throw error;
         }
 
-        ensurePrivateDirectory(dirname(resolvedPath));
-        writePrivateFile(resolvedPath, buffer);
-        restoredMedia++;
-        seen.add(storedPath);
+        const { targetPath, resolvedTargetPath } = createRestoreTarget(
+            sourceDirectory,
+            extension,
+            reservedTargets
+        );
+        const plannedEntry = {
+            sourcePath: storedPath,
+            targetPath,
+            resolvedTargetPath,
+            contentBase64,
+            size: buffer.length,
+            digest: crypto.createHash('sha256').update(buffer).digest('hex'),
+            staged: false
+        };
+        plan.entries.push(plannedEntry);
+        plan.bySource.set(storedPath, plannedEntry);
+        buffer.fill(0);
     }
 
-    return { restoredMedia, restoredBytes };
+    plan.totalBytes = totalBytes;
+    return plan;
+}
+
+function getRestoreMediaEntry(value, restoreMediaPlan, expectedDirectory) {
+    const storedPath = normalizeStoredPath(value);
+    if (!storedPath || getStoredMediaDirectory(storedPath) !== expectedDirectory) return null;
+    return restoreMediaPlan.bySource.get(storedPath) || null;
+}
+
+function removeRestoreEntry(entry) {
+    if (!entry?.resolvedTargetPath) return;
+    try {
+        if (fs.existsSync(entry.resolvedTargetPath)) fs.unlinkSync(entry.resolvedTargetPath);
+    } catch (error) {
+        if (error?.code !== 'ENOENT') {
+            console.warn('[Backup] Restore media cleanup failed:', error.message);
+        }
+    } finally {
+        entry.staged = false;
+    }
+}
+
+function cleanupRestoreMediaPlan(restoreMediaPlan, keepTargetPaths = new Set()) {
+    if (!restoreMediaPlan?.entries) return;
+    for (const entry of restoreMediaPlan.entries) {
+        if (!keepTargetPaths.has(entry.targetPath)) removeRestoreEntry(entry);
+    }
+}
+
+function stageRestoreMediaPlan(restoreMediaPlan) {
+    if (!restoreMediaPlan?.entries?.length) return;
+    const configuredFailurePoint = process.env.NODE_ENV === 'test'
+        ? Number.parseInt(String(process.env.HOMEINVENTORY_TEST_BACKUP_MEDIA_FAIL_AFTER || ''), 10)
+        : Number.NaN;
+    const failAfter = Number.isInteger(configuredFailurePoint) && configuredFailurePoint >= 0
+        ? configuredFailurePoint
+        : null;
+    let stagedCount = 0;
+
+    try {
+        for (const entry of restoreMediaPlan.entries) {
+            if (failAfter !== null && stagedCount >= failAfter) {
+                throw new Error('Test backup media staging failure');
+            }
+
+            ensurePrivateDirectory(dirname(entry.resolvedTargetPath));
+            const buffer = Buffer.from(entry.contentBase64, 'base64');
+            try {
+                fs.writeFileSync(entry.resolvedTargetPath, buffer, {
+                    flag: 'wx',
+                    mode: PRIVATE_FILE_MODE
+                });
+                entry.staged = true;
+                if (process.platform !== 'win32') {
+                    fs.chmodSync(entry.resolvedTargetPath, PRIVATE_FILE_MODE);
+                }
+            } finally {
+                buffer.fill(0);
+            }
+            stagedCount++;
+        }
+    } catch (error) {
+        cleanupRestoreMediaPlan(restoreMediaPlan);
+        throw error;
+    }
+}
+
+function getStoredMediaDigest(storedPath, expectedDirectory) {
+    const normalized = normalizeStoredPath(storedPath);
+    if (!normalized) return null;
+    if (getStoredMediaDirectory(normalized) !== expectedDirectory) {
+        return 'unavailable';
+    }
+
+    const resolvedPath = resolveStoredMediaPath(normalized, {
+        repoRoot,
+        mediaRoot: uploadsRoot,
+        allowedPrefixes: BACKUP_MEDIA_PREFIXES
+    });
+    if (!resolvedPath || !fs.existsSync(resolvedPath)) return 'unavailable';
+
+    try {
+        const stats = fs.statSync(resolvedPath);
+        if (!stats.isFile() || stats.size > MAX_FULL_BACKUP_MEDIA_BYTES) return 'unavailable';
+        const buffer = fs.readFileSync(resolvedPath);
+        try {
+            return crypto.createHash('sha256').update(buffer).digest('hex');
+        } finally {
+            buffer.fill(0);
+        }
+    } catch {
+        return 'unavailable';
+    }
+}
+
+function getExistingItemMediaSignature(item) {
+    return [
+        getStoredMediaDigest(item.photo_path, 'uploads'),
+        getStoredMediaDigest(item.thumbnail_path, 'uploads/thumbnails'),
+        getStoredMediaDigest(item.invoice_photo_path, 'uploads/invoices'),
+        getStoredMediaDigest(item.invoice_thumbnail_path, 'uploads/invoices/thumbnails')
+    ];
+}
+
+function getImportedItemMediaEntries(item, restoreMediaPlan) {
+    return [
+        getRestoreMediaEntry(item.photo_path, restoreMediaPlan, 'uploads'),
+        getRestoreMediaEntry(item.thumbnail_path, restoreMediaPlan, 'uploads/thumbnails'),
+        getRestoreMediaEntry(item.invoice_photo_path, restoreMediaPlan, 'uploads/invoices'),
+        getRestoreMediaEntry(item.invoice_thumbnail_path, restoreMediaPlan, 'uploads/invoices/thumbnails')
+    ];
+}
+
+function resolveImportedItemOwnerId(item, memberIdsByUsernameLookup, fallbackUserId) {
+    const ownerUsername = String(
+        item?.username
+        || item?.owner_name
+        || item?.created_by_name
+        || ''
+    ).trim().slice(0, 255);
+    if (!ownerUsername) return fallbackUserId;
+
+    try {
+        return memberIdsByUsernameLookup.get(buildUsernameLookup(ownerUsername)) || fallbackUserId;
+    } catch {
+        return fallbackUserId;
+    }
 }
 
 function createBorrowFingerprint(borrow, mappedItemId, fallbackBorrowerName = '') {
@@ -272,14 +551,19 @@ router.get('/export', backupRateLimiter, (req, res) => {
                 i.invoice_price, i.invoice_currency, i.invoice_date,
                 i.warranty_start_date, i.warranty_duration_value, i.warranty_duration_unit, i.warranty_expiry_date,
                 i.expiry_date, i.min_quantity, i.is_public,
+                i.category_id, i.room_id, i.location_id,
                 c.name as category_name, c.icon as category_icon, c.color as category_color,
                 r.name as room_name,
                 l.name as location_name,
+                b.id as box_id, b.name as box_name, b.code as box_code,
+                owner.username as username,
                 i.created_at, i.updated_at
             FROM items i
             LEFT JOIN categories c ON i.category_id = c.id
             LEFT JOIN rooms r ON i.room_id = r.id
             LEFT JOIN locations l ON i.location_id = l.id
+            LEFT JOIN boxes b ON i.box_id = b.id
+            LEFT JOIN users owner ON i.user_id = owner.id
             WHERE i.house_key = ?
             ORDER BY i.created_at DESC
         `).all(houseKey).map(decryptItemRecord);
@@ -296,11 +580,25 @@ router.get('/export', backupRateLimiter, (req, res) => {
 
         // Get all locations for this house
         const locations = db.prepare(`
-            SELECT l.id, l.name, r.name as room_name
+            SELECT l.id, l.name, l.room_id, l.is_public, r.name as room_name,
+                   creator.username AS created_by_name
             FROM locations l
             LEFT JOIN rooms r ON l.room_id = r.id
+            LEFT JOIN users creator ON l.created_by = creator.id
             WHERE l.house_key = ?
         `).all(houseKey).map(decryptLocationRecord);
+
+        const boxes = db.prepare(`
+            SELECT b.id, b.name, b.code, b.note, b.is_public, b.room_id, b.location_id,
+                   r.name AS room_name, l.name AS location_name,
+                   creator.username AS created_by_name,
+                   b.archived_at, b.created_at, b.updated_at
+            FROM boxes b
+            LEFT JOIN rooms r ON b.room_id = r.id
+            LEFT JOIN locations l ON b.location_id = l.id
+            LEFT JOIN users creator ON b.created_by = creator.id
+            WHERE b.house_key = ?
+        `).all(houseKey).map(decryptBoxRecord);
 
         const borrows = db.prepare(`
             SELECT
@@ -325,7 +623,7 @@ router.get('/export', backupRateLimiter, (req, res) => {
         `).all(houseKey).map(decryptBorrowRecord);
 
         const exportData = {
-            version: '1.3',
+            version: '1.6',
             exportDate: new Date().toISOString(),
             meta: {
                 containsDecryptedData: true,
@@ -335,6 +633,7 @@ router.get('/export', backupRateLimiter, (req, res) => {
             categories,
             rooms,
             locations,
+            boxes,
             borrows
         };
 
@@ -360,14 +659,19 @@ router.get('/export-full', backupRateLimiter, (req, res) => {
                 i.invoice_price, i.invoice_currency, i.invoice_date,
                 i.warranty_start_date, i.warranty_duration_value, i.warranty_duration_unit, i.warranty_expiry_date,
                 i.expiry_date, i.min_quantity, i.is_public,
+                i.category_id, i.room_id, i.location_id,
                 c.name as category_name, c.icon as category_icon, c.color as category_color,
                 r.name as room_name,
                 l.name as location_name,
+                b.id as box_id, b.name as box_name, b.code as box_code,
+                owner.username as username,
                 i.created_at, i.updated_at
             FROM items i
             LEFT JOIN categories c ON i.category_id = c.id
             LEFT JOIN rooms r ON i.room_id = r.id
             LEFT JOIN locations l ON i.location_id = l.id
+            LEFT JOIN boxes b ON i.box_id = b.id
+            LEFT JOIN users owner ON i.user_id = owner.id
             WHERE i.house_key = ?
             ORDER BY i.created_at DESC
         `).all(houseKey).map(decryptItemRecord);
@@ -379,11 +683,25 @@ router.get('/export-full', backupRateLimiter, (req, res) => {
             .all(houseKey)
             .map(decryptRoomRecord);
         const locations = db.prepare(`
-            SELECT l.id, l.name, r.name as room_name
+            SELECT l.id, l.name, l.room_id, l.is_public, r.name as room_name,
+                   creator.username AS created_by_name
             FROM locations l
             LEFT JOIN rooms r ON l.room_id = r.id
+            LEFT JOIN users creator ON l.created_by = creator.id
             WHERE l.house_key = ?
         `).all(houseKey).map(decryptLocationRecord);
+        const boxes = db.prepare(`
+            SELECT b.id, b.name, b.code, b.note, b.is_public, b.room_id, b.location_id,
+                   b.photo_path, b.thumbnail_path,
+                   r.name AS room_name, l.name AS location_name,
+                   creator.username AS created_by_name,
+                   b.archived_at, b.created_at, b.updated_at
+            FROM boxes b
+            LEFT JOIN rooms r ON b.room_id = r.id
+            LEFT JOIN locations l ON b.location_id = l.id
+            LEFT JOIN users creator ON b.created_by = creator.id
+            WHERE b.house_key = ?
+        `).all(houseKey).map(decryptBoxRecord);
         const borrows = db.prepare(`
             SELECT
                 ib.id,
@@ -416,10 +734,10 @@ router.get('/export-full', backupRateLimiter, (req, res) => {
             original_name: decryptAttachmentOriginalName(attachment.original_name)
         }));
 
-        const { mediaEntries, totalBytes } = collectMediaEntries(items, attachments);
+        const { mediaEntries, totalBytes } = collectMediaEntries(items, attachments, boxes);
 
         res.json({
-            version: '1.5-full',
+            version: '1.6-full',
             exportDate: new Date().toISOString(),
             meta: {
                 containsDecryptedData: true,
@@ -432,6 +750,7 @@ router.get('/export-full', backupRateLimiter, (req, res) => {
             categories,
             rooms,
             locations,
+            boxes,
             borrows,
             attachments,
             media: mediaEntries
@@ -444,6 +763,8 @@ router.get('/export-full', backupRateLimiter, (req, res) => {
 
 // POST /api/backup/import - Import data to current house
 router.post('/import', backupRateLimiter, (req, res) => {
+    let restoreMediaPlan = null;
+    let databaseCommitted = false;
     try {
         const houseKey = req.user.house_key;
 
@@ -451,8 +772,7 @@ router.post('/import', backupRateLimiter, (req, res) => {
             return res.status(400).json({ error: 'Aktif ev bulunamadı' });
         }
 
-        const { items, categories, rooms, locations, borrows, attachments, media } = req.body;
-        const hasMediaEntries = Array.isArray(media) && media.length > 0;
+        const { items, categories, rooms, locations, boxes, borrows, attachments, media } = req.body;
 
         if (!items || !Array.isArray(items)) {
             return res.status(400).json({ error: 'Geçersiz yedek dosyası formatı' });
@@ -460,16 +780,20 @@ router.post('/import', backupRateLimiter, (req, res) => {
         if (items.length > MAX_IMPORT_ITEMS) {
             return res.status(400).json({ error: `Tek seferde en fazla ${MAX_IMPORT_ITEMS} eşya içe aktarılabilir` });
         }
+        restoreMediaPlan = buildRestoreMediaPlan(media);
+        const usedRestoredMediaPaths = new Set();
 
         let importedCategories = 0;
         let importedRooms = 0;
         let importedLocations = 0;
+        let importedBoxes = 0;
         let importedItems = 0;
         let importedBorrows = 0;
         let importedAttachments = 0;
         let skippedCategories = 0;
         let skippedRooms = 0;
         let skippedLocations = 0;
+        let skippedBoxes = 0;
         let skippedItems = 0;
         let skippedBorrows = 0;
         let skippedAttachments = 0;
@@ -479,6 +803,7 @@ router.post('/import', backupRateLimiter, (req, res) => {
             categories: [],
             rooms: [],
             locations: [],
+            boxes: [],
             borrows: [],
             attachments: []
         };
@@ -488,6 +813,7 @@ router.post('/import', backupRateLimiter, (req, res) => {
         const categoryMap = {};
         const roomMap = {};
         const locationMap = {};
+        const boxMap = {};
         const itemMap = {};
 
         // Import operation in a transaction
@@ -504,29 +830,63 @@ router.post('/import', backupRateLimiter, (req, res) => {
                     .map(decryptRoomRecord)
             );
 
-            const existingLocationsByName = buildNameMap(
+            const existingLocationsByScope = buildScopedLocationMap(
                 db.prepare('SELECT * FROM locations WHERE house_key = ?')
                     .all(houseKey)
                     .map(decryptLocationRecord)
             );
 
-            const existingItemsByFingerprint = new Map(
-                db.prepare(`
-                    SELECT
-                        i.id, i.name, i.description, i.quantity, i.barcode,
-                        i.invoice_price, i.invoice_currency, i.invoice_date,
-                        i.warranty_start_date, i.warranty_duration_value, i.warranty_duration_unit, i.warranty_expiry_date,
-                        c.name as category_name, r.name as room_name, l.name as location_name
-                    FROM items i
-                    LEFT JOIN categories c ON i.category_id = c.id
-                    LEFT JOIN rooms r ON i.room_id = r.id
-                    LEFT JOIN locations l ON i.location_id = l.id
-                    WHERE i.house_key = ?
-                `).all(houseKey).map(decryptItemRecord).map((existingItem) => [
-                    createItemFingerprint(existingItem),
-                    existingItem
-                ])
+            const existingBoxesByCode = new Map(
+                db.prepare('SELECT * FROM boxes WHERE house_key = ?')
+                    .all(houseKey)
+                    .map(decryptBoxRecord)
+                    .map((box) => [String(box.code || '').toLocaleUpperCase('en-US'), box])
             );
+
+            const memberIdsByUsernameLookup = new Map(
+                db.prepare(`
+                    SELECT u.id, u.username_lookup
+                    FROM user_houses uh
+                    JOIN users u ON u.id = uh.user_id
+                    WHERE uh.house_key = ?
+                `).all(houseKey)
+                    .filter((member) => member.username_lookup)
+                    .map((member) => [member.username_lookup, member.id])
+            );
+
+            const existingItemsByFingerprint = new Map();
+            const existingItems = db.prepare(`
+                SELECT
+                    i.id, i.name, i.description, i.quantity, i.barcode,
+                    i.photo_path, i.thumbnail_path, i.invoice_photo_path, i.invoice_thumbnail_path,
+                    i.invoice_price, i.invoice_currency, i.invoice_date,
+                    i.warranty_start_date, i.warranty_duration_value, i.warranty_duration_unit, i.warranty_expiry_date,
+                    i.expiry_date, i.min_quantity, i.is_public, i.user_id,
+                    i.category_id, i.room_id, i.location_id, i.box_id,
+                    c.name as category_name, r.name as room_name, l.name as location_name,
+                    b.name as box_name, b.code as box_code
+                FROM items i
+                LEFT JOIN categories c ON i.category_id = c.id
+                LEFT JOIN rooms r ON i.room_id = r.id
+                LEFT JOIN locations l ON i.location_id = l.id
+                LEFT JOIN boxes b ON i.box_id = b.id
+                WHERE i.house_key = ?
+            `).all(houseKey).map(decryptItemRecord);
+            for (const existingItem of existingItems) {
+                const fingerprint = createItemFingerprint(existingItem, {
+                    ownerId: existingItem.user_id,
+                    categoryId: existingItem.category_id,
+                    roomId: existingItem.room_id,
+                    locationId: existingItem.location_id,
+                    boxId: existingItem.box_id
+                });
+                const candidates = existingItemsByFingerprint.get(fingerprint) || [];
+                candidates.push({
+                    item: existingItem,
+                    mediaSignature: getExistingItemMediaSignature(existingItem)
+                });
+                existingItemsByFingerprint.set(fingerprint, candidates);
+            }
 
             // Import categories
             if (categories && Array.isArray(categories)) {
@@ -585,31 +945,149 @@ router.post('/import', backupRateLimiter, (req, res) => {
 
             // Import locations
             if (locations && Array.isArray(locations)) {
-                const insertLocation = db.prepare('INSERT INTO locations (name, room_id, created_by, house_key) VALUES (?, ?, ?, ?)');
+                const insertLocation = db.prepare(`
+                    INSERT INTO locations (name, room_id, created_by, is_public, house_key)
+                    VALUES (?, ?, ?, ?, ?)
+                `);
                 for (const loc of locations) {
-                    const existing = existingLocationsByName.get(loc.name);
-                    if (existing) {
+                    // Resolve the room before matching the location: different rooms may
+                    // intentionally contain shelves/locations with the same name.
+                    let roomId = null;
+                    if (loc.room_id && roomMap[loc.room_id]) {
+                        roomId = roomMap[loc.room_id];
+                    } else if (loc.room_name) {
+                        const room = existingRoomsByName.get(loc.room_name);
+                        if (room) roomId = room.id;
+                    }
+                    const locationKey = createLocationScopeKey(loc.name, roomId);
+                    const existing = existingLocationsByScope.get(locationKey);
+                    const locationIsPublic = normalizeImportBoolean(loc.is_public, false);
+                    const locationOwnerId = resolveImportedItemOwnerId(
+                        loc,
+                        memberIdsByUsernameLookup,
+                        req.user.id
+                    );
+                    const canReuseExisting = existing && (
+                        Boolean(existing.is_public) === locationIsPublic
+                        && (locationIsPublic || existing.created_by === locationOwnerId)
+                    );
+                    if (canReuseExisting) {
                         locationMap[loc.id] = existing.id;
                         skippedLocations++;
                     } else {
-                        // Find room_id from mapping or by name
-                        let roomId = null;
-                        if (loc.room_id && roomMap[loc.room_id]) {
-                            roomId = roomMap[loc.room_id];
-                        } else if (loc.room_name) {
-                            const room = existingRoomsByName.get(loc.room_name);
-                            if (room) roomId = room.id;
-                        }
-                        const result = insertLocation.run(encryptLocationName(loc.name), roomId, req.user.id, houseKey);
+                        const result = insertLocation.run(
+                            encryptLocationName(loc.name),
+                            roomId,
+                            locationOwnerId,
+                            locationIsPublic ? 1 : 0,
+                            houseKey
+                        );
                         locationMap[loc.id] = result.lastInsertRowid;
-                        existingLocationsByName.set(loc.name, {
+                        existingLocationsByScope.set(locationKey, {
                             id: result.lastInsertRowid,
                             name: loc.name,
-                            room_id: roomId
+                            room_id: roomId,
+                            is_public: locationIsPublic ? 1 : 0,
+                            created_by: locationOwnerId
                         });
                         importedLocations++;
                         pushUniquePreview(importPreview.locations, loc.name);
                     }
+                }
+            }
+
+            // Boxes are restored after rooms/locations so their last known place remains intact.
+            if (boxes && Array.isArray(boxes)) {
+                const insertBox = db.prepare(`
+                    INSERT INTO boxes (
+                        name, code, code_lookup, note, is_public, room_id, location_id,
+                        photo_path, thumbnail_path, created_by, house_key, archived_at
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                `);
+                for (const box of boxes) {
+                    const normalizedCode = String(box.code || '').trim().toLocaleUpperCase('en-US').slice(0, 24);
+                    if (!normalizedCode || !/^[A-Z0-9][A-Z0-9_-]{0,23}$/.test(normalizedCode)) {
+                        skippedBoxes++;
+                        continue;
+                    }
+                    const boxIsPublic = normalizeImportBoolean(box.is_public, true);
+                    const boxOwnerId = resolveImportedItemOwnerId(
+                        box,
+                        memberIdsByUsernameLookup,
+                        req.user.id
+                    );
+                    const existing = existingBoxesByCode.get(normalizedCode);
+                    if (existing) {
+                        const canReuseExisting = (
+                            Boolean(existing.is_public) === boxIsPublic
+                            && (boxIsPublic || existing.created_by === boxOwnerId)
+                        );
+                        if (canReuseExisting) {
+                            boxMap[box.id] = existing.id;
+                        }
+                        skippedBoxes++;
+                        continue;
+                    }
+
+                    let roomId = box.room_id && roomMap[box.room_id] ? roomMap[box.room_id] : null;
+                    if (!roomId && box.room_name) roomId = existingRoomsByName.get(box.room_name)?.id || null;
+                    let locationId = box.location_id && locationMap[box.location_id] ? locationMap[box.location_id] : null;
+                    if (!locationId && box.location_name) {
+                        locationId = existingLocationsByScope.get(createLocationScopeKey(box.location_name, roomId))?.id || null;
+                    }
+                    if (locationId) {
+                        const mappedLocation = db.prepare(`
+                            SELECT is_public, created_by
+                            FROM locations
+                            WHERE id = ? AND house_key = ?
+                        `).get(locationId, houseKey);
+                        if (
+                            !mappedLocation
+                            || (boxIsPublic && !mappedLocation.is_public)
+                            || (
+                                !mappedLocation.is_public
+                                && mappedLocation.created_by !== boxOwnerId
+                            )
+                        ) {
+                            locationId = null;
+                        }
+                    }
+                    const boxPhotoEntry = getRestoreMediaEntry(
+                        box.photo_path,
+                        restoreMediaPlan,
+                        'uploads/boxes'
+                    );
+                    const boxThumbnailEntry = getRestoreMediaEntry(
+                        box.thumbnail_path,
+                        restoreMediaPlan,
+                        'uploads/boxes/thumbnails'
+                    );
+
+                    const result = insertBox.run(
+                        encryptBoxName(String(box.name || normalizedCode).trim().slice(0, 120)),
+                        encryptBoxCode(normalizedCode),
+                        hashLookupToken(normalizedCode),
+                        box.note ? encryptBoxNote(String(box.note).slice(0, 1000)) : null,
+                        boxIsPublic ? 1 : 0,
+                        roomId,
+                        locationId,
+                        boxPhotoEntry?.targetPath || null,
+                        boxThumbnailEntry?.targetPath || null,
+                        boxOwnerId,
+                        houseKey,
+                        box.archived_at || null
+                    );
+                    if (boxPhotoEntry) usedRestoredMediaPaths.add(boxPhotoEntry.targetPath);
+                    if (boxThumbnailEntry) usedRestoredMediaPaths.add(boxThumbnailEntry.targetPath);
+                    boxMap[box.id] = result.lastInsertRowid;
+                    existingBoxesByCode.set(normalizedCode, {
+                        id: result.lastInsertRowid,
+                        code: normalizedCode,
+                        is_public: boxIsPublic ? 1 : 0,
+                        created_by: boxOwnerId
+                    });
+                    importedBoxes++;
+                    pushUniquePreview(importPreview.boxes, box.name || normalizedCode);
                 }
             }
 
@@ -619,20 +1097,12 @@ router.post('/import', backupRateLimiter, (req, res) => {
                     name, description, quantity, photo_path, thumbnail_path, invoice_photo_path, invoice_thumbnail_path,
                     barcode, invoice_price, invoice_currency, invoice_date,
                     warranty_start_date, warranty_duration_value, warranty_duration_unit, warranty_expiry_date,
-                    barcode_lookup, category_id, room_id, location_id, is_public, user_id, house_key, expiry_date, min_quantity
+                    barcode_lookup, category_id, room_id, location_id, box_id, is_public, user_id, house_key, expiry_date, min_quantity
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             `);
 
             for (const item of items) {
-                const itemFingerprint = createItemFingerprint(item);
-                const existingItem = existingItemsByFingerprint.get(itemFingerprint);
-                if (existingItem) {
-                    itemMap[item.id] = existingItem.id;
-                    skippedItems++;
-                    continue;
-                }
-
                 // Find category_id
                 let categoryId = null;
                 if (item.category_id && categoryMap[item.category_id]) {
@@ -656,8 +1126,68 @@ router.post('/import', backupRateLimiter, (req, res) => {
                 if (item.location_id && locationMap[item.location_id]) {
                     locationId = locationMap[item.location_id];
                 } else if (item.location_name) {
-                    const loc = existingLocationsByName.get(item.location_name);
+                    const loc = existingLocationsByScope.get(createLocationScopeKey(item.location_name, roomId));
                     if (loc) locationId = loc.id;
+                }
+
+                const itemOwnerId = resolveImportedItemOwnerId(
+                    item,
+                    memberIdsByUsernameLookup,
+                    req.user.id
+                );
+                if (locationId) {
+                    const targetLocation = db.prepare(`
+                        SELECT is_public, created_by
+                        FROM locations
+                        WHERE id = ? AND house_key = ?
+                    `).get(locationId, houseKey);
+                    if (
+                        !targetLocation
+                        || (!targetLocation.is_public && targetLocation.created_by !== itemOwnerId)
+                    ) {
+                        locationId = null;
+                    }
+                }
+                let boxId = null;
+                if (item.box_id && boxMap[item.box_id]) {
+                    boxId = boxMap[item.box_id];
+                } else if (item.box_code) {
+                    const existingBox = existingBoxesByCode.get(String(item.box_code).toLocaleUpperCase('en-US'));
+                    if (existingBox?.is_public || existingBox?.created_by === itemOwnerId) {
+                        boxId = existingBox.id;
+                    }
+                }
+                if (boxId) {
+                    const targetBox = db.prepare(`
+                        SELECT is_public, created_by
+                        FROM boxes
+                        WHERE id = ? AND house_key = ?
+                    `).get(boxId, houseKey);
+                    if (
+                        !targetBox
+                        || (!targetBox.is_public && targetBox.created_by !== itemOwnerId)
+                    ) {
+                        boxId = null;
+                    }
+                }
+                const itemIsPublic = normalizeImportBoolean(item.is_public, true);
+                const itemMediaEntries = getImportedItemMediaEntries(item, restoreMediaPlan);
+                const importedMediaSignature = itemMediaEntries.map((entry) => entry?.digest || null);
+                const itemFingerprint = createItemFingerprint(item, {
+                    ownerId: itemOwnerId,
+                    categoryId,
+                    roomId,
+                    locationId,
+                    boxId
+                });
+                const existingItem = findMatchingItemCandidate(
+                    existingItemsByFingerprint.get(itemFingerprint),
+                    importedMediaSignature
+                );
+                if (existingItem) {
+                    itemMap[item.id] = existingItem.id;
+                    skippedItems++;
+                    continue;
                 }
 
                 const result = insertItem.run(
@@ -674,10 +1204,10 @@ router.post('/import', backupRateLimiter, (req, res) => {
                     encryptItemName(item.name),
                     item.description ? encryptItemDescription(item.description) : '',
                     item.quantity || 1,
-                    hasMediaEntries ? (item.photo_path || null) : null,
-                    hasMediaEntries ? (item.thumbnail_path || null) : null,
-                    hasMediaEntries ? (item.invoice_photo_path || null) : null,
-                    hasMediaEntries ? (item.invoice_thumbnail_path || null) : null,
+                    itemMediaEntries[0]?.targetPath || null,
+                    itemMediaEntries[1]?.targetPath || null,
+                    itemMediaEntries[2]?.targetPath || null,
+                    itemMediaEntries[3]?.targetPath || null,
                     item.barcode ? encryptItemBarcode(item.barcode) : null,
                     item.invoice_price ? encryptItemInvoicePrice(item.invoice_price) : null,
                     item.invoice_currency ? encryptItemInvoiceCurrency(item.invoice_currency) : null,
@@ -690,19 +1220,28 @@ router.post('/import', backupRateLimiter, (req, res) => {
                     categoryId,
                     roomId,
                     locationId,
-                    item.is_public === false || item.is_public === 0 ? 0 : 1,
-                    req.user.id,
+                    boxId,
+                    itemIsPublic ? 1 : 0,
+                    itemOwnerId,
                     houseKey,
                     item.expiry_date || null,
                     Math.max(0, Number.parseInt(String(item.min_quantity || 0), 10) || 0)
                         ];
                     })()
                 );
+                for (const mediaEntry of itemMediaEntries) {
+                    if (mediaEntry) usedRestoredMediaPaths.add(mediaEntry.targetPath);
+                }
                 itemMap[item.id] = result.lastInsertRowid;
-                existingItemsByFingerprint.set(itemFingerprint, {
-                    id: result.lastInsertRowid,
-                    ...item
+                const itemCandidates = existingItemsByFingerprint.get(itemFingerprint) || [];
+                itemCandidates.push({
+                    item: {
+                        id: result.lastInsertRowid,
+                        ...item
+                    },
+                    mediaSignature: importedMediaSignature
                 });
+                existingItemsByFingerprint.set(itemFingerprint, itemCandidates);
                 importedItems++;
                 pushUniquePreview(importPreview.items, item.name);
             }
@@ -808,7 +1347,7 @@ router.post('/import', backupRateLimiter, (req, res) => {
                 }
             }
 
-            if (hasMediaEntries && attachments && Array.isArray(attachments)) {
+            if (restoreMediaPlan.entries.length > 0 && attachments && Array.isArray(attachments)) {
                 const existingAttachmentFingerprints = new Set(
                     db.prepare(`
                         SELECT item_id, original_name, stored_path, mime_type, size_bytes
@@ -817,9 +1356,9 @@ router.post('/import', backupRateLimiter, (req, res) => {
                     `).all(houseKey).map((attachment) => JSON.stringify([
                         Number(attachment.item_id || 0),
                         normalizeImportValue(decryptAttachmentOriginalName(attachment.original_name)),
-                        normalizeImportValue(attachment.stored_path),
                         normalizeImportValue(attachment.mime_type),
-                        Number(attachment.size_bytes || 0)
+                        Number(attachment.size_bytes || 0),
+                        getStoredMediaDigest(attachment.stored_path, 'uploads/attachments')
                     ]))
                 );
                 const insertAttachment = db.prepare(`
@@ -831,8 +1370,12 @@ router.post('/import', backupRateLimiter, (req, res) => {
 
                 for (const attachment of attachments) {
                     const mappedItemId = itemMap[attachment.item_id];
-                    const storedPath = normalizeStoredPath(attachment.stored_path);
-                    if (!mappedItemId || !storedPath) {
+                    const mediaEntry = getRestoreMediaEntry(
+                        attachment.stored_path,
+                        restoreMediaPlan,
+                        'uploads/attachments'
+                    );
+                    if (!mappedItemId || !mediaEntry) {
                         continue;
                     }
                     const attachmentName = String(decryptAttachmentOriginalName(attachment.original_name) || 'attachment').slice(0, 160);
@@ -840,9 +1383,9 @@ router.post('/import', backupRateLimiter, (req, res) => {
                     const fingerprint = JSON.stringify([
                         Number(mappedItemId || 0),
                         normalizeImportValue(attachmentName),
-                        normalizeImportValue(storedPath),
                         normalizeImportValue(attachment.mime_type),
-                        Number(attachment.size_bytes || 0)
+                        Number(attachment.size_bytes || 0),
+                        mediaEntry.digest
                     ]);
                     if (existingAttachmentFingerprints.has(fingerprint)) {
                         skippedAttachments++;
@@ -854,20 +1397,30 @@ router.post('/import', backupRateLimiter, (req, res) => {
                         houseKey,
                         req.user.id,
                         encryptAttachmentOriginalName(attachmentName),
-                        storedPath,
+                        mediaEntry.targetPath,
                         String(attachment.mime_type || 'application/octet-stream').slice(0, 120),
                         Math.max(0, Number.parseInt(String(attachment.size_bytes || 0), 10) || 0),
                         attachment.created_at || new Date().toISOString()
                     );
+                    usedRestoredMediaPaths.add(mediaEntry.targetPath);
                     existingAttachmentFingerprints.add(fingerprint);
                     importedAttachments++;
-                    pushUniquePreview(importPreview.attachments, attachmentName || storedPath);
+                    pushUniquePreview(importPreview.attachments, attachmentName || mediaEntry.targetPath);
                 }
             }
         });
 
+        stageRestoreMediaPlan(restoreMediaPlan);
         importAll();
-        restoredMedia = restoreMediaEntries(media);
+        databaseCommitted = true;
+        cleanupRestoreMediaPlan(restoreMediaPlan, usedRestoredMediaPaths);
+        const usedMediaEntries = restoreMediaPlan.entries.filter(
+            (entry) => usedRestoredMediaPaths.has(entry.targetPath)
+        );
+        restoredMedia = {
+            restoredMedia: usedMediaEntries.length,
+            restoredBytes: usedMediaEntries.reduce((total, entry) => total + entry.size, 0)
+        };
 
         res.json({
             message: 'Yedek başarıyla içe aktarıldı',
@@ -876,6 +1429,7 @@ router.post('/import', backupRateLimiter, (req, res) => {
                 categories: importedCategories,
                 rooms: importedRooms,
                 locations: importedLocations,
+                boxes: importedBoxes,
                 borrows: importedBorrows,
                 attachments: importedAttachments,
                 media: restoredMedia.restoredMedia
@@ -885,6 +1439,7 @@ router.post('/import', backupRateLimiter, (req, res) => {
                 categories: skippedCategories,
                 rooms: skippedRooms,
                 locations: skippedLocations,
+                boxes: skippedBoxes,
                 borrows: skippedBorrows,
                 attachments: skippedAttachments
             },
@@ -893,6 +1448,7 @@ router.post('/import', backupRateLimiter, (req, res) => {
                 categories: Array.isArray(categories) ? categories.length : 0,
                 rooms: Array.isArray(rooms) ? rooms.length : 0,
                 locations: Array.isArray(locations) ? locations.length : 0,
+                boxes: Array.isArray(boxes) ? boxes.length : 0,
                 borrows: Array.isArray(borrows) ? borrows.length : 0,
                 attachments: Array.isArray(attachments) ? attachments.length : 0,
                 media: Array.isArray(media) ? media.length : 0
@@ -905,12 +1461,14 @@ router.post('/import', backupRateLimiter, (req, res) => {
                     categories: Math.max(importedCategories - importPreview.categories.length, 0),
                     rooms: Math.max(importedRooms - importPreview.rooms.length, 0),
                     locations: Math.max(importedLocations - importPreview.locations.length, 0),
+                    boxes: Math.max(importedBoxes - importPreview.boxes.length, 0),
                     borrows: Math.max(importedBorrows - importPreview.borrows.length, 0),
                     attachments: Math.max(importedAttachments - importPreview.attachments.length, 0)
                 }
             }
         });
     } catch (err) {
+        if (!databaseCommitted) cleanupRestoreMediaPlan(restoreMediaPlan);
         console.error('Import error:', err);
         res.status(err.statusCode || 500).json({ error: err.message || 'Yedek içe aktarılırken hata oluştu' });
     }

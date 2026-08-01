@@ -3,7 +3,7 @@ import { Link, useSearchParams } from 'react-router';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
-import { Search, Grid3X3, List, Plus, Minus, Trash2, Eye, Lock, Globe, MapPin, Package, Clock3, ArrowRightLeft, AlertTriangle, TrendingDown, DoorOpen, CheckSquare, Square, QrCode, Layers, Tags, ShieldCheck, Bell, SlidersHorizontal } from 'lucide-react';
+import { Search, Grid3X3, List, Plus, Minus, Trash2, Eye, Lock, Globe, MapPin, Package, Box, Clock3, ArrowRightLeft, AlertTriangle, TrendingDown, DoorOpen, CheckSquare, Square, QrCode, Layers, Tags, ShieldCheck, Bell, SlidersHorizontal } from 'lucide-react';
 import SecureImage from './SecureImage';
 import { BorrowItemDialog, ReturnItemDialog } from './BorrowDialogs';
 import { ConfirmDialog } from './ModalDialog';
@@ -18,6 +18,7 @@ import { LoadingState } from './ProductUI';
 import FloatingToast from './FloatingToast';
 import IconActionButton from './IconActionButton';
 import SegmentedToggle from './SegmentedToggle';
+import { InventoryStructureNav } from './OrganizationHub';
 import { getRoomPresentation } from '../utils/roomDisplay';
 import { getCategoryPresentation } from '../utils/categoryDisplay';
 import '../inventory-card-v25.css';
@@ -32,6 +33,7 @@ interface InventoryFilters {
     category_id: string;
     room_id: string;
     location_id: string;
+    box_id: string;
     visibility: string;
     stock: string;
     expiry: string;
@@ -46,6 +48,7 @@ function createFiltersFromSearchParams(searchParams: URLSearchParams): Inventory
         category_id: searchParams.get('category_id') || '',
         room_id: searchParams.get('room_id') || '',
         location_id: searchParams.get('location_id') || '',
+        box_id: searchParams.get('box_id') || '',
         visibility: searchParams.get('visibility') || '',
         stock: searchParams.get('stock') || '',
         expiry: searchParams.get('expiry') || '',
@@ -61,6 +64,7 @@ function areFiltersEqual(a: InventoryFilters, b: InventoryFilters) {
         a.category_id === b.category_id &&
         a.room_id === b.room_id &&
         a.location_id === b.location_id &&
+        a.box_id === b.box_id &&
         a.visibility === b.visibility &&
         a.stock === b.stock &&
         a.expiry === b.expiry &&
@@ -98,12 +102,14 @@ export default function ItemList() {
     const [categories, setCategories] = useState<any[]>(() => getCachedData('/api/categories')?.categories || []);
     const [rooms, setRooms] = useState<any[]>(() => getCachedData('/api/rooms')?.rooms || []);
     const [locations, setLocations] = useState<any[]>(() => getCachedData('/api/locations')?.locations || []);
+    const [boxes, setBoxes] = useState<any[]>(() => getCachedData('/api/boxes')?.boxes || []);
     const [houseMembers, setHouseMembers] = useState<any[]>(() => getCachedData('/api/auth/house-members')?.members || []);
 
     const isInitiallyLoaded = hasCache(initialQueryUrl) &&
                                hasCache('/api/categories') &&
                                hasCache('/api/rooms') &&
                                hasCache('/api/locations') &&
+                               hasCache('/api/boxes') &&
                                hasCache('/api/auth/house-members');
     const [loading, setLoading] = useState(!isInitiallyLoaded);
     const [filtersLoading, setFiltersLoading] = useState(false);
@@ -121,12 +127,15 @@ export default function ItemList() {
     const [bulkCategoryId, setBulkCategoryId] = useState('');
     const [bulkRoomId, setBulkRoomId] = useState('');
     const [bulkLocationId, setBulkLocationId] = useState('');
+    const [bulkBoxId, setBulkBoxId] = useState('');
     const [bulkVisibility, setBulkVisibility] = useState('');
+    const bulkUsesBoxPlacement = Boolean(bulkBoxId && bulkBoxId !== '__NONE__');
     const [stockAdjustingIds, setStockAdjustingIds] = useState<Set<number>>(new Set());
     const [showDetailedFilters, setShowDetailedFilters] = useState(false);
     const [toast, setToast] = useState<{ title: string; description: string; tone?: any } | null>(null);
     const hasDetailedFilters = Boolean(
         filters.location_id ||
+        filters.box_id ||
         filters.visibility ||
         filters.stock ||
         filters.expiry ||
@@ -139,6 +148,7 @@ export default function ItemList() {
         filters.category_id ||
         filters.room_id ||
         filters.location_id ||
+        filters.box_id ||
         filters.visibility ||
         filters.stock ||
         filters.expiry ||
@@ -205,6 +215,9 @@ export default function ItemList() {
                     fetchWithCache('/api/locations', (data) => {
                         if (isActiveRef.current) setLocations(data.locations || []);
                     }),
+                    fetchWithCache('/api/boxes', (data) => {
+                        if (isActiveRef.current) setBoxes(data.boxes || []);
+                    }),
                     fetchWithCache('/api/auth/house-members', (data) => {
                         if (isActiveRef.current) setHouseMembers(data.members || []);
                     }).catch(() => {
@@ -268,6 +281,7 @@ export default function ItemList() {
         filters.category_id,
         filters.room_id,
         filters.location_id,
+        filters.box_id,
         filters.visibility,
         filters.stock,
         filters.expiry,
@@ -320,7 +334,16 @@ export default function ItemList() {
             .map((item) => item.id);
     }, [items, user?.id]);
     const selectedCount = selectedEditableItems.length;
+    const selectionIncludesBoxedItems = selectedEditableItems.some((item) => Boolean(item.box_id));
+    const bulkKeepsExistingBoxPlacement = !bulkBoxId && selectionIncludesBoxedItems;
+    const bulkPlacementLocked = bulkUsesBoxPlacement || bulkKeepsExistingBoxPlacement;
     const allSelectableSelected = selectableItemIds.length > 0 && selectableItemIds.every((id) => selectedItemIds.has(id));
+
+    useEffect(() => {
+        if (!bulkPlacementLocked) return;
+        setBulkRoomId('');
+        setBulkLocationId('');
+    }, [bulkPlacementLocked]);
 
     useEffect(() => {
         setSelectedItemIds((current) => {
@@ -442,8 +465,9 @@ export default function ItemList() {
 
         const payload: Record<string, any> = {};
         if (bulkCategoryId) payload.category_id = bulkCategoryId;
-        if (bulkRoomId) payload.room_id = bulkRoomId;
-        if (bulkLocationId) payload.location_id = bulkLocationId;
+        if (!bulkPlacementLocked && bulkRoomId) payload.room_id = bulkRoomId;
+        if (!bulkPlacementLocked && bulkLocationId) payload.location_id = bulkLocationId;
+        if (bulkBoxId) payload.box_id = bulkBoxId === '__NONE__' ? '' : bulkBoxId;
         if (bulkVisibility) payload.is_public = bulkVisibility === 'public';
 
         if (!Object.keys(payload).length) {
@@ -469,6 +493,7 @@ export default function ItemList() {
             setBulkCategoryId('');
             setBulkRoomId('');
             setBulkLocationId('');
+            setBulkBoxId('');
             setBulkVisibility('');
             setToast({
                 title: t('inventory.bulk.updated_title', { defaultValue: 'Toplu güncelleme tamamlandı' }),
@@ -564,6 +589,7 @@ export default function ItemList() {
             category_id: '',
             room_id: '',
             location_id: '',
+            box_id: '',
             visibility: '',
             stock: '',
             expiry: '',
@@ -713,6 +739,7 @@ export default function ItemList() {
 
     return (
         <div className="inventory-page animate-fade-in">
+            <InventoryStructureNav />
             <header className="inventory-intro">
                 <div className="inventory-intro-copy">
                     <h1>{t('inventory.title')}</h1>
@@ -857,6 +884,17 @@ export default function ItemList() {
                             ))}
                         </select>
                         <select
+                            value={filters.box_id}
+                            onChange={(e) => setFilters({ ...filters, box_id: e.target.value })}
+                            aria-label={t('inventory.box_filter_label', { defaultValue: 'Filter by box' })}
+                            className="inventory-filter-select"
+                        >
+                            <option value="">{t('inventory.all_boxes', { defaultValue: 'All boxes' })}</option>
+                            {boxes.map((box) => (
+                                <option key={box.id} value={box.id}>{box.code} · {box.name}</option>
+                            ))}
+                        </select>
+                        <select
                             value={filters.visibility}
                             onChange={(e) => setFilters({ ...filters, visibility: e.target.value })}
                             aria-label={t('inventory.visibility_filter_label', { defaultValue: 'Görünürlüğe göre filtrele' })}
@@ -956,19 +994,57 @@ export default function ItemList() {
                                     <option key={category.id} value={category.id}>{category.icon} {getVisibleCategoryName(category)}</option>
                                 ))}
                             </select>
-                            <select value={bulkRoomId} onChange={(e) => { setBulkRoomId(e.target.value); setBulkLocationId(''); }} className="input-field bulk-action-input">
-                                <option value="">{t('inventory.bulk.keep_room', { defaultValue: 'Oda değişmesin' })}</option>
+                            <select
+                                value={bulkRoomId}
+                                onChange={(e) => { setBulkRoomId(e.target.value); setBulkLocationId(''); }}
+                                className="input-field bulk-action-input"
+                                disabled={bulkPlacementLocked}
+                                title={bulkPlacementLocked ? t('inventory.bulk.placement_follows_box', { defaultValue: 'Room and location follow the box selection.' }) : undefined}
+                            >
+                                <option value="">
+                                    {bulkPlacementLocked
+                                        ? t('inventory.bulk.room_follows_box', { defaultValue: 'Room follows box' })
+                                        : t('inventory.bulk.keep_room', { defaultValue: 'Oda değişmesin' })}
+                                </option>
                                 {rooms.map((room) => (
                                     <option key={room.id} value={room.id}>{getVisibleRoomName(room)}</option>
                                 ))}
                             </select>
-                            <select value={bulkLocationId} onChange={(e) => setBulkLocationId(e.target.value)} className="input-field bulk-action-input">
-                                <option value="">{t('inventory.bulk.keep_location', { defaultValue: 'Konum değişmesin' })}</option>
+                            <select
+                                value={bulkLocationId}
+                                onChange={(e) => setBulkLocationId(e.target.value)}
+                                className="input-field bulk-action-input"
+                                disabled={bulkPlacementLocked}
+                                title={bulkPlacementLocked ? t('inventory.bulk.placement_follows_box', { defaultValue: 'Room and location follow the box selection.' }) : undefined}
+                            >
+                                <option value="">
+                                    {bulkPlacementLocked
+                                        ? t('inventory.bulk.location_follows_box', { defaultValue: 'Location follows box' })
+                                        : t('inventory.bulk.keep_location', { defaultValue: 'Konum değişmesin' })}
+                                </option>
                                 {locations
                                     .filter((location) => !bulkRoomId || String(location.room_id || '') === String(bulkRoomId))
                                     .map((location) => (
                                         <option key={location.id} value={location.id}>{location.name}</option>
                                     ))}
+                            </select>
+                            <select
+                                value={bulkBoxId}
+                                onChange={(e) => {
+                                    const nextBoxId = e.target.value;
+                                    setBulkBoxId(nextBoxId);
+                                    if (nextBoxId && nextBoxId !== '__NONE__') {
+                                        setBulkRoomId('');
+                                        setBulkLocationId('');
+                                    }
+                                }}
+                                className="input-field bulk-action-input"
+                            >
+                                <option value="">{t('inventory.bulk.keep_box', { defaultValue: 'Box unchanged' })}</option>
+                                <option value="__NONE__">{t('items.form.no_box', { defaultValue: 'No box' })}</option>
+                                {boxes.map((box) => (
+                                    <option key={box.id} value={box.id}>{box.code} · {box.name}</option>
+                                ))}
                             </select>
                             <select value={bulkVisibility} onChange={(e) => setBulkVisibility(e.target.value)} className="input-field bulk-action-input">
                                 <option value="">{t('inventory.bulk.keep_visibility', { defaultValue: 'Görünürlük değişmesin' })}</option>
@@ -1041,6 +1117,13 @@ export default function ItemList() {
                             const visibleRoomName = item.room_name
                                 ? getVisibleRoomName({ id: item.room_id, name: item.room_name })
                                 : '';
+                            const boxPlacementLabel = item.box_name
+                                ? [
+                                    visibleRoomName,
+                                    item.location_name,
+                                    [item.box_code, item.box_name].filter(Boolean).join(' · ')
+                                ].filter(Boolean).join(' › ')
+                                : '';
 
                             const isDeleting = deletingIds.has(item.id);
 
@@ -1053,15 +1136,16 @@ export default function ItemList() {
                                     className={`
                                         inventory-item-card flex h-full flex-col p-0 overflow-hidden group
                                         ${isDeleting ? 'is-deleting' : ''}
+                                        ${item.photo_path ? 'has-photo' : 'is-no-photo'}
                                         ${viewMode === 'list' ? 'lg:min-h-[148px] lg:flex-row lg:items-stretch' : ''}
                                     `.trim()}
                                 >
-                                    {/* Image */}
-                                    <div className={`inventory-item-media
-                  overflow-hidden relative bg-[var(--hi-panel-muted)]
-                  ${viewMode === 'list' ? 'lg:w-36 lg:min-h-[148px] lg:flex-shrink-0 lg:self-stretch' : 'aspect-[4/3] sm:aspect-square'}
-                `}>
-                                        {item.photo_path ? (
+                                    {item.photo_path ? (
+                                        <>
+                                            <div className={`inventory-item-media
+                      overflow-hidden relative bg-[var(--hi-panel-muted)]
+                      ${viewMode === 'list' ? 'lg:w-36 lg:min-h-[148px] lg:flex-shrink-0 lg:self-stretch' : 'aspect-[4/3] sm:aspect-square'}
+                    `}>
                                             <SecureImage
                                                 src={item.photo_path}
                                                 alt={itemTitle}
@@ -1072,65 +1156,98 @@ export default function ItemList() {
                                                     </div>
                                                 }
                                             />
-                                        ) : (
-                                            <div className="flex h-full min-h-[132px] w-full items-center justify-center bg-gradient-to-br from-[var(--hi-panel-muted)] to-[var(--hi-bg-strong)]">
-                                                <div className={`flex items-center justify-center rounded-2xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] text-[var(--hi-text-muted)] shadow-sm ${viewMode === 'list' ? 'h-16 w-16 text-3xl' : 'h-20 w-20 text-4xl sm:h-24 sm:w-24 sm:text-5xl'}`}>
-                                                    <span className="opacity-75">{item.category_icon || '📦'}</span>
-                                                </div>
-                                            </div>
-                                        )}
 
-                                        <div className="absolute top-2 left-2 flex gap-1">
-                                            {activeBorrow && (
-                                                <span className={`px-2 py-1 rounded-full text-[11px] font-semibold text-white ${overdue ? 'bg-rose-500/95' : 'bg-[var(--hi-accent)]'}`}>
-                                                    {overdue ? t('inventory.borrow.overdue_badge') : t('inventory.borrow.borrowed_badge')}
-                                                </span>
+                                            <div className="absolute top-2 left-2 flex gap-1">
+                                                {activeBorrow && (
+                                                    <span className={`px-2 py-1 rounded-full text-[11px] font-semibold text-white ${overdue ? 'bg-rose-500/95' : 'bg-[var(--hi-accent)]'}`}>
+                                                        {overdue ? t('inventory.borrow.overdue_badge') : t('inventory.borrow.borrowed_badge')}
+                                                    </span>
+                                                )}
+                                            </div>
+
+                                            <div className="inventory-card-desktop-visibility absolute top-2 right-2 flex gap-1">
+                                                {item.is_public ? <span className="p-1.5 rounded-full bg-[var(--hi-accent)] text-white"><Globe className="w-3 h-3" /></span>
+                                                    : <span className="p-1.5 rounded-full bg-[var(--hi-secondary)] text-white"><Lock className="w-3 h-3" /></span>}
+                                            </div>
+                                            {canManageItem && (
+                                                <button
+                                                    type="button"
+                                                    onClick={() => toggleItemSelection(item.id)}
+                                                    className="inventory-card-desktop-selection absolute bottom-2 right-2 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/35 bg-black/55 text-white shadow-lg backdrop-blur-sm transition hover:bg-black/70"
+                                                    aria-label={selectedItemIds.has(item.id)
+                                                        ? t('inventory.bulk.unselect_item', { defaultValue: 'Seçimi kaldır' })
+                                                        : t('inventory.bulk.select_item', { defaultValue: 'Eşyayı seç' })}
+                                                >
+                                                    {selectedItemIds.has(item.id) ? <CheckSquare className="h-5 w-5" /> : <Square className="h-5 w-5" />}
+                                                </button>
+                                            )}
+                                            {user && item.user_id !== user.id && (
+                                                <div className="absolute bottom-2 left-2">
+                                                    <span className="px-2 py-1 rounded-full bg-black/70 text-white text-xs font-medium backdrop-blur">{item.owner_name}</span>
+                                                </div>
                                             )}
                                         </div>
 
-                                        <div className="inventory-card-desktop-visibility absolute top-2 right-2 flex gap-1">
-                                            {item.is_public ? <span className="p-1.5 rounded-full bg-[var(--hi-accent)] text-white"><Globe className="w-3 h-3" /></span>
-                                                : <span className="p-1.5 rounded-full bg-[var(--hi-secondary)] text-white"><Lock className="w-3 h-3" /></span>}
-                                        </div>
-                                        {canManageItem && (
-                                            <button
-                                                type="button"
-                                                onClick={() => toggleItemSelection(item.id)}
-                                                className="inventory-card-desktop-selection absolute bottom-2 right-2 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/35 bg-black/55 text-white shadow-lg backdrop-blur-sm transition hover:bg-black/70"
-                                                aria-label={selectedItemIds.has(item.id)
-                                                    ? t('inventory.bulk.unselect_item', { defaultValue: 'Seçimi kaldır' })
-                                                    : t('inventory.bulk.select_item', { defaultValue: 'Eşyayı seç' })}
+                                            <div className="inventory-card-mobile-meta" aria-label={item.is_public
+                                                ? t('items.form.visibility_public', { defaultValue: 'Shared' })
+                                                : t('items.form.visibility_private', { defaultValue: 'Private' })}
                                             >
-                                                {selectedItemIds.has(item.id) ? <CheckSquare className="h-5 w-5" /> : <Square className="h-5 w-5" />}
-                                            </button>
-                                        )}
-                                        {user && item.user_id !== user.id && (
-                                            <div className="absolute bottom-2 left-2">
-                                                <span className="px-2 py-1 rounded-full bg-black/70 text-white text-xs font-medium backdrop-blur">{item.owner_name}</span>
+                                                <span className={`inventory-card-mobile-visibility ${item.is_public ? 'is-public' : 'is-private'}`}>
+                                                    {item.is_public ? <Globe aria-hidden="true" /> : <Lock aria-hidden="true" />}
+                                                </span>
+                                                {canManageItem && (
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => toggleItemSelection(item.id)}
+                                                        className={`inventory-card-mobile-selection ${selectedItemIds.has(item.id) ? 'is-selected' : ''}`}
+                                                        aria-label={selectedItemIds.has(item.id)
+                                                            ? t('inventory.bulk.unselect_item', { defaultValue: 'Unselect item' })
+                                                            : t('inventory.bulk.select_item', { defaultValue: 'Select item' })}
+                                                    >
+                                                        {selectedItemIds.has(item.id) ? <CheckSquare aria-hidden="true" /> : <Square aria-hidden="true" />}
+                                                    </button>
+                                                )}
                                             </div>
-                                        )}
-                                    </div>
-
-                                    <div className="inventory-card-mobile-meta" aria-label={item.is_public
-                                        ? t('items.form.visibility_public', { defaultValue: 'Shared' })
-                                        : t('items.form.visibility_private', { defaultValue: 'Private' })}
-                                    >
-                                        <span className={`inventory-card-mobile-visibility ${item.is_public ? 'is-public' : 'is-private'}`}>
-                                            {item.is_public ? <Globe aria-hidden="true" /> : <Lock aria-hidden="true" />}
-                                        </span>
-                                        {canManageItem && (
-                                            <button
-                                                type="button"
-                                                onClick={() => toggleItemSelection(item.id)}
-                                                className={`inventory-card-mobile-selection ${selectedItemIds.has(item.id) ? 'is-selected' : ''}`}
-                                                aria-label={selectedItemIds.has(item.id)
-                                                    ? t('inventory.bulk.unselect_item', { defaultValue: 'Unselect item' })
-                                                    : t('inventory.bulk.select_item', { defaultValue: 'Select item' })}
-                                            >
-                                                {selectedItemIds.has(item.id) ? <CheckSquare aria-hidden="true" /> : <Square aria-hidden="true" />}
-                                            </button>
-                                        )}
-                                    </div>
+                                        </>
+                                    ) : (
+                                        <div className={`inventory-item-no-media-meta flex items-center justify-between gap-3 border-b border-[var(--hi-border)] bg-[var(--hi-panel-muted)] px-4 py-3 ${viewMode === 'list' ? 'lg:w-20 lg:flex-shrink-0 lg:flex-col lg:justify-center lg:border-b-0 lg:border-r lg:px-2' : ''}`}>
+                                            <div className={`flex min-w-0 items-center gap-2 ${viewMode === 'list' ? 'lg:flex-col' : ''}`}>
+                                                <span className="inventory-item-no-media-icon inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] text-xl text-[var(--hi-text-muted)] shadow-sm">
+                                                    {item.category_icon || '📦'}
+                                                </span>
+                                                {activeBorrow && (
+                                                    <span className={`rounded-full px-2 py-1 text-[11px] font-semibold text-white ${overdue ? 'bg-rose-500/95' : 'bg-[var(--hi-accent)]'}`}>
+                                                        {overdue ? t('inventory.borrow.overdue_badge') : t('inventory.borrow.borrowed_badge')}
+                                                    </span>
+                                                )}
+                                                {user && item.user_id !== user.id && (
+                                                    <span className="truncate text-xs font-medium text-[var(--hi-text-soft)]">{item.owner_name}</span>
+                                                )}
+                                            </div>
+                                            <div className="flex shrink-0 items-center gap-2">
+                                                <span
+                                                    className={`inline-flex h-8 w-8 items-center justify-center rounded-full border border-[var(--hi-border)] bg-[var(--hi-panel-strong)] ${item.is_public ? 'text-[var(--hi-accent)]' : 'text-[var(--hi-secondary)]'}`}
+                                                    aria-label={item.is_public
+                                                        ? t('items.form.visibility_public', { defaultValue: 'Shared' })
+                                                        : t('items.form.visibility_private', { defaultValue: 'Private' })}
+                                                >
+                                                    {item.is_public ? <Globe className="h-3.5 w-3.5" aria-hidden="true" /> : <Lock className="h-3.5 w-3.5" aria-hidden="true" />}
+                                                </span>
+                                                {canManageItem && (
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => toggleItemSelection(item.id)}
+                                                        className={`inline-flex h-9 w-9 items-center justify-center rounded-xl border bg-[var(--hi-panel-strong)] transition ${selectedItemIds.has(item.id) ? 'border-[var(--hi-accent-border)] text-[var(--hi-accent)]' : 'border-[var(--hi-border)] text-[var(--hi-text-soft)] hover:border-[var(--hi-accent-border)] hover:text-[var(--hi-accent)]'}`}
+                                                        aria-label={selectedItemIds.has(item.id)
+                                                            ? t('inventory.bulk.unselect_item', { defaultValue: 'Unselect item' })
+                                                            : t('inventory.bulk.select_item', { defaultValue: 'Select item' })}
+                                                    >
+                                                        {selectedItemIds.has(item.id) ? <CheckSquare className="h-4 w-4" aria-hidden="true" /> : <Square className="h-4 w-4" aria-hidden="true" />}
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
 
                                     {/* Content */}
                                     <div className={`inventory-item-content flex flex-1 flex-col p-4 ${viewMode === 'list' ? 'lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(18rem,28rem)] lg:items-center lg:gap-5 lg:px-5 lg:py-4 xl:grid-cols-[minmax(0,1fr)_minmax(23rem,31rem)]' : ''}`}>
@@ -1202,13 +1319,19 @@ export default function ItemList() {
                                                         <span className="truncate max-w-[11rem]">{item.category_icon} {visibleCategoryName}</span>
                                                     </span>
                                                 )}
-                                                {visibleRoomName && (
+                                                {item.box_name && (
+                                                    <Link to={`/organize/boxes/${item.box_id}`} className="inventory-placement-trail-v26 badge max-w-full text-xs py-0.5 inline-flex items-center gap-1 hover:text-[var(--hi-accent)]">
+                                                        <Box className="w-3 h-3 text-[var(--hi-text-muted)] shrink-0" />
+                                                        <span className="truncate">{boxPlacementLabel}</span>
+                                                    </Link>
+                                                )}
+                                                {!item.box_name && visibleRoomName && (
                                                     <span className="badge max-w-full text-xs py-0.5 inline-flex items-center gap-1">
                                                         <DoorOpen className="w-3 h-3 text-[var(--hi-text-muted)] shrink-0" />
                                                         <span className="truncate">{visibleRoomName}</span>
                                                     </span>
                                                 )}
-                                                {item.location_name && (
+                                                {!item.box_name && item.location_name && (
                                                     <span className="badge max-w-full text-xs py-0.5 inline-flex items-center gap-1">
                                                         <MapPin className="w-3 h-3 text-[var(--hi-text-muted)] shrink-0" />
                                                         <span className="truncate">{item.location_name}</span>

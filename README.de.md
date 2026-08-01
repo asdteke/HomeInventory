@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.5.2 release line. -->
+<!-- Release status: v2.6.0 release line. -->
 
 <p align="center">
   <strong>Private, selbst hostbare Haushaltsinventur für gemeinsam genutzte Zuhause.</strong><br/>
@@ -52,7 +52,7 @@
 </p>
 
 <details>
-<summary><strong>Weitere Screenshots: Inventar, Borrow Center, Vault, Kategorien</strong></summary>
+<summary><strong>Weitere Screenshots: Inventar, Boxen, Box-Inhalt, Ausleihcenter, Persönlicher Tresor, Kategorien</strong></summary>
 
 <br/>
 
@@ -60,10 +60,16 @@
   <img src="docs/assets/screenshot-inventory.png" alt="Inventaransicht" width="82%" />
 </p>
 <p align="center">
-  <img src="docs/assets/screenshot-borrow.png" alt="Borrow Center Ansicht" width="82%" />
+  <img src="docs/assets/screenshot-boxes.png" alt="Boxenansicht" width="82%" />
 </p>
 <p align="center">
-  <img src="docs/assets/screenshot-vault.png" alt="Personal Vault Ansicht" width="82%" />
+  <img src="docs/assets/screenshot-box-detail.png" alt="Ansicht des Box-Inhalts" width="82%" />
+</p>
+<p align="center">
+  <img src="docs/assets/screenshot-borrow.png" alt="Ausleihcenter-Ansicht" width="82%" />
+</p>
+<p align="center">
+  <img src="docs/assets/screenshot-vault.png" alt="Ansicht des persönlichen Tresors" width="82%" />
 </p>
 <p align="center">
   <img src="docs/assets/screenshot-categories.png" alt="Kategorienansicht" width="82%" />
@@ -74,7 +80,7 @@
 HomeInventory ist für Familien, Wohngemeinschaften und kleine Haushalte gedacht, die ein praktisches Inventar brauchen, ohne private Datensätze in eine gemeinsame Tabelle zu verwandeln.
 
 > [!NOTE]
-> **v2.5.2 ist die aktuelle Release-Linie.** Sie behält den Funktionsumfang von v2.5.1 bei, aktualisiert `sharp` und die gebündelte libvips-Laufzeit für den neuesten Sicherheitshinweis und hält verwaltete App und Desktop-Launcher auf derselben Version.
+> **v2.6.0 ist die aktuelle Release-Linie.** Sie ergänzt eine einfache gemeinsame und persönliche Boxverwaltung mit sicheren Gegenstandsverschiebungen, QR-Etiketten und backup-kompatibler Speicherung; Sicherheitsbasis und Versionsgleichstand bleiben erhalten.
 
 ## Warum HomeInventory
 
@@ -90,13 +96,14 @@ HomeInventory ist für Familien, Wohngemeinschaften und kleine Haushalte gedacht
 | Bereich | Abdeckung |
 | --- | --- |
 | Inventar | Gegenstände, Fotos, Räume, Kategorien, Standorte, Mengen, Garantie- und Rechnungsmetadaten |
+| Boxen | Gemeinsame oder persönliche Boxen, Einzel- und Mehrfachzuordnung, Kamera-/Galeriefotos, Raumauswahl mit Standorterstellung im selben Ablauf, geschütztes Verschieben/Löschen und QR-Etikettendruck |
 | Gemeinsame Haushalte | Haushalte erstellen, per Zugriffsfluss beitreten, aktiven Haushalt wechseln und Daten nach Mitgliedschaft begrenzen |
 | Borrow Center | Eingehende, ausgehende und aktive Ausleihen mit klaren Anfragezuständen |
 | Personal Vault | Clientseitig verschlüsselter Vault-Flow für Ausweise, Eigentumsdokumente, Zugriffscodes und sensible Notizen |
 | Einkaufsliste | Manuelle und inventarverknüpfte Einkaufseinträge, Verlauf erledigter Einträge und Vorschläge bei niedrigem Bestand |
 | Intelligente Wartung | Wiederkehrende Pflegeaufgaben, Überfälligkeitsanzeigen und automatische Berechnung des nächsten Fälligkeitsdatums |
 | Labels und Scan | Barcode-Scan, Gegenstands-QR-Etiketten und mobiler Schnellzugriff |
-| Backup und Restore | Export/Import nur für Eigentümer mit geschützten Bestätigungsabläufen |
+| Backup und Restore | Standard-/Vollexport und -import nur für Eigentümer, mit Passphrasenverschlüsselung, Boxmetadaten, -zuordnungen und Archivstatus sowie optionalen Medien/Anhängen |
 | Auth und Wiederherstellung | JWT, Google OAuth, E-Mail-Verifizierung, TOTP 2FA, vertrauenswürdige Geräte und Recovery Keys |
 | Desktop Launcher | Optionales Tauri-GUI für lokale Einrichtung, Abhängigkeitsprüfungen, Profil-Start/Stopp, automatisches Browser-Öffnen, Backups, Logs, erweiterte Einstellungen, Portprüfungen und QR/LAN-Zugriff |
 | Internationalisierung | 100+ auswählbare UI-Locale-Pakete mit Fallback-Verhalten und automatisierten Prüfungen |
@@ -106,6 +113,7 @@ HomeInventory ist für Familien, Wohngemeinschaften und kleine Haushalte gedacht
 - **AES-256-GCM-Verschlüsselung** schützt sensible Inventar-, Auth- und Profildaten, bevor sie auf Datenträger oder SQLite geschrieben werden.
 - **Verschlüsselte Medienverarbeitung** entfernt Bildmetadaten und speichert geschützte Medien-Blobs statt roher Uploads.
 - **Haushaltsgebundene Autorisierung** begrenzt Räume, Kategorien, Gegenstände, Medien und Backups auf die aktive Haushaltsmitgliedschaft.
+- **Unabhängige Box- und Gegenstandsprivatsphäre** erlaubt private Gegenstände in gemeinsamen Boxen, ohne sie in normalen Inventaransichten offenzulegen; persönliche Boxen und ihre genaue Platzierung bleiben nur für ihren Ersteller sichtbar.
 - **Personal-Vault-Trennung** hält besonders sensible Datensätze außerhalb der normalen gemeinsamen Inventarflüsse.
 - **Rate Limiting und gehärtete Auth-Routen** reduzieren Brute-Force- und Missbrauchsrisiken bei Login, Backup und interaktiven Endpunkten.
 
@@ -128,8 +136,8 @@ SQLite-Speicher + verschlüsselte Medien
 
 | Backend | Frontend |
 | --- | --- |
-| Node.js, Express, better-sqlite3 | React 18, Vite, Tailwind CSS |
-| JWT, bcrypt, Passport Google OAuth 2.0 | React Router v6, react-i18next |
+| Node.js, Express, better-sqlite3 | React 19, Vite, Tailwind CSS |
+| JWT, bcrypt, Passport Google OAuth 2.0 | React Router v8, react-i18next |
 | Helmet, express-rate-limit, i18next | Lucide React, html5-qrcode |
 | Sharp, verschlüsselte Medienspeicherung | PWA-ready responsive UI |
 
@@ -153,7 +161,7 @@ Details zur Isolation und zu erweiterten Einstellungen findest du in [GUI_LAUNCH
 
 #### Voraussetzungen
 
-- Node.js 18+
+- Node.js 22.22.0+
 - npm 9+
 - Git
 

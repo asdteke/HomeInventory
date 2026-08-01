@@ -93,14 +93,14 @@ Bu yapı, kullanıcı açıkça yolları değiştirmediği sürece launcher tara
 Launcher, kaynak kod arşivinden ayrı release artifact'ları olarak paylaşılır:
 
 ```text
-GitHub Release v2.5.0
+GitHub Release v2.6.0
 ├── HomeInventory.Launcher-macos.dmg
 ├── HomeInventory.Launcher-macos.app.zip
-├── HomeInventory.Launcher_2.5.0_x64-setup.exe
-├── HomeInventory.Launcher_2.5.0_x64_en-US.msi
-├── HomeInventory.Launcher_2.5.0_amd64.AppImage
-├── HomeInventory.Launcher_2.5.0_amd64.deb
-└── HomeInventory.Launcher-2.5.0-1.x86_64.rpm
+├── HomeInventory.Launcher_2.6.0_x64-setup.exe
+├── HomeInventory.Launcher_2.6.0_x64_en-US.msi
+├── HomeInventory.Launcher_2.6.0_amd64.AppImage
+├── HomeInventory.Launcher_2.6.0_amd64.deb
+└── HomeInventory.Launcher-2.6.0-1.x86_64.rpm
 ```
 
 `Launcher Packages` GitHub Actions workflow'u bu paketleri native macOS, Windows ve Linux runner'larında üretilir. Tag push edildiğinde paketler normal kaynak kod arşivinin yanında eşleşen GitHub Release'e otomatik eklenir. Linux paketleri, Tauri patched GLib zincirine geçene kadar Tauri'nin mevcut GTK3/GLib bağımlılık hattını miras almaya devam eder.

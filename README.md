@@ -7,7 +7,7 @@
 
 <h1 align="center">HomeInventory</h1>
 
-<!-- Release status: v2.5.2 release line. -->
+<!-- Release status: v2.6.0 release line. -->
 
 <p align="center">
   <strong>Private, self-hostable household inventory for shared homes.</strong><br/>
@@ -52,12 +52,18 @@
 </p>
 
 <details>
-<summary><strong>More screenshots: Inventory, Borrow Center, Vault, Categories</strong></summary>
+<summary><strong>More screenshots: Inventory, Boxes, Box Contents, Borrow Center, Personal Vault, Categories</strong></summary>
 
 <br/>
 
 <p align="center">
   <img src="docs/assets/screenshot-inventory.png" alt="Inventory screen" width="82%" />
+</p>
+<p align="center">
+  <img src="docs/assets/screenshot-boxes.png" alt="Boxes screen" width="82%" />
+</p>
+<p align="center">
+  <img src="docs/assets/screenshot-box-detail.png" alt="Box contents screen" width="82%" />
 </p>
 <p align="center">
   <img src="docs/assets/screenshot-borrow.png" alt="Borrow Center screen" width="82%" />
@@ -74,7 +80,7 @@
 HomeInventory is built for families, roommates, and small households that need a practical inventory without turning private records into a shared spreadsheet.
 
 > [!NOTE]
-> **v2.5.2 is the current release line.** It retains the v2.5.1 feature set, updates `sharp` and its bundled libvips runtime for the latest security advisory, and keeps the managed app and desktop launcher synchronized at the same version.
+> **v2.6.0 is the current release line.** It adds simple shared and personal box management with safe item moves, existing QR label support, optional box photos and locations, and backup-compatible storage while keeping the managed app and desktop launcher synchronized.
 
 ## Why HomeInventory
 
@@ -92,6 +98,7 @@ HomeInventory is built for families, roommates, and small households that need a
 | Area | What it covers |
 | --- | --- |
 | Inventory | Items, camera/gallery photos, rooms, categories, locations, quantities, warranty and invoice metadata |
+| Boxes | Shared or personal boxes, single/bulk item assignment, camera/gallery photos, room selection with inline location creation, guarded moves/deletion, and existing QR label printing |
 | Bulk operations | Multi-select, bulk category/room/location/visibility updates, bulk deletion, quick stock adjustment, advanced filters, and sorting |
 | Shared homes | Create homes, join with house access flows, switch active homes, and keep data scoped by membership |
 | Borrow Center | Incoming, outgoing, and active lending records with clear request states |
@@ -100,7 +107,7 @@ HomeInventory is built for families, roommates, and small households that need a
 | Smart Maintenance | Recurring item-care tasks, overdue indicators, and automated next-due-date calculations |
 | Labels and scanning | Barcode scanning, branded item QR label sheets, room/shelf labels, print cut guides, and mobile-friendly lookup |
 | Alerts and service | Focused low-stock, expiration, warranty, maintenance, and borrow-return surfaces |
-| Backup and restore | Owner-only export/import flows with guarded confirmations and optional media/attachment coverage |
+| Backup and restore | Owner-only standard/full export and import with passphrase encryption, box metadata/assignments/archive state, and optional media/attachment coverage |
 | Activity history | Protected item activity log for edits, stock changes, attachments, borrowing, and bulk actions |
 | Auth and recovery | JWT auth, Google OAuth, email verification, TOTP 2FA, trusted devices, and recovery keys |
 | Desktop Launcher | Optional Tauri GUI plus release packages for local setup, dependency checks, profile start/stop, automatic browser opening, backups, logs, advanced settings, port checks, and QR/LAN access |
@@ -112,6 +119,7 @@ HomeInventory is built for families, roommates, and small households that need a
 - **Encrypted media handling** strips image metadata and stores protected media blobs instead of raw uploads.
 - **Encrypted activity logging** protects item activity actions and metadata before writing audit history to SQLite.
 - **Household-scoped authorization** keeps rooms, categories, items, media, and backups limited to the active household membership.
+- **Independent box and item privacy** lets a shared box contain each member's private items without revealing them in normal inventory views, while personal boxes and their exact placement remain creator-only. Household-owner backups include private household records for disaster recovery; the download dialog enables passphrase encryption by default.
 - **Personal Vault separation** keeps highly sensitive records out of normal shared inventory flows.
 - **Rate limiting and hardened auth routes** reduce brute-force and abuse risk around login, backup, and interactive endpoints.
 - **Dependency security maintenance** keeps high-severity npm advisories closed in CI; the remaining Tauri/GLib advisory is tracked as an upstream Linux launcher dependency issue.
@@ -135,8 +143,8 @@ SQLite storage + encrypted media
 
 | Backend | Frontend |
 | --- | --- |
-| Node.js, Express, better-sqlite3 | React 18, Vite, Tailwind CSS |
-| JWT, bcrypt, Passport Google OAuth 2.0 | React Router v6, react-i18next |
+| Node.js, Express, better-sqlite3 | React 19, Vite, Tailwind CSS |
+| JWT, bcrypt, Passport Google OAuth 2.0 | React Router v8, react-i18next |
 | Helmet, express-rate-limit, i18next | Lucide React, html5-qrcode |
 | Sharp, encrypted media storage | PWA-ready responsive UI |
 
@@ -159,7 +167,7 @@ For isolation details and advanced settings, see [GUI_LAUNCHER.md](GUI_LAUNCHER.
 ### Option B: Terminal Setup
 
 #### Prerequisites
-- Node.js 18+
+- Node.js 22.22.0+
 - npm 9+
 - Git
 
