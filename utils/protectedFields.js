@@ -20,6 +20,9 @@ export const BORROW_REQUEST_NOTE_PURPOSE = 'inventory.borrow_request.note';
 export const ROOM_NAME_PURPOSE = 'inventory.room.name';
 export const ROOM_DESCRIPTION_PURPOSE = 'inventory.room.description';
 export const LOCATION_NAME_PURPOSE = 'inventory.location.name';
+export const BOX_NAME_PURPOSE = 'inventory.box.name';
+export const BOX_CODE_PURPOSE = 'inventory.box.code';
+export const BOX_NOTE_PURPOSE = 'inventory.box.note';
 export const CATEGORY_NAME_PURPOSE = 'inventory.category.name';
 export const USERNAME_PURPOSE = 'identity.username';
 export const EMAIL_PURPOSE = 'identity.email';
@@ -232,6 +235,30 @@ export function decryptLocationName(value) {
     return decryptFromStorage(value, { purpose: LOCATION_NAME_PURPOSE });
 }
 
+export function encryptBoxName(value) {
+    return encryptForStorage(value, { purpose: BOX_NAME_PURPOSE });
+}
+
+export function decryptBoxName(value) {
+    return decryptFromStorage(value, { purpose: BOX_NAME_PURPOSE });
+}
+
+export function encryptBoxCode(value) {
+    return encryptForStorage(value, { purpose: BOX_CODE_PURPOSE });
+}
+
+export function decryptBoxCode(value) {
+    return decryptFromStorage(value, { purpose: BOX_CODE_PURPOSE });
+}
+
+export function encryptBoxNote(value) {
+    return encryptForStorage(value, { purpose: BOX_NOTE_PURPOSE });
+}
+
+export function decryptBoxNote(value) {
+    return decryptFromStorage(value, { purpose: BOX_NOTE_PURPOSE });
+}
+
 export function encryptCategoryName(value) {
     return encryptForStorage(value, { purpose: CATEGORY_NAME_PURPOSE });
 }
@@ -291,7 +318,9 @@ export function decryptItemRecord(record) {
         warranty_expiry_date: decryptItemWarrantyExpiryDate(record.warranty_expiry_date),
         category_name: decryptCategoryName(record.category_name),
         room_name: decryptRoomName(record.room_name),
-        location_name: decryptLocationName(record.location_name)
+        location_name: decryptLocationName(record.location_name),
+        box_name: decryptBoxName(record.box_name),
+        box_code: decryptBoxCode(record.box_code)
     };
 
     if (record.username) {
@@ -337,6 +366,22 @@ export function decryptLocationRecord(record) {
         ...record,
         name: decryptLocationName(record.name),
         room_name: decryptRoomName(record.room_name),
+        created_by_name: decryptUsername(record.created_by_name)
+    };
+}
+
+export function decryptBoxRecord(record) {
+    if (!record) {
+        return record;
+    }
+
+    return {
+        ...record,
+        name: decryptBoxName(record.name),
+        code: decryptBoxCode(record.code),
+        note: decryptBoxNote(record.note),
+        room_name: decryptRoomName(record.room_name),
+        location_name: decryptLocationName(record.location_name),
         created_by_name: decryptUsername(record.created_by_name)
     };
 }

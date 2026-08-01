@@ -2,7 +2,7 @@
 
 This repository contains a rebuilt frontend, encrypted storage flows, and optional secret-loading paths for Docker and OCI. Keep local and production secrets out of git.
 
-These settings match the public v2.5.2 release line.
+These settings match the public v2.6.0 release line.
 
 ### Safe workflow
 
@@ -13,7 +13,7 @@ These settings match the public v2.5.2 release line.
 
 ### Local setup
 
-1. Install dependencies:
+1. Install Node.js `22.22.0` or newer, then install dependencies:
    - `npm install`
    - `npm install --prefix client`
 2. Create local env file:

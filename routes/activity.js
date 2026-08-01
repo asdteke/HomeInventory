@@ -13,6 +13,15 @@ const router = express.Router();
 router.use(authenticateToken);
 router.use(requireActiveHouse);
 
+const selectVisibleBox = db.prepare(`
+    SELECT id
+    FROM boxes
+    WHERE id = ?
+      AND house_key = ?
+      AND (is_public = 1 OR created_by = ?)
+    LIMIT 1
+`);
+
 function parseLimit(value) {
     const parsed = Number.parseInt(String(value || ''), 10);
     if (!Number.isInteger(parsed)) {
@@ -41,6 +50,42 @@ function parseAction(value) {
     }
 }
 
+function parseBoxId(value) {
+    const parsed = Number.parseInt(String(value), 10);
+    return Number.isInteger(parsed) && parsed > 0 ? parsed : null;
+}
+
+function sanitizeBoxMetadata(metadata, houseKey, viewerUserId) {
+    const sanitized = { ...metadata };
+
+    for (const key of ['box_id', 'from_box_id', 'to_box_id']) {
+        if (!Object.prototype.hasOwnProperty.call(sanitized, key)) {
+            continue;
+        }
+
+        const rawValue = sanitized[key];
+        if (rawValue === null || rawValue === '') {
+            sanitized[key] = null;
+            continue;
+        }
+
+        delete sanitized[key];
+        const boxId = parseBoxId(rawValue);
+        if (!boxId) {
+            continue;
+        }
+
+        const visibleBox = selectVisibleBox.get(boxId, houseKey, viewerUserId);
+        if (visibleBox) {
+            sanitized[key] = boxId;
+        } else {
+            sanitized[key.replace(/_id$/, '_hidden')] = true;
+        }
+    }
+
+    return sanitized;
+}
+
 router.get('/', (req, res) => {
     try {
         const rows = db.prepare(`
@@ -59,9 +104,25 @@ router.get('/', (req, res) => {
              AND items.house_key = item_activity.house_key
             LEFT JOIN users ON users.id = item_activity.actor_user_id
             WHERE item_activity.house_key = ?
+              AND (
+                    (
+                        item_activity.item_id IS NOT NULL
+                        AND items.id IS NOT NULL
+                        AND (items.is_public = 1 OR items.user_id = ?)
+                    )
+                    OR (
+                        item_activity.item_id IS NULL
+                        AND item_activity.actor_user_id = ?
+                    )
+              )
             ORDER BY item_activity.created_at DESC, item_activity.id DESC
             LIMIT ?
-        `).all(req.user.house_key, parseLimit(req.query.limit));
+        `).all(
+            req.user.house_key,
+            req.user.id,
+            req.user.id,
+            parseLimit(req.query.limit)
+        );
 
         const activities = rows.map((row) => {
             const itemRecord = row.item_name ? decryptItemRecord({ name: row.item_name }) : null;
@@ -72,7 +133,11 @@ router.get('/', (req, res) => {
                 actor_name: row.actor_username ? decryptUsername(row.actor_username) : '',
                 item_name: itemRecord?.name || '',
                 action: parseAction(row.action),
-                metadata: parseMetadata(row.metadata_json),
+                metadata: sanitizeBoxMetadata(
+                    parseMetadata(row.metadata_json),
+                    req.user.house_key,
+                    req.user.id
+                ),
                 created_at: row.created_at
             };
         });

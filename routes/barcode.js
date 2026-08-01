@@ -23,6 +23,59 @@ const router = express.Router();
 // Bu standart GS1 (EAN-13, UPC-A, Code128 vb.) barkodları kapsıyor.
 const BARCODE_REGEX = /^[A-Za-z0-9.\-]{1,50}$/;
 
+const selectVisibleBoxPlacement = db.prepare(`
+    SELECT id
+    FROM boxes
+    WHERE id = ?
+      AND house_key = ?
+      AND (is_public = 1 OR created_by = ?)
+    LIMIT 1
+`);
+
+const selectVisibleLocationPlacement = db.prepare(`
+    SELECT id
+    FROM locations
+    WHERE id = ?
+      AND house_key = ?
+      AND (is_public = 1 OR created_by = ?)
+    LIMIT 1
+`);
+
+function serializeLocalItem(item, viewerUserId) {
+    const decryptedItem = decryptItemRecord(item);
+    const privateBoxHidden = Boolean(
+        decryptedItem.box_id &&
+        !selectVisibleBoxPlacement.get(
+            decryptedItem.box_id,
+            decryptedItem.house_key,
+            viewerUserId
+        )
+    );
+    const privateLocationHidden = Boolean(
+        decryptedItem.location_id &&
+        !selectVisibleLocationPlacement.get(
+            decryptedItem.location_id,
+            decryptedItem.house_key,
+            viewerUserId
+        )
+    );
+
+    if (!privateBoxHidden && !privateLocationHidden) {
+        return {
+            ...decryptedItem,
+            private_placement: false
+        };
+    }
+
+    return {
+        ...decryptedItem,
+        box_id: privateBoxHidden ? null : decryptedItem.box_id,
+        room_id: null,
+        location_id: null,
+        private_placement: true
+    };
+}
+
 // Google scraper function - ürün adı almak için son çare olarak kullanılır
 async function scrapeGoogle(barcode) {
     try {
@@ -163,13 +216,15 @@ router.get('/:code', authenticateToken, requireActiveHouse, async (req, res) => 
         const localItem = db.prepare(`
             SELECT *
             FROM items
-            WHERE barcode_lookup = ? AND house_key = ?
+            WHERE barcode_lookup = ?
+              AND house_key = ?
+              AND (is_public = 1 OR user_id = ?)
             ORDER BY updated_at DESC, id DESC
             LIMIT 1
-        `).get(buildBarcodeLookup(barcode), req.user.house_key);
+        `).get(buildBarcodeLookup(barcode), req.user.house_key, req.user.id);
 
         if (localItem) {
-            const decryptedLocalItem = decryptItemRecord(localItem);
+            const decryptedLocalItem = serializeLocalItem(localItem, req.user.id);
             return res.json({
                 found: true,
                 source: 'Yerel Veritabanı',

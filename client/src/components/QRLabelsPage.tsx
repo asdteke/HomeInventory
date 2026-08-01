@@ -145,8 +145,10 @@ export default function QRLabelsPage() {
                             const categoryName = item.category_name
                                 ? getCategoryPresentation({ name: item.category_name }, language).name
                                 : '';
-                            const place = [roomName, item.location_name].filter(Boolean).join(' / ')
-                                || t('inventory.no_room', { defaultValue: 'Odasız' });
+                            const place = item.private_placement || item.private_location_hidden
+                                ? t('box_labels.private_box_hint', { defaultValue: 'Personal storage' })
+                                : [roomName, item.location_name].filter(Boolean).join(' / ')
+                                    || t('inventory.no_room', { defaultValue: 'Odasız' });
                             return (
                                 <article key={item.id} className="label-cut-card">
                                     <div className="label-cut-header">

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import {
@@ -54,6 +54,10 @@ export default function LandingPage() {
     const brandTranslationNamespace = isCustomBrand ? `landing.${BRAND_KEY}` : 'landing.homeinventory';
     const brandDisplayName = BRAND_NAME || (isCustomBrand ? 'Inventory' : 'HomeInventory');
     const [mobileNavOpen, setMobileNavOpen] = useState(false);
+    const [mobileNavMounted, setMobileNavMounted] = useState(false);
+    const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
+    const mobileMenuDialogRef = useRef<HTMLElement>(null);
+    const mobileMenuCloseRef = useRef<HTMLButtonElement>(null);
     const isTurkish = (i18n.resolvedLanguage || i18n.language || 'tr').toLowerCase().startsWith('tr');
     const brandUpperLabel = isTurkish
         ? brandDisplayName.toLocaleUpperCase('tr-TR')
@@ -68,43 +72,27 @@ export default function LandingPage() {
     const mutedTextClass = isDark
         ? (isCustomBrand ? 'text-[var(--hi-text-soft)]' : 'text-white/62')
         : 'text-[var(--hi-text-soft)]';
-    const headerClass = isDark
-        ? (isCustomBrand ? 'border-b border-[var(--hi-border)] bg-[rgba(18,24,35,0.92)] text-white' : 'border-b border-[var(--hi-border)] bg-[rgba(26,31,28,0.92)] text-white')
-        : (isCustomBrand ? 'border-b border-[var(--hi-border)] bg-[rgba(247,250,255,0.92)] text-[var(--hi-text)]' : 'border-b border-[var(--hi-border)] bg-[rgba(250,248,244,0.9)] text-[var(--hi-text)]');
+    const headerTextClass = isDark ? 'text-white' : 'text-[var(--hi-text)]';
     const chromeButtonClass = isDark
         ? (isCustomBrand ? '!border-[var(--hi-border)] !bg-[var(--hi-panel)] !text-[var(--hi-text)] hover:!border-[var(--hi-border-strong)] hover:!bg-[var(--hi-panel-muted)]' : '!border-white/10 !bg-white/4 !text-white/88 hover:!bg-white/8')
         : '!border-[var(--hi-border)] !bg-[var(--hi-panel)] !text-[var(--hi-text)] hover:!bg-[var(--hi-panel-strong)]';
     const ghostThemeClass = isDark
         ? (isCustomBrand ? 'border border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text-soft)] hover:border-[var(--hi-border-strong)] hover:bg-[var(--hi-panel-muted)] hover:text-white' : 'border border-white/10 bg-white/4 text-white/84 hover:bg-white/8 hover:text-white')
         : 'border border-[var(--hi-border)] bg-[var(--hi-panel)] text-[var(--hi-text-soft)] hover:bg-[var(--hi-panel-strong)] hover:text-[var(--hi-text)]';
-    const heroBackground = isDark
+    const heroAtmosphereBackground = isDark
         ? (isCustomBrand
-            ? 'radial-gradient(circle_at_top_left,rgba(100,168,255,0.10),transparent_24%),radial-gradient(circle_at_top_right,rgba(88,213,240,0.12),transparent_34%),linear-gradient(180deg,#08111e_0%,#0d1726_58%,#10213a_100%)'
-            : 'radial-gradient(circle_at_top_left,rgba(205,176,136,0.08),transparent_24%),radial-gradient(circle_at_top_right,rgba(74,125,100,0.14),transparent_34%),linear-gradient(180deg,#181d1a_0%,#1b211d_58%,#171b18_100%)')
+            ? 'radial-gradient(circle_at_top_left,rgba(100,168,255,0.10),transparent_24%),radial-gradient(circle_at_top_right,rgba(88,213,240,0.12),transparent_34%)'
+            : 'radial-gradient(circle_at_top_left,rgba(205,176,136,0.08),transparent_24%),radial-gradient(circle_at_top_right,rgba(74,125,100,0.14),transparent_34%)')
         : (isCustomBrand
-            ? 'radial-gradient(circle_at_top_left,rgba(100,168,255,0.16),transparent_24%),radial-gradient(circle_at_top_right,rgba(22,166,220,0.10),transparent_30%),linear-gradient(180deg,#f3f7ff_0%,#edf4ff_54%,#e8f1ff_100%)'
-            : 'radial-gradient(circle_at_top_left,rgba(205,176,136,0.18),transparent_24%),radial-gradient(circle_at_top_right,rgba(45,82,65,0.10),transparent_30%),linear-gradient(180deg,#f7f1e8_0%,#f2ebdf_54%,#ece3d4_100%)');
-    const featureBackground = isDark
+            ? 'radial-gradient(circle_at_top_left,rgba(100,168,255,0.16),transparent_24%),radial-gradient(circle_at_top_right,rgba(22,166,220,0.10),transparent_30%)'
+            : 'radial-gradient(circle_at_top_left,rgba(205,176,136,0.18),transparent_24%),radial-gradient(circle_at_top_right,rgba(45,82,65,0.10),transparent_30%)');
+    const pageContinuumBackground = isDark
         ? (isCustomBrand
-            ? 'radial-gradient(circle_at_15%_20%,rgba(139,180,255,0.08),transparent_24%),linear-gradient(180deg,#131924_0%,#1a2230_100%)'
-            : 'radial-gradient(circle_at_15%_20%,rgba(205,176,136,0.08),transparent_24%),linear-gradient(180deg,#151a18_0%,#202622_100%)')
+            ? 'linear-gradient(180deg,#08111e 0%,#0d1726 9%,#10213a 18%,#151d2b 28%,#1a2230 44%,#16202d 54%,#111925 64%,#0d1726 76%,#0a1422 88%,#091321 100%)'
+            : 'linear-gradient(180deg,#181d1a 0%,#1b211d 9%,#171b18 18%,#1b201d 28%,#202622 44%,#1c2720 54%,#19231d 64%,#1f2522 76%,#1b211d 88%,#171c19 100%)')
         : (isCustomBrand
-            ? 'radial-gradient(circle_at_18%_18%,rgba(139,180,255,0.12),transparent_24%),linear-gradient(180deg,#eef4fc_0%,#e8f0fa_100%)'
-            : 'radial-gradient(circle_at_18%_18%,rgba(184,153,104,0.12),transparent_24%),linear-gradient(180deg,#f3ede2_0%,#ebe2d3_100%)');
-    const aboutBackground = isDark
-        ? (isCustomBrand
-            ? 'radial-gradient(circle_at_85%_18%,rgba(88,213,240,0.08),transparent_22%),linear-gradient(180deg,#0d1726_0%,#0a1422_100%)'
-            : 'radial-gradient(circle_at_85%_18%,rgba(74,125,100,0.08),transparent_22%),linear-gradient(180deg,#1f2522_0%,#1b211d_100%)')
-        : (isCustomBrand
-            ? 'radial-gradient(circle_at_84%_16%,rgba(22,166,220,0.08),transparent_22%),linear-gradient(180deg,#f3f7ff_0%,#f8fbff_100%)'
-            : 'radial-gradient(circle_at_84%_16%,rgba(45,82,65,0.08),transparent_22%),linear-gradient(180deg,#f5f0e7_0%,#f8f5ef_100%)');
-    const ctaBackground = isDark
-        ? (isCustomBrand
-            ? 'radial-gradient(circle_at_10%_20%,rgba(100,168,255,0.13),transparent_20%),radial-gradient(circle_at_92%_18%,rgba(88,213,240,0.10),transparent_24%),linear-gradient(180deg,#0c1727_0%,#091321_100%)'
-            : 'radial-gradient(circle_at_10%_20%,rgba(205,176,136,0.12),transparent_20%),radial-gradient(circle_at_92%_18%,rgba(74,125,100,0.1),transparent_24%),linear-gradient(180deg,#181d1a_0%,#171c19_100%)')
-        : (isCustomBrand
-            ? 'radial-gradient(circle_at_12%_18%,rgba(100,168,255,0.15),transparent_20%),radial-gradient(circle_at_90%_14%,rgba(22,166,220,0.08),transparent_24%),linear-gradient(180deg,#f3f7ff_0%,#edf4ff_100%)'
-            : 'radial-gradient(circle_at_12%_18%,rgba(184,153,104,0.16),transparent_20%),radial-gradient(circle_at_90%_14%,rgba(45,82,65,0.1),transparent_24%),linear-gradient(180deg,#f6f1e7_0%,#f7f2e8_100%)');
+            ? 'linear-gradient(180deg,#f3f7ff 0%,#edf4ff 9%,#e8f1ff 18%,#eef4fc 28%,#e8f0fa 44%,#edf4fd 54%,#e7f0fb 64%,#f3f7ff 76%,#f8fbff 88%,#edf4ff 100%)'
+            : 'linear-gradient(180deg,#f7f1e8 0%,#f2ebdf 9%,#ece3d4 18%,#f1eadf 28%,#ebe2d3 44%,#ece0ce 54%,#e8dccb 64%,#f0e9dd 76%,#f8f5ef 88%,#f7f2e8 100%)');
     const securityPanelClass = isDark
         ? (isCustomBrand ? 'border border-[var(--hi-border)] bg-[linear-gradient(180deg,rgba(28,38,53,0.96),rgba(20,28,40,0.98))] shadow-[0_30px_70px_rgba(0,0,0,0.24)]' : 'border border-[#4d6755] bg-[#314338] shadow-[0_30px_70px_rgba(0,0,0,0.18)]')
         : (isCustomBrand ? 'border border-[rgba(176,193,216,0.34)] bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(239,246,253,0.94))] shadow-[0_26px_52px_rgba(19,35,61,0.10)]' : 'border border-[#d4c4aa] bg-[#fbf7f0] shadow-[0_26px_52px_rgba(38,48,38,0.12)]');
@@ -133,27 +121,84 @@ export default function LandingPage() {
     const vaultCodesLabel = t(`${brandTranslationNamespace}.security_panel.access_codes`, { defaultValue: isTurkish ? 'Şifreler ve PIN’ler' : 'Access codes' });
     const vaultCodesMeta = t(`${brandTranslationNamespace}.security_panel.access_codes_meta`, { defaultValue: isTurkish ? 'Şifre, PIN, anahtar' : 'Passwords, PINs' });
 
+    const openMobileNav = () => {
+        setMobileNavMounted(true);
+        setMobileNavOpen(true);
+    };
+
+    const closeMobileNav = () => {
+        setMobileNavOpen(false);
+    };
+
     useEffect(() => {
-        if (!mobileNavOpen) {
+        if (!mobileNavMounted) {
             return undefined;
         }
 
         const { overflow } = document.body.style;
+        const desktopMedia = window.matchMedia('(min-width: 768px)');
 
-        const handleEscape = (event: KeyboardEvent) => {
+        const closeForDesktop = (event: MediaQueryListEvent | MediaQueryList) => {
+            if (!event.matches) return;
+            setMobileNavOpen(false);
+            setMobileNavMounted(false);
+        };
+
+        const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === 'Escape') {
-                setMobileNavOpen(false);
+                event.preventDefault();
+                closeMobileNav();
+                return;
+            }
+
+            if (event.key !== 'Tab' || !mobileNavOpen) return;
+            const dialog = mobileMenuDialogRef.current;
+            if (!dialog) return;
+            const focusable = Array.from(dialog.querySelectorAll<HTMLElement>(
+                'a[href], button:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+            )).filter((element) => !element.hasAttribute('hidden'));
+            if (focusable.length === 0) return;
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
             }
         };
 
         document.body.style.overflow = 'hidden';
-        document.addEventListener('keydown', handleEscape);
+        document.addEventListener('keydown', handleKeyDown);
+        desktopMedia.addEventListener('change', closeForDesktop);
+        closeForDesktop(desktopMedia);
 
         return () => {
             document.body.style.overflow = overflow;
-            document.removeEventListener('keydown', handleEscape);
+            document.removeEventListener('keydown', handleKeyDown);
+            desktopMedia.removeEventListener('change', closeForDesktop);
         };
-    }, [mobileNavOpen]);
+    }, [mobileNavMounted, mobileNavOpen]);
+
+    useEffect(() => {
+        if (!mobileNavMounted) return undefined;
+
+        if (mobileNavOpen) {
+            const frame = window.requestAnimationFrame(() => mobileMenuCloseRef.current?.focus());
+            return () => window.cancelAnimationFrame(frame);
+        }
+
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const timer = window.setTimeout(() => {
+            setMobileNavMounted(false);
+            if (!window.matchMedia('(min-width: 768px)').matches) {
+                mobileMenuButtonRef.current?.focus();
+            }
+        }, reduceMotion ? 0 : 150);
+
+        return () => window.clearTimeout(timer);
+    }, [mobileNavMounted, mobileNavOpen]);
 
     const copy = translateCopyTree(isTurkish
         ? {
@@ -365,7 +410,7 @@ export default function LandingPage() {
 
     return (
         <div className="landing-v25 landing-page-shell min-h-screen overflow-hidden bg-[var(--hi-bg)] text-[var(--hi-text)] selection:bg-[var(--hi-secondary-soft)]">
-            <header className={`landing-topbar-v25 fixed inset-x-0 top-0 z-50 backdrop-blur-xl ${headerClass}`}>
+            <header className={`landing-topbar-v25 fixed inset-x-0 top-0 z-50 ${headerTextClass}`}>
                 <div className="landing-topbar-inner-v25 mx-auto flex h-24 max-w-7xl items-center justify-between px-6 lg:px-8">
                     <Link
                         to="/"
@@ -417,46 +462,55 @@ export default function LandingPage() {
                     </div>
 
                     <button
+                        ref={mobileMenuButtonRef}
                         type="button"
-                        onClick={() => setMobileNavOpen((open) => !open)}
+                        onClick={openMobileNav}
                         className={`landing-menu-button-v25 rounded-xl p-2 ${ghostThemeClass}`}
                         aria-controls="landing-mobile-menu"
                         aria-expanded={mobileNavOpen}
-                        aria-label={mobileNavOpen ? t('common.close') : t('navigation.menu')}
+                        aria-label={t('navigation.menu')}
                     >
-                        {mobileNavOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                        <Menu className="h-5 w-5" aria-hidden="true" />
                     </button>
                 </div>
             </header>
 
-            {mobileNavOpen && (
-                <div id="landing-mobile-menu" className="fixed inset-0 z-[60]">
-                    <button
-                        type="button"
-                        aria-label={t('common.close')}
+            {mobileNavMounted && (
+                <div
+                    id="landing-mobile-menu"
+                    className="landing-mobile-menu-layer-v25 fixed inset-0 z-[60]"
+                    data-state={mobileNavOpen ? 'open' : 'closed'}
+                    aria-hidden={!mobileNavOpen}
+                >
+                    <div
                         className="landing-mobile-backdrop-v25 absolute inset-0"
-                        onClick={() => setMobileNavOpen(false)}
+                        aria-hidden="true"
+                        onClick={closeMobileNav}
                     />
 
-                    <aside className="landing-mobile-sheet-v25 absolute inset-x-3 top-[5.25rem]" aria-label={t('navigation.menu')}>
+                    <aside
+                        ref={mobileMenuDialogRef}
+                        className="landing-mobile-menu-v25 landing-mobile-sheet-v25 absolute inset-x-3"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="landing-mobile-menu-title"
+                    >
                         <div className="landing-mobile-sheet-head-v25">
-                            <div className="min-w-0">
-                                <p className="landing-mobile-sheet-kicker-v25">{brandDisplayName}</p>
-                                <p className="landing-mobile-sheet-title-v25">{t('navigation.menu')}</p>
-                            </div>
+                            <p id="landing-mobile-menu-title" className="landing-mobile-sheet-title-v25">{t('navigation.menu')}</p>
                             <button
+                                ref={mobileMenuCloseRef}
                                 type="button"
-                                onClick={() => setMobileNavOpen(false)}
+                                onClick={closeMobileNav}
                                 className="landing-mobile-close-v25"
                                 aria-label={t('common.close')}
                             >
-                                <X className="h-5 w-5" />
+                                <X className="h-5 w-5" aria-hidden="true" />
                             </button>
                         </div>
 
                         <div className="landing-mobile-tools-v25">
                             <button type="button" onClick={toggleTheme} className="landing-mobile-tool-v25">
-                                {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                                {isDark ? <Sun className="h-4 w-4" aria-hidden="true" /> : <Moon className="h-4 w-4" aria-hidden="true" />}
                                 <span>{isDark ? t('common.theme.light') : t('common.theme.dark')}</span>
                             </button>
                             <LanguageSwitcher
@@ -467,49 +521,38 @@ export default function LandingPage() {
                         </div>
 
                         <nav className="landing-mobile-nav-v25">
-                            <a href="#features" onClick={() => setMobileNavOpen(false)} className="landing-mobile-nav-link-v25">
-                                <span className="landing-mobile-nav-icon-v25"><Package className="h-[1.15rem] w-[1.15rem]" /></span>
-                                <span>{featuresLabel}</span>
-                                <ArrowRight className="ml-auto h-4 w-4" />
-                            </a>
-                            <a href="#security" onClick={() => setMobileNavOpen(false)} className="landing-mobile-nav-link-v25">
-                                <span className="landing-mobile-nav-icon-v25"><ShieldCheck className="h-[1.15rem] w-[1.15rem]" /></span>
-                                <span>{securityLabel}</span>
-                                <ArrowRight className="ml-auto h-4 w-4" />
-                            </a>
-                            <a href="#about" onClick={() => setMobileNavOpen(false)} className="landing-mobile-nav-link-v25">
-                                <span className="landing-mobile-nav-icon-v25"><FileText className="h-[1.15rem] w-[1.15rem]" /></span>
+                            <a href="#about" onClick={closeMobileNav} className="landing-mobile-nav-link-v25">
+                                <span className="landing-mobile-nav-icon-v25"><FileText className="h-[1.15rem] w-[1.15rem]" aria-hidden="true" /></span>
                                 <span>{aboutLabel}</span>
-                                <ArrowRight className="ml-auto h-4 w-4" />
+                                <ArrowRight className="ml-auto h-4 w-4" aria-hidden="true" />
                             </a>
-                            <Link to="/login" onClick={() => setMobileNavOpen(false)} className="landing-mobile-nav-link-v25">
-                                <span className="landing-mobile-nav-icon-v25"><Lock className="h-[1.15rem] w-[1.15rem]" /></span>
+                            <Link to="/login" onClick={closeMobileNav} className="landing-mobile-nav-link-v25">
+                                <span className="landing-mobile-nav-icon-v25"><Lock className="h-[1.15rem] w-[1.15rem]" aria-hidden="true" /></span>
                                 <span>{t('landing.nav.login')}</span>
-                                <ArrowRight className="ml-auto h-4 w-4" />
+                                <ArrowRight className="ml-auto h-4 w-4" aria-hidden="true" />
                             </Link>
                         </nav>
 
                         <div className="landing-mobile-action-v25">
-                            <Link to="/register" onClick={() => setMobileNavOpen(false)} className="landing-mobile-primary-v25">
+                            <Link to="/register" onClick={closeMobileNav} className="landing-mobile-primary-v25">
                                 <span>{copy.hero.primaryCta}</span>
-                                <ArrowRight className="h-4 w-4" />
+                                <ArrowRight className="h-4 w-4" aria-hidden="true" />
                             </Link>
-                            <p>{isTurkish ? 'Dakikalar içinde ev alanınızı hazırlayın.' : 'Set up your household in minutes.'}</p>
                         </div>
                     </aside>
                 </div>
             )}
 
-            <main className="pt-24">
-                <section className="landing-hero-v25 relative overflow-hidden pb-28 pt-28 lg:min-h-[calc(100svh-6rem)] lg:pb-36 lg:pt-32">
-                    <div className="absolute inset-0 -z-10" style={{ background: heroBackground }} />
-                    <div className={`absolute inset-0 -z-10 ${isDark ? 'opacity-[0.16]' : 'opacity-[0.28]'}`}>
+            <main className="pt-24" style={{ background: pageContinuumBackground }}>
+                <section className="landing-hero-v25 relative isolate overflow-hidden pb-28 pt-28 lg:min-h-[calc(100svh-6rem)] lg:pb-36 lg:pt-32">
+                    <div className="pointer-events-none absolute inset-0 z-0" style={{ background: heroAtmosphereBackground }} />
+                    <div className={`landing-hero-grid-layer-v25 pointer-events-none absolute inset-0 z-0 ${isDark ? 'opacity-[0.16]' : 'opacity-[0.28]'}`}>
                         <div className="landing-grid absolute inset-0" />
                     </div>
-                    <div className={`absolute -left-24 top-24 -z-10 h-64 w-64 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(139,180,255,0.14)]' : 'bg-[rgba(205,176,136,0.14)]') : (isCustomBrand ? 'bg-[rgba(139,180,255,0.20)]' : 'bg-[rgba(205,176,136,0.22)]')}`} />
-                    <div className={`absolute right-0 top-0 -z-10 h-[28rem] w-[28rem] rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.14)]' : 'bg-[rgba(74,125,100,0.14)]') : (isCustomBrand ? 'bg-[rgba(22,166,220,0.10)]' : 'bg-[rgba(45,82,65,0.12)]')}`} />
+                    <div className={`pointer-events-none absolute -left-24 top-24 z-0 h-64 w-64 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(139,180,255,0.14)]' : 'bg-[rgba(205,176,136,0.14)]') : (isCustomBrand ? 'bg-[rgba(139,180,255,0.20)]' : 'bg-[rgba(205,176,136,0.22)]')}`} />
+                    <div className={`pointer-events-none absolute right-0 top-0 z-0 h-[28rem] w-[28rem] rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.14)]' : 'bg-[rgba(74,125,100,0.14)]') : (isCustomBrand ? 'bg-[rgba(22,166,220,0.10)]' : 'bg-[rgba(45,82,65,0.12)]')}`} />
 
-                    <div className="mx-auto grid max-w-7xl items-start gap-12 px-6 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1fr)] lg:gap-16 lg:px-8">
+                    <div className="relative z-10 mx-auto grid max-w-7xl items-start gap-12 px-6 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1fr)] lg:gap-16 lg:px-8">
                         <div className={`max-w-[30rem] ${shellTextClass}`}>
                             <h1 className={shellTextClass}>
                                 <span className="landing-display block max-w-[25rem] text-[clamp(2.35rem,4.5vw,3.95rem)] font-semibold leading-[1.02] tracking-[-0.06em]">
@@ -604,13 +647,12 @@ export default function LandingPage() {
                     </div>
                 </section>
 
+                <div className="landing-sections-continuum-v25">
                 <section
                     id="features"
                     className="relative overflow-hidden py-32"
-                    style={{ background: featureBackground }}
                 >
-                    <div className={`absolute inset-x-0 top-0 h-px ${isDark ? 'bg-white/10' : 'bg-[rgba(18,32,22,0.1)]'}`} />
-                    <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
                         <div className="grid gap-8 lg:grid-cols-[0.88fr_1fr] lg:items-end">
                             <div>
                                 <h2 className="mb-3 landing-kicker text-[var(--hi-secondary)]">
@@ -662,7 +704,10 @@ export default function LandingPage() {
                     </div>
                 </section>
 
-                <section id="security" className={`relative overflow-hidden py-32 ${shellTextClass}`} style={{ background: isDark ? (isCustomBrand ? 'linear-gradient(180deg,#16202d 0%,#111925 100%)' : 'linear-gradient(180deg,#1d2b24 0%,#19231d 100%)') : (isCustomBrand ? 'linear-gradient(180deg,#edf4fd 0%,#e7f0fb 100%)' : 'linear-gradient(180deg,#ece0ce 0%,#e8dccb 100%)') }}>
+                <section
+                    id="security"
+                    className={`relative overflow-hidden py-32 ${shellTextClass}`}
+                >
                     <div className={`absolute inset-0 ${isDark ? 'opacity-10' : 'opacity-[0.06]' } bg-[radial-gradient(circle_at_center,var(--hi-secondary),transparent_45%)]`} />
                     <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-2 lg:px-8">
                         <div>
@@ -765,9 +810,8 @@ export default function LandingPage() {
                 <section
                     id="about"
                     className="relative overflow-hidden py-32"
-                    style={{ background: aboutBackground }}
                 >
-                    <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
                         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
                             <div>
                                 <p className="landing-kicker text-[var(--hi-secondary)]">
@@ -836,11 +880,13 @@ export default function LandingPage() {
                     </div>
                 </section>
 
-                <section className="relative overflow-hidden py-32" style={{ background: ctaBackground }}>
-                    <div className={`pointer-events-none absolute -left-20 top-10 h-64 w-64 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(139,180,255,0.12)]' : 'bg-[rgba(205,176,136,0.12)]') : (isCustomBrand ? 'bg-[rgba(139,180,255,0.14)]' : 'bg-[rgba(184,153,104,0.16)]')}`} />
-                    <div className={`pointer-events-none absolute right-0 top-0 h-72 w-72 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.1)]' : 'bg-[rgba(74,125,100,0.1)]') : (isCustomBrand ? 'bg-[rgba(22,166,220,0.08)]' : 'bg-[rgba(45,82,65,0.1)]')}`} />
+                <section
+                    className="relative overflow-hidden py-32"
+                >
+                    <div className={`pointer-events-none absolute -left-20 top-24 h-64 w-64 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(139,180,255,0.12)]' : 'bg-[rgba(205,176,136,0.12)]') : (isCustomBrand ? 'bg-[rgba(139,180,255,0.14)]' : 'bg-[rgba(184,153,104,0.16)]')}`} />
+                    <div className={`pointer-events-none absolute right-0 top-16 h-72 w-72 rounded-full blur-3xl ${isDark ? (isCustomBrand ? 'bg-[rgba(88,213,240,0.1)]' : 'bg-[rgba(74,125,100,0.1)]') : (isCustomBrand ? 'bg-[rgba(22,166,220,0.08)]' : 'bg-[rgba(45,82,65,0.1)]')}`} />
 
-                    <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
                         <div className={`relative rounded-[1rem] px-8 py-14 md:px-12 ${isDark ? (isCustomBrand ? 'border border-[var(--hi-border)] bg-[linear-gradient(135deg,rgba(27,37,52,0.96),rgba(18,25,36,0.98))] shadow-[0_30px_70px_rgba(0,0,0,0.24)]' : 'border border-white/6 bg-[linear-gradient(135deg,rgba(41,49,44,0.96),rgba(24,29,26,0.98))] shadow-[0_30px_70px_rgba(0,0,0,0.24)]') : (isCustomBrand ? 'border border-[rgba(176,193,216,0.26)] bg-[linear-gradient(135deg,rgba(255,255,255,0.96),rgba(239,246,253,0.98))] shadow-[0_28px_56px_rgba(19,35,61,0.10)]' : 'border border-[rgba(45,82,65,0.06)] bg-[linear-gradient(135deg,rgba(255,255,255,0.96),rgba(241,235,224,0.98))] shadow-[0_28px_56px_rgba(38,48,38,0.10)]')}`}>
                             <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
                                 <div>
@@ -873,6 +919,7 @@ export default function LandingPage() {
                         </div>
                     </div>
                 </section>
+                </div>
             </main>
         </div>
     );

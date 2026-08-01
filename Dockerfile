@@ -4,7 +4,7 @@
 # ============================================
 # Stage 1: Build frontend
 # ============================================
-FROM node:20-alpine AS frontend-builder
+FROM node:22.22.0-alpine AS frontend-builder
 
 WORKDIR /app/client
 
@@ -19,7 +19,7 @@ RUN npm run build
 # ============================================
 # Stage 2: Build backend with native modules
 # ============================================
-FROM node:20-alpine AS backend-builder
+FROM node:22.22.0-alpine AS backend-builder
 
 # Install build dependencies for native modules (better-sqlite3, sharp)
 RUN apk add --no-cache python3 make g++ 
@@ -33,7 +33,7 @@ RUN npm ci --only=production
 # ============================================
 # Stage 3: Production runtime
 # ============================================
-FROM node:20-alpine AS runner
+FROM node:22.22.0-alpine AS runner
 
 # Install runtime dependencies for sharp
 RUN apk add --no-cache vips-dev

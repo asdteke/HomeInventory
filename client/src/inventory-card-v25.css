@@ -184,6 +184,31 @@
   .inventory-results-grid .inventory-item-actions > span {
     width: 2.35rem !important;
   }
+
+  .inventory-results-grid .inventory-item-card.is-no-photo {
+    display: flex !important;
+    min-height: 0;
+    flex-direction: column;
+  }
+
+  .inventory-results-grid .inventory-item-card.is-no-photo .inventory-item-no-media-meta {
+    min-height: 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--hi-border);
+    padding: .65rem .72rem;
+  }
+
+  .inventory-results-grid .inventory-item-card.is-no-photo .inventory-item-no-media-icon {
+    width: 2.65rem;
+    height: 2.65rem;
+    border-radius: .9rem;
+    font-size: 1.25rem;
+  }
+
+  .inventory-results-grid .inventory-item-card.is-no-photo .inventory-item-content {
+    grid-column: auto;
+    grid-row: auto;
+  }
 }
 
 @media (max-width: 390px) {

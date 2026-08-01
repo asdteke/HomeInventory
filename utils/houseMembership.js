@@ -6,6 +6,7 @@ import {
     decryptUsername,
     encryptHouseName
 } from './protectedFields.js';
+import { removeOwnedPrivateBoxes } from './privateBoxLifecycle.js';
 
 export const HOUSE_JOIN_REQUEST_STATUS = {
     PENDING: 'pending',
@@ -68,6 +69,28 @@ export function isHouseOwner(userId, houseKey) {
         WHERE user_id = ? AND house_key = ? AND is_owner = 1
         LIMIT 1
     `).get(userId, houseKey);
+}
+
+export function transferOwnedPublicLocations({ ownerUserId, houseKey }) {
+    const replacement = db.prepare(`
+        SELECT user_id
+        FROM user_houses
+        WHERE house_key = ? AND user_id <> ?
+        ORDER BY is_owner DESC, joined_at ASC, id ASC
+        LIMIT 1
+    `).get(houseKey, ownerUserId);
+
+    if (!replacement?.user_id) {
+        return 0;
+    }
+
+    return Number(db.prepare(`
+        UPDATE locations
+        SET created_by = ?
+        WHERE created_by = ?
+          AND house_key = ?
+          AND is_public = 1
+    `).run(replacement.user_id, ownerUserId, houseKey).changes || 0);
 }
 
 export function syncUserHousePointers(userId) {
@@ -411,6 +434,15 @@ export function kickHouseMember({ actorUserId, houseKey, memberId }) {
             throw createMembershipError(400, 'Baska bir ev sahibini evden cikarmazsiniz');
         }
 
+        const transferredPublicLocationCount = transferOwnedPublicLocations({
+            ownerUserId: membership.user_id,
+            houseKey: targetHouseKey
+        });
+        const privateBoxCleanup = removeOwnedPrivateBoxes({
+            ownerUserId: membership.user_id,
+            houseKey: targetHouseKey
+        });
+
         db.prepare(`
             DELETE FROM user_houses
             WHERE id = ?
@@ -421,7 +453,9 @@ export function kickHouseMember({ actorUserId, houseKey, memberId }) {
         return {
             house: getHouseDisplayRecord(targetHouseKey),
             member: decryptUserRecord(membership),
-            updatedUser
+            updatedUser,
+            transferredPublicLocationCount,
+            privateBoxCleanup
         };
     });
 

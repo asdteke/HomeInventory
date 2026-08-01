@@ -45,7 +45,7 @@ const url = readArg(
   'url',
   `https://github.com/asdteke/HomeInventory/releases/download/v${version}/homeinventory-app.tar.gz`
 );
-const nodeMajor = Number(readArg('node-major', '20'));
+const nodeMajor = Number(readArg('node-major', '22'));
 const rootInstall = readBoolArg('root-install', true);
 const clientInstall = readBoolArg('client-install', true);
 const allowUnsigned = readBoolArg('allow-unsigned', false);

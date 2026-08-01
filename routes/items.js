@@ -200,6 +200,13 @@ function createBadRequestError(message) {
     return error;
 }
 
+function createItemRequestError(message, statusCode, code = null) {
+    const error = new Error(message);
+    error.statusCode = statusCode;
+    if (code) error.code = code;
+    return error;
+}
+
 function normalizeUploadError(error) {
     if (error instanceof multer.MulterError && error.code === 'LIMIT_FILE_SIZE') {
         const fieldLabel = ITEM_MEDIA_FIELD_LABELS[error.field] || 'Fotoğraf';
@@ -241,6 +248,27 @@ function uploadAttachment(req, res, next) {
  * - EXIF metadata temizleme
  * - 200x200 thumbnail oluşturma
  */
+function deleteAbsoluteFileSafely(filePath, context = 'Item media cleanup') {
+    if (!filePath || !fs.existsSync(filePath)) return;
+    try {
+        fs.unlinkSync(filePath);
+    } catch (error) {
+        if (error?.code !== 'ENOENT') {
+            console.warn(`[${context}] ${error.message}`);
+        }
+    }
+}
+
+async function waitForItemCommitTestWindow() {
+    if (process.env.NODE_ENV !== 'test') return;
+    const delayMs = Number.parseInt(
+        String(process.env.HOMEINVENTORY_TEST_ITEM_COMMIT_DELAY_MS || ''),
+        10
+    );
+    if (!Number.isInteger(delayMs) || delayMs <= 0) return;
+    await new Promise((resolveDelay) => setTimeout(resolveDelay, Math.min(delayMs, 2000)));
+}
+
 async function processImage(buffer, config) {
     // Original file names can leak personal/device data, so store randomized names only.
     const fileId = `${Date.now()}-${crypto.randomUUID()}`;
@@ -291,6 +319,8 @@ async function processImage(buffer, config) {
             thumbnailPath: `${config.storedThumbnailPrefix}/${thumbnailFilename}`
         };
     } catch (err) {
+        deleteAbsoluteFileSafely(outputPath, 'ImageOptimizer rollback');
+        deleteAbsoluteFileSafely(thumbnailPath, 'ImageOptimizer rollback');
         console.error('[ImageOptimizer] Error:', err.message);
         throw err;
     } finally {
@@ -362,6 +392,9 @@ function normalizeOptionalMoney(value) {
 }
 
 function getRequestErrorStatus(error) {
+    if (Number.isInteger(error?.statusCode)) {
+        return error.statusCode;
+    }
     return /yetki|yalnızca|izniniz/i.test(String(error?.message || ''))
         ? 403
         : /ge(?:ç|c)ersiz|gerekli|çok uzun|üyesi değil|kendinize|ait değil|bekleyen|engellediğiniz/i.test(String(error?.message || ''))
@@ -369,15 +402,71 @@ function getRequestErrorStatus(error) {
             : 500;
 }
 
+function buildRequestErrorPayload(error, fallback) {
+    return {
+        error: error?.message || fallback,
+        ...(error?.code ? { code: error.code } : {}),
+        ...(error?.currentUpdatedAt ? { current_updated_at: error.currentUpdatedAt } : {}),
+        ...(Number.isInteger(error?.conflictingItemCount)
+            ? { conflictingItemCount: error.conflictingItemCount }
+            : {})
+    };
+}
+
 function visibleItemCondition(alias = 'items') {
     return `(${alias}.is_public = 1 OR ${alias}.user_id = ?)`;
 }
 
+function visibleItemPlacementCondition(alias = 'items') {
+    return `(
+        NOT EXISTS (
+            SELECT 1
+            FROM boxes private_box
+            WHERE private_box.id = ${alias}.box_id
+              AND private_box.house_key = ${alias}.house_key
+              AND private_box.is_public = 0
+              AND COALESCE(private_box.created_by, -1) <> ?
+        )
+        AND NOT EXISTS (
+            SELECT 1
+            FROM locations private_location
+            WHERE private_location.id = ${alias}.location_id
+              AND private_location.house_key = ${alias}.house_key
+              AND private_location.is_public = 0
+              AND COALESCE(private_location.created_by, -1) <> ?
+        )
+    )`;
+}
+
+function assertItemSnapshotUnchanged(existing, live) {
+    const changed = !live || Object.keys(existing).some((key) => live[key] !== existing[key]);
+    if (!changed) return;
+
+    const error = createItemRequestError(
+        'Eşya başka bir işlem tarafından güncellendi; son halini yükleyip tekrar deneyin',
+        409,
+        'ITEM_STALE'
+    );
+    error.currentUpdatedAt = live?.updated_at || null;
+    throw error;
+}
+
 const HOUSE_SCOPED_REFERENCE_QUERIES = {
     category: db.prepare('SELECT id FROM categories WHERE id = ? AND house_key = ? LIMIT 1'),
-    room: db.prepare('SELECT id FROM rooms WHERE id = ? AND house_key = ? LIMIT 1'),
-    location: db.prepare('SELECT id FROM locations WHERE id = ? AND house_key = ? LIMIT 1')
+    room: db.prepare('SELECT id FROM rooms WHERE id = ? AND house_key = ? LIMIT 1')
 };
+const HOUSE_SCOPED_BOX_PLACEMENT_QUERY = db.prepare(
+    `SELECT id, room_id, location_id, is_public, created_by
+     FROM boxes
+     WHERE id = ? AND house_key = ? AND archived_at IS NULL
+     LIMIT 1`
+);
+const HOUSE_SCOPED_EXISTING_BOX_PLACEMENT_QUERY = db.prepare(
+    `SELECT id, room_id, location_id, is_public, created_by
+     FROM boxes
+     WHERE id = ? AND house_key = ?
+     LIMIT 1`
+);
 
 function normalizeHouseScopedReferenceId(value, { fieldLabel, query, houseKey }) {
     const normalized = String(value ?? '').trim();
@@ -397,7 +486,53 @@ function normalizeHouseScopedReferenceId(value, { fieldLabel, query, houseKey })
     return parsedId;
 }
 
-function resolveItemReferenceIds(body, houseKey, existingItem = null) {
+function resolveAssignableBox(value, {
+    houseKey,
+    actorUserId,
+    itemOwnerId,
+    allowArchived = false
+}) {
+    const normalized = String(value ?? '').trim();
+    if (!normalized) return null;
+    const boxId = Number.parseInt(normalized, 10);
+    if (!Number.isInteger(boxId) || boxId <= 0) {
+        throw new Error('Kutu geçersiz');
+    }
+
+    const box = (
+        allowArchived
+            ? HOUSE_SCOPED_EXISTING_BOX_PLACEMENT_QUERY
+            : HOUSE_SCOPED_BOX_PLACEMENT_QUERY
+    ).get(boxId, houseKey);
+    if (!box || (!box.is_public && box.created_by !== actorUserId)) {
+        throw new Error('Kutu bu eve ait değil veya erişiminiz yok');
+    }
+    if (!box.is_public && box.created_by !== itemOwnerId) {
+        throw new Error('Başka bir kullanıcıya ait eşya özel kutuya taşınamaz');
+    }
+    return box;
+}
+
+function resolveVisibleLocationFilter(value, houseKey, viewerUserId) {
+    const normalized = String(value ?? '').trim();
+    if (!normalized) return null;
+    const locationId = Number.parseInt(normalized, 10);
+    if (!Number.isInteger(locationId) || locationId <= 0) {
+        throw new Error('Konum geçersiz');
+    }
+    const location = db.prepare(`
+        SELECT id
+        FROM locations
+        WHERE id = ?
+          AND house_key = ?
+          AND (is_public = 1 OR created_by = ?)
+        LIMIT 1
+    `).get(locationId, houseKey, viewerUserId);
+    if (!location) throw new Error('Konum bu eve ait değil veya erişiminiz yok');
+    return location.id;
+}
+
+function resolveItemReferenceIds(body, houseKey, existingItem = null, actorUserId = null) {
     const categoryId = body.category_id !== undefined
         ? normalizeHouseScopedReferenceId(body.category_id, {
             fieldLabel: 'Kategori',
@@ -405,25 +540,54 @@ function resolveItemReferenceIds(body, houseKey, existingItem = null) {
             houseKey
         })
         : existingItem?.category_id;
-    const roomId = body.room_id !== undefined
+    let roomId = body.room_id !== undefined
         ? normalizeHouseScopedReferenceId(body.room_id, {
             fieldLabel: 'Oda',
             query: HOUSE_SCOPED_REFERENCE_QUERIES.room,
             houseKey
         })
         : existingItem?.room_id;
-    const locationId = body.location_id !== undefined
-        ? normalizeHouseScopedReferenceId(body.location_id, {
-            fieldLabel: 'Konum',
-            query: HOUSE_SCOPED_REFERENCE_QUERIES.location,
-            houseKey
-        })
+    let locationId = body.location_id !== undefined
+        ? resolveVisibleLocationFilter(body.location_id, houseKey, actorUserId)
         : existingItem?.location_id;
+    const itemOwnerId = existingItem?.user_id ?? actorUserId;
+    const requestedBoxId = body.box_id !== undefined
+        ? Number.parseInt(String(body.box_id), 10)
+        : null;
+    const retainsExistingBox = Boolean(
+        existingItem?.box_id &&
+        (
+            body.box_id === undefined ||
+            requestedBoxId === existingItem.box_id
+        )
+    );
+    const requestedBox = body.box_id !== undefined
+        ? resolveAssignableBox(body.box_id, {
+            houseKey,
+            actorUserId,
+            itemOwnerId,
+            allowArchived: retainsExistingBox
+        })
+        : (existingItem?.box_id
+            ? resolveAssignableBox(existingItem.box_id, {
+                houseKey,
+                actorUserId,
+                itemOwnerId,
+                allowArchived: true
+            })
+            : null);
+    const boxId = requestedBox?.id ?? null;
+
+    if (requestedBox) {
+        roomId = requestedBox.room_id ?? null;
+        locationId = requestedBox.location_id ?? null;
+    }
 
     return {
         categoryId: categoryId ?? null,
         roomId: roomId ?? null,
-        locationId: locationId ?? null
+        locationId: locationId ?? null,
+        boxId: boxId ?? null
     };
 }
 
@@ -456,12 +620,23 @@ function normalizeBulkItemIds(rawIds) {
 }
 
 function recordActivity(action, req, itemId, metadata = null) {
+    const activityMetadata = metadata && typeof metadata === 'object'
+        ? { ...metadata }
+        : metadata;
+    if (activityMetadata) {
+        for (const field of ['box_id', 'from_box_id', 'to_box_id']) {
+            const boxId = Number.parseInt(String(activityMetadata[field] || ''), 10);
+            if (!Number.isInteger(boxId) || boxId <= 0) continue;
+            const box = db.prepare('SELECT is_public FROM boxes WHERE id = ? LIMIT 1').get(boxId);
+            if (!box?.is_public) activityMetadata[field] = null;
+        }
+    }
     recordItemActivity(db, {
         houseKey: req.user.house_key,
         itemId,
         actorUserId: req.user.id,
         action,
-        metadata
+        metadata: activityMetadata
     });
 }
 
@@ -822,6 +997,51 @@ function serializeItem(item, viewerUserId = null) {
     }
 
     const decryptedItem = decryptItemRecord(item);
+    const boxAccess = decryptedItem.box_id
+        ? (
+            decryptedItem.box_is_public !== undefined
+                ? {
+                    is_public: decryptedItem.box_is_public,
+                    created_by: decryptedItem.box_created_by
+                }
+                : db.prepare(`
+                    SELECT is_public, created_by
+                    FROM boxes
+                    WHERE id = ? AND house_key = ?
+                    LIMIT 1
+                `).get(decryptedItem.box_id, decryptedItem.house_key)
+        )
+        : null;
+    const locationAccess = decryptedItem.location_id
+        ? (
+            decryptedItem.location_is_public !== undefined
+                ? {
+                    is_public: decryptedItem.location_is_public,
+                    created_by: decryptedItem.location_created_by
+                }
+                : db.prepare(`
+                    SELECT is_public, created_by
+                    FROM locations
+                    WHERE id = ? AND house_key = ?
+                    LIMIT 1
+                `).get(decryptedItem.location_id, decryptedItem.house_key)
+        )
+        : null;
+    const privatePlacementHidden = Boolean(
+        decryptedItem.box_id &&
+        (
+            !boxAccess ||
+            (!boxAccess.is_public && boxAccess.created_by !== viewerUserId)
+        )
+    );
+    const privateLocationHidden = Boolean(
+        decryptedItem.location_id &&
+        (
+            !locationAccess ||
+            (!locationAccess.is_public && locationAccess.created_by !== viewerUserId)
+        )
+    );
+    const privatePlaceHidden = privatePlacementHidden || privateLocationHidden;
     const activeBorrow = buildActiveBorrowSnapshot(item, viewerUserId, item.user_id);
     const {
         active_borrow_id,
@@ -842,6 +1062,10 @@ function serializeItem(item, viewerUserId = null) {
         active_borrow_borrower_username,
         active_borrow_lent_by_username,
         active_borrow_returned_by_username,
+        box_is_public,
+        box_created_by,
+        location_is_public,
+        location_created_by,
         ...publicItem
     } = decryptedItem;
 
@@ -868,6 +1092,15 @@ function serializeItem(item, viewerUserId = null) {
 
     return {
         ...publicItem,
+        box_id: privatePlacementHidden ? null : publicItem.box_id,
+        box_name: privatePlacementHidden ? null : publicItem.box_name,
+        box_code: privatePlacementHidden ? null : publicItem.box_code,
+        room_id: privatePlaceHidden ? null : publicItem.room_id,
+        room_name: privatePlaceHidden ? null : publicItem.room_name,
+        location_id: privatePlaceHidden ? null : publicItem.location_id,
+        location_name: privatePlaceHidden ? null : publicItem.location_name,
+        private_placement: privatePlacementHidden,
+        private_location_hidden: !privatePlacementHidden && privateLocationHidden,
         photo_path: buildMediaUrl(decryptedItem.photo_path),
         thumbnail_path: buildMediaUrl(decryptedItem.thumbnail_path),
         invoice_photo_path: buildMediaUrl(decryptedItem.invoice_photo_path),
@@ -927,6 +1160,8 @@ function matchesItemSearch(item, searchTerm) {
         item?.room_name,
         item?.location_name,
         item?.location_details,
+        item?.box_name,
+        item?.box_code,
         item?.barcode,
         item?.username
     ];
@@ -1027,6 +1262,18 @@ function deleteStoredFile(storedPath) {
     const fullPath = resolveStoredPath(storedPath);
     if (fullPath && fs.existsSync(fullPath)) {
         fs.unlinkSync(fullPath);
+    }
+}
+
+function deleteStoredFilesSafely(storedPaths, context = 'Item media cleanup') {
+    for (const storedPath of [...new Set((storedPaths || []).filter(Boolean))]) {
+        try {
+            deleteStoredFile(storedPath);
+        } catch (error) {
+            if (error?.code !== 'ENOENT') {
+                console.warn(`[${context}] ${error.message}`);
+            }
+        }
     }
 }
 
@@ -1139,18 +1386,33 @@ router.get('/media/:type/:filename', async (req, res) => {
 // Get all items (only from same house)
 router.get('/', (req, res) => {
     try {
-        const { search, category_id, room_id, location_id, barcode } = req.query;
+        const { search, category_id, room_id, location_id, box_id, barcode } = req.query;
         const statusFilters = getNormalizedItemStatusFilters(req.query);
         const houseKey = req.user.house_key;
+        const filterBox = box_id
+            ? resolveAssignableBox(box_id, {
+                houseKey,
+                actorUserId: req.user.id,
+                itemOwnerId: req.user.id
+            })
+            : null;
+        const filterLocationId = location_id
+            ? resolveVisibleLocationFilter(location_id, houseKey, req.user.id)
+            : null;
 
         let query = `
             SELECT items.*, categories.name as category_name, categories.icon as category_icon,
-                   rooms.name as room_name, locations.name as location_name, users.username,
+                   rooms.name as room_name, locations.name as location_name,
+                   locations.is_public as location_is_public, locations.created_by as location_created_by,
+                   boxes.name as box_name, boxes.code as box_code,
+                   boxes.is_public as box_is_public, boxes.created_by as box_created_by,
+                   users.username,
                    ${ACTIVE_BORROW_SELECT}
             FROM items
             LEFT JOIN categories ON items.category_id = categories.id AND categories.house_key = items.house_key
             LEFT JOIN rooms ON items.room_id = rooms.id AND rooms.house_key = items.house_key
             LEFT JOIN locations ON items.location_id = locations.id AND locations.house_key = items.house_key
+            LEFT JOIN boxes ON items.box_id = boxes.id AND boxes.house_key = items.house_key
             LEFT JOIN users ON items.user_id = users.id
             ${ACTIVE_BORROW_JOINS}
             WHERE items.house_key = ? AND ${visibleItemCondition('items')}
@@ -1158,8 +1420,19 @@ router.get('/', (req, res) => {
         const params = [houseKey, req.user.id];
 
         if (category_id) { query += ' AND items.category_id = ?'; params.push(category_id); }
-        if (room_id) { query += ' AND items.room_id = ?'; params.push(room_id); }
-        if (location_id) { query += ' AND items.location_id = ?'; params.push(location_id); }
+        if (room_id) {
+            query += ` AND items.room_id = ? AND ${visibleItemPlacementCondition('items')}`;
+            params.push(room_id, req.user.id, req.user.id);
+        }
+        if (filterLocationId) {
+            query += `
+                AND items.location_id = ?
+                AND ${visibleItemPlacementCondition('items')}
+                AND (locations.is_public = 1 OR locations.created_by = ?)
+            `;
+            params.push(filterLocationId, req.user.id, req.user.id, req.user.id);
+        }
+        if (filterBox) { query += ' AND items.box_id = ?'; params.push(filterBox.id); }
         if (barcode) {
             query += ' AND items.barcode_lookup = ?';
             params.push(buildBarcodeLookup(barcode));
@@ -1214,7 +1487,7 @@ router.get('/', (req, res) => {
         res.json({ items });
     } catch (err) {
         console.error('Get items error:', err);
-        res.status(500).json({ error: 'Eşyalar yüklenirken hata oluştu' });
+        res.status(getRequestErrorStatus(err)).json({ error: err.message || 'Eşyalar yüklenirken hata oluştu' });
     }
 });
 
@@ -1262,15 +1535,21 @@ router.get('/stats/summary', (req, res) => {
         const roomsInUse = db.prepare(`
             SELECT COUNT(DISTINCT room_id) as count
             FROM items
-            WHERE house_key = ? AND room_id IS NOT NULL AND ${visibleItemCondition('items')}
-        `).get(houseKey, req.user.id);
+            WHERE house_key = ?
+              AND room_id IS NOT NULL
+              AND ${visibleItemCondition('items')}
+              AND ${visibleItemPlacementCondition('items')}
+        `).get(houseKey, req.user.id, req.user.id, req.user.id);
 
         const topRoom = db.prepare(`
             SELECT room_id, COUNT(*) as count
             FROM items
-            WHERE house_key = ? AND room_id IS NOT NULL AND ${visibleItemCondition('items')}
+            WHERE house_key = ?
+              AND room_id IS NOT NULL
+              AND ${visibleItemCondition('items')}
+              AND ${visibleItemPlacementCondition('items')}
             GROUP BY room_id ORDER BY count DESC LIMIT 1
-        `).get(houseKey, req.user.id);
+        `).get(houseKey, req.user.id, req.user.id, req.user.id);
 
         const topRoomRecord = topRoom?.room_id
             ? db.prepare('SELECT name FROM rooms WHERE id = ? AND house_key = ?').get(topRoom.room_id, houseKey)
@@ -1327,12 +1606,17 @@ router.get('/dashboard-summary', (req, res) => {
 
         const recentItems = db.prepare(`
             SELECT items.*, categories.name as category_name, categories.icon as category_icon,
-                   rooms.name as room_name, locations.name as location_name, users.username,
+                   rooms.name as room_name, locations.name as location_name,
+                   locations.is_public as location_is_public, locations.created_by as location_created_by,
+                   boxes.name as box_name, boxes.code as box_code,
+                   boxes.is_public as box_is_public, boxes.created_by as box_created_by,
+                   users.username,
                    ${ACTIVE_BORROW_SELECT}
             FROM items
             LEFT JOIN categories ON items.category_id = categories.id AND categories.house_key = items.house_key
             LEFT JOIN rooms ON items.room_id = rooms.id AND rooms.house_key = items.house_key
             LEFT JOIN locations ON items.location_id = locations.id AND locations.house_key = items.house_key
+            LEFT JOIN boxes ON items.box_id = boxes.id AND boxes.house_key = items.house_key
             LEFT JOIN users ON items.user_id = users.id
             ${ACTIVE_BORROW_JOINS}
             WHERE items.house_key = ? AND ${visibleItemCondition('items')}
@@ -1418,12 +1702,29 @@ router.get('/options', (req, res) => {
     try {
         const rows = db.prepare(`
             SELECT items.id, items.name, items.quantity, items.min_quantity,
-                   rooms.name as room_name
+                   CASE
+                       WHEN (
+                           items.box_id IS NOT NULL
+                           AND (
+                               boxes.id IS NULL
+                               OR (boxes.is_public = 0 AND COALESCE(boxes.created_by, -1) <> ?)
+                           )
+                       ) OR (
+                           items.location_id IS NOT NULL
+                           AND (
+                               locations.id IS NULL
+                               OR (locations.is_public = 0 AND COALESCE(locations.created_by, -1) <> ?)
+                           )
+                       ) THEN NULL
+                       ELSE rooms.name
+                   END as room_name
             FROM items
             LEFT JOIN rooms ON items.room_id = rooms.id AND rooms.house_key = items.house_key
+            LEFT JOIN boxes ON items.box_id = boxes.id AND boxes.house_key = items.house_key
+            LEFT JOIN locations ON items.location_id = locations.id AND locations.house_key = items.house_key
             WHERE items.house_key = ? AND ${visibleItemCondition('items')}
             ORDER BY items.updated_at DESC, items.id DESC
-        `).all(req.user.house_key, req.user.id);
+        `).all(req.user.id, req.user.id, req.user.house_key, req.user.id);
 
         const items = rows.map((row) => {
             const item = decryptItemRecord(row);
@@ -1498,6 +1799,35 @@ router.post('/bulk', (req, res) => {
         const updateFields = [];
         const updateValues = [];
         const changedFields = [];
+        const hasBoxUpdate = Object.prototype.hasOwnProperty.call(payload, 'box_id');
+        const requestedBox = hasBoxUpdate
+            ? resolveAssignableBox(payload.box_id, {
+                houseKey: req.user.house_key,
+                actorUserId: req.user.id,
+                itemOwnerId: req.user.id
+            })
+            : undefined;
+        const requestedBoxId = requestedBox?.id ?? null;
+        const targetBoxPlacement = requestedBox || null;
+        const hasIndependentPlacementUpdate = !hasBoxUpdate && (
+            Object.prototype.hasOwnProperty.call(payload, 'room_id') ||
+            Object.prototype.hasOwnProperty.call(payload, 'location_id')
+        );
+        if (hasIndependentPlacementUpdate) {
+            const boxedItemCount = editableItems.reduce(
+                (count, item) => count + (item.box_id ? 1 : 0),
+                0
+            );
+            if (boxedItemCount > 0) {
+                const conflict = createItemRequestError(
+                    'Kutudaki eşyaların oda ve konumu kutu tarafından belirlenir. Önce hedef kutuyu seçin veya eşyaları kutusuz bırakın.',
+                    409,
+                    'BOX_PLACEMENT_CONFLICT'
+                );
+                conflict.conflictingItemCount = boxedItemCount;
+                throw conflict;
+            }
+        }
 
         if (Object.prototype.hasOwnProperty.call(payload, 'category_id')) {
             updateFields.push('category_id = ?');
@@ -1508,7 +1838,7 @@ router.post('/bulk', (req, res) => {
             }));
             changedFields.push('category');
         }
-        if (Object.prototype.hasOwnProperty.call(payload, 'room_id')) {
+        if (!targetBoxPlacement && Object.prototype.hasOwnProperty.call(payload, 'room_id')) {
             const roomId = normalizeHouseScopedReferenceId(payload.room_id, {
                 fieldLabel: 'Oda',
                 query: HOUSE_SCOPED_REFERENCE_QUERIES.room,
@@ -1523,14 +1853,28 @@ router.post('/bulk', (req, res) => {
                 changedFields.push('location');
             }
         }
-        if (Object.prototype.hasOwnProperty.call(payload, 'location_id')) {
+        if (!targetBoxPlacement && Object.prototype.hasOwnProperty.call(payload, 'location_id')) {
             updateFields.push('location_id = ?');
-            updateValues.push(normalizeHouseScopedReferenceId(payload.location_id, {
-                fieldLabel: 'Konum',
-                query: HOUSE_SCOPED_REFERENCE_QUERIES.location,
-                houseKey: req.user.house_key
-            }));
+            updateValues.push(resolveVisibleLocationFilter(
+                payload.location_id,
+                req.user.house_key,
+                req.user.id
+            ));
             changedFields.push('location');
+        }
+        if (hasBoxUpdate) {
+            updateFields.push('box_id = ?');
+            updateValues.push(requestedBoxId ?? null);
+            changedFields.push('box');
+            if (targetBoxPlacement) {
+                updateFields.push('room_id = ?', 'location_id = ?');
+                updateValues.push(
+                    targetBoxPlacement.room_id ?? null,
+                    targetBoxPlacement.location_id ?? null
+                );
+                if (!changedFields.includes('room')) changedFields.push('room');
+                if (!changedFields.includes('location')) changedFields.push('location');
+            }
         }
         if (Object.prototype.hasOwnProperty.call(payload, 'is_public')) {
             updateFields.push('is_public = ?');
@@ -1553,6 +1897,14 @@ router.post('/bulk', (req, res) => {
 
         for (const itemId of editableIds) {
             recordActivity('item.bulk_updated', req, itemId, { fields: changedFields });
+            if (hasBoxUpdate) {
+                const previous = editableItems.find((item) => item.id === itemId);
+                recordActivity('item.box_moved', req, itemId, {
+                    from_box_id: previous?.box_id || null,
+                    to_box_id: requestedBoxId || null,
+                    reason: 'bulk_update'
+                });
+            }
         }
 
         res.json({
@@ -1563,7 +1915,7 @@ router.post('/bulk', (req, res) => {
         });
     } catch (err) {
         console.error('Bulk item action error:', err);
-        res.status(getRequestErrorStatus(err)).json({ error: err.message || 'Toplu işlem tamamlanamadı' });
+        res.status(getRequestErrorStatus(err)).json(buildRequestErrorPayload(err, 'Toplu işlem tamamlanamadı'));
     }
 });
 
@@ -1742,12 +2094,17 @@ router.get('/:id', (req, res) => {
     try {
         const item = db.prepare(`
             SELECT items.*, categories.name as category_name, rooms.name as room_name,
-                   locations.name as location_name, users.username,
+                   locations.name as location_name,
+                   locations.is_public as location_is_public, locations.created_by as location_created_by,
+                   boxes.name as box_name, boxes.code as box_code,
+                   boxes.is_public as box_is_public, boxes.created_by as box_created_by,
+                   users.username,
                    ${ACTIVE_BORROW_SELECT}
             FROM items
             LEFT JOIN categories ON items.category_id = categories.id AND categories.house_key = items.house_key
             LEFT JOIN rooms ON items.room_id = rooms.id AND rooms.house_key = items.house_key
             LEFT JOIN locations ON items.location_id = locations.id AND locations.house_key = items.house_key
+            LEFT JOIN boxes ON items.box_id = boxes.id AND boxes.house_key = items.house_key
             LEFT JOIN users ON items.user_id = users.id
             ${ACTIVE_BORROW_JOINS}
             WHERE items.id = ? AND items.house_key = ? AND ${visibleItemCondition('items')}
@@ -2029,6 +2386,8 @@ router.post('/:id/return', (req, res) => {
 
 // Create item (with house_key stamp)
 router.post('/', uploadFields, async (req, res) => {
+    const stagedMediaPaths = [];
+    let databaseCommitted = false;
     try {
         const {
             name,
@@ -2037,6 +2396,7 @@ router.post('/', uploadFields, async (req, res) => {
             category_id,
             room_id,
             location_id,
+            box_id,
             is_public,
             barcode,
             invoice_price,
@@ -2068,7 +2428,12 @@ router.post('/', uploadFields, async (req, res) => {
         const normalizedQuantity = Math.max(0, parseInt(quantity, 10) || 0);
         const normalizedMinQuantity = Math.max(0, parseInt(min_quantity, 10) || 0);
         const normalizedExpiryDate = expiry_date ? normalizeOptionalDate(expiry_date, 'Son kullanma tarihi') : null;
-        const { categoryId, roomId, locationId } = resolveItemReferenceIds(req.body, houseKey);
+        let { categoryId, roomId, locationId, boxId } = resolveItemReferenceIds(
+            req.body,
+            houseKey,
+            null,
+            req.user.id
+        );
 
         // Görsel işleme
         let photoPath = null;
@@ -2080,68 +2445,103 @@ router.post('/', uploadFields, async (req, res) => {
             const processed = await processImage(itemPhotoFile.buffer, MEDIA_CONFIG.photo);
             photoPath = processed.path;
             thumbnailPath = processed.thumbnailPath;
+            stagedMediaPaths.push(processed.path, processed.thumbnailPath);
         }
 
         if (invoicePhotoFile) {
             const processed = await processImage(invoicePhotoFile.buffer, MEDIA_CONFIG.invoice);
             invoicePhotoPath = processed.path;
             invoiceThumbnailPath = processed.thumbnailPath;
+            stagedMediaPaths.push(processed.path, processed.thumbnailPath);
         }
 
-        const result = db.prepare(`
-            INSERT INTO items (
-                name, description, quantity, photo_path, thumbnail_path, invoice_photo_path, invoice_thumbnail_path,
-                barcode, invoice_price, invoice_currency, invoice_date, warranty_start_date, warranty_duration_value,
-                warranty_duration_unit, warranty_expiry_date, barcode_lookup, category_id, room_id, location_id,
-                is_public, user_id, house_key, expiry_date, min_quantity
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `).run(
-            encryptItemName(name),
-            description ? encryptItemDescription(description) : null,
-            normalizedQuantity,
-            photoPath,
-            thumbnailPath,
-            invoicePhotoPath,
-            invoiceThumbnailPath,
-            barcode ? encryptItemBarcode(barcode) : null,
-            normalizedInvoicePrice ? encryptItemInvoicePrice(normalizedInvoicePrice) : null,
-            normalizedInvoiceCurrency ? encryptItemInvoiceCurrency(normalizedInvoiceCurrency) : null,
-            normalizedInvoiceDate ? encryptItemInvoiceDate(normalizedInvoiceDate) : null,
-            normalizedWarrantyDetails.warranty_start_date ? encryptItemWarrantyStartDate(normalizedWarrantyDetails.warranty_start_date) : null,
-            normalizedWarrantyDetails.warranty_duration_value ? encryptItemWarrantyDurationValue(normalizedWarrantyDetails.warranty_duration_value) : null,
-            normalizedWarrantyDetails.warranty_duration_unit ? encryptItemWarrantyDurationUnit(normalizedWarrantyDetails.warranty_duration_unit) : null,
-            normalizedWarrantyDetails.warranty_expiry_date ? encryptItemWarrantyExpiryDate(normalizedWarrantyDetails.warranty_expiry_date) : null,
-            buildBarcodeLookup(barcode),
-            categoryId, roomId, locationId,
-            is_public !== undefined ? (parseBoolean(is_public) ? 1 : 0) : 1,
-            req.user.id, houseKey,
-            normalizedExpiryDate,
-            normalizedMinQuantity
-        );
+        if (stagedMediaPaths.length > 0) {
+            await waitForItemCommitTestWindow();
+        }
+
+        let result;
+        const createItem = db.transaction(() => {
+            ({ categoryId, roomId, locationId, boxId } = resolveItemReferenceIds(
+                req.body,
+                houseKey,
+                null,
+                req.user.id
+            ));
+            result = db.prepare(`
+                INSERT INTO items (
+                    name, description, quantity, photo_path, thumbnail_path, invoice_photo_path, invoice_thumbnail_path,
+                    barcode, invoice_price, invoice_currency, invoice_date, warranty_start_date, warranty_duration_value,
+                    warranty_duration_unit, warranty_expiry_date, barcode_lookup, category_id, room_id, location_id, box_id,
+                    is_public, user_id, house_key, expiry_date, min_quantity
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            `).run(
+                encryptItemName(name),
+                description ? encryptItemDescription(description) : null,
+                normalizedQuantity,
+                photoPath,
+                thumbnailPath,
+                invoicePhotoPath,
+                invoiceThumbnailPath,
+                barcode ? encryptItemBarcode(barcode) : null,
+                normalizedInvoicePrice ? encryptItemInvoicePrice(normalizedInvoicePrice) : null,
+                normalizedInvoiceCurrency ? encryptItemInvoiceCurrency(normalizedInvoiceCurrency) : null,
+                normalizedInvoiceDate ? encryptItemInvoiceDate(normalizedInvoiceDate) : null,
+                normalizedWarrantyDetails.warranty_start_date ? encryptItemWarrantyStartDate(normalizedWarrantyDetails.warranty_start_date) : null,
+                normalizedWarrantyDetails.warranty_duration_value ? encryptItemWarrantyDurationValue(normalizedWarrantyDetails.warranty_duration_value) : null,
+                normalizedWarrantyDetails.warranty_duration_unit ? encryptItemWarrantyDurationUnit(normalizedWarrantyDetails.warranty_duration_unit) : null,
+                normalizedWarrantyDetails.warranty_expiry_date ? encryptItemWarrantyExpiryDate(normalizedWarrantyDetails.warranty_expiry_date) : null,
+                buildBarcodeLookup(barcode),
+                categoryId, roomId, locationId, boxId,
+                is_public !== undefined ? (parseBoolean(is_public) ? 1 : 0) : 1,
+                req.user.id, houseKey,
+                normalizedExpiryDate,
+                normalizedMinQuantity
+            );
+        });
+        createItem.immediate();
+        databaseCommitted = true;
 
         const item = db.prepare(`
             SELECT items.*, categories.name as category_name, categories.icon as category_icon,
-                   rooms.name as room_name, locations.name as location_name, users.username,
+                   rooms.name as room_name, locations.name as location_name,
+                   locations.is_public as location_is_public, locations.created_by as location_created_by,
+                   boxes.name as box_name, boxes.code as box_code,
+                   boxes.is_public as box_is_public, boxes.created_by as box_created_by,
+                   users.username,
                    ${ACTIVE_BORROW_SELECT}
             FROM items
             LEFT JOIN categories ON items.category_id = categories.id AND categories.house_key = items.house_key
             LEFT JOIN rooms ON items.room_id = rooms.id AND rooms.house_key = items.house_key
             LEFT JOIN locations ON items.location_id = locations.id AND locations.house_key = items.house_key
+            LEFT JOIN boxes ON items.box_id = boxes.id AND boxes.house_key = items.house_key
             LEFT JOIN users ON items.user_id = users.id
             ${ACTIVE_BORROW_JOINS}
             WHERE items.id = ?
         `).get(result.lastInsertRowid);
         recordActivity('item.created', req, result.lastInsertRowid);
+        if (boxId) {
+            recordActivity('item.box_moved', req, result.lastInsertRowid, {
+                from_box_id: null,
+                to_box_id: boxId,
+                reason: 'item_created'
+            });
+        }
         res.status(201).json({ message: 'Eşya eklendi', item: serializeItem(item, req.user.id) });
     } catch (err) {
+        if (!databaseCommitted) {
+            deleteStoredFilesSafely(stagedMediaPaths, 'Create item rollback');
+        }
         console.error('Create item error:', err);
-        res.status(getRequestErrorStatus(err)).json({ error: err.message || 'Eşya eklenirken hata oluştu' });
+        res.status(getRequestErrorStatus(err)).json(buildRequestErrorPayload(err, 'Eşya eklenirken hata oluştu'));
     }
 });
 
 // Update item (owner only)
 router.put('/:id', uploadFields, async (req, res) => {
+    const stagedMediaPaths = [];
+    const supersededMediaPaths = [];
+    let databaseCommitted = false;
     try {
         const {
             name,
@@ -2150,6 +2550,7 @@ router.put('/:id', uploadFields, async (req, res) => {
             category_id,
             room_id,
             location_id,
+            box_id,
             is_public,
             barcode,
             invoice_price,
@@ -2196,7 +2597,7 @@ router.put('/:id', uploadFields, async (req, res) => {
             return res.status(403).json({ error: 'Bu eşyayı yalnızca sahibi düzenleyebilir' });
         }
 
-        const requestedVisibility = is_public !== undefined
+        let requestedVisibility = is_public !== undefined
             ? (parseBoolean(is_public) ? 1 : 0)
             : existing.is_public;
 
@@ -2230,7 +2631,12 @@ router.put('/:id', uploadFields, async (req, res) => {
         const normalizedExpiryDate = expiry_date !== undefined
             ? (expiry_date ? normalizeOptionalDate(expiry_date, 'Son kullanma tarihi') : null)
             : existing.expiry_date;
-        const { categoryId, roomId, locationId } = resolveItemReferenceIds(req.body, req.user.house_key, existing);
+        let { categoryId, roomId, locationId, boxId } = resolveItemReferenceIds(
+            req.body,
+            req.user.house_key,
+            existing,
+            req.user.id
+        );
 
         // Görsel işleme
         let photoPath = existing.photo_path;
@@ -2239,92 +2645,135 @@ router.put('/:id', uploadFields, async (req, res) => {
         let invoiceThumbnailPath = existing.invoice_thumbnail_path;
 
         if (itemPhotoFile) {
-            // Eski görselleri sil (opsiyonel - yer tasarrufu)
-            deleteStoredFile(existing.photo_path);
-            deleteStoredFile(existing.thumbnail_path);
-
             const processed = await processImage(itemPhotoFile.buffer, MEDIA_CONFIG.photo);
             photoPath = processed.path;
             thumbnailPath = processed.thumbnailPath;
+            stagedMediaPaths.push(processed.path, processed.thumbnailPath);
+            supersededMediaPaths.push(existing.photo_path, existing.thumbnail_path);
         } else if (shouldRemovePhoto) {
-            deleteStoredFile(existing.photo_path);
-            deleteStoredFile(existing.thumbnail_path);
             photoPath = null;
             thumbnailPath = null;
+            supersededMediaPaths.push(existing.photo_path, existing.thumbnail_path);
         }
 
         if (invoicePhotoFile) {
-            deleteStoredFile(existing.invoice_photo_path);
-            deleteStoredFile(existing.invoice_thumbnail_path);
-
             const processed = await processImage(invoicePhotoFile.buffer, MEDIA_CONFIG.invoice);
             invoicePhotoPath = processed.path;
             invoiceThumbnailPath = processed.thumbnailPath;
+            stagedMediaPaths.push(processed.path, processed.thumbnailPath);
+            supersededMediaPaths.push(existing.invoice_photo_path, existing.invoice_thumbnail_path);
         } else if (shouldRemoveInvoicePhoto) {
-            deleteStoredFile(existing.invoice_photo_path);
-            deleteStoredFile(existing.invoice_thumbnail_path);
             invoicePhotoPath = null;
             invoiceThumbnailPath = null;
+            supersededMediaPaths.push(existing.invoice_photo_path, existing.invoice_thumbnail_path);
         }
 
-        db.prepare(`
-            UPDATE items
-            SET name = ?, description = ?, quantity = ?, photo_path = ?, thumbnail_path = ?, invoice_photo_path = ?, invoice_thumbnail_path = ?,
-                barcode = ?, invoice_price = ?, invoice_currency = ?, invoice_date = ?, warranty_start_date = ?,
-                warranty_duration_value = ?, warranty_duration_unit = ?, warranty_expiry_date = ?, barcode_lookup = ?,
-                category_id = ?, room_id = ?, location_id = ?, is_public = ?, expiry_date = ?, min_quantity = ?, updated_at = CURRENT_TIMESTAMP
-            WHERE id = ?
-        `).run(
-            name ? encryptItemName(name) : existing.name,
-            description !== undefined ? (description ? encryptItemDescription(description) : description) : existing.description,
-            normalizedQuantity,
-            photoPath,
-            thumbnailPath,
-            invoicePhotoPath,
-            invoiceThumbnailPath,
-            barcode !== undefined ? (barcode ? encryptItemBarcode(barcode) : null) : existing.barcode,
-            invoice_price !== undefined ? (normalizedInvoicePrice ? encryptItemInvoicePrice(normalizedInvoicePrice) : null) : existing.invoice_price,
-            invoice_currency !== undefined ? (normalizedInvoiceCurrency ? encryptItemInvoiceCurrency(normalizedInvoiceCurrency) : null) : existing.invoice_currency,
-            invoice_date !== undefined ? (normalizedInvoiceDate ? encryptItemInvoiceDate(normalizedInvoiceDate) : null) : existing.invoice_date,
-            hasWarrantyPayload
-                ? (normalizedWarrantyDetails.warranty_start_date ? encryptItemWarrantyStartDate(normalizedWarrantyDetails.warranty_start_date) : null)
-                : existing.warranty_start_date,
-            hasWarrantyPayload
-                ? (normalizedWarrantyDetails.warranty_duration_value ? encryptItemWarrantyDurationValue(normalizedWarrantyDetails.warranty_duration_value) : null)
-                : existing.warranty_duration_value,
-            hasWarrantyPayload
-                ? (normalizedWarrantyDetails.warranty_duration_unit ? encryptItemWarrantyDurationUnit(normalizedWarrantyDetails.warranty_duration_unit) : null)
-                : existing.warranty_duration_unit,
-            hasWarrantyPayload
-                ? (normalizedWarrantyDetails.warranty_expiry_date ? encryptItemWarrantyExpiryDate(normalizedWarrantyDetails.warranty_expiry_date) : null)
-                : existing.warranty_expiry_date,
-            barcode !== undefined ? buildBarcodeLookup(barcode) : existing.barcode_lookup,
-            categoryId,
-            roomId,
-            locationId,
-            requestedVisibility,
-            normalizedExpiryDate,
-            normalizedMinQuantity,
-            itemId
-        );
+        if (stagedMediaPaths.length > 0) {
+            await waitForItemCommitTestWindow();
+        }
+
+        const updateItem = db.transaction(() => {
+            const live = db.prepare('SELECT * FROM items WHERE id = ? AND house_key = ?')
+                .get(itemId, req.user.house_key);
+            assertItemSnapshotUnchanged(existing, live);
+
+            ({ categoryId, roomId, locationId, boxId } = resolveItemReferenceIds(
+                req.body,
+                req.user.house_key,
+                live,
+                req.user.id
+            ));
+            requestedVisibility = is_public !== undefined
+                ? (parseBoolean(is_public) ? 1 : 0)
+                : live.is_public;
+
+            const result = db.prepare(`
+                UPDATE items
+                SET name = ?, description = ?, quantity = ?, photo_path = ?, thumbnail_path = ?, invoice_photo_path = ?, invoice_thumbnail_path = ?,
+                    barcode = ?, invoice_price = ?, invoice_currency = ?, invoice_date = ?, warranty_start_date = ?,
+                    warranty_duration_value = ?, warranty_duration_unit = ?, warranty_expiry_date = ?, barcode_lookup = ?,
+                    category_id = ?, room_id = ?, location_id = ?, box_id = ?, is_public = ?, expiry_date = ?, min_quantity = ?, updated_at = CURRENT_TIMESTAMP
+                WHERE id = ? AND house_key = ?
+            `).run(
+                name ? encryptItemName(name) : live.name,
+                description !== undefined ? (description ? encryptItemDescription(description) : description) : live.description,
+                normalizedQuantity,
+                photoPath,
+                thumbnailPath,
+                invoicePhotoPath,
+                invoiceThumbnailPath,
+                barcode !== undefined ? (barcode ? encryptItemBarcode(barcode) : null) : live.barcode,
+                invoice_price !== undefined ? (normalizedInvoicePrice ? encryptItemInvoicePrice(normalizedInvoicePrice) : null) : live.invoice_price,
+                invoice_currency !== undefined ? (normalizedInvoiceCurrency ? encryptItemInvoiceCurrency(normalizedInvoiceCurrency) : null) : live.invoice_currency,
+                invoice_date !== undefined ? (normalizedInvoiceDate ? encryptItemInvoiceDate(normalizedInvoiceDate) : null) : live.invoice_date,
+                hasWarrantyPayload
+                    ? (normalizedWarrantyDetails.warranty_start_date ? encryptItemWarrantyStartDate(normalizedWarrantyDetails.warranty_start_date) : null)
+                    : live.warranty_start_date,
+                hasWarrantyPayload
+                    ? (normalizedWarrantyDetails.warranty_duration_value ? encryptItemWarrantyDurationValue(normalizedWarrantyDetails.warranty_duration_value) : null)
+                    : live.warranty_duration_value,
+                hasWarrantyPayload
+                    ? (normalizedWarrantyDetails.warranty_duration_unit ? encryptItemWarrantyDurationUnit(normalizedWarrantyDetails.warranty_duration_unit) : null)
+                    : live.warranty_duration_unit,
+                hasWarrantyPayload
+                    ? (normalizedWarrantyDetails.warranty_expiry_date ? encryptItemWarrantyExpiryDate(normalizedWarrantyDetails.warranty_expiry_date) : null)
+                    : live.warranty_expiry_date,
+                barcode !== undefined ? buildBarcodeLookup(barcode) : live.barcode_lookup,
+                categoryId,
+                roomId,
+                locationId,
+                boxId,
+                requestedVisibility,
+                normalizedExpiryDate,
+                normalizedMinQuantity,
+                itemId,
+                req.user.house_key
+            );
+
+            if (result.changes !== 1) {
+                throw createItemRequestError(
+                    'Eşya başka bir işlem tarafından güncellendi; son halini yükleyip tekrar deneyin',
+                    409,
+                    'ITEM_STALE'
+                );
+            }
+        });
+        updateItem.immediate();
+        databaseCommitted = true;
+        deleteStoredFilesSafely(supersededMediaPaths, 'Update item superseded media cleanup');
 
         const item = db.prepare(`
             SELECT items.*, categories.name as category_name, categories.icon as category_icon,
-                   rooms.name as room_name, locations.name as location_name, users.username,
+                   rooms.name as room_name, locations.name as location_name,
+                   locations.is_public as location_is_public, locations.created_by as location_created_by,
+                   boxes.name as box_name, boxes.code as box_code,
+                   boxes.is_public as box_is_public, boxes.created_by as box_created_by,
+                   users.username,
                    ${ACTIVE_BORROW_SELECT}
             FROM items
             LEFT JOIN categories ON items.category_id = categories.id AND categories.house_key = items.house_key
             LEFT JOIN rooms ON items.room_id = rooms.id AND rooms.house_key = items.house_key
             LEFT JOIN locations ON items.location_id = locations.id AND locations.house_key = items.house_key
+            LEFT JOIN boxes ON items.box_id = boxes.id AND boxes.house_key = items.house_key
             LEFT JOIN users ON items.user_id = users.id
             ${ACTIVE_BORROW_JOINS}
             WHERE items.id = ? AND items.house_key = ? AND ${visibleItemCondition('items')}
         `).get(itemId, req.user.house_key, req.user.id);
         recordActivity('item.updated', req, itemId);
+        if (existing.box_id !== boxId) {
+            recordActivity('item.box_moved', req, itemId, {
+                from_box_id: existing.box_id || null,
+                to_box_id: boxId || null,
+                reason: 'item_updated'
+            });
+        }
         res.json({ message: 'Eşya güncellendi', item: serializeItem(item, req.user.id) });
     } catch (err) {
+        if (!databaseCommitted) {
+            deleteStoredFilesSafely(stagedMediaPaths, 'Update item rollback');
+        }
         console.error('Update item error:', err);
-        res.status(getRequestErrorStatus(err)).json({ error: err.message || 'Eşya güncellenirken hata oluştu' });
+        res.status(getRequestErrorStatus(err)).json(buildRequestErrorPayload(err, 'Eşya güncellenirken hata oluştu'));
     }
 });
 

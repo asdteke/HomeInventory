@@ -39,7 +39,7 @@ function delay(ms) {
 function protectPlaceholders(text) {
     const placeholders = [];
     const safeText = text.replace(PLACEHOLDER_PATTERN, (match) => {
-        const token = `HIPLACEHOLDER${placeholders.length}`;
+        const token = `⟦${placeholders.length}⟧`;
         placeholders.push({ token, value: match.replace(/\s+/g, '') });
         return token;
     });
@@ -50,7 +50,15 @@ function protectPlaceholders(text) {
 function restorePlaceholders(text, placeholders) {
     let restored = text;
     for (const { token, value } of placeholders) {
-        restored = restored.replace(new RegExp(`\\s*${token}\\s*`, 'g'), value);
+        const index = token.slice(1, -1);
+        const tokenVariants = [
+            new RegExp(`⟦\\s*${index}\\s*⟧`, 'g'),
+            new RegExp(`[‐‑‒–—−-]?\\s*${index}\\s*⟧`, 'g'),
+            new RegExp(`⟦\\s*${index}(?!\\d)`, 'g')
+        ];
+        for (const pattern of tokenVariants) {
+            restored = restored.replace(pattern, value);
+        }
     }
     return restored;
 }
@@ -59,22 +67,35 @@ async function translateText(text, targetLang) {
     const mappedTargetLang = GOOGLE_LANGS[targetLang] || targetLang;
     const { safeText, placeholders } = protectPlaceholders(text);
     const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(mappedTargetLang)}&dt=t&q=${encodeURIComponent(safeText)}`;
+    let lastError;
 
-    const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error(`Google Translate returned ${response.status}`);
+    for (let attempt = 0; attempt < 5; attempt += 1) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Google Translate returned ${response.status}`);
+            }
+
+            const data = await response.json();
+            const translated = Array.isArray(data?.[0])
+                ? data[0].map((part) => part?.[0] || '').join('')
+                : '';
+
+            if (!translated.trim()) {
+                throw new Error('Google Translate returned empty text.');
+            }
+
+            return restorePlaceholders(translated, placeholders).trim();
+        } catch (error) {
+            lastError = error;
+            if (attempt === 4) {
+                break;
+            }
+            await delay(1500 * (attempt + 1));
+        }
     }
 
-    const data = await response.json();
-    const translated = Array.isArray(data?.[0])
-        ? data[0].map((part) => part?.[0] || '').join('')
-        : '';
-
-    if (!translated.trim()) {
-        throw new Error('Google Translate returned empty text.');
-    }
-
-    return restorePlaceholders(translated, placeholders).trim();
+    throw lastError;
 }
 
 async function run() {
@@ -105,7 +126,12 @@ async function run() {
                 continue;
             }
 
-            const translated = await translateText(sourceText, lang);
+            let translated;
+            try {
+                translated = await translateText(sourceText, lang);
+            } catch (error) {
+                throw new Error(`${lang}/${keyPath}: ${error.message}`);
+            }
             setDeepValue(currentTranslation, keyPath, translated);
             changed += 1;
             await delay(250);

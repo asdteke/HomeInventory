@@ -108,8 +108,13 @@ async function stopServer(child) {
     ]);
 }
 
-async function requestJson(port, path, { method = 'GET', body, redirect = 'follow' } = {}, jar = null) {
-    const headers = {};
+async function requestJson(port, path, {
+    method = 'GET',
+    body,
+    redirect = 'follow',
+    headers: extraHeaders = {}
+} = {}, jar = null) {
+    const headers = { ...extraHeaders };
 
     if (body !== undefined) {
         headers['content-type'] = 'application/json';
@@ -268,7 +273,7 @@ test('shared-house backups are limited to the house owner', async (t) => {
 
     const ownerExport = await requestJson(port, '/api/backup/export', {}, ownerJar);
     assert.equal(ownerExport.status, 200);
-    assert.equal(ownerExport.data.version, '1.3');
+    assert.equal(ownerExport.data.version, '1.6');
 });
 
 test('house owner can transfer ownership to another active member', async (t) => {
@@ -349,6 +354,140 @@ test('house owner can transfer ownership to another active member', async (t) =>
     assert.equal(newOwnerMembers.data.viewerCanManageMembers, true);
 });
 
+test('leaving through the houses API transfers shared locations without exposing private locations', async (t) => {
+    const { port, directDb } = await startTestServer(t);
+    const ownerJar = new CookieJar();
+    const departingJar = new CookieJar();
+
+    const registerOwner = await requestJson(port, '/api/auth/register', {
+        method: 'POST',
+        body: {
+            username: 'locationleaveowner',
+            email: 'location-leave-owner@example.com',
+            password: 'Stronger!Pass123',
+            mode: 'create',
+            acceptedTerms: true,
+            acknowledgedPrivacyNotice: true
+        }
+    }, ownerJar);
+    assert.equal(registerOwner.status, 201);
+
+    const registerDeparting = await requestJson(port, '/api/auth/register', {
+        method: 'POST',
+        body: {
+            username: 'locationleavemember',
+            email: 'location-leave-member@example.com',
+            password: 'Stronger!Pass123',
+            mode: 'create',
+            acceptedTerms: true,
+            acknowledgedPrivacyNotice: true
+        }
+    }, departingJar);
+    assert.equal(registerDeparting.status, 201);
+
+    const ownerId = registerOwner.data.user.id;
+    const departingId = registerDeparting.data.user.id;
+    const ownerHouse = directDb.prepare(`
+        SELECT house_key, house_name
+        FROM user_houses
+        WHERE user_id = ? AND is_owner = 1
+        LIMIT 1
+    `).get(ownerId);
+    const joinedMembership = directDb.prepare(`
+        INSERT INTO user_houses (user_id, house_key, house_name, is_owner)
+        VALUES (?, ?, ?, 0)
+    `).run(departingId, ownerHouse.house_key, ownerHouse.house_name);
+    directDb.prepare(`
+        UPDATE users
+        SET active_house_key = ?
+        WHERE id = ?
+    `).run(ownerHouse.house_key, departingId);
+
+    const room = directDb.prepare(`
+        SELECT id
+        FROM rooms
+        WHERE house_key = ?
+        ORDER BY id ASC
+        LIMIT 1
+    `).get(ownerHouse.house_key);
+
+    const publicLocation = await requestJson(port, '/api/locations', {
+        method: 'POST',
+        body: {
+            name: 'Shared leaving shelf',
+            room_id: room.id,
+            is_public: true
+        }
+    }, departingJar);
+    assert.equal(publicLocation.status, 201);
+
+    const privateLocation = await requestJson(port, '/api/locations', {
+        method: 'POST',
+        body: {
+            name: 'Private leaving shelf',
+            room_id: room.id,
+            is_public: false
+        }
+    }, departingJar);
+    assert.equal(privateLocation.status, 201);
+
+    const sharedBox = await requestJson(port, '/api/boxes', {
+        method: 'POST',
+        body: {
+            name: 'Shared leaving box',
+            code: 'LEAVE-BOX',
+            room_id: room.id,
+            location_id: publicLocation.data.location.id,
+            is_public: true
+        }
+    }, departingJar);
+    assert.equal(sharedBox.status, 201);
+
+    const leaveResponse = await requestJson(
+        port,
+        `/api/houses/${Number(joinedMembership.lastInsertRowid)}/leave`,
+        { method: 'POST' },
+        departingJar
+    );
+    assert.equal(leaveResponse.status, 200);
+
+    assert.equal(
+        directDb.prepare('SELECT created_by FROM locations WHERE id = ?')
+            .get(publicLocation.data.location.id).created_by,
+        ownerId
+    );
+    assert.equal(
+        directDb.prepare('SELECT created_by FROM locations WHERE id = ?')
+            .get(privateLocation.data.location.id).created_by,
+        departingId
+    );
+    assert.equal(
+        directDb.prepare('SELECT location_id FROM boxes WHERE id = ?')
+            .get(sharedBox.data.box.id).location_id,
+        publicLocation.data.location.id
+    );
+    assert.equal(
+        directDb.prepare('SELECT id FROM user_houses WHERE id = ?')
+            .get(Number(joinedMembership.lastInsertRowid)),
+        undefined
+    );
+
+    const ownerLocations = await requestJson(port, '/api/locations', {}, ownerJar);
+    assert.equal(ownerLocations.status, 200);
+    assert.equal(
+        ownerLocations.data.locations.some((location) => location.id === publicLocation.data.location.id),
+        true
+    );
+    assert.equal(
+        ownerLocations.data.locations.some((location) => location.id === privateLocation.data.location.id),
+        false
+    );
+
+    const retainedBox = await requestJson(port, `/api/boxes/${sharedBox.data.box.id}`, {}, ownerJar);
+    assert.equal(retainedBox.status, 200);
+    assert.equal(retainedBox.data.box.location_id, publicLocation.data.location.id);
+});
+
 test('login attempts lock the account after repeated failures', async (t) => {
     const { port, directDb } = await startTestServer(t);
 
@@ -377,6 +516,9 @@ test('login attempts lock the account after repeated failures', async (t) => {
 
     const lockedLogin = await requestJson(port, '/api/auth/login', {
         method: 'POST',
+        headers: {
+            'accept-language': 'en'
+        },
         body: {
             username: 'lockuser',
             password: 'Stronger!Pass123'
@@ -384,7 +526,11 @@ test('login attempts lock the account after repeated failures', async (t) => {
     });
 
     assert.equal(lockedLogin.status, 429);
-    assert.match(lockedLogin.data.error, /çok fazla başarısız giriş denemesi/i);
+    assert.equal(lockedLogin.data.code, 'LOGIN_LOCKED');
+    assert.ok(lockedLogin.data.retryAfterMinutes >= 1);
+    assert.ok(lockedLogin.data.retryAfterMinutes <= 60);
+    assert.match(lockedLogin.data.error, /too many failed login attempts/i);
+    assert.ok(Number(lockedLogin.headers.get('retry-after')) > 0);
 
     const loginState = directDb.prepare(`
         SELECT failed_login_count, login_locked_until
@@ -394,6 +540,41 @@ test('login attempts lock the account after repeated failures', async (t) => {
 
     assert.ok(loginState.failed_login_count >= 10);
     assert.ok(loginState.login_locked_until);
+});
+
+test('auth rate-limit responses follow the requested language', async (t) => {
+    const { port } = await startTestServer(t);
+    let englishResponse;
+
+    for (let attempt = 0; attempt < 21; attempt += 1) {
+        englishResponse = await requestJson(port, '/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'accept-language': 'en'
+            },
+            body: {
+                username: `missing-user-${attempt}`,
+                password: 'wrong-password'
+            }
+        });
+    }
+
+    assert.equal(englishResponse.status, 429);
+    assert.equal(englishResponse.data.code, 'AUTH_RATE_LIMITED');
+    assert.equal(englishResponse.data.retryAfterMinutes, 15);
+    assert.match(englishResponse.data.error, /too many login attempts/i);
+
+    const turkishResponse = await requestJson(port, '/api/auth/login?lang=tr', {
+        method: 'POST',
+        body: {
+            username: 'missing-user-tr',
+            password: 'wrong-password'
+        }
+    });
+
+    assert.equal(turkishResponse.status, 429);
+    assert.equal(turkishResponse.data.code, 'AUTH_RATE_LIMITED');
+    assert.match(turkishResponse.data.error, /çok fazla giriş denemesi/i);
 });
 
 test('authenticated session checks refresh stale last activity', async (t) => {

@@ -1039,6 +1039,38 @@ html:not(.dark) .mobile-liquid-nav-create {
   }
 }
 
+@media screen {
+  .box-label-print-grid-v26 {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 90mm), 90mm));
+    justify-content: start;
+  }
+
+  .box-label-cut-card-v26 {
+    width: min(100%, 90mm);
+    min-height: 50mm;
+  }
+
+  .box-label-cut-card-v26 .label-cut-body {
+    grid-template-columns: 30mm minmax(0, 1fr);
+    gap: 3mm;
+    padding: 3mm;
+  }
+
+  .box-label-cut-card-v26 .label-qr-box {
+    width: 30mm;
+    height: 30mm;
+  }
+
+  .box-label-print-page-v26.is-single-label-v26 {
+    width: min(100%, 104mm);
+    padding: 7mm;
+  }
+
+  .box-label-print-page-v26.is-single-label-v26 .label-sheet-header {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 560px) {
   .label-print-page {
     padding: 14px;
@@ -1146,6 +1178,61 @@ html:not(.dark) .mobile-liquid-nav-create {
     margin-top: 2.5mm;
     padding: 1.5mm 2mm;
     font-size: 6.6pt;
+  }
+
+  .box-label-print-grid-v26 {
+    grid-template-columns: repeat(2, 90mm);
+    justify-content: start;
+    gap: 4mm;
+  }
+
+  .box-label-cut-card-v26 {
+    width: 90mm;
+    height: 50mm;
+    min-height: 50mm;
+  }
+
+  .box-label-cut-card-v26 .label-cut-header {
+    padding: 1.6mm 2.5mm;
+  }
+
+  .box-label-cut-card-v26 .label-cut-body {
+    grid-template-columns: 30mm minmax(0, 1fr);
+    gap: 2.5mm;
+    padding: 2.5mm;
+  }
+
+  .box-label-cut-card-v26 .label-qr-box,
+  .box-label-cut-card-v26 .label-qr-box svg {
+    width: 30mm;
+    height: 30mm;
+  }
+
+  .box-label-cut-card-v26 .label-title {
+    font-size: 10pt;
+  }
+
+  .box-label-cut-card-v26 .label-subtitle {
+    margin-top: 1.5mm;
+    font-size: 7.5pt;
+  }
+
+  .box-label-cut-card-v26 .label-pill,
+  .box-label-cut-card-v26 .label-note {
+    margin-top: 2mm;
+    padding: 1.2mm 1.7mm;
+    font-size: 6pt;
+  }
+
+  .box-label-print-page-v26.is-single-label-v26 .box-label-print-grid-v26 {
+    grid-template-columns: 90mm;
+    gap: 0;
+  }
+
+  .box-label-print-page-v26.is-single-label-v26 .box-label-cut-card-v26 {
+    border: 0;
+    border-radius: 0;
+    background: #ffffff;
   }
 }
 
@@ -7976,7 +8063,7 @@ html.dark[data-brand]:not([data-brand='homeinventory']) {
 
 .activity-timeline {
   min-width: 0;
-  border-top: 1px solid var(--hi-border-strong);
+  border-top: 0;
 }
 
 .activity-entry {
@@ -7997,6 +8084,11 @@ html.dark[data-brand]:not([data-brand='homeinventory']) {
 
 .maintenance-empty {
   grid-template-columns: 3.2rem minmax(0, 1fr) auto;
+}
+
+.activity-page > .workspace-empty,
+.maintenance-page-v25 > .maintenance-empty {
+  border-top: 0;
 }
 
 .maintenance-empty-add,
@@ -8334,6 +8426,10 @@ html.dark[data-brand]:not([data-brand='homeinventory']) {
   border-radius: 999px;
   background: var(--item-category-color);
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--item-category-color) 14%, transparent);
+}
+
+.inventory-item-card.is-no-photo::before {
+  display: none;
 }
 
 @media (max-width: 767px) {
@@ -8689,12 +8785,20 @@ html.dark[data-brand]:not([data-brand='homeinventory']) {
   gap: 1rem;
 }
 
+.shopping-list-section-v25 > div:first-child > .core-section-header-v25,
+.shopping-add-panel-v25 > div:first-child > .core-section-header-v25 {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
 .shopping-completed-section-v25 {
   padding-top: .9rem;
 }
 
 .shopping-empty-v25 {
   border-top: 0;
+  border-bottom: 0;
 }
 
 .shopping-add-panel-v25 {
@@ -9208,4 +9312,19 @@ html.dark[data-brand]:not([data-brand='homeinventory']) {
   .manager-row-v25:last-child {
     border-bottom: 0;
   }
+}
+
+/* Keep native-looking select chevrons inside the shared field rhythm. */
+select.input-field:not([multiple]) {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-inline-end: 2.75rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2366746d' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 1rem center !important;
+  background-size: 0.85rem !important;
+}
+
+[dir='rtl'] select.input-field:not([multiple]) {
+  background-position: left 1rem center !important;
 }

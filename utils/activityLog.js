@@ -11,9 +11,15 @@ const ALLOWED_ACTIVITY_ACTIONS = new Set([
     'item.returned',
     'item.bulk_updated',
     'item.bulk_deleted',
+    'item.box_moved',
     'item.stock_adjusted',
     'item.attachment_added',
-    'item.attachment_deleted'
+    'item.attachment_deleted',
+    'box.created',
+    'box.updated',
+    'box.archived',
+    'box.restored',
+    'box.deleted'
 ]);
 
 function safeMetadata(metadata) {

@@ -148,7 +148,15 @@ export default function Login() {
             }
         } catch (err: any) {
             const data = err.response?.data;
-            setError(data?.error || err.message || t('common.error'));
+            if (data?.code === 'AUTH_RATE_LIMITED') {
+                setError(t('rate_limit.too_many_login_attempts'));
+            } else if (data?.code === 'LOGIN_LOCKED') {
+                setError(t('auth.account_locked', {
+                    minutes: data?.retryAfterMinutes || 60
+                }));
+            } else {
+                setError(data?.error || err.message || t('common.error'));
+            }
             if (data?.requiresTwoFactor) {
                 setRequires2FA(true);
             }

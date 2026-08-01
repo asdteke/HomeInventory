@@ -1,6 +1,6 @@
 name: CI
 
-# Current for the public v2.5.2 release line.
+# Current for the public v2.6.0 release line.
 
 on:
   pull_request:
@@ -30,6 +30,18 @@ jobs:
             package-lock.json
             client/package-lock.json
             apps/launcher/package-lock.json
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Linux Tauri test dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev \
+            libgtk-3-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev
 
       - name: Install root dependencies
         run: npm ci
@@ -115,6 +127,9 @@ jobs:
           console.log('Locale parity and artifact checks passed.');
           NODE
 
+      - name: Validate i18n completeness and source usage
+        run: npm run i18n:check
+
       - name: Validate app and launcher version parity
         run: npm run version:check
 
@@ -124,8 +139,18 @@ jobs:
       - name: Build launcher frontend
         run: npm run build --prefix apps/launcher
 
-      - name: Test
+      - name: Build and verify managed app archive
+        run: |
+          npm run launcher:bundle-app
+          node scripts/verify-managed-app-archive.mjs
+
+      - name: Test Node application
         run: node --test --test-concurrency=1 tests/*.test.mjs
+
+      - name: Test Rust launcher
+        env:
+          CARGO_BUILD_JOBS: "1"
+        run: cargo test --locked --manifest-path apps/launcher/src-tauri/Cargo.toml
 
       - name: Audit moderate severity dependencies
         run: npm audit --audit-level=moderate

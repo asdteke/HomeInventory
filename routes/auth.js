@@ -43,7 +43,8 @@ import {
     getMembershipStateForUser,
     getUserHouseList,
     listPendingJoinRequestsForUser,
-    syncUserHousePointers
+    syncUserHousePointers,
+    transferOwnedPublicLocations
 } from '../utils/houseMembership.js';
 import {
     PASSWORD_RESET_LOCK_WINDOW_MS,
@@ -77,6 +78,10 @@ import {
 } from '../utils/houseDefaults.js';
 import { parseSqliteUtcTimestamp, toSqliteUtcTimestamp } from '../utils/sqliteDate.js';
 import { getEmailDeliveryStatus } from '../utils/branding.js';
+import {
+    deletePrivateBoxMediaFiles,
+    removeOwnedPrivateBoxes
+} from '../utils/privateBoxLifecycle.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -96,7 +101,7 @@ const PRIVACY_NOTICE_VERSION = '2026-04-17-privacy';
 const LOGIN_MAX_FAILURES = 10;
 const LOGIN_FAILURE_WINDOW_MINUTES = 15;
 const LOGIN_LOCK_DURATION_MINUTES = 60;
-const LOGIN_LOCKED_MESSAGE = 'Çok fazla başarısız giriş denemesi. Lütfen daha sonra tekrar deneyin.';
+const LOGIN_LOCKED_MESSAGE = 'Too many failed login attempts. Please try again later.';
 const BOOTSTRAP_ADMIN_EMAIL = String(process.env.BOOTSTRAP_ADMIN_EMAIL || '').trim().toLowerCase();
 const SITE_URL = String(
     process.env.SITE_URL ||
@@ -301,12 +306,19 @@ function promoteReplacementHouseOwners(userId) {
 
 function reassignOrDeleteUserLocations(userId) {
     const locations = db.prepare(`
-        SELECT id, house_key
+        SELECT id, house_key, is_public
         FROM locations
         WHERE created_by = ?
     `).all(userId);
 
     for (const location of locations) {
+        // A private location is part of the departing user's private inventory
+        // boundary. Never transfer it to another household member.
+        if (!location.is_public) {
+            db.prepare('DELETE FROM locations WHERE id = ?').run(location.id);
+            continue;
+        }
+
         const replacementMember = db.prepare(`
             SELECT user_id
             FROM user_houses
@@ -324,17 +336,8 @@ function reassignOrDeleteUserLocations(userId) {
             continue;
         }
 
-        const locationUsage = db.prepare(`
-            SELECT id
-            FROM items
-            WHERE location_id = ?
-            LIMIT 1
-        `).get(location.id);
-
-        if (locationUsage) {
-            throw new Error('Kullanıcıya ait konumlar başka kayıtlar tarafından kullanılmaya devam ediyor');
-        }
-
+        // No household member remains. Foreign keys safely clear any stale
+        // item/box reference while preserving its last known room.
         db.prepare('DELETE FROM locations WHERE id = ?').run(location.id);
     }
 }
@@ -347,6 +350,17 @@ function runDeleteAccountTransaction({
 }) {
     const deleteAccount = db.transaction((input) => {
         const { userId: deletingUserId, emailLookup: deletingEmailLookup, usernameLookup: deletingUsernameLookup, itemIds: ownedItemIds } = input;
+        const emptiedHouseKeys = db.prepare(`
+            SELECT membership.house_key
+            FROM user_houses membership
+            WHERE membership.user_id = ?
+              AND NOT EXISTS (
+                  SELECT 1
+                  FROM user_houses other_membership
+                  WHERE other_membership.house_key = membership.house_key
+                    AND other_membership.user_id <> ?
+              )
+        `).all(deletingUserId, deletingUserId).map((membership) => membership.house_key);
 
         promoteReplacementHouseOwners(deletingUserId);
 
@@ -433,6 +447,23 @@ function runDeleteAccountTransaction({
         db.prepare('DELETE FROM house_join_requests WHERE requester_user_id = ?').run(deletingUserId);
         db.prepare('UPDATE house_join_requests SET decided_by_user_id = NULL WHERE decided_by_user_id = ?').run(deletingUserId);
 
+        const privateBoxCleanup = removeOwnedPrivateBoxes({
+            ownerUserId: deletingUserId
+        });
+        const emptiedHouseBoxMediaPaths = [];
+        for (const houseKey of emptiedHouseKeys) {
+            const remainingBoxes = db.prepare(`
+                SELECT photo_path, thumbnail_path
+                FROM boxes
+                WHERE house_key = ?
+            `).all(houseKey);
+            emptiedHouseBoxMediaPaths.push(...remainingBoxes.flatMap((box) => ([
+                box.photo_path,
+                box.thumbnail_path
+            ])).filter(Boolean));
+            db.prepare('DELETE FROM boxes WHERE house_key = ?').run(houseKey);
+        }
+
         reassignOrDeleteUserLocations(deletingUserId);
 
         db.prepare('DELETE FROM user_houses WHERE user_id = ?').run(deletingUserId);
@@ -445,9 +476,16 @@ function runDeleteAccountTransaction({
         }
 
         db.prepare('DELETE FROM users WHERE id = ?').run(deletingUserId);
+        return {
+            ...privateBoxCleanup,
+            mediaPaths: [...new Set([
+                ...privateBoxCleanup.mediaPaths,
+                ...emptiedHouseBoxMediaPaths
+            ])]
+        };
     });
 
-    deleteAccount({
+    return deleteAccount({
         userId,
         emailLookup,
         usernameLookup,
@@ -783,6 +821,25 @@ function isLoginLocked(userRow) {
 
     const lockedUntil = parseSqliteUtcTimestamp(userRow.login_locked_until);
     return typeof lockedUntil === 'number' && lockedUntil > Date.now();
+}
+
+function sendLoginLocked(req, res, userRow) {
+    const lockedUntil = parseSqliteUtcTimestamp(userRow?.login_locked_until);
+    const retryAfterMinutes = typeof lockedUntil === 'number'
+        ? Math.max(1, Math.ceil((lockedUntil - Date.now()) / 60000))
+        : LOGIN_LOCK_DURATION_MINUTES;
+
+    res.setHeader('Retry-After', String(retryAfterMinutes * 60));
+    return res.status(429).json({
+        error: translateAuth(
+            req,
+            'auth.account_locked',
+            LOGIN_LOCKED_MESSAGE,
+            { minutes: retryAfterMinutes }
+        ),
+        code: 'LOGIN_LOCKED',
+        retryAfterMinutes
+    });
 }
 
 const resetPasswordLimiter = rateLimit({
@@ -1140,7 +1197,7 @@ router.post('/login', async (req, res) => {
         }
 
         if (isLoginLocked(user)) {
-            return res.status(429).json({ error: LOGIN_LOCKED_MESSAGE });
+            return sendLoginLocked(req, res, user);
         }
 
         // Verify password
@@ -1149,7 +1206,7 @@ router.post('/login', async (req, res) => {
         if (!validPassword) {
             const updatedLoginState = recordLoginFailure(user.id);
             if (isLoginLocked(updatedLoginState)) {
-                return res.status(429).json({ error: LOGIN_LOCKED_MESSAGE });
+                return sendLoginLocked(req, res, updatedLoginState);
             }
             return res.status(401).json({ error: translateAuth(req, 'auth.invalid_credentials', 'Kullanıcı adı veya şifre hatalı') });
         }
@@ -1790,12 +1847,16 @@ async function handleDeleteAccountRequest(req, res) {
         ));
 
         deleteAccountMediaFiles(mediaPaths);
-        runDeleteAccountTransaction({
+        const privateBoxCleanup = runDeleteAccountTransaction({
             userId: req.user.id,
             emailLookup: user.email_lookup,
             usernameLookup: user.username_lookup,
             itemIds
         });
+        const boxMediaCleanup = deletePrivateBoxMediaFiles(privateBoxCleanup.mediaPaths);
+        if (boxMediaCleanup.failures.length > 0) {
+            console.error(`Delete account media cleanup: ${boxMediaCleanup.failures.length} private box media file(s) could not be removed`);
+        }
 
         clearSessionCookies(res);
 
@@ -2327,16 +2388,34 @@ router.post('/leave-house', authenticateToken, (req, res) => {
             }
         }
 
-        // Remove user from house
-        db.prepare('DELETE FROM user_houses WHERE user_id = ? AND house_key = ?').run(req.user.id, house_key);
+        const leaveHouse = db.transaction(() => {
+            transferOwnedPublicLocations({
+                ownerUserId: req.user.id,
+                houseKey: house_key
+            });
+            const privateBoxCleanup = removeOwnedPrivateBoxes({
+                ownerUserId: req.user.id,
+                houseKey: house_key
+            });
 
-        // If this was the active house, switch to another one
-        const user = db.prepare('SELECT active_house_key FROM users WHERE id = ?').get(req.user.id);
-        if (user.active_house_key === house_key) {
-            const remainingHouse = db.prepare('SELECT house_key FROM user_houses WHERE user_id = ? LIMIT 1').get(req.user.id);
-            if (remainingHouse) {
-                db.prepare('UPDATE users SET active_house_key = ? WHERE id = ?').run(remainingHouse.house_key, req.user.id);
+            // Remove user from house
+            db.prepare('DELETE FROM user_houses WHERE user_id = ? AND house_key = ?').run(req.user.id, house_key);
+
+            // If this was the active house, switch to another one
+            const user = db.prepare('SELECT active_house_key FROM users WHERE id = ?').get(req.user.id);
+            if (user.active_house_key === house_key) {
+                const remainingHouse = db.prepare('SELECT house_key FROM user_houses WHERE user_id = ? LIMIT 1').get(req.user.id);
+                if (remainingHouse) {
+                    db.prepare('UPDATE users SET active_house_key = ? WHERE id = ?').run(remainingHouse.house_key, req.user.id);
+                }
             }
+
+            return privateBoxCleanup;
+        });
+        const privateBoxCleanup = leaveHouse();
+        const boxMediaCleanup = deletePrivateBoxMediaFiles(privateBoxCleanup.mediaPaths);
+        if (boxMediaCleanup.failures.length > 0) {
+            console.error(`Leave house media cleanup: ${boxMediaCleanup.failures.length} private box media file(s) could not be removed`);
         }
 
         // Get updated houses and generate new token

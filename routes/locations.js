@@ -10,6 +10,10 @@ import {
 const router = express.Router();
 const selectScopedRoom = db.prepare('SELECT id FROM rooms WHERE id = ? AND house_key = ? LIMIT 1');
 
+function parseBoolean(value) {
+    return value === true || value === 'true' || value === 1 || value === '1';
+}
+
 function normalizeRoomIdForHouse(value, houseKey) {
     const normalized = String(value ?? '').trim();
     if (!normalized) {
@@ -47,8 +51,9 @@ router.get('/', (req, res) => {
             LEFT JOIN users ON locations.created_by = users.id
             LEFT JOIN rooms ON locations.room_id = rooms.id AND rooms.house_key = locations.house_key
             WHERE locations.house_key = ?
+              AND (locations.is_public = 1 OR locations.created_by = ?)
         `;
-        const params = [req.user.house_key];
+        const params = [req.user.house_key, req.user.id];
 
         if (room_id) {
             query += ' AND locations.room_id = ?';
@@ -76,7 +81,7 @@ router.post('/', (req, res) => {
 
         const result = db.prepare(
             'INSERT INTO locations (name, room_id, created_by, is_public, house_key) VALUES (?, ?, ?, ?, ?)'
-        ).run(encryptLocationName(name), scopedRoomId, req.user.id, is_public ? 1 : 0, req.user.house_key);
+        ).run(encryptLocationName(name), scopedRoomId, req.user.id, parseBoolean(is_public) ? 1 : 0, req.user.house_key);
 
         const location = decryptLocationRecord(db.prepare('SELECT * FROM locations WHERE id = ?').get(result.lastInsertRowid));
 
@@ -106,15 +111,94 @@ router.put('/:id', (req, res) => {
         const scopedRoomId = room_id !== undefined
             ? normalizeRoomIdForHouse(room_id, req.user.house_key)
             : existing.room_id;
+        const requestedVisibility = is_public !== undefined
+            ? (parseBoolean(is_public) ? 1 : 0)
+            : existing.is_public;
 
-        db.prepare(
-            'UPDATE locations SET name = ?, room_id = ?, is_public = ? WHERE id = ?'
-        ).run(
-            name ? encryptLocationName(name) : existingRow.name,
-            scopedRoomId,
-            is_public !== undefined ? (is_public ? 1 : 0) : existing.is_public,
-            locationId
-        );
+        if (existing.is_public && !requestedVisibility) {
+            const sharedBox = db.prepare(`
+                SELECT id
+                FROM boxes
+                WHERE location_id = ? AND house_key = ? AND is_public = 1
+                LIMIT 1
+            `).get(locationId, req.user.house_key);
+            if (sharedBox) {
+                return res.status(409).json({
+                    error: 'Paylaşılan bir kutunun kullandığı konum kişisel yapılamaz',
+                    code: 'LOCATION_USED_BY_SHARED_BOX'
+                });
+            }
+            const foreignItemCount = Number(db.prepare(`
+                SELECT COUNT(*) AS count
+                FROM items
+                WHERE house_key = ?
+                  AND user_id <> ?
+                  AND (
+                      location_id = ?
+                      OR box_id IN (
+                          SELECT id
+                          FROM boxes
+                          WHERE house_key = ? AND location_id = ?
+                      )
+                  )
+            `).get(
+                req.user.house_key,
+                existing.created_by,
+                locationId,
+                req.user.house_key,
+                locationId
+            )?.count || 0);
+            if (foreignItemCount > 0) {
+                return res.status(409).json({
+                    error: 'Başka bir üyeye ait eşyanın kullandığı konum kişisel yapılamaz',
+                    code: 'LOCATION_VISIBILITY_CONFLICT',
+                    conflictingItemCount: foreignItemCount
+                });
+            }
+        }
+
+        const roomChanged = Number(existing.room_id || 0) !== Number(scopedRoomId || 0);
+        const updateLocation = db.transaction(() => {
+            db.prepare(
+                'UPDATE locations SET name = ?, room_id = ?, is_public = ? WHERE id = ? AND house_key = ?'
+            ).run(
+                name ? encryptLocationName(name) : existingRow.name,
+                scopedRoomId,
+                requestedVisibility,
+                locationId,
+                req.user.house_key
+            );
+
+            if (!roomChanged) {
+                return;
+            }
+
+            db.prepare(`
+                UPDATE boxes
+                SET room_id = ?, updated_at = ?
+                WHERE location_id = ? AND house_key = ?
+            `).run(scopedRoomId, new Date().toISOString(), locationId, req.user.house_key);
+            db.prepare(`
+                UPDATE items
+                SET room_id = ?, updated_at = CURRENT_TIMESTAMP
+                WHERE house_key = ?
+                  AND (
+                      location_id = ?
+                      OR box_id IN (
+                          SELECT id
+                          FROM boxes
+                          WHERE house_key = ? AND location_id = ?
+                      )
+                  )
+            `).run(
+                scopedRoomId,
+                req.user.house_key,
+                locationId,
+                req.user.house_key,
+                locationId
+            );
+        });
+        updateLocation.immediate();
 
         const location = decryptLocationRecord(db.prepare('SELECT * FROM locations WHERE id = ?').get(locationId));
         res.json({ message: 'Konum güncellendi', location });

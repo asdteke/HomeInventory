@@ -83,6 +83,10 @@ function isExcluded(path) {
   const name = basename(path);
 
   if (!rel || rel.startsWith('..')) return true;
+  if (rel === 'client' || rel.startsWith(`client${sep}`)) {
+    const clientRelative = rel.slice('client'.length + 1);
+    if (clientRelative === 'dist' || clientRelative.startsWith(`dist-`)) return true;
+  }
   if (name === '.env' || (name.startsWith('.env.') && name !== '.env.example')) return true;
   if (excludedNames.has(name) || parts.some((part) => excludedNames.has(part))) return true;
   if (name.endsWith('.tar.gz')) return true;
@@ -140,6 +144,7 @@ const forbiddenArchivePatterns = [
   /(^|\/)node_modules\//,
   /(^|\/)apps\//,
   /(^|\/)data\//,
+  /(^|\/)client\/dist(?:-[^/]+)?\//,
   /(^|\/)local-brands\//,
   /(^|\/)private-brands\//,
   /(^|\/)brand-local\//,

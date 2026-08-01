@@ -1,8 +1,8 @@
 import { Suspense, lazy, useState, useEffect, useRef } from 'react';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams, useSearchParams } from 'react-router';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, Camera, X, Lock, Globe, MapPin, Plus, Loader2, ChevronDown, Check, QrCode, ScanBarcode, Search, ExternalLink, CalendarDays, Edit3, ChevronRight, Download, FileText, Paperclip, Trash2, Upload, ArrowRightLeft, History } from 'lucide-react';
+import { ArrowLeft, Box, Camera, X, Lock, Globe, MapPin, Plus, Loader2, ChevronDown, Check, QrCode, ScanBarcode, Search, ExternalLink, CalendarDays, Edit3, ChevronRight, Download, FileText, Paperclip, Trash2, Upload, ArrowRightLeft, History } from 'lucide-react';
 import SecureImage from './SecureImage';
 import FullscreenImage from './FullscreenImage';
 import { MAX_PHOTO_UPLOAD_MB, isPhotoUploadTooLarge } from '../utils/mediaLimits';
@@ -41,6 +41,7 @@ function createInitialFormData() {
         category_id: '',
         room_id: '',
         location_id: '',
+        box_id: '',
         is_public: true,
         barcode: '',
         invoice_price: '',
@@ -54,6 +55,11 @@ function createInitialFormData() {
         expiry_date: '',
         min_quantity: 0
     };
+}
+
+function normalizeReturnToPath(value) {
+    const path = String(value || '').trim();
+    return path.startsWith('/') && !path.startsWith('//') ? path : null;
 }
 
 const CURRENCY_OPTIONS = [
@@ -260,6 +266,8 @@ function calculateWarrantyExpiryDisplay(startDateValue, durationValue, durationU
 export default function ItemForm() {
     const { id } = useParams();
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const [returnToPath] = useState(() => normalizeReturnToPath(searchParams.get('return_to')));
     const { t, i18n } = useTranslation();
     const fileInputRef = useRef(null);
     const cameraInputRef = useRef(null);
@@ -289,11 +297,13 @@ export default function ItemForm() {
     const [categories, setCategories] = useState([]);
     const [rooms, setRooms] = useState([]);
     const [locations, setLocations] = useState([]);
+    const [boxes, setBoxes] = useState([]);
     const [activeBorrow, setActiveBorrow] = useState(null);
     const [borrowHistory, setBorrowHistory] = useState([]);
     const [borrowHistoryLoading, setBorrowHistoryLoading] = useState(isEditing);
     const [canManageVisibility, setCanManageVisibility] = useState(!isEditing);
     const [canEditItem, setCanEditItem] = useState(!isEditing);
+    const [privatePlacementHidden, setPrivatePlacementHidden] = useState(false);
     const [isDetailEditMode, setIsDetailEditMode] = useState(!isEditing);
     const currentLanguage = i18n.resolvedLanguage || i18n.language;
 
@@ -458,7 +468,13 @@ export default function ItemForm() {
         }
 
         setFetching(false);
-        setFormData(createInitialFormData());
+        setFormData({
+            ...createInitialFormData(),
+            box_id: searchParams.get('box_id') || '',
+            room_id: searchParams.get('room_id') || '',
+            location_id: searchParams.get('location_id') || '',
+            is_public: searchParams.get('is_public') !== 'false'
+        });
         setPhoto(null);
         setPhotoPreview(null);
         setExistingPhoto(null);
@@ -474,6 +490,7 @@ export default function ItemForm() {
         setBorrowHistoryLoading(false);
         setCanManageVisibility(true);
         setCanEditItem(true);
+        setPrivatePlacementHidden(false);
         setIsDetailEditMode(true);
         setLocationSearch('');
         setLocations([]);
@@ -518,9 +535,10 @@ export default function ItemForm() {
 
     const fetchOptions = async (signal) => {
         try {
-            const [catRes, roomRes] = await Promise.all([
+            const [catRes, roomRes, boxRes] = await Promise.all([
                 axios.get('/api/categories', createRequestConfig({ signal })),
-                axios.get('/api/rooms', createRequestConfig({ signal }))
+                axios.get('/api/rooms', createRequestConfig({ signal })),
+                axios.get('/api/boxes?archived=include', createRequestConfig({ signal }))
             ]);
 
             if (!isMountedRef.current) {
@@ -529,6 +547,36 @@ export default function ItemForm() {
 
             setCategories(catRes.data.categories);
             setRooms(roomRes.data.rooms);
+            const nextBoxes = boxRes.data.boxes || [];
+            setBoxes(nextBoxes);
+
+            if (!isEditing) {
+                const requestedBoxId = searchParams.get('box_id');
+                const requestedBox = nextBoxes.find((box: any) => String(box.id) === String(requestedBoxId || ''));
+                if (requestedBox && !requestedBox.archived) {
+                    const requestedVisibility = searchParams.get('is_public');
+                    setFormData((current) => ({
+                        ...current,
+                        box_id: String(requestedBox.id),
+                        room_id: requestedBox.room_id ? String(requestedBox.room_id) : '',
+                        location_id: requestedBox.location_id ? String(requestedBox.location_id) : '',
+                        is_public: requestedVisibility === null
+                            ? (requestedBox.is_public === undefined ? true : Boolean(requestedBox.is_public))
+                            : requestedVisibility !== 'false'
+                    }));
+                    if (requestedBox.location_name) {
+                        setLocationSearch(requestedBox.location_name);
+                    }
+                } else if (requestedBoxId) {
+                    setFormData((current) => ({
+                        ...current,
+                        box_id: '',
+                        room_id: '',
+                        location_id: ''
+                    }));
+                    setLocationSearch('');
+                }
+            }
         } catch (error) {
             if (!isRequestCanceled(error)) {
                 console.error(error);
@@ -547,7 +595,14 @@ export default function ItemForm() {
                 return;
             }
 
-            setLocations(res.data.locations);
+            const nextLocations = res.data.locations || [];
+            setLocations(nextLocations);
+            const selectedLocation = nextLocations.find((location: any) =>
+                String(location.id) === String(formData.location_id || '')
+            );
+            if (selectedLocation) {
+                setLocationSearch(selectedLocation.name);
+            }
         } catch (error) {
             if (!isRequestCanceled(error)) {
                 console.error(error);
@@ -582,6 +637,7 @@ export default function ItemForm() {
             }
 
             setMaintenanceTasks(itemTasks);
+            setPrivatePlacementHidden(Boolean(item.private_placement || item.private_location_hidden));
 
             setFormData({
                 name: resolveVisibleItemTitle(item, t('inventory.untitled_item')),
@@ -590,6 +646,7 @@ export default function ItemForm() {
                 category_id: item.category_id || '',
                 room_id: item.room_id || '',
                 location_id: item.location_id || '',
+                box_id: item.box_id || '',
                 is_public: item.is_public === 1,
                 barcode: item.barcode || '',
                 invoice_price: item.invoice_price || '',
@@ -655,6 +712,19 @@ export default function ItemForm() {
         if (name === 'room_id') {
             setFormData({ ...formData, [name]: value, location_id: '' });
             setLocationSearch('');
+        } else if (name === 'box_id') {
+            const nextBox = boxes.find((box: any) => String(box.id) === String(value));
+            if (nextBox) {
+                setFormData((current) => ({
+                    ...current,
+                    box_id: value,
+                    room_id: nextBox.room_id ? String(nextBox.room_id) : '',
+                    location_id: nextBox.location_id ? String(nextBox.location_id) : ''
+                }));
+                setLocationSearch(nextBox.location_name || '');
+            } else {
+                setFormData((current) => ({ ...current, box_id: '' }));
+            }
         } else if (name === 'invoice_currency') {
             setFormData((prev) => ({
                 ...prev,
@@ -907,19 +977,63 @@ export default function ItemForm() {
             data.append('name', `Bilinmeyen Ürün - ${barcode}`);
             data.append('barcode', barcode);
             data.append('quantity', '1');
-            data.append('is_public', 'true');
+            data.append('is_public', formData.is_public ? 'true' : 'false');
             data.append('description', t('items.messages.quick_add_success', { barcode }));
+            const targetBox = boxes.find((box: any) => String(box.id) === String(formData.box_id || ''));
+            const targetBoxId = targetBox?.id || formData.box_id;
+            if (targetBoxId) {
+                data.append('box_id', String(targetBoxId));
+                data.append('room_id', targetBox?.room_id ? String(targetBox.room_id) : String(formData.room_id || ''));
+                data.append('location_id', targetBox?.location_id ? String(targetBox.location_id) : String(formData.location_id || ''));
+            }
 
             await axios.post('/api/items', data, createRequestConfig({
                 timeout: ACTION_REQUEST_TIMEOUT_MS,
                 headers: { 'Content-Type': 'multipart/form-data' }
             }));
             invalidateCache(ITEM_CACHE_PATTERN);
+            invalidateCache(/^\/api\/boxes/);
             setBarcodeMessage(t('items.messages.quick_add_success', { barcode }));
         } catch (err) {
             console.error('Quick add error:', err);
-            setBarcodeMessage(t('items.messages.quick_add_fail'));
+            const message = getRequestErrorMessage(err, t('items.messages.quick_add_fail'));
+            setBarcodeMessage(message);
+            throw new Error(message);
         }
+    };
+
+    const handleExistingBarcodeItem = async (item) => {
+        const targetBox = boxes.find((box: any) => String(box.id) === String(formData.box_id || ''));
+        if (!targetBox) {
+            return;
+        }
+
+        if (String(item.box_id || '') !== String(targetBox.id)) {
+            try {
+                await axios.post('/api/items/bulk', {
+                    action: 'update',
+                    item_ids: [item.id],
+                    payload: {
+                        box_id: targetBox.id,
+                        room_id: targetBox.room_id || null,
+                        location_id: targetBox.location_id || null
+                    }
+                }, createRequestConfig({ timeout: ACTION_REQUEST_TIMEOUT_MS }));
+                invalidateCache(ITEM_CACHE_PATTERN);
+                invalidateCache(/^\/api\/boxes/);
+            } catch (err) {
+                const message = getRequestErrorMessage(err, t('boxes.move_error', {
+                    defaultValue: 'The item could not be assigned to this box.'
+                }));
+                setBarcodeMessage(message);
+                throw new Error(message);
+            }
+        }
+
+        setBarcodeMessage(t('boxes.items_moved_body', {
+            defaultValue: 'The item is now in this box.'
+        }));
+        navigate(returnToPath || `/organize/boxes/${targetBox.id}`);
     };
 
     // Manual barcode search - uses backend proxy with waterfall API + Google scraper
@@ -1003,6 +1117,10 @@ export default function ItemForm() {
             );
             const normalizedFormData = {
                 ...formData,
+                ...(selectedBox ? {
+                    room_id: selectedBox.room_id ? String(selectedBox.room_id) : '',
+                    location_id: selectedBox.location_id ? String(selectedBox.location_id) : ''
+                } : {}),
                 invoice_currency: resolvedInvoiceCurrency,
                 invoice_date: normalizeDateForSubmit(formData.invoice_date),
                 warranty_start_date: hasWarrantyCalculationInput
@@ -1063,7 +1181,7 @@ export default function ItemForm() {
             }
 
             invalidateCache(ITEM_CACHE_PATTERN);
-            navigate('/items');
+            navigate(returnToPath || '/items');
         } catch (err) {
             setError(getRequestErrorMessage(err, t('common.error')));
         } finally {
@@ -1085,6 +1203,20 @@ export default function ItemForm() {
     const displayedWarrantyExpiryDate = calculatedWarrantyExpiryDate || formData.warranty_expiry_date;
     const selectedCategory = categories.find((category) => String(category.id) === String(formData.category_id));
     const selectedRoom = rooms.find((room) => String(room.id) === String(formData.room_id));
+    const selectedBox = boxes.find((box) => String(box.id) === String(formData.box_id));
+    const assignableBoxes = boxes.filter((box: any) => (
+        !box.archived || String(box.id) === String(formData.box_id)
+    ));
+    const selectedBoxRoom = selectedBox
+        ? rooms.find((room) => String(room.id) === String((selectedBox as any).room_id || ''))
+        : null;
+    const selectedBoxLocation = selectedBox
+        ? locations.find((location) => String(location.id) === String((selectedBox as any).location_id || ''))
+        : null;
+    const selectedBoxPlace = [
+        selectedBoxRoom ? getVisibleRoomName(selectedBoxRoom) : (selectedBox as any)?.room_name,
+        (selectedBoxLocation as any)?.name || (selectedBox as any)?.location_name
+    ].filter(Boolean).join(' / ');
     const visibleCategoryName = selectedCategory ? getVisibleCategoryName(selectedCategory) : '';
     const visibleRoomName = selectedRoom ? getVisibleRoomName(selectedRoom) : '';
     const displayInvoiceCurrency = formData.invoice_currency === CUSTOM_CURRENCY_OPTION
@@ -1194,6 +1326,12 @@ export default function ItemForm() {
                                 <DetailField label={t('items.form.category')} value={visibleCategoryName ? `${selectedCategory?.icon || ''} ${visibleCategoryName}`.trim() : ''} />
                                 <DetailField label={t('items.form.room')} value={visibleRoomName} />
                                 <DetailField label={t('items.form.location')} value={locationSearch} />
+                                <DetailField
+                                    label={t('items.form.box', { defaultValue: 'Box' })}
+                                    value={selectedBox
+                                        ? `${selectedBox.code} · ${selectedBox.name}${selectedBox.is_public !== undefined && !Boolean(selectedBox.is_public) ? ` · ${t('boxes.visibility_private')}` : ''}`
+                                        : privatePlacementHidden ? t('box_labels.private_box_hint') : ''}
+                                />
                                 <DetailField label={t('items.form.barcode')} value={formData.barcode} mono />
                                 <DetailField label={t('items.form.expiry_date', { defaultValue: 'Son Kullanma Tarihi' })} value={formData.expiry_date} />
                                 <DetailField label={t('items.form.min_quantity', { defaultValue: 'Asgari Stok Limiti' })} value={formData.min_quantity > 0 ? formData.min_quantity : null} />
@@ -2292,17 +2430,58 @@ export default function ItemForm() {
                         </div>
                     </div>
 
-                    {/* Room Selection */}
-                    <div>
-                        <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.room')}</label>
-                        <select name="room_id" value={formData.room_id} onChange={handleChange} className="input-field">
-                            <option value="">{t('items.form.select_room')}</option>
-                            {rooms.map(r => <option key={r.id} value={r.id}>{getVisibleRoomName(r)}</option>)}
+                    {/* Box assignment */}
+                    <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4">
+                        <div className="mb-2 flex items-center gap-2">
+                            <Box className="h-4 w-4 text-[var(--hi-accent)]" />
+                            <label className="text-sm font-medium text-[var(--hi-text)]">{t('items.form.box', { defaultValue: 'Box' })}</label>
+                        </div>
+                        <select name="box_id" value={formData.box_id} onChange={handleChange} className="input-field">
+                            <option value="">{t('items.form.no_box', { defaultValue: 'No box' })}</option>
+                            {assignableBoxes.map((box: any) => (
+                                <option key={box.id} value={box.id} disabled={Boolean(box.archived)}>
+                                    {box.code} · {box.name}
+                                    {box.is_public !== undefined && !Boolean(box.is_public) ? ` · ${t('boxes.visibility_private')}` : ''}
+                                    {box.archived ? ` (${t('boxes.archived_badge')})` : ''}
+                                </option>
+                            ))}
                         </select>
+                        <p className="mt-2 text-xs text-[var(--hi-text-soft)]">{t('items.form.box_help', { defaultValue: 'Assign this item to one box. You can move it later without changing its room or location.' })}</p>
                     </div>
 
-                    {/* Smart Sub-Location Selector */}
-                    {formData.room_id && (
+                    {selectedBox ? (
+                        <div className="rounded-xl border border-[var(--hi-accent-border)] bg-[var(--hi-accent-soft)] p-4">
+                            <div className="flex items-start gap-3">
+                                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[var(--hi-panel-strong)] text-[var(--hi-accent)]">
+                                    <MapPin className="h-4 w-4" />
+                                </span>
+                                <div className="min-w-0">
+                                    <p className="text-sm font-medium text-[var(--hi-text)]">
+                                        {t('items.form.box_location_title', {
+                                            defaultValue: 'Box location will be used'
+                                        })}
+                                    </p>
+                                    <p className="mt-1 text-xs leading-5 text-[var(--hi-text-soft)]">
+                                        {selectedBoxPlace || t('boxes.location_unknown', {
+                                            defaultValue: 'The box has no saved room or location.'
+                                        })}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <>
+                            {/* Room Selection */}
+                            <div>
+                                <label className="mb-2 block text-sm font-medium text-[var(--hi-text)]">{t('items.form.room')}</label>
+                                <select name="room_id" value={formData.room_id} onChange={handleChange} className="input-field">
+                                    <option value="">{t('items.form.select_room')}</option>
+                                    {rooms.map(r => <option key={r.id} value={r.id}>{getVisibleRoomName(r)}</option>)}
+                                </select>
+                            </div>
+
+                            {/* Smart Sub-Location Selector */}
+                            {formData.room_id && (
                         <div className="rounded-xl border border-[var(--hi-border)] bg-[var(--hi-panel-muted)] p-4">
                             <div className="flex items-center gap-2 mb-3">
                                 <MapPin className="w-4 h-4 text-[var(--hi-accent)]" />
@@ -2464,6 +2643,8 @@ export default function ItemForm() {
                                 </div>
                             )}
                         </div>
+                            )}
+                        </>
                     )}
 
                     {isEditing && (
@@ -2695,6 +2876,10 @@ export default function ItemForm() {
                         onProductFound={handleProductFound}
                         onBarcodeOnly={handleBarcodeOnly}
                         onQuickAdd={handleQuickAdd}
+                        onExistingItemFound={selectedBox ? handleExistingBarcodeItem : undefined}
+                        existingItemActionLabel={selectedBox
+                            ? t('boxes.quick_add_item', { defaultValue: 'Add item to box' })
+                            : undefined}
                     />
                 </Suspense>
             )}

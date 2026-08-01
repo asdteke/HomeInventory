@@ -117,8 +117,8 @@ function renderStyledQrSvg(qrData: any, { width, logoDataUrl }: StyledQrOptions)
     ].join('');
 }
 
-export function generateItemQrMarkup(itemUrl: string, { width, logoDataUrl }: StyledQrOptions): string {
-    const qrData = QRCode.create(itemUrl, {
+export function generateQrMarkup(targetUrl: string, { width, logoDataUrl }: StyledQrOptions): string {
+    const qrData = QRCode.create(targetUrl, {
         errorCorrectionLevel: 'H'
     });
 
@@ -127,3 +127,6 @@ export function generateItemQrMarkup(itemUrl: string, { width, logoDataUrl }: St
         logoDataUrl
     });
 }
+
+// Backward-compatible name for existing item QR consumers.
+export const generateItemQrMarkup = generateQrMarkup;

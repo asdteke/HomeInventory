@@ -2,6 +2,26 @@
 
 All notable changes to HomeInventory are documented here.
 
+## v2.6.0 - Simple Box Management
+
+### Added
+
+- **Household boxes:** Create, edit, archive, restore, photograph, search, and safely delete boxes with an automatically suggested label code plus optional room, location, and note.
+- **Inventory-first workflow:** Boxes, rooms, and categories now live under one compact Inventory switcher instead of expanding the main sidebar.
+- **Item placement:** Assign one box per item from item forms or single/multi-item selection, choose existing items from a box, scan or create an item directly in that box, and move or unassign owned items without leaving the inventory workflow.
+- **Box contents and labels:** Open a full-width box view to search/filter its visible contents, review or create its room-scoped location, and print QR labels through the existing renderer in compact single-label or sheet layouts.
+- **Shared and personal boxes:** Shared boxes can contain a practical mix of household items and each member's private items without changing item visibility. Personal boxes, their exact placement, and their labels stay visible only to their creator.
+
+### Safety and compatibility
+
+- Existing databases gain a backwards-compatible `boxes` table and nullable `items.box_id`; existing items remain unchanged and foreign keys use `ON DELETE SET NULL`.
+- Shared box metadata is managed by its creator or the household owner, while members can add or move only their own items. A personal box remains creator-only in normal inventory views, including for household owners.
+- A shared box reports a stable total while showing household-visible items plus the viewer's own private items. Exact placement is redacted when a shared item is stored inside another member's personal box.
+- Deleting a non-empty box requires an explicit destination box or confirmation that its items should remain unassigned. Whole-container moves preserve hidden contents atomically without exposing their identifiers.
+- Box moves retain item ownership and visibility; assigned items follow the box's saved room/location, while unassigned items keep their current room/location. Moves are recorded in the household activity log.
+- Standard and full household-owner backups include shared and private box metadata, assignments, and archive state for disaster recovery; full backups additionally include encrypted box media. Restores remap media to unique paths and roll back staged files if the database import fails. The download dialog enables passphrase encryption by default.
+- Box names, codes, notes, and media use the existing protected storage and media pipeline. Private box activity, barcode lookup, QR labels, and membership/account cleanup follow the same visibility boundary.
+
 ## v2.5.2 - Dependency Security Patch
 
 ### Highlights

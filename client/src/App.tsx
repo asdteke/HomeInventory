@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, Outlet, useLocation } from 'react-router';
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet, useLocation, useParams } from 'react-router';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 
@@ -25,6 +25,9 @@ const TermsOfService = lazy(() => import('./components/TermsOfService'));
 const ItemForm = lazy(() => import('./components/ItemForm'));
 const CategoryManager = lazy(() => import('./components/CategoryManager'));
 const RoomManager = lazy(() => import('./components/RoomManager'));
+const BoxManager = lazy(() => import('./components/BoxManager'));
+const OrganizationHub = lazy(() => import('./components/OrganizationHub'));
+const BoxLabelsPage = lazy(() => import('./components/BoxLabelsPage'));
 const Settings = lazy(() => import('./components/Settings'));
 const AdminPanel = lazy(() => import('./components/AdminPanel'));
 const RecoveryKeySetup = lazy(() => import('./components/RecoveryKeySetup'));
@@ -190,6 +193,11 @@ const LegalConsentRoute = () => {
     return <LegalConsent />;
 };
 
+const LegacyBoxRoute = () => {
+    const { id } = useParams();
+    return <Navigate to={id ? `/organize/boxes/${id}` : '/organize/boxes'} replace />;
+};
+
 function AppRoutes() {
     return (
         <Suspense fallback={<FullscreenSpinner />}>
@@ -212,6 +220,7 @@ function AppRoutes() {
                     <Route path="shopping" element={<ShoppingListPage />} />
                     <Route path="qr-labels" element={<QRLabelsPage />} />
                     <Route path="storage-labels" element={<StorageLabelsPage />} />
+                    <Route path="box-labels" element={<BoxLabelsPage />} />
                     <Route path="notifications" element={<NotificationsPage />} />
                     <Route path="service" element={<ServiceCenterPage />} />
                     <Route path="activity" element={<ActivityPage />} />
@@ -220,8 +229,17 @@ function AppRoutes() {
                     <Route path="vault" element={<PersonalVaultRoute />} />
                     <Route path="items/new" element={<ItemForm />} />
                     <Route path="items/:id/edit" element={<ItemForm />} />
-                    <Route path="categories" element={<CategoryManager />} />
-                    <Route path="rooms" element={<RoomManager />} />
+                    <Route path="organize" element={<OrganizationHub />}>
+                        <Route index element={<Navigate to="boxes" replace />} />
+                        <Route path="boxes" element={<BoxManager />} />
+                        <Route path="boxes/:id" element={<BoxManager />} />
+                        <Route path="rooms" element={<RoomManager />} />
+                        <Route path="categories" element={<CategoryManager />} />
+                    </Route>
+                    <Route path="categories" element={<Navigate to="/organize/categories" replace />} />
+                    <Route path="rooms" element={<Navigate to="/organize/rooms" replace />} />
+                    <Route path="boxes" element={<LegacyBoxRoute />} />
+                    <Route path="boxes/:id" element={<LegacyBoxRoute />} />
                     <Route path="settings" element={<Settings />} />
                     <Route path="admin" element={<AdminRoute><AdminPanel /></AdminRoute>} />
                     <Route path="admin/mail-gonder" element={<Navigate to="/admin" replace />} />
@@ -236,7 +254,7 @@ function App() {
     return (
         <ThemeProvider>
             <AuthProvider>
-                <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+                <Router>
                     <BrowserBranding />
                     <DeferredCookieBanner />
                     <AppErrorBoundary>

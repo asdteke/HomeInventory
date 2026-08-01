@@ -13,6 +13,11 @@ import { buildDefaultIndexNowUrls, getIndexNowConfig, submitIndexNowUrls } from 
 import db from '../database.js';
 import { buildEmailLookup, decryptUserRecord, decryptUsername } from '../utils/protectedFields.js';
 import { getUploadsRoot } from '../utils/runtimePaths.js';
+import {
+    deletePrivateBoxMediaFiles,
+    removeOwnedPrivateBoxes
+} from '../utils/privateBoxLifecycle.js';
+import { transferOwnedPublicLocations } from '../utils/houseMembership.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -365,6 +370,10 @@ router.delete('/users/:id', authenticateToken, requireAdmin, (req, res) => {
 
         // Transaction ile paylaşımlı ev mantığını uygula
         const deleteTransaction = db.transaction(() => {
+            const privateBoxCleanup = removeOwnedPrivateBoxes({
+                ownerUserId: userId
+            });
+
             for (const house of userHouses) {
                 const houseKey = house.house_key;
 
@@ -375,6 +384,10 @@ router.delete('/users/:id', authenticateToken, requireAdmin, (req, res) => {
 
                 if (otherMembers.length > 0) {
                     // Evde başka üyeler var - evi silme!
+                    transferOwnedPublicLocations({
+                        ownerUserId: userId,
+                        houseKey
+                    });
 
                     // Eğer silinen kullanıcı owner ise, sahipliği en eski üyeye devret
                     if (house.is_owner) {
@@ -390,9 +403,21 @@ router.delete('/users/:id', authenticateToken, requireAdmin, (req, res) => {
 
                 } else {
                     // Evde kalan son kişi bu kullanıcı - evi tamamen sil!
+                    const remainingBoxMediaPaths = db.prepare(`
+                        SELECT photo_path, thumbnail_path
+                        FROM boxes
+                        WHERE house_key = ?
+                    `).all(houseKey).flatMap((box) => ([
+                        box.photo_path,
+                        box.thumbnail_path
+                    ])).filter(Boolean);
+                    privateBoxCleanup.mediaPaths.push(...remainingBoxMediaPaths);
 
                     // Eve ait tüm items'ları sil
                     db.prepare('DELETE FROM items WHERE house_key = ?').run(houseKey);
+
+                    // Eve ait tüm boxes kayıtlarını sil
+                    db.prepare('DELETE FROM boxes WHERE house_key = ?').run(houseKey);
 
                     // Eve ait tüm locations'ları sil
                     db.prepare('DELETE FROM locations WHERE house_key = ?').run(houseKey);
@@ -419,9 +444,15 @@ router.delete('/users/:id', authenticateToken, requireAdmin, (req, res) => {
 
             // Kullanıcıyı sil
             db.prepare('DELETE FROM users WHERE id = ?').run(userId);
+            privateBoxCleanup.mediaPaths = [...new Set(privateBoxCleanup.mediaPaths)];
+            return privateBoxCleanup;
         });
 
-        deleteTransaction();
+        const privateBoxCleanup = deleteTransaction();
+        const boxMediaCleanup = deletePrivateBoxMediaFiles(privateBoxCleanup.mediaPaths);
+        if (boxMediaCleanup.failures.length > 0) {
+            console.error(`[Admin Delete User] ${boxMediaCleanup.failures.length} private box media file(s) could not be removed`);
+        }
 
         // Admin log kaydı
         saveAdminLog('user', 'delete', {

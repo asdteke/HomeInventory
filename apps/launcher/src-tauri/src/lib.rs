@@ -20,6 +20,9 @@ use std::{
 use tauri::{Emitter, Manager, State};
 use tauri_plugin_updater::UpdaterExt;
 
+const PORTABLE_NODE_VERSION: &str = "22.22.0";
+const REQUIRED_NODE_MAJOR: u32 = 22;
+
 #[cfg(unix)]
 use std::os::unix::process::CommandExt;
 
@@ -109,11 +112,19 @@ struct WriteEnvRequest {
     entries: HashMap<String, String>,
 }
 
-#[derive(Deserialize)]
+#[derive(Clone, Copy, Deserialize)]
 #[serde(rename_all = "camelCase")]
 struct CheckPortsRequest {
     backend_port: u16,
     frontend_port: u16,
+}
+
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+struct BundledSyncRequest {
+    overrides: Option<ToolOverrides>,
+    backend_port: Option<u16>,
+    frontend_port: Option<u16>,
 }
 
 #[derive(Deserialize)]
@@ -175,6 +186,8 @@ struct LauncherSnapshot {
     logs: Vec<LogEntry>,
     launcher_version: String,
     app_version: String,
+    app_source: String,
+    bundled_sync_required: bool,
     distribution: String,
     store_build: bool,
 }
@@ -698,6 +711,10 @@ async fn start_profile(
 
 #[tauri::command]
 async fn check_ports(request: CheckPortsRequest) -> Result<PortCheckResult, String> {
+    check_ports_internal(request).await
+}
+
+async fn check_ports_internal(request: CheckPortsRequest) -> Result<PortCheckResult, String> {
     validate_port(request.backend_port, "API")?;
     validate_port(request.frontend_port, "UI")?;
 
@@ -770,6 +787,29 @@ async fn check_ports(request: CheckPortsRequest) -> Result<PortCheckResult, Stri
         existing_home_inventory,
         existing_frontend_url,
         message,
+    })
+}
+
+fn bundled_sync_port_preflight_error(result: &PortCheckResult) -> Option<String> {
+    if result.existing_home_inventory {
+        let location = result
+            .existing_frontend_url
+            .as_deref()
+            .map(|url| format!(" at {url}"))
+            .unwrap_or_default();
+        return Some(format!(
+            "HomeInventory is already running{location}. Stop it before retrying managed app synchronization."
+        ));
+    }
+
+    (!result.ok).then(|| {
+        format!(
+            "Selected ports {}/{} are no longer available. Retry with suggested ports {}/{}.",
+            result.backend_port,
+            result.frontend_port,
+            result.suggested_backend_port,
+            result.suggested_frontend_port,
+        )
     })
 }
 
@@ -992,6 +1032,7 @@ pub fn run() {
             read_logs,
             check_updates,
             update_all,
+            sync_bundled_managed_app,
             is_server_ready
         ])
         .on_window_event(|window, event| {
@@ -1049,12 +1090,18 @@ fn read_version_from_package_json(project_root: &Path) -> Option<String> {
     let package_json_path = project_root.join("package.json");
     let content = fs::read_to_string(&package_json_path).ok();
     if content.is_none() {
-        println!("DEBUG read_version_from_package_json: failed to read {:?}", package_json_path);
+        println!(
+            "DEBUG read_version_from_package_json: failed to read {:?}",
+            package_json_path
+        );
     }
     let content = content?;
     let json: serde_json::Value = serde_json::from_str(&content).ok()?;
     let version = json.get("version")?.as_str().map(|s| s.to_string());
-    println!("DEBUG read_version_from_package_json: path={:?}, version={:?}", package_json_path, version);
+    println!(
+        "DEBUG read_version_from_package_json: path={:?}, version={:?}",
+        package_json_path, version
+    );
     version
 }
 
@@ -1179,6 +1226,35 @@ fn build_snapshot(
 
     let launcher_version = env!("CARGO_PKG_VERSION").to_string();
     let metadata = read_updater_metadata(&app_data_dir);
+    let custom_project_path = overrides
+        .project_path
+        .as_ref()
+        .map(|value| !value.trim().is_empty())
+        .unwrap_or(false);
+    let managed_version = managed_installed_app_version(&app_data_dir, &metadata);
+    let app_source = if store_build {
+        "store"
+    } else if custom_project_path {
+        "custom"
+    } else if managed_version.is_some() {
+        "managed"
+    } else if cfg!(debug_assertions) {
+        "development"
+    } else {
+        "missing"
+    }
+    .to_string();
+    let bundled_archive_exists = bundled_app_archive_path(app)
+        .map(|path| path.exists())
+        .unwrap_or(false);
+    let bundled_sync_required = bundled_reconciliation_required(
+        store_build,
+        custom_project_path,
+        active_profile_id.is_some(),
+        bundled_archive_exists,
+        managed_version.as_deref(),
+        &launcher_version,
+    );
     let app_version = resolve_current_app_version(
         &app_data_dir,
         &metadata,
@@ -1222,6 +1298,8 @@ fn build_snapshot(
         logs,
         launcher_version,
         app_version,
+        app_source,
+        bundled_sync_required,
         distribution: distribution().to_string(),
         store_build,
     })
@@ -1818,6 +1896,36 @@ fn resolve_login_shell_env() -> HashMap<String, String> {
     envs
 }
 
+fn portable_node_folder_name() -> String {
+    if cfg!(target_os = "windows") {
+        format!("node-v{PORTABLE_NODE_VERSION}-win-x64")
+    } else if cfg!(target_os = "macos") {
+        if cfg!(target_arch = "aarch64") {
+            format!("node-v{PORTABLE_NODE_VERSION}-darwin-arm64")
+        } else {
+            format!("node-v{PORTABLE_NODE_VERSION}-darwin-x64")
+        }
+    } else {
+        format!("node-v{PORTABLE_NODE_VERSION}-linux-x64")
+    }
+}
+
+fn portable_node_archive_file_name() -> String {
+    let extension = if cfg!(target_os = "windows") {
+        "zip"
+    } else {
+        "tar.gz"
+    };
+    format!("{}.{}", portable_node_folder_name(), extension)
+}
+
+fn portable_node_download_url() -> String {
+    format!(
+        "https://nodejs.org/dist/v{PORTABLE_NODE_VERSION}/{}",
+        portable_node_archive_file_name()
+    )
+}
+
 fn resolve_tools(
     app: &tauri::AppHandle,
     envs: &HashMap<String, String>,
@@ -1828,19 +1936,7 @@ fn resolve_tools(
 
     if node_path.is_none() || npm_path.is_none() {
         if let Ok(app_data) = app_data_dir(app) {
-            let folder_name = if cfg!(target_os = "windows") {
-                "node-v20.19.0-win-x64"
-            } else if cfg!(target_os = "macos") {
-                if cfg!(target_arch = "aarch64") {
-                    "node-v20.19.0-darwin-arm64"
-                } else {
-                    "node-v20.19.0-darwin-x64"
-                }
-            } else {
-                "node-v20.19.0-linux-x64"
-            };
-
-            let portable_dir = app_data.join("bin").join(folder_name);
+            let portable_dir = app_data.join("bin").join(portable_node_folder_name());
             let p_node = portable_dir.join(if cfg!(windows) {
                 "node.exe"
             } else {
@@ -1899,19 +1995,7 @@ fn extract_tar_gz(archive_path: &Path, dest_dir: &Path) -> Result<(), String> {
 
 async fn ensure_portable_node(app: &tauri::AppHandle, state: &LauncherState) -> Result<(), String> {
     let app_data = app_data_dir(app)?;
-    let folder_name = if cfg!(target_os = "windows") {
-        "node-v20.19.0-win-x64"
-    } else if cfg!(target_os = "macos") {
-        if cfg!(target_arch = "aarch64") {
-            "node-v20.19.0-darwin-arm64"
-        } else {
-            "node-v20.19.0-darwin-x64"
-        }
-    } else {
-        "node-v20.19.0-linux-x64"
-    };
-
-    let portable_dir = app_data.join("bin").join(folder_name);
+    let portable_dir = app_data.join("bin").join(portable_node_folder_name());
     let p_node = portable_dir.join(if cfg!(windows) {
         "node.exe"
     } else {
@@ -1957,24 +2041,16 @@ async fn ensure_portable_node(app: &tauri::AppHandle, state: &LauncherState) -> 
         state,
         "setup",
         "info",
-        "Downloading portable Node.js v20.19.0 for standalone execution...",
+        &format!(
+            "Downloading portable Node.js v{PORTABLE_NODE_VERSION} for standalone execution..."
+        ),
     );
 
-    let url = if cfg!(target_os = "windows") {
-        "https://nodejs.org/dist/v20.19.0/node-v20.19.0-win-x64.zip"
-    } else if cfg!(target_os = "macos") {
-        if cfg!(target_arch = "aarch64") {
-            "https://nodejs.org/dist/v20.19.0/node-v20.19.0-darwin-arm64.tar.gz"
-        } else {
-            "https://nodejs.org/dist/v20.19.0/node-v20.19.0-darwin-x64.tar.gz"
-        }
-    } else {
-        "https://nodejs.org/dist/v20.19.0/node-v20.19.0-linux-x64.tar.gz"
-    };
+    let url = portable_node_download_url();
 
     let client = reqwest::Client::new();
     let mut resp = client
-        .get(url)
+        .get(&url)
         .send()
         .await
         .map_err(|e| format!("Failed to download Node.js: {e}"))?;
@@ -2037,7 +2113,7 @@ async fn ensure_portable_node(app: &tauri::AppHandle, state: &LauncherState) -> 
         state,
         "setup",
         "success",
-        "Portable Node.js v20.19.0 installed successfully.",
+        &format!("Portable Node.js v{PORTABLE_NODE_VERSION} installed successfully."),
     );
 
     Ok(())
@@ -2048,19 +2124,9 @@ fn bundled_node_archive_path(app: &tauri::AppHandle) -> Result<PathBuf, String> 
         .path()
         .resource_dir()
         .map_err(|err| format!("Could not resolve launcher resource directory: {err}"))?;
-    let file_name = if cfg!(target_os = "windows") {
-        "node-v20.19.0-win-x64.zip"
-    } else if cfg!(target_os = "macos") {
-        if cfg!(target_arch = "aarch64") {
-            "node-v20.19.0-darwin-arm64.tar.gz"
-        } else {
-            "node-v20.19.0-darwin-x64.tar.gz"
-        }
-    } else {
-        "node-v20.19.0-linux-x64.tar.gz"
-    };
+    let file_name = portable_node_archive_file_name();
 
-    let direct = resource_dir.join(file_name);
+    let direct = resource_dir.join(&file_name);
     if direct.exists() {
         return Ok(direct);
     }
@@ -2786,6 +2852,24 @@ struct UpdateProgressPayload {
     error: Option<String>,
 }
 
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum UpdateFlowMode {
+    Coordinated,
+    BundledOnly,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum ManagedAppUpdateSource {
+    Bundled,
+    Online,
+}
+
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+struct UpdatePorts {
+    backend_port: Option<u16>,
+    frontend_port: Option<u16>,
+}
+
 fn emit_progress(
     app: &tauri::AppHandle,
     state: &str,
@@ -2872,6 +2956,14 @@ fn installed_app_version(
     metadata: &AppUpdaterMetadata,
     project_root: Option<&Path>,
 ) -> Option<String> {
+    managed_installed_app_version(app_data_dir, metadata)
+        .or_else(|| project_root.and_then(read_version_from_package_json))
+}
+
+fn managed_installed_app_version(
+    app_data_dir: &Path,
+    metadata: &AppUpdaterMetadata,
+) -> Option<String> {
     if let Some(current_version) = metadata.current_version.as_deref() {
         let version_dir = managed_version_dir(app_data_dir, current_version);
         if version_dir.is_dir() {
@@ -2882,7 +2974,57 @@ fn installed_app_version(
         }
     }
 
-    project_root.and_then(read_version_from_package_json)
+    None
+}
+
+fn bundled_reconciliation_required(
+    store_build: bool,
+    custom_project_path: bool,
+    active_profile: bool,
+    bundled_archive_exists: bool,
+    installed_managed_version: Option<&str>,
+    bundled_version: &str,
+) -> bool {
+    if store_build || custom_project_path || active_profile || !bundled_archive_exists {
+        return false;
+    }
+
+    let Some(installed_managed_version) = installed_managed_version else {
+        return false;
+    };
+    let Ok(installed) = semver::Version::parse(installed_managed_version) else {
+        return false;
+    };
+    let Ok(bundled) = semver::Version::parse(bundled_version) else {
+        return false;
+    };
+
+    bundled > installed
+}
+
+fn select_managed_app_update_source(
+    mode: UpdateFlowMode,
+    bundled_archive_exists: bool,
+    bundled_version: &str,
+    online_version: Option<&str>,
+) -> Option<ManagedAppUpdateSource> {
+    if mode == UpdateFlowMode::BundledOnly {
+        return bundled_archive_exists.then_some(ManagedAppUpdateSource::Bundled);
+    }
+
+    if bundled_archive_exists
+        && online_version
+            .map(|version| bundled_app_is_same_or_newer(bundled_version, version))
+            .unwrap_or(true)
+    {
+        return Some(ManagedAppUpdateSource::Bundled);
+    }
+
+    online_version.map(|_| ManagedAppUpdateSource::Online)
+}
+
+fn update_finishes_stopped(mode: UpdateFlowMode) -> bool {
+    mode == UpdateFlowMode::BundledOnly
 }
 
 fn verify_manifest_signature(manifest: &AppManifest) -> Result<(), String> {
@@ -2978,8 +3120,7 @@ fn validate_coordinated_release(
     target_app_version: &str,
     available_launcher_version: Option<&str>,
 ) -> Result<(), String> {
-    let target_launcher_version =
-        available_launcher_version.unwrap_or(current_launcher_version);
+    let target_launcher_version = available_launcher_version.unwrap_or(current_launcher_version);
 
     if target_launcher_version != target_app_version {
         return Err(format!(
@@ -3002,12 +3143,9 @@ async fn check_updates(
 
     let overrides = overrides.unwrap_or_default();
     let project_root_dir = project_root_handle(&app, &overrides).ok();
-    let current_app_version = installed_app_version(
-        &app_data,
-        &metadata,
-        project_root_dir.as_deref(),
-    )
-    .unwrap_or_else(|| "0.0.0".to_string());
+    let current_app_version =
+        installed_app_version(&app_data, &metadata, project_root_dir.as_deref())
+            .unwrap_or_else(|| "0.0.0".to_string());
 
     if is_store_distribution() {
         return Ok(UpdateCheckResult {
@@ -3094,21 +3232,18 @@ async fn check_updates(
         && should_prefer_bundled_app_version(&launcher_version, &latest_app_version)
     {
         latest_app_version = launcher_version.clone();
-        app_update_available = should_prefer_bundled_app_version(
-            &latest_app_version,
-            &current_app_version,
-        );
+        app_update_available =
+            should_prefer_bundled_app_version(&latest_app_version, &current_app_version);
         if app_update_available {
             if !required_actions.contains(&"appUpdate".to_string()) {
                 required_actions.push("appUpdate".to_string());
             }
             app_release_notes = Some(
-                "A newer HomeInventory managed app is included with this launcher."
-                    .to_string(),
+                "A newer HomeInventory managed app is included with this launcher.".to_string(),
             );
             let node_major = get_node_major_version(&app).await.unwrap_or(0);
             if node_major > 0
-                && node_major < 20
+                && node_major < REQUIRED_NODE_MAJOR
                 && !required_actions.contains(&"nodeMajorUpgrade".to_string())
             {
                 required_actions.push("nodeMajorUpgrade".to_string());
@@ -3155,16 +3290,108 @@ async fn update_all(
         });
     }
 
+    start_update_task(
+        app,
+        state.inner(),
+        overrides.unwrap_or_default(),
+        UpdateFlowMode::Coordinated,
+        UpdatePorts::default(),
+    )
+}
+
+#[tauri::command]
+async fn sync_bundled_managed_app(
+    app: tauri::AppHandle,
+    state: tauri::State<'_, LauncherState>,
+    request: BundledSyncRequest,
+) -> Result<CommandResult, String> {
+    reconcile_active(&state);
+    let overrides = request.overrides.unwrap_or_default();
+    let ports = UpdatePorts {
+        backend_port: request.backend_port,
+        frontend_port: request.frontend_port,
+    };
+    let (backend_port, frontend_port) = requested_ports(
+        profile_config("homeinventory")?,
+        ports.backend_port,
+        ports.frontend_port,
+    )?;
+    let custom_project_path = overrides
+        .project_path
+        .as_ref()
+        .map(|value| !value.trim().is_empty())
+        .unwrap_or(false);
+    let active_profile = state
+        .active
+        .lock()
+        .map_err(|_| "Process state is locked".to_string())?
+        .is_some();
+    let app_data = app_data_dir(&app)?;
+    let metadata = read_updater_metadata(&app_data);
+    let installed_managed_version = managed_installed_app_version(&app_data, &metadata);
+    let bundled_path = bundled_app_archive_path(&app)?;
+    let bundled_version = env!("CARGO_PKG_VERSION");
+
+    if !bundled_reconciliation_required(
+        is_store_distribution(),
+        custom_project_path,
+        active_profile,
+        bundled_path.exists(),
+        installed_managed_version.as_deref(),
+        bundled_version,
+    ) {
+        return Err(
+            "Bundled managed-app synchronization is not eligible for this installation."
+                .to_string(),
+        );
+    }
+
+    let initial_port_check = check_ports_internal(CheckPortsRequest {
+        backend_port,
+        frontend_port,
+    })
+    .await?;
+    if let Some(error) = bundled_sync_port_preflight_error(&initial_port_check) {
+        return Err(error);
+    }
+
+    start_update_task(
+        app,
+        state.inner(),
+        overrides,
+        UpdateFlowMode::BundledOnly,
+        ports,
+    )
+}
+
+fn start_update_task(
+    app: tauri::AppHandle,
+    state: &LauncherState,
+    overrides: ToolOverrides,
+    mode: UpdateFlowMode,
+    ports: UpdatePorts,
+) -> Result<CommandResult, String> {
     {
         let mut updating = state.updating.lock().map_err(|_| "State lock failed")?;
         if *updating {
             return Err("Another update action is already running.".to_string());
         }
+        if mode == UpdateFlowMode::BundledOnly
+            && state
+                .active
+                .lock()
+                .map_err(|_| "Process state is locked".to_string())?
+                .is_some()
+        {
+            return Err(
+                "Bundled managed-app synchronization waits until the active profile is stopped."
+                    .to_string(),
+            );
+        }
         *updating = true;
     }
 
     let app_clone = app.clone();
-    let overrides = overrides.unwrap_or_default();
 
     tauri::async_runtime::spawn(async move {
         let state_clone = app_clone.state::<LauncherState>();
@@ -3172,30 +3399,25 @@ async fn update_all(
             .ok()
             .map(|path| read_updater_metadata(&path).current_version)
             .unwrap_or_default();
-        if let Err(e) = run_update_flow(&app_clone, &state_clone, overrides.clone()).await {
+        if let Err(e) =
+            run_update_flow(&app_clone, &state_clone, overrides.clone(), mode, ports).await
+        {
             let version_after_failure = app_data_dir(&app_clone)
                 .ok()
                 .map(|path| read_updater_metadata(&path).current_version)
                 .unwrap_or_default();
             let rollback_required =
                 update_failure_requires_rollback(&version_before_update, &version_after_failure);
-            emit_progress(
-                &app_clone,
-                "Failed",
-                &format!(
-                    "Update failed: {e}.{}",
-                    if rollback_required {
-                        " Starting rollback..."
-                    } else {
-                        " The installed version was not changed."
-                    }
-                ),
-                1.0,
-                Some(e.clone()),
-            );
             if rollback_required {
+                emit_progress(
+                    &app_clone,
+                    "RollbackStarting",
+                    &format!("Update failed: {e}. Restoring the previous managed app..."),
+                    0.92,
+                    Some(e.clone()),
+                );
                 if let Err(rollback_err) =
-                    run_rollback_flow(&app_clone, &state_clone, overrides).await
+                    run_rollback_flow(&app_clone, &state_clone, overrides, mode, ports).await
                 {
                     emit_progress(
                         &app_clone,
@@ -3208,17 +3430,33 @@ async fn update_all(
                     emit_progress(
                         &app_clone,
                         "RollbackComplete",
-                        "System successfully rolled back to the previous version.",
+                        if update_finishes_stopped(mode) {
+                            "Previous managed app restored and stopped safely. You can retry synchronization."
+                        } else {
+                            "System successfully rolled back to the previous version."
+                        },
                         1.0,
                         None,
                     );
                 }
+            } else {
+                emit_progress(
+                    &app_clone,
+                    "Failed",
+                    &format!("Update failed: {e}. The installed version was not changed."),
+                    1.0,
+                    Some(e),
+                );
             }
         } else {
             emit_progress(
                 &app_clone,
                 "Completed",
-                "Update complete! Application is running.",
+                if mode == UpdateFlowMode::BundledOnly {
+                    "Bundled HomeInventory app synchronized and verified. Ready to launch."
+                } else {
+                    "Update complete! Application is running."
+                },
                 1.0,
                 None,
             );
@@ -3231,7 +3469,12 @@ async fn update_all(
 
     Ok(CommandResult {
         ok: true,
-        message: "Update process started.".to_string(),
+        message: if mode == UpdateFlowMode::BundledOnly {
+            "Bundled managed-app synchronization started."
+        } else {
+            "Update process started."
+        }
+        .to_string(),
     })
 }
 
@@ -3246,102 +3489,175 @@ async fn run_update_flow(
     app: &tauri::AppHandle,
     state: &LauncherState,
     overrides: ToolOverrides,
+    mode: UpdateFlowMode,
+    ports: UpdatePorts,
 ) -> Result<(), String> {
     let app_data = app_data_dir(app)?;
     let mut metadata = read_updater_metadata(&app_data);
-
-    emit_progress(
-        app,
-        "Checking",
-        "Checking for latest release manifest...",
-        0.05,
-        None,
-    );
     let client = reqwest::Client::new();
-    let online_manifest = match client.get(APP_MANIFEST_URL).send().await {
-        Ok(resp) if resp.status().is_success() => match resp.json::<AppManifest>().await {
-            Ok(manifest) => {
-                verify_manifest_signature(&manifest)?;
-                validate_app_manifest_policy(&manifest)?;
-                Some(manifest)
-            }
-            Err(err) => {
-                append_log(
-                    state,
-                    "updater",
-                    "warning",
-                    &format!("Online app manifest could not be parsed: {err}"),
-                );
-                None
-            }
-        },
-        Ok(resp) => {
-            append_log(
-                state,
-                "updater",
-                "warning",
-                &format!("Online app manifest returned HTTP {}.", resp.status()),
-            );
-            None
-        }
-        Err(err) => {
-            append_log(
-                state,
-                "updater",
-                "warning",
-                &format!("Online app manifest could not be downloaded: {err}"),
-            );
-            None
-        }
-    };
-
     let bundled_path = bundled_app_archive_path(app)?;
     let bundled_version = env!("CARGO_PKG_VERSION").to_string();
-    let use_bundled = bundled_path.exists()
-        && online_manifest
-            .as_ref()
-            .map(|manifest| {
-                bundled_app_is_same_or_newer(&bundled_version, &manifest.version)
-            })
-            .unwrap_or(true);
+    let launcher_version = env!("CARGO_PKG_VERSION").to_string();
+    let (backend_port, frontend_port) = requested_ports(
+        profile_config("homeinventory")?,
+        ports.backend_port,
+        ports.frontend_port,
+    )?;
 
-    let (manifest, bundled_archive) = if use_bundled {
+    let (manifest, bundled_archive, launcher_update) = if mode == UpdateFlowMode::BundledOnly {
+        let custom_project_path = overrides
+            .project_path
+            .as_ref()
+            .map(|value| !value.trim().is_empty())
+            .unwrap_or(false);
+        let active_profile = state
+            .active
+            .lock()
+            .map_err(|_| "Process state is locked".to_string())?
+            .is_some();
+        let installed_managed_version = managed_installed_app_version(&app_data, &metadata);
+        if !bundled_reconciliation_required(
+            is_store_distribution(),
+            custom_project_path,
+            active_profile,
+            bundled_path.exists(),
+            installed_managed_version.as_deref(),
+            &bundled_version,
+        ) {
+            return Err("Bundled managed-app synchronization is no longer eligible.".to_string());
+        }
+
+        emit_progress(
+            app,
+            "Checking",
+            "Preparing the managed app included with this launcher...",
+            0.05,
+            None,
+        );
+        let source =
+            select_managed_app_update_source(mode, bundled_path.exists(), &bundled_version, None);
+        if source != Some(ManagedAppUpdateSource::Bundled) {
+            return Err("Bundled HomeInventory update package is missing.".to_string());
+        }
         append_log(
             state,
             "updater",
             "info",
-            &format!("Using bundled HomeInventory {bundled_version} update package."),
+            &format!(
+                "Synchronizing the existing managed install with bundled HomeInventory {bundled_version}."
+            ),
         );
         (
             AppManifest {
                 version: bundled_version,
                 sha256: String::new(),
                 url: "bundled://homeinventory-app.tar.gz".to_string(),
-                node_major: 20,
+                node_major: REQUIRED_NODE_MAJOR,
                 root_install: true,
                 client_install: true,
                 signature: "bundled".to_string(),
                 signature_v2: "bundled".to_string(),
             },
             Some(bundled_path),
-        )
-    } else {
-        (
-            online_manifest.ok_or_else(|| {
-                "No valid online or bundled HomeInventory update package is available."
-                    .to_string()
-            })?,
             None,
         )
+    } else {
+        emit_progress(
+            app,
+            "Checking",
+            "Checking for latest release manifest...",
+            0.05,
+            None,
+        );
+        let online_manifest = match client.get(APP_MANIFEST_URL).send().await {
+            Ok(resp) if resp.status().is_success() => match resp.json::<AppManifest>().await {
+                Ok(manifest) => {
+                    verify_manifest_signature(&manifest)?;
+                    validate_app_manifest_policy(&manifest)?;
+                    Some(manifest)
+                }
+                Err(err) => {
+                    append_log(
+                        state,
+                        "updater",
+                        "warning",
+                        &format!("Online app manifest could not be parsed: {err}"),
+                    );
+                    None
+                }
+            },
+            Ok(resp) => {
+                append_log(
+                    state,
+                    "updater",
+                    "warning",
+                    &format!("Online app manifest returned HTTP {}.", resp.status()),
+                );
+                None
+            }
+            Err(err) => {
+                append_log(
+                    state,
+                    "updater",
+                    "warning",
+                    &format!("Online app manifest could not be downloaded: {err}"),
+                );
+                None
+            }
+        };
+
+        let source = select_managed_app_update_source(
+            mode,
+            bundled_path.exists(),
+            &bundled_version,
+            online_manifest
+                .as_ref()
+                .map(|manifest| manifest.version.as_str()),
+        );
+        let (manifest, bundled_archive) = match source {
+            Some(ManagedAppUpdateSource::Bundled) => {
+                append_log(
+                    state,
+                    "updater",
+                    "info",
+                    &format!("Using bundled HomeInventory {bundled_version} update package."),
+                );
+                (
+                    AppManifest {
+                        version: bundled_version,
+                        sha256: String::new(),
+                        url: "bundled://homeinventory-app.tar.gz".to_string(),
+                        node_major: REQUIRED_NODE_MAJOR,
+                        root_install: true,
+                        client_install: true,
+                        signature: "bundled".to_string(),
+                        signature_v2: "bundled".to_string(),
+                    },
+                    Some(bundled_path),
+                )
+            }
+            Some(ManagedAppUpdateSource::Online) => (
+                online_manifest.ok_or_else(|| {
+                    "No valid online HomeInventory update package is available.".to_string()
+                })?,
+                None,
+            ),
+            None => {
+                return Err(
+                    "No valid online or bundled HomeInventory update package is available."
+                        .to_string(),
+                );
+            }
+        };
+        let launcher_update = app
+            .updater()
+            .map_err(|e| format!("Launcher updater is not available: {e}"))?
+            .check()
+            .await
+            .map_err(|e| format!("Launcher update metadata could not be verified: {e}"))?;
+        (manifest, bundled_archive, launcher_update)
     };
 
-    let launcher_version = env!("CARGO_PKG_VERSION").to_string();
-    let launcher_update = app
-        .updater()
-        .map_err(|e| format!("Launcher updater is not available: {e}"))?
-        .check()
-        .await
-        .map_err(|e| format!("Launcher update metadata could not be verified: {e}"))?;
     validate_coordinated_release(
         &launcher_version,
         &manifest.version,
@@ -3356,6 +3672,17 @@ async fn run_update_flow(
             "Compatible Node.js major version required is v{}.0, but detected v{}.0",
             manifest.node_major, node_major
         ));
+    }
+
+    if mode == UpdateFlowMode::BundledOnly {
+        let final_port_check = check_ports_internal(CheckPortsRequest {
+            backend_port,
+            frontend_port,
+        })
+        .await?;
+        if let Some(error) = bundled_sync_port_preflight_error(&final_port_check) {
+            return Err(error);
+        }
     }
 
     emit_progress(app, "Stopping", "Stopping active services...", 0.1, None);
@@ -3480,7 +3807,11 @@ async fn run_update_flow(
     emit_progress(
         app,
         "Installing",
-        "Installing project dependencies (npm ci)...",
+        if mode == UpdateFlowMode::BundledOnly {
+            "Installing dependencies (npm ci; internet access may be required)..."
+        } else {
+            "Installing project dependencies (npm ci)..."
+        },
         0.7,
         None,
     );
@@ -3489,11 +3820,9 @@ async fn run_update_flow(
     run_dependency_install(app, &target_version_dir, &manifest, &managed_overrides)?;
 
     let previous_current = metadata.current_version.clone();
-    if let Some(previous) = immediate_rollback_version(
-        &app_data,
-        previous_current.as_deref(),
-        &manifest.version,
-    ) {
+    if let Some(previous) =
+        immediate_rollback_version(&app_data, previous_current.as_deref(), &manifest.version)
+    {
         metadata.last_known_good_version = Some(previous);
         write_updater_metadata(&app_data, &metadata)?;
     }
@@ -3505,8 +3834,8 @@ async fn run_update_flow(
         app,
         state,
         "homeinventory",
-        None,
-        None,
+        Some(backend_port),
+        Some(frontend_port),
         Some(managed_overrides.clone()),
         true,
     )?;
@@ -3518,7 +3847,7 @@ async fn run_update_flow(
         0.9,
         None,
     );
-    run_health_checks(app, 3001, 5173).await?;
+    run_health_checks(app, backend_port, frontend_port).await?;
 
     metadata.last_known_good_version = Some(manifest.version.clone());
     if let Some(prev) = previous_current.filter(|prev| prev != &manifest.version) {
@@ -3529,6 +3858,18 @@ async fn run_update_flow(
 
     clean_old_versions(&app_data, &mut metadata)?;
     write_updater_metadata(&app_data, &metadata)?;
+
+    if update_finishes_stopped(mode) {
+        emit_progress(
+            app,
+            "Stopping",
+            "Health verification passed. Returning HomeInventory to its stopped state...",
+            0.97,
+            None,
+        );
+        stop_all_internal(state)?;
+        return Ok(());
+    }
 
     emit_progress(
         app,
@@ -3571,12 +3912,23 @@ fn immediate_rollback_version(
     Some(previous.to_string())
 }
 
-async fn run_rollback_flow(app: &tauri::AppHandle, state: &LauncherState, overrides: ToolOverrides) -> Result<(), String> {
+async fn run_rollback_flow(
+    app: &tauri::AppHandle,
+    state: &LauncherState,
+    overrides: ToolOverrides,
+    mode: UpdateFlowMode,
+    ports: UpdatePorts,
+) -> Result<(), String> {
     emit_progress(app, "RollingBack", "Stopping active services...", 0.1, None);
     let _ = stop_all_internal(state);
 
     let app_data = app_data_dir(app)?;
     let mut metadata = read_updater_metadata(&app_data);
+    let (backend_port, frontend_port) = requested_ports(
+        profile_config("homeinventory")?,
+        ports.backend_port,
+        ports.frontend_port,
+    )?;
 
     let target_version = match resolve_rollback_target(&app_data, &mut metadata) {
         Some(v) => v,
@@ -3595,11 +3947,14 @@ async fn run_rollback_flow(app: &tauri::AppHandle, state: &LauncherState, overri
                 app,
                 state,
                 "homeinventory",
-                None,
-                None,
+                Some(backend_port),
+                Some(frontend_port),
                 Some(overrides),
                 true,
             )?;
+            if update_finishes_stopped(mode) {
+                stop_all_internal(state)?;
+            }
             return Ok(());
         }
     };
@@ -3615,7 +3970,9 @@ async fn run_rollback_flow(app: &tauri::AppHandle, state: &LauncherState, overri
     if !target_dir.exists() {
         metadata.current_version = None;
         metadata.last_known_good_version = None;
-        metadata.previous_versions.retain(|version| version != &target_version);
+        metadata
+            .previous_versions
+            .retain(|version| version != &target_version);
         let _ = write_updater_metadata(&app_data, &metadata);
         emit_progress(
             app,
@@ -3628,11 +3985,14 @@ async fn run_rollback_flow(app: &tauri::AppHandle, state: &LauncherState, overri
             app,
             state,
             "homeinventory",
-            None,
-            None,
+            Some(backend_port),
+            Some(frontend_port),
             Some(overrides),
             true,
         )?;
+        if update_finishes_stopped(mode) {
+            stop_all_internal(state)?;
+        }
         return Ok(());
     }
     metadata.current_version = Some(target_version.clone());
@@ -3650,7 +4010,7 @@ async fn run_rollback_flow(app: &tauri::AppHandle, state: &LauncherState, overri
         version: target_version.clone(),
         sha256: "".into(),
         url: "".into(),
-        node_major: 20,
+        node_major: REQUIRED_NODE_MAJOR,
         root_install: true,
         client_install: true,
         signature: "".into(),
@@ -3669,14 +4029,17 @@ async fn run_rollback_flow(app: &tauri::AppHandle, state: &LauncherState, overri
         app,
         state,
         "homeinventory",
-        None,
-        None,
+        Some(backend_port),
+        Some(frontend_port),
         Some(overrides),
         true,
     )?;
 
     emit_progress(app, "RollingBack", "Running health checks...", 0.9, None);
-    run_health_checks(app, 3001, 5173).await?;
+    run_health_checks(app, backend_port, frontend_port).await?;
+    if update_finishes_stopped(mode) {
+        stop_all_internal(state)?;
+    }
 
     Ok(())
 }
@@ -3786,9 +4149,10 @@ fn run_dependency_install(
             envs.insert(path_key, new_path);
         }
     }
-    let npm = tools
-        .npm_path
-        .ok_or_else(|| "npm path not found".to_string())?;
+    let npm = tools.npm_path.ok_or_else(|| {
+        "npm path not found. Dependency installation may require npm and internet access."
+            .to_string()
+    })?;
 
     if !target_dir.join("package-lock.json").exists() {
         return Err("Missing root package-lock.json in release archive".into());
@@ -3799,10 +4163,7 @@ fn run_dependency_install(
 
     if manifest.root_install {
         let mut command = std::process::Command::new(&npm);
-        command
-            .arg("ci")
-            .current_dir(target_dir)
-            .envs(&envs);
+        command.arg("ci").current_dir(target_dir).envs(&envs);
         #[cfg(windows)]
         {
             use std::os::windows::process::CommandExt;
@@ -3813,7 +4174,7 @@ fn run_dependency_install(
             .map_err(|e| format!("Failed to execute npm ci at root: {e}"))?;
         if !status.success() {
             return Err(format!(
-                "npm ci at root failed with status: {:?}",
+                "npm ci at root failed with status: {:?}. Dependency installation may require internet access; check npm and network configuration.",
                 status.code()
             ));
         }
@@ -3837,7 +4198,7 @@ fn run_dependency_install(
             .map_err(|e| format!("Failed to execute npm ci in client: {e}"))?;
         if !status.success() {
             return Err(format!(
-                "npm ci in client failed with status: {:?}",
+                "npm ci in client failed with status: {:?}. Dependency installation may require internet access; check npm and network configuration.",
                 status.code()
             ));
         }
@@ -3978,6 +4339,22 @@ fn perform_mandatory_backup(app: &tauri::AppHandle) -> Result<PathBuf, String> {
 mod updater_tests {
     use super::*;
 
+    fn port_check_result(ok: bool, existing_home_inventory: bool) -> PortCheckResult {
+        PortCheckResult {
+            ok,
+            backend_port: 4101,
+            frontend_port: 6101,
+            backend_ok: ok,
+            frontend_ok: ok,
+            suggested_backend_port: 4102,
+            suggested_frontend_port: 6102,
+            existing_home_inventory,
+            existing_frontend_url: existing_home_inventory
+                .then(|| "http://127.0.0.1:6101".to_string()),
+            message: String::new(),
+        }
+    }
+
     #[test]
     fn test_bootstrap_prefers_newer_bundled_managed_app() {
         assert!(should_prefer_bundled_app_version("2.3.0", "2.2.3"));
@@ -3988,6 +4365,167 @@ mod updater_tests {
         assert!(bundled_app_is_same_or_newer("2.3.0", "2.2.3"));
         assert!(bundled_app_is_same_or_newer("2.3.0", "2.3.0"));
         assert!(!bundled_app_is_same_or_newer("2.2.3", "2.3.0"));
+    }
+
+    #[test]
+    fn test_bundled_reconciliation_accepts_an_older_managed_install() {
+        assert!(bundled_reconciliation_required(
+            false,
+            false,
+            false,
+            true,
+            Some("2.5.2"),
+            "2.6.0",
+        ));
+    }
+
+    #[test]
+    fn test_bundled_reconciliation_rejects_an_equal_managed_install() {
+        assert!(!bundled_reconciliation_required(
+            false,
+            false,
+            false,
+            true,
+            Some("2.6.0"),
+            "2.6.0",
+        ));
+    }
+
+    #[test]
+    fn test_bundled_reconciliation_never_downgrades_a_newer_managed_install() {
+        assert!(!bundled_reconciliation_required(
+            false,
+            false,
+            false,
+            true,
+            Some("2.7.0"),
+            "2.6.0",
+        ));
+    }
+
+    #[test]
+    fn test_bundled_reconciliation_rejects_a_custom_project_path() {
+        assert!(!bundled_reconciliation_required(
+            false,
+            true,
+            false,
+            true,
+            Some("2.5.2"),
+            "2.6.0",
+        ));
+    }
+
+    #[test]
+    fn test_bundled_reconciliation_requires_a_real_managed_install_and_archive() {
+        assert!(!bundled_reconciliation_required(
+            false, false, false, true, None, "2.6.0",
+        ));
+        assert!(!bundled_reconciliation_required(
+            false,
+            false,
+            false,
+            false,
+            Some("2.5.2"),
+            "2.6.0",
+        ));
+    }
+
+    #[test]
+    fn test_bundled_reconciliation_rejects_store_and_active_profiles() {
+        assert!(!bundled_reconciliation_required(
+            true,
+            false,
+            false,
+            true,
+            Some("2.5.2"),
+            "2.6.0",
+        ));
+        assert!(!bundled_reconciliation_required(
+            false,
+            false,
+            true,
+            true,
+            Some("2.5.2"),
+            "2.6.0",
+        ));
+    }
+
+    #[test]
+    fn test_bundled_only_mode_never_selects_an_online_source() {
+        assert_eq!(
+            select_managed_app_update_source(
+                UpdateFlowMode::BundledOnly,
+                true,
+                "2.6.0",
+                Some("2.7.0"),
+            ),
+            Some(ManagedAppUpdateSource::Bundled),
+        );
+        assert_eq!(
+            select_managed_app_update_source(
+                UpdateFlowMode::BundledOnly,
+                false,
+                "2.6.0",
+                Some("2.7.0"),
+            ),
+            None,
+        );
+    }
+
+    #[test]
+    fn test_coordinated_mode_preserves_online_and_bundled_source_selection() {
+        assert_eq!(
+            select_managed_app_update_source(
+                UpdateFlowMode::Coordinated,
+                true,
+                "2.6.0",
+                Some("2.5.2"),
+            ),
+            Some(ManagedAppUpdateSource::Bundled),
+        );
+        assert_eq!(
+            select_managed_app_update_source(
+                UpdateFlowMode::Coordinated,
+                true,
+                "2.6.0",
+                Some("2.7.0"),
+            ),
+            Some(ManagedAppUpdateSource::Online),
+        );
+    }
+
+    #[test]
+    fn test_only_bundled_reconciliation_finishes_stopped() {
+        assert!(update_finishes_stopped(UpdateFlowMode::BundledOnly));
+        assert!(!update_finishes_stopped(UpdateFlowMode::Coordinated));
+    }
+
+    #[test]
+    fn test_bundled_reconciliation_uses_validated_requested_ports() {
+        let profile = profile_config("homeinventory").unwrap();
+        assert_eq!(
+            requested_ports(profile, Some(4101), Some(6101)).unwrap(),
+            (4101, 6101),
+        );
+        assert!(requested_ports(profile, Some(4101), Some(4101)).is_err());
+    }
+
+    #[test]
+    fn test_bundled_sync_preflight_accepts_only_available_ports() {
+        assert!(bundled_sync_port_preflight_error(&port_check_result(true, false)).is_none());
+
+        let busy_error =
+            bundled_sync_port_preflight_error(&port_check_result(false, false)).unwrap();
+        assert!(busy_error.contains("no longer available"));
+        assert!(busy_error.contains("4102/6102"));
+    }
+
+    #[test]
+    fn test_bundled_sync_preflight_rejects_an_existing_instance_first() {
+        let error = bundled_sync_port_preflight_error(&port_check_result(false, true)).unwrap();
+        assert!(error.contains("already running"));
+        assert!(error.contains("http://127.0.0.1:6101"));
+        assert!(!error.contains("suggested ports"));
     }
 
     #[test]
@@ -4063,6 +4601,22 @@ mod updater_tests {
         let v3 = semver::Version::parse("2.3.0").unwrap();
         assert!(v2 > v1);
         assert!(v3 > v2);
+    }
+
+    #[test]
+    fn test_portable_node_runtime_matches_release_requirement() {
+        assert!(
+            PORTABLE_NODE_VERSION.starts_with(&format!("{REQUIRED_NODE_MAJOR}.")),
+            "portable Node.js version and managed-app major requirement diverged"
+        );
+        assert!(portable_node_folder_name().contains(&format!("node-v{PORTABLE_NODE_VERSION}")));
+        assert_eq!(
+            portable_node_download_url(),
+            format!(
+                "https://nodejs.org/dist/v{PORTABLE_NODE_VERSION}/{}",
+                portable_node_archive_file_name()
+            )
+        );
     }
 
     #[test]
@@ -4179,7 +4733,8 @@ mod updater_tests {
 
     #[test]
     fn test_resolve_rollback_target_returns_none_when_no_versions_exist() {
-        let app_data = std::env::temp_dir().join(format!("hi-updater-empty-rollback-test-{}", now()));
+        let app_data =
+            std::env::temp_dir().join(format!("hi-updater-empty-rollback-test-{}", now()));
 
         let mut metadata = AppUpdaterMetadata {
             current_version: Some("2.2.3".to_string()),
@@ -4217,7 +4772,8 @@ mod updater_tests {
             rollback_state: String::new(),
         };
 
-        let version = resolve_current_app_version(&app_data, &metadata, Some(&project_root), "2.2.3");
+        let version =
+            resolve_current_app_version(&app_data, &metadata, Some(&project_root), "2.2.3");
 
         assert_eq!(version, "2.2.3");
 
@@ -4226,7 +4782,8 @@ mod updater_tests {
 
     #[test]
     fn test_resolve_current_app_version_reads_existing_managed_version() {
-        let app_data = std::env::temp_dir().join(format!("hi-managed-current-version-test-{}", now()));
+        let app_data =
+            std::env::temp_dir().join(format!("hi-managed-current-version-test-{}", now()));
         let version_dir = app_data.join("managed-app").join("versions").join("2.2.3");
         fs::create_dir_all(&version_dir).unwrap();
         fs::write(

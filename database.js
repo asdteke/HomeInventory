@@ -141,6 +141,28 @@ db.exec(`
     FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE
   );
 
+  CREATE TABLE IF NOT EXISTS boxes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    code TEXT NOT NULL,
+    code_lookup TEXT NOT NULL,
+    note TEXT,
+    is_public INTEGER NOT NULL DEFAULT 1,
+    room_id INTEGER,
+    location_id INTEGER,
+    photo_path TEXT,
+    thumbnail_path TEXT,
+    created_by INTEGER,
+    house_key TEXT NOT NULL,
+    archived_at DATETIME,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE SET NULL,
+    FOREIGN KEY (location_id) REFERENCES locations(id) ON DELETE SET NULL,
+    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL,
+    UNIQUE (house_key, code_lookup)
+  );
+
   CREATE TABLE IF NOT EXISTS items (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
@@ -161,6 +183,7 @@ db.exec(`
     category_id INTEGER,
     room_id INTEGER,
     location_id INTEGER,
+    box_id INTEGER,
     is_public INTEGER DEFAULT 1,
     user_id INTEGER NOT NULL,
     house_key TEXT NOT NULL,
@@ -169,6 +192,7 @@ db.exec(`
     FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL,
     FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE SET NULL,
     FOREIGN KEY (location_id) REFERENCES locations(id) ON DELETE SET NULL,
+    FOREIGN KEY (box_id) REFERENCES boxes(id) ON DELETE SET NULL,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
   );
 `);
@@ -283,6 +307,22 @@ try {
   db.exec(`ALTER TABLE items ADD COLUMN min_quantity INTEGER DEFAULT 0`);
   emitDatabaseLog('[Database] min_quantity column added to items table');
 } catch (e) { /* Column exists */ }
+
+// v2.6: a nullable box assignment keeps existing data valid and makes rollback safe.
+try {
+  db.exec(`ALTER TABLE items ADD COLUMN box_id INTEGER REFERENCES boxes(id) ON DELETE SET NULL`);
+  emitDatabaseLog('[Database] box_id column added to items table');
+} catch (e) { /* Column exists */ }
+
+// v2.6: existing boxes are household-visible; privacy is opt-in for new/updated boxes.
+try {
+  db.exec(`ALTER TABLE boxes ADD COLUMN is_public INTEGER NOT NULL DEFAULT 1`);
+  emitDatabaseLog('[Database] is_public column added to boxes table');
+} catch (e) { /* Column exists */ }
+
+try {
+  db.prepare('UPDATE boxes SET is_public = 1 WHERE is_public IS NULL').run();
+} catch (e) { /* Boxes table is initialized above */ }
 
 
 // Migration: Add role column to users table (for admin panel)
@@ -455,6 +495,7 @@ try {
     CREATE INDEX IF NOT EXISTS idx_items_house_category_updated ON items(house_key, category_id, updated_at DESC, id DESC);
     CREATE INDEX IF NOT EXISTS idx_items_house_room_updated ON items(house_key, room_id, updated_at DESC, id DESC);
     CREATE INDEX IF NOT EXISTS idx_items_house_location_updated ON items(house_key, location_id, updated_at DESC, id DESC);
+    CREATE INDEX IF NOT EXISTS idx_items_house_box_updated ON items(house_key, box_id, updated_at DESC, id DESC);
     CREATE INDEX IF NOT EXISTS idx_items_house_barcode_lookup ON items(house_key, barcode_lookup);
     CREATE INDEX IF NOT EXISTS idx_items_house_expiry ON items(house_key, expiry_date, id);
     CREATE INDEX IF NOT EXISTS idx_items_house_stock ON items(house_key, min_quantity, quantity, id);
@@ -467,6 +508,13 @@ try {
     CREATE INDEX IF NOT EXISTS idx_locations_room ON locations(room_id);
     CREATE INDEX IF NOT EXISTS idx_locations_user ON locations(created_by);
     CREATE INDEX IF NOT EXISTS idx_locations_house_key ON locations(house_key);
+    CREATE INDEX IF NOT EXISTS idx_boxes_house_key ON boxes(house_key);
+    CREATE INDEX IF NOT EXISTS idx_boxes_house_archived ON boxes(house_key, archived_at, updated_at DESC);
+    CREATE INDEX IF NOT EXISTS idx_boxes_house_room ON boxes(house_key, room_id);
+    CREATE INDEX IF NOT EXISTS idx_boxes_house_location ON boxes(house_key, location_id);
+    CREATE INDEX IF NOT EXISTS idx_boxes_creator ON boxes(created_by);
+    CREATE INDEX IF NOT EXISTS idx_boxes_house_visibility ON boxes(house_key, is_public, created_by);
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_boxes_house_code_lookup ON boxes(house_key, code_lookup);
     CREATE INDEX IF NOT EXISTS idx_users_verification_token_lookup ON users(verification_token_hashed, verification_token);
   `);
 } catch (e) {

@@ -24,8 +24,9 @@ const storeRoot = resolve(repoRoot, '.local/store');
 const stagingRoot = resolve(storeRoot, 'app-staging');
 const distStore = resolve(repoRoot, 'dist/store');
 const appArchivePath = resolve(resourcesDir, 'homeinventory-app-store.tar.gz');
-const nodeFileName = 'node-v20.19.0-win-x64.zip';
-const nodeZipUrl = `https://nodejs.org/dist/v20.19.0/${nodeFileName}`;
+const portableNodeVersion = '22.22.0';
+const nodeFileName = `node-v${portableNodeVersion}-win-x64.zip`;
+const nodeZipUrl = `https://nodejs.org/dist/v${portableNodeVersion}/${nodeFileName}`;
 const nodeZipPath = resolve(resourcesDir, nodeFileName);
 const storeTauriConfigPath = resolve(storeRoot, 'tauri.store.conf.json');
 const rootPackage = JSON.parse(readFileSync(resolve(repoRoot, 'package.json'), 'utf8'));
@@ -241,7 +242,7 @@ async function main() {
     run('node', [
       resolve(repoRoot, 'node_modules/prebuild-install/bin.js'),
       '--runtime=node',
-      '--target=20.19.0',
+      `--target=${portableNodeVersion}`,
       '--platform=win32',
       '--arch=x64'
     ], {

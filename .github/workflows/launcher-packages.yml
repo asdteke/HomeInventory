@@ -12,7 +12,7 @@ on:
           - "false"
           - "true"
       release_tag:
-        description: "Release tag to use when publish_release is true, for example v2.5.2"
+        description: "Release tag to use when publish_release is true, for example v2.6.0"
         required: false
         default: ""
   push:
@@ -107,7 +107,7 @@ jobs:
             --version "${{ steps.version.outputs.app_version }}" \
             --archive apps/launcher/src-tauri/resources/homeinventory-app.tar.gz \
             --url "https://github.com/asdteke/HomeInventory/releases/download/${{ steps.version.outputs.release_tag }}/homeinventory-app.tar.gz" \
-            --node-major 20 \
+            --node-major 22 \
             --output dist/release/homeinventory-app-manifest.json
 
           node -e "const m=require('./dist/release/homeinventory-app-manifest.json'); if (!m.signatureV2 || m.signatureV2 === 'unsigned') throw new Error('Managed app manifest is not signed')"
@@ -138,12 +138,12 @@ jobs:
         include:
           - name: macos-aarch64
             os: macos-14
-            bundles: app
+            bundles: dmg
             tauri_platform: darwin-aarch64
             tauri_target: aarch64-apple-darwin
           - name: macos-x86_64
             os: macos-14
-            bundles: app
+            bundles: dmg
             tauri_platform: darwin-x86_64
             tauri_target: x86_64-apple-darwin
           - name: windows-x86_64
@@ -263,34 +263,28 @@ jobs:
           CARGO_BUILD_JOBS: "1"
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+          APPLE_DEVELOPER_ID_APPLICATION: ${{ secrets.APPLE_DEVELOPER_ID_APPLICATION }}
         run: |
+          TAURI_ARGS=(node_modules/@tauri-apps/cli/tauri.js build --bundles "${{ matrix.bundles }}")
           if [ -n "${{ matrix.tauri_target }}" ]; then
-            node node_modules/@tauri-apps/cli/tauri.js build --bundles ${{ matrix.bundles }} --target ${{ matrix.tauri_target }}
-          else
-            node node_modules/@tauri-apps/cli/tauri.js build --bundles ${{ matrix.bundles }}
+            TAURI_ARGS+=(--target "${{ matrix.tauri_target }}")
           fi
 
-      - name: Sign macOS application for distribution
+          if [[ "${{ matrix.name }}" == macos-* ]]; then
+            TAURI_SIGNING_CONFIG_PATH="${RUNNER_TEMP}/homeinventory-tauri-macos-signing.json"
+            export TAURI_SIGNING_CONFIG_PATH
+            node -e "require('node:fs').writeFileSync(process.env.TAURI_SIGNING_CONFIG_PATH, JSON.stringify({ bundle: { macOS: { signingIdentity: process.env.APPLE_DEVELOPER_ID_APPLICATION || '-' } } }))"
+            TAURI_ARGS+=(--config "${TAURI_SIGNING_CONFIG_PATH}")
+          fi
+
+          node "${TAURI_ARGS[@]}"
+
+      - name: Verify macOS application and updater signatures
         if: startsWith(matrix.name, 'macos-')
         shell: bash
         env:
           APPLE_DEVELOPER_ID_APPLICATION: ${{ secrets.APPLE_DEVELOPER_ID_APPLICATION }}
-        run: |
-          TARGET_DIR="apps/launcher/src-tauri/target"
-          if [ -n "${{ matrix.tauri_target }}" ]; then
-            TARGET_DIR="apps/launcher/src-tauri/target/${{ matrix.tauri_target }}"
-          fi
-          APP_PATH="$TARGET_DIR/release/bundle/macos/HomeInventory Launcher.app"
-          xattr -cr "$APP_PATH"
-          if [[ "${{ steps.mac-signing.outputs.mode }}" == "developer-id" ]]; then
-            codesign --force --deep --options runtime --timestamp --sign "$APPLE_DEVELOPER_ID_APPLICATION" "$APP_PATH"
-          else
-            codesign --force --deep --options runtime --sign - "$APP_PATH"
-          fi
-
-      - name: Verify macOS application signature
-        if: startsWith(matrix.name, 'macos-')
-        shell: bash
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
         run: |
           TARGET_DIR="apps/launcher/src-tauri/target"
           if [ -n "${{ matrix.tauri_target }}" ]; then
@@ -301,6 +295,39 @@ jobs:
           codesign --verify --deep --strict --verbose=2 "$APP_PATH"
           codesign --display --verbose=4 "$APP_PATH"
 
+          if [[ -n "${TAURI_SIGNING_PRIVATE_KEY}" ]]; then
+            UPDATER_ARCHIVE="$(find "$TARGET_DIR/release/bundle" -type f -name '*.app.tar.gz' -print -quit)"
+            if [[ -z "${UPDATER_ARCHIVE}" ]]; then
+              echo "::error::macOS updater archive was not generated."
+              exit 1
+            fi
+
+            UPDATER_DIR="$(mktemp -d)"
+            tar -xzf "${UPDATER_ARCHIVE}" -C "${UPDATER_DIR}"
+            UPDATER_APP="$(find "${UPDATER_DIR}" -type d -name '*.app' -print -quit)"
+            if [[ -z "${UPDATER_APP}" ]]; then
+              echo "::error::macOS updater archive does not contain an application bundle."
+              exit 1
+            fi
+
+            codesign --verify --deep --strict --verbose=2 "${UPDATER_APP}"
+            APP_SIGNATURE="$(codesign --display --verbose=4 "$APP_PATH" 2>&1)"
+            UPDATER_SIGNATURE="$(codesign --display --verbose=4 "${UPDATER_APP}" 2>&1)"
+            APP_CDHASH="$(printf '%s\n' "${APP_SIGNATURE}" | sed -n 's/^CDHash=//p')"
+            UPDATER_CDHASH="$(printf '%s\n' "${UPDATER_SIGNATURE}" | sed -n 's/^CDHash=//p')"
+            if [[ -z "${APP_CDHASH}" || "${APP_CDHASH}" != "${UPDATER_CDHASH}" ]]; then
+              echo "::error::macOS updater archive was not created from the signed application bundle."
+              exit 1
+            fi
+
+            if [[ "${{ steps.mac-signing.outputs.mode }}" == "developer-id" ]] \
+              && ! grep -Fq "Authority=${APPLE_DEVELOPER_ID_APPLICATION}" <<< "${UPDATER_SIGNATURE}"; then
+              echo "::error::macOS updater archive is not signed with the configured Developer ID."
+              exit 1
+            fi
+            rm -rf "${UPDATER_DIR}"
+          fi
+
       - name: Collect distributable packages
         shell: bash
         run: |
@@ -309,32 +336,19 @@ jobs:
           if [ -n "${{ matrix.tauri_target }}" ]; then
             TARGET_DIR="apps/launcher/src-tauri/target/${{ matrix.tauri_target }}"
           fi
-          find "$TARGET_DIR/release/bundle" -type f \
-            \( -name '*.dmg' -o -name '*.exe' -o -name '*.msi' -o -name '*.AppImage' -o -name '*.deb' -o -name '*.rpm' \) \
-            -exec cp {} artifacts/ \;
-
-      - name: Create macOS DMG
-        if: startsWith(matrix.name, 'macos-')
-        shell: bash
-        run: |
-          TARGET_DIR="apps/launcher/src-tauri/target"
-          if [ -n "${{ matrix.tauri_target }}" ]; then
-            TARGET_DIR="apps/launcher/src-tauri/target/${{ matrix.tauri_target }}"
+          if [[ "${{ matrix.name }}" == macos-* ]]; then
+            DMG_SOURCE="$(find "$TARGET_DIR/release/bundle" -type f -name '*.dmg' -print -quit)"
+            if [[ -z "${DMG_SOURCE}" ]]; then
+              echo "::error::Tauri did not create the configured macOS DMG."
+              exit 1
+            fi
+            cp "${DMG_SOURCE}" \
+              "artifacts/HomeInventory Launcher_${{ needs.managed-app.outputs.app_version }}_${{ matrix.tauri_platform }}.dmg"
+          else
+            find "$TARGET_DIR/release/bundle" -type f \
+              \( -name '*.exe' -o -name '*.msi' -o -name '*.AppImage' -o -name '*.deb' -o -name '*.rpm' \) \
+              -exec cp {} artifacts/ \;
           fi
-          APP_PATH="$TARGET_DIR/release/bundle/macos/HomeInventory Launcher.app"
-          DMG_PATH="artifacts/HomeInventory Launcher_${{ needs.managed-app.outputs.app_version }}_${{ matrix.tauri_platform }}.dmg"
-          DMG_STAGING="$(mktemp -d)"
-          ditto --noextattr --noqtn "$APP_PATH" "$DMG_STAGING/HomeInventory Launcher.app"
-          ln -s /Applications "$DMG_STAGING/Applications"
-          codesign --verify --deep --strict --verbose=2 "$DMG_STAGING/HomeInventory Launcher.app"
-          hdiutil create \
-            -volname "HomeInventory Launcher" \
-            -srcfolder "${DMG_STAGING}" \
-            -ov \
-            -format UDZO \
-            "${DMG_PATH}"
-          hdiutil verify "${DMG_PATH}"
-          rm -rf "${DMG_STAGING}"
 
       - name: Notarize macOS DMG
         if: startsWith(matrix.name, 'macos-') && needs.managed-app.outputs.should_publish == 'true' && steps.mac-signing.outputs.can_notarize == 'true'
