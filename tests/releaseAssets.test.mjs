@@ -140,7 +140,7 @@ test('release verifier rejects a tampered managed app archive', () => {
   );
 });
 
-test('macOS packages use the compact Tauri-controlled DMG layout', () => {
+test('macOS packages build updater app bundles with the compact Tauri-controlled DMG layout', () => {
   const tauriConfig = JSON.parse(
     readFileSync(join(repoRoot, 'apps/launcher/src-tauri/tauri.conf.json'), 'utf8')
   );
@@ -154,7 +154,7 @@ test('macOS packages use the compact Tauri-controlled DMG layout', () => {
     join(repoRoot, '.github/workflows/launcher-packages.yml'),
     'utf8'
   );
-  assert.match(workflow, /name: macos-aarch64[\s\S]*?bundles: dmg/);
-  assert.match(workflow, /name: macos-x86_64[\s\S]*?bundles: dmg/);
+  assert.match(workflow, /name: macos-aarch64[\s\S]*?bundles: app,dmg/);
+  assert.match(workflow, /name: macos-x86_64[\s\S]*?bundles: app,dmg/);
   assert.doesNotMatch(workflow, /hdiutil create/);
 });
